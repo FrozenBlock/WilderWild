@@ -1,5 +1,22 @@
 {
   "block.wilderwild.carnation": "Carnation",
   "block.wilderwild.potted_carnation": "Potted Carnation",
-  "block.wilderwild.dartura_flower": "Dartura"
+
+  "block.wilderwild.dartura_flower": "Dartura",
+
+  "item.wilderwild.music_disc_beneath": "Music Disc",
+  "item.wilderwild.music_disc_beneath.desc": "Krole - Beneath",
+
+  "item.wilderwild.music_disc_goathorn_symphony": "Music Disc",
+  "item.wilderwild.music_disc_goathorn_symphony.desc": "Xfrtrex - Goat Horn Symphony",
+
+  "block.wilderwild.sculk_jaw": "Sculk Jaw",
+
+  "block.wilderwild.coated_sculk": "Coated Sculk",
+
+  "subtitles.block.sculk_jaw.clamp": "Sculk Jaw clamps",
+
+  "subtitles.item.goat_horn.use": "Horn blown",
+
+  "subtitles.entity.goat.horn_break": "Goat's horn breaks off"
 }

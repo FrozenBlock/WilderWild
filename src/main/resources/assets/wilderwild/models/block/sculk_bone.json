@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cube_column",
+  "textures": {
+    "end": "wilderwild:block/sculk_bone_top",
+    "side": "wilderwild:block/sculk_bone_side"
+  }
+}

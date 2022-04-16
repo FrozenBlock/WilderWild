@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "active=false": {
+      "model": "wilderwild:block/sculk_jaw"
+    },
+    "active=true": {
+      "model": "wilderwild:block/sculk_jaw_active"
+    }
+  }
+}

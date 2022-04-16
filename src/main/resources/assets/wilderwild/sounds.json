@@ -1,0 +1,43 @@
+{
+  "block.sculk_echoer.receive_vibration": {
+    "sounds": [
+      "wilderwild:block/sculk_echoer/receive_vibration1",
+      "wilderwild:block/sculk_echoer/receive_vibration2",
+      "wilderwild:block/sculk_echoer/receive_vibration3",
+      "wilderwild:block/sculk_echoer/receive_vibration4",
+      "wilderwild:block/sculk_echoer/receive_vibration5",
+      "wilderwild:block/sculk_echoer/receive_vibration6"
+    ],
+    "subtitle": "subtitles.block.sculk_echoer.receive_vibration"
+  },
+  "block.sculk_jaw.clamp": {
+    "sounds": [
+      "wilderwild:block/sculk_jaw/clamp1",
+      "wilderwild:block/sculk_jaw/clamp2",
+      "wilderwild:block/sculk_jaw/clamp3"
+    ],
+    "subtitle": "subtitles.block.sculk_jaw.clamp"
+  },
+  "block.sculk_chirper.swell": {
+    "sounds": [
+      "wilderwild:block/sculk_chirper/sculk_chirper_swell"
+    ],
+    "subtitle": "subtitles.block.sculk_chirper.swell"
+  },
+  "block.sculk_chirper.exhale": {
+    "sounds": [
+      "wilderwild:block/sculk_chirper/sculk_chirper_exhale"
+    ],
+    "subtitle": "subtitles.block.sculk_chirper.exhale"
+  },
+  "music_disc.beneath": {
+    "sounds": [
+     "wilderwild:records/beneath"
+    ]
+  },
+  "music_disc.goathorn_symphony": {
+    "sounds": [
+      "wilderwild:records/goathorn_symphony"
+    ]
+  }
+}

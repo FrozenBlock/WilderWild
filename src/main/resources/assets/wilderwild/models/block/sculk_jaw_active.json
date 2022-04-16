@@ -1,0 +1,7 @@
+{
+  "credit": "Model by FrozenBlock Studios",
+  "parent": "block/cube_all",
+  "textures": {
+    "all": "wilderwild:block/sculk_jaw_active"
+  }
+}
