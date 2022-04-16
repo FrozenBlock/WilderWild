@@ -1,6 +1,6 @@
 {
-  "parent": "minecraft:item/generated",
+  "parent": "item/generated",
   "textures": {
-    "layer0": "wilderwild:block/dartura_flower"
+    "layer0": "wilderwild:block/dartura_top"
   }
 }
