@@ -6,6 +6,7 @@ import net.frozenblock.wilderwild.WilderWild;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.FlowerBlock;
+import net.minecraft.block.FlowerPotBlock;
 import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.item.BlockItem;
@@ -16,9 +17,17 @@ import net.minecraft.util.registry.Registry;
 
 public class ModBlocks {
 
+    public static final Block POTTED_UNKNOWN_FLOWER = registerBlockWithoutBlockItem("potted_unknown_flower",
+            new FlowerPotBlock(ModBlocks.UNKNOWN_FLOWER,
+                    FabricBlockSettings.copy(Blocks.POTTED_DANDELION).nonOpaque()), ItemGroup.DECORATIONS);
+
     public static final Block UNKNOWN_FLOWER = registerBlock("unknown_flower",
             new FlowerBlock(StatusEffects.FIRE_RESISTANCE, 12,
-                    FabricBlockSettings.copy(Blocks.GRASS).strength(4.0f).nonOpaque()), ItemGroup.DECORATIONS);
+                    FabricBlockSettings.copy(Blocks.DANDELION).strength(0.0f).nonOpaque()), ItemGroup.DECORATIONS);
+
+    private static Block registerBlockWithoutBlockItem(String name, Block block, ItemGroup group) {
+        return Registry.register(Registry.BLOCK, new Identifier(WilderWild.MOD_ID, name), block);
+    }
 
     private static Block registerBlock(String name, Block block, ItemGroup group) {
         registerBlockItem(name, block, group);

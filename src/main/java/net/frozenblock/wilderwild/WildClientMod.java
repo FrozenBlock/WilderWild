@@ -10,5 +10,6 @@ public class WildClientMod implements ClientModInitializer {
     public void onInitializeClient() {
 
         BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.UNKNOWN_FLOWER, RenderLayer.getCutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.POTTED_UNKNOWN_FLOWER, RenderLayer.getCutout());
     }
 }
