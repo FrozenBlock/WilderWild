@@ -1,0 +1,38 @@
+{
+  "schemaVersion": 1,
+  "id": "wilderwild",
+  "version": "${version}",
+
+  "name": "Wilder Wild",
+  "description": "This is an example description! Tell everyone what your mod is about!",
+  "authors": [
+    "FrozenBlock"
+  ],
+  "contact": {
+    "homepage": "https://fabricmc.net/",
+    "sources": "https://github.com/FabricMC/fabric-example-mod"
+  },
+
+  "license": "CC0-1.0",
+  "icon": "assets/modid/icon.png",
+
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "net.frozenblock.wilderwild.WilderWild"
+    ]
+  },
+  "mixins": [
+    "wilderwild.mixins.json"
+  ],
+
+  "depends": {
+    "fabricloader": ">=0.13.3",
+    "fabric": "*",
+    "minecraft": "1.19.x",
+    "java": ">=17"
+  },
+  "suggests": {
+    "another-mod": "*"
+  }
+}
