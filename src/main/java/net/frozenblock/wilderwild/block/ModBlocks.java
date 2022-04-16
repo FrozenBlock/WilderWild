@@ -20,6 +20,9 @@ public class ModBlocks {
 
     public static final Block SCULK_JAW = registerBlock("sculk_jaw", new SculkJawBlock(AbstractBlock.Settings.of(Material.SCULK).strength(0.6F).sounds(BlockSoundGroup.SCULK)), ItemGroup.REDSTONE);
 
+    public static final Block SCULK_BONE = registerBlock("sculk_bone",
+            new PillarBlock(AbstractBlock.Settings.of(Material.STONE, MapColor.PALE_YELLOW).requiresTool().strength(2.0F).sounds(BlockSoundGroup.SCULK_CATALYST)), ItemGroup.DECORATIONS);
+
     public static final Block DARTURA_FLOWER = registerBlock("dartura_flower",
             new TallFlowerBlock(FabricBlockSettings.copy(Blocks.ROSE_BUSH).strength(0.0f).nonOpaque()), ItemGroup.DECORATIONS);
 
