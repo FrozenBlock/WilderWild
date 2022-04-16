@@ -17,11 +17,11 @@ import net.minecraft.util.registry.Registry;
 
 public class ModBlocks {
 
-    public static final Block POTTED_UNKNOWN_FLOWER = registerBlockWithoutBlockItem("potted_unknown_flower",
-            new FlowerPotBlock(ModBlocks.UNKNOWN_FLOWER,
+    public static final Block POTTED_CARNATION = registerBlockWithoutBlockItem("potted_CARNATION",
+            new FlowerPotBlock(ModBlocks.CARNATION,
                     FabricBlockSettings.copy(Blocks.POTTED_DANDELION).nonOpaque()), ItemGroup.DECORATIONS);
 
-    public static final Block UNKNOWN_FLOWER = registerBlock("unknown_flower",
+    public static final Block CARNATION = registerBlock("CARNATION",
             new FlowerBlock(StatusEffects.FIRE_RESISTANCE, 12,
                     FabricBlockSettings.copy(Blocks.DANDELION).strength(0.0f).nonOpaque()), ItemGroup.DECORATIONS);
 
