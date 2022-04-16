@@ -178,8 +178,8 @@
       "minecraft:red_mushroom_normal",
       "minecraft:patch_sugar_cane",
       "minecraft:patch_pumpkin",
-      "minecraft:new_birch",
-      "minecraft:birch_flowers"
+      "wilderwild:new_birch",
+      "wilderwild:birch_flowers"
     ],
     [
       "minecraft:freeze_top_layer"
