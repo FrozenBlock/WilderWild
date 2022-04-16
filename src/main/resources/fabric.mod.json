@@ -20,7 +20,10 @@
   "entrypoints": {
     "main": [
       "net.frozenblock.wilderwild.WilderWild"
-    ]
+    ],
+    "client": [
+      "net.frozenblock.wilderwild.WildClientMod"
+      ]
   },
   "mixins": [
     "wilderwild.mixins.json"
