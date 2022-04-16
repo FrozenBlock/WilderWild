@@ -179,7 +179,8 @@
       "minecraft:patch_sugar_cane",
       "minecraft:patch_pumpkin",
       "minecraft:new_birch",
-      "minecraft:birch_flowers"
+      "minecraft:birch_flowers",
+      "minecraft:dartura_patch"
     ],
     [
       "minecraft:freeze_top_layer"
