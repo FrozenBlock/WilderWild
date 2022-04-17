@@ -4,16 +4,17 @@
   "version": "${version}",
 
   "name": "Wilder Wild",
-  "description": "This is an example description! Tell everyone what your mod is about!",
+  "description": "This is a mod that adds additional features to the Wild Update",
   "authors": [
     "FrozenBlock"
   ],
   "contact": {
     "homepage": "https://fabricmc.net/",
-    "sources": "https://github.com/FabricMC/fabric-example-mod"
+    "sources": "https://github.com/Soro335/WilderWild/",
+    "issues": "https://github.com/Soro335/WilderWild/issues"
   },
 
-  "license": "CC0-1.0",
+  "license": "GPL-3.0",
   "icon": "assets/wilderwild/icon.png",
 
   "environment": "*",
@@ -23,7 +24,7 @@
     ],
     "client": [
       "net.frozenblock.wilderwild.WildClientMod"
-      ]
+    ]
   },
   "mixins": [
     "wilderwild.mixins.json"
