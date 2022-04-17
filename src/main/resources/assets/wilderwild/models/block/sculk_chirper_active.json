@@ -1,6 +1,6 @@
 {
 	"parent": "block/cube_all",
 	"textures": {
-		"all": "wilderwild:block/sculk_chirper"
+		"all": "wilderwild:block/sculk_chirper_active"
 	}
 }
