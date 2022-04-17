@@ -19,6 +19,7 @@ public class DaturaBlock extends FlowerBlock {
     public DaturaBlock(StatusEffect effect, Settings settings) {
         super(effect, 8, settings);}
 
+
     protected boolean canPlantOnTop(BlockState floor, BlockView world, BlockPos pos) {
         return floor.isIn(BlockTags.DIRT) || floor.isOf(Blocks.FARMLAND);
     }
