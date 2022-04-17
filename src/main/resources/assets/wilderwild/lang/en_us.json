@@ -1,4 +1,15 @@
 {
+  "item.wilderwild.music_disc_beneath": "Music Disc",
+  "item.wilderwild.music_disc_beneath.desc": "Krole - Beneath",
+
+  "item.wilderwild.music_disc_goathorn_symphony": "Music Disc",
+  "item.wilderwild.music_disc_goathorn_symphony.desc": "Xfrtrex - Goat Horn Symphony",
+
+  "block.wilderwild.sculk_jaw": "Sculk Jaw",
+  "block.wilderwild.sculk_bone": "Sculk Ossein",
+  "block.wilderwild.sculk_echoer": "Sculk Echoer",
+  "block.wilderwild.coated_sculk": "Coated Sculk",
+  
   "block.wilderwild.carnation": "Carnation",
   "block.wilderwild.potted_carnation": "Potted Carnation",
   "block.wilderwild.datura": "Datura",
@@ -11,22 +22,7 @@
   "block.wilderwild.hollowed_oak_log": "Hollowed Oak Log",
   "block.wilderwild.hollowed_spruce_log": "Hollowed Spruce Log",
 
-  "item.wilderwild.music_disc_beneath": "Music Disc",
-  "item.wilderwild.music_disc_beneath.desc": "Krole - Beneath",
-
-  "item.wilderwild.music_disc_goathorn_symphony": "Music Disc",
-  "item.wilderwild.music_disc_goathorn_symphony.desc": "Xfrtrex - Goat Horn Symphony",
-
-  "block.wilderwild.sculk_echoer": "Sculk Echoer",
-  "block.wilderwild.sculk_jaw": "Sculk Jaw",
-
-  "block.wilderwild.sculk_bone": "Sculkified Bone Block",
-
-  "block.wilderwild.coated_sculk": "Coated Sculk",
-
   "subtitles.block.sculk_jaw.clamp": "Sculk Jaw clamps",
-
   "subtitles.item.goat_horn.use": "Horn blown",
-
   "subtitles.entity.goat.horn_break": "Goat's horn breaks off"
 }
