@@ -18,19 +18,19 @@ import net.minecraft.util.registry.Registry;
 public class RegisterBlocks {
     // HOLLOW LOGS
     public static final Block HOLLOWED_OAK_LOG = registerBlock("hollowed_oak_log",
-            new PillarBlock(FabricBlockSettings.of(Material.WOOD).strength(1f).requiresTool()), ItemGroup.BUILDING_BLOCKS);
+            new PillarBlock(FabricBlockSettings.of(Material.WOOD).strength(1f).sounds(BlockSoundGroup.WOOD).requiresTool()), ItemGroup.BUILDING_BLOCKS);
     public static final Block HOLLOWED_SPRUCE_LOG = registerBlock("hollowed_spruce_log",
-            new PillarBlock(FabricBlockSettings.of(Material.WOOD).strength(1f).requiresTool()), ItemGroup.BUILDING_BLOCKS);
+            new PillarBlock(FabricBlockSettings.of(Material.WOOD).strength(1f).sounds(BlockSoundGroup.WOOD).requiresTool()), ItemGroup.BUILDING_BLOCKS);
     public static final Block HOLLOWED_ACACIA_LOG = registerBlock("hollowed_acacia_log",
-            new PillarBlock(FabricBlockSettings.of(Material.WOOD).strength(1f).requiresTool()), ItemGroup.BUILDING_BLOCKS);
+            new PillarBlock(FabricBlockSettings.of(Material.WOOD).strength(1f).sounds(BlockSoundGroup.WOOD).requiresTool()), ItemGroup.BUILDING_BLOCKS);
     public static final Block HOLLOWED_JUNGLE_LOG = registerBlock("hollowed_jungle_log",
-            new PillarBlock(FabricBlockSettings.of(Material.WOOD).strength(1f).requiresTool()), ItemGroup.BUILDING_BLOCKS);
+            new PillarBlock(FabricBlockSettings.of(Material.WOOD).strength(1f).sounds(BlockSoundGroup.WOOD).requiresTool()), ItemGroup.BUILDING_BLOCKS);
     public static final Block HOLLOWED_BIRCH_LOG = registerBlock("hollowed_birch_log",
-            new PillarBlock(FabricBlockSettings.of(Material.WOOD).strength(1f).requiresTool()), ItemGroup.BUILDING_BLOCKS);
+            new PillarBlock(FabricBlockSettings.of(Material.WOOD).strength(1f).sounds(BlockSoundGroup.WOOD).requiresTool()), ItemGroup.BUILDING_BLOCKS);
     public static final Block HOLLOWED_DARK_OAK_LOG = registerBlock("hollowed_dark_oak_log",
-            new PillarBlock(FabricBlockSettings.of(Material.WOOD).strength(1f).requiresTool()), ItemGroup.BUILDING_BLOCKS);
+            new PillarBlock(FabricBlockSettings.of(Material.WOOD).strength(1f).sounds(BlockSoundGroup.WOOD).requiresTool()), ItemGroup.BUILDING_BLOCKS);
     public static final Block HOLLOWED_MANGROVE_LOG = registerBlock("hollowed_mangrove_log",
-            new PillarBlock(FabricBlockSettings.of(Material.WOOD).strength(1f).requiresTool()), ItemGroup.BUILDING_BLOCKS);
+            new PillarBlock(FabricBlockSettings.of(Material.WOOD).strength(1f).sounds(BlockSoundGroup.WOOD).requiresTool()), ItemGroup.BUILDING_BLOCKS);
 
     // SCULK
     public static final Block SCULK_ECHOER = registerBlock("sculk_echoer",
