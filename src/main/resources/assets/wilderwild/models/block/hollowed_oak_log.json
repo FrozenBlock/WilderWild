@@ -1,0 +1,8 @@
+{
+  "parent": "wilderwild:block/template_hollowed_log",
+  "textures": {
+    "top": "wilderwild:block/hollowed_oak_log_top",
+	"outer": "minecraft:block/stripped_oak_log",
+    "inner": "wilderwild:block/hollowed_oak_log"
+  }
+}
