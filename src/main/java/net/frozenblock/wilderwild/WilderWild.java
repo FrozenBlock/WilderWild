@@ -1,9 +1,8 @@
 package net.frozenblock.wilderwild;
 
 import net.fabricmc.api.ModInitializer;
-import net.frozenblock.wilderwild.block.ModBlocks;
+import net.frozenblock.wilderwild.registry.RegisterBlocks;
 import net.frozenblock.wilderwild.registry.RegisterItems;
-import net.frozenblock.wilderwild.registry.RegisterSounds;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.world.event.GameEvent;
@@ -20,10 +19,9 @@ public class WilderWild implements ModInitializer {
 
     @Override
     public void onInitialize() {
-        ModBlocks.registerModBlocks();
+        RegisterBlocks.RegisterBlocks();
         Registry.register(Registry.GAME_EVENT, new Identifier(WilderWild.MOD_ID, "jaw_activate"), JAW_ACTIVATE);
         Registry.register(Registry.GAME_EVENT, new Identifier(WilderWild.MOD_ID, "sculk_echoer_echo"), SCULK_ECHOER_ECHO);
         RegisterItems.RegisterItems();
-        RegisterSounds.RegisterSounds();
     }
 }

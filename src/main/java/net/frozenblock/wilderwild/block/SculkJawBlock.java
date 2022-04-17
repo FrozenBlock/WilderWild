@@ -3,15 +3,16 @@ package net.frozenblock.wilderwild.block;
 
 import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.registry.RegisterSounds;
-import net.minecraft.block.*;
+import net.minecraft.block.Block;
+import net.minecraft.block.Blocks;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.SculkShriekerBlock;
+import net.minecraft.block.SculkSpreadable;
 import net.minecraft.block.entity.SculkSpreadManager;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.damage.DamageSource;
-import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.fluid.Fluids;
-import net.minecraft.item.ItemStack;
-import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.BooleanProperty;
@@ -25,7 +26,6 @@ import net.minecraft.world.World;
 import net.minecraft.world.WorldAccess;
 
 import java.util.Iterator;
-import java.util.Random;
 
 public class SculkJawBlock extends Block implements SculkSpreadable {
     public static final BooleanProperty ACTIVE = BooleanProperty.of("active");
@@ -40,14 +40,14 @@ public class SculkJawBlock extends Block implements SculkSpreadable {
         int i = cursor.getCharge();
         if (i != 0 && random.nextInt(spreadManager.getSpreadChance()) == 0) {
             BlockPos blockPos = cursor.getPos();
-            boolean bl = blockPos.isWithinDistance(catalystPos, (double)spreadManager.getMaxDistance());
+            boolean bl = blockPos.isWithinDistance(catalystPos, spreadManager.getMaxDistance());
             if (!bl && shouldNotDecay(world, blockPos)) {
                 int j = spreadManager.getExtraBlockChance();
                 if (random.nextInt(j) < i) {
                     BlockPos blockPos2 = blockPos.up();
                     BlockState blockState = this.getExtraBlockState(world, blockPos2, random, spreadManager.isWorldGen());
                     world.setBlockState(blockPos2, blockState, 3);
-                    world.playSound((PlayerEntity)null, blockPos, blockState.getSoundGroup().getPlaceSound(), SoundCategory.BLOCKS, 1.0F, 1.0F);
+                    world.playSound(null, blockPos, blockState.getSoundGroup().getPlaceSound(), SoundCategory.BLOCKS, 1.0F, 1.0F);
                 }
 
                 return Math.max(0, i - j);
@@ -70,36 +70,34 @@ public class SculkJawBlock extends Block implements SculkSpreadable {
     private BlockState getExtraBlockState(WorldAccess world, BlockPos pos, AbstractRandom random, boolean allowShrieker) {
         BlockState blockState;
         if (random.nextInt(11) == 0) {
-            blockState = (BlockState) Blocks.SCULK_SHRIEKER.getDefaultState().with(SculkShriekerBlock.CAN_SUMMON, allowShrieker);
+            blockState = Blocks.SCULK_SHRIEKER.getDefaultState().with(SculkShriekerBlock.CAN_SUMMON, allowShrieker);
         } else {
             blockState = Blocks.SCULK_SENSOR.getDefaultState();
         }
 
-        return blockState.contains(Properties.WATERLOGGED) && !world.getFluidState(pos).isEmpty() ? (BlockState)blockState.with(Properties.WATERLOGGED, true) : blockState;
+        return blockState.contains(Properties.WATERLOGGED) && !world.getFluidState(pos).isEmpty() ? blockState.with(Properties.WATERLOGGED, true) : blockState;
     }
 
     private static boolean shouldNotDecay(WorldAccess world, BlockPos pos) {
         BlockState blockState = world.getBlockState(pos.up());
         if (blockState.isAir() || blockState.isOf(Blocks.WATER) && blockState.getFluidState().isOf(Fluids.WATER)) {
             int i = 0;
-            Iterator var4 = BlockPos.iterate(pos.add(-4, 0, -4), pos.add(4, 2, 4)).iterator();
+            Iterator<BlockPos> var4 = BlockPos.iterate(pos.add(-4, 0, -4), pos.add(4, 2, 4)).iterator();
 
             do {
                 if (!var4.hasNext()) {
                     return true;
                 }
 
-                BlockPos blockPos = (BlockPos)var4.next();
+                BlockPos blockPos = var4.next();
                 BlockState blockState2 = world.getBlockState(blockPos);
                 if (blockState2.isOf(Blocks.SCULK_SENSOR) || blockState2.isOf(Blocks.SCULK_SHRIEKER)) {
                     ++i;
                 }
             } while(i <= 2);
 
-            return false;
-        } else {
-            return false;
         }
+        return false;
     }
 
     public boolean shouldConvertToSpreadable() {
