@@ -3,6 +3,7 @@ package net.frozenblock.wilderwild;
 import net.fabricmc.api.ModInitializer;
 import net.frozenblock.wilderwild.registry.RegisterBlocks;
 import net.frozenblock.wilderwild.registry.RegisterItems;
+import net.frozenblock.wilderwild.world.feature.WildConfiguredFeatures;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.world.event.GameEvent;
@@ -23,5 +24,6 @@ public class WilderWild implements ModInitializer {
         Registry.register(Registry.GAME_EVENT, new Identifier(WilderWild.MOD_ID, "jaw_activate"), JAW_ACTIVATE);
         Registry.register(Registry.GAME_EVENT, new Identifier(WilderWild.MOD_ID, "sculk_echoer_echo"), SCULK_ECHOER_ECHO);
         RegisterItems.RegisterItems();
+        WildConfiguredFeatures.registerConfiguredFeatures();
     }
 }
