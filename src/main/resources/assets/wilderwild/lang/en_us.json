@@ -3,7 +3,13 @@
   "block.wilderwild.potted_carnation": "Potted Carnation",
   "block.wilderwild.datura": "Datura",
 
-  "block.wilderwild.oak_hollow_log": "Oak Hollow Log",
+  "block.wilderwild.hollowed_acacia_log": "Hollowed Acacia Log",
+  "block.wilderwild.hollowed_birch_log": "Hollowed Birch Log",
+  "block.wilderwild.hollowed_dark_oak_log": "Hollowed Dark Oak Log",
+  "block.wilderwild.hollowed_jungle_log": "Hollowed Jungle Log",
+  "block.wilderwild.hollowed_mangrove_log": "Hollowed Mangrove Log",
+  "block.wilderwild.hollowed_oak_log": "Hollowed Oak Log",
+  "block.wilderwild.hollowed_spruce_log": "Hollowed Spruce Log",
 
   "item.wilderwild.music_disc_beneath": "Music Disc",
   "item.wilderwild.music_disc_beneath.desc": "Krole - Beneath",
