@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "half=lower": {
+      "model": "wilderwild:block/datura_bottom"
+    },
+    "half=upper": {
+      "model": "wilderwild:block/datura_top"
+    }
+  }
+}

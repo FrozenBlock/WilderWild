@@ -14,7 +14,7 @@
   },
 
   "license": "CC0-1.0",
-  "icon": "assets/modid/icon.png",
+  "icon": "assets/wilderwild/icon.png",
 
   "environment": "*",
   "entrypoints": {

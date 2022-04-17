@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:block/cross",
   "textures": {
-    "cross": "wilderwild:block/dartura_top"
+    "cross": "wilderwild:block/datura_bottom"
   }
 }

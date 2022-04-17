@@ -26,7 +26,7 @@ public class RegisterBlocks {
                     MapColor.PALE_YELLOW).requiresTool().strength(2.0F).sounds(BlockSoundGroup.SCULK_CATALYST)),ItemGroup.DECORATIONS);
 
     // FLOWERS
-    public static final Block DARTURA_FLOWER = registerBlock("dartura_flower",
+    public static final Block DATURA = registerBlock("datura",
             new TallFlowerBlock(FabricBlockSettings.copy(Blocks.ROSE_BUSH).strength(0.0f).nonOpaque()), ItemGroup.DECORATIONS);
     public static final Block POTTED_CARNATION = registerBlockWithoutBlockItem("potted_carnation",
             new FlowerPotBlock(RegisterBlocks.CARNATION,
