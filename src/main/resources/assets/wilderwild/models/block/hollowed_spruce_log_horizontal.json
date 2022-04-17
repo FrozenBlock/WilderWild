@@ -2,7 +2,7 @@
   "parent": "wilderwild:block/template_hollowed_log_horizontal",
   "textures": {
     "top": "wilderwild:block/hollowed_spruce_log_top",
-	"outer": "minecraft:block/stripped_spruce_log",
-    "inner": "wilderwild:block/hollowed_spruce_log"
+	"inner": "minecraft:block/stripped_spruce_log",
+    "outer": "wilderwild:block/hollowed_spruce_log"
   }
 }
