@@ -109,7 +109,7 @@
                 "provider": {
                   "type": "minecraft:simple_state_provider",
                   "state": {
-                    "Name": "minecraft:birch_log",
+                    "Name": "wilderwild:hollowed_birch_log",
                     "Properties": {
                       "axis": "z"
                     }
