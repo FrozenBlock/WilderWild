@@ -172,15 +172,15 @@
     ],
     [
       "minecraft:glow_lichen",
-      "minecraft:trees_birch",
+      "wilderwild:trees_birch",
       "minecraft:patch_grass_jungle",
       "minecraft:brown_mushroom_normal",
       "minecraft:red_mushroom_normal",
       "minecraft:patch_sugar_cane",
       "minecraft:patch_pumpkin",
-      "minecraft:new_birch",
-      "minecraft:birch_flowers",
-      "minecraft:dartura_patch"
+      "wilderwild:new_birch",
+      "wilderwild:birch_flowers",
+      "wilderwild:dartura_patch"
     ],
     [
       "minecraft:freeze_top_layer"

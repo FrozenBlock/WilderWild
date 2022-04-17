@@ -1,9 +1,9 @@
 {
-  "feature": "minecraft:patch_brown_mushroom",
+  "feature": "wilderwild:dartura_patch",
   "placement": [
     {
       "type": "minecraft:rarity_filter",
-      "chance": 3
+      "chance": 5
     },
     {
       "type": "minecraft:in_square"

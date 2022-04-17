@@ -1,5 +1,5 @@
 {
-  "feature": "minecraft:new_forest_patch",
+  "feature": "wilderwild:new_forest_patch",
   "placement": [
     {
       "type": "minecraft:rarity_filter",
