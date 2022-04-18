@@ -1,7 +1,7 @@
 {
 	"textures": {
 		"0": "wilderwild:block/sculk_echoer_top",
-		"1": "minecraft:block/sculk_catalyst_bottom",
+		"1": "wilderwild:block/sculk_echoer_bottom",
 		"2": "wilderwild:block/sculk_echoer_side",
 		"particle": "wilderwild:block/sculk_echoer_side"
 	},
@@ -21,8 +21,8 @@
 		},
 		{
 			"name": "top_slab",
-			"from": [0.99, -0.01, 0.99],
-			"to": [15.01, 16.01, 15.01],
+			"from": [1, 0, 1],
+			"to": [15, 16, 15],
 			"faces": {
 				"north": {"uv": [1, 0, 15, 16], "texture": "#2"},
 				"east": {"uv": [1, 0, 15, 16], "texture": "#2"},
