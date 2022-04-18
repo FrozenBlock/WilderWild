@@ -111,7 +111,7 @@ public class SculkJawBlock extends Block implements SculkSpreadable {
 
     @Override
     public void onSteppedOn(World world, BlockPos pos, BlockState state, Entity entity) {
-        Identifier WARDEN = new Identifier(WilderWild.MOD_ID, "warden");
+        Identifier WARDEN = new Identifier("minecraft", "warden");
         if (entity instanceof LivingEntity && !state.get(ACTIVE) && !Registry.ENTITY_TYPE.getId(entity.getType()).equals(WARDEN)) {
                 world.setBlockState(pos, state.with(ACTIVE, true));
                 entity.damage(DamageSource.GENERIC, 5.0f);
