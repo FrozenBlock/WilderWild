@@ -15,8 +15,9 @@ import net.minecraft.world.WorldAccess;
 
 public class HollowedLogBlock extends PillarBlock implements Waterloggable {
     public static final BooleanProperty WATERLOGGED;
-    private static final VoxelShape SHAPE;
-    private static final VoxelShape COLLISION;
+    protected static final VoxelShape Y_SHAPE;
+    protected static final VoxelShape Z_SHAPE;
+    protected static final VoxelShape X_SHAPE;
 
 
     public HollowedLogBlock(Settings settings) {
@@ -25,13 +26,21 @@ public class HollowedLogBlock extends PillarBlock implements Waterloggable {
     }
 
     @Override
-    public BlockRenderType getRenderType(BlockState blockState) {
-        return BlockRenderType.MODEL;
+    public VoxelShape getOutlineShape(BlockState state, BlockView world, BlockPos pos, ShapeContext context) {
+        switch((Direction.Axis)state.get(AXIS)) {
+            case X:
+            default:
+                return X_SHAPE;
+            case Z:
+                return Z_SHAPE;
+            case Y:
+                return Y_SHAPE;
+        }
     }
 
     @Override
-    public VoxelShape getCollisionShape(BlockState blockState, BlockView blockView, BlockPos blockPos, ShapeContext shapeContext) {
-        return COLLISION;
+    public BlockRenderType getRenderType(BlockState blockState) {
+        return BlockRenderType.MODEL;
     }
 
     @Override
@@ -59,14 +68,10 @@ public class HollowedLogBlock extends PillarBlock implements Waterloggable {
         return !(Boolean)state.get(WATERLOGGED);
     }
 
-    @Override
-    public VoxelShape getOutlineShape(BlockState blockState, BlockView blockView, BlockPos blockPos, ShapeContext shapeContext) {
-        return SHAPE;
-    }
-
     static {
-        SHAPE = VoxelShapes.union(Block.createCuboidShape(0, 0, 0 , 16, 16, 3), Block.createCuboidShape(0, 0, 0, 3 ,16, 16), Block.createCuboidShape(0, 0, 13, 16, 16, 16), Block.createCuboidShape(13, 0, 0, 16, 16, 16));
+        Y_SHAPE = VoxelShapes.union(Block.createCuboidShape(0, 0, 0 , 16, 16, 3), Block.createCuboidShape(0, 0, 0, 3 ,16, 16), Block.createCuboidShape(0, 0, 13, 16, 16, 16), Block.createCuboidShape(13, 0, 0, 16, 16, 16));
+        Z_SHAPE = VoxelShapes.union(Block.createCuboidShape(13, 0, 0 , 16, 16, 16), Block.createCuboidShape(0, 0, 0, 3 ,16, 16), Block.createCuboidShape(0, 13, 0, 16, 16, 16), Block.createCuboidShape(0, 0, 0, 16, 3, 16));
+        X_SHAPE = VoxelShapes.union(Block.createCuboidShape(0, 0, 0 , 16, 16, 3), Block.createCuboidShape(0, 13, 0, 16 ,16, 16), Block.createCuboidShape(0, 0, 13, 16, 16, 16), Block.createCuboidShape(0, 0, 0, 16, 3, 16));
         WATERLOGGED = Properties.WATERLOGGED;
-        COLLISION = SHAPE;
     }
 }
