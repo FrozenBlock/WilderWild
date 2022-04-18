@@ -3,6 +3,7 @@ package net.frozenblock.wilderwild.registry;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.frozenblock.wilderwild.WilderWild;
+import net.frozenblock.wilderwild.block.HollowedLogBlock;
 import net.frozenblock.wilderwild.block.SculkEchoerBlock;
 import net.frozenblock.wilderwild.block.SculkJawBlock;
 import net.minecraft.block.*;
@@ -11,24 +12,18 @@ import net.minecraft.item.BlockItem;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.math.Direction;
 import net.minecraft.util.registry.Registry;
 
 public class RegisterBlocks {
     // HOLLOW LOGS
-    public static final Block HOLLOWED_OAK_LOG = registerBlock("hollowed_oak_log",
-            new PillarBlock(FabricBlockSettings.of(Material.WOOD).strength(0.9f).sounds(BlockSoundGroup.WOOD).requiresTool()), ItemGroup.BUILDING_BLOCKS);
-    public static final Block HOLLOWED_SPRUCE_LOG = registerBlock("hollowed_spruce_log",
-            new PillarBlock(FabricBlockSettings.of(Material.WOOD).strength(0.9f).sounds(BlockSoundGroup.WOOD).requiresTool()), ItemGroup.BUILDING_BLOCKS);
-    public static final Block HOLLOWED_ACACIA_LOG = registerBlock("hollowed_acacia_log",
-            new PillarBlock(FabricBlockSettings.of(Material.WOOD).strength(0.9f).sounds(BlockSoundGroup.WOOD).requiresTool()), ItemGroup.BUILDING_BLOCKS);
-    public static final Block HOLLOWED_JUNGLE_LOG = registerBlock("hollowed_jungle_log",
-            new PillarBlock(FabricBlockSettings.of(Material.WOOD).strength(0.9f).sounds(BlockSoundGroup.WOOD).requiresTool()), ItemGroup.BUILDING_BLOCKS);
-    public static final Block HOLLOWED_BIRCH_LOG = registerBlock("hollowed_birch_log",
-            new PillarBlock(FabricBlockSettings.of(Material.WOOD).strength(0.9f).sounds(BlockSoundGroup.WOOD).requiresTool()), ItemGroup.BUILDING_BLOCKS);
-    public static final Block HOLLOWED_DARK_OAK_LOG = registerBlock("hollowed_dark_oak_log",
-            new PillarBlock(FabricBlockSettings.of(Material.WOOD).strength(0.9f).sounds(BlockSoundGroup.WOOD).requiresTool()), ItemGroup.BUILDING_BLOCKS);
-    public static final Block HOLLOWED_MANGROVE_LOG = registerBlock("hollowed_mangrove_log",
-            new PillarBlock(FabricBlockSettings.of(Material.WOOD).strength(0.9f).sounds(BlockSoundGroup.WOOD).requiresTool()), ItemGroup.BUILDING_BLOCKS);
+    public static final Block HOLLOWED_OAK_LOG = registerBlock("hollowed_oak_log", createHollowedLogBlock(MapColor.OAK_TAN, MapColor.SPRUCE_BROWN), ItemGroup.BUILDING_BLOCKS);
+    public static final Block HOLLOWED_SPRUCE_LOG = registerBlock("hollowed_spruce_log", createHollowedLogBlock(MapColor.SPRUCE_BROWN, MapColor.BROWN), ItemGroup.BUILDING_BLOCKS);
+    public static final Block HOLLOWED_ACACIA_LOG = registerBlock("hollowed_acacia_log", createHollowedLogBlock(MapColor.ORANGE, MapColor.STONE_GRAY), ItemGroup.BUILDING_BLOCKS);
+    public static final Block HOLLOWED_JUNGLE_LOG = registerBlock("hollowed_jungle_log", createHollowedLogBlock(MapColor.DIRT_BROWN, MapColor.SPRUCE_BROWN), ItemGroup.BUILDING_BLOCKS);
+    public static final Block HOLLOWED_BIRCH_LOG = registerBlock("hollowed_birch_log", createHollowedLogBlock(MapColor.PALE_YELLOW, MapColor.OFF_WHITE), ItemGroup.BUILDING_BLOCKS);
+    public static final Block HOLLOWED_DARK_OAK_LOG = registerBlock("hollowed_dark_oak_log", createHollowedLogBlock(MapColor.BROWN, MapColor.BROWN), ItemGroup.BUILDING_BLOCKS);
+    public static final Block HOLLOWED_MANGROVE_LOG = registerBlock("hollowed_mangrove_log", createHollowedLogBlock(MapColor.RED, MapColor.SPRUCE_BROWN), ItemGroup.BUILDING_BLOCKS);
 
     // SCULK
     public static final Block SCULK_ECHOER = registerBlock("sculk_echoer",
@@ -64,6 +59,13 @@ public class RegisterBlocks {
         return Registry.register(Registry.ITEM, new Identifier(WilderWild.MOD_ID, name),
                 new BlockItem(block, new FabricItemSettings().group(group)));
     }
+
+    private static HollowedLogBlock createHollowedLogBlock(MapColor topMapColor, MapColor sideMapColor) {
+        return new HollowedLogBlock(AbstractBlock.Settings.of(Material.WOOD, (state) -> {
+            return state.get(PillarBlock.AXIS) == Direction.Axis.Y ? topMapColor : sideMapColor;
+        }).strength(2.0F).sounds(BlockSoundGroup.WOOD));
+    }
+
 
     public static void RegisterBlocks() {
         WilderWild.LOGGER.info("Registering Blocks for " + WilderWild.MOD_ID);
