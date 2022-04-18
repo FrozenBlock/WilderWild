@@ -6,7 +6,12 @@ Xfrtrex - Programming, Brainstorming, Bug fixes
 
 Osmiooo - Programming, Bug fixes
 
+Janetyqua (OliviaTheVampire) - Worldgen assistance, feature help, Molanng Animation parser, 
+basically we all cry to her whenever there's something we don't understand
+
 TreeTrain - Bug fixes, Gradle fixes, Programming
+
+JarethTheRad - Structure assistance
 
 AlexTheDolphin0 - played genshin while we all did stuff
 
