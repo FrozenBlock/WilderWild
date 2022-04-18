@@ -15,7 +15,7 @@ import net.minecraft.world.BlockView;
 import net.minecraft.world.Difficulty;
 import net.minecraft.world.World;
 
-public class DaturaBlock extends FlowerBlock {
+public class DaturaBlock extends TallFlowerBlock {
     public DaturaBlock(StatusEffect effect, Settings settings) {
         super(effect, 8, settings);}
 
