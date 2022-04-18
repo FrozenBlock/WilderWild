@@ -31,22 +31,6 @@ public class SculkEchoerBlock extends Block {
     }
 
     @Override
-    public void onEntityCollision(BlockState state, World world, BlockPos pos, Entity entity) {
-        if (entity instanceof LivingEntity && !Registry.ENTITY_TYPE.getId(entity.getType()).equals(EntityType.WARDEN)) {
-            world.emitGameEvent(entity, WilderWild.SCULK_ECHOER_ECHO, pos);
-            world.playSound(
-                    null,
-                    pos,
-                    RegisterSounds.BLOCK_SCULK_ECHOER_RECEIVE_VIBRATION,
-                    SoundCategory.BLOCKS,
-                    1.0f,
-                    world.random.nextFloat() * 0.1F + 0.9F
-            );
-        }
-        super.onEntityCollision(state, world, pos, entity);
-    }
-
-    @Override
     public BlockRenderType getRenderType(BlockState blockState) {
         return BlockRenderType.MODEL;
     }
