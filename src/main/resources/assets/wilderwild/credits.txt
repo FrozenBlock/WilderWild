@@ -2,9 +2,11 @@ LiukRast - Frozenblock creator & Programming
 
 Soro - Biome edits, Worldgen features, Repository owner
 
-Xfrtrex - Programming, Brainstorming, Bug fixing
+Xfrtrex - Programming, Brainstorming, Bug fixes
 
-Osmiooo - Programming, Bug fixing
+Osmiooo - Programming, Bug fixes
+
+TreeTrain - Bug fixes, Gradle fixes, Programming
 
 AlexTheDolphin0 - played genshin while we all did stuff
 
