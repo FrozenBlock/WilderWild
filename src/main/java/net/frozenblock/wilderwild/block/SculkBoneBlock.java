@@ -19,11 +19,11 @@ public class SculkBoneBlock extends PillarBlock implements SculkSpreadable {
     @Override
     public int spread(SculkSpreadManager.Cursor cursor, WorldAccess world, BlockPos catalystPos, AbstractRandom random, SculkSpreadManager spreadManager, boolean shouldConvertToBlock) {
         int i = cursor.getCharge();
-        if (i != 0 && random.nextInt(2) == 0) {
+        if (i != 0 && random.nextInt(1) == 0) {
             BlockPos blockPos = cursor.getPos();
             boolean bl = blockPos.isWithinDistance(catalystPos, spreadManager.getMaxDistance());
             if (!bl) {
-                double maxHeight = EasyNoiseSampler.samplePerlinSimplePositive(blockPos, 1, true, true) * 15;
+                double maxHeight = EasyNoiseSampler.samplePerlinSimplePositive(blockPos, 1, true, false) * 15;
                 if (getHeight(world, blockPos) < maxHeight && world.getBlockState(blockPos.up()).isAir()) {
                     BlockPos blockPos2 = blockPos.up();
                     BlockState blockState = RegisterBlocks.SCULK_BONE.getDefaultState();
