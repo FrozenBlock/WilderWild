@@ -3,6 +3,7 @@ package net.frozenblock.wilderwild.registry;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.frozenblock.wilderwild.WilderWild;
+import net.frozenblock.wilderwild.block.CattailBlock;
 import net.frozenblock.wilderwild.block.HollowedLogBlock;
 import net.frozenblock.wilderwild.block.SculkBoneBlock;
 import net.frozenblock.wilderwild.block.SculkEchoerBlock;
@@ -44,7 +45,7 @@ public class RegisterBlocks {
     public static final Block DATURA = registerBlock("datura",
             new TallFlowerBlock(FabricBlockSettings.copy(Blocks.ROSE_BUSH).strength(0.0f).nonOpaque()), ItemGroup.DECORATIONS);
     public static final Block CATTAIL = registerBlock("cattail",
-            new TallFlowerBlock(FabricBlockSettings.copy(Blocks.ROSE_BUSH).strength(0.0f).nonOpaque()), ItemGroup.DECORATIONS);
+            new CattailBlock(FabricBlockSettings.copy(Blocks.ROSE_BUSH).strength(0.0f).nonOpaque()), ItemGroup.DECORATIONS);
     public static final Block POTTED_CARNATION = registerBlockWithoutBlockItem("potted_carnation",
             new FlowerPotBlock(RegisterBlocks.CARNATION,
     FabricBlockSettings.copy(Blocks.POTTED_DANDELION).nonOpaque()), ItemGroup.DECORATIONS);
