@@ -197,7 +197,8 @@
       "minecraft:red_mushroom_normal",
       "minecraft:patch_sugar_cane_swamp",
       "minecraft:patch_pumpkin",
-      "minecraft:seagrass_swamp"
+      "minecraft:seagrass_swamp",
+      "wilderwild:disk_mud"
     ],
     [
       "minecraft:freeze_top_layer"
