@@ -47,6 +47,8 @@ import net.minecraft.world.event.GameEvent;
 import net.minecraft.world.event.listener.GameEventListener;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.Objects;
+
 public class SculkEchoerBlock extends BlockWithEntity implements Waterloggable {
     public static final Object2IntMap<GameEvent> FREQUENCIES = Object2IntMaps.unmodifiable(Util.make(new Object2IntOpenHashMap<>(), (map) -> {
         map.put(GameEvent.STEP, 1);
@@ -96,7 +98,7 @@ public class SculkEchoerBlock extends BlockWithEntity implements Waterloggable {
     private final int range;
 
     private static final VoxelShape SHAPE = VoxelShapes.union(Block.createCuboidShape(0.0D, 0.0D, 0.0D, 16.0D, 5.0D, 16.0D), Block.createCuboidShape(1.0D, 5.0D, 1.0D, 15.0D, 16D, 15.0D));
-    private static final VoxelShape COLLISION = Block.createCuboidShape(1.0D, 0.0D, 1.0D, 15.0D, 11.0D, 15.0D);
+//    private static final VoxelShape COLLISION = Block.createCuboidShape(1.0D, 0.0D, 1.0D, 15.0D, 11.0D, 15.0D);
 
     public SculkEchoerBlock(Settings settings, int range) {
         super(settings);
@@ -115,7 +117,7 @@ public class SculkEchoerBlock extends BlockWithEntity implements Waterloggable {
 
     @Override
     public void onSteppedOn( World world, BlockPos pos, BlockState state, Entity entity) {
-        if (!world.isClient() && isInactive(state) && entity.getType() != EntityType.WARDEN) {
+        if (!world.isClient() && isInactive(state) && entity.getType() != EntityType.WARDEN && entity instanceof PlayerEntity) {
             setActive(entity, world, pos, state, 1);
         }
 
@@ -203,24 +205,17 @@ public class SculkEchoerBlock extends BlockWithEntity implements Waterloggable {
     }
 
     public static void setActive(@Nullable Entity entity, World world, BlockPos pos, BlockState state, int power) {
-        world.setBlockState(pos, state.with(SCULK_ECHOER_PHASE, SculkEchoerPhase.ACTIVE).with(POWER, power), 3);
-        world.createAndScheduleBlockTick(pos, state.getBlock(), 40);
-        updateNeighbors(world, pos);
-        if (entity instanceof PlayerEntity) {
+        if (Objects.requireNonNull(entity) instanceof PlayerEntity || Objects.requireNonNull(entity).getPrimaryPassenger() instanceof PlayerEntity) {
+            world.setBlockState(pos, state.with(SCULK_ECHOER_PHASE, SculkEchoerPhase.ACTIVE).with(POWER, power), 3);
+            world.createAndScheduleBlockTick(pos, state.getBlock(), 40);
+            updateNeighbors(world, pos);
             world.emitGameEvent(entity, GameEvent.SCULK_SENSOR_TENDRILS_CLICKING, pos);
-        } else if (entity != null) {
-            Entity var6 = entity.getPrimaryPassenger();
-            if (var6 instanceof PlayerEntity) {
-                PlayerEntity playerEntity = (PlayerEntity)var6;
-                world.emitGameEvent(playerEntity, GameEvent.SCULK_SENSOR_TENDRILS_CLICKING, pos);
-            }
-        }
-
-        if (!state.get(WATERLOGGED)) {
-            //world.playSound(null, pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, SoundEvents.BLOCK_SCULK_SENSOR_CLICKING, SoundCategory.BLOCKS, 1.0F, world.random.nextFloat() * 0.2F + 0.8F);
-            if (entity instanceof LivingEntity && !Registry.ENTITY_TYPE.getId(entity.getType()).equals(EntityType.WARDEN)) {
-                world.emitGameEvent(entity, WilderWild.SCULK_ECHOER_ECHO, pos);
-                world.playSound(null, pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, RegisterSounds.BLOCK_SCULK_ECHOER_RECEIVE_VIBRATION, SoundCategory.BLOCKS, 1.0F, world.random.nextFloat() * 0.1F + 0.9F);
+            if (!state.get(WATERLOGGED)) {
+                //world.playSound(null, pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, SoundEvents.BLOCK_SCULK_SENSOR_CLICKING, SoundCategory.BLOCKS, 1.0F, world.random.nextFloat() * 0.2F + 0.8F);
+                if (entity instanceof LivingEntity && !Registry.ENTITY_TYPE.getId(entity.getType()).equals(EntityType.WARDEN)) {
+                    world.emitGameEvent(entity, WilderWild.SCULK_ECHOER_ECHO, pos);
+                    world.playSound(null, pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, RegisterSounds.BLOCK_SCULK_ECHOER_RECEIVE_VIBRATION, SoundCategory.BLOCKS, 1.0F, world.random.nextFloat() * 0.1F + 0.9F);
+                }
             }
         }
     }
