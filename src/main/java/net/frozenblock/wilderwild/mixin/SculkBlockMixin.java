@@ -1,5 +1,6 @@
 package net.frozenblock.wilderwild.mixin;
 
+import net.frozenblock.wilderwild.block.SculkBoneBlock;
 import net.frozenblock.wilderwild.noise.EasyNoiseSampler;
 import net.frozenblock.wilderwild.registry.RegisterBlocks;
 import net.minecraft.block.BlockState;
@@ -24,6 +25,10 @@ import java.util.Iterator;
 
 @Mixin(SculkBlock.class)
 public class SculkBlockMixin {
+
+	private static final int heightMultiplier = 23; //The higher, the less short pillars you'll see.
+	private static final int maxHeight = 15; //The rarest and absolute tallest height of pillars
+	private static final double randomness = 0.9; //The higher, the more random. The lower, the more gradual the heights change.
 
 	private static final double sculkBoneAreaSize = 0.1; //The smaller, the larger the area pillars can grow, but the larger the gaps between them.
 	private static final double sculkBoneThreshold = 0.15; //The higher, the harder it is for pillars to appear. If set to 1 or higher, they'll never grow.
@@ -69,7 +74,8 @@ public class SculkBlockMixin {
 			if (random.nextInt(3) == 0) {
 				blockState = RegisterBlocks.SCULK_JAW.getDefaultState();
 			} else if (EasyNoiseSampler.samplePerlinXoro(pos, sculkBoneAreaSize, true, true) > sculkBoneThreshold) {
-				blockState=RegisterBlocks.SCULK_BONE.getDefaultState();
+				double pillarHeight = MathHelper.clamp(EasyNoiseSampler.samplePerlinXoroPositive(pos, randomness, false, false) * heightMultiplier,2,maxHeight);
+				blockState=RegisterBlocks.SCULK_BONE.getDefaultState().with(SculkBoneBlock.HEIGHT_LEFT, EasyNoiseSampler.simpleRandom.nextBetween(2,15));
 			} else {
 				blockState = Blocks.SCULK_SENSOR.getDefaultState();
 			}

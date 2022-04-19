@@ -1,22 +1,26 @@
 package net.frozenblock.wilderwild.block;
 
-import net.frozenblock.wilderwild.noise.EasyNoiseSampler;
+import net.frozenblock.wilderwild.registry.NewProperties;
 import net.frozenblock.wilderwild.registry.RegisterBlocks;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.SculkSpreadManager;
 import net.minecraft.sound.SoundCategory;
+import net.minecraft.state.StateManager;
+import net.minecraft.state.property.IntProperty;
+import net.minecraft.state.property.Properties;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.random.AbstractRandom;
 import net.minecraft.world.WorldAccess;
 
 public class SculkBoneBlock extends PillarBlock implements SculkSpreadable {
 
-    public SculkBoneBlock(Settings settings) { super(settings); }
+    public SculkBoneBlock(Settings settings) {
+        super(settings);
+        this.setDefaultState(this.stateManager.getDefaultState().with(HEIGHT_LEFT, 0).with(AXIS, Direction.Axis.Y));
+    }
 
-    public static final int heightMultiplier = 23; //The higher, the less short pillars you'll see.
-    public static final int maxHeight = 15; //The rarest and absolute tallest height of pillars
-    public static final double randomness = 0.9; //The higher, the more random. The lower, the more gradual the heights change.
+    public static final IntProperty HEIGHT_LEFT = NewProperties.PILLAR_HEIGHT_LEFT;
 
     @Override
     public int spread(SculkSpreadManager.Cursor cursor, WorldAccess world, BlockPos catalystPos, AbstractRandom random, SculkSpreadManager spreadManager, boolean shouldConvertToBlock) {
@@ -25,31 +29,29 @@ public class SculkBoneBlock extends PillarBlock implements SculkSpreadable {
             BlockPos blockPos = cursor.getPos();
             boolean bl = blockPos.isWithinDistance(catalystPos, spreadManager.getMaxDistance());
             if (!bl) {
-                double pillarHeight = MathHelper.clamp(EasyNoiseSampler.samplePerlinSimplePositive(blockPos, randomness, true, false) * heightMultiplier,0, maxHeight);
-                if (getHeight(world, blockPos) < pillarHeight && (world.getBlockState(blockPos.up()).isAir() || world.getBlockState(blockPos.up()).getBlock()==Blocks.SCULK_VEIN)) {
-                    BlockState blockState = RegisterBlocks.SCULK_BONE.getDefaultState();
-                    BlockPos top = getTop(world, blockPos);
-                    if (top!=null) {
-                        if (getHeight(world, top)+1>=pillarHeight) {
-                            blockState=RegisterBlocks.SCULK_ECHOER.getDefaultState();
-                            if (random.nextInt(11)==0) {
-                                blockState=Blocks.SCULK_CATALYST.getDefaultState();
+                int pillarHeight = world.getBlockState(blockPos).get(SculkBoneBlock.HEIGHT_LEFT);
+                BlockPos topPos = getTop(world, blockPos, pillarHeight);
+                if (topPos != null) {
+                    pillarHeight = world.getBlockState(topPos).get(SculkBoneBlock.HEIGHT_LEFT);
+                    if (world.getBlockState(topPos.up()).isAir() || world.getBlockState(topPos.up()).getBlock() == Blocks.SCULK_VEIN) {
+                        BlockState blockState = RegisterBlocks.SCULK_BONE.getDefaultState().with(SculkBoneBlock.HEIGHT_LEFT, pillarHeight - 1);
+                        if (pillarHeight==0) {
+                            blockState = RegisterBlocks.SCULK_ECHOER.getDefaultState();
+                            if (random.nextInt(11) == 0) {
+                                blockState = Blocks.SCULK_CATALYST.getDefaultState();
                             }
                         }
-                        world.setBlockState(top.up(), blockState, 3);
+                        world.setBlockState(blockPos.up(), blockState, 3);
                         world.playSound(null, blockPos, blockState.getSoundGroup().getPlaceSound(), SoundCategory.BLOCKS, 1.0F, 1.0F);
                         return Math.max(0, i - 1);
                     }
                 }
             }
-            return random.nextInt(spreadManager.getDecayChance()) != 0 ? i : i - (bl ? 1 : getDecay(i));
-        } else {
-            return i;
-        }
+        } return i;
     }
 
-    public static BlockPos getTop(WorldAccess world, BlockPos pos) {
-        for (int i=0; i<13; i++) {
+    public static BlockPos getTop(WorldAccess world, BlockPos pos, int max) {
+        for (int i=0; i<max; i++) {
             Block block = world.getBlockState(pos).getBlock();
             if (block!=RegisterBlocks.SCULK_BONE) { return null; }
             if (world.getBlockState(pos.up()).isAir() || world.getBlockState(pos.up()).getBlock() == Blocks.SCULK_VEIN) {return pos;}
@@ -67,5 +69,7 @@ public class SculkBoneBlock extends PillarBlock implements SculkSpreadable {
     public int getDecay(int oldDecay) {
         return 1;
     }
+
+    protected void appendProperties(StateManager.Builder<Block, BlockState> builder) { builder.add(HEIGHT_LEFT).add(Properties.AXIS); }
 
 }
