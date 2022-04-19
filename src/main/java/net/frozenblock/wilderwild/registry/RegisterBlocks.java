@@ -6,6 +6,7 @@ import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.block.HollowedLogBlock;
 import net.frozenblock.wilderwild.block.SculkEchoerBlock;
 import net.frozenblock.wilderwild.block.SculkJawBlock;
+import net.frozenblock.wilderwild.block.entity.SculkEchoerPhase;
 import net.minecraft.block.*;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.item.BlockItem;
@@ -26,9 +27,11 @@ public class RegisterBlocks {
     public static final Block HOLLOWED_MANGROVE_LOG = registerBlock("hollowed_mangrove_log", createHollowedLogBlock(MapColor.RED, MapColor.SPRUCE_BROWN), ItemGroup.BUILDING_BLOCKS);
 
     // SCULK
-    public static final Block SCULK_ECHOER = registerBlock("sculk_echoer",
-            new SculkEchoerBlock(AbstractBlock.Settings.of(Material.SCULK).strength(0.6F).sounds(BlockSoundGroup.SCULK), 8),
-            ItemGroup.REDSTONE);
+    public static final Block SCULK_ECHOER = registerBlock("sculk_echoer", new SculkEchoerBlock(AbstractBlock.Settings.of(Material.SCULK, MapColor.CYAN).strength(3.0F, 3.0F).sounds(BlockSoundGroup.SCULK_SHRIEKER).luminance((state) -> {
+        return 1;
+    }).emissiveLighting((state, world, pos) -> {
+        return SculkEchoerBlock.getPhase(state) == SculkEchoerPhase.ACTIVE;
+    }), 8), ItemGroup.REDSTONE);
     public static final Block SCULK_JAW = registerBlock("sculk_jaw",
             new SculkJawBlock(AbstractBlock.Settings.of(Material.SCULK).strength(0.6F).sounds(BlockSoundGroup.SCULK)),
             ItemGroup.REDSTONE);
