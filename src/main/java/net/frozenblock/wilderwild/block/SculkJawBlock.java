@@ -17,10 +17,9 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.intprovider.ConstantIntProvider;
 import net.minecraft.util.math.intprovider.IntProvider;
+import net.minecraft.util.math.random.AbstractRandom;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.world.World;
-
-import java.util.Random;
 
 public class SculkJawBlock extends Block {
     public static final BooleanProperty ACTIVE = BooleanProperty.of("active");
@@ -38,8 +37,8 @@ public class SculkJawBlock extends Block {
     }
 
     @Deprecated
-    public void scheduledTick(BlockState blockState, ServerWorld serverWorld, BlockPos blockPos, Random random) {
-        if ((Boolean)blockState.get(ACTIVE)) {
+    public void scheduledTick(BlockState blockState, ServerWorld serverWorld, BlockPos blockPos, AbstractRandom random) {
+        if (blockState.get(ACTIVE)) {
             serverWorld.setBlockState(blockPos, blockState.with(ACTIVE, false), 3);
         }
     }
