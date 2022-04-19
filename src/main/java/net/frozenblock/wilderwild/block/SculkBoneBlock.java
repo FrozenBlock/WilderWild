@@ -24,7 +24,7 @@ public class SculkBoneBlock extends PillarBlock implements SculkSpreadable {
             boolean bl = blockPos.isWithinDistance(catalystPos, spreadManager.getMaxDistance());
             if (!bl) {
                 double maxHeight = EasyNoiseSampler.samplePerlinSimplePositive(blockPos, 1, true, false) * 15;
-                if (getHeight(world, blockPos) < maxHeight && world.getBlockState(blockPos.up()).isAir()) {
+                if (getHeight(world, blockPos) < maxHeight && (world.getBlockState(blockPos.up()).isAir() || world.getBlockState(blockPos.up()).getBlock()==Blocks.SCULK_VEIN)) {
                     BlockPos blockPos2 = blockPos.up();
                     BlockState blockState = RegisterBlocks.SCULK_BONE.getDefaultState();
                     if (getHeight(world, blockPos) -1 >= maxHeight) { blockState=RegisterBlocks.SCULK_ECHOER.getDefaultState(); }
