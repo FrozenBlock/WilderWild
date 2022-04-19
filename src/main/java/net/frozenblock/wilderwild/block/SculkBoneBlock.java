@@ -24,11 +24,11 @@ public class SculkBoneBlock extends PillarBlock implements SculkSpreadable {
     public static Direction getDir(Direction.Axis axis) {
         if (axis.isHorizontal()) {
             if (axis == Direction.Axis.X) {
-                if (EasyNoiseSampler.simpleRandom.nextInt(1)==0) { return Direction.EAST; }
+                if (Math.random()>0.5) { return Direction.EAST; }
                 return Direction.WEST;
             }
             if (axis == Direction.Axis.Z) {
-                if (EasyNoiseSampler.simpleRandom.nextInt(1)==0) { return Direction.NORTH; }
+                if (Math.random()>0.5) { return Direction.NORTH; }
                 return Direction.SOUTH;
             }
         } return Direction.UP;
