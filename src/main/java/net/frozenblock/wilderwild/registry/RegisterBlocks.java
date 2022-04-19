@@ -31,7 +31,7 @@ public class RegisterBlocks {
         return 0;
     }).emissiveLighting((state, world, pos) -> {
         return SculkEchoerBlock.getPhase(state) == SculkEchoerPhase.ACTIVE;
-    }), 1), ItemGroup.REDSTONE);
+    }), 8), ItemGroup.REDSTONE);
     public static final Block SCULK_JAW = registerBlock("sculk_jaw",
             new SculkJawBlock(AbstractBlock.Settings.of(Material.SCULK).strength(0.6F).sounds(BlockSoundGroup.SCULK)),
             ItemGroup.REDSTONE);
