@@ -4,7 +4,7 @@ import it.unimi.dsi.fastutil.objects.Object2IntMap;
 import it.unimi.dsi.fastutil.objects.Object2IntMaps;
 import it.unimi.dsi.fastutil.objects.Object2IntOpenHashMap;
 import net.frozenblock.wilderwild.WilderWild;
-import net.frozenblock.wilderwild.block.entity.NewBlockEntityType;
+import net.frozenblock.wilderwild.registry.RegisterBlockEntityType;
 import net.frozenblock.wilderwild.block.entity.SculkEchoerBlockEntity;
 import net.frozenblock.wilderwild.block.entity.SculkEchoerPhase;
 import net.frozenblock.wilderwild.registry.NewProperties;
@@ -300,7 +300,7 @@ public class SculkEchoerBlock extends BlockWithEntity implements Waterloggable {
 
     @Nullable
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(World world, BlockState state, BlockEntityType<T> type) {
-        return !world.isClient ? checkType(type, NewBlockEntityType.SCULK_ECHOER, (worldx, pos, statex, blockEntity) -> {
+        return !world.isClient ? checkType(type, RegisterBlockEntityType.SCULK_ECHOER, (worldx, pos, statex, blockEntity) -> {
             blockEntity.getEventListener().tick(worldx);
         }) : null;
     }

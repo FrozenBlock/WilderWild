@@ -4,6 +4,7 @@ import com.mojang.logging.LogUtils;
 import com.mojang.serialization.DataResult;
 import com.mojang.serialization.Dynamic;
 import net.frozenblock.wilderwild.block.SculkEchoerBlock;
+import net.frozenblock.wilderwild.registry.RegisterBlockEntityType;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.Entity;
@@ -29,7 +30,7 @@ public class SculkEchoerBlockEntity extends BlockEntity implements SculkSensorLi
     private SculkSensorListener listener;
     private int lastVibrationFreq;
     public SculkEchoerBlockEntity(BlockPos pos, BlockState state) {
-        super(NewBlockEntityType.SCULK_ECHOER, pos, state);
+        super(RegisterBlockEntityType.SCULK_ECHOER, pos, state);
         this.listener = new SculkSensorListener(new BlockPositionSource(this.pos), ((SculkEchoerBlock)state.getBlock()).getRange(), this, null, 0, 0);
     }
 

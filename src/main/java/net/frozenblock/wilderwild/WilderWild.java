@@ -1,7 +1,7 @@
 package net.frozenblock.wilderwild;
 
 import net.fabricmc.api.ModInitializer;
-import net.frozenblock.wilderwild.block.entity.NewBlockEntityType;
+import net.frozenblock.wilderwild.registry.RegisterBlockEntityType;
 import net.frozenblock.wilderwild.registry.RegisterBlocks;
 import net.frozenblock.wilderwild.registry.RegisterItems;
 import net.frozenblock.wilderwild.world.feature.WildConfiguredFeatures;
@@ -28,6 +28,6 @@ public class WilderWild implements ModInitializer {
         RegisterItems.RegisterItems();
         WildWorldGen.generateWildWorldGen();
         WildConfiguredFeatures.registerConfiguredFeatures();
-        NewBlockEntityType.init();
+        RegisterBlockEntityType.init();
     }
 }
