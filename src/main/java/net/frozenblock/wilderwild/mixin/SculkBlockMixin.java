@@ -50,9 +50,22 @@ public class SculkBlockMixin {
 					BlockPos blockPos2 = blockPos.up();
 					BlockState blockState = this.getExtraBlockState(world, blockPos2, random, spreadManager.isWorldGen());
 
-					if (blockState.getBlock()!=RegisterBlocks.SCULK_JAW) {
+					boolean placeDown=false;
+					boolean placeDown2=false;
+					if (canPlaceBone(blockPos) && (world.getBlockState(blockPos.down()).isAir() || world.getBlockState(blockPos.down()).getBlock()==Blocks.WATER
+							|| world.getBlockState(blockPos.down()).getBlock()==Blocks.LAVA || world.getBlockState(blockPos.down()).getBlock()==Blocks.SCULK_VEIN)) {
+						int pillarHeight = (int) MathHelper.clamp(EasyNoiseSampler.samplePerlinXoroPositive(blockPos.down(), randomness, false, false) * heightMultiplier,2,maxHeight);
+						blockState=RegisterBlocks.SCULK_BONE.getDefaultState().with(SculkBoneBlock.HEIGHT_LEFT, pillarHeight).with(SculkBoneBlock.UPSIDEDOWN, true);
+						placeDown2=true;
+						placeDown=true;
+					}
+					if (blockState.getBlock()==RegisterBlocks.SCULK_JAW) {placeDown=true;}
+
+
+					if (!placeDown) {
 						world.setBlockState(blockPos2, blockState, 3);
-					} else { world.setBlockState(blockPos2.down(), blockState, 3); }
+					} else if (!placeDown2) { world.setBlockState(blockPos, blockState, 3);
+					} else { world.setBlockState(blockPos.down(), blockState, 3); }
 
 					world.playSound(null, blockPos, blockState.getSoundGroup().getPlaceSound(), SoundCategory.BLOCKS, 1.0F, 1.0F);
 				}
@@ -66,6 +79,10 @@ public class SculkBlockMixin {
 		}
 	}
 
+	private static boolean canPlaceBone(BlockPos pos) {
+		return EasyNoiseSampler.samplePerlinXoro(pos, sculkBoneAreaSize, true, true) > sculkBoneThreshold;
+	}
+
 	private BlockState getExtraBlockState(WorldAccess world, BlockPos pos, AbstractRandom random, boolean allowShrieker) {
 		BlockState blockState;
 		if (random.nextInt(11) == 0) {
@@ -73,9 +90,9 @@ public class SculkBlockMixin {
 		} else {
 			if (random.nextInt(3) == 0) {
 				blockState = RegisterBlocks.SCULK_JAW.getDefaultState();
-			} else if (EasyNoiseSampler.samplePerlinXoro(pos, sculkBoneAreaSize, true, true) > sculkBoneThreshold) {
-				double pillarHeight = MathHelper.clamp(EasyNoiseSampler.samplePerlinXoroPositive(pos, randomness, false, false) * heightMultiplier,2,maxHeight);
-				blockState=RegisterBlocks.SCULK_BONE.getDefaultState().with(SculkBoneBlock.HEIGHT_LEFT, EasyNoiseSampler.simpleRandom.nextBetween(2,15));
+			} else if (canPlaceBone(pos)) {
+				int pillarHeight = (int) MathHelper.clamp(EasyNoiseSampler.samplePerlinXoroPositive(pos, randomness, false, false) * heightMultiplier,2,maxHeight);
+				blockState=RegisterBlocks.SCULK_BONE.getDefaultState().with(SculkBoneBlock.HEIGHT_LEFT, pillarHeight);
 			} else {
 				blockState = Blocks.SCULK_SENSOR.getDefaultState();
 			}
@@ -84,28 +101,27 @@ public class SculkBlockMixin {
 	}
 
 
-	@Shadow private static boolean shouldNotDecay(WorldAccess world, BlockPos pos) {
+	private static boolean shouldNotDecay(WorldAccess world, BlockPos pos) {
 		BlockState blockState = world.getBlockState(pos.up());
-		if (blockState.isAir() || blockState.isOf(Blocks.WATER) && blockState.getFluidState().isOf(Fluids.WATER)) {
+		BlockState blockState1 = world.getBlockState(pos.down());
+		if (((blockState.isAir()) || (blockState.isOf(Blocks.WATER) && blockState.getFluidState().isOf(Fluids.WATER))) || (canPlaceBone(pos) && ((blockState1.isAir()) || (blockState1.isOf(Blocks.WATER) && blockState1.getFluidState().isOf(Fluids.WATER))))) {
 			int i = 0;
-			Iterator var4 = BlockPos.iterate(pos.add(-4, 0, -4), pos.add(4, 2, 4)).iterator();
+			Iterator<BlockPos> var4 = BlockPos.iterate(pos.add(-4, 0, -4), pos.add(4, 2, 4)).iterator();
 
 			do {
 				if (!var4.hasNext()) {
 					return true;
 				}
 
-				BlockPos blockPos = (BlockPos)var4.next();
+				BlockPos blockPos = var4.next();
 				BlockState blockState2 = world.getBlockState(blockPos);
 				if (blockState2.isOf(Blocks.SCULK_SENSOR) || blockState2.isOf(Blocks.SCULK_SHRIEKER)) {
 					++i;
 				}
 			} while(i <= 2);
 
-			return false;
-		} else {
-			return false;
 		}
+		return false;
 	}
 
 	@Shadow private static int getDecay(SculkSpreadManager spreadManager, BlockPos cursorPos, BlockPos catalystPos, int charge) {

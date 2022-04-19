@@ -12,4 +12,5 @@ public class NewProperties extends Properties {
     public static final BooleanProperty ECHOING = BooleanProperty.of("echoing");
 
     public static final IntProperty PILLAR_HEIGHT_LEFT = IntProperty.of("sculk_bone_pillar_height_left_to_grow_until_it_reaches_the_top", 0, 15);
+    public static final BooleanProperty UPSIDE_DOWN = BooleanProperty.of("is_the_current_sculk_bone_block_pointing_downwards_quation_mark");
 }

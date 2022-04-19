@@ -7,6 +7,7 @@ import net.minecraft.block.*;
 import net.minecraft.block.entity.SculkSpreadManager;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.state.StateManager;
+import net.minecraft.state.property.BooleanProperty;
 import net.minecraft.state.property.IntProperty;
 import net.minecraft.state.property.Properties;
 import net.minecraft.util.math.BlockPos;
@@ -18,10 +19,10 @@ public class SculkBoneBlock extends PillarBlock implements SculkSpreadable {
 
     public SculkBoneBlock(Settings settings) {
         super(settings);
-        this.setDefaultState(this.stateManager.getDefaultState().with(HEIGHT_LEFT, 4).with(AXIS, Direction.Axis.Y));
+        this.setDefaultState(this.stateManager.getDefaultState().with(HEIGHT_LEFT, 0).with(AXIS, Direction.Axis.Y).with(UPSIDEDOWN, false));
     }
 
-    public static Direction getDir(Direction.Axis axis) {
+    public static Direction getDir(Direction.Axis axis, boolean UpsideDown) {
         if (axis.isHorizontal()) {
             if (axis == Direction.Axis.X) {
                 if (Math.random()>0.5) { return Direction.EAST; }
@@ -31,10 +32,12 @@ public class SculkBoneBlock extends PillarBlock implements SculkSpreadable {
                 if (Math.random()>0.5) { return Direction.NORTH; }
                 return Direction.SOUTH;
             }
-        } return Direction.UP;
+        } if (UpsideDown) {return Direction.DOWN; }
+        return Direction.UP;
     }
 
     public static final IntProperty HEIGHT_LEFT = NewProperties.PILLAR_HEIGHT_LEFT;
+    public static final BooleanProperty UPSIDEDOWN = NewProperties.UPSIDE_DOWN;
 
     @Override
     public int spread(SculkSpreadManager.Cursor cursor, WorldAccess world, BlockPos catalystPos, AbstractRandom random, SculkSpreadManager spreadManager, boolean shouldConvertToBlock) {
@@ -43,13 +46,12 @@ public class SculkBoneBlock extends PillarBlock implements SculkSpreadable {
             BlockPos blockPos = cursor.getPos();
             boolean bl = blockPos.isWithinDistance(catalystPos, spreadManager.getMaxDistance());
             if (!bl) {
-                Direction direction = getDir(world.getBlockState(blockPos).get(AXIS));
-                if (direction==Direction.DOWN) { direction=Direction.UP; }
                 int pillarHeight = world.getBlockState(blockPos).get(SculkBoneBlock.HEIGHT_LEFT);
-                BlockPos topPos = getTop(world, blockPos, pillarHeight, direction);
+                BlockPos topPos = getTop(world, blockPos, pillarHeight);
                 if (topPos != null) {
-                    pillarHeight = world.getBlockState(topPos).get(SculkBoneBlock.HEIGHT_LEFT);
-                    direction = getDir(world.getBlockState(topPos).get(AXIS));
+                    BlockState state = world.getBlockState(topPos);
+                    pillarHeight = state.get(SculkBoneBlock.HEIGHT_LEFT);
+                    Direction direction = getDir(state.get(AXIS),state.get(UPSIDEDOWN));
                     if (direction==Direction.DOWN) { direction=Direction.UP; }
                     if (world.getBlockState(topPos.offset(direction)).isAir() || world.getBlockState(topPos.offset(direction)).getBlock() == Blocks.SCULK_VEIN) {
                         BlockState blockState = RegisterBlocks.SCULK_BONE.getDefaultState().with(SculkBoneBlock.HEIGHT_LEFT, pillarHeight-1);
@@ -71,10 +73,11 @@ public class SculkBoneBlock extends PillarBlock implements SculkSpreadable {
         } return i;
     }
 
-    public static BlockPos getTop(WorldAccess world, BlockPos pos, int max, Direction direction) {
+    public static BlockPos getTop(WorldAccess world, BlockPos pos, int max) {
         for (int i=0; i<max; i++) {
             Block block = world.getBlockState(pos).getBlock();
             if (block!=RegisterBlocks.SCULK_BONE) { return null; }
+            Direction direction = getDir(world.getBlockState(pos).get(AXIS), world.getBlockState(pos).get(UPSIDEDOWN));
             if (world.getBlockState(pos.offset(direction)).isAir() || world.getBlockState(pos.offset(direction)).getBlock() == Blocks.SCULK_VEIN) {return pos;}
             pos=pos.offset(direction);
         } return null;
@@ -84,6 +87,6 @@ public class SculkBoneBlock extends PillarBlock implements SculkSpreadable {
         return 1;
     }
 
-    protected void appendProperties(StateManager.Builder<Block, BlockState> builder) { builder.add(HEIGHT_LEFT).add(Properties.AXIS); }
+    protected void appendProperties(StateManager.Builder<Block, BlockState> builder) { builder.add(HEIGHT_LEFT).add(Properties.AXIS).add(UPSIDEDOWN); }
 
 }
