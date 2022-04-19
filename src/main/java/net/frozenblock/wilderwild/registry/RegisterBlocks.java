@@ -4,6 +4,7 @@ import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.block.HollowedLogBlock;
+import net.frozenblock.wilderwild.block.SculkBoneBlock;
 import net.frozenblock.wilderwild.block.SculkEchoerBlock;
 import net.frozenblock.wilderwild.block.SculkJawBlock;
 import net.frozenblock.wilderwild.block.entity.SculkEchoerPhase;
@@ -36,7 +37,7 @@ public class RegisterBlocks {
             new SculkJawBlock(AbstractBlock.Settings.of(Material.SCULK).strength(0.6F).sounds(BlockSoundGroup.SCULK)),
             ItemGroup.REDSTONE);
     public static final Block SCULK_BONE = registerBlock("sculk_bone",
-            new PillarBlock(AbstractBlock.Settings.of(Material.STONE,
+            new SculkBoneBlock(AbstractBlock.Settings.of(Material.STONE,
                     MapColor.PALE_YELLOW).requiresTool().strength(2.0F).sounds(BlockSoundGroup.SCULK_CATALYST)),ItemGroup.DECORATIONS);
 
     // FLOWERS

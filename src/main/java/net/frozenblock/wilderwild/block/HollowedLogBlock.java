@@ -19,7 +19,6 @@ public class HollowedLogBlock extends PillarBlock implements Waterloggable {
     protected static final VoxelShape Z_SHAPE;
     protected static final VoxelShape X_SHAPE;
 
-
     public HollowedLogBlock(Settings settings) {
         super(settings);
         this.setDefaultState( this.getDefaultState().with(WATERLOGGED, false));
@@ -27,14 +26,10 @@ public class HollowedLogBlock extends PillarBlock implements Waterloggable {
 
     @Override
     public VoxelShape getOutlineShape(BlockState state, BlockView world, BlockPos pos, ShapeContext context) {
-        switch((Direction.Axis)state.get(AXIS)) {
-            case X:
-            default:
-                return X_SHAPE;
-            case Z:
-                return Z_SHAPE;
-            case Y:
-                return Y_SHAPE;
+        switch(state.get(AXIS)) {
+            default: return X_SHAPE;
+            case Z:  return Z_SHAPE;
+            case Y:  return Y_SHAPE;
         }
     }
 
@@ -45,7 +40,7 @@ public class HollowedLogBlock extends PillarBlock implements Waterloggable {
 
     @Override
     public BlockState getStateForNeighborUpdate(BlockState state, Direction direction, BlockState neighborState, WorldAccess world, BlockPos pos, BlockPos neighborPos) {
-        if ((Boolean)state.get(WATERLOGGED)) {
+        if (state.get(WATERLOGGED)) {
             world.createAndScheduleFluidTick(pos, Fluids.WATER, Fluids.WATER.getTickRate(world));
         }
 
@@ -54,7 +49,7 @@ public class HollowedLogBlock extends PillarBlock implements Waterloggable {
 
     @Override
     public FluidState getFluidState(BlockState state) {
-        return (Boolean)state.get(WATERLOGGED) ? Fluids.WATER.getStill(false) : super.getFluidState(state);
+        return state.get(WATERLOGGED) ? Fluids.WATER.getStill(false) : super.getFluidState(state);
     }
 
     @Override
@@ -74,4 +69,5 @@ public class HollowedLogBlock extends PillarBlock implements Waterloggable {
         X_SHAPE = VoxelShapes.union(Block.createCuboidShape(0, 0, 0 , 16, 16, 3), Block.createCuboidShape(0, 13, 0, 16 ,16, 16), Block.createCuboidShape(0, 0, 13, 16, 16, 16), Block.createCuboidShape(0, 0, 0, 16, 3, 16));
         WATERLOGGED = Properties.WATERLOGGED;
     }
+
 }

@@ -1,5 +1,6 @@
 package net.frozenblock.wilderwild.mixin;
 
+import net.frozenblock.wilderwild.noise.EasyNoiseSampler;
 import net.frozenblock.wilderwild.registry.RegisterBlocks;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
@@ -57,9 +58,9 @@ public class SculkBlockMixin {
 		} else {
 			if (random.nextInt(3) == 0) {
 				blockState = RegisterBlocks.SCULK_JAW.getDefaultState();
-			} else { blockState = Blocks.SCULK_SENSOR.getDefaultState(); }
+			} else if (EasyNoiseSampler.samplePerlinXoro(pos, 0.2, true, true) >0.2) { blockState=RegisterBlocks.SCULK_BONE.getDefaultState(); }
+			else { blockState = Blocks.SCULK_SENSOR.getDefaultState(); }
 		}
-
 		return blockState.contains(Properties.WATERLOGGED) && !world.getFluidState(pos).isEmpty() ? blockState.with(Properties.WATERLOGGED, true) : blockState;
 	}
 
