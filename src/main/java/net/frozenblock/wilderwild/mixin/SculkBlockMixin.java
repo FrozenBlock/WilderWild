@@ -25,12 +25,17 @@ import java.util.Iterator;
 @Mixin(SculkBlock.class)
 public class SculkBlockMixin {
 
-	public static final double sculkBoneAreaSize = 0.1; //The smaller, the larger the area pillars can grow, but the larger the gaps between them.
-	public static final double sculkBoneThreshold = 0.15; //The higher, the harder it is for pillars to appear. If set to 1 or higher, they'll never grow.
+	private static final double sculkBoneAreaSize = 0.1; //The smaller, the larger the area pillars can grow, but the larger the gaps between them.
+	private static final double sculkBoneThreshold = 0.15; //The higher, the harder it is for pillars to appear. If set to 1 or higher, they'll never grow.
 
 	@Inject(at = @At("HEAD"), method = "spread")
 	public int spread(SculkSpreadManager.Cursor cursor, WorldAccess world, BlockPos catalystPos, AbstractRandom random, SculkSpreadManager spreadManager, boolean shouldConvertToBlock, CallbackInfoReturnable info) {
 		int i = cursor.getCharge();
+		if (world.getServer()!=null) {
+			if (world.getServer().getOverworld().getSeed()!=EasyNoiseSampler.seed) {
+				EasyNoiseSampler.setSeed(world.getServer().getOverworld().getSeed());
+			}
+		}
 		if (i != 0 && random.nextInt(spreadManager.getSpreadChance()) == 0) {
 			BlockPos blockPos = cursor.getPos();
 			boolean bl = blockPos.isWithinDistance(catalystPos, spreadManager.getMaxDistance());
