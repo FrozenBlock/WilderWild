@@ -13,6 +13,9 @@ public class SculkBoneBlock extends PillarBlock implements SculkSpreadable {
 
     public SculkBoneBlock(Settings settings) { super(settings); }
 
+    public static final int tallestHeight = 15; //The rarest and absolute tallest height of pillars
+    public static final double randomness = 0.8; //The higher, the more random. The lower, the more gradual the heights change.
+
     @Override
     public int spread(SculkSpreadManager.Cursor cursor, WorldAccess world, BlockPos catalystPos, AbstractRandom random, SculkSpreadManager spreadManager, boolean shouldConvertToBlock) {
         int i = cursor.getCharge();
@@ -20,7 +23,7 @@ public class SculkBoneBlock extends PillarBlock implements SculkSpreadable {
             BlockPos blockPos = cursor.getPos();
             boolean bl = blockPos.isWithinDistance(catalystPos, spreadManager.getMaxDistance());
             if (!bl) {
-                double maxHeight = EasyNoiseSampler.samplePerlinSimplePositive(blockPos, 1, true, false) * 15;
+                double maxHeight = EasyNoiseSampler.samplePerlinSimplePositive(blockPos, randomness, true, false) * tallestHeight;
                 if (getHeight(world, blockPos) < maxHeight && (world.getBlockState(blockPos.up()).isAir() || world.getBlockState(blockPos.up()).getBlock()==Blocks.SCULK_VEIN)) {
                     BlockState blockState = RegisterBlocks.SCULK_BONE.getDefaultState();
                     BlockPos top = getTop(world, blockPos);
@@ -52,7 +55,7 @@ public class SculkBoneBlock extends PillarBlock implements SculkSpreadable {
     public static int getHeight(WorldAccess world, BlockPos pos) {
         for (int i=0; i<13; i++) {
             pos=pos.down();
-            if (world.getBlockState(pos).getBlock()== Blocks.SCULK) {return i;}
+            if (world.getBlockState(pos).getBlock() == Blocks.SCULK) {return i;}
         } return 99;
     }
 
