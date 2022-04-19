@@ -39,6 +39,8 @@ public class RegisterBlocks {
     // FLOWERS
     public static final Block DATURA = registerBlock("datura",
             new TallFlowerBlock(FabricBlockSettings.copy(Blocks.ROSE_BUSH).strength(0.0f).nonOpaque()), ItemGroup.DECORATIONS);
+    public static final Block CATTAIL = registerBlock("cattail",
+            new TallFlowerBlock(FabricBlockSettings.copy(Blocks.ROSE_BUSH).strength(0.0f).nonOpaque()), ItemGroup.DECORATIONS);
     public static final Block POTTED_CARNATION = registerBlockWithoutBlockItem("potted_carnation",
             new FlowerPotBlock(RegisterBlocks.CARNATION,
     FabricBlockSettings.copy(Blocks.POTTED_DANDELION).nonOpaque()), ItemGroup.DECORATIONS);
