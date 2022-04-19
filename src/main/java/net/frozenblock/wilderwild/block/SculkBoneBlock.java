@@ -16,7 +16,7 @@ public class SculkBoneBlock extends PillarBlock implements SculkSpreadable {
 
     public static final int heightMultiplier = 23; //The higher, the less short pillars you'll see.
     public static final int maxHeight = 15; //The rarest and absolute tallest height of pillars
-    public static final double randomness = 0.8; //The higher, the more random. The lower, the more gradual the heights change.
+    public static final double randomness = 0.9; //The higher, the more random. The lower, the more gradual the heights change.
 
     @Override
     public int spread(SculkSpreadManager.Cursor cursor, WorldAccess world, BlockPos catalystPos, AbstractRandom random, SculkSpreadManager spreadManager, boolean shouldConvertToBlock) {
@@ -32,6 +32,9 @@ public class SculkBoneBlock extends PillarBlock implements SculkSpreadable {
                     if (top!=null) {
                         if (getHeight(world, top)+1>=pillarHeight) {
                             blockState=RegisterBlocks.SCULK_ECHOER.getDefaultState();
+                            if (random.nextInt(10)<=1) {
+                                blockState=Blocks.SCULK_CATALYST.getDefaultState();
+                            }
                         }
                         world.setBlockState(top.up(), blockState, 3);
                         world.playSound(null, blockPos, blockState.getSoundGroup().getPlaceSound(), SoundCategory.BLOCKS, 1.0F, 1.0F);
