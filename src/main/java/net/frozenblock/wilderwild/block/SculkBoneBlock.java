@@ -41,7 +41,7 @@ public class SculkBoneBlock extends PillarBlock implements SculkSpreadable {
                                 blockState = Blocks.SCULK_CATALYST.getDefaultState();
                             }
                         }
-                        world.setBlockState(blockPos.up(), blockState, 3);
+                        world.setBlockState(topPos.up(), blockState, 3);
                         world.playSound(null, blockPos, blockState.getSoundGroup().getPlaceSound(), SoundCategory.BLOCKS, 1.0F, 1.0F);
                         return Math.max(0, i - 1);
                     }
