@@ -198,7 +198,9 @@
       "minecraft:patch_sugar_cane_swamp",
       "minecraft:patch_pumpkin",
       "minecraft:seagrass_swamp",
-      "wilderwild:disk_mud"
+      "wilderwild:disk_mud",
+      "wilderwild:huge_brown_swamp",
+      "wilderwild:huge_red_swamp"
     ],
     [
       "minecraft:freeze_top_layer"
