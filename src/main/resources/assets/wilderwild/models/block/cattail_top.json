@@ -1,6 +1,6 @@
 {
-  "parent": "minecraft:block/cross",
+  "parent": "minecraft:block/template_seagrass",
   "textures": {
-    "cross": "wilderwild:block/cattail_top"
+    "texture": "wilderwild:block/cattail_top"
   }
 }
