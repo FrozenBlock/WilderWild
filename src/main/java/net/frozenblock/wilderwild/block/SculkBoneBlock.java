@@ -14,7 +14,7 @@ public class SculkBoneBlock extends PillarBlock implements SculkSpreadable {
 
     public SculkBoneBlock(Settings settings) { super(settings); }
 
-    public static final int heightMultiplier = 20; //The higher, the less short pillars you'll see.
+    public static final int heightMultiplier = 23; //The higher, the less short pillars you'll see.
     public static final int maxHeight = 15; //The rarest and absolute tallest height of pillars
     public static final double randomness = 0.8; //The higher, the more random. The lower, the more gradual the heights change.
 
