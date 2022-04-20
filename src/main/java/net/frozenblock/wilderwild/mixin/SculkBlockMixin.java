@@ -65,7 +65,7 @@ public class SculkBlockMixin {
 
 					world.setBlockState(blockPos2, blockState, 3);
 
-					if (isWorldGen && blockState.getBlock()==RegisterBlocks.SCULK_BONE) {
+					if (isWorldGen && world.getBlockState(blockPos2).getBlock()==RegisterBlocks.SCULK_BONE) {
 						int amount = Math.max(0, blockState.get(SculkBoneBlock.HEIGHT_LEFT) - random.nextInt(1));
 						for (int a = 0; a < amount; a++) {
 							SculkBoneBlock.worldGenSpread(blockPos2, world, random);
