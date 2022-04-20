@@ -16,9 +16,8 @@ import net.minecraft.block.entity.BlockEntityTicker;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
-import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.pathing.NavigationType;
-import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.mob.WardenEntity;
 import net.minecraft.fluid.FluidState;
 import net.minecraft.fluid.Fluids;
 import net.minecraft.item.ItemPlacementContext;
@@ -30,14 +29,12 @@ import net.minecraft.sound.SoundEvents;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.BooleanProperty;
 import net.minecraft.state.property.EnumProperty;
-import net.minecraft.state.property.IntProperty;
 import net.minecraft.state.property.Properties;
 import net.minecraft.util.Util;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.intprovider.ConstantIntProvider;
 import net.minecraft.util.math.random.AbstractRandom;
-import net.minecraft.util.registry.Registry;
 import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.util.shape.VoxelShapes;
 import net.minecraft.world.BlockView;
@@ -91,7 +88,6 @@ public class SculkEchoerBlock extends BlockWithEntity implements Waterloggable {
         map.put(GameEvent.LIGHTNING_STRIKE, 15);
     }));
     public static final EnumProperty<SculkEchoerPhase> SCULK_ECHOER_PHASE = NewProperties.SCULK_ECHOER_PHASE;
-    public static final IntProperty POWER = Properties.POWER;
     public static final BooleanProperty WATERLOGGED = Properties.WATERLOGGED;
     public static final BooleanProperty UPSIDEDOWN = NewProperties.UPSIDE_DOWN;
     private final int range;
@@ -99,16 +95,14 @@ public class SculkEchoerBlock extends BlockWithEntity implements Waterloggable {
     private static final VoxelShape SHAPE = VoxelShapes.union(Block.createCuboidShape(0.0D, 0.0D, 0.0D, 16.0D, 5.0D, 16.0D), Block.createCuboidShape(1.0D, 5.0D, 1.0D, 15.0D, 11.0D, 15.0D));
     private static final VoxelShape SHAPE_UPSIDEDOWN = VoxelShapes.union(Block.createCuboidShape(0.0D, 11.0D, 0.0D, 16.0D, 16.0D, 16.0D), Block.createCuboidShape(1.0D, 5.0D, 1.0D, 15.0D, 11.0D, 15.0D));
 
-    //    private static final VoxelShape COLLISION = Block.createCuboidShape(1.0D, 0.0D, 1.0D, 15.0D, 11.0D, 15.0D);
-
     public SculkEchoerBlock(Settings settings, int range) {
         super(settings);
-        this.setDefaultState(this.stateManager.getDefaultState().with(SCULK_ECHOER_PHASE, SculkEchoerPhase.INACTIVE).with(WATERLOGGED, false).with(POWER, 0).with(UPSIDEDOWN, false));
+        this.setDefaultState(this.stateManager.getDefaultState().with(SCULK_ECHOER_PHASE, SculkEchoerPhase.INACTIVE).with(WATERLOGGED, false).with(UPSIDEDOWN, false));
         this.range = range;
     }
 
     protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
-        builder.add(SCULK_ECHOER_PHASE, POWER, WATERLOGGED, UPSIDEDOWN);
+        builder.add(SCULK_ECHOER_PHASE, WATERLOGGED, UPSIDEDOWN);
     }
 
     public void onStacksDropped(BlockState state, ServerWorld world, BlockPos pos, ItemStack stack) {
@@ -121,39 +115,28 @@ public class SculkEchoerBlock extends BlockWithEntity implements Waterloggable {
         if (!world.isClient() && isInactive(state) && entity.getType() != EntityType.WARDEN) {
             setActive(entity, world, pos, state, 1);
         }
-
         super.onSteppedOn(world, pos, state, entity);
     }
 
     public void onBlockAdded(BlockState state, World world, BlockPos pos, BlockState oldState, boolean notify) {
         if (!world.isClient() && !state.isOf(oldState.getBlock())) {
-            if (state.get(POWER) > 0 && !world.getBlockTickScheduler().isQueued(pos, this)) {
-                world.setBlockState(pos, state.with(POWER, 0), 18);
-            }
-
             world.createAndScheduleBlockTick(new BlockPos(pos), state.getBlock(), 1);
         }
     }
 
     public void onStateReplaced(BlockState state, World world, BlockPos pos, BlockState newState, boolean moved) {
         if (!state.isOf(newState.getBlock())) {
-            if (getPhase(state) == SculkEchoerPhase.ACTIVE) {
-                updateNeighbors(world, pos);
-            }
-
+            if (getPhase(state) == SculkEchoerPhase.ACTIVE) { updateNeighbors(world, pos); }
             super.onStateReplaced(state, world, pos, newState, moved);
         }
     }
 
     public void scheduledTick(BlockState state, ServerWorld world, BlockPos pos, AbstractRandom random) {
-
         if (getPhase(state)!=SculkEchoerPhase.ACTIVE) {
             if (getPhase(state)==SculkEchoerPhase.COOLDOWN) {
                 world.setBlockState(pos, state.with(SCULK_ECHOER_PHASE, SculkEchoerPhase.INACTIVE), 3);
             }
-        } else {
-            setCooldown(world, pos, state);
-        }
+        } else { setCooldown(world, pos, state); }
     }
 
     @Override
@@ -182,14 +165,6 @@ public class SculkEchoerBlock extends BlockWithEntity implements Waterloggable {
         return SHAPE;
     }
 
-    public boolean emitsRedstonePower(BlockState state) {
-        return true;
-    }
-
-    public int getWeakRedstonePower(BlockState state, BlockView world, BlockPos pos, Direction direction) {
-        return state.get(POWER);
-    }
-
     public static SculkEchoerPhase getPhase(BlockState state) {
         return state.get(SCULK_ECHOER_PHASE);
     }
@@ -199,48 +174,27 @@ public class SculkEchoerBlock extends BlockWithEntity implements Waterloggable {
     }
 
     public static void setCooldown(World world, BlockPos pos, BlockState state) {
-        world.setBlockState(pos, state.with(SCULK_ECHOER_PHASE, SculkEchoerPhase.COOLDOWN).with(POWER, 0), 3);
+        world.setBlockState(pos, state.with(SCULK_ECHOER_PHASE, SculkEchoerPhase.COOLDOWN), 3);
         world.createAndScheduleBlockTick(pos, state.getBlock(), 1);
         if (!state.get(WATERLOGGED)) {
             world.playSound(null, pos, SoundEvents.BLOCK_SCULK_SENSOR_CLICKING_STOP, SoundCategory.BLOCKS, 1.0F, world.random.nextFloat() * 0.2F + 0.8F);
         }
-
         updateNeighbors(world, pos);
     }
 
     public static void setActive(@Nullable Entity entity, World world, BlockPos pos, BlockState state, int power) {
-        world.setBlockState(pos, state.with(SCULK_ECHOER_PHASE, SculkEchoerPhase.ACTIVE).with(POWER, power), 3);
-        world.createAndScheduleBlockTick(pos, state.getBlock(), 40);
-        updateNeighbors(world, pos);
-        if (entity instanceof PlayerEntity) {
+        boolean canRun = true;
+        if (entity!=null) {
+            if (entity instanceof WardenEntity) { canRun=false; }
+        }
+
+        if (canRun) {
+            world.setBlockState(pos, state.with(SCULK_ECHOER_PHASE, SculkEchoerPhase.ACTIVE), 3);
+            world.createAndScheduleBlockTick(pos, state.getBlock(), 40);
+            updateNeighbors(world, pos);
             world.emitGameEvent(entity, GameEvent.SCULK_SENSOR_TENDRILS_CLICKING, pos);
-        } else if (entity != null) {
-            Entity var6 = entity.getPrimaryPassenger();
-            if (var6 instanceof PlayerEntity) {
-                PlayerEntity playerEntity = (PlayerEntity)var6;
-                world.emitGameEvent(playerEntity, GameEvent.SCULK_SENSOR_TENDRILS_CLICKING, pos);
-            }
-        }
-
-        if (!state.get(WATERLOGGED)) {
-            //world.playSound(null, pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, SoundEvents.BLOCK_SCULK_SENSOR_CLICKING, SoundCategory.BLOCKS, 1.0F, world.random.nextFloat() * 0.2F + 0.8F);
-            if (entity instanceof LivingEntity && !Registry.ENTITY_TYPE.getId(entity.getType()).equals(EntityType.WARDEN)) {
-                world.emitGameEvent(entity, WilderWild.SCULK_ECHOER_ECHO, pos);
-                world.playSound(null, pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, RegisterSounds.BLOCK_SCULK_ECHOER_RECEIVE_VIBRATION, SoundCategory.BLOCKS, 1.0F, world.random.nextFloat() * 0.1F + 0.9F);
-            }
-        }
-    }
-
-    public void randomDisplayTick(BlockState state, World world, BlockPos pos, AbstractRandom random) {
-        if (getPhase(state)==SculkEchoerPhase.ACTIVE) {
-            Direction direction = Direction.random(random);
-            if (direction != Direction.UP && direction != Direction.DOWN) {
-                double d = (double)pos.getX() + 0.5 + (direction.getOffsetX() == 0 ? 0.5 - random.nextDouble() : (double)direction.getOffsetX() * 0.6);
-                double e = (double)pos.getY() + 0.25;
-                double f = (double)pos.getZ() + 0.5 + (direction.getOffsetZ() == 0 ? 0.5 - random.nextDouble() : (double)direction.getOffsetZ() * 0.6);
-                double g = (double)random.nextFloat() * 0.04;
-                world.addParticle(DustColorTransitionParticleEffect.DEFAULT, d, e, f, 0.0, g, 0.0);
-            }
+            world.emitGameEvent(entity, WilderWild.SCULK_ECHOER_ECHO, pos);
+            world.playSound(null, pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, RegisterSounds.BLOCK_SCULK_ECHOER_RECEIVE_VIBRATION, SoundCategory.BLOCKS, 1.0F, world.random.nextFloat() * 0.1F + 0.9F);
         }
     }
 

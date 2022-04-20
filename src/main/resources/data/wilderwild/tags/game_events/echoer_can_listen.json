@@ -1,0 +1,7 @@
+{
+  "replace": false,
+  "values": [
+    "wilderwild:sculk_sensor_activate",
+    "minecraft:sculk_sensor_tendrils_clicking"
+  ]
+}

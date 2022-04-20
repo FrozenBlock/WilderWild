@@ -5,6 +5,7 @@ import com.mojang.serialization.DataResult;
 import com.mojang.serialization.Dynamic;
 import net.frozenblock.wilderwild.block.SculkEchoerBlock;
 import net.frozenblock.wilderwild.registry.RegisterBlockEntityType;
+import net.frozenblock.wilderwild.tag.WildEventTags;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.Entity;
@@ -64,7 +65,7 @@ public class SculkEchoerBlockEntity extends BlockEntity implements SculkSensorLi
     }
 
     public TagKey<GameEvent> getTag() {
-        return GameEventTags.SHRIEKER_CAN_LISTEN;
+        return WildEventTags.ECHOER_CAN_LISTEN;
     }
 
     public SculkSensorListener getEventListener() {
@@ -77,7 +78,7 @@ public class SculkEchoerBlockEntity extends BlockEntity implements SculkSensorLi
 
     @Override
     public boolean accepts(ServerWorld world, GameEventListener listener, BlockPos pos, GameEvent event, GameEvent.Emitter arg) {
-        return (!pos.equals(this.getPos()) || event != GameEvent.BLOCK_DESTROY && event != GameEvent.BLOCK_PLACE) && SculkEchoerBlock.isInactive(this.getCachedState());
+        return (!pos.equals(this.getPos()) && (event != GameEvent.BLOCK_DESTROY || event != GameEvent.BLOCK_PLACE)) && SculkEchoerBlock.isInactive(this.getCachedState());
     }
 
     @Override
@@ -88,8 +89,6 @@ public class SculkEchoerBlockEntity extends BlockEntity implements SculkSensorLi
             SculkEchoerBlock.setActive(entity, world, this.pos, blockState, getPower(delay, listener.getRange()));
         }
     }
-
-
 
     public void onListen() {
         this.markDirty();

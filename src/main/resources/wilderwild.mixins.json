@@ -6,6 +6,7 @@
   "mixins": [
     "MusicDiscItemInvoker",
     "SculkBlockMixin",
+    "SculkSensorBlockEntityMixin",
     "WardenEntityMixin"
   ],
   "client": [
