@@ -32,6 +32,7 @@ public class SculkBlockMixin {
 	@Overwrite
 	public int spread(SculkSpreadManager.Cursor cursor, WorldAccess world, BlockPos catalystPos, AbstractRandom random, SculkSpreadManager spreadManager, boolean shouldConvertToBlock) {
 		int i = cursor.getCharge();
+		boolean isWorldGen = spreadManager.isWorldGen();
 		if (world.getServer()!=null) {
 			if (world.getServer().getOverworld().getSeed()!=EasyNoiseSampler.seed) {
 				EasyNoiseSampler.setSeed(world.getServer().getOverworld().getSeed());
@@ -59,6 +60,14 @@ public class SculkBlockMixin {
 					if (blockState.getBlock()==RegisterBlocks.SCULK_ECHOER) {placeBlockBelow=RegisterBlocks.SCULK_BONE.getDefaultState();}
 
 					world.setBlockState(blockPos2, blockState, 3);
+
+					if (isWorldGen && blockState.getBlock()==RegisterBlocks.SCULK_BONE) {
+						int amount = Math.max(0, blockState.get(SculkBoneBlock.HEIGHT_LEFT) - random.nextInt(blockState.get(SculkBoneBlock.HEIGHT_LEFT) - 1));
+						for (int a = 0; a < amount; a++) {
+							SculkBoneBlock.worldGenSpread(blockPos2, world, random);
+						}
+					}
+
 					if (placeBlockBelow != null) {
 						world.removeBlock(blockPos2.down(), false);
 						world.setBlockState(blockPos2.down(), placeBlockBelow, 3);

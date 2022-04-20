@@ -79,6 +79,38 @@ public class SculkBoneBlock extends PillarBlock implements SculkSpreadable {
         } return i;
     }
 
+    public static void worldGenSpread(BlockPos blockPos, WorldAccess world, AbstractRandom random) {
+        int pillarHeight = world.getBlockState(blockPos).get(SculkBoneBlock.HEIGHT_LEFT);
+        BlockPos topPos = getTop(world, blockPos, pillarHeight);
+        if (topPos != null) {
+            BlockState state = world.getBlockState(topPos);
+            pillarHeight = state.get(SculkBoneBlock.HEIGHT_LEFT);
+            Direction direction = getDir(state.get(AXIS), state.get(UPSIDEDOWN));
+            if (world.getBlockState(topPos.offset(direction)).isAir() || world.getBlockState(topPos.offset(direction)).getBlock() == Blocks.SCULK_VEIN) {
+                BlockState blockState = RegisterBlocks.SCULK_BONE.getDefaultState().with(SculkBoneBlock.HEIGHT_LEFT, Math.max(0, pillarHeight - 1));
+                if (EasyNoiseSampler.atomicRandom.nextInt(28) == 0) {
+                    blockState = RegisterBlocks.SCULK_BONE.getDefaultState().with(SculkBoneBlock.HEIGHT_LEFT, Math.max(0, pillarHeight - 1)).with(AXIS, Direction.Axis.pickRandomAxis(EasyNoiseSampler.simpleRandom));
+                }
+                if (pillarHeight == 1 && !state.get(UPSIDEDOWN) && state.get(TOTAL_HEIGHT) > 0) {
+                    if (EasyNoiseSampler.simpleRandom.nextInt(Math.max(1, state.get(TOTAL_HEIGHT) / 2)) <= 1) {
+                        blockState = RegisterBlocks.SCULK_ECHOER.getDefaultState();
+                        if (random.nextInt(11) == 0) {
+                            blockState = Blocks.SCULK_CATALYST.getDefaultState();
+                        }
+                    }
+                }
+                if (blockState.getBlock() == RegisterBlocks.SCULK_BONE) {
+                    blockState = blockState.with(TOTAL_HEIGHT, state.get(TOTAL_HEIGHT));
+                    if (state.get(UPSIDEDOWN)) {
+                        blockState = blockState.with(UPSIDEDOWN, true);
+                    }
+                }
+                world.setBlockState(topPos.offset(direction), blockState, 3);
+                world.playSound(null, blockPos, blockState.getSoundGroup().getPlaceSound(), SoundCategory.BLOCKS, 1.0F, 1.0F);
+            }
+        }
+    }
+
     public static BlockPos getTop(WorldAccess world, BlockPos pos, int max) {
         for (int i=0; i<max; i++) {
             Block block = world.getBlockState(pos).getBlock();
