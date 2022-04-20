@@ -96,8 +96,10 @@ public class SculkEchoerBlock extends BlockWithEntity implements Waterloggable {
     public static final BooleanProperty UPSIDEDOWN = NewProperties.UPSIDE_DOWN;
     private final int range;
 
-    private static final VoxelShape SHAPE = VoxelShapes.union(Block.createCuboidShape(0.0D, 0.0D, 0.0D, 16.0D, 5.0D, 16.0D), Block.createCuboidShape(1.0D, 5.0D, 1.0D, 15.0D, 11D, 15.0D));
-//    private static final VoxelShape COLLISION = Block.createCuboidShape(1.0D, 0.0D, 1.0D, 15.0D, 11.0D, 15.0D);
+    private static final VoxelShape SHAPE = VoxelShapes.union(Block.createCuboidShape(0.0D, 0.0D, 0.0D, 16.0D, 5.0D, 16.0D), Block.createCuboidShape(1.0D, 5.0D, 1.0D, 15.0D, 11.0D, 15.0D));
+    private static final VoxelShape SHAPE_UPSIDEDOWN = VoxelShapes.union(Block.createCuboidShape(0.0D, 11.0D, 0.0D, 16.0D, 11.0D, 16.0D), Block.createCuboidShape(1.0D, 5.0D, 1.0D, 11.0D, 5.0D, 15.0D));
+
+    //    private static final VoxelShape COLLISION = Block.createCuboidShape(1.0D, 0.0D, 1.0D, 15.0D, 11.0D, 15.0D);
 
     public SculkEchoerBlock(Settings settings, int range) {
         super(settings);
@@ -160,6 +162,7 @@ public class SculkEchoerBlock extends BlockWithEntity implements Waterloggable {
     }
 
     public VoxelShape getCollisionShape(BlockState state, BlockView world, BlockPos pos, ShapeContext context) {
+        if (state.get(UPSIDEDOWN)) { return SHAPE_UPSIDEDOWN; }
         return SHAPE;
     }
 
@@ -283,7 +286,8 @@ public class SculkEchoerBlock extends BlockWithEntity implements Waterloggable {
     public BlockState getPlacementState(ItemPlacementContext ctx) {
         BlockPos blockPos = ctx.getBlockPos();
         FluidState fluidState = ctx.getWorld().getFluidState(blockPos);
-        return this.getDefaultState().with(WATERLOGGED, fluidState.getFluid() == Fluids.WATER);
+        boolean isUpsideDown = ctx.getSide()==Direction.DOWN;
+        return this.getDefaultState().with(WATERLOGGED, fluidState.getFluid() == Fluids.WATER).with(UPSIDEDOWN, isUpsideDown);
     }
 
     public FluidState getFluidState(BlockState state) {
