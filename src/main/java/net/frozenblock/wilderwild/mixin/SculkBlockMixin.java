@@ -23,6 +23,7 @@ import java.util.Iterator;
 public class SculkBlockMixin {
 
 	private static final int heightMultiplier = 20; //The higher, the less short pillars you'll see.
+	private static final int worldGenHeightMultiplier = 15; //The higher, the less short pillars you'll see.
 	private static final int maxHeight = 15; //The rarest and absolute tallest height of pillars
 	private static final double randomness = 0.9; //The higher, the more random. The lower, the more gradual the heights change.
 
@@ -51,7 +52,10 @@ public class SculkBlockMixin {
 					BlockState stateDown = world.getBlockState(blockPos.down());
 					Block blockDown = stateDown.getBlock();
 					if (canPlaceBone(blockPos) && (stateDown.isAir() || blockDown==Blocks.WATER || blockDown==Blocks.LAVA || blockDown==Blocks.SCULK_VEIN)) {
-						int pillarHeight = (int) MathHelper.clamp(EasyNoiseSampler.samplePerlinXoroPositive(blockPos.down(), randomness, false, false) * heightMultiplier,2,maxHeight);
+						int pillarHeight = (int) MathHelper.clamp(EasyNoiseSampler.samplePerlinXoroPositive(blockPos.down(), randomness, false, false) * heightMultiplier, 2, maxHeight);
+						if (isWorldGen) {
+							pillarHeight = (int) MathHelper.clamp(EasyNoiseSampler.samplePerlinXoroPositive(blockPos.down(), randomness, false, false) * worldGenHeightMultiplier, 2, maxHeight);
+						}
 						blockState=RegisterBlocks.SCULK_BONE.getDefaultState().with(SculkBoneBlock.HEIGHT_LEFT, pillarHeight).with(SculkBoneBlock.TOTAL_HEIGHT, pillarHeight+1).with(SculkBoneBlock.UPSIDEDOWN, true);
 						blockPos2=blockPos.down();
 					}
@@ -62,7 +66,7 @@ public class SculkBlockMixin {
 					world.setBlockState(blockPos2, blockState, 3);
 
 					if (isWorldGen && blockState.getBlock()==RegisterBlocks.SCULK_BONE) {
-						int amount = Math.max(0, blockState.get(SculkBoneBlock.HEIGHT_LEFT) - random.nextInt(blockState.get(SculkBoneBlock.HEIGHT_LEFT) - 1));
+						int amount = Math.max(0, blockState.get(SculkBoneBlock.HEIGHT_LEFT) - random.nextInt(1));
 						for (int a = 0; a < amount; a++) {
 							SculkBoneBlock.worldGenSpread(blockPos2, world, random);
 						}
