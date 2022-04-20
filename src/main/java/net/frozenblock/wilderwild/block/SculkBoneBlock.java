@@ -67,7 +67,7 @@ public class SculkBoneBlock extends PillarBlock implements SculkSpreadable {
                             }
                         }
                         if (pillarHeight == 1 && state.get(UPSIDEDOWN) && state.get(TOTAL_HEIGHT) > 0) {
-                            if (EasyNoiseSampler.simpleRandom.nextInt(Math.max(1, (state.get(TOTAL_HEIGHT)-15)*-1 / 2)) == 0) {
+                            if (EasyNoiseSampler.simpleRandom.nextInt(Math.max(1, state.get(TOTAL_HEIGHT) / 2)) >= state.get(TOTAL_HEIGHT)-1) {
                                 blockState = RegisterBlocks.SCULK_ECHOER.getDefaultState().with(SculkEchoerBlock.UPSIDEDOWN, true);
                             }
                         }
@@ -105,7 +105,7 @@ public class SculkBoneBlock extends PillarBlock implements SculkSpreadable {
                     }
                 }
                 if (pillarHeight == 1 && state.get(UPSIDEDOWN) && state.get(TOTAL_HEIGHT) > 0) {
-                    if (EasyNoiseSampler.simpleRandom.nextInt(Math.max(1, (state.get(TOTAL_HEIGHT)-15)*-1 / 2)) == 0) {
+                    if (EasyNoiseSampler.simpleRandom.nextInt(Math.max(1, state.get(TOTAL_HEIGHT) / 2)) >= state.get(TOTAL_HEIGHT)-1) {
                         blockState = RegisterBlocks.SCULK_ECHOER.getDefaultState().with(SculkEchoerBlock.UPSIDEDOWN, true);
                     }
                 }
