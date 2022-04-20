@@ -167,6 +167,7 @@ public class SculkEchoerBlock extends BlockWithEntity implements Waterloggable {
     }
 
     public VoxelShape getCullingShape(BlockState state, BlockView world, BlockPos pos) {
+        if (state.get(UPSIDEDOWN)) { return SHAPE_UPSIDEDOWN; }
         return SHAPE;
     }
 
@@ -177,6 +178,7 @@ public class SculkEchoerBlock extends BlockWithEntity implements Waterloggable {
 
     @Override
     public VoxelShape getOutlineShape(BlockState blockState, BlockView blockView, BlockPos blockPos, ShapeContext shapeContext) {
+        if (state.get(UPSIDEDOWN)) { return SHAPE_UPSIDEDOWN; }
         return SHAPE;
     }
 
