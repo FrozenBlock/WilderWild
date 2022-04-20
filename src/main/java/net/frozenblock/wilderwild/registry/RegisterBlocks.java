@@ -4,6 +4,7 @@ import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.block.*;
+import net.frozenblock.wilderwild.item.FloweredLilyPadItem;
 import net.minecraft.block.*;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.item.BlockItem;
@@ -13,9 +14,9 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.registry.Registry;
 
-public class RegisterBlocks {
+public abstract class RegisterBlocks {
     // FLOWERED_LILY_PAD
-    public static final Block FLOWERED_LILY_PAD = registerBlock("flowered_lily_pad", new LilyPadBlock(FabricBlockSettings.copy(Blocks.LILY_PAD).strength(0.0f).nonOpaque()), ItemGroup.DECORATIONS);
+    public static final Block FLOWERED_LILY_PAD = new FloweredLilyPadBlock(FabricBlockSettings.copy(Blocks.LILY_PAD));
 
     // HOLLOW LOGS
     public static final Block HOLLOWED_OAK_LOG = registerBlock("hollowed_oak_log", createHollowedLogBlock(MapColor.OAK_TAN, MapColor.SPRUCE_BROWN), ItemGroup.BUILDING_BLOCKS);
@@ -71,6 +72,8 @@ public class RegisterBlocks {
 
 
     public static void RegisterBlocks() {
+        Registry.register(Registry.BLOCK, new Identifier(WilderWild.MOD_ID, "flowered_lily_pad"), FLOWERED_LILY_PAD);
+        Registry.register(Registry.ITEM, new Identifier(WilderWild.MOD_ID, "flowered_lily_pad"), new FloweredLilyPadItem(FLOWERED_LILY_PAD, new FabricItemSettings().group(ItemGroup.DECORATIONS)));
         WilderWild.LOGGER.info("Registering Blocks for " + WilderWild.MOD_ID);
     }
 }
