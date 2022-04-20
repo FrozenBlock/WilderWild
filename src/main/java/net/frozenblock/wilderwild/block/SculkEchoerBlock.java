@@ -286,7 +286,8 @@ public class SculkEchoerBlock extends BlockWithEntity implements Waterloggable {
     public BlockState getPlacementState(ItemPlacementContext ctx) {
         BlockPos blockPos = ctx.getBlockPos();
         FluidState fluidState = ctx.getWorld().getFluidState(blockPos);
-        return this.getDefaultState().with(WATERLOGGED, fluidState.getFluid() == Fluids.WATER);
+        boolean isUpsideDown = ctx.getSide()==Direction.DOWN;
+        return this.getDefaultState().with(WATERLOGGED, fluidState.getFluid() == Fluids.WATER).with(UPSIDEDOWN, isUpsideDown);
     }
 
     public FluidState getFluidState(BlockState state) {
