@@ -54,7 +54,7 @@ public class SculkBoneBlock extends PillarBlock implements SculkSpreadable {
                     pillarHeight = state.get(SculkBoneBlock.HEIGHT_LEFT);
                     Direction direction = getDir(state.get(AXIS),state.get(UPSIDEDOWN));
                     if (world.getBlockState(topPos.offset(direction)).isAir() || world.getBlockState(topPos.offset(direction)).getBlock() == Blocks.SCULK_VEIN) {
-                        BlockState blockState = RegisterBlocks.SCULK_BONE.getDefaultState().with(SculkBoneBlock.HEIGHT_LEFT, pillarHeight-1);
+                        BlockState blockState = RegisterBlocks.SCULK_BONE.getDefaultState().with(SculkBoneBlock.HEIGHT_LEFT, pillarHeight+1);
                         if (EasyNoiseSampler.atomicRandom.nextInt(28)==0) {
                             blockState = RegisterBlocks.SCULK_BONE.getDefaultState().with(SculkBoneBlock.HEIGHT_LEFT, pillarHeight-1).with(AXIS, Direction.Axis.pickRandomAxis(EasyNoiseSampler.simpleRandom));
                         }
