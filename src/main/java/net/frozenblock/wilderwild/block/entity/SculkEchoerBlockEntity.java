@@ -76,7 +76,7 @@ public class SculkEchoerBlockEntity extends BlockEntity implements SculkSensorLi
     }
 
     @Override
-    public boolean accepts(ServerWorld world, GameEventListener listener, BlockPos pos, GameEvent event, GameEvent.class_7397 arg) {
+    public boolean accepts(ServerWorld world, GameEventListener listener, BlockPos pos, GameEvent event, GameEvent.Emitter arg) {
         return (!pos.equals(this.getPos()) || event != GameEvent.BLOCK_DESTROY && event != GameEvent.BLOCK_PLACE) && SculkEchoerBlock.isInactive(this.getCachedState());
     }
 
