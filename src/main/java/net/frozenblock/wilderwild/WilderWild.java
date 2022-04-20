@@ -31,4 +31,8 @@ public class WilderWild implements ModInitializer {
         WildConfiguredFeatures.registerConfiguredFeatures();
         RegisterBlockEntityType.init();
     }
+
+    /* MIXIN CONTROLS */
+    public static final boolean wardenEmitsSensorClicking = true;
+
 }
