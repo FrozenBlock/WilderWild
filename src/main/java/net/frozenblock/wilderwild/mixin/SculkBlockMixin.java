@@ -55,7 +55,7 @@ public class SculkBlockMixin {
 					if (canPlaceBone(blockPos) && (world.getBlockState(blockPos.down()).isAir() || world.getBlockState(blockPos.down()).getBlock()==Blocks.WATER
 							|| world.getBlockState(blockPos.down()).getBlock()==Blocks.LAVA || world.getBlockState(blockPos.down()).getBlock()==Blocks.SCULK_VEIN)) {
 						int pillarHeight = (int) MathHelper.clamp(EasyNoiseSampler.samplePerlinXoroPositive(blockPos.down(), randomness, false, false) * heightMultiplier,2,maxHeight);
-						blockState=RegisterBlocks.SCULK_BONE.getDefaultState().with(SculkBoneBlock.HEIGHT_LEFT, pillarHeight).with(SculkBoneBlock.TOTAL_HEIGHT, pillarHeight).with(SculkBoneBlock.UPSIDEDOWN, true);
+						blockState=RegisterBlocks.SCULK_BONE.getDefaultState().with(SculkBoneBlock.HEIGHT_LEFT, pillarHeight).with(SculkBoneBlock.TOTAL_HEIGHT, pillarHeight+1).with(SculkBoneBlock.UPSIDEDOWN, true);
 						placeDown2=true;
 						placeDown=true;
 					}
@@ -92,7 +92,7 @@ public class SculkBlockMixin {
 				blockState = RegisterBlocks.SCULK_JAW.getDefaultState();
 			} else if (canPlaceBone(pos)) {
 				int pillarHeight = (int) MathHelper.clamp(EasyNoiseSampler.samplePerlinXoroPositive(pos, randomness, false, false) * heightMultiplier,2,maxHeight);
-				blockState=RegisterBlocks.SCULK_BONE.getDefaultState().with(SculkBoneBlock.HEIGHT_LEFT, pillarHeight).with(SculkBoneBlock.TOTAL_HEIGHT, pillarHeight);
+				blockState=RegisterBlocks.SCULK_BONE.getDefaultState().with(SculkBoneBlock.HEIGHT_LEFT, pillarHeight).with(SculkBoneBlock.TOTAL_HEIGHT, pillarHeight+1);
 			} else {
 				blockState = Blocks.SCULK_SENSOR.getDefaultState();
 			}
