@@ -1,0 +1,21 @@
+{
+  "variants": {
+    "": [
+      {
+        "model": "wilderwild:flowered_lily_pad"
+      },
+      {
+        "model": "wilderwild:flowered_lily_pad",
+        "y": 90
+      },
+      {
+        "model": "wilderwild:flowered_lily_pad",
+        "y": 180
+      },
+      {
+        "model": "wilderwild:flowered_lily_pad",
+        "y": 270
+      }
+    ]
+  }
+}

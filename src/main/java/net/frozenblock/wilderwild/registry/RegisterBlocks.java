@@ -15,6 +15,9 @@ import net.minecraft.util.math.Direction;
 import net.minecraft.util.registry.Registry;
 
 public class RegisterBlocks {
+    // FLOWERED_LILY_PAD
+    public static final Block FLOWERED_LILY_PAD = registerBlock("flowered_lily_pad", new LilyPadBlock(FabricBlockSettings.copy(Blocks.LILY_PAD).strength(0.0f).nonOpaque()), ItemGroup.DECORATIONS);
+
     // HOLLOW LOGS
     public static final Block HOLLOWED_OAK_LOG = registerBlock("hollowed_oak_log", createHollowedLogBlock(MapColor.OAK_TAN, MapColor.SPRUCE_BROWN), ItemGroup.BUILDING_BLOCKS);
     public static final Block HOLLOWED_SPRUCE_LOG = registerBlock("hollowed_spruce_log", createHollowedLogBlock(MapColor.SPRUCE_BROWN, MapColor.BROWN), ItemGroup.BUILDING_BLOCKS);
