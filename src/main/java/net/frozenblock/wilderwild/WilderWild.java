@@ -33,6 +33,5 @@ public class WilderWild implements ModInitializer {
     }
 
     /* MIXIN CONTROLS */
-    public static final boolean wardenEmitsSensorClicking = true;
 
 }
