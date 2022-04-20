@@ -115,7 +115,7 @@ public class SculkBlockMixin {
 			blockState = RegisterBlocks.SCULK_JAW.getDefaultState();
 			decided = true;
 		}
-		if (canPlaceBone(pos) && !blockState.isOf(Blocks.SCULK_SENSOR) && !blockState.isOf(RegisterBlocks.SCULK_JAW)) {
+		if (canPlaceBone(pos) && blockState.isOf(Blocks.SCULK_SENSOR)) {
 			int pillarHeight = (int) MathHelper.clamp(EasyNoiseSampler.samplePerlinXoroPositive(pos, randomness, false, false) * heightMultiplier, 2, maxHeight);
 			blockState = RegisterBlocks.SCULK_BONE.getDefaultState().with(SculkBoneBlock.HEIGHT_LEFT, pillarHeight).with(SculkBoneBlock.TOTAL_HEIGHT, pillarHeight + 1);
 			decided = true;
