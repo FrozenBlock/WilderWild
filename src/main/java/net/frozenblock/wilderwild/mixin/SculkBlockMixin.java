@@ -27,7 +27,7 @@ public class SculkBlockMixin {
 	private static final double randomness = 0.9; //The higher, the more random. The lower, the more gradual the heights change.
 
 	private static final double sculkBoneAreaSize = 0.09; //The smaller, the larger the area pillars can grow, but the larger the gaps between them.
-	private static final double sculkBoneThreshold = 0.15; //The higher, the harder it is for pillars to appear. If set to 1 or higher, they'll never grow.
+	private static final double sculkBoneThreshold = 0.13; //The higher, the harder it is for pillars to appear. If set to 1 or higher, they'll never grow.
 
 	@Overwrite
 	public int spread(SculkSpreadManager.Cursor cursor, WorldAccess world, BlockPos catalystPos, AbstractRandom random, SculkSpreadManager spreadManager, boolean shouldConvertToBlock) {
@@ -103,14 +103,11 @@ public class SculkBlockMixin {
 			decided = true;
 		}
 		if (!decided && canPlaceBone(pos)) {
-			int tempHeight = (int) EasyNoiseSampler.samplePerlinXoroPositive(pos, randomness, false, false) * heightMultiplier;
-			if (tempHeight>1) {
-				int pillarHeight = MathHelper.clamp(tempHeight, 2, maxHeight);
-				blockState = RegisterBlocks.SCULK_BONE.getDefaultState().with(SculkBoneBlock.HEIGHT_LEFT, pillarHeight).with(SculkBoneBlock.TOTAL_HEIGHT, pillarHeight + 1);
-				decided = true;
-			}
+			int pillarHeight = (int) MathHelper.clamp(EasyNoiseSampler.samplePerlinXoroPositive(pos, randomness, false, false) * heightMultiplier, 2, maxHeight);
+			blockState = RegisterBlocks.SCULK_BONE.getDefaultState().with(SculkBoneBlock.HEIGHT_LEFT, pillarHeight).with(SculkBoneBlock.TOTAL_HEIGHT, pillarHeight + 1);
+			decided = true;
 		}
-		if (!decided && (Math.random()*6 > 4)) {
+		if (!decided && (Math.random()*5 > 4)) {
 			blockState = RegisterBlocks.SCULK_ECHOER.getDefaultState();
 		}
 		return blockState.contains(Properties.WATERLOGGED) && !world.getFluidState(pos).isEmpty() ? blockState.with(Properties.WATERLOGGED, true) : blockState;
