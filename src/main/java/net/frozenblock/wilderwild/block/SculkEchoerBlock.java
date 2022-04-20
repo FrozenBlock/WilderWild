@@ -178,7 +178,7 @@ public class SculkEchoerBlock extends BlockWithEntity implements Waterloggable {
 
     @Override
     public VoxelShape getOutlineShape(BlockState blockState, BlockView blockView, BlockPos blockPos, ShapeContext shapeContext) {
-        if (state.get(UPSIDEDOWN)) { return SHAPE_UPSIDEDOWN; }
+        if (blockState.get(UPSIDEDOWN)) { return SHAPE_UPSIDEDOWN; }
         return SHAPE;
     }
 
