@@ -22,14 +22,12 @@ import java.util.Iterator;
 @Mixin(SculkBlock.class)
 public class SculkBlockMixin {
 
-	private static final int heightMultiplier = 23; //The higher, the less short pillars you'll see.
+	private static final int heightMultiplier = 20; //The higher, the less short pillars you'll see.
 	private static final int maxHeight = 15; //The rarest and absolute tallest height of pillars
 	private static final double randomness = 0.9; //The higher, the more random. The lower, the more gradual the heights change.
 
 	private static final double sculkBoneAreaSize = 0.09; //The smaller, the larger the area pillars can grow, but the larger the gaps between them.
 	private static final double sculkBoneThreshold = 0.15; //The higher, the harder it is for pillars to appear. If set to 1 or higher, they'll never grow.
-	private static final double sculkEchoerAreaSize = 0.06; //The smaller, the larger the area individual Echoers can grow, but the larger the gaps between them.
-	private static final double sculkEchoerThreshold = 0.133; //The lower, the more individual Echoers will appear. This cuts off at sculkBoneThreshold.
 
 	@Overwrite
 	public int spread(SculkSpreadManager.Cursor cursor, WorldAccess world, BlockPos catalystPos, AbstractRandom random, SculkSpreadManager spreadManager, boolean shouldConvertToBlock) {
@@ -92,25 +90,28 @@ public class SculkBlockMixin {
 	private static boolean canPlaceBone(BlockPos pos) {
 		return EasyNoiseSampler.samplePerlinXoro(pos, sculkBoneAreaSize, true, true) > sculkBoneThreshold;
 	}
-	private static boolean canPlaceEchoer(BlockPos pos) {
-		return EasyNoiseSampler.samplePerlinXoro(pos, sculkEchoerAreaSize, true, true) > sculkEchoerThreshold;
-	}
 
 	private BlockState getExtraBlockState(WorldAccess world, BlockPos pos, AbstractRandom random, boolean allowShrieker) {
-		BlockState blockState;
+		BlockState blockState = Blocks.SCULK_SENSOR.getDefaultState();
+		boolean decided = false;
 		if (random.nextInt(11) == 0) {
 			blockState = Blocks.SCULK_SHRIEKER.getDefaultState().with(SculkShriekerBlock.CAN_SUMMON, allowShrieker);
-		} else {
-			if (random.nextInt(3) == 0) {
-				blockState = RegisterBlocks.SCULK_JAW.getDefaultState();
-			} else if (canPlaceBone(pos)) {
-				int pillarHeight = (int) MathHelper.clamp(EasyNoiseSampler.samplePerlinXoroPositive(pos, randomness, false, false) * heightMultiplier,2,maxHeight);
-				blockState=RegisterBlocks.SCULK_BONE.getDefaultState().with(SculkBoneBlock.HEIGHT_LEFT, pillarHeight).with(SculkBoneBlock.TOTAL_HEIGHT, pillarHeight+1);
-			} else if (canPlaceEchoer(pos)) {
-				blockState = RegisterBlocks.SCULK_ECHOER.getDefaultState();
-			} else {
-				blockState = Blocks.SCULK_SENSOR.getDefaultState();
+			decided=true;
+		}
+		if (!decided && random.nextInt(5) <= 1) {
+			blockState = RegisterBlocks.SCULK_JAW.getDefaultState();
+			decided = true;
+		}
+		if (!decided && canPlaceBone(pos)) {
+			int tempHeight = (int) EasyNoiseSampler.samplePerlinXoroPositive(pos, randomness, false, false) * heightMultiplier;
+			if (tempHeight>1) {
+				int pillarHeight = MathHelper.clamp(tempHeight, 2, maxHeight);
+				blockState = RegisterBlocks.SCULK_BONE.getDefaultState().with(SculkBoneBlock.HEIGHT_LEFT, pillarHeight).with(SculkBoneBlock.TOTAL_HEIGHT, pillarHeight + 1);
+				decided = true;
 			}
+		}
+		if (!decided && (Math.random()*6 > 4)) {
+			blockState = RegisterBlocks.SCULK_ECHOER.getDefaultState();
 		}
 		return blockState.contains(Properties.WATERLOGGED) && !world.getFluidState(pos).isEmpty() ? blockState.with(Properties.WATERLOGGED, true) : blockState;
 	}
