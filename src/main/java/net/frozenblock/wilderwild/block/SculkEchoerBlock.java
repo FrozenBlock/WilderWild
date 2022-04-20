@@ -93,6 +93,7 @@ public class SculkEchoerBlock extends BlockWithEntity implements Waterloggable {
     public static final EnumProperty<SculkEchoerPhase> SCULK_ECHOER_PHASE = NewProperties.SCULK_ECHOER_PHASE;
     public static final IntProperty POWER = Properties.POWER;
     public static final BooleanProperty WATERLOGGED = Properties.WATERLOGGED;
+    public static final BooleanProperty UPSIDEDOWN = NewProperties.UPSIDE_DOWN;
     private final int range;
 
     private static final VoxelShape SHAPE = VoxelShapes.union(Block.createCuboidShape(0.0D, 0.0D, 0.0D, 16.0D, 5.0D, 16.0D), Block.createCuboidShape(1.0D, 5.0D, 1.0D, 15.0D, 11D, 15.0D));
@@ -100,12 +101,12 @@ public class SculkEchoerBlock extends BlockWithEntity implements Waterloggable {
 
     public SculkEchoerBlock(Settings settings, int range) {
         super(settings);
-        this.setDefaultState(this.stateManager.getDefaultState().with(SCULK_ECHOER_PHASE, SculkEchoerPhase.INACTIVE).with(WATERLOGGED, false).with(POWER, 0));
+        this.setDefaultState(this.stateManager.getDefaultState().with(SCULK_ECHOER_PHASE, SculkEchoerPhase.INACTIVE).with(WATERLOGGED, false).with(POWER, 0).with(UPSIDEDOWN, false));
         this.range = range;
     }
 
     protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
-        builder.add(SCULK_ECHOER_PHASE, POWER, WATERLOGGED);
+        builder.add(SCULK_ECHOER_PHASE, POWER, WATERLOGGED, UPSIDEDOWN);
     }
 
     public void onStacksDropped(BlockState state, ServerWorld world, BlockPos pos, ItemStack stack) {

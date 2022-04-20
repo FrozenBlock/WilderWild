@@ -1,7 +1,11 @@
 {
   "variants": {
-    "": {
+    "upside_down=false": {
       "model": "wilderwild:block/sculk_echoer"
+    },
+    "upside_down=true": {
+      "model": "wilderwild:block/sculk_echoer",
+      "x": 180
     }
   }
 }
