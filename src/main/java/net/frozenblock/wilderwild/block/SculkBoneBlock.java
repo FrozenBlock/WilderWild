@@ -19,7 +19,7 @@ public class SculkBoneBlock extends PillarBlock implements SculkSpreadable {
 
     public SculkBoneBlock(Settings settings) {
         super(settings);
-        this.setDefaultState(this.stateManager.getDefaultState().with(HEIGHT_LEFT, 0).with(AXIS, Direction.Axis.Y).with(UPSIDEDOWN, false));
+        this.setDefaultState(this.stateManager.getDefaultState().with(HEIGHT_LEFT, 0).with(AXIS, Direction.Axis.Y).with(UPSIDEDOWN, false).with(TOTAL_HEIGHT, 0));
     }
 
     public static Direction getDir(Direction.Axis axis, boolean UpsideDown) {
@@ -38,6 +38,7 @@ public class SculkBoneBlock extends PillarBlock implements SculkSpreadable {
 
     public static final IntProperty HEIGHT_LEFT = NewProperties.PILLAR_HEIGHT_LEFT;
     public static final BooleanProperty UPSIDEDOWN = NewProperties.UPSIDE_DOWN;
+    public static final IntProperty TOTAL_HEIGHT = NewProperties.TOTAL_HEIGHT;
 
     @Override
     public int spread(SculkSpreadManager.Cursor cursor, WorldAccess world, BlockPos catalystPos, AbstractRandom random, SculkSpreadManager spreadManager, boolean shouldConvertToBlock) {
@@ -58,12 +59,17 @@ public class SculkBoneBlock extends PillarBlock implements SculkSpreadable {
                             blockState = RegisterBlocks.SCULK_BONE.getDefaultState().with(SculkBoneBlock.HEIGHT_LEFT, pillarHeight-1).with(AXIS, Direction.Axis.pickRandomAxis(EasyNoiseSampler.simpleRandom));
                         }
                         if (pillarHeight==1 && !state.get(UPSIDEDOWN)) {
-                            blockState = RegisterBlocks.SCULK_ECHOER.getDefaultState();
-                            if (random.nextInt(11) == 0) {
-                                blockState = Blocks.SCULK_CATALYST.getDefaultState();
+                            if (EasyNoiseSampler.simpleRandom.nextInt(state.get(TOTAL_HEIGHT)/2)<=1) {
+                                blockState = RegisterBlocks.SCULK_ECHOER.getDefaultState();
+                                if (random.nextInt(11) == 0) {
+                                    blockState = Blocks.SCULK_CATALYST.getDefaultState();
+                                }
                             }
                         }
-                        if (state.get(UPSIDEDOWN) && blockState.getBlock()==RegisterBlocks.SCULK_BONE) { blockState=blockState.with(UPSIDEDOWN, true); }
+                        if (blockState.getBlock()==RegisterBlocks.SCULK_BONE) {
+                            blockState=blockState.with(TOTAL_HEIGHT, state.get(TOTAL_HEIGHT));
+                            if (state.get(UPSIDEDOWN)) { blockState=blockState.with(UPSIDEDOWN, true); }
+                        }
                         world.setBlockState(topPos.offset(direction), blockState, 3);
                         world.playSound(null, blockPos, blockState.getSoundGroup().getPlaceSound(), SoundCategory.BLOCKS, 1.0F, 1.0F);
                         return Math.max(0, i - 1);
@@ -87,6 +93,6 @@ public class SculkBoneBlock extends PillarBlock implements SculkSpreadable {
         return 1;
     }
 
-    protected void appendProperties(StateManager.Builder<Block, BlockState> builder) { builder.add(HEIGHT_LEFT).add(Properties.AXIS).add(UPSIDEDOWN); }
+    protected void appendProperties(StateManager.Builder<Block, BlockState> builder) { builder.add(HEIGHT_LEFT).add(Properties.AXIS).add(UPSIDEDOWN).add(TOTAL_HEIGHT); }
 
 }
