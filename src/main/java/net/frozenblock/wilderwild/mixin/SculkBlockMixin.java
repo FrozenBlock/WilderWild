@@ -16,9 +16,6 @@ import net.minecraft.world.WorldAccess;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Overwrite;
 import org.spongepowered.asm.mixin.Shadow;
-import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import java.util.Iterator;
 
@@ -30,9 +27,9 @@ public class SculkBlockMixin {
 	private static final double randomness = 0.9; //The higher, the more random. The lower, the more gradual the heights change.
 
 	private static final double sculkBoneAreaSize = 0.09; //The smaller, the larger the area pillars can grow, but the larger the gaps between them.
-	private static final double sculkBoneThreshold = 0.18; //The higher, the harder it is for pillars to appear. If set to 1 or higher, they'll never grow.
+	private static final double sculkBoneThreshold = 0.15; //The higher, the harder it is for pillars to appear. If set to 1 or higher, they'll never grow.
 	private static final double sculkEchoerAreaSize = 0.06; //The smaller, the larger the area individual Echoers can grow, but the larger the gaps between them.
-	private static final double sculkEchoerThreshold = 0.14; //The lower, the more individual Echoers will appear. This cuts off at sculkBoneThreshold.
+	private static final double sculkEchoerThreshold = 0.133; //The lower, the more individual Echoers will appear. This cuts off at sculkBoneThreshold.
 
 	@Overwrite
 	public int spread(SculkSpreadManager.Cursor cursor, WorldAccess world, BlockPos catalystPos, AbstractRandom random, SculkSpreadManager spreadManager, boolean shouldConvertToBlock) {
