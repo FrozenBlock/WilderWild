@@ -57,7 +57,7 @@ public class SculkBoneBlock extends PillarBlock implements SculkSpreadable {
                         if (EasyNoiseSampler.atomicRandom.nextInt(28)==0) {
                             blockState = RegisterBlocks.SCULK_BONE.getDefaultState().with(SculkBoneBlock.HEIGHT_LEFT, pillarHeight-1).with(AXIS, Direction.Axis.pickRandomAxis(EasyNoiseSampler.simpleRandom));
                         }
-                        if (pillarHeight==1) {
+                        if (pillarHeight==1 && !state.get(UPSIDEDOWN)) {
                             blockState = RegisterBlocks.SCULK_ECHOER.getDefaultState();
                             if (random.nextInt(11) == 0) {
                                 blockState = Blocks.SCULK_CATALYST.getDefaultState();
