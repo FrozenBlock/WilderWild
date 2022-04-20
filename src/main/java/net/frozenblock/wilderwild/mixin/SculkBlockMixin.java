@@ -3,19 +3,18 @@ package net.frozenblock.wilderwild.mixin;
 import net.frozenblock.wilderwild.block.SculkBoneBlock;
 import net.frozenblock.wilderwild.noise.EasyNoiseSampler;
 import net.frozenblock.wilderwild.registry.RegisterBlocks;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
-import net.minecraft.block.SculkBlock;
-import net.minecraft.block.SculkShriekerBlock;
+import net.minecraft.block.*;
 import net.minecraft.block.entity.SculkSpreadManager;
 import net.minecraft.fluid.Fluids;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.state.property.Properties;
+import net.minecraft.tag.BlockTags;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.random.AbstractRandom;
 import net.minecraft.world.WorldAccess;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Overwrite;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -30,11 +29,13 @@ public class SculkBlockMixin {
 	private static final int maxHeight = 15; //The rarest and absolute tallest height of pillars
 	private static final double randomness = 0.9; //The higher, the more random. The lower, the more gradual the heights change.
 
-	private static final double sculkBoneAreaSize = 0.1; //The smaller, the larger the area pillars can grow, but the larger the gaps between them.
-	private static final double sculkBoneThreshold = 0.15; //The higher, the harder it is for pillars to appear. If set to 1 or higher, they'll never grow.
+	private static final double sculkBoneAreaSize = 0.09; //The smaller, the larger the area pillars can grow, but the larger the gaps between them.
+	private static final double sculkBoneThreshold = 0.18; //The higher, the harder it is for pillars to appear. If set to 1 or higher, they'll never grow.
+	private static final double sculkEchoerAreaSize = 0.06; //The smaller, the larger the area individual Echoers can grow, but the larger the gaps between them.
+	private static final double sculkEchoerThreshold = 0.14; //The lower, the more individual Echoers will appear. This cuts off at sculkBoneThreshold.
 
-	@Inject(at = @At("HEAD"), method = "spread")
-	public int spread(SculkSpreadManager.Cursor cursor, WorldAccess world, BlockPos catalystPos, AbstractRandom random, SculkSpreadManager spreadManager, boolean shouldConvertToBlock, CallbackInfoReturnable info) {
+	@Overwrite
+	public int spread(SculkSpreadManager.Cursor cursor, WorldAccess world, BlockPos catalystPos, AbstractRandom random, SculkSpreadManager spreadManager, boolean shouldConvertToBlock) {
 		int i = cursor.getCharge();
 		if (world.getServer()!=null) {
 			if (world.getServer().getOverworld().getSeed()!=EasyNoiseSampler.seed) {
@@ -50,22 +51,34 @@ public class SculkBlockMixin {
 					BlockPos blockPos2 = blockPos.up();
 					BlockState blockState = this.getExtraBlockState(world, blockPos2, random, spreadManager.isWorldGen());
 
-					boolean placeDown=false;
-					boolean placeDown2=false;
-					if (canPlaceBone(blockPos) && (world.getBlockState(blockPos.down()).isAir() || world.getBlockState(blockPos.down()).getBlock()==Blocks.WATER
-							|| world.getBlockState(blockPos.down()).getBlock()==Blocks.LAVA || world.getBlockState(blockPos.down()).getBlock()==Blocks.SCULK_VEIN)) {
+					BlockState placeBlockBelow = null;
+					BlockState stateDown = world.getBlockState(blockPos.down());
+					Block blockDown = stateDown.getBlock();
+					if (canPlaceBone(blockPos) && (stateDown.isAir() || blockDown==Blocks.WATER || blockDown==Blocks.LAVA || blockDown==Blocks.SCULK_VEIN)) {
 						int pillarHeight = (int) MathHelper.clamp(EasyNoiseSampler.samplePerlinXoroPositive(blockPos.down(), randomness, false, false) * heightMultiplier,2,maxHeight);
 						blockState=RegisterBlocks.SCULK_BONE.getDefaultState().with(SculkBoneBlock.HEIGHT_LEFT, pillarHeight).with(SculkBoneBlock.TOTAL_HEIGHT, pillarHeight+1).with(SculkBoneBlock.UPSIDEDOWN, true);
-						placeDown2=true;
-						placeDown=true;
+						blockPos2=blockPos.down();
 					}
-					if (blockState.getBlock()==RegisterBlocks.SCULK_JAW) {placeDown=true;}
 
+					if (blockState.getBlock()==RegisterBlocks.SCULK_JAW) {blockPos2=blockPos;}
+					if (blockState.getBlock()==RegisterBlocks.SCULK_ECHOER) {placeBlockBelow=RegisterBlocks.SCULK_BONE.getDefaultState();}
 
-					if (!placeDown) {
-						world.setBlockState(blockPos2, blockState, 3);
-					} else if (!placeDown2) { world.setBlockState(blockPos, blockState, 3);
-					} else { world.setBlockState(blockPos.down(), blockState, 3); }
+					world.setBlockState(blockPos2, blockState, 3);
+					if (placeBlockBelow != null) {
+						world.removeBlock(blockPos2.down(), false);
+						world.setBlockState(blockPos2.down(), placeBlockBelow, 3);
+						blockPos2=blockPos2.down().down();
+						for (int o=0; o<4; o++) {
+							stateDown = world.getBlockState(blockPos2);
+							blockDown = stateDown.getBlock();
+							if (stateDown.isIn(BlockTags.SCULK_REPLACEABLE) || stateDown.isAir() || blockDown==Blocks.WATER || blockDown==Blocks.LAVA || blockDown==Blocks.SCULK_VEIN || blockDown==Blocks.SCULK) {
+								if (EasyNoiseSampler.simpleRandom.nextInt(o+1)==0) {
+									world.setBlockState(blockPos2, placeBlockBelow, 3);
+									blockPos2=blockPos2.down();
+								} else { break; }
+							}
+						}
+					}
 
 					world.playSound(null, blockPos, blockState.getSoundGroup().getPlaceSound(), SoundCategory.BLOCKS, 1.0F, 1.0F);
 				}
@@ -82,6 +95,9 @@ public class SculkBlockMixin {
 	private static boolean canPlaceBone(BlockPos pos) {
 		return EasyNoiseSampler.samplePerlinXoro(pos, sculkBoneAreaSize, true, true) > sculkBoneThreshold;
 	}
+	private static boolean canPlaceEchoer(BlockPos pos) {
+		return EasyNoiseSampler.samplePerlinXoro(pos, sculkEchoerAreaSize, true, true) > sculkEchoerThreshold;
+	}
 
 	private BlockState getExtraBlockState(WorldAccess world, BlockPos pos, AbstractRandom random, boolean allowShrieker) {
 		BlockState blockState;
@@ -93,6 +109,8 @@ public class SculkBlockMixin {
 			} else if (canPlaceBone(pos)) {
 				int pillarHeight = (int) MathHelper.clamp(EasyNoiseSampler.samplePerlinXoroPositive(pos, randomness, false, false) * heightMultiplier,2,maxHeight);
 				blockState=RegisterBlocks.SCULK_BONE.getDefaultState().with(SculkBoneBlock.HEIGHT_LEFT, pillarHeight).with(SculkBoneBlock.TOTAL_HEIGHT, pillarHeight+1);
+			} else if (canPlaceEchoer(pos)) {
+				blockState = RegisterBlocks.SCULK_ECHOER.getDefaultState();
 			} else {
 				blockState = Blocks.SCULK_SENSOR.getDefaultState();
 			}

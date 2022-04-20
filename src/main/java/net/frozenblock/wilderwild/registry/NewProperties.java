@@ -11,8 +11,8 @@ public class NewProperties extends Properties {
     public static final EnumProperty<SculkEchoerPhase> SCULK_ECHOER_PHASE = EnumProperty.of("sculk_echoer_phase", SculkEchoerPhase.class);
     public static final BooleanProperty ECHOING = BooleanProperty.of("echoing");
 
-    public static final IntProperty PILLAR_HEIGHT_LEFT = IntProperty.of("sculk_bone_pillar_height_left_to_grow_until_it_reaches_the_top", 0, 15);
-    public static final BooleanProperty UPSIDE_DOWN = BooleanProperty.of("is_the_current_sculk_bone_block_pointing_downwards_quation_mark");
-    public static final IntProperty TOTAL_HEIGHT = IntProperty.of("sculk_bone_pillar_height_total", 0, 16);
+    public static final IntProperty PILLAR_HEIGHT_LEFT = IntProperty.of("pillar_height_left", 0, 15);
+    public static final BooleanProperty UPSIDE_DOWN = BooleanProperty.of("upside_down");
+    public static final IntProperty TOTAL_HEIGHT = IntProperty.of("total_pillar_height", 0, 16);
 
 }
