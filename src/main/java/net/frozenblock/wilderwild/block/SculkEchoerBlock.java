@@ -97,7 +97,7 @@ public class SculkEchoerBlock extends BlockWithEntity implements Waterloggable {
     private final int range;
 
     private static final VoxelShape SHAPE = VoxelShapes.union(Block.createCuboidShape(0.0D, 0.0D, 0.0D, 16.0D, 5.0D, 16.0D), Block.createCuboidShape(1.0D, 5.0D, 1.0D, 15.0D, 11.0D, 15.0D));
-    private static final VoxelShape SHAPE_UPSIDEDOWN = VoxelShapes.union(Block.createCuboidShape(0.0D, 11.0D, 0.0D, 16.0D, 11.0D, 16.0D), Block.createCuboidShape(1.0D, 5.0D, 1.0D, 11.0D, 5.0D, 15.0D));
+    private static final VoxelShape SHAPE_UPSIDEDOWN = VoxelShapes.union(Block.createCuboidShape(0.0D, 11.0D, 0.0D, 16.0D, 16.0D, 16.0D), Block.createCuboidShape(1.0D, 5.0D, 1.0D, 11.0D, 11.0D, 15.0D));
 
     //    private static final VoxelShape COLLISION = Block.createCuboidShape(1.0D, 0.0D, 1.0D, 15.0D, 11.0D, 15.0D);
 
