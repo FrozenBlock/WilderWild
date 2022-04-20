@@ -1,7 +1,7 @@
 {
   "ambientocclusion": false,
   "textures": {
-    "particle": "block/lily_pad",
+    "particle": "wilderwild:flowered_lily_pad",
     "texture": "wilderwild:flowered_lily_pad"
   },
   "elements": [
