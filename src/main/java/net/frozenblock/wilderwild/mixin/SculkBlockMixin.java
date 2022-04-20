@@ -23,7 +23,7 @@ import java.util.Iterator;
 public class SculkBlockMixin {
 
 	private static final int heightMultiplier = 20; //The higher, the less short pillars you'll see.
-	private static final int worldGenHeightMultiplier = 15; //The higher, the less short pillars you'll see.
+	private static final int worldGenHeightMultiplier = 17; //The higher, the less short pillars you'll see (WORLDGEN ONLY).
 	private static final int maxHeight = 15; //The rarest and absolute tallest height of pillars
 	private static final double randomness = 0.9; //The higher, the more random. The lower, the more gradual the heights change.
 
@@ -115,7 +115,7 @@ public class SculkBlockMixin {
 			blockState = RegisterBlocks.SCULK_JAW.getDefaultState();
 			decided = true;
 		}
-		if (!decided && canPlaceBone(pos)) {
+		if (canPlaceBone(pos) && !blockState.isOf(Blocks.SCULK_SENSOR) && !blockState.isOf(RegisterBlocks.SCULK_JAW)) {
 			int pillarHeight = (int) MathHelper.clamp(EasyNoiseSampler.samplePerlinXoroPositive(pos, randomness, false, false) * heightMultiplier, 2, maxHeight);
 			blockState = RegisterBlocks.SCULK_BONE.getDefaultState().with(SculkBoneBlock.HEIGHT_LEFT, pillarHeight).with(SculkBoneBlock.TOTAL_HEIGHT, pillarHeight + 1);
 			decided = true;
