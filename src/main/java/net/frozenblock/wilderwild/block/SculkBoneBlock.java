@@ -52,7 +52,6 @@ public class SculkBoneBlock extends PillarBlock implements SculkSpreadable {
                     BlockState state = world.getBlockState(topPos);
                     pillarHeight = state.get(SculkBoneBlock.HEIGHT_LEFT);
                     Direction direction = getDir(state.get(AXIS),state.get(UPSIDEDOWN));
-                    if (direction==Direction.DOWN) { direction=Direction.UP; }
                     if (world.getBlockState(topPos.offset(direction)).isAir() || world.getBlockState(topPos.offset(direction)).getBlock() == Blocks.SCULK_VEIN) {
                         BlockState blockState = RegisterBlocks.SCULK_BONE.getDefaultState().with(SculkBoneBlock.HEIGHT_LEFT, pillarHeight-1);
                         if (EasyNoiseSampler.atomicRandom.nextInt(28)==0) {
@@ -64,6 +63,7 @@ public class SculkBoneBlock extends PillarBlock implements SculkSpreadable {
                                 blockState = Blocks.SCULK_CATALYST.getDefaultState();
                             }
                         }
+                        if (state.get(UPSIDEDOWN) && blockState.getBlock()==RegisterBlocks.SCULK_BONE) { blockState=blockState.with(UPSIDEDOWN, true); }
                         world.setBlockState(topPos.offset(direction), blockState, 3);
                         world.playSound(null, blockPos, blockState.getSoundGroup().getPlaceSound(), SoundCategory.BLOCKS, 1.0F, 1.0F);
                         return Math.max(0, i - 1);
