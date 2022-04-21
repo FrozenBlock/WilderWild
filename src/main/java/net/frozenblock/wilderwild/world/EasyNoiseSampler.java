@@ -1,4 +1,4 @@
-package net.frozenblock.wilderwild.noise;
+package net.frozenblock.wilderwild.world;
 
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.noise.PerlinNoiseSampler;

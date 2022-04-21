@@ -1,6 +1,6 @@
 package net.frozenblock.wilderwild.block;
 
-import net.frozenblock.wilderwild.noise.EasyNoiseSampler;
+import net.frozenblock.wilderwild.world.EasyNoiseSampler;
 import net.frozenblock.wilderwild.registry.RegisterBlocks;
 import net.frozenblock.wilderwild.registry.RegisterProperties;
 import net.minecraft.block.*;
@@ -90,7 +90,7 @@ public class OsseousSculkBlock extends PillarBlock implements SculkSpreadable {
                             blockState = blockState.with(TOTAL_HEIGHT, state.get(TOTAL_HEIGHT));
                             if (state.get(UPSIDEDOWN)) {
                                 blockState = blockState.with(UPSIDEDOWN, true);
-                                if (direction==Direction.DOWN && Math.random()>0.4) {
+                                if (direction==Direction.DOWN && Math.random()>0.6) {
                                     Direction ribCage = getDir(getAxis(topPos), false);
                                     if (ISITSAFE(world.getBlockState(topPos.offset(ribCage)))) {
                                         world.setBlockState(topPos.offset(ribCage), RegisterBlocks.OSSEOUS_SCULK.getDefaultState().with(AXIS, getAxis(topPos)).with(TOTAL_HEIGHT, state.get(TOTAL_HEIGHT)).with(HEIGHT_LEFT, 0), 3);
@@ -158,7 +158,7 @@ public class OsseousSculkBlock extends PillarBlock implements SculkSpreadable {
                         blockState = blockState.with(TOTAL_HEIGHT, state.get(TOTAL_HEIGHT));
                         if (state.get(UPSIDEDOWN)) {
                             blockState = blockState.with(UPSIDEDOWN, true);
-                            if (direction==Direction.DOWN && Math.random()>0.4) {
+                            if (direction==Direction.DOWN && Math.random()>0.5) {
                                 Direction ribCage = getDir(getAxis(topPos), false);
                                 if (ISITSAFE(world.getBlockState(topPos.offset(ribCage)))) {
                                     world.setBlockState(topPos.offset(ribCage), RegisterBlocks.OSSEOUS_SCULK.getDefaultState().with(AXIS, getAxis(topPos)).with(TOTAL_HEIGHT, state.get(TOTAL_HEIGHT)).with(HEIGHT_LEFT, 0), 3);

@@ -1,7 +1,7 @@
 package net.frozenblock.wilderwild.mixin;
 
 import net.frozenblock.wilderwild.block.OsseousSculkBlock;
-import net.frozenblock.wilderwild.noise.EasyNoiseSampler;
+import net.frozenblock.wilderwild.world.EasyNoiseSampler;
 import net.frozenblock.wilderwild.registry.RegisterBlocks;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.SculkSpreadManager;
