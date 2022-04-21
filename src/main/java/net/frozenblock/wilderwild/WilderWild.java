@@ -21,7 +21,7 @@ public class WilderWild implements ModInitializer {
     public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
 
     public static final GameEvent JAW_ACTIVATE = new GameEvent("jaw_activate", 8);
-    public static final GameEvent SCULK_ECHOER_ECHO = new GameEvent("sculk_echoer_echo", 8);
+    public static final GameEvent SCULK_ECHOER_ECHO = new GameEvent("sculk_echoer_echo", 16);
     public static final GameEvent SCULK_SENSOR_ACTIVATE = new GameEvent("sculk_sensor_activate", 8);
 
     @Override
