@@ -26,16 +26,16 @@ import org.slf4j.Logger;
 
 import java.util.Objects;
 
-public class SculkEchoerBlockEntity extends BlockEntity implements SculkSensorListener.Callback {
+public class SculkEchoerBlockEntity extends BlockEntity implements SculkEchoerListener.Callback {
     private static final Logger LOGGER = LogUtils.getLogger();
-    private SculkSensorListener listener;
+    private SculkEchoerListener listener;
     private int lastVibrationFreq;
     public SculkEchoerBlockEntity(BlockPos pos, BlockState state) {
         super(RegisterBlockEntityType.SCULK_ECHOER, pos, state);
         this.listener = new SculkEchoerListener(new BlockPositionSource(this.pos), ((SculkEchoerBlock)state.getBlock()).getRange(), ((SculkEchoerBlock)state.getBlock()).getTendrilRange(), this, null, 0, 0);
     }
 
-    public SculkSensorListener getListener() {
+    public SculkEchoerListener getListener() {
         return this.listener;
     }
 
@@ -68,7 +68,7 @@ public class SculkEchoerBlockEntity extends BlockEntity implements SculkSensorLi
         return WildEventTags.ECHOER_CAN_LISTEN;
     }
 
-    public SculkSensorListener getEventListener() {
+    public SculkEchoerListener getEventListener() {
         return this.listener;
     }
 
