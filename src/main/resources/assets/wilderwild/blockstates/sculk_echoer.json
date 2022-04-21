@@ -1,17 +1,10 @@
 {
 	"variants": {
-		"sculk_echoer_phase=inactive,upside_down=false": {
+		"upside_down=false": {
 			"model": "wilderwild:block/sculk_echoer"
 		},
-		"sculk_echoer_phase=inactive,upside_down=true": {
+		"upside_down=true": {
 			"model": "wilderwild:block/sculk_echoer",
-			"x": 180
-		},
-		"sculk_echoer_phase=active,upside_down=false": {
-			"model": "wilderwild:block/sculk_echoer_active"
-		},
-		"sculk_echoer_phase=active,upside_down=true": {
-			"model": "wilderwild:block/sculk_echoer_active",
 			"x": 180
 		}
 	}
