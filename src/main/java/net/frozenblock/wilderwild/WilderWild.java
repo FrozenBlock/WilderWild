@@ -36,7 +36,7 @@ public class WilderWild implements ModInitializer {
         RegisterBlockEntityType.init();
 
         if (FabricLoader.getInstance().isDevelopmentEnvironment()) { /* DEV-ONLY */
-            Registry.register(Registry.ITEM, new Identifier("camera", "camera"), CAMERA_ITEM);
+            Registry.register(Registry.ITEM, new Identifier(WilderWild.MOD_ID, "camera"), CAMERA_ITEM);
         }
     }
 
