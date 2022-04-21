@@ -41,7 +41,7 @@ public class SculkEchoerListener extends SculkSensorListener {
                 } else if (isOccluded(world, pos, vec3d)) {
                     return false;
                 } else {
-                    boolean accept = new BlockPos(vec3d).isWithinDistance(pos, range);
+                    boolean accept = new BlockPos(vec3d).isWithinDistance(pos, normalRange);
                     if (world.getBlockState(new BlockPos(pos)).getBlock() == RegisterBlocks.HANGING_TENDRIL) { accept=true; }
                     if (accept) {
                         this.listen(world, event, emitter, pos, vec3d);
