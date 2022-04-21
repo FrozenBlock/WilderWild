@@ -37,6 +37,11 @@ public class OsseousSculkBlock extends PillarBlock implements SculkSpreadable {
         return Direction.UP;
     }
 
+    public static Direction.Axis getAxis(BlockPos pos) {
+        if (EasyNoiseSampler.samplePerlinSimple(pos, 0.7, false, false)>0) return Direction.Axis.X;
+        return Direction.Axis.Z;
+    }
+
     public static final IntProperty HEIGHT_LEFT = RegisterProperties.PILLAR_HEIGHT_LEFT;
     public static final BooleanProperty UPSIDEDOWN = RegisterProperties.UPSIDE_DOWN;
     public static final IntProperty TOTAL_HEIGHT = RegisterProperties.TOTAL_HEIGHT;
@@ -77,6 +82,17 @@ public class OsseousSculkBlock extends PillarBlock implements SculkSpreadable {
                             blockState = blockState.with(TOTAL_HEIGHT, state.get(TOTAL_HEIGHT));
                             if (state.get(UPSIDEDOWN)) {
                                 blockState = blockState.with(UPSIDEDOWN, true);
+                                if (direction==Direction.DOWN && Math.random()>0.4) {
+                                    Direction ribCage = getDir(getAxis(topPos), false);
+                                    if (ISITSAFE(world.getBlockState(topPos.offset(ribCage)))) {
+                                        world.setBlockState(topPos.offset(ribCage), RegisterBlocks.OSSEOUS_SCULK.getDefaultState().with(AXIS, getAxis(topPos)).with(TOTAL_HEIGHT, state.get(TOTAL_HEIGHT)).with(HEIGHT_LEFT, 0), 3);
+                                        if (ISITSAFE(world.getBlockState(topPos.offset(ribCage).down()))) {
+                                            if (Math.random()>0.4) {
+                                                world.setBlockState(topPos.offset(ribCage).down(), RegisterBlocks.HANGING_TENDRIL.getDefaultState(), 3);
+                                            }
+                                        }
+                                    }
+                                }
                             }
                         }
                         world.setBlockState(topPos.offset(direction), blockState, 3);
@@ -98,6 +114,10 @@ public class OsseousSculkBlock extends PillarBlock implements SculkSpreadable {
                 }
             }
         } return i;
+    }
+
+    public static boolean ISITSAFE(BlockState state) {
+        return state.isOf(Blocks.SCULK_VEIN) || state.isAir() || state.isOf(Blocks.WATER);
     }
 
     public static void worldGenSpread(BlockPos blockPos, WorldAccess world, AbstractRandom random) {
@@ -130,6 +150,17 @@ public class OsseousSculkBlock extends PillarBlock implements SculkSpreadable {
                         blockState = blockState.with(TOTAL_HEIGHT, state.get(TOTAL_HEIGHT));
                         if (state.get(UPSIDEDOWN)) {
                             blockState = blockState.with(UPSIDEDOWN, true);
+                            if (direction==Direction.DOWN && Math.random()>0.4) {
+                                Direction ribCage = getDir(getAxis(topPos), false);
+                                if (ISITSAFE(world.getBlockState(topPos.offset(ribCage)))) {
+                                    world.setBlockState(topPos.offset(ribCage), RegisterBlocks.OSSEOUS_SCULK.getDefaultState().with(AXIS, getAxis(topPos)).with(TOTAL_HEIGHT, state.get(TOTAL_HEIGHT)).with(HEIGHT_LEFT, 0), 3);
+                                    if (ISITSAFE(world.getBlockState(topPos.offset(ribCage).down()))) {
+                                        if (Math.random()>0.25) {
+                                            world.setBlockState(topPos.offset(ribCage).down(), RegisterBlocks.HANGING_TENDRIL.getDefaultState(), 3);
+                                        }
+                                    }
+                                }
+                            }
                         }
                     }
                     world.setBlockState(topPos.offset(direction), blockState, 3);
