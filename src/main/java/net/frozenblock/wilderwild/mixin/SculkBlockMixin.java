@@ -10,6 +10,7 @@ import net.minecraft.sound.SoundCategory;
 import net.minecraft.state.property.Properties;
 import net.minecraft.tag.BlockTags;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.random.AbstractRandom;
 import net.minecraft.world.WorldAccess;
@@ -56,7 +57,7 @@ public class SculkBlockMixin {
 						if (isWorldGen) {
 							pillarHeight = (int) MathHelper.clamp(EasyNoiseSampler.samplePerlinXoroPositive(blockPos.down(), randomness, false, false) * worldGenHeightMultiplier, 2, maxHeight);
 						}
-						blockState=RegisterBlocks.OSSEOUS_SCULK.getDefaultState().with(OsseousSculkBlock.HEIGHT_LEFT, pillarHeight).with(OsseousSculkBlock.TOTAL_HEIGHT, pillarHeight+1).with(OsseousSculkBlock.UPSIDEDOWN, true);
+						blockState=RegisterBlocks.OSSEOUS_SCULK.getDefaultState().with(OsseousSculkBlock.HEIGHT_LEFT, pillarHeight).with(OsseousSculkBlock.TOTAL_HEIGHT, pillarHeight+1).with(OsseousSculkBlock.UPSIDEDOWN, true).with(OsseousSculkBlock.CAME_FROM, Direction.UP);
 						blockPos2=blockPos.down();
 					}
 

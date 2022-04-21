@@ -1,7 +1,6 @@
 package net.frozenblock.wilderwild.dev_only;
 
 import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.util.ScreenshotRecorder;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
