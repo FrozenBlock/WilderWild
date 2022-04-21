@@ -1,0 +1,100 @@
+{
+	"textures": {
+		"0": "wilderwild:block/sculk_echoer_top_active",
+		"1": "wilderwild:block/sculk_echoer_bottom",
+		"2": "wilderwild:block/sculk_echoer_side_active",
+		"particle": "wilderwild:block/sculk_echoer_side"
+	},
+	"elements": [
+		{
+			"name": "bottom_slab",
+			"from": [0, 0, 0],
+			"to": [16, 4, 16],
+			"faces": {
+				"north": {"uv": [0, 12, 16, 16], "texture": "#2"},
+				"east": {"uv": [0, 12, 16, 16], "texture": "#2"},
+				"south": {"uv": [0, 12, 16, 16], "texture": "#2"},
+				"west": {"uv": [0, 12, 16, 16], "texture": "#2"},
+				"up": {"uv": [0, 0, 16, 16], "texture": "#0"},
+				"down": {"uv": [0, 0, 16, 16], "texture": "#1"}
+			}
+		},
+		{
+			"name": "top_slab",
+			"from": [0.97, 0, 0.97],
+			"to": [15.03, 16, 15.03],
+			"faces": {
+				"north": {"uv": [1, 0, 15, 16], "texture": "#2"},
+				"east": {"uv": [1, 0, 15, 16], "texture": "#2"},
+				"south": {"uv": [1, 0, 15, 16], "texture": "#2"},
+				"west": {"uv": [1, 0, 15, 16], "texture": "#2"}
+			}
+		},
+		{
+			"name": "inside",
+			"from": [1, 10, 1],
+			"to": [15, 10, 15],
+			"faces": {
+				"up": {"uv": [1, 1, 15, 15], "texture": "#0"}
+			}
+		},
+		{
+			"name": "south",
+			"from": [1, 4, 15],
+			"to": [15, 16, 15],
+			"faces": {
+				"north": {"uv": [1, 0, 15, 12], "texture": "#2"}
+			}
+		},
+		{
+			"name": "north",
+			"from": [1, 4, 1],
+			"to": [15, 16, 1],
+			"faces": {
+				"south": {"uv": [1, 0, 15, 12], "texture": "#2"}
+			}
+		},
+		{
+			"name": "east",
+			"from": [15, 4, 1],
+			"to": [15, 16, 15],
+			"faces": {
+				"west": {"uv": [1, 0, 15, 12], "texture": "#2"}
+			}
+		},
+		{
+			"name": "west",
+			"from": [1, 4, 1],
+			"to": [1, 16, 15],
+			"faces": {
+				"east": {"uv": [1, 0, 15, 12], "texture": "#2"}
+			}
+		}
+	],
+	"display": {
+		"thirdperson_righthand": {
+			"rotation": [75, 45, 0],
+			"translation": [0, 2.5, 0],
+			"scale": [0.375, 0.375, 0.375]
+		},
+		"firstperson_righthand": {
+			"rotation": [0, 45, 0],
+			"scale": [0.4, 0.4, 0.4]
+		},
+		"firstperson_lefthand": {
+			"rotation": [0, 225, 0],
+			"scale": [0.4, 0.4, 0.4]
+		},
+		"ground": {
+			"translation": [0, 3, 0],
+			"scale": [0.25, 0.25, 0.25]
+		},
+		"gui": {
+			"rotation": [30, 225, 0],
+			"scale": [0.625, 0.625, 0.625]
+		},
+		"fixed": {
+			"scale": [0.5, 0.5, 0.5]
+		}
+	}
+}
