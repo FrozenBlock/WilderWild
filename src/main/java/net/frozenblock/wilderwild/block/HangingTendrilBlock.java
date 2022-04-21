@@ -93,7 +93,7 @@ public class HangingTendrilBlock extends BlockWithEntity implements Waterloggabl
     public HangingTendrilBlock(Settings settings, int range) {
         super(settings);
         this.setDefaultState(this.stateManager.getDefaultState().with(SCULK_SENSOR_PHASE, SculkSensorPhase.INACTIVE).with(WATERLOGGED, false));
-        this.range = range;
+        this.range = 16;
     }
 
     public int getRange() {
