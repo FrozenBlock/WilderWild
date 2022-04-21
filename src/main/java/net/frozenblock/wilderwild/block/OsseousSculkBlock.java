@@ -5,6 +5,8 @@ import net.frozenblock.wilderwild.registry.RegisterBlocks;
 import net.frozenblock.wilderwild.registry.RegisterProperties;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.SculkSpreadManager;
+import net.minecraft.item.ItemStack;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.BooleanProperty;
@@ -13,6 +15,7 @@ import net.minecraft.state.property.IntProperty;
 import net.minecraft.state.property.Properties;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
+import net.minecraft.util.math.intprovider.ConstantIntProvider;
 import net.minecraft.util.math.random.AbstractRandom;
 import net.minecraft.world.WorldAccess;
 
@@ -21,6 +24,11 @@ public class OsseousSculkBlock extends PillarBlock implements SculkSpreadable {
     public OsseousSculkBlock(Settings settings) {
         super(settings);
         this.setDefaultState(this.stateManager.getDefaultState().with(HEIGHT_LEFT, 0).with(AXIS, Direction.Axis.Y).with(UPSIDEDOWN, false).with(TOTAL_HEIGHT, 0).with(CAME_FROM, Direction.DOWN));
+    }
+
+    public void onStacksDropped(BlockState state, ServerWorld world, BlockPos pos, ItemStack stack) {
+        super.onStacksDropped(state, world, pos, stack);
+        this.dropExperienceWhenMined(world, pos, stack, ConstantIntProvider.create(5));
     }
 
     public static Direction getDir(Direction.Axis axis, boolean UpsideDown) {
