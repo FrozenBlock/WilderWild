@@ -32,7 +32,7 @@ public class CameraItem extends Item {
                     File directory1 = new File(directory, "screenshots");
                     directory1.mkdir();
                     directory1.mkdirs();
-                    client.takePanorama(directory, 2000, 2000);
+                    client.takePanorama(directory, 2048, 2048);
                     canGo = false;
                 }
             }
