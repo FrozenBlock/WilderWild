@@ -28,7 +28,7 @@ public class OsseousSculkBlock extends PillarBlock implements SculkSpreadable {
 
     public void onStacksDropped(BlockState state, ServerWorld world, BlockPos pos, ItemStack stack) {
         super.onStacksDropped(state, world, pos, stack);
-        this.dropExperienceWhenMined(world, pos, stack, ConstantIntProvider.create(5));
+        this.dropExperienceWhenMined(world, pos, stack, ConstantIntProvider.create(1));
     }
 
     public static Direction getDir(Direction.Axis axis, boolean UpsideDown) {
