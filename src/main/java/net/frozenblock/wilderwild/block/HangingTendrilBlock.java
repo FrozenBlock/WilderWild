@@ -14,7 +14,6 @@ import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.block.enums.SculkSensorPhase;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.ai.pathing.NavigationType;
-import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.fluid.FluidState;
 import net.minecraft.fluid.Fluids;
 import net.minecraft.item.ItemPlacementContext;
