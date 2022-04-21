@@ -112,6 +112,24 @@ public class HangingTendrilBlock extends BlockWithEntity implements Waterloggabl
         return this.getDefaultState().with(WATERLOGGED, fluidState.getFluid() == Fluids.WATER);
     }
 
+    public boolean hasRandomTicks(BlockState state) { return true; }
+
+    public void randomTick(BlockState state, ServerWorld world, BlockPos pos, AbstractRandom random) {
+        if (!state.canPlaceAt(world, pos)) {
+            world.breakBlock(pos, true);
+        }
+    }
+
+    public BlockState getStateForNeighborUpdate(BlockState state, Direction direction, BlockState neighborState, WorldAccess world, BlockPos pos, BlockPos neighborPos) {
+        if (direction == Direction.UP && !canPlaceAt(state, world, pos)) {
+            world.breakBlock(pos, true);
+        }
+        if (state.get(WATERLOGGED)) {
+            world.createAndScheduleFluidTick(pos, Fluids.WATER, Fluids.WATER.getTickRate(world));
+        }
+        return super.getStateForNeighborUpdate(state, direction, neighborState, world, pos, neighborPos);
+    }
+
     public FluidState getFluidState(BlockState state) {
         return state.get(WATERLOGGED) ? Fluids.WATER.getStill(false) : super.getFluidState(state);
     }
@@ -139,14 +157,6 @@ public class HangingTendrilBlock extends BlockWithEntity implements Waterloggabl
             }
             super.onStateReplaced(state, world, pos, newState, moved);
         }
-    }
-
-    public BlockState getStateForNeighborUpdate(BlockState state, Direction direction, BlockState neighborState, WorldAccess world, BlockPos pos, BlockPos neighborPos) {
-        if (state.get(WATERLOGGED)) {
-            world.createAndScheduleFluidTick(pos, Fluids.WATER, Fluids.WATER.getTickRate(world));
-        }
-
-        return super.getStateForNeighborUpdate(state, direction, neighborState, world, pos, neighborPos);
     }
 
     private static void updateNeighbors(World world, BlockPos pos) {
@@ -259,9 +269,14 @@ public class HangingTendrilBlock extends BlockWithEntity implements Waterloggabl
         this.dropExperienceWhenMined(world, pos, stack, ConstantIntProvider.create(2));
     }
 
+    @Override
+    public VoxelShape getCollisionShape(BlockState state, BlockView world, BlockPos pos, ShapeContext context) {
+        return null;
+    }
+
     static {
         SCULK_SENSOR_PHASE = Properties.SCULK_SENSOR_PHASE;
         WATERLOGGED = Properties.WATERLOGGED;
-        OUTLINE_SHAPE = Block.createCuboidShape(0.0D, 0.0D, 0.0D, 16.0D, 8.0D, 16.0D);
+        OUTLINE_SHAPE = Block.createCuboidShape(5.0D, 2.0D, 5.0D, 11.0D, 16.0D, 11.0D);
     }
 }
