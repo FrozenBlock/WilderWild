@@ -4,20 +4,14 @@ import com.mojang.logging.LogUtils;
 import com.mojang.serialization.DataResult;
 import com.mojang.serialization.Dynamic;
 import net.frozenblock.wilderwild.block.HangingTendrilBlock;
-import net.frozenblock.wilderwild.block.SculkEchoerBlock;
 import net.frozenblock.wilderwild.registry.RegisterBlockEntityType;
-import net.frozenblock.wilderwild.tag.WildEventTags;
 import net.minecraft.block.BlockState;
-import net.minecraft.block.SculkSensorBlock;
 import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.block.entity.BlockEntityType;
-import net.minecraft.block.entity.SculkSensorBlockEntity;
 import net.minecraft.entity.Entity;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtElement;
 import net.minecraft.nbt.NbtOps;
 import net.minecraft.server.world.ServerWorld;
-import net.minecraft.tag.TagKey;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.event.BlockPositionSource;
@@ -36,7 +30,7 @@ public class HangingTendrilBlockEntity extends BlockEntity implements SculkSenso
 
     public HangingTendrilBlockEntity(BlockPos pos, BlockState state) {
         super(RegisterBlockEntityType.HANGING_TENDRIL, pos, state);
-        this.listener = new SculkSensorListener(new BlockPositionSource(this.pos), 8, this, null, 0, 0);
+        this.listener = new SculkSensorListener(new BlockPositionSource(this.pos), ((HangingTendrilBlock)state.getBlock()).getRange(), this, null, 0, 0);
     }
 
     public void readNbt(NbtCompound nbt) {

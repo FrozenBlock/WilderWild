@@ -37,6 +37,7 @@ import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldAccess;
+import net.minecraft.world.WorldView;
 import net.minecraft.world.event.GameEvent;
 import net.minecraft.world.event.listener.GameEventListener;
 import org.jetbrains.annotations.Nullable;
@@ -95,6 +96,16 @@ public class HangingTendrilBlock extends BlockWithEntity implements Waterloggabl
         this.range = range;
     }
 
+    public int getRange() {
+        return range;
+    }
+
+    public boolean canPlaceAt(BlockState state, WorldView world, BlockPos pos) {
+        BlockPos blockPos = pos.up();
+        BlockState blockState = world.getBlockState(blockPos);
+        return blockState.isSideSolidFullSquare(world, blockPos, Direction.UP);
+    }
+
     public BlockState getPlacementState(ItemPlacementContext ctx) {
         BlockPos blockPos = ctx.getBlockPos();
         FluidState fluidState = ctx.getWorld().getFluidState(blockPos);
@@ -110,7 +121,6 @@ public class HangingTendrilBlock extends BlockWithEntity implements Waterloggabl
             if (getPhase(state) == SculkSensorPhase.COOLDOWN) {
                 world.setBlockState(pos, state.with(SCULK_SENSOR_PHASE, SculkSensorPhase.INACTIVE), 3);
             }
-
         } else {
             setCooldown(world, pos, state);
         }
