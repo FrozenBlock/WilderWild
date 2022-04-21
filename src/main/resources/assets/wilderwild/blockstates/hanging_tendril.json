@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "sculk_sensor_phase=cooldown": { "model": "wilderwild:block/hanging_tendril" },
+    "sculk_sensor_phase=active": { "model": "wilderwild:block/hanging_tendril_active" },
+    "sculk_sensor_phase=inactive": { "model": "wilderwild:block/hanging_tendril" }
+  }
+}

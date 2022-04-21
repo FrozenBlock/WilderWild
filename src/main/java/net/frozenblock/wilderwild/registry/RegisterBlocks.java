@@ -6,6 +6,7 @@ import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.block.*;
 import net.frozenblock.wilderwild.item.FloweredLilyPadItem;
 import net.minecraft.block.*;
+import net.minecraft.block.enums.SculkSensorPhase;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.ItemGroup;
@@ -37,6 +38,8 @@ public abstract class RegisterBlocks {
     public static final Block OSSEOUS_SCULK = registerBlock("osseous_sculk",
             new OsseousSculkBlock(AbstractBlock.Settings.of(Material.STONE,
                     MapColor.PALE_YELLOW).requiresTool().strength(2.0F).sounds(BlockSoundGroup.SCULK_CATALYST)),ItemGroup.DECORATIONS);
+    public static final Block HANGING_TENDRIL = registerBlock("hanging_tendril",
+            new HangingTendrilBlock(FabricBlockSettings.copyOf(Blocks.SCULK_SENSOR).luminance((state) -> 1).emissiveLighting((state, world, pos) -> SculkSensorBlock.getPhase(state) == SculkSensorPhase.ACTIVE), 8), ItemGroup.REDSTONE);
 
     // FLOWERS
     public static final Block DATURA = registerBlock("datura",
