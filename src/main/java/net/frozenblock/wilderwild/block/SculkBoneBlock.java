@@ -1,8 +1,8 @@
 package net.frozenblock.wilderwild.block;
 
 import net.frozenblock.wilderwild.noise.EasyNoiseSampler;
-import net.frozenblock.wilderwild.registry.NewProperties;
 import net.frozenblock.wilderwild.registry.RegisterBlocks;
+import net.frozenblock.wilderwild.registry.RegisterProperties;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.SculkSpreadManager;
 import net.minecraft.sound.SoundCategory;
@@ -36,9 +36,9 @@ public class SculkBoneBlock extends PillarBlock implements SculkSpreadable {
         return Direction.UP;
     }
 
-    public static final IntProperty HEIGHT_LEFT = NewProperties.PILLAR_HEIGHT_LEFT;
-    public static final BooleanProperty UPSIDEDOWN = NewProperties.UPSIDE_DOWN;
-    public static final IntProperty TOTAL_HEIGHT = NewProperties.TOTAL_HEIGHT;
+    public static final IntProperty HEIGHT_LEFT = RegisterProperties.PILLAR_HEIGHT_LEFT;
+    public static final BooleanProperty UPSIDEDOWN = RegisterProperties.UPSIDE_DOWN;
+    public static final IntProperty TOTAL_HEIGHT = RegisterProperties.TOTAL_HEIGHT;
 
     @Override
     public int spread(SculkSpreadManager.Cursor cursor, WorldAccess world, BlockPos catalystPos, AbstractRandom random, SculkSpreadManager spreadManager, boolean shouldConvertToBlock) {

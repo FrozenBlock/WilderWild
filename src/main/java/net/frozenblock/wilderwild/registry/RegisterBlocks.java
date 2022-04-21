@@ -40,15 +40,15 @@ public abstract class RegisterBlocks {
 
     // FLOWERS
     public static final Block DATURA = registerBlock("datura",
-            new TallFlowerBlock(FabricBlockSettings.copy(Blocks.ROSE_BUSH).strength(0.0f).nonOpaque()), ItemGroup.DECORATIONS);
+            new TallFlowerBlock(FabricBlockSettings.copy(Blocks.ROSE_BUSH).strength(0.0F).nonOpaque()), ItemGroup.DECORATIONS);
     public static final Block CATTAIL = registerBlock("cattail",
-            new CattailBlock(FabricBlockSettings.copy(Blocks.ROSE_BUSH).strength(0.0f).nonOpaque()), ItemGroup.DECORATIONS);
+            new CattailBlock(FabricBlockSettings.copy(Blocks.ROSE_BUSH).strength(0.0F).nonOpaque()), ItemGroup.DECORATIONS);
     public static final Block POTTED_CARNATION = registerBlockWithoutBlockItem("potted_carnation",
             new FlowerPotBlock(RegisterBlocks.CARNATION,
     FabricBlockSettings.copy(Blocks.POTTED_DANDELION).nonOpaque()), ItemGroup.DECORATIONS);
     public static final Block CARNATION = registerBlock("carnation",
             new FlowerBlock(StatusEffects.FIRE_RESISTANCE, 12,
-                    FabricBlockSettings.copy(Blocks.DANDELION).strength(0.0f).nonOpaque()), ItemGroup.DECORATIONS);
+                    FabricBlockSettings.copy(Blocks.DANDELION).strength(0.0F).nonOpaque()), ItemGroup.DECORATIONS);
 
     private static Block registerBlockWithoutBlockItem(String name, Block block, ItemGroup group) {
         return Registry.register(Registry.BLOCK, new Identifier(WilderWild.MOD_ID, name), block);

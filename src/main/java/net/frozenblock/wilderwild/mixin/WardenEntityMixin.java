@@ -24,7 +24,7 @@ public class WardenEntityMixin {
 
     @Inject(at = @At("HEAD"), method = "initialize")
     @Nullable
-    public EntityData initialize(ServerWorldAccess serverWorldAccess, LocalDifficulty localDifficulty, SpawnReason spawnReason, @Nullable EntityData entityData, @Nullable NbtCompound nbtCompound, CallbackInfoReturnable info) {
+    public EntityData initialize(ServerWorldAccess serverWorldAccess, LocalDifficulty localDifficulty, SpawnReason spawnReason, @Nullable EntityData entityData, @Nullable NbtCompound nbtCompound, CallbackInfoReturnable<?> info) {
         WardenEntity entity = WardenEntity.class.cast(this);
         entity.getBrain().remember(MemoryModuleType.DIG_COOLDOWN, Unit.INSTANCE, 1200L);
         if (spawnReason == SpawnReason.SPAWN_EGG) {
@@ -38,13 +38,15 @@ public class WardenEntityMixin {
     @Inject(at = @At("HEAD"), method = "pushAway")
     protected void pushAway(Entity entity, CallbackInfo info) {
         WardenEntity warden = WardenEntity.class.cast(this);
-        if (!warden.getBrain().hasMemoryModule(MemoryModuleType.TOUCH_COOLDOWN) && !(entity instanceof WardenEntity)) {
+        if (!warden.getBrain().hasMemoryModule(MemoryModuleType.ATTACK_COOLING_DOWN) && !warden.getBrain().hasMemoryModule(MemoryModuleType.TOUCH_COOLDOWN) && !(entity instanceof WardenEntity) && !warden.isInPose(EntityPose.EMERGING) && !warden.isInPose(EntityPose.DIGGING)) {
             if (!entity.isInvulnerable()) {
                 if (!(entity instanceof PlayerEntity player)) {
                     warden.tryAttack(entity);
+                    warden.increaseAngerAt(entity, 45, false);
                 } else {
                     if (!player.isCreative()) {
                         warden.tryAttack(entity);
+                        warden.increaseAngerAt(entity, 45, false);
                     }
                 }
             }

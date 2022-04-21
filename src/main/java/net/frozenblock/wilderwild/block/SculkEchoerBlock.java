@@ -6,7 +6,7 @@ import it.unimi.dsi.fastutil.objects.Object2IntOpenHashMap;
 import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.block.entity.SculkEchoerBlockEntity;
 import net.frozenblock.wilderwild.block.entity.SculkEchoerPhase;
-import net.frozenblock.wilderwild.registry.NewProperties;
+import net.frozenblock.wilderwild.registry.RegisterProperties;
 import net.frozenblock.wilderwild.registry.RegisterBlockEntityType;
 import net.frozenblock.wilderwild.registry.RegisterBlocks;
 import net.frozenblock.wilderwild.registry.RegisterSounds;
@@ -86,9 +86,9 @@ public class SculkEchoerBlock extends BlockWithEntity implements Waterloggable {
         map.put(GameEvent.EXPLODE, 15);
         map.put(GameEvent.LIGHTNING_STRIKE, 15);
     }));
-    public static final EnumProperty<SculkEchoerPhase> SCULK_ECHOER_PHASE = NewProperties.SCULK_ECHOER_PHASE;
+    public static final EnumProperty<SculkEchoerPhase> SCULK_ECHOER_PHASE = RegisterProperties.SCULK_ECHOER_PHASE;
     public static final BooleanProperty WATERLOGGED = Properties.WATERLOGGED;
-    public static final BooleanProperty UPSIDEDOWN = NewProperties.UPSIDE_DOWN;
+    public static final BooleanProperty UPSIDEDOWN = RegisterProperties.UPSIDE_DOWN;
     private final int range;
 
     private static final VoxelShape SHAPE = VoxelShapes.union(Block.createCuboidShape(0.0D, 0.0D, 0.0D, 16.0D, 5.0D, 16.0D), Block.createCuboidShape(1.0D, 5.0D, 1.0D, 15.0D, 11.0D, 15.0D));
@@ -176,7 +176,9 @@ public class SculkEchoerBlock extends BlockWithEntity implements Waterloggable {
         world.setBlockState(pos, state.with(SCULK_ECHOER_PHASE, SculkEchoerPhase.COOLDOWN), 3);
         world.createAndScheduleBlockTick(pos, state.getBlock(), 1);
         if (!state.get(WATERLOGGED)) {
-            world.playSound(null, pos, SoundEvents.BLOCK_SCULK_SENSOR_CLICKING_STOP, SoundCategory.BLOCKS, 1.0F, world.random.nextFloat() * 0.2F + 0.8F);
+            world.playSound(null, (double)pos.getX() + 0.5, (double)pos.getY() + 0.5, (double)pos.getZ() + 0.5, SoundEvents.BLOCK_SCULK_SENSOR_CLICKING_STOP, SoundCategory.BLOCKS, 1.0F, world.random.nextFloat() * 0.1F + 0.9F);
+            world.playSound(null, (double)pos.getX() + 0.5, (double)pos.getY() + 0.5, (double)pos.getZ() + 0.5, SoundEvents.BLOCK_SCULK_CHARGE, SoundCategory.BLOCKS, 0.5F, world.random.nextFloat() * 0.1F + 0.9F * 0.5F);
+            world.playSound(null, (double)pos.getX() + 0.5, (double)pos.getY() + 0.5, (double)pos.getZ() + 0.5, SoundEvents.BLOCK_SCULK_SPREAD, SoundCategory.BLOCKS, 0.25F, world.random.nextFloat() * 0.1F + 0.9F * 0.3F);
         }
         updateNeighbors(world, pos);
     }
@@ -194,19 +196,6 @@ public class SculkEchoerBlock extends BlockWithEntity implements Waterloggable {
             world.emitGameEvent(entity, GameEvent.SCULK_SENSOR_TENDRILS_CLICKING, pos);
             world.emitGameEvent(entity, WilderWild.SCULK_ECHOER_ECHO, pos);
             world.playSound(null, pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, RegisterSounds.BLOCK_SCULK_ECHOER_RECEIVE_VIBRATION, SoundCategory.BLOCKS, 1.0F, world.random.nextFloat() * 0.1F + 0.9F);
-        }
-    }
-
-    public boolean hasComparatorOutput(BlockState state) {
-        return true;
-    }
-
-    public int getComparatorOutput(BlockState state, World world, BlockPos pos) {
-        BlockEntity blockEntity = world.getBlockEntity(pos);
-        if (blockEntity instanceof SculkEchoerBlockEntity sculkEchoerBlockEntity) {
-            return getPhase(state) == SculkEchoerPhase.ACTIVE ? sculkEchoerBlockEntity.getLastVibrationFreq() : 0;
-        } else {
-            return 0;
         }
     }
 
@@ -251,11 +240,7 @@ public class SculkEchoerBlock extends BlockWithEntity implements Waterloggable {
 
     @Nullable
     public <T extends BlockEntity> GameEventListener getGameEventListener(ServerWorld world, T blockEntity) {
-        if (blockEntity instanceof SculkEchoerBlockEntity sculkEchoerBlockEntity) {
-            return sculkEchoerBlockEntity.getListener();
-        } else {
-            return null;
-        }
+        return blockEntity instanceof SculkEchoerBlockEntity ? ((SculkEchoerBlockEntity)blockEntity).getEventListener() : null;
     }
 
     @Nullable
