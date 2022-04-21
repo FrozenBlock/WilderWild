@@ -208,17 +208,9 @@ public class HangingTendrilBlock extends BlockWithEntity implements Waterloggabl
 
     public static void setActive(@Nullable Entity entity, World world, BlockPos pos, BlockState state, int power) {
         world.setBlockState(pos, state.with(SCULK_SENSOR_PHASE, SculkSensorPhase.ACTIVE), 3);
-        world.createAndScheduleBlockTick(pos, state.getBlock(), 40);
+        world.createAndScheduleBlockTick(pos, state.getBlock(), 20);
         updateNeighbors(world, pos);
         world.emitGameEvent(entity, WilderWild.SCULK_SENSOR_ACTIVATE, pos);
-        if (entity instanceof PlayerEntity) {
-            world.emitGameEvent(entity, GameEvent.SCULK_SENSOR_TENDRILS_CLICKING, pos);
-        } else if (entity != null) {
-            Entity var6 = entity.getPrimaryPassenger();
-            if (var6 instanceof PlayerEntity playerEntity) {
-                world.emitGameEvent(playerEntity, GameEvent.SCULK_SENSOR_TENDRILS_CLICKING, pos);
-            }
-        }
 
         if (!(Boolean)state.get(WATERLOGGED)) {
             world.playSound(null, (double)pos.getX() + 0.5D, (double)pos.getY() + 0.5D, (double)pos.getZ() + 0.5D, SoundEvents.BLOCK_SCULK_SENSOR_CLICKING, SoundCategory.BLOCKS, 1.0F, world.random.nextFloat() * 0.2F + 0.8F);
