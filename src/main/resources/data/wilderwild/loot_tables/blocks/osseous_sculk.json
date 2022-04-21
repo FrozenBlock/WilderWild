@@ -7,7 +7,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "wilderwild:sculk_bone"
+          "name": "wilderwild:osseous_sculk"
         }
       ],
       "conditions": [
