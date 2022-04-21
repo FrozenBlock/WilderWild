@@ -3,7 +3,7 @@ package net.frozenblock.wilderwild.block.entity;
 import net.minecraft.util.StringIdentifiable;
 
 public enum SculkEchoerPhase implements StringIdentifiable {
-    INACTIVE("incative"),
+    INACTIVE("inactive"),
     ACTIVE("active"),
     COOLDOWN("cooldown");
 
