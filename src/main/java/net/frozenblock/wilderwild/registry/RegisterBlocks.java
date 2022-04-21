@@ -31,7 +31,7 @@ public abstract class RegisterBlocks {
     // SCULK
     public static final Block SCULK_ECHOER = registerBlock("sculk_echoer",
             new SculkEchoerBlock(AbstractBlock.Settings.of(Material.SCULK, MapColor.CYAN).strength(3.0F, 3.0F)
-                    .sounds(BlockSoundGroup.SCULK_SHRIEKER), 8), ItemGroup.DECORATIONS);
+                    .sounds(BlockSoundGroup.SCULK_SHRIEKER), 8, 16), ItemGroup.DECORATIONS);
     public static final Block SCULK_JAW = registerBlock("sculk_jaw",
             new SculkJawBlock(AbstractBlock.Settings.of(Material.SCULK).strength(0.6F).sounds(BlockSoundGroup.SCULK)),
             ItemGroup.DECORATIONS);

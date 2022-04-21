@@ -5,6 +5,7 @@ import com.mojang.serialization.DataResult;
 import com.mojang.serialization.Dynamic;
 import net.frozenblock.wilderwild.block.SculkEchoerBlock;
 import net.frozenblock.wilderwild.registry.RegisterBlockEntityType;
+import net.frozenblock.wilderwild.registry.RegisterBlocks;
 import net.frozenblock.wilderwild.tag.WildEventTags;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
@@ -31,7 +32,7 @@ public class SculkEchoerBlockEntity extends BlockEntity implements SculkSensorLi
     private int lastVibrationFreq;
     public SculkEchoerBlockEntity(BlockPos pos, BlockState state) {
         super(RegisterBlockEntityType.SCULK_ECHOER, pos, state);
-        this.listener = new SculkSensorListener(new BlockPositionSource(this.pos), ((SculkEchoerBlock)state.getBlock()).getRange(), this, null, 0, 0);
+        this.listener = new SculkEchoerListener(new BlockPositionSource(this.pos), ((SculkEchoerBlock)state.getBlock()).getRange(), ((SculkEchoerBlock)state.getBlock()).getTendrilRange(), this, null, 0, 0);
     }
 
     public SculkSensorListener getListener() {
@@ -43,11 +44,11 @@ public class SculkEchoerBlockEntity extends BlockEntity implements SculkSensorLi
         this.lastVibrationFreq = nbt.getInt("last_vibration_frequency");
 
         if (nbt.contains("listener", 10)) {
-            DataResult<?> var10000 = SculkSensorListener.createCodec(this).parse(new Dynamic<>(NbtOps.INSTANCE, nbt.getCompound("listener")));
+            DataResult<?> var10000 = SculkEchoerListener.createCodec(this).parse(new Dynamic<>(NbtOps.INSTANCE, nbt.getCompound("listener")));
             Logger var10001 = LOGGER;
             Objects.requireNonNull(var10001);
             var10000.resultOrPartial(var10001::error).ifPresent((vibrationListener) -> {
-                this.listener = (SculkSensorListener) vibrationListener;
+                this.listener = (SculkEchoerListener) vibrationListener;
             });
         }
     }
@@ -55,7 +56,7 @@ public class SculkEchoerBlockEntity extends BlockEntity implements SculkSensorLi
     public void writeNbt(NbtCompound nbt) {
         super.writeNbt(nbt);
         nbt.putInt("last_vibration_frequency", this.lastVibrationFreq);
-        DataResult<?> var10000 = SculkSensorListener.createCodec(this).encodeStart(NbtOps.INSTANCE, this.listener);
+        DataResult<?> var10000 = SculkEchoerListener.createCodec(this).encodeStart(NbtOps.INSTANCE, this.listener);
         Logger var10001 = LOGGER;
         Objects.requireNonNull(var10001);
         var10000.resultOrPartial(var10001::error).ifPresent((nbtElement) -> {

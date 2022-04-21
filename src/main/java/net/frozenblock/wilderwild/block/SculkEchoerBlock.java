@@ -90,14 +90,16 @@ public class SculkEchoerBlock extends BlockWithEntity implements Waterloggable {
     public static final BooleanProperty WATERLOGGED = Properties.WATERLOGGED;
     public static final BooleanProperty UPSIDEDOWN = RegisterProperties.UPSIDE_DOWN;
     private final int range;
+    private final int tendrilRange;
 
     private static final VoxelShape SHAPE = VoxelShapes.union(Block.createCuboidShape(0.0D, 0.0D, 0.0D, 16.0D, 4.0D, 16.0D), Block.createCuboidShape(1.0D, 4.0D, 1.0D, 15.0D, 10.0D, 15.0D));
     private static final VoxelShape SHAPE_UPSIDEDOWN = VoxelShapes.union(Block.createCuboidShape(0.0D, 10.0D, 0.0D, 16.0D, 16.0D, 16.0D), Block.createCuboidShape(1.0D, 4.0D, 1.0D, 15.0D, 10.0D, 15.0D));
 
-    public SculkEchoerBlock(Settings settings, int range) {
+    public SculkEchoerBlock(Settings settings, int range, int hangingTendrilRange) {
         super(settings);
         this.setDefaultState(this.stateManager.getDefaultState().with(SCULK_ECHOER_PHASE, SculkEchoerPhase.INACTIVE).with(WATERLOGGED, false).with(UPSIDEDOWN, false));
         this.range = range;
+        this.tendrilRange=hangingTendrilRange;
     }
 
     protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
@@ -224,6 +226,9 @@ public class SculkEchoerBlock extends BlockWithEntity implements Waterloggable {
 
     public int getRange() {
         return this.range;
+    }
+    public int getTendrilRange() {
+        return this.tendrilRange;
     }
 
     @Nullable
