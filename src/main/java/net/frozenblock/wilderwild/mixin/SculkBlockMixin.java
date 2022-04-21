@@ -52,12 +52,16 @@ public class SculkBlockMixin {
 					BlockState placeBlockBelow = null;
 					BlockState stateDown = world.getBlockState(blockPos.down());
 					Block blockDown = stateDown.getBlock();
-					if (canPlaceBone(blockPos) && (stateDown.isAir() || blockDown==Blocks.WATER || blockDown==Blocks.LAVA || blockDown==Blocks.SCULK_VEIN)) {
-						int pillarHeight = (int) MathHelper.clamp(EasyNoiseSampler.samplePerlinXoroPositive(blockPos.down(), randomness, false, false) * heightMultiplier, 2, maxHeight);
-						if (isWorldGen) {
-							pillarHeight = (int) MathHelper.clamp(EasyNoiseSampler.samplePerlinXoroPositive(blockPos.down(), randomness, false, false) * worldGenHeightMultiplier, 2, maxHeight);
+					if ((stateDown.isAir() || blockDown==Blocks.WATER || blockDown==Blocks.LAVA || blockDown==Blocks.SCULK_VEIN)) {
+						if (canPlaceBone(blockPos)) {
+							int pillarHeight = (int) MathHelper.clamp(EasyNoiseSampler.samplePerlinXoroPositive(blockPos.down(), randomness, false, false) * heightMultiplier, 2, maxHeight);
+							if (isWorldGen) {
+								pillarHeight = (int) MathHelper.clamp(EasyNoiseSampler.samplePerlinXoroPositive(blockPos.down(), randomness, false, false) * worldGenHeightMultiplier, 2, maxHeight);
+							}
+							blockState = RegisterBlocks.OSSEOUS_SCULK.getDefaultState().with(OsseousSculkBlock.HEIGHT_LEFT, pillarHeight).with(OsseousSculkBlock.TOTAL_HEIGHT, pillarHeight + 1).with(OsseousSculkBlock.UPSIDEDOWN, true).with(OsseousSculkBlock.CAME_FROM, Direction.UP);
+						} else {
+							blockState = RegisterBlocks.HANGING_TENDRIL.getDefaultState();
 						}
-						blockState=RegisterBlocks.OSSEOUS_SCULK.getDefaultState().with(OsseousSculkBlock.HEIGHT_LEFT, pillarHeight).with(OsseousSculkBlock.TOTAL_HEIGHT, pillarHeight+1).with(OsseousSculkBlock.UPSIDEDOWN, true).with(OsseousSculkBlock.CAME_FROM, Direction.UP);
 						blockPos2=blockPos.down();
 					}
 
