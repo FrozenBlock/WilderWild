@@ -15,9 +15,9 @@ import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.random.AbstractRandom;
 import net.minecraft.world.WorldAccess;
 
-public class SculkBoneBlock extends PillarBlock implements SculkSpreadable {
+public class OsseousSculkBlock extends PillarBlock implements SculkSpreadable {
 
-    public SculkBoneBlock(Settings settings) {
+    public OsseousSculkBlock(Settings settings) {
         super(settings);
         this.setDefaultState(this.stateManager.getDefaultState().with(HEIGHT_LEFT, 0).with(AXIS, Direction.Axis.Y).with(UPSIDEDOWN, false).with(TOTAL_HEIGHT, 0));
     }
@@ -47,16 +47,16 @@ public class SculkBoneBlock extends PillarBlock implements SculkSpreadable {
             BlockPos blockPos = cursor.getPos();
             boolean bl = blockPos.isWithinDistance(catalystPos, spreadManager.getMaxDistance());
             if (!bl) {
-                int pillarHeight = world.getBlockState(blockPos).get(SculkBoneBlock.HEIGHT_LEFT);
+                int pillarHeight = world.getBlockState(blockPos).get(OsseousSculkBlock.HEIGHT_LEFT);
                 BlockPos topPos = getTop(world, blockPos, pillarHeight);
                 if (topPos != null) {
                     BlockState state = world.getBlockState(topPos);
-                    pillarHeight = state.get(SculkBoneBlock.HEIGHT_LEFT);
+                    pillarHeight = state.get(OsseousSculkBlock.HEIGHT_LEFT);
                     Direction direction = getDir(state.get(AXIS),state.get(UPSIDEDOWN));
                     if (world.getBlockState(topPos.offset(direction)).isAir() || world.getBlockState(topPos.offset(direction)).getBlock() == Blocks.SCULK_VEIN) {
-                        BlockState blockState = RegisterBlocks.SCULK_BONE.getDefaultState().with(SculkBoneBlock.HEIGHT_LEFT, Math.max(0, pillarHeight-1));
+                        BlockState blockState = RegisterBlocks.OSSEOUS_SCULK.getDefaultState().with(OsseousSculkBlock.HEIGHT_LEFT, Math.max(0, pillarHeight-1));
                         if (EasyNoiseSampler.atomicRandom.nextInt(28)==0) {
-                            blockState = RegisterBlocks.SCULK_BONE.getDefaultState().with(SculkBoneBlock.HEIGHT_LEFT,  Math.max(0, pillarHeight-1)).with(AXIS, Direction.Axis.pickRandomAxis(EasyNoiseSampler.simpleRandom));
+                            blockState = RegisterBlocks.OSSEOUS_SCULK.getDefaultState().with(OsseousSculkBlock.HEIGHT_LEFT,  Math.max(0, pillarHeight-1)).with(AXIS, Direction.Axis.pickRandomAxis(EasyNoiseSampler.simpleRandom));
                         }
                         if (pillarHeight==1 && !state.get(UPSIDEDOWN) && state.get(TOTAL_HEIGHT)>0) {
                             if (EasyNoiseSampler.simpleRandom.nextInt(Math.max(1,state.get(TOTAL_HEIGHT)/2))<=1) {
@@ -71,7 +71,7 @@ public class SculkBoneBlock extends PillarBlock implements SculkSpreadable {
                                 blockState = RegisterBlocks.SCULK_ECHOER.getDefaultState().with(SculkEchoerBlock.UPSIDEDOWN, true);
                             }
                         }
-                        if (blockState.getBlock()==RegisterBlocks.SCULK_BONE) {
+                        if (blockState.getBlock()==RegisterBlocks.OSSEOUS_SCULK) {
                             blockState=blockState.with(TOTAL_HEIGHT, state.get(TOTAL_HEIGHT));
                             if (state.get(UPSIDEDOWN)) { blockState=blockState.with(UPSIDEDOWN, true); }
                         }
@@ -85,16 +85,16 @@ public class SculkBoneBlock extends PillarBlock implements SculkSpreadable {
     }
 
     public static void worldGenSpread(BlockPos blockPos, WorldAccess world, AbstractRandom random) {
-        int pillarHeight = world.getBlockState(blockPos).get(SculkBoneBlock.HEIGHT_LEFT);
+        int pillarHeight = world.getBlockState(blockPos).get(OsseousSculkBlock.HEIGHT_LEFT);
         BlockPos topPos = getTop(world, blockPos, pillarHeight);
         if (topPos != null) {
             BlockState state = world.getBlockState(topPos);
-            pillarHeight = state.get(SculkBoneBlock.HEIGHT_LEFT);
+            pillarHeight = state.get(OsseousSculkBlock.HEIGHT_LEFT);
             Direction direction = getDir(state.get(AXIS), state.get(UPSIDEDOWN));
             if (world.getBlockState(topPos.offset(direction)).isAir() || world.getBlockState(topPos.offset(direction)).getBlock() == Blocks.SCULK_VEIN) {
-                BlockState blockState = RegisterBlocks.SCULK_BONE.getDefaultState().with(SculkBoneBlock.HEIGHT_LEFT, Math.max(0, pillarHeight - 1));
+                BlockState blockState = RegisterBlocks.OSSEOUS_SCULK.getDefaultState().with(OsseousSculkBlock.HEIGHT_LEFT, Math.max(0, pillarHeight - 1));
                 if (EasyNoiseSampler.atomicRandom.nextInt(28) == 0) {
-                    blockState = RegisterBlocks.SCULK_BONE.getDefaultState().with(SculkBoneBlock.HEIGHT_LEFT, Math.max(0, pillarHeight - 1)).with(AXIS, Direction.Axis.pickRandomAxis(EasyNoiseSampler.simpleRandom));
+                    blockState = RegisterBlocks.OSSEOUS_SCULK.getDefaultState().with(OsseousSculkBlock.HEIGHT_LEFT, Math.max(0, pillarHeight - 1)).with(AXIS, Direction.Axis.pickRandomAxis(EasyNoiseSampler.simpleRandom));
                 }
                 if (pillarHeight == 1 && !state.get(UPSIDEDOWN) && state.get(TOTAL_HEIGHT) > 0) {
                     if (EasyNoiseSampler.simpleRandom.nextInt(Math.max(1, state.get(TOTAL_HEIGHT) / 2)) <= 1) {
@@ -109,7 +109,7 @@ public class SculkBoneBlock extends PillarBlock implements SculkSpreadable {
                         blockState = RegisterBlocks.SCULK_ECHOER.getDefaultState().with(SculkEchoerBlock.UPSIDEDOWN, true);
                     }
                 }
-                if (blockState.getBlock() == RegisterBlocks.SCULK_BONE) {
+                if (blockState.getBlock() == RegisterBlocks.OSSEOUS_SCULK) {
                     blockState = blockState.with(TOTAL_HEIGHT, state.get(TOTAL_HEIGHT));
                     if (state.get(UPSIDEDOWN)) {
                         blockState = blockState.with(UPSIDEDOWN, true);
@@ -124,7 +124,7 @@ public class SculkBoneBlock extends PillarBlock implements SculkSpreadable {
     public static BlockPos getTop(WorldAccess world, BlockPos pos, int max) {
         for (int i=0; i<max; i++) {
             Block block = world.getBlockState(pos).getBlock();
-            if (block!=RegisterBlocks.SCULK_BONE) { return null; }
+            if (block!=RegisterBlocks.OSSEOUS_SCULK) { return null; }
             Direction direction = getDir(world.getBlockState(pos).get(AXIS), world.getBlockState(pos).get(UPSIDEDOWN));
             if (world.getBlockState(pos.offset(direction)).isAir() || world.getBlockState(pos.offset(direction)).getBlock() == Blocks.SCULK_VEIN) {return pos;}
             pos=pos.offset(direction);

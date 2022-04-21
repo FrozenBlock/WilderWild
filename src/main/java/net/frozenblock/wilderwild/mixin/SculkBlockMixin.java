@@ -1,6 +1,6 @@
 package net.frozenblock.wilderwild.mixin;
 
-import net.frozenblock.wilderwild.block.SculkBoneBlock;
+import net.frozenblock.wilderwild.block.OsseousSculkBlock;
 import net.frozenblock.wilderwild.noise.EasyNoiseSampler;
 import net.frozenblock.wilderwild.registry.RegisterBlocks;
 import net.minecraft.block.*;
@@ -56,19 +56,19 @@ public class SculkBlockMixin {
 						if (isWorldGen) {
 							pillarHeight = (int) MathHelper.clamp(EasyNoiseSampler.samplePerlinXoroPositive(blockPos.down(), randomness, false, false) * worldGenHeightMultiplier, 2, maxHeight);
 						}
-						blockState=RegisterBlocks.SCULK_BONE.getDefaultState().with(SculkBoneBlock.HEIGHT_LEFT, pillarHeight).with(SculkBoneBlock.TOTAL_HEIGHT, pillarHeight+1).with(SculkBoneBlock.UPSIDEDOWN, true);
+						blockState=RegisterBlocks.OSSEOUS_SCULK.getDefaultState().with(OsseousSculkBlock.HEIGHT_LEFT, pillarHeight).with(OsseousSculkBlock.TOTAL_HEIGHT, pillarHeight+1).with(OsseousSculkBlock.UPSIDEDOWN, true);
 						blockPos2=blockPos.down();
 					}
 
 					if (blockState.getBlock()==RegisterBlocks.SCULK_JAW) {blockPos2=blockPos;}
-					if (blockState.getBlock()==RegisterBlocks.SCULK_ECHOER) {placeBlockBelow=RegisterBlocks.SCULK_BONE.getDefaultState();}
+					if (blockState.getBlock()==RegisterBlocks.SCULK_ECHOER) {placeBlockBelow=RegisterBlocks.OSSEOUS_SCULK.getDefaultState();}
 
 					world.setBlockState(blockPos2, blockState, 3);
 
-					if (isWorldGen && world.getBlockState(blockPos2).getBlock()==RegisterBlocks.SCULK_BONE) {
-						int amount = Math.max(0, blockState.get(SculkBoneBlock.HEIGHT_LEFT) - random.nextInt(1));
+					if (isWorldGen && world.getBlockState(blockPos2).getBlock()==RegisterBlocks.OSSEOUS_SCULK) {
+						int amount = Math.max(0, blockState.get(OsseousSculkBlock.HEIGHT_LEFT) - random.nextInt(1));
 						for (int a = 0; a < amount; a++) {
-							SculkBoneBlock.worldGenSpread(blockPos2, world, random);
+							OsseousSculkBlock.worldGenSpread(blockPos2, world, random);
 						}
 					}
 
@@ -117,7 +117,7 @@ public class SculkBlockMixin {
 		}
 		if (canPlaceBone(pos) && blockState.isOf(Blocks.SCULK_SENSOR)) {
 			int pillarHeight = (int) MathHelper.clamp(EasyNoiseSampler.samplePerlinXoroPositive(pos, randomness, false, false) * heightMultiplier, 2, maxHeight);
-			blockState = RegisterBlocks.SCULK_BONE.getDefaultState().with(SculkBoneBlock.HEIGHT_LEFT, pillarHeight).with(SculkBoneBlock.TOTAL_HEIGHT, pillarHeight + 1);
+			blockState = RegisterBlocks.OSSEOUS_SCULK.getDefaultState().with(OsseousSculkBlock.HEIGHT_LEFT, pillarHeight).with(OsseousSculkBlock.TOTAL_HEIGHT, pillarHeight + 1);
 			decided = true;
 		}
 		if (!decided && (Math.random()*5 > 4)) {

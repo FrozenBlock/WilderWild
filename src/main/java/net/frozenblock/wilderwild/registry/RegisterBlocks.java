@@ -34,8 +34,8 @@ public abstract class RegisterBlocks {
     public static final Block SCULK_JAW = registerBlock("sculk_jaw",
             new SculkJawBlock(AbstractBlock.Settings.of(Material.SCULK).strength(0.6F).sounds(BlockSoundGroup.SCULK)),
             ItemGroup.DECORATIONS);
-    public static final Block SCULK_BONE = registerBlock("sculk_bone",
-            new SculkBoneBlock(AbstractBlock.Settings.of(Material.STONE,
+    public static final Block OSSEOUS_SCULK = registerBlock("osseous_sculk",
+            new OsseousSculkBlock(AbstractBlock.Settings.of(Material.STONE,
                     MapColor.PALE_YELLOW).requiresTool().strength(2.0F).sounds(BlockSoundGroup.SCULK_CATALYST)),ItemGroup.DECORATIONS);
 
     // FLOWERS
