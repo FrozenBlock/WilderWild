@@ -269,11 +269,6 @@ public class HangingTendrilBlock extends BlockWithEntity implements Waterloggabl
         this.dropExperienceWhenMined(world, pos, stack, ConstantIntProvider.create(2));
     }
 
-    @Override
-    public VoxelShape getCollisionShape(BlockState state, BlockView world, BlockPos pos, ShapeContext context) {
-        return null;
-    }
-
     static {
         SCULK_SENSOR_PHASE = Properties.SCULK_SENSOR_PHASE;
         WATERLOGGED = Properties.WATERLOGGED;
