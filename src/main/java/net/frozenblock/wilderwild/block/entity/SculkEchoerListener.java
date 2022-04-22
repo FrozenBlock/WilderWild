@@ -194,8 +194,7 @@ public class SculkEchoerListener implements GameEventListener {
     }
 
     public static record Vibration(GameEvent gameEvent, int distance, Vec3d pos, @Nullable UUID uuid, @Nullable UUID projectileOwnerUuid, @Nullable Entity entity) {
-        final GameEvent gameEvent;
-        final Vec3d pos;
+
         public static final Codec<SculkEchoerListener.Vibration> CODEC = RecordCodecBuilder.create((instance) -> {
             return instance.group(Registry.GAME_EVENT.getCodec().fieldOf("game_event").forGetter(SculkEchoerListener.Vibration::gameEvent), Codecs.NONNEGATIVE_INT.fieldOf("distance").forGetter(SculkEchoerListener.Vibration::distance), Vec3d.CODEC.fieldOf("pos").forGetter(SculkEchoerListener.Vibration::pos), Codecs.UUID.optionalFieldOf("source").forGetter((vibration) -> {
                 return Optional.ofNullable(vibration.uuid());
