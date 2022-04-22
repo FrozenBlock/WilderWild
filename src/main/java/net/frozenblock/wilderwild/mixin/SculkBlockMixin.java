@@ -139,7 +139,7 @@ public class SculkBlockMixin {
 	private static boolean shouldNotDecay(WorldAccess world, BlockPos pos, boolean isWorldGen) {
 		BlockState blockState = world.getBlockState(pos.up());
 		BlockState blockState1 = world.getBlockState(pos.down());
-		if (((blockState.isAir()) || (blockState.isOf(Blocks.WATER) && blockState.getFluidState().isOf(Fluids.WATER))) || (isWorldGen && ((blockState1.isAir()) || (blockState1.isOf(Blocks.WATER) && blockState1.getFluidState().isOf(Fluids.WATER))))) {
+		if (((blockState.isAir()) || (blockState.isOf(Blocks.WATER) && blockState.getFluidState().isOf(Fluids.WATER))) || ((isWorldGen || canPlaceBone(pos, false)) && ((blockState1.isAir()) || (blockState1.isOf(Blocks.WATER) && blockState1.getFluidState().isOf(Fluids.WATER))))) {
 			int i = 0;
 			Iterator<BlockPos> var4 = BlockPos.iterate(pos.add(-4, 0, -4), pos.add(4, 2, 4)).iterator();
 
