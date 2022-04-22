@@ -1,7 +1,8 @@
 {
 	"ambientocclusion": false,
 	"textures": {
-		"tendril": "wilderwild:block/hanging_tendril"
+		"tendril": "wilderwild:block/hanging_tendril",
+		"particle": "#tendril"
 	},
 	"elements": [
 		{
