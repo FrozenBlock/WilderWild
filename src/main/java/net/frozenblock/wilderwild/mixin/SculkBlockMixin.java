@@ -30,7 +30,7 @@ public class SculkBlockMixin {
 
 	private static final double sculkBoneAreaSize = 0.09; //The smaller, the larger the area pillars can grow, but the larger the gaps between them.
 	private static final double sculkBoneThreshold = 0.15; //The higher, the harder it is for pillars to appear. If set to 1 or higher, they'll never grow.
-	private static final double sculkBoneWorldGenThreshold = 0.22; //The higher, the harder it is for pillars to appear. If set to 1 or higher, they'll never grow.
+	private static final double sculkBoneWorldGenThreshold = 0.3; //The higher, the harder it is for pillars to appear. If set to 1 or higher, they'll never grow. (CEILINGS IN WORLDGEN ONLY)
 
 	@Overwrite
 	public int spread(SculkSpreadManager.Cursor cursor, WorldAccess world, BlockPos catalystPos, AbstractRandom random, SculkSpreadManager spreadManager, boolean shouldConvertToBlock) {
@@ -44,7 +44,7 @@ public class SculkBlockMixin {
 		if (i != 0 && random.nextInt(spreadManager.getSpreadChance()) == 0) {
 			BlockPos blockPos = cursor.getPos();
 			boolean bl = blockPos.isWithinDistance(catalystPos, spreadManager.getMaxDistance());
-			if (!bl && shouldNotDecay(world, blockPos)) {
+			if (!bl && shouldNotDecay(world, blockPos, isWorldGen)) {
 				int j = spreadManager.getExtraBlockChance();
 				if (random.nextInt(j) < i) {
 					BlockPos blockPos2 = blockPos.up();
@@ -136,10 +136,10 @@ public class SculkBlockMixin {
 	}
 
 
-	private static boolean shouldNotDecay(WorldAccess world, BlockPos pos) {
+	private static boolean shouldNotDecay(WorldAccess world, BlockPos pos, boolean isWorldGen) {
 		BlockState blockState = world.getBlockState(pos.up());
 		BlockState blockState1 = world.getBlockState(pos.down());
-		if (((blockState.isAir()) || (blockState.isOf(Blocks.WATER) && blockState.getFluidState().isOf(Fluids.WATER))) || (canPlaceBone(pos, false) && ((blockState1.isAir()) || (blockState1.isOf(Blocks.WATER) && blockState1.getFluidState().isOf(Fluids.WATER))))) {
+		if (((blockState.isAir()) || (blockState.isOf(Blocks.WATER) && blockState.getFluidState().isOf(Fluids.WATER))) || (isWorldGen && ((blockState1.isAir()) || (blockState1.isOf(Blocks.WATER) && blockState1.getFluidState().isOf(Fluids.WATER))))) {
 			int i = 0;
 			Iterator<BlockPos> var4 = BlockPos.iterate(pos.add(-4, 0, -4), pos.add(4, 2, 4)).iterator();
 
