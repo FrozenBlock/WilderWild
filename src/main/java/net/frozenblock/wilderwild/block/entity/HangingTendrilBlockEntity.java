@@ -14,6 +14,7 @@ import net.minecraft.nbt.NbtOps;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
+import net.minecraft.world.World;
 import net.minecraft.world.event.BlockPositionSource;
 import net.minecraft.world.event.GameEvent;
 import net.minecraft.world.event.listener.GameEventListener;
@@ -27,15 +28,24 @@ public class HangingTendrilBlockEntity extends BlockEntity implements SculkSenso
     private static final Logger LOGGER = LogUtils.getLogger();
     private SculkSensorListener listener;
     private int lastVibrationFrequency;
+    public int ticksToStopTwitching;
 
     public HangingTendrilBlockEntity(BlockPos pos, BlockState state) {
         super(RegisterBlockEntityType.HANGING_TENDRIL, pos, state);
         this.listener = new SculkSensorListener(new BlockPositionSource(this.pos), ((HangingTendrilBlock)state.getBlock()).getRange(), this, null, 0, 0);
     }
 
+    public void serverTick(World world, BlockPos pos, BlockState state) {
+        this.listener.tick(world);
+        if (this.ticksToStopTwitching>=0) {--this.ticksToStopTwitching;} else {
+            world.setBlockState(pos, state.with(HangingTendrilBlock.TWITCHING, false));
+        }
+    }
+
     public void readNbt(NbtCompound nbt) {
         super.readNbt(nbt);
         this.lastVibrationFrequency = nbt.getInt("last_vibration_frequency");
+        this.ticksToStopTwitching = nbt.getInt("ticksToStopTwitching");
         if (nbt.contains("listener", 10)) {
             DataResult<?> var10000 = SculkSensorListener.createCodec(this).parse(new Dynamic<>(NbtOps.INSTANCE, nbt.getCompound("listener")));
             Logger var10001 = LOGGER;
@@ -49,6 +59,7 @@ public class HangingTendrilBlockEntity extends BlockEntity implements SculkSenso
     protected void writeNbt(NbtCompound nbt) {
         super.writeNbt(nbt);
         nbt.putInt("last_vibration_frequency", this.lastVibrationFrequency);
+        nbt.putInt("ticksToStopTwitching", this.ticksToStopTwitching);
         DataResult<?> var10000 = SculkSensorListener.createCodec(this).encodeStart(NbtOps.INSTANCE, this.listener);
         Logger var10001 = LOGGER;
         Objects.requireNonNull(var10001);

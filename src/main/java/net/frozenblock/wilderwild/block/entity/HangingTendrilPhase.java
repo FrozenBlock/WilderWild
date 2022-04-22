@@ -5,9 +5,7 @@ import net.minecraft.util.StringIdentifiable;
 public enum HangingTendrilPhase implements StringIdentifiable {
     INACTIVE("inactive"),
     ACTIVE("active"),
-    COOLDOWN("cooldown"),
-    TWITCH1("twitch1"),
-    TWITCH2("twitch2");
+    COOLDOWN("cooldown");
 
     private final String name;
 

@@ -15,5 +15,6 @@ public class RegisterProperties extends Properties {
     public static final DirectionProperty CAME_FROM = DirectionProperty.of("placed_from");
 
     public static final EnumProperty<HangingTendrilPhase> HANGING_TENDRIL_PHASE = EnumProperty.of("hanging_tendril_phase", HangingTendrilPhase.class);
+    public static final BooleanProperty TWITCHING = BooleanProperty.of("twitching");
 
 }
