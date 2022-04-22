@@ -215,7 +215,7 @@ public class HangingTendrilBlock extends BlockWithEntity implements Waterloggabl
 
     public static void setActive(@Nullable Entity entity, World world, BlockPos pos, BlockState state, int power) {
         world.setBlockState(pos, state.with(HANGING_TENDRIL_PHASE, HangingTendrilPhase.ACTIVE), 3);
-        world.createAndScheduleBlockTick(pos, state.getBlock(), 40);
+        world.createAndScheduleBlockTick(pos, state.getBlock(), 60);
         updateNeighbors(world, pos);
         world.emitGameEvent(entity, WilderWild.SCULK_SENSOR_ACTIVATE, pos);
 
