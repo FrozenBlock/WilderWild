@@ -36,10 +36,10 @@ public class HangingTendrilBlockEntity extends BlockEntity implements SculkSenso
     }
 
     public void serverTick(World world, BlockPos pos, BlockState state) {
-        this.listener.tick(world);
-        if (this.ticksToStopTwitching>=0) {--this.ticksToStopTwitching;} else {
+        if (this.ticksToStopTwitching>=0) {--this.ticksToStopTwitching;} else if (state.get(HangingTendrilBlock.TWITCHING)) {
             world.setBlockState(pos, state.with(HangingTendrilBlock.TWITCHING, false));
         }
+        this.listener.tick(world);
     }
 
     public void readNbt(NbtCompound nbt) {
