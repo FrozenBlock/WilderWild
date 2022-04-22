@@ -7,7 +7,6 @@ import net.frozenblock.wilderwild.block.*;
 import net.frozenblock.wilderwild.block.entity.HangingTendrilPhase;
 import net.frozenblock.wilderwild.item.FloweredLilyPadItem;
 import net.minecraft.block.*;
-import net.minecraft.block.enums.SculkSensorPhase;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.ItemGroup;
