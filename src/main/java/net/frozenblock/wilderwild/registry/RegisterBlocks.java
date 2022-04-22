@@ -39,7 +39,7 @@ public abstract class RegisterBlocks {
             new OsseousSculkBlock(AbstractBlock.Settings.of(Material.STONE,
                     MapColor.PALE_YELLOW).requiresTool().strength(2.0F).sounds(BlockSoundGroup.SCULK_CATALYST)),ItemGroup.DECORATIONS);
     public static final Block HANGING_TENDRIL = registerBlock("hanging_tendril",
-            new HangingTendrilBlock(FabricBlockSettings.copyOf(Blocks.SCULK_SENSOR).collidable(false).luminance((state) -> 1).emissiveLighting((state, world, pos) -> SculkSensorBlock.getPhase(state) == SculkSensorPhase.ACTIVE), 16), ItemGroup.REDSTONE);
+            new HangingTendrilBlock(FabricBlockSettings.copyOf(Blocks.SCULK_SENSOR).strength(0.7F).collidable(false).luminance((state) -> 1).emissiveLighting((state, world, pos) -> SculkSensorBlock.getPhase(state) == SculkSensorPhase.ACTIVE), 16), ItemGroup.REDSTONE);
 
     // FLOWERS
     public static final Block DATURA = registerBlock("datura",

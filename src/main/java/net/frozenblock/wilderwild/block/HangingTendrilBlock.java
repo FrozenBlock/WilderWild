@@ -257,7 +257,7 @@ public class HangingTendrilBlock extends BlockWithEntity implements Waterloggabl
 
     public void onStacksDropped(BlockState state, ServerWorld world, BlockPos pos, ItemStack stack) {
         super.onStacksDropped(state, world, pos, stack);
-        this.dropExperienceWhenMined(world, pos, stack, ConstantIntProvider.create(2));
+        this.dropExperienceWhenMined(world, pos, stack, ConstantIntProvider.create(1));
     }
 
     static {
