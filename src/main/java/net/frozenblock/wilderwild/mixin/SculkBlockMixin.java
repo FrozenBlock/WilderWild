@@ -63,7 +63,7 @@ public class SculkBlockMixin {
 							if (isWorldGen) { j=-2; }
 						} else {
 							blockState = RegisterBlocks.HANGING_TENDRIL.getDefaultState();
-							if (isWorldGen) { j=-2; }
+							if (isWorldGen) { j=0; }
 						}
 						blockPos2=blockPos.down();
 					}
