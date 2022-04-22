@@ -58,6 +58,7 @@ public class OsseousSculkBlock extends PillarBlock implements SculkSpreadable {
     @Override
     public int spread(SculkSpreadManager.Cursor cursor, WorldAccess world, BlockPos catalystPos, AbstractRandom random, SculkSpreadManager spreadManager, boolean shouldConvertToBlock) {
         int i = cursor.getCharge();
+        int j=1;
         if (i != 0 && random.nextInt(1) == 0) {
             BlockPos blockPos = cursor.getPos();
             boolean bl = blockPos.isWithinDistance(catalystPos, spreadManager.getMaxDistance());
@@ -105,7 +106,7 @@ public class OsseousSculkBlock extends PillarBlock implements SculkSpreadable {
                         }
                         world.setBlockState(topPos.offset(direction), blockState, 3);
                         world.playSound(null, blockPos, blockState.getSoundGroup().getPlaceSound(), SoundCategory.BLOCKS, 1.0F, 1.0F);
-
+                        if (spreadManager.isWorldGen() && Math.random()>0.4) {j=0;}
                         BlockPos bottom = getBottom(world, topPos.offset(direction), state.get(TOTAL_HEIGHT));
                         if (bottom!=null) {
                             BlockState bottomState = world.getBlockState(bottom);
@@ -117,7 +118,7 @@ public class OsseousSculkBlock extends PillarBlock implements SculkSpreadable {
                                 }
                             }
                         }
-                        return Math.max(0, i - 1);
+                        return Math.max(0, i - j);
                     }
                 }
             }
