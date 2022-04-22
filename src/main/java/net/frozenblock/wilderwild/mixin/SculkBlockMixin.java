@@ -30,7 +30,7 @@ public class SculkBlockMixin {
 
 	private static final double sculkBoneAreaSize = 0.09; //The smaller, the larger the area pillars can grow, but the larger the gaps between them.
 	private static final double sculkBoneThreshold = 0.15; //The higher, the harder it is for pillars to appear. If set to 1 or higher, they'll never grow.
-	private static final double sculkBoneWorldGenThreshold = 0.2; //The higher, the harder it is for pillars to appear. If set to 1 or higher, they'll never grow. (CEILINGS IN WORLDGEN ONLY)
+	private static final double sculkBoneWorldGenThreshold = 0.16; //The higher, the harder it is for pillars to appear. If set to 1 or higher, they'll never grow. (CEILINGS IN WORLDGEN ONLY)
 
 	@Overwrite
 	public int spread(SculkSpreadManager.Cursor cursor, WorldAccess world, BlockPos catalystPos, AbstractRandom random, SculkSpreadManager spreadManager, boolean shouldConvertToBlock) {
@@ -63,7 +63,7 @@ public class SculkBlockMixin {
 							if (isWorldGen) { j=-2; }
 						} else {
 							blockState = RegisterBlocks.HANGING_TENDRIL.getDefaultState();
-							if (isWorldGen) { j=0; }
+							if (isWorldGen && Math.random()>0.4) { j=0; }
 						}
 						blockPos2=blockPos.down();
 					}
