@@ -1,10 +1,10 @@
 {
   "variants": {
-    "hanging_tendril_phase=cooldown, twitching=true": { "model": "wilderwild:block/hanging_tendril" },
-    "hanging_tendril_phase=active, twitching=true": { "model": "wilderwild:block/hanging_tendril_active" },
-    "hanging_tendril_phase=inactive, twitching=true": { "model": "wilderwild:block/hanging_tendril_twitch" },
-    "hanging_tendril_phase=cooldown, twitching=false": { "model": "wilderwild:block/hanging_tendril" },
-    "hanging_tendril_phase=active, twitching=false": { "model": "wilderwild:block/hanging_tendril_active" },
-    "hanging_tendril_phase=inactive, twitching=false": { "model": "wilderwild:block/hanging_tendril" }
+    "hanging_tendril_phase=cooldown,twitching=true": { "model": "wilderwild:block/hanging_tendril" },
+    "hanging_tendril_phase=active,twitching=true": { "model": "wilderwild:block/hanging_tendril_active" },
+    "hanging_tendril_phase=inactive,twitching=true": { "model": "wilderwild:block/hanging_tendril_twitch" },
+    "hanging_tendril_phase=cooldown,twitching=false": { "model": "wilderwild:block/hanging_tendril" },
+    "hanging_tendril_phase=active,twitching=false": { "model": "wilderwild:block/hanging_tendril_active" },
+    "hanging_tendril_phase=inactive,twitching=false": { "model": "wilderwild:block/hanging_tendril" }
   }
 }
