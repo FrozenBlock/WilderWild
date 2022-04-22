@@ -29,8 +29,8 @@ public class SculkBlockMixin {
 	private static final double randomness = 0.9; //The higher, the more random. The lower, the more gradual the heights change.
 
 	private static final double sculkBoneAreaSize = 0.09; //The smaller, the larger the area pillars can grow, but the larger the gaps between them.
-	private static final double sculkBoneThreshold = 0.23; //The higher, the harder it is for pillars to appear. If set to 1 or higher, they'll never grow.
-	private static final double sculkBoneWorldGenThreshold = 0.4; //The higher, the harder it is for pillars to appear. If set to 1 or higher, they'll never grow.
+	private static final double sculkBoneThreshold = 0.15; //The higher, the harder it is for pillars to appear. If set to 1 or higher, they'll never grow.
+	private static final double sculkBoneWorldGenThreshold = 0.22; //The higher, the harder it is for pillars to appear. If set to 1 or higher, they'll never grow.
 
 	@Overwrite
 	public int spread(SculkSpreadManager.Cursor cursor, WorldAccess world, BlockPos catalystPos, AbstractRandom random, SculkSpreadManager spreadManager, boolean shouldConvertToBlock) {

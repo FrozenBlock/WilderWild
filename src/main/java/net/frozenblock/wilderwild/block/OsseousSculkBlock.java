@@ -106,7 +106,7 @@ public class OsseousSculkBlock extends PillarBlock implements SculkSpreadable {
                         }
                         world.setBlockState(topPos.offset(direction), blockState, 3);
                         world.playSound(null, blockPos, blockState.getSoundGroup().getPlaceSound(), SoundCategory.BLOCKS, 1.0F, 1.0F);
-                        if (spreadManager.isWorldGen() && Math.random()>0.4) {j=0;}
+                        if (spreadManager.isWorldGen() && Math.random()>0.2) {j=0;}
                         BlockPos bottom = getBottom(world, topPos.offset(direction), state.get(TOTAL_HEIGHT));
                         if (bottom!=null) {
                             BlockState bottomState = world.getBlockState(bottom);
