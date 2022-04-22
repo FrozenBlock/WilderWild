@@ -1,5 +1,5 @@
 {
-	"parent": "minecraft:block/hanging_tendril",
+	"parent": "wilderwild:block/hanging_tendril",
 	"textures": {
 		"tendril": "wilderwild:block/hanging_tendril_active"
 	}
