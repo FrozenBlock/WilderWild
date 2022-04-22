@@ -14,11 +14,12 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 @Mixin(SculkVeinBlock.SculkVeinGrowChecker.class)
 public class SculkVeinGrowCheckerMixin {
 
-    @Inject(at = @At("RETURN"), method = "canGrow", cancellable = true)
-    public boolean canGrow(BlockView world, BlockPos pos, BlockPos growPos, Direction direction, BlockState state, CallbackInfoReturnable info) {
+    @Inject(at = @At("HEAD"), method = "canGrow", cancellable = true)
+    public void newBlocks(BlockView world, BlockPos pos, BlockPos growPos, Direction direction, BlockState state, CallbackInfoReturnable<Boolean> info) {
         BlockState blockState = world.getBlockState(growPos.offset(direction));
-        if (blockState.isOf(RegisterBlocks.OSSEOUS_SCULK) || blockState.isOf(RegisterBlocks.SCULK_JAW)) { info.cancel(); }
-        return info.getReturnValueZ();
+        if (blockState.isOf(RegisterBlocks.OSSEOUS_SCULK) || blockState.isOf(RegisterBlocks.SCULK_JAW)) { info.setReturnValue(false);
+            info.cancel();
+        }
     }
 
 }
