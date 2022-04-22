@@ -30,6 +30,8 @@
     "wilderwild.mixins.json"
   ],
 
+  "accessWidener" : "wilderwild.accesswidener",
+
   "depends": {
     "fabricloader": ">=0.13.3",
     "fabric": "*",
