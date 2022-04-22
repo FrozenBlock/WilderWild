@@ -32,7 +32,7 @@ public class SculkEchoerBlockEntity extends BlockEntity implements SculkSensorLi
     private int lastVibrationFreq;
     public SculkEchoerBlockEntity(BlockPos pos, BlockState state) {
         super(RegisterBlockEntityType.SCULK_ECHOER, pos, state);
-        this.listener = new SculkEchoerListener(new BlockPositionSource(this.pos), ((SculkEchoerBlock)state.getBlock()).getRange(), ((SculkEchoerBlock)state.getBlock()).getTendrilRange(), this, null, 0, 0);
+        this.listener = new SculkSensorListener(new BlockPositionSource(this.pos), ((SculkEchoerBlock)state.getBlock()).getTendrilRange(), this, null, 0, 0);
     }
 
     public SculkSensorListener getListener() {
@@ -44,11 +44,11 @@ public class SculkEchoerBlockEntity extends BlockEntity implements SculkSensorLi
         this.lastVibrationFreq = nbt.getInt("last_vibration_frequency");
 
         if (nbt.contains("listener", 10)) {
-            DataResult<?> var10000 = SculkEchoerListener.createCodec(this).parse(new Dynamic<>(NbtOps.INSTANCE, nbt.getCompound("listener")));
+            DataResult<?> var10000 = SculkSensorListener.createCodec(this).parse(new Dynamic<>(NbtOps.INSTANCE, nbt.getCompound("listener")));
             Logger var10001 = LOGGER;
             Objects.requireNonNull(var10001);
             var10000.resultOrPartial(var10001::error).ifPresent((vibrationListener) -> {
-                this.listener = (SculkEchoerListener) vibrationListener;
+                this.listener = (SculkSensorListener) vibrationListener;
             });
         }
     }
@@ -56,7 +56,7 @@ public class SculkEchoerBlockEntity extends BlockEntity implements SculkSensorLi
     public void writeNbt(NbtCompound nbt) {
         super.writeNbt(nbt);
         nbt.putInt("last_vibration_frequency", this.lastVibrationFreq);
-        DataResult<?> var10000 = SculkEchoerListener.createCodec(this).encodeStart(NbtOps.INSTANCE, this.listener);
+        DataResult<?> var10000 = SculkSensorListener.createCodec(this).encodeStart(NbtOps.INSTANCE, this.listener);
         Logger var10001 = LOGGER;
         Objects.requireNonNull(var10001);
         var10000.resultOrPartial(var10001::error).ifPresent((nbtElement) -> {
@@ -78,7 +78,11 @@ public class SculkEchoerBlockEntity extends BlockEntity implements SculkSensorLi
 
     @Override
     public boolean accepts(ServerWorld world, GameEventListener listener, BlockPos pos, GameEvent event, GameEvent.Emitter arg) {
-        return (!pos.equals(this.getPos()) && (event != GameEvent.BLOCK_DESTROY || event != GameEvent.BLOCK_PLACE)) && SculkEchoerBlock.isInactive(this.getCachedState());
+        if (world.getBlockState(this.getPos()).getBlock() instanceof SculkEchoerBlock echoer) {
+            boolean accepts = this.getPos().isWithinDistance(pos, echoer.getRange());
+            if (world.getBlockState(pos).isOf(RegisterBlocks.HANGING_TENDRIL)) { accepts=true; }
+            return (!pos.equals(this.getPos()) && (event != GameEvent.BLOCK_DESTROY || event != GameEvent.BLOCK_PLACE)) && SculkEchoerBlock.isInactive(this.getCachedState());
+        } return false;
     }
 
     @Override
@@ -89,6 +93,7 @@ public class SculkEchoerBlockEntity extends BlockEntity implements SculkSensorLi
             SculkEchoerBlock.setActive(entity, world, this.pos, blockState, getPower(delay, listener.getRange()));
         }
     }
+
 
     public void onListen() {
         this.markDirty();
