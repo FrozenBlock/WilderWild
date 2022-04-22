@@ -4,6 +4,7 @@ import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.block.*;
+import net.frozenblock.wilderwild.block.entity.HangingTendrilPhase;
 import net.frozenblock.wilderwild.item.FloweredLilyPadItem;
 import net.minecraft.block.*;
 import net.minecraft.block.enums.SculkSensorPhase;
@@ -39,7 +40,7 @@ public abstract class RegisterBlocks {
             new OsseousSculkBlock(AbstractBlock.Settings.of(Material.STONE,
                     MapColor.PALE_YELLOW).requiresTool().strength(2.0F).sounds(BlockSoundGroup.SCULK_CATALYST)),ItemGroup.DECORATIONS);
     public static final Block HANGING_TENDRIL = registerBlock("hanging_tendril",
-            new HangingTendrilBlock(FabricBlockSettings.copyOf(Blocks.SCULK_SENSOR).strength(0.7F).collidable(false).luminance((state) -> 1).emissiveLighting((state, world, pos) -> SculkSensorBlock.getPhase(state) == SculkSensorPhase.ACTIVE), 16), ItemGroup.REDSTONE);
+            new HangingTendrilBlock(FabricBlockSettings.copyOf(Blocks.SCULK_SENSOR).strength(0.7F).collidable(false).luminance((state) -> 1).emissiveLighting((state, world, pos) -> HangingTendrilBlock.getPhase(state) == HangingTendrilPhase.ACTIVE), 16), ItemGroup.REDSTONE);
 
     // FLOWERS
     public static final Block DATURA = registerBlock("datura",
