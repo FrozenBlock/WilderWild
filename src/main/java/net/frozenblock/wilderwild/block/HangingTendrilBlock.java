@@ -120,6 +120,7 @@ public class HangingTendrilBlock extends BlockWithEntity implements Waterloggabl
             world.breakBlock(pos, true);
         } else if (getPhase(state)==HangingTendrilPhase.INACTIVE) {
             world.setBlockState(pos, state.with(HANGING_TENDRIL_PHASE, HangingTendrilPhase.TWITCH1));
+            world.createAndScheduleBlockTick(pos, state.getBlock(), 30);
         }
     }
 
@@ -138,11 +139,14 @@ public class HangingTendrilBlock extends BlockWithEntity implements Waterloggabl
     }
 
     public void scheduledTick(BlockState state, ServerWorld world, BlockPos pos, AbstractRandom random) {
+        if (getPhase(state) == HangingTendrilPhase.TWITCH1 || getPhase(state) == HangingTendrilPhase.TWITCH2) {
+            world.setBlockState(pos, state.with(HANGING_TENDRIL_PHASE, HangingTendrilPhase.INACTIVE), 3);
+        }
         if (getPhase(state) != HangingTendrilPhase.ACTIVE) {
             if (getPhase(state) == HangingTendrilPhase.COOLDOWN) {
                 world.setBlockState(pos, state.with(HANGING_TENDRIL_PHASE, HangingTendrilPhase.INACTIVE), 3);
             }
-        } else {
+        } else if (!isInactive(state)) {
             setCooldown(world, pos, state);
         }
     }
@@ -219,19 +223,6 @@ public class HangingTendrilBlock extends BlockWithEntity implements Waterloggabl
             world.playSound(null, (double)pos.getX() + 0.5D, (double)pos.getY() + 0.5D, (double)pos.getZ() + 0.5D, SoundEvents.BLOCK_SCULK_SENSOR_CLICKING, SoundCategory.BLOCKS, 1.0F, world.random.nextFloat() * 0.2F + 0.8F);
         }
 
-    }
-
-    public void randomDisplayTick(BlockState state, World world, BlockPos pos, AbstractRandom random) {
-        if (getPhase(state) == HangingTendrilPhase.ACTIVE) {
-            Direction direction = Direction.random(random);
-            if (direction != Direction.UP && direction != Direction.DOWN) {
-                double d = (double)pos.getX() + 0.5D + (direction.getOffsetX() == 0 ? 0.5D - random.nextDouble() : (double)direction.getOffsetX() * 0.6D);
-                double e = (double)pos.getY() + 0.25D;
-                double f = (double)pos.getZ() + 0.5D + (direction.getOffsetZ() == 0 ? 0.5D - random.nextDouble() : (double)direction.getOffsetZ() * 0.6D);
-                double g = (double)random.nextFloat() * 0.04D;
-                world.addParticle(DustColorTransitionParticleEffect.DEFAULT, d, e, f, 0.0D, g, 0.0D);
-            }
-        }
     }
 
     protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
