@@ -81,7 +81,7 @@ public class SculkEchoerBlockEntity extends BlockEntity implements SculkSensorLi
         if (world.getBlockState(this.getPos()).getBlock() instanceof SculkEchoerBlock echoer) {
             boolean accepts = this.getPos().isWithinDistance(pos, echoer.getRange());
             if (world.getBlockState(pos).isOf(RegisterBlocks.HANGING_TENDRIL)) { accepts=true; }
-            return (!pos.equals(this.getPos()) && (event != GameEvent.BLOCK_DESTROY || event != GameEvent.BLOCK_PLACE)) && SculkEchoerBlock.isInactive(this.getCachedState());
+            return (!pos.equals(this.getPos()) && (event != GameEvent.BLOCK_DESTROY || event != GameEvent.BLOCK_PLACE)) && SculkEchoerBlock.isInactive(this.getCachedState()) && accepts;
         } return false;
     }
 
