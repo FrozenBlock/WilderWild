@@ -1,0 +1,31 @@
+{
+  "replace": false,
+  "values": [
+    "minecraft:deepslate_tiles",
+    "minecraft:cracked_deepslate_tiles",
+    "minecraft:deepslate_bricks",
+    "minecraft:cracked_deepslate_bricks",
+    "minecraft:cobbled_deepslate",
+    "minecraft:chisled_deepslate",
+    "minecraft:polished_deepslate",
+    "minecraft:reinforced_deepslate",
+    "minecraft:deepslate_tiles",
+    "minecraft:deepslate_tile_stairs",
+    "minecraft:deepslate_tile_slab",
+    "minecraft:cobbled_deepslate_stairs",
+    "minecraft:cobbled_deepslate_slab",
+    "minecraft:polished_deepslate_stairs",
+    "minecraft:polished_deepslate_slab",
+    "minecraft:polished_deepslate_wall",
+    "minecraft:cobbled_deepslate_wall",
+    "minecraft:dark_oak_planks",
+    "minecraft:polished_deepslate",
+    "minecraft:light_blue_carpet",
+    "minecraft:gray_wool",
+    "minecraft:ladder",
+    "minecraft:soul_lantern",
+    "minecraft:soul_sand",
+    "minecraft:dark_oak_log",
+    "minecraft:dark_oak_fence"
+  ]
+}

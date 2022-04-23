@@ -2,6 +2,7 @@ package net.frozenblock.wilderwild.mixin;
 
 import net.frozenblock.wilderwild.block.OsseousSculkBlock;
 import net.frozenblock.wilderwild.registry.RegisterBlocks;
+import net.frozenblock.wilderwild.tag.WildBlockTags;
 import net.frozenblock.wilderwild.world.EasyNoiseSampler;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.SculkSpreadManager;
@@ -115,7 +116,7 @@ public class SculkBlockMixin {
 			if (!var4.hasNext()) { return false; }
 			BlockPos blockPos = var4.next();
 			BlockState blockState2 = world.getBlockState(blockPos);
-			if ((blockState2.isIn(BlockTags.ANCIENT_CITY_REPLACEABLE) || blockState2.isIn(BlockTags.SCULK_REPLACEABLE_WORLD_GEN)) && !blockState2.isIn(BlockTags.SCULK_REPLACEABLE)) {
+			if (blockState2.isIn(WildBlockTags.ANCIENT_CITY_BLOCKS)) {
 				++i;
 			}
 			if (i>=3) {return true;}
