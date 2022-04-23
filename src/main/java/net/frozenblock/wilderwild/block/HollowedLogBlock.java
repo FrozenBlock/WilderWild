@@ -15,10 +15,10 @@ import net.minecraft.world.WorldAccess;
 
 public class HollowedLogBlock extends PillarBlock implements Waterloggable {
     public static final BooleanProperty WATERLOGGED;
+    protected static final VoxelShape X_SHAPE;
     protected static final VoxelShape Y_SHAPE;
     protected static final VoxelShape Z_SHAPE;
-    protected static final VoxelShape X_SHAPE;
-    protected static final VoxelShape OUTLINE;
+    protected static final VoxelShape SHAPE;
 
     public HollowedLogBlock(Settings settings) {
         super(settings);
@@ -29,12 +29,12 @@ public class HollowedLogBlock extends PillarBlock implements Waterloggable {
     public VoxelShape getCollisionShape(BlockState state, BlockView world, BlockPos pos, ShapeContext context) {
         return switch (state.get(AXIS)) {
             default -> X_SHAPE;
-            case Z -> Z_SHAPE;
             case Y -> Y_SHAPE;
+            case Z -> Z_SHAPE;
         };
     }
     public VoxelShape getOutlineShape(BlockState state, BlockView world, BlockPos pos, ShapeContext context) {
-        return OUTLINE;
+            return SHAPE;
     }
 
     @Override
@@ -68,10 +68,10 @@ public class HollowedLogBlock extends PillarBlock implements Waterloggable {
     }
 
     static {
-        OUTLINE = VoxelShapes.fullCube();
+        SHAPE = VoxelShapes.cuboid(0, 0, 0, 1, 1, 1);
+        X_SHAPE = VoxelShapes.union(Block.createCuboidShape(0, 0, 0 , 16, 16, 3), Block.createCuboidShape(0, 13, 0, 16 ,16, 16), Block.createCuboidShape(0, 0, 13, 16, 16, 16), Block.createCuboidShape(0, 0, 0, 16, 3, 16));
         Y_SHAPE = VoxelShapes.union(Block.createCuboidShape(0, 0, 0 , 16, 16, 3), Block.createCuboidShape(0, 0, 0, 3 ,16, 16), Block.createCuboidShape(0, 0, 13, 16, 16, 16), Block.createCuboidShape(13, 0, 0, 16, 16, 16));
         Z_SHAPE = VoxelShapes.union(Block.createCuboidShape(13, 0, 0 , 16, 16, 16), Block.createCuboidShape(0, 0, 0, 3 ,16, 16), Block.createCuboidShape(0, 13, 0, 16, 16, 16), Block.createCuboidShape(0, 0, 0, 16, 3, 16));
-        X_SHAPE = VoxelShapes.union(Block.createCuboidShape(0, 0, 0 , 16, 16, 3), Block.createCuboidShape(0, 13, 0, 16 ,16, 16), Block.createCuboidShape(0, 0, 13, 16, 16, 16), Block.createCuboidShape(0, 0, 0, 16, 3, 16));
         WATERLOGGED = Properties.WATERLOGGED;
     }
 
