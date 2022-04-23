@@ -22,5 +22,5 @@ public class WildPlacedFeature {
                     PlacedFeatures.createCountExtraModifier(1, 0.1f, 2)));
 
     public static final RegistryEntry<PlacedFeature> POLLEN_PLACED = PlacedFeatures.register("pollen",
-            WildConfiguredFeatures.POLLEN_CONFIGURED, CountPlacementModifier.of(UniformIntProvider.create(104, 157)), PlacedFeatures.WORLD_SURFACE_WG_HEIGHTMAP, SquarePlacementModifier.of(), SurfaceThresholdFilterPlacementModifier.of(Heightmap.Type.WORLD_SURFACE_WG, 60, 128), BiomePlacementModifier.of());
+            WildConfiguredFeatures.POLLEN_CONFIGURED, CountPlacementModifier.of(UniformIntProvider.create(104, 157)), PlacedFeatures.MOTION_BLOCKING_HEIGHTMAP, SquarePlacementModifier.of(), SurfaceThresholdFilterPlacementModifier.of(Heightmap.Type.WORLD_SURFACE_WG, 60, 128), BiomePlacementModifier.of());
 }
