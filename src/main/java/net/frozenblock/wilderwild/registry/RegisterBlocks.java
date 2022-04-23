@@ -93,6 +93,10 @@ public abstract class RegisterBlocks {
             ItemGroup.DECORATIONS
     );
 
+    //pee
+    public static final Block POLLEN_BLOCK = registerBlock("pollen", new PollenBlock(FabricBlockSettings.copyOf(Blocks.GRASS).collidable(false).mapColor(MapColor.PALE_YELLOW)), ItemGroup.DECORATIONS);
+
+
     private static Block registerBlockWithoutBlockItem(String name, Block block, ItemGroup group) {
         return Registry.register(Registry.BLOCK, new Identifier(WilderWild.MOD_ID, name), block);
     }

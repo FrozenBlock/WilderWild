@@ -7,6 +7,7 @@ import net.frozenblock.wilderwild.dev_only.CameraItem;
 import net.frozenblock.wilderwild.registry.RegisterBlockEntityType;
 import net.frozenblock.wilderwild.registry.RegisterBlocks;
 import net.frozenblock.wilderwild.registry.RegisterItems;
+import net.frozenblock.wilderwild.registry.RegisterParticles;
 import net.frozenblock.wilderwild.world.feature.WildConfiguredFeatures;
 import net.frozenblock.wilderwild.world.gen.WildWorldGen;
 import net.minecraft.item.ItemGroup;
@@ -31,6 +32,7 @@ public class WilderWild implements ModInitializer {
         Registry.register(Registry.GAME_EVENT, new Identifier(WilderWild.MOD_ID, "sculk_echoer_echo"), SCULK_ECHOER_ECHO);
         Registry.register(Registry.GAME_EVENT, new Identifier(WilderWild.MOD_ID, "sculk_sensor_activate"), SCULK_SENSOR_ACTIVATE);
         RegisterItems.RegisterItems();
+        RegisterParticles.RegisterParticles();
         WildWorldGen.generateWildWorldGen();
         WildConfiguredFeatures.registerConfiguredFeatures();
         RegisterBlockEntityType.init();
