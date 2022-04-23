@@ -2,17 +2,22 @@ package net.frozenblock.wilderwild.block;
 
 import net.frozenblock.wilderwild.registry.RegisterBlocks;
 import net.frozenblock.wilderwild.registry.RegisterParticles;
-import net.minecraft.block.AbstractLichenBlock;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.LichenGrower;
+import net.minecraft.block.*;
 import net.minecraft.item.ItemPlacementContext;
+import net.minecraft.server.world.ServerWorld;
+import net.minecraft.state.StateManager;
+import net.minecraft.state.property.BooleanProperty;
+import net.minecraft.state.property.Properties;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.random.AbstractRandom;
+import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 
 public class PollenBlock extends AbstractLichenBlock {
     private final LichenGrower grower = new LichenGrower(this);
+    public static final BooleanProperty WATERLOGGED = Properties.WATERLOGGED;
     public PollenBlock(Settings settings) {
         super(settings);
     }
@@ -30,7 +35,35 @@ public class PollenBlock extends AbstractLichenBlock {
                 world.addParticle(RegisterParticles.POLLEN, (double)mutable.getX() + random.nextDouble(), (double)mutable.getY() + random.nextDouble(), (double)mutable.getZ() + random.nextDouble(), 0.0D, 0.0D, 0.0D);
             }
         }
+    }
 
+    @Override
+    public void randomTick(BlockState state, ServerWorld world, BlockPos pos, AbstractRandom random) {
+        if (state.get(WATERLOGGED)) {
+            world.breakBlock(pos, false);
+        }
+    }
+
+    @Override
+    public boolean hasRandomTicks(BlockState state) {
+        return state.get(WATERLOGGED);
+    }
+
+    protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
+        Direction[] var2 = DIRECTIONS;
+        int var3 = var2.length;
+
+        for(int var4 = 0; var4 < var3; ++var4) {
+            Direction direction = var2[var4];
+            if (this.canHaveDirection(direction)) {
+                builder.add(getProperty(direction));
+            }
+        }
+        builder.add(WATERLOGGED);
+    }
+
+    public static boolean canGrowOn(BlockView world, Direction direction, BlockPos pos, BlockState state) {
+        return Block.isFaceFullSquare(state.getSidesShape(world, pos), direction.getOpposite()) || Block.isFaceFullSquare(state.getCollisionShape(world, pos), direction.getOpposite()) && !world.getBlockState(pos).isOf(Blocks.WATER);
     }
 
     public boolean canReplace(BlockState state, ItemPlacementContext context) {
