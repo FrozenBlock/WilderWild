@@ -92,6 +92,7 @@ public class SculkEchoerBlock extends BlockWithEntity implements Waterloggable {
     private final int normalRange;
     private final int tendrilRange;
 
+    private static final VoxelShape OUTLINE = VoxelShapes.cuboid(0.0D, 0.0D, 0.0D, 16.0D, 16.0D, 16.0D);
     private static final VoxelShape SHAPE = VoxelShapes.union(Block.createCuboidShape(0.0D, 0.0D, 0.0D, 16.0D, 4.0D, 16.0D), Block.createCuboidShape(1.0D, 4.0D, 1.0D, 15.0D, 10.0D, 15.0D));
     private static final VoxelShape SHAPE_UPSIDEDOWN = VoxelShapes.union(Block.createCuboidShape(0.0D, 12.0D, 0.0D, 16.0D, 16.0D, 16.0D), Block.createCuboidShape(1.0D, 6.0D, 1.0D, 15.0D, 12.0D, 15.0D));
 
@@ -162,8 +163,7 @@ public class SculkEchoerBlock extends BlockWithEntity implements Waterloggable {
 
     @Override
     public VoxelShape getOutlineShape(BlockState blockState, BlockView blockView, BlockPos blockPos, ShapeContext shapeContext) {
-        if (blockState.get(UPSIDEDOWN)) { return SHAPE_UPSIDEDOWN; }
-        return SHAPE;
+        return OUTLINE;
     }
 
     public static SculkEchoerPhase getPhase(BlockState state) {
