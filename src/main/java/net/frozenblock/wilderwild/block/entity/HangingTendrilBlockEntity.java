@@ -3,6 +3,7 @@ package net.frozenblock.wilderwild.block.entity;
 import com.mojang.logging.LogUtils;
 import com.mojang.serialization.DataResult;
 import com.mojang.serialization.Dynamic;
+import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.block.HangingTendrilBlock;
 import net.frozenblock.wilderwild.registry.RegisterBlockEntityType;
 import net.minecraft.block.BlockState;
@@ -50,6 +51,7 @@ public class HangingTendrilBlockEntity extends BlockEntity implements SculkSenso
                 if (this.storedXP > 1) { droppedXP = this.storedXP/2; }
                 ExperienceOrbEntity.spawn((ServerWorld)world, Vec3d.ofCenter(pos).add(0, -0.5, 0), droppedXP);
                 this.storedXP=this.storedXP-droppedXP;
+                world.emitGameEvent(null, WilderWild.TENDRIL_EXTRACT_XP, pos);
             }
         }
         this.listener.tick(world);
