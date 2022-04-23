@@ -46,6 +46,7 @@ import org.jetbrains.annotations.Nullable;
 public class SculkEchoerBlock extends BlockWithEntity implements Waterloggable {
     public static final Object2IntMap<GameEvent> FREQUENCIES = Object2IntMaps.unmodifiable(Util.make(new Object2IntOpenHashMap<>(), (map) -> {
         map.put(GameEvent.STEP, 1);
+        map.put(WilderWild.TENDRIL_EXTRACT_XP, 1);
         map.put(GameEvent.FLAP, 2);
         map.put(GameEvent.SWIM, 3);
         map.put(GameEvent.ELYTRA_GLIDE, 4);
