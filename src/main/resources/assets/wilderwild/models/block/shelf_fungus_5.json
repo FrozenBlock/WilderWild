@@ -1,0 +1,48 @@
+{
+	"textures": {
+		"0": "wilderwild:block/shelf_fungus",
+		"particle": "wilderwild:block/shelf_fungus"
+	},
+	"elements": [
+		{
+			"from": [5, 3, 8],
+			"to": [13, 3, 16],
+			"faces": {
+				"up": {"uv": [0, 0, 8, 8], "texture": "#0"},
+				"down": {"uv": [0, 8, 8, 0], "texture": "#0"}
+			}
+		},
+		{
+			"from": [0, 1, 8],
+			"to": [8, 1, 16],
+			"faces": {
+				"up": {"uv": [0, 8, 8, 16], "texture": "#0"},
+				"down": {"uv": [0, 16, 8, 8], "texture": "#0"}
+			}
+		},
+		{
+			"from": [2, 12, 8],
+			"to": [10, 12, 16],
+			"faces": {
+				"up": {"uv": [8, 8, 16, 16], "texture": "#0"},
+				"down": {"uv": [8, 16, 16, 8], "texture": "#0"}
+			}
+		},
+		{
+			"from": [1, 6, 8],
+			"to": [9, 6, 16],
+			"faces": {
+				"up": {"uv": [8, 0, 16, 8], "texture": "#0"},
+				"down": {"uv": [8, 8, 16, 0], "texture": "#0"}
+			}
+		},
+		{
+			"from": [9, 8, 8],
+			"to": [17, 8, 16],
+			"faces": {
+				"up": {"uv": [8, 8, 16, 16], "texture": "#0"},
+				"down": {"uv": [8, 16, 16, 8], "texture": "#0"}
+			}
+		}
+	]
+}
