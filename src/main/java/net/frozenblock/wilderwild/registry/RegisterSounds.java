@@ -12,6 +12,12 @@ public class RegisterSounds {
     public static final SoundEvent BLOCK_OSSEOUS_SCULK_STEP = new SoundEvent(new Identifier(WilderWild.MOD_ID, "block.osseous_sculk.step"));
     public static final SoundEvent BLOCK_OSSEOUS_SCULK_FALL = new SoundEvent(new Identifier(WilderWild.MOD_ID, "block.osseous_sculk.fall"));
 
+    public static final SoundEvent BLOCK_HANGING_TENDRIL_PLACE = new SoundEvent(new Identifier(WilderWild.MOD_ID, "block.hanging_tendril.place"));
+    public static final SoundEvent BLOCK_HANGING_TENDRIL_HIT = new SoundEvent(new Identifier(WilderWild.MOD_ID, "block.hanging_tendril.hit"));
+    public static final SoundEvent BLOCK_HANGING_TENDRIL_BREAK = new SoundEvent(new Identifier(WilderWild.MOD_ID, "block.hanging_tendril.break"));
+    public static final SoundEvent BLOCK_HANGING_TENDRIL_STEP = new SoundEvent(new Identifier(WilderWild.MOD_ID, "block.hanging_tendril.step"));
+    public static final SoundEvent BLOCK_HANGING_TENDRIL_FALL = new SoundEvent(new Identifier(WilderWild.MOD_ID, "block.hanging_tendril.fall"));
+
     public static final SoundEvent BLOCK_SCULK_JAW_CLAMP = new SoundEvent(new Identifier(WilderWild.MOD_ID, "block.sculk_jaw.clamp"));
     public static final SoundEvent BLOCK_SCULK_ECHOER_RECEIVE_VIBRATION = new SoundEvent(new Identifier(WilderWild.MOD_ID, "block.sculk_echoer.receive_vibration"));
     public static final SoundEvent MUSIC_DISC_BENEATH = new SoundEvent(new Identifier(WilderWild.MOD_ID, "music_disc.beneath"));

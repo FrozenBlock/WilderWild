@@ -30,7 +30,58 @@
 		],
 		"subtitle": "subtitles.block.sculk_chirper.exhale"
 	},
-		"block.osseous_sculk.break": {
+	"block.hanging_tendril.break": {
+		"sounds": [
+			"wilderwild:block/hanging_tendril/break1",
+			"wilderwild:block/hanging_tendril/break2",
+			"wilderwild:block/hanging_tendril/break3",
+			"wilderwild:block/hanging_tendril/break4",
+			"wilderwild:block/hanging_tendril/break5",
+			"wilderwild:block/hanging_tendril/break6"
+		],
+		"subtitle": "subtitles.block.generic.break"
+	},
+	"block.hanging_tendril.hit": {
+		"sounds": [
+			"wilderwild:block/hanging_tendril/step1",
+			"wilderwild:block/hanging_tendril/step2",
+			"wilderwild:block/hanging_tendril/step3",
+			"wilderwild:block/hanging_tendril/step4",
+			"wilderwild:block/hanging_tendril/step5"
+		],
+		"subtitle": "subtitles.block.generic.hit"
+	},
+	"block.hanging_tendril.place": {
+		"sounds": [
+			"wilderwild:block/hanging_tendril/break1",
+			"wilderwild:block/hanging_tendril/break2",
+			"wilderwild:block/hanging_tendril/break3",
+			"wilderwild:block/hanging_tendril/break4",
+			"wilderwild:block/hanging_tendril/break5"
+		],
+		"subtitle": "subtitles.block.generic.place"
+	},
+	"block.hanging_tendril.step": {
+		"sounds": [
+			"wilderwild:block/hanging_tendril/step1",
+			"wilderwild:block/hanging_tendril/step2",
+			"wilderwild:block/hanging_tendril/step3",
+			"wilderwild:block/hanging_tendril/step4",
+			"wilderwild:block/hanging_tendril/step5"
+		],
+		"subtitle": "subtitles.block.generic.footsteps"
+	},
+	"block.hanging_tendril.fall": {
+		"sounds": [
+			"wilderwild:block/hanging_tendril/step1",
+			"wilderwild:block/hanging_tendril/step2",
+			"wilderwild:block/hanging_tendril/step3",
+			"wilderwild:block/hanging_tendril/step4",
+			"wilderwild:block/hanging_tendril/step5"
+		],
+		"subtitle": "subtitles.block.generic.fall"
+	},
+	"block.osseous_sculk.break": {
 		"sounds": [
 			"wilderwild:block/osseous_sculk/break1",
 			"wilderwild:block/osseous_sculk/break2",
