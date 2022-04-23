@@ -102,7 +102,7 @@ public abstract class RegisterBlocks {
     );
 
     //pee
-    public static final Block POLLEN_BLOCK = registerBlock("pollen", new PollenBlock(FabricBlockSettings.copyOf(Blocks.GRASS).collidable(false).mapColor(MapColor.PALE_YELLOW)), ItemGroup.DECORATIONS);
+    public static final AbstractLichenBlock POLLEN_BLOCK = registerLichenBlock("pollen", new PollenBlock(FabricBlockSettings.copyOf(Blocks.GRASS).collidable(false).mapColor(MapColor.PALE_YELLOW)), ItemGroup.DECORATIONS);
 
 
     private static Block registerBlockWithoutBlockItem(String name, Block block, ItemGroup group) {
@@ -123,6 +123,11 @@ public abstract class RegisterBlocks {
         return new HollowedLogBlock(AbstractBlock.Settings.of(Material.WOOD, (state) -> {
             return state.get(PillarBlock.AXIS) == Direction.Axis.Y ? topMapColor : sideMapColor;
         }).strength(2.0F).sounds(BlockSoundGroup.WOOD));
+    }
+
+    private static AbstractLichenBlock registerLichenBlock(String name, AbstractLichenBlock block, ItemGroup group) {
+        registerBlockItem(name, block, group);
+        return Registry.register(Registry.BLOCK, new Identifier(WilderWild.MOD_ID, name), block);
     }
 
 

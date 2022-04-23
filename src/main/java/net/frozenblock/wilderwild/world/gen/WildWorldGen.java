@@ -4,6 +4,7 @@ public class WildWorldGen {
     public static void generateWildWorldGen() {
         WildDaturaGeneration.generateFlowers();
         WildCarnationGeneration.generateFlowers();
+        WildPollenGeneration.generatePollen();
 
         WildBirchGeneration.generateTrees();
 

@@ -1,15 +1,18 @@
 package net.frozenblock.wilderwild.block;
 
+import net.frozenblock.wilderwild.registry.RegisterBlocks;
 import net.frozenblock.wilderwild.registry.RegisterParticles;
 import net.minecraft.block.AbstractLichenBlock;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.LichenGrower;
+import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.random.AbstractRandom;
 import net.minecraft.world.World;
 
 public class PollenBlock extends AbstractLichenBlock {
+    private final LichenGrower grower = new LichenGrower(this);
     public PollenBlock(Settings settings) {
         super(settings);
     }
@@ -33,8 +36,12 @@ public class PollenBlock extends AbstractLichenBlock {
 
     }
 
+    public boolean canReplace(BlockState state, ItemPlacementContext context) {
+        return !context.getStack().isOf(RegisterBlocks.POLLEN_BLOCK.asItem()) || super.canReplace(state, context);
+    }
+
     @Override
     public LichenGrower getGrower() {
-        return null;
+        return grower;
     }
 }
