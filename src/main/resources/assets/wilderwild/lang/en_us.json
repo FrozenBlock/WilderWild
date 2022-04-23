@@ -1,4 +1,6 @@
 {
+  "item.wilderwild.camera": "Dev Camera",
+	
   "item.wilderwild.music_disc_beneath": "Music Disc",
   "item.wilderwild.music_disc_beneath.desc": "Krole - Beneath",
 
@@ -14,7 +16,7 @@
   "block.wilderwild.carnation": "Carnation",
   "block.wilderwild.potted_carnation": "Potted Carnation",
   "block.wilderwild.datura": "Datura",
-  "block.wilderwild.cattail": "Cattails",
+  "block.wilderwild.cattail": "Cattail",
   "block.wilderwild.flowered_lily_pad": "Flowered Lily Pad",
   "block.wilderwild.pollen": "Pollen",
 
@@ -27,10 +29,8 @@
   "block.wilderwild.hollowed_spruce_log": "Hollowed Spruce Log",
 
   "subtitles.block.sculk_jaw.clamp": "Sculk Jaw clamps",
-  "subtitles.block.sculk_echoer.receive_vibration": "Sculk Echoer echos",
-  "subtitles.item.goat_horn.use": "Horn blown",
+  "subtitles.block.sculk_echoer.receive_vibration": "Sculk Echoer echoes",
   "subtitles.entity.goat.horn_break": "Goat's horn breaks off",
-
-
-  "item.wilderwild.camera": "Camera"
+  "subtitles.item.goat_horn.use": "Horn blown"
+  
 }
