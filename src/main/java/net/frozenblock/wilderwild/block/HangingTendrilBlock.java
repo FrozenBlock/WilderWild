@@ -193,6 +193,10 @@ public class HangingTendrilBlock extends BlockWithEntity implements Waterloggabl
         return BlockRenderType.MODEL;
     }
 
+    public VoxelShape getCullingShape(BlockState state, BlockView world, BlockPos pos) {
+        return OUTLINE_SHAPE;
+    }
+
     public VoxelShape getOutlineShape(BlockState state, BlockView world, BlockPos pos, ShapeContext context) {
         return OUTLINE_SHAPE;
     }
@@ -227,7 +231,7 @@ public class HangingTendrilBlock extends BlockWithEntity implements Waterloggabl
     }
 
     protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
-        builder.add(new Property[]{HANGING_TENDRIL_PHASE, WATERLOGGED, TWITCHING});
+        builder.add(HANGING_TENDRIL_PHASE, WATERLOGGED, TWITCHING);
     }
 
     public boolean hasComparatorOutput(BlockState state) {

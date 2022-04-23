@@ -5,6 +5,7 @@ import net.minecraft.entity.EntityData;
 import net.minecraft.entity.EntityPose;
 import net.minecraft.entity.SpawnReason;
 import net.minecraft.entity.ai.brain.MemoryModuleType;
+import net.minecraft.entity.mob.Angriness;
 import net.minecraft.entity.mob.WardenBrain;
 import net.minecraft.entity.mob.WardenEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -27,7 +28,8 @@ public class WardenEntityMixin {
     public EntityData initialize(ServerWorldAccess serverWorldAccess, LocalDifficulty localDifficulty, SpawnReason spawnReason, @Nullable EntityData entityData, @Nullable NbtCompound nbtCompound, CallbackInfoReturnable<?> info) {
         WardenEntity entity = WardenEntity.class.cast(this);
         entity.getBrain().remember(MemoryModuleType.DIG_COOLDOWN, Unit.INSTANCE, 1200L);
-        if (spawnReason == SpawnReason.SPAWN_EGG) {
+        entity.getBrain().remember(MemoryModuleType.TOUCH_COOLDOWN, Unit.INSTANCE, (long)WardenBrain.EMERGE_DURATION);
+        if (spawnReason == SpawnReason.SPAWN_EGG || spawnReason == SpawnReason.COMMAND) {
             entity.setPose(EntityPose.EMERGING);
             entity.getBrain().remember(MemoryModuleType.IS_EMERGING, Unit.INSTANCE, WardenBrain.EMERGE_DURATION);
             entity.setPersistent();
@@ -42,11 +44,11 @@ public class WardenEntityMixin {
             if (!entity.isInvulnerable()) {
                 if (!(entity instanceof PlayerEntity player)) {
                     warden.tryAttack(entity);
-                    warden.increaseAngerAt(entity, 45, false);
+                    warden.increaseAngerAt(entity, Angriness.ANGRY.getThreshold() + 20, false);
                 } else {
                     if (!player.isCreative()) {
                         warden.tryAttack(entity);
-                        warden.increaseAngerAt(entity, 45, false);
+                        warden.increaseAngerAt(entity, Angriness.ANGRY.getThreshold() + 20, false);
                     }
                 }
             }

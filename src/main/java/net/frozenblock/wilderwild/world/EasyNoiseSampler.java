@@ -5,7 +5,7 @@ import net.minecraft.util.math.noise.PerlinNoiseSampler;
 import net.minecraft.util.math.random.AbstractRandom;
 import net.minecraft.util.math.random.BlockingSimpleRandom;
 import net.minecraft.util.math.random.SimpleRandom;
-import net.minecraft.world.gen.random.AtomicSimpleRandom;
+import net.minecraft.util.math.random.AtomicSimpleRandom;
 import net.minecraft.world.gen.random.Xoroshiro128PlusPlusRandom;
 
 public class EasyNoiseSampler {
