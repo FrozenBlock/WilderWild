@@ -21,12 +21,9 @@ public class PollenBlock extends AbstractLichenBlock {
         int i = pos.getX();
         int j = pos.getY();
         int k = pos.getZ();
-        double d = (double)i + random.nextDouble();
-        double e = (double)j + 0.7D;
-        double f = (double)k + random.nextDouble();
         BlockPos.Mutable mutable = new BlockPos.Mutable();
 
-        for(int l = 0; l < 14; ++l) {
+        for(int l = 0; l < 7; ++l) {
             mutable.set(i + MathHelper.nextInt(random, -10, 10), j - random.nextInt(10), k + MathHelper.nextInt(random, -10, 10));
             BlockState blockState = world.getBlockState(mutable);
             if (!blockState.isFullCube(world, mutable)) {

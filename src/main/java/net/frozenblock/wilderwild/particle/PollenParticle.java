@@ -15,7 +15,7 @@ public class PollenParticle extends SpriteBillboardParticle {
         this.setSprite(spriteProvider);
         this.scale *= this.random.nextFloat() * 0.6F + 0.2F;
         this.maxAge = (int)(16.0D / (Math.random() * 0.8D + 0.2D));
-        this.collidesWithWorld = false;
+        this.collidesWithWorld = true;
         this.velocityMultiplier = 1.0F;
         this.gravityStrength = 0.0F;
     }
@@ -26,7 +26,7 @@ public class PollenParticle extends SpriteBillboardParticle {
         this.setSprite(spriteProvider);
         this.scale *= this.random.nextFloat() * 0.6F + 0.6F;
         this.maxAge = (int)(16.0D / (Math.random() * 0.8D + 0.2D));
-        this.collidesWithWorld = false;
+        this.collidesWithWorld = true;
         this.velocityMultiplier = 1.0F;
         this.gravityStrength = 0.0F;
     }
