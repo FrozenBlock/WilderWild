@@ -111,7 +111,7 @@ public class SculkBlockMixin {
 
 	private static boolean ancientCityNearby(WorldAccess world, BlockPos pos) {
 		int i = 0;
-		Iterator<BlockPos> var4 = BlockPos.iterate(pos.add(-4, -2, -4), pos.add(4, 2, 4)).iterator();
+		Iterator<BlockPos> var4 = BlockPos.iterate(pos.add(-4, -3, -4), pos.add(4, 3, 4)).iterator();
 		do {
 			if (!var4.hasNext()) { return false; }
 			BlockPos blockPos = var4.next();
@@ -119,7 +119,7 @@ public class SculkBlockMixin {
 			if (blockState2.isIn(WildBlockTags.ANCIENT_CITY_BLOCKS)) {
 				++i;
 			}
-			if (i>=3) {return true;}
+			if (i>=2) {return true;}
 		} while(true);
 	}
 
@@ -159,7 +159,7 @@ public class SculkBlockMixin {
 	private static boolean shouldNotDecay(WorldAccess world, BlockPos pos, boolean isWorldGen) {
 		BlockState blockState = world.getBlockState(pos.up());
 		BlockState blockState1 = world.getBlockState(pos.down());
-		if (((blockState.isAir()) || (blockState.isOf(Blocks.WATER) && blockState.getFluidState().isOf(Fluids.WATER))) || ((isWorldGen || canPlaceBone(pos, isWorldGen, world)) && ((blockState1.isAir()) || (blockState1.isOf(Blocks.WATER) && blockState1.getFluidState().isOf(Fluids.WATER))))) {
+		if (((blockState.isAir()) || (blockState.isOf(Blocks.WATER) && blockState.getFluidState().isOf(Fluids.WATER))) || (canPlaceBone(pos, isWorldGen, world) && ((blockState1.isAir()) || (blockState1.isOf(Blocks.WATER) && blockState1.getFluidState().isOf(Fluids.WATER))))) {
 			int i = 0;
 			Iterator<BlockPos> var4 = BlockPos.iterate(pos.add(-4, 0, -4), pos.add(4, 2, 4)).iterator();
 
