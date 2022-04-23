@@ -54,7 +54,7 @@ public class SculkBlockMixin {
 					BlockState stateDown = world.getBlockState(blockPos.down());
 					Block blockDown = stateDown.getBlock();
 					if ((stateDown.isAir() || blockDown==Blocks.WATER || blockDown==Blocks.LAVA || blockDown==Blocks.SCULK_VEIN)) {
-						if (canPlaceBone(blockPos, isWorldGen)) {
+						if (canPlaceBone(blockPos, isWorldGen, world)) {
 							int pillarHeight = (int) MathHelper.clamp(EasyNoiseSampler.samplePerlinXoroPositive(blockPos.down(), randomness, false, false) * heightMultiplier, 2, maxHeight);
 							if (isWorldGen) {
 								pillarHeight = (int) MathHelper.clamp(EasyNoiseSampler.samplePerlinXoroPositive(blockPos.down(), randomness, false, false) * worldGenHeightMultiplier, 2, maxHeight);
@@ -108,8 +108,27 @@ public class SculkBlockMixin {
 		}
 	}
 
-	private static boolean canPlaceBone(BlockPos pos, boolean worldGen) {
-		if (worldGen) { return EasyNoiseSampler.samplePerlinXoro(pos, sculkBoneAreaSize, true, true) > sculkBoneWorldGenThreshold; }
+	private static boolean ancientCityNearby(WorldAccess world, BlockPos pos) {
+		int i = 0;
+		Iterator<BlockPos> var4 = BlockPos.iterate(pos.add(-4, -2, -4), pos.add(4, 2, 4)).iterator();
+		do {
+			if (!var4.hasNext()) { return false; }
+			BlockPos blockPos = var4.next();
+			BlockState blockState2 = world.getBlockState(blockPos);
+			if ((blockState2.isIn(BlockTags.ANCIENT_CITY_REPLACEABLE) || blockState2.isIn(BlockTags.SCULK_REPLACEABLE_WORLD_GEN)) && !blockState2.isIn(BlockTags.SCULK_REPLACEABLE)) {
+				++i;
+			}
+			if (i>=3) {return true;}
+		} while(true);
+	}
+
+	private static boolean canPlaceBone(BlockPos pos, boolean worldGen, WorldAccess world) {
+		if (worldGen) {
+			if (!ancientCityNearby(world, pos)) {
+				return EasyNoiseSampler.samplePerlinXoro(pos, sculkBoneAreaSize, true, true) > sculkBoneWorldGenThreshold;
+			}
+			return false;
+		}
 		return EasyNoiseSampler.samplePerlinXoro(pos, sculkBoneAreaSize, true, true) > sculkBoneThreshold;
 	}
 
@@ -124,7 +143,7 @@ public class SculkBlockMixin {
 			blockState = RegisterBlocks.SCULK_JAW.getDefaultState();
 			decided = true;
 		}
-		if (canPlaceBone(pos, false) && blockState.isOf(Blocks.SCULK_SENSOR)) {
+		if (canPlaceBone(pos, allowShrieker, world) && blockState.isOf(Blocks.SCULK_SENSOR)) {
 			int pillarHeight = (int) MathHelper.clamp(EasyNoiseSampler.samplePerlinXoroPositive(pos, randomness, false, false) * heightMultiplier, 2, maxHeight);
 			blockState = RegisterBlocks.OSSEOUS_SCULK.getDefaultState().with(OsseousSculkBlock.HEIGHT_LEFT, pillarHeight).with(OsseousSculkBlock.TOTAL_HEIGHT, pillarHeight + 1);
 			decided = true;
@@ -139,7 +158,7 @@ public class SculkBlockMixin {
 	private static boolean shouldNotDecay(WorldAccess world, BlockPos pos, boolean isWorldGen) {
 		BlockState blockState = world.getBlockState(pos.up());
 		BlockState blockState1 = world.getBlockState(pos.down());
-		if (((blockState.isAir()) || (blockState.isOf(Blocks.WATER) && blockState.getFluidState().isOf(Fluids.WATER))) || ((isWorldGen || canPlaceBone(pos, false)) && ((blockState1.isAir()) || (blockState1.isOf(Blocks.WATER) && blockState1.getFluidState().isOf(Fluids.WATER))))) {
+		if (((blockState.isAir()) || (blockState.isOf(Blocks.WATER) && blockState.getFluidState().isOf(Fluids.WATER))) || ((isWorldGen || canPlaceBone(pos, isWorldGen, world)) && ((blockState1.isAir()) || (blockState1.isOf(Blocks.WATER) && blockState1.getFluidState().isOf(Fluids.WATER))))) {
 			int i = 0;
 			Iterator<BlockPos> var4 = BlockPos.iterate(pos.add(-4, 0, -4), pos.add(4, 2, 4)).iterator();
 
