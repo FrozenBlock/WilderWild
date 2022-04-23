@@ -1,5 +1,6 @@
 package net.frozenblock.wilderwild.tag;
 
+import net.frozenblock.wilderwild.WilderWild;
 import net.minecraft.block.Block;
 import net.minecraft.tag.TagKey;
 import net.minecraft.util.Identifier;
@@ -11,6 +12,6 @@ public class WildBlockTags {
     }
 
     private static TagKey<Block> of(String id) {
-        return TagKey.of(Registry.BLOCK_KEY, new Identifier(id));
+        return TagKey.of(Registry.BLOCK_KEY, new Identifier(WilderWild.MOD_ID, id));
     }
 }
