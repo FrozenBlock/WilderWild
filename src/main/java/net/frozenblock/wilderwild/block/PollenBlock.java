@@ -4,7 +4,6 @@ import net.frozenblock.wilderwild.registry.RegisterParticles;
 import net.minecraft.block.AbstractLichenBlock;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.LichenGrower;
-import net.minecraft.particle.ParticleTypes;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.random.AbstractRandom;

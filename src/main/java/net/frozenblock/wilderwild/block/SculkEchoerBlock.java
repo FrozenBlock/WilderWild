@@ -4,8 +4,6 @@ import it.unimi.dsi.fastutil.objects.Object2IntMap;
 import it.unimi.dsi.fastutil.objects.Object2IntMaps;
 import it.unimi.dsi.fastutil.objects.Object2IntOpenHashMap;
 import net.frozenblock.wilderwild.WilderWild;
-import net.frozenblock.wilderwild.block.entity.HangingTendrilBlockEntity;
-import net.frozenblock.wilderwild.block.entity.HangingTendrilPhase;
 import net.frozenblock.wilderwild.block.entity.SculkEchoerBlockEntity;
 import net.frozenblock.wilderwild.block.entity.SculkEchoerPhase;
 import net.frozenblock.wilderwild.registry.RegisterBlockEntityType;
