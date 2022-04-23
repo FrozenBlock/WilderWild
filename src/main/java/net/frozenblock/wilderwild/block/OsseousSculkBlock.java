@@ -50,6 +50,32 @@ public class OsseousSculkBlock extends PillarBlock implements SculkSpreadable {
         return Direction.Axis.Z;
     }
 
+    public static void convertToSculk(WorldAccess world, BlockPos pos) {
+        BlockState state = world.getBlockState(pos);
+        if (state.isOf(RegisterBlocks.OSSEOUS_SCULK)) {
+            Direction.Axis axis = state.get(AXIS);
+            Direction dir = getDir(axis, state.get(UPSIDEDOWN));
+            if (world.getBlockState(pos.offset(dir)).isOf(RegisterBlocks.OSSEOUS_SCULK)) {
+                BlockPos newPos = pos.offset(dir);
+                for (Direction direction : DIRECTIONS) {
+                    BlockState stateReplace = world.getBlockState(newPos.offset(direction));
+                    BlockState stateSetTo = null;
+                    if (stateReplace.isOf(Blocks.SCULK_VEIN)) {
+                        stateSetTo=stateReplace.with(AbstractLichenBlock.getProperty(direction.getOpposite()), true);
+                    }
+                    if (stateReplace.isAir()) {
+                        stateSetTo=Blocks.SCULK_VEIN.getDefaultState().with(AbstractLichenBlock.getProperty(direction.getOpposite()), true);
+                    }
+                    if (stateReplace==Blocks.WATER.getDefaultState()) {
+                        stateSetTo=Blocks.SCULK_VEIN.getDefaultState().with(AbstractLichenBlock.getProperty(direction.getOpposite()), true).with(Properties.WATERLOGGED, true);
+                    }
+                    if (stateSetTo!=null) { world.setBlockState(newPos.offset(direction), stateSetTo, 3); }
+                }
+                world.setBlockState(pos, Blocks.SCULK.getDefaultState(), 3);
+            }
+        }
+    }
+
     public static final IntProperty HEIGHT_LEFT = RegisterProperties.PILLAR_HEIGHT_LEFT;
     public static final BooleanProperty UPSIDEDOWN = RegisterProperties.UPSIDE_DOWN;
     public static final IntProperty TOTAL_HEIGHT = RegisterProperties.TOTAL_HEIGHT;
@@ -57,7 +83,12 @@ public class OsseousSculkBlock extends PillarBlock implements SculkSpreadable {
 
     @Override
     public int spread(SculkSpreadManager.Cursor cursor, WorldAccess world, BlockPos catalystPos, AbstractRandom random, SculkSpreadManager spreadManager, boolean shouldConvertToBlock) {
+        if (spreadManager.isWorldGen()) {
+            worldGenSpread(cursor.getPos(), world, random);
+            return cursor.getCharge();
+        }
         int i = cursor.getCharge();
+        int j=1;
         if (i != 0 && random.nextInt(1) == 0) {
             BlockPos blockPos = cursor.getPos();
             boolean bl = blockPos.isWithinDistance(catalystPos, spreadManager.getMaxDistance());
@@ -95,7 +126,7 @@ public class OsseousSculkBlock extends PillarBlock implements SculkSpreadable {
                                     if (ISITSAFE(world.getBlockState(topPos.offset(ribCage)))) {
                                         world.setBlockState(topPos.offset(ribCage), RegisterBlocks.OSSEOUS_SCULK.getDefaultState().with(AXIS, getAxis(topPos)).with(TOTAL_HEIGHT, state.get(TOTAL_HEIGHT)).with(HEIGHT_LEFT, 0), 3);
                                         if (ISITSAFE(world.getBlockState(topPos.offset(ribCage).down()))) {
-                                            if (Math.random()>0.4) {
+                                            if (Math.random()>0.5) {
                                                 world.setBlockState(topPos.offset(ribCage).down(), RegisterBlocks.HANGING_TENDRIL.getDefaultState(), 3);
                                             }
                                         }
@@ -105,7 +136,7 @@ public class OsseousSculkBlock extends PillarBlock implements SculkSpreadable {
                         }
                         world.setBlockState(topPos.offset(direction), blockState, 3);
                         world.playSound(null, blockPos, blockState.getSoundGroup().getPlaceSound(), SoundCategory.BLOCKS, 1.0F, 1.0F);
-
+                        if (spreadManager.isWorldGen() && Math.random()>0.2) {j=0;}
                         BlockPos bottom = getBottom(world, topPos.offset(direction), state.get(TOTAL_HEIGHT));
                         if (bottom!=null) {
                             BlockState bottomState = world.getBlockState(bottom);
@@ -113,11 +144,11 @@ public class OsseousSculkBlock extends PillarBlock implements SculkSpreadable {
                                 int piece = bottomState.get(HEIGHT_LEFT);
                                 int total = bottomState.get(TOTAL_HEIGHT);
                                 if ((total)-piece<=total / 3) {
-                                    world.setBlockState(bottom, Blocks.SCULK.getDefaultState(), 3);
+                                    convertToSculk(world, bottom);
                                 }
                             }
                         }
-                        return Math.max(0, i - 1);
+                        return Math.max(0, i - j);
                     }
                 }
             }
@@ -158,7 +189,7 @@ public class OsseousSculkBlock extends PillarBlock implements SculkSpreadable {
                         blockState = blockState.with(TOTAL_HEIGHT, state.get(TOTAL_HEIGHT));
                         if (state.get(UPSIDEDOWN)) {
                             blockState = blockState.with(UPSIDEDOWN, true);
-                            if (direction==Direction.DOWN && Math.random()>0.5) {
+                            if (direction==Direction.DOWN && Math.random()>0.68) {
                                 Direction ribCage = getDir(getAxis(topPos), false);
                                 if (ISITSAFE(world.getBlockState(topPos.offset(ribCage)))) {
                                     world.setBlockState(topPos.offset(ribCage), RegisterBlocks.OSSEOUS_SCULK.getDefaultState().with(AXIS, getAxis(topPos)).with(TOTAL_HEIGHT, state.get(TOTAL_HEIGHT)).with(HEIGHT_LEFT, 0), 3);
@@ -183,7 +214,7 @@ public class OsseousSculkBlock extends PillarBlock implements SculkSpreadable {
                                     int piece = bottomState.get(HEIGHT_LEFT);
                                     int total = bottomState.get(TOTAL_HEIGHT);
                                     if ((total) - piece <= total / 3) {
-                                        world.setBlockState(bottom, Blocks.SCULK.getDefaultState(), 3);
+                                        convertToSculk(world, bottom);
                                     }
                                 }
                             }

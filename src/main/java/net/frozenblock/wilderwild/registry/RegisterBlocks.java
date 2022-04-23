@@ -4,9 +4,9 @@ import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.block.*;
+import net.frozenblock.wilderwild.block.entity.HangingTendrilPhase;
 import net.frozenblock.wilderwild.item.FloweredLilyPadItem;
 import net.minecraft.block.*;
-import net.minecraft.block.enums.SculkSensorPhase;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.ItemGroup;
@@ -30,28 +30,68 @@ public abstract class RegisterBlocks {
 
     // SCULK
     public static final Block SCULK_ECHOER = registerBlock("sculk_echoer",
-            new SculkEchoerBlock(AbstractBlock.Settings.of(Material.SCULK, MapColor.CYAN).strength(3.0F, 3.0F)
-                    .sounds(BlockSoundGroup.SCULK_SHRIEKER), 8, 16), ItemGroup.DECORATIONS);
+            new SculkEchoerBlock(AbstractBlock.Settings
+                    .of(Material.SCULK, MapColor.CYAN)
+                    .strength(3.0F, 3.0F)
+                    .sounds(BlockSoundGroup.SCULK_SHRIEKER), 8, 16),
+            ItemGroup.DECORATIONS
+    );
     public static final Block SCULK_JAW = registerBlock("sculk_jaw",
-            new SculkJawBlock(AbstractBlock.Settings.of(Material.SCULK).strength(0.6F).sounds(BlockSoundGroup.SCULK)),
-            ItemGroup.DECORATIONS);
+            new SculkJawBlock(AbstractBlock.Settings
+                    .of(Material.SCULK)
+                    .strength(0.6F)
+                    .sounds(BlockSoundGroup.SCULK)),
+            ItemGroup.DECORATIONS
+    );
     public static final Block OSSEOUS_SCULK = registerBlock("osseous_sculk",
-            new OsseousSculkBlock(AbstractBlock.Settings.of(Material.STONE,
-                    MapColor.PALE_YELLOW).requiresTool().strength(2.0F).sounds(BlockSoundGroup.SCULK_CATALYST)),ItemGroup.DECORATIONS);
+            new OsseousSculkBlock(AbstractBlock.Settings
+                    .of(Material.STONE,
+                    MapColor.PALE_YELLOW)
+                    .requiresTool()
+                    .strength(2.0F)
+                    .sounds(new BlockSoundGroup(1.0f, 1.0f,
+                            RegisterSounds.BLOCK_OSSEOUS_SCULK_BREAK,
+                            RegisterSounds.BLOCK_OSSEOUS_SCULK_STEP,
+                            RegisterSounds.BLOCK_OSSEOUS_SCULK_PLACE,
+                            RegisterSounds.BLOCK_OSSEOUS_SCULK_HIT,
+                            RegisterSounds.BLOCK_OSSEOUS_SCULK_FALL
+                    ))),
+            ItemGroup.DECORATIONS
+    );
     public static final Block HANGING_TENDRIL = registerBlock("hanging_tendril",
-            new HangingTendrilBlock(FabricBlockSettings.copyOf(Blocks.SCULK_SENSOR).strength(0.7F).collidable(false).luminance((state) -> 1).emissiveLighting((state, world, pos) -> SculkSensorBlock.getPhase(state) == SculkSensorPhase.ACTIVE), 16), ItemGroup.REDSTONE);
+            new HangingTendrilBlock(FabricBlockSettings.copyOf(Blocks.SCULK_SENSOR)
+                    .strength(0.7F)
+                    .collidable(false)
+                    .luminance((state) -> 1)
+                    .emissiveLighting((state, world, pos) -> HangingTendrilBlock.getPhase(state) == HangingTendrilPhase.ACTIVE), 16),
+            ItemGroup.REDSTONE
+    );
 
     // FLOWERS
     public static final Block DATURA = registerBlock("datura",
-            new TallFlowerBlock(FabricBlockSettings.copy(Blocks.ROSE_BUSH).strength(0.0F).nonOpaque()), ItemGroup.DECORATIONS);
+            new TallFlowerBlock(FabricBlockSettings.copy(Blocks.ROSE_BUSH)
+                    .strength(0.0F)
+                    .nonOpaque()),
+            ItemGroup.DECORATIONS
+    );
     public static final Block CATTAIL = registerBlock("cattail",
-            new CattailBlock(FabricBlockSettings.copy(Blocks.ROSE_BUSH).strength(0.0F).nonOpaque()), ItemGroup.DECORATIONS);
+            new CattailBlock(FabricBlockSettings.copy(Blocks.ROSE_BUSH)
+                    .strength(0.0F)
+                    .nonOpaque()),
+            ItemGroup.DECORATIONS
+    );
     public static final Block POTTED_CARNATION = registerBlockWithoutBlockItem("potted_carnation",
-            new FlowerPotBlock(RegisterBlocks.CARNATION,
-    FabricBlockSettings.copy(Blocks.POTTED_DANDELION).nonOpaque()), ItemGroup.DECORATIONS);
+            new FlowerPotBlock(RegisterBlocks.CARNATION, FabricBlockSettings.copy(Blocks.POTTED_DANDELION)
+            .nonOpaque()),
+            ItemGroup.DECORATIONS
+    );
     public static final Block CARNATION = registerBlock("carnation",
             new FlowerBlock(StatusEffects.FIRE_RESISTANCE, 12,
-                    FabricBlockSettings.copy(Blocks.DANDELION).strength(0.0F).nonOpaque()), ItemGroup.DECORATIONS);
+                    FabricBlockSettings.copy(Blocks.DANDELION)
+                            .strength(0.0F)
+                            .nonOpaque()),
+            ItemGroup.DECORATIONS
+    );
 
     private static Block registerBlockWithoutBlockItem(String name, Block block, ItemGroup group) {
         return Registry.register(Registry.BLOCK, new Identifier(WilderWild.MOD_ID, name), block);

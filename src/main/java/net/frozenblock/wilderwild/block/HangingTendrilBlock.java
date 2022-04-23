@@ -5,20 +5,20 @@ import it.unimi.dsi.fastutil.objects.Object2IntMaps;
 import it.unimi.dsi.fastutil.objects.Object2IntOpenHashMap;
 import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.block.entity.HangingTendrilBlockEntity;
+import net.frozenblock.wilderwild.block.entity.HangingTendrilPhase;
 import net.frozenblock.wilderwild.registry.RegisterBlockEntityType;
 import net.frozenblock.wilderwild.registry.RegisterBlocks;
+import net.frozenblock.wilderwild.registry.RegisterProperties;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityTicker;
 import net.minecraft.block.entity.BlockEntityType;
-import net.minecraft.block.enums.SculkSensorPhase;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.ai.pathing.NavigationType;
 import net.minecraft.fluid.FluidState;
 import net.minecraft.fluid.Fluids;
 import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.item.ItemStack;
-import net.minecraft.particle.DustColorTransitionParticleEffect;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
@@ -84,14 +84,15 @@ public class HangingTendrilBlock extends BlockWithEntity implements Waterloggabl
         map.put(GameEvent.EXPLODE, 15);
         map.put(GameEvent.LIGHTNING_STRIKE, 15);
     }));
-    public static final EnumProperty<SculkSensorPhase> SCULK_SENSOR_PHASE;
+    public static final EnumProperty<HangingTendrilPhase> HANGING_TENDRIL_PHASE;
     public static final BooleanProperty WATERLOGGED;
+    public static final BooleanProperty TWITCHING;
     protected static final VoxelShape OUTLINE_SHAPE;
     private final int range;
 
     public HangingTendrilBlock(Settings settings, int range) {
         super(settings);
-        this.setDefaultState(this.stateManager.getDefaultState().with(SCULK_SENSOR_PHASE, SculkSensorPhase.INACTIVE).with(WATERLOGGED, false));
+        this.setDefaultState(this.stateManager.getDefaultState().with(HANGING_TENDRIL_PHASE, HangingTendrilPhase.INACTIVE).with(WATERLOGGED, false).with(TWITCHING, false));
         this.range = 16;
     }
 
@@ -116,6 +117,14 @@ public class HangingTendrilBlock extends BlockWithEntity implements Waterloggabl
     public void randomTick(BlockState state, ServerWorld world, BlockPos pos, AbstractRandom random) {
         if (!state.canPlaceAt(world, pos)) {
             world.breakBlock(pos, true);
+        } else if (getPhase(state)==HangingTendrilPhase.INACTIVE) {
+            BlockEntity entity = world.getBlockEntity(pos);
+            if (entity!=null) {
+                if (entity instanceof HangingTendrilBlockEntity wigglyTendril) {
+                    world.setBlockState(pos, state.with(TWITCHING, true));
+                    wigglyTendril.ticksToStopTwitching=random.nextBetween(7,12);
+                }
+            }
         }
     }
 
@@ -134,11 +143,11 @@ public class HangingTendrilBlock extends BlockWithEntity implements Waterloggabl
     }
 
     public void scheduledTick(BlockState state, ServerWorld world, BlockPos pos, AbstractRandom random) {
-        if (getPhase(state) != SculkSensorPhase.ACTIVE) {
-            if (getPhase(state) == SculkSensorPhase.COOLDOWN) {
-                world.setBlockState(pos, state.with(SCULK_SENSOR_PHASE, SculkSensorPhase.INACTIVE), 3);
+        if (getPhase(state) != HangingTendrilPhase.ACTIVE) {
+            if (getPhase(state) == HangingTendrilPhase.COOLDOWN) {
+                world.setBlockState(pos, state.with(HANGING_TENDRIL_PHASE, HangingTendrilPhase.INACTIVE), 3);
             }
-        } else {
+        } else if (!isInactive(state)) {
             setCooldown(world, pos, state);
         }
     }
@@ -151,7 +160,7 @@ public class HangingTendrilBlock extends BlockWithEntity implements Waterloggabl
 
     public void onStateReplaced(BlockState state, World world, BlockPos pos, BlockState newState, boolean moved) {
         if (!state.isOf(newState.getBlock())) {
-            if (getPhase(state) == SculkSensorPhase.ACTIVE) {
+            if (getPhase(state) == HangingTendrilPhase.ACTIVE) {
                 updateNeighbors(world, pos);
             }
             super.onStateReplaced(state, world, pos, newState, moved);
@@ -176,7 +185,7 @@ public class HangingTendrilBlock extends BlockWithEntity implements Waterloggabl
     @Nullable
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(World world, BlockState state, BlockEntityType<T> type) {
         return !world.isClient ? checkType(type, RegisterBlockEntityType.HANGING_TENDRIL, (worldx, pos, statex, blockEntity) -> {
-            blockEntity.getEventListener().tick(worldx);
+            blockEntity.serverTick(worldx, pos, statex);
         }) : null;
     }
 
@@ -188,16 +197,16 @@ public class HangingTendrilBlock extends BlockWithEntity implements Waterloggabl
         return OUTLINE_SHAPE;
     }
 
-    public static SculkSensorPhase getPhase(BlockState state) {
-        return state.get(SCULK_SENSOR_PHASE);
+    public static HangingTendrilPhase getPhase(BlockState state) {
+        return state.get(HANGING_TENDRIL_PHASE);
     }
 
     public static boolean isInactive(BlockState state) {
-        return getPhase(state) == SculkSensorPhase.INACTIVE;
+        return getPhase(state) == HangingTendrilPhase.INACTIVE;
     }
 
     public static void setCooldown(World world, BlockPos pos, BlockState state) {
-        world.setBlockState(pos, state.with(SCULK_SENSOR_PHASE, SculkSensorPhase.COOLDOWN), 3);
+        world.setBlockState(pos, state.with(HANGING_TENDRIL_PHASE, HangingTendrilPhase.COOLDOWN), 3);
         world.createAndScheduleBlockTick(pos, state.getBlock(), 1);
         if (!(Boolean)state.get(WATERLOGGED)) {
             world.playSound(null, pos, SoundEvents.BLOCK_SCULK_SENSOR_CLICKING_STOP, SoundCategory.BLOCKS, 1.0F, world.random.nextFloat() * 0.2F + 0.8F);
@@ -206,32 +215,19 @@ public class HangingTendrilBlock extends BlockWithEntity implements Waterloggabl
     }
 
     public static void setActive(@Nullable Entity entity, World world, BlockPos pos, BlockState state, int power) {
-        world.setBlockState(pos, state.with(SCULK_SENSOR_PHASE, SculkSensorPhase.ACTIVE), 3);
-        world.createAndScheduleBlockTick(pos, state.getBlock(), 20);
+        world.setBlockState(pos, state.with(HANGING_TENDRIL_PHASE, HangingTendrilPhase.ACTIVE), 3);
+        world.createAndScheduleBlockTick(pos, state.getBlock(), 60);
         updateNeighbors(world, pos);
         world.emitGameEvent(entity, WilderWild.SCULK_SENSOR_ACTIVATE, pos);
 
         if (!(Boolean)state.get(WATERLOGGED)) {
-            world.playSound(null, (double)pos.getX() + 0.5D, (double)pos.getY() + 0.5D, (double)pos.getZ() + 0.5D, SoundEvents.BLOCK_SCULK_SENSOR_CLICKING, SoundCategory.BLOCKS, 1.0F, world.random.nextFloat() * 0.2F + 0.8F);
+            world.playSound(null, (double)pos.getX() + 0.5D, (double)pos.getY() + 0.5D, (double)pos.getZ() + 0.5D, SoundEvents.BLOCK_SCULK_SENSOR_CLICKING, SoundCategory.BLOCKS, 1.0F, world.random.nextFloat() * 0.2F + 1F);
         }
 
-    }
-
-    public void randomDisplayTick(BlockState state, World world, BlockPos pos, AbstractRandom random) {
-        if (getPhase(state) == SculkSensorPhase.ACTIVE) {
-            Direction direction = Direction.random(random);
-            if (direction != Direction.UP && direction != Direction.DOWN) {
-                double d = (double)pos.getX() + 0.5D + (direction.getOffsetX() == 0 ? 0.5D - random.nextDouble() : (double)direction.getOffsetX() * 0.6D);
-                double e = (double)pos.getY() + 0.25D;
-                double f = (double)pos.getZ() + 0.5D + (direction.getOffsetZ() == 0 ? 0.5D - random.nextDouble() : (double)direction.getOffsetZ() * 0.6D);
-                double g = (double)random.nextFloat() * 0.04D;
-                world.addParticle(DustColorTransitionParticleEffect.DEFAULT, d, e, f, 0.0D, g, 0.0D);
-            }
-        }
     }
 
     protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
-        builder.add(new Property[]{SCULK_SENSOR_PHASE, WATERLOGGED});
+        builder.add(new Property[]{HANGING_TENDRIL_PHASE, WATERLOGGED, TWITCHING});
     }
 
     public boolean hasComparatorOutput(BlockState state) {
@@ -241,7 +237,7 @@ public class HangingTendrilBlock extends BlockWithEntity implements Waterloggabl
     public int getComparatorOutput(BlockState state, World world, BlockPos pos) {
         BlockEntity blockEntity = world.getBlockEntity(pos);
         if (blockEntity instanceof HangingTendrilBlockEntity hangingEntity) {
-            return getPhase(state) == SculkSensorPhase.ACTIVE ? hangingEntity.getLastVibrationFrequency() : 0;
+            return getPhase(state) == HangingTendrilPhase.ACTIVE ? hangingEntity.getLastVibrationFrequency() : 0;
         } else {
             return 0;
         }
@@ -261,8 +257,9 @@ public class HangingTendrilBlock extends BlockWithEntity implements Waterloggabl
     }
 
     static {
-        SCULK_SENSOR_PHASE = Properties.SCULK_SENSOR_PHASE;
+        HANGING_TENDRIL_PHASE = RegisterProperties.HANGING_TENDRIL_PHASE;
         WATERLOGGED = Properties.WATERLOGGED;
+        TWITCHING = RegisterProperties.TWITCHING;
         OUTLINE_SHAPE = Block.createCuboidShape(5.0D, 2.0D, 5.0D, 11.0D, 16.0D, 11.0D);
     }
 }
