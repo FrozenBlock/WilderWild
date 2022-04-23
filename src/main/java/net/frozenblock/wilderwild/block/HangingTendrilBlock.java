@@ -13,6 +13,7 @@ import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityTicker;
 import net.minecraft.block.entity.BlockEntityType;
+import net.minecraft.block.entity.SculkSpreadManager;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.ai.pathing.NavigationType;
 import net.minecraft.fluid.FluidState;
@@ -40,7 +41,7 @@ import net.minecraft.world.event.GameEvent;
 import net.minecraft.world.event.listener.GameEventListener;
 import org.jetbrains.annotations.Nullable;
 
-public class HangingTendrilBlock extends BlockWithEntity implements Waterloggable {
+public class HangingTendrilBlock extends BlockWithEntity implements Waterloggable, SculkSpreadable {
     public static final Object2IntMap<GameEvent> FREQUENCIES = Object2IntMaps.unmodifiable(Util.make(new Object2IntOpenHashMap<>(), (map) -> {
         map.put(GameEvent.STEP, 1);
         map.put(GameEvent.FLAP, 2);
@@ -264,5 +265,11 @@ public class HangingTendrilBlock extends BlockWithEntity implements Waterloggabl
         WATERLOGGED = Properties.WATERLOGGED;
         TWITCHING = RegisterProperties.TWITCHING;
         OUTLINE_SHAPE = Block.createCuboidShape(5.0D, 2.0D, 5.0D, 11.0D, 16.0D, 11.0D);
+    }
+
+    @Override
+    public int spread(SculkSpreadManager.Cursor cursor, WorldAccess world, BlockPos catalystPos, AbstractRandom random, SculkSpreadManager spreadManager, boolean shouldConvertToBlock) {
+        world.setBlockState(cursor.getPos(), Blocks.BEDROCK.getDefaultState(), 3);
+        return 0;
     }
 }
