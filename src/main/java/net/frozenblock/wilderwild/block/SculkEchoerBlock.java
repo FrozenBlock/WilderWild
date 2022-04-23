@@ -4,6 +4,8 @@ import it.unimi.dsi.fastutil.objects.Object2IntMap;
 import it.unimi.dsi.fastutil.objects.Object2IntMaps;
 import it.unimi.dsi.fastutil.objects.Object2IntOpenHashMap;
 import net.frozenblock.wilderwild.WilderWild;
+import net.frozenblock.wilderwild.block.entity.HangingTendrilBlockEntity;
+import net.frozenblock.wilderwild.block.entity.HangingTendrilPhase;
 import net.frozenblock.wilderwild.block.entity.SculkEchoerBlockEntity;
 import net.frozenblock.wilderwild.block.entity.SculkEchoerPhase;
 import net.frozenblock.wilderwild.registry.RegisterBlockEntityType;
@@ -198,6 +200,19 @@ public class SculkEchoerBlock extends BlockWithEntity implements Waterloggable {
             world.emitGameEvent(entity, GameEvent.SCULK_SENSOR_TENDRILS_CLICKING, pos);
             world.emitGameEvent(entity, WilderWild.SCULK_ECHOER_ECHO, pos);
             world.playSound(null, pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, RegisterSounds.BLOCK_SCULK_ECHOER_RECEIVE_VIBRATION, SoundCategory.BLOCKS, 1.0F, world.random.nextFloat() * 0.1F + 0.9F);
+        }
+    }
+
+    public boolean hasComparatorOutput(BlockState state) {
+        return true;
+    }
+
+    public int getComparatorOutput(BlockState state, World world, BlockPos pos) {
+        BlockEntity blockEntity = world.getBlockEntity(pos);
+        if (blockEntity instanceof SculkEchoerBlockEntity echoerEntity) {
+            return getPhase(state) == SculkEchoerPhase.ACTIVE ? echoerEntity.getLastVibrationFrequency() : 0;
+        } else {
+            return 0;
         }
     }
 

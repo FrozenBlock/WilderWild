@@ -72,7 +72,7 @@ public class SculkEchoerBlockEntity extends BlockEntity implements SculkSensorLi
         return this.listener;
     }
 
-    public int getLastVibrationFreq() {
+    public int getLastVibrationFrequency() {
         return this.lastVibrationFreq;
     }
 
