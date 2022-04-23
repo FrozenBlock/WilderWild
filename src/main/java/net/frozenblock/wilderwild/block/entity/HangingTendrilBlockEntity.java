@@ -8,12 +8,14 @@ import net.frozenblock.wilderwild.registry.RegisterBlockEntityType;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.ExperienceOrbEntity;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtElement;
 import net.minecraft.nbt.NbtOps;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import net.minecraft.world.event.BlockPositionSource;
 import net.minecraft.world.event.GameEvent;
@@ -29,6 +31,8 @@ public class HangingTendrilBlockEntity extends BlockEntity implements SculkSenso
     private SculkSensorListener listener;
     private int lastVibrationFrequency;
     public int ticksToStopTwitching;
+    public int storedXP;
+    public int ringOutTicksLeft;
 
     public HangingTendrilBlockEntity(BlockPos pos, BlockState state) {
         super(RegisterBlockEntityType.HANGING_TENDRIL, pos, state);
@@ -39,6 +43,15 @@ public class HangingTendrilBlockEntity extends BlockEntity implements SculkSenso
         if (this.ticksToStopTwitching>=0) {--this.ticksToStopTwitching;} else if (state.get(HangingTendrilBlock.TWITCHING)) {
             world.setBlockState(pos, state.with(HangingTendrilBlock.TWITCHING, false));
         }
+        if (this.ringOutTicksLeft>=0) {--this.ringOutTicksLeft;} else if (state.get(HangingTendrilBlock.RINGING_OUT)) {
+            world.setBlockState(pos, state.with(HangingTendrilBlock.RINGING_OUT, false));
+            if (this.storedXP>0) {
+                int droppedXP = 1;
+                if (this.storedXP > 1) { droppedXP = this.storedXP/2; }
+                ExperienceOrbEntity.spawn((ServerWorld)world, Vec3d.ofCenter(pos).add(0, -0.5, 0), droppedXP);
+                this.storedXP=this.storedXP-droppedXP;
+            }
+        }
         this.listener.tick(world);
     }
 
@@ -46,6 +59,8 @@ public class HangingTendrilBlockEntity extends BlockEntity implements SculkSenso
         super.readNbt(nbt);
         this.lastVibrationFrequency = nbt.getInt("last_vibration_frequency");
         this.ticksToStopTwitching = nbt.getInt("ticksToStopTwitching");
+        this.storedXP = nbt.getInt("storedXP");
+        this.ringOutTicksLeft = nbt.getInt("ringOutTicksLeft");
         if (nbt.contains("listener", 10)) {
             DataResult<?> var10000 = SculkSensorListener.createCodec(this).parse(new Dynamic<>(NbtOps.INSTANCE, nbt.getCompound("listener")));
             Logger var10001 = LOGGER;
@@ -60,6 +75,8 @@ public class HangingTendrilBlockEntity extends BlockEntity implements SculkSenso
         super.writeNbt(nbt);
         nbt.putInt("last_vibration_frequency", this.lastVibrationFrequency);
         nbt.putInt("ticksToStopTwitching", this.ticksToStopTwitching);
+        nbt.putInt("storedXP", this.storedXP);
+        nbt.putInt("ringOutTicksLeft", this.ringOutTicksLeft);
         DataResult<?> var10000 = SculkSensorListener.createCodec(this).encodeStart(NbtOps.INSTANCE, this.listener);
         Logger var10001 = LOGGER;
         Objects.requireNonNull(var10001);
@@ -77,7 +94,7 @@ public class HangingTendrilBlockEntity extends BlockEntity implements SculkSenso
     }
 
     public boolean accepts(ServerWorld world, GameEventListener listener, BlockPos pos, GameEvent event, @Nullable GameEvent.Emitter emitter) {
-        return (!pos.equals(this.getPos()) || event != GameEvent.BLOCK_DESTROY && event != GameEvent.BLOCK_PLACE) && HangingTendrilBlock.isInactive(this.getCachedState());
+        return (!pos.equals(this.getPos()) || event != GameEvent.BLOCK_DESTROY && event != GameEvent.BLOCK_PLACE) && HangingTendrilBlock.isInactive(this.getCachedState()) && !this.getCachedState().get(HangingTendrilBlock.RINGING_OUT);
     }
 
     public void accept(ServerWorld world, GameEventListener listener, BlockPos pos, GameEvent event, @Nullable Entity entity, @Nullable Entity sourceEntity, int delay) {

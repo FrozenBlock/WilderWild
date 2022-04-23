@@ -16,6 +16,7 @@ import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.block.entity.SculkSpreadManager;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.ai.pathing.NavigationType;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.fluid.FluidState;
 import net.minecraft.fluid.Fluids;
 import net.minecraft.item.ItemPlacementContext;
@@ -27,7 +28,10 @@ import net.minecraft.state.StateManager;
 import net.minecraft.state.property.BooleanProperty;
 import net.minecraft.state.property.EnumProperty;
 import net.minecraft.state.property.Properties;
+import net.minecraft.util.ActionResult;
+import net.minecraft.util.Hand;
 import net.minecraft.util.Util;
+import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.intprovider.ConstantIntProvider;
@@ -87,12 +91,13 @@ public class HangingTendrilBlock extends BlockWithEntity implements Waterloggabl
     public static final EnumProperty<HangingTendrilPhase> HANGING_TENDRIL_PHASE;
     public static final BooleanProperty WATERLOGGED;
     public static final BooleanProperty TWITCHING;
+    public static final BooleanProperty RINGING_OUT;
     protected static final VoxelShape OUTLINE_SHAPE;
     private final int range;
 
     public HangingTendrilBlock(Settings settings, int range) {
         super(settings);
-        this.setDefaultState(this.stateManager.getDefaultState().with(HANGING_TENDRIL_PHASE, HangingTendrilPhase.INACTIVE).with(WATERLOGGED, false).with(TWITCHING, false));
+        this.setDefaultState(this.stateManager.getDefaultState().with(HANGING_TENDRIL_PHASE, HangingTendrilPhase.INACTIVE).with(WATERLOGGED, false).with(TWITCHING, false).with(RINGING_OUT, false));
         this.range = 16;
     }
 
@@ -231,7 +236,7 @@ public class HangingTendrilBlock extends BlockWithEntity implements Waterloggabl
     }
 
     protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
-        builder.add(HANGING_TENDRIL_PHASE, WATERLOGGED, TWITCHING);
+        builder.add(HANGING_TENDRIL_PHASE, WATERLOGGED, TWITCHING, RINGING_OUT);
     }
 
     public boolean hasComparatorOutput(BlockState state) {
@@ -264,12 +269,58 @@ public class HangingTendrilBlock extends BlockWithEntity implements Waterloggabl
         HANGING_TENDRIL_PHASE = RegisterProperties.HANGING_TENDRIL_PHASE;
         WATERLOGGED = Properties.WATERLOGGED;
         TWITCHING = RegisterProperties.TWITCHING;
+        RINGING_OUT = RegisterProperties.RINGING_OUT;
         OUTLINE_SHAPE = Block.createCuboidShape(5.0D, 2.0D, 5.0D, 11.0D, 16.0D, 11.0D);
+    }
+
+    public static HangingTendrilBlockEntity getEntity(World world, BlockPos pos) {
+        BlockEntity entity = world.getBlockEntity(pos);
+        if (entity!=null) {
+            if (entity instanceof HangingTendrilBlockEntity wigglyTendril) {
+                return wigglyTendril;
+            }
+        } return null;
+    }
+    public static HangingTendrilBlockEntity getEntity(WorldAccess world, BlockPos pos) {
+        BlockEntity entity = world.getBlockEntity(pos);
+        if (entity!=null) {
+            if (entity instanceof HangingTendrilBlockEntity wigglyTendril) {
+                return wigglyTendril;
+            }
+        } return null;
+    }
+
+    @Override
+    public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
+        if (isInactive(state) && !state.get(RINGING_OUT)) {
+            if (world.isClient) { return ActionResult.SUCCESS; } else {
+                HangingTendrilBlockEntity tendrilEntity = getEntity(world, pos);
+                if (tendrilEntity!=null) {
+                    if (tendrilEntity.storedXP>0) {
+                        world.setBlockState(pos, state.with(RINGING_OUT, true));
+                        tendrilEntity.ringOutTicksLeft=5;
+                        return ActionResult.SUCCESS;
+                    }
+                }
+            }
+        }
+        return ActionResult.PASS;
     }
 
     @Override
     public int spread(SculkSpreadManager.Cursor cursor, WorldAccess world, BlockPos catalystPos, AbstractRandom random, SculkSpreadManager spreadManager, boolean shouldConvertToBlock) {
-        world.setBlockState(cursor.getPos(), Blocks.BEDROCK.getDefaultState(), 3);
-        return 0;
+        HangingTendrilBlockEntity tendrilEntity = getEntity(world, cursor.getPos());
+        if (tendrilEntity!=null) {
+            if (tendrilEntity.storedXP<900) {
+                if (cursor.getCharge()>1) {
+                    tendrilEntity.storedXP=tendrilEntity.storedXP+2;
+                    return cursor.getCharge()-2;
+                } else {
+                    ++tendrilEntity.storedXP;
+                    return cursor.getCharge()-1;
+                }
+            }
+        }
+        return cursor.getCharge();
     }
 }
