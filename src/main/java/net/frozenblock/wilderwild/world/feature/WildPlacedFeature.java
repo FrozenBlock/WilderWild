@@ -26,5 +26,5 @@ public class WildPlacedFeature {
             WildConfiguredFeatures.POLLEN_CONFIGURED, CountPlacementModifier.of(UniformIntProvider.create(104, 157)), PlacedFeatures.WORLD_SURFACE_WG_HEIGHTMAP, SquarePlacementModifier.of(), SurfaceThresholdFilterPlacementModifier.of(Heightmap.Type.WORLD_SURFACE_WG, 60, 128), BiomePlacementModifier.of());
 
     public static final RegistryEntry<PlacedFeature> PATCH_FLOWERED_WATERLILY =
-            PlacedFeatures.register("patch_flowered_waterlily", VegetationConfiguredFeatures.PATCH_WATERLILY, VegetationPlacedFeatures.modifiers(3));
+            PlacedFeatures.register("patch_flowered_waterlily", WildConfiguredFeatures.PATCH_FLOWERED_WATERLILY, VegetationPlacedFeatures.modifiers(3));
 }
