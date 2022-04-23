@@ -47,7 +47,7 @@ public class PollenParticle extends SpriteBillboardParticle {
             PollenParticle pollenParticle = new PollenParticle(clientWorld, this.spriteProvider, d, e, f, 0.0D, -0.800000011920929D, 0.0D) {};
             pollenParticle.maxAge = MathHelper.nextBetween(clientWorld.random, 500, 1000);
             pollenParticle.gravityStrength = 0.01F;
-            pollenParticle.setColor(1.0F, 1.0F, 0.0F);
+            pollenParticle.setColor(239F/255F, 215F/255F, 64F/255F);
             return pollenParticle;
         }
     }
