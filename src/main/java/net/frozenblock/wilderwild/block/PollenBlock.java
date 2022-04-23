@@ -4,10 +4,7 @@ import net.frozenblock.wilderwild.registry.RegisterBlocks;
 import net.frozenblock.wilderwild.registry.RegisterParticles;
 import net.minecraft.block.*;
 import net.minecraft.item.ItemPlacementContext;
-import net.minecraft.server.world.ServerWorld;
 import net.minecraft.state.StateManager;
-import net.minecraft.state.property.BooleanProperty;
-import net.minecraft.state.property.Properties;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.MathHelper;
@@ -18,7 +15,6 @@ import net.minecraft.world.WorldView;
 
 public class PollenBlock extends AbstractLichenBlock {
     private final LichenGrower grower = new LichenGrower(this);
-    public static final BooleanProperty WATERLOGGED = Properties.WATERLOGGED;
     public PollenBlock(Settings settings) {
         super(settings);
     }
@@ -38,17 +34,6 @@ public class PollenBlock extends AbstractLichenBlock {
         }
     }
 
-    @Override
-    public void randomTick(BlockState state, ServerWorld world, BlockPos pos, AbstractRandom random) {
-        if (state.get(WATERLOGGED)) {
-            world.breakBlock(pos, false);
-        }
-    }
-
-    @Override
-    public boolean hasRandomTicks(BlockState state) {
-        return state.get(WATERLOGGED);
-    }
 
     protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
         Direction[] var2 = DIRECTIONS;
@@ -59,7 +44,6 @@ public class PollenBlock extends AbstractLichenBlock {
                 builder.add(getProperty(direction));
             }
         }
-        builder.add(WATERLOGGED);
     }
 
     public boolean canPlaceAt(BlockState state, WorldView world, BlockPos pos) {
