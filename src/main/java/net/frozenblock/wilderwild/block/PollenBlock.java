@@ -14,6 +14,7 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.random.AbstractRandom;
 import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
+import net.minecraft.world.WorldView;
 
 public class PollenBlock extends AbstractLichenBlock {
     private final LichenGrower grower = new LichenGrower(this);
@@ -53,13 +54,30 @@ public class PollenBlock extends AbstractLichenBlock {
         Direction[] var2 = DIRECTIONS;
         int var3 = var2.length;
 
-        for(int var4 = 0; var4 < var3; ++var4) {
-            Direction direction = var2[var4];
+        for (Direction direction : var2) {
             if (this.canHaveDirection(direction)) {
                 builder.add(getProperty(direction));
             }
         }
         builder.add(WATERLOGGED);
+    }
+
+    public boolean canPlaceAt(BlockState state, WorldView world, BlockPos pos) {
+        boolean bl = false;
+        if (world.getBlockState(pos).isOf(Blocks.WATER)) { return false; }
+
+        for (Direction direction : DIRECTIONS) {
+            if (hasDirection(state, direction)) {
+                BlockPos blockPos = pos.offset(direction);
+                if (!canGrowOn(world, direction, blockPos, world.getBlockState(blockPos))) {
+                    return false;
+                }
+
+                bl = true;
+            }
+        }
+
+        return bl;
     }
 
     public static boolean canGrowOn(BlockView world, Direction direction, BlockPos pos, BlockState state) {
