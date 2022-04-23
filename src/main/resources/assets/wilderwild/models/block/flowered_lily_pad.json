@@ -1,9 +1,9 @@
 {
 	"ambientocclusion": false,
 	"textures": {
-		"pad": "block/lily_pad",
+		"pad": "minecraft:block/lily_pad",
 		"texture": "wilderwild:block/waterlily",
-		"particle": "block/lily_pad"
+		"particle": "minecraft:block/lily_pad"
 	},
 	"elements": [
 		{
