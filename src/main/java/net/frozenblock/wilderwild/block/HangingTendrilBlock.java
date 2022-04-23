@@ -212,7 +212,7 @@ public class HangingTendrilBlock extends BlockWithEntity implements Waterloggabl
         world.setBlockState(pos, state.with(HANGING_TENDRIL_PHASE, HangingTendrilPhase.COOLDOWN), 3);
         world.createAndScheduleBlockTick(pos, state.getBlock(), 1);
         if (!(Boolean)state.get(WATERLOGGED)) {
-            world.playSound(null, pos, SoundEvents.BLOCK_SCULK_SENSOR_CLICKING_STOP, SoundCategory.BLOCKS, 1.0F, world.random.nextFloat() * 0.2F + 0.8F);
+            world.playSound(null, pos, SoundEvents.BLOCK_SCULK_SENSOR_CLICKING_STOP, SoundCategory.BLOCKS, 1.0F, world.random.nextFloat() * 0.2F + 1.2F);
         }
         updateNeighbors(world, pos);
     }
@@ -224,7 +224,7 @@ public class HangingTendrilBlock extends BlockWithEntity implements Waterloggabl
         world.emitGameEvent(entity, WilderWild.SCULK_SENSOR_ACTIVATE, pos);
 
         if (!(Boolean)state.get(WATERLOGGED)) {
-            world.playSound(null, (double)pos.getX() + 0.5D, (double)pos.getY() + 0.5D, (double)pos.getZ() + 0.5D, SoundEvents.BLOCK_SCULK_SENSOR_CLICKING, SoundCategory.BLOCKS, 1.0F, world.random.nextFloat() * 0.2F + 1F);
+            world.playSound(null, (double)pos.getX() + 0.5D, (double)pos.getY() + 0.5D, (double)pos.getZ() + 0.5D, SoundEvents.BLOCK_SCULK_SENSOR_CLICKING, SoundCategory.BLOCKS, 1.0F, world.random.nextFloat() * 0.2F + 1.2F);
         }
 
     }
