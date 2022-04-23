@@ -5,6 +5,7 @@ import net.minecraft.util.registry.RegistryEntry;
 import net.minecraft.world.Heightmap;
 import net.minecraft.world.gen.feature.PlacedFeature;
 import net.minecraft.world.gen.feature.PlacedFeatures;
+import net.minecraft.world.gen.feature.VegetationConfiguredFeatures;
 import net.minecraft.world.gen.feature.VegetationPlacedFeatures;
 import net.minecraft.world.gen.placementmodifier.*;
 
@@ -23,4 +24,7 @@ public class WildPlacedFeature {
 
     public static final RegistryEntry<PlacedFeature> POLLEN_PLACED = PlacedFeatures.register("pollen",
             WildConfiguredFeatures.POLLEN_CONFIGURED, CountPlacementModifier.of(UniformIntProvider.create(104, 157)), PlacedFeatures.WORLD_SURFACE_WG_HEIGHTMAP, SquarePlacementModifier.of(), SurfaceThresholdFilterPlacementModifier.of(Heightmap.Type.WORLD_SURFACE_WG, 60, 128), BiomePlacementModifier.of());
+
+    public static final RegistryEntry<PlacedFeature> PATCH_FLOWERED_WATERLILY =
+            PlacedFeatures.register("patch_flowered_waterlily", VegetationConfiguredFeatures.PATCH_WATERLILY, VegetationPlacedFeatures.modifiers(3));
 }

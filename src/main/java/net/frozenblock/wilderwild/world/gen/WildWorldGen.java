@@ -5,6 +5,7 @@ public class WildWorldGen {
         WildDaturaGeneration.generateFlowers();
         WildCarnationGeneration.generateFlowers();
         WildPollenGeneration.generatePollen();
+        WildFloweredWaterLilyGeneration.generateFloweredWaterLilys();
 
         WildBirchGeneration.generateTrees();
 

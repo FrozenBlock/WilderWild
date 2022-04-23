@@ -49,6 +49,10 @@ public class WildConfiguredFeatures {
     public static final RegistryEntry<ConfiguredFeature<MultifaceGrowthFeatureConfig, ?>> POLLEN_CONFIGURED =
             ConfiguredFeatures.register("pollen", Feature.MULTIFACE_GROWTH, new MultifaceGrowthFeatureConfig(RegisterBlocks.POLLEN_BLOCK, 20, true, true, true, 0.5F, RegistryEntryList.of(Block::getRegistryEntry, Blocks.GRASS, Blocks.BIRCH_LEAVES, Blocks.OAK_LEAVES, Blocks.DIRT, Blocks.OAK_LOG)));
 
+    public static final RegistryEntry<ConfiguredFeature<RandomPatchFeatureConfig, ?>> PATCH_FLOWERED_WATERLILY =
+            ConfiguredFeatures.register("patch_flowered_waterlily", Feature.RANDOM_PATCH,
+                    new RandomPatchFeatureConfig(10, 7, 3, PlacedFeatures.createEntry(Feature.SIMPLE_BLOCK,
+                            new SimpleBlockFeatureConfig(BlockStateProvider.of(RegisterBlocks.FLOWERED_LILY_PAD)))));
 
 
 
