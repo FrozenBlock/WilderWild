@@ -1,16 +1,112 @@
 {
-  "variants": {
-    "hanging_tendril_phase=cooldown,twitching=true,ringing_out=false": { "model": "wilderwild:block/hanging_tendril" },
-    "hanging_tendril_phase=active,twitching=true,ringing_out=false": { "model": "wilderwild:block/hanging_tendril_active" },
-    "hanging_tendril_phase=inactive,twitching=true,ringing_out=false": { "model": "wilderwild:block/hanging_tendril_twitch" },
-    "hanging_tendril_phase=cooldown,twitching=false,ringing_out=false": { "model": "wilderwild:block/hanging_tendril" },
-    "hanging_tendril_phase=active,twitching=false,ringing_out=false": { "model": "wilderwild:block/hanging_tendril_active" },
-    "hanging_tendril_phase=inactive,twitching=false,ringing_out=false": { "model": "wilderwild:block/hanging_tendril" },
-    "hanging_tendril_phase=cooldown,twitching=true,ringing_out=true": { "model": "wilderwild:block/hanging_tendril_milk" },
-    "hanging_tendril_phase=active,twitching=true,ringing_out=true": { "model": "wilderwild:block/hanging_tendril_active" },
-    "hanging_tendril_phase=inactive,twitching=true,ringing_out=true": { "model": "wilderwild:block/hanging_tendril_milk" },
-    "hanging_tendril_phase=cooldown,twitching=false,ringing_out=true": { "model": "wilderwild:block/hanging_tendril_milk" },
-    "hanging_tendril_phase=active,twitching=false,ringing_out=true": { "model": "wilderwild:block/hanging_tendril_active" },
-    "hanging_tendril_phase=inactive,twitching=false,ringing_out=true": { "model": "wilderwild:block/hanging_tendril_milk" }
-  }
+	"variants": {
+		"hanging_tendril_phase=cooldown,twitching=true,ringing_out=false": [
+			{
+				"model": "wilderwild:block/hanging_tendril"
+			},
+			{
+				"model": "wilderwild:block/hanging_tendril",
+				"y": 90
+			}
+		],
+		"hanging_tendril_phase=active,twitching=true,ringing_out=false": [
+			{
+				"model": "wilderwild:block/hanging_tendril_active"
+			},
+			{
+				"model": "wilderwild:block/hanging_tendril_active",
+				"y": 90
+			}
+		],
+		"hanging_tendril_phase=inactive,twitching=true,ringing_out=false": [
+			{
+				"model": "wilderwild:block/hanging_tendril_twitch"
+			},
+			{
+				"model": "wilderwild:block/hanging_tendril_twitch",
+				"y": 90
+			}
+		],
+		"hanging_tendril_phase=cooldown,twitching=false,ringing_out=false": [
+			{
+				"model": "wilderwild:block/hanging_tendril"
+			},
+			{
+				"model": "wilderwild:block/hanging_tendril",
+				"y": 90
+			}
+		],
+		"hanging_tendril_phase=active,twitching=false,ringing_out=false": [
+			{
+				"model": "wilderwild:block/hanging_tendril_active"
+			},
+			{
+				"model": "wilderwild:block/hanging_tendril_active",
+				"y": 90
+			}
+		],
+		"hanging_tendril_phase=inactive,twitching=false,ringing_out=false": [
+			{
+				"model": "wilderwild:block/hanging_tendril"
+			},
+			{
+				"model": "wilderwild:block/hanging_tendril",
+				"y": 90
+			}
+		],
+		"hanging_tendril_phase=cooldown,twitching=true,ringing_out=true": [
+			{
+				"model": "wilderwild:block/hanging_tendril_milk"
+			},
+			{
+				"model": "wilderwild:block/hanging_tendril_milk",
+				"y": 90
+			}
+		],
+		"hanging_tendril_phase=active,twitching=true,ringing_out=true": [
+			{
+				"model": "wilderwild:block/hanging_tendril_active"
+			},
+			{
+				"model": "wilderwild:block/hanging_tendril_active",
+				"y": 90
+			}
+		],
+		"hanging_tendril_phase=inactive,twitching=true,ringing_out=true": [
+			{
+				"model": "wilderwild:block/hanging_tendril_milk"
+			},
+			{
+				"model": "wilderwild:block/hanging_tendril_milk",
+				"y": 90
+			}
+		],
+		"hanging_tendril_phase=cooldown,twitching=false,ringing_out=true": [
+			{
+				"model": "wilderwild:block/hanging_tendril_milk"
+			},
+			{
+				"model": "wilderwild:block/hanging_tendril_milk",
+				"y": 90
+			}
+		],
+		"hanging_tendril_phase=active,twitching=false,ringing_out=true": [
+			{
+				"model": "wilderwild:block/hanging_tendril_active"
+			},
+			{
+				"model": "wilderwild:block/hanging_tendril_active",
+				"y": 90
+			}
+		],
+		"hanging_tendril_phase=inactive,twitching=false,ringing_out=true": [
+			{
+				"model": "wilderwild:block/hanging_tendril_milk"
+			},
+			{
+				"model": "wilderwild:block/hanging_tendril_milk",
+				"y": 90
+			}
+		]
+	}
 }
