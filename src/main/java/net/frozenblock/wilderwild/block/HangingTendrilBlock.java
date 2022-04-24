@@ -101,8 +101,8 @@ public class HangingTendrilBlock extends BlockWithEntity implements Waterloggabl
         this.range = 16;
     }
 
-    public int getRange() {
-        return range;
+    public static int getRange() {
+        return 16;
     }
 
     public boolean canPlaceAt(BlockState state, WorldView world, BlockPos pos) {
