@@ -71,7 +71,7 @@ public abstract class RegisterBlocks {
                             RegisterSounds.BLOCK_HANGING_TENDRIL_HIT,
                             RegisterSounds.BLOCK_HANGING_TENDRIL_FALL
                     ))
-                    .emissiveLighting((state, world, pos) -> HangingTendrilBlock.getPhase(state) == HangingTendrilPhase.ACTIVE), 16),
+                    .emissiveLighting((state, world, pos) -> HangingTendrilBlock.shouldHavePogLighting(state)), 16),
             ItemGroup.REDSTONE
     );
 

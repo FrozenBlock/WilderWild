@@ -111,7 +111,7 @@ public class SculkBlockMixin {
 
 	private static boolean ancientCityNearby(WorldAccess world, BlockPos pos) {
 		int i = 0;
-		Iterator<BlockPos> var4 = BlockPos.iterate(pos.add(-4, -2, -4), pos.add(4, 2, 4)).iterator();
+		Iterator<BlockPos> var4 = BlockPos.iterate(pos.add(-2, -2, -2), pos.add(2, 2, 2)).iterator();
 		do {
 			if (!var4.hasNext()) { return false; }
 			BlockPos blockPos = var4.next();

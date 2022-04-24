@@ -273,6 +273,10 @@ public class HangingTendrilBlock extends BlockWithEntity implements Waterloggabl
         OUTLINE_SHAPE = Block.createCuboidShape(5.0D, 2.0D, 5.0D, 11.0D, 16.0D, 11.0D);
     }
 
+    public static boolean shouldHavePogLighting(BlockState state) {
+        return getPhase(state)==HangingTendrilPhase.ACTIVE || state.get(RINGING_OUT);
+    }
+
     public static HangingTendrilBlockEntity getEntity(World world, BlockPos pos) {
         BlockEntity entity = world.getBlockEntity(pos);
         if (entity!=null) {
