@@ -19,7 +19,7 @@ public class SculkSensorBlockMixin {
         if (!world.isClient() && !state.isOf(oldState.getBlock())) {
             SculkSensorTendrilEntity tendrils = RegisterEntities.TENDRIL_ENTITY.create(world);
             assert tendrils != null;
-            tendrils.refreshPositionAndAngles(pos.getX() + 0.5D, pos.getY()+0.4D, pos.getZ() + 0.5D, 0.0F, 0.0F);
+            tendrils.refreshPositionAndAngles(pos.getX() + 0.5D, pos.getY()+0.5D, pos.getZ() + 0.5D, 0.0F, 0.0F);
             world.spawnEntity(tendrils);
         }
     }
