@@ -59,11 +59,11 @@ public class SculkSensorTendrilEntity extends LivingEntity {
             world.sendEntityStatus(this, (byte) 6);
         }
         if (this.activeTicksLeft > 0) {
-            --this.activeTicksLeft;
+            this.activeTicksLeft=this.activeTicksLeft-1;
         }
         this.previousAnimationTicksLeft=this.animationTicksLeft;
         if (this.animationTicksLeft > 0) {
-            --this.animationTicksLeft;
+            this.animationTicksLeft=this.animationTicksLeft-1;
         }
     }
 
@@ -77,8 +77,8 @@ public class SculkSensorTendrilEntity extends LivingEntity {
 
     public void handleStatus(byte status) {
         if (status==(byte)6) {
-            this.activeTicksLeft=15;
-            this.animationTicksLeft=10;
+            this.activeTicksLeft=10;
+            this.animationTicksLeft=5;
         }
     }
 
