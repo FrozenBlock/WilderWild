@@ -20,7 +20,7 @@ public class SculkSensorTendrilModel<T extends SculkSensorTendrilEntity> extends
         ModelData modelData = new ModelData();
         ModelPartData modelPartData = modelData.getRoot();
         ModelPartData modelPartData1 = modelPartData.addChild("bone", ModelPartBuilder.create(), ModelTransform.pivot(0.0F, 0.0F, 0.0F));
-        modelPartData1.addChild("right_tendril", ModelPartBuilder.create().uv(0,8).cuboid(0.0F, 0.0F, 0.0F, 6.0F, 7.0F, 0.002F), ModelTransform.pivot(-4.0F,-1F,0.0F));
+        modelPartData1.addChild("right_tendril", ModelPartBuilder.create().uv(0,7).cuboid(0.0F, 0.0F, 0.0F, 6.0F, 7.0F, 0.002F), ModelTransform.pivot(-4.0F,-1F,0.0F));
         modelPartData1.addChild("left_tendril", ModelPartBuilder.create().uv(0,0).cuboid(0.0F, 0.0F, 0.0F, 6.0F, 7.0F, 0.002F), ModelTransform.pivot(4.0F,-1.0F,0.0F));
         return TexturedModelData.of(modelData,64,64);
     }
