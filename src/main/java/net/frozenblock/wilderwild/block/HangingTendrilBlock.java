@@ -91,13 +91,13 @@ public class HangingTendrilBlock extends BlockWithEntity implements Waterloggabl
     public static final EnumProperty<HangingTendrilPhase> HANGING_TENDRIL_PHASE;
     public static final BooleanProperty WATERLOGGED;
     public static final BooleanProperty TWITCHING;
-    public static final BooleanProperty RINGING_OUT;
+    public static final BooleanProperty WRINGING_OUT;
     protected static final VoxelShape OUTLINE_SHAPE;
     private final int range;
 
     public HangingTendrilBlock(Settings settings, int range) {
         super(settings);
-        this.setDefaultState(this.stateManager.getDefaultState().with(HANGING_TENDRIL_PHASE, HangingTendrilPhase.INACTIVE).with(WATERLOGGED, false).with(TWITCHING, false).with(RINGING_OUT, false));
+        this.setDefaultState(this.stateManager.getDefaultState().with(HANGING_TENDRIL_PHASE, HangingTendrilPhase.INACTIVE).with(WATERLOGGED, false).with(TWITCHING, false).with(WRINGING_OUT, false));
         this.range = 16;
     }
 
@@ -236,7 +236,7 @@ public class HangingTendrilBlock extends BlockWithEntity implements Waterloggabl
     }
 
     protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
-        builder.add(HANGING_TENDRIL_PHASE, WATERLOGGED, TWITCHING, RINGING_OUT);
+        builder.add(HANGING_TENDRIL_PHASE, WATERLOGGED, TWITCHING, WRINGING_OUT);
     }
 
     public boolean hasComparatorOutput(BlockState state) {
@@ -269,12 +269,12 @@ public class HangingTendrilBlock extends BlockWithEntity implements Waterloggabl
         HANGING_TENDRIL_PHASE = RegisterProperties.HANGING_TENDRIL_PHASE;
         WATERLOGGED = Properties.WATERLOGGED;
         TWITCHING = RegisterProperties.TWITCHING;
-        RINGING_OUT = RegisterProperties.RINGING_OUT;
-        OUTLINE_SHAPE = Block.createCuboidShape(5.0D, 2.0D, 5.0D, 11.0D, 16.0D, 11.0D);
+        WRINGING_OUT = RegisterProperties.WRINGING_OUT;
+        OUTLINE_SHAPE = Block.createCuboidShape(5.0D, 0.0D, 5.0D, 11.0D, 16.0D, 11.0D);
     }
 
     public static boolean shouldHavePogLighting(BlockState state) {
-        return getPhase(state)==HangingTendrilPhase.ACTIVE || state.get(RINGING_OUT);
+        return getPhase(state)==HangingTendrilPhase.ACTIVE || state.get(WRINGING_OUT);
     }
 
     public static HangingTendrilBlockEntity getEntity(World world, BlockPos pos) {
@@ -296,12 +296,12 @@ public class HangingTendrilBlock extends BlockWithEntity implements Waterloggabl
 
     @Override
     public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
-        if (isInactive(state) && !state.get(RINGING_OUT)) {
+        if (isInactive(state) && !state.get(WRINGING_OUT)) {
             if (world.isClient) { return ActionResult.SUCCESS; } else {
                 HangingTendrilBlockEntity tendrilEntity = getEntity(world, pos);
                 if (tendrilEntity!=null) {
                     if (tendrilEntity.storedXP>0) {
-                        world.setBlockState(pos, state.with(RINGING_OUT, true));
+                        world.setBlockState(pos, state.with(WRINGING_OUT, true));
                         tendrilEntity.ringOutTicksLeft=5;
                         return ActionResult.SUCCESS;
                     }

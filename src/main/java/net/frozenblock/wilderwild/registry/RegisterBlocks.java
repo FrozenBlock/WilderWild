@@ -63,7 +63,7 @@ public abstract class RegisterBlocks {
                     .strength(0.7F)
                     .collidable(false)
                     .luminance((state) -> 1)
-                    .sounds(new BlockSoundGroup(1.0f, 1.0f,
+                    .sounds(new BlockSoundGroup(1.0f, 1.25f,
                             RegisterSounds.BLOCK_HANGING_TENDRIL_BREAK,
                             RegisterSounds.BLOCK_HANGING_TENDRIL_STEP,
                             RegisterSounds.BLOCK_HANGING_TENDRIL_PLACE,
