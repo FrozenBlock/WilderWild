@@ -21,12 +21,10 @@ public class SculkSensorBlockEntityMixin {
     @Inject(at = @At("HEAD"), method = "accept")
     public void accept(ServerWorld world, GameEventListener listener, BlockPos pos, GameEvent event, @Nullable Entity entity, @Nullable Entity sourceEntity, int delay, CallbackInfo info) {
         SculkSensorBlockEntity sculkSensorBlockEntity = SculkSensorBlockEntity.class.cast(this);
-
         BlockState blockState = sculkSensorBlockEntity.getCachedState();
         if (SculkSensorBlock.isInactive(blockState)) {
             world.emitGameEvent(entity, WilderWild.SCULK_SENSOR_ACTIVATE, sculkSensorBlockEntity.getPos());
         }
     }
-
 
 }
