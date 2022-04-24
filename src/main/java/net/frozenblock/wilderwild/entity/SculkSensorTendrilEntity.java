@@ -56,6 +56,7 @@ public class SculkSensorTendrilEntity extends LivingEntity {
         if (!world.getBlockState(this.getBlockPos()).isOf(Blocks.SCULK_SENSOR)) {
             this.remove(RemovalReason.DISCARDED);
         } else if (SculkSensorBlock.getPhase(world.getBlockState(this.getBlockPos())) == SculkSensorPhase.ACTIVE && this.activeTicksLeft == 0) {
+            this.activeTicksLeft=40;
             world.sendEntityStatus(this, (byte) 6);
         }
         if (this.activeTicksLeft > 0) {
@@ -77,8 +78,8 @@ public class SculkSensorTendrilEntity extends LivingEntity {
 
     public void handleStatus(byte status) {
         if (status==(byte)6) {
-            this.activeTicksLeft=10;
-            this.animationTicksLeft=5;
+            this.activeTicksLeft=40;
+            this.animationTicksLeft=10;
         }
     }
 
