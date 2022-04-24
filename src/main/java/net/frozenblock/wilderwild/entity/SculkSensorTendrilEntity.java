@@ -15,10 +15,13 @@ import net.minecraft.nbt.NbtCompound;
 import net.minecraft.util.Arm;
 import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 
 public class SculkSensorTendrilEntity extends LivingEntity {
     public int activeTicksLeft;
+    public int animationTicksLeft;
+    public int previousAnimationTicksLeft;
 
     public SculkSensorTendrilEntity(EntityType<? extends LivingEntity> entityType, World world) {
         super(entityType, world);
@@ -52,15 +55,20 @@ public class SculkSensorTendrilEntity extends LivingEntity {
     public void tickMovement() {
         if (!world.getBlockState(this.getBlockPos()).isOf(Blocks.SCULK_SENSOR)) {
             this.remove(RemovalReason.DISCARDED);
-        } else if (SculkSensorBlock.getPhase(world.getBlockState(this.getBlockPos())) == SculkSensorPhase.ACTIVE && this.activeTicksLeft == -1) {
+        } else if (SculkSensorBlock.getPhase(world.getBlockState(this.getBlockPos())) == SculkSensorPhase.ACTIVE && this.activeTicksLeft == 0) {
             world.sendEntityStatus(this, (byte) 6);
         }
         if (this.activeTicksLeft > 0) {
             --this.activeTicksLeft;
-        } else if (this.activeTicksLeft==0) {
-            world.sendEntityStatus(this, (byte)7);
-            --this.activeTicksLeft;
         }
+        this.previousAnimationTicksLeft=this.animationTicksLeft;
+        if (this.animationTicksLeft > 0) {
+            --this.animationTicksLeft;
+        }
+    }
+
+    public float getTendrilPitch(float tickDelta) {
+        return MathHelper.lerp(tickDelta, (float)this.previousAnimationTicksLeft, (float)this.animationTicksLeft) / 10.0F;
     }
     protected void tickCramming() { }
 
@@ -69,10 +77,8 @@ public class SculkSensorTendrilEntity extends LivingEntity {
 
     public void handleStatus(byte status) {
         if (status==(byte)6) {
-            this.activeTicksLeft=17;
-        }
-        if (status==(byte)7) {
-            this.activeTicksLeft=-1;
+            this.activeTicksLeft=15;
+            this.animationTicksLeft=10;
         }
     }
 
