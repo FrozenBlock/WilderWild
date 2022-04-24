@@ -3,6 +3,7 @@ package net.frozenblock.wilderwild.mixin;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityData;
 import net.minecraft.entity.EntityPose;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.SpawnReason;
 import net.minecraft.entity.ai.brain.MemoryModuleType;
 import net.minecraft.entity.mob.Angriness;
@@ -40,19 +41,31 @@ public class WardenEntityMixin {
     @Inject(at = @At("HEAD"), method = "pushAway")
     protected void pushAway(Entity entity, CallbackInfo info) {
         WardenEntity warden = WardenEntity.class.cast(this);
-        if (!warden.getBrain().hasMemoryModule(MemoryModuleType.ATTACK_COOLING_DOWN) && !warden.getBrain().hasMemoryModule(MemoryModuleType.TOUCH_COOLDOWN) && !(entity instanceof WardenEntity) && !warden.isInPose(EntityPose.EMERGING) && !warden.isInPose(EntityPose.DIGGING)) {
+        if (!warden.getBrain().hasMemoryModule(MemoryModuleType.ATTACK_COOLING_DOWN) && !warden.getBrain().hasMemoryModule(MemoryModuleType.TOUCH_COOLDOWN) && !(entity instanceof WardenEntity) && !warden.isInPose(EntityPose.EMERGING) && !warden.isInPose(EntityPose.DIGGING) && !warden.isInPose(EntityPose.DYING)) {
             if (!entity.isInvulnerable()) {
+                LivingEntity livingEntity = (LivingEntity)entity;
                 if (!(entity instanceof PlayerEntity player)) {
-                    warden.tryAttack(entity);
                     warden.increaseAngerAt(entity, Angriness.ANGRY.getThreshold() + 20, false);
+                    if (warden.getBrain().getOptionalMemory(MemoryModuleType.ROAR_TARGET).isEmpty()) {
+                        warden.getBrain().remember(MemoryModuleType.ROAR_TARGET, livingEntity);
+                        warden.getBrain().forget(MemoryModuleType.CANT_REACH_WALK_TARGET_SINCE);
+                    }
+                    if (!warden.isInPose(EntityPose.ROARING) && !warden.chargingSonicBoomAnimationState.isRunning()) {
+                        warden.tryAttack(entity);
+                    }
                 } else {
                     if (!player.isCreative()) {
-                        warden.tryAttack(entity);
                         warden.increaseAngerAt(entity, Angriness.ANGRY.getThreshold() + 20, false);
+                        if (warden.getBrain().getOptionalMemory(MemoryModuleType.ROAR_TARGET).isEmpty()) {
+                            warden.getBrain().remember(MemoryModuleType.ROAR_TARGET, livingEntity);
+                            warden.getBrain().forget(MemoryModuleType.CANT_REACH_WALK_TARGET_SINCE);
+                        }
+                        if (!warden.isInPose(EntityPose.ROARING) && !warden.chargingSonicBoomAnimationState.isRunning()) {
+                            warden.tryAttack(entity);
+                        }
                     }
                 }
             }
         }
     }
-
 }
