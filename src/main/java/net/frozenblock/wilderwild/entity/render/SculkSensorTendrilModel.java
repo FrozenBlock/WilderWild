@@ -37,10 +37,11 @@ public class SculkSensorTendrilModel<T extends SculkSensorTendrilEntity> extends
     }
     private void setTendrilPitches(SculkSensorTendrilEntity tendril, float animationProgress, float tickDelta) {
         float f = tendril.getTendrilPitch(tickDelta) * (float)(Math.cos((double)animationProgress * 2.25D) * 3.141592653589793D * 0.10000000149011612D);
+        float g = tendril.getTendrilPitch(tickDelta) * (float)(-Math.sin((double)animationProgress * 2.25D) * 3.141592653589793D * 0.10000000149011612D);
 
         this.ne.pitch = f;
-        this.nw.pitch = f;
-        this.se.pitch = f;
+        this.nw.pitch = g;
+        this.se.pitch = g;
         this.sw.pitch = f;
 
     }
