@@ -1,5 +1,6 @@
 package net.frozenblock.wilderwild.mixin;
 
+import net.frozenblock.wilderwild.entity.SculkSensorTendrilEntity;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.brain.MemoryModuleType;
 import net.minecraft.entity.mob.Angriness;
@@ -19,6 +20,14 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(WardenEntity.class)
 public class WardenEntityMixin {
+
+    @Inject(at = @At("HEAD"), method = "isValidTarget", cancellable = true)
+    public void isValidTarget(@Nullable Entity entity, CallbackInfoReturnable<Boolean> info) {
+        if (entity instanceof SculkSensorTendrilEntity) {
+            info.setReturnValue(false);
+            info.cancel();
+        }
+    }
 
     @Inject(at = @At("HEAD"), method = "initialize")
     @Nullable
