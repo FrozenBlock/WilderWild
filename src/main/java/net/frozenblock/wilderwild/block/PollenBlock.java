@@ -36,10 +36,7 @@ public class PollenBlock extends AbstractLichenBlock {
 
 
     protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
-        Direction[] var2 = DIRECTIONS;
-        int var3 = var2.length;
-
-        for (Direction direction : var2) {
+        for (Direction direction : DIRECTIONS) {
             if (this.canHaveDirection(direction)) {
                 builder.add(getProperty(direction));
             }
@@ -49,18 +46,15 @@ public class PollenBlock extends AbstractLichenBlock {
     public boolean canPlaceAt(BlockState state, WorldView world, BlockPos pos) {
         boolean bl = false;
         if (world.getBlockState(pos).isOf(Blocks.WATER)) { return false; }
-
         for (Direction direction : DIRECTIONS) {
             if (hasDirection(state, direction)) {
                 BlockPos blockPos = pos.offset(direction);
                 if (!canGrowOn(world, direction, blockPos, world.getBlockState(blockPos))) {
                     return false;
                 }
-
                 bl = true;
             }
         }
-
         return bl;
     }
 
