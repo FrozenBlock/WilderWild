@@ -44,8 +44,8 @@ public class HangingTendrilBlockEntity extends BlockEntity implements SculkSenso
         if (this.ticksToStopTwitching>=0) {--this.ticksToStopTwitching;} else if (state.get(HangingTendrilBlock.TWITCHING)) {
             world.setBlockState(pos, state.with(HangingTendrilBlock.TWITCHING, false));
         }
-        if (this.ringOutTicksLeft>=0) {--this.ringOutTicksLeft;} else if (state.get(HangingTendrilBlock.RINGING_OUT)) {
-            world.setBlockState(pos, state.with(HangingTendrilBlock.RINGING_OUT, false));
+        if (this.ringOutTicksLeft>=0) {--this.ringOutTicksLeft;} else if (state.get(HangingTendrilBlock.WRINGING_OUT)) {
+            world.setBlockState(pos, state.with(HangingTendrilBlock.WRINGING_OUT, false));
             if (this.storedXP>0) {
                 int droppedXP = 1;
                 if (this.storedXP > 1) { droppedXP = this.storedXP/2; }
@@ -96,7 +96,7 @@ public class HangingTendrilBlockEntity extends BlockEntity implements SculkSenso
     }
 
     public boolean accepts(ServerWorld world, GameEventListener listener, BlockPos pos, GameEvent event, @Nullable GameEvent.Emitter emitter) {
-        return (!pos.equals(this.getPos()) || event != GameEvent.BLOCK_DESTROY && event != GameEvent.BLOCK_PLACE) && HangingTendrilBlock.isInactive(this.getCachedState()) && !this.getCachedState().get(HangingTendrilBlock.RINGING_OUT);
+        return (!pos.equals(this.getPos()) || event != GameEvent.BLOCK_DESTROY && event != GameEvent.BLOCK_PLACE) && HangingTendrilBlock.isInactive(this.getCachedState()) && !this.getCachedState().get(HangingTendrilBlock.WRINGING_OUT);
     }
 
     public void accept(ServerWorld world, GameEventListener listener, BlockPos pos, GameEvent event, @Nullable Entity entity, @Nullable Entity sourceEntity, int delay) {

@@ -16,6 +16,6 @@ public class RegisterProperties extends Properties {
 
     public static final EnumProperty<HangingTendrilPhase> HANGING_TENDRIL_PHASE = EnumProperty.of("hanging_tendril_phase", HangingTendrilPhase.class);
     public static final BooleanProperty TWITCHING = BooleanProperty.of("twitching");
-    public static final BooleanProperty RINGING_OUT = BooleanProperty.of("ringing_out");
+    public static final BooleanProperty WRINGING_OUT = BooleanProperty.of("ringing_out");
 
 }
