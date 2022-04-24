@@ -8,6 +8,7 @@
 	"SculkBlockMixin",
 	"SculkSensorBlockEntityMixin",
     "SculkSensorBlockMixin",
+    "SculkSensorListenerMixin",
 	"SculkVeinGrowCheckerMixin",
 	"WardenEntityMixin"
   ],
