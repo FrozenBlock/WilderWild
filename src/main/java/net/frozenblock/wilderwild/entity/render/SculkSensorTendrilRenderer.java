@@ -16,7 +16,7 @@ public class SculkSensorTendrilRenderer extends LivingEntityRenderer<SculkSensor
 
     public SculkSensorTendrilRenderer(EntityRendererFactory.Context context) {
         super(context, new SculkSensorTendrilModel<>(context.getPart(WildClientMod.SENSOR_TENDRILS_LAYER)), 0.0f);
-        this.addFeature(new SculkSensorTendrilsFeature(this));
+        //this.addFeature(new SculkSensorTendrilsFeature(this));
     }
 
     @Override
