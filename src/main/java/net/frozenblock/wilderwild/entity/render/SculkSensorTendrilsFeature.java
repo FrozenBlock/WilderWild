@@ -10,7 +10,6 @@ import net.minecraft.client.render.entity.feature.EyesFeatureRenderer;
 import net.minecraft.client.render.entity.feature.FeatureRendererContext;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.Identifier;
-import net.minecraft.world.LightType;
 
 public class SculkSensorTendrilsFeature extends EyesFeatureRenderer<SculkSensorTendrilEntity, SculkSensorTendrilModel<SculkSensorTendrilEntity>> {
 
@@ -24,15 +23,12 @@ public class SculkSensorTendrilsFeature extends EyesFeatureRenderer<SculkSensorT
     public void render(MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, SculkSensorTendrilEntity entity, float limbAngle, float limbDistance, float tickDelta, float animationProgress, float headYaw, float headPitch) {
         //if (entity.shouldRender) { /* REPLACE WITH CLIENT SETTINGS CHECK */
             VertexConsumer vertexConsumer = vertexConsumers.getBuffer(this.TENDRILS);
-            this.getContextModel().render(matrices, vertexConsumer, 15728640, OverlayTexture.DEFAULT_UV, calculateColors(entity), calculateColors(entity), calculateColors(entity), 0.0f);
+            this.getContextModel().render(matrices, vertexConsumer, 15728640, OverlayTexture.DEFAULT_UV, calculateColors(entity), calculateColors(entity), calculateColors(entity), 1.0f);
         //}
     }
 
     private static float calculateColors(SculkSensorTendrilEntity tendrils) {
-        int a = tendrils.world.getLightLevel(LightType.BLOCK, tendrils.getBlockPos());
-        int b = tendrils.world.getLightLevel(LightType.SKY, tendrils.getBlockPos());
-        int o = Math.max(a, b);
-        if (tendrils.activeTicksLeft>0) { return o; }
+        if (tendrils.activeTicksLeft>0) { return 1F; }
         return 0F;
     }
 
