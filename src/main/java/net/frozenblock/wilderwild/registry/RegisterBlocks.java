@@ -15,6 +15,14 @@ import net.minecraft.util.math.Direction;
 import net.minecraft.util.registry.Registry;
 
 public abstract class RegisterBlocks {
+    // CHISELED PACKED MUD
+    public static final Block CHISELED_PACKED_MUD = registerBlock("chiseled_packed_mud",
+            new Block(FabricBlockSettings.copy(Blocks.CHISELED_STONE_BRICKS)
+                    .strength(1.5F)
+                    .nonOpaque()
+                    .sounds(BlockSoundGroup.MUD_BRICKS)),
+            ItemGroup.BUILDING_BLOCKS
+    );
     // DRIPSTONE BLOCKS
     public static final Block DRIPSTONE_PILLAR = registerBlock("dripstone_pillar",
             new PillarBlock(FabricBlockSettings.copy(Blocks.QUARTZ_PILLAR)
