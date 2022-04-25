@@ -15,7 +15,7 @@ import net.minecraft.util.math.Direction;
 import net.minecraft.util.registry.Registry;
 
 public abstract class RegisterBlocks {
-    //DRIPSTONE BLOCKS
+    // DRIPSTONE BLOCKS
     public static final Block DRIPSTONE_PILLAR = registerBlock("dripstone_pillar",
             new PillarBlock(FabricBlockSettings.copy(Blocks.QUARTZ_PILLAR)
                             .strength(1.5F)
@@ -23,7 +23,13 @@ public abstract class RegisterBlocks {
                             .sounds(BlockSoundGroup.DRIPSTONE_BLOCK)),
             ItemGroup.BUILDING_BLOCKS
     );
-
+    public static final Block DRIPSTONE_BRICKS = registerBlock("dripstone_bricks",
+            new Block(FabricBlockSettings.copy(Blocks.STONE_BRICKS)
+                    .strength(1.5F)
+                    .nonOpaque()
+                    .sounds(BlockSoundGroup.DRIPSTONE_BLOCK)),
+            ItemGroup.BUILDING_BLOCKS
+    );
 
     // FLOWERED_LILY_PAD
     public static final Block FLOWERED_LILY_PAD = new FloweredLilyPadBlock(FabricBlockSettings.copy(Blocks.LILY_PAD));
