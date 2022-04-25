@@ -10,6 +10,8 @@ import org.spongepowered.asm.mixin.Overwrite;
 @Mixin(DefaultBiomeFeatures.class)
 public class DefaultBiomeFeaturesMixin {
 
+    //DELETE THIS IF NO LONGER NEEDED
+
     @Overwrite
     public static void addBirchTrees(GenerationSettings.Builder builder) {
 
