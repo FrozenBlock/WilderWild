@@ -11,6 +11,7 @@ import net.minecraft.util.Identifier;
 
 public class SculkSensorTendrilRenderer extends LivingEntityRenderer<SculkSensorTendrilEntity, SculkSensorTendrilModel<SculkSensorTendrilEntity>> {
     private static final Identifier TENDRIL_TEXTURE = new Identifier(WilderWild.MOD_ID, "textures/entity/sculk_sensor_tendrils/inactive.png");
+    private static final Identifier ACTIVE_TENDRIL_TEXTURE = new Identifier(WilderWild.MOD_ID, "textures/entity/sculk_sensor_tendrils/active.png");
 
 
     public SculkSensorTendrilRenderer(EntityRendererFactory.Context context) {
@@ -27,7 +28,10 @@ public class SculkSensorTendrilRenderer extends LivingEntityRenderer<SculkSensor
 
     @Override
     public Identifier getTexture(SculkSensorTendrilEntity entity) {
-        return TENDRIL_TEXTURE;
+        if (entity.activeTicksLeft>0) {
+            return ACTIVE_TENDRIL_TEXTURE;
+        }
+            return TENDRIL_TEXTURE;
     }
 
     protected boolean hasLabel(SculkSensorTendrilEntity entity) { return false; }
