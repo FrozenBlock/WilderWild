@@ -55,7 +55,7 @@ public abstract class RegisterBlocks {
     );
 
     public static final Block DRIPSTONE_BRICK_WALL = registerBlock("dripstone_brick_wall",
-            new WallBlock(FabricBlockSettings.copy(Blocks.STONE_BRICK_WALL)
+            new WallBlock(FabricBlockSettings.of(Material.STONE)
                     .strength(1.5F)
                     .nonOpaque()
                     .sounds(BlockSoundGroup.DRIPSTONE_BLOCK)),
