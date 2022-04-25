@@ -51,7 +51,7 @@ public class WildConfiguredFeatures {
                             NEW_BIRCH_CHECKED));
 
     public static final RegistryEntry<ConfiguredFeature<TreeFeatureConfig, ?>> CONCEPT_ART_BIRCH_TREE_1 =
-            ConfiguredFeatures.register("new_birch_tree", Feature.TREE, new TreeFeatureConfig.Builder(
+            ConfiguredFeatures.register("concept_birch_1", Feature.TREE, new TreeFeatureConfig.Builder(
 
                     BlockStateProvider.of(Blocks.BIRCH_LOG),
                     new ForkingTrunkPlacer(8, 6, 4),
