@@ -32,8 +32,8 @@ public class WilderWild implements ModInitializer {
         Registry.register(Registry.GAME_EVENT, new Identifier(WilderWild.MOD_ID, "hanging_tendril_extract_xp"), TENDRIL_EXTRACT_XP);
         RegisterItems.RegisterItems();
         RegisterParticles.RegisterParticles();
-        WildWorldGen.generateWildWorldGen();
         WildConfiguredFeatures.registerConfiguredFeatures();
+        WildWorldGen.generateWildWorldGen();
         RegisterBlockEntityType.init();
         RegisterEntities.init();
 
