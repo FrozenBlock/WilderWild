@@ -19,7 +19,7 @@ public abstract class RegisterBlocks {
     public static final Block CHISELED_PACKED_MUD = registerBlock("chiseled_packed_mud",
             new Block(FabricBlockSettings.copy(Blocks.CHISELED_STONE_BRICKS)
                     .strength(1.5F)
-                    .nonOpaque()
+                    .requiresTool()
                     .sounds(BlockSoundGroup.MUD_BRICKS)),
             ItemGroup.BUILDING_BLOCKS
     );
@@ -27,16 +27,39 @@ public abstract class RegisterBlocks {
     public static final Block DRIPSTONE_PILLAR = registerBlock("dripstone_pillar",
             new PillarBlock(FabricBlockSettings.copy(Blocks.QUARTZ_PILLAR)
                             .strength(1.5F)
-                            .nonOpaque()
+                            .requiresTool()
                             .sounds(BlockSoundGroup.DRIPSTONE_BLOCK)),
             ItemGroup.BUILDING_BLOCKS
     );
     public static final Block DRIPSTONE_BRICKS = registerBlock("dripstone_bricks",
             new Block(FabricBlockSettings.copy(Blocks.STONE_BRICKS)
                     .strength(1.5F)
-                    .nonOpaque()
+                    .requiresTool()
                     .sounds(BlockSoundGroup.DRIPSTONE_BLOCK)),
             ItemGroup.BUILDING_BLOCKS
+    );
+    public static final Block DRIPSTONE_BRICK_SLAB = registerBlock("dripstone_brick_slab",
+            new SlabBlock(FabricBlockSettings.copy(Blocks.STONE_BRICK_SLAB)
+                    .strength(1.5F)
+                    .requiresTool()
+                    .sounds(BlockSoundGroup.DRIPSTONE_BLOCK)),
+            ItemGroup.BUILDING_BLOCKS
+    );
+    public static final Block DRIPSTONE_BRICK_STAIRS = registerBlock("dripstone_brick_stairs",
+            new StairsBlock(RegisterBlocks.DRIPSTONE_BRICKS.getDefaultState(),
+                    FabricBlockSettings.copy(Blocks.STONE_BRICK_STAIRS)
+                            .strength(1.5f)
+                            .requiresTool()
+                            .sounds(BlockSoundGroup.DRIPSTONE_BLOCK)),
+            ItemGroup.BUILDING_BLOCKS
+    );
+
+    public static final Block DRIPSTONE_BRICK_WALL = registerBlock("dripstone_brick_wall",
+            new WallBlock(FabricBlockSettings.copy(Blocks.STONE_BRICK_WALL)
+                    .strength(1.5F)
+                    .nonOpaque()
+                    .sounds(BlockSoundGroup.DRIPSTONE_BLOCK)),
+            ItemGroup.DECORATIONS
     );
 
     // FLOWERED_LILY_PAD
