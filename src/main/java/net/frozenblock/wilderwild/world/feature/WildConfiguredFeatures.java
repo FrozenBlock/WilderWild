@@ -50,7 +50,7 @@ public class WildConfiguredFeatures {
                     new RandomFeatureConfig(List.of(new RandomFeatureEntry(NEW_BIRCH_CHECKED, 0.5f)),
                             NEW_BIRCH_CHECKED));
 
-    public static final RegistryEntry<ConfiguredFeature<TreeFeatureConfig, ?>> CONCEPT_ART_BIRCH_TREE_1 =
+    /*public static final RegistryEntry<ConfiguredFeature<TreeFeatureConfig, ?>> CONCEPT_ART_BIRCH_TREE_1 =
             ConfiguredFeatures.register("concept_birch_1", Feature.TREE, new TreeFeatureConfig.Builder(
 
                     BlockStateProvider.of(Blocks.BIRCH_LOG),
@@ -67,7 +67,7 @@ public class WildConfiguredFeatures {
     public static final RegistryEntry<ConfiguredFeature<RandomFeatureConfig, ?>> CONCEPT_BIRCH_1_SPAWN =
             ConfiguredFeatures.register("concept_birch_1_spawn", Feature.RANDOM_SELECTOR,
                     new RandomFeatureConfig(List.of(new RandomFeatureEntry(CONCEPT_BIRCH_1_CHECKED, 0.5f)),
-                            CONCEPT_BIRCH_1_CHECKED));
+                            CONCEPT_BIRCH_1_CHECKED));*/
 
     public static final RegistryEntry<ConfiguredFeature<MultifaceGrowthFeatureConfig, ?>> POLLEN_CONFIGURED =
             ConfiguredFeatures.register("pollen", Feature.MULTIFACE_GROWTH, new MultifaceGrowthFeatureConfig(RegisterBlocks.POLLEN_BLOCK, 20, true, true, true, 0.5F, RegistryEntryList.of(Block::getRegistryEntry, Blocks.GRASS_BLOCK, Blocks.BIRCH_LEAVES, Blocks.OAK_LEAVES, Blocks.OAK_LOG)));
