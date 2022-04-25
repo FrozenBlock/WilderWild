@@ -17,6 +17,7 @@ public class RegisterSounds {
     public static final SoundEvent BLOCK_HANGING_TENDRIL_BREAK = new SoundEvent(new Identifier(WilderWild.MOD_ID, "block.hanging_tendril.break"));
     public static final SoundEvent BLOCK_HANGING_TENDRIL_STEP = new SoundEvent(new Identifier(WilderWild.MOD_ID, "block.hanging_tendril.step"));
     public static final SoundEvent BLOCK_HANGING_TENDRIL_FALL = new SoundEvent(new Identifier(WilderWild.MOD_ID, "block.hanging_tendril.fall"));
+    public static final SoundEvent BLOCK_HANGING_TENDRIL_WRING = new SoundEvent(new Identifier(WilderWild.MOD_ID, "block.hanging_tendril.wring"));
 
     public static final SoundEvent BLOCK_SCULK_JAW_CLAMP = new SoundEvent(new Identifier(WilderWild.MOD_ID, "block.sculk_jaw.clamp"));
     public static final SoundEvent BLOCK_SCULK_ECHOER_RECEIVE_VIBRATION = new SoundEvent(new Identifier(WilderWild.MOD_ID, "block.sculk_echoer.receive_vibration"));

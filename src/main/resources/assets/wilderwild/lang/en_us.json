@@ -39,6 +39,7 @@
   "subtitles.block.sculk_jaw.clamp": "Sculk Jaw clamps",
   "subtitles.block.sculk_echoer.receive_vibration": "Sculk Echoer echoes",
   "subtitles.entity.goat.horn_break": "Goat's horn breaks off",
-  "subtitles.item.goat_horn.use": "Horn blown"
+  "subtitles.item.goat_horn.use": "Horn blown",
+  "subtitles.block.hanging_tendril.wring": "Hanging Tendril wrung"
   
 }

@@ -81,6 +81,15 @@
 		],
 		"subtitle": "subtitles.block.generic.fall"
 	},
+	"block.hanging_tendril.wring": {
+		"sounds": [
+			"wilderwild:block/hanging_tendril/wring1",
+			"wilderwild:block/hanging_tendril/wring2",
+			"wilderwild:block/hanging_tendril/wring3",
+			"wilderwild:block/hanging_tendril/wring4"
+		],
+		"subtitle": "subtitles.block.hanging_tendril.wring"
+	},
 	"block.osseous_sculk.break": {
 		"sounds": [
 			"wilderwild:block/osseous_sculk/break1",

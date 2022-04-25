@@ -9,6 +9,7 @@ import net.frozenblock.wilderwild.block.entity.HangingTendrilPhase;
 import net.frozenblock.wilderwild.registry.RegisterBlockEntityType;
 import net.frozenblock.wilderwild.registry.RegisterBlocks;
 import net.frozenblock.wilderwild.registry.RegisterProperties;
+import net.frozenblock.wilderwild.registry.RegisterSounds;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityTicker;
@@ -302,6 +303,14 @@ public class HangingTendrilBlock extends BlockWithEntity implements Waterloggabl
                 if (tendrilEntity!=null) {
                     if (tendrilEntity.storedXP>0) {
                         world.setBlockState(pos, state.with(WRINGING_OUT, true));
+                        world.playSound(
+                                null,
+                                pos,
+                                RegisterSounds.BLOCK_HANGING_TENDRIL_WRING,
+                                SoundCategory.BLOCKS,
+                                1f,
+                                world.random.nextFloat() * 0.1F + 0.9F
+                        );
                         tendrilEntity.ringOutTicksLeft=5;
                         return ActionResult.SUCCESS;
                     }
