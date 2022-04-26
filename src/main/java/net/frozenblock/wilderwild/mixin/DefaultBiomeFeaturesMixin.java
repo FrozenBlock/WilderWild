@@ -12,6 +12,10 @@ public class DefaultBiomeFeaturesMixin {
 
     //DELETE THIS IF NO LONGER NEEDED
 
+    /**
+     * @author FrozenBlock
+     * @reason new birch pog
+     */
     @Overwrite
     public static void addBirchTrees(GenerationSettings.Builder builder) {
 
