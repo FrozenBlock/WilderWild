@@ -1,7 +1,0 @@
-{
-  "parent": "minecraft:block/cube_column",
-  "textures": {
-    "end": "wilderwild:block/dripstone_pillar_top",
-    "side": "wilderwild:block/dripstone_pillar"
-  }
-}

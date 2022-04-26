@@ -1,11 +1,6 @@
 {
   "replace": false,
   "values": [
-    "wilderwild:dripstone_bricks",
-    "wilderwild:dripstone_brick_slab",
-    "wilderwild:dripstone_brick_stairs",
-    "wilderwild:dripstone_brick_wall",
-    "wilderwild:dripstone_pillar",
     "wilderwild:chiseled_mud_brick"
   ]
 }
