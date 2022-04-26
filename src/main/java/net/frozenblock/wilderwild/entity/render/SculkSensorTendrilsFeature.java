@@ -13,7 +13,7 @@ import net.minecraft.util.Identifier;
 
 public class SculkSensorTendrilsFeature extends EyesFeatureRenderer<SculkSensorTendrilEntity, SculkSensorTendrilModel<SculkSensorTendrilEntity>> {
 
-    public RenderLayer TENDRILS = RenderLayer.getEyes(new Identifier(WilderWild.MOD_ID, "textures/entity/sculk_sensor_tendrils/active.png"));
+    public RenderLayer TENDRILS = RenderLayer.getEyes(new Identifier(WilderWild.MOD_ID, "textures/entity/sculk_sensor_tendrils/active_overlay.png"));
 
     public SculkSensorTendrilsFeature(FeatureRendererContext<SculkSensorTendrilEntity, SculkSensorTendrilModel<SculkSensorTendrilEntity>> featureRendererContext) {
         super(featureRendererContext);
