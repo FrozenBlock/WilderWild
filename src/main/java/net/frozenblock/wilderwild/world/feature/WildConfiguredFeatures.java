@@ -28,8 +28,6 @@ import java.util.List;
 
 
 public class WildConfiguredFeatures {
-    public static final RegistryEntry<ConfiguredFeature<RandomPatchFeatureConfig, ?>> new_grass_forest =
-            ConfiguredFeatures.register("new_grass_forest", Feature.RANDOM_PATCH, WildConfiguredFeatures(new WeightedBlockStateProvider(DataPool.builder().build()().add(Blocks.GRASS.getDefaultState(), 1).add(Blocks.FERN.getDefaultState(), 4)), 32));
     public static final RegistryEntry<ConfiguredFeature<RandomPatchFeatureConfig, ?>> DATURA =
             ConfiguredFeatures.register("datura", Feature.FLOWER,
                     ConfiguredFeatures.createRandomPatchFeatureConfig(64, PlacedFeatures.createEntry(Feature.SIMPLE_BLOCK,
