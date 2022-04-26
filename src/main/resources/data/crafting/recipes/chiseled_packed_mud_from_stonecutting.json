@@ -1,8 +1,0 @@
-{
-  "type": "minecraft:stonecutting",
-  "ingredient": {
-    "item": "minecraft:packed_mud"
-  },
-  "result": "wilderwild:chiseled_packed_mud",
-  "count": 1
-}

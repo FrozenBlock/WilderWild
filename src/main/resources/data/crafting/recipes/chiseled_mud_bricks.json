@@ -6,11 +6,11 @@
   ],
   "key": {
     "#": {
-      "item": "minecraft:packed_mud"
+      "item": "minecraft:mud_brick_slab"
     }
   },
   "result": {
-    "item": "wilderwild:chiseled_packed_mud",
-    "count": 2
+    "item": "wilderwild:chiseled_mud_bricks",
+    "count": 1
   }
 }

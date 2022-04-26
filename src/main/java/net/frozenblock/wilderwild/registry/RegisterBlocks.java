@@ -16,7 +16,7 @@ import net.minecraft.util.registry.Registry;
 
 public abstract class RegisterBlocks {
     // CHISELED PACKED MUD
-    public static final Block CHISELED_PACKED_MUD = registerBlock("chiseled_packed_mud",
+    public static final Block CHISELED_MUD_BRICKS = registerBlock("chiseled_mud_bricks",
             new Block(FabricBlockSettings.copy(Blocks.CHISELED_STONE_BRICKS)
                     .strength(1.5F)
                     .requiresTool()
