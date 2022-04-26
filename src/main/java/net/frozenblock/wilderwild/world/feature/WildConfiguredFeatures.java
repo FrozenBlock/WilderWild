@@ -2,9 +2,10 @@ package net.frozenblock.wilderwild.world.feature;
 
 import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.registry.RegisterBlocks;
-import net.frozenblock.wilderwild.world.trunks.StraightTrunkWithLogs;
+import net.frozenblock.wilderwild.world.gen.trunk.StraightTrunkWithLogs;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
+import net.minecraft.block.sapling.BirchSaplingGenerator;
 import net.minecraft.util.math.intprovider.ConstantIntProvider;
 import net.minecraft.util.math.intprovider.IntProvider;
 import net.minecraft.util.math.intprovider.UniformIntProvider;
@@ -36,8 +37,7 @@ public class WildConfiguredFeatures {
             ConfiguredFeatures.register("new_birch_tree", Feature.TREE, new TreeFeatureConfig.Builder(
 
                     BlockStateProvider.of(Blocks.BIRCH_LOG),
-                    new StraightTrunkWithLogs(8, 6, 4, 1.0F, ConstantIntProvider.create(1),
-                            RegistryEntryList.of(Block::getRegistryEntry, Blocks.GRASS, Blocks.BIRCH_LEAVES, Blocks.TALL_GRASS, Blocks.AIR)),
+                    new StraightTrunkPlacer(8,6,4),
                     BlockStateProvider.of(Blocks.BIRCH_LEAVES),
                     new BlobFoliagePlacer(ConstantIntProvider.create(2), ConstantIntProvider.create(0), 3),
                     new TwoLayersFeatureSize(1, 0, 1))

@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "#",
+    "#"
+  ],
+  "key": {
+    "#": {
+      "item": "minecraft:packed_mud"
+    }
+  },
+  "result": {
+    "item": "wilderwild:chiseled_packed_mud",
+    "count": 2
+  }
+}

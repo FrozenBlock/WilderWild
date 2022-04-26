@@ -18,7 +18,7 @@ public class WildPlacedFeature {
 
     public static final RegistryEntry<PlacedFeature> NEW_BIRCH_PLACED = PlacedFeatures.register("new_birch_placed",
             WildConfiguredFeatures.NEW_BIRCH_SPAWN, VegetationPlacedFeatures.modifiers(
-                    PlacedFeatures.createCountExtraModifier(5, 0.1f, 2)));
+                    PlacedFeatures.createCountExtraModifier(7, 0.1f, 2)));
 
     /*public static final RegistryEntry<PlacedFeature> CONCEPT_BIRCH_1_PLACED = PlacedFeatures.register("concept_birch_1_placed",
             WildConfiguredFeatures.CONCEPT_BIRCH_1_SPAWN, VegetationPlacedFeatures.modifiers(

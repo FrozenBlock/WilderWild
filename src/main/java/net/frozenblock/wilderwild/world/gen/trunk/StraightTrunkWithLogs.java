@@ -1,4 +1,4 @@
-package net.frozenblock.wilderwild.world.trunks;
+package net.frozenblock.wilderwild.world.gen.trunk;
 
 import com.google.common.collect.Lists;
 import com.mojang.serialization.Codec;

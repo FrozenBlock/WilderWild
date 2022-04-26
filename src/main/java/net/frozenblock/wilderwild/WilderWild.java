@@ -9,7 +9,7 @@ import net.frozenblock.wilderwild.registry.*;
 import net.frozenblock.wilderwild.world.feature.WildConfiguredFeatures;
 import net.frozenblock.wilderwild.world.gen.WildWorldGen;
 
-import net.frozenblock.wilderwild.world.trunks.StraightTrunkWithLogs;
+import net.frozenblock.wilderwild.world.gen.trunk.StraightTrunkWithLogs;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;

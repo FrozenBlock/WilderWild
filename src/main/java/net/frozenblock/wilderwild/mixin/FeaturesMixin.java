@@ -8,15 +8,10 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Overwrite;
 
 @Mixin(DefaultBiomeFeatures.class)
-public class DefaultBiomeFeaturesMixin {
+public class FeaturesMixin {
 
-    //DELETE THIS IF NO LONGER NEEDED
-
-    /**
-     * @author FrozenBlock
-     * @reason new birch pog
-     */
     @Overwrite
-    public static void addBirchTrees(GenerationSettings.Builder builder) {
+    public static void addForestGrass(GenerationSettings.Builder builder) {
     }
 }
+

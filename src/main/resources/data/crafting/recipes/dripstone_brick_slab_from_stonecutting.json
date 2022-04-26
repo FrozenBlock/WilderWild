@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": {
+    "item": "wilderwild:dripstone_bricks"
+  },
+  "result": "wilderwild:dripstone_brick_slab",
+  "count": 2
+}
