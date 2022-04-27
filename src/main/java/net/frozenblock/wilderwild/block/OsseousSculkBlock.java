@@ -98,12 +98,10 @@ public class OsseousSculkBlock extends PillarBlock implements SculkSpreadable {
                 if (topPos != null) {
                     BlockState state = world.getBlockState(topPos);
                     pillarHeight = state.get(OsseousSculkBlock.HEIGHT_LEFT);
-                    Direction direction = getDir(state.get(AXIS),state.get(UPSIDEDOWN));
+                    Direction direction = getDir(state.get(AXIS), state.get(UPSIDEDOWN));
                     if (world.getBlockState(topPos.offset(direction)).isAir() || world.getBlockState(topPos.offset(direction)).getBlock() == Blocks.SCULK_VEIN) {
                         BlockState blockState = RegisterBlocks.OSSEOUS_SCULK.getDefaultState().with(HEIGHT_LEFT, Math.max(0, pillarHeight - 1)).with(CAME_FROM, direction.getOpposite());
-                        if (EasyNoiseSampler.atomicRandom.nextInt(28) == 0) {
-                            blockState = blockState.with(AXIS, Direction.Axis.pickRandomAxis(EasyNoiseSampler.simpleRandom));
-                        }
+
                         if (pillarHeight==1 && !state.get(UPSIDEDOWN) && state.get(TOTAL_HEIGHT)>0) {
                             if (EasyNoiseSampler.simpleRandom.nextInt(Math.max(1,state.get(TOTAL_HEIGHT)/2))<=1) {
                                 blockState = RegisterBlocks.SCULK_ECHOER.getDefaultState();
@@ -121,12 +119,12 @@ public class OsseousSculkBlock extends PillarBlock implements SculkSpreadable {
                             blockState = blockState.with(TOTAL_HEIGHT, state.get(TOTAL_HEIGHT));
                             if (state.get(UPSIDEDOWN)) {
                                 blockState = blockState.with(UPSIDEDOWN, true);
-                                if (direction==Direction.DOWN && Math.random()>0.6) {
+                                if (direction==Direction.DOWN && Math.random()>0.7) {
                                     Direction ribCage = getDir(getAxis(topPos), false);
                                     if (ISITSAFE(world.getBlockState(topPos.offset(ribCage)))) {
                                         world.setBlockState(topPos.offset(ribCage), RegisterBlocks.OSSEOUS_SCULK.getDefaultState().with(AXIS, getAxis(topPos)).with(TOTAL_HEIGHT, state.get(TOTAL_HEIGHT)).with(HEIGHT_LEFT, 0), 3);
                                         if (ISITSAFE(world.getBlockState(topPos.offset(ribCage).down()))) {
-                                            if (Math.random()>0.5) {
+                                            if (Math.random()>0.6) {
                                                 world.setBlockState(topPos.offset(ribCage).down(), RegisterBlocks.HANGING_TENDRIL.getDefaultState(), 3);
                                             }
                                         }
@@ -169,9 +167,7 @@ public class OsseousSculkBlock extends PillarBlock implements SculkSpreadable {
                 Direction direction = getDir(state.get(AXIS), state.get(UPSIDEDOWN));
                 if (world.getBlockState(topPos.offset(direction)).isAir() || world.getBlockState(topPos.offset(direction)).getBlock() == Blocks.SCULK_VEIN) {
                     BlockState blockState = RegisterBlocks.OSSEOUS_SCULK.getDefaultState().with(HEIGHT_LEFT, Math.max(0, pillarHeight - 1)).with(CAME_FROM, direction.getOpposite());
-                    if (EasyNoiseSampler.atomicRandom.nextInt(28) == 0) {
-                        blockState = blockState.with(AXIS, Direction.Axis.pickRandomAxis(EasyNoiseSampler.simpleRandom));
-                    }
+
                     if (pillarHeight == 1 && !state.get(UPSIDEDOWN) && state.get(TOTAL_HEIGHT) > 0) {
                         if (EasyNoiseSampler.simpleRandom.nextInt(Math.max(1, state.get(TOTAL_HEIGHT) / 2)) <= 1) {
                             blockState = RegisterBlocks.SCULK_ECHOER.getDefaultState();
@@ -189,12 +185,12 @@ public class OsseousSculkBlock extends PillarBlock implements SculkSpreadable {
                         blockState = blockState.with(TOTAL_HEIGHT, state.get(TOTAL_HEIGHT));
                         if (state.get(UPSIDEDOWN)) {
                             blockState = blockState.with(UPSIDEDOWN, true);
-                            if (direction==Direction.DOWN && Math.random()>0.68) {
+                            if (direction==Direction.DOWN && Math.random()>0.7) {
                                 Direction ribCage = getDir(getAxis(topPos), false);
                                 if (ISITSAFE(world.getBlockState(topPos.offset(ribCage)))) {
                                     world.setBlockState(topPos.offset(ribCage), RegisterBlocks.OSSEOUS_SCULK.getDefaultState().with(AXIS, getAxis(topPos)).with(TOTAL_HEIGHT, state.get(TOTAL_HEIGHT)).with(HEIGHT_LEFT, 0), 3);
                                     if (ISITSAFE(world.getBlockState(topPos.offset(ribCage).down()))) {
-                                        if (Math.random()>0.25) {
+                                        if (Math.random()>0.4) {
                                             world.setBlockState(topPos.offset(ribCage).down(), RegisterBlocks.HANGING_TENDRIL.getDefaultState(), 3);
                                         }
                                     }
