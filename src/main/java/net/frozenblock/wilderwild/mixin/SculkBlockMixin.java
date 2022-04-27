@@ -67,7 +67,7 @@ public class SculkBlockMixin {
 							blockState = RegisterBlocks.OSSEOUS_SCULK.getDefaultState().with(OsseousSculkBlock.HEIGHT_LEFT, pillarHeight).with(OsseousSculkBlock.TOTAL_HEIGHT, pillarHeight + 1).with(OsseousSculkBlock.UPSIDEDOWN, true);
 						} else {
 							blockState = RegisterBlocks.HANGING_TENDRIL.getDefaultState();
-							if (isWorldGen && Math.random()>0.4) { j=0; }
+							if (isWorldGen && Math.random()>0.6) { j=0; }
 						}
 						blockPos2=blockPos.down();
 					}
