@@ -37,7 +37,7 @@ public class HangingTendrilBlockEntity extends BlockEntity implements SculkSenso
 
     public HangingTendrilBlockEntity(BlockPos pos, BlockState state) {
         super(RegisterBlockEntityType.HANGING_TENDRIL, pos, state);
-        this.listener = new SculkSensorListener(new BlockPositionSource(this.pos), HangingTendrilBlock.getRange(), this, null, 0, 0);
+        this.listener = new SculkSensorListener(new BlockPositionSource(this.pos), ((HangingTendrilBlock)state.getBlock()).getRange(), this, null, 0, 0);
     }
 
     public void serverTick(World world, BlockPos pos, BlockState state) {

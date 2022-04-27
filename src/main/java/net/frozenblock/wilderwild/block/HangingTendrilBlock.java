@@ -99,11 +99,11 @@ public class HangingTendrilBlock extends BlockWithEntity implements Waterloggabl
     public HangingTendrilBlock(Settings settings, int range) {
         super(settings);
         this.setDefaultState(this.stateManager.getDefaultState().with(HANGING_TENDRIL_PHASE, HangingTendrilPhase.INACTIVE).with(WATERLOGGED, false).with(TWITCHING, false).with(WRINGING_OUT, false));
-        this.range = 16;
+        this.range = range;
     }
 
-    public static int getRange() {
-        return 16;
+    public int getRange() {
+        return this.range;
     }
 
     public boolean canPlaceAt(BlockState state, WorldView world, BlockPos pos) {
@@ -128,7 +128,7 @@ public class HangingTendrilBlock extends BlockWithEntity implements Waterloggabl
             if (entity!=null) {
                 if (entity instanceof HangingTendrilBlockEntity wigglyTendril) {
                     world.setBlockState(pos, state.with(TWITCHING, true));
-                    wigglyTendril.ticksToStopTwitching=random.nextBetween(7,12);
+                    wigglyTendril.ticksToStopTwitching=random.nextBetween(5,12);
                 }
             }
         }
@@ -228,7 +228,6 @@ public class HangingTendrilBlock extends BlockWithEntity implements Waterloggabl
         world.setBlockState(pos, state.with(HANGING_TENDRIL_PHASE, HangingTendrilPhase.ACTIVE), 3);
         world.createAndScheduleBlockTick(pos, state.getBlock(), 60);
         updateNeighbors(world, pos);
-        world.emitGameEvent(entity, WilderWild.SCULK_SENSOR_ACTIVATE, pos);
 
         if (!(Boolean)state.get(WATERLOGGED)) {
             world.playSound(null, (double)pos.getX() + 0.5D, (double)pos.getY() + 0.5D, (double)pos.getZ() + 0.5D, SoundEvents.BLOCK_SCULK_SENSOR_CLICKING, SoundCategory.BLOCKS, 1.0F, world.random.nextFloat() * 0.2F + 1.0F);

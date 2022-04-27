@@ -41,7 +41,7 @@ public abstract class RegisterBlocks {
             new SculkEchoerBlock(AbstractBlock.Settings
                     .of(Material.SCULK, MapColor.CYAN)
                     .strength(3.0F, 3.0F)
-                    .sounds(BlockSoundGroup.SCULK_CATALYST), 8, 16),
+                    .sounds(BlockSoundGroup.SCULK_CATALYST), 8),
             ItemGroup.DECORATIONS
     );
     public static final Block SCULK_JAW = registerBlock("sculk_jaw",
@@ -79,7 +79,7 @@ public abstract class RegisterBlocks {
                             RegisterSounds.BLOCK_HANGING_TENDRIL_HIT,
                             RegisterSounds.BLOCK_HANGING_TENDRIL_FALL
                     ))
-                    .emissiveLighting((state, world, pos) -> HangingTendrilBlock.shouldHavePogLighting(state)), 16),
+                    .emissiveLighting((state, world, pos) -> HangingTendrilBlock.shouldHavePogLighting(state)), 4),
             ItemGroup.REDSTONE
     );
 
