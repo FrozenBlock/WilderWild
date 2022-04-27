@@ -2,7 +2,10 @@ package net.frozenblock.wilderwild.registry;
 
 import net.frozenblock.wilderwild.block.entity.HangingTendrilPhase;
 import net.frozenblock.wilderwild.block.entity.SculkEchoerPhase;
-import net.minecraft.state.property.*;
+import net.minecraft.state.property.BooleanProperty;
+import net.minecraft.state.property.EnumProperty;
+import net.minecraft.state.property.IntProperty;
+import net.minecraft.state.property.Properties;
 
 public class RegisterProperties extends Properties {
 
