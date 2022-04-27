@@ -64,7 +64,7 @@ public class SculkBlockMixin {
 							if (isWorldGen) {
 								pillarHeight = (int) MathHelper.clamp(EasyNoiseSampler.samplePerlinXoroPositive(blockPos.down(), randomness, false, false) * worldGenHeightMultiplier, 2, maxHeight);
 							}
-							blockState = RegisterBlocks.OSSEOUS_SCULK.getDefaultState().with(OsseousSculkBlock.HEIGHT_LEFT, pillarHeight).with(OsseousSculkBlock.TOTAL_HEIGHT, pillarHeight + 1).with(OsseousSculkBlock.UPSIDEDOWN, true).with(OsseousSculkBlock.CAME_FROM, Direction.UP);
+							blockState = RegisterBlocks.OSSEOUS_SCULK.getDefaultState().with(OsseousSculkBlock.HEIGHT_LEFT, pillarHeight).with(OsseousSculkBlock.TOTAL_HEIGHT, pillarHeight + 1).with(OsseousSculkBlock.UPSIDEDOWN, true);
 						} else {
 							blockState = RegisterBlocks.HANGING_TENDRIL.getDefaultState();
 							if (isWorldGen && Math.random()>0.4) { j=0; }
