@@ -13,7 +13,8 @@
     "SculkSensorListenerMixin",
 	"SculkVeinGrowCheckerMixin",
     "TrunkPlacerTypeInvoker",
-	"WardenEntityMixin"
+	"WardenEntityMixin",
+    "WardenEntityModelMixin"
   ],
   "client": [
   ],
