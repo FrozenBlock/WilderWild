@@ -13,6 +13,10 @@ public class WardenEntityModelMixin<T extends WardenEntity> {
     protected ModelPart rightTendril;
     @Shadow
     protected ModelPart leftTendril;
+    /**
+     * @author FrozenBlock
+     * @reason yay pitches
+     */
     @Overwrite
     private void setTendrilPitches(T warden, float animationProgress, float tickDelta) {
         float f = warden.getTendrilPitch(tickDelta) * (float)(Math.cos((double)animationProgress * 2.25D) * 3.141592653589793D * 0.10000000149011612D);
