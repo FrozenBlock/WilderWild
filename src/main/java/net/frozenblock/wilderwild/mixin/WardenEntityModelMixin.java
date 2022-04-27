@@ -20,9 +20,10 @@ public class WardenEntityModelMixin<T extends WardenEntity> {
     @Overwrite
     private void setTendrilPitches(T warden, float animationProgress, float tickDelta) {
         float f = warden.getTendrilPitch(tickDelta) * (float)(Math.cos((double)animationProgress * 2.25D) * 3.141592653589793D * 0.10000000149011612D);
+        float g = warden.getTendrilPitch(tickDelta) * (float)(-Math.sin((double)animationProgress * 2.25D) * 3.141592653589793D * 0.12500000149011612D);
         this.leftTendril.pitch = f;
-        this.rightTendril.pitch = -f;
-        this.leftTendril.yaw = f;
-        this.rightTendril.yaw = -f;
+        this.rightTendril.pitch = f;
+        this.leftTendril.yaw = g;
+        this.rightTendril.yaw = -g;
     }
 }
