@@ -8,6 +8,10 @@ import org.spongepowered.asm.mixin.Overwrite;
 @Mixin(DefaultBiomeFeatures.class)
 public class FeaturesMixin {
 
+    /**
+     * @author FrozenBlock
+     * @reason pog
+     */
     @Overwrite
     public static void addForestGrass(GenerationSettings.Builder builder) {
     }
