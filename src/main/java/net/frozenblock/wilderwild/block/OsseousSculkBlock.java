@@ -23,7 +23,7 @@ public class OsseousSculkBlock extends PillarBlock implements SculkSpreadable {
 
     public OsseousSculkBlock(Settings settings) {
         super(settings);
-        this.setDefaultState(this.stateManager.getDefaultState().with(HEIGHT_LEFT, 0).with(AXIS, Direction.Axis.Y).with(UPSIDEDOWN, false).with(TOTAL_HEIGHT, 0).with(CAME_FROM, Direction.DOWN));
+        this.setDefaultState(this.stateManager.getDefaultState().with(HEIGHT_LEFT, 0).with(AXIS, Direction.Axis.Y).with(UPSIDEDOWN, false).with(TOTAL_HEIGHT, 0));
     }
 
     public void onStacksDropped(BlockState state, ServerWorld world, BlockPos pos, ItemStack stack) {
@@ -32,14 +32,18 @@ public class OsseousSculkBlock extends PillarBlock implements SculkSpreadable {
     }
 
     public static Direction getDir(Direction.Axis axis, boolean UpsideDown) {
-        if (axis.isHorizontal()) {
-            if (axis == Direction.Axis.X) {
-                if (Math.random()>0.5) { return Direction.EAST; }
-                return Direction.WEST;
-            }
-            if (axis == Direction.Axis.Z) {
-                if (Math.random()>0.5) { return Direction.NORTH; }
-                return Direction.SOUTH;
+        if (axis!=null) {
+            if (axis.isHorizontal()) {
+              if (axis == Direction.Axis.X) {
+                  if (Math.random() > 0.5) {
+                      return Direction.EAST;
+                  } return Direction.WEST;
+              }
+              if (axis == Direction.Axis.Z) {
+                  if (Math.random() > 0.5) {
+                      return Direction.NORTH;
+                  } return Direction.SOUTH;
+              }
             }
         } if (UpsideDown) {return Direction.DOWN; }
         return Direction.UP;
@@ -79,7 +83,6 @@ public class OsseousSculkBlock extends PillarBlock implements SculkSpreadable {
     public static final IntProperty HEIGHT_LEFT = RegisterProperties.PILLAR_HEIGHT_LEFT;
     public static final BooleanProperty UPSIDEDOWN = RegisterProperties.UPSIDE_DOWN;
     public static final IntProperty TOTAL_HEIGHT = RegisterProperties.TOTAL_HEIGHT;
-    public static final DirectionProperty CAME_FROM = RegisterProperties.CAME_FROM;
 
     @Override
     public int spread(SculkSpreadManager.Cursor cursor, WorldAccess world, BlockPos catalystPos, AbstractRandom random, SculkSpreadManager spreadManager, boolean shouldConvertToBlock) {
@@ -100,7 +103,7 @@ public class OsseousSculkBlock extends PillarBlock implements SculkSpreadable {
                     pillarHeight = state.get(OsseousSculkBlock.HEIGHT_LEFT);
                     Direction direction = getDir(state.get(AXIS), state.get(UPSIDEDOWN));
                     if (world.getBlockState(topPos.offset(direction)).isAir() || world.getBlockState(topPos.offset(direction)).getBlock() == Blocks.SCULK_VEIN) {
-                        BlockState blockState = RegisterBlocks.OSSEOUS_SCULK.getDefaultState().with(HEIGHT_LEFT, Math.max(0, pillarHeight - 1)).with(CAME_FROM, direction.getOpposite());
+                        BlockState blockState = RegisterBlocks.OSSEOUS_SCULK.getDefaultState().with(HEIGHT_LEFT, Math.max(0, pillarHeight - 1));
 
                         if (pillarHeight==1 && !state.get(UPSIDEDOWN) && state.get(TOTAL_HEIGHT)>0) {
                             if (EasyNoiseSampler.simpleRandom.nextInt(Math.max(1,state.get(TOTAL_HEIGHT)/2))<=1) {
@@ -166,7 +169,7 @@ public class OsseousSculkBlock extends PillarBlock implements SculkSpreadable {
                 pillarHeight = state.get(HEIGHT_LEFT);
                 Direction direction = getDir(state.get(AXIS), state.get(UPSIDEDOWN));
                 if (world.getBlockState(topPos.offset(direction)).isAir() || world.getBlockState(topPos.offset(direction)).getBlock() == Blocks.SCULK_VEIN) {
-                    BlockState blockState = RegisterBlocks.OSSEOUS_SCULK.getDefaultState().with(HEIGHT_LEFT, Math.max(0, pillarHeight - 1)).with(CAME_FROM, direction.getOpposite());
+                    BlockState blockState = RegisterBlocks.OSSEOUS_SCULK.getDefaultState().with(HEIGHT_LEFT, Math.max(0, pillarHeight - 1));
 
                     if (pillarHeight == 1 && !state.get(UPSIDEDOWN) && state.get(TOTAL_HEIGHT) > 0) {
                         if (EasyNoiseSampler.simpleRandom.nextInt(Math.max(1, state.get(TOTAL_HEIGHT) / 2)) <= 1) {
@@ -235,7 +238,7 @@ public class OsseousSculkBlock extends PillarBlock implements SculkSpreadable {
         for (int i=0; i<max; i++) {
             Block block = world.getBlockState(pos).getBlock();
             if (block!=RegisterBlocks.OSSEOUS_SCULK) { return null; }
-            Direction direction = world.getBlockState(pos).get(CAME_FROM);
+            Direction direction = getDir(null ,world.getBlockState(pos).get(UPSIDEDOWN)).getOpposite();
             if (world.getBlockState(pos.offset(direction)).isOf(Blocks.SCULK)) {return pos;}
             pos=pos.offset(direction);
         } return null;
@@ -245,6 +248,6 @@ public class OsseousSculkBlock extends PillarBlock implements SculkSpreadable {
         return 1;
     }
 
-    protected void appendProperties(StateManager.Builder<Block, BlockState> builder) { builder.add(HEIGHT_LEFT).add(Properties.AXIS).add(UPSIDEDOWN).add(TOTAL_HEIGHT).add(CAME_FROM); }
+    protected void appendProperties(StateManager.Builder<Block, BlockState> builder) { builder.add(HEIGHT_LEFT).add(Properties.AXIS).add(UPSIDEDOWN).add(TOTAL_HEIGHT); }
 
 }
