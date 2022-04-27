@@ -18,6 +18,13 @@
 		],
 		"subtitle": "subtitles.block.sculk_jaw.clamp"
 	},
+	"block.sculk_jaw.retract": {
+		"sounds": [
+			"wilderwild:block/sculk_jaw/retract1",
+			"wilderwild:block/sculk_jaw/retract2",
+			"wilderwild:block/sculk_jaw/retract3"
+		]
+	},
 	"block.sculk_chirper.swell": {
 		"sounds": [
 			"wilderwild:block/sculk_chirper/sculk_chirper_swell"

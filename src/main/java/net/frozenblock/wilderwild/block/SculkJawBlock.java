@@ -40,6 +40,14 @@ public class SculkJawBlock extends Block {
     public void scheduledTick(BlockState blockState, ServerWorld serverWorld, BlockPos blockPos, AbstractRandom random) {
         if (blockState.get(ACTIVE)) {
             serverWorld.setBlockState(blockPos, blockState.with(ACTIVE, false), 3);
+            serverWorld.playSound(
+                    null,
+                    blockPos,
+                    RegisterSounds.BLOCK_SCULK_JAW_RETRACT,
+                    SoundCategory.BLOCKS,
+                    1.0f,
+                    serverWorld.random.nextFloat() * 0.1F + 0.9F
+            );
         }
     }
 
