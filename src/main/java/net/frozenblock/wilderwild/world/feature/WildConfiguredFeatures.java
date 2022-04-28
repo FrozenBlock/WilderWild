@@ -27,25 +27,6 @@ public class WildConfiguredFeatures {
                     ConfiguredFeatures.createRandomPatchFeatureConfig(64, PlacedFeatures.createEntry(Feature.SIMPLE_BLOCK,
                             new SimpleBlockFeatureConfig(BlockStateProvider.of(RegisterBlocks.CARNATION)))));
 
-    public static final RegistryEntry<ConfiguredFeature<TreeFeatureConfig, ?>> NEW_BIRCH_TREE =
-            ConfiguredFeatures.register("new_birch_tree", Feature.TREE, new TreeFeatureConfig.Builder(
-
-                    BlockStateProvider.of(Blocks.BIRCH_LOG),
-                    new StraightTrunkPlacer(8,6,4),
-                    BlockStateProvider.of(Blocks.BIRCH_LEAVES),
-                    new BlobFoliagePlacer(ConstantIntProvider.create(2), ConstantIntProvider.create(0), 3),
-                    new TwoLayersFeatureSize(1, 0, 1))
-                    .dirtProvider(BlockStateProvider.of(Blocks.DIRT)).build());
-
-    public static final RegistryEntry<PlacedFeature> NEW_BIRCH_CHECKED =
-            PlacedFeatures.register("new_birch_checked", NEW_BIRCH_TREE,
-                    PlacedFeatures.wouldSurvive(Blocks.BIRCH_SAPLING));
-
-    public static final RegistryEntry<ConfiguredFeature<RandomFeatureConfig, ?>> NEW_BIRCH_SPAWN =
-            ConfiguredFeatures.register("new_birch_spawn", Feature.RANDOM_SELECTOR,
-                    new RandomFeatureConfig(List.of(new RandomFeatureEntry(NEW_BIRCH_CHECKED, 0.5f)),
-                            NEW_BIRCH_CHECKED));
-
     /*public static final RegistryEntry<ConfiguredFeature<TreeFeatureConfig, ?>> CONCEPT_ART_BIRCH_TREE_1 =
             ConfiguredFeatures.register("concept_birch_1", Feature.TREE, new TreeFeatureConfig.Builder(
 

@@ -17,8 +17,8 @@ public class WildPlacedFeature {
             PlacedFeatures.MOTION_BLOCKING_HEIGHTMAP, BiomePlacementModifier.of());
 
     public static final RegistryEntry<PlacedFeature> NEW_BIRCH_PLACED = PlacedFeatures.register("new_birch_placed",
-            WildConfiguredFeatures.NEW_BIRCH_SPAWN, VegetationPlacedFeatures.modifiers(
-                    PlacedFeatures.createCountExtraModifier(7, 0.1f, 2)));
+            WildTreeConfigured.NEW_BIRCH_BEES_0002, VegetationPlacedFeatures.modifiers(
+                    PlacedFeatures.createCountExtraModifier(7, 0.1f, 1)));
 
     /*public static final RegistryEntry<PlacedFeature> CONCEPT_BIRCH_1_PLACED = PlacedFeatures.register("concept_birch_1_placed",
             WildConfiguredFeatures.CONCEPT_BIRCH_1_SPAWN, VegetationPlacedFeatures.modifiers(

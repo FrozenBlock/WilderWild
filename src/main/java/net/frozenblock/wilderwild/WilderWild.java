@@ -7,6 +7,8 @@ import net.frozenblock.wilderwild.dev_only.CameraItem;
 import net.frozenblock.wilderwild.mixin.TrunkPlacerTypeInvoker;
 import net.frozenblock.wilderwild.registry.*;
 import net.frozenblock.wilderwild.world.feature.WildConfiguredFeatures;
+import net.frozenblock.wilderwild.world.feature.WildTreeConfigured;
+import net.frozenblock.wilderwild.world.feature.WildTreePlaced;
 import net.frozenblock.wilderwild.world.gen.WildWorldGen;
 import net.frozenblock.wilderwild.world.gen.trunk.StraightTrunkWithLogs;
 import net.minecraft.item.ItemGroup;
@@ -34,6 +36,8 @@ public class WilderWild implements ModInitializer {
         RegisterItems.RegisterItems();
         RegisterParticles.RegisterParticles();
         WildConfiguredFeatures.registerConfiguredFeatures();
+        WildTreeConfigured.registerTreeConfigured();
+        WildTreePlaced.registerTreePlaced();
         WildWorldGen.generateWildWorldGen();
         RegisterBlockEntityType.init();
         RegisterEntities.init();

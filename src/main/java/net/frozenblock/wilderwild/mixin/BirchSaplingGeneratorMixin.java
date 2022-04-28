@@ -1,6 +1,7 @@
 package net.frozenblock.wilderwild.mixin;
 
 import net.frozenblock.wilderwild.world.feature.WildConfiguredFeatures;
+import net.frozenblock.wilderwild.world.feature.WildTreeConfigured;
 import net.minecraft.block.sapling.BirchSaplingGenerator;
 import net.minecraft.block.sapling.SaplingGenerator;
 import net.minecraft.util.math.random.AbstractRandom;
@@ -13,6 +14,6 @@ public class BirchSaplingGeneratorMixin extends SaplingGenerator {
 
     @Override
     public RegistryEntry<? extends ConfiguredFeature<?, ?>> getTreeFeature(AbstractRandom random, boolean bees) {
-        return WildConfiguredFeatures.NEW_BIRCH_TREE;
+        return WildTreeConfigured.NEW_BIRCH_BEES_0002;
     }
 }

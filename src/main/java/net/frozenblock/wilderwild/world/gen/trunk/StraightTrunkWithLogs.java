@@ -27,18 +27,15 @@ public class StraightTrunkWithLogs extends TrunkPlacer {
             return trunkPlacer.logChance;
         }), IntProvider.NON_NEGATIVE_CODEC.fieldOf("extra_branch_length").forGetter((trunkPlacer) -> {
             return trunkPlacer.extraBranchLength;
-        }), RegistryCodecs.entryList(Registry.BLOCK_KEY).fieldOf("can_grow_through").forGetter((trunkPlacer) -> {
-            return trunkPlacer.canGrowThrough;
         }))).apply(instance, StraightTrunkWithLogs::new);
     });
-    private final RegistryEntryList<Block> canGrowThrough;
+
     private final IntProvider extraBranchLength;
     private final float logChance;
 
-    public StraightTrunkWithLogs(int baseHeight, int firstRandomHeight, int secondRandomHeight, float logChance, IntProvider extraBranchLength, RegistryEntryList<Block> canGrowThrough) {
+    public StraightTrunkWithLogs(int baseHeight, int firstRandomHeight, int secondRandomHeight, float logChance, IntProvider extraBranchLength) {
         super(baseHeight, firstRandomHeight, secondRandomHeight);
         this.logChance = logChance;
-        this.canGrowThrough = canGrowThrough;
         this.extraBranchLength = extraBranchLength;
     }
 
@@ -51,7 +48,7 @@ public class StraightTrunkWithLogs extends TrunkPlacer {
         List<FoliagePlacer.TreeNode> list = Lists.newArrayList();
         BlockPos.Mutable mutable = new BlockPos.Mutable();
 
-        for(int i = 0; i < height; ++i) {
+        for (int i = 0; i < height; ++i) {
             int j = startPos.getY() + i;
             if (this.getAndSetState(world, replacer, random, mutable.set(startPos.getX(), j, startPos.getZ()), config) && i < height - 1 && random.nextFloat() < this.logChance) {
                 Direction direction = Direction.Type.HORIZONTAL.random(random);
@@ -69,16 +66,11 @@ public class StraightTrunkWithLogs extends TrunkPlacer {
         int j = pos.getX();
         int k = pos.getZ();
 
-        for(int l = 0; l < length; ++l) {
+        for (int l = 0; l < length; ++l) {
             int m = yOffset;
             j += direction.getOffsetX();
             k += direction.getOffsetZ();
             this.getAndSetState(world, replacer, random, pos.set(j, m, k), config);
         }
     }
-
-    protected boolean canReplace(TestableWorld world, BlockPos pos) {
-        return super.canReplace(world, pos) || world.testBlockState(pos, (state) -> state.isIn(this.canGrowThrough));
-    }
-
 }
