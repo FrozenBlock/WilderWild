@@ -1,6 +1,5 @@
 package net.frozenblock.wilderwild.mixin;
 
-import net.frozenblock.wilderwild.world.feature.WildConfiguredFeatures;
 import net.frozenblock.wilderwild.world.feature.WildTreeConfigured;
 import net.minecraft.block.sapling.BirchSaplingGenerator;
 import net.minecraft.block.sapling.SaplingGenerator;

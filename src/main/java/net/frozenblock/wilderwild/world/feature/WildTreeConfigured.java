@@ -17,6 +17,7 @@ import net.frozenblock.wilderwild.world.gen.trunk.StraightTrunkWithLogs;
 
 import java.awt.*;
 import java.util.List;
+import java.util.OptionalInt;
 
 public class WildTreeConfigured {
     private static final BeehiveTreeDecorator NEW_BEES_0002;

@@ -1,16 +1,8 @@
 package net.frozenblock.wilderwild.world.feature;
 
-import java.util.List;
-import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
-import net.minecraft.util.math.Direction;
 import net.minecraft.util.registry.RegistryEntry;
-import net.minecraft.world.gen.blockpredicate.BlockPredicate;
 import net.minecraft.world.gen.feature.*;
-import net.minecraft.world.gen.placementmodifier.BiomePlacementModifier;
-import net.minecraft.world.gen.placementmodifier.BlockFilterPlacementModifier;
-import net.minecraft.world.gen.placementmodifier.CountMultilayerPlacementModifier;
-import net.minecraft.world.gen.placementmodifier.EnvironmentScanPlacementModifier;
 import net.minecraft.world.gen.placementmodifier.PlacementModifier;
 
 public class WildTreePlaced {
