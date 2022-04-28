@@ -24,7 +24,6 @@ import java.util.Iterator;
 public class SculkBlockMixin {
 
 	private static final int heightMultiplier = 20; //The higher, the less short pillars you'll see.
-	private static final int worldGenHeightMultiplier = 19; //The higher, the less short pillars you'll see (WORLDGEN ONLY).
 	private static final int maxHeight = 15; //The rarest and absolute tallest height of pillars
 	private static final double randomness = 0.9; //The higher, the more random. The lower, the more gradual the heights change.
 
@@ -60,9 +59,6 @@ public class SculkBlockMixin {
 					if ((stateDown.isAir() || blockDown==Blocks.WATER || blockDown==Blocks.LAVA || blockDown==Blocks.SCULK_VEIN)) {
 						if (canPlaceBone(blockPos, isWorldGen, world)) {
 							int pillarHeight = (int) MathHelper.clamp(EasyNoiseSampler.samplePerlinXoroPositive(blockPos.down(), randomness, false, false) * heightMultiplier, 2, maxHeight);
-							if (isWorldGen) {
-								pillarHeight = (int) MathHelper.clamp(EasyNoiseSampler.samplePerlinXoroPositive(blockPos.down(), randomness, false, false) * worldGenHeightMultiplier, 2, maxHeight);
-							}
 							blockState = RegisterBlocks.OSSEOUS_SCULK.getDefaultState().with(OsseousSculkBlock.HEIGHT_LEFT, pillarHeight).with(OsseousSculkBlock.TOTAL_HEIGHT, pillarHeight + 1).with(OsseousSculkBlock.UPSIDEDOWN, true);
 						} else {
 							blockState = RegisterBlocks.HANGING_TENDRIL.getDefaultState();
@@ -112,14 +108,14 @@ public class SculkBlockMixin {
 		}
 	}
 
-	private static boolean ancientCityNearby(WorldAccess world, BlockPos pos) {
+	private static boolean ancientCityOrPillarNearby(WorldAccess world, BlockPos pos) {
 		int i = 0;
 		Iterator<BlockPos> var4 = BlockPos.iterate(pos.add(-2, -2, -2), pos.add(2, 2, 2)).iterator();
 		do {
 			if (!var4.hasNext()) { return false; }
 			BlockPos blockPos = var4.next();
 			BlockState blockState2 = world.getBlockState(blockPos);
-			if (blockState2.isIn(WildBlockTags.ANCIENT_CITY_BLOCKS)) {
+			if (blockState2.isIn(WildBlockTags.ANCIENT_CITY_BLOCKS) || (blockState2.isOf(RegisterBlocks.OSSEOUS_SCULK) && (blockPos.getX()!=pos.getX() && blockPos.getZ()!=pos.getZ()))) {
 				++i;
 			}
 			if (i>=3) {return true;}
@@ -128,7 +124,7 @@ public class SculkBlockMixin {
 
 	private static boolean canPlaceBone(BlockPos pos, boolean worldGen, WorldAccess world) {
 		if (worldGen) {
-			if (!ancientCityNearby(world, pos)) {
+			if (!ancientCityOrPillarNearby(world, pos)) {
 				return EasyNoiseSampler.samplePerlinXoro(pos, sculkBoneAreaSize, true, true) > sculkBoneWorldGenThreshold;
 			}
 			return false;
