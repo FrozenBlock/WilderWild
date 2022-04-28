@@ -115,7 +115,9 @@ public class SculkBlockMixin {
 			if (!var4.hasNext()) { return false; }
 			BlockPos blockPos = var4.next();
 			BlockState blockState2 = world.getBlockState(blockPos);
-			if (blockState2.isIn(WildBlockTags.ANCIENT_CITY_BLOCKS) || (blockState2.isOf(RegisterBlocks.OSSEOUS_SCULK) && (blockPos.getX()!=pos.getX() && blockPos.getZ()!=pos.getZ()))) {
+			boolean bones = blockState2.isOf(RegisterBlocks.OSSEOUS_SCULK);
+			if (blockState2.isIn(WildBlockTags.ANCIENT_CITY_BLOCKS) || (bones && (blockPos.getX()!=pos.getX() && blockPos.getZ()!=pos.getZ()))) {
+				if (bones) {++i;}
 				++i;
 			}
 			if (i>=3) {return true;}
