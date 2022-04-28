@@ -3,6 +3,7 @@ package net.frozenblock.wilderwild.world.gen.trunk;
 import com.google.common.collect.Lists;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import net.frozenblock.wilderwild.WilderWild;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.util.math.BlockPos;
@@ -40,7 +41,7 @@ public class StraightTrunkWithLogs extends TrunkPlacer {
     }
 
     protected TrunkPlacerType<?> getType() {
-        return TrunkPlacerType.STRAIGHT_TRUNK_PLACER;
+        return WilderWild.STRAIGHT_TRUNK_WITH_LOGS_PLACER_TYPE;
     }
 
     public List<FoliagePlacer.TreeNode> generate(TestableWorld world, BiConsumer<BlockPos, BlockState> replacer, AbstractRandom random, int height, BlockPos startPos, TreeFeatureConfig config) {
@@ -67,10 +68,9 @@ public class StraightTrunkWithLogs extends TrunkPlacer {
         int k = pos.getZ();
 
         for (int l = 0; l < length; ++l) {
-            int m = yOffset;
             j += direction.getOffsetX();
             k += direction.getOffsetZ();
-            this.getAndSetState(world, replacer, random, pos.set(j, m, k), config);
+            this.getAndSetState(world, replacer, random, pos.set(j, yOffset, k), config);
         }
     }
 }
