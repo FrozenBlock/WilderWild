@@ -4,16 +4,14 @@ import com.google.common.collect.Lists;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.frozenblock.wilderwild.WilderWild;
-import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
+import net.minecraft.state.property.Properties;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.intprovider.IntProvider;
 import net.minecraft.util.math.random.AbstractRandom;
-import net.minecraft.util.registry.Registry;
-import net.minecraft.util.registry.RegistryCodecs;
-import net.minecraft.util.registry.RegistryEntryList;
 import net.minecraft.world.TestableWorld;
+import net.minecraft.world.gen.feature.TreeFeature;
 import net.minecraft.world.gen.feature.TreeFeatureConfig;
 import net.minecraft.world.gen.foliage.FoliagePlacer;
 import net.minecraft.world.gen.trunk.TrunkPlacer;
@@ -66,11 +64,21 @@ public class StraightTrunkWithLogs extends TrunkPlacer {
     private void generateExtraBranch(TestableWorld world, BiConsumer<BlockPos, BlockState> replacer, AbstractRandom random, TreeFeatureConfig config, BlockPos.Mutable pos, int yOffset, Direction direction, int length) {
         int j = pos.getX();
         int k = pos.getZ();
-
         for (int l = 0; l < length; ++l) {
             j += direction.getOffsetX();
             k += direction.getOffsetZ();
-            this.getAndSetState(world, replacer, random, pos.set(j, yOffset, k), config);
+            if (TreeFeature.canReplace(world, pos.set(j, yOffset, k))) {
+                if (config.trunkProvider.getBlockState(random, pos.set(j, yOffset, k)).contains(Properties.AXIS)) {
+                    if (direction.getOffsetX() != 0) {
+                        replacer.accept(pos.set(j, yOffset, k), config.trunkProvider.getBlockState(random, pos.set(j, yOffset, k)).with(Properties.AXIS, Direction.Axis.X));
+                    } else {
+                        replacer.accept(pos.set(j, yOffset, k), config.trunkProvider.getBlockState(random, pos.set(j, yOffset, k)).with(Properties.AXIS, Direction.Axis.Z));
+                    }
+                } else {
+                    this.getAndSetState(world, replacer, random, pos.set(j, yOffset, k), config);
+                }
+            }
         }
     }
+
 }
