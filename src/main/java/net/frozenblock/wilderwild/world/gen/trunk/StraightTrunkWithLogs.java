@@ -63,7 +63,7 @@ public class StraightTrunkWithLogs extends TrunkPlacer {
                     && i < height - 1 && random.nextFloat() < this.logChance && placedLogs < maxLogs && (height-4)-i<=logHeightFromTop) {
                 Direction direction = Direction.Type.HORIZONTAL.random(random);
                 this.generateExtraBranch(world, replacer, random, config, mutable, j, direction, this.extraBranchLength.get(random));
-                ++maxLogs;
+                ++placedLogs;
             }
             if (i == height - 1) {
                 list.add(new FoliagePlacer.TreeNode(mutable.set(startPos.getX(), j + 1, startPos.getZ()), 0, false));
