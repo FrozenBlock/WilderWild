@@ -22,8 +22,12 @@ import java.util.function.BiConsumer;
 
 public class StraightTrunkWithLogs extends TrunkPlacer {
     public static final Codec<StraightTrunkWithLogs> CODEC = RecordCodecBuilder.create((instance) -> {
-        return fillTrunkPlacerFields(instance).and(instance.group(Codec.floatRange(0.0F, 1.0F).fieldOf("place_branch_change").forGetter((trunkPlacer) -> {
+        return fillTrunkPlacerFields(instance).and(instance.group(Codec.floatRange(0.0F, 1.0F).fieldOf("place_branch_chance").forGetter((trunkPlacer) -> {
             return trunkPlacer.logChance;
+        }), IntProvider.NON_NEGATIVE_CODEC.fieldOf("max_logs").forGetter((trunkPlacer) -> {
+            return trunkPlacer.maxLogs;
+        }), IntProvider.NON_NEGATIVE_CODEC.fieldOf("log_height_from_top").forGetter((trunkPlacer) -> {
+            return trunkPlacer.logHeightFromTop;
         }), IntProvider.NON_NEGATIVE_CODEC.fieldOf("extra_branch_length").forGetter((trunkPlacer) -> {
             return trunkPlacer.extraBranchLength;
         }))).apply(instance, StraightTrunkWithLogs::new);
@@ -31,10 +35,14 @@ public class StraightTrunkWithLogs extends TrunkPlacer {
 
     private final IntProvider extraBranchLength;
     private final float logChance;
+    private final IntProvider maxLogs;
+    private final IntProvider logHeightFromTop;
 
-    public StraightTrunkWithLogs(int baseHeight, int firstRandomHeight, int secondRandomHeight, float logChance, IntProvider extraBranchLength) {
+    public StraightTrunkWithLogs(int baseHeight, int firstRandomHeight, int secondRandomHeight, float logChance, IntProvider maxLogs, IntProvider logHeightFromTop, IntProvider extraBranchLength) {
         super(baseHeight, firstRandomHeight, secondRandomHeight);
         this.logChance = logChance;
+        this.maxLogs = maxLogs;
+        this.logHeightFromTop = logHeightFromTop;
         this.extraBranchLength = extraBranchLength;
     }
 
@@ -46,12 +54,16 @@ public class StraightTrunkWithLogs extends TrunkPlacer {
         setToDirt(world, replacer, random, startPos.down(), config);
         List<FoliagePlacer.TreeNode> list = Lists.newArrayList();
         BlockPos.Mutable mutable = new BlockPos.Mutable();
-
+        int maxLogs = this.maxLogs.get(random);
+        int logHeightFromTop = this.logHeightFromTop.get(random);
+        int placedLogs = 0;
         for (int i = 0; i < height; ++i) {
             int j = startPos.getY() + i;
-            if (this.getAndSetState(world, replacer, random, mutable.set(startPos.getX(), j, startPos.getZ()), config) && i < height - 1 && random.nextFloat() < this.logChance) {
+            if (this.getAndSetState(world, replacer, random, mutable.set(startPos.getX(), j, startPos.getZ()), config)
+                    && i < height - 1 && random.nextFloat() < this.logChance && placedLogs < maxLogs && (height-4)-i<=logHeightFromTop) {
                 Direction direction = Direction.Type.HORIZONTAL.random(random);
                 this.generateExtraBranch(world, replacer, random, config, mutable, j, direction, this.extraBranchLength.get(random));
+                ++maxLogs;
             }
             if (i == height - 1) {
                 list.add(new FoliagePlacer.TreeNode(mutable.set(startPos.getX(), j + 1, startPos.getZ()), 0, false));
