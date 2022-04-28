@@ -34,6 +34,9 @@
   "subtitles.block.sculk_echoer.receive_vibration": "Sculk Echoer echoes",
   "subtitles.entity.goat.horn_break": "Goat's horn breaks off",
   "subtitles.item.goat_horn.use": "Horn blown",
-  "subtitles.block.hanging_tendril.wring": "Hanging Tendril wrung"
-  
+  "subtitles.block.hanging_tendril.wring": "Hanging Tendril wrung",
+
+  "item.wilderwild.ancient_goat_horn": "Ancient Goat Horn",
+  "item.wilderwild.ancient_goat_horn.sound.0": "Toilet Connoisseur",
+  "subtitles.item.ancient_goat_horn.blast": "Whirls of the Ancient City"
 }
