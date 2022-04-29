@@ -55,6 +55,7 @@ public class AncientHornProjectileEntity extends PersistentProjectileEntity {
     }
     public void tick() {
         this.baseTick();
+        if (this.aliveTicks>200) { this.remove(RemovalReason.DISCARDED); }
         this.prevAliveTicks=this.aliveTicks;
         ++this.aliveTicks;
         if (!this.shot) {

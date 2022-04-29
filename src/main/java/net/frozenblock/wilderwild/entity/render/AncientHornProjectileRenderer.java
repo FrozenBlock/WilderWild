@@ -24,14 +24,14 @@ public class AncientHornProjectileRenderer extends EntityRenderer<AncientHornPro
         this.model = new AncientHornProjectileModel(context.getPart(WildClientMod.ANCIENT_HORN_PROJECTILE_LAYER));
     }
 
-    public void render(AncientHornProjectileEntity projectile, float f, float g, MatrixStack matrixStack, VertexConsumerProvider vertexConsumerProvider, int i) {
+    public void render(AncientHornProjectileEntity projectile, float f, float tickDelta, MatrixStack matrixStack, VertexConsumerProvider vertexConsumerProvider, int i) {
         matrixStack.push();
-        matrixStack.multiply(Vec3f.POSITIVE_Y.getDegreesQuaternion(MathHelper.lerp(g, projectile.prevYaw, projectile.getYaw()) - 90.0F));
-        matrixStack.multiply(Vec3f.POSITIVE_Z.getDegreesQuaternion(MathHelper.lerp(g, projectile.prevPitch, projectile.getPitch()) + 90.0F));
+        matrixStack.multiply(Vec3f.POSITIVE_Y.getDegreesQuaternion(MathHelper.lerp(tickDelta, projectile.prevYaw, projectile.getYaw()) - 90.0F));
+        matrixStack.multiply(Vec3f.POSITIVE_Z.getDegreesQuaternion(MathHelper.lerp(tickDelta, projectile.prevPitch, projectile.getPitch()) + 90.0F));
         VertexConsumer vertexConsumer = ItemRenderer.getDirectItemGlintConsumer(vertexConsumerProvider, this.model.getLayer(this.getTexture(projectile)), false, false);
-        this.model.render(matrixStack, vertexConsumer, i, OverlayTexture.DEFAULT_UV, 1.0F, 1.0F, 1.0F, 1.0F);
+        this.model.render(matrixStack, vertexConsumer, i, OverlayTexture.DEFAULT_UV, 1.0F, 1.0F, 1.0F, 1.0F, tickDelta, projectile);
         matrixStack.pop();
-        super.render(projectile, f, g, matrixStack, vertexConsumerProvider, i);
+        super.render(projectile, f, tickDelta, matrixStack, vertexConsumerProvider, i);
     }
 
     public Identifier getTexture(AncientHornProjectileEntity entity) { return TEXTURE; }
