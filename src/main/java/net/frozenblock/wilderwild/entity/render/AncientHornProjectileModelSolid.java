@@ -29,7 +29,7 @@ public class AncientHornProjectileModelSolid extends Model {
     }
 
     public void render(MatrixStack matrices, VertexConsumer vertices, int light, int overlay, float red, float green, float blue, float alpha, float tickDelta, AncientHornProjectileEntity entity) {
-        matrices.scale(0.599f,0.599f,0.599f);
+        matrices.scale(0.999f,0.999f,0.999f);
         float f = MathHelper.sin(((float)entity.aliveTicks + tickDelta - 6.2831855F) * 0.05F) * 2.0F;
         this.root.yaw = f + merp;
         this.root.render(matrices, vertices, light, overlay, red, green, blue, alpha);
