@@ -150,6 +150,12 @@
 		],
 		"subtitle": "subtitles.block.generic.fall"
 	},
+	"entity.echo_blast.dissipate": {
+		"sounds": [
+			"wilderwild:mob/echo_blast/dissipate1",
+			"wilderwild:mob/echo_blast/dissipate2"
+		]
+	},
 	"item.ancient_horn.sound.0": {
 		"sounds": [
 			"wilderwild:item/ancient_horn/call0"
