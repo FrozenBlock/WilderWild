@@ -1,5 +1,6 @@
 package net.frozenblock.wilderwild.item;
 
+import net.frozenblock.wilderwild.entity.AncientHornProjectileEntity;
 import net.frozenblock.wilderwild.registry.RegisterItems;
 import net.frozenblock.wilderwild.registry.RegisterSounds;
 import net.minecraft.class_7430;
@@ -18,15 +19,11 @@ import net.minecraft.util.Hand;
 import net.minecraft.util.LargeEntitySpawnHelper;
 import net.minecraft.util.TypedActionResult;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.registry.RegistryKey;
 import net.minecraft.world.GameRules;
 import net.minecraft.world.World;
-import net.minecraft.world.biome.Biome;
-import net.minecraft.world.biome.BiomeKeys;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
-import java.util.Optional;
 
 public class AncientCityGoatHorn extends class_7430 {
 
@@ -43,15 +40,13 @@ public class AncientCityGoatHorn extends class_7430 {
     public TypedActionResult<ItemStack> use(World world, PlayerEntity user, Hand hand) {
         ItemStack itemStack = user.getStackInHand(hand);
         user.setCurrentHand(hand);
-        world.playSoundFromEntity(user, user, RegisterSounds.ANCIENT_GOAT_HORN_CALL_0, SoundCategory.RECORDS, 16.0F, 1.0F);
-        user.getItemCooldownManager().set(RegisterItems.ANCIENT_GOAT_HORN, 140);
+        world.playSoundFromEntity(user, user, RegisterSounds.ANCIENT_GOAT_HORN_CALL_0, SoundCategory.PLAYERS, 0.5F, 1.0F);
+        user.getItemCooldownManager().set(RegisterItems.ANCIENT_GOAT_HORN, 5);
         if (world instanceof ServerWorld server) {
-            Optional<RegistryKey<Biome>> key = server.getBiome(user.getBlockPos()).getKey();
-            if (key.isPresent()) {
-                if (key.get()==BiomeKeys.DEEP_DARK) {
-                    trySpawnWarden(server, user.getBlockPos());
-                }
-            }
+            AncientHornProjectileEntity projectileEntity = new AncientHornProjectileEntity(world, user.getX(), user.getEyeY(), user.getZ());
+            projectileEntity.setVelocity(user, user.getPitch(), user.getYaw(), 0.0F, 1.0F, 0.0F);
+            projectileEntity.setDamage(10D);
+            server.spawnEntity(projectileEntity);
         }
         return TypedActionResult.consume(itemStack);
     }

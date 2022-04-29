@@ -52,6 +52,8 @@ public class WilderWild implements ModInitializer {
         }
     }
 
+    public static final Identifier HORN_PROJECTILE_PACKET_ID = new Identifier(WilderWild.MOD_ID, "ancient_horn_projectile_packet");
+
     /* DEV-ONLY */
     public static final CameraItem CAMERA_ITEM = new CameraItem(new FabricItemSettings().group(ItemGroup.TOOLS));
 
