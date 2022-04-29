@@ -2,7 +2,6 @@ package net.frozenblock.wilderwild;
 
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
-import net.fabricmc.loader.api.FabricLoader;
 import net.frozenblock.wilderwild.dev_only.CameraItem;
 import net.frozenblock.wilderwild.mixin.TrunkPlacerTypeInvoker;
 import net.frozenblock.wilderwild.registry.*;

@@ -10,7 +10,7 @@
 	"MusicDiscItemInvoker",
 	"SculkBlockMixin",
 	"SculkSensorBlockEntityMixin",
-    "SculkSensorBlockMixin",
+    "SculkShriekerBlockMixin",
     "SculkSensorListenerMixin",
 	"SculkVeinGrowCheckerMixin",
     "TrunkPlacerTypeInvoker",

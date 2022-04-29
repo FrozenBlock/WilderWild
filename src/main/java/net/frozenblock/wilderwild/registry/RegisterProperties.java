@@ -20,4 +20,6 @@ public class RegisterProperties extends Properties {
     public static final BooleanProperty TWITCHING = BooleanProperty.of("twitching");
     public static final BooleanProperty WRINGING_OUT = BooleanProperty.of("wringing_out");
 
+    public static final IntProperty SOULS = IntProperty.of("souls", 0, 3);
+
 }
