@@ -15,7 +15,7 @@ public class SculkShriekerBlockMixin {
 
     @Overwrite
     public void appendProperties(StateManager.Builder<Block, BlockState> builder) {
-        builder.add(SHRIEKING, WATERLOGGED, CAN_SUMMON, RegisterProperties.SOULS);
+        builder.add(SHRIEKING, WATERLOGGED, CAN_SUMMON, RegisterProperties.SOULS_TAKEN);
     }
 
 }
