@@ -37,6 +37,14 @@
 		],
 		"subtitle": "subtitles.block.sculk_chirper.exhale"
 	},
+	"block.sculk_echoer.hiccup": {
+		"sounds": [
+			"wilderwild:block/sculk_sensor/hiccup1",
+			"wilderwild:block/sculk_sensor/hiccup2",
+			"wilderwild:block/sculk_sensor/hiccup3"
+		],
+		"subtitle": "subtitles.block.sculk_sensor.hiccup"
+	},
 	"block.hanging_tendril.break": {
 		"sounds": [
 			"wilderwild:block/hanging_tendril/break1",
