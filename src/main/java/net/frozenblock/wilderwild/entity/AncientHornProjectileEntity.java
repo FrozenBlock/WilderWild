@@ -4,10 +4,14 @@ import io.netty.buffer.Unpooled;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.frozenblock.wilderwild.WildClientMod;
 import net.frozenblock.wilderwild.registry.RegisterEntities;
+import net.frozenblock.wilderwild.registry.RegisterProperties;
 import net.frozenblock.wilderwild.tag.WildBlockTags;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
+import net.minecraft.block.SculkShriekerBlock;
+import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.block.entity.SculkShriekerBlockEntity;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
@@ -24,6 +28,7 @@ import net.minecraft.network.PacketByteBuf;
 import net.minecraft.network.packet.s2c.play.GameStateChangeS2CPacket;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.tag.TagKey;
 import net.minecraft.util.Identifier;
@@ -37,8 +42,10 @@ import net.minecraft.util.registry.Registry;
 import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.world.RaycastContext;
 import net.minecraft.world.World;
+import net.minecraft.world.event.GameEvent;
 
 import java.util.List;
+import java.util.Properties;
 
 public class AncientHornProjectileEntity extends PersistentProjectileEntity {
     private final TagKey<Block> NON_COLLIDE = WildBlockTags.HORN_PROJECTILE_NON_COLLIDE;
@@ -180,6 +187,20 @@ public class AncientHornProjectileEntity extends PersistentProjectileEntity {
         this.shake = 7;
         this.setCritical(false);
         this.setPierceLevel((byte)0);
+        if (blockState.isOf(Blocks.SCULK_SHRIEKER)) {
+            BlockPos pos = blockHitResult.getBlockPos();
+            BlockEntity entity = world.getBlockEntity(pos);
+            if (entity instanceof SculkShriekerBlockEntity && blockState.get(RegisterProperties.SOULS_TAKEN)<2 && !blockState.get(SculkShriekerBlock.SHRIEKING) && world instanceof ServerWorld server) {
+                if (!blockState.get(SculkShriekerBlock.CAN_SUMMON)) {
+                    world.setBlockState(pos, blockState.with(RegisterProperties.SOULS_TAKEN, blockState.get(RegisterProperties.SOULS_TAKEN) + 1).with(SculkShriekerBlock.SHRIEKING, true));
+                } else {
+                    world.setBlockState(pos, blockState.with(SculkShriekerBlock.SHRIEKING, true).with(RegisterProperties.SOULS_TAKEN, 1));
+                }
+                world.createAndScheduleBlockTick(pos, blockState.getBlock(), 90);
+                world.syncWorldEvent(3007, pos, 0);
+                world.emitGameEvent(GameEvent.SHRIEK, pos, GameEvent.Emitter.of(this));
+            }
+        }
         this.setSound(SoundEvents.ENTITY_ARROW_HIT);
         this.setShotFromCrossbow(false);
         this.remove(RemovalReason.DISCARDED);
