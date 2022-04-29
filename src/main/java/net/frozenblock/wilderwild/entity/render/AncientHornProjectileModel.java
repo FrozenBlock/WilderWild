@@ -22,11 +22,13 @@ public class AncientHornProjectileModel extends Model {
     public static TexturedModelData getTexturedModelData() {
         ModelData modelData = new ModelData();
         ModelPartData modelPartData = modelData.getRoot();
-        ModelPartData modelPartData2 = modelPartData.addChild("body", ModelPartBuilder.create().uv(0, 0).cuboid(8.0F, 24.0F, 0.0F, 16.0F, 16.0F, 0.001F), ModelTransform.NONE);
+        ModelPartData modelPartData2 = modelPartData.addChild("body", ModelPartBuilder.create().uv(0, 0).cuboid(-1.0F, 0.0F, 0.0F, 16.0F, 16.0F, 0.001F), ModelTransform.NONE);
         return TexturedModelData.of(modelData, 32, 32);
     }
 
     public void render(MatrixStack matrices, VertexConsumer vertices, int light, int overlay, float red, float green, float blue, float alpha) {
+        matrices.scale(0.6f,0.6f,0.6f);
+        this.root.yaw = (float) (90 * (Math.PI/180));
         this.root.render(matrices, vertices, 15728640, overlay, red, green, blue, alpha);
     }
 }
