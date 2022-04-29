@@ -26,7 +26,6 @@ public class AncientCityGoatHorn extends class_7430 {
     }
 
     public void appendTooltip(ItemStack stack, @Nullable World world, List<Text> tooltip, TooltipContext context) {
-        super.appendTooltip(stack, world, tooltip, context);
         MutableText mutableText = Text.translatable("item.wilderwild.ancient_horn.sound.0");
         tooltip.add(mutableText.formatted(Formatting.GRAY));
     }
