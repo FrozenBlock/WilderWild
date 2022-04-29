@@ -3,13 +3,11 @@ package net.frozenblock.wilderwild.entity;
 import io.netty.buffer.Unpooled;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.frozenblock.wilderwild.WildClientMod;
+import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.registry.RegisterEntities;
 import net.frozenblock.wilderwild.registry.RegisterProperties;
 import net.frozenblock.wilderwild.tag.WildBlockTags;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
-import net.minecraft.block.SculkShriekerBlock;
+import net.minecraft.block.*;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
@@ -201,6 +199,15 @@ public class AncientHornProjectileEntity extends PersistentProjectileEntity {
                 this.remove(RemovalReason.DISCARDED);
             }
         }
+        if (blockState.getBlock()==Blocks.SCULK_SENSOR && world instanceof ServerWorld server) {
+            BlockPos pos = blockHitResult.getBlockPos();
+            server.setBlockState(pos, blockState.with(RegisterProperties.NOT_HICCUPING, false));
+            if (SculkSensorBlock.isInactive(blockState)) {
+                SculkSensorBlock.setActive(null, world, pos, world.getBlockState(pos), (int)(Math.random()*15));
+                world.emitGameEvent(null, GameEvent.SCULK_SENSOR_TENDRILS_CLICKING, pos);
+                world.emitGameEvent(null, WilderWild.SCULK_SENSOR_ACTIVATE, pos);
+            }
+        }
         this.setSound(SoundEvents.ENTITY_ARROW_HIT);
         this.setShotFromCrossbow(false);
         this.remove(RemovalReason.DISCARDED);
@@ -215,6 +222,7 @@ public class AncientHornProjectileEntity extends PersistentProjectileEntity {
     }
     public boolean isTouchingWater() { return true; }
     public boolean isNoClip() {
+        if (world.getBlockState(this.getBlockPos()).isIn(this.NON_COLLIDE)) { return true; }
         Vec3d vec3d3 = this.getPos();
         Vec3d vec3d = this.getVelocity();
         Vec3d vec3d2 = vec3d3.add(vec3d.multiply(0.08));

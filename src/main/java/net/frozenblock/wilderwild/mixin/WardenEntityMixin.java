@@ -1,6 +1,8 @@
 package net.frozenblock.wilderwild.mixin;
 
 import net.frozenblock.wilderwild.entity.SculkSensorTendrilEntity;
+import net.frozenblock.wilderwild.registry.RegisterProperties;
+import net.minecraft.block.Blocks;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.brain.MemoryModuleType;
 import net.minecraft.entity.mob.Angriness;
@@ -8,11 +10,17 @@ import net.minecraft.entity.mob.WardenBrain;
 import net.minecraft.entity.mob.WardenEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.NbtCompound;
+import net.minecraft.server.world.ServerWorld;
+import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.Unit;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.LocalDifficulty;
 import net.minecraft.world.ServerWorldAccess;
+import net.minecraft.world.event.GameEvent;
+import net.minecraft.world.event.listener.GameEventListener;
 import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Overwrite;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
@@ -72,5 +80,48 @@ public class WardenEntityMixin {
                 }
             }
         }
+    }
+    /**
+     * @author FrozenBlock
+     * @reason Proper interaction with hiccuping Sculk Sensors
+     */
+    @Overwrite
+    public void accept(ServerWorld world, GameEventListener listener, BlockPos pos, GameEvent event, @Nullable Entity entity, @Nullable Entity sourceEntity, int delay) {
+        WardenEntity warden = WardenEntity.class.cast(this);
+        int additionalAnger = 0;
+        if (world.getBlockState(pos).isOf(Blocks.SCULK_SENSOR)) {
+            if (!world.getBlockState(pos).get(RegisterProperties.NOT_HICCUPING)) { additionalAnger=65; }
+        }
+        warden.getBrain().remember(MemoryModuleType.VIBRATION_COOLDOWN, Unit.INSTANCE, 40L);
+        world.sendEntityStatus(warden, (byte)61);
+        warden.playSound(SoundEvents.ENTITY_WARDEN_TENDRIL_CLICKS, 5.0F, warden.getSoundPitch());
+        BlockPos blockPos = pos;
+        if (sourceEntity != null) {
+            if (warden.isInRange(sourceEntity, 30.0D)) {
+                if (warden.getBrain().hasMemoryModule(MemoryModuleType.RECENT_PROJECTILE)) {
+                    if (warden.isValidTarget(sourceEntity)) {
+                        blockPos = sourceEntity.getBlockPos();
+                    }
+
+                    warden.increaseAngerAt(sourceEntity);
+                    warden.increaseAngerAt(sourceEntity, additionalAnger, false);
+                } else {
+                    warden.increaseAngerAt(sourceEntity, 10, true);
+                    warden.increaseAngerAt(sourceEntity, additionalAnger, false);
+                }
+            }
+
+            warden.getBrain().remember(MemoryModuleType.RECENT_PROJECTILE, Unit.INSTANCE, 100L);
+        } else {
+            warden.increaseAngerAt(entity);
+            warden.increaseAngerAt(entity, additionalAnger, false);
+        }
+
+        if (warden.getAngriness() != Angriness.ANGRY && (sourceEntity != null || (Boolean) warden.getAngerManager().getPrimeSuspect().map((suspect) -> {
+            return suspect == entity;
+        }).orElse(true))) {
+            WardenBrain.lookAtDisturbance(warden, blockPos);
+        }
+
     }
 }

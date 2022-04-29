@@ -1,13 +1,17 @@
 package net.frozenblock.wilderwild.mixin;
 
+import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.entity.SculkSensorTendrilEntity;
 import net.frozenblock.wilderwild.registry.RegisterEntities;
+import net.frozenblock.wilderwild.registry.RegisterProperties;
 import net.minecraft.block.Blocks;
+import net.minecraft.block.SculkSensorBlock;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Box;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
+import net.minecraft.world.event.GameEvent;
 import net.minecraft.world.event.listener.SculkSensorListener;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -28,6 +32,11 @@ public class SculkSensorListenerMixin {
             if (pos.isPresent()) {
                 BlockPos blockPos = new BlockPos(pos.get());
                 if (world.getBlockState(blockPos).isOf(Blocks.SCULK_SENSOR)) {
+                    if (SculkSensorBlock.isInactive(world.getBlockState(blockPos)) && !world.getBlockState(blockPos).get(RegisterProperties.NOT_HICCUPING) && Math.random()>0.98) {
+                        SculkSensorBlock.setActive(null, world, blockPos, world.getBlockState(blockPos), (int)(Math.random()*15));
+                        world.emitGameEvent(null, GameEvent.SCULK_SENSOR_TENDRILS_CLICKING, blockPos);
+                        world.emitGameEvent(null, WilderWild.SCULK_SENSOR_ACTIVATE, blockPos);
+                    }
                     Box box = (new Box(blockPos.add(0, 0, 0), blockPos.add(1, 1, 1)));
                     List<SculkSensorTendrilEntity> list = world.getNonSpectatingEntities(SculkSensorTendrilEntity.class, box);
                     if (list.isEmpty()) {

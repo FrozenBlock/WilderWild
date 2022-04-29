@@ -10,6 +10,7 @@
     "DefaultBiomeFeaturesMixin",
 	"MusicDiscItemInvoker",
 	"SculkBlockMixin",
+    "SculkSensorBlockMixin",
 	"SculkSensorBlockEntityMixin",
     "SculkSensorListenerMixin",
 	"SculkVeinGrowCheckerMixin",
