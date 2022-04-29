@@ -15,6 +15,7 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.projectile.PersistentProjectileEntity;
+import net.minecraft.entity.projectile.ProjectileEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtHelper;
@@ -22,6 +23,7 @@ import net.minecraft.network.Packet;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.network.packet.s2c.play.GameStateChangeS2CPacket;
 import net.minecraft.particle.ParticleTypes;
+import net.minecraft.predicate.entity.EntityPredicates;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.tag.TagKey;
@@ -37,7 +39,8 @@ import net.minecraft.util.registry.Registry;
 import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.world.RaycastContext;
 import net.minecraft.world.World;
-import net.minecraft.world.event.GameEvent;
+
+import java.util.List;
 
 public class AncientHornProjectileEntity extends PersistentProjectileEntity {
     private final TagKey<Block> NON_COLLIDE = WildBlockTags.HORN_PROJECTILE_NON_COLLIDE;
@@ -56,17 +59,16 @@ public class AncientHornProjectileEntity extends PersistentProjectileEntity {
     public AncientHornProjectileEntity(World world, double x, double y, double z) {
         super(RegisterEntities.ANCIENT_HORN_PROJECTILE_ENTITY, x, y, z, world);
     }
+    public List<Entity> collidingEntities() {
+        return world.getOtherEntities(this, this.getBoundingBox().stretch(this.getVelocity()).expand(1.0D), this::canHit);
+    }
     public void tick() {
         this.baseTick();
         if (this.aliveTicks>200) { this.remove(RemovalReason.DISCARDED); }
         this.prevAliveTicks=this.aliveTicks;
         ++this.aliveTicks;
-        if (!this.shot) {
-            this.shot = true;
-        }
-        if (!this.leftOwner) {
-            this.leftOwner = this.shouldLeaveOwner();
-        }
+        if (!this.shot) { this.shot = true; }
+        if (!this.leftOwner) { this.leftOwner = this.shouldLeaveOwner(); }
         boolean bl = this.isNoClip();
         Vec3d vec3d = this.getVelocity();
         if (this.prevPitch == 0.0F && this.prevYaw == 0.0F) {
@@ -96,37 +98,33 @@ public class AncientHornProjectileEntity extends PersistentProjectileEntity {
         if (this.inGround && !bl) {
             if (this.inBlockState != blockState && this.shouldFall()) {
                 this.fall();
-            } else if (!this.world.isClient) {
-                this.age();
-            }
+            } else if (!this.world.isClient) { this.age(); }
             ++this.inGroundTime;
         } else {
             this.inGroundTime = 0;
             Vec3d vec3d3 = this.getPos();
             vec3d2 = vec3d3.add(vec3d);
             HitResult hitResult = this.world.raycast(new RaycastContext(vec3d3, vec3d2, RaycastContext.ShapeType.COLLIDER, RaycastContext.FluidHandling.NONE, this));
-            if (hitResult.getType() != HitResult.Type.MISS) {
-                vec3d2 = hitResult.getPos();
-            }
             while(!this.isRemoved()) {
-                EntityHitResult entityHitResult = this.getEntityCollision(vec3d3, vec3d2);
-                if (entityHitResult != null) {
-                    hitResult = entityHitResult;
-                }
-                if (hitResult != null && hitResult.getType() == HitResult.Type.ENTITY) {
-                    Entity entity = ((EntityHitResult)hitResult).getEntity();
-                    Entity entity2 = this.getOwner();
-                    if (entity instanceof PlayerEntity && entity2 instanceof PlayerEntity && !((PlayerEntity)entity2).shouldDamagePlayer((PlayerEntity)entity)) {
-                        hitResult = null;
-                        entityHitResult = null;
+                List<Entity> entities = this.collidingEntities();
+                Entity owner = this.getOwner();
+                for (Entity entity : entities) {
+                    if (!this.isRemoved() && entity != null && entity != owner) {
+                        boolean shouldDamage = true;
+                        if (owner != null) {
+                            if (entity instanceof PlayerEntity player) {
+                                if (player.isCreative()) { shouldDamage = false; }
+                                if (owner instanceof PlayerEntity && !((PlayerEntity) owner).shouldDamagePlayer((PlayerEntity) entity)) { shouldDamage = false; }
+                            }
+                            if (entity.isInvulnerable()) { shouldDamage = false; }
+                        }
+                        if (shouldDamage) { this.hitEntity(entity); }
+                        if (hitResult != null && !bl) {
+                            this.onCollision(hitResult);
+                            this.velocityDirty = true;
+                        }
                     }
-                }
-                if (hitResult != null && !bl) {
-                    this.onCollision(hitResult);
-                    this.velocityDirty = true;
-                }
-                if (entityHitResult == null || this.getPierceLevel() <= 0) { break; }
-                hitResult = null;
+                } break;
             }
             vec3d = this.getVelocity();
             double e = vec3d.x;
@@ -152,6 +150,14 @@ public class AncientHornProjectileEntity extends PersistentProjectileEntity {
 
             this.setPosition(h, j, k);
             this.checkBlockCollision();
+        }
+    }
+    public boolean canHit(Entity entity) {
+        if (!entity.isSpectator() && entity.isAlive() && entity.collides() && !(entity instanceof ProjectileEntity)) {
+            Entity entity2 = this.getOwner();
+            return entity2 == null || this.leftOwner || !entity2.isConnectedThroughVehicle(entity);
+        } else {
+            return false;
         }
     }
     public void onPlayerCollision(PlayerEntity player) { }
@@ -242,13 +248,12 @@ public class AncientHornProjectileEntity extends PersistentProjectileEntity {
         this.vecY = shooter.getEyeY();
         this.vecZ = shooter.getZ();
         Vec3d vec3d = shooter.getVelocity();
+        this.setOwner(shooter);
         this.setVelocity(this.getVelocity().add(vec3d.x, shooter.isOnGround() ? 0.0D : vec3d.y, vec3d.z));
     }
     protected void onCollision(HitResult hitResult) {
         HitResult.Type type = hitResult.getType();
-        if (type == HitResult.Type.ENTITY) {
-            this.onEntityHit((EntityHitResult) hitResult);
-        } else if (type == HitResult.Type.BLOCK) {
+        if (type == HitResult.Type.BLOCK) {
             BlockHitResult blockHitResult = (BlockHitResult) hitResult;
             if (!world.getBlockState(blockHitResult.getBlockPos()).isIn(this.NON_COLLIDE)) {
                 this.onBlockHit(blockHitResult);
@@ -264,8 +269,7 @@ public class AncientHornProjectileEntity extends PersistentProjectileEntity {
     }
     protected float getDragInWater() { return 1.0F; }
     public boolean hasNoGravity() { return true; }
-    protected void onEntityHit(EntityHitResult entityHitResult) {
-        Entity entity = entityHitResult.getEntity();
+    private void hitEntity(Entity entity) {
         int i = (int) this.getDamage();
         Entity entity2 = this.getOwner();
         if (entity != entity2) {
@@ -280,15 +284,10 @@ public class AncientHornProjectileEntity extends PersistentProjectileEntity {
             }
             boolean bl = entity.getType() == EntityType.ENDERMAN;
             int j = entity.getFireTicks();
-            if (this.isOnFire() && !bl) {
-                entity.setOnFireFor(5);
-            }
+            if (this.isOnFire() && !bl) { entity.setOnFireFor(5); }
 
             if (entity.damage(damageSource, (float) i)) {
-                if (bl) {
-                    return;
-                }
-
+                if (bl) { return; }
                 if (entity instanceof LivingEntity livingEntity) {
                     if (!this.world.isClient && entity2 instanceof LivingEntity) {
                         EnchantmentHelper.onUserDamaged(livingEntity, entity2);
