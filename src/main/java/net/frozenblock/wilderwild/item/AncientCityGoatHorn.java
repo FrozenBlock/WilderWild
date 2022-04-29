@@ -3,9 +3,9 @@ package net.frozenblock.wilderwild.item;
 import net.frozenblock.wilderwild.entity.AncientHornProjectileEntity;
 import net.frozenblock.wilderwild.registry.RegisterItems;
 import net.frozenblock.wilderwild.registry.RegisterSounds;
-import net.minecraft.class_7430;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
@@ -14,12 +14,13 @@ import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.Hand;
 import net.minecraft.util.TypedActionResult;
+import net.minecraft.util.UseAction;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
-public class AncientCityGoatHorn extends class_7430 {
+public class AncientCityGoatHorn extends Item {
 
     public AncientCityGoatHorn(Settings settings) {
         super(settings);
@@ -42,6 +43,13 @@ public class AncientCityGoatHorn extends class_7430 {
             server.spawnEntity(projectileEntity);
         }
         return TypedActionResult.consume(itemStack);
+    }
+
+    public int getMaxUseTime(ItemStack stack) {
+        return 140;
+    }
+    public UseAction getUseAction(ItemStack stack) {
+        return UseAction.TOOT_HORN;
     }
 
 }
