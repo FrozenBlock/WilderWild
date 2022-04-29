@@ -45,6 +45,9 @@ public class AncientHornProjectileEntity extends PersistentProjectileEntity {
     private boolean leftOwner;
     public int aliveTicks;
     public int prevAliveTicks;
+    public double vecX;
+    public double vecY;
+    public double vecZ;
     private BlockState inBlockState;
 
     public AncientHornProjectileEntity(EntityType<? extends PersistentProjectileEntity> entityType, World world) {
@@ -215,6 +218,9 @@ public class AncientHornProjectileEntity extends PersistentProjectileEntity {
         if (this.leftOwner) {
             nbt.putBoolean("LeftOwner", true);
         } nbt.putBoolean("HasBeenShot", this.shot);
+        nbt.putDouble("originX", this.vecX);
+        nbt.putDouble("originY", this.vecY);
+        nbt.putDouble("originZ", this.vecZ);
     }
     public void readCustomDataFromNbt(NbtCompound nbt) {
         super.readCustomDataFromNbt(nbt);
@@ -224,12 +230,18 @@ public class AncientHornProjectileEntity extends PersistentProjectileEntity {
         this.aliveTicks = nbt.getInt("aliveTicks");
         this.leftOwner = nbt.getBoolean("LeftOwner");
         this.shot = nbt.getBoolean("HasBeenShot");
+        this.vecX = nbt.getDouble("originX");
+        this.vecY = nbt.getDouble("originY");
+        this.vecZ = nbt.getDouble("originZ");
     }
     public void setVelocity(Entity shooter, float pitch, float yaw, float roll, float speed, float divergence) {
         float f = -MathHelper.sin(yaw * 0.017453292F) * MathHelper.cos(pitch * 0.017453292F);
         float g = -MathHelper.sin((pitch + roll) * 0.017453292F);
         float h = MathHelper.cos(yaw * 0.017453292F) * MathHelper.cos(pitch * 0.017453292F);
         this.setVelocity(f, g, h, speed, divergence);
+        this.vecX = shooter.getX();
+        this.vecY = shooter.getEyeY();
+        this.vecZ = shooter.getZ();
         Vec3d vec3d = shooter.getVelocity();
         this.setVelocity(this.getVelocity().add(vec3d.x, shooter.isOnGround() ? 0.0D : vec3d.y, vec3d.z));
     }
@@ -247,6 +259,11 @@ public class AncientHornProjectileEntity extends PersistentProjectileEntity {
                 this.remove(RemovalReason.DISCARDED);
             }
         }
+    }
+    public double getDamage() {
+        double distance = this.getBlockPos().getSquaredDistance(new Vec3d(this.vecX, this.vecY, this.vecZ));
+        distance = MathHelper.clamp(distance, 13, 42);
+        return 10*Math.sin((distance*Math.PI)/50);
     }
     protected float getDragInWater() { return 1.0F; }
     public boolean hasNoGravity() { return true; }
