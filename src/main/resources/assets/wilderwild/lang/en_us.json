@@ -36,7 +36,6 @@
   "subtitles.item.goat_horn.use": "Horn blown",
   "subtitles.block.hanging_tendril.wring": "Hanging Tendril wrung",
 
-  "item.wilderwild.ancient_goat_horn": "Ancient Goat Horn",
-  "item.wilderwild.ancient_goat_horn.sound.0": "Toilet Connoisseur",
-  "subtitles.item.ancient_goat_horn.blast": "Whirls of the Ancient City"
-}
+  "item.wilderwild.ancient_goat_horn": "Ancient Horn",
+  "item.wilderwild.ancient_goat_horn.sound.0": "Whirls of the Ancient",
+  "subtitles.item.ancient_goat_horn.blast": "Ancient Horn booms"
