@@ -72,7 +72,7 @@ public class AncientHornProjectileEntity extends PersistentProjectileEntity {
     }
     public void tick() {
         this.baseTick();
-        if (this.aliveTicks>200) { this.remove(RemovalReason.DISCARDED); }
+        if (this.aliveTicks>300) { this.remove(RemovalReason.DISCARDED); }
         this.prevAliveTicks=this.aliveTicks;
         ++this.aliveTicks;
         if (!this.shot) { this.shot = true; }
@@ -127,12 +127,12 @@ public class AncientHornProjectileEntity extends PersistentProjectileEntity {
                             if (entity.isInvulnerable()) { shouldDamage = false; }
                         }
                         if (shouldDamage) { this.hitEntity(entity); }
-                        if (hitResult != null && !bl) {
-                            this.onCollision(hitResult);
-                            this.velocityDirty = true;
-                        }
                     }
                 } break;
+            }
+            if (!this.isRemoved() && hitResult != null && !bl) {
+                this.onCollision(hitResult);
+                this.velocityDirty = true;
             }
             vec3d = this.getVelocity();
             double e = vec3d.x;
@@ -189,8 +189,7 @@ public class AncientHornProjectileEntity extends PersistentProjectileEntity {
         this.inGround = true;
         this.shake = 7;
         this.setCritical(false);
-        this.setPierceLevel((byte)0);
-        if (blockState.isOf(Blocks.SCULK_SHRIEKER)) {
+        if (blockState.getBlock()==Blocks.SCULK_SHRIEKER) {
             BlockPos pos = blockHitResult.getBlockPos();
             if (blockState.get(RegisterProperties.SOULS_TAKEN)<2 && !blockState.get(SculkShriekerBlock.SHRIEKING) && world instanceof ServerWorld server) {
                 if (!blockState.get(SculkShriekerBlock.CAN_SUMMON)) {
@@ -198,9 +197,11 @@ public class AncientHornProjectileEntity extends PersistentProjectileEntity {
                 }
                 trySpawnWarden(server, pos);
                 WardenEntity.addDarknessToClosePlayers(server, Vec3d.ofCenter(this.getBlockPos()), null, 40);
-                world.createAndScheduleBlockTick(pos, blockState.getBlock(), 90);
                 world.syncWorldEvent(3007, pos, 0);
-                world.emitGameEvent(GameEvent.SHRIEK, pos, GameEvent.Emitter.of(this));
+                world.emitGameEvent(GameEvent.SHRIEK, pos, GameEvent.Emitter.of(this.getOwner()));
+                this.setSound(SoundEvents.ENTITY_ARROW_HIT);
+                this.setShotFromCrossbow(false);
+                this.remove(RemovalReason.DISCARDED);
             }
         }
         this.setSound(SoundEvents.ENTITY_ARROW_HIT);
