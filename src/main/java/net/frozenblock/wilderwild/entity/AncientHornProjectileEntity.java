@@ -192,17 +192,12 @@ public class AncientHornProjectileEntity extends PersistentProjectileEntity {
         this.setPierceLevel((byte)0);
         if (blockState.isOf(Blocks.SCULK_SHRIEKER)) {
             BlockPos pos = blockHitResult.getBlockPos();
-            BlockEntity entity = world.getBlockEntity(pos);
-            if (entity instanceof SculkShriekerBlockEntity && blockState.get(RegisterProperties.SOULS_TAKEN)<2 && !blockState.get(SculkShriekerBlock.SHRIEKING) && world instanceof ServerWorld server) {
+            if (blockState.get(RegisterProperties.SOULS_TAKEN)<2 && !blockState.get(SculkShriekerBlock.SHRIEKING) && world instanceof ServerWorld server) {
                 if (!blockState.get(SculkShriekerBlock.CAN_SUMMON)) {
-                    world.setBlockState(pos, blockState.with(RegisterProperties.SOULS_TAKEN, blockState.get(RegisterProperties.SOULS_TAKEN) + 1).with(SculkShriekerBlock.SHRIEKING, true));
-                    world.createAndScheduleBlockTick(pos, blockState.getBlock(), 90);
-                    trySpawnWarden(server, pos);
-                } else {
-                    world.setBlockState(pos, blockState.with(SculkShriekerBlock.SHRIEKING, true));
-                    world.createAndScheduleBlockTick(pos, blockState.getBlock(), 90);
+                    world.setBlockState(pos, blockState.with(RegisterProperties.SOULS_TAKEN, blockState.get(RegisterProperties.SOULS_TAKEN) + 1));
                 }
-                WardenEntity.addDarknessToClosePlayers(server, Vec3d.ofCenter(entity.getPos()), null, 40);
+                trySpawnWarden(server, pos);
+                WardenEntity.addDarknessToClosePlayers(server, Vec3d.ofCenter(this.getBlockPos()), null, 40);
                 world.createAndScheduleBlockTick(pos, blockState.getBlock(), 90);
                 world.syncWorldEvent(3007, pos, 0);
                 world.emitGameEvent(GameEvent.SHRIEK, pos, GameEvent.Emitter.of(this));
