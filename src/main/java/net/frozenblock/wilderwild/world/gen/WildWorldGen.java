@@ -8,7 +8,7 @@ public class WildWorldGen {
         WildGrassForestGeneration.generateGrassForest();
 
         WildBirchGeneration.generateTrees();
-        WildTallBirchGeneration.generateTallTrees();
+        WildMushroomGeneration.generateMushroom();
 
     }
 }

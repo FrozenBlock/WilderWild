@@ -1,17 +1,25 @@
 package net.frozenblock.wilderwild.world.feature;
 
+import com.google.common.collect.ImmutableList;
 import net.minecraft.block.Blocks;
 import net.minecraft.util.registry.RegistryEntry;
 import net.minecraft.world.Heightmap;
-import net.minecraft.world.gen.feature.PlacedFeature;
-import net.minecraft.world.gen.feature.PlacedFeatures;
-import net.minecraft.world.gen.feature.VegetationConfiguredFeatures;
+import net.minecraft.world.gen.feature.*;
 import net.minecraft.world.gen.placementmodifier.*;
+import org.jetbrains.annotations.Nullable;
 
-import static net.minecraft.world.gen.feature.VegetationPlacedFeatures.modifiers;
-import static net.minecraft.world.gen.feature.VegetationPlacedFeatures.modifiersWithWouldSurvive;
+import java.util.List;
+
+import static net.minecraft.world.gen.feature.VegetationPlacedFeatures.*;
 
 public class WildPlacedFeature {
+
+    public static final RegistryEntry<PlacedFeature> NEW_MUSHROOM_PLACED = PlacedFeatures.register("new_mushroom_placed",
+            VegetationConfiguredFeatures.MUSHROOM_ISLAND_VEGETATION, RarityFilterPlacementModifier.of(4), SquarePlacementModifier.of(),
+            PlacedFeatures.MOTION_BLOCKING_HEIGHTMAP, BiomePlacementModifier.of());
+
+    public static final RegistryEntry<PlacedFeature> NEW_BROWN_MUSHROOM_PLACED = PlacedFeatures.register("new_brown_mushroom_placed",
+            VegetationConfiguredFeatures.PATCH_BROWN_MUSHROOM, modifiers(10));
 
     public static final RegistryEntry<PlacedFeature> NEW_GRASS_PLACED = PlacedFeatures.register("new_grass_placed",
             VegetationConfiguredFeatures.PATCH_GRASS_JUNGLE, modifiers(20));
@@ -36,4 +44,19 @@ public class WildPlacedFeature {
 
     public static final RegistryEntry<PlacedFeature> POLLEN_PLACED = PlacedFeatures.register("pollen",
             WildConfiguredFeatures.POLLEN_CONFIGURED, RarityFilterPlacementModifier.of(1), CountPlacementModifier.of(2), PlacedFeatures.MOTION_BLOCKING_HEIGHTMAP, SquarePlacementModifier.of(), SurfaceThresholdFilterPlacementModifier.of(Heightmap.Type.MOTION_BLOCKING, 0, 128), BiomePlacementModifier.of());
+    private static List<PlacementModifier> modifiersWithChance(int chance, @Nullable PlacementModifier modifier) {
+        ImmutableList.Builder<PlacementModifier> builder = ImmutableList.builder();
+        if (modifier != null) {
+            builder.add(modifier);
+        }
+
+        if (chance != 0) {
+            builder.add(RarityFilterPlacementModifier.of(chance));
+        }
+
+        builder.add(SquarePlacementModifier.of());
+        builder.add(PlacedFeatures.MOTION_BLOCKING_HEIGHTMAP);
+        builder.add(BiomePlacementModifier.of());
+        return builder.build();
+    }
 }

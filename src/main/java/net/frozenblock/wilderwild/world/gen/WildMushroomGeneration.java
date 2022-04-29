@@ -6,9 +6,11 @@ import net.frozenblock.wilderwild.world.feature.WildPlacedFeature;
 import net.minecraft.world.biome.BiomeKeys;
 import net.minecraft.world.gen.GenerationStep;
 
-public class WildTallBirchGeneration {
-    public static void generateTallTrees() {
+public class WildMushroomGeneration {
+    public static void generateMushroom() {
         BiomeModifications.addFeature(BiomeSelectors.includeByKey(BiomeKeys.OLD_GROWTH_BIRCH_FOREST),
-                GenerationStep.Feature.VEGETAL_DECORATION, WildPlacedFeature.NEW_TALL_BIRCH_PLACED.getKey().get());
+                GenerationStep.Feature.VEGETAL_DECORATION, WildPlacedFeature.NEW_MUSHROOM_PLACED.getKey().get());
+        BiomeModifications.addFeature(BiomeSelectors.includeByKey(BiomeKeys.BIRCH_FOREST),
+                GenerationStep.Feature.VEGETAL_DECORATION, WildPlacedFeature.NEW_BROWN_MUSHROOM_PLACED.getKey().get());
     }
 }

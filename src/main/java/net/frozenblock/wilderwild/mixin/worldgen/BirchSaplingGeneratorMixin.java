@@ -1,4 +1,4 @@
-package net.frozenblock.wilderwild.mixin;
+package net.frozenblock.wilderwild.mixin.worldgen;
 
 import net.frozenblock.wilderwild.world.feature.WildTreeConfigured;
 import net.minecraft.block.sapling.BirchSaplingGenerator;

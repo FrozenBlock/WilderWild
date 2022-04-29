@@ -1,4 +1,4 @@
-package net.frozenblock.wilderwild.mixin;
+package net.frozenblock.wilderwild.mixin.worldgen;
 
 import net.minecraft.world.biome.GenerationSettings;
 import net.minecraft.world.gen.feature.DefaultBiomeFeatures;
@@ -6,7 +6,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Overwrite;
 
 @Mixin(DefaultBiomeFeatures.class)
-public class DefaultBiomeFeaturesMixin {
+public class TallBirchFeatureMixin {
 
     //DELETE THIS IF NO LONGER NEEDED
 
@@ -15,6 +15,6 @@ public class DefaultBiomeFeaturesMixin {
      * @reason new birch pog
      */
     @Overwrite
-    public static void addBirchTrees(GenerationSettings.Builder builder) {
+    public static void addTallBirchTrees(GenerationSettings.Builder builder) {
     }
 }

@@ -3,7 +3,7 @@ package net.frozenblock.wilderwild;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.frozenblock.wilderwild.dev_only.CameraItem;
-import net.frozenblock.wilderwild.mixin.TrunkPlacerTypeInvoker;
+import net.frozenblock.wilderwild.mixin.worldgen.TrunkPlacerTypeInvoker;
 import net.frozenblock.wilderwild.registry.*;
 import net.frozenblock.wilderwild.world.feature.WildConfiguredFeatures;
 import net.frozenblock.wilderwild.world.feature.WildTreeConfigured;

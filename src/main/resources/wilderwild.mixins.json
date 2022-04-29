@@ -4,10 +4,11 @@
   "package": "net.frozenblock.wilderwild.mixin",
   "compatibilityLevel": "JAVA_17",
   "mixins": [
-    "TallBirchFeatureMixin",
-    "BirchSaplingGeneratorMixin",
-    "FeaturesMixin",
-    "DefaultBiomeFeaturesMixin",
+    "worldgen.TallBirchFeatureMixin",
+    "worldgen.BirchSaplingGeneratorMixin",
+    "worldgen.FeaturesMixin",
+    "worldgen.DefaultBiomeFeaturesMixin",
+    "worldgen.TrunkPlacerTypeInvoker",
 	"MusicDiscItemInvoker",
 	"SculkBlockMixin",
     "SculkSensorBlockMixin",
@@ -16,7 +17,7 @@
 	"SculkVeinGrowCheckerMixin",
     "SculkShriekerBlockMixin",
     "SculkShriekerBlockEntityMixin",
-    "TrunkPlacerTypeInvoker",
+
 	"WardenEntityMixin",
     "WardenEntityModelMixin"
   ],
