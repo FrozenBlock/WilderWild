@@ -262,8 +262,8 @@ public class AncientHornProjectileEntity extends PersistentProjectileEntity {
     }
     public double getDamage() {
         double distance = this.getBlockPos().getSquaredDistance(new Vec3d(this.vecX, this.vecY, this.vecZ));
-        distance = MathHelper.clamp(Math.sqrt(distance), 7.8, 45);
-        return 17*Math.sin((Math.sqrt(distance)*Math.PI)/50);
+        distance = MathHelper.clamp(distance, 7.8, 45);
+        return 20*Math.sin((distance*Math.PI)/50);
     }
     protected float getDragInWater() { return 1.0F; }
     public boolean hasNoGravity() { return true; }

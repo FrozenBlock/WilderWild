@@ -51,13 +51,4 @@ public class AncientCityGoatHorn extends class_7430 {
         return TypedActionResult.consume(itemStack);
     }
 
-    private static void trySpawnWarden(ServerWorld world, BlockPos pos) {
-        if (world.getGameRules().getBoolean(GameRules.DO_WARDEN_SPAWNING)) {
-            LargeEntitySpawnHelper.trySpawnAt(EntityType.WARDEN, SpawnReason.TRIGGERED, world, pos, 20, 5, 6).ifPresent((entity) -> {
-                entity.playSound(SoundEvents.ENTITY_WARDEN_AGITATED, 16.0F, 1.0F);
-            });
-        }
-
-    }
-
 }
