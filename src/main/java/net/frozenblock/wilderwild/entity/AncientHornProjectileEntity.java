@@ -62,7 +62,6 @@ public class AncientHornProjectileEntity extends PersistentProjectileEntity {
         this.prevAliveTicks=this.aliveTicks;
         ++this.aliveTicks;
         if (!this.shot) {
-            this.emitGameEvent(GameEvent.PROJECTILE_SHOOT, this.getOwner());
             this.shot = true;
         }
         if (!this.leftOwner) {
@@ -249,13 +248,10 @@ public class AncientHornProjectileEntity extends PersistentProjectileEntity {
         HitResult.Type type = hitResult.getType();
         if (type == HitResult.Type.ENTITY) {
             this.onEntityHit((EntityHitResult) hitResult);
-            this.world.emitGameEvent(GameEvent.PROJECTILE_LAND, hitResult.getPos(), GameEvent.Emitter.of(this, null));
         } else if (type == HitResult.Type.BLOCK) {
             BlockHitResult blockHitResult = (BlockHitResult) hitResult;
             if (!world.getBlockState(blockHitResult.getBlockPos()).isIn(this.NON_COLLIDE)) {
                 this.onBlockHit(blockHitResult);
-                BlockPos blockPos = blockHitResult.getBlockPos();
-                this.world.emitGameEvent(GameEvent.PROJECTILE_LAND, blockPos, GameEvent.Emitter.of(this, this.world.getBlockState(blockPos)));
                 this.remove(RemovalReason.DISCARDED);
             }
         }
