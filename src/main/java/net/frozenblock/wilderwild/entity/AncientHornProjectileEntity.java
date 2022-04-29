@@ -10,6 +10,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.projectile.PersistentProjectileEntity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NbtCompound;
 import net.minecraft.network.Packet;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.tag.TagKey;
@@ -27,12 +28,19 @@ import net.minecraft.world.event.GameEvent;
 
 public class AncientHornProjectileEntity extends PersistentProjectileEntity {
     private final TagKey<Block> NON_COLLIDE = WildBlockTags.HORN_PROJECTILE_NON_COLLIDE;
+    public double velX;
+    public double velY;
+    public double velZ;
 
     public AncientHornProjectileEntity(EntityType<? extends PersistentProjectileEntity> entityType, World world) {
         super(entityType, world);
     }
     public AncientHornProjectileEntity(World world, double x, double y, double z) {
         super(RegisterEntities.ANCIENT_HORN_PROJECTILE_ENTITY, x, y, z, world);
+    }
+    public void tick() {
+        super.tick();
+        this.setVelocity(this.velX, this.velY, this.velZ);
     }
     public boolean isNoClip() {
         Vec3d vec3d3 = this.getPos();
@@ -53,7 +61,29 @@ public class AncientHornProjectileEntity extends PersistentProjectileEntity {
     protected ItemStack asItemStack() {
         return ItemStack.EMPTY;
     }
-
+    public void writeCustomDataToNbt(NbtCompound nbt) {
+        super.writeCustomDataToNbt(nbt);
+        nbt.putDouble("velX", this.velX);
+        nbt.putDouble("velY", this.velY);
+        nbt.putDouble("velZ", this.velZ);
+    }
+    public void readCustomDataFromNbt(NbtCompound nbt) {
+        super.readCustomDataFromNbt(nbt);
+        this.velX = nbt.getDouble("velX");
+        this.velY = nbt.getDouble("velY");
+        this.velZ = nbt.getDouble("velZ");
+    }
+    public void setVelocity(Entity shooter, float pitch, float yaw, float roll, float speed, float divergence) {
+        float f = -MathHelper.sin(yaw * 0.017453292F) * MathHelper.cos(pitch * 0.017453292F);
+        float g = -MathHelper.sin((pitch + roll) * 0.017453292F);
+        float h = MathHelper.cos(yaw * 0.017453292F) * MathHelper.cos(pitch * 0.017453292F);
+        this.velX=f;
+        this.velY=g;
+        this.velZ=h;
+        this.setVelocity(f, g, h, speed, divergence);
+        Vec3d vec3d = shooter.getVelocity();
+        this.setVelocity(this.getVelocity().add(vec3d.x, shooter.isOnGround() ? 0.0D : vec3d.y, vec3d.z));
+    }
     protected void onCollision(HitResult hitResult) {
         HitResult.Type type = hitResult.getType();
         if (type == HitResult.Type.ENTITY) {
@@ -85,82 +115,36 @@ public class AncientHornProjectileEntity extends PersistentProjectileEntity {
             byteBuf.writeVarInt(Registry.ENTITY_TYPE.getRawId(e.getType()));
             byteBuf.writeUuid(e.getUuid());
             byteBuf.writeVarInt(e.getId());
-
             PacketBufUtil.writeVec3d(byteBuf, e.getPos());
             PacketBufUtil.writeAngle(byteBuf, e.getPitch());
             PacketBufUtil.writeAngle(byteBuf, e.getYaw());
-                /*
-                In 1.17,we use these.
-                byteBuf.writeVarInt(e.getId());
-
-                PacketBufUtil.writeVec3d(byteBuf, e.getPos());
-                PacketBufUtil.writeAngle(byteBuf, e.getPitch());
-                PacketBufUtil.writeAngle(byteBuf, e.getYaw());
-                */
-
             return ServerPlayNetworking.createS2CPacket(packetID, byteBuf);
         }
 
         public static final class PacketBufUtil {
 
-            /**
-             * Packs a floating-point angle into a {@code byte}.
-             *
-             * @param angle angle
-             * @return packed angle
-             */
             public static byte packAngle(float angle) {
                 return (byte) MathHelper.floor(angle * 256 / 360);
             }
 
-            /**
-             * Unpacks a floating-point angle from a {@code byte}.
-             *
-             * @param angleByte packed angle
-             * @return angle
-             */
             public static float unpackAngle(byte angleByte) {
                 return (angleByte * 360) / 256f;
             }
 
-            /**
-             * Writes an angle to a {@link PacketByteBuf}.
-             *
-             * @param byteBuf destination buffer
-             * @param angle   angle
-             */
             public static void writeAngle(PacketByteBuf byteBuf, float angle) {
                 byteBuf.writeByte(packAngle(angle));
             }
 
-            /**
-             * Reads an angle from a {@link PacketByteBuf}.
-             *
-             * @param byteBuf source buffer
-             * @return angle
-             */
             public static float readAngle(PacketByteBuf byteBuf) {
                 return unpackAngle(byteBuf.readByte());
             }
 
-            /**
-             * Writes a {@link Vec3d} to a {@link PacketByteBuf}.
-             *
-             * @param byteBuf destination buffer
-             * @param vec3d   vector
-             */
             public static void writeVec3d(PacketByteBuf byteBuf, Vec3d vec3d) {
                 byteBuf.writeDouble(vec3d.x);
                 byteBuf.writeDouble(vec3d.y);
                 byteBuf.writeDouble(vec3d.z);
             }
 
-            /**
-             * Reads a {@link Vec3d} from a {@link PacketByteBuf}.
-             *
-             * @param byteBuf source buffer
-             * @return vector
-             */
             public static Vec3d readVec3d(PacketByteBuf byteBuf) {
                 double x = byteBuf.readDouble();
                 double y = byteBuf.readDouble();
