@@ -5,11 +5,17 @@ import net.minecraft.util.registry.RegistryEntry;
 import net.minecraft.world.Heightmap;
 import net.minecraft.world.gen.feature.PlacedFeature;
 import net.minecraft.world.gen.feature.PlacedFeatures;
+import net.minecraft.world.gen.feature.VegetationConfiguredFeatures;
+import net.minecraft.world.gen.feature.VegetationPlacedFeatures;
 import net.minecraft.world.gen.placementmodifier.*;
 
-import static net.minecraft.world.gen.feature.VegetationPlacedFeatures.modifiersWithWouldSurvive;
+import static net.minecraft.world.gen.feature.VegetationPlacedFeatures.*;
 
 public class WildPlacedFeature {
+
+    public static final RegistryEntry<PlacedFeature> NEW_GRASS_PLACED = PlacedFeatures.register("new_grass_placed",
+            VegetationConfiguredFeatures.PATCH_GRASS_JUNGLE, modifiers(20));
+
     public static final RegistryEntry<PlacedFeature> DATURA_BIRCH = PlacedFeatures.register("darura_birch",
             WildConfiguredFeatures.DATURA, RarityFilterPlacementModifier.of(5), SquarePlacementModifier.of(),
             PlacedFeatures.MOTION_BLOCKING_HEIGHTMAP, BiomePlacementModifier.of());
@@ -20,6 +26,9 @@ public class WildPlacedFeature {
 
     public static final RegistryEntry<PlacedFeature> NEW_BIRCH_PLACED = PlacedFeatures.register("new_birch_placed",
             WildTreeConfigured.NEW_BIRCH_BEES_0002, modifiersWithWouldSurvive(PlacedFeatures.createCountExtraModifier(10, 0.1F, 1), Blocks.BIRCH_SAPLING));
+
+    public static final RegistryEntry<PlacedFeature> NEW_TALL_BIRCH_PLACED = PlacedFeatures.register("new_tall_birch_placed",
+            WildTreeConfigured.NEW_SUPER_BIRCH_BEES_0002, modifiersWithWouldSurvive(PlacedFeatures.createCountExtraModifier(10, 0.1F, 1), Blocks.BIRCH_SAPLING));
 
     /*public static final RegistryEntry<PlacedFeature> CONCEPT_BIRCH_1_PLACED = PlacedFeatures.register("concept_birch_1_placed",
             WildConfiguredFeatures.CONCEPT_BIRCH_1_SPAWN, VegetationPlacedFeatures.modifiers(
