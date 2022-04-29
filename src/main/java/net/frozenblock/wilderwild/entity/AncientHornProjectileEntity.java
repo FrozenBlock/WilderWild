@@ -1,13 +1,10 @@
 package net.frozenblock.wilderwild.entity;
 
-import com.google.common.collect.Lists;
 import io.netty.buffer.Unpooled;
-import it.unimi.dsi.fastutil.ints.IntOpenHashSet;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.frozenblock.wilderwild.WildClientMod;
 import net.frozenblock.wilderwild.registry.RegisterEntities;
 import net.frozenblock.wilderwild.tag.WildBlockTags;
-import net.minecraft.advancement.criterion.Criteria;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
@@ -15,7 +12,6 @@ import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.projectile.PersistentProjectileEntity;
@@ -43,16 +39,12 @@ import net.minecraft.world.RaycastContext;
 import net.minecraft.world.World;
 import net.minecraft.world.event.GameEvent;
 
-import java.util.Arrays;
-import java.util.Iterator;
-
 public class AncientHornProjectileEntity extends PersistentProjectileEntity {
     private final TagKey<Block> NON_COLLIDE = WildBlockTags.HORN_PROJECTILE_NON_COLLIDE;
-    public double velX;
-    public double velY;
-    public double velZ;
     private boolean shot;
     private boolean leftOwner;
+    public int aliveTicks;
+    public int prevAliveTicks;
     private BlockState inBlockState;
 
     public AncientHornProjectileEntity(EntityType<? extends PersistentProjectileEntity> entityType, World world) {
@@ -63,6 +55,8 @@ public class AncientHornProjectileEntity extends PersistentProjectileEntity {
     }
     public void tick() {
         this.baseTick();
+        this.prevAliveTicks=this.aliveTicks;
+        ++this.aliveTicks;
         if (!this.shot) {
             this.emitGameEvent(GameEvent.PROJECTILE_SHOOT, this.getOwner());
             this.shot = true;
@@ -131,7 +125,6 @@ public class AncientHornProjectileEntity extends PersistentProjectileEntity {
                 if (entityHitResult == null || this.getPierceLevel() <= 0) { break; }
                 hitResult = null;
             }
-
             vec3d = this.getVelocity();
             double e = vec3d.x;
             double f = vec3d.y;
@@ -141,7 +134,6 @@ public class AncientHornProjectileEntity extends PersistentProjectileEntity {
                     this.world.addParticle(ParticleTypes.CRIT, this.getX() + e * (double)i / 4.0D, this.getY() + f * (double)i / 4.0D, this.getZ() + g * (double)i / 4.0D, -e, -f + 0.2D, -g);
                 }
             }
-
             double h = this.getX() + e;
             double j = this.getY() + f;
             double k = this.getZ() + g;
@@ -151,7 +143,6 @@ public class AncientHornProjectileEntity extends PersistentProjectileEntity {
             } else {
                 this.setYaw((float)(MathHelper.atan2(e, g) * 57.2957763671875D));
             }
-
             this.setPitch((float)(MathHelper.atan2(f, l) * 57.2957763671875D));
             this.setPitch(updateRotation(this.prevPitch, this.getPitch()));
             this.setYaw(updateRotation(this.prevYaw, this.getYaw()));
@@ -167,7 +158,7 @@ public class AncientHornProjectileEntity extends PersistentProjectileEntity {
     private void fall() {
         this.inGround = false;
         Vec3d vec3d = this.getVelocity();
-        this.setVelocity(vec3d.multiply((double)(this.random.nextFloat() * 0.2F), (double)(this.random.nextFloat() * 0.2F), (double)(this.random.nextFloat() * 0.2F)));
+        this.setVelocity(vec3d.multiply(this.random.nextFloat() * 0.2F, this.random.nextFloat() * 0.2F, this.random.nextFloat() * 0.2F));
     }
     protected void onBlockHit(BlockHitResult blockHitResult) {
         this.inBlockState = this.world.getBlockState(blockHitResult.getBlockPos());
@@ -219,9 +210,7 @@ public class AncientHornProjectileEntity extends PersistentProjectileEntity {
         if (this.inBlockState != null) {
             nbt.put("inBlockState", NbtHelper.fromBlockState(this.inBlockState));
         }
-        nbt.putDouble("velX", this.velX);
-        nbt.putDouble("velY", this.velY);
-        nbt.putDouble("velZ", this.velZ);
+        nbt.putInt("aliveTicks", this.aliveTicks);
         if (this.leftOwner) {
             nbt.putBoolean("LeftOwner", true);
         } nbt.putBoolean("HasBeenShot", this.shot);
@@ -231,9 +220,7 @@ public class AncientHornProjectileEntity extends PersistentProjectileEntity {
         if (nbt.contains("inBlockState", 10)) {
             this.inBlockState = NbtHelper.toBlockState(nbt.getCompound("inBlockState"));
         }
-        this.velX = nbt.getDouble("velX");
-        this.velY = nbt.getDouble("velY");
-        this.velZ = nbt.getDouble("velZ");
+        this.aliveTicks = nbt.getInt("aliveTicks");
         this.leftOwner = nbt.getBoolean("LeftOwner");
         this.shot = nbt.getBoolean("HasBeenShot");
     }
@@ -241,9 +228,6 @@ public class AncientHornProjectileEntity extends PersistentProjectileEntity {
         float f = -MathHelper.sin(yaw * 0.017453292F) * MathHelper.cos(pitch * 0.017453292F);
         float g = -MathHelper.sin((pitch + roll) * 0.017453292F);
         float h = MathHelper.cos(yaw * 0.017453292F) * MathHelper.cos(pitch * 0.017453292F);
-        this.velX=f;
-        this.velY=g;
-        this.velZ=h;
         this.setVelocity(f, g, h, speed, divergence);
         Vec3d vec3d = shooter.getVelocity();
         this.setVelocity(this.getVelocity().add(vec3d.x, shooter.isOnGround() ? 0.0D : vec3d.y, vec3d.z));
