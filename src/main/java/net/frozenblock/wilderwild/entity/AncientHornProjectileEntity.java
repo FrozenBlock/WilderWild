@@ -1,6 +1,5 @@
 package net.frozenblock.wilderwild.entity;
 
-import com.google.common.collect.Sets;
 import io.netty.buffer.Unpooled;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.frozenblock.wilderwild.WildClientMod;
@@ -13,8 +12,6 @@ import net.minecraft.entity.projectile.PersistentProjectileEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.Packet;
 import net.minecraft.network.PacketByteBuf;
-import net.minecraft.potion.Potions;
-import net.minecraft.sound.SoundEvents;
 import net.minecraft.tag.TagKey;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.hit.BlockHitResult;
