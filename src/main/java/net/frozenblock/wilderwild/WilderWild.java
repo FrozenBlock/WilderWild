@@ -47,9 +47,9 @@ public class WilderWild implements ModInitializer {
         Registry.register(Registry.GAME_EVENT, new Identifier(WilderWild.MOD_ID, "sculk_sensor_activate"), SCULK_SENSOR_ACTIVATE);
         Registry.register(Registry.GAME_EVENT, new Identifier(WilderWild.MOD_ID, "hanging_tendril_extract_xp"), TENDRIL_EXTRACT_XP);
 
-        if (FabricLoader.getInstance().isDevelopmentEnvironment()) { /* DEV-ONLY */
+        //if (FabricLoader.getInstance().isDevelopmentEnvironment()) { /* DEV-ONLY */
             Registry.register(Registry.ITEM, new Identifier(WilderWild.MOD_ID, "camera"), CAMERA_ITEM);
-        }
+        //}
     }
 
     public static final Identifier HORN_PROJECTILE_PACKET_ID = new Identifier(WilderWild.MOD_ID, "ancient_horn_projectile_packet");
