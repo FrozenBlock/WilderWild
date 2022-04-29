@@ -16,6 +16,7 @@ public class AncientHornProjectileModel extends Model {
     public static final Identifier TEXTURE = new Identifier(WilderWild.MOD_ID, "textures/entity/ancient_horn_projectile.png");
     private final ModelPart root;
     public float merp = (float) (90 * (Math.PI/180));
+    public float merp2 = (float) (-15 * (Math.PI/180));
     public AncientHornProjectileModel(ModelPart root) {
         super(RenderLayer::getEntityTranslucentEmissive);
         this.root = root;
@@ -32,6 +33,7 @@ public class AncientHornProjectileModel extends Model {
         matrices.scale(0.6f,0.6f,0.6f);
         float f = MathHelper.sin(((float)entity.aliveTicks + tickDelta - 6.2831855F) * 0.05F) * 2.0F;
         this.root.yaw = f + merp;
+        this.root.pitch = merp2;
         this.root.render(matrices, vertices, light, overlay, 1.0F, 1.0F, 1.0F, 1.0F);
     }
 
