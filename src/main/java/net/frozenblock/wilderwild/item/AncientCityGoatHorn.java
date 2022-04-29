@@ -38,7 +38,7 @@ public class AncientCityGoatHorn extends Item {
         user.getItemCooldownManager().set(RegisterItems.ANCIENT_HORN, 0);
         if (world instanceof ServerWorld server) {
             AncientHornProjectileEntity projectileEntity = new AncientHornProjectileEntity(world, user.getX(), user.getEyeY(), user.getZ());
-            projectileEntity.setVelocity(user, user.getPitch(), user.getYaw(), 0.0F, 1.0F, 0.0F);
+            projectileEntity.setVelocity(user, user.getPitch(), user.getYaw(), 0.0F, 0.0F, 0.0F);
             projectileEntity.setDamage(10D);
             server.spawnEntity(projectileEntity);
         }

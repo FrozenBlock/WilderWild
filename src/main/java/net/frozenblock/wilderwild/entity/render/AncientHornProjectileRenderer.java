@@ -19,11 +19,9 @@ import net.minecraft.util.math.Vec3f;
 public class AncientHornProjectileRenderer extends EntityRenderer<AncientHornProjectileEntity> {
     public static final Identifier TEXTURE = new Identifier(WilderWild.MOD_ID, "textures/entity/ancient_horn_projectile.png");
     private final AncientHornProjectileModel model;
-    private final AncientHornProjectileModelSolid model2;
     public AncientHornProjectileRenderer(EntityRendererFactory.Context context) {
         super(context);
         this.model = new AncientHornProjectileModel(context.getPart(WildClientMod.ANCIENT_HORN_PROJECTILE_LAYER));
-        this.model2 = new AncientHornProjectileModelSolid(context.getPart(WildClientMod.ANCIENT_HORN_PROJECTILE_LAYER_SOLID));
     }
 
     public void render(AncientHornProjectileEntity projectile, float f, float tickDelta, MatrixStack matrixStack, VertexConsumerProvider vertexConsumerProvider, int i) {
@@ -32,8 +30,6 @@ public class AncientHornProjectileRenderer extends EntityRenderer<AncientHornPro
         matrixStack.multiply(Vec3f.POSITIVE_Z.getDegreesQuaternion(MathHelper.lerp(tickDelta, projectile.prevPitch, projectile.getPitch()) + 95.0F));
         VertexConsumer vertexConsumer = ItemRenderer.getDirectItemGlintConsumer(vertexConsumerProvider, this.model.getLayer(this.getTexture(projectile)), false, false);
         this.model.render(matrixStack, vertexConsumer, i, OverlayTexture.DEFAULT_UV, 1.0F, 1.0F, 1.0F, 1.0F, tickDelta, projectile);
-        vertexConsumer = ItemRenderer.getDirectItemGlintConsumer(vertexConsumerProvider, this.model2.getLayer(this.getTexture(projectile)), false, false);
-        this.model2.render(matrixStack, vertexConsumer, i, OverlayTexture.DEFAULT_UV, 1.0F, 1.0F, 1.0F, 1.0F, tickDelta, projectile);
         matrixStack.pop();
         super.render(projectile, f, tickDelta, matrixStack, vertexConsumerProvider, i);
     }

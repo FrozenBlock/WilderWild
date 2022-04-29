@@ -23,10 +23,11 @@ import net.minecraft.util.registry.Registry;
 
 import java.util.UUID;
 
+
+
 public class WildClientMod implements ClientModInitializer {
     public static final EntityModelLayer SENSOR_TENDRILS_LAYER = new EntityModelLayer(new Identifier(WilderWild.MOD_ID, "sculk_sensor_tendrils"), "main");
     public static final EntityModelLayer ANCIENT_HORN_PROJECTILE_LAYER = new EntityModelLayer(new Identifier(WilderWild.MOD_ID, "ancient_horn_projectile"), "main");
-    public static final EntityModelLayer ANCIENT_HORN_PROJECTILE_LAYER_SOLID = new EntityModelLayer(new Identifier(WilderWild.MOD_ID, "ancient_horn_projectile_solid"), "main");
 
     public static final Identifier HORN_PROJECTILE_PACKET_ID = new Identifier(WilderWild.MOD_ID, "ancient_horn_projectile_packet");
     @Override
@@ -53,7 +54,6 @@ public class WildClientMod implements ClientModInitializer {
         EntityModelLayerRegistry.registerModelLayer(SENSOR_TENDRILS_LAYER, SculkSensorTendrilModel::getTexturedModelData);
         EntityRendererRegistry.register(RegisterEntities.ANCIENT_HORN_PROJECTILE_ENTITY, AncientHornProjectileRenderer::new);
         EntityModelLayerRegistry.registerModelLayer(ANCIENT_HORN_PROJECTILE_LAYER, AncientHornProjectileModel::getTexturedModelData);
-        EntityModelLayerRegistry.registerModelLayer(ANCIENT_HORN_PROJECTILE_LAYER_SOLID, AncientHornProjectileModelSolid::getTexturedModelData);
 
         receiveAncientHornProjectilePacket();
     }

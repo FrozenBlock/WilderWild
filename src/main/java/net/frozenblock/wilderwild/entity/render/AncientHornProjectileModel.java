@@ -17,7 +17,7 @@ public class AncientHornProjectileModel extends Model {
     private final ModelPart root;
     public float merp = (float) (90 * (Math.PI/180));
     public AncientHornProjectileModel(ModelPart root) {
-        super(RenderLayer::getEyes);
+        super(RenderLayer::getEntityTranslucentEmissive);
         this.root = root;
     }
 
@@ -32,7 +32,7 @@ public class AncientHornProjectileModel extends Model {
         matrices.scale(0.6f,0.6f,0.6f);
         float f = MathHelper.sin(((float)entity.aliveTicks + tickDelta - 6.2831855F) * 0.05F) * 2.0F;
         this.root.yaw = f + merp;
-        this.root.render(matrices, vertices, light, overlay, red, green, blue, alpha);
+        this.root.render(matrices, vertices, light, overlay, 1.0F, 1.0F, 1.0F, 1.0F);
     }
 
     @Override
