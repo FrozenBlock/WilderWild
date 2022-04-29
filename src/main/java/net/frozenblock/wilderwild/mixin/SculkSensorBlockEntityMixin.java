@@ -26,9 +26,7 @@ public class SculkSensorBlockEntityMixin {
         BlockState blockState = sculkSensorBlockEntity.getCachedState();
         if (SculkSensorBlock.isInactive(blockState)) {
             world.emitGameEvent(entity, WilderWild.SCULK_SENSOR_ACTIVATE, sculkSensorBlockEntity.getPos());
-        }
-        BlockState state = world.getBlockState(pos);
-        if (state.isOf(Blocks.SCULK_SENSOR)) {
+            BlockState state = world.getBlockState(sculkSensorBlockEntity.getPos());
             world.setBlockState(sculkSensorBlockEntity.getPos(), state.with(RegisterProperties.NOT_HICCUPING, true));
         }
     }
