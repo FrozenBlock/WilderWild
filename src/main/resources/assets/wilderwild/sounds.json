@@ -150,11 +150,11 @@
 		],
 		"subtitle": "subtitles.block.generic.fall"
 	},
-	"item.ancient_goat_horn.sound.0": {
+	"item.ancient_horn.sound.0": {
 		"sounds": [
-			"wilderwild:item/ancient_goat_horn/call0"
+			"wilderwild:item/ancient_horn/call0"
 		],
-		"subtitle": "subtitles.item.ancient_goat_horn.blast"
+		"subtitle": "subtitles.item.ancient_horn.blast"
 	},
 	"music_disc.beneath": {
 		"sounds": [

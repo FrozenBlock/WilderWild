@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "wilderwild:item/ancient_goat_horn"
+    "layer0": "wilderwild:item/ancient_horn"
   }
 }

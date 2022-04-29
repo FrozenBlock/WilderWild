@@ -27,15 +27,15 @@ public class AncientCityGoatHorn extends class_7430 {
 
     public void appendTooltip(ItemStack stack, @Nullable World world, List<Text> tooltip, TooltipContext context) {
         super.appendTooltip(stack, world, tooltip, context);
-        MutableText mutableText = Text.translatable("item.wilderwild.ancient_goat_horn.sound.0");
+        MutableText mutableText = Text.translatable("item.wilderwild.ancient_horn.sound.0");
         tooltip.add(mutableText.formatted(Formatting.GRAY));
     }
 
     public TypedActionResult<ItemStack> use(World world, PlayerEntity user, Hand hand) {
         ItemStack itemStack = user.getStackInHand(hand);
         user.setCurrentHand(hand);
-        world.playSoundFromEntity(user, user, RegisterSounds.ANCIENT_GOAT_HORN_CALL_0, SoundCategory.PLAYERS, 0.5F, 1.0F);
-        user.getItemCooldownManager().set(RegisterItems.ANCIENT_GOAT_HORN, 2);
+        world.playSoundFromEntity(user, user, RegisterSounds.ANCIENT_GOAT_HORN_CALL_0, SoundCategory.RECORDS, 8.0F, 1.0F);
+        user.getItemCooldownManager().set(RegisterItems.ANCIENT_HORN, 0);
         if (world instanceof ServerWorld server) {
             AncientHornProjectileEntity projectileEntity = new AncientHornProjectileEntity(world, user.getX(), user.getEyeY(), user.getZ());
             projectileEntity.setVelocity(user, user.getPitch(), user.getYaw(), 0.0F, 1.0F, 0.0F);

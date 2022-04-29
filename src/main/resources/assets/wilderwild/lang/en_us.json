@@ -34,7 +34,7 @@
   "subtitles.block.sculk_echoer.receive_vibration": "Sculk Echoer echoes",
   "subtitles.block.hanging_tendril.wring": "Hanging Tendril wrung",
 
-  "item.wilderwild.ancient_goat_horn": "Ancient Horn",
-  "item.wilderwild.ancient_goat_horn.sound.0": "Whirls of the Ancient",
-  "subtitles.item.ancient_goat_horn.blast": "Ancient Horn booms"
+  "item.wilderwild.ancient_horn": "Ancient Horn",
+  "item.wilderwild.ancient_horn.sound.0": "Whirls of the Ancient",
+  "subtitles.item.ancient_horn.blast": "Ancient Horn booms"
 }
