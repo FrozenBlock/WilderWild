@@ -215,6 +215,7 @@ public class AncientHornProjectileEntity extends PersistentProjectileEntity {
     }
     public boolean isTouchingWater() { return true; }
     public boolean isNoClip() {
+        if (world.getBlockState(this.getBlockPos()).isIn(this.NON_COLLIDE)) { return true; }
         Vec3d vec3d3 = this.getPos();
         Vec3d vec3d = this.getVelocity();
         Vec3d vec3d2 = vec3d3.add(vec3d.multiply(0.08));
