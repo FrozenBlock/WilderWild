@@ -315,8 +315,7 @@ public class AncientHornProjectileEntity extends PersistentProjectileEntity {
             if (this.isOnFire() && !bl) { entity.setOnFireFor(5); }
             if (entity instanceof WardenEntity warden && entity2!=null) {
                 warden.increaseAngerAt(entity2, 100, true);
-            }
-            if (entity.damage(damageSource, (float) i)) {
+            } else if (entity.damage(damageSource, (float) i)) {
                 if (bl) { return; }
                 if (entity instanceof LivingEntity livingEntity) {
                     if (!this.world.isClient && entity2 instanceof LivingEntity) {
