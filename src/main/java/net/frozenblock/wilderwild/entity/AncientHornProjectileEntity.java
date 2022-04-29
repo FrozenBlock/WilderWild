@@ -10,8 +10,6 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.SculkShriekerBlock;
-import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.block.entity.SculkShriekerBlockEntity;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
@@ -315,7 +313,9 @@ public class AncientHornProjectileEntity extends PersistentProjectileEntity {
             boolean bl = entity.getType() == EntityType.ENDERMAN;
             int j = entity.getFireTicks();
             if (this.isOnFire() && !bl) { entity.setOnFireFor(5); }
-
+            if (entity instanceof WardenEntity warden && entity2!=null) {
+                warden.increaseAngerAt(entity2, 100, true);
+            }
             if (entity.damage(damageSource, (float) i)) {
                 if (bl) { return; }
                 if (entity instanceof LivingEntity livingEntity) {
