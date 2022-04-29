@@ -270,45 +270,48 @@ public class AncientHornProjectileEntity extends PersistentProjectileEntity {
     public boolean hasNoGravity() { return true; }
     protected void onEntityHit(EntityHitResult entityHitResult) {
         Entity entity = entityHitResult.getEntity();
-        float f = (float)this.getVelocity().length();
         int i = (int) this.getDamage();
-
         Entity entity2 = this.getOwner();
-        DamageSource damageSource;
-        if (entity2 == null) {
-            damageSource = DamageSource.arrow(this, this);
-        } else {
-            damageSource = DamageSource.arrow(this, entity2);
-            if (entity2 instanceof LivingEntity) {
-                ((LivingEntity)entity2).onAttacking(entity);
-            }
-        }
-        boolean bl = entity.getType() == EntityType.ENDERMAN;
-        int j = entity.getFireTicks();
-        if (this.isOnFire() && !bl) { entity.setOnFireFor(5); }
-
-        if (entity.damage(damageSource, (float)i)) {
-            if (bl) { return; }
-
-            if (entity instanceof LivingEntity livingEntity) {
-                if (!this.world.isClient && entity2 instanceof LivingEntity) {
-                    EnchantmentHelper.onUserDamaged(livingEntity, entity2);
-                    EnchantmentHelper.onTargetDamaged((LivingEntity)entity2, livingEntity);
-                }
-                this.onHit(livingEntity);
-                if (livingEntity != entity2 && livingEntity instanceof PlayerEntity && entity2 instanceof ServerPlayerEntity && !this.isSilent()) {
-                    ((ServerPlayerEntity)entity2).networkHandler.sendPacket(new GameStateChangeS2CPacket(GameStateChangeS2CPacket.PROJECTILE_HIT_PLAYER, 0.0F));
+        if (entity != entity2) {
+            DamageSource damageSource;
+            if (entity2 == null) {
+                damageSource = DamageSource.arrow(this, this);
+            } else {
+                damageSource = DamageSource.arrow(this, entity2);
+                if (entity2 instanceof LivingEntity) {
+                    ((LivingEntity) entity2).onAttacking(entity);
                 }
             }
+            boolean bl = entity.getType() == EntityType.ENDERMAN;
+            int j = entity.getFireTicks();
+            if (this.isOnFire() && !bl) {
+                entity.setOnFireFor(5);
+            }
 
-            this.playSound(this.getSound(), 1.0F, 1.2F / (this.random.nextFloat() * 0.2F + 0.9F));
-        } else {
-            entity.setFireTicks(j);
-            if (!this.world.isClient && this.getVelocity().lengthSquared() < 1.0E-7D) {
-                this.discard();
+            if (entity.damage(damageSource, (float) i)) {
+                if (bl) {
+                    return;
+                }
+
+                if (entity instanceof LivingEntity livingEntity) {
+                    if (!this.world.isClient && entity2 instanceof LivingEntity) {
+                        EnchantmentHelper.onUserDamaged(livingEntity, entity2);
+                        EnchantmentHelper.onTargetDamaged((LivingEntity) entity2, livingEntity);
+                    }
+                    this.onHit(livingEntity);
+                    if (livingEntity instanceof PlayerEntity && entity2 instanceof ServerPlayerEntity && !this.isSilent()) {
+                        ((ServerPlayerEntity) entity2).networkHandler.sendPacket(new GameStateChangeS2CPacket(GameStateChangeS2CPacket.PROJECTILE_HIT_PLAYER, 0.0F));
+                    }
+                }
+
+                this.playSound(this.getSound(), 1.0F, 1.2F / (this.random.nextFloat() * 0.2F + 0.9F));
+            } else {
+                entity.setFireTicks(j);
+                if (!this.world.isClient && this.getVelocity().lengthSquared() < 1.0E-7D) {
+                    this.discard();
+                }
             }
         }
-
     }
     public class EntitySpawnPacket { //When the Fabric tutorial WORKS!!!!! BOM BOM BOM BOM BOM BOM BOM, BOBOBOM! DUNDUN!
         public static Packet<?> create(Entity e, Identifier packetID) {
