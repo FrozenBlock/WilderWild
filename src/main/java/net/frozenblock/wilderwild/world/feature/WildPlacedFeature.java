@@ -6,10 +6,10 @@ import net.minecraft.world.Heightmap;
 import net.minecraft.world.gen.feature.PlacedFeature;
 import net.minecraft.world.gen.feature.PlacedFeatures;
 import net.minecraft.world.gen.feature.VegetationConfiguredFeatures;
-import net.minecraft.world.gen.feature.VegetationPlacedFeatures;
 import net.minecraft.world.gen.placementmodifier.*;
 
-import static net.minecraft.world.gen.feature.VegetationPlacedFeatures.*;
+import static net.minecraft.world.gen.feature.VegetationPlacedFeatures.modifiers;
+import static net.minecraft.world.gen.feature.VegetationPlacedFeatures.modifiersWithWouldSurvive;
 
 public class WildPlacedFeature {
 

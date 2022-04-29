@@ -16,7 +16,9 @@ import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.SpawnReason;
 import net.minecraft.entity.damage.DamageSource;
+import net.minecraft.entity.mob.WardenEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.projectile.PersistentProjectileEntity;
 import net.minecraft.entity.projectile.ProjectileEntity;
@@ -32,6 +34,7 @@ import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.tag.TagKey;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.LargeEntitySpawnHelper;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.hit.HitResult;
 import net.minecraft.util.math.BlockPos;
@@ -40,12 +43,12 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.util.shape.VoxelShape;
+import net.minecraft.world.GameRules;
 import net.minecraft.world.RaycastContext;
 import net.minecraft.world.World;
 import net.minecraft.world.event.GameEvent;
 
 import java.util.List;
-import java.util.Properties;
 
 public class AncientHornProjectileEntity extends PersistentProjectileEntity {
     private final TagKey<Block> NON_COLLIDE = WildBlockTags.HORN_PROJECTILE_NON_COLLIDE;
@@ -193,9 +196,13 @@ public class AncientHornProjectileEntity extends PersistentProjectileEntity {
             if (entity instanceof SculkShriekerBlockEntity && blockState.get(RegisterProperties.SOULS_TAKEN)<2 && !blockState.get(SculkShriekerBlock.SHRIEKING) && world instanceof ServerWorld server) {
                 if (!blockState.get(SculkShriekerBlock.CAN_SUMMON)) {
                     world.setBlockState(pos, blockState.with(RegisterProperties.SOULS_TAKEN, blockState.get(RegisterProperties.SOULS_TAKEN) + 1).with(SculkShriekerBlock.SHRIEKING, true));
+                    world.createAndScheduleBlockTick(pos, blockState.getBlock(), 90);
+                    trySpawnWarden(server, pos);
                 } else {
-                    world.setBlockState(pos, blockState.with(SculkShriekerBlock.SHRIEKING, true).with(RegisterProperties.SOULS_TAKEN, 1));
+                    world.setBlockState(pos, blockState.with(SculkShriekerBlock.SHRIEKING, true));
+                    world.createAndScheduleBlockTick(pos, blockState.getBlock(), 90);
                 }
+                WardenEntity.addDarknessToClosePlayers(server, Vec3d.ofCenter(entity.getPos()), null, 40);
                 world.createAndScheduleBlockTick(pos, blockState.getBlock(), 90);
                 world.syncWorldEvent(3007, pos, 0);
                 world.emitGameEvent(GameEvent.SHRIEK, pos, GameEvent.Emitter.of(this));
@@ -204,6 +211,14 @@ public class AncientHornProjectileEntity extends PersistentProjectileEntity {
         this.setSound(SoundEvents.ENTITY_ARROW_HIT);
         this.setShotFromCrossbow(false);
         this.remove(RemovalReason.DISCARDED);
+    }
+    private static void trySpawnWarden(ServerWorld world, BlockPos pos) {
+        if (world.getGameRules().getBoolean(GameRules.DO_WARDEN_SPAWNING)) {
+            LargeEntitySpawnHelper.trySpawnAt(EntityType.WARDEN, SpawnReason.TRIGGERED, world, pos, 20, 5, 6).ifPresent((entity) -> {
+                entity.playSound(SoundEvents.ENTITY_WARDEN_AGITATED, 5.0F, 1.0F);
+            });
+        }
+
     }
     public boolean isTouchingWater() { return true; }
     public boolean isNoClip() {
