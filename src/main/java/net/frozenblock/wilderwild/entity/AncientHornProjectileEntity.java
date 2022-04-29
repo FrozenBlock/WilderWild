@@ -270,11 +270,7 @@ public class AncientHornProjectileEntity extends PersistentProjectileEntity {
     protected void onEntityHit(EntityHitResult entityHitResult) {
         Entity entity = entityHitResult.getEntity();
         float f = (float)this.getVelocity().length();
-        int i = MathHelper.ceil(MathHelper.clamp((double)f * this.getDamage(), 0.0D, 2.147483647E9D));
-        if (this.isCritical()) {
-            long l = this.random.nextInt(i / 2 + 2);
-            i = (int)Math.min(l + (long)i, 2147483647L);
-        }
+        int i = (int) this.getDamage();
 
         Entity entity2 = this.getOwner();
         DamageSource damageSource;
