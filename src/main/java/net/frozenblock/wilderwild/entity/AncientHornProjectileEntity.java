@@ -1,36 +1,59 @@
 package net.frozenblock.wilderwild.entity;
 
+import com.google.common.collect.Lists;
 import io.netty.buffer.Unpooled;
+import it.unimi.dsi.fastutil.ints.IntOpenHashSet;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.frozenblock.wilderwild.WildClientMod;
 import net.frozenblock.wilderwild.registry.RegisterEntities;
 import net.frozenblock.wilderwild.tag.WildBlockTags;
+import net.minecraft.advancement.criterion.Criteria;
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.Blocks;
+import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.attribute.EntityAttributes;
+import net.minecraft.entity.damage.DamageSource;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.projectile.PersistentProjectileEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
+import net.minecraft.nbt.NbtHelper;
 import net.minecraft.network.Packet;
 import net.minecraft.network.PacketByteBuf;
+import net.minecraft.network.packet.s2c.play.GameStateChangeS2CPacket;
+import net.minecraft.particle.ParticleTypes;
+import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.sound.SoundEvents;
 import net.minecraft.tag.TagKey;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.hit.EntityHitResult;
 import net.minecraft.util.hit.HitResult;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Box;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.registry.Registry;
+import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.world.RaycastContext;
 import net.minecraft.world.World;
 import net.minecraft.world.event.GameEvent;
+
+import java.util.Arrays;
+import java.util.Iterator;
 
 public class AncientHornProjectileEntity extends PersistentProjectileEntity {
     private final TagKey<Block> NON_COLLIDE = WildBlockTags.HORN_PROJECTILE_NON_COLLIDE;
     public double velX;
     public double velY;
     public double velZ;
+    private boolean shot;
+    private boolean leftOwner;
+    private BlockState inBlockState;
 
     public AncientHornProjectileEntity(EntityType<? extends PersistentProjectileEntity> entityType, World world) {
         super(entityType, world);
@@ -39,9 +62,131 @@ public class AncientHornProjectileEntity extends PersistentProjectileEntity {
         super(RegisterEntities.ANCIENT_HORN_PROJECTILE_ENTITY, x, y, z, world);
     }
     public void tick() {
-        super.tick();
-        this.setVelocity(this.velX, this.velY, this.velZ);
+        this.baseTick();
+        if (!this.shot) {
+            this.emitGameEvent(GameEvent.PROJECTILE_SHOOT, this.getOwner());
+            this.shot = true;
+        }
+        if (!this.leftOwner) {
+            this.leftOwner = this.shouldLeaveOwner();
+        }
+        boolean bl = this.isNoClip();
+        Vec3d vec3d = this.getVelocity();
+        if (this.prevPitch == 0.0F && this.prevYaw == 0.0F) {
+            double d = vec3d.horizontalLength();
+            this.setYaw((float)(MathHelper.atan2(vec3d.x, vec3d.z) * 57.2957763671875D));
+            this.setPitch((float)(MathHelper.atan2(vec3d.y, d) * 57.2957763671875D));
+            this.prevYaw = this.getYaw();
+            this.prevPitch = this.getPitch();
+        }
+        BlockPos blockPos = this.getBlockPos();
+        BlockState blockState = this.world.getBlockState(blockPos);
+        Vec3d vec3d2;
+        if (!blockState.isAir() && !bl) {
+            VoxelShape voxelShape = blockState.getCollisionShape(this.world, blockPos);
+            if (!voxelShape.isEmpty()) {
+                vec3d2 = this.getPos();
+                for (Box box : voxelShape.getBoundingBoxes()) {
+                    if (box.offset(blockPos).contains(vec3d2)) {
+                        this.inGround = true;
+                        break;
+                    }
+                }
+            }
+        }
+        if (this.shake > 0) { --this.shake; }
+        if (this.isTouchingWaterOrRain() || blockState.isOf(Blocks.POWDER_SNOW)) { this.extinguish(); }
+        if (this.inGround && !bl) {
+            if (this.inBlockState != blockState && this.shouldFall()) {
+                this.fall();
+            } else if (!this.world.isClient) {
+                this.age();
+            }
+            ++this.inGroundTime;
+        } else {
+            this.inGroundTime = 0;
+            Vec3d vec3d3 = this.getPos();
+            vec3d2 = vec3d3.add(vec3d);
+            HitResult hitResult = this.world.raycast(new RaycastContext(vec3d3, vec3d2, RaycastContext.ShapeType.COLLIDER, RaycastContext.FluidHandling.NONE, this));
+            if (hitResult.getType() != HitResult.Type.MISS) {
+                vec3d2 = hitResult.getPos();
+            }
+            while(!this.isRemoved()) {
+                EntityHitResult entityHitResult = this.getEntityCollision(vec3d3, vec3d2);
+                if (entityHitResult != null) {
+                    hitResult = entityHitResult;
+                }
+                if (hitResult != null && hitResult.getType() == HitResult.Type.ENTITY) {
+                    Entity entity = ((EntityHitResult)hitResult).getEntity();
+                    Entity entity2 = this.getOwner();
+                    if (entity instanceof PlayerEntity && entity2 instanceof PlayerEntity && !((PlayerEntity)entity2).shouldDamagePlayer((PlayerEntity)entity)) {
+                        hitResult = null;
+                        entityHitResult = null;
+                    }
+                }
+                if (hitResult != null && !bl) {
+                    this.onCollision(hitResult);
+                    this.velocityDirty = true;
+                }
+                if (entityHitResult == null || this.getPierceLevel() <= 0) { break; }
+                hitResult = null;
+            }
+
+            vec3d = this.getVelocity();
+            double e = vec3d.x;
+            double f = vec3d.y;
+            double g = vec3d.z;
+            if (this.isCritical()) {
+                for(int i = 0; i < 4; ++i) {
+                    this.world.addParticle(ParticleTypes.CRIT, this.getX() + e * (double)i / 4.0D, this.getY() + f * (double)i / 4.0D, this.getZ() + g * (double)i / 4.0D, -e, -f + 0.2D, -g);
+                }
+            }
+
+            double h = this.getX() + e;
+            double j = this.getY() + f;
+            double k = this.getZ() + g;
+            double l = vec3d.horizontalLength();
+            if (bl) {
+                this.setYaw((float)(MathHelper.atan2(-e, -g) * 57.2957763671875D));
+            } else {
+                this.setYaw((float)(MathHelper.atan2(e, g) * 57.2957763671875D));
+            }
+
+            this.setPitch((float)(MathHelper.atan2(f, l) * 57.2957763671875D));
+            this.setPitch(updateRotation(this.prevPitch, this.getPitch()));
+            this.setYaw(updateRotation(this.prevYaw, this.getYaw()));
+
+            this.setPosition(h, j, k);
+            this.checkBlockCollision();
+        }
     }
+    public void onPlayerCollision(PlayerEntity player) { }
+    private boolean shouldFall() {
+        return this.inGround && this.world.isSpaceEmpty((new Box(this.getPos(), this.getPos())).expand(0.06D));
+    }
+    private void fall() {
+        this.inGround = false;
+        Vec3d vec3d = this.getVelocity();
+        this.setVelocity(vec3d.multiply((double)(this.random.nextFloat() * 0.2F), (double)(this.random.nextFloat() * 0.2F), (double)(this.random.nextFloat() * 0.2F)));
+    }
+    protected void onBlockHit(BlockHitResult blockHitResult) {
+        this.inBlockState = this.world.getBlockState(blockHitResult.getBlockPos());
+        BlockState blockState = this.world.getBlockState(blockHitResult.getBlockPos());
+        blockState.onProjectileHit(this.world, blockState, blockHitResult, this);
+        Vec3d vec3d = blockHitResult.getPos().subtract(this.getX(), this.getY(), this.getZ());
+        this.setVelocity(vec3d);
+        Vec3d vec3d2 = vec3d.normalize().multiply(0.05000000074505806D);
+        this.setPos(this.getX() - vec3d2.x, this.getY() - vec3d2.y, this.getZ() - vec3d2.z);
+        this.playSound(this.getSound(), 1.0F, 1.2F / (this.random.nextFloat() * 0.2F + 0.9F));
+        this.inGround = true;
+        this.shake = 7;
+        this.setCritical(false);
+        this.setPierceLevel((byte)0);
+        this.setSound(SoundEvents.ENTITY_ARROW_HIT);
+        this.setShotFromCrossbow(false);
+        this.remove(RemovalReason.DISCARDED);
+    }
+    public boolean isTouchingWater() { return true; }
     public boolean isNoClip() {
         Vec3d vec3d3 = this.getPos();
         Vec3d vec3d = this.getVelocity();
@@ -53,6 +198,14 @@ public class AncientHornProjectileEntity extends PersistentProjectileEntity {
             }
         } return false;
     }
+    private boolean shouldLeaveOwner() {
+        Entity entity = this.getOwner();
+        if (entity != null) {
+            for (Entity entity2 : this.world.getOtherEntities(this, this.getBoundingBox().stretch(this.getVelocity()).expand(1.0D), (entityx) -> !entityx.isSpectator() && entityx.collides())) {
+                if (entity2.getRootVehicle() == entity.getRootVehicle()) { return false; }
+            }
+        } return true;
+    }
     @Override
     public Packet<?> createSpawnPacket() {
         return EntitySpawnPacket.create(this, WildClientMod.HORN_PROJECTILE_PACKET_ID);
@@ -63,15 +216,26 @@ public class AncientHornProjectileEntity extends PersistentProjectileEntity {
     }
     public void writeCustomDataToNbt(NbtCompound nbt) {
         super.writeCustomDataToNbt(nbt);
+        if (this.inBlockState != null) {
+            nbt.put("inBlockState", NbtHelper.fromBlockState(this.inBlockState));
+        }
         nbt.putDouble("velX", this.velX);
         nbt.putDouble("velY", this.velY);
         nbt.putDouble("velZ", this.velZ);
+        if (this.leftOwner) {
+            nbt.putBoolean("LeftOwner", true);
+        } nbt.putBoolean("HasBeenShot", this.shot);
     }
     public void readCustomDataFromNbt(NbtCompound nbt) {
         super.readCustomDataFromNbt(nbt);
+        if (nbt.contains("inBlockState", 10)) {
+            this.inBlockState = NbtHelper.toBlockState(nbt.getCompound("inBlockState"));
+        }
         this.velX = nbt.getDouble("velX");
         this.velY = nbt.getDouble("velY");
         this.velZ = nbt.getDouble("velZ");
+        this.leftOwner = nbt.getBoolean("LeftOwner");
+        this.shot = nbt.getBoolean("HasBeenShot");
     }
     public void setVelocity(Entity shooter, float pitch, float yaw, float roll, float speed, float divergence) {
         float f = -MathHelper.sin(yaw * 0.017453292F) * MathHelper.cos(pitch * 0.017453292F);
@@ -99,14 +263,54 @@ public class AncientHornProjectileEntity extends PersistentProjectileEntity {
             }
         }
     }
-    protected float getDragInWater() {
-        return 1.0F;
-    }
+    protected float getDragInWater() { return 1.0F; }
+    public boolean hasNoGravity() { return true; }
+    protected void onEntityHit(EntityHitResult entityHitResult) {
+        Entity entity = entityHitResult.getEntity();
+        float f = (float)this.getVelocity().length();
+        int i = MathHelper.ceil(MathHelper.clamp((double)f * this.getDamage(), 0.0D, 2.147483647E9D));
+        if (this.isCritical()) {
+            long l = this.random.nextInt(i / 2 + 2);
+            i = (int)Math.min(l + (long)i, 2147483647L);
+        }
 
-    public boolean hasNoGravity() {
-        return true;
-    }
+        Entity entity2 = this.getOwner();
+        DamageSource damageSource;
+        if (entity2 == null) {
+            damageSource = DamageSource.arrow(this, this);
+        } else {
+            damageSource = DamageSource.arrow(this, entity2);
+            if (entity2 instanceof LivingEntity) {
+                ((LivingEntity)entity2).onAttacking(entity);
+            }
+        }
+        boolean bl = entity.getType() == EntityType.ENDERMAN;
+        int j = entity.getFireTicks();
+        if (this.isOnFire() && !bl) { entity.setOnFireFor(5); }
 
+        if (entity.damage(damageSource, (float)i)) {
+            if (bl) { return; }
+
+            if (entity instanceof LivingEntity livingEntity) {
+                if (!this.world.isClient && entity2 instanceof LivingEntity) {
+                    EnchantmentHelper.onUserDamaged(livingEntity, entity2);
+                    EnchantmentHelper.onTargetDamaged((LivingEntity)entity2, livingEntity);
+                }
+                this.onHit(livingEntity);
+                if (livingEntity != entity2 && livingEntity instanceof PlayerEntity && entity2 instanceof ServerPlayerEntity && !this.isSilent()) {
+                    ((ServerPlayerEntity)entity2).networkHandler.sendPacket(new GameStateChangeS2CPacket(GameStateChangeS2CPacket.PROJECTILE_HIT_PLAYER, 0.0F));
+                }
+            }
+
+            this.playSound(this.getSound(), 1.0F, 1.2F / (this.random.nextFloat() * 0.2F + 0.9F));
+        } else {
+            entity.setFireTicks(j);
+            if (!this.world.isClient && this.getVelocity().lengthSquared() < 1.0E-7D) {
+                this.discard();
+            }
+        }
+
+    }
     public class EntitySpawnPacket { //When the Fabric tutorial WORKS!!!!! BOM BOM BOM BOM BOM BOM BOM, BOBOBOM! DUNDUN!
         public static Packet<?> create(Entity e, Identifier packetID) {
             if (e.world.isClient)
