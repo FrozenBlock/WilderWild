@@ -13,7 +13,7 @@ import net.minecraft.util.registry.Registry;
 
 public class RegisterEntities {
     public static final EntityType<SculkSensorTendrilEntity> TENDRIL_ENTITY = Registry.register(Registry.ENTITY_TYPE, new Identifier(WilderWild.MOD_ID, "sculk_sensor_tendril"), FabricEntityTypeBuilder.create(SpawnGroup.MISC, SculkSensorTendrilEntity::new).dimensions(EntityDimensions.fixed(1.0f, 0.0f)).build());
-    public static final EntityType<AncientHornProjectileEntity> ANCIENT_HORN_PROJECTILE_ENTITY = Registry.register(Registry.ENTITY_TYPE, new Identifier(WilderWild.MOD_ID, "ancient_horn_projectile"), FabricEntityTypeBuilder.<AncientHornProjectileEntity>create(SpawnGroup.MISC, AncientHornProjectileEntity::new).dimensions(EntityDimensions.fixed(0.5F, 0.5F)).trackRangeBlocks(8).trackedUpdateRate(2).build());
+    public static final EntityType<AncientHornProjectileEntity> ANCIENT_HORN_PROJECTILE_ENTITY = Registry.register(Registry.ENTITY_TYPE, new Identifier(WilderWild.MOD_ID, "ancient_horn_projectile"), FabricEntityTypeBuilder.<AncientHornProjectileEntity>create(SpawnGroup.MISC, AncientHornProjectileEntity::new).dimensions(EntityDimensions.fixed(0.4F, 0.4F)).trackRangeBlocks(8).trackedUpdateRate(2).build());
 
     public static void init() {
         FabricDefaultAttributeRegistry.register(TENDRIL_ENTITY, SculkSensorTendrilEntity.createLivingAttributes());
