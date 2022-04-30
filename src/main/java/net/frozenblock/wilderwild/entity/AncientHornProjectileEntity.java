@@ -265,7 +265,6 @@ public class AncientHornProjectileEntity extends PersistentProjectileEntity {
         this.vecZ = shooter.getZ();
         Vec3d vec3d = shooter.getVelocity();
         this.setOwner(shooter);
-        this.setVelocity(this.getVelocity().add(vec3d.x, shooter.isOnGround() ? 0.0D : vec3d.y, vec3d.z));
     }
     protected void onCollision(HitResult hitResult) {
         HitResult.Type type = hitResult.getType();
