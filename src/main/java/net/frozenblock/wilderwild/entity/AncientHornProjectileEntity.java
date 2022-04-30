@@ -214,7 +214,13 @@ public class AncientHornProjectileEntity extends PersistentProjectileEntity {
     }
     public boolean isTouchingWater() { return true; }
     public boolean isNoClip() {
-        if (world.getBlockState(this.getBlockPos()).isIn(this.NON_COLLIDE)) { return true; }
+        BlockState insideState = world.getBlockState(this.getBlockPos());
+        if (insideState.isIn(this.NON_COLLIDE)) {
+            if (insideState.isOf(Blocks.BELL)) {
+                ((BellBlock)insideState.getBlock()).onProjectileHit(world, insideState, this.world.raycast(new RaycastContext(this.getPos(), new Vec3d(this.getBlockX(), this.getBlockY(), this.getBlockZ()), RaycastContext.ShapeType.COLLIDER, RaycastContext.FluidHandling.NONE, this)), this);
+            }
+            return true;
+        }
         Vec3d vec3d3 = this.getPos();
         Vec3d vec3d = this.getVelocity();
         Vec3d vec3d2 = vec3d3.add(vec3d.multiply(0.08));
@@ -222,9 +228,6 @@ public class AncientHornProjectileEntity extends PersistentProjectileEntity {
         if (hitResult.getType() == HitResult.Type.BLOCK) {
             BlockState state = world.getBlockState(((BlockHitResult)hitResult).getBlockPos());
             if (state.isIn(this.NON_COLLIDE)) {
-                if (state.isOf(Blocks.BELL)) {
-                    ((BellBlock)state.getBlock()).onProjectileHit(world, state, (BlockHitResult)hitResult, this);
-                }
                 return true;
             }
         } return false;
