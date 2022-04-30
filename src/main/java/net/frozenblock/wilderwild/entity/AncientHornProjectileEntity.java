@@ -5,14 +5,13 @@ import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.frozenblock.wilderwild.WildClientMod;
 import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.block.SculkEchoerBlock;
+import net.frozenblock.wilderwild.block.entity.HangingTendrilBlockEntity;
 import net.frozenblock.wilderwild.registry.*;
 import net.frozenblock.wilderwild.tag.WildBlockTags;
 import net.minecraft.block.*;
+import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.enchantment.EnchantmentHelper;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.SpawnReason;
+import net.minecraft.entity.*;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.mob.WardenEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -42,6 +41,7 @@ import net.minecraft.world.GameRules;
 import net.minecraft.world.RaycastContext;
 import net.minecraft.world.World;
 import net.minecraft.world.event.GameEvent;
+import net.minecraft.world.explosion.Explosion;
 
 import java.util.List;
 
@@ -223,11 +223,28 @@ public class AncientHornProjectileEntity extends PersistentProjectileEntity {
     public boolean isTouchingWater() { return true; }
     public boolean isNoClip() {
         BlockState insideState = world.getBlockState(this.getBlockPos());
-        if (insideState.isIn(this.NON_COLLIDE)) {
-            if (insideState.isOf(Blocks.BELL)) {
-                ((BellBlock)insideState.getBlock()).onProjectileHit(world, insideState, this.world.raycast(new RaycastContext(this.getPos(), new Vec3d(this.getBlockX(), this.getBlockY(), this.getBlockZ()), RaycastContext.ShapeType.COLLIDER, RaycastContext.FluidHandling.NONE, this)), this);
+        if (insideState.isOf(RegisterBlocks.HANGING_TENDRIL) && world instanceof ServerWorld server) {
+            BlockPos pos = this.getBlockPos();
+            BlockEntity entity = world.getBlockEntity(pos);
+            if (entity instanceof HangingTendrilBlockEntity tendril) {
+                this.playSound(this.getSound(), 1.0F, 1.2F / (this.random.nextFloat() * 0.2F + 0.9F));
+                int XP = tendril.storedXP;
+                if (XP>0) {
+                    tendril.storedXP = 0;
+                    world.createExplosion(this, this.getX(), this.getY(), this.getZ(), 3, Explosion.DestructionType.BREAK);
+                    ExperienceOrbEntity.spawn(server, Vec3d.ofCenter(pos).add(0, 0, 0), XP);
+                    setCooldown(tendrilCooldown);
+                    this.setShotFromCrossbow(false);
+                    this.remove(RemovalReason.DISCARDED);
+                }
             }
-            return true;
+        }
+        if (insideState.isIn(this.NON_COLLIDE)) {
+            if (world instanceof ServerWorld server) {
+                if (insideState.isOf(Blocks.BELL)) {
+                    ((BellBlock) insideState.getBlock()).onProjectileHit(server, insideState, this.world.raycast(new RaycastContext(this.getPos(), new Vec3d(this.getBlockX(), this.getBlockY(), this.getBlockZ()), RaycastContext.ShapeType.COLLIDER, RaycastContext.FluidHandling.NONE, this)), this);
+                }
+            } return true;
         }
         Vec3d vec3d3 = this.getPos();
         Vec3d vec3d = this.getVelocity();
