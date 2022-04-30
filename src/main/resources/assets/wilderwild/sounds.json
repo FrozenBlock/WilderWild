@@ -37,7 +37,7 @@
 		],
 		"subtitle": "subtitles.block.sculk_chirper.exhale"
 	},
-	"block.sculk_echoer.hiccup": {
+	"block.sculk_sensor.hiccup": {
 		"sounds": [
 			"wilderwild:block/sculk_sensor/hiccup1",
 			"wilderwild:block/sculk_sensor/hiccup2",
