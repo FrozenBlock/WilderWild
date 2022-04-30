@@ -47,7 +47,7 @@ public class SculkEchoerBlockEntity extends BlockEntity implements SculkSensorLi
             this.getEventListener().tick(world);
             if (this.echoBubblesLeft > 0) {
                 int decrease = 1;
-                if (this.echoBubblesLeft>1) { decrease = 2; }
+                if (this.echoBubblesLeft>1 && Math.random()>0.55) { decrease = 2; }
                 for (int i=0; i<decrease; i++) {
                     --this.echoBubblesLeft;
                     if (!upsidedown) {
