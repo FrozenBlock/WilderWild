@@ -21,7 +21,7 @@ import org.jetbrains.annotations.Nullable;
 import java.util.List;
 
 public class AncientCityGoatHorn extends Item {
-    public static final int shriekerCooldown = 400;
+    public static final int shriekerCooldown = 600;
     public static final int sensorCooldown = 240;
     public static final int echoerCooldown = 320;
     public static final int tendrilCooldown = 160;
