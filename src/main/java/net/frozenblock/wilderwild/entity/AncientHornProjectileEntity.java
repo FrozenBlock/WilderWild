@@ -6,6 +6,7 @@ import net.frozenblock.wilderwild.WildClientMod;
 import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.registry.RegisterEntities;
 import net.frozenblock.wilderwild.registry.RegisterProperties;
+import net.frozenblock.wilderwild.registry.RegisterSounds;
 import net.frozenblock.wilderwild.tag.WildBlockTags;
 import net.minecraft.block.*;
 import net.minecraft.enchantment.EnchantmentHelper;
@@ -194,7 +195,7 @@ public class AncientHornProjectileEntity extends PersistentProjectileEntity {
                 WardenEntity.addDarknessToClosePlayers(server, Vec3d.ofCenter(this.getBlockPos()), null, 40);
                 server.syncWorldEvent(3007, pos, 0);
                 server.emitGameEvent(GameEvent.SHRIEK, pos, GameEvent.Emitter.of(this.getOwner()));
-                this.setSound(SoundEvents.ENTITY_ARROW_HIT);
+                this.setSound(RegisterSounds.ANCIENT_HORN_VIBRATION_DISSAPATE);
                 this.setShotFromCrossbow(false);
                 this.remove(RemovalReason.DISCARDED);
             }
@@ -208,7 +209,7 @@ public class AncientHornProjectileEntity extends PersistentProjectileEntity {
                 world.emitGameEvent(null, WilderWild.SCULK_SENSOR_ACTIVATE, pos);
             }
         }
-        this.setSound(SoundEvents.ENTITY_ARROW_HIT);
+        this.setSound(RegisterSounds.ANCIENT_HORN_VIBRATION_DISSAPATE);
         this.setShotFromCrossbow(false);
         this.remove(RemovalReason.DISCARDED);
     }

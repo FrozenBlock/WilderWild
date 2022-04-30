@@ -158,10 +158,10 @@
 		],
 		"subtitle": "subtitles.block.generic.fall"
 	},
-	"entity.echo_blast.dissipate": {
+	"entity.ancient_horn_projectile.dissipate": {
 		"sounds": [
-			"wilderwild:mob/echo_blast/dissipate1",
-			"wilderwild:mob/echo_blast/dissipate2"
+			"wilderwild:mob/ancient_horn_projectile/dissipate1",
+			"wilderwild:mob/ancient_horn_projectile/dissipate2"
 		]
 	},
 	"item.ancient_horn.sound.0": {
