@@ -180,7 +180,7 @@ public class AncientHornProjectileEntity extends PersistentProjectileEntity {
                     WardenEntity.addDarknessToClosePlayers(server, Vec3d.ofCenter(this.getBlockPos()), null, 40);
                     server.syncWorldEvent(3007, pos, 0);
                     server.emitGameEvent(GameEvent.SHRIEK, pos, GameEvent.Emitter.of(owner));
-                    setCooldown(shriekerCooldown);
+                    setCooldown(getCooldown(this.getOwner(), shriekerCooldown));
                     this.setSound(RegisterSounds.ANCIENT_HORN_VIBRATION_DISSAPATE);
                     this.setShotFromCrossbow(false);
                     this.remove(RemovalReason.DISCARDED);
@@ -193,14 +193,14 @@ public class AncientHornProjectileEntity extends PersistentProjectileEntity {
                     SculkSensorBlock.setActive(null, world, pos, world.getBlockState(pos), (int) (Math.random() * 15));
                     world.emitGameEvent(owner, GameEvent.SCULK_SENSOR_TENDRILS_CLICKING, pos);
                     world.emitGameEvent(owner, WilderWild.SCULK_SENSOR_ACTIVATE, pos);
-                    setCooldown(sensorCooldown);
+                    setCooldown(getCooldown(this.getOwner(), sensorCooldown));
                 }
             }
             if (blockState.getBlock() == RegisterBlocks.SCULK_ECHOER) {
                 BlockPos pos = blockHitResult.getBlockPos();
                 if (SculkEchoerBlock.isInactive(blockState)) {
                     SculkEchoerBlock.setActive(owner, world, pos, world.getBlockState(pos), server.random.nextBetween(200, 360));
-                    setCooldown(echoerCooldown);
+                    setCooldown(getCooldown(this.getOwner(), echoerCooldown));
                 }
             }
         }
@@ -231,7 +231,7 @@ public class AncientHornProjectileEntity extends PersistentProjectileEntity {
                     tendril.storedXP = 0;
                     world.createExplosion(this, this.getX(), this.getY(), this.getZ(), 3, Explosion.DestructionType.BREAK);
                     ExperienceOrbEntity.spawn(server, Vec3d.ofCenter(pos).add(0, 0, 0), XP);
-                    setCooldown(tendrilCooldown);
+                    setCooldown(getCooldown(this.getOwner(), tendrilCooldown));
                     this.setShotFromCrossbow(false);
                     this.remove(RemovalReason.DISCARDED);
                 }
@@ -344,6 +344,7 @@ public class AncientHornProjectileEntity extends PersistentProjectileEntity {
             if (this.isOnFire() && !bl) { entity.setOnFireFor(5); }
             if (entity instanceof WardenEntity warden && entity2!=null) {
                 warden.increaseAngerAt(entity2, 100, true);
+                warden.playSound(SoundEvents.ENTITY_WARDEN_TENDRIL_CLICKS, 5.0F, warden.getSoundPitch());
             } else if (entity.damage(damageSource, (float) i)) {
                 if (bl) { return; }
                 if (entity instanceof LivingEntity livingEntity) {

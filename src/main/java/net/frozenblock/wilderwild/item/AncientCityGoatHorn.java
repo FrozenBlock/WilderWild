@@ -4,6 +4,7 @@ import net.frozenblock.wilderwild.entity.AncientHornProjectileEntity;
 import net.frozenblock.wilderwild.registry.RegisterItems;
 import net.frozenblock.wilderwild.registry.RegisterSounds;
 import net.minecraft.client.item.TooltipContext;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -25,6 +26,14 @@ public class AncientCityGoatHorn extends Item {
     public static final int sensorCooldown = 240;
     public static final int echoerCooldown = 480;
     public static final int tendrilCooldown = 160;
+
+    public static int getCooldown(@Nullable Entity entity, int i) {
+        if (entity != null) {
+            if (entity instanceof PlayerEntity player) {
+                if (player.isCreative()) { return 5; }
+            }
+        } return i;
+    }
 
     public AncientCityGoatHorn(Settings settings) {
         super(settings);
