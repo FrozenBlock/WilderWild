@@ -220,7 +220,11 @@ public class AncientHornProjectileEntity extends PersistentProjectileEntity {
         Vec3d vec3d2 = vec3d3.add(vec3d.multiply(0.08));
         HitResult hitResult = this.world.raycast(new RaycastContext(vec3d3, vec3d2, RaycastContext.ShapeType.COLLIDER, RaycastContext.FluidHandling.NONE, this));
         if (hitResult.getType() == HitResult.Type.BLOCK) {
-            if (world.getBlockState(((BlockHitResult)hitResult).getBlockPos()).isIn(this.NON_COLLIDE)) {
+            BlockState state = world.getBlockState(((BlockHitResult)hitResult).getBlockPos());
+            if (state.isIn(this.NON_COLLIDE) || state.isOf(Blocks.BELL)) {
+                if (state.isOf(Blocks.BELL)) {
+                    ((BellBlock)state.getBlock()).onProjectileHit(world, state, (BlockHitResult)hitResult, this);
+                }
                 return true;
             }
         } return false;
