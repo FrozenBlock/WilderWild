@@ -32,7 +32,9 @@ public class EchoGlassBlock extends TintedGlassBlock {
     public void randomTick(BlockState state, ServerWorld world, BlockPos pos, AbstractRandom random) {
         int light = getLightLevel(world, pos);
         if (light<=7) {
-            heal(world, pos);
+            if (random.nextBoolean()) {
+                heal(world, pos);
+            }
         } else {
             damage(world, pos);
         }
