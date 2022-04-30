@@ -4,10 +4,8 @@ import io.netty.buffer.Unpooled;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.frozenblock.wilderwild.WildClientMod;
 import net.frozenblock.wilderwild.WilderWild;
-import net.frozenblock.wilderwild.registry.RegisterEntities;
-import net.frozenblock.wilderwild.registry.RegisterItems;
-import net.frozenblock.wilderwild.registry.RegisterProperties;
-import net.frozenblock.wilderwild.registry.RegisterSounds;
+import net.frozenblock.wilderwild.block.SculkEchoerBlock;
+import net.frozenblock.wilderwild.registry.*;
 import net.frozenblock.wilderwild.tag.WildBlockTags;
 import net.minecraft.block.*;
 import net.minecraft.enchantment.EnchantmentHelper;
@@ -173,29 +171,39 @@ public class AncientHornProjectileEntity extends PersistentProjectileEntity {
         this.inGround = true;
         this.shake = 7;
         this.setCritical(false);
-        if (blockState.getBlock()==Blocks.SCULK_SHRIEKER) {
-            BlockPos pos = blockHitResult.getBlockPos();
-            if (blockState.get(RegisterProperties.SOULS_TAKEN)<2 && !blockState.get(SculkShriekerBlock.SHRIEKING) && world instanceof ServerWorld server) {
-                server.setBlockState(pos, blockState.with(RegisterProperties.SOULS_TAKEN, blockState.get(RegisterProperties.SOULS_TAKEN) + 1));
-                server.spawnParticles(ParticleTypes.SCULK_SOUL, (double)pos.getX() + 0.5D, (double)pos.getY() + 1.15D, (double)pos.getZ() + 0.5D, 2, 0.2D, 0.0D, 0.2D, 0.0D);
-                trySpawnWarden(server, pos);
-                WardenEntity.addDarknessToClosePlayers(server, Vec3d.ofCenter(this.getBlockPos()), null, 40);
-                server.syncWorldEvent(3007, pos, 0);
-                server.emitGameEvent(GameEvent.SHRIEK, pos, GameEvent.Emitter.of(this.getOwner()));
-                setCooldown(shriekerCooldown);
-                this.setSound(RegisterSounds.ANCIENT_HORN_VIBRATION_DISSAPATE);
-                this.setShotFromCrossbow(false);
-                this.remove(RemovalReason.DISCARDED);
+        Entity owner = this.getOwner();
+        if (world instanceof ServerWorld server) {
+            if (blockState.getBlock() == Blocks.SCULK_SHRIEKER) {
+                BlockPos pos = blockHitResult.getBlockPos();
+                if (blockState.get(RegisterProperties.SOULS_TAKEN) < 2 && !blockState.get(SculkShriekerBlock.SHRIEKING)) {
+                    server.setBlockState(pos, blockState.with(RegisterProperties.SOULS_TAKEN, blockState.get(RegisterProperties.SOULS_TAKEN) + 1));
+                    server.spawnParticles(ParticleTypes.SCULK_SOUL, (double) pos.getX() + 0.5D, (double) pos.getY() + 1.15D, (double) pos.getZ() + 0.5D, 2, 0.2D, 0.0D, 0.2D, 0.0D);
+                    trySpawnWarden(server, pos);
+                    WardenEntity.addDarknessToClosePlayers(server, Vec3d.ofCenter(this.getBlockPos()), null, 40);
+                    server.syncWorldEvent(3007, pos, 0);
+                    server.emitGameEvent(GameEvent.SHRIEK, pos, GameEvent.Emitter.of(owner));
+                    setCooldown(shriekerCooldown);
+                    this.setSound(RegisterSounds.ANCIENT_HORN_VIBRATION_DISSAPATE);
+                    this.setShotFromCrossbow(false);
+                    this.remove(RemovalReason.DISCARDED);
+                }
             }
-        }
-        if (blockState.getBlock()==Blocks.SCULK_SENSOR && world instanceof ServerWorld server) {
-            BlockPos pos = blockHitResult.getBlockPos();
-            server.setBlockState(pos, blockState.with(RegisterProperties.NOT_HICCUPPING, false));
-            if (SculkSensorBlock.isInactive(blockState)) {
-                SculkSensorBlock.setActive(null, world, pos, world.getBlockState(pos), (int)(Math.random()*15));
-                world.emitGameEvent(null, GameEvent.SCULK_SENSOR_TENDRILS_CLICKING, pos);
-                world.emitGameEvent(null, WilderWild.SCULK_SENSOR_ACTIVATE, pos);
-                setCooldown(sensorCooldown);
+            if (blockState.getBlock() == Blocks.SCULK_SENSOR) {
+                BlockPos pos = blockHitResult.getBlockPos();
+                server.setBlockState(pos, blockState.with(RegisterProperties.NOT_HICCUPPING, false));
+                if (SculkSensorBlock.isInactive(blockState)) {
+                    SculkSensorBlock.setActive(null, world, pos, world.getBlockState(pos), (int) (Math.random() * 15));
+                    world.emitGameEvent(owner, GameEvent.SCULK_SENSOR_TENDRILS_CLICKING, pos);
+                    world.emitGameEvent(owner, WilderWild.SCULK_SENSOR_ACTIVATE, pos);
+                    setCooldown(sensorCooldown);
+                }
+            }
+            if (blockState.getBlock() == RegisterBlocks.SCULK_ECHOER) {
+                BlockPos pos = blockHitResult.getBlockPos();
+                if (SculkEchoerBlock.isInactive(blockState)) {
+                    SculkEchoerBlock.setActive(owner, world, pos, world.getBlockState(pos), server.random.nextBetween(120, 240));
+                    setCooldown(echoerCooldown);
+                }
             }
         }
         this.setSound(RegisterSounds.ANCIENT_HORN_VIBRATION_DISSAPATE);
