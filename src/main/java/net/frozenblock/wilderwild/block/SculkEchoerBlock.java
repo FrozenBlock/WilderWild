@@ -192,6 +192,7 @@ public class SculkEchoerBlock extends BlockWithEntity implements Waterloggable {
         BlockEntity entity1 = world.getBlockEntity(pos);
         if (entity1 instanceof SculkEchoerBlockEntity echoer) {
             echoer.echoBubblesLeft = bubbles;
+            echoer.bigBubble = true;
         }
         if (canRun) {
             world.setBlockState(pos, state.with(SCULK_ECHOER_PHASE, SculkEchoerPhase.ACTIVE), 3);

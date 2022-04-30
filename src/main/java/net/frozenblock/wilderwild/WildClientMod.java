@@ -54,6 +54,8 @@ public class WildClientMod implements ClientModInitializer {
         ParticleFactoryRegistry.getInstance().register(RegisterParticles.POLLEN, PollenParticle.PollenFactory::new);
         ParticleFactoryRegistry.getInstance().register(RegisterParticles.ECHOING_BUBBLE, EchoingBubbleParticle.BubbleFactory::new);
         ParticleFactoryRegistry.getInstance().register(RegisterParticles.ECHOING_BUBBLE_DOWNWARDS, EchoingBubbleParticle.DownwardsBubbleFactory::new);
+        ParticleFactoryRegistry.getInstance().register(RegisterParticles.BIG_ECHOING_BUBBLE, EchoingBubbleParticle.BigBubbleFactory::new);
+        ParticleFactoryRegistry.getInstance().register(RegisterParticles.BIG_ECHOING_BUBBLE_DOWNWARDS, EchoingBubbleParticle.BigDownwardsBubbleFactory::new);
         EntityRendererRegistry.register(RegisterEntities.TENDRIL_ENTITY, SculkSensorTendrilRenderer::new);
         EntityModelLayerRegistry.registerModelLayer(SENSOR_TENDRILS_LAYER, SculkSensorTendrilModel::getTexturedModelData);
         EntityRendererRegistry.register(RegisterEntities.ANCIENT_HORN_PROJECTILE_ENTITY, AncientHornProjectileRenderer::new);

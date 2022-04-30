@@ -35,7 +35,9 @@ public class SculkEchoerBlockEntity extends BlockEntity implements SculkSensorLi
     private SculkSensorListener listener;
     private int lastVibrationFreq;
     public int echoBubblesLeft;
+    public boolean bigBubble;
     public IntArrayList bubbleTicks = new IntArrayList();
+    public IntArrayList bubbleSizes = new IntArrayList();
     public SculkEchoerBlockEntity(BlockPos pos, BlockState state) {
         super(RegisterBlockEntityType.SCULK_ECHOER, pos, state);
         this.listener = new SculkSensorListener(new BlockPositionSource(this.pos), ((SculkEchoerBlock)state.getBlock()).getRange(), this, null, 0, 0);
@@ -46,27 +48,35 @@ public class SculkEchoerBlockEntity extends BlockEntity implements SculkSensorLi
             boolean upsidedown = state.get(RegisterProperties.UPSIDE_DOWN);
             this.getEventListener().tick(world);
             if (this.echoBubblesLeft > 0) {
-                int decrease = 1;
-                if (this.echoBubblesLeft>1 && Math.random()>0.55) { decrease = 2; }
-                for (int i=0; i<decrease; i++) {
-                    --this.echoBubblesLeft;
-                    if (!upsidedown) {
-                        server.spawnParticles(RegisterParticles.ECHOING_BUBBLE, (double) pos.getX() + 0.5D, (double) pos.getY() + 0.8D, (double) pos.getZ() + 0.5D, 1, 0.0D, 0.0D, 0.0D, 0.05D);
-                    } else {
-                        server.spawnParticles(RegisterParticles.ECHOING_BUBBLE_DOWNWARDS, (double) pos.getX() + 0.5D, (double) pos.getY() + 0.2D, (double) pos.getZ() + 0.5D, 1, 0.0D, 0.0D, 0.0D, 0.05D);
-                    }
-                    this.bubbleTicks.add(29);
+                int size = 0;
+                if (bigBubble) { size = 1; bigBubble = false; }
+                --this.echoBubblesLeft;
+                if (!upsidedown) {
+                    if (size==1) { server.spawnParticles(RegisterParticles.BIG_ECHOING_BUBBLE, (double) pos.getX() + 0.5D, (double) pos.getY() + 0.8D, (double) pos.getZ() + 0.5D, 1, 0.0D, 0.0D, 0.0D, 0.05D); }
+                    else { server.spawnParticles(RegisterParticles.ECHOING_BUBBLE, (double) pos.getX() + 0.5D, (double) pos.getY() + 0.8D, (double) pos.getZ() + 0.5D, 1, 0.0D, 0.0D, 0.0D, 0.05D); }
+                } else {
+                    if (size==1) { server.spawnParticles(RegisterParticles.BIG_ECHOING_BUBBLE_DOWNWARDS, (double) pos.getX() + 0.5D, (double) pos.getY() + 0.2D, (double) pos.getZ() + 0.5D, 1, 0.0D, 0.0D, 0.0D, 0.05D); }
+                    else { server.spawnParticles(RegisterParticles.ECHOING_BUBBLE_DOWNWARDS, (double) pos.getX() + 0.5D, (double) pos.getY() + 0.2D, (double) pos.getZ() + 0.5D, 1, 0.0D, 0.0D, 0.0D, 0.05D); }
                 }
+                this.bubbleTicks.add(29);
+                this.bubbleSizes.add(size);
             }
             if (!bubbleTicks.isEmpty()) {
                 for (int i : bubbleTicks) {
                     int index = bubbleTicks.indexOf(i);
+                    int sizeIndex = bubbleSizes.indexOf(i);
+                    int size = bubbleSizes.getInt(sizeIndex);
                     bubbleTicks.set(index, i - 1);
                     if (i - 1 <= 0) {
                         if (!upsidedown) {
                             world.emitGameEvent(null, WilderWild.SCULK_ECHOER_ECHO, pos.add(0.5, 1.5, 0.5));
-                        } else { world.emitGameEvent(null, WilderWild.SCULK_ECHOER_ECHO, pos.add(0.5, -0.5, 0.5)); }
+                            if (size>0) { world.emitGameEvent(null, WilderWild.SCULK_ECHOER_LOUD_ECHO, pos.add(0.5, 1.5, 0.5));  }
+                        } else {
+                            world.emitGameEvent(null, WilderWild.SCULK_ECHOER_ECHO, pos.add(0.5, -0.5, 0.5));
+                            if (size>0) { world.emitGameEvent(null, WilderWild.SCULK_ECHOER_LOUD_ECHO, pos.add(0.5, -0.5, 0.5));  }
+                        }
                         bubbleTicks.removeInt(index);
+                        bubbleSizes.removeInt(sizeIndex);
                     }
                 }
             }
@@ -82,6 +92,8 @@ public class SculkEchoerBlockEntity extends BlockEntity implements SculkSensorLi
         this.lastVibrationFreq = nbt.getInt("last_vibration_frequency");
         this.echoBubblesLeft = nbt.getInt("echoBubblesLeft");
         this.bubbleTicks = IntArrayList.wrap(nbt.getIntArray("bubbleTicks"));
+        this.bubbleSizes = IntArrayList.wrap(nbt.getIntArray("bubbleSizes"));
+        this.bigBubble = nbt.getBoolean("bigBubble");
         if (nbt.contains("listener", 10)) {
             DataResult<?> var10000 = SculkSensorListener.createCodec(this).parse(new Dynamic<>(NbtOps.INSTANCE, nbt.getCompound("listener")));
             Logger var10001 = LOGGER;
@@ -97,6 +109,8 @@ public class SculkEchoerBlockEntity extends BlockEntity implements SculkSensorLi
         nbt.putInt("last_vibration_frequency", this.lastVibrationFreq);
         nbt.putInt("echoBubblesLeft", this.echoBubblesLeft);
         nbt.putIntArray("bubbleTicks", this.bubbleTicks);
+        nbt.putIntArray("bubbleSizes", this.bubbleSizes);
+        nbt.putBoolean("bigBubble", this.bigBubble);
         DataResult<?> var10000 = SculkSensorListener.createCodec(this).encodeStart(NbtOps.INSTANCE, this.listener);
         Logger var10001 = LOGGER;
         Objects.requireNonNull(var10001);
