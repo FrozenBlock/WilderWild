@@ -12,9 +12,14 @@ import net.minecraft.particle.ParticleTypes;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.Unit;
+import net.minecraft.util.hit.BlockHitResult;
+import net.minecraft.util.hit.HitResult;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
+import net.minecraft.world.BlockStateRaycastContext;
+import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Overwrite;
 import org.spongepowered.asm.mixin.Shadow;
@@ -33,19 +38,20 @@ public class SonicBoomTaskMixin {
                 Vec3d vec3d = wardenEntity.getPos().add(0.0D, 1.600000023841858D, 0.0D);
                 Vec3d vec3d2 = target.getEyePos().subtract(vec3d);
                 Vec3d vec3d3 = vec3d2.normalize();
+
                 boolean blocked = false;
                 for(int i = 1; i < MathHelper.floor(vec3d2.length()) + 7; ++i) {
                     Vec3d vec3d4 = vec3d.add(vec3d3.multiply(i));
                     serverWorld.spawnParticles(ParticleTypes.SONIC_BOOM, vec3d4.x, vec3d4.y, vec3d4.z, 1, 0.0D, 0.0D, 0.0D, 0.0D);
-                    BlockPos checkBlockedPos = new BlockPos(vec3d4);
-                    if (serverWorld.getBlockState(checkBlockedPos).isOf(RegisterBlocks.ECHO_GLASS)) {
+                    BlockPos hitPos = isOccluded(serverWorld, vec3d, vec3d4);
+                    if (hitPos!=null) {
                         blocked=true;
                         i = MathHelper.floor(vec3d2.length()) + 10;
-                        BlockState state = serverWorld.getBlockState(checkBlockedPos);
+                        BlockState state = serverWorld.getBlockState(hitPos);
                         if (state.get(RegisterProperties.DAMAGE)==3) {
-                            serverWorld.breakBlock(checkBlockedPos, false);
+                            serverWorld.breakBlock(hitPos, false);
                         } else {
-                            serverWorld.setBlockState(checkBlockedPos, state.with(RegisterProperties.DAMAGE, state.get(RegisterProperties.DAMAGE) + 1));
+                            serverWorld.setBlockState(hitPos, state.with(RegisterProperties.DAMAGE, state.get(RegisterProperties.DAMAGE) + 1));
                         }
                     }
                 }
@@ -59,6 +65,26 @@ public class SonicBoomTaskMixin {
                 }
             });
         }
+    }
+
+    private static BlockPos isOccluded(World world, Vec3d start, Vec3d end) {
+        Vec3d vec3d = new Vec3d((double)MathHelper.floor(start.x) + 0.5D, (double)MathHelper.floor(start.y) + 0.5D, (double)MathHelper.floor(start.z) + 0.5D);
+        Vec3d vec3d2 = new Vec3d((double)MathHelper.floor(end.x) + 0.5D, (double)MathHelper.floor(end.y) + 0.5D, (double)MathHelper.floor(end.z) + 0.5D);
+        Direction[] var5 = Direction.values();
+        int var6 = var5.length;
+        BlockPos hitPos = null;
+        boolean blocked = true;
+        for(int var7 = 0; var7 < var6; ++var7) {
+            Direction direction = var5[var7];
+            Vec3d vec3d3 = vec3d.withBias(direction, 9.999999747378752E-6D);
+            BlockHitResult hit = world.raycast(new BlockStateRaycastContext(vec3d3, vec3d2, (state) -> state.isOf(RegisterBlocks.ECHO_GLASS)));
+            if (hit.getType() != HitResult.Type.BLOCK) {
+                blocked = false;
+            } else { hitPos = hit.getBlockPos(); }
+        }
+        if (blocked) {
+            return hitPos;
+        } else {return null;}
     }
 
 }
