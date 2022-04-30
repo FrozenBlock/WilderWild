@@ -84,7 +84,8 @@ public abstract class RegisterBlocks {
     );
     public static final Block ECHO_GLASS = registerBlock("echo_glass",
             new EchoGlassBlock(AbstractBlock.Settings
-                    .of(Material.GLASS, MapColor.CYAN)
+                    .copy(Blocks.TINTED_GLASS)
+                    .mapColor(MapColor.CYAN)
                     .sounds(BlockSoundGroup.GLASS)),
             ItemGroup.DECORATIONS
     );
