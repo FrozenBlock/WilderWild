@@ -1,6 +1,7 @@
 package net.frozenblock.wilderwild.block;
 
 import net.frozenblock.wilderwild.registry.RegisterProperties;
+import net.frozenblock.wilderwild.registry.RegisterSounds;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.TintedGlassBlock;
@@ -41,7 +42,7 @@ public class EchoGlassBlock extends TintedGlassBlock {
         BlockState state = world.getBlockState(pos);
         if (state.get(DAMAGE)<3) {
             world.setBlockState(pos, state.with(DAMAGE, state.get(DAMAGE) + 1));
-            world.playSound(null, pos, SoundEvents.BLOCK_GLASS_BREAK, SoundCategory.BLOCKS, 1.0F, 1.0F);
+            world.playSound(null, pos, RegisterSounds.BLOCK_ECHO_GLASS_CRACK, SoundCategory.BLOCKS, 1.0F, 1.0F);
         } else {
             world.breakBlock(pos, false);
         }
@@ -50,7 +51,14 @@ public class EchoGlassBlock extends TintedGlassBlock {
         BlockState state = world.getBlockState(pos);
         if (state.get(DAMAGE)>0) {
             world.setBlockState(pos, state.with(DAMAGE, state.get(DAMAGE) - 1));
-            //Echo Glass Healing Sound Here
+            world.playSound(
+                    null,
+                    pos,
+                    RegisterSounds.BLOCK_ECHO_GLASS_REPAIR,
+                    SoundCategory.BLOCKS,
+                    1.0F,
+                    world.random.nextFloat() * 0.1F + 0.9F
+            );
         }
     }
 

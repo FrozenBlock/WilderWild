@@ -19,6 +19,9 @@ public class RegisterSounds {
     public static final SoundEvent BLOCK_HANGING_TENDRIL_FALL = new SoundEvent(new Identifier(WilderWild.MOD_ID, "block.hanging_tendril.fall"));
     public static final SoundEvent BLOCK_HANGING_TENDRIL_WRING = new SoundEvent(new Identifier(WilderWild.MOD_ID, "block.hanging_tendril.wring"));
 
+    public static final SoundEvent BLOCK_ECHO_GLASS_CRACK = new SoundEvent(new Identifier(WilderWild.MOD_ID, "block.echo_glass.crack"));
+    public static final SoundEvent BLOCK_ECHO_GLASS_REPAIR = new SoundEvent(new Identifier(WilderWild.MOD_ID, "block.echo_glass.repair"));
+
     public static final SoundEvent BLOCK_SCULK_JAW_CLAMP = new SoundEvent(new Identifier(WilderWild.MOD_ID, "block.sculk_jaw.clamp"));
     public static final SoundEvent BLOCK_SCULK_JAW_RETRACT = new SoundEvent(new Identifier(WilderWild.MOD_ID, "block.sculk_jaw.retract"));
 

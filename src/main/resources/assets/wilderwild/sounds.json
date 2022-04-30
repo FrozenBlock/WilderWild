@@ -1,4 +1,19 @@
 {
+	"block.echo_glass.crack": {
+		"sounds": [
+			"wilderwild:block/echo_glass/crack1",
+			"wilderwild:block/echo_glass/crack2",
+			"wilderwild:block/echo_glass/crack3",
+			"wilderwild:block/echo_glass/crack4"
+		]
+	},
+	"block.echo_glass.repair": {
+		"sounds": [
+			"wilderwild:block/echo_glass/repair1",
+			"wilderwild:block/echo_glass/repair2",
+			"wilderwild:block/echo_glass/repair3"
+		]
+	},
 	"block.hanging_tendril.break": {
 		"sounds": [
 			"wilderwild:block/hanging_tendril/break1",
