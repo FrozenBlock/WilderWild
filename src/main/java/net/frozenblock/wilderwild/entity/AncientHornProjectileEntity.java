@@ -221,8 +221,8 @@ public class AncientHornProjectileEntity extends PersistentProjectileEntity {
     public boolean isTouchingWater() { return true; }
     public boolean isNoClip() {
         BlockState insideState = world.getBlockState(this.getBlockPos());
-        BlockPos pos = this.getBlockPos();
         if (insideState.isOf(RegisterBlocks.HANGING_TENDRIL) && world instanceof ServerWorld server) {
+            BlockPos pos = this.getBlockPos();
             BlockEntity entity = world.getBlockEntity(pos);
             if (entity instanceof HangingTendrilBlockEntity tendril) {
                 this.playSound(this.getSound(), 1.0F, 1.2F / (this.random.nextFloat() * 0.2F + 0.9F));
@@ -237,7 +237,7 @@ public class AncientHornProjectileEntity extends PersistentProjectileEntity {
                 }
             }
         }
-        if (insideState.isIn(this.NON_COLLIDE) || nonSolidAndNotSculk(world, pos)) {
+        if (insideState.isIn(this.NON_COLLIDE)) {
             if (world instanceof ServerWorld server) {
                 if (insideState.isOf(Blocks.BELL)) {
                     ((BellBlock) insideState.getBlock()).onProjectileHit(server, insideState, this.world.raycast(new RaycastContext(this.getPos(), new Vec3d(this.getBlockX(), this.getBlockY(), this.getBlockZ()), RaycastContext.ShapeType.COLLIDER, RaycastContext.FluidHandling.NONE, this)), this);
@@ -254,11 +254,6 @@ public class AncientHornProjectileEntity extends PersistentProjectileEntity {
                 return true;
             }
         } return false;
-    }
-    public static boolean nonSolidAndNotSculk(World world, BlockPos pos) {
-        BlockState state = world.getBlockState(pos);
-        if (state.isOf(Blocks.SCULK_SENSOR) || state.isOf(Blocks.SCULK_SHRIEKER) || state.isOf(RegisterBlocks.SCULK_ECHOER)) { return false; }
-        return state.isSolidBlock(world, pos);
     }
     private boolean shouldLeaveOwner() {
         Entity entity = this.getOwner();
