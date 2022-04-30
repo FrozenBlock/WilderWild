@@ -114,7 +114,7 @@ public class SculkEchoerBlock extends BlockWithEntity implements Waterloggable {
     @Override
     public void onSteppedOn( World world, BlockPos pos, BlockState state, Entity entity) {
         if (!world.isClient() && isInactive(state) && entity.getType() != EntityType.WARDEN) {
-            setActive(entity, world, pos, state, 1);
+            setActive(entity, world, pos, state, 5);
         }
         super.onSteppedOn(world, pos, state, entity);
     }
@@ -175,7 +175,7 @@ public class SculkEchoerBlock extends BlockWithEntity implements Waterloggable {
 
     public static void setCooldown(World world, BlockPos pos, BlockState state) {
         world.setBlockState(pos, state.with(SCULK_ECHOER_PHASE, SculkEchoerPhase.COOLDOWN), 3);
-        world.createAndScheduleBlockTick(pos, state.getBlock(), 1);
+        world.createAndScheduleBlockTick(pos, state.getBlock(), 20);
         if (!state.get(WATERLOGGED)) {
             world.playSound(null, (double)pos.getX() + 0.5, (double)pos.getY() + 0.5, (double)pos.getZ() + 0.5, SoundEvents.BLOCK_SCULK_SENSOR_CLICKING_STOP, SoundCategory.BLOCKS, 1.0F, world.random.nextFloat() * 0.1F + 0.7F);
             world.playSound(null, (double)pos.getX() + 0.5, (double)pos.getY() + 0.5, (double)pos.getZ() + 0.5, SoundEvents.BLOCK_SCULK_CHARGE, SoundCategory.BLOCKS, 0.5F, world.random.nextFloat() * 0.1F + 0.9F * 0.5F);
@@ -184,18 +184,19 @@ public class SculkEchoerBlock extends BlockWithEntity implements Waterloggable {
         updateNeighbors(world, pos);
     }
 
-    public static void setActive(@Nullable Entity entity, World world, BlockPos pos, BlockState state, int power) {
+    public static void setActive(@Nullable Entity entity, World world, BlockPos pos, BlockState state, int bubbles) {
         boolean canRun = true;
         if (entity!=null) {
             if (entity instanceof WardenEntity) { canRun=false; }
         }
-
+        BlockEntity entity1 = world.getBlockEntity(pos);
+        if (entity1 instanceof SculkEchoerBlockEntity echoer) {
+            echoer.echoBubblesLeft = bubbles;
+        }
         if (canRun) {
             world.setBlockState(pos, state.with(SCULK_ECHOER_PHASE, SculkEchoerPhase.ACTIVE), 3);
             world.createAndScheduleBlockTick(pos, state.getBlock(), 40);
             updateNeighbors(world, pos);
-            world.emitGameEvent(entity, GameEvent.SCULK_SENSOR_TENDRILS_CLICKING, pos);
-            world.emitGameEvent(entity, WilderWild.SCULK_ECHOER_ECHO, pos);
             world.playSound(null, pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, RegisterSounds.BLOCK_SCULK_ECHOER_RECEIVE_VIBRATION, SoundCategory.BLOCKS, 1.0F, world.random.nextFloat() * 0.1F + 0.9F);
         }
     }
@@ -260,7 +261,7 @@ public class SculkEchoerBlock extends BlockWithEntity implements Waterloggable {
     @Nullable
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(World world, BlockState state, BlockEntityType<T> type) {
         return !world.isClient ? checkType(type, RegisterBlockEntityType.SCULK_ECHOER, (worldx, pos, statex, blockEntity) -> {
-            blockEntity.getEventListener().tick(worldx);
+            blockEntity.tick(worldx, pos, statex);
         }) : null;
     }
 }
