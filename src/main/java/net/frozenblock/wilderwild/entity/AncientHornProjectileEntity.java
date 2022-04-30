@@ -258,7 +258,7 @@ public class AncientHornProjectileEntity extends PersistentProjectileEntity {
     public static boolean nonSolidAndNotSculk(World world, BlockPos pos) {
         BlockState state = world.getBlockState(pos);
         if (state.isOf(Blocks.SCULK_SENSOR) || state.isOf(Blocks.SCULK_SHRIEKER) || state.isOf(RegisterBlocks.SCULK_ECHOER)) { return false; }
-        return !state.isSolidBlock(world, pos);
+        return state.isSolidBlock(world, pos);
     }
     private boolean shouldLeaveOwner() {
         Entity entity = this.getOwner();
