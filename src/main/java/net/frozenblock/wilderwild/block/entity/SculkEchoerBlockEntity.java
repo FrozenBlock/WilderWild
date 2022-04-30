@@ -61,7 +61,7 @@ public class SculkEchoerBlockEntity extends BlockEntity implements SculkSensorLi
                 this.bubbleTicks.add(29);
                 this.bubbleSizes.add(size);
             }
-            if (!bubbleTicks.isEmpty()) {
+            if (!bubbleTicks.isEmpty() && !bubbleSizes.isEmpty()) {
                 for (int i : bubbleTicks) {
                     int index = bubbleTicks.indexOf(i);
                     int sizeIndex = bubbleSizes.indexOf(i);
