@@ -20,7 +20,7 @@ public class SculkSensorBlockMixin {
      */
     @Overwrite
     public void appendProperties(StateManager.Builder<Block, BlockState> builder) {
-        builder.add(SCULK_SENSOR_PHASE, POWER, WATERLOGGED, RegisterProperties.NOT_HICCUPING);
+        builder.add(SCULK_SENSOR_PHASE, POWER, WATERLOGGED, RegisterProperties.NOT_HICCUPPING);
     }
 
 }

@@ -90,7 +90,7 @@ public class WardenEntityMixin {
         WardenEntity warden = WardenEntity.class.cast(this);
         int additionalAnger = 0;
         if (world.getBlockState(pos).isOf(Blocks.SCULK_SENSOR)) {
-            if (!world.getBlockState(pos).get(RegisterProperties.NOT_HICCUPING)) { additionalAnger=65; }
+            if (!world.getBlockState(pos).get(RegisterProperties.NOT_HICCUPPING)) { additionalAnger=65; }
         }
         warden.getBrain().remember(MemoryModuleType.VIBRATION_COOLDOWN, Unit.INSTANCE, 40L);
         world.sendEntityStatus(warden, (byte)61);

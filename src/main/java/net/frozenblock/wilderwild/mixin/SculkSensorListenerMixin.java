@@ -4,9 +4,12 @@ import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.entity.SculkSensorTendrilEntity;
 import net.frozenblock.wilderwild.registry.RegisterEntities;
 import net.frozenblock.wilderwild.registry.RegisterProperties;
+import net.frozenblock.wilderwild.registry.RegisterSounds;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.SculkSensorBlock;
 import net.minecraft.server.world.ServerWorld;
+import net.minecraft.sound.SoundCategory;
+import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Box;
 import net.minecraft.util.math.Vec3d;
@@ -32,10 +35,11 @@ public class SculkSensorListenerMixin {
             if (pos.isPresent()) {
                 BlockPos blockPos = new BlockPos(pos.get());
                 if (world.getBlockState(blockPos).isOf(Blocks.SCULK_SENSOR)) {
-                    if (SculkSensorBlock.isInactive(world.getBlockState(blockPos)) && !world.getBlockState(blockPos).get(RegisterProperties.NOT_HICCUPING) && world.random.nextInt(150)<=1) {
+                    if (SculkSensorBlock.isInactive(world.getBlockState(blockPos)) && !world.getBlockState(blockPos).get(RegisterProperties.NOT_HICCUPPING) && world.random.nextInt(150)<=1) {
                         SculkSensorBlock.setActive(null, world, blockPos, world.getBlockState(blockPos), (int)(Math.random()*15));
                         world.emitGameEvent(null, GameEvent.SCULK_SENSOR_TENDRILS_CLICKING, blockPos);
-                        world.emitGameEvent(null, WilderWild.SCULK_SENSOR_ACTIVATE, blockPos);
+                        world.emitGameEvent(null, WilderWild.SCULK_SENSOR_HICCUP, blockPos);
+                        world.playSound(null, blockPos, RegisterSounds.BLOCK_SCULK_SENSOR_HICCUP, SoundCategory.BLOCKS, 1.0F, world.random.nextFloat() * 0.1F + 0.7F);
                     }
                     Box box = (new Box(blockPos.add(0, 0, 0), blockPos.add(1, 1, 1)));
                     List<SculkSensorTendrilEntity> list = world.getNonSpectatingEntities(SculkSensorTendrilEntity.class, box);

@@ -22,6 +22,8 @@ public class RegisterSounds {
     public static final SoundEvent BLOCK_SCULK_JAW_CLAMP = new SoundEvent(new Identifier(WilderWild.MOD_ID, "block.sculk_jaw.clamp"));
     public static final SoundEvent BLOCK_SCULK_JAW_RETRACT = new SoundEvent(new Identifier(WilderWild.MOD_ID, "block.sculk_jaw.retract"));
 
+    public static final SoundEvent BLOCK_SCULK_SENSOR_HICCUP = new SoundEvent(new Identifier(WilderWild.MOD_ID, "block.sculk_sensor.hiccup"));
+
     public static final SoundEvent BLOCK_SCULK_ECHOER_RECEIVE_VIBRATION = new SoundEvent(new Identifier(WilderWild.MOD_ID, "block.sculk_echoer.receive_vibration"));
 
     public static final SoundEvent ANCIENT_HORN_CALL= new SoundEvent(new Identifier(WilderWild.MOD_ID, "item.ancient_horn.sound.0"));

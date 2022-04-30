@@ -190,7 +190,7 @@ public class AncientHornProjectileEntity extends PersistentProjectileEntity {
         }
         if (blockState.getBlock()==Blocks.SCULK_SENSOR && world instanceof ServerWorld server) {
             BlockPos pos = blockHitResult.getBlockPos();
-            server.setBlockState(pos, blockState.with(RegisterProperties.NOT_HICCUPING, false));
+            server.setBlockState(pos, blockState.with(RegisterProperties.NOT_HICCUPPING, false));
             if (SculkSensorBlock.isInactive(blockState)) {
                 SculkSensorBlock.setActive(null, world, pos, world.getBlockState(pos), (int)(Math.random()*15));
                 world.emitGameEvent(null, GameEvent.SCULK_SENSOR_TENDRILS_CLICKING, pos);
