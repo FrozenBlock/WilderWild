@@ -38,6 +38,8 @@
   "item.wilderwild.ancient_horn": "Ancient Horn",
   "item.wilderwild.ancient_horn.sound.0": "Whirls of the Ancient",
   "subtitles.item.ancient_horn.blast": "Ancient Horn booms",
+  "entity.wilderwild.ancient_horn_projectile": "Booming Vibration",
+  "entity.wilderwild.sculk_sensor_tendril": "Sculk Sensor Tendrils",
 
   "death.attack.ancient_horn": "%1$s got blown too hard by %2$s",
   "death.attack.ancient_horn.item": "%1$s was blown by %2$s using the dangerous %3$s"
