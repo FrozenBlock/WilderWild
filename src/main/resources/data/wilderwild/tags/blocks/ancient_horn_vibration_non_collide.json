@@ -4,6 +4,7 @@
     "minecraft:sculk",
     "wilderwild:osseous_sculk",
     "#c:glass_blocks",
-    "#minecraft:leaves"
+    "#minecraft:leaves",
+    "minecraft:bell"
   ]
 }
