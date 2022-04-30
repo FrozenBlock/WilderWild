@@ -90,7 +90,7 @@ public class SculkEchoerBlockEntity extends BlockEntity implements SculkSensorLi
         super.readNbt(nbt);
         this.lastVibrationFreq = nbt.getInt("last_vibration_frequency");
         this.echoBubblesLeft = nbt.getInt("echoBubblesLeft");
-        this.bubbleTicks = IntArrayList.wrap(nbt.getIntArray("bubbleTicks"));
+        this.bubbleTicks = IntArrayList.wrap(nbt.getIntArray("bubbleTicksLeft"));
         this.bubbleSizes = IntArrayList.wrap(nbt.getIntArray("bubbleSizes"));
         this.bigBubble = nbt.getBoolean("bigBubble");
         if (nbt.contains("listener", 10)) {
@@ -107,7 +107,7 @@ public class SculkEchoerBlockEntity extends BlockEntity implements SculkSensorLi
         super.writeNbt(nbt);
         nbt.putInt("last_vibration_frequency", this.lastVibrationFreq);
         nbt.putInt("echoBubblesLeft", this.echoBubblesLeft);
-        nbt.putIntArray("bubbleTicks", this.bubbleTicks);
+        nbt.putIntArray("bubbleTicksLeft", this.bubbleTicks);
         nbt.putIntArray("bubbleSizes", this.bubbleSizes);
         nbt.putBoolean("bigBubble", this.bigBubble);
         DataResult<?> var10000 = SculkSensorListener.createCodec(this).encodeStart(NbtOps.INSTANCE, this.listener);
