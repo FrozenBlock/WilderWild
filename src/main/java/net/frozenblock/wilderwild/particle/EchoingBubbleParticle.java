@@ -26,8 +26,10 @@ public class EchoingBubbleParticle extends AbstractSlowingParticle {
 
     public void setSpriteForAge(SpriteProvider spriteProvider) {
         if (!this.dead) {
-            int i = Math.max(1, this.age-(this.maxAge-4));
-            this.setSprite(spriteProvider.getSprite(i, 6));
+            int i = this.age;
+            if (this.age<=26 && this.age>3) { i=3; }
+            if (this.age>=27) { i=this.age-23;}
+            this.setSprite(spriteProvider.getSprite(i, 7));
         }
     }
 

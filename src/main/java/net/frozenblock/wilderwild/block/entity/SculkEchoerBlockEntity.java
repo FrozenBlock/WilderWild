@@ -58,7 +58,7 @@ public class SculkEchoerBlockEntity extends BlockEntity implements SculkSensorLi
                     if (size==1) { server.spawnParticles(RegisterParticles.BIG_ECHOING_BUBBLE_DOWNWARDS, (double) pos.getX() + 0.5D, (double) pos.getY() + 0.2D, (double) pos.getZ() + 0.5D, 1, 0.0D, 0.0D, 0.0D, 0.05D); }
                     else { server.spawnParticles(RegisterParticles.ECHOING_BUBBLE_DOWNWARDS, (double) pos.getX() + 0.5D, (double) pos.getY() + 0.2D, (double) pos.getZ() + 0.5D, 1, 0.0D, 0.0D, 0.0D, 0.05D); }
                 }
-                this.bubbleTicks.add(29);
+                this.bubbleTicks.add(27);
                 this.bubbleSizes.add(size);
             }
             if (!bubbleTicks.isEmpty() && !bubbleSizes.isEmpty()) {

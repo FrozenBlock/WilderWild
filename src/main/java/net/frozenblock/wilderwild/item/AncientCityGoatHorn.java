@@ -4,6 +4,7 @@ import net.frozenblock.wilderwild.entity.AncientHornProjectileEntity;
 import net.frozenblock.wilderwild.registry.RegisterItems;
 import net.frozenblock.wilderwild.registry.RegisterSounds;
 import net.minecraft.client.item.TooltipContext;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -26,6 +27,14 @@ public class AncientCityGoatHorn extends Item {
     public static final int echoerCooldown = 480;
     public static final int tendrilCooldown = 160;
 
+    public static int getCooldown(@Nullable Entity entity, int i) {
+        if (entity != null) {
+            if (entity instanceof PlayerEntity player) {
+                if (player.isCreative()) { return 5; }
+            }
+        } return i;
+    }
+
     public AncientCityGoatHorn(Settings settings) {
         super(settings);
     }
@@ -39,7 +48,7 @@ public class AncientCityGoatHorn extends Item {
         ItemStack itemStack = user.getStackInHand(hand);
         user.setCurrentHand(hand);
         world.playSoundFromEntity(user, user, RegisterSounds.ANCIENT_HORN_CALL, SoundCategory.RECORDS, 8.0F, 1.0F);
-        user.getItemCooldownManager().set(RegisterItems.ANCIENT_HORN, 100);
+        user.getItemCooldownManager().set(RegisterItems.ANCIENT_HORN, getCooldown(user, 100));
         if (world instanceof ServerWorld server) {
             AncientHornProjectileEntity projectileEntity = new AncientHornProjectileEntity(world, user.getX(), user.getEyeY(), user.getZ());
             projectileEntity.setVelocity(user, user.getPitch(), user.getYaw(), 0.0F, 1.0F, 0.0F);
