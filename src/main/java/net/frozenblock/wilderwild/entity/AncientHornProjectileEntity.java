@@ -28,6 +28,7 @@ import net.minecraft.network.packet.s2c.play.GameStateChangeS2CPacket;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
+import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.tag.TagKey;
 import net.minecraft.util.Identifier;
@@ -35,11 +36,9 @@ import net.minecraft.util.LargeEntitySpawnHelper;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.hit.HitResult;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Box;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.registry.Registry;
-import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.world.GameRules;
 import net.minecraft.world.RaycastContext;
 import net.minecraft.world.World;
@@ -60,9 +59,11 @@ public class AncientHornProjectileEntity extends PersistentProjectileEntity {
 
     public AncientHornProjectileEntity(EntityType<? extends PersistentProjectileEntity> entityType, World world) {
         super(entityType, world);
+        this.setSound(RegisterSounds.ANCIENT_HORN_VIBRATION_DISSAPATE);
     }
     public AncientHornProjectileEntity(World world, double x, double y, double z) {
         super(RegisterEntities.ANCIENT_HORN_PROJECTILE_ENTITY, x, y, z, world);
+        this.setSound(RegisterSounds.ANCIENT_HORN_VIBRATION_DISSAPATE);
     }
     public List<Entity> collidingEntities() {
         return world.getOtherEntities(this, this.getBoundingBox().stretch(this.getVelocity()).expand(1.0D), this::canHit);
@@ -86,27 +87,9 @@ public class AncientHornProjectileEntity extends PersistentProjectileEntity {
         BlockPos blockPos = this.getBlockPos();
         BlockState blockState = this.world.getBlockState(blockPos);
         Vec3d vec3d2;
-        if (!blockState.isAir() && !bl) {
-            VoxelShape voxelShape = blockState.getCollisionShape(this.world, blockPos);
-            if (!voxelShape.isEmpty()) {
-                vec3d2 = this.getPos();
-                for (Box box : voxelShape.getBoundingBoxes()) {
-                    if (box.offset(blockPos).contains(vec3d2)) {
-                        this.inGround = true;
-                        break;
-                    }
-                }
-            }
-        }
+
         if (this.shake > 0) { --this.shake; }
         if (this.isTouchingWaterOrRain() || blockState.isOf(Blocks.POWDER_SNOW)) { this.extinguish(); }
-        if (this.inGround && !bl) {
-            if (this.inBlockState != blockState && this.shouldFall()) {
-                this.fall();
-            } else if (!this.world.isClient) { this.age(); }
-            ++this.inGroundTime;
-        } else {
-            this.inGroundTime = 0;
             Vec3d vec3d3 = this.getPos();
             vec3d2 = vec3d3.add(vec3d);
             HitResult hitResult = this.world.raycast(new RaycastContext(vec3d3, vec3d2, RaycastContext.ShapeType.COLLIDER, RaycastContext.FluidHandling.NONE, this));
@@ -156,7 +139,7 @@ public class AncientHornProjectileEntity extends PersistentProjectileEntity {
             this.setPosition(h, j, k);
             this.checkBlockCollision();
         }
-    }
+
     public boolean canHit(Entity entity) {
         if (!entity.isSpectator() && entity.isAlive() && entity.collides() && !(entity instanceof ProjectileEntity)) {
             Entity entity2 = this.getOwner();
@@ -166,14 +149,6 @@ public class AncientHornProjectileEntity extends PersistentProjectileEntity {
         }
     }
     public void onPlayerCollision(PlayerEntity player) { }
-    private boolean shouldFall() {
-        return this.inGround && this.world.isSpaceEmpty((new Box(this.getPos(), this.getPos())).expand(0.06D));
-    }
-    private void fall() {
-        this.inGround = false;
-        Vec3d vec3d = this.getVelocity();
-        this.setVelocity(vec3d.multiply(this.random.nextFloat() * 0.2F, this.random.nextFloat() * 0.2F, this.random.nextFloat() * 0.2F));
-    }
     protected void onBlockHit(BlockHitResult blockHitResult) {
         this.inBlockState = this.world.getBlockState(blockHitResult.getBlockPos());
         BlockState blockState = this.world.getBlockState(blockHitResult.getBlockPos());
@@ -219,7 +194,9 @@ public class AncientHornProjectileEntity extends PersistentProjectileEntity {
                 entity.playSound(SoundEvents.ENTITY_WARDEN_AGITATED, 5.0F, 1.0F);
             });
         }
-
+    }
+    protected SoundEvent getHitSound() {
+        return RegisterSounds.ANCIENT_HORN_VIBRATION_DISSAPATE;
     }
     public boolean isTouchingWater() { return true; }
     public boolean isNoClip() {
@@ -251,29 +228,32 @@ public class AncientHornProjectileEntity extends PersistentProjectileEntity {
         return ItemStack.EMPTY;
     }
     public void writeCustomDataToNbt(NbtCompound nbt) {
-        super.writeCustomDataToNbt(nbt);
-        if (this.inBlockState != null) {
-            nbt.put("inBlockState", NbtHelper.fromBlockState(this.inBlockState));
+        if (!this.isRemoved()) {
+            if (this.inBlockState != null) {
+                nbt.put("inBlockState", NbtHelper.fromBlockState(this.inBlockState));
+            }
+            nbt.putInt("aliveTicks", this.aliveTicks);
+            if (this.leftOwner) {
+                nbt.putBoolean("LeftOwner", true);
+            }
+            nbt.putBoolean("HasBeenShot", this.shot);
+            nbt.putDouble("originX", this.vecX);
+            nbt.putDouble("originY", this.vecY);
+            nbt.putDouble("originZ", this.vecZ);
         }
-        nbt.putInt("aliveTicks", this.aliveTicks);
-        if (this.leftOwner) {
-            nbt.putBoolean("LeftOwner", true);
-        } nbt.putBoolean("HasBeenShot", this.shot);
-        nbt.putDouble("originX", this.vecX);
-        nbt.putDouble("originY", this.vecY);
-        nbt.putDouble("originZ", this.vecZ);
     }
     public void readCustomDataFromNbt(NbtCompound nbt) {
-        super.readCustomDataFromNbt(nbt);
-        if (nbt.contains("inBlockState", 10)) {
-            this.inBlockState = NbtHelper.toBlockState(nbt.getCompound("inBlockState"));
+        if (!this.isRemoved()) {
+            if (nbt.contains("inBlockState", 10)) {
+                this.inBlockState = NbtHelper.toBlockState(nbt.getCompound("inBlockState"));
+            }
+            this.aliveTicks = nbt.getInt("aliveTicks");
+            this.leftOwner = nbt.getBoolean("LeftOwner");
+            this.shot = nbt.getBoolean("HasBeenShot");
+            this.vecX = nbt.getDouble("originX");
+            this.vecY = nbt.getDouble("originY");
+            this.vecZ = nbt.getDouble("originZ");
         }
-        this.aliveTicks = nbt.getInt("aliveTicks");
-        this.leftOwner = nbt.getBoolean("LeftOwner");
-        this.shot = nbt.getBoolean("HasBeenShot");
-        this.vecX = nbt.getDouble("originX");
-        this.vecY = nbt.getDouble("originY");
-        this.vecZ = nbt.getDouble("originZ");
     }
     public void setVelocity(Entity shooter, float pitch, float yaw, float roll, float speed, float divergence) {
         float f = -MathHelper.sin(yaw * 0.017453292F) * MathHelper.cos(pitch * 0.017453292F);
@@ -335,7 +315,7 @@ public class AncientHornProjectileEntity extends PersistentProjectileEntity {
                     }
                 }
 
-                this.playSound(this.getSound(), 1.0F, 1.2F / (this.random.nextFloat() * 0.2F + 0.9F));
+                this.playSound(RegisterSounds.ANCIENT_HORN_VIBRATION_DISSAPATE, 1.0F, 1.2F / (this.random.nextFloat() * 0.2F + 0.9F));
             } else {
                 entity.setFireTicks(j);
                 if (!this.world.isClient && this.getVelocity().lengthSquared() < 1.0E-7D) {

@@ -160,8 +160,8 @@
 	},
 	"entity.ancient_horn_projectile.dissipate": {
 		"sounds": [
-			"wilderwild:mob/ancient_horn_projectile/dissipate1",
-			"wilderwild:mob/ancient_horn_projectile/dissipate2"
+			"wilderwild:mob/ancient_horn_projectile/dissipate_1",
+			"wilderwild:mob/ancient_horn_projectile/dissipate_2"
 		]
 	},
 	"item.ancient_horn.sound.0": {
