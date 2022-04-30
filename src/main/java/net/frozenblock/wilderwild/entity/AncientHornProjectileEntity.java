@@ -201,7 +201,7 @@ public class AncientHornProjectileEntity extends PersistentProjectileEntity {
             if (blockState.getBlock() == RegisterBlocks.SCULK_ECHOER) {
                 BlockPos pos = blockHitResult.getBlockPos();
                 if (SculkEchoerBlock.isInactive(blockState)) {
-                    SculkEchoerBlock.setActive(owner, world, pos, world.getBlockState(pos), server.random.nextBetween(120, 240));
+                    SculkEchoerBlock.setActive(owner, world, pos, world.getBlockState(pos), server.random.nextBetween(200, 360));
                     setCooldown(echoerCooldown);
                 }
             }
