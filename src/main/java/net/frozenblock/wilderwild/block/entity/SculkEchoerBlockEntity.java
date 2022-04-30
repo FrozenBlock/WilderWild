@@ -121,7 +121,7 @@ public class SculkEchoerBlockEntity extends BlockEntity implements SculkSensorLi
         BlockState blockState = this.getCachedState();
         if (SculkEchoerBlock.isInactive(blockState)) {
             this.lastVibrationFreq = SculkEchoerBlock.FREQUENCIES.getInt(event);
-            SculkEchoerBlock.setActive(entity, world, this.pos, blockState, 3);
+            SculkEchoerBlock.setActive(entity, world, this.pos, blockState, getBubbles(delay, listener.getRange()));
         }
     }
 
@@ -130,7 +130,7 @@ public class SculkEchoerBlockEntity extends BlockEntity implements SculkSensorLi
         this.markDirty();
     }
 
-    public static int getPower(int distance, int range) {
+    public static int getBubbles(int distance, int range) {
         double d = (double)distance / (double)range;
         return Math.max(1, 15 - MathHelper.floor(d * 15.0));
     }
