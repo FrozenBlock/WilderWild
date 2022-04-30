@@ -5,11 +5,14 @@
             "item": "minecraft:echo_shard"
         },
         {
-            "item": "minecraft:glass"
+            "item": "minecraft:tinted_glass"
+        },
+        {
+            "item": "minecraft:tinted_glass"
         }
     ],
     "result": {
         "item": "wilderwild:echo_glass",
-        "count": 1
+        "count": 2
     }
 }
