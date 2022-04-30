@@ -1,7 +1,7 @@
 package net.frozenblock.wilderwild.mixin;
 
+import net.frozenblock.wilderwild.block.EchoGlassBlock;
 import net.frozenblock.wilderwild.registry.RegisterBlocks;
-import net.frozenblock.wilderwild.registry.RegisterProperties;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.ai.brain.MemoryModuleType;
 import net.minecraft.entity.ai.brain.task.SonicBoomTask;
@@ -45,13 +45,11 @@ public class SonicBoomTaskMixin {
                     serverWorld.spawnParticles(ParticleTypes.SONIC_BOOM, vec3d4.x, vec3d4.y, vec3d4.z, 1, 0.0D, 0.0D, 0.0D, 0.0D);
                     BlockPos hitPos = isOccluded(serverWorld, vec3d, vec3d4);
                     if (hitPos!=null) {
-                        blocked=true;
-                        i = MathHelper.floor(vec3d2.length()) + 10;
                         BlockState state = serverWorld.getBlockState(hitPos);
-                        if (state.get(RegisterProperties.DAMAGE)==3) {
-                            serverWorld.breakBlock(hitPos, false);
-                        } else {
-                            serverWorld.setBlockState(hitPos, state.with(RegisterProperties.DAMAGE, state.get(RegisterProperties.DAMAGE) + 1));
+                        if (state.isOf(RegisterBlocks.ECHO_GLASS)) {
+                            i = MathHelper.floor(vec3d2.length()) + 10;
+                            blocked = true;
+                            EchoGlassBlock.damage(serverWorld, hitPos);
                         }
                     }
                 }
