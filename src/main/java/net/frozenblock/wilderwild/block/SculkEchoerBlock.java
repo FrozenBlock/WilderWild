@@ -175,7 +175,7 @@ public class SculkEchoerBlock extends BlockWithEntity implements Waterloggable {
 
     public static void setCooldown(World world, BlockPos pos, BlockState state) {
         world.setBlockState(pos, state.with(SCULK_ECHOER_PHASE, SculkEchoerPhase.COOLDOWN), 3);
-        world.createAndScheduleBlockTick(pos, state.getBlock(), 20);
+        world.createAndScheduleBlockTick(pos, state.getBlock(), 1);
         if (!state.get(WATERLOGGED)) {
             world.playSound(null, (double)pos.getX() + 0.5, (double)pos.getY() + 0.5, (double)pos.getZ() + 0.5, SoundEvents.BLOCK_SCULK_SENSOR_CLICKING_STOP, SoundCategory.BLOCKS, 1.0F, world.random.nextFloat() * 0.1F + 0.7F);
             world.playSound(null, (double)pos.getX() + 0.5, (double)pos.getY() + 0.5, (double)pos.getZ() + 0.5, SoundEvents.BLOCK_SCULK_CHARGE, SoundCategory.BLOCKS, 0.5F, world.random.nextFloat() * 0.1F + 0.9F * 0.5F);
@@ -195,7 +195,7 @@ public class SculkEchoerBlock extends BlockWithEntity implements Waterloggable {
         }
         if (canRun) {
             world.setBlockState(pos, state.with(SCULK_ECHOER_PHASE, SculkEchoerPhase.ACTIVE), 3);
-            world.createAndScheduleBlockTick(pos, state.getBlock(), 40);
+            world.createAndScheduleBlockTick(pos, state.getBlock(), bubbles+44);
             updateNeighbors(world, pos);
             world.playSound(null, pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, RegisterSounds.BLOCK_SCULK_ECHOER_RECEIVE_VIBRATION, SoundCategory.BLOCKS, 1.0F, world.random.nextFloat() * 0.1F + 0.9F);
         }
