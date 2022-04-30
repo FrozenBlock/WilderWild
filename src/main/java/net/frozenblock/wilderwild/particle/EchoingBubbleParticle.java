@@ -14,9 +14,9 @@ public class EchoingBubbleParticle extends AbstractSlowingParticle {
 
     protected EchoingBubbleParticle(ClientWorld clientWorld, double d, double e, double f, double g, double h, double i, SpriteProvider spriteProvider) {
         super(clientWorld, d, e, f, g, h, i);
-        this.velocityX = (Math.random()-0.5)/9;
-        this.velocityZ = (Math.random()-0.5)/9;
-        this.velocityY = 0.05;
+        this.velocityX = (Math.random()-0.5)/9.5;
+        this.velocityZ = (Math.random()-0.5)/9.5;
+        this.velocityY = Math.max((Math.random())*0.06, 0.035);
         this.spriteProvider = spriteProvider;
         this.maxAge=30;
         this.setSpriteForAge(spriteProvider);
