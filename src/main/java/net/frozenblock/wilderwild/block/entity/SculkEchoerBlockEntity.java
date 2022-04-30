@@ -61,11 +61,10 @@ public class SculkEchoerBlockEntity extends BlockEntity implements SculkSensorLi
                 this.bubbleTicks.add(29);
                 this.bubbleSizes.add(size);
             }
-            if (!bubbleTicks.isEmpty()) {
+            if (!bubbleTicks.isEmpty() && !bubbleSizes.isEmpty()) {
                 for (int i : bubbleTicks) {
                     int index = bubbleTicks.indexOf(i);
-                    int sizeIndex = bubbleSizes.indexOf(i);
-                    int size = bubbleSizes.getInt(sizeIndex);
+                    int size = bubbleSizes.getInt(index);
                     bubbleTicks.set(index, i - 1);
                     if (i - 1 <= 0) {
                         if (!upsidedown) {
@@ -76,7 +75,7 @@ public class SculkEchoerBlockEntity extends BlockEntity implements SculkSensorLi
                             if (size>0) { world.emitGameEvent(null, WilderWild.SCULK_ECHOER_LOUD_ECHO, pos.add(0.5, -0.5, 0.5));  }
                         }
                         bubbleTicks.removeInt(index);
-                        bubbleSizes.removeInt(sizeIndex);
+                        bubbleSizes.removeInt(index);
                     }
                 }
             }
@@ -91,7 +90,7 @@ public class SculkEchoerBlockEntity extends BlockEntity implements SculkSensorLi
         super.readNbt(nbt);
         this.lastVibrationFreq = nbt.getInt("last_vibration_frequency");
         this.echoBubblesLeft = nbt.getInt("echoBubblesLeft");
-        this.bubbleTicks = IntArrayList.wrap(nbt.getIntArray("bubbleTicks"));
+        this.bubbleTicks = IntArrayList.wrap(nbt.getIntArray("bubbleTicksLeft"));
         this.bubbleSizes = IntArrayList.wrap(nbt.getIntArray("bubbleSizes"));
         this.bigBubble = nbt.getBoolean("bigBubble");
         if (nbt.contains("listener", 10)) {
@@ -108,7 +107,7 @@ public class SculkEchoerBlockEntity extends BlockEntity implements SculkSensorLi
         super.writeNbt(nbt);
         nbt.putInt("last_vibration_frequency", this.lastVibrationFreq);
         nbt.putInt("echoBubblesLeft", this.echoBubblesLeft);
-        nbt.putIntArray("bubbleTicks", this.bubbleTicks);
+        nbt.putIntArray("bubbleTicksLeft", this.bubbleTicks);
         nbt.putIntArray("bubbleSizes", this.bubbleSizes);
         nbt.putBoolean("bigBubble", this.bigBubble);
         DataResult<?> var10000 = SculkSensorListener.createCodec(this).encodeStart(NbtOps.INSTANCE, this.listener);
