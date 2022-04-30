@@ -45,6 +45,8 @@ import net.minecraft.world.explosion.Explosion;
 
 import java.util.List;
 
+import static net.frozenblock.wilderwild.item.AncientCityGoatHorn.*;
+
 public class AncientHornProjectileEntity extends PersistentProjectileEntity {
     private final TagKey<Block> NON_COLLIDE = WildBlockTags.HORN_PROJECTILE_NON_COLLIDE;
     private boolean shot;
@@ -55,10 +57,6 @@ public class AncientHornProjectileEntity extends PersistentProjectileEntity {
     public double vecY;
     public double vecZ;
     private BlockState inBlockState;
-    private static final int shriekerCooldown = 0;
-    private static final int sensorCooldown = 0;
-    private static final int echoerCooldown = 0;
-    private static final int tendrilCooldown = 0;
 
     public AncientHornProjectileEntity(EntityType<? extends PersistentProjectileEntity> entityType, World world) {
         super(entityType, world);

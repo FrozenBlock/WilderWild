@@ -21,6 +21,10 @@ import org.jetbrains.annotations.Nullable;
 import java.util.List;
 
 public class AncientCityGoatHorn extends Item {
+    public static final int shriekerCooldown = 600;
+    public static final int sensorCooldown = 240;
+    public static final int echoerCooldown = 560;
+    public static final int tendrilCooldown = 160;
 
     public AncientCityGoatHorn(Settings settings) {
         super(settings);
@@ -35,7 +39,7 @@ public class AncientCityGoatHorn extends Item {
         ItemStack itemStack = user.getStackInHand(hand);
         user.setCurrentHand(hand);
         world.playSoundFromEntity(user, user, RegisterSounds.ANCIENT_HORN_CALL, SoundCategory.RECORDS, 8.0F, 1.0F);
-        user.getItemCooldownManager().set(RegisterItems.ANCIENT_HORN, 0);
+        user.getItemCooldownManager().set(RegisterItems.ANCIENT_HORN, 100);
         if (world instanceof ServerWorld server) {
             AncientHornProjectileEntity projectileEntity = new AncientHornProjectileEntity(world, user.getX(), user.getEyeY(), user.getZ());
             projectileEntity.setVelocity(user, user.getPitch(), user.getYaw(), 0.0F, 1.0F, 0.0F);
