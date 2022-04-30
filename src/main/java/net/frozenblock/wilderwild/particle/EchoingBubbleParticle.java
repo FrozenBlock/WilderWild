@@ -78,7 +78,7 @@ public class EchoingBubbleParticle extends AbstractSlowingParticle {
             EchoingBubbleParticle bubble = new EchoingBubbleParticle(clientWorld, d, e, f, g, h, i, this.spriteProvider);
             bubble.setAlpha(1.0F);
             bubble.velocityY = Math.max((Math.random())*0.06, 0.035);
-            bubble.scale(1.4F);
+            bubble.scale(1.8F);
             return bubble;
         }
     }
@@ -94,7 +94,7 @@ public class EchoingBubbleParticle extends AbstractSlowingParticle {
             EchoingBubbleParticle bubble = new EchoingBubbleParticle(clientWorld, d, e, f, g, h, i, this.spriteProvider);
             bubble.setAlpha(1.0F);
             bubble.velocityY = Math.max((Math.random())*0.06, 0.035)*-1;
-            bubble.scale(1.4F);
+            bubble.scale(1.8F);
             return bubble;
         }
     }
