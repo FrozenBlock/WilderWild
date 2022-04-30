@@ -24,7 +24,9 @@ public class RegisterSounds {
 
     public static final SoundEvent BLOCK_SCULK_SENSOR_HICCUP = new SoundEvent(new Identifier(WilderWild.MOD_ID, "block.sculk_sensor.hiccup"));
 
-    public static final SoundEvent BLOCK_SCULK_ECHOER_RECEIVE_VIBRATION = new SoundEvent(new Identifier(WilderWild.MOD_ID, "block.sculk_echoer.receive_vibration"));
+    public static final SoundEvent BLOCK_SCULK_ECHOER_ECHO = new SoundEvent(new Identifier(WilderWild.MOD_ID, "block.sculk_echoer.echo"));
+    public static final SoundEvent BLOCK_SCULK_ECHOER_BUBBLE_POP = new SoundEvent(new Identifier(WilderWild.MOD_ID, "block.sculk_echoer.bubble.pop"));
+    public static final SoundEvent BLOCK_SCULK_ECHOER_BUBBLE_POP_BIG = new SoundEvent(new Identifier(WilderWild.MOD_ID, "block.sculk_echoer.bubble.pop_big"));
 
     public static final SoundEvent ANCIENT_HORN_CALL= new SoundEvent(new Identifier(WilderWild.MOD_ID, "item.ancient_horn.call"));
     public static final SoundEvent ANCIENT_HORN_VIBRATION_DISSAPATE = new SoundEvent(new Identifier(WilderWild.MOD_ID, "entity.ancient_horn_projectile.dissipate"));
