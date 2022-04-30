@@ -9,6 +9,7 @@
     "worldgen.FeaturesMixin",
     "worldgen.DefaultBiomeFeaturesMixin",
     "worldgen.TrunkPlacerTypeInvoker",
+    "BoneMealItemMixin",
 	"MusicDiscItemInvoker",
 	"SculkBlockMixin",
     "SculkSensorBlockMixin",
