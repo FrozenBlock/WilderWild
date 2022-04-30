@@ -1,0 +1,34 @@
+package net.frozenblock.wilderwild.mixin;
+
+import net.frozenblock.wilderwild.registry.RegisterBlocks;
+import net.frozenblock.wilderwild.registry.RegisterProperties;
+import net.minecraft.block.Blocks;
+import net.minecraft.item.BoneMealItem;
+import net.minecraft.item.ItemUsageContext;
+import net.minecraft.util.ActionResult;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.World;
+import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
+
+@Mixin(BoneMealItem.class)
+public class BoneMealItemMixin {
+
+    @Inject(method = "useOnBlock", at = @At("HEAD"), cancellable = true)
+    public void useOnBlock(ItemUsageContext context, CallbackInfoReturnable<ActionResult> info) {
+        World world = context.getWorld();
+        BlockPos blockPos = context.getBlockPos();
+        if (world.getBlockState(blockPos).isOf(Blocks.LILY_PAD)) {
+            if (!world.isClient) {
+                world.syncWorldEvent(1505, blockPos, 0);
+                world.setBlockState(blockPos, RegisterBlocks.FLOWERED_LILY_PAD.getDefaultState());
+                context.getStack().decrement(1);
+            }
+            info.setReturnValue(ActionResult.success(world.isClient));
+            info.cancel();
+        }
+    }
+
+}
