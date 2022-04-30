@@ -5,6 +5,7 @@ import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.frozenblock.wilderwild.WildClientMod;
 import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.registry.RegisterEntities;
+import net.frozenblock.wilderwild.registry.RegisterItems;
 import net.frozenblock.wilderwild.registry.RegisterProperties;
 import net.frozenblock.wilderwild.registry.RegisterSounds;
 import net.frozenblock.wilderwild.tag.WildBlockTags;
@@ -56,6 +57,10 @@ public class AncientHornProjectileEntity extends PersistentProjectileEntity {
     public double vecY;
     public double vecZ;
     private BlockState inBlockState;
+    private static final int shriekerCooldown = 0;
+    private static final int sensorCooldown = 0;
+    private static final int echoerCooldown = 0;
+    private static final int tendrilCooldown = 0;
 
     public AncientHornProjectileEntity(EntityType<? extends PersistentProjectileEntity> entityType, World world) {
         super(entityType, world);
@@ -139,7 +144,14 @@ public class AncientHornProjectileEntity extends PersistentProjectileEntity {
             this.setPosition(h, j, k);
             this.checkBlockCollision();
         }
-
+    public void setCooldown(int i) {
+        Entity entity = this.getOwner();
+        if (entity!=null) {
+            if (entity instanceof PlayerEntity user) {
+                user.getItemCooldownManager().set(RegisterItems.ANCIENT_HORN, i);
+            }
+        }
+    }
     public boolean canHit(Entity entity) {
         if (!entity.isSpectator() && entity.isAlive() && entity.collides() && !(entity instanceof ProjectileEntity)) {
             Entity entity2 = this.getOwner();
@@ -170,6 +182,7 @@ public class AncientHornProjectileEntity extends PersistentProjectileEntity {
                 WardenEntity.addDarknessToClosePlayers(server, Vec3d.ofCenter(this.getBlockPos()), null, 40);
                 server.syncWorldEvent(3007, pos, 0);
                 server.emitGameEvent(GameEvent.SHRIEK, pos, GameEvent.Emitter.of(this.getOwner()));
+                setCooldown(shriekerCooldown);
                 this.setSound(RegisterSounds.ANCIENT_HORN_VIBRATION_DISSAPATE);
                 this.setShotFromCrossbow(false);
                 this.remove(RemovalReason.DISCARDED);
@@ -182,6 +195,7 @@ public class AncientHornProjectileEntity extends PersistentProjectileEntity {
                 SculkSensorBlock.setActive(null, world, pos, world.getBlockState(pos), (int)(Math.random()*15));
                 world.emitGameEvent(null, GameEvent.SCULK_SENSOR_TENDRILS_CLICKING, pos);
                 world.emitGameEvent(null, WilderWild.SCULK_SENSOR_ACTIVATE, pos);
+                setCooldown(sensorCooldown);
             }
         }
         this.setSound(RegisterSounds.ANCIENT_HORN_VIBRATION_DISSAPATE);
