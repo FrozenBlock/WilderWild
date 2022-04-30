@@ -86,6 +86,7 @@ public abstract class RegisterBlocks {
             new EchoGlassBlock(AbstractBlock.Settings
                     .of(Material.GLASS, MapColor.CYAN)
                     .strength(0.3F)
+                    .nonOpaque()
                     .sounds(BlockSoundGroup.GLASS)),
             ItemGroup.DECORATIONS
     );
