@@ -64,8 +64,7 @@ public class SculkEchoerBlockEntity extends BlockEntity implements SculkSensorLi
             if (!bubbleTicks.isEmpty() && !bubbleSizes.isEmpty()) {
                 for (int i : bubbleTicks) {
                     int index = bubbleTicks.indexOf(i);
-                    int sizeIndex = bubbleSizes.indexOf(i);
-                    int size = bubbleSizes.getInt(sizeIndex);
+                    int size = bubbleSizes.getInt(index);
                     bubbleTicks.set(index, i - 1);
                     if (i - 1 <= 0) {
                         if (!upsidedown) {
@@ -76,7 +75,7 @@ public class SculkEchoerBlockEntity extends BlockEntity implements SculkSensorLi
                             if (size>0) { world.emitGameEvent(null, WilderWild.SCULK_ECHOER_LOUD_ECHO, pos.add(0.5, -0.5, 0.5));  }
                         }
                         bubbleTicks.removeInt(index);
-                        bubbleSizes.removeInt(sizeIndex);
+                        bubbleSizes.removeInt(index);
                     }
                 }
             }
