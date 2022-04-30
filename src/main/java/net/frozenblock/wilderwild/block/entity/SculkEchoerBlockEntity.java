@@ -49,7 +49,7 @@ public class SculkEchoerBlockEntity extends BlockEntity implements SculkSensorLi
                 --this.echoBubblesLeft;
                 if (!upsidedown) {
                     server.spawnParticles(RegisterParticles.ECHOING_BUBBLE, (double) pos.getX() + 0.5D, (double) pos.getY() + 0.8D, (double) pos.getZ() + 0.5D, 1, 0.0D, 0.0D, 0.0D, 0.05D);
-                } else { server.spawnParticles(RegisterParticles.ECHOING_BUBBLE_DOWNWARDS, (double) pos.getX() + 0.5D, (double) pos.getY() - 0.8D, (double) pos.getZ() + 0.5D, 1, 0.0D, 0.0D, 0.0D, 0.05D); }
+                } else { server.spawnParticles(RegisterParticles.ECHOING_BUBBLE_DOWNWARDS, (double) pos.getX() + 0.5D, (double) pos.getY() + 0.2D, (double) pos.getZ() + 0.5D, 1, 0.0D, 0.0D, 0.0D, 0.05D); }
                 this.bubbleTicks.add(29);
             }
             if (!bubbleTicks.isEmpty()) {
@@ -59,7 +59,7 @@ public class SculkEchoerBlockEntity extends BlockEntity implements SculkSensorLi
                     if (i - 1 <= 0) {
                         if (!upsidedown) {
                             world.emitGameEvent(null, WilderWild.SCULK_ECHOER_ECHO, pos.add(0.5, 1.5, 0.5));
-                        } else { world.emitGameEvent(null, WilderWild.SCULK_ECHOER_ECHO, pos.add(0.5, -1.5, 0.5)); }
+                        } else { world.emitGameEvent(null, WilderWild.SCULK_ECHOER_ECHO, pos.add(0.5, -0.5, 0.5)); }
                         bubbleTicks.removeInt(index);
                     }
                 }
