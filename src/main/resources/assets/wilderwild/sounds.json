@@ -164,9 +164,11 @@
 			"wilderwild:mob/ancient_horn_projectile/dissipate_2"
 		]
 	},
-	"item.ancient_horn.sound.0": {
+	"item.ancient_horn.call": {
 		"sounds": [
-			"wilderwild:item/ancient_horn/call0"
+			"wilderwild:item/ancient_horn/call0",
+			"wilderwild:item/ancient_horn/call1",
+			"wilderwild:item/ancient_horn/call2"
 		],
 		"subtitle": "subtitles.item.ancient_horn.blast"
 	},
