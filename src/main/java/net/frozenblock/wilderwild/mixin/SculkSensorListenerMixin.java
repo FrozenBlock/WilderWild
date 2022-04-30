@@ -4,6 +4,7 @@ import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.entity.SculkSensorTendrilEntity;
 import net.frozenblock.wilderwild.registry.RegisterEntities;
 import net.frozenblock.wilderwild.registry.RegisterProperties;
+import net.frozenblock.wilderwild.world.EasyNoiseSampler;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.SculkSensorBlock;
 import net.minecraft.server.world.ServerWorld;
@@ -32,7 +33,7 @@ public class SculkSensorListenerMixin {
             if (pos.isPresent()) {
                 BlockPos blockPos = new BlockPos(pos.get());
                 if (world.getBlockState(blockPos).isOf(Blocks.SCULK_SENSOR)) {
-                    if (SculkSensorBlock.isInactive(world.getBlockState(blockPos)) && !world.getBlockState(blockPos).get(RegisterProperties.NOT_HICCUPING) && Math.random()>0.98) {
+                    if (SculkSensorBlock.isInactive(world.getBlockState(blockPos)) && !world.getBlockState(blockPos).get(RegisterProperties.NOT_HICCUPING) && world.random.nextInt(100)<=1) {
                         SculkSensorBlock.setActive(null, world, blockPos, world.getBlockState(blockPos), (int)(Math.random()*15));
                         world.emitGameEvent(null, GameEvent.SCULK_SENSOR_TENDRILS_CLICKING, blockPos);
                         world.emitGameEvent(null, WilderWild.SCULK_SENSOR_ACTIVATE, blockPos);
