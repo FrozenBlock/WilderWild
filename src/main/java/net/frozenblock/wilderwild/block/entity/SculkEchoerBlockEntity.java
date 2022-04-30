@@ -8,6 +8,7 @@ import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.block.SculkEchoerBlock;
 import net.frozenblock.wilderwild.registry.RegisterBlockEntityType;
 import net.frozenblock.wilderwild.registry.RegisterParticles;
+import net.frozenblock.wilderwild.registry.RegisterProperties;
 import net.frozenblock.wilderwild.tag.WildEventTags;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
@@ -42,10 +43,13 @@ public class SculkEchoerBlockEntity extends BlockEntity implements SculkSensorLi
 
     public void tick(World world, BlockPos pos, BlockState state) {
         if (world instanceof ServerWorld server) {
+            boolean upsidedown = state.get(RegisterProperties.UPSIDE_DOWN);
             this.getEventListener().tick(world);
             if (this.echoBubblesLeft > 0) {
                 --this.echoBubblesLeft;
-                server.spawnParticles(RegisterParticles.ECHOING_BUBBLE, (double)pos.getX() + 0.5D, (double)pos.getY() + 0.8D, (double)pos.getZ() + 0.5D, 1, 0.0D, 0.0D, 0.0D, 0.05D);
+                if (!upsidedown) {
+                    server.spawnParticles(RegisterParticles.ECHOING_BUBBLE, (double) pos.getX() + 0.5D, (double) pos.getY() + 0.8D, (double) pos.getZ() + 0.5D, 1, 0.0D, 0.0D, 0.0D, 0.05D);
+                } else { server.spawnParticles(RegisterParticles.ECHOING_BUBBLE_DOWNWARDS, (double) pos.getX() + 0.5D, (double) pos.getY() - 0.8D, (double) pos.getZ() + 0.5D, 1, 0.0D, 0.0D, 0.0D, 0.05D); }
                 this.bubbleTicks.add(29);
             }
             if (!bubbleTicks.isEmpty()) {
@@ -53,7 +57,9 @@ public class SculkEchoerBlockEntity extends BlockEntity implements SculkSensorLi
                     int index = bubbleTicks.indexOf(i);
                     bubbleTicks.set(index, i - 1);
                     if (i - 1 <= 0) {
-                        world.emitGameEvent(null, WilderWild.SCULK_ECHOER_ECHO, pos.add(0.5, 1.5, 0.5));
+                        if (!upsidedown) {
+                            world.emitGameEvent(null, WilderWild.SCULK_ECHOER_ECHO, pos.add(0.5, 1.5, 0.5));
+                        } else { world.emitGameEvent(null, WilderWild.SCULK_ECHOER_ECHO, pos.add(0.5, -1.5, 0.5)); }
                         bubbleTicks.removeInt(index);
                     }
                 }

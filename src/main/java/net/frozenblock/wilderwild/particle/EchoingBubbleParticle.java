@@ -16,7 +16,6 @@ public class EchoingBubbleParticle extends AbstractSlowingParticle {
         super(clientWorld, d, e, f, g, h, i);
         this.velocityX = (Math.random()-0.5)/9.5;
         this.velocityZ = (Math.random()-0.5)/9.5;
-        this.velocityY = Math.max((Math.random())*0.06, 0.035);
         this.spriteProvider = spriteProvider;
         this.maxAge=30;
         this.setSpriteForAge(spriteProvider);
@@ -39,15 +38,31 @@ public class EchoingBubbleParticle extends AbstractSlowingParticle {
     }
 
     @Environment(EnvType.CLIENT)
-    public static class Factory implements ParticleFactory<DefaultParticleType> {
+    public static class BubbleFactory implements ParticleFactory<DefaultParticleType> {
         private final SpriteProvider spriteProvider;
-        public Factory(SpriteProvider spriteProvider) {
+        public BubbleFactory(SpriteProvider spriteProvider) {
             this.spriteProvider = spriteProvider;
         }
         @Override
         public Particle createParticle(DefaultParticleType defaultParticleType, ClientWorld clientWorld, double d, double e, double f, double g, double h, double i) {
             EchoingBubbleParticle bubble = new EchoingBubbleParticle(clientWorld, d, e, f, g, h, i, this.spriteProvider);
             bubble.setAlpha(1.0F);
+            bubble.velocityY = Math.max((Math.random())*0.06, 0.035);
+            return bubble;
+        }
+    }
+
+    @Environment(EnvType.CLIENT)
+    public static class DownwardsBubbleFactory implements ParticleFactory<DefaultParticleType> {
+        private final SpriteProvider spriteProvider;
+        public DownwardsBubbleFactory(SpriteProvider spriteProvider) {
+            this.spriteProvider = spriteProvider;
+        }
+        @Override
+        public Particle createParticle(DefaultParticleType defaultParticleType, ClientWorld clientWorld, double d, double e, double f, double g, double h, double i) {
+            EchoingBubbleParticle bubble = new EchoingBubbleParticle(clientWorld, d, e, f, g, h, i, this.spriteProvider);
+            bubble.setAlpha(1.0F);
+            bubble.velocityY = Math.max((Math.random())*0.06, 0.035)*-1;
             return bubble;
         }
     }
