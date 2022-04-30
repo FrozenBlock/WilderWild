@@ -48,7 +48,7 @@ public class AncientCityGoatHorn extends Item {
         ItemStack itemStack = user.getStackInHand(hand);
         user.setCurrentHand(hand);
         world.playSoundFromEntity(user, user, RegisterSounds.ANCIENT_HORN_CALL, SoundCategory.RECORDS, 8.0F, 1.0F);
-        user.getItemCooldownManager().set(RegisterItems.ANCIENT_HORN, 100);
+        user.getItemCooldownManager().set(RegisterItems.ANCIENT_HORN, getCooldown(user, 100));
         if (world instanceof ServerWorld server) {
             AncientHornProjectileEntity projectileEntity = new AncientHornProjectileEntity(world, user.getX(), user.getEyeY(), user.getZ());
             projectileEntity.setVelocity(user, user.getPitch(), user.getYaw(), 0.0F, 1.0F, 0.0F);
