@@ -35,7 +35,7 @@ public class SculkSensorListenerMixin {
             if (pos.isPresent()) {
                 BlockPos blockPos = new BlockPos(pos.get());
                 if (world.getBlockState(blockPos).isOf(Blocks.SCULK_SENSOR)) {
-                    if (SculkSensorBlock.isInactive(world.getBlockState(blockPos)) && !world.getBlockState(blockPos).get(RegisterProperties.NOT_HICCUPPING) && world.random.nextInt(220)<=1) {
+                    if (SculkSensorBlock.isInactive(world.getBlockState(blockPos)) && !world.getBlockState(blockPos).get(RegisterProperties.NOT_HICCUPPING) && world.random.nextInt(320)<=1) {
                         SculkSensorBlock.setActive(null, world, blockPos, world.getBlockState(blockPos), (int)(Math.random()*15));
                         world.emitGameEvent(null, GameEvent.SCULK_SENSOR_TENDRILS_CLICKING, blockPos);
                         world.emitGameEvent(null, WilderWild.SCULK_SENSOR_ACTIVATE, blockPos);
