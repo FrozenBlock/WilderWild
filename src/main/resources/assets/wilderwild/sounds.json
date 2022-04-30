@@ -1,50 +1,4 @@
 {
-	"block.sculk_echoer.receive_vibration": {
-		"sounds": [
-			"wilderwild:block/sculk_echoer/echo1",
-			"wilderwild:block/sculk_echoer/echo2",
-			"wilderwild:block/sculk_echoer/echo3",
-			"wilderwild:block/sculk_echoer/echo4",
-			"wilderwild:block/sculk_echoer/echo5",
-			"wilderwild:block/sculk_echoer/echo6"
-		],
-		"subtitle": "subtitles.block.sculk_echoer.receive_vibration"
-	},
-	"block.sculk_jaw.clamp": {
-		"sounds": [
-			"wilderwild:block/sculk_jaw/clamp1",
-			"wilderwild:block/sculk_jaw/clamp2",
-			"wilderwild:block/sculk_jaw/clamp3"
-		],
-		"subtitle": "subtitles.block.sculk_jaw.clamp"
-	},
-	"block.sculk_jaw.retract": {
-		"sounds": [
-			"wilderwild:block/sculk_jaw/retract1",
-			"wilderwild:block/sculk_jaw/retract2",
-			"wilderwild:block/sculk_jaw/retract3"
-		]
-	},
-	"block.sculk_chirper.swell": {
-		"sounds": [
-			"wilderwild:block/sculk_chirper/sculk_chirper_swell"
-		],
-		"subtitle": "subtitles.block.sculk_chirper.swell"
-	},
-	"block.sculk_chirper.exhale": {
-		"sounds": [
-			"wilderwild:block/sculk_chirper/sculk_chirper_exhale"
-		],
-		"subtitle": "subtitles.block.sculk_chirper.exhale"
-	},
-	"block.sculk_sensor.hiccup": {
-		"sounds": [
-			"wilderwild:block/sculk_sensor/hiccup1",
-			"wilderwild:block/sculk_sensor/hiccup2",
-			"wilderwild:block/sculk_sensor/hiccup3"
-		],
-		"subtitle": "subtitles.block.sculk_sensor.hiccup"
-	},
 	"block.hanging_tendril.break": {
 		"sounds": [
 			"wilderwild:block/hanging_tendril/break1",
@@ -55,6 +9,16 @@
 			"wilderwild:block/hanging_tendril/break6"
 		],
 		"subtitle": "subtitles.block.generic.break"
+	},
+	"block.hanging_tendril.fall": {
+		"sounds": [
+			"wilderwild:block/hanging_tendril/step1",
+			"wilderwild:block/hanging_tendril/step2",
+			"wilderwild:block/hanging_tendril/step3",
+			"wilderwild:block/hanging_tendril/step4",
+			"wilderwild:block/hanging_tendril/step5"
+		],
+		"subtitle": "subtitles.block.generic.fall"
 	},
 	"block.hanging_tendril.hit": {
 		"sounds": [
@@ -86,16 +50,6 @@
 		],
 		"subtitle": "subtitles.block.generic.footsteps"
 	},
-	"block.hanging_tendril.fall": {
-		"sounds": [
-			"wilderwild:block/hanging_tendril/step1",
-			"wilderwild:block/hanging_tendril/step2",
-			"wilderwild:block/hanging_tendril/step3",
-			"wilderwild:block/hanging_tendril/step4",
-			"wilderwild:block/hanging_tendril/step5"
-		],
-		"subtitle": "subtitles.block.generic.fall"
-	},
 	"block.hanging_tendril.wring": {
 		"sounds": [
 			"wilderwild:block/hanging_tendril/wring1",
@@ -114,6 +68,17 @@
 			"wilderwild:block/osseous_sculk/break5"
 		],
 		"subtitle": "subtitles.block.generic.break"
+	},
+	"block.osseous_sculk.fall": {
+		"sounds": [
+			"wilderwild:block/osseous_sculk/step1",
+			"wilderwild:block/osseous_sculk/step2",
+			"wilderwild:block/osseous_sculk/step3",
+			"wilderwild:block/osseous_sculk/step4",
+			"wilderwild:block/osseous_sculk/step5",
+			"wilderwild:block/osseous_sculk/step6"
+		],
+		"subtitle": "subtitles.block.generic.fall"
 	},
 	"block.osseous_sculk.hit": {
 		"sounds": [
@@ -147,16 +112,67 @@
 		],
 		"subtitle": "subtitles.block.generic.footsteps"
 	},
-	"block.osseous_sculk.fall": {
+	"block.sculk_chirper.exhale": {
 		"sounds": [
-			"wilderwild:block/osseous_sculk/step1",
-			"wilderwild:block/osseous_sculk/step2",
-			"wilderwild:block/osseous_sculk/step3",
-			"wilderwild:block/osseous_sculk/step4",
-			"wilderwild:block/osseous_sculk/step5",
-			"wilderwild:block/osseous_sculk/step6"
+			"wilderwild:block/sculk_chirper/sculk_chirper_exhale"
 		],
-		"subtitle": "subtitles.block.generic.fall"
+		"subtitle": "subtitles.block.sculk_chirper.exhale"
+	},
+	"block.sculk_chirper.swell": {
+		"sounds": [
+			"wilderwild:block/sculk_chirper/sculk_chirper_swell"
+		],
+		"subtitle": "subtitles.block.sculk_chirper.swell"
+	},
+	"block.sculk_echoer.echo": {
+		"sounds": [
+			"wilderwild:block/sculk_echoer/echo1",
+			"wilderwild:block/sculk_echoer/echo2",
+			"wilderwild:block/sculk_echoer/echo3",
+			"wilderwild:block/sculk_echoer/echo4",
+			"wilderwild:block/sculk_echoer/echo5",
+			"wilderwild:block/sculk_echoer/echo6"
+		],
+		"subtitle": "subtitles.block.sculk_echoer.echo"
+	},
+	"block.sculk_echoer.bubble.pop": {
+		"sounds": [
+			"wilderwild:block/sculk_echoer/pop1",
+			"wilderwild:block/sculk_echoer/pop2",
+			"wilderwild:block/sculk_echoer/pop3",
+			"wilderwild:block/sculk_echoer/pop4",
+			"wilderwild:block/sculk_echoer/pop5"
+		]
+	},
+	"block.sculk_echoer.bubble.pop_big": {
+		"sounds": [
+			"wilderwild:block/sculk_echoer/pop_big1",
+			"wilderwild:block/sculk_echoer/pop_big2",
+			"wilderwild:block/sculk_echoer/pop_big3"
+		]
+	},
+	"block.sculk_jaw.clamp": {
+		"sounds": [
+			"wilderwild:block/sculk_jaw/clamp1",
+			"wilderwild:block/sculk_jaw/clamp2",
+			"wilderwild:block/sculk_jaw/clamp3"
+		],
+		"subtitle": "subtitles.block.sculk_jaw.clamp"
+	},
+	"block.sculk_jaw.retract": {
+		"sounds": [
+			"wilderwild:block/sculk_jaw/retract1",
+			"wilderwild:block/sculk_jaw/retract2",
+			"wilderwild:block/sculk_jaw/retract3"
+		]
+	},
+	"block.sculk_sensor.hiccup": {
+		"sounds": [
+			"wilderwild:block/sculk_sensor/hiccup1",
+			"wilderwild:block/sculk_sensor/hiccup2",
+			"wilderwild:block/sculk_sensor/hiccup3"
+		],
+		"subtitle": "subtitles.block.sculk_sensor.hiccup"
 	},
 	"entity.ancient_horn_projectile.dissipate": {
 		"sounds": [
