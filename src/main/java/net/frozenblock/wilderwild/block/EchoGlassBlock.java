@@ -58,10 +58,10 @@ public class EchoGlassBlock extends TintedGlassBlock {
         int finalLight=0;
         for (Direction direction : DIRECTIONS) {
             BlockPos pos = blockPos.offset(direction);
-            int skyLight = world.getLightLevel(LightType.SKY, pos);
-            int blockLight = 0;
+            int skyLight = 0;
+            int blockLight = world.getLightLevel(LightType.BLOCK, pos);
             if (world.isDay() && !world.isRaining()) {
-                blockLight = world.getLightLevel(LightType.BLOCK, pos);
+                skyLight = world.getLightLevel(LightType.SKY, pos);
             }
             finalLight = Math.max(finalLight, Math.max(skyLight, blockLight));
         }
