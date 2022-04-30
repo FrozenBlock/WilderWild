@@ -23,7 +23,7 @@ import java.util.List;
 public class AncientCityGoatHorn extends Item {
     public static final int shriekerCooldown = 600;
     public static final int sensorCooldown = 240;
-    public static final int echoerCooldown = 560;
+    public static final int echoerCooldown = 480;
     public static final int tendrilCooldown = 160;
 
     public AncientCityGoatHorn(Settings settings) {

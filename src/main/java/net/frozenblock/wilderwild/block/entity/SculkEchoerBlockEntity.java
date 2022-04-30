@@ -46,11 +46,17 @@ public class SculkEchoerBlockEntity extends BlockEntity implements SculkSensorLi
             boolean upsidedown = state.get(RegisterProperties.UPSIDE_DOWN);
             this.getEventListener().tick(world);
             if (this.echoBubblesLeft > 0) {
-                --this.echoBubblesLeft;
-                if (!upsidedown) {
-                    server.spawnParticles(RegisterParticles.ECHOING_BUBBLE, (double) pos.getX() + 0.5D, (double) pos.getY() + 0.8D, (double) pos.getZ() + 0.5D, 1, 0.0D, 0.0D, 0.0D, 0.05D);
-                } else { server.spawnParticles(RegisterParticles.ECHOING_BUBBLE_DOWNWARDS, (double) pos.getX() + 0.5D, (double) pos.getY() + 0.2D, (double) pos.getZ() + 0.5D, 1, 0.0D, 0.0D, 0.0D, 0.05D); }
-                this.bubbleTicks.add(29);
+                int decrease = 1;
+                if (this.echoBubblesLeft>1) { decrease = 2; }
+                for (int i=0; i<decrease; i++) {
+                    --this.echoBubblesLeft;
+                    if (!upsidedown) {
+                        server.spawnParticles(RegisterParticles.ECHOING_BUBBLE, (double) pos.getX() + 0.5D, (double) pos.getY() + 0.8D, (double) pos.getZ() + 0.5D, 1, 0.0D, 0.0D, 0.0D, 0.05D);
+                    } else {
+                        server.spawnParticles(RegisterParticles.ECHOING_BUBBLE_DOWNWARDS, (double) pos.getX() + 0.5D, (double) pos.getY() + 0.2D, (double) pos.getZ() + 0.5D, 1, 0.0D, 0.0D, 0.0D, 0.05D);
+                    }
+                    this.bubbleTicks.add(29);
+                }
             }
             if (!bubbleTicks.isEmpty()) {
                 for (int i : bubbleTicks) {
