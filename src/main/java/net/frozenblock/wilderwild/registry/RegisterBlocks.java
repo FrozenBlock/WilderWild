@@ -82,6 +82,12 @@ public abstract class RegisterBlocks {
                     .emissiveLighting((state, world, pos) -> HangingTendrilBlock.shouldHavePogLighting(state)), 4),
             ItemGroup.DECORATIONS
     );
+    public static final Block ECHO_GLASS = registerBlock("echo_glass",
+            new EchoGlassBlock(AbstractBlock.Settings
+                    .of(Material.GLASS, MapColor.CYAN)
+                    .sounds(BlockSoundGroup.GLASS)),
+            ItemGroup.DECORATIONS
+    );
 
     // PLANTS
     public static final Block DATURA = registerBlock("datura",

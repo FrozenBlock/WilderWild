@@ -17,7 +17,7 @@
 	"SculkVeinGrowCheckerMixin",
     "SculkShriekerBlockMixin",
     "SculkShriekerBlockEntityMixin",
-
+    "SonicBoomTaskMixin",
 	"WardenEntityMixin",
     "WardenEntityModelMixin"
   ],
