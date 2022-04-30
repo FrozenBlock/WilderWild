@@ -2,12 +2,17 @@ package net.frozenblock.wilderwild.particle;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.frozenblock.wilderwild.registry.RegisterSounds;
+import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.particle.*;
 import net.minecraft.client.world.ClientWorld;
 import net.minecraft.particle.DefaultParticleType;
+import net.minecraft.sound.SoundCategory;
+import net.minecraft.sound.SoundEvent;
 
 public class EchoingBubbleParticle extends AbstractSlowingParticle {
     private final SpriteProvider spriteProvider;
+    private SoundEvent sound;
     public int getBrightness(float f) {
         return 240;
     }
@@ -17,7 +22,7 @@ public class EchoingBubbleParticle extends AbstractSlowingParticle {
         this.velocityX = (Math.random()-0.5)/9.5;
         this.velocityZ = (Math.random()-0.5)/9.5;
         this.spriteProvider = spriteProvider;
-        this.maxAge=30;
+        this.maxAge = 30;
         this.setSpriteForAge(spriteProvider);
     }
 
@@ -36,6 +41,12 @@ public class EchoingBubbleParticle extends AbstractSlowingParticle {
     @Override
     public void tick() {
         super.tick();
+        if (this.age==27) {
+            MinecraftClient client = MinecraftClient.getInstance();
+            if (client!=null) {
+                world.playSound(client.player, this.x, this.y, this.z, this.sound, SoundCategory.BLOCKS, 0.4F, world.random.nextFloat() * 0.2F + 0.8F);
+            }
+        }
         this.setSpriteForAge(this.spriteProvider);
     }
 
@@ -50,6 +61,7 @@ public class EchoingBubbleParticle extends AbstractSlowingParticle {
             EchoingBubbleParticle bubble = new EchoingBubbleParticle(clientWorld, d, e, f, g, h, i, this.spriteProvider);
             bubble.setAlpha(1.0F);
             bubble.velocityY = Math.max((Math.random())*0.06, 0.035);
+            bubble.sound = RegisterSounds.BLOCK_SCULK_ECHOER_BUBBLE_POP;
             return bubble;
         }
     }
@@ -65,6 +77,7 @@ public class EchoingBubbleParticle extends AbstractSlowingParticle {
             EchoingBubbleParticle bubble = new EchoingBubbleParticle(clientWorld, d, e, f, g, h, i, this.spriteProvider);
             bubble.setAlpha(1.0F);
             bubble.velocityY = Math.max((Math.random())*0.06, 0.035)*-1;
+            bubble.sound = RegisterSounds.BLOCK_SCULK_ECHOER_BUBBLE_POP;
             return bubble;
         }
     }
@@ -83,6 +96,7 @@ public class EchoingBubbleParticle extends AbstractSlowingParticle {
             bubble.velocityX = (Math.random()-0.5)/10.5;
             bubble.velocityZ = (Math.random()-0.5)/10.5;
             bubble.scale(2.4F);
+            bubble.sound = RegisterSounds.BLOCK_SCULK_ECHOER_BUBBLE_POP_BIG;
             return bubble;
         }
     }
@@ -101,6 +115,7 @@ public class EchoingBubbleParticle extends AbstractSlowingParticle {
             bubble.velocityX = (Math.random()-0.5)/10.5;
             bubble.velocityZ = (Math.random()-0.5)/10.5;
             bubble.scale(2.4F);
+            bubble.sound = RegisterSounds.BLOCK_SCULK_ECHOER_BUBBLE_POP_BIG;
             return bubble;
         }
     }
