@@ -1,6 +1,5 @@
 package net.frozenblock.wilderwild.world.feature;
 
-import com.google.common.collect.ImmutableList;
 import net.minecraft.block.Blocks;
 import net.minecraft.util.registry.RegistryEntry;
 import net.minecraft.world.Heightmap;
@@ -8,15 +7,13 @@ import net.minecraft.world.gen.feature.PlacedFeature;
 import net.minecraft.world.gen.feature.PlacedFeatures;
 import net.minecraft.world.gen.feature.VegetationConfiguredFeatures;
 import net.minecraft.world.gen.placementmodifier.*;
-import org.jetbrains.annotations.Nullable;
-
-import java.util.List;
 
 import static net.minecraft.world.gen.feature.VegetationPlacedFeatures.modifiers;
 import static net.minecraft.world.gen.feature.VegetationPlacedFeatures.modifiersWithWouldSurvive;
 
 public class WildPlacedFeature {
-
+    public static final RegistryEntry<PlacedFeature> NEW_TREES_BIRCH_AND_OAK = PlacedFeatures.register("new_trees_birch_and_oak",
+            WildConfiguredFeatures.NEW_TREES_BIRCH_AND_OAK, modifiers(PlacedFeatures.createCountExtraModifier(10, 0.1F, 1)));
     public static final RegistryEntry<PlacedFeature> NEW_MUSHROOM_PLACED = PlacedFeatures.register("new_mushroom_placed",
             VegetationConfiguredFeatures.MUSHROOM_ISLAND_VEGETATION, RarityFilterPlacementModifier.of(4), SquarePlacementModifier.of(),
             PlacedFeatures.MOTION_BLOCKING_HEIGHTMAP, BiomePlacementModifier.of());
@@ -47,19 +44,4 @@ public class WildPlacedFeature {
 
     public static final RegistryEntry<PlacedFeature> POLLEN_PLACED = PlacedFeatures.register("pollen",
             WildConfiguredFeatures.POLLEN_CONFIGURED, RarityFilterPlacementModifier.of(1), CountPlacementModifier.of(2), PlacedFeatures.MOTION_BLOCKING_HEIGHTMAP, SquarePlacementModifier.of(), SurfaceThresholdFilterPlacementModifier.of(Heightmap.Type.MOTION_BLOCKING, 0, 128), BiomePlacementModifier.of());
-    private static List<PlacementModifier> modifiersWithChance(int chance, @Nullable PlacementModifier modifier) {
-        ImmutableList.Builder<PlacementModifier> builder = ImmutableList.builder();
-        if (modifier != null) {
-            builder.add(modifier);
-        }
-
-        if (chance != 0) {
-            builder.add(RarityFilterPlacementModifier.of(chance));
-        }
-
-        builder.add(SquarePlacementModifier.of());
-        builder.add(PlacedFeatures.MOTION_BLOCKING_HEIGHTMAP);
-        builder.add(BiomePlacementModifier.of());
-        return builder.build();
-    }
 }

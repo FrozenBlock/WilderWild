@@ -2,6 +2,7 @@ package net.frozenblock.wilderwild.registry;
 
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
+import net.fabricmc.fabric.api.registry.CompostingChanceRegistry;
 import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.block.*;
 import net.frozenblock.wilderwild.item.FloweredLilyPadItem;
@@ -24,7 +25,7 @@ public abstract class RegisterBlocks {
             ItemGroup.BUILDING_BLOCKS
     );
 
-    // FLOWERED_LILY_PAD
+    // FLOWERED LILY PAD
     public static final Block FLOWERED_LILY_PAD = new FloweredLilyPadBlock(FabricBlockSettings.copy(Blocks.LILY_PAD));
 
     // HOLLOW LOGS
@@ -128,6 +129,13 @@ public abstract class RegisterBlocks {
             .sounds(BlockSoundGroup.VINE)),
             ItemGroup.DECORATIONS
     );
+    public static final Block SHELF_FUNGUS = registerBlock("shelf_fungus",
+            new ShelfFungusBlock(FabricBlockSettings
+                    .copyOf(Blocks.BROWN_MUSHROOM_BLOCK)
+                    .collidable(false)
+                    .nonOpaque()),
+            ItemGroup.DECORATIONS
+    );
 
 
     private static Block registerBlockWithoutBlockItem(String name, Block block, ItemGroup group) {
@@ -159,6 +167,11 @@ public abstract class RegisterBlocks {
     public static void RegisterBlocks() {
         Registry.register(Registry.BLOCK, new Identifier(WilderWild.MOD_ID, "flowered_lily_pad"), FLOWERED_LILY_PAD);
         Registry.register(Registry.ITEM, new Identifier(WilderWild.MOD_ID, "flowered_lily_pad"), new FloweredLilyPadItem(FLOWERED_LILY_PAD, new FabricItemSettings().group(ItemGroup.DECORATIONS)));
+        CompostingChanceRegistry.INSTANCE.add(CARNATION, 0.65F);
+        CompostingChanceRegistry.INSTANCE.add(CATTAIL, 0.65F);
+        CompostingChanceRegistry.INSTANCE.add(DATURA, 0.65F);
+        CompostingChanceRegistry.INSTANCE.add(FLOWERED_LILY_PAD, 0.65F);
+        CompostingChanceRegistry.INSTANCE.add(SHELF_FUNGUS, 0.65F);
         WilderWild.LOGGER.info("Registering Blocks for " + WilderWild.MOD_ID);
     }
 }

@@ -1,6 +1,7 @@
 {
   "replace": false,
   "values": [
-    "wilderwild:sculk_echoer_echo"
+    "wilderwild:sculk_echoer_echo",
+    "wilderwild:sculk_echoer_loud_echo"
   ]
 }

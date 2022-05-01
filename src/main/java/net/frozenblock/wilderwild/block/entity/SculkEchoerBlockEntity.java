@@ -16,7 +16,9 @@ import net.minecraft.entity.Entity;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtElement;
 import net.minecraft.nbt.NbtOps;
+import net.minecraft.particle.DefaultParticleType;
 import net.minecraft.server.world.ServerWorld;
+import net.minecraft.state.property.Properties;
 import net.minecraft.tag.TagKey;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
@@ -46,34 +48,28 @@ public class SculkEchoerBlockEntity extends BlockEntity implements SculkSensorLi
     public void tick(World world, BlockPos pos, BlockState state) {
         if (world instanceof ServerWorld server) {
             boolean upsidedown = state.get(RegisterProperties.UPSIDE_DOWN);
+            boolean waterlogged = state.get(Properties.WATERLOGGED);
             this.getEventListener().tick(world);
             if (this.echoBubblesLeft > 0) {
-                int size = 0;
-                if (bigBubble) { size = 1; bigBubble = false; }
+                int size = this.bigBubble ? 1 : 0;
+                if (this.bigBubble) {this.bigBubble = false; }
                 --this.echoBubblesLeft;
-                if (!upsidedown) {
-                    if (size==1) { server.spawnParticles(RegisterParticles.BIG_ECHOING_BUBBLE, (double) pos.getX() + 0.5D, (double) pos.getY() + 0.8D, (double) pos.getZ() + 0.5D, 1, 0.0D, 0.0D, 0.0D, 0.05D); }
-                    else { server.spawnParticles(RegisterParticles.ECHOING_BUBBLE, (double) pos.getX() + 0.5D, (double) pos.getY() + 0.8D, (double) pos.getZ() + 0.5D, 1, 0.0D, 0.0D, 0.0D, 0.05D); }
-                } else {
-                    if (size==1) { server.spawnParticles(RegisterParticles.BIG_ECHOING_BUBBLE_DOWNWARDS, (double) pos.getX() + 0.5D, (double) pos.getY() + 0.2D, (double) pos.getZ() + 0.5D, 1, 0.0D, 0.0D, 0.0D, 0.05D); }
-                    else { server.spawnParticles(RegisterParticles.ECHOING_BUBBLE_DOWNWARDS, (double) pos.getX() + 0.5D, (double) pos.getY() + 0.2D, (double) pos.getZ() + 0.5D, 1, 0.0D, 0.0D, 0.0D, 0.05D); }
-                }
+                DefaultParticleType bubble = size == 1 ? (upsidedown ? RegisterParticles.BIG_ECHOING_BUBBLE_DOWNWARDS : RegisterParticles.BIG_ECHOING_BUBBLE) : (upsidedown ? RegisterParticles.ECHOING_BUBBLE_DOWNWARDS : RegisterParticles.ECHOING_BUBBLE);
+                double offest = upsidedown ? (waterlogged ? -0.05 : 0.2) : (waterlogged ? 1.05 : 0.8);
+                server.spawnParticles(bubble, (double) pos.getX() + 0.5D, (double) pos.getY() + offest, (double) pos.getZ() + 0.5D, 1, 0.0D, 0.0D, 0.0D, 0.05D);
                 this.bubbleTicks.add(27);
                 this.bubbleSizes.add(size);
             }
+
             if (!bubbleTicks.isEmpty() && !bubbleSizes.isEmpty()) {
                 for (int i : bubbleTicks) {
                     int index = bubbleTicks.indexOf(i);
                     int size = bubbleSizes.getInt(index);
                     bubbleTicks.set(index, i - 1);
                     if (i - 1 <= 0) {
-                        if (!upsidedown) {
-                            world.emitGameEvent(null, WilderWild.SCULK_ECHOER_ECHO, pos.add(0.5, 1.5, 0.5));
-                            if (size>0) { world.emitGameEvent(null, WilderWild.SCULK_ECHOER_LOUD_ECHO, pos.add(0.5, 1.5, 0.5));  }
-                        } else {
-                            world.emitGameEvent(null, WilderWild.SCULK_ECHOER_ECHO, pos.add(0.5, -0.5, 0.5));
-                            if (size>0) { world.emitGameEvent(null, WilderWild.SCULK_ECHOER_LOUD_ECHO, pos.add(0.5, -0.5, 0.5));  }
-                        }
+                        GameEvent event = size>0 ? WilderWild.SCULK_ECHOER_LOUD_ECHO : WilderWild.SCULK_ECHOER_ECHO;
+                        double offset = upsidedown ? -0.5 : 1.5;
+                        world.emitGameEvent(null, event, pos.add(0.5, offset, 0.5));
                         bubbleTicks.removeInt(index);
                         bubbleSizes.removeInt(index);
                     }

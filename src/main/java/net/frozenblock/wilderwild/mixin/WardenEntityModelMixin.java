@@ -3,14 +3,17 @@ package net.frozenblock.wilderwild.mixin;
 import net.minecraft.client.model.ModelPart;
 import net.minecraft.client.render.entity.model.WardenEntityModel;
 import net.minecraft.entity.mob.WardenEntity;
+import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Overwrite;
 import org.spongepowered.asm.mixin.Shadow;
 
 @Mixin(WardenEntityModel.class)
 public class WardenEntityModelMixin<T extends WardenEntity> {
+    @Final
     @Shadow
     protected ModelPart rightTendril;
+    @Final
     @Shadow
     protected ModelPart leftTendril;
     /**

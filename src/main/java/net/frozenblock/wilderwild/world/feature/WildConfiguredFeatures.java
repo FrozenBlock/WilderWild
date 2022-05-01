@@ -9,8 +9,14 @@ import net.minecraft.util.registry.RegistryEntryList;
 import net.minecraft.world.gen.feature.*;
 import net.minecraft.world.gen.stateprovider.BlockStateProvider;
 
+import java.util.List;
+
 
 public class WildConfiguredFeatures {
+    public static final RegistryEntry<ConfiguredFeature<RandomFeatureConfig, ?>> NEW_TREES_BIRCH_AND_OAK =
+            ConfiguredFeatures.register("new_trees_birch_and_oak", Feature.RANDOM_SELECTOR,
+                    new RandomFeatureConfig(List.of(new RandomFeatureEntry(WildTreePlaced.NEW_BIRCH_BEES_0002, 0.2F),
+                            new RandomFeatureEntry(WildTreePlaced.NEW_FANCY_OAK_BEES_0002, 0.27F)), WildTreePlaced.NEW_OAK_BEES_0002));
 
     public static final RegistryEntry<ConfiguredFeature<RandomPatchFeatureConfig, ?>> NEW_GRASS_FOREST =
             ConfiguredFeatures.register("new_grass_forest", Feature.RANDOM_PATCH,

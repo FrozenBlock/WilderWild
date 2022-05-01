@@ -41,14 +41,14 @@ public class HangingTendrilBlockEntity extends BlockEntity implements SculkSenso
     }
 
     public void serverTick(World world, BlockPos pos, BlockState state) {
-        if (this.ticksToStopTwitching>=0) {--this.ticksToStopTwitching;} else if (state.get(HangingTendrilBlock.TWITCHING)) {
+        if (this.ticksToStopTwitching>0) {--this.ticksToStopTwitching;} else if (this.ticksToStopTwitching==0) {
             world.setBlockState(pos, state.with(HangingTendrilBlock.TWITCHING, false));
+            --this.ticksToStopTwitching;
         }
         if (this.ringOutTicksLeft>=0) {--this.ringOutTicksLeft;} else if (state.get(HangingTendrilBlock.WRINGING_OUT)) {
             world.setBlockState(pos, state.with(HangingTendrilBlock.WRINGING_OUT, false));
             if (this.storedXP>0) {
-                int droppedXP = 1;
-                if (this.storedXP > 1) { droppedXP = this.storedXP/2; }
+                int droppedXP = this.storedXP>1 ? this.storedXP/2 : 1;
                 ExperienceOrbEntity.spawn((ServerWorld)world, Vec3d.ofCenter(pos).add(0, -0.5, 0), droppedXP);
                 this.storedXP=this.storedXP-droppedXP;
                 world.emitGameEvent(null, WilderWild.TENDRIL_EXTRACT_XP, pos);
