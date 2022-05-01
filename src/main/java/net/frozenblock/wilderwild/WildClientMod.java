@@ -93,7 +93,6 @@ public class WildClientMod implements ClientModInitializer {
     public void receiveEasyEchoerBubblePacket() {
         ClientSidePacketRegistry.INSTANCE.register(ECHOER_BUBBLE_PACKET, (ctx, byteBuf) -> {
             Vec3d pos = new Vec3d(byteBuf.readDouble(), byteBuf.readDouble(), byteBuf.readDouble());
-            System.out.println("YFGUEBHJKS");
             int size = byteBuf.readVarInt();
             int age = byteBuf.readVarInt();
             int upsidedown = byteBuf.readVarInt();
