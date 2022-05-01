@@ -5,8 +5,10 @@
   "compatibilityLevel": "JAVA_17",
   "mixins": [
     "worldgen.TallBirchFeatureMixin",
+    "worldgen.RemoveForestTreesMixin",
     "worldgen.BirchSaplingGeneratorMixin",
     "worldgen.FeaturesMixin",
+    "worldgen.OakSaplingGeneratorMixin",
     "worldgen.DefaultBiomeFeaturesMixin",
     "worldgen.TrunkPlacerTypeInvoker",
     "BoneMealItemMixin",
