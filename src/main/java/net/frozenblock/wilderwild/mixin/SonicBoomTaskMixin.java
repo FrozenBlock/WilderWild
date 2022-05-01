@@ -28,6 +28,10 @@ import org.spongepowered.asm.mixin.Shadow;
 public class SonicBoomTaskMixin {
     @Shadow private static int RUN_TIME;
 
+    /**
+     * @author FrozenBlock
+     * @reason echo glass pog
+     */
     @Overwrite
     public void keepRunning(ServerWorld serverWorld, WardenEntity wardenEntity, long l) {
         if (!wardenEntity.getBrain().hasMemoryModule(MemoryModuleType.SONIC_BOOM_SOUND_DELAY) && !wardenEntity.getBrain().hasMemoryModule(MemoryModuleType.SONIC_BOOM_SOUND_COOLDOWN)) {
