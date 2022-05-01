@@ -3,8 +3,15 @@
 		"sounds": [
 			"wilderwild:block/echo_glass/crack1",
 			"wilderwild:block/echo_glass/crack2",
-			"wilderwild:block/echo_glass/crack3",
-			"wilderwild:block/echo_glass/crack4"
+			"wilderwild:block/echo_glass/crack3"
+		]
+	},
+	"block.echo_glass.crunch": {
+		"sounds": [
+			"wilderwild:block/echo_glass/crunch1",
+			"wilderwild:block/echo_glass/crunch2",
+			"wilderwild:block/echo_glass/crunch3",
+			"wilderwild:block/echo_glass/crunch4"
 		]
 	},
 	"block.echo_glass.repair": {
