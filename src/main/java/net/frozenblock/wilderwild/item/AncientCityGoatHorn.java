@@ -22,10 +22,10 @@ import org.jetbrains.annotations.Nullable;
 import java.util.List;
 
 public class AncientCityGoatHorn extends Item {
-    public static final int shriekerCooldown = 600;
-    public static final int sensorCooldown = 240;
+    public static final int shriekerCooldown = 800;
+    public static final int sensorCooldown = 300;
     public static final int echoerCooldown = 480;
-    public static final int tendrilCooldown = 160;
+    public static final int tendrilCooldown = 280;
 
     public static int getCooldown(@Nullable Entity entity, int i) {
         if (entity != null) {
@@ -48,11 +48,10 @@ public class AncientCityGoatHorn extends Item {
         ItemStack itemStack = user.getStackInHand(hand);
         user.setCurrentHand(hand);
         world.playSoundFromEntity(user, user, RegisterSounds.ANCIENT_HORN_CALL, SoundCategory.RECORDS, 8.0F, 1.0F);
-        user.getItemCooldownManager().set(RegisterItems.ANCIENT_HORN, getCooldown(user, 100));
+        user.getItemCooldownManager().set(RegisterItems.ANCIENT_HORN, getCooldown(user, 200));
         if (world instanceof ServerWorld server) {
             AncientHornProjectileEntity projectileEntity = new AncientHornProjectileEntity(world, user.getX(), user.getEyeY(), user.getZ());
             projectileEntity.setVelocity(user, user.getPitch(), user.getYaw(), 0.0F, 1.0F, 0.0F);
-            projectileEntity.setDamage(10D);
             server.spawnEntity(projectileEntity);
         }
         return TypedActionResult.consume(itemStack);
