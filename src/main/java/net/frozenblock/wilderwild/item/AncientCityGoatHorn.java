@@ -30,7 +30,7 @@ public class AncientCityGoatHorn extends Item {
     public static int getCooldown(@Nullable Entity entity, int i) {
         if (entity != null) {
             if (entity instanceof PlayerEntity player) {
-                if (player.isCreative()) { return 5; }
+                i = player.isCreative() ? 5 : i;
             }
         } return i;
     }

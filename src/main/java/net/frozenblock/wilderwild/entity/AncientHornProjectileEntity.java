@@ -42,6 +42,7 @@ import net.minecraft.world.RaycastContext;
 import net.minecraft.world.World;
 import net.minecraft.world.event.GameEvent;
 import net.minecraft.world.explosion.Explosion;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
@@ -199,7 +200,7 @@ public class AncientHornProjectileEntity extends PersistentProjectileEntity {
             if (blockState.getBlock() == RegisterBlocks.SCULK_ECHOER) {
                 BlockPos pos = blockHitResult.getBlockPos();
                 if (SculkEchoerBlock.isInactive(blockState)) {
-                    SculkEchoerBlock.setActive(owner, world, pos, world.getBlockState(pos), server.random.nextBetween(160, 300));
+                    SculkEchoerBlock.setActive(owner, world, pos, world.getBlockState(pos), server.random.nextBetween(160, 220));
                     setCooldown(getCooldown(this.getOwner(), echoerCooldown));
                 }
             }
@@ -367,6 +368,10 @@ public class AncientHornProjectileEntity extends PersistentProjectileEntity {
             }
         }
     }
+
+    public void emitGameEvent(GameEvent event) { }
+    public void emitGameEvent(GameEvent event, @Nullable Entity entity) { }
+
     public class EntitySpawnPacket { //When the Fabric tutorial WORKS!!!!! BOM BOM BOM BOM BOM BOM BOM, BOBOBOM! DUNDUN!
         public static Packet<?> create(Entity e, Identifier packetID) {
             if (e.world.isClient)
