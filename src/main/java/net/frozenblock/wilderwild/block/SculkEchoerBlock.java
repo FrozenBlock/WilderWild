@@ -114,7 +114,7 @@ public class SculkEchoerBlock extends BlockWithEntity implements Waterloggable {
     @Override
     public void onSteppedOn( World world, BlockPos pos, BlockState state, Entity entity) {
         if (!world.isClient() && isInactive(state) && entity.getType() != EntityType.WARDEN) {
-            setActive(entity, world, pos, state, 5);
+            setActive(entity, world, pos, state, 20);
         }
         super.onSteppedOn(world, pos, state, entity);
     }
