@@ -6,8 +6,8 @@ import com.mojang.serialization.Dynamic;
 import it.unimi.dsi.fastutil.ints.IntArrayList;
 import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.block.SculkEchoerBlock;
+import net.frozenblock.wilderwild.particle.EchoingBubbleParticle;
 import net.frozenblock.wilderwild.registry.RegisterBlockEntityType;
-import net.frozenblock.wilderwild.registry.RegisterParticles;
 import net.frozenblock.wilderwild.registry.RegisterProperties;
 import net.frozenblock.wilderwild.tag.WildEventTags;
 import net.minecraft.block.BlockState;
@@ -16,12 +16,12 @@ import net.minecraft.entity.Entity;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtElement;
 import net.minecraft.nbt.NbtOps;
-import net.minecraft.particle.DefaultParticleType;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.state.property.Properties;
 import net.minecraft.tag.TagKey;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import net.minecraft.world.event.BlockPositionSource;
 import net.minecraft.world.event.GameEvent;
@@ -52,12 +52,13 @@ public class SculkEchoerBlockEntity extends BlockEntity implements SculkSensorLi
             this.getEventListener().tick(world);
             if (this.echoBubblesLeft > 0) {
                 int size = this.bigBubble ? 1 : 0;
+                int age = waterlogged ? 60 : 30;
+                int upsideDownInt = upsidedown ? 1 : 0;
                 if (this.bigBubble) {this.bigBubble = false; }
                 --this.echoBubblesLeft;
-                DefaultParticleType bubble = size == 1 ? (upsidedown ? RegisterParticles.BIG_ECHOING_BUBBLE_DOWNWARDS : RegisterParticles.BIG_ECHOING_BUBBLE) : (upsidedown ? RegisterParticles.ECHOING_BUBBLE_DOWNWARDS : RegisterParticles.ECHOING_BUBBLE);
                 double offest = upsidedown ? (waterlogged ? -0.05 : 0.2) : (waterlogged ? 1.05 : 0.8);
-                server.spawnParticles(bubble, (double) pos.getX() + 0.5D, (double) pos.getY() + offest, (double) pos.getZ() + 0.5D, 1, 0.0D, 0.0D, 0.0D, 0.05D);
-                this.bubbleTicks.add(27);
+                EchoingBubbleParticle.EasyEchoerBubblePacket.createParticle(server, new Vec3d(pos.getX() + 0.5D, pos.getY() + offest, pos.getZ() + 0.5D), size, age, upsideDownInt);
+                this.bubbleTicks.add(age-3);
                 this.bubbleSizes.add(size);
             }
 

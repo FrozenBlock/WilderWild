@@ -32,6 +32,7 @@ public class WildClientMod implements ClientModInitializer {
     public static final EntityModelLayer ANCIENT_HORN_PROJECTILE_LAYER = new EntityModelLayer(new Identifier(WilderWild.MOD_ID, "ancient_horn_projectile"), "main");
 
     public static final Identifier HORN_PROJECTILE_PACKET_ID = new Identifier(WilderWild.MOD_ID, "ancient_horn_projectile_packet");
+    public static final Identifier ECHOER_BUBBLE_PACKET = new Identifier("sculk_echoer_bubble_easy_packet");
     @Override
     public void onInitializeClient() {
 
@@ -55,15 +56,13 @@ public class WildClientMod implements ClientModInitializer {
 
         ParticleFactoryRegistry.getInstance().register(RegisterParticles.POLLEN, PollenParticle.PollenFactory::new);
         ParticleFactoryRegistry.getInstance().register(RegisterParticles.ECHOING_BUBBLE, EchoingBubbleParticle.BubbleFactory::new);
-        ParticleFactoryRegistry.getInstance().register(RegisterParticles.ECHOING_BUBBLE_DOWNWARDS, EchoingBubbleParticle.DownwardsBubbleFactory::new);
-        ParticleFactoryRegistry.getInstance().register(RegisterParticles.BIG_ECHOING_BUBBLE, EchoingBubbleParticle.BigBubbleFactory::new);
-        ParticleFactoryRegistry.getInstance().register(RegisterParticles.BIG_ECHOING_BUBBLE_DOWNWARDS, EchoingBubbleParticle.BigDownwardsBubbleFactory::new);
         EntityRendererRegistry.register(RegisterEntities.TENDRIL_ENTITY, SculkSensorTendrilRenderer::new);
         EntityModelLayerRegistry.registerModelLayer(SENSOR_TENDRILS_LAYER, SculkSensorTendrilModel::getTexturedModelData);
         EntityRendererRegistry.register(RegisterEntities.ANCIENT_HORN_PROJECTILE_ENTITY, AncientHornProjectileRenderer::new);
         EntityModelLayerRegistry.registerModelLayer(ANCIENT_HORN_PROJECTILE_LAYER, AncientHornProjectileModel::getTexturedModelData);
 
         receiveAncientHornProjectilePacket();
+        receiveEasyEchoerBubblePacket();
     }
 
     public void receiveAncientHornProjectilePacket() {
@@ -87,6 +86,21 @@ public class WildClientMod implements ClientModInitializer {
                 e.setId(entityId);
                 e.setUuid(uuid);
                 MinecraftClient.getInstance().world.addEntity(entityId, e);
+            });
+        });
+    }
+
+    public void receiveEasyEchoerBubblePacket() {
+        ClientSidePacketRegistry.INSTANCE.register(ECHOER_BUBBLE_PACKET, (ctx, byteBuf) -> {
+            Vec3d pos = new Vec3d(byteBuf.readDouble(), byteBuf.readDouble(), byteBuf.readDouble());
+            System.out.println("YFGUEBHJKS");
+            int size = byteBuf.readVarInt();
+            int age = byteBuf.readVarInt();
+            int upsidedown = byteBuf.readVarInt();
+            ctx.getTaskQueue().execute(() -> {
+                if (MinecraftClient.getInstance().world == null)
+                    throw new IllegalStateException("why is your world null");
+                MinecraftClient.getInstance().world.addParticle(RegisterParticles.ECHOING_BUBBLE, pos.x, pos.y, pos.z, size, age, upsidedown);
             });
         });
     }

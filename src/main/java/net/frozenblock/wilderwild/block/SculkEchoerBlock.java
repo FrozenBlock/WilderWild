@@ -195,8 +195,9 @@ public class SculkEchoerBlock extends BlockWithEntity implements Waterloggable {
             echoer.bigBubble = true;
         }
         if (canRun) {
+            int additionalCooldown = state.get(WATERLOGGED) ? 75 : 45;
             world.setBlockState(pos, state.with(SCULK_ECHOER_PHASE, SculkEchoerPhase.ACTIVE), 3);
-            world.createAndScheduleBlockTick(pos, state.getBlock(), bubbles+45);
+            world.createAndScheduleBlockTick(pos, state.getBlock(), bubbles+additionalCooldown);
             updateNeighbors(world, pos);
             world.playSound(null, pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, RegisterSounds.BLOCK_SCULK_ECHOER_ECHO, SoundCategory.BLOCKS, 1.0F, world.random.nextFloat() * 0.1F + 0.9F);
         }
