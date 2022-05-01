@@ -24,7 +24,7 @@ public abstract class RegisterBlocks {
             ItemGroup.BUILDING_BLOCKS
     );
 
-    // FLOWERED_LILY_PAD
+    // FLOWERED LILY PAD
     public static final Block FLOWERED_LILY_PAD = new FloweredLilyPadBlock(FabricBlockSettings.copy(Blocks.LILY_PAD));
 
     // HOLLOW LOGS
@@ -126,6 +126,13 @@ public abstract class RegisterBlocks {
             .collidable(false)
             .mapColor(MapColor.PALE_YELLOW)
             .sounds(BlockSoundGroup.VINE)),
+            ItemGroup.DECORATIONS
+    );
+    public static final Block SHELF_FUNGUS = registerBlock("shelf_fungus",
+            new ShelfFungusBlock(FabricBlockSettings
+                    .copyOf(Blocks.BROWN_MUSHROOM_BLOCK)
+                    .collidable(false)
+                    .nonOpaque()),
             ItemGroup.DECORATIONS
     );
 

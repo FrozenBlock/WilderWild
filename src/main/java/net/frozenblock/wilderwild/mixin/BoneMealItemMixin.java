@@ -2,6 +2,7 @@ package net.frozenblock.wilderwild.mixin;
 
 import net.frozenblock.wilderwild.registry.RegisterBlocks;
 import net.frozenblock.wilderwild.registry.RegisterProperties;
+import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.item.BoneMealItem;
 import net.minecraft.item.ItemUsageContext;
@@ -20,7 +21,8 @@ public class BoneMealItemMixin {
     public void useOnBlock(ItemUsageContext context, CallbackInfoReturnable<ActionResult> info) {
         World world = context.getWorld();
         BlockPos blockPos = context.getBlockPos();
-        if (world.getBlockState(blockPos).isOf(Blocks.LILY_PAD)) {
+        BlockState state = world.getBlockState(blockPos);
+        if (state.isOf(Blocks.LILY_PAD)) {
             if (!world.isClient) {
                 world.syncWorldEvent(1505, blockPos, 0);
                 world.setBlockState(blockPos, RegisterBlocks.FLOWERED_LILY_PAD.getDefaultState());
@@ -28,6 +30,17 @@ public class BoneMealItemMixin {
             }
             info.setReturnValue(ActionResult.success(world.isClient));
             info.cancel();
+        }
+        if (state.isOf(RegisterBlocks.SHELF_FUNGUS)) {
+            if (state.get(RegisterProperties.FUNUGS_STAGE)<4) {
+                if (!world.isClient) {
+                    world.syncWorldEvent(1505, blockPos, 0);
+                    world.setBlockState(blockPos, state.with(RegisterProperties.FUNUGS_STAGE, state.get(RegisterProperties.FUNUGS_STAGE) + 1));
+                    context.getStack().decrement(1);
+                }
+                info.setReturnValue(ActionResult.success(world.isClient));
+                info.cancel();
+            }
         }
     }
 
