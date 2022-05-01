@@ -3,6 +3,7 @@ package net.frozenblock.wilderwild.block;
 import net.frozenblock.wilderwild.registry.RegisterProperties;
 import net.minecraft.block.*;
 import net.minecraft.block.enums.WallMountLocation;
+import net.minecraft.fluid.FluidState;
 import net.minecraft.fluid.Fluids;
 import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.state.StateManager;
@@ -13,6 +14,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.world.BlockView;
+import net.minecraft.world.WorldAccess;
 import org.jetbrains.annotations.Nullable;
 
 public class ShelfFungusBlock extends WallMountedBlock implements Waterloggable {
@@ -38,6 +40,7 @@ public class ShelfFungusBlock extends WallMountedBlock implements Waterloggable 
     public boolean canReplace(BlockState state, ItemPlacementContext context) {
         return !context.shouldCancelInteraction() && context.getStack().isOf(this.asItem()) && state.get(STAGE) < 4 || super.canReplace(state, context);
     }
+
     @Nullable
     public BlockState getPlacementState(ItemPlacementContext ctx) {
         BlockState insideState = ctx.getWorld().getBlockState(ctx.getBlockPos());
@@ -62,6 +65,16 @@ public class ShelfFungusBlock extends WallMountedBlock implements Waterloggable 
         return null;
     }
 
+    public BlockState getStateForNeighborUpdate(BlockState state, Direction direction, BlockState neighborState, WorldAccess world, BlockPos pos, BlockPos neighborPos) {
+        if (state.get(WATERLOGGED)) {
+            world.createAndScheduleFluidTick(pos, Fluids.WATER, Fluids.WATER.getTickRate(world));
+        }
+        return super.getStateForNeighborUpdate(state, direction, neighborState, world, pos, neighborPos);
+    }
+
+    public FluidState getFluidState(BlockState state) {
+        return state.get(WATERLOGGED) ? Fluids.WATER.getStill(false) : super.getFluidState(state);
+    }
 
     public VoxelShape getOutlineShape(BlockState state, BlockView world, BlockPos pos, ShapeContext context) {
         return switch (state.get(FACE)) {
