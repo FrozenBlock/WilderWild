@@ -3,7 +3,10 @@ package net.frozenblock.wilderwild.world.feature;
 import net.minecraft.block.Blocks;
 import net.minecraft.util.registry.RegistryEntry;
 import net.minecraft.world.Heightmap;
-import net.minecraft.world.gen.feature.*;
+import net.minecraft.world.gen.feature.PlacedFeature;
+import net.minecraft.world.gen.feature.PlacedFeatures;
+import net.minecraft.world.gen.feature.TreeConfiguredFeatures;
+import net.minecraft.world.gen.feature.VegetationConfiguredFeatures;
 import net.minecraft.world.gen.placementmodifier.*;
 
 import static net.minecraft.world.gen.feature.VegetationPlacedFeatures.modifiers;

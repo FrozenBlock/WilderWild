@@ -1,8 +1,6 @@
 package net.frozenblock.wilderwild.mixin;
 
 import net.frozenblock.wilderwild.WilderWild;
-import net.frozenblock.wilderwild.entity.SculkSensorTendrilEntity;
-import net.frozenblock.wilderwild.registry.RegisterEntities;
 import net.frozenblock.wilderwild.registry.RegisterProperties;
 import net.frozenblock.wilderwild.registry.RegisterSounds;
 import net.minecraft.block.Blocks;
@@ -10,7 +8,6 @@ import net.minecraft.block.SculkSensorBlock;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Box;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import net.minecraft.world.event.GameEvent;
@@ -20,7 +17,6 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-import java.util.List;
 import java.util.Optional;
 
 @Mixin(SculkSensorListener.class)

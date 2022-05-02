@@ -9,8 +9,6 @@ import net.fabricmc.fabric.api.network.ClientSidePacketRegistry;
 import net.frozenblock.wilderwild.entity.AncientHornProjectileEntity;
 import net.frozenblock.wilderwild.entity.render.AncientHornProjectileModel;
 import net.frozenblock.wilderwild.entity.render.AncientHornProjectileRenderer;
-import net.frozenblock.wilderwild.entity.render.SculkSensorTendrilModel;
-import net.frozenblock.wilderwild.entity.render.SculkSensorTendrilRenderer;
 import net.frozenblock.wilderwild.particle.EchoingBubbleParticle;
 import net.frozenblock.wilderwild.particle.PollenParticle;
 import net.frozenblock.wilderwild.registry.RegisterBlocks;

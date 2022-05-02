@@ -6,7 +6,6 @@ import net.frozenblock.wilderwild.WildClientMod;
 import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.block.SculkEchoerBlock;
 import net.frozenblock.wilderwild.block.entity.HangingTendrilBlockEntity;
-import net.frozenblock.wilderwild.item.AncientCityGoatHorn;
 import net.frozenblock.wilderwild.registry.*;
 import net.frozenblock.wilderwild.tag.WildBlockTags;
 import net.minecraft.block.*;
@@ -60,6 +59,7 @@ public class AncientHornProjectileEntity extends PersistentProjectileEntity {
     public double vecZ;
     public int cooldownLevel;
     public int speedLevel;
+    public boolean shotByPlayer;
     private BlockState inBlockState;
 
     public AncientHornProjectileEntity(EntityType<? extends PersistentProjectileEntity> entityType, World world) {
@@ -98,7 +98,7 @@ public class AncientHornProjectileEntity extends PersistentProjectileEntity {
             Vec3d vec3d3 = this.getPos();
             vec3d2 = vec3d3.add(vec3d);
             HitResult hitResult = this.world.raycast(new RaycastContext(vec3d3, vec3d2, RaycastContext.ShapeType.COLLIDER, RaycastContext.FluidHandling.NONE, this));
-            while(!this.isRemoved()) {
+            while(!this.isRemoved() && canInteract()) {
                 List<Entity> entities = this.collidingEntities();
                 Entity owner = this.getOwner();
                 for (Entity entity : entities) {
@@ -174,7 +174,7 @@ public class AncientHornProjectileEntity extends PersistentProjectileEntity {
         this.shake = 7;
         this.setCritical(false);
         Entity owner = this.getOwner();
-        if (world instanceof ServerWorld server) {
+        if (world instanceof ServerWorld server && canInteract()) {
             if (blockState.getBlock() == Blocks.SCULK_SHRIEKER) {
                 BlockPos pos = blockHitResult.getBlockPos();
                 if (blockState.get(RegisterProperties.SOULS_TAKEN) < 2 && !blockState.get(SculkShriekerBlock.SHRIEKING)) {
@@ -225,7 +225,7 @@ public class AncientHornProjectileEntity extends PersistentProjectileEntity {
     public boolean isTouchingWater() { return true; }
     public boolean isNoClip() {
         BlockState insideState = world.getBlockState(this.getBlockPos());
-        if (insideState.isOf(RegisterBlocks.HANGING_TENDRIL) && world instanceof ServerWorld server) {
+        if (insideState.isOf(RegisterBlocks.HANGING_TENDRIL) && world instanceof ServerWorld server && canInteract()) {
             BlockPos pos = this.getBlockPos();
             BlockEntity entity = world.getBlockEntity(pos);
             if (entity instanceof HangingTendrilBlockEntity tendril) {
@@ -271,6 +271,11 @@ public class AncientHornProjectileEntity extends PersistentProjectileEntity {
     public Packet<?> createSpawnPacket() {
         return EntitySpawnPacket.create(this, WildClientMod.HORN_PROJECTILE_PACKET_ID);
     }
+    public boolean canInteract() {
+        if (!this.shotByPlayer && !world.isClient) {
+            return this.getOwner()!=null;
+        } return true;
+    }
     @Override
     protected ItemStack asItemStack() {
         return ItemStack.EMPTY;
@@ -290,6 +295,7 @@ public class AncientHornProjectileEntity extends PersistentProjectileEntity {
             nbt.putDouble("originZ", this.vecZ);
             nbt.putInt("cooldownLevel", this.cooldownLevel);
             nbt.putInt("speedLevel", this.speedLevel);
+            nbt.putBoolean("shotByPlayer", this.shotByPlayer);
         }
     }
     public void readCustomDataFromNbt(NbtCompound nbt) {
@@ -305,6 +311,7 @@ public class AncientHornProjectileEntity extends PersistentProjectileEntity {
             this.vecZ = nbt.getDouble("originZ");
             this.cooldownLevel = nbt.getInt("cooldownLevel");
             this.speedLevel = nbt.getInt("speedLevel");
+            this.shotByPlayer = nbt.getBoolean("shotByPlayer");
         }
     }
     public void setVelocity(Entity shooter, float pitch, float yaw, float roll, float speed, float divergence) {
@@ -350,7 +357,7 @@ public class AncientHornProjectileEntity extends PersistentProjectileEntity {
             boolean bl = entity.getType() == EntityType.ENDERMAN;
             int j = entity.getFireTicks();
             if (this.isOnFire() && !bl) { entity.setOnFireFor(5); }
-            if (entity instanceof WardenEntity warden && entity2!=null) {
+            if (entity instanceof WardenEntity warden && entity2!=null && canInteract()) {
                 warden.increaseAngerAt(entity2, 100, true);
                 warden.playSound(SoundEvents.ENTITY_WARDEN_TENDRIL_CLICKS, 5.0F, warden.getSoundPitch());
             } else if (entity.damage(damageSource, (float) i)) {

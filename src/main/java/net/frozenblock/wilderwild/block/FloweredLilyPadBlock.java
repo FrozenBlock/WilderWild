@@ -1,7 +1,6 @@
 package net.frozenblock.wilderwild.block;
 
 import net.minecraft.block.*;
-import net.minecraft.client.resource.GrassColormapResourceSupplier;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.vehicle.BoatEntity;
 import net.minecraft.fluid.FluidState;

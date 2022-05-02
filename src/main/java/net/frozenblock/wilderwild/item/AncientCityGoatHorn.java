@@ -88,6 +88,7 @@ public class AncientCityGoatHorn extends Item {
             projectileEntity.setVelocity(user, user.getPitch(), user.getYaw(), 0.0F, 1.0F + (float)(getSpeedLevel(getHorns(user))*0.5), 0.0F);
             projectileEntity.speedLevel=getSpeedLevel(getHorns(user));
             projectileEntity.cooldownLevel=getCooldownLevel(getHorns(user));
+            projectileEntity.shotByPlayer=true;
             server.spawnEntity(projectileEntity);
         }
         return TypedActionResult.consume(itemStack);
