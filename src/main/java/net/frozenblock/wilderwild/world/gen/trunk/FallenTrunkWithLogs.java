@@ -67,7 +67,7 @@ public class FallenTrunkWithLogs extends TrunkPlacer {
         for (int i = 0; i < height; ++i) {
             int x = startPos.getX() + (logDir.getOffsetX() * i);
             int z = startPos.getZ() + (logDir.getOffsetZ() * i);
-            boolean solidBelow = !TreeFeature.canReplace(world, mutable.set(x, startPos.getY(), z));
+            boolean solidBelow = !TreeFeature.canReplace(world, mutable.set(x, startPos.getY()-1, z));
             if (solidBelow || logsAboveHole<maxAboveHole) {
                 int holeAddition = !solidBelow ? 1 : 0;
                 if (!TreeFeature.canReplace(world, mutable.set(x, startPos.getY(), z))) {
