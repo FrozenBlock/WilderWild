@@ -1,11 +1,14 @@
 package net.frozenblock.wilderwild.block;
 
+import net.frozenblock.wilderwild.registry.RegisterEnchantments;
 import net.frozenblock.wilderwild.registry.RegisterProperties;
 import net.frozenblock.wilderwild.registry.RegisterSounds;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.TintedGlassBlock;
 import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.enchantment.EnchantmentHelper;
+import net.minecraft.enchantment.Enchantments;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.server.world.ServerWorld;
@@ -84,7 +87,7 @@ public class EchoGlassBlock extends TintedGlassBlock {
 
     public void afterBreak(World world, PlayerEntity player, BlockPos pos, BlockState state, @Nullable BlockEntity blockEntity, ItemStack stack) {
         player.addExhaustion(0.005F);
-        if (state.get(DAMAGE)<3) {
+        if (state.get(DAMAGE)<3 && EnchantmentHelper.getLevel(Enchantments.SILK_TOUCH, player.getMainHandStack())<1) {
             world.setBlockState(pos, state.with(DAMAGE, state.get(DAMAGE) + 1));
         } else {
             player.incrementStat(Stats.MINED.getOrCreateStat(this));
