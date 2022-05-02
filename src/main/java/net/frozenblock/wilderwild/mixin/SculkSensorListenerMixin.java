@@ -40,14 +40,14 @@ public class SculkSensorListenerMixin {
                         world.emitGameEvent(null, WilderWild.SCULK_SENSOR_ACTIVATE, blockPos);
                         world.playSound(null, blockPos, RegisterSounds.BLOCK_SCULK_SENSOR_HICCUP, SoundCategory.BLOCKS, 1.0F, world.random.nextFloat() * 0.1F + 0.7F);
                     }
-                    Box box = (new Box(blockPos.add(0, 0, 0), blockPos.add(1, 1, 1)));
+                    /*Box box = (new Box(blockPos.add(0, 0, 0), blockPos.add(1, 1, 1)));
                     List<SculkSensorTendrilEntity> list = world.getNonSpectatingEntities(SculkSensorTendrilEntity.class, box);
                     if (list.isEmpty()) {
                         SculkSensorTendrilEntity tendrils = RegisterEntities.TENDRIL_ENTITY.create(server);
                         assert tendrils != null;
                         tendrils.refreshPositionAndAngles(blockPos.getX() + 0.5D, blockPos.getY()+0.5D, blockPos.getZ() + 0.5D, 0.0F, 0.0F);
                         server.spawnEntity(tendrils);
-                    }
+                    }*/
                 }
             }
         }
