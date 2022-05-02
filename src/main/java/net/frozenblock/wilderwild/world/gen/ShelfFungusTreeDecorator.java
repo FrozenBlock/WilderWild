@@ -3,36 +3,32 @@ package net.frozenblock.wilderwild.world.gen;
 import com.mojang.serialization.Codec;
 import net.frozenblock.wilderwild.block.ShelfFungusBlock;
 import net.frozenblock.wilderwild.registry.RegisterBlocks;
-import net.minecraft.block.BlockState;
 import net.minecraft.block.enums.WallMountLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.random.AbstractRandom;
-import net.minecraft.world.gen.treedecorator.CocoaBeansTreeDecorator;
 import net.minecraft.world.gen.treedecorator.TreeDecorator;
 import net.minecraft.world.gen.treedecorator.TreeDecoratorType;
 
-import java.util.Iterator;
 import java.util.List;
 
-public class ShelfFungusTreeDecorator extends CocoaBeansTreeDecorator {
+public class ShelfFungusTreeDecorator extends TreeDecorator {
     public static final Codec<ShelfFungusTreeDecorator> CODEC = Codec.floatRange(0.0F, 1.0F).fieldOf("probability").xmap(ShelfFungusTreeDecorator::new, (decorator) -> {
         return decorator.probability;
     }).codec();
     private final float probability;
 
     public ShelfFungusTreeDecorator(float probability) {
-        super(0);
         this.probability = probability;
     }
 
     protected TreeDecoratorType<?> getType() {
-        return TreeDecoratorType.COCOA;
+        return WildTreeDecorators.FUNGUS_TREE_DECORATOR;
     }
 
     public void generate(TreeDecorator.Generator generator) {
         AbstractRandom abstractRandom = generator.getRandom();
-        if (!(abstractRandom.nextFloat() >= this.probability)) {
+        if (abstractRandom.nextFloat() <= this.probability) {
             List<BlockPos> list = generator.getLogPositions();
             int i = list.get(4).getY();
             list.stream().filter((pos) -> {
@@ -40,15 +36,14 @@ public class ShelfFungusTreeDecorator extends CocoaBeansTreeDecorator {
             }).forEach((pos) -> {
                 for (Direction direction : Direction.Type.HORIZONTAL) {
                     if (abstractRandom.nextFloat() <= 0.25F) {
-                        Direction direction2 = direction.getOpposite();
-                        BlockPos blockPos = pos.add(direction2.getOffsetX(), 0, direction2.getOffsetZ());
+                        BlockPos blockPos = pos.add(direction.getOpposite().getOffsetX(), 0, direction.getOpposite().getOffsetZ());
                         if (generator.isAir(blockPos)) {
                             generator.replace(blockPos, RegisterBlocks.SHELF_FUNGUS.getDefaultState().with(ShelfFungusBlock.STAGE, abstractRandom.nextInt(3)+1).with(ShelfFungusBlock.FACE, WallMountLocation.WALL).with(ShelfFungusBlock.FACING, direction.getOpposite()));
                         }
                     }
                 }
-
             });
         }
     }
+
 }

@@ -22,7 +22,8 @@
 	"worldgen.OakSaplingGeneratorMixin",
 	"worldgen.RemoveForestTreesMixin",
 	"worldgen.TallBirchFeatureMixin",
-	"worldgen.TrunkPlacerTypeInvoker"
+	"worldgen.TrunkPlacerTypeInvoker",
+	"worldgen.TreeDecoratorTypeInvoker"
   ],
   "client": [
   ],
