@@ -102,9 +102,9 @@ public class FallenTrunkWithLogs extends TrunkPlacer {
             x += offsetDir.getOffsetX() * offset;
             z += offsetDir.getOffsetZ() * offset;
             y += offsetDir.getOffsetY() * offset;
-            x += direction.getOffsetX() * l;
-            z += direction.getOffsetZ() * l;
-            y += direction.getOffsetY() * l;
+            x += direction.getOffsetX() * (l+1);
+            z += direction.getOffsetZ() * (l+1);
+            y += direction.getOffsetY() * (l+1);
             if (TreeFeature.canReplace(world, pos.set(x, y, z))) {
                 if (config.trunkProvider.getBlockState(random, pos.set(x, y, z)).contains(Properties.AXIS)) {
                     Direction.Axis axis = direction.getOffsetX()!=0 ? Direction.Axis.X : (direction.getOffsetY()!=0 ? Direction.Axis.Y : Direction.Axis.Z);
