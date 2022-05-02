@@ -14,9 +14,9 @@ public class OakSaplingGeneratorMixin extends SaplingGenerator {
     @Override
     public RegistryEntry<? extends ConfiguredFeature<?, ?>> getTreeFeature(AbstractRandom random, boolean bees) {
         if (random.nextInt(10) == 0) {
-            return bees ? WildTreeConfigured.NEW_FANCY_OAK_BEES_0002 : WildTreeConfigured.NEW_FANCY_OAK;
+            return bees ? WildTreeConfigured.NEW_FANCY_OAK_BEES_0004 : WildTreeConfigured.NEW_FANCY_OAK;
         } else {
-            return bees ? WildTreeConfigured.NEW_OAK_BEES_0002 : WildTreeConfigured.NEW_OAK;
+            return bees ? WildTreeConfigured.NEW_OAK_BEES_0004 : WildTreeConfigured.NEW_OAK;
         }
     }
 }

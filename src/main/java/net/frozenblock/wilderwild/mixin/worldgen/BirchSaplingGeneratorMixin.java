@@ -13,6 +13,6 @@ public class BirchSaplingGeneratorMixin extends SaplingGenerator {
 
     @Override
     public RegistryEntry<? extends ConfiguredFeature<?, ?>> getTreeFeature(AbstractRandom random, boolean bees) {
-        return WildTreeConfigured.NEW_BIRCH_BEES_0002;
+        return WildTreeConfigured.NEW_BIRCH_BEES_0004;
     }
 }
