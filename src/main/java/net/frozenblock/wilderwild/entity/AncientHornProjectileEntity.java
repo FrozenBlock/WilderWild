@@ -328,9 +328,8 @@ public class AncientHornProjectileEntity extends PersistentProjectileEntity {
         }
     }
     public double getDamage() {
-        double distance = Math.sqrt(this.getBlockPos().getSquaredDistance(new Vec3d(this.vecX, this.vecY, this.vecZ)));
-        int level = AncientCityGoatHorn.getSpeedLevel(AncientCityGoatHorn.getHorns((PlayerEntity)this.getOwner()));
-        distance = MathHelper.clamp(distance, 10+level, 25-level);
+        double distance = Math.sqrt(this.getBlockPos().getSquaredDistance(new Vec3d(this.vecX, this.vecY, this.vecZ)));;
+        distance = MathHelper.clamp(distance, 10+this.speedLevel, 25-this.speedLevel);
         return 15*Math.sin((distance*Math.PI)/30);
     }
     protected float getDragInWater() { return 1.0F; }
