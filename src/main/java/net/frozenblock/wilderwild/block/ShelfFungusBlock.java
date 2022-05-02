@@ -45,7 +45,7 @@ public class ShelfFungusBlock extends WallMountedBlock implements Waterloggable 
     public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
         ItemStack itemStack = player.getStackInHand(hand);
         int i = state.get(STAGE);
-        if (i > 0) {
+        if (i > 1) {
             if (itemStack.isOf(Items.SHEARS)) {
                 dropStack(world, pos, new ItemStack(state.getBlock().asItem()));
                 world.setBlockState(pos, state.with(STAGE, i-1));
