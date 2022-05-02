@@ -6,9 +6,9 @@ import net.minecraft.enchantment.EnchantmentTarget;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.item.ItemStack;
 
-public class HornCooldownEnchantment extends Enchantment {
+public class HornSpeedEnchantment extends Enchantment {
 
-    public HornCooldownEnchantment(Rarity weight, EnchantmentTarget type, EquipmentSlot[] slotTypes) {
+    public HornSpeedEnchantment(Rarity weight, EnchantmentTarget type, EquipmentSlot[] slotTypes) {
         super(weight, type, slotTypes);
     }
 
@@ -20,7 +20,9 @@ public class HornCooldownEnchantment extends Enchantment {
         return super.getMinPower(level) + 50;
     }
 
-    public int getMaxLevel() { return 2; }
+    public int getMaxLevel() {
+        return 3;
+    }
 
     public boolean isAcceptableItem(ItemStack stack) {
         return stack.isOf(RegisterItems.ANCIENT_HORN);

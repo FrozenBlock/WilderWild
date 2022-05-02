@@ -6,6 +6,7 @@ import net.frozenblock.wilderwild.WildClientMod;
 import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.block.SculkEchoerBlock;
 import net.frozenblock.wilderwild.block.entity.HangingTendrilBlockEntity;
+import net.frozenblock.wilderwild.item.AncientCityGoatHorn;
 import net.frozenblock.wilderwild.registry.*;
 import net.frozenblock.wilderwild.tag.WildBlockTags;
 import net.minecraft.block.*;
@@ -322,7 +323,8 @@ public class AncientHornProjectileEntity extends PersistentProjectileEntity {
     }
     public double getDamage() {
         double distance = Math.sqrt(this.getBlockPos().getSquaredDistance(new Vec3d(this.vecX, this.vecY, this.vecZ)));
-        distance = MathHelper.clamp(distance, 10, 25);
+        int level = AncientCityGoatHorn.getSpeedLevel(AncientCityGoatHorn.getHorns((PlayerEntity)this.getOwner()));
+        distance = MathHelper.clamp(distance, 10+level, 25-level);
         return 15*Math.sin((distance*Math.PI)/30);
     }
     protected float getDragInWater() { return 1.0F; }

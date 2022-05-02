@@ -46,10 +46,19 @@ public class AncientCityGoatHorn extends Item {
         } return i==99 ? 0 : i;
     }
 
+    public static int getSpeedLevel(ArrayList<ItemStack> horns) {
+        int i = 99;
+        for (ItemStack horn : horns) {
+            i = Math.min(EnchantmentHelper.getLevel(RegisterEnchantments.ANCIENT_HORN_SPEED_ENCHANTMENT, horn), i);
+        } return i==99 ? 0 : i;
+    }
+
     public static ArrayList<ItemStack> getHorns(PlayerEntity player) {
         ArrayList<ItemStack> horns = new ArrayList<>();
-        if (player.getMainHandStack().isOf(RegisterItems.ANCIENT_HORN)) { horns.add(player.getMainHandStack()); }
-        if (player.getOffHandStack().isOf(RegisterItems.ANCIENT_HORN)) { horns.add(player.getOffHandStack()); }
+        if (player!=null) {
+            if (player.getMainHandStack().isOf(RegisterItems.ANCIENT_HORN)) { horns.add(player.getMainHandStack()); }
+            if (player.getOffHandStack().isOf(RegisterItems.ANCIENT_HORN)) { horns.add(player.getOffHandStack()); }
+        }
         return horns;
     }
 
@@ -69,7 +78,7 @@ public class AncientCityGoatHorn extends Item {
         user.getItemCooldownManager().set(RegisterItems.ANCIENT_HORN, getCooldown(user, 300));
         if (world instanceof ServerWorld server) {
             AncientHornProjectileEntity projectileEntity = new AncientHornProjectileEntity(world, user.getX(), user.getEyeY(), user.getZ());
-            projectileEntity.setVelocity(user, user.getPitch(), user.getYaw(), 0.0F, 1.0F, 0.0F);
+            projectileEntity.setVelocity(user, user.getPitch(), user.getYaw(), 0.0F, 1.0F + (float)(getSpeedLevel(getHorns(user))*0.5), 0.0F);
             server.spawnEntity(projectileEntity);
         }
         return TypedActionResult.consume(itemStack);
