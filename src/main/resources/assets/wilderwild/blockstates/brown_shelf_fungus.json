@@ -1,213 +1,213 @@
 {
   "variants": {
-    "face=ceiling,facing=east,brown_shelf_fungus_stage=1": {
+    "face=ceiling,facing=east,shelf_fungus_stage=1": {
       "model": "wilderwild:block/brown_shelf_fungus_2",
       "x": 180,
       "y": 270
     },
-    "face=ceiling,facing=north,brown_shelf_fungus_stage=1": {
+    "face=ceiling,facing=north,shelf_fungus_stage=1": {
       "model": "wilderwild:block/brown_shelf_fungus_2",
       "x": 180,
       "y": 180
     },
-    "face=ceiling,facing=south,brown_shelf_fungus_stage=1": {
+    "face=ceiling,facing=south,shelf_fungus_stage=1": {
       "model": "wilderwild:block/brown_shelf_fungus_2",
       "x": 180
     },
-    "face=ceiling,facing=west,brown_shelf_fungus_stage=1": {
+    "face=ceiling,facing=west,shelf_fungus_stage=1": {
       "model": "wilderwild:block/brown_shelf_fungus_2",
       "x": 180,
       "y": 90
     },
-    "face=floor,facing=east,brown_shelf_fungus_stage=1": {
+    "face=floor,facing=east,shelf_fungus_stage=1": {
       "model": "wilderwild:block/brown_shelf_fungus_2",
       "y": 90
     },
-    "face=floor,facing=north,brown_shelf_fungus_stage=1": {
+    "face=floor,facing=north,shelf_fungus_stage=1": {
       "model": "wilderwild:block/brown_shelf_fungus_2"
     },
-    "face=floor,facing=south,brown_shelf_fungus_stage=1": {
+    "face=floor,facing=south,shelf_fungus_stage=1": {
       "model": "wilderwild:block/brown_shelf_fungus_2",
       "y": 180
     },
-    "face=floor,facing=west,brown_shelf_fungus_stage=1": {
+    "face=floor,facing=west,shelf_fungus_stage=1": {
       "model": "wilderwild:block/brown_shelf_fungus_2",
       "y": 270
     },
-    "face=wall,facing=east,brown_shelf_fungus_stage=1": {
+    "face=wall,facing=east,shelf_fungus_stage=1": {
       "model": "wilderwild:block/brown_shelf_fungus_2",
       "x": 90,
       "y": 90
     },
-    "face=wall,facing=north,brown_shelf_fungus_stage=1": {
+    "face=wall,facing=north,shelf_fungus_stage=1": {
       "model": "wilderwild:block/brown_shelf_fungus_2",
       "x": 90
     },
-    "face=wall,facing=south,brown_shelf_fungus_stage=1": {
+    "face=wall,facing=south,shelf_fungus_stage=1": {
       "model": "wilderwild:block/brown_shelf_fungus_2",
       "x": 90,
       "y": 180
     },
-    "face=wall,facing=west,brown_shelf_fungus_stage=1": {
+    "face=wall,facing=west,shelf_fungus_stage=1": {
       "model": "wilderwild:block/brown_shelf_fungus_2",
       "x": 90,
       "y": 270
     },
-    "face=ceiling,facing=east,brown_shelf_fungus_stage=2": {
+    "face=ceiling,facing=east,shelf_fungus_stage=2": {
       "model": "wilderwild:block/brown_shelf_fungus_5",
       "x": 180,
       "y": 270
     },
-    "face=ceiling,facing=north,brown_shelf_fungus_stage=2": {
+    "face=ceiling,facing=north,shelf_fungus_stage=2": {
       "model": "wilderwild:block/brown_shelf_fungus_5",
       "x": 180,
       "y": 180
     },
-    "face=ceiling,facing=south,brown_shelf_fungus_stage=2": {
+    "face=ceiling,facing=south,shelf_fungus_stage=2": {
       "model": "wilderwild:block/brown_shelf_fungus_5",
       "x": 180
     },
-    "face=ceiling,facing=west,brown_shelf_fungus_stage=2": {
+    "face=ceiling,facing=west,shelf_fungus_stage=2": {
       "model": "wilderwild:block/brown_shelf_fungus_5",
       "x": 180,
       "y": 90
     },
-    "face=floor,facing=east,brown_shelf_fungus_stage=2": {
+    "face=floor,facing=east,shelf_fungus_stage=2": {
       "model": "wilderwild:block/brown_shelf_fungus_5",
       "y": 90
     },
-    "face=floor,facing=north,brown_shelf_fungus_stage=2": {
+    "face=floor,facing=north,shelf_fungus_stage=2": {
       "model": "wilderwild:block/brown_shelf_fungus_5"
     },
-    "face=floor,facing=south,brown_shelf_fungus_stage=2": {
+    "face=floor,facing=south,shelf_fungus_stage=2": {
       "model": "wilderwild:block/brown_shelf_fungus_5",
       "y": 180
     },
-    "face=floor,facing=west,brown_shelf_fungus_stage=2": {
+    "face=floor,facing=west,shelf_fungus_stage=2": {
       "model": "wilderwild:block/brown_shelf_fungus_5",
       "y": 270
     },
-    "face=wall,facing=east,brown_shelf_fungus_stage=2": {
+    "face=wall,facing=east,shelf_fungus_stage=2": {
       "model": "wilderwild:block/brown_shelf_fungus_5",
       "x": 90,
       "y": 90
     },
-    "face=wall,facing=north,brown_shelf_fungus_stage=2": {
+    "face=wall,facing=north,shelf_fungus_stage=2": {
       "model": "wilderwild:block/brown_shelf_fungus_5",
       "x": 90
     },
-    "face=wall,facing=south,brown_shelf_fungus_stage=2": {
+    "face=wall,facing=south,shelf_fungus_stage=2": {
       "model": "wilderwild:block/brown_shelf_fungus_5",
       "x": 90,
       "y": 180
     },
-    "face=wall,facing=west,brown_shelf_fungus_stage=2": {
+    "face=wall,facing=west,shelf_fungus_stage=2": {
       "model": "wilderwild:block/brown_shelf_fungus_5",
       "x": 90,
       "y": 270
     },
-    "face=ceiling,facing=east,brown_shelf_fungus_stage=3": {
+    "face=ceiling,facing=east,shelf_fungus_stage=3": {
       "model": "wilderwild:block/brown_shelf_fungus_8",
       "x": 180,
       "y": 270
     },
-    "face=ceiling,facing=north,brown_shelf_fungus_stage=3": {
+    "face=ceiling,facing=north,shelf_fungus_stage=3": {
       "model": "wilderwild:block/brown_shelf_fungus_8",
       "x": 180,
       "y": 180
     },
-    "face=ceiling,facing=south,brown_shelf_fungus_stage=3": {
+    "face=ceiling,facing=south,shelf_fungus_stage=3": {
       "model": "wilderwild:block/brown_shelf_fungus_8",
       "x": 180
     },
-    "face=ceiling,facing=west,brown_shelf_fungus_stage=3": {
+    "face=ceiling,facing=west,shelf_fungus_stage=3": {
       "model": "wilderwild:block/brown_shelf_fungus_8",
       "x": 180,
       "y": 90
     },
-    "face=floor,facing=east,brown_shelf_fungus_stage=3": {
+    "face=floor,facing=east,shelf_fungus_stage=3": {
       "model": "wilderwild:block/brown_shelf_fungus_8",
       "y": 90
     },
-    "face=floor,facing=north,brown_shelf_fungus_stage=3": {
+    "face=floor,facing=north,shelf_fungus_stage=3": {
       "model": "wilderwild:block/brown_shelf_fungus_8"
     },
-    "face=floor,facing=south,brown_shelf_fungus_stage=3": {
+    "face=floor,facing=south,shelf_fungus_stage=3": {
       "model": "wilderwild:block/brown_shelf_fungus_8",
       "y": 180
     },
-    "face=floor,facing=west,brown_shelf_fungus_stage=3": {
+    "face=floor,facing=west,shelf_fungus_stage=3": {
       "model": "wilderwild:block/brown_shelf_fungus_8",
       "y": 270
     },
-    "face=wall,facing=east,brown_shelf_fungus_stage=3": {
+    "face=wall,facing=east,shelf_fungus_stage=3": {
       "model": "wilderwild:block/brown_shelf_fungus_8",
       "x": 90,
       "y": 90
     },
-    "face=wall,facing=north,brown_shelf_fungus_stage=3": {
+    "face=wall,facing=north,shelf_fungus_stage=3": {
       "model": "wilderwild:block/brown_shelf_fungus_8",
       "x": 90
     },
-    "face=wall,facing=south,brown_shelf_fungus_stage=3": {
+    "face=wall,facing=south,shelf_fungus_stage=3": {
       "model": "wilderwild:block/brown_shelf_fungus_8",
       "x": 90,
       "y": 180
     },
-    "face=wall,facing=west,brown_shelf_fungus_stage=3": {
+    "face=wall,facing=west,shelf_fungus_stage=3": {
       "model": "wilderwild:block/brown_shelf_fungus_8",
       "x": 90,
       "y": 270
     },
-    "face=ceiling,facing=east,brown_shelf_fungus_stage=4": {
+    "face=ceiling,facing=east,shelf_fungus_stage=4": {
       "model": "wilderwild:block/brown_shelf_fungus_12",
       "x": 180,
       "y": 270
     },
-    "face=ceiling,facing=north,brown_shelf_fungus_stage=4": {
+    "face=ceiling,facing=north,shelf_fungus_stage=4": {
       "model": "wilderwild:block/brown_shelf_fungus_12",
       "x": 180,
       "y": 180
     },
-    "face=ceiling,facing=south,brown_shelf_fungus_stage=4": {
+    "face=ceiling,facing=south,shelf_fungus_stage=4": {
       "model": "wilderwild:block/brown_shelf_fungus_12",
       "x": 180
     },
-    "face=ceiling,facing=west,brown_shelf_fungus_stage=4": {
+    "face=ceiling,facing=west,shelf_fungus_stage=4": {
       "model": "wilderwild:block/brown_shelf_fungus_12",
       "x": 180,
       "y": 90
     },
-    "face=floor,facing=east,brown_shelf_fungus_stage=4": {
+    "face=floor,facing=east,shelf_fungus_stage=4": {
       "model": "wilderwild:block/brown_shelf_fungus_12",
       "y": 90
     },
-    "face=floor,facing=north,brown_shelf_fungus_stage=4": {
+    "face=floor,facing=north,shelf_fungus_stage=4": {
       "model": "wilderwild:block/brown_shelf_fungus_12"
     },
-    "face=floor,facing=south,brown_shelf_fungus_stage=4": {
+    "face=floor,facing=south,shelf_fungus_stage=4": {
       "model": "wilderwild:block/brown_shelf_fungus_12",
       "y": 180
     },
-    "face=floor,facing=west,brown_shelf_fungus_stage=4": {
+    "face=floor,facing=west,shelf_fungus_stage=4": {
       "model": "wilderwild:block/brown_shelf_fungus_12",
       "y": 270
     },
-    "face=wall,facing=east,brown_shelf_fungus_stage=4": {
+    "face=wall,facing=east,shelf_fungus_stage=4": {
       "model": "wilderwild:block/brown_shelf_fungus_12",
       "x": 90,
       "y": 90
     },
-    "face=wall,facing=north,brown_shelf_fungus_stage=4": {
+    "face=wall,facing=north,shelf_fungus_stage=4": {
       "model": "wilderwild:block/brown_shelf_fungus_12",
       "x": 90
     },
-    "face=wall,facing=south,brown_shelf_fungus_stage=4": {
+    "face=wall,facing=south,shelf_fungus_stage=4": {
       "model": "wilderwild:block/brown_shelf_fungus_12",
       "x": 90,
       "y": 180
     },
-    "face=wall,facing=west,brown_shelf_fungus_stage=4": {
+    "face=wall,facing=west,shelf_fungus_stage=4": {
       "model": "wilderwild:block/brown_shelf_fungus_12",
       "x": 90,
       "y": 270
