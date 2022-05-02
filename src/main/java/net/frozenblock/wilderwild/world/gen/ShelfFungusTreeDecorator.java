@@ -34,19 +34,16 @@ public class ShelfFungusTreeDecorator extends CocoaBeansTreeDecorator {
         AbstractRandom abstractRandom = generator.getRandom();
         if (!(abstractRandom.nextFloat() >= this.probability)) {
             List<BlockPos> list = generator.getLogPositions();
-            int i = ((BlockPos)list.get(4)).getY();
+            int i = list.get(4).getY();
             list.stream().filter((pos) -> {
                 return pos.getY() - i <= 8;
             }).forEach((pos) -> {
-                Iterator var3 = Direction.Type.HORIZONTAL.iterator();
-
-                while(var3.hasNext()) {
-                    Direction direction = (Direction)var3.next();
+                for (Direction direction : Direction.Type.HORIZONTAL) {
                     if (abstractRandom.nextFloat() <= 0.25F) {
                         Direction direction2 = direction.getOpposite();
                         BlockPos blockPos = pos.add(direction2.getOffsetX(), 0, direction2.getOffsetZ());
                         if (generator.isAir(blockPos)) {
-                            generator.replace(blockPos, (BlockState)((BlockState) RegisterBlocks.SHELF_FUNGUS.getDefaultState().with(ShelfFungusBlock.STAGE, abstractRandom.nextInt(3))).with(ShelfFungusBlock.FACE, WallMountLocation.WALL).with(ShelfFungusBlock.FACING, direction.getOpposite()));
+                            generator.replace(blockPos, RegisterBlocks.SHELF_FUNGUS.getDefaultState().with(ShelfFungusBlock.STAGE, abstractRandom.nextInt(3)+1).with(ShelfFungusBlock.FACE, WallMountLocation.WALL).with(ShelfFungusBlock.FACING, direction.getOpposite()));
                         }
                     }
                 }
