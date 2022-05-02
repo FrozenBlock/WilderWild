@@ -58,6 +58,8 @@ public class AncientHornProjectileEntity extends PersistentProjectileEntity {
     public double vecX;
     public double vecY;
     public double vecZ;
+    public int cooldownLevel;
+    public int speedLevel;
     private BlockState inBlockState;
 
     public AncientHornProjectileEntity(EntityType<? extends PersistentProjectileEntity> entityType, World world) {
@@ -182,7 +184,7 @@ public class AncientHornProjectileEntity extends PersistentProjectileEntity {
                     WardenEntity.addDarknessToClosePlayers(server, Vec3d.ofCenter(this.getBlockPos()), null, 40);
                     server.syncWorldEvent(3007, pos, 0);
                     server.emitGameEvent(GameEvent.SHRIEK, pos, GameEvent.Emitter.of(owner));
-                    setCooldown(getCooldown(this.getOwner(), shriekerCooldown));
+                    setCooldown(getCooldown(this.getOwner(), shriekerCooldown, ((-this.cooldownLevel*40) + (this.speedLevel*20))));
                     this.setSound(RegisterSounds.ANCIENT_HORN_VIBRATION_DISSAPATE);
                     this.setShotFromCrossbow(false);
                     this.remove(RemovalReason.DISCARDED);
@@ -195,14 +197,14 @@ public class AncientHornProjectileEntity extends PersistentProjectileEntity {
                     SculkSensorBlock.setActive(null, world, pos, world.getBlockState(pos), (int) (Math.random() * 15));
                     world.emitGameEvent(owner, GameEvent.SCULK_SENSOR_TENDRILS_CLICKING, pos);
                     world.emitGameEvent(owner, WilderWild.SCULK_SENSOR_ACTIVATE, pos);
-                    setCooldown(getCooldown(this.getOwner(), sensorCooldown));
+                    setCooldown(getCooldown(this.getOwner(), sensorCooldown, ((-this.cooldownLevel*40) + (this.speedLevel*20))));
                 }
             }
             if (blockState.getBlock() == RegisterBlocks.SCULK_ECHOER) {
                 BlockPos pos = blockHitResult.getBlockPos();
                 if (SculkEchoerBlock.isInactive(blockState)) {
                     SculkEchoerBlock.setActive(owner, world, pos, world.getBlockState(pos), server.random.nextBetween(160, 220));
-                    setCooldown(getCooldown(this.getOwner(), echoerCooldown));
+                    setCooldown(getCooldown(this.getOwner(), echoerCooldown,  ((-this.cooldownLevel*40) + (this.speedLevel*20))));
                 }
             }
         }
@@ -233,7 +235,7 @@ public class AncientHornProjectileEntity extends PersistentProjectileEntity {
                     tendril.storedXP = 0;
                     world.createExplosion(this, this.getX(), this.getY(), this.getZ(), 3, Explosion.DestructionType.BREAK);
                     ExperienceOrbEntity.spawn(server, Vec3d.ofCenter(pos).add(0, 0, 0), XP);
-                    setCooldown(getCooldown(this.getOwner(), tendrilCooldown));
+                    setCooldown(getCooldown(this.getOwner(), tendrilCooldown, ((-this.cooldownLevel*40) + (this.speedLevel*20))));
                     this.setShotFromCrossbow(false);
                     this.remove(RemovalReason.DISCARDED);
                 }
@@ -286,6 +288,8 @@ public class AncientHornProjectileEntity extends PersistentProjectileEntity {
             nbt.putDouble("originX", this.vecX);
             nbt.putDouble("originY", this.vecY);
             nbt.putDouble("originZ", this.vecZ);
+            nbt.putInt("cooldownLevel", this.cooldownLevel);
+            nbt.putInt("speedLevel", this.speedLevel);
         }
     }
     public void readCustomDataFromNbt(NbtCompound nbt) {
@@ -299,6 +303,8 @@ public class AncientHornProjectileEntity extends PersistentProjectileEntity {
             this.vecX = nbt.getDouble("originX");
             this.vecY = nbt.getDouble("originY");
             this.vecZ = nbt.getDouble("originZ");
+            this.cooldownLevel = nbt.getInt("cooldownLevel");
+            this.speedLevel = nbt.getInt("speedLevel");
         }
     }
     public void setVelocity(Entity shooter, float pitch, float yaw, float roll, float speed, float divergence) {

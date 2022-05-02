@@ -33,8 +33,15 @@ public class AncientCityGoatHorn extends Item {
     public static int getCooldown(@Nullable Entity entity, int i) {
         if (entity != null) {
             if (entity instanceof PlayerEntity player) {
-                i = i - (getCooldownLevel(getHorns(player)) * 40);
-                i = player.isCreative() ? 5 : i;
+                i = player.isCreative() ? 5 : i - (getCooldownLevel(getHorns(player)) * 40) + (getSpeedLevel(getHorns(player)) * 20);
+            }
+        } return i;
+    }
+
+    public static int getCooldown(@Nullable Entity entity, int i, int additionalCooldown) {
+        if (entity != null) {
+            if (entity instanceof PlayerEntity player) {
+                i = player.isCreative() ? 5 : i + additionalCooldown;
             }
         } return i;
     }
@@ -79,6 +86,8 @@ public class AncientCityGoatHorn extends Item {
         if (world instanceof ServerWorld server) {
             AncientHornProjectileEntity projectileEntity = new AncientHornProjectileEntity(world, user.getX(), user.getEyeY(), user.getZ());
             projectileEntity.setVelocity(user, user.getPitch(), user.getYaw(), 0.0F, 1.0F + (float)(getSpeedLevel(getHorns(user))*0.5), 0.0F);
+            projectileEntity.speedLevel=getSpeedLevel(getHorns(user));
+            projectileEntity.cooldownLevel=getCooldownLevel(getHorns(user));
             server.spawnEntity(projectileEntity);
         }
         return TypedActionResult.consume(itemStack);
