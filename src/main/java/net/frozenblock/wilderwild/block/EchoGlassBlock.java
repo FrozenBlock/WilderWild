@@ -5,8 +5,12 @@ import net.frozenblock.wilderwild.registry.RegisterSounds;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.TintedGlassBlock;
+import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.ItemStack;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
+import net.minecraft.stat.Stats;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.IntProperty;
 import net.minecraft.util.math.BlockPos;
@@ -14,6 +18,7 @@ import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.random.AbstractRandom;
 import net.minecraft.world.LightType;
 import net.minecraft.world.World;
+import org.jetbrains.annotations.Nullable;
 
 public class EchoGlassBlock extends TintedGlassBlock {
     public static final IntProperty DAMAGE = RegisterProperties.DAMAGE;
@@ -75,6 +80,16 @@ public class EchoGlassBlock extends TintedGlassBlock {
             finalLight = Math.max(finalLight, Math.max(skyLight, blockLight));
         }
         return finalLight;
+    }
+
+    public void afterBreak(World world, PlayerEntity player, BlockPos pos, BlockState state, @Nullable BlockEntity blockEntity, ItemStack stack) {
+        player.addExhaustion(0.005F);
+        if (state.get(DAMAGE)<3) {
+            world.setBlockState(pos, state.with(DAMAGE, state.get(DAMAGE) + 1));
+        } else {
+            player.incrementStat(Stats.MINED.getOrCreateStat(this));
+            dropStacks(state, world, pos, blockEntity, player, stack);
+        }
     }
 
     @Override
