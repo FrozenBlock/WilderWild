@@ -1,6 +1,7 @@
 package net.frozenblock.wilderwild.world.feature;
 
 import com.google.common.collect.ImmutableList;
+import net.frozenblock.wilderwild.registry.RegisterBlocks;
 import net.frozenblock.wilderwild.world.gen.ShelfFungusTreeDecorator;
 import net.frozenblock.wilderwild.world.gen.trunk.FallenTrunkWithLogs;
 import net.frozenblock.wilderwild.world.gen.trunk.StraightTrunkWithLogs;
@@ -56,7 +57,7 @@ public class WildTreeConfigured {
         return builder(Blocks.BIRCH_LOG, Blocks.BIRCH_LEAVES, 8, 6, 6, 0.2F, UniformIntProvider.create(1,2), UniformIntProvider.create(1,3), ConstantIntProvider.create(1),2 ).ignoreVines();
     }
     private static TreeFeatureConfig.Builder fallen_birch() {
-        return fallenTrunkBuilder(Blocks.BIRCH_LOG, Blocks.BIRCH_LEAVES, 3, 1, 2, 0.4F, UniformIntProvider.create(1,2), UniformIntProvider.create(1,3), ConstantIntProvider.create(1),UniformIntProvider.create(1,2), 1).ignoreVines();
+        return fallenTrunkBuilder(RegisterBlocks.HOLLOWED_BIRCH_LOG, Blocks.BIRCH_LEAVES, 3, 1, 2, 0.4F, UniformIntProvider.create(1,2), UniformIntProvider.create(1,3), ConstantIntProvider.create(1),UniformIntProvider.create(1,2), 1).ignoreVines();
     }
     private static TreeFeatureConfig.Builder new_oak() {
         return builder(Blocks.OAK_LOG, Blocks.OAK_LEAVES, 6, 2, 1, 0.1F, UniformIntProvider.create(1,2), UniformIntProvider.create(1,3), ConstantIntProvider.create(1),2).ignoreVines();
@@ -66,16 +67,16 @@ public class WildTreeConfigured {
     }
 
     static {
-        SHELF_FUNGUS = new ShelfFungusTreeDecorator(0.7F);
-        NEW_BEES_0002 = new BeehiveTreeDecorator(0.05F);
+        SHELF_FUNGUS = new ShelfFungusTreeDecorator(0.08F);
+        NEW_BEES_0002 = new BeehiveTreeDecorator(0.004F);
         //BIRCH
         NEW_BIRCH_TREE = ConfiguredFeatures.register("new_birch_tree", Feature.TREE, new_birch().dirtProvider(BlockStateProvider.of(Blocks.DIRT)).decorators(ImmutableList.of(SHELF_FUNGUS)).build());
         NEW_BIRCH_BEES_0002 = ConfiguredFeatures.register("new_birch_bees_0002", Feature.TREE, new_birch().decorators(ImmutableList.of(NEW_BEES_0002, SHELF_FUNGUS)).ignoreVines().build());
         NEW_SUPER_BIRCH_BEES_0002 = ConfiguredFeatures.register("new_super_birch_bees_0002", Feature.TREE, new_superBirch().decorators(ImmutableList.of(NEW_BEES_0002, SHELF_FUNGUS)).build());
-        NEW_FALLEN_BIRCH_TREE = ConfiguredFeatures.register("new_fallen_birch_tree", Feature.TREE, fallen_birch().dirtProvider(BlockStateProvider.of(Blocks.DIRT)).build());
+        NEW_FALLEN_BIRCH_TREE = ConfiguredFeatures.register("new_fallen_birch_tree", Feature.TREE, fallen_birch().decorators(List.of(new ShelfFungusTreeDecorator(0.08F))).dirtProvider(BlockStateProvider.of(Blocks.DIRT)).build());
         //OAK
         NEW_OAK = ConfiguredFeatures.register("new_oak", Feature.TREE, new_oak().build());
-        NEW_OAK_BEES_0002 = ConfiguredFeatures.register("new_oak_bees_0002", Feature.TREE, new_oak().decorators(ImmutableList.of(NEW_BEES_0002, new ShelfFungusTreeDecorator(0.8F))).ignoreVines().build());
+        NEW_OAK_BEES_0002 = ConfiguredFeatures.register("new_oak_bees_0002", Feature.TREE, new_oak().decorators(ImmutableList.of(NEW_BEES_0002, new ShelfFungusTreeDecorator(0.07F))).ignoreVines().build());
         NEW_FANCY_OAK = ConfiguredFeatures.register("new_fancy_oak", Feature.TREE, new_fancyOak().build());
         NEW_FANCY_OAK_BEES_0002 = ConfiguredFeatures.register("new_fancy_oak_bees_0002", Feature.TREE, new_fancyOak().decorators(List.of(NEW_BEES_0002)).build());
     }
