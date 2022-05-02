@@ -172,7 +172,7 @@ public abstract class RegisterBlocks {
         CompostingChanceRegistry.INSTANCE.add(CATTAIL, 0.65F);
         CompostingChanceRegistry.INSTANCE.add(DATURA, 0.65F);
         CompostingChanceRegistry.INSTANCE.add(FLOWERED_LILY_PAD, 0.65F);
-        CompostingChanceRegistry.INSTANCE.add(SHELF_FUNGUS, 0.65F);
+        CompostingChanceRegistry.INSTANCE.add(BROWN_SHELF_FUNGUS, 0.65F);
         WilderWild.LOGGER.info("Registering Blocks for " + WilderWild.MOD_ID);
     }
 }
