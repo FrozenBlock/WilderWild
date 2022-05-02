@@ -22,6 +22,7 @@ public class WildConfiguredFeatures {
             ConfiguredFeatures.register("new_grass_forest", Feature.RANDOM_PATCH,
                     ConfiguredFeatures.createRandomPatchFeatureConfig(64, PlacedFeatures.createEntry(Feature.SIMPLE_BLOCK,
                             new SimpleBlockFeatureConfig(BlockStateProvider.of(Blocks.GRASS)))));
+
     public static final RegistryEntry<ConfiguredFeature<RandomPatchFeatureConfig, ?>> DATURA =
             ConfiguredFeatures.register("datura", Feature.FLOWER,
                     ConfiguredFeatures.createRandomPatchFeatureConfig(64, PlacedFeatures.createEntry(Feature.SIMPLE_BLOCK,

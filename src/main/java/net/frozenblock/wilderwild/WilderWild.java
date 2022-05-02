@@ -9,6 +9,7 @@ import net.frozenblock.wilderwild.world.feature.WildConfiguredFeatures;
 import net.frozenblock.wilderwild.world.feature.WildTreeConfigured;
 import net.frozenblock.wilderwild.world.feature.WildTreePlaced;
 import net.frozenblock.wilderwild.world.gen.WildWorldGen;
+import net.frozenblock.wilderwild.world.gen.trunk.FallenTrunkWithLogs;
 import net.frozenblock.wilderwild.world.gen.trunk.StraightTrunkWithLogs;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.util.Identifier;
@@ -29,6 +30,7 @@ public class WilderWild implements ModInitializer {
     public static final GameEvent TENDRIL_EXTRACT_XP = new GameEvent("hanging_tendril_extract_xp", 16);
 
     public static final TrunkPlacerType<StraightTrunkWithLogs> STRAIGHT_TRUNK_WITH_LOGS_PLACER_TYPE = TrunkPlacerTypeInvoker.callRegister("straight_trunk_logs_placer", StraightTrunkWithLogs.CODEC);
+    public static final TrunkPlacerType<FallenTrunkWithLogs> FALLEN_TRUNK_WITH_LOGS_PLACER_TYPE = TrunkPlacerTypeInvoker.callRegister("fallen_trunk_logs_placer", FallenTrunkWithLogs.CODEC);
 
     @Override
     public void onInitialize() {
