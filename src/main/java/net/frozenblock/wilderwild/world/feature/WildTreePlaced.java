@@ -24,7 +24,6 @@ public class WildTreePlaced {
         NEW_BIRCH_BEES_0002 = PlacedFeatures.register("new_birch_bees_0002", WildTreeConfigured.NEW_BIRCH_BEES_0002, PlacedFeatures.wouldSurvive(Blocks.BIRCH_SAPLING));
     }
 
-
     public static void registerTreePlaced() {
     }
 }

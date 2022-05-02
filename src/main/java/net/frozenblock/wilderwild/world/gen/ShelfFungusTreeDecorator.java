@@ -31,14 +31,12 @@ public class ShelfFungusTreeDecorator extends TreeDecorator {
         if (abstractRandom.nextFloat() <= this.probability) {
             List<BlockPos> list = generator.getLogPositions();
             int i = list.get(4).getY();
-            list.stream().filter((pos) -> {
-                return pos.getY() - i <= 8;
-            }).forEach((pos) -> {
+            list.stream().filter((pos) -> pos.getY() - i <= 8).forEach((pos) -> {
                 for (Direction direction : Direction.Type.HORIZONTAL) {
                     if (abstractRandom.nextFloat() <= 0.25F) {
-                        BlockPos blockPos = pos.add(direction.getOpposite().getOffsetX(), 0, direction.getOpposite().getOffsetZ());
+                        BlockPos blockPos = pos.add(direction.getOffsetX(), 0, direction.getOffsetZ());
                         if (generator.isAir(blockPos)) {
-                            generator.replace(blockPos, RegisterBlocks.SHELF_FUNGUS.getDefaultState().with(ShelfFungusBlock.STAGE, abstractRandom.nextInt(3)+1).with(ShelfFungusBlock.FACE, WallMountLocation.WALL).with(ShelfFungusBlock.FACING, direction.getOpposite()));
+                            generator.replace(blockPos, RegisterBlocks.SHELF_FUNGUS.getDefaultState().with(ShelfFungusBlock.STAGE, abstractRandom.nextInt(3)+1).with(ShelfFungusBlock.FACE, WallMountLocation.WALL).with(ShelfFungusBlock.FACING, direction));
                         }
                     }
                 }
