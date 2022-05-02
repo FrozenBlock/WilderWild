@@ -5,8 +5,8 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.frozenblock.wilderwild.WilderWild;
 import net.minecraft.block.BlockState;
+import net.minecraft.block.Blocks;
 import net.minecraft.state.property.Properties;
-import net.minecraft.tag.BlockTags;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.intprovider.IntProvider;
@@ -25,30 +25,26 @@ public class FallenTrunkWithLogs extends TrunkPlacer {
     public static final Codec<FallenTrunkWithLogs> CODEC = RecordCodecBuilder.create((instance) -> {
         return fillTrunkPlacerFields(instance).and(instance.group(Codec.floatRange(0.0F, 1.0F).fieldOf("place_branch_chance").forGetter((trunkPlacer) -> {
             return trunkPlacer.logChance;
+        }), Codec.floatRange(0.0F, 1.0F).fieldOf("moss_carpet_chance").forGetter((trunkPlacer) -> {
+            return trunkPlacer.logChance;
         }), IntProvider.NON_NEGATIVE_CODEC.fieldOf("max_logs").forGetter((trunkPlacer) -> {
             return trunkPlacer.maxLogs;
-        }), IntProvider.NON_NEGATIVE_CODEC.fieldOf("log_height_from_top").forGetter((trunkPlacer) -> {
-            return trunkPlacer.logHeightFromTop;
-        }), IntProvider.NON_NEGATIVE_CODEC.fieldOf("extra_branch_length").forGetter((trunkPlacer) -> {
-            return trunkPlacer.extraBranchLength;
         }), IntProvider.NON_NEGATIVE_CODEC.fieldOf("max_height_above_hole").forGetter((trunkPlacer) -> {
             return trunkPlacer.maxHeightAboveHole;
         }))).apply(instance, FallenTrunkWithLogs::new);
     });
 
-    private final IntProvider extraBranchLength;
     private final float logChance;
     private final IntProvider maxLogs;
-    private final IntProvider logHeightFromTop;
     private final IntProvider maxHeightAboveHole;
+    private final float mossChance;
 
-    public FallenTrunkWithLogs(int baseHeight, int firstRandomHeight, int secondRandomHeight, float logChance, IntProvider maxLogs, IntProvider logHeightFromTop, IntProvider extraBranchLength, IntProvider maxHeightAboveHole) {
+    public FallenTrunkWithLogs(int baseHeight, int firstRandomHeight, int secondRandomHeight, float logChance, float mossChance, IntProvider maxLogs, IntProvider maxHeightAboveHole) {
         super(baseHeight, firstRandomHeight, secondRandomHeight);
         this.logChance = logChance;
         this.maxLogs = maxLogs;
-        this.logHeightFromTop = logHeightFromTop;
-        this.extraBranchLength = extraBranchLength;
         this.maxHeightAboveHole = maxHeightAboveHole;
+        this.mossChance = mossChance;
     }
 
     protected TrunkPlacerType<?> getType() {
@@ -57,9 +53,9 @@ public class FallenTrunkWithLogs extends TrunkPlacer {
 
     public List<FoliagePlacer.TreeNode> generate(TestableWorld world, BiConsumer<BlockPos, BlockState> replacer, AbstractRandom random, int height, BlockPos startPos, TreeFeatureConfig config) {
         List<FoliagePlacer.TreeNode> list = Lists.newArrayList();
+        List<BlockPos> logs = Lists.newArrayList();
         BlockPos.Mutable mutable = new BlockPos.Mutable();
         int maxLogs = this.maxLogs.get(random);
-        int logHeightFromTop = this.logHeightFromTop.get(random);
         int maxAboveHole = this.maxHeightAboveHole.get(random);
         int logsAboveHole = 0;
         Direction logDir = Direction.Type.HORIZONTAL.random(random);
@@ -74,43 +70,54 @@ public class FallenTrunkWithLogs extends TrunkPlacer {
                     if (config.trunkProvider.getBlockState(random, mutable.set(x, startPos.getY(), z)).contains(Properties.AXIS)) {
                         Direction.Axis axis = logDir.getOffsetX() != 0 ? Direction.Axis.X : (logDir.getOffsetY() != 0 ? Direction.Axis.Y : Direction.Axis.Z);
                         replacer.accept(mutable.set(x, startPos.getY(), z), config.trunkProvider.getBlockState(random, mutable.set(x, startPos.getY(), z)).with(Properties.AXIS, axis));
-                        if (i < height - 1 && random.nextFloat() < this.logChance && placedLogs < maxLogs && (height - 1) - i <= logHeightFromTop) {
+                        logs.add(new BlockPos(x, startPos.getY(), z));
+                        if (i < height - 1 && random.nextFloat() < this.logChance && placedLogs < maxLogs) {
                             Direction direction = random.nextFloat() >= 0.33 ? Direction.Type.HORIZONTAL.random(random) : Direction.Type.VERTICAL.random(random);
-                            this.generateExtraBranch(world, replacer, random, config, mutable, logDir, i, direction, this.extraBranchLength.get(random));
+                            this.generateExtraBranch(logs, world, replacer, random, config, mutable, logDir, i, direction);
                         }
                         ++placedLogs;
                         logsAboveHole += holeAddition;
-                    } else if (this.getAndSetState(world, replacer, random, mutable.set(x, startPos.getY(), z), config)
-                            && i < height - 1 && random.nextFloat() < this.logChance && placedLogs < maxLogs && (height - 1) - i <= logHeightFromTop) {
-                        Direction direction = random.nextFloat() >= 0.33 ? Direction.Type.HORIZONTAL.random(random) : Direction.Type.VERTICAL.random(random);
-                        this.generateExtraBranch(world, replacer, random, config, mutable, logDir, i, direction, this.extraBranchLength.get(random));
-                        ++placedLogs;
-                        logsAboveHole += holeAddition;
+                    } else if (this.getAndSetState(world, replacer, random, mutable.set(x, startPos.getY(), z), config)) {
+                        logs.add(new BlockPos(x, startPos.getY(), z));
+                        if (i < height - 1 && random.nextFloat() < this.logChance && placedLogs < maxLogs) {
+                            Direction direction = random.nextFloat() >= 0.33 ? Direction.Type.HORIZONTAL.random(random) : Direction.Type.VERTICAL.random(random);
+                            this.generateExtraBranch(logs, world, replacer, random, config, mutable, logDir, i, direction);
+                            ++placedLogs;
+                            logsAboveHole += holeAddition;
+                        }
                     }
+                } else { i = height+2; }
+            }
+        }
+        if (random.nextFloat()>mossChance) {
+            for (BlockPos pos : logs) {
+                if (TreeFeature.canReplace(world, pos.up())) {
+                    replacer.accept(pos.up(), Blocks.MOSS_CARPET.getDefaultState());
                 }
             }
         }
-
         return list;
     }
 
-    private void generateExtraBranch(TestableWorld world, BiConsumer<BlockPos, BlockState> replacer, AbstractRandom random, TreeFeatureConfig config, BlockPos.Mutable pos, Direction offsetDir, int offset, Direction direction, int length) {
+    private void generateExtraBranch(List<BlockPos> logs, TestableWorld world, BiConsumer<BlockPos, BlockState> replacer, AbstractRandom random, TreeFeatureConfig config, BlockPos.Mutable pos, Direction offsetDir, int offset, Direction direction) {
         int x = pos.getX();
         int z = pos.getZ();
         int y = pos.getY();
-        for (int l = 0; l < length; ++l) {
+        if (offsetDir.getAxis() != direction.getAxis()) {
             x += offsetDir.getOffsetX() * offset;
             z += offsetDir.getOffsetZ() * offset;
             y += offsetDir.getOffsetY() * offset;
-            x += direction.getOffsetX() * (l+1);
-            z += direction.getOffsetZ() * (l+1);
-            y += direction.getOffsetY() * (l+1);
+            x += direction.getOffsetX();
+            z += direction.getOffsetZ();
+            y += direction.getOffsetY();
             if (TreeFeature.canReplace(world, pos.set(x, y, z))) {
                 if (config.trunkProvider.getBlockState(random, pos.set(x, y, z)).contains(Properties.AXIS)) {
-                    Direction.Axis axis = direction.getOffsetX()!=0 ? Direction.Axis.X : (direction.getOffsetY()!=0 ? Direction.Axis.Y : Direction.Axis.Z);
+                    Direction.Axis axis = direction.getOffsetX() != 0 ? Direction.Axis.X : (direction.getOffsetY() != 0 ? Direction.Axis.Y : Direction.Axis.Z);
                     replacer.accept(pos.set(x, y, z), config.trunkProvider.getBlockState(random, pos.set(x, y, z)).with(Properties.AXIS, axis));
+                    logs.add(new BlockPos(x, y, z));
                 } else {
                     this.getAndSetState(world, replacer, random, pos.set(x, y, z), config);
+                    logs.add(new BlockPos(x, y, z));
                 }
             }
         }

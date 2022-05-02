@@ -43,8 +43,8 @@ public class WildTreeConfigured {
                 BlockStateProvider.of(leaves), new BlobFoliagePlacer(ConstantIntProvider.create(radius), ConstantIntProvider.create(0), 3),
                 new TwoLayersFeatureSize(1, 0, 1));
     }
-    private static TreeFeatureConfig.Builder fallenTrunkBuilder(Block log, Block leaves, int baseHeight, int firstRandomHeight, int secondRandomHeight, float logChance, IntProvider maxLogs, IntProvider logHeightFromTop, IntProvider extraBranchLength, IntProvider maxHeightAboveHole, int radius) {
-        return new TreeFeatureConfig.Builder(BlockStateProvider.of(log), new FallenTrunkWithLogs(baseHeight, firstRandomHeight, secondRandomHeight, logChance, maxLogs, logHeightFromTop, extraBranchLength, maxHeightAboveHole),
+    private static TreeFeatureConfig.Builder fallenTrunkBuilder(Block log, Block leaves, int baseHeight, int firstRHeight, int secondRHeight, float logChance, float mossChance, IntProvider maxLogs, IntProvider maxHeightAboveHole, int radius) {
+        return new TreeFeatureConfig.Builder(BlockStateProvider.of(log), new FallenTrunkWithLogs(baseHeight, firstRHeight, secondRHeight, logChance, mossChance, maxLogs, maxHeightAboveHole),
                 BlockStateProvider.of(leaves), new BlobFoliagePlacer(ConstantIntProvider.create(radius), ConstantIntProvider.create(0), 3), //FOILAGE PLACER DOES NOTHING
                 new TwoLayersFeatureSize(1, 0, 1));
     }
@@ -56,7 +56,7 @@ public class WildTreeConfigured {
         return builder(Blocks.BIRCH_LOG, Blocks.BIRCH_LEAVES, 8, 6, 6, 0.2F, UniformIntProvider.create(1,2), UniformIntProvider.create(1,3), ConstantIntProvider.create(1),2 ).ignoreVines();
     }
     private static TreeFeatureConfig.Builder fallen_birch() {
-        return fallenTrunkBuilder(Blocks.BIRCH_LOG, Blocks.BIRCH_LEAVES, 3, 1, 2, 0.4F, UniformIntProvider.create(1,2), UniformIntProvider.create(1,3), ConstantIntProvider.create(1),UniformIntProvider.create(1,2), 1).ignoreVines();
+        return fallenTrunkBuilder(Blocks.BIRCH_LOG, Blocks.BIRCH_LEAVES, 3, 1, 2, 0.4F, 0.4F, UniformIntProvider.create(1,2), UniformIntProvider.create(1,2), 1).ignoreVines();
     }
     private static TreeFeatureConfig.Builder new_oak() {
         return builder(Blocks.OAK_LOG, Blocks.OAK_LEAVES, 6, 2, 1, 0.1F, UniformIntProvider.create(1,2), UniformIntProvider.create(1,3), ConstantIntProvider.create(1),2).ignoreVines();
