@@ -3,18 +3,28 @@ package net.frozenblock.wilderwild.block;
 import net.frozenblock.wilderwild.registry.RegisterProperties;
 import net.minecraft.block.*;
 import net.minecraft.block.enums.WallMountLocation;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.fluid.FluidState;
 import net.minecraft.fluid.Fluids;
 import net.minecraft.item.ItemPlacementContext;
+import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
+import net.minecraft.sound.SoundCategory;
+import net.minecraft.sound.SoundEvents;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.BooleanProperty;
 import net.minecraft.state.property.IntProperty;
 import net.minecraft.state.property.Properties;
+import net.minecraft.util.ActionResult;
+import net.minecraft.util.Hand;
+import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.world.BlockView;
+import net.minecraft.world.World;
 import net.minecraft.world.WorldAccess;
+import net.minecraft.world.event.GameEvent;
 import org.jetbrains.annotations.Nullable;
 
 public class ShelfFungusBlock extends WallMountedBlock implements Waterloggable {
@@ -30,6 +40,25 @@ public class ShelfFungusBlock extends WallMountedBlock implements Waterloggable 
     public ShelfFungusBlock(Settings settings) {
         super(settings);
         this.setDefaultState(this.stateManager.getDefaultState().with(FACING, Direction.NORTH).with(WATERLOGGED, false).with(FACE, WallMountLocation.WALL).with(STAGE, 1));
+    }
+
+    public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
+        ItemStack itemStack = player.getStackInHand(hand);
+        int i = state.get(STAGE);
+        if (i > 0) {
+            if (itemStack.isOf(Items.SHEARS)) {
+                dropStack(world, pos, new ItemStack(state.getBlock().asItem()));
+                world.setBlockState(pos, state.with(STAGE, i-1));
+                world.playSound(player, player.getX(), player.getY(), player.getZ(), SoundEvents.BLOCK_GROWING_PLANT_CROP, SoundCategory.BLOCKS, 1.0F, 1.0F);
+                itemStack.damage(1, player, (playerx) -> {
+                    playerx.sendToolBreakStatus(hand);
+                });
+                world.emitGameEvent(player, GameEvent.SHEAR, pos);
+            }
+            return ActionResult.success(world.isClient);
+        } else {
+            return super.onUse(state, world, pos, player, hand, hit);
+        }
     }
 
     @Override
