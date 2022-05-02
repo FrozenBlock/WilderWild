@@ -335,7 +335,7 @@ public class AncientHornProjectileEntity extends PersistentProjectileEntity {
         }
     }
     public double getDamage() {
-        double distance = Math.sqrt(this.getBlockPos().getSquaredDistance(new Vec3d(this.vecX, this.vecY, this.vecZ)));;
+        double distance = Math.sqrt(this.getBlockPos().getSquaredDistance(new Vec3d(this.vecX, this.vecY, this.vecZ)));
         distance = MathHelper.clamp(distance, 10+this.speedLevel, 25-this.speedLevel);
         return 15*Math.sin((distance*Math.PI)/30);
     }
@@ -386,7 +386,7 @@ public class AncientHornProjectileEntity extends PersistentProjectileEntity {
     public void emitGameEvent(GameEvent event) { }
     public void emitGameEvent(GameEvent event, @Nullable Entity entity) { }
 
-    public class EntitySpawnPacket { //When the Fabric tutorial WORKS!!!!! BOM BOM BOM BOM BOM BOM BOM, BOBOBOM! DUNDUN!
+    public static class EntitySpawnPacket { //When the Fabric tutorial WORKS!!!!! BOM BOM BOM BOM BOM BOM BOM, BOBOBOM! DUNDUN!
         public static Packet<?> create(Entity e, Identifier packetID) {
             if (e.world.isClient)
                 throw new IllegalStateException("SpawnPacketUtil.create called on the logical client!");

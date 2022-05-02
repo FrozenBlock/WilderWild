@@ -2,10 +2,10 @@ package net.frozenblock.wilderwild;
 
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
+import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.fabricmc.fabric.api.client.particle.v1.ParticleFactoryRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityModelLayerRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
-import net.fabricmc.fabric.api.network.ClientSidePacketRegistry;
 import net.frozenblock.wilderwild.entity.AncientHornProjectileEntity;
 import net.frozenblock.wilderwild.entity.render.AncientHornProjectileModel;
 import net.frozenblock.wilderwild.entity.render.AncientHornProjectileRenderer;
@@ -64,14 +64,14 @@ public class WildClientMod implements ClientModInitializer {
     }
 
     public void receiveAncientHornProjectilePacket() {
-        ClientSidePacketRegistry.INSTANCE.register(HORN_PROJECTILE_PACKET_ID, (ctx, byteBuf) -> {
+        ClientPlayNetworking.registerGlobalReceiver(HORN_PROJECTILE_PACKET_ID, (ctx, handler, byteBuf, responseSender) -> {
             EntityType<?> et = Registry.ENTITY_TYPE.get(byteBuf.readVarInt());
             UUID uuid = byteBuf.readUuid();
             int entityId = byteBuf.readVarInt();
             Vec3d pos = AncientHornProjectileEntity.EntitySpawnPacket.PacketBufUtil.readVec3d(byteBuf);
             float pitch = AncientHornProjectileEntity.EntitySpawnPacket.PacketBufUtil.readAngle(byteBuf);
             float yaw = AncientHornProjectileEntity.EntitySpawnPacket.PacketBufUtil.readAngle(byteBuf);
-            ctx.getTaskQueue().execute(() -> {
+            ctx.execute(() -> {
                 if (MinecraftClient.getInstance().world == null)
                     throw new IllegalStateException("Tried to spawn entity in a null world!");
                 Entity e = et.create(MinecraftClient.getInstance().world);
@@ -89,12 +89,12 @@ public class WildClientMod implements ClientModInitializer {
     }
 
     public void receiveEasyEchoerBubblePacket() {
-        ClientSidePacketRegistry.INSTANCE.register(ECHOER_BUBBLE_PACKET, (ctx, byteBuf) -> {
+        ClientPlayNetworking.registerGlobalReceiver(ECHOER_BUBBLE_PACKET, (ctx, handler, byteBuf, responseSender) -> {
             Vec3d pos = new Vec3d(byteBuf.readDouble(), byteBuf.readDouble(), byteBuf.readDouble());
             int size = byteBuf.readVarInt();
             int age = byteBuf.readVarInt();
             int upsidedown = byteBuf.readVarInt();
-            ctx.getTaskQueue().execute(() -> {
+            ctx.execute(() -> {
                 if (MinecraftClient.getInstance().world == null)
                     throw new IllegalStateException("why is your world null");
                 MinecraftClient.getInstance().world.addParticle(RegisterParticles.ECHOING_BUBBLE, pos.x, pos.y, pos.z, size, age, upsidedown);
