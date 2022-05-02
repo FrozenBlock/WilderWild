@@ -42,10 +42,10 @@ public class WildPlacedFeature {
             PlacedFeatures.MOTION_BLOCKING_HEIGHTMAP, BiomePlacementModifier.of());
 
     public static final RegistryEntry<PlacedFeature> NEW_BIRCH_PLACED = PlacedFeatures.register("new_birch_placed",
-            WildTreeConfigured.NEW_BIRCH_BEES_0002, modifiersWithWouldSurvive(PlacedFeatures.createCountExtraModifier(10, 0.1F, 1), Blocks.BIRCH_SAPLING));
+            WildTreeConfigured.NEW_BIRCH_BEES_0004, modifiersWithWouldSurvive(PlacedFeatures.createCountExtraModifier(10, 0.1F, 1), Blocks.BIRCH_SAPLING));
 
     public static final RegistryEntry<PlacedFeature> NEW_TALL_BIRCH_PLACED = PlacedFeatures.register("new_tall_birch_placed",
-            WildTreeConfigured.NEW_SUPER_BIRCH_BEES_0002, modifiersWithWouldSurvive(PlacedFeatures.createCountExtraModifier(10, 0.1F, 1), Blocks.BIRCH_SAPLING));
+            WildTreeConfigured.NEW_SUPER_BIRCH_BEES_0004, modifiersWithWouldSurvive(PlacedFeatures.createCountExtraModifier(10, 0.1F, 1), Blocks.BIRCH_SAPLING));
 
     public static final RegistryEntry<PlacedFeature> NEW_FALLEN_BIRCH_PLACED = PlacedFeatures.register("new_fallen_birch_placed",
             WildTreeConfigured.NEW_FALLEN_BIRCH_TREE, modifiersWithWouldSurvive(PlacedFeatures.createCountExtraModifier(1, 0.1F, 0), Blocks.BIRCH_SAPLING));

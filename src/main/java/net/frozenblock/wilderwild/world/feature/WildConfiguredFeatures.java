@@ -18,8 +18,8 @@ public class WildConfiguredFeatures {
                     new RandomFeatureConfig(List.of(new RandomFeatureEntry(WildTreePlaced.NEW_FALLEN_BIRCH_CHECKED, 0.35F)), WildTreePlaced.NEW_FALLEN_OAK_CHECKED));
     public static final RegistryEntry<ConfiguredFeature<RandomFeatureConfig, ?>> NEW_TREES_BIRCH_AND_OAK =
             ConfiguredFeatures.register("new_trees_birch_and_oak", Feature.RANDOM_SELECTOR,
-                    new RandomFeatureConfig(List.of(new RandomFeatureEntry(WildTreePlaced.NEW_BIRCH_BEES_0002, 0.2F),
-                            new RandomFeatureEntry(WildTreePlaced.NEW_FANCY_OAK_BEES_0002, 0.27F)), WildTreePlaced.NEW_OAK_BEES_0002));
+                    new RandomFeatureConfig(List.of(new RandomFeatureEntry(WildTreePlaced.NEW_SHORT_BIRCH_BEES_0004, 0.2F),
+                            new RandomFeatureEntry(WildTreePlaced.NEW_FANCY_OAK_BEES_0004, 0.27F)), WildTreePlaced.NEW_OAK_BEES_0004));
 
     public static final RegistryEntry<ConfiguredFeature<RandomPatchFeatureConfig, ?>> NEW_GRASS_FOREST =
             ConfiguredFeatures.register("new_grass_forest", Feature.RANDOM_PATCH,
