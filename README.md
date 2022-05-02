@@ -1,4 +1,4 @@
-# Wilder Wild
+# Wilder Wild Update
 
 Add Extra Features to the Wild Update!
 
