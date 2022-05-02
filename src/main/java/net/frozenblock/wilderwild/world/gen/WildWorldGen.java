@@ -9,7 +9,6 @@ public class WildWorldGen {
 
         WildTreesGeneration.generateTrees();
         WildMushroomGeneration.generateMushroom();
-
     }
 }
 
