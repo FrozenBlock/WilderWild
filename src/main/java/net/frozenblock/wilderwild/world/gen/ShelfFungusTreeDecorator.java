@@ -4,7 +4,6 @@ import com.mojang.serialization.Codec;
 import net.frozenblock.wilderwild.block.ShelfFungusBlock;
 import net.frozenblock.wilderwild.registry.RegisterBlocks;
 import net.minecraft.block.BlockState;
-import net.minecraft.block.CocoaBlock;
 import net.minecraft.block.enums.WallMountLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
