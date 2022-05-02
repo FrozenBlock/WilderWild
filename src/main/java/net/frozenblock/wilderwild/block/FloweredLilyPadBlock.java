@@ -1,6 +1,7 @@
 package net.frozenblock.wilderwild.block;
 
 import net.minecraft.block.*;
+import net.minecraft.client.resource.GrassColormapResourceSupplier;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.vehicle.BoatEntity;
 import net.minecraft.fluid.FluidState;
@@ -11,7 +12,7 @@ import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 
-public class FloweredLilyPadBlock extends PlantBlock {
+public class FloweredLilyPadBlock extends LilyPadBlock {
     protected static final VoxelShape SHAPE = Block.createCuboidShape(1.0D, 0.0D, 1.0D, 15.0D, 1.5D, 15.0D);
 
     public FloweredLilyPadBlock(Settings settings) {

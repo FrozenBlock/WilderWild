@@ -35,9 +35,9 @@ public class ShelfFungusTreeDecorator extends CocoaBeansTreeDecorator {
         AbstractRandom abstractRandom = generator.getRandom();
         if (!(abstractRandom.nextFloat() >= this.probability)) {
             List<BlockPos> list = generator.getLogPositions();
-            int i = ((BlockPos)list.get(0)).getY();
+            int i = ((BlockPos)list.get(4)).getY();
             list.stream().filter((pos) -> {
-                return pos.getY() - i <= 2;
+                return pos.getY() - i <= 8;
             }).forEach((pos) -> {
                 Iterator var3 = Direction.Type.HORIZONTAL.iterator();
 

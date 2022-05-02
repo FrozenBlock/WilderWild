@@ -132,6 +132,7 @@ public abstract class RegisterBlocks {
     public static final Block SHELF_FUNGUS = registerBlock("shelf_fungus",
             new ShelfFungusBlock(FabricBlockSettings
                     .copyOf(Blocks.BROWN_MUSHROOM_BLOCK)
+                    .lightLevel(1)
                     .collidable(false)
                     .nonOpaque()),
             ItemGroup.DECORATIONS
