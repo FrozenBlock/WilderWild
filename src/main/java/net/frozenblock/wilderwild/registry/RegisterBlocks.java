@@ -129,7 +129,7 @@ public abstract class RegisterBlocks {
             .sounds(BlockSoundGroup.VINE)),
             ItemGroup.DECORATIONS
     );
-    public static final Block SHELF_FUNGUS = registerBlock("shelf_fungus",
+    public static final Block BROWN_SHELF_FUNGUS = registerBlock("brown_shelf_fungus",
             new ShelfFungusBlock(FabricBlockSettings
                     .copyOf(Blocks.BROWN_MUSHROOM_BLOCK)
                     .lightLevel(1)

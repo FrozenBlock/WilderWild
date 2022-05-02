@@ -1,7 +1,7 @@
 {
 	"textures": {
-		"0": "wilderwild:block/shelf_fungus",
-		"particle": "wilderwild:block/shelf_fungus"
+		"0": "wilderwild:block/brown_shelf_fungus",
+		"particle": "wilderwild:block/brown_shelf_fungus"
 	},
 	"elements": [
 		{

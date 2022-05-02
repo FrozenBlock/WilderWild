@@ -1,5 +1,6 @@
 package net.frozenblock.wilderwild.mixin;
 
+import net.frozenblock.wilderwild.block.ShelfFungusBlock;
 import net.frozenblock.wilderwild.registry.RegisterBlocks;
 import net.frozenblock.wilderwild.registry.RegisterProperties;
 import net.minecraft.block.BlockState;
@@ -31,7 +32,7 @@ public class BoneMealItemMixin {
             info.setReturnValue(ActionResult.success(world.isClient));
             info.cancel();
         }
-        if (state.isOf(RegisterBlocks.SHELF_FUNGUS)) {
+        if (state.getBlock() instanceof ShelfFungusBlock) {
             if (state.get(RegisterProperties.FUNUGS_STAGE)<4) {
                 if (!world.isClient) {
                     world.syncWorldEvent(1505, blockPos, 0);
