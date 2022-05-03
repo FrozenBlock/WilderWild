@@ -37,6 +37,6 @@
 	"subtitles.item.ancient_horn.blast": "Ancient Horn booms",
 	"enchantment.wilderwild.technique": "Technique",
 	"enchantment.wilderwild.reverberation": "Reverberation",
-	"death.attack.ancient_horn": "%1$s  G&^*GA&^*cg sa7Cayui bcuB uGYIUHsyabTFRVAGI^&HCO{DMPLSNIO:ASBN",
-	"death.attack.ancient_horn.item": "%1$s was blown by %2$s using %3$s"
+	"death.attack.ancient_horn": "%1$s experienced maximum bass",
+	"death.attack.ancient_horn.item": "%1$s was blown to smithereens by %2$s using %3$s"
 }
