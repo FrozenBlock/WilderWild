@@ -93,11 +93,11 @@ public class WildClientMod implements ClientModInitializer {
             Vec3d pos = new Vec3d(byteBuf.readDouble(), byteBuf.readDouble(), byteBuf.readDouble());
             int size = byteBuf.readVarInt();
             int age = byteBuf.readVarInt();
-            int upsidedown = byteBuf.readVarInt();
+            double yVel = byteBuf.readDouble();
             ctx.execute(() -> {
                 if (MinecraftClient.getInstance().world == null)
                     throw new IllegalStateException("why is your world null");
-                MinecraftClient.getInstance().world.addParticle(RegisterParticles.ECHOING_BUBBLE, pos.x, pos.y, pos.z, size, age, upsidedown);
+                MinecraftClient.getInstance().world.addParticle(RegisterParticles.ECHOING_BUBBLE, pos.x, pos.y, pos.z, size, age, yVel);
             });
         });
     }
