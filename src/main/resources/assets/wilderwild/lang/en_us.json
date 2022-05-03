@@ -37,6 +37,6 @@
 	"subtitles.item.ancient_horn.blast": "Ancient Horn booms",
 	"enchantment.wilderwild.technique": "Technique",
 	"enchantment.wilderwild.reverberation": "Reverberation",
-	"death.attack.ancient_horn": "%1$s was vibe checked by %2$s",
+	"death.attack.ancient_horn": "%1$s was vibe checked",
 	"death.attack.ancient_horn.item": "%1$s was vibe cheked by %2$s using %3$s"
 }
