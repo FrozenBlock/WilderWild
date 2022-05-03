@@ -13,10 +13,10 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.WorldAccess;
 
-public class CattailBlock extends TallFlowerBlock implements Waterloggable {
+public class WaterloggableTallFlowerBlock extends TallFlowerBlock implements Waterloggable {
     public static final BooleanProperty WATERLOGGED;
 
-    public CattailBlock(Settings settings) {
+    public WaterloggableTallFlowerBlock(Settings settings) {
         super(settings);
         this.setDefaultState( this.getDefaultState().with(WATERLOGGED, false));
     }

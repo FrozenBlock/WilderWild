@@ -108,7 +108,7 @@ public abstract class RegisterBlocks {
             ItemGroup.DECORATIONS
     );
     public static final Block CATTAIL = registerBlock("cattail",
-            new CattailBlock(FabricBlockSettings.copy(Blocks.ROSE_BUSH)
+            new WaterloggableTallFlowerBlock(FabricBlockSettings.copy(Blocks.ROSE_BUSH)
                     .sounds(BlockSoundGroup.WET_GRASS)
                     .strength(0.0F)
                     .nonOpaque()),
