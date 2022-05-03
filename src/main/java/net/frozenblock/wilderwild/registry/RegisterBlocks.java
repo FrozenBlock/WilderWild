@@ -117,8 +117,7 @@ public abstract class RegisterBlocks {
     public static final Block POTTED_CARNATION = registerBlockWithoutBlockItem("potted_carnation",
             new FlowerPotBlock(RegisterBlocks.CARNATION, FabricBlockSettings
             .copy(Blocks.POTTED_DANDELION)
-            .nonOpaque()),
-            ItemGroup.DECORATIONS
+            .nonOpaque())
     );
     public static final Block CARNATION = registerBlock("carnation",
             new FlowerBlock(StatusEffects.FIRE_RESISTANCE, 12, FabricBlockSettings
@@ -155,7 +154,7 @@ public abstract class RegisterBlocks {
     );
 
 
-    private static Block registerBlockWithoutBlockItem(String name, Block block, ItemGroup group) {
+    private static Block registerBlockWithoutBlockItem(String name, Block block) {
         return Registry.register(Registry.BLOCK, new Identifier(WilderWild.MOD_ID, name), block);
     }
 
