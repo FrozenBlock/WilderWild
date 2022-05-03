@@ -100,7 +100,7 @@ public class EchoGlassBlock extends TintedGlassBlock {
                     SoundEvents.BLOCK_GLASS_BREAK,
                     SoundCategory.BLOCKS,
                     1.3F,
-                    world.random.nextFloat() * 0.9F
+                    world.random.nextFloat() * 0.1F + 0.8F
             );
         }
     }
