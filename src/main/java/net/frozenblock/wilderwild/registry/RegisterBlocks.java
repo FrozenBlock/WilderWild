@@ -89,8 +89,8 @@ public abstract class RegisterBlocks {
                     .of(Material.GLASS, MapColor.CYAN)
                     .strength(0.3F)
                     .nonOpaque()
-                    .sounds(new BlockSoundGroup(1.0F, 1.0F,
-                            RegisterSounds.BLOCK_ECHO_GLASS_CRACK, 
+                    .sounds(new BlockSoundGroup(1.0F, 1.25F,
+                            RegisterSounds.BLOCK_ECHO_GLASS_CRACK,
                             SoundEvents.BLOCK_GLASS_STEP,
                             SoundEvents.BLOCK_GLASS_PLACE,
                             SoundEvents.BLOCK_GLASS_HIT,
