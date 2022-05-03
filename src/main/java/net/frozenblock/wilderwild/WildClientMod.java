@@ -94,10 +94,13 @@ public class WildClientMod implements ClientModInitializer {
             int size = byteBuf.readVarInt();
             int age = byteBuf.readVarInt();
             double yVel = byteBuf.readDouble();
+            int count = byteBuf.readVarInt();
             ctx.execute(() -> {
                 if (MinecraftClient.getInstance().world == null)
                     throw new IllegalStateException("why is your world null");
-                MinecraftClient.getInstance().world.addParticle(RegisterParticles.ECHOING_BUBBLE, pos.x, pos.y, pos.z, size, age, yVel);
+                for (int i=0; i<count; i++) {
+                    MinecraftClient.getInstance().world.addParticle(RegisterParticles.ECHOING_BUBBLE, pos.x, pos.y, pos.z, size, age, yVel);
+                }
             });
         });
     }

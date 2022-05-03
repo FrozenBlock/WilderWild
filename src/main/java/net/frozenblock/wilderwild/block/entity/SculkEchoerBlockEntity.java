@@ -57,7 +57,7 @@ public class SculkEchoerBlockEntity extends BlockEntity implements SculkSensorLi
                 --this.echoBubblesLeft;
                 double offest = upsidedown ? (waterlogged ? -0.05 : 0.2) : (waterlogged ? 1.05 : 0.8);
                 EchoingBubbleParticle.EasyEchoerBubblePacket.createParticle(server, new Vec3d(pos.getX() + 0.5D, pos.getY() + offest, pos.getZ() + 0.5D), size, age,
-                        upsidedown ? (size>0 ? Math.max((Math.random())*0.065, 0.045)*-1 : Math.max((Math.random())*0.06, 0.035)*-1) : (size>0 ? Math.max((Math.random())*0.065, 0.045) : Math.max((Math.random())*0.06, 0.035)));
+                        upsidedown ? (size>0 ? Math.max((Math.random())*0.065, 0.045)*-1 : Math.max((Math.random())*0.06, 0.035)*-1) : (size>0 ? Math.max((Math.random())*0.065, 0.045) : Math.max((Math.random())*0.06, 0.035)), 1);
                 this.bubbleTicks.add(age-3);
                 this.bubbleSizes.add(size);
             }

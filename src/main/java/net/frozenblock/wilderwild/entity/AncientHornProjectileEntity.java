@@ -97,9 +97,7 @@ public class AncientHornProjectileEntity extends PersistentProjectileEntity {
         if (this.shake > 0) { --this.shake; }
 
         if (this.isTouchingWater() && world instanceof ServerWorld server) {
-            for(int o = 0; o < 4; ++o) {
-                EchoingBubbleParticle.EasyEchoerBubblePacket.createParticle(server, new Vec3d(this.prevX, this.prevY, this.prevZ), 0, 60, 0.05);
-            }
+            EchoingBubbleParticle.EasyEchoerBubblePacket.createParticle(server, new Vec3d(this.prevX, this.prevY, this.prevZ), 0, 60, 0.05, 4);
         }
         if (this.isTouchingWaterOrRain() || blockState.isOf(Blocks.POWDER_SNOW)) { this.extinguish(); }
             Vec3d vec3d3 = this.getPos();

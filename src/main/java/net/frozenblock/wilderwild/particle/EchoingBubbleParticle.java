@@ -81,7 +81,7 @@ public class EchoingBubbleParticle extends AbstractSlowingParticle {
     }
 
     public static class EasyEchoerBubblePacket {
-        public static void createParticle(World world, Vec3d pos, int size, int maxAge, double yVel) {
+        public static void createParticle(World world, Vec3d pos, int size, int maxAge, double yVel, int count) {
             if (world.isClient)
                 throw new IllegalStateException("Particle attempting spawning on THE CLIENT JESUS CHRIST WHAT THE HECK");
             PacketByteBuf byteBuf = new PacketByteBuf(Unpooled.buffer());
@@ -91,6 +91,7 @@ public class EchoingBubbleParticle extends AbstractSlowingParticle {
             byteBuf.writeVarInt(size);
             byteBuf.writeVarInt(maxAge);
             byteBuf.writeDouble(yVel);
+            byteBuf.writeVarInt(count);
             for (ServerPlayerEntity player : PlayerLookup.around((ServerWorld)world, pos, 32)) {
                 ServerPlayNetworking.send(player, WilderWild.ECHOER_BUBBLE_PACKET, byteBuf);
             }
