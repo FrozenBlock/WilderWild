@@ -35,6 +35,7 @@ public class WilderWild implements ModInitializer {
     @Override
     public void onInitialize() {
         RegisterBlocks.RegisterBlocks();
+        RegisterSounds.init();
         RegisterItems.RegisterItems();
         RegisterParticles.RegisterParticles();
         WildConfiguredFeatures.registerConfiguredFeatures();
