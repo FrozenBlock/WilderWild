@@ -15,11 +15,14 @@ import net.minecraft.world.gen.feature.ConfiguredFeature;
 import net.minecraft.world.gen.feature.ConfiguredFeatures;
 import net.minecraft.world.gen.feature.Feature;
 import net.minecraft.world.gen.feature.TreeFeatureConfig;
+import net.minecraft.world.gen.feature.size.ThreeLayersFeatureSize;
 import net.minecraft.world.gen.feature.size.TwoLayersFeatureSize;
 import net.minecraft.world.gen.foliage.BlobFoliagePlacer;
+import net.minecraft.world.gen.foliage.DarkOakFoliagePlacer;
 import net.minecraft.world.gen.foliage.LargeOakFoliagePlacer;
 import net.minecraft.world.gen.stateprovider.BlockStateProvider;
 import net.minecraft.world.gen.treedecorator.BeehiveTreeDecorator;
+import net.minecraft.world.gen.trunk.DarkOakTrunkPlacer;
 import net.minecraft.world.gen.trunk.LargeOakTrunkPlacer;
 
 import java.util.List;
@@ -39,6 +42,7 @@ public class WildTreeConfigured {
     public static final RegistryEntry<ConfiguredFeature<TreeFeatureConfig, ?>> NEW_FANCY_OAK;
     public static final RegistryEntry<ConfiguredFeature<TreeFeatureConfig, ?>> NEW_FANCY_OAK_BEES_0004;
     public static final RegistryEntry<ConfiguredFeature<TreeFeatureConfig, ?>> NEW_FALLEN_OAK_TREE;
+    public static final RegistryEntry<ConfiguredFeature<TreeFeatureConfig, ?>> NEW_TALL_DARK_OAK;
 
     public WildTreeConfigured() {
     }
@@ -51,6 +55,12 @@ public class WildTreeConfigured {
         return new TreeFeatureConfig.Builder(BlockStateProvider.of(log), new FallenTrunkWithLogs(baseHeight, firstRHeight, secondRHeight, logChance, mossChance, maxLogs, maxHeightAboveHole),
                 BlockStateProvider.of(leaves), new BlobFoliagePlacer(ConstantIntProvider.create(radius), ConstantIntProvider.create(0), 3), //FOILAGE PLACER DOES NOTHING
                 new TwoLayersFeatureSize(1, 0, 1));
+    }
+
+    private static TreeFeatureConfig.Builder darkOakBuilder(Block log, Block leaves, int baseHeight, int firstRandomHeight, int secondRandomHeight, int radius) {
+        return new TreeFeatureConfig.Builder(BlockStateProvider.of(log), new DarkOakTrunkPlacer(baseHeight, firstRandomHeight, secondRandomHeight),
+                BlockStateProvider.of(leaves), new DarkOakFoliagePlacer(ConstantIntProvider.create(radius), ConstantIntProvider.create(0)),
+                new ThreeLayersFeatureSize(1, 1,0,1,2, OptionalInt.empty()));
     }
 
     private static TreeFeatureConfig.Builder new_birch() {
@@ -75,6 +85,10 @@ public class WildTreeConfigured {
         return fallenTrunkBuilder(RegisterBlocks.HOLLOWED_OAK_LOG, Blocks.OAK_LEAVES, 3, 1, 2, 0.4F, 0.4F, UniformIntProvider.create(1, 2), UniformIntProvider.create(1, 2), 1).ignoreVines();
     }
 
+    private static TreeFeatureConfig.Builder new_tall_dark_oak() {
+        return darkOakBuilder(Blocks.DARK_OAK_LOG, Blocks.DARK_OAK_LEAVES, 7, 3, 2, 4).ignoreVines();
+    }
+
     static {
         SHELF_FUNGUS_008 = new ShelfFungusTreeDecorator(0.08F);
         SHELF_FUNGUS_007 = new ShelfFungusTreeDecorator(0.07F);
@@ -91,6 +105,8 @@ public class WildTreeConfigured {
         NEW_FANCY_OAK = ConfiguredFeatures.register("new_fancy_oak", Feature.TREE, new_fancyOak().build());
         NEW_FANCY_OAK_BEES_0004 = ConfiguredFeatures.register("new_fancy_oak_bees_0004", Feature.TREE, new_fancyOak().decorators(List.of(NEW_BEES_0004)).build());
         NEW_FALLEN_OAK_TREE = ConfiguredFeatures.register("new_fallen_oak_tree", Feature.TREE, fallen_oak().dirtProvider(BlockStateProvider.of(Blocks.DIRT)).build());
+        //DARK OAK
+        NEW_TALL_DARK_OAK = ConfiguredFeatures.register("new_tall_dark_oak", Feature.TREE, new_tall_dark_oak().ignoreVines().build());
     }
     public static void registerTreeConfigured() {
     }
