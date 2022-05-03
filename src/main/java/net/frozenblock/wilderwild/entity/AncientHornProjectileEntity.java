@@ -269,7 +269,7 @@ public class AncientHornProjectileEntity extends PersistentProjectileEntity {
     }
     @Override
     public Packet<?> createSpawnPacket() {
-        return EntitySpawnPacket.create(this, WildClientMod.HORN_PROJECTILE_PACKET_ID);
+        return EntitySpawnPacket.create(this, WilderWild.HORN_PROJECTILE_PACKET_ID);
     }
     public boolean canInteract() {
         if (!this.shotByPlayer && !world.isClient) {
