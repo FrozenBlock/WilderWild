@@ -32,11 +32,11 @@
 	"subtitles.block.sculk_sensor.hiccup": "Sculk Sensor hiccups",
 	"item.wilderwild.ancient_horn": "Ancient Horn",
 	"item.wilderwild.ancient_horn.sound.0": "Whirs of the Ancient",
-	"wilderwild.ancient_horn.advancement.use": "Whirs of the Ancient",
+	"wilderwild.ancient_horn.advancement.use": "Vibe Check",
 	"wilderwild.ancient_horn.advancement.use.description": "Find and use an Ancient Horn.",
 	"subtitles.item.ancient_horn.blast": "Ancient Horn booms",
 	"enchantment.wilderwild.technique": "Technique",
 	"enchantment.wilderwild.reverberation": "Reverberation",
-	"death.attack.ancient_horn": "%1$s got blown too hard by %2$s",
-	"death.attack.ancient_horn.item": "%1$s was blown by %2$s using the dangerous %3$s"
+	"death.attack.ancient_horn": "%1$s was vibe checked by %2$s",
+	"death.attack.ancient_horn.item": "%1$s was vibe cheked by %2$s using %3$s"
 }
