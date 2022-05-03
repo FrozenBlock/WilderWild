@@ -169,9 +169,9 @@ public abstract class RegisterBlocks {
     }
 
     private static HollowedLogBlock createHollowedLogBlock(MapColor topMapColor, MapColor sideMapColor) {
-        return new HollowedLogBlock(AbstractBlock.Settings.of(Material.WOOD, (state) -> {
-            return state.get(PillarBlock.AXIS) == Direction.Axis.Y ? topMapColor : sideMapColor;
-        }).strength(2.0F).sounds(BlockSoundGroup.WOOD));
+        return new HollowedLogBlock(AbstractBlock.Settings.of(Material.WOOD,
+                (state) -> state.get(PillarBlock.AXIS) == Direction.Axis.Y ? topMapColor : sideMapColor)
+                .strength(2.0F).sounds(BlockSoundGroup.WOOD));
     }
 
     private static AbstractLichenBlock registerLichenBlock(String name, AbstractLichenBlock block, ItemGroup group) {
