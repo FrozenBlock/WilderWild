@@ -44,7 +44,7 @@ public abstract class RegisterBlocks {
                     .of(Material.SCULK, MapColor.CYAN)
                     .strength(3.0F, 3.0F)
                     .sounds(BlockSoundGroup.SCULK_CATALYST), 8),
-            ItemGroup.DECORATIONS
+            ItemGroup.REDSTONE
     );
     public static final Block SCULK_JAW = registerBlock("sculk_jaw",
             new SculkJawBlock(AbstractBlock.Settings
