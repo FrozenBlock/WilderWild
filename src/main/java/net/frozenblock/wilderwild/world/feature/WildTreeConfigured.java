@@ -86,7 +86,7 @@ public class WildTreeConfigured {
     }
 
     private static TreeFeatureConfig.Builder new_tall_dark_oak() {
-        return darkOakBuilder(Blocks.DARK_OAK_LOG, Blocks.DARK_OAK_LEAVES, 7, 3, 2, 4).ignoreVines();
+        return darkOakBuilder(Blocks.DARK_OAK_LOG, Blocks.DARK_OAK_LEAVES, 7, 3, 2, 1).ignoreVines();
     }
 
     static {
