@@ -1,0 +1,22 @@
+{
+  "display": {
+    "icon": {
+      "item": "wilderwild:ancient_horn"
+    },
+    "title": "Use Ancient Horn",
+    "description": "Use Ancient Horn Description"
+  },
+  "parent": "minecraft:adventure/root",
+  "criteria": {
+    "requirement": {
+      "trigger": "minecraft:using_item",
+      "conditions": {
+        "item": {
+          "items": [
+            "wilderwild:ancient_horn"
+          ]
+        }
+      }
+    }
+  }
+}
