@@ -11,7 +11,6 @@ import net.frozenblock.wilderwild.world.feature.WildTreePlaced;
 import net.frozenblock.wilderwild.world.gen.WildWorldGen;
 import net.frozenblock.wilderwild.world.gen.trunk.FallenTrunkWithLogs;
 import net.frozenblock.wilderwild.world.gen.trunk.StraightTrunkWithLogs;
-import net.minecraft.item.ItemGroup;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.world.event.GameEvent;
@@ -36,6 +35,7 @@ public class WilderWild implements ModInitializer {
     public void onInitialize() {
         RegisterBlocks.RegisterBlocks();
         RegisterSounds.init();
+        RegisterBlockSoundGroups.init();
         RegisterItems.RegisterItems();
         RegisterParticles.RegisterParticles();
         WildConfiguredFeatures.registerConfiguredFeatures();

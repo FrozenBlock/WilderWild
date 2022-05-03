@@ -11,7 +11,6 @@ import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.sound.BlockSoundGroup;
-import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.registry.Registry;
@@ -59,13 +58,7 @@ public abstract class RegisterBlocks {
                     MapColor.PALE_YELLOW)
                     .requiresTool()
                     .strength(2.0F)
-                    .sounds(new BlockSoundGroup(1.0f, 1.0f,
-                            RegisterSounds.BLOCK_OSSEOUS_SCULK_BREAK,
-                            RegisterSounds.BLOCK_OSSEOUS_SCULK_STEP,
-                            RegisterSounds.BLOCK_OSSEOUS_SCULK_PLACE,
-                            RegisterSounds.BLOCK_OSSEOUS_SCULK_HIT,
-                            RegisterSounds.BLOCK_OSSEOUS_SCULK_FALL
-                    ))),
+                    .sounds(RegisterBlockSoundGroups.OSSEOUS_SCULK)),
             ItemGroup.DECORATIONS
     );
     public static final Block HANGING_TENDRIL = registerBlock("hanging_tendril",
@@ -74,13 +67,7 @@ public abstract class RegisterBlocks {
                     .strength(0.7F)
                     .collidable(false)
                     .luminance((state) -> 1)
-                    .sounds(new BlockSoundGroup(1.0f, 1.25f,
-                            RegisterSounds.BLOCK_HANGING_TENDRIL_BREAK,
-                            RegisterSounds.BLOCK_HANGING_TENDRIL_STEP,
-                            RegisterSounds.BLOCK_HANGING_TENDRIL_PLACE,
-                            RegisterSounds.BLOCK_HANGING_TENDRIL_HIT,
-                            RegisterSounds.BLOCK_HANGING_TENDRIL_FALL
-                    ))
+                    .sounds(RegisterBlockSoundGroups.HANGING_TENDRIL)
                     .emissiveLighting((state, world, pos) -> HangingTendrilBlock.shouldHavePogLighting(state)), 4),
             ItemGroup.DECORATIONS
     );
@@ -89,13 +76,7 @@ public abstract class RegisterBlocks {
                     .of(Material.GLASS, MapColor.CYAN)
                     .strength(0.3F)
                     .nonOpaque()
-                    .sounds(new BlockSoundGroup(1.0F, 1.0F,
-                            RegisterSounds.BLOCK_ECHO_GLASS_CRACK,
-                            SoundEvents.BLOCK_GLASS_STEP,
-                            SoundEvents.BLOCK_GLASS_PLACE,
-                            SoundEvents.BLOCK_GLASS_HIT,
-                            SoundEvents.BLOCK_GLASS_FALL
-                    ))
+                    .sounds(RegisterBlockSoundGroups.ECHO_GLASS)
             ),
             ItemGroup.DECORATIONS
     );
