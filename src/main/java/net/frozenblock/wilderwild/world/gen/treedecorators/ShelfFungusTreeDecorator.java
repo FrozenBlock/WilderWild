@@ -1,4 +1,4 @@
-package net.frozenblock.wilderwild.world.gen;
+package net.frozenblock.wilderwild.world.gen.treedecorators;
 
 import com.mojang.serialization.Codec;
 import net.frozenblock.wilderwild.block.ShelfFungusBlock;

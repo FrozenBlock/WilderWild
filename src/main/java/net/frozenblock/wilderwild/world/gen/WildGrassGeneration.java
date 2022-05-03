@@ -6,7 +6,7 @@ import net.frozenblock.wilderwild.world.feature.WildPlacedFeature;
 import net.minecraft.tag.BiomeTags;
 import net.minecraft.world.gen.GenerationStep;
 
-public class WildGrassForestGeneration {
+public class WildGrassGeneration {
     public static void generateGrassForest() {
         BiomeModifications.addFeature(BiomeSelectors.tag(BiomeTags.IS_FOREST),
                 GenerationStep.Feature.VEGETAL_DECORATION, WildPlacedFeature.NEW_GRASS_PLACED.getKey().get());

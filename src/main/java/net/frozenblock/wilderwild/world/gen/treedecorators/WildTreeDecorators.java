@@ -1,4 +1,4 @@
-package net.frozenblock.wilderwild.world.gen;
+package net.frozenblock.wilderwild.world.gen.treedecorators;
 
 import net.frozenblock.wilderwild.mixin.worldgen.TreeDecoratorTypeInvoker;
 import net.minecraft.world.gen.treedecorator.TreeDecoratorType;

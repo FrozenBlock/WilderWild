@@ -1,11 +1,12 @@
 package net.frozenblock.wilderwild.world.gen;
 
+import net.frozenblock.wilderwild.world.gen.treedecorators.WildTreeDecorators;
+
 public class WildWorldGen {
     public static void generateWildWorldGen() {
-        WildDaturaGeneration.generateFlowers();
-        WildCarnationGeneration.generateFlowers();
+        WildFlowersGeneration.generateFlower();
         WildPollenGeneration.generatePollen();
-        WildGrassForestGeneration.generateGrassForest();
+        WildGrassGeneration.generateGrassForest();
 
         WildTreeDecorators.generateTreeDecorators();
         WildTreesGeneration.generateTrees();
