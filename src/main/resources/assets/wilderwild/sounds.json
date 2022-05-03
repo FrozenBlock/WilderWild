@@ -168,9 +168,9 @@
 	},
 	"particle.floating_sculk_bubble.big_pop": {
 		"sounds": [
-			"wilderwild:particle/floating_sculk_bubble/pop_big1",
-			"wilderwild:particle/floating_sculk_bubble/pop_big2",
-			"wilderwild:particle/floating_sculk_bubble/pop_big3"
+			"wilderwild:particle/floating_sculk_bubble/big_pop1",
+			"wilderwild:particle/floating_sculk_bubble/big_pop2",
+			"wilderwild:particle/floating_sculk_bubble/big_pop3"
 		]
 	},
 	"block.sculk_jaw.clamp": {
