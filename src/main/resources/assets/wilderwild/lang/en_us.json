@@ -20,11 +20,7 @@
 	"block.wilderwild.sculk_echoer": "Sculk Echoer",
 	"block.wilderwild.sculk_jaw": "Sculk Jaw",
 	"block.wilderwild.brown_shelf_fungus": "Brown Shelf Fungus",
-	"death.attack.ancient_horn": "%1$s got blown too hard by %2$s",
-	"death.attack.ancient_horn.item": "%1$s was blown by %2$s using the dangerous %3$s",
 	"entity.wilderwild.sculk_sensor_tendril": "Sculk Sensor Tendrils",
-	"item.wilderwild.ancient_horn": "Ancient Horn",
-	"item.wilderwild.ancient_horn.sound.0": "Whirls of the Ancient",
 	"item.wilderwild.camera": "Dev Camera",
 	"item.wilderwild.music_disc_beneath": "Music Disc",
 	"item.wilderwild.music_disc_beneath.desc": "Krole - Beneath",
@@ -34,7 +30,13 @@
 	"subtitles.block.sculk_echoer.echo": "Sculk Echoer echoes",
 	"subtitles.block.sculk_jaw.clamp": "Sculk Jaw clamps",
 	"subtitles.block.sculk_sensor.hiccup": "Sculk Sensor hiccups",
+	"item.wilderwild.ancient_horn": "Ancient Horn",
+	"item.wilderwild.ancient_horn.sound.0": "Whirs of the Ancient",
+	"wilderwild.ancient_horn.advancement.use": "Whirs of the Ancient",
+	"wilderwild.ancient_horn.advancement.use.description": "Find and use an Ancient Horn.",
 	"subtitles.item.ancient_horn.blast": "Ancient Horn booms",
 	"enchantment.wilderwild.technique": "Technique",
-	"enchantment.wilderwild.reverberation": "Reverberation"
+	"enchantment.wilderwild.reverberation": "Reverberation",
+	"death.attack.ancient_horn": "%1$s got blown too hard by %2$s",
+	"death.attack.ancient_horn.item": "%1$s was blown by %2$s using the dangerous %3$s"
 }

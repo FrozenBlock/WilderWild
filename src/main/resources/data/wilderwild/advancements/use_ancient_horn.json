@@ -3,8 +3,12 @@
     "icon": {
       "item": "wilderwild:ancient_horn"
     },
-    "title": "Use Ancient Horn",
-    "description": "Use Ancient Horn Description"
+    "title": {
+      "translate": "wilderwild.ancient_horn.advancement.use"
+    },
+    "description": {
+      "translate": "wilderwild.ancient_horn.advancement.use.description"
+    }
   },
   "parent": "minecraft:adventure/root",
   "criteria": {
