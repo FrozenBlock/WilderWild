@@ -11,6 +11,7 @@ import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.sound.BlockSoundGroup;
+import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.registry.Registry;
@@ -88,7 +89,14 @@ public abstract class RegisterBlocks {
                     .of(Material.GLASS, MapColor.CYAN)
                     .strength(0.3F)
                     .nonOpaque()
-                    .sounds(BlockSoundGroup.GLASS)),
+                    .sounds(new BlockSoundGroup(1.0F, 1.0F,
+                            RegisterSounds.BLOCK_ECHO_GLASS_CRACK, 
+                            SoundEvents.BLOCK_GLASS_STEP,
+                            SoundEvents.BLOCK_GLASS_PLACE,
+                            SoundEvents.BLOCK_GLASS_HIT,
+                            SoundEvents.BLOCK_GLASS_FALL
+                    ))
+            ),
             ItemGroup.DECORATIONS
     );
 

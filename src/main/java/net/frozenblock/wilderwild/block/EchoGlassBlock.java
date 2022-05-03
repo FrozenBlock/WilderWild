@@ -13,6 +13,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
+import net.minecraft.sound.SoundEvents;
 import net.minecraft.stat.Stats;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.IntProperty;
@@ -92,6 +93,14 @@ public class EchoGlassBlock extends TintedGlassBlock {
         } else {
             player.incrementStat(Stats.MINED.getOrCreateStat(this));
             dropStacks(state, world, pos, blockEntity, player, stack);
+            world.playSound(
+                    null,
+                    pos,
+                    SoundEvents.BLOCK_GLASS_BREAK,
+                    SoundCategory.BLOCKS,
+                    1.0F,
+                    world.random.nextFloat() * 0.1F + 0.9F
+            );
         }
     }
 
