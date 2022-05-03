@@ -6,6 +6,7 @@ import net.frozenblock.wilderwild.WildClientMod;
 import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.block.SculkEchoerBlock;
 import net.frozenblock.wilderwild.block.entity.HangingTendrilBlockEntity;
+import net.frozenblock.wilderwild.particle.EchoingBubbleParticle;
 import net.frozenblock.wilderwild.registry.*;
 import net.frozenblock.wilderwild.tag.WildBlockTags;
 import net.minecraft.block.*;
@@ -94,6 +95,12 @@ public class AncientHornProjectileEntity extends PersistentProjectileEntity {
         Vec3d vec3d2;
 
         if (this.shake > 0) { --this.shake; }
+
+        if (this.isTouchingWater() && world instanceof ServerWorld server) {
+            for(int o = 0; o < 4; ++o) {
+                EchoingBubbleParticle.EasyEchoerBubblePacket.createParticle(server, new Vec3d(this.prevX, this.prevY, this.prevZ), 0, 60, 0.05);
+            }
+        }
         if (this.isTouchingWaterOrRain() || blockState.isOf(Blocks.POWDER_SNOW)) { this.extinguish(); }
             Vec3d vec3d3 = this.getPos();
             vec3d2 = vec3d3.add(vec3d);
@@ -222,7 +229,6 @@ public class AncientHornProjectileEntity extends PersistentProjectileEntity {
     protected SoundEvent getHitSound() {
         return RegisterSounds.ANCIENT_HORN_VIBRATION_DISSAPATE;
     }
-    public boolean isTouchingWater() { return true; }
     public boolean isNoClip() {
         BlockState insideState = world.getBlockState(this.getBlockPos());
         if (insideState.isOf(RegisterBlocks.HANGING_TENDRIL) && world instanceof ServerWorld server && canInteract()) {

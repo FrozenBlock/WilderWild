@@ -27,13 +27,13 @@ public class EchoingBubbleParticle extends AbstractSlowingParticle {
         return 240;
     }
 
-    protected EchoingBubbleParticle(ClientWorld clientWorld, double d, double e, double f, double size, double maxAge, double upsideDown, SpriteProvider spriteProvider) {
+    protected EchoingBubbleParticle(ClientWorld clientWorld, double d, double e, double f, double size, double maxAge, double yVel, SpriteProvider spriteProvider) {
         super(clientWorld, d, e, f, 0, 0, 0);
         this.velocityX = (Math.random()-0.5)/9.5;
         this.velocityZ = (Math.random()-0.5)/9.5;
         this.spriteProvider = spriteProvider;
         this.setSpriteForAge(spriteProvider);
-        this.velocityY = upsideDown>0 ? (size>0 ? Math.max((Math.random())*0.065, 0.045)*-1 : Math.max((Math.random())*0.06, 0.035)*-1) : (size>0 ? Math.max((Math.random())*0.065, 0.045) : Math.max((Math.random())*0.06, 0.035));
+        this.velocityY = yVel;
         this.sound = size<=0 ? RegisterSounds.BLOCK_SCULK_ECHOER_BUBBLE_POP : RegisterSounds.BLOCK_SCULK_ECHOER_BUBBLE_POP_BIG;
         if (size>=1) {
             this.scale((float) (1.4F + size));
@@ -73,15 +73,15 @@ public class EchoingBubbleParticle extends AbstractSlowingParticle {
             this.spriteProvider = spriteProvider;
         }
         @Override
-        public Particle createParticle(DefaultParticleType defaultParticleType, ClientWorld clientWorld, double d, double e, double f, double size, double maxAge, double upsideDown) {
-            EchoingBubbleParticle bubble = new EchoingBubbleParticle(clientWorld, d, e, f, size, maxAge, upsideDown, this.spriteProvider);
+        public Particle createParticle(DefaultParticleType defaultParticleType, ClientWorld clientWorld, double d, double e, double f, double size, double maxAge, double yVel) {
+            EchoingBubbleParticle bubble = new EchoingBubbleParticle(clientWorld, d, e, f, size, maxAge, yVel, this.spriteProvider);
             bubble.setAlpha(1.0F);
             return bubble;
         }
     }
 
     public static class EasyEchoerBubblePacket {
-        public static void createParticle(World world, Vec3d pos, int size, int maxAge, int upsideDown) {
+        public static void createParticle(World world, Vec3d pos, int size, int maxAge, double yVel) {
             if (world.isClient)
                 throw new IllegalStateException("Particle attempting spawning on THE CLIENT JESUS CHRIST WHAT THE HECK");
             PacketByteBuf byteBuf = new PacketByteBuf(Unpooled.buffer());
@@ -90,7 +90,7 @@ public class EchoingBubbleParticle extends AbstractSlowingParticle {
             byteBuf.writeDouble(pos.z);
             byteBuf.writeVarInt(size);
             byteBuf.writeVarInt(maxAge);
-            byteBuf.writeVarInt(upsideDown);
+            byteBuf.writeDouble(yVel);
             for (ServerPlayerEntity player : PlayerLookup.around((ServerWorld)world, pos, 32)) {
                 ServerPlayNetworking.send(player, WilderWild.ECHOER_BUBBLE_PACKET, byteBuf);
             }
