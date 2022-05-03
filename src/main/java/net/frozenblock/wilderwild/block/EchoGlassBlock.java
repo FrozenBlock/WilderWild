@@ -1,6 +1,5 @@
 package net.frozenblock.wilderwild.block;
 
-import net.frozenblock.wilderwild.registry.RegisterEnchantments;
 import net.frozenblock.wilderwild.registry.RegisterProperties;
 import net.frozenblock.wilderwild.registry.RegisterSounds;
 import net.minecraft.block.Block;

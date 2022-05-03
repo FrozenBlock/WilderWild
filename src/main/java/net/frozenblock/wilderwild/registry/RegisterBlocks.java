@@ -145,6 +145,14 @@ public abstract class RegisterBlocks {
                     .nonOpaque()),
             ItemGroup.DECORATIONS
     );
+    public static final Block RED_SHELF_FUNGUS = registerBlock("red_shelf_fungus",
+            new ShelfFungusBlock(FabricBlockSettings
+                    .copyOf(Blocks.RED_MUSHROOM_BLOCK)
+                    .lightLevel(1)
+                    .collidable(false)
+                    .nonOpaque()),
+            ItemGroup.DECORATIONS
+    );
 
 
     private static Block registerBlockWithoutBlockItem(String name, Block block, ItemGroup group) {

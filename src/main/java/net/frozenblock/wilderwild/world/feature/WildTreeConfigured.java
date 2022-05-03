@@ -90,8 +90,8 @@ public class WildTreeConfigured {
     }
 
     static {
-        SHELF_FUNGUS_008 = new ShelfFungusTreeDecorator(0.08F);
-        SHELF_FUNGUS_007 = new ShelfFungusTreeDecorator(0.07F);
+        SHELF_FUNGUS_008 = new ShelfFungusTreeDecorator(0.08F, 0.3F);
+        SHELF_FUNGUS_007 = new ShelfFungusTreeDecorator(0.07F, 0.15F);
         NEW_BEES_0004 = new BeehiveTreeDecorator(0.004F);
         //BIRCH
         NEW_BIRCH_TREE = ConfiguredFeatures.register("new_birch_tree", Feature.TREE, new_birch().dirtProvider(BlockStateProvider.of(Blocks.DIRT)).decorators(ImmutableList.of(SHELF_FUNGUS_008)).build());
