@@ -157,20 +157,20 @@
 		],
 		"subtitle": "subtitles.block.sculk_echoer.echo"
 	},
-	"block.sculk_echoer.bubble.pop": {
+	"particle.floating_sculk_bubble.pop": {
 		"sounds": [
-			"wilderwild:block/sculk_echoer/pop1",
-			"wilderwild:block/sculk_echoer/pop2",
-			"wilderwild:block/sculk_echoer/pop3",
-			"wilderwild:block/sculk_echoer/pop4",
-			"wilderwild:block/sculk_echoer/pop5"
+			"wilderwild:particle/floating_sculk_bubble/pop1",
+			"wilderwild:particle/floating_sculk_bubble/pop2",
+			"wilderwild:particle/floating_sculk_bubble/pop3",
+			"wilderwild:particle/floating_sculk_bubble/pop4",
+			"wilderwild:particle/floating_sculk_bubble/pop5"
 		]
 	},
-	"block.sculk_echoer.bubble.pop_big": {
+	"particle.floating_sculk_bubble.big_pop": {
 		"sounds": [
-			"wilderwild:block/sculk_echoer/pop_big1",
-			"wilderwild:block/sculk_echoer/pop_big2",
-			"wilderwild:block/sculk_echoer/pop_big3"
+			"wilderwild:particle/floating_sculk_bubble/pop_big1",
+			"wilderwild:particle/floating_sculk_bubble/pop_big2",
+			"wilderwild:particle/floating_sculk_bubble/pop_big3"
 		]
 	},
 	"block.sculk_jaw.clamp": {

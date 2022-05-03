@@ -8,10 +8,10 @@ import net.minecraft.util.registry.Registry;
 
 public class RegisterParticles {
     public static final DefaultParticleType POLLEN = FabricParticleTypes.simple();
-    public static final DefaultParticleType ECHOING_BUBBLE = FabricParticleTypes.simple();
+    public static final DefaultParticleType FLAOTING_SCULK_BUBBLE = FabricParticleTypes.simple();
 
     public static void RegisterParticles() {
         Registry.register(Registry.PARTICLE_TYPE, new Identifier(WilderWild.MOD_ID, "pollen"), POLLEN);
-        Registry.register(Registry.PARTICLE_TYPE, new Identifier(WilderWild.MOD_ID, "echoing_bubble"), ECHOING_BUBBLE);
+        Registry.register(Registry.PARTICLE_TYPE, new Identifier(WilderWild.MOD_ID, "floating_sculk_bubble"), FLAOTING_SCULK_BUBBLE);
     }
 }

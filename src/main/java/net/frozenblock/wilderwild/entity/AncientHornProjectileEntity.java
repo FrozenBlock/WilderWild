@@ -5,7 +5,7 @@ import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.block.SculkEchoerBlock;
 import net.frozenblock.wilderwild.block.entity.HangingTendrilBlockEntity;
-import net.frozenblock.wilderwild.particle.EchoingBubbleParticle;
+import net.frozenblock.wilderwild.particle.FloatingSculkBubbleParticle;
 import net.frozenblock.wilderwild.registry.*;
 import net.frozenblock.wilderwild.tag.WildBlockTags;
 import net.minecraft.block.*;
@@ -96,7 +96,7 @@ public class AncientHornProjectileEntity extends PersistentProjectileEntity {
         if (this.shake > 0) { --this.shake; }
 
         if (this.isTouchingWater() && world instanceof ServerWorld server) {
-            EchoingBubbleParticle.EasyEchoerBubblePacket.createParticle(server, new Vec3d(this.prevX, this.prevY, this.prevZ), 0, 60, 0.05, 4);
+            FloatingSculkBubbleParticle.EasyFloatingSculkBubblePacket.createParticle(server, new Vec3d(this.prevX, this.prevY, this.prevZ), 0, 60, 0.05, 4);
         }
         if (this.isTouchingWaterOrRain() || blockState.isOf(Blocks.POWDER_SNOW)) { this.extinguish(); }
             Vec3d vec3d3 = this.getPos();

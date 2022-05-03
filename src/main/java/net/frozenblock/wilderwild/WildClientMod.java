@@ -9,7 +9,7 @@ import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
 import net.frozenblock.wilderwild.entity.AncientHornProjectileEntity;
 import net.frozenblock.wilderwild.entity.render.AncientHornProjectileModel;
 import net.frozenblock.wilderwild.entity.render.AncientHornProjectileRenderer;
-import net.frozenblock.wilderwild.particle.EchoingBubbleParticle;
+import net.frozenblock.wilderwild.particle.FloatingSculkBubbleParticle;
 import net.frozenblock.wilderwild.particle.PollenParticle;
 import net.frozenblock.wilderwild.registry.RegisterBlocks;
 import net.frozenblock.wilderwild.registry.RegisterEntities;
@@ -30,7 +30,7 @@ public class WildClientMod implements ClientModInitializer {
     public static final EntityModelLayer ANCIENT_HORN_PROJECTILE_LAYER = new EntityModelLayer(new Identifier(WilderWild.MOD_ID, "ancient_horn_projectile"), "main");
 
     public static final Identifier HORN_PROJECTILE_PACKET_ID = new Identifier(WilderWild.MOD_ID, "ancient_horn_projectile_packet");
-    public static final Identifier ECHOER_BUBBLE_PACKET = new Identifier("sculk_echoer_bubble_easy_packet");
+    public static final Identifier FLOATING_SCULK_BUBBLE_PACKET = new Identifier("floating_sculk_bubble_easy_packet");
     @Override
     public void onInitializeClient() {
 
@@ -53,7 +53,7 @@ public class WildClientMod implements ClientModInitializer {
         BlockRenderLayerMap.INSTANCE.putBlock(RegisterBlocks.BROWN_SHELF_FUNGUS, RenderLayer.getCutout());
 
         ParticleFactoryRegistry.getInstance().register(RegisterParticles.POLLEN, PollenParticle.PollenFactory::new);
-        ParticleFactoryRegistry.getInstance().register(RegisterParticles.ECHOING_BUBBLE, EchoingBubbleParticle.BubbleFactory::new);
+        ParticleFactoryRegistry.getInstance().register(RegisterParticles.FLAOTING_SCULK_BUBBLE, FloatingSculkBubbleParticle.BubbleFactory::new);
         //EntityRendererRegistry.register(RegisterEntities.TENDRIL_ENTITY, SculkSensorTendrilRenderer::new);
         //EntityModelLayerRegistry.registerModelLayer(SENSOR_TENDRILS_LAYER, SculkSensorTendrilModel::getTexturedModelData);
         EntityRendererRegistry.register(RegisterEntities.ANCIENT_HORN_PROJECTILE_ENTITY, AncientHornProjectileRenderer::new);
@@ -89,7 +89,7 @@ public class WildClientMod implements ClientModInitializer {
     }
 
     public void receiveEasyEchoerBubblePacket() {
-        ClientPlayNetworking.registerGlobalReceiver(ECHOER_BUBBLE_PACKET, (ctx, handler, byteBuf, responseSender) -> {
+        ClientPlayNetworking.registerGlobalReceiver(FLOATING_SCULK_BUBBLE_PACKET, (ctx, handler, byteBuf, responseSender) -> {
             Vec3d pos = new Vec3d(byteBuf.readDouble(), byteBuf.readDouble(), byteBuf.readDouble());
             int size = byteBuf.readVarInt();
             int age = byteBuf.readVarInt();
@@ -99,7 +99,7 @@ public class WildClientMod implements ClientModInitializer {
                 if (MinecraftClient.getInstance().world == null)
                     throw new IllegalStateException("why is your world null");
                 for (int i=0; i<count; i++) {
-                    MinecraftClient.getInstance().world.addParticle(RegisterParticles.ECHOING_BUBBLE, pos.x, pos.y, pos.z, size, age, yVel);
+                    MinecraftClient.getInstance().world.addParticle(RegisterParticles.FLAOTING_SCULK_BUBBLE, pos.x, pos.y, pos.z, size, age, yVel);
                 }
             });
         });

@@ -29,8 +29,8 @@ public class RegisterSounds {
     public static final SoundEvent BLOCK_SCULK_SENSOR_HICCUP = register( "block.sculk_sensor.hiccup");
 
     public static final SoundEvent BLOCK_SCULK_ECHOER_ECHO = register( "block.sculk_echoer.echo");
-    public static final SoundEvent BLOCK_SCULK_ECHOER_BUBBLE_POP = register("block.sculk_echoer.bubble.pop");
-    public static final SoundEvent BLOCK_SCULK_ECHOER_BUBBLE_POP_BIG = register("block.sculk_echoer.bubble.pop_big");
+    public static final SoundEvent FLOATING_SCULK_BUBBLE_POP = register("particle.floating_sculk_bubble.big_pop");
+    public static final SoundEvent FLOATING_SCULK_BUBBLE_BIG_POP = register("particle.floating_sculk_bubble.pop");
 
     public static final SoundEvent ANCIENT_HORN_CALL= register("item.ancient_horn.call");
     public static final SoundEvent ANCIENT_HORN_VIBRATION_DISSAPATE = register("entity.ancient_horn_projectile.dissipate");

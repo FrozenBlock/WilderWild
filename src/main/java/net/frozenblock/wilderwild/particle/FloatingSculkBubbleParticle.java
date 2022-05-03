@@ -19,7 +19,7 @@ import net.minecraft.sound.SoundEvent;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 
-public class EchoingBubbleParticle extends AbstractSlowingParticle {
+public class FloatingSculkBubbleParticle extends AbstractSlowingParticle {
     private final SpriteProvider spriteProvider;
     private final SoundEvent sound;
     private final int stayInflatedTime;
@@ -27,14 +27,14 @@ public class EchoingBubbleParticle extends AbstractSlowingParticle {
         return 240;
     }
 
-    protected EchoingBubbleParticle(ClientWorld clientWorld, double d, double e, double f, double size, double maxAge, double yVel, SpriteProvider spriteProvider) {
+    protected FloatingSculkBubbleParticle(ClientWorld clientWorld, double d, double e, double f, double size, double maxAge, double yVel, SpriteProvider spriteProvider) {
         super(clientWorld, d, e, f, 0, 0, 0);
         this.velocityX = (Math.random()-0.5)/9.5;
         this.velocityZ = (Math.random()-0.5)/9.5;
         this.spriteProvider = spriteProvider;
         this.setSpriteForAge(spriteProvider);
         this.velocityY = yVel;
-        this.sound = size<=0 ? RegisterSounds.BLOCK_SCULK_ECHOER_BUBBLE_POP : RegisterSounds.BLOCK_SCULK_ECHOER_BUBBLE_POP_BIG;
+        this.sound = size<=0 ? RegisterSounds.FLOATING_SCULK_BUBBLE_POP : RegisterSounds.FLOATING_SCULK_BUBBLE_BIG_POP;
         if (size>=1) {
             this.scale((float) (1.4F + size));
             this.velocityX = (Math.random()-0.5)/10.5;
@@ -74,13 +74,13 @@ public class EchoingBubbleParticle extends AbstractSlowingParticle {
         }
         @Override
         public Particle createParticle(DefaultParticleType defaultParticleType, ClientWorld clientWorld, double d, double e, double f, double size, double maxAge, double yVel) {
-            EchoingBubbleParticle bubble = new EchoingBubbleParticle(clientWorld, d, e, f, size, maxAge, yVel, this.spriteProvider);
+            FloatingSculkBubbleParticle bubble = new FloatingSculkBubbleParticle(clientWorld, d, e, f, size, maxAge, yVel, this.spriteProvider);
             bubble.setAlpha(1.0F);
             return bubble;
         }
     }
 
-    public static class EasyEchoerBubblePacket {
+    public static class EasyFloatingSculkBubblePacket {
         public static void createParticle(World world, Vec3d pos, int size, int maxAge, double yVel, int count) {
             if (world.isClient)
                 throw new IllegalStateException("Particle attempting spawning on THE CLIENT JESUS CHRIST WHAT THE HECK");
@@ -93,7 +93,7 @@ public class EchoingBubbleParticle extends AbstractSlowingParticle {
             byteBuf.writeDouble(yVel);
             byteBuf.writeVarInt(count);
             for (ServerPlayerEntity player : PlayerLookup.around((ServerWorld)world, pos, 32)) {
-                ServerPlayNetworking.send(player, WilderWild.ECHOER_BUBBLE_PACKET, byteBuf);
+                ServerPlayNetworking.send(player, WilderWild.FLOATING_SCULK_BUBBLE_PACKET, byteBuf);
             }
         }
     }
