@@ -1,10 +1,9 @@
 package net.frozenblock.wilderwild.mixin;
 
-import net.minecraft.core.Registry;
-import net.minecraft.sound.SoundEvents;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.block.Blocks;
-import net.minecraft.block.SoundType;
+import net.frozenblock.wilderwild.registry.RegisterSounds;
+import net.minecraft.block.Block;
+import net.minecraft.sound.BlockSoundGroup;
+import net.minecraft.util.registry.Registry;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
@@ -15,11 +14,11 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 public abstract class BlockMixin {
 	@Shadow protected abstract Block asBlock();
 
-	private static final SoundType MUSHROOMS = new SoundType(1.0F, 1.0F, RegisterSounds.BLOCK_MUSHROOM_BREAK, RegisterSounds.BLOCK_MUSHROOM_STEP, RegisterSounds.BLOCK_MUSHROOM_PLACE, RegisterSounds.BLOCK_MUSHROOM_HIT, RegisterSounds.BLOCK_MUSHROOM_FALL);
+	private static final BlockSoundGroup MUSHROOMS = new BlockSoundGroup(1.0F, 1.0F, RegisterSounds.BLOCK_MUSHROOM_BREAK, RegisterSounds.BLOCK_MUSHROOM_STEP, RegisterSounds.BLOCK_MUSHROOM_PLACE, RegisterSounds.BLOCK_MUSHROOM_HIT, RegisterSounds.BLOCK_MUSHROOM_FALL);
   
 	@Inject(method = "getSoundType", at = @At("TAIL"), cancellable = true)
-	private void getSoundGroupMixin(CallbackInfoReturnable<SoundType> cir){
-		String blockId = Registry.BLOCK.getKey(this.asBlock()).getPath();
+	private void getSoundGroupMixin(CallbackInfoReturnable<BlockSoundGroup> cir){
+		String blockId = String.valueOf(Registry.BLOCK.getKey(this.asBlock()).get());
 		cir.setReturnValue(
 				switch (blockId){
 					case
