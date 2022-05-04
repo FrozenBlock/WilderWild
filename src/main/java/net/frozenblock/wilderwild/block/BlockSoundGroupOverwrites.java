@@ -6,7 +6,7 @@ import net.minecraft.util.Identifier;
 import java.util.ArrayList;
 import java.util.List;
 
-import static net.frozenblock.wilderwild.registry.RegisterBlockSoundGroups.MUSHROOM;
+import static net.frozenblock.wilderwild.registry.RegisterBlockSoundGroups.*;
 
 public class BlockSoundGroupOverwrites {
 
