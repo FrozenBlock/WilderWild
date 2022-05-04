@@ -15,7 +15,7 @@ import static net.minecraft.block.Blocks.*;
 public class BlockSoundGroupOverwrites {
 
     public static void init() {
-        addBlocks(new Block[]{RED_MUSHROOM_BLOCK, BROWN_MUSHROOM, BROWN_MUSHROOM_BLOCK, MUSHROOM_STEM}, MUSHROOM);
+        addBlocks(new Block[]{RED_MUSHROOM, RED_MUSHROOM_BLOCK, BROWN_MUSHROOM, BROWN_MUSHROOM_BLOCK, MUSHROOM_STEM}, MUSHROOM);
         addBlock(LILY_PAD, LILYPAD);
         addBlock("stone", BlockSoundGroup.AMETHYST_CLUSTER);
         addBlock("minecraft","grass", BlockSoundGroup.ANVIL);
