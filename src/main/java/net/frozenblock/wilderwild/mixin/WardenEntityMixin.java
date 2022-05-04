@@ -38,7 +38,7 @@ public class WardenEntityMixin {
     }
 
     @Inject(at = @At("HEAD"), method = "initialize")
-    public EntityData initialize(ServerWorldAccess serverWorldAccess, LocalDifficulty localDifficulty, SpawnReason spawnReason, @Nullable EntityData entityData, @Nullable NbtCompound nbtCompound, CallbackInfoReturnable<?> info) {
+    public void initialize(ServerWorldAccess serverWorldAccess, LocalDifficulty localDifficulty, SpawnReason spawnReason, @Nullable EntityData entityData, @Nullable NbtCompound nbtCompound, CallbackInfoReturnable<EntityData> info) {
         WardenEntity entity = WardenEntity.class.cast(this);
         entity.getBrain().remember(MemoryModuleType.DIG_COOLDOWN, Unit.INSTANCE, 1200L);
         entity.getBrain().remember(MemoryModuleType.TOUCH_COOLDOWN, Unit.INSTANCE, WardenBrain.EMERGE_DURATION);
@@ -47,7 +47,6 @@ public class WardenEntityMixin {
             entity.getBrain().remember(MemoryModuleType.IS_EMERGING, Unit.INSTANCE, WardenBrain.EMERGE_DURATION);
             entity.setPersistent();
         }
-        return (EntityData) info.getReturnValue();
     }
 
     @Inject(at = @At("HEAD"), method = "pushAway")
