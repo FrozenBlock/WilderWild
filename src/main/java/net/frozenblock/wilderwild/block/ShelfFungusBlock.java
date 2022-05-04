@@ -90,6 +90,12 @@ public class ShelfFungusBlock extends WallMountedBlock implements Waterloggable 
         return null;
     }
 
+    public static WallMountLocation getFace(Direction direction) {
+        if (direction.getAxis() == Direction.Axis.Y) {
+            return direction == Direction.UP ? WallMountLocation.CEILING : WallMountLocation.FLOOR;
+        } return WallMountLocation.WALL;
+    }
+
     public BlockState getStateForNeighborUpdate(BlockState state, Direction direction, BlockState neighborState, WorldAccess world, BlockPos pos, BlockPos neighborPos) {
         if (state.get(WATERLOGGED)) {
             world.createAndScheduleFluidTick(pos, Fluids.WATER, Fluids.WATER.getTickRate(world));
