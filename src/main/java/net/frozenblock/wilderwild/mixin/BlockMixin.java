@@ -22,6 +22,10 @@ public class BlockMixin {
 			int index = BlockSoundGroupOverwrites.ids.indexOf(id);
 			info.setReturnValue(BlockSoundGroupOverwrites.soundGroups.get(index));
 			info.cancel();
+		} else if (BlockSoundGroupOverwrites.namespaces.contains(id.getNamespace())) {
+			int index = BlockSoundGroupOverwrites.namespaces.indexOf(id.getNamespace());
+			info.setReturnValue(BlockSoundGroupOverwrites.namespaceSoundGroups.get(index));
+			info.cancel();
 		}
 	}
 }

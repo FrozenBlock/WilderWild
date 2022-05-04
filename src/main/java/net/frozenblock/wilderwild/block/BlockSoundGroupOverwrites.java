@@ -20,6 +20,7 @@ public class BlockSoundGroupOverwrites {
         addBlocks(new Block[]{DANDELION, POPPY, BLUE_ORCHID, ALLIUM, AZURE_BLUET, RED_TULIP, ORANGE_TULIP, WHITE_TULIP, PINK_TULIP, OXEYE_DAISY, CORNFLOWER}, BlockSoundGroup.AZALEA_LEAVES);
         addBlock(WITHER_ROSE, BlockSoundGroup.SWEET_BERRY_BUSH);
         addBlock(LILY_PAD, LILYPAD);
+        addNamespace("minecraft", BlockSoundGroup.ANVIL);
     }
 
     /** You can add any block by either adding its registry (Blocks.STONE) or its ID ("stone").
@@ -49,6 +50,13 @@ public class BlockSoundGroupOverwrites {
         }
     }
 
+    public static void addNamespace(String nameSpace, BlockSoundGroup sounds) {
+        namespaces.add(nameSpace);
+        namespaceSoundGroups.add(sounds);
+    }
+
     public static List<Identifier> ids = new ArrayList<>();
     public static List<BlockSoundGroup> soundGroups = new ArrayList<>();
+    public static List<String> namespaces = new ArrayList<>();
+    public static List<BlockSoundGroup> namespaceSoundGroups = new ArrayList<>();
 }
