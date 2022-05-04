@@ -42,6 +42,13 @@ public class RegisterBlockSoundGroups {
             SoundEvents.BLOCK_LILY_PAD_PLACE,
             SoundEvents.BLOCK_LILY_PAD_PLACE);
 
+    public static BlockSoundGroup FUNNY = new BlockSoundGroup(1.0f, 1.0f,
+            SoundEvents.BLOCK_ANVIL_PLACE,
+            SoundEvents.BLOCK_ANVIL_PLACE,
+            SoundEvents.BLOCK_ANVIL_PLACE,
+            SoundEvents.BLOCK_ANVIL_PLACE,
+            SoundEvents.BLOCK_ANVIL_PLACE);
+
     public static void init() {
         //Just to make sure this class gets loaded.
     }
