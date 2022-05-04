@@ -26,6 +26,11 @@ public class RegisterSounds {
     public static final SoundEvent BLOCK_HANGING_TENDRIL_FALL = register("block.hanging_tendril.fall");
     public static final SoundEvent BLOCK_HANGING_TENDRIL_WRING = register( "block.hanging_tendril.wring");
 
+    public static final SoundEvent BLOCK_ECHO_GLASS_PLACE = register( "block.echo_glass.place");
+    public static final SoundEvent BLOCK_ECHO_GLASS_HIT = register( "block.echo_glass.hit");
+    public static final SoundEvent BLOCK_ECHO_GLASS_BREAK = register( "block.echo_glass.break");
+    public static final SoundEvent BLOCK_ECHO_GLASS_STEP = register( "block.echo_glass.step");
+    public static final SoundEvent BLOCK_ECHO_GLASS_FALL = register( "block.echo_glass.fall");
     public static final SoundEvent BLOCK_ECHO_GLASS_CRACK = register( "block.echo_glass.crack");
     public static final SoundEvent BLOCK_ECHO_GLASS_REPAIR = register("block.echo_glass.repair");
 
