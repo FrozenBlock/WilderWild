@@ -40,7 +40,7 @@ public class ShelfFungusFeatureConfig implements FeatureConfig {
     public final boolean placeOnCeiling;
     public final boolean placeOnWalls;
     public final RegistryEntryList<Block> canPlaceOn;
-    private final ObjectArrayList directions;
+    private final ObjectArrayList<Direction> directions;
 
     private static DataResult<ShelfFungusBlock> validateBlock(Block block) {
         DataResult<ShelfFungusBlock> var10000;
@@ -60,7 +60,7 @@ public class ShelfFungusFeatureConfig implements FeatureConfig {
         this.placeOnCeiling = placeOnCeiling;
         this.placeOnWalls = placeOnWalls;
         this.canPlaceOn = canPlaceOn;
-        this.directions = new ObjectArrayList(6);
+        this.directions = new ObjectArrayList<>(6);
         if (placeOnCeiling) {
             this.directions.add(Direction.UP);
         }
@@ -71,7 +71,7 @@ public class ShelfFungusFeatureConfig implements FeatureConfig {
 
         if (placeOnWalls) {
             Direction.Type var10000 = Direction.Type.HORIZONTAL;
-            ObjectArrayList var10001 = this.directions;
+            ObjectArrayList<Direction> var10001 = this.directions;
             Objects.requireNonNull(var10001);
             var10000.forEach(var10001::add);
         }
