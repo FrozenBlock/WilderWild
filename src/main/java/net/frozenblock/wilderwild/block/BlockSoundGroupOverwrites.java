@@ -25,5 +25,6 @@ public class BlockSoundGroupOverwrites {
         add(MUSHROOM);
         add(MUSHROOM);
         add(MUSHROOM);
+        add(MUSHROOM);
     }};
 }
