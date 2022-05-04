@@ -1,4 +1,128 @@
 {
+		{
+	  "ambient.deep_dark.additions": {
+		"sounds": [
+		  {
+			"name": "wilderwild:ambient/cave/deep_dark/additions1",
+			"volume": 0.5,
+			"weight": 4
+		  },
+		  {
+			"name": "wilderwild:ambient/cave/deep_dark/additions2",
+			"volume": 0.3,
+			"weight": 4
+		  },
+		  {
+			"name": "wilderwild:ambient/cave/deep_dark/additions3",
+			"volume": 0.6,
+			"weight": 4
+		  },
+		  {
+			"name": "wilderwild:ambient/cave/deep_dark/clicking1",
+			"volume": 0.5,
+			"weight": 5
+		  },
+		  {
+			"name": "wilderwild:ambient/cave/deep_dark/clicking2",
+			"volume": 0.5,
+			"weight": 5
+		  },
+		  {
+			"name": "wilderwild:ambient/cave/deep_dark/clicking3",
+			"volume": 0.5,
+			"weight": 5
+		  },
+		  {
+			"name": "wilderwild:ambient/cave/deep_dark/mood1",
+			"volume": 0.4,
+			"weight": 2
+		  },
+		  {
+			"name": "wilderwild:ambient/cave/deep_dark/mood2",
+			"volume": 0.5,
+			"weight": 2
+		  },
+		  {
+			"name": "wilderwild:ambient/cave/deep_dark/mood3",
+			"volume": 0.4,
+			"weight": 2
+		  },
+		  {
+			"name": "twm:ambient/cave/deep_dark/sculk1",
+			"volume": 0.3,
+			"weight": 3
+		  },
+		  {
+			"name": "twm:ambient/cave/deep_dark/sculk2",
+			"volume": 0.3,
+			"weight": 3
+		  },
+		  {
+			"name": "wilderwild:ambient/cave/deep_dark/sculk3",
+			"volume": 0.3,
+			"weight": 3
+		  },
+		  {
+			"name": "wilderwild:ambient/cave/deep_dark/sculk4",
+			"volume": 0.3,
+			"weight": 3
+		  },
+		  {
+			"name": "wilderwild:ambient/cave/deep_dark/voices1",
+			"volume": 0.4,
+			"weight": 1
+		  },
+		  {
+			"name": "wilderwild:ambient/cave/deep_dark/voices2",
+			"volume": 0.4,
+			"weight": 1
+		  },
+		  {
+			"name": "wilderwild:ambient/cave/deep_dark/voices1",
+			"volume": 0.4,
+			"weight": 1
+		  },
+		  {
+			"name": "wilderwild:ambient/cave/deep_dark/voices4",
+			"volume": 0.4,
+			"weight": 1
+		  },
+		  {
+			"name": "wilderwild:ambient/cave/deep_dark/voices5",
+			"volume": 0.5,
+			"weight": 1
+		  },
+		  {
+			"name": "minecraft:ambient/nether/soulsand_valley/wind1",
+			"volume": 0.3,
+			"weight": 25
+		  },
+		  {
+			"name": "minecraft:ambient/nether/soulsand_valley/wind2",
+			"volume": 0.25,
+			"weight": 25
+		  },
+		  {
+			"name": "minecraft:ambient/nether/soulsand_valley/wind3",
+			"volume": 0.25,
+			"weight": 25
+		  },
+		  {
+			"name": "minecraft:ambient/nether/soulsand_valley/wind4",
+			"volume": 0.3,
+			"weight": 25
+		  }
+		]
+	  },
+	  "ambient.deep_dark.loop": {
+		"sounds": [
+		  {
+			"name": "wilderwild:ambient/cave/deep_dark/ambience",
+			"volume": 1.0,
+			"stream": true
+		  }
+		]
+	  },
 	"block.echo_glass.crack": {
 		"sounds": [
 			"wilderwild:block/echo_glass/crack1",
