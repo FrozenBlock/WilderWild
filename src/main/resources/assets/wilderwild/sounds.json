@@ -157,6 +157,61 @@
 		],
 		"subtitle": "subtitles.block.sculk_echoer.echo"
 	},
+	"block.mushroom.break": {
+		"sounds": [
+			"wilderwild:block/mushroom/break1",
+			"wilderwild:block/mushroom/break2",
+			"wilderwild:block/mushroom/break3",
+			"wilderwild:block/mushroom/break4",
+			"wilderwild:block/mushroom/break5",
+			"wilderwild:block/mushroom/break6"
+		],
+		"subtitle": "subtitles.block.generic.break"
+	},
+	"block.mushroom.fall": {
+		"sounds": [
+			"wilderwild:block/mushroom/break1",
+			"wilderwild:block/mushroom/break2",
+			"wilderwild:block/mushroom/break3",
+			"wilderwild:block/mushroom/break4",
+			"wilderwild:block/mushroom/break5",
+			"wilderwild:block/mushroom/break6"
+		],
+		"subtitle": "subtitles.block.generic.fall"
+	},
+	"block.mushroomm.hit": {
+		"sounds": [
+			"wilderwild:block/mushroom/break1",
+			"wilderwild:block/mushroom/break2",
+			"wilderwild:block/mushroom/break3",
+			"wilderwild:block/mushroom/break4",
+			"wilderwild:block/mushroom/break5",
+			"wilderwild:block/mushroom/break6"
+		],
+		"subtitle": "subtitles.block.generic.hit"
+	},
+	"block.mushroom.place": {
+		"sounds": [
+			"wilderwild:block/mushroom/break1",
+			"wilderwild:block/mushroom/break2",
+			"wilderwild:block/mushroom/break3",
+			"wilderwild:block/mushroom/break4",
+			"wilderwild:block/mushroom/break5",
+			"wilderwild:block/mushroom/break6"
+		],
+		"subtitle": "subtitles.block.generic.place"
+	},
+	"block.mushroom.step": {
+		"sounds": [
+			"wilderwild:block/mushroom/break1",
+			"wilderwild:block/mushroom/break2",
+			"wilderwild:block/mushroom/break3",
+			"wilderwild:block/mushroom/break4",
+			"wilderwild:block/mushroom/break5",
+			"wilderwild:block/mushroom/break6"
+		],
+		"subtitle": "subtitles.block.generic.footsteps"
+	},
 	"particle.floating_sculk_bubble.pop": {
 		"sounds": [
 			"wilderwild:particle/floating_sculk_bubble/pop1",
