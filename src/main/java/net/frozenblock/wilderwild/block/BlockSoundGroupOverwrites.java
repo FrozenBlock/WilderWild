@@ -16,13 +16,10 @@ public class BlockSoundGroupOverwrites {
 
     public static void init() {
         addBlocks(new Block[]{RED_MUSHROOM, RED_MUSHROOM_BLOCK, BROWN_MUSHROOM, BROWN_MUSHROOM_BLOCK, MUSHROOM_STEM}, MUSHROOM);
+        addBlocks(new Block[]{ACACIA_LEAVES, BIRCH_LEAVES, DARK_OAK_LEAVES, JUNGLE_LEAVES, MANGROVE_LEAVES, OAK_LEAVES, SPRUCE_LEAVES}, BlockSoundGroup.AZALEA_LEAVES);
+        addBlocks(new Block[]{DANDELION, POPPY, BLUE_ORCHID, ALLIUM, AZURE_BLUET, RED_TULIP, ORANGE_TULIP, WHITE_TULIP, PINK_TULIP, OXEYE_DAISY, CORNFLOWER}, BlockSoundGroup.AZALEA_LEAVES);
+        addBlock(WITHER_ROSE, BlockSoundGroup.SWEET_BERRY_BUSH);
         addBlock(LILY_PAD, LILYPAD);
-        addBlock("stone", BlockSoundGroup.AMETHYST_CLUSTER);
-        addBlock("minecraft","grass", BlockSoundGroup.ANVIL);
-        addBlock("minecraft","grass_block", BlockSoundGroup.ANVIL);
-        addBlock(DIRT, BlockSoundGroup.ANVIL);
-        addBlock(DEEPSLATE, BlockSoundGroup.ANVIL);
-        addBlock(OAK_LOG, BlockSoundGroup.ANVIL);
     }
 
     /** You can add any block by either adding its registry (Blocks.STONE) or its ID ("stone").
