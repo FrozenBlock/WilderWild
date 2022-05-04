@@ -122,7 +122,8 @@ public abstract class RegisterBlocks {
                     .copyOf(Blocks.BROWN_MUSHROOM_BLOCK)
                     .lightLevel(1)
                     .collidable(false)
-                    .nonOpaque()),
+                    .nonOpaque()
+                    .sounds(RegisterBlockSoundGroups.MUSHROOM)),
             ItemGroup.DECORATIONS
     );
     public static final Block RED_SHELF_FUNGUS = registerBlock("red_shelf_fungus",
@@ -130,7 +131,8 @@ public abstract class RegisterBlocks {
                     .copyOf(Blocks.RED_MUSHROOM_BLOCK)
                     .lightLevel(1)
                     .collidable(false)
-                    .nonOpaque()),
+                    .nonOpaque()
+                    .sounds(RegisterBlockSoundGroups.MUSHROOM)),
             ItemGroup.DECORATIONS
     );
 
