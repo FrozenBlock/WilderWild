@@ -28,6 +28,12 @@ public class RegisterBlockSoundGroups {
             SoundEvents.BLOCK_GLASS_HIT,
             SoundEvents.BLOCK_GLASS_FALL);
 
+    public static BlockSoundGroup MUSHROOM = new BlockSoundGroup(1.0f, 1.0f,
+            BLOCK_MUSHROOM_BREAK,
+            BLOCK_MUSHROOM_STEP,
+            BLOCK_MUSHROOM_PLACE,
+            BLOCK_MUSHROOM_HIT,
+            BLOCK_MUSHROOM_FALL);
 
     public static void init() {
         //Just to make sure this class gets loaded.
