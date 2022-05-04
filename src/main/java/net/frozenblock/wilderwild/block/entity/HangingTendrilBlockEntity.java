@@ -7,7 +7,9 @@ import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.block.HangingTendrilBlock;
 import net.frozenblock.wilderwild.registry.RegisterBlockEntityType;
 import net.minecraft.block.BlockState;
+import net.minecraft.block.SculkSensorBlock;
 import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.block.enums.SculkSensorPhase;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.ExperienceOrbEntity;
 import net.minecraft.nbt.NbtCompound;
@@ -21,15 +23,16 @@ import net.minecraft.world.World;
 import net.minecraft.world.event.BlockPositionSource;
 import net.minecraft.world.event.GameEvent;
 import net.minecraft.world.event.listener.GameEventListener;
-import net.minecraft.world.event.listener.SculkSensorListener;
+import net.minecraft.world.event.listener.VibrationListener;
+import net.minecraft.world.event.listener.VibrationListener;
 import org.jetbrains.annotations.Nullable;
 import org.slf4j.Logger;
 
 import java.util.Objects;
 
-public class HangingTendrilBlockEntity extends BlockEntity implements SculkSensorListener.Callback {
+public class HangingTendrilBlockEntity extends BlockEntity implements VibrationListener.Callback {
     private static final Logger LOGGER = LogUtils.getLogger();
-    private SculkSensorListener listener;
+    private VibrationListener listener;
     private int lastVibrationFrequency;
     public int ticksToStopTwitching;
     public int storedXP;
@@ -37,7 +40,7 @@ public class HangingTendrilBlockEntity extends BlockEntity implements SculkSenso
 
     public HangingTendrilBlockEntity(BlockPos pos, BlockState state) {
         super(RegisterBlockEntityType.HANGING_TENDRIL, pos, state);
-        this.listener = new SculkSensorListener(new BlockPositionSource(this.pos), ((HangingTendrilBlock)state.getBlock()).getRange(), this, null, 0, 0);
+        this.listener = new VibrationListener(new BlockPositionSource(this.pos), ((HangingTendrilBlock)state.getBlock()).getRange(), this, null, 0, 0);
     }
 
     public void serverTick(World world, BlockPos pos, BlockState state) {
@@ -64,11 +67,11 @@ public class HangingTendrilBlockEntity extends BlockEntity implements SculkSenso
         this.storedXP = nbt.getInt("storedXP");
         this.ringOutTicksLeft = nbt.getInt("ringOutTicksLeft");
         if (nbt.contains("listener", 10)) {
-            DataResult<?> var10000 = SculkSensorListener.createCodec(this).parse(new Dynamic<>(NbtOps.INSTANCE, nbt.getCompound("listener")));
+            DataResult<?> var10000 = VibrationListener.createCodec(this).parse(new Dynamic<>(NbtOps.INSTANCE, nbt.getCompound("listener")));
             Logger var10001 = LOGGER;
             Objects.requireNonNull(var10001);
             var10000.resultOrPartial(var10001::error).ifPresent((vibrationListener) -> {
-                this.listener = (SculkSensorListener) vibrationListener;
+                this.listener = (VibrationListener) vibrationListener;
             });
         }
     }
@@ -79,7 +82,7 @@ public class HangingTendrilBlockEntity extends BlockEntity implements SculkSenso
         nbt.putInt("ticksToStopTwitching", this.ticksToStopTwitching);
         nbt.putInt("storedXP", this.storedXP);
         nbt.putInt("ringOutTicksLeft", this.ringOutTicksLeft);
-        DataResult<?> var10000 = SculkSensorListener.createCodec(this).encodeStart(NbtOps.INSTANCE, this.listener);
+        DataResult<?> var10000 = VibrationListener.createCodec(this).encodeStart(NbtOps.INSTANCE, this.listener);
         Logger var10001 = LOGGER;
         Objects.requireNonNull(var10001);
         var10000.resultOrPartial(var10001::error).ifPresent((nbtElement) -> {
@@ -87,7 +90,7 @@ public class HangingTendrilBlockEntity extends BlockEntity implements SculkSenso
         });
     }
 
-    public SculkSensorListener getEventListener() {
+    public VibrationListener getEventListener() {
         return this.listener;
     }
 

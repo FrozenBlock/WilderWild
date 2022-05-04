@@ -38,7 +38,6 @@ public class WardenEntityMixin {
     }
 
     @Inject(at = @At("HEAD"), method = "initialize")
-    @Nullable
     public EntityData initialize(ServerWorldAccess serverWorldAccess, LocalDifficulty localDifficulty, SpawnReason spawnReason, @Nullable EntityData entityData, @Nullable NbtCompound nbtCompound, CallbackInfoReturnable<?> info) {
         WardenEntity entity = WardenEntity.class.cast(this);
         entity.getBrain().remember(MemoryModuleType.DIG_COOLDOWN, Unit.INSTANCE, 1200L);

@@ -26,15 +26,16 @@ import net.minecraft.world.World;
 import net.minecraft.world.event.BlockPositionSource;
 import net.minecraft.world.event.GameEvent;
 import net.minecraft.world.event.listener.GameEventListener;
-import net.minecraft.world.event.listener.SculkSensorListener;
+import net.minecraft.world.event.listener.VibrationListener;
+import net.minecraft.world.event.listener.VibrationListener;
 import org.jetbrains.annotations.Nullable;
 import org.slf4j.Logger;
 
 import java.util.Objects;
 
-public class SculkEchoerBlockEntity extends BlockEntity implements SculkSensorListener.Callback {
+public class SculkEchoerBlockEntity extends BlockEntity implements VibrationListener.Callback {
     private static final Logger LOGGER = LogUtils.getLogger();
-    private SculkSensorListener listener;
+    private VibrationListener listener;
     private int lastVibrationFreq;
     public int echoBubblesLeft;
     public boolean bigBubble;
@@ -42,7 +43,7 @@ public class SculkEchoerBlockEntity extends BlockEntity implements SculkSensorLi
     public IntArrayList bubbleSizes = new IntArrayList();
     public SculkEchoerBlockEntity(BlockPos pos, BlockState state) {
         super(RegisterBlockEntityType.SCULK_ECHOER, pos, state);
-        this.listener = new SculkSensorListener(new BlockPositionSource(this.pos), ((SculkEchoerBlock)state.getBlock()).getRange(), this, null, 0, 0);
+        this.listener = new VibrationListener(new BlockPositionSource(this.pos), ((SculkEchoerBlock)state.getBlock()).getRange(), this, null, 0, 0);
     }
 
     public void tick(World world, BlockPos pos, BlockState state) {
@@ -79,7 +80,7 @@ public class SculkEchoerBlockEntity extends BlockEntity implements SculkSensorLi
         }
     }
 
-    public SculkSensorListener getListener() {
+    public VibrationListener getListener() {
         return this.listener;
     }
 
@@ -91,11 +92,11 @@ public class SculkEchoerBlockEntity extends BlockEntity implements SculkSensorLi
         this.bubbleSizes = IntArrayList.wrap(nbt.getIntArray("bubbleSizes"));
         this.bigBubble = nbt.getBoolean("bigBubble");
         if (nbt.contains("listener", 10)) {
-            DataResult<?> var10000 = SculkSensorListener.createCodec(this).parse(new Dynamic<>(NbtOps.INSTANCE, nbt.getCompound("listener")));
+            DataResult<?> var10000 = VibrationListener.createCodec(this).parse(new Dynamic<>(NbtOps.INSTANCE, nbt.getCompound("listener")));
             Logger var10001 = LOGGER;
             Objects.requireNonNull(var10001);
             var10000.resultOrPartial(var10001::error).ifPresent((vibrationListener) -> {
-                this.listener = (SculkSensorListener) vibrationListener;
+                this.listener = (VibrationListener) vibrationListener;
             });
         }
     }
@@ -107,7 +108,7 @@ public class SculkEchoerBlockEntity extends BlockEntity implements SculkSensorLi
         nbt.putIntArray("bubbleTicksLeft", this.bubbleTicks);
         nbt.putIntArray("bubbleSizes", this.bubbleSizes);
         nbt.putBoolean("bigBubble", this.bigBubble);
-        DataResult<?> var10000 = SculkSensorListener.createCodec(this).encodeStart(NbtOps.INSTANCE, this.listener);
+        DataResult<?> var10000 = VibrationListener.createCodec(this).encodeStart(NbtOps.INSTANCE, this.listener);
         Logger var10001 = LOGGER;
         Objects.requireNonNull(var10001);
         var10000.resultOrPartial(var10001::error).ifPresent((nbtElement) -> {
@@ -119,7 +120,7 @@ public class SculkEchoerBlockEntity extends BlockEntity implements SculkSensorLi
         return WildEventTags.ECHOER_CAN_LISTEN;
     }
 
-    public SculkSensorListener getEventListener() {
+    public VibrationListener getEventListener() {
         return this.listener;
     }
 

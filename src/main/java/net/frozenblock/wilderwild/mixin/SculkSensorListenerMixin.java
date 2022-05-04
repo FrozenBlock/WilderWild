@@ -11,7 +11,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import net.minecraft.world.event.GameEvent;
-import net.minecraft.world.event.listener.SculkSensorListener;
+import net.minecraft.world.event.listener.VibrationListener;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -19,12 +19,12 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import java.util.Optional;
 
-@Mixin(SculkSensorListener.class)
+@Mixin(VibrationListener.class)
 public class SculkSensorListenerMixin {
 
     @Inject(at = @At("TAIL"), method = "tick")
     public void tick(World world, CallbackInfo info) {
-        SculkSensorListener listener = SculkSensorListener.class.cast(this);
+        VibrationListener listener = VibrationListener.class.cast(this);
         if (world instanceof ServerWorld server) {
             Optional<Vec3d> pos = listener.getPositionSource().getPos(server);
             if (pos.isPresent()) {
