@@ -54,7 +54,7 @@ public class WildClientMod implements ClientModInitializer {
         BlockRenderLayerMap.INSTANCE.putBlock(RegisterBlocks.RED_SHELF_FUNGUS, RenderLayer.getCutout());
 
         ParticleFactoryRegistry.getInstance().register(RegisterParticles.POLLEN, PollenParticle.PollenFactory::new);
-        ParticleFactoryRegistry.getInstance().register(RegisterParticles.FLAOTING_SCULK_BUBBLE, FloatingSculkBubbleParticle.BubbleFactory::new);
+        ParticleFactoryRegistry.getInstance().register(RegisterParticles.FLOATING_SCULK_BUBBLE, FloatingSculkBubbleParticle.BubbleFactory::new);
         //EntityRendererRegistry.register(RegisterEntities.TENDRIL_ENTITY, SculkSensorTendrilRenderer::new);
         //EntityModelLayerRegistry.registerModelLayer(SENSOR_TENDRILS_LAYER, SculkSensorTendrilModel::getTexturedModelData);
         EntityRendererRegistry.register(RegisterEntities.ANCIENT_HORN_PROJECTILE_ENTITY, AncientHornProjectileRenderer::new);
@@ -100,7 +100,7 @@ public class WildClientMod implements ClientModInitializer {
                 if (MinecraftClient.getInstance().world == null)
                     throw new IllegalStateException("why is your world null");
                 for (int i=0; i<count; i++) {
-                    MinecraftClient.getInstance().world.addParticle(RegisterParticles.FLAOTING_SCULK_BUBBLE, pos.x, pos.y, pos.z, size, age, yVel);
+                    MinecraftClient.getInstance().world.addParticle(RegisterParticles.FLOATING_SCULK_BUBBLE, pos.x, pos.y, pos.z, size, age, yVel);
                 }
             });
         });
