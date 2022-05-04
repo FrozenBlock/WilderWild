@@ -76,7 +76,7 @@ public class ShelfFungusFeature extends Feature<ShelfFungusFeatureConfig> {
             } else { placementDirection=placementDirection.getOpposite(); }
         } while(!blockState.isIn(config.canPlaceOn));
 
-        BlockState blockState2 = config.fungus.getDefaultState().with(ShelfFungusBlock.FACING, placementDirection).with(ShelfFungusBlock.FACE, ShelfFungusBlock.getFace(direction));
+        BlockState blockState2 = config.fungus.getDefaultState().with(ShelfFungusBlock.FACING, placementDirection).with(ShelfFungusBlock.FACE, ShelfFungusBlock.getFace(direction)).with(ShelfFungusBlock.STAGE, random.nextInt(3)+1);
         if (blockState2 == null) {
             return false;
         } else {
