@@ -17,6 +17,7 @@ public class BlockSoundGroupOverwrites {
         add(new Identifier("brown_mushroom_block"));
         add(new Identifier("brown_mushroom_block"));
         add(new Identifier("mushroom_stem"));
+        add(new Identifier("lily_pad"));
     }};
 
     public static List<BlockSoundGroup> soundGroups = new ArrayList<>() {{
@@ -26,5 +27,6 @@ public class BlockSoundGroupOverwrites {
         add(MUSHROOM);
         add(MUSHROOM);
         add(MUSHROOM);
+        add(LILYPAD);
     }};
 }

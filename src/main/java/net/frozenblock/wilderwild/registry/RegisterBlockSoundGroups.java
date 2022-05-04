@@ -35,6 +35,13 @@ public class RegisterBlockSoundGroups {
             BLOCK_MUSHROOM_HIT,
             BLOCK_MUSHROOM_FALL);
 
+    public static BlockSoundGroup LILYPAD = new BlockSoundGroup(1.0f, 1.0f,
+            SoundEvents.BLOCK_LILY_PAD_PLACE,
+            SoundEvents.BLOCK_LILY_PAD_PLACE,
+            SoundEvents.BLOCK_LILY_PAD_PLACE,
+            SoundEvents.BLOCK_LILY_PAD_PLACE,
+            SoundEvents.BLOCK_LILY_PAD_PLACE);
+
     public static void init() {
         //Just to make sure this class gets loaded.
     }
