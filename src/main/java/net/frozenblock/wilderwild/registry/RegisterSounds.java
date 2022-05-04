@@ -6,6 +6,12 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 
 public class RegisterSounds {
+    
+    public static final SoundEvent BLOCK_MUSHROOM_PLACE = register( "block.mushroom.place");
+    public static final SoundEvent BLOCK_MUSHROOM_HIT = register("block.mushroom.hit");
+    public static final SoundEvent BLOCK_MUSHROOM_BREAK = register( "block.mushroom.break");
+    public static final SoundEvent BLOCK_MUSHROOM_STEP = register("block.mushroom.step");
+    public static final SoundEvent BLOCK_MUSHROOM_FALL = register("block.mushroom.fall");
 
     public static final SoundEvent BLOCK_OSSEOUS_SCULK_PLACE = register( "block.osseous_sculk.place");
     public static final SoundEvent BLOCK_OSSEOUS_SCULK_HIT = register("block.osseous_sculk.hit");
