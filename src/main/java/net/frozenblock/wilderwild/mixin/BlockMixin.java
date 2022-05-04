@@ -1,7 +1,6 @@
 package net.frozenblock.wilderwild.mixin;
 
 import net.frozenblock.wilderwild.block.BlockSoundGroupOverwrites;
-import net.frozenblock.wilderwild.registry.RegisterSounds;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.sound.BlockSoundGroup;
@@ -14,7 +13,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(Block.class)
 public class BlockMixin {
-	
+
 	@Inject(method = "getSoundGroup", at = @At("TAIL"), cancellable = true)
 	private void getSoundGroupMixin(BlockState state, CallbackInfoReturnable<BlockSoundGroup> info){
 		Block block = state.getBlock();
