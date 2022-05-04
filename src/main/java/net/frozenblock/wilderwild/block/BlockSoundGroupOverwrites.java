@@ -11,12 +11,12 @@ import static net.frozenblock.wilderwild.registry.RegisterBlockSoundGroups.*;
 public class BlockSoundGroupOverwrites {
 
     public static List<Identifier> ids = new ArrayList<>() {{
-        add(new Identifier("minecraft", "red_mushroom"));
-        add(new Identifier("minecraft", "brown_mushroom"));
-        add(new Identifier("minecraft", "red_mushroom_block"));
-        add(new Identifier("minecraft", "brown_mushroom_block"));
-        add(new Identifier("minecraft", "brown_mushroom_block"));
-        add(new Identifier("minecraft", "mushroom_stem"));
+        add(new Identifier("red_mushroom"));
+        add(new Identifier("brown_mushroom"));
+        add(new Identifier("red_mushroom_block"));
+        add(new Identifier("brown_mushroom_block"));
+        add(new Identifier("brown_mushroom_block"));
+        add(new Identifier("mushroom_stem"));
     }};
 
     public static List<BlockSoundGroup> soundGroups = new ArrayList<>() {{
