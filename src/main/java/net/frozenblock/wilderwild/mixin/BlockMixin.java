@@ -12,7 +12,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(Block.class)
-public abstract class MixinBlock {
+public abstract class BlockMixin {
 	@Shadow protected abstract Block asBlock();
 
 	private static final SoundType MUSHROOMS = new SoundType(1.0F, 1.0F, RegisterSounds.BLOCK_MUSHROOM_BREAK, RegisterSounds.BLOCK_MUSHROOM_STEP, RegisterSounds.BLOCK_MUSHROOM_PLACE, RegisterSounds.BLOCK_MUSHROOM_HIT, RegisterSounds.BLOCK_MUSHROOM_FALL);
