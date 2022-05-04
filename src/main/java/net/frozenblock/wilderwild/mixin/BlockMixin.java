@@ -1,7 +1,6 @@
 package net.frozenblock.wilderwild.mixin;
 
 import net.frozenblock.wilderwild.block.BlockSoundGroupOverwrites;
-import net.frozenblock.wilderwild.registry.RegisterSounds;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.sound.BlockSoundGroup;

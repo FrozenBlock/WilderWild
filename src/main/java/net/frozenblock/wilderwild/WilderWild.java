@@ -2,6 +2,7 @@ package net.frozenblock.wilderwild;
 
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
+import net.frozenblock.wilderwild.block.BlockSoundGroupOverwrites;
 import net.frozenblock.wilderwild.dev_only.CameraItem;
 import net.frozenblock.wilderwild.mixin.worldgen.TrunkPlacerTypeInvoker;
 import net.frozenblock.wilderwild.registry.*;
@@ -45,6 +46,7 @@ public class WilderWild implements ModInitializer {
         RegisterBlockEntityType.init();
         RegisterEntities.init();
         RegisterEnchantments.init();
+        BlockSoundGroupOverwrites.init();
 
         Registry.register(Registry.GAME_EVENT, new Identifier(WilderWild.MOD_ID, "jaw_activate"), JAW_ACTIVATE);
         Registry.register(Registry.GAME_EVENT, new Identifier(WilderWild.MOD_ID, "sculk_echoer_echo"), SCULK_ECHOER_ECHO);
