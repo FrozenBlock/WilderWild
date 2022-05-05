@@ -5,6 +5,9 @@ import com.google.gson.JsonObject;
 import net.minecraft.block.Block;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.realms.util.JsonUtils;
+import net.minecraft.sound.BlockSoundGroup;
+import net.minecraft.sound.SoundEvent;
+import net.minecraft.util.Identifier;
 import net.minecraft.util.JsonHelper;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.util.registry.RegistryEntry;
@@ -66,6 +69,7 @@ public class jsonParser {
                 String blockString = "new_block." + Registry.BLOCK.getId(entry).getPath();
 
                 if (!Arrays.stream(Objects.requireNonNull(breaking.listFiles(new oggFilter()))).toList().isEmpty()) {
+                    SoundEvent newSound = Registry.register(Registry.SOUND_EVENT, new Identifier("new_block", blockString + ".break"), new SoundEvent(new Identifier("new_block", blockString + ".break")));
                     generator.writeStartObject(blockString + ".break");
                     generator.writeStartArray("sounds");
 
@@ -77,6 +81,7 @@ public class jsonParser {
                     generator.writeEnd();
                 }
                 if (!Arrays.stream(Objects.requireNonNull(placing.listFiles(new oggFilter()))).toList().isEmpty()) {
+                    SoundEvent newSound = Registry.register(Registry.SOUND_EVENT, new Identifier("new_block", blockString + ".place"), new SoundEvent(new Identifier("new_block", blockString + ".place")));
                     generator.writeStartObject(blockString + ".place");
                     generator.writeStartArray("sounds");
 
@@ -88,6 +93,7 @@ public class jsonParser {
                     generator.writeEnd();
                 }
                 if (!Arrays.stream(Objects.requireNonNull(stepping.listFiles(new oggFilter()))).toList().isEmpty()) {
+                    SoundEvent newSound = Registry.register(Registry.SOUND_EVENT, new Identifier("new_block", blockString + ".step"), new SoundEvent(new Identifier("new_block", blockString + ".step")));
                     generator.writeStartObject(blockString + ".step");
                     generator.writeStartArray("sounds");
 
@@ -99,6 +105,7 @@ public class jsonParser {
                     generator.writeEnd();
                 }
                 if (!Arrays.stream(Objects.requireNonNull(hitting.listFiles(new oggFilter()))).toList().isEmpty()) {
+                    SoundEvent newSound = Registry.register(Registry.SOUND_EVENT, new Identifier("new_block", blockString + ".hit"), new SoundEvent(new Identifier("new_block", blockString + ".hit")));
                     generator.writeStartObject(blockString + ".hit");
                     generator.writeStartArray("sounds");
 
@@ -110,6 +117,7 @@ public class jsonParser {
                     generator.writeEnd();
                 }
                 if (!Arrays.stream(Objects.requireNonNull(falling.listFiles(new oggFilter()))).toList().isEmpty()) {
+                    SoundEvent newSound = Registry.register(Registry.SOUND_EVENT, new Identifier("new_block", blockString + ".fall"), new SoundEvent(new Identifier("new_block", blockString + ".fall")));
                     generator.writeStartObject(blockString + ".fall");
                     generator.writeStartArray("sounds");
 
@@ -120,10 +128,79 @@ public class jsonParser {
                     generator.write("subtitle", "subtitles.block.generic.fall");
                     generator.writeEnd();
                 }
+                BlockSoundGroup newSounds = new BlockSoundGroup(1.0F, 1.0F,
+                        entry.getSoundGroup(entry.getDefaultState()).getBreakSound(),
+                        entry.getSoundGroup(entry.getDefaultState()).getStepSound(),
+                        entry.getSoundGroup(entry.getDefaultState()).getPlaceSound(),
+                        entry.getSoundGroup(entry.getDefaultState()).getHitSound(),
+                        entry.getSoundGroup(entry.getDefaultState()).getFallSound()
+                );
+                if (getBreakSoundFromName(Registry.BLOCK.getId(entry).getPath())!=null) {
+                    newSounds = new BlockSoundGroup(1.0F, 1.0F,
+                            getBreakSoundFromName(Registry.BLOCK.getId(entry).getPath()),
+                            newSounds.getStepSound(),
+                            newSounds.getPlaceSound(),
+                            newSounds.getHitSound(),
+                            newSounds.getFallSound()
+                            );
+                }
+                if (getStepSoundFromName(Registry.BLOCK.getId(entry).getPath())!=null) {
+                    newSounds = new BlockSoundGroup(1.0F, 1.0F,
+                            newSounds.getBreakSound(),
+                            getStepSoundFromName(Registry.BLOCK.getId(entry).getPath()),
+                            newSounds.getPlaceSound(),
+                            newSounds.getHitSound(),
+                            newSounds.getFallSound()
+                    );
+                }
+                if (getPlaceSoundFromName(Registry.BLOCK.getId(entry).getPath())!=null) {
+                    newSounds = new BlockSoundGroup(1.0F, 1.0F,
+                            newSounds.getBreakSound(),
+                            newSounds.getStepSound(),
+                            getPlaceSoundFromName(Registry.BLOCK.getId(entry).getPath()),
+                            newSounds.getHitSound(),
+                            newSounds.getFallSound()
+                    );
+                }
+                if (getHitSoundFromName(Registry.BLOCK.getId(entry).getPath())!=null) {
+                    newSounds = new BlockSoundGroup(1.0F, 1.0F,
+                            newSounds.getBreakSound(),
+                            newSounds.getStepSound(),
+                            newSounds.getPlaceSound(),
+                            getHitSoundFromName(Registry.BLOCK.getId(entry).getPath()),
+                            newSounds.getFallSound()
+                    );
+                }
+                if (getFallSoundFromName(Registry.BLOCK.getId(entry).getPath())!=null) {
+                    newSounds = new BlockSoundGroup(1.0F, 1.0F,
+                            newSounds.getBreakSound(),
+                            newSounds.getStepSound(),
+                            newSounds.getPlaceSound(),
+                            newSounds.getHitSound(),
+                            getFallSoundFromName(Registry.BLOCK.getId(entry).getPath())
+                    );
+                }
+                BlockSoundGroupOverwrites.addBlock(entry, newSounds);
             }
         }
         generator.writeEnd();
         generator.close();
+    }
+
+    public static SoundEvent getBreakSoundFromName(String string) {
+        return Registry.SOUND_EVENT.get(new Identifier("new_sound", "block." + string + ".break"));
+    }
+    public static SoundEvent getPlaceSoundFromName(String string) {
+        return Registry.SOUND_EVENT.get(new Identifier("new_sound", "block." + string + ".place"));
+    }
+    public static SoundEvent getStepSoundFromName(String string) {
+        return Registry.SOUND_EVENT.get(new Identifier("new_sound", "block." + string + ".step"));
+    }
+    public static SoundEvent getHitSoundFromName(String string) {
+        return Registry.SOUND_EVENT.get(new Identifier("new_sound", "block." + string + ".hit"));
+    }
+    public static SoundEvent getFallSoundFromName(String string) {
+        return Registry.SOUND_EVENT.get(new Identifier("new_sound", "block." + string + ".fall"));
     }
 
     public static class oggFilter implements FilenameFilter {
