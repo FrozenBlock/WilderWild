@@ -57,16 +57,61 @@ public class jsonParser {
                 falling.mkdirs();
                 String blockString = "new_block." + Registry.BLOCK.getId(entry).getPath();
 
-                generator.writeStartObject(blockString + ".break");
-                generator.writeStartArray("sounds");
+                if (!Arrays.stream(Objects.requireNonNull(breaking.listFiles(new oggFilter()))).toList().isEmpty()) {
+                    generator.writeStartObject(blockString + ".break");
+                    generator.writeStartArray("sounds");
 
-                for (File sound : Objects.requireNonNull(breaking.listFiles(new oggFilter()))) {
-                    generator.write(sound.getName());
-                } generator.writeEnd();
-                generator.write("subtitle", "subtitles.block.generic.break");
-                generator.writeEnd();
+                    for (File sound : Objects.requireNonNull(breaking.listFiles(new oggFilter()))) {
+                        generator.write(sound.getName());
+                    }
+                    generator.writeEnd();
+                    generator.write("subtitle", "subtitles.block.generic.break");
+                    generator.writeEnd();
+                }
+                if (!Arrays.stream(Objects.requireNonNull(placing.listFiles(new oggFilter()))).toList().isEmpty()) {
+                    generator.writeStartObject(blockString + ".place");
+                    generator.writeStartArray("sounds");
 
+                    for (File sound : Objects.requireNonNull(placing.listFiles(new oggFilter()))) {
+                        generator.write(sound.getName());
+                    }
+                    generator.writeEnd();
+                    generator.write("subtitle", "subtitles.block.generic.place");
+                    generator.writeEnd();
+                }
+                if (!Arrays.stream(Objects.requireNonNull(stepping.listFiles(new oggFilter()))).toList().isEmpty()) {
+                    generator.writeStartObject(blockString + ".step");
+                    generator.writeStartArray("sounds");
 
+                    for (File sound : Objects.requireNonNull(stepping.listFiles(new oggFilter()))) {
+                        generator.write(sound.getName());
+                    }
+                    generator.writeEnd();
+                    generator.write("subtitle", "subtitles.block.generic.footsteps");
+                    generator.writeEnd();
+                }
+                if (!Arrays.stream(Objects.requireNonNull(hitting.listFiles(new oggFilter()))).toList().isEmpty()) {
+                    generator.writeStartObject(blockString + ".hit");
+                    generator.writeStartArray("sounds");
+
+                    for (File sound : Objects.requireNonNull(hitting.listFiles(new oggFilter()))) {
+                        generator.write(sound.getName());
+                    }
+                    generator.writeEnd();
+                    generator.write("subtitle", "subtitles.block.generic.hit");
+                    generator.writeEnd();
+                }
+                if (!Arrays.stream(Objects.requireNonNull(falling.listFiles(new oggFilter()))).toList().isEmpty()) {
+                    generator.writeStartObject(blockString + ".fall");
+                    generator.writeStartArray("sounds");
+
+                    for (File sound : Objects.requireNonNull(falling.listFiles(new oggFilter()))) {
+                        generator.write(sound.getName());
+                    }
+                    generator.writeEnd();
+                    generator.write("subtitle", "subtitles.block.generic.fall");
+                    generator.writeEnd();
+                }
             }
         }
         generator.writeEnd();
