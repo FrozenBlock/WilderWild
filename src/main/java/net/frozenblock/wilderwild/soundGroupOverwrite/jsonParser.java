@@ -35,6 +35,7 @@ public class jsonParser {
             e.printStackTrace();
         }
         JsonGenerator generator = Json.createGenerator(writer);
+        generator.writeStartObject();
 
         for (Block entry : Registry.BLOCK) {
             if (Objects.equals(Registry.BLOCK.getId(entry).getNamespace(), "minecraft")) {
@@ -55,9 +56,10 @@ public class jsonParser {
                 File falling = new File(block, "fall");
                 falling.mkdirs();
                 String blockString = "new_block." + Registry.BLOCK.getId(entry).getPath();
-                generator.writeStartObject();
+
                 generator.writeStartObject(blockString + ".break");
                 generator.writeStartArray("sounds");
+
                 for (File sound : Objects.requireNonNull(breaking.listFiles(new oggFilter()))) {
                     generator.write(sound.getName());
                 } generator.writeEnd();
