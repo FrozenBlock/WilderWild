@@ -4,6 +4,7 @@ import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.sound.SoundEvents;
 
 import static net.frozenblock.wilderwild.registry.RegisterSounds.*;
+import static net.frozenblock.wilderwild.registry.RegisterSounds.BLOCK_ECHO_GLASS_PLACE;
 
 public class RegisterBlockSoundGroups {
 
@@ -22,11 +23,11 @@ public class RegisterBlockSoundGroups {
             RegisterSounds.BLOCK_HANGING_TENDRIL_FALL);
 
     public static BlockSoundGroup ECHO_GLASS = new BlockSoundGroup(1.0f, 1.0f,
+            RegisterSounds.BLOCK_ECHO_GLASS_BREAK,
+            RegisterSounds.BLOCK_ECHO_GLASS_STEP,
+            RegisterSounds.BLOCK_ECHO_GLASS_PLACE,
             RegisterSounds.BLOCK_ECHO_GLASS_CRACK,
-            SoundEvents.BLOCK_GLASS_STEP,
-            SoundEvents.BLOCK_GLASS_PLACE,
-            SoundEvents.BLOCK_GLASS_HIT,
-            SoundEvents.BLOCK_GLASS_FALL);
+            RegisterSounds.BLOCK_ECHO_GLASS_FALL);
 
     public static BlockSoundGroup MUSHROOM = new BlockSoundGroup(1.0f, 1.0f,
             BLOCK_MUSHROOM_BREAK,
