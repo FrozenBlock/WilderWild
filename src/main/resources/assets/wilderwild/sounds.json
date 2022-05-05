@@ -121,20 +121,58 @@
 			"stream": true
 		  }
 		]
-	  },
+	  },	 
+	"block.echo_glass.break": {
+		"sounds": [
+			"wilderwild:block/echo_glass/break1",
+			"wilderwild:block/echo_glass/break2",
+			"wilderwild:block/echo_glass/break3"
+		],
+		"subtitle": "subtitles.block.generic.break"
+	},
+	"block.echo_glass.place": {
+		"sounds": [
+			"wilderwild:block/echo_glass/place1",
+			"wilderwild:block/echo_glass/place2",
+			"wilderwild:block/echo_glass/place3",
+			"wilderwild:block/echo_glass/place4"
+		],
+		"subtitle": "subtitles.block.generic.place"
+	},
+	"block.echo_glass.step": {
+		"sounds": [
+			"wilderwild:block/echo_glass/step1",
+			"wilderwild:block/echo_glass/step2",
+			"wilderwild:block/echo_glass/step3",
+			"wilderwild:block/echo_glass/step4",
+			"wilderwild:block/echo_glass/step5",
+			"wilderwild:block/echo_glass/step6"
+		],
+		"subtitle": "subtitles.block.generic.footsteps"
+	},
+	"block.echo_glass.hit": {
+		"sounds": [
+			"wilderwild:block/echo_glass/hit1",
+			"wilderwild:block/echo_glass/hit2",
+			"wilderwild:block/echo_glass/hit3",
+			"wilderwild:block/echo_glass/hit4"
+		],
+		"subtitle": "subtitles.block.generic.hit"
+	},
+	"block.echo_glass.fall": {
+		"sounds": [
+			"wilderwild:block/echo_glass/hit1",
+			"wilderwild:block/echo_glass/hit2",
+			"wilderwild:block/echo_glass/hit3",
+			"wilderwild:block/echo_glass/hit4"
+		],
+		"subtitle": "subtitles.block.generic.fall"
+	},
 	"block.echo_glass.crack": {
 		"sounds": [
 			"wilderwild:block/echo_glass/crack1",
 			"wilderwild:block/echo_glass/crack2",
 			"wilderwild:block/echo_glass/crack3"
-		]
-	},
-	"block.echo_glass.crunch": {
-		"sounds": [
-			"wilderwild:block/echo_glass/crunch1",
-			"wilderwild:block/echo_glass/crunch2",
-			"wilderwild:block/echo_glass/crunch3",
-			"wilderwild:block/echo_glass/crunch4"
 		]
 	},
 	"block.echo_glass.repair": {
