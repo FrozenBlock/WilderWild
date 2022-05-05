@@ -1,23 +1,18 @@
 package net.frozenblock.wilderwild.soundGroupOverwrite;
 
-import com.google.gson.JsonArray;
-import com.google.gson.JsonObject;
 import net.minecraft.block.Block;
 import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.realms.util.JsonUtils;
 import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.JsonHelper;
 import net.minecraft.util.registry.Registry;
-import net.minecraft.util.registry.RegistryEntry;
 
 import javax.json.Json;
 import javax.json.stream.JsonGenerator;
 import java.io.*;
 import java.util.*;
 
-public class jsonParser {
+public class realTimeSoundWriter {
 
     public static void writeSoundsJSON() throws FileNotFoundException {
         MinecraftClient client = MinecraftClient.getInstance();

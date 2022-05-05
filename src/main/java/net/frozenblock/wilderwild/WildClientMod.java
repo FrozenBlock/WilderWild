@@ -14,7 +14,7 @@ import net.frozenblock.wilderwild.particle.PollenParticle;
 import net.frozenblock.wilderwild.registry.RegisterBlocks;
 import net.frozenblock.wilderwild.registry.RegisterEntities;
 import net.frozenblock.wilderwild.registry.RegisterParticles;
-import net.frozenblock.wilderwild.soundGroupOverwrite.jsonParser;
+import net.frozenblock.wilderwild.soundGroupOverwrite.realTimeSoundWriter;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.entity.model.EntityModelLayer;
@@ -36,7 +36,7 @@ public class WildClientMod implements ClientModInitializer {
     @Override
     public void onInitializeClient() {
         try {
-            jsonParser.writeSoundsJSON();
+            realTimeSoundWriter.writeSoundsJSON();
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
