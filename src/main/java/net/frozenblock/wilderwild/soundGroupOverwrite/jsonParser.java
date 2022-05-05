@@ -63,10 +63,12 @@ public class jsonParser {
                 } generator.writeEnd();
                 generator.write("subtitle", "subtitles.block.generic.break");
                 generator.writeEnd();
-                generator.close();
+
 
             }
         }
+        generator.writeEnd();
+        generator.close();
     }
 
     public static class oggFilter implements FilenameFilter {
