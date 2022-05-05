@@ -29,7 +29,9 @@ public class jsonParser {
         directory1.mkdirs();
         FileWriter writer = null;
         try {
-            writer = new FileWriter("sounds.json");
+            File namespace = new File(directory1, "minecraft");
+            File jsonFile = new File(namespace, "sounds.json");
+            writer = new FileWriter(jsonFile);
         }
         catch (IOException e) {
             e.printStackTrace();
