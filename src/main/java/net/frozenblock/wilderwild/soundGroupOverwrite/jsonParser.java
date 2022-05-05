@@ -55,7 +55,8 @@ public class jsonParser {
                 File falling = new File(block, "fall");
                 falling.mkdirs();
                 String blockString = "new_block." + Registry.BLOCK.getId(entry).getPath();
-                generator.writeStartObject().write(blockString + ".break");
+                generator.writeStartObject();
+                generator.writeStartObject(blockString + ".break");
                 generator.writeStartArray("sounds");
                 for (File sound : Objects.requireNonNull(breaking.listFiles(new oggFilter()))) {
                     generator.write(sound.getName());
