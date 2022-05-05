@@ -15,29 +15,35 @@ import java.io.*;
 import java.util.*;
 
 public class jsonParser {
-/*"block.echo_glass.crack": {
-        "sounds": [
-        "wilderwild:block/echo_glass/crack1",
-                "wilderwild:block/echo_glass/crack2",
-                "wilderwild:block/echo_glass/crack3"
-		]
-    },*/
+
     public static void writeSoundsJSON() throws FileNotFoundException {
         MinecraftClient client = MinecraftClient.getInstance();
         File directory = new File(client.getResourcePackDir(), "new_sounds");
         File directory1 = new File(directory, "assets");
         directory1.mkdirs();
         FileWriter writer = null;
+        FileWriter mcMetaWriter = null;
+
         try {
             File namespace = new File(directory1, "minecraft");
             File jsonFile = new File(namespace, "sounds.json");
             writer = new FileWriter(jsonFile);
         }
-        catch (IOException e) {
-            e.printStackTrace();
+        catch (IOException e) { e.printStackTrace(); }
+        try {
+            File mcMeta = new File(directory, "pack.mcmeta");
+            mcMetaWriter = new FileWriter(mcMeta);
         }
+        catch (IOException e) { e.printStackTrace(); }
         JsonGenerator generator = Json.createGenerator(writer);
         generator.writeStartObject();
+
+        JsonGenerator mcGen = Json.createGenerator(mcMetaWriter);
+        mcGen.writeStartObject();
+        mcGen.writeStartObject("pack");
+        mcGen.write("pack_format", 9);
+        mcGen.write("description", "Allows you to control each individual block's sounds by adding sounds to each block's respective folder.");
+        mcGen.writeEnd(); mcGen.writeEnd(); mcGen.close();
 
         for (Block entry : Registry.BLOCK) {
             if (Objects.equals(Registry.BLOCK.getId(entry).getNamespace(), "minecraft")) {
