@@ -1,4 +1,4 @@
-package net.frozenblock.wilderwild.block;
+package net.frozenblock.wilderwild.soundGroupOverwrite;
 
 import net.minecraft.block.Block;
 import net.minecraft.sound.BlockSoundGroup;

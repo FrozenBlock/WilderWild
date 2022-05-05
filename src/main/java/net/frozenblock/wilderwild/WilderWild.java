@@ -2,7 +2,7 @@ package net.frozenblock.wilderwild;
 
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
-import net.frozenblock.wilderwild.block.BlockSoundGroupOverwrites;
+import net.frozenblock.wilderwild.soundGroupOverwrite.BlockSoundGroupOverwrites;
 import net.frozenblock.wilderwild.dev_only.CameraItem;
 import net.frozenblock.wilderwild.mixin.worldgen.TrunkPlacerTypeInvoker;
 import net.frozenblock.wilderwild.registry.*;
