@@ -75,7 +75,7 @@ public class jsonParser {
 
                     for (File sound : Objects.requireNonNull(breaking.listFiles(new oggFilter()))) {
                         String addString = sound.getName().substring(0, sound.getName().lastIndexOf(".ogg"));
-                        generator.write("block" + addString);
+                        generator.write("block/" + Registry.BLOCK.getId(entry).getPath() + "/" + addString);
                     }
                     generator.writeEnd();
                     generator.write("subtitle", "subtitles.block.generic.break");
@@ -88,7 +88,7 @@ public class jsonParser {
 
                     for (File sound : Objects.requireNonNull(placing.listFiles(new oggFilter()))) {
                         String addString = sound.getName().substring(0, sound.getName().lastIndexOf(".ogg"));
-                        generator.write("block" + addString);
+                        generator.write("block/" + Registry.BLOCK.getId(entry).getPath() + "/" + addString);
                     }
                     generator.writeEnd();
                     generator.write("subtitle", "subtitles.block.generic.place");
@@ -101,7 +101,7 @@ public class jsonParser {
 
                     for (File sound : Objects.requireNonNull(stepping.listFiles(new oggFilter()))) {
                         String addString = sound.getName().substring(0, sound.getName().lastIndexOf(".ogg"));
-                        generator.write("block" + addString);
+                        generator.write("block/" + Registry.BLOCK.getId(entry).getPath() + "/" + addString);
                     }
                     generator.writeEnd();
                     generator.write("subtitle", "subtitles.block.generic.footsteps");
@@ -114,7 +114,7 @@ public class jsonParser {
 
                     for (File sound : Objects.requireNonNull(hitting.listFiles(new oggFilter()))) {
                         String addString = sound.getName().substring(0, sound.getName().lastIndexOf(".ogg"));
-                        generator.write("block" + addString);
+                        generator.write("block/" + Registry.BLOCK.getId(entry).getPath() + "/" + addString);
                     }
                     generator.writeEnd();
                     generator.write("subtitle", "subtitles.block.generic.hit");
@@ -127,7 +127,7 @@ public class jsonParser {
 
                     for (File sound : Objects.requireNonNull(falling.listFiles(new oggFilter()))) {
                         String addString = sound.getName().substring(0, sound.getName().lastIndexOf(".ogg"));
-                        generator.write("block" + addString);
+                        generator.write("block/" + Registry.BLOCK.getId(entry).getPath() + "/" + addString);
                     }
                     generator.writeEnd();
                     generator.write("subtitle", "subtitles.block.generic.fall");
