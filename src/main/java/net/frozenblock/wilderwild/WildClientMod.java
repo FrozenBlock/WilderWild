@@ -24,6 +24,7 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.registry.Registry;
 
+import java.io.FileNotFoundException;
 import java.util.UUID;
 
 public class WildClientMod implements ClientModInitializer {
@@ -34,7 +35,11 @@ public class WildClientMod implements ClientModInitializer {
     public static final Identifier FLOATING_SCULK_BUBBLE_PACKET = new Identifier("floating_sculk_bubble_easy_packet");
     @Override
     public void onInitializeClient() {
-        jsonParser.writeSoundsJSON();
+        try {
+            jsonParser.writeSoundsJSON();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
         BlockRenderLayerMap.INSTANCE.putBlock(RegisterBlocks.CARNATION, RenderLayer.getCutout());
         BlockRenderLayerMap.INSTANCE.putBlock(RegisterBlocks.POTTED_CARNATION, RenderLayer.getCutout());
         BlockRenderLayerMap.INSTANCE.putBlock(RegisterBlocks.DATURA, RenderLayer.getCutout());

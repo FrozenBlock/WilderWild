@@ -4,11 +4,14 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import net.minecraft.block.Block;
 import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.realms.util.JsonUtils;
+import net.minecraft.util.JsonHelper;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.util.registry.RegistryEntry;
 
-import java.io.File;
-import java.io.FilenameFilter;
+import javax.json.Json;
+import javax.json.stream.JsonGenerator;
+import java.io.*;
 import java.util.*;
 
 public class jsonParser {
@@ -19,39 +22,49 @@ public class jsonParser {
                 "wilderwild:block/echo_glass/crack3"
 		]
     },*/
-    public static void writeSoundsJSON() {
+    public static void writeSoundsJSON() throws FileNotFoundException {
         MinecraftClient client = MinecraftClient.getInstance();
         File directory = new File(client.getResourcePackDir(), "new_sounds");
         File directory1 = new File(directory, "assets");
         directory1.mkdirs();
-        JsonObject json = new JsonObject();
+        FileWriter writer = null;
+        try {
+            writer = new FileWriter("sounds.json");
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+        }
+        JsonGenerator generator = Json.createGenerator(writer);
 
         for (Block entry : Registry.BLOCK) {
-            File namespace = new File(directory1, Registry.BLOCK.getId(entry).getNamespace());
-            File sounds = new File(namespace, "sounds");
-            File blocks = new File(sounds, "block");
-            File block = new File(blocks, Registry.BLOCK.getId(entry).getPath());
-            block.mkdirs();
+            if (Objects.equals(Registry.BLOCK.getId(entry).getNamespace(), "minecraft")) {
+                File namespace = new File(directory1, Registry.BLOCK.getId(entry).getNamespace());
+                File sounds = new File(namespace, "sounds");
+                File blocks = new File(sounds, "block");
+                File block = new File(blocks, Registry.BLOCK.getId(entry).getPath());
+                block.mkdirs();
 
-            File placing = new File(block, "place");
-            placing.mkdirs();
-            File breaking = new File(block, "break");
-            breaking.mkdirs();
-            File stepping = new File(block, "step");
-            stepping.mkdirs();
-            File hitting = new File(block, "hit");
-            hitting.mkdirs();
-            File falling = new File(block, "fall");
-            falling.mkdirs();
+                File placing = new File(block, "place");
+                placing.mkdirs();
+                File breaking = new File(block, "break");
+                breaking.mkdirs();
+                File stepping = new File(block, "step");
+                stepping.mkdirs();
+                File hitting = new File(block, "hit");
+                hitting.mkdirs();
+                File falling = new File(block, "fall");
+                falling.mkdirs();
+                String blockString = "new_block." + Registry.BLOCK.getId(entry).getPath();
+                generator.writeStartObject().write(blockString + ".break");
+                generator.writeStartArray("sounds");
+                for (File sound : Objects.requireNonNull(breaking.listFiles(new oggFilter()))) {
+                    generator.write(sound.getName());
+                } generator.writeEnd();
+                generator.write("subtitle", "subtitles.block.generic.break");
+                generator.writeEnd();
+                generator.close();
 
-            Map<String, String> map = new LinkedHashMap<>();
-            //map.put(); NEED HELP
-            JsonArray breakMap = new JsonArray();
-            for (File sound : Objects.requireNonNull(breaking.listFiles(new oggFilter()))) {
-                breakMap.add(sound.getName());
             }
-            String blockString = "block." + Registry.BLOCK.getId(entry).getPath();
-            json.add((blockString + ".break"), breakMap);
         }
     }
 
