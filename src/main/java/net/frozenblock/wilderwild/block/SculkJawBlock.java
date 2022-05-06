@@ -40,15 +40,6 @@ public class SculkJawBlock extends Block {
         builder.add(ACTIVE);
     }
 
-    @Override
-    public VoxelShape getOutlineShape(BlockState state, BlockView world, BlockPos pos, ShapeContext context) {
-            return VoxelShapes.fullCube();
-        }
-    @Override
-    public VoxelShape getCollisionShape(BlockState state, BlockView world, BlockPos pos, ShapeContext context) {
-        return Block.createCuboidShape(0.0D, 0.0D, 0.0D, 16.0D, 15D, 16.0D);
-    }
-
     @Deprecated
     public void scheduledTick(BlockState blockState, ServerWorld serverWorld, BlockPos blockPos, AbstractRandom random) {
         if (blockState.get(ACTIVE)) {
