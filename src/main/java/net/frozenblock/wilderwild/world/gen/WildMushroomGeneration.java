@@ -16,5 +16,8 @@ public class WildMushroomGeneration {
 
         BiomeModifications.addFeature(BiomeSelectors.includeByKey(BiomeKeys.BIRCH_FOREST),
                 GenerationStep.Feature.VEGETAL_DECORATION, WildPlacedFeature.NEW_BROWN_MUSHROOM_PLACED.getKey().get());
+
+        BiomeModifications.addFeature(BiomeSelectors.includeByKey(BiomeKeys.SWAMP),
+                GenerationStep.Feature.VEGETAL_DECORATION, WildPlacedFeature.HUGE_MUSHROOMS_SWAMP.getKey().get());
     }
 }

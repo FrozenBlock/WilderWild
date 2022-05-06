@@ -42,6 +42,7 @@ public class WilderWild implements ModInitializer {
         WildConfiguredFeatures.registerConfiguredFeatures();
         WildTreeConfigured.registerTreeConfigured();
         WildTreePlaced.registerTreePlaced();
+        WildMiscConfigured.registerMiscPlaced();
         WildWorldGen.generateWildWorldGen();
         RegisterBlockEntityType.init();
         RegisterEntities.init();

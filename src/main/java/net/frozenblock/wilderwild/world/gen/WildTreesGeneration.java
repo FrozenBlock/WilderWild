@@ -28,5 +28,9 @@ public class WildTreesGeneration {
 
         BiomeModifications.addFeature(BiomeSelectors.includeByKey(BiomeKeys.DARK_FOREST),
                 GenerationStep.Feature.VEGETAL_DECORATION, WildPlacedFeature.NEW_TALL_DARK_OAK_PLACED.getKey().get());
+
+        BiomeModifications.addFeature(BiomeSelectors.includeByKey(BiomeKeys.SWAMP),
+                GenerationStep.Feature.VEGETAL_DECORATION, WildPlacedFeature.NEW_TREES_SWAMP.getKey().get());
+
     }
 }
