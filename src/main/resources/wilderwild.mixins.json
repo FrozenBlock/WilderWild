@@ -23,6 +23,7 @@
 	"worldgen.OakSaplingGeneratorMixin",
 	"worldgen.RemoveForestTreesMixin",
 	"worldgen.RemoveSwampTreesMixin",
+	"worldgen.RemovePlainsTreesMixin",
 	"worldgen.TallBirchFeatureMixin",
 	"worldgen.TrunkPlacerTypeInvoker",
 	"worldgen.TreeDecoratorTypeInvoker"
