@@ -15,6 +15,9 @@ import java.util.List;
 
 
 public class WildConfiguredFeatures {
+    public static final RegistryEntry<ConfiguredFeature<RandomFeatureConfig, ?>> NEW_TREES_FLOWER_FOREST =
+            ConfiguredFeatures.register("new_trees_flower_forest", Feature.RANDOM_SELECTOR,
+                    new RandomFeatureConfig(List.of(new RandomFeatureEntry(WildTreePlaced.NEW_SHORT_BIRCH_BEES_0004, 0.2F), new RandomFeatureEntry(WildTreePlaced.NEW_FANCY_OAK_BEES_0004, 0.2F)), WildTreePlaced.NEW_OAK_BEES_0004));
     public static final RegistryEntry<ConfiguredFeature<RandomFeatureConfig, ?>> NEW_TREES_PLAINS =
             ConfiguredFeatures.register("new_trees_plains", Feature.RANDOM_SELECTOR,
                     new RandomFeatureConfig(List.of(new RandomFeatureEntry(PlacedFeatures.createEntry(WildTreeConfigured.NEW_FANCY_OAK_BEES_0004, new PlacementModifier[0]), 0.33333334F)), PlacedFeatures.createEntry(WildTreeConfigured.NEW_OAK_BEES_0004, new PlacementModifier[0])));

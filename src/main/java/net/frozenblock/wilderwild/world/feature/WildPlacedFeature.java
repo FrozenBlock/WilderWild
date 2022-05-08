@@ -15,6 +15,7 @@ import static net.minecraft.world.gen.feature.VegetationPlacedFeatures.*;
 
 public class WildPlacedFeature {
     //TREES
+    public static final RegistryEntry<PlacedFeature> NEW_TREES_FLOWER_FOREST = PlacedFeatures.register("new_trees_flower_forest", WildConfiguredFeatures.NEW_TREES_FLOWER_FOREST, modifiers(PlacedFeatures.createCountExtraModifier(8, 0.1F, 1)));
     public static final RegistryEntry<PlacedFeature> NEW_TREES_PLAINS = PlacedFeatures.register("new_trees_plains", WildConfiguredFeatures.NEW_TREES_PLAINS,
             new PlacementModifier[]{PlacedFeatures.createCountExtraModifier(0, 0.05F, 1), SquarePlacementModifier.of(), NOT_IN_SURFACE_WATER_MODIFIER, PlacedFeatures.OCEAN_FLOOR_HEIGHTMAP, BlockFilterPlacementModifier.of(BlockPredicate.wouldSurvive(Blocks.OAK_SAPLING.getDefaultState(), BlockPos.ORIGIN)), BiomePlacementModifier.of()});
     public static final RegistryEntry<PlacedFeature> NEW_TREES_SWAMP = PlacedFeatures.register("new_trees_swamp", WildTreeConfigured.NEW_SWAMP_TREE,
