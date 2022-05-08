@@ -48,6 +48,11 @@ public class WildPlacedFeature {
             WildTreeConfigured.NEW_TALL_DARK_OAK, modifiersWithWouldSurvive(PlacedFeatures.createCountExtraModifier(4, 0.1F, 1), Blocks.DARK_OAK_SAPLING));
 
     //Decorations
+    public static final RegistryEntry<PlacedFeature> PATCH_CATTAIL =
+            PlacedFeatures.register("patch_cattail", WildConfiguredFeatures.PATCH_CATTAIL,
+                    new PlacementModifier[]{RarityFilterPlacementModifier.of(3), SquarePlacementModifier.of(), PlacedFeatures.MOTION_BLOCKING_HEIGHTMAP, BiomePlacementModifier.of()});
+    public static final RegistryEntry<PlacedFeature> PATCH_FLOWERED_WATERLILY = PlacedFeatures.register("patch_flowered_waterlily",
+            WildConfiguredFeatures.PATCH_FLOWERED_WATERLILY, modifiers(1));
     public static final RegistryEntry<PlacedFeature> HUGE_MUSHROOMS_SWAMP = PlacedFeatures.register("huge_mushrooms_swamp",
             VegetationConfiguredFeatures.MUSHROOM_ISLAND_VEGETATION, RarityFilterPlacementModifier.of(4), SquarePlacementModifier.of(),
             PlacedFeatures.MOTION_BLOCKING_HEIGHTMAP, BiomePlacementModifier.of());
