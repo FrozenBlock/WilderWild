@@ -32,5 +32,8 @@ public class WildTreesGeneration {
         BiomeModifications.addFeature(BiomeSelectors.includeByKey(BiomeKeys.SWAMP),
                 GenerationStep.Feature.VEGETAL_DECORATION, WildPlacedFeature.NEW_TREES_SWAMP.getKey().get());
 
+        BiomeModifications.addFeature(BiomeSelectors.includeByKey(BiomeKeys.PLAINS),
+                GenerationStep.Feature.VEGETAL_DECORATION, WildPlacedFeature.NEW_TREES_PLAINS.getKey().get());
+
     }
 }
