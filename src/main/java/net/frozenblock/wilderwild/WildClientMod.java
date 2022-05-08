@@ -4,6 +4,7 @@ import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.fabricmc.fabric.api.client.particle.v1.ParticleFactoryRegistry;
+import net.fabricmc.fabric.api.client.rendering.v1.ColorProviderRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityModelLayerRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
 import net.frozenblock.wilderwild.entity.AncientHornProjectileEntity;
@@ -14,6 +15,7 @@ import net.frozenblock.wilderwild.particle.PollenParticle;
 import net.frozenblock.wilderwild.registry.RegisterBlocks;
 import net.frozenblock.wilderwild.registry.RegisterEntities;
 import net.frozenblock.wilderwild.registry.RegisterParticles;
+import net.minecraft.block.Blocks;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.entity.model.EntityModelLayer;
@@ -61,6 +63,13 @@ public class WildClientMod implements ClientModInitializer {
 
         receiveAncientHornProjectilePacket();
         receiveEasyEchoerBubblePacket();
+
+        ColorProviderRegistry.BLOCK.register(((state, world, pos, tintIndex) -> {
+            if (world == null || pos == null) {
+                return 7455580;
+            }
+            return 2129968;
+        }), RegisterBlocks.FLOWERED_LILY_PAD);
     }
 
     public void receiveAncientHornProjectilePacket() {
