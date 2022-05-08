@@ -8,6 +8,9 @@ import net.minecraft.world.gen.feature.VegetationPlacedFeatures;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
+import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import java.util.List;
 
@@ -18,9 +21,10 @@ public class GenerationSettingsBuilderMixin {
     @Shadow
     private final List<List<RegistryEntry<PlacedFeature>>> features = Lists.newArrayList();
 
-    public GenerationSettings.Builder feature(net.minecraft.world.gen.GenerationStep.Feature featureStep, RegistryEntry<PlacedFeature> feature) {
-        if (feature==VegetationPlacedFeatures.TREES_FLOWER_FOREST) {return null;}
-        return this.feature(featureStep.ordinal(), feature);
+    @Inject(at = @At("HEAD"), method = "feature", cancellable = true)
+    public void feature(net.minecraft.world.gen.GenerationStep.Feature featureStep, RegistryEntry<PlacedFeature> feature, CallbackInfoReturnable<GenerationSettings.Builder> info) {
+        GenerationSettings.Builder builder = GenerationSettings.Builder.class.cast(this);
+        if (feature==VegetationPlacedFeatures.TREES_FLOWER_FOREST) {info.setReturnValue(builder); info.cancel(); }
     }
 
     @Shadow
