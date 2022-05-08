@@ -9,14 +9,20 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
+import java.util.ArrayList;
+
 
 @Mixin(GenerationSettings.Builder.class)
 public class GenerationSettingsBuilderMixin {
 
+    private final ArrayList<RegistryEntry<PlacedFeature>> removedFeatures = new ArrayList<>(){{
+        add(VegetationPlacedFeatures.TREES_FLOWER_FOREST);
+    }};
+
     @Inject(at = @At("HEAD"), method = "feature", cancellable = true)
     public void feature(net.minecraft.world.gen.GenerationStep.Feature featureStep, RegistryEntry<PlacedFeature> feature, CallbackInfoReturnable<GenerationSettings.Builder> info) {
         GenerationSettings.Builder builder = GenerationSettings.Builder.class.cast(this);
-        if (feature==VegetationPlacedFeatures.TREES_FLOWER_FOREST) {info.setReturnValue(builder); info.cancel(); }
+        if (removedFeatures.contains(feature)) {info.setReturnValue(builder); info.cancel(); }
     }
 
 }
