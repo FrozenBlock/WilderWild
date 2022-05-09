@@ -19,13 +19,8 @@
 	"WardenEntityModelMixin",
 	"worldgen.BirchSaplingGeneratorMixin",
 	"worldgen.DefaultBiomeFeaturesMixin",
-	"worldgen.FeaturesMixin",
 	"worldgen.GenerationSettingsBuilderMixin",
 	"worldgen.OakSaplingGeneratorMixin",
-	"worldgen.RemoveForestTreesMixin",
-	"worldgen.RemoveSwampTreesMixin",
-	"worldgen.RemovePlainsTreesMixin",
-	"worldgen.TallBirchFeatureMixin",
 	"worldgen.TrunkPlacerTypeInvoker",
 	"worldgen.TreeDecoratorTypeInvoker"
   ],
