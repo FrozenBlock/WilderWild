@@ -5,15 +5,40 @@ import net.frozenblock.wilderwild.block.ShelfFungusBlock;
 import net.frozenblock.wilderwild.registry.RegisterBlocks;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
+import net.minecraft.fluid.Fluid;
+import net.minecraft.fluid.Fluids;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.intprovider.BiasedToBottomIntProvider;
 import net.minecraft.util.registry.RegistryEntry;
 import net.minecraft.util.registry.RegistryEntryList;
+import net.minecraft.world.gen.blockpredicate.BlockPredicate;
 import net.minecraft.world.gen.feature.*;
+import net.minecraft.world.gen.placementmodifier.BlockFilterPlacementModifier;
+import net.minecraft.world.gen.placementmodifier.PlacementModifier;
 import net.minecraft.world.gen.stateprovider.BlockStateProvider;
 
 import java.util.List;
 
 
 public class WildConfiguredFeatures {
+    public static final RegistryEntry<ConfiguredFeature<RandomPatchFeatureConfig, ?>> PATCH_CATTAIL =
+            ConfiguredFeatures.register("patch_cattail", Feature.RANDOM_PATCH,
+                    new RandomPatchFeatureConfig(20, 2, 0, PlacedFeatures.createEntry(Feature.BLOCK_COLUMN, BlockColumnFeatureConfig.create(BiasedToBottomIntProvider.create(2, 4), BlockStateProvider.of(RegisterBlocks.CATTAIL)),
+                            new PlacementModifier[]{BlockFilterPlacementModifier.of(BlockPredicate.allOf(new BlockPredicate[]{BlockPredicate.IS_AIR, BlockPredicate.wouldSurvive(RegisterBlocks.CATTAIL.getDefaultState(), BlockPos.ORIGIN), BlockPredicate.anyOf(new BlockPredicate[]{BlockPredicate.matchingFluids(new BlockPos(1, -1, 0),
+                                    new Fluid[]{Fluids.WATER, Fluids.FLOWING_WATER}), BlockPredicate.matchingFluids(new BlockPos(-1, -1, 0),
+                                    new Fluid[]{Fluids.WATER, Fluids.FLOWING_WATER}), BlockPredicate.matchingFluids(new BlockPos(0, -1, 1),
+                                    new Fluid[]{Fluids.WATER, Fluids.FLOWING_WATER}), BlockPredicate.matchingFluids(new BlockPos(0, -1, -1),
+                                    new Fluid[]{Fluids.WATER, Fluids.FLOWING_WATER})})}))})));
+    public static final RegistryEntry<ConfiguredFeature<RandomPatchFeatureConfig, ?>> PATCH_FLOWERED_WATERLILY =
+            ConfiguredFeatures.register("patch_flowered_waterlily", Feature.RANDOM_PATCH,
+                    new RandomPatchFeatureConfig(10, 7, 3, PlacedFeatures.createEntry(Feature.SIMPLE_BLOCK,
+                            new SimpleBlockFeatureConfig(BlockStateProvider.of(RegisterBlocks.FLOWERED_LILY_PAD)))));
+    public static final RegistryEntry<ConfiguredFeature<RandomFeatureConfig, ?>> NEW_TREES_FLOWER_FOREST =
+            ConfiguredFeatures.register("new_trees_flower_forest", Feature.RANDOM_SELECTOR,
+                    new RandomFeatureConfig(List.of(new RandomFeatureEntry(WildTreePlaced.NEW_SHORT_BIRCH_BEES_0004, 0.2F), new RandomFeatureEntry(WildTreePlaced.NEW_FANCY_OAK_BEES_0004, 0.2F)), WildTreePlaced.NEW_OAK_BEES_0004));
+    public static final RegistryEntry<ConfiguredFeature<RandomFeatureConfig, ?>> NEW_TREES_PLAINS =
+            ConfiguredFeatures.register("new_trees_plains", Feature.RANDOM_SELECTOR,
+                    new RandomFeatureConfig(List.of(new RandomFeatureEntry(PlacedFeatures.createEntry(WildTreeConfigured.NEW_FANCY_OAK_BEES_0004, new PlacementModifier[0]), 0.33333334F)), PlacedFeatures.createEntry(WildTreeConfigured.NEW_OAK_BEES_0004, new PlacementModifier[0])));
     public static final RegistryEntry<ConfiguredFeature<RandomFeatureConfig, ?>> NEW_FALLEN_BIRCH_AND_OAK =
             ConfiguredFeatures.register("new_fallen_birch_and_oak", Feature.RANDOM_SELECTOR,
                     new RandomFeatureConfig(List.of(new RandomFeatureEntry(WildTreePlaced.NEW_FALLEN_BIRCH_CHECKED, 0.35F)), WildTreePlaced.NEW_FALLEN_OAK_CHECKED));
