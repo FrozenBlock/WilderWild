@@ -15,6 +15,8 @@ import net.minecraft.world.gen.ProbabilityConfig;
 import net.minecraft.world.gen.feature.Feature;
 import net.minecraft.world.gen.feature.util.FeatureContext;
 
+import java.util.Iterator;
+
 public class CattailFeature extends Feature<ProbabilityConfig> {
     public CattailFeature(Codec<ProbabilityConfig> codec) {
         super(codec);
@@ -42,9 +44,30 @@ public class CattailFeature extends Feature<ProbabilityConfig> {
                         bl = true;
                     }
                 }
+            } else {
+                BlockState bottom = RegisterBlocks.CATTAIL.getDefaultState();
+                if (bottom.canPlaceAt(structureWorldAccess, randomPos)) {
+                    BlockState top = bottom.with(WaterloggableTallFlowerBlock.HALF, DoubleBlockHalf.UPPER);
+                    BlockPos upPos = randomPos.up();
+                    if (structureWorldAccess.getBlockState(upPos).isOf(Blocks.AIR) && isWaterNearby(structureWorldAccess, randomPos, 2)) {
+                        structureWorldAccess.setBlockState(randomPos, bottom, 2);
+                        structureWorldAccess.setBlockState(upPos, top, 2);
+                        bl = true;
+                    }
+                }
             }
         }
 
         return bl;
+    }
+
+    public static boolean isWaterNearby(StructureWorldAccess world, BlockPos blockPos, int x) {
+        Iterator<BlockPos> var2 = BlockPos.iterate(blockPos.add(-x, -x, -x), blockPos.add(x, x, x)).iterator();
+        BlockPos blockPos2;
+        do {
+            if (!var2.hasNext()) { return false; }
+            blockPos2 = var2.next();
+        } while(!world.getBlockState(blockPos2).isOf(Blocks.WATER));
+        return true;
     }
 }
