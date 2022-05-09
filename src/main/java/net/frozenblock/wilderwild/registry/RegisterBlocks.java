@@ -101,7 +101,7 @@ public abstract class RegisterBlocks {
             .nonOpaque())
     );
     public static final Block CARNATION = registerBlock("carnation",
-            new FlowerBlock(StatusEffects.FIRE_RESISTANCE, 12, FabricBlockSettings
+            new FlowerBlock(StatusEffects.INSTANT_HEALTH, 12, FabricBlockSettings
             .copy(Blocks.DANDELION)
             .strength(0.0F)
             .nonOpaque()),
