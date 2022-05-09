@@ -5,7 +5,6 @@ import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.registry.RegisterSounds;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
-import net.minecraft.block.ShapeContext;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.damage.DamageSource;
@@ -20,9 +19,6 @@ import net.minecraft.util.math.intprovider.ConstantIntProvider;
 import net.minecraft.util.math.intprovider.IntProvider;
 import net.minecraft.util.math.random.AbstractRandom;
 import net.minecraft.util.registry.Registry;
-import net.minecraft.util.shape.VoxelShape;
-import net.minecraft.util.shape.VoxelShapes;
-import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 
 public class SculkJawBlock extends Block {

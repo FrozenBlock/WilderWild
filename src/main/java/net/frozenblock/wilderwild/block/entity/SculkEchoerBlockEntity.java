@@ -27,7 +27,6 @@ import net.minecraft.world.event.BlockPositionSource;
 import net.minecraft.world.event.GameEvent;
 import net.minecraft.world.event.listener.GameEventListener;
 import net.minecraft.world.event.listener.VibrationListener;
-import net.minecraft.world.event.listener.VibrationListener;
 import org.jetbrains.annotations.Nullable;
 import org.slf4j.Logger;
 

@@ -8,7 +8,8 @@ import net.minecraft.util.registry.Registry;
 import java.util.ArrayList;
 import java.util.List;
 
-import static net.frozenblock.wilderwild.registry.RegisterBlockSoundGroups.*;
+import static net.frozenblock.wilderwild.registry.RegisterBlockSoundGroups.LILYPAD;
+import static net.frozenblock.wilderwild.registry.RegisterBlockSoundGroups.MUSHROOM;
 import static net.minecraft.block.Blocks.*;
 
 

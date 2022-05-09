@@ -1,6 +1,5 @@
 package net.frozenblock.wilderwild.world.feature;
 
-import java.util.List;
 import net.minecraft.block.Blocks;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.fluid.Fluids;
@@ -14,6 +13,8 @@ import net.minecraft.world.gen.feature.DiskFeatureConfig;
 import net.minecraft.world.gen.feature.Feature;
 import net.minecraft.world.gen.stateprovider.BlockStateProvider;
 import net.minecraft.world.gen.stateprovider.PredicatedStateProvider;
+
+import java.util.List;
 
 public class WildMiscConfigured {
     public static final RegistryEntry<ConfiguredFeature<DiskFeatureConfig, ?>> DISK_MUD;
