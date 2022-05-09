@@ -23,7 +23,6 @@ public class FloweredLilyPadBlock extends LilyPadBlock {
         if (world instanceof ServerWorld && entity instanceof BoatEntity) {
             world.breakBlock(new BlockPos(pos), true, entity);
         }
-
     }
 
     public VoxelShape getOutlineShape(BlockState state, BlockView world, BlockPos pos, ShapeContext context) {

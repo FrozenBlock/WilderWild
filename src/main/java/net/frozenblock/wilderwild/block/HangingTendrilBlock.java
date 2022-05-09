@@ -1,8 +1,5 @@
 package net.frozenblock.wilderwild.block;
 
-import it.unimi.dsi.fastutil.objects.Object2IntMap;
-import it.unimi.dsi.fastutil.objects.Object2IntMaps;
-import it.unimi.dsi.fastutil.objects.Object2IntOpenHashMap;
 import net.frozenblock.wilderwild.block.entity.HangingTendrilBlockEntity;
 import net.frozenblock.wilderwild.block.entity.HangingTendrilPhase;
 import net.frozenblock.wilderwild.registry.RegisterBlockEntityType;
@@ -30,7 +27,6 @@ import net.minecraft.state.property.EnumProperty;
 import net.minecraft.state.property.Properties;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
-import net.minecraft.util.Util;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
@@ -41,53 +37,10 @@ import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldAccess;
 import net.minecraft.world.WorldView;
-import net.minecraft.world.event.GameEvent;
 import net.minecraft.world.event.listener.GameEventListener;
 import org.jetbrains.annotations.Nullable;
 
 public class HangingTendrilBlock extends BlockWithEntity implements Waterloggable, SculkSpreadable {
-    public static final Object2IntMap<GameEvent> FREQUENCIES = Object2IntMaps.unmodifiable(Util.make(new Object2IntOpenHashMap<>(), (map) -> {
-        map.put(GameEvent.STEP, 1);
-        map.put(GameEvent.FLAP, 2);
-        map.put(GameEvent.SWIM, 3);
-        map.put(GameEvent.ELYTRA_GLIDE, 4);
-        map.put(GameEvent.HIT_GROUND, 5);
-        map.put(GameEvent.SPLASH, 6);
-        map.put(GameEvent.ENTITY_SHAKE, 6);
-        map.put(GameEvent.BLOCK_CHANGE, 6);
-        map.put(GameEvent.NOTE_BLOCK_PLAY, 6);
-        map.put(GameEvent.PROJECTILE_SHOOT, 7);
-        map.put(GameEvent.DRINK, 7);
-        map.put(GameEvent.PRIME_FUSE, 7);
-        map.put(GameEvent.PROJECTILE_LAND, 8);
-        map.put(GameEvent.EAT, 8);
-        map.put(GameEvent.ENTITY_INTERACT, 8);
-        map.put(GameEvent.ENTITY_DAMAGE, 8);
-        map.put(GameEvent.EQUIP, 9);
-        map.put(GameEvent.SHEAR, 9);
-        map.put(GameEvent.ENTITY_ROAR, 9);
-        map.put(GameEvent.BLOCK_CLOSE, 10);
-        map.put(GameEvent.BLOCK_DEACTIVATE, 10);
-        map.put(GameEvent.BLOCK_DETACH, 10);
-        map.put(GameEvent.DISPENSE_FAIL, 10);
-        map.put(GameEvent.BLOCK_OPEN, 11);
-        map.put(GameEvent.BLOCK_ACTIVATE, 11);
-        map.put(GameEvent.BLOCK_ATTACH, 11);
-        map.put(GameEvent.ENTITY_PLACE, 12);
-        map.put(GameEvent.BLOCK_PLACE, 12);
-        map.put(GameEvent.FLUID_PLACE, 12);
-        map.put(GameEvent.ENTITY_DIE, 13);
-        map.put(GameEvent.BLOCK_DESTROY, 13);
-        map.put(GameEvent.FLUID_PICKUP, 13);
-        map.put(GameEvent.ITEM_INTERACT_FINISH, 14);
-        map.put(GameEvent.CONTAINER_CLOSE, 14);
-        map.put(GameEvent.PISTON_CONTRACT, 14);
-        map.put(GameEvent.PISTON_EXTEND, 15);
-        map.put(GameEvent.CONTAINER_OPEN, 15);
-        map.put(GameEvent.ITEM_INTERACT_START, 15);
-        map.put(GameEvent.EXPLODE, 15);
-        map.put(GameEvent.LIGHTNING_STRIKE, 15);
-    }));
     public static final EnumProperty<HangingTendrilPhase> HANGING_TENDRIL_PHASE;
     public static final BooleanProperty WATERLOGGED;
     public static final BooleanProperty TWITCHING;
@@ -223,7 +176,7 @@ public class HangingTendrilBlock extends BlockWithEntity implements Waterloggabl
         updateNeighbors(world, pos);
     }
 
-    public static void setActive(@Nullable Entity entity, World world, BlockPos pos, BlockState state, int power) {
+    public static void setActive(World world, BlockPos pos, BlockState state, int power) {
         world.setBlockState(pos, state.with(HANGING_TENDRIL_PHASE, HangingTendrilPhase.ACTIVE), 3);
         world.createAndScheduleBlockTick(pos, state.getBlock(), 60);
         updateNeighbors(world, pos);
@@ -231,7 +184,6 @@ public class HangingTendrilBlock extends BlockWithEntity implements Waterloggabl
         if (!(Boolean)state.get(WATERLOGGED)) {
             world.playSound(null, (double)pos.getX() + 0.5D, (double)pos.getY() + 0.5D, (double)pos.getZ() + 0.5D, SoundEvents.BLOCK_SCULK_SENSOR_CLICKING, SoundCategory.BLOCKS, 1.0F, world.random.nextFloat() * 0.2F + 1.0F);
         }
-
     }
 
     protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
@@ -246,13 +198,11 @@ public class HangingTendrilBlock extends BlockWithEntity implements Waterloggabl
         BlockEntity blockEntity = world.getBlockEntity(pos);
         if (blockEntity instanceof HangingTendrilBlockEntity hangingEntity) {
             return getPhase(state) == HangingTendrilPhase.ACTIVE ? hangingEntity.getLastVibrationFrequency() : 0;
-        } else {
-            return 0;
-        }
+        } else { return 0; }
     }
 
     public boolean canPathfindThrough(BlockState state, BlockView world, BlockPos pos, NavigationType type) {
-        return false;
+        return true;
     }
 
     public boolean hasSidedTransparency(BlockState state) {

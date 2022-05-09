@@ -88,7 +88,7 @@ public class EchoGlassBlock extends TintedGlassBlock {
 
     public void afterBreak(World world, PlayerEntity player, BlockPos pos, BlockState state, @Nullable BlockEntity blockEntity, ItemStack stack) {
         player.addExhaustion(0.005F);
-        if (state.get(DAMAGE)<3 && EnchantmentHelper.getLevel(Enchantments.SILK_TOUCH, player.getMainHandStack())<1) {
+        if (state.get(DAMAGE)<3 && EnchantmentHelper.getLevel(Enchantments.SILK_TOUCH, player.getMainHandStack())<1 && !player.isCreative()) {
             world.setBlockState(pos, state.with(DAMAGE, state.get(DAMAGE) + 1));
         } else {
             player.incrementStat(Stats.MINED.getOrCreateStat(this));

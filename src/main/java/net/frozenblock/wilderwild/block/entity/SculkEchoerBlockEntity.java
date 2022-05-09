@@ -79,10 +79,6 @@ public class SculkEchoerBlockEntity extends BlockEntity implements VibrationList
         }
     }
 
-    public VibrationListener getListener() {
-        return this.listener;
-    }
-
     public void readNbt(NbtCompound nbt) {
         super.readNbt(nbt);
         this.lastVibrationFreq = nbt.getInt("last_vibration_frequency");
@@ -94,9 +90,7 @@ public class SculkEchoerBlockEntity extends BlockEntity implements VibrationList
             DataResult<?> var10000 = VibrationListener.createCodec(this).parse(new Dynamic<>(NbtOps.INSTANCE, nbt.getCompound("listener")));
             Logger var10001 = LOGGER;
             Objects.requireNonNull(var10001);
-            var10000.resultOrPartial(var10001::error).ifPresent((vibrationListener) -> {
-                this.listener = (VibrationListener) vibrationListener;
-            });
+            var10000.resultOrPartial(var10001::error).ifPresent((vibrationListener) -> this.listener = (VibrationListener) vibrationListener);
         }
     }
 
@@ -110,9 +104,7 @@ public class SculkEchoerBlockEntity extends BlockEntity implements VibrationList
         DataResult<?> var10000 = VibrationListener.createCodec(this).encodeStart(NbtOps.INSTANCE, this.listener);
         Logger var10001 = LOGGER;
         Objects.requireNonNull(var10001);
-        var10000.resultOrPartial(var10001::error).ifPresent((nbtElement) -> {
-            nbt.put("listener", (NbtElement)nbtElement);
-        });
+        var10000.resultOrPartial(var10001::error).ifPresent((nbtElement) -> nbt.put("listener", (NbtElement)nbtElement));
     }
 
     public TagKey<GameEvent> getTag() {
@@ -140,7 +132,6 @@ public class SculkEchoerBlockEntity extends BlockEntity implements VibrationList
             SculkEchoerBlock.setActive(entity, world, this.pos, blockState, getBubbles(delay, listener.getRange()));
         }
     }
-
 
     public void onListen() {
         this.markDirty();

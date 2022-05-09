@@ -7,6 +7,7 @@ import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.block.HangingTendrilBlock;
 import net.frozenblock.wilderwild.registry.RegisterBlockEntityType;
 import net.minecraft.block.BlockState;
+import net.minecraft.block.SculkSensorBlock;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.ExperienceOrbEntity;
@@ -67,9 +68,7 @@ public class HangingTendrilBlockEntity extends BlockEntity implements VibrationL
             DataResult<?> var10000 = VibrationListener.createCodec(this).parse(new Dynamic<>(NbtOps.INSTANCE, nbt.getCompound("listener")));
             Logger var10001 = LOGGER;
             Objects.requireNonNull(var10001);
-            var10000.resultOrPartial(var10001::error).ifPresent((vibrationListener) -> {
-                this.listener = (VibrationListener) vibrationListener;
-            });
+            var10000.resultOrPartial(var10001::error).ifPresent((vibrationListener) -> this.listener = (VibrationListener)vibrationListener);
         }
     }
 
@@ -82,9 +81,7 @@ public class HangingTendrilBlockEntity extends BlockEntity implements VibrationL
         DataResult<?> var10000 = VibrationListener.createCodec(this).encodeStart(NbtOps.INSTANCE, this.listener);
         Logger var10001 = LOGGER;
         Objects.requireNonNull(var10001);
-        var10000.resultOrPartial(var10001::error).ifPresent((nbtElement) -> {
-            nbt.put("listener", (NbtElement)nbtElement);
-        });
+        var10000.resultOrPartial(var10001::error).ifPresent((nbtElement) -> nbt.put("listener", (NbtElement)nbtElement));
     }
 
     public VibrationListener getEventListener() {
@@ -102,8 +99,8 @@ public class HangingTendrilBlockEntity extends BlockEntity implements VibrationL
     public void accept(ServerWorld world, GameEventListener listener, BlockPos pos, GameEvent event, @Nullable Entity entity, @Nullable Entity sourceEntity, int delay) {
         BlockState blockState = this.getCachedState();
         if (HangingTendrilBlock.isInactive(blockState)) {
-            this.lastVibrationFrequency = HangingTendrilBlock.FREQUENCIES.getInt(event);
-            HangingTendrilBlock.setActive(entity, world, this.pos, blockState, getPower(delay, listener.getRange()));
+            this.lastVibrationFrequency = SculkSensorBlock.FREQUENCIES.getInt(event);
+            HangingTendrilBlock.setActive(world, this.pos, blockState, getPower(delay, listener.getRange()));
         }
 
     }
