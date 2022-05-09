@@ -27,7 +27,7 @@ public class CattailFeature extends Feature<ProbabilityConfig> {
         AbstractRandom abstractRandom = context.getRandom();
         StructureWorldAccess structureWorldAccess = context.getWorld();
         BlockPos blockPos = context.getOrigin();
-        int loopFor = context.getRandom().nextBetween(7, 21);
+        int loopFor = context.getRandom().nextBetween(12, 21);
         for (int l=0; l<loopFor; l++) {
             int i = abstractRandom.nextBetween(-7,7);
             int j = abstractRandom.nextBetween(-7,7);
