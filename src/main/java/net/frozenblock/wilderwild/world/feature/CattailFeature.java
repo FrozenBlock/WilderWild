@@ -27,14 +27,14 @@ public class CattailFeature extends Feature<ProbabilityConfig> {
         BlockPos blockPos = context.getOrigin();
         int loopFor = context.getRandom().nextBetween(6, 14);
         for (int l=0; l<loopFor; l++) {
-            int i = abstractRandom.nextInt(8) - abstractRandom.nextInt(8);
-            int j = abstractRandom.nextInt(8) - abstractRandom.nextInt(8);
+            int i = abstractRandom.nextBetween(1,8);
+            int j = abstractRandom.nextBetween(1,8);
             int k = structureWorldAccess.getTopY(Type.OCEAN_FLOOR, blockPos.getX() + i, blockPos.getZ() + j);
             BlockPos randomPos = new BlockPos(blockPos.getX() + i, k, blockPos.getZ() + j);
             if (structureWorldAccess.getBlockState(randomPos).isOf(Blocks.WATER)) {
                 BlockState bottom = RegisterBlocks.CATTAIL.getDefaultState().with(Properties.WATERLOGGED, true);
                 if (bottom.canPlaceAt(structureWorldAccess, randomPos)) {
-                    BlockState top = bottom.with(WaterloggableTallFlowerBlock.HALF, DoubleBlockHalf.UPPER);
+                    BlockState top = bottom.with(WaterloggableTallFlowerBlock.HALF, DoubleBlockHalf.UPPER).with(Properties.WATERLOGGED, false);
                     BlockPos upPos = randomPos.up();
                     if (structureWorldAccess.getBlockState(upPos).isOf(Blocks.AIR)) {
                         structureWorldAccess.setBlockState(randomPos, bottom, 2);
