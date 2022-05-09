@@ -1,6 +1,5 @@
 package net.frozenblock.wilderwild.block;
 
-
 import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.registry.RegisterSounds;
 import net.minecraft.block.Block;
@@ -8,17 +7,17 @@ import net.minecraft.block.BlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.damage.DamageSource;
+import net.minecraft.entity.mob.WardenEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.BooleanProperty;
-import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.intprovider.ConstantIntProvider;
 import net.minecraft.util.math.intprovider.IntProvider;
 import net.minecraft.util.math.random.AbstractRandom;
-import net.minecraft.util.registry.Registry;
 import net.minecraft.world.World;
 
 public class SculkJawBlock extends Block {
@@ -60,10 +59,10 @@ public class SculkJawBlock extends Block {
 
     @Override
     public void onSteppedOn(World world, BlockPos pos, BlockState state, Entity entity) {
-        Identifier WARDEN = new Identifier("minecraft", "warden");
-        if (entity instanceof LivingEntity && !state.get(ACTIVE) && !Registry.ENTITY_TYPE.getId(entity.getType()).equals(WARDEN)) {
-                world.setBlockState(pos, (BlockState)state.with(ACTIVE, true), 3);
-                entity.damage(DamageSource.GENERIC, 2.5f);
+        if (entity instanceof LivingEntity && !state.get(ACTIVE) && !(entity instanceof WardenEntity)) {
+            float damage = entity instanceof PlayerEntity ? 2.5f : 5f;
+                world.setBlockState(pos, state.with(ACTIVE, true), 3);
+                entity.damage(DamageSource.GENERIC, damage);
                 world.createAndScheduleBlockTick(pos, state.getBlock(), 60);
                 world.emitGameEvent(entity, WilderWild.JAW_ACTIVATE, pos);
                 world.playSound(
