@@ -32,6 +32,7 @@ public class WildClientMod implements ClientModInitializer {
 
     public static final Identifier HORN_PROJECTILE_PACKET_ID = new Identifier(WilderWild.MOD_ID, "ancient_horn_projectile_packet");
     public static final Identifier FLOATING_SCULK_BUBBLE_PACKET = new Identifier("floating_sculk_bubble_easy_packet");
+    public static final Identifier DANDELION_SEED_PACKET = new Identifier("dandelion_seed_packet");
     @Override
     public void onInitializeClient() {
         BlockRenderLayerMap.INSTANCE.putBlock(RegisterBlocks.CARNATION, RenderLayer.getCutout());
@@ -64,6 +65,7 @@ public class WildClientMod implements ClientModInitializer {
 
         receiveAncientHornProjectilePacket();
         receiveEasyEchoerBubblePacket();
+        receiveDandelionSeedPacket();
 
         ColorProviderRegistry.BLOCK.register(((state, world, pos, tintIndex) -> {
             if (world == null || pos == null) {
@@ -110,6 +112,20 @@ public class WildClientMod implements ClientModInitializer {
                     throw new IllegalStateException("why is your world null");
                 for (int i=0; i<count; i++) {
                     MinecraftClient.getInstance().world.addParticle(RegisterParticles.FLOATING_SCULK_BUBBLE, pos.x, pos.y, pos.z, size, age, yVel);
+                }
+            });
+        });
+    }
+
+    public void receiveDandelionSeedPacket() {
+        ClientPlayNetworking.registerGlobalReceiver(DANDELION_SEED_PACKET, (ctx, handler, byteBuf, responseSender) -> {
+            Vec3d pos = new Vec3d(byteBuf.readDouble(), byteBuf.readDouble(), byteBuf.readDouble());
+            int count = byteBuf.readVarInt();
+            ctx.execute(() -> {
+                if (MinecraftClient.getInstance().world == null)
+                    throw new IllegalStateException("why is your world null");
+                for (int i=0; i<count; i++) {
+                    MinecraftClient.getInstance().world.addParticle(RegisterParticles.DANDELION_SEED, pos.x, pos.y, pos.z, 0, 0, 0);
                 }
             });
         });

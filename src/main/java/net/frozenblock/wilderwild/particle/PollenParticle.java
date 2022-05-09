@@ -1,11 +1,20 @@
 package net.frozenblock.wilderwild.particle;
 
+import io.netty.buffer.Unpooled;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.fabricmc.fabric.api.networking.v1.PlayerLookup;
+import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
+import net.frozenblock.wilderwild.WilderWild;
 import net.minecraft.client.particle.*;
 import net.minecraft.client.world.ClientWorld;
+import net.minecraft.network.PacketByteBuf;
 import net.minecraft.particle.DefaultParticleType;
+import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Vec3d;
+import net.minecraft.world.World;
 
 @Environment(EnvType.CLIENT)
 public class PollenParticle extends SpriteBillboardParticle {
@@ -57,6 +66,21 @@ public class PollenParticle extends SpriteBillboardParticle {
             pollenParticle.gravityStrength = 0.01F;
             pollenParticle.setColor(250F/255F, 250F/255F, 250F/255F);
             return pollenParticle;
+        }
+    }
+
+    public static class EasyDandelionSeedPacket {
+        public static void createParticle(World world, Vec3d pos, int count) {
+            if (world.isClient)
+                throw new IllegalStateException("Particle attempting spawning on THE CLIENT JESUS CHRIST WHAT THE HECK");
+            PacketByteBuf byteBuf = new PacketByteBuf(Unpooled.buffer());
+            byteBuf.writeDouble(pos.x);
+            byteBuf.writeDouble(pos.y);
+            byteBuf.writeDouble(pos.z);
+            byteBuf.writeVarInt(count);
+            for (ServerPlayerEntity player : PlayerLookup.around((ServerWorld)world, pos, 32)) {
+                ServerPlayNetworking.send(player, WilderWild.DANDELION_SEED_PACKET, byteBuf);
+            }
         }
     }
 }
