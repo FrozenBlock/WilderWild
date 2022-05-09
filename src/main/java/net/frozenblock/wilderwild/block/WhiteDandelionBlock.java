@@ -26,7 +26,7 @@ public class WhiteDandelionBlock extends FlowerBlock {
     public void onEntityCollision(BlockState state, World world, BlockPos pos, Entity entity) {
         if (world instanceof ServerWorld server) {
             if (server.random.nextFloat()>0.95) {
-                PollenParticle.EasyDandelionSeedPacket.createParticle(world, Vec3d.ofCenter(pos).add(0,-0.2,0), server.random.nextBetween(1,3));
+                PollenParticle.EasyDandelionSeedPacket.createParticle(world, Vec3d.ofCenter(pos).add(0,0.3,0), server.random.nextBetween(1,3));
             }
         }
     }
