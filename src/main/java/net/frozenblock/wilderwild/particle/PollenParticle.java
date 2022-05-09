@@ -9,20 +9,9 @@ import net.minecraft.util.math.MathHelper;
 
 @Environment(EnvType.CLIENT)
 public class PollenParticle extends SpriteBillboardParticle {
-    /*PollenParticle(ClientWorld world, SpriteProvider spriteProvider, double x, double y, double z) {
-        super(world, x, y - 0.125D, z);
-        this.setBoundingBoxSpacing(0.01F, 0.01F);
-        this.setSprite(spriteProvider);
-        this.scale *= this.random.nextFloat() * 0.6F + 0.2F;
-        this.maxAge = (int)(16.0D / (Math.random() * 0.8D + 0.2D));
-        this.collidesWithWorld = true;
-        this.velocityMultiplier = 1.0F;
-        this.gravityStrength = 0.0F;
-    }
-
-    */PollenParticle(ClientWorld world, SpriteProvider spriteProvider, double x, double y, double z, double velocityX, double velocityY, double velocityZ) {
+    PollenParticle(ClientWorld world, SpriteProvider spriteProvider, double x, double y, double z, double velocityX, double velocityY, double velocityZ) {
         super(world, x, y - 0.125D, z, velocityX, velocityY, velocityZ);
-        this.setBoundingBoxSpacing(0.01F, 0.01F);
+        this.setBoundingBoxSpacing(0.01F, 0.02F);
         this.setSprite(spriteProvider);
         this.scale *= this.random.nextFloat() * 0.6F + 0.6F;
         this.maxAge = (int)(16.0D / (Math.random() * 0.8D + 0.2D));
@@ -48,6 +37,25 @@ public class PollenParticle extends SpriteBillboardParticle {
             pollenParticle.maxAge = MathHelper.nextBetween(clientWorld.random, 500, 1000);
             pollenParticle.gravityStrength = 0.01F;
             pollenParticle.setColor(250F/255F, 171F/255F, 28F/255F);
+            return pollenParticle;
+        }
+    }
+
+    @Environment(EnvType.CLIENT)
+    public static class DandelionFactory implements ParticleFactory<DefaultParticleType> {
+        private final SpriteProvider spriteProvider;
+
+        public DandelionFactory(SpriteProvider spriteProvider) {
+            this.spriteProvider = spriteProvider;
+        }
+
+        public Particle createParticle(DefaultParticleType defaultParticleType, ClientWorld clientWorld, double d, double e, double f, double g, double h, double i) {
+            double windex = Math.cos((clientWorld.getTimeOfDay()*Math.PI)/24000) * 1.3;
+            double windZ = -Math.sin((clientWorld.getTimeOfDay()*Math.PI)/24000) * 1.3;
+            PollenParticle pollenParticle = new PollenParticle(clientWorld, this.spriteProvider, d, e, f, windex, -0.800000011920929D, windZ) {};
+            pollenParticle.maxAge = MathHelper.nextBetween(clientWorld.random, 500, 1000);
+            pollenParticle.gravityStrength = 0.01F;
+            pollenParticle.setColor(250F/255F, 250F/255F, 250F/255F);
             return pollenParticle;
         }
     }

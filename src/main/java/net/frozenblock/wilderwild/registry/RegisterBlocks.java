@@ -107,6 +107,13 @@ public abstract class RegisterBlocks {
             .nonOpaque()),
             ItemGroup.DECORATIONS
     );
+    public static final Block WHITE_DANDELION = registerBlock("white_dandelion",
+            new WhiteDandelionBlock(StatusEffects.SLOW_FALLING, 12, FabricBlockSettings
+                    .copy(Blocks.DANDELION)
+                    .strength(0.0F)
+                    .nonOpaque()),
+            ItemGroup.DECORATIONS
+    );
 
  
     public static final AbstractLichenBlock POLLEN_BLOCK = registerLichenBlock("pollen", 
