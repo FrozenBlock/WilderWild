@@ -1,4 +1,4 @@
-package net.frozenblock.wilderwild.dev_only;
+package net.frozenblock.wilderwild.misc;
 
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.entity.Entity;
