@@ -54,7 +54,9 @@ public class SculkJawBlock extends Block {
     @Deprecated
     public void onStacksDropped(BlockState state, ServerWorld world, BlockPos pos, ItemStack stack, boolean bl) {
         super.onStacksDropped(state, world, pos, stack, bl);
-        this.dropExperienceWhenMined(world, pos, stack, this.experience);
+        if (bl) {
+            this.dropExperienceWhenMined(world, pos, stack, this.experience);
+        }
     }
 
     @Override
