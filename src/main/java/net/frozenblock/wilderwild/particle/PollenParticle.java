@@ -35,9 +35,9 @@ public class PollenParticle extends SpriteBillboardParticle {
         super.tick();
         if (this.age>this.maxAge/5 && !this.onGround && this.hasCarryingWind) {
             if (random.nextFloat()>0.98) {
-                this.velocityY = this.velocityY + 1;
-                this.velocityX*=1.2;
-                this.velocityZ*=1.2;
+                this.velocityY = this.velocityY + 0.2;
+                this.velocityX*=1.3;
+                this.velocityZ*=1.3;
             }
         }
     }
