@@ -18,6 +18,7 @@ import net.minecraft.world.World;
 
 @Environment(EnvType.CLIENT)
 public class PollenParticle extends SpriteBillboardParticle {
+    public boolean hasCarryingWind;
     PollenParticle(ClientWorld world, SpriteProvider spriteProvider, double x, double y, double z, double velocityX, double velocityY, double velocityZ) {
         super(world, x, y - 0.125D, z, velocityX, velocityY, velocityZ);
         this.setBoundingBoxSpacing(0.01F, 0.02F);
@@ -27,6 +28,18 @@ public class PollenParticle extends SpriteBillboardParticle {
         this.collidesWithWorld = true;
         this.velocityMultiplier = 1.0F;
         this.gravityStrength = 0.0F;
+    }
+
+    @Override
+    public void tick() {
+        super.tick();
+        if (this.age>this.maxAge/5 && !this.onGround && this.hasCarryingWind) {
+            if (random.nextFloat()>0.98) {
+                this.velocityY = this.velocityY + 1;
+                this.velocityX*=1.2;
+                this.velocityZ*=1.2;
+            }
+        }
     }
 
     public ParticleTextureSheet getType() {
@@ -61,10 +74,13 @@ public class PollenParticle extends SpriteBillboardParticle {
         public Particle createParticle(DefaultParticleType defaultParticleType, ClientWorld clientWorld, double d, double e, double f, double g, double h, double i) {
             double windex = Math.cos((clientWorld.getTimeOfDay()*Math.PI)/12000) * 1.1;
             double windZ = -Math.sin((clientWorld.getTimeOfDay()*Math.PI)/12000) * 1.1;
-            PollenParticle pollenParticle = new PollenParticle(clientWorld, this.spriteProvider, d, e, f, windex, -0.800000011920929D, windZ) {};
+            PollenParticle pollenParticle = new PollenParticle(clientWorld, this.spriteProvider, d, e, f, windex, -0.800000011920929D, windZ);
             pollenParticle.maxAge = MathHelper.nextBetween(clientWorld.random, 500, 1000);
             pollenParticle.gravityStrength = 0.01F;
+            pollenParticle.velocityX = (windex + clientWorld.random.nextPredictable(0, 0.8))/17;
+            pollenParticle.velocityZ = (windZ + clientWorld.random.nextPredictable(0, 0.8))/17;
             pollenParticle.setColor(250F/255F, 250F/255F, 250F/255F);
+            pollenParticle.hasCarryingWind = true;
             return pollenParticle;
         }
     }
