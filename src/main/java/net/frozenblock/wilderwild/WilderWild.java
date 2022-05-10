@@ -51,6 +51,7 @@ public class WilderWild implements ModInitializer {
         RegisterEntities.init();
         RegisterEnchantments.init();
         BlockSoundGroupOverwrites.init();
+        RegisterFlammability.register();
 
         Registry.register(Registry.GAME_EVENT, new Identifier(WilderWild.MOD_ID, "jaw_activate"), JAW_ACTIVATE);
         Registry.register(Registry.GAME_EVENT, new Identifier(WilderWild.MOD_ID, "sculk_echoer_echo"), SCULK_ECHOER_ECHO);
