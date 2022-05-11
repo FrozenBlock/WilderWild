@@ -114,6 +114,12 @@ public abstract class RegisterBlocks {
                     .nonOpaque()),
             ItemGroup.DECORATIONS
     );
+    public static final Block MILKWEED = registerBlock("milkweed",
+            new MilkweedBlock(FabricBlockSettings.copy(Blocks.ROSE_BUSH)
+                    .strength(0.0F)
+                    .nonOpaque()),
+            ItemGroup.DECORATIONS
+    );
 
  
     public static final AbstractLichenBlock POLLEN_BLOCK = registerLichenBlock("pollen", 

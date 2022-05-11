@@ -89,8 +89,30 @@ public class PollenParticle extends SpriteBillboardParticle {
         }
     }
 
-    public static class EasyDandelionSeedPacket {
-        public static void createParticle(World world, Vec3d pos, int count) {
+    @Environment(EnvType.CLIENT)
+    public static class MilkweedFactory implements ParticleFactory<DefaultParticleType> {
+        private final SpriteProvider spriteProvider;
+
+        public MilkweedFactory(SpriteProvider spriteProvider) {
+            this.spriteProvider = spriteProvider;
+        }
+
+        public Particle createParticle(DefaultParticleType defaultParticleType, ClientWorld clientWorld, double d, double e, double f, double g, double h, double i) {
+            double windex = Math.cos((clientWorld.getTimeOfDay()*Math.PI)/12000) * 1.1;
+            double windZ = -Math.sin((clientWorld.getTimeOfDay()*Math.PI)/12000) * 1.1;
+            PollenParticle pollenParticle = new PollenParticle(clientWorld, this.spriteProvider, d, e, f, windex, -0.800000011920929D, windZ);
+            pollenParticle.maxAge = MathHelper.nextBetween(clientWorld.random, 500, 1000);
+            pollenParticle.gravityStrength = 0.016F;
+            pollenParticle.velocityX = (windex + clientWorld.random.nextPredictable(0, 0.8))/20;
+            pollenParticle.velocityZ = (windZ + clientWorld.random.nextPredictable(0, 0.8))/20;
+            pollenParticle.setColor(250F/255F, 250F/255F, 250F/255F);
+            pollenParticle.hasCarryingWind = true;
+            return pollenParticle;
+        }
+    }
+
+    public static class EasySeedPacket {
+        public static void createParticle(World world, Vec3d pos, int count, boolean isMilkweed) {
             if (world.isClient)
                 throw new IllegalStateException("Particle attempting spawning on THE CLIENT JESUS CHRIST WHAT THE HECK");
             PacketByteBuf byteBuf = new PacketByteBuf(Unpooled.buffer());
@@ -98,9 +120,11 @@ public class PollenParticle extends SpriteBillboardParticle {
             byteBuf.writeDouble(pos.y);
             byteBuf.writeDouble(pos.z);
             byteBuf.writeVarInt(count);
+            byteBuf.writeBoolean(isMilkweed);
             for (ServerPlayerEntity player : PlayerLookup.around((ServerWorld)world, pos, 32)) {
-                ServerPlayNetworking.send(player, WilderWild.DANDELION_SEED_PACKET, byteBuf);
+                ServerPlayNetworking.send(player, WilderWild.SEED_PACKET, byteBuf);
             }
         }
     }
+
 }
