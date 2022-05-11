@@ -3,6 +3,7 @@ package net.frozenblock.wilderwild.registry;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.item.AncientCityGoatHorn;
+import net.frozenblock.wilderwild.item.MilkweedPodItem;
 import net.frozenblock.wilderwild.mixin.MusicDiscItemInvoker;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.MusicDiscItem;
@@ -12,11 +13,13 @@ import net.minecraft.util.registry.Registry;
 
 public class RegisterItems {
     public static final AncientCityGoatHorn ANCIENT_HORN = new AncientCityGoatHorn(new FabricItemSettings().group(ItemGroup.MISC).maxCount(1).rarity(Rarity.EPIC));
+    public static final MilkweedPodItem MILKWEED_POD = new MilkweedPodItem(new FabricItemSettings().group(ItemGroup.MISC).maxCount(64));
     public static final MusicDiscItem MUSIC_DISC_BENEATH = MusicDiscItemInvoker.invokeConstructor(15, RegisterSounds.MUSIC_DISC_BENEATH, new FabricItemSettings().group(ItemGroup.MISC).maxCount(1).rarity(Rarity.RARE));
     public static final MusicDiscItem MUSIC_DISC_GOATHORN_SYMPHONY = MusicDiscItemInvoker.invokeConstructor(15, RegisterSounds.MUSIC_DISC_GOATHORN_SYMPHONY, new FabricItemSettings().group(ItemGroup.MISC).maxCount(1).rarity(Rarity.RARE));
 
     public static void RegisterItems() {
         Registry.register(Registry.ITEM, new Identifier(WilderWild.MOD_ID, "ancient_horn"), ANCIENT_HORN);
+        Registry.register(Registry.ITEM, new Identifier(WilderWild.MOD_ID, "milkweed_pod"), MILKWEED_POD);
         Registry.register(Registry.ITEM, new Identifier(WilderWild.MOD_ID, "music_disc_beneath"), MUSIC_DISC_BENEATH);
         Registry.register(Registry.ITEM, new Identifier(WilderWild.MOD_ID, "music_disc_goathorn_symphony"), MUSIC_DISC_GOATHORN_SYMPHONY);
     }
