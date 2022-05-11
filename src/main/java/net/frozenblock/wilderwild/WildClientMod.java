@@ -33,6 +33,7 @@ public class WildClientMod implements ClientModInitializer {
 
     public static final Identifier HORN_PROJECTILE_PACKET_ID = new Identifier(WilderWild.MOD_ID, "ancient_horn_projectile_packet");
     public static final Identifier FLOATING_SCULK_BUBBLE_PACKET = new Identifier("floating_sculk_bubble_easy_packet");
+    public static final Identifier CONTROLLED_SEED_PACKET = new Identifier("controlled_seed_particle_packet");
     public static final Identifier SEED_PACKET = new Identifier("seed_particle_packet");
     @Override
     public void onInitializeClient() {
@@ -59,7 +60,9 @@ public class WildClientMod implements ClientModInitializer {
 
         ParticleFactoryRegistry.getInstance().register(RegisterParticles.POLLEN, PollenParticle.PollenFactory::new);
         ParticleFactoryRegistry.getInstance().register(RegisterParticles.DANDELION_SEED, PollenParticle.DandelionFactory::new);
+        ParticleFactoryRegistry.getInstance().register(RegisterParticles.CONTROLLED_DANDELION_SEED, PollenParticle.ControlledDandelionFactory::new);
         ParticleFactoryRegistry.getInstance().register(RegisterParticles.MILKWEED_SEED, PollenParticle.MilkweedFactory::new);
+        ParticleFactoryRegistry.getInstance().register(RegisterParticles.CONTROLLED_MILKWEED_SEED, PollenParticle.ControlledMilkweedFactory::new);
         ParticleFactoryRegistry.getInstance().register(RegisterParticles.FLOATING_SCULK_BUBBLE, FloatingSculkBubbleParticle.BubbleFactory::new);
         //EntityRendererRegistry.register(RegisterEntities.TENDRIL_ENTITY, SculkSensorTendrilRenderer::new);
         //EntityModelLayerRegistry.registerModelLayer(SENSOR_TENDRILS_LAYER, SculkSensorTendrilModel::getTexturedModelData);
@@ -69,6 +72,7 @@ public class WildClientMod implements ClientModInitializer {
         receiveAncientHornProjectilePacket();
         receiveEasyEchoerBubblePacket();
         receiveSeedPacket();
+        receiveControlledSeedPacket();
 
         ColorProviderRegistry.BLOCK.register(((state, world, pos, tintIndex) -> {
             if (world == null || pos == null) {
@@ -130,6 +134,24 @@ public class WildClientMod implements ClientModInitializer {
                     throw new IllegalStateException("why is your world null");
                 for (int i=0; i<count; i++) {
                     MinecraftClient.getInstance().world.addParticle(particle, pos.x, pos.y, pos.z, 0, 0, 0);
+                }
+            });
+        });
+    }
+
+    public void receiveControlledSeedPacket() {
+        ClientPlayNetworking.registerGlobalReceiver(CONTROLLED_SEED_PACKET, (ctx, handler, byteBuf, responseSender) -> {
+            Vec3d pos = new Vec3d(byteBuf.readDouble(), byteBuf.readDouble(), byteBuf.readDouble());
+            double velx = byteBuf.readDouble();
+            double vely = byteBuf.readDouble();
+            double velz = byteBuf.readDouble();
+            int count = byteBuf.readVarInt();
+            ParticleEffect particle = byteBuf.readBoolean() ? RegisterParticles.CONTROLLED_MILKWEED_SEED : RegisterParticles.CONTROLLED_DANDELION_SEED;
+            ctx.execute(() -> {
+                if (MinecraftClient.getInstance().world == null)
+                    throw new IllegalStateException("why is your world null");
+                for (int i=0; i<count; i++) {
+                    MinecraftClient.getInstance().world.addParticle(particle, pos.x, pos.y, pos.z, velx, vely, velz);
                 }
             });
         });

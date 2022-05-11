@@ -111,6 +111,50 @@ public class PollenParticle extends SpriteBillboardParticle {
         }
     }
 
+    @Environment(EnvType.CLIENT)
+    public static class ControlledDandelionFactory implements ParticleFactory<DefaultParticleType> {
+        private final SpriteProvider spriteProvider;
+
+        public ControlledDandelionFactory(SpriteProvider spriteProvider) {
+            this.spriteProvider = spriteProvider;
+        }
+
+        public Particle createParticle(DefaultParticleType defaultParticleType, ClientWorld clientWorld, double d, double e, double f, double g, double h, double i) {
+            double windex = g * 1.1;
+            double windZ = i * 1.1;
+            PollenParticle pollenParticle = new PollenParticle(clientWorld, this.spriteProvider, d, e, f, windex, (h/2) -0.800000011920929D, windZ);
+            pollenParticle.maxAge = MathHelper.nextBetween(clientWorld.random, 500, 1000);
+            pollenParticle.gravityStrength = 0.01F;
+            pollenParticle.velocityX = (windex + clientWorld.random.nextPredictable(0, 0.8))/17;
+            pollenParticle.velocityZ = (windZ + clientWorld.random.nextPredictable(0, 0.8))/17;
+            pollenParticle.setColor(250F/255F, 250F/255F, 250F/255F);
+            pollenParticle.hasCarryingWind = true;
+            return pollenParticle;
+        }
+    }
+
+    @Environment(EnvType.CLIENT)
+    public static class ControlledMilkweedFactory implements ParticleFactory<DefaultParticleType> {
+        private final SpriteProvider spriteProvider;
+
+        public ControlledMilkweedFactory(SpriteProvider spriteProvider) {
+            this.spriteProvider = spriteProvider;
+        }
+
+        public Particle createParticle(DefaultParticleType defaultParticleType, ClientWorld clientWorld, double d, double e, double f, double g, double h, double i) {
+            double windex = g * 1.1;
+            double windZ = i * 1.1;
+            PollenParticle pollenParticle = new PollenParticle(clientWorld, this.spriteProvider, d, e, f, windex, (h/2) -0.800000011920929D, windZ);
+            pollenParticle.maxAge = MathHelper.nextBetween(clientWorld.random, 500, 1000);
+            pollenParticle.gravityStrength = 0.016F;
+            pollenParticle.velocityX = (windex + clientWorld.random.nextPredictable(0, 0.8))/20;
+            pollenParticle.velocityZ = (windZ + clientWorld.random.nextPredictable(0, 0.8))/20;
+            pollenParticle.setColor(250F/255F, 250F/255F, 250F/255F);
+            pollenParticle.hasCarryingWind = true;
+            return pollenParticle;
+        }
+    }
+
     public static class EasySeedPacket {
         public static void createParticle(World world, Vec3d pos, int count, boolean isMilkweed) {
             if (world.isClient)
@@ -123,6 +167,22 @@ public class PollenParticle extends SpriteBillboardParticle {
             byteBuf.writeBoolean(isMilkweed);
             for (ServerPlayerEntity player : PlayerLookup.around((ServerWorld)world, pos, 32)) {
                 ServerPlayNetworking.send(player, WilderWild.SEED_PACKET, byteBuf);
+            }
+        }
+        public static void createControlledParticle(World world, Vec3d pos, double xvel, double yvel, double zvel, int count, boolean isMilkweed) {
+            if (world.isClient)
+                throw new IllegalStateException("Particle attempting spawning on THE CLIENT JESUS CHRIST WHAT THE HECK");
+            PacketByteBuf byteBuf = new PacketByteBuf(Unpooled.buffer());
+            byteBuf.writeDouble(pos.x);
+            byteBuf.writeDouble(pos.y);
+            byteBuf.writeDouble(pos.z);
+            byteBuf.writeDouble(xvel*1.1);
+            byteBuf.writeDouble(yvel);
+            byteBuf.writeDouble(zvel*1.1);
+            byteBuf.writeVarInt(count);
+            byteBuf.writeBoolean(isMilkweed);
+            for (ServerPlayerEntity player : PlayerLookup.around((ServerWorld)world, pos, 32)) {
+                ServerPlayNetworking.send(player, WilderWild.CONTROLLED_SEED_PACKET, byteBuf);
             }
         }
     }
