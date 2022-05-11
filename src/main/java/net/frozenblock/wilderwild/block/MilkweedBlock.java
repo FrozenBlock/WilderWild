@@ -58,11 +58,11 @@ public class MilkweedBlock extends TallFlowerBlock {
             if (state.get(Properties.AGE_3)==3) {
                 PollenParticle.EasySeedPacket.createParticle(world, Vec3d.ofCenter(pos).add(0, 0.3, 0), server.random.nextBetween(14, 28), true);
                 if (state.get(Properties.DOUBLE_BLOCK_HALF) == DoubleBlockHalf.LOWER) {
-                    world.setBlockState(pos, state.with(Properties.AGE_3, state.get(Properties.AGE_3) - 1));
-                    world.setBlockState(pos.up(), world.getBlockState(pos.up()).with(Properties.AGE_3, state.get(Properties.AGE_3) - 1));
+                    world.setBlockState(pos, state.with(Properties.AGE_3, 0));
+                    world.setBlockState(pos.up(), world.getBlockState(pos.up()).with(Properties.AGE_3, 0));
                 } else if (state.get(Properties.DOUBLE_BLOCK_HALF) == DoubleBlockHalf.UPPER) {
-                    world.setBlockState(pos, state.with(Properties.AGE_3, state.get(Properties.AGE_3) - 1));
-                    world.setBlockState(pos.down(), world.getBlockState(pos.down()).with(Properties.AGE_3, state.get(Properties.AGE_3) - 1));
+                    world.setBlockState(pos, state.with(Properties.AGE_3, 0));
+                    world.setBlockState(pos.down(), world.getBlockState(pos.down()).with(Properties.AGE_3, 0));
                 }
                 return ActionResult.SUCCESS;
             }

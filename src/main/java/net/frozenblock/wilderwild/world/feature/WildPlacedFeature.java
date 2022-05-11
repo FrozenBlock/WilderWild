@@ -81,11 +81,11 @@ public class WildPlacedFeature {
             PlacedFeatures.MOTION_BLOCKING_HEIGHTMAP, BiomePlacementModifier.of());
 
     public static final RegistryEntry<PlacedFeature> WHITE_DANDELION = PlacedFeatures.register("white_dandelion",
-            WildConfiguredFeatures.WHITE_DANDELION, RarityFilterPlacementModifier.of(4), SquarePlacementModifier.of(),
+            WildConfiguredFeatures.WHITE_DANDELION, RarityFilterPlacementModifier.of(6), SquarePlacementModifier.of(),
             PlacedFeatures.MOTION_BLOCKING_HEIGHTMAP, BiomePlacementModifier.of());
 
     public static final RegistryEntry<PlacedFeature> MILKWEED = PlacedFeatures.register("milkweed",
-            WildConfiguredFeatures.MILKWEED, RarityFilterPlacementModifier.of(6), SquarePlacementModifier.of(),
+            WildConfiguredFeatures.MILKWEED, RarityFilterPlacementModifier.of(12), SquarePlacementModifier.of(),
             PlacedFeatures.MOTION_BLOCKING_HEIGHTMAP, BiomePlacementModifier.of());
 
     public static final RegistryEntry<PlacedFeature> POLLEN_PLACED = PlacedFeatures.register("pollen",
