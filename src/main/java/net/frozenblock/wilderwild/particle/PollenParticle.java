@@ -183,9 +183,9 @@ public class PollenParticle extends SpriteBillboardParticle {
             byteBuf.writeDouble(pos.x);
             byteBuf.writeDouble(pos.y);
             byteBuf.writeDouble(pos.z);
-            byteBuf.writeDouble(xvel*1.1);
+            byteBuf.writeDouble(xvel*1.5);
             byteBuf.writeDouble(yvel);
-            byteBuf.writeDouble(zvel*1.1);
+            byteBuf.writeDouble(zvel*1.5);
             byteBuf.writeVarInt(count);
             byteBuf.writeBoolean(isMilkweed);
             for (ServerPlayerEntity player : PlayerLookup.around((ServerWorld)world, pos, 32)) {
