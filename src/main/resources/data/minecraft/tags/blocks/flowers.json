@@ -1,10 +1,6 @@
 {
   "replace": false,
   "values": [
-    "wilderwild:pollen",
-    "wilderwild:white_dandelion",
-    "wilderwild:carnation",
-    "wilderwild:datura",
-    "wilderwild:cattail"
+    "wilderwild:pollen"
   ]
 }

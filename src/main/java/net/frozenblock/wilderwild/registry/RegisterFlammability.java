@@ -10,6 +10,7 @@ public class RegisterFlammability {
         FlammableBlockRegistry.getDefaultInstance().add(RegisterBlocks.CARNATION,100,60);
         FlammableBlockRegistry.getDefaultInstance().add(RegisterBlocks.CATTAIL,100,60);
         FlammableBlockRegistry.getDefaultInstance().add(RegisterBlocks.DATURA,100,60);
+        FlammableBlockRegistry.getDefaultInstance().add(RegisterBlocks.MILKWEED,100,60);
 
         FlammableBlockRegistry.getDefaultInstance().add(RegisterBlocks.HOLLOWED_BIRCH_LOG,5,5);
         FlammableBlockRegistry.getDefaultInstance().add(RegisterBlocks.HOLLOWED_OAK_LOG,5,5);

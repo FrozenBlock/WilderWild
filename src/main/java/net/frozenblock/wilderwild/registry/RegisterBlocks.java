@@ -182,6 +182,7 @@ public abstract class RegisterBlocks {
         CompostingChanceRegistry.INSTANCE.add(CARNATION, 0.65F);
         CompostingChanceRegistry.INSTANCE.add(CATTAIL, 0.65F);
         CompostingChanceRegistry.INSTANCE.add(DATURA, 0.65F);
+        CompostingChanceRegistry.INSTANCE.add(MILKWEED, 0.65F);
         CompostingChanceRegistry.INSTANCE.add(WHITE_DANDELION, 0.65F);
         CompostingChanceRegistry.INSTANCE.add(FLOWERED_LILY_PAD, 0.65F);
         CompostingChanceRegistry.INSTANCE.add(BROWN_SHELF_FUNGUS, 0.65F);
