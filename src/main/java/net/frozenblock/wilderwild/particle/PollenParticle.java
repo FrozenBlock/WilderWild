@@ -19,6 +19,7 @@ import net.minecraft.world.World;
 @Environment(EnvType.CLIENT)
 public class PollenParticle extends SpriteBillboardParticle {
     public boolean hasCarryingWind;
+    public int boostTicksLeft;
     public boolean alreadyBoosted;
     PollenParticle(ClientWorld world, SpriteProvider spriteProvider, double x, double y, double z, double velocityX, double velocityY, double velocityZ) {
         super(world, x, y - 0.125D, z, velocityX, velocityY, velocityZ);
@@ -35,13 +36,19 @@ public class PollenParticle extends SpriteBillboardParticle {
     public void tick() {
         super.tick();
         if (!this.alreadyBoosted && this.age>this.maxAge/5 && !this.onGround && this.hasCarryingWind) {
-            if (random.nextFloat()>0.98) {
-                if (random.nextFloat()>0.55) {
-                    this.velocityY = this.velocityY + 0.05;
-                    this.velocityX *= 1.5;
-                    this.velocityZ *= 1.5;
+            if (random.nextFloat() > 0.98) {
+                if (random.nextFloat() > 0.55) {
+                    this.boostTicksLeft = 5;
                 }
                 this.alreadyBoosted=true;
+            }
+        }
+        if (this.boostTicksLeft>0) {
+            --this.boostTicksLeft;
+            if (!this.onGround) {
+                this.velocityY += (0.034/(this.boostTicksLeft+1));
+                this.velocityX += this.velocityX*(0.15/(this.boostTicksLeft+1));
+                this.velocityZ += this.velocityZ*(0.15/(this.boostTicksLeft+1));
             }
         }
     }
