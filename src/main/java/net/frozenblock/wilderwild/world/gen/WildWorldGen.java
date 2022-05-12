@@ -7,6 +7,7 @@ public class WildWorldGen {
         WildFlowersGeneration.generateFlower();
         WildPollenGeneration.generatePollen();
         WildGrassGeneration.generateGrassForest();
+        WildGrassGeneration.generateGrassTaiga();
         WildMiscGeneration.generateMisc();
 
         WildTreeDecorators.generateTreeDecorators();

@@ -50,5 +50,8 @@ public class DefaultBiomeFeaturesMixin {
     @Overwrite
     public static void addTallBirchTrees(GenerationSettings.Builder builder) {
     }
+    @Overwrite
+    public static void addTaigaTrees(GenerationSettings.Builder builder) {
+    }
 }
 

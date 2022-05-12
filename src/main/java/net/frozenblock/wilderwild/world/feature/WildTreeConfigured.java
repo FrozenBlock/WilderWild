@@ -26,6 +26,7 @@ import net.minecraft.world.gen.feature.size.TwoLayersFeatureSize;
 import net.minecraft.world.gen.foliage.BlobFoliagePlacer;
 import net.minecraft.world.gen.foliage.DarkOakFoliagePlacer;
 import net.minecraft.world.gen.foliage.LargeOakFoliagePlacer;
+import net.minecraft.world.gen.foliage.SpruceFoliagePlacer;
 import net.minecraft.world.gen.root.AboveRootPlacement;
 import net.minecraft.world.gen.root.MangroveRootPlacement;
 import net.minecraft.world.gen.root.MangroveRootPlacer;
@@ -59,6 +60,7 @@ public class WildTreeConfigured {
     public static final RegistryEntry<ConfiguredFeature<TreeFeatureConfig, ?>> NEW_FALLEN_OAK_TREE;
     public static final RegistryEntry<ConfiguredFeature<TreeFeatureConfig, ?>> NEW_TALL_DARK_OAK;
     public static final RegistryEntry<ConfiguredFeature<TreeFeatureConfig, ?>> NEW_SWAMP_TREE;
+    public static final RegistryEntry<ConfiguredFeature<TreeFeatureConfig, ?>> NEW_SPRUCE;
 
     public WildTreeConfigured() {
     }
@@ -131,6 +133,8 @@ public class WildTreeConfigured {
                 new TwoLayersFeatureSize(2, 0, 2))).decorators(List.of(new LeavesVineTreeDecorator(0.125F),
                 new AttachedToLeavesTreeDecorator(0.14F, 1, 0,
                         new RandomizedIntBlockStateProvider(BlockStateProvider.of((BlockState)Blocks.MANGROVE_PROPAGULE.getDefaultState().with(PropaguleBlock.HANGING, true)), PropaguleBlock.AGE, UniformIntProvider.create(0, 4)), 2, List.of(Direction.DOWN)))).ignoreVines().dirtProvider(BlockStateProvider.of(Blocks.AIR)).build());
+        //SPRUCE
+        NEW_SPRUCE = ConfiguredFeatures.register("new_spruce", Feature.TREE, (new TreeFeatureConfig.Builder(BlockStateProvider.of(Blocks.SPRUCE_LOG), new StraightTrunkPlacer(8, 4, 2), BlockStateProvider.of(Blocks.SPRUCE_LEAVES), new SpruceFoliagePlacer(UniformIntProvider.create(2, 3), UniformIntProvider.create(0, 2), UniformIntProvider.create(2, 3)), new TwoLayersFeatureSize(2, 0, 2))).decorators(ImmutableList.of(SHELF_FUNGUS_008)).ignoreVines().build());
     }
     public static void registerTreeConfigured() {
     }

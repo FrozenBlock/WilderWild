@@ -4,6 +4,7 @@ import net.minecraft.block.Blocks;
 import net.minecraft.util.registry.RegistryEntry;
 import net.minecraft.world.gen.feature.PlacedFeature;
 import net.minecraft.world.gen.feature.PlacedFeatures;
+import net.minecraft.world.gen.feature.TreeConfiguredFeatures;
 import net.minecraft.world.gen.placementmodifier.PlacementModifier;
 
 public class WildTreePlaced {
@@ -19,6 +20,7 @@ public class WildTreePlaced {
     public static final RegistryEntry<PlacedFeature> NEW_FALLEN_OAK_CHECKED;
     public static final RegistryEntry<PlacedFeature> NEW_TALL_DARK_OAK_CHECKED;
     public static final RegistryEntry<PlacedFeature> NEW_SWAMP_TREE_CHECKED;
+    public static final RegistryEntry<PlacedFeature> NEW_SPRUCE_CHECKED;
     static {
         NEW_FANCY_OAK_BEES_0004 = PlacedFeatures.register("new_fancy_oak_bees_0004", WildTreeConfigured.NEW_FANCY_OAK_BEES_0004, PlacedFeatures.wouldSurvive(Blocks.OAK_SAPLING));
         NEW_OAK_BEES_0004 = PlacedFeatures.register("new_oak_bees_00004", WildTreeConfigured.NEW_OAK_BEES_0004, PlacedFeatures.wouldSurvive(Blocks.OAK_SAPLING));
@@ -31,7 +33,8 @@ public class WildTreePlaced {
         NEW_SHORT_BIRCH_BEES_0004 = PlacedFeatures.register("new_short_birch_bees_0004", WildTreeConfigured.NEW_SHORT_BIRCH_BEES_0004, PlacedFeatures.wouldSurvive(Blocks.BIRCH_SAPLING));
         NEW_FALLEN_OAK_CHECKED = PlacedFeatures.register("new_fallen_oak_checked", WildTreeConfigured.NEW_FALLEN_OAK_TREE, PlacedFeatures.wouldSurvive(Blocks.OAK_SAPLING));
         NEW_TALL_DARK_OAK_CHECKED = PlacedFeatures.register("new_tall_dark_oak_checked", WildTreeConfigured.NEW_TALL_DARK_OAK, PlacedFeatures.wouldSurvive(Blocks.DARK_OAK_SAPLING));
-        NEW_SWAMP_TREE_CHECKED = PlacedFeatures.register("new_swamp_tree_checked", WildTreeConfigured.NEW_SWAMP_TREE, new PlacementModifier[]{PlacedFeatures.wouldSurvive(Blocks.MANGROVE_PROPAGULE)});
+        NEW_SWAMP_TREE_CHECKED = PlacedFeatures.register("new_swamp_tree_checked", WildTreeConfigured.NEW_SWAMP_TREE, PlacedFeatures.wouldSurvive(Blocks.MANGROVE_PROPAGULE));
+        NEW_SPRUCE_CHECKED = PlacedFeatures.register("new_spruce_checked", WildTreeConfigured.NEW_SPRUCE, PlacedFeatures.wouldSurvive(Blocks.SPRUCE_SAPLING));
     }
 
     public static void registerTreePlaced() {
