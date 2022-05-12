@@ -1,4 +1,4 @@
-package net.frozenblock.wilderwild.entity;
+package net.frozenblock.wilderwild.registry;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
@@ -8,13 +8,13 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.text.Text;
 import org.jetbrains.annotations.Nullable;
 
-public class VibrationDamageSource extends ProjectileDamageSource {
-    public VibrationDamageSource(String name, Entity projectile, @Nullable Entity attacker) {
+public class NewProjectileDamageSource extends ProjectileDamageSource {
+    public NewProjectileDamageSource(String name, Entity projectile, @Nullable Entity attacker) {
         super(name, projectile, attacker);
     }
 
     public static DamageSource ancientHornDamageSource(Entity projectile, @Nullable Entity attacker) {
-        return new VibrationDamageSource("ancient_horn", projectile, attacker).setBypassesArmor();
+        return new NewProjectileDamageSource("ancient_horn", projectile, attacker).setBypassesArmor();
     }
 
     public Text getDeathMessage(LivingEntity entity) {

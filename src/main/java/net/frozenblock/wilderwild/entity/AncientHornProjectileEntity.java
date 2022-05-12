@@ -350,9 +350,9 @@ public class AncientHornProjectileEntity extends PersistentProjectileEntity {
         if (entity != entity2) {
             DamageSource damageSource;
             if (entity2 == null) {
-                damageSource = VibrationDamageSource.ancientHornDamageSource(this, this);
+                damageSource = NewProjectileDamageSource.ancientHornDamageSource(this, this);
             } else {
-                damageSource = VibrationDamageSource.ancientHornDamageSource(this, entity2);
+                damageSource = NewProjectileDamageSource.ancientHornDamageSource(this, entity2);
                 if (entity2 instanceof LivingEntity) {
                     ((LivingEntity) entity2).onAttacking(entity);
                 }

@@ -1,12 +1,12 @@
 package net.frozenblock.wilderwild.block;
 
 import net.frozenblock.wilderwild.WilderWild;
+import net.frozenblock.wilderwild.registry.NewDamageSource;
 import net.frozenblock.wilderwild.registry.RegisterSounds;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.mob.WardenEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
@@ -64,7 +64,7 @@ public class SculkJawBlock extends Block {
         if (entity instanceof LivingEntity && !state.get(ACTIVE) && !(entity instanceof WardenEntity)) {
             float damage = entity instanceof PlayerEntity ? 2.5f : 5f;
                 world.setBlockState(pos, state.with(ACTIVE, true), 3);
-                entity.damage(DamageSource.GENERIC, damage);
+                entity.damage(NewDamageSource.SCULK_JAW, damage);
                 world.createAndScheduleBlockTick(pos, state.getBlock(), 60);
                 world.emitGameEvent(entity, WilderWild.JAW_ACTIVATE, pos);
                 world.playSound(
