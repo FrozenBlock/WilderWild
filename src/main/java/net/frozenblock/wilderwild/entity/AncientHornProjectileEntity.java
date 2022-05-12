@@ -335,17 +335,16 @@ public class AncientHornProjectileEntity extends PersistentProjectileEntity {
             }
         }
     }
-    public double getDamage() {
-        /*
-        double distance = Math.sqrt(this.getBlockPos().getSquaredDistance(new Vec3d(this.vecX, this.vecY, this.vecZ)));
-        distance = MathHelper.clamp(distance, 10+this.speedLevel, 25-this.speedLevel);
-        return 15*Math.sin((distance*Math.PI)/30);*/
+    public double getDamage(@Nullable Entity entity) {
+        if (entity != null) {
+            if (!(entity instanceof PlayerEntity)) { return 22; }
+        }
         return 15;
     }
     protected float getDragInWater() { return 1.0F; }
     public boolean hasNoGravity() { return true; }
     private void hitEntity(Entity entity) {
-        int i = (int) this.getDamage();
+        int i = (int) this.getDamage(entity);
         Entity entity2 = this.getOwner();
         if (entity != entity2) {
             DamageSource damageSource;
@@ -357,14 +356,12 @@ public class AncientHornProjectileEntity extends PersistentProjectileEntity {
                     ((LivingEntity) entity2).onAttacking(entity);
                 }
             }
-            boolean bl = entity.getType() == EntityType.ENDERMAN;
             int j = entity.getFireTicks();
-            if (this.isOnFire() && !bl) { entity.setOnFireFor(5); }
+            if (this.isOnFire()) { entity.setOnFireFor(5); }
             if (entity instanceof WardenEntity warden && entity2!=null && canInteract()) {
                 warden.increaseAngerAt(entity2, 100, true);
                 warden.playSound(SoundEvents.ENTITY_WARDEN_TENDRIL_CLICKS, 5.0F, warden.getSoundPitch());
             } else if (entity.damage(damageSource, (float) i)) {
-                if (bl) { return; }
                 if (entity instanceof LivingEntity livingEntity) {
                     if (!this.world.isClient && entity2 instanceof LivingEntity) {
                         EnchantmentHelper.onUserDamaged(livingEntity, entity2);
