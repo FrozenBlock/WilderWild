@@ -1,6 +1,7 @@
 package net.frozenblock.wilderwild.block;
 
 import net.frozenblock.wilderwild.particle.PollenParticle;
+import net.frozenblock.wilderwild.registry.RegisterBlocks;
 import net.frozenblock.wilderwild.registry.RegisterItems;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -47,11 +48,15 @@ public class MilkweedBlock extends TallFlowerBlock {
 
     @Override
     public void randomTick(BlockState state, ServerWorld world, BlockPos pos, AbstractRandom random) {
-        if (state.isOf(this)) {
+        if (state.isOf(RegisterBlocks.MILKWEED)) {
             if (state.get(Properties.DOUBLE_BLOCK_HALF) == DoubleBlockHalf.LOWER) {
-                if (state.get(Properties.AGE_3)<3) {
-                    world.setBlockState(pos, state.with(Properties.AGE_3, state.get(Properties.AGE_3) + 1));
-                    world.setBlockState(pos.up(), world.getBlockState(pos.up()).with(Properties.AGE_3, state.get(Properties.AGE_3) + 1));
+                if (state.get(Properties.AGE_3) < 3) {
+                    if (world.getBlockState(pos).isOf(RegisterBlocks.MILKWEED)) {
+                        world.setBlockState(pos, state.with(Properties.AGE_3, state.get(Properties.AGE_3) + 1));
+                    }
+                    if (world.getBlockState(pos.up()).isOf(RegisterBlocks.MILKWEED)) {
+                        world.setBlockState(pos.up(), world.getBlockState(pos.up()).with(Properties.AGE_3, state.get(Properties.AGE_3) + 1));
+                    }
                 }
             }
         }
