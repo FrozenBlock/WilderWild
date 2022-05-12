@@ -121,7 +121,7 @@ public abstract class RegisterBlocks {
     );
 
  
-    public static final AbstractLichenBlock POLLEN_BLOCK = registerLichenBlock("pollen", 
+    public static final MultifaceGrowthBlock POLLEN_BLOCK = registerMultifaceBlock("pollen",
             new PollenBlock(FabricBlockSettings
             .copyOf(Blocks.GRASS)
             .collidable(false)
@@ -169,7 +169,7 @@ public abstract class RegisterBlocks {
                 .strength(2.0F).sounds(BlockSoundGroup.WOOD));
     }
 
-    private static AbstractLichenBlock registerLichenBlock(String name, AbstractLichenBlock block, ItemGroup group) {
+    private static MultifaceGrowthBlock registerMultifaceBlock(String name, MultifaceGrowthBlock block, ItemGroup group) {
         registerBlockItem(name, block, group);
         return Registry.register(Registry.BLOCK, new Identifier(WilderWild.MOD_ID, name), block);
     }

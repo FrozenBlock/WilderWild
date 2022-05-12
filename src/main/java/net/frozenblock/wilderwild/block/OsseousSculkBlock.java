@@ -66,13 +66,13 @@ public class OsseousSculkBlock extends PillarBlock implements SculkSpreadable {
                     BlockState stateReplace = world.getBlockState(newPos.offset(direction));
                     BlockState stateSetTo = null;
                     if (stateReplace.isOf(Blocks.SCULK_VEIN)) {
-                        stateSetTo=stateReplace.with(AbstractLichenBlock.getProperty(direction.getOpposite()), true);
+                        stateSetTo=stateReplace.with(MultifaceGrowthBlock.getProperty(direction.getOpposite()), true);
                     }
                     if (stateReplace.isAir()) {
-                        stateSetTo=Blocks.SCULK_VEIN.getDefaultState().with(AbstractLichenBlock.getProperty(direction.getOpposite()), true);
+                        stateSetTo=Blocks.SCULK_VEIN.getDefaultState().with(MultifaceGrowthBlock.getProperty(direction.getOpposite()), true);
                     }
                     if (stateReplace==Blocks.WATER.getDefaultState()) {
-                        stateSetTo=Blocks.SCULK_VEIN.getDefaultState().with(AbstractLichenBlock.getProperty(direction.getOpposite()), true).with(Properties.WATERLOGGED, true);
+                        stateSetTo=Blocks.SCULK_VEIN.getDefaultState().with(MultifaceGrowthBlock.getProperty(direction.getOpposite()), true).with(Properties.WATERLOGGED, true);
                     }
                     if (stateSetTo!=null) { world.setBlockState(newPos.offset(direction), stateSetTo, 3); }
                 }

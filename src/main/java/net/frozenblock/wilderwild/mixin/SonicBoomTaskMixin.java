@@ -62,7 +62,7 @@ public class SonicBoomTaskMixin {
 
                 wardenEntity.playSound(SoundEvents.ENTITY_WARDEN_SONIC_BOOM, 3.0F, 1.0F);
                 if (!blocked) {
-                    target.damage(DamageSource.SONIC_BOOM, 10.0F);
+                    target.damage(DamageSource.method_43964(wardenEntity), 10.0F);
                     double d = 0.5D * (1.0D - target.getAttributeValue(EntityAttributes.GENERIC_KNOCKBACK_RESISTANCE));
                     double e = 2.5D * (1.0D - target.getAttributeValue(EntityAttributes.GENERIC_KNOCKBACK_RESISTANCE));
                     target.addVelocity(vec3d3.getX() * e, vec3d3.getY() * d, vec3d3.getZ() * e);
