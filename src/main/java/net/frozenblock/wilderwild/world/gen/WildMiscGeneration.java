@@ -13,5 +13,8 @@ public class WildMiscGeneration {
 
         BiomeModifications.addFeature(BiomeSelectors.includeByKey(BiomeKeys.TAIGA, BiomeKeys.SNOWY_TAIGA),
                 GenerationStep.Feature.TOP_LAYER_MODIFICATION, WildMiscPlaced.FOREST_ROCK_TAIGA.getKey().get());
+
+        BiomeModifications.addFeature(BiomeSelectors.includeByKey(BiomeKeys.TAIGA),
+                GenerationStep.Feature.TOP_LAYER_MODIFICATION, WildMiscPlaced.DISK_COARSE_DIRT.getKey().get());
     }
 }
