@@ -63,8 +63,8 @@ public class SculkJawBlock extends Block {
     public void onSteppedOn(World world, BlockPos pos, BlockState state, Entity entity) {
         if (entity instanceof LivingEntity && !state.get(ACTIVE) && !(entity instanceof WardenEntity)) {
             float damage = entity instanceof PlayerEntity ? 2.5f : 8f;
+            if (entity.damage(NewDamageSource.SCULK_JAW, damage)) {
                 world.setBlockState(pos, state.with(ACTIVE, true), 3);
-                entity.damage(NewDamageSource.SCULK_JAW, damage);
                 world.createAndScheduleBlockTick(pos, state.getBlock(), 60);
                 world.emitGameEvent(entity, WilderWild.JAW_ACTIVATE, pos);
                 world.playSound(
@@ -75,8 +75,8 @@ public class SculkJawBlock extends Block {
                         1.0f,
                         world.random.nextFloat() * 0.1F + 0.9F
                 );
+            }
         }
-
         super.onSteppedOn(world, pos, state, entity);
     }
 }
