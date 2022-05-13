@@ -61,7 +61,7 @@ public class MilkweedBlock extends TallFlowerBlock {
                     ItemStack stack = new ItemStack(RegisterItems.MILKWEED_POD);
                     stack.setCount(world.random.nextBetween(2,7));
                     dropStack(world, pos, stack);
-                    world.playSound(player, player.getX(), player.getY(), player.getZ(), SoundEvents.BLOCK_GROWING_PLANT_CROP, SoundCategory.BLOCKS, 1.0F, 1.0F);
+                    world.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.BLOCK_GROWING_PLANT_CROP, SoundCategory.BLOCKS, 1.0F, 1.0F);
                     itemStack.damage(1, player, (playerx) -> playerx.sendToolBreakStatus(hand));
                     world.emitGameEvent(player, GameEvent.SHEAR, pos);
                     if (state.get(Properties.DOUBLE_BLOCK_HALF) == DoubleBlockHalf.LOWER) {

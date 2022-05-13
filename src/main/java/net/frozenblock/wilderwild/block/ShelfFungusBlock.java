@@ -48,7 +48,7 @@ public class ShelfFungusBlock extends WallMountedBlock implements Waterloggable 
         if (i > 1 && itemStack.isOf(Items.SHEARS)) {
             dropStack(world, pos, new ItemStack(state.getBlock().asItem()));
             world.setBlockState(pos, state.with(STAGE, i-1));
-            world.playSound(player, player.getX(), player.getY(), player.getZ(), SoundEvents.BLOCK_GROWING_PLANT_CROP, SoundCategory.BLOCKS, 1.0F, 1.0F);
+            world.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.BLOCK_GROWING_PLANT_CROP, SoundCategory.BLOCKS, 1.0F, 1.0F);
             itemStack.damage(1, player, (playerx) -> playerx.sendToolBreakStatus(hand));
             world.emitGameEvent(player, GameEvent.SHEAR, pos);
             return ActionResult.success(world.isClient);
