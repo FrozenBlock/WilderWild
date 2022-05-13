@@ -50,6 +50,9 @@ public class WildPlacedFeature {
     public static final RegistryEntry<PlacedFeature> NEW_TALL_DARK_OAK_PLACED = PlacedFeatures.register("new_tall_dark_oak_placed",
             WildTreeConfigured.NEW_TALL_DARK_OAK, modifiersWithWouldSurvive(PlacedFeatures.createCountExtraModifier(4, 0.1F, 1), Blocks.DARK_OAK_SAPLING));
 
+    public static final RegistryEntry<PlacedFeature> NEW_SPRUCE_PLACED = PlacedFeatures.register("new_spruce_placed",
+            WildTreeConfigured.NEW_SPRUCE, modifiersWithWouldSurvive(PlacedFeatures.createCountExtraModifier(7, 0.1F, 1), Blocks.SPRUCE_SAPLING));
+
     //Decorations
     public static final RegistryEntry<PlacedFeature> PATCH_CATTAIL =
             PlacedFeatures.register("cattail", WildConfiguredFeatures.CATTAIL,
