@@ -52,6 +52,9 @@ public class WildPlacedFeature {
 
     public static final RegistryEntry<PlacedFeature> NEW_SPRUCE_PLACED = PlacedFeatures.register("new_spruce_placed",
             WildConfiguredFeatures.NEW_TREES_TAIGA, modifiers(PlacedFeatures.createCountExtraModifier(10, 0.1F, 1)));
+    public static final RegistryEntry<PlacedFeature> FALLEN_SPRUCE_PLACED = PlacedFeatures.register("fallen_spruce_placed",
+            WildTreeConfigured.FALLEN_SPRUCE_TREE, RarityFilterPlacementModifier.of(5), SquarePlacementModifier.of(),
+            PlacedFeatures.MOTION_BLOCKING_HEIGHTMAP, BiomePlacementModifier.of());
 
     public static final RegistryEntry<PlacedFeature> NEW_SHORT_SPRUCE_PLACED = PlacedFeatures.register("new_short_spruce_placed",
             WildConfiguredFeatures.NEW_SHORT_TREES_TAIGA, modifiers(PlacedFeatures.createCountExtraModifier(5, 0.1F, 1)));

@@ -61,6 +61,7 @@ public class WildTreeConfigured {
     public static final RegistryEntry<ConfiguredFeature<TreeFeatureConfig, ?>> NEW_SPRUCE;
     public static final RegistryEntry<ConfiguredFeature<TreeFeatureConfig, ?>> NEW_SPRUCE_SHORT;
     public static final RegistryEntry<ConfiguredFeature<TreeFeatureConfig, ?>> FUNGUS_PINE;
+    public static final RegistryEntry<ConfiguredFeature<TreeFeatureConfig, ?>> FALLEN_SPRUCE_TREE;
 
     public WildTreeConfigured() {
     }
@@ -106,6 +107,9 @@ public class WildTreeConfigured {
     private static TreeFeatureConfig.Builder new_tall_dark_oak() {
         return darkOakBuilder(Blocks.DARK_OAK_LOG, Blocks.DARK_OAK_LEAVES, 7, 3, 2, 1).ignoreVines();
     }
+    private static TreeFeatureConfig.Builder fallen_spruce() {
+        return fallenTrunkBuilder(RegisterBlocks.HOLLOWED_SPRUCE_LOG, Blocks.SPRUCE_LEAVES, 5, 1, 2, 0.0F, 0.5F, UniformIntProvider.create(1, 2), UniformIntProvider.create(1, 2), 1).ignoreVines();
+    }
 
     static {
         SHELF_FUNGUS_008 = new ShelfFungusTreeDecorator(0.08F, 0.3F);
@@ -138,6 +142,7 @@ public class WildTreeConfigured {
         NEW_SPRUCE = ConfiguredFeatures.register("new_spruce", Feature.TREE, (new TreeFeatureConfig.Builder(BlockStateProvider.of(Blocks.SPRUCE_LOG), new StraightTrunkPlacer(8, 4, 2), BlockStateProvider.of(Blocks.SPRUCE_LEAVES), new SpruceFoliagePlacer(UniformIntProvider.create(2, 3), UniformIntProvider.create(0, 2), UniformIntProvider.create(2, 3)), new TwoLayersFeatureSize(2, 0, 2))).decorators(ImmutableList.of(SHELF_FUNGUS_007_ONLY_BROWN)).ignoreVines().build());
         NEW_SPRUCE_SHORT = ConfiguredFeatures.register("new_spruce_short", Feature.TREE, (new TreeFeatureConfig.Builder(BlockStateProvider.of(Blocks.SPRUCE_LOG), new StraightTrunkPlacer(3, 1, 2), BlockStateProvider.of(Blocks.SPRUCE_LEAVES), new SpruceFoliagePlacer(UniformIntProvider.create(1, 2), UniformIntProvider.create(0, 2), UniformIntProvider.create(2, 3)), new TwoLayersFeatureSize(2, 0, 2))).ignoreVines().build());
         FUNGUS_PINE = ConfiguredFeatures.register("fungus_pine", Feature.TREE, (new TreeFeatureConfig.Builder(BlockStateProvider.of(Blocks.SPRUCE_LOG), new StraightTrunkPlacer(6, 4, 2), BlockStateProvider.of(Blocks.SPRUCE_LEAVES), new PineFoliagePlacer(ConstantIntProvider.create(1), ConstantIntProvider.create(1), UniformIntProvider.create(3, 4)), new TwoLayersFeatureSize(2, 0, 2))).decorators(ImmutableList.of(SHELF_FUNGUS_007_ONLY_BROWN)).ignoreVines().build());
+        FALLEN_SPRUCE_TREE = ConfiguredFeatures.register("fallen_spruce_tree", Feature.TREE, fallen_spruce().dirtProvider(BlockStateProvider.of(Blocks.DIRT)).build());
     }
     public static void registerTreeConfigured() {
     }
