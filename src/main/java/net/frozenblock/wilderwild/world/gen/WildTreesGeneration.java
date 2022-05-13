@@ -41,5 +41,8 @@ public class WildTreesGeneration {
         BiomeModifications.addFeature(BiomeSelectors.includeByKey(BiomeKeys.TAIGA, BiomeKeys.SNOWY_TAIGA),
                 GenerationStep.Feature.VEGETAL_DECORATION, WildPlacedFeature.NEW_SPRUCE_PLACED.getKey().get());
 
+        BiomeModifications.addFeature(BiomeSelectors.includeByKey(BiomeKeys.TAIGA, BiomeKeys.SNOWY_TAIGA),
+                GenerationStep.Feature.VEGETAL_DECORATION, WildPlacedFeature.NEW_SHORT_SPRUCE_PLACED.getKey().get());
+
     }
 }
