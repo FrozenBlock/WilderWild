@@ -37,16 +37,6 @@ public class MilkweedBlock extends TallFlowerBlock {
     }
 
     @Override
-    public void onBreak(World world, BlockPos pos, BlockState state, PlayerEntity player) {
-        super.onBreak(world, pos, state, player);
-        if (world instanceof ServerWorld server) {
-            if (state.get(Properties.AGE_3)==3) {
-                PollenParticle.EasySeedPacket.createParticle(world, Vec3d.ofCenter(pos).add(0, 0.3, 0), server.random.nextBetween(7, 14), true);
-            }
-        }
-    }
-
-    @Override
     public void randomTick(BlockState state, ServerWorld world, BlockPos pos, AbstractRandom random) {
         if (state.isOf(RegisterBlocks.MILKWEED)) {
             if (state.get(Properties.DOUBLE_BLOCK_HALF) == DoubleBlockHalf.LOWER) {
