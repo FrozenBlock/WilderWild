@@ -121,7 +121,7 @@ public abstract class RegisterBlocks {
     );
 
  
-    public static final MultifaceGrowthBlock POLLEN_BLOCK = registerMultifaceBlock("pollen",
+    public static final Block POLLEN_BLOCK = registerBlock("pollen",
             new PollenBlock(FabricBlockSettings
             .copyOf(Blocks.GRASS)
             .collidable(false)
@@ -167,11 +167,6 @@ public abstract class RegisterBlocks {
         return new HollowedLogBlock(AbstractBlock.Settings.of(Material.WOOD,
                 (state) -> state.get(PillarBlock.AXIS) == Direction.Axis.Y ? topMapColor : sideMapColor)
                 .strength(2.0F).sounds(BlockSoundGroup.WOOD));
-    }
-
-    private static MultifaceGrowthBlock registerMultifaceBlock(String name, MultifaceGrowthBlock block, ItemGroup group) {
-        registerBlockItem(name, block, group);
-        return Registry.register(Registry.BLOCK, new Identifier(WilderWild.MOD_ID, name), block);
     }
 
 
