@@ -17,6 +17,9 @@ import java.util.List;
 
 
 public class WildConfiguredFeatures {
+    public static final RegistryEntry<ConfiguredFeature<RandomFeatureConfig, ?>> NEW_TREES_TAIGA =
+            ConfiguredFeatures.register("new_trees_taiga", Feature.RANDOM_SELECTOR,
+                    new RandomFeatureConfig(List.of(new RandomFeatureEntry(WildTreePlaced.FUNGUS_PINE_CHECKED, 0.33333334F)), WildTreePlaced.NEW_SPRUCE_CHECKED));
 
     public static final RegistryEntry<ConfiguredFeature<ProbabilityConfig, ?>> CATTAIL = ConfiguredFeatures.register("cattail", WilderWild.CATTAIL_FEATURE, new ProbabilityConfig(0.8F));
 
