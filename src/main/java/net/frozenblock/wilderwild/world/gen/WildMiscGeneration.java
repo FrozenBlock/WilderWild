@@ -10,5 +10,8 @@ public class WildMiscGeneration {
     public static void generateMisc() {
         BiomeModifications.addFeature(BiomeSelectors.includeByKey(BiomeKeys.SWAMP),
                 GenerationStep.Feature.TOP_LAYER_MODIFICATION, WildMiscPlaced.DISK_MUD.getKey().get());
+
+        BiomeModifications.addFeature(BiomeSelectors.includeByKey(BiomeKeys.TAIGA, BiomeKeys.SNOWY_TAIGA),
+                GenerationStep.Feature.TOP_LAYER_MODIFICATION, WildMiscPlaced.FOREST_ROCK_TAIGA.getKey().get());
     }
 }
