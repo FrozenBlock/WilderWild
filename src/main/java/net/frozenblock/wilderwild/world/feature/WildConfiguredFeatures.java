@@ -6,17 +6,26 @@ import net.frozenblock.wilderwild.registry.RegisterBlocks;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.MultifaceGrowthBlock;
+import net.minecraft.util.collection.DataPool;
 import net.minecraft.util.registry.RegistryEntry;
 import net.minecraft.util.registry.RegistryEntryList;
 import net.minecraft.world.gen.ProbabilityConfig;
 import net.minecraft.world.gen.feature.*;
 import net.minecraft.world.gen.placementmodifier.PlacementModifier;
 import net.minecraft.world.gen.stateprovider.BlockStateProvider;
+import net.minecraft.world.gen.stateprovider.WeightedBlockStateProvider;
 
 import java.util.List;
 
 
 public class WildConfiguredFeatures {
+    public static final RegistryEntry<ConfiguredFeature<RandomFeatureConfig, ?>> NEW_FALLEN_SPRUCE_AND_OAK =
+            ConfiguredFeatures.register("new_fallen_spruce_and_oak", Feature.RANDOM_SELECTOR,
+                    new RandomFeatureConfig(List.of(new RandomFeatureEntry(WildTreePlaced.FALLEN_SPRUCE_CHECKED, 0.55F)), WildTreePlaced.NEW_FALLEN_OAK_CHECKED));
+    public static final RegistryEntry<ConfiguredFeature<RandomFeatureConfig, ?>> NEW_TREES_WINDSWEPT_HILLS =
+            ConfiguredFeatures.register("new_trees_windswept_hills", Feature.RANDOM_SELECTOR,
+                    new RandomFeatureConfig(List.of(new RandomFeatureEntry(WildTreePlaced.NEW_SPRUCE_CHECKED, 0.666F),
+                            new RandomFeatureEntry(WildTreePlaced.NEW_FANCY_OAK_CHECKED, 0.1F)), WildTreePlaced.NEW_OAK_CHECKED));
     public static final RegistryEntry<ConfiguredFeature<RandomFeatureConfig, ?>> NEW_TREES_OLD_GROWTH_PINE_TAIGA =
             ConfiguredFeatures.register("new_trees_old_growth_pine_taiga", Feature.RANDOM_SELECTOR,
                     new RandomFeatureConfig(List.of(new RandomFeatureEntry(WildTreePlaced.MEGA_FUNGUS_SPRUCE_CHECKED, 0.025641026F),
@@ -61,8 +70,8 @@ public class WildConfiguredFeatures {
                     new RandomFeatureConfig(List.of(new RandomFeatureEntry(WildTreePlaced.NEW_SHORT_BIRCH_BEES_0004, 0.2F),
                             new RandomFeatureEntry(WildTreePlaced.NEW_FANCY_OAK_BEES_0004, 0.27F)), WildTreePlaced.NEW_OAK_BEES_0004));
 
-    public static final RegistryEntry<ConfiguredFeature<RandomPatchFeatureConfig, ?>> NEW_GRASS_FOREST =
-            ConfiguredFeatures.register("new_grass_forest", Feature.RANDOM_PATCH,
+    public static final RegistryEntry<ConfiguredFeature<RandomPatchFeatureConfig, ?>> NEW_GRASS_PATCH =
+            ConfiguredFeatures.register("new_grass_patch", Feature.RANDOM_PATCH,
                     ConfiguredFeatures.createRandomPatchFeatureConfig(64, PlacedFeatures.createEntry(Feature.SIMPLE_BLOCK,
                             new SimpleBlockFeatureConfig(BlockStateProvider.of(Blocks.GRASS)))));
 
@@ -97,6 +106,9 @@ public class WildConfiguredFeatures {
 
     public static void registerConfiguredFeatures() {
         System.out.println("Registering WildConfiguredFeatures for " + WilderWild.MOD_ID);
+    }
+    private static RandomPatchFeatureConfig createRandomPatchFeatureConfig(BlockStateProvider block, int tries) {
+        return ConfiguredFeatures.createRandomPatchFeatureConfig(tries, PlacedFeatures.createEntry(Feature.SIMPLE_BLOCK, new SimpleBlockFeatureConfig(block)));
     }
 }
 
