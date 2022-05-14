@@ -17,6 +17,18 @@ import java.util.List;
 
 
 public class WildConfiguredFeatures {
+    public static final RegistryEntry<ConfiguredFeature<RandomFeatureConfig, ?>> NEW_TREES_OLD_GROWTH_PINE_TAIGA =
+            ConfiguredFeatures.register("new_trees_old_growth_pine_taiga", Feature.RANDOM_SELECTOR,
+                    new RandomFeatureConfig(List.of(new RandomFeatureEntry(WildTreePlaced.MEGA_FUNGUS_SPRUCE_CHECKED, 0.025641026F),
+                            new RandomFeatureEntry(WildTreePlaced.MEGA_FUNGUS_PINE_CHECKED, 0.30769232F),
+                            new RandomFeatureEntry(WildTreePlaced.FUNGUS_PINE_CHECKED, 0.33333334F)), WildTreePlaced.NEW_SPRUCE_CHECKED));
+    public static final RegistryEntry<ConfiguredFeature<RandomFeatureConfig, ?>> NEW_TREES_OLD_GROWTH_SPRUCE_TAIGA =
+            ConfiguredFeatures.register("new_trees_old_growth_spruce_taiga", Feature.RANDOM_SELECTOR,
+                    new RandomFeatureConfig(List.of(new RandomFeatureEntry(WildTreePlaced.MEGA_FUNGUS_SPRUCE_CHECKED, 0.33333334F),
+                            new RandomFeatureEntry(WildTreePlaced.FUNGUS_PINE_CHECKED, 0.33333334F)), WildTreePlaced.NEW_SPRUCE_CHECKED));
+    public static final RegistryEntry<ConfiguredFeature<RandomFeatureConfig, ?>> NEW_TREES_GROVE =
+            ConfiguredFeatures.register("new_trees_grove", Feature.RANDOM_SELECTOR,
+                    new RandomFeatureConfig(List.of(new RandomFeatureEntry(WildTreePlaced.FUNGUS_PINE_ON_SNOW, 0.33333334F)), WildTreePlaced.NEW_SPRUCE_ON_SNOW));
     public static final RegistryEntry<ConfiguredFeature<RandomFeatureConfig, ?>> NEW_TREES_TAIGA =
             ConfiguredFeatures.register("new_trees_taiga", Feature.RANDOM_SELECTOR,
                     new RandomFeatureConfig(List.of(new RandomFeatureEntry(WildTreePlaced.FUNGUS_PINE_CHECKED, 0.33333334F)), WildTreePlaced.NEW_SPRUCE_CHECKED));

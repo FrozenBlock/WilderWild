@@ -59,6 +59,15 @@ public class WildPlacedFeature {
     public static final RegistryEntry<PlacedFeature> NEW_SHORT_SPRUCE_PLACED = PlacedFeatures.register("new_short_spruce_placed",
             WildConfiguredFeatures.NEW_SHORT_TREES_TAIGA, modifiers(PlacedFeatures.createCountExtraModifier(5, 0.1F, 1)));
 
+    public static final RegistryEntry<PlacedFeature> NEW_TREES_GROVE = PlacedFeatures.register("new_trees_grove",
+            WildConfiguredFeatures.NEW_TREES_GROVE, modifiers(PlacedFeatures.createCountExtraModifier(10, 0.1F, 1)));
+
+    public static final RegistryEntry<PlacedFeature> NEW_TREES_OLD_GROWTH_SPRUCE_TAIGA = PlacedFeatures.register("new_trees_old_growth_spruce_taiga",
+            WildConfiguredFeatures.NEW_TREES_OLD_GROWTH_SPRUCE_TAIGA, modifiers(PlacedFeatures.createCountExtraModifier(10, 0.1F, 1)));
+
+    public static final RegistryEntry<PlacedFeature> NEW_TREES_OLD_GROWTH_PINE_TAIGA = PlacedFeatures.register("new_trees_old_growth_pine_taiga",
+            WildConfiguredFeatures.NEW_TREES_OLD_GROWTH_PINE_TAIGA, modifiers(PlacedFeatures.createCountExtraModifier(10, 0.1F, 1)));
+
     //Decorations
     public static final RegistryEntry<PlacedFeature> PATCH_CATTAIL =
             PlacedFeatures.register("cattail", WildConfiguredFeatures.CATTAIL,

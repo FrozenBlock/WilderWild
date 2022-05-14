@@ -55,5 +55,10 @@ public class DefaultBiomeFeaturesMixin {
     @Overwrite
     public static void addTaigaTrees(GenerationSettings.Builder builder) {
     }
+    /** @author FrozenBlock
+     * @reason Replaced with new Grove Trees */
+    @Overwrite
+    public static void addGroveTrees(GenerationSettings.Builder builder) {
+    }
 }
 

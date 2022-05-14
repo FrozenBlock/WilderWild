@@ -17,6 +17,8 @@ public class GenerationSettingsBuilderMixin {
 
     private final ArrayList<RegistryEntry<PlacedFeature>> removedFeatures = new ArrayList<>(){{
         add(VegetationPlacedFeatures.TREES_FLOWER_FOREST);
+        add(VegetationPlacedFeatures.TREES_OLD_GROWTH_SPRUCE_TAIGA);
+        add(VegetationPlacedFeatures.TREES_OLD_GROWTH_PINE_TAIGA);
     }};
 
     @Inject(at = @At("HEAD"), method = "feature", cancellable = true)
