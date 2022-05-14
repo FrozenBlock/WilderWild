@@ -81,8 +81,8 @@ public class WildPlacedFeature {
             WildConfiguredFeatures.NEW_TREES_WINDSWEPT_HILLS, modifiers(PlacedFeatures.createCountExtraModifier(3, 0.1F, 1)));
 
     //Decorations
-    public static final RegistryEntry<PlacedFeature> NEW_PATCH_GRASS = PlacedFeatures.register("new_patch_grass",
-            WildConfiguredFeatures.NEW_GRASS_PATCH, new PlacementModifier[]{RarityFilterPlacementModifier.of(1), SquarePlacementModifier.of(), PlacedFeatures.MOTION_BLOCKING_HEIGHTMAP, BiomePlacementModifier.of()});
+    public static final RegistryEntry<PlacedFeature> NEW_RARE_GRASS_PLACED = PlacedFeatures.register("new_rare_grass_placed",
+            VegetationConfiguredFeatures.PATCH_GRASS_JUNGLE, modifiers(8));
     public static final RegistryEntry<PlacedFeature> PATCH_CATTAIL =
             PlacedFeatures.register("cattail", WildConfiguredFeatures.CATTAIL,
                     RarityFilterPlacementModifier.of(3), SquarePlacementModifier.of(), PlacedFeatures.MOTION_BLOCKING_HEIGHTMAP, BiomePlacementModifier.of());

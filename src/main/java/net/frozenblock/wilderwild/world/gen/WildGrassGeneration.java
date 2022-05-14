@@ -17,6 +17,6 @@ public class WildGrassGeneration {
                 GenerationStep.Feature.VEGETAL_DECORATION, WildPlacedFeature.NEW_GRASS_PLACED.getKey().get());
 
         BiomeModifications.addFeature(BiomeSelectors.includeByKey(BiomeKeys.WINDSWEPT_FOREST, BiomeKeys.WINDSWEPT_HILLS),
-                GenerationStep.Feature.VEGETAL_DECORATION, WildPlacedFeature.NEW_PATCH_GRASS.getKey().get());
+                GenerationStep.Feature.VEGETAL_DECORATION, WildPlacedFeature.NEW_RARE_GRASS_PLACED.getKey().get());
     }
 }
