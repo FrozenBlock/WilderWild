@@ -8,7 +8,6 @@
 	"BlockMixin",
 	"MusicDiscItemInvoker",
 	"SculkBlockMixin",
-	"SculkCatalystBlockEntityMixin",
 	"SculkSensorBlockEntityMixin",
 	"SculkSensorBlockMixin",
 	"SculkSensorListenerMixin",
