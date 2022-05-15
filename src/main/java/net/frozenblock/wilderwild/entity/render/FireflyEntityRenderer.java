@@ -17,7 +17,7 @@ public class FireflyEntityRenderer extends MobEntityRenderer<FireflyEntity, Fire
 
     public FireflyEntityRenderer(EntityRendererFactory.Context context) {
         super(context, new FireflyEntityModel<>(context.getPart(WildClientMod.MODEL_FIREFLY_LAYER)), 0.3F);
-        this.addFeature(new FireflyFeatureRenderer<>(this, LIGHT_LAYER, (firefly, tickDelta, animationProgress) -> Math.max(1.0F, MathHelper.cos(animationProgress * 0.1F) * 0.25F), FireflyEntityModel::getMain));
+        //this.addFeature(new FireflyFeatureRenderer<>(this, LIGHT_LAYER, (firefly, tickDelta, animationProgress) -> Math.max(1.0F, MathHelper.cos(animationProgress * 0.1F) * 0.25F), FireflyEntityModel::getMain));
     }
 
     @Override
