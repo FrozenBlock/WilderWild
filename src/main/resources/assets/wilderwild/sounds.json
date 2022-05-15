@@ -418,6 +418,13 @@
 			"wilderwild:mob/ancient_horn_projectile/dissipate_2"
 		]
 	},
+  	"entity.firefly.hurt": {
+	  	"sounds": [
+		  	"wilderwild:mob/firefly/hurt_1",
+		  	"wilderwild:mob/firefly/hurt_2",
+		  	"wilderwild:mob/firefly/hurt_3"
+		]
+	},
 	"item.ancient_horn.call": {
 		"sounds": [
 			"wilderwild:item/ancient_horn/call0",

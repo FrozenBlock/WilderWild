@@ -7,7 +7,7 @@ sourceCompatibility = JavaVersion.VERSION_17
 targetCompatibility = JavaVersion.VERSION_17
 
 archivesBaseName = project.archives_base_name
-version = project.mod_version
+version = getVersion()
 group = project.maven_group
 
 loom {
@@ -61,6 +61,16 @@ jar {
 	from("LICENSE") {
 		rename { "${it}_${project.archivesBaseName}"}
 	}
+}
+
+String getVersion() {
+	String version = "${project.mod_version}+MC_${project.minecraft_version}"
+
+	if (findProperty("releaseType") != "stable") {
+		version += "-unstable"
+	}
+
+	return version
 }
 
 // configure the maven publication

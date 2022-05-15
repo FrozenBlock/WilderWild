@@ -41,6 +41,8 @@ public class RegisterSounds {
 
     public static final SoundEvent BLOCK_SCULK_ECHOER_ECHO = register( "block.sculk_echoer.echo");
 
+    public static final SoundEvent ENTITY_FIREFLY_HURT = register("entity.firefly.hurt");
+
     public static final SoundEvent FLOATING_SCULK_BUBBLE_POP = register("particle.floating_sculk_bubble.pop");
     public static final SoundEvent FLOATING_SCULK_BUBBLE_BIG_POP = register("particle.floating_sculk_bubble.big_pop");
 
