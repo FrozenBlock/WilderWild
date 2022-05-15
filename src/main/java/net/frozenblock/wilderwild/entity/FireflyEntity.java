@@ -25,7 +25,6 @@ public class FireflyEntity extends FlyingEntity implements Flutterer {
     public FireflyEntity(EntityType<? extends FlyingEntity> entityType, World world) {
         super(entityType, world);
         this.moveControl = new FlightMoveControl(this, 20, true);
-        this.experiencePoints = 1;
         this.setPathfindingPenalty(PathNodeType.UNPASSABLE_RAIL, 0.0F);
         this.setPathfindingPenalty(PathNodeType.DANGER_FIRE, -1.0F);
         this.setPathfindingPenalty(PathNodeType.WATER, -1.0F);
