@@ -38,7 +38,7 @@ public class FireflyEntityRenderer extends EntityRenderer<FireflyEntity> {
     public void render(FireflyEntity entity, float f, float g, MatrixStack matrixStack, VertexConsumerProvider vertexConsumerProvider, int i) {
         matrixStack.push();
         matrixStack.scale(1, 1, 1); // you may need to adjust this
-        matrixStack.translate(0, 0.3, 0);
+        matrixStack.translate(0, -0.1, 0);
         matrixStack.multiply(this.dispatcher.getRotation());
         matrixStack.multiply(Vec3f.POSITIVE_Y.getDegreesQuaternion(180.0F));
 
