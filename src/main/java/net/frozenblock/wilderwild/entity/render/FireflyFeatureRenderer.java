@@ -23,10 +23,15 @@ public class FireflyFeatureRenderer extends EyesFeatureRenderer<FireflyEntity, F
         GLOW = RenderLayer.getEyes(new Identifier(WilderWild.MOD_ID, "textures/entity/firefly/firefly_on.png"));
     }
 
+    public FireflyFeatureRenderer(FireflyEntityRenderer fireflyEntityRenderer, Identifier overlay) {
+        super((FeatureRendererContext<FireflyEntity, FireflyEntityModel<FireflyEntity>>) fireflyEntityRenderer);
+        GLOW = RenderLayer.getEyes(new Identifier(WilderWild.MOD_ID, "textures/entity/firefly/firefly_on.png"));
+    }
+
     @Override
     public void render(MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, FireflyEntity entity, float limbAngle, float limbDistance, float tickDelta, float animationProgress, float headYaw, float headPitch) {
-            VertexConsumer vertexConsumer = vertexConsumers.getBuffer(this.GLOW);
-            this.getContextModel().render(matrices, vertexConsumer, 15728640, OverlayTexture.DEFAULT_UV, calcGlow(entity), calcGlow(entity), calcGlow(entity), 1.0f);
+        VertexConsumer vertexConsumer = vertexConsumers.getBuffer(this.GLOW);
+        this.getContextModel().render(matrices, vertexConsumer, 15728640, OverlayTexture.DEFAULT_UV, calcGlow(entity), calcGlow(entity), calcGlow(entity), 1.0f);
     }
 
     private static float calcGlow(FireflyEntity firefly) {
