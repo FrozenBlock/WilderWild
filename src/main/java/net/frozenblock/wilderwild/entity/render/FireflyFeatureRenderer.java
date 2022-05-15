@@ -31,7 +31,7 @@ public class FireflyFeatureRenderer extends EyesFeatureRenderer<FireflyEntity, F
 
     private static float calcGlow(FireflyEntity firefly) {
         //help i dont know this stuff please fix
-        float d = (float) ((float) Math.cos((1*Math.PI)/(20)));
+        float d = (float) ((float) Math.cos((firefly.age * Math.PI)/(20)));
         return MathHelper.clamp(d,0,1);
     }
 
