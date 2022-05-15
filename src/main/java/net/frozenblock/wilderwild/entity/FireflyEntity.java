@@ -1,8 +1,12 @@
 package net.frozenblock.wilderwild.entity;
 
+import net.frozenblock.wilderwild.entity.ai.FloatWanderGoal;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.Flutterer;
 import net.minecraft.entity.ai.control.FlightMoveControl;
+import net.minecraft.entity.ai.goal.SwimGoal;
+import net.minecraft.entity.ai.pathing.BirdNavigation;
+import net.minecraft.entity.ai.pathing.EntityNavigation;
 import net.minecraft.entity.ai.pathing.PathNodeType;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributes;
@@ -11,6 +15,7 @@ import net.minecraft.entity.mob.HostileEntity;
 import net.minecraft.entity.passive.AnimalEntity;
 import net.minecraft.entity.passive.PassiveEntity;
 import net.minecraft.server.world.ServerWorld;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
@@ -32,6 +37,16 @@ public class FireflyEntity extends AnimalEntity implements Flutterer {
 
     public static DefaultAttributeContainer.Builder createFireflyAttributes() {
         return HostileEntity.createHostileAttributes().add(EntityAttributes.GENERIC_MAX_HEALTH, 1D).add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.005F).add(EntityAttributes.GENERIC_FLYING_SPEED, 0.005F);
+    }
+
+    protected void initGoals() {
+        //this.goalSelector.add(2, new FloatWanderGoal(this));
+        this.goalSelector.add(1, new SwimGoal(this));
+    }
+
+    @Override
+    public void tickMovement() {
+        super.tickMovement();
     }
 
     @Nullable
