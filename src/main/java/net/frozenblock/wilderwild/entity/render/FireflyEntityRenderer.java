@@ -31,8 +31,8 @@ public class FireflyEntityRenderer extends EntityRenderer<FireflyEntity> {
 
     private final Identifier TEXTURE = new Identifier(WilderWild.MOD_ID, "textures/entity/firefly/firefly_off.png");
     private final Identifier OVERLAY_TEXTURE = new Identifier(WilderWild.MOD_ID, "textures/entity/firefly/firefly_on.png");
-    private final RenderLayer LAYER = RenderLayer.getEntityTranslucentEmissive(TEXTURE);
-    private final RenderLayer OVERLAY = RenderLayer.getEntityTranslucentEmissive(OVERLAY_TEXTURE);
+    private final RenderLayer LAYER = RenderLayer.getEntityCutout(TEXTURE);
+    private final RenderLayer OVERLAY = RenderLayer.getEntityTranslucentEmissive(OVERLAY_TEXTURE); //how do i get this to work
 
     @Override
     public void render(FireflyEntity entity, float f, float g, MatrixStack matrixStack, VertexConsumerProvider vertexConsumerProvider, int i) {
