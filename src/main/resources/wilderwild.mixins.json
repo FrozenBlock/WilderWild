@@ -21,6 +21,7 @@
 	"worldgen.DefaultBiomeFeaturesMixin",
 	"worldgen.GenerationSettingsBuilderMixin",
 	"worldgen.OakSaplingGeneratorMixin",
+	"worldgen.SpruceSaplingGeneratorMixin",
 	"worldgen.TrunkPlacerTypeInvoker",
 	"worldgen.TreeDecoratorTypeInvoker"
   ],

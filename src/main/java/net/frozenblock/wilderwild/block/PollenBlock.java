@@ -13,7 +13,7 @@ import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldView;
 
-public class PollenBlock extends AbstractLichenBlock {
+public class PollenBlock extends MultifaceGrowthBlock {
     private final LichenGrower grower = new LichenGrower(this);
     public PollenBlock(Settings settings) {
         super(settings);

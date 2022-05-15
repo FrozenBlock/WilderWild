@@ -35,24 +35,18 @@ public class OsseousSculkBlock extends PillarBlock implements SculkSpreadable {
     public static Direction getDir(Direction.Axis axis, boolean UpsideDown) {
         if (axis!=null) {
             if (axis.isHorizontal()) {
-              if (axis == Direction.Axis.X) {
-                  if (Math.random() > 0.5) {
-                      return Direction.EAST;
-                  } return Direction.WEST;
-              }
-              if (axis == Direction.Axis.Z) {
-                  if (Math.random() > 0.5) {
-                      return Direction.NORTH;
-                  } return Direction.SOUTH;
-              }
+                if (axis == Direction.Axis.X) {
+                    return Math.random() > 0.5 ? Direction.EAST : Direction.WEST;
+                }
+                if (axis == Direction.Axis.Z) {
+                    return Math.random() > 0.5 ? Direction.NORTH : Direction.SOUTH;
+                }
             }
-        } if (UpsideDown) {return Direction.DOWN; }
-        return Direction.UP;
+        } return UpsideDown ? Direction.DOWN : Direction.UP;
     }
 
     public static Direction.Axis getAxis(BlockPos pos) {
-        if (EasyNoiseSampler.samplePerlinSimple(pos, 0.7, false, false)>0) return Direction.Axis.X;
-        return Direction.Axis.Z;
+        return EasyNoiseSampler.samplePerlinSimple(pos, 0.7, false, false)>0 ? Direction.Axis.X : Direction.Axis.Z;
     }
 
     public static void convertToSculk(WorldAccess world, BlockPos pos) {
@@ -66,13 +60,13 @@ public class OsseousSculkBlock extends PillarBlock implements SculkSpreadable {
                     BlockState stateReplace = world.getBlockState(newPos.offset(direction));
                     BlockState stateSetTo = null;
                     if (stateReplace.isOf(Blocks.SCULK_VEIN)) {
-                        stateSetTo=stateReplace.with(AbstractLichenBlock.getProperty(direction.getOpposite()), true);
+                        stateSetTo=stateReplace.with(MultifaceGrowthBlock.getProperty(direction.getOpposite()), true);
                     }
                     if (stateReplace.isAir()) {
-                        stateSetTo=Blocks.SCULK_VEIN.getDefaultState().with(AbstractLichenBlock.getProperty(direction.getOpposite()), true);
+                        stateSetTo=Blocks.SCULK_VEIN.getDefaultState().with(MultifaceGrowthBlock.getProperty(direction.getOpposite()), true);
                     }
                     if (stateReplace==Blocks.WATER.getDefaultState()) {
-                        stateSetTo=Blocks.SCULK_VEIN.getDefaultState().with(AbstractLichenBlock.getProperty(direction.getOpposite()), true).with(Properties.WATERLOGGED, true);
+                        stateSetTo=Blocks.SCULK_VEIN.getDefaultState().with(MultifaceGrowthBlock.getProperty(direction.getOpposite()), true).with(Properties.WATERLOGGED, true);
                     }
                     if (stateSetTo!=null) { world.setBlockState(newPos.offset(direction), stateSetTo, 3); }
                 }

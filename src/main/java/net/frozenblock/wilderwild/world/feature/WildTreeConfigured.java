@@ -23,19 +23,18 @@ import net.minecraft.world.gen.feature.Feature;
 import net.minecraft.world.gen.feature.TreeFeatureConfig;
 import net.minecraft.world.gen.feature.size.ThreeLayersFeatureSize;
 import net.minecraft.world.gen.feature.size.TwoLayersFeatureSize;
-import net.minecraft.world.gen.foliage.BlobFoliagePlacer;
-import net.minecraft.world.gen.foliage.DarkOakFoliagePlacer;
-import net.minecraft.world.gen.foliage.LargeOakFoliagePlacer;
-import net.minecraft.world.gen.foliage.SpruceFoliagePlacer;
+import net.minecraft.world.gen.foliage.*;
 import net.minecraft.world.gen.root.AboveRootPlacement;
 import net.minecraft.world.gen.root.MangroveRootPlacement;
 import net.minecraft.world.gen.root.MangroveRootPlacer;
 import net.minecraft.world.gen.stateprovider.BlockStateProvider;
 import net.minecraft.world.gen.stateprovider.RandomizedIntBlockStateProvider;
+import net.minecraft.world.gen.treedecorator.AlterGroundTreeDecorator;
 import net.minecraft.world.gen.treedecorator.AttachedToLeavesTreeDecorator;
 import net.minecraft.world.gen.treedecorator.BeehiveTreeDecorator;
 import net.minecraft.world.gen.treedecorator.LeavesVineTreeDecorator;
 import net.minecraft.world.gen.trunk.DarkOakTrunkPlacer;
+import net.minecraft.world.gen.trunk.GiantTrunkPlacer;
 import net.minecraft.world.gen.trunk.LargeOakTrunkPlacer;
 import net.minecraft.world.gen.trunk.StraightTrunkPlacer;
 
@@ -48,6 +47,7 @@ public class WildTreeConfigured {
     private static final BeehiveTreeDecorator NEW_BEES_0004;
     private static final ShelfFungusTreeDecorator SHELF_FUNGUS_008;
     private static final ShelfFungusTreeDecorator SHELF_FUNGUS_007;
+    private static final ShelfFungusTreeDecorator SHELF_FUNGUS_007_ONLY_BROWN;
     public static final RegistryEntry<ConfiguredFeature<TreeFeatureConfig, ?>> NEW_BIRCH_TREE;
     public static final RegistryEntry<ConfiguredFeature<TreeFeatureConfig, ?>> NEW_BIRCH_BEES_0004;
     public static final RegistryEntry<ConfiguredFeature<TreeFeatureConfig, ?>> NEW_SHORT_BIRCH_BEES_0004;
@@ -61,6 +61,11 @@ public class WildTreeConfigured {
     public static final RegistryEntry<ConfiguredFeature<TreeFeatureConfig, ?>> NEW_TALL_DARK_OAK;
     public static final RegistryEntry<ConfiguredFeature<TreeFeatureConfig, ?>> NEW_SWAMP_TREE;
     public static final RegistryEntry<ConfiguredFeature<TreeFeatureConfig, ?>> NEW_SPRUCE;
+    public static final RegistryEntry<ConfiguredFeature<TreeFeatureConfig, ?>> NEW_SPRUCE_SHORT;
+    public static final RegistryEntry<ConfiguredFeature<TreeFeatureConfig, ?>> FUNGUS_PINE;
+    public static final RegistryEntry<ConfiguredFeature<TreeFeatureConfig, ?>> FALLEN_SPRUCE_TREE;
+    public static final RegistryEntry<ConfiguredFeature<TreeFeatureConfig, ?>> MEGA_FUNGUS_SPRUCE;
+    public static final RegistryEntry<ConfiguredFeature<TreeFeatureConfig, ?>> MEGA_FUNGUS_PINE;
 
     public WildTreeConfigured() {
     }
@@ -106,10 +111,14 @@ public class WildTreeConfigured {
     private static TreeFeatureConfig.Builder new_tall_dark_oak() {
         return darkOakBuilder(Blocks.DARK_OAK_LOG, Blocks.DARK_OAK_LEAVES, 7, 3, 2, 1).ignoreVines();
     }
+    private static TreeFeatureConfig.Builder fallen_spruce() {
+        return fallenTrunkBuilder(RegisterBlocks.HOLLOWED_SPRUCE_LOG, Blocks.SPRUCE_LEAVES, 5, 1, 2, 0.0F, 0.5F, UniformIntProvider.create(1, 2), UniformIntProvider.create(1, 2), 1).ignoreVines();
+    }
 
     static {
         SHELF_FUNGUS_008 = new ShelfFungusTreeDecorator(0.08F, 0.3F);
         SHELF_FUNGUS_007 = new ShelfFungusTreeDecorator(0.07F, 0.15F);
+        SHELF_FUNGUS_007_ONLY_BROWN = new ShelfFungusTreeDecorator(0.07F, 0.0F);
         NEW_BEES_0004 = new BeehiveTreeDecorator(0.004F);
         //BIRCH
         NEW_BIRCH_TREE = ConfiguredFeatures.register("new_birch_tree", Feature.TREE, new_birch().dirtProvider(BlockStateProvider.of(Blocks.DIRT)).decorators(ImmutableList.of(SHELF_FUNGUS_008)).build());
@@ -134,7 +143,12 @@ public class WildTreeConfigured {
                 new AttachedToLeavesTreeDecorator(0.14F, 1, 0,
                         new RandomizedIntBlockStateProvider(BlockStateProvider.of((BlockState)Blocks.MANGROVE_PROPAGULE.getDefaultState().with(PropaguleBlock.HANGING, true)), PropaguleBlock.AGE, UniformIntProvider.create(0, 4)), 2, List.of(Direction.DOWN)))).ignoreVines().dirtProvider(BlockStateProvider.of(Blocks.AIR)).build());
         //SPRUCE
-        NEW_SPRUCE = ConfiguredFeatures.register("new_spruce", Feature.TREE, (new TreeFeatureConfig.Builder(BlockStateProvider.of(Blocks.SPRUCE_LOG), new StraightTrunkPlacer(8, 4, 2), BlockStateProvider.of(Blocks.SPRUCE_LEAVES), new SpruceFoliagePlacer(UniformIntProvider.create(2, 3), UniformIntProvider.create(0, 2), UniformIntProvider.create(2, 3)), new TwoLayersFeatureSize(2, 0, 2))).decorators(ImmutableList.of(SHELF_FUNGUS_008)).ignoreVines().build());
+        NEW_SPRUCE = ConfiguredFeatures.register("new_spruce", Feature.TREE, (new TreeFeatureConfig.Builder(BlockStateProvider.of(Blocks.SPRUCE_LOG), new StraightTrunkPlacer(8, 4, 2), BlockStateProvider.of(Blocks.SPRUCE_LEAVES), new SpruceFoliagePlacer(UniformIntProvider.create(2, 3), UniformIntProvider.create(0, 2), UniformIntProvider.create(2, 3)), new TwoLayersFeatureSize(2, 0, 2))).decorators(ImmutableList.of(SHELF_FUNGUS_007_ONLY_BROWN)).ignoreVines().build());
+        NEW_SPRUCE_SHORT = ConfiguredFeatures.register("new_spruce_short", Feature.TREE, (new TreeFeatureConfig.Builder(BlockStateProvider.of(Blocks.SPRUCE_LOG), new StraightTrunkPlacer(3, 1, 2), BlockStateProvider.of(Blocks.SPRUCE_LEAVES), new SpruceFoliagePlacer(UniformIntProvider.create(1, 2), UniformIntProvider.create(0, 2), UniformIntProvider.create(2, 3)), new TwoLayersFeatureSize(2, 0, 2))).ignoreVines().build());
+        FUNGUS_PINE = ConfiguredFeatures.register("fungus_pine", Feature.TREE, (new TreeFeatureConfig.Builder(BlockStateProvider.of(Blocks.SPRUCE_LOG), new StraightTrunkPlacer(6, 4, 2), BlockStateProvider.of(Blocks.SPRUCE_LEAVES), new PineFoliagePlacer(ConstantIntProvider.create(1), ConstantIntProvider.create(1), UniformIntProvider.create(3, 4)), new TwoLayersFeatureSize(2, 0, 2))).decorators(ImmutableList.of(SHELF_FUNGUS_007_ONLY_BROWN)).ignoreVines().build());
+        MEGA_FUNGUS_SPRUCE = ConfiguredFeatures.register("mega_fungus_spruce", Feature.TREE, (new TreeFeatureConfig.Builder(BlockStateProvider.of(Blocks.SPRUCE_LOG), new GiantTrunkPlacer(13, 2, 14), BlockStateProvider.of(Blocks.SPRUCE_LEAVES), new MegaPineFoliagePlacer(ConstantIntProvider.create(0), ConstantIntProvider.create(0), UniformIntProvider.create(13, 17)), new TwoLayersFeatureSize(1, 1, 2))).decorators(ImmutableList.of(new AlterGroundTreeDecorator(BlockStateProvider.of(Blocks.PODZOL)), SHELF_FUNGUS_007_ONLY_BROWN)).build());
+        MEGA_FUNGUS_PINE = ConfiguredFeatures.register("mega_fungus_pine", Feature.TREE, (new TreeFeatureConfig.Builder(BlockStateProvider.of(Blocks.SPRUCE_LOG), new GiantTrunkPlacer(13, 2, 14), BlockStateProvider.of(Blocks.SPRUCE_LEAVES), new MegaPineFoliagePlacer(ConstantIntProvider.create(0), ConstantIntProvider.create(0), UniformIntProvider.create(3, 7)), new TwoLayersFeatureSize(1, 1, 2))).decorators(ImmutableList.of(new AlterGroundTreeDecorator(BlockStateProvider.of(Blocks.PODZOL)), SHELF_FUNGUS_007_ONLY_BROWN)).build());
+        FALLEN_SPRUCE_TREE = ConfiguredFeatures.register("fallen_spruce_tree", Feature.TREE, fallen_spruce().dirtProvider(BlockStateProvider.of(Blocks.DIRT)).build());
     }
     public static void registerTreeConfigured() {
     }

@@ -50,8 +50,15 @@ public class DefaultBiomeFeaturesMixin {
     @Overwrite
     public static void addTallBirchTrees(GenerationSettings.Builder builder) {
     }
+    /** @author FrozenBlock
+     * @reason Replaced with new Taiga Trees */
     @Overwrite
     public static void addTaigaTrees(GenerationSettings.Builder builder) {
+    }
+    /** @author FrozenBlock
+     * @reason Replaced with new Grove Trees */
+    @Overwrite
+    public static void addGroveTrees(GenerationSettings.Builder builder) {
     }
 }
 

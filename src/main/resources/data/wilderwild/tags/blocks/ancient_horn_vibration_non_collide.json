@@ -6,6 +6,8 @@
     "#c:glass_blocks",
     "#c:glass_panes",
     "#minecraft:leaves",
-    "minecraft:bell"
+    "minecraft:bell",
+    "minecraft:pointed_dripstone",
+    "minecraft:bamboo"
   ]
 }
