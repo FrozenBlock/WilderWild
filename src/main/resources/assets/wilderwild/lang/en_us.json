@@ -44,5 +44,7 @@
 	"death.attack.ancient_horn": "%1$s experienced maximum bass",
 	"death.attack.ancient_horn.item": "%1$s was blown to smithereens by %2$s using %3$s",
 	"death.attack.sculk_jaw": "%1$s was bitten",
-	"death.attack.sculk_jaw.player": "%1$s snapped whilst fighting %2$s"
+	"death.attack.sculk_jaw.player": "%1$s snapped whilst fighting %2$s",
+	"entity.wilderwild.firefly": "Firefly",
+	"item.wilderwild.firefly_spawn_egg": "Firefly Spawn Egg"
 }
