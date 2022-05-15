@@ -19,6 +19,6 @@ public class RegisterEntities {
 
     public static void init() {
         //FabricDefaultAttributeRegistry.register(TENDRIL_ENTITY, SculkSensorTendrilEntity.createLivingAttributes());
-        FabricDefaultAttributeRegistry.register(FIREFLY, FireflyEntity.createFireflyAttributes());
+        FabricDefaultAttributeRegistry.register(FIREFLY, FireflyEntity.addAttributes());
     }
 }
