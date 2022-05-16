@@ -28,7 +28,7 @@ public class FireflyEntityRenderer extends EntityRenderer<FireflyEntity> {
     private final RenderLayer OVERLAY = RenderLayer.getEntityTranslucentEmissive(OVERLAY_TEXTURE);
 
     @Override
-    public void render(FireflyEntity entity, float f, float g, MatrixStack matrixStack, VertexConsumerProvider vertexConsumerProvider, int i) {
+    public void render(FireflyEntity entity, float yaw, float tickDelta, MatrixStack matrixStack, VertexConsumerProvider vertexConsumerProvider, int i) {
         matrixStack.push();
         matrixStack.scale(1, 1, 1);
         matrixStack.translate(0, 0.1, 0);
@@ -59,13 +59,13 @@ public class FireflyEntityRenderer extends EntityRenderer<FireflyEntity> {
         matrix3f = entry.getNormalMatrix();
         vertexConsumer = vertexConsumerProvider.getBuffer(OVERLAY);
 
-        vertexPulsate(vertexConsumer, matrix4f, matrix3f, i, 0.0F, 0, 0, 1, entity.age);
-        vertexPulsate(vertexConsumer, matrix4f, matrix3f, i, 1.0F, 0, 1, 1, entity.age);
-        vertexPulsate(vertexConsumer, matrix4f, matrix3f, i, 1.0F, 1, 1, 0, entity.age);
-        vertexPulsate(vertexConsumer, matrix4f, matrix3f, i, 0.0F, 1, 0, 0, entity.age);
+        vertexPulsate(vertexConsumer, matrix4f, matrix3f, i, 0.0F, 0, 0, 1, entity.age, tickDelta);
+        vertexPulsate(vertexConsumer, matrix4f, matrix3f, i, 1.0F, 0, 1, 1, entity.age, tickDelta);
+        vertexPulsate(vertexConsumer, matrix4f, matrix3f, i, 1.0F, 1, 1, 0, entity.age, tickDelta);
+        vertexPulsate(vertexConsumer, matrix4f, matrix3f, i, 0.0F, 1, 0, 0, entity.age, tickDelta);
 
         matrixStack.pop();
-        super.render(entity, f, g, matrixStack, vertexConsumerProvider, i);
+        super.render(entity, yaw, tickDelta, matrixStack, vertexConsumerProvider, i);
     }
 
     @Override
@@ -84,8 +84,8 @@ public class FireflyEntityRenderer extends EntityRenderer<FireflyEntity> {
                 .next();
     }
 
-    private static void vertexPulsate(VertexConsumer vertexConsumer, Matrix4f matrix4f, Matrix3f matrix3f, int i, float f, int j, int k, int l, int age) {
-        int colors = (int) ((int) (255 * (Math.cos((age*Math.PI)/40))) + 127.5);
+    private static void vertexPulsate(VertexConsumer vertexConsumer, Matrix4f matrix4f, Matrix3f matrix3f, int i, float f, int j, int k, int l, int age, float tickDelta) {
+        int colors = (int) ((int) Math.max((255 * (Math.cos(((age + tickDelta) * Math.PI)/20))),0));
         vertexConsumer
                 .vertex(matrix4f, f - 0.5F, j - 0.5F, 0.0F)
                 .color(colors, colors, colors, colors)
