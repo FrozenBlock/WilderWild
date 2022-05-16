@@ -123,7 +123,7 @@ public class FireflyEntity extends PathAwareEntity implements Flutterer {
     }
 
     public boolean hasWings() {
-        return !this.isOnGround();
+        return true;
     }
 
     public boolean canImmediatelyDespawn(double distanceSquared) {
