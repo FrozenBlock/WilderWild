@@ -183,4 +183,14 @@ public class FireflyEntity extends PathAwareEntity implements Flutterer {
     public boolean handleFallDamage(float fallDistance, float damageMultiplier, DamageSource damageSource) {
         return false;
     }
+
+    public boolean isPushable() {
+        return false;
+    }
+
+    protected void pushAway(Entity entity) {
+    }
+
+    protected void tickCramming() {
+    }
 }
