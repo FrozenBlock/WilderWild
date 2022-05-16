@@ -46,7 +46,6 @@ public class FireflyEntityRenderer extends EntityRenderer<FireflyEntity> {
         vertex(vertexConsumer, matrix4f, matrix3f, i, 0.0F, 1, 0, 0);
 
         matrixStack.pop();
-        super.render(entity, f, g, matrixStack, vertexConsumerProvider, i);
 
         //OVERLAY
         matrixStack.push();
