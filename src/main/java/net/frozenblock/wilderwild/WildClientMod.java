@@ -10,7 +10,6 @@ import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
 import net.frozenblock.wilderwild.entity.AncientHornProjectileEntity;
 import net.frozenblock.wilderwild.entity.render.AncientHornProjectileModel;
 import net.frozenblock.wilderwild.entity.render.AncientHornProjectileRenderer;
-import net.frozenblock.wilderwild.entity.render.FireflyEntityModel;
 import net.frozenblock.wilderwild.entity.render.FireflyEntityRenderer;
 import net.frozenblock.wilderwild.particle.FloatingSculkBubbleParticle;
 import net.frozenblock.wilderwild.particle.PollenParticle;
@@ -32,7 +31,6 @@ import java.util.UUID;
 public class WildClientMod implements ClientModInitializer {
     public static final EntityModelLayer SENSOR_TENDRILS_LAYER = new EntityModelLayer(new Identifier(WilderWild.MOD_ID, "sculk_sensor_tendrils"), "main");
     public static final EntityModelLayer ANCIENT_HORN_PROJECTILE_LAYER = new EntityModelLayer(new Identifier(WilderWild.MOD_ID, "ancient_horn_projectile"), "main");
-    public static final EntityModelLayer MODEL_FIREFLY_LAYER = new EntityModelLayer(new Identifier(WilderWild.MOD_ID, "firefly"), "main");
 
     public static final Identifier HORN_PROJECTILE_PACKET_ID = new Identifier(WilderWild.MOD_ID, "ancient_horn_projectile_packet");
     public static final Identifier FLOATING_SCULK_BUBBLE_PACKET = new Identifier("floating_sculk_bubble_easy_packet");
