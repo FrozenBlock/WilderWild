@@ -33,9 +33,15 @@ import net.minecraft.world.World;
 import org.slf4j.Logger;
 
 public class FireflyEntity extends PathAwareEntity implements Flutterer {
+
     private static final Logger LOGGER = LogUtils.getLogger();
     protected static final ImmutableList<SensorType<? extends Sensor<? super FireflyEntity>>> SENSORS = ImmutableList.of(SensorType.NEAREST_LIVING_ENTITIES, SensorType.HURT_BY);
     protected static final ImmutableList<MemoryModuleType<?>> MEMORY_MODULES = ImmutableList.of(MemoryModuleType.PATH, MemoryModuleType.VISIBLE_MOBS, MemoryModuleType.WALK_TARGET, MemoryModuleType.CANT_REACH_WALK_TARGET_SINCE);
+
+    public boolean flickers;
+    public int fakeAge;
+    public boolean valuesSet;
+
     public FireflyEntity(EntityType<? extends PathAwareEntity> entityType, World world) {
         super(entityType, world);
         this.moveControl = new FlightMoveControl(this, 20, true);
@@ -108,6 +114,16 @@ public class FireflyEntity extends PathAwareEntity implements Flutterer {
         return null;
     }
 
+    @Override
+    public void tick() {
+        super.tick();
+        if (world.isClient && !valuesSet) {
+            this.fakeAge = random.nextBetween(0,19);
+            this.flickers = random.nextInt(5)==0;
+            this.valuesSet = true;
+        }
+    }
+
     protected void mobTick() {
         this.world.getProfiler().push("fireflyBrain");
         this.getBrain().tick((ServerWorld) this.world, this);
@@ -158,6 +174,9 @@ public class FireflyEntity extends PathAwareEntity implements Flutterer {
     @Override
     public void tickMovement() {
         super.tickMovement();
+        if (world.isClient) {
+            ++this.fakeAge;
+        }
     }
 
     @Override

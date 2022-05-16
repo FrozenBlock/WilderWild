@@ -59,10 +59,10 @@ public class FireflyEntityRenderer extends EntityRenderer<FireflyEntity> {
         matrix3f = entry.getNormalMatrix();
         vertexConsumer = vertexConsumerProvider.getBuffer(OVERLAY);
 
-        vertexPulsate(vertexConsumer, matrix4f, matrix3f, i, 0.0F, 0, 0, 1, entity.age, tickDelta);
-        vertexPulsate(vertexConsumer, matrix4f, matrix3f, i, 1.0F, 0, 1, 1, entity.age, tickDelta);
-        vertexPulsate(vertexConsumer, matrix4f, matrix3f, i, 1.0F, 1, 1, 0, entity.age, tickDelta);
-        vertexPulsate(vertexConsumer, matrix4f, matrix3f, i, 0.0F, 1, 0, 0, entity.age, tickDelta);
+        vertexPulsate(vertexConsumer, matrix4f, matrix3f, i, 0.0F, 0, 0, 1, entity.fakeAge, entity.flickers, tickDelta);
+        vertexPulsate(vertexConsumer, matrix4f, matrix3f, i, 1.0F, 0, 1, 1, entity.fakeAge, entity.flickers, tickDelta);
+        vertexPulsate(vertexConsumer, matrix4f, matrix3f, i, 1.0F, 1, 1, 0, entity.fakeAge, entity.flickers, tickDelta);
+        vertexPulsate(vertexConsumer, matrix4f, matrix3f, i, 0.0F, 1, 0, 0, entity.fakeAge, entity.flickers, tickDelta);
 
         matrixStack.pop();
         super.render(entity, yaw, tickDelta, matrixStack, vertexConsumerProvider, i);
@@ -84,8 +84,8 @@ public class FireflyEntityRenderer extends EntityRenderer<FireflyEntity> {
                 .next();
     }
 
-    private static void vertexPulsate(VertexConsumer vertexConsumer, Matrix4f matrix4f, Matrix3f matrix3f, int i, float f, int j, int k, int l, int age, float tickDelta) {
-        int colors = (int) ((int) Math.max((255 * (Math.cos(((age + tickDelta) * Math.PI)/20))),0));
+    private static void vertexPulsate(VertexConsumer vertexConsumer, Matrix4f matrix4f, Matrix3f matrix3f, int i, float f, int j, int k, int l, int age, boolean flickers, float tickDelta) {
+        int colors = !flickers ? (int) ((int) Math.max((255 * (Math.cos(((age + tickDelta) * Math.PI)/20))),0)) : (int) ((int) (255 * (Math.cos(((age + tickDelta) * Math.PI) / 40))) + 127.5);
         vertexConsumer
                 .vertex(matrix4f, f - 0.5F, j - 0.5F, 0.0F)
                 .color(colors, colors, colors, colors)
