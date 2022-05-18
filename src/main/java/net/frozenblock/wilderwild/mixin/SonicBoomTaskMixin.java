@@ -1,5 +1,6 @@
 package net.frozenblock.wilderwild.mixin;
 
+import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.block.EchoGlassBlock;
 import net.frozenblock.wilderwild.registry.RegisterBlocks;
 import net.minecraft.block.BlockState;
@@ -87,6 +88,7 @@ public class SonicBoomTaskMixin {
             } else { hitPos = hit.getBlockPos(); }
         }
         if (blocked) {
+            WilderWild.log("Warden Sonic Boom Blocked @ " + hitPos);
             return hitPos;
         } else {return null;}
     }

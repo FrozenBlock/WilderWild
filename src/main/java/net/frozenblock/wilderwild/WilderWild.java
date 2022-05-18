@@ -10,7 +10,11 @@ import net.frozenblock.wilderwild.world.feature.*;
 import net.frozenblock.wilderwild.world.gen.WildWorldGen;
 import net.frozenblock.wilderwild.world.gen.trunk.FallenTrunkWithLogs;
 import net.frozenblock.wilderwild.world.gen.trunk.StraightTrunkWithLogs;
+import net.minecraft.block.Block;
+import net.minecraft.entity.Entity;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.world.event.GameEvent;
 import net.minecraft.world.gen.ProbabilityConfig;
@@ -23,12 +27,12 @@ import org.slf4j.LoggerFactory;
 public class WilderWild implements ModInitializer {
     public static final String MOD_ID = "wilderwild";
     public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
+    public static boolean DEV_LOGGING = true;
 
     public static final TrunkPlacerType<StraightTrunkWithLogs> STRAIGHT_TRUNK_WITH_LOGS_PLACER_TYPE = TrunkPlacerTypeInvoker.callRegister("straight_trunk_logs_placer", StraightTrunkWithLogs.CODEC);
     public static final TrunkPlacerType<FallenTrunkWithLogs> FALLEN_TRUNK_WITH_LOGS_PLACER_TYPE = TrunkPlacerTypeInvoker.callRegister("fallen_trunk_logs_placer", FallenTrunkWithLogs.CODEC);
     public static final Feature<ShelfFungusFeatureConfig> SHELF_FUNGUS_FEATURE = new ShelfFungusFeature(ShelfFungusFeatureConfig.CODEC);
     public static final CattailFeature CATTAIL_FEATURE = new CattailFeature(ProbabilityConfig.CODEC);
-
 
     @Override
     public void onInitialize() {
@@ -42,7 +46,7 @@ public class WilderWild implements ModInitializer {
         WildWorldGen.generateWildWorldGen();
         RegisterFlammability.register();
         RegisterGameEvents.RegisterEvents();
-        
+
         RegisterSounds.init();
         RegisterBlockSoundGroups.init();
         RegisterBlockEntityType.init();
@@ -64,5 +68,26 @@ public class WilderWild implements ModInitializer {
     public static final Identifier HORN_PROJECTILE_PACKET_ID = new Identifier(WilderWild.MOD_ID, "ancient_horn_projectile_packet");
 
     public static final CameraItem CAMERA_ITEM = new CameraItem(new FabricItemSettings());
+
+    public static void log(String string) {
+        if (DEV_LOGGING) {
+            LOGGER.info(string);
+        }
+    }
+    public static void log(Entity entity, String string) {
+        if (DEV_LOGGING) {
+            LOGGER.info(entity.toString() + " : " + string + " : " + entity.getPos());
+        }
+    }
+    public static void log(Block block, String string) {
+        if (DEV_LOGGING) {
+            LOGGER.info(block.toString() + " : " + string + " : ");
+        }
+    }
+    public static void log(Block block, BlockPos pos, String string) {
+        if (DEV_LOGGING) {
+            LOGGER.info(block.toString() + " : " + string + " : " + pos);
+        }
+    }
 
 }

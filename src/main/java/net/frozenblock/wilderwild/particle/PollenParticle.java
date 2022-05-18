@@ -41,6 +41,7 @@ public class PollenParticle extends SpriteBillboardParticle {
                     this.boostTicksLeft = 5;
                 }
                 this.alreadyBoosted=true;
+                WilderWild.log("Seed Boost");
             }
         }
         if (this.boostTicksLeft>0) {

@@ -1,5 +1,6 @@
 package net.frozenblock.wilderwild.misc;
 
+import net.frozenblock.wilderwild.WilderWild;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -27,6 +28,7 @@ public class CameraItem extends Item {
         if (entity instanceof PlayerEntity player) {
             if (player.getItemCooldownManager().isCoolingDown(this) && player.getItemCooldownManager().getCooldownProgress(this, 0) == 0.9F) {
                 if (world.isClient && canGo) {
+                    WilderWild.LOGGER.warn("PLAYER HAS ACCESS TO DEV CAMERA AND HAS JUST USED IT");
                     MinecraftClient client = MinecraftClient.getInstance();
                     File directory = getPanoramaFolderName(new File(client.runDirectory, "panoramas"));
                     File directory1 = new File(directory, "screenshots");

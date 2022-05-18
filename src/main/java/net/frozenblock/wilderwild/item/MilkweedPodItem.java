@@ -1,5 +1,6 @@
 package net.frozenblock.wilderwild.item;
 
+import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.particle.PollenParticle;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
@@ -18,6 +19,7 @@ public class MilkweedPodItem extends Item {
     }
 
     public TypedActionResult<ItemStack> use(World world, PlayerEntity user, Hand hand) {
+        WilderWild.log(user, "Used Milkweed Pod");
         ItemStack itemStack = user.getStackInHand(hand);
         itemStack.decrement(1);
         if (world instanceof ServerWorld server) {
