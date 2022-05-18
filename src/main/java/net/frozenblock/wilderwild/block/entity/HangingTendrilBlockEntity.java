@@ -97,7 +97,7 @@ public class HangingTendrilBlockEntity extends BlockEntity implements VibrationL
         return (!pos.equals(this.getPos()) || event != GameEvent.BLOCK_DESTROY && event != GameEvent.BLOCK_PLACE) && HangingTendrilBlock.isInactive(this.getCachedState()) && !this.getCachedState().get(HangingTendrilBlock.WRINGING_OUT);
     }
 
-    public void accept(ServerWorld world, GameEventListener listener, BlockPos pos, GameEvent event, @Nullable Entity entity, @Nullable Entity sourceEntity, int delay) {
+    public void accept(ServerWorld world, GameEventListener listener, BlockPos pos, GameEvent event, @Nullable Entity entity, @Nullable Entity sourceEntity, float delay) {
         BlockState blockState = this.getCachedState();
         if (HangingTendrilBlock.isInactive(blockState)) {
             this.lastVibrationFrequency = SculkSensorBlock.FREQUENCIES.getInt(event);
@@ -110,7 +110,7 @@ public class HangingTendrilBlockEntity extends BlockEntity implements VibrationL
         this.markDirty();
     }
 
-    public static int getPower(int distance, int range) {
+    public static int getPower(float distance, float range) {
         double d = (double)distance / (double)range;
         return Math.max(1, 15 - MathHelper.floor(d * 15.0D));
     }

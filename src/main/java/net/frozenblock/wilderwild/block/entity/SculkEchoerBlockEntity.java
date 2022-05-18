@@ -126,7 +126,7 @@ public class SculkEchoerBlockEntity extends BlockEntity implements VibrationList
     }
 
     @Override
-    public void accept(ServerWorld world, GameEventListener listener, BlockPos pos, GameEvent event, @Nullable Entity entity, @Nullable Entity sourceEntity, int delay) {
+    public void accept(ServerWorld world, GameEventListener listener, BlockPos pos, GameEvent event, @Nullable Entity entity, @Nullable Entity sourceEntity, float delay) {
         BlockState blockState = this.getCachedState();
         if (SculkEchoerBlock.isInactive(blockState)) {
             this.lastVibrationFreq = SculkEchoerBlock.FREQUENCIES.getInt(event);
@@ -138,7 +138,7 @@ public class SculkEchoerBlockEntity extends BlockEntity implements VibrationList
         this.markDirty();
     }
 
-    public static int getBubbles(int distance, int range) {
+    public static int getBubbles(float distance, float range) {
         double d = (double)distance / (double)range;
         return Math.max(1, 15 - MathHelper.floor(d * 15.0));
     }
