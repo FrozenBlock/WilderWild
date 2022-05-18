@@ -222,7 +222,7 @@ public class AncientHornProjectileEntity extends PersistentProjectileEntity {
     }
     private static void trySpawnWarden(ServerWorld world, BlockPos pos) {
         if (world.getGameRules().getBoolean(GameRules.DO_WARDEN_SPAWNING)) {
-            LargeEntitySpawnHelper.trySpawnAt(EntityType.WARDEN, SpawnReason.TRIGGERED, world, pos, 20, 5, 6, LargeEntitySpawnHelper.class_7502.field_39401).ifPresent((entity) -> {
+            LargeEntitySpawnHelper.trySpawnAt(EntityType.WARDEN, SpawnReason.TRIGGERED, world, pos, 20, 5, 6).ifPresent((entity) -> {
                 entity.playSound(SoundEvents.ENTITY_WARDEN_AGITATED, 5.0F, 1.0F);
             });
         }
