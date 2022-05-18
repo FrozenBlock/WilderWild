@@ -1,6 +1,7 @@
 package net.frozenblock.wilderwild.mixin;
 
 import net.frozenblock.wilderwild.WilderWild;
+import net.frozenblock.wilderwild.registry.RegisterGameEvents;
 import net.frozenblock.wilderwild.registry.RegisterProperties;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.SculkSensorBlock;
@@ -24,7 +25,7 @@ public class SculkSensorBlockEntityMixin {
         SculkSensorBlockEntity sculkSensorBlockEntity = SculkSensorBlockEntity.class.cast(this);
         BlockState blockState = sculkSensorBlockEntity.getCachedState();
         if (SculkSensorBlock.isInactive(blockState)) {
-            world.emitGameEvent(entity, WilderWild.SCULK_SENSOR_ACTIVATE, sculkSensorBlockEntity.getPos());
+            world.emitGameEvent(entity, RegisterGameEvents.SCULK_SENSOR_ACTIVATE, sculkSensorBlockEntity.getPos());
             BlockState state = world.getBlockState(sculkSensorBlockEntity.getPos());
             world.setBlockState(sculkSensorBlockEntity.getPos(), state.with(RegisterProperties.NOT_HICCUPPING, true));
         }

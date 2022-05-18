@@ -1,7 +1,8 @@
 package net.frozenblock.wilderwild.block;
 
 import net.frozenblock.wilderwild.WilderWild;
-import net.frozenblock.wilderwild.registry.NewDamageSource;
+import net.frozenblock.wilderwild.misc.NewDamageSource;
+import net.frozenblock.wilderwild.registry.RegisterGameEvents;
 import net.frozenblock.wilderwild.registry.RegisterSounds;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -69,7 +70,7 @@ public class SculkJawBlock extends Block implements SculkSpreadable {
             if (entity.damage(NewDamageSource.SCULK_JAW, entity instanceof PlayerEntity ? 2.5f : 8f)) {
                 world.setBlockState(pos, state.with(ACTIVE, true), 3);
                 world.createAndScheduleBlockTick(pos, state.getBlock(), 60);
-                world.emitGameEvent(entity, WilderWild.JAW_ACTIVATE, pos);
+                world.emitGameEvent(entity, RegisterGameEvents.JAW_ACTIVATE, pos);
                 world.playSound(
                         null,
                         pos,

@@ -1,4 +1,4 @@
-package net.frozenblock.wilderwild.registry;
+package net.frozenblock.wilderwild.misc;
 
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.damage.DamageSource;

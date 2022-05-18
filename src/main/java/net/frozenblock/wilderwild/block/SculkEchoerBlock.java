@@ -6,10 +6,7 @@ import it.unimi.dsi.fastutil.objects.Object2IntOpenHashMap;
 import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.block.entity.SculkEchoerBlockEntity;
 import net.frozenblock.wilderwild.block.entity.SculkEchoerPhase;
-import net.frozenblock.wilderwild.registry.RegisterBlockEntityType;
-import net.frozenblock.wilderwild.registry.RegisterBlocks;
-import net.frozenblock.wilderwild.registry.RegisterProperties;
-import net.frozenblock.wilderwild.registry.RegisterSounds;
+import net.frozenblock.wilderwild.registry.*;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityTicker;
@@ -46,7 +43,7 @@ import org.jetbrains.annotations.Nullable;
 public class SculkEchoerBlock extends BlockWithEntity implements Waterloggable {
     public static final Object2IntMap<GameEvent> FREQUENCIES = Object2IntMaps.unmodifiable(Util.make(new Object2IntOpenHashMap<>(), (map) -> {
         map.put(GameEvent.STEP, 1);
-        map.put(WilderWild.TENDRIL_EXTRACT_XP, 1);
+        map.put(RegisterGameEvents.TENDRIL_EXTRACT_XP, 1);
         map.put(GameEvent.FLAP, 2);
         map.put(GameEvent.SWIM, 3);
         map.put(GameEvent.ELYTRA_GLIDE, 4);

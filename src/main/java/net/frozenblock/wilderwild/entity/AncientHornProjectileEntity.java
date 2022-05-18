@@ -5,6 +5,7 @@ import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.block.SculkEchoerBlock;
 import net.frozenblock.wilderwild.block.entity.HangingTendrilBlockEntity;
+import net.frozenblock.wilderwild.misc.NewProjectileDamageSource;
 import net.frozenblock.wilderwild.particle.FloatingSculkBubbleParticle;
 import net.frozenblock.wilderwild.registry.*;
 import net.frozenblock.wilderwild.tag.WildBlockTags;
@@ -200,7 +201,7 @@ public class AncientHornProjectileEntity extends PersistentProjectileEntity {
                 if (SculkSensorBlock.isInactive(blockState)) {
                     SculkSensorBlock.setActive(null, world, pos, world.getBlockState(pos), (int) (Math.random() * 15));
                     world.emitGameEvent(owner, GameEvent.SCULK_SENSOR_TENDRILS_CLICKING, pos);
-                    world.emitGameEvent(owner, WilderWild.SCULK_SENSOR_ACTIVATE, pos);
+                    world.emitGameEvent(owner, RegisterGameEvents.SCULK_SENSOR_ACTIVATE, pos);
                     setCooldown(getCooldown(this.getOwner(), sensorCooldown, ((-this.cooldownLevel*40) + (this.speedLevel*10))));
                 }
             }

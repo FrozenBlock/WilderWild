@@ -6,6 +6,7 @@ import com.mojang.serialization.Dynamic;
 import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.block.HangingTendrilBlock;
 import net.frozenblock.wilderwild.registry.RegisterBlockEntityType;
+import net.frozenblock.wilderwild.registry.RegisterGameEvents;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.SculkSensorBlock;
 import net.minecraft.block.entity.BlockEntity;
@@ -52,7 +53,7 @@ public class HangingTendrilBlockEntity extends BlockEntity implements VibrationL
                 int droppedXP = this.storedXP>1 ? this.storedXP/2 : 1;
                 ExperienceOrbEntity.spawn((ServerWorld)world, Vec3d.ofCenter(pos).add(0, -0.5, 0), droppedXP);
                 this.storedXP=this.storedXP-droppedXP;
-                world.emitGameEvent(null, WilderWild.TENDRIL_EXTRACT_XP, pos);
+                world.emitGameEvent(null, RegisterGameEvents.TENDRIL_EXTRACT_XP, pos);
             }
         }
         this.listener.tick(world);

@@ -8,6 +8,7 @@ import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.block.SculkEchoerBlock;
 import net.frozenblock.wilderwild.particle.FloatingSculkBubbleParticle;
 import net.frozenblock.wilderwild.registry.RegisterBlockEntityType;
+import net.frozenblock.wilderwild.registry.RegisterGameEvents;
 import net.frozenblock.wilderwild.registry.RegisterProperties;
 import net.frozenblock.wilderwild.tag.WildEventTags;
 import net.minecraft.block.BlockState;
@@ -68,7 +69,7 @@ public class SculkEchoerBlockEntity extends BlockEntity implements VibrationList
                     int size = bubbleSizes.getInt(index);
                     bubbleTicks.set(index, i - 1);
                     if (i - 1 <= 0) {
-                        GameEvent event = size>0 ? WilderWild.SCULK_ECHOER_LOUD_ECHO : WilderWild.SCULK_ECHOER_ECHO;
+                        GameEvent event = size>0 ? RegisterGameEvents.SCULK_ECHOER_LOUD_ECHO : RegisterGameEvents.SCULK_ECHOER_ECHO;
                         double offset = upsidedown ? -0.5 : 1.5;
                         world.emitGameEvent(null, event, pos.add(0.5, offset, 0.5));
                         bubbleTicks.removeInt(index);

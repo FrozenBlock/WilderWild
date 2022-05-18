@@ -24,12 +24,6 @@ public class WilderWild implements ModInitializer {
     public static final String MOD_ID = "wilderwild";
     public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
 
-    public static final GameEvent JAW_ACTIVATE = new GameEvent("jaw_activate", 8);
-    public static final GameEvent SCULK_ECHOER_ECHO = new GameEvent("sculk_echoer_echo", 16);
-    public static final GameEvent SCULK_ECHOER_LOUD_ECHO = new GameEvent("sculk_echoer_loud_echo", 16);
-    public static final GameEvent SCULK_SENSOR_ACTIVATE = new GameEvent("sculk_sensor_activate", 16);
-    public static final GameEvent TENDRIL_EXTRACT_XP = new GameEvent("hanging_tendril_extract_xp", 16);
-
     public static final TrunkPlacerType<StraightTrunkWithLogs> STRAIGHT_TRUNK_WITH_LOGS_PLACER_TYPE = TrunkPlacerTypeInvoker.callRegister("straight_trunk_logs_placer", StraightTrunkWithLogs.CODEC);
     public static final TrunkPlacerType<FallenTrunkWithLogs> FALLEN_TRUNK_WITH_LOGS_PLACER_TYPE = TrunkPlacerTypeInvoker.callRegister("fallen_trunk_logs_placer", FallenTrunkWithLogs.CODEC);
     public static final Feature<ShelfFungusFeatureConfig> SHELF_FUNGUS_FEATURE = new ShelfFungusFeature(ShelfFungusFeatureConfig.CODEC);
@@ -39,8 +33,6 @@ public class WilderWild implements ModInitializer {
     @Override
     public void onInitialize() {
         RegisterBlocks.RegisterBlocks();
-        RegisterSounds.init();
-        RegisterBlockSoundGroups.init();
         RegisterItems.RegisterItems();
         RegisterParticles.RegisterParticles();
         WildConfiguredFeatures.registerConfiguredFeatures();
@@ -48,17 +40,15 @@ public class WilderWild implements ModInitializer {
         WildTreePlaced.registerTreePlaced();
         WildMiscConfigured.registerMiscPlaced();
         WildWorldGen.generateWildWorldGen();
+        RegisterFlammability.register();
+        RegisterGameEvents.RegisterEvents();
+        
+        RegisterSounds.init();
+        RegisterBlockSoundGroups.init();
         RegisterBlockEntityType.init();
         RegisterEntities.init();
         RegisterEnchantments.init();
         BlockSoundGroupOverwrites.init();
-        RegisterFlammability.register();
-
-        Registry.register(Registry.GAME_EVENT, new Identifier(WilderWild.MOD_ID, "jaw_activate"), JAW_ACTIVATE);
-        Registry.register(Registry.GAME_EVENT, new Identifier(WilderWild.MOD_ID, "sculk_echoer_echo"), SCULK_ECHOER_ECHO);
-        Registry.register(Registry.GAME_EVENT, new Identifier(WilderWild.MOD_ID, "sculk_echoer_loud_echo"), SCULK_ECHOER_LOUD_ECHO);
-        Registry.register(Registry.GAME_EVENT, new Identifier(WilderWild.MOD_ID, "sculk_sensor_activate"), SCULK_SENSOR_ACTIVATE);
-        Registry.register(Registry.GAME_EVENT, new Identifier(WilderWild.MOD_ID, "hanging_tendril_extract_xp"), TENDRIL_EXTRACT_XP);
 
         Registry.register(Registry.FEATURE, new Identifier(WilderWild.MOD_ID, "shelf_fungus_feature"), SHELF_FUNGUS_FEATURE);
         Registry.register(Registry.FEATURE, new Identifier(WilderWild.MOD_ID, "cattail_feature"), CATTAIL_FEATURE);
