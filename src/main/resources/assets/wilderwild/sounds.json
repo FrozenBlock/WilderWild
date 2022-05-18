@@ -447,10 +447,5 @@
 		"sounds": [
 			"wilderwild:records/the_other_side"
 		]
-	},
-	"music.overworld.forests": {
-		"sounds": [
-			"wilderwild:music/ludocrypt/serene_sonder"
-		]
 	}
 }

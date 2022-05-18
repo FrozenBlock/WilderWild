@@ -1,0 +1,11 @@
+{
+  "music.overworld.jungle_and_forest": {
+	"replace": "false",
+    "sounds": [
+      {
+        "name": "wilderwild:music/ludocrypt/serene_sonder",
+        "stream": true
+      }
+    ]
+  }
+}
