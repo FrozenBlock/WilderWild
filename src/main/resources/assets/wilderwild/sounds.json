@@ -442,5 +442,15 @@
 		"sounds": [
 			"wilderwild:records/goathorn_symphony"
 		]
+	},
+	"music_disc.the_other_side": {
+		"sounds": [
+			"wilderwild:records/the_other_side"
+		]
+	},
+	"music.overworld.forests": {
+		"sounds": [
+			"wilderwild:music/ludocrypt/serene_sonder"
+		]
 	}
 }
