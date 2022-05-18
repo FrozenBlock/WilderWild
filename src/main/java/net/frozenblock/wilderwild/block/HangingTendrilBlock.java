@@ -175,7 +175,7 @@ public class HangingTendrilBlock extends BlockWithEntity implements Waterloggabl
         updateNeighbors(world, pos);
     }
 
-    public static void setActive(World world, BlockPos pos, BlockState state, int power) {
+    public static void setActive(World world, BlockPos pos, BlockState state, float power) {
         world.setBlockState(pos, state.with(HANGING_TENDRIL_PHASE, HangingTendrilPhase.ACTIVE), 3);
         world.createAndScheduleBlockTick(pos, state.getBlock(), 60);
         updateNeighbors(world, pos);
