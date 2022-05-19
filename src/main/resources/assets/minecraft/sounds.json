@@ -3,7 +3,7 @@
 	"replace": "false",
     "sounds": [
       {
-        "name": "wilderwild:music/ludocrypt/serene_sonder",
+        "name": "wildermusic/ludocrypt/serene_sonder",
         "stream": true
       }
     ]

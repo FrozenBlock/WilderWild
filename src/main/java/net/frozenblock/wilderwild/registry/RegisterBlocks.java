@@ -102,6 +102,7 @@ public abstract class RegisterBlocks {
     public static final Block CARNATION = registerBlock("carnation",
             new FlowerBlock(StatusEffects.REGENERATION, 12, FabricBlockSettings
             .copy(Blocks.DANDELION)
+            .sounds(BlockSoundGroup.SPORE_BLOSSOM)
             .strength(0.0F)
             .nonOpaque()),
             ItemGroup.DECORATIONS
@@ -109,6 +110,7 @@ public abstract class RegisterBlocks {
     public static final Block WHITE_DANDELION = registerBlock("white_dandelion",
             new WhiteDandelionBlock(StatusEffects.SLOW_FALLING, 12, FabricBlockSettings
                     .copy(Blocks.DANDELION)
+                    .sounds(BlockSoundGroup.SPORE_BLOSSOM)
                     .strength(0.0F)
                     .nonOpaque()),
             ItemGroup.DECORATIONS
@@ -141,7 +143,6 @@ public abstract class RegisterBlocks {
     public static final Block RED_SHELF_FUNGUS = registerBlock("red_shelf_fungus",
             new ShelfFungusBlock(FabricBlockSettings
                     .copyOf(Blocks.RED_MUSHROOM_BLOCK)
-                    .lightLevel(1)
                     .collidable(false)
                     .nonOpaque()
                     .sounds(RegisterBlockSoundGroups.MUSHROOM)),
