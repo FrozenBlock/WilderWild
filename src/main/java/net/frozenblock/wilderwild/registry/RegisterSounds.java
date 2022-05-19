@@ -58,7 +58,7 @@ public class RegisterSounds {
     public static final SoundEvent MUSIC_DISC_BENEATH = register("music_disc.beneath");
     public static final SoundEvent MUSIC_DISC_GOATHORN_SYMPHONY = register("music_disc.goathorn_symphony");
     public static final SoundEvent MUSIC_DISC_THE_OTHER_SIDE = register("music_disc.the_other_side");
-    public static final SoundEvent MUSIC_OVERWORLD_BIRCH_FOREST = register("music.overworld.birch_forest");
+    public static final SoundEvent MUSIC_OVERWORLD_WILD_FORESTS = register("music.overworld.wild_forests");
 
     public static SoundEvent register(String string) {
         return Registry.register(Registry.SOUND_EVENT, new Identifier(WilderWild.MOD_ID, string), new SoundEvent(new Identifier(WilderWild.MOD_ID, string)));
