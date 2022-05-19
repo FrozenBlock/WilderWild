@@ -352,23 +352,23 @@
 	},
 	"block.reinforced_deepslate.fall": {
 		"sounds": [
-			"minecraft:block/deepslate/step1",
-			"minecraft:block/deepslate/step2",
-			"minecraft:block/deepslate/step3",
-			"minecraft:block/deepslate/step4",
-			"minecraft:block/deepslate/step5",
-			"minecraft:block/deepslate/step6"
+			"wilderwild:block/reinforced_deepslate/step1",
+			"wilderwild:block/reinforced_deepslate/step2",
+			"wilderwild:block/reinforced_deepslate/step3",
+			"wilderwild:block/reinforced_deepslate/step4",
+			"wilderwild:block/reinforced_deepslate/step5",
+			"wilderwild:block/reinforced_deepslate/step6"
 		],
 		"subtitle": "subtitles.block.generic.fall"
 	},
 	"block.reinforced_deepslate.hit": {
 		"sounds": [
-			"minecraft:block/deepslate/step1",
-			"minecraft:block/deepslate/step2",
-			"minecraft:block/deepslate/step3",
-			"minecraft:block/deepslate/step4",
-			"minecraft:block/deepslate/step5",
-			"minecraft:block/deepslate/step6"
+			"wilderwild:block/reinforced_deepslate/step1",
+			"wilderwild:block/reinforced_deepslate/step2",
+			"wilderwild:block/reinforced_deepslate/step3",
+			"wilderwild:block/reinforced_deepslate/step4",
+			"wilderwild:block/reinforced_deepslate/step5",
+			"wilderwild:block/reinforced_deepslate/step6"
 		],
 		"subtitle": "subtitles.block.generic.hit"
 	},
@@ -385,23 +385,21 @@
 	},
 	"block.reinforced_deepslate.break": {
 		"sounds": [
-			"wilderwild:block/reinforced_deepslate/place1",
-			"wilderwild:block/reinforced_deepslate/place2",
-			"wilderwild:block/reinforced_deepslate/place3",
-			"wilderwild:block/reinforced_deepslate/place4",
-			"wilderwild:block/reinforced_deepslate/place5",
-			"wilderwild:block/reinforced_deepslate/place6"
+			"wilderwild:block/reinforced_deepslate/break1",
+			"wilderwild:block/reinforced_deepslate/break2",
+			"wilderwild:block/reinforced_deepslate/break3",
+			"wilderwild:block/reinforced_deepslate/break4"
 		],
 		"subtitle": "subtitles.block.generic.break"
 	},
 	"block.reinforced_deepslate.step": {
 		"sounds": [
-			"minecraft:block/deepslate/step1",
-			"minecraft:block/deepslate/step2",
-			"minecraft:block/deepslate/step3",
-			"minecraft:block/deepslate/step4",
-			"minecraft:block/deepslate/step5",
-			"minecraft:block/deepslate/step6"
+			"wilderwild:block/reinforced_deepslate/step1",
+			"wilderwild:block/reinforced_deepslate/step2",
+			"wilderwild:block/reinforced_deepslate/step3",
+			"wilderwild:block/reinforced_deepslate/step4",
+			"wilderwild:block/reinforced_deepslate/step5",
+			"wilderwild:block/reinforced_deepslate/step6"
 		],
 		"subtitle": "subtitles.block.generic.footsteps"
 	},
@@ -506,12 +504,18 @@
 	"music.overworld.wild_forests": {
 		"sounds": [
 			{
+				"name": "music.overworld.jungle_and_forests",
+				"type": "event"
+			},
+			{
 				"name": "wilderwild:music/ludocrypt/wild_forests/serene_sonder",
+				"weight": 3,
 				"stream": true,
 				"volume": 0.8
 			},
 			{
 				"name": "wilderwild:music/ludocrypt/wild_forests/horizon_afoot",
+				"weight": 3,
 				"stream": true,
 				"volume": 0.8
 			}
