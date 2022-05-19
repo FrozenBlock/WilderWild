@@ -17,8 +17,16 @@ import java.util.List;
 
 
 public class WildConfiguredFeatures {
-    public static final RegistryEntry<ConfiguredFeature<RandomFeatureConfig, ?>> NEW_FALLEN_SPRUCE_AND_OAK =
-            ConfiguredFeatures.register("new_fallen_spruce_and_oak", Feature.RANDOM_SELECTOR,
+    public static final RegistryEntry<ConfiguredFeature<RandomFeatureConfig, ?>> NEW_DARK_FOREST_VEGETATION =
+            ConfiguredFeatures.register("new_dark_forest_vegetation", Feature.RANDOM_SELECTOR,
+                    new RandomFeatureConfig(List.of(new RandomFeatureEntry(PlacedFeatures.createEntry(TreeConfiguredFeatures.HUGE_BROWN_MUSHROOM, new PlacementModifier[0]), 0.025F),
+                            new RandomFeatureEntry(PlacedFeatures.createEntry(TreeConfiguredFeatures.HUGE_RED_MUSHROOM, new PlacementModifier[0]), 0.05F),
+                            new RandomFeatureEntry(TreePlacedFeatures.DARK_OAK_CHECKED, 0.6666667F),
+                            new RandomFeatureEntry(WildTreePlaced.SHORT_BIRCH, 0.2F),
+                            new RandomFeatureEntry(WildTreePlaced.NEW_TALL_DARK_OAK_CHECKED, 0.35F),
+                            new RandomFeatureEntry(WildTreePlaced.NEW_FANCY_OAK_CHECKED, 0.185F)), WildTreePlaced.NEW_OAK_CHECKED));
+    public static final RegistryEntry<ConfiguredFeature<RandomFeatureConfig, ?>> FALLEN_SPRUCE_AND_OAK =
+            ConfiguredFeatures.register("fallen_spruce_and_oak", Feature.RANDOM_SELECTOR,
                     new RandomFeatureConfig(List.of(new RandomFeatureEntry(WildTreePlaced.FALLEN_SPRUCE_CHECKED, 0.55F)), WildTreePlaced.NEW_FALLEN_OAK_CHECKED));
     public static final RegistryEntry<ConfiguredFeature<RandomFeatureConfig, ?>> NEW_TREES_WINDSWEPT_HILLS =
             ConfiguredFeatures.register("new_trees_windswept_hills", Feature.RANDOM_SELECTOR,

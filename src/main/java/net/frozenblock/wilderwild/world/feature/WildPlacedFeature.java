@@ -15,7 +15,10 @@ import static net.minecraft.world.gen.feature.VegetationPlacedFeatures.*;
 
 public class WildPlacedFeature {
     //TREES
-    public static final RegistryEntry<PlacedFeature> NEW_TREES_FLOWER_FOREST = PlacedFeatures.register("new_trees_flower_forest", WildConfiguredFeatures.NEW_TREES_FLOWER_FOREST, modifiers(PlacedFeatures.createCountExtraModifier(8, 0.1F, 1)));
+    public static final RegistryEntry<PlacedFeature> NEW_DARK_FOREST_VEGETATION = PlacedFeatures.register("new_dark_forest_vegetation",
+            WildConfiguredFeatures.NEW_DARK_FOREST_VEGETATION, new PlacementModifier[]{CountPlacementModifier.of(16), SquarePlacementModifier.of(), NOT_IN_SURFACE_WATER_MODIFIER, PlacedFeatures.OCEAN_FLOOR_HEIGHTMAP, BiomePlacementModifier.of()});
+    public static final RegistryEntry<PlacedFeature> NEW_TREES_FLOWER_FOREST = PlacedFeatures.register("new_trees_flower_forest",
+            WildConfiguredFeatures.NEW_TREES_FLOWER_FOREST, modifiers(PlacedFeatures.createCountExtraModifier(8, 0.1F, 1)));
 
     public static final RegistryEntry<PlacedFeature> NEW_TREES_PLAINS = PlacedFeatures.register("new_trees_plains", WildConfiguredFeatures.NEW_TREES_PLAINS,
             PlacedFeatures.createCountExtraModifier(0, 0.05F, 1), SquarePlacementModifier.of(), NOT_IN_SURFACE_WATER_MODIFIER, PlacedFeatures.OCEAN_FLOOR_HEIGHTMAP, BlockFilterPlacementModifier.of(BlockPredicate.wouldSurvive(Blocks.OAK_SAPLING.getDefaultState(), BlockPos.ORIGIN)), BiomePlacementModifier.of());
@@ -27,14 +30,11 @@ public class WildPlacedFeature {
             WildConfiguredFeatures.NEW_FALLEN_BIRCH_AND_OAK, RarityFilterPlacementModifier.of(5), SquarePlacementModifier.of(),
             PlacedFeatures.MOTION_BLOCKING_HEIGHTMAP, BiomePlacementModifier.of());
     public static final RegistryEntry<PlacedFeature> FALLEN_OAK_AND_SPRUCE_PLACED = PlacedFeatures.register("fallen_oak_and_spruce_placed",
-            WildConfiguredFeatures.NEW_FALLEN_SPRUCE_AND_OAK, RarityFilterPlacementModifier.of(7), SquarePlacementModifier.of(),
+            WildConfiguredFeatures.FALLEN_SPRUCE_AND_OAK, RarityFilterPlacementModifier.of(7), SquarePlacementModifier.of(),
             PlacedFeatures.MOTION_BLOCKING_HEIGHTMAP, BiomePlacementModifier.of());
 
     public static final RegistryEntry<PlacedFeature> NEW_TREES_BIRCH_AND_OAK = PlacedFeatures.register("new_trees_birch_and_oak",
             WildConfiguredFeatures.NEW_TREES_BIRCH_AND_OAK, modifiers(PlacedFeatures.createCountExtraModifier(10, 0.1F, 1)));
-
-    public static final RegistryEntry<PlacedFeature> NEW_FANCY_OAK_PLACED = PlacedFeatures.register("new_fancy_oak_placed",
-            WildTreeConfigured.NEW_FANCY_OAK, modifiersWithWouldSurvive(PlacedFeatures.createCountExtraModifier(1, 0.1F, 1), Blocks.OAK_SAPLING));
 
     public static final RegistryEntry<PlacedFeature> NEW_BIRCH_PLACED = PlacedFeatures.register("new_birch_placed",
             WildTreeConfigured.NEW_BIRCH_BEES_0004, modifiersWithWouldSurvive(PlacedFeatures.createCountExtraModifier(10, 0.1F, 1), Blocks.BIRCH_SAPLING));
@@ -49,9 +49,6 @@ public class WildPlacedFeature {
     public static final RegistryEntry<PlacedFeature> HUGE_RED_MUSHROOM_PLACED = PlacedFeatures.register("huge_red_mushroom_placed",
             TreeConfiguredFeatures.HUGE_RED_MUSHROOM, RarityFilterPlacementModifier.of(90), SquarePlacementModifier.of(),
             PlacedFeatures.MOTION_BLOCKING_HEIGHTMAP, BiomePlacementModifier.of());
-
-    public static final RegistryEntry<PlacedFeature> NEW_TALL_DARK_OAK_PLACED = PlacedFeatures.register("new_tall_dark_oak_placed",
-            WildTreeConfigured.NEW_TALL_DARK_OAK, modifiersWithWouldSurvive(PlacedFeatures.createCountExtraModifier(4, 0.1F, 1), Blocks.DARK_OAK_SAPLING));
 
     public static final RegistryEntry<PlacedFeature> NEW_SPRUCE_PLACED = PlacedFeatures.register("new_spruce_placed",
             WildConfiguredFeatures.NEW_TREES_TAIGA, modifiers(PlacedFeatures.createCountExtraModifier(10, 0.1F, 1)));

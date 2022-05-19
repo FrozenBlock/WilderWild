@@ -28,6 +28,7 @@ public class WildTreePlaced {
     public static final RegistryEntry<PlacedFeature> FUNGUS_PINE_ON_SNOW;
     public static final RegistryEntry<PlacedFeature> MEGA_FUNGUS_SPRUCE_CHECKED;
     public static final RegistryEntry<PlacedFeature> MEGA_FUNGUS_PINE_CHECKED;
+    public static final RegistryEntry<PlacedFeature> SHORT_BIRCH;
 
     static {
         NEW_FANCY_OAK_BEES_0004 = PlacedFeatures.register("new_fancy_oak_bees_0004", WildTreeConfigured.NEW_FANCY_OAK_BEES_0004, PlacedFeatures.wouldSurvive(Blocks.OAK_SAPLING));
@@ -50,6 +51,7 @@ public class WildTreePlaced {
         FUNGUS_PINE_ON_SNOW = PlacedFeatures.register("fungus_pine_on_snow", WildTreeConfigured.FUNGUS_PINE, ON_SNOW_MODIFIERS);
         MEGA_FUNGUS_SPRUCE_CHECKED = PlacedFeatures.register("mega_fungus_spruce_checked", WildTreeConfigured.MEGA_FUNGUS_SPRUCE, PlacedFeatures.wouldSurvive(Blocks.SPRUCE_SAPLING));
         MEGA_FUNGUS_PINE_CHECKED = PlacedFeatures.register("mega_fungus_pine_checked", WildTreeConfigured.MEGA_FUNGUS_PINE, PlacedFeatures.wouldSurvive(Blocks.SPRUCE_SAPLING));
+        SHORT_BIRCH = PlacedFeatures.register("short_birch", WildTreeConfigured.SHORT_BIRCH, PlacedFeatures.wouldSurvive(Blocks.BIRCH_SAPLING));
     }
 
     public static void registerTreePlaced() {
