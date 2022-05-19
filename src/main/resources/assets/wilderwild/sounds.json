@@ -507,7 +507,13 @@
 		"sounds": [
 			{
 				"name": "wilderwild:music/ludocrypt/wild_forests/serene_sonder",
-				"stream": true
+				"stream": true,
+				"volume": 0.8
+			},
+			{
+				"name": "wilderwild:music/ludocrypt/wild_forests/horizon_afoot",
+				"stream": true,
+				"volume": 0.8
 			}
 		]
 	}
