@@ -13,6 +13,8 @@ public class WildWorldGen {
         WildTreeDecorators.generateTreeDecorators();
         WildTreesGeneration.generateTrees();
         WildMushroomGeneration.generateMushroom();
+
+        WildMusic.playMusic();
     }
 }
 
