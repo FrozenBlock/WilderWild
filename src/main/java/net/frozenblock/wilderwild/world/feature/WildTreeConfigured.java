@@ -17,10 +17,7 @@ import net.minecraft.util.math.intprovider.UniformIntProvider;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.util.registry.RegistryEntry;
 import net.minecraft.util.registry.RegistryEntryList;
-import net.minecraft.world.gen.feature.ConfiguredFeature;
-import net.minecraft.world.gen.feature.ConfiguredFeatures;
-import net.minecraft.world.gen.feature.Feature;
-import net.minecraft.world.gen.feature.TreeFeatureConfig;
+import net.minecraft.world.gen.feature.*;
 import net.minecraft.world.gen.feature.size.ThreeLayersFeatureSize;
 import net.minecraft.world.gen.feature.size.TwoLayersFeatureSize;
 import net.minecraft.world.gen.foliage.*;
@@ -45,6 +42,7 @@ import java.util.OptionalInt;
 
 public class WildTreeConfigured {
     private static final BeehiveTreeDecorator NEW_BEES_0004;
+    private static final BeehiveTreeDecorator NEW_BEES;
     private static final ShelfFungusTreeDecorator SHELF_FUNGUS_008;
     private static final ShelfFungusTreeDecorator SHELF_FUNGUS_007;
     private static final ShelfFungusTreeDecorator SHELF_FUNGUS_007_ONLY_BROWN;
@@ -67,6 +65,8 @@ public class WildTreeConfigured {
     public static final RegistryEntry<ConfiguredFeature<TreeFeatureConfig, ?>> MEGA_FUNGUS_SPRUCE;
     public static final RegistryEntry<ConfiguredFeature<TreeFeatureConfig, ?>> MEGA_FUNGUS_PINE;
     public static final RegistryEntry<ConfiguredFeature<TreeFeatureConfig, ?>> SHORT_BIRCH;
+    public static final RegistryEntry<ConfiguredFeature<TreeFeatureConfig, ?>> NEW_SUPER_BIRCH_BEES;
+    public static final RegistryEntry<ConfiguredFeature<TreeFeatureConfig, ?>> NEW_FANCY_OAK_BEES;
 
     public WildTreeConfigured() {
     }
@@ -121,6 +121,7 @@ public class WildTreeConfigured {
         SHELF_FUNGUS_007 = new ShelfFungusTreeDecorator(0.07F, 0.15F);
         SHELF_FUNGUS_007_ONLY_BROWN = new ShelfFungusTreeDecorator(0.07F, 0.0F);
         NEW_BEES_0004 = new BeehiveTreeDecorator(0.004F);
+        NEW_BEES = new BeehiveTreeDecorator(1.0F);
         //BIRCH
         NEW_BIRCH_TREE = ConfiguredFeatures.register("new_birch_tree", Feature.TREE, new_birch().dirtProvider(BlockStateProvider.of(Blocks.DIRT)).decorators(ImmutableList.of(SHELF_FUNGUS_008)).build());
         NEW_BIRCH_BEES_0004 = ConfiguredFeatures.register("new_birch_bees_0002", Feature.TREE, new_birch().decorators(ImmutableList.of(NEW_BEES_0004, SHELF_FUNGUS_008)).ignoreVines().build());
@@ -128,12 +129,14 @@ public class WildTreeConfigured {
         NEW_SUPER_BIRCH_BEES_0004 = ConfiguredFeatures.register("new_super_birch_bees_0004", Feature.TREE, new_superBirch().decorators(ImmutableList.of(NEW_BEES_0004, SHELF_FUNGUS_008)).build());
         NEW_FALLEN_BIRCH_TREE = ConfiguredFeatures.register("new_fallen_birch_tree", Feature.TREE, fallen_birch().dirtProvider(BlockStateProvider.of(Blocks.DIRT)).build());
         SHORT_BIRCH = ConfiguredFeatures.register("short_birch", Feature.TREE, new_short_birch().decorators(ImmutableList.of(SHELF_FUNGUS_007)).ignoreVines().build());
+        NEW_SUPER_BIRCH_BEES = ConfiguredFeatures.register("new_super_birch_bees", Feature.TREE, new_superBirch().decorators(ImmutableList.of(NEW_BEES)).build());
         //OAK
         NEW_OAK = ConfiguredFeatures.register("new_oak", Feature.TREE, new_oak().build());
         NEW_OAK_BEES_0004 = ConfiguredFeatures.register("new_oak_bees_0004", Feature.TREE, new_oak().decorators(ImmutableList.of(NEW_BEES_0004, SHELF_FUNGUS_007)).ignoreVines().build());
         NEW_FANCY_OAK = ConfiguredFeatures.register("new_fancy_oak", Feature.TREE, new_fancyOak().build());
         NEW_FANCY_OAK_BEES_0004 = ConfiguredFeatures.register("new_fancy_oak_bees_0004", Feature.TREE, new_fancyOak().decorators(List.of(NEW_BEES_0004)).build());
         NEW_FALLEN_OAK_TREE = ConfiguredFeatures.register("new_fallen_oak_tree", Feature.TREE, fallen_oak().dirtProvider(BlockStateProvider.of(Blocks.DIRT)).build());
+        NEW_FANCY_OAK_BEES = ConfiguredFeatures.register("new_fancy_oak_bees", Feature.TREE, new_fancyOak().decorators(List.of(NEW_BEES)).build());
         //DARK OAK
         NEW_TALL_DARK_OAK = ConfiguredFeatures.register("new_tall_dark_oak", Feature.TREE, new_tall_dark_oak().ignoreVines().build());
         //SWAMP TREE

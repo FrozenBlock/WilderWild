@@ -23,6 +23,7 @@ public class GenerationSettingsBuilderMixin {
         add(VegetationPlacedFeatures.TREES_WINDSWEPT_HILLS);
         add(VegetationPlacedFeatures.TREES_WINDSWEPT_FOREST);
         add(VegetationPlacedFeatures.DARK_FOREST_VEGETATION);
+        add(VegetationPlacedFeatures.TREES_MEADOW);
     }};
 
     @Inject(at = @At("HEAD"), method = "feature", cancellable = true)
