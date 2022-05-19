@@ -502,5 +502,13 @@
 			"wilderwild:particle/floating_sculk_bubble/pop4",
 			"wilderwild:particle/floating_sculk_bubble/pop5"
 		]
+	},
+	"music.overworld.birch_forest": {
+		"sounds": [
+			{
+				"name": "wilderwild:music/ludocrypt/birch_forest/serene_sonder",
+				"stream": true
+			}
+		]
 	}
 }

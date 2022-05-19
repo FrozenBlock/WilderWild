@@ -7,6 +7,7 @@ import net.frozenblock.wilderwild.misc.CameraItem;
 import net.frozenblock.wilderwild.mixin.worldgen.TrunkPlacerTypeInvoker;
 import net.frozenblock.wilderwild.registry.*;
 import net.frozenblock.wilderwild.world.feature.*;
+import net.frozenblock.wilderwild.world.gen.WildMusic;
 import net.frozenblock.wilderwild.world.gen.WildWorldGen;
 import net.frozenblock.wilderwild.world.gen.trunk.FallenTrunkWithLogs;
 import net.frozenblock.wilderwild.world.gen.trunk.StraightTrunkWithLogs;
@@ -41,6 +42,7 @@ public class WilderWild implements ModInitializer {
         WildTreePlaced.registerTreePlaced();
         WildMiscConfigured.registerMiscPlaced();
         WildWorldGen.generateWildWorldGen();
+        WildMusic.playMusic();
         RegisterFlammability.register();
         RegisterGameEvents.RegisterEvents();
 
