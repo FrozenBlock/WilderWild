@@ -6,6 +6,7 @@ import net.fabricmc.fabric.api.registry.CompostingChanceRegistry;
 import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.block.*;
 import net.frozenblock.wilderwild.item.FloweredLilyPadItem;
+import net.frozenblock.wilderwild.item.MilkweedPodItem;
 import net.minecraft.block.*;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.item.BlockItem;
@@ -178,6 +179,7 @@ public abstract class RegisterBlocks {
         CompostingChanceRegistry.INSTANCE.add(CATTAIL, 0.65F);
         CompostingChanceRegistry.INSTANCE.add(DATURA, 0.65F);
         CompostingChanceRegistry.INSTANCE.add(MILKWEED, 0.65F);
+        CompostingChanceRegistry.INSTANCE.add(RegisterItems.MILKWEED_POD, 0.25F);
         CompostingChanceRegistry.INSTANCE.add(WHITE_DANDELION, 0.65F);
         CompostingChanceRegistry.INSTANCE.add(FLOWERED_LILY_PAD, 0.65F);
         CompostingChanceRegistry.INSTANCE.add(BROWN_SHELF_FUNGUS, 0.65F);
