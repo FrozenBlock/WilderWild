@@ -111,7 +111,7 @@ public class FireflyEntity extends PathAwareEntity implements Flutterer {
     }
 
     protected SoundEvent getDeathSound() {
-        return null;
+        return RegisterSounds.ENTITY_FIREFLY_HURT;
     }
 
     @Override
