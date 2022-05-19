@@ -4,6 +4,7 @@ import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.sound.SoundEvents;
 
 import static net.frozenblock.wilderwild.registry.RegisterSounds.*;
+import static net.frozenblock.wilderwild.registry.RegisterSounds.BLOCK_MUSHROOM_BLOCK_PLACE;
 
 public class RegisterBlockSoundGroups {
 
@@ -27,21 +28,32 @@ public class RegisterBlockSoundGroups {
             RegisterSounds.BLOCK_ECHO_GLASS_STEP,
             RegisterSounds.BLOCK_ECHO_GLASS_PLACE,
             RegisterSounds.BLOCK_ECHO_GLASS_CRACK,
-            RegisterSounds.BLOCK_ECHO_GLASS_FALL);
+            RegisterSounds.BLOCK_ECHO_GLASS_FALL
+    );
 
     public static BlockSoundGroup MUSHROOM = new BlockSoundGroup(1.0f, 1.0f,
             BLOCK_MUSHROOM_BREAK,
             BLOCK_MUSHROOM_STEP,
             BLOCK_MUSHROOM_PLACE,
             BLOCK_MUSHROOM_HIT,
-            BLOCK_MUSHROOM_FALL);
+            BLOCK_MUSHROOM_FALL
+    );
+
+    public static BlockSoundGroup MUSHROOM_BLOCK = new BlockSoundGroup(1.0f, 1.0f,
+            BLOCK_MUSHROOM_BLOCK_BREAK,
+            BLOCK_MUSHROOM_BLOCK_STEP,
+            BLOCK_MUSHROOM_BLOCK_PLACE,
+            BLOCK_MUSHROOM_BLOCK_HIT,
+            BLOCK_MUSHROOM_BLOCK_FALL
+    );
 
     public static BlockSoundGroup LILYPAD = new BlockSoundGroup(1.0f, 1.0f,
             SoundEvents.BLOCK_LILY_PAD_PLACE,
             SoundEvents.BLOCK_LILY_PAD_PLACE,
             SoundEvents.BLOCK_LILY_PAD_PLACE,
             SoundEvents.BLOCK_LILY_PAD_PLACE,
-            SoundEvents.BLOCK_LILY_PAD_PLACE);
+            SoundEvents.BLOCK_LILY_PAD_PLACE
+    );
 
     public static BlockSoundGroup REINFORCEDDEEPSLATE = new BlockSoundGroup(1.0f, 1.0f,
             RegisterSounds.BLOCK_REINFORCED_DEEPSLATE_BREAK,
@@ -56,7 +68,8 @@ public class RegisterBlockSoundGroups {
             SoundEvents.BLOCK_ANVIL_PLACE,
             SoundEvents.BLOCK_ANVIL_PLACE,
             SoundEvents.BLOCK_ANVIL_PLACE,
-            SoundEvents.BLOCK_ANVIL_PLACE);
+            SoundEvents.BLOCK_ANVIL_PLACE
+    );
 
     public static void init() {
         //Just to make sure this class gets loaded.

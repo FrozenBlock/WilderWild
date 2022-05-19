@@ -19,6 +19,12 @@ public class RegisterSounds {
     public static final SoundEvent BLOCK_MUSHROOM_STEP = register("block.mushroom.step");
     public static final SoundEvent BLOCK_MUSHROOM_FALL = register("block.mushroom.fall");
 
+    public static final SoundEvent BLOCK_MUSHROOM_BLOCK_PLACE = register( "block.mushroom_block.place");
+    public static final SoundEvent BLOCK_MUSHROOM_BLOCK_HIT = register("block.mushroom_block.hit");
+    public static final SoundEvent BLOCK_MUSHROOM_BLOCK_BREAK = register( "block.mushroom_block.break");
+    public static final SoundEvent BLOCK_MUSHROOM_BLOCK_STEP = register("block.mushroom_block.step");
+    public static final SoundEvent BLOCK_MUSHROOM_BLOCK_FALL = register("block.mushroom_block.fall");
+
     public static final SoundEvent BLOCK_OSSEOUS_SCULK_PLACE = register( "block.osseous_sculk.place");
     public static final SoundEvent BLOCK_OSSEOUS_SCULK_HIT = register("block.osseous_sculk.hit");
     public static final SoundEvent BLOCK_OSSEOUS_SCULK_BREAK = register( "block.osseous_sculk.break");
