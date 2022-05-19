@@ -247,9 +247,7 @@
 			"wilderwild:block/mushroom/break1",
 			"wilderwild:block/mushroom/break2",
 			"wilderwild:block/mushroom/break3",
-			"wilderwild:block/mushroom/break4",
-			"wilderwild:block/mushroom/break5",
-			"wilderwild:block/mushroom/break6"
+			"wilderwild:block/mushroom/break4"
 		],
 		"subtitle": "subtitles.block.generic.break"
 	},
@@ -258,9 +256,7 @@
 			"wilderwild:block/mushroom/break1",
 			"wilderwild:block/mushroom/break2",
 			"wilderwild:block/mushroom/break3",
-			"wilderwild:block/mushroom/break4",
-			"wilderwild:block/mushroom/break5",
-			"wilderwild:block/mushroom/break6"
+			"wilderwild:block/mushroom/break4"
 		],
 		"subtitle": "subtitles.block.generic.fall"
 	},
@@ -269,9 +265,7 @@
 			"wilderwild:block/mushroom/break1",
 			"wilderwild:block/mushroom/break2",
 			"wilderwild:block/mushroom/break3",
-			"wilderwild:block/mushroom/break4",
-			"wilderwild:block/mushroom/break5",
-			"wilderwild:block/mushroom/break6"
+			"wilderwild:block/mushroom/break4"
 		],
 		"subtitle": "subtitles.block.generic.hit"
 	},
@@ -280,9 +274,7 @@
 			"wilderwild:block/mushroom/break1",
 			"wilderwild:block/mushroom/break2",
 			"wilderwild:block/mushroom/break3",
-			"wilderwild:block/mushroom/break4",
-			"wilderwild:block/mushroom/break5",
-			"wilderwild:block/mushroom/break6"
+			"wilderwild:block/mushroom/break4"
 		],
 		"subtitle": "subtitles.block.generic.place"
 	},
@@ -291,9 +283,62 @@
 			"wilderwild:block/mushroom/break1",
 			"wilderwild:block/mushroom/break2",
 			"wilderwild:block/mushroom/break3",
-			"wilderwild:block/mushroom/break4",
-			"wilderwild:block/mushroom/break5",
-			"wilderwild:block/mushroom/break6"
+			"wilderwild:block/mushroom/break4"
+		],
+		"subtitle": "subtitles.block.generic.footsteps"
+	},
+	"block.mushroom_block.break": {
+		"sounds": [
+			"wilderwild:block/mushroom_block/break1",
+			"wilderwild:block/mushroom_block/break2",
+			"wilderwild:block/mushroom_block/break3",
+			"wilderwild:block/mushroom_block/break4",
+			"wilderwild:block/mushroom_block/break5",
+			"wilderwild:block/mushroom_block/break6"
+		],
+		"subtitle": "subtitles.block.generic.break"
+	},
+	"block.mushroom_block.fall": {
+		"sounds": [
+			"wilderwild:block/mushroom_block/break1",
+			"wilderwild:block/mushroom_block/break2",
+			"wilderwild:block/mushroom_block/break3",
+			"wilderwild:block/mushroom_block/break4",
+			"wilderwild:block/mushroom_block/break5",
+			"wilderwild:block/mushroom_block/break6"
+		],
+		"subtitle": "subtitles.block.generic.fall"
+	},
+	"block.mushroom_block.hit": {
+		"sounds": [
+			"wilderwild:block/mushroom_block/break1",
+			"wilderwild:block/mushroom_block/break2",
+			"wilderwild:block/mushroom_block/break3",
+			"wilderwild:block/mushroom_block/break4",
+			"wilderwild:block/mushroom_block/break5",
+			"wilderwild:block/mushroom_block/break6"
+		],
+		"subtitle": "subtitles.block.generic.hit"
+	},
+	"block.mushroom_block.place": {
+		"sounds": [
+			"wilderwild:block/mushroom_block/break1",
+			"wilderwild:block/mushroom_block/break2",
+			"wilderwild:block/mushroom_block/break3",
+			"wilderwild:block/mushroom_block/break4",
+			"wilderwild:block/mushroom_block/break5",
+			"wilderwild:block/mushroom_block/break6"
+		],
+		"subtitle": "subtitles.block.generic.place"
+	},
+	"block.mushroom_block.step": {
+		"sounds": [
+			"wilderwild:block/mushroom_block/break1",
+			"wilderwild:block/mushroom_block/break2",
+			"wilderwild:block/mushroom_block/break3",
+			"wilderwild:block/mushroom_block/break4",
+			"wilderwild:block/mushroom_block/break5",
+			"wilderwild:block/mushroom_block/break6"
 		],
 		"subtitle": "subtitles.block.generic.footsteps"
 	},
