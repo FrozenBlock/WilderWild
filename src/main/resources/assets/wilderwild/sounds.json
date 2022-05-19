@@ -1,127 +1,127 @@
 {
-	  "ambient.deep_dark.additions": {
+	"ambient.deep_dark.additions": {
 		"sounds": [
-		  {
-			"name": "wilderwild:ambient/cave/deep_dark/additions1",
-			"volume": 0.5,
-			"weight": 4
-		  },
-		  {
-			"name": "wilderwild:ambient/cave/deep_dark/additions2",
-			"volume": 0.3,
-			"weight": 4
-		  },
-		  {
-			"name": "wilderwild:ambient/cave/deep_dark/additions3",
-			"volume": 0.6,
-			"weight": 4
-		  },
-		  {
-			"name": "wilderwild:ambient/cave/deep_dark/clicking1",
-			"volume": 0.5,
-			"weight": 5
-		  },
-		  {
-			"name": "wilderwild:ambient/cave/deep_dark/clicking2",
-			"volume": 0.5,
-			"weight": 5
-		  },
-		  {
-			"name": "wilderwild:ambient/cave/deep_dark/clicking3",
-			"volume": 0.5,
-			"weight": 5
-		  },
-		  {
-			"name": "wilderwild:ambient/cave/deep_dark/mood1",
-			"volume": 0.4,
-			"weight": 2
-		  },
-		  {
-			"name": "wilderwild:ambient/cave/deep_dark/mood2",
-			"volume": 0.5,
-			"weight": 2
-		  },
-		  {
-			"name": "wilderwild:ambient/cave/deep_dark/mood3",
-			"volume": 0.4,
-			"weight": 2
-		  },
-		  {
-			"name": "twm:ambient/cave/deep_dark/sculk1",
-			"volume": 0.3,
-			"weight": 3
-		  },
-		  {
-			"name": "twm:ambient/cave/deep_dark/sculk2",
-			"volume": 0.3,
-			"weight": 3
-		  },
-		  {
-			"name": "wilderwild:ambient/cave/deep_dark/sculk3",
-			"volume": 0.3,
-			"weight": 3
-		  },
-		  {
-			"name": "wilderwild:ambient/cave/deep_dark/sculk4",
-			"volume": 0.3,
-			"weight": 3
-		  },
-		  {
-			"name": "wilderwild:ambient/cave/deep_dark/voices1",
-			"volume": 0.4,
-			"weight": 1
-		  },
-		  {
-			"name": "wilderwild:ambient/cave/deep_dark/voices2",
-			"volume": 0.4,
-			"weight": 1
-		  },
-		  {
-			"name": "wilderwild:ambient/cave/deep_dark/voices1",
-			"volume": 0.4,
-			"weight": 1
-		  },
-		  {
-			"name": "wilderwild:ambient/cave/deep_dark/voices4",
-			"volume": 0.4,
-			"weight": 1
-		  },
-		  {
-			"name": "wilderwild:ambient/cave/deep_dark/voices5",
-			"volume": 0.5,
-			"weight": 1
-		  },
-		  {
-			"name": "minecraft:ambient/nether/soulsand_valley/wind1",
-			"volume": 0.3,
-			"weight": 25
-		  },
-		  {
-			"name": "minecraft:ambient/nether/soulsand_valley/wind2",
-			"volume": 0.25,
-			"weight": 25
-		  },
-		  {
-			"name": "minecraft:ambient/nether/soulsand_valley/wind3",
-			"volume": 0.25,
-			"weight": 25
-		  },
-		  {
-			"name": "minecraft:ambient/nether/soulsand_valley/wind4",
-			"volume": 0.3,
-			"weight": 25
-		  }
+			{
+				"name": "wilderwild:ambient/cave/deep_dark/additions1",
+				"volume": 0.5,
+				"weight": 4
+			},
+			{
+				"name": "wilderwild:ambient/cave/deep_dark/additions2",
+				"volume": 0.3,
+				"weight": 4
+			},
+			{
+				"name": "wilderwild:ambient/cave/deep_dark/additions3",
+				"volume": 0.6,
+				"weight": 4
+			},
+			{
+				"name": "wilderwild:ambient/cave/deep_dark/clicking1",
+				"volume": 0.5,
+				"weight": 5
+			},
+			{
+				"name": "wilderwild:ambient/cave/deep_dark/clicking2",
+				"volume": 0.5,
+				"weight": 5
+			},
+			{
+				"name": "wilderwild:ambient/cave/deep_dark/clicking3",
+				"volume": 0.5,
+				"weight": 5
+			},
+			{
+				"name": "wilderwild:ambient/cave/deep_dark/mood1",
+				"volume": 0.4,
+				"weight": 2
+			},
+			{
+				"name": "wilderwild:ambient/cave/deep_dark/mood2",
+				"volume": 0.5,
+				"weight": 2
+			},
+			{
+				"name": "wilderwild:ambient/cave/deep_dark/mood3",
+				"volume": 0.4,
+				"weight": 2
+			},
+			{
+				"name": "twm:ambient/cave/deep_dark/sculk1",
+				"volume": 0.3,
+				"weight": 3
+			},
+			{
+				"name": "twm:ambient/cave/deep_dark/sculk2",
+				"volume": 0.3,
+				"weight": 3
+			},
+			{
+				"name": "wilderwild:ambient/cave/deep_dark/sculk3",
+				"volume": 0.3,
+				"weight": 3
+			},
+			{
+				"name": "wilderwild:ambient/cave/deep_dark/sculk4",
+				"volume": 0.3,
+				"weight": 3
+			},
+			{
+				"name": "wilderwild:ambient/cave/deep_dark/voices1",
+				"volume": 0.4,
+				"weight": 1
+			},
+			{
+				"name": "wilderwild:ambient/cave/deep_dark/voices2",
+				"volume": 0.4,
+				"weight": 1
+			},
+			{
+				"name": "wilderwild:ambient/cave/deep_dark/voices1",
+				"volume": 0.4,
+				"weight": 1
+			},
+			{
+				"name": "wilderwild:ambient/cave/deep_dark/voices4",
+				"volume": 0.4,
+				"weight": 1
+			},
+			{
+				"name": "wilderwild:ambient/cave/deep_dark/voices5",
+				"volume": 0.5,
+				"weight": 1
+			},
+			{
+				"name": "minecraft:ambient/nether/soulsand_valley/wind1",
+				"volume": 0.3,
+				"weight": 25
+			},
+			{
+				"name": "minecraft:ambient/nether/soulsand_valley/wind2",
+				"volume": 0.25,
+				"weight": 25
+			},
+			{
+				"name": "minecraft:ambient/nether/soulsand_valley/wind3",
+				"volume": 0.25,
+				"weight": 25
+			},
+			{
+				"name": "minecraft:ambient/nether/soulsand_valley/wind4",
+				"volume": 0.3,
+				"weight": 25
+			}
 		]
-	  },
-	  "ambient.deep_dark.loop": {
+	},
+	"ambient.deep_dark.loop": {
 		"sounds": [
-		  {
-			"name": "wilderwild:ambient/cave/deep_dark/ambience",
-			"volume": 1.0,
-			"stream": true
-		  }
+			{
+				"name": "wilderwild:ambient/cave/deep_dark/ambience",
+				"stream": true,
+				"volume": 1.0
+			}
 		]
-	  },	 
+	},
 	"block.echo_glass.break": {
 		"sounds": [
 			"wilderwild:block/echo_glass/break1",
@@ -129,6 +129,31 @@
 			"wilderwild:block/echo_glass/break3"
 		],
 		"subtitle": "subtitles.block.generic.break"
+	},
+	"block.echo_glass.crack": {
+		"sounds": [
+			"wilderwild:block/echo_glass/crack1",
+			"wilderwild:block/echo_glass/crack2",
+			"wilderwild:block/echo_glass/crack3"
+		]
+	},
+	"block.echo_glass.fall": {
+		"sounds": [
+			"wilderwild:block/echo_glass/hit1",
+			"wilderwild:block/echo_glass/hit2",
+			"wilderwild:block/echo_glass/hit3",
+			"wilderwild:block/echo_glass/hit4"
+		],
+		"subtitle": "subtitles.block.generic.fall"
+	},
+	"block.echo_glass.hit": {
+		"sounds": [
+			"wilderwild:block/echo_glass/hit1",
+			"wilderwild:block/echo_glass/hit2",
+			"wilderwild:block/echo_glass/hit3",
+			"wilderwild:block/echo_glass/hit4"
+		],
+		"subtitle": "subtitles.block.generic.hit"
 	},
 	"block.echo_glass.place": {
 		"sounds": [
@@ -138,6 +163,13 @@
 			"wilderwild:block/echo_glass/place4"
 		],
 		"subtitle": "subtitles.block.generic.place"
+	},
+	"block.echo_glass.repair": {
+		"sounds": [
+			"wilderwild:block/echo_glass/repair1",
+			"wilderwild:block/echo_glass/repair2",
+			"wilderwild:block/echo_glass/repair3"
+		]
 	},
 	"block.echo_glass.step": {
 		"sounds": [
@@ -149,38 +181,6 @@
 			"wilderwild:block/echo_glass/step6"
 		],
 		"subtitle": "subtitles.block.generic.footsteps"
-	},
-	"block.echo_glass.hit": {
-		"sounds": [
-			"wilderwild:block/echo_glass/hit1",
-			"wilderwild:block/echo_glass/hit2",
-			"wilderwild:block/echo_glass/hit3",
-			"wilderwild:block/echo_glass/hit4"
-		],
-		"subtitle": "subtitles.block.generic.hit"
-	},
-	"block.echo_glass.fall": {
-		"sounds": [
-			"wilderwild:block/echo_glass/hit1",
-			"wilderwild:block/echo_glass/hit2",
-			"wilderwild:block/echo_glass/hit3",
-			"wilderwild:block/echo_glass/hit4"
-		],
-		"subtitle": "subtitles.block.generic.fall"
-	},
-	"block.echo_glass.crack": {
-		"sounds": [
-			"wilderwild:block/echo_glass/crack1",
-			"wilderwild:block/echo_glass/crack2",
-			"wilderwild:block/echo_glass/crack3"
-		]
-	},
-	"block.echo_glass.repair": {
-		"sounds": [
-			"wilderwild:block/echo_glass/repair1",
-			"wilderwild:block/echo_glass/repair2",
-			"wilderwild:block/echo_glass/repair3"
-		]
 	},
 	"block.hanging_tendril.break": {
 		"sounds": [
@@ -242,6 +242,61 @@
 		],
 		"subtitle": "subtitles.block.hanging_tendril.wring"
 	},
+	"block.mushroom.break": {
+		"sounds": [
+			"wilderwild:block/mushroom/break1",
+			"wilderwild:block/mushroom/break2",
+			"wilderwild:block/mushroom/break3",
+			"wilderwild:block/mushroom/break4",
+			"wilderwild:block/mushroom/break5",
+			"wilderwild:block/mushroom/break6"
+		],
+		"subtitle": "subtitles.block.generic.break"
+	},
+	"block.mushroom.fall": {
+		"sounds": [
+			"wilderwild:block/mushroom/break1",
+			"wilderwild:block/mushroom/break2",
+			"wilderwild:block/mushroom/break3",
+			"wilderwild:block/mushroom/break4",
+			"wilderwild:block/mushroom/break5",
+			"wilderwild:block/mushroom/break6"
+		],
+		"subtitle": "subtitles.block.generic.fall"
+	},
+	"block.mushroom.hit": {
+		"sounds": [
+			"wilderwild:block/mushroom/break1",
+			"wilderwild:block/mushroom/break2",
+			"wilderwild:block/mushroom/break3",
+			"wilderwild:block/mushroom/break4",
+			"wilderwild:block/mushroom/break5",
+			"wilderwild:block/mushroom/break6"
+		],
+		"subtitle": "subtitles.block.generic.hit"
+	},
+	"block.mushroom.place": {
+		"sounds": [
+			"wilderwild:block/mushroom/break1",
+			"wilderwild:block/mushroom/break2",
+			"wilderwild:block/mushroom/break3",
+			"wilderwild:block/mushroom/break4",
+			"wilderwild:block/mushroom/break5",
+			"wilderwild:block/mushroom/break6"
+		],
+		"subtitle": "subtitles.block.generic.place"
+	},
+	"block.mushroom.step": {
+		"sounds": [
+			"wilderwild:block/mushroom/break1",
+			"wilderwild:block/mushroom/break2",
+			"wilderwild:block/mushroom/break3",
+			"wilderwild:block/mushroom/break4",
+			"wilderwild:block/mushroom/break5",
+			"wilderwild:block/mushroom/break6"
+		],
+		"subtitle": "subtitles.block.generic.footsteps"
+	},
 	"block.osseous_sculk.break": {
 		"sounds": [
 			"wilderwild:block/osseous_sculk/break1",
@@ -295,6 +350,61 @@
 		],
 		"subtitle": "subtitles.block.generic.footsteps"
 	},
+	"block.reinforced_deepslate.fall": {
+		"sounds": [
+			"minecraft:block/deepslate/step1",
+			"minecraft:block/deepslate/step2",
+			"minecraft:block/deepslate/step3",
+			"minecraft:block/deepslate/step4",
+			"minecraft:block/deepslate/step5",
+			"minecraft:block/deepslate/step6"
+		],
+		"subtitle": "subtitles.block.generic.fall"
+	},
+	"block.reinforced_deepslate.hit": {
+		"sounds": [
+			"minecraft:block/deepslate/step1",
+			"minecraft:block/deepslate/step2",
+			"minecraft:block/deepslate/step3",
+			"minecraft:block/deepslate/step4",
+			"minecraft:block/deepslate/step5",
+			"minecraft:block/deepslate/step6"
+		],
+		"subtitle": "subtitles.block.generic.hit"
+	},
+	"block.reinforced_deepslate.place": {
+		"sounds": [
+			"wilderwild:block/reinforced_deepslate/place1",
+			"wilderwild:block/reinforced_deepslate/place2",
+			"wilderwild:block/reinforced_deepslate/place3",
+			"wilderwild:block/reinforced_deepslate/place4",
+			"wilderwild:block/reinforced_deepslate/place5",
+			"wilderwild:block/reinforced_deepslate/place6"
+		],
+		"subtitle": "subtitles.block.generic.place"
+	},
+	"block.reinforced_deepslate.break": {
+		"sounds": [
+			"wilderwild:block/reinforced_deepslate/place1",
+			"wilderwild:block/reinforced_deepslate/place2",
+			"wilderwild:block/reinforced_deepslate/place3",
+			"wilderwild:block/reinforced_deepslate/place4",
+			"wilderwild:block/reinforced_deepslate/place5",
+			"wilderwild:block/reinforced_deepslate/place6"
+		],
+		"subtitle": "subtitles.block.generic.break"
+	},
+	"block.reinforced_deepslate.step": {
+		"sounds": [
+			"minecraft:block/deepslate/step1",
+			"minecraft:block/deepslate/step2",
+			"minecraft:block/deepslate/step3",
+			"minecraft:block/deepslate/step4",
+			"minecraft:block/deepslate/step5",
+			"minecraft:block/deepslate/step6"
+		],
+		"subtitle": "subtitles.block.generic.footsteps"
+	},
 	"block.sculk_chirper.exhale": {
 		"sounds": [
 			"wilderwild:block/sculk_chirper/sculk_chirper_exhale"
@@ -317,77 +427,6 @@
 			"wilderwild:block/sculk_echoer/echo6"
 		],
 		"subtitle": "subtitles.block.sculk_echoer.echo"
-	},
-	"block.mushroom.break": {
-		"sounds": [
-			"wilderwild:block/mushroom/break1",
-			"wilderwild:block/mushroom/break2",
-			"wilderwild:block/mushroom/break3",
-			"wilderwild:block/mushroom/break4",
-			"wilderwild:block/mushroom/break5",
-			"wilderwild:block/mushroom/break6"
-		],
-		"subtitle": "subtitles.block.generic.break"
-	},
-	"block.mushroom.fall": {
-		"sounds": [
-			"wilderwild:block/mushroom/break1",
-			"wilderwild:block/mushroom/break2",
-			"wilderwild:block/mushroom/break3",
-			"wilderwild:block/mushroom/break4",
-			"wilderwild:block/mushroom/break5",
-			"wilderwild:block/mushroom/break6"
-		],
-		"subtitle": "subtitles.block.generic.fall"
-	},
-	"block.mushroomm.hit": {
-		"sounds": [
-			"wilderwild:block/mushroom/break1",
-			"wilderwild:block/mushroom/break2",
-			"wilderwild:block/mushroom/break3",
-			"wilderwild:block/mushroom/break4",
-			"wilderwild:block/mushroom/break5",
-			"wilderwild:block/mushroom/break6"
-		],
-		"subtitle": "subtitles.block.generic.hit"
-	},
-	"block.mushroom.place": {
-		"sounds": [
-			"wilderwild:block/mushroom/break1",
-			"wilderwild:block/mushroom/break2",
-			"wilderwild:block/mushroom/break3",
-			"wilderwild:block/mushroom/break4",
-			"wilderwild:block/mushroom/break5",
-			"wilderwild:block/mushroom/break6"
-		],
-		"subtitle": "subtitles.block.generic.place"
-	},
-	"block.mushroom.step": {
-		"sounds": [
-			"wilderwild:block/mushroom/break1",
-			"wilderwild:block/mushroom/break2",
-			"wilderwild:block/mushroom/break3",
-			"wilderwild:block/mushroom/break4",
-			"wilderwild:block/mushroom/break5",
-			"wilderwild:block/mushroom/break6"
-		],
-		"subtitle": "subtitles.block.generic.footsteps"
-	},
-	"particle.floating_sculk_bubble.pop": {
-		"sounds": [
-			"wilderwild:particle/floating_sculk_bubble/pop1",
-			"wilderwild:particle/floating_sculk_bubble/pop2",
-			"wilderwild:particle/floating_sculk_bubble/pop3",
-			"wilderwild:particle/floating_sculk_bubble/pop4",
-			"wilderwild:particle/floating_sculk_bubble/pop5"
-		]
-	},
-	"particle.floating_sculk_bubble.big_pop": {
-		"sounds": [
-			"wilderwild:particle/floating_sculk_bubble/big_pop1",
-			"wilderwild:particle/floating_sculk_bubble/big_pop2",
-			"wilderwild:particle/floating_sculk_bubble/big_pop3"
-		]
 	},
 	"block.sculk_jaw.clamp": {
 		"sounds": [
@@ -418,11 +457,11 @@
 			"wilderwild:mob/ancient_horn_projectile/dissipate_2"
 		]
 	},
-  	"entity.firefly.hurt": {
-	  	"sounds": [
-		  	"wilderwild:mob/firefly/hurt_1",
-		  	"wilderwild:mob/firefly/hurt_2",
-		  	"wilderwild:mob/firefly/hurt_3"
+	"entity.firefly.hurt": {
+		"sounds": [
+			"wilderwild:mob/firefly/hurt_1",
+			"wilderwild:mob/firefly/hurt_2",
+			"wilderwild:mob/firefly/hurt_3"
 		]
 	},
 	"item.ancient_horn.call": {
@@ -446,6 +485,22 @@
 	"music_disc.the_other_side": {
 		"sounds": [
 			"wilderwild:records/the_other_side"
+		]
+	},
+	"particle.floating_sculk_bubble.big_pop": {
+		"sounds": [
+			"wilderwild:particle/floating_sculk_bubble/big_pop1",
+			"wilderwild:particle/floating_sculk_bubble/big_pop2",
+			"wilderwild:particle/floating_sculk_bubble/big_pop3"
+		]
+	},
+	"particle.floating_sculk_bubble.pop": {
+		"sounds": [
+			"wilderwild:particle/floating_sculk_bubble/pop1",
+			"wilderwild:particle/floating_sculk_bubble/pop2",
+			"wilderwild:particle/floating_sculk_bubble/pop3",
+			"wilderwild:particle/floating_sculk_bubble/pop4",
+			"wilderwild:particle/floating_sculk_bubble/pop5"
 		]
 	}
 }

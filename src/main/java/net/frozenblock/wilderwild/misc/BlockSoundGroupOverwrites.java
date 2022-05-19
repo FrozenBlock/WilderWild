@@ -10,6 +10,7 @@ import java.util.List;
 
 import static net.frozenblock.wilderwild.registry.RegisterBlockSoundGroups.LILYPAD;
 import static net.frozenblock.wilderwild.registry.RegisterBlockSoundGroups.MUSHROOM;
+import static net.frozenblock.wilderwild.registry.RegisterBlockSoundGroups.REINFORCEDDEEPSLATE;
 import static net.minecraft.block.Blocks.*;
 
 
@@ -22,6 +23,7 @@ public class BlockSoundGroupOverwrites {
         addBlock(DEAD_BUSH, BlockSoundGroup.NETHER_SPROUTS);
         addBlock(WITHER_ROSE, BlockSoundGroup.SWEET_BERRY_BUSH);
         addBlock(CACTUS, BlockSoundGroup.SWEET_BERRY_BUSH);
+        addBlock(REINFORCED_DEEPSLATE, REINFORCEDDEEPSLATE);
         addBlock(LILY_PAD, LILYPAD);
         addBlock(PODZOL, BlockSoundGroup.ROOTED_DIRT);
         addBlock(SUGAR_CANE, BlockSoundGroup.BAMBOO); //needs unique sounds

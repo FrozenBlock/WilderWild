@@ -19,7 +19,8 @@ public class RegisterBlockSoundGroups {
             RegisterSounds.BLOCK_HANGING_TENDRIL_STEP,
             RegisterSounds.BLOCK_HANGING_TENDRIL_PLACE,
             RegisterSounds.BLOCK_HANGING_TENDRIL_HIT,
-            RegisterSounds.BLOCK_HANGING_TENDRIL_FALL);
+            RegisterSounds.BLOCK_HANGING_TENDRIL_FALL
+    );
 
     public static BlockSoundGroup ECHO_GLASS = new BlockSoundGroup(1.0f, 1.25f,
             RegisterSounds.BLOCK_ECHO_GLASS_BREAK,
@@ -41,6 +42,14 @@ public class RegisterBlockSoundGroups {
             SoundEvents.BLOCK_LILY_PAD_PLACE,
             SoundEvents.BLOCK_LILY_PAD_PLACE,
             SoundEvents.BLOCK_LILY_PAD_PLACE);
+
+    public static BlockSoundGroup REINFORCEDDEEPSLATE = new BlockSoundGroup(1.0f, 1.0f,
+            RegisterSounds.BLOCK_REINFORCED_DEEPSLATE_BREAK,
+            RegisterSounds.BLOCK_REINFORCED_DEEPSLATE_STEP,
+            RegisterSounds.BLOCK_REINFORCED_DEEPSLATE_PLACE,
+            RegisterSounds.BLOCK_REINFORCED_DEEPSLATE_HIT,
+            RegisterSounds.BLOCK_REINFORCED_DEEPSLATE_FALL
+    );
 
     public static BlockSoundGroup FUNNY = new BlockSoundGroup(1.0f, 1.0f,
             SoundEvents.BLOCK_ANVIL_PLACE,
