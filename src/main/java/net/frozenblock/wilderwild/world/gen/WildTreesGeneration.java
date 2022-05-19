@@ -65,5 +65,7 @@ public class WildTreesGeneration {
         BiomeModifications.addFeature(BiomeSelectors.includeByKey(BiomeKeys.DARK_FOREST),
                 GenerationStep.Feature.VEGETAL_DECORATION, WildPlacedFeature.NEW_DARK_FOREST_VEGETATION.getKey().get());
 
+        BiomeModifications.addFeature(BiomeSelectors.includeByKey(BiomeKeys.MEADOW),
+                GenerationStep.Feature.VEGETAL_DECORATION, WildPlacedFeature.NEW_TREES_MEADOW.getKey().get());
     }
 }

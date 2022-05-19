@@ -4,6 +4,8 @@ import net.minecraft.block.Blocks;
 import net.minecraft.util.registry.RegistryEntry;
 import net.minecraft.world.gen.feature.PlacedFeature;
 import net.minecraft.world.gen.feature.PlacedFeatures;
+import net.minecraft.world.gen.feature.TreeConfiguredFeatures;
+import net.minecraft.world.gen.placementmodifier.PlacementModifier;
 
 import static net.minecraft.world.gen.feature.TreePlacedFeatures.ON_SNOW_MODIFIERS;
 
@@ -29,6 +31,10 @@ public class WildTreePlaced {
     public static final RegistryEntry<PlacedFeature> MEGA_FUNGUS_SPRUCE_CHECKED;
     public static final RegistryEntry<PlacedFeature> MEGA_FUNGUS_PINE_CHECKED;
     public static final RegistryEntry<PlacedFeature> SHORT_BIRCH;
+    public static final RegistryEntry<PlacedFeature> NEW_FANCY_OAK_BEES;
+    public static final RegistryEntry<PlacedFeature> NEW_SUPER_BIRCH_BEES;
+
+
 
     static {
         NEW_FANCY_OAK_BEES_0004 = PlacedFeatures.register("new_fancy_oak_bees_0004", WildTreeConfigured.NEW_FANCY_OAK_BEES_0004, PlacedFeatures.wouldSurvive(Blocks.OAK_SAPLING));
@@ -52,6 +58,8 @@ public class WildTreePlaced {
         MEGA_FUNGUS_SPRUCE_CHECKED = PlacedFeatures.register("mega_fungus_spruce_checked", WildTreeConfigured.MEGA_FUNGUS_SPRUCE, PlacedFeatures.wouldSurvive(Blocks.SPRUCE_SAPLING));
         MEGA_FUNGUS_PINE_CHECKED = PlacedFeatures.register("mega_fungus_pine_checked", WildTreeConfigured.MEGA_FUNGUS_PINE, PlacedFeatures.wouldSurvive(Blocks.SPRUCE_SAPLING));
         SHORT_BIRCH = PlacedFeatures.register("short_birch", WildTreeConfigured.SHORT_BIRCH, PlacedFeatures.wouldSurvive(Blocks.BIRCH_SAPLING));
+        NEW_FANCY_OAK_BEES = PlacedFeatures.register("new_fancy_oak_bees", WildTreeConfigured.NEW_FANCY_OAK_BEES, PlacedFeatures.wouldSurvive(Blocks.OAK_SAPLING));
+        NEW_SUPER_BIRCH_BEES = PlacedFeatures.register("new_super_birch_bees", WildTreeConfigured.NEW_SUPER_BIRCH_BEES, PlacedFeatures.wouldSurvive(Blocks.BIRCH_SAPLING));
     }
 
     public static void registerTreePlaced() {
