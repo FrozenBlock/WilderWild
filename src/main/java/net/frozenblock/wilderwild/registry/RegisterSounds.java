@@ -11,7 +11,7 @@ public class RegisterSounds {
     public static final SoundEvent BLOCK_REINFORCED_DEEPSLATE_HIT = register("block.reinforced_deepslate.hit");
     public static final SoundEvent BLOCK_REINFORCED_DEEPSLATE_BREAK = register( "block.reinforced_deepslate.break");
     public static final SoundEvent BLOCK_REINFORCED_DEEPSLATE_STEP = register("block.reinforced_deepslate.step");
-    public static final SoundEvent BLOCK_REINFORCED_DEEPSLATE_FALL = register("block.reinforced_deepslate.fall");
+    public static final SoundEvent BLOCK_REINFORCED_DEEPSLATE_FALL = register("block.reinforced_deepslate.fall"); // B)
 
     public static final SoundEvent BLOCK_MUSHROOM_PLACE = register( "block.mushroom.place");
     public static final SoundEvent BLOCK_MUSHROOM_HIT = register("block.mushroom.hit");
