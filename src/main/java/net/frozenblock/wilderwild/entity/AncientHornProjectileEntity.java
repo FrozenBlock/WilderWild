@@ -46,6 +46,7 @@ import net.minecraft.world.explosion.Explosion;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
+import java.util.Optional;
 
 import static net.frozenblock.wilderwild.item.AncientCityGoatHorn.*;
 
@@ -222,9 +223,8 @@ public class AncientHornProjectileEntity extends PersistentProjectileEntity {
     }
     private static void trySpawnWarden(ServerWorld world, BlockPos pos) {
         if (world.getGameRules().getBoolean(GameRules.DO_WARDEN_SPAWNING)) {
-            LargeEntitySpawnHelper.trySpawnAt(EntityType.WARDEN, SpawnReason.TRIGGERED, world, pos, 20, 5, 6).ifPresent((entity) -> {
-                entity.playSound(SoundEvents.ENTITY_WARDEN_AGITATED, 5.0F, 1.0F);
-            });
+            Optional<WardenEntity> warden = LargeEntitySpawnHelper.trySpawnAt(EntityType.WARDEN, SpawnReason.TRIGGERED, world, pos, 20, 5, 6, LargeEntitySpawnHelper.class_7502.field_39401);
+            warden.ifPresent(wardenEntity -> wardenEntity.playSound(SoundEvents.ENTITY_WARDEN_AGITATED, 5.0F, 1.0F));
         }
     }
     protected SoundEvent getHitSound() {

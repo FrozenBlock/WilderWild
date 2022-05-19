@@ -1,6 +1,5 @@
 package net.frozenblock.wilderwild.block;
 
-import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.misc.NewDamageSource;
 import net.frozenblock.wilderwild.registry.RegisterGameEvents;
 import net.frozenblock.wilderwild.registry.RegisterSounds;

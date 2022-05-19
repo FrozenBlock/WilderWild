@@ -3,7 +3,6 @@ package net.frozenblock.wilderwild.block.entity;
 import com.mojang.logging.LogUtils;
 import com.mojang.serialization.DataResult;
 import com.mojang.serialization.Dynamic;
-import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.block.HangingTendrilBlock;
 import net.frozenblock.wilderwild.registry.RegisterBlockEntityType;
 import net.frozenblock.wilderwild.registry.RegisterGameEvents;
@@ -97,21 +96,21 @@ public class HangingTendrilBlockEntity extends BlockEntity implements VibrationL
         return (!pos.equals(this.getPos()) || event != GameEvent.BLOCK_DESTROY && event != GameEvent.BLOCK_PLACE) && HangingTendrilBlock.isInactive(this.getCachedState()) && !this.getCachedState().get(HangingTendrilBlock.WRINGING_OUT);
     }
 
-    public void accept(ServerWorld world, GameEventListener listener, BlockPos pos, GameEvent event, @Nullable Entity entity, @Nullable Entity sourceEntity, int delay) {
+    @Override
+    public void accept(ServerWorld world, GameEventListener listener, BlockPos pos, GameEvent event, @Nullable Entity entity, @Nullable Entity sourceEntity, float f) {
         BlockState blockState = this.getCachedState();
         if (HangingTendrilBlock.isInactive(blockState)) {
             this.lastVibrationFrequency = SculkSensorBlock.FREQUENCIES.getInt(event);
-            HangingTendrilBlock.setActive(world, this.pos, blockState, getPower(delay, listener.getRange()));
+            HangingTendrilBlock.setActive(world, this.pos, blockState, getPower(f, listener.getRange()));
         }
-
     }
 
     public void onListen() {
         this.markDirty();
     }
 
-    public static int getPower(int distance, int range) {
-        double d = (double)distance / (double)range;
+    public static int getPower(float f, int range) {
+        double d = (double)f / (double)range;
         return Math.max(1, 15 - MathHelper.floor(d * 15.0D));
     }
 }

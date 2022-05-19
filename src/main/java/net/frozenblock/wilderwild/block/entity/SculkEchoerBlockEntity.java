@@ -4,7 +4,6 @@ import com.mojang.logging.LogUtils;
 import com.mojang.serialization.DataResult;
 import com.mojang.serialization.Dynamic;
 import it.unimi.dsi.fastutil.ints.IntArrayList;
-import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.block.SculkEchoerBlock;
 import net.frozenblock.wilderwild.particle.FloatingSculkBubbleParticle;
 import net.frozenblock.wilderwild.registry.RegisterBlockEntityType;
@@ -126,11 +125,11 @@ public class SculkEchoerBlockEntity extends BlockEntity implements VibrationList
     }
 
     @Override
-    public void accept(ServerWorld world, GameEventListener listener, BlockPos pos, GameEvent event, @Nullable Entity entity, @Nullable Entity sourceEntity, int delay) {
+    public void accept(ServerWorld world, GameEventListener listener, BlockPos pos, GameEvent event, @Nullable Entity entity, @Nullable Entity sourceEntity, float f) {
         BlockState blockState = this.getCachedState();
         if (SculkEchoerBlock.isInactive(blockState)) {
             this.lastVibrationFreq = SculkEchoerBlock.FREQUENCIES.getInt(event);
-            SculkEchoerBlock.setActive(entity, world, this.pos, blockState, getBubbles(delay, listener.getRange()));
+            SculkEchoerBlock.setActive(entity, world, this.pos, blockState, getBubbles(f, listener.getRange()));
         }
     }
 
@@ -138,8 +137,8 @@ public class SculkEchoerBlockEntity extends BlockEntity implements VibrationList
         this.markDirty();
     }
 
-    public static int getBubbles(int distance, int range) {
-        double d = (double)distance / (double)range;
+    public static int getBubbles(float f, int range) {
+        double d = (double)f / (double)range;
         return Math.max(1, 15 - MathHelper.floor(d * 15.0));
     }
 }

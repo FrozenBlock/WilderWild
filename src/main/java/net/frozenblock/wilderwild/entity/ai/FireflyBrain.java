@@ -6,11 +6,8 @@ import com.mojang.datafixers.util.Pair;
 import net.frozenblock.wilderwild.entity.FireflyEntity;
 import net.minecraft.entity.ai.brain.Activity;
 import net.minecraft.entity.ai.brain.Brain;
-import net.minecraft.entity.ai.brain.MemoryModuleType;
 import net.minecraft.entity.ai.brain.task.*;
 import net.minecraft.util.math.intprovider.UniformIntProvider;
-
-import java.util.List;
 
 public class FireflyBrain {
 

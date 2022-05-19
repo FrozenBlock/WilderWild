@@ -1,7 +1,7 @@
 package net.frozenblock.wilderwild.entity.render;
 
-import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.WildClientMod;
+import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.entity.SculkSensorTendrilEntity;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.entity.EntityRendererFactory;
