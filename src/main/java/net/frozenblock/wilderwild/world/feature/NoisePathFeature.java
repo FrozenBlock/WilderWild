@@ -1,33 +1,31 @@
 package net.frozenblock.wilderwild.world.feature;
 
 import com.mojang.serialization.Codec;
-import net.frozenblock.wilderwild.tag.WildBlockTags;
 import net.frozenblock.wilderwild.world.EasyNoiseSampler;
-import net.minecraft.block.Blocks;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.Heightmap.Type;
 import net.minecraft.world.StructureWorldAccess;
-import net.minecraft.world.gen.feature.DefaultFeatureConfig;
 import net.minecraft.world.gen.feature.Feature;
 import net.minecraft.world.gen.feature.util.FeatureContext;
 
 import java.util.ArrayList;
 
-public class CoarsePathFeature extends Feature<DefaultFeatureConfig> {
-    public CoarsePathFeature(Codec<DefaultFeatureConfig> codec) {
+public class NoisePathFeature extends Feature<PathFeatureConfig> {
+    public NoisePathFeature(Codec<PathFeatureConfig> codec) {
         super(codec);
     }
 
-    public boolean generate(FeatureContext<DefaultFeatureConfig> context) {
+    public boolean generate(FeatureContext<PathFeatureConfig> context) {
         boolean generated = false;
+        PathFeatureConfig config = context.getConfig();
         BlockPos blockPos = context.getOrigin();
         StructureWorldAccess world = context.getWorld();
-        ArrayList<BlockPos> poses = posesInCircle(blockPos, 11);
+        ArrayList<BlockPos> poses = posesInCircle(blockPos, config.radius);
         for (BlockPos tempPos : poses) {
             BlockPos pos = tempPos.withY(world.getTopY(Type.WORLD_SURFACE_WG, tempPos.getX(), tempPos.getZ()) - 1);
-            if (EasyNoiseSampler.samplePerlinXoro(pos, 0.12, false, false)>0.2 && world.getBlockState(pos).isIn(WildBlockTags.COARSE_PATH_REPLACEABLE)) {
+            if (EasyNoiseSampler.samplePerlinXoro(pos, config.multiplier, config.multiplyY, config.useY)>config.threshold && world.getBlockState(pos).isIn(config.replaceable)) {
                 generated = true;
-                world.setBlockState(pos, Blocks.COARSE_DIRT.getDefaultState(), 3);
+                world.setBlockState(pos, config.pathBlock.getDefaultState(), 3);
             }
         }
         return generated;

@@ -9,7 +9,6 @@ import net.minecraft.util.registry.Registry;
 public class WildBlockTags {
     public static final TagKey<Block> ANCIENT_CITY_BLOCKS = of("ancient_city_blocks");
     public static final TagKey<Block> HORN_PROJECTILE_NON_COLLIDE = of("ancient_horn_vibration_non_collide");
-    public static final TagKey<Block> COARSE_PATH_REPLACEABLE = of("coarse_path_replaceable");
 
     private WildBlockTags() {
     }
