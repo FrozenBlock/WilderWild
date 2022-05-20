@@ -24,6 +24,6 @@ public class WildMiscPlaced {
         DISK_MUD = PlacedFeatures.register("disk_mud", WildMiscConfigured.DISK_MUD, new PlacementModifier[]{CountPlacementModifier.of(1), SquarePlacementModifier.of(), PlacedFeatures.OCEAN_FLOOR_WG_HEIGHTMAP, RandomOffsetPlacementModifier.vertically(ConstantIntProvider.create(-1)), BlockFilterPlacementModifier.of(BlockPredicate.matchingBlocks(new Block[]{Blocks.GRASS_BLOCK, Blocks.DIRT})), BiomePlacementModifier.of()});
         MUD_PATH = PlacedFeatures.register("mud_path", WildMiscConfigured.MUD_PATH, RarityFilterPlacementModifier.of(3), SquarePlacementModifier.of(), PlacedFeatures.WORLD_SURFACE_WG_HEIGHTMAP, BiomePlacementModifier.of());
         COARSE_PATH = PlacedFeatures.register("coarse_dirt_path", WildMiscConfigured.COARSE_PATH, RarityFilterPlacementModifier.of(3), SquarePlacementModifier.of(), PlacedFeatures.WORLD_SURFACE_WG_HEIGHTMAP, BiomePlacementModifier.of());
-        MOSS_PATH = PlacedFeatures.register("moss_path", WildMiscConfigured.MOSS_PATH, RarityFilterPlacementModifier.of(4), SquarePlacementModifier.of(), PlacedFeatures.WORLD_SURFACE_WG_HEIGHTMAP, BiomePlacementModifier.of());
+        MOSS_PATH = PlacedFeatures.register("moss_path", WildMiscConfigured.MOSS_PATH, RarityFilterPlacementModifier.of(3), SquarePlacementModifier.of(), PlacedFeatures.WORLD_SURFACE_WG_HEIGHTMAP, BiomePlacementModifier.of());
     }
 }
