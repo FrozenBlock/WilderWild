@@ -21,15 +21,18 @@ import java.util.List;
 public class WildMiscConfigured {
     public static final RegistryEntry<ConfiguredFeature<DiskFeatureConfig, ?>> DISK_MUD;
     public static final RegistryEntry<ConfiguredFeature<DiskFeatureConfig, ?>> DISK_COARSE_DIRT;
+    public static final RegistryEntry<ConfiguredFeature<PathFeatureConfig, ?>> MUD_PATH;
     public static final RegistryEntry<ConfiguredFeature<PathFeatureConfig, ?>> COARSE_PATH;
+    public static final RegistryEntry<ConfiguredFeature<PathFeatureConfig, ?>> MOSS_PATH;
 
     public WildMiscConfigured() {
     }
     static {
         DISK_COARSE_DIRT = ConfiguredFeatures.register("disk_coarse_dirt", Feature.DISK, new DiskFeatureConfig(PredicatedStateProvider.of(Blocks.COARSE_DIRT), BlockPredicate.matchingBlocks(List.of(Blocks.GRASS_BLOCK, Blocks.COARSE_DIRT)), UniformIntProvider.create(6, 8), 1));
         DISK_MUD = ConfiguredFeatures.register("disk_mud", Feature.DISK, new DiskFeatureConfig(new PredicatedStateProvider(BlockStateProvider.of(Blocks.MUD), List.of(new PredicatedStateProvider.Rule(BlockPredicate.not(BlockPredicate.eitherOf(BlockPredicate.solid(Direction.UP.getVector()), BlockPredicate.matchingFluids(Direction.UP.getVector(), new Fluid[]{Fluids.WATER}))), BlockStateProvider.of(Blocks.MUD)))), BlockPredicate.matchingBlocks(List.of(Blocks.DIRT, Blocks.GRASS_BLOCK)), UniformIntProvider.create(2, 6), 2));
-        COARSE_PATH = ConfiguredFeatures.register("coarse_dirt_path", WilderWild.NOISE_PATH_FEATURE, new PathFeatureConfig(Blocks.COARSE_DIRT, 11, 0.12, 0.2, false, false, RegistryEntryList.of(Blocks.DIRT.getRegistryEntry(), Blocks.GRASS_BLOCK.getRegistryEntry(), Blocks.DIRT.getRegistryEntry(), Blocks.PODZOL.getRegistryEntry())));
-
+        MUD_PATH = ConfiguredFeatures.register("mud_path", WilderWild.NOISE_PATH_FEATURE, new PathFeatureConfig(Blocks.MUD, 11, 0.1, 0.3, false, false, RegistryEntryList.of(Blocks.DIRT.getRegistryEntry(), Blocks.GRASS_BLOCK.getRegistryEntry(), Blocks.CLAY.getRegistryEntry(), Blocks.SAND.getRegistryEntry())));
+        COARSE_PATH = ConfiguredFeatures.register("coarse_dirt_path", WilderWild.NOISE_PATH_FEATURE, new PathFeatureConfig(Blocks.COARSE_DIRT, 11, 0.12, 0.2, false, false, RegistryEntryList.of(Blocks.DIRT.getRegistryEntry(), Blocks.GRASS_BLOCK.getRegistryEntry(), Blocks.PODZOL.getRegistryEntry())));
+        MOSS_PATH = ConfiguredFeatures.register("moss_path", WilderWild.NOISE_PATH_FEATURE, new PathFeatureConfig(Blocks.MOSS_BLOCK, 9, 0.15, 0.3, true, true, RegistryEntryList.of(Blocks.GRASS_BLOCK.getRegistryEntry())));
     }
 
     public static void registerMiscPlaced() {
