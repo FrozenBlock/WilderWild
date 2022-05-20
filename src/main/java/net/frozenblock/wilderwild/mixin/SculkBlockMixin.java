@@ -58,11 +58,9 @@ public class SculkBlockMixin {
 					BlockState stateDown = world.getBlockState(blockPos.down());
 					Block blockDown = stateDown.getBlock();
 					if ((stateDown.isAir() || blockDown==Blocks.WATER || blockDown==Blocks.LAVA || blockDown==Blocks.SCULK_VEIN)) {
-						WilderWild.log("Sculk Charge Will Spread On Ceiling");
 						if (canPlaceBone(blockPos, isWorldGen, world)) {
 							int pillarHeight = (int) MathHelper.clamp(EasyNoiseSampler.samplePerlinXoroPositive(blockPos.down(), randomness, false, false) * heightMultiplier, 2, maxHeight);
 							blockState = RegisterBlocks.OSSEOUS_SCULK.getDefaultState().with(OsseousSculkBlock.HEIGHT_LEFT, pillarHeight).with(OsseousSculkBlock.TOTAL_HEIGHT, pillarHeight + 1).with(OsseousSculkBlock.UPSIDEDOWN, true);
-							WilderWild.log("Chose Ceiling Osseous Sculk");
 						} else {
 							blockState = RegisterBlocks.HANGING_TENDRIL.getDefaultState();
 							WilderWild.log("Chose Hanging Tendril");
@@ -80,7 +78,6 @@ public class SculkBlockMixin {
 					if (isWorldGen && world.getBlockState(blockPos2).getBlock()==RegisterBlocks.OSSEOUS_SCULK) {
 						int amount = Math.max(0, blockState.get(OsseousSculkBlock.HEIGHT_LEFT) - random.nextInt(1));
 						for (int a = 0; a < amount; a++) {
-							WilderWild.log("Growing Osseous Sculk");
 							OsseousSculkBlock.worldGenSpread(blockPos2, world, random);
 						}
 					}
@@ -94,7 +91,6 @@ public class SculkBlockMixin {
 							blockDown = stateDown.getBlock();
 							if (stateDown.isIn(BlockTags.SCULK_REPLACEABLE) || stateDown.isAir() || blockDown==Blocks.WATER || blockDown==Blocks.LAVA || blockDown==Blocks.SCULK_VEIN || blockDown==Blocks.SCULK) {
 								if (EasyNoiseSampler.simpleRandom.nextInt(o+1)==0) {
-									WilderWild.log(placeBlockBelow.getBlock(), blockPos2, "Growing Block Beneath");
 									world.setBlockState(blockPos2, placeBlockBelow, 3);
 									blockPos2=blockPos2.down();
 								} else { break; }
@@ -127,7 +123,7 @@ public class SculkBlockMixin {
 				++i;
 			}
 			if (i>=3) {
-				WilderWild.log(!bones ? "Ancient City Detected While Growing Osseous Sculk @ " + blockPos : "Too Much Osseous Sculk To Grow New Pillar @ " + blockPos);
+				if (!bones) { WilderWild.log("Ancient City Detected While Growing Osseous Sculk @ ");}
 				return true;}
 		} while(true);
 	}
