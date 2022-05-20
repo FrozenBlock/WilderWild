@@ -116,6 +116,12 @@ public abstract class RegisterBlocks {
                     .nonOpaque()),
             ItemGroup.DECORATIONS
     );
+    public static final Block POTTED_WHITE_DANDELION = registerBlockWithoutBlockItem("potted_white_dandelion",
+            new FlowerPotBlock(RegisterBlocks.WHITE_DANDELION,
+                    AbstractBlock.Settings.of(Material.DECORATION)
+                            .breakInstantly()
+                            .nonOpaque())
+    );
     public static final Block MILKWEED = registerBlock("milkweed",
             new MilkweedBlock(FabricBlockSettings.copy(Blocks.ROSE_BUSH)
                     .strength(0.0F)
