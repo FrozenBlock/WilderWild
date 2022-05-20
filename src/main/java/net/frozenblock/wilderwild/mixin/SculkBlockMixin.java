@@ -123,7 +123,7 @@ public class SculkBlockMixin {
 				++i;
 			}
 			if (i>=3) {
-				if (!bones) { WilderWild.log("Ancient City Detected While Growing Osseous Sculk @ ");}
+				if (!bones) { WilderWild.log("Ancient City Detected While Growing Osseous Sculk @ " + blockPos);}
 				return true;}
 		} while(true);
 	}
