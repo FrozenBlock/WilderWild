@@ -22,10 +22,10 @@ public class CoarsePathFeature extends Feature<DefaultFeatureConfig> {
         boolean generated = false;
         BlockPos blockPos = context.getOrigin();
         StructureWorldAccess world = context.getWorld();
-        ArrayList<BlockPos> poses = blocksInSphere(blockPos, 11);
+        ArrayList<BlockPos> poses = posesInCircle(blockPos, 11);
         for (BlockPos tempPos : poses) {
             BlockPos pos = tempPos.withY(world.getTopY(Type.WORLD_SURFACE_WG, tempPos.getX(), tempPos.getZ()) - 1);
-            if (EasyNoiseSampler.samplePerlinXoro(pos, 0.07, false, false)>0.2 && world.getBlockState(pos).isIn(WildBlockTags.COARSE_PATH_REPLACEABLE)) {
+            if (EasyNoiseSampler.samplePerlinXoro(pos, 0.12, false, false)>0.2 && world.getBlockState(pos).isIn(WildBlockTags.COARSE_PATH_REPLACEABLE)) {
                 generated = true;
                 world.setBlockState(pos, Blocks.COARSE_DIRT.getDefaultState(), 3);
             }
@@ -33,20 +33,15 @@ public class CoarsePathFeature extends Feature<DefaultFeatureConfig> {
         return generated;
     }
 
-    public static ArrayList<BlockPos> blocksInSphere(BlockPos pos, int radius) {
+    public static ArrayList<BlockPos> posesInCircle(BlockPos pos, int radius) {
         ArrayList<BlockPos> poses = new ArrayList<>();
         int bx = pos.getX();
-        int by = pos.getY();
         int bz = pos.getZ();
         for(int x = bx - radius; x <= bx + radius; x++) {
-            for(int y = by - radius; y <= by + radius; y++) {
-                for(int z = bz - radius; z <= bz + radius; z++) {
-                    double distance = ((bx-x) * (bx-x) + ((bz-z) * (bz-z)) + ((by-y) * (by-y)));
-                    if(distance < radius * radius) {
-                        if (y==pos.getY()) {
-                            poses.add(new BlockPos(x, y, z));
-                        }
-                    }
+            for(int z = bz - radius; z <= bz + radius; z++) {
+                double distance = ((bx-x) * (bx-x) + ((bz-z) * (bz-z)));
+                if(distance < radius * radius) {
+                    poses.add(new BlockPos(x, 0, z));
                 }
             }
         } return poses;
