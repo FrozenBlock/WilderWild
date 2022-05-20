@@ -12,17 +12,11 @@ import it.unimi.dsi.fastutil.objects.Object2IntMap;
 import it.unimi.dsi.fastutil.objects.Object2IntMap.Entry;
 import it.unimi.dsi.fastutil.objects.Object2IntOpenHashMap;
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
-import net.minecraft.block.*;
-import net.minecraft.block.entity.SculkSpreadManager;
-import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.block.MultifaceGrowthBlock;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtElement;
 import net.minecraft.nbt.NbtOps;
 import net.minecraft.server.world.ServerWorld;
-import net.minecraft.sound.SoundCategory;
-import net.minecraft.sound.SoundEvents;
-import net.minecraft.tag.BlockTags;
-import net.minecraft.tag.TagKey;
 import net.minecraft.util.Util;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockPos.Mutable;
@@ -198,8 +192,7 @@ public class TermiteManager {
                 if (this.update > 0) {
                     --this.update;
                 } else {
-                    if (this.termites <= 0) {
-                    } else {
+                    if (this.termites > 0) {
                         BlockPos blockPos = getSpreadPos(world, this.pos, random);
                         if (blockPos != null) {
                             this.pos = blockPos.toImmutable();
