@@ -119,14 +119,12 @@ public class WildClientMod implements ClientModInitializer {
             int age = byteBuf.readVarInt();
             double yVel = byteBuf.readDouble();
             int count = byteBuf.readVarInt();
-            WilderWild.log("Receiving Echoing Bubble Packet At " + pos);
             ctx.execute(() -> {
                 if (MinecraftClient.getInstance().world == null)
                     throw new IllegalStateException("why is your world null");
                 for (int i=0; i<count; i++) {
                     MinecraftClient.getInstance().world.addParticle(RegisterParticles.FLOATING_SCULK_BUBBLE, pos.x, pos.y, pos.z, size, age, yVel);
                 }
-                WilderWild.log("Spawned Echoing Bubbles");
             });
         });
     }
@@ -134,7 +132,6 @@ public class WildClientMod implements ClientModInitializer {
     public void receiveSeedPacket() {
         ClientPlayNetworking.registerGlobalReceiver(SEED_PACKET, (ctx, handler, byteBuf, responseSender) -> {
             Vec3d pos = new Vec3d(byteBuf.readDouble(), byteBuf.readDouble(), byteBuf.readDouble());
-            WilderWild.log("Receiving Seed Particle Packet At " + pos);
             int count = byteBuf.readVarInt();
             ParticleEffect particle = byteBuf.readBoolean() ? RegisterParticles.MILKWEED_SEED : RegisterParticles.DANDELION_SEED;
             ctx.execute(() -> {
@@ -143,7 +140,6 @@ public class WildClientMod implements ClientModInitializer {
                 for (int i=0; i<count; i++) {
                     MinecraftClient.getInstance().world.addParticle(particle, pos.x, pos.y, pos.z, 0, 0, 0);
                 }
-                WilderWild.log("Spawned Seed Particles");
             });
         });
     }
@@ -155,7 +151,6 @@ public class WildClientMod implements ClientModInitializer {
             double vely = byteBuf.readDouble();
             double velz = byteBuf.readDouble();
             int count = byteBuf.readVarInt();
-            WilderWild.log("Receiving Controlled Seed Particle Packet At " + pos);
             ParticleEffect particle = byteBuf.readBoolean() ? RegisterParticles.CONTROLLED_MILKWEED_SEED : RegisterParticles.CONTROLLED_DANDELION_SEED;
             ctx.execute(() -> {
                 if (MinecraftClient.getInstance().world == null)
@@ -163,7 +158,6 @@ public class WildClientMod implements ClientModInitializer {
                 for (int i=0; i<count; i++) {
                     MinecraftClient.getInstance().world.addParticle(particle, pos.x, pos.y, pos.z, velx, vely, velz);
                 }
-                WilderWild.log("Spawned Controlled Seed Particles");
             });
         });
     }

@@ -61,7 +61,6 @@ public class FloatingSculkBubbleParticle extends AbstractSlowingParticle {
             MinecraftClient client = MinecraftClient.getInstance();
             if (client!=null) {
                 world.playSound(client.player, this.x, this.y, this.z, this.sound, SoundCategory.BLOCKS, 0.4F, world.random.nextFloat() * 0.2F + 0.8F);
-                WilderWild.log("Pop");
             }
         }
         this.setSpriteForAge(this.spriteProvider);

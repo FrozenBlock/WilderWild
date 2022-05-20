@@ -6,7 +6,6 @@ import net.fabricmc.fabric.api.registry.CompostingChanceRegistry;
 import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.block.*;
 import net.frozenblock.wilderwild.item.FloweredLilyPadItem;
-import net.frozenblock.wilderwild.item.MilkweedPodItem;
 import net.minecraft.block.*;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.item.BlockItem;

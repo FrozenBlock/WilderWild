@@ -4,8 +4,6 @@ import net.minecraft.block.Blocks;
 import net.minecraft.util.registry.RegistryEntry;
 import net.minecraft.world.gen.feature.PlacedFeature;
 import net.minecraft.world.gen.feature.PlacedFeatures;
-import net.minecraft.world.gen.feature.TreeConfiguredFeatures;
-import net.minecraft.world.gen.placementmodifier.PlacementModifier;
 
 import static net.minecraft.world.gen.feature.TreePlacedFeatures.ON_SNOW_MODIFIERS;
 
