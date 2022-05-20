@@ -82,6 +82,7 @@ public class WildPlacedFeature {
     //Decorations
     public static final RegistryEntry<PlacedFeature> NEW_RARE_GRASS_PLACED = PlacedFeatures.register("new_rare_grass_placed",
             VegetationConfiguredFeatures.PATCH_GRASS_JUNGLE, modifiers(8));
+
     public static final RegistryEntry<PlacedFeature> PATCH_CATTAIL =
             PlacedFeatures.register("cattail", WildConfiguredFeatures.CATTAIL,
                     RarityFilterPlacementModifier.of(3), SquarePlacementModifier.of(), PlacedFeatures.MOTION_BLOCKING_HEIGHTMAP, BiomePlacementModifier.of());
@@ -127,4 +128,6 @@ public class WildPlacedFeature {
 
     public static final RegistryEntry<PlacedFeature> RED_SHELF_FUNGUS_PLACED = PlacedFeatures.register("red_shelf_fungus_placed",
             WildConfiguredFeatures.RED_SHELF_FUNGUS_CONFIGURED, RarityFilterPlacementModifier.of(1), CountPlacementModifier.of(16), PlacedFeatures.WORLD_SURFACE_WG_HEIGHTMAP, SquarePlacementModifier.of(), SurfaceThresholdFilterPlacementModifier.of(Heightmap.Type.WORLD_SURFACE_WG, 0, 128), BiomePlacementModifier.of());
+
+
 }
