@@ -185,7 +185,7 @@ public class FireflyEntity extends PathAwareEntity implements Flutterer {
     }
 
     public boolean isPushable() {
-        return false;
+        return true;
     }
 
     protected void pushAway(Entity entity) {
