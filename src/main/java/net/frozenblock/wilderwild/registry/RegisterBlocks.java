@@ -80,6 +80,15 @@ public abstract class RegisterBlocks {
             ItemGroup.DECORATIONS
     );
 
+    public static final Block TERMITE_BLOCK = registerBlock("termite_block",
+            new TermiteBlock(AbstractBlock.Settings
+                    .of(Material.WOOD, MapColor.BROWN)
+                    .strength(0.3F)
+                    .sounds(RegisterBlockSoundGroups.ECHO_GLASS)
+            ),
+            ItemGroup.DECORATIONS
+    );
+
     // PLANTS
     public static final Block DATURA = registerBlock("datura",
             new TallFlowerBlock(FabricBlockSettings.copy(Blocks.ROSE_BUSH)

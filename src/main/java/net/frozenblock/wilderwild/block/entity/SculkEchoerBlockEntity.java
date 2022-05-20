@@ -46,6 +46,7 @@ public class SculkEchoerBlockEntity extends BlockEntity implements VibrationList
     }
 
     public void tick(World world, BlockPos pos, BlockState state) {
+
         if (world instanceof ServerWorld server) {
             boolean upsidedown = state.get(RegisterProperties.UPSIDE_DOWN);
             boolean waterlogged = state.get(Properties.WATERLOGGED);
