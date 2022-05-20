@@ -25,7 +25,7 @@ public class CoarsePathFeature extends Feature<DefaultFeatureConfig> {
         ArrayList<BlockPos> poses = posesInCircle(blockPos, 11);
         for (BlockPos tempPos : poses) {
             BlockPos pos = tempPos.withY(world.getTopY(Type.WORLD_SURFACE_WG, tempPos.getX(), tempPos.getZ()) - 1);
-            if (EasyNoiseSampler.samplePerlinXoro(pos, 0.12, false, false)>0.2 && world.getBlockState(pos).isIn(WildBlockTags.COARSE_PATH_REPLACEABLE)) {
+            if (EasyNoiseSampler.samplePerlinXoro(pos, 0.12, false, false)>0.35 && world.getBlockState(pos).isIn(WildBlockTags.COARSE_PATH_REPLACEABLE)) {
                 generated = true;
                 world.setBlockState(pos, Blocks.COARSE_DIRT.getDefaultState(), 3);
             }
