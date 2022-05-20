@@ -8,6 +8,7 @@ import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
 import org.slf4j.Logger;
 
@@ -24,7 +25,12 @@ public class TermiteBlockEntity extends BlockEntity {
 
 
     public void tick(World world, BlockPos pos, BlockState state) {
-        this.termiteManager.spread(pos, 1);
+        this.termiteManager.spread(pos.up(), 1);
+        this.termiteManager.spread(pos.down(), 1);
+        this.termiteManager.spread(pos.offset(Direction.EAST), 1);
+        this.termiteManager.spread(pos.offset(Direction.WEST), 1);
+        this.termiteManager.spread(pos.offset(Direction.NORTH), 1);
+        this.termiteManager.spread(pos.offset(Direction.SOUTH), 1);
         this.termiteManager.tick(world, pos, world.getRandom(), true);
     }
 

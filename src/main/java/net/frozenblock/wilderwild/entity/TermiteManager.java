@@ -13,6 +13,8 @@ import it.unimi.dsi.fastutil.objects.Object2IntMap.Entry;
 import it.unimi.dsi.fastutil.objects.Object2IntOpenHashMap;
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import net.minecraft.block.*;
+import net.minecraft.block.entity.SculkSpreadManager;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtElement;
 import net.minecraft.nbt.NbtOps;
@@ -37,24 +39,14 @@ import java.util.*;
 import java.util.stream.Stream;
 
 public class TermiteManager {
-    private final TagKey<Block> replaceableTag;
-    private final int extraBlockChance;
-    private final int maxDistance;
-    private final int spreadChance;
-    private final int decayChance;
     private List<TermiteManager.Cursor> cursors = new ArrayList<>();
     private static final Logger LOGGER = LogUtils.getLogger();
 
-    public TermiteManager(TagKey<Block> replaceableTag, int extraBlockChance, int maxDistance, int spreadChance, int decayChance) {
-        this.replaceableTag = replaceableTag;
-        this.extraBlockChance = extraBlockChance;
-        this.maxDistance = maxDistance;
-        this.spreadChance = spreadChance;
-        this.decayChance = decayChance;
+    public TermiteManager() {
     }
 
     public static TermiteManager create() {
-        return new TermiteManager(BlockTags.SCULK_REPLACEABLE, 10, 4, 10, 5);
+        return new TermiteManager();
     }
 
     @VisibleForTesting
@@ -167,27 +159,24 @@ public class TermiteManager {
         private BlockPos pos;
         int termites;
         private int update;
-        private int decay;
         @Nullable
         private Set<Direction> faces;
         private static final Codec<Set<Direction>> DIRECTION_SET_CODEC;
         public static final Codec<TermiteManager.Cursor> CODEC;
 
-        private Cursor(BlockPos pos, int termites, int decay, int update, Optional<Set<Direction>> faces) {
+        private Cursor(BlockPos pos, int termites, int update, Optional<Set<Direction>> faces) {
             this.pos = pos;
             this.termites = termites;
-            this.decay = decay;
             this.update = update;
             this.faces = faces.orElse(null);
         }
 
         public Cursor(BlockPos pos, int termites) {
-            this(pos, termites, 0, 0, Optional.empty());
+            this(pos, termites, 0, Optional.empty());
         }
 
         public BlockPos getPos() { return this.pos; }
         public int getTermites() { return this.termites; }
-        public int getDecay() { return this.decay; }
 
         @Nullable
         public Set<Direction> getFaces() {
@@ -209,9 +198,14 @@ public class TermiteManager {
                 if (this.update > 0) {
                     --this.update;
                 } else {
-                    BlockState blockState = world.getBlockState(this.pos);
-
-                    //this.termites = sculkSpreadable.spread(this, world, pos, random, spreadManager, shouldConvertToBlock);
+                    if (this.termites <= 0) {
+                    } else {
+                        BlockPos blockPos = getSpreadPos(world, this.pos, random);
+                        if (blockPos != null) {
+                            this.pos = blockPos.toImmutable();
+                        }
+                        this.update = 1;
+                    }
                 }
             }
         }
@@ -233,12 +227,8 @@ public class TermiteManager {
 
             for (Vec3i vec3i : shuffleOffsets(random)) {
                 mutable2.set(pos, vec3i);
-                BlockState blockState = world.getBlockState(mutable2);
-                if (blockState.getBlock() instanceof SculkSpreadable && canSpread(world, pos, (BlockPos) mutable2)) {
+                if (canSpread(world, pos, mutable2)) {
                     mutable.set(mutable2);
-                    if (SculkVeinBlock.veinCoversSculkReplaceable(world, blockState, mutable2)) {
-                        break;
-                    }
                 }
             }
 
@@ -275,7 +265,6 @@ public class TermiteManager {
             CODEC = RecordCodecBuilder.create((instance) -> {
                 return instance.group(BlockPos.CODEC.fieldOf("pos").forGetter(TermiteManager.Cursor::getPos),
                         Codec.intRange(0, 1000).fieldOf("termites").orElse(0).forGetter(TermiteManager.Cursor::getTermites),
-                        Codec.intRange(0, 1).fieldOf("decay_delay").orElse(1).forGetter(TermiteManager.Cursor::getDecay),
                         Codec.intRange(0, 2147483647).fieldOf("update_delay").orElse(0).forGetter((cursor) -> {
                     return cursor.update;
                 }), DIRECTION_SET_CODEC.optionalFieldOf("facings").forGetter((cursor) -> {
