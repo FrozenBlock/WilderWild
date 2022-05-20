@@ -95,11 +95,6 @@ public abstract class RegisterBlocks {
                     .nonOpaque()),
             ItemGroup.DECORATIONS
     );
-    public static final Block POTTED_CARNATION = registerBlockWithoutBlockItem("potted_carnation",
-            new FlowerPotBlock(RegisterBlocks.CARNATION, FabricBlockSettings
-            .copy(Blocks.POTTED_DANDELION)
-            .nonOpaque())
-    );
     public static final Block CARNATION = registerBlock("carnation",
             new FlowerBlock(StatusEffects.REGENERATION, 12, FabricBlockSettings
             .copy(Blocks.DANDELION)
@@ -107,6 +102,12 @@ public abstract class RegisterBlocks {
             .strength(0.0F)
             .nonOpaque()),
             ItemGroup.DECORATIONS
+    );
+    public static final Block POTTED_CARNATION = registerBlockWithoutBlockItem("potted_carnation",
+            new FlowerPotBlock(RegisterBlocks.CARNATION,
+                    AbstractBlock.Settings.of(Material.DECORATION)
+                            .breakInstantly()
+                            .nonOpaque())
     );
     public static final Block WHITE_DANDELION = registerBlock("white_dandelion",
             new WhiteDandelionBlock(StatusEffects.SLOW_FALLING, 12, FabricBlockSettings
