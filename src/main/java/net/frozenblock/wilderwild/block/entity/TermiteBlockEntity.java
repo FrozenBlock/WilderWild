@@ -74,7 +74,7 @@ public class TermiteBlockEntity extends BlockEntity {
     }
 
     public void addTermite(BlockPos pos) {
-        Termite termite = new Termite(pos, pos, 0);
+        Termite termite = new Termite(pos, pos, 0,0,0);
         this.termites.add(termite);
     }
 
@@ -109,20 +109,28 @@ public class TermiteBlockEntity extends BlockEntity {
         public BlockPos mound;
         public BlockPos pos;
         public int blockDestroyPower;
+        public int blocksEaten;
+        public int aliveTicks;
         public static final Codec<Termite> CODEC = RecordCodecBuilder.create((instance) -> {
             return instance.group(BlockPos.CODEC.fieldOf("mound").forGetter(Termite::getMoundPos),
                     BlockPos.CODEC.fieldOf("pos").forGetter(Termite::getPos),
-                    Codec.intRange(0, 10000).fieldOf("blockDestroyPower").orElse(0).forGetter(Termite::getPower)).apply(instance, Termite::new);
+                    Codec.intRange(0, 10000).fieldOf("blockDestroyPower").orElse(0).forGetter(Termite::getPower),
+                    Codec.intRange(0, 10).fieldOf("blocksEaten").orElse(0).forGetter(Termite::getBlocksEaten),
+                    Codec.intRange(0, 2002).fieldOf("aliveTicks").orElse(0).forGetter(Termite::getAliveTicks)).apply(instance, Termite::new);
         });
 
-        public Termite(BlockPos mound, BlockPos pos, int blockDestroyPower) {
+        public Termite(BlockPos mound, BlockPos pos, int blockDestroyPower, int blocksEaten, int aliveTicks) {
             this.mound = mound;
             this.pos = pos;
             this.blockDestroyPower=blockDestroyPower;
+            this.blocksEaten = blocksEaten;
+            this.aliveTicks = aliveTicks;
         }
 
         public boolean tick(World world) {
             boolean exit = false;
+            ++this.aliveTicks;
+            if (this.blocksEaten>5 || this.aliveTicks>2000) { return false; }
             if (canMove(world, this.pos)) {
                 BlockState blockState = world.getBlockState(this.pos);
                 Block block = blockState.getBlock();
@@ -140,6 +148,7 @@ public class TermiteBlockEntity extends BlockEntity {
                             world.addBlockBreakParticles(this.pos, blockState);
                             world.setBlockState(this.pos, EDIBLE.get(block).getDefaultState());
                         } this.blockDestroyPower = 0;
+                        ++this.blocksEaten;
                     }
                 } else {
                     this.blockDestroyPower = 0;
@@ -207,6 +216,12 @@ public class TermiteBlockEntity extends BlockEntity {
         }
         public int getPower() {
             return this.blockDestroyPower;
+        }
+        public int getAliveTicks() {
+            return this.aliveTicks;
+        }
+        public int getBlocksEaten() {
+            return this.blocksEaten;
         }
         public static final Object2ObjectMap<Block, Block> EDIBLE = Object2ObjectMaps.unmodifiable(Util.make(new Object2ObjectOpenHashMap<>(), (map) -> {
             map.put(Blocks.ACACIA_LOG, RegisterBlocks.HOLLOWED_ACACIA_LOG);
