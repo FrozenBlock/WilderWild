@@ -94,11 +94,11 @@ public class TermiteMoundBlockEntity extends BlockEntity {
                 --this.ticksToNextTermite;
             } else {
                 this.addTermite(pos);
-                this.ticksToNextTermite= this.getCachedState().get(RegisterProperties.NATURAL) ? 350 : 200;
+                this.ticksToNextTermite = this.getCachedState().get(RegisterProperties.NATURAL) ? 350 : 200;
             }
         }
         while(this.termites.size()>maxTermites) {
-            this.termites.remove(termites.get((int) (Math.random() * termites.size())));
+            this.termites.remove((int) (Math.random() * termites.size()));
         }
     }
 
