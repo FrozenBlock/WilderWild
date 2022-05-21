@@ -129,7 +129,7 @@ public class TermiteBlockEntity extends BlockEntity {
                     Direction direction = Direction.random(world.getRandom());
                     if (state.isAir()) { direction=Direction.DOWN; }
                     BlockPos offest = pos.offset(direction);
-                    if (exposedToAir(world, offest)) {
+                    if (exposedToAir(world, offest) && !(direction!=Direction.DOWN && world.getBlockState(offest).isAir())) {
                         this.pos = offest;
                         exit = true;
                     }
