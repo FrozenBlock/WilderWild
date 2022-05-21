@@ -5,10 +5,12 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.DataResult;
 import com.mojang.serialization.Dynamic;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import it.unimi.dsi.fastutil.objects.*;
-import net.frozenblock.wilderwild.block.HollowedLogBlock;
+import it.unimi.dsi.fastutil.objects.Object2ObjectMap;
+import it.unimi.dsi.fastutil.objects.Object2ObjectMaps;
+import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 import net.frozenblock.wilderwild.registry.RegisterBlockEntityType;
 import net.frozenblock.wilderwild.registry.RegisterBlocks;
+import net.frozenblock.wilderwild.tag.WildBlockTags;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
@@ -23,7 +25,6 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldAccess;
-import net.minecraft.world.event.GameEvent;
 import org.slf4j.Logger;
 
 import java.util.ArrayList;
@@ -110,7 +111,8 @@ public class TermiteBlockEntity extends BlockEntity {
         public boolean tick(World world) {
             boolean exit = false;
             if (canMove(world, this.pos)) {
-                Block block = world.getBlockState(this.pos).getBlock();
+                BlockState state = world.getBlockState(this.pos);
+                Block block = state.getBlock();
                 if (EDIBLE.containsKey(block)) {
                     exit = true;
                     ++this.blockDestroyPower;
@@ -122,6 +124,7 @@ public class TermiteBlockEntity extends BlockEntity {
                         }
                     }
                 } else {
+                    if (state.isIn(WildBlockTags.KILLS_TERMITE)) { return false; }
                     this.blockDestroyPower = 0;
                     Direction direction = Direction.random(world.getRandom());
                     BlockPos offest = pos.offset(direction);
