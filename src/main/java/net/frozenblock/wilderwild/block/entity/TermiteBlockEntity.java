@@ -121,6 +121,7 @@ public class TermiteBlockEntity extends BlockEntity {
                     if (this.blockDestroyPower>200) {
                         if (blockState.isIn(WildBlockTags.TERMITE_BREAKABLE)) {
                             world.breakBlock(this.pos, true);
+                            ++this.blockDestroyPower;
                         } else {
                             world.addBlockBreakParticles(this.pos, blockState);
                             world.setBlockState(this.pos, EDIBLE.get(block).getDefaultState());
