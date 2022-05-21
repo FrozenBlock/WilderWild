@@ -32,13 +32,13 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
-public class TermiteBlockEntity extends BlockEntity {
+public class TermiteMoundBlockEntity extends BlockEntity {
     private static final Logger LOGGER = LogUtils.getLogger();
     ArrayList<Termite> termites = new ArrayList<>();
     public int ticksToNextTermite;
 
-    public TermiteBlockEntity(BlockPos pos, BlockState state) {
-        super(RegisterBlockEntityType.TERMITEMOUND, pos, state);
+    public TermiteMoundBlockEntity(BlockPos pos, BlockState state) {
+        super(RegisterBlockEntityType.TERMITE_MOUND, pos, state);
     }
 
     public void readNbt(NbtCompound nbt) {
