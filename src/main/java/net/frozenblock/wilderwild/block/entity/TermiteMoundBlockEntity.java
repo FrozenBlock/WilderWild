@@ -101,8 +101,8 @@ public class TermiteMoundBlockEntity extends BlockEntity {
     }
 
     public static int maxTermites(World world) {
-        if (world.isNight()) {return 3;}
-        return 16;
+        if (world.isNight()) {return 1;}
+        return 5;
     }
 
     public static class Termite {
@@ -155,7 +155,7 @@ public class TermiteMoundBlockEntity extends BlockEntity {
                     this.blockDestroyPower = 0;
                     BlockPos priority = edibleBreakablePos(world, this.pos);
                     if (priority!=null) {
-                        this.pos=priority;
+                        this.pos = priority;
                         exit = true;
                     } else {
                         Direction direction = Direction.random(world.getRandom());
@@ -167,6 +167,12 @@ public class TermiteMoundBlockEntity extends BlockEntity {
                         if (exposedToAir(world, offest) && !(direction != Direction.DOWN && state.isAir() && (!this.mound.isWithinDistance(this.pos, 1.5)) && ledge == null)) {
                             this.pos = offest;
                             if (ledge != null) { this.pos = ledge; }
+                            exit = true;
+                        } else if (ledge!=null && exposedToAir(world, ledge)) {
+                            this.pos = ledge;
+                            exit = true;
+                        } else if (!world.getBlockState(this.pos.up()).isAir() && exposedToAir(world, this.pos.up())) {
+                            this.pos = this.pos.up();
                             exit = true;
                         }
                     }
