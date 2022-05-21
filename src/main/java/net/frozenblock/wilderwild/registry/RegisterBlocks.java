@@ -84,7 +84,7 @@ public abstract class RegisterBlocks {
             new TermiteBlock(AbstractBlock.Settings
                     .of(Material.WOOD, MapColor.BROWN)
                     .strength(0.3F)
-                    .sounds(BlockSoundGroup.GRAVEL)
+                    .sounds(RegisterBlockSoundGroups.COARSEDIRT)
             ),
             ItemGroup.DECORATIONS
     );
