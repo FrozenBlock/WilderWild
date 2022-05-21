@@ -72,7 +72,7 @@ public class TermiteMoundBlockEntity extends BlockEntity {
     }
 
     public void addTermite(BlockPos pos) {
-        Termite termite = new Termite(pos, pos,0,0, this.getCachedState().get(RegisterProperties.NATURAL));
+        Termite termite = new Termite(pos, pos,0,0,0, this.getCachedState().get(RegisterProperties.NATURAL));
         this.termites.add(termite);
     }
 
@@ -94,7 +94,7 @@ public class TermiteMoundBlockEntity extends BlockEntity {
                 --this.ticksToNextTermite;
             } else {
                 this.addTermite(pos);
-                this.ticksToNextTermite=300;
+                this.ticksToNextTermite= this.getCachedState().get(RegisterProperties.NATURAL) ? 350 : 200;
             }
         }
         while(this.termites.size()>maxTermites) {
@@ -126,20 +126,23 @@ public class TermiteMoundBlockEntity extends BlockEntity {
         public BlockPos pos;
         public int blockDestroyPower;
         public int aliveTicks;
+        public int update;
         public boolean natural;
         public static final Codec<Termite> CODEC = RecordCodecBuilder.create((instance) -> {
             return instance.group(BlockPos.CODEC.fieldOf("mound").forGetter(Termite::getMoundPos),
                     BlockPos.CODEC.fieldOf("pos").forGetter(Termite::getPos),
                     Codec.intRange(0, 10000).fieldOf("blockDestroyPower").orElse(0).forGetter(Termite::getPower),
                     Codec.intRange(0, 2002).fieldOf("aliveTicks").orElse(0).forGetter(Termite::getAliveTicks),
+                    Codec.intRange(0, 5).fieldOf("update").orElse(0).forGetter(Termite::getUpdateTicks),
                     Codec.BOOL.fieldOf("natural").orElse(true).forGetter(Termite::getNatural)).apply(instance, Termite::new);
         });
 
-        public Termite(BlockPos mound, BlockPos pos, int blockDestroyPower, int aliveTicks, boolean natural) {
+        public Termite(BlockPos mound, BlockPos pos, int blockDestroyPower, int aliveTicks, int update, boolean natural) {
             this.mound = mound;
             this.pos = pos;
             this.blockDestroyPower=blockDestroyPower;
             this.aliveTicks = aliveTicks;
+            this.update = update;
             this.natural = natural;
         }
 
@@ -172,27 +175,37 @@ public class TermiteMoundBlockEntity extends BlockEntity {
                     }
                 } else {
                     this.blockDestroyPower = 0;
-                    BlockPos priority = edibleBreakablePos(world, this.pos);
-                    if (priority!=null) {
-                        this.pos = priority;
-                        exit = true;
+                    Direction direction = Direction.random(world.getRandom());
+                    if (blockState.isAir()) {
+                        direction = Direction.DOWN;
+                    }
+                    BlockPos offest = pos.offset(direction);
+                    BlockState state = world.getBlockState(offest);
+                    if (state.isIn(WildBlockTags.KILLS_TERMITE) || state.isOf(Blocks.WATER) || state.isOf(Blocks.LAVA)) { return false; }
+                    if (this.update > 0 && !blockState.isAir()) {
+                        --this.update;
+                        return true;
                     } else {
-                        Direction direction = Direction.random(world.getRandom());
-                        if (blockState.isAir()) { direction=Direction.DOWN; }
-                        BlockPos offest = pos.offset(direction);
-                        BlockState state = world.getBlockState(offest);
-                        if (state.isIn(WildBlockTags.KILLS_TERMITE) || state.isOf(Blocks.WATER) || state.isOf(Blocks.LAVA)) { return false; }
-                        BlockPos ledge = ledgePos(world, offest);
-                        if (exposedToAir(world, offest) && !(direction != Direction.DOWN && state.isAir() && (!this.mound.isWithinDistance(this.pos, 1.5)) && ledge == null)) {
-                            this.pos = offest;
-                            if (ledge != null) { this.pos = ledge; }
+                        this.update = 1;
+                        BlockPos priority = edibleBreakablePos(world, this.pos);
+                        if (priority != null) {
+                            this.pos = priority;
                             exit = true;
-                        } else if (ledge!=null && exposedToAir(world, ledge)) {
-                            this.pos = ledge;
-                            exit = true;
-                        } else if (!world.getBlockState(this.pos.up()).isAir() && exposedToAir(world, this.pos.up())) {
-                            this.pos = this.pos.up();
-                            exit = true;
+                        } else {
+                            BlockPos ledge = ledgePos(world, offest);
+                            if (exposedToAir(world, offest) && !(direction != Direction.DOWN && state.isAir() && (!this.mound.isWithinDistance(this.pos, 1.5)) && ledge == null)) {
+                                this.pos = offest;
+                                if (ledge != null) {
+                                    this.pos = ledge;
+                                }
+                                exit = true;
+                            } else if (ledge != null && exposedToAir(world, ledge)) {
+                                this.pos = ledge;
+                                exit = true;
+                            } else if (!world.getBlockState(this.pos.up()).isAir() && exposedToAir(world, this.pos.up())) {
+                                this.pos = this.pos.up();
+                                exit = true;
+                            }
                         }
                     }
                 }
@@ -251,6 +264,9 @@ public class TermiteMoundBlockEntity extends BlockEntity {
         }
         public int getAliveTicks() {
             return this.aliveTicks;
+        }
+        public int getUpdateTicks() {
+            return this.update;
         }
         public boolean getNatural() {
             return this.natural;
