@@ -50,7 +50,7 @@ public class TermiteBlockEntity extends BlockEntity {
             Optional<List> list = (Optional<List>) var10000.resultOrPartial(var10001::error);
             if (list.isPresent()) {
                 List termitesAllAllAll = list.get();
-                int i = Math.min(termitesAllAllAll.size(), 32);
+                int i = Math.min(termitesAllAllAll.size(), maxTermites(world));
 
                 for (int j = 0; j < i; ++j) {
                     this.termites.add((Termite) termitesAllAllAll.get(j));
@@ -86,9 +86,14 @@ public class TermiteBlockEntity extends BlockEntity {
         for (Termite termite : termitesToRemove) {
             this.termites.remove(termite);
         }
-        if (this.termites.size()<32) {
+        if (this.termites.size()<maxTermites(world)) {
             this.addTermite(pos);
         }
+    }
+
+    public static int maxTermites(World world) {
+        if (world.isNight()) {return 3;}
+        return 16;
     }
 
     public static class Termite {
