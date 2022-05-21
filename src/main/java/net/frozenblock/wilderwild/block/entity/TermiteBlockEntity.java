@@ -102,6 +102,7 @@ public class TermiteBlockEntity extends BlockEntity {
         });
 
         public Termite(BlockPos mound, BlockPos pos, int blockDestroyPower) {
+            this.mound = mound;
             this.pos = pos;
             this.blockDestroyPower=blockDestroyPower;
         }
