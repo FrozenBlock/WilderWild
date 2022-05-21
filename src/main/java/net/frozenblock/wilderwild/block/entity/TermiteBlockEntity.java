@@ -70,7 +70,7 @@ public class TermiteBlockEntity extends BlockEntity {
     }
 
     public void addTermite(BlockPos pos) {
-        Termite termite = new Termite(pos.getX(), pos.getY(), pos.getZ(), 0);
+        Termite termite = new Termite(pos, pos, 0);
         this.termites.add(termite);
     }
 
@@ -92,18 +92,16 @@ public class TermiteBlockEntity extends BlockEntity {
     }
 
     public static class Termite {
+        public BlockPos mound;
         public BlockPos pos;
         public int blockDestroyPower;
         public static final Codec<Termite> CODEC = RecordCodecBuilder.create((instance) -> {
-            return instance.group(BlockPos.CODEC.fieldOf("pos").forGetter(Termite::getPos),
+            return instance.group(BlockPos.CODEC.fieldOf("mound").forGetter(Termite::getMoundPos),
+                    BlockPos.CODEC.fieldOf("pos").forGetter(Termite::getPos),
                     Codec.intRange(0, 10000).fieldOf("blockDestroyPower").orElse(0).forGetter(Termite::getPower)).apply(instance, Termite::new);
         });
 
-        public Termite(int x, int y, int z, int blockDestroyPower) {
-            this.pos = new BlockPos(x,y,z);
-            this.blockDestroyPower=blockDestroyPower;
-        }
-        public Termite(BlockPos pos, int blockDestroyPower) {
+        public Termite(BlockPos mound, BlockPos pos, int blockDestroyPower) {
             this.pos = pos;
             this.blockDestroyPower=blockDestroyPower;
         }
@@ -130,7 +128,7 @@ public class TermiteBlockEntity extends BlockEntity {
                     BlockPos offest = pos.offset(direction);
                     BlockState state = world.getBlockState(offest);
                     if (state.isIn(WildBlockTags.KILLS_TERMITE) || state.isOf(Blocks.WATER) || state.isOf(Blocks.LAVA)) { return false; }
-                    if (exposedToAir(world, offest) && !(direction==Direction.UP && state.isAir())) {
+                    if (exposedToAir(world, offest) && !(direction!=Direction.DOWN && state.isAir() && !this.mound.isWithinDistance(this.pos, 1.5))) {
                         this.pos = offest;
                         exit = true;
                     }
@@ -153,6 +151,9 @@ public class TermiteBlockEntity extends BlockEntity {
             } return false;
         }
 
+        public BlockPos getMoundPos() {
+            return this.mound;
+        }
         public BlockPos getPos() {
             return this.pos;
         }
