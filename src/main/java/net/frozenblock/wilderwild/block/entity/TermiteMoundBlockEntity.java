@@ -141,14 +141,15 @@ public class TermiteMoundBlockEntity extends BlockEntity {
                     ++this.blockDestroyPower;
                     if (breakable) { ++this.blockDestroyPower; }
                     if (this.blockDestroyPower>200) {
+                        this.blockDestroyPower = 0;
+                        ++this.blocksEaten;
                         if (blockState.isIn(WildBlockTags.TERMITE_BREAKABLE)) {
                             world.breakBlock(this.pos, true);
                             ++this.blockDestroyPower;
                         } else {
                             world.addBlockBreakParticles(this.pos, blockState);
                             world.setBlockState(this.pos, EDIBLE.get(block).getDefaultState());
-                        } this.blockDestroyPower = 0;
-                        ++this.blocksEaten;
+                        }
                     }
                 } else {
                     this.blockDestroyPower = 0;
