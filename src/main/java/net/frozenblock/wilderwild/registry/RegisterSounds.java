@@ -11,7 +11,25 @@ public class RegisterSounds {
     public static final SoundEvent BLOCK_REINFORCED_DEEPSLATE_HIT = register("block.reinforced_deepslate.hit");
     public static final SoundEvent BLOCK_REINFORCED_DEEPSLATE_BREAK = register( "block.reinforced_deepslate.break");
     public static final SoundEvent BLOCK_REINFORCED_DEEPSLATE_STEP = register("block.reinforced_deepslate.step");
-    public static final SoundEvent BLOCK_REINFORCED_DEEPSLATE_FALL = register("block.reinforced_deepslate.fall"); // B)
+    public static final SoundEvent BLOCK_REINFORCED_DEEPSLATE_FALL = register("block.reinforced_deepslate.fall");
+
+    public static final SoundEvent BLOCK_COBWEB_PLACE = register( "block.cobweb.place");
+    public static final SoundEvent BLOCK_COBWEB_HIT = register("block.cobweb.hit");
+    public static final SoundEvent BLOCK_COBWEB_BREAK = register( "block.cobweb.break");
+    public static final SoundEvent BLOCK_COBWEB_STEP = register("block.cobweb.step");
+    public static final SoundEvent BLOCK_COBWEB_FALL = register("block.cobweb.fall");
+
+    public static final SoundEvent BLOCK_LEAVES_PLACE = register( "block.leaves.place");
+    public static final SoundEvent BLOCK_LEAVES_HIT = register("block.leaves.hit");
+    public static final SoundEvent BLOCK_LEAVES_BREAK = register( "block.leaves.break");
+    public static final SoundEvent BLOCK_LEAVES_STEP = register("block.leaves.step");
+    public static final SoundEvent BLOCK_LEAVES_FALL = register("block.leaves.fall");
+
+    public static final SoundEvent BLOCK_FLOWER_PLACE = register( "block.flower.place");
+    public static final SoundEvent BLOCK_FLOWER_HIT = register("block.flower.hit");
+    public static final SoundEvent BLOCK_FLOWER_BREAK = register( "block.flower.break");
+    public static final SoundEvent BLOCK_FLOWER_STEP = register("block.flower.step");
+    public static final SoundEvent BLOCK_FLOWER_FALL = register("block.flower.fall");
 
     public static final SoundEvent BLOCK_MUSHROOM_PLACE = register( "block.mushroom.place");
     public static final SoundEvent BLOCK_MUSHROOM_HIT = register("block.mushroom.hit");
@@ -51,7 +69,6 @@ public class RegisterSounds {
     public static final SoundEvent BLOCK_HANGING_TENDRIL_WRING = register( "block.hanging_tendril.wring");
 
     public static final SoundEvent BLOCK_ECHO_GLASS_PLACE = register( "block.echo_glass.place");
-    public static final SoundEvent BLOCK_ECHO_GLASS_HIT = register( "block.echo_glass.hit");
     public static final SoundEvent BLOCK_ECHO_GLASS_BREAK = register( "block.echo_glass.break");
     public static final SoundEvent BLOCK_ECHO_GLASS_STEP = register( "block.echo_glass.step");
     public static final SoundEvent BLOCK_ECHO_GLASS_FALL = register( "block.echo_glass.fall");

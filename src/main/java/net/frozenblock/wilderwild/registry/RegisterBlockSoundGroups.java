@@ -46,6 +46,30 @@ public class RegisterBlockSoundGroups {
             BLOCK_MUSHROOM_BLOCK_FALL
     );
 
+    public static BlockSoundGroup LEAVES = new BlockSoundGroup(1.0f, 1.0f,
+            BLOCK_LEAVES_BREAK,
+            BLOCK_LEAVES_STEP,
+            BLOCK_LEAVES_PLACE,
+            BLOCK_LEAVES_HIT,
+            BLOCK_LEAVES_FALL
+    );
+
+    public static BlockSoundGroup FLOWER = new BlockSoundGroup(1.0f, 1.0f,
+            BLOCK_FLOWER_BREAK,
+            BLOCK_FLOWER_STEP,
+            BLOCK_FLOWER_PLACE,
+            BLOCK_FLOWER_HIT,
+            BLOCK_FLOWER_FALL
+    );
+
+    public static BlockSoundGroup WEB = new BlockSoundGroup(1.0f, 1.0f,
+            BLOCK_COBWEB_BREAK,
+            BLOCK_COBWEB_STEP,
+            BLOCK_COBWEB_PLACE,
+            BLOCK_COBWEB_HIT,
+            BLOCK_COBWEB_FALL
+    );
+
     public static BlockSoundGroup LILYPAD = new BlockSoundGroup(1.0f, 1.0f,
             SoundEvents.BLOCK_LILY_PAD_PLACE,
             SoundEvents.BLOCK_LILY_PAD_PLACE,

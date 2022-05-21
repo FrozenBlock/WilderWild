@@ -15,16 +15,18 @@ import static net.minecraft.block.Blocks.*;
 public class BlockSoundGroupOverwrites {
 
     public static void init() {
+        addBlock(WITHER_ROSE, BlockSoundGroup.SWEET_BERRY_BUSH);
+        addBlock(DEAD_BUSH, BlockSoundGroup.NETHER_SPROUTS);
+        addBlock(CACTUS, BlockSoundGroup.SWEET_BERRY_BUSH);
+        addBlock(PODZOL, BlockSoundGroup.ROOTED_DIRT);
+
+        addBlocks(new Block[]{ACACIA_LEAVES, BIRCH_LEAVES, DARK_OAK_LEAVES, JUNGLE_LEAVES, MANGROVE_LEAVES, OAK_LEAVES, SPRUCE_LEAVES}, LEAVES);
+        addBlocks(new Block[]{DANDELION, POPPY, BLUE_ORCHID, ALLIUM, AZURE_BLUET, RED_TULIP, ORANGE_TULIP, WHITE_TULIP, PINK_TULIP, OXEYE_DAISY, CORNFLOWER, LILY_OF_THE_VALLEY}, FLOWER);
         addBlocks(new Block[]{RED_MUSHROOM, BROWN_MUSHROOM}, MUSHROOM);
         addBlocks(new Block[]{RED_MUSHROOM_BLOCK, BROWN_MUSHROOM_BLOCK, MUSHROOM_STEM}, MUSHROOM_BLOCK);
-        addBlocks(new Block[]{ACACIA_LEAVES, BIRCH_LEAVES, DARK_OAK_LEAVES, JUNGLE_LEAVES, MANGROVE_LEAVES, OAK_LEAVES, SPRUCE_LEAVES}, BlockSoundGroup.AZALEA_LEAVES);
-        addBlocks(new Block[]{DANDELION, POPPY, BLUE_ORCHID, ALLIUM, AZURE_BLUET, RED_TULIP, ORANGE_TULIP, WHITE_TULIP, PINK_TULIP, OXEYE_DAISY, CORNFLOWER, LILY_OF_THE_VALLEY}, BlockSoundGroup.SPORE_BLOSSOM);
-        addBlock(DEAD_BUSH, BlockSoundGroup.NETHER_SPROUTS);
-        addBlock(WITHER_ROSE, BlockSoundGroup.SWEET_BERRY_BUSH);
-        addBlock(CACTUS, BlockSoundGroup.SWEET_BERRY_BUSH);
+        addBlock(COBWEB, WEB);
         addBlock(REINFORCED_DEEPSLATE, REINFORCEDDEEPSLATE);
         addBlock(LILY_PAD, LILYPAD);
-        addBlock(PODZOL, BlockSoundGroup.ROOTED_DIRT);
         addBlock(SUGAR_CANE, SUGARCANE);
         addBlock(COARSE_DIRT, COARSEDIRT);
 
