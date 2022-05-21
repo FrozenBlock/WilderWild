@@ -66,12 +66,16 @@ public class TermiteBlockEntity extends BlockEntity {
     }
 
     public void tick(World world, BlockPos pos, BlockState state) {
+        ArrayList<Termite> termitesToRemove = new ArrayList<>();
         for (Termite termite : this.termites) {
             if (termite.move(world)) {
                 world.syncWorldEvent(3006, termite.pos, 0);
             } else {
-                this.termites.remove(termite);
+                termitesToRemove.add(termite);
             }
+        }
+        for (Termite termite : termitesToRemove) {
+            this.termites.remove(termite);
         }
         this.addTermite(pos.up());
     }
