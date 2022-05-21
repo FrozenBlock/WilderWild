@@ -33,8 +33,8 @@
   "accessWidener" : "wilderwild.accesswidener",
 
   "depends": {
-    "fabricloader": ">=0.14.5",
-    "fabric": ">=0.52.3",
+    "fabricloader": ">=0.14.6",
+    "fabric": ">=0.53.0",
     "minecraft": "1.19.x",
     "java": ">=17"
   },
