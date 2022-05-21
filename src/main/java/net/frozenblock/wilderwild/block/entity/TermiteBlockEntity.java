@@ -37,7 +37,7 @@ public class TermiteBlockEntity extends BlockEntity {
     ArrayList<Termite> termites = new ArrayList<>();
 
     public TermiteBlockEntity(BlockPos pos, BlockState state) {
-        super(RegisterBlockEntityType.TERMITE, pos, state);
+        super(RegisterBlockEntityType.TERMITEMOUND, pos, state);
     }
 
     public void readNbt(NbtCompound nbt) {

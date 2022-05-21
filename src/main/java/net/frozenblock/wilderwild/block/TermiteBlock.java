@@ -25,6 +25,6 @@ public class TermiteBlock extends BlockWithEntity {
 
     @Nullable
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(World world, BlockState state, BlockEntityType<T> type) {
-        return !world.isClient ? checkType(type, RegisterBlockEntityType.TERMITE, (worldx, pos, statex, blockEntity) -> blockEntity.tick(worldx, pos)) : null;
+        return !world.isClient ? checkType(type, RegisterBlockEntityType.TERMITEMOUND, (worldx, pos, statex, blockEntity) -> blockEntity.tick(worldx, pos)) : null;
     }
 }

@@ -31,6 +31,18 @@ public class RegisterSounds {
     public static final SoundEvent BLOCK_OSSEOUS_SCULK_STEP = register("block.osseous_sculk.step");
     public static final SoundEvent BLOCK_OSSEOUS_SCULK_FALL = register("block.osseous_sculk.fall");
 
+    public static final SoundEvent BLOCK_SUGAR_CANE_PLACE = register( "block.sugar_cane.place");
+    public static final SoundEvent BLOCK_SUGAR_CANE_HIT = register("block.sugar_cane.hit");
+    public static final SoundEvent BLOCK_SUGAR_CANE_BREAK = register( "block.sugar_cane.break");
+    public static final SoundEvent BLOCK_SUGAR_CANE_STEP = register("block.sugar_cane.step");
+    public static final SoundEvent BLOCK_SUGAR_CANE_FALL = register("block.sugar_cane.fall");
+
+    public static final SoundEvent BLOCK_COARSE_DIRT_PLACE = register( "block.coarse_dirt.place");
+    public static final SoundEvent BLOCK_COARSE_DIRT_HIT = register("block.coarse_dirt.hit");
+    public static final SoundEvent BLOCK_COARSE_DIRT_BREAK = register( "block.coarse_dirt.break");
+    public static final SoundEvent BLOCK_COARSE_DIRT_STEP = register("block.coarse_dirt.step");
+    public static final SoundEvent BLOCK_COARSE_DIRT_FALL = register("block.coarse_dirt.fall");
+
     public static final SoundEvent BLOCK_HANGING_TENDRIL_PLACE = register( "block.hanging_tendril.place");
     public static final SoundEvent BLOCK_HANGING_TENDRIL_HIT = register("block.hanging_tendril.hit");
     public static final SoundEvent BLOCK_HANGING_TENDRIL_BREAK = register("block.hanging_tendril.break");

@@ -47,12 +47,12 @@
 				"weight": 2
 			},
 			{
-				"name": "twm:ambient/cave/deep_dark/sculk1",
+				"name": "wilderwild:ambient/cave/deep_dark/sculk1",
 				"volume": 0.3,
 				"weight": 3
 			},
 			{
-				"name": "twm:ambient/cave/deep_dark/sculk2",
+				"name": "wilderwild:ambient/cave/deep_dark/sculk2",
 				"volume": 0.3,
 				"weight": 3
 			},
@@ -339,6 +339,106 @@
 			"wilderwild:block/mushroom_block/break4",
 			"wilderwild:block/mushroom_block/break5",
 			"wilderwild:block/mushroom_block/break6"
+		],
+		"subtitle": "subtitles.block.generic.footsteps"
+	},
+		"block.coarse_dirt.break": {
+		"sounds": [
+			"wilderwild:block/coarse_dirt/break1",
+			"wilderwild:block/coarse_dirt/break2",
+			"wilderwild:block/coarse_dirt/break3",
+			"wilderwild:block/coarse_dirt/break4"
+		],
+		"subtitle": "subtitles.block.generic.break"
+	},
+	"block.coarse_dirt.fall": {
+		"sounds": [
+			"wilderwild:block/coarse_dirt/step1",
+			"wilderwild:block/coarse_dirt/step2",
+			"wilderwild:block/coarse_dirt/step3",
+			"wilderwild:block/coarse_dirt/step4"
+		],
+		"subtitle": "subtitles.block.generic.fall"
+	},
+	"block.coarse_dirt.hit": {
+		"sounds": [
+			"wilderwild:block/coarse_dirt/step1",
+			"wilderwild:block/coarse_dirt/step2",
+			"wilderwild:block/coarse_dirt/step3",
+			"wilderwild:block/coarse_dirt/step4"
+		],
+		"subtitle": "subtitles.block.generic.hit"
+	},
+	"block.coarse_dirt.place": {
+		"sounds": [
+			"wilderwild:block/coarse_dirt/break1",
+			"wilderwild:block/coarse_dirt/break2",
+			"wilderwild:block/coarse_dirt/break3",
+			"wilderwild:block/coarse_dirt/break4"
+		],
+		"subtitle": "subtitles.block.generic.place"
+	},
+	"block.coarse_dirt.step": {
+		"sounds": [
+			"wilderwild:block/coarse_dirt/step1",
+			"wilderwild:block/coarse_dirt/step2",
+			"wilderwild:block/coarse_dirt/step3",
+			"wilderwild:block/coarse_dirt/step4"
+		],
+		"subtitle": "subtitles.block.generic.footsteps"
+	},
+	"block.sugar_cane.break": {
+		"sounds": [
+			"wilderwild:block/sugar_cane/place1",
+			"wilderwild:block/sugar_cane/place2",
+			"wilderwild:block/sugar_cane/place3",
+			"wilderwild:block/sugar_cane/place4",
+			"wilderwild:block/sugar_cane/place5",
+			"wilderwild:block/sugar_cane/place6"
+		],
+		"subtitle": "subtitles.block.generic.break"
+	},
+	"block.sugar_cane.fall": {
+		"sounds": [
+			"wilderwild:block/sugar_cane/step1",
+			"wilderwild:block/sugar_cane/step2",
+			"wilderwild:block/sugar_cane/step3",
+			"wilderwild:block/sugar_cane/step4",
+			"wilderwild:block/sugar_cane/step5",
+			"wilderwild:block/sugar_cane/step6"
+		],
+		"subtitle": "subtitles.block.generic.fall"
+	},
+	"block.sugar_cane.hit": {
+		"sounds": [
+			"wilderwild:block/sugar_cane/step1",
+			"wilderwild:block/sugar_cane/step2",
+			"wilderwild:block/sugar_cane/step3",
+			"wilderwild:block/sugar_cane/step4",
+			"wilderwild:block/sugar_cane/step5",
+			"wilderwild:block/sugar_cane/step6"
+		],
+		"subtitle": "subtitles.block.generic.hit"
+	},
+	"block.sugar_cane.place": {
+		"sounds": [
+			"wilderwild:block/sugar_cane/place1",
+			"wilderwild:block/sugar_cane/place2",
+			"wilderwild:block/sugar_cane/place3",
+			"wilderwild:block/sugar_cane/place4",
+			"wilderwild:block/sugar_cane/place5",
+			"wilderwild:block/sugar_cane/place6"
+		],
+		"subtitle": "subtitles.block.generic.place"
+	},
+	"block.sugar_cane.step": {
+		"sounds": [
+			"wilderwild:block/sugar_cane/step1",
+			"wilderwild:block/sugar_cane/step2",
+			"wilderwild:block/sugar_cane/step3",
+			"wilderwild:block/sugar_cane/step4",
+			"wilderwild:block/sugar_cane/step5",
+			"wilderwild:block/sugar_cane/step6"
 		],
 		"subtitle": "subtitles.block.generic.footsteps"
 	},

@@ -25,10 +25,9 @@ public class BlockSoundGroupOverwrites {
         addBlock(REINFORCED_DEEPSLATE, REINFORCEDDEEPSLATE);
         addBlock(LILY_PAD, LILYPAD);
         addBlock(PODZOL, BlockSoundGroup.ROOTED_DIRT);
-        addBlock(SUGAR_CANE, BlockSoundGroup.BAMBOO); //needs unique sounds
-        addBlock(COARSE_DIRT, BlockSoundGroup.ROOTED_DIRT); //needs unique sounds
-        
-        //addNamespace("minecraft", FUNNY); no. bad.
+        addBlock(SUGAR_CANE, SUGARCANE);
+        addBlock(COARSE_DIRT, COARSEDIRT);
+
     }
 
     /** You can add any block by either adding its registry (Blocks.STONE) or its ID ("stone").
