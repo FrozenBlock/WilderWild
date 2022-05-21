@@ -6,7 +6,10 @@ import com.mojang.serialization.DataResult;
 import com.mojang.serialization.Dynamic;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.frozenblock.wilderwild.registry.RegisterBlockEntityType;
+import net.frozenblock.wilderwild.registry.RegisterBlocks;
+import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
+import net.minecraft.block.Blocks;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtElement;
@@ -68,7 +71,7 @@ public class TermiteBlockEntity extends BlockEntity {
     public void tick(World world, BlockPos pos) {
         ArrayList<Termite> termitesToRemove = new ArrayList<>();
         for (Termite termite : this.termites) {
-            if (termite.move(world)) {
+            if (termite.tick(world)) {
                 world.syncWorldEvent(3006, termite.pos, 0);
             } else {
                 termitesToRemove.add(termite);
@@ -83,6 +86,8 @@ public class TermiteBlockEntity extends BlockEntity {
     }
 
     public static class Termite {
+        public static ArrayList<Block> highPriority = new ArrayList<>() {{add(Blocks.OAK_LOG);}};
+        public static ArrayList<Block> highPriorityTo = new ArrayList<>() {{add(RegisterBlocks.HOLLOWED_OAK_LOG);}};
         public BlockPos pos;
         public int blockDestroyPower;
         public static final Codec<Termite> CODEC = RecordCodecBuilder.create((instance) -> {
@@ -99,21 +104,30 @@ public class TermiteBlockEntity extends BlockEntity {
             this.blockDestroyPower=blockDestroyPower;
         }
 
-        public boolean move(World world) {
+        public boolean tick (World world) {
             boolean exit = false;
-            if (canMove(world, pos)) {
-                Direction direction = Direction.random(world.getRandom());
-                BlockPos offest = pos.offset(direction);
-                if (world.getBlockState(offest).isSolidBlock(world, offest) && exposedToAir(world, offest)) {
-                    this.pos = offest;
+            if (canMove(world, this.pos)) {
+                if (highPriority.contains(world.getBlockState(this.pos).getBlock())) {
                     exit = true;
-                }
-                if (!exit) {
-                    direction = Direction.random(world.getRandom());
-                    offest = offest.offset(direction);
+                    ++this.blockDestroyPower;
+                    if (this.blockDestroyPower>200) {
+                        world.setBlockState(this.pos, highPriorityTo.get(highPriority.indexOf(world.getBlockState(this.pos).getBlock())).getDefaultState());
+                    }
+                } else {
+                    this.blockDestroyPower = 0;
+                    Direction direction = Direction.random(world.getRandom());
+                    BlockPos offest = pos.offset(direction);
                     if (world.getBlockState(offest).isSolidBlock(world, offest) && exposedToAir(world, offest)) {
                         this.pos = offest;
                         exit = true;
+                    }
+                    if (!exit) {
+                        direction = Direction.random(world.getRandom());
+                        offest = offest.offset(direction);
+                        if (world.getBlockState(offest).isSolidBlock(world, offest) && exposedToAir(world, offest)) {
+                            this.pos = offest;
+                            exit = true;
+                        }
                     }
                 }
             }
