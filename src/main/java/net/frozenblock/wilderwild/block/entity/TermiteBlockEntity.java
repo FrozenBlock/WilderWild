@@ -77,7 +77,9 @@ public class TermiteBlockEntity extends BlockEntity {
         for (Termite termite : termitesToRemove) {
             this.termites.remove(termite);
         }
-        this.addTermite(pos.up());
+        if (this.termites.size()<32) {
+            this.addTermite(pos.up());
+        }
     }
 
     public static class Termite {
@@ -102,39 +104,34 @@ public class TermiteBlockEntity extends BlockEntity {
             if (canMove(world, pos)) {
                 Direction direction = Direction.random(world.getRandom());
                 BlockPos offest = pos.offset(direction);
-                if (world.getBlockState(offest).isSolidBlock(world, pos) && canMove(world, pos, offest)) {
+                if (world.getBlockState(offest).isSolidBlock(world, offest) && exposedToAir(world, offest)) {
                     this.pos = offest;
                     exit = true;
                 }
+                if (!exit) {
+                    direction = Direction.random(world.getRandom());
+                    offest = offest.offset(direction);
+                    if (world.getBlockState(offest).isSolidBlock(world, offest) && exposedToAir(world, offest)) {
+                        this.pos = offest;
+                        exit = true;
+                    }
+                }
             }
-            if (!exit && world.getBlockState(pos).isSolidBlock(world, pos)) { exit = true; }
-            return exit;
+            return exit || world.getBlockState(pos).isSolidBlock(world, pos) && exposedToAir(world, pos);
+        }
+
+        public static boolean exposedToAir(World world, BlockPos pos) {
+            for (Direction direction : Direction.values()) {
+                if (world.getBlockState(pos.offset(direction)).isAir()) {
+                    return true;
+                }
+            } return false;
         }
 
         public boolean canMove(WorldAccess world, BlockPos pos) {
             if (world instanceof ServerWorld serverWorld) {
                 return serverWorld.shouldTickBlockPos(pos);
-            } else {
-                return false;
-            }
-        }
-
-        private static boolean canMove(WorldAccess world, BlockPos sourcePos, BlockPos targetPos) {
-            BlockPos blockPos = targetPos.subtract(sourcePos);
-            Direction direction = Direction.from(Direction.Axis.X, blockPos.getX() < 0 ? Direction.AxisDirection.NEGATIVE : Direction.AxisDirection.POSITIVE);
-            Direction direction2 = Direction.from(Direction.Axis.Y, blockPos.getY() < 0 ? Direction.AxisDirection.NEGATIVE : Direction.AxisDirection.POSITIVE);
-            Direction direction3 = Direction.from(Direction.Axis.Z, blockPos.getZ() < 0 ? Direction.AxisDirection.NEGATIVE : Direction.AxisDirection.POSITIVE);
-            if (blockPos.getX() == 0) {
-                return canMove(world, sourcePos, direction2) || canMove(world, sourcePos, direction3);
-            } else if (blockPos.getY() == 0) {
-                return canMove(world, sourcePos, direction) || canMove(world, sourcePos, direction3);
-            } else {
-                return canMove(world, sourcePos, direction) || canMove(world, sourcePos, direction2);
-            }
-        }
-        private static boolean canMove(WorldAccess world, BlockPos pos, Direction direction) {
-            BlockPos blockPos = pos.offset(direction);
-            return !world.getBlockState(blockPos).isSideSolidFullSquare(world, blockPos, direction.getOpposite());
+            } return false;
         }
 
         public BlockPos getPos() {
