@@ -1,7 +1,6 @@
 {
   "replace": false,
   "values": [
-    "#minecraft:replaceable_plants",
     "#minecraft:leaves",
     "wilderwild:hollowed_acacia_log",
     "wilderwild:hollowed_birch_log",
@@ -10,7 +9,6 @@
     "wilderwild:hollowed_jungle_log",
     "wilderwild:hollowed_mangrove_log",
     "wilderwild:hollowed_spruce_log",
-    "minecraft:vine",
     "minecraft:bamboo"
   ]
 }
