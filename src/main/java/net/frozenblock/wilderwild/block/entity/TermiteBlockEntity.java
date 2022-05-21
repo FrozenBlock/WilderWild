@@ -140,18 +140,16 @@ public class TermiteBlockEntity extends BlockEntity {
                             world.addBlockBreakParticles(this.pos, blockState);
                             world.setBlockState(this.pos, EDIBLE.get(block).getDefaultState());
                         } this.blockDestroyPower = 0;
-                        BlockPos up = upPos(world, this.pos);
-                        if (up!=null) { this.pos=up; }
                     }
                 } else {
                     this.blockDestroyPower = 0;
-                    Direction direction = Direction.random(world.getRandom());
-                    if (blockState.isAir()) { direction=Direction.DOWN; }
                     BlockPos priority = edibleBreakablePos(world, this.pos);
                     if (priority!=null) {
                         this.pos=priority;
                         exit = true;
                     } else {
+                        Direction direction = Direction.random(world.getRandom());
+                        if (blockState.isAir()) { direction=Direction.DOWN; }
                         BlockPos offest = pos.offset(direction);
                         BlockState state = world.getBlockState(offest);
                         if (state.isIn(WildBlockTags.KILLS_TERMITE) || state.isOf(Blocks.WATER) || state.isOf(Blocks.LAVA)) { return false; }
@@ -172,14 +170,6 @@ public class TermiteBlockEntity extends BlockEntity {
             BlockState state = world.getBlockState(pos);
             if (EDIBLE.containsKey(state.getBlock()) || state.isIn(WildBlockTags.TERMITE_BREAKABLE)) { return pos; }
             if (!world.getBlockState(pos.down()).isAir() && exposedToAir(world, pos.down())) { return pos.down(); }
-            return null;
-        }
-
-        @Nullable
-        public static BlockPos upPos(World world, BlockPos pos) {
-            BlockState state = world.getBlockState(pos);
-            if (EDIBLE.containsKey(state.getBlock()) || state.isIn(WildBlockTags.TERMITE_BREAKABLE)) { return pos; }
-            if (!world.getBlockState(pos.up()).isAir() && exposedToAir(world, pos.up())) { return pos.down(); }
             return null;
         }
 
