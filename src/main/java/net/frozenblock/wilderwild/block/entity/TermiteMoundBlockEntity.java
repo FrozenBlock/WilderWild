@@ -19,6 +19,7 @@ import net.minecraft.nbt.NbtElement;
 import net.minecraft.nbt.NbtOps;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.state.property.Properties;
+import net.minecraft.tag.BlockTags;
 import net.minecraft.util.Util;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
@@ -193,7 +194,7 @@ public class TermiteMoundBlockEntity extends BlockEntity {
                             exit = true;
                         } else {
                             BlockPos ledge = ledgePos(world, offest);
-                            if (exposedToAir(world, offest) && !(direction != Direction.DOWN && state.isAir() && (!this.mound.isWithinDistance(this.pos, 1.5)) && ledge == null)) {
+                            if (exposedToAir(world, offest) && !(direction==Direction.UP && world.getBlockState(offest).isIn(BlockTags.INSIDE_STEP_SOUND_BLOCKS)) && !(direction != Direction.DOWN && state.isAir() && (!this.mound.isWithinDistance(this.pos, 1.5)) && ledge == null)) {
                                 this.pos = offest;
                                 if (ledge != null) {
                                     this.pos = ledge;
