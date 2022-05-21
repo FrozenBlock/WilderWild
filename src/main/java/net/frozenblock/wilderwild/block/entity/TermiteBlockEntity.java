@@ -139,7 +139,7 @@ public class TermiteBlockEntity extends BlockEntity {
                         } else {
                             world.addBlockBreakParticles(this.pos, blockState);
                             world.setBlockState(this.pos, EDIBLE.get(block).getDefaultState());
-                        }
+                        } this.blockDestroyPower = 0;
                         BlockPos up = upPos(world, this.pos);
                         if (up!=null) { this.pos=up; }
                     }
@@ -147,14 +147,20 @@ public class TermiteBlockEntity extends BlockEntity {
                     this.blockDestroyPower = 0;
                     Direction direction = Direction.random(world.getRandom());
                     if (blockState.isAir()) { direction=Direction.DOWN; }
-                    BlockPos offest = pos.offset(direction);
-                    BlockState state = world.getBlockState(offest);
-                    if (state.isIn(WildBlockTags.KILLS_TERMITE) || state.isOf(Blocks.WATER) || state.isOf(Blocks.LAVA)) { return false; }
-                    BlockPos ledge = ledgePos(world, offest);
-                    if (exposedToAir(world, offest) && !(direction!=Direction.DOWN && state.isAir() && (!this.mound.isWithinDistance(this.pos, 1.5)) && ledge==null)) {
-                        this.pos = offest;
-                        if (ledge!=null) { this.pos=ledge; }
+                    BlockPos priority = edibleBreakablePos(world, this.pos);
+                    if (priority!=null) {
+                        this.pos=priority;
                         exit = true;
+                    } else {
+                        BlockPos offest = pos.offset(direction);
+                        BlockState state = world.getBlockState(offest);
+                        if (state.isIn(WildBlockTags.KILLS_TERMITE) || state.isOf(Blocks.WATER) || state.isOf(Blocks.LAVA)) { return false; }
+                        BlockPos ledge = ledgePos(world, offest);
+                        if (exposedToAir(world, offest) && !(direction != Direction.DOWN && state.isAir() && (!this.mound.isWithinDistance(this.pos, 1.5)) && ledge == null)) {
+                            this.pos = offest;
+                            if (ledge != null) { this.pos = ledge; }
+                            exit = true;
+                        }
                     }
                 }
             }
@@ -174,6 +180,16 @@ public class TermiteBlockEntity extends BlockEntity {
             BlockState state = world.getBlockState(pos);
             if (EDIBLE.containsKey(state.getBlock()) || state.isIn(WildBlockTags.TERMITE_BREAKABLE)) { return pos; }
             if (!world.getBlockState(pos.up()).isAir() && exposedToAir(world, pos.up())) { return pos.down(); }
+            return null;
+        }
+
+        @Nullable
+        public static BlockPos edibleBreakablePos(World world, BlockPos pos) {
+            List<Direction> directions = Util.copyShuffled(Direction.values(), world.random);
+            for (Direction direction : directions) {
+                BlockState state = world.getBlockState(pos.offset(direction));
+                if (EDIBLE.containsKey(state.getBlock()) || state.isIn(WildBlockTags.TERMITE_BREAKABLE)) { return pos.offset(direction); }
+            }
             return null;
         }
 
