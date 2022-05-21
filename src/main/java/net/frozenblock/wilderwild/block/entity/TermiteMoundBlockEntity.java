@@ -194,7 +194,7 @@ public class TermiteMoundBlockEntity extends BlockEntity {
                             exit = true;
                         } else {
                             BlockPos ledge = ledgePos(world, offest);
-                            if (exposedToAir(world, offest) && !(direction==Direction.UP && world.getBlockState(offest).isIn(BlockTags.INSIDE_STEP_SOUND_BLOCKS)) && !(direction != Direction.DOWN && state.isAir() && (!this.mound.isWithinDistance(this.pos, 1.5)) && ledge == null)) {
+                            if (exposedToAir(world, offest) && !(direction==Direction.UP && (world.getBlockState(offest).isIn(BlockTags.INSIDE_STEP_SOUND_BLOCKS) || world.getBlockState(offest).isIn(BlockTags.REPLACEABLE_PLANTS) || world.getBlockState(offest).isIn(BlockTags.FLOWERS))) && !(direction != Direction.DOWN && state.isAir() && (!this.mound.isWithinDistance(this.pos, 1.5)) && ledge == null)) {
                                 this.pos = offest;
                                 if (ledge != null) {
                                     this.pos = ledge;
