@@ -35,6 +35,7 @@ import java.util.Optional;
 public class TermiteBlockEntity extends BlockEntity {
     private static final Logger LOGGER = LogUtils.getLogger();
     ArrayList<Termite> termites = new ArrayList<>();
+    public int ticksToNextTermite;
 
     public TermiteBlockEntity(BlockPos pos, BlockState state) {
         super(RegisterBlockEntityType.TERMITE, pos, state);
@@ -42,6 +43,7 @@ public class TermiteBlockEntity extends BlockEntity {
 
     public void readNbt(NbtCompound nbt) {
         super.readNbt(nbt);
+        this.ticksToNextTermite = nbt.getInt("ticksToNextTermite");
         if (nbt.contains("termites", 9)) {
             this.termites.clear();
             DataResult<?> var10000 = Termite.CODEC.listOf().parse(new Dynamic<>(NbtOps.INSTANCE, nbt.getList("termites", 10)));
@@ -50,7 +52,8 @@ public class TermiteBlockEntity extends BlockEntity {
             Optional<List> list = (Optional<List>) var10000.resultOrPartial(var10001::error);
             if (list.isPresent()) {
                 List termitesAllAllAll = list.get();
-                int i = Math.min(termitesAllAllAll.size(), maxTermites(world));
+                int max = this.world!=null ? maxTermites(this.world) : 7;
+                int i = Math.min(termitesAllAllAll.size(), max);
 
                 for (int j = 0; j < i; ++j) {
                     this.termites.add((Termite) termitesAllAllAll.get(j));
@@ -61,6 +64,7 @@ public class TermiteBlockEntity extends BlockEntity {
 
     protected void writeNbt(NbtCompound nbt) {
         super.writeNbt(nbt);
+        nbt.putInt("ticksToNextTermite", this.ticksToNextTermite);
         DataResult<?> var10000 = Termite.CODEC.listOf().encodeStart(NbtOps.INSTANCE, this.termites);
         Logger var10001 = LOGGER;
         Objects.requireNonNull(var10001);
@@ -87,7 +91,12 @@ public class TermiteBlockEntity extends BlockEntity {
             this.termites.remove(termite);
         }
         if (this.termites.size()<maxTermites(world)) {
-            this.addTermite(pos);
+            if (this.ticksToNextTermite>0) {
+                --this.ticksToNextTermite;
+            } else {
+                this.addTermite(pos);
+                this.ticksToNextTermite=200;
+            }
         }
     }
 
