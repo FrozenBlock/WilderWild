@@ -5,6 +5,7 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.DataResult;
 import com.mojang.serialization.Dynamic;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import it.unimi.dsi.fastutil.objects.*;
 import net.frozenblock.wilderwild.block.HollowedLogBlock;
 import net.frozenblock.wilderwild.registry.RegisterBlockEntityType;
 import net.frozenblock.wilderwild.registry.RegisterBlocks;
@@ -17,10 +18,12 @@ import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtElement;
 import net.minecraft.nbt.NbtOps;
 import net.minecraft.server.world.ServerWorld;
+import net.minecraft.util.Util;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldAccess;
+import net.minecraft.world.event.GameEvent;
 import org.slf4j.Logger;
 
 import java.util.ArrayList;
@@ -88,80 +91,6 @@ public class TermiteBlockEntity extends BlockEntity {
     }
 
     public static class Termite {
-        public static ArrayList<Block> edible = new ArrayList<>() {{
-            add(Blocks.ACACIA_LOG);
-            add(Blocks.OAK_LOG);
-            add(Blocks.BIRCH_LOG);
-            add(Blocks.DARK_OAK_LOG);
-            add(Blocks.JUNGLE_LOG);
-            add(Blocks.MANGROVE_LOG);
-            add(Blocks.SPRUCE_LOG);
-            add(Blocks.STRIPPED_ACACIA_LOG);
-            add(Blocks.STRIPPED_OAK_LOG);
-            add(Blocks.STRIPPED_BIRCH_LOG);
-            add(Blocks.STRIPPED_DARK_OAK_LOG);
-            add(Blocks.STRIPPED_JUNGLE_LOG);
-            add(Blocks.STRIPPED_MANGROVE_LOG);
-            add(Blocks.STRIPPED_SPRUCE_LOG);
-            add(Blocks.ACACIA_WOOD);
-            add(Blocks.OAK_WOOD);
-            add(Blocks.BIRCH_WOOD);
-            add(Blocks.DARK_OAK_WOOD);
-            add(Blocks.JUNGLE_WOOD);
-            add(Blocks.MANGROVE_WOOD);
-            add(Blocks.SPRUCE_WOOD);
-            add(Blocks.STRIPPED_ACACIA_WOOD);
-            add(Blocks.STRIPPED_OAK_WOOD);
-            add(Blocks.STRIPPED_BIRCH_WOOD);
-            add(Blocks.STRIPPED_DARK_OAK_WOOD);
-            add(Blocks.STRIPPED_JUNGLE_WOOD);
-            add(Blocks.STRIPPED_MANGROVE_WOOD);
-            add(Blocks.STRIPPED_SPRUCE_WOOD);
-            add(Blocks.ACACIA_LEAVES);
-            add(Blocks.OAK_LEAVES);
-            add(Blocks.BIRCH_LEAVES);
-            add(Blocks.DARK_OAK_LEAVES);
-            add(Blocks.JUNGLE_LEAVES);
-            add(Blocks.MANGROVE_LEAVES);
-            add(Blocks.SPRUCE_LEAVES);
-        }};
-        public static ArrayList<Block> edibleTo = new ArrayList<>() {{
-            add(RegisterBlocks.HOLLOWED_ACACIA_LOG);
-            add(RegisterBlocks.HOLLOWED_OAK_LOG);
-            add(RegisterBlocks.HOLLOWED_BIRCH_LOG);
-            add(RegisterBlocks.HOLLOWED_DARK_OAK_LOG);
-            add(RegisterBlocks.HOLLOWED_JUNGLE_LOG);
-            add(RegisterBlocks.HOLLOWED_MANGROVE_LOG);
-            add(RegisterBlocks.HOLLOWED_SPRUCE_LOG);
-            add(Blocks.AIR);
-            add(Blocks.AIR);
-            add(Blocks.AIR);
-            add(Blocks.AIR);
-            add(Blocks.AIR);
-            add(Blocks.AIR);
-            add(Blocks.AIR);
-            add(Blocks.STRIPPED_ACACIA_WOOD);
-            add(Blocks.STRIPPED_OAK_WOOD);
-            add(Blocks.STRIPPED_BIRCH_WOOD);
-            add(Blocks.STRIPPED_DARK_OAK_WOOD);
-            add(Blocks.STRIPPED_JUNGLE_WOOD);
-            add(Blocks.STRIPPED_MANGROVE_WOOD);
-            add(Blocks.STRIPPED_SPRUCE_WOOD);
-            add(Blocks.AIR);
-            add(Blocks.AIR);
-            add(Blocks.AIR);
-            add(Blocks.AIR);
-            add(Blocks.AIR);
-            add(Blocks.AIR);
-            add(Blocks.AIR);
-            add(Blocks.AIR);
-            add(Blocks.AIR);
-            add(Blocks.AIR);
-            add(Blocks.AIR);
-            add(Blocks.AIR);
-            add(Blocks.AIR);
-            add(Blocks.AIR);
-        }};
         public BlockPos pos;
         public int blockDestroyPower;
         public static final Codec<Termite> CODEC = RecordCodecBuilder.create((instance) -> {
@@ -181,14 +110,15 @@ public class TermiteBlockEntity extends BlockEntity {
         public boolean tick(World world) {
             boolean exit = false;
             if (canMove(world, this.pos)) {
-                if (edible.contains(world.getBlockState(this.pos).getBlock())) {
+                Block block = world.getBlockState(this.pos).getBlock();
+                if (EDIBLE.containsKey(block)) {
                     exit = true;
                     ++this.blockDestroyPower;
                     if (this.blockDestroyPower>200) {
-                        if (world.getBlockState(this.pos).getBlock() instanceof LeavesBlock) {
+                        if (block instanceof LeavesBlock) {
                             world.breakBlock(this.pos, true);
                         } else {
-                            world.setBlockState(this.pos, edibleTo.get(edible.indexOf(world.getBlockState(this.pos).getBlock())).getDefaultState());
+                            world.setBlockState(this.pos, EDIBLE.get(block).getDefaultState());
                         }
                     }
                 } else {
@@ -209,7 +139,7 @@ public class TermiteBlockEntity extends BlockEntity {
                     }
                 }
             }
-            return exit || ((world.getBlockState(this.pos).isSolidBlock(world, this.pos) || world.getBlockState(this.pos).getBlock() instanceof HollowedLogBlock) && exposedToAir(world, this.pos));
+            return exit || (exposedToAir(world, this.pos) && !world.getBlockState(this.pos).isAir());
         }
 
         public static boolean exposedToAir(World world, BlockPos pos) {
@@ -232,5 +162,42 @@ public class TermiteBlockEntity extends BlockEntity {
         public int getPower() {
             return this.blockDestroyPower;
         }
+        public static final Object2ObjectMap<Block, Block> EDIBLE = Object2ObjectMaps.unmodifiable(Util.make(new Object2ObjectOpenHashMap<>(), (map) -> {
+            map.put(Blocks.ACACIA_LOG, RegisterBlocks.HOLLOWED_ACACIA_LOG);
+            map.put(Blocks.OAK_LOG, RegisterBlocks.HOLLOWED_OAK_LOG);
+            map.put(Blocks.BIRCH_LOG, RegisterBlocks.HOLLOWED_BIRCH_LOG);
+            map.put(Blocks.DARK_OAK_LOG, RegisterBlocks.HOLLOWED_DARK_OAK_LOG);
+            map.put(Blocks.JUNGLE_LOG, RegisterBlocks.HOLLOWED_JUNGLE_LOG);
+            map.put(Blocks.MANGROVE_LOG, RegisterBlocks.HOLLOWED_MANGROVE_LOG);
+            map.put(Blocks.SPRUCE_LOG, RegisterBlocks.HOLLOWED_SPRUCE_LOG);
+            map.put(Blocks.STRIPPED_ACACIA_LOG, Blocks.AIR);
+            map.put(Blocks.STRIPPED_OAK_LOG, Blocks.AIR);
+            map.put(Blocks.STRIPPED_BIRCH_LOG, Blocks.AIR);
+            map.put(Blocks.STRIPPED_DARK_OAK_LOG, Blocks.AIR);
+            map.put(Blocks.STRIPPED_JUNGLE_LOG, Blocks.AIR);
+            map.put(Blocks.STRIPPED_MANGROVE_LOG, Blocks.AIR);
+            map.put(Blocks.STRIPPED_SPRUCE_LOG, Blocks.AIR);
+            map.put(Blocks.ACACIA_WOOD, Blocks.STRIPPED_ACACIA_WOOD);
+            map.put(Blocks.OAK_WOOD, Blocks.STRIPPED_OAK_WOOD);
+            map.put(Blocks.BIRCH_WOOD, Blocks.STRIPPED_BIRCH_WOOD);
+            map.put(Blocks.DARK_OAK_WOOD, Blocks.STRIPPED_DARK_OAK_WOOD);
+            map.put(Blocks.JUNGLE_WOOD, Blocks.STRIPPED_JUNGLE_WOOD);
+            map.put(Blocks.MANGROVE_WOOD, Blocks.STRIPPED_MANGROVE_WOOD);
+            map.put(Blocks.SPRUCE_WOOD, Blocks.STRIPPED_SPRUCE_WOOD);
+            map.put(Blocks.STRIPPED_ACACIA_WOOD, Blocks.AIR);
+            map.put(Blocks.STRIPPED_OAK_WOOD, Blocks.AIR);
+            map.put(Blocks.STRIPPED_BIRCH_WOOD, Blocks.AIR);
+            map.put(Blocks.STRIPPED_DARK_OAK_WOOD, Blocks.AIR);
+            map.put(Blocks.STRIPPED_JUNGLE_WOOD, Blocks.AIR);
+            map.put(Blocks.STRIPPED_MANGROVE_WOOD, Blocks.AIR);
+            map.put(Blocks.STRIPPED_SPRUCE_WOOD, Blocks.AIR);
+            map.put(Blocks.ACACIA_LEAVES, Blocks.AIR);
+            map.put(Blocks.OAK_LEAVES, Blocks.AIR);
+            map.put(Blocks.BIRCH_LEAVES, Blocks.AIR);
+            map.put(Blocks.DARK_OAK_LEAVES, Blocks.AIR);
+            map.put(Blocks.JUNGLE_LEAVES, Blocks.AIR);
+            map.put(Blocks.MANGROVE_LEAVES, Blocks.AIR);
+            map.put(Blocks.SPRUCE_LEAVES, Blocks.AIR);
+        }));
     }
 }
