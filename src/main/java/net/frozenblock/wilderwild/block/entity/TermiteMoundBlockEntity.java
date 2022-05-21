@@ -10,6 +10,7 @@ import it.unimi.dsi.fastutil.objects.Object2ObjectMaps;
 import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 import net.frozenblock.wilderwild.registry.RegisterBlockEntityType;
 import net.frozenblock.wilderwild.registry.RegisterBlocks;
+import net.frozenblock.wilderwild.registry.RegisterProperties;
 import net.frozenblock.wilderwild.tag.WildBlockTags;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -23,6 +24,7 @@ import net.minecraft.state.property.Properties;
 import net.minecraft.util.Util;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
+import net.minecraft.world.LightType;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldAccess;
 import org.jetbrains.annotations.Nullable;
@@ -50,7 +52,7 @@ public class TermiteMoundBlockEntity extends BlockEntity {
             Optional<List> list = (Optional<List>) var10000.resultOrPartial(var10001::error);
             if (list.isPresent()) {
                 List termitesAllAllAll = list.get();
-                int max = this.world!=null ? maxTermites(this.world) : 7;
+                int max = this.world!=null ? maxTermites(this.world, this.pos, this.getCachedState().get(RegisterProperties.NATURAL)) : 5;
                 int i = Math.min(termitesAllAllAll.size(), max);
 
                 for (int j = 0; j < i; ++j) {
@@ -72,11 +74,12 @@ public class TermiteMoundBlockEntity extends BlockEntity {
     }
 
     public void addTermite(BlockPos pos) {
-        Termite termite = new Termite(pos, pos,0,0);
+        Termite termite = new Termite(pos, pos,0,0, this.getCachedState().get(RegisterProperties.NATURAL));
         this.termites.add(termite);
     }
 
     public void tick(World world, BlockPos pos) {
+        int maxTermites = maxTermites(world, this.pos, this.getCachedState().get(RegisterProperties.NATURAL));
         ArrayList<Termite> termitesToRemove = new ArrayList<>();
         for (Termite termite : this.termites) {
             if (termite.tick(world)) {
@@ -88,19 +91,36 @@ public class TermiteMoundBlockEntity extends BlockEntity {
         for (Termite termite : termitesToRemove) {
             this.termites.remove(termite);
         }
-        if (this.termites.size()<maxTermites(world)) {
+        if (this.termites.size()<maxTermites) {
             if (this.ticksToNextTermite>0) {
                 --this.ticksToNextTermite;
             } else {
                 this.addTermite(pos);
-                this.ticksToNextTermite=200;
+                this.ticksToNextTermite=300;
             }
+        }
+        while(this.termites.size()>maxTermites) {
+            this.termites.remove(termites.get((int) (Math.random() * termites.size())));
         }
     }
 
-    public static int maxTermites(World world) {
-        if (world.isNight()) {return 1;}
-        return 5;
+    public static int maxTermites(World world, BlockPos pos, boolean natural) {
+        if (world.isNight() && getLightLevel(world, pos)<7) {return natural ? 0 : 1;}
+        return natural ? 3 : 5;
+    }
+
+    public static int getLightLevel(World world, BlockPos blockPos) {
+        int finalLight = 0;
+        for (Direction direction : Direction.values()) {
+            BlockPos pos = blockPos.offset(direction);
+            int skyLight = 0;
+            int blockLight = world.getLightLevel(LightType.BLOCK, pos);
+            if (world.isDay() && !world.isRaining()) {
+                skyLight = world.getLightLevel(LightType.SKY, pos);
+            }
+            finalLight = Math.max(finalLight, Math.max(skyLight, blockLight));
+        }
+        return finalLight;
     }
 
     public static class Termite {
@@ -108,24 +128,27 @@ public class TermiteMoundBlockEntity extends BlockEntity {
         public BlockPos pos;
         public int blockDestroyPower;
         public int aliveTicks;
+        public boolean natural;
         public static final Codec<Termite> CODEC = RecordCodecBuilder.create((instance) -> {
             return instance.group(BlockPos.CODEC.fieldOf("mound").forGetter(Termite::getMoundPos),
                     BlockPos.CODEC.fieldOf("pos").forGetter(Termite::getPos),
                     Codec.intRange(0, 10000).fieldOf("blockDestroyPower").orElse(0).forGetter(Termite::getPower),
-                    Codec.intRange(0, 2002).fieldOf("aliveTicks").orElse(0).forGetter(Termite::getAliveTicks)).apply(instance, Termite::new);
+                    Codec.intRange(0, 2002).fieldOf("aliveTicks").orElse(0).forGetter(Termite::getAliveTicks),
+                    Codec.BOOL.fieldOf("natural").orElse(true).forGetter(Termite::getNatural)).apply(instance, Termite::new);
         });
 
-        public Termite(BlockPos mound, BlockPos pos, int blockDestroyPower, int aliveTicks) {
+        public Termite(BlockPos mound, BlockPos pos, int blockDestroyPower, int aliveTicks, boolean natural) {
             this.mound = mound;
             this.pos = pos;
             this.blockDestroyPower=blockDestroyPower;
             this.aliveTicks = aliveTicks;
+            this.natural = natural;
         }
 
         public boolean tick(World world) {
             boolean exit = false;
             ++this.aliveTicks;
-            if (this.aliveTicks>2000) { return false; }
+            if (this.aliveTicks>2000 || isTooFar(this.natural, this.mound, this.pos)) { return false; }
             if (canMove(world, this.pos)) {
                 BlockState blockState = world.getBlockState(this.pos);
                 Block block = blockState.getBlock();
@@ -215,6 +238,10 @@ public class TermiteMoundBlockEntity extends BlockEntity {
             } return false;
         }
 
+        public static boolean isTooFar(boolean natural, BlockPos mound, BlockPos pos) {
+            return !mound.isWithinDistance(pos, natural ? 10 : 32);
+        }
+
         public BlockPos getMoundPos() {
             return this.mound;
         }
@@ -226,6 +253,9 @@ public class TermiteMoundBlockEntity extends BlockEntity {
         }
         public int getAliveTicks() {
             return this.aliveTicks;
+        }
+        public boolean getNatural() {
+            return this.natural;
         }
         public static final Object2ObjectMap<Block, Block> EDIBLE = Object2ObjectMaps.unmodifiable(Util.make(new Object2ObjectOpenHashMap<>(), (map) -> {
             map.put(Blocks.ACACIA_LOG, RegisterBlocks.HOLLOWED_ACACIA_LOG);

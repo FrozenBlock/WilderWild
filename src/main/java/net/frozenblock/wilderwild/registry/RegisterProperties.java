@@ -24,6 +24,8 @@ public class RegisterProperties extends Properties {
     public static final IntProperty DAMAGE = IntProperty.of("damage", 0, 3);
     //Shelf Fungus
     public static final IntProperty FUNUGS_STAGE = IntProperty.of("shelf_fungus_stage", 1, 4);
+    //Termite Mound
+    public static final BooleanProperty NATURAL = BooleanProperty.of("natural");
 
     //Vanilla Blocks
     public static final IntProperty SOULS_TAKEN = IntProperty.of("souls_taken", 0, 2); //Sculk Shrieker
