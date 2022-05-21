@@ -65,7 +65,7 @@ public class TermiteBlockEntity extends BlockEntity {
         this.termites.add(termite);
     }
 
-    public void tick(World world, BlockPos pos, BlockState state) {
+    public void tick(World world, BlockPos pos) {
         ArrayList<Termite> termitesToRemove = new ArrayList<>();
         for (Termite termite : this.termites) {
             if (termite.move(world)) {
@@ -117,7 +117,7 @@ public class TermiteBlockEntity extends BlockEntity {
                     }
                 }
             }
-            return exit || world.getBlockState(pos).isSolidBlock(world, pos) && exposedToAir(world, pos);
+            return exit || (world.getBlockState(this.pos).isSolidBlock(world, this.pos) && exposedToAir(world, this.pos));
         }
 
         public static boolean exposedToAir(World world, BlockPos pos) {
