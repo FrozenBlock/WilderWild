@@ -112,13 +112,14 @@ public class TermiteBlockEntity extends BlockEntity {
             if (canMove(world, this.pos)) {
                 BlockState blockState = world.getBlockState(this.pos);
                 Block block = blockState.getBlock();
-                if (EDIBLE.containsKey(block)) {
+                if (EDIBLE.containsKey(block) || blockState.isIn(WildBlockTags.TERMITE_BREAKABLE)) {
                     exit = true;
                     ++this.blockDestroyPower;
                     if (this.blockDestroyPower>200) {
-                        if (block instanceof LeavesBlock) {
+                        if (blockState.isIn(WildBlockTags.TERMITE_BREAKABLE)) {
                             world.breakBlock(this.pos, true);
                         } else {
+                            world.addBlockBreakParticles(this.pos, blockState);
                             world.setBlockState(this.pos, EDIBLE.get(block).getDefaultState());
                         }
                     }
@@ -191,13 +192,6 @@ public class TermiteBlockEntity extends BlockEntity {
             map.put(Blocks.STRIPPED_JUNGLE_WOOD, Blocks.AIR);
             map.put(Blocks.STRIPPED_MANGROVE_WOOD, Blocks.AIR);
             map.put(Blocks.STRIPPED_SPRUCE_WOOD, Blocks.AIR);
-            map.put(Blocks.ACACIA_LEAVES, Blocks.AIR);
-            map.put(Blocks.OAK_LEAVES, Blocks.AIR);
-            map.put(Blocks.BIRCH_LEAVES, Blocks.AIR);
-            map.put(Blocks.DARK_OAK_LEAVES, Blocks.AIR);
-            map.put(Blocks.JUNGLE_LEAVES, Blocks.AIR);
-            map.put(Blocks.MANGROVE_LEAVES, Blocks.AIR);
-            map.put(Blocks.SPRUCE_LEAVES, Blocks.AIR);
         }));
     }
 }
