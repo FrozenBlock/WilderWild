@@ -1,6 +1,10 @@
 {
   "replace": false,
   "values": [
-    "wilderwild:echo_glass"
+    "#minecraft:wool_carpets",
+	"minecraft:moss_carpet",
+	"minecraft:cobweb",
+	"minecraft:lily_pad",
+	"wilderwild:flowered_lily_pad"
   ]
 }
