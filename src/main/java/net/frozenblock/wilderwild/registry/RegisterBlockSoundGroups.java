@@ -54,6 +54,22 @@ public class RegisterBlockSoundGroups {
             SoundEvents.BLOCK_LILY_PAD_PLACE
     );
 
+    public static BlockSoundGroup SUGARCANE = new BlockSoundGroup(1.0f, 1.0f,
+            BLOCK_SUGAR_CANE_BREAK,
+            BLOCK_SUGAR_CANE_STEP,
+            BLOCK_SUGAR_CANE_PLACE,
+            BLOCK_SUGAR_CANE_HIT,
+            BLOCK_SUGAR_CANE_FALL
+    );
+
+    public static BlockSoundGroup COARSEDIRT = new BlockSoundGroup(1.0f, 1.0f,
+            BLOCK_COARSE_DIRT_BREAK,
+            BLOCK_COARSE_DIRT_STEP,
+            BLOCK_COARSE_DIRT_PLACE,
+            BLOCK_COARSE_DIRT_HIT,
+            BLOCK_COARSE_DIRT_FALL
+    );
+
     public static BlockSoundGroup REINFORCEDDEEPSLATE = new BlockSoundGroup(1.0f, 1.0f,
             RegisterSounds.BLOCK_REINFORCED_DEEPSLATE_BREAK,
             RegisterSounds.BLOCK_REINFORCED_DEEPSLATE_STEP,

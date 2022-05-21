@@ -38,7 +38,7 @@ public class TermiteBlockEntity extends BlockEntity {
     public int ticksToNextTermite;
 
     public TermiteBlockEntity(BlockPos pos, BlockState state) {
-        super(RegisterBlockEntityType.TERMITE, pos, state);
+        super(RegisterBlockEntityType.TERMITEMOUND, pos, state);
     }
 
     public void readNbt(NbtCompound nbt) {
