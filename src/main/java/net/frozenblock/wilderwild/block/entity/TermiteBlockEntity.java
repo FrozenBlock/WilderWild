@@ -5,6 +5,7 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.DataResult;
 import com.mojang.serialization.Dynamic;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import net.frozenblock.wilderwild.block.HollowedLogBlock;
 import net.frozenblock.wilderwild.registry.RegisterBlockEntityType;
 import net.frozenblock.wilderwild.registry.RegisterBlocks;
 import net.minecraft.block.Block;
@@ -131,7 +132,7 @@ public class TermiteBlockEntity extends BlockEntity {
                     }
                 }
             }
-            return exit || (world.getBlockState(this.pos).isSolidBlock(world, this.pos) && exposedToAir(world, this.pos));
+            return exit || ((world.getBlockState(this.pos).isSolidBlock(world, this.pos) || world.getBlockState(this.pos).getBlock() instanceof HollowedLogBlock) && exposedToAir(world, this.pos));
         }
 
         public static boolean exposedToAir(World world, BlockPos pos) {
