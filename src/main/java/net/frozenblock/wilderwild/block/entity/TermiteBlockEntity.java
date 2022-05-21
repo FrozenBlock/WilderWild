@@ -112,12 +112,16 @@ public class TermiteBlockEntity extends BlockEntity {
             if (canMove(world, this.pos)) {
                 BlockState blockState = world.getBlockState(this.pos);
                 Block block = blockState.getBlock();
-                if (EDIBLE.containsKey(block) || blockState.isIn(WildBlockTags.TERMITE_BREAKABLE)) {
+                boolean edible = EDIBLE.containsKey(block);
+                boolean breakable = blockState.isIn(WildBlockTags.TERMITE_BREAKABLE);
+                if (edible || breakable) {
                     exit = true;
                     ++this.blockDestroyPower;
+                    if (breakable) { ++this.blockDestroyPower; }
                     if (this.blockDestroyPower>200) {
                         if (blockState.isIn(WildBlockTags.TERMITE_BREAKABLE)) {
                             world.breakBlock(this.pos, true);
+                            ++this.blockDestroyPower;
                         } else {
                             world.addBlockBreakParticles(this.pos, blockState);
                             world.setBlockState(this.pos, EDIBLE.get(block).getDefaultState());
