@@ -11,6 +11,7 @@ import net.frozenblock.wilderwild.registry.RegisterBlocks;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
+import net.minecraft.block.LeavesBlock;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtElement;
@@ -116,6 +117,13 @@ public class TermiteBlockEntity extends BlockEntity {
             add(Blocks.STRIPPED_JUNGLE_WOOD);
             add(Blocks.STRIPPED_MANGROVE_WOOD);
             add(Blocks.STRIPPED_SPRUCE_WOOD);
+            add(Blocks.ACACIA_LEAVES);
+            add(Blocks.OAK_LEAVES);
+            add(Blocks.BIRCH_LEAVES);
+            add(Blocks.DARK_OAK_LEAVES);
+            add(Blocks.JUNGLE_LEAVES);
+            add(Blocks.MANGROVE_LEAVES);
+            add(Blocks.SPRUCE_LEAVES);
         }};
         public static ArrayList<Block> edibleTo = new ArrayList<>() {{
             add(RegisterBlocks.HOLLOWED_ACACIA_LOG);
@@ -139,6 +147,13 @@ public class TermiteBlockEntity extends BlockEntity {
             add(Blocks.STRIPPED_JUNGLE_WOOD);
             add(Blocks.STRIPPED_MANGROVE_WOOD);
             add(Blocks.STRIPPED_SPRUCE_WOOD);
+            add(Blocks.AIR);
+            add(Blocks.AIR);
+            add(Blocks.AIR);
+            add(Blocks.AIR);
+            add(Blocks.AIR);
+            add(Blocks.AIR);
+            add(Blocks.AIR);
             add(Blocks.AIR);
             add(Blocks.AIR);
             add(Blocks.AIR);
@@ -170,7 +185,11 @@ public class TermiteBlockEntity extends BlockEntity {
                     exit = true;
                     ++this.blockDestroyPower;
                     if (this.blockDestroyPower>200) {
-                        world.setBlockState(this.pos, edibleTo.get(edible.indexOf(world.getBlockState(this.pos).getBlock())).getDefaultState());
+                        if (world.getBlockState(this.pos).getBlock() instanceof LeavesBlock) {
+                            world.breakBlock(this.pos, true);
+                        } else {
+                            world.setBlockState(this.pos, edibleTo.get(edible.indexOf(world.getBlockState(this.pos).getBlock())).getDefaultState());
+                        }
                     }
                 } else {
                     this.blockDestroyPower = 0;
