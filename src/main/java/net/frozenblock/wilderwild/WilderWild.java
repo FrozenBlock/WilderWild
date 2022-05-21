@@ -37,7 +37,6 @@ public class WilderWild implements ModInitializer {
     public void onInitialize() {
         RegisterBlocks.RegisterBlocks();
         RegisterItems.RegisterItems();
-        RegisterParticles.RegisterParticles();
         WildConfiguredFeatures.registerConfiguredFeatures();
         WildTreeConfigured.registerTreeConfigured();
         WildTreePlaced.registerTreePlaced();

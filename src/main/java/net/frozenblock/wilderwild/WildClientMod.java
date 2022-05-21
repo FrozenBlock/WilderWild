@@ -38,6 +38,8 @@ public class WildClientMod implements ClientModInitializer {
     public static final Identifier SEED_PACKET = new Identifier("seed_particle_packet");
     @Override
     public void onInitializeClient() {
+        RegisterParticles.RegisterParticles();
+
         BlockRenderLayerMap.INSTANCE.putBlock(RegisterBlocks.CARNATION, RenderLayer.getCutout());
         BlockRenderLayerMap.INSTANCE.putBlock(RegisterBlocks.WHITE_DANDELION, RenderLayer.getCutout());
         BlockRenderLayerMap.INSTANCE.putBlock(RegisterBlocks.POTTED_CARNATION, RenderLayer.getCutout());
