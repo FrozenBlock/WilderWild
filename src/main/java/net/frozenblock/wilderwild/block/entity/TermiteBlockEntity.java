@@ -129,7 +129,7 @@ public class TermiteBlockEntity extends BlockEntity {
                     if (blockState.isAir()) { direction=Direction.DOWN; }
                     BlockPos offest = pos.offset(direction);
                     BlockState state = world.getBlockState(offest);
-                    if (state.isIn(WildBlockTags.KILLS_TERMITE)) { return false; }
+                    if (state.isIn(WildBlockTags.KILLS_TERMITE) || state.isOf(Blocks.WATER) || state.isOf(Blocks.LAVA)) { return false; }
                     if (exposedToAir(world, offest) && !(direction!=Direction.DOWN && state.isAir())) {
                         this.pos = offest;
                         exit = true;
