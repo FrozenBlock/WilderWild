@@ -19,6 +19,7 @@ import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtElement;
 import net.minecraft.nbt.NbtOps;
 import net.minecraft.server.world.ServerWorld;
+import net.minecraft.state.property.Properties;
 import net.minecraft.util.Util;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
@@ -27,10 +28,7 @@ import net.minecraft.world.WorldAccess;
 import org.jetbrains.annotations.Nullable;
 import org.slf4j.Logger;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
-import java.util.Optional;
+import java.util.*;
 
 public class TermiteMoundBlockEntity extends BlockEntity {
     private static final Logger LOGGER = LogUtils.getLogger();
@@ -135,17 +133,20 @@ public class TermiteMoundBlockEntity extends BlockEntity {
                 boolean breakable = blockState.isIn(WildBlockTags.TERMITE_BREAKABLE);
                 if (edible || breakable) {
                     exit = true;
-                    ++this.blockDestroyPower;
-                    if (breakable) { ++this.blockDestroyPower; }
+                    int additionalPower = breakable ? 2 : 1;
+                    this.blockDestroyPower+=additionalPower;
                     if (this.blockDestroyPower>200) {
                         this.blockDestroyPower = 0;
-                        this.aliveTicks = Math.max(0, this.aliveTicks - 199);
+                        this.aliveTicks = Math.max(0, this.aliveTicks - (100*additionalPower));
                         if (blockState.isIn(WildBlockTags.TERMITE_BREAKABLE)) {
                             world.breakBlock(this.pos, true);
                             ++this.blockDestroyPower;
                         } else {
+                            Direction.Axis axis = blockState.contains(Properties.AXIS) ? blockState.get(Properties.AXIS) : Direction.Axis.X;
                             world.addBlockBreakParticles(this.pos, blockState);
-                            world.setBlockState(this.pos, EDIBLE.get(block).getDefaultState());
+                            BlockState setState = EDIBLE.get(block).getDefaultState();
+                            if (setState.contains(Properties.AXIS)) { setState = setState.with(Properties.AXIS, axis); }
+                            world.setBlockState(this.pos, setState);
                         }
                     }
                 } else {
