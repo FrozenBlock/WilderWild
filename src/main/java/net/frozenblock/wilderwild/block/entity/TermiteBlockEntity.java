@@ -82,7 +82,7 @@ public class TermiteBlockEntity extends BlockEntity {
             this.termites.remove(termite);
         }
         if (this.termites.size()<32) {
-            this.addTermite(pos.up());
+            this.addTermite(pos);
         }
     }
 
@@ -135,7 +135,7 @@ public class TermiteBlockEntity extends BlockEntity {
             this.blockDestroyPower=blockDestroyPower;
         }
 
-        public boolean tick (World world) {
+        public boolean tick(World world) {
             boolean exit = false;
             if (canMove(world, this.pos)) {
                 if (edible.contains(world.getBlockState(this.pos).getBlock())) {

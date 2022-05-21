@@ -80,7 +80,7 @@ public abstract class RegisterBlocks {
             ItemGroup.DECORATIONS
     );
 
-    public static final Block TERMITE_BLOCK = registerBlock("termite_block",
+    public static final Block TERMITE_BLOCK = registerBlock("termite_mound",
             new TermiteBlock(AbstractBlock.Settings
                     .of(Material.WOOD, MapColor.BROWN)
                     .strength(0.3F)
