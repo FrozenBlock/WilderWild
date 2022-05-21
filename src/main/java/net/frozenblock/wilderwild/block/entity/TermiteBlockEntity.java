@@ -180,7 +180,7 @@ public class TermiteBlockEntity extends BlockEntity {
         public static boolean exposedToAir(World world, BlockPos pos) {
             for (Direction direction : Direction.values()) {
                 BlockState state = world.getBlockState(pos.offset(direction));
-                if (state.isAir() || !state.isSolidBlock(world, pos.offset(direction))) {
+                if (state.isAir() || !state.isSolidBlock(world, pos.offset(direction)) || EDIBLE.containsKey(state.getBlock()) || state.isIn(WildBlockTags.TERMITE_BREAKABLE)) {
                     return true;
                 }
             } return false;
