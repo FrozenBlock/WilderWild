@@ -87,8 +87,38 @@ public class TermiteBlockEntity extends BlockEntity {
     }
 
     public static class Termite {
-        public static ArrayList<Block> highPriority = new ArrayList<>() {{add(Blocks.OAK_LOG);}};
-        public static ArrayList<Block> highPriorityTo = new ArrayList<>() {{add(RegisterBlocks.HOLLOWED_OAK_LOG);}};
+        public static ArrayList<Block> edible = new ArrayList<>() {{
+            add(Blocks.ACACIA_LOG);
+            add(Blocks.OAK_LOG);
+            add(Blocks.BIRCH_LOG);
+            add(Blocks.DARK_OAK_LOG);
+            add(Blocks.JUNGLE_LOG);
+            add(Blocks.MANGROVE_LOG);
+            add(Blocks.SPRUCE_LOG);
+            add(Blocks.STRIPPED_ACACIA_LOG);
+            add(Blocks.STRIPPED_OAK_LOG);
+            add(Blocks.STRIPPED_BIRCH_LOG);
+            add(Blocks.STRIPPED_DARK_OAK_LOG);
+            add(Blocks.STRIPPED_JUNGLE_LOG);
+            add(Blocks.STRIPPED_MANGROVE_LOG);
+            add(Blocks.STRIPPED_SPRUCE_LOG);
+        }};
+        public static ArrayList<Block> edibleTo = new ArrayList<>() {{
+            add(RegisterBlocks.HOLLOWED_ACACIA_LOG);
+            add(RegisterBlocks.HOLLOWED_OAK_LOG);
+            add(RegisterBlocks.HOLLOWED_BIRCH_LOG);
+            add(RegisterBlocks.HOLLOWED_DARK_OAK_LOG);
+            add(RegisterBlocks.HOLLOWED_JUNGLE_LOG);
+            add(RegisterBlocks.HOLLOWED_MANGROVE_LOG);
+            add(RegisterBlocks.HOLLOWED_SPRUCE_LOG);
+            add(Blocks.AIR);
+            add(Blocks.AIR);
+            add(Blocks.AIR);
+            add(Blocks.AIR);
+            add(Blocks.AIR);
+            add(Blocks.AIR);
+            add(Blocks.AIR);
+        }};
         public BlockPos pos;
         public int blockDestroyPower;
         public static final Codec<Termite> CODEC = RecordCodecBuilder.create((instance) -> {
@@ -108,11 +138,11 @@ public class TermiteBlockEntity extends BlockEntity {
         public boolean tick (World world) {
             boolean exit = false;
             if (canMove(world, this.pos)) {
-                if (highPriority.contains(world.getBlockState(this.pos).getBlock())) {
+                if (edible.contains(world.getBlockState(this.pos).getBlock())) {
                     exit = true;
                     ++this.blockDestroyPower;
                     if (this.blockDestroyPower>200) {
-                        world.setBlockState(this.pos, highPriorityTo.get(highPriority.indexOf(world.getBlockState(this.pos).getBlock())).getDefaultState());
+                        world.setBlockState(this.pos, edibleTo.get(edibleTo.indexOf(world.getBlockState(this.pos).getBlock())).getDefaultState());
                     }
                 } else {
                     this.blockDestroyPower = 0;
