@@ -101,8 +101,8 @@ public class TermiteMoundBlockEntity extends BlockEntity {
     }
 
     public static int maxTermites(World world) {
-        if (world.isNight()) {return 3;}
-        return 16;
+        if (world.isNight()) {return 1;}
+        return 5;
     }
 
     public static class Termite {
