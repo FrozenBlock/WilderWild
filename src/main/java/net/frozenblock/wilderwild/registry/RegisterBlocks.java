@@ -26,7 +26,10 @@ public abstract class RegisterBlocks {
     );
 
     // FLOWERED LILY PAD
-    public static final Block FLOWERED_LILY_PAD = new FloweredLilyPadBlock(FabricBlockSettings.copy(Blocks.LILY_PAD));
+    public static final Block FLOWERED_LILY_PAD = new FloweredLilyPadBlock(
+            FabricBlockSettings.copy(Blocks.LILY_PAD)
+            .sounds(RegisterBlockSoundGroups.LILYPAD)
+    );
 
     // HOLLOW LOGS
     public static final Block HOLLOWED_OAK_LOG = registerBlock("hollowed_oak_log", createHollowedLogBlock(MapColor.OAK_TAN, MapColor.SPRUCE_BROWN), ItemGroup.DECORATIONS);
