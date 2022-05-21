@@ -140,6 +140,8 @@ public class TermiteBlockEntity extends BlockEntity {
                             world.addBlockBreakParticles(this.pos, blockState);
                             world.setBlockState(this.pos, EDIBLE.get(block).getDefaultState());
                         }
+                        BlockPos up = upPos(world, this.pos);
+                        if (up!=null) { this.pos=up; }
                     }
                 } else {
                     this.blockDestroyPower = 0;
@@ -164,6 +166,14 @@ public class TermiteBlockEntity extends BlockEntity {
             BlockState state = world.getBlockState(pos);
             if (EDIBLE.containsKey(state.getBlock()) || state.isIn(WildBlockTags.TERMITE_BREAKABLE)) { return pos; }
             if (!world.getBlockState(pos.down()).isAir() && exposedToAir(world, pos.down())) { return pos.down(); }
+            return null;
+        }
+
+        @Nullable
+        public static BlockPos upPos(World world, BlockPos pos) {
+            BlockState state = world.getBlockState(pos);
+            if (EDIBLE.containsKey(state.getBlock()) || state.isIn(WildBlockTags.TERMITE_BREAKABLE)) { return pos; }
+            if (!world.getBlockState(pos.up()).isAir() && exposedToAir(world, pos.up())) { return pos.down(); }
             return null;
         }
 
