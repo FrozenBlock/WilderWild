@@ -147,13 +147,19 @@ public class TermiteBlockEntity extends BlockEntity {
                     BlockPos offest = pos.offset(direction);
                     BlockState state = world.getBlockState(offest);
                     if (state.isIn(WildBlockTags.KILLS_TERMITE) || state.isOf(Blocks.WATER) || state.isOf(Blocks.LAVA)) { return false; }
-                    if (exposedToAir(world, offest) && !(direction!=Direction.DOWN && state.isAir() && !this.mound.isWithinDistance(this.pos, 1.5))) {
+                    if (exposedToAir(world, offest) && !(direction!=Direction.DOWN && state.isAir() && (!this.mound.isWithinDistance(this.pos, 1.5)) && !canMoveOffLedge(world, offest))) {
                         this.pos = offest;
                         exit = true;
                     }
                 }
             }
             return exit || (exposedToAir(world, this.pos));
+        }
+
+        public static boolean canMoveOffLedge(World world, BlockPos pos) {
+            for (int i=0; i<3; ++i) {
+                if (!world.getBlockState(pos.down(i)).isAir()) { return true; }
+            } return false;
         }
 
         public static boolean exposedToAir(World world, BlockPos pos) {
