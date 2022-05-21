@@ -24,6 +24,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldAccess;
+import org.jetbrains.annotations.Nullable;
 import org.slf4j.Logger;
 
 import java.util.ArrayList;
@@ -147,8 +148,10 @@ public class TermiteBlockEntity extends BlockEntity {
                     BlockPos offest = pos.offset(direction);
                     BlockState state = world.getBlockState(offest);
                     if (state.isIn(WildBlockTags.KILLS_TERMITE) || state.isOf(Blocks.WATER) || state.isOf(Blocks.LAVA)) { return false; }
-                    if (exposedToAir(world, offest) && !(direction!=Direction.DOWN && state.isAir() && (!this.mound.isWithinDistance(this.pos, 1.5)) && !canMoveOffLedge(world, offest))) {
+                    BlockPos ledge = ledgePos(world, offest);
+                    if (exposedToAir(world, offest) && !(direction!=Direction.DOWN && state.isAir() && (!this.mound.isWithinDistance(this.pos, 1.5)) && ledge==null)) {
                         this.pos = offest;
+                        if (ledge!=null) { this.pos=ledge; }
                         exit = true;
                     }
                 }
@@ -156,10 +159,10 @@ public class TermiteBlockEntity extends BlockEntity {
             return exit || (exposedToAir(world, this.pos));
         }
 
-        public static boolean canMoveOffLedge(World world, BlockPos pos) {
-            for (int i=0; i<3; ++i) {
-                if (!world.getBlockState(pos.down(i)).isAir()) { return true; }
-            } return false;
+        @Nullable
+        public static BlockPos ledgePos(World world, BlockPos pos) {
+            if (!world.getBlockState(pos.down()).isAir() && exposedToAir(world, pos.down())) { return pos.down(); }
+            return null;
         }
 
         public static boolean exposedToAir(World world, BlockPos pos) {
