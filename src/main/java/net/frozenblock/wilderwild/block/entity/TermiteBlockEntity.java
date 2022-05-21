@@ -11,8 +11,11 @@ import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtElement;
 import net.minecraft.nbt.NbtOps;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
+import net.minecraft.world.WorldAccess;
 import org.slf4j.Logger;
 
 import java.util.ArrayList;
@@ -64,6 +67,7 @@ public class TermiteBlockEntity extends BlockEntity {
 
     public void tick(World world, BlockPos pos, BlockState state) {
         for (Termite termite : this.termites) {
+            termite.move(world);
             world.syncWorldEvent(3006, termite.pos, 0);
         }
         this.addTermite(pos.up());
@@ -86,12 +90,51 @@ public class TermiteBlockEntity extends BlockEntity {
             this.blockDestroyPower=blockDestroyPower;
         }
 
+        public void move(World world) {
+            if (canMove(world, pos)) {
+                Direction direction = Direction.random(world.getRandom());
+                BlockPos offest = pos.offset(direction);
+                if (world.getBlockState(offest).isSolidBlock(world, pos) && canMove(world, pos, offest)) {
+                    this.pos = offest;
+                }
+            }
+        }
+
+        public boolean canMove(WorldAccess world, BlockPos pos) {
+            if (world instanceof ServerWorld serverWorld) {
+                return serverWorld.shouldTickBlockPos(pos);
+            } else {
+                return false;
+            }
+        }
+
+        private static boolean canMove(WorldAccess world, BlockPos sourcePos, BlockPos targetPos) {
+            if (sourcePos.getManhattanDistance(targetPos) == 1) {
+                return true;
+            } else {
+                BlockPos blockPos = targetPos.subtract(sourcePos);
+                Direction direction = Direction.from(Direction.Axis.X, blockPos.getX() < 0 ? Direction.AxisDirection.NEGATIVE : Direction.AxisDirection.POSITIVE);
+                Direction direction2 = Direction.from(Direction.Axis.Y, blockPos.getY() < 0 ? Direction.AxisDirection.NEGATIVE : Direction.AxisDirection.POSITIVE);
+                Direction direction3 = Direction.from(Direction.Axis.Z, blockPos.getZ() < 0 ? Direction.AxisDirection.NEGATIVE : Direction.AxisDirection.POSITIVE);
+                if (blockPos.getX() == 0) {
+                    return canMove(world, sourcePos, direction2) || canMove(world, sourcePos, direction3);
+                } else if (blockPos.getY() == 0) {
+                    return canMove(world, sourcePos, direction) || canMove(world, sourcePos, direction3);
+                } else {
+                    return canMove(world, sourcePos, direction) || canMove(world, sourcePos, direction2);
+                }
+            }
+        }
+        private static boolean canMove(WorldAccess world, BlockPos pos, Direction direction) {
+            BlockPos blockPos = pos.offset(direction);
+            return !world.getBlockState(blockPos).isSideSolidFullSquare(world, blockPos, direction.getOpposite());
+        }
+
         public BlockPos getPos() {
             return this.pos;
         }
         public int getPower() {
             return this.blockDestroyPower;
         }
-
     }
 }
