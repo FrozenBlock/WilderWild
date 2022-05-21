@@ -127,22 +127,15 @@ public class TermiteBlockEntity extends BlockEntity {
                     if (state.isIn(WildBlockTags.KILLS_TERMITE)) { return false; }
                     this.blockDestroyPower = 0;
                     Direction direction = Direction.random(world.getRandom());
+                    if (state.isAir()) { direction=Direction.DOWN; }
                     BlockPos offest = pos.offset(direction);
-                    if (!world.getBlockState(offest).isAir() && exposedToAir(world, offest)) {
+                    if (exposedToAir(world, offest)) {
                         this.pos = offest;
                         exit = true;
                     }
-                    if (!exit) {
-                        direction = Direction.random(world.getRandom());
-                        offest = offest.offset(direction);
-                        if (!world.getBlockState(offest).isAir() && exposedToAir(world, offest)) {
-                            this.pos = offest;
-                            exit = true;
-                        }
-                    }
                 }
             }
-            return exit || (exposedToAir(world, this.pos) && !world.getBlockState(this.pos).isAir());
+            return exit || (exposedToAir(world, this.pos));
         }
 
         public static boolean exposedToAir(World world, BlockPos pos) {
