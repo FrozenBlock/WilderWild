@@ -12,9 +12,7 @@ import net.frozenblock.wilderwild.registry.RegisterBlockEntityType;
 import net.frozenblock.wilderwild.registry.RegisterBlocks;
 import net.frozenblock.wilderwild.registry.RegisterProperties;
 import net.frozenblock.wilderwild.tag.WildBlockTags;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
+import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtElement;
@@ -226,7 +224,7 @@ public class TermiteMoundBlockEntity extends BlockEntity {
         public static boolean exposedToAir(World world, BlockPos pos) {
             for (Direction direction : Direction.values()) {
                 BlockState state = world.getBlockState(pos.offset(direction));
-                if (state.isAir() || !state.isSolidBlock(world, pos.offset(direction)) || EDIBLE.containsKey(state.getBlock()) || state.isIn(WildBlockTags.TERMITE_BREAKABLE)) {
+                if (state.isAir() || (!state.isSolidBlock(world, pos.offset(direction)) && !(state.getBlock() instanceof AbstractGlassBlock || state.getBlock() instanceof PaneBlock)) || EDIBLE.containsKey(state.getBlock()) || state.isIn(WildBlockTags.TERMITE_BREAKABLE)) {
                     return true;
                 }
             } return false;
