@@ -190,6 +190,8 @@ public class TermiteMoundBlockEntity extends BlockEntity {
         @Nullable
         public static BlockPos edibleBreakablePos(World world, BlockPos pos) {
             List<Direction> directions = Util.copyShuffled(Direction.values(), world.random);
+            BlockState upState = world.getBlockState(pos.offset(Direction.UP));
+            if (EDIBLE.containsKey(upState.getBlock()) || upState.isIn(WildBlockTags.TERMITE_BREAKABLE)) { return pos.offset(Direction.UP); }
             for (Direction direction : directions) {
                 BlockState state = world.getBlockState(pos.offset(direction));
                 if (EDIBLE.containsKey(state.getBlock()) || state.isIn(WildBlockTags.TERMITE_BREAKABLE)) { return pos.offset(direction); }
