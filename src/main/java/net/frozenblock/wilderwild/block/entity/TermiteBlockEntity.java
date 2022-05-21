@@ -142,7 +142,7 @@ public class TermiteBlockEntity extends BlockEntity {
                     exit = true;
                     ++this.blockDestroyPower;
                     if (this.blockDestroyPower>200) {
-                        world.setBlockState(this.pos, edibleTo.get(edibleTo.indexOf(world.getBlockState(this.pos).getBlock())).getDefaultState());
+                        world.setBlockState(this.pos, edibleTo.get(edible.indexOf(world.getBlockState(this.pos).getBlock())).getDefaultState());
                     }
                 } else {
                     this.blockDestroyPower = 0;
