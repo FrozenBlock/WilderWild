@@ -111,8 +111,8 @@ public class TermiteBlockEntity extends BlockEntity {
         public boolean tick(World world) {
             boolean exit = false;
             if (canMove(world, this.pos)) {
-                BlockState state = world.getBlockState(this.pos);
-                Block block = state.getBlock();
+                BlockState blockState = world.getBlockState(this.pos);
+                Block block = blockState.getBlock();
                 if (EDIBLE.containsKey(block)) {
                     exit = true;
                     ++this.blockDestroyPower;
@@ -124,12 +124,13 @@ public class TermiteBlockEntity extends BlockEntity {
                         }
                     }
                 } else {
-                    if (state.isIn(WildBlockTags.KILLS_TERMITE)) { return false; }
                     this.blockDestroyPower = 0;
                     Direction direction = Direction.random(world.getRandom());
-                    if (state.isAir()) { direction=Direction.DOWN; }
+                    if (blockState.isAir()) { direction=Direction.DOWN; }
                     BlockPos offest = pos.offset(direction);
-                    if (exposedToAir(world, offest) && !(direction!=Direction.DOWN && world.getBlockState(offest).isAir())) {
+                    BlockState state = world.getBlockState(offest);
+                    if (state.isIn(WildBlockTags.KILLS_TERMITE) || state.isOf(Blocks.WATER) || state.isOf(Blocks.LAVA)) { return false; }
+                    if (exposedToAir(world, offest) && !(direction==Direction.UP && state.isAir())) {
                         this.pos = offest;
                         exit = true;
                     }
