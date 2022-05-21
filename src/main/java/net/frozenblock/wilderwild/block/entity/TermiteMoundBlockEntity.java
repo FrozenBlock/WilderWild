@@ -171,6 +171,9 @@ public class TermiteMoundBlockEntity extends BlockEntity {
                         } else if (ledge!=null && exposedToAir(world, ledge)) {
                             this.pos = ledge;
                             exit = true;
+                        } else if (!world.getBlockState(this.pos.up()).isAir() && exposedToAir(world, this.pos.up())) {
+                            this.pos = this.pos.up();
+                            exit = true;
                         }
                     }
                 }
