@@ -170,6 +170,7 @@ public class TermiteBlockEntity extends BlockEntity {
             BlockState state = world.getBlockState(pos);
             if (EDIBLE.containsKey(state.getBlock()) || state.isIn(WildBlockTags.TERMITE_BREAKABLE)) { return pos; }
             if (!world.getBlockState(pos.down()).isAir() && exposedToAir(world, pos.down())) { return pos.down(); }
+            if (!world.getBlockState(pos.up()).isAir() && exposedToAir(world, pos.up())) { return pos.up(); }
             return null;
         }
 
