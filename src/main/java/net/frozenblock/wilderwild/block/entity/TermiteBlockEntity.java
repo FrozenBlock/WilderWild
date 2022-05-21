@@ -14,7 +14,6 @@ import net.frozenblock.wilderwild.tag.WildBlockTags;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
-import net.minecraft.block.LeavesBlock;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtElement;
@@ -25,6 +24,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldAccess;
+import org.jetbrains.annotations.Nullable;
 import org.slf4j.Logger;
 
 import java.util.ArrayList;
@@ -35,6 +35,7 @@ import java.util.Optional;
 public class TermiteBlockEntity extends BlockEntity {
     private static final Logger LOGGER = LogUtils.getLogger();
     ArrayList<Termite> termites = new ArrayList<>();
+    public int ticksToNextTermite;
 
     public TermiteBlockEntity(BlockPos pos, BlockState state) {
         super(RegisterBlockEntityType.TERMITEMOUND, pos, state);
@@ -42,6 +43,7 @@ public class TermiteBlockEntity extends BlockEntity {
 
     public void readNbt(NbtCompound nbt) {
         super.readNbt(nbt);
+        this.ticksToNextTermite = nbt.getInt("ticksToNextTermite");
         if (nbt.contains("termites", 9)) {
             this.termites.clear();
             DataResult<?> var10000 = Termite.CODEC.listOf().parse(new Dynamic<>(NbtOps.INSTANCE, nbt.getList("termites", 10)));
@@ -50,7 +52,8 @@ public class TermiteBlockEntity extends BlockEntity {
             Optional<List> list = (Optional<List>) var10000.resultOrPartial(var10001::error);
             if (list.isPresent()) {
                 List termitesAllAllAll = list.get();
-                int i = Math.min(termitesAllAllAll.size(), 32);
+                int max = this.world!=null ? maxTermites(this.world) : 7;
+                int i = Math.min(termitesAllAllAll.size(), max);
 
                 for (int j = 0; j < i; ++j) {
                     this.termites.add((Termite) termitesAllAllAll.get(j));
@@ -61,6 +64,7 @@ public class TermiteBlockEntity extends BlockEntity {
 
     protected void writeNbt(NbtCompound nbt) {
         super.writeNbt(nbt);
+        nbt.putInt("ticksToNextTermite", this.ticksToNextTermite);
         DataResult<?> var10000 = Termite.CODEC.listOf().encodeStart(NbtOps.INSTANCE, this.termites);
         Logger var10001 = LOGGER;
         Objects.requireNonNull(var10001);
@@ -70,7 +74,7 @@ public class TermiteBlockEntity extends BlockEntity {
     }
 
     public void addTermite(BlockPos pos) {
-        Termite termite = new Termite(pos.getX(), pos.getY(), pos.getZ(), 0);
+        Termite termite = new Termite(pos, pos, 0);
         this.termites.add(termite);
     }
 
@@ -86,24 +90,33 @@ public class TermiteBlockEntity extends BlockEntity {
         for (Termite termite : termitesToRemove) {
             this.termites.remove(termite);
         }
-        if (this.termites.size()<32) {
-            this.addTermite(pos);
+        if (this.termites.size()<maxTermites(world)) {
+            if (this.ticksToNextTermite>0) {
+                --this.ticksToNextTermite;
+            } else {
+                this.addTermite(pos);
+                this.ticksToNextTermite=200;
+            }
         }
     }
 
+    public static int maxTermites(World world) {
+        if (world.isNight()) {return 3;}
+        return 16;
+    }
+
     public static class Termite {
+        public BlockPos mound;
         public BlockPos pos;
         public int blockDestroyPower;
         public static final Codec<Termite> CODEC = RecordCodecBuilder.create((instance) -> {
-            return instance.group(BlockPos.CODEC.fieldOf("pos").forGetter(Termite::getPos),
+            return instance.group(BlockPos.CODEC.fieldOf("mound").forGetter(Termite::getMoundPos),
+                    BlockPos.CODEC.fieldOf("pos").forGetter(Termite::getPos),
                     Codec.intRange(0, 10000).fieldOf("blockDestroyPower").orElse(0).forGetter(Termite::getPower)).apply(instance, Termite::new);
         });
 
-        public Termite(int x, int y, int z, int blockDestroyPower) {
-            this.pos = new BlockPos(x,y,z);
-            this.blockDestroyPower=blockDestroyPower;
-        }
-        public Termite(BlockPos pos, int blockDestroyPower) {
+        public Termite(BlockPos mound, BlockPos pos, int blockDestroyPower) {
+            this.mound = mound;
             this.pos = pos;
             this.blockDestroyPower=blockDestroyPower;
         }
@@ -113,35 +126,68 @@ public class TermiteBlockEntity extends BlockEntity {
             if (canMove(world, this.pos)) {
                 BlockState blockState = world.getBlockState(this.pos);
                 Block block = blockState.getBlock();
-                if (EDIBLE.containsKey(block)) {
+                boolean edible = EDIBLE.containsKey(block);
+                boolean breakable = blockState.isIn(WildBlockTags.TERMITE_BREAKABLE);
+                if (edible || breakable) {
                     exit = true;
                     ++this.blockDestroyPower;
+                    if (breakable) { ++this.blockDestroyPower; }
                     if (this.blockDestroyPower>200) {
-                        if (block instanceof LeavesBlock) {
+                        if (blockState.isIn(WildBlockTags.TERMITE_BREAKABLE)) {
                             world.breakBlock(this.pos, true);
+                            ++this.blockDestroyPower;
                         } else {
+                            world.addBlockBreakParticles(this.pos, blockState);
                             world.setBlockState(this.pos, EDIBLE.get(block).getDefaultState());
-                        }
+                        } this.blockDestroyPower = 0;
                     }
                 } else {
                     this.blockDestroyPower = 0;
-                    Direction direction = Direction.random(world.getRandom());
-                    if (blockState.isAir()) { direction=Direction.DOWN; }
-                    BlockPos offest = pos.offset(direction);
-                    BlockState state = world.getBlockState(offest);
-                    if (state.isIn(WildBlockTags.KILLS_TERMITE) || state.isOf(Blocks.WATER) || state.isOf(Blocks.LAVA)) { return false; }
-                    if (exposedToAir(world, offest) && !(direction==Direction.UP && state.isAir())) {
-                        this.pos = offest;
+                    BlockPos priority = edibleBreakablePos(world, this.pos);
+                    if (priority!=null) {
+                        this.pos=priority;
                         exit = true;
+                    } else {
+                        Direction direction = Direction.random(world.getRandom());
+                        if (blockState.isAir()) { direction=Direction.DOWN; }
+                        BlockPos offest = pos.offset(direction);
+                        BlockState state = world.getBlockState(offest);
+                        if (state.isIn(WildBlockTags.KILLS_TERMITE) || state.isOf(Blocks.WATER) || state.isOf(Blocks.LAVA)) { return false; }
+                        BlockPos ledge = ledgePos(world, offest);
+                        if (exposedToAir(world, offest) && !(direction != Direction.DOWN && state.isAir() && (!this.mound.isWithinDistance(this.pos, 1.5)) && ledge == null)) {
+                            this.pos = offest;
+                            if (ledge != null) { this.pos = ledge; }
+                            exit = true;
+                        }
                     }
                 }
             }
             return exit || (exposedToAir(world, this.pos));
         }
 
+        @Nullable
+        public static BlockPos ledgePos(World world, BlockPos pos) {
+            BlockState state = world.getBlockState(pos);
+            if (EDIBLE.containsKey(state.getBlock()) || state.isIn(WildBlockTags.TERMITE_BREAKABLE)) { return pos; }
+            if (!world.getBlockState(pos.down()).isAir() && exposedToAir(world, pos.down())) { return pos.down(); }
+            if (!world.getBlockState(pos.up()).isAir() && exposedToAir(world, pos.up())) { return pos.up(); }
+            return null;
+        }
+
+        @Nullable
+        public static BlockPos edibleBreakablePos(World world, BlockPos pos) {
+            List<Direction> directions = Util.copyShuffled(Direction.values(), world.random);
+            for (Direction direction : directions) {
+                BlockState state = world.getBlockState(pos.offset(direction));
+                if (EDIBLE.containsKey(state.getBlock()) || state.isIn(WildBlockTags.TERMITE_BREAKABLE)) { return pos.offset(direction); }
+            }
+            return null;
+        }
+
         public static boolean exposedToAir(World world, BlockPos pos) {
             for (Direction direction : Direction.values()) {
-                if (world.getBlockState(pos.offset(direction)).isAir()) {
+                BlockState state = world.getBlockState(pos.offset(direction));
+                if (state.isAir() || !state.isSolidBlock(world, pos.offset(direction)) || EDIBLE.containsKey(state.getBlock()) || state.isIn(WildBlockTags.TERMITE_BREAKABLE)) {
                     return true;
                 }
             } return false;
@@ -153,6 +199,9 @@ public class TermiteBlockEntity extends BlockEntity {
             } return false;
         }
 
+        public BlockPos getMoundPos() {
+            return this.mound;
+        }
         public BlockPos getPos() {
             return this.pos;
         }
@@ -188,13 +237,6 @@ public class TermiteBlockEntity extends BlockEntity {
             map.put(Blocks.STRIPPED_JUNGLE_WOOD, Blocks.AIR);
             map.put(Blocks.STRIPPED_MANGROVE_WOOD, Blocks.AIR);
             map.put(Blocks.STRIPPED_SPRUCE_WOOD, Blocks.AIR);
-            map.put(Blocks.ACACIA_LEAVES, Blocks.AIR);
-            map.put(Blocks.OAK_LEAVES, Blocks.AIR);
-            map.put(Blocks.BIRCH_LEAVES, Blocks.AIR);
-            map.put(Blocks.DARK_OAK_LEAVES, Blocks.AIR);
-            map.put(Blocks.JUNGLE_LEAVES, Blocks.AIR);
-            map.put(Blocks.MANGROVE_LEAVES, Blocks.AIR);
-            map.put(Blocks.SPRUCE_LEAVES, Blocks.AIR);
         }));
     }
 }
