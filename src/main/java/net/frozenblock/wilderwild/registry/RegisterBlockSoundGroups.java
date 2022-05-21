@@ -62,7 +62,7 @@ public class RegisterBlockSoundGroups {
             BLOCK_FLOWER_FALL
     );
 
-    public static BlockSoundGroup WEB = new BlockSoundGroup(1.0f, 1.0f,
+    public static BlockSoundGroup WEB = new BlockSoundGroup(1.0f, 1.5f,
             BLOCK_COBWEB_BREAK,
             BLOCK_COBWEB_STEP,
             BLOCK_COBWEB_PLACE,
