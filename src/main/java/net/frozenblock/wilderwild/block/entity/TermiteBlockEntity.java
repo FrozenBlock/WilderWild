@@ -140,7 +140,8 @@ public class TermiteBlockEntity extends BlockEntity {
 
         public static boolean exposedToAir(World world, BlockPos pos) {
             for (Direction direction : Direction.values()) {
-                if (world.getBlockState(pos.offset(direction)).isAir()) {
+                BlockState state = world.getBlockState(pos.offset(direction));
+                if (state.isAir() || !state.isSolidBlock(world, pos.offset(direction))) {
                     return true;
                 }
             } return false;
