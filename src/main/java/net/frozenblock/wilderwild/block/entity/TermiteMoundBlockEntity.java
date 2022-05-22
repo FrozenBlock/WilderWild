@@ -243,8 +243,10 @@ public class TermiteMoundBlockEntity extends BlockEntity {
             BlockState state = world.getBlockState(pos);
             if (EDIBLE.containsKey(state.getBlock()) || state.isIn(WildBlockTags.TERMITE_BREAKABLE)) { return pos; }
             pos = pos.down();
+            state = world.getBlockState(pos);
             if (!world.getBlockState(pos).isAir() && isBlockMovable(state, Direction.DOWN) && exposedToAir(world, pos)) { return pos; }
             pos = pos.up().up();
+            state = world.getBlockState(pos);
             if (!world.getBlockState(pos).isAir() && isBlockMovable(state, Direction.UP) && exposedToAir(world, pos)) { return pos; }
             return null;
         }
