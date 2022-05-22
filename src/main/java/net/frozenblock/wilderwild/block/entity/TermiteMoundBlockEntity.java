@@ -18,6 +18,8 @@ import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtElement;
 import net.minecraft.nbt.NbtOps;
 import net.minecraft.server.world.ServerWorld;
+import net.minecraft.sound.SoundCategory;
+import net.minecraft.sound.SoundEvents;
 import net.minecraft.state.property.Properties;
 import net.minecraft.tag.BlockTags;
 import net.minecraft.util.Util;
@@ -38,6 +40,8 @@ public class TermiteMoundBlockEntity extends BlockEntity {
     private static final Logger LOGGER = LogUtils.getLogger();
     ArrayList<Termite> termites = new ArrayList<>();
     public int ticksToNextTermite;
+    public int ticksToCheckLight;
+    public int lastLight;
 
     public TermiteMoundBlockEntity(BlockPos pos, BlockState state) {
         super(RegisterBlockEntityType.TERMITE_MOUND, pos, state);
@@ -46,6 +50,8 @@ public class TermiteMoundBlockEntity extends BlockEntity {
     public void readNbt(NbtCompound nbt) {
         super.readNbt(nbt);
         this.ticksToNextTermite = nbt.getInt("ticksToNextTermite");
+        this.ticksToCheckLight = nbt.getInt("ticksToCheckLight");
+        this.lastLight = nbt.getInt("lastLight");
         if (nbt.contains("termites", 9)) {
             this.termites.clear();
             DataResult<?> var10000 = Termite.CODEC.listOf().parse(new Dynamic<>(NbtOps.INSTANCE, nbt.getList("termites", 10)));
@@ -54,7 +60,7 @@ public class TermiteMoundBlockEntity extends BlockEntity {
             Optional<List> list = (Optional<List>) var10000.resultOrPartial(var10001::error);
             if (list.isPresent()) {
                 List termitesAllAllAll = list.get();
-                int max = this.world!=null ? maxTermites(this.world, this.pos, this.getCachedState().get(RegisterProperties.NATURAL)) : 5;
+                int max = this.world!=null ? maxTermites(this.world, this.lastLight, this.getCachedState().get(RegisterProperties.NATURAL)) : 5;
                 int i = Math.min(termitesAllAllAll.size(), max);
 
                 for (int j = 0; j < i; ++j) {
@@ -67,6 +73,8 @@ public class TermiteMoundBlockEntity extends BlockEntity {
     protected void writeNbt(NbtCompound nbt) {
         super.writeNbt(nbt);
         nbt.putInt("ticksToNextTermite", this.ticksToNextTermite);
+        nbt.putInt("ticksToCheckLight", this.ticksToCheckLight);
+        nbt.putInt("lastLight", this.lastLight);
         DataResult<?> var10000 = Termite.CODEC.listOf().encodeStart(NbtOps.INSTANCE, this.termites);
         Logger var10001 = LOGGER;
         Objects.requireNonNull(var10001);
@@ -81,12 +89,21 @@ public class TermiteMoundBlockEntity extends BlockEntity {
     }
 
     public void tick(World world, BlockPos pos) {
-        int maxTermites = maxTermites(world, this.pos, this.getCachedState().get(RegisterProperties.NATURAL));
+        if (this.ticksToCheckLight>0) {
+            --this.ticksToCheckLight;
+        } else {
+            this.lastLight = getLightLevel(world, this.pos);
+            this.ticksToCheckLight=100;
+        }
+        
+        int maxTermites = maxTermites(world, this.lastLight, this.getCachedState().get(RegisterProperties.NATURAL));
         ArrayList<Termite> termitesToRemove = new ArrayList<>();
         for (Termite termite : this.termites) {
             if (termite.tick(world)) {
+                //TODO: TERMITE SPAWNING, MOVING, AND EATING TEXTURES + PARTICLES
                 world.syncWorldEvent(3006, termite.pos, 0);
             } else {
+                world.playSound(null, termite.pos, SoundEvents.BLOCK_BEEHIVE_ENTER, SoundCategory.NEUTRAL, 1.0F, 1.0F);
                 termitesToRemove.add(termite);
             }
         }
@@ -98,16 +115,21 @@ public class TermiteMoundBlockEntity extends BlockEntity {
                 --this.ticksToNextTermite;
             } else {
                 this.addTermite(pos);
-                this.ticksToNextTermite = this.getCachedState().get(RegisterProperties.NATURAL) ? 350 : 200;
+                //TODO: TERMITE SPAWN (EXIT MOUND,) DESPAWN, EATING, AND MOVING SOUNDS
+                world.playSound(null, this.pos, SoundEvents.BLOCK_BEEHIVE_EXIT, SoundCategory.NEUTRAL, 1.0F, 1.0F);
+                this.ticksToNextTermite = this.getCachedState().get(RegisterProperties.NATURAL) ? 320 : 200;
             }
         }
         while(this.termites.size()>maxTermites) {
-            this.termites.remove((int) (Math.random() * termites.size()));
+            Termite termite = this.termites.get((int) (Math.random() * this.termites.size()));
+            //TODO: TERMITE SPAWN (EXIT MOUND,) DESPAWN, EATING, AND MOVING SOUNDS
+            world.playSound(null, termite.pos, SoundEvents.BLOCK_BEEHIVE_ENTER, SoundCategory.NEUTRAL, 1.0F, 1.0F);
+            this.termites.remove(termite);
         }
     }
 
-    public static int maxTermites(World world, BlockPos pos, boolean natural) {
-        if (world.isNight() && getLightLevel(world, pos)<7) {return natural ? 0 : 1;}
+    public static int maxTermites(World world, int light, boolean natural) {
+        if (world.isNight() && light<7) {return natural ? 0 : 1;}
         return natural ? 3 : 5;
     }
 
@@ -132,14 +154,15 @@ public class TermiteMoundBlockEntity extends BlockEntity {
         public int aliveTicks;
         public int update;
         public boolean natural;
-        public static final Codec<Termite> CODEC = RecordCodecBuilder.create((instance) -> {
-            return instance.group(BlockPos.CODEC.fieldOf("mound").forGetter(Termite::getMoundPos),
-                    BlockPos.CODEC.fieldOf("pos").forGetter(Termite::getPos),
-                    Codec.intRange(0, 10000).fieldOf("blockDestroyPower").orElse(0).forGetter(Termite::getPower),
-                    Codec.intRange(0, 2002).fieldOf("aliveTicks").orElse(0).forGetter(Termite::getAliveTicks),
-                    Codec.intRange(0, 5).fieldOf("update").orElse(0).forGetter(Termite::getUpdateTicks),
-                    Codec.BOOL.fieldOf("natural").orElse(true).forGetter(Termite::getNatural)).apply(instance, Termite::new);
-        });
+
+        public static final Codec<Termite> CODEC = RecordCodecBuilder.create((instance) -> instance.group(
+                BlockPos.CODEC.fieldOf("mound").forGetter(Termite::getMoundPos),
+                BlockPos.CODEC.fieldOf("pos").forGetter(Termite::getPos),
+                Codec.intRange(0, 10000).fieldOf("blockDestroyPower").orElse(0).forGetter(Termite::getPower),
+                Codec.intRange(0, 2002).fieldOf("aliveTicks").orElse(0).forGetter(Termite::getAliveTicks),
+                Codec.intRange(0, 5).fieldOf("update").orElse(0).forGetter(Termite::getUpdateTicks),
+                Codec.BOOL.fieldOf("natural").orElse(true).forGetter(Termite::getNatural)
+        ).apply(instance, Termite::new));
 
         public Termite(BlockPos mound, BlockPos pos, int blockDestroyPower, int aliveTicks, int update, boolean natural) {
             this.mound = mound;
@@ -153,7 +176,7 @@ public class TermiteMoundBlockEntity extends BlockEntity {
         public boolean tick(World world) {
             boolean exit = false;
             ++this.aliveTicks;
-            if (this.aliveTicks>2000 || isTooFar(this.natural, this.mound, this.pos)) { return false; }
+            if (this.aliveTicks > (this.natural ? 1200 : 2000)  || isTooFar(this.natural, this.mound, this.pos)) { return false; }
             if (canMove(world, this.pos)) {
                 BlockState blockState = world.getBlockState(this.pos);
                 Block block = blockState.getBlock();
@@ -183,7 +206,7 @@ public class TermiteMoundBlockEntity extends BlockEntity {
                     if (blockState.isAir()) {
                         direction = Direction.DOWN;
                     }
-                    BlockPos offest = pos.offset(direction);
+                    BlockPos offest = this.pos.offset(direction);
                     BlockState state = world.getBlockState(offest);
                     if (state.isIn(WildBlockTags.KILLS_TERMITE) || state.isOf(Blocks.WATER) || state.isOf(Blocks.LAVA)) { return false; }
                     if (this.update > 0 && !blockState.isAir()) {
@@ -247,7 +270,7 @@ public class TermiteMoundBlockEntity extends BlockEntity {
             } return false;
         }
 
-        public boolean canMove(WorldAccess world, BlockPos pos) {
+        public static boolean canMove(WorldAccess world, BlockPos pos) {
             if (world instanceof ServerWorld serverWorld) {
                 return serverWorld.shouldTickBlockPos(pos);
             } return false;
