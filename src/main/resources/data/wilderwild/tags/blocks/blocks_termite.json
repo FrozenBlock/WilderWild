@@ -3,8 +3,6 @@
   "values": [
     "#c:glass_blocks",
     "#c:glass_panes",
-    "#c:stained_glass_blocks",
-    "#c:stained_glass_panes",
     "wilderwild:echo_glass"
   ]
 }
