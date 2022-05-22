@@ -11,6 +11,7 @@ public class WildBlockTags {
     public static final TagKey<Block> HORN_PROJECTILE_NON_COLLIDE = of("ancient_horn_vibration_non_collide");
     public static final TagKey<Block> KILLS_TERMITE = of("kills_termite");
     public static final TagKey<Block> TERMITE_BREAKABLE = of("termite_breakable");
+    public static final TagKey<Block> BLOCKS_TERMITE = of("blocks_termite");
 
     private WildBlockTags() {
     }

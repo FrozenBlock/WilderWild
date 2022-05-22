@@ -95,7 +95,7 @@ public class TermiteMoundBlockEntity extends BlockEntity {
             this.lastLight = getLightLevel(world, this.pos);
             this.ticksToCheckLight=100;
         }
-        
+
         int maxTermites = maxTermites(world, this.lastLight, this.getCachedState().get(RegisterProperties.NATURAL));
         ArrayList<Termite> termitesToRemove = new ArrayList<>();
         for (Termite termite : this.termites) {
@@ -220,7 +220,7 @@ public class TermiteMoundBlockEntity extends BlockEntity {
                             exit = true;
                         } else {
                             BlockPos ledge = ledgePos(world, offest);
-                            if (exposedToAir(world, offest) && !(direction==Direction.UP && (world.getBlockState(offest).isIn(BlockTags.INSIDE_STEP_SOUND_BLOCKS) || world.getBlockState(offest).isIn(BlockTags.REPLACEABLE_PLANTS) || world.getBlockState(offest).isIn(BlockTags.FLOWERS))) && !(direction != Direction.DOWN && state.isAir() && (!this.mound.isWithinDistance(this.pos, 1.5)) && ledge == null)) {
+                            if (exposedToAir(world, offest) && isBlockMovable(state, direction) && !(direction != Direction.DOWN && state.isAir() && (!this.mound.isWithinDistance(this.pos, 1.5)) && ledge == null)) {
                                 this.pos = offest;
                                 if (ledge != null) {
                                     this.pos = ledge;
@@ -244,8 +244,10 @@ public class TermiteMoundBlockEntity extends BlockEntity {
         public static BlockPos ledgePos(World world, BlockPos pos) {
             BlockState state = world.getBlockState(pos);
             if (EDIBLE.containsKey(state.getBlock()) || state.isIn(WildBlockTags.TERMITE_BREAKABLE)) { return pos; }
-            if (!world.getBlockState(pos.down()).isAir() && exposedToAir(world, pos.down())) { return pos.down(); }
-            if (!world.getBlockState(pos.up()).isAir() && exposedToAir(world, pos.up())) { return pos.up(); }
+            pos = pos.down();
+            if (!world.getBlockState(pos).isAir() && isBlockMovable(state, Direction.DOWN) && exposedToAir(world, pos)) { return pos; }
+            pos = pos.up().up();
+            if (!world.getBlockState(pos).isAir() && isBlockMovable(state, Direction.UP) && exposedToAir(world, pos)) { return pos; }
             return null;
         }
 
@@ -264,7 +266,7 @@ public class TermiteMoundBlockEntity extends BlockEntity {
         public static boolean exposedToAir(World world, BlockPos pos) {
             for (Direction direction : Direction.values()) {
                 BlockState state = world.getBlockState(pos.offset(direction));
-                if (state.isAir() || (!state.isSolidBlock(world, pos.offset(direction)) && !(state.getBlock() instanceof AbstractGlassBlock || state.getBlock() instanceof PaneBlock)) || EDIBLE.containsKey(state.getBlock()) || state.isIn(WildBlockTags.TERMITE_BREAKABLE)) {
+                if (state.isAir() || (!state.isSolidBlock(world, pos.offset(direction)) && !state.isIn(WildBlockTags.BLOCKS_TERMITE)) || EDIBLE.containsKey(state.getBlock()) || state.isIn(WildBlockTags.TERMITE_BREAKABLE)) {
                     return true;
                 }
             } return false;
@@ -274,6 +276,12 @@ public class TermiteMoundBlockEntity extends BlockEntity {
             if (world instanceof ServerWorld serverWorld) {
                 return serverWorld.shouldTickBlockPos(pos);
             } return false;
+        }
+
+        public static boolean isBlockMovable(BlockState state, Direction direction) {
+            boolean moveableUp = !(direction==Direction.UP && (state.isIn(BlockTags.INSIDE_STEP_SOUND_BLOCKS) || state.isIn(BlockTags.REPLACEABLE_PLANTS) || state.isIn(BlockTags.FLOWERS)));
+            boolean moveableDown = !(direction==Direction.DOWN && (state.isOf(Blocks.WATER) || state.isOf(Blocks.LAVA)));
+            return moveableUp && moveableDown;
         }
 
         public static boolean isTooFar(boolean natural, BlockPos mound, BlockPos pos) {
