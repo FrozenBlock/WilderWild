@@ -203,16 +203,16 @@ public class TermiteMoundBlockEntity extends BlockEntity {
                 } else {
                     this.blockDestroyPower = 0;
                     Direction direction = Direction.random(world.getRandom());
-                    if (blockState.isAir()) {
-                        direction = Direction.DOWN;
-                    }
+                    if (blockState.isAir()) { direction = Direction.DOWN; }
                     BlockPos offest = this.pos.offset(direction);
                     BlockState state = world.getBlockState(offest);
                     if (state.isIn(WildBlockTags.KILLS_TERMITE) || state.isOf(Blocks.WATER) || state.isOf(Blocks.LAVA)) { return false; }
+
                     if (this.update > 0 && !blockState.isAir()) {
                         --this.update;
                         return true;
                     } else {
+
                         this.update = 1;
                         BlockPos priority = edibleBreakablePos(world, this.pos);
                         if (priority != null) {
@@ -220,24 +220,27 @@ public class TermiteMoundBlockEntity extends BlockEntity {
                             exit = true;
                         } else {
                             BlockPos ledge = ledgePos(world, offest);
+                            BlockPos posUp = this.pos.up();
+
                             if (exposedToAir(world, offest) && isBlockMovable(state, direction) && !(direction != Direction.DOWN && state.isAir() && (!this.mound.isWithinDistance(this.pos, 1.5)) && ledge == null)) {
                                 this.pos = offest;
                                 if (ledge != null) {
                                     this.pos = ledge;
                                 }
                                 exit = true;
+
                             } else if (ledge != null && exposedToAir(world, ledge)) {
                                 this.pos = ledge;
                                 exit = true;
-                            } else if (!world.getBlockState(this.pos.up()).isAir() && exposedToAir(world, this.pos.up())) {
-                                this.pos = this.pos.up();
+
+                            } else if (!world.getBlockState(posUp).isAir() && exposedToAir(world, posUp)) {
+                                this.pos = posUp;
                                 exit = true;
                             }
                         }
                     }
                 }
-            }
-            return exit || (exposedToAir(world, this.pos));
+            } return exit || (exposedToAir(world, this.pos));
         }
 
         @Nullable
