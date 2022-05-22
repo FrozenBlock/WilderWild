@@ -279,6 +279,7 @@ public class TermiteMoundBlockEntity extends BlockEntity {
         }
 
         public static boolean isBlockMovable(BlockState state, Direction direction) {
+            if (state.isIn(WildBlockTags.BLOCKS_TERMITE)) { return false; }
             boolean moveableUp = !(direction==Direction.UP && (state.isIn(BlockTags.INSIDE_STEP_SOUND_BLOCKS) || state.isIn(BlockTags.REPLACEABLE_PLANTS) || state.isIn(BlockTags.FLOWERS)));
             boolean moveableDown = !(direction==Direction.DOWN && (state.isOf(Blocks.WATER) || state.isOf(Blocks.LAVA)));
             return moveableUp && moveableDown;
