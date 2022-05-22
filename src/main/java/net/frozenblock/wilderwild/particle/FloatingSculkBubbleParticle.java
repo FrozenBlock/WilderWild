@@ -1,23 +1,14 @@
 package net.frozenblock.wilderwild.particle;
 
-import io.netty.buffer.Unpooled;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.fabricmc.fabric.api.networking.v1.PlayerLookup;
-import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
-import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.registry.RegisterSounds;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.particle.*;
 import net.minecraft.client.world.ClientWorld;
-import net.minecraft.network.PacketByteBuf;
 import net.minecraft.particle.DefaultParticleType;
-import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvent;
-import net.minecraft.util.math.Vec3d;
-import net.minecraft.world.World;
 
 public class FloatingSculkBubbleParticle extends AbstractSlowingParticle {
     private final SpriteProvider spriteProvider;
@@ -77,24 +68,6 @@ public class FloatingSculkBubbleParticle extends AbstractSlowingParticle {
             FloatingSculkBubbleParticle bubble = new FloatingSculkBubbleParticle(clientWorld, d, e, f, size, maxAge, yVel, this.spriteProvider);
             bubble.setAlpha(1.0F);
             return bubble;
-        }
-    }
-
-    public static class EasyFloatingSculkBubblePacket {
-        public static void createParticle(World world, Vec3d pos, int size, int maxAge, double yVel, int count) {
-            if (world.isClient)
-                throw new IllegalStateException("Particle attempting spawning on THE CLIENT JESUS CHRIST WHAT THE HECK");
-            PacketByteBuf byteBuf = new PacketByteBuf(Unpooled.buffer());
-            byteBuf.writeDouble(pos.x);
-            byteBuf.writeDouble(pos.y);
-            byteBuf.writeDouble(pos.z);
-            byteBuf.writeVarInt(size);
-            byteBuf.writeVarInt(maxAge);
-            byteBuf.writeDouble(yVel);
-            byteBuf.writeVarInt(count);
-            for (ServerPlayerEntity player : PlayerLookup.around((ServerWorld)world, pos, 32)) {
-                ServerPlayNetworking.send(player, WilderWild.FLOATING_SCULK_BUBBLE_PACKET, byteBuf);
-            }
         }
     }
 

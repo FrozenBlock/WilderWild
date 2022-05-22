@@ -29,7 +29,10 @@ import net.minecraft.world.WorldAccess;
 import org.jetbrains.annotations.Nullable;
 import org.slf4j.Logger;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
+import java.util.Optional;
 
 public class TermiteMoundBlockEntity extends BlockEntity {
     private static final Logger LOGGER = LogUtils.getLogger();

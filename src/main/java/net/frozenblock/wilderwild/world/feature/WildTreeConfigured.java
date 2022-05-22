@@ -29,8 +29,14 @@ import net.minecraft.world.gen.root.MangroveRootPlacement;
 import net.minecraft.world.gen.root.MangroveRootPlacer;
 import net.minecraft.world.gen.stateprovider.BlockStateProvider;
 import net.minecraft.world.gen.stateprovider.RandomizedIntBlockStateProvider;
-import net.minecraft.world.gen.treedecorator.*;
-import net.minecraft.world.gen.trunk.*;
+import net.minecraft.world.gen.treedecorator.AlterGroundTreeDecorator;
+import net.minecraft.world.gen.treedecorator.AttachedToLeavesTreeDecorator;
+import net.minecraft.world.gen.treedecorator.BeehiveTreeDecorator;
+import net.minecraft.world.gen.treedecorator.LeavesVineTreeDecorator;
+import net.minecraft.world.gen.trunk.DarkOakTrunkPlacer;
+import net.minecraft.world.gen.trunk.GiantTrunkPlacer;
+import net.minecraft.world.gen.trunk.LargeOakTrunkPlacer;
+import net.minecraft.world.gen.trunk.StraightTrunkPlacer;
 
 import java.util.List;
 import java.util.Optional;

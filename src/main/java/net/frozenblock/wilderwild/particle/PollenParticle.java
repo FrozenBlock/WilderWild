@@ -1,20 +1,11 @@
 package net.frozenblock.wilderwild.particle;
 
-import io.netty.buffer.Unpooled;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.fabricmc.fabric.api.networking.v1.PlayerLookup;
-import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
-import net.frozenblock.wilderwild.WilderWild;
 import net.minecraft.client.particle.*;
 import net.minecraft.client.world.ClientWorld;
-import net.minecraft.network.PacketByteBuf;
 import net.minecraft.particle.DefaultParticleType;
-import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.math.Vec3d;
-import net.minecraft.world.World;
 
 @Environment(EnvType.CLIENT)
 public class PollenParticle extends SpriteBillboardParticle {
@@ -159,38 +150,6 @@ public class PollenParticle extends SpriteBillboardParticle {
             pollenParticle.setColor(250F/255F, 250F/255F, 250F/255F);
             pollenParticle.hasCarryingWind = true;
             return pollenParticle;
-        }
-    }
-
-    public static class EasySeedPacket {
-        public static void createParticle(World world, Vec3d pos, int count, boolean isMilkweed) {
-            if (world.isClient)
-                throw new IllegalStateException("Particle attempting spawning on THE CLIENT JESUS CHRIST WHAT THE HECK");
-            PacketByteBuf byteBuf = new PacketByteBuf(Unpooled.buffer());
-            byteBuf.writeDouble(pos.x);
-            byteBuf.writeDouble(pos.y);
-            byteBuf.writeDouble(pos.z);
-            byteBuf.writeVarInt(count);
-            byteBuf.writeBoolean(isMilkweed);
-            for (ServerPlayerEntity player : PlayerLookup.around((ServerWorld)world, pos, 32)) {
-                ServerPlayNetworking.send(player, WilderWild.SEED_PACKET, byteBuf);
-            }
-        }
-        public static void createControlledParticle(World world, Vec3d pos, double xvel, double yvel, double zvel, int count, boolean isMilkweed) {
-            if (world.isClient)
-                throw new IllegalStateException("Particle attempting spawning on THE CLIENT JESUS CHRIST WHAT THE HECK");
-            PacketByteBuf byteBuf = new PacketByteBuf(Unpooled.buffer());
-            byteBuf.writeDouble(pos.x);
-            byteBuf.writeDouble(pos.y);
-            byteBuf.writeDouble(pos.z);
-            byteBuf.writeDouble(xvel*1.5);
-            byteBuf.writeDouble(yvel);
-            byteBuf.writeDouble(zvel*1.5);
-            byteBuf.writeVarInt(count);
-            byteBuf.writeBoolean(isMilkweed);
-            for (ServerPlayerEntity player : PlayerLookup.around((ServerWorld)world, pos, 32)) {
-                ServerPlayNetworking.send(player, WilderWild.CONTROLLED_SEED_PACKET, byteBuf);
-            }
         }
     }
 
