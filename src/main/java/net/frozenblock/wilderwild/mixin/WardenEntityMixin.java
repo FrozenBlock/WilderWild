@@ -1,6 +1,5 @@
 package net.frozenblock.wilderwild.mixin;
 
-import net.frozenblock.wilderwild.entity.SculkSensorTendrilEntity;
 import net.frozenblock.wilderwild.registry.RegisterProperties;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.*;
@@ -20,7 +19,6 @@ import net.minecraft.world.event.GameEvent;
 import net.minecraft.world.event.listener.GameEventListener;
 import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Overwrite;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
@@ -29,13 +27,13 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 @Mixin(WardenEntity.class)
 public class WardenEntityMixin {
 
-    @Inject(at = @At("HEAD"), method = "isValidTarget", cancellable = true)
+    /*@Inject(at = @At("HEAD"), method = "isValidTarget", cancellable = true)
     public void isValidTarget(@Nullable Entity entity, CallbackInfoReturnable<Boolean> info) {
         if (entity instanceof SculkSensorTendrilEntity) {
             info.setReturnValue(false);
             info.cancel();
         }
-    }
+    }*/
 
     @Inject(at = @At("HEAD"), method = "initialize")
     public void initialize(ServerWorldAccess serverWorldAccess, LocalDifficulty localDifficulty, SpawnReason spawnReason, @Nullable EntityData entityData, @Nullable NbtCompound nbtCompound, CallbackInfoReturnable<EntityData> info) {
@@ -79,12 +77,9 @@ public class WardenEntityMixin {
             }
         }
     }
-    /**
-     * @author FrozenBlock
-     * @reason Proper interaction with hiccuping Sculk Sensors
-     */
-    @Overwrite
-    public void accept(ServerWorld world, GameEventListener listener, BlockPos pos, GameEvent event, @Nullable Entity entity, @Nullable Entity sourceEntity, float f) {
+
+    @Inject(at = @At("HEAD"), method = "accept", cancellable = true)
+    public void accept(ServerWorld world, GameEventListener listener, BlockPos pos, GameEvent event, @Nullable Entity entity, @Nullable Entity sourceEntity, float f, CallbackInfo info) {
         WardenEntity warden = WardenEntity.class.cast(this);
         int additionalAnger = 0;
         if (world.getBlockState(pos).isOf(Blocks.SCULK_SENSOR)) {
@@ -120,6 +115,6 @@ public class WardenEntityMixin {
         }).orElse(true))) {
             WardenBrain.lookAtDisturbance(warden, blockPos);
         }
-
+        info.cancel();
     }
 }

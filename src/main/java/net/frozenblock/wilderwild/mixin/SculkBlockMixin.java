@@ -34,10 +34,6 @@ public class SculkBlockMixin {
 	private static final double sculkBoneThreshold = 0.15; //The higher, the harder it is for pillars to appear. If set to 1 or higher, they'll never grow.
 	private static final double sculkBoneWorldGenThreshold = 0.16; //The higher, the harder it is for pillars to appear. If set to 1 or higher, they'll never grow. (CEILINGS IN WORLDGEN ONLY)
 
-	/**
-	 * @author Lunade
-	 * @reason We want the new sculk blocks to generate from sculk catalysts
-	 */
 	@Inject(at = @At("HEAD"), method = "spread", cancellable = true)
 	public void spread(SculkSpreadManager.Cursor cursor, WorldAccess world, BlockPos catalystPos, AbstractRandom random, SculkSpreadManager spreadManager, boolean shouldConvertToBlock, CallbackInfoReturnable<Integer> info) {
 		int i = cursor.getCharge();

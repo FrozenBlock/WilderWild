@@ -23,20 +23,18 @@ import net.minecraft.world.BlockStateRaycastContext;
 import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Overwrite;
 import org.spongepowered.asm.mixin.Shadow;
+import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(SonicBoomTask.class)
 public class SonicBoomTaskMixin {
     @Final
     @Shadow private static int RUN_TIME;
 
-    /**
-     * @author FrozenBlock
-     * @reason echo glass pog
-     */
-    @Overwrite
-    public void keepRunning(ServerWorld serverWorld, WardenEntity wardenEntity, long l) {
+    @Inject(at = @At("HEAD"), method = "keepRunning", cancellable = true)
+    public void keepRunning(ServerWorld serverWorld, WardenEntity wardenEntity, long l, CallbackInfo info) {
         if (!wardenEntity.getBrain().hasMemoryModule(MemoryModuleType.SONIC_BOOM_SOUND_DELAY) && !wardenEntity.getBrain().hasMemoryModule(MemoryModuleType.SONIC_BOOM_SOUND_COOLDOWN)) {
             wardenEntity.getBrain().remember(MemoryModuleType.SONIC_BOOM_SOUND_COOLDOWN, Unit.INSTANCE, RUN_TIME - 34);
             wardenEntity.getBrain().getOptionalMemory(MemoryModuleType.ATTACK_TARGET).filter((target) -> {
@@ -70,22 +68,22 @@ public class SonicBoomTaskMixin {
                 }
             });
         }
+        info.cancel();
     }
 
     private static BlockPos isOccluded(World world, Vec3d start, Vec3d end) {
         Vec3d vec3d = new Vec3d((double)MathHelper.floor(start.x) + 0.5D, (double)MathHelper.floor(start.y) + 0.5D, (double)MathHelper.floor(start.z) + 0.5D);
         Vec3d vec3d2 = new Vec3d((double)MathHelper.floor(end.x) + 0.5D, (double)MathHelper.floor(end.y) + 0.5D, (double)MathHelper.floor(end.z) + 0.5D);
-        Direction[] var5 = Direction.values();
-        int var6 = var5.length;
         BlockPos hitPos = null;
         boolean blocked = true;
-        for(int var7 = 0; var7 < var6; ++var7) {
-            Direction direction = var5[var7];
+        for (Direction direction : Direction.values()) {
             Vec3d vec3d3 = vec3d.withBias(direction, 9.999999747378752E-6D);
             BlockHitResult hit = world.raycast(new BlockStateRaycastContext(vec3d3, vec3d2, (state) -> state.isOf(RegisterBlocks.ECHO_GLASS)));
             if (hit.getType() != HitResult.Type.BLOCK) {
                 blocked = false;
-            } else { hitPos = hit.getBlockPos(); }
+            } else {
+                hitPos = hit.getBlockPos();
+            }
         }
         if (blocked) {
             WilderWild.log("Warden Sonic Boom Blocked @ " + hitPos);
