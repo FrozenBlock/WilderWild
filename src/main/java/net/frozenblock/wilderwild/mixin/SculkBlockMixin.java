@@ -16,8 +16,10 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.random.AbstractRandom;
 import net.minecraft.world.WorldAccess;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Overwrite;
 import org.spongepowered.asm.mixin.Shadow;
+import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import java.util.Iterator;
 
@@ -36,8 +38,8 @@ public class SculkBlockMixin {
 	 * @author Lunade
 	 * @reason We want the new sculk blocks to generate from sculk catalysts
 	 */
-	@Overwrite
-	public int spread(SculkSpreadManager.Cursor cursor, WorldAccess world, BlockPos catalystPos, AbstractRandom random, SculkSpreadManager spreadManager, boolean shouldConvertToBlock) {
+	@Inject(at = @At("HEAD"), method = "spread", cancellable = true)
+	public void spread(SculkSpreadManager.Cursor cursor, WorldAccess world, BlockPos catalystPos, AbstractRandom random, SculkSpreadManager spreadManager, boolean shouldConvertToBlock, CallbackInfoReturnable<Integer> info) {
 		int i = cursor.getCharge();
 		boolean isWorldGen = spreadManager.isWorldGen();
 		if (world.getServer()!=null) {
@@ -101,12 +103,15 @@ public class SculkBlockMixin {
 					world.playSound(null, blockPos, blockState.getSoundGroup().getPlaceSound(), SoundCategory.BLOCKS, 1.0F, 1.0F);
 				}
 
-				return Math.max(0, i - j);
+				info.setReturnValue(Math.max(0, i - j));
+				info.cancel();
 			} else {
-				return random.nextInt(spreadManager.getDecayChance()) != 0 ? i : i - (bl ? 1 : getDecay(spreadManager, blockPos, catalystPos, i));
+				info.setReturnValue(random.nextInt(spreadManager.getDecayChance()) != 0 ? i : i - (bl ? 1 : getDecay(spreadManager, blockPos, catalystPos, i)));
+				info.cancel();
 			}
 		} else {
-			return i;
+			info.setReturnValue(i);
+			info.cancel();
 		}
 	}
 
@@ -185,10 +190,6 @@ public class SculkBlockMixin {
 	}
 
 	@Shadow private static int getDecay(SculkSpreadManager spreadManager, BlockPos cursorPos, BlockPos catalystPos, int charge) {
-		int i = spreadManager.getMaxDistance();
-		float f = MathHelper.square((float)Math.sqrt(cursorPos.getSquaredDistance(catalystPos)) - (float)i);
-		int j = MathHelper.square(24 - i);
-		float g = Math.min(1.0F, f / (float)j);
-		return Math.max(1, (int)((float)charge * g * 0.5F));
+		throw new AssertionError();
 	}
 }
