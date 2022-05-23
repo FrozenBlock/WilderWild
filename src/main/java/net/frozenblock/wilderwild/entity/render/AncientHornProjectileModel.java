@@ -31,9 +31,9 @@ public class AncientHornProjectileModel extends Model {
         ModelData modelData = new ModelData();
         ModelPartData modelPartData = modelData.getRoot();
         ModelPartData modelPartData2 = modelPartData.addChild("body", ModelPartBuilder.create().uv(0, 0).cuboid(-8.0F, -8.0F, 0.0F, 16.0F, 16.0F, 0.001F), ModelTransform.NONE);
-        ModelPartData modelPartData3 = modelPartData.addChild("body2", ModelPartBuilder.create().uv(0, 0).cuboid(-8.0F, -8.0F, 8.0F, 16.0F, 16.0F, 0.001F), ModelTransform.NONE);
-        ModelPartData modelPartData4 = modelPartData.addChild("body3", ModelPartBuilder.create().uv(0, 0).cuboid(-8.0F, -8.0F, 16.0F, 16.0F, 16.0F, 0.001F), ModelTransform.NONE);
-        return TexturedModelData.of(modelData, 32, 32);
+        ModelPartData modelPartData3 = modelPartData.addChild("body2", ModelPartBuilder.create().uv(0, 16).cuboid(-8.0F, -8.0F, 8.0F, 16.0F, 16.0F, 0.001F), ModelTransform.NONE);
+        ModelPartData modelPartData4 = modelPartData.addChild("body3", ModelPartBuilder.create().uv(0, 32).cuboid(-8.0F, -8.0F, 16.0F, 16.0F, 16.0F, 0.001F), ModelTransform.NONE);
+        return TexturedModelData.of(modelData, 64, 64);
     }
 
     public void render(MatrixStack matrices, VertexConsumer vertices, int light, int overlay, float red, float green, float blue, float alpha, float tickDelta, AncientHornProjectileEntity entity) {
