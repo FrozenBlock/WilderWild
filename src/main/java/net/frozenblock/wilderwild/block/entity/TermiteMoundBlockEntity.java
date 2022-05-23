@@ -191,7 +191,6 @@ public class TermiteMoundBlockEntity extends BlockEntity {
                         this.aliveTicks = Math.max(0, this.aliveTicks - (200/additionalPower));
                         if (blockState.isIn(WildBlockTags.TERMITE_BREAKABLE)) {
                             world.breakBlock(this.pos, true);
-                            ++this.blockDestroyPower;
                         } else {
                             Direction.Axis axis = blockState.contains(Properties.AXIS) ? blockState.get(Properties.AXIS) : Direction.Axis.X;
                             world.addBlockBreakParticles(this.pos, blockState);
