@@ -37,7 +37,7 @@ public class AncientHornProjectileModel extends Model {
     }
 
     public void render(MatrixStack matrices, VertexConsumer vertices, int light, int overlay, float red, float green, float blue, float alpha, float tickDelta, AncientHornProjectileEntity entity) {
-        matrices.scale(1.0f,1.0f,1.0f);
+        matrices.scale(1.5f,1.5f,1.5f);
         this.root.yaw = merp;
         this.root.pitch = merp2;
         float pulse = (float) ((Math.sin(((entity.aliveTicks + tickDelta)*Math.PI)/5)/6) + 0.5);
