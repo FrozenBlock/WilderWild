@@ -6,21 +6,16 @@ import net.minecraft.block.BlockState;
 import net.minecraft.block.SculkSensorBlock;
 import net.minecraft.state.StateManager;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Overwrite;
-
-import static net.minecraft.block.SculkSensorBlock.POWER;
-import static net.minecraft.block.SculkSensorBlock.SCULK_SENSOR_PHASE;
-import static net.minecraft.block.SculkShriekerBlock.WATERLOGGED;
+import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(SculkSensorBlock.class)
 public class SculkSensorBlockMixin {
-    /**
-     * @author FrozenBlock
-     * @reason hiccup property
-     */
-    @Overwrite
-    public void appendProperties(StateManager.Builder<Block, BlockState> builder) {
-        builder.add(SCULK_SENSOR_PHASE, POWER, WATERLOGGED, RegisterProperties.NOT_HICCUPPING);
+
+    @Inject(at = @At("TAIL"), method = "appendProperties", cancellable = true)
+    public void appendProperties(StateManager.Builder<Block, BlockState> builder, CallbackInfo info) {
+        builder.add(RegisterProperties.NOT_HICCUPPING);
     }
 
 }

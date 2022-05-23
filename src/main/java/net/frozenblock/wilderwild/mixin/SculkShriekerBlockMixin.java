@@ -6,19 +6,16 @@ import net.minecraft.block.BlockState;
 import net.minecraft.block.SculkShriekerBlock;
 import net.minecraft.state.StateManager;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Overwrite;
-
-import static net.minecraft.block.SculkShriekerBlock.*;
+import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(SculkShriekerBlock.class)
 public class SculkShriekerBlockMixin {
-    /**
-     * @author FrozenBlock
-     * @reason soul property
-     */
-    @Overwrite
-    public void appendProperties(StateManager.Builder<Block, BlockState> builder) {
-        builder.add(SHRIEKING, WATERLOGGED, CAN_SUMMON, RegisterProperties.SOULS_TAKEN);
+
+    @Inject(at = @At("TAIL"), method = "appendProperties", cancellable = true)
+    public void appendProperties(StateManager.Builder<Block, BlockState> builder, CallbackInfo info) {
+        builder.add(RegisterProperties.SOULS_TAKEN);
     }
 
 }
