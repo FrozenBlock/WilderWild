@@ -9,17 +9,18 @@ import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.VertexConsumer;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.math.MathHelper;
 
 @Environment(EnvType.CLIENT)
 public class AncientHornProjectileModel extends Model {
     public static final Identifier TEXTURE = new Identifier(WilderWild.MOD_ID, "textures/entity/ancient_horn_projectile.png");
     private final ModelPart root;
+    private final ModelPart body;
     public float merp = (float) (90 * (Math.PI/180));
     public float merp2 = (float) (-90 * (Math.PI/180));
     public AncientHornProjectileModel(ModelPart root) {
         super(RenderLayer::getEntityTranslucentEmissive);
         this.root = root;
+        this.body = root.getChild("body");
     }
 
     public static TexturedModelData getTexturedModelData() {
@@ -31,10 +32,14 @@ public class AncientHornProjectileModel extends Model {
 
     public void render(MatrixStack matrices, VertexConsumer vertices, int light, int overlay, float red, float green, float blue, float alpha, float tickDelta, AncientHornProjectileEntity entity) {
         matrices.scale(1.0f,1.0f,1.0f);
-        float f = entity.aliveTicks + tickDelta;
-        this.root.yaw = f + merp;
-        this.root.pitch = merp2;
-        this.root.render(matrices, vertices, light, overlay, 1.0F, 1.0F, 1.0F, 1.0F);
+        this.body.yaw = merp;
+        this.body.pitch = merp2;
+
+        float pulse = (float) ((Math.sin(((entity.aliveTicks + tickDelta)*Math.PI)/10)/4) + 0.5);
+        this.body.xScale = pulse;
+        this.body.yScale = pulse;
+        this.body.zScale = pulse;
+        this.body.render(matrices, vertices, light, overlay, 1.0F, 1.0F, 1.0F, 1.0F);
     }
 
     @Override
