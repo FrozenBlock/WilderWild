@@ -15,7 +15,7 @@ import net.minecraft.state.property.Properties;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.intprovider.ConstantIntProvider;
-import net.minecraft.util.math.random.AbstractRandom;
+import net.minecraft.util.math.random.Random;
 import net.minecraft.world.WorldAccess;
 
 public class OsseousSculkBlock extends PillarBlock implements SculkSpreadable {
@@ -80,7 +80,7 @@ public class OsseousSculkBlock extends PillarBlock implements SculkSpreadable {
     public static final IntProperty TOTAL_HEIGHT = RegisterProperties.TOTAL_HEIGHT;
 
     @Override
-    public int spread(SculkSpreadManager.Cursor cursor, WorldAccess world, BlockPos catalystPos, AbstractRandom random, SculkSpreadManager spreadManager, boolean shouldConvertToBlock) {
+    public int spread(SculkSpreadManager.Cursor cursor, WorldAccess world, BlockPos catalystPos, Random random, SculkSpreadManager spreadManager, boolean shouldConvertToBlock) {
         if (spreadManager.isWorldGen()) {
             worldGenSpread(cursor.getPos(), world, random);
             return cursor.getCharge();
@@ -101,7 +101,7 @@ public class OsseousSculkBlock extends PillarBlock implements SculkSpreadable {
                         BlockState blockState = RegisterBlocks.OSSEOUS_SCULK.getDefaultState().with(HEIGHT_LEFT, Math.max(0, pillarHeight - 1));
 
                         if (pillarHeight==1 && !state.get(UPSIDEDOWN) && state.get(TOTAL_HEIGHT)>0) {
-                            if (EasyNoiseSampler.simpleRandom.nextInt(Math.max(1,state.get(TOTAL_HEIGHT)/2))<=1) {
+                            if (EasyNoiseSampler.localRandom.nextInt(Math.max(1,state.get(TOTAL_HEIGHT)/2))<=1) {
                                 blockState = RegisterBlocks.SCULK_ECHOER.getDefaultState();
                                 if (random.nextInt(11) == 0) {
                                     blockState = Blocks.SCULK_CATALYST.getDefaultState();
@@ -109,7 +109,7 @@ public class OsseousSculkBlock extends PillarBlock implements SculkSpreadable {
                             }
                         }
                         if (pillarHeight == 1 && state.get(UPSIDEDOWN) && state.get(TOTAL_HEIGHT) > 0) {
-                            if (EasyNoiseSampler.simpleRandom.nextInt(3) <= 1) {
+                            if (EasyNoiseSampler.localRandom.nextInt(3) <= 1) {
                                 blockState = RegisterBlocks.SCULK_ECHOER.getDefaultState().with(SculkEchoerBlock.UPSIDEDOWN, true);
                             }
                         }
@@ -155,7 +155,7 @@ public class OsseousSculkBlock extends PillarBlock implements SculkSpreadable {
         return state.isOf(Blocks.SCULK_VEIN) || state.isAir() || state.isOf(Blocks.WATER);
     }
 
-    public static void worldGenSpread(BlockPos blockPos, WorldAccess world, AbstractRandom random) {
+    public static void worldGenSpread(BlockPos blockPos, WorldAccess world, Random random) {
         if (world.getBlockState(blockPos).isOf(RegisterBlocks.OSSEOUS_SCULK)) {
             int pillarHeight = world.getBlockState(blockPos).get(HEIGHT_LEFT);
             BlockPos topPos = getTop(world, blockPos, pillarHeight);
@@ -167,7 +167,7 @@ public class OsseousSculkBlock extends PillarBlock implements SculkSpreadable {
                     BlockState blockState = RegisterBlocks.OSSEOUS_SCULK.getDefaultState().with(HEIGHT_LEFT, Math.max(0, pillarHeight - 1));
 
                     if (pillarHeight == 1 && !state.get(UPSIDEDOWN) && state.get(TOTAL_HEIGHT) > 0) {
-                        if (EasyNoiseSampler.simpleRandom.nextInt(Math.max(1, state.get(TOTAL_HEIGHT) / 2)) <= 1) {
+                        if (EasyNoiseSampler.localRandom.nextInt(Math.max(1, state.get(TOTAL_HEIGHT) / 2)) <= 1) {
                             blockState = RegisterBlocks.SCULK_ECHOER.getDefaultState();
                             if (random.nextInt(11) == 0) {
                                 blockState = Blocks.SCULK_CATALYST.getDefaultState();
@@ -175,7 +175,7 @@ public class OsseousSculkBlock extends PillarBlock implements SculkSpreadable {
                         }
                     }
                     if (pillarHeight == 1 && state.get(UPSIDEDOWN) && state.get(TOTAL_HEIGHT) > 0) {
-                        if (EasyNoiseSampler.simpleRandom.nextInt(3) <= 1) {
+                        if (EasyNoiseSampler.localRandom.nextInt(3) <= 1) {
                             blockState = RegisterBlocks.SCULK_ECHOER.getDefaultState().with(SculkEchoerBlock.UPSIDEDOWN, true);
                         }
                     }

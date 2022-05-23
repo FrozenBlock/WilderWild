@@ -30,7 +30,7 @@ import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.intprovider.ConstantIntProvider;
-import net.minecraft.util.math.random.AbstractRandom;
+import net.minecraft.util.math.random.Random;
 import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
@@ -71,7 +71,7 @@ public class HangingTendrilBlock extends BlockWithEntity implements Waterloggabl
 
     public boolean hasRandomTicks(BlockState state) { return true; }
 
-    public void randomTick(BlockState state, ServerWorld world, BlockPos pos, AbstractRandom random) {
+    public void randomTick(BlockState state, ServerWorld world, BlockPos pos, Random random) {
         if (!state.canPlaceAt(world, pos)) {
             world.breakBlock(pos, true);
         } else if (getPhase(state)==HangingTendrilPhase.INACTIVE) {
@@ -99,7 +99,7 @@ public class HangingTendrilBlock extends BlockWithEntity implements Waterloggabl
         return state.get(WATERLOGGED) ? Fluids.WATER.getStill(false) : super.getFluidState(state);
     }
 
-    public void scheduledTick(BlockState state, ServerWorld world, BlockPos pos, AbstractRandom random) {
+    public void scheduledTick(BlockState state, ServerWorld world, BlockPos pos, Random random) {
         if (getPhase(state) != HangingTendrilPhase.ACTIVE) {
             if (getPhase(state) == HangingTendrilPhase.COOLDOWN) {
                 world.setBlockState(pos, state.with(HANGING_TENDRIL_PHASE, HangingTendrilPhase.INACTIVE), 3);
@@ -268,7 +268,7 @@ public class HangingTendrilBlock extends BlockWithEntity implements Waterloggabl
     }
 
     @Override
-    public int spread(SculkSpreadManager.Cursor cursor, WorldAccess world, BlockPos catalystPos, AbstractRandom random, SculkSpreadManager spreadManager, boolean shouldConvertToBlock) {
+    public int spread(SculkSpreadManager.Cursor cursor, WorldAccess world, BlockPos catalystPos, Random random, SculkSpreadManager spreadManager, boolean shouldConvertToBlock) {
         HangingTendrilBlockEntity tendrilEntity = getEntity(world, cursor.getPos());
         if (tendrilEntity!=null) {
             if (tendrilEntity.storedXP<900) {

@@ -10,7 +10,7 @@ import net.minecraft.state.property.Properties;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.intprovider.IntProvider;
-import net.minecraft.util.math.random.AbstractRandom;
+import net.minecraft.util.math.random.Random;
 import net.minecraft.world.TestableWorld;
 import net.minecraft.world.gen.feature.TreeFeature;
 import net.minecraft.world.gen.feature.TreeFeatureConfig;
@@ -51,7 +51,7 @@ public class FallenTrunkWithLogs extends TrunkPlacer {
         return WilderWild.FALLEN_TRUNK_WITH_LOGS_PLACER_TYPE;
     }
 
-    public List<FoliagePlacer.TreeNode> generate(TestableWorld world, BiConsumer<BlockPos, BlockState> replacer, AbstractRandom random, int height, BlockPos startPos, TreeFeatureConfig config) {
+    public List<FoliagePlacer.TreeNode> generate(TestableWorld world, BiConsumer<BlockPos, BlockState> replacer, Random random, int height, BlockPos startPos, TreeFeatureConfig config) {
         List<FoliagePlacer.TreeNode> list = Lists.newArrayList();
         List<BlockPos> logs = Lists.newArrayList();
         BlockPos.Mutable mutable = new BlockPos.Mutable();
@@ -104,7 +104,7 @@ public class FallenTrunkWithLogs extends TrunkPlacer {
         return list;
     }
 
-    private void generateExtraBranch(List<BlockPos> logs, TestableWorld world, BiConsumer<BlockPos, BlockState> replacer, AbstractRandom random, TreeFeatureConfig config, BlockPos.Mutable pos, Direction offsetDir, int offset, Direction direction) {
+    private void generateExtraBranch(List<BlockPos> logs, TestableWorld world, BiConsumer<BlockPos, BlockState> replacer, Random random, TreeFeatureConfig config, BlockPos.Mutable pos, Direction offsetDir, int offset, Direction direction) {
         int x = pos.getX();
         int z = pos.getZ();
         int y = pos.getY();

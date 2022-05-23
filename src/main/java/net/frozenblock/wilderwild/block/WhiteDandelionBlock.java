@@ -10,7 +10,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
-import net.minecraft.util.math.random.AbstractRandom;
+import net.minecraft.util.math.random.Random;
 import net.minecraft.world.World;
 
 public class WhiteDandelionBlock extends FlowerBlock {
@@ -18,7 +18,7 @@ public class WhiteDandelionBlock extends FlowerBlock {
         super(suspiciousStewEffect, effectDuration, settings);
     }
 
-    public void randomDisplayTick(BlockState state, World world, BlockPos pos, AbstractRandom random) {
+    public void randomDisplayTick(BlockState state, World world, BlockPos pos, Random random) {
         if (random.nextFloat()>0.95) {
             world.addParticle(RegisterParticles.DANDELION_SEED, pos.getX() + 0.5, pos.getY() + 0.8, pos.getZ() + 0.5, 0.0D, 0.0D, 0.0D);
         }

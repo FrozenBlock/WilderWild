@@ -7,7 +7,7 @@ import net.frozenblock.wilderwild.registry.RegisterBlocks;
 import net.minecraft.block.enums.WallMountLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
-import net.minecraft.util.math.random.AbstractRandom;
+import net.minecraft.util.math.random.Random;
 import net.minecraft.world.gen.treedecorator.TreeDecorator;
 import net.minecraft.world.gen.treedecorator.TreeDecoratorType;
 
@@ -34,7 +34,7 @@ public class ShelfFungusTreeDecorator extends TreeDecorator {
     }
 
     public void generate(TreeDecorator.Generator generator) {
-        AbstractRandom abstractRandom = generator.getRandom();
+        Random abstractRandom = generator.getRandom();
         if (abstractRandom.nextFloat() <= this.probability) {
             List<BlockPos> list = generator.getLogPositions();
             int i = list.get(4).getY();

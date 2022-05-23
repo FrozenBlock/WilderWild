@@ -88,7 +88,9 @@ public class SonicBoomTaskMixin {
         if (blocked) {
             WilderWild.log("Warden Sonic Boom Blocked @ " + hitPos);
             return hitPos;
-        } else {return null;}
+        } else {
+            return null;
+        }
     }
 
 }

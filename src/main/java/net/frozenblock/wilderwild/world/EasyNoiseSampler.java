@@ -2,21 +2,17 @@ package net.frozenblock.wilderwild.world;
 
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.noise.PerlinNoiseSampler;
-import net.minecraft.util.math.random.AbstractRandom;
-import net.minecraft.util.math.random.AtomicSimpleRandom;
-import net.minecraft.util.math.random.BlockingSimpleRandom;
-import net.minecraft.util.math.random.SimpleRandom;
-import net.minecraft.world.gen.random.Xoroshiro128PlusPlusRandom;
+import net.minecraft.util.math.random.*;
 
 public class EasyNoiseSampler {
     public static long seed = 0;
-    public static AbstractRandom atomicRandom = new AtomicSimpleRandom(seed);
-    public static AbstractRandom blockingRandom = new BlockingSimpleRandom(seed);
-    public static AbstractRandom simpleRandom = new SimpleRandom(seed);
+    public static Random checkedRandom = new CheckedRandom(seed);
+    public static Random threadSafeRandom = new ThreadSafeRandom(seed);
+    public static Random localRandom = new LocalRandom(seed);
     public static Xoroshiro128PlusPlusRandom xoroRandom = new Xoroshiro128PlusPlusRandom(seed);
-    public static PerlinNoiseSampler perlinAtomic = new PerlinNoiseSampler(atomicRandom);
-    public static PerlinNoiseSampler perlinBlocking = new PerlinNoiseSampler(blockingRandom);
-    public static PerlinNoiseSampler perlinSimple = new PerlinNoiseSampler(simpleRandom);
+    public static PerlinNoiseSampler perlinAtomic = new PerlinNoiseSampler(checkedRandom);
+    public static PerlinNoiseSampler perlinBlocking = new PerlinNoiseSampler(threadSafeRandom);
+    public static PerlinNoiseSampler perlinSimple = new PerlinNoiseSampler(localRandom);
     public static PerlinNoiseSampler perlinXoro = new PerlinNoiseSampler(xoroRandom);
 
     public static double samplePerlinAtomic(BlockPos pos, double multiplier, boolean multiplyY, boolean useY) {
@@ -98,13 +94,13 @@ public class EasyNoiseSampler {
     public static void setSeed(long newSeed) {
         if (newSeed!=seed) {
             seed = newSeed;
-            atomicRandom = new AtomicSimpleRandom(seed);
-            blockingRandom = new BlockingSimpleRandom(seed);
-            simpleRandom = new SimpleRandom(seed);
+            checkedRandom = new CheckedRandom(seed);
+            threadSafeRandom = new ThreadSafeRandom(seed);
+            localRandom = new LocalRandom(seed);
             xoroRandom = new Xoroshiro128PlusPlusRandom(seed);
-            perlinAtomic = new PerlinNoiseSampler(atomicRandom);
-            perlinBlocking = new PerlinNoiseSampler(blockingRandom);
-            perlinSimple = new PerlinNoiseSampler(simpleRandom);
+            perlinAtomic = new PerlinNoiseSampler(checkedRandom);
+            perlinBlocking = new PerlinNoiseSampler(threadSafeRandom);
+            perlinSimple = new PerlinNoiseSampler(localRandom);
             perlinXoro = new PerlinNoiseSampler(xoroRandom);
         }
     }

@@ -8,7 +8,7 @@ import net.minecraft.block.Blocks;
 import net.minecraft.block.enums.DoubleBlockHalf;
 import net.minecraft.state.property.Properties;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.random.AbstractRandom;
+import net.minecraft.util.math.random.Random;
 import net.minecraft.world.Heightmap.Type;
 import net.minecraft.world.StructureWorldAccess;
 import net.minecraft.world.gen.ProbabilityConfig;
@@ -24,7 +24,7 @@ public class CattailFeature extends Feature<ProbabilityConfig> {
 
     public boolean generate(FeatureContext<ProbabilityConfig> context) {
         boolean bl = false;
-        AbstractRandom abstractRandom = context.getRandom();
+        Random abstractRandom = context.getRandom();
         StructureWorldAccess structureWorldAccess = context.getWorld();
         BlockPos blockPos = context.getOrigin();
         int loopFor = context.getRandom().nextBetween(12, 21);

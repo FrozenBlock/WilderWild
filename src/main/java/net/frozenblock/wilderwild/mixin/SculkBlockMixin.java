@@ -13,7 +13,7 @@ import net.minecraft.state.property.Properties;
 import net.minecraft.tag.BlockTags;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.math.random.AbstractRandom;
+import net.minecraft.util.math.random.Random;
 import net.minecraft.world.WorldAccess;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -35,7 +35,7 @@ public class SculkBlockMixin {
 	private static final double sculkBoneWorldGenThreshold = 0.16; //The higher, the harder it is for pillars to appear. If set to 1 or higher, they'll never grow. (CEILINGS IN WORLDGEN ONLY)
 
 	@Inject(at = @At("HEAD"), method = "spread", cancellable = true)
-	public void spread(SculkSpreadManager.Cursor cursor, WorldAccess world, BlockPos catalystPos, AbstractRandom random, SculkSpreadManager spreadManager, boolean shouldConvertToBlock, CallbackInfoReturnable<Integer> info) {
+	public void spread(SculkSpreadManager.Cursor cursor, WorldAccess world, BlockPos catalystPos, Random random, SculkSpreadManager spreadManager, boolean shouldConvertToBlock, CallbackInfoReturnable<Integer> info) {
 		int i = cursor.getCharge();
 		boolean isWorldGen = spreadManager.isWorldGen();
 		if (world.getServer()!=null) {
@@ -88,7 +88,7 @@ public class SculkBlockMixin {
 							stateDown = world.getBlockState(blockPos2);
 							blockDown = stateDown.getBlock();
 							if (stateDown.isIn(BlockTags.SCULK_REPLACEABLE) || stateDown.isAir() || blockDown==Blocks.WATER || blockDown==Blocks.LAVA || blockDown==Blocks.SCULK_VEIN || blockDown==Blocks.SCULK) {
-								if (EasyNoiseSampler.simpleRandom.nextInt(o+1)==0) {
+								if (EasyNoiseSampler.localRandom.nextInt(o+1)==0) {
 									world.setBlockState(blockPos2, placeBlockBelow, 3);
 									blockPos2=blockPos2.down();
 								} else { break; }
@@ -139,7 +139,7 @@ public class SculkBlockMixin {
 		return EasyNoiseSampler.samplePerlinXoro(pos, sculkBoneAreaSize, true, true) > sculkBoneThreshold;
 	}
 
-	private BlockState getExtraBlockState(WorldAccess world, BlockPos pos, AbstractRandom random, boolean allowShrieker) {
+	private BlockState getExtraBlockState(WorldAccess world, BlockPos pos, Random random, boolean allowShrieker) {
 		BlockState blockState = Blocks.SCULK_SENSOR.getDefaultState();
 		boolean decided = false;
 		if (random.nextInt(11) == 0) {

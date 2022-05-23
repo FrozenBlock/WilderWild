@@ -20,7 +20,7 @@ import net.minecraft.util.Hand;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
-import net.minecraft.util.math.random.AbstractRandom;
+import net.minecraft.util.math.random.Random;
 import net.minecraft.world.World;
 import net.minecraft.world.event.GameEvent;
 
@@ -37,7 +37,7 @@ public class MilkweedBlock extends TallFlowerBlock {
     }
 
     @Override
-    public void randomTick(BlockState state, ServerWorld world, BlockPos pos, AbstractRandom random) {
+    public void randomTick(BlockState state, ServerWorld world, BlockPos pos, Random random) {
         if (state.isOf(RegisterBlocks.MILKWEED)) {
             if (state.get(Properties.DOUBLE_BLOCK_HALF) == DoubleBlockHalf.LOWER) {
                 if (state.get(Properties.AGE_3) < 3) {

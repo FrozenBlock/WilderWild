@@ -9,7 +9,7 @@ import net.frozenblock.wilderwild.registry.RegisterBlocks;
 import net.minecraft.block.Block;
 import net.minecraft.util.Util;
 import net.minecraft.util.math.Direction;
-import net.minecraft.util.math.random.AbstractRandom;
+import net.minecraft.util.math.random.Random;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.util.registry.RegistryCodecs;
 import net.minecraft.util.registry.RegistryEntryList;
@@ -78,13 +78,13 @@ public class ShelfFungusFeatureConfig implements FeatureConfig {
 
     }
 
-    public List<Direction> shuffleDirections(AbstractRandom random, Direction excluded) {
+    public List<Direction> shuffleDirections(Random random, Direction excluded) {
         return Util.copyShuffled(this.directions.stream().filter((direction) -> {
             return direction != excluded;
         }), random);
     }
 
-    public List<Direction> shuffleDirections(AbstractRandom random) {
+    public List<Direction> shuffleDirections(Random random) {
         return Util.copyShuffled(this.directions, random);
     }
 }

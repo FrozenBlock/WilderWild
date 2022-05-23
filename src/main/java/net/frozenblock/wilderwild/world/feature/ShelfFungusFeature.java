@@ -7,7 +7,7 @@ import net.minecraft.block.Blocks;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockPos.Mutable;
 import net.minecraft.util.math.Direction;
-import net.minecraft.util.math.random.AbstractRandom;
+import net.minecraft.util.math.random.Random;
 import net.minecraft.world.StructureWorldAccess;
 import net.minecraft.world.gen.feature.Feature;
 import net.minecraft.world.gen.feature.util.FeatureContext;
@@ -23,7 +23,7 @@ public class ShelfFungusFeature extends Feature<ShelfFungusFeatureConfig> {
     public boolean generate(FeatureContext<ShelfFungusFeatureConfig> context) {
         StructureWorldAccess structureWorldAccess = context.getWorld();
         BlockPos blockPos = context.getOrigin();
-        AbstractRandom abstractRandom = context.getRandom();
+        Random abstractRandom = context.getRandom();
         ShelfFungusFeatureConfig shelfFungusFeatureConfig = context.getConfig();
         if (!isAirOrWater(structureWorldAccess.getBlockState(blockPos))) {
             return false;
@@ -56,7 +56,7 @@ public class ShelfFungusFeature extends Feature<ShelfFungusFeatureConfig> {
         }
     }
 
-    public static boolean generate(StructureWorldAccess world, BlockPos pos, BlockState state, ShelfFungusFeatureConfig config, AbstractRandom random, List<Direction> directions) {
+    public static boolean generate(StructureWorldAccess world, BlockPos pos, BlockState state, ShelfFungusFeatureConfig config, Random random, List<Direction> directions) {
         Mutable mutable = pos.mutableCopy();
         Iterator<Direction> var7 = directions.iterator();
 

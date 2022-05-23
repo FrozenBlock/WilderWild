@@ -4,8 +4,8 @@
   "package": "net.frozenblock.wilderwild.mixin",
   "compatibilityLevel": "JAVA_17",
   "mixins": [
-	"BoneMealItemMixin",
 	"BlockMixin",
+	"BoneMealItemMixin",
 	"MusicDiscItemInvoker",
 	"SculkBlockMixin",
 	"SculkSensorBlockEntityMixin",
@@ -22,8 +22,8 @@
 	"worldgen.GenerationSettingsBuilderMixin",
 	"worldgen.OakSaplingGeneratorMixin",
 	"worldgen.SpruceSaplingGeneratorMixin",
-	"worldgen.TrunkPlacerTypeInvoker",
-	"worldgen.TreeDecoratorTypeInvoker"
+	"worldgen.TreeDecoratorTypeInvoker",
+	"worldgen.TrunkPlacerTypeInvoker"
   ],
   "client": [
   ],

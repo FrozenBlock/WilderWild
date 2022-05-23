@@ -20,7 +20,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.intprovider.ConstantIntProvider;
 import net.minecraft.util.math.intprovider.IntProvider;
-import net.minecraft.util.math.random.AbstractRandom;
+import net.minecraft.util.math.random.Random;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldAccess;
 
@@ -40,7 +40,7 @@ public class SculkJawBlock extends Block implements SculkSpreadable {
     }
 
     @Deprecated
-    public void scheduledTick(BlockState blockState, ServerWorld serverWorld, BlockPos blockPos, AbstractRandom random) {
+    public void scheduledTick(BlockState blockState, ServerWorld serverWorld, BlockPos blockPos, Random random) {
         if (blockState.get(ACTIVE)) {
             serverWorld.setBlockState(blockPos, blockState.with(ACTIVE, false), 3);
             serverWorld.playSound(
@@ -84,7 +84,7 @@ public class SculkJawBlock extends Block implements SculkSpreadable {
     }
 
     @Override
-    public int spread(SculkSpreadManager.Cursor cursor, WorldAccess world, BlockPos catalystPos, AbstractRandom random, SculkSpreadManager spreadManager, boolean shouldConvertToBlock) {
+    public int spread(SculkSpreadManager.Cursor cursor, WorldAccess world, BlockPos catalystPos, Random random, SculkSpreadManager spreadManager, boolean shouldConvertToBlock) {
         int i = cursor.getCharge();
         if (i != 0 && random.nextInt(50) == 0) {
             BlockPos blockPos = cursor.getPos();

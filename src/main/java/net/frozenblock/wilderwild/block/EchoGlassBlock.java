@@ -19,7 +19,7 @@ import net.minecraft.state.StateManager;
 import net.minecraft.state.property.IntProperty;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
-import net.minecraft.util.math.random.AbstractRandom;
+import net.minecraft.util.math.random.Random;
 import net.minecraft.world.LightType;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
@@ -37,7 +37,7 @@ public class EchoGlassBlock extends TintedGlassBlock {
     }
 
     @Override
-    public void randomTick(BlockState state, ServerWorld world, BlockPos pos, AbstractRandom random) {
+    public void randomTick(BlockState state, ServerWorld world, BlockPos pos, Random random) {
         int light = getLightLevel(world, pos);
         if (light<=7) {
             if (random.nextBoolean()) {

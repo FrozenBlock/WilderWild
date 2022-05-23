@@ -79,8 +79,8 @@ public class PollenParticle extends SpriteBillboardParticle {
             PollenParticle pollenParticle = new PollenParticle(clientWorld, this.spriteProvider, d, e, f, windex, -0.800000011920929D, windZ);
             pollenParticle.maxAge = MathHelper.nextBetween(clientWorld.random, 500, 1000);
             pollenParticle.gravityStrength = 0.01F;
-            pollenParticle.velocityX = (windex + clientWorld.random.nextPredictable(0, 0.8))/17;
-            pollenParticle.velocityZ = (windZ + clientWorld.random.nextPredictable(0, 0.8))/17;
+            pollenParticle.velocityX = (windex + clientWorld.random.nextTriangular(0, 0.8))/17;
+            pollenParticle.velocityZ = (windZ + clientWorld.random.nextTriangular(0, 0.8))/17;
             pollenParticle.setColor(250F/255F, 250F/255F, 250F/255F);
             pollenParticle.hasCarryingWind = true;
             return pollenParticle;
@@ -101,8 +101,8 @@ public class PollenParticle extends SpriteBillboardParticle {
             PollenParticle pollenParticle = new PollenParticle(clientWorld, this.spriteProvider, d, e, f, windex, -0.800000011920929D, windZ);
             pollenParticle.maxAge = MathHelper.nextBetween(clientWorld.random, 500, 1000);
             pollenParticle.gravityStrength = 0.016F;
-            pollenParticle.velocityX = (windex + clientWorld.random.nextPredictable(0, 0.8))/20;
-            pollenParticle.velocityZ = (windZ + clientWorld.random.nextPredictable(0, 0.8))/20;
+            pollenParticle.velocityX = (windex + clientWorld.random.nextTriangular(0, 0.8))/20;
+            pollenParticle.velocityZ = (windZ + clientWorld.random.nextTriangular(0, 0.8))/20;
             pollenParticle.setColor(250F/255F, 250F/255F, 250F/255F);
             pollenParticle.hasCarryingWind = true;
             return pollenParticle;
@@ -123,8 +123,8 @@ public class PollenParticle extends SpriteBillboardParticle {
             PollenParticle pollenParticle = new PollenParticle(clientWorld, this.spriteProvider, d, e, f, windex, (h/2) -0.800000011920929D, windZ);
             pollenParticle.maxAge = MathHelper.nextBetween(clientWorld.random, 500, 1000);
             pollenParticle.gravityStrength = 0.01F;
-            pollenParticle.velocityX = (windex + clientWorld.random.nextPredictable(0, 0.8))/17;
-            pollenParticle.velocityZ = (windZ + clientWorld.random.nextPredictable(0, 0.8))/17;
+            pollenParticle.velocityX = (windex + clientWorld.random.nextTriangular(0, 0.8))/17;
+            pollenParticle.velocityZ = (windZ + clientWorld.random.nextTriangular(0, 0.8))/17;
             pollenParticle.setColor(250F/255F, 250F/255F, 250F/255F);
             pollenParticle.hasCarryingWind = true;
             return pollenParticle;
@@ -145,8 +145,8 @@ public class PollenParticle extends SpriteBillboardParticle {
             PollenParticle pollenParticle = new PollenParticle(clientWorld, this.spriteProvider, d, e, f, windex, (h/2) -0.800000011920929D, windZ);
             pollenParticle.maxAge = MathHelper.nextBetween(clientWorld.random, 500, 1000);
             pollenParticle.gravityStrength = 0.016F;
-            pollenParticle.velocityX = (windex + clientWorld.random.nextPredictable(0, 0.8))/20;
-            pollenParticle.velocityZ = (windZ + clientWorld.random.nextPredictable(0, 0.8))/20;
+            pollenParticle.velocityX = (windex + clientWorld.random.nextTriangular(0, 0.8))/20;
+            pollenParticle.velocityZ = (windZ + clientWorld.random.nextTriangular(0, 0.8))/20;
             pollenParticle.setColor(250F/255F, 250F/255F, 250F/255F);
             pollenParticle.hasCarryingWind = true;
             return pollenParticle;
