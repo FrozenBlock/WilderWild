@@ -13,7 +13,7 @@ import net.minecraft.util.math.MathHelper;
 
 @Environment(EnvType.CLIENT)
 public class AncientHornProjectileModel extends Model {
-    public static final Identifier TEXTURE = new Identifier(WilderWild.MOD_ID, "textures/particle/floating_sculk_bubble_4.png");
+    public static final Identifier TEXTURE = new Identifier(WilderWild.MOD_ID, "textures/entity/ancient_horn_projectile.png");
     private final ModelPart root;
     public float merp = (float) (90 * (Math.PI/180));
     public float merp2 = (float) (-90 * (Math.PI/180));
