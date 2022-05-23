@@ -40,15 +40,15 @@ public class AncientHornProjectileModel extends Model {
         matrices.scale(1.0f,1.0f,1.0f);
         this.root.yaw = merp;
         this.root.pitch = merp2;
-        float pulse = (float) ((Math.sin(((entity.aliveTicks + tickDelta)*Math.PI)/5)/8) + 0.5);
+        float pulse = (float) ((Math.sin(((entity.aliveTicks + tickDelta)*Math.PI)/5)/6) + 0.5);
         this.body.xScale = pulse;
         this.body.yScale = pulse;
 
-        float pulse2 = (float) ((Math.sin((((entity.aliveTicks+(8/1.5)) + tickDelta)*Math.PI)/5)/8) + 0.5);
+        float pulse2 = (float) ((Math.sin((((entity.aliveTicks+(8/1.5)) + tickDelta)*Math.PI)/5)/6) + 0.5);
         this.body2.xScale = pulse2;
         this.body2.yScale = pulse2;
 
-        float pulse3 = (float) ((Math.sin((((entity.aliveTicks+(8/3)) + tickDelta)*Math.PI)/5)/8) + 0.5);
+        float pulse3 = (float) ((Math.sin((((entity.aliveTicks+(8/3)) + tickDelta)*Math.PI)/5)/6) + 0.5);
         this.body3.xScale = pulse3;
         this.body3.yScale = pulse3;
 
