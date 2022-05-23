@@ -31,6 +31,7 @@ import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.tag.TagKey;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.LargeEntitySpawnHelper;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.hit.HitResult;
 import net.minecraft.util.math.BlockPos;
@@ -222,7 +223,7 @@ public class AncientHornProjectileEntity extends PersistentProjectileEntity {
     }
     private static void trySpawnWarden(ServerWorld world, BlockPos pos) {
         if (world.getGameRules().getBoolean(GameRules.DO_WARDEN_SPAWNING)) {
-            Optional<WardenEntity> warden = LargeEntitySpawnHelper.trySpawnAt(EntityType.WARDEN, SpawnReason.TRIGGERED, world, pos, 20, 5, 6, LargeEntitySpawnHelper.Requirements.WARDEN);
+            Optional<WardenEntity> warden = LargeEntitySpawnHelper.trySpawnAt(EntityType.WARDEN, SpawnReason.TRIGGERED, world, pos, 20, 5, 6, LargeEntitySpawnHelper.class_7502.field_39401);
             warden.ifPresent(wardenEntity -> wardenEntity.playSound(SoundEvents.ENTITY_WARDEN_AGITATED, 5.0F, 1.0F));
         }
     }
