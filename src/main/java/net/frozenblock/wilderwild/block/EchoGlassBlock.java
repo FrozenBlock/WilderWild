@@ -1,6 +1,7 @@
 package net.frozenblock.wilderwild.block;
 
 import net.frozenblock.wilderwild.WilderWild;
+import net.frozenblock.wilderwild.entity.AncientHornProjectileEntity;
 import net.frozenblock.wilderwild.registry.RegisterProperties;
 import net.frozenblock.wilderwild.registry.RegisterSounds;
 import net.minecraft.block.Block;
@@ -10,6 +11,7 @@ import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.enchantment.Enchantments;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.projectile.ProjectileEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
@@ -17,6 +19,7 @@ import net.minecraft.sound.SoundEvents;
 import net.minecraft.stat.Stats;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.IntProperty;
+import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.random.Random;
@@ -105,6 +108,14 @@ public class EchoGlassBlock extends TintedGlassBlock {
                     world.random.nextFloat() * 0.1F + 0.8F
             );
         }
+    }
+
+    @Override
+    public void onProjectileHit(World world, BlockState state, BlockHitResult hit, ProjectileEntity projectile) {
+        if (projectile instanceof AncientHornProjectileEntity) {
+            damage(world, hit.getBlockPos());
+        }
+        super.onProjectileHit(world, state, hit, projectile);
     }
 
     @Override
