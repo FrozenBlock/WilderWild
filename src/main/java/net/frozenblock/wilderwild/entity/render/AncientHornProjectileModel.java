@@ -17,8 +17,11 @@ public class AncientHornProjectileModel extends Model {
     private final ModelPart body;
     private final ModelPart body2;
     private final ModelPart body3;
+
     public float merp = (float) (90 * (Math.PI/180));
     public float merp2 = (float) (-90 * (Math.PI/180));
+    public double pulse2Extra = 8/1.5;
+    public double pulse3Extra = 8/3;
     public AncientHornProjectileModel(ModelPart root) {
         super(RenderLayer::getEntityTranslucentEmissive);
         this.root = root;
@@ -40,15 +43,17 @@ public class AncientHornProjectileModel extends Model {
         matrices.scale(1.5f,1.5f,1.5f);
         this.root.yaw = merp;
         this.root.pitch = merp2;
-        float pulse = (float) ((Math.sin(((entity.aliveTicks + tickDelta)*Math.PI)/5)/6) + 0.5);
+
+        float aliveDelta = entity.aliveTicks + tickDelta;
+        float pulse = (float) ((Math.sin((aliveDelta * Math.PI)/5)/6) + 0.5);
         this.body.xScale = pulse;
         this.body.yScale = pulse;
 
-        float pulse2 = (float) ((Math.sin((((entity.aliveTicks+(8/1.5)) + tickDelta)*Math.PI)/5)/6) + 0.5);
+        float pulse2 = (float) ((Math.sin(((aliveDelta + pulse2Extra) * Math.PI)/5)/6) + 0.5);
         this.body2.xScale = pulse2;
         this.body2.yScale = pulse2;
 
-        float pulse3 = (float) ((Math.sin((((entity.aliveTicks+(8/3)) + tickDelta)*Math.PI)/5)/6) + 0.5);
+        float pulse3 = (float) ((Math.sin(((aliveDelta + pulse3Extra) * Math.PI)/5)/6) + 0.5);
         this.body3.xScale = pulse3;
         this.body3.yScale = pulse3;
 
