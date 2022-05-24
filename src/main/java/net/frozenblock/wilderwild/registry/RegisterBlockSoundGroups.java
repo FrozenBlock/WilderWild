@@ -46,6 +46,14 @@ public class RegisterBlockSoundGroups {
             BLOCK_MUSHROOM_BLOCK_FALL
     );
 
+    public static BlockSoundGroup ICE_BLOCKS = new BlockSoundGroup(1.0f, 1.25f,
+            BLOCK_ICE_BREAK,
+            BLOCK_ICE_STEP,
+            BLOCK_ICE_PLACE,
+            BLOCK_ICE_HIT,
+            BLOCK_ICE_FALL
+    );
+
     public static BlockSoundGroup LEAVES = new BlockSoundGroup(1.0f, 1.0f,
             BLOCK_LEAVES_BREAK,
             BLOCK_LEAVES_STEP,

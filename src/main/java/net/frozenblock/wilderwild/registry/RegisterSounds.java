@@ -19,6 +19,12 @@ public class RegisterSounds {
     public static final SoundEvent BLOCK_COBWEB_STEP = register("block.cobweb.step");
     public static final SoundEvent BLOCK_COBWEB_FALL = register("block.cobweb.fall");
 
+    public static final SoundEvent BLOCK_ICE_PLACE = register( "block.ice.place");
+    public static final SoundEvent BLOCK_ICE_HIT = register("block.ice.hit");
+    public static final SoundEvent BLOCK_ICE_BREAK = register( "block.ice.break");
+    public static final SoundEvent BLOCK_ICE_STEP = register("block.ice.step");
+    public static final SoundEvent BLOCK_ICE_FALL = register("block.ice.fall");
+
     public static final SoundEvent BLOCK_LEAVES_PLACE = register( "block.leaves.place");
     public static final SoundEvent BLOCK_LEAVES_HIT = register("block.leaves.hit");
     public static final SoundEvent BLOCK_LEAVES_BREAK = register( "block.leaves.break");
