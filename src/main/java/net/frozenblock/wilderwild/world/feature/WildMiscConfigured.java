@@ -1,6 +1,7 @@
 package net.frozenblock.wilderwild.world.feature;
 
 import net.frozenblock.wilderwild.WilderWild;
+import net.frozenblock.wilderwild.world.feature.features.config.PathFeatureConfig;
 import net.minecraft.block.Blocks;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.fluid.Fluids;

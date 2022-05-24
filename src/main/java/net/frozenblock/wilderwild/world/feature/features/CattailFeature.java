@@ -1,4 +1,4 @@
-package net.frozenblock.wilderwild.world.feature;
+package net.frozenblock.wilderwild.world.feature.features;
 
 import com.mojang.serialization.Codec;
 import net.frozenblock.wilderwild.block.WaterloggableTallFlowerBlock;

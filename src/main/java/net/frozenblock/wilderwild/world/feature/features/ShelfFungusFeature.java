@@ -1,7 +1,8 @@
-package net.frozenblock.wilderwild.world.feature;
+package net.frozenblock.wilderwild.world.feature.features;
 
 import com.mojang.serialization.Codec;
 import net.frozenblock.wilderwild.block.ShelfFungusBlock;
+import net.frozenblock.wilderwild.world.feature.features.config.ShelfFungusFeatureConfig;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.util.math.BlockPos;

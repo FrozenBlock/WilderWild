@@ -1,4 +1,4 @@
-package net.frozenblock.wilderwild.world.feature;
+package net.frozenblock.wilderwild.world.feature.features.config;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.DataResult;
