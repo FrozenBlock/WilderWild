@@ -5,6 +5,7 @@ import net.fabricmc.fabric.api.biome.v1.ModificationPhase;
 import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.registry.RegisterSounds;
 import net.minecraft.client.sound.MusicType;
+import net.minecraft.sound.BiomeAdditionsSound;
 import net.minecraft.util.Identifier;
 import net.minecraft.world.biome.BiomeKeys;
 
@@ -16,5 +17,10 @@ public class WildMusic {
                 (selectionContext, modificationContext) -> modificationContext.getEffects().setMusic(MusicType.createIngameMusic(RegisterSounds.MUSIC_OVERWORLD_WILD_FORESTS)));
         BiomeModifications.create(new Identifier(WilderWild.MOD_ID, "modify_flower_forest_music")).add(ModificationPhase.REPLACEMENTS, (context) -> context.getBiomeKey().equals(BiomeKeys.FLOWER_FOREST),
                 (selectionContext, modificationContext) -> modificationContext.getEffects().setMusic(MusicType.createIngameMusic(RegisterSounds.MUSIC_OVERWORLD_WILD_FORESTS)));
+
+        BiomeModifications.create(new Identifier(WilderWild.MOD_ID, "modify_deep_dark_ambience")).add(ModificationPhase.REPLACEMENTS, (context) -> context.getBiomeKey().equals(BiomeKeys.DEEP_DARK),
+                (selectionContext, modificationContext) -> modificationContext.getEffects().setAmbientSound(RegisterSounds.FLOATING_SCULK_BUBBLE_BIG_POP));
+        BiomeModifications.create(new Identifier(WilderWild.MOD_ID, "modify_deep_dark_additions")).add(ModificationPhase.REPLACEMENTS, (context) -> context.getBiomeKey().equals(BiomeKeys.DEEP_DARK),
+                (selectionContext, modificationContext) -> modificationContext.getEffects().setAdditionsSound(new BiomeAdditionsSound(RegisterSounds.FLOATING_SCULK_BUBBLE_BIG_POP, 1)));
     }
 }
