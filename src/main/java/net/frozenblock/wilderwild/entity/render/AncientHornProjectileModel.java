@@ -2,17 +2,14 @@ package net.frozenblock.wilderwild.entity.render;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.entity.AncientHornProjectileEntity;
 import net.minecraft.client.model.*;
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.VertexConsumer;
 import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.util.Identifier;
 
 @Environment(EnvType.CLIENT)
 public class AncientHornProjectileModel extends Model {
-    public static final Identifier TEXTURE = new Identifier(WilderWild.MOD_ID, "textures/entity/ancient_horn_projectile.png");
     private final ModelPart root;
     private final ModelPart body;
     private final ModelPart body2;
@@ -22,6 +19,7 @@ public class AncientHornProjectileModel extends Model {
     public float merp2 = (float) (-90 * (Math.PI/180));
     public double pulse2Extra = 8/1.5;
     public double pulse3Extra = 8/3;
+
     public AncientHornProjectileModel(ModelPart root) {
         super(RenderLayer::getEntityTranslucentEmissive);
         this.root = root;
@@ -34,8 +32,8 @@ public class AncientHornProjectileModel extends Model {
         ModelData modelData = new ModelData();
         ModelPartData modelPartData = modelData.getRoot();
         ModelPartData modelPartData2 = modelPartData.addChild("body", ModelPartBuilder.create().uv(0, 32).cuboid(-8.0F, -8.0F, 0.0F, 16.0F, 16.0F, 0.001F), ModelTransform.NONE);
-        ModelPartData modelPartData3 = modelPartData.addChild("body2", ModelPartBuilder.create().uv(0, 16).cuboid(-8.0F, -8.0F, 8.0F, 16.0F, 16.0F, 0.001F), ModelTransform.NONE);
-        ModelPartData modelPartData4 = modelPartData.addChild("body3", ModelPartBuilder.create().uv(0, 0).cuboid(-8.0F, -8.0F, 16.0F, 16.0F, 16.0F, 0.001F), ModelTransform.NONE);
+        ModelPartData modelPartData3 = modelPartData.addChild("body2", ModelPartBuilder.create().uv(0, 16).cuboid(-8.0F, -8.0F, 4.0F, 16.0F, 16.0F, 0.001F), ModelTransform.NONE);
+        ModelPartData modelPartData4 = modelPartData.addChild("body3", ModelPartBuilder.create().uv(0, 0).cuboid(-8.0F, -8.0F, 8.0F, 16.0F, 16.0F, 0.001F), ModelTransform.NONE);
         return TexturedModelData.of(modelData, 64, 64);
     }
 
