@@ -148,6 +148,8 @@ public class NewSculkSensorBlockEntity extends BlockEntity implements Callback {
 
     @Override
     public NbtCompound toInitialChunkDataNbt() {
-        return createNbt();
+        NbtCompound nbtCompound = this.createNbt();
+        nbtCompound.remove("listener");
+        return nbtCompound;
     }
 }
