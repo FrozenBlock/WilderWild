@@ -69,6 +69,8 @@ public class NewSculkSensorBlockEntity extends BlockEntity implements Callback {
         super.readNbt(nbt);
         this.lastVibrationFrequency = nbt.getInt("last_vibration_frequency");
         this.age = nbt.getInt("age");
+        this.animTicks = nbt.getInt("animTicks");
+        this.prevAnimTicks = nbt.getInt("prevAnimTicks");
         if (nbt.contains("listener", 10)) {
             DataResult<?> var10000 = VibrationListener.createCodec(this).parse(new Dynamic(NbtOps.INSTANCE, nbt.getCompound("listener")));
             Logger var10001 = field_38236;
@@ -83,6 +85,8 @@ public class NewSculkSensorBlockEntity extends BlockEntity implements Callback {
         super.writeNbt(nbt);
         nbt.putInt("last_vibration_frequency", this.lastVibrationFrequency);
         nbt.putInt("age", this.age);
+        nbt.putInt("animTicks", this.animTicks);
+        nbt.putInt("prevAnimTicks", this.prevAnimTicks);
         DataResult<?> var10000 = VibrationListener.createCodec(this).encodeStart(NbtOps.INSTANCE, this.listener);
         Logger var10001 = field_38236;
         Objects.requireNonNull(var10001);
