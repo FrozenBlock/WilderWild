@@ -65,7 +65,12 @@ public class SculkSensorBlockEntityRenderer<T extends NewSculkSensorBlockEntity>
             boolean active = blockState.get(Properties.SCULK_SENSOR_PHASE) == SculkSensorPhase.ACTIVE;
             matrices.push();
             RenderLayer layer = active ? ACTIVE_SENSOR_LAYER : SENSOR_LAYER;
-            if (active) { setTendrilPitches(entity.age + tickDelta, tickDelta, entity); }
+            if (active) { setTendrilPitches(entity.age + tickDelta, tickDelta, entity); } else {
+                this.ne.pitch = 0;
+                this.nw.pitch = 0;
+                this.se.pitch = 0;
+                this.sw.pitch = 0;
+            }
             VertexConsumer vertexConsumer = vertexConsumers.getBuffer(layer);
             this.render(matrices, vertexConsumer, light, overlay);
             matrices.pop();
