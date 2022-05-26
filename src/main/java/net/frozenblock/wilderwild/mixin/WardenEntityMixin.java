@@ -27,14 +27,6 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 @Mixin(WardenEntity.class)
 public class WardenEntityMixin {
 
-    /*@Inject(at = @At("HEAD"), method = "isValidTarget", cancellable = true)
-    public void isValidTarget(@Nullable Entity entity, CallbackInfoReturnable<Boolean> info) {
-        if (entity instanceof SculkSensorTendrilEntity) {
-            info.setReturnValue(false);
-            info.cancel();
-        }
-    }*/
-
     @Inject(at = @At("HEAD"), method = "initialize")
     public void initialize(ServerWorldAccess serverWorldAccess, LocalDifficulty localDifficulty, SpawnReason spawnReason, @Nullable EntityData entityData, @Nullable NbtCompound nbtCompound, CallbackInfoReturnable<EntityData> info) {
         WardenEntity entity = WardenEntity.class.cast(this);

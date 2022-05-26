@@ -57,7 +57,7 @@ public class SculkSensorBlockEntityRenderer<T extends NewSculkSensorBlockEntity>
     }
 
     public void render(T entity, float tickDelta, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, int overlay) {
-        if (WilderWild.RENDER_TENDRILS) {
+        if (WildClientMod.RENDER_TENDRILS) {
             World world = entity.getWorld();
             boolean worldNull = world != null;
             BlockState blockState = worldNull ? entity.getCachedState() : Blocks.SCULK_SENSOR.getDefaultState();
