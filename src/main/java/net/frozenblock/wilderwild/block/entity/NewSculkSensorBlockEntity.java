@@ -11,14 +11,10 @@ import net.frozenblock.wilderwild.registry.RegisterSounds;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.SculkSensorBlock;
 import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.block.entity.SculkSensorBlockEntity;
 import net.minecraft.entity.Entity;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtElement;
 import net.minecraft.nbt.NbtOps;
-import net.minecraft.network.Packet;
-import net.minecraft.network.listener.ClientPlayPacketListener;
-import net.minecraft.network.packet.s2c.play.BlockEntityUpdateS2CPacket;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.util.math.BlockPos;
@@ -51,18 +47,25 @@ public class NewSculkSensorBlockEntity extends BlockEntity implements Callback {
     }
 
     public void tick(World world, BlockPos pos, BlockState state) {
-        this.getEventListener().tick(world);
-        if (SculkSensorBlock.isInactive(state) && !state.get(RegisterProperties.NOT_HICCUPPING) && world.random.nextInt(320)<=1) {
-            WilderWild.log("Sensor Hiccups " + pos);
-            SculkSensorBlock.setActive(null, world, pos, state, (int)(Math.random()*15));
-            world.emitGameEvent(null, GameEvent.SCULK_SENSOR_TENDRILS_CLICKING, pos);
-            world.emitGameEvent(null, RegisterGameEvents.SCULK_SENSOR_ACTIVATE, pos);
-            world.playSound(null, pos, RegisterSounds.BLOCK_SCULK_SENSOR_HICCUP, SoundCategory.BLOCKS, 1.0F, world.random.nextFloat() * 0.1F + 0.7F);
+        if (!world.isClient) {
+            this.getEventListener().tick(world);
+            if (SculkSensorBlock.isInactive(state) && !state.get(RegisterProperties.NOT_HICCUPPING) && world.random.nextInt(320) <= 1) {
+                WilderWild.log("Sensor Hiccups " + pos);
+                SculkSensorBlock.setActive(null, world, pos, state, (int) (Math.random() * 15));
+                world.emitGameEvent(null, GameEvent.SCULK_SENSOR_TENDRILS_CLICKING, pos);
+                world.emitGameEvent(null, RegisterGameEvents.SCULK_SENSOR_ACTIVATE, pos);
+                world.playSound(null, pos, RegisterSounds.BLOCK_SCULK_SENSOR_HICCUP, SoundCategory.BLOCKS, 1.0F, world.random.nextFloat() * 0.1F + 0.7F);
+            }
         }
 
         this.prevAnimTicks=this.animTicks;
         if (this.animTicks > 0) { --this.animTicks; }
         ++this.age;
+    }
+
+    public boolean onSyncedBlockEvent(int type, int data) {
+        this.animTicks=10;
+        return true;
     }
 
     public void readNbt(NbtCompound nbt) {
@@ -114,12 +117,12 @@ public class NewSculkSensorBlockEntity extends BlockEntity implements Callback {
     public void accept(ServerWorld world, GameEventListener listener, BlockPos pos, GameEvent event, @Nullable Entity entity, @Nullable Entity sourceEntity, float distance) {
         BlockState blockState = this.getCachedState();
         if (SculkSensorBlock.isInactive(blockState)) {
-            this.animTicks=10;
             world.emitGameEvent(entity, RegisterGameEvents.SCULK_SENSOR_ACTIVATE, this.getPos());
             BlockState state = world.getBlockState(this.getPos());
             world.setBlockState(this.getPos(), state.with(RegisterProperties.NOT_HICCUPPING, true));
             this.lastVibrationFrequency = SculkSensorBlock.FREQUENCIES.getInt(event);
             SculkSensorBlock.setActive(entity, world, this.pos, blockState, getPower(distance, listener.getRange()));
+            world.addSyncedBlockEvent(this.getPos(), this.getCachedState().getBlock(), 1, 1);
         }
     }
 
@@ -138,18 +141,5 @@ public class NewSculkSensorBlockEntity extends BlockEntity implements Callback {
 
     public float getTendrilPitch(float tickDelta) {
         return MathHelper.lerp(tickDelta, (float)this.prevAnimTicks, (float)this.animTicks) / 10.0F;
-    }
-
-    @Nullable
-    @Override
-    public Packet<ClientPlayPacketListener> toUpdatePacket() {
-        return BlockEntityUpdateS2CPacket.create(this);
-    }
-
-    @Override
-    public NbtCompound toInitialChunkDataNbt() {
-        NbtCompound nbtCompound = this.createNbt();
-        nbtCompound.remove("listener");
-        return nbtCompound;
     }
 }
