@@ -12,6 +12,7 @@ import net.minecraft.block.SculkSensorBlock;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityTicker;
 import net.minecraft.block.entity.BlockEntityType;
+import net.minecraft.block.entity.SculkSensorBlockEntity;
 import net.minecraft.entity.Entity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.state.StateManager;
@@ -49,16 +50,22 @@ public class SculkSensorBlockMixin {
     @Nullable
     @Inject(at = @At("HEAD"), method = "getGameEventListener", cancellable = true)
     public <T extends BlockEntity> void getGameEventListener(ServerWorld world, T blockEntity, CallbackInfoReturnable<GameEventListener> info) {
-        info.setReturnValue(blockEntity instanceof NewSculkSensorBlockEntity ? ((NewSculkSensorBlockEntity)blockEntity).getEventListener() : null);
+        info.setReturnValue(blockEntity instanceof NewSculkSensorBlockEntity ? ((NewSculkSensorBlockEntity)blockEntity).getEventListener() : blockEntity instanceof SculkSensorBlockEntity ? ((SculkSensorBlockEntity)blockEntity).getEventListener() : null);
         info.cancel();
     }
 
     @Nullable
     @Inject(at = @At("HEAD"), method = "getTicker", cancellable = true)
     public <T extends BlockEntity> void getTicker(World world, BlockState state, BlockEntityType<T> type, CallbackInfoReturnable<BlockEntityTicker<T>> info) {
-        info.setReturnValue(checkType(type, RegisterBlockEntityType.NEW_SCULK_SENSOR, (worldx, pos, statex, blockEntity) -> {
+        BlockEntityTicker<T> ticker = checkType(type, RegisterBlockEntityType.NEW_SCULK_SENSOR, (worldx, pos, statex, blockEntity) -> {
             blockEntity.tick(worldx, pos, statex);
-        }));
+        });
+        if (ticker==null) {
+            ticker = checkType(type, BlockEntityType.SCULK_SENSOR, (worldx, pos, statex, blockEntity) -> {
+                blockEntity.getEventListener().tick(worldx);
+            });
+        }
+        info.setReturnValue(ticker);
         info.cancel();
     }
 
