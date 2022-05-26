@@ -1,5 +1,6 @@
 package net.frozenblock.wilderwild.mixin;
 
+import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.block.entity.NewSculkSensorBlockEntity;
 import net.frozenblock.wilderwild.registry.RegisterBlockEntityType;
 import net.frozenblock.wilderwild.registry.RegisterProperties;
@@ -62,7 +63,7 @@ public class SculkSensorBlockMixin {
 
     @Inject(at = @At("HEAD"), method = "getRenderType", cancellable = true)
     public void getRenderType(BlockState state, CallbackInfoReturnable<BlockRenderType> info) {
-        info.setReturnValue(BlockRenderType.INVISIBLE);
+        info.setReturnValue(WilderWild.RENDER_TENDRILS ? BlockRenderType.INVISIBLE : BlockRenderType.MODEL);
     }
 
 

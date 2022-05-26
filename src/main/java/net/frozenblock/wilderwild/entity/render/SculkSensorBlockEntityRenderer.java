@@ -57,23 +57,27 @@ public class SculkSensorBlockEntityRenderer<T extends NewSculkSensorBlockEntity>
     }
 
     public void render(T entity, float tickDelta, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, int overlay) {
-        World world = entity.getWorld();
-        boolean worldNull = world != null;
-        BlockState blockState = worldNull ? entity.getCachedState() : Blocks.SCULK_SENSOR.getDefaultState();
-        Block block = blockState.getBlock();
-        if (block instanceof SculkSensorBlock sensor) {
-            boolean active = blockState.get(Properties.SCULK_SENSOR_PHASE) == SculkSensorPhase.ACTIVE;
-            matrices.push();
-            RenderLayer layer = active ? ACTIVE_SENSOR_LAYER : SENSOR_LAYER;
-            if (active) { setTendrilPitches(entity.age + tickDelta, tickDelta, entity); } else {
-                this.ne.pitch = 0;
-                this.nw.pitch = 0;
-                this.se.pitch = 0;
-                this.sw.pitch = 0;
+        if (WilderWild.RENDER_TENDRILS) {
+            World world = entity.getWorld();
+            boolean worldNull = world != null;
+            BlockState blockState = worldNull ? entity.getCachedState() : Blocks.SCULK_SENSOR.getDefaultState();
+            Block block = blockState.getBlock();
+            if (block instanceof SculkSensorBlock sensor) {
+                boolean active = blockState.get(Properties.SCULK_SENSOR_PHASE) == SculkSensorPhase.ACTIVE;
+                matrices.push();
+                RenderLayer layer = active ? ACTIVE_SENSOR_LAYER : SENSOR_LAYER;
+                if (active) {
+                    setTendrilPitches(entity.age + tickDelta, tickDelta, entity);
+                } else {
+                    this.ne.pitch = 0;
+                    this.nw.pitch = 0;
+                    this.se.pitch = 0;
+                    this.sw.pitch = 0;
+                }
+                VertexConsumer vertexConsumer = vertexConsumers.getBuffer(layer);
+                this.render(matrices, vertexConsumer, light, overlay);
+                matrices.pop();
             }
-            VertexConsumer vertexConsumer = vertexConsumers.getBuffer(layer);
-            this.render(matrices, vertexConsumer, light, overlay);
-            matrices.pop();
         }
     }
 
