@@ -32,6 +32,7 @@ public class SculkSensorBlockEntityRenderer<T extends NewSculkSensorBlockEntity>
 
     private static float merp = (float) (Math.PI / 180);
     private static float pi = (float) Math.PI;
+    private static float merp25 = 25 * merp;
 
     RenderLayer SENSOR_LAYER = RenderLayer.getEntityCutout(new Identifier(WilderWild.MOD_ID, "textures/entity/sculk_sensor_tendrils/inactive.png"));
     RenderLayer ACTIVE_SENSOR_LAYER = RenderLayer.getEntityCutout(new Identifier(WilderWild.MOD_ID, "textures/entity/sculk_sensor_tendrils/active_overlay.png"));
@@ -66,14 +67,7 @@ public class SculkSensorBlockEntityRenderer<T extends NewSculkSensorBlockEntity>
                 boolean active = blockState.get(Properties.SCULK_SENSOR_PHASE) == SculkSensorPhase.ACTIVE;
                 matrices.push();
                 RenderLayer layer = active ? ACTIVE_SENSOR_LAYER : SENSOR_LAYER;
-                if (active) {
-                    setTendrilPitches(entity.age + tickDelta, tickDelta, entity);
-                } else {
-                    this.ne.pitch = 0;
-                    this.nw.pitch = 0;
-                    this.se.pitch = 0;
-                    this.sw.pitch = 0;
-                }
+                setTendrilPitches(entity.age + tickDelta, tickDelta, entity, active);
                 VertexConsumer vertexConsumer = vertexConsumers.getBuffer(layer);
                 this.render(matrices, vertexConsumer, light, overlay);
                 matrices.pop();
@@ -81,9 +75,10 @@ public class SculkSensorBlockEntityRenderer<T extends NewSculkSensorBlockEntity>
         }
     }
 
-    private void setTendrilPitches(float animationProgress, float tickDelta, NewSculkSensorBlockEntity entity) {
-        float f = getTendrilPitch(entity, tickDelta) * (float)(Math.cos((double)animationProgress * 2.25D) * (25 * merp));
-        float g = getTendrilPitch(entity, tickDelta) * (float)(-Math.sin((double)animationProgress * 2.25D) * (25 * merp));
+    private void setTendrilPitches(float animationProgress, float tickDelta, NewSculkSensorBlockEntity entity, boolean active) {
+        float pitch = getTendrilPitch(entity, tickDelta);
+        float f = active ? pitch * (float)(Math.cos((double)animationProgress * 2.25D) * merp25) : 0;
+        float g = active ? pitch * (float)(-Math.sin((double)animationProgress * 2.25D) * merp25) : 0;
 
         this.ne.pitch = f;
         this.sw.pitch = f;
