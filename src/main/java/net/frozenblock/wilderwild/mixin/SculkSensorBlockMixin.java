@@ -10,6 +10,7 @@ import net.minecraft.block.SculkSensorBlock;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityTicker;
 import net.minecraft.block.entity.BlockEntityType;
+import net.minecraft.entity.Entity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.state.StateManager;
 import net.minecraft.util.math.BlockPos;
@@ -37,6 +38,12 @@ public class SculkSensorBlockMixin {
         info.cancel();
     }
 
+    @Inject(at = @At("HEAD"), method = "setActive", cancellable = true)
+    private static void setActive(@Nullable Entity entity, World world, BlockPos pos, BlockState state, int power, CallbackInfo info) {
+        world.addSyncedBlockEvent(pos, state.getBlock(), 1, 1);
+    }
+
+
     @Nullable
     @Inject(at = @At("HEAD"), method = "getGameEventListener", cancellable = true)
     public <T extends BlockEntity> void getGameEventListener(ServerWorld world, T blockEntity, CallbackInfoReturnable<GameEventListener> info) {
@@ -55,7 +62,7 @@ public class SculkSensorBlockMixin {
 
     @Inject(at = @At("HEAD"), method = "getRenderType", cancellable = true)
     public void getRenderType(BlockState state, CallbackInfoReturnable<BlockRenderType> info) {
-        info.setReturnValue(BlockRenderType.MODEL);
+        info.setReturnValue(BlockRenderType.INVISIBLE);
     }
 
 

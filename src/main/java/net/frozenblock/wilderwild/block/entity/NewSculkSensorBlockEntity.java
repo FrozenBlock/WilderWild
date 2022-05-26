@@ -122,7 +122,6 @@ public class NewSculkSensorBlockEntity extends BlockEntity implements Callback {
             world.setBlockState(this.getPos(), state.with(RegisterProperties.NOT_HICCUPPING, true));
             this.lastVibrationFrequency = SculkSensorBlock.FREQUENCIES.getInt(event);
             SculkSensorBlock.setActive(entity, world, this.pos, blockState, getPower(distance, listener.getRange()));
-            world.addSyncedBlockEvent(this.getPos(), this.getCachedState().getBlock(), 1, 1);
         }
     }
 
