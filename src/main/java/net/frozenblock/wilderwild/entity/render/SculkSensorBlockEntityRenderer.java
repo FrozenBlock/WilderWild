@@ -49,7 +49,7 @@ public class SculkSensorBlockEntityRenderer<T extends NewSculkSensorBlockEntity>
     public static TexturedModelData getTexturedModelData() {
         ModelData modelData = new ModelData();
         ModelPartData modelPartData = modelData.getRoot();
-        modelPartData.addChild("base", ModelPartBuilder.create().uv(0,0).cuboid(0.0F, 0.0F, 0.0F, 16.0F, 8.0F, 16.0F), ModelTransform.of(0.0F,0.0F,0.0F,0,0.0F, 0.0F));
+        modelPartData.addChild("base", ModelPartBuilder.create().uv(0,0).cuboid(-8.0F, -8.0F, -8.0F, 16.0F, 8.0F, 16.0F), ModelTransform.of(0.0F,0.0F,0.0F,0,0.0F, 0.0F));
         modelPartData.addChild("ne", ModelPartBuilder.create().uv(0,0).cuboid(-4.0F, -8.0F, 0.0F, 8.0F, 8.0F, 0.002F), ModelTransform.of(3.0F,8.0F,3.0F,0,-0.7854F, pi));
         modelPartData.addChild("nw", ModelPartBuilder.create().uv(0,8).cuboid(-4.0F, -8.0F, 0.0F, 8.0F, 8.0F, 0.002F), ModelTransform.of(13.0F,8.0F,3.0F,0,0.7854F, pi));
         modelPartData.addChild("se", ModelPartBuilder.create().uv(0,0).cuboid(-4.0F, -8.0F, 0.0F, 8.0F, 8.0F, 0.002F), ModelTransform.of(3.0F,8.0F,13.0F,0,0.7854F, pi));
