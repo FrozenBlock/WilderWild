@@ -55,7 +55,7 @@ public class SculkSensorBlockMixin {
 
     @Inject(at = @At("HEAD"), method = "getRenderType", cancellable = true)
     public void getRenderType(BlockState state, CallbackInfoReturnable<BlockRenderType> info) {
-        info.setReturnValue(BlockRenderType.INVISIBLE);
+        info.setReturnValue(BlockRenderType.MODEL);
     }
 
 
