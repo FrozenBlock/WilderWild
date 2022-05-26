@@ -2,6 +2,7 @@ package net.frozenblock.wilderwild;
 
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
+import net.fabricmc.fabric.api.client.command.v2.ClientCommandManager;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.fabricmc.fabric.api.client.particle.v1.ParticleFactoryRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.BlockEntityRendererRegistry;
@@ -14,6 +15,7 @@ import net.frozenblock.wilderwild.entity.render.AncientHornProjectileRenderer;
 import net.frozenblock.wilderwild.entity.render.FireflyEntityRenderer;
 import net.frozenblock.wilderwild.entity.render.SculkSensorBlockEntityRenderer;
 import net.frozenblock.wilderwild.misc.ConfigManager;
+import net.frozenblock.wilderwild.misc.EnableDisableTendrilCommand;
 import net.frozenblock.wilderwild.particle.FloatingSculkBubbleParticle;
 import net.frozenblock.wilderwild.particle.PollenParticle;
 import net.frozenblock.wilderwild.registry.RegisterBlockEntityType;
@@ -95,6 +97,7 @@ public class WildClientMod implements ClientModInitializer {
             return 2129968;
         }), RegisterBlocks.FLOWERED_LILY_PAD);
 
+        EnableDisableTendrilCommand.register(ClientCommandManager.DISPATCHER);
         try {
             RENDER_TENDRILS = ConfigManager.isEnabled();
         } catch (FileNotFoundException e) {
