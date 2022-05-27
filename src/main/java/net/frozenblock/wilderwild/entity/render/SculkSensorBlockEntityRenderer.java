@@ -81,8 +81,7 @@ public class SculkSensorBlockEntityRenderer<T extends NewSculkSensorBlockEntity>
         this.se.render(matrices, vertices, light, overlay);
         matrices.translate(0.625, 0, 0.625);
         this.ne.render(matrices, vertices, light, overlay);
-        matrices.translate(-0.625, 0, -0.625);
-        matrices.translate(0.625, 0, -0.625);
+        matrices.translate(0, 0, -1.25);
         this.se.render(matrices, vertices, light, overlay);
     }
 }
