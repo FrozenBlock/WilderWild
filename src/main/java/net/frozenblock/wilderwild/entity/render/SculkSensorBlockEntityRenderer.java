@@ -61,27 +61,30 @@ public class SculkSensorBlockEntityRenderer<T extends NewSculkSensorBlockEntity>
             BlockState blockState = entity.getWorld()!=null ? entity.getCachedState() : Blocks.SCULK_SENSOR.getDefaultState();
             if (blockState.getBlock() instanceof SculkSensorBlock) {
                 boolean active = blockState.get(Properties.SCULK_SENSOR_PHASE) == SculkSensorPhase.ACTIVE;
-                if (active) {
-                    float animationProgress = entity.age + tickDelta;
-                    float pitch = MathHelper.lerp(tickDelta, (float) entity.prevAnimTicks, (float) entity.animTicks) / 10.0F;
-                    float f = pitch * (float) (Math.cos((double) animationProgress * 2.25D) * merp25);
-                    float g = pitch * (float) (-Math.sin((double) animationProgress * 2.25D) * merp25);
-
-                    this.ne.pitch = f;
-                    this.sw.pitch = f;
-                    this.nw.pitch = g;
-                    this.se.pitch = g;
-                } else {
-                    this.ne.pitch = 0;
-                    this.sw.pitch = 0;
-                    this.nw.pitch = 0;
-                    this.se.pitch = 0;
-                }
+                setTendrilPitches(entity.age + tickDelta, tickDelta, entity, active);
                 VertexConsumer vertexConsumer = vertexConsumers.getBuffer(active ? ACTIVE_SENSOR_LAYER : SENSOR_LAYER);
                 matrices.push();
                 this.render(matrices, vertexConsumer, light, overlay);
                 matrices.pop();
             }
+        }
+    }
+
+    private void setTendrilPitches(float animationProgress, float tickDelta, NewSculkSensorBlockEntity entity, boolean active) {
+        if (active) {
+            float pitch = MathHelper.lerp(tickDelta, (float) entity.prevAnimTicks, (float) entity.animTicks) / 10.0F;
+            float f = pitch * (float) (Math.cos((double) animationProgress * 2.25D) * merp25);
+            float g = pitch * (float) (-Math.sin((double) animationProgress * 2.25D) * merp25);
+
+            this.ne.pitch = f;
+            this.sw.pitch = f;
+            this.nw.pitch = g;
+            this.se.pitch = g;
+        } else {
+            this.ne.pitch = 0;
+            this.sw.pitch = 0;
+            this.nw.pitch = 0;
+            this.se.pitch = 0;
         }
     }
 
