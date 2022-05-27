@@ -55,23 +55,20 @@ public class SculkSensorBlockEntityRenderer<T extends NewSculkSensorBlockEntity>
             BlockState blockState = entity.getWorld()!=null ? entity.getCachedState() : Blocks.SCULK_SENSOR.getDefaultState();
             if (blockState.getBlock() instanceof SculkSensorBlock) {
                 boolean active = blockState.get(Properties.SCULK_SENSOR_PHASE) == SculkSensorPhase.ACTIVE;
-                setTendrilPitches(entity.age + tickDelta, tickDelta, entity, active);
+                if (active) {
+                    double animationProgress = entity.age + tickDelta;
+                    float pitch = MathHelper.lerp(tickDelta, (float) entity.prevAnimTicks, (float) entity.animTicks) / 10.0F;
+                    this.ne.pitch = pitch * (float) (Math.cos(animationProgress * 2.25D) * merp25);
+                    this.se.pitch = pitch * (float) (-Math.sin(animationProgress * 2.25D) * merp25);
+                } else {
+                    this.ne.pitch = 0;
+                    this.se.pitch = 0;
+                }
                 VertexConsumer vertexConsumer = vertexConsumers.getBuffer(active ? ACTIVE_SENSOR_LAYER : SENSOR_LAYER);
                 matrices.push();
                 this.render(matrices, vertexConsumer, light, overlay);
                 matrices.pop();
             }
-        }
-    }
-
-    private void setTendrilPitches(float animationProgress, float tickDelta, NewSculkSensorBlockEntity entity, boolean active) {
-        if (active) {
-            float pitch = MathHelper.lerp(tickDelta, (float) entity.prevAnimTicks, (float) entity.animTicks) / 10.0F;
-            this.ne.pitch = pitch * (float) (Math.cos(animationProgress * 2.25D) * merp25);
-            this.se.pitch = pitch * (float) (-Math.sin(animationProgress * 2.25D) * merp25);
-        } else {
-            this.ne.pitch = 0;
-            this.se.pitch = 0;
         }
     }
 

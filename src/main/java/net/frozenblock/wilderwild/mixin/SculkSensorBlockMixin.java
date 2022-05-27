@@ -1,7 +1,6 @@
 package net.frozenblock.wilderwild.mixin;
 
 import net.frozenblock.wilderwild.WildClientMod;
-import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.block.entity.NewSculkSensorBlockEntity;
 import net.frozenblock.wilderwild.registry.RegisterBlockEntityType;
 import net.frozenblock.wilderwild.registry.RegisterProperties;

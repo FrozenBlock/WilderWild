@@ -137,8 +137,4 @@ public class NewSculkSensorBlockEntity extends BlockEntity implements Callback {
     public void setLastVibrationFrequency(int lastVibrationFrequency) {
         this.lastVibrationFrequency = lastVibrationFrequency;
     }
-
-    public float getTendrilPitch(float tickDelta) {
-        return MathHelper.lerp(tickDelta, (float)this.prevAnimTicks, (float)this.animTicks) / 10.0F;
-    }
 }
