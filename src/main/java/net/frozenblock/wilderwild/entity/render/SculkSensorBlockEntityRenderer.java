@@ -30,9 +30,8 @@ public class SculkSensorBlockEntityRenderer<T extends NewSculkSensorBlockEntity>
     private final ModelPart se;
     private final ModelPart sw;
 
-    private static float merp = (float) (Math.PI / 180);
-    private static float pi = (float) Math.PI;
-    private static float merp25 = 25 * merp;
+    private static final float pi = (float) Math.PI;
+    private static final float merp25 = 25 * ((float)(Math.PI / 180));
 
     RenderLayer SENSOR_LAYER = RenderLayer.getEntityCutout(new Identifier(WilderWild.MOD_ID, "textures/entity/sculk_sensor_tendrils/inactive.png"));
     RenderLayer ACTIVE_SENSOR_LAYER = RenderLayer.getEntityCutout(new Identifier(WilderWild.MOD_ID, "textures/entity/sculk_sensor_tendrils/active_overlay.png"));
@@ -63,7 +62,7 @@ public class SculkSensorBlockEntityRenderer<T extends NewSculkSensorBlockEntity>
             boolean worldNull = world != null;
             BlockState blockState = worldNull ? entity.getCachedState() : Blocks.SCULK_SENSOR.getDefaultState();
             Block block = blockState.getBlock();
-            if (block instanceof SculkSensorBlock sensor) {
+            if (block instanceof SculkSensorBlock) {
                 boolean active = blockState.get(Properties.SCULK_SENSOR_PHASE) == SculkSensorPhase.ACTIVE;
                 matrices.push();
                 RenderLayer layer = active ? ACTIVE_SENSOR_LAYER : SENSOR_LAYER;
@@ -76,7 +75,7 @@ public class SculkSensorBlockEntityRenderer<T extends NewSculkSensorBlockEntity>
     }
 
     private void setTendrilPitches(float animationProgress, float tickDelta, NewSculkSensorBlockEntity entity, boolean active) {
-        float pitch = getTendrilPitch(entity, tickDelta);
+        float pitch = MathHelper.lerp(tickDelta, (float)entity.prevAnimTicks, (float)entity.animTicks) / 10.0F;
         float f = active ? pitch * (float)(Math.cos((double)animationProgress * 2.25D) * merp25) : 0;
         float g = active ? pitch * (float)(-Math.sin((double)animationProgress * 2.25D) * merp25) : 0;
 
@@ -84,10 +83,6 @@ public class SculkSensorBlockEntityRenderer<T extends NewSculkSensorBlockEntity>
         this.sw.pitch = f;
         this.nw.pitch = g;
         this.se.pitch = g;
-    }
-
-    public float getTendrilPitch(NewSculkSensorBlockEntity entity, float tickDelta) {
-        return MathHelper.lerp(tickDelta, (float)entity.prevAnimTicks, (float)entity.animTicks) / 10.0F;
     }
 
     private void render(MatrixStack matrices, VertexConsumer vertices, int light, int overlay) {
