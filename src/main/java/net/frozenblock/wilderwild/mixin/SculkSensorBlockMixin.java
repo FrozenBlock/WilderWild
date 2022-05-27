@@ -56,13 +56,12 @@ public class SculkSensorBlockMixin {
     @Nullable
     @Inject(at = @At("HEAD"), method = "getTicker", cancellable = true)
     public <T extends BlockEntity> void getTicker(World world, BlockState state, BlockEntityType<T> type, CallbackInfoReturnable<BlockEntityTicker<T>> info) {
-        BlockEntityTicker<T> ticker = checkType(type, RegisterBlockEntityType.NEW_SCULK_SENSOR, (worldx, pos, statex, blockEntity) -> {
-            blockEntity.tick(worldx, pos, statex);
-        });
+        BlockEntityTicker<T> ticker = !world.isClient ? checkType(type, RegisterBlockEntityType.NEW_SCULK_SENSOR, (worldx, pos, statex, blockEntity) -> {
+                blockEntity.tickServer(worldx, pos, statex);}) : checkType(type, RegisterBlockEntityType.NEW_SCULK_SENSOR, (worldx, pos, statex, blockEntity) -> {
+                blockEntity.tickClient();});
         if (ticker==null) {
-            ticker = checkType(type, BlockEntityType.SCULK_SENSOR, (worldx, pos, statex, blockEntity) -> {
-                blockEntity.getEventListener().tick(worldx);
-            });
+            ticker = !world.isClient ? checkType(type, BlockEntityType.SCULK_SENSOR, (worldx, pos, statex, blockEntity) -> {
+                blockEntity.getEventListener().tick(worldx);}) : null;
         }
         info.setReturnValue(ticker);
         info.cancel();

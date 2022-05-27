@@ -46,18 +46,18 @@ public class NewSculkSensorBlockEntity extends BlockEntity implements Callback {
         this.listener = new VibrationListener(new BlockPositionSource(this.pos), ((SculkSensorBlock)state.getBlock()).getRange(), this, (Vibration)null, 0.0F, 0);
     }
 
-    public void tick(World world, BlockPos pos, BlockState state) {
-        if (!world.isClient) {
-            this.getEventListener().tick(world);
-            if (SculkSensorBlock.isInactive(state) && !state.get(RegisterProperties.NOT_HICCUPPING) && world.random.nextInt(320) <= 1) {
-                WilderWild.log("Sensor Hiccups " + pos);
-                SculkSensorBlock.setActive(null, world, pos, state, (int) (Math.random() * 15));
-                world.emitGameEvent(null, GameEvent.SCULK_SENSOR_TENDRILS_CLICKING, pos);
-                world.emitGameEvent(null, RegisterGameEvents.SCULK_SENSOR_ACTIVATE, pos);
-                world.playSound(null, pos, RegisterSounds.BLOCK_SCULK_SENSOR_HICCUP, SoundCategory.BLOCKS, 1.0F, world.random.nextFloat() * 0.1F + 0.7F);
-            }
+    public void tickServer(World world, BlockPos pos, BlockState state) {
+        this.getEventListener().tick(world);
+        if (SculkSensorBlock.isInactive(state) && !state.get(RegisterProperties.NOT_HICCUPPING) && world.random.nextInt(320) <= 1) {
+            WilderWild.log("Sensor Hiccups " + pos);
+            SculkSensorBlock.setActive(null, world, pos, state, (int) (Math.random() * 15));
+            world.emitGameEvent(null, GameEvent.SCULK_SENSOR_TENDRILS_CLICKING, pos);
+            world.emitGameEvent(null, RegisterGameEvents.SCULK_SENSOR_ACTIVATE, pos);
+            world.playSound(null, pos, RegisterSounds.BLOCK_SCULK_SENSOR_HICCUP, SoundCategory.BLOCKS, 1.0F, world.random.nextFloat() * 0.1F + 0.7F);
         }
+    }
 
+    public void tickClient() {
         this.prevAnimTicks=this.animTicks;
         if (this.animTicks > 0) { --this.animTicks; }
         ++this.age;
