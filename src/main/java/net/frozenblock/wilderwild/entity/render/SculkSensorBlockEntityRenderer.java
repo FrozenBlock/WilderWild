@@ -58,16 +58,12 @@ public class SculkSensorBlockEntityRenderer<T extends NewSculkSensorBlockEntity>
 
     public void render(T entity, float tickDelta, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, int overlay) {
         if (WildClientMod.RENDER_TENDRILS) {
-            World world = entity.getWorld();
-            boolean worldNull = world != null;
-            BlockState blockState = worldNull ? entity.getCachedState() : Blocks.SCULK_SENSOR.getDefaultState();
-            Block block = blockState.getBlock();
-            if (block instanceof SculkSensorBlock) {
+            BlockState blockState = entity.getWorld()!=null ? entity.getCachedState() : Blocks.SCULK_SENSOR.getDefaultState();
+            if (blockState.getBlock() instanceof SculkSensorBlock) {
                 boolean active = blockState.get(Properties.SCULK_SENSOR_PHASE) == SculkSensorPhase.ACTIVE;
-                matrices.push();
-                RenderLayer layer = active ? ACTIVE_SENSOR_LAYER : SENSOR_LAYER;
                 setTendrilPitches(entity.age + tickDelta, tickDelta, entity, active);
-                VertexConsumer vertexConsumer = vertexConsumers.getBuffer(layer);
+                VertexConsumer vertexConsumer = vertexConsumers.getBuffer(active ? ACTIVE_SENSOR_LAYER : SENSOR_LAYER);
+                matrices.push();
                 this.render(matrices, vertexConsumer, light, overlay);
                 matrices.pop();
             }
@@ -75,7 +71,7 @@ public class SculkSensorBlockEntityRenderer<T extends NewSculkSensorBlockEntity>
     }
 
     private void setTendrilPitches(float animationProgress, float tickDelta, NewSculkSensorBlockEntity entity, boolean active) {
-        float pitch = MathHelper.lerp(tickDelta, (float)entity.prevAnimTicks, (float)entity.animTicks) / 10.0F;
+        float pitch = active ? MathHelper.lerp(tickDelta, (float)entity.prevAnimTicks, (float)entity.animTicks) / 10.0F : 0;
         float f = active ? pitch * (float)(Math.cos((double)animationProgress * 2.25D) * merp25) : 0;
         float g = active ? pitch * (float)(-Math.sin((double)animationProgress * 2.25D) * merp25) : 0;
 
