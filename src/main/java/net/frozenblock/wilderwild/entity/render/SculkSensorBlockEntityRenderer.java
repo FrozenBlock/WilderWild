@@ -26,9 +26,7 @@ import net.minecraft.world.World;
 public class SculkSensorBlockEntityRenderer<T extends NewSculkSensorBlockEntity> implements BlockEntityRenderer<T> {
     private final ModelPart base;
     private final ModelPart ne;
-    private final ModelPart nw;
     private final ModelPart se;
-    private final ModelPart sw;
 
     private static final float pi = (float) Math.PI;
     private static final float merp25 = 25 * ((float)(Math.PI / 180));
@@ -39,9 +37,7 @@ public class SculkSensorBlockEntityRenderer<T extends NewSculkSensorBlockEntity>
     public SculkSensorBlockEntityRenderer(Context ctx) {
         ModelPart root = ctx.getLayerModelPart(WildClientMod.SCULK_SENSOR);
         this.base = root.getChild("base");
-        this.sw = root.getChild("sw");
         this.se = root.getChild("se");
-        this.nw = root.getChild("nw");
         this.ne = root.getChild("ne");
     }
 
@@ -50,9 +46,7 @@ public class SculkSensorBlockEntityRenderer<T extends NewSculkSensorBlockEntity>
         ModelPartData modelPartData = modelData.getRoot();
         modelPartData.addChild("base", ModelPartBuilder.create().uv(0,0).cuboid(-8.0F, -8.0F, -8.0F, 16.0F, 8.0F, 16.0F), ModelTransform.of(8.0F,0.0F,8.0F,0,0.0F, pi));
         modelPartData.addChild("ne", ModelPartBuilder.create().uv(0,0).cuboid(-4.0F, -8.0F, 0.0F, 8.0F, 8.0F, 0.002F), ModelTransform.of(3.0F,8.0F,3.0F,0,-0.7854F, pi));
-        modelPartData.addChild("nw", ModelPartBuilder.create().uv(0,8).cuboid(-4.0F, -8.0F, 0.0F, 8.0F, 8.0F, 0.002F), ModelTransform.of(13.0F,8.0F,3.0F,0,0.7854F, pi));
         modelPartData.addChild("se", ModelPartBuilder.create().uv(0,0).cuboid(-4.0F, -8.0F, 0.0F, 8.0F, 8.0F, 0.002F), ModelTransform.of(3.0F,8.0F,13.0F,0,0.7854F, pi));
-        modelPartData.addChild("sw", ModelPartBuilder.create().uv(0,8).cuboid(-4.0F, -8.0F, 0.0F, 8.0F, 8.0F, 0.002F), ModelTransform.of(13.0F,8.0F,13.0F,0,-0.7854F, pi));
         return TexturedModelData.of(modelData,64,64);
     }
 
@@ -73,17 +67,10 @@ public class SculkSensorBlockEntityRenderer<T extends NewSculkSensorBlockEntity>
     private void setTendrilPitches(float animationProgress, float tickDelta, NewSculkSensorBlockEntity entity, boolean active) {
         if (active) {
             float pitch = MathHelper.lerp(tickDelta, (float) entity.prevAnimTicks, (float) entity.animTicks) / 10.0F;
-            float f = pitch * (float) (Math.cos((double) animationProgress * 2.25D) * merp25);
-            float g = pitch * (float) (-Math.sin((double) animationProgress * 2.25D) * merp25);
-
-            this.ne.pitch = f;
-            this.sw.pitch = f;
-            this.nw.pitch = g;
-            this.se.pitch = g;
+            this.ne.pitch = pitch * (float) (Math.cos(animationProgress * 2.25D) * merp25);
+            this.se.pitch = pitch * (float) (-Math.sin(animationProgress * 2.25D) * merp25);
         } else {
             this.ne.pitch = 0;
-            this.sw.pitch = 0;
-            this.nw.pitch = 0;
             this.se.pitch = 0;
         }
     }
@@ -91,8 +78,11 @@ public class SculkSensorBlockEntityRenderer<T extends NewSculkSensorBlockEntity>
     private void render(MatrixStack matrices, VertexConsumer vertices, int light, int overlay) {
         this.base.render(matrices, vertices, light, overlay);
         this.ne.render(matrices, vertices, light, overlay);
-        this.nw.render(matrices, vertices, light, overlay);
         this.se.render(matrices, vertices, light, overlay);
-        this.sw.render(matrices, vertices, light, overlay);
+        matrices.translate(0.625, 0, 0.625);
+        this.ne.render(matrices, vertices, light, overlay);
+        matrices.translate(-0.625, 0, -0.625);
+        matrices.translate(0.625, 0, -0.625);
+        this.se.render(matrices, vertices, light, overlay);
     }
 }
