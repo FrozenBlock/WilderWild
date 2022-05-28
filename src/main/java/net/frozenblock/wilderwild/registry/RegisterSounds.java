@@ -10,6 +10,8 @@ public class RegisterSounds {
     public static final SoundEvent AMBIENT_DEEP_DARK_ADDITIONS = register( "ambient.deep_dark.additions");
     public static final SoundEvent AMBIENT_DEEP_DARK_LOOP = register( "ambient.deep_dark.loop");
 
+    public static final SoundEvent AMBIENT_DRIPSTONE_CAVES_LOOP = register( "ambient.dripstone_caves.loop");
+
     public static final SoundEvent BLOCK_REINFORCED_DEEPSLATE_PLACE = register( "block.reinforced_deepslate.place");
     public static final SoundEvent BLOCK_REINFORCED_DEEPSLATE_HIT = register("block.reinforced_deepslate.hit");
     public static final SoundEvent BLOCK_REINFORCED_DEEPSLATE_BREAK = register( "block.reinforced_deepslate.break");

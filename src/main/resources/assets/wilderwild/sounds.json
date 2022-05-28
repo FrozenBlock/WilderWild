@@ -102,6 +102,15 @@
 			}
 		]
 	},
+	"ambient.dripstone_caves.loop": {
+		"sounds": [
+			{
+				"name": "wilderwild:ambient/cave/dripstone_caves/ambience",
+				"stream": true,
+				"volume": 1.0
+			}
+		]
+	},
 	"block.coarse_dirt.break": {
 		"sounds": [
 			"wilderwild:block/coarse_dirt/break1",
