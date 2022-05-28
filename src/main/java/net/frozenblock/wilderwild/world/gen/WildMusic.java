@@ -21,6 +21,6 @@ public class WildMusic {
         BiomeModifications.create(new Identifier(WilderWild.MOD_ID, "modify_deep_dark_ambience")).add(ModificationPhase.REPLACEMENTS, (context) -> context.getBiomeKey().equals(BiomeKeys.DEEP_DARK),
                 (selectionContext, modificationContext) -> modificationContext.getEffects().setAmbientSound(RegisterSounds.AMBIENT_DEEP_DARK_LOOP));
         BiomeModifications.create(new Identifier(WilderWild.MOD_ID, "modify_deep_dark_additions")).add(ModificationPhase.REPLACEMENTS, (context) -> context.getBiomeKey().equals(BiomeKeys.DEEP_DARK),
-                (selectionContext, modificationContext) -> modificationContext.getEffects().setAdditionsSound(new BiomeAdditionsSound(RegisterSounds.AMBIENT_DEEP_DARK_ADDITIONS, 1)));
+                (selectionContext, modificationContext) -> modificationContext.getEffects().setAdditionsSound(new BiomeAdditionsSound(RegisterSounds.AMBIENT_DEEP_DARK_ADDITIONS, 0.0111D)));
     }
 }
