@@ -16,6 +16,7 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3f;
+
 @Environment(EnvType.CLIENT)
 public class AncientHornProjectileRenderer extends EntityRenderer<AncientHornProjectileEntity> {
     public static final Identifier TEXTURE = new Identifier(WilderWild.MOD_ID, "textures/entity/ancient_horn_projectile.png");

@@ -186,6 +186,10 @@ public class SculkBlockMixin {
 	}
 
 	@Shadow private static int getDecay(SculkSpreadManager spreadManager, BlockPos cursorPos, BlockPos catalystPos, int charge) {
-		throw new AssertionError();
+		int i = spreadManager.getMaxDistance();
+		float f = MathHelper.square((float)Math.sqrt(cursorPos.getSquaredDistance(catalystPos)) - (float)i);
+		int j = MathHelper.square(24 - i);
+		float g = Math.min(1.0F, f / (float)j);
+		return Math.max(1, (int)((float)charge * g * 0.5F));
 	}
 }
