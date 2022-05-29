@@ -51,21 +51,23 @@ public class BaobabTrunkPlacer extends TrunkPlacer {
         for(int i = 0; i < height; ++i) {
             this.setLog(world, replacer, random, mutable, config, startPos, 0, i, 0);
             if (i < height - 1) {
+                this.setLog(world, replacer, random, mutable, config, startPos, 1, i, 0);
                 this.setLog(world, replacer, random, mutable, config, startPos, 1, i, 1);
-                this.setLog(world, replacer, random, mutable, config, startPos, 1, i, 1);
-                this.setLog(world, replacer, random, mutable, config, startPos, 1, i, 1);
-                this.setLog(world, replacer, random, mutable, config, startPos, 1, i, 1);
-                this.setLog(world, replacer, random, mutable, config, startPos, 1, i, 1);
-                this.setLog(world, replacer, random, mutable, config, startPos, 1, i, 1);
-                this.setLog(world, replacer, random, mutable, config, startPos, 1, i, 1);
-                this.setLog(world, replacer, random, mutable, config, startPos, 1, i, 1);
-                this.setLog(world, replacer, random, mutable, config, startPos, 1, i, 1);
-                this.setLog(world, replacer, random, mutable, config, startPos, 1, i, 1);
-                this.setLog(world, replacer, random, mutable, config, startPos, 1, i, 1);
-                this.setLog(world, replacer, random, mutable, config, startPos, 1, i, 1);
-                this.setLog(world, replacer, random, mutable, config, startPos, 1, i, 1);
-                this.setLog(world, replacer, random, mutable, config, startPos, 1, i, 1);
-                this.setLog(world, replacer, random, mutable, config, startPos, 1, i, 1);
+                this.setLog(world, replacer, random, mutable, config, startPos, 0, i, 1);
+                this.setLog(world, replacer, random, mutable, config, startPos, 2, i, 0);
+                this.setLog(world, replacer, random, mutable, config, startPos, 3, i, 0);
+                this.setLog(world, replacer, random, mutable, config, startPos, 1, i, 2);
+                this.setLog(world, replacer, random, mutable, config, startPos, 1, i, 3);
+                this.setLog(world, replacer, random, mutable, config, startPos, 2, i, 1);
+                this.setLog(world, replacer, random, mutable, config, startPos, 3, i, 1);
+                this.setLog(world, replacer, random, mutable, config, startPos, 1, i, 2);
+                this.setLog(world, replacer, random, mutable, config, startPos, 1, i, 3);
+                this.setLog(world, replacer, random, mutable, config, startPos, 2, i, 2);
+                this.setLog(world, replacer, random, mutable, config, startPos, 2, i, 3);
+                this.setLog(world, replacer, random, mutable, config, startPos, 3, i, 3);
+                this.setLog(world, replacer, random, mutable, config, startPos, 3, i, 2);
+                this.setLog(world, replacer, random, mutable, config, startPos, 0, i, 2);
+                this.setLog(world, replacer, random, mutable, config, startPos, 0, i, 3);
             }
         }
 
