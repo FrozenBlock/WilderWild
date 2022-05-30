@@ -30,7 +30,7 @@ public class FireflyEntityRenderer extends EntityRenderer<FireflyEntity> {
     @Override
     public void render(FireflyEntity entity, float yaw, float tickDelta, MatrixStack matrixStack, VertexConsumerProvider vertexConsumerProvider, int i) {
         matrixStack.push();
-        matrixStack.scale(1.3F, 1.3F, 1F);
+        matrixStack.scale(1.5F, 1.F, 1F);
         matrixStack.translate(0, 0.1, 0);
         matrixStack.multiply(this.dispatcher.getRotation());
         matrixStack.multiply(Vec3f.POSITIVE_Y.getDegreesQuaternion(180.0F));
@@ -49,7 +49,7 @@ public class FireflyEntityRenderer extends EntityRenderer<FireflyEntity> {
 
         //OVERLAY
         matrixStack.push();
-        matrixStack.scale(1, 1, 1);
+        matrixStack.scale(1.5F, 1.5F, 1);
         matrixStack.translate(0, 0.1, 0);
         matrixStack.multiply(this.dispatcher.getRotation());
         matrixStack.multiply(Vec3f.POSITIVE_Y.getDegreesQuaternion(180.0F));
