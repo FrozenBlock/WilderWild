@@ -18,12 +18,11 @@ public class EffectPointParticle extends SpriteBillboardParticle {
         this.setSpriteForAge(this.spriteProvider);
     }
 
+    @Override
+    protected int getBrightness(float tint) { return 240; }
+
     public ParticleTextureSheet getType() {
         return ParticleTextureSheet.PARTICLE_SHEET_TRANSLUCENT;
-    }
-
-    public void tick() {
-        super.tick();
     }
 
     @Environment(EnvType.CLIENT)
