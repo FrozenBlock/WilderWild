@@ -15,7 +15,6 @@ public class TermiteParticle extends SpriteBillboardParticle {
         super(world, x, y, z, velocityX, velocityY, velocityZ);
         this.velocityMultiplier = 0.96F;
         this.spriteProvider = spriteProvider;
-        this.scale(1.0F);
         this.collidesWithWorld = false;
         this.setSpriteForAge(spriteProvider);
     }
