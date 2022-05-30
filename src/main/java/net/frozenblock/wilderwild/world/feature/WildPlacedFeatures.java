@@ -15,6 +15,8 @@ import static net.minecraft.world.gen.feature.VegetationPlacedFeatures.*;
 
 public class WildPlacedFeatures {
     //TREES
+    public static final RegistryEntry<PlacedFeature> BAOBAB_TREES = PlacedFeatures.register("baobab_trees",
+            WildConfiguredFeatures.BAOBAB_TREES, modifiers(RarityFilterPlacementModifier.of(50)));
     public static final RegistryEntry<PlacedFeature> NEW_TREES_MEADOW = PlacedFeatures.register("new_trees_meadow",
             WildConfiguredFeatures.NEW_MEADOW_TREES, modifiers(RarityFilterPlacementModifier.of(100)));
     public static final RegistryEntry<PlacedFeature> NEW_DARK_FOREST_VEGETATION = PlacedFeatures.register("new_dark_forest_vegetation",

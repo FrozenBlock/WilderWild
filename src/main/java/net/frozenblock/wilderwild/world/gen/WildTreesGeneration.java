@@ -67,5 +67,8 @@ public class WildTreesGeneration {
 
         BiomeModifications.addFeature(BiomeSelectors.includeByKey(BiomeKeys.MEADOW),
                 GenerationStep.Feature.VEGETAL_DECORATION, WildPlacedFeatures.NEW_TREES_MEADOW.getKey().get());
+
+        BiomeModifications.addFeature(BiomeSelectors.includeByKey(BiomeKeys.SAVANNA, BiomeKeys.SAVANNA_PLATEAU),
+                GenerationStep.Feature.VEGETAL_DECORATION, WildPlacedFeatures.BAOBAB_TREES.getKey().get());
     }
 }

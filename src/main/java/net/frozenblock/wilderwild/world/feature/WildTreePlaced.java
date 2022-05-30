@@ -32,6 +32,8 @@ public class WildTreePlaced {
     public static final RegistryEntry<PlacedFeature> SHORT_BIRCH;
     public static final RegistryEntry<PlacedFeature> NEW_FANCY_OAK_BEES;
     public static final RegistryEntry<PlacedFeature> NEW_SUPER_BIRCH_BEES;
+    public static final RegistryEntry<PlacedFeature> BAOBAB;
+    public static final RegistryEntry<PlacedFeature> BAOBAB_TALL;
 
     static {
         NEW_FANCY_OAK_BEES_0004 = PlacedFeatures.register("new_fancy_oak_bees_0004", WildTreeConfigured.NEW_FANCY_OAK_BEES_0004, PlacedFeatures.wouldSurvive(Blocks.OAK_SAPLING));
@@ -57,6 +59,8 @@ public class WildTreePlaced {
         SHORT_BIRCH = PlacedFeatures.register("short_birch", WildTreeConfigured.SHORT_BIRCH, PlacedFeatures.wouldSurvive(Blocks.BIRCH_SAPLING));
         NEW_FANCY_OAK_BEES = PlacedFeatures.register("new_fancy_oak_bees", WildTreeConfigured.NEW_FANCY_OAK_BEES, PlacedFeatures.wouldSurvive(Blocks.OAK_SAPLING));
         NEW_SUPER_BIRCH_BEES = PlacedFeatures.register("new_super_birch_bees", WildTreeConfigured.NEW_SUPER_BIRCH_BEES, PlacedFeatures.wouldSurvive(Blocks.BIRCH_SAPLING));
+        BAOBAB = PlacedFeatures.register("baobab", WildTreeConfigured.BAOBAB, PlacedFeatures.wouldSurvive(Blocks.ACACIA_SAPLING));
+        BAOBAB_TALL = PlacedFeatures.register("baobab_tall", WildTreeConfigured.BAOBAB_TALL, PlacedFeatures.wouldSurvive(Blocks.ACACIA_SAPLING));
     }
 
     public static void registerTreePlaced() {
