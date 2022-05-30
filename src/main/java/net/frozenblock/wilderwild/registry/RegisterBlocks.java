@@ -191,6 +191,7 @@ public abstract class RegisterBlocks {
 
 
     public static void registerBlocks() {
+        WilderWild.logWild("Registering Blocks for", true);
         Registry.register(Registry.BLOCK, new Identifier(WilderWild.MOD_ID, "flowered_lily_pad"), FLOWERED_LILY_PAD);
         Registry.register(Registry.ITEM, new Identifier(WilderWild.MOD_ID, "flowered_lily_pad"), new FloweredLilyPadItem(FLOWERED_LILY_PAD, new FabricItemSettings().group(ItemGroup.DECORATIONS)));
         CompostingChanceRegistry.INSTANCE.add(CARNATION, 0.65F);
@@ -202,6 +203,5 @@ public abstract class RegisterBlocks {
         CompostingChanceRegistry.INSTANCE.add(FLOWERED_LILY_PAD, 0.65F);
         CompostingChanceRegistry.INSTANCE.add(BROWN_SHELF_FUNGUS, 0.65F);
         CompostingChanceRegistry.INSTANCE.add(RED_SHELF_FUNGUS, 0.65F);
-        WilderWild.LOGGER.info("Registering Blocks for " + WilderWild.MOD_ID);
     }
 }

@@ -18,6 +18,7 @@ public class RegisterEntities {
 
 
     public static void init() {
+        WilderWild.logWild("Registering Entities for", true);
         //FabricDefaultAttributeRegistry.register(TENDRIL_ENTITY, SculkSensorTendrilEntity.createLivingAttributes());
         FabricDefaultAttributeRegistry.register(FIREFLY, FireflyEntity.addAttributes());
     }

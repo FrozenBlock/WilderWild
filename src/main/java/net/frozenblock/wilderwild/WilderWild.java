@@ -102,5 +102,10 @@ public class WilderWild implements ModInitializer {
             LOGGER.info(block.toString() + " : " + string + " : " + pos);
         }
     }
+    public static void logWild(String string, boolean shouldLog) {
+        if (shouldLog) {
+            LOGGER.info(string + " " + MOD_ID);
+        }
+    }
 
 }

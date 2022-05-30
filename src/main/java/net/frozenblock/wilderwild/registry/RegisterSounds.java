@@ -111,7 +111,7 @@ public class RegisterSounds {
     }
 
     public static void init() {
-        //Loads the class for registry
+        WilderWild.logWild("Registering SoundEvents for", true);
     }
 
 }
