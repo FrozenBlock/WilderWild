@@ -27,11 +27,14 @@ public class FireflyEntityRenderer extends EntityRenderer<FireflyEntity> {
     private final RenderLayer LAYER = RenderLayer.getEntityCutout(TEXTURE);
     private final RenderLayer OVERLAY = RenderLayer.getEntityTranslucentEmissive(OVERLAY_TEXTURE);
 
+    private final float scale = 1.5F;
+    private final double yOffset = 0.2F;
+
     @Override
     public void render(FireflyEntity entity, float yaw, float tickDelta, MatrixStack matrixStack, VertexConsumerProvider vertexConsumerProvider, int i) {
         matrixStack.push();
-        matrixStack.scale(1.5F, 1.5F, 1F);
-        matrixStack.translate(0, 0.1, 0);
+        matrixStack.scale(scale, scale, scale);
+        matrixStack.translate(0, yOffset, 0);
         matrixStack.multiply(this.dispatcher.getRotation());
         matrixStack.multiply(Vec3f.POSITIVE_Y.getDegreesQuaternion(180.0F));
 
@@ -49,8 +52,8 @@ public class FireflyEntityRenderer extends EntityRenderer<FireflyEntity> {
 
         //OVERLAY
         matrixStack.push();
-        matrixStack.scale(1.5F, 1.5F, 1);
-        matrixStack.translate(0, 0.1, 0);
+        matrixStack.scale(scale, scale, scale);
+        matrixStack.translate(0, yOffest, 0);
         matrixStack.multiply(this.dispatcher.getRotation());
         matrixStack.multiply(Vec3f.POSITIVE_Y.getDegreesQuaternion(180.0F));
 
