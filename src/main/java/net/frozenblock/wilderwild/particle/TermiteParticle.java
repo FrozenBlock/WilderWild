@@ -41,7 +41,7 @@ public class TermiteParticle extends SpriteBillboardParticle {
             termite.setAlpha(1.0F);
             termite.setVelocity(g, h, i);
             termite.setMaxAge(clientWorld.random.nextInt(4) + 6);
-            termite.scale(1.4F);
+            termite.scale(2.0F);
             return termite;
         }
 
