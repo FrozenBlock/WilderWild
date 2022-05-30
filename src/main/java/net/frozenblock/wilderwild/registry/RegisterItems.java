@@ -21,7 +21,7 @@ public class RegisterItems {
     public static final MusicDiscItem MUSIC_DISC_GOATHORN_SYMPHONY = MusicDiscItemInvoker.invokeConstructor(15, RegisterSounds.MUSIC_DISC_GOATHORN_SYMPHONY, new FabricItemSettings().group(ItemGroup.MISC).maxCount(1).rarity(Rarity.RARE));
     public static final MusicDiscItem MUSIC_DISC_THE_OTHER_SIDE = MusicDiscItemInvoker.invokeConstructor(15, RegisterSounds.MUSIC_DISC_THE_OTHER_SIDE, new FabricItemSettings().group(ItemGroup.MISC).maxCount(1).rarity(Rarity.RARE));
     public static final Item FIREFLY_SPAWN_EGG = new SpawnEggItem(RegisterEntities.FIREFLY, Integer.parseInt("2A2E2B", 16), Integer.parseInt("AAF644", 16), new FabricItemSettings().group(ItemGroup.MISC));
-    public static final Item FIREFLY_BOTTLE = new FireflyBottleItem(new FabricItemSettings().group(ItemGroup.MISC).maxCount(16));
+    public static final Item FIREFLY_BOTTLE = new FireflyBottleItem(new FabricItemSettings().group(ItemGroup.MISC).maxCount(32));
 
 
     public static void registerItems() {

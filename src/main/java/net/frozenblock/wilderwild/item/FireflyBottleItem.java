@@ -3,11 +3,11 @@ package net.frozenblock.wilderwild.item;
 import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.entity.FireflyEntity;
 import net.frozenblock.wilderwild.registry.RegisterEntities;
+import net.frozenblock.wilderwild.registry.RegisterItems;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
+import net.minecraft.item.ItemUsage;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.Hand;
@@ -42,9 +42,9 @@ public class FireflyBottleItem extends Item {
                     entity.setFromBottle(true);
                     boolean spawned = server.spawnEntity(entity);
                     if (spawned) {
-                        itemStack.decrement(1);
-                        PlayerInventory inv = user.getInventory();
-                        inv.offerOrDrop(new ItemStack(Items.GLASS_BOTTLE));
+                        ItemStack itemStack2 = new ItemStack(RegisterItems.FIREFLY_BOTTLE);
+                        ItemStack itemStack3 = ItemUsage.exchangeStack(itemStack, user, itemStack2, true);
+                        user.setStackInHand(hand, itemStack3);
                     }
                 }
             }
