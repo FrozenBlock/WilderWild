@@ -15,6 +15,7 @@ public class EffectPointParticle extends SpriteBillboardParticle {
         this.velocityMultiplier = 0.96F;
         this.spriteProvider = spriteProvider;
         this.collidesWithWorld = false;
+        this.setSpriteForAge(this.spriteProvider);
     }
 
     public ParticleTextureSheet getType() {
@@ -23,9 +24,6 @@ public class EffectPointParticle extends SpriteBillboardParticle {
 
     public void tick() {
         super.tick();
-        if (!this.dead) {
-            this.setSprite(spriteProvider.getSprite(1, this.maxAge));
-        }
     }
 
     @Environment(EnvType.CLIENT)
