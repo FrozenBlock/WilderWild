@@ -4,10 +4,12 @@ import net.frozenblock.wilderwild.registry.RegisterProperties;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.brain.MemoryModuleType;
+import net.minecraft.entity.damage.ProjectileDamageSource;
 import net.minecraft.entity.mob.Angriness;
 import net.minecraft.entity.mob.WardenBrain;
 import net.minecraft.entity.mob.WardenEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.projectile.ProjectileEntity;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundEvents;
@@ -55,22 +57,16 @@ public class WardenEntityMixin {
                 LivingEntity livingEntity = (LivingEntity)entity;
                 if (!(entity instanceof PlayerEntity player)) {
                     warden.increaseAngerAt(entity, Angriness.ANGRY.getThreshold() + 20, false);
-                    if (warden.getBrain().getOptionalMemory(MemoryModuleType.ROAR_TARGET).isEmpty()) {
-                        warden.getBrain().remember(MemoryModuleType.ROAR_TARGET, livingEntity);
-                        warden.getBrain().forget(MemoryModuleType.CANT_REACH_WALK_TARGET_SINCE);
-                    }
-                    if (!warden.isInPose(EntityPose.ROARING) && !warden.chargingSonicBoomAnimationState.isRunning()) {
-                        warden.tryAttack(entity);
+
+                    if (!livingEntity.isDead() && warden.getBrain().getOptionalMemory(MemoryModuleType.ATTACK_TARGET).isEmpty()) {
+                        warden.updateAttackTarget(livingEntity);
                     }
                 } else {
                     if (!player.isCreative()) {
                         warden.increaseAngerAt(entity, Angriness.ANGRY.getThreshold() + 20, false);
-                        if (warden.getBrain().getOptionalMemory(MemoryModuleType.ROAR_TARGET).isEmpty()) {
-                            warden.getBrain().remember(MemoryModuleType.ROAR_TARGET, livingEntity);
-                            warden.getBrain().forget(MemoryModuleType.CANT_REACH_WALK_TARGET_SINCE);
-                        }
-                        if (!warden.isInPose(EntityPose.ROARING) && !warden.chargingSonicBoomAnimationState.isRunning()) {
-                            warden.tryAttack(entity);
+
+                        if (!player.isDead() && warden.getBrain().getOptionalMemory(MemoryModuleType.ATTACK_TARGET).isEmpty()) {
+                            warden.updateAttackTarget(player);
                         }
                     }
                 }
