@@ -18,6 +18,9 @@ import net.minecraft.entity.ai.pathing.EntityNavigation;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.damage.DamageSource;
+import net.minecraft.entity.data.DataTracker;
+import net.minecraft.entity.data.TrackedData;
+import net.minecraft.entity.data.TrackedDataHandlerRegistry;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.mob.PathAwareEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -45,6 +48,7 @@ public class FireflyEntity extends PathAwareEntity implements Flutterer {
     private static final Logger LOGGER = LogUtils.getLogger();
     protected static final ImmutableList<SensorType<? extends Sensor<? super FireflyEntity>>> SENSORS = ImmutableList.of(SensorType.NEAREST_LIVING_ENTITIES, SensorType.HURT_BY);
     protected static final ImmutableList<MemoryModuleType<?>> MEMORY_MODULES = ImmutableList.of(MemoryModuleType.PATH, MemoryModuleType.VISIBLE_MOBS, MemoryModuleType.WALK_TARGET, MemoryModuleType.CANT_REACH_WALK_TARGET_SINCE);
+    private static final TrackedData<Boolean> FROM_BOTTLE = DataTracker.registerData(FireflyEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
 
     public boolean flickers;
     public int fakeAge;
@@ -53,6 +57,11 @@ public class FireflyEntity extends PathAwareEntity implements Flutterer {
     public FireflyEntity(EntityType<? extends PathAwareEntity> entityType, World world) {
         super(entityType, world);
         this.moveControl = new FlightMoveControl(this, 20, true);
+    }
+
+    protected void initDataTracker() {
+        super.initDataTracker();
+        this.dataTracker.startTracking(FROM_BOTTLE, false);
     }
 
     public ActionResult interactMob(PlayerEntity player, Hand hand) {
@@ -91,6 +100,18 @@ public class FireflyEntity extends PathAwareEntity implements Flutterer {
 
     protected Brain<?> deserializeBrain(Dynamic<?> dynamic) {
         return FireflyBrain.create(this.createBrainProfile().deserialize(dynamic));
+    }
+
+    public boolean isFromBottle() {
+        return this.dataTracker.get(FROM_BOTTLE);
+    }
+
+    public void setFromBottle(boolean value) {
+        this.dataTracker.set(FROM_BOTTLE, value);
+    }
+
+    public boolean cannotDespawn() {
+        return super.cannotDespawn() || this.isFromBottle();
     }
 
     public float getPathfindingFavor(BlockPos pos, WorldView world) {
@@ -190,10 +211,12 @@ public class FireflyEntity extends PathAwareEntity implements Flutterer {
 
     public void writeCustomDataToNbt(NbtCompound nbt) {
         super.writeCustomDataToNbt(nbt);
+        nbt.putBoolean("fromBottle", this.isFromBottle());
     }
 
     public void readCustomDataFromNbt(NbtCompound nbt) {
         super.readCustomDataFromNbt(nbt);
+        this.setFromBottle(nbt.getBoolean("fromBottle"));
     }
 
     protected boolean shouldFollowLeash() {
