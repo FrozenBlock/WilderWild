@@ -39,6 +39,7 @@ public class FireflyBottleItem extends Item {
                     entity.playSound(SoundEvents.ITEM_BOTTLE_EMPTY, 1.0F, 1.0F);
                     entity.setVelocity(f * 0.7, g * 0.7, h * 0.7);
                     entity.refreshPositionAndAngles(user.getX(), user.getEyeY(), user.getZ(), user.getPitch(), user.getYaw());
+                    entity.setFromBottle(true);
                     boolean spawned = server.spawnEntity(entity);
                     if (spawned) {
                         itemStack.decrement(1);
