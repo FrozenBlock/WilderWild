@@ -94,6 +94,9 @@ public class FireflyEntity extends PathAwareEntity implements Flutterer {
         return !world.containsFluid(this.getBoundingBox()) && world.isSkyVisible(this.getBlockPos());
     }
 
+    @Override
+    public boolean canBeLeashedBy(PlayerEntity player) { return false; }
+
     protected Brain.Profile<FireflyEntity> createBrainProfile() {
         return Brain.createProfile(MEMORY_MODULES, SENSORS);
     }
