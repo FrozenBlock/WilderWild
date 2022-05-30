@@ -4,7 +4,9 @@ import com.google.common.collect.ImmutableList;
 import com.mojang.logging.LogUtils;
 import com.mojang.serialization.Dynamic;
 import net.frozenblock.wilderwild.entity.ai.FireflyBrain;
+import net.frozenblock.wilderwild.registry.RegisterItems;
 import net.frozenblock.wilderwild.registry.RegisterSounds;
+import net.minecraft.advancement.criterion.Criteria;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.brain.Brain;
@@ -19,17 +21,27 @@ import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.mob.PathAwareEntity;
+import net.minecraft.entity.passive.AxolotlEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.ItemUsage;
+import net.minecraft.item.Items;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.server.network.DebugInfoSender;
+import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundEvent;
+import net.minecraft.sound.SoundEvents;
+import net.minecraft.util.ActionResult;
+import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldAccess;
 import net.minecraft.world.WorldView;
 import org.slf4j.Logger;
+
+import java.util.Optional;
 
 public class FireflyEntity extends PathAwareEntity implements Flutterer {
 
@@ -44,6 +56,26 @@ public class FireflyEntity extends PathAwareEntity implements Flutterer {
     public FireflyEntity(EntityType<? extends PathAwareEntity> entityType, World world) {
         super(entityType, world);
         this.moveControl = new FlightMoveControl(this, 20, true);
+    }
+
+    public ActionResult interactMob(PlayerEntity player, Hand hand) {
+        return tryCapture(player, hand, this).orElse(super.interactMob(player, hand));
+    }
+
+    public static Optional<ActionResult> tryCapture(PlayerEntity player, Hand hand, FireflyEntity entity) {
+        ItemStack itemStack = player.getStackInHand(hand);
+        if (itemStack.getItem() == Items.WATER_BUCKET && entity.isAlive()) {
+            //TODO: FIREFLY BOTTLE SOUNDS
+            entity.playSound(SoundEvents.ITEM_BOTTLE_FILL, 1.0F, 1.0F);
+            ItemStack itemStack2 = new ItemStack(RegisterItems.FIREFLY_BOTTLE);
+            ItemStack itemStack3 = ItemUsage.exchangeStack(itemStack, player, itemStack2, true);
+            player.setStackInHand(hand, itemStack3);
+            World world = entity.world;
+            entity.discard();
+            return Optional.of(ActionResult.success(world.isClient));
+        } else {
+            return Optional.empty();
+        }
     }
 
     @Override
