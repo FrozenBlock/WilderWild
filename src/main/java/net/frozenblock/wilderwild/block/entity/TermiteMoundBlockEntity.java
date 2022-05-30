@@ -182,9 +182,9 @@ public class TermiteMoundBlockEntity extends BlockEntity {
             if (canMove(world, this.pos)) {
                 BlockState blockState = world.getBlockState(this.pos);
                 Block block = blockState.getBlock();
-                boolean edible = EDIBLE.containsKey(block);
+                boolean degradable = degradableBlocks.contains(block);
                 boolean breakable = blockState.isIn(WildBlockTags.TERMITE_BREAKABLE);
-                if (edible || breakable) {
+                if (degradable || breakable) {
                     exit = true;
                     int additionalPower = breakable ? 2 : 1;
                     this.blockDestroyPower+=additionalPower;
@@ -196,7 +196,7 @@ public class TermiteMoundBlockEntity extends BlockEntity {
                         } else {
                             Direction.Axis axis = blockState.contains(Properties.AXIS) ? blockState.get(Properties.AXIS) : Direction.Axis.X;
                             world.addBlockBreakParticles(this.pos, blockState);
-                            BlockState setState = EDIBLE.get(block).getDefaultState();
+                            BlockState setState = degradableBlockResults.get(degradableBlocks.indexOf(block)).getDefaultState();
                             if (setState.contains(Properties.AXIS)) { setState = setState.with(Properties.AXIS, axis); }
                             world.setBlockState(this.pos, setState);
                         }
@@ -214,7 +214,7 @@ public class TermiteMoundBlockEntity extends BlockEntity {
                         return true;
                     } else {
                         this.update = 1;
-                        BlockPos priority = edibleBreakablePos(world, this.pos);
+                        BlockPos priority = degradableBreakablePos(world, this.pos);
                         if (priority != null) {
                             this.pos = priority;
                             exit = true;
@@ -242,7 +242,7 @@ public class TermiteMoundBlockEntity extends BlockEntity {
         @Nullable
         public static BlockPos ledgePos(World world, BlockPos pos) {
             BlockState state = world.getBlockState(pos);
-            if (EDIBLE.containsKey(state.getBlock()) || state.isIn(WildBlockTags.TERMITE_BREAKABLE)) { return pos; }
+            if (degradableBlocks.contains(state.getBlock()) || state.isIn(WildBlockTags.TERMITE_BREAKABLE)) { return pos; }
             pos = pos.down();
             state = world.getBlockState(pos);
             if (!state.isAir() && isBlockMovable(state, Direction.DOWN) && exposedToAir(world, pos)) { return pos; }
@@ -253,13 +253,13 @@ public class TermiteMoundBlockEntity extends BlockEntity {
         }
 
         @Nullable
-        public static BlockPos edibleBreakablePos(World world, BlockPos pos) {
+        public static BlockPos degradableBreakablePos(World world, BlockPos pos) {
             List<Direction> directions = Util.copyShuffled(Direction.values(), world.random);
             BlockState upState = world.getBlockState(pos.offset(Direction.UP));
-            if (EDIBLE.containsKey(upState.getBlock()) || upState.isIn(WildBlockTags.TERMITE_BREAKABLE)) { return pos.offset(Direction.UP); }
+            if (degradableBlocks.contains(upState.getBlock()) || upState.isIn(WildBlockTags.TERMITE_BREAKABLE)) { return pos.offset(Direction.UP); }
             for (Direction direction : directions) {
                 BlockState state = world.getBlockState(pos.offset(direction));
-                if (EDIBLE.containsKey(state.getBlock()) || state.isIn(WildBlockTags.TERMITE_BREAKABLE)) { return pos.offset(direction); }
+                if (degradableBlocks.contains(state.getBlock()) || state.isIn(WildBlockTags.TERMITE_BREAKABLE)) { return pos.offset(direction); }
             }
             return null;
         }
@@ -267,7 +267,7 @@ public class TermiteMoundBlockEntity extends BlockEntity {
         public static boolean exposedToAir(World world, BlockPos pos) {
             for (Direction direction : Direction.values()) {
                 BlockState state = world.getBlockState(pos.offset(direction));
-                if (state.isAir() || (!state.isSolidBlock(world, pos.offset(direction)) && !state.isIn(WildBlockTags.BLOCKS_TERMITE)) || EDIBLE.containsKey(state.getBlock()) || state.isIn(WildBlockTags.TERMITE_BREAKABLE)) {
+                if (state.isAir() || (!state.isSolidBlock(world, pos.offset(direction)) && !state.isIn(WildBlockTags.BLOCKS_TERMITE)) || degradableBlocks.contains(state.getBlock()) || state.isIn(WildBlockTags.TERMITE_BREAKABLE)) {
                     return true;
                 }
             } return false;
@@ -308,35 +308,42 @@ public class TermiteMoundBlockEntity extends BlockEntity {
         public boolean getNatural() {
             return this.natural;
         }
-        public static final Object2ObjectMap<Block, Block> EDIBLE = Object2ObjectMaps.unmodifiable(Util.make(new Object2ObjectOpenHashMap<>(), (map) -> {
-            map.put(Blocks.ACACIA_LOG, RegisterBlocks.HOLLOWED_ACACIA_LOG);
-            map.put(Blocks.OAK_LOG, RegisterBlocks.HOLLOWED_OAK_LOG);
-            map.put(Blocks.BIRCH_LOG, RegisterBlocks.HOLLOWED_BIRCH_LOG);
-            map.put(Blocks.DARK_OAK_LOG, RegisterBlocks.HOLLOWED_DARK_OAK_LOG);
-            map.put(Blocks.JUNGLE_LOG, RegisterBlocks.HOLLOWED_JUNGLE_LOG);
-            map.put(Blocks.MANGROVE_LOG, RegisterBlocks.HOLLOWED_MANGROVE_LOG);
-            map.put(Blocks.SPRUCE_LOG, RegisterBlocks.HOLLOWED_SPRUCE_LOG);
-            map.put(Blocks.STRIPPED_ACACIA_LOG, Blocks.AIR);
-            map.put(Blocks.STRIPPED_OAK_LOG, Blocks.AIR);
-            map.put(Blocks.STRIPPED_BIRCH_LOG, Blocks.AIR);
-            map.put(Blocks.STRIPPED_DARK_OAK_LOG, Blocks.AIR);
-            map.put(Blocks.STRIPPED_JUNGLE_LOG, Blocks.AIR);
-            map.put(Blocks.STRIPPED_MANGROVE_LOG, Blocks.AIR);
-            map.put(Blocks.STRIPPED_SPRUCE_LOG, Blocks.AIR);
-            map.put(Blocks.ACACIA_WOOD, Blocks.STRIPPED_ACACIA_WOOD);
-            map.put(Blocks.OAK_WOOD, Blocks.STRIPPED_OAK_WOOD);
-            map.put(Blocks.BIRCH_WOOD, Blocks.STRIPPED_BIRCH_WOOD);
-            map.put(Blocks.DARK_OAK_WOOD, Blocks.STRIPPED_DARK_OAK_WOOD);
-            map.put(Blocks.JUNGLE_WOOD, Blocks.STRIPPED_JUNGLE_WOOD);
-            map.put(Blocks.MANGROVE_WOOD, Blocks.STRIPPED_MANGROVE_WOOD);
-            map.put(Blocks.SPRUCE_WOOD, Blocks.STRIPPED_SPRUCE_WOOD);
-            map.put(Blocks.STRIPPED_ACACIA_WOOD, Blocks.AIR);
-            map.put(Blocks.STRIPPED_OAK_WOOD, Blocks.AIR);
-            map.put(Blocks.STRIPPED_BIRCH_WOOD, Blocks.AIR);
-            map.put(Blocks.STRIPPED_DARK_OAK_WOOD, Blocks.AIR);
-            map.put(Blocks.STRIPPED_JUNGLE_WOOD, Blocks.AIR);
-            map.put(Blocks.STRIPPED_MANGROVE_WOOD, Blocks.AIR);
-            map.put(Blocks.STRIPPED_SPRUCE_WOOD, Blocks.AIR);
-        }));
+
+        public static ArrayList<Block> degradableBlocks = new ArrayList<>();
+        public static ArrayList<Block> degradableBlockResults = new ArrayList<>();
+        public static void addDegradableBlocks() {
+            addDegradable(Blocks.ACACIA_LOG, RegisterBlocks.HOLLOWED_ACACIA_LOG);
+            addDegradable(Blocks.OAK_LOG, RegisterBlocks.HOLLOWED_OAK_LOG);
+            addDegradable(Blocks.BIRCH_LOG, RegisterBlocks.HOLLOWED_BIRCH_LOG);
+            addDegradable(Blocks.DARK_OAK_LOG, RegisterBlocks.HOLLOWED_DARK_OAK_LOG);
+            addDegradable(Blocks.JUNGLE_LOG, RegisterBlocks.HOLLOWED_JUNGLE_LOG);
+            addDegradable(Blocks.MANGROVE_LOG, RegisterBlocks.HOLLOWED_MANGROVE_LOG);
+            addDegradable(Blocks.SPRUCE_LOG, RegisterBlocks.HOLLOWED_SPRUCE_LOG);
+            addDegradable(Blocks.STRIPPED_ACACIA_LOG, Blocks.AIR);
+            addDegradable(Blocks.STRIPPED_OAK_LOG, Blocks.AIR);
+            addDegradable(Blocks.STRIPPED_BIRCH_LOG, Blocks.AIR);
+            addDegradable(Blocks.STRIPPED_DARK_OAK_LOG, Blocks.AIR);
+            addDegradable(Blocks.STRIPPED_JUNGLE_LOG, Blocks.AIR);
+            addDegradable(Blocks.STRIPPED_MANGROVE_LOG, Blocks.AIR);
+            addDegradable(Blocks.STRIPPED_SPRUCE_LOG, Blocks.AIR);
+            addDegradable(Blocks.ACACIA_WOOD, Blocks.STRIPPED_ACACIA_WOOD);
+            addDegradable(Blocks.OAK_WOOD, Blocks.STRIPPED_OAK_WOOD);
+            addDegradable(Blocks.BIRCH_WOOD, Blocks.STRIPPED_BIRCH_WOOD);
+            addDegradable(Blocks.DARK_OAK_WOOD, Blocks.STRIPPED_DARK_OAK_WOOD);
+            addDegradable(Blocks.JUNGLE_WOOD, Blocks.STRIPPED_JUNGLE_WOOD);
+            addDegradable(Blocks.MANGROVE_WOOD, Blocks.STRIPPED_MANGROVE_WOOD);
+            addDegradable(Blocks.SPRUCE_WOOD, Blocks.STRIPPED_SPRUCE_WOOD);
+            addDegradable(Blocks.STRIPPED_ACACIA_WOOD, Blocks.AIR);
+            addDegradable(Blocks.STRIPPED_OAK_WOOD, Blocks.AIR);
+            addDegradable(Blocks.STRIPPED_BIRCH_WOOD, Blocks.AIR);
+            addDegradable(Blocks.STRIPPED_DARK_OAK_WOOD, Blocks.AIR);
+            addDegradable(Blocks.STRIPPED_JUNGLE_WOOD, Blocks.AIR);
+            addDegradable(Blocks.STRIPPED_MANGROVE_WOOD, Blocks.AIR);
+            addDegradable(Blocks.STRIPPED_SPRUCE_WOOD, Blocks.AIR);
+        }
+        public static void addDegradable(Block degradable, Block result) {
+            degradableBlocks.add(degradable);
+            degradableBlockResults.add(result);
+        }
     }
 }

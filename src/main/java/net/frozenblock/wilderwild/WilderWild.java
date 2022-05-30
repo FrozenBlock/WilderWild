@@ -2,6 +2,7 @@ package net.frozenblock.wilderwild;
 
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
+import net.frozenblock.wilderwild.block.entity.TermiteMoundBlockEntity;
 import net.frozenblock.wilderwild.misc.BlockSoundGroupOverwrites;
 import net.frozenblock.wilderwild.misc.CameraItem;
 import net.frozenblock.wilderwild.mixin.worldgen.TrunkPlacerTypeInvoker;
@@ -70,6 +71,8 @@ public class WilderWild implements ModInitializer {
         //if (FabricLoader.getInstance().isDevelopmentEnvironment()) { /* DEV-ONLY */
             Registry.register(Registry.ITEM, new Identifier(WilderWild.MOD_ID, "camera"), CAMERA_ITEM);
         //}
+
+        TermiteMoundBlockEntity.Termite.addDegradableBlocks();
     }
 
     public static final Identifier SEED_PACKET = new Identifier("seed_particle_packet");
