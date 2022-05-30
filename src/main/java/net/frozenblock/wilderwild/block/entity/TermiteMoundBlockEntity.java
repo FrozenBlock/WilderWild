@@ -121,7 +121,6 @@ public class TermiteMoundBlockEntity extends BlockEntity {
                 this.addTermite(pos);
                 //TODO: TERMITE SPAWN (EXIT MOUND,) DESPAWN, EATING, AND MOVING SOUNDS
                 world.playSound(null, this.pos, SoundEvents.BLOCK_BEEHIVE_EXIT, SoundCategory.NEUTRAL, 1.0F, 1.0F);
-                EasyParticlePacket.EasyEffectsPacket.createPointParticle(world, Vec3d.ofCenter(this.pos), 4);
                 this.ticksToNextTermite = this.getCachedState().get(RegisterProperties.NATURAL) ? 320 : 200;
             }
         }

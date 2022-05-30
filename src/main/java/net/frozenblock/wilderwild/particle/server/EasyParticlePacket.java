@@ -83,19 +83,4 @@ public class EasyParticlePacket {
             }
         }
     }
-
-    public static class EasyEffectsPacket {
-        public static void createPointParticle(World world, Vec3d pos, int count) {
-            if (world.isClient)
-                throw new IllegalStateException("Particle attempting spawning on THE CLIENT JESUS CHRIST WHAT THE HECK");
-            PacketByteBuf byteBuf = new PacketByteBuf(Unpooled.buffer());
-            byteBuf.writeDouble(pos.x);
-            byteBuf.writeDouble(pos.y);
-            byteBuf.writeDouble(pos.z);
-            byteBuf.writeVarInt(count);
-            for (ServerPlayerEntity player : PlayerLookup.tracking((ServerWorld)world, new BlockPos(pos))) {
-                ServerPlayNetworking.send(player, WilderWild.EFFECT_POINT_PARTICLE_PACKET, byteBuf);
-            }
-        }
-    }
 }

@@ -12,7 +12,6 @@ import net.frozenblock.wilderwild.entity.AncientHornProjectileEntity;
 import net.frozenblock.wilderwild.entity.render.AncientHornProjectileModel;
 import net.frozenblock.wilderwild.entity.render.AncientHornProjectileRenderer;
 import net.frozenblock.wilderwild.entity.render.FireflyEntityRenderer;
-import net.frozenblock.wilderwild.particle.EffectPointParticle;
 import net.frozenblock.wilderwild.particle.FloatingSculkBubbleParticle;
 import net.frozenblock.wilderwild.particle.PollenParticle;
 import net.frozenblock.wilderwild.particle.TermiteParticle;
@@ -69,7 +68,6 @@ public class WildClientMod implements ClientModInitializer {
         ParticleFactoryRegistry.getInstance().register(RegisterParticles.CONTROLLED_MILKWEED_SEED, PollenParticle.ControlledMilkweedFactory::new);
         ParticleFactoryRegistry.getInstance().register(RegisterParticles.FLOATING_SCULK_BUBBLE, FloatingSculkBubbleParticle.BubbleFactory::new);
         ParticleFactoryRegistry.getInstance().register(RegisterParticles.TERMITE, TermiteParticle.Factory::new);
-        ParticleFactoryRegistry.getInstance().register(RegisterParticles.EFFECT_POINT, EffectPointParticle.Factory::new);
 
         EntityRendererRegistry.register(RegisterEntities.FIREFLY, FireflyEntityRenderer::new);
         EntityRendererRegistry.register(RegisterEntities.ANCIENT_HORN_PROJECTILE_ENTITY, AncientHornProjectileRenderer::new);
@@ -80,7 +78,6 @@ public class WildClientMod implements ClientModInitializer {
         receiveSeedPacket();
         receiveControlledSeedPacket();
         receiveTermitePacket();
-        receiveEffectPointPacket();
 
         ColorProviderRegistry.BLOCK.register(((state, world, pos, tintIndex) -> {
             if (world == null || pos == null) {
@@ -177,20 +174,6 @@ public class WildClientMod implements ClientModInitializer {
                     throw new IllegalStateException("why is your world null");
                 for (int i=0; i<count; i++) {
                     MinecraftClient.getInstance().world.addParticle(RegisterParticles.TERMITE, pos.x, pos.y, pos.z, AdvancedMath.randomPosNeg()/7,AdvancedMath.randomPosNeg()/7,AdvancedMath.randomPosNeg()/7);
-                }
-            });
-        });
-    }
-
-    public void receiveEffectPointPacket() {
-        ClientPlayNetworking.registerGlobalReceiver(WilderWild.EFFECT_POINT_PARTICLE_PACKET, (ctx, handler, byteBuf, responseSender) -> {
-            Vec3d pos = new Vec3d(byteBuf.readDouble(), byteBuf.readDouble(), byteBuf.readDouble());
-            int count = byteBuf.readVarInt();
-            ctx.execute(() -> {
-                if (MinecraftClient.getInstance().world == null)
-                    throw new IllegalStateException("why is your world null");
-                for (int i=0; i<count; i++) {
-                    MinecraftClient.getInstance().world.addParticle(RegisterParticles.EFFECT_POINT, pos.x, pos.y, pos.z, AdvancedMath.randomPosNeg()/7,AdvancedMath.randomPosNeg()/7,AdvancedMath.randomPosNeg()/7);
                 }
             });
         });
