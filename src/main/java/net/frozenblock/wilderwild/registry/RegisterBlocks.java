@@ -190,7 +190,7 @@ public abstract class RegisterBlocks {
     }
 
 
-    public static void RegisterBlocks() {
+    public static void registerBlocks() {
         Registry.register(Registry.BLOCK, new Identifier(WilderWild.MOD_ID, "flowered_lily_pad"), FLOWERED_LILY_PAD);
         Registry.register(Registry.ITEM, new Identifier(WilderWild.MOD_ID, "flowered_lily_pad"), new FloweredLilyPadItem(FLOWERED_LILY_PAD, new FabricItemSettings().group(ItemGroup.DECORATIONS)));
         CompostingChanceRegistry.INSTANCE.add(CARNATION, 0.65F);

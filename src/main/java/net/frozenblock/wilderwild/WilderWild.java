@@ -45,8 +45,8 @@ public class WilderWild implements ModInitializer {
 
     @Override
     public void onInitialize() {
-        RegisterBlocks.RegisterBlocks();
-        RegisterItems.RegisterItems();
+        RegisterBlocks.registerBlocks();
+        RegisterItems.registerItems();
         WildConfiguredFeatures.registerConfiguredFeatures();
         WildTreeConfigured.registerTreeConfigured();
         WildTreePlaced.registerTreePlaced();
@@ -58,7 +58,7 @@ public class WilderWild implements ModInitializer {
 
         RegisterSounds.init();
         RegisterBlockSoundGroups.init();
-        RegisterBlockEntityType.init();
+        RegisterBlockEntityType.register();
         RegisterEntities.init();
         RegisterEnchantments.init();
         BlockSoundGroupOverwrites.init();
