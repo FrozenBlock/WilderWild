@@ -26,7 +26,9 @@ public class TermiteParticle extends SpriteBillboardParticle {
 
     public void tick() {
         super.tick();
-        this.setSpriteForAge(this.spriteProvider);
+        if (!this.dead) {
+            this.setSprite(spriteProvider.getSprite(this.random.nextInt(this.maxAge), this.maxAge));
+        }
     }
 
     @Environment(EnvType.CLIENT)
@@ -40,6 +42,7 @@ public class TermiteParticle extends SpriteBillboardParticle {
             termite.setAlpha(1.0F);
             termite.setVelocity(g, h, i);
             termite.setMaxAge(clientWorld.random.nextInt(4) + 6);
+            termite.scale(1.4F);
             return termite;
         }
 

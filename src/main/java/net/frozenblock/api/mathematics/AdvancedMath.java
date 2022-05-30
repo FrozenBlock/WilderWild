@@ -18,7 +18,7 @@ public class AdvancedMath {
         return (number * max) + min;
     }
 
-    public static double randomNegative() {
+    public static double randomPosNeg() {
         return Math.random() * (Math.random()>=0.5 ? 1 : -1);
     }
 }
