@@ -48,12 +48,12 @@ public class FireflyEntity extends PathAwareEntity implements Flutterer {
 
     @Override
     public boolean canSpawn(WorldAccess world, SpawnReason spawnReason) {
-        return super.canSpawn(world, spawnReason);
+        return world.isSkyVisible(this.getBlockPos()) || spawnReason!=SpawnReason.NATURAL;
     }
 
     @Override
     public boolean canSpawn(WorldView world) {
-        return !world.containsFluid(this.getBoundingBox());
+        return !world.containsFluid(this.getBoundingBox()) && world.isSkyVisible(this.getBlockPos());
     }
 
     protected Brain.Profile<FireflyEntity> createBrainProfile() {
