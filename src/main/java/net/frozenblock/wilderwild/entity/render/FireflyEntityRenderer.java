@@ -53,7 +53,7 @@ public class FireflyEntityRenderer extends EntityRenderer<FireflyEntity> {
         //OVERLAY
         matrixStack.push();
         matrixStack.scale(scale, scale, scale);
-        matrixStack.translate(0, yOffest, 0);
+        matrixStack.translate(0, yOffset, 0);
         matrixStack.multiply(this.dispatcher.getRotation());
         matrixStack.multiply(Vec3f.POSITIVE_Y.getDegreesQuaternion(180.0F));
 
