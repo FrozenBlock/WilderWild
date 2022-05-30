@@ -105,7 +105,7 @@ public class TermiteMoundBlockEntity extends BlockEntity {
         for (Termite termite : this.termites) {
             if (termite.tick(world)) {
                 //TODO: TERMITE SPAWNING, MOVING, AND EATING TEXTURES + PARTICLES
-                EasyParticlePacket.EasyTermitePacket.createParticle(world, Vec3d.ofCenter(termite.pos), 5);
+                EasyParticlePacket.EasyTermitePacket.createParticle(world, Vec3d.ofCenter(termite.pos), termite.eating ? 5 : 9);
             } else {
                 world.playSound(null, termite.pos, SoundEvents.BLOCK_BEEHIVE_ENTER, SoundCategory.NEUTRAL, 1.0F, 1.0F);
                 termitesToRemove.add(termite);
@@ -121,6 +121,7 @@ public class TermiteMoundBlockEntity extends BlockEntity {
                 this.addTermite(pos);
                 //TODO: TERMITE SPAWN (EXIT MOUND,) DESPAWN, EATING, AND MOVING SOUNDS
                 world.playSound(null, this.pos, SoundEvents.BLOCK_BEEHIVE_EXIT, SoundCategory.NEUTRAL, 1.0F, 1.0F);
+                EasyParticlePacket.EasyEffectsPacket.createPointParticle(world, Vec3d.ofCenter(this.pos), 4);
                 this.ticksToNextTermite = this.getCachedState().get(RegisterProperties.NATURAL) ? 320 : 200;
             }
         }
@@ -158,6 +159,7 @@ public class TermiteMoundBlockEntity extends BlockEntity {
         public int aliveTicks;
         public int update;
         public boolean natural;
+        public boolean eating;
 
         public static final Codec<Termite> CODEC = RecordCodecBuilder.create((instance) -> instance.group(
                 BlockPos.CODEC.fieldOf("mound").forGetter(Termite::getMoundPos),
@@ -187,6 +189,7 @@ public class TermiteMoundBlockEntity extends BlockEntity {
                 boolean degradable = degradableBlocks.contains(block);
                 boolean breakable = blockState.isIn(WildBlockTags.TERMITE_BREAKABLE);
                 if (degradable || breakable) {
+                    this.eating = true;
                     exit = true;
                     int additionalPower = breakable ? 2 : 1;
                     this.blockDestroyPower+=additionalPower;
@@ -204,6 +207,7 @@ public class TermiteMoundBlockEntity extends BlockEntity {
                         }
                     }
                 } else {
+                    this.eating = false;
                     this.blockDestroyPower = 0;
                     Direction direction = Direction.random(world.getRandom());
                     if (blockState.isAir()) { direction = Direction.DOWN; }

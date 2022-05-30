@@ -14,6 +14,7 @@ public class RegisterParticles {
     public static final DefaultParticleType CONTROLLED_MILKWEED_SEED = FabricParticleTypes.simple();
     public static final DefaultParticleType FLOATING_SCULK_BUBBLE = FabricParticleTypes.simple();
     public static final DefaultParticleType TERMITE = FabricParticleTypes.simple();
+    public static final DefaultParticleType EFFECT_POINT = FabricParticleTypes.simple();
 
     public static void RegisterParticles() {
         WilderWild.logWild("Registering Particles for", true);
@@ -24,5 +25,6 @@ public class RegisterParticles {
         Registry.register(Registry.PARTICLE_TYPE, new Identifier(WilderWild.MOD_ID, "controlled_milkweed_seed"), CONTROLLED_MILKWEED_SEED);
         Registry.register(Registry.PARTICLE_TYPE, new Identifier(WilderWild.MOD_ID, "floating_sculk_bubble"), FLOATING_SCULK_BUBBLE);
         Registry.register(Registry.PARTICLE_TYPE, new Identifier(WilderWild.MOD_ID, "termite"), TERMITE);
+        Registry.register(Registry.PARTICLE_TYPE, new Identifier(WilderWild.MOD_ID, "effect_point"), EFFECT_POINT);
     }
 }
