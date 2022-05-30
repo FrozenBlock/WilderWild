@@ -37,5 +37,6 @@ public class WildMiscConfigured {
     }
 
     public static void registerMiscPlaced() {
+        WilderWild.logWild("Registering WildMiscConfigured for", true);
     }
 }

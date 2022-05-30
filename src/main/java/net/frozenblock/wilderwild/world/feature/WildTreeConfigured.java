@@ -1,6 +1,7 @@
 package net.frozenblock.wilderwild.world.feature;
 
 import com.google.common.collect.ImmutableList;
+import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.registry.RegisterBlocks;
 import net.frozenblock.wilderwild.world.gen.treedecorators.ShelfFungusTreeDecorator;
 import net.frozenblock.wilderwild.world.gen.trunk.BaobabTrunkPlacer;
@@ -162,5 +163,6 @@ public class WildTreeConfigured {
         FUCK_TREE = ConfiguredFeatures.register("fuck_tree", Feature.TREE, (new TreeFeatureConfig.Builder(BlockStateProvider.of(Blocks.ACACIA_LOG), new BaobabTrunkPlacer(8, 1, 2), BlockStateProvider.of(Blocks.ACACIA_LEAVES), new AcaciaFoliagePlacer(ConstantIntProvider.create(3), ConstantIntProvider.create(0)), new TwoLayersFeatureSize(1, 1, 2))).decorators(ImmutableList.of()).build());
     }
     public static void registerTreeConfigured() {
+        WilderWild.logWild("Registering WildTreeConfigured for", true);
     }
 }

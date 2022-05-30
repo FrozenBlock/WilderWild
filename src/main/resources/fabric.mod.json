@@ -22,6 +22,9 @@
     "main": [
       "net.frozenblock.wilderwild.WilderWild"
     ],
+    "mm:early_risers": [
+      "net.frozenblock.wilderwild.EarlyRiser"
+    ],
     "client": [
       "net.frozenblock.wilderwild.WildClientMod"
     ]

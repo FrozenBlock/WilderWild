@@ -17,4 +17,8 @@ public class AdvancedMath {
     public static float range(float min, float max, float number) {
         return (number * max) + min;
     }
+
+    public static double randomPosNeg() {
+        return Math.random() * (Math.random()>=0.5 ? 1 : -1);
+    }
 }

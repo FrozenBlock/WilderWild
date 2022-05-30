@@ -1,5 +1,6 @@
 package net.frozenblock.wilderwild.world.feature;
 
+import net.frozenblock.wilderwild.WilderWild;
 import net.minecraft.block.Blocks;
 import net.minecraft.util.registry.RegistryEntry;
 import net.minecraft.world.gen.feature.PlacedFeature;
@@ -32,8 +33,6 @@ public class WildTreePlaced {
     public static final RegistryEntry<PlacedFeature> NEW_FANCY_OAK_BEES;
     public static final RegistryEntry<PlacedFeature> NEW_SUPER_BIRCH_BEES;
 
-
-
     static {
         NEW_FANCY_OAK_BEES_0004 = PlacedFeatures.register("new_fancy_oak_bees_0004", WildTreeConfigured.NEW_FANCY_OAK_BEES_0004, PlacedFeatures.wouldSurvive(Blocks.OAK_SAPLING));
         NEW_OAK_BEES_0004 = PlacedFeatures.register("new_oak_bees_00004", WildTreeConfigured.NEW_OAK_BEES_0004, PlacedFeatures.wouldSurvive(Blocks.OAK_SAPLING));
@@ -61,5 +60,6 @@ public class WildTreePlaced {
     }
 
     public static void registerTreePlaced() {
+        WilderWild.logWild("Registering WildTreePlaced for", true);
     }
 }
