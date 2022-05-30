@@ -7,12 +7,14 @@ import net.fabricmc.fabric.api.client.particle.v1.ParticleFactoryRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.ColorProviderRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityModelLayerRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
+import net.frozenblock.api.mathematics.AdvancedMath;
 import net.frozenblock.wilderwild.entity.AncientHornProjectileEntity;
 import net.frozenblock.wilderwild.entity.render.AncientHornProjectileModel;
 import net.frozenblock.wilderwild.entity.render.AncientHornProjectileRenderer;
 import net.frozenblock.wilderwild.entity.render.FireflyEntityRenderer;
 import net.frozenblock.wilderwild.particle.FloatingSculkBubbleParticle;
 import net.frozenblock.wilderwild.particle.PollenParticle;
+import net.frozenblock.wilderwild.particle.TermiteParticle;
 import net.frozenblock.wilderwild.registry.RegisterBlocks;
 import net.frozenblock.wilderwild.registry.RegisterEntities;
 import net.frozenblock.wilderwild.registry.RegisterParticles;
@@ -32,10 +34,6 @@ public class WildClientMod implements ClientModInitializer {
     public static final EntityModelLayer SENSOR_TENDRILS_LAYER = new EntityModelLayer(new Identifier(WilderWild.MOD_ID, "sculk_sensor_tendrils"), "main");
     public static final EntityModelLayer ANCIENT_HORN_PROJECTILE_LAYER = new EntityModelLayer(new Identifier(WilderWild.MOD_ID, "ancient_horn_projectile"), "main");
 
-    public static final Identifier HORN_PROJECTILE_PACKET_ID = new Identifier(WilderWild.MOD_ID, "ancient_horn_projectile_packet");
-    public static final Identifier FLOATING_SCULK_BUBBLE_PACKET = new Identifier("floating_sculk_bubble_easy_packet");
-    public static final Identifier CONTROLLED_SEED_PACKET = new Identifier("controlled_seed_particle_packet");
-    public static final Identifier SEED_PACKET = new Identifier("seed_particle_packet");
     @Override
     public void onInitializeClient() {
         RegisterParticles.RegisterParticles();
@@ -69,8 +67,8 @@ public class WildClientMod implements ClientModInitializer {
         ParticleFactoryRegistry.getInstance().register(RegisterParticles.MILKWEED_SEED, PollenParticle.MilkweedFactory::new);
         ParticleFactoryRegistry.getInstance().register(RegisterParticles.CONTROLLED_MILKWEED_SEED, PollenParticle.ControlledMilkweedFactory::new);
         ParticleFactoryRegistry.getInstance().register(RegisterParticles.FLOATING_SCULK_BUBBLE, FloatingSculkBubbleParticle.BubbleFactory::new);
-        //EntityRendererRegistry.register(RegisterEntities.TENDRIL_ENTITY, SculkSensorTendrilRenderer::new);
-        //EntityModelLayerRegistry.registerModelLayer(SENSOR_TENDRILS_LAYER, SculkSensorTendrilModel::getTexturedModelData);
+        ParticleFactoryRegistry.getInstance().register(RegisterParticles.TERMITE, TermiteParticle.Factory::new);
+
         EntityRendererRegistry.register(RegisterEntities.FIREFLY, FireflyEntityRenderer::new);
         EntityRendererRegistry.register(RegisterEntities.ANCIENT_HORN_PROJECTILE_ENTITY, AncientHornProjectileRenderer::new);
         EntityModelLayerRegistry.registerModelLayer(ANCIENT_HORN_PROJECTILE_LAYER, AncientHornProjectileModel::getTexturedModelData);
@@ -79,6 +77,7 @@ public class WildClientMod implements ClientModInitializer {
         receiveEasyEchoerBubblePacket();
         receiveSeedPacket();
         receiveControlledSeedPacket();
+        receiveTermitePacket();
 
         ColorProviderRegistry.BLOCK.register(((state, world, pos, tintIndex) -> {
             if (world == null || pos == null) {
@@ -90,7 +89,7 @@ public class WildClientMod implements ClientModInitializer {
 
 
     public void receiveAncientHornProjectilePacket() {
-        ClientPlayNetworking.registerGlobalReceiver(HORN_PROJECTILE_PACKET_ID, (ctx, handler, byteBuf, responseSender) -> {
+        ClientPlayNetworking.registerGlobalReceiver(WilderWild.HORN_PROJECTILE_PACKET_ID, (ctx, handler, byteBuf, responseSender) -> {
             EntityType<?> et = Registry.ENTITY_TYPE.get(byteBuf.readVarInt());
             UUID uuid = byteBuf.readUuid();
             int entityId = byteBuf.readVarInt();
@@ -117,7 +116,7 @@ public class WildClientMod implements ClientModInitializer {
     }
 
     public void receiveEasyEchoerBubblePacket() {
-        ClientPlayNetworking.registerGlobalReceiver(FLOATING_SCULK_BUBBLE_PACKET, (ctx, handler, byteBuf, responseSender) -> {
+        ClientPlayNetworking.registerGlobalReceiver(WilderWild.FLOATING_SCULK_BUBBLE_PACKET, (ctx, handler, byteBuf, responseSender) -> {
             Vec3d pos = new Vec3d(byteBuf.readDouble(), byteBuf.readDouble(), byteBuf.readDouble());
             int size = byteBuf.readVarInt();
             int age = byteBuf.readVarInt();
@@ -134,7 +133,7 @@ public class WildClientMod implements ClientModInitializer {
     }
 
     public void receiveSeedPacket() {
-        ClientPlayNetworking.registerGlobalReceiver(SEED_PACKET, (ctx, handler, byteBuf, responseSender) -> {
+        ClientPlayNetworking.registerGlobalReceiver(WilderWild.SEED_PACKET, (ctx, handler, byteBuf, responseSender) -> {
             Vec3d pos = new Vec3d(byteBuf.readDouble(), byteBuf.readDouble(), byteBuf.readDouble());
             int count = byteBuf.readVarInt();
             ParticleEffect particle = byteBuf.readBoolean() ? RegisterParticles.MILKWEED_SEED : RegisterParticles.DANDELION_SEED;
@@ -149,7 +148,7 @@ public class WildClientMod implements ClientModInitializer {
     }
 
     public void receiveControlledSeedPacket() {
-        ClientPlayNetworking.registerGlobalReceiver(CONTROLLED_SEED_PACKET, (ctx, handler, byteBuf, responseSender) -> {
+        ClientPlayNetworking.registerGlobalReceiver(WilderWild.CONTROLLED_SEED_PACKET, (ctx, handler, byteBuf, responseSender) -> {
             Vec3d pos = new Vec3d(byteBuf.readDouble(), byteBuf.readDouble(), byteBuf.readDouble());
             double velx = byteBuf.readDouble();
             double vely = byteBuf.readDouble();
@@ -161,6 +160,20 @@ public class WildClientMod implements ClientModInitializer {
                     throw new IllegalStateException("why is your world null");
                 for (int i=0; i<count; i++) {
                     MinecraftClient.getInstance().world.addParticle(particle, pos.x, pos.y, pos.z, velx, vely, velz);
+                }
+            });
+        });
+    }
+
+    public void receiveTermitePacket() {
+        ClientPlayNetworking.registerGlobalReceiver(WilderWild.TERMITE_PARTICLE_PACKET, (ctx, handler, byteBuf, responseSender) -> {
+            Vec3d pos = new Vec3d(byteBuf.readDouble(), byteBuf.readDouble(), byteBuf.readDouble());
+            int count = byteBuf.readVarInt();
+            ctx.execute(() -> {
+                if (MinecraftClient.getInstance().world == null)
+                    throw new IllegalStateException("why is your world null");
+                for (int i=0; i<count; i++) {
+                    MinecraftClient.getInstance().world.addParticle(RegisterParticles.TERMITE, pos.x, pos.y, pos.z, AdvancedMath.randomNegative()/10,AdvancedMath.randomNegative()/10,AdvancedMath.randomNegative()/10);
                 }
             });
         });

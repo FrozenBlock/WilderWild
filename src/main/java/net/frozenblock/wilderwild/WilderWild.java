@@ -75,9 +75,10 @@ public class WilderWild implements ModInitializer {
         TermiteMoundBlockEntity.Termite.addDegradableBlocks();
     }
 
-    public static final Identifier SEED_PACKET = new Identifier("seed_particle_packet");
-    public static final Identifier CONTROLLED_SEED_PACKET = new Identifier("controlled_seed_particle_packet");
-    public static final Identifier FLOATING_SCULK_BUBBLE_PACKET = new Identifier("floating_sculk_bubble_easy_packet");
+    public static final Identifier SEED_PACKET = new Identifier(WilderWild.MOD_ID,"seed_particle_packet");
+    public static final Identifier CONTROLLED_SEED_PACKET = new Identifier(WilderWild.MOD_ID,"controlled_seed_particle_packet");
+    public static final Identifier FLOATING_SCULK_BUBBLE_PACKET = new Identifier(WilderWild.MOD_ID,"floating_sculk_bubble_easy_packet");
+    public static final Identifier TERMITE_PARTICLE_PACKET = new Identifier(WilderWild.MOD_ID,"termite_particle_packet");
     public static final Identifier HORN_PROJECTILE_PACKET_ID = new Identifier(WilderWild.MOD_ID, "ancient_horn_projectile_packet");
 
     public static final CameraItem CAMERA_ITEM = new CameraItem(new FabricItemSettings());

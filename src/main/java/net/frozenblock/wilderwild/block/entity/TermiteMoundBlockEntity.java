@@ -8,6 +8,7 @@ import com.mojang.serialization.codecs.RecordCodecBuilder;
 import it.unimi.dsi.fastutil.objects.Object2ObjectMap;
 import it.unimi.dsi.fastutil.objects.Object2ObjectMaps;
 import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
+import net.frozenblock.wilderwild.particle.server.EasyParticlePacket;
 import net.frozenblock.wilderwild.registry.RegisterBlockEntityType;
 import net.frozenblock.wilderwild.registry.RegisterBlocks;
 import net.frozenblock.wilderwild.registry.RegisterProperties;
@@ -27,6 +28,7 @@ import net.minecraft.tag.BlockTags;
 import net.minecraft.util.Util;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.LightType;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldAccess;
@@ -103,7 +105,7 @@ public class TermiteMoundBlockEntity extends BlockEntity {
         for (Termite termite : this.termites) {
             if (termite.tick(world)) {
                 //TODO: TERMITE SPAWNING, MOVING, AND EATING TEXTURES + PARTICLES
-                world.syncWorldEvent(3006, termite.pos, 0);
+                EasyParticlePacket.EasyTermitePacket.createParticle(world, Vec3d.ofCenter(termite.pos), 5);
             } else {
                 world.playSound(null, termite.pos, SoundEvents.BLOCK_BEEHIVE_ENTER, SoundCategory.NEUTRAL, 1.0F, 1.0F);
                 termitesToRemove.add(termite);
