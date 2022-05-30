@@ -6,7 +6,6 @@ import com.mojang.serialization.Dynamic;
 import net.frozenblock.wilderwild.entity.ai.FireflyBrain;
 import net.frozenblock.wilderwild.registry.RegisterItems;
 import net.frozenblock.wilderwild.registry.RegisterSounds;
-import net.minecraft.advancement.criterion.Criteria;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.brain.Brain;
@@ -21,14 +20,12 @@ import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.mob.PathAwareEntity;
-import net.minecraft.entity.passive.AxolotlEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUsage;
 import net.minecraft.item.Items;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.server.network.DebugInfoSender;
-import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
@@ -64,7 +61,7 @@ public class FireflyEntity extends PathAwareEntity implements Flutterer {
 
     public static Optional<ActionResult> tryCapture(PlayerEntity player, Hand hand, FireflyEntity entity) {
         ItemStack itemStack = player.getStackInHand(hand);
-        if (itemStack.getItem() == Items.WATER_BUCKET && entity.isAlive()) {
+        if (itemStack.getItem() == Items.GLASS_BOTTLE && entity.isAlive()) {
             //TODO: FIREFLY BOTTLE SOUNDS
             entity.playSound(SoundEvents.ITEM_BOTTLE_FILL, 1.0F, 1.0F);
             ItemStack itemStack2 = new ItemStack(RegisterItems.FIREFLY_BOTTLE);

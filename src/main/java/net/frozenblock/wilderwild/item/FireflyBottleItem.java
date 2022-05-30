@@ -9,6 +9,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.server.world.ServerWorld;
+import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.Hand;
 import net.minecraft.util.TypedActionResult;
 import net.minecraft.util.UseAction;
@@ -33,12 +34,17 @@ public class FireflyBottleItem extends Item {
             float h = MathHelper.cos(yaw * 0.017453292F) * MathHelper.cos(pitch * 0.017453292F);
             if (user.getAbilities().allowModifyWorld) {
                 FireflyEntity entity = RegisterEntities.FIREFLY.create(server);
-                boolean spawned = server.spawnEntity(entity);
-                if (spawned && entity != null) {
+                if (entity != null) {
+                    //TODO: FIREFLY BOTTLE SOUNDS
+                    entity.playSound(SoundEvents.ITEM_BOTTLE_EMPTY, 1.0F, 1.0F);
                     entity.setVelocity(f * 0.5, h * 0.5, g * 0.5);
-                    itemStack.decrement(1);
-                    PlayerInventory inv = user.getInventory();
-                    inv.offerOrDrop(new ItemStack(Items.GLASS_BOTTLE));
+                    entity.refreshPositionAndAngles(user.getX(), user.getEyeY(), user.getZ(), user.getPitch(), user.getYaw());
+                    boolean spawned = server.spawnEntity(entity);
+                    if (spawned) {
+                        itemStack.decrement(1);
+                        PlayerInventory inv = user.getInventory();
+                        inv.offerOrDrop(new ItemStack(Items.GLASS_BOTTLE));
+                    }
                 }
             }
         }
