@@ -6,10 +6,7 @@ import com.mojang.serialization.Dynamic;
 import net.frozenblock.wilderwild.entity.ai.FireflyBrain;
 import net.frozenblock.wilderwild.registry.RegisterSounds;
 import net.minecraft.block.BlockState;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.Flutterer;
-import net.minecraft.entity.MovementType;
+import net.minecraft.entity.*;
 import net.minecraft.entity.ai.brain.Brain;
 import net.minecraft.entity.ai.brain.MemoryModuleType;
 import net.minecraft.entity.ai.brain.sensor.Sensor;
@@ -30,6 +27,8 @@ import net.minecraft.sound.SoundEvent;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
+import net.minecraft.world.WorldAccess;
+import net.minecraft.world.WorldView;
 import org.slf4j.Logger;
 
 public class FireflyEntity extends PathAwareEntity implements Flutterer {
@@ -47,12 +46,26 @@ public class FireflyEntity extends PathAwareEntity implements Flutterer {
         this.moveControl = new FlightMoveControl(this, 20, true);
     }
 
+    @Override
+    public boolean canSpawn(WorldAccess world, SpawnReason spawnReason) {
+        return super.canSpawn(world, spawnReason);
+    }
+
+    @Override
+    public boolean canSpawn(WorldView world) {
+        return !world.containsFluid(this.getBoundingBox());
+    }
+
     protected Brain.Profile<FireflyEntity> createBrainProfile() {
         return Brain.createProfile(MEMORY_MODULES, SENSORS);
     }
 
     protected Brain<?> deserializeBrain(Dynamic<?> dynamic) {
         return FireflyBrain.create(this.createBrainProfile().deserialize(dynamic));
+    }
+
+    public float getPathfindingFavor(BlockPos pos, WorldView world) {
+        return 0.0F;
     }
 
     public Brain<FireflyEntity> getBrain() {
