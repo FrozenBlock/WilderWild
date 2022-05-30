@@ -10,7 +10,7 @@ public class WildSpawns {
 
     public static void addFirefliesSwamps() {
         BiomeModifications.addSpawn(BiomeSelectors.includeByKey(BiomeKeys.SWAMP, BiomeKeys.MANGROVE_SWAMP),
-                SpawnGroup.AMBIENT, RegisterEntities.FIREFLY, 4, 4, 8);
+                RegisterEntities.FIREFLIES, RegisterEntities.FIREFLY, 4, 4, 8);
     }
 
 }
