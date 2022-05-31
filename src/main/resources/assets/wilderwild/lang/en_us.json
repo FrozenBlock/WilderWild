@@ -68,5 +68,7 @@
 	"block.wilderwild.baobab_leaves": "Baobab Leaves",
 	"block.wilderwild.baobab_button": "Baobab Button",
 	"block.wilderwild.baobab_sign": "Baobab Sign",
-	"block.wilderwild.baobab_wall_sign": "Baobab Wall Sign"
+	"block.wilderwild.baobab_wall_sign": "Baobab Wall Sign",
+	"entity.wilderwild.baobab_boat": "Baobab Boat",
+	"entity.wilderwild.baobab_chest_boat": "Baobab Chest Boat"
 }

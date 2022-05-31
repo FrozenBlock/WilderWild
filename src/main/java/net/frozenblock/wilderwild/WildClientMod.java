@@ -9,9 +9,7 @@ import net.fabricmc.fabric.api.client.rendering.v1.EntityModelLayerRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
 import net.frozenblock.api.mathematics.AdvancedMath;
 import net.frozenblock.wilderwild.entity.AncientHornProjectileEntity;
-import net.frozenblock.wilderwild.entity.render.AncientHornProjectileModel;
-import net.frozenblock.wilderwild.entity.render.AncientHornProjectileRenderer;
-import net.frozenblock.wilderwild.entity.render.FireflyEntityRenderer;
+import net.frozenblock.wilderwild.entity.render.*;
 import net.frozenblock.wilderwild.particle.FloatingSculkBubbleParticle;
 import net.frozenblock.wilderwild.particle.PollenParticle;
 import net.frozenblock.wilderwild.particle.TermiteParticle;
@@ -21,6 +19,7 @@ import net.frozenblock.wilderwild.registry.RegisterParticles;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.entity.model.EntityModelLayer;
+import net.minecraft.client.render.entity.model.EntityModelLayers;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.particle.ParticleEffect;
@@ -33,6 +32,8 @@ import java.util.UUID;
 public class WildClientMod implements ClientModInitializer {
     public static final EntityModelLayer SENSOR_TENDRILS_LAYER = new EntityModelLayer(new Identifier(WilderWild.MOD_ID, "sculk_sensor_tendrils"), "main");
     public static final EntityModelLayer ANCIENT_HORN_PROJECTILE_LAYER = new EntityModelLayer(new Identifier(WilderWild.MOD_ID, "ancient_horn_projectile"), "main");
+    public static final EntityModelLayer BAOBAB_BOAT = new EntityModelLayer(new Identifier(WilderWild.MOD_ID, "baobab_boat"), "main");
+    public static final EntityModelLayer BAOBAB_CHEST_BOAT = new EntityModelLayer(new Identifier(WilderWild.MOD_ID, "baobab_chest_boat"), "main");
 
     @Override
     public void onInitializeClient() {
@@ -70,6 +71,10 @@ public class WildClientMod implements ClientModInitializer {
         ParticleFactoryRegistry.getInstance().register(RegisterParticles.TERMITE, TermiteParticle.Factory::new);
 
         EntityRendererRegistry.register(RegisterEntities.FIREFLY, FireflyEntityRenderer::new);
+        EntityRendererRegistry.register(RegisterEntities.BAOBAB_BOAT, (context) -> new WilderBoatEntityRenderer(context, false));
+        EntityModelLayerRegistry.registerModelLayer(BAOBAB_BOAT, WilderBoatEntityModel::getTexturedModelData);
+        EntityRendererRegistry.register(RegisterEntities.BAOBAB_CHEST_BOAT, (context) -> new WilderBoatEntityRenderer(context, true));
+        EntityModelLayerRegistry.registerModelLayer(BAOBAB_CHEST_BOAT, WilderBoatEntityModel::getTexturedModelDataChest);
         EntityRendererRegistry.register(RegisterEntities.ANCIENT_HORN_PROJECTILE_ENTITY, AncientHornProjectileRenderer::new);
         EntityModelLayerRegistry.registerModelLayer(ANCIENT_HORN_PROJECTILE_LAYER, AncientHornProjectileModel::getTexturedModelData);
 
