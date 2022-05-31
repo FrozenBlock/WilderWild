@@ -44,7 +44,7 @@ public class WoodGroup {
         String name = id.getPath();
         this.SIGN_TYPE = SignTypeAccessor.registerNew(SignTypeAccessor.newSignType(name));
         LOG = registerBlock(name+"_log", new PillarBlock(AbstractBlock.Settings.of(Material.WOOD, state -> state.get(PillarBlock.AXIS) == Direction.Axis.Y ? planks : bark).strength(2.0F).sounds(BlockSoundGroup.WOOD)), ItemGroup.BUILDING_BLOCKS);
-        STRIPPED_LOG = registerBlock("stripped"+name+"_log", new PillarBlock(AbstractBlock.Settings.of(Material.WOOD, state -> state.get(PillarBlock.AXIS) == Direction.Axis.Y ? planks : bark).strength(2.0F).sounds(BlockSoundGroup.WOOD)), ItemGroup.BUILDING_BLOCKS);
+        STRIPPED_LOG = registerBlock("stripped_"+name+"_log", new PillarBlock(AbstractBlock.Settings.of(Material.WOOD, state -> state.get(PillarBlock.AXIS) == Direction.Axis.Y ? planks : bark).strength(2.0F).sounds(BlockSoundGroup.WOOD)), ItemGroup.BUILDING_BLOCKS);
         WOOD = registerBlock(name+"_wood", new PillarBlock(AbstractBlock.Settings.of(Material.WOOD, state -> state.get(PillarBlock.AXIS) == Direction.Axis.Y ? planks : bark).strength(2.0F).sounds(BlockSoundGroup.WOOD)), ItemGroup.BUILDING_BLOCKS);
         STRIPPED_WOOD = registerBlock("stripped_"+name+"_wood", new PillarBlock(AbstractBlock.Settings.of(Material.WOOD, state -> state.get(PillarBlock.AXIS) == Direction.Axis.Y ? planks : bark).strength(2.0F).sounds(BlockSoundGroup.WOOD)), ItemGroup.BUILDING_BLOCKS);
         HOLLOWED_LOG = registerBlock("hollowed_"+name+"_log", createHollowedLogBlock(planks, bark), ItemGroup.BUILDING_BLOCKS);
