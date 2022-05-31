@@ -25,7 +25,7 @@ public class WoodGroup {
     public Block WOOD;
     public Block STRIPPED_WOOD;
     public Block HOLLOWED_LOG;
-    public Block PLANK;
+    public Block PLANKS;
     public Block SLAB;
     public Block STAIRS;
     public Block DOOR;
@@ -48,9 +48,9 @@ public class WoodGroup {
         WOOD = registerBlock(name+"_wood", new PillarBlock(AbstractBlock.Settings.of(Material.WOOD, state -> state.get(PillarBlock.AXIS) == Direction.Axis.Y ? planks : bark).strength(2.0F).sounds(BlockSoundGroup.WOOD)), ItemGroup.BUILDING_BLOCKS);
         STRIPPED_WOOD = registerBlock("stripped_"+name+"_wood", new PillarBlock(AbstractBlock.Settings.of(Material.WOOD, state -> state.get(PillarBlock.AXIS) == Direction.Axis.Y ? planks : bark).strength(2.0F).sounds(BlockSoundGroup.WOOD)), ItemGroup.BUILDING_BLOCKS);
         HOLLOWED_LOG = registerBlock("hollowed_"+name+"_log", createHollowedLogBlock(planks, bark), ItemGroup.BUILDING_BLOCKS);
-        PLANK = registerBlock(name+"_planks", new Block(AbstractBlock.Settings.of(Material.WOOD, planks).strength(2.0F, 3.0F).sounds(BlockSoundGroup.WOOD)), ItemGroup.BUILDING_BLOCKS);
+        PLANKS = registerBlock(name+"_planks", new Block(AbstractBlock.Settings.of(Material.WOOD, planks).strength(2.0F, 3.0F).sounds(BlockSoundGroup.WOOD)), ItemGroup.BUILDING_BLOCKS);
         SLAB = registerBlock(name+"_slab", new SlabBlock(AbstractBlock.Settings.of(Material.WOOD, planks).strength(2.0F, 3.0F).sounds(BlockSoundGroup.WOOD)), ItemGroup.BUILDING_BLOCKS);
-        STAIRS = registerBlock(name+"_stairs", new StairsBlock(PLANK.getDefaultState(), AbstractBlock.Settings.copy(PLANK)), ItemGroup.BUILDING_BLOCKS);
+        STAIRS = registerBlock(name+"_stairs", new StairsBlock(PLANKS.getDefaultState(), AbstractBlock.Settings.copy(PLANKS)), ItemGroup.BUILDING_BLOCKS);
         DOOR = registerBlock(name+"_door", new DoorBlock(AbstractBlock.Settings.of(Material.WOOD, planks).strength(3.0F).sounds(BlockSoundGroup.WOOD).nonOpaque()), ItemGroup.REDSTONE);
         TRAPDOOR = registerBlock("name"+"_trapdoor", new TrapdoorBlock(AbstractBlock.Settings.of(Material.WOOD, planks).strength(3.0F).sounds(BlockSoundGroup.WOOD).nonOpaque().allowsSpawning(WoodGroup::never)), ItemGroup.REDSTONE);
         FENCE = registerBlock(name+"_fence", new FenceBlock(AbstractBlock.Settings.of(Material.WOOD, planks).strength(2.0F, 3.0F).sounds(BlockSoundGroup.WOOD)), ItemGroup.BUILDING_BLOCKS);
@@ -67,7 +67,7 @@ public class WoodGroup {
         FlammableBlockRegistry.getDefaultInstance().add(STRIPPED_LOG,5,5);
         FlammableBlockRegistry.getDefaultInstance().add(WOOD,5,5);
         FlammableBlockRegistry.getDefaultInstance().add(STRIPPED_WOOD,5,5);
-        FlammableBlockRegistry.getDefaultInstance().add(PLANK,5,20);
+        FlammableBlockRegistry.getDefaultInstance().add(PLANKS,5,20);
         FlammableBlockRegistry.getDefaultInstance().add(STAIRS,5,20);
         FlammableBlockRegistry.getDefaultInstance().add(DOOR,5,20);
         FlammableBlockRegistry.getDefaultInstance().add(FENCE,5,20);

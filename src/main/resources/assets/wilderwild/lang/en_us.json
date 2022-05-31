@@ -51,5 +51,22 @@
 	"death.attack.sculk_jaw": "%1$s was chomped to death",
 	"death.attack.sculk_jaw.player": "%1$s snapped whilst fighting %2$s",
 	"entity.wilderwild.firefly": "Firefly",
-	"item.wilderwild.firefly_spawn_egg": "Firefly Spawn Egg"
+	"item.wilderwild.firefly_spawn_egg": "Firefly Spawn Egg",
+	"block.wilderwild.baobab_log": "Baobab Log",
+	"block.wilderwild.stripped_baobab_log": "Stripped Baobab Log",
+	"block.wilderwild.baobab_wood": "Baobab Wood",
+	"block.wilderwild.stripped_baobab_wood": "Stripped Baobab Wood",
+	"block.wilderwild.hollowed_baobab_log": "Hollowed Baobab Log",
+	"block.wilderwild.baobab_planks": "Baobab Planks",
+	"block.wilderwild.baobab_slab": "Baobab Slab",
+	"block.wilderwild.baobab_stairs": "Baobab Stairs",
+	"block.wilderwild.baobab_door": "Baobab Door",
+	"block.wilderwild.baobab_trapdoor": "Baobab Trapdoor",
+	"block.wilderwild.baobab_fence": "Baobab Fence",
+	"block.wilderwild.baobab_fence_gate": "Baobab Fence Gate",
+	"block.wilderwild.baobab_pressure_plate": "Baobab Pressure Plate",
+	"block.wilderwild.baobab_leaves": "Baobab Leaves",
+	"block.wilderwild.baobab_button": "Baobab Button",
+	"block.wilderwild.baobab_sign": "Baobab Sign",
+	"block.wilderwild.baobab_wall_sign": "Baobab Wall Sign"
 }
