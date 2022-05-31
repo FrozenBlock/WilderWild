@@ -60,5 +60,15 @@ public class DefaultBiomeFeaturesMixin {
     @Overwrite
     public static void addGroveTrees(GenerationSettings.Builder builder) {
     }
+    /** @author FrozenBlock
+     * @reason Replaced with new Savanna Trees */
+    @Overwrite
+    public static void addSavannaTrees(GenerationSettings.Builder builder) {
+    }
+    /** @author FrozenBlock
+     * @reason Replaced with new Windswept Savanna Trees */
+    @Overwrite
+    public static void addExtraSavannaTrees(GenerationSettings.Builder builder) {
+    }
 }
 

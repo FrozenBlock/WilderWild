@@ -17,6 +17,7 @@ import net.frozenblock.wilderwild.registry.RegisterBlocks;
 import net.frozenblock.wilderwild.registry.RegisterEntities;
 import net.frozenblock.wilderwild.registry.RegisterParticles;
 import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.color.world.BiomeColors;
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.entity.model.EntityModelLayer;
 import net.minecraft.entity.Entity;
@@ -89,7 +90,11 @@ public class WildClientMod implements ClientModInitializer {
             }
             return 2129968;
         }), RegisterBlocks.FLOWERED_LILY_PAD);
-    }
+        ColorProviderRegistry.BLOCK.register(((state,world,pos,tintIndex)-> {
+                assert world != null;
+                return BiomeColors.getFoliageColor(world, pos);
+        }),RegisterBlocks.BAOBAB_LEAVES);
+}
 
 
     public void receiveAncientHornProjectilePacket() {
