@@ -51,6 +51,7 @@ public class WilderWild implements ModInitializer {
     @Override
     public void onInitialize() {
         RegisterBlocks.registerBlocks();
+        RegisterBlocks.addBaobab();
         RegisterItems.registerItems();
         WildConfiguredFeatures.registerConfiguredFeatures();
         WildTreeConfigured.registerTreeConfigured();

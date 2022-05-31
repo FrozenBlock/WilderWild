@@ -6,7 +6,6 @@ import net.frozenblock.wilderwild.entity.AncientHornProjectileEntity;
 import net.minecraft.client.model.*;
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.VertexConsumer;
-import net.minecraft.client.render.entity.BoatEntityRenderer;
 import net.minecraft.client.util.math.MatrixStack;
 
 @Environment(EnvType.CLIENT)

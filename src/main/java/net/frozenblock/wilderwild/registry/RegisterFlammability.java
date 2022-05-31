@@ -21,6 +21,22 @@ public class RegisterFlammability {
         FlammableBlockRegistry.getDefaultInstance().add(RegisterBlocks.HOLLOWED_DARK_OAK_LOG,5,5);
         FlammableBlockRegistry.getDefaultInstance().add(RegisterBlocks.HOLLOWED_MANGROVE_LOG,5,5);
         FlammableBlockRegistry.getDefaultInstance().add(RegisterBlocks.HOLLOWED_SPRUCE_LOG,5,5);
+        FlammableBlockRegistry.getDefaultInstance().add(RegisterBlocks.BAOBAB_LOG, 5, 5);
+        FlammableBlockRegistry.getDefaultInstance().add(RegisterBlocks.BAOBAB_STRIPPED_LOG, 5, 5);
+        FlammableBlockRegistry.getDefaultInstance().add(RegisterBlocks.BAOBAB_WOOD, 5, 5);
+        FlammableBlockRegistry.getDefaultInstance().add(RegisterBlocks.BAOBAB_STRIPPED_WOOD, 5, 5);
+        FlammableBlockRegistry.getDefaultInstance().add(RegisterBlocks.BAOBAB_PLANKS, 5, 20);
+        FlammableBlockRegistry.getDefaultInstance().add(RegisterBlocks.BAOBAB_STAIRS, 5, 20);
+        FlammableBlockRegistry.getDefaultInstance().add(RegisterBlocks.BAOBAB_DOOR, 5, 20);
+        FlammableBlockRegistry.getDefaultInstance().add(RegisterBlocks.BAOBAB_FENCE, 5, 20);
+        FlammableBlockRegistry.getDefaultInstance().add(RegisterBlocks.BAOBAB_SLAB, 5, 20);
+        FlammableBlockRegistry.getDefaultInstance().add(RegisterBlocks.BAOBAB_GATE, 5, 20);
+        FlammableBlockRegistry.getDefaultInstance().add(RegisterBlocks.BAOBAB_PLATE, 5, 20);
+        FlammableBlockRegistry.getDefaultInstance().add(RegisterBlocks.BAOBAB_TRAPDOOR, 5, 20);
+        FlammableBlockRegistry.getDefaultInstance().add(RegisterBlocks.BAOBAB_LEAVES, 100, 60);
+        FlammableBlockRegistry.getDefaultInstance().add(RegisterBlocks.BAOBAB_BUTTON, 5, 20);
+        FlammableBlockRegistry.getDefaultInstance().add(RegisterBlocks.BAOBAB_SIGN, 5, 20);
+        FlammableBlockRegistry.getDefaultInstance().add(RegisterBlocks.BAOBAB_WALL_SIGN, 5, 20);
     }
 
 }

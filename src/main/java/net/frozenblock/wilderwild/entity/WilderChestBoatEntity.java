@@ -1,7 +1,7 @@
 package net.frozenblock.wilderwild.entity;
 
-import net.frozenblock.wilderwild.registry.RegisterBlocks;
 import net.frozenblock.wilderwild.registry.RegisterEntities;
+import net.frozenblock.wilderwild.registry.RegisterItems;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.RideableInventory;
 import net.minecraft.entity.damage.DamageSource;
@@ -12,7 +12,6 @@ import net.minecraft.entity.vehicle.VehicleInventory;
 import net.minecraft.inventory.StackReference;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.screen.GenericContainerScreenHandler;
 import net.minecraft.screen.ScreenHandler;
@@ -93,7 +92,7 @@ public class WilderChestBoatEntity extends WilderBoatEntity implements RideableI
         Item var10000;
         switch(this.getBoatType()) {
             default:
-                var10000 = RegisterBlocks.BAOBAB.CHEST_BOAT_ITEM;
+                var10000 = RegisterItems.BAOBAB_CHEST_BOAT_ITEM;
         }
 
         return var10000;

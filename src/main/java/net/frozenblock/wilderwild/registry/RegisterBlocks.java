@@ -3,20 +3,16 @@ package net.frozenblock.wilderwild.registry;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.fabricmc.fabric.api.registry.CompostingChanceRegistry;
-import net.fabricmc.fabric.api.registry.FlammableBlockRegistry;
 import net.fabricmc.fabric.api.registry.StrippableBlockRegistry;
 import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.block.*;
 import net.frozenblock.wilderwild.block.entity.TermiteMoundBlockEntity;
-import net.frozenblock.wilderwild.entity.WilderBoatEntity;
 import net.frozenblock.wilderwild.item.FloweredLilyPadItem;
-import net.frozenblock.wilderwild.item.WilderBoatItem;
 import net.frozenblock.wilderwild.mixin.SignTypeAccessor;
 import net.minecraft.block.*;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.item.BlockItem;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.util.Identifier;
@@ -25,8 +21,6 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.world.BlockView;
-
-import java.util.Map;
 
 public abstract class RegisterBlocks {
     // CHISELED PACKED MUD
@@ -181,10 +175,6 @@ public abstract class RegisterBlocks {
             ItemGroup.DECORATIONS
     );
 
-    public static final Block BAOBAB_PLANKS = registerBlock("baobab_planks", new Block(AbstractBlock.Settings.of(Material.WOOD, MapColor.ORANGE).strength(2.0F, 3.0F).sounds(BlockSoundGroup.WOOD)), ItemGroup.BUILDING_BLOCKS);
-    public static final WoodGroup BAOBAB = registerWoodGroup("baobab", BAOBAB_PLANKS, MapColor.ORANGE, MapColor.BROWN, MapColor.GREEN, WilderBoatEntity.Type.BAOBAB);
-
-
     private static Block registerBlockWithoutBlockItem(String name, Block block) {
         return Registry.register(Registry.BLOCK, new Identifier(WilderWild.MOD_ID, name), block);
     }
@@ -205,10 +195,6 @@ public abstract class RegisterBlocks {
                 .strength(2.0F).sounds(BlockSoundGroup.WOOD));
     }
 
-    private static WoodGroup registerWoodGroup(String name, Block planksBlock, MapColor planks, MapColor bark, MapColor leaves, WilderBoatEntity.Type boatType) {
-        return new WoodGroup(name, planksBlock, planks, bark, leaves, boatType);
-    }
-
 
     public static void registerBlocks() {
         WilderWild.logWild("Registering Blocks for", true);
@@ -224,110 +210,42 @@ public abstract class RegisterBlocks {
         CompostingChanceRegistry.INSTANCE.add(BROWN_SHELF_FUNGUS, 0.65F);
         CompostingChanceRegistry.INSTANCE.add(RED_SHELF_FUNGUS, 0.65F);
     }
+    public static final String name = "baobab";
+    public static final MapColor planksColor = MapColor.ORANGE;
+    public static final MapColor barkColor = MapColor.BROWN;
+    
+    public static final SignType BAOBAB_SIGN_TYPE = SignTypeAccessor.registerNew(SignTypeAccessor.newSignType("baobab"));
+    public static final Block BAOBAB_PLANKS = registerBlock(name + "_planks", new Block(AbstractBlock.Settings.of(Material.WOOD, planksColor).strength(2.0F, 3.0F).sounds(BlockSoundGroup.WOOD)), ItemGroup.BUILDING_BLOCKS);
+    public static final Block BAOBAB_LOG = registerBlock(name + "_log", new PillarBlock(AbstractBlock.Settings.of(Material.WOOD, state -> state.get(PillarBlock.AXIS) == Direction.Axis.Y ? planksColor : barkColor).strength(2.0F).sounds(BlockSoundGroup.WOOD)), ItemGroup.BUILDING_BLOCKS);
+    public static final Block BAOBAB_STRIPPED_LOG = registerBlock("stripped_" + name + "_log", new PillarBlock(AbstractBlock.Settings.of(Material.WOOD, state -> state.get(PillarBlock.AXIS) == Direction.Axis.Y ? planksColor : barkColor).strength(2.0F).sounds(BlockSoundGroup.WOOD)), ItemGroup.BUILDING_BLOCKS);
+    public static final Block BAOBAB_WOOD = registerBlock(name + "_wood", new PillarBlock(AbstractBlock.Settings.of(Material.WOOD, state -> state.get(PillarBlock.AXIS) == Direction.Axis.Y ? planksColor : barkColor).strength(2.0F).sounds(BlockSoundGroup.WOOD)), ItemGroup.BUILDING_BLOCKS);
+    public static final Block BAOBAB_STRIPPED_WOOD = registerBlock("stripped_" + name + "_wood", new PillarBlock(AbstractBlock.Settings.of(Material.WOOD, state -> state.get(PillarBlock.AXIS) == Direction.Axis.Y ? planksColor : barkColor).strength(2.0F).sounds(BlockSoundGroup.WOOD)), ItemGroup.BUILDING_BLOCKS);
+    public static final Block BAOBAB_HOLLOWED_LOG = registerBlock("hollowed_" + name + "_log", createHollowedLogBlock(planksColor, barkColor), ItemGroup.BUILDING_BLOCKS);
+    public static final Block BAOBAB_SLAB = registerBlock(name + "_slab", new SlabBlock(AbstractBlock.Settings.of(Material.WOOD, planksColor).strength(2.0F, 3.0F).sounds(BlockSoundGroup.WOOD)), ItemGroup.BUILDING_BLOCKS);
+    public static final Block BAOBAB_STAIRS = registerBlock(name + "_stairs", new StairsBlock(BAOBAB_PLANKS.getDefaultState(), AbstractBlock.Settings.copy(BAOBAB_PLANKS)), ItemGroup.BUILDING_BLOCKS);
+    public static final Block BAOBAB_DOOR = registerBlock(name + "_door", new DoorBlock(AbstractBlock.Settings.of(Material.WOOD, planksColor).strength(3.0F).sounds(BlockSoundGroup.WOOD).nonOpaque()), ItemGroup.REDSTONE);
+    public static final Block BAOBAB_TRAPDOOR = registerBlock("name" + "_trapdoor", new TrapdoorBlock(AbstractBlock.Settings.of(Material.WOOD, planksColor).strength(3.0F).sounds(BlockSoundGroup.WOOD).nonOpaque().allowsSpawning(RegisterBlocks::never)), ItemGroup.REDSTONE);
+    public static final Block BAOBAB_FENCE = registerBlock(name + "_fence", new FenceBlock(AbstractBlock.Settings.of(Material.WOOD, planksColor).strength(2.0F, 3.0F).sounds(BlockSoundGroup.WOOD)), ItemGroup.BUILDING_BLOCKS);
+    public static final Block BAOBAB_GATE = registerBlock(name + "_fence_gate", new FenceGateBlock(AbstractBlock.Settings.of(Material.WOOD, planksColor).strength(2.0F, 3.0F).sounds(BlockSoundGroup.WOOD)), ItemGroup.REDSTONE);
+    public static final Block BAOBAB_PLATE = registerBlock(name + "_pressure_plate", new PressurePlateBlock(PressurePlateBlock.ActivationRule.EVERYTHING, AbstractBlock.Settings.of(Material.WOOD, planksColor).noCollision().strength(0.5F).sounds(BlockSoundGroup.WOOD)), ItemGroup.REDSTONE);
+    public static final Block BAOBAB_LEAVES = registerBlock(name + "_leaves", new LeavesBlock(AbstractBlock.Settings.of(Material.LEAVES, MapColor.GREEN).strength(0.2F).ticksRandomly().sounds(BlockSoundGroup.GRASS).nonOpaque().allowsSpawning(RegisterBlocks::canSpawnOnLeaves).suffocates(RegisterBlocks::never).blockVision(RegisterBlocks::never)), ItemGroup.BUILDING_BLOCKS);
+    public static final Block BAOBAB_BUTTON = registerBlock(name + "_button", new WoodenButtonBlock(AbstractBlock.Settings.copy(Blocks.OAK_BUTTON).mapColor(planksColor)), ItemGroup.REDSTONE);
+    public static final Block BAOBAB_SIGN = registerBlock(name + "_sign", new SignBlock(AbstractBlock.Settings.of(Material.WOOD, barkColor).noCollision().strength(1.0F).sounds(BlockSoundGroup.WOOD), BAOBAB_SIGN_TYPE), ItemGroup.BUILDING_BLOCKS);
+    public static final Block BAOBAB_WALL_SIGN = registerBlockWithoutBlockItem(name + "_wall_sign", new SignBlock(AbstractBlock.Settings.of(Material.WOOD, barkColor).noCollision().strength(1.0F).sounds(BlockSoundGroup.WOOD).dropsLike(BAOBAB_SIGN), BAOBAB_SIGN_TYPE));
 
-    public static class WoodGroup {
+    public static void addBaobab() {
+        StrippableBlockRegistry.register(BAOBAB_LOG, BAOBAB_STRIPPED_LOG);
+        StrippableBlockRegistry.register(BAOBAB_WOOD, BAOBAB_STRIPPED_WOOD);
 
-        public final Block LOG;
-        public final Block STRIPPED_LOG;
-        public final Block WOOD;
-        public final Block STRIPPED_WOOD;
-        public final Block HOLLOWED_LOG;
-        public final Block PLANKS;
-        public final Block SLAB;
-        public final Block STAIRS;
-        public final Block DOOR;
-        public final Block TRAPDOOR;
-        public final Block FENCE;
-        public final Block GATE;
-        public final Block PLATE;
-        public final Block LEAVES;
-        public final Block BUTTON;
-        public final Block SIGN;
-        public final Block WALL_SIGN;
-        public final Item BOAT_ITEM;
-        public final Item CHEST_BOAT_ITEM;
-
-        public final SignType SIGN_TYPE;
-
-        public WoodGroup(String name, Block planksBlock, MapColor planks, MapColor bark, MapColor leaves, WilderBoatEntity.Type boatType) {
-            this.SIGN_TYPE = SignTypeAccessor.registerNew(SignTypeAccessor.newSignType(name));
-            PLANKS = planksBlock;
-            LOG = registerBlock(name + "_log", new PillarBlock(AbstractBlock.Settings.of(Material.WOOD, state -> state.get(PillarBlock.AXIS) == Direction.Axis.Y ? planks : bark).strength(2.0F).sounds(BlockSoundGroup.WOOD)), ItemGroup.BUILDING_BLOCKS);
-            STRIPPED_LOG = registerBlock("stripped_" + name + "_log", new PillarBlock(AbstractBlock.Settings.of(Material.WOOD, state -> state.get(PillarBlock.AXIS) == Direction.Axis.Y ? planks : bark).strength(2.0F).sounds(BlockSoundGroup.WOOD)), ItemGroup.BUILDING_BLOCKS);
-            WOOD = registerBlock(name + "_wood", new PillarBlock(AbstractBlock.Settings.of(Material.WOOD, state -> state.get(PillarBlock.AXIS) == Direction.Axis.Y ? planks : bark).strength(2.0F).sounds(BlockSoundGroup.WOOD)), ItemGroup.BUILDING_BLOCKS);
-            STRIPPED_WOOD = registerBlock("stripped_" + name + "_wood", new PillarBlock(AbstractBlock.Settings.of(Material.WOOD, state -> state.get(PillarBlock.AXIS) == Direction.Axis.Y ? planks : bark).strength(2.0F).sounds(BlockSoundGroup.WOOD)), ItemGroup.BUILDING_BLOCKS);
-            HOLLOWED_LOG = registerBlock("hollowed_" + name + "_log", createHollowedLogBlock(planks, bark), ItemGroup.BUILDING_BLOCKS);
-            SLAB = registerBlock(name + "_slab", new SlabBlock(AbstractBlock.Settings.of(Material.WOOD, planks).strength(2.0F, 3.0F).sounds(BlockSoundGroup.WOOD)), ItemGroup.BUILDING_BLOCKS);
-            STAIRS = registerBlock(name + "_stairs", new StairsBlock(PLANKS.getDefaultState(), AbstractBlock.Settings.copy(PLANKS)), ItemGroup.BUILDING_BLOCKS);
-            DOOR = registerBlock(name + "_door", new DoorBlock(AbstractBlock.Settings.of(Material.WOOD, planks).strength(3.0F).sounds(BlockSoundGroup.WOOD).nonOpaque()), ItemGroup.REDSTONE);
-            TRAPDOOR = registerBlock("name" + "_trapdoor", new TrapdoorBlock(AbstractBlock.Settings.of(Material.WOOD, planks).strength(3.0F).sounds(BlockSoundGroup.WOOD).nonOpaque().allowsSpawning(WoodGroup::never)), ItemGroup.REDSTONE);
-            FENCE = registerBlock(name + "_fence", new FenceBlock(AbstractBlock.Settings.of(Material.WOOD, planks).strength(2.0F, 3.0F).sounds(BlockSoundGroup.WOOD)), ItemGroup.BUILDING_BLOCKS);
-            GATE = registerBlock(name + "_fence_gate", new FenceGateBlock(AbstractBlock.Settings.of(Material.WOOD, planks).strength(2.0F, 3.0F).sounds(BlockSoundGroup.WOOD)), ItemGroup.REDSTONE);
-            PLATE = registerBlock(name + "_pressure_plate", new PressurePlateBlock(PressurePlateBlock.ActivationRule.EVERYTHING, AbstractBlock.Settings.of(Material.WOOD, planks).noCollision().strength(0.5F).sounds(BlockSoundGroup.WOOD)), ItemGroup.REDSTONE);
-            LEAVES = registerBlock(name + "_leaves", new LeavesBlock(AbstractBlock.Settings.of(Material.LEAVES, leaves).strength(0.2F).ticksRandomly().sounds(BlockSoundGroup.GRASS).nonOpaque().allowsSpawning(WoodGroup::canSpawnOnLeaves).suffocates(WoodGroup::never).blockVision(WoodGroup::never)), ItemGroup.BUILDING_BLOCKS);
-            BUTTON = registerBlock(name + "_button", new WoodenButtonBlock(AbstractBlock.Settings.copy(Blocks.OAK_BUTTON).mapColor(planks)), ItemGroup.REDSTONE);
-            SIGN = registerBlock(name + "_sign", new SignBlock(AbstractBlock.Settings.of(Material.WOOD, bark).noCollision().strength(1.0F).sounds(BlockSoundGroup.WOOD), SIGN_TYPE), ItemGroup.BUILDING_BLOCKS);
-            WALL_SIGN = registerBlockWithoutBlockItem(name + "_wall_sign", new SignBlock(AbstractBlock.Settings.of(Material.WOOD, bark).noCollision().strength(1.0F).sounds(BlockSoundGroup.WOOD).dropsLike(SIGN), SIGN_TYPE));
-
-            BOAT_ITEM = Registry.register(Registry.ITEM, new Identifier(WilderWild.MOD_ID, name + "_boat"), new WilderBoatItem(false, boatType, (new Item.Settings()).maxCount(1).group(ItemGroup.TRANSPORTATION)));
-            CHEST_BOAT_ITEM = Registry.register(Registry.ITEM, new Identifier(WilderWild.MOD_ID, name + "_chest_boat"), new WilderBoatItem(true, boatType, (new Item.Settings()).maxCount(1).group(ItemGroup.TRANSPORTATION)));
-
-            StrippableBlockRegistry.register(LOG, STRIPPED_LOG);
-            StrippableBlockRegistry.register(WOOD, STRIPPED_WOOD);
-
-            TermiteMoundBlockEntity.Termite.addDegradable(LOG, HOLLOWED_LOG);
-            TermiteMoundBlockEntity.Termite.addDegradable(STRIPPED_LOG, Blocks.AIR);
-            TermiteMoundBlockEntity.Termite.addDegradable(WOOD, STRIPPED_WOOD);
-            TermiteMoundBlockEntity.Termite.addDegradable(STRIPPED_WOOD, Blocks.AIR);
-
-            FlammableBlockRegistry.getDefaultInstance().add(LOG, 5, 5);
-            FlammableBlockRegistry.getDefaultInstance().add(STRIPPED_LOG, 5, 5);
-            FlammableBlockRegistry.getDefaultInstance().add(WOOD, 5, 5);
-            FlammableBlockRegistry.getDefaultInstance().add(STRIPPED_WOOD, 5, 5);
-            FlammableBlockRegistry.getDefaultInstance().add(PLANKS, 5, 20);
-            FlammableBlockRegistry.getDefaultInstance().add(STAIRS, 5, 20);
-            FlammableBlockRegistry.getDefaultInstance().add(DOOR, 5, 20);
-            FlammableBlockRegistry.getDefaultInstance().add(FENCE, 5, 20);
-            FlammableBlockRegistry.getDefaultInstance().add(SLAB, 5, 20);
-            FlammableBlockRegistry.getDefaultInstance().add(GATE, 5, 20);
-            FlammableBlockRegistry.getDefaultInstance().add(PLATE, 5, 20);
-            FlammableBlockRegistry.getDefaultInstance().add(TRAPDOOR, 5, 20);
-            FlammableBlockRegistry.getDefaultInstance().add(LEAVES, 100, 60);
-            FlammableBlockRegistry.getDefaultInstance().add(BUTTON, 5, 20);
-            FlammableBlockRegistry.getDefaultInstance().add(SIGN, 5, 20);
-            FlammableBlockRegistry.getDefaultInstance().add(WALL_SIGN, 5, 20);
-        }
-
-        private static Block registerBlockWithoutBlockItem(String id, Block block) {
-            return Registry.register(Registry.BLOCK, new Identifier(WilderWild.MOD_ID, id), block);
-        }
-
-        private static Block registerBlock(String id, Block block, ItemGroup group) {
-            registerBlockItem(id, block, group);
-            return Registry.register(Registry.BLOCK, new Identifier(WilderWild.MOD_ID, id), block);
-        }
-
-        private static BlockItem registerBlockItem(String id, Block block, ItemGroup group) {
-            return Registry.register(Registry.ITEM, new Identifier(WilderWild.MOD_ID, id),
-                    new BlockItem(block, new FabricItemSettings().group(group)));
-        }
-
-        private static HollowedLogBlock createHollowedLogBlock(MapColor topMapColor, MapColor sideMapColor) {
-            return new HollowedLogBlock(AbstractBlock.Settings.of(Material.WOOD,
-                            (state) -> state.get(PillarBlock.AXIS) == Direction.Axis.Y ? topMapColor : sideMapColor)
-                    .strength(2.0F).sounds(BlockSoundGroup.WOOD));
-        }
-
-        protected static boolean never(BlockState state, BlockView world, BlockPos pos) {
-            return false;
-        }
-
-        private static boolean never(BlockState state, BlockView blockView, BlockPos blockPos, EntityType<?> entityType) {
-            return false;
-        }
-
-        protected static Boolean canSpawnOnLeaves(BlockState state, BlockView world, BlockPos pos, EntityType<?> type) {
-            return type == EntityType.OCELOT || type == EntityType.PARROT;
-        }
+        TermiteMoundBlockEntity.Termite.addDegradable(BAOBAB_LOG, BAOBAB_HOLLOWED_LOG);
+        TermiteMoundBlockEntity.Termite.addDegradable(BAOBAB_STRIPPED_LOG, Blocks.AIR);
+        TermiteMoundBlockEntity.Termite.addDegradable(BAOBAB_WOOD, BAOBAB_STRIPPED_WOOD);
+        TermiteMoundBlockEntity.Termite.addDegradable(BAOBAB_STRIPPED_WOOD, Blocks.AIR);
     }
+
+    protected static boolean never(BlockState state, BlockView world, BlockPos pos) { return false; }
+
+    private static boolean never(BlockState state, BlockView blockView, BlockPos blockPos, EntityType<?> entityType) { return false; }
+
+    protected static Boolean canSpawnOnLeaves(BlockState state, BlockView world, BlockPos pos, EntityType<?> type) { return type == EntityType.OCELOT || type == EntityType.PARROT; }
 }

@@ -3,6 +3,7 @@ package net.frozenblock.wilderwild.entity;
 import com.google.common.collect.Lists;
 import net.frozenblock.wilderwild.registry.RegisterBlocks;
 import net.frozenblock.wilderwild.registry.RegisterEntities;
+import net.frozenblock.wilderwild.registry.RegisterItems;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.LilyPadBlock;
@@ -210,7 +211,7 @@ public class WilderBoatEntity extends Entity {
     public Item asItem() {
         switch(this.getBoatType()) {
             case BAOBAB: default:
-                return RegisterBlocks.BAOBAB.BOAT_ITEM;
+                return RegisterItems.BAOBAB_BOAT_ITEM;
             }
     }
 

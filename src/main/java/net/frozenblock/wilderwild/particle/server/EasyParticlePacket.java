@@ -4,18 +4,12 @@ import io.netty.buffer.Unpooled;
 import net.fabricmc.fabric.api.networking.v1.PlayerLookup;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.frozenblock.wilderwild.WilderWild;
-import net.minecraft.block.MultifaceGrowthBlock;
-import net.minecraft.client.util.ParticleUtil;
 import net.minecraft.network.PacketByteBuf;
-import net.minecraft.particle.SculkChargeParticleEffect;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
-
-import java.util.Iterator;
 
 public class EasyParticlePacket {
 
