@@ -6,10 +6,10 @@
       "item": "minecraft:chest"
     },
     {
-      "item": "wilderwild:acacia_boat"
+      "item": "wilderwild:baobab_boat"
     }
   ],
   "result": {
-    "item": "wilderwild:acacia_chest_boat"
+    "item": "wilderwild:baobab_chest_boat"
   }
 }

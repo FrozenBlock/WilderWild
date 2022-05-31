@@ -3,7 +3,7 @@
   "group": "boat",
   "key": {
     "#": {
-      "item": "wilderwild:acacia_planks"
+      "item": "wilderwild:baobab_planks"
     }
   },
   "pattern": [
@@ -11,6 +11,6 @@
     "###"
   ],
   "result": {
-    "item": "wilderwild:acacia_boat"
+    "item": "wilderwild:baobab_boat"
   }
 }
