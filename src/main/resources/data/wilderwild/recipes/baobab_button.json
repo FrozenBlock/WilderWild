@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "group": "wooden_button",
+  "ingredients": [
+    {
+      "item": "wilderwild:acacia_planks"
+    }
+  ],
+  "result": {
+    "item": "wilderwild:acacia_button"
+  }
+}
