@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "wilderwild:block/baobab_slab"
+    },
+    "type=double": {
+      "model": "wilderwild:block/baobab_planks"
+    },
+    "type=top": {
+      "model": "wilderwild:block/baobab_slab_top"
+    }
+  }
+}
