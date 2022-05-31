@@ -5,6 +5,7 @@ import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.fabricmc.fabric.api.registry.CompostingChanceRegistry;
 import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.block.*;
+import net.frozenblock.wilderwild.block.misc.WoodGroup;
 import net.frozenblock.wilderwild.item.FloweredLilyPadItem;
 import net.minecraft.block.*;
 import net.minecraft.entity.effect.StatusEffects;
@@ -14,6 +15,8 @@ import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.registry.Registry;
+
+import java.util.Map;
 
 public abstract class RegisterBlocks {
     // CHISELED PACKED MUD
@@ -168,6 +171,8 @@ public abstract class RegisterBlocks {
             ItemGroup.DECORATIONS
     );
 
+    public static final WoodGroup BAOBAB = registerWoodGroup(new Identifier(WilderWild.MOD_ID, "baobab"), MapColor.ORANGE, MapColor.BROWN, MapColor.GREEN);
+
 
     private static Block registerBlockWithoutBlockItem(String name, Block block) {
         return Registry.register(Registry.BLOCK, new Identifier(WilderWild.MOD_ID, name), block);
@@ -187,6 +192,10 @@ public abstract class RegisterBlocks {
         return new HollowedLogBlock(AbstractBlock.Settings.of(Material.WOOD,
                 (state) -> state.get(PillarBlock.AXIS) == Direction.Axis.Y ? topMapColor : sideMapColor)
                 .strength(2.0F).sounds(BlockSoundGroup.WOOD));
+    }
+
+    private static WoodGroup registerWoodGroup(Identifier id, MapColor planks, MapColor bark, MapColor leaves) {
+        return new WoodGroup(id, planks, bark, leaves);
     }
 
 
