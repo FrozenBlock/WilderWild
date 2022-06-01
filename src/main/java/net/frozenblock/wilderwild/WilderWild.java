@@ -38,6 +38,7 @@ public class WilderWild implements ModInitializer {
     public static final String MOD_ID = "wilderwild";
     public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
     public static boolean DEV_LOGGING = true;
+    public static boolean UNSTABLE_LOGGING = true; //Used for features that may possibly be unstable and crash in public builds - it's smart to use this for at least registries.
 
     public static final TrunkPlacerType<StraightTrunkWithLogs> STRAIGHT_TRUNK_WITH_LOGS_PLACER_TYPE = TrunkPlacerTypeInvoker.callRegister("straight_trunk_logs_placer", StraightTrunkWithLogs.CODEC);
     public static final TrunkPlacerType<FallenTrunkWithLogs> FALLEN_TRUNK_WITH_LOGS_PLACER_TYPE = TrunkPlacerTypeInvoker.callRegister("fallen_trunk_logs_placer", FallenTrunkWithLogs.CODEC);
@@ -88,23 +89,23 @@ public class WilderWild implements ModInitializer {
 
     public static final CameraItem CAMERA_ITEM = new CameraItem(new FabricItemSettings());
 
-    public static void log(String string) {
-        if (DEV_LOGGING) {
+    public static void log(String string, boolean shouldLog) {
+        if (shouldLog) {
             LOGGER.info(string);
         }
     }
-    public static void log(Entity entity, String string) {
-        if (DEV_LOGGING) {
+    public static void log(Entity entity, String string, boolean shouldLog) {
+        if (shouldLog) {
             LOGGER.info(entity.toString() + " : " + string + " : " + entity.getPos());
         }
     }
-    public static void log(Block block, String string) {
-        if (DEV_LOGGING) {
+    public static void log(Block block, String string, boolean shouldLog) {
+        if (shouldLog) {
             LOGGER.info(block.toString() + " : " + string + " : ");
         }
     }
-    public static void log(Block block, BlockPos pos, String string) {
-        if (DEV_LOGGING) {
+    public static void log(Block block, BlockPos pos, String string, boolean shouldLog) {
+        if (shouldLog) {
             LOGGER.info(block.toString() + " : " + string + " : " + pos);
         }
     }

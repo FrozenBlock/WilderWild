@@ -182,7 +182,7 @@ public class AncientHornProjectileEntity extends PersistentProjectileEntity {
         if (world instanceof ServerWorld server && canInteract()) {
             if (blockState.getBlock() == Blocks.SCULK_SHRIEKER) {
                 BlockPos pos = blockHitResult.getBlockPos();
-                WilderWild.log(Blocks.SCULK_SHRIEKER, pos, "Horn Projectile Touched");
+                WilderWild.log(Blocks.SCULK_SHRIEKER, pos, "Horn Projectile Touched", WilderWild.UNSTABLE_LOGGING);
                 if (blockState.get(RegisterProperties.SOULS_TAKEN) < 2 && !blockState.get(SculkShriekerBlock.SHRIEKING)) {
                     server.setBlockState(pos, blockState.with(RegisterProperties.SOULS_TAKEN, blockState.get(RegisterProperties.SOULS_TAKEN) + 1));
                     server.spawnParticles(ParticleTypes.SCULK_SOUL, (double) pos.getX() + 0.5D, (double) pos.getY() + 1.15D, (double) pos.getZ() + 0.5D, 1, 0.2D, 0.0D, 0.2D, 0.0D);
@@ -198,7 +198,7 @@ public class AncientHornProjectileEntity extends PersistentProjectileEntity {
             }
             if (blockState.getBlock() == Blocks.SCULK_SENSOR) {
                 BlockPos pos = blockHitResult.getBlockPos();
-                WilderWild.log(Blocks.SCULK_SENSOR, pos, "Horn Projectile Touched");
+                WilderWild.log(Blocks.SCULK_SENSOR, pos, "Horn Projectile Touched", WilderWild.UNSTABLE_LOGGING);
                 server.setBlockState(pos, blockState.with(RegisterProperties.NOT_HICCUPPING, false));
                 if (SculkSensorBlock.isInactive(blockState)) {
                     SculkSensorBlock.setActive(null, world, pos, world.getBlockState(pos), (int) (Math.random() * 15));
@@ -209,7 +209,7 @@ public class AncientHornProjectileEntity extends PersistentProjectileEntity {
             }
             if (blockState.getBlock() == RegisterBlocks.SCULK_ECHOER) {
                 BlockPos pos = blockHitResult.getBlockPos();
-                WilderWild.log(RegisterBlocks.SCULK_ECHOER, pos, "Horn Projectile Touched");
+                WilderWild.log(RegisterBlocks.SCULK_ECHOER, pos, "Horn Projectile Touched", WilderWild.UNSTABLE_LOGGING);
                 if (SculkEchoerBlock.isInactive(blockState)) {
                     SculkEchoerBlock.setActive(owner, world, pos, world.getBlockState(pos), server.random.nextBetween(160, 220));
                     setCooldown(getCooldown(this.getOwner(), echoerCooldown,  ((-this.cooldownLevel*40) + (this.speedLevel*10))));
@@ -234,9 +234,9 @@ public class AncientHornProjectileEntity extends PersistentProjectileEntity {
         if (insideState.isOf(RegisterBlocks.HANGING_TENDRIL) && world instanceof ServerWorld server && canInteract()) {
             BlockPos pos = this.getBlockPos();
             BlockEntity entity = world.getBlockEntity(pos);
-            WilderWild.log(RegisterBlocks.HANGING_TENDRIL, pos, "Horn Projectile Touched");
+            WilderWild.log(RegisterBlocks.HANGING_TENDRIL, pos, "Horn Projectile Touched", WilderWild.DEV_LOGGING);
             if (entity instanceof HangingTendrilBlockEntity tendril) {
-                WilderWild.log("Horn Projectile Found Hanging Tendril Entity");
+                WilderWild.log("Horn Projectile Found Hanging Tendril Entity", WilderWild.UNSTABLE_LOGGING);
                 this.playSound(this.getSound(), 1.0F, 1.2F / (this.random.nextFloat() * 0.2F + 0.9F));
                 int XP = tendril.storedXP;
                 if (XP>0) {
@@ -364,12 +364,12 @@ public class AncientHornProjectileEntity extends PersistentProjectileEntity {
             int j = entity.getFireTicks();
             if (this.isOnFire()) { entity.setOnFireFor(5); }
             if (entity instanceof WardenEntity warden && entity2!=null && canInteract()) {
-                WilderWild.log(warden, "Horn Projectile Touched");
+                WilderWild.log(warden, "Horn Projectile Touched", WilderWild.UNSTABLE_LOGGING);
                 warden.increaseAngerAt(entity2, 100, true);
                 warden.playSound(SoundEvents.ENTITY_WARDEN_TENDRIL_CLICKS, 5.0F, warden.getSoundPitch());
             } else if (entity.damage(damageSource, (float) i)) {
                 if (entity instanceof LivingEntity livingEntity) {
-                    WilderWild.log(livingEntity, "Horn Projectile Touched");
+                    WilderWild.log(livingEntity, "Horn Projectile Touched", WilderWild.DEV_LOGGING);
                     if (!this.world.isClient && entity2 instanceof LivingEntity) {
                         EnchantmentHelper.onUserDamaged(livingEntity, entity2);
                         EnchantmentHelper.onTargetDamaged((LivingEntity) entity2, livingEntity);

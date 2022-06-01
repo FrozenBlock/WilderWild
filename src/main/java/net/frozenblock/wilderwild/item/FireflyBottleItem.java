@@ -23,7 +23,7 @@ public class FireflyBottleItem extends Item {
     }
 
     public TypedActionResult<ItemStack> use(World world, PlayerEntity user, Hand hand) {
-        WilderWild.log(user, "Used Firefly Bottle");
+        WilderWild.log(user, "Used Firefly Bottle", WilderWild.DEV_LOGGING);
         ItemStack itemStack = user.getStackInHand(hand);
         if (world instanceof ServerWorld server) {
             float pitch = user.getPitch();
@@ -45,6 +45,8 @@ public class FireflyBottleItem extends Item {
                         ItemStack itemStack2 = new ItemStack(Items.GLASS_BOTTLE);
                         ItemStack itemStack3 = ItemUsage.exchangeStack(itemStack, user, itemStack2, true);
                         user.setStackInHand(hand, itemStack3);
+                    } else {
+                        WilderWild.log("Couldn't spawn Firefly from bottle @ " + user.getBlockPos().toShortString(), WilderWild.UNSTABLE_LOGGING);
                     }
                 }
             }

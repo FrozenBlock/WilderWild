@@ -19,7 +19,7 @@ public class MilkweedPodItem extends Item {
     }
 
     public TypedActionResult<ItemStack> use(World world, PlayerEntity user, Hand hand) {
-        WilderWild.log(user, "Used Milkweed Pod");
+        WilderWild.log(user, "Used Milkweed Pod", WilderWild.DEV_LOGGING);
         ItemStack itemStack = user.getStackInHand(hand);
         itemStack.decrement(1);
         if (world instanceof ServerWorld server) {

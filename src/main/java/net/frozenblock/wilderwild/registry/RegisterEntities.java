@@ -21,7 +21,7 @@ public class RegisterEntities {
     public static EntityType<WilderChestBoatEntity> BAOBAB_CHEST_BOAT = Registry.register(Registry.ENTITY_TYPE, new Identifier(WilderWild.MOD_ID, "baobab_chest_boat"), FabricEntityTypeBuilder.<WilderChestBoatEntity>create(SpawnGroup.MISC, WilderChestBoatEntity::new).dimensions(EntityDimensions.fixed(1.375F, 0.5625F)).build());
 
     public static void init() {
-        WilderWild.logWild("Registering Entities for", true);
+        WilderWild.logWild("Registering Entities for", WilderWild.UNSTABLE_LOGGING);
         FabricDefaultAttributeRegistry.register(FIREFLY, FireflyEntity.addAttributes());
     }
 }

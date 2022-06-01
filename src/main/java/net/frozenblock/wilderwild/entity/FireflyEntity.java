@@ -3,6 +3,7 @@ package net.frozenblock.wilderwild.entity;
 import com.google.common.collect.ImmutableList;
 import com.mojang.logging.LogUtils;
 import com.mojang.serialization.Dynamic;
+import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.entity.ai.FireflyBrain;
 import net.frozenblock.wilderwild.registry.RegisterItems;
 import net.frozenblock.wilderwild.registry.RegisterSounds;
@@ -45,7 +46,6 @@ import java.util.Optional;
 
 public class FireflyEntity extends PathAwareEntity implements Flutterer {
 
-    private static final Logger LOGGER = LogUtils.getLogger();
     protected static final ImmutableList<SensorType<? extends Sensor<? super FireflyEntity>>> SENSORS = ImmutableList.of(SensorType.NEAREST_LIVING_ENTITIES, SensorType.HURT_BY);
     protected static final ImmutableList<MemoryModuleType<?>> MEMORY_MODULES = ImmutableList.of(MemoryModuleType.PATH, MemoryModuleType.VISIBLE_MOBS, MemoryModuleType.WALK_TARGET, MemoryModuleType.CANT_REACH_WALK_TARGET_SINCE);
     private static final TrackedData<Boolean> FROM_BOTTLE = DataTracker.registerData(FireflyEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
@@ -71,6 +71,7 @@ public class FireflyEntity extends PathAwareEntity implements Flutterer {
     public static Optional<ActionResult> tryCapture(PlayerEntity player, Hand hand, FireflyEntity entity) {
         ItemStack itemStack = player.getStackInHand(hand);
         if (itemStack.getItem() == Items.GLASS_BOTTLE && entity.isAlive()) {
+            WilderWild.log("Firefly capture attempt starting @ " + entity.getBlockPos().toShortString() + " by " + player.getDisplayName().getString(), WilderWild.UNSTABLE_LOGGING);
             //TODO: FIREFLY BOTTLE SOUNDS
             entity.playSound(SoundEvents.ITEM_BOTTLE_FILL, 1.0F, 1.0F);
             ItemStack itemStack2 = new ItemStack(RegisterItems.FIREFLY_BOTTLE);
@@ -82,16 +83,6 @@ public class FireflyEntity extends PathAwareEntity implements Flutterer {
         } else {
             return Optional.empty();
         }
-    }
-
-    @Override
-    public boolean canSpawn(WorldAccess world, SpawnReason spawnReason) {
-        return world.isSkyVisible(this.getBlockPos()) || spawnReason!=SpawnReason.NATURAL;
-    }
-
-    @Override
-    public boolean canSpawn(WorldView world) {
-        return !world.containsFluid(this.getBoundingBox()) && world.isSkyVisible(this.getBlockPos());
     }
 
     @Override
@@ -250,10 +241,6 @@ public class FireflyEntity extends PathAwareEntity implements Flutterer {
     @Override
     public boolean handleFallDamage(float fallDistance, float damageMultiplier, DamageSource damageSource) {
         return false;
-    }
-
-    public boolean isPushable() {
-        return true;
     }
 
     protected void pushAway(Entity entity) {

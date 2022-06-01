@@ -30,7 +30,6 @@ import net.minecraft.util.registry.Registry;
 import java.util.UUID;
 
 public class WildClientMod implements ClientModInitializer {
-    public static final EntityModelLayer SENSOR_TENDRILS_LAYER = new EntityModelLayer(new Identifier(WilderWild.MOD_ID, "sculk_sensor_tendrils"), "main");
     public static final EntityModelLayer ANCIENT_HORN_PROJECTILE_LAYER = new EntityModelLayer(new Identifier(WilderWild.MOD_ID, "ancient_horn_projectile"), "main");
     public static final EntityModelLayer BAOBAB_BOAT = new EntityModelLayer(new Identifier(WilderWild.MOD_ID, "baobab_boat"), "main");
     public static final EntityModelLayer BAOBAB_CHEST_BOAT = new EntityModelLayer(new Identifier(WilderWild.MOD_ID, "baobab_chest_boat"), "main");
@@ -105,7 +104,7 @@ public class WildClientMod implements ClientModInitializer {
             Vec3d pos = AncientHornProjectileEntity.EntitySpawnPacket.PacketBufUtil.readVec3d(byteBuf);
             float pitch = AncientHornProjectileEntity.EntitySpawnPacket.PacketBufUtil.readAngle(byteBuf);
             float yaw = AncientHornProjectileEntity.EntitySpawnPacket.PacketBufUtil.readAngle(byteBuf);
-            WilderWild.log("Receiving Ancient Horn Projectile Packet At " + pos);
+            WilderWild.log("Receiving Ancient Horn Projectile Packet At " + pos, WilderWild.DEV_LOGGING);
             ctx.execute(() -> {
                 if (MinecraftClient.getInstance().world == null)
                     throw new IllegalStateException("Tried to spawn entity in a null world!");
@@ -119,7 +118,7 @@ public class WildClientMod implements ClientModInitializer {
                 e.setId(entityId);
                 e.setUuid(uuid);
                 MinecraftClient.getInstance().world.addEntity(entityId, e);
-                WilderWild.log("Spawned Ancient Horn Projectile");
+                WilderWild.log("Spawned Ancient Horn Projectile", WilderWild.UNSTABLE_LOGGING);
             });
         });
     }

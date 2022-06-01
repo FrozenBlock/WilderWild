@@ -80,7 +80,7 @@ public class AncientCityGoatHorn extends Item {
     }
 
     public TypedActionResult<ItemStack> use(World world, PlayerEntity user, Hand hand) {
-        WilderWild.log(user, "Used Ancient Goat Horn");
+        WilderWild.log(user, "Used Ancient Goat Horn", WilderWild.DEV_LOGGING);
         ItemStack itemStack = user.getStackInHand(hand);
         user.setCurrentHand(hand);
         world.playSoundFromEntity(user, user, RegisterSounds.ANCIENT_HORN_CALL, SoundCategory.RECORDS, 8.0F, 1.0F);
