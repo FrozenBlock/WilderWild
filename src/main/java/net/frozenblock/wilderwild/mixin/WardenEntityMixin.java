@@ -55,22 +55,16 @@ public class WardenEntityMixin {
                 LivingEntity livingEntity = (LivingEntity)entity;
                 if (!(entity instanceof PlayerEntity player)) {
                     warden.increaseAngerAt(entity, Angriness.ANGRY.getThreshold() + 20, false);
-                    if (warden.getBrain().getOptionalMemory(MemoryModuleType.ROAR_TARGET).isEmpty()) {
-                        warden.getBrain().remember(MemoryModuleType.ROAR_TARGET, livingEntity);
-                        warden.getBrain().forget(MemoryModuleType.CANT_REACH_WALK_TARGET_SINCE);
-                    }
-                    if (!warden.isInPose(EntityPose.ROARING) && !warden.chargingSonicBoomAnimationState.isRunning()) {
-                        warden.tryAttack(entity);
+
+                    if (!livingEntity.isDead() && warden.getBrain().getOptionalMemory(MemoryModuleType.ATTACK_TARGET).isEmpty()) {
+                        warden.updateAttackTarget(livingEntity);
                     }
                 } else {
                     if (!player.isCreative()) {
                         warden.increaseAngerAt(entity, Angriness.ANGRY.getThreshold() + 20, false);
-                        if (warden.getBrain().getOptionalMemory(MemoryModuleType.ROAR_TARGET).isEmpty()) {
-                            warden.getBrain().remember(MemoryModuleType.ROAR_TARGET, livingEntity);
-                            warden.getBrain().forget(MemoryModuleType.CANT_REACH_WALK_TARGET_SINCE);
-                        }
-                        if (!warden.isInPose(EntityPose.ROARING) && !warden.chargingSonicBoomAnimationState.isRunning()) {
-                            warden.tryAttack(entity);
+
+                        if (!player.isDead() && warden.getBrain().getOptionalMemory(MemoryModuleType.ATTACK_TARGET).isEmpty()) {
+                            warden.updateAttackTarget(player);
                         }
                     }
                 }

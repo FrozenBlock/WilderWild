@@ -18,6 +18,15 @@ import java.util.List;
 
 
 public class WildConfiguredFeatures {
+    public static final RegistryEntry<ConfiguredFeature<RandomFeatureConfig, ?>> SAVANNA_TREES =
+            ConfiguredFeatures.register("savanna_trees", Feature.RANDOM_SELECTOR,
+                    new RandomFeatureConfig(List.of(new RandomFeatureEntry(TreePlacedFeatures.ACACIA_CHECKED, 0.8F),
+                            new RandomFeatureEntry(WildTreePlaced.BAOBAB, 0.09F),
+                            new RandomFeatureEntry(WildTreePlaced.BAOBAB_TALL, 0.055F)), WildTreePlaced.NEW_OAK_CHECKED));
+
+    public static final RegistryEntry<ConfiguredFeature<RandomFeatureConfig, ?>> WINDSWEPT_SAVANNA_TREES =
+            ConfiguredFeatures.register("windswept_savanna_trees", Feature.RANDOM_SELECTOR,
+                    new RandomFeatureConfig(List.of(new RandomFeatureEntry(TreePlacedFeatures.ACACIA_CHECKED, 0.8F)), WildTreePlaced.NEW_OAK_CHECKED));
     public static final RegistryEntry<ConfiguredFeature<RandomFeatureConfig, ?>> NEW_MEADOW_TREES =
             ConfiguredFeatures.register("new_meadow_trees", Feature.RANDOM_SELECTOR,
                     new RandomFeatureConfig(List.of(new RandomFeatureEntry(WildTreePlaced.NEW_FANCY_OAK_BEES, 0.5F)), WildTreePlaced.NEW_SUPER_BIRCH_BEES));
@@ -115,7 +124,7 @@ public class WildConfiguredFeatures {
             ConfiguredFeatures.register("red_shelf_fungus", WilderWild.SHELF_FUNGUS_FEATURE, new ShelfFungusFeatureConfig((ShelfFungusBlock)RegisterBlocks.RED_SHELF_FUNGUS, 20, true, true, true, RegistryEntryList.of(Block::getRegistryEntry, Blocks.MANGROVE_LOG, Blocks.DARK_OAK_LOG, RegisterBlocks.HOLLOWED_BIRCH_LOG, RegisterBlocks.HOLLOWED_OAK_LOG, Blocks.MYCELIUM, Blocks.MUSHROOM_STEM)));
 
     public static void registerConfiguredFeatures() {
-        System.out.println("Registering WildConfiguredFeatures for " + WilderWild.MOD_ID);
+        WilderWild.logWild("Registering WildConfiguredFeatures for", true);
     }
     private static RandomPatchFeatureConfig createRandomPatchFeatureConfig(BlockStateProvider block, int tries) {
         return ConfiguredFeatures.createRandomPatchFeatureConfig(tries, PlacedFeatures.createEntry(Feature.SIMPLE_BLOCK, new SimpleBlockFeatureConfig(block)));

@@ -21,17 +21,7 @@ import java.util.List;
 import java.util.function.BiConsumer;
 
 public class StraightTrunkWithLogs extends TrunkPlacer {
-    public static final Codec<StraightTrunkWithLogs> CODEC = RecordCodecBuilder.create((instance) -> {
-        return fillTrunkPlacerFields(instance).and(instance.group(Codec.floatRange(0.0F, 1.0F).fieldOf("place_branch_chance").forGetter((trunkPlacer) -> {
-            return trunkPlacer.logChance;
-        }), IntProvider.NON_NEGATIVE_CODEC.fieldOf("max_logs").forGetter((trunkPlacer) -> {
-            return trunkPlacer.maxLogs;
-        }), IntProvider.NON_NEGATIVE_CODEC.fieldOf("log_height_from_top").forGetter((trunkPlacer) -> {
-            return trunkPlacer.logHeightFromTop;
-        }), IntProvider.NON_NEGATIVE_CODEC.fieldOf("extra_branch_length").forGetter((trunkPlacer) -> {
-            return trunkPlacer.extraBranchLength;
-        }))).apply(instance, StraightTrunkWithLogs::new);
-    });
+    public static final Codec<StraightTrunkWithLogs> CODEC = RecordCodecBuilder.create((instance) -> fillTrunkPlacerFields(instance).and(instance.group(Codec.floatRange(0.0F, 1.0F).fieldOf("place_branch_chance").forGetter((trunkPlacer) -> trunkPlacer.logChance), IntProvider.NON_NEGATIVE_CODEC.fieldOf("max_logs").forGetter((trunkPlacer) -> trunkPlacer.maxLogs), IntProvider.NON_NEGATIVE_CODEC.fieldOf("log_height_from_top").forGetter((trunkPlacer) -> trunkPlacer.logHeightFromTop), IntProvider.NON_NEGATIVE_CODEC.fieldOf("extra_branch_length").forGetter((trunkPlacer) -> trunkPlacer.extraBranchLength))).apply(instance, StraightTrunkWithLogs::new));
 
     private final IntProvider extraBranchLength;
     private final float logChance;

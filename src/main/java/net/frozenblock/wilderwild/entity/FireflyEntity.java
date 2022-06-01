@@ -4,12 +4,10 @@ import com.google.common.collect.ImmutableList;
 import com.mojang.logging.LogUtils;
 import com.mojang.serialization.Dynamic;
 import net.frozenblock.wilderwild.entity.ai.FireflyBrain;
+import net.frozenblock.wilderwild.registry.RegisterItems;
 import net.frozenblock.wilderwild.registry.RegisterSounds;
 import net.minecraft.block.BlockState;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.Flutterer;
-import net.minecraft.entity.MovementType;
+import net.minecraft.entity.*;
 import net.minecraft.entity.ai.brain.Brain;
 import net.minecraft.entity.ai.brain.MemoryModuleType;
 import net.minecraft.entity.ai.brain.sensor.Sensor;
@@ -20,23 +18,37 @@ import net.minecraft.entity.ai.pathing.EntityNavigation;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.damage.DamageSource;
+import net.minecraft.entity.data.DataTracker;
+import net.minecraft.entity.data.TrackedData;
+import net.minecraft.entity.data.TrackedDataHandlerRegistry;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.mob.PathAwareEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.ItemUsage;
+import net.minecraft.item.Items;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.server.network.DebugInfoSender;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundEvent;
+import net.minecraft.sound.SoundEvents;
+import net.minecraft.util.ActionResult;
+import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
+import net.minecraft.world.WorldAccess;
+import net.minecraft.world.WorldView;
 import org.slf4j.Logger;
+
+import java.util.Optional;
 
 public class FireflyEntity extends PathAwareEntity implements Flutterer {
 
     private static final Logger LOGGER = LogUtils.getLogger();
     protected static final ImmutableList<SensorType<? extends Sensor<? super FireflyEntity>>> SENSORS = ImmutableList.of(SensorType.NEAREST_LIVING_ENTITIES, SensorType.HURT_BY);
     protected static final ImmutableList<MemoryModuleType<?>> MEMORY_MODULES = ImmutableList.of(MemoryModuleType.PATH, MemoryModuleType.VISIBLE_MOBS, MemoryModuleType.WALK_TARGET, MemoryModuleType.CANT_REACH_WALK_TARGET_SINCE);
+    private static final TrackedData<Boolean> FROM_BOTTLE = DataTracker.registerData(FireflyEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
 
     public boolean flickers;
     public int fakeAge;
@@ -47,12 +59,66 @@ public class FireflyEntity extends PathAwareEntity implements Flutterer {
         this.moveControl = new FlightMoveControl(this, 20, true);
     }
 
+    protected void initDataTracker() {
+        super.initDataTracker();
+        this.dataTracker.startTracking(FROM_BOTTLE, false);
+    }
+
+    public ActionResult interactMob(PlayerEntity player, Hand hand) {
+        return tryCapture(player, hand, this).orElse(super.interactMob(player, hand));
+    }
+
+    public static Optional<ActionResult> tryCapture(PlayerEntity player, Hand hand, FireflyEntity entity) {
+        ItemStack itemStack = player.getStackInHand(hand);
+        if (itemStack.getItem() == Items.GLASS_BOTTLE && entity.isAlive()) {
+            //TODO: FIREFLY BOTTLE SOUNDS
+            entity.playSound(SoundEvents.ITEM_BOTTLE_FILL, 1.0F, 1.0F);
+            ItemStack itemStack2 = new ItemStack(RegisterItems.FIREFLY_BOTTLE);
+            ItemStack itemStack3 = ItemUsage.exchangeStack(itemStack, player, itemStack2, true);
+            player.setStackInHand(hand, itemStack3);
+            World world = entity.world;
+            entity.discard();
+            return Optional.of(ActionResult.success(world.isClient));
+        } else {
+            return Optional.empty();
+        }
+    }
+
+    @Override
+    public boolean canSpawn(WorldAccess world, SpawnReason spawnReason) {
+        return world.isSkyVisible(this.getBlockPos()) || spawnReason!=SpawnReason.NATURAL;
+    }
+
+    @Override
+    public boolean canSpawn(WorldView world) {
+        return !world.containsFluid(this.getBoundingBox()) && world.isSkyVisible(this.getBlockPos());
+    }
+
+    @Override
+    public boolean canBeLeashedBy(PlayerEntity player) { return false; }
+
     protected Brain.Profile<FireflyEntity> createBrainProfile() {
         return Brain.createProfile(MEMORY_MODULES, SENSORS);
     }
 
     protected Brain<?> deserializeBrain(Dynamic<?> dynamic) {
         return FireflyBrain.create(this.createBrainProfile().deserialize(dynamic));
+    }
+
+    public boolean isFromBottle() {
+        return this.dataTracker.get(FROM_BOTTLE);
+    }
+
+    public void setFromBottle(boolean value) {
+        this.dataTracker.set(FROM_BOTTLE, value);
+    }
+
+    public boolean cannotDespawn() {
+        return super.cannotDespawn() || this.isFromBottle();
+    }
+
+    public float getPathfindingFavor(BlockPos pos, WorldView world) {
+        return 0.0F;
     }
 
     public Brain<FireflyEntity> getBrain() {
@@ -65,7 +131,7 @@ public class FireflyEntity extends PathAwareEntity implements Flutterer {
     }
 
     public static DefaultAttributeContainer.Builder addAttributes() {
-        return MobEntity.createMobAttributes().add(EntityAttributes.GENERIC_MAX_HEALTH, 1D).add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.005F).add(EntityAttributes.GENERIC_FLYING_SPEED, 0.005F).add(EntityAttributes.GENERIC_FOLLOW_RANGE, 32);
+        return MobEntity.createMobAttributes().add(EntityAttributes.GENERIC_MAX_HEALTH, 1.0D).add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.08F).add(EntityAttributes.GENERIC_FLYING_SPEED, 0.08F).add(EntityAttributes.GENERIC_FOLLOW_RANGE, 32);
     }
 
     protected EntityNavigation createNavigation(World world) {
@@ -148,10 +214,12 @@ public class FireflyEntity extends PathAwareEntity implements Flutterer {
 
     public void writeCustomDataToNbt(NbtCompound nbt) {
         super.writeCustomDataToNbt(nbt);
+        nbt.putBoolean("fromBottle", this.isFromBottle());
     }
 
     public void readCustomDataFromNbt(NbtCompound nbt) {
         super.readCustomDataFromNbt(nbt);
+        this.setFromBottle(nbt.getBoolean("fromBottle"));
     }
 
     protected boolean shouldFollowLeash() {

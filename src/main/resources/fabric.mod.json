@@ -22,6 +22,9 @@
     "main": [
       "net.frozenblock.wilderwild.WilderWild"
     ],
+    "mm:early_risers": [
+      "net.frozenblock.wilderwild.EarlyRiser"
+    ],
     "client": [
       "net.frozenblock.wilderwild.WildClientMod"
     ]
@@ -33,8 +36,9 @@
   "accessWidener" : "wilderwild.accesswidener",
 
   "depends": {
+    "mm": ">=2.3",
     "fabricloader": ">=0.14.6",
-    "fabric": ">=0.53.4",
+    "fabric": ">=0.54.0",
     "minecraft": "1.19.x",
     "java": ">=17"
   },

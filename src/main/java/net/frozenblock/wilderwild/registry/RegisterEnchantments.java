@@ -14,7 +14,7 @@ public class RegisterEnchantments {
     public static final Enchantment ANCIENT_HORN_SPEED_ENCHANTMENT = register("reverberation", new HornSpeedEnchantment(Enchantment.Rarity.RARE, EnchantmentTarget.WEAPON, new EquipmentSlot[]{EquipmentSlot.MAINHAND, EquipmentSlot.OFFHAND}));
 
     public static void init() {
-
+        WilderWild.logWild("Registering Enchantments for", true);
     }
 
     public static Enchantment register(String string, Enchantment enchantment) {

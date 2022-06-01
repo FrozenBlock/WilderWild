@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "group": "wooden_button",
+  "ingredients": [
+    {
+      "item": "wilderwild:baobab_planks"
+    }
+  ],
+  "result": {
+    "item": "wilderwild:baobab_button"
+  }
+}

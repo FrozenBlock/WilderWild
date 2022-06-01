@@ -11,6 +11,8 @@ import net.minecraft.world.biome.BiomeKeys;
 
 public class WildMusic {
     public static void playMusic() {
+        WilderWild.logWild("Adding Music And Ambience To Biomes for", true);
+
         BiomeModifications.create(new Identifier(WilderWild.MOD_ID, "modify_birch_forest_music")).add(ModificationPhase.REPLACEMENTS, (context) -> context.getBiomeKey().equals(BiomeKeys.BIRCH_FOREST),
                 (selectionContext, modificationContext) -> modificationContext.getEffects().setMusic(MusicType.createIngameMusic(RegisterSounds.MUSIC_OVERWORLD_WILD_FORESTS)));
         BiomeModifications.create(new Identifier(WilderWild.MOD_ID, "modify_old_birch_forest_music")).add(ModificationPhase.REPLACEMENTS, (context) -> context.getBiomeKey().equals(BiomeKeys.OLD_GROWTH_BIRCH_FOREST),

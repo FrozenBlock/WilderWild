@@ -14,9 +14,9 @@
 	"SculkShriekerBlockEntityMixin",
 	"SculkShriekerBlockMixin",
 	"SculkVeinGrowCheckerMixin",
+	"SignTypeAccessor",
 	"SonicBoomTaskMixin",
 	"WardenEntityMixin",
-	"WardenEntityModelMixin",
 	"worldgen.BirchSaplingGeneratorMixin",
 	"worldgen.DefaultBiomeFeaturesMixin",
 	"worldgen.GenerationSettingsBuilderMixin",
@@ -26,6 +26,7 @@
 	"worldgen.TrunkPlacerTypeInvoker"
   ],
   "client": [
+	  "WardenEntityModelMixin"
   ],
   "injectors": {
 	"defaultRequire": 1

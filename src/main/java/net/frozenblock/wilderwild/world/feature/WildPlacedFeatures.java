@@ -13,12 +13,16 @@ import net.minecraft.world.gen.placementmodifier.*;
 
 import static net.minecraft.world.gen.feature.VegetationPlacedFeatures.*;
 
-public class WildPlacedFeature {
+public class WildPlacedFeatures {
     //TREES
+    public static final RegistryEntry<PlacedFeature> WINDSWEPT_SAVANNA_TREES = PlacedFeatures.register("windswept_savanna_trees",
+            WildConfiguredFeatures.WINDSWEPT_SAVANNA_TREES, modifiers(PlacedFeatures.createCountExtraModifier(2, 0.1F, 1)));
+    public static final RegistryEntry<PlacedFeature> SAVANNA_TREES = PlacedFeatures.register("savanna_trees",
+            WildConfiguredFeatures.SAVANNA_TREES, modifiers(PlacedFeatures.createCountExtraModifier(1, 0.1F, 1)));
     public static final RegistryEntry<PlacedFeature> NEW_TREES_MEADOW = PlacedFeatures.register("new_trees_meadow",
             WildConfiguredFeatures.NEW_MEADOW_TREES, modifiers(RarityFilterPlacementModifier.of(100)));
     public static final RegistryEntry<PlacedFeature> NEW_DARK_FOREST_VEGETATION = PlacedFeatures.register("new_dark_forest_vegetation",
-            WildConfiguredFeatures.NEW_DARK_FOREST_VEGETATION, new PlacementModifier[]{CountPlacementModifier.of(16), SquarePlacementModifier.of(), NOT_IN_SURFACE_WATER_MODIFIER, PlacedFeatures.OCEAN_FLOOR_HEIGHTMAP, BiomePlacementModifier.of()});
+            WildConfiguredFeatures.NEW_DARK_FOREST_VEGETATION, CountPlacementModifier.of(16), SquarePlacementModifier.of(), NOT_IN_SURFACE_WATER_MODIFIER, PlacedFeatures.OCEAN_FLOOR_HEIGHTMAP, BiomePlacementModifier.of());
     public static final RegistryEntry<PlacedFeature> NEW_TREES_FLOWER_FOREST = PlacedFeatures.register("new_trees_flower_forest",
             WildConfiguredFeatures.NEW_TREES_FLOWER_FOREST, modifiers(PlacedFeatures.createCountExtraModifier(8, 0.1F, 1)));
 
@@ -91,7 +95,7 @@ public class WildPlacedFeature {
             WildConfiguredFeatures.PATCH_FLOWERED_WATERLILY, modifiers(1));
 
     public static final RegistryEntry<PlacedFeature> HUGE_MUSHROOMS_SWAMP = PlacedFeatures.register("huge_mushrooms_swamp",
-            VegetationConfiguredFeatures.MUSHROOM_ISLAND_VEGETATION, RarityFilterPlacementModifier.of(4), SquarePlacementModifier.of(),
+            VegetationConfiguredFeatures.MUSHROOM_ISLAND_VEGETATION, RarityFilterPlacementModifier.of(5), SquarePlacementModifier.of(),
             PlacedFeatures.MOTION_BLOCKING_HEIGHTMAP, BiomePlacementModifier.of());
 
     public static final RegistryEntry<PlacedFeature> NEW_MUSHROOM_PLACED = PlacedFeatures.register("new_mushroom_placed",

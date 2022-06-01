@@ -1,12 +1,13 @@
 package net.frozenblock.wilderwild.world.feature;
 
 import com.google.common.collect.ImmutableList;
+import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.registry.RegisterBlocks;
 import net.frozenblock.wilderwild.world.gen.treedecorators.ShelfFungusTreeDecorator;
+import net.frozenblock.wilderwild.world.gen.trunk.BaobabTrunkPlacer;
 import net.frozenblock.wilderwild.world.gen.trunk.FallenTrunkWithLogs;
 import net.frozenblock.wilderwild.world.gen.trunk.StraightTrunkWithLogs;
 import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.PropaguleBlock;
 import net.minecraft.tag.BlockTags;
@@ -70,6 +71,8 @@ public class WildTreeConfigured {
     public static final RegistryEntry<ConfiguredFeature<TreeFeatureConfig, ?>> SHORT_BIRCH;
     public static final RegistryEntry<ConfiguredFeature<TreeFeatureConfig, ?>> NEW_SUPER_BIRCH_BEES;
     public static final RegistryEntry<ConfiguredFeature<TreeFeatureConfig, ?>> NEW_FANCY_OAK_BEES;
+    public static final RegistryEntry<ConfiguredFeature<TreeFeatureConfig, ?>> BAOBAB;
+    public static final RegistryEntry<ConfiguredFeature<TreeFeatureConfig, ?>> BAOBAB_TALL;
 
     public WildTreeConfigured() {
     }
@@ -146,10 +149,10 @@ public class WildTreeConfigured {
         NEW_SWAMP_TREE = ConfiguredFeatures.register("new_swamp_tree", Feature.TREE, (new TreeFeatureConfig.Builder(BlockStateProvider.of(Blocks.MANGROVE_LOG),
                 new StraightTrunkPlacer(5, 2, 1), BlockStateProvider.of(Blocks.MANGROVE_LEAVES),
                 new BlobFoliagePlacer(ConstantIntProvider.create(3), ConstantIntProvider.create(0), 3), Optional.of(new MangroveRootPlacer(UniformIntProvider.create(1, 3), BlockStateProvider.of(Blocks.MANGROVE_ROOTS), Optional.of(new AboveRootPlacement(BlockStateProvider.of(Blocks.MOSS_CARPET), 0.5F)),
-                new MangroveRootPlacement(Registry.BLOCK.getOrCreateEntryList(BlockTags.MANGROVE_ROOTS_CAN_GROW_THROUGH), RegistryEntryList.of(Block::getRegistryEntry, new Block[]{Blocks.MUD, Blocks.MUDDY_MANGROVE_ROOTS}), BlockStateProvider.of(Blocks.MUD), 8, 15, 0.2F))),
+                new MangroveRootPlacement(Registry.BLOCK.getOrCreateEntryList(BlockTags.MANGROVE_ROOTS_CAN_GROW_THROUGH), RegistryEntryList.of(Block::getRegistryEntry, Blocks.MUD, Blocks.MUDDY_MANGROVE_ROOTS), BlockStateProvider.of(Blocks.MUD), 8, 15, 0.2F))),
                 new TwoLayersFeatureSize(2, 0, 2))).decorators(List.of(new LeavesVineTreeDecorator(0.125F),
                 new AttachedToLeavesTreeDecorator(0.14F, 1, 0,
-                        new RandomizedIntBlockStateProvider(BlockStateProvider.of((BlockState)Blocks.MANGROVE_PROPAGULE.getDefaultState().with(PropaguleBlock.HANGING, true)), PropaguleBlock.AGE, UniformIntProvider.create(0, 4)), 2, List.of(Direction.DOWN)))).ignoreVines().dirtProvider(BlockStateProvider.of(Blocks.MANGROVE_ROOTS)).build());
+                        new RandomizedIntBlockStateProvider(BlockStateProvider.of(Blocks.MANGROVE_PROPAGULE.getDefaultState().with(PropaguleBlock.HANGING, true)), PropaguleBlock.AGE, UniformIntProvider.create(0, 4)), 2, List.of(Direction.DOWN)))).ignoreVines().dirtProvider(BlockStateProvider.of(Blocks.MANGROVE_ROOTS)).build());
         //SPRUCE
         NEW_SPRUCE = ConfiguredFeatures.register("new_spruce", Feature.TREE, (new TreeFeatureConfig.Builder(BlockStateProvider.of(Blocks.SPRUCE_LOG), new StraightTrunkPlacer(8, 4, 2), BlockStateProvider.of(Blocks.SPRUCE_LEAVES), new SpruceFoliagePlacer(UniformIntProvider.create(2, 3), UniformIntProvider.create(0, 2), UniformIntProvider.create(2, 3)), new TwoLayersFeatureSize(2, 0, 2))).decorators(ImmutableList.of(SHELF_FUNGUS_007_ONLY_BROWN)).ignoreVines().build());
         NEW_SPRUCE_SHORT = ConfiguredFeatures.register("new_spruce_short", Feature.TREE, (new TreeFeatureConfig.Builder(BlockStateProvider.of(Blocks.SPRUCE_LOG), new StraightTrunkPlacer(3, 1, 2), BlockStateProvider.of(Blocks.SPRUCE_LEAVES), new SpruceFoliagePlacer(UniformIntProvider.create(1, 2), UniformIntProvider.create(0, 2), UniformIntProvider.create(2, 3)), new TwoLayersFeatureSize(2, 0, 2))).ignoreVines().build());
@@ -157,7 +160,11 @@ public class WildTreeConfigured {
         MEGA_FUNGUS_SPRUCE = ConfiguredFeatures.register("mega_fungus_spruce", Feature.TREE, (new TreeFeatureConfig.Builder(BlockStateProvider.of(Blocks.SPRUCE_LOG), new GiantTrunkPlacer(13, 2, 14), BlockStateProvider.of(Blocks.SPRUCE_LEAVES), new MegaPineFoliagePlacer(ConstantIntProvider.create(0), ConstantIntProvider.create(0), UniformIntProvider.create(13, 17)), new TwoLayersFeatureSize(1, 1, 2))).decorators(ImmutableList.of(new AlterGroundTreeDecorator(BlockStateProvider.of(Blocks.PODZOL)), SHELF_FUNGUS_007_ONLY_BROWN)).build());
         MEGA_FUNGUS_PINE = ConfiguredFeatures.register("mega_fungus_pine", Feature.TREE, (new TreeFeatureConfig.Builder(BlockStateProvider.of(Blocks.SPRUCE_LOG), new GiantTrunkPlacer(13, 2, 14), BlockStateProvider.of(Blocks.SPRUCE_LEAVES), new MegaPineFoliagePlacer(ConstantIntProvider.create(0), ConstantIntProvider.create(0), UniformIntProvider.create(3, 7)), new TwoLayersFeatureSize(1, 1, 2))).decorators(ImmutableList.of(new AlterGroundTreeDecorator(BlockStateProvider.of(Blocks.PODZOL)), SHELF_FUNGUS_007_ONLY_BROWN)).build());
         FALLEN_SPRUCE_TREE = ConfiguredFeatures.register("fallen_spruce_tree", Feature.TREE, fallen_spruce().dirtProvider(BlockStateProvider.of(Blocks.DIRT)).build());
+        //BAOBAB
+        BAOBAB = ConfiguredFeatures.register("baobab", Feature.TREE, (new TreeFeatureConfig.Builder(BlockStateProvider.of(RegisterBlocks.BAOBAB_LOG), new BaobabTrunkPlacer(10, 2, 2), BlockStateProvider.of(RegisterBlocks.BAOBAB_LEAVES), new AcaciaFoliagePlacer(ConstantIntProvider.create(2), ConstantIntProvider.create(0)), new TwoLayersFeatureSize(1, 0, 2))).decorators(ImmutableList.of()).build());
+        BAOBAB_TALL = ConfiguredFeatures.register("baobab_tall", Feature.TREE, (new TreeFeatureConfig.Builder(BlockStateProvider.of(RegisterBlocks.BAOBAB_LOG), new BaobabTrunkPlacer(12, 4, 2), BlockStateProvider.of(RegisterBlocks.BAOBAB_LEAVES), new AcaciaFoliagePlacer(ConstantIntProvider.create(2), ConstantIntProvider.create(0)), new TwoLayersFeatureSize(1, 0, 2))).decorators(ImmutableList.of()).build());
     }
     public static void registerTreeConfigured() {
+        WilderWild.logWild("Registering WildTreeConfigured for", true);
     }
 }
