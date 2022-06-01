@@ -1,10 +1,24 @@
-package net.frozenblock.wilderwild.world;
+package net.frozenblock.api.mathematics;
 
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.noise.PerlinNoiseSampler;
 import net.minecraft.util.math.random.*;
 
 public class EasyNoiseSampler {
+
+    /**
+     * EASY NOISE SAMPLER
+     * <p>
+     * Adds easy-to-use noise sampling and random number generators
+     * <p>
+     * Only for FrozenBlock Modders and Lunade, ALL RIGHTS RESERVED
+     * <p>
+     *
+     *
+     * @author      Lunade (2021-2022)
+     *
+     */
+
     public static long seed = 0;
     public static Random checkedRandom = new CheckedRandom(seed);
     public static Random threadSafeRandom = new ThreadSafeRandom(seed);
