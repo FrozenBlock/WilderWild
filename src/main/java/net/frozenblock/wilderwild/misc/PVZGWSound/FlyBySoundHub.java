@@ -64,7 +64,7 @@ public class FlyBySoundHub {
         public static ArrayList<SoundEvent> flybySounds = new ArrayList<>();
         public static ArrayList<SoundCategory> categories = new ArrayList<>();
         public static FloatArrayList volumes = new FloatArrayList();
-        public static FloatArrayList pitches = new FloatArrayList(); //get some
+        public static FloatArrayList pitches = new FloatArrayList();
         public static IntArrayList cooldowns = new IntArrayList();
 
         public static ArrayList<Entity> flybyEntitiesClear = new ArrayList<>();
@@ -84,7 +84,7 @@ public class FlyBySoundHub {
                 if (entity!=null) {
                     Vec3d vel = entity.getVelocity();
                     Vec3d playerVel = player.getVelocity();
-                    Vec3d entityPos = entity.getVelocity();
+                    Vec3d entityPos = entity.getPos();
                     Vec3d playerPos = player.getEyePos();
                     double distanceTo = entityPos.distanceTo(playerPos);
                     double newDistanceTo = entityPos.add(vel).distanceTo(playerPos);
