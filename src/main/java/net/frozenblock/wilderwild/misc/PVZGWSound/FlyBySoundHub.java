@@ -50,9 +50,9 @@ public class FlyBySoundHub {
             add(SoundCategory.NEUTRAL);
         }};
         public static FloatArrayList volumesAuto = new FloatArrayList() {{
-            add(1.0F);
-            add(1.6F);
-            add(1.0F);
+            add(0.6F);
+            add(0.6F);
+            add(0.6F);
         }};
         public static FloatArrayList pitchesAuto = new FloatArrayList() {{
             add(0.8F);
@@ -85,10 +85,14 @@ public class FlyBySoundHub {
                     Vec3d vel = entity.getVelocity();
                     double distanceTo = entity.getPos().distanceTo(player.getEyePos());
                     double newDistanceTo = entity.getPos().add(vel).distanceTo(player.getEyePos());
+                    Vec3d playerNewPos = player.getEyePos().add(player.getVelocity());
+                    double distanceNewTo = entity.getPos().distanceTo(playerNewPos);
+                    double newDistanceNewTo = entity.getPos().add(vel).distanceTo(playerNewPos);
                     cooldowns.set(index, cooldowns.getInt(index)-1);
-                    if (distanceTo < vel.lengthSquared()*2 && distanceTo > newDistanceTo && cooldowns.getInt(index)<=0) {
-                        client.getSoundManager().play(new EntityTrackingSoundInstance(flybySounds.get(index), categories.get(index), volumes.getFloat(index), pitches.getFloat(index), entity, client.world.random.nextLong()));
-                        cooldowns.set(index, 60);
+                    if ((distanceTo > newDistanceTo || distanceNewTo > newDistanceNewTo) && ((distanceTo < vel.lengthSquared()*2) || (distanceNewTo < vel.lengthSquared()*2)) && cooldowns.getInt(index)<=0) {
+                        float volume = (float) (volumes.getFloat(index) + ((distanceTo - newDistanceTo) * 1.2));
+                        client.getSoundManager().play(new EntityTrackingSoundInstance(flybySounds.get(index), categories.get(index), volume, pitches.getFloat(index), entity, client.world.random.nextLong()));
+                        cooldowns.set(index, 40);
                     }
                 } else {
                     removeEntityStart(entity);
