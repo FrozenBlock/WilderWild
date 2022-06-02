@@ -30,6 +30,9 @@ public class FlyBySoundHub {
         public static ArrayList<Entity> flybyEntities = new ArrayList<>();
         public static ArrayList<SoundEvent> flybySounds = new ArrayList<>();
 
+        public static ArrayList<Entity> flybyEntitiesClear = new ArrayList<>();
+        public static ArrayList<SoundEvent> flybySoundsClear = new ArrayList<>();
+
         public static void update(MinecraftClient client, PlayerEntity player) {
             //WilderWild.log("UPDATING FLYBY SOUNDS", WilderWild.DEV_LOGGING);
             for (Entity entity : flybyEntities) {
@@ -45,14 +48,13 @@ public class FlyBySoundHub {
                     double newDistanceTo = entity.getPos().add(vel).distanceTo(player.getEyePos());
                     if (distanceTo < vel.lengthSquared()*2 && distanceTo > newDistanceTo) {
                         client.getSoundManager().play(new EntityTrackingSoundInstance(flybySounds.get(index), SoundCategory.NEUTRAL, 1.0F, (float) entity.getVelocity().length(), entity, client.world.random.nextLong()));
-                        flybyEntities.remove(index);
-                        flybySounds.remove(index);
+                        removeEntityStart(entity);
                     }
                 } else {
-                    flybyEntities.remove(index);
-                    flybySounds.remove(index);
+                    removeEntityStart(entity);
                 }
             }
+            removeEntityFinish();
         }
 
 
@@ -62,6 +64,29 @@ public class FlyBySoundHub {
                 flybySounds.add(soundEvent);
             } else {
                 flybySounds.set(flybyEntities.indexOf(entity), soundEvent);
+            }
+        }
+
+        public static void removeEntityStart(Entity entity) {
+            int index = flybyEntities.indexOf(entity);
+            if (!flybyEntitiesClear.contains(entity)) {
+                flybyEntitiesClear.add(entity);
+            }
+            if (!flybySoundsClear.contains(flybySounds.get(index))) {
+                flybySoundsClear.add(flybySounds.get(index));
+            }
+        }
+
+        public static void removeEntityFinish() {
+            for (Entity entity : flybyEntitiesClear) {
+                if (flybyEntities.contains(entity)) {
+                    flybyEntities.remove(entity);
+                }
+            }
+            for (SoundEvent sound : flybySoundsClear) {
+                if (flybySounds.contains(sound)) {
+                    flybySounds.remove(sound);
+                }
             }
         }
     }

@@ -103,7 +103,7 @@ public class WildClientMod implements ClientModInitializer {
                 return BiomeColors.getFoliageColor(world, pos);
         }),RegisterBlocks.BAOBAB_LEAVES);
 
-        ClientTickEvents.START_CLIENT_TICK.register(e -> {
+        ClientTickEvents.START_WORLD_TICK.register(e -> {
             MinecraftClient client = MinecraftClient.getInstance();
             if (client.world != null && !FlyBySoundHub.clientFlyby.flybyEntities.isEmpty()) {
                 FlyBySoundHub.clientFlyby.update(client, client.player);
