@@ -856,5 +856,12 @@
 			"wilderwild:particle/floating_sculk_bubble/pop4",
 			"wilderwild:particle/floating_sculk_bubble/pop5"
 		]
+	},
+	"flyby.pvzgw_cheeto": {
+		"sounds": [
+			"wilderwild:flyby/CheetoGrenade_FlyBy",
+			"wilderwild:flyby/CheetoGrenade_FlyBy2",
+			"wilderwild:flyby/CheetoGrenade_FlyBy3"
+		]
 	}
 }

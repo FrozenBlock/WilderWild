@@ -40,7 +40,7 @@ public class FlyBySoundHub {
             add(EntityType.BAT);
         }};
         public static ArrayList<SoundEvent> flybySoundsAuto = new ArrayList<>() {{
-            add(RegisterSounds.ANCIENT_HORN_VIBRATION_DISSIPATE);
+            add(RegisterSounds.PVZGW_CHEETO_FLYBY);
             add(SoundEvents.ENTITY_ARROW_SHOOT);
             add(SoundEvents.ENTITY_BAT_TAKEOFF);
         }};
@@ -51,7 +51,7 @@ public class FlyBySoundHub {
         }};
         public static FloatArrayList volumesAuto = new FloatArrayList() {{
             add(1.0F);
-            add(0.6F);
+            add(1.6F);
             add(1.0F);
         }};
         public static FloatArrayList pitchesAuto = new FloatArrayList() {{
