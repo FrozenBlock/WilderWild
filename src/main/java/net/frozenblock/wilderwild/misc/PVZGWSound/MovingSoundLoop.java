@@ -1,4 +1,4 @@
-package net.frozenblock.wilderwild.misc;
+package net.frozenblock.wilderwild.misc.PVZGWSound;
 
 import io.netty.buffer.Unpooled;
 import net.fabricmc.api.EnvType;
@@ -21,11 +21,6 @@ import net.minecraft.world.World;
 @Environment(EnvType.CLIENT)
 public class MovingSoundLoop extends MovingSoundInstance {
 
-    private static final float field_33001 = 0.0F;
-    private static final float field_33002 = 0.7F;
-    private static final float field_33003 = 0.0F;
-    private static final float field_33004 = 1.0F;
-    private static final float field_33005 = 0.0025F;
     private final Entity entity;
     private float distance = 0.0F;
 

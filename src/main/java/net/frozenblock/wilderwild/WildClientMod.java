@@ -2,6 +2,7 @@ package net.frozenblock.wilderwild;
 
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
+import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.fabricmc.fabric.api.client.particle.v1.ParticleFactoryRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.ColorProviderRegistry;
@@ -10,7 +11,8 @@ import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
 import net.frozenblock.api.mathematics.AdvancedMath;
 import net.frozenblock.wilderwild.entity.AncientHornProjectileEntity;
 import net.frozenblock.wilderwild.entity.render.*;
-import net.frozenblock.wilderwild.misc.MovingSoundLoop;
+import net.frozenblock.wilderwild.misc.PVZGWSound.FlyBySoundHub;
+import net.frozenblock.wilderwild.misc.PVZGWSound.MovingSoundLoop;
 import net.frozenblock.wilderwild.particle.FloatingSculkBubbleParticle;
 import net.frozenblock.wilderwild.particle.PollenParticle;
 import net.frozenblock.wilderwild.particle.TermiteParticle;
@@ -21,12 +23,10 @@ import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.color.world.BiomeColors;
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.entity.model.EntityModelLayer;
-import net.minecraft.client.sound.EntityTrackingSoundInstance;
+import net.minecraft.client.util.ClientPlayerTickable;
 import net.minecraft.client.world.ClientWorld;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
-import net.minecraft.network.NetworkThreadUtils;
-import net.minecraft.network.packet.s2c.play.PlaySoundFromEntityS2CPacket;
 import net.minecraft.particle.ParticleEffect;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvent;
@@ -89,6 +89,7 @@ public class WildClientMod implements ClientModInitializer {
         receiveSeedPacket();
         receiveControlledSeedPacket();
         receiveTermitePacket();
+        receiveFlybySoundPacket();
         receiveMovingLoopingSoundPacket();
 
         ColorProviderRegistry.BLOCK.register(((state, world, pos, tintIndex) -> {
@@ -101,6 +102,13 @@ public class WildClientMod implements ClientModInitializer {
                 assert world != null;
                 return BiomeColors.getFoliageColor(world, pos);
         }),RegisterBlocks.BAOBAB_LEAVES);
+
+        ClientTickEvents.START_CLIENT_TICK.register(e -> {
+            MinecraftClient client = MinecraftClient.getInstance();
+            if (client.world != null && !FlyBySoundHub.clientFlyby.flybyEntities.isEmpty()) {
+                FlyBySoundHub.clientFlyby.update(client, client.player);
+            }
+        });
 }
 
 
@@ -210,6 +218,22 @@ public class WildClientMod implements ClientModInitializer {
                 if (entity == null)
                     throw new IllegalStateException("Unable to play moving looping sound (from wilderwild) whilst entity does not exist!");
                 MinecraftClient.getInstance().getSoundManager().play(new MovingSoundLoop(entity, sound, category, volume, pitch));
+            });
+        });
+    }
+
+    public void receiveFlybySoundPacket() {
+        ClientPlayNetworking.registerGlobalReceiver(WilderWild.FLYBY_SOUND_PACKET, (ctx, handler, byteBuf, responseSender) -> {
+            int id = byteBuf.readVarInt();
+            SoundEvent sound = byteBuf.readRegistryValue(Registry.SOUND_EVENT);
+            ctx.execute(() -> {
+                ClientWorld world = MinecraftClient.getInstance().world;
+                if (world == null)
+                    throw new IllegalStateException("why is your world null");
+                Entity entity = world.getEntityById(id);
+                if (entity == null)
+                    throw new IllegalStateException("Unable to add flyby sound to non-existent entity!");
+                FlyBySoundHub.clientFlyby.addEntity(entity, sound);
             });
         });
     }

@@ -86,6 +86,8 @@ public class WilderWild implements ModInitializer {
     public static final Identifier FLOATING_SCULK_BUBBLE_PACKET = new Identifier(WilderWild.MOD_ID,"floating_sculk_bubble_easy_packet");
     public static final Identifier TERMITE_PARTICLE_PACKET = new Identifier(WilderWild.MOD_ID,"termite_particle_packet");
     public static final Identifier HORN_PROJECTILE_PACKET_ID = new Identifier(WilderWild.MOD_ID, "ancient_horn_projectile_packet");
+
+    public static final Identifier FLYBY_SOUND_PACKET = new Identifier(WilderWild.MOD_ID,"flyby_sound_packet");
     public static final Identifier MOVING_LOOPING_SOUND_PACKET = new Identifier(WilderWild.MOD_ID,"moving_looping_sound_packet");
 
     public static final CameraItem CAMERA_ITEM = new CameraItem(new FabricItemSettings());
