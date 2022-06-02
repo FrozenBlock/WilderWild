@@ -41,7 +41,7 @@ public class FlyBySoundHub {
         }};
         public static ArrayList<SoundEvent> flybySoundsAuto = new ArrayList<>() {{
             add(RegisterSounds.PVZGW_CHEETO_FLYBY);
-            add(SoundEvents.ENTITY_ARROW_SHOOT);
+            add(RegisterSounds.PVZGW_CHEETO_FLYBY);
             add(SoundEvents.ENTITY_BAT_TAKEOFF);
         }};
         public static ArrayList<SoundCategory> categoriesAuto = new ArrayList<>() {{
