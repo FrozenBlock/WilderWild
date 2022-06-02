@@ -91,7 +91,7 @@ public class FlyBySoundHub {
                     double playerTo = entityPos.distanceTo(playerPos.add(playerVel));
                     double newPlayerTo = entityPos.add(vel).distanceTo(playerPos.add(playerVel));
                     cooldowns.set(index, cooldowns.getInt(index)-1);
-                    if ((distanceTo > newDistanceTo && distanceTo < vel.lengthSquared()*2) || (playerTo > newPlayerTo && playerTo < playerVel.lengthSquared()*2) && cooldowns.getInt(index)<=0) {
+                    if ((distanceTo > newDistanceTo && distanceTo < vel.lengthSquared()*2) || (playerTo > newPlayerTo && playerTo < ((playerVel.lengthSquared() + entity.getVelocity().lengthSquared()) * 2) && cooldowns.getInt(index)<=0) {
                         float volume = (float) (volumes.getFloat(index) + ((distanceTo - newDistanceTo)));
                         client.getSoundManager().play(new EntityTrackingSoundInstance(flybySounds.get(index), categories.get(index), volume, pitches.getFloat(index), entity, client.world.random.nextLong()));
                         cooldowns.set(index, 40);
