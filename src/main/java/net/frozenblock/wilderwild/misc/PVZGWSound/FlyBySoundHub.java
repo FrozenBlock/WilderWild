@@ -50,13 +50,13 @@ public class FlyBySoundHub {
             add(SoundCategory.NEUTRAL);
         }};
         public static FloatArrayList volumesAuto = new FloatArrayList() {{
-            add(0.6F);
-            add(0.6F);
-            add(0.6F);
+            add(0.3F);
+            add(0.3F);
+            add(0.3F);
         }};
         public static FloatArrayList pitchesAuto = new FloatArrayList() {{
             add(0.8F);
-            add(1.3F);
+            add(1.6F);
             add(1.0F);
         }};
 
