@@ -2,6 +2,7 @@ package net.frozenblock.wilderwild.item;
 
 import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.entity.AncientHornProjectileEntity;
+import net.frozenblock.wilderwild.misc.MovingSoundLoop;
 import net.frozenblock.wilderwild.registry.RegisterEnchantments;
 import net.frozenblock.wilderwild.registry.RegisterItems;
 import net.frozenblock.wilderwild.registry.RegisterSounds;
@@ -13,6 +14,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
+import net.minecraft.sound.SoundEvents;
 import net.minecraft.text.MutableText;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
@@ -92,6 +94,7 @@ public class AncientCityGoatHorn extends Item {
             projectileEntity.cooldownLevel=getCooldownLevel(getHorns(user));
             projectileEntity.shotByPlayer=true;
             server.spawnEntity(projectileEntity);
+            MovingSoundLoop.createMovingLoopingSound(server, projectileEntity, SoundEvents.ENTITY_WARDEN_TENDRIL_CLICKS, SoundCategory.NEUTRAL, 1.0F, 1.0F);
         }
         return TypedActionResult.consume(itemStack);
     }

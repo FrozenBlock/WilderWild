@@ -10,6 +10,7 @@ import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
 import net.frozenblock.api.mathematics.AdvancedMath;
 import net.frozenblock.wilderwild.entity.AncientHornProjectileEntity;
 import net.frozenblock.wilderwild.entity.render.*;
+import net.frozenblock.wilderwild.misc.MovingSoundLoop;
 import net.frozenblock.wilderwild.particle.FloatingSculkBubbleParticle;
 import net.frozenblock.wilderwild.particle.PollenParticle;
 import net.frozenblock.wilderwild.particle.TermiteParticle;
@@ -20,9 +21,15 @@ import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.color.world.BiomeColors;
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.entity.model.EntityModelLayer;
+import net.minecraft.client.sound.EntityTrackingSoundInstance;
+import net.minecraft.client.world.ClientWorld;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
+import net.minecraft.network.NetworkThreadUtils;
+import net.minecraft.network.packet.s2c.play.PlaySoundFromEntityS2CPacket;
 import net.minecraft.particle.ParticleEffect;
+import net.minecraft.sound.SoundCategory;
+import net.minecraft.sound.SoundEvent;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.registry.Registry;
@@ -82,6 +89,7 @@ public class WildClientMod implements ClientModInitializer {
         receiveSeedPacket();
         receiveControlledSeedPacket();
         receiveTermitePacket();
+        receiveMovingLoopingSoundPacket();
 
         ColorProviderRegistry.BLOCK.register(((state, world, pos, tintIndex) -> {
             if (world == null || pos == null) {
@@ -183,6 +191,25 @@ public class WildClientMod implements ClientModInitializer {
                 for (int i=0; i<count; i++) {
                     MinecraftClient.getInstance().world.addParticle(RegisterParticles.TERMITE, pos.x, pos.y, pos.z, AdvancedMath.randomPosNeg()/7,AdvancedMath.randomPosNeg()/7,AdvancedMath.randomPosNeg()/7);
                 }
+            });
+        });
+    }
+
+    public void receiveMovingLoopingSoundPacket() {
+        ClientPlayNetworking.registerGlobalReceiver(WilderWild.MOVING_LOOPING_SOUND_PACKET, (ctx, handler, byteBuf, responseSender) -> {
+            int id = byteBuf.readVarInt();
+            SoundEvent sound = byteBuf.readRegistryValue(Registry.SOUND_EVENT);
+            SoundCategory category = byteBuf.readEnumConstant(SoundCategory.class);
+            float volume = byteBuf.readFloat();
+            float pitch = byteBuf.readFloat();
+            ctx.execute(() -> {
+                ClientWorld world = MinecraftClient.getInstance().world;
+                if (world == null)
+                    throw new IllegalStateException("why is your world null");
+                Entity entity = world.getEntityById(id);
+                if (entity == null)
+                    throw new IllegalStateException("Unable to play moving looping sound (from wilderwild) whilst entity does not exist!");
+                MinecraftClient.getInstance().getSoundManager().play(new MovingSoundLoop(entity, sound, category, volume, pitch));
             });
         });
     }
