@@ -23,7 +23,6 @@ import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.color.world.BiomeColors;
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.entity.model.EntityModelLayer;
-import net.minecraft.client.util.ClientPlayerTickable;
 import net.minecraft.client.world.ClientWorld;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
@@ -105,8 +104,8 @@ public class WildClientMod implements ClientModInitializer {
 
         ClientTickEvents.START_WORLD_TICK.register(e -> {
             MinecraftClient client = MinecraftClient.getInstance();
-            if (client.world != null && !FlyBySoundHub.clientFlyby.flybyEntities.isEmpty()) {
-                FlyBySoundHub.clientFlyby.update(client, client.player);
+            if (client.world != null) {
+                FlyBySoundHub.clientFlyby.update(client, client.player, true); //CHANGE TO FALSE TO NOT AUTOMATICALLY ADD FLYBY SOUNDS
             }
         });
 }
