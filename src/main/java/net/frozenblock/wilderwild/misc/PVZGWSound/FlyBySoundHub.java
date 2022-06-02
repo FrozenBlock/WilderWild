@@ -87,10 +87,9 @@ public class FlyBySoundHub {
                     Vec3d entityPos = entity.getPos();
                     Vec3d playerPos = player.getEyePos();
                     double distanceTo = entityPos.distanceTo(playerPos);
-                    double newDistanceTo = entityPos.add(vel).distanceTo(playerPos);
-                    double playerTo = entityPos.distanceTo(playerPos.add(playerVel));
+                    double newDistanceTo = entityPos.add(vel).distanceTo(playerPos.add(playerVel));
                     cooldowns.set(index, cooldowns.getInt(index)-1);
-                    if ((distanceTo > newDistanceTo && distanceTo < vel.lengthSquared()*2) || (distanceTo > playerTo && distanceTo < ((playerVel.lengthSquared() + entity.getVelocity().lengthSquared()) * 2)) && cooldowns.getInt(index)<=0) {
+                    if ((distanceTo > newDistanceTo && distanceTo < (vel.lengthSquared()+playerVel.length())*2) && cooldowns.getInt(index)<=0) {
                         float volume = (float) (volumes.getFloat(index) + ((distanceTo - newDistanceTo)));
                         client.getSoundManager().play(new EntityTrackingSoundInstance(flybySounds.get(index), categories.get(index), volume, pitches.getFloat(index), entity, client.world.random.nextLong()));
                         cooldowns.set(index, 40);
