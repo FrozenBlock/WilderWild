@@ -83,14 +83,15 @@ public class FlyBySoundHub {
                 int index = flybyEntities.indexOf(entity);
                 if (entity!=null) {
                     Vec3d vel = entity.getVelocity();
-                    double distanceTo = entity.getPos().distanceTo(player.getEyePos());
-                    double newDistanceTo = entity.getPos().add(vel).distanceTo(player.getEyePos());
-                    Vec3d playerNewPos = player.getEyePos().add(player.getVelocity());
-                    double distanceNewTo = entity.getPos().distanceTo(playerNewPos);
-                    double newDistanceNewTo = entity.getPos().add(vel).distanceTo(playerNewPos);
+                    Vec3d playerVel = player.getVelocity();
+                    Vec3d entityPos = entity.getVelocity();
+                    Vec3d playerPos = player.getEyePos();
+                    double distanceTo = entityPos.distanceTo(playerPos);
+                    double newDistanceTo = entityPos.add(vel).distanceTo(playerPos);
+                    double playerTo = entityPos.distanceTo(playerPos.add(playerVel));
                     cooldowns.set(index, cooldowns.getInt(index)-1);
-                    if ((distanceTo > newDistanceTo || distanceNewTo > newDistanceNewTo) && ((distanceTo < vel.lengthSquared()*2) || (distanceNewTo < vel.lengthSquared()*2)) && cooldowns.getInt(index)<=0) {
-                        float volume = (float) (volumes.getFloat(index) + ((distanceTo - newDistanceTo) * 1.2));
+                    if (((distanceTo > newDistanceTo && distanceTo < vel.lengthSquared()*2) || (distanceTo > playerTo && playerTo < playerVel.lengthSquared()*2)) && cooldowns.getInt(index)<=0) {
+                        float volume = (float) (volumes.getFloat(index) + ((distanceTo - newDistanceTo) * 0.5));
                         client.getSoundManager().play(new EntityTrackingSoundInstance(flybySounds.get(index), categories.get(index), volume, pitches.getFloat(index), entity, client.world.random.nextLong()));
                         cooldowns.set(index, 40);
                     }
