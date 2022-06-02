@@ -29,7 +29,6 @@ public class FlyBySoundHub {
 
         public static ArrayList<Entity> flybyEntities = new ArrayList<>();
         public static ArrayList<SoundEvent> flybySounds = new ArrayList<>();
-        public static IntArrayList ticks = new IntArrayList();
 
         public static void update(MinecraftClient client, PlayerEntity player) {
             //WilderWild.log("UPDATING FLYBY SOUNDS", WilderWild.DEV_LOGGING);
@@ -37,20 +36,21 @@ public class FlyBySoundHub {
                 if (flybySounds.size() != flybyEntities.size()) {
                     flybySounds.clear();
                     flybyEntities.clear();
-                    ticks.clear();
                     return;
                 }
                 int index = flybyEntities.indexOf(entity);
-                Vec3d vel = entity.getVelocity();
-                double distanceTo = entity.getPos().distanceTo(player.getEyePos());
-                double newDistanceTo = entity.getPos().add(vel).distanceTo(player.getEyePos());
-                if (ticks.indexOf(index)>20 && distanceTo < vel.lengthSquared() && distanceTo>newDistanceTo) {
-                    client.getSoundManager().play(new EntityTrackingSoundInstance(flybySounds.get(index), SoundCategory.NEUTRAL, 1.0F, (float) entity.getVelocity().length(), entity, client.world.random.nextLong()));
+                if (entity!=null) {
+                    Vec3d vel = entity.getVelocity();
+                    double distanceTo = entity.getPos().distanceTo(player.getEyePos());
+                    double newDistanceTo = entity.getPos().add(vel).distanceTo(player.getEyePos());
+                    if (distanceTo < vel.lengthSquared()*2 && distanceTo > newDistanceTo) {
+                        client.getSoundManager().play(new EntityTrackingSoundInstance(flybySounds.get(index), SoundCategory.NEUTRAL, 1.0F, (float) entity.getVelocity().length(), entity, client.world.random.nextLong()));
+                        flybyEntities.remove(index);
+                        flybySounds.remove(index);
+                    }
+                } else {
                     flybyEntities.remove(index);
                     flybySounds.remove(index);
-                    ticks.removeInt(index);
-                } else {
-                    ticks.set(index, ticks.getInt(index)+1);
                 }
             }
         }
@@ -60,7 +60,6 @@ public class FlyBySoundHub {
             if (!flybyEntities.contains(entity)) {
                 flybyEntities.add(entity);
                 flybySounds.add(soundEvent);
-                ticks.add(0);
             } else {
                 flybySounds.set(flybyEntities.indexOf(entity), soundEvent);
             }
