@@ -32,7 +32,7 @@ public class FlyBySoundHub {
         public static IntArrayList ticks = new IntArrayList();
 
         public static void update(MinecraftClient client, PlayerEntity player) {
-            WilderWild.log("UPDATING FLYBY SOUNDS", WilderWild.DEV_LOGGING);
+            //WilderWild.log("UPDATING FLYBY SOUNDS", WilderWild.DEV_LOGGING);
             for (Entity entity : flybyEntities) {
                 if (flybySounds.size() != flybyEntities.size()) {
                     flybySounds.clear();
@@ -44,7 +44,7 @@ public class FlyBySoundHub {
                 Vec3d vel = entity.getVelocity();
                 double distanceTo = entity.getPos().distanceTo(player.getEyePos());
                 double newDistanceTo = entity.getPos().add(vel).distanceTo(player.getEyePos());
-                if (ticks.indexOf(index)>20 && distanceTo < (vel.lengthSquared() / 2) && distanceTo>newDistanceTo) {
+                if (ticks.indexOf(index)>20 && distanceTo < vel.lengthSquared() && distanceTo>newDistanceTo) {
                     client.getSoundManager().play(new EntityTrackingSoundInstance(flybySounds.get(index), SoundCategory.NEUTRAL, 1.0F, (float) entity.getVelocity().length(), entity, client.world.random.nextLong()));
                     flybyEntities.remove(index);
                     flybySounds.remove(index);

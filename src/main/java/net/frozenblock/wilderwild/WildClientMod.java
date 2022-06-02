@@ -234,6 +234,7 @@ public class WildClientMod implements ClientModInitializer {
                 if (entity == null)
                     throw new IllegalStateException("Unable to add flyby sound to non-existent entity!");
                 FlyBySoundHub.clientFlyby.addEntity(entity, sound);
+                WilderWild.log("ADDED ENTITY TO FLYBYS", true);
             });
         });
     }
