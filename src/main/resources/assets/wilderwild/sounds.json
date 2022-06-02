@@ -859,9 +859,18 @@
 	},
 	"flyby.pvzgw_cheeto": {
 		"sounds": [
-			"wilderwild:flyby/cheetogrenade_flyby",
-			"wilderwild:flyby/cheetogrenade_flyby2",
-			"wilderwild:flyby/cheetogrenade_flyby3"
+			{
+				"name": "wilderwild:flyby/cheetogrenade_flyby",
+				"attenuation_distance": 2
+			},
+			{
+				"name": "wilderwild:flyby/cheetogrenade_flyby2",
+				"attenuation_distance": 2
+			},
+			{
+				"name": "wilderwild:flyby/cheetogrenade_flyby3",
+				"attenuation_distance": 2
+			}
 		]
 	}
 }
