@@ -226,6 +226,9 @@ public class WildClientMod implements ClientModInitializer {
         ClientPlayNetworking.registerGlobalReceiver(WilderWild.FLYBY_SOUND_PACKET, (ctx, handler, byteBuf, responseSender) -> {
             int id = byteBuf.readVarInt();
             SoundEvent sound = byteBuf.readRegistryValue(Registry.SOUND_EVENT);
+            SoundCategory category = byteBuf.readEnumConstant(SoundCategory.class);
+            float volume = byteBuf.readFloat();
+            float pitch = byteBuf.readFloat();
             ctx.execute(() -> {
                 ClientWorld world = MinecraftClient.getInstance().world;
                 if (world == null)
@@ -233,7 +236,7 @@ public class WildClientMod implements ClientModInitializer {
                 Entity entity = world.getEntityById(id);
                 if (entity == null)
                     throw new IllegalStateException("Unable to add flyby sound to non-existent entity!");
-                FlyBySoundHub.clientFlyby.addEntity(entity, sound);
+                FlyBySoundHub.clientFlyby.addEntity(entity, sound, category, volume, pitch);
                 WilderWild.log("ADDED ENTITY TO FLYBYS", true);
             });
         });
