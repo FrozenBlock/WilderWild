@@ -6,7 +6,7 @@ import net.frozenblock.wilderwild.WilderWild;
 public class RegisterFlammability {
 
     public static void register() {
-        WilderWild.logWild("Registering Flammability for", true);
+        WilderWild.logWild("Registering Flammability for", WilderWild.UNSTABLE_LOGGING);
         FlammableBlockRegistry.getDefaultInstance().add(RegisterBlocks.POLLEN_BLOCK,100,60);
         FlammableBlockRegistry.getDefaultInstance().add(RegisterBlocks.WHITE_DANDELION,100,60);
         FlammableBlockRegistry.getDefaultInstance().add(RegisterBlocks.CARNATION,100,60);

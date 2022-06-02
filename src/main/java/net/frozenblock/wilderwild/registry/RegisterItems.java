@@ -30,7 +30,7 @@ public class RegisterItems {
 
 
     public static void registerItems() {
-        WilderWild.logWild("Registering Items for", true);
+        WilderWild.logWild("Registering Items for", WilderWild.UNSTABLE_LOGGING);
         Registry.register(Registry.ITEM, new Identifier(WilderWild.MOD_ID, "baobab_boat"), BAOBAB_BOAT_ITEM);
         Registry.register(Registry.ITEM, new Identifier(WilderWild.MOD_ID, "baobab_chest_boat"), BAOBAB_CHEST_BOAT_ITEM);
         Registry.register(Registry.ITEM, new Identifier(WilderWild.MOD_ID, "ancient_horn"), ANCIENT_HORN);

@@ -111,7 +111,7 @@ public class RegisterSounds {
     }
 
     public static void init() {
-        WilderWild.logWild("Registering SoundEvents for", true);
+        WilderWild.logWild("Registering SoundEvents for", WilderWild.UNSTABLE_LOGGING);
     }
 
 }

@@ -15,7 +15,7 @@ public class RegisterGameEvents {
 
 
     public static void RegisterEvents() {
-        WilderWild.logWild("Registering GameEvents for", true);
+        WilderWild.logWild("Registering GameEvents for", WilderWild.UNSTABLE_LOGGING);
         Registry.register(Registry.GAME_EVENT, new Identifier(WilderWild.MOD_ID, "jaw_activate"), JAW_ACTIVATE);
         Registry.register(Registry.GAME_EVENT, new Identifier(WilderWild.MOD_ID, "sculk_echoer_echo"), SCULK_ECHOER_ECHO);
         Registry.register(Registry.GAME_EVENT, new Identifier(WilderWild.MOD_ID, "sculk_echoer_loud_echo"), SCULK_ECHOER_LOUD_ECHO);

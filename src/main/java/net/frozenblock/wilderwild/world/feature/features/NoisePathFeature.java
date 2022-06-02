@@ -1,7 +1,7 @@
 package net.frozenblock.wilderwild.world.feature.features;
 
 import com.mojang.serialization.Codec;
-import net.frozenblock.wilderwild.world.EasyNoiseSampler;
+import net.frozenblock.api.mathematics.EasyNoiseSampler;
 import net.frozenblock.wilderwild.world.feature.features.config.PathFeatureConfig;
 import net.minecraft.block.PlantBlock;
 import net.minecraft.util.math.BlockPos;

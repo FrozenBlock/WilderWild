@@ -4,7 +4,7 @@ import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.block.OsseousSculkBlock;
 import net.frozenblock.wilderwild.registry.RegisterBlocks;
 import net.frozenblock.wilderwild.tag.WildBlockTags;
-import net.frozenblock.wilderwild.world.EasyNoiseSampler;
+import net.frozenblock.api.mathematics.EasyNoiseSampler;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.SculkSpreadManager;
 import net.minecraft.fluid.Fluids;
@@ -61,7 +61,7 @@ public class SculkBlockMixin {
 							blockState = RegisterBlocks.OSSEOUS_SCULK.getDefaultState().with(OsseousSculkBlock.HEIGHT_LEFT, pillarHeight).with(OsseousSculkBlock.TOTAL_HEIGHT, pillarHeight + 1).with(OsseousSculkBlock.UPSIDEDOWN, true);
 						} else {
 							blockState = RegisterBlocks.HANGING_TENDRIL.getDefaultState();
-							WilderWild.log("Chose Hanging Tendril");
+							WilderWild.log("Chose Hanging Tendril", WilderWild.DEV_LOGGING);
 							if (isWorldGen && Math.random()>0.6) { j=0; }
 						}
 						blockPos2=blockPos.down();
@@ -124,7 +124,7 @@ public class SculkBlockMixin {
 				++i;
 			}
 			if (i>=3) {
-				if (!bones) { WilderWild.log("Ancient City Detected While Growing Osseous Sculk @ " + blockPos);}
+				if (!bones) { WilderWild.log("Ancient City Detected While Growing Osseous Sculk @ " + blockPos, WilderWild.DEV_LOGGING);}
 				return true;}
 		} while(true);
 	}

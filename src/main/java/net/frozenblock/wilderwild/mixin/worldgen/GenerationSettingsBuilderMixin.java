@@ -1,5 +1,6 @@
 package net.frozenblock.wilderwild.mixin.worldgen;
 
+import net.frozenblock.wilderwild.WilderWild;
 import net.minecraft.util.registry.RegistryEntry;
 import net.minecraft.world.biome.GenerationSettings;
 import net.minecraft.world.gen.feature.PlacedFeature;
@@ -29,7 +30,11 @@ public class GenerationSettingsBuilderMixin {
     @Inject(at = @At("HEAD"), method = "feature", cancellable = true)
     public void feature(net.minecraft.world.gen.GenerationStep.Feature featureStep, RegistryEntry<PlacedFeature> feature, CallbackInfoReturnable<GenerationSettings.Builder> info) {
         GenerationSettings.Builder builder = GenerationSettings.Builder.class.cast(this);
-        if (removedFeatures.contains(feature)) {info.setReturnValue(builder); info.cancel(); }
+        if (removedFeatures.contains(feature)) {
+            WilderWild.log("Removing feature " + feature.getKey().toString() + " in order to properly update biomes!", WilderWild.UNSTABLE_LOGGING);
+            info.setReturnValue(builder);
+            info.cancel();
+        }
     }
 
 }

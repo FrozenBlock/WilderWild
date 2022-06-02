@@ -53,7 +53,7 @@ public class EchoGlassBlock extends TintedGlassBlock {
 
     public static void damage(World world, BlockPos pos) {
         BlockState state = world.getBlockState(pos);
-        WilderWild.log("Echo Glass Damaged @ " + pos);
+        WilderWild.log("Echo Glass Damaged @ " + pos, WilderWild.UNSTABLE_LOGGING);
         if (state.get(DAMAGE)<3) {
             world.setBlockState(pos, state.with(DAMAGE, state.get(DAMAGE) + 1));
             world.playSound(null, pos, RegisterSounds.BLOCK_ECHO_GLASS_CRACK, SoundCategory.BLOCKS, 1.0F, 1.0F);
@@ -64,7 +64,7 @@ public class EchoGlassBlock extends TintedGlassBlock {
     }
     public static void heal(World world, BlockPos pos) {
         BlockState state = world.getBlockState(pos);
-        WilderWild.log("Echo Glass Healed @ " + pos);
+        WilderWild.log("Echo Glass Healed @ " + pos, WilderWild.UNSTABLE_LOGGING);
         if (state.get(DAMAGE)>0) {
             world.setBlockState(pos, state.with(DAMAGE, state.get(DAMAGE) - 1));
             world.playSound(
