@@ -861,15 +861,15 @@
 		"sounds": [
 			{
 				"name": "wilderwild:flyby/cheetogrenade_flyby",
-				"attenuation_distance": 4
+				"attenuation_distance": 6
 			},
 			{
 				"name": "wilderwild:flyby/cheetogrenade_flyby2",
-				"attenuation_distance": 4
+				"attenuation_distance": 6
 			},
 			{
 				"name": "wilderwild:flyby/cheetogrenade_flyby3",
-				"attenuation_distance": 4
+				"attenuation_distance": 6
 			}
 		]
 	}
