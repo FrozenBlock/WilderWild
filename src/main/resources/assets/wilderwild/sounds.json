@@ -859,9 +859,9 @@
 	},
 	"flyby.pvzgw_cheeto": {
 		"sounds": [
-			"wilderwild:flyby/CheetoGrenade_FlyBy",
-			"wilderwild:flyby/CheetoGrenade_FlyBy2",
-			"wilderwild:flyby/CheetoGrenade_FlyBy3"
+			"wilderwild:flyby/cheetogrenade_flyby",
+			"wilderwild:flyby/cheetogrenade_flyby2",
+			"wilderwild:flyby/cheetogrenade_flyby3"
 		]
 	}
 }
