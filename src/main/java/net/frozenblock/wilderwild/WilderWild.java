@@ -2,10 +2,9 @@ package net.frozenblock.wilderwild;
 
 import com.chocohead.mm.api.ClassTinkerers;
 import net.fabricmc.api.ModInitializer;
-import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
+import net.fabricmc.loader.api.FabricLoader;
 import net.frozenblock.wilderwild.block.entity.TermiteMoundBlockEntity;
 import net.frozenblock.wilderwild.misc.BlockSoundGroupOverwrites;
-import net.frozenblock.wilderwild.misc.CameraItem;
 import net.frozenblock.wilderwild.mixin.worldgen.TrunkPlacerTypeInvoker;
 import net.frozenblock.wilderwild.registry.*;
 import net.frozenblock.wilderwild.world.feature.WildConfiguredFeatures;
@@ -75,9 +74,9 @@ public class WilderWild implements ModInitializer {
         Registry.register(Registry.FEATURE, new Identifier(WilderWild.MOD_ID, "cattail_feature"), CATTAIL_FEATURE);
         Registry.register(Registry.FEATURE, new Identifier(WilderWild.MOD_ID, "noise_path_feature"), NOISE_PATH_FEATURE);
 
-        //if (FabricLoader.getInstance().isDevelopmentEnvironment()) { /* DEV-ONLY */
-            Registry.register(Registry.ITEM, new Identifier(WilderWild.MOD_ID, "camera"), CAMERA_ITEM);
-        //}
+        if (FabricLoader.getInstance().isDevelopmentEnvironment()) { /* DEV-ONLY */
+            RegisterDevelopment.init();
+        }
 
         TermiteMoundBlockEntity.Termite.addDegradableBlocks();
     }
@@ -90,8 +89,6 @@ public class WilderWild implements ModInitializer {
 
     public static final Identifier FLYBY_SOUND_PACKET = new Identifier(WilderWild.MOD_ID,"flyby_sound_packet");
     public static final Identifier MOVING_LOOPING_SOUND_PACKET = new Identifier(WilderWild.MOD_ID,"moving_looping_sound_packet");
-
-    public static final CameraItem CAMERA_ITEM = new CameraItem(new FabricItemSettings());
 
     public static void log(String string, boolean shouldLog) {
         if (shouldLog) {
