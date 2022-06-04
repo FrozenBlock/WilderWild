@@ -189,6 +189,7 @@ public class FireflyEntity extends PathAwareEntity implements Flutterer {
     @Override
     public void tick() {
         super.tick();
+        this.setFlickerAge(this.getFlickerAge()+1);
     }
 
     protected void mobTick() {
