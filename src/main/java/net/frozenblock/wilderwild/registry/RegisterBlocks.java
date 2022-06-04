@@ -23,14 +23,11 @@ import net.minecraft.util.registry.Registry;
 import net.minecraft.world.BlockView;
 
 public abstract class RegisterBlocks {
+    private static String name = "baobab";
+    private static MapColor planksColor = MapColor.ORANGE;
+    private static MapColor barkColor = MapColor.BROWN;
     // CHISELED PACKED MUD
-    public static final Block CHISELED_MUD_BRICKS = registerBlock("chiseled_mud_bricks",
-            new Block(FabricBlockSettings.copy(Blocks.CHISELED_STONE_BRICKS)
-                    .strength(1.5F)
-                    .requiresTool()
-                    .sounds(BlockSoundGroup.MUD_BRICKS)),
-            ItemGroup.BUILDING_BLOCKS
-    );
+    public static Block CHISELED_MUD_BRICKS = new Block(FabricBlockSettings.copy(Blocks.CHISELED_STONE_BRICKS).strength(1.5F).requiresTool().sounds(BlockSoundGroup.MUD_BRICKS));
 
     // FLOWERED LILY PAD
     public static final Block FLOWERED_LILY_PAD = new FloweredLilyPadBlock(
@@ -39,141 +36,130 @@ public abstract class RegisterBlocks {
     );
 
     // HOLLOW LOGS
-    public static final Block HOLLOWED_OAK_LOG = registerBlock("hollowed_oak_log", createHollowedLogBlock(MapColor.OAK_TAN, MapColor.SPRUCE_BROWN), ItemGroup.DECORATIONS);
-    public static final Block HOLLOWED_SPRUCE_LOG = registerBlock("hollowed_spruce_log", createHollowedLogBlock(MapColor.SPRUCE_BROWN, MapColor.BROWN), ItemGroup.DECORATIONS);
-    public static final Block HOLLOWED_BIRCH_LOG = registerBlock("hollowed_birch_log", createHollowedLogBlock(MapColor.PALE_YELLOW, MapColor.OFF_WHITE), ItemGroup.DECORATIONS);
-    public static final Block HOLLOWED_JUNGLE_LOG = registerBlock("hollowed_jungle_log", createHollowedLogBlock(MapColor.DIRT_BROWN, MapColor.SPRUCE_BROWN), ItemGroup.DECORATIONS);
-    public static final Block HOLLOWED_ACACIA_LOG = registerBlock("hollowed_acacia_log", createHollowedLogBlock(MapColor.ORANGE, MapColor.STONE_GRAY), ItemGroup.DECORATIONS);
-    public static final Block HOLLOWED_DARK_OAK_LOG = registerBlock("hollowed_dark_oak_log", createHollowedLogBlock(MapColor.BROWN, MapColor.BROWN), ItemGroup.DECORATIONS);
-    public static final Block HOLLOWED_MANGROVE_LOG = registerBlock("hollowed_mangrove_log", createHollowedLogBlock(MapColor.RED, MapColor.SPRUCE_BROWN), ItemGroup.DECORATIONS);
-    // SCULK
-    public static final Block SCULK_ECHOER = registerBlock("sculk_echoer",
-            new SculkEchoerBlock(AbstractBlock.Settings
-                    .of(Material.SCULK, MapColor.CYAN)
-                    .strength(3.0F, 3.0F)
-                    .sounds(BlockSoundGroup.SCULK_CATALYST), 8),
-            ItemGroup.DECORATIONS
-    );
-    public static final Block SCULK_JAW = registerBlock("sculk_jaw",
-            new SculkJawBlock(AbstractBlock.Settings
-                    .of(Material.SCULK)
-                    .strength(0.6F)
-                    .sounds(BlockSoundGroup.SCULK)),
-            ItemGroup.DECORATIONS
-    );
-    public static final Block OSSEOUS_SCULK = registerBlock("osseous_sculk",
-            new OsseousSculkBlock(AbstractBlock.Settings
-                    .of(Material.STONE,
-                    MapColor.PALE_YELLOW)
-                    .requiresTool()
-                    .strength(2.0F)
-                    .sounds(RegisterBlockSoundGroups.OSSEOUS_SCULK)),
-            ItemGroup.DECORATIONS
-    );
-    public static final Block HANGING_TENDRIL = registerBlock("hanging_tendril",
-            new HangingTendrilBlock(FabricBlockSettings
-                    .copyOf(Blocks.SCULK_SENSOR)
-                    .strength(0.7F)
-                    .collidable(false)
-                    .luminance((state) -> 1)
-                    .sounds(RegisterBlockSoundGroups.HANGING_TENDRIL)
-                    .emissiveLighting((state, world, pos) -> HangingTendrilBlock.shouldHavePogLighting(state)), 4),
-            ItemGroup.DECORATIONS
-    );
-    public static final Block ECHO_GLASS = registerBlock("echo_glass",
-            new EchoGlassBlock(AbstractBlock.Settings
-                    .of(Material.GLASS, MapColor.CYAN)
-                    .strength(0.3F)
-                    .nonOpaque()
-                    .sounds(RegisterBlockSoundGroups.ECHO_GLASS)
-            ),
-            ItemGroup.DECORATIONS
-    );
+    public static final Block HOLLOWED_OAK_LOG = createHollowedLogBlock(MapColor.OAK_TAN, MapColor.SPRUCE_BROWN);
+    public static final Block HOLLOWED_SPRUCE_LOG = createHollowedLogBlock(MapColor.SPRUCE_BROWN, MapColor.BROWN);
+    public static final Block HOLLOWED_BIRCH_LOG = createHollowedLogBlock(MapColor.PALE_YELLOW, MapColor.OFF_WHITE);
+    public static final Block HOLLOWED_JUNGLE_LOG = createHollowedLogBlock(MapColor.DIRT_BROWN, MapColor.SPRUCE_BROWN);
+    public static final Block HOLLOWED_ACACIA_LOG = createHollowedLogBlock(MapColor.ORANGE, MapColor.STONE_GRAY);
+    public static final Block HOLLOWED_DARK_OAK_LOG = createHollowedLogBlock(MapColor.BROWN, MapColor.BROWN);
+    public static final Block HOLLOWED_MANGROVE_LOG = createHollowedLogBlock(MapColor.RED, MapColor.SPRUCE_BROWN);
+    public static final Block HOLLOWED_BAOBAB_LOG = createHollowedLogBlock(planksColor, barkColor);
+    public static void registerHollowedLogs() {
+        registerBlock("hollowed_oak_log", HOLLOWED_OAK_LOG, ItemGroup.DECORATIONS);
+        registerBlock("hollowed_spruce_log", HOLLOWED_SPRUCE_LOG, ItemGroup.DECORATIONS);
+        registerBlock("hollowed_birch_log", HOLLOWED_BIRCH_LOG, ItemGroup.DECORATIONS);
+        registerBlock("hollowed_jungle_log", HOLLOWED_JUNGLE_LOG, ItemGroup.DECORATIONS);
+        registerBlock("hollowed_acacia_log", HOLLOWED_ACACIA_LOG, ItemGroup.DECORATIONS);
+        registerBlock("hollowed_dark_oak_log", HOLLOWED_DARK_OAK_LOG, ItemGroup.DECORATIONS);
+        registerBlock("hollowed_mangrove_log", HOLLOWED_MANGROVE_LOG, ItemGroup.DECORATIONS);
+        registerBlock("hollowed_"+name+"_log", HOLLOWED_BAOBAB_LOG, ItemGroup.DECORATIONS);
+    }
 
-    public static final Block TERMITE_MOUND = registerBlock("termite_mound",
-            new TermiteMound(AbstractBlock.Settings
-                    .of(Material.WOOD, MapColor.BROWN)
-                    .strength(0.3F)
-                    .sounds(RegisterBlockSoundGroups.COARSEDIRT)
-            ),
-            ItemGroup.DECORATIONS
-    );
+    // SCULK
+    public static final Block SCULK_ECHOER = new SculkEchoerBlock(AbstractBlock.Settings.of(Material.SCULK, MapColor.CYAN).strength(3.0F, 3.0F).sounds(BlockSoundGroup.SCULK_CATALYST),8);
+    public static final Block SCULK_JAW = new SculkJawBlock(AbstractBlock.Settings.of(Material.SCULK).strength(0.6F).sounds(BlockSoundGroup.SCULK));
+    public static final Block OSSEOUS_SCULK = new OsseousSculkBlock(AbstractBlock.Settings.of(Material.STONE, MapColor.PALE_YELLOW).requiresTool().strength(2.0F).sounds(RegisterBlockSoundGroups.OSSEOUS_SCULK));
+    public static final Block HANGING_TENDRIL = new HangingTendrilBlock(FabricBlockSettings.copyOf(Blocks.SCULK_SENSOR).strength(0.7F).collidable(false).luminance((state) -> 1)
+            .sounds(RegisterBlockSoundGroups.HANGING_TENDRIL).emissiveLighting((state, world, pos) -> HangingTendrilBlock.shouldHavePogLighting(state)), 4);
+    public static final Block ECHO_GLASS = new EchoGlassBlock(AbstractBlock.Settings.of(Material.GLASS, MapColor.CYAN).strength(0.3F).nonOpaque().sounds(RegisterBlockSoundGroups.ECHO_GLASS));
+    public static void registerDeepDark() {
+        registerBlock("sculk_echoer", SCULK_ECHOER, ItemGroup.DECORATIONS);
+        registerBlock("sculk_jaw", SCULK_JAW, ItemGroup.DECORATIONS);
+        registerBlock("osseous_sculk", OSSEOUS_SCULK, ItemGroup.DECORATIONS);
+        registerBlock("hanging_tendril", HANGING_TENDRIL, ItemGroup.DECORATIONS);
+        registerBlock("echo_glass", ECHO_GLASS, ItemGroup.DECORATIONS);
+    }
+
+    public static final Block TERMITE_MOUND = new TermiteMound(AbstractBlock.Settings.of(Material.WOOD, MapColor.BROWN).strength(0.3F).sounds(RegisterBlockSoundGroups.COARSEDIRT));
 
     // PLANTS
-    public static final Block DATURA = registerBlock("datura",
-            new TallFlowerBlock(FabricBlockSettings.copy(Blocks.ROSE_BUSH)
-                    .strength(0.0F)
-                    .nonOpaque()),
-            ItemGroup.DECORATIONS
-    );
-    public static final Block CATTAIL = registerBlock("cattail",
-            new WaterloggableTallFlowerBlock(FabricBlockSettings.copy(Blocks.ROSE_BUSH)
-                    .sounds(BlockSoundGroup.WET_GRASS)
-                    .strength(0.0F)
-                    .nonOpaque()),
-            ItemGroup.DECORATIONS
-    );
-    public static final Block CARNATION = registerBlock("carnation",
-            new FlowerBlock(StatusEffects.REGENERATION, 12, FabricBlockSettings
-            .copy(Blocks.DANDELION)
-            .sounds(BlockSoundGroup.SPORE_BLOSSOM)
-            .strength(0.0F)
-            .nonOpaque()),
-            ItemGroup.DECORATIONS
-    );
-    public static final Block POTTED_CARNATION = registerBlockWithoutBlockItem("potted_carnation",
-            new FlowerPotBlock(RegisterBlocks.CARNATION,
-                    AbstractBlock.Settings.of(Material.DECORATION)
-                            .breakInstantly()
-                            .nonOpaque())
-    );
-    public static final Block WHITE_DANDELION = registerBlock("white_dandelion",
-            new WhiteDandelionBlock(StatusEffects.SLOW_FALLING, 12, FabricBlockSettings
-                    .copy(Blocks.DANDELION)
-                    .sounds(BlockSoundGroup.SPORE_BLOSSOM)
-                    .strength(0.0F)
-                    .nonOpaque()),
-            ItemGroup.DECORATIONS
-    );
-    public static final Block POTTED_WHITE_DANDELION = registerBlockWithoutBlockItem("potted_white_dandelion",
-            new FlowerPotBlock(RegisterBlocks.WHITE_DANDELION,
-                    AbstractBlock.Settings.of(Material.DECORATION)
-                            .breakInstantly()
-                            .nonOpaque())
-    );
-    public static final Block MILKWEED = registerBlock("milkweed",
-            new MilkweedBlock(FabricBlockSettings.copy(Blocks.ROSE_BUSH)
-                    .strength(0.0F)
-                    .nonOpaque()),
-            ItemGroup.DECORATIONS
-    );
-
+    public static final Block DATURA = new TallFlowerBlock(FabricBlockSettings.copy(Blocks.ROSE_BUSH).strength(0.0F).nonOpaque());
+    public static final Block CATTAIL = new WaterloggableTallFlowerBlock(FabricBlockSettings.copy(Blocks.ROSE_BUSH).sounds(BlockSoundGroup.WET_GRASS).strength(0.0F).nonOpaque());
+    public static final Block CARNATION = new FlowerBlock(StatusEffects.REGENERATION, 12, FabricBlockSettings.copy(Blocks.DANDELION).sounds(BlockSoundGroup.SPORE_BLOSSOM).strength(0.0F).nonOpaque());
+    public static final Block POTTED_CARNATION = new FlowerPotBlock(RegisterBlocks.CARNATION, AbstractBlock.Settings.of(Material.DECORATION).breakInstantly().nonOpaque());
+    public static final Block WHITE_DANDELION = new WhiteDandelionBlock(StatusEffects.SLOW_FALLING, 12, FabricBlockSettings.copy(Blocks.DANDELION).sounds(BlockSoundGroup.SPORE_BLOSSOM).strength(0.0F).nonOpaque());
+    public static final Block POTTED_WHITE_DANDELION = new FlowerPotBlock(RegisterBlocks.WHITE_DANDELION, AbstractBlock.Settings.of(Material.DECORATION).breakInstantly().nonOpaque());
+    public static final Block MILKWEED = new MilkweedBlock(FabricBlockSettings.copy(Blocks.ROSE_BUSH).strength(0.0F).nonOpaque());
+    public static void registerPlants() {
+        registerBlock("datura", DATURA, ItemGroup.DECORATIONS);
+        registerBlock("cattail", CATTAIL, ItemGroup.DECORATIONS);
+        registerBlock("carnation", CARNATION, ItemGroup.DECORATIONS);
+        registerBlockWithoutBlockItem("potted_carnation", POTTED_CARNATION);
+        registerBlock("white_dandelion", WHITE_DANDELION, ItemGroup.DECORATIONS);
+        registerBlockWithoutBlockItem("potted_white_dandelion", POTTED_WHITE_DANDELION);
+        registerBlock("milkweed", MILKWEED, ItemGroup.DECORATIONS);
+    }
  
-    public static final Block POLLEN_BLOCK = registerBlock("pollen",
-            new PollenBlock(FabricBlockSettings
-            .copyOf(Blocks.GRASS)
-            .collidable(false)
-            .mapColor(MapColor.PALE_YELLOW)
-            .sounds(BlockSoundGroup.VINE)),
-            ItemGroup.DECORATIONS
-    );
-    public static final Block BROWN_SHELF_FUNGUS = registerBlock("brown_shelf_fungus",
-            new ShelfFungusBlock(FabricBlockSettings
-                    .copyOf(Blocks.BROWN_MUSHROOM_BLOCK)
-                    .lightLevel(1)
-                    .collidable(false)
-                    .nonOpaque()
-                    .sounds(RegisterBlockSoundGroups.MUSHROOM)),
-            ItemGroup.DECORATIONS
-    );
-    public static final Block RED_SHELF_FUNGUS = registerBlock("red_shelf_fungus",
-            new ShelfFungusBlock(FabricBlockSettings
-                    .copyOf(Blocks.RED_MUSHROOM_BLOCK)
-                    .collidable(false)
-                    .nonOpaque()
-                    .sounds(RegisterBlockSoundGroups.MUSHROOM)),
-            ItemGroup.DECORATIONS
-    );
+    public static final Block POLLEN_BLOCK = new PollenBlock(FabricBlockSettings.copyOf(Blocks.GRASS).collidable(false).offsetType(AbstractBlock.OffsetType.NONE).mapColor(MapColor.PALE_YELLOW).sounds(BlockSoundGroup.VINE));
+    public static final Block BROWN_SHELF_FUNGUS = new ShelfFungusBlock(FabricBlockSettings.copyOf(Blocks.BROWN_MUSHROOM_BLOCK).luminance(1).collidable(false).nonOpaque().sounds(RegisterBlockSoundGroups.MUSHROOM));
+    public static final Block RED_SHELF_FUNGUS = new ShelfFungusBlock(FabricBlockSettings.copyOf(Blocks.RED_MUSHROOM_BLOCK).collidable(false).nonOpaque().sounds(RegisterBlockSoundGroups.MUSHROOM));
+    public static void registerNotSoPlants() {
+        registerBlock("pollen", POLLEN_BLOCK, ItemGroup.DECORATIONS);
+        registerBlock("brown_shelf_fungus", BROWN_SHELF_FUNGUS, ItemGroup.DECORATIONS);
+        registerBlock("red_shelf_fungus", RED_SHELF_FUNGUS, ItemGroup.DECORATIONS);
+    }
+
+    public static final SignType BAOBAB_SIGN_TYPE = SignTypeAccessor.newSignType("baobab");
+    public static final Block BAOBAB_PLANKS = new Block(AbstractBlock.Settings.of(Material.WOOD, planksColor).strength(2.0F, 3.0F).sounds(BlockSoundGroup.WOOD));
+    public static final Block BAOBAB_LOG = new PillarBlock(AbstractBlock.Settings.of(Material.WOOD, state -> state.get(PillarBlock.AXIS) == Direction.Axis.Y ? planksColor : barkColor).strength(2.0F).sounds(BlockSoundGroup.WOOD));
+    public static final Block STRIPPED_BAOBAB_LOG =  new PillarBlock(AbstractBlock.Settings.of(Material.WOOD, state -> state.get(PillarBlock.AXIS) == Direction.Axis.Y ? planksColor : barkColor).strength(2.0F).sounds(BlockSoundGroup.WOOD));
+    public static final Block STRIPPED_BAOBAB_WOOD = new PillarBlock(AbstractBlock.Settings.of(Material.WOOD, state -> state.get(PillarBlock.AXIS) == Direction.Axis.Y ? planksColor : barkColor).strength(2.0F).sounds(BlockSoundGroup.WOOD));
+    public static final Block BAOBAB_WOOD = new PillarBlock(AbstractBlock.Settings.of(Material.WOOD, state -> state.get(PillarBlock.AXIS) == Direction.Axis.Y ? planksColor : barkColor).strength(2.0F).sounds(BlockSoundGroup.WOOD));
+    public static final Block BAOBAB_SLAB = new SlabBlock(AbstractBlock.Settings.of(Material.WOOD, planksColor).strength(2.0F, 3.0F).sounds(BlockSoundGroup.WOOD));
+    public static final Block BAOBAB_STAIRS = new StairsBlock(BAOBAB_PLANKS.getDefaultState(), AbstractBlock.Settings.copy(BAOBAB_PLANKS));
+    public static final Block BAOBAB_DOOR = new DoorBlock(AbstractBlock.Settings.of(Material.WOOD, planksColor).strength(3.0F).sounds(BlockSoundGroup.WOOD).nonOpaque());
+    public static final Block BAOBAB_TRAPDOOR = new TrapdoorBlock(AbstractBlock.Settings.of(Material.WOOD, planksColor).strength(3.0F).sounds(BlockSoundGroup.WOOD).nonOpaque().allowsSpawning(RegisterBlocks::never));
+    public static final Block BAOBAB_LEAVES = new LeavesBlock(AbstractBlock.Settings.of(Material.LEAVES, MapColor.GREEN).strength(0.2F).ticksRandomly().sounds(BlockSoundGroup.GRASS).nonOpaque().allowsSpawning(RegisterBlocks::canSpawnOnLeaves).suffocates(RegisterBlocks::never).blockVision(RegisterBlocks::never));
+    public static final Block BAOBAB_GATE = new FenceGateBlock(AbstractBlock.Settings.of(Material.WOOD, planksColor).strength(2.0F, 3.0F).sounds(BlockSoundGroup.WOOD));
+    public static final Block BAOBAB_PLATE = new PressurePlateBlock(PressurePlateBlock.ActivationRule.EVERYTHING, AbstractBlock.Settings.of(Material.WOOD, planksColor).noCollision().strength(0.5F).sounds(BlockSoundGroup.WOOD));
+    public static final Block BAOBAB_FENCE = new FenceBlock(AbstractBlock.Settings.of(Material.WOOD, planksColor).strength(2.0F, 3.0F).sounds(BlockSoundGroup.WOOD));
+    public static final Block BAOBAB_BUTTON = new WoodenButtonBlock(AbstractBlock.Settings.copy(Blocks.OAK_BUTTON).mapColor(planksColor));
+    public static final Block BAOBAB_SIGN_BLOCK = new SignBlock(FabricBlockSettings.copy(Blocks.OAK_SIGN), BAOBAB_SIGN_TYPE);
+    public static final Block BAOBAB_WALL_SIGN = new WallSignBlock(FabricBlockSettings.copy(Blocks.OAK_WALL_SIGN), BAOBAB_SIGN_TYPE);
+    public static void registerBaobab() {
+        SignTypeAccessor.registerNew(BAOBAB_SIGN_TYPE);
+        registerBlock(name + "_planks", BAOBAB_PLANKS, ItemGroup.BUILDING_BLOCKS);
+        registerBlock(name + "_log", BAOBAB_LOG, ItemGroup.BUILDING_BLOCKS);
+        registerBlock("stripped_" + name + "_log", STRIPPED_BAOBAB_LOG, ItemGroup.BUILDING_BLOCKS);
+        registerBlock(name + "_wood", BAOBAB_WOOD, ItemGroup.BUILDING_BLOCKS);
+        registerBlock("stripped_" + name + "_wood", STRIPPED_BAOBAB_WOOD, ItemGroup.BUILDING_BLOCKS);
+        registerBlock(name + "_slab", BAOBAB_SLAB, ItemGroup.BUILDING_BLOCKS);
+        registerBlock(name + "_stairs", BAOBAB_STAIRS, ItemGroup.BUILDING_BLOCKS);
+        registerBlock(name + "_door", BAOBAB_DOOR, ItemGroup.REDSTONE);
+        registerBlock(name + "_trapdoor", BAOBAB_TRAPDOOR, ItemGroup.REDSTONE);
+        registerBlock(name + "_fence", BAOBAB_FENCE, ItemGroup.DECORATIONS);
+        registerBlock(name + "_fence_gate", BAOBAB_GATE, ItemGroup.REDSTONE);
+         registerBlock(name + "_pressure_plate", BAOBAB_PLATE, ItemGroup.REDSTONE);
+        registerBlock(name + "_leaves", BAOBAB_LEAVES, ItemGroup.DECORATIONS);
+        registerBlock(name + "_button", BAOBAB_BUTTON, ItemGroup.REDSTONE);
+        registerBlockWithoutBlockItem(name + "_sign", BAOBAB_SIGN_BLOCK);
+        registerBlockWithoutBlockItem(name + "_wall_sign", BAOBAB_WALL_SIGN);
+    }
+
+    public static void registerBlocks() {
+        WilderWild.logWild("Registering Blocks for", WilderWild.UNSTABLE_LOGGING);
+        registerBlock("chiseled_mud_bricks", CHISELED_MUD_BRICKS, ItemGroup.BUILDING_BLOCKS);
+
+        registerHollowedLogs();
+        registerDeepDark();
+        registerBlock("termite_mound", TERMITE_MOUND, ItemGroup.DECORATIONS);
+        registerPlants();
+        registerNotSoPlants();
+        registerBaobab();
+
+        Registry.register(Registry.BLOCK, new Identifier(WilderWild.MOD_ID, "flowered_lily_pad"), FLOWERED_LILY_PAD);
+        Registry.register(Registry.ITEM, new Identifier(WilderWild.MOD_ID, "flowered_lily_pad"), new FloweredLilyPadItem(FLOWERED_LILY_PAD, new FabricItemSettings().group(ItemGroup.DECORATIONS)));
+
+        CompostingChanceRegistry.INSTANCE.add(CARNATION, 0.65F);
+        CompostingChanceRegistry.INSTANCE.add(CATTAIL, 0.65F);
+        CompostingChanceRegistry.INSTANCE.add(DATURA, 0.65F);
+        CompostingChanceRegistry.INSTANCE.add(MILKWEED, 0.65F);
+        CompostingChanceRegistry.INSTANCE.add(RegisterItems.MILKWEED_POD, 0.25F);
+        CompostingChanceRegistry.INSTANCE.add(WHITE_DANDELION, 0.65F);
+        CompostingChanceRegistry.INSTANCE.add(FLOWERED_LILY_PAD, 0.65F);
+        CompostingChanceRegistry.INSTANCE.add(BROWN_SHELF_FUNGUS, 0.65F);
+        CompostingChanceRegistry.INSTANCE.add(RED_SHELF_FUNGUS, 0.65F);
+    }
 
     private static Block registerBlockWithoutBlockItem(String name, Block block) {
         return Registry.register(Registry.BLOCK, new Identifier(WilderWild.MOD_ID, name), block);
@@ -191,56 +177,18 @@ public abstract class RegisterBlocks {
 
     private static HollowedLogBlock createHollowedLogBlock(MapColor topMapColor, MapColor sideMapColor) {
         return new HollowedLogBlock(AbstractBlock.Settings.of(Material.WOOD,
-                (state) -> state.get(PillarBlock.AXIS) == Direction.Axis.Y ? topMapColor : sideMapColor)
+                        (state) -> state.get(PillarBlock.AXIS) == Direction.Axis.Y ? topMapColor : sideMapColor)
                 .strength(2.0F).sounds(BlockSoundGroup.WOOD));
     }
 
-
-    public static void registerBlocks() {
-        WilderWild.logWild("Registering Blocks for", WilderWild.UNSTABLE_LOGGING);
-        Registry.register(Registry.BLOCK, new Identifier(WilderWild.MOD_ID, "flowered_lily_pad"), FLOWERED_LILY_PAD);
-        Registry.register(Registry.ITEM, new Identifier(WilderWild.MOD_ID, "flowered_lily_pad"), new FloweredLilyPadItem(FLOWERED_LILY_PAD, new FabricItemSettings().group(ItemGroup.DECORATIONS)));
-        CompostingChanceRegistry.INSTANCE.add(CARNATION, 0.65F);
-        CompostingChanceRegistry.INSTANCE.add(CATTAIL, 0.65F);
-        CompostingChanceRegistry.INSTANCE.add(DATURA, 0.65F);
-        CompostingChanceRegistry.INSTANCE.add(MILKWEED, 0.65F);
-        CompostingChanceRegistry.INSTANCE.add(RegisterItems.MILKWEED_POD, 0.25F);
-        CompostingChanceRegistry.INSTANCE.add(WHITE_DANDELION, 0.65F);
-        CompostingChanceRegistry.INSTANCE.add(FLOWERED_LILY_PAD, 0.65F);
-        CompostingChanceRegistry.INSTANCE.add(BROWN_SHELF_FUNGUS, 0.65F);
-        CompostingChanceRegistry.INSTANCE.add(RED_SHELF_FUNGUS, 0.65F);
-    }
-    public static final String name = "baobab";
-    public static final MapColor planksColor = MapColor.ORANGE;
-    public static final MapColor barkColor = MapColor.BROWN;
-    
-    public static final SignType BAOBAB_SIGN_TYPE = SignTypeAccessor.registerNew(SignTypeAccessor.newSignType("baobab"));
-    public static final Block BAOBAB_PLANKS = registerBlock(name + "_planks", new Block(AbstractBlock.Settings.of(Material.WOOD, planksColor).strength(2.0F, 3.0F).sounds(BlockSoundGroup.WOOD)), ItemGroup.BUILDING_BLOCKS);
-    public static final Block BAOBAB_LOG = registerBlock(name + "_log", new PillarBlock(AbstractBlock.Settings.of(Material.WOOD, state -> state.get(PillarBlock.AXIS) == Direction.Axis.Y ? planksColor : barkColor).strength(2.0F).sounds(BlockSoundGroup.WOOD)), ItemGroup.BUILDING_BLOCKS);
-    public static final Block BAOBAB_STRIPPED_LOG = registerBlock("stripped_" + name + "_log", new PillarBlock(AbstractBlock.Settings.of(Material.WOOD, state -> state.get(PillarBlock.AXIS) == Direction.Axis.Y ? planksColor : barkColor).strength(2.0F).sounds(BlockSoundGroup.WOOD)), ItemGroup.BUILDING_BLOCKS);
-    public static final Block BAOBAB_WOOD = registerBlock(name + "_wood", new PillarBlock(AbstractBlock.Settings.of(Material.WOOD, state -> state.get(PillarBlock.AXIS) == Direction.Axis.Y ? planksColor : barkColor).strength(2.0F).sounds(BlockSoundGroup.WOOD)), ItemGroup.BUILDING_BLOCKS);
-    public static final Block BAOBAB_STRIPPED_WOOD = registerBlock("stripped_" + name + "_wood", new PillarBlock(AbstractBlock.Settings.of(Material.WOOD, state -> state.get(PillarBlock.AXIS) == Direction.Axis.Y ? planksColor : barkColor).strength(2.0F).sounds(BlockSoundGroup.WOOD)), ItemGroup.BUILDING_BLOCKS);
-    public static final Block BAOBAB_HOLLOWED_LOG = registerBlock("hollowed_" + name + "_log", createHollowedLogBlock(planksColor, barkColor), ItemGroup.BUILDING_BLOCKS);
-    public static final Block BAOBAB_SLAB = registerBlock(name + "_slab", new SlabBlock(AbstractBlock.Settings.of(Material.WOOD, planksColor).strength(2.0F, 3.0F).sounds(BlockSoundGroup.WOOD)), ItemGroup.BUILDING_BLOCKS);
-    public static final Block BAOBAB_STAIRS = registerBlock(name + "_stairs", new StairsBlock(BAOBAB_PLANKS.getDefaultState(), AbstractBlock.Settings.copy(BAOBAB_PLANKS)), ItemGroup.BUILDING_BLOCKS);
-    public static final Block BAOBAB_DOOR = registerBlock(name + "_door", new DoorBlock(AbstractBlock.Settings.of(Material.WOOD, planksColor).strength(3.0F).sounds(BlockSoundGroup.WOOD).nonOpaque()), ItemGroup.REDSTONE);
-    public static final Block BAOBAB_TRAPDOOR = registerBlock(name + "_trapdoor", new TrapdoorBlock(AbstractBlock.Settings.of(Material.WOOD, planksColor).strength(3.0F).sounds(BlockSoundGroup.WOOD).nonOpaque().allowsSpawning(RegisterBlocks::never)), ItemGroup.REDSTONE);
-    public static final Block BAOBAB_FENCE = registerBlock(name + "_fence", new FenceBlock(AbstractBlock.Settings.of(Material.WOOD, planksColor).strength(2.0F, 3.0F).sounds(BlockSoundGroup.WOOD)), ItemGroup.BUILDING_BLOCKS);
-    public static final Block BAOBAB_GATE = registerBlock(name + "_fence_gate", new FenceGateBlock(AbstractBlock.Settings.of(Material.WOOD, planksColor).strength(2.0F, 3.0F).sounds(BlockSoundGroup.WOOD)), ItemGroup.REDSTONE);
-    public static final Block BAOBAB_PLATE = registerBlock(name + "_pressure_plate", new PressurePlateBlock(PressurePlateBlock.ActivationRule.EVERYTHING, AbstractBlock.Settings.of(Material.WOOD, planksColor).noCollision().strength(0.5F).sounds(BlockSoundGroup.WOOD)), ItemGroup.REDSTONE);
-    public static final Block BAOBAB_LEAVES = registerBlock(name + "_leaves", new LeavesBlock(AbstractBlock.Settings.of(Material.LEAVES, MapColor.GREEN).strength(0.2F).ticksRandomly().sounds(BlockSoundGroup.GRASS).nonOpaque().allowsSpawning(RegisterBlocks::canSpawnOnLeaves).suffocates(RegisterBlocks::never).blockVision(RegisterBlocks::never)), ItemGroup.BUILDING_BLOCKS);
-    public static final Block BAOBAB_BUTTON = registerBlock(name + "_button", new WoodenButtonBlock(AbstractBlock.Settings.copy(Blocks.OAK_BUTTON).mapColor(planksColor)), ItemGroup.REDSTONE);
-    public static final Block BAOBAB_SIGN = registerBlock(name + "_sign", new SignBlock(AbstractBlock.Settings.of(Material.WOOD, barkColor).noCollision().strength(1.0F).sounds(BlockSoundGroup.WOOD), BAOBAB_SIGN_TYPE), ItemGroup.BUILDING_BLOCKS);
-    public static final Block BAOBAB_WALL_SIGN = registerBlockWithoutBlockItem(name + "_wall_sign", new SignBlock(AbstractBlock.Settings.of(Material.WOOD, barkColor).noCollision().strength(1.0F).sounds(BlockSoundGroup.WOOD).dropsLike(BAOBAB_SIGN), BAOBAB_SIGN_TYPE));
-
     public static void addBaobab() {
-        StrippableBlockRegistry.register(BAOBAB_LOG, BAOBAB_STRIPPED_LOG);
-        StrippableBlockRegistry.register(BAOBAB_WOOD, BAOBAB_STRIPPED_WOOD);
+        StrippableBlockRegistry.register(BAOBAB_LOG, STRIPPED_BAOBAB_LOG);
+        StrippableBlockRegistry.register(BAOBAB_WOOD, STRIPPED_BAOBAB_WOOD);
 
-        TermiteMoundBlockEntity.Termite.addDegradable(BAOBAB_LOG, BAOBAB_HOLLOWED_LOG);
-        TermiteMoundBlockEntity.Termite.addDegradable(BAOBAB_STRIPPED_LOG, Blocks.AIR);
-        TermiteMoundBlockEntity.Termite.addDegradable(BAOBAB_WOOD, BAOBAB_STRIPPED_WOOD);
-        TermiteMoundBlockEntity.Termite.addDegradable(BAOBAB_STRIPPED_WOOD, Blocks.AIR);
+        TermiteMoundBlockEntity.Termite.addDegradable(BAOBAB_LOG, HOLLOWED_BAOBAB_LOG);
+        TermiteMoundBlockEntity.Termite.addDegradable(STRIPPED_BAOBAB_LOG, Blocks.AIR);
+        TermiteMoundBlockEntity.Termite.addDegradable(BAOBAB_WOOD, STRIPPED_BAOBAB_WOOD);
+        TermiteMoundBlockEntity.Termite.addDegradable(STRIPPED_BAOBAB_WOOD, Blocks.AIR);
     }
 
     protected static boolean never(BlockState state, BlockView world, BlockPos pos) { return false; }

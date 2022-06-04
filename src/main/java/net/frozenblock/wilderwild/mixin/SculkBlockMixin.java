@@ -1,10 +1,10 @@
 package net.frozenblock.wilderwild.mixin;
 
+import net.frozenblock.api.mathematics.EasyNoiseSampler;
 import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.block.OsseousSculkBlock;
 import net.frozenblock.wilderwild.registry.RegisterBlocks;
 import net.frozenblock.wilderwild.tag.WildBlockTags;
-import net.frozenblock.api.mathematics.EasyNoiseSampler;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.SculkSpreadManager;
 import net.minecraft.fluid.Fluids;

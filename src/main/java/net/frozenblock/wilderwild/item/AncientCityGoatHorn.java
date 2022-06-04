@@ -96,7 +96,7 @@ public class AncientCityGoatHorn extends Item {
             projectileEntity.shotByPlayer=true;
             server.spawnEntity(projectileEntity);
             MovingSoundLoop.createMovingLoopingSound(server, projectileEntity, SoundEvents.BLOCK_SCULK_CHARGE, SoundCategory.NEUTRAL, 1.0F, 1.0F);
-            FlyBySoundHub.createFlybySound(world, projectileEntity, RegisterSounds.ANCIENT_HORN_VIBRATION_DISSIPATE, SoundCategory.PLAYERS, 0.5F, 0.7F);
+            //FlyBySoundHub.createFlybySound(world, projectileEntity, RegisterSounds.ANCIENT_HORN_VIBRATION_DISSIPATE, SoundCategory.PLAYERS, 1.0F, 0.7F);
         }
         return TypedActionResult.consume(itemStack);
     }

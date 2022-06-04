@@ -98,6 +98,8 @@ public class RegisterSounds {
     public static final SoundEvent FLOATING_SCULK_BUBBLE_POP = register("particle.floating_sculk_bubble.pop");
     public static final SoundEvent FLOATING_SCULK_BUBBLE_BIG_POP = register("particle.floating_sculk_bubble.big_pop");
 
+    public static final SoundEvent PVZGW_CHEETO_FLYBY = register("flyby.pvzgw_cheeto");
+
     public static final SoundEvent ANCIENT_HORN_CALL= register("item.ancient_horn.call");
     public static final SoundEvent ANCIENT_HORN_VIBRATION_DISSIPATE = register("entity.ancient_horn_projectile.dissipate");
 

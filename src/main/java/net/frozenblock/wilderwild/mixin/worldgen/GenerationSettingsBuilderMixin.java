@@ -27,7 +27,7 @@ public class GenerationSettingsBuilderMixin {
         add(VegetationPlacedFeatures.TREES_MEADOW);
     }};
 
-    @Inject(at = @At("HEAD"), method = "feature", cancellable = true)
+    @Inject(at = @At("HEAD"), method = "feature(Lnet/minecraft/world/gen/GenerationStep$Feature;Lnet/minecraft/util/registry/RegistryEntry;)Lnet/minecraft/world/biome/GenerationSettings$Builder;", cancellable = true)
     public void feature(net.minecraft.world.gen.GenerationStep.Feature featureStep, RegistryEntry<PlacedFeature> feature, CallbackInfoReturnable<GenerationSettings.Builder> info) {
         GenerationSettings.Builder builder = GenerationSettings.Builder.class.cast(this);
         if (removedFeatures.contains(feature)) {

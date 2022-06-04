@@ -856,5 +856,21 @@
 			"wilderwild:particle/floating_sculk_bubble/pop4",
 			"wilderwild:particle/floating_sculk_bubble/pop5"
 		]
+	},
+	"flyby.pvzgw_cheeto": {
+		"sounds": [
+			{
+				"name": "wilderwild:flyby/cheetogrenade_flyby",
+				"attenuation_distance": 6
+			},
+			{
+				"name": "wilderwild:flyby/cheetogrenade_flyby2",
+				"attenuation_distance": 6
+			},
+			{
+				"name": "wilderwild:flyby/cheetogrenade_flyby3",
+				"attenuation_distance": 6
+			}
+		]
 	}
 }

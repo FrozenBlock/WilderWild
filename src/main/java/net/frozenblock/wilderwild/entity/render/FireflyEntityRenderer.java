@@ -28,7 +28,7 @@ public class FireflyEntityRenderer extends EntityRenderer<FireflyEntity> {
     private final RenderLayer OVERLAY = RenderLayer.getEntityTranslucentEmissive(OVERLAY_TEXTURE);
 
     private final float scale = 1.5F;
-    private final double yOffset = 0.15F;
+    private final double yOffset = 0.155F;
 
     @Override
     public void render(FireflyEntity entity, float yaw, float tickDelta, MatrixStack matrixStack, VertexConsumerProvider vertexConsumerProvider, int i) {
@@ -62,10 +62,10 @@ public class FireflyEntityRenderer extends EntityRenderer<FireflyEntity> {
         matrix3f = entry.getNormalMatrix();
         vertexConsumer = vertexConsumerProvider.getBuffer(OVERLAY);
 
-        vertexPulsate(vertexConsumer, matrix4f, matrix3f, i, 0.0F, 0, 0, 1, entity.fakeAge, entity.flickers, tickDelta);
-        vertexPulsate(vertexConsumer, matrix4f, matrix3f, i, 1.0F, 0, 1, 1, entity.fakeAge, entity.flickers, tickDelta);
-        vertexPulsate(vertexConsumer, matrix4f, matrix3f, i, 1.0F, 1, 1, 0, entity.fakeAge, entity.flickers, tickDelta);
-        vertexPulsate(vertexConsumer, matrix4f, matrix3f, i, 0.0F, 1, 0, 0, entity.fakeAge, entity.flickers, tickDelta);
+        vertexPulsate(vertexConsumer, matrix4f, matrix3f, i, 0.0F, 0, 0, 1, entity.getFlickerAge(), entity.flickers(), tickDelta);
+        vertexPulsate(vertexConsumer, matrix4f, matrix3f, i, 1.0F, 0, 1, 1, entity.getFlickerAge(), entity.flickers(), tickDelta);
+        vertexPulsate(vertexConsumer, matrix4f, matrix3f, i, 1.0F, 1, 1, 0, entity.getFlickerAge(), entity.flickers(), tickDelta);
+        vertexPulsate(vertexConsumer, matrix4f, matrix3f, i, 0.0F, 1, 0, 0, entity.getFlickerAge(), entity.flickers(), tickDelta);
 
         matrixStack.pop();
         super.render(entity, yaw, tickDelta, matrixStack, vertexConsumerProvider, i);

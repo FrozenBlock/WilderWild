@@ -1,2 +1,5 @@
-accessWidener v1 named
-accessible class net/minecraft/block/SculkVeinBlock$SculkVeinGrowChecker
+accessWidener    v1    named
+accessible    class    net/minecraft/block/SculkVeinBlock$SculkVeinGrowChecker
+accessible    method    net/minecraft/world/gen/treedecorator/TreeDecoratorType    <init>    (Lcom/mojang/serialization/Codec;)V
+accessible    method    net/minecraft/world/gen/trunk/TrunkPlacerType    <init>    (Lcom/mojang/serialization/Codec;)V
+accessible    method    net/minecraft/item/MusicDiscItem    <init>    (ILnet/minecraft/sound/SoundEvent;Lnet/minecraft/item/Item$Settings;)V
