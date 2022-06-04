@@ -109,7 +109,7 @@ public abstract class RegisterBlocks {
         POTTED_WHITE_DANDELION = registerBlockWithoutBlockItem("potted_white_dandelion", new FlowerPotBlock(RegisterBlocks.WHITE_DANDELION, AbstractBlock.Settings.of(Material.DECORATION).breakInstantly().nonOpaque()));
         MILKWEED = registerBlock("milkweed", new MilkweedBlock(FabricBlockSettings.copy(Blocks.ROSE_BUSH).strength(0.0F).nonOpaque()), ItemGroup.DECORATIONS);
 
-        POLLEN_BLOCK = registerBlock("pollen", new PollenBlock(FabricBlockSettings.copyOf(Blocks.GRASS).collidable(false).mapColor(MapColor.PALE_YELLOW).sounds(BlockSoundGroup.VINE)), ItemGroup.DECORATIONS);
+        POLLEN_BLOCK = registerBlock("pollen", new PollenBlock(FabricBlockSettings.copyOf(Blocks.GRASS).collidable(false).offsetType(AbstractBlock.OffsetType.NONE).mapColor(MapColor.PALE_YELLOW).sounds(BlockSoundGroup.VINE)), ItemGroup.DECORATIONS);
         BROWN_SHELF_FUNGUS = registerBlock("brown_shelf_fungus", new ShelfFungusBlock(FabricBlockSettings.copyOf(Blocks.BROWN_MUSHROOM_BLOCK).lightLevel(1).collidable(false).nonOpaque().sounds(RegisterBlockSoundGroups.MUSHROOM)), ItemGroup.DECORATIONS);
         RED_SHELF_FUNGUS = registerBlock("red_shelf_fungus", new ShelfFungusBlock(FabricBlockSettings.copyOf(Blocks.RED_MUSHROOM_BLOCK).collidable(false).nonOpaque().sounds(RegisterBlockSoundGroups.MUSHROOM)), ItemGroup.DECORATIONS);
 
