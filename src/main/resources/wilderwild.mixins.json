@@ -6,7 +6,6 @@
   "mixins": [
 	"BlockMixin",
 	"BoneMealItemMixin",
-	"MusicDiscItemInvoker",
 	"SculkBlockMixin",
 	"SculkSensorBlockEntityMixin",
 	"SculkSensorBlockMixin",
@@ -21,9 +20,7 @@
 	"worldgen.DefaultBiomeFeaturesMixin",
 	"worldgen.GenerationSettingsBuilderMixin",
 	"worldgen.OakSaplingGeneratorMixin",
-	"worldgen.SpruceSaplingGeneratorMixin",
-	"worldgen.TreeDecoratorTypeInvoker",
-	"worldgen.TrunkPlacerTypeInvoker"
+	"worldgen.SpruceSaplingGeneratorMixin"
   ],
   "client": [
 	  "WardenEntityModelMixin"
