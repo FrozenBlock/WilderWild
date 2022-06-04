@@ -49,19 +49,21 @@ public class FireflyEntity extends PathAwareEntity implements Flutterer {
     protected static final ImmutableList<SensorType<? extends Sensor<? super FireflyEntity>>> SENSORS = ImmutableList.of(SensorType.NEAREST_LIVING_ENTITIES, SensorType.HURT_BY);
     protected static final ImmutableList<MemoryModuleType<?>> MEMORY_MODULES = ImmutableList.of(MemoryModuleType.PATH, MemoryModuleType.VISIBLE_MOBS, MemoryModuleType.WALK_TARGET, MemoryModuleType.CANT_REACH_WALK_TARGET_SINCE);
     private static final TrackedData<Boolean> FROM_BOTTLE = DataTracker.registerData(FireflyEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
-
-    public boolean flickers;
-    public int fakeAge;
-    public boolean valuesSet;
+    private static final TrackedData<Boolean> FLICKERS = DataTracker.registerData(FireflyEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
+    private static final TrackedData<Integer> AGE = DataTracker.registerData(FireflyEntity.class, TrackedDataHandlerRegistry.INTEGER);
 
     public FireflyEntity(EntityType<? extends PathAwareEntity> entityType, World world) {
         super(entityType, world);
         this.moveControl = new FlightMoveControl(this, 20, true);
+        this.setFlickers(world.random.nextInt(5)==0);
+        this.setFlickerAge(world.random.nextBetween(0,19));
     }
 
     protected void initDataTracker() {
         super.initDataTracker();
         this.dataTracker.startTracking(FROM_BOTTLE, false);
+        this.dataTracker.startTracking(FLICKERS, false);
+        this.dataTracker.startTracking(AGE, 0);
     }
 
     public ActionResult interactMob(PlayerEntity player, Hand hand) {
@@ -99,9 +101,22 @@ public class FireflyEntity extends PathAwareEntity implements Flutterer {
     public boolean isFromBottle() {
         return this.dataTracker.get(FROM_BOTTLE);
     }
-
     public void setFromBottle(boolean value) {
         this.dataTracker.set(FROM_BOTTLE, value);
+    }
+
+    public boolean flickers() {
+        return this.dataTracker.get(FLICKERS);
+    }
+    public void setFlickers(boolean value) {
+        this.dataTracker.set(FLICKERS, value);
+    }
+
+    public int getFlickerAge() {
+        return this.dataTracker.get(AGE);
+    }
+    public void setFlickerAge(int value) {
+        this.dataTracker.set(AGE, value);
     }
 
     public boolean cannotDespawn() {
@@ -174,11 +189,6 @@ public class FireflyEntity extends PathAwareEntity implements Flutterer {
     @Override
     public void tick() {
         super.tick();
-        if (world.isClient && !valuesSet) {
-            this.fakeAge = random.nextBetween(0,19);
-            this.flickers = random.nextInt(5)==0;
-            this.valuesSet = true;
-        }
     }
 
     protected void mobTick() {
@@ -206,11 +216,15 @@ public class FireflyEntity extends PathAwareEntity implements Flutterer {
     public void writeCustomDataToNbt(NbtCompound nbt) {
         super.writeCustomDataToNbt(nbt);
         nbt.putBoolean("fromBottle", this.isFromBottle());
+        nbt.putBoolean("flickers", this.flickers());
+        nbt.putInt("flickerAge", this.getFlickerAge());
     }
 
     public void readCustomDataFromNbt(NbtCompound nbt) {
         super.readCustomDataFromNbt(nbt);
         this.setFromBottle(nbt.getBoolean("fromBottle"));
+        this.setFlickers(nbt.getBoolean("flickers"));
+        this.setFlickerAge(nbt.getInt("flickerAge"));
     }
 
     protected boolean shouldFollowLeash() {
@@ -233,9 +247,6 @@ public class FireflyEntity extends PathAwareEntity implements Flutterer {
     @Override
     public void tickMovement() {
         super.tickMovement();
-        if (world.isClient) {
-            ++this.fakeAge;
-        }
     }
 
     @Override
