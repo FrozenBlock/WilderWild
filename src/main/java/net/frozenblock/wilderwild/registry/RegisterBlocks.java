@@ -79,7 +79,7 @@ public abstract class RegisterBlocks {
     public static Block BAOBAB_PLATE;
     public static Block BAOBAB_FENCE;
     public static Block BAOBAB_BUTTON;
-    public static Block BAOBAB_SIGN;
+    public static Block BAOBAB_SIGN_BLOCK;
     public static Block BAOBAB_WALL_SIGN;
 
     public static void registerBlocks() {
@@ -134,8 +134,8 @@ public abstract class RegisterBlocks {
         BAOBAB_PLATE = registerBlock(name + "_pressure_plate", new PressurePlateBlock(PressurePlateBlock.ActivationRule.EVERYTHING, AbstractBlock.Settings.of(Material.WOOD, planksColor).noCollision().strength(0.5F).sounds(BlockSoundGroup.WOOD)), ItemGroup.REDSTONE);
         BAOBAB_LEAVES = registerBlock(name + "_leaves", new LeavesBlock(AbstractBlock.Settings.of(Material.LEAVES, MapColor.GREEN).strength(0.2F).ticksRandomly().sounds(BlockSoundGroup.GRASS).nonOpaque().allowsSpawning(RegisterBlocks::canSpawnOnLeaves).suffocates(RegisterBlocks::never).blockVision(RegisterBlocks::never)), ItemGroup.DECORATIONS);
         BAOBAB_BUTTON = registerBlock(name + "_button", new WoodenButtonBlock(AbstractBlock.Settings.copy(Blocks.OAK_BUTTON).mapColor(planksColor)), ItemGroup.REDSTONE);
-        BAOBAB_SIGN = registerBlock(name + "_sign", new SignBlock(AbstractBlock.Settings.of(Material.WOOD, barkColor).noCollision().strength(1.0F).sounds(BlockSoundGroup.WOOD), BAOBAB_SIGN_TYPE), ItemGroup.DECORATIONS);
-        BAOBAB_WALL_SIGN = registerBlockWithoutBlockItem(name + "_wall_sign", new SignBlock(AbstractBlock.Settings.of(Material.WOOD, barkColor).noCollision().strength(1.0F).sounds(BlockSoundGroup.WOOD).dropsLike(BAOBAB_SIGN), BAOBAB_SIGN_TYPE));
+        BAOBAB_SIGN_BLOCK = registerBlockWithoutBlockItem(name + "_sign", new SignBlock(FabricBlockSettings.copy(Blocks.OAK_SIGN), BAOBAB_SIGN_TYPE));
+        BAOBAB_WALL_SIGN = registerBlockWithoutBlockItem(name + "_wall_sign", new WallSignBlock(FabricBlockSettings.copy(Blocks.OAK_WALL_SIGN), BAOBAB_SIGN_TYPE));
 
         Registry.register(Registry.BLOCK, new Identifier(WilderWild.MOD_ID, "flowered_lily_pad"), FLOWERED_LILY_PAD);
         Registry.register(Registry.ITEM, new Identifier(WilderWild.MOD_ID, "flowered_lily_pad"), new FloweredLilyPadItem(FLOWERED_LILY_PAD, new FabricItemSettings().group(ItemGroup.DECORATIONS)));

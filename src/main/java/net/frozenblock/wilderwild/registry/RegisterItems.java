@@ -7,10 +7,7 @@ import net.frozenblock.wilderwild.item.AncientCityGoatHorn;
 import net.frozenblock.wilderwild.item.FireflyBottleItem;
 import net.frozenblock.wilderwild.item.MilkweedPodItem;
 import net.frozenblock.wilderwild.item.WilderBoatItem;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemGroup;
-import net.minecraft.item.MusicDiscItem;
-import net.minecraft.item.SpawnEggItem;
+import net.minecraft.item.*;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.Rarity;
 import net.minecraft.util.registry.Registry;
@@ -26,11 +23,14 @@ public class RegisterItems {
 
     public static final Item BAOBAB_BOAT_ITEM = new WilderBoatItem(false, WilderBoatEntity.Type.BAOBAB, (new Item.Settings()).maxCount(1).group(ItemGroup.TRANSPORTATION));
     public static final Item BAOBAB_CHEST_BOAT_ITEM = new WilderBoatItem(true, WilderBoatEntity.Type.BAOBAB, (new Item.Settings()).maxCount(1).group(ItemGroup.TRANSPORTATION));
+    public static final Item BAOBAB_SIGN = new SignItem(new FabricItemSettings().group(ItemGroup.DECORATIONS).maxCount(16),
+           RegisterBlocks.BAOBAB_SIGN_BLOCK, RegisterBlocks.BAOBAB_WALL_SIGN);
 
 
     public static void registerItems() {
         WilderWild.logWild("Registering Items for", WilderWild.UNSTABLE_LOGGING);
         Registry.register(Registry.ITEM, new Identifier(WilderWild.MOD_ID, "baobab_boat"), BAOBAB_BOAT_ITEM);
+        Registry.register(Registry.ITEM, new Identifier(WilderWild.MOD_ID, "baobab_sign"), BAOBAB_SIGN);
         Registry.register(Registry.ITEM, new Identifier(WilderWild.MOD_ID, "baobab_chest_boat"), BAOBAB_CHEST_BOAT_ITEM);
         Registry.register(Registry.ITEM, new Identifier(WilderWild.MOD_ID, "ancient_horn"), ANCIENT_HORN);
         Registry.register(Registry.ITEM, new Identifier(WilderWild.MOD_ID, "milkweed_pod"), MILKWEED_POD);
