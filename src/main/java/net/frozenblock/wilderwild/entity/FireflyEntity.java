@@ -91,6 +91,8 @@ public class FireflyEntity extends PathAwareEntity implements Flutterer {
         }
     }
 
+    public boolean shouldRender(double cameraX, double cameraY, double cameraZ) { return true; }
+
     @Override
     public boolean canBeLeashedBy(PlayerEntity player) { return false; }
 

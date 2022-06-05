@@ -107,7 +107,7 @@ public class CompetitionCounter {
                         JsonElement counter = JsonParser.parseReader(reader);
                         if (counter.isJsonObject()) {
                             JsonObject obj = counter.getAsJsonObject();
-                            count = obj.get("firefly_count").getAsInt();
+                            count = obj.get("kill_count").getAsInt();
                             String UUID = obj.get("player_uuid").getAsString();
                             if (!Objects.equals(UUID, ancientKillCounter.getPlayerUUID())) {
                                 WilderWild.logInsane("Using alt accounts to kill mobs with an Ancient Horn is against the rules as it can create inaccurate Ancient Horn killing information. Please delete wilderwild/competitions/ancient_horn_kills.wild or switch back to the first account you killed a mob using the Ancient Horn with to continue.", true);
