@@ -1,14 +1,13 @@
 package net.frozenblock.wilderwild.mixin;
 
+import net.minecraft.block.BlockState;
 import net.minecraft.block.SignBlock;
 import net.minecraft.block.WallSignBlock;
+import net.minecraft.block.entity.BlockEntityType;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
-import org.spongepowered.asm.mixin.injection.At;
-
-import net.minecraft.block.BlockState;
-import net.minecraft.block.entity.BlockEntityType;
 
 @Mixin(BlockEntityType.class)
 public class BlockEntityTypeMixin {

@@ -2,7 +2,6 @@ package net.frozenblock.wilderwild.item;
 
 import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.entity.AncientHornProjectileEntity;
-import net.frozenblock.wilderwild.misc.PVZGWSound.FlyBySoundHub;
 import net.frozenblock.wilderwild.misc.PVZGWSound.MovingSoundLoop;
 import net.frozenblock.wilderwild.registry.RegisterEnchantments;
 import net.frozenblock.wilderwild.registry.RegisterItems;
