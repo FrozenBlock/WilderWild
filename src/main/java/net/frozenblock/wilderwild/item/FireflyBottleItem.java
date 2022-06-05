@@ -42,6 +42,10 @@ public class FireflyBottleItem extends Item {
                     entity.setFromBottle(true);
                     boolean spawned = server.spawnEntity(entity);
                     if (spawned) {
+                        if (entity.getHome()==null) {
+                            entity.setHome(user.getBlockPos());
+                        }
+
                         ItemStack itemStack2 = new ItemStack(Items.GLASS_BOTTLE);
                         ItemStack itemStack3 = ItemUsage.exchangeStack(itemStack, user, itemStack2, true);
                         user.setStackInHand(hand, itemStack3);

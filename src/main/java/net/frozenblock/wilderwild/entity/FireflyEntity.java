@@ -54,7 +54,7 @@ public class FireflyEntity extends PathAwareEntity implements Flutterer {
     private static final TrackedData<Integer> AGE = DataTracker.registerData(FireflyEntity.class, TrackedDataHandlerRegistry.INTEGER);
 
     public boolean natural;
-    public BlockPos home;
+    private BlockPos home;
 
     public FireflyEntity(EntityType<? extends PathAwareEntity> entityType, World world) {
         super(entityType, world);
@@ -67,7 +67,9 @@ public class FireflyEntity extends PathAwareEntity implements Flutterer {
     @Override
     public EntityData initialize(ServerWorldAccess world, LocalDifficulty difficulty, SpawnReason spawnReason, @Nullable EntityData entityData, @Nullable NbtCompound entityNbt) {
         this.natural = spawnReason==SpawnReason.NATURAL;
-        this.home = this.getBlockPos();
+        if (this.home==null) {
+            this.setHome(this.getBlockPos());
+        }
         FireflyBrain.rememberHome(this, this.home);
         return super.initialize(world, difficulty, spawnReason, entityData, entityNbt);
     }
@@ -275,7 +277,17 @@ public class FireflyEntity extends PathAwareEntity implements Flutterer {
     @Override
     public boolean handleFallDamage(float fallDistance, float damageMultiplier, DamageSource damageSource) { return false; }
 
-    protected void pushAway(Entity entity) { }
+    protected void pushAway(Entity entity) {
+    }
 
-    protected void tickCramming() { }
+    protected void tickCramming() {
+    }
+
+    public BlockPos getHome() {
+        return this.home;
+    }
+
+    public void setHome(BlockPos pos) {
+        this.home=pos;
+    }
 }
