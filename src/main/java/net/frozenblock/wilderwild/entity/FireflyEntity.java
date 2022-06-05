@@ -83,7 +83,7 @@ public class FireflyEntity extends PathAwareEntity implements Flutterer {
             ItemStack itemStack3 = ItemUsage.exchangeStack(itemStack, player, itemStack2, false);
             player.setStackInHand(hand, itemStack3);
             World world = entity.world;
-            if (!world.isClient) { EasyPacket.EasyFireflyPacket.sendCaptureInfo(world, player, entity); }
+            if (!world.isClient) { EasyPacket.EasyCompetitionPacket.sendFireflyCaptureInfo(world, player, entity); }
             entity.discard();
             return Optional.of(ActionResult.success(world.isClient));
         } else {

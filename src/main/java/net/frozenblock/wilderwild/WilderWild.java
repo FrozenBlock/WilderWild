@@ -89,6 +89,7 @@ public class WilderWild implements ModInitializer {
     public static final Identifier HORN_PROJECTILE_PACKET_ID = new Identifier(WilderWild.MOD_ID, "ancient_horn_projectile_packet");
 
     public static final Identifier CAPTURE_FIREFLY_NOTIFY_PACKET = new Identifier(WilderWild.MOD_ID,"capture_firefly_notify_packet");
+    public static final Identifier ANCIENT_HORN_KILL_NOTIFY_PACKET = new Identifier(WilderWild.MOD_ID,"ancient_horn_kill_notify_packet");
     public static final Identifier FLYBY_SOUND_PACKET = new Identifier(WilderWild.MOD_ID,"flyby_sound_packet");
     public static final Identifier MOVING_LOOPING_SOUND_PACKET = new Identifier(WilderWild.MOD_ID,"moving_looping_sound_packet");
 

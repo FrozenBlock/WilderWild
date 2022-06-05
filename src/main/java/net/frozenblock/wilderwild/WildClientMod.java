@@ -13,7 +13,7 @@ import net.frozenblock.wilderwild.entity.AncientHornProjectileEntity;
 import net.frozenblock.wilderwild.entity.render.AncientHornProjectileModel;
 import net.frozenblock.wilderwild.entity.render.AncientHornProjectileRenderer;
 import net.frozenblock.wilderwild.entity.render.FireflyEntityRenderer;
-import net.frozenblock.wilderwild.misc.FireflyCounter;
+import net.frozenblock.wilderwild.misc.CompetitionCounter;
 import net.frozenblock.wilderwild.misc.PVZGWSound.FlyBySoundHub;
 import net.frozenblock.wilderwild.misc.PVZGWSound.MovingSoundLoop;
 import net.frozenblock.wilderwild.particle.FloatingSculkBubbleParticle;
@@ -88,6 +88,8 @@ public class WildClientMod implements ClientModInitializer {
         receiveTermitePacket();
 
         receiveFireflyCaptureInfoPacket();
+        receiveAncientHornKillInfoPacket();
+
         receiveFlybySoundPacket();
         receiveMovingLoopingSoundPacket();
 
@@ -209,7 +211,18 @@ public class WildClientMod implements ClientModInitializer {
             ctx.execute(() -> {
                 if (MinecraftClient.getInstance().world == null)
                     throw new IllegalStateException("why is your world null");
-                FireflyCounter.addCapture(creative, natural);
+                CompetitionCounter.addFireflyCapture(creative, natural);
+            });
+        });
+    }
+    public void receiveAncientHornKillInfoPacket() {
+        ClientPlayNetworking.registerGlobalReceiver(WilderWild.ANCIENT_HORN_KILL_NOTIFY_PACKET, (ctx, handler, byteBuf, responseSender) -> {
+            boolean creative = byteBuf.readBoolean();
+            boolean natural = byteBuf.readBoolean();
+            ctx.execute(() -> {
+                if (MinecraftClient.getInstance().world == null)
+                    throw new IllegalStateException("why is your world null");
+                CompetitionCounter.addAncientHornKill(creative, natural);
             });
         });
     }

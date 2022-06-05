@@ -18,6 +18,7 @@ import net.minecraft.entity.mob.WardenEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.projectile.PersistentProjectileEntity;
 import net.minecraft.entity.projectile.ProjectileEntity;
+import net.minecraft.entity.projectile.TridentEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtHelper;
@@ -74,6 +75,7 @@ public class AncientHornProjectileEntity extends PersistentProjectileEntity {
     public List<Entity> collidingEntities() {
         return world.getOtherEntities(this, this.getBoundingBox().stretch(this.getVelocity()).expand(1.0D), this::canHit);
     }
+    public boolean shouldRender(double cameraX, double cameraY, double cameraZ) { return true; }
     public void tick() {
         this.baseTick();
         if (this.aliveTicks>300) { this.remove(RemovalReason.DISCARDED); }
@@ -380,6 +382,11 @@ public class AncientHornProjectileEntity extends PersistentProjectileEntity {
                     }
                     if (livingEntity.isDead() && world instanceof ServerWorld server) {
                         server.spawnParticles(ParticleTypes.SCULK_SOUL, livingEntity.getX(), livingEntity.getEyeY(), livingEntity.getZ(), 1, 0.2D, 0.0D, 0.2D, 0.0D);
+                        if (this.getOwner()!=null) {
+                            if (this.getOwner() instanceof ServerPlayerEntity serverPlayer) {
+                                EasyPacket.EasyCompetitionPacket.sendAncientHornKillInfo(world, serverPlayer, livingEntity);
+                            }
+                        }
                     }
                 }
 

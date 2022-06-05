@@ -5,6 +5,7 @@ import net.fabricmc.fabric.api.networking.v1.PlayerLookup;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.entity.FireflyEntity;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.server.network.ServerPlayerEntity;
@@ -80,8 +81,8 @@ public class EasyPacket {
         }
     }
 
-    public static class EasyFireflyPacket {
-        public static void sendCaptureInfo(World world, PlayerEntity player, FireflyEntity firefly) { //Can possibly be used for competitions
+    public static class EasyCompetitionPacket {
+        public static void sendFireflyCaptureInfo(World world, PlayerEntity player, FireflyEntity firefly) { //Can possibly be used for competitions
             if (world.isClient)
                 throw new IllegalStateException("FIREFLY CAPTURE ON CLIENT!??!?!?!?! OH HOW TERRIBLE OF YOU!1!!!!!!!!!!!!!!!!!!!!!1!!1!!!!111");
             PacketByteBuf byteBuf = new PacketByteBuf(Unpooled.buffer());
@@ -89,6 +90,18 @@ public class EasyPacket {
             byteBuf.writeBoolean(firefly.natural && !firefly.isFromBottle());
             if (player instanceof ServerPlayerEntity serverPlayer) {
                 ServerPlayNetworking.send(serverPlayer, WilderWild.CAPTURE_FIREFLY_NOTIFY_PACKET, byteBuf);
+            } else {
+                throw new IllegalStateException("NOT A SERVER PLAYER BRUH");
+            }
+        }
+        public static void sendAncientHornKillInfo(World world, PlayerEntity player, LivingEntity entity) { //Can possibly be used for competitions
+            if (world.isClient)
+                throw new IllegalStateException("ANCIENT HORN KILL PACKET ON CLIENT");
+            PacketByteBuf byteBuf = new PacketByteBuf(Unpooled.buffer());
+            byteBuf.writeBoolean(player.isCreative());
+            byteBuf.writeBoolean(true);
+            if (player instanceof ServerPlayerEntity serverPlayer) {
+                ServerPlayNetworking.send(serverPlayer, WilderWild.ANCIENT_HORN_KILL_NOTIFY_PACKET, byteBuf);
             } else {
                 throw new IllegalStateException("NOT A SERVER PLAYER BRUH");
             }
