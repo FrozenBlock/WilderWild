@@ -5,7 +5,7 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.DataResult;
 import com.mojang.serialization.Dynamic;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import net.frozenblock.wilderwild.particle.server.EasyParticlePacket;
+import net.frozenblock.wilderwild.misc.server.EasyPacket;
 import net.frozenblock.wilderwild.registry.RegisterBlockEntityType;
 import net.frozenblock.wilderwild.registry.RegisterBlocks;
 import net.frozenblock.wilderwild.registry.RegisterProperties;
@@ -102,7 +102,7 @@ public class TermiteMoundBlockEntity extends BlockEntity {
         for (Termite termite : this.termites) {
             if (termite.tick(world)) {
                 //TODO: TERMITE SPAWNING, MOVING, AND EATING TEXTURES + PARTICLES
-                EasyParticlePacket.EasyTermitePacket.createParticle(world, Vec3d.ofCenter(termite.pos), termite.eating ? 5 : 9);
+                EasyPacket.EasyTermitePacket.createParticle(world, Vec3d.ofCenter(termite.pos), termite.eating ? 5 : 9);
             } else {
                 world.playSound(null, termite.pos, SoundEvents.BLOCK_BEEHIVE_ENTER, SoundCategory.NEUTRAL, 1.0F, 1.0F);
                 termitesToRemove.add(termite);

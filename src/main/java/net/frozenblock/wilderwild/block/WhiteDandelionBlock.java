@@ -1,6 +1,6 @@
 package net.frozenblock.wilderwild.block;
 
-import net.frozenblock.wilderwild.particle.server.EasyParticlePacket;
+import net.frozenblock.wilderwild.misc.server.EasyPacket;
 import net.frozenblock.wilderwild.registry.RegisterParticles;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.FlowerBlock;
@@ -27,7 +27,7 @@ public class WhiteDandelionBlock extends FlowerBlock {
     public void onEntityCollision(BlockState state, World world, BlockPos pos, Entity entity) {
         if (world instanceof ServerWorld server) {
             if (server.random.nextFloat()>0.95) {
-                EasyParticlePacket.EasySeedPacket.createParticle(world, Vec3d.ofCenter(pos).add(0,0.3,0), server.random.nextBetween(1,3), false);
+                EasyPacket.EasySeedPacket.createParticle(world, Vec3d.ofCenter(pos).add(0,0.3,0), server.random.nextBetween(1,3), false);
             }
         }
     }
@@ -36,7 +36,7 @@ public class WhiteDandelionBlock extends FlowerBlock {
     public void onBreak(World world, BlockPos pos, BlockState state, PlayerEntity player) {
         super.onBreak(world, pos, state, player);
         if (world instanceof ServerWorld server) {
-            EasyParticlePacket.EasySeedPacket.createParticle(world, Vec3d.ofCenter(pos).add(0, 0.3, 0), server.random.nextBetween(3, 7), false);
+            EasyPacket.EasySeedPacket.createParticle(world, Vec3d.ofCenter(pos).add(0, 0.3, 0), server.random.nextBetween(3, 7), false);
         }
     }
 }

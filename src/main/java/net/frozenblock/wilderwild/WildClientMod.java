@@ -13,6 +13,7 @@ import net.frozenblock.wilderwild.entity.AncientHornProjectileEntity;
 import net.frozenblock.wilderwild.entity.render.AncientHornProjectileModel;
 import net.frozenblock.wilderwild.entity.render.AncientHornProjectileRenderer;
 import net.frozenblock.wilderwild.entity.render.FireflyEntityRenderer;
+import net.frozenblock.wilderwild.misc.FireflyCounter;
 import net.frozenblock.wilderwild.misc.PVZGWSound.FlyBySoundHub;
 import net.frozenblock.wilderwild.misc.PVZGWSound.MovingSoundLoop;
 import net.frozenblock.wilderwild.particle.FloatingSculkBubbleParticle;
@@ -85,6 +86,8 @@ public class WildClientMod implements ClientModInitializer {
         receiveSeedPacket();
         receiveControlledSeedPacket();
         receiveTermitePacket();
+
+        receiveFireflyCaptureInfoPacket();
         receiveFlybySoundPacket();
         receiveMovingLoopingSoundPacket();
 
@@ -195,6 +198,18 @@ public class WildClientMod implements ClientModInitializer {
                 for (int i=0; i<count; i++) {
                     MinecraftClient.getInstance().world.addParticle(RegisterParticles.TERMITE, pos.x, pos.y, pos.z, AdvancedMath.randomPosNeg()/7,AdvancedMath.randomPosNeg()/7,AdvancedMath.randomPosNeg()/7);
                 }
+            });
+        });
+    }
+
+    public void receiveFireflyCaptureInfoPacket() {
+        ClientPlayNetworking.registerGlobalReceiver(WilderWild.CAPTURE_FIREFLY_NOTIFY_PACKET, (ctx, handler, byteBuf, responseSender) -> {
+            boolean creative = byteBuf.readBoolean();
+            boolean natural = byteBuf.readBoolean();
+            ctx.execute(() -> {
+                if (MinecraftClient.getInstance().world == null)
+                    throw new IllegalStateException("why is your world null");
+                FireflyCounter.addCapture(creative, natural);
             });
         });
     }

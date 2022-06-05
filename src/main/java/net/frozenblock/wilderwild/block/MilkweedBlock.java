@@ -1,6 +1,6 @@
 package net.frozenblock.wilderwild.block;
 
-import net.frozenblock.wilderwild.particle.server.EasyParticlePacket;
+import net.frozenblock.wilderwild.misc.server.EasyPacket;
 import net.frozenblock.wilderwild.registry.RegisterBlocks;
 import net.frozenblock.wilderwild.registry.RegisterItems;
 import net.minecraft.block.Block;
@@ -72,7 +72,7 @@ public class MilkweedBlock extends TallFlowerBlock {
                         world.setBlockState(pos.down(), world.getBlockState(pos.down()).with(Properties.AGE_3, 0));
                     }
                 } else {
-                    EasyParticlePacket.EasySeedPacket.createParticle(world, Vec3d.ofCenter(pos).add(0, 0.3, 0), server.random.nextBetween(14, 28), true);
+                    EasyPacket.EasySeedPacket.createParticle(world, Vec3d.ofCenter(pos).add(0, 0.3, 0), server.random.nextBetween(14, 28), true);
                     if (state.get(Properties.DOUBLE_BLOCK_HALF) == DoubleBlockHalf.LOWER) {
                         world.setBlockState(pos, state.with(Properties.AGE_3, 1));
                         world.setBlockState(pos.up(), world.getBlockState(pos.up()).with(Properties.AGE_3, 1));

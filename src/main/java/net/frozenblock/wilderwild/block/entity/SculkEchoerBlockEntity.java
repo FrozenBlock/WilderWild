@@ -5,7 +5,7 @@ import com.mojang.serialization.DataResult;
 import com.mojang.serialization.Dynamic;
 import it.unimi.dsi.fastutil.ints.IntArrayList;
 import net.frozenblock.wilderwild.block.SculkEchoerBlock;
-import net.frozenblock.wilderwild.particle.server.EasyParticlePacket;
+import net.frozenblock.wilderwild.misc.server.EasyPacket;
 import net.frozenblock.wilderwild.registry.RegisterBlockEntityType;
 import net.frozenblock.wilderwild.registry.RegisterGameEvents;
 import net.frozenblock.wilderwild.registry.RegisterProperties;
@@ -57,7 +57,7 @@ public class SculkEchoerBlockEntity extends BlockEntity implements VibrationList
                 if (this.bigBubble) {this.bigBubble = false; }
                 --this.echoBubblesLeft;
                 double offest = upsidedown ? (waterlogged ? -0.05 : 0.2) : (waterlogged ? 1.05 : 0.8);
-                EasyParticlePacket.EasyFloatingSculkBubblePacket.createParticle(server, new Vec3d(pos.getX() + 0.5D, pos.getY() + offest, pos.getZ() + 0.5D), size, age,
+                EasyPacket.EasyFloatingSculkBubblePacket.createParticle(server, new Vec3d(pos.getX() + 0.5D, pos.getY() + offest, pos.getZ() + 0.5D), size, age,
                         upsidedown ? (size>0 ? Math.max((Math.random())*0.065, 0.045)*-1 : Math.max((Math.random())*0.06, 0.035)*-1) : (size>0 ? Math.max((Math.random())*0.065, 0.045) : Math.max((Math.random())*0.06, 0.035)), 1);
                 this.bubbleTicks.add(age-3);
                 this.bubbleSizes.add(size);

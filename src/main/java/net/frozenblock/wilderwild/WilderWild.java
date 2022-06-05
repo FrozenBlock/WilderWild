@@ -88,12 +88,27 @@ public class WilderWild implements ModInitializer {
     public static final Identifier TERMITE_PARTICLE_PACKET = new Identifier(WilderWild.MOD_ID,"termite_particle_packet");
     public static final Identifier HORN_PROJECTILE_PACKET_ID = new Identifier(WilderWild.MOD_ID, "ancient_horn_projectile_packet");
 
+    public static final Identifier CAPTURE_FIREFLY_NOTIFY_PACKET = new Identifier(WilderWild.MOD_ID,"capture_firefly_notify_packet");
     public static final Identifier FLYBY_SOUND_PACKET = new Identifier(WilderWild.MOD_ID,"flyby_sound_packet");
     public static final Identifier MOVING_LOOPING_SOUND_PACKET = new Identifier(WilderWild.MOD_ID,"moving_looping_sound_packet");
 
     public static void log(String string, boolean shouldLog) {
         if (shouldLog) {
             LOGGER.info(string);
+        }
+    }
+    public static void logInsane(String string, boolean shouldLog) {
+        if (shouldLog) {
+            for (int i=0; i<Math.random()*5; i++) {
+                LOGGER.warn(string);
+                LOGGER.error(string);
+                LOGGER.warn(string);
+                LOGGER.error(string);
+                LOGGER.warn(string);
+                LOGGER.error(string);
+                LOGGER.warn(string);
+                LOGGER.error(string);
+            }
         }
     }
     public static void log(Entity entity, String string, boolean shouldLog) {
