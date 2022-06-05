@@ -20,13 +20,13 @@ public class FireflyCounter {
             File directory1 = new File(directory, "competitions");
             File destination = new File(directory1, "fireflies.wild");
             directory1.mkdirs();
-            if (!natural) {
-                WilderWild.logInsane("Oh no! The firefly you captured was not spawned via natural means! These will not count towards the firefly counter, you must locate a biome that spawns fireflies and capture natural ones there.", true);
-                return;
-            }
             if (creative && destination.exists()) {
                 WilderWild.logInsane("WHAT!?!??! YOU'RE PLAYING IN CREATIVE MODE!!!!!! YOUR FIREFLY CAPTURING DATA IS BEING DELETED, I CAN NOT TOLERATE CHEATING ON THE FIREFLY COUNTER!!!!!!", true);
                 destination.delete();
+                return;
+            }
+            if (!natural) {
+                WilderWild.logInsane("Oh no! The firefly you captured was not spawned via natural means! These will not count towards the firefly counter, you must locate a biome that spawns fireflies and capture natural ones there.", true);
                 return;
             }
             Gson gson = new GsonBuilder()
