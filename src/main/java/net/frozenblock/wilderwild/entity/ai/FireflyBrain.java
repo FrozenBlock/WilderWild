@@ -34,7 +34,7 @@ public class FireflyBrain {
     }
 
     private static void addIdleActivities(Brain<FireflyEntity> brain) {
-        brain.setTaskList(Activity.IDLE, ImmutableList.of(Pair.of(2, new WalkTowardsLookTargetTask<>(FireflyBrain::getLookTarget, 4, 16, 1.25F)), Pair.of(3, new TimeLimitedTask<>(new FollowMobTask((firefly) -> true, 6.0F), UniformIntProvider.create(30, 60))), Pair.of(4, new RandomTask<>(ImmutableList.of(Pair.of(new NoPenaltyStrollTask(1.0F), 2), Pair.of(new GoTowardsLookTarget(1.0F, 3), 2), Pair.of(new WaitTask(30, 60), 1))))), ImmutableSet.of());
+        brain.setTaskList(Activity.IDLE, ImmutableList.of(Pair.of(2, new WalkTowardsLookTargetTask<>(FireflyBrain::getLookTarget, 4, 16, 1.0F)), Pair.of(3, new TimeLimitedTask<>(new FollowMobTask((firefly) -> true, 6.0F), UniformIntProvider.create(30, 60))), Pair.of(4, new RandomTask<>(ImmutableList.of(Pair.of(new NoPenaltyStrollTask(1.0F), 2), Pair.of(new GoTowardsLookTarget(1.0F, 3), 2), Pair.of(new WaitTask(30, 60), 1))))), ImmutableSet.of());
     }
 
     public static void updateActivities(FireflyEntity firefly) {
