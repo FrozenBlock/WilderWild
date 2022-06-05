@@ -17,7 +17,7 @@ public class ChestBoatDropsMixin {
 
     @Inject(method = "asItem", at = @At("HEAD"), cancellable = true)
     public void asItem(CallbackInfoReturnable<Item> ci) {
-        if (((BoatEntity)(Object)this).getBoatType() == CustomBoatType.BAOBAB) {
+        if (((ChestBoatEntity)(Object)this).getBoatType() == CustomBoatType.BAOBAB) {
             ci.setReturnValue(RegisterItems.BAOBAB_CHEST_BOAT_ITEM);
         }
     }
