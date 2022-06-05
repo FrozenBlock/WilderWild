@@ -37,7 +37,6 @@ public class FireflyCounter {
 
             int count = 0;
             Counter flyCounterObj = new Counter();
-            flyCounterObj.setName("firefly_captures");
             flyCounterObj.setPlayerUUID(client.player.getUuidAsString());
 
             if (destination.exists()) {
@@ -74,19 +73,8 @@ public class FireflyCounter {
 
     public static class Counter {
 
-        private String name;
         private int firefly_count;
         private String player_uuid;
-
-        //getter and setter methods
-
-        public String getName() {
-            return name;
-        }
-
-        public void setName(String name) {
-            this.name = name;
-        }
 
         public int getCount() {
             return firefly_count;
