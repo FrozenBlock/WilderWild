@@ -44,11 +44,7 @@ public class FireflyBrain {
     public static void rememberHome(LivingEntity firefly, BlockPos pos) {
         Brain<?> brain = firefly.getBrain();
         GlobalPos globalPos = GlobalPos.create(firefly.getWorld().getRegistryKey(), pos);
-        Optional<GlobalPos> optional = brain.getOptionalMemory(MemoryModuleType.HOME);
-        if (optional.isEmpty()) {
-            brain.remember(MemoryModuleType.HOME, globalPos);
-        }
-
+        brain.remember(MemoryModuleType.HOME, globalPos);
     }
 
     private static boolean shouldGoTowardsHome(LivingEntity firefly, Brain<?> brain, GlobalPos pos) {
