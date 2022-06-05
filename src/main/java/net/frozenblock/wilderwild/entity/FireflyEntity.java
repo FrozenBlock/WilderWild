@@ -54,6 +54,7 @@ public class FireflyEntity extends PathAwareEntity implements Flutterer {
     private static final TrackedData<Integer> AGE = DataTracker.registerData(FireflyEntity.class, TrackedDataHandlerRegistry.INTEGER);
 
     public boolean natural;
+    public BlockPos home;
 
     public FireflyEntity(EntityType<? extends PathAwareEntity> entityType, World world) {
         super(entityType, world);
@@ -212,6 +213,7 @@ public class FireflyEntity extends PathAwareEntity implements Flutterer {
     @Override
     public EntityData initialize(ServerWorldAccess world, LocalDifficulty difficulty, SpawnReason spawnReason, @Nullable EntityData entityData, @Nullable NbtCompound entityNbt) {
         this.natural = spawnReason==SpawnReason.NATURAL;
+        this.home = this.getBlockPos();
         return super.initialize(world, difficulty, spawnReason, entityData, entityNbt);
     }
 
@@ -233,6 +235,9 @@ public class FireflyEntity extends PathAwareEntity implements Flutterer {
         nbt.putBoolean("natural", this.natural);
         nbt.putBoolean("flickers", this.flickers());
         nbt.putInt("flickerAge", this.getFlickerAge());
+        nbt.putInt("homeX", this.home.getX());
+        nbt.putInt("homeY", this.home.getY());
+        nbt.putInt("homeZ", this.home.getZ());
     }
 
     public void readCustomDataFromNbt(NbtCompound nbt) {
@@ -241,6 +246,7 @@ public class FireflyEntity extends PathAwareEntity implements Flutterer {
         this.natural = nbt.getBoolean("natural");
         this.setFlickers(nbt.getBoolean("flickers"));
         this.setFlickerAge(nbt.getInt("flickerAge"));
+        this.home = new BlockPos(nbt.getInt("homeX"), nbt.getInt("homeY"), nbt.getInt("homeZ"));
     }
 
     protected boolean shouldFollowLeash() {
