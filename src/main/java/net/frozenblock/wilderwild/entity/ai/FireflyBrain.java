@@ -63,10 +63,14 @@ public class FireflyBrain {
         if (optional.isPresent()) {
             GlobalPos globalPos = optional.get();
             if (shouldGoTowardsHome(firefly, brain, globalPos)) {
-                return Optional.of(new BlockPosLookTarget(globalPos.getPos().up()));
+                return Optional.of(new BlockPosLookTarget(randomPosAround(globalPos.getPos(), firefly.world)));
             }
         }
 
         return Optional.empty();
+    }
+
+    private static BlockPos randomPosAround(BlockPos pos, World world) {
+        return pos.add(world.random.nextBetween(-7,7), world.random.nextBetween(-7,7), world.random.nextBetween(-7,7));
     }
 }
