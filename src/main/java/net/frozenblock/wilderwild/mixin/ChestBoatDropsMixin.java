@@ -2,7 +2,6 @@ package net.frozenblock.wilderwild.mixin;
 
 import net.frozenblock.wilderwild.misc.CustomBoatType;
 import net.frozenblock.wilderwild.registry.RegisterItems;
-import net.minecraft.entity.vehicle.BoatEntity;
 import net.minecraft.entity.vehicle.ChestBoatEntity;
 import net.minecraft.item.Item;
 import org.spongepowered.asm.mixin.Mixin;
@@ -19,6 +18,7 @@ public class ChestBoatDropsMixin {
     public void asItem(CallbackInfoReturnable<Item> ci) {
         if (((ChestBoatEntity)(Object)this).getBoatType() == CustomBoatType.BAOBAB) {
             ci.setReturnValue(RegisterItems.BAOBAB_CHEST_BOAT_ITEM);
+            ci.cancel();
         }
     }
 

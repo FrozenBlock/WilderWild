@@ -18,6 +18,7 @@ public class BoatDropsMixin {
     public void asItem(CallbackInfoReturnable<Item> ci) {
         if (((BoatEntity)(Object)this).getBoatType() == CustomBoatType.BAOBAB) {
             ci.setReturnValue(RegisterItems.BAOBAB_BOAT_ITEM);
+            ci.cancel();
         }
     }
 
