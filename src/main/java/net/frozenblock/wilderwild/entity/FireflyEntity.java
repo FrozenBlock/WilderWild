@@ -227,7 +227,7 @@ public class FireflyEntity extends PathAwareEntity implements Flutterer {
     }
 
     public boolean canImmediatelyDespawn(double distanceSquared) {
-        return false;
+        return !this.isFromBottle() && !this.hasCustomName();
     }
 
     public void writeCustomDataToNbt(NbtCompound nbt) {
