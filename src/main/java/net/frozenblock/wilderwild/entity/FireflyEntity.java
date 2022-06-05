@@ -48,7 +48,7 @@ import java.util.Optional;
 public class FireflyEntity extends PathAwareEntity implements Flutterer {
 
     protected static final ImmutableList<SensorType<? extends Sensor<? super FireflyEntity>>> SENSORS = ImmutableList.of(SensorType.NEAREST_LIVING_ENTITIES, SensorType.HURT_BY);
-    protected static final ImmutableList<MemoryModuleType<?>> MEMORY_MODULES = ImmutableList.of(MemoryModuleType.PATH, MemoryModuleType.VISIBLE_MOBS, MemoryModuleType.WALK_TARGET, MemoryModuleType.CANT_REACH_WALK_TARGET_SINCE);
+    protected static final ImmutableList<MemoryModuleType<?>> MEMORY_MODULES = ImmutableList.of(MemoryModuleType.PATH, MemoryModuleType.VISIBLE_MOBS, MemoryModuleType.WALK_TARGET, MemoryModuleType.CANT_REACH_WALK_TARGET_SINCE, MemoryModuleType.HOME);
     private static final TrackedData<Boolean> FROM_BOTTLE = DataTracker.registerData(FireflyEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
     private static final TrackedData<Boolean> FLICKERS = DataTracker.registerData(FireflyEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
     private static final TrackedData<Integer> AGE = DataTracker.registerData(FireflyEntity.class, TrackedDataHandlerRegistry.INTEGER);
@@ -61,6 +61,15 @@ public class FireflyEntity extends PathAwareEntity implements Flutterer {
         this.moveControl = new FlightMoveControl(this, 20, true);
         this.setFlickers(world.random.nextInt(5)==0);
         this.setFlickerAge(world.random.nextBetween(0,19));
+    }
+
+    @Nullable
+    @Override
+    public EntityData initialize(ServerWorldAccess world, LocalDifficulty difficulty, SpawnReason spawnReason, @Nullable EntityData entityData, @Nullable NbtCompound entityNbt) {
+        this.natural = spawnReason==SpawnReason.NATURAL;
+        this.home = this.getBlockPos();
+        FireflyBrain.rememberHome(this, this.home);
+        return super.initialize(world, difficulty, spawnReason, entityData, entityNbt);
     }
 
     protected void initDataTracker() {
@@ -207,14 +216,6 @@ public class FireflyEntity extends PathAwareEntity implements Flutterer {
         FireflyBrain.updateActivities(this);
         this.world.getProfiler().pop();
         super.mobTick();
-    }
-
-    @Nullable
-    @Override
-    public EntityData initialize(ServerWorldAccess world, LocalDifficulty difficulty, SpawnReason spawnReason, @Nullable EntityData entityData, @Nullable NbtCompound entityNbt) {
-        this.natural = spawnReason==SpawnReason.NATURAL;
-        this.home = this.getBlockPos();
-        return super.initialize(world, difficulty, spawnReason, entityData, entityNbt);
     }
 
     public boolean canEquip(ItemStack stack) {
