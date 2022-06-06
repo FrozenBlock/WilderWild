@@ -1,9 +1,6 @@
 package net.frozenblock.wilderwild.world.feature.features;
 
 import com.mojang.serialization.Codec;
-import net.frozenblock.api.mathematics.EasyNoiseSampler;
-import net.frozenblock.wilderwild.block.TermiteMound;
-import net.frozenblock.wilderwild.registry.RegisterProperties;
 import net.frozenblock.wilderwild.world.feature.features.config.ColumnWithDiskFeatureConfig;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;

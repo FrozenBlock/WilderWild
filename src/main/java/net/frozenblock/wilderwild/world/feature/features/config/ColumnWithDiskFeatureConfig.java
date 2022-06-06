@@ -3,18 +3,13 @@ package net.frozenblock.wilderwild.world.feature.features.config;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.DataResult;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import net.frozenblock.wilderwild.registry.RegisterBlocks;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
-import net.minecraft.util.dynamic.Codecs;
 import net.minecraft.util.math.intprovider.IntProvider;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.util.registry.RegistryCodecs;
 import net.minecraft.util.registry.RegistryEntryList;
-import net.minecraft.world.gen.feature.BlockPileFeatureConfig;
 import net.minecraft.world.gen.feature.FeatureConfig;
-import net.minecraft.world.gen.stateprovider.BlockStateProvider;
 
 public class ColumnWithDiskFeatureConfig implements FeatureConfig {
     public static final Codec<ColumnWithDiskFeatureConfig> CODEC = RecordCodecBuilder.create((instance) ->

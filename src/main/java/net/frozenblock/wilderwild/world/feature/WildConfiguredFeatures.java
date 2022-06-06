@@ -9,7 +9,6 @@ import net.frozenblock.wilderwild.world.feature.features.config.ShelfFungusFeatu
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.MultifaceGrowthBlock;
-import net.minecraft.state.property.Properties;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.intprovider.UniformIntProvider;
 import net.minecraft.util.registry.BuiltinRegistries;
