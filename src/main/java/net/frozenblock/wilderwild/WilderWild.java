@@ -84,6 +84,7 @@ public class WilderWild implements ModInitializer {
         }
 
         TermiteMoundBlockEntity.Termite.addDegradableBlocks();
+        TermiteMoundBlockEntity.Termite.addNaturalDegradableBlocks();
     }
 
     public static final Identifier SEED_PACKET = new Identifier(WilderWild.MOD_ID,"seed_particle_packet");
