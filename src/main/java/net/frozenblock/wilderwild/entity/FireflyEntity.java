@@ -26,7 +26,6 @@ import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.mob.PathAwareEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.ItemUsage;
 import net.minecraft.item.Items;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.server.network.DebugInfoSender;
@@ -54,6 +53,7 @@ public class FireflyEntity extends PathAwareEntity implements Flutterer {
     private static final TrackedData<Integer> AGE = DataTracker.registerData(FireflyEntity.class, TrackedDataHandlerRegistry.INTEGER);
 
     public boolean natural;
+    public boolean hasHome; //TODO: POSSIBLY HAVE DIFFERING "SAFE RANGES" INSTEAD OF BOOLEAN
 
     public FireflyEntity(EntityType<? extends PathAwareEntity> entityType, World world) {
         super(entityType, world);
@@ -66,6 +66,7 @@ public class FireflyEntity extends PathAwareEntity implements Flutterer {
     @Override
     public EntityData initialize(ServerWorldAccess world, LocalDifficulty difficulty, SpawnReason spawnReason, @Nullable EntityData entityData, @Nullable NbtCompound entityNbt) {
         this.natural = spawnReason==SpawnReason.NATURAL;
+        this.hasHome = false;
         FireflyBrain.rememberHome(this, this.getBlockPos());
         return super.initialize(world, difficulty, spawnReason, entityData, entityNbt);
     }
@@ -87,9 +88,10 @@ public class FireflyEntity extends PathAwareEntity implements Flutterer {
             WilderWild.log("Firefly capture attempt starting @ " + entity.getBlockPos().toShortString() + " by " + player.getDisplayName().getString(), WilderWild.UNSTABLE_LOGGING);
             //TODO: FIREFLY BOTTLE SOUNDS
             entity.playSound(SoundEvents.ITEM_BOTTLE_FILL, 1.0F, 1.0F);
-            ItemStack itemStack2 = new ItemStack(RegisterItems.FIREFLY_BOTTLE);
-            ItemStack itemStack3 = ItemUsage.exchangeStack(itemStack, player, itemStack2, false);
-            player.setStackInHand(hand, itemStack3);
+            if (!player.isCreative()) {
+                player.getStackInHand(hand).decrement(1);
+            }
+            player.getInventory().offerOrDrop(new ItemStack(RegisterItems.FIREFLY_BOTTLE));
             World world = entity.world;
             if (!world.isClient) { EasyPacket.EasyCompetitionPacket.sendFireflyCaptureInfo(world, player, entity); }
             entity.discard();
@@ -235,6 +237,7 @@ public class FireflyEntity extends PathAwareEntity implements Flutterer {
         nbt.putBoolean("natural", this.natural);
         nbt.putBoolean("flickers", this.flickers());
         nbt.putInt("flickerAge", this.getFlickerAge());
+        nbt.putBoolean("hasHome", this.hasHome);
     }
 
     public void readCustomDataFromNbt(NbtCompound nbt) {
@@ -243,6 +246,7 @@ public class FireflyEntity extends PathAwareEntity implements Flutterer {
         this.natural = nbt.getBoolean("natural");
         this.setFlickers(nbt.getBoolean("flickers"));
         this.setFlickerAge(nbt.getInt("flickerAge"));
+        this.hasHome = nbt.getBoolean("hasHome");
     }
 
     protected boolean shouldFollowLeash() {
