@@ -46,8 +46,8 @@ public class FireflyBottleItem extends Item {
                         FireflyBrain.rememberHome(entity, entity.getBlockPos());
                         if (!user.isCreative()) {
                             user.getStackInHand(hand).decrement(1);
+                            user.getInventory().offerOrDrop(new ItemStack(Items.GLASS_BOTTLE));
                         }
-                        user.getInventory().offerOrDrop(new ItemStack(Items.GLASS_BOTTLE));
                     } else {
                         WilderWild.log("Couldn't spawn Firefly from bottle @ " + user.getBlockPos().toShortString(), WilderWild.UNSTABLE_LOGGING);
                     }
