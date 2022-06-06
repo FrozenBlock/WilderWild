@@ -12,8 +12,10 @@ import net.frozenblock.wilderwild.world.feature.WildMiscConfigured;
 import net.frozenblock.wilderwild.world.feature.WildTreeConfigured;
 import net.frozenblock.wilderwild.world.feature.WildTreePlaced;
 import net.frozenblock.wilderwild.world.feature.features.CattailFeature;
+import net.frozenblock.wilderwild.world.feature.features.ColumnWithDiskFeature;
 import net.frozenblock.wilderwild.world.feature.features.NoisePathFeature;
 import net.frozenblock.wilderwild.world.feature.features.ShelfFungusFeature;
+import net.frozenblock.wilderwild.world.feature.features.config.ColumnWithDiskFeatureConfig;
 import net.frozenblock.wilderwild.world.feature.features.config.PathFeatureConfig;
 import net.frozenblock.wilderwild.world.feature.features.config.ShelfFungusFeatureConfig;
 import net.frozenblock.wilderwild.world.gen.WildMusic;
@@ -46,6 +48,7 @@ public class WilderWild implements ModInitializer {
     public static final Feature<ShelfFungusFeatureConfig> SHELF_FUNGUS_FEATURE = new ShelfFungusFeature(ShelfFungusFeatureConfig.CODEC);
     public static final CattailFeature CATTAIL_FEATURE = new CattailFeature(ProbabilityConfig.CODEC);
     public static final NoisePathFeature NOISE_PATH_FEATURE = new NoisePathFeature(PathFeatureConfig.CODEC);
+    public static final ColumnWithDiskFeature COLUMN_WITH_DISK_FEATURE = new ColumnWithDiskFeature(ColumnWithDiskFeatureConfig.CODEC);
 
     public static final SpawnGroup FIREFLIES = ClassTinkerers.getEnum(SpawnGroup.class, "FIREFLIES");
 
@@ -74,6 +77,7 @@ public class WilderWild implements ModInitializer {
         Registry.register(Registry.FEATURE, new Identifier(WilderWild.MOD_ID, "shelf_fungus_feature"), SHELF_FUNGUS_FEATURE);
         Registry.register(Registry.FEATURE, new Identifier(WilderWild.MOD_ID, "cattail_feature"), CATTAIL_FEATURE);
         Registry.register(Registry.FEATURE, new Identifier(WilderWild.MOD_ID, "noise_path_feature"), NOISE_PATH_FEATURE);
+        Registry.register(Registry.FEATURE, new Identifier(WilderWild.MOD_ID, "column_with_disk_feature"), COLUMN_WITH_DISK_FEATURE);
 
         if (FabricLoader.getInstance().isDevelopmentEnvironment()) { /* DEV-ONLY */
             RegisterDevelopment.init();
