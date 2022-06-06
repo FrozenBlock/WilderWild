@@ -2,6 +2,7 @@ package net.frozenblock.wilderwild.item;
 
 import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.entity.FireflyEntity;
+import net.frozenblock.wilderwild.entity.ai.FireflyBrain;
 import net.frozenblock.wilderwild.registry.RegisterEntities;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
@@ -42,7 +43,7 @@ public class FireflyBottleItem extends Item {
                     entity.setFromBottle(true);
                     boolean spawned = server.spawnEntity(entity);
                     if (spawned) {
-                        entity.setHome(entity.getBlockPos());
+                        FireflyBrain.rememberHome(entity, entity.getBlockPos());
 
                         ItemStack itemStack2 = new ItemStack(Items.GLASS_BOTTLE);
                         ItemStack itemStack3 = ItemUsage.exchangeStack(itemStack, user, itemStack2, true);

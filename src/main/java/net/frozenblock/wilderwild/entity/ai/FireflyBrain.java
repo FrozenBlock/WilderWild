@@ -49,8 +49,7 @@ public class FireflyBrain {
 
     private static boolean shouldGoTowardsHome(LivingEntity firefly, Brain<?> brain, GlobalPos pos) {
         World world = firefly.getWorld();
-        FireflyEntity fireflyEntity = (FireflyEntity)firefly;
-        return world.getRegistryKey() == pos.getDimension() && fireflyEntity.getHome() == pos.getPos();
+        return world.getRegistryKey() == pos.getDimension();
     }
 
     private static Optional<LookTarget> getLookTarget(LivingEntity firefly) {
