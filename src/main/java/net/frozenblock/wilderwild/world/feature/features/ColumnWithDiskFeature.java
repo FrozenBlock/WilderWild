@@ -1,9 +1,6 @@
 package net.frozenblock.wilderwild.world.feature.features;
 
 import com.mojang.serialization.Codec;
-import net.frozenblock.api.mathematics.EasyNoiseSampler;
-import net.frozenblock.wilderwild.block.TermiteMound;
-import net.frozenblock.wilderwild.registry.RegisterProperties;
 import net.frozenblock.wilderwild.world.feature.features.config.ColumnWithDiskFeatureConfig;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -30,9 +27,7 @@ public class ColumnWithDiskFeature extends Feature<ColumnWithDiskFeatureConfig> 
         BlockPos blockPos = context.getOrigin();
         StructureWorldAccess world = context.getWorld();
         Random random = world.getRandom();
-        ArrayList<BlockPos> poses = posesInCircle(blockPos, (config.radius.get(random))*3);
-        Block column1 = config.columnBlock;
-        Block column2 = config.secondaryBlock;
+        ArrayList<BlockPos> poses = posesInCircle(blockPos, (config.radius.get(random))*4);
         Optional<RegistryEntry<Block>> diskOptional = config.diskBlocks.getRandom(random);
         //DISK
         if (diskOptional.isPresent()) {
@@ -52,18 +47,18 @@ public class ColumnWithDiskFeature extends Feature<ColumnWithDiskFeatureConfig> 
         int height = config.height.get(random);
         int startRadius = config.radius.get(random);
         BlockPos startPos = blockPos.withY(world.getTopY(Type.MOTION_BLOCKING_NO_LEAVES, blockPos.getX(), blockPos.getZ()));
+        BlockState column1 = config.columnBlock;
+        BlockState column2 = config.secondaryBlock;
+        ArrayList<BlockPos> circle = posesInCircle(startPos, startRadius);
         for (int i=0; i<height; i++) {
-            BlockPos.Mutable mutable = new BlockPos.Mutable();
-            mutable.set(startPos);
-            for (int r=0; r<startRadius; r++) {
-                for (int ra=0; ra<startRadius; ra++) {
-                    double radius = Math.cos(((i*Math.PI)/height)+1);
-                    mutable.set(startPos.add(r, i, ra));
-                    if (mutable.isWithinDistance(startPos.up(i), radius)) {
-                        //TODO: USE BLOCKSTATE PROVIDERS
-                        world.setBlockState(mutable, random.nextBoolean() ? (column1 instanceof TermiteMound ? column1.getDefaultState().with(RegisterProperties.NATURAL, true) : column1.getDefaultState()) : column2.getDefaultState(), 3);
-                        generated = true;
-                    }
+            int y = startPos.getY()+i;
+            double radius = Math.max(startRadius * Math.cos(((i*Math.PI)/(height*0.8))) + (startRadius/3),0);
+            for (BlockPos pos : circle) {
+                pos = pos.withY(y);
+                if (pos.isWithinDistance(startPos.up(i), radius)) {
+                    BlockState placeState = random.nextFloat()>0.8F ? column2 : column1;
+                    world.setBlockState(pos, placeState, 3);
+                    generated=true;
                 }
             }
         }
