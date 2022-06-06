@@ -204,7 +204,7 @@ public class FireflyEntity extends PathAwareEntity implements Flutterer {
     public void tick() {
         super.tick();
         this.setFlickerAge(this.getFlickerAge()+1);
-        WilderWild.log(this, this.getBrain().getOptionalMemory(MemoryModuleType.HOME).toString(), WilderWild.DEV_LOGGING);
+        //WilderWild.log(this, this.getBrain().getOptionalMemory(MemoryModuleType.HOME).toString(), WilderWild.DEV_LOGGING);
     }
 
     protected void mobTick() {
