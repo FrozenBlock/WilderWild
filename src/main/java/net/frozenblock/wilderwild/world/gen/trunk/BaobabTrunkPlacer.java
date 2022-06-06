@@ -9,6 +9,7 @@ import net.minecraft.block.BlockState;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.random.Random;
 import net.minecraft.world.TestableWorld;
+import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.TreeFeatureConfig;
 import net.minecraft.world.gen.foliage.FoliagePlacer;
 import net.minecraft.world.gen.trunk.TrunkPlacer;
@@ -31,46 +32,52 @@ public class BaobabTrunkPlacer extends TrunkPlacer {
 
     @Override
     public List<FoliagePlacer.TreeNode> generate(TestableWorld world, BiConsumer<BlockPos, BlockState> replacer, Random random, int height, BlockPos startPos, TreeFeatureConfig config) {
-        BlockPos blockPos = startPos.down();
+        // TRUNK
         BlockPos.Mutable mutable = new BlockPos.Mutable();
-
-        // MAIN TRUNK
         for(int x = -1; x <= 2; x++) {
             for(int z = -1; z <= 2; z++) {
-                setToDirt(world, replacer, random, new BlockPos(blockPos.getX() + x, blockPos.getY(), blockPos.getZ() + z), config); // generates a 4x4 of dirt
+                setToDirt(world, replacer, random, new BlockPos(startPos.getX() + x, startPos.getY() - 1, startPos.getZ() + z), config);
 
                 for(int h = 0; h <= height; h++) {
-                    setLog(world, replacer, random, mutable, config, startPos, x, h, z); //generates the main trunk with a loop
+                    setLog(world, replacer, random, mutable, config, startPos, x, h, z);
                 }
             }
         }
 
+        float percentage = 30;
         // ROOTS
-        float percentage = 30; // percentage for spawning a root
-
         for(int x = -2; x <= 3; x++) {
             for(int z = -2; z <= 3; z++) {
-                if((x < -1 || x > 2) || (z < -1 || z > 2)) { //only border, dont affect trunk inside
-                    boolean case1 = (x == -2 && z == -2);
-                    boolean case2 = (x == 3 && z == 3);
-                    boolean case3 = (x == -2 && z == 3);
-                    boolean case4 = (x == 3 && z == -2);
-                    if(!(case1 || case2 || case3 || case4)) { // check that the block isn't on the edges
-                        if (Math.random() <= percentage / 100) {
-                            for (int h = 0; h <= height/2; h++) { // uses 1/2 of the height
-                                setLog(world, replacer, random, mutable, config, startPos, x, h, z); //generates the roots trunk with a loop
-                            }
-                            for (int h = 0; h <= height/3; h++) { // uses 1/3 of the height
-                                if(x == 3) {
-                                    x++;
-                                } else if(x == -2) {
-                                    x--;
-                                } else if(z == 3) {
-                                    z++;
-                                } else if(z == -2) {
-                                    z--;
+                if(!((x > -2 && x < 3) && (z > -2 && z < 3))) { // walls only
+                    boolean one = x == -2 && z == -2;
+                    boolean two = x == 3 && z == -2;
+                    boolean three = x == -2 && z == 3;
+                    boolean four = x == 3 && z == 3;
+                    if(!(one || two || three || four)) { // no edges
+                        if(Math.random() <= percentage/100) {
+                            setToDirt(world, replacer, random, new BlockPos(startPos.getX() + x - 1, startPos.getY() - 1, startPos.getZ() + z), config);
+                            setToDirt(world, replacer, random, new BlockPos(startPos.getX() + x - 1, startPos.getY() - 1, startPos.getZ() + z), config);
+                            for(int h = 0; h <= height /3; h++) {
+                                       if (x == -2) {
+                                    setLog(world, replacer, random, mutable, config, startPos, x - 1, h, z);
+                                } else if (x == 3) {
+                                    setLog(world, replacer, random, mutable, config, startPos, x + 1, h, z);
+                                } else if (z == -2) {
+                                    setLog(world, replacer, random, mutable, config, startPos, x, h, z - 1);
+                                } else {
+                                    setLog(world, replacer, random, mutable, config, startPos, x, h, z + 1);
                                 }
-                                setLog(world, replacer, random, mutable, config, startPos, x, h, z); //generates the roots trunk external with a loop
+                            }
+                            for(int h = 0; h <= height /2; h++) {
+                                if (x == -2) {
+                                    setLog(world, replacer, random, mutable, config, startPos, x, h, z);
+                                } else if (x == 3) {
+                                    setLog(world, replacer, random, mutable, config, startPos, x, h, z);
+                                } else if (z == -2) {
+                                    setLog(world, replacer, random, mutable, config, startPos, x, h, z);
+                                } else {
+                                    setLog(world, replacer, random, mutable, config, startPos, x, h, z);
+                                }
                             }
                         }
                     }
@@ -78,12 +85,12 @@ public class BaobabTrunkPlacer extends TrunkPlacer {
             }
         }
 
+        // BRANCHES
+
         float branchpercentage = 50;
 
         int branchmin = 2;
         int branchmax = 4;
-
-        // BRANCHES
 
         return branchBase(branchpercentage, branchmin, branchmax, height, world,  replacer, random, mutable, config, startPos);
     }
@@ -97,7 +104,7 @@ public class BaobabTrunkPlacer extends TrunkPlacer {
 
                         int branchlenght = (int)AdvancedMath.range(branchmin, branchmax, (float)Math.random());
 
-                        int fh = height - (int)AdvancedMath.range((height/4f)*3, height, (float)Math.random());
+                        int fh = height - (int)AdvancedMath.range((int)(height/2), height, (float)Math.random());
 
                         boolean case1 = (x == -1 && z == -1);
                         boolean case2 = (x == 2 && z == 2);
@@ -246,6 +253,8 @@ public class BaobabTrunkPlacer extends TrunkPlacer {
 
         return node;
     }
+
+
 
     private void setLog(TestableWorld world, BiConsumer<BlockPos, BlockState> replacer, Random random, BlockPos.Mutable pos, TreeFeatureConfig config, BlockPos startPos, int x, int y, int z, boolean condition) {
         if(condition) {

@@ -21,4 +21,22 @@ public class AdvancedMath {
     public static double randomPosNeg() {
         return Math.random() * (Math.random()>=0.5 ? 1 : -1);
     }
+
+    public static int waterToHollowedProperty(int value) {
+        if(value > 8 ) {
+            return 8;
+        } else if(value < 0) {
+            return -1;
+        } else {
+            return value;
+        }
+    }
+
+    public static int waterLevelReduce(int value) {
+        if(value < 8) {
+            return value + 1;
+        } else {
+            return 8;
+        }
+    }
 }
