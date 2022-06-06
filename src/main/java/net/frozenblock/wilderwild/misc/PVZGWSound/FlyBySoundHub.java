@@ -34,7 +34,7 @@ public class FlyBySoundHub {
     @Environment(EnvType.CLIENT)
     public static class clientFlyby {
 
-        public static ArrayList<EntityType> flybyEntitiesAuto = new ArrayList<>() {{
+        public static ArrayList<EntityType<?>> flybyEntitiesAuto = new ArrayList<>() {{
             add(RegisterEntities.ANCIENT_HORN_PROJECTILE_ENTITY);
             add(EntityType.ARROW);
             add(EntityType.BAT);
@@ -50,9 +50,9 @@ public class FlyBySoundHub {
             add(SoundCategory.NEUTRAL);
         }};
         public static FloatArrayList volumesAuto = new FloatArrayList() {{
-            add(0.3F);
-            add(0.3F);
-            add(0.3F);
+            add(0.15F);
+            add(0.15F);
+            add(0.15F);
         }};
         public static FloatArrayList pitchesAuto = new FloatArrayList() {{
             add(0.8F);
@@ -87,10 +87,10 @@ public class FlyBySoundHub {
                     Vec3d entityPos = entity.getPos();
                     Vec3d playerPos = player.getEyePos();
                     double distanceTo = entityPos.distanceTo(playerPos);
-                    double newDistanceTo = entityPos.add(vel).distanceTo(playerPos.add(playerVel));
+                    double newDistanceTo = entityPos.add(vel).add(vel).distanceTo(playerPos.add(playerVel));
                     cooldowns.set(index, cooldowns.getInt(index)-1);
                     if ((distanceTo > newDistanceTo && distanceTo < (vel.lengthSquared()+playerVel.length())*2) && cooldowns.getInt(index)<=0) {
-                        float volume = (float) (volumes.getFloat(index) + ((distanceTo - newDistanceTo)));
+                        float volume = (float) (volumes.getFloat(index) + (vel.length()/2));
                         client.getSoundManager().play(new EntityTrackingSoundInstance(flybySounds.get(index), categories.get(index), volume, pitches.getFloat(index), entity, client.world.random.nextLong()));
                         cooldowns.set(index, 40);
                     }

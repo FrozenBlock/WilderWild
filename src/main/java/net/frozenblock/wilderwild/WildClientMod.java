@@ -10,7 +10,10 @@ import net.fabricmc.fabric.api.client.rendering.v1.EntityModelLayerRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
 import net.frozenblock.api.mathematics.AdvancedMath;
 import net.frozenblock.wilderwild.entity.AncientHornProjectileEntity;
-import net.frozenblock.wilderwild.entity.render.*;
+import net.frozenblock.wilderwild.entity.render.AncientHornProjectileModel;
+import net.frozenblock.wilderwild.entity.render.AncientHornProjectileRenderer;
+import net.frozenblock.wilderwild.entity.render.FireflyEntityRenderer;
+import net.frozenblock.wilderwild.misc.CompetitionCounter;
 import net.frozenblock.wilderwild.misc.PVZGWSound.FlyBySoundHub;
 import net.frozenblock.wilderwild.misc.PVZGWSound.MovingSoundLoop;
 import net.frozenblock.wilderwild.particle.FloatingSculkBubbleParticle;
@@ -37,8 +40,6 @@ import java.util.UUID;
 
 public class WildClientMod implements ClientModInitializer {
     public static final EntityModelLayer ANCIENT_HORN_PROJECTILE_LAYER = new EntityModelLayer(new Identifier(WilderWild.MOD_ID, "ancient_horn_projectile"), "main");
-    public static final EntityModelLayer BAOBAB_BOAT = new EntityModelLayer(new Identifier(WilderWild.MOD_ID, "baobab_boat"), "main");
-    public static final EntityModelLayer BAOBAB_CHEST_BOAT = new EntityModelLayer(new Identifier(WilderWild.MOD_ID, "baobab_chest_boat"), "main");
 
     @Override
     public void onInitializeClient() {
@@ -77,10 +78,6 @@ public class WildClientMod implements ClientModInitializer {
         ParticleFactoryRegistry.getInstance().register(RegisterParticles.TERMITE, TermiteParticle.Factory::new);
 
         EntityRendererRegistry.register(RegisterEntities.FIREFLY, FireflyEntityRenderer::new);
-        EntityRendererRegistry.register(RegisterEntities.BAOBAB_BOAT, (context) -> new WilderBoatEntityRenderer(context, false));
-        EntityModelLayerRegistry.registerModelLayer(BAOBAB_BOAT, WilderBoatEntityModel::getTexturedModelData);
-        EntityRendererRegistry.register(RegisterEntities.BAOBAB_CHEST_BOAT, (context) -> new WilderBoatEntityRenderer(context, true));
-        EntityModelLayerRegistry.registerModelLayer(BAOBAB_CHEST_BOAT, WilderBoatEntityModel::getTexturedModelDataChest);
         EntityRendererRegistry.register(RegisterEntities.ANCIENT_HORN_PROJECTILE_ENTITY, AncientHornProjectileRenderer::new);
         EntityModelLayerRegistry.registerModelLayer(ANCIENT_HORN_PROJECTILE_LAYER, AncientHornProjectileModel::getTexturedModelData);
 
@@ -89,6 +86,10 @@ public class WildClientMod implements ClientModInitializer {
         receiveSeedPacket();
         receiveControlledSeedPacket();
         receiveTermitePacket();
+
+        receiveFireflyCaptureInfoPacket();
+        receiveAncientHornKillInfoPacket();
+
         receiveFlybySoundPacket();
         receiveMovingLoopingSoundPacket();
 
@@ -199,6 +200,29 @@ public class WildClientMod implements ClientModInitializer {
                 for (int i=0; i<count; i++) {
                     MinecraftClient.getInstance().world.addParticle(RegisterParticles.TERMITE, pos.x, pos.y, pos.z, AdvancedMath.randomPosNeg()/7,AdvancedMath.randomPosNeg()/7,AdvancedMath.randomPosNeg()/7);
                 }
+            });
+        });
+    }
+
+    public void receiveFireflyCaptureInfoPacket() {
+        ClientPlayNetworking.registerGlobalReceiver(WilderWild.CAPTURE_FIREFLY_NOTIFY_PACKET, (ctx, handler, byteBuf, responseSender) -> {
+            boolean creative = byteBuf.readBoolean();
+            boolean natural = byteBuf.readBoolean();
+            ctx.execute(() -> {
+                if (MinecraftClient.getInstance().world == null)
+                    throw new IllegalStateException("why is your world null");
+                CompetitionCounter.addFireflyCapture(creative, natural);
+            });
+        });
+    }
+    public void receiveAncientHornKillInfoPacket() {
+        ClientPlayNetworking.registerGlobalReceiver(WilderWild.ANCIENT_HORN_KILL_NOTIFY_PACKET, (ctx, handler, byteBuf, responseSender) -> {
+            boolean creative = byteBuf.readBoolean();
+            boolean natural = byteBuf.readBoolean();
+            ctx.execute(() -> {
+                if (MinecraftClient.getInstance().world == null)
+                    throw new IllegalStateException("why is your world null");
+                CompetitionCounter.addAncientHornKill(creative, natural);
             });
         });
     }

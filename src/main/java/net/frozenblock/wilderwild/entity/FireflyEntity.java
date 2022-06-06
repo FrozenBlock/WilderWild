@@ -4,13 +4,11 @@ import com.google.common.collect.ImmutableList;
 import com.mojang.serialization.Dynamic;
 import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.entity.ai.FireflyBrain;
+import net.frozenblock.wilderwild.misc.server.EasyPacket;
 import net.frozenblock.wilderwild.registry.RegisterItems;
 import net.frozenblock.wilderwild.registry.RegisterSounds;
 import net.minecraft.block.BlockState;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.Flutterer;
-import net.minecraft.entity.MovementType;
+import net.minecraft.entity.*;
 import net.minecraft.entity.ai.brain.Brain;
 import net.minecraft.entity.ai.brain.MemoryModuleType;
 import net.minecraft.entity.ai.brain.sensor.Sensor;
@@ -28,7 +26,6 @@ import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.mob.PathAwareEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.ItemUsage;
 import net.minecraft.item.Items;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.server.network.DebugInfoSender;
@@ -39,24 +36,39 @@ import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
+import net.minecraft.world.LocalDifficulty;
+import net.minecraft.world.ServerWorldAccess;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldView;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.Optional;
 
 public class FireflyEntity extends PathAwareEntity implements Flutterer {
 
     protected static final ImmutableList<SensorType<? extends Sensor<? super FireflyEntity>>> SENSORS = ImmutableList.of(SensorType.NEAREST_LIVING_ENTITIES, SensorType.HURT_BY);
-    protected static final ImmutableList<MemoryModuleType<?>> MEMORY_MODULES = ImmutableList.of(MemoryModuleType.PATH, MemoryModuleType.VISIBLE_MOBS, MemoryModuleType.WALK_TARGET, MemoryModuleType.CANT_REACH_WALK_TARGET_SINCE);
+    protected static final ImmutableList<MemoryModuleType<?>> MEMORY_MODULES = ImmutableList.of(MemoryModuleType.PATH, MemoryModuleType.VISIBLE_MOBS, MemoryModuleType.WALK_TARGET, MemoryModuleType.CANT_REACH_WALK_TARGET_SINCE, MemoryModuleType.HOME);
     private static final TrackedData<Boolean> FROM_BOTTLE = DataTracker.registerData(FireflyEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
     private static final TrackedData<Boolean> FLICKERS = DataTracker.registerData(FireflyEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
     private static final TrackedData<Integer> AGE = DataTracker.registerData(FireflyEntity.class, TrackedDataHandlerRegistry.INTEGER);
+
+    public boolean natural;
+    public boolean hasHome; //TODO: POSSIBLY HAVE DIFFERING "SAFE RANGES" INSTEAD OF BOOLEAN
 
     public FireflyEntity(EntityType<? extends PathAwareEntity> entityType, World world) {
         super(entityType, world);
         this.moveControl = new FlightMoveControl(this, 20, true);
         this.setFlickers(world.random.nextInt(5)==0);
         this.setFlickerAge(world.random.nextBetween(0,19));
+    }
+
+    @Nullable
+    @Override
+    public EntityData initialize(ServerWorldAccess world, LocalDifficulty difficulty, SpawnReason spawnReason, @Nullable EntityData entityData, @Nullable NbtCompound entityNbt) {
+        this.natural = spawnReason==SpawnReason.NATURAL;
+        this.hasHome = false;
+        FireflyBrain.rememberHome(this, this.getBlockPos());
+        return super.initialize(world, difficulty, spawnReason, entityData, entityNbt);
     }
 
     protected void initDataTracker() {
@@ -76,16 +88,20 @@ public class FireflyEntity extends PathAwareEntity implements Flutterer {
             WilderWild.log("Firefly capture attempt starting @ " + entity.getBlockPos().toShortString() + " by " + player.getDisplayName().getString(), WilderWild.UNSTABLE_LOGGING);
             //TODO: FIREFLY BOTTLE SOUNDS
             entity.playSound(SoundEvents.ITEM_BOTTLE_FILL, 1.0F, 1.0F);
-            ItemStack itemStack2 = new ItemStack(RegisterItems.FIREFLY_BOTTLE);
-            ItemStack itemStack3 = ItemUsage.exchangeStack(itemStack, player, itemStack2, true);
-            player.setStackInHand(hand, itemStack3);
+            if (!player.isCreative()) {
+                player.getStackInHand(hand).decrement(1);
+            }
+            player.getInventory().offerOrDrop(new ItemStack(RegisterItems.FIREFLY_BOTTLE));
             World world = entity.world;
+            if (!world.isClient) { EasyPacket.EasyCompetitionPacket.sendFireflyCaptureInfo(world, player, entity); }
             entity.discard();
             return Optional.of(ActionResult.success(world.isClient));
         } else {
             return Optional.empty();
         }
     }
+
+    public boolean shouldRender(double cameraX, double cameraY, double cameraZ) { return true; }
 
     @Override
     public boolean canBeLeashedBy(PlayerEntity player) { return false; }
@@ -190,6 +206,7 @@ public class FireflyEntity extends PathAwareEntity implements Flutterer {
     public void tick() {
         super.tick();
         this.setFlickerAge(this.getFlickerAge()+1);
+        //WilderWild.log(this, this.getBrain().getOptionalMemory(MemoryModuleType.HOME).toString(), WilderWild.DEV_LOGGING);
     }
 
     protected void mobTick() {
@@ -211,21 +228,25 @@ public class FireflyEntity extends PathAwareEntity implements Flutterer {
     }
 
     public boolean canImmediatelyDespawn(double distanceSquared) {
-        return false;
+        return !this.isFromBottle() && !this.hasCustomName();
     }
 
     public void writeCustomDataToNbt(NbtCompound nbt) {
         super.writeCustomDataToNbt(nbt);
         nbt.putBoolean("fromBottle", this.isFromBottle());
+        nbt.putBoolean("natural", this.natural);
         nbt.putBoolean("flickers", this.flickers());
         nbt.putInt("flickerAge", this.getFlickerAge());
+        nbt.putBoolean("hasHome", this.hasHome);
     }
 
     public void readCustomDataFromNbt(NbtCompound nbt) {
         super.readCustomDataFromNbt(nbt);
         this.setFromBottle(nbt.getBoolean("fromBottle"));
+        this.natural = nbt.getBoolean("natural");
         this.setFlickers(nbt.getBoolean("flickers"));
         this.setFlickerAge(nbt.getInt("flickerAge"));
+        this.hasHome = nbt.getBoolean("hasHome");
     }
 
     protected boolean shouldFollowLeash() {
@@ -251,13 +272,12 @@ public class FireflyEntity extends PathAwareEntity implements Flutterer {
     }
 
     @Override
-    public boolean handleFallDamage(float fallDistance, float damageMultiplier, DamageSource damageSource) {
-        return false;
-    }
+    public boolean handleFallDamage(float fallDistance, float damageMultiplier, DamageSource damageSource) { return false; }
 
     protected void pushAway(Entity entity) {
     }
 
     protected void tickCramming() {
     }
+
 }

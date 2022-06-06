@@ -6,6 +6,9 @@
   "mixins": [
 	"BlockMixin",
 	"BlockEntityTypeMixin",
+	"BoatTypeMixin",
+	"BoatDropsMixin",
+	"ChestBoatDropsMixin",
 	"BoneMealItemMixin",
 	"SculkBlockMixin",
 	"SculkSensorBlockEntityMixin",

@@ -1,9 +1,12 @@
-package net.frozenblock.wilderwild.particle.server;
+package net.frozenblock.wilderwild.misc.server;
 
 import io.netty.buffer.Unpooled;
 import net.fabricmc.fabric.api.networking.v1.PlayerLookup;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.frozenblock.wilderwild.WilderWild;
+import net.frozenblock.wilderwild.entity.FireflyEntity;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
@@ -11,7 +14,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 
-public class EasyParticlePacket {
+public class EasyPacket {
 
     public static class EasySeedPacket {
         public static void createParticle(World world, Vec3d pos, int count, boolean isMilkweed) {
@@ -74,6 +77,33 @@ public class EasyParticlePacket {
             byteBuf.writeVarInt(count);
             for (ServerPlayerEntity player : PlayerLookup.tracking((ServerWorld)world, new BlockPos(pos))) {
                 ServerPlayNetworking.send(player, WilderWild.TERMITE_PARTICLE_PACKET, byteBuf);
+            }
+        }
+    }
+
+    public static class EasyCompetitionPacket {
+        public static void sendFireflyCaptureInfo(World world, PlayerEntity player, FireflyEntity firefly) { //Can possibly be used for competitions
+            if (world.isClient)
+                throw new IllegalStateException("FIREFLY CAPTURE ON CLIENT!??!?!?!?! OH HOW TERRIBLE OF YOU!1!!!!!!!!!!!!!!!!!!!!!1!!1!!!!111");
+            PacketByteBuf byteBuf = new PacketByteBuf(Unpooled.buffer());
+            byteBuf.writeBoolean(player.isCreative());
+            byteBuf.writeBoolean(firefly.natural && !firefly.isFromBottle());
+            if (player instanceof ServerPlayerEntity serverPlayer) {
+                ServerPlayNetworking.send(serverPlayer, WilderWild.CAPTURE_FIREFLY_NOTIFY_PACKET, byteBuf);
+            } else {
+                throw new IllegalStateException("NOT A SERVER PLAYER BRUH");
+            }
+        }
+        public static void sendAncientHornKillInfo(World world, PlayerEntity player, LivingEntity entity) { //Can possibly be used for competitions
+            if (world.isClient)
+                throw new IllegalStateException("ANCIENT HORN KILL PACKET ON CLIENT");
+            PacketByteBuf byteBuf = new PacketByteBuf(Unpooled.buffer());
+            byteBuf.writeBoolean(player.isCreative());
+            byteBuf.writeBoolean(true);
+            if (player instanceof ServerPlayerEntity serverPlayer) {
+                ServerPlayNetworking.send(serverPlayer, WilderWild.ANCIENT_HORN_KILL_NOTIFY_PACKET, byteBuf);
+            } else {
+                throw new IllegalStateException("NOT A SERVER PLAYER BRUH");
             }
         }
     }
