@@ -38,12 +38,8 @@
   "depends": {
     "mm": ">=2.3",
     "fabricloader": ">=0.14.6",
-    "fabric": ">=0.54.0",
+    "fabric": ">=0.55.1",
     "minecraft": "1.19.x",
-    "java": ">=17",
-    "mm": ">=2.3"
-  },
-  "suggests": {
-    "another-mod": "*"
+    "java": ">=17"
   }
 }
