@@ -10,6 +10,7 @@ import net.minecraft.world.Heightmap;
 import net.minecraft.world.gen.blockpredicate.BlockPredicate;
 import net.minecraft.world.gen.feature.*;
 import net.minecraft.world.gen.placementmodifier.*;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
@@ -139,13 +140,13 @@ public class WildPlacedFeatures {
             WildConfiguredFeatures.TERMITE_BAOBAB_CONFIGURED, RarityFilterPlacementModifier.of(50), CountPlacementModifier.of(1), PlacedFeatures.WORLD_SURFACE_WG_HEIGHTMAP, SquarePlacementModifier.of(), SurfaceThresholdFilterPlacementModifier.of(Heightmap.Type.WORLD_SURFACE_WG, 0, 128), BiomePlacementModifier.of());
 
     public static RegistryEntry<PlacedFeature> register(
-            String id, RegistryEntry<? extends ConfiguredFeature<?, ?>> registryEntry, List<PlacementModifier> modifiers
+            @NotNull String id, RegistryEntry<? extends ConfiguredFeature<?, ?>> registryEntry, @NotNull List<PlacementModifier> modifiers
     ) {
         return BuiltinRegistries.add(BuiltinRegistries.PLACED_FEATURE, new Identifier(WilderWild.MOD_ID, id), new PlacedFeature(RegistryEntry.upcast(registryEntry), List.copyOf(modifiers)));
     }
 
     public static RegistryEntry<PlacedFeature> register(
-            String id, RegistryEntry<? extends ConfiguredFeature<?, ?>> registryEntry, PlacementModifier... modifiers
+            @NotNull String id, RegistryEntry<? extends ConfiguredFeature<?, ?>> registryEntry, @NotNull PlacementModifier... modifiers
     ) {
         return register(id, registryEntry, List.of(modifiers));
     }

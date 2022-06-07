@@ -19,6 +19,7 @@ import net.minecraft.world.gen.ProbabilityConfig;
 import net.minecraft.world.gen.feature.*;
 import net.minecraft.world.gen.placementmodifier.PlacementModifier;
 import net.minecraft.world.gen.stateprovider.BlockStateProvider;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
@@ -145,7 +146,7 @@ public class WildConfiguredFeatures {
         return register(id, feature, FeatureConfig.DEFAULT);
     }
 
-    public static <FC extends FeatureConfig, F extends Feature<FC>> RegistryEntry<ConfiguredFeature<FC, ?>> register(String id, F feature, FC config) {
+    public static <FC extends FeatureConfig, F extends Feature<FC>> RegistryEntry<ConfiguredFeature<FC, ?>> register(@NotNull String id, F feature, @NotNull FC config) {
         return addCasted(BuiltinRegistries.CONFIGURED_FEATURE, id, new ConfiguredFeature<>(feature, config));
     }
 
