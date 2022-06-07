@@ -10,6 +10,8 @@ import net.frozenblock.wilderwild.block.entity.TermiteMoundBlockEntity;
 import net.frozenblock.wilderwild.item.FloweredLilyPadItem;
 import net.frozenblock.wilderwild.mixin.SignTypeAccessor;
 import net.minecraft.block.*;
+import net.minecraft.data.family.BlockFamilies;
+import net.minecraft.data.family.BlockFamily;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.item.BlockItem;
@@ -110,12 +112,28 @@ public abstract class RegisterBlocks {
     public static final Block BAOBAB_DOOR = new DoorBlock(AbstractBlock.Settings.of(Material.WOOD, planksColor).strength(3.0F).sounds(BlockSoundGroup.WOOD).nonOpaque());
     public static final Block BAOBAB_TRAPDOOR = new TrapdoorBlock(AbstractBlock.Settings.of(Material.WOOD, planksColor).strength(3.0F).sounds(BlockSoundGroup.WOOD).nonOpaque().allowsSpawning(RegisterBlocks::never));
     public static final Block BAOBAB_LEAVES = new LeavesBlock(AbstractBlock.Settings.of(Material.LEAVES, MapColor.GREEN).strength(0.2F).ticksRandomly().sounds(BlockSoundGroup.GRASS).nonOpaque().allowsSpawning(RegisterBlocks::canSpawnOnLeaves).suffocates(RegisterBlocks::never).blockVision(RegisterBlocks::never));
-    public static final Block BAOBAB_GATE = new FenceGateBlock(AbstractBlock.Settings.of(Material.WOOD, planksColor).strength(2.0F, 3.0F).sounds(BlockSoundGroup.WOOD));
-    public static final Block BAOBAB_PLATE = new PressurePlateBlock(PressurePlateBlock.ActivationRule.EVERYTHING, AbstractBlock.Settings.of(Material.WOOD, planksColor).noCollision().strength(0.5F).sounds(BlockSoundGroup.WOOD));
+    public static final Block BAOBAB_FENCE_GATE = new FenceGateBlock(AbstractBlock.Settings.of(Material.WOOD, BAOBAB_PLANKS.getDefaultMapColor()).strength(2.0F, 3.0F).sounds(BlockSoundGroup.WOOD));
+    public static final Block BAOBAB_PRESSURE_PLATE = new PressurePlateBlock(PressurePlateBlock.ActivationRule.EVERYTHING, AbstractBlock.Settings.of(Material.WOOD, planksColor).noCollision().strength(0.5F).sounds(BlockSoundGroup.WOOD));
     public static final Block BAOBAB_FENCE = new FenceBlock(AbstractBlock.Settings.of(Material.WOOD, planksColor).strength(2.0F, 3.0F).sounds(BlockSoundGroup.WOOD));
     public static final Block BAOBAB_BUTTON = new WoodenButtonBlock(AbstractBlock.Settings.copy(Blocks.OAK_BUTTON).mapColor(planksColor));
-    public static final Block BAOBAB_SIGN_BLOCK = new SignBlock(FabricBlockSettings.copy(Blocks.OAK_SIGN), BAOBAB_SIGN_TYPE);
-    public static final Block BAOBAB_WALL_SIGN = new WallSignBlock(FabricBlockSettings.copy(Blocks.OAK_WALL_SIGN), BAOBAB_SIGN_TYPE);
+    public static final Block BAOBAB_SIGN_BLOCK = new WildSignBlock(AbstractBlock.Settings.of(Material.WOOD, BAOBAB_LOG.getDefaultMapColor()).noCollision().strength(1.0F).sounds(BlockSoundGroup.WOOD), BAOBAB_SIGN_TYPE);
+    public static final Block BAOBAB_WALL_SIGN = new WildWallSignBlock(AbstractBlock.Settings.of(Material.WOOD, BAOBAB_LOG.getDefaultMapColor()).noCollision().strength(1.0F).sounds(BlockSoundGroup.WOOD).dropsLike(BAOBAB_SIGN_BLOCK), BAOBAB_SIGN_TYPE);
+
+    // Not necessarily needed, but other mods could maybe utilize this?
+    public static final BlockFamily BAOBAB = BlockFamilies.register(BAOBAB_PLANKS)
+            .button(BAOBAB_BUTTON)
+            .slab(BAOBAB_SLAB)
+            .stairs(BAOBAB_STAIRS)
+            .fence(BAOBAB_FENCE)
+            .fenceGate(BAOBAB_FENCE_GATE)
+            .pressurePlate(BAOBAB_PRESSURE_PLATE)
+            .sign(BAOBAB_SIGN_BLOCK, BAOBAB_WALL_SIGN)
+            .door(BAOBAB_DOOR)
+            .trapdoor(BAOBAB_TRAPDOOR)
+            .group("wooden")
+            .unlockCriterionName("has_planks")
+            .build();
+
     public static void registerBaobab() {
         SignTypeAccessor.registerNew(BAOBAB_SIGN_TYPE);
         registerBlock(name + "_planks", BAOBAB_PLANKS, ItemGroup.BUILDING_BLOCKS);
@@ -128,8 +146,8 @@ public abstract class RegisterBlocks {
         registerBlock(name + "_door", BAOBAB_DOOR, ItemGroup.REDSTONE);
         registerBlock(name + "_trapdoor", BAOBAB_TRAPDOOR, ItemGroup.REDSTONE);
         registerBlock(name + "_fence", BAOBAB_FENCE, ItemGroup.DECORATIONS);
-        registerBlock(name + "_fence_gate", BAOBAB_GATE, ItemGroup.REDSTONE);
-         registerBlock(name + "_pressure_plate", BAOBAB_PLATE, ItemGroup.REDSTONE);
+        registerBlock(name + "_fence_gate", BAOBAB_FENCE_GATE, ItemGroup.REDSTONE);
+        registerBlock(name + "_pressure_plate", BAOBAB_PRESSURE_PLATE, ItemGroup.REDSTONE);
         registerBlock(name + "_leaves", BAOBAB_LEAVES, ItemGroup.DECORATIONS);
         registerBlock(name + "_button", BAOBAB_BUTTON, ItemGroup.REDSTONE);
         registerBlockWithoutBlockItem(name + "_sign", BAOBAB_SIGN_BLOCK);
