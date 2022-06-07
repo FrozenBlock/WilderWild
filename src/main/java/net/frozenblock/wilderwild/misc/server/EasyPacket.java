@@ -19,7 +19,7 @@ public class EasyPacket {
     public static class EasySeedPacket {
         public static void createParticle(World world, Vec3d pos, int count, boolean isMilkweed) {
             if (world.isClient)
-                throw new IllegalStateException("Particle attempting spawning on THE CLIENT JESUS CHRIST WHAT THE HECK");
+                throw new IllegalStateException("Particle attempting spawning on THE CLIENT JESUS CHRIST WHAT THE HECK SPAWN ON SERVER NEXT TIME PLS");
             PacketByteBuf byteBuf = new PacketByteBuf(Unpooled.buffer());
             byteBuf.writeDouble(pos.x);
             byteBuf.writeDouble(pos.y);
@@ -32,7 +32,7 @@ public class EasyPacket {
         }
         public static void createControlledParticle(World world, Vec3d pos, double xvel, double yvel, double zvel, int count, boolean isMilkweed) {
             if (world.isClient)
-                throw new IllegalStateException("Particle attempting spawning on THE CLIENT JESUS CHRIST WHAT THE HECK");
+                throw new IllegalStateException("Particle attempting spawning on THE CLIENT JESUS CHRIST WHAT THE HECK SPAWN ON SERVER NEXT TIME PLS");
             PacketByteBuf byteBuf = new PacketByteBuf(Unpooled.buffer());
             byteBuf.writeDouble(pos.x);
             byteBuf.writeDouble(pos.y);
@@ -51,7 +51,7 @@ public class EasyPacket {
     public static class EasyFloatingSculkBubblePacket {
         public static void createParticle(World world, Vec3d pos, int size, int maxAge, double yVel, int count) {
             if (world.isClient)
-                throw new IllegalStateException("Particle attempting spawning on THE CLIENT JESUS CHRIST WHAT THE HECK");
+                throw new IllegalStateException("Particle attempting spawning on THE CLIENT JESUS CHRIST WHAT THE HECK SPAWN ON SERVER NEXT TIME PLS");
             PacketByteBuf byteBuf = new PacketByteBuf(Unpooled.buffer());
             byteBuf.writeDouble(pos.x);
             byteBuf.writeDouble(pos.y);
@@ -69,7 +69,7 @@ public class EasyPacket {
     public static class EasyTermitePacket {
         public static void createParticle(World world, Vec3d pos, int count) {
             if (world.isClient)
-                throw new IllegalStateException("Particle attempting spawning on THE CLIENT JESUS CHRIST WHAT THE HECK");
+                throw new IllegalStateException("Particle attempting spawning on THE CLIENT JESUS CHRIST WHAT THE HECK SPAWN ON SERVER NEXT TIME PLS");
             PacketByteBuf byteBuf = new PacketByteBuf(Unpooled.buffer());
             byteBuf.writeDouble(pos.x);
             byteBuf.writeDouble(pos.y);
