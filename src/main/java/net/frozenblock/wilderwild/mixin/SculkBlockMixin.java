@@ -24,7 +24,16 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import java.util.Iterator;
 
 @Mixin(SculkBlock.class)
-public class SculkBlockMixin {
+public abstract class SculkBlockMixin {
+
+	@Shadow
+	private static int getDecay(SculkSpreadManager spreadManager, BlockPos cursorPos, BlockPos catalystPos, int charge) {
+		int i = spreadManager.getMaxDistance();
+		float f = MathHelper.square((float)Math.sqrt(cursorPos.getSquaredDistance(catalystPos)) - (float)i);
+		int j = MathHelper.square(24 - i);
+		float g = Math.min(1.0F, f / (float)j);
+		return Math.max(1, (int)((float)charge * g * 0.5F));
+	}
 
 	private static final int heightMultiplier = 20; //The higher, the less short pillars you'll see.
 	private static final int maxHeight = 15; //The rarest and absolute tallest height of pillars
@@ -183,13 +192,5 @@ public class SculkBlockMixin {
 
 		}
 		return false;
-	}
-
-	@Shadow private static int getDecay(SculkSpreadManager spreadManager, BlockPos cursorPos, BlockPos catalystPos, int charge) {
-		int i = spreadManager.getMaxDistance();
-		float f = MathHelper.square((float)Math.sqrt(cursorPos.getSquaredDistance(catalystPos)) - (float)i);
-		int j = MathHelper.square(24 - i);
-		float g = Math.min(1.0F, f / (float)j);
-		return Math.max(1, (int)((float)charge * g * 0.5F));
 	}
 }
