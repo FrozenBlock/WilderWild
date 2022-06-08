@@ -4,6 +4,7 @@
   "package": "net.frozenblock.wilderwild.mixin",
   "compatibilityLevel": "JAVA_17",
   "mixins": [
+	"worldgen.VanillaBiomeParametersMixin",
 	"BlockMixin",
 	"FlowableFluidMixin",
 	"BlockEntityTypeMixin",
@@ -11,6 +12,7 @@
 	"BoatDropsMixin",
 	"ChestBoatDropsMixin",
 	"BoneMealItemMixin",
+	"EntityTypeMixin",
 	"SculkBlockMixin",
 	"SculkSensorBlockEntityMixin",
 	"SculkSensorBlockMixin",

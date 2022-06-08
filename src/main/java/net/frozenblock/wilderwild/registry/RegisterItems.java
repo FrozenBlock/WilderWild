@@ -24,6 +24,11 @@ public class RegisterItems {
     public static final Item BAOBAB_CHEST_BOAT_ITEM = new BoatItem(true, CustomBoatType.BAOBAB, (new Item.Settings()).maxCount(1).group(ItemGroup.TRANSPORTATION));
     public static final Item BAOBAB_SIGN = new SignItem(new FabricItemSettings().group(ItemGroup.DECORATIONS).maxCount(16),
            RegisterBlocks.BAOBAB_SIGN_BLOCK, RegisterBlocks.BAOBAB_WALL_SIGN);
+    public static final Item CYPRESS_BOAT_ITEM = new BoatItem(false, CustomBoatType.CYPRESS, (new Item.Settings()).maxCount(1).group(ItemGroup.TRANSPORTATION));
+    public static final Item CYPRESS_CHEST_BOAT_ITEM = new BoatItem(true, CustomBoatType.CYPRESS, (new Item.Settings()).maxCount(1).group(ItemGroup.TRANSPORTATION));
+    public static final Item CYPRESS_SIGN = new SignItem(new FabricItemSettings().group(ItemGroup.DECORATIONS).maxCount(16),
+            RegisterBlocks.CYPRESS_SIGN_BLOCK, RegisterBlocks.CYPRESS_WALL_SIGN);
+
 
 
     public static void registerItems() {
@@ -31,6 +36,9 @@ public class RegisterItems {
         Registry.register(Registry.ITEM, new Identifier(WilderWild.MOD_ID, "baobab_boat"), BAOBAB_BOAT_ITEM);
         Registry.register(Registry.ITEM, new Identifier(WilderWild.MOD_ID, "baobab_sign"), BAOBAB_SIGN);
         Registry.register(Registry.ITEM, new Identifier(WilderWild.MOD_ID, "baobab_chest_boat"), BAOBAB_CHEST_BOAT_ITEM);
+        Registry.register(Registry.ITEM, new Identifier(WilderWild.MOD_ID, "cypress_boat"), CYPRESS_BOAT_ITEM);
+        Registry.register(Registry.ITEM, new Identifier(WilderWild.MOD_ID, "cypress_sign"), CYPRESS_SIGN);
+        Registry.register(Registry.ITEM, new Identifier(WilderWild.MOD_ID, "cypress_chest_boat"), CYPRESS_CHEST_BOAT_ITEM);
         Registry.register(Registry.ITEM, new Identifier(WilderWild.MOD_ID, "ancient_horn"), ANCIENT_HORN);
         Registry.register(Registry.ITEM, new Identifier(WilderWild.MOD_ID, "milkweed_pod"), MILKWEED_POD);
         Registry.register(Registry.ITEM, new Identifier(WilderWild.MOD_ID, "music_disc_beneath"), MUSIC_DISC_BENEATH);

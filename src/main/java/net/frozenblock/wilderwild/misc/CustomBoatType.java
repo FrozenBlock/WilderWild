@@ -9,5 +9,6 @@ public class CustomBoatType {
     }
 
     public static BoatEntity.Type BAOBAB;
+    public static BoatEntity.Type CYPRESS;
 
 }

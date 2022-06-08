@@ -18,6 +18,9 @@ import static net.minecraft.world.gen.feature.VegetationPlacedFeatures.*;
 
 public class WildPlacedFeatures {
     //TREES
+    public static final RegistryEntry<PlacedFeature> FALLEN_TREES_MIXED_PLACED = register("fallen_trees_mixed_placed",
+            WildConfiguredFeatures.FALLEN_TREES_MIXED, RarityFilterPlacementModifier.of(5), SquarePlacementModifier.of(),
+            PlacedFeatures.MOTION_BLOCKING_HEIGHTMAP, BiomePlacementModifier.of());
     public static final RegistryEntry<PlacedFeature> WINDSWEPT_SAVANNA_TREES = register("windswept_savanna_trees",
             WildConfiguredFeatures.WINDSWEPT_SAVANNA_TREES, modifiers(PlacedFeatures.createCountExtraModifier(2, 0.1F, 1)));
     public static final RegistryEntry<PlacedFeature> SAVANNA_TREES = register("savanna_trees",
@@ -44,6 +47,11 @@ public class WildPlacedFeatures {
 
     public static final RegistryEntry<PlacedFeature> NEW_TREES_BIRCH_AND_OAK = register("new_trees_birch_and_oak",
             WildConfiguredFeatures.NEW_TREES_BIRCH_AND_OAK, modifiers(PlacedFeatures.createCountExtraModifier(10, 0.1F, 1)));
+    public static final RegistryEntry<PlacedFeature> MIXED_TREES = register("mixed_trees",
+            WildConfiguredFeatures.MIXED_TREES, modifiers(PlacedFeatures.createCountExtraModifier(10, 0.1F, 1)));
+
+    public static final RegistryEntry<PlacedFeature> CYPRESS_FOREST_TREES = register("cypress_forest_trees",
+            WildConfiguredFeatures.CYPRESS_FOREST_TREES, modifiers(PlacedFeatures.createCountExtraModifier(25, 0.1F, 1)));
 
     public static final RegistryEntry<PlacedFeature> NEW_BIRCH_PLACED = PlacedFeatures.register("new_birch_placed",
             WildTreeConfigured.NEW_BIRCH_BEES_0004, modifiersWithWouldSurvive(PlacedFeatures.createCountExtraModifier(10, 0.1F, 1), Blocks.BIRCH_SAPLING));
@@ -103,6 +111,10 @@ public class WildPlacedFeatures {
 
     public static final RegistryEntry<PlacedFeature> NEW_MUSHROOM_PLACED = PlacedFeatures.register("new_mushroom_placed",
             VegetationConfiguredFeatures.MUSHROOM_ISLAND_VEGETATION, RarityFilterPlacementModifier.of(4), SquarePlacementModifier.of(),
+            PlacedFeatures.MOTION_BLOCKING_HEIGHTMAP, BiomePlacementModifier.of());
+
+    public static final RegistryEntry<PlacedFeature> MIXED_MUSHROOMS_PLACED = PlacedFeatures.register("mixed_mushroom_placed",
+            VegetationConfiguredFeatures.MUSHROOM_ISLAND_VEGETATION, RarityFilterPlacementModifier.of(75), SquarePlacementModifier.of(),
             PlacedFeatures.MOTION_BLOCKING_HEIGHTMAP, BiomePlacementModifier.of());
 
     public static final RegistryEntry<PlacedFeature> NEW_BROWN_MUSHROOM_PLACED = PlacedFeatures.register("new_brown_mushroom_placed",
