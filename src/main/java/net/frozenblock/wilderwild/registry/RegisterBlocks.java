@@ -157,7 +157,7 @@ public abstract class RegisterBlocks {
         registerBlockWithoutBlockItem(name + "_sign", BAOBAB_SIGN_BLOCK);
         registerBlockWithoutBlockItem(name + "_wall_sign", BAOBAB_WALL_SIGN);
     }
-    public static final SignType CYPRESS_SIGN_TYPE = SignTypeAccessor.newSignType("CYPRESS");
+    public static final SignType CYPRESS_SIGN_TYPE = SignTypeAccessor.newSignType("cypress");
     public static final Block CYPRESS_PLANKS = new Block(AbstractBlock.Settings.of(Material.WOOD, cypressPlanksColor).strength(2.0F, 3.0F).sounds(BlockSoundGroup.WOOD));
     public static final Block CYPRESS_LOG = new PillarBlock(AbstractBlock.Settings.of(Material.WOOD, state -> state.get(PillarBlock.AXIS) == Direction.Axis.Y ? cypressPlanksColor : cypressBarkColor).strength(2.0F).sounds(BlockSoundGroup.WOOD));
     public static final Block STRIPPED_CYPRESS_LOG =  new PillarBlock(AbstractBlock.Settings.of(Material.WOOD, state -> state.get(PillarBlock.AXIS) == Direction.Axis.Y ? cypressPlanksColor : cypressBarkColor).strength(2.0F).sounds(BlockSoundGroup.WOOD));
