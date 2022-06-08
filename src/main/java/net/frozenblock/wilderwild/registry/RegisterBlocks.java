@@ -205,6 +205,7 @@ public abstract class RegisterBlocks {
         registerPlants();
         registerNotSoPlants();
         registerBaobab();
+        registerCypress();
 
         Registry.register(Registry.BLOCK, new Identifier(WilderWild.MOD_ID, "flowered_lily_pad"), FLOWERED_LILY_PAD);
         Registry.register(Registry.ITEM, new Identifier(WilderWild.MOD_ID, "flowered_lily_pad"), new FloweredLilyPadItem(FLOWERED_LILY_PAD, new FabricItemSettings().group(ItemGroup.DECORATIONS)));
