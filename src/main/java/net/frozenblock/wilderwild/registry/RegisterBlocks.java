@@ -25,9 +25,10 @@ import net.minecraft.util.registry.Registry;
 import net.minecraft.world.BlockView;
 
 public abstract class RegisterBlocks {
-    private static String name = "baobab";
     private static MapColor planksColor = MapColor.ORANGE;
     private static MapColor barkColor = MapColor.BROWN;
+    private static MapColor cypressPlanksColor = MapColor.LIGHT_GRAY;
+    private static MapColor cypressBarkColor = MapColor.STONE_GRAY;
     // CHISELED PACKED MUD
     public static Block CHISELED_MUD_BRICKS = new Block(FabricBlockSettings.copy(Blocks.CHISELED_STONE_BRICKS).strength(1.5F).requiresTool().sounds(BlockSoundGroup.MUD_BRICKS));
 
@@ -45,7 +46,8 @@ public abstract class RegisterBlocks {
     public static final Block HOLLOWED_ACACIA_LOG = createHollowedLogBlock(MapColor.ORANGE, MapColor.STONE_GRAY);
     public static final Block HOLLOWED_DARK_OAK_LOG = createHollowedLogBlock(MapColor.BROWN, MapColor.BROWN);
     public static final Block HOLLOWED_MANGROVE_LOG = createHollowedLogBlock(MapColor.RED, MapColor.SPRUCE_BROWN);
-    public static final Block HOLLOWED_BAOBAB_LOG = createHollowedLogBlock(planksColor, barkColor);
+    public static final Block HOLLOWED_BAOBAB_LOG = createHollowedLogBlock(MapColor.ORANGE, MapColor.BROWN);
+    public static final Block HOLLOWED_CYPRESS_LOG = createHollowedLogBlock(MapColor.LIGHT_GRAY, MapColor.STONE_GRAY);
     public static void registerHollowedLogs() {
         registerBlock("hollowed_oak_log", HOLLOWED_OAK_LOG, ItemGroup.DECORATIONS);
         registerBlock("hollowed_spruce_log", HOLLOWED_SPRUCE_LOG, ItemGroup.DECORATIONS);
@@ -54,7 +56,8 @@ public abstract class RegisterBlocks {
         registerBlock("hollowed_acacia_log", HOLLOWED_ACACIA_LOG, ItemGroup.DECORATIONS);
         registerBlock("hollowed_dark_oak_log", HOLLOWED_DARK_OAK_LOG, ItemGroup.DECORATIONS);
         registerBlock("hollowed_mangrove_log", HOLLOWED_MANGROVE_LOG, ItemGroup.DECORATIONS);
-        registerBlock("hollowed_"+name+"_log", HOLLOWED_BAOBAB_LOG, ItemGroup.DECORATIONS);
+        registerBlock("hollowed_baobab_log", HOLLOWED_BAOBAB_LOG, ItemGroup.DECORATIONS);
+        registerBlock("hollowed_cypress_log", HOLLOWED_CYPRESS_LOG, ItemGroup.DECORATIONS);
     }
 
     // SCULK
@@ -135,6 +138,7 @@ public abstract class RegisterBlocks {
             .build();
 
     public static void registerBaobab() {
+        String name = "baobab";
         SignTypeAccessor.registerNew(BAOBAB_SIGN_TYPE);
         registerBlock(name + "_planks", BAOBAB_PLANKS, ItemGroup.BUILDING_BLOCKS);
         registerBlock(name + "_log", BAOBAB_LOG, ItemGroup.BUILDING_BLOCKS);
@@ -152,6 +156,43 @@ public abstract class RegisterBlocks {
         registerBlock(name + "_button", BAOBAB_BUTTON, ItemGroup.REDSTONE);
         registerBlockWithoutBlockItem(name + "_sign", BAOBAB_SIGN_BLOCK);
         registerBlockWithoutBlockItem(name + "_wall_sign", BAOBAB_WALL_SIGN);
+    }
+    public static final SignType CYPRESS_SIGN_TYPE = SignTypeAccessor.newSignType("CYPRESS");
+    public static final Block CYPRESS_PLANKS = new Block(AbstractBlock.Settings.of(Material.WOOD, cypressPlanksColor).strength(2.0F, 3.0F).sounds(BlockSoundGroup.WOOD));
+    public static final Block CYPRESS_LOG = new PillarBlock(AbstractBlock.Settings.of(Material.WOOD, state -> state.get(PillarBlock.AXIS) == Direction.Axis.Y ? cypressPlanksColor : cypressBarkColor).strength(2.0F).sounds(BlockSoundGroup.WOOD));
+    public static final Block STRIPPED_CYPRESS_LOG =  new PillarBlock(AbstractBlock.Settings.of(Material.WOOD, state -> state.get(PillarBlock.AXIS) == Direction.Axis.Y ? cypressPlanksColor : cypressBarkColor).strength(2.0F).sounds(BlockSoundGroup.WOOD));
+    public static final Block STRIPPED_CYPRESS_WOOD = new PillarBlock(AbstractBlock.Settings.of(Material.WOOD, state -> state.get(PillarBlock.AXIS) == Direction.Axis.Y ? cypressPlanksColor : cypressBarkColor).strength(2.0F).sounds(BlockSoundGroup.WOOD));
+    public static final Block CYPRESS_WOOD = new PillarBlock(AbstractBlock.Settings.of(Material.WOOD, state -> state.get(PillarBlock.AXIS) == Direction.Axis.Y ? cypressPlanksColor : cypressBarkColor).strength(2.0F).sounds(BlockSoundGroup.WOOD));
+    public static final Block CYPRESS_SLAB = new SlabBlock(AbstractBlock.Settings.of(Material.WOOD, cypressPlanksColor).strength(2.0F, 3.0F).sounds(BlockSoundGroup.WOOD));
+    public static final Block CYPRESS_STAIRS = new StairsBlock(CYPRESS_PLANKS.getDefaultState(), AbstractBlock.Settings.copy(CYPRESS_PLANKS));
+    public static final Block CYPRESS_DOOR = new DoorBlock(AbstractBlock.Settings.of(Material.WOOD, cypressPlanksColor).strength(3.0F).sounds(BlockSoundGroup.WOOD).nonOpaque());
+    public static final Block CYPRESS_TRAPDOOR = new TrapdoorBlock(AbstractBlock.Settings.of(Material.WOOD, cypressPlanksColor).strength(3.0F).sounds(BlockSoundGroup.WOOD).nonOpaque().allowsSpawning(RegisterBlocks::never));
+    public static final Block CYPRESS_LEAVES = new LeavesBlock(AbstractBlock.Settings.of(Material.LEAVES, MapColor.GREEN).strength(0.2F).ticksRandomly().sounds(BlockSoundGroup.GRASS).nonOpaque().allowsSpawning(RegisterBlocks::canSpawnOnLeaves).suffocates(RegisterBlocks::never).blockVision(RegisterBlocks::never));
+    public static final Block CYPRESS_FENCE_GATE = new FenceGateBlock(AbstractBlock.Settings.of(Material.WOOD, CYPRESS_PLANKS.getDefaultMapColor()).strength(2.0F, 3.0F).sounds(BlockSoundGroup.WOOD));
+    public static final Block CYPRESS_PRESSURE_PLATE = new PressurePlateBlock(PressurePlateBlock.ActivationRule.EVERYTHING, AbstractBlock.Settings.of(Material.WOOD, cypressPlanksColor).noCollision().strength(0.5F).sounds(BlockSoundGroup.WOOD));
+    public static final Block CYPRESS_FENCE = new FenceBlock(AbstractBlock.Settings.of(Material.WOOD, cypressPlanksColor).strength(2.0F, 3.0F).sounds(BlockSoundGroup.WOOD));
+    public static final Block CYPRESS_BUTTON = new WoodenButtonBlock(AbstractBlock.Settings.copy(Blocks.OAK_BUTTON).mapColor(cypressPlanksColor));
+    public static final Block CYPRESS_SIGN_BLOCK = new WildSignBlock(AbstractBlock.Settings.of(Material.WOOD, CYPRESS_LOG.getDefaultMapColor()).noCollision().strength(1.0F).sounds(BlockSoundGroup.WOOD), CYPRESS_SIGN_TYPE);
+    public static final Block CYPRESS_WALL_SIGN = new WildWallSignBlock(AbstractBlock.Settings.of(Material.WOOD, CYPRESS_LOG.getDefaultMapColor()).noCollision().strength(1.0F).sounds(BlockSoundGroup.WOOD).dropsLike(CYPRESS_SIGN_BLOCK), CYPRESS_SIGN_TYPE);
+    public static void registerCypress() {
+        String name = "cypress";
+        SignTypeAccessor.registerNew(CYPRESS_SIGN_TYPE);
+        registerBlock(name + "_planks", CYPRESS_PLANKS, ItemGroup.BUILDING_BLOCKS);
+        registerBlock(name + "_log", CYPRESS_LOG, ItemGroup.BUILDING_BLOCKS);
+        registerBlock("stripped_" + name + "_log", STRIPPED_CYPRESS_LOG, ItemGroup.BUILDING_BLOCKS);
+        registerBlock(name + "_wood", CYPRESS_WOOD, ItemGroup.BUILDING_BLOCKS);
+        registerBlock("stripped_" + name + "_wood", STRIPPED_CYPRESS_WOOD, ItemGroup.BUILDING_BLOCKS);
+        registerBlock(name + "_slab", CYPRESS_SLAB, ItemGroup.BUILDING_BLOCKS);
+        registerBlock(name + "_stairs", CYPRESS_STAIRS, ItemGroup.BUILDING_BLOCKS);
+        registerBlock(name + "_door", CYPRESS_DOOR, ItemGroup.REDSTONE);
+        registerBlock(name + "_trapdoor", CYPRESS_TRAPDOOR, ItemGroup.REDSTONE);
+        registerBlock(name + "_fence", CYPRESS_FENCE, ItemGroup.DECORATIONS);
+        registerBlock(name + "_fence_gate", CYPRESS_FENCE_GATE, ItemGroup.REDSTONE);
+        registerBlock(name + "_pressure_plate", CYPRESS_PRESSURE_PLATE, ItemGroup.REDSTONE);
+        registerBlock(name + "_leaves", CYPRESS_LEAVES, ItemGroup.DECORATIONS);
+        registerBlock(name + "_button", CYPRESS_BUTTON, ItemGroup.REDSTONE);
+        registerBlockWithoutBlockItem(name + "_sign", CYPRESS_SIGN_BLOCK);
+        registerBlockWithoutBlockItem(name + "_wall_sign", CYPRESS_WALL_SIGN);
     }
 
     public static void registerBlocks() {
@@ -209,6 +250,16 @@ public abstract class RegisterBlocks {
         TermiteMoundBlockEntity.Termite.addDegradable(STRIPPED_BAOBAB_WOOD, Blocks.AIR);
         TermiteMoundBlockEntity.Termite.addNaturalDegradable(BAOBAB_LOG, STRIPPED_BAOBAB_LOG);
         TermiteMoundBlockEntity.Termite.addNaturalDegradable(BAOBAB_WOOD, STRIPPED_BAOBAB_WOOD);
+
+        StrippableBlockRegistry.register(CYPRESS_LOG, STRIPPED_CYPRESS_LOG);
+        StrippableBlockRegistry.register(CYPRESS_WOOD, STRIPPED_CYPRESS_WOOD);
+
+        TermiteMoundBlockEntity.Termite.addDegradable(CYPRESS_LOG, HOLLOWED_CYPRESS_LOG);
+        TermiteMoundBlockEntity.Termite.addDegradable(STRIPPED_CYPRESS_LOG, Blocks.AIR);
+        TermiteMoundBlockEntity.Termite.addDegradable(CYPRESS_WOOD, STRIPPED_CYPRESS_WOOD);
+        TermiteMoundBlockEntity.Termite.addDegradable(STRIPPED_CYPRESS_WOOD, Blocks.AIR);
+        TermiteMoundBlockEntity.Termite.addNaturalDegradable(CYPRESS_LOG, STRIPPED_CYPRESS_LOG);
+        TermiteMoundBlockEntity.Termite.addNaturalDegradable(CYPRESS_WOOD, STRIPPED_CYPRESS_WOOD);
     }
 
     protected static boolean never(BlockState state, BlockView world, BlockPos pos) { return false; }

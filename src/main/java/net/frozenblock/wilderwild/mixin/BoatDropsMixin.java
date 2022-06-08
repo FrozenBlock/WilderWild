@@ -20,6 +20,10 @@ public class BoatDropsMixin {
             ci.setReturnValue(RegisterItems.BAOBAB_BOAT_ITEM);
             ci.cancel();
         }
+        if (((BoatEntity)(Object)this).getBoatType() == CustomBoatType.CYPRESS) {
+            ci.setReturnValue(RegisterItems.CYPRESS_BOAT_ITEM);
+            ci.cancel();
+        }
     }
 
 }
