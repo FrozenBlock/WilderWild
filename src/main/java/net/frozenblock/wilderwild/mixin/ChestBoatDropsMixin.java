@@ -20,6 +20,10 @@ public class ChestBoatDropsMixin {
             ci.setReturnValue(RegisterItems.BAOBAB_CHEST_BOAT_ITEM);
             ci.cancel();
         }
+        if (((ChestBoatEntity)(Object)this).getBoatType() == CustomBoatType.CYPRESS) {
+            ci.setReturnValue(RegisterItems.CYPRESS_CHEST_BOAT_ITEM);
+            ci.cancel();
+        }
     }
 
 }

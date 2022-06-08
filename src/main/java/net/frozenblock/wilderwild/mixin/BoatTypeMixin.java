@@ -47,7 +47,7 @@ public class BoatTypeMixin {
         CustomBoatType.BAOBAB = baobab;
         types.add(baobab);
 
-        var cypress = newType("CYPRESS", last.ordinal() + 1, RegisterBlocks.CYPRESS_PLANKS, "cypress");
+        var cypress = newType("CYPRESS", last.ordinal() + 2, RegisterBlocks.CYPRESS_PLANKS, "cypress");
         CustomBoatType.CYPRESS = cypress;
         types.add(cypress);
         field_7724 = types.toArray(new BoatEntity.Type[0]);
