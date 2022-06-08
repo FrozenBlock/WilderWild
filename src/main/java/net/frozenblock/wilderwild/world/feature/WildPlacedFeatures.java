@@ -51,7 +51,7 @@ public class WildPlacedFeatures {
             WildConfiguredFeatures.MIXED_TREES, modifiers(PlacedFeatures.createCountExtraModifier(10, 0.1F, 1)));
 
     public static final RegistryEntry<PlacedFeature> CYPRESS_FOREST_TREES = register("cypress_forest_trees",
-            WildConfiguredFeatures.CYPRESS_FOREST_TREES, modifiers(PlacedFeatures.createCountExtraModifier(20, 0.1F, 1)));
+            WildConfiguredFeatures.CYPRESS_FOREST_TREES, modifiers(PlacedFeatures.createCountExtraModifier(25, 0.1F, 1)));
 
     public static final RegistryEntry<PlacedFeature> NEW_BIRCH_PLACED = PlacedFeatures.register("new_birch_placed",
             WildTreeConfigured.NEW_BIRCH_BEES_0004, modifiersWithWouldSurvive(PlacedFeatures.createCountExtraModifier(10, 0.1F, 1), Blocks.BIRCH_SAPLING));

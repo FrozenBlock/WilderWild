@@ -148,9 +148,8 @@ public class WildConfiguredFeatures {
 
     public static final RegistryEntry<ConfiguredFeature<RandomFeatureConfig, ?>> CYPRESS_FOREST_TREES =
             register("cypress_trees", Feature.RANDOM_SELECTOR,
-                    new RandomFeatureConfig(List.of(new RandomFeatureEntry(WildTreePlaced.CYPRESS, 0.28625F),
+                    new RandomFeatureConfig(List.of(new RandomFeatureEntry(WildTreePlaced.CYPRESS, 0.429375F),
                             new RandomFeatureEntry(WildTreePlaced.FUNGUS_CYPRESS, 0.4275F),
-                            new RandomFeatureEntry(WildTreePlaced.NEW_BIRCH_CHECKED, 0.143125F),
                             new RandomFeatureEntry(WildTreePlaced.NEW_OAK_CHECKED, 0.143125F)), WildTreePlaced.FUNGUS_CYPRESS));
 
     public static void registerConfiguredFeatures() {
