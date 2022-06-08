@@ -4,6 +4,7 @@ import com.mojang.datafixers.util.Pair;
 import net.frozenblock.wilderwild.registry.RegisterWorldgen;
 import net.minecraft.util.registry.RegistryKey;
 import net.minecraft.world.biome.Biome;
+import net.minecraft.world.biome.BiomeKeys;
 import net.minecraft.world.biome.source.util.MultiNoiseUtil;
 import net.minecraft.world.biome.source.util.VanillaBiomeParameters;
 import org.spongepowered.asm.mixin.Final;
@@ -77,34 +78,45 @@ public final class VanillaBiomeParametersMixin {
                 MultiNoiseUtil.ParameterRange.combine(this.temperatureParameters[1], this.temperatureParameters[3]),
                 this.defaultParameter,
                 MultiNoiseUtil.ParameterRange.combine(this.nearInlandContinentalness, this.farInlandContinentalness),
-                this.erosionParameters[3],
+                this.erosionParameters[2],
                 weirdness,
                 0.0F,
                 RegisterWorldgen.MIXED_FOREST
         );
-        this.writeBiomeParameters( //TODO: figure out what this means and make it fit irl cypress forests
+        this.writeBiomeParameters(
                 parameters,
-                MultiNoiseUtil.ParameterRange.combine(this.temperatureParameters[1], this.temperatureParameters[3]),
-                this.defaultParameter,
-                MultiNoiseUtil.ParameterRange.combine(this.nearInlandContinentalness, this.farInlandContinentalness),
-                this.erosionParameters[3],
-                weirdness,
-                0.0F,
-                RegisterWorldgen.CYPRESS_FOREST
+                MultiNoiseUtil.ParameterRange.combine(this.temperatureParameters[1], this.temperatureParameters[2]),
+                this.defaultParameter, MultiNoiseUtil.ParameterRange.combine(this.nearInlandContinentalness, this.farInlandContinentalness),
+                this.erosionParameters[6], weirdness, 0.0F, RegisterWorldgen.CYPRESS_FOREST
         );
+
     }
 
     @Inject(method = "writeMixedBiomes", at = @At("TAIL"))
     private void injectMixedBiomes(Consumer<Pair<MultiNoiseUtil.NoiseHypercube, RegistryKey<Biome>>> parameters, MultiNoiseUtil.ParameterRange weirdness, CallbackInfo ci) {
         this.writeBiomeParameters(
                 parameters,
-                MultiNoiseUtil.ParameterRange.combine(this.temperatureParameters[4], this.temperatureParameters[3]),
+                MultiNoiseUtil.ParameterRange.combine(this.temperatureParameters[2], this.temperatureParameters[3]),
                 this.defaultParameter,
                 MultiNoiseUtil.ParameterRange.combine(this.nearInlandContinentalness, this.farInlandContinentalness),
                 this.erosionParameters[1],
                 weirdness,
                 0.0F,
                 RegisterWorldgen.MIXED_FOREST
+        );
+        this.writeBiomeParameters(
+                parameters, MultiNoiseUtil.ParameterRange.combine(this.temperatureParameters[1], this.temperatureParameters[2]),
+                this.defaultParameter, MultiNoiseUtil.ParameterRange.combine(this.nearInlandContinentalness, this.farInlandContinentalness),
+                this.erosionParameters[6], weirdness, 0.0F, RegisterWorldgen.CYPRESS_FOREST
+        );
+    }
+    @Inject(method = "writeRiverBiomes", at = @At("TAIL"))
+    private void writeRiverBiomes(Consumer<Pair<MultiNoiseUtil.NoiseHypercube, RegistryKey<Biome>>> parameters, MultiNoiseUtil.ParameterRange weirdness, CallbackInfo ci) {
+        this.writeBiomeParameters(
+                parameters,
+                MultiNoiseUtil.ParameterRange.combine(this.temperatureParameters[1], this.temperatureParameters[2]),
+                this.defaultParameter, MultiNoiseUtil.ParameterRange.combine(this.riverContinentalness, this.farInlandContinentalness),
+                this.erosionParameters[6], weirdness, 0.0F, RegisterWorldgen.CYPRESS_FOREST
         );
     }
 }
