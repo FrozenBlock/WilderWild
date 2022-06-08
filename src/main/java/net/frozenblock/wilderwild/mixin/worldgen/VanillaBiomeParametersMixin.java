@@ -46,6 +46,7 @@ public final class VanillaBiomeParametersMixin {
     @Inject(method = "<init>", at = @At("TAIL"))
     private void injectBiomes(CallbackInfo ci) {
         uncommonBiomes[1][0] = RegisterWorldgen.MIXED_FOREST;
+        uncommonBiomes[1][1] = RegisterWorldgen.CYPRESS_FOREST;
     }
 
 
@@ -81,10 +82,20 @@ public final class VanillaBiomeParametersMixin {
                 0.0F,
                 RegisterWorldgen.MIXED_FOREST
         );
+        this.writeBiomeParameters( //TODO: figure out what this means and make it fit irl cypress forests
+                parameters,
+                MultiNoiseUtil.ParameterRange.combine(this.temperatureParameters[1], this.temperatureParameters[3]),
+                this.defaultParameter,
+                MultiNoiseUtil.ParameterRange.combine(this.nearInlandContinentalness, this.farInlandContinentalness),
+                this.erosionParameters[3],
+                weirdness,
+                0.0F,
+                RegisterWorldgen.CYPRESS_FOREST
+        );
     }
 
     @Inject(method = "writeMixedBiomes", at = @At("TAIL"))
-    private void injectMangroveMixedBiomes(Consumer<Pair<MultiNoiseUtil.NoiseHypercube, RegistryKey<Biome>>> parameters, MultiNoiseUtil.ParameterRange weirdness, CallbackInfo ci) {
+    private void injectMixedBiomes(Consumer<Pair<MultiNoiseUtil.NoiseHypercube, RegistryKey<Biome>>> parameters, MultiNoiseUtil.ParameterRange weirdness, CallbackInfo ci) {
         this.writeBiomeParameters(
                 parameters,
                 MultiNoiseUtil.ParameterRange.combine(this.temperatureParameters[4], this.temperatureParameters[3]),

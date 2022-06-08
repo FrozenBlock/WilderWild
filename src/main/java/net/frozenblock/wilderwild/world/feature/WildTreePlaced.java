@@ -34,6 +34,8 @@ public class WildTreePlaced {
     public static final RegistryEntry<PlacedFeature> NEW_SUPER_BIRCH_BEES = PlacedFeatures.register("new_super_birch_bees", WildTreeConfigured.NEW_SUPER_BIRCH_BEES, PlacedFeatures.wouldSurvive(Blocks.BIRCH_SAPLING));
     public static final RegistryEntry<PlacedFeature> BAOBAB = PlacedFeatures.register("baobab", WildTreeConfigured.BAOBAB, PlacedFeatures.wouldSurvive(Blocks.ACACIA_SAPLING));
     public static final RegistryEntry<PlacedFeature> BAOBAB_TALL = PlacedFeatures.register("baobab_tall", WildTreeConfigured.BAOBAB_TALL, PlacedFeatures.wouldSurvive(Blocks.ACACIA_SAPLING));
+    public static final RegistryEntry<PlacedFeature> CYPRESS = PlacedFeatures.register("cypress", WildTreeConfigured.CYPRESS, PlacedFeatures.wouldSurvive(Blocks.BIRCH_SAPLING));
+    public static final RegistryEntry<PlacedFeature> FUNGUS_CYPRESS = PlacedFeatures.register("fungus_cypress", WildTreeConfigured.FUNGUS_CYPRESS, PlacedFeatures.wouldSurvive(Blocks.BIRCH_SAPLING));
 
     public static void registerTreePlaced() {
         WilderWild.logWild("Registering WildTreePlaced for", true);

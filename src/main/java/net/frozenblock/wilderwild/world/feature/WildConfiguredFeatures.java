@@ -146,6 +146,13 @@ public class WildConfiguredFeatures {
     public static final RegistryEntry<ConfiguredFeature<ColumnWithDiskFeatureConfig, ?>> TERMITE_BAOBAB_CONFIGURED =
             register("termite_mound_baobab", WilderWild.COLUMN_WITH_DISK_FEATURE, new ColumnWithDiskFeatureConfig(RegisterBlocks.TERMITE_MOUND.getDefaultState().with(RegisterProperties.NATURAL, true), RegisterBlocks.STRIPPED_BAOBAB_LOG.getDefaultState(), UniformIntProvider.create(1,3), UniformIntProvider.create(3,7), RegistryEntryList.of(Block::getRegistryEntry, Blocks.GRASS_BLOCK, Blocks.STONE, Blocks.DIORITE, Blocks.ANDESITE, Blocks.GRANITE), RegistryEntryList.of(Block::getRegistryEntry, Blocks.COARSE_DIRT, Blocks.SAND, Blocks.ROOTED_DIRT)));
 
+    public static final RegistryEntry<ConfiguredFeature<RandomFeatureConfig, ?>> CYPRESS_FOREST_TREES =
+            register("cypress_trees", Feature.RANDOM_SELECTOR,
+                    new RandomFeatureConfig(List.of(new RandomFeatureEntry(WildTreePlaced.CYPRESS, 0.28625F),
+                            new RandomFeatureEntry(WildTreePlaced.FUNGUS_CYPRESS, 0.4275F),
+                            new RandomFeatureEntry(WildTreePlaced.NEW_BIRCH_CHECKED, 0.143125F),
+                            new RandomFeatureEntry(WildTreePlaced.NEW_OAK_CHECKED, 0.143125F)), WildTreePlaced.FUNGUS_CYPRESS));
+
     public static void registerConfiguredFeatures() {
         WilderWild.logWild("Registering WildConfiguredFeatures for", true);
     }
