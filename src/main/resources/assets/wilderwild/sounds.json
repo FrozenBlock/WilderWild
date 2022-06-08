@@ -93,8 +93,8 @@
 			},
 			{
 				"name": "wilderwild:ambient/cave/deep_dark/wind",
-				"volume": 0.75,
-				"weight": 8
+				"volume": 1.25,
+				"weight": 15
 			}
 		]
 	},
