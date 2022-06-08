@@ -25,6 +25,18 @@ import java.util.List;
 
 
 public class WildConfiguredFeatures {
+    public static final RegistryEntry<ConfiguredFeature<RandomFeatureConfig, ?>> FALLEN_TREES_MIXED =
+            register("fallen_trees_mixed", Feature.RANDOM_SELECTOR,
+                    new RandomFeatureConfig(List.of((new RandomFeatureEntry(WildTreePlaced.FALLEN_SPRUCE_CHECKED, 0.4F)),
+                            new RandomFeatureEntry(WildTreePlaced.NEW_FALLEN_BIRCH_CHECKED, 0.3F)), WildTreePlaced.NEW_FALLEN_OAK_CHECKED));
+    public static final RegistryEntry<ConfiguredFeature<RandomFeatureConfig, ?>> MIXED_TREES =
+            register("mixed_trees", Feature.RANDOM_SELECTOR,
+                    new RandomFeatureConfig(List.of(new RandomFeatureEntry(WildTreePlaced.NEW_SPRUCE_CHECKED, 0.39F),
+                            new RandomFeatureEntry(WildTreePlaced.FUNGUS_PINE_CHECKED, 0.09F),
+                            new RandomFeatureEntry(WildTreePlaced.NEW_SPRUCE_SHORT_CHECKED, 0.13F),
+                            new RandomFeatureEntry(WildTreePlaced.NEW_FANCY_OAK_BEES_0004, 0.28F),
+                            new RandomFeatureEntry(WildTreePlaced.NEW_BIRCH_CHECKED, 0.32F)), WildTreePlaced.NEW_OAK_CHECKED));
+
     public static final RegistryEntry<ConfiguredFeature<RandomFeatureConfig, ?>> SAVANNA_TREES =
             register("savanna_trees", Feature.RANDOM_SELECTOR,
                     new RandomFeatureConfig(List.of(new RandomFeatureEntry(TreePlacedFeatures.ACACIA_CHECKED, 0.8F),
@@ -49,7 +61,7 @@ public class WildConfiguredFeatures {
             register("fallen_spruce_and_oak", Feature.RANDOM_SELECTOR,
                     new RandomFeatureConfig(List.of(new RandomFeatureEntry(WildTreePlaced.FALLEN_SPRUCE_CHECKED, 0.55F)), WildTreePlaced.NEW_FALLEN_OAK_CHECKED));
     public static final RegistryEntry<ConfiguredFeature<RandomFeatureConfig, ?>> NEW_TREES_WINDSWEPT_HILLS =
-            ConfiguredFeatures.register("new_trees_windswept_hills", Feature.RANDOM_SELECTOR,
+            register("new_trees_windswept_hills", Feature.RANDOM_SELECTOR,
                     new RandomFeatureConfig(List.of(new RandomFeatureEntry(WildTreePlaced.NEW_SPRUCE_CHECKED, 0.666F),
                             new RandomFeatureEntry(WildTreePlaced.NEW_FANCY_OAK_CHECKED, 0.1F)), WildTreePlaced.NEW_OAK_CHECKED));
     public static final RegistryEntry<ConfiguredFeature<RandomFeatureConfig, ?>> NEW_TREES_OLD_GROWTH_PINE_TAIGA =
