@@ -9,7 +9,10 @@ import net.frozenblock.wilderwild.block.*;
 import net.frozenblock.wilderwild.block.entity.TermiteMoundBlockEntity;
 import net.frozenblock.wilderwild.item.FloweredLilyPadItem;
 import net.frozenblock.wilderwild.mixin.SignTypeAccessor;
+import net.frozenblock.wilderwild.world.gen.sapling.BaobabSaplingGenerator;
+import net.frozenblock.wilderwild.world.gen.sapling.CypressSaplingGenerator;
 import net.minecraft.block.*;
+import net.minecraft.block.sapling.OakSaplingGenerator;
 import net.minecraft.data.family.BlockFamilies;
 import net.minecraft.data.family.BlockFamily;
 import net.minecraft.entity.EntityType;
@@ -121,7 +124,7 @@ public abstract class RegisterBlocks {
     public static final Block BAOBAB_BUTTON = new WoodenButtonBlock(AbstractBlock.Settings.copy(Blocks.OAK_BUTTON).mapColor(planksColor));
     public static final Block BAOBAB_SIGN_BLOCK = new WildSignBlock(AbstractBlock.Settings.of(Material.WOOD, BAOBAB_LOG.getDefaultMapColor()).noCollision().strength(1.0F).sounds(BlockSoundGroup.WOOD), BAOBAB_SIGN_TYPE);
     public static final Block BAOBAB_WALL_SIGN = new WildWallSignBlock(AbstractBlock.Settings.of(Material.WOOD, BAOBAB_LOG.getDefaultMapColor()).noCollision().strength(1.0F).sounds(BlockSoundGroup.WOOD).dropsLike(BAOBAB_SIGN_BLOCK), BAOBAB_SIGN_TYPE);
-
+    public static final Block BAOBAB_SAPLING = new SaplingBlock(new BaobabSaplingGenerator(), FabricBlockSettings.copyOf(Blocks.BIRCH_SAPLING));
     // Not necessarily needed, but other mods could maybe utilize this?
     public static final BlockFamily BAOBAB = BlockFamilies.register(BAOBAB_PLANKS)
             .button(BAOBAB_BUTTON)
@@ -156,6 +159,7 @@ public abstract class RegisterBlocks {
         registerBlock(name + "_button", BAOBAB_BUTTON, ItemGroup.REDSTONE);
         registerBlockWithoutBlockItem(name + "_sign", BAOBAB_SIGN_BLOCK);
         registerBlockWithoutBlockItem(name + "_wall_sign", BAOBAB_WALL_SIGN);
+        registerBlock(name + "_sapling", BAOBAB_SAPLING, ItemGroup.BUILDING_BLOCKS);
     }
     public static final SignType CYPRESS_SIGN_TYPE = SignTypeAccessor.newSignType("cypress");
     public static final Block CYPRESS_PLANKS = new Block(AbstractBlock.Settings.of(Material.WOOD, cypressPlanksColor).strength(2.0F, 3.0F).sounds(BlockSoundGroup.WOOD));
@@ -174,6 +178,7 @@ public abstract class RegisterBlocks {
     public static final Block CYPRESS_BUTTON = new WoodenButtonBlock(AbstractBlock.Settings.copy(Blocks.OAK_BUTTON).mapColor(cypressPlanksColor));
     public static final Block CYPRESS_SIGN_BLOCK = new WildSignBlock(AbstractBlock.Settings.of(Material.WOOD, CYPRESS_LOG.getDefaultMapColor()).noCollision().strength(1.0F).sounds(BlockSoundGroup.WOOD), CYPRESS_SIGN_TYPE);
     public static final Block CYPRESS_WALL_SIGN = new WildWallSignBlock(AbstractBlock.Settings.of(Material.WOOD, CYPRESS_LOG.getDefaultMapColor()).noCollision().strength(1.0F).sounds(BlockSoundGroup.WOOD).dropsLike(CYPRESS_SIGN_BLOCK), CYPRESS_SIGN_TYPE);
+    public static final Block CYPRESS_SAPLING = new SaplingBlock(new CypressSaplingGenerator(), FabricBlockSettings.copyOf(Blocks.BIRCH_SAPLING));
     public static void registerCypress() {
         String name = "cypress";
         SignTypeAccessor.registerNew(CYPRESS_SIGN_TYPE);
@@ -193,6 +198,7 @@ public abstract class RegisterBlocks {
         registerBlock(name + "_button", CYPRESS_BUTTON, ItemGroup.REDSTONE);
         registerBlockWithoutBlockItem(name + "_sign", CYPRESS_SIGN_BLOCK);
         registerBlockWithoutBlockItem(name + "_wall_sign", CYPRESS_WALL_SIGN);
+        registerBlock(name + "_sapling", CYPRESS_SAPLING, ItemGroup.BUILDING_BLOCKS);
     }
 
     public static void registerBlocks() {
