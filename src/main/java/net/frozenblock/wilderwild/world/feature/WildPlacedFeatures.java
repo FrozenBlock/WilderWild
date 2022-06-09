@@ -133,11 +133,11 @@ public class WildPlacedFeatures {
             VegetationConfiguredFeatures.PATCH_GRASS_JUNGLE, modifiers(20));
 
     public static final RegistryEntry<PlacedFeature> DENSE_FERN_PLACED = PlacedFeatures.register("dense_fern_placed",
-            VegetationConfiguredFeatures.PATCH_LARGE_FERN, modifiers(10));
+            VegetationConfiguredFeatures.PATCH_LARGE_FERN, modifiers(3));
     public static final RegistryEntry<PlacedFeature> DENSE_TALL_GRASS_PLACED = PlacedFeatures.register("dense_tall_grass_placed",
-            VegetationConfiguredFeatures.PATCH_TALL_GRASS, modifiers(10));
+            VegetationConfiguredFeatures.PATCH_TALL_GRASS, modifiers(3));
     public static final RegistryEntry<PlacedFeature> DENSE_FLOWER_PLACED = PlacedFeatures.register("dense_flower_placed",
-            VegetationConfiguredFeatures.FLOWER_DEFAULT, modifiers(5));
+            VegetationConfiguredFeatures.FLOWER_DEFAULT, modifiers(1));
 
     public static final RegistryEntry<PlacedFeature> DATURA_BIRCH = register("datura_birch",
             WildConfiguredFeatures.DATURA, RarityFilterPlacementModifier.of(5), SquarePlacementModifier.of(),
