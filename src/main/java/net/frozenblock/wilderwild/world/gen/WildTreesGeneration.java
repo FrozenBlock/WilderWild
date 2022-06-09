@@ -6,6 +6,7 @@ import net.frozenblock.wilderwild.registry.RegisterWorldgen;
 import net.frozenblock.wilderwild.world.feature.WildPlacedFeatures;
 import net.minecraft.world.biome.BiomeKeys;
 import net.minecraft.world.gen.GenerationStep;
+import net.minecraft.world.gen.feature.VegetationPlacedFeatures;
 
 public class WildTreesGeneration {
     public static void generateTrees() {
@@ -94,12 +95,15 @@ public class WildTreesGeneration {
                 GenerationStep.Feature.VEGETAL_DECORATION, WildPlacedFeatures.SHORT_CYPRESS_TREES.getKey().get());
 
         BiomeModifications.addFeature(BiomeSelectors.includeByKey(RegisterWorldgen.CYPRESS_FOREST),
-                GenerationStep.Feature.VEGETAL_DECORATION, WildPlacedFeatures.CYPRESS_TREES_WATER.getKey().get());
+                GenerationStep.Feature.VEGETAL_DECORATION, WildPlacedFeatures.CYPRESS_TREES_WATER_2.getKey().get());
 
         BiomeModifications.addFeature(BiomeSelectors.includeByKey(RegisterWorldgen.CYPRESS_FOREST),
                 GenerationStep.Feature.VEGETAL_DECORATION, WildPlacedFeatures.FALLEN_OAK_AND_CYPRESS_PLACED.getKey().get());
 
         BiomeModifications.addFeature(BiomeSelectors.includeByKey(BiomeKeys.SWAMP),
                 GenerationStep.Feature.VEGETAL_DECORATION, WildPlacedFeatures.CYPRESS_TREES_SWAMP.getKey().get());
+
+        BiomeModifications.addFeature(BiomeSelectors.includeByKey(BiomeKeys.SWAMP),
+                GenerationStep.Feature.VEGETAL_DECORATION, WildPlacedFeatures.CYPRESS_TREES_WATER_1.getKey().get());
     }
 }
