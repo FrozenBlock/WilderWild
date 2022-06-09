@@ -92,10 +92,10 @@ public class WildConfiguredFeatures {
                     new RandomPatchFeatureConfig(10, 7, 3, PlacedFeatures.createEntry(Feature.SIMPLE_BLOCK,
                             new SimpleBlockFeatureConfig(BlockStateProvider.of(RegisterBlocks.FLOWERED_LILY_PAD)))));
 
-    public static final RegistryEntry<ConfiguredFeature<RandomPatchFeatureConfig, ?>> PATCH_CYPRESS_ROOTS =
+    /*public static final RegistryEntry<ConfiguredFeature<RandomPatchFeatureConfig, ?>> PATCH_CYPRESS_ROOTS =
             register("patch_cypress_roots", Feature.RANDOM_PATCH,
                     new RandomPatchFeatureConfig(10, 7, 3, PlacedFeatures.createEntry(Feature.SIMPLE_BLOCK,
-                            new SimpleBlockFeatureConfig(BlockStateProvider.of(RegisterBlocks.CYPRESS_ROOTS)))));
+                            new SimpleBlockFeatureConfig(BlockStateProvider.of(RegisterBlocks.CYPRESS_ROOTS)))));*/
 
     public static final RegistryEntry<ConfiguredFeature<RandomFeatureConfig, ?>> NEW_TREES_FLOWER_FOREST =
             register("new_trees_flower_forest", Feature.RANDOM_SELECTOR,

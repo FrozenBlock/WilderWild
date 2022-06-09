@@ -123,8 +123,8 @@ public class WildPlacedFeatures {
     public static final RegistryEntry<PlacedFeature> PATCH_FLOWERED_WATERLILY = register("patch_flowered_waterlily",
             WildConfiguredFeatures.PATCH_FLOWERED_WATERLILY, modifiers(1));
 
-    public static final RegistryEntry<PlacedFeature> PATCH_CYPRESS_ROOTS = register("patch_cypress_roots",
-            WildConfiguredFeatures.PATCH_CYPRESS_ROOTS, modifiers(1));
+    /*public static final RegistryEntry<PlacedFeature> PATCH_CYPRESS_ROOTS = register("patch_cypress_roots",
+            WildConfiguredFeatures.PATCH_CYPRESS_ROOTS, modifiers(1));*/
 
     public static final RegistryEntry<PlacedFeature> HUGE_MUSHROOMS_SWAMP = PlacedFeatures.register("huge_mushrooms_swamp",
             VegetationConfiguredFeatures.MUSHROOM_ISLAND_VEGETATION, RarityFilterPlacementModifier.of(5), SquarePlacementModifier.of(),

@@ -178,7 +178,7 @@ public abstract class RegisterBlocks {
     public static final Block CYPRESS_SIGN_BLOCK = new WildSignBlock(AbstractBlock.Settings.of(Material.WOOD, CYPRESS_LOG.getDefaultMapColor()).noCollision().strength(1.0F).sounds(BlockSoundGroup.WOOD), CYPRESS_SIGN_TYPE);
     public static final Block CYPRESS_WALL_SIGN = new WildWallSignBlock(AbstractBlock.Settings.of(Material.WOOD, CYPRESS_LOG.getDefaultMapColor()).noCollision().strength(1.0F).sounds(BlockSoundGroup.WOOD).dropsLike(CYPRESS_SIGN_BLOCK), CYPRESS_SIGN_TYPE);
     public static final Block CYPRESS_SAPLING = new WaterloggableSaplingBlock(new CypressSaplingGenerator(), FabricBlockSettings.copyOf(Blocks.BIRCH_SAPLING));
-    public static final Block CYPRESS_ROOTS = new CypressRootsBlock(FabricBlockSettings.copyOf(Blocks.OAK_BUTTON));
+    //public static final Block CYPRESS_ROOTS = new CypressRootsBlock(FabricBlockSettings.copyOf(Blocks.OAK_BUTTON));
     public static void registerCypress() {
         String name = "cypress";
         SignTypeAccessor.registerNew(CYPRESS_SIGN_TYPE);
@@ -199,7 +199,7 @@ public abstract class RegisterBlocks {
         registerBlockWithoutBlockItem(name + "_sign", CYPRESS_SIGN_BLOCK);
         registerBlockWithoutBlockItem(name + "_wall_sign", CYPRESS_WALL_SIGN);
         registerBlock(name + "_sapling", CYPRESS_SAPLING, ItemGroup.BUILDING_BLOCKS);
-        registerBlock(name + "_roots", CYPRESS_ROOTS, ItemGroup.DECORATIONS);
+        //registerBlock(name + "_roots", CYPRESS_ROOTS, ItemGroup.DECORATIONS);
     }
 
     public static void registerBlocks() {
