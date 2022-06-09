@@ -1,0 +1,16 @@
+{
+  "variants": {
+    "roots=1": {
+      "model": "wilderwild:block/cypress_roots_1"
+    },
+    "roots=2": {
+      "model": "wilderwild:block/cypress_roots_2"
+    },
+    "roots=3": {
+      "model": "wilderwild:block/cypress_roots_3"
+    },
+    "roots=4": {
+      "model": "wilderwild:block/cypress_roots_4"
+    }
+  }
+}
