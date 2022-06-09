@@ -54,26 +54,21 @@ public class HollowedLogBlock extends PillarBlock implements Waterloggable {
     public VoxelShape getOutlineShape(BlockState state, BlockView world, BlockPos pos, ShapeContext context) {
         return switch (state.get(FACING)) {
             default -> VoxelShapes.union(east, west, up, down);
-            case WEST, EAST -> VoxelShapes.union(north, south, up, down);
+            case NORTH, SOUTH -> VoxelShapes.union(north, south, up, down);
             case UP, DOWN -> VoxelShapes.union(north, south, west, east);
         };
     }
 
     @Override
     public void onPlaced(World world, BlockPos pos, BlockState state, @Nullable LivingEntity placer, ItemStack itemStack) {
-        Direction.Axis axis = state.get(AXIS);
-        world.setBlockState(pos, state.with(FACING, axisToDir(axis)));
         updateWaterCompatibility(world, state, pos);
         world.createAndScheduleBlockTick(pos, this, 1);
         super.onPlaced(world, pos, state, placer, itemStack);
     }
 
-    private Direction axisToDir(Direction.Axis axis) {
-        return switch (axis) {
-            case X -> Direction.NORTH;
-            case Y -> Direction.DOWN;
-            default -> Direction.WEST;
-        };
+    @Override
+    public BlockState getPlacementState(ItemPlacementContext ctx) {
+        return Objects.requireNonNull(super.getPlacementState(ctx)).with(FACING, ctx.getPlayerLookDirection().getOpposite());
     }
 
     @Override
@@ -161,10 +156,6 @@ public class HollowedLogBlock extends PillarBlock implements Waterloggable {
     }
     public ItemStack tryDrainFluid(WorldAccess world, BlockPos pos, BlockState state) {
         return tryDrainFluid(world, pos, state, 0);
-    }
-
-    public BlockState getPlacementState(ItemPlacementContext ctx) {
-        return Objects.requireNonNull(super.getPlacementState(ctx)).with(FACING, ctx.getSide());
     }
 
     @Override
