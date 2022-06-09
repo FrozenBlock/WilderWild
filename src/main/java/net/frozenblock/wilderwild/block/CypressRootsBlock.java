@@ -124,12 +124,16 @@ public class CypressRootsBlock extends Block implements Waterloggable {
     }
 
     public static boolean canSurvive(World world, BlockPos pos) {
-        boolean upsideDown = world.getBlockState(pos).get(UPSIDEDOWN);
-        return !upsideDown ? world.getBlockState(pos.down()).isSideSolidFullSquare(world, pos.down(), Direction.UP) : world.getBlockState(pos.up()).isSideSolidFullSquare(world, pos.up(), Direction.DOWN);
+        if (world.getBlockState(pos).getBlock() instanceof CypressRootsBlock) {
+            boolean upsideDown = world.getBlockState(pos).get(UPSIDEDOWN);
+            return !upsideDown ? world.getBlockState(pos.down()).isSideSolidFullSquare(world, pos.down(), Direction.UP) : world.getBlockState(pos.up()).isSideSolidFullSquare(world, pos.up(), Direction.DOWN);
+        } return false;
     }
     public static boolean canSurvive(WorldAccess world, BlockPos pos) {
-        boolean upsideDown = world.getBlockState(pos).get(UPSIDEDOWN);
-        return !upsideDown ? world.getBlockState(pos.down()).isSideSolidFullSquare(world, pos.down(), Direction.UP) : world.getBlockState(pos.up()).isSideSolidFullSquare(world, pos.up(), Direction.DOWN);
+        if (world.getBlockState(pos).getBlock() instanceof CypressRootsBlock) {
+            boolean upsideDown = world.getBlockState(pos).get(UPSIDEDOWN);
+            return !upsideDown ? world.getBlockState(pos.down()).isSideSolidFullSquare(world, pos.down(), Direction.UP) : world.getBlockState(pos.up()).isSideSolidFullSquare(world, pos.up(), Direction.DOWN);
+        } return false;
     }
 
     public static boolean canSurvive(World world, BlockPos pos, boolean upsideDown) {
