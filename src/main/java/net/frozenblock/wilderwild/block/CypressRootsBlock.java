@@ -94,14 +94,19 @@ public class CypressRootsBlock extends Block implements Waterloggable {
             waterlogged = ctx.getWorld().getFluidState(ctx.getBlockPos()).getFluid() == Fluids.WATER;
         }
         Direction direction = ctx.getSide();
-        if (direction!=Direction.UP) {
+        if (direction!=Direction.UP && direction!=Direction.DOWN) {
             if (canSurvive(ctx.getWorld(), ctx.getBlockPos(), false)) { return this.getDefaultState().with(WATERLOGGED, waterlogged);}
         }
+        if (direction==Direction.DOWN) {
+            if (canSurvive(ctx.getWorld(), ctx.getBlockPos().up(), false)) { return this.getDefaultState().with(WATERLOGGED, waterlogged);}
+        }
         if (canSurvive(ctx.getWorld(), ctx.getBlockPos(), true)) { return this.getDefaultState().with(WATERLOGGED, waterlogged).with(UPSIDEDOWN, true);}
+        if (canSurvive(ctx.getWorld(), ctx.getBlockPos(), false)) { return this.getDefaultState().with(WATERLOGGED, waterlogged);}
         return null;
     }
 
     public BlockState getStateForNeighborUpdate(BlockState state, Direction direction, BlockState neighborState, WorldAccess world, BlockPos pos, BlockPos neighborPos) {
+        if (!canSurvive(world, pos)) { world.breakBlock(pos, true); }
         if (state.get(WATERLOGGED)) {
             world.createAndScheduleFluidTick(pos, Fluids.WATER, Fluids.WATER.getTickRate(world));
         }
@@ -113,6 +118,10 @@ public class CypressRootsBlock extends Block implements Waterloggable {
     }
 
     public static boolean canSurvive(World world, BlockPos pos) {
+        boolean upsideDown = world.getBlockState(pos).get(UPSIDEDOWN);
+        return !upsideDown ? world.getBlockState(pos.down()).isSideSolid(world, pos.down(), Direction.DOWN, SideShapeType.FULL) : world.getBlockState(pos.up()).isSideSolid(world, pos.up(), Direction.UP, SideShapeType.FULL);
+    }
+    public static boolean canSurvive(WorldAccess world, BlockPos pos) {
         boolean upsideDown = world.getBlockState(pos).get(UPSIDEDOWN);
         return !upsideDown ? world.getBlockState(pos.down()).isSideSolid(world, pos.down(), Direction.DOWN, SideShapeType.FULL) : world.getBlockState(pos.up()).isSideSolid(world, pos.up(), Direction.UP, SideShapeType.FULL);
     }
