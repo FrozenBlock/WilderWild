@@ -112,7 +112,7 @@ public class WildClientMod implements ClientModInitializer {
         ClientTickEvents.START_WORLD_TICK.register(e -> {
             MinecraftClient client = MinecraftClient.getInstance();
             if (client.world != null) {
-                FlyBySoundHub.clientFlyby.update(client, client.player, true); //CHANGE TO FALSE TO NOT AUTOMATICALLY ADD FLYBY SOUNDS
+                FlyBySoundHub.clientFlyby.update(client, client.player, false); //CHANGE TO FALSE TO NOT AUTOMATICALLY ADD FLYBY SOUNDS
             }
         });
 }
