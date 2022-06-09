@@ -1,16 +1,34 @@
 {
   "variants": {
-    "axis=x": {
+    "facing=north": {
       "model": "wilderwild:block/hollowed_mangrove_log_horizontal",
       "x": 90,
       "y": 90
     },
-    "axis=y": {
-      "model": "wilderwild:block/hollowed_mangrove_log"
-    },
-    "axis=z": {
+    "facing=south": {
       "model": "wilderwild:block/hollowed_mangrove_log_horizontal",
-      "x": 90
+      "x": 90,
+      "y": 90
+    },
+    "facing=west": {
+      "model": "wilderwild:block/hollowed_mangrove_log_horizontal",
+      "x": 90,
+      "y": 90
+    },
+    "facing=east": {
+      "model": "wilderwild:block/hollowed_mangrove_log_horizontal",
+      "x": 90,
+      "y": 90
+    },
+    "facing=up": {
+      "model": "wilderwild:block/hollowed_mangrove_log_horizontal",
+      "x": 90,
+      "y": 90
+    },
+    "facing=down": {
+      "model": "wilderwild:block/hollowed_mangrove_log_horizontal",
+      "x": 90,
+      "y": 90
     }
   }
 }
