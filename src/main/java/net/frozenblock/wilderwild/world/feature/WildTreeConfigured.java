@@ -63,6 +63,7 @@ public class WildTreeConfigured {
     public static final RegistryEntry<ConfiguredFeature<TreeFeatureConfig, ?>> NEW_FANCY_OAK = WildConfiguredFeatures.register("new_fancy_oak", Feature.TREE, new_fancyOak().build());
     public static final RegistryEntry<ConfiguredFeature<TreeFeatureConfig, ?>> NEW_FANCY_OAK_BEES_0004 = WildConfiguredFeatures.register("new_fancy_oak_bees_0004", Feature.TREE, new_fancyOak().decorators(List.of(NEW_BEES_0004)).build());
     public static final RegistryEntry<ConfiguredFeature<TreeFeatureConfig, ?>> NEW_FALLEN_OAK_TREE = WildConfiguredFeatures.register("new_fallen_oak_tree", Feature.TREE, fallen_oak().dirtProvider(BlockStateProvider.of(Blocks.DIRT)).build());
+    public static final RegistryEntry<ConfiguredFeature<TreeFeatureConfig, ?>> NEW_FALLEN_CYPRESS_TREE = WildConfiguredFeatures.register("new_fallen_cypress_tree", Feature.TREE, fallen_cypress().dirtProvider(BlockStateProvider.of(Blocks.DIRT)).build());
     public static final RegistryEntry<ConfiguredFeature<TreeFeatureConfig, ?>> NEW_FANCY_OAK_BEES = WildConfiguredFeatures.register("new_fancy_oak_bees", Feature.TREE, new_fancyOak().decorators(List.of(NEW_BEES)).build());
     //DARK OAK
     public static final RegistryEntry<ConfiguredFeature<TreeFeatureConfig, ?>> NEW_TALL_DARK_OAK = WildConfiguredFeatures.register("new_tall_dark_oak", Feature.TREE, new_tall_dark_oak().ignoreVines().build());
@@ -136,6 +137,10 @@ public class WildTreeConfigured {
 
     private static TreeFeatureConfig.Builder fallen_oak() {
         return fallenTrunkBuilder(RegisterBlocks.HOLLOWED_OAK_LOG, Blocks.OAK_LEAVES, 3, 1, 2, 0.4F, 0.4F, UniformIntProvider.create(1, 2), UniformIntProvider.create(1, 2), 1).ignoreVines();
+    }
+
+    private static TreeFeatureConfig.Builder fallen_cypress() {
+        return fallenTrunkBuilder(RegisterBlocks.HOLLOWED_CYPRESS_LOG, RegisterBlocks.CYPRESS_LEAVES, 3, 1, 2, 0.4F, 0.6F, UniformIntProvider.create(1, 2), UniformIntProvider.create(1, 2), 1).ignoreVines();
     }
 
     private static TreeFeatureConfig.Builder new_tall_dark_oak() {

@@ -44,6 +44,9 @@ public class WildPlacedFeatures {
     public static final RegistryEntry<PlacedFeature> FALLEN_OAK_AND_SPRUCE_PLACED = register("fallen_oak_and_spruce_placed",
             WildConfiguredFeatures.FALLEN_SPRUCE_AND_OAK, RarityFilterPlacementModifier.of(7), SquarePlacementModifier.of(),
             PlacedFeatures.MOTION_BLOCKING_HEIGHTMAP, BiomePlacementModifier.of());
+    public static final RegistryEntry<PlacedFeature> FALLEN_OAK_AND_CYPRESS_PLACED = register("new_fallen_oak_and_cypress_placed",
+            WildConfiguredFeatures.NEW_FALLEN_CYPRESS_AND_OAK, RarityFilterPlacementModifier.of(5), SquarePlacementModifier.of(),
+            PlacedFeatures.MOTION_BLOCKING_HEIGHTMAP, BiomePlacementModifier.of());
 
     public static final RegistryEntry<PlacedFeature> NEW_TREES_BIRCH_AND_OAK = register("new_trees_birch_and_oak",
             WildConfiguredFeatures.NEW_TREES_BIRCH_AND_OAK, modifiers(PlacedFeatures.createCountExtraModifier(10, 0.1F, 1)));

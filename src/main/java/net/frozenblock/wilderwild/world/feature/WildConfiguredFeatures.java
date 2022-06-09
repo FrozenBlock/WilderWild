@@ -104,6 +104,10 @@ public class WildConfiguredFeatures {
             register("new_fallen_birch_and_oak", Feature.RANDOM_SELECTOR,
                     new RandomFeatureConfig(List.of(new RandomFeatureEntry(WildTreePlaced.NEW_FALLEN_BIRCH_CHECKED, 0.35F)), WildTreePlaced.NEW_FALLEN_OAK_CHECKED));
 
+    public static final RegistryEntry<ConfiguredFeature<RandomFeatureConfig, ?>> NEW_FALLEN_CYPRESS_AND_OAK =
+            register("new_fallen_birch_and_oak", Feature.RANDOM_SELECTOR,
+                    new RandomFeatureConfig(List.of(new RandomFeatureEntry(WildTreePlaced.NEW_FALLEN_OAK_CHECKED, 0.35F)), WildTreePlaced.NEW_FALLEN_CYPRESS_CHECKED));
+
     public static final RegistryEntry<ConfiguredFeature<RandomFeatureConfig, ?>> NEW_TREES_BIRCH_AND_OAK =
             register("new_trees_birch_and_oak", Feature.RANDOM_SELECTOR,
                     new RandomFeatureConfig(List.of(new RandomFeatureEntry(WildTreePlaced.NEW_SHORT_BIRCH_BEES_0004, 0.2F),
