@@ -161,7 +161,7 @@ public class WildConfiguredFeatures {
                             new RandomFeatureEntry(WildTreePlaced.FUNGUS_CYPRESS, 0.6F)), WildTreePlaced.FUNGUS_CYPRESS));
 
     public static final RegistryEntry<ConfiguredFeature<RandomFeatureConfig, ?>> SHORT_CYPRESS_TREES =
-            register("cypress_trees", Feature.RANDOM_SELECTOR,
+            register("short_cypress_trees", Feature.RANDOM_SELECTOR,
                     new RandomFeatureConfig(List.of(new RandomFeatureEntry(WildTreePlaced.SHORT_CYPRESS, 0.7F),
                             new RandomFeatureEntry(WildTreePlaced.SHORT_FUNGUS_CYPRESS, 0.3F)), WildTreePlaced.SHORT_FUNGUS_CYPRESS));
 
