@@ -37,6 +37,9 @@ public class WildFlowersGeneration {
                 GenerationStep.Feature.VEGETAL_DECORATION, WildPlacedFeatures.MILKWEED.getKey().get());
 
         BiomeModifications.addFeature(BiomeSelectors.includeByKey(RegisterWorldgen.MIXED_FOREST, RegisterWorldgen.CYPRESS_FOREST),
-                GenerationStep.Feature.VEGETAL_DECORATION, VegetationPlacedFeatures.FLOWER_DEFAULT.getKey().get());
+                GenerationStep.Feature.VEGETAL_DECORATION, VegetationPlacedFeatures.FOREST_FLOWERS.getKey().get());
+
+        BiomeModifications.addFeature(BiomeSelectors.includeByKey(RegisterWorldgen.CYPRESS_FOREST),
+                GenerationStep.Feature.VEGETAL_DECORATION, VegetationPlacedFeatures.FLOWER_FOREST_FLOWERS.getKey().get());
     }
 }
