@@ -59,7 +59,7 @@ public class CypressRootsBlock extends Block implements Waterloggable {
     @Override
     public void neighborUpdate(BlockState state, World world, BlockPos pos, Block sourceBlock, BlockPos sourcePos, boolean notify) {
         super.neighborUpdate(state, world, pos, sourceBlock, sourcePos, notify);
-        if (!canSurvive(world, pos)) { world.breakBlock(pos, true); }
+        if (!canSurvive(world, pos)) { world.createAndScheduleBlockTick(pos, state.getBlock(), 1); }
     }
 
     @Override
@@ -72,7 +72,7 @@ public class CypressRootsBlock extends Block implements Waterloggable {
 
     @Override
     public boolean canPlaceAt(BlockState state, WorldView world, BlockPos pos) {
-        return world.getBlockState(pos.down()).isSideSolid(world, pos, Direction.UP, SideShapeType.FULL) || world.getBlockState(pos.up()).isSideSolid(world, pos, Direction.DOWN, SideShapeType.FULL);
+        return world.getBlockState(pos.down()).isSideSolidFullSquare(world, pos, Direction.UP) || world.getBlockState(pos.up()).isSideSolidFullSquare(world, pos, Direction.DOWN);
     }
 
     @Override
@@ -99,9 +99,8 @@ public class CypressRootsBlock extends Block implements Waterloggable {
         if (!waterlogged) {
             waterlogged = ctx.getWorld().getFluidState(ctx.getBlockPos()).getFluid() == Fluids.WATER;
         }
-        Direction direction = ctx.getSide();
-        if (direction==Direction.UP) {
-            if (canSurvive(ctx.getWorld(), ctx.getBlockPos(), false)) { return this.getDefaultState().with(WATERLOGGED, waterlogged);}
+        if (ctx.getSide()==Direction.DOWN) {
+            if (canSurvive(ctx.getWorld(), ctx.getBlockPos(), true)) { return this.getDefaultState().with(WATERLOGGED, waterlogged);}
         }
         return this.getDefaultState().with(WATERLOGGED, waterlogged);
     }
@@ -126,15 +125,15 @@ public class CypressRootsBlock extends Block implements Waterloggable {
 
     public static boolean canSurvive(World world, BlockPos pos) {
         boolean upsideDown = world.getBlockState(pos).get(UPSIDEDOWN);
-        return !upsideDown ? world.getBlockState(pos.down()).isSideSolid(world, pos.down(), Direction.UP, SideShapeType.FULL) : world.getBlockState(pos.up()).isSideSolid(world, pos.up(), Direction.DOWN, SideShapeType.FULL);
+        return !upsideDown ? world.getBlockState(pos.down()).isSideSolidFullSquare(world, pos.down(), Direction.UP) : world.getBlockState(pos.up()).isSideSolidFullSquare(world, pos.up(), Direction.DOWN);
     }
     public static boolean canSurvive(WorldAccess world, BlockPos pos) {
         boolean upsideDown = world.getBlockState(pos).get(UPSIDEDOWN);
-        return !upsideDown ? world.getBlockState(pos.down()).isSideSolid(world, pos.down(), Direction.UP, SideShapeType.FULL) : world.getBlockState(pos.up()).isSideSolid(world, pos.up(), Direction.DOWN, SideShapeType.FULL);
+        return !upsideDown ? world.getBlockState(pos.down()).isSideSolidFullSquare(world, pos.down(), Direction.UP) : world.getBlockState(pos.up()).isSideSolidFullSquare(world, pos.up(), Direction.DOWN);
     }
 
     public static boolean canSurvive(World world, BlockPos pos, boolean upsideDown) {
-        return !upsideDown ? world.getBlockState(pos.down()).isSideSolid(world, pos.down(), Direction.UP, SideShapeType.FULL) : world.getBlockState(pos.up()).isSideSolid(world, pos.up(), Direction.DOWN, SideShapeType.FULL);
+        return !upsideDown ? world.getBlockState(pos.down()).isSideSolidFullSquare(world, pos.down(), Direction.UP) : world.getBlockState(pos.up()).isSideSolidFullSquare(world, pos.up(), Direction.DOWN);
     }
 
     public VoxelShape getOutlineShape(BlockState state, BlockView world, BlockPos pos, ShapeContext context) {
