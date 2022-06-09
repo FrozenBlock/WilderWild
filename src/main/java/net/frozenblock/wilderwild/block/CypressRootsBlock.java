@@ -1,9 +1,7 @@
 package net.frozenblock.wilderwild.block;
 
-import net.frozenblock.wilderwild.registry.RegisterBlocks;
 import net.frozenblock.wilderwild.registry.RegisterProperties;
 import net.minecraft.block.*;
-import net.minecraft.block.enums.WallMountLocation;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.fluid.FluidState;
 import net.minecraft.fluid.Fluids;
@@ -27,6 +25,7 @@ import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldAccess;
+import net.minecraft.world.WorldView;
 import net.minecraft.world.event.GameEvent;
 import org.jetbrains.annotations.Nullable;
 
@@ -70,6 +69,11 @@ public class CypressRootsBlock extends Block implements Waterloggable {
     }
 
     @Override
+    public boolean canPlaceAt(BlockState state, WorldView world, BlockPos pos) {
+        return world.getBlockState(pos.down()).isSideSolid(world, pos, Direction.DOWN, SideShapeType.FULL) || world.getBlockState(pos.up()).isSideSolid(world, pos, Direction.UP, SideShapeType.FULL);
+    }
+
+    @Override
     public boolean hasRandomTicks(BlockState state) {
         return true;
     }
@@ -94,19 +98,20 @@ public class CypressRootsBlock extends Block implements Waterloggable {
             waterlogged = ctx.getWorld().getFluidState(ctx.getBlockPos()).getFluid() == Fluids.WATER;
         }
         Direction direction = ctx.getSide();
-        if (direction!=Direction.UP && direction!=Direction.DOWN) {
+        if (direction==Direction.UP) {
             if (canSurvive(ctx.getWorld(), ctx.getBlockPos(), false)) { return this.getDefaultState().with(WATERLOGGED, waterlogged);}
         }
-        if (direction==Direction.DOWN) {
-            if (canSurvive(ctx.getWorld(), ctx.getBlockPos().up(), false)) { return this.getDefaultState().with(WATERLOGGED, waterlogged);}
-        }
-        if (canSurvive(ctx.getWorld(), ctx.getBlockPos(), false)) { return this.getDefaultState().with(WATERLOGGED, waterlogged);}
-        if (canSurvive(ctx.getWorld(), ctx.getBlockPos(), true)) { return this.getDefaultState().with(WATERLOGGED, waterlogged).with(UPSIDEDOWN, true);}
-        return null;
+        return this.getDefaultState().with(WATERLOGGED, waterlogged);
+    }
+
+    @Override
+    public void scheduledTick(BlockState state, ServerWorld world, BlockPos pos, Random random) {
+        super.scheduledTick(state, world, pos, random);
+        if (!canSurvive(world, pos)) { world.breakBlock(pos, true); }
     }
 
     public BlockState getStateForNeighborUpdate(BlockState state, Direction direction, BlockState neighborState, WorldAccess world, BlockPos pos, BlockPos neighborPos) {
-        if (!canSurvive(world, pos)) { world.breakBlock(pos, true); }
+        if (!canSurvive(world, pos)) { world.createAndScheduleBlockTick(pos, state.getBlock(), 1); }
         if (state.get(WATERLOGGED)) {
             world.createAndScheduleFluidTick(pos, Fluids.WATER, Fluids.WATER.getTickRate(world));
         }
