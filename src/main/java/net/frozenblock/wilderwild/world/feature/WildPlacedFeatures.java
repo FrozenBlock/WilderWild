@@ -57,7 +57,10 @@ public class WildPlacedFeatures {
             WildConfiguredFeatures.CYPRESS_FOREST_TREES, modifiers(PlacedFeatures.createCountExtraModifier(20, 0.1F, 1)));
 
     public static final RegistryEntry<PlacedFeature> CYPRESS_TREES = register("cypress_trees",
-            WildConfiguredFeatures.CYPRESS_TREES, modifiers(PlacedFeatures.createCountExtraModifier(40, 0.1F, 1)));
+            WildConfiguredFeatures.CYPRESS_TREES, modifiers(PlacedFeatures.createCountExtraModifier(35, 0.1F, 1)));
+
+    public static final RegistryEntry<PlacedFeature> SHORT_CYPRESS_TREES = register("short_cypress_trees",
+            WildConfiguredFeatures.SHORT_CYPRESS_TREES, modifiers(PlacedFeatures.createCountExtraModifier(5, 0.1F, 1)));
 
     public static final RegistryEntry<PlacedFeature> CYPRESS_TREES_SWAMP = register("cypress_trees_swamp",
             WildConfiguredFeatures.CYPRESS_TREES, modifiers(PlacedFeatures.createCountExtraModifier(2, 0.1F, 1)));
