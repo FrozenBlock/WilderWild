@@ -40,6 +40,9 @@ public class WildFlowersGeneration {
                 GenerationStep.Feature.VEGETAL_DECORATION, VegetationPlacedFeatures.FOREST_FLOWERS.getKey().get());
 
         BiomeModifications.addFeature(BiomeSelectors.includeByKey(RegisterWorldgen.CYPRESS_FOREST),
+                GenerationStep.Feature.VEGETAL_DECORATION, WildPlacedFeatures.PATCH_CYPRESS_ROOTS.getKey().get());
+
+        BiomeModifications.addFeature(BiomeSelectors.includeByKey(RegisterWorldgen.CYPRESS_FOREST),
                 GenerationStep.Feature.VEGETAL_DECORATION, VegetationPlacedFeatures.FLOWER_FOREST_FLOWERS.getKey().get());
 
         BiomeModifications.addFeature(BiomeSelectors.includeByKey(RegisterWorldgen.CYPRESS_FOREST),

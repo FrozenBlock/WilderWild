@@ -100,8 +100,8 @@ public class CypressRootsBlock extends Block implements Waterloggable {
         if (direction==Direction.DOWN) {
             if (canSurvive(ctx.getWorld(), ctx.getBlockPos().up(), false)) { return this.getDefaultState().with(WATERLOGGED, waterlogged);}
         }
-        if (canSurvive(ctx.getWorld(), ctx.getBlockPos(), true)) { return this.getDefaultState().with(WATERLOGGED, waterlogged).with(UPSIDEDOWN, true);}
         if (canSurvive(ctx.getWorld(), ctx.getBlockPos(), false)) { return this.getDefaultState().with(WATERLOGGED, waterlogged);}
+        if (canSurvive(ctx.getWorld(), ctx.getBlockPos(), true)) { return this.getDefaultState().with(WATERLOGGED, waterlogged).with(UPSIDEDOWN, true);}
         return null;
     }
 
