@@ -65,6 +65,9 @@ public class WildPlacedFeatures {
     public static final RegistryEntry<PlacedFeature> CYPRESS_TREES_SWAMP = register("cypress_trees_swamp",
             WildConfiguredFeatures.CYPRESS_TREES, modifiers(PlacedFeatures.createCountExtraModifier(1, 0.1F, 1)));
 
+    public static final RegistryEntry<PlacedFeature> CYPRESS_TREES_WATER = register("cypress_trees_water",
+            WildConfiguredFeatures.ALL_CYPRESS_TREES_EQUAL, PlacedFeatures.createCountExtraModifier(2, 0.1F, 1), PlacedFeatures.OCEAN_FLOOR_WG_HEIGHTMAP);
+
     public static final RegistryEntry<PlacedFeature> NEW_BIRCH_PLACED = PlacedFeatures.register("new_birch_placed",
             WildTreeConfigured.NEW_BIRCH_BEES_0004, modifiersWithWouldSurvive(PlacedFeatures.createCountExtraModifier(10, 0.1F, 1), Blocks.BIRCH_SAPLING));
 
