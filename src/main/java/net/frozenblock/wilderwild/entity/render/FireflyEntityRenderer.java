@@ -43,10 +43,12 @@ public class FireflyEntityRenderer extends EntityRenderer<FireflyEntity> {
         Matrix3f matrix3f = entry.getNormalMatrix();
         VertexConsumer vertexConsumer = vertexConsumerProvider.getBuffer(LAYER);
 
-        vertex(vertexConsumer, matrix4f, matrix3f, i, 0.0F, 0, 0, 1);
-        vertex(vertexConsumer, matrix4f, matrix3f, i, 1.0F, 0, 1, 1);
-        vertex(vertexConsumer, matrix4f, matrix3f, i, 1.0F, 1, 1, 0);
-        vertex(vertexConsumer, matrix4f, matrix3f, i, 0.0F, 1, 0, 0);
+        int overlay = getOverlay(entity, 0);
+
+        vertex(vertexConsumer, matrix4f, matrix3f, i, 0.0F, 0, 0, 1, overlay);
+        vertex(vertexConsumer, matrix4f, matrix3f, i, 1.0F, 0, 1, 1, overlay);
+        vertex(vertexConsumer, matrix4f, matrix3f, i, 1.0F, 1, 1, 0, overlay);
+        vertex(vertexConsumer, matrix4f, matrix3f, i, 0.0F, 1, 0, 0, overlay);
 
         matrixStack.pop();
 
@@ -62,10 +64,10 @@ public class FireflyEntityRenderer extends EntityRenderer<FireflyEntity> {
         matrix3f = entry.getNormalMatrix();
         vertexConsumer = vertexConsumerProvider.getBuffer(OVERLAY);
 
-        vertexPulsate(vertexConsumer, matrix4f, matrix3f, i, 0.0F, 0, 0, 1, entity.getFlickerAge(), entity.flickers(), tickDelta);
-        vertexPulsate(vertexConsumer, matrix4f, matrix3f, i, 1.0F, 0, 1, 1, entity.getFlickerAge(), entity.flickers(), tickDelta);
-        vertexPulsate(vertexConsumer, matrix4f, matrix3f, i, 1.0F, 1, 1, 0, entity.getFlickerAge(), entity.flickers(), tickDelta);
-        vertexPulsate(vertexConsumer, matrix4f, matrix3f, i, 0.0F, 1, 0, 0, entity.getFlickerAge(), entity.flickers(), tickDelta);
+        vertexPulsate(vertexConsumer, matrix4f, matrix3f, i, 0.0F, 0, 0, 1, entity.getFlickerAge(), entity.flickers(), tickDelta, overlay);
+        vertexPulsate(vertexConsumer, matrix4f, matrix3f, i, 1.0F, 0, 1, 1, entity.getFlickerAge(), entity.flickers(), tickDelta, overlay);
+        vertexPulsate(vertexConsumer, matrix4f, matrix3f, i, 1.0F, 1, 1, 0, entity.getFlickerAge(), entity.flickers(), tickDelta, overlay);
+        vertexPulsate(vertexConsumer, matrix4f, matrix3f, i, 0.0F, 1, 0, 0, entity.getFlickerAge(), entity.flickers(), tickDelta, overlay);
 
         matrixStack.pop();
         super.render(entity, yaw, tickDelta, matrixStack, vertexConsumerProvider, i);
@@ -76,29 +78,31 @@ public class FireflyEntityRenderer extends EntityRenderer<FireflyEntity> {
         return TEXTURE;
     }
 
-    private static void vertex(VertexConsumer vertexConsumer, Matrix4f matrix4f, Matrix3f matrix3f, int i, float f, int j, int k, int l) {
+    private static void vertex(VertexConsumer vertexConsumer, Matrix4f matrix4f, Matrix3f matrix3f, int i, float f, int j, int k, int l, int overlay) {
         vertexConsumer
                 .vertex(matrix4f, f - 0.5F, j - 0.5F, 0.0F)
                 .color(255, 255, 255, 255)
                 .texture(k, l)
-                .overlay(OverlayTexture.DEFAULT_UV)
+                .overlay(overlay)
                 .light(i)
                 .normal(matrix3f, 0.0F, 1.0F, 0.0F)
                 .next();
     }
 
-    private static void vertexPulsate(VertexConsumer vertexConsumer, Matrix4f matrix4f, Matrix3f matrix3f, int i, float f, int j, int k, int l, int age, boolean flickers, float tickDelta) {
+    private static void vertexPulsate(VertexConsumer vertexConsumer, Matrix4f matrix4f, Matrix3f matrix3f, int i, float f, int j, int k, int l, int age, boolean flickers, float tickDelta, int overlay) {
         int colors = !flickers ? (int) ((int) Math.max((255 * (Math.cos(((age + tickDelta) * Math.PI)/20))),0)) : (int) ((int) (255 * (Math.cos(((age + tickDelta) * Math.PI) / 40))) + 127.5);
         vertexConsumer
                 .vertex(matrix4f, f - 0.5F, j - 0.5F, 0.0F)
                 .color(colors, colors, colors, colors)
                 .texture(k, l)
-                .overlay(OverlayTexture.DEFAULT_UV)
+                .overlay(overlay)
                 .light(i)
                 .normal(matrix3f, 0.0F, 1.0F, 0.0F)
                 .next();
     }
 
-
+    public static int getOverlay(FireflyEntity entity, float whiteOverlayProgress) {
+        return OverlayTexture.packUv(OverlayTexture.getU(whiteOverlayProgress), OverlayTexture.getV(entity.hurtTime > 0 || entity.deathTime > 0));
+    }
 
 }
