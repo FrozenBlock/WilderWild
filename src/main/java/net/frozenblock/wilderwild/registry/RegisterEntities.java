@@ -20,6 +20,6 @@ public class RegisterEntities {
 
     public static void init() {
         WilderWild.logWild("Registering Entities for", WilderWild.UNSTABLE_LOGGING);
-        SpawnRestrictionAccessor.callRegister(FIREFLY, SpawnRestriction.Location.NO_RESTRICTIONS, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, FireflyEntity::canSpawn);
+        SpawnRestrictionAccessor.callRegister(FIREFLY, SpawnRestriction.Location.NO_RESTRICTIONS, Heightmap.Type.MOTION_BLOCKING, FireflyEntity::canSpawn);
     }
 }
