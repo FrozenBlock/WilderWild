@@ -7,6 +7,7 @@ import net.frozenblock.wilderwild.entity.ai.FireflyBrain;
 import net.frozenblock.wilderwild.misc.server.EasyPacket;
 import net.frozenblock.wilderwild.registry.RegisterItems;
 import net.frozenblock.wilderwild.registry.RegisterSounds;
+import net.frozenblock.wilderwild.tag.WildBiomeTags;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.brain.Brain;
@@ -36,10 +37,8 @@ import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
-import net.minecraft.world.LocalDifficulty;
-import net.minecraft.world.ServerWorldAccess;
-import net.minecraft.world.World;
-import net.minecraft.world.WorldView;
+import net.minecraft.util.math.random.Random;
+import net.minecraft.world.*;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Optional;
@@ -60,6 +59,12 @@ public class FireflyEntity extends PathAwareEntity implements Flutterer {
         this.moveControl = new FlightMoveControl(this, 20, true);
         this.setFlickers(world.random.nextInt(5)==0);
         this.setFlickerAge(world.random.nextBetween(0,19));
+    }
+
+    public static boolean canSpawn(EntityType<FireflyEntity> type, WorldAccess world, SpawnReason spawnReason, BlockPos pos, Random random) {
+        if (world.getBiome(pos).isIn(WildBiomeTags.FIREFLY_SPAWNABLE_DURING_DAY)) {
+            return world.isSkyVisible(pos);
+        } return random.nextFloat() > 0.6F && (!world.getDimension().hasFixedTime() && world.getAmbientDarkness()>4) && world.isSkyVisible(pos);
     }
 
     @Nullable
@@ -235,6 +240,36 @@ public class FireflyEntity extends PathAwareEntity implements Flutterer {
 
     public boolean canImmediatelyDespawn(double distanceSquared) {
         return !this.isFromBottle() && !this.hasCustomName();
+    }
+
+    @Override
+    public void checkDespawn() {
+        if (this.world.getDifficulty() == Difficulty.PEACEFUL && this.isDisallowedInPeaceful()) {
+            this.discard();
+            return;
+        }
+        if (this.isPersistent() || this.cannotDespawn()) {
+            this.despawnCounter = 0;
+            return;
+        }
+        PlayerEntity entity = this.world.getClosestPlayer(this, -1.0);
+        if (entity != null) {
+            int i;
+            double d = entity.squaredDistanceTo(this);
+            if (this.canImmediatelyDespawn(d) && !this.world.getBiome(this.getBlockPos()).isIn(WildBiomeTags.FIREFLY_SPAWNABLE_DURING_DAY) && this.world.isDay() && Math.sqrt(d)>12) {
+                this.discard();
+            }
+            if (d > (double) ((i = this.getType().getSpawnGroup().getImmediateDespawnRange()) * i) && this.canImmediatelyDespawn(d)) {
+                this.discard();
+            }
+            int k = this.getType().getSpawnGroup().getDespawnStartRange();
+            int l = k * k;
+            if (this.despawnCounter > 600 && this.random.nextInt(800) == 0 && d > (double)l && this.canImmediatelyDespawn(d)) {
+                this.discard();
+            } else if (d < (double)l) {
+                this.despawnCounter = 0;
+            }
+        }
     }
 
     public void writeCustomDataToNbt(NbtCompound nbt) {

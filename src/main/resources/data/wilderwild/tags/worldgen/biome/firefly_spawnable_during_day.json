@@ -1,0 +1,8 @@
+{
+  "replace": false,
+  "values": [
+    "wilderwild:cypress_forest",
+    "minecraft:swamp",
+    "minecraft:mangrove_swamp"
+  ]
+}
