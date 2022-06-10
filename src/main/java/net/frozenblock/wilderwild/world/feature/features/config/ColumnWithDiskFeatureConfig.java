@@ -15,17 +15,17 @@ public class ColumnWithDiskFeatureConfig implements FeatureConfig {
     public static final Codec<ColumnWithDiskFeatureConfig> CODEC = RecordCodecBuilder.create((instance) ->
             instance.group(
                     BlockState.CODEC.fieldOf("columnBlock").forGetter((config) -> config.columnBlock),
-                    BlockState.CODEC.fieldOf("secondaryBlock").forGetter((config) -> config.secondaryBlock),
                     IntProvider.NON_NEGATIVE_CODEC.fieldOf("radius").forGetter((config) -> config.radius),
                     IntProvider.NON_NEGATIVE_CODEC.fieldOf("height").forGetter((config) -> config.height),
+                    IntProvider.NON_NEGATIVE_CODEC.fieldOf("height2").forGetter((config) -> config.height2),
                     RegistryCodecs.entryList(Registry.BLOCK_KEY).fieldOf("replaceable").forGetter((config) -> config.replaceable),
                     RegistryCodecs.entryList(Registry.BLOCK_KEY).fieldOf("diskBlocks").forGetter((config) -> config.diskBlocks)
             ).apply(instance, ColumnWithDiskFeatureConfig::new));
 
     public final BlockState columnBlock;
-    public final BlockState secondaryBlock;
     public final IntProvider radius;
     public final IntProvider height;
+    public final IntProvider height2;
     public final RegistryEntryList<Block> replaceable;
     public final RegistryEntryList<Block> diskBlocks;
 
@@ -33,11 +33,11 @@ public class ColumnWithDiskFeatureConfig implements FeatureConfig {
         return DataResult.success(block);
     }
 
-    public ColumnWithDiskFeatureConfig(BlockState columnBlock, BlockState secondaryBlock, IntProvider radius, IntProvider height, RegistryEntryList<Block> replaceable, RegistryEntryList<Block> diskBlocks) {
+    public ColumnWithDiskFeatureConfig(BlockState columnBlock, IntProvider radius, IntProvider height, IntProvider height2,RegistryEntryList<Block> replaceable, RegistryEntryList<Block> diskBlocks) {
         this.columnBlock = columnBlock;
-        this.secondaryBlock = secondaryBlock;
         this.radius = radius;
         this.height = height;
+        this.height2 = height2;
         this.replaceable = replaceable;
         this.diskBlocks = diskBlocks;
     }

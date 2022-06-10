@@ -176,8 +176,8 @@ public class WildPlacedFeatures {
     public static final RegistryEntry<PlacedFeature> RED_SHELF_FUNGUS_PLACED = register("red_shelf_fungus_placed",
             WildConfiguredFeatures.RED_SHELF_FUNGUS_CONFIGURED, RarityFilterPlacementModifier.of(1), CountPlacementModifier.of(16), PlacedFeatures.WORLD_SURFACE_WG_HEIGHTMAP, SquarePlacementModifier.of(), SurfaceThresholdFilterPlacementModifier.of(Heightmap.Type.WORLD_SURFACE_WG, 0, 128), BiomePlacementModifier.of());
 
-    public static final RegistryEntry<PlacedFeature> TERMITE_BAOBAB_PLACED = register("termite_baobab_placed",
-            WildConfiguredFeatures.TERMITE_BAOBAB_CONFIGURED, RarityFilterPlacementModifier.of(50), CountPlacementModifier.of(1), PlacedFeatures.WORLD_SURFACE_WG_HEIGHTMAP, SquarePlacementModifier.of(), SurfaceThresholdFilterPlacementModifier.of(Heightmap.Type.WORLD_SURFACE_WG, 0, 128), BiomePlacementModifier.of());
+    public static final RegistryEntry<PlacedFeature> TERMITE_PLACED = register("termite_placed",
+            WildConfiguredFeatures.TERMITE_CONFIGURED, RarityFilterPlacementModifier.of(50), CountPlacementModifier.of(1), PlacedFeatures.WORLD_SURFACE_WG_HEIGHTMAP, SquarePlacementModifier.of(), SurfaceThresholdFilterPlacementModifier.of(Heightmap.Type.WORLD_SURFACE_WG, 0, 128), BiomePlacementModifier.of());
 
     public static RegistryEntry<PlacedFeature> register(
             @NotNull String id, RegistryEntry<? extends ConfiguredFeature<?, ?>> registryEntry, @NotNull List<PlacementModifier> modifiers

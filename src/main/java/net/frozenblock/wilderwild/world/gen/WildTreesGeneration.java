@@ -77,7 +77,7 @@ public class WildTreesGeneration {
                 GenerationStep.Feature.VEGETAL_DECORATION, WildPlacedFeatures.WINDSWEPT_SAVANNA_TREES.getKey().get());
 
         BiomeModifications.addFeature(BiomeSelectors.includeByKey(BiomeKeys.SAVANNA, BiomeKeys.SAVANNA_PLATEAU, BiomeKeys.WINDSWEPT_SAVANNA),
-                GenerationStep.Feature.VEGETAL_DECORATION, WildPlacedFeatures.TERMITE_BAOBAB_PLACED.getKey().get());
+                GenerationStep.Feature.VEGETAL_DECORATION, WildPlacedFeatures.TERMITE_PLACED.getKey().get());
 
         BiomeModifications.addFeature(BiomeSelectors.includeByKey(RegisterWorldgen.MIXED_FOREST),
                 GenerationStep.Feature.VEGETAL_DECORATION, WildPlacedFeatures.MIXED_TREES.getKey().get());
