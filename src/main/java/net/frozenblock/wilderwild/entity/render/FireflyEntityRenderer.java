@@ -22,10 +22,10 @@ public class FireflyEntityRenderer extends EntityRenderer<FireflyEntity> {
         super(ctx);
     }
 
-    private final Identifier TEXTURE = new Identifier(WilderWild.MOD_ID, "textures/entity/firefly/firefly_off.png");
-    private final Identifier OVERLAY_TEXTURE = new Identifier(WilderWild.MOD_ID, "textures/entity/firefly/firefly_on.png");
-    private final RenderLayer LAYER = RenderLayer.getEntityCutout(TEXTURE);
-    private final RenderLayer OVERLAY = RenderLayer.getEntityTranslucentEmissive(OVERLAY_TEXTURE);
+    private static final Identifier TEXTURE = new Identifier(WilderWild.MOD_ID, "textures/entity/firefly/firefly_off.png");
+    private static final Identifier OVERLAY_TEXTURE = new Identifier(WilderWild.MOD_ID, "textures/entity/firefly/firefly_on.png");
+    private static final RenderLayer LAYER = RenderLayer.getEntityCutout(TEXTURE);
+    private static final RenderLayer OVERLAY = RenderLayer.getEntityTranslucentEmissive(OVERLAY_TEXTURE);
 
     private final float scale = 1.5F;
     private final double yOffset = 0.155F;

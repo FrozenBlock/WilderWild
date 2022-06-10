@@ -93,7 +93,9 @@ public class FireflyEntity extends PathAwareEntity implements Flutterer {
             }
             player.getInventory().offerOrDrop(new ItemStack(RegisterItems.FIREFLY_BOTTLE));
             World world = entity.world;
-            if (!world.isClient) { EasyPacket.EasyCompetitionPacket.sendFireflyCaptureInfo(world, player, entity); }
+            if (!world.isClient) {
+                EasyPacket.EasyCompetitionPacket.sendFireflyCaptureInfo(world, player, entity);
+            }
             entity.discard();
             return Optional.of(ActionResult.success(world.isClient));
         } else {
@@ -101,10 +103,14 @@ public class FireflyEntity extends PathAwareEntity implements Flutterer {
         }
     }
 
-    public boolean shouldRender(double cameraX, double cameraY, double cameraZ) { return true; }
+    public boolean shouldRender(double cameraX, double cameraY, double cameraZ) {
+        return true;
+    }
 
     @Override
-    public boolean canBeLeashedBy(PlayerEntity player) { return false; }
+    public boolean canBeLeashedBy(PlayerEntity player) {
+        return false;
+    }
 
     protected Brain.Profile<FireflyEntity> createBrainProfile() {
         return Brain.createProfile(MEMORY_MODULES, SENSORS);
@@ -272,7 +278,9 @@ public class FireflyEntity extends PathAwareEntity implements Flutterer {
     }
 
     @Override
-    public boolean handleFallDamage(float fallDistance, float damageMultiplier, DamageSource damageSource) { return false; }
+    public boolean handleFallDamage(float fallDistance, float damageMultiplier, DamageSource damageSource) {
+        return false;
+    }
 
     protected void pushAway(Entity entity) {
     }
