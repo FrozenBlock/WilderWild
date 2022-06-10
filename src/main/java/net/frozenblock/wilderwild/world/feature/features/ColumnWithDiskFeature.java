@@ -11,7 +11,6 @@ import net.minecraft.world.StructureWorldAccess;
 import net.minecraft.world.gen.feature.Feature;
 import net.minecraft.world.gen.feature.util.FeatureContext;
 
-import java.util.ArrayList;
 import java.util.Optional;
 
 public class ColumnWithDiskFeature extends Feature<ColumnWithDiskFeatureConfig> {
