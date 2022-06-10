@@ -109,6 +109,10 @@ public class WildClientMod implements ClientModInitializer {
                 assert world != null;
                 return BiomeColors.getFoliageColor(world, pos);
         }),RegisterBlocks.BAOBAB_LEAVES);
+        ColorProviderRegistry.BLOCK.register(((state,world,pos,tintIndex)-> {
+            assert world != null;
+            return BiomeColors.getFoliageColor(world, pos);
+        }),RegisterBlocks.CYPRESS_LEAVES);
 
         ClientTickEvents.START_WORLD_TICK.register(e -> {
             MinecraftClient client = MinecraftClient.getInstance();
