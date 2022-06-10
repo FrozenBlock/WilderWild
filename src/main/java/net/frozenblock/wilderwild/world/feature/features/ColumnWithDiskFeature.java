@@ -27,25 +27,32 @@ public class ColumnWithDiskFeature extends Feature<ColumnWithDiskFeatureConfig> 
         BlockPos s = blockPos.withY(world.getTopY(Type.WORLD_SURFACE_WG, blockPos.getX(), blockPos.getZ()) - 1);
         Random random = world.getRandom();
         int radius = config.radius.get(random);
-        ArrayList<BlockPos> poses = posesInCircle(s, radius);
         Optional<RegistryEntry<Block>> diskOptional = config.diskBlocks.getRandom(random);
         //DISK
         if (diskOptional.isPresent()) {
+            BlockPos.Mutable mutableDisk = s.mutableCopy();
             BlockState disk = diskOptional.get().value().getDefaultState();
-            for (BlockPos tempPos : poses) {
-                BlockPos pos = tempPos.withY(world.getTopY(Type.WORLD_SURFACE_WG, tempPos.getX(), tempPos.getZ()) - 1);
-                boolean fade = !pos.isWithinDistance(s, radius*0.888);
-                if (world.getBlockState(pos).getBlock() instanceof PlantBlock) {
-                    pos = pos.down();
-                }
-                if (world.getBlockState(pos).isIn(config.replaceable)) {
-                    generated = true;
-                    if (fade) {
-                        if (random.nextFloat()>0.65F) {
-                            world.setBlockState(pos, disk, 3);
+            int bx = s.getX();
+            int bz = s.getZ();
+            for(int x = bx - radius; x <= bx + radius; x++) {
+                for(int z = bz - radius; z <= bz + radius; z++) {
+                    double distance = ((bx-x) * (bx-x) + ((bz-z) * (bz-z)));
+                    if(distance < radius * radius) {
+                        mutableDisk.set(x, world.getTopY(Type.WORLD_SURFACE_WG, x, z) - 1, z);
+                        if (world.getBlockState(mutableDisk).getBlock() instanceof PlantBlock) {
+                            mutableDisk.set(mutableDisk.down());
                         }
-                    } else {
-                        world.setBlockState(pos, disk, 3);
+                        boolean fade = !mutableDisk.isWithinDistance(s, radius*0.8);
+                        if (world.getBlockState(mutableDisk).isIn(config.replaceable)) {
+                            generated = true;
+                            if (fade) {
+                                if (random.nextFloat()>0.65F) {
+                                    world.setBlockState(mutableDisk, disk, 3);
+                                }
+                            } else {
+                                world.setBlockState(mutableDisk, disk, 3);
+                            }
+                        }
                     }
                 }
             }
@@ -55,7 +62,7 @@ public class ColumnWithDiskFeature extends Feature<ColumnWithDiskFeatureConfig> 
         BlockState column = config.columnBlock;
         BlockPos.Mutable pos = startPos.mutableCopy();
         for (int i=0; i<config.height.get(random); i++) {
-            pos.set(pos.up(i));
+            pos.set(pos.up());
             BlockState state = world.getBlockState(pos);
             if (world.getBlockState(pos.down()).isOf(Blocks.WATER)) { break; }
             if (state.getBlock() instanceof AbstractPlantBlock || state.getBlock() instanceof PlantBlock || state.isAir()) {
@@ -66,7 +73,7 @@ public class ColumnWithDiskFeature extends Feature<ColumnWithDiskFeatureConfig> 
         startPos = startPos.add(-1,0,0);
         pos.set(startPos.withY(world.getTopY(Type.MOTION_BLOCKING_NO_LEAVES, startPos.getX(), startPos.getZ())).mutableCopy());
         for (int i=0; i<config.height2.get(random); i++) {
-            pos.set(pos.up(i));
+            pos.set(pos.up());
             BlockState state = world.getBlockState(pos);
             if (world.getBlockState(pos.down()).isOf(Blocks.WATER)) { break; }
             if (state.getBlock() instanceof AbstractPlantBlock || state.getBlock() instanceof PlantBlock || state.isAir()) {
@@ -77,7 +84,7 @@ public class ColumnWithDiskFeature extends Feature<ColumnWithDiskFeatureConfig> 
         startPos = startPos.add(1,0,1);
         pos.set(startPos.withY(world.getTopY(Type.MOTION_BLOCKING_NO_LEAVES, startPos.getX(), startPos.getZ())).mutableCopy());
         for (int i=0; i<config.height2.get(random); i++) {
-            pos.set(pos.up(i));
+            pos.set(pos.up());
             BlockState state = world.getBlockState(pos);
             if (world.getBlockState(pos.down()).isOf(Blocks.WATER)) { break; }
             if (state.getBlock() instanceof AbstractPlantBlock || state.getBlock() instanceof PlantBlock || state.isAir()) {
@@ -86,20 +93,6 @@ public class ColumnWithDiskFeature extends Feature<ColumnWithDiskFeatureConfig> 
             }
         }
         return generated;
-    }
-
-    public static ArrayList<BlockPos> posesInCircle(BlockPos pos, int radius) {
-        ArrayList<BlockPos> poses = new ArrayList<>();
-        int bx = pos.getX();
-        int bz = pos.getZ();
-        for(int x = bx - radius; x <= bx + radius; x++) {
-            for(int z = bz - radius; z <= bz + radius; z++) {
-                double distance = ((bx-x) * (bx-x) + ((bz-z) * (bz-z)));
-                if(distance < radius * radius) {
-                    poses.add(new BlockPos(x, 0, z));
-                }
-            }
-        } return poses;
     }
 
 }
