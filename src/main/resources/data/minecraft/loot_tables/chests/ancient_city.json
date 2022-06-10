@@ -297,15 +297,6 @@
         {
           "type": "minecraft:item",
           "weight": 1,
-          "functions": [
-            {
-              "function": "minecraft:enchant_randomly",
-              "enchantments": [
-                "wilderwild:technique",
-                "wilderwild:reverberation"
-              ]
-            }
-          ],
           "name": "wilderwild:ancient_horn"
         },
         {

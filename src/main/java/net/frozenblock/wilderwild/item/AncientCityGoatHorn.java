@@ -3,11 +3,9 @@ package net.frozenblock.wilderwild.item;
 import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.entity.AncientHornProjectileEntity;
 import net.frozenblock.wilderwild.misc.PVZGWSound.MovingSoundLoop;
-import net.frozenblock.wilderwild.registry.RegisterEnchantments;
 import net.frozenblock.wilderwild.registry.RegisterItems;
 import net.frozenblock.wilderwild.registry.RegisterSounds;
 import net.minecraft.client.item.TooltipContext;
-import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
@@ -36,7 +34,7 @@ public class AncientCityGoatHorn extends Item {
     public static int getCooldown(@Nullable Entity entity, int i) {
         if (entity != null) {
             if (entity instanceof PlayerEntity player) {
-                i = player.isCreative() ? 5 : i - (getCooldownLevel(getHorns(player)) * 40) + (getSpeedLevel(getHorns(player)) * 10);
+                i = player.isCreative() ? 5 : i;
             }
         } return i;
     }
@@ -47,20 +45,6 @@ public class AncientCityGoatHorn extends Item {
                 i = player.isCreative() ? 5 : i + additionalCooldown;
             }
         } return i;
-    }
-
-    public static int getCooldownLevel(ArrayList<ItemStack> horns) {
-        int i = 99;
-        for (ItemStack horn : horns) {
-            i = Math.min(EnchantmentHelper.getLevel(RegisterEnchantments.ANCIENT_HORN_COOLDOWN_ENCHANTMENT, horn), i);
-        } return i==99 ? 0 : i;
-    }
-
-    public static int getSpeedLevel(ArrayList<ItemStack> horns) {
-        int i = 99;
-        for (ItemStack horn : horns) {
-            i = Math.min(EnchantmentHelper.getLevel(RegisterEnchantments.ANCIENT_HORN_SPEED_ENCHANTMENT, horn), i);
-        } return i==99 ? 0 : i;
     }
 
     public static ArrayList<ItemStack> getHorns(PlayerEntity player) {
@@ -89,9 +73,7 @@ public class AncientCityGoatHorn extends Item {
         user.getItemCooldownManager().set(RegisterItems.ANCIENT_HORN, getCooldown(user, 300));
         if (world instanceof ServerWorld server) {
             AncientHornProjectileEntity projectileEntity = new AncientHornProjectileEntity(world, user.getX(), user.getEyeY(), user.getZ());
-            projectileEntity.setVelocity(user, user.getPitch(), user.getYaw(), 0.0F, 1.0F + (float)(getSpeedLevel(getHorns(user))*0.5), 0.0F);
-            projectileEntity.speedLevel=getSpeedLevel(getHorns(user));
-            projectileEntity.cooldownLevel=getCooldownLevel(getHorns(user));
+            projectileEntity.setVelocity(user, user.getPitch(), user.getYaw(), 0.0F, 1.0F, 0.0F);
             projectileEntity.shotByPlayer=true;
             server.spawnEntity(projectileEntity);
             MovingSoundLoop.createMovingLoopingSound(server, projectileEntity, SoundEvents.BLOCK_SCULK_CHARGE, SoundCategory.NEUTRAL, 1.0F, 1.0F);

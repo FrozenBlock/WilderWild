@@ -16,10 +16,6 @@ public class RegisterLootTables {
 	          LootPool.Builder pool = LootPool.builder()
 	              .with(ItemEntry.builder(RegisterItems.ANCIENT_HORN)
 						  .weight(1)
-						  .apply(new EnchantRandomlyLootFunction.Builder()
-								  .add(RegisterEnchantments.ANCIENT_HORN_COOLDOWN_ENCHANTMENT)
-								  .add(RegisterEnchantments.ANCIENT_HORN_SPEED_ENCHANTMENT)
-						  )
 				  );
 
 	          tableBuilder.pool(pool);
