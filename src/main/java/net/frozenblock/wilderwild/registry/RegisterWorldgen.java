@@ -18,7 +18,6 @@ import net.minecraft.world.gen.feature.DefaultBiomeFeatures;
 
 import static net.minecraft.world.biome.OverworldBiomeCreator.createJungle;
 
-
 public class RegisterWorldgen {
     public static final RegistryKey<Biome> MIXED_FOREST = register("mixed_forest");
     public static final RegistryKey<Biome> CYPRESS_FOREST = register("cypress_forest");
@@ -67,7 +66,7 @@ public class RegisterWorldgen {
     }
 
     private static void addCypressForestMobs(SpawnSettings.Builder builder) {
-        builder.spawn(SpawnGroup.MONSTER, new SpawnSettings.SpawnEntry(EntityType.SLIME, 1, 1, 1));
+        builder.spawn(SpawnGroup.WATER_AMBIENT, new SpawnSettings.SpawnEntry(EntityType.COD, 5, 2, 6));
         //builder.spawn(SpawnGroup.WATER_CREATURE, new SpawnSettings.SpawnEntry(EntityType.TADPOLE, 6, 2, 4));
         builder.spawn(SpawnGroup.CREATURE, new SpawnSettings.SpawnEntry(EntityType.FROG, 12, 4, 5));
         builder.spawn(SpawnGroup.CREATURE, new SpawnSettings.SpawnEntry(EntityType.PIG, 3, 2, 4));
