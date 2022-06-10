@@ -71,7 +71,6 @@ public class WilderWild implements ModInitializer {
         RegisterBlockSoundGroups.init();
         RegisterBlockEntityType.register();
         RegisterEntities.init();
-        RegisterEnchantments.init();
         BlockSoundGroupOverwrites.init();
         //RegisterLootTables.init();
 
