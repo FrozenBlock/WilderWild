@@ -64,7 +64,7 @@ public class ColumnWithDiskFeature extends Feature<ColumnWithDiskFeatureConfig> 
             }
         }
         startPos = startPos.add(-1,0,0);
-        pos = startPos.withY(world.getTopY(Type.MOTION_BLOCKING_NO_LEAVES, pos.getX(), pos.getZ())).mutableCopy();
+        pos.set(startPos.withY(world.getTopY(Type.MOTION_BLOCKING_NO_LEAVES, startPos.getX(), startPos.getZ())).mutableCopy());
         for (int i=0; i<config.height2.get(random); i++) {
             pos.set(pos.up(i));
             BlockState state = world.getBlockState(pos);
@@ -75,7 +75,7 @@ public class ColumnWithDiskFeature extends Feature<ColumnWithDiskFeatureConfig> 
             }
         }
         startPos = startPos.add(1,0,1);
-        pos = startPos.withY(world.getTopY(Type.MOTION_BLOCKING_NO_LEAVES, pos.getX(), pos.getZ())).mutableCopy();
+        pos.set(startPos.withY(world.getTopY(Type.MOTION_BLOCKING_NO_LEAVES, startPos.getX(), startPos.getZ())).mutableCopy());
         for (int i=0; i<config.height2.get(random); i++) {
             pos.set(pos.up(i));
             BlockState state = world.getBlockState(pos);
