@@ -258,10 +258,7 @@ public class FireflyEntity extends PathAwareEntity implements Flutterer {
         if (entity != null) {
             int i;
             double d = entity.squaredDistanceTo(this);
-            if (this.canImmediatelyDespawn(d) && !this.world.getBiome(this.getBlockPos()).isIn(WildBiomeTags.FIREFLY_SPAWNABLE_DURING_DAY) && this.world.isDay() && PlayerLookup.tracking(this).isEmpty() && Math.sqrt(d)>12) {
-                this.discard();
-            }
-            if (this.canImmediatelyDespawn(d) && PlayerLookup.tracking(this).isEmpty() && Math.sqrt(d)>24) {
+            if (this.canImmediatelyDespawn(d) && !this.world.getBiome(this.getBlockPos()).isIn(WildBiomeTags.FIREFLY_SPAWNABLE_DURING_DAY) && this.world.isDay() && Math.sqrt(d)>18) {
                 this.discard();
             }
             if (d > (double) ((i = this.getType().getSpawnGroup().getImmediateDespawnRange()) * i) && this.canImmediatelyDespawn(d)) {
