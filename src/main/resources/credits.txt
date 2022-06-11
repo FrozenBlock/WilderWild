@@ -7,7 +7,7 @@ Soro - Biome edits, Worldgen features, Repository owner, Soro
 Xfrtrex - Programming, Brainstorming, Bug fixes, sus, the third person listed in credits.txt
 (he is sus)
 
-Osmiooo - Programming, Bug fixes, Fan Haver
+Osmiooo - Programming, Bug fixes, Scary warden, Fan Haver
 (of which he has many)
 
 Janetyqua (OliviaTheVampire) - Worldgen assistance, feature help, Molang Animation parser
