@@ -40,7 +40,7 @@ public class RegisterWorldgen {
         DefaultBiomeFeatures.addDefaultOres(builder2);
         DefaultBiomeFeatures.addDefaultDisks(builder2);
         MusicSound musicSound = MusicType.createIngameMusic(RegisterSounds.MUSIC_OVERWORLD_WILD_FORESTS);
-        return (new Biome.Builder()).precipitation(Biome.Precipitation.RAIN).temperature(0.7F).downfall(0.8F).effects((new BiomeEffects.Builder()).waterColor(4159204).waterFogColor(329011).fogColor(12638463).skyColor(createJungle().getSkyColor()).foliageColor(5877296).grassColor(7979098).moodSound(BiomeMoodSound.CAVE).music(musicSound).build()).spawnSettings(builder.build()).generationSettings(builder2.build()).build();
+        return (new Biome.Builder()).precipitation(Biome.Precipitation.RAIN).temperature(0.7F).downfall(0.7F).effects((new BiomeEffects.Builder()).waterColor(4159204).waterFogColor(329011).fogColor(12638463).skyColor(createJungle().getSkyColor()).foliageColor(5877296).grassColor(7979098).moodSound(BiomeMoodSound.CAVE).music(musicSound).build()).spawnSettings(builder.build()).generationSettings(builder2.build()).build();
     }
 
 
@@ -53,7 +53,7 @@ public class RegisterWorldgen {
         DefaultBiomeFeatures.addDefaultOres(builder2);
         DefaultBiomeFeatures.addDefaultDisks(builder2);
         MusicSound musicSound = MusicType.createIngameMusic(RegisterSounds.MUSIC_OVERWORLD_WILD_FORESTS);
-        return (new Biome.Builder()).precipitation(Biome.Precipitation.RAIN).temperature(0.7F).downfall(0.7F).effects((new BiomeEffects.Builder()).waterColor(4159204).waterFogColor(329011).fogColor(12638463).skyColor(createJungle().getSkyColor()).foliageColor(5877296).grassColor(7979098).moodSound(BiomeMoodSound.CAVE).music(musicSound).build()).spawnSettings(builder.build()).generationSettings(builder2.build()).build();
+        return (new Biome.Builder()).precipitation(Biome.Precipitation.RAIN).temperature(0.6F).downfall(0.7F).effects((new BiomeEffects.Builder()).waterColor(4159204).waterFogColor(329011).fogColor(12638463).skyColor(createJungle().getSkyColor()).foliageColor(5877296).grassColor(7979098).moodSound(BiomeMoodSound.CAVE).music(musicSound).build()).spawnSettings(builder.build()).generationSettings(builder2.build()).build();
     }
 
     private static void addBasicFeatures(GenerationSettings.Builder generationSettings) {

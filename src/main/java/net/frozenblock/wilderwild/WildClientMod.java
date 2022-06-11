@@ -105,6 +105,12 @@ public class WildClientMod implements ClientModInitializer {
             }
             return 2129968;
         }), RegisterBlocks.FLOWERED_LILY_PAD);
+        ColorProviderRegistry.ITEM.register(((state, tintIndex) -> {
+            return 5877296;
+        }), RegisterBlocks.BAOBAB_LEAVES);
+        ColorProviderRegistry.ITEM.register(((state, tintIndex) -> {
+            return 5877296;
+        }), RegisterBlocks.CYPRESS_LEAVES);
         ColorProviderRegistry.BLOCK.register(((state,world,pos,tintIndex)-> {
                 assert world != null;
                 return BiomeColors.getFoliageColor(world, pos);

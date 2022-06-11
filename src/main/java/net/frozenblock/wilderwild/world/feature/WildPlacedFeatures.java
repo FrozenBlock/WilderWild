@@ -14,6 +14,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
+import static net.minecraft.world.gen.feature.OceanPlacedFeatures.seagrassModifiers;
 import static net.minecraft.world.gen.feature.VegetationPlacedFeatures.*;
 
 public class WildPlacedFeatures {
@@ -65,11 +66,11 @@ public class WildPlacedFeatures {
     public static final RegistryEntry<PlacedFeature> CYPRESS_TREES_SWAMP = register("cypress_trees_swamp",
             WildConfiguredFeatures.CYPRESS_TREES, modifiers(PlacedFeatures.createCountExtraModifier(1, 0.1F, 1)));
 
-    public static final RegistryEntry<PlacedFeature> CYPRESS_TREES_WATER_2 = register("cypress_trees_water_2",
-            WildConfiguredFeatures.ALL_CYPRESS_TREES_EQUAL, PlacedFeatures.createCountExtraModifier(2, 0.1F, 1), SurfaceWaterDepthFilterPlacementModifier.of(2), PlacedFeatures.OCEAN_FLOOR_WG_HEIGHTMAP);
+    public static final RegistryEntry<PlacedFeature> CYPRESS_TREES_WATER_2 = PlacedFeatures.register("cypress_trees_water_2", WildConfiguredFeatures.ALL_CYPRESS_TREES_EQUAL,
+            PlacedFeatures.createCountExtraModifier(2, 0.1F, 1), SquarePlacementModifier.of(), SurfaceWaterDepthFilterPlacementModifier.of(2), PlacedFeatures.OCEAN_FLOOR_HEIGHTMAP, BiomePlacementModifier.of());
 
-    public static final RegistryEntry<PlacedFeature> CYPRESS_TREES_WATER_1 = register("cypress_trees_water_1",
-            WildConfiguredFeatures.ALL_CYPRESS_TREES_EQUAL, PlacedFeatures.createCountExtraModifier(1, 0.1F, 1), SurfaceWaterDepthFilterPlacementModifier.of(2), PlacedFeatures.OCEAN_FLOOR_WG_HEIGHTMAP);
+    public static final RegistryEntry<PlacedFeature> CYPRESS_TREES_WATER_1 = PlacedFeatures.register("cypress_trees_water_1", WildConfiguredFeatures.ALL_CYPRESS_TREES_EQUAL,
+            PlacedFeatures.createCountExtraModifier(1, 0.1F, 1), SquarePlacementModifier.of(), SurfaceWaterDepthFilterPlacementModifier.of(2), PlacedFeatures.OCEAN_FLOOR_HEIGHTMAP, BiomePlacementModifier.of());
 
     public static final RegistryEntry<PlacedFeature> NEW_BIRCH_PLACED = PlacedFeatures.register("new_birch_placed",
             WildTreeConfigured.NEW_BIRCH_BEES_0004, modifiersWithWouldSurvive(PlacedFeatures.createCountExtraModifier(10, 0.1F, 1), Blocks.BIRCH_SAPLING));
@@ -122,6 +123,8 @@ public class WildPlacedFeatures {
 
     public static final RegistryEntry<PlacedFeature> PATCH_FLOWERED_WATERLILY = register("patch_flowered_waterlily",
             WildConfiguredFeatures.PATCH_FLOWERED_WATERLILY, modifiers(1));
+    public static final RegistryEntry<PlacedFeature> SEAGRASS_CYPRESS = register("seagrass_cypress",
+            OceanConfiguredFeatures.SEAGRASS_MID, seagrassModifiers(56));
 
     /*public static final RegistryEntry<PlacedFeature> PATCH_CYPRESS_ROOTS = register("patch_cypress_roots",
             WildConfiguredFeatures.PATCH_CYPRESS_ROOTS, modifiers(1));*/
