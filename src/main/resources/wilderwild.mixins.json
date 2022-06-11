@@ -27,7 +27,8 @@
 	"worldgen.DefaultBiomeFeaturesMixin",
 	"worldgen.GenerationSettingsBuilderMixin",
 	"worldgen.OakSaplingGeneratorMixin",
-	"worldgen.SpruceSaplingGeneratorMixin"
+	"worldgen.SpruceSaplingGeneratorMixin",
+	  "worldgen.SwampHutMixin"
   ],
   "client": [
 	  "WardenEntityModelMixin"
