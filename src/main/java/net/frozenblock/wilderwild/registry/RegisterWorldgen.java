@@ -23,6 +23,7 @@ public class RegisterWorldgen {
     public static final RegistryKey<Biome> CYPRESS_FOREST = register("cypress_forest");
 
     public static void RegisterWorldGen() {
+        WilderWild.logWild("Registering Biomes for", WilderWild.UNSTABLE_LOGGING);
         BuiltinRegistries.add(BuiltinRegistries.BIOME, MIXED_FOREST, createMixedForest());
         BuiltinRegistries.add(BuiltinRegistries.BIOME, CYPRESS_FOREST, createCypressForest());
     }

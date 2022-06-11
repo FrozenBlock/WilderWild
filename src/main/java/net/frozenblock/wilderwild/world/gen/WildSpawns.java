@@ -15,8 +15,8 @@ public class WildSpawns {
 
     public static void addFirefliesOthers() {
         //TODO: Decide which biomes fireflies should spawn in, if any at all (probably not honestly)
-        BiomeModifications.addSpawn(BiomeSelectors.includeByKey(BiomeKeys.PLAINS, BiomeKeys.FOREST, BiomeKeys.JUNGLE, BiomeKeys.SPARSE_JUNGLE, BiomeKeys.TAIGA),
-                WilderWild.FIREFLIES, RegisterEntities.FIREFLY, 7, 2, 3);
+        BiomeModifications.addSpawn(BiomeSelectors.includeByKey(BiomeKeys.JUNGLE, BiomeKeys.SPARSE_JUNGLE, BiomeKeys.BAMBOO_JUNGLE),
+                WilderWild.FIREFLIES, RegisterEntities.FIREFLY, 5, 1, 2);
     }
 
 }

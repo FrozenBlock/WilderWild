@@ -16,6 +16,7 @@ public class WildWorldGen {
 
         WildMusic.playMusic();
         WildSpawns.addFirefliesSwamps();
+        WildSpawns.addFirefliesOthers();
     }
 }
 
