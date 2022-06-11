@@ -39,6 +39,15 @@ public final class VanillaBiomeParametersMixin {
     @Final
     private RegistryKey<Biome>[][] uncommonBiomes;
 
+    @Shadow
+    @Final
+    private RegistryKey<Biome>[][] nearMountainBiomes;
+
+    @Shadow
+    @Final
+    private RegistryKey<Biome>[][] specialNearMountainBiomes;
+
+    @Shadow
     private void writeBiomeParameters(Consumer<Pair<MultiNoiseUtil.NoiseHypercube, RegistryKey<Biome>>> parameters, MultiNoiseUtil.ParameterRange temperature, MultiNoiseUtil.ParameterRange humidity, MultiNoiseUtil.ParameterRange continentalness, MultiNoiseUtil.ParameterRange erosion, MultiNoiseUtil.ParameterRange weirdness, final float offset, RegistryKey<Biome> biome) {
         parameters.accept(Pair.of(MultiNoiseUtil.createNoiseHypercube(temperature, humidity, continentalness, erosion, MultiNoiseUtil.ParameterRange.of(0.0F, 1.0F), weirdness, offset), biome));
     }
@@ -47,6 +56,8 @@ public final class VanillaBiomeParametersMixin {
     private void injectBiomes(CallbackInfo ci) {
         uncommonBiomes[1][0] = RegisterWorldgen.MIXED_FOREST;
         uncommonBiomes[1][1] = RegisterWorldgen.CYPRESS_FOREST;
+        nearMountainBiomes[1][0] = RegisterWorldgen.CYPRESS_FOREST;
+        specialNearMountainBiomes[1][0] = RegisterWorldgen.CYPRESS_FOREST;
     }
 
 
