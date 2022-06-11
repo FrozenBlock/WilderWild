@@ -4,7 +4,7 @@ LiukRast - FrozenBlock creator, Programming, Girlfriend Haver
 Soro - Biome edits, Worldgen features, Repository owner, Soro
 (soro)
 
-Xfrtrex - Programming, Brainstorming, Bug fixes, sus
+Xfrtrex - Programming, Brainstorming, Bug fixes, sus, the third person listed in credits.txt
 (he is sus)
 
 Osmiooo - Programming, Bug fixes, Fan Haver
@@ -31,8 +31,8 @@ zozozrob_ - Cattail Textures & Concept Design
 Sculk Analyzer - Sculk Echoer Concept
 (made our only unique functional block)
 
-Lunade (AViewFromTheTop) - best coder, deciphered a long abandoned song from 2002, pushed three commits to create judiasm, christianity, and islam
-(he's also in contact with doctor4t so he's pretty cool)
+Lunade (AViewFromTheTop) - best coder, deciphered a long abandoned song from 2002, pushed three commits to create judaism, christianity, and islam
+()
 
 LudoCrypt - Created godly music like it was nothing
 (how)
