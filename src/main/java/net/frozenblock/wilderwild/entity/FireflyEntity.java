@@ -52,9 +52,11 @@ public class FireflyEntity extends PathAwareEntity implements Flutterer {
     private static final TrackedData<Boolean> FROM_BOTTLE = DataTracker.registerData(FireflyEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
     private static final TrackedData<Boolean> FLICKERS = DataTracker.registerData(FireflyEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
     private static final TrackedData<Integer> AGE = DataTracker.registerData(FireflyEntity.class, TrackedDataHandlerRegistry.INTEGER);
+    private static final TrackedData<Float> SCALE = DataTracker.registerData(FireflyEntity.class, TrackedDataHandlerRegistry.FLOAT);
 
     public boolean natural;
     public boolean hasHome; //TODO: POSSIBLY HAVE DIFFERING "SAFE RANGES" INSTEAD OF BOOLEAN
+    public boolean despawning;
 
     public FireflyEntity(EntityType<? extends PathAwareEntity> entityType, World world) {
         super(entityType, world);
@@ -83,10 +85,14 @@ public class FireflyEntity extends PathAwareEntity implements Flutterer {
         this.dataTracker.startTracking(FROM_BOTTLE, false);
         this.dataTracker.startTracking(FLICKERS, false);
         this.dataTracker.startTracking(AGE, 0);
+        this.dataTracker.startTracking(SCALE, 1.5F);
     }
 
     public ActionResult interactMob(PlayerEntity player, Hand hand) {
-        return tryCapture(player, hand, this).orElse(super.interactMob(player, hand));
+        if (!this.despawning) {
+            return tryCapture(player, hand, this).orElse(super.interactMob(player, hand));
+        }
+        return ActionResult.PASS;
     }
 
     public static Optional<ActionResult> tryCapture(PlayerEntity player, Hand hand, FireflyEntity entity) {
@@ -146,6 +152,13 @@ public class FireflyEntity extends PathAwareEntity implements Flutterer {
     }
     public void setFlickerAge(int value) {
         this.dataTracker.set(AGE, value);
+    }
+
+    public float getScale() {
+        return this.dataTracker.get(SCALE);
+    }
+    public void setScale(float value) {
+        this.dataTracker.set(SCALE, value);
     }
 
     public boolean cannotDespawn() {
@@ -219,6 +232,12 @@ public class FireflyEntity extends PathAwareEntity implements Flutterer {
     public void tick() {
         super.tick();
         this.setFlickerAge(this.getFlickerAge()+1);
+        if (this.despawning) {
+            this.setScale(this.getScale()-0.0375F);
+            if (this.getScale()<0.0F) {
+                this.discard();
+            }
+        }
         //WilderWild.log(this, this.getBrain().getOptionalMemory(MemoryModuleType.HOME).toString(), WilderWild.DEV_LOGGING);
     }
 
@@ -246,30 +265,32 @@ public class FireflyEntity extends PathAwareEntity implements Flutterer {
 
     @Override
     public void checkDespawn() {
-        if (this.world.getDifficulty() == Difficulty.PEACEFUL && this.isDisallowedInPeaceful()) {
-            this.discard();
-            return;
-        }
-        if (this.isPersistent() || this.cannotDespawn()) {
-            this.despawnCounter = 0;
-            return;
-        }
-        PlayerEntity entity = this.world.getClosestPlayer(this, -1.0);
-        if (entity != null) {
-            int i;
-            double d = entity.squaredDistanceTo(this);
-            if (this.canImmediatelyDespawn(d) && !this.world.getBiome(this.getBlockPos()).isIn(WildBiomeTags.FIREFLY_SPAWNABLE_DURING_DAY) && this.world.isDay() && Math.sqrt(d)>18) {
-                this.discard();
+        if (!this.despawning) {
+            if (this.world.getDifficulty() == Difficulty.PEACEFUL && this.isDisallowedInPeaceful()) {
+                this.despawning = true;
+                return;
             }
-            if (d > (double) ((i = this.getType().getSpawnGroup().getImmediateDespawnRange()) * i) && this.canImmediatelyDespawn(d)) {
-                this.discard();
-            }
-            int k = this.getType().getSpawnGroup().getDespawnStartRange();
-            int l = k * k;
-            if (this.despawnCounter > 600 && this.random.nextInt(800) == 0 && d > (double)l && this.canImmediatelyDespawn(d)) {
-                this.discard();
-            } else if (d < (double)l) {
+            if (this.isPersistent() || this.cannotDespawn()) {
                 this.despawnCounter = 0;
+                return;
+            }
+            PlayerEntity entity = this.world.getClosestPlayer(this, -1.0);
+            if (entity != null) {
+                int i;
+                double d = entity.squaredDistanceTo(this);
+                if (this.canImmediatelyDespawn(d) && !this.world.getBiome(this.getBlockPos()).isIn(WildBiomeTags.FIREFLY_SPAWNABLE_DURING_DAY) && this.world.isDay() && Math.sqrt(d) > 18) {
+                    this.despawning = true;
+                }
+                if (d > (double) ((i = this.getType().getSpawnGroup().getImmediateDespawnRange()) * i) && this.canImmediatelyDespawn(d)) {
+                    this.despawning = true;
+                }
+                int k = this.getType().getSpawnGroup().getDespawnStartRange();
+                int l = k * k;
+                if (this.despawnCounter > 600 && this.random.nextInt(800) == 0 && d > (double) l && this.canImmediatelyDespawn(d)) {
+                    this.despawning = true;
+                } else if (d < (double) l) {
+                    this.despawnCounter = 0;
+                }
             }
         }
     }
@@ -281,6 +302,8 @@ public class FireflyEntity extends PathAwareEntity implements Flutterer {
         nbt.putBoolean("flickers", this.flickers());
         nbt.putInt("flickerAge", this.getFlickerAge());
         nbt.putBoolean("hasHome", this.hasHome);
+        nbt.putFloat("scale", this.getScale());
+        nbt.putBoolean("despawning", this.despawning);
     }
 
     public void readCustomDataFromNbt(NbtCompound nbt) {
@@ -290,6 +313,8 @@ public class FireflyEntity extends PathAwareEntity implements Flutterer {
         this.setFlickers(nbt.getBoolean("flickers"));
         this.setFlickerAge(nbt.getInt("flickerAge"));
         this.hasHome = nbt.getBoolean("hasHome");
+        this.setScale(nbt.getFloat("scale"));
+        this.despawning = nbt.getBoolean("despawning");
     }
 
     protected boolean shouldFollowLeash() {
