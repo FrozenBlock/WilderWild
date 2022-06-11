@@ -2,6 +2,8 @@ package net.frozenblock.wilderwild.entity;
 
 import com.google.common.collect.ImmutableList;
 import com.mojang.serialization.Dynamic;
+import net.fabricmc.fabric.api.networking.v1.PlayerLookup;
+import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.entity.ai.FireflyBrain;
 import net.frozenblock.wilderwild.misc.server.EasyPacket;
@@ -256,7 +258,10 @@ public class FireflyEntity extends PathAwareEntity implements Flutterer {
         if (entity != null) {
             int i;
             double d = entity.squaredDistanceTo(this);
-            if (this.canImmediatelyDespawn(d) && !this.world.getBiome(this.getBlockPos()).isIn(WildBiomeTags.FIREFLY_SPAWNABLE_DURING_DAY) && this.world.isDay() && Math.sqrt(d)>12) {
+            if (this.canImmediatelyDespawn(d) && !this.world.getBiome(this.getBlockPos()).isIn(WildBiomeTags.FIREFLY_SPAWNABLE_DURING_DAY) && this.world.isDay() && PlayerLookup.tracking(this).isEmpty() && Math.sqrt(d)>12) {
+                this.discard();
+            }
+            if (this.canImmediatelyDespawn(d) && PlayerLookup.tracking(this).isEmpty() && Math.sqrt(d)>24) {
                 this.discard();
             }
             if (d > (double) ((i = this.getType().getSpawnGroup().getImmediateDespawnRange()) * i) && this.canImmediatelyDespawn(d)) {
