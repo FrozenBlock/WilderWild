@@ -2,8 +2,6 @@ package net.frozenblock.wilderwild.entity;
 
 import com.google.common.collect.ImmutableList;
 import com.mojang.serialization.Dynamic;
-import net.fabricmc.fabric.api.networking.v1.PlayerLookup;
-import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.entity.ai.FireflyBrain;
 import net.frozenblock.wilderwild.misc.server.EasyPacket;
@@ -52,6 +50,10 @@ public class FireflyEntity extends PathAwareEntity implements Flutterer {
     private static final TrackedData<Boolean> FROM_BOTTLE = DataTracker.registerData(FireflyEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
     private static final TrackedData<Boolean> FLICKERS = DataTracker.registerData(FireflyEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
     private static final TrackedData<Integer> AGE = DataTracker.registerData(FireflyEntity.class, TrackedDataHandlerRegistry.INTEGER);
+    private static final TrackedData<Integer> R = DataTracker.registerData(FireflyEntity.class, TrackedDataHandlerRegistry.INTEGER);
+    private static final TrackedData<Integer> G = DataTracker.registerData(FireflyEntity.class, TrackedDataHandlerRegistry.INTEGER);
+    private static final TrackedData<Integer> B = DataTracker.registerData(FireflyEntity.class, TrackedDataHandlerRegistry.INTEGER);
+
 
     public boolean natural;
     public boolean hasHome; //TODO: POSSIBLY HAVE DIFFERING "SAFE RANGES" INSTEAD OF BOOLEAN
@@ -83,6 +85,9 @@ public class FireflyEntity extends PathAwareEntity implements Flutterer {
         this.dataTracker.startTracking(FROM_BOTTLE, false);
         this.dataTracker.startTracking(FLICKERS, false);
         this.dataTracker.startTracking(AGE, 0);
+        this.dataTracker.startTracking(R, 170);
+        this.dataTracker.startTracking(G, 246);
+        this.dataTracker.startTracking(B, 68);
     }
 
     public ActionResult interactMob(PlayerEntity player, Hand hand) {
@@ -146,6 +151,25 @@ public class FireflyEntity extends PathAwareEntity implements Flutterer {
     }
     public void setFlickerAge(int value) {
         this.dataTracker.set(AGE, value);
+    }
+
+    public int getR() {
+        return this.dataTracker.get(R);
+    }
+    public void setR(int value) {
+        this.dataTracker.set(R, value);
+    }
+    public int getG() {
+        return this.dataTracker.get(G);
+    }
+    public void setG(int value) {
+        this.dataTracker.set(G, value);
+    }
+    public int getB() {
+        return this.dataTracker.get(B);
+    }
+    public void setB(int value) {
+        this.dataTracker.set(B, value);
     }
 
     public boolean cannotDespawn() {
@@ -281,6 +305,9 @@ public class FireflyEntity extends PathAwareEntity implements Flutterer {
         nbt.putBoolean("flickers", this.flickers());
         nbt.putInt("flickerAge", this.getFlickerAge());
         nbt.putBoolean("hasHome", this.hasHome);
+        nbt.putInt("r", this.getR());
+        nbt.putInt("g", this.getG());
+        nbt.putInt("b", this.getB());
     }
 
     public void readCustomDataFromNbt(NbtCompound nbt) {
@@ -290,6 +317,9 @@ public class FireflyEntity extends PathAwareEntity implements Flutterer {
         this.setFlickers(nbt.getBoolean("flickers"));
         this.setFlickerAge(nbt.getInt("flickerAge"));
         this.hasHome = nbt.getBoolean("hasHome");
+        this.setR(nbt.getInt("r"));
+        this.setG(nbt.getInt("g"));
+        this.setB(nbt.getInt("b"));
     }
 
     protected boolean shouldFollowLeash() {
