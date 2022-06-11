@@ -48,9 +48,11 @@ public class SwampHutMixin extends ShiftableStructurePiece {
             nbt.putBoolean("Witch", this.hasWitch);
             nbt.putBoolean("Cat", this.hasCat);
         }
-/**
- * @author FrozenBlock
- */
+
+        /**
+         * @author FrozenBlock
+         * @reason SWAMP HUTS!
+         */
         @Overwrite
         public void generate(StructureWorldAccess world, StructureAccessor structureAccessor, ChunkGenerator chunkGenerator, Random random, BlockBox chunkBox, ChunkPos chunkPos, BlockPos pivot) {
             if (this.adjustToAverageHeight(world, chunkBox, 0)) {
