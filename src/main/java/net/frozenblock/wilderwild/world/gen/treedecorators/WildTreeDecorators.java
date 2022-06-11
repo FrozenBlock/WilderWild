@@ -9,6 +9,8 @@ import net.minecraft.world.gen.treedecorator.TreeDecoratorType;
 
 public class WildTreeDecorators {
     public static TreeDecoratorType<ShelfFungusTreeDecorator> FUNGUS_TREE_DECORATOR = register("shelf_fungus_tree_decorator", ShelfFungusTreeDecorator.CODEC);
+    public static TreeDecoratorType<HeightBasedVineTrunkDecorator> HEIGHT_BASED_VINE_TRUNK_DECORATOR = register("height_based_vine_trunk_decorator", HeightBasedVineTrunkDecorator.CODEC);
+
 
     public static void generateTreeDecorators() {
         //Just to ensure the class is loaded.
