@@ -2,8 +2,6 @@ package net.frozenblock.wilderwild.entity;
 
 import com.google.common.collect.ImmutableList;
 import com.mojang.serialization.Dynamic;
-import net.fabricmc.fabric.api.networking.v1.PlayerLookup;
-import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.entity.ai.FireflyBrain;
 import net.frozenblock.wilderwild.misc.server.EasyPacket;
@@ -68,7 +66,8 @@ public class FireflyEntity extends PathAwareEntity implements Flutterer {
     public static boolean canSpawn(EntityType<FireflyEntity> type, WorldAccess world, SpawnReason spawnReason, BlockPos pos, Random random) {
         if (world.getBiome(pos).isIn(WildBiomeTags.FIREFLY_SPAWNABLE_DURING_DAY)) {
             return world.isSkyVisible(pos);
-        } return random.nextFloat() > 0.6F && (!world.getDimension().hasFixedTime() && world.getAmbientDarkness()>4) && world.isSkyVisible(pos);
+        }
+        return random.nextFloat() > 0.6F && (!world.getDimension().hasFixedTime() && world.getAmbientDarkness()>4) && world.isSkyVisible(pos);
     }
 
     @Nullable
@@ -231,6 +230,9 @@ public class FireflyEntity extends PathAwareEntity implements Flutterer {
     @Override
     public void tick() {
         super.tick();
+        if (!this.isAlive()) {
+            this.setNoGravity(false);
+        }
         this.setFlickerAge(this.getFlickerAge()+1);
         if (this.despawning) {
             this.setScale(this.getScale()-0.0375F);
