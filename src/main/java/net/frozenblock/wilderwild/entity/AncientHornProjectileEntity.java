@@ -59,7 +59,6 @@ public class AncientHornProjectileEntity extends PersistentProjectileEntity {
     public double vecY;
     public double vecZ;
     public boolean shotByPlayer;
-    public float shootProgress;
     private BlockState inBlockState;
 
     public AncientHornProjectileEntity(EntityType<? extends PersistentProjectileEntity> entityType, World world) {
@@ -300,7 +299,6 @@ public class AncientHornProjectileEntity extends PersistentProjectileEntity {
             nbt.putDouble("originY", this.vecY);
             nbt.putDouble("originZ", this.vecZ);
             nbt.putBoolean("shotByPlayer", this.shotByPlayer);
-            nbt.putFloat("shootProgress", this.shootProgress);
         }
     }
     public void readCustomDataFromNbt(NbtCompound nbt) {
@@ -315,7 +313,6 @@ public class AncientHornProjectileEntity extends PersistentProjectileEntity {
             this.vecY = nbt.getDouble("originY");
             this.vecZ = nbt.getDouble("originZ");
             this.shotByPlayer = nbt.getBoolean("shotByPlayer");
-            this.shootProgress = nbt.getFloat("shootProgress");
         }
     }
     public void setVelocity(Entity shooter, float pitch, float yaw, float roll, float speed, float divergence) {
@@ -340,9 +337,9 @@ public class AncientHornProjectileEntity extends PersistentProjectileEntity {
     }
     public double getDamage(@Nullable Entity entity) {
         if (entity != null) {
-            if (!(entity instanceof PlayerEntity)) { return 19 * this.shootProgress; }
+            if (!(entity instanceof PlayerEntity)) { return 22; }
         }
-        return 8 * this.shootProgress;
+        return 15;
     }
     protected float getDragInWater() { return 1.0F; }
     public boolean hasNoGravity() { return true; }
