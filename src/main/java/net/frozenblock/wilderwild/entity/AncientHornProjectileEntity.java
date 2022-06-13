@@ -15,6 +15,7 @@ import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.*;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.mob.WardenEntity;
+import net.minecraft.entity.player.ItemCooldownManager;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.projectile.PersistentProjectileEntity;
 import net.minecraft.entity.projectile.ProjectileEntity;
@@ -153,6 +154,24 @@ public class AncientHornProjectileEntity extends PersistentProjectileEntity {
         if (entity!=null) {
             if (entity instanceof PlayerEntity user) {
                 user.getItemCooldownManager().set(RegisterItems.ANCIENT_HORN, i);
+            }
+        }
+    }
+    public void addCooldown(int i) {
+        Entity entity = this.getOwner();
+        if (entity!=null) {
+            if (entity instanceof PlayerEntity user) {
+                if (!user.isCreative()) {
+                    ItemCooldownManager manager = user.getItemCooldownManager();
+                    ItemCooldownManager.Entry entry = manager.entries.get(RegisterItems.ANCIENT_HORN);
+                    if (entry != null) {
+                        int cooldown = (entry.endTick - entry.startTick) + i;
+                        manager.remove(RegisterItems.ANCIENT_HORN);
+                        manager.set(RegisterItems.ANCIENT_HORN, cooldown);
+                    } else {
+                        manager.set(RegisterItems.ANCIENT_HORN, i);
+                    }
+                }
             }
         }
     }
@@ -377,6 +396,7 @@ public class AncientHornProjectileEntity extends PersistentProjectileEntity {
                         server.spawnParticles(ParticleTypes.SCULK_SOUL, livingEntity.getX(), livingEntity.getEyeY(), livingEntity.getZ(), 1, 0.2D, 0.0D, 0.2D, 0.0D);
                         if (this.getOwner()!=null) {
                             if (this.getOwner() instanceof ServerPlayerEntity serverPlayer) {
+                                addCooldown(livingEntity.getXpToDrop()*10);
                                 EasyPacket.EasyCompetitionPacket.sendAncientHornKillInfo(world, serverPlayer, livingEntity);
                             }
                         }
