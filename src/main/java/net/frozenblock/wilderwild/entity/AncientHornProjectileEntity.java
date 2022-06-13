@@ -165,9 +165,15 @@ public class AncientHornProjectileEntity extends PersistentProjectileEntity {
                     ItemCooldownManager manager = user.getItemCooldownManager();
                     ItemCooldownManager.Entry entry = manager.entries.get(RegisterItems.ANCIENT_HORN);
                     if (entry != null) {
-                        int cooldown = (entry.endTick - entry.startTick) + i;
-                        manager.remove(RegisterItems.ANCIENT_HORN);
-                        manager.set(RegisterItems.ANCIENT_HORN, cooldown);
+                        int initCooldown = (entry.endTick - entry.startTick);
+                        int cooldown = initCooldown + i;
+                        if (initCooldown < 600) {
+                            manager.remove(RegisterItems.ANCIENT_HORN);
+                            manager.set(RegisterItems.ANCIENT_HORN, cooldown);
+                        } else {
+                            manager.remove(RegisterItems.ANCIENT_HORN);
+                            manager.set(RegisterItems.ANCIENT_HORN, (entry.endTick - entry.startTick) + 600);
+                        }
                     } else {
                         manager.set(RegisterItems.ANCIENT_HORN, i);
                     }

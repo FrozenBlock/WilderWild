@@ -8,3 +8,8 @@ accessible    field    net/minecraft/entity/player/ItemCooldownManager    entrie
 accessible    class    net/minecraft/entity/player/ItemCooldownManager$Entry
 accessible    field    net/minecraft/entity/player/ItemCooldownManager$Entry    startTick    I
 accessible    field    net/minecraft/entity/player/ItemCooldownManager$Entry    endTick    I
+accessible    method    net/minecraft/structure/ShiftableStructurePiece    adjustToAverageHeight    (Lnet/minecraft/world/WorldAccess;Lnet/minecraft/util/math/BlockBox;I)Z
+accessible    method    net/minecraft/structure/StructurePiece    fillWithOutline    (Lnet/minecraft/world/StructureWorldAccess;Lnet/minecraft/util/math/BlockBox;IIIIIILnet/minecraft/block/BlockState;Lnet/minecraft/block/BlockState;Z)V
+accessible    method    net/minecraft/structure/StructurePiece    addBlock    (Lnet/minecraft/world/StructureWorldAccess;Lnet/minecraft/block/BlockState;IIILnet/minecraft/util/math/BlockBox;)V
+accessible    method    net/minecraft/structure/StructurePiece    fillDownwards    (Lnet/minecraft/world/StructureWorldAccess;Lnet/minecraft/block/BlockState;IIILnet/minecraft/util/math/BlockBox;)V
+accessible    method    net/minecraft/structure/StructurePiece    offsetPos    (III)Lnet/minecraft/util/math/BlockPos$Mutable;

@@ -43,7 +43,7 @@ public class WildClientMod implements ClientModInitializer {
 
     @Override
     public void onInitializeClient() {
-        RegisterParticles.RegisterParticles();
+        RegisterParticles.registerParticles();
 
         BlockRenderLayerMap.INSTANCE.putBlock(RegisterBlocks.CARNATION, RenderLayer.getCutout());
         BlockRenderLayerMap.INSTANCE.putBlock(RegisterBlocks.WHITE_DANDELION, RenderLayer.getCutout());

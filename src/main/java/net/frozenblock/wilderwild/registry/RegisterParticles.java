@@ -15,7 +15,7 @@ public class RegisterParticles {
     public static final DefaultParticleType FLOATING_SCULK_BUBBLE = FabricParticleTypes.simple();
     public static final DefaultParticleType TERMITE = FabricParticleTypes.simple();
 
-    public static void RegisterParticles() {
+    public static void registerParticles() {
         WilderWild.logWild("Registering Particles for", WilderWild.UNSTABLE_LOGGING);
         Registry.register(Registry.PARTICLE_TYPE, new Identifier(WilderWild.MOD_ID, "pollen"), POLLEN);
         Registry.register(Registry.PARTICLE_TYPE, new Identifier(WilderWild.MOD_ID, "dandelion_seed"), DANDELION_SEED);
