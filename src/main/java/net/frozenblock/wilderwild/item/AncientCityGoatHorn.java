@@ -7,6 +7,7 @@ import net.frozenblock.wilderwild.registry.RegisterItems;
 import net.frozenblock.wilderwild.registry.RegisterSounds;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.player.ItemCooldownManager;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -54,6 +55,22 @@ public class AncientCityGoatHorn extends Item {
             if (player.getOffHandStack().isOf(RegisterItems.ANCIENT_HORN)) { horns.add(player.getOffHandStack()); }
         }
         return horns;
+    }
+
+    public static int decreaseCooldown(PlayerEntity user, int i) {
+        if (!user.isCreative()) {
+            ItemCooldownManager manager = user.getItemCooldownManager();
+            ItemCooldownManager.Entry entry = manager.entries.get(RegisterItems.ANCIENT_HORN);
+            if (entry != null) {
+                int between = entry.endTick - entry.startTick;
+                if (between>=i) {
+                    int cooldown = Math.max((entry.endTick - entry.startTick) - i, 1);
+                    manager.remove(RegisterItems.ANCIENT_HORN);
+                    manager.set(RegisterItems.ANCIENT_HORN, cooldown);
+                    return i;
+                }
+            }
+        } return -1;
     }
 
     public AncientCityGoatHorn(Settings settings) {

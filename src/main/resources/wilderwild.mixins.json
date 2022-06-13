@@ -13,6 +13,7 @@
 	"ChestBoatDropsMixin",
 	"BoneMealItemMixin",
 	"EntityTypeMixin",
+	"ExperienceOrbEntityMixin",
 	"SculkBlockMixin",
 	"SculkSensorBlockEntityMixin",
 	"SculkSensorBlockMixin",
