@@ -172,7 +172,7 @@ public class AncientHornProjectileEntity extends PersistentProjectileEntity {
                             manager.set(RegisterItems.ANCIENT_HORN, cooldown);
                         } else {
                             manager.remove(RegisterItems.ANCIENT_HORN);
-                            manager.set(RegisterItems.ANCIENT_HORN, (entry.endTick - entry.startTick) + 600);
+                            manager.set(RegisterItems.ANCIENT_HORN, 600);
                         }
                     } else {
                         manager.set(RegisterItems.ANCIENT_HORN, i);
