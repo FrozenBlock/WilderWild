@@ -62,9 +62,9 @@ public class AncientCityGoatHorn extends Item {
             ItemCooldownManager manager = user.getItemCooldownManager();
             ItemCooldownManager.Entry entry = manager.entries.get(RegisterItems.ANCIENT_HORN);
             if (entry != null) {
-                int between = entry.endTick - entry.startTick;
+                int between = entry.startTick - entry.endTick;
                 if (between>=i) {
-                    int cooldown = Math.max((entry.endTick - entry.startTick) - i, 1);
+                    int cooldown = Math.max(between - i, 1);
                     manager.remove(RegisterItems.ANCIENT_HORN);
                     manager.set(RegisterItems.ANCIENT_HORN, cooldown);
                     return i;
