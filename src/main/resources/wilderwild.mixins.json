@@ -17,7 +17,7 @@
 	"SculkBlockMixin",
 	"SculkSensorBlockEntityMixin",
 	"SculkSensorBlockMixin",
-	"SculkSensorListenerMixin",
+	"VibrationListenerMixin",
 	"SculkShriekerBlockEntityMixin",
 	"SculkShriekerBlockMixin",
 	"SculkVeinGrowCheckerMixin",

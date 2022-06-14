@@ -40,6 +40,7 @@ import net.minecraft.world.event.listener.GameEventListener;
 import org.jetbrains.annotations.Nullable;
 
 public class SculkEchoerBlock extends BlockWithEntity implements Waterloggable {
+    // remove this and add vibrations with the SculkSensorFrequencyRegistry api when fabric releases it
     public static final Object2IntMap<GameEvent> FREQUENCIES = Object2IntMaps.unmodifiable(Util.make(new Object2IntOpenHashMap<>(), (map) -> {
         map.put(GameEvent.STEP, 1);
         map.put(RegisterGameEvents.TENDRIL_EXTRACT_XP, 1);
@@ -112,8 +113,14 @@ public class SculkEchoerBlock extends BlockWithEntity implements Waterloggable {
     @Override
     public void onSteppedOn( World world, BlockPos pos, BlockState state, Entity entity) {
         if (!world.isClient() && isInactive(state) && entity.getType() != EntityType.WARDEN) {
+            BlockEntity blockEntity = world.getBlockEntity(pos);
+            if (blockEntity instanceof SculkEchoerBlockEntity sculkEchoerBlockEntity) {
+                sculkEchoerBlockEntity.setLastVibrationFrequency(FREQUENCIES.get(GameEvent.STEP));
+            }
+
             setActive(entity, world, pos, state, 20);
         }
+
         super.onSteppedOn(world, pos, state, entity);
     }
 
@@ -135,7 +142,9 @@ public class SculkEchoerBlock extends BlockWithEntity implements Waterloggable {
             if (getPhase(state)==SculkEchoerPhase.COOLDOWN) {
                 world.setBlockState(pos, state.with(SCULK_ECHOER_PHASE, SculkEchoerPhase.INACTIVE), 3);
             }
-        } else { setCooldown(world, pos, state); }
+        } else {
+            setCooldown(world, pos, state);
+        }
     }
 
     @Override
@@ -185,7 +194,13 @@ public class SculkEchoerBlock extends BlockWithEntity implements Waterloggable {
     public static void setActive(@Nullable Entity entity, World world, BlockPos pos, BlockState state, int bubbles) {
         boolean canRun = true;
         if (entity!=null) {
-            if (entity instanceof WardenEntity) { canRun=false; }
+            if (entity instanceof WardenEntity) {
+                canRun=false;
+            }
+            BlockEntity blockEntity = world.getBlockEntity(pos);
+            if (blockEntity instanceof SculkEchoerBlockEntity echoerEntity) {
+                echoerEntity.vibrationEntity = entity;
+            }
         }
         BlockEntity entity1 = world.getBlockEntity(pos);
         if (entity1 instanceof SculkEchoerBlockEntity echoer) {
@@ -194,7 +209,7 @@ public class SculkEchoerBlock extends BlockWithEntity implements Waterloggable {
         }
         if (canRun) {
             int additionalCooldown = state.get(WATERLOGGED) ? 75 : 45;
-            world.setBlockState(pos, state.with(SCULK_ECHOER_PHASE, SculkEchoerPhase.ACTIVE), 3);
+            world.setBlockState(pos, state.with(SCULK_ECHOER_PHASE, SculkEchoerPhase.ACTIVE), Block.NOTIFY_ALL);
             world.createAndScheduleBlockTick(pos, state.getBlock(), bubbles+additionalCooldown);
             updateNeighbors(world, pos);
             if (!state.get(WATERLOGGED)) {

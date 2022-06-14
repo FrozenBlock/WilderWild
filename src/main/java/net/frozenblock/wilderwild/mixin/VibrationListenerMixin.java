@@ -21,7 +21,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import java.util.Optional;
 
 @Mixin(VibrationListener.class)
-public class SculkSensorListenerMixin {
+public class VibrationListenerMixin {
 
     @Inject(at = @At("TAIL"), method = "tick")
     public void tick(World world, CallbackInfo info) {
