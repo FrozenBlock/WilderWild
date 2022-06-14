@@ -28,35 +28,30 @@ import java.util.Objects;
 
 public class HollowedLogBlock extends PillarBlock implements Waterloggable {
     public static final BooleanProperty WATERLOGGED;
-    protected static final VoxelShape north = Block.createCuboidShape(0.0D, 0.0D, 0.0D, 16.0D, 16.0D, 3.0D);
-    protected static final VoxelShape south = Block.createCuboidShape(0.0D, 0.0D, 13.0D, 16.0D, 16.0D, 16.0D);
-    protected static final VoxelShape east = Block.createCuboidShape(13.0D, 0.0D, 0.0D, 16.0D, 16.0D, 16.0D);
-    protected static final VoxelShape west = Block.createCuboidShape(0.0D, 0.0D, 0.0D, 3.0D, 16.0D, 16.0D);
-    protected static final VoxelShape up = Block.createCuboidShape(0.0D, 13.0D, 0.0D, 16.0D, 16.0D, 16.0D);
-    protected static final VoxelShape down = Block.createCuboidShape(0.0D, 0.0D, 0.0D, 16.0D, 3.0D, 16.0D);
-    protected static final VoxelShape HITBOX_N;
-    protected static final VoxelShape HITBOX_S;
-    protected static final VoxelShape HITBOX_W;
-    protected static final VoxelShape HITBOX_E;
-    protected static final VoxelShape HITBOX_U;
-    protected static final VoxelShape HITBOX_D;
+    protected static final VoxelShape X_SHAPE;
+    protected static final VoxelShape Y_SHAPE;
+    protected static final VoxelShape Z_SHAPE;
+    protected static final VoxelShape RAYCAST_SHAPE;
     public static final IntProperty LEVEL;
 
     public static final DirectionProperty FACING;
-
-    protected static final VoxelShape RAYCAST_SHAPE;
 
     // CLASS's BASE METHODS
     public HollowedLogBlock(Settings settings) {
         super(settings);
         this.setDefaultState(this.getDefaultState().with(WATERLOGGED, false).with(FACING, Direction.UP).with(LEVEL, 0));
     }
+    @Override
     public VoxelShape getOutlineShape(BlockState state, BlockView world, BlockPos pos, ShapeContext context) {
-        return switch (state.get(FACING)) {
-            default -> VoxelShapes.union(east, west, up, down);
-            case NORTH, SOUTH -> VoxelShapes.union(north, south, up, down);
-            case UP, DOWN -> VoxelShapes.union(north, south, west, east);
+        return switch (state.get(AXIS)) {
+            default -> X_SHAPE;
+            case Y -> Y_SHAPE;
+            case Z -> Z_SHAPE;
         };
+    }
+
+    public VoxelShape getRaycastShape(BlockState state, BlockView world, BlockPos pos) {
+        return RAYCAST_SHAPE;
     }
 
     @Override
@@ -170,9 +165,6 @@ public class HollowedLogBlock extends PillarBlock implements Waterloggable {
     }
 
     // RENDERING
-    public VoxelShape getRaycastShape(BlockState state, BlockView world, BlockPos pos) {
-        return RAYCAST_SHAPE;
-    }
     @Override
     public BlockRenderType getRenderType(BlockState blockState) {
         return BlockRenderType.MODEL;
@@ -189,13 +181,9 @@ public class HollowedLogBlock extends PillarBlock implements Waterloggable {
 
     static {
         RAYCAST_SHAPE = VoxelShapes.fullCube();
-
-        HITBOX_N = VoxelShapes.union(east, west, up, down, south);
-        HITBOX_S = VoxelShapes.union(east, west, up, down, north);
-        HITBOX_W = VoxelShapes.union(north, south, up, down, east);
-        HITBOX_E = VoxelShapes.union(north, south, up, down, west);
-        HITBOX_U = VoxelShapes.union(east, west, north, south, down);
-        HITBOX_D = VoxelShapes.union(east, west, south, north, up);
+        X_SHAPE = VoxelShapes.union(Block.createCuboidShape(0, 0, 0 , 16, 16, 3), Block.createCuboidShape(0, 13, 0, 16 ,16, 16), Block.createCuboidShape(0, 0, 13, 16, 16, 16), Block.createCuboidShape(0, 0, 0, 16, 3, 16));
+        Y_SHAPE = VoxelShapes.union(Block.createCuboidShape(0, 0, 0 , 16, 16, 3), Block.createCuboidShape(0, 0, 0, 3 ,16, 16), Block.createCuboidShape(0, 0, 13, 16, 16, 16), Block.createCuboidShape(13, 0, 0, 16, 16, 16));
+        Z_SHAPE = VoxelShapes.union(Block.createCuboidShape(13, 0, 0 , 16, 16, 16), Block.createCuboidShape(0, 0, 0, 3 ,16, 16), Block.createCuboidShape(0, 13, 0, 16, 16, 16), Block.createCuboidShape(0, 0, 0, 16, 3, 16));
 
         WATERLOGGED = Properties.WATERLOGGED;
         FACING = Properties.FACING;
