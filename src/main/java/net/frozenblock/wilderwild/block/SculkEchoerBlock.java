@@ -140,7 +140,11 @@ public class SculkEchoerBlock extends BlockWithEntity implements Waterloggable {
     public void scheduledTick(BlockState state, ServerWorld world, BlockPos pos, Random random) {
         if (getPhase(state)!=SculkEchoerPhase.ACTIVE) {
             if (getPhase(state)==SculkEchoerPhase.COOLDOWN) {
-                world.setBlockState(pos, state.with(SCULK_ECHOER_PHASE, SculkEchoerPhase.INACTIVE), 3);
+                world.setBlockState(pos, state.with(SCULK_ECHOER_PHASE, SculkEchoerPhase.INACTIVE), Block.NOTIFY_ALL);
+                BlockEntity blockEntity = world.getBlockEntity(pos);
+                if (blockEntity instanceof SculkEchoerBlockEntity sculkEchoerBlockEntity) {
+                    sculkEchoerBlockEntity.vibrationEntity = null;
+                }
             }
         } else {
             setCooldown(world, pos, state);
@@ -181,7 +185,7 @@ public class SculkEchoerBlock extends BlockWithEntity implements Waterloggable {
     }
 
     public static void setCooldown(World world, BlockPos pos, BlockState state) {
-        world.setBlockState(pos, state.with(SCULK_ECHOER_PHASE, SculkEchoerPhase.COOLDOWN), 3);
+        world.setBlockState(pos, state.with(SCULK_ECHOER_PHASE, SculkEchoerPhase.COOLDOWN), Block.NOTIFY_ALL);
         world.createAndScheduleBlockTick(pos, state.getBlock(), 1);
         if (!state.get(WATERLOGGED)) {
             world.playSound(null, (double)pos.getX() + 0.5, (double)pos.getY() + 0.5, (double)pos.getZ() + 0.5, SoundEvents.BLOCK_SCULK_SENSOR_CLICKING_STOP, SoundCategory.BLOCKS, 1.0F, world.random.nextFloat() * 0.1F + 0.7F);

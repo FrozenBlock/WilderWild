@@ -76,7 +76,6 @@ public class SculkEchoerBlockEntity extends BlockEntity implements VibrationList
                         }
                         bubbleTicks.removeInt(index);
                         bubbleSizes.removeInt(index);
-                        this.vibrationEntity = null;
                     }
                 }
             }
