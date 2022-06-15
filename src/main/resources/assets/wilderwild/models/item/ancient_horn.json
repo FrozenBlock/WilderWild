@@ -30,7 +30,7 @@
       "predicate": {
         "tooting": 1
       },
-      "model": "item/tooting_goat_horn"
+      "model": "wilderwild:item/tooting_ancient_horn"
     }
   ]
 }
