@@ -7,11 +7,16 @@ import net.minecraft.util.math.random.Random;
 import net.minecraft.util.registry.RegistryEntry;
 import net.minecraft.world.gen.feature.ConfiguredFeature;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Overwrite;
 
 @Mixin(BirchSaplingGenerator.class)
-public class BirchSaplingGeneratorMixin extends SaplingGenerator {
+public class BirchSaplingGeneratorMixin {
 
-    @Override
+    /**
+     * @author FrozenBlock
+     * @reason cool birch
+     */
+    @Overwrite
     public RegistryEntry<? extends ConfiguredFeature<?, ?>> getTreeFeature(Random random, boolean bees) {
         return WildTreeConfigured.NEW_BIRCH_BEES_0004;
     }
