@@ -7,12 +7,13 @@ import net.frozenblock.wilderwild.item.FireflyBottleItem;
 import net.frozenblock.wilderwild.item.MilkweedPodItem;
 import net.frozenblock.wilderwild.misc.CustomBoatType;
 import net.minecraft.item.*;
+import net.minecraft.tag.InstrumentTags;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.Rarity;
 import net.minecraft.util.registry.Registry;
 
 public class RegisterItems {
-    public static final AncientCityGoatHorn ANCIENT_HORN = new AncientCityGoatHorn(new FabricItemSettings().group(ItemGroup.MISC).maxCount(1).rarity(Rarity.EPIC));
+    public static final AncientCityGoatHorn ANCIENT_HORN = new AncientCityGoatHorn(new FabricItemSettings().group(ItemGroup.MISC).maxCount(1).rarity(Rarity.EPIC), InstrumentTags.GOAT_HORNS);
     public static final MilkweedPodItem MILKWEED_POD = new MilkweedPodItem(new FabricItemSettings().group(ItemGroup.MISC).maxCount(64));
     public static final MusicDiscItem MUSIC_DISC_BENEATH = new MusicDiscItem(15, RegisterSounds.MUSIC_DISC_BENEATH, new FabricItemSettings().group(ItemGroup.MISC).maxCount(1).rarity(Rarity.RARE));
     public static final MusicDiscItem MUSIC_DISC_GOAT_HORN_SYMPHONY = new MusicDiscItem(15, RegisterSounds.MUSIC_DISC_GOATHORN_SYMPHONY, new FabricItemSettings().group(ItemGroup.MISC).maxCount(1).rarity(Rarity.RARE));
