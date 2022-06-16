@@ -13,6 +13,7 @@ import net.minecraft.item.*;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
+import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.tag.TagKey;
 import net.minecraft.text.MutableText;
@@ -24,6 +25,7 @@ import net.minecraft.util.registry.Registry;
 import net.minecraft.util.registry.RegistryEntry;
 import net.minecraft.util.registry.RegistryKey;
 import net.minecraft.world.World;
+import net.minecraft.world.event.GameEvent;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
@@ -131,26 +133,40 @@ public class AncientCityGoatHorn extends Item {
         } return -1;
     }
 
+    @Override
     public TypedActionResult<ItemStack> use(World world, PlayerEntity user, Hand hand) {
         WilderWild.log(user, "Used Ancient Goat Horn", WilderWild.DEV_LOGGING);
         ItemStack itemStack = user.getStackInHand(hand);
-        user.setCurrentHand(hand);
-        world.playSoundFromEntity(user, user, RegisterSounds.ANCIENT_HORN_CALL, SoundCategory.RECORDS, 8.0F, 1.0F);
-        user.getItemCooldownManager().set(RegisterItems.ANCIENT_HORN, getCooldown(user, 300));
-        if (world instanceof ServerWorld server) {
-            AncientHornProjectileEntity projectileEntity = new AncientHornProjectileEntity(world, user.getX(), user.getEyeY(), user.getZ());
-            projectileEntity.setVelocity(user, user.getPitch(), user.getYaw(), 0.0F, 1.0F, 0.0F);
-            projectileEntity.shotByPlayer=true;
-            server.spawnEntity(projectileEntity);
-            MovingSoundLoop.createMovingLoopingSound(server, projectileEntity, SoundEvents.BLOCK_SCULK_CHARGE, SoundCategory.NEUTRAL, 1.0F, 1.0F);
-            //FlyBySoundHub.createFlybySound(world, projectileEntity, RegisterSounds.ANCIENT_HORN_VIBRATION_DISSIPATE, SoundCategory.PLAYERS, 1.0F, 0.7F);
+        Optional<RegistryEntry<Instrument>> optional = this.getInstrument(itemStack);
+        if (optional.isPresent()) {
+            Instrument instrument = optional.get().value();
+            user.setCurrentHand(hand);
+            SoundEvent soundEvent = instrument.soundEvent();
+            float range = instrument.range() / 16.0F;
+            world.playSoundFromEntity(user, user, soundEvent, SoundCategory.RECORDS, range, 1.0F);
+            world.emitGameEvent(GameEvent.INSTRUMENT_PLAY, user.getPos(), GameEvent.Emitter.of(user));
+            user.getItemCooldownManager().set(RegisterItems.ANCIENT_HORN, getCooldown(user, 300));
+            if (world instanceof ServerWorld server) {
+                AncientHornProjectileEntity projectileEntity = new AncientHornProjectileEntity(world, user.getX(), user.getEyeY(), user.getZ());
+                projectileEntity.setVelocity(user, user.getPitch(), user.getYaw(), 0.0F, 1.0F, 0.0F);
+                projectileEntity.shotByPlayer = true;
+                server.spawnEntity(projectileEntity);
+                MovingSoundLoop.createMovingLoopingSound(server, projectileEntity, SoundEvents.BLOCK_SCULK_CHARGE, SoundCategory.NEUTRAL, 1.0F, 1.0F);
+                //FlyBySoundHub.createFlybySound(world, projectileEntity, RegisterSounds.ANCIENT_HORN_VIBRATION_DISSIPATE, SoundCategory.PLAYERS, 1.0F, 0.7F);
+            }
+            return TypedActionResult.consume(itemStack);
+        } else {
+            return TypedActionResult.fail(itemStack);
         }
-        return TypedActionResult.consume(itemStack);
     }
 
+    @Override
     public int getMaxUseTime(ItemStack stack) {
-        return 140;
+        Optional<RegistryEntry<Instrument>> optional = this.getInstrument(stack);
+        return optional.map(instrumentRegistryEntry -> instrumentRegistryEntry.value().useDuration()).orElse(0);
     }
+
+    @Override
     public UseAction getUseAction(ItemStack stack) {
         return UseAction.TOOT_HORN;
     }
