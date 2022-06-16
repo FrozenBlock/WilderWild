@@ -9,9 +9,9 @@ import net.minecraft.util.registry.Registry;
 
 public class RegisterDevelopment {
 
-    public static final Item CAMERA_ITEM = new CameraItem(new FabricItemSettings());
+    public static final Item CAMERA = new CameraItem(new FabricItemSettings());
 
     public static void init() {
-        Registry.register(Registry.ITEM, new Identifier(WilderWild.MOD_ID, "camera"), CAMERA_ITEM);
+        Registry.register(Registry.ITEM, new Identifier(WilderWild.MOD_ID, "camera"), CAMERA);
     }
 }
