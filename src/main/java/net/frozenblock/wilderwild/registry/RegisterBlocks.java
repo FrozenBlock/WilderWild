@@ -179,6 +179,21 @@ public abstract class RegisterBlocks {
     public static final Block CYPRESS_WALL_SIGN = new WildWallSignBlock(AbstractBlock.Settings.of(Material.WOOD, CYPRESS_LOG.getDefaultMapColor()).noCollision().strength(1.0F).sounds(BlockSoundGroup.WOOD).dropsLike(CYPRESS_SIGN_BLOCK), CYPRESS_SIGN_TYPE);
     public static final Block CYPRESS_SAPLING = new WaterloggableSaplingBlock(new CypressSaplingGenerator(), FabricBlockSettings.copyOf(Blocks.BIRCH_SAPLING));
     //public static final Block CYPRESS_ROOTS = new CypressRootsBlock(FabricBlockSettings.copyOf(Blocks.OAK_BUTTON));
+
+    public static final BlockFamily CYPRESS = BlockFamilies.register(CYPRESS_PLANKS)
+            .button(CYPRESS_BUTTON)
+            .slab(CYPRESS_SLAB)
+            .stairs(CYPRESS_STAIRS)
+            .fence(CYPRESS_FENCE)
+            .fenceGate(CYPRESS_FENCE_GATE)
+            .pressurePlate(CYPRESS_PRESSURE_PLATE)
+            .sign(CYPRESS_SIGN_BLOCK, CYPRESS_WALL_SIGN)
+            .door(CYPRESS_DOOR)
+            .trapdoor(CYPRESS_TRAPDOOR)
+            .group("wooden")
+            .unlockCriterionName("has_planks")
+            .build();
+
     public static void registerCypress() {
         String name = "cypress";
         SignTypeAccessor.registerNew(CYPRESS_SIGN_TYPE);

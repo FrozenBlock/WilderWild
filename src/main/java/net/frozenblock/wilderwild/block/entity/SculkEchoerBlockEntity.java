@@ -11,6 +11,7 @@ import net.frozenblock.wilderwild.registry.RegisterProperties;
 import net.frozenblock.wilderwild.tag.WildEventTags;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.data.client.BlockStateModelGenerator;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.nbt.NbtCompound;
@@ -76,6 +77,7 @@ public class SculkEchoerBlockEntity extends BlockEntity implements VibrationList
                         }
                         bubbleTicks.removeInt(index);
                         bubbleSizes.removeInt(index);
+                        this.vibrationEntity = null;
                     }
                 }
             }
