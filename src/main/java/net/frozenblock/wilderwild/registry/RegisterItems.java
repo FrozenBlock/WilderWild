@@ -49,6 +49,6 @@ public class RegisterItems {
         Registry.register(Registry.ITEM, new Identifier(WilderWild.MOD_ID, "firefly_spawn_egg"), FIREFLY_SPAWN_EGG);
         Registry.register(Registry.ITEM, new Identifier(WilderWild.MOD_ID, "firefly_bottle"), FIREFLY_BOTTLE);
 
-        Registry.register(Registry.INSTRUMENT, ANCIENT_HORN_INSTRUMENT, new Instrument(RegisterSounds.ANCIENT_HORN_CALL, 140, 256.0F));
+        Registry.register(Registry.INSTRUMENT, ANCIENT_HORN_INSTRUMENT, new Instrument(RegisterSounds.ANCIENT_HORN_CALL, 300, 256.0F));
     }
 }
