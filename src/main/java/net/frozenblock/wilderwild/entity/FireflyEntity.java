@@ -5,7 +5,6 @@ import com.mojang.serialization.Dynamic;
 import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.entity.ai.FireflyBrain;
 import net.frozenblock.wilderwild.misc.server.EasyPacket;
-import net.frozenblock.wilderwild.registry.RegisterItems;
 import net.frozenblock.wilderwild.registry.RegisterSounds;
 import net.frozenblock.wilderwild.tag.WildBiomeTags;
 import net.minecraft.block.BlockState;
@@ -35,12 +34,15 @@ import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
+import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.math.random.Random;
+import net.minecraft.util.registry.Registry;
 import net.minecraft.world.*;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.Objects;
 import java.util.Optional;
 
 public class FireflyEntity extends PathAwareEntity implements Flutterer {
@@ -106,7 +108,8 @@ public class FireflyEntity extends PathAwareEntity implements Flutterer {
             if (!player.isCreative()) {
                 player.getStackInHand(hand).decrement(1);
             }
-            player.getInventory().offerOrDrop(new ItemStack(RegisterItems.FIREFLY_BOTTLE));
+            String color = entity.getColor();
+            player.getInventory().offerOrDrop(new ItemStack(Registry.ITEM.get(new Identifier(WilderWild.MOD_ID, Objects.equals(color, "on") ? "firefly_bottle" : color + "_firefly_bottle"))));
             World world = entity.world;
             if (!world.isClient) {
                 EasyPacket.EasyCompetitionPacket.sendFireflyCaptureInfo(world, player, entity);
