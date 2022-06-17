@@ -207,10 +207,6 @@ public class SculkEchoerBlock extends BlockWithEntity implements Waterloggable {
             if (entity instanceof WardenEntity) {
                 canRun = false;
             }
-            BlockEntity blockEntity = world.getBlockEntity(pos);
-            if (blockEntity instanceof SculkEchoerBlockEntity echoerEntity) {
-                echoerEntity.vibrationEntity = entity;
-            }
         }
         BlockEntity entity1 = world.getBlockEntity(pos);
         if (entity1 instanceof SculkEchoerBlockEntity echoer) {

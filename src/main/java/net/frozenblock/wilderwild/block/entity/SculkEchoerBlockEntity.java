@@ -1,6 +1,7 @@
 package net.frozenblock.wilderwild.block.entity;
 
 import com.mojang.logging.LogUtils;
+import com.mojang.serialization.DataResult;
 import com.mojang.serialization.Dynamic;
 import it.unimi.dsi.fastutil.ints.IntArrayList;
 import net.frozenblock.wilderwild.block.SculkEchoerBlock;
@@ -13,11 +14,13 @@ import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.Entity;
 import net.minecraft.nbt.NbtCompound;
+import net.minecraft.nbt.NbtElement;
 import net.minecraft.nbt.NbtOps;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.state.property.Properties;
 import net.minecraft.tag.TagKey;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Box;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
@@ -28,6 +31,10 @@ import net.minecraft.world.event.listener.VibrationListener;
 import org.jetbrains.annotations.Nullable;
 import org.slf4j.Logger;
 
+import java.util.List;
+import java.util.Objects;
+import java.util.UUID;
+
 public class SculkEchoerBlockEntity extends BlockEntity implements VibrationListener.Callback {
     private static final Logger LOGGER = LogUtils.getLogger();
     private VibrationListener listener;
@@ -36,7 +43,7 @@ public class SculkEchoerBlockEntity extends BlockEntity implements VibrationList
     public boolean bigBubble;
     public IntArrayList bubbleTicks = new IntArrayList();
     public IntArrayList bubbleSizes = new IntArrayList();
-    public Entity vibrationEntity = null;
+    public UUID vibrationEntity = UUID.fromString("null");
 
     public SculkEchoerBlockEntity(BlockPos pos, BlockState state) {
         super(RegisterBlockEntityType.SCULK_ECHOER, pos, state);
@@ -72,7 +79,15 @@ public class SculkEchoerBlockEntity extends BlockEntity implements VibrationList
                         GameEvent event = size > 0 ? RegisterGameEvents.SCULK_ECHOER_LOUD_ECHO : RegisterGameEvents.SCULK_ECHOER_ECHO;
                         double offset = upsidedown ? -0.5 : 1.5;
                         if (this.vibrationEntity != null) {
-                            world.emitGameEvent(this.vibrationEntity, event, pos.add(0.5, offset, 0.5));
+                            List<Entity> entity = world.getNonSpectatingEntities(Entity.class, new Box(this.getPos().add(-20,-20,-20), this.getPos().add(20, 20, 20)));
+                            Entity vibration = null;
+                            for (Entity isIt : entity) {
+                                if (isIt.getUuid()==this.vibrationEntity) {
+                                    vibration = isIt;
+                                    break;
+                                }
+                            }
+                            world.emitGameEvent(vibration, event, pos.add(0.5, offset, 0.5));
                         } else {
                             world.emitGameEvent(null, event, pos.add(0.5, offset, 0.5));
                         }
@@ -92,11 +107,18 @@ public class SculkEchoerBlockEntity extends BlockEntity implements VibrationList
         this.bubbleTicks = IntArrayList.wrap(nbt.getIntArray("bubbleTicksLeft"));
         this.bubbleSizes = IntArrayList.wrap(nbt.getIntArray("bubbleSizes"));
         this.bigBubble = nbt.getBoolean("bigBubble");
-        if (nbt.contains("listener", 10)) {
+        this.vibrationEntity = nbt.getUuid("vibrationEntity");
+        /*if (nbt.contains("listener", 10)) {
             VibrationListener.createCodec(this)
                     .parse(new Dynamic<>(NbtOps.INSTANCE, nbt.getCompound("listener")))
                     .resultOrPartial(LOGGER::error)
                     .ifPresent(listener -> this.listener = listener);
+        }*/
+        if (nbt.contains("listener", 10)) {
+            DataResult<?> var10000 = VibrationListener.createCodec(this).parse(new Dynamic<>(NbtOps.INSTANCE, nbt.getCompound("listener")));
+            Logger var10001 = LOGGER;
+            Objects.requireNonNull(var10001);
+            var10000.resultOrPartial(var10001::error).ifPresent((vibrationListener) -> this.listener = (VibrationListener) vibrationListener);
         }
     }
 
@@ -107,10 +129,15 @@ public class SculkEchoerBlockEntity extends BlockEntity implements VibrationList
         nbt.putIntArray("bubbleTicksLeft", this.bubbleTicks);
         nbt.putIntArray("bubbleSizes", this.bubbleSizes);
         nbt.putBoolean("bigBubble", this.bigBubble);
-        VibrationListener.createCodec(this)
+        nbt.putUuid("vibrationEntity", this.vibrationEntity);
+        /*VibrationListener.createCodec(this)
                 .encodeStart(NbtOps.INSTANCE, this.listener)
                 .resultOrPartial(LOGGER::error)
-                .ifPresent(listenerNbt -> nbt.put("listener", listenerNbt));
+                .ifPresent(listenerNbt -> nbt.put("listener", listenerNbt));*/
+        DataResult<?> var10000 = VibrationListener.createCodec(this).encodeStart(NbtOps.INSTANCE, this.listener);
+        Logger var10001 = LOGGER;
+        Objects.requireNonNull(var10001);
+        var10000.resultOrPartial(var10001::error).ifPresent((nbtElement) -> nbt.put("listener", (NbtElement) nbtElement));
     }
 
     public TagKey<GameEvent> getTag() {
@@ -140,6 +167,9 @@ public class SculkEchoerBlockEntity extends BlockEntity implements VibrationList
         if (SculkEchoerBlock.isInactive(blockState)) {
             this.lastVibrationFrequency = SculkEchoerBlock.FREQUENCIES.getInt(event);
             SculkEchoerBlock.setActive(entity, world, this.pos, blockState, getBubbles(distance, listener.getRange()));
+            if (entity!=null) {
+                this.vibrationEntity = entity.getUuid();
+            }
         }
     }
 
