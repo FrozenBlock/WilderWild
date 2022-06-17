@@ -26,7 +26,6 @@ import net.minecraft.util.registry.Registry;
 import net.minecraft.util.registry.RegistryEntry;
 import net.minecraft.util.registry.RegistryKey;
 import net.minecraft.world.World;
-import net.minecraft.world.event.GameEvent;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
@@ -152,7 +151,6 @@ public class AncientCityGoatHorn extends Item {
             SoundEvent soundEvent = instrument.soundEvent();
             float range = instrument.range() / 16.0F;
             world.playSoundFromEntity(user, user, soundEvent, SoundCategory.RECORDS, range, 1.0F);
-            world.emitGameEvent(GameEvent.INSTRUMENT_PLAY, user.getPos(), GameEvent.Emitter.of(user));
             user.getItemCooldownManager().set(RegisterItems.ANCIENT_HORN, getCooldown(user, 300));
             if (world instanceof ServerWorld server) {
                 AncientHornProjectileEntity projectileEntity = new AncientHornProjectileEntity(world, user.getX(), user.getEyeY(), user.getZ());
