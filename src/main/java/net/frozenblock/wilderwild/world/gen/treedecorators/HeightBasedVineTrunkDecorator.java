@@ -17,7 +17,7 @@ public class HeightBasedVineTrunkDecorator extends TreeDecorator {
     public static final Codec<HeightBasedVineTrunkDecorator> CODEC = RecordCodecBuilder.create((instance) -> {
         return instance.group(Codec.floatRange(0.0F, 1.0F).fieldOf("probability").forGetter((treeDecorator) -> {
             return treeDecorator.probability;
-        }), Codec.intRange(-63,319).fieldOf("maxHeight").forGetter((treeDecorator) -> {
+        }), Codec.intRange(-63, 319).fieldOf("maxHeight").forGetter((treeDecorator) -> {
             return treeDecorator.maxHeight;
         })).apply(instance, HeightBasedVineTrunkDecorator::new);
     });
@@ -38,7 +38,7 @@ public class HeightBasedVineTrunkDecorator extends TreeDecorator {
         if (abstractRandom.nextFloat() <= this.probability) {
             List<BlockPos> list = generator.getLogPositions();
             list.forEach((pos) -> {
-                if (pos.getY()<=this.maxHeight) {
+                if (pos.getY() <= this.maxHeight) {
                     for (Direction direction : Direction.Type.HORIZONTAL) {
                         if (abstractRandom.nextFloat() <= 0.25F) {
                             BlockPos blockPos = pos.add(direction.getOffsetX(), 0, direction.getOffsetZ());

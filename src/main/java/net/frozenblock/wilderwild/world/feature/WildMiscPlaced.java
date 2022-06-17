@@ -20,9 +20,10 @@ public class WildMiscPlaced {
 
     public WildMiscPlaced() {
     }
+
     static {
-        FOREST_ROCK_TAIGA = WildPlacedFeatures.register("forest_rock_taiga", MiscConfiguredFeatures.FOREST_ROCK, new PlacementModifier[]{RarityFilterPlacementModifier.of(7), SquarePlacementModifier.of(), PlacedFeatures.MOTION_BLOCKING_HEIGHTMAP, BiomePlacementModifier.of()});
-        DISK_MUD = WildPlacedFeatures.register("disk_mud", WildMiscConfigured.DISK_MUD, new PlacementModifier[]{CountPlacementModifier.of(1), SquarePlacementModifier.of(), PlacedFeatures.OCEAN_FLOOR_WG_HEIGHTMAP, RandomOffsetPlacementModifier.vertically(ConstantIntProvider.create(-1)), BlockFilterPlacementModifier.of(BlockPredicate.matchingBlocks(new Block[]{Blocks.GRASS_BLOCK, Blocks.DIRT})), BiomePlacementModifier.of()});
+        FOREST_ROCK_TAIGA = WildPlacedFeatures.register("forest_rock_taiga", MiscConfiguredFeatures.FOREST_ROCK, RarityFilterPlacementModifier.of(7), SquarePlacementModifier.of(), PlacedFeatures.MOTION_BLOCKING_HEIGHTMAP, BiomePlacementModifier.of());
+        DISK_MUD = WildPlacedFeatures.register("disk_mud", WildMiscConfigured.DISK_MUD, CountPlacementModifier.of(1), SquarePlacementModifier.of(), PlacedFeatures.OCEAN_FLOOR_WG_HEIGHTMAP, RandomOffsetPlacementModifier.vertically(ConstantIntProvider.create(-1)), BlockFilterPlacementModifier.of(BlockPredicate.matchingBlocks(Blocks.GRASS_BLOCK, Blocks.DIRT)), BiomePlacementModifier.of());
         MUD_PATH = WildPlacedFeatures.register("mud_path", WildMiscConfigured.MUD_PATH, RarityFilterPlacementModifier.of(3), SquarePlacementModifier.of(), PlacedFeatures.WORLD_SURFACE_WG_HEIGHTMAP, BiomePlacementModifier.of());
         COARSE_PATH = WildPlacedFeatures.register("coarse_dirt_path", WildMiscConfigured.COARSE_PATH, RarityFilterPlacementModifier.of(3), SquarePlacementModifier.of(), PlacedFeatures.WORLD_SURFACE_WG_HEIGHTMAP, BiomePlacementModifier.of());
         COARSE_PATH_5 = WildPlacedFeatures.register("coarse_dirt_path_5", WildMiscConfigured.COARSE_PATH, RarityFilterPlacementModifier.of(5), SquarePlacementModifier.of(), PlacedFeatures.WORLD_SURFACE_WG_HEIGHTMAP, BiomePlacementModifier.of());

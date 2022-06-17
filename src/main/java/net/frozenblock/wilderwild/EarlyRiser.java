@@ -10,7 +10,7 @@ public class EarlyRiser implements Runnable {
     public void run() {
         MappingResolver remapper = FabricLoader.getInstance().getMappingResolver();
 
-        String spawnGroup = remapper.mapClassName("intermediary","net.minecraft.class_1311");
+        String spawnGroup = remapper.mapClassName("intermediary", "net.minecraft.class_1311");
         ClassTinkerers.enumBuilder(spawnGroup, String.class, int.class, boolean.class, boolean.class, int.class).addEnum("FIREFLIES", "fireflies", 56, true, false, 80).build();
 
         /*String boatType = remapper.mapClassName("intermediary","net.minecraft.class_1690$class_1692");

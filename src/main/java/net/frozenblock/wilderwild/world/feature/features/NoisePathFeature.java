@@ -25,8 +25,10 @@ public class NoisePathFeature extends Feature<PathFeatureConfig> {
         ArrayList<BlockPos> poses = posesInCircle(blockPos, config.radius);
         for (BlockPos tempPos : poses) {
             BlockPos pos = tempPos.withY(world.getTopY(Type.WORLD_SURFACE_WG, tempPos.getX(), tempPos.getZ()) - 1);
-            if (world.getBlockState(pos).getBlock() instanceof PlantBlock) { pos = pos.down(); }
-            if (EasyNoiseSampler.samplePerlinXoro(pos, config.multiplier, config.multiplyY, config.useY)>config.threshold && world.getBlockState(pos).isIn(config.replaceable)) {
+            if (world.getBlockState(pos).getBlock() instanceof PlantBlock) {
+                pos = pos.down();
+            }
+            if (EasyNoiseSampler.samplePerlinXoro(pos, config.multiplier, config.multiplyY, config.useY) > config.threshold && world.getBlockState(pos).isIn(config.replaceable)) {
                 generated = true;
                 world.setBlockState(pos, config.pathBlock.getDefaultState(), 3);
             }
@@ -38,14 +40,15 @@ public class NoisePathFeature extends Feature<PathFeatureConfig> {
         ArrayList<BlockPos> poses = new ArrayList<>();
         int bx = pos.getX();
         int bz = pos.getZ();
-        for(int x = bx - radius; x <= bx + radius; x++) {
-            for(int z = bz - radius; z <= bz + radius; z++) {
-                double distance = ((bx-x) * (bx-x) + ((bz-z) * (bz-z)));
-                if(distance < radius * radius) {
+        for (int x = bx - radius; x <= bx + radius; x++) {
+            for (int z = bz - radius; z <= bz + radius; z++) {
+                double distance = ((bx - x) * (bx - x) + ((bz - z) * (bz - z)));
+                if (distance < radius * radius) {
                     poses.add(new BlockPos(x, 0, z));
                 }
             }
-        } return poses;
+        }
+        return poses;
     }
 
 }

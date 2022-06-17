@@ -41,6 +41,7 @@ public class HollowedLogBlock extends PillarBlock implements Waterloggable {
         super(settings);
         this.setDefaultState(this.getDefaultState().with(WATERLOGGED, false).with(FACING, Direction.UP).with(LEVEL, 0));
     }
+
     @Override
     public VoxelShape getOutlineShape(BlockState state, BlockView world, BlockPos pos, ShapeContext context) {
         return switch (state.get(AXIS)) {
@@ -82,32 +83,32 @@ public class HollowedLogBlock extends PillarBlock implements Waterloggable {
 
     private void updateWaterCompatibility(WorldAccess world, BlockState state, BlockPos pos) {
         Direction dir = state.get(FACING);
-        if(state.get(LEVEL) != 9) { // Check for not persistent
+        if (state.get(LEVEL) != 9) { // Check for not persistent
             Block getBlock = world.getBlockState(pos.offset(dir.getOpposite())).getBlock();
             Fluid getFluid = world.getFluidState(pos.offset(dir.getOpposite())).getFluid();
-            if(dir != Direction.UP) { // Up can not transport water
-                if(getBlock instanceof HollowedLogBlock) {
-                    if(world.getBlockState(pos.offset(dir.getOpposite())).get(FACING) == dir
+            if (dir != Direction.UP) { // Up can not transport water
+                if (getBlock instanceof HollowedLogBlock) {
+                    if (world.getBlockState(pos.offset(dir.getOpposite())).get(FACING) == dir
                             && world.getBlockState(pos.offset(dir.getOpposite())).get(WATERLOGGED)) {
-                        if(world.getBlockState(pos.offset(dir.getOpposite())).get(LEVEL) < 8) {
+                        if (world.getBlockState(pos.offset(dir.getOpposite())).get(LEVEL) < 8) {
                             int waterlevel = world.getBlockState(pos.offset(dir.getOpposite())).get(LEVEL) + 1;
                             tryFillWithFluid(world, pos, state, Fluids.WATER.getDefaultState(), waterlevel);
-                        } else if(world.getBlockState(pos.offset(dir.getOpposite())).get(LEVEL) == 9) {
+                        } else if (world.getBlockState(pos.offset(dir.getOpposite())).get(LEVEL) == 9) {
                             tryFillWithFluid(world, pos, state, Fluids.WATER.getDefaultState(), 1);
                         }
                     } else {
                         tryDrainFluid(world, pos, state);
                     }
-                } else if(getFluid == Fluids.WATER || getFluid == Fluids.FLOWING_WATER) {
-                        int waterlevel;
-                        if (getBlock == Blocks.WATER) {
-                            if(world.getBlockState(pos.offset(dir.getOpposite())).get(FluidBlock.LEVEL) < 8) {
-                                waterlevel = world.getBlockState(pos.offset(dir.getOpposite())).get(FluidBlock.LEVEL) + 1;
-                                tryFillWithFluid(world, pos, state, Fluids.WATER.getDefaultState(), waterlevel);
-                            }
-                        } else {
-                            tryFillWithFluid(world, pos, state, Fluids.WATER.getDefaultState(), 1);
+                } else if (getFluid == Fluids.WATER || getFluid == Fluids.FLOWING_WATER) {
+                    int waterlevel;
+                    if (getBlock == Blocks.WATER) {
+                        if (world.getBlockState(pos.offset(dir.getOpposite())).get(FluidBlock.LEVEL) < 8) {
+                            waterlevel = world.getBlockState(pos.offset(dir.getOpposite())).get(FluidBlock.LEVEL) + 1;
+                            tryFillWithFluid(world, pos, state, Fluids.WATER.getDefaultState(), waterlevel);
                         }
+                    } else {
+                        tryFillWithFluid(world, pos, state, Fluids.WATER.getDefaultState(), 1);
+                    }
                 } else {
                     tryDrainFluid(world, pos, state);
                 }
@@ -116,7 +117,7 @@ public class HollowedLogBlock extends PillarBlock implements Waterloggable {
     }
 
     private boolean tryFillWithFluid(WorldAccess world, BlockPos pos, BlockState state, FluidState fluidState, int level) {
-        if (!(Boolean)state.get(Properties.WATERLOGGED) && fluidState.getFluid() == Fluids.WATER) {
+        if (!(Boolean) state.get(Properties.WATERLOGGED) && fluidState.getFluid() == Fluids.WATER) {
             if (!world.isClient()) {
                 world.setBlockState(pos, state.with(Properties.WATERLOGGED, true).with(LEVEL, level), 3);
                 world.createAndScheduleFluidTick(pos, fluidState.getFluid(), fluidState.getFluid().getTickRate(world));
@@ -127,20 +128,22 @@ public class HollowedLogBlock extends PillarBlock implements Waterloggable {
             return false;
         }
     }
+
     public boolean tryFillWithFluid(WorldAccess world, BlockPos pos, BlockState state, FluidState defaultState) {
         return tryFillWithFluid(world, pos, state, defaultState, 9);
     }
+
     public ItemStack tryDrainFluid(WorldAccess world, BlockPos pos, BlockState state, int level) {
         if (state.get(Properties.WATERLOGGED)) {
             int getLevel = world.getBlockState(pos).get(LEVEL);
-            if(getLevel != 9) {
+            if (getLevel != 9) {
                 world.setBlockState(pos, state.with(Properties.WATERLOGGED, false).with(LEVEL, level), 3);
                 if (!state.canPlaceAt(world, pos)) {
                     world.breakBlock(pos, true);
                 }
             }
 
-            if(getLevel != 9) {
+            if (getLevel != 9) {
                 return ItemStack.EMPTY;
             } else {
                 return new ItemStack(Items.WATER_BUCKET);
@@ -149,6 +152,7 @@ public class HollowedLogBlock extends PillarBlock implements Waterloggable {
             return ItemStack.EMPTY;
         }
     }
+
     public ItemStack tryDrainFluid(WorldAccess world, BlockPos pos, BlockState state) {
         return tryDrainFluid(world, pos, state, 0);
     }
@@ -172,7 +176,7 @@ public class HollowedLogBlock extends PillarBlock implements Waterloggable {
 
     @Override
     public boolean isTranslucent(BlockState state, BlockView world, BlockPos pos) {
-        return !(Boolean)state.get(WATERLOGGED);
+        return !(Boolean) state.get(WATERLOGGED);
     }
 
     public boolean hasSidedTransparency(BlockState state) {
@@ -181,9 +185,9 @@ public class HollowedLogBlock extends PillarBlock implements Waterloggable {
 
     static {
         RAYCAST_SHAPE = VoxelShapes.fullCube();
-        X_SHAPE = VoxelShapes.union(Block.createCuboidShape(0, 0, 0 , 16, 16, 3), Block.createCuboidShape(0, 13, 0, 16 ,16, 16), Block.createCuboidShape(0, 0, 13, 16, 16, 16), Block.createCuboidShape(0, 0, 0, 16, 3, 16));
-        Y_SHAPE = VoxelShapes.union(Block.createCuboidShape(0, 0, 0 , 16, 16, 3), Block.createCuboidShape(0, 0, 0, 3 ,16, 16), Block.createCuboidShape(0, 0, 13, 16, 16, 16), Block.createCuboidShape(13, 0, 0, 16, 16, 16));
-        Z_SHAPE = VoxelShapes.union(Block.createCuboidShape(13, 0, 0 , 16, 16, 16), Block.createCuboidShape(0, 0, 0, 3 ,16, 16), Block.createCuboidShape(0, 13, 0, 16, 16, 16), Block.createCuboidShape(0, 0, 0, 16, 3, 16));
+        X_SHAPE = VoxelShapes.union(Block.createCuboidShape(0, 0, 0, 16, 16, 3), Block.createCuboidShape(0, 13, 0, 16, 16, 16), Block.createCuboidShape(0, 0, 13, 16, 16, 16), Block.createCuboidShape(0, 0, 0, 16, 3, 16));
+        Y_SHAPE = VoxelShapes.union(Block.createCuboidShape(0, 0, 0, 16, 16, 3), Block.createCuboidShape(0, 0, 0, 3, 16, 16), Block.createCuboidShape(0, 0, 13, 16, 16, 16), Block.createCuboidShape(13, 0, 0, 16, 16, 16));
+        Z_SHAPE = VoxelShapes.union(Block.createCuboidShape(13, 0, 0, 16, 16, 16), Block.createCuboidShape(0, 0, 0, 3, 16, 16), Block.createCuboidShape(0, 13, 0, 16, 16, 16), Block.createCuboidShape(0, 0, 0, 16, 3, 16));
 
         WATERLOGGED = Properties.WATERLOGGED;
         FACING = Properties.FACING;

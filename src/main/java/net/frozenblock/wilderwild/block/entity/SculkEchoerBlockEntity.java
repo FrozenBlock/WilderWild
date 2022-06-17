@@ -37,9 +37,10 @@ public class SculkEchoerBlockEntity extends BlockEntity implements VibrationList
     public IntArrayList bubbleTicks = new IntArrayList();
     public IntArrayList bubbleSizes = new IntArrayList();
     public Entity vibrationEntity = null;
+
     public SculkEchoerBlockEntity(BlockPos pos, BlockState state) {
         super(RegisterBlockEntityType.SCULK_ECHOER, pos, state);
-        this.listener = new VibrationListener(new BlockPositionSource(this.pos), ((SculkEchoerBlock)state.getBlock()).getRange(), this, null, 0.0F, 0);
+        this.listener = new VibrationListener(new BlockPositionSource(this.pos), ((SculkEchoerBlock) state.getBlock()).getRange(), this, null, 0.0F, 0);
     }
 
     public void tick(World world, BlockPos pos, BlockState state) {
@@ -51,12 +52,14 @@ public class SculkEchoerBlockEntity extends BlockEntity implements VibrationList
             if (this.echoBubblesLeft > 0) {
                 int size = this.bigBubble ? 1 : 0;
                 int age = waterlogged ? 60 : 30;
-                if (this.bigBubble) {this.bigBubble = false; }
+                if (this.bigBubble) {
+                    this.bigBubble = false;
+                }
                 --this.echoBubblesLeft;
                 double offest = upsidedown ? (waterlogged ? -0.05 : 0.2) : (waterlogged ? 1.05 : 0.8);
                 EasyPacket.EasyFloatingSculkBubblePacket.createParticle(server, new Vec3d(pos.getX() + 0.5D, pos.getY() + offest, pos.getZ() + 0.5D), size, age,
-                        upsidedown ? (size>0 ? Math.max((Math.random())*0.065, 0.045)*-1 : Math.max((Math.random())*0.06, 0.035)*-1) : (size>0 ? Math.max((Math.random())*0.065, 0.045) : Math.max((Math.random())*0.06, 0.035)), 1);
-                this.bubbleTicks.add(age-3);
+                        upsidedown ? (size > 0 ? Math.max((Math.random()) * 0.065, 0.045) * -1 : Math.max((Math.random()) * 0.06, 0.035) * -1) : (size > 0 ? Math.max((Math.random()) * 0.065, 0.045) : Math.max((Math.random()) * 0.06, 0.035)), 1);
+                this.bubbleTicks.add(age - 3);
                 this.bubbleSizes.add(size);
             }
 
@@ -66,7 +69,7 @@ public class SculkEchoerBlockEntity extends BlockEntity implements VibrationList
                     int size = bubbleSizes.getInt(index);
                     bubbleTicks.set(index, i - 1);
                     if (i - 1 <= 0) {
-                        GameEvent event = size>0 ? RegisterGameEvents.SCULK_ECHOER_LOUD_ECHO : RegisterGameEvents.SCULK_ECHOER_ECHO;
+                        GameEvent event = size > 0 ? RegisterGameEvents.SCULK_ECHOER_LOUD_ECHO : RegisterGameEvents.SCULK_ECHOER_ECHO;
                         double offset = upsidedown ? -0.5 : 1.5;
                         if (this.vibrationEntity != null) {
                             world.emitGameEvent(this.vibrationEntity, event, pos.add(0.5, offset, 0.5));
@@ -91,9 +94,9 @@ public class SculkEchoerBlockEntity extends BlockEntity implements VibrationList
         this.bigBubble = nbt.getBoolean("bigBubble");
         if (nbt.contains("listener", 10)) {
             VibrationListener.createCodec(this)
-                .parse(new Dynamic<>(NbtOps.INSTANCE, nbt.getCompound("listener")))
-                .resultOrPartial(LOGGER::error)
-                .ifPresent(listener -> this.listener = listener);
+                    .parse(new Dynamic<>(NbtOps.INSTANCE, nbt.getCompound("listener")))
+                    .resultOrPartial(LOGGER::error)
+                    .ifPresent(listener -> this.listener = listener);
         }
     }
 
@@ -105,9 +108,9 @@ public class SculkEchoerBlockEntity extends BlockEntity implements VibrationList
         nbt.putIntArray("bubbleSizes", this.bubbleSizes);
         nbt.putBoolean("bigBubble", this.bigBubble);
         VibrationListener.createCodec(this)
-            .encodeStart(NbtOps.INSTANCE, this.listener)
-            .resultOrPartial(LOGGER::error)
-            .ifPresent(listenerNbt -> nbt.put("listener", listenerNbt));
+                .encodeStart(NbtOps.INSTANCE, this.listener)
+                .resultOrPartial(LOGGER::error)
+                .ifPresent(listenerNbt -> nbt.put("listener", listenerNbt));
     }
 
     public TagKey<GameEvent> getTag() {
@@ -145,7 +148,7 @@ public class SculkEchoerBlockEntity extends BlockEntity implements VibrationList
     }
 
     public static int getBubbles(float distance, int range) {
-        double d = (double)distance / (double)range;
+        double d = (double) distance / (double) range;
         return Math.max(1, 15 - MathHelper.floor(d * 15.0));
     }
 

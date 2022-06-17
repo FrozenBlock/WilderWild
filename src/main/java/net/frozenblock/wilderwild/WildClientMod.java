@@ -111,14 +111,14 @@ public class WildClientMod implements ClientModInitializer {
         ColorProviderRegistry.ITEM.register(((state, tintIndex) -> {
             return 5877296;
         }), RegisterBlocks.CYPRESS_LEAVES);
-        ColorProviderRegistry.BLOCK.register(((state,world,pos,tintIndex)-> {
-                assert world != null;
-                return BiomeColors.getFoliageColor(world, pos);
-        }),RegisterBlocks.BAOBAB_LEAVES);
-        ColorProviderRegistry.BLOCK.register(((state,world,pos,tintIndex)-> {
+        ColorProviderRegistry.BLOCK.register(((state, world, pos, tintIndex) -> {
             assert world != null;
             return BiomeColors.getFoliageColor(world, pos);
-        }),RegisterBlocks.CYPRESS_LEAVES);
+        }), RegisterBlocks.BAOBAB_LEAVES);
+        ColorProviderRegistry.BLOCK.register(((state, world, pos, tintIndex) -> {
+            assert world != null;
+            return BiomeColors.getFoliageColor(world, pos);
+        }), RegisterBlocks.CYPRESS_LEAVES);
 
         ClientTickEvents.START_WORLD_TICK.register(e -> {
             MinecraftClient client = MinecraftClient.getInstance();
@@ -126,7 +126,7 @@ public class WildClientMod implements ClientModInitializer {
                 FlyBySoundHub.clientFlyby.update(client, client.player, false); //CHANGE TO FALSE TO NOT AUTOMATICALLY ADD FLYBY SOUNDS
             }
         });
-}
+    }
 
 
     public void receiveAncientHornProjectilePacket() {
@@ -166,7 +166,7 @@ public class WildClientMod implements ClientModInitializer {
             ctx.execute(() -> {
                 if (MinecraftClient.getInstance().world == null)
                     throw new IllegalStateException("why is your world null");
-                for (int i=0; i<count; i++) {
+                for (int i = 0; i < count; i++) {
                     MinecraftClient.getInstance().world.addParticle(RegisterParticles.FLOATING_SCULK_BUBBLE, pos.x, pos.y, pos.z, size, age, yVel);
                 }
             });
@@ -181,7 +181,7 @@ public class WildClientMod implements ClientModInitializer {
             ctx.execute(() -> {
                 if (MinecraftClient.getInstance().world == null)
                     throw new IllegalStateException("why is your world null");
-                for (int i=0; i<count; i++) {
+                for (int i = 0; i < count; i++) {
                     MinecraftClient.getInstance().world.addParticle(particle, pos.x, pos.y, pos.z, 0, 0, 0);
                 }
             });
@@ -199,7 +199,7 @@ public class WildClientMod implements ClientModInitializer {
             ctx.execute(() -> {
                 if (MinecraftClient.getInstance().world == null)
                     throw new IllegalStateException("why is your world null");
-                for (int i=0; i<count; i++) {
+                for (int i = 0; i < count; i++) {
                     MinecraftClient.getInstance().world.addParticle(particle, pos.x, pos.y, pos.z, velx, vely, velz);
                 }
             });
@@ -213,8 +213,8 @@ public class WildClientMod implements ClientModInitializer {
             ctx.execute(() -> {
                 if (MinecraftClient.getInstance().world == null)
                     throw new IllegalStateException("why is your world null");
-                for (int i=0; i<count; i++) {
-                    MinecraftClient.getInstance().world.addParticle(RegisterParticles.TERMITE, pos.x, pos.y, pos.z, AdvancedMath.randomPosNeg()/7,AdvancedMath.randomPosNeg()/7,AdvancedMath.randomPosNeg()/7);
+                for (int i = 0; i < count; i++) {
+                    MinecraftClient.getInstance().world.addParticle(RegisterParticles.TERMITE, pos.x, pos.y, pos.z, AdvancedMath.randomPosNeg() / 7, AdvancedMath.randomPosNeg() / 7, AdvancedMath.randomPosNeg() / 7);
                 }
             });
         });
@@ -231,6 +231,7 @@ public class WildClientMod implements ClientModInitializer {
             });
         });
     }
+
     public void receiveAncientHornKillInfoPacket() {
         ClientPlayNetworking.registerGlobalReceiver(WilderWild.ANCIENT_HORN_KILL_NOTIFY_PACKET, (ctx, handler, byteBuf, responseSender) -> {
             boolean creative = byteBuf.readBoolean();

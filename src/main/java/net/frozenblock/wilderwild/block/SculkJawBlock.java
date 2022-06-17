@@ -31,7 +31,7 @@ public class SculkJawBlock extends Block implements SculkSpreadable {
 
     public SculkJawBlock(Settings settings) {
         super(settings);
-        this.setDefaultState( this.getDefaultState().with(ACTIVE, false));
+        this.setDefaultState(this.getDefaultState().with(ACTIVE, false));
     }
 
     protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
@@ -44,18 +44,17 @@ public class SculkJawBlock extends Block implements SculkSpreadable {
         if (blockState.get(ACTIVE)) {
             serverWorld.setBlockState(blockPos, blockState.with(ACTIVE, false), 3);
             serverWorld.playSound(
-                null,
-                blockPos,
-                RegisterSounds.BLOCK_SCULK_JAW_RETRACT,
-                SoundCategory.BLOCKS,
-                1.0F,
-                serverWorld.random.nextFloat() * 0.1F + 0.9F
+                    null,
+                    blockPos,
+                    RegisterSounds.BLOCK_SCULK_JAW_RETRACT,
+                    SoundCategory.BLOCKS,
+                    1.0F,
+                    serverWorld.random.nextFloat() * 0.1F + 0.9F
             );
         }
     }
 
     @Override
-    @Deprecated
     public void onStacksDropped(BlockState state, ServerWorld world, BlockPos pos, ItemStack stack, boolean bl) {
         super.onStacksDropped(state, world, pos, stack, bl);
         if (bl) {
@@ -97,9 +96,9 @@ public class SculkJawBlock extends Block implements SculkSpreadable {
 
     private static int getDecay(SculkSpreadManager spreadManager, BlockPos cursorPos, BlockPos catalystPos, int charge) {
         int i = spreadManager.getMaxDistance();
-        float f = MathHelper.square((float)Math.sqrt(cursorPos.getSquaredDistance(catalystPos)) - (float)i);
+        float f = MathHelper.square((float) Math.sqrt(cursorPos.getSquaredDistance(catalystPos)) - (float) i);
         int j = MathHelper.square(24 - i);
-        float g = Math.min(1.0F, f / (float)j);
-        return Math.max(1, (int)((float)charge * g * 0.5F));
+        float g = Math.min(1.0F, f / (float) j);
+        return Math.max(1, (int) ((float) charge * g * 0.5F));
     }
 }

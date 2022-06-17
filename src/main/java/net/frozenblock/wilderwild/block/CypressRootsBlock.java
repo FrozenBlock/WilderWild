@@ -46,7 +46,7 @@ public class CypressRootsBlock extends Block implements Waterloggable {
         int i = state.get(ROOTS);
         if (i > 1 && itemStack.isOf(Items.SHEARS)) {
             dropStack(world, pos, new ItemStack(state.getBlock().asItem()));
-            world.setBlockState(pos, state.with(ROOTS, i-1));
+            world.setBlockState(pos, state.with(ROOTS, i - 1));
             world.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.BLOCK_GROWING_PLANT_CROP, SoundCategory.BLOCKS, 1.0F, 1.0F);
             itemStack.damage(1, player, (playerx) -> playerx.sendToolBreakStatus(hand));
             world.emitGameEvent(player, GameEvent.SHEAR, pos);
@@ -59,7 +59,9 @@ public class CypressRootsBlock extends Block implements Waterloggable {
     @Override
     public void neighborUpdate(BlockState state, World world, BlockPos pos, Block sourceBlock, BlockPos sourcePos, boolean notify) {
         super.neighborUpdate(state, world, pos, sourceBlock, sourcePos, notify);
-        if (!canSurvive(world, pos)) { world.createAndScheduleBlockTick(pos, state.getBlock(), 1); }
+        if (!canSurvive(world, pos)) {
+            world.createAndScheduleBlockTick(pos, state.getBlock(), 1);
+        }
     }
 
     @Override
@@ -99,8 +101,10 @@ public class CypressRootsBlock extends Block implements Waterloggable {
         if (!waterlogged) {
             waterlogged = ctx.getWorld().getFluidState(ctx.getBlockPos()).getFluid() == Fluids.WATER;
         }
-        if (ctx.getSide()==Direction.DOWN) {
-            if (canSurvive(ctx.getWorld(), ctx.getBlockPos(), true)) { return this.getDefaultState().with(WATERLOGGED, waterlogged);}
+        if (ctx.getSide() == Direction.DOWN) {
+            if (canSurvive(ctx.getWorld(), ctx.getBlockPos(), true)) {
+                return this.getDefaultState().with(WATERLOGGED, waterlogged);
+            }
         }
         return this.getDefaultState().with(WATERLOGGED, waterlogged);
     }
@@ -108,11 +112,15 @@ public class CypressRootsBlock extends Block implements Waterloggable {
     @Override
     public void scheduledTick(BlockState state, ServerWorld world, BlockPos pos, Random random) {
         super.scheduledTick(state, world, pos, random);
-        if (!canSurvive(world, pos)) { world.breakBlock(pos, true); }
+        if (!canSurvive(world, pos)) {
+            world.breakBlock(pos, true);
+        }
     }
 
     public BlockState getStateForNeighborUpdate(BlockState state, Direction direction, BlockState neighborState, WorldAccess world, BlockPos pos, BlockPos neighborPos) {
-        if (!canSurvive(world, pos)) { world.createAndScheduleBlockTick(pos, state.getBlock(), 1); }
+        if (!canSurvive(world, pos)) {
+            world.createAndScheduleBlockTick(pos, state.getBlock(), 1);
+        }
         if (state.get(WATERLOGGED)) {
             world.createAndScheduleFluidTick(pos, Fluids.WATER, Fluids.WATER.getTickRate(world));
         }
@@ -127,13 +135,16 @@ public class CypressRootsBlock extends Block implements Waterloggable {
         if (world.getBlockState(pos).getBlock() instanceof CypressRootsBlock) {
             boolean upsideDown = world.getBlockState(pos).get(UPSIDEDOWN);
             return !upsideDown ? world.getBlockState(pos.down()).isSideSolidFullSquare(world, pos.down(), Direction.UP) : world.getBlockState(pos.up()).isSideSolidFullSquare(world, pos.up(), Direction.DOWN);
-        } return false;
+        }
+        return false;
     }
+
     public static boolean canSurvive(WorldAccess world, BlockPos pos) {
         if (world.getBlockState(pos).getBlock() instanceof CypressRootsBlock) {
             boolean upsideDown = world.getBlockState(pos).get(UPSIDEDOWN);
             return !upsideDown ? world.getBlockState(pos.down()).isSideSolidFullSquare(world, pos.down(), Direction.UP) : world.getBlockState(pos.up()).isSideSolidFullSquare(world, pos.up(), Direction.DOWN);
-        } return false;
+        }
+        return false;
     }
 
     public static boolean canSurvive(World world, BlockPos pos, boolean upsideDown) {
@@ -141,7 +152,9 @@ public class CypressRootsBlock extends Block implements Waterloggable {
     }
 
     public VoxelShape getOutlineShape(BlockState state, BlockView world, BlockPos pos, ShapeContext context) {
-        if (state.get(UPSIDEDOWN)) { return CEILING_SHAPE; }
+        if (state.get(UPSIDEDOWN)) {
+            return CEILING_SHAPE;
+        }
         return FLOOR_SHAPE;
     }
 

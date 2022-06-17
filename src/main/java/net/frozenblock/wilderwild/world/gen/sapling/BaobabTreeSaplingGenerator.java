@@ -18,8 +18,8 @@ public abstract class BaobabTreeSaplingGenerator extends SaplingGenerator {
     }
 
     public boolean generate(ServerWorld world, ChunkGenerator chunkGenerator, BlockPos pos, BlockState state, Random random) {
-        for(int i = 0; i >= -1; --i) {
-            for(int j = 0; j >= -1; --j) {
+        for (int i = 0; i >= -1; --i) {
+            for (int j = 0; j >= -1; --j) {
                 if (canGenerateBaobabTree(state, world, pos, i, j)) {
                     return this.generateBaobabTree(world, chunkGenerator, pos, state, random, i, j);
                 }
@@ -37,7 +37,7 @@ public abstract class BaobabTreeSaplingGenerator extends SaplingGenerator {
         if (registryEntry == null) {
             return false;
         } else {
-            ConfiguredFeature<?, ?> configuredFeature = (ConfiguredFeature)registryEntry.value();
+            ConfiguredFeature<?, ?> configuredFeature = registryEntry.value();
             BlockState blockState = Blocks.AIR.getDefaultState();
             world.setBlockState(pos.add(x, 0, z), blockState, 16);
             world.setBlockState(pos.add(x + 1, 0, z), blockState, 16);

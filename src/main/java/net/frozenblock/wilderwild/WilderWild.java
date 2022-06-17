@@ -91,25 +91,26 @@ public class WilderWild implements ModInitializer {
         TermiteMoundBlockEntity.Termite.addNaturalDegradableBlocks();
     }
 
-    public static final Identifier SEED_PACKET = new Identifier(WilderWild.MOD_ID,"seed_particle_packet");
-    public static final Identifier CONTROLLED_SEED_PACKET = new Identifier(WilderWild.MOD_ID,"controlled_seed_particle_packet");
-    public static final Identifier FLOATING_SCULK_BUBBLE_PACKET = new Identifier(WilderWild.MOD_ID,"floating_sculk_bubble_easy_packet");
-    public static final Identifier TERMITE_PARTICLE_PACKET = new Identifier(WilderWild.MOD_ID,"termite_particle_packet");
+    public static final Identifier SEED_PACKET = new Identifier(WilderWild.MOD_ID, "seed_particle_packet");
+    public static final Identifier CONTROLLED_SEED_PACKET = new Identifier(WilderWild.MOD_ID, "controlled_seed_particle_packet");
+    public static final Identifier FLOATING_SCULK_BUBBLE_PACKET = new Identifier(WilderWild.MOD_ID, "floating_sculk_bubble_easy_packet");
+    public static final Identifier TERMITE_PARTICLE_PACKET = new Identifier(WilderWild.MOD_ID, "termite_particle_packet");
     public static final Identifier HORN_PROJECTILE_PACKET_ID = new Identifier(WilderWild.MOD_ID, "ancient_horn_projectile_packet");
 
-    public static final Identifier CAPTURE_FIREFLY_NOTIFY_PACKET = new Identifier(WilderWild.MOD_ID,"capture_firefly_notify_packet");
-    public static final Identifier ANCIENT_HORN_KILL_NOTIFY_PACKET = new Identifier(WilderWild.MOD_ID,"ancient_horn_kill_notify_packet");
-    public static final Identifier FLYBY_SOUND_PACKET = new Identifier(WilderWild.MOD_ID,"flyby_sound_packet");
-    public static final Identifier MOVING_LOOPING_SOUND_PACKET = new Identifier(WilderWild.MOD_ID,"moving_looping_sound_packet");
+    public static final Identifier CAPTURE_FIREFLY_NOTIFY_PACKET = new Identifier(WilderWild.MOD_ID, "capture_firefly_notify_packet");
+    public static final Identifier ANCIENT_HORN_KILL_NOTIFY_PACKET = new Identifier(WilderWild.MOD_ID, "ancient_horn_kill_notify_packet");
+    public static final Identifier FLYBY_SOUND_PACKET = new Identifier(WilderWild.MOD_ID, "flyby_sound_packet");
+    public static final Identifier MOVING_LOOPING_SOUND_PACKET = new Identifier(WilderWild.MOD_ID, "moving_looping_sound_packet");
 
     public static void log(String string, boolean shouldLog) {
         if (shouldLog) {
             LOGGER.info(string);
         }
     }
+
     public static void logInsane(String string, boolean shouldLog) {
         if (shouldLog) {
-            for (int i=0; i<Math.random()*5; i++) {
+            for (int i = 0; i < Math.random() * 5; i++) {
                 LOGGER.warn(string);
                 LOGGER.error(string);
                 LOGGER.warn(string);
@@ -121,21 +122,25 @@ public class WilderWild implements ModInitializer {
             }
         }
     }
+
     public static void log(Entity entity, String string, boolean shouldLog) {
         if (shouldLog) {
             LOGGER.info(entity.toString() + " : " + string + " : " + entity.getPos());
         }
     }
+
     public static void log(Block block, String string, boolean shouldLog) {
         if (shouldLog) {
             LOGGER.info(block.toString() + " : " + string + " : ");
         }
     }
+
     public static void log(Block block, BlockPos pos, String string, boolean shouldLog) {
         if (shouldLog) {
             LOGGER.info(block.toString() + " : " + string + " : " + pos);
         }
     }
+
     public static void logWild(String string, boolean shouldLog) {
         if (shouldLog) {
             LOGGER.info(string + " " + MOD_ID);

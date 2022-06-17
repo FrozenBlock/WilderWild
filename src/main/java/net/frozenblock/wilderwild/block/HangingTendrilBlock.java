@@ -69,17 +69,19 @@ public class HangingTendrilBlock extends BlockWithEntity implements Waterloggabl
         return this.getDefaultState().with(WATERLOGGED, fluidState.getFluid() == Fluids.WATER);
     }
 
-    public boolean hasRandomTicks(BlockState state) { return true; }
+    public boolean hasRandomTicks(BlockState state) {
+        return true;
+    }
 
     public void randomTick(BlockState state, ServerWorld world, BlockPos pos, Random random) {
         if (!state.canPlaceAt(world, pos)) {
             world.breakBlock(pos, true);
-        } else if (getPhase(state)==HangingTendrilPhase.INACTIVE) {
+        } else if (getPhase(state) == HangingTendrilPhase.INACTIVE) {
             BlockEntity entity = world.getBlockEntity(pos);
-            if (entity!=null) {
+            if (entity != null) {
                 if (entity instanceof HangingTendrilBlockEntity wigglyTendril) {
                     world.setBlockState(pos, state.with(TWITCHING, true));
-                    wigglyTendril.ticksToStopTwitching=random.nextBetween(5,12);
+                    wigglyTendril.ticksToStopTwitching = random.nextBetween(5, 12);
                 }
             }
         }
@@ -136,7 +138,7 @@ public class HangingTendrilBlock extends BlockWithEntity implements Waterloggabl
 
     @Nullable
     public <T extends BlockEntity> GameEventListener getGameEventListener(ServerWorld world, T blockEntity) {
-        return blockEntity instanceof HangingTendrilBlockEntity ? ((HangingTendrilBlockEntity)blockEntity).getEventListener() : null;
+        return blockEntity instanceof HangingTendrilBlockEntity ? ((HangingTendrilBlockEntity) blockEntity).getEventListener() : null;
     }
 
     @Nullable
@@ -169,7 +171,7 @@ public class HangingTendrilBlock extends BlockWithEntity implements Waterloggabl
     public static void setCooldown(World world, BlockPos pos, BlockState state) {
         world.setBlockState(pos, state.with(HANGING_TENDRIL_PHASE, HangingTendrilPhase.COOLDOWN), 3);
         world.createAndScheduleBlockTick(pos, state.getBlock(), 1);
-        if (!(Boolean)state.get(WATERLOGGED)) {
+        if (!(Boolean) state.get(WATERLOGGED)) {
             world.playSound(null, pos, SoundEvents.BLOCK_SCULK_SENSOR_CLICKING_STOP, SoundCategory.BLOCKS, 1.0F, world.random.nextFloat() * 0.2F + 1.0F);
         }
         updateNeighbors(world, pos);
@@ -180,8 +182,8 @@ public class HangingTendrilBlock extends BlockWithEntity implements Waterloggabl
         world.createAndScheduleBlockTick(pos, state.getBlock(), 60);
         updateNeighbors(world, pos);
 
-        if (!(Boolean)state.get(WATERLOGGED)) {
-            world.playSound(null, (double)pos.getX() + 0.5D, (double)pos.getY() + 0.5D, (double)pos.getZ() + 0.5D, SoundEvents.BLOCK_SCULK_SENSOR_CLICKING, SoundCategory.BLOCKS, 1.0F, world.random.nextFloat() * 0.2F + 1.0F);
+        if (!(Boolean) state.get(WATERLOGGED)) {
+            world.playSound(null, (double) pos.getX() + 0.5D, (double) pos.getY() + 0.5D, (double) pos.getZ() + 0.5D, SoundEvents.BLOCK_SCULK_SENSOR_CLICKING, SoundCategory.BLOCKS, 1.0F, world.random.nextFloat() * 0.2F + 1.0F);
         }
     }
 
@@ -197,7 +199,9 @@ public class HangingTendrilBlock extends BlockWithEntity implements Waterloggabl
         BlockEntity blockEntity = world.getBlockEntity(pos);
         if (blockEntity instanceof HangingTendrilBlockEntity hangingEntity) {
             return getPhase(state) == HangingTendrilPhase.ACTIVE ? hangingEntity.getLastVibrationFrequency() : 0;
-        } else { return 0; }
+        } else {
+            return 0;
+        }
     }
 
     public boolean canPathfindThrough(BlockState state, BlockView world, BlockPos pos, NavigationType type) {
@@ -222,33 +226,38 @@ public class HangingTendrilBlock extends BlockWithEntity implements Waterloggabl
     }
 
     public static boolean shouldHavePogLighting(BlockState state) {
-        return getPhase(state)==HangingTendrilPhase.ACTIVE || state.get(WRINGING_OUT);
+        return getPhase(state) == HangingTendrilPhase.ACTIVE || state.get(WRINGING_OUT);
     }
 
     public static HangingTendrilBlockEntity getEntity(World world, BlockPos pos) {
         BlockEntity entity = world.getBlockEntity(pos);
-        if (entity!=null) {
+        if (entity != null) {
             if (entity instanceof HangingTendrilBlockEntity wigglyTendril) {
                 return wigglyTendril;
             }
-        } return null;
+        }
+        return null;
     }
+
     public static HangingTendrilBlockEntity getEntity(WorldAccess world, BlockPos pos) {
         BlockEntity entity = world.getBlockEntity(pos);
-        if (entity!=null) {
+        if (entity != null) {
             if (entity instanceof HangingTendrilBlockEntity wigglyTendril) {
                 return wigglyTendril;
             }
-        } return null;
+        }
+        return null;
     }
 
     @Override
     public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
         if (isInactive(state) && !state.get(WRINGING_OUT)) {
-            if (world.isClient) { return ActionResult.SUCCESS; } else {
+            if (world.isClient) {
+                return ActionResult.SUCCESS;
+            } else {
                 HangingTendrilBlockEntity tendrilEntity = getEntity(world, pos);
-                if (tendrilEntity!=null) {
-                    if (tendrilEntity.storedXP>0) {
+                if (tendrilEntity != null) {
+                    if (tendrilEntity.storedXP > 0) {
                         world.setBlockState(pos, state.with(WRINGING_OUT, true));
                         world.playSound(
                                 null,
@@ -258,7 +267,7 @@ public class HangingTendrilBlock extends BlockWithEntity implements Waterloggabl
                                 1f,
                                 world.random.nextFloat() * 0.1F + 0.9F
                         );
-                        tendrilEntity.ringOutTicksLeft=5;
+                        tendrilEntity.ringOutTicksLeft = 5;
                         return ActionResult.SUCCESS;
                     }
                 }
@@ -270,14 +279,14 @@ public class HangingTendrilBlock extends BlockWithEntity implements Waterloggabl
     @Override
     public int spread(SculkSpreadManager.Cursor cursor, WorldAccess world, BlockPos catalystPos, Random random, SculkSpreadManager spreadManager, boolean shouldConvertToBlock) {
         HangingTendrilBlockEntity tendrilEntity = getEntity(world, cursor.getPos());
-        if (tendrilEntity!=null) {
-            if (tendrilEntity.storedXP<900) {
-                if (cursor.getCharge()>1) {
-                    tendrilEntity.storedXP=tendrilEntity.storedXP+2;
-                    return cursor.getCharge()-2;
+        if (tendrilEntity != null) {
+            if (tendrilEntity.storedXP < 900) {
+                if (cursor.getCharge() > 1) {
+                    tendrilEntity.storedXP = tendrilEntity.storedXP + 2;
+                    return cursor.getCharge() - 2;
                 } else {
                     ++tendrilEntity.storedXP;
-                    return cursor.getCharge()-1;
+                    return cursor.getCharge() - 1;
                 }
             }
         }
