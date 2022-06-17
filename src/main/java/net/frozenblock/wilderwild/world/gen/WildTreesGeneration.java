@@ -84,19 +84,19 @@ public class WildTreesGeneration {
         BiomeModifications.addFeature(BiomeSelectors.includeByKey(RegisterWorldgen.MIXED_FOREST),
                 GenerationStep.Feature.VEGETAL_DECORATION, WildPlacedFeatures.FALLEN_TREES_MIXED_PLACED.getKey().get());
 
-        BiomeModifications.addFeature(BiomeSelectors.includeByKey(RegisterWorldgen.CYPRESS_FOREST),
-                GenerationStep.Feature.VEGETAL_DECORATION, WildPlacedFeatures.CYPRESS_FOREST_TREES.getKey().get());
+        BiomeModifications.addFeature(BiomeSelectors.includeByKey(RegisterWorldgen.CYPRESS_WETLANDS),
+                GenerationStep.Feature.VEGETAL_DECORATION, WildPlacedFeatures.CYPRESS_WETLANDS_TREES.getKey().get());
 
-        BiomeModifications.addFeature(BiomeSelectors.includeByKey(RegisterWorldgen.CYPRESS_FOREST),
+        BiomeModifications.addFeature(BiomeSelectors.includeByKey(RegisterWorldgen.CYPRESS_WETLANDS),
                 GenerationStep.Feature.VEGETAL_DECORATION, WildPlacedFeatures.CYPRESS_TREES.getKey().get());
 
-        BiomeModifications.addFeature(BiomeSelectors.includeByKey(RegisterWorldgen.CYPRESS_FOREST),
+        BiomeModifications.addFeature(BiomeSelectors.includeByKey(RegisterWorldgen.CYPRESS_WETLANDS),
                 GenerationStep.Feature.VEGETAL_DECORATION, WildPlacedFeatures.SHORT_CYPRESS_TREES.getKey().get());
 
-        BiomeModifications.addFeature(BiomeSelectors.includeByKey(RegisterWorldgen.CYPRESS_FOREST),
+        BiomeModifications.addFeature(BiomeSelectors.includeByKey(RegisterWorldgen.CYPRESS_WETLANDS),
                 GenerationStep.Feature.VEGETAL_DECORATION, WildPlacedFeatures.CYPRESS_TREES_WATER_2.getKey().get());
 
-        BiomeModifications.addFeature(BiomeSelectors.includeByKey(RegisterWorldgen.CYPRESS_FOREST),
+        BiomeModifications.addFeature(BiomeSelectors.includeByKey(RegisterWorldgen.CYPRESS_WETLANDS),
                 GenerationStep.Feature.VEGETAL_DECORATION, WildPlacedFeatures.FALLEN_OAK_AND_CYPRESS_PLACED.getKey().get());
 
         BiomeModifications.addFeature(BiomeSelectors.includeByKey(BiomeKeys.SWAMP),

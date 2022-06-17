@@ -8,7 +8,7 @@ import net.minecraft.tag.BiomeTags;
 import net.minecraft.world.biome.BiomeKeys;
 import net.minecraft.world.gen.GenerationStep;
 
-import static net.frozenblock.wilderwild.registry.RegisterWorldgen.CYPRESS_FOREST;
+import static net.frozenblock.wilderwild.registry.RegisterWorldgen.CYPRESS_WETLANDS;
 import static net.frozenblock.wilderwild.registry.RegisterWorldgen.MIXED_FOREST;
 
 public class WildGrassGeneration {
@@ -19,13 +19,13 @@ public class WildGrassGeneration {
         BiomeModifications.addFeature(BiomeSelectors.tag(BiomeTags.IS_FOREST),
                 GenerationStep.Feature.VEGETAL_DECORATION, WildPlacedFeatures.NEW_TALL_GRASS.getKey().get());
 
-        BiomeModifications.addFeature(BiomeSelectors.includeByKey(CYPRESS_FOREST),
+        BiomeModifications.addFeature(BiomeSelectors.includeByKey(CYPRESS_WETLANDS),
                 GenerationStep.Feature.VEGETAL_DECORATION, WildPlacedFeatures.NEW_GRASS_PLACED.getKey().get());
-        BiomeModifications.addFeature(BiomeSelectors.includeByKey(RegisterWorldgen.CYPRESS_FOREST),
+        BiomeModifications.addFeature(BiomeSelectors.includeByKey(RegisterWorldgen.CYPRESS_WETLANDS),
                 GenerationStep.Feature.VEGETAL_DECORATION, WildPlacedFeatures.DENSE_FERN_PLACED.getKey().get());
-        BiomeModifications.addFeature(BiomeSelectors.includeByKey(RegisterWorldgen.CYPRESS_FOREST),
+        BiomeModifications.addFeature(BiomeSelectors.includeByKey(RegisterWorldgen.CYPRESS_WETLANDS),
                 GenerationStep.Feature.VEGETAL_DECORATION, WildPlacedFeatures.DENSE_TALL_GRASS_PLACED.getKey().get());
-        BiomeModifications.addFeature(BiomeSelectors.includeByKey(RegisterWorldgen.CYPRESS_FOREST),
+        BiomeModifications.addFeature(BiomeSelectors.includeByKey(RegisterWorldgen.CYPRESS_WETLANDS),
                 GenerationStep.Feature.VEGETAL_DECORATION, WildPlacedFeatures.SEAGRASS_CYPRESS.getKey().get());
     }
 

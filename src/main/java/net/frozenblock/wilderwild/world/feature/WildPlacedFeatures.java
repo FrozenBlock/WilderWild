@@ -61,7 +61,7 @@ public class WildPlacedFeatures {
     public static final RegistryEntry<PlacedFeature> MIXED_TREES = register("mixed_trees",
             WildConfiguredFeatures.MIXED_TREES, modifiers(PlacedFeatures.createCountExtraModifier(10, 0.1F, 1)));
 
-    public static final RegistryEntry<PlacedFeature> CYPRESS_FOREST_TREES = register("cypress_forest_trees",
+    public static final RegistryEntry<PlacedFeature> CYPRESS_WETLANDS_TREES = register("cypress_wetlands_trees",
             WildConfiguredFeatures.CYPRESS_FOREST_TREES, modifiers(PlacedFeatures.createCountExtraModifier(20, 0.1F, 1)));
 
     public static final RegistryEntry<PlacedFeature> CYPRESS_TREES = register("cypress_trees",

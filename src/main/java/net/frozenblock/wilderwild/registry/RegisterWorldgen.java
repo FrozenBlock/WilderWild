@@ -20,12 +20,12 @@ import static net.minecraft.world.biome.OverworldBiomeCreator.createJungle;
 
 public class RegisterWorldgen {
     public static final RegistryKey<Biome> MIXED_FOREST = register("mixed_forest");
-    public static final RegistryKey<Biome> CYPRESS_FOREST = register("cypress_forest");
+    public static final RegistryKey<Biome> CYPRESS_WETLANDS = register("cypress_wetlands");
 
     public static void RegisterWorldGen() {
         WilderWild.logWild("Registering Biomes for", WilderWild.UNSTABLE_LOGGING);
         BuiltinRegistries.add(BuiltinRegistries.BIOME, MIXED_FOREST, createMixedForest());
-        BuiltinRegistries.add(BuiltinRegistries.BIOME, CYPRESS_FOREST, createCypressForest());
+        BuiltinRegistries.add(BuiltinRegistries.BIOME, CYPRESS_WETLANDS, createCypressWetlands());
     }
 
     private static RegistryKey<Biome> register(String name) {
@@ -45,10 +45,10 @@ public class RegisterWorldgen {
     }
 
 
-    public static Biome createCypressForest() {
+    public static Biome createCypressWetlands() {
         SpawnSettings.Builder builder = new SpawnSettings.Builder();
         DefaultBiomeFeatures.addBatsAndMonsters(builder);
-        addCypressForestMobs(builder);
+        addCypressWetlandsMobs(builder);
         GenerationSettings.Builder builder2 = new GenerationSettings.Builder();
         addBasicFeatures(builder2);
         DefaultBiomeFeatures.addDefaultOres(builder2);
@@ -66,7 +66,7 @@ public class RegisterWorldgen {
         DefaultBiomeFeatures.addFrozenTopLayer(generationSettings);
     }
 
-    private static void addCypressForestMobs(SpawnSettings.Builder builder) {
+    private static void addCypressWetlandsMobs(SpawnSettings.Builder builder) {
         builder.spawn(SpawnGroup.WATER_AMBIENT, new SpawnSettings.SpawnEntry(EntityType.COD, 5, 2, 6));
         //builder.spawn(SpawnGroup.WATER_CREATURE, new SpawnSettings.SpawnEntry(EntityType.TADPOLE, 6, 2, 4));
         builder.spawn(SpawnGroup.CREATURE, new SpawnSettings.SpawnEntry(EntityType.FROG, 12, 4, 5));
