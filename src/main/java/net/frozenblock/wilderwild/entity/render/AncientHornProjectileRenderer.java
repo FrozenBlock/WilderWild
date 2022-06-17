@@ -21,6 +21,7 @@ import net.minecraft.util.math.Vec3f;
 public class AncientHornProjectileRenderer extends EntityRenderer<AncientHornProjectileEntity> {
     public static final Identifier TEXTURE = new Identifier(WilderWild.MOD_ID, "textures/entity/ancient_horn_projectile.png");
     private final AncientHornProjectileModel model;
+
     public AncientHornProjectileRenderer(EntityRendererFactory.Context context) {
         super(context);
         this.model = new AncientHornProjectileModel(context.getPart(WildClientMod.ANCIENT_HORN_PROJECTILE_LAYER));
@@ -36,7 +37,9 @@ public class AncientHornProjectileRenderer extends EntityRenderer<AncientHornPro
         super.render(projectile, f, tickDelta, matrixStack, vertexConsumerProvider, i);
     }
 
-    public Identifier getTexture(AncientHornProjectileEntity entity) { return TEXTURE; }
+    public Identifier getTexture(AncientHornProjectileEntity entity) {
+        return TEXTURE;
+    }
 
     protected int getBlockLight(AncientHornProjectileEntity entity, BlockPos blockPos) {
         return 15;

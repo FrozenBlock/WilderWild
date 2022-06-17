@@ -31,7 +31,7 @@ public class FireflyEntityRenderer extends EntityRenderer<FireflyEntity> {
 
     @Override
     public void render(FireflyEntity entity, float yaw, float tickDelta, MatrixStack matrixStack, VertexConsumerProvider vertexConsumerProvider, int i) {
-        float scale = entity.getScale()==1.5F ? 1.5F : entity.getScale() - (tickDelta * 0.001875F); //0.0375
+        float scale = entity.getScale() == 1.5F ? 1.5F : entity.getScale() - (tickDelta * 0.001875F); //0.0375
         matrixStack.push();
         matrixStack.scale(scale, scale, scale);
         matrixStack.translate(0, yOffset, 0);
@@ -90,7 +90,7 @@ public class FireflyEntityRenderer extends EntityRenderer<FireflyEntity> {
     }
 
     private static void vertexPulsate(VertexConsumer vertexConsumer, Matrix4f matrix4f, Matrix3f matrix3f, int i, float f, int j, int k, int l, int age, boolean flickers, float tickDelta, int overlay) {
-        int colors = !flickers ? (int) ((int) Math.max((255 * (Math.cos(((age + tickDelta) * Math.PI)/20))),0)) : (int) ((int) (255 * (Math.cos(((age + tickDelta) * Math.PI) / 40))) + 127.5);
+        int colors = !flickers ? (int) ((int) Math.max((255 * (Math.cos(((age + tickDelta) * Math.PI) / 20))), 0)) : (int) ((int) (255 * (Math.cos(((age + tickDelta) * Math.PI) / 40))) + 127.5);
         vertexConsumer
                 .vertex(matrix4f, f - 0.5F, j - 0.5F, 0.0F)
                 .color(colors, colors, colors, colors)

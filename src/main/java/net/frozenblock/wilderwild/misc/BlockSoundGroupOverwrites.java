@@ -33,10 +33,12 @@ public class BlockSoundGroupOverwrites {
 
     }
 
-    /** You can add any block by either adding its registry (Blocks.STONE) or its ID ("stone").
+    /**
+     * You can add any block by either adding its registry (Blocks.STONE) or its ID ("stone").
      * If you want to add a modded block, make sure to put the nameSpaceID (wilderwild) in the first field, then the ID and soundGroup.
      * Or you could just be normal and add the block itself instead of the ID.
-     * You can also add a LIST of blocks (IDs not allowed,) by using new Block[]{block1, block2}.*/
+     * You can also add a LIST of blocks (IDs not allowed,) by using new Block[]{block1, block2}.
+     */
 
     public static void addBlock(String id, BlockSoundGroup sounds) {
         ids.add(new Identifier(id));

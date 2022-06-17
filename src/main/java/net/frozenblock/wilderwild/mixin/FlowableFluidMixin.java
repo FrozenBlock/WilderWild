@@ -28,13 +28,13 @@ public abstract class FlowableFluidMixin {
     @Accessor("field_15901")
     public static ThreadLocal<Object2ByteLinkedOpenHashMap<Block.NeighborGroup>> getField_15901() {
         throw new AssertionError();
-    };
+    }
 
 
     @Inject(at = @At("RETURN"), method = "canFlow", cancellable = true)
     private void canFlowHollowedLog(BlockView world, BlockPos fluidPos, BlockState fluidBlockState, Direction flowDirection, BlockPos flowTo, BlockState flowToBlockState, FluidState fluidState, Fluid fluid, CallbackInfoReturnable<Boolean> cir) {
-        if(world.getFluidState(fluidPos).getFluid() == Fluids.WATER && world.getBlockState(fluidPos).getBlock() instanceof HollowedLogBlock) {
-            if(world.getBlockState(fluidPos).get(HollowedLogBlock.FACING) != flowDirection) {
+        if (world.getFluidState(fluidPos).getFluid() == Fluids.WATER && world.getBlockState(fluidPos).getBlock() instanceof HollowedLogBlock) {
+            if (world.getBlockState(fluidPos).get(HollowedLogBlock.FACING) != flowDirection) {
                 cir.setReturnValue(false);
             }
         }
@@ -42,7 +42,7 @@ public abstract class FlowableFluidMixin {
 
     @Inject(at = @At("RETURN"), method = "getUpdatedState", cancellable = true)
     private void recivesFlowHollowed(WorldView world, BlockPos pos, BlockState state, CallbackInfoReturnable<FluidState> cir) {
-        if(world.getFluidState(pos).getFluid() == Fluids.WATER) {
+        if (world.getFluidState(pos).getFluid() == Fluids.WATER) {
             int i = 0;
             Iterator<Direction> var6 = Direction.Type.HORIZONTAL.iterator();
 
@@ -105,7 +105,7 @@ public abstract class FlowableFluidMixin {
                 object2ByteLinkedOpenHashMap.removeLastByte();
             }
 
-            object2ByteLinkedOpenHashMap.putAndMoveToFirst(neighborGroup, (byte)(bl ? 1 : 0));
+            object2ByteLinkedOpenHashMap.putAndMoveToFirst(neighborGroup, (byte) (bl ? 1 : 0));
         }
 
         return bl;

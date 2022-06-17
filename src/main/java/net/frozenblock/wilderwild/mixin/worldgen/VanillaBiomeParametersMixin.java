@@ -99,6 +99,7 @@ public final class VanillaBiomeParametersMixin {
                 this.erosionParameters[6], weirdness, 0.0F, RegisterWorldgen.CYPRESS_FOREST
         );
     }
+
     @Inject(method = "writeRiverBiomes", at = @At("TAIL"))
     private void writeRiverBiomes(Consumer<Pair<MultiNoiseUtil.NoiseHypercube, RegistryKey<Biome>>> parameters, MultiNoiseUtil.ParameterRange weirdness, CallbackInfo ci) {
         this.writeBiomeParameters(

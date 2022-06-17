@@ -26,10 +26,11 @@ public class EasyPacket {
             byteBuf.writeDouble(pos.z);
             byteBuf.writeVarInt(count);
             byteBuf.writeBoolean(isMilkweed);
-            for (ServerPlayerEntity player : PlayerLookup.around((ServerWorld)world, pos, 32)) {
+            for (ServerPlayerEntity player : PlayerLookup.around((ServerWorld) world, pos, 32)) {
                 ServerPlayNetworking.send(player, WilderWild.SEED_PACKET, byteBuf);
             }
         }
+
         public static void createControlledParticle(World world, Vec3d pos, double xvel, double yvel, double zvel, int count, boolean isMilkweed) {
             if (world.isClient)
                 throw new IllegalStateException("Particle attempting spawning on THE CLIENT JESUS CHRIST WHAT THE HECK SPAWN ON SERVER NEXT TIME PLS");
@@ -37,12 +38,12 @@ public class EasyPacket {
             byteBuf.writeDouble(pos.x);
             byteBuf.writeDouble(pos.y);
             byteBuf.writeDouble(pos.z);
-            byteBuf.writeDouble(xvel*1.5);
+            byteBuf.writeDouble(xvel * 1.5);
             byteBuf.writeDouble(yvel);
-            byteBuf.writeDouble(zvel*1.5);
+            byteBuf.writeDouble(zvel * 1.5);
             byteBuf.writeVarInt(count);
             byteBuf.writeBoolean(isMilkweed);
-            for (ServerPlayerEntity player : PlayerLookup.around((ServerWorld)world, pos, 32)) {
+            for (ServerPlayerEntity player : PlayerLookup.around((ServerWorld) world, pos, 32)) {
                 ServerPlayNetworking.send(player, WilderWild.CONTROLLED_SEED_PACKET, byteBuf);
             }
         }
@@ -60,7 +61,7 @@ public class EasyPacket {
             byteBuf.writeVarInt(maxAge);
             byteBuf.writeDouble(yVel);
             byteBuf.writeVarInt(count);
-            for (ServerPlayerEntity player : PlayerLookup.around((ServerWorld)world, pos, 32)) {
+            for (ServerPlayerEntity player : PlayerLookup.around((ServerWorld) world, pos, 32)) {
                 ServerPlayNetworking.send(player, WilderWild.FLOATING_SCULK_BUBBLE_PACKET, byteBuf);
             }
         }
@@ -75,7 +76,7 @@ public class EasyPacket {
             byteBuf.writeDouble(pos.y);
             byteBuf.writeDouble(pos.z);
             byteBuf.writeVarInt(count);
-            for (ServerPlayerEntity player : PlayerLookup.tracking((ServerWorld)world, new BlockPos(pos))) {
+            for (ServerPlayerEntity player : PlayerLookup.tracking((ServerWorld) world, new BlockPos(pos))) {
                 ServerPlayNetworking.send(player, WilderWild.TERMITE_PARTICLE_PACKET, byteBuf);
             }
         }
@@ -94,6 +95,7 @@ public class EasyPacket {
                 throw new IllegalStateException("NOT A SERVER PLAYER BRUH");
             }
         }
+
         public static void sendAncientHornKillInfo(World world, PlayerEntity player, LivingEntity entity) { //Can possibly be used for competitions
             if (world.isClient)
                 throw new IllegalStateException("ANCIENT HORN KILL PACKET ON CLIENT");

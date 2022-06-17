@@ -31,7 +31,8 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(SonicBoomTask.class)
 public class SonicBoomTaskMixin {
     @Final
-    @Shadow private static int RUN_TIME;
+    @Shadow
+    private static int RUN_TIME;
 
     @Inject(at = @At("HEAD"), method = "keepRunning", cancellable = true)
     public void keepRunning(ServerWorld serverWorld, WardenEntity wardenEntity, long l, CallbackInfo info) {
@@ -45,11 +46,11 @@ public class SonicBoomTaskMixin {
                 Vec3d vec3d3 = vec3d2.normalize();
 
                 boolean blocked = false;
-                for(int i = 1; i < MathHelper.floor(vec3d2.length()) + 7; ++i) {
+                for (int i = 1; i < MathHelper.floor(vec3d2.length()) + 7; ++i) {
                     Vec3d vec3d4 = vec3d.add(vec3d3.multiply(i));
                     serverWorld.spawnParticles(ParticleTypes.SONIC_BOOM, vec3d4.x, vec3d4.y, vec3d4.z, 1, 0.0D, 0.0D, 0.0D, 0.0D);
                     BlockPos hitPos = isOccluded(serverWorld, vec3d, vec3d4);
-                    if (hitPos!=null) {
+                    if (hitPos != null) {
                         BlockState state = serverWorld.getBlockState(hitPos);
                         if (state.isOf(RegisterBlocks.ECHO_GLASS)) {
                             i = MathHelper.floor(vec3d2.length()) + 10;
@@ -72,8 +73,8 @@ public class SonicBoomTaskMixin {
     }
 
     private static BlockPos isOccluded(World world, Vec3d start, Vec3d end) {
-        Vec3d vec3d = new Vec3d((double)MathHelper.floor(start.x) + 0.5D, (double)MathHelper.floor(start.y) + 0.5D, (double)MathHelper.floor(start.z) + 0.5D);
-        Vec3d vec3d2 = new Vec3d((double)MathHelper.floor(end.x) + 0.5D, (double)MathHelper.floor(end.y) + 0.5D, (double)MathHelper.floor(end.z) + 0.5D);
+        Vec3d vec3d = new Vec3d((double) MathHelper.floor(start.x) + 0.5D, (double) MathHelper.floor(start.y) + 0.5D, (double) MathHelper.floor(start.z) + 0.5D);
+        Vec3d vec3d2 = new Vec3d((double) MathHelper.floor(end.x) + 0.5D, (double) MathHelper.floor(end.y) + 0.5D, (double) MathHelper.floor(end.z) + 0.5D);
         BlockPos hitPos = null;
         boolean blocked = true;
         for (Direction direction : Direction.values()) {

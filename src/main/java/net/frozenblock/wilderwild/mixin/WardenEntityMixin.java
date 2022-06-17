@@ -52,7 +52,7 @@ public class WardenEntityMixin {
         WardenEntity warden = WardenEntity.class.cast(this);
         if (!warden.getBrain().hasMemoryModule(MemoryModuleType.ATTACK_COOLING_DOWN) && !warden.getBrain().hasMemoryModule(MemoryModuleType.TOUCH_COOLDOWN) && !(entity instanceof WardenEntity) && !warden.isInPose(EntityPose.EMERGING) && !warden.isInPose(EntityPose.DIGGING) && !warden.isInPose(EntityPose.DYING)) {
             if (!entity.isInvulnerable()) {
-                LivingEntity livingEntity = (LivingEntity)entity;
+                LivingEntity livingEntity = (LivingEntity) entity;
                 if (!(entity instanceof PlayerEntity player)) {
                     warden.increaseAngerAt(entity, Angriness.ANGRY.getThreshold() + 20, false);
 
@@ -77,10 +77,12 @@ public class WardenEntityMixin {
         WardenEntity warden = WardenEntity.class.cast(this);
         int additionalAnger = 0;
         if (world.getBlockState(pos).isOf(Blocks.SCULK_SENSOR)) {
-            if (!world.getBlockState(pos).get(RegisterProperties.NOT_HICCUPPING)) { additionalAnger=65; }
+            if (!world.getBlockState(pos).get(RegisterProperties.NOT_HICCUPPING)) {
+                additionalAnger = 65;
+            }
         }
         warden.getBrain().remember(MemoryModuleType.VIBRATION_COOLDOWN, Unit.INSTANCE, 40L);
-        world.sendEntityStatus(warden, (byte)61);
+        world.sendEntityStatus(warden, (byte) 61);
         warden.playSound(SoundEvents.ENTITY_WARDEN_TENDRIL_CLICKS, 5.0F, warden.getSoundPitch());
         BlockPos blockPos = pos;
         if (sourceEntity != null) {
@@ -104,7 +106,7 @@ public class WardenEntityMixin {
             warden.increaseAngerAt(entity, additionalAnger, false);
         }
 
-        if (warden.getAngriness() != Angriness.ANGRY && (sourceEntity != null || (Boolean) warden.getAngerManager().getPrimeSuspect().map((suspect) -> {
+        if (warden.getAngriness() != Angriness.ANGRY && (sourceEntity != null || warden.getAngerManager().getPrimeSuspect().map((suspect) -> {
             return suspect == entity;
         }).orElse(true))) {
             WardenBrain.lookAtDisturbance(warden, blockPos);

@@ -6,7 +6,6 @@ import net.frozenblock.wilderwild.registry.RegisterWorldgen;
 import net.frozenblock.wilderwild.world.feature.WildPlacedFeatures;
 import net.minecraft.world.biome.BiomeKeys;
 import net.minecraft.world.gen.GenerationStep;
-import net.minecraft.world.gen.feature.VegetationPlacedFeatures;
 
 public class WildTreesGeneration {
     public static void generateTrees() {

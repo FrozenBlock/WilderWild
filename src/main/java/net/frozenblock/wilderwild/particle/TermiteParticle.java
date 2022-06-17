@@ -30,7 +30,7 @@ public class TermiteParticle extends SpriteBillboardParticle {
     }
 
     @Environment(EnvType.CLIENT)
-    public static record Factory(SpriteProvider spriteProvider) implements ParticleFactory<DefaultParticleType> {
+    public record Factory(SpriteProvider spriteProvider) implements ParticleFactory<DefaultParticleType> {
         public Factory(SpriteProvider spriteProvider) {
             this.spriteProvider = spriteProvider;
         }

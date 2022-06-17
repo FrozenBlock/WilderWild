@@ -4,12 +4,14 @@ import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.entity.AncientHornProjectileEntity;
 import net.frozenblock.wilderwild.misc.PVZGWSound.MovingSoundLoop;
 import net.frozenblock.wilderwild.registry.RegisterItems;
-import net.frozenblock.wilderwild.registry.RegisterSounds;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.ItemCooldownManager;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.*;
+import net.minecraft.item.Instrument;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemGroup;
+import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
@@ -20,7 +22,6 @@ import net.minecraft.text.MutableText;
 import net.minecraft.text.Text;
 import net.minecraft.util.*;
 import net.minecraft.util.collection.DefaultedList;
-import net.minecraft.util.math.random.Random;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.util.registry.RegistryEntry;
 import net.minecraft.util.registry.RegistryKey;
@@ -72,7 +73,7 @@ public class AncientCityGoatHorn extends Item {
     @Override
     public void appendStacks(ItemGroup group, DefaultedList<ItemStack> stacks) {
         if (this.isIn(group)) {
-            for(RegistryEntry<Instrument> registryEntry : Registry.INSTRUMENT.iterateEntries(this.instrumentTag)) {
+            for (RegistryEntry<Instrument> registryEntry : Registry.INSTRUMENT.iterateEntries(this.instrumentTag)) {
                 stacks.add(getStackForInstrument(RegisterItems.ANCIENT_HORN, registryEntry));
             }
         }
@@ -97,7 +98,8 @@ public class AncientCityGoatHorn extends Item {
             if (entity instanceof PlayerEntity player) {
                 i = player.isCreative() ? 5 : i;
             }
-        } return i;
+        }
+        return i;
     }
 
     public static int getCooldown(@Nullable Entity entity, int i, int additionalCooldown) {
@@ -105,14 +107,19 @@ public class AncientCityGoatHorn extends Item {
             if (entity instanceof PlayerEntity player) {
                 i = player.isCreative() ? 5 : i + additionalCooldown;
             }
-        } return i;
+        }
+        return i;
     }
 
     public static ArrayList<ItemStack> getHorns(PlayerEntity player) {
         ArrayList<ItemStack> horns = new ArrayList<>();
-        if (player!=null) {
-            if (player.getMainHandStack().isOf(RegisterItems.ANCIENT_HORN)) { horns.add(player.getMainHandStack()); }
-            if (player.getOffHandStack().isOf(RegisterItems.ANCIENT_HORN)) { horns.add(player.getOffHandStack()); }
+        if (player != null) {
+            if (player.getMainHandStack().isOf(RegisterItems.ANCIENT_HORN)) {
+                horns.add(player.getMainHandStack());
+            }
+            if (player.getOffHandStack().isOf(RegisterItems.ANCIENT_HORN)) {
+                horns.add(player.getOffHandStack());
+            }
         }
         return horns;
     }
@@ -123,14 +130,15 @@ public class AncientCityGoatHorn extends Item {
             ItemCooldownManager.Entry entry = manager.entries.get(RegisterItems.ANCIENT_HORN);
             if (entry != null) {
                 int between = entry.endTick - entry.startTick;
-                if (between>=i) {
+                if (between >= i) {
                     int cooldown = Math.max(between - i, 1);
                     manager.remove(RegisterItems.ANCIENT_HORN);
                     manager.set(RegisterItems.ANCIENT_HORN, cooldown);
                     return i;
                 }
             }
-        } return -1;
+        }
+        return -1;
     }
 
     @Override
