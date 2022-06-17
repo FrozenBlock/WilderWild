@@ -9,11 +9,15 @@ import net.minecraft.client.world.ClientWorld;
 import net.minecraft.particle.DefaultParticleType;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvent;
+import net.minecraft.util.math.MathHelper;
 
 public class FloatingSculkBubbleParticle extends AbstractSlowingParticle {
     private final SpriteProvider spriteProvider;
     private final SoundEvent sound;
     private final int stayInflatedTime;
+
+    private float currentInflation = 0;
+    private float targetInflation = 2;
 
     public int getBrightness(float f) {
         return 240;
@@ -51,6 +55,47 @@ public class FloatingSculkBubbleParticle extends AbstractSlowingParticle {
     @Override
     public void tick() {
         super.tick();
+        int flateAge = this.age - (this.stayInflatedTime) + 4;
+        if (this.age==1) {
+            this.currentInflation = 0;
+            this.targetInflation = 2;
+        } else if (this.age==2) {
+            this.currentInflation = 1;
+            this.targetInflation = 1.4F;
+        } else if (this.age == 3) {
+            this.currentInflation = 1;
+            this.targetInflation = 1.3F;
+        } else if (this.age == 4) {
+            this.currentInflation = 1.3F;
+            this.targetInflation = 0.7F;
+        } else if (this.age == 5) {
+            this.currentInflation = 0.7F;
+            this.targetInflation = 1.2F;
+        } else if (this.age == 6) {
+            this.currentInflation = 1.2F;
+            this.targetInflation = 0.9F;
+        } else if (this.age == 7) {
+            this.currentInflation = 0.9F;
+            this.targetInflation = 1;
+        } else if (flateAge==3) {
+            this.currentInflation = 1F;
+            this.targetInflation = 1.3F;
+        } else if (flateAge==4) {
+            this.currentInflation = 1;
+            this.targetInflation = 1.3F;
+        } else if (flateAge==5) {
+            this.currentInflation = 1;
+            this.targetInflation = 1.1F;
+        }else if (flateAge==6) {
+            this.currentInflation = 1.1F;
+            this.targetInflation = 1.2F;
+        } else if (flateAge==7) {
+            this.currentInflation = 1.2F;
+            this.targetInflation = 1.65F;
+        } else {
+            this.currentInflation = 1;
+            this.targetInflation = 1;
+        }
         if (this.age == this.stayInflatedTime + 1) {
             MinecraftClient client = MinecraftClient.getInstance();
             if (client != null) {
@@ -59,6 +104,10 @@ public class FloatingSculkBubbleParticle extends AbstractSlowingParticle {
             }
         }
         this.setSpriteForAge(this.spriteProvider);
+    }
+
+    public float getSize(float tickDelta) {
+        return this.scale * MathHelper.lerp(tickDelta, this.currentInflation, this.targetInflation);
     }
 
     @Environment(EnvType.CLIENT)
