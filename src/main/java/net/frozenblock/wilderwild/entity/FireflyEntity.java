@@ -51,6 +51,8 @@ public class FireflyEntity extends PathAwareEntity implements Flutterer {
     private static final TrackedData<Boolean> FLICKERS = DataTracker.registerData(FireflyEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
     private static final TrackedData<Integer> AGE = DataTracker.registerData(FireflyEntity.class, TrackedDataHandlerRegistry.INTEGER);
     private static final TrackedData<Float> SCALE = DataTracker.registerData(FireflyEntity.class, TrackedDataHandlerRegistry.FLOAT);
+    private static final TrackedData<String> COLOR = DataTracker.registerData(FireflyEntity.class, TrackedDataHandlerRegistry.STRING);
+
 
     public boolean natural;
     public boolean hasHome; //TODO: POSSIBLY HAVE DIFFERING "SAFE RANGES" INSTEAD OF BOOLEAN
@@ -85,6 +87,7 @@ public class FireflyEntity extends PathAwareEntity implements Flutterer {
         this.dataTracker.startTracking(FLICKERS, false);
         this.dataTracker.startTracking(AGE, 0);
         this.dataTracker.startTracking(SCALE, 1.5F);
+        this.dataTracker.startTracking(COLOR, "on");
     }
 
     public ActionResult interactMob(PlayerEntity player, Hand hand) {
@@ -162,6 +165,14 @@ public class FireflyEntity extends PathAwareEntity implements Flutterer {
 
     public void setScale(float value) {
         this.dataTracker.set(SCALE, value);
+    }
+
+    public String getColor() {
+        return this.dataTracker.get(COLOR);
+    }
+
+    public void setColor(String value) {
+        this.dataTracker.set(COLOR, value);
     }
 
     public boolean cannotDespawn() {
@@ -310,6 +321,7 @@ public class FireflyEntity extends PathAwareEntity implements Flutterer {
         nbt.putBoolean("hasHome", this.hasHome);
         nbt.putFloat("scale", this.getScale());
         nbt.putBoolean("despawning", this.despawning);
+        nbt.putString("color", this.getColor());
     }
 
     public void readCustomDataFromNbt(NbtCompound nbt) {
@@ -321,6 +333,7 @@ public class FireflyEntity extends PathAwareEntity implements Flutterer {
         this.hasHome = nbt.getBoolean("hasHome");
         this.setScale(nbt.getFloat("scale"));
         this.despawning = nbt.getBoolean("despawning");
+        this.setColor(nbt.getString("color"));
     }
 
     protected boolean shouldFollowLeash() {

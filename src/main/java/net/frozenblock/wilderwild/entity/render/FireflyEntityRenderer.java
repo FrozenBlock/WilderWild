@@ -23,9 +23,7 @@ public class FireflyEntityRenderer extends EntityRenderer<FireflyEntity> {
     }
 
     private static final Identifier TEXTURE = new Identifier(WilderWild.MOD_ID, "textures/entity/firefly/firefly_off.png");
-    private static final Identifier OVERLAY_TEXTURE = new Identifier(WilderWild.MOD_ID, "textures/entity/firefly/firefly_on.png");
     private static final RenderLayer LAYER = RenderLayer.getEntityCutout(TEXTURE);
-    private static final RenderLayer OVERLAY = RenderLayer.getEntityTranslucentEmissive(OVERLAY_TEXTURE);
 
     private final double yOffset = 0.155F;
 
@@ -62,7 +60,7 @@ public class FireflyEntityRenderer extends EntityRenderer<FireflyEntity> {
         entry = matrixStack.peek();
         matrix4f = entry.getPositionMatrix();
         matrix3f = entry.getNormalMatrix();
-        vertexConsumer = vertexConsumerProvider.getBuffer(OVERLAY);
+        vertexConsumer = vertexConsumerProvider.getBuffer(RenderLayer.getEntityTranslucentEmissive(new Identifier(WilderWild.MOD_ID, "textures/entity/firefly/firefly_" + entity.getColor() + ".png")));
 
         vertexPulsate(vertexConsumer, matrix4f, matrix3f, i, 0.0F, 0, 0, 1, entity.getFlickerAge(), entity.flickers(), tickDelta, overlay);
         vertexPulsate(vertexConsumer, matrix4f, matrix3f, i, 1.0F, 0, 1, 1, entity.getFlickerAge(), entity.flickers(), tickDelta, overlay);
