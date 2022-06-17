@@ -62,6 +62,7 @@ public class WildTreeConfigured {
     public static final RegistryEntry<ConfiguredFeature<TreeFeatureConfig, ?>> NEW_SUPER_BIRCH_BEES = WildConfiguredFeatures.register("new_super_birch_bees", Feature.TREE, new_superBirch().decorators(ImmutableList.of(NEW_BEES)).build());
     //OAK
     public static final RegistryEntry<ConfiguredFeature<TreeFeatureConfig, ?>> NEW_OAK = WildConfiguredFeatures.register("new_oak", Feature.TREE, new_oak().build());
+    public static final RegistryEntry<ConfiguredFeature<TreeFeatureConfig, ?>> SHORT_OAK = WildConfiguredFeatures.register("short_oak", Feature.TREE, short_oak().build());
     public static final RegistryEntry<ConfiguredFeature<TreeFeatureConfig, ?>> NEW_OAK_BEES_0004 = WildConfiguredFeatures.register("new_oak_bees_0004", Feature.TREE, new_oak().decorators(ImmutableList.of(NEW_BEES_0004, SHELF_FUNGUS_007)).ignoreVines().build());
     public static final RegistryEntry<ConfiguredFeature<TreeFeatureConfig, ?>> NEW_FANCY_OAK = WildConfiguredFeatures.register("new_fancy_oak", Feature.TREE, new_fancyOak().build());
     public static final RegistryEntry<ConfiguredFeature<TreeFeatureConfig, ?>> NEW_FANCY_OAK_BEES_0004 = WildConfiguredFeatures.register("new_fancy_oak_bees_0004", Feature.TREE, new_fancyOak().decorators(List.of(NEW_BEES_0004)).build());
@@ -134,6 +135,9 @@ public class WildTreeConfigured {
 
     private static TreeFeatureConfig.Builder new_oak() {
         return builder(Blocks.OAK_LOG, Blocks.OAK_LEAVES, 6, 2, 1, 0.1F, UniformIntProvider.create(1, 2), UniformIntProvider.create(1, 3), ConstantIntProvider.create(1), 2).ignoreVines();
+    }
+    private static TreeFeatureConfig.Builder short_oak() {
+        return builder(Blocks.OAK_LOG, Blocks.OAK_LEAVES, 4, 1, 0, 0.095F, UniformIntProvider.create(1, 2), UniformIntProvider.create(1, 3), ConstantIntProvider.create(1), 2).ignoreVines();
     }
 
     private static TreeFeatureConfig.Builder new_fancyOak() {

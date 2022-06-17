@@ -16,6 +16,9 @@ public class WildGrassGeneration {
         BiomeModifications.addFeature(BiomeSelectors.tag(BiomeTags.IS_FOREST),
                 GenerationStep.Feature.VEGETAL_DECORATION, WildPlacedFeatures.NEW_GRASS_PLACED.getKey().get());
 
+        BiomeModifications.addFeature(BiomeSelectors.tag(BiomeTags.IS_FOREST),
+                GenerationStep.Feature.VEGETAL_DECORATION, WildPlacedFeatures.NEW_TALL_GRASS.getKey().get());
+
         BiomeModifications.addFeature(BiomeSelectors.includeByKey(CYPRESS_FOREST),
                 GenerationStep.Feature.VEGETAL_DECORATION, WildPlacedFeatures.NEW_GRASS_PLACED.getKey().get());
         BiomeModifications.addFeature(BiomeSelectors.includeByKey(RegisterWorldgen.CYPRESS_FOREST),
@@ -29,6 +32,8 @@ public class WildGrassGeneration {
     public static void generateGrassTaiga() {
         BiomeModifications.addFeature(BiomeSelectors.includeByKey(BiomeKeys.TAIGA, MIXED_FOREST),
                 GenerationStep.Feature.VEGETAL_DECORATION, WildPlacedFeatures.NEW_GRASS_PLACED.getKey().get());
+        BiomeModifications.addFeature(BiomeSelectors.includeByKey(BiomeKeys.TAIGA, MIXED_FOREST),
+                GenerationStep.Feature.VEGETAL_DECORATION, WildPlacedFeatures.NEW_TALL_GRASS.getKey().get());
 
         BiomeModifications.addFeature(BiomeSelectors.includeByKey(BiomeKeys.WINDSWEPT_FOREST, BiomeKeys.WINDSWEPT_HILLS),
                 GenerationStep.Feature.VEGETAL_DECORATION, WildPlacedFeatures.NEW_RARE_GRASS_PLACED.getKey().get());

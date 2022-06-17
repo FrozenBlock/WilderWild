@@ -16,6 +16,7 @@ public class WildTreePlaced {
     public static final RegistryEntry<PlacedFeature> NEW_SUPER_BIRCH_BEES_0004 = PlacedFeatures.register("new_super_birch_bees_0004", WildTreeConfigured.NEW_SUPER_BIRCH_BEES_0004, PlacedFeatures.wouldSurvive(Blocks.BIRCH_SAPLING));
     public static final RegistryEntry<PlacedFeature> NEW_FALLEN_BIRCH_CHECKED = PlacedFeatures.register("new_fallen_birch_checked", WildTreeConfigured.NEW_FALLEN_BIRCH_TREE, PlacedFeatures.wouldSurvive(Blocks.BIRCH_SAPLING));
     public static final RegistryEntry<PlacedFeature> NEW_OAK_CHECKED = PlacedFeatures.register("new_oak_checked", WildTreeConfigured.NEW_OAK, PlacedFeatures.wouldSurvive(Blocks.OAK_SAPLING));
+    public static final RegistryEntry<PlacedFeature> SHORT_OAK_CHECKED = PlacedFeatures.register("short_oak_checked", WildTreeConfigured.SHORT_OAK, PlacedFeatures.wouldSurvive(Blocks.OAK_SAPLING));
     public static final RegistryEntry<PlacedFeature> NEW_FANCY_OAK_CHECKED = PlacedFeatures.register("new_fancy_oak_checked", WildTreeConfigured.NEW_FANCY_OAK, PlacedFeatures.wouldSurvive(Blocks.OAK_SAPLING));
     public static final RegistryEntry<PlacedFeature> NEW_OAK_BEES_0004 = PlacedFeatures.register("new_oak_bees_00004", WildTreeConfigured.NEW_OAK_BEES_0004, PlacedFeatures.wouldSurvive(Blocks.OAK_SAPLING));
     public static final RegistryEntry<PlacedFeature> NEW_FANCY_OAK_BEES_0004 = PlacedFeatures.register("new_fancy_oak_bees_0004", WildTreeConfigured.NEW_FANCY_OAK_BEES_0004, PlacedFeatures.wouldSurvive(Blocks.OAK_SAPLING));
