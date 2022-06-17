@@ -34,6 +34,7 @@ public class SculkJawBlock extends Block implements SculkSpreadable {
         this.setDefaultState(this.getDefaultState().with(ACTIVE, false));
     }
 
+    @Override
     protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
         super.appendProperties(builder);
         builder.add(ACTIVE);
