@@ -76,21 +76,30 @@ public class FloatingSculkBubbleParticle extends AbstractSlowingParticle {
             this.targetInflation = 0.9F;
         } else if (this.age == 7) {
             this.currentInflation = 0.9F;
+            this.targetInflation = 1.04F;
+        } else if (this.age == 8) {
+            this.currentInflation = 1.02F;
+            this.targetInflation = 0.95F;
+        } else if (this.age == 9) {
+            this.currentInflation = 0.95F;
             this.targetInflation = 1;
         } else if (flateAge==3) {
             this.currentInflation = 1F;
             this.targetInflation = 1.3F;
         } else if (flateAge==4) {
             this.currentInflation = 1;
-            this.targetInflation = 1.3F;
+            this.targetInflation = 1.2F;
         } else if (flateAge==5) {
             this.currentInflation = 1;
+            this.targetInflation = 1.05F;
+        } else if (flateAge==6) {
+            this.currentInflation = 1.05F;
             this.targetInflation = 1.1F;
-        }else if (flateAge==6) {
-            this.currentInflation = 1.1F;
-            this.targetInflation = 1.2F;
         } else if (flateAge==7) {
-            this.currentInflation = 1.2F;
+            this.currentInflation = 1.1F;
+            this.targetInflation = 1.4F;
+        } else if (flateAge==8) {
+            this.currentInflation = 1.4F;
             this.targetInflation = 1.65F;
         } else {
             this.currentInflation = 1;
