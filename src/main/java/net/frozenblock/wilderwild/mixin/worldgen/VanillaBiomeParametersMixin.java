@@ -69,7 +69,7 @@ public final class VanillaBiomeParametersMixin {
                 MultiNoiseUtil.ParameterRange.combine(this.temperatureParameters[1], this.temperatureParameters[3]),
                 MultiNoiseUtil.ParameterRange.combine(this.humidityParameters[3], this.humidityParameters[4]),
                 MultiNoiseUtil.ParameterRange.combine(this.riverContinentalness, this.farInlandContinentalness),
-                MultiNoiseUtil.ParameterRange.combine(this.erosionParameters[5], this.erosionParameters[6]), weirdness, 0.0F, RegisterWorldgen.CYPRESS_WETLANDS
+                this.erosionParameters[6], weirdness, 0.0F, RegisterWorldgen.CYPRESS_WETLANDS
         );
 
     }
@@ -92,7 +92,7 @@ public final class VanillaBiomeParametersMixin {
                 MultiNoiseUtil.ParameterRange.combine(this.temperatureParameters[1], this.temperatureParameters[3]),
                 MultiNoiseUtil.ParameterRange.combine(this.humidityParameters[3], this.humidityParameters[4]),
                 MultiNoiseUtil.ParameterRange.combine(this.riverContinentalness, this.farInlandContinentalness),
-                MultiNoiseUtil.ParameterRange.combine(this.erosionParameters[5], this.erosionParameters[6]), weirdness, 0.0F, RegisterWorldgen.CYPRESS_WETLANDS
+                this.erosionParameters[6], weirdness, 0.0F, RegisterWorldgen.CYPRESS_WETLANDS
         );
     }
 
@@ -103,7 +103,7 @@ public final class VanillaBiomeParametersMixin {
                 MultiNoiseUtil.ParameterRange.combine(this.temperatureParameters[1], this.temperatureParameters[3]),
                 MultiNoiseUtil.ParameterRange.combine(this.humidityParameters[3], this.humidityParameters[4]),
                 MultiNoiseUtil.ParameterRange.combine(this.riverContinentalness, this.farInlandContinentalness),
-                MultiNoiseUtil.ParameterRange.combine(this.erosionParameters[5], this.erosionParameters[6]), weirdness, 0.0F, RegisterWorldgen.CYPRESS_WETLANDS
+                this.erosionParameters[6], weirdness, 0.0F, RegisterWorldgen.CYPRESS_WETLANDS
         );
     }
 }
