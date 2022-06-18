@@ -1,6 +1,7 @@
 package net.frozenblock.wilderwild.registry;
 
 import net.frozenblock.wilderwild.WilderWild;
+import net.frozenblock.wilderwild.world.feature.WildMiscPlaced;
 import net.minecraft.client.sound.MusicType;
 import net.minecraft.client.sound.Sound;
 import net.minecraft.entity.EntityType;
@@ -73,8 +74,8 @@ public class RegisterWorldgen {
         addCypressWetlandsMobs(builder);
         GenerationSettings.Builder builder2 = new GenerationSettings.Builder();
         addBasicFeatures(builder2);
+        addCypressPaths(builder2);
         DefaultBiomeFeatures.addDefaultOres(builder2);
-        addCypressDisks(builder2);
         MusicSound musicSound = MusicType.createIngameMusic(RegisterSounds.MUSIC_OVERWORLD_WILD_FORESTS);
         return new Biome.Builder()
                 .precipitation(Biome.Precipitation.RAIN)
@@ -94,9 +95,10 @@ public class RegisterWorldgen {
                 .generationSettings(builder2.build())
                 .build();
     }
-    public static void addCypressDisks(GenerationSettings.Builder builder) {
-        builder.feature(GenerationStep.Feature.UNDERGROUND_ORES, MiscPlacedFeatures.DISK_CLAY);
-        builder.feature(GenerationStep.Feature.UNDERGROUND_ORES, MiscPlacedFeatures.DISK_GRAVEL);
+    public static void addCypressPaths(GenerationSettings.Builder builder) {
+        builder.feature(GenerationStep.Feature.UNDERGROUND_ORES, WildMiscPlaced.UNDER_WATER_SAND_PATH);
+        builder.feature(GenerationStep.Feature.UNDERGROUND_ORES, WildMiscPlaced.UNDER_WATER_GRAVEL_PATH);
+        builder.feature(GenerationStep.Feature.UNDERGROUND_ORES, WildMiscPlaced.UNDER_WATER_CLAY_PATH);
     }
 
     private static void addBasicFeatures(GenerationSettings.Builder generationSettings) {

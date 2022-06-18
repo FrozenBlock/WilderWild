@@ -27,100 +27,27 @@ public class EasyNoiseSampler {
     public static PerlinNoiseSampler perlinSimple = new PerlinNoiseSampler(localRandom);
     public static PerlinNoiseSampler perlinXoro = new PerlinNoiseSampler(xoroRandom);
 
-    public static double samplePerlinAtomic(BlockPos pos, double multiplier, boolean multiplyY, boolean useY) {
+    public static double sample(PerlinNoiseSampler sampler, BlockPos pos, double multiplier, boolean multiplyY, boolean useY) {
         if (useY) {
             if (multiplyY) {
-                return perlinAtomic.sample(pos.getX() * multiplier, pos.getY() * multiplier, pos.getZ() * multiplier);
+                return sampler.sample(pos.getX() * multiplier, pos.getY() * multiplier, pos.getZ() * multiplier);
             }
-            return perlinAtomic.sample(pos.getX() * multiplier, pos.getY(), pos.getZ() * multiplier);
+            return sampler.sample(pos.getX() * multiplier, pos.getY(), pos.getZ() * multiplier);
         }
-        return perlinAtomic.sample(pos.getX() * multiplier, 64, pos.getZ() * multiplier);
+        return sampler.sample(pos.getX() * multiplier, 64, pos.getZ() * multiplier);
     }
 
-    public static double samplePerlinBlocking(BlockPos pos, double multiplier, boolean multiplyY, boolean useY) {
-        if (useY) {
-            if (multiplyY) {
-                return perlinBlocking.sample(pos.getX() * multiplier, pos.getY() * multiplier, pos.getZ() * multiplier);
-            }
-            return perlinBlocking.sample(pos.getX() * multiplier, pos.getY(), pos.getZ() * multiplier);
-        }
-        return perlinBlocking.sample(pos.getX() * multiplier, 64, pos.getZ() * multiplier);
-    }
-
-    public static double samplePerlinSimple(BlockPos pos, double multiplier, boolean multiplyY, boolean useY) {
-        if (useY) {
-            if (multiplyY) {
-                return perlinSimple.sample(pos.getX() * multiplier, pos.getY() * multiplier, pos.getZ() * multiplier);
-            }
-            return perlinSimple.sample(pos.getX() * multiplier, pos.getY(), pos.getZ() * multiplier);
-        }
-        return perlinSimple.sample(pos.getX() * multiplier, 64, pos.getZ() * multiplier);
-    }
-
-    public static double samplePerlinXoro(BlockPos pos, double multiplier, boolean multiplyY, boolean useY) {
-        if (useY) {
-            if (multiplyY) {
-                return perlinXoro.sample(pos.getX() * multiplier, pos.getY() * multiplier, pos.getZ() * multiplier);
-            }
-            return perlinXoro.sample(pos.getX() * multiplier, pos.getY(), pos.getZ() * multiplier);
-        }
-        return perlinXoro.sample(pos.getX() * multiplier, 64, pos.getZ() * multiplier);
-    }
-
-    public static double samplePerlinAtomicPositive(BlockPos pos, double multiplier, boolean multiplyY, boolean useY) {
+    public static double samplePositive(PerlinNoiseSampler sampler, BlockPos pos, double multiplier, boolean multiplyY, boolean useY) {
         double ret = 0;
         if (useY) {
             if (multiplyY) {
-                ret = perlinAtomic.sample(pos.getX() * multiplier, pos.getY() * multiplier, pos.getZ() * multiplier);
+                ret = sampler.sample(pos.getX() * multiplier, pos.getY() * multiplier, pos.getZ() * multiplier);
+            } else {
+                ret = sampler.sample(pos.getX() * multiplier, pos.getY(), pos.getZ() * multiplier);
             }
-            ret = perlinAtomic.sample(pos.getX() * multiplier, pos.getY(), pos.getZ() * multiplier);
+        } else {
+            ret = sampler.sample(pos.getX() * multiplier, 64, pos.getZ() * multiplier);
         }
-        ret = perlinAtomic.sample(pos.getX() * multiplier, 64, pos.getZ() * multiplier);
-        if (ret < 0) {
-            return ret * -1;
-        }
-        return ret;
-    }
-
-    public static double samplePerlinBlockingPositive(BlockPos pos, double multiplier, boolean multiplyY, boolean useY) {
-        double ret = 0;
-        if (useY) {
-            if (multiplyY) {
-                ret = perlinBlocking.sample(pos.getX() * multiplier, pos.getY() * multiplier, pos.getZ() * multiplier);
-            }
-            ret = perlinBlocking.sample(pos.getX() * multiplier, pos.getY(), pos.getZ() * multiplier);
-        }
-        ret = perlinBlocking.sample(pos.getX() * multiplier, 64, pos.getZ() * multiplier);
-        if (ret < 0) {
-            return ret * -1;
-        }
-        return ret;
-    }
-
-    public static double samplePerlinSimplePositive(BlockPos pos, double multiplier, boolean multiplyY, boolean useY) {
-        double ret = 0;
-        if (useY) {
-            if (multiplyY) {
-                ret = perlinSimple.sample(pos.getX() * multiplier, pos.getY() * multiplier, pos.getZ() * multiplier);
-            }
-            ret = perlinSimple.sample(pos.getX() * multiplier, pos.getY(), pos.getZ() * multiplier);
-        }
-        ret = perlinSimple.sample(pos.getX() * multiplier, 64, pos.getZ() * multiplier);
-        if (ret < 0) {
-            return ret * -1;
-        }
-        return ret;
-    }
-
-    public static double samplePerlinXoroPositive(BlockPos pos, double multiplier, boolean multiplyY, boolean useY) {
-        double ret = 0;
-        if (useY) {
-            if (multiplyY) {
-                ret = perlinXoro.sample(pos.getX() * multiplier, pos.getY() * multiplier, pos.getZ() * multiplier);
-            }
-            ret = perlinXoro.sample(pos.getX() * multiplier, pos.getY(), pos.getZ() * multiplier);
-        }
-        ret = perlinXoro.sample(pos.getX() * multiplier, 64, pos.getZ() * multiplier);
         if (ret < 0) {
             return ret * -1;
         }

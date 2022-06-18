@@ -17,6 +17,10 @@ public class WildMiscPlaced {
     public static final RegistryEntry<PlacedFeature> COARSE_PATH_5 = WildPlacedFeatures.register("coarse_dirt_path_5", WildMiscConfigured.COARSE_PATH, RarityFilterPlacementModifier.of(5), SquarePlacementModifier.of(), PlacedFeatures.WORLD_SURFACE_WG_HEIGHTMAP, BiomePlacementModifier.of());
     public static final RegistryEntry<PlacedFeature> MOSS_PATH = WildPlacedFeatures.register("moss_path", WildMiscConfigured.MOSS_PATH, RarityFilterPlacementModifier.of(3), SquarePlacementModifier.of(), PlacedFeatures.WORLD_SURFACE_WG_HEIGHTMAP, BiomePlacementModifier.of());
 
+    public static final RegistryEntry<PlacedFeature> UNDER_WATER_SAND_PATH = WildPlacedFeatures.register("under_water_sand_path", WildMiscConfigured.UNDER_WATER_SAND_PATH, SquarePlacementModifier.of(), PlacedFeatures.OCEAN_FLOOR_WG_HEIGHTMAP, BiomePlacementModifier.of());
+    public static final RegistryEntry<PlacedFeature> UNDER_WATER_GRAVEL_PATH = WildPlacedFeatures.register("under_water_gravel_path", WildMiscConfigured.UNDER_WATER_GRAVEL_PATH, SquarePlacementModifier.of(), PlacedFeatures.OCEAN_FLOOR_WG_HEIGHTMAP, BiomePlacementModifier.of());
+    public static final RegistryEntry<PlacedFeature> UNDER_WATER_CLAY_PATH = WildPlacedFeatures.register("under_water_clay_path", WildMiscConfigured.UNDER_WATER_CLAY_PATH, SquarePlacementModifier.of(), PlacedFeatures.OCEAN_FLOOR_WG_HEIGHTMAP, BiomePlacementModifier.of());
+
     public WildMiscPlaced() {
     }
 

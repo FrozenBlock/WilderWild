@@ -47,7 +47,7 @@ public class OsseousSculkBlock extends PillarBlock implements SculkSpreadable {
     }
 
     public static Direction.Axis getAxis(BlockPos pos) {
-        return EasyNoiseSampler.samplePerlinSimple(pos, 0.7, false, false) > 0 ? Direction.Axis.X : Direction.Axis.Z;
+        return EasyNoiseSampler.sample(EasyNoiseSampler.perlinSimple, pos, 0.7, false, false) > 0 ? Direction.Axis.X : Direction.Axis.Z;
     }
 
     public static void convertToSculk(WorldAccess world, BlockPos pos) {

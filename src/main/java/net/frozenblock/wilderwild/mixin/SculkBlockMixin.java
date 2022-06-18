@@ -66,7 +66,7 @@ public abstract class SculkBlockMixin {
                     Block blockDown = stateDown.getBlock();
                     if ((stateDown.isAir() || blockDown == Blocks.WATER || blockDown == Blocks.LAVA || blockDown == Blocks.SCULK_VEIN)) {
                         if (canPlaceBone(blockPos, isWorldGen, world)) {
-                            int pillarHeight = (int) MathHelper.clamp(EasyNoiseSampler.samplePerlinXoroPositive(blockPos.down(), randomness, false, false) * heightMultiplier, 2, maxHeight);
+                            int pillarHeight = (int) MathHelper.clamp(EasyNoiseSampler.sample(EasyNoiseSampler.perlinXoro, blockPos.down(), randomness, false, false) * heightMultiplier, 2, maxHeight);
                             blockState = RegisterBlocks.OSSEOUS_SCULK.getDefaultState().with(OsseousSculkBlock.HEIGHT_LEFT, pillarHeight).with(OsseousSculkBlock.TOTAL_HEIGHT, pillarHeight + 1).with(OsseousSculkBlock.UPSIDEDOWN, true);
                         } else {
                             blockState = RegisterBlocks.HANGING_TENDRIL.getDefaultState();
@@ -158,11 +158,11 @@ public abstract class SculkBlockMixin {
     private static boolean canPlaceBone(BlockPos pos, boolean worldGen, WorldAccess world) {
         if (worldGen) {
             if (!ancientCityOrPillarNearby(world, pos)) {
-                return EasyNoiseSampler.samplePerlinXoro(pos, sculkBoneAreaSize, true, true) > sculkBoneWorldGenThreshold;
+                return EasyNoiseSampler.sample(EasyNoiseSampler.perlinXoro, pos, sculkBoneAreaSize, true, true) > sculkBoneWorldGenThreshold;
             }
             return false;
         }
-        return EasyNoiseSampler.samplePerlinXoro(pos, sculkBoneAreaSize, true, true) > sculkBoneThreshold;
+        return EasyNoiseSampler.sample(EasyNoiseSampler.perlinXoro, pos, sculkBoneAreaSize, true, true) > sculkBoneThreshold;
     }
 
     private BlockState getExtraBlockState(WorldAccess world, BlockPos pos, Random random, boolean allowShrieker) {
@@ -177,7 +177,7 @@ public abstract class SculkBlockMixin {
             decided = true;
         }
         if (canPlaceBone(pos, allowShrieker, world) && blockState.isOf(Blocks.SCULK_SENSOR)) {
-            int pillarHeight = (int) MathHelper.clamp(EasyNoiseSampler.samplePerlinXoroPositive(pos, randomness, false, false) * heightMultiplier, 2, maxHeight);
+            int pillarHeight = (int) MathHelper.clamp(EasyNoiseSampler.samplePositive(EasyNoiseSampler.perlinXoro, pos, randomness, false, false) * heightMultiplier, 2, maxHeight);
             blockState = RegisterBlocks.OSSEOUS_SCULK.getDefaultState().with(OsseousSculkBlock.HEIGHT_LEFT, pillarHeight).with(OsseousSculkBlock.TOTAL_HEIGHT, pillarHeight + 1);
             decided = true;
         }
