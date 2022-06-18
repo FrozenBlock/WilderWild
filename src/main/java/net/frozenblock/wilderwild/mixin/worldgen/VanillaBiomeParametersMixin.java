@@ -28,6 +28,9 @@ public final class VanillaBiomeParametersMixin {
     private MultiNoiseUtil.ParameterRange[] erosionParameters;
     @Shadow
     @Final
+    private MultiNoiseUtil.ParameterRange[] humidityParameters;
+    @Shadow
+    @Final
     private MultiNoiseUtil.ParameterRange nearInlandContinentalness;
     @Shadow
     @Final
@@ -63,15 +66,10 @@ public final class VanillaBiomeParametersMixin {
         );
         this.writeBiomeParameters(
                 parameters,
-                MultiNoiseUtil.ParameterRange.combine(this.temperatureParameters[2], this.temperatureParameters[3]),
-                this.defaultParameter, MultiNoiseUtil.ParameterRange.combine(this.nearInlandContinentalness, this.farInlandContinentalness),
-                this.erosionParameters[5], weirdness, 0.0F, RegisterWorldgen.CYPRESS_WETLANDS
-        );
-        this.writeBiomeParameters(
-                parameters,
-                MultiNoiseUtil.ParameterRange.combine(this.temperatureParameters[2], this.temperatureParameters[3]),
-                this.defaultParameter, MultiNoiseUtil.ParameterRange.combine(this.nearInlandContinentalness, this.farInlandContinentalness),
-                this.erosionParameters[6], weirdness, 0.0F, RegisterWorldgen.CYPRESS_WETLANDS
+                MultiNoiseUtil.ParameterRange.combine(this.temperatureParameters[1], this.temperatureParameters[3]),
+                MultiNoiseUtil.ParameterRange.combine(this.humidityParameters[3], this.humidityParameters[4]),
+                MultiNoiseUtil.ParameterRange.combine(this.riverContinentalness, this.farInlandContinentalness),
+                MultiNoiseUtil.ParameterRange.combine(this.erosionParameters[5], this.erosionParameters[6]), weirdness, 0.0F, RegisterWorldgen.CYPRESS_WETLANDS
         );
 
     }
@@ -88,15 +86,13 @@ public final class VanillaBiomeParametersMixin {
                 0.0F,
                 RegisterWorldgen.MIXED_FOREST
         );
+
         this.writeBiomeParameters(
-                parameters, MultiNoiseUtil.ParameterRange.combine(this.temperatureParameters[2], this.temperatureParameters[3]),
-                this.defaultParameter, MultiNoiseUtil.ParameterRange.combine(this.nearInlandContinentalness, this.farInlandContinentalness),
-                this.erosionParameters[5], weirdness, 0.0F, RegisterWorldgen.CYPRESS_WETLANDS
-        );
-        this.writeBiomeParameters(
-                parameters, MultiNoiseUtil.ParameterRange.combine(this.temperatureParameters[2], this.temperatureParameters[3]),
-                this.defaultParameter, MultiNoiseUtil.ParameterRange.combine(this.nearInlandContinentalness, this.farInlandContinentalness),
-                this.erosionParameters[6], weirdness, 0.0F, RegisterWorldgen.CYPRESS_WETLANDS
+                parameters,
+                MultiNoiseUtil.ParameterRange.combine(this.temperatureParameters[1], this.temperatureParameters[3]),
+                MultiNoiseUtil.ParameterRange.combine(this.humidityParameters[3], this.humidityParameters[4]),
+                MultiNoiseUtil.ParameterRange.combine(this.riverContinentalness, this.farInlandContinentalness),
+                MultiNoiseUtil.ParameterRange.combine(this.erosionParameters[5], this.erosionParameters[6]), weirdness, 0.0F, RegisterWorldgen.CYPRESS_WETLANDS
         );
     }
 
@@ -104,21 +100,10 @@ public final class VanillaBiomeParametersMixin {
     private void writeRiverBiomes(Consumer<Pair<MultiNoiseUtil.NoiseHypercube, RegistryKey<Biome>>> parameters, MultiNoiseUtil.ParameterRange weirdness, CallbackInfo ci) {
         this.writeBiomeParameters(
                 parameters,
-                MultiNoiseUtil.ParameterRange.combine(this.temperatureParameters[2], this.temperatureParameters[3]),
-                this.defaultParameter, MultiNoiseUtil.ParameterRange.combine(this.riverContinentalness, this.farInlandContinentalness),
-                this.erosionParameters[4], weirdness, 0.0F, RegisterWorldgen.CYPRESS_WETLANDS
-        );
-        this.writeBiomeParameters(
-                parameters,
-                MultiNoiseUtil.ParameterRange.combine(this.temperatureParameters[2], this.temperatureParameters[3]),
-                this.defaultParameter, MultiNoiseUtil.ParameterRange.combine(this.riverContinentalness, this.farInlandContinentalness),
-                this.erosionParameters[5], weirdness, 0.0F, RegisterWorldgen.CYPRESS_WETLANDS
-        );
-        this.writeBiomeParameters(
-                parameters,
-                MultiNoiseUtil.ParameterRange.combine(this.temperatureParameters[2], this.temperatureParameters[3]),
-                this.defaultParameter, MultiNoiseUtil.ParameterRange.combine(this.riverContinentalness, this.farInlandContinentalness),
-                this.erosionParameters[6], weirdness, 0.0F, RegisterWorldgen.CYPRESS_WETLANDS
+                MultiNoiseUtil.ParameterRange.combine(this.temperatureParameters[1], this.temperatureParameters[3]),
+                MultiNoiseUtil.ParameterRange.combine(this.humidityParameters[3], this.humidityParameters[4]),
+                MultiNoiseUtil.ParameterRange.combine(this.riverContinentalness, this.farInlandContinentalness),
+                MultiNoiseUtil.ParameterRange.combine(this.erosionParameters[5], this.erosionParameters[6]), weirdness, 0.0F, RegisterWorldgen.CYPRESS_WETLANDS
         );
     }
 }
