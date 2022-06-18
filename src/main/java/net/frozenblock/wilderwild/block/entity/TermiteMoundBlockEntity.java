@@ -110,16 +110,16 @@ public class TermiteMoundBlockEntity extends BlockEntity {
             }
         }
         for (Termite termite : termitesToRemove) {
-            world.emitGameEvent(GameEvent.ENTITY_DIE, Vec3d.ofCenter(termite.pos), null);
+            world.emitGameEvent(null, GameEvent.ENTITY_DIE, Vec3d.ofCenter(termite.pos));
             this.termites.remove(termite);
-            world.emitGameEvent(GameEvent.BLOCK_CHANGE, Vec3d.ofCenter(pos), null);
+            world.emitGameEvent(null, GameEvent.BLOCK_CHANGE, Vec3d.ofCenter(pos));
         }
         if (this.termites.size() < maxTermites) {
             if (this.ticksToNextTermite > 0) {
                 --this.ticksToNextTermite;
             } else {
                 this.addTermite(pos);
-                world.emitGameEvent(GameEvent.BLOCK_CHANGE, Vec3d.ofCenter(pos), null);
+                world.emitGameEvent(null, GameEvent.BLOCK_CHANGE, Vec3d.ofCenter(pos));
                 //TODO: TERMITE SPAWN (EXIT MOUND,) DESPAWN, EATING, AND MOVING SOUNDS
                 world.playSound(null, this.pos, SoundEvents.BLOCK_BEEHIVE_EXIT, SoundCategory.NEUTRAL, 1.0F, 1.0F);
                 this.ticksToNextTermite = this.getCachedState().get(RegisterProperties.NATURAL) ? 320 : 200;
@@ -129,9 +129,9 @@ public class TermiteMoundBlockEntity extends BlockEntity {
             Termite termite = this.termites.get((int) (Math.random() * this.termites.size()));
             //TODO: TERMITE SPAWN (EXIT MOUND,) DESPAWN, EATING, AND MOVING SOUNDS
             world.playSound(null, termite.pos, SoundEvents.BLOCK_BEEHIVE_ENTER, SoundCategory.NEUTRAL, 1.0F, 1.0F);
-            world.emitGameEvent(GameEvent.ENTITY_DIE, Vec3d.ofCenter(termite.pos), null);
+            world.emitGameEvent(null, GameEvent.ENTITY_DIE, Vec3d.ofCenter(termite.pos));
             this.termites.remove(termite);
-            world.emitGameEvent(GameEvent.BLOCK_CHANGE, Vec3d.ofCenter(pos), null);
+            world.emitGameEvent(null, GameEvent.BLOCK_CHANGE, Vec3d.ofCenter(pos));
         }
     }
 
