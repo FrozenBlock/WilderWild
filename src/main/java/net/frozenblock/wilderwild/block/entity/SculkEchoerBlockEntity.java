@@ -1,7 +1,6 @@
 package net.frozenblock.wilderwild.block.entity;
 
 import com.mojang.logging.LogUtils;
-import com.mojang.serialization.DataResult;
 import com.mojang.serialization.Dynamic;
 import it.unimi.dsi.fastutil.ints.IntArrayList;
 import net.frozenblock.wilderwild.block.SculkEchoerBlock;
@@ -14,7 +13,6 @@ import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.Entity;
 import net.minecraft.nbt.NbtCompound;
-import net.minecraft.nbt.NbtElement;
 import net.minecraft.nbt.NbtOps;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.state.property.Properties;
@@ -33,7 +31,6 @@ import org.slf4j.Logger;
 
 import java.util.List;
 import java.util.Objects;
-import java.util.UUID;
 
 public class SculkEchoerBlockEntity extends BlockEntity implements VibrationListener.Callback {
     private static final Logger LOGGER = LogUtils.getLogger();
@@ -79,10 +76,10 @@ public class SculkEchoerBlockEntity extends BlockEntity implements VibrationList
                         GameEvent event = size > 0 ? RegisterGameEvents.SCULK_ECHOER_LOUD_ECHO : RegisterGameEvents.SCULK_ECHOER_ECHO;
                         double offset = upsidedown ? -0.5 : 1.5;
                         if (this.vibrationEntity != null) {
-                            List<Entity> entity = world.getNonSpectatingEntities(Entity.class, new Box(this.getPos().add(-20,-20,-20), this.getPos().add(20, 20, 20)));
+                            List<Entity> entity = world.getNonSpectatingEntities(Entity.class, new Box(this.getPos().add(-20, -20, -20), this.getPos().add(20, 20, 20)));
                             Entity vibration = null;
                             for (Entity isIt : entity) {
-                                if (isIt.getUuid().toString()==this.vibrationEntity) {
+                                if (Objects.equals(isIt.getUuid().toString(), this.vibrationEntity)) {
                                     vibration = isIt;
                                     break;
                                 }
@@ -157,7 +154,7 @@ public class SculkEchoerBlockEntity extends BlockEntity implements VibrationList
         if (SculkEchoerBlock.isInactive(blockState)) {
             this.lastVibrationFrequency = SculkEchoerBlock.FREQUENCIES.getInt(event);
             SculkEchoerBlock.setActive(entity, world, this.pos, blockState, getBubbles(distance, listener.getRange()));
-            if (entity!=null) {
+            if (entity != null) {
                 this.vibrationEntity = entity.getUuid().toString();
             }
         }
