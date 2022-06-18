@@ -26,7 +26,7 @@
 		},
 		{
 			"from": [1, 0, 6],
-			"to": [9, 8, 6], ,
+			"to": [9, 8, 6],
 			"faces": {
 				"north": {"uv": [8, 8, 16, 0], "rotation": 180, "texture": "#bottom"},
 				"south": {"uv": [8, 0, 16, 8], "texture": "#top"}
