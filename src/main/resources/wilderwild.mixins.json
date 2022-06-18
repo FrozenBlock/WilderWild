@@ -29,10 +29,11 @@
 	"worldgen.OakSaplingGeneratorMixin",
 	"worldgen.SpruceSaplingGeneratorMixin",
 	"worldgen.SwampHutMixin",
-	"worldgen.VanillaBiomeParametersMixin"
+	"worldgen.VanillaBiomeParametersMixin",
+	"worldgen.VanillaSurfaceRulesMixin"
   ],
   "client": [
-	  "WardenEntityModelMixin"
+	"WardenEntityModelMixin"
   ],
   "injectors": {
 	"defaultRequire": 1
