@@ -34,6 +34,18 @@ public class BoneMealItemMixin {
             info.setReturnValue(ActionResult.success(world.isClient));
             info.cancel();
         }
+        if (state.getBlock() instanceof ShelfFungusBlock) {
+            if (state.get(RegisterProperties.FUNUGS_STAGE) < 4) {
+                WilderWild.log("Shelf Fungus Bonemealed @ " + blockPos + " with FungusStage of " + state.get(RegisterProperties.FUNUGS_STAGE), WilderWild.UNSTABLE_LOGGING);
+                if (!world.isClient) {
+                    world.syncWorldEvent(1505, blockPos, 0);
+                    world.setBlockState(blockPos, state.with(RegisterProperties.FUNUGS_STAGE, state.get(RegisterProperties.FUNUGS_STAGE) + 1));
+                    context.getStack().decrement(1);
+                }
+                info.setReturnValue(ActionResult.success(world.isClient));
+                info.cancel();
+            }
+        }
     }
-}
 
+}
