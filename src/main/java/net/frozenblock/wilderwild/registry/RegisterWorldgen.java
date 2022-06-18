@@ -75,8 +75,8 @@ public class RegisterWorldgen {
                 .downfall(0.7F)
                 .effects(
                         new BiomeEffects.Builder()
-                                .waterColor(4159204)
-                                .waterFogColor(329011)
+                                .waterColor(4552818)
+                                .waterFogColor(4552818)
                                 .fogColor(12638463)
                                 .skyColor(createJungle().getSkyColor())
                                 .foliageColor(5877296)

@@ -107,7 +107,9 @@ public class WildConfiguredFeatures {
 
     public static final RegistryEntry<ConfiguredFeature<RandomFeatureConfig, ?>> NEW_TREES_FLOWER_FOREST =
             register("new_trees_flower_forest", Feature.RANDOM_SELECTOR,
-                    new RandomFeatureConfig(List.of(new RandomFeatureEntry(WildTreePlaced.NEW_SHORT_BIRCH_BEES_0004, 0.2F), new RandomFeatureEntry(WildTreePlaced.NEW_FANCY_OAK_BEES_0004, 0.2F)), WildTreePlaced.NEW_OAK_BEES_0004));
+                    new RandomFeatureConfig(List.of(new RandomFeatureEntry(WildTreePlaced.NEW_SHORT_BIRCH_BEES_0004, 0.2F),
+                            new RandomFeatureEntry(WildTreePlaced.NEW_FANCY_OAK_BEES_0004, 0.2F),
+                            new RandomFeatureEntry(WildTreePlaced.SHORT_OAK_CHECKED, 0.099F)), WildTreePlaced.NEW_OAK_BEES_0004));
 
     public static final RegistryEntry<ConfiguredFeature<RandomFeatureConfig, ?>> NEW_TREES_PLAINS =
             register("new_trees_plains", Feature.RANDOM_SELECTOR,
