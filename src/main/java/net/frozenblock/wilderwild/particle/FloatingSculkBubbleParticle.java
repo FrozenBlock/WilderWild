@@ -56,10 +56,10 @@ public class FloatingSculkBubbleParticle extends AbstractSlowingParticle {
     public void tick() {
         super.tick();
         int flateAge = this.age - (this.stayInflatedTime) + 4;
-        if (this.age==1) {
+        if (this.age == 1) {
             this.currentInflation = 0;
             this.targetInflation = 2;
-        } else if (this.age==2) {
+        } else if (this.age == 2) {
             this.currentInflation = 1;
             this.targetInflation = 1.4F;
         } else if (this.age == 3) {
@@ -83,22 +83,22 @@ public class FloatingSculkBubbleParticle extends AbstractSlowingParticle {
         } else if (this.age == 9) {
             this.currentInflation = 0.95F;
             this.targetInflation = 1;
-        } else if (flateAge==3) {
+        } else if (flateAge == 3) {
             this.currentInflation = 1F;
             this.targetInflation = 1.3F;
-        } else if (flateAge==4) {
+        } else if (flateAge == 4) {
             this.currentInflation = 1;
             this.targetInflation = 1.2F;
-        } else if (flateAge==5) {
+        } else if (flateAge == 5) {
             this.currentInflation = 1;
             this.targetInflation = 1.05F;
-        } else if (flateAge==6) {
+        } else if (flateAge == 6) {
             this.currentInflation = 1.05F;
             this.targetInflation = 1.1F;
-        } else if (flateAge==7) {
+        } else if (flateAge == 7) {
             this.currentInflation = 1.1F;
             this.targetInflation = 1.4F;
-        } else if (flateAge==8) {
+        } else if (flateAge == 8) {
             this.currentInflation = 1.4F;
             this.targetInflation = 1.65F;
         } else {

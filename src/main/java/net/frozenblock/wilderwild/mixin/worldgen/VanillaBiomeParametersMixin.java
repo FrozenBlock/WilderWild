@@ -40,17 +40,10 @@ public final class VanillaBiomeParametersMixin {
     private RegistryKey<Biome>[][] uncommonBiomes;
 
     @Shadow
-    @Final
-    private RegistryKey<Biome>[][] nearMountainBiomes;
-
-    @Shadow
-    @Final
-    private RegistryKey<Biome>[][] specialNearMountainBiomes;
-
-    @Shadow
     private void writeBiomeParameters(Consumer<Pair<MultiNoiseUtil.NoiseHypercube, RegistryKey<Biome>>> parameters, MultiNoiseUtil.ParameterRange temperature, MultiNoiseUtil.ParameterRange humidity, MultiNoiseUtil.ParameterRange continentalness, MultiNoiseUtil.ParameterRange erosion, MultiNoiseUtil.ParameterRange weirdness, final float offset, RegistryKey<Biome> biome) {
         parameters.accept(Pair.of(MultiNoiseUtil.createNoiseHypercube(temperature, humidity, continentalness, erosion, MultiNoiseUtil.ParameterRange.of(0.0F, 1.0F), weirdness, offset), biome));
     }
+
     @Inject(method = "<init>", at = @At("TAIL"))
     private void injectBiomes(CallbackInfo ci) {
         uncommonBiomes[1][0] = RegisterWorldgen.MIXED_FOREST;

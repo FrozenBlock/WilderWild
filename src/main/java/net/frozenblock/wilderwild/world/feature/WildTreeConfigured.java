@@ -136,6 +136,7 @@ public class WildTreeConfigured {
     private static TreeFeatureConfig.Builder new_oak() {
         return builder(Blocks.OAK_LOG, Blocks.OAK_LEAVES, 6, 2, 1, 0.1F, UniformIntProvider.create(1, 2), UniformIntProvider.create(1, 3), ConstantIntProvider.create(1), 2).ignoreVines();
     }
+
     private static TreeFeatureConfig.Builder short_oak() {
         return builder(Blocks.OAK_LOG, Blocks.OAK_LEAVES, 4, 1, 0, 0.095F, UniformIntProvider.create(1, 2), UniformIntProvider.create(1, 3), ConstantIntProvider.create(1), 2).ignoreVines();
     }
