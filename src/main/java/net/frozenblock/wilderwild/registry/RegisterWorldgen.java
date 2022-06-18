@@ -2,19 +2,26 @@ package net.frozenblock.wilderwild.registry;
 
 import net.frozenblock.wilderwild.WilderWild;
 import net.minecraft.client.sound.MusicType;
+import net.minecraft.client.sound.Sound;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.SpawnGroup;
 import net.minecraft.sound.BiomeMoodSound;
 import net.minecraft.sound.MusicSound;
+import net.minecraft.sound.SoundEvent;
+import net.minecraft.sound.SoundEvents;
+import net.minecraft.structure.processor.StructureProcessorList;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.BuiltinRegistries;
 import net.minecraft.util.registry.Registry;
+import net.minecraft.util.registry.RegistryEntry;
 import net.minecraft.util.registry.RegistryKey;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.BiomeEffects;
 import net.minecraft.world.biome.GenerationSettings;
 import net.minecraft.world.biome.SpawnSettings;
+import net.minecraft.world.gen.GenerationStep;
 import net.minecraft.world.gen.feature.DefaultBiomeFeatures;
+import net.minecraft.world.gen.feature.MiscPlacedFeatures;
 
 import static net.minecraft.world.biome.OverworldBiomeCreator.createJungle;
 
@@ -67,7 +74,7 @@ public class RegisterWorldgen {
         GenerationSettings.Builder builder2 = new GenerationSettings.Builder();
         addBasicFeatures(builder2);
         DefaultBiomeFeatures.addDefaultOres(builder2);
-        DefaultBiomeFeatures.addDefaultDisks(builder2);
+        addCypressDisks(builder2);
         MusicSound musicSound = MusicType.createIngameMusic(RegisterSounds.MUSIC_OVERWORLD_WILD_FORESTS);
         return new Biome.Builder()
                 .precipitation(Biome.Precipitation.RAIN)
@@ -86,6 +93,10 @@ public class RegisterWorldgen {
                 .spawnSettings(builder.build())
                 .generationSettings(builder2.build())
                 .build();
+    }
+    public static void addCypressDisks(GenerationSettings.Builder builder) {
+        builder.feature(GenerationStep.Feature.UNDERGROUND_ORES, MiscPlacedFeatures.DISK_CLAY);
+        builder.feature(GenerationStep.Feature.UNDERGROUND_ORES, MiscPlacedFeatures.DISK_GRAVEL);
     }
 
     private static void addBasicFeatures(GenerationSettings.Builder generationSettings) {
