@@ -66,27 +66,39 @@ public class AncientHornProjectileEntity extends PersistentProjectileEntity {
         super(entityType, world);
         this.setSound(RegisterSounds.ANCIENT_HORN_VIBRATION_DISSIPATE);
     }
+
     public AncientHornProjectileEntity(World world, double x, double y, double z) {
         super(RegisterEntities.ANCIENT_HORN_PROJECTILE_ENTITY, x, y, z, world);
         this.setSound(RegisterSounds.ANCIENT_HORN_VIBRATION_DISSIPATE);
     }
+
     public List<Entity> collidingEntities() {
         return world.getOtherEntities(this, this.getBoundingBox().stretch(this.getVelocity()).expand(1.0D), this::canHit);
     }
-    public boolean shouldRender(double cameraX, double cameraY, double cameraZ) { return true; }
+
+    public boolean shouldRender(double cameraX, double cameraY, double cameraZ) {
+        return true;
+    }
+
     public void tick() {
         this.baseTick();
-        if (this.aliveTicks>300) { this.remove(RemovalReason.DISCARDED); }
-        this.prevAliveTicks=this.aliveTicks;
+        if (this.aliveTicks > 300) {
+            this.remove(RemovalReason.DISCARDED);
+        }
+        this.prevAliveTicks = this.aliveTicks;
         ++this.aliveTicks;
-        if (!this.shot) { this.shot = true; }
-        if (!this.leftOwner) { this.leftOwner = this.shouldLeaveOwner(); }
+        if (!this.shot) {
+            this.shot = true;
+        }
+        if (!this.leftOwner) {
+            this.leftOwner = this.shouldLeaveOwner();
+        }
         boolean bl = this.isNoClip();
         Vec3d vec3d = this.getVelocity();
         if (this.prevPitch == 0.0F && this.prevYaw == 0.0F) {
             double d = vec3d.horizontalLength();
-            this.setYaw((float)(MathHelper.atan2(vec3d.x, vec3d.z) * 57.2957763671875D));
-            this.setPitch((float)(MathHelper.atan2(vec3d.y, d) * 57.2957763671875D));
+            this.setYaw((float) (MathHelper.atan2(vec3d.x, vec3d.z) * 57.2957763671875D));
+            this.setPitch((float) (MathHelper.atan2(vec3d.y, d) * 57.2957763671875D));
             this.prevYaw = this.getYaw();
             this.prevPitch = this.getPitch();
         }
@@ -94,72 +106,87 @@ public class AncientHornProjectileEntity extends PersistentProjectileEntity {
         BlockState blockState = this.world.getBlockState(blockPos);
         Vec3d vec3d2;
 
-        if (this.shake > 0) { --this.shake; }
+        if (this.shake > 0) {
+            --this.shake;
+        }
 
         if (this.isTouchingWater() && world instanceof ServerWorld server) {
             EasyPacket.EasyFloatingSculkBubblePacket.createParticle(server, new Vec3d(this.prevX, this.prevY, this.prevZ), 0, 60, 0.05, 4);
         }
-        if (this.isTouchingWaterOrRain() || blockState.isOf(Blocks.POWDER_SNOW)) { this.extinguish(); }
-            Vec3d vec3d3 = this.getPos();
-            vec3d2 = vec3d3.add(vec3d);
-            HitResult hitResult = this.world.raycast(new RaycastContext(vec3d3, vec3d2, RaycastContext.ShapeType.COLLIDER, RaycastContext.FluidHandling.NONE, this));
-            while(!this.isRemoved() && canInteract()) {
-                List<Entity> entities = this.collidingEntities();
-                Entity owner = this.getOwner();
-                for (Entity entity : entities) {
-                    if (!this.isRemoved() && entity != null && entity != owner) {
-                        boolean shouldDamage = true;
-                        if (owner != null) {
-                            if (entity instanceof PlayerEntity player) {
-                                if (player.isCreative()) { shouldDamage = false; }
-                                if (owner instanceof PlayerEntity && !((PlayerEntity) owner).shouldDamagePlayer((PlayerEntity) entity)) { shouldDamage = false; }
+        if (this.isTouchingWaterOrRain() || blockState.isOf(Blocks.POWDER_SNOW)) {
+            this.extinguish();
+        }
+        Vec3d vec3d3 = this.getPos();
+        vec3d2 = vec3d3.add(vec3d);
+        HitResult hitResult = this.world.raycast(new RaycastContext(vec3d3, vec3d2, RaycastContext.ShapeType.COLLIDER, RaycastContext.FluidHandling.NONE, this));
+        while (!this.isRemoved() && canInteract()) {
+            List<Entity> entities = this.collidingEntities();
+            Entity owner = this.getOwner();
+            for (Entity entity : entities) {
+                if (!this.isRemoved() && entity != null && entity != owner) {
+                    boolean shouldDamage = true;
+                    if (owner != null) {
+                        if (entity instanceof PlayerEntity player) {
+                            if (player.isCreative()) {
+                                shouldDamage = false;
                             }
-                            if (entity.isInvulnerable()) { shouldDamage = false; }
+                            if (owner instanceof PlayerEntity && !((PlayerEntity) owner).shouldDamagePlayer((PlayerEntity) entity)) {
+                                shouldDamage = false;
+                            }
                         }
-                        if (shouldDamage) { this.hitEntity(entity); }
+                        if (entity.isInvulnerable()) {
+                            shouldDamage = false;
+                        }
                     }
-                } break;
-            }
-            if (!this.isRemoved() && hitResult != null && !bl) {
-                this.onCollision(hitResult);
-                this.velocityDirty = true;
-            }
-            vec3d = this.getVelocity();
-            double e = vec3d.x;
-            double f = vec3d.y;
-            double g = vec3d.z;
-            if (this.isCritical()) {
-                for(int i = 0; i < 4; ++i) {
-                    this.world.addParticle(ParticleTypes.CRIT, this.getX() + e * (double)i / 4.0D, this.getY() + f * (double)i / 4.0D, this.getZ() + g * (double)i / 4.0D, -e, -f + 0.2D, -g);
+                    if (shouldDamage) {
+                        this.hitEntity(entity);
+                    }
                 }
             }
-            double h = this.getX() + e;
-            double j = this.getY() + f;
-            double k = this.getZ() + g;
-            double l = vec3d.horizontalLength();
-            if (bl) {
-                this.setYaw((float)(MathHelper.atan2(-e, -g) * 57.2957763671875D));
-            } else {
-                this.setYaw((float)(MathHelper.atan2(e, g) * 57.2957763671875D));
-            }
-            this.setPitch((float)(MathHelper.atan2(f, l) * 57.2957763671875D));
-            this.setPitch(updateRotation(this.prevPitch, this.getPitch()));
-            this.setYaw(updateRotation(this.prevYaw, this.getYaw()));
-
-            this.setPosition(h, j, k);
-            this.checkBlockCollision();
+            break;
         }
+        if (!this.isRemoved() && hitResult != null && !bl) {
+            this.onCollision(hitResult);
+            this.velocityDirty = true;
+        }
+        vec3d = this.getVelocity();
+        double e = vec3d.x;
+        double f = vec3d.y;
+        double g = vec3d.z;
+        if (this.isCritical()) {
+            for (int i = 0; i < 4; ++i) {
+                this.world.addParticle(ParticleTypes.CRIT, this.getX() + e * (double) i / 4.0D, this.getY() + f * (double) i / 4.0D, this.getZ() + g * (double) i / 4.0D, -e, -f + 0.2D, -g);
+            }
+        }
+        double h = this.getX() + e;
+        double j = this.getY() + f;
+        double k = this.getZ() + g;
+        double l = vec3d.horizontalLength();
+        if (bl) {
+            this.setYaw((float) (MathHelper.atan2(-e, -g) * 57.2957763671875D));
+        } else {
+            this.setYaw((float) (MathHelper.atan2(e, g) * 57.2957763671875D));
+        }
+        this.setPitch((float) (MathHelper.atan2(f, l) * 57.2957763671875D));
+        this.setPitch(updateRotation(this.prevPitch, this.getPitch()));
+        this.setYaw(updateRotation(this.prevYaw, this.getYaw()));
+
+        this.setPosition(h, j, k);
+        this.checkBlockCollision();
+    }
+
     public void setCooldown(int i) {
         Entity entity = this.getOwner();
-        if (entity!=null) {
+        if (entity != null) {
             if (entity instanceof PlayerEntity user) {
                 user.getItemCooldownManager().set(RegisterItems.ANCIENT_HORN, i);
             }
         }
     }
+
     public void addCooldown(int i) {
         Entity entity = this.getOwner();
-        if (entity!=null) {
+        if (entity != null) {
             if (entity instanceof PlayerEntity user) {
                 if (!user.isCreative()) {
                     ItemCooldownManager manager = user.getItemCooldownManager();
@@ -175,6 +202,7 @@ public class AncientHornProjectileEntity extends PersistentProjectileEntity {
             }
         }
     }
+
     public boolean canHit(Entity entity) {
         if (!entity.isSpectator() && entity.isAlive() && entity.collides() && !(entity instanceof ProjectileEntity)) {
             Entity entity2 = this.getOwner();
@@ -183,7 +211,10 @@ public class AncientHornProjectileEntity extends PersistentProjectileEntity {
             return false;
         }
     }
-    public void onPlayerCollision(PlayerEntity player) { }
+
+    public void onPlayerCollision(PlayerEntity player) {
+    }
+
     protected void onBlockHit(BlockHitResult blockHitResult) {
         this.inBlockState = this.world.getBlockState(blockHitResult.getBlockPos());
         BlockState blockState = this.world.getBlockState(blockHitResult.getBlockPos());
@@ -238,15 +269,18 @@ public class AncientHornProjectileEntity extends PersistentProjectileEntity {
         this.setShotFromCrossbow(false);
         this.remove(RemovalReason.DISCARDED);
     }
+
     private static void trySpawnWarden(ServerWorld world, BlockPos pos) {
         if (world.getGameRules().getBoolean(GameRules.DO_WARDEN_SPAWNING)) {
             Optional<WardenEntity> warden = LargeEntitySpawnHelper.trySpawnAt(EntityType.WARDEN, SpawnReason.TRIGGERED, world, pos, 20, 5, 6, LargeEntitySpawnHelper.Requirements.WARDEN);
             warden.ifPresent(wardenEntity -> wardenEntity.playSound(SoundEvents.ENTITY_WARDEN_AGITATED, 5.0F, 1.0F));
         }
     }
+
     protected SoundEvent getHitSound() {
         return RegisterSounds.ANCIENT_HORN_VIBRATION_DISSIPATE;
     }
+
     public boolean isNoClip() {
         BlockState insideState = world.getBlockState(this.getBlockPos());
         if (insideState.isOf(RegisterBlocks.HANGING_TENDRIL) && world instanceof ServerWorld server && canInteract()) {
@@ -257,7 +291,7 @@ public class AncientHornProjectileEntity extends PersistentProjectileEntity {
                 WilderWild.log("Horn Projectile Found Hanging Tendril Entity", WilderWild.UNSTABLE_LOGGING);
                 this.playSound(this.getSound(), 1.0F, 1.2F / (this.random.nextFloat() * 0.2F + 0.9F));
                 int XP = tendril.storedXP;
-                if (XP>0) {
+                if (XP > 0) {
                     tendril.storedXP = 0;
                     world.createExplosion(this, this.getX(), this.getY(), this.getZ(), 3, Explosion.DestructionType.BREAK);
                     ExperienceOrbEntity.spawn(server, Vec3d.ofCenter(pos).add(0, 0, 0), XP);
@@ -272,38 +306,49 @@ public class AncientHornProjectileEntity extends PersistentProjectileEntity {
                 if (insideState.isOf(Blocks.BELL)) {
                     ((BellBlock) insideState.getBlock()).onProjectileHit(server, insideState, this.world.raycast(new RaycastContext(this.getPos(), new Vec3d(this.getBlockX(), this.getBlockY(), this.getBlockZ()), RaycastContext.ShapeType.COLLIDER, RaycastContext.FluidHandling.NONE, this)), this);
                 }
-            } return true;
+            }
+            return true;
         }
         Vec3d vec3d3 = this.getPos();
         Vec3d vec3d = this.getVelocity();
         Vec3d vec3d2 = vec3d3.add(vec3d.multiply(0.08));
         HitResult hitResult = this.world.raycast(new RaycastContext(vec3d3, vec3d2, RaycastContext.ShapeType.COLLIDER, RaycastContext.FluidHandling.NONE, this));
         if (hitResult.getType() == HitResult.Type.BLOCK) {
-            BlockState state = world.getBlockState(((BlockHitResult)hitResult).getBlockPos());
+            BlockState state = world.getBlockState(((BlockHitResult) hitResult).getBlockPos());
             return state.isIn(this.NON_COLLIDE);
-        } return false;
+        }
+        return false;
     }
+
     private boolean shouldLeaveOwner() {
         Entity entity = this.getOwner();
         if (entity != null) {
             for (Entity entity2 : this.world.getOtherEntities(this, this.getBoundingBox().stretch(this.getVelocity()).expand(1.0D), (entityx) -> !entityx.isSpectator() && entityx.collides())) {
-                if (entity2.getRootVehicle() == entity.getRootVehicle()) { return false; }
+                if (entity2.getRootVehicle() == entity.getRootVehicle()) {
+                    return false;
+                }
             }
-        } return true;
+        }
+        return true;
     }
+
     @Override
     public Packet<?> createSpawnPacket() {
         return EntitySpawnPacket.create(this, WilderWild.HORN_PROJECTILE_PACKET_ID);
     }
+
     public boolean canInteract() {
         if (!this.shotByPlayer && !world.isClient) {
-            return this.getOwner()!=null;
-        } return true;
+            return this.getOwner() != null;
+        }
+        return true;
     }
+
     @Override
     protected ItemStack asItemStack() {
         return ItemStack.EMPTY;
     }
+
     public void writeCustomDataToNbt(NbtCompound nbt) {
         if (!this.isRemoved()) {
             if (this.inBlockState != null) {
@@ -320,6 +365,7 @@ public class AncientHornProjectileEntity extends PersistentProjectileEntity {
             nbt.putBoolean("shotByPlayer", this.shotByPlayer);
         }
     }
+
     public void readCustomDataFromNbt(NbtCompound nbt) {
         if (!this.isRemoved()) {
             if (nbt.contains("inBlockState", 10)) {
@@ -334,6 +380,7 @@ public class AncientHornProjectileEntity extends PersistentProjectileEntity {
             this.shotByPlayer = nbt.getBoolean("shotByPlayer");
         }
     }
+
     public void setVelocity(Entity shooter, float pitch, float yaw, float roll, float speed, float divergence) {
         float f = -MathHelper.sin(yaw * 0.017453292F) * MathHelper.cos(pitch * 0.017453292F);
         float g = -MathHelper.sin((pitch + roll) * 0.017453292F);
@@ -344,6 +391,7 @@ public class AncientHornProjectileEntity extends PersistentProjectileEntity {
         this.vecZ = shooter.getZ();
         this.setOwner(shooter);
     }
+
     protected void onCollision(HitResult hitResult) {
         HitResult.Type type = hitResult.getType();
         if (type == HitResult.Type.BLOCK) {
@@ -354,14 +402,24 @@ public class AncientHornProjectileEntity extends PersistentProjectileEntity {
             }
         }
     }
+
     public double getDamage(@Nullable Entity entity) {
         if (entity != null) {
-            if (!(entity instanceof PlayerEntity)) { return 22; }
+            if (!(entity instanceof PlayerEntity)) {
+                return 22;
+            }
         }
         return 15;
     }
-    protected float getDragInWater() { return 1.0F; }
-    public boolean hasNoGravity() { return true; }
+
+    protected float getDragInWater() {
+        return 1.0F;
+    }
+
+    public boolean hasNoGravity() {
+        return true;
+    }
+
     private void hitEntity(Entity entity) {
         int i = (int) this.getDamage(entity);
         Entity entity2 = this.getOwner();
@@ -376,8 +434,10 @@ public class AncientHornProjectileEntity extends PersistentProjectileEntity {
                 }
             }
             int j = entity.getFireTicks();
-            if (this.isOnFire()) { entity.setOnFireFor(5); }
-            if (entity instanceof WardenEntity warden && entity2!=null && canInteract()) {
+            if (this.isOnFire()) {
+                entity.setOnFireFor(5);
+            }
+            if (entity instanceof WardenEntity warden && entity2 != null && canInteract()) {
                 WilderWild.log(warden, "Horn Projectile Touched", WilderWild.UNSTABLE_LOGGING);
                 warden.increaseAngerAt(entity2, 100, true);
                 warden.playSound(SoundEvents.ENTITY_WARDEN_TENDRIL_CLICKS, 5.0F, warden.getSoundPitch());
@@ -394,9 +454,9 @@ public class AncientHornProjectileEntity extends PersistentProjectileEntity {
                     }
                     if (livingEntity.isDead() && world instanceof ServerWorld server) {
                         server.spawnParticles(ParticleTypes.SCULK_SOUL, livingEntity.getX(), livingEntity.getEyeY(), livingEntity.getZ(), 1, 0.2D, 0.0D, 0.2D, 0.0D);
-                        if (this.getOwner()!=null) {
+                        if (this.getOwner() != null) {
                             if (this.getOwner() instanceof ServerPlayerEntity serverPlayer) {
-                                addCooldown(livingEntity.getXpToDrop()*10);
+                                addCooldown(livingEntity.getXpToDrop() * 10);
                                 EasyPacket.EasyCompetitionPacket.sendAncientHornKillInfo(world, serverPlayer, livingEntity);
                             }
                         }
@@ -413,8 +473,11 @@ public class AncientHornProjectileEntity extends PersistentProjectileEntity {
         }
     }
 
-    public void emitGameEvent(GameEvent event) { }
-    public void emitGameEvent(GameEvent event, @Nullable Entity entity) { }
+    public void emitGameEvent(GameEvent event) {
+    }
+
+    public void emitGameEvent(GameEvent event, @Nullable Entity entity) {
+    }
 
     public static class EntitySpawnPacket { //When the Fabric tutorial WORKS!!!!! BOM BOM BOM BOM BOM BOM BOM, BOBOBOM! DUNDUN!
         public static Packet<?> create(Entity e, Identifier packetID) {

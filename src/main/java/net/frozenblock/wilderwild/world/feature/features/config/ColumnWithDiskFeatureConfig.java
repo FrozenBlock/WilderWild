@@ -33,7 +33,7 @@ public class ColumnWithDiskFeatureConfig implements FeatureConfig {
         return DataResult.success(block);
     }
 
-    public ColumnWithDiskFeatureConfig(BlockState columnBlock, IntProvider radius, IntProvider height, IntProvider height2,RegistryEntryList<Block> replaceable, RegistryEntryList<Block> diskBlocks) {
+    public ColumnWithDiskFeatureConfig(BlockState columnBlock, IntProvider radius, IntProvider height, IntProvider height2, RegistryEntryList<Block> replaceable, RegistryEntryList<Block> diskBlocks) {
         this.columnBlock = columnBlock;
         this.radius = radius;
         this.height = height;

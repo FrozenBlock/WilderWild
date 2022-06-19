@@ -5,6 +5,7 @@ import net.frozenblock.api.mathematics.EasyNoiseSampler;
 import net.frozenblock.wilderwild.world.feature.features.config.PathFeatureConfig;
 import net.minecraft.block.PlantBlock;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.noise.PerlinNoiseSampler;
 import net.minecraft.world.Heightmap.Type;
 import net.minecraft.world.StructureWorldAccess;
 import net.minecraft.world.gen.feature.Feature;
@@ -23,10 +24,15 @@ public class NoisePathFeature extends Feature<PathFeatureConfig> {
         BlockPos blockPos = context.getOrigin();
         StructureWorldAccess world = context.getWorld();
         ArrayList<BlockPos> poses = posesInCircle(blockPos, config.radius);
+        EasyNoiseSampler.setSeed(world.getSeed());
+        PerlinNoiseSampler sampler = config.noise == 1 ? EasyNoiseSampler.perlinSimple : config.noise == 2 ? EasyNoiseSampler.perlinAtomic :  config.noise == 3 ? EasyNoiseSampler.perlinBlocking : EasyNoiseSampler.perlinXoro;
         for (BlockPos tempPos : poses) {
             BlockPos pos = tempPos.withY(world.getTopY(Type.WORLD_SURFACE_WG, tempPos.getX(), tempPos.getZ()) - 1);
-            if (world.getBlockState(pos).getBlock() instanceof PlantBlock) { pos = pos.down(); }
-            if (EasyNoiseSampler.samplePerlinXoro(pos, config.multiplier, config.multiplyY, config.useY)>config.threshold && world.getBlockState(pos).isIn(config.replaceable)) {
+            if (world.getBlockState(pos).getBlock() instanceof PlantBlock) {
+                pos = pos.down();
+            }
+            double sample = EasyNoiseSampler.sample(sampler, pos, config.multiplier, config.multiplyY, config.useY);
+            if (sample > config.minThresh && sample < config.maxThresh && world.getBlockState(pos).isIn(config.replaceable)) {
                 generated = true;
                 world.setBlockState(pos, config.pathBlock.getDefaultState(), 3);
             }
@@ -38,14 +44,15 @@ public class NoisePathFeature extends Feature<PathFeatureConfig> {
         ArrayList<BlockPos> poses = new ArrayList<>();
         int bx = pos.getX();
         int bz = pos.getZ();
-        for(int x = bx - radius; x <= bx + radius; x++) {
-            for(int z = bz - radius; z <= bz + radius; z++) {
-                double distance = ((bx-x) * (bx-x) + ((bz-z) * (bz-z)));
-                if(distance < radius * radius) {
+        for (int x = bx - radius; x <= bx + radius; x++) {
+            for (int z = bz - radius; z <= bz + radius; z++) {
+                double distance = ((bx - x) * (bx - x) + ((bz - z) * (bz - z)));
+                if (distance < radius * radius) {
                     poses.add(new BlockPos(x, 0, z));
                 }
             }
-        } return poses;
+        }
+        return poses;
     }
 
 }

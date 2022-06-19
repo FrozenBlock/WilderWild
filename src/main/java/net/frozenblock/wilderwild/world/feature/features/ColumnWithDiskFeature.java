@@ -33,19 +33,19 @@ public class ColumnWithDiskFeature extends Feature<ColumnWithDiskFeatureConfig> 
             BlockState disk = diskOptional.get().value().getDefaultState();
             int bx = s.getX();
             int bz = s.getZ();
-            for(int x = bx - radius; x <= bx + radius; x++) {
-                for(int z = bz - radius; z <= bz + radius; z++) {
-                    double distance = ((bx-x) * (bx-x) + ((bz-z) * (bz-z)));
-                    if(distance < radius * radius) {
+            for (int x = bx - radius; x <= bx + radius; x++) {
+                for (int z = bz - radius; z <= bz + radius; z++) {
+                    double distance = ((bx - x) * (bx - x) + ((bz - z) * (bz - z)));
+                    if (distance < radius * radius) {
                         mutableDisk.set(x, world.getTopY(Type.WORLD_SURFACE_WG, x, z) - 1, z);
                         if (world.getBlockState(mutableDisk).getBlock() instanceof PlantBlock) {
                             mutableDisk.set(mutableDisk.down());
                         }
-                        boolean fade = !mutableDisk.isWithinDistance(s, radius*0.8);
+                        boolean fade = !mutableDisk.isWithinDistance(s, radius * 0.8);
                         if (world.getBlockState(mutableDisk).isIn(config.replaceable)) {
                             generated = true;
                             if (fade) {
-                                if (random.nextFloat()>0.65F) {
+                                if (random.nextFloat() > 0.65F) {
                                     world.setBlockState(mutableDisk, disk, 3);
                                 }
                             } else {
@@ -60,32 +60,38 @@ public class ColumnWithDiskFeature extends Feature<ColumnWithDiskFeatureConfig> 
         BlockPos startPos = blockPos.withY(world.getTopY(Type.MOTION_BLOCKING_NO_LEAVES, blockPos.getX(), blockPos.getZ()) - 1);
         BlockState column = config.columnBlock;
         BlockPos.Mutable pos = startPos.mutableCopy();
-        for (int i=0; i<config.height.get(random); i++) {
+        for (int i = 0; i < config.height.get(random); i++) {
             pos.set(pos.up());
             BlockState state = world.getBlockState(pos);
-            if (world.getBlockState(pos.down()).isOf(Blocks.WATER)) { break; }
+            if (world.getBlockState(pos.down()).isOf(Blocks.WATER)) {
+                break;
+            }
             if (state.getBlock() instanceof AbstractPlantBlock || state.getBlock() instanceof PlantBlock || state.isAir()) {
                 world.setBlockState(pos, column, 3);
                 generated = true;
             }
         }
-        startPos = startPos.add(-1,0,0);
+        startPos = startPos.add(-1, 0, 0);
         pos.set(startPos.withY(world.getTopY(Type.MOTION_BLOCKING_NO_LEAVES, startPos.getX(), startPos.getZ()) - 1).mutableCopy());
-        for (int i=0; i<config.height2.get(random); i++) {
+        for (int i = 0; i < config.height2.get(random); i++) {
             pos.set(pos.up());
             BlockState state = world.getBlockState(pos);
-            if (world.getBlockState(pos.down()).isOf(Blocks.WATER)) { break; }
+            if (world.getBlockState(pos.down()).isOf(Blocks.WATER)) {
+                break;
+            }
             if (state.getBlock() instanceof AbstractPlantBlock || state.getBlock() instanceof PlantBlock || state.isAir()) {
                 world.setBlockState(pos, column, 3);
                 generated = true;
             }
         }
-        startPos = startPos.add(1,0,1);
+        startPos = startPos.add(1, 0, 1);
         pos.set(startPos.withY(world.getTopY(Type.MOTION_BLOCKING_NO_LEAVES, startPos.getX(), startPos.getZ()) - 1).mutableCopy());
-        for (int i=0; i<config.height2.get(random); i++) {
+        for (int i = 0; i < config.height2.get(random); i++) {
             pos.set(pos.up());
             BlockState state = world.getBlockState(pos);
-            if (world.getBlockState(pos.down()).isOf(Blocks.WATER)) { break; }
+            if (world.getBlockState(pos.down()).isOf(Blocks.WATER)) {
+                break;
+            }
             if (state.getBlock() instanceof AbstractPlantBlock || state.getBlock() instanceof PlantBlock || state.isAir()) {
                 world.setBlockState(pos, column, 3);
                 generated = true;

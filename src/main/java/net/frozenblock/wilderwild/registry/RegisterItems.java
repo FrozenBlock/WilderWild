@@ -20,17 +20,34 @@ public class RegisterItems {
     public static final MusicDiscItem MUSIC_DISC_GOAT_HORN_SYMPHONY = new MusicDiscItem(15, RegisterSounds.MUSIC_DISC_GOATHORN_SYMPHONY, new FabricItemSettings().group(ItemGroup.MISC).maxCount(1).rarity(Rarity.RARE), 144);
     public static final MusicDiscItem MUSIC_DISC_THE_OTHER_SIDE = new MusicDiscItem(15, RegisterSounds.MUSIC_DISC_THE_OTHER_SIDE, new FabricItemSettings().group(ItemGroup.MISC).maxCount(1).rarity(Rarity.RARE), 76);
     public static final Item FIREFLY_SPAWN_EGG = new SpawnEggItem(RegisterEntities.FIREFLY, Integer.parseInt("2A2E2B", 16), Integer.parseInt("AAF644", 16), new FabricItemSettings().group(ItemGroup.MISC));
-    public static final Item FIREFLY_BOTTLE = new FireflyBottleItem(new FabricItemSettings().group(ItemGroup.MISC).maxCount(32));
 
-    public static final Item BAOBAB_BOAT_ITEM = new BoatItem(false, CustomBoatType.BAOBAB, (new Item.Settings()).maxCount(1).group(ItemGroup.TRANSPORTATION));
-    public static final Item BAOBAB_CHEST_BOAT_ITEM = new BoatItem(true, CustomBoatType.BAOBAB, (new Item.Settings()).maxCount(1).group(ItemGroup.TRANSPORTATION));
+    public static final Item BAOBAB_BOAT_ITEM = new BoatItem(false, CustomBoatType.BAOBAB, new FabricItemSettings().maxCount(1).group(ItemGroup.TRANSPORTATION));
+    public static final Item BAOBAB_CHEST_BOAT_ITEM = new BoatItem(true, CustomBoatType.BAOBAB, new FabricItemSettings().maxCount(1).group(ItemGroup.TRANSPORTATION));
     public static final Item BAOBAB_SIGN = new SignItem(new FabricItemSettings().group(ItemGroup.DECORATIONS).maxCount(16),
-           RegisterBlocks.BAOBAB_SIGN_BLOCK, RegisterBlocks.BAOBAB_WALL_SIGN);
-    public static final Item CYPRESS_BOAT_ITEM = new BoatItem(false, CustomBoatType.CYPRESS, (new Item.Settings()).maxCount(1).group(ItemGroup.TRANSPORTATION));
-    public static final Item CYPRESS_CHEST_BOAT_ITEM = new BoatItem(true, CustomBoatType.CYPRESS, (new Item.Settings()).maxCount(1).group(ItemGroup.TRANSPORTATION));
+            RegisterBlocks.BAOBAB_SIGN_BLOCK, RegisterBlocks.BAOBAB_WALL_SIGN);
+    public static final Item CYPRESS_BOAT_ITEM = new BoatItem(false, CustomBoatType.CYPRESS, new FabricItemSettings().maxCount(1).group(ItemGroup.TRANSPORTATION));
+    public static final Item CYPRESS_CHEST_BOAT_ITEM = new BoatItem(true, CustomBoatType.CYPRESS, new FabricItemSettings().maxCount(1).group(ItemGroup.TRANSPORTATION));
     public static final Item CYPRESS_SIGN = new SignItem(new FabricItemSettings().group(ItemGroup.DECORATIONS).maxCount(16),
             RegisterBlocks.CYPRESS_SIGN_BLOCK, RegisterBlocks.CYPRESS_WALL_SIGN);
 
+    public static final Item FIREFLY_BOTTLE = new FireflyBottleItem(new FabricItemSettings().group(ItemGroup.MISC).maxCount(32), "null");
+
+    public static final Item BLACK_FIREFLY_BOTTLE = new FireflyBottleItem(new FabricItemSettings().group(ItemGroup.MISC).maxCount(32), "black");
+    public static final Item RED_FIREFLY_BOTTLE = new FireflyBottleItem(new FabricItemSettings().group(ItemGroup.MISC).maxCount(32), "red");
+    public static final Item GREEN_FIREFLY_BOTTLE = new FireflyBottleItem(new FabricItemSettings().group(ItemGroup.MISC).maxCount(32), "green");
+    public static final Item BROWN_FIREFLY_BOTTLE = new FireflyBottleItem(new FabricItemSettings().group(ItemGroup.MISC).maxCount(32), "brown");
+    public static final Item BLUE_FIREFLY_BOTTLE = new FireflyBottleItem(new FabricItemSettings().group(ItemGroup.MISC).maxCount(32), "blue");
+    public static final Item PURPLE_FIREFLY_BOTTLE = new FireflyBottleItem(new FabricItemSettings().group(ItemGroup.MISC).maxCount(32), "purple");
+    public static final Item CYAN_FIREFLY_BOTTLE = new FireflyBottleItem(new FabricItemSettings().group(ItemGroup.MISC).maxCount(32), "cyan");
+    public static final Item LIGHT_GRAY_FIREFLY_BOTTLE = new FireflyBottleItem(new FabricItemSettings().group(ItemGroup.MISC).maxCount(32), "light_gray");
+    public static final Item GRAY_FIREFLY_BOTTLE = new FireflyBottleItem(new FabricItemSettings().group(ItemGroup.MISC).maxCount(32), "gray");
+    public static final Item PINK_FIREFLY_BOTTLE = new FireflyBottleItem(new FabricItemSettings().group(ItemGroup.MISC).maxCount(32), "pink");
+    public static final Item LIME_FIREFLY_BOTTLE = new FireflyBottleItem(new FabricItemSettings().group(ItemGroup.MISC).maxCount(32), "lime");
+    public static final Item YELLOW_FIREFLY_BOTTLE = new FireflyBottleItem(new FabricItemSettings().group(ItemGroup.MISC).maxCount(32), "yellow");
+    public static final Item LIGHT_BLUE_FIREFLY_BOTTLE = new FireflyBottleItem(new FabricItemSettings().group(ItemGroup.MISC).maxCount(32), "light_blue");
+    public static final Item MAGENTA_FIREFLY_BOTTLE = new FireflyBottleItem(new FabricItemSettings().group(ItemGroup.MISC).maxCount(32), "magenta");
+    public static final Item ORANGE_FIREFLY_BOTTLE = new FireflyBottleItem(new FabricItemSettings().group(ItemGroup.MISC).maxCount(32), "orange");
+    public static final Item WHITE_FIREFLY_BOTTLE = new FireflyBottleItem(new FabricItemSettings().group(ItemGroup.MISC).maxCount(32), "white");
 
 
     public static void registerItems() {
@@ -47,8 +64,26 @@ public class RegisterItems {
         Registry.register(Registry.ITEM, new Identifier(WilderWild.MOD_ID, "music_disc_goathorn_symphony"), MUSIC_DISC_GOAT_HORN_SYMPHONY);
         Registry.register(Registry.ITEM, new Identifier(WilderWild.MOD_ID, "music_disc_the_other_side"), MUSIC_DISC_THE_OTHER_SIDE);
         Registry.register(Registry.ITEM, new Identifier(WilderWild.MOD_ID, "firefly_spawn_egg"), FIREFLY_SPAWN_EGG);
-        Registry.register(Registry.ITEM, new Identifier(WilderWild.MOD_ID, "firefly_bottle"), FIREFLY_BOTTLE);
 
         Registry.register(Registry.INSTRUMENT, ANCIENT_HORN_INSTRUMENT, new Instrument(RegisterSounds.ANCIENT_HORN_CALL, 300, 256.0F));
+
+        Registry.register(Registry.ITEM, new Identifier(WilderWild.MOD_ID, "firefly_bottle"), FIREFLY_BOTTLE);
+
+        Registry.register(Registry.ITEM, new Identifier(WilderWild.MOD_ID, "magenta_firefly_bottle"), MAGENTA_FIREFLY_BOTTLE);
+        Registry.register(Registry.ITEM, new Identifier(WilderWild.MOD_ID, "purple_firefly_bottle"), PURPLE_FIREFLY_BOTTLE);
+        Registry.register(Registry.ITEM, new Identifier(WilderWild.MOD_ID, "blue_firefly_bottle"), BLUE_FIREFLY_BOTTLE);
+        Registry.register(Registry.ITEM, new Identifier(WilderWild.MOD_ID, "black_firefly_bottle"), BLACK_FIREFLY_BOTTLE);
+        Registry.register(Registry.ITEM, new Identifier(WilderWild.MOD_ID, "red_firefly_bottle"), RED_FIREFLY_BOTTLE);
+        Registry.register(Registry.ITEM, new Identifier(WilderWild.MOD_ID, "green_firefly_bottle"), GREEN_FIREFLY_BOTTLE);
+        Registry.register(Registry.ITEM, new Identifier(WilderWild.MOD_ID, "brown_firefly_bottle"), BROWN_FIREFLY_BOTTLE);
+        Registry.register(Registry.ITEM, new Identifier(WilderWild.MOD_ID, "cyan_firefly_bottle"), CYAN_FIREFLY_BOTTLE);
+        Registry.register(Registry.ITEM, new Identifier(WilderWild.MOD_ID, "light_gray_firefly_bottle"), LIGHT_GRAY_FIREFLY_BOTTLE);
+        Registry.register(Registry.ITEM, new Identifier(WilderWild.MOD_ID, "gray_firefly_bottle"), GRAY_FIREFLY_BOTTLE);
+        Registry.register(Registry.ITEM, new Identifier(WilderWild.MOD_ID, "pink_firefly_bottle"), PINK_FIREFLY_BOTTLE);
+        Registry.register(Registry.ITEM, new Identifier(WilderWild.MOD_ID, "lime_firefly_bottle"), LIME_FIREFLY_BOTTLE);
+        Registry.register(Registry.ITEM, new Identifier(WilderWild.MOD_ID, "yellow_firefly_bottle"), YELLOW_FIREFLY_BOTTLE);
+        Registry.register(Registry.ITEM, new Identifier(WilderWild.MOD_ID, "light_blue_firefly_bottle"), LIGHT_BLUE_FIREFLY_BOTTLE);
+        Registry.register(Registry.ITEM, new Identifier(WilderWild.MOD_ID, "orange_firefly_bottle"), ORANGE_FIREFLY_BOTTLE);
+        Registry.register(Registry.ITEM, new Identifier(WilderWild.MOD_ID, "white_firefly_bottle"), WHITE_FIREFLY_BOTTLE);
     }
 }

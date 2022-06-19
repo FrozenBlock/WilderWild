@@ -1,7 +1,7 @@
 {
   "replace": false,
   "values": [
-    "wilderwild:cypress_forest",
+    "wilderwild:cypress_wetlands",
     "minecraft:swamp",
     "minecraft:mangrove_swamp"
   ]

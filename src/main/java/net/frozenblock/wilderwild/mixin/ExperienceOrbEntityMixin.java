@@ -16,8 +16,8 @@ public class ExperienceOrbEntityMixin {
 
     @Inject(at = @At("TAIL"), method = "repairPlayerGears", cancellable = true)
     private void repairPlayerGears(PlayerEntity player, int amount, CallbackInfoReturnable<Integer> info) {
-        int hornCooldown = AncientCityGoatHorn.decreaseCooldown(player, amount*5);
-        if (hornCooldown!=-1) {
+        int hornCooldown = AncientCityGoatHorn.decreaseCooldown(player, amount * 8);
+        if (hornCooldown != -1) {
             info.setReturnValue(0);
             info.cancel();
         }

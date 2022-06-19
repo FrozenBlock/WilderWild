@@ -17,7 +17,6 @@ import net.minecraft.util.registry.RegistryEntry;
 import net.minecraft.util.registry.RegistryEntryList;
 import net.minecraft.world.gen.ProbabilityConfig;
 import net.minecraft.world.gen.feature.*;
-import net.minecraft.world.gen.placementmodifier.PlacementModifier;
 import net.minecraft.world.gen.stateprovider.BlockStateProvider;
 import org.jetbrains.annotations.NotNull;
 
@@ -35,7 +34,8 @@ public class WildConfiguredFeatures {
                             new RandomFeatureEntry(WildTreePlaced.FUNGUS_PINE_CHECKED, 0.09F),
                             new RandomFeatureEntry(WildTreePlaced.NEW_SPRUCE_SHORT_CHECKED, 0.13F),
                             new RandomFeatureEntry(WildTreePlaced.NEW_FANCY_OAK_BEES_0004, 0.28F),
-                            new RandomFeatureEntry(WildTreePlaced.NEW_BIRCH_CHECKED, 0.32F)), WildTreePlaced.NEW_OAK_CHECKED));
+                            new RandomFeatureEntry(WildTreePlaced.SHORT_OAK_CHECKED, 0.1F),
+                            new RandomFeatureEntry(WildTreePlaced.SHORT_BIRCH, 0.32F)), WildTreePlaced.NEW_OAK_CHECKED));
 
     public static final RegistryEntry<ConfiguredFeature<RandomFeatureConfig, ?>> SAVANNA_TREES =
             register("savanna_trees", Feature.RANDOM_SELECTOR,
@@ -46,36 +46,44 @@ public class WildConfiguredFeatures {
     public static final RegistryEntry<ConfiguredFeature<RandomFeatureConfig, ?>> WINDSWEPT_SAVANNA_TREES =
             register("windswept_savanna_trees", Feature.RANDOM_SELECTOR,
                     new RandomFeatureConfig(List.of(new RandomFeatureEntry(TreePlacedFeatures.ACACIA_CHECKED, 0.8F)), WildTreePlaced.NEW_OAK_CHECKED));
+
     public static final RegistryEntry<ConfiguredFeature<RandomFeatureConfig, ?>> NEW_MEADOW_TREES =
             register("new_meadow_trees", Feature.RANDOM_SELECTOR,
                     new RandomFeatureConfig(List.of(new RandomFeatureEntry(WildTreePlaced.NEW_FANCY_OAK_BEES, 0.5F)), WildTreePlaced.NEW_SUPER_BIRCH_BEES));
+
     public static final RegistryEntry<ConfiguredFeature<RandomFeatureConfig, ?>> NEW_DARK_FOREST_VEGETATION =
             register("new_dark_forest_vegetation", Feature.RANDOM_SELECTOR,
-                    new RandomFeatureConfig(List.of(new RandomFeatureEntry(PlacedFeatures.createEntry(TreeConfiguredFeatures.HUGE_BROWN_MUSHROOM, new PlacementModifier[0]), 0.025F),
-                            new RandomFeatureEntry(PlacedFeatures.createEntry(TreeConfiguredFeatures.HUGE_RED_MUSHROOM, new PlacementModifier[0]), 0.05F),
+                    new RandomFeatureConfig(List.of(new RandomFeatureEntry(PlacedFeatures.createEntry(TreeConfiguredFeatures.HUGE_BROWN_MUSHROOM), 0.025F),
+                            new RandomFeatureEntry(PlacedFeatures.createEntry(TreeConfiguredFeatures.HUGE_RED_MUSHROOM), 0.05F),
                             new RandomFeatureEntry(TreePlacedFeatures.DARK_OAK_CHECKED, 0.6666667F),
                             new RandomFeatureEntry(WildTreePlaced.SHORT_BIRCH, 0.2F),
                             new RandomFeatureEntry(WildTreePlaced.NEW_TALL_DARK_OAK_CHECKED, 0.35F),
                             new RandomFeatureEntry(WildTreePlaced.NEW_FANCY_OAK_CHECKED, 0.185F)), WildTreePlaced.NEW_OAK_CHECKED));
+
     public static final RegistryEntry<ConfiguredFeature<RandomFeatureConfig, ?>> FALLEN_SPRUCE_AND_OAK =
             register("fallen_spruce_and_oak", Feature.RANDOM_SELECTOR,
                     new RandomFeatureConfig(List.of(new RandomFeatureEntry(WildTreePlaced.FALLEN_SPRUCE_CHECKED, 0.55F)), WildTreePlaced.NEW_FALLEN_OAK_CHECKED));
+
     public static final RegistryEntry<ConfiguredFeature<RandomFeatureConfig, ?>> NEW_TREES_WINDSWEPT_HILLS =
             register("new_trees_windswept_hills", Feature.RANDOM_SELECTOR,
                     new RandomFeatureConfig(List.of(new RandomFeatureEntry(WildTreePlaced.NEW_SPRUCE_CHECKED, 0.666F),
                             new RandomFeatureEntry(WildTreePlaced.NEW_FANCY_OAK_CHECKED, 0.1F)), WildTreePlaced.NEW_OAK_CHECKED));
+
     public static final RegistryEntry<ConfiguredFeature<RandomFeatureConfig, ?>> NEW_TREES_OLD_GROWTH_PINE_TAIGA =
             register("new_trees_old_growth_pine_taiga", Feature.RANDOM_SELECTOR,
                     new RandomFeatureConfig(List.of(new RandomFeatureEntry(WildTreePlaced.MEGA_FUNGUS_SPRUCE_CHECKED, 0.025641026F),
                             new RandomFeatureEntry(WildTreePlaced.MEGA_FUNGUS_PINE_CHECKED, 0.30769232F),
                             new RandomFeatureEntry(WildTreePlaced.FUNGUS_PINE_CHECKED, 0.33333334F)), WildTreePlaced.NEW_SPRUCE_CHECKED));
+
     public static final RegistryEntry<ConfiguredFeature<RandomFeatureConfig, ?>> NEW_TREES_OLD_GROWTH_SPRUCE_TAIGA =
             register("new_trees_old_growth_spruce_taiga", Feature.RANDOM_SELECTOR,
                     new RandomFeatureConfig(List.of(new RandomFeatureEntry(WildTreePlaced.MEGA_FUNGUS_SPRUCE_CHECKED, 0.33333334F),
                             new RandomFeatureEntry(WildTreePlaced.FUNGUS_PINE_CHECKED, 0.33333334F)), WildTreePlaced.NEW_SPRUCE_CHECKED));
+
     public static final RegistryEntry<ConfiguredFeature<RandomFeatureConfig, ?>> NEW_TREES_GROVE =
             register("new_trees_grove", Feature.RANDOM_SELECTOR,
                     new RandomFeatureConfig(List.of(new RandomFeatureEntry(WildTreePlaced.FUNGUS_PINE_ON_SNOW, 0.33333334F)), WildTreePlaced.NEW_SPRUCE_ON_SNOW));
+
     public static final RegistryEntry<ConfiguredFeature<RandomFeatureConfig, ?>> NEW_TREES_TAIGA =
             register("new_trees_taiga", Feature.RANDOM_SELECTOR,
                     new RandomFeatureConfig(List.of(new RandomFeatureEntry(WildTreePlaced.FUNGUS_PINE_CHECKED, 0.33333334F)), WildTreePlaced.NEW_SPRUCE_CHECKED));
@@ -99,11 +107,13 @@ public class WildConfiguredFeatures {
 
     public static final RegistryEntry<ConfiguredFeature<RandomFeatureConfig, ?>> NEW_TREES_FLOWER_FOREST =
             register("new_trees_flower_forest", Feature.RANDOM_SELECTOR,
-                    new RandomFeatureConfig(List.of(new RandomFeatureEntry(WildTreePlaced.NEW_SHORT_BIRCH_BEES_0004, 0.2F), new RandomFeatureEntry(WildTreePlaced.NEW_FANCY_OAK_BEES_0004, 0.2F)), WildTreePlaced.NEW_OAK_BEES_0004));
+                    new RandomFeatureConfig(List.of(new RandomFeatureEntry(WildTreePlaced.NEW_SHORT_BIRCH_BEES_0004, 0.2F),
+                            new RandomFeatureEntry(WildTreePlaced.NEW_FANCY_OAK_BEES_0004, 0.2F),
+                            new RandomFeatureEntry(WildTreePlaced.SHORT_OAK_CHECKED, 0.099F)), WildTreePlaced.NEW_OAK_BEES_0004));
 
     public static final RegistryEntry<ConfiguredFeature<RandomFeatureConfig, ?>> NEW_TREES_PLAINS =
             register("new_trees_plains", Feature.RANDOM_SELECTOR,
-                    new RandomFeatureConfig(List.of(new RandomFeatureEntry(PlacedFeatures.createEntry(WildTreeConfigured.NEW_FANCY_OAK_BEES_0004, new PlacementModifier[0]), 0.33333334F)), PlacedFeatures.createEntry(WildTreeConfigured.NEW_OAK_BEES_0004, new PlacementModifier[0])));
+                    new RandomFeatureConfig(List.of(new RandomFeatureEntry(PlacedFeatures.createEntry(WildTreeConfigured.NEW_FANCY_OAK_BEES_0004), 0.33333334F)), PlacedFeatures.createEntry(WildTreeConfigured.NEW_OAK_BEES_0004)));
 
     public static final RegistryEntry<ConfiguredFeature<RandomFeatureConfig, ?>> NEW_FALLEN_BIRCH_AND_OAK =
             register("new_fallen_birch_and_oak", Feature.RANDOM_SELECTOR,
@@ -116,12 +126,8 @@ public class WildConfiguredFeatures {
     public static final RegistryEntry<ConfiguredFeature<RandomFeatureConfig, ?>> NEW_TREES_BIRCH_AND_OAK =
             register("new_trees_birch_and_oak", Feature.RANDOM_SELECTOR,
                     new RandomFeatureConfig(List.of(new RandomFeatureEntry(WildTreePlaced.NEW_SHORT_BIRCH_BEES_0004, 0.2F),
-                            new RandomFeatureEntry(WildTreePlaced.NEW_FANCY_OAK_BEES_0004, 0.27F)), WildTreePlaced.NEW_OAK_BEES_0004));
-
-    public static final RegistryEntry<ConfiguredFeature<RandomPatchFeatureConfig, ?>> NEW_GRASS_PATCH =
-            register("new_grass_patch", Feature.RANDOM_PATCH,
-                    ConfiguredFeatures.createRandomPatchFeatureConfig(64, PlacedFeatures.createEntry(Feature.SIMPLE_BLOCK,
-                            new SimpleBlockFeatureConfig(BlockStateProvider.of(Blocks.GRASS)))));
+                            new RandomFeatureEntry(WildTreePlaced.NEW_FANCY_OAK_BEES_0004, 0.27F),
+                            new RandomFeatureEntry(WildTreePlaced.SHORT_OAK_CHECKED, 0.155F)), WildTreePlaced.NEW_OAK_BEES_0004));
 
     public static final RegistryEntry<ConfiguredFeature<RandomPatchFeatureConfig, ?>> DATURA =
             register("datura", Feature.FLOWER,
@@ -153,7 +159,7 @@ public class WildConfiguredFeatures {
             register("red_shelf_fungus", WilderWild.SHELF_FUNGUS_FEATURE, new ShelfFungusFeatureConfig((ShelfFungusBlock) RegisterBlocks.RED_SHELF_FUNGUS, 20, true, true, true, RegistryEntryList.of(Block::getRegistryEntry, Blocks.MANGROVE_LOG, Blocks.DARK_OAK_LOG, RegisterBlocks.HOLLOWED_BIRCH_LOG, RegisterBlocks.HOLLOWED_OAK_LOG, Blocks.MYCELIUM, Blocks.MUSHROOM_STEM)));
 
     public static final RegistryEntry<ConfiguredFeature<ColumnWithDiskFeatureConfig, ?>> TERMITE_CONFIGURED =
-            register("termite_mound_baobab", WilderWild.COLUMN_WITH_DISK_FEATURE, new ColumnWithDiskFeatureConfig(RegisterBlocks.TERMITE_MOUND.getDefaultState().with(RegisterProperties.NATURAL, true), UniformIntProvider.create(4,9), UniformIntProvider.create(3,7), UniformIntProvider.create(1,3), RegistryEntryList.of(Block::getRegistryEntry, Blocks.GRASS_BLOCK, Blocks.STONE, Blocks.DIORITE, Blocks.ANDESITE, Blocks.GRANITE), RegistryEntryList.of(Block::getRegistryEntry, Blocks.COARSE_DIRT, Blocks.SAND, Blocks.ROOTED_DIRT)));
+            register("termite_mound_baobab", WilderWild.COLUMN_WITH_DISK_FEATURE, new ColumnWithDiskFeatureConfig(RegisterBlocks.TERMITE_MOUND.getDefaultState().with(RegisterProperties.NATURAL, true), UniformIntProvider.create(4, 9), UniformIntProvider.create(3, 7), UniformIntProvider.create(1, 3), RegistryEntryList.of(Block::getRegistryEntry, Blocks.GRASS_BLOCK, Blocks.STONE, Blocks.DIORITE, Blocks.ANDESITE, Blocks.GRANITE), RegistryEntryList.of(Block::getRegistryEntry, Blocks.COARSE_DIRT, Blocks.SAND, Blocks.ROOTED_DIRT)));
 
     public static final RegistryEntry<ConfiguredFeature<RandomFeatureConfig, ?>> CYPRESS_FOREST_TREES =
             register("cypress_forest_trees", Feature.RANDOM_SELECTOR,

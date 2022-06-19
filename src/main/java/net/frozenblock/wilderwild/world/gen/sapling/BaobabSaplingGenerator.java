@@ -8,7 +8,8 @@ import org.jetbrains.annotations.Nullable;
 
 public class BaobabSaplingGenerator extends BaobabTreeSaplingGenerator {
 
-    public BaobabSaplingGenerator() {}
+    public BaobabSaplingGenerator() {
+    }
 
 
     @Nullable

@@ -16,11 +16,11 @@ public class ChestBoatDropsMixin {
 
     @Inject(method = "asItem", at = @At("HEAD"), cancellable = true)
     public void asItem(CallbackInfoReturnable<Item> ci) {
-        if (((ChestBoatEntity)(Object)this).getBoatType() == CustomBoatType.BAOBAB) {
+        if (((ChestBoatEntity) (Object) this).getBoatType() == CustomBoatType.BAOBAB) {
             ci.setReturnValue(RegisterItems.BAOBAB_CHEST_BOAT_ITEM);
             ci.cancel();
         }
-        if (((ChestBoatEntity)(Object)this).getBoatType() == CustomBoatType.CYPRESS) {
+        if (((ChestBoatEntity) (Object) this).getBoatType() == CustomBoatType.CYPRESS) {
             ci.setReturnValue(RegisterItems.CYPRESS_CHEST_BOAT_ITEM);
             ci.cancel();
         }

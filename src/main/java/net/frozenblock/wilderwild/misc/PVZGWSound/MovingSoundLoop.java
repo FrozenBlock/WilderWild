@@ -31,9 +31,9 @@ public class MovingSoundLoop extends MovingSoundInstance {
         this.repeatDelay = 0;
         this.volume = volume;
         this.pitch = pitch;
-        this.x = (float)entity.getX();
-        this.y = (float)entity.getY();
-        this.z = (float)entity.getZ();
+        this.x = (float) entity.getX();
+        this.y = (float) entity.getY();
+        this.z = (float) entity.getZ();
     }
 
     public boolean canPlay() {
@@ -48,10 +48,10 @@ public class MovingSoundLoop extends MovingSoundInstance {
         if (this.entity.isRemoved()) {
             this.setDone();
         } else {
-            this.x = (float)this.entity.getX();
-            this.y = (float)this.entity.getY();
-            this.z = (float)this.entity.getZ();
-            float f = (float)this.entity.getVelocity().horizontalLength();
+            this.x = (float) this.entity.getX();
+            this.y = (float) this.entity.getY();
+            this.z = (float) this.entity.getZ();
+            float f = (float) this.entity.getVelocity().horizontalLength();
             this.distance = MathHelper.clamp(this.distance + 0.0025F, 0.0F, 1.0F);
             this.volume = MathHelper.lerp(MathHelper.clamp(f, 0.0F, 0.5F), 0.0F, 0.7F);
         }
@@ -66,7 +66,7 @@ public class MovingSoundLoop extends MovingSoundInstance {
         byteBuf.writeEnumConstant(category);
         byteBuf.writeFloat(volume);
         byteBuf.writeFloat(pitch);
-        for (ServerPlayerEntity player : PlayerLookup.around((ServerWorld)world, entity.getBlockPos(), 32)) {
+        for (ServerPlayerEntity player : PlayerLookup.around((ServerWorld) world, entity.getBlockPos(), 32)) {
             ServerPlayNetworking.send(player, WilderWild.MOVING_LOOPING_SOUND_PACKET, byteBuf);
         }
     }

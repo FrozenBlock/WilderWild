@@ -19,15 +19,15 @@ public class WhiteDandelionBlock extends FlowerBlock {
     }
 
     public void randomDisplayTick(BlockState state, World world, BlockPos pos, Random random) {
-        if (random.nextFloat()>0.95) {
+        if (random.nextFloat() > 0.95) {
             world.addParticle(RegisterParticles.DANDELION_SEED, pos.getX() + 0.5, pos.getY() + 0.8, pos.getZ() + 0.5, 0.0D, 0.0D, 0.0D);
         }
     }
 
     public void onEntityCollision(BlockState state, World world, BlockPos pos, Entity entity) {
         if (world instanceof ServerWorld server) {
-            if (server.random.nextFloat()>0.95) {
-                EasyPacket.EasySeedPacket.createParticle(world, Vec3d.ofCenter(pos).add(0,0.3,0), server.random.nextBetween(1,3), false);
+            if (server.random.nextFloat() > 0.95) {
+                EasyPacket.EasySeedPacket.createParticle(world, Vec3d.ofCenter(pos).add(0, 0.3, 0), server.random.nextBetween(1, 3), false);
             }
         }
     }

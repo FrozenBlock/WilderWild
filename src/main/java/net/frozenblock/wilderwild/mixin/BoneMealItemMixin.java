@@ -35,7 +35,7 @@ public class BoneMealItemMixin {
             info.cancel();
         }
         if (state.getBlock() instanceof ShelfFungusBlock) {
-            if (state.get(RegisterProperties.FUNUGS_STAGE)<4) {
+            if (state.get(RegisterProperties.FUNUGS_STAGE) < 4) {
                 WilderWild.log("Shelf Fungus Bonemealed @ " + blockPos + " with FungusStage of " + state.get(RegisterProperties.FUNUGS_STAGE), WilderWild.UNSTABLE_LOGGING);
                 if (!world.isClient) {
                     world.syncWorldEvent(1505, blockPos, 0);

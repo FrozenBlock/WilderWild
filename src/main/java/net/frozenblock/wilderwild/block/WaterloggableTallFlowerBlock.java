@@ -21,7 +21,7 @@ public class WaterloggableTallFlowerBlock extends TallFlowerBlock implements Wat
 
     public WaterloggableTallFlowerBlock(Settings settings) {
         super(settings);
-        this.setDefaultState( this.getDefaultState().with(WATERLOGGED, false));
+        this.setDefaultState(this.getDefaultState().with(WATERLOGGED, false));
     }
 
     @Override

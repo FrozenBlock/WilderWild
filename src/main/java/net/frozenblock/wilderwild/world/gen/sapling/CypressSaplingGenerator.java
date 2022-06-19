@@ -8,10 +8,11 @@ import net.minecraft.world.gen.feature.ConfiguredFeature;
 
 public class CypressSaplingGenerator extends SaplingGenerator {
 
-    public CypressSaplingGenerator() {}
+    public CypressSaplingGenerator() {
+    }
 
     protected RegistryEntry<? extends ConfiguredFeature<?, ?>> getTreeFeature(Random random, boolean bees) {
-        return random.nextFloat()>0.7F ? WildTreeConfigured.CYPRESS : WildTreeConfigured.FUNGUS_CYPRESS;
+        return random.nextFloat() > 0.7F ? WildTreeConfigured.CYPRESS : WildTreeConfigured.FUNGUS_CYPRESS;
     }
 
 }

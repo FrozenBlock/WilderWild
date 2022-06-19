@@ -6,7 +6,9 @@ import net.minecraft.text.Text;
 
 public class NewDamageSource extends DamageSource {
 
-    protected NewDamageSource(String name) { super(name); }
+    protected NewDamageSource(String name) {
+        super(name);
+    }
 
     public static final DamageSource SCULK_JAW = new NewDamageSource("sculk_jaw").setScaledWithDifficulty();
 

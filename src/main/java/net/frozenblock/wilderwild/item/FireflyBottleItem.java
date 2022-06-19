@@ -18,8 +18,11 @@ import net.minecraft.world.World;
 
 public class FireflyBottleItem extends Item {
 
-    public FireflyBottleItem(Settings settings) {
+    private final String color;
+
+    public FireflyBottleItem(Settings settings, String color) {
         super(settings);
+        this.color = color;
     }
 
     public TypedActionResult<ItemStack> use(World world, PlayerEntity user, Hand hand) {
@@ -44,6 +47,7 @@ public class FireflyBottleItem extends Item {
                     if (spawned) {
                         entity.hasHome = true;
                         FireflyBrain.rememberHome(entity, entity.getBlockPos());
+                        entity.setColor(this.color);
                         if (!user.isCreative()) {
                             user.getStackInHand(hand).decrement(1);
                             user.getInventory().offerOrDrop(new ItemStack(Items.GLASS_BOTTLE));

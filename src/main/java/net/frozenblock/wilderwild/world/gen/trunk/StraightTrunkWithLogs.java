@@ -50,7 +50,7 @@ public class StraightTrunkWithLogs extends TrunkPlacer {
         for (int i = 0; i < height; ++i) {
             int j = startPos.getY() + i;
             if (this.getAndSetState(world, replacer, random, mutable.set(startPos.getX(), j, startPos.getZ()), config)
-                    && i < height - 1 && random.nextFloat() < this.logChance && placedLogs < maxLogs && (height-4)-i<=logHeightFromTop) {
+                    && i < height - 1 && random.nextFloat() < this.logChance && placedLogs < maxLogs && (height - 4) - i <= logHeightFromTop) {
                 Direction direction = Direction.Type.HORIZONTAL.random(random);
                 this.generateExtraBranch(world, replacer, random, config, mutable, j, direction, this.extraBranchLength.get(random));
                 ++placedLogs;
@@ -71,7 +71,7 @@ public class StraightTrunkWithLogs extends TrunkPlacer {
             k += direction.getOffsetZ();
             if (TreeFeature.canReplace(world, pos.set(j, yOffset, k))) {
                 if (config.trunkProvider.getBlockState(random, pos.set(j, yOffset, k)).contains(Properties.AXIS)) {
-                    Direction.Axis axis = direction.getOffsetX()!=0 ? Direction.Axis.X : Direction.Axis.Z;
+                    Direction.Axis axis = direction.getOffsetX() != 0 ? Direction.Axis.X : Direction.Axis.Z;
                     replacer.accept(pos.set(j, yOffset, k), config.trunkProvider.getBlockState(random, pos.set(j, yOffset, k)).with(Properties.AXIS, axis));
                 } else {
                     this.getAndSetState(world, replacer, random, pos.set(j, yOffset, k), config);

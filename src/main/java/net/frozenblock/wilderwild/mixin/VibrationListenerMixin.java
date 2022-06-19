@@ -31,9 +31,9 @@ public class VibrationListenerMixin {
             if (pos.isPresent()) {
                 BlockPos blockPos = new BlockPos(pos.get());
                 if (world.getBlockState(blockPos).isOf(Blocks.SCULK_SENSOR)) {
-                    if (world.random.nextInt(400)<=1 && SculkSensorBlock.isInactive(world.getBlockState(blockPos)) && !world.getBlockState(blockPos).get(RegisterProperties.NOT_HICCUPPING)) {
+                    if (world.random.nextInt(400) <= 1 && SculkSensorBlock.isInactive(world.getBlockState(blockPos)) && !world.getBlockState(blockPos).get(RegisterProperties.NOT_HICCUPPING)) {
                         WilderWild.log("Sensor Hiccups " + pos, WilderWild.DEV_LOGGING);
-                        SculkSensorBlock.setActive(null, world, blockPos, world.getBlockState(blockPos), (int)(Math.random()*15));
+                        SculkSensorBlock.setActive(null, world, blockPos, world.getBlockState(blockPos), (int) (Math.random() * 15));
                         world.emitGameEvent(null, GameEvent.SCULK_SENSOR_TENDRILS_CLICKING, blockPos);
                         world.emitGameEvent(null, RegisterGameEvents.SCULK_SENSOR_ACTIVATE, blockPos);
                         world.playSound(null, blockPos, RegisterSounds.BLOCK_SCULK_SENSOR_HICCUP, SoundCategory.BLOCKS, 1.0F, world.random.nextFloat() * 0.1F + 0.7F);

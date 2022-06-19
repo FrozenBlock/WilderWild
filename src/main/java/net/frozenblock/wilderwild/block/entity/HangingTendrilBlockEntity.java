@@ -38,20 +38,24 @@ public class HangingTendrilBlockEntity extends BlockEntity implements VibrationL
 
     public HangingTendrilBlockEntity(BlockPos pos, BlockState state) {
         super(RegisterBlockEntityType.HANGING_TENDRIL, pos, state);
-        this.listener = new VibrationListener(new BlockPositionSource(this.pos), ((HangingTendrilBlock)state.getBlock()).getRange(), this, null, 0, 0);
+        this.listener = new VibrationListener(new BlockPositionSource(this.pos), ((HangingTendrilBlock) state.getBlock()).getRange(), this, null, 0, 0);
     }
 
     public void serverTick(World world, BlockPos pos, BlockState state) {
-        if (this.ticksToStopTwitching>0) {--this.ticksToStopTwitching;} else if (this.ticksToStopTwitching==0) {
+        if (this.ticksToStopTwitching > 0) {
+            --this.ticksToStopTwitching;
+        } else if (this.ticksToStopTwitching == 0) {
             world.setBlockState(pos, state.with(HangingTendrilBlock.TWITCHING, false));
             --this.ticksToStopTwitching;
         }
-        if (this.ringOutTicksLeft>=0) {--this.ringOutTicksLeft;} else if (state.get(HangingTendrilBlock.WRINGING_OUT)) {
+        if (this.ringOutTicksLeft >= 0) {
+            --this.ringOutTicksLeft;
+        } else if (state.get(HangingTendrilBlock.WRINGING_OUT)) {
             world.setBlockState(pos, state.with(HangingTendrilBlock.WRINGING_OUT, false));
-            if (this.storedXP>0) {
-                int droppedXP = this.storedXP>1 ? this.storedXP/2 : 1;
-                ExperienceOrbEntity.spawn((ServerWorld)world, Vec3d.ofCenter(pos).add(0, -0.5, 0), droppedXP);
-                this.storedXP=this.storedXP-droppedXP;
+            if (this.storedXP > 0) {
+                int droppedXP = this.storedXP > 1 ? this.storedXP / 2 : 1;
+                ExperienceOrbEntity.spawn((ServerWorld) world, Vec3d.ofCenter(pos).add(0, -0.5, 0), droppedXP);
+                this.storedXP = this.storedXP - droppedXP;
                 world.emitGameEvent(null, RegisterGameEvents.TENDRIL_EXTRACT_XP, pos);
             }
         }
@@ -68,7 +72,7 @@ public class HangingTendrilBlockEntity extends BlockEntity implements VibrationL
             DataResult<?> var10000 = VibrationListener.createCodec(this).parse(new Dynamic<>(NbtOps.INSTANCE, nbt.getCompound("listener")));
             Logger var10001 = LOGGER;
             Objects.requireNonNull(var10001);
-            var10000.resultOrPartial(var10001::error).ifPresent((vibrationListener) -> this.listener = (VibrationListener)vibrationListener);
+            var10000.resultOrPartial(var10001::error).ifPresent((vibrationListener) -> this.listener = (VibrationListener) vibrationListener);
         }
     }
 
@@ -81,7 +85,7 @@ public class HangingTendrilBlockEntity extends BlockEntity implements VibrationL
         DataResult<?> var10000 = VibrationListener.createCodec(this).encodeStart(NbtOps.INSTANCE, this.listener);
         Logger var10001 = LOGGER;
         Objects.requireNonNull(var10001);
-        var10000.resultOrPartial(var10001::error).ifPresent((nbtElement) -> nbt.put("listener", (NbtElement)nbtElement));
+        var10000.resultOrPartial(var10001::error).ifPresent((nbtElement) -> nbt.put("listener", (NbtElement) nbtElement));
     }
 
     public VibrationListener getEventListener() {
@@ -110,7 +114,7 @@ public class HangingTendrilBlockEntity extends BlockEntity implements VibrationL
     }
 
     public static int getPower(float f, int range) {
-        double d = (double)f / (double)range;
+        double d = (double) f / (double) range;
         return Math.max(1, 15 - MathHelper.floor(d * 15.0D));
     }
 }

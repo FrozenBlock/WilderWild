@@ -72,7 +72,7 @@ public class FlyBySoundHub {
 
         public static void update(MinecraftClient client, PlayerEntity player, boolean autoSounds) {
             for (Entity entity : flybyEntities) {
-                if (flybySounds.size() != flybyEntities.size() || client.world==null) {
+                if (flybySounds.size() != flybyEntities.size() || client.world == null) {
                     flybySounds.clear();
                     flybyEntities.clear();
                     volumes.clear();
@@ -81,16 +81,16 @@ public class FlyBySoundHub {
                     return;
                 }
                 int index = flybyEntities.indexOf(entity);
-                if (entity!=null) {
+                if (entity != null) {
                     Vec3d vel = entity.getVelocity();
                     Vec3d playerVel = player.getVelocity();
                     Vec3d entityPos = entity.getPos();
                     Vec3d playerPos = player.getEyePos();
                     double distanceTo = entityPos.distanceTo(playerPos);
                     double newDistanceTo = entityPos.add(vel).add(vel).distanceTo(playerPos.add(playerVel));
-                    cooldowns.set(index, cooldowns.getInt(index)-1);
-                    if ((distanceTo > newDistanceTo && distanceTo < (vel.lengthSquared()+playerVel.length())*2) && cooldowns.getInt(index)<=0) {
-                        float volume = (float) (volumes.getFloat(index) + (vel.length()/2));
+                    cooldowns.set(index, cooldowns.getInt(index) - 1);
+                    if ((distanceTo > newDistanceTo && distanceTo < (vel.lengthSquared() + playerVel.length()) * 2) && cooldowns.getInt(index) <= 0) {
+                        float volume = (float) (volumes.getFloat(index) + (vel.length() / 2));
                         client.getSoundManager().play(new EntityTrackingSoundInstance(flybySounds.get(index), categories.get(index), volume, pitches.getFloat(index), entity, client.world.random.nextLong()));
                         cooldowns.set(index, 40);
                     }
@@ -99,8 +99,10 @@ public class FlyBySoundHub {
                 }
             }
             removeEntityFinish();
-            if (checkAroundCooldown>0) { --checkAroundCooldown; } else {
-                if (client.world!=null && autoSounds) {
+            if (checkAroundCooldown > 0) {
+                --checkAroundCooldown;
+            } else {
+                if (client.world != null && autoSounds) {
                     Box box = new Box(player.getBlockPos().add(-3, -3, -3), player.getBlockPos().add(3, 3, 3));
                     List<Entity> entities = client.world.getOtherEntities(player, box);
                     for (Entity entity : entities) {
@@ -161,7 +163,7 @@ public class FlyBySoundHub {
         byteBuf.writeEnumConstant(category);
         byteBuf.writeFloat(volume);
         byteBuf.writeFloat(pitch);
-        for (ServerPlayerEntity player : PlayerLookup.around((ServerWorld)world, entity.getBlockPos(), 128)) {
+        for (ServerPlayerEntity player : PlayerLookup.around((ServerWorld) world, entity.getBlockPos(), 128)) {
             ServerPlayNetworking.send(player, WilderWild.FLYBY_SOUND_PACKET, byteBuf);
         }
     }

@@ -23,15 +23,13 @@ public class FireflyEntityRenderer extends EntityRenderer<FireflyEntity> {
     }
 
     private static final Identifier TEXTURE = new Identifier(WilderWild.MOD_ID, "textures/entity/firefly/firefly_off.png");
-    private static final Identifier OVERLAY_TEXTURE = new Identifier(WilderWild.MOD_ID, "textures/entity/firefly/firefly_on.png");
     private static final RenderLayer LAYER = RenderLayer.getEntityCutout(TEXTURE);
-    private static final RenderLayer OVERLAY = RenderLayer.getEntityTranslucentEmissive(OVERLAY_TEXTURE);
 
     private final double yOffset = 0.155F;
 
     @Override
     public void render(FireflyEntity entity, float yaw, float tickDelta, MatrixStack matrixStack, VertexConsumerProvider vertexConsumerProvider, int i) {
-        float scale = entity.getScale()==1.5F ? 1.5F : entity.getScale() - (tickDelta * 0.001875F); //0.0375
+        float scale = entity.getScale() == 1.5F ? 1.5F : entity.getScale() - (tickDelta * 0.001875F); //0.0375
         matrixStack.push();
         matrixStack.scale(scale, scale, scale);
         matrixStack.translate(0, yOffset, 0);
@@ -62,7 +60,7 @@ public class FireflyEntityRenderer extends EntityRenderer<FireflyEntity> {
         entry = matrixStack.peek();
         matrix4f = entry.getPositionMatrix();
         matrix3f = entry.getNormalMatrix();
-        vertexConsumer = vertexConsumerProvider.getBuffer(OVERLAY);
+        vertexConsumer = vertexConsumerProvider.getBuffer(RenderLayer.getEntityTranslucentEmissive(new Identifier(WilderWild.MOD_ID, "textures/entity/firefly/firefly_" + entity.getColor() + ".png")));
 
         vertexPulsate(vertexConsumer, matrix4f, matrix3f, i, 0.0F, 0, 0, 1, entity.getFlickerAge(), entity.flickers(), tickDelta, overlay);
         vertexPulsate(vertexConsumer, matrix4f, matrix3f, i, 1.0F, 0, 1, 1, entity.getFlickerAge(), entity.flickers(), tickDelta, overlay);
@@ -90,7 +88,7 @@ public class FireflyEntityRenderer extends EntityRenderer<FireflyEntity> {
     }
 
     private static void vertexPulsate(VertexConsumer vertexConsumer, Matrix4f matrix4f, Matrix3f matrix3f, int i, float f, int j, int k, int l, int age, boolean flickers, float tickDelta, int overlay) {
-        int colors = !flickers ? (int) ((int) Math.max((255 * (Math.cos(((age + tickDelta) * Math.PI)/20))),0)) : (int) ((int) (255 * (Math.cos(((age + tickDelta) * Math.PI) / 40))) + 127.5);
+        int colors = !flickers ? (int) ((int) Math.max((255 * (Math.cos(((age + tickDelta) * Math.PI) / 20))), 0)) : (int) ((int) (255 * (Math.cos(((age + tickDelta) * Math.PI) / 40))) + 127.5);
         vertexConsumer
                 .vertex(matrix4f, f - 0.5F, j - 0.5F, 0.0F)
                 .color(colors, colors, colors, colors)

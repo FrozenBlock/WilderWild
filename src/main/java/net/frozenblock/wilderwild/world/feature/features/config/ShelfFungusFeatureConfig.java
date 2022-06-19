@@ -20,7 +20,7 @@ import java.util.Objects;
 
 public class ShelfFungusFeatureConfig implements FeatureConfig {
     public static final Codec<ShelfFungusFeatureConfig> CODEC = RecordCodecBuilder.create(
-            (instance) -> instance.group(Registry.BLOCK.getCodec().fieldOf("block").flatXmap(ShelfFungusFeatureConfig::validateBlock, DataResult::success).orElse((ShelfFungusBlock)RegisterBlocks.BROWN_SHELF_FUNGUS).forGetter(
+            (instance) -> instance.group(Registry.BLOCK.getCodec().fieldOf("block").flatXmap(ShelfFungusFeatureConfig::validateBlock, DataResult::success).orElse((ShelfFungusBlock) RegisterBlocks.BROWN_SHELF_FUNGUS).forGetter(
                     (config) -> config.fungus), Codec.intRange(1, 64).fieldOf("search_range").orElse(10).forGetter(
                     (config) -> config.searchRange), Codec.BOOL.fieldOf("can_place_on_floor").orElse(false).forGetter(
                     (config) -> config.placeOnFloor), Codec.BOOL.fieldOf("can_place_on_ceiling").orElse(false).forGetter(

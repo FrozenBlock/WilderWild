@@ -15,6 +15,7 @@ import net.minecraft.world.WorldView;
 
 public class PollenBlock extends MultifaceGrowthBlock {
     private final LichenGrower grower = new LichenGrower(this);
+
     public PollenBlock(Settings settings) {
         super(settings);
     }
@@ -25,11 +26,11 @@ public class PollenBlock extends MultifaceGrowthBlock {
         int k = pos.getZ();
         BlockPos.Mutable mutable = new BlockPos.Mutable();
 
-        for(int l = 0; l < 7; ++l) {
+        for (int l = 0; l < 7; ++l) {
             mutable.set(i + MathHelper.nextInt(random, -10, 10), j - random.nextInt(10), k + MathHelper.nextInt(random, -10, 10));
             BlockState blockState = world.getBlockState(mutable);
             if (!blockState.isFullCube(world, mutable)) {
-                world.addParticle(RegisterParticles.POLLEN, (double)mutable.getX() + random.nextDouble(), (double)mutable.getY() + random.nextDouble(), (double)mutable.getZ() + random.nextDouble(), 0.0D, 0.0D, 0.0D);
+                world.addParticle(RegisterParticles.POLLEN, (double) mutable.getX() + random.nextDouble(), (double) mutable.getY() + random.nextDouble(), (double) mutable.getZ() + random.nextDouble(), 0.0D, 0.0D, 0.0D);
             }
         }
     }
@@ -45,7 +46,9 @@ public class PollenBlock extends MultifaceGrowthBlock {
 
     public boolean canPlaceAt(BlockState state, WorldView world, BlockPos pos) {
         boolean bl = false;
-        if (world.getBlockState(pos).isOf(Blocks.WATER)) { return false; }
+        if (world.getBlockState(pos).isOf(Blocks.WATER)) {
+            return false;
+        }
         for (Direction direction : DIRECTIONS) {
             if (hasDirection(state, direction)) {
                 BlockPos blockPos = pos.offset(direction);
