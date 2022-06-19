@@ -8,6 +8,7 @@ import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.block.*;
 import net.frozenblock.wilderwild.block.entity.TermiteMoundBlockEntity;
 import net.frozenblock.wilderwild.item.FloweredLilyPadItem;
+import net.frozenblock.wilderwild.misc.FlowerColors;
 import net.frozenblock.wilderwild.mixin.SignTypeAccessor;
 import net.frozenblock.wilderwild.world.gen.sapling.BaobabSaplingGenerator;
 import net.frozenblock.wilderwild.world.gen.sapling.CypressSaplingGenerator;
@@ -25,6 +26,8 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.world.BlockView;
+
+import java.util.List;
 
 public abstract class RegisterBlocks {
     private static final MapColor planksColor = MapColor.ORANGE;
@@ -85,10 +88,17 @@ public abstract class RegisterBlocks {
     public static final Block DATURA = new TallFlowerBlock(FabricBlockSettings.copy(Blocks.ROSE_BUSH).strength(0.0F).nonOpaque());
     public static final Block CATTAIL = new WaterloggableTallFlowerBlock(FabricBlockSettings.copy(Blocks.ROSE_BUSH).sounds(BlockSoundGroup.WET_GRASS).strength(0.0F).nonOpaque());
     public static final Block CARNATION = new FlowerBlock(StatusEffects.REGENERATION, 12, FabricBlockSettings.copy(Blocks.DANDELION).sounds(BlockSoundGroup.SPORE_BLOSSOM).strength(0.0F).nonOpaque());
-    public static final Block POTTED_CARNATION = new FlowerPotBlock(RegisterBlocks.CARNATION, FabricBlockSettings.of(Material.DECORATION).breakInstantly().nonOpaque());
     public static final Block WHITE_DANDELION = new WhiteDandelionBlock(StatusEffects.SLOW_FALLING, 12, FabricBlockSettings.copy(Blocks.DANDELION).sounds(BlockSoundGroup.SPORE_BLOSSOM).strength(0.0F).nonOpaque());
-    public static final Block POTTED_WHITE_DANDELION = new FlowerPotBlock(RegisterBlocks.WHITE_DANDELION, FabricBlockSettings.of(Material.DECORATION).breakInstantly().nonOpaque());
     public static final Block MILKWEED = new MilkweedBlock(FabricBlockSettings.copy(Blocks.ROSE_BUSH).strength(0.0F).nonOpaque());
+    public static final Block GLORY_OF_THE_SNOW = new GloryOfTheSnowBlock(FabricBlockSettings.copy(Blocks.DANDELION).sounds(BlockSoundGroup.SPORE_BLOSSOM).strength(0.0F).nonOpaque().ticksRandomly(), List.of(FlowerColors.BLUE, FlowerColors.PINK, FlowerColors.PURPLE, FlowerColors.WHITE));
+
+    public static final Block POTTED_CARNATION = new FlowerPotBlock(RegisterBlocks.CARNATION, FabricBlockSettings.of(Material.DECORATION).breakInstantly().nonOpaque());
+    public static final Block POTTED_WHITE_DANDELION = new FlowerPotBlock(RegisterBlocks.WHITE_DANDELION, FabricBlockSettings.of(Material.DECORATION).breakInstantly().nonOpaque());
+
+    public static final Block BLUE_GLORY_OF_THE_SNOW = new FlowerLichenBlock(FabricBlockSettings.copyOf(Blocks.GRASS).collidable(false).offsetType(AbstractBlock.OffsetType.NONE).mapColor(MapColor.BLUE).sounds(BlockSoundGroup.VINE));
+    public static final Block PINK_GLORY_OF_THE_SNOW = new FlowerLichenBlock(FabricBlockSettings.copyOf(Blocks.GRASS).collidable(false).offsetType(AbstractBlock.OffsetType.NONE).mapColor(MapColor.DULL_PINK).sounds(BlockSoundGroup.VINE));
+    public static final Block PURPLE_GLORY_OF_THE_SNOW = new FlowerLichenBlock(FabricBlockSettings.copyOf(Blocks.GRASS).collidable(false).offsetType(AbstractBlock.OffsetType.NONE).mapColor(MapColor.PURPLE).sounds(BlockSoundGroup.VINE));
+    public static final Block WHITE_GLORY_OF_THE_SNOW = new FlowerLichenBlock(FabricBlockSettings.copyOf(Blocks.GRASS).collidable(false).offsetType(AbstractBlock.OffsetType.NONE).mapColor(MapColor.OFF_WHITE).sounds(BlockSoundGroup.VINE));
 
     public static void registerPlants() {
         registerBlock("datura", DATURA, ItemGroup.DECORATIONS);
@@ -98,14 +108,19 @@ public abstract class RegisterBlocks {
         registerBlock("white_dandelion", WHITE_DANDELION, ItemGroup.DECORATIONS);
         registerBlockWithoutBlockItem("potted_white_dandelion", POTTED_WHITE_DANDELION);
         registerBlock("milkweed", MILKWEED, ItemGroup.DECORATIONS);
+        registerBlock("glory_of_the_snow", GLORY_OF_THE_SNOW, ItemGroup.DECORATIONS);
+        registerBlockWithoutBlockItem("blue_giant_glory_of_the_snow", BLUE_GLORY_OF_THE_SNOW);
+        registerBlockWithoutBlockItem("pink_giant_glory_of_the_snow", PINK_GLORY_OF_THE_SNOW);
+        registerBlockWithoutBlockItem("violet_beauty_glory_of_the_snow", PURPLE_GLORY_OF_THE_SNOW);
+        registerBlockWithoutBlockItem("alba_glory_of_the_snow", WHITE_GLORY_OF_THE_SNOW);
     }
 
-    public static final Block POLLEN_BLOCK = new PollenBlock(FabricBlockSettings.copyOf(Blocks.GRASS).collidable(false).offsetType(AbstractBlock.OffsetType.NONE).mapColor(MapColor.PALE_YELLOW).sounds(BlockSoundGroup.VINE));
+    public static final Block POLLEN_BLOCK = new FlowerLichenBlock(FabricBlockSettings.copyOf(Blocks.GRASS).collidable(false).offsetType(AbstractBlock.OffsetType.NONE).mapColor(MapColor.PALE_YELLOW).sounds(BlockSoundGroup.VINE));
     public static final Block BROWN_SHELF_FUNGUS = new ShelfFungusBlock(FabricBlockSettings.copyOf(Blocks.BROWN_MUSHROOM_BLOCK).luminance(1).collidable(false).nonOpaque().sounds(RegisterBlockSoundGroups.MUSHROOM));
     public static final Block RED_SHELF_FUNGUS = new ShelfFungusBlock(FabricBlockSettings.copyOf(Blocks.RED_MUSHROOM_BLOCK).collidable(false).nonOpaque().sounds(RegisterBlockSoundGroups.MUSHROOM));
 
     public static void registerNotSoPlants() {
-        registerBlock("pollen", POLLEN_BLOCK, ItemGroup.DECORATIONS);
+        registerBlockWithoutBlockItem("pollen", POLLEN_BLOCK);
         registerBlock("brown_shelf_fungus", BROWN_SHELF_FUNGUS, ItemGroup.DECORATIONS);
         registerBlock("red_shelf_fungus", RED_SHELF_FUNGUS, ItemGroup.DECORATIONS);
     }

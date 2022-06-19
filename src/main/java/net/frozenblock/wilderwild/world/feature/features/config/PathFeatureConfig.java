@@ -4,16 +4,15 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.DataResult;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.block.Block;
-import net.minecraft.block.Blocks;
-import net.minecraft.util.math.noise.PerlinNoiseSampler;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.util.registry.RegistryCodecs;
 import net.minecraft.util.registry.RegistryEntryList;
 import net.minecraft.world.gen.feature.FeatureConfig;
+import net.minecraft.world.gen.stateprovider.BlockStateProvider;
 
 public class PathFeatureConfig implements FeatureConfig {
     public static final Codec<PathFeatureConfig> CODEC = RecordCodecBuilder.create((instance) -> {
-        return instance.group(Registry.BLOCK.getCodec().fieldOf("block").flatXmap(PathFeatureConfig::validateBlock, DataResult::success).orElse(Blocks.COARSE_DIRT).forGetter((config) -> {
+        return instance.group(BlockStateProvider.TYPE_CODEC.fieldOf("block").forGetter((config) -> {
             return config.pathBlock;
         }), Codec.intRange(1, 64).fieldOf("radius").orElse(10).forGetter((config) -> {
             return config.radius;
@@ -29,11 +28,13 @@ public class PathFeatureConfig implements FeatureConfig {
             return config.useY;
         }), Codec.BOOL.fieldOf("multiplyY").orElse(false).forGetter((config) -> {
             return config.multiplyY;
+        }), Codec.BOOL.fieldOf("carpet").orElse(false).forGetter((config) -> {
+            return config.carpet;
         }), RegistryCodecs.entryList(Registry.BLOCK_KEY).fieldOf("replaceable").forGetter((config) -> {
             return config.replaceable;
         })).apply(instance, PathFeatureConfig::new);
     });
-    public final Block pathBlock;
+    public final BlockStateProvider pathBlock;
     public final int radius;
     public final int noise;
     public final double multiplier;
@@ -41,13 +42,14 @@ public class PathFeatureConfig implements FeatureConfig {
     public final double maxThresh;
     public final boolean useY;
     public final boolean multiplyY;
+    public final boolean carpet;
     public final RegistryEntryList<Block> replaceable;
 
     private static DataResult<Block> validateBlock(Block block) {
         return DataResult.success(block);
     }
 
-    public PathFeatureConfig(Block pathBlock, int radius, int noise, double multiplier, double minThresh, double maxThresh, boolean useY, boolean multiplyY, RegistryEntryList<Block> replaceable) {
+    public PathFeatureConfig(BlockStateProvider pathBlock, int radius, int noise, double multiplier, double minThresh, double maxThresh, boolean useY, boolean multiplyY, boolean carpet, RegistryEntryList<Block> replaceable) {
         this.pathBlock = pathBlock;
         this.radius = radius;
         this.noise = noise;
@@ -56,6 +58,7 @@ public class PathFeatureConfig implements FeatureConfig {
         this.maxThresh = maxThresh;
         this.useY = useY;
         this.multiplyY = multiplyY;
+        this.carpet = carpet;
         this.replaceable = replaceable;
     }
 
