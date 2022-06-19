@@ -41,7 +41,7 @@ public class NoisePathUnderWaterFeature extends Feature<PathFeatureConfig> {
                         mutable.set(x, y, z);
                         double sample1 = EasyNoiseSampler.sample(sampler, mutable, config.multiplier, config.multiplyY, config.useY);
                         //double sample2 = EasyNoiseSampler.samplePerlinSimplePositive(mutable, config.multiplier, config.multiplyY, config.useY);
-                        if (sample1 > config.minThresh && sample1 < config.maxThresh && world.getBlockState(mutable).isIn(config.replaceable) && isWaterNearby(world, mutable, 3)) {
+                        if (sample1 > config.minThresh && sample1 < config.maxThresh && world.getBlockState(mutable).isIn(config.replaceable) && isWaterNearby(world, mutable, 2)) {
                             generated = true;
                             world.setBlockState(mutable, config.pathBlock.getDefaultState(), 3);
                         }
