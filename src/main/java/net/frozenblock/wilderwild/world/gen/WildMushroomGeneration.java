@@ -20,5 +20,8 @@ public class WildMushroomGeneration {
 
         BiomeModifications.addFeature(BiomeSelectors.includeByKey(BiomeKeys.SWAMP),
                 GenerationStep.Feature.VEGETAL_DECORATION, WildPlacedFeatures.HUGE_MUSHROOMS_SWAMP.getKey().get());
+
+        BiomeModifications.addFeature(BiomeSelectors.includeByKey(RegisterWorldgen.MIXED_FOREST),
+                GenerationStep.Feature.VEGETAL_DECORATION, WildPlacedFeatures.MIXED_MUSHROOMS_PLACED.getKey().get());
     }
 }

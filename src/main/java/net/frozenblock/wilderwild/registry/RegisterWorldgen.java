@@ -2,7 +2,6 @@ package net.frozenblock.wilderwild.registry;
 
 import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.world.feature.WildMiscPlaced;
-import net.frozenblock.wilderwild.world.feature.WildPlacedFeatures;
 import net.minecraft.client.sound.MusicType;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.SpawnGroup;
@@ -18,7 +17,6 @@ import net.minecraft.world.biome.GenerationSettings;
 import net.minecraft.world.biome.SpawnSettings;
 import net.minecraft.world.gen.GenerationStep;
 import net.minecraft.world.gen.feature.DefaultBiomeFeatures;
-import net.minecraft.world.gen.feature.VegetationPlacedFeatures;
 
 import static net.minecraft.world.biome.OverworldBiomeCreator.createJungle;
 import static net.minecraft.world.biome.OverworldBiomeCreator.createSwamp;
@@ -45,12 +43,6 @@ public class RegisterWorldgen {
         GenerationSettings.Builder builder2 = new GenerationSettings.Builder();
         addBasicFeatures(builder2);
         DefaultBiomeFeatures.addDefaultDisks(builder2);
-        builder2.feature(GenerationStep.Feature.VEGETAL_DECORATION, WildPlacedFeatures.POLLEN_PLACED);
-        builder2.feature(GenerationStep.Feature.VEGETAL_DECORATION, WildPlacedFeatures.MIXED_TREES);
-        builder2.feature(GenerationStep.Feature.VEGETAL_DECORATION, WildPlacedFeatures.FALLEN_TREES_MIXED_PLACED);
-        builder2.feature(GenerationStep.Feature.VEGETAL_DECORATION, VegetationPlacedFeatures.FOREST_FLOWERS);
-        builder2.feature(GenerationStep.Feature.TOP_LAYER_MODIFICATION, WildMiscPlaced.COARSE_PATH_5);
-        builder2.feature(GenerationStep.Feature.VEGETAL_DECORATION, WildPlacedFeatures.MIXED_MUSHROOMS_PLACED);
         MusicSound musicSound = MusicType.createIngameMusic(RegisterSounds.MUSIC_OVERWORLD_WILD_FORESTS);
         return new Biome.Builder()
                 .precipitation(Biome.Precipitation.RAIN)
@@ -75,23 +67,10 @@ public class RegisterWorldgen {
         SpawnSettings.Builder builder = new SpawnSettings.Builder();
         DefaultBiomeFeatures.addBatsAndMonsters(builder);
         addCypressWetlandsMobs(builder);
-        GenerationSettings.Builder gen = new GenerationSettings.Builder();
-        addBasicFeatures(gen);
-        addCypressPaths(gen);
+        GenerationSettings.Builder builder2 = new GenerationSettings.Builder();
+        addBasicFeatures(builder2);
+        addCypressPaths(builder2);
         //addCypressVegetation(builder2);
-        gen.feature(GenerationStep.Feature.VEGETAL_DECORATION, WildPlacedFeatures.CYPRESS_WETLANDS_TREES);
-        gen.feature(GenerationStep.Feature.VEGETAL_DECORATION, WildPlacedFeatures.CYPRESS_TREES);
-        gen.feature(GenerationStep.Feature.VEGETAL_DECORATION, WildPlacedFeatures.SHORT_CYPRESS_TREES);
-        gen.feature(GenerationStep.Feature.VEGETAL_DECORATION, WildPlacedFeatures.CYPRESS_TREES_WATER_2);
-        gen.feature(GenerationStep.Feature.VEGETAL_DECORATION, WildPlacedFeatures.FALLEN_OAK_AND_CYPRESS_PLACED);
-        gen.feature(GenerationStep.Feature.VEGETAL_DECORATION, VegetationPlacedFeatures.FOREST_FLOWERS);
-        gen.feature(GenerationStep.Feature.VEGETAL_DECORATION, VegetationPlacedFeatures.FLOWER_FOREST_FLOWERS);
-        gen.feature(GenerationStep.Feature.VEGETAL_DECORATION, WildPlacedFeatures.DENSE_FLOWER_PLACED);
-        gen.feature(GenerationStep.Feature.VEGETAL_DECORATION, WildPlacedFeatures.WHITE_DANDELION);
-        gen.feature(GenerationStep.Feature.VEGETAL_DECORATION, WildPlacedFeatures.MILKWEED);
-        gen.feature(GenerationStep.Feature.VEGETAL_DECORATION, WildPlacedFeatures.DENSE_FERN_PLACED);
-        gen.feature(GenerationStep.Feature.VEGETAL_DECORATION, WildPlacedFeatures.DENSE_TALL_GRASS_PLACED);
-        gen.feature(GenerationStep.Feature.VEGETAL_DECORATION, WildPlacedFeatures.SEAGRASS_CYPRESS);
         MusicSound musicSound = MusicType.createIngameMusic(RegisterSounds.MUSIC_OVERWORLD_WILD_FORESTS);
         return new Biome.Builder()
                 .precipitation(Biome.Precipitation.RAIN)
@@ -108,7 +87,7 @@ public class RegisterWorldgen {
                                 .moodSound(BiomeMoodSound.CAVE)
                                 .music(musicSound).build())
                 .spawnSettings(builder.build())
-                .generationSettings(gen.build())
+                .generationSettings(builder2.build())
                 .build();
     }
     public static void addCypressPaths(GenerationSettings.Builder builder) {

@@ -23,5 +23,8 @@ public class WildMiscGeneration {
 
         BiomeModifications.addFeature(BiomeSelectors.includeByKey(BiomeKeys.JUNGLE, BiomeKeys.BAMBOO_JUNGLE, BiomeKeys.SPARSE_JUNGLE),
                 GenerationStep.Feature.TOP_LAYER_MODIFICATION, WildMiscPlaced.MOSS_PATH.getKey().get());
+
+        BiomeModifications.addFeature(BiomeSelectors.includeByKey(RegisterWorldgen.MIXED_FOREST),
+                GenerationStep.Feature.TOP_LAYER_MODIFICATION, WildMiscPlaced.COARSE_PATH_5.getKey().get());
     }
 }
