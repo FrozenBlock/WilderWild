@@ -25,7 +25,7 @@ public class NoisePathFeature extends Feature<PathFeatureConfig> {
         StructureWorldAccess world = context.getWorld();
         ArrayList<BlockPos> poses = posesInCircle(blockPos, config.radius);
         EasyNoiseSampler.setSeed(world.getSeed());
-        PerlinNoiseSampler sampler = config.noise == 1 ? EasyNoiseSampler.perlinSimple : config.noise == 2 ? EasyNoiseSampler.perlinAtomic :  config.noise == 3 ? EasyNoiseSampler.perlinBlocking : EasyNoiseSampler.perlinXoro;
+        PerlinNoiseSampler sampler = config.noise == 1 ? EasyNoiseSampler.perlinSimple : config.noise == 2 ? EasyNoiseSampler.perlinAtomic : config.noise == 3 ? EasyNoiseSampler.perlinBlocking : EasyNoiseSampler.perlinXoro;
         for (BlockPos tempPos : poses) {
             BlockPos pos = tempPos.withY(world.getTopY(Type.WORLD_SURFACE_WG, tempPos.getX(), tempPos.getZ()) - 1);
             if (world.getBlockState(pos).getBlock() instanceof PlantBlock) {

@@ -5,7 +5,6 @@ import com.mojang.serialization.DataResult;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
-import net.minecraft.util.math.noise.PerlinNoiseSampler;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.util.registry.RegistryCodecs;
 import net.minecraft.util.registry.RegistryEntryList;
@@ -17,7 +16,7 @@ public class PathFeatureConfig implements FeatureConfig {
             return config.pathBlock;
         }), Codec.intRange(1, 64).fieldOf("radius").orElse(10).forGetter((config) -> {
             return config.radius;
-        }),Codec.intRange(1, 4).fieldOf("noise").orElse(4).forGetter((config) -> {
+        }), Codec.intRange(1, 4).fieldOf("noise").orElse(4).forGetter((config) -> {
             return config.noise;
         }), Codec.doubleRange(0.0001, 128).fieldOf("multiplier").orElse(0.05).forGetter((config) -> {
             return config.multiplier;

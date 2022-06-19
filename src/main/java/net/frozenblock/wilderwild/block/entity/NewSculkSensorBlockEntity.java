@@ -26,7 +26,6 @@ import net.minecraft.world.event.GameEvent.Emitter;
 import net.minecraft.world.event.listener.GameEventListener;
 import net.minecraft.world.event.listener.VibrationListener;
 import net.minecraft.world.event.listener.VibrationListener.Callback;
-import net.minecraft.world.event.listener.VibrationListener.Vibration;
 import org.jetbrains.annotations.Nullable;
 import org.slf4j.Logger;
 
@@ -43,7 +42,7 @@ public class NewSculkSensorBlockEntity extends BlockEntity implements Callback {
 
     public NewSculkSensorBlockEntity(BlockPos pos, BlockState state) {
         super(RegisterBlockEntityType.NEW_SCULK_SENSOR, pos, state);
-        this.listener = new VibrationListener(new BlockPositionSource(this.pos), ((SculkSensorBlock)state.getBlock()).getRange(), this, (Vibration)null, 0.0F, 0);
+        this.listener = new VibrationListener(new BlockPositionSource(this.pos), ((SculkSensorBlock) state.getBlock()).getRange(), this, null, 0.0F, 0);
     }
 
     public void tickServer(World world, BlockPos pos, BlockState state) {
@@ -58,13 +57,15 @@ public class NewSculkSensorBlockEntity extends BlockEntity implements Callback {
     }
 
     public void tickClient() {
-        this.prevAnimTicks=this.animTicks;
-        if (this.animTicks > 0) { --this.animTicks; }
+        this.prevAnimTicks = this.animTicks;
+        if (this.animTicks > 0) {
+            --this.animTicks;
+        }
         ++this.age;
     }
 
     public boolean onSyncedBlockEvent(int type, int data) {
-        this.animTicks=10;
+        this.animTicks = 10;
         return true;
     }
 
@@ -130,7 +131,7 @@ public class NewSculkSensorBlockEntity extends BlockEntity implements Callback {
     }
 
     public static int getPower(float distance, int range) {
-        double d = (double)distance / (double)range;
+        double d = (double) distance / (double) range;
         return Math.max(1, 15 - MathHelper.floor(d * 15.0D));
     }
 

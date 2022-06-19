@@ -2,8 +2,6 @@ package net.frozenblock.wilderwild;
 
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
-import net.fabricmc.fabric.api.client.command.v2.ClientCommandManager;
-import net.fabricmc.fabric.api.client.command.v2.ClientCommandRegistrationCallback;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.fabricmc.fabric.api.client.particle.v1.ParticleFactoryRegistry;
@@ -16,12 +14,12 @@ import net.frozenblock.wilderwild.entity.AncientHornProjectileEntity;
 import net.frozenblock.wilderwild.entity.render.AncientHornProjectileModel;
 import net.frozenblock.wilderwild.entity.render.AncientHornProjectileRenderer;
 import net.frozenblock.wilderwild.entity.render.FireflyEntityRenderer;
-import net.frozenblock.wilderwild.misc.CompetitionCounter;
-import net.frozenblock.wilderwild.misc.PVZGWSound.FlyBySoundHub;
-import net.frozenblock.wilderwild.misc.PVZGWSound.MovingSoundLoop;
 import net.frozenblock.wilderwild.entity.render.SculkSensorBlockEntityRenderer;
+import net.frozenblock.wilderwild.misc.CompetitionCounter;
 import net.frozenblock.wilderwild.misc.ConfigManager;
 import net.frozenblock.wilderwild.misc.EnableDisableTendrilCommand;
+import net.frozenblock.wilderwild.misc.PVZGWSound.FlyBySoundHub;
+import net.frozenblock.wilderwild.misc.PVZGWSound.MovingSoundLoop;
 import net.frozenblock.wilderwild.particle.FloatingSculkBubbleParticle;
 import net.frozenblock.wilderwild.particle.PollenParticle;
 import net.frozenblock.wilderwild.particle.TermiteParticle;
@@ -46,13 +44,12 @@ import net.minecraft.util.registry.Registry;
 import java.io.FileNotFoundException;
 import java.util.UUID;
 
-import static net.fabricmc.fabric.api.client.command.v2.ClientCommandManager.literal;
-
 public class WildClientMod implements ClientModInitializer {
     public static final EntityModelLayer ANCIENT_HORN_PROJECTILE_LAYER = new EntityModelLayer(new Identifier(WilderWild.MOD_ID, "ancient_horn_projectile"), "main");
     public static final EntityModelLayer SCULK_SENSOR = new EntityModelLayer(new Identifier(WilderWild.MOD_ID, "sculk_sensor"), "main");
 
     public static boolean RENDER_TENDRILS = false;
+
     @Override
     public void onInitializeClient() {
         RegisterParticles.registerParticles();

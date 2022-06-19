@@ -44,7 +44,8 @@ public class ConfigManager {
             return json.getBoolean("tendrils_enabled");
         } else {
             createConfig();
-        } return false;
+        }
+        return false;
     }
 
     public static void setEnabled(Boolean newValue) throws FileNotFoundException {

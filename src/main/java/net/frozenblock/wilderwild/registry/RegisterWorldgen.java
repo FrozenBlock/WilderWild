@@ -3,18 +3,13 @@ package net.frozenblock.wilderwild.registry;
 import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.world.feature.WildMiscPlaced;
 import net.minecraft.client.sound.MusicType;
-import net.minecraft.client.sound.Sound;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.SpawnGroup;
 import net.minecraft.sound.BiomeMoodSound;
 import net.minecraft.sound.MusicSound;
-import net.minecraft.sound.SoundEvent;
-import net.minecraft.sound.SoundEvents;
-import net.minecraft.structure.processor.StructureProcessorList;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.BuiltinRegistries;
 import net.minecraft.util.registry.Registry;
-import net.minecraft.util.registry.RegistryEntry;
 import net.minecraft.util.registry.RegistryKey;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.BiomeEffects;
@@ -22,7 +17,6 @@ import net.minecraft.world.biome.GenerationSettings;
 import net.minecraft.world.biome.SpawnSettings;
 import net.minecraft.world.gen.GenerationStep;
 import net.minecraft.world.gen.feature.DefaultBiomeFeatures;
-import net.minecraft.world.gen.feature.MiscPlacedFeatures;
 
 import static net.minecraft.world.biome.OverworldBiomeCreator.createJungle;
 
@@ -95,6 +89,7 @@ public class RegisterWorldgen {
                 .generationSettings(builder2.build())
                 .build();
     }
+
     public static void addCypressPaths(GenerationSettings.Builder builder) {
         builder.feature(GenerationStep.Feature.UNDERGROUND_ORES, WildMiscPlaced.UNDER_WATER_SAND_PATH);
         builder.feature(GenerationStep.Feature.UNDERGROUND_ORES, WildMiscPlaced.UNDER_WATER_GRAVEL_PATH);

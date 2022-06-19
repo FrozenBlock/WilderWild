@@ -49,7 +49,7 @@ public class SculkSensorBlockMixin {
     @Nullable
     @Inject(at = @At("HEAD"), method = "getGameEventListener", cancellable = true)
     public <T extends BlockEntity> void getGameEventListener(ServerWorld world, T blockEntity, CallbackInfoReturnable<GameEventListener> info) {
-        info.setReturnValue(blockEntity instanceof NewSculkSensorBlockEntity ? ((NewSculkSensorBlockEntity)blockEntity).getEventListener() : blockEntity instanceof SculkSensorBlockEntity ? ((SculkSensorBlockEntity)blockEntity).getEventListener() : null);
+        info.setReturnValue(blockEntity instanceof NewSculkSensorBlockEntity ? ((NewSculkSensorBlockEntity) blockEntity).getEventListener() : blockEntity instanceof SculkSensorBlockEntity ? ((SculkSensorBlockEntity) blockEntity).getEventListener() : null);
         info.cancel();
     }
 
@@ -57,11 +57,14 @@ public class SculkSensorBlockMixin {
     @Inject(at = @At("HEAD"), method = "getTicker", cancellable = true)
     public <T extends BlockEntity> void getTicker(World world, BlockState state, BlockEntityType<T> type, CallbackInfoReturnable<BlockEntityTicker<T>> info) {
         BlockEntityTicker<T> ticker = !world.isClient ? checkType(type, RegisterBlockEntityType.NEW_SCULK_SENSOR, (worldx, pos, statex, blockEntity) -> {
-                blockEntity.tickServer(worldx, pos, statex);}) : checkType(type, RegisterBlockEntityType.NEW_SCULK_SENSOR, (worldx, pos, statex, blockEntity) -> {
-                blockEntity.tickClient();});
-        if (ticker==null) {
+            blockEntity.tickServer(worldx, pos, statex);
+        }) : checkType(type, RegisterBlockEntityType.NEW_SCULK_SENSOR, (worldx, pos, statex, blockEntity) -> {
+            blockEntity.tickClient();
+        });
+        if (ticker == null) {
             ticker = !world.isClient ? checkType(type, BlockEntityType.SCULK_SENSOR, (worldx, pos, statex, blockEntity) -> {
-                blockEntity.getEventListener().tick(worldx);}) : null;
+                blockEntity.getEventListener().tick(worldx);
+            }) : null;
         }
         info.setReturnValue(ticker);
         info.cancel();

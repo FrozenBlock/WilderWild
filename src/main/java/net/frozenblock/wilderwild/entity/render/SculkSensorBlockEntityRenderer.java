@@ -5,7 +5,6 @@ import net.fabricmc.api.Environment;
 import net.frozenblock.wilderwild.WildClientMod;
 import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.block.entity.NewSculkSensorBlockEntity;
-import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.SculkSensorBlock;
@@ -20,7 +19,6 @@ import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.state.property.Properties;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.MathHelper;
-import net.minecraft.world.World;
 
 @Environment(EnvType.CLIENT)
 public class SculkSensorBlockEntityRenderer<T extends NewSculkSensorBlockEntity> implements BlockEntityRenderer<T> {
@@ -29,7 +27,7 @@ public class SculkSensorBlockEntityRenderer<T extends NewSculkSensorBlockEntity>
     private final ModelPart se;
 
     private static final float pi = (float) Math.PI;
-    private static final float merp25 = 25 * ((float)(Math.PI / 180));
+    private static final float merp25 = 25 * ((float) (Math.PI / 180));
 
     RenderLayer SENSOR_LAYER = RenderLayer.getEntityCutout(new Identifier(WilderWild.MOD_ID, "textures/entity/sculk_sensor_tendrils/inactive.png"));
     RenderLayer ACTIVE_SENSOR_LAYER = RenderLayer.getEntityCutout(new Identifier(WilderWild.MOD_ID, "textures/entity/sculk_sensor_tendrils/active_overlay.png"));
@@ -44,15 +42,15 @@ public class SculkSensorBlockEntityRenderer<T extends NewSculkSensorBlockEntity>
     public static TexturedModelData getTexturedModelData() {
         ModelData modelData = new ModelData();
         ModelPartData modelPartData = modelData.getRoot();
-        modelPartData.addChild("base", ModelPartBuilder.create().uv(0,0).cuboid(-8.0F, -8.0F, -8.0F, 16.0F, 8.0F, 16.0F), ModelTransform.of(8.0F,0.0F,8.0F,0,0.0F, pi));
-        modelPartData.addChild("ne", ModelPartBuilder.create().uv(0,0).cuboid(-4.0F, -8.0F, 0.0F, 8.0F, 8.0F, 0.002F), ModelTransform.of(3.0F,8.0F,3.0F,0,-0.7854F, pi));
-        modelPartData.addChild("se", ModelPartBuilder.create().uv(0,0).cuboid(-4.0F, -8.0F, 0.0F, 8.0F, 8.0F, 0.002F), ModelTransform.of(3.0F,8.0F,13.0F,0,0.7854F, pi));
-        return TexturedModelData.of(modelData,64,64);
+        modelPartData.addChild("base", ModelPartBuilder.create().uv(0, 0).cuboid(-8.0F, -8.0F, -8.0F, 16.0F, 8.0F, 16.0F), ModelTransform.of(8.0F, 0.0F, 8.0F, 0, 0.0F, pi));
+        modelPartData.addChild("ne", ModelPartBuilder.create().uv(0, 0).cuboid(-4.0F, -8.0F, 0.0F, 8.0F, 8.0F, 0.002F), ModelTransform.of(3.0F, 8.0F, 3.0F, 0, -0.7854F, pi));
+        modelPartData.addChild("se", ModelPartBuilder.create().uv(0, 0).cuboid(-4.0F, -8.0F, 0.0F, 8.0F, 8.0F, 0.002F), ModelTransform.of(3.0F, 8.0F, 13.0F, 0, 0.7854F, pi));
+        return TexturedModelData.of(modelData, 64, 64);
     }
 
     public void render(T entity, float tickDelta, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, int overlay) {
         if (WildClientMod.RENDER_TENDRILS) {
-            BlockState blockState = entity.getWorld()!=null ? entity.getCachedState() : Blocks.SCULK_SENSOR.getDefaultState();
+            BlockState blockState = entity.getWorld() != null ? entity.getCachedState() : Blocks.SCULK_SENSOR.getDefaultState();
             if (blockState.getBlock() instanceof SculkSensorBlock) {
                 boolean active = blockState.get(Properties.SCULK_SENSOR_PHASE) == SculkSensorPhase.ACTIVE;
                 if (active) {
