@@ -49,7 +49,7 @@ public class NewSculkSensorBlockEntity extends BlockEntity implements Callback {
     public void tickServer(World world, BlockPos pos, BlockState state) {
         this.getEventListener().tick(world);
         if (SculkSensorBlock.isInactive(state) && !state.get(RegisterProperties.NOT_HICCUPPING) && world.random.nextInt(320) <= 1) {
-            WilderWild.log("Sensor Hiccups " + pos);
+            WilderWild.log("Sensor Hiccups " + pos, WilderWild.DEV_LOGGING);
             SculkSensorBlock.setActive(null, world, pos, state, (int) (Math.random() * 15));
             world.emitGameEvent(null, GameEvent.SCULK_SENSOR_TENDRILS_CLICKING, pos);
             world.emitGameEvent(null, RegisterGameEvents.SCULK_SENSOR_ACTIVATE, pos);

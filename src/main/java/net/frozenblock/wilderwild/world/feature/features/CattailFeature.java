@@ -28,9 +28,9 @@ public class CattailFeature extends Feature<ProbabilityConfig> {
         StructureWorldAccess structureWorldAccess = context.getWorld();
         BlockPos blockPos = context.getOrigin();
         int loopFor = context.getRandom().nextBetween(12, 21);
-        for (int l=0; l<loopFor; l++) {
-            int i = abstractRandom.nextBetween(-7,7);
-            int j = abstractRandom.nextBetween(-7,7);
+        for (int l = 0; l < loopFor; l++) {
+            int i = abstractRandom.nextBetween(-7, 7);
+            int j = abstractRandom.nextBetween(-7, 7);
             int k = structureWorldAccess.getTopY(Type.OCEAN_FLOOR, blockPos.getX() + i, blockPos.getZ() + j);
             BlockPos randomPos = new BlockPos(blockPos.getX() + i, k, blockPos.getZ() + j);
             if (structureWorldAccess.getBlockState(randomPos).isOf(Blocks.WATER)) {
@@ -65,9 +65,11 @@ public class CattailFeature extends Feature<ProbabilityConfig> {
         Iterator<BlockPos> var2 = BlockPos.iterate(blockPos.add(-x, -x, -x), blockPos.add(x, x, x)).iterator();
         BlockPos blockPos2;
         do {
-            if (!var2.hasNext()) { return false; }
+            if (!var2.hasNext()) {
+                return false;
+            }
             blockPos2 = var2.next();
-        } while(!world.getBlockState(blockPos2).isOf(Blocks.WATER));
+        } while (!world.getBlockState(blockPos2).isOf(Blocks.WATER));
         return true;
     }
 }

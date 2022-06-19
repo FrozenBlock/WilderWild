@@ -42,10 +42,11 @@ public class CameraItem extends Item {
     }
 
     private static final DateFormat DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd_HH.mm.ss");
+
     private static File getPanoramaFolderName(File directory) {
         String string = DATE_FORMAT.format(new Date());
         int i = 1;
-        while(true) {
+        while (true) {
             File file = new File(directory, string + (i == 1 ? "" : "_" + i));
             if (!file.exists()) {
                 return file;
@@ -62,7 +63,8 @@ public class CameraItem extends Item {
                 canGo = true;
             }
             return TypedActionResult.success(itemStack);
-        }  return TypedActionResult.fail(itemStack);
+        }
+        return TypedActionResult.fail(itemStack);
     }
 
 }

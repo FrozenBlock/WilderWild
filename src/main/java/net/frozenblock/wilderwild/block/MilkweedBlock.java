@@ -1,6 +1,6 @@
 package net.frozenblock.wilderwild.block;
 
-import net.frozenblock.wilderwild.particle.server.EasyParticlePacket;
+import net.frozenblock.wilderwild.misc.server.EasyPacket;
 import net.frozenblock.wilderwild.registry.RegisterBlocks;
 import net.frozenblock.wilderwild.registry.RegisterItems;
 import net.minecraft.block.Block;
@@ -55,11 +55,11 @@ public class MilkweedBlock extends TallFlowerBlock {
     @Override
     public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
         if (world instanceof ServerWorld server) {
-            if (state.get(Properties.AGE_3)==3) {
+            if (state.get(Properties.AGE_3) == 3) {
                 ItemStack itemStack = player.getStackInHand(hand);
                 if (itemStack.isOf(Items.SHEARS)) {
                     ItemStack stack = new ItemStack(RegisterItems.MILKWEED_POD);
-                    stack.setCount(world.random.nextBetween(2,7));
+                    stack.setCount(world.random.nextBetween(2, 7));
                     dropStack(world, pos, stack);
                     world.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.BLOCK_GROWING_PLANT_CROP, SoundCategory.BLOCKS, 1.0F, 1.0F);
                     itemStack.damage(1, player, (playerx) -> playerx.sendToolBreakStatus(hand));
@@ -72,7 +72,7 @@ public class MilkweedBlock extends TallFlowerBlock {
                         world.setBlockState(pos.down(), world.getBlockState(pos.down()).with(Properties.AGE_3, 0));
                     }
                 } else {
-                    EasyParticlePacket.EasySeedPacket.createParticle(world, Vec3d.ofCenter(pos).add(0, 0.3, 0), server.random.nextBetween(14, 28), true);
+                    EasyPacket.EasySeedPacket.createParticle(world, Vec3d.ofCenter(pos).add(0, 0.3, 0), server.random.nextBetween(14, 28), true);
                     if (state.get(Properties.DOUBLE_BLOCK_HALF) == DoubleBlockHalf.LOWER) {
                         world.setBlockState(pos, state.with(Properties.AGE_3, 1));
                         world.setBlockState(pos.up(), world.getBlockState(pos.up()).with(Properties.AGE_3, 1));
@@ -89,5 +89,7 @@ public class MilkweedBlock extends TallFlowerBlock {
     }
 
     @Override
-    public boolean hasRandomTicks(BlockState state) { return true; }
+    public boolean hasRandomTicks(BlockState state) {
+        return true;
+    }
 }

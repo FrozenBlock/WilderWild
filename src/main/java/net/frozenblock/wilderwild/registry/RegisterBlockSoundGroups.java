@@ -94,7 +94,7 @@ public class RegisterBlockSoundGroups {
             BLOCK_SUGAR_CANE_FALL
     );
 
-    public static BlockSoundGroup COARSEDIRT = new BlockSoundGroup(1.0f, 1.0f,
+    public static BlockSoundGroup COARSEDIRT = new BlockSoundGroup(0.8f, 1.0f,
             BLOCK_COARSE_DIRT_BREAK,
             BLOCK_COARSE_DIRT_STEP,
             BLOCK_COARSE_DIRT_PLACE,

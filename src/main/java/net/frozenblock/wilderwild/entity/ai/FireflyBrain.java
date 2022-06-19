@@ -4,10 +4,15 @@ import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableSet;
 import com.mojang.datafixers.util.Pair;
 import net.frozenblock.wilderwild.entity.FireflyEntity;
-import net.minecraft.entity.ai.brain.Activity;
-import net.minecraft.entity.ai.brain.Brain;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.ai.brain.*;
 import net.minecraft.entity.ai.brain.task.*;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.GlobalPos;
 import net.minecraft.util.math.intprovider.UniformIntProvider;
+import net.minecraft.world.World;
+
+import java.util.Optional;
 
 public class FireflyBrain {
 
@@ -28,12 +33,38 @@ public class FireflyBrain {
     }
 
     private static void addIdleActivities(Brain<FireflyEntity> brain) {
-        brain.setTaskList(Activity.IDLE, ImmutableList.of(Pair.of(3, new TimeLimitedTask<>(new FollowMobTask((firefly) -> {
-            return true;
-        }, 6.0F), UniformIntProvider.create(30, 60))), Pair.of(4, new RandomTask<>(ImmutableList.of(Pair.of(new NoPenaltyStrollTask(1.0F), 2), Pair.of(new GoTowardsLookTarget(1.0F, 3), 2), Pair.of(new WaitTask(30, 60), 1))))), ImmutableSet.of());
+        brain.setTaskList(Activity.IDLE, ImmutableList.of(Pair.of(2, new WalkTowardsLookTargetTask<>(FireflyBrain::getLookTarget, 7, 16, 1.0F)), Pair.of(3, new TimeLimitedTask<>(new FollowMobTask((firefly) -> true, 6.0F), UniformIntProvider.create(30, 60))), Pair.of(4, new RandomTask<>(ImmutableList.of(Pair.of(new NoPenaltyStrollTask(1.0F), 2), Pair.of(new GoTowardsLookTarget(1.0F, 3), 2), Pair.of(new WaitTask(30, 60), 1))))), ImmutableSet.of());
     }
 
     public static void updateActivities(FireflyEntity firefly) {
         firefly.getBrain().resetPossibleActivities(ImmutableList.of(Activity.IDLE));
+    }
+
+    public static void rememberHome(LivingEntity firefly, BlockPos pos) {
+        Brain<?> brain = firefly.getBrain();
+        GlobalPos globalPos = GlobalPos.create(firefly.getWorld().getRegistryKey(), pos);
+        brain.remember(MemoryModuleType.HOME, globalPos);
+    }
+
+    private static boolean shouldGoTowardsHome(LivingEntity firefly, GlobalPos pos) {
+        World world = firefly.getWorld();
+        return ((FireflyEntity) firefly).hasHome && world.getRegistryKey() == pos.getDimension();
+    }
+
+    private static Optional<LookTarget> getLookTarget(LivingEntity firefly) {
+        Brain<?> brain = firefly.getBrain();
+        Optional<GlobalPos> optional = brain.getOptionalMemory(MemoryModuleType.HOME);
+        if (optional.isPresent()) {
+            GlobalPos globalPos = optional.get();
+            if (shouldGoTowardsHome(firefly, globalPos)) {
+                return Optional.of(new BlockPosLookTarget(randomPosAround(globalPos.getPos(), firefly.world)));
+            }
+        }
+
+        return Optional.empty();
+    }
+
+    private static BlockPos randomPosAround(BlockPos pos, World world) {
+        return pos.add(world.random.nextBetween(-7, 7), world.random.nextBetween(-7, 7), world.random.nextBetween(-7, 7));
     }
 }

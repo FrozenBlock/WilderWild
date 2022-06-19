@@ -1,6 +1,8 @@
 package net.frozenblock.wilderwild.misc;
 
 import com.mojang.brigadier.CommandDispatcher;
+import net.fabricmc.fabric.api.client.command.v2.ClientCommandManager;
+import net.fabricmc.fabric.api.client.command.v2.ClientCommandRegistrationCallback;
 import net.fabricmc.fabric.api.client.command.v2.FabricClientCommandSource;
 import net.minecraft.client.MinecraftClient;
 
@@ -10,28 +12,33 @@ import static net.fabricmc.fabric.api.client.command.v2.ClientCommandManager.lit
 
 public class EnableDisableTendrilCommand {
 
-    public static void register(CommandDispatcher<FabricClientCommandSource> dispatcher) {
-        dispatcher.register(literal("sensorTendrils")
-                        .then(literal("enable")
-                                .executes(context -> {
-                                    try {
-                                        MinecraftClient.getInstance().player.sendChatMessage("Game restart required for this feature to work!");
-                                        return enable();
-                                    } catch (FileNotFoundException e) {
-                                        e.printStackTrace();
-                                    }
-                                    return 0;
-                                }))
-                        .then(literal("disable")
-                                .executes(context -> {
-                                    try {
-                                        MinecraftClient.getInstance().player.sendChatMessage("Game restart required for this feature to work!");
-                                        return disable();
-                                    } catch (FileNotFoundException e) {
-                                        e.printStackTrace();
-                                    }
-                                    return 0;
-                                })));
+    public static void register() {
+        ClientCommandRegistrationCallback.EVENT.register(((dispatcher, registryAccess) -> {
+            dispatcher.register(literal("sensorTendrils")
+                    .then(literal("enable")
+                            .executes(context -> {
+                                try {
+                                    assert MinecraftClient.getInstance().player != null;
+                                    MinecraftClient.getInstance().player.sendChatMessage("Game restart required for this feature to work!");
+                                    return enable();
+                                } catch (FileNotFoundException e) {
+                                    e.printStackTrace();
+                                }
+                                return 0;
+                            }))
+                    .then(literal("disable")
+                            .executes(context -> {
+                                try {
+                                    assert MinecraftClient.getInstance().player != null;
+                                    MinecraftClient.getInstance().player.sendChatMessage("Game restart required for this feature to work!");
+                                    return disable();
+                                } catch (FileNotFoundException e) {
+                                    e.printStackTrace();
+                                }
+                                return 0;
+                            })));
+        }));
+
     }
 
     private static int disable() throws FileNotFoundException {

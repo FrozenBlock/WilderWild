@@ -25,7 +25,7 @@ public class BoneMealItemMixin {
         BlockPos blockPos = context.getBlockPos();
         BlockState state = world.getBlockState(blockPos);
         if (state.isOf(Blocks.LILY_PAD)) {
-            WilderWild.log(Blocks.LILY_PAD, blockPos, "Bonemeal");
+            WilderWild.log(Blocks.LILY_PAD, blockPos, "Bonemeal", WilderWild.UNSTABLE_LOGGING);
             if (!world.isClient) {
                 world.syncWorldEvent(1505, blockPos, 0);
                 world.setBlockState(blockPos, RegisterBlocks.FLOWERED_LILY_PAD.getDefaultState());
@@ -35,8 +35,8 @@ public class BoneMealItemMixin {
             info.cancel();
         }
         if (state.getBlock() instanceof ShelfFungusBlock) {
-            if (state.get(RegisterProperties.FUNUGS_STAGE)<4) {
-                WilderWild.log("Shelf Fungus Bonemealed @ " + blockPos + " with FungusStage of " + state.get(RegisterProperties.FUNUGS_STAGE));
+            if (state.get(RegisterProperties.FUNUGS_STAGE) < 4) {
+                WilderWild.log("Shelf Fungus Bonemealed @ " + blockPos + " with FungusStage of " + state.get(RegisterProperties.FUNUGS_STAGE), WilderWild.UNSTABLE_LOGGING);
                 if (!world.isClient) {
                     world.syncWorldEvent(1505, blockPos, 0);
                     world.setBlockState(blockPos, state.with(RegisterProperties.FUNUGS_STAGE, state.get(RegisterProperties.FUNUGS_STAGE) + 1));

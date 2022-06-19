@@ -15,6 +15,8 @@ public class WildWorldGen {
         WildMushroomGeneration.generateMushroom();
 
         WildMusic.playMusic();
+        WildSpawns.addFirefliesSwamps();
+        WildSpawns.addFirefliesOthers();
     }
 }
 

@@ -19,7 +19,7 @@ public class SculkShriekerBlockEntityMixin {
         SculkShriekerBlockEntity entity = SculkShriekerBlockEntity.class.cast(this);
         BlockState blockState = entity.getCachedState();
         if (blockState.get(RegisterProperties.SOULS_TAKEN) == 2) {
-            WilderWild.log(Blocks.SCULK_SHRIEKER, entity.getPos(), "All Souls Have Already Been Taken, Cannot Warn");
+            WilderWild.log(Blocks.SCULK_SHRIEKER, entity.getPos(), "All Souls Have Already Been Taken, Cannot Warn", WilderWild.DEV_LOGGING);
             info.setReturnValue(false);
             info.cancel();
         }

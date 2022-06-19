@@ -21,10 +21,10 @@ public class WardenEntityModelMixin<T extends WardenEntity> {
 
     @Inject(at = @At("HEAD"), method = "setTendrilPitches", cancellable = true)
     private void setTendrilPitches(T warden, float animationProgress, float tickDelta, CallbackInfo info) {
-        float f = warden.getTendrilPitch(tickDelta) * (float)(Math.cos((double)animationProgress * 2.25D) * 3.141592653589793D * 0.10000000149011612D);
-        float g = warden.getTendrilPitch(tickDelta) * (float)(-Math.sin((double)animationProgress * 2.25D) * 3.141592653589793D * 0.12500000149011612D);
+        float f = warden.getTendrilPitch(tickDelta) * (float) (Math.cos((double) animationProgress * 2.25D) * 3.141592653589793D * 0.10000000149011612D);
+        float g = warden.getTendrilPitch(tickDelta) * (float) (-Math.sin((double) animationProgress * 2.25D) * 3.141592653589793D * 0.12500000149011612D);
 
-    //hecc yeah we're using all axes for this one >:3 -merp
+        //hecc yeah we're using all axes for this one >:3 -merp
         //hi merp
 
         this.leftTendril.pitch = f;

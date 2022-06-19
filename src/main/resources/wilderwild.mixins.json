@@ -4,26 +4,35 @@
   "package": "net.frozenblock.wilderwild.mixin",
   "compatibilityLevel": "JAVA_17",
   "mixins": [
+	"BlockEntityTypeMixin",
 	"BlockMixin",
+	"BoatDropsMixin",
+	"BoatTypeMixin",
 	"BoneMealItemMixin",
-	"MusicDiscItemInvoker",
+	"ChestBoatDropsMixin",
+	"EntityTypeMixin",
+	"ExperienceOrbEntityMixin",
+	"FlowableFluidMixin",
 	"SculkBlockMixin",
 	"SculkSensorBlockMixin",
 	"SculkShriekerBlockEntityMixin",
 	"SculkShriekerBlockMixin",
 	"SculkVeinGrowCheckerMixin",
+	"SignTypeAccessor",
 	"SonicBoomTaskMixin",
+	"VibrationListenerMixin",
 	"WardenEntityMixin",
-	"WardenEntityModelMixin",
 	"worldgen.BirchSaplingGeneratorMixin",
 	"worldgen.DefaultBiomeFeaturesMixin",
 	"worldgen.GenerationSettingsBuilderMixin",
 	"worldgen.OakSaplingGeneratorMixin",
 	"worldgen.SpruceSaplingGeneratorMixin",
-	"worldgen.TreeDecoratorTypeInvoker",
-	"worldgen.TrunkPlacerTypeInvoker"
+	"worldgen.SwampHutMixin",
+	"worldgen.VanillaBiomeParametersMixin",
+	"worldgen.VanillaSurfaceRulesMixin"
   ],
   "client": [
+	"WardenEntityModelMixin"
   ],
   "injectors": {
 	"defaultRequire": 1

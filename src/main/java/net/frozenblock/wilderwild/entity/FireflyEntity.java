@@ -1,15 +1,14 @@
 package net.frozenblock.wilderwild.entity;
 
 import com.google.common.collect.ImmutableList;
-import com.mojang.logging.LogUtils;
 import com.mojang.serialization.Dynamic;
+import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.entity.ai.FireflyBrain;
+import net.frozenblock.wilderwild.misc.server.EasyPacket;
 import net.frozenblock.wilderwild.registry.RegisterSounds;
+import net.frozenblock.wilderwild.tag.WildBiomeTags;
 import net.minecraft.block.BlockState;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.Flutterer;
-import net.minecraft.entity.MovementType;
+import net.minecraft.entity.*;
 import net.minecraft.entity.ai.brain.Brain;
 import net.minecraft.entity.ai.brain.MemoryModuleType;
 import net.minecraft.entity.ai.brain.sensor.Sensor;
@@ -20,31 +19,115 @@ import net.minecraft.entity.ai.pathing.EntityNavigation;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.damage.DamageSource;
+import net.minecraft.entity.data.DataTracker;
+import net.minecraft.entity.data.TrackedData;
+import net.minecraft.entity.data.TrackedDataHandlerRegistry;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.mob.PathAwareEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.server.network.DebugInfoSender;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundEvent;
+import net.minecraft.sound.SoundEvents;
+import net.minecraft.util.ActionResult;
+import net.minecraft.util.Hand;
+import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
-import net.minecraft.world.World;
-import org.slf4j.Logger;
+import net.minecraft.util.math.random.Random;
+import net.minecraft.util.registry.Registry;
+import net.minecraft.world.*;
+import org.jetbrains.annotations.Nullable;
+
+import java.util.Objects;
+import java.util.Optional;
 
 public class FireflyEntity extends PathAwareEntity implements Flutterer {
 
-    private static final Logger LOGGER = LogUtils.getLogger();
     protected static final ImmutableList<SensorType<? extends Sensor<? super FireflyEntity>>> SENSORS = ImmutableList.of(SensorType.NEAREST_LIVING_ENTITIES, SensorType.HURT_BY);
-    protected static final ImmutableList<MemoryModuleType<?>> MEMORY_MODULES = ImmutableList.of(MemoryModuleType.PATH, MemoryModuleType.VISIBLE_MOBS, MemoryModuleType.WALK_TARGET, MemoryModuleType.CANT_REACH_WALK_TARGET_SINCE);
+    protected static final ImmutableList<MemoryModuleType<?>> MEMORY_MODULES = ImmutableList.of(MemoryModuleType.PATH, MemoryModuleType.VISIBLE_MOBS, MemoryModuleType.WALK_TARGET, MemoryModuleType.CANT_REACH_WALK_TARGET_SINCE, MemoryModuleType.HOME);
+    private static final TrackedData<Boolean> FROM_BOTTLE = DataTracker.registerData(FireflyEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
+    private static final TrackedData<Boolean> FLICKERS = DataTracker.registerData(FireflyEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
+    private static final TrackedData<Integer> AGE = DataTracker.registerData(FireflyEntity.class, TrackedDataHandlerRegistry.INTEGER);
+    private static final TrackedData<Float> SCALE = DataTracker.registerData(FireflyEntity.class, TrackedDataHandlerRegistry.FLOAT);
+    private static final TrackedData<String> COLOR = DataTracker.registerData(FireflyEntity.class, TrackedDataHandlerRegistry.STRING);
 
-    public boolean flickers;
-    public int fakeAge;
-    public boolean valuesSet;
+
+    public boolean natural;
+    public boolean hasHome; //TODO: POSSIBLY HAVE DIFFERING "SAFE RANGES" INSTEAD OF BOOLEAN
+    public boolean despawning;
 
     public FireflyEntity(EntityType<? extends PathAwareEntity> entityType, World world) {
         super(entityType, world);
         this.moveControl = new FlightMoveControl(this, 20, true);
+        this.setFlickers(world.random.nextInt(5) == 0);
+        this.setFlickerAge(world.random.nextBetween(0, 19));
+    }
+
+    public static boolean canSpawn(EntityType<FireflyEntity> type, WorldAccess world, SpawnReason spawnReason, BlockPos pos, Random random) {
+        if (world.getBiome(pos).isIn(WildBiomeTags.FIREFLY_SPAWNABLE_DURING_DAY)) {
+            return world.isSkyVisible(pos);
+        }
+        return random.nextFloat() > 0.6F && (!world.getDimension().hasFixedTime() && world.getAmbientDarkness() > 4) && world.isSkyVisible(pos);
+    }
+
+    @Nullable
+    @Override
+    public EntityData initialize(ServerWorldAccess world, LocalDifficulty difficulty, SpawnReason spawnReason, @Nullable EntityData entityData, @Nullable NbtCompound entityNbt) {
+        this.natural = spawnReason == SpawnReason.NATURAL;
+        this.hasHome = false;
+        FireflyBrain.rememberHome(this, this.getBlockPos());
+        return super.initialize(world, difficulty, spawnReason, entityData, entityNbt);
+    }
+
+    protected void initDataTracker() {
+        super.initDataTracker();
+        this.dataTracker.startTracking(FROM_BOTTLE, false);
+        this.dataTracker.startTracking(FLICKERS, false);
+        this.dataTracker.startTracking(AGE, 0);
+        this.dataTracker.startTracking(SCALE, 1.5F);
+        this.dataTracker.startTracking(COLOR, "on");
+    }
+
+    public ActionResult interactMob(PlayerEntity player, Hand hand) {
+        if (!this.despawning) {
+            return tryCapture(player, hand, this).orElse(super.interactMob(player, hand));
+        }
+        return ActionResult.PASS;
+    }
+
+    public static Optional<ActionResult> tryCapture(PlayerEntity player, Hand hand, FireflyEntity entity) {
+        ItemStack itemStack = player.getStackInHand(hand);
+        if (itemStack.getItem() == Items.GLASS_BOTTLE && entity.isAlive()) {
+            WilderWild.log("Firefly capture attempt starting @ " + entity.getBlockPos().toShortString() + " by " + player.getDisplayName().getString(), WilderWild.UNSTABLE_LOGGING);
+            //TODO: FIREFLY BOTTLE SOUNDS
+            entity.playSound(SoundEvents.ITEM_BOTTLE_FILL, 1.0F, 1.0F);
+            if (!player.isCreative()) {
+                player.getStackInHand(hand).decrement(1);
+            }
+            String color = entity.getColor();
+            player.getInventory().offerOrDrop(new ItemStack(Registry.ITEM.get(new Identifier(WilderWild.MOD_ID, Objects.equals(color, "on") ? "firefly_bottle" : color + "_firefly_bottle"))));
+            World world = entity.world;
+            if (!world.isClient) {
+                EasyPacket.EasyCompetitionPacket.sendFireflyCaptureInfo(world, player, entity);
+            }
+            entity.discard();
+            return Optional.of(ActionResult.success(world.isClient));
+        } else {
+            return Optional.empty();
+        }
+    }
+
+    public boolean shouldRender(double cameraX, double cameraY, double cameraZ) {
+        return true;
+    }
+
+    @Override
+    public boolean canBeLeashedBy(PlayerEntity player) {
+        return false;
     }
 
     protected Brain.Profile<FireflyEntity> createBrainProfile() {
@@ -53,6 +136,54 @@ public class FireflyEntity extends PathAwareEntity implements Flutterer {
 
     protected Brain<?> deserializeBrain(Dynamic<?> dynamic) {
         return FireflyBrain.create(this.createBrainProfile().deserialize(dynamic));
+    }
+
+    public boolean isFromBottle() {
+        return this.dataTracker.get(FROM_BOTTLE);
+    }
+
+    public void setFromBottle(boolean value) {
+        this.dataTracker.set(FROM_BOTTLE, value);
+    }
+
+    public boolean flickers() {
+        return this.dataTracker.get(FLICKERS);
+    }
+
+    public void setFlickers(boolean value) {
+        this.dataTracker.set(FLICKERS, value);
+    }
+
+    public int getFlickerAge() {
+        return this.dataTracker.get(AGE);
+    }
+
+    public void setFlickerAge(int value) {
+        this.dataTracker.set(AGE, value);
+    }
+
+    public float getScale() {
+        return this.dataTracker.get(SCALE);
+    }
+
+    public void setScale(float value) {
+        this.dataTracker.set(SCALE, value);
+    }
+
+    public String getColor() {
+        return this.dataTracker.get(COLOR);
+    }
+
+    public void setColor(String value) {
+        this.dataTracker.set(COLOR, value);
+    }
+
+    public boolean cannotDespawn() {
+        return super.cannotDespawn() || this.isFromBottle();
+    }
+
+    public float getPathfindingFavor(BlockPos pos, WorldView world) {
+        return 0.0F;
     }
 
     public Brain<FireflyEntity> getBrain() {
@@ -65,7 +196,7 @@ public class FireflyEntity extends PathAwareEntity implements Flutterer {
     }
 
     public static DefaultAttributeContainer.Builder addAttributes() {
-        return MobEntity.createMobAttributes().add(EntityAttributes.GENERIC_MAX_HEALTH, 1D).add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.005F).add(EntityAttributes.GENERIC_FLYING_SPEED, 0.005F).add(EntityAttributes.GENERIC_FOLLOW_RANGE, 32);
+        return MobEntity.createMobAttributes().add(EntityAttributes.GENERIC_MAX_HEALTH, 1.0D).add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.08F).add(EntityAttributes.GENERIC_FLYING_SPEED, 0.08F).add(EntityAttributes.GENERIC_FOLLOW_RANGE, 32);
     }
 
     protected EntityNavigation createNavigation(World world) {
@@ -117,11 +248,17 @@ public class FireflyEntity extends PathAwareEntity implements Flutterer {
     @Override
     public void tick() {
         super.tick();
-        if (world.isClient && !valuesSet) {
-            this.fakeAge = random.nextBetween(0,19);
-            this.flickers = random.nextInt(5)==0;
-            this.valuesSet = true;
+        if (!this.isAlive()) {
+            this.setNoGravity(false);
         }
+        this.setFlickerAge(this.getFlickerAge() + 1);
+        if (this.despawning) {
+            this.setScale(this.getScale() - 0.0375F);
+            if (this.getScale() < 0.0F) {
+                this.discard();
+            }
+        }
+        //WilderWild.log(this, this.getBrain().getOptionalMemory(MemoryModuleType.HOME).toString(), WilderWild.DEV_LOGGING);
     }
 
     protected void mobTick() {
@@ -143,15 +280,63 @@ public class FireflyEntity extends PathAwareEntity implements Flutterer {
     }
 
     public boolean canImmediatelyDespawn(double distanceSquared) {
-        return false;
+        return !this.isFromBottle() && !this.hasCustomName();
+    }
+
+    @Override
+    public void checkDespawn() {
+        if (!this.despawning) {
+            if (this.world.getDifficulty() == Difficulty.PEACEFUL && this.isDisallowedInPeaceful()) {
+                this.despawning = true;
+                return;
+            }
+            if (this.isPersistent() || this.cannotDespawn()) {
+                this.despawnCounter = 0;
+                return;
+            }
+            PlayerEntity entity = this.world.getClosestPlayer(this, -1.0);
+            if (entity != null) {
+                int i;
+                double d = entity.squaredDistanceTo(this);
+                if (this.canImmediatelyDespawn(d) && !this.world.getBiome(this.getBlockPos()).isIn(WildBiomeTags.FIREFLY_SPAWNABLE_DURING_DAY) && this.world.isDay() && Math.sqrt(d) > 18) {
+                    this.despawning = true;
+                }
+                if (d > (double) ((i = this.getType().getSpawnGroup().getImmediateDespawnRange()) * i) && this.canImmediatelyDespawn(d)) {
+                    this.despawning = true;
+                }
+                int k = this.getType().getSpawnGroup().getDespawnStartRange();
+                int l = k * k;
+                if (this.despawnCounter > 600 && this.random.nextInt(800) == 0 && d > (double) l && this.canImmediatelyDespawn(d)) {
+                    this.despawning = true;
+                } else if (d < (double) l) {
+                    this.despawnCounter = 0;
+                }
+            }
+        }
     }
 
     public void writeCustomDataToNbt(NbtCompound nbt) {
         super.writeCustomDataToNbt(nbt);
+        nbt.putBoolean("fromBottle", this.isFromBottle());
+        nbt.putBoolean("natural", this.natural);
+        nbt.putBoolean("flickers", this.flickers());
+        nbt.putInt("flickerAge", this.getFlickerAge());
+        nbt.putBoolean("hasHome", this.hasHome);
+        nbt.putFloat("scale", this.getScale());
+        nbt.putBoolean("despawning", this.despawning);
+        nbt.putString("color", this.getColor());
     }
 
     public void readCustomDataFromNbt(NbtCompound nbt) {
         super.readCustomDataFromNbt(nbt);
+        this.setFromBottle(nbt.getBoolean("fromBottle"));
+        this.natural = nbt.getBoolean("natural");
+        this.setFlickers(nbt.getBoolean("flickers"));
+        this.setFlickerAge(nbt.getInt("flickerAge"));
+        this.hasHome = nbt.getBoolean("hasHome");
+        this.setScale(nbt.getFloat("scale"));
+        this.despawning = nbt.getBoolean("despawning");
+        this.setColor(nbt.getString("color"));
     }
 
     protected boolean shouldFollowLeash() {
@@ -174,9 +359,6 @@ public class FireflyEntity extends PathAwareEntity implements Flutterer {
     @Override
     public void tickMovement() {
         super.tickMovement();
-        if (world.isClient) {
-            ++this.fakeAge;
-        }
     }
 
     @Override
@@ -184,13 +366,10 @@ public class FireflyEntity extends PathAwareEntity implements Flutterer {
         return false;
     }
 
-    public boolean isPushable() {
-        return true;
-    }
-
     protected void pushAway(Entity entity) {
     }
 
     protected void tickCramming() {
     }
+
 }

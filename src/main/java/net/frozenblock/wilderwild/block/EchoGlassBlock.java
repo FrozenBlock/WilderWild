@@ -32,7 +32,7 @@ public class EchoGlassBlock extends TintedGlassBlock {
 
     public EchoGlassBlock(Settings settings) {
         super(settings);
-        this.setDefaultState( this.getDefaultState().with(DAMAGE, 0));
+        this.setDefaultState(this.getDefaultState().with(DAMAGE, 0));
     }
 
     protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
@@ -42,7 +42,7 @@ public class EchoGlassBlock extends TintedGlassBlock {
     @Override
     public void randomTick(BlockState state, ServerWorld world, BlockPos pos, Random random) {
         int light = getLightLevel(world, pos);
-        if (light<=7) {
+        if (light <= 7) {
             if (random.nextBoolean()) {
                 heal(world, pos);
             }
@@ -53,8 +53,8 @@ public class EchoGlassBlock extends TintedGlassBlock {
 
     public static void damage(World world, BlockPos pos) {
         BlockState state = world.getBlockState(pos);
-        WilderWild.log("Echo Glass Damaged @ " + pos);
-        if (state.get(DAMAGE)<3) {
+        WilderWild.log("Echo Glass Damaged @ " + pos, WilderWild.UNSTABLE_LOGGING);
+        if (state.get(DAMAGE) < 3) {
             world.setBlockState(pos, state.with(DAMAGE, state.get(DAMAGE) + 1));
             world.playSound(null, pos, RegisterSounds.BLOCK_ECHO_GLASS_CRACK, SoundCategory.BLOCKS, 1.0F, 1.0F);
             world.syncWorldEvent(null, 2001, pos, getRawIdFromState(state));
@@ -62,10 +62,11 @@ public class EchoGlassBlock extends TintedGlassBlock {
             world.breakBlock(pos, false);
         }
     }
+
     public static void heal(World world, BlockPos pos) {
         BlockState state = world.getBlockState(pos);
-        WilderWild.log("Echo Glass Healed @ " + pos);
-        if (state.get(DAMAGE)>0) {
+        WilderWild.log("Echo Glass Healed @ " + pos, WilderWild.UNSTABLE_LOGGING);
+        if (state.get(DAMAGE) > 0) {
             world.setBlockState(pos, state.with(DAMAGE, state.get(DAMAGE) - 1));
             world.playSound(
                     null,
@@ -79,7 +80,7 @@ public class EchoGlassBlock extends TintedGlassBlock {
     }
 
     public static int getLightLevel(World world, BlockPos blockPos) {
-        int finalLight=0;
+        int finalLight = 0;
         for (Direction direction : DIRECTIONS) {
             BlockPos pos = blockPos.offset(direction);
             int skyLight = 0;
@@ -94,7 +95,7 @@ public class EchoGlassBlock extends TintedGlassBlock {
 
     public void afterBreak(World world, PlayerEntity player, BlockPos pos, BlockState state, @Nullable BlockEntity blockEntity, ItemStack stack) {
         player.addExhaustion(0.005F);
-        if (state.get(DAMAGE)<3 && EnchantmentHelper.getLevel(Enchantments.SILK_TOUCH, player.getMainHandStack())<1 && !player.isCreative()) {
+        if (state.get(DAMAGE) < 3 && EnchantmentHelper.getLevel(Enchantments.SILK_TOUCH, player.getMainHandStack()) < 1 && !player.isCreative()) {
             world.setBlockState(pos, state.with(DAMAGE, state.get(DAMAGE) + 1));
         } else {
             player.incrementStat(Stats.MINED.getOrCreateStat(this));
@@ -119,5 +120,7 @@ public class EchoGlassBlock extends TintedGlassBlock {
     }
 
     @Override
-    public boolean hasRandomTicks(BlockState state) { return true; }
+    public boolean hasRandomTicks(BlockState state) {
+        return true;
+    }
 }

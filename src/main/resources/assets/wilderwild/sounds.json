@@ -3,32 +3,32 @@
 		"sounds": [
 			{
 				"name": "wilderwild:ambient/cave/deep_dark/additions1",
-				"volume": 0.5,
+				"volume": 0.4,
 				"weight": 4
 			},
 			{
 				"name": "wilderwild:ambient/cave/deep_dark/additions2",
-				"volume": 0.3,
+				"volume": 0.5,
 				"weight": 4
 			},
 			{
 				"name": "wilderwild:ambient/cave/deep_dark/additions3",
-				"volume": 0.6,
+				"volume": 0.8,
 				"weight": 4
 			},
 			{
 				"name": "wilderwild:ambient/cave/deep_dark/clicking1",
-				"volume": 0.5,
+				"volume": 0.2,
 				"weight": 5
 			},
 			{
 				"name": "wilderwild:ambient/cave/deep_dark/clicking2",
-				"volume": 0.5,
+				"volume": 0.3,
 				"weight": 5
 			},
 			{
 				"name": "wilderwild:ambient/cave/deep_dark/clicking3",
-				"volume": 0.5,
+				"volume": 0.3,
 				"weight": 5
 			},
 			{
@@ -43,27 +43,27 @@
 			},
 			{
 				"name": "wilderwild:ambient/cave/deep_dark/mood3",
-				"volume": 0.4,
+				"volume": 0.7,
 				"weight": 2
 			},
 			{
 				"name": "wilderwild:ambient/cave/deep_dark/sculk1",
-				"volume": 0.3,
+				"volume": 0.5,
 				"weight": 3
 			},
 			{
 				"name": "wilderwild:ambient/cave/deep_dark/sculk2",
-				"volume": 0.3,
+				"volume": 0.5,
 				"weight": 3
 			},
 			{
 				"name": "wilderwild:ambient/cave/deep_dark/sculk3",
-				"volume": 0.3,
+				"volume": 0.5,
 				"weight": 3
 			},
 			{
 				"name": "wilderwild:ambient/cave/deep_dark/sculk4",
-				"volume": 0.3,
+				"volume": 0.5,
 				"weight": 3
 			},
 			{
@@ -90,6 +90,11 @@
 				"name": "wilderwild:ambient/cave/deep_dark/voices5",
 				"volume": 0.5,
 				"weight": 1
+			},
+			{
+				"name": "wilderwild:ambient/cave/deep_dark/wind",
+				"volume": 1.25,
+				"weight": 15
 			}
 		]
 	},
@@ -97,6 +102,15 @@
 		"sounds": [
 			{
 				"name": "wilderwild:ambient/cave/deep_dark/ambience",
+				"stream": true,
+				"volume": 1.0
+			}
+		]
+	},
+	"ambient.dripstone_caves.loop": {
+		"sounds": [
+			{
+				"name": "wilderwild:ambient/cave/dripstone_caves/ambience",
 				"stream": true,
 				"volume": 1.0
 			}
@@ -846,6 +860,22 @@
 			"wilderwild:particle/floating_sculk_bubble/pop3",
 			"wilderwild:particle/floating_sculk_bubble/pop4",
 			"wilderwild:particle/floating_sculk_bubble/pop5"
+		]
+	},
+	"flyby.pvzgw_cheeto": {
+		"sounds": [
+			{
+				"name": "wilderwild:flyby/cheetogrenade_flyby",
+				"attenuation_distance": 6
+			},
+			{
+				"name": "wilderwild:flyby/cheetogrenade_flyby2",
+				"attenuation_distance": 6
+			},
+			{
+				"name": "wilderwild:flyby/cheetogrenade_flyby3",
+				"attenuation_distance": 6
+			}
 		]
 	}
 }
