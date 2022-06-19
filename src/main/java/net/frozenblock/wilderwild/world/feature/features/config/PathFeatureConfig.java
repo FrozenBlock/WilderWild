@@ -28,8 +28,6 @@ public class PathFeatureConfig implements FeatureConfig {
             return config.useY;
         }), Codec.BOOL.fieldOf("multiplyY").orElse(false).forGetter((config) -> {
             return config.multiplyY;
-        }), Codec.BOOL.fieldOf("carpet").orElse(false).forGetter((config) -> {
-            return config.carpet;
         }), RegistryCodecs.entryList(Registry.BLOCK_KEY).fieldOf("replaceable").forGetter((config) -> {
             return config.replaceable;
         })).apply(instance, PathFeatureConfig::new);
@@ -42,14 +40,13 @@ public class PathFeatureConfig implements FeatureConfig {
     public final double maxThresh;
     public final boolean useY;
     public final boolean multiplyY;
-    public final boolean carpet;
     public final RegistryEntryList<Block> replaceable;
 
     private static DataResult<Block> validateBlock(Block block) {
         return DataResult.success(block);
     }
 
-    public PathFeatureConfig(BlockStateProvider pathBlock, int radius, int noise, double multiplier, double minThresh, double maxThresh, boolean useY, boolean multiplyY, boolean carpet, RegistryEntryList<Block> replaceable) {
+    public PathFeatureConfig(BlockStateProvider pathBlock, int radius, int noise, double multiplier, double minThresh, double maxThresh, boolean useY, boolean multiplyY, RegistryEntryList<Block> replaceable) {
         this.pathBlock = pathBlock;
         this.radius = radius;
         this.noise = noise;
@@ -58,7 +55,6 @@ public class PathFeatureConfig implements FeatureConfig {
         this.maxThresh = maxThresh;
         this.useY = useY;
         this.multiplyY = multiplyY;
-        this.carpet = carpet;
         this.replaceable = replaceable;
     }
 

@@ -190,7 +190,7 @@ public class WildConfiguredFeatures {
                             new RandomFeatureEntry(WildTreePlaced.SHORT_FUNGUS_CYPRESS, 0.3F)), WildTreePlaced.SHORT_FUNGUS_CYPRESS));
 
     public static final DataPool<BlockState> GLORY_OF_THE_SNOW_POOL = DataPool.<BlockState>builder().add(RegisterBlocks.GLORY_OF_THE_SNOW.getDefaultState().with(RegisterProperties.FLOWER_COLOR, FlowerColors.BLUE), 3).add(RegisterBlocks.GLORY_OF_THE_SNOW.getDefaultState().with(RegisterProperties.FLOWER_COLOR, FlowerColors.PURPLE), 3).add(RegisterBlocks.GLORY_OF_THE_SNOW.getDefaultState().with(RegisterProperties.FLOWER_COLOR, FlowerColors.PINK), 2).add(RegisterBlocks.GLORY_OF_THE_SNOW.getDefaultState().with(RegisterProperties.FLOWER_COLOR, FlowerColors.WHITE), 1).build();
-    public static final RegistryEntry<ConfiguredFeature<PathFeatureConfig, ?>> GLORY_OF_THE_SNOW_PATH = WildConfiguredFeatures.register("glory_of_the_snow_path", WilderWild.NOISE_PATH_FEATURE, new PathFeatureConfig(new WeightedBlockStateProvider(GLORY_OF_THE_SNOW_POOL), 6, 3, 0.1, 0.18, 0.7, true, true, true, RegistryEntryList.of(Blocks.AIR.getRegistryEntry(), Blocks.GRASS.getRegistryEntry())));
+    public static final RegistryEntry<ConfiguredFeature<PathFeatureConfig, ?>> GLORY_OF_THE_SNOW_PATH = WildConfiguredFeatures.register("glory_of_the_snow_path", WilderWild.NOISE_PLANT_FEATURE, new PathFeatureConfig(new WeightedBlockStateProvider(GLORY_OF_THE_SNOW_POOL), 6, 3, 0.1, 0.18, 0.7, true, true, RegistryEntryList.of(Blocks.AIR.getRegistryEntry(), Blocks.GRASS.getRegistryEntry())));
 
 
     public static void registerConfiguredFeatures() {

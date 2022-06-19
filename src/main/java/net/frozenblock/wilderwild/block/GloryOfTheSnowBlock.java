@@ -60,6 +60,7 @@ public class GloryOfTheSnowBlock extends MultiColorFlowerBlock {
                     ItemStack stack = new ItemStack(item);
                     stack.setCount(world.random.nextBetween(1, 2));
                     dropStack(world, pos, stack);
+                    world.setBlockState(pos, state.getBlock().getDefaultState());
                     world.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.BLOCK_GROWING_PLANT_CROP, SoundCategory.BLOCKS, 1.0F, 1.0F);
                     itemStack.damage(1, player, (playerx) -> playerx.sendToolBreakStatus(hand));
                     world.emitGameEvent(player, GameEvent.SHEAR, pos);
