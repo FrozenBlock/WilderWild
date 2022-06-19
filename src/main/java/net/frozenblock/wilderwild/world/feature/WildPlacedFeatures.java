@@ -41,7 +41,7 @@ public class WildPlacedFeatures {
     public static final RegistryEntry<PlacedFeature> NEW_TREES_PLAINS = register("new_trees_plains", WildConfiguredFeatures.NEW_TREES_PLAINS,
             PlacedFeatures.createCountExtraModifier(0, 0.05F, 1), SquarePlacementModifier.of(), NOT_IN_SURFACE_WATER_MODIFIER, PlacedFeatures.OCEAN_FLOOR_HEIGHTMAP, BlockFilterPlacementModifier.of(BlockPredicate.wouldSurvive(Blocks.OAK_SAPLING.getDefaultState(), BlockPos.ORIGIN)), BiomePlacementModifier.of());
 
-    public static final RegistryEntry<PlacedFeature> NEW_TREES_SWAMP = PlacedFeatures.register("new_trees_swamp", WildTreeConfigured.NEW_SWAMP_TREE,
+    public static final RegistryEntry<PlacedFeature> NEW_TREES_SWAMP = register("new_trees_swamp", WildTreeConfigured.NEW_SWAMP_TREE,
             PlacedFeatures.createCountExtraModifier(2, 0.1F, 1), SquarePlacementModifier.of(), SurfaceWaterDepthFilterPlacementModifier.of(4), PlacedFeatures.OCEAN_FLOOR_HEIGHTMAP, BiomePlacementModifier.of(), BlockFilterPlacementModifier.of(BlockPredicate.wouldSurvive(Blocks.MANGROVE_PROPAGULE.getDefaultState(), BlockPos.ORIGIN)));
 
     public static final RegistryEntry<PlacedFeature> NEW_FALLEN_OAK_AND_BIRCH_PLACED = register("new_fallen_oak_and_birch_placed",
@@ -73,29 +73,29 @@ public class WildPlacedFeatures {
     public static final RegistryEntry<PlacedFeature> CYPRESS_TREES_SWAMP = register("cypress_trees_swamp",
             WildConfiguredFeatures.CYPRESS_TREES, modifiers(PlacedFeatures.createCountExtraModifier(1, 0.1F, 1)));
 
-    public static final RegistryEntry<PlacedFeature> CYPRESS_TREES_WATER_2 = PlacedFeatures.register("cypress_trees_water_2", WildConfiguredFeatures.ALL_CYPRESS_TREES_EQUAL,
+    public static final RegistryEntry<PlacedFeature> CYPRESS_TREES_WATER_2 = register("cypress_trees_water_2", WildConfiguredFeatures.ALL_CYPRESS_TREES_EQUAL,
             PlacedFeatures.createCountExtraModifier(2, 0.1F, 1), SquarePlacementModifier.of(), SurfaceWaterDepthFilterPlacementModifier.of(2), PlacedFeatures.OCEAN_FLOOR_HEIGHTMAP, BiomePlacementModifier.of());
 
-    public static final RegistryEntry<PlacedFeature> CYPRESS_TREES_WATER_1 = PlacedFeatures.register("cypress_trees_water_1", WildConfiguredFeatures.ALL_CYPRESS_TREES_EQUAL,
+    public static final RegistryEntry<PlacedFeature> CYPRESS_TREES_WATER_1 = register("cypress_trees_water_1", WildConfiguredFeatures.ALL_CYPRESS_TREES_EQUAL,
             PlacedFeatures.createCountExtraModifier(1, 0.1F, 1), SquarePlacementModifier.of(), SurfaceWaterDepthFilterPlacementModifier.of(2), PlacedFeatures.OCEAN_FLOOR_HEIGHTMAP, BiomePlacementModifier.of());
 
-    public static final RegistryEntry<PlacedFeature> NEW_BIRCH_PLACED = PlacedFeatures.register("new_birch_placed",
+    public static final RegistryEntry<PlacedFeature> NEW_BIRCH_PLACED = register("new_birch_placed",
             WildTreeConfigured.NEW_BIRCH_BEES_0004, modifiersWithWouldSurvive(PlacedFeatures.createCountExtraModifier(10, 0.1F, 1), Blocks.BIRCH_SAPLING));
 
-    public static final RegistryEntry<PlacedFeature> NEW_TALL_BIRCH_PLACED = PlacedFeatures.register("new_tall_birch_placed",
+    public static final RegistryEntry<PlacedFeature> NEW_TALL_BIRCH_PLACED = register("new_tall_birch_placed",
             WildTreeConfigured.NEW_SUPER_BIRCH_BEES_0004, modifiersWithWouldSurvive(PlacedFeatures.createCountExtraModifier(10, 0.1F, 1), Blocks.BIRCH_SAPLING));
 
-    public static final RegistryEntry<PlacedFeature> NEW_FALLEN_BIRCH_PLACED = PlacedFeatures.register("new_fallen_birch_placed",
+    public static final RegistryEntry<PlacedFeature> NEW_FALLEN_BIRCH_PLACED = register("new_fallen_birch_placed",
             WildTreeConfigured.NEW_FALLEN_BIRCH_TREE, RarityFilterPlacementModifier.of(5), SquarePlacementModifier.of(),
             PlacedFeatures.MOTION_BLOCKING_HEIGHTMAP, BiomePlacementModifier.of());
 
-    public static final RegistryEntry<PlacedFeature> HUGE_RED_MUSHROOM_PLACED = PlacedFeatures.register("huge_red_mushroom_placed",
+    public static final RegistryEntry<PlacedFeature> HUGE_RED_MUSHROOM_PLACED = register("huge_red_mushroom_placed",
             TreeConfiguredFeatures.HUGE_RED_MUSHROOM, RarityFilterPlacementModifier.of(90), SquarePlacementModifier.of(),
             PlacedFeatures.MOTION_BLOCKING_HEIGHTMAP, BiomePlacementModifier.of());
 
     public static final RegistryEntry<PlacedFeature> NEW_SPRUCE_PLACED = register("new_spruce_placed",
             WildConfiguredFeatures.NEW_TREES_TAIGA, modifiers(PlacedFeatures.createCountExtraModifier(10, 0.1F, 1)));
-    public static final RegistryEntry<PlacedFeature> FALLEN_SPRUCE_PLACED = PlacedFeatures.register("fallen_spruce_placed",
+    public static final RegistryEntry<PlacedFeature> FALLEN_SPRUCE_PLACED = register("fallen_spruce_placed",
             WildTreeConfigured.FALLEN_SPRUCE_TREE, RarityFilterPlacementModifier.of(5), SquarePlacementModifier.of(),
             PlacedFeatures.MOTION_BLOCKING_HEIGHTMAP, BiomePlacementModifier.of());
 
@@ -111,17 +111,17 @@ public class WildPlacedFeatures {
     public static final RegistryEntry<PlacedFeature> NEW_TREES_OLD_GROWTH_PINE_TAIGA = register("new_trees_old_growth_pine_taiga",
             WildConfiguredFeatures.NEW_TREES_OLD_GROWTH_PINE_TAIGA, modifiers(PlacedFeatures.createCountExtraModifier(10, 0.1F, 1)));
 
-    public static final RegistryEntry<PlacedFeature> NEW_TREES_SNOWY = PlacedFeatures.register("new_trees_snowy",
+    public static final RegistryEntry<PlacedFeature> NEW_TREES_SNOWY = register("new_trees_snowy",
             WildTreeConfigured.NEW_SPRUCE, modifiersWithWouldSurvive(PlacedFeatures.createCountExtraModifier(0, 0.1F, 1), Blocks.SPRUCE_SAPLING));
 
-    public static final RegistryEntry<PlacedFeature> NEW_TREES_WINDSWEPT_HILLS = PlacedFeatures.register("new_trees_windswept_hills",
+    public static final RegistryEntry<PlacedFeature> NEW_TREES_WINDSWEPT_HILLS = register("new_trees_windswept_hills",
             WildConfiguredFeatures.NEW_TREES_WINDSWEPT_HILLS, modifiers(PlacedFeatures.createCountExtraModifier(0, 0.1F, 1)));
 
-    public static final RegistryEntry<PlacedFeature> NEW_TREES_WINDSWEPT_FOREST = PlacedFeatures.register("new_trees_windswept_forest",
+    public static final RegistryEntry<PlacedFeature> NEW_TREES_WINDSWEPT_FOREST = register("new_trees_windswept_forest",
             WildConfiguredFeatures.NEW_TREES_WINDSWEPT_HILLS, modifiers(PlacedFeatures.createCountExtraModifier(3, 0.1F, 1)));
 
     //Decorations
-    public static final RegistryEntry<PlacedFeature> NEW_RARE_GRASS_PLACED = PlacedFeatures.register("new_rare_grass_placed",
+    public static final RegistryEntry<PlacedFeature> NEW_RARE_GRASS_PLACED = register("new_rare_grass_placed",
             VegetationConfiguredFeatures.PATCH_GRASS_JUNGLE, modifiers(8));
 
     public static final RegistryEntry<PlacedFeature> PATCH_CATTAIL =
@@ -136,34 +136,34 @@ public class WildPlacedFeatures {
     /*public static final RegistryEntry<PlacedFeature> PATCH_CYPRESS_ROOTS = register("patch_cypress_roots",
             WildConfiguredFeatures.PATCH_CYPRESS_ROOTS, modifiers(1));*/
 
-    public static final RegistryEntry<PlacedFeature> HUGE_MUSHROOMS_SWAMP = PlacedFeatures.register("huge_mushrooms_swamp",
+    public static final RegistryEntry<PlacedFeature> HUGE_MUSHROOMS_SWAMP = register("huge_mushrooms_swamp",
             VegetationConfiguredFeatures.MUSHROOM_ISLAND_VEGETATION, RarityFilterPlacementModifier.of(5), SquarePlacementModifier.of(),
             PlacedFeatures.MOTION_BLOCKING_HEIGHTMAP, BiomePlacementModifier.of());
 
-    public static final RegistryEntry<PlacedFeature> NEW_MUSHROOM_PLACED = PlacedFeatures.register("new_mushroom_placed",
+    public static final RegistryEntry<PlacedFeature> NEW_MUSHROOM_PLACED = register("new_mushroom_placed",
             VegetationConfiguredFeatures.MUSHROOM_ISLAND_VEGETATION, RarityFilterPlacementModifier.of(4), SquarePlacementModifier.of(),
             PlacedFeatures.MOTION_BLOCKING_HEIGHTMAP, BiomePlacementModifier.of());
 
-    public static final RegistryEntry<PlacedFeature> MIXED_MUSHROOMS_PLACED = PlacedFeatures.register("mixed_mushroom_placed",
+    public static final RegistryEntry<PlacedFeature> MIXED_MUSHROOMS_PLACED = register("mixed_mushroom_placed",
             VegetationConfiguredFeatures.MUSHROOM_ISLAND_VEGETATION, RarityFilterPlacementModifier.of(75), SquarePlacementModifier.of(),
             PlacedFeatures.MOTION_BLOCKING_HEIGHTMAP, BiomePlacementModifier.of());
 
-    public static final RegistryEntry<PlacedFeature> NEW_BROWN_MUSHROOM_PLACED = PlacedFeatures.register("new_brown_mushroom_placed",
+    public static final RegistryEntry<PlacedFeature> NEW_BROWN_MUSHROOM_PLACED = register("new_brown_mushroom_placed",
             VegetationConfiguredFeatures.PATCH_BROWN_MUSHROOM, modifiers(10));
 
-    public static final RegistryEntry<PlacedFeature> NEW_GRASS_PLACED = PlacedFeatures.register("new_grass_placed",
+    public static final RegistryEntry<PlacedFeature> NEW_GRASS_PLACED = register("new_grass_placed",
             VegetationConfiguredFeatures.PATCH_GRASS_JUNGLE, modifiers(20));
 
-    public static final RegistryEntry<PlacedFeature> DENSE_FERN_PLACED = PlacedFeatures.register("dense_fern_placed",
+    public static final RegistryEntry<PlacedFeature> DENSE_FERN_PLACED = register("dense_fern_placed",
             VegetationConfiguredFeatures.PATCH_LARGE_FERN, modifiers(1));
-    public static final RegistryEntry<PlacedFeature> DENSE_TALL_GRASS_PLACED = PlacedFeatures.register("dense_tall_grass_placed",
+    public static final RegistryEntry<PlacedFeature> DENSE_TALL_GRASS_PLACED = register("dense_tall_grass_placed",
             VegetationConfiguredFeatures.PATCH_TALL_GRASS, modifiers(1));
 
     public static final RegistryEntry<PlacedFeature> NEW_TALL_GRASS = register("new_tall_grass",
             VegetationConfiguredFeatures.PATCH_TALL_GRASS, RarityFilterPlacementModifier.of(3), SquarePlacementModifier.of(),
             PlacedFeatures.MOTION_BLOCKING_HEIGHTMAP, BiomePlacementModifier.of());
 
-    public static final RegistryEntry<PlacedFeature> DENSE_FLOWER_PLACED = PlacedFeatures.register("dense_flower_placed",
+    public static final RegistryEntry<PlacedFeature> DENSE_FLOWER_PLACED = register("dense_flower_placed",
             VegetationConfiguredFeatures.FLOWER_DEFAULT, modifiers(1));
 
     public static final RegistryEntry<PlacedFeature> DATURA_BIRCH = register("datura_birch",

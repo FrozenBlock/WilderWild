@@ -16,10 +16,7 @@ import net.minecraft.util.registry.BuiltinRegistries;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.util.registry.RegistryEntry;
 import net.minecraft.util.registry.RegistryKey;
-import net.minecraft.world.biome.Biome;
-import net.minecraft.world.biome.BiomeEffects;
-import net.minecraft.world.biome.GenerationSettings;
-import net.minecraft.world.biome.SpawnSettings;
+import net.minecraft.world.biome.*;
 import net.minecraft.world.gen.GenerationStep;
 import net.minecraft.world.gen.feature.DefaultBiomeFeatures;
 import net.minecraft.world.gen.feature.MiscPlacedFeatures;
@@ -44,6 +41,7 @@ public class RegisterWorldgen {
         SpawnSettings.Builder builder = new SpawnSettings.Builder();
         DefaultBiomeFeatures.addBatsAndMonsters(builder);
         DefaultBiomeFeatures.addPlainsMobs(builder);
+        builder.spawn(SpawnGroup.CREATURE, new SpawnSettings.SpawnEntry(EntityType.WOLF, 5, 4, 4));
         GenerationSettings.Builder builder2 = new GenerationSettings.Builder();
         addBasicFeatures(builder2);
         DefaultBiomeFeatures.addDefaultOres(builder2);
@@ -70,12 +68,12 @@ public class RegisterWorldgen {
 
     public static Biome createCypressWetlands() {
         SpawnSettings.Builder builder = new SpawnSettings.Builder();
-        DefaultBiomeFeatures.addBatsAndMonsters(builder);
+        //DefaultBiomeFeatures.addBatsAndMonsters(builder);
         addCypressWetlandsMobs(builder);
         GenerationSettings.Builder builder2 = new GenerationSettings.Builder();
-        addBasicFeatures(builder2);
-        addCypressPaths(builder2);
-        DefaultBiomeFeatures.addDefaultOres(builder2);
+        //addBasicFeatures(builder2);
+        //addCypressPaths(builder2);
+        //DefaultBiomeFeatures.addDefaultOres(builder2);
         MusicSound musicSound = MusicType.createIngameMusic(RegisterSounds.MUSIC_OVERWORLD_WILD_FORESTS);
         return new Biome.Builder()
                 .precipitation(Biome.Precipitation.RAIN)
