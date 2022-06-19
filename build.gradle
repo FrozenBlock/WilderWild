@@ -25,6 +25,14 @@ repositories {
 			includeGroup "com.github.Chocohead"
 		}
 	}
+	maven {
+		name = "Modrinth"
+		url = "https://api.modrinth.com/maven"
+
+		content {
+			includeGroup "maven.modrinth"
+		}
+	}
 }
 
 dependencies {
@@ -38,6 +46,17 @@ dependencies {
 	// Fabric-ASM
 	modImplementation "com.github.Chocohead:Fabric-ASM:${project.fabric_asm_version}"
 	include "com.github.Chocohead:Fabric-ASM:${project.fabric_asm_version}"
+
+	// only affects runClient, does not affect gradlew build. add -PuseThirdPartyMods=false to not use these
+	if (findProperty("useThirdPartyMods") != "false") {
+		modRuntimeOnly "maven.modrinth:ferrite-core:5.0.0-fabric"
+		//modRuntimeOnly "maven.modrinth:indium:1.0.5+mc1.19"
+		modRuntimeOnly "maven.modrinth:lazydfu:0.1.3"
+		modRuntimeOnly "maven.modrinth:lithium:mc1.19-0.8.0"
+		//modRuntimeOnly "maven.modrinth:modmenu:4.0.0"
+		//modRuntimeOnly "maven.modrinth:sodium:mc1.19-0.4.2"
+		modRuntimeOnly "maven.modrinth:starlight:1.1.1+1.19"
+	}
 }
 
 processResources {
