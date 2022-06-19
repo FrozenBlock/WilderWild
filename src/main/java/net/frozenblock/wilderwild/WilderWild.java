@@ -80,6 +80,7 @@ public class WilderWild implements ModInitializer {
         Registry.register(Registry.FEATURE, new Identifier(WilderWild.MOD_ID, "shelf_fungus_feature"), SHELF_FUNGUS_FEATURE);
         Registry.register(Registry.FEATURE, new Identifier(WilderWild.MOD_ID, "cattail_feature"), CATTAIL_FEATURE);
         Registry.register(Registry.FEATURE, new Identifier(WilderWild.MOD_ID, "noise_path_feature"), NOISE_PATH_FEATURE);
+        Registry.register(Registry.FEATURE, new Identifier(WilderWild.MOD_ID, "noise_plant_feature"), NOISE_PLANT_FEATURE);
         Registry.register(Registry.FEATURE, new Identifier(WilderWild.MOD_ID, "noise_path_under_water_feature"), NOISE_PATH_UNDER_WATER_FEATURE);
         Registry.register(Registry.FEATURE, new Identifier(WilderWild.MOD_ID, "column_with_disk_feature"), COLUMN_WITH_DISK_FEATURE);
 
