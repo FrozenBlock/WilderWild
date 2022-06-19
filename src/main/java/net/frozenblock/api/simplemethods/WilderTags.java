@@ -1,18 +1,16 @@
 package net.frozenblock.api.simplemethods;
 
-import net.fabricmc.fabric.api.client.command.v2.ClientCommandRegistrationCallback;
 import net.minecraft.block.Block;
 import net.minecraft.entity.EntityType;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.item.Item;
-import net.minecraft.tag.BlockTags;
 import net.minecraft.tag.TagKey;
 import net.minecraft.util.math.random.Random;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.util.registry.RegistryEntry;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
-import java.util.Optional;
 
 /**
  * <h2>Contains booleans to check if something is within a tag</h2>
@@ -40,16 +38,16 @@ public class WilderTags {
         return false;
     }
 
+    @Nullable
     public static Block getRandomBlock(Random random, TagKey<Block> tag) {
         ArrayList<Block> blocks = new ArrayList<>();
         for (RegistryEntry<Block> block : Registry.BLOCK.iterateEntries(tag)) {
             if (block.getKey().isPresent()) {
-                Optional<Block> block1 = Registry.BLOCK.getOrEmpty(block.getKey().get());
-                block1.ifPresent(blocks::add);
+                Registry.BLOCK.getOrEmpty(block.getKey().get()).ifPresent(blocks::add);
             }
         }
         if (!blocks.isEmpty()) {
-            return blocks.get(random.nextBetween(0, 1) * blocks.size());
+            return blocks.get((int) (Math.random() * blocks.size()));
         }
         return null;
     }
