@@ -20,8 +20,10 @@ import net.minecraft.world.biome.*;
 import net.minecraft.world.gen.GenerationStep;
 import net.minecraft.world.gen.feature.DefaultBiomeFeatures;
 import net.minecraft.world.gen.feature.MiscPlacedFeatures;
+import net.minecraft.world.gen.feature.VegetationPlacedFeatures;
 
 import static net.minecraft.world.biome.OverworldBiomeCreator.createJungle;
+import static net.minecraft.world.biome.OverworldBiomeCreator.createSwamp;
 
 public class RegisterWorldgen {
     public static final RegistryKey<Biome> MIXED_FOREST = register("mixed_forest");
@@ -44,7 +46,6 @@ public class RegisterWorldgen {
         builder.spawn(SpawnGroup.CREATURE, new SpawnSettings.SpawnEntry(EntityType.WOLF, 5, 4, 4));
         GenerationSettings.Builder builder2 = new GenerationSettings.Builder();
         addBasicFeatures(builder2);
-        DefaultBiomeFeatures.addDefaultOres(builder2);
         DefaultBiomeFeatures.addDefaultDisks(builder2);
         MusicSound musicSound = MusicType.createIngameMusic(RegisterSounds.MUSIC_OVERWORLD_WILD_FORESTS);
         return new Biome.Builder()
@@ -68,12 +69,12 @@ public class RegisterWorldgen {
 
     public static Biome createCypressWetlands() {
         SpawnSettings.Builder builder = new SpawnSettings.Builder();
-        //DefaultBiomeFeatures.addBatsAndMonsters(builder);
+        DefaultBiomeFeatures.addBatsAndMonsters(builder);
         addCypressWetlandsMobs(builder);
         GenerationSettings.Builder builder2 = new GenerationSettings.Builder();
-        //addBasicFeatures(builder2);
+        addBasicFeatures(builder2);
         addCypressPaths(builder2);
-        //DefaultBiomeFeatures.addDefaultOres(builder2);
+        //addCypressVegetation(builder2);
         MusicSound musicSound = MusicType.createIngameMusic(RegisterSounds.MUSIC_OVERWORLD_WILD_FORESTS);
         return new Biome.Builder()
                 .precipitation(Biome.Precipitation.RAIN)
@@ -84,7 +85,7 @@ public class RegisterWorldgen {
                                 .waterColor(4552818)
                                 .waterFogColor(4552818)
                                 .fogColor(12638463)
-                                .skyColor(createJungle().getSkyColor())
+                                .skyColor(createSwamp().getSkyColor())
                                 .foliageColor(5877296)
                                 .grassColor(7979098)
                                 .moodSound(BiomeMoodSound.CAVE)
@@ -98,6 +99,9 @@ public class RegisterWorldgen {
         builder.feature(GenerationStep.Feature.UNDERGROUND_ORES, WildMiscPlaced.UNDER_WATER_GRAVEL_PATH);
         builder.feature(GenerationStep.Feature.UNDERGROUND_ORES, WildMiscPlaced.UNDER_WATER_CLAY_PATH);
     }
+    //public static void addCypressVegetation(GenerationSettings.Builder builder) {
+       // builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, VegetationPlacedFeatures.PATCH_SUGAR_CANE_SWAMP);
+       // builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, VegetationPlacedFeatures.PATCH_PUMPKIN);}
 
     private static void addBasicFeatures(GenerationSettings.Builder generationSettings) {
         DefaultBiomeFeatures.addLandCarvers(generationSettings);
@@ -106,6 +110,7 @@ public class RegisterWorldgen {
         DefaultBiomeFeatures.addMineables(generationSettings);
         DefaultBiomeFeatures.addSprings(generationSettings);
         DefaultBiomeFeatures.addFrozenTopLayer(generationSettings);
+        DefaultBiomeFeatures.addDefaultOres(generationSettings);
     }
 
     private static void addCypressWetlandsMobs(SpawnSettings.Builder builder) {
