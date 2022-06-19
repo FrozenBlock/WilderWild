@@ -1,7 +1,5 @@
 package net.frozenblock.api.mathematics;
 
-import net.minecraft.client.render.entity.animation.AnimationHelper;
-
 public class AdvancedMath {
     /**
      * ADVANCED MATH
