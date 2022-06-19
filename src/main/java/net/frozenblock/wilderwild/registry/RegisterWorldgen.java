@@ -72,7 +72,7 @@ public class RegisterWorldgen {
         addCypressWetlandsMobs(builder);
         GenerationSettings.Builder builder2 = new GenerationSettings.Builder();
         //addBasicFeatures(builder2);
-        //addCypressPaths(builder2);
+        addCypressPaths(builder2);
         //DefaultBiomeFeatures.addDefaultOres(builder2);
         MusicSound musicSound = MusicType.createIngameMusic(RegisterSounds.MUSIC_OVERWORLD_WILD_FORESTS);
         return new Biome.Builder()
