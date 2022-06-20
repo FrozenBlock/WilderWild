@@ -5,8 +5,10 @@ import net.frozenblock.wilderwild.registry.RegisterProperties;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.brain.MemoryModuleType;
+import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.mob.Angriness;
+import net.minecraft.entity.mob.HostileEntity;
 import net.minecraft.entity.mob.WardenBrain;
 import net.minecraft.entity.mob.WardenEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -17,10 +19,12 @@ import net.minecraft.util.Unit;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.LocalDifficulty;
 import net.minecraft.world.ServerWorldAccess;
+import net.minecraft.world.World;
 import net.minecraft.world.event.GameEvent;
 import net.minecraft.world.event.listener.GameEventListener;
 import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Overwrite;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
@@ -29,7 +33,10 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import static net.minecraft.entity.Entity.POSE;
 
 @Mixin(WardenEntity.class)
-public class WardenEntityMixin implements WardenAnimationInterface {
+public class WardenEntityMixin extends HostileEntity implements WardenAnimationInterface {
+    protected WardenEntityMixin(EntityType<? extends HostileEntity> entityType, World world) {
+        super(entityType, world);
+    }
 
     /*@Inject(at = @At("HEAD"), method = "isValidTarget", cancellable = true)
     public void isValidTarget(@Nullable Entity entity, CallbackInfoReturnable<Boolean> info) {
@@ -127,6 +134,15 @@ public class WardenEntityMixin implements WardenAnimationInterface {
             } else {
                 this.dyingAnimationState.stop();
             }
+        }
+    }
+
+    @Override
+    protected void updatePostDeath() {
+        WardenEntity warden = WardenEntity.class.cast(this);
+        ++warden.deathTime;
+        if (warden.deathTime == 100 && !warden.world.isClient()) {
+            warden.remove(RemovalReason.DISCARDED);
         }
     }
 }
