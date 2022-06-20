@@ -5,7 +5,6 @@ import net.frozenblock.wilderwild.registry.RegisterProperties;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.brain.MemoryModuleType;
-import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.mob.Angriness;
 import net.minecraft.entity.mob.HostileEntity;
@@ -14,6 +13,7 @@ import net.minecraft.entity.mob.WardenEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.server.world.ServerWorld;
+import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.Unit;
 import net.minecraft.util.math.BlockPos;
@@ -24,16 +24,18 @@ import net.minecraft.world.event.GameEvent;
 import net.minecraft.world.event.listener.GameEventListener;
 import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Overwrite;
+import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-import static net.minecraft.entity.Entity.POSE;
-
 @Mixin(WardenEntity.class)
-public class WardenEntityMixin extends HostileEntity implements WardenAnimationInterface {
+public abstract class WardenEntityMixin extends HostileEntity implements WardenAnimationInterface {
+    @Shadow protected abstract SoundEvent getDeathSound();
+
+    @Shadow protected abstract float getSoundVolume();
+
     protected WardenEntityMixin(EntityType<? extends HostileEntity> entityType, World world) {
         super(entityType, world);
     }
@@ -137,12 +139,32 @@ public class WardenEntityMixin extends HostileEntity implements WardenAnimationI
         }
     }
 
-    @Override
-    protected void updatePostDeath() {
+    private int timeToDie = 0;
+
+    private void wardenDie() {
         WardenEntity warden = WardenEntity.class.cast(this);
-        ++warden.deathTime;
-        if (warden.deathTime == 100 && !warden.world.isClient()) {
+        ++this.timeToDie;
+        if (this.timeToDie == 100 && !warden.world.isClient()) {
             warden.remove(RemovalReason.DISCARDED);
+        }
+    }
+
+    private boolean canDieNow=false;
+
+    @Inject(method = "tick", at = @At("TAIL"))
+    private void tick(CallbackInfo ci) {
+        if (this.getHealth() <= 0.0F) {
+            this.setHealth(1.0F);
+            this.setInvulnerable(true);
+            this.dead=false;
+            this.deathTime=0;
+            this.setPose(EntityPose.DYING);
+            this.emitGameEvent(GameEvent.ENTITY_DIE);
+            this.canDieNow=true;
+        }
+
+        if (this.canDieNow) {
+            this.wardenDie();
         }
     }
 }
