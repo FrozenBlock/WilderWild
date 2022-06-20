@@ -15,7 +15,7 @@ public class CustomWardenAnimations {
 
     // this is how you override an animation
 
-    /*
+
     @Final
     @Mutable
     @Shadow
@@ -41,7 +41,7 @@ public class CustomWardenAnimations {
                             new Keyframe(5.8F, AnimationHelper.method_41829(70.0F, 0.0F, 2.5F), Transformation.Interpolations.field_37885),
                             new Keyframe(6.64F, AnimationHelper.method_41829(0.0F, 0.0F, 0.0F), Transformation.Interpolations.field_37885)
                     )
-            )/*
+            )
             .addBoneAnimation(
                     "body",
                     new Transformation(
@@ -353,5 +353,6 @@ public class CustomWardenAnimations {
                     )
             )
             .build();
-     */
+
+
 }
