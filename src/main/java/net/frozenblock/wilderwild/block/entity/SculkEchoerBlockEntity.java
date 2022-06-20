@@ -79,9 +79,8 @@ public class SculkEchoerBlockEntity extends BlockEntity implements VibrationList
                         if (this.savedEvent != null) {
                             this.savedEvent.emitGameEvent(world, emitPos);
                             this.savedEvent = null;
-                        } else {
-                            world.emitGameEvent(null, event, emitPos);
                         }
+                        world.emitGameEvent(null, event, emitPos);
                         bubbleTicks.removeInt(index);
                         bubbleSizes.removeInt(index);
                     }

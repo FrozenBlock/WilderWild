@@ -143,7 +143,6 @@ public class SculkEchoerBlock extends BlockWithEntity implements Waterloggable {
         if (getPhase(state) != SculkEchoerPhase.ACTIVE) {
             if (getPhase(state) == SculkEchoerPhase.COOLDOWN) {
                 world.setBlockState(pos, state.with(SCULK_ECHOER_PHASE, SculkEchoerPhase.INACTIVE), Block.NOTIFY_ALL);
-                BlockEntity blockEntity = world.getBlockEntity(pos);
             }
         } else {
             setCooldown(world, pos, state);
