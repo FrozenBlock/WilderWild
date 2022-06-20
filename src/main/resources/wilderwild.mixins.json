@@ -34,7 +34,8 @@
   ],
   "client": [
 	"client.WardenAnimationsMixin",
-	"client.WardenEntityModelMixin"
+	"client.WardenEntityModelMixin",
+	"client.XfrtrexSusFrogRenderer"
   ],
   "injectors": {
 	"defaultRequire": 1
