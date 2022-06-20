@@ -76,16 +76,10 @@ public class SculkEchoerBlockEntity extends BlockEntity implements VibrationList
                     if (i - 1 <= 0) {
                         GameEvent event = size > 0 ? RegisterGameEvents.SCULK_ECHOER_LOUD_ECHO : RegisterGameEvents.SCULK_ECHOER_ECHO;
                         Vec3d emitPos = Vec3d.ofCenter(this.pos).add(0, upsidedown ? -1 : 1, 0);
-                        boolean canSkip = false;
                         if (this.savedEvent != null) {
-                            Entity entity = this.savedEvent.getEntity(world);
-                            if (entity!=null) {
-                                canSkip = true;
-                                world.emitGameEvent(entity, event, emitPos);
-                            }
+                            world.emitGameEvent(this.savedEvent.getEntity(world), event, emitPos);
                             this.savedEvent = null;
-                        }
-                        if (!canSkip) {
+                        } else {
                             world.emitGameEvent(null, event, emitPos);
                         }
                         bubbleTicks.removeInt(index);
