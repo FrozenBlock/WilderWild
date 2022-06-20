@@ -10,6 +10,9 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Mutable;
 import org.spongepowered.asm.mixin.Shadow;
 
+/**
+ * Use this class to override existing warden animations.
+ */
 @Environment(EnvType.CLIENT)
 @Mixin(WardenAnimations.class)
 public class WardenAnimationsMixin {
@@ -169,7 +172,7 @@ public class WardenAnimationsMixin {
                             new Keyframe(5.8F, AnimationHelper.method_41823(0.0F, 0.0F, 0.0F), Transformation.Interpolations.field_37885),
                             new Keyframe(6.64F, AnimationHelper.method_41823(0.0F, 0.0F, 0.0F), Transformation.Interpolations.field_37885)
                     )
-            )
+            )/*
             .addBoneAnimation(
                     "right_arm",
                     new Transformation(
@@ -270,7 +273,7 @@ public class WardenAnimationsMixin {
                             new Keyframe(5.0F, AnimationHelper.method_41823(-2.0F, 0.0F, 4.0F), Transformation.Interpolations.field_37885),
                             new Keyframe(6.64F, AnimationHelper.method_41823(0.0F, 0.0F, 0.0F), Transformation.Interpolations.field_37885)
                     )
-            )
+            )*/
             .addBoneAnimation(
                     "right_leg",
                     new Transformation(
