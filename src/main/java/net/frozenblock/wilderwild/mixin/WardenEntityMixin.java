@@ -4,7 +4,10 @@ import net.frozenblock.wilderwild.entity.render.WardenAnimationInterface;
 import net.frozenblock.wilderwild.registry.RegisterProperties;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.*;
+import net.minecraft.entity.ai.brain.Brain;
 import net.minecraft.entity.ai.brain.MemoryModuleType;
+import net.minecraft.entity.ai.brain.task.EmergeTask;
+import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.mob.Angriness;
 import net.minecraft.entity.mob.HostileEntity;
@@ -24,6 +27,7 @@ import net.minecraft.world.event.GameEvent;
 import net.minecraft.world.event.listener.GameEventListener;
 import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Overwrite;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -35,6 +39,8 @@ public abstract class WardenEntityMixin extends HostileEntity implements WardenA
     @Shadow protected abstract SoundEvent getDeathSound();
 
     @Shadow protected abstract float getSoundVolume();
+
+    @Shadow public abstract Brain<WardenEntity> getBrain();
 
     protected WardenEntityMixin(EntityType<? extends HostileEntity> entityType, World world) {
         super(entityType, world);
@@ -85,6 +91,15 @@ public abstract class WardenEntityMixin extends HostileEntity implements WardenA
         }
     }
 
+    /**
+     * @author FrozenBlock
+     * @reason we need it to stop doing stuff when it dies lol
+     */
+    @Overwrite
+    private boolean isDiggingOrEmerging() {
+        return this.isInPose(EntityPose.DYING) || this.canDieNow || this.isInPose(EntityPose.DIGGING) || this.isInPose(EntityPose.EMERGING);
+    }
+
     @Inject(at = @At("HEAD"), method = "accept", cancellable = true)
     public void accept(ServerWorld world, GameEventListener listener, BlockPos pos, GameEvent event, @Nullable Entity entity, @Nullable Entity sourceEntity, float f, CallbackInfo info) {
         WardenEntity warden = WardenEntity.class.cast(this);
@@ -131,7 +146,7 @@ public abstract class WardenEntityMixin extends HostileEntity implements WardenA
     private void onTrackedDataSet(TrackedData<?> data, CallbackInfo ci) {
         WardenEntity warden = WardenEntity.class.cast(this);
         if (POSE.equals(data)) {
-            if (warden.getPose() == EntityPose.DYING) {
+            if (warden.getPose() == EntityPose.DYING || this.canDieNow) {
                 this.dyingAnimationState.start(warden.age);
             } else {
                 this.dyingAnimationState.stop();
@@ -155,7 +170,6 @@ public abstract class WardenEntityMixin extends HostileEntity implements WardenA
     private void tick(CallbackInfo ci) {
         if (this.getHealth() <= 0.0F) {
             this.setHealth(1.0F);
-            this.setInvulnerable(true);
             this.dead=false;
             this.deathTime=0;
             this.setPose(EntityPose.DYING);
