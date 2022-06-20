@@ -87,20 +87,22 @@ public class SaveableGameEvent {
 
     @Nullable
     public Entity getEntity(World world) {
-        if (!this.uuid.equals("noEntity")) {
-            if (this.foundEntity!=null) {
-                if (this.foundEntity.getUuid().toString().equals(this.uuid)) {
-                    return this.foundEntity;
-                } else {
-                    this.foundEntity = null;
+        if (this.originPos!=null && this.uuid!=null) {
+            if (!this.uuid.equals("noEntity")) {
+                if (this.foundEntity != null) {
+                    if (this.foundEntity.getUuid().toString().equals(this.uuid)) {
+                        return this.foundEntity;
+                    } else {
+                        this.foundEntity = null;
+                    }
                 }
-            }
-            Box box = new Box(this.originPos.add(-32, -32, -32), this.originPos.add(32, 32, 32));
-            List<Entity> entities = world.getNonSpectatingEntities(Entity.class, box);
-            for (Entity entity : entities) {
-                if (entity.getUuid().toString().equals(this.uuid)) {
-                    this.foundEntity = entity;
-                    return entity;
+                Box box = new Box(this.originPos.add(-32, -32, -32), this.originPos.add(32, 32, 32));
+                List<Entity> entities = world.getNonSpectatingEntities(Entity.class, box);
+                for (Entity entity : entities) {
+                    if (entity.getUuid().toString().equals(this.uuid)) {
+                        this.foundEntity = entity;
+                        return entity;
+                    }
                 }
             }
         } return null;
