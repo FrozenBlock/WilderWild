@@ -17,7 +17,7 @@ import java.util.Objects;
 @Environment(EnvType.CLIENT)
 @Mixin(FrogEntityRenderer.class)
 public class XfrtrexSusFrogRenderer {
-/*
+
     private static final Identifier SUS_TEXTURE = new Identifier(WilderWild.MOD_ID, "textures/entity/frog/sus_frog.png");
 
 
@@ -28,5 +28,5 @@ public class XfrtrexSusFrogRenderer {
             cir.setReturnValue(SUS_TEXTURE);
         }
     }
- */
+
 }
