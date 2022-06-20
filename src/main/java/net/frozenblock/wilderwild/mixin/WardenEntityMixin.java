@@ -118,14 +118,14 @@ public class WardenEntityMixin implements WardenAnimationInterface {
         info.cancel();
     }
 
-    @Inject(method = "onTrackedDataSet", at = @At("TAIL"))
+    @Inject(method = "onTrackedDataSet", at = @At("HEAD"))
     private void onTrackedDataSet(TrackedData<?> data, CallbackInfo ci) {
         WardenEntity warden = WardenEntity.class.cast(this);
         if (POSE.equals(data)) {
-            switch(warden.getPose()) {
-                case DYING:
-                    this.dyingAnimationState.start(warden.age);
-                    break;
+            if (warden.getPose() == EntityPose.DYING) {
+                this.dyingAnimationState.start(warden.age);
+            } else {
+                this.dyingAnimationState.stop();
             }
         }
     }
