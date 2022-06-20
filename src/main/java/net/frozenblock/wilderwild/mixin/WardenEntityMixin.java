@@ -1,9 +1,11 @@
 package net.frozenblock.wilderwild.mixin;
 
+import net.frozenblock.wilderwild.entity.render.WardenAnimationInterface;
 import net.frozenblock.wilderwild.registry.RegisterProperties;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.brain.MemoryModuleType;
+import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.mob.Angriness;
 import net.minecraft.entity.mob.WardenBrain;
 import net.minecraft.entity.mob.WardenEntity;
@@ -24,8 +26,10 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
+import static net.minecraft.entity.Entity.POSE;
+
 @Mixin(WardenEntity.class)
-public class WardenEntityMixin {
+public class WardenEntityMixin implements WardenAnimationInterface {
 
     /*@Inject(at = @At("HEAD"), method = "isValidTarget", cancellable = true)
     public void isValidTarget(@Nullable Entity entity, CallbackInfoReturnable<Boolean> info) {
@@ -112,5 +116,17 @@ public class WardenEntityMixin {
             WardenBrain.lookAtDisturbance(warden, blockPos);
         }
         info.cancel();
+    }
+
+    @Inject(method = "onTrackedDataSet", at = @At("TAIL"))
+    private void onTrackedDataSet(TrackedData<?> data, CallbackInfo ci) {
+        WardenEntity warden = WardenEntity.class.cast(this);
+        if (POSE.equals(data)) {
+            switch(warden.getPose()) {
+                case DYING:
+                    this.dyingAnimationState.start(warden.age);
+                    break;
+            }
+        }
     }
 }

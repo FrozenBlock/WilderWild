@@ -33,7 +33,7 @@
 	"worldgen.VanillaSurfaceRulesMixin"
   ],
   "client": [
-	"client.CustomWardenAnimations",
+	"client.WardenAnimationsMixin",
 	"client.WardenEntityModelMixin"
   ],
   "injectors": {

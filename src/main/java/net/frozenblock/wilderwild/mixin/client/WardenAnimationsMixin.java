@@ -2,7 +2,9 @@ package net.frozenblock.wilderwild.mixin.client;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.frozenblock.wilderwild.entity.render.animations.CustomWardenAnimations;
 import net.minecraft.client.render.entity.animation.*;
+import net.minecraft.entity.AnimationState;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Mutable;
@@ -10,11 +12,7 @@ import org.spongepowered.asm.mixin.Shadow;
 
 @Environment(EnvType.CLIENT)
 @Mixin(WardenAnimations.class)
-public class CustomWardenAnimations {
-
-
-    // this is how you override an animation
-
+public class WardenAnimationsMixin {
 
     @Final
     @Mutable
