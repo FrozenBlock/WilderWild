@@ -15,8 +15,6 @@ public class CustomWardenAnimations {
 
     // this is how you override an animation
 
-    // if you uncomment all of this you can see its cursed because i commented out almost the whole animation
-
     /*
     @Final
     @Mutable
@@ -43,7 +41,7 @@ public class CustomWardenAnimations {
                             new Keyframe(5.8F, AnimationHelper.method_41829(70.0F, 0.0F, 2.5F), Transformation.Interpolations.field_37885),
                             new Keyframe(6.64F, AnimationHelper.method_41829(0.0F, 0.0F, 0.0F), Transformation.Interpolations.field_37885)
                     )
-            )
+            )/*
             .addBoneAnimation(
                     "body",
                     new Transformation(
