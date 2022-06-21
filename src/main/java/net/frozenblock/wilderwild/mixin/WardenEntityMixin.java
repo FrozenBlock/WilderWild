@@ -36,8 +36,14 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(WardenEntity.class)
 public abstract class WardenEntityMixin extends HostileEntity implements WardenAnimationInterface {
-    @Shadow
-    protected abstract SoundEvent getDeathSound();
+    /**
+     * @author FrozenBlock
+     * @reason custom death sound
+     */
+    @Overwrite
+    public SoundEvent getDeathSound() {
+        return SoundEvents.ENTITY_WARDEN_HURT;
+    };
 
     @Shadow
     protected abstract float getSoundVolume();
