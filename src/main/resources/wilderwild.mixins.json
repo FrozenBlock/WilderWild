@@ -33,6 +33,7 @@
 	"worldgen.VanillaSurfaceRulesMixin"
   ],
   "client": [
+	"client.OsmioooWardenRenderer",
 	"client.WardenAnimationsMixin",
 	"client.WardenEntityModelMixin",
 	"client.XfrtrexSusFrogRenderer"
