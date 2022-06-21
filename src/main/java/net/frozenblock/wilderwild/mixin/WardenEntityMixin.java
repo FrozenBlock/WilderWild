@@ -158,22 +158,23 @@ public abstract class WardenEntityMixin extends HostileEntity implements WardenA
      */
     @Overwrite
     public void onTrackedDataSet(TrackedData<?> data) {
+        WardenEntity warden = WardenEntity.class.cast(this);
         if (POSE.equals(data)) {
             switch(this.getPose()) {
                 case DYING:
-                    this.getDyingAnimationState().start(this.age);
+                    this.getDyingAnimationState().start(warden.age);
                     break;
                 case EMERGING:
-                    this.emergingAnimationState.start(this.age);
+                    this.emergingAnimationState.start(warden.age);
                     break;
                 case DIGGING:
-                    this.diggingAnimationState.start(this.age);
+                    this.diggingAnimationState.start(warden.age);
                     break;
                 case ROARING:
-                    this.roaringAnimationState.start(this.age);
+                    this.roaringAnimationState.start(warden.age);
                     break;
                 case SNIFFING:
-                    this.sniffingAnimationState.start(this.age);
+                    this.sniffingAnimationState.start(warden.age);
             }
         }
 
