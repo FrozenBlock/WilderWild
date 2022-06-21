@@ -40,6 +40,16 @@ public class FireflyBrain {
         firefly.getBrain().resetPossibleActivities(ImmutableList.of(Activity.IDLE));
     }
 
+    public static BlockPos getHome(FireflyEntity firefly) {
+        Optional<GlobalPos> optional = firefly.getBrain().getOptionalMemory(MemoryModuleType.HOME);
+        return optional.map(GlobalPos::getPos).orElse(null);
+    }
+
+    public static boolean isInHomeDimension(FireflyEntity firefly) {
+        Optional<GlobalPos> optional = firefly.getBrain().getOptionalMemory(MemoryModuleType.HOME);
+        return optional.filter(globalPos -> globalPos.getDimension() == firefly.world.getRegistryKey()).isPresent();
+    }
+
     public static void rememberHome(LivingEntity firefly, BlockPos pos) {
         Brain<?> brain = firefly.getBrain();
         GlobalPos globalPos = GlobalPos.create(firefly.getWorld().getRegistryKey(), pos);

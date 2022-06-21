@@ -59,6 +59,7 @@ public class FireflyEntity extends PathAwareEntity implements Flutterer {
     public boolean natural;
     public boolean hasHome; //TODO: POSSIBLY HAVE DIFFERING "SAFE RANGES" INSTEAD OF BOOLEAN
     public boolean despawning;
+    public int homeCheckCooldown;
 
     public FireflyEntity(EntityType<? extends PathAwareEntity> entityType, World world) {
         super(entityType, world);
@@ -258,6 +259,16 @@ public class FireflyEntity extends PathAwareEntity implements Flutterer {
                 this.discard();
             }
         }
+        if (this.homeCheckCooldown>0) {
+            --this.homeCheckCooldown;
+        } else {
+            this.homeCheckCooldown = 200;
+            if (FireflyBrain.getHome(this)!=null) {
+                if (!this.navigation.isValidPosition(FireflyBrain.getHome(this))) {
+                    FireflyBrain.rememberHome(this, this.getBlockPos());
+                }
+            }
+        }
         //WilderWild.log(this, this.getBrain().getOptionalMemory(MemoryModuleType.HOME).toString(), WilderWild.DEV_LOGGING);
     }
 
@@ -325,6 +336,7 @@ public class FireflyEntity extends PathAwareEntity implements Flutterer {
         nbt.putFloat("scale", this.getScale());
         nbt.putBoolean("despawning", this.despawning);
         nbt.putString("color", this.getColor());
+        nbt.putInt("homeCheckCooldown", this.homeCheckCooldown);
     }
 
     public void readCustomDataFromNbt(NbtCompound nbt) {
@@ -337,6 +349,7 @@ public class FireflyEntity extends PathAwareEntity implements Flutterer {
         this.setScale(nbt.getFloat("scale"));
         this.despawning = nbt.getBoolean("despawning");
         this.setColor(nbt.getString("color"));
+        this.homeCheckCooldown = nbt.getInt("homeCheckCooldown");
     }
 
     protected boolean shouldFollowLeash() {
