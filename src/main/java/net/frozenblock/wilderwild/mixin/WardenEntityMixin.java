@@ -208,29 +208,29 @@ public abstract class WardenEntityMixin extends HostileEntity implements WardenA
         if (!warden.isRemoved() && !warden.dead) {
 
             Entity entity = damageSource.getAttacker();
-            LivingEntity livingEntity = this.getPrimeAdversary();
+            LivingEntity livingEntity = warden.getPrimeAdversary();
             if (this.scoreAmount >= 0 && livingEntity != null) {
-                livingEntity.updateKilledAdvancementCriterion(this, this.scoreAmount, damageSource);
+                livingEntity.updateKilledAdvancementCriterion(warden, this.scoreAmount, damageSource);
             }
 
             if (this.isSleeping()) {
                 this.wakeUp();
             }
 
-            if (!this.world.isClient && this.hasCustomName()) {
-                LogUtils.getLogger().info("Named entity {} died: {}", this, this.getDamageTracker().getDeathMessage().getString());
+            if (!warden.world.isClient && this.hasCustomName()) {
+                LogUtils.getLogger().info("Named entity {} died: {}", warden, warden.getDamageTracker().getDeathMessage().getString());
             }
 
             warden.dead = true;
             this.getDamageTracker().update();
             if (this.world instanceof ServerWorld) {
-                if (entity == null || entity.onKilledOther((ServerWorld)this.world, this)) {
-                    this.emitGameEvent(GameEvent.ENTITY_DIE);
+                if (entity == null || entity.onKilledOther((ServerWorld)warden.world, warden)) {
+                    warden.emitGameEvent(GameEvent.ENTITY_DIE);
                     this.drop(damageSource);
                     this.onKilledBy(livingEntity);
                 }
 
-                this.world.sendEntityStatus(this, EntityStatuses.PLAY_DEATH_SOUND_OR_ADD_PROJECTILE_HIT_PARTICLES);
+                warden.world.sendEntityStatus(warden, EntityStatuses.PLAY_DEATH_SOUND_OR_ADD_PROJECTILE_HIT_PARTICLES);
             }
 
             warden.setPose(EntityPose.DYING);
@@ -251,11 +251,6 @@ public abstract class WardenEntityMixin extends HostileEntity implements WardenA
     @Inject(method = "tick", at = @At("TAIL"))
     private void tick(CallbackInfo ci) {
         WardenEntity warden = WardenEntity.class.cast(this);
-        if (warden.getHealth() <= 0.0F) {
-            //warden.setPose(EntityPose.DYING);
-            //warden.setHealth(999F);
-            //this.deathTime = 0;
-        }
 
         switch (warden.getPose()) {
             case DYING:
