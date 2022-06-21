@@ -107,7 +107,7 @@ public abstract class WardenEntityMixin extends HostileEntity implements WardenA
      */
     @Overwrite
     private boolean isDiggingOrEmerging() {
-        return this.isInPose(EntityPose.DYING) || this.canDieNow || this.isInPose(EntityPose.DIGGING) || this.isInPose(EntityPose.EMERGING);
+        return this.isInPose(EntityPose.DYING) || this.isInPose(EntityPose.DIGGING) || this.isInPose(EntityPose.EMERGING);
     }
 
     @Inject(at = @At("HEAD"), method = "accept", cancellable = true)
@@ -160,21 +160,12 @@ public abstract class WardenEntityMixin extends HostileEntity implements WardenA
     public void onTrackedDataSet(TrackedData<?> data) {
         WardenEntity warden = WardenEntity.class.cast(this);
         if (POSE.equals(data)) {
-            switch(this.getPose()) {
-                case DYING:
-                    this.getDyingAnimationState().start(warden.age);
-                    break;
-                case EMERGING:
-                    this.emergingAnimationState.start(warden.age);
-                    break;
-                case DIGGING:
-                    this.diggingAnimationState.start(warden.age);
-                    break;
-                case ROARING:
-                    this.roaringAnimationState.start(warden.age);
-                    break;
-                case SNIFFING:
-                    this.sniffingAnimationState.start(warden.age);
+            switch (this.getPose()) {
+                case DYING -> this.getDyingAnimationState().start(warden.age);
+                case EMERGING -> this.emergingAnimationState.start(warden.age);
+                case DIGGING -> this.diggingAnimationState.start(warden.age);
+                case ROARING -> this.roaringAnimationState.start(warden.age);
+                case SNIFFING -> this.sniffingAnimationState.start(warden.age);
             }
         }
 

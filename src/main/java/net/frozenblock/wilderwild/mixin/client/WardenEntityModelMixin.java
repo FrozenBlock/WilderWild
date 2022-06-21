@@ -48,6 +48,6 @@ public class WardenEntityModelMixin<T extends WardenEntity> {
 
     @Inject(method = "setAngles(Lnet/minecraft/entity/mob/WardenEntity;FFFFF)V", at = @At("TAIL"))
     private void setAngles(T wardenEntity, float f, float g, float h, float i, float j, CallbackInfo ci) {
-        model.updateAnimation(((WardenAnimationInterface)wardenEntity).dyingAnimationState, CustomWardenAnimations.DYING, h);
+        model.updateAnimation(((WardenAnimationInterface)wardenEntity).getDyingAnimationState(), CustomWardenAnimations.DYING, h);
     }
 }
