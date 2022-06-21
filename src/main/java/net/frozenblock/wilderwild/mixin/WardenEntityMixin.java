@@ -241,18 +241,11 @@ public abstract class WardenEntityMixin extends HostileEntity implements WardenA
 
     protected void updatePostDeath() {
         WardenEntity warden = WardenEntity.class.cast(this);
-        /*++this.deathTime;
-        if (this.deathTime == 100 && !this.world.isClient()) {
-            this.world.sendEntityStatus(this, EntityStatuses.ADD_DEATH_PARTICLES);
-            this.remove(Entity.RemovalReason.KILLED);
-        }
-*/
         ++warden.deathTime;
-        if (warden.deathTime == 20 && !warden.world.isClient()) {
+        if (warden.deathTime == 100 && !warden.world.isClient()) {
             warden.world.sendEntityStatus(warden, EntityStatuses.ADD_DEATH_PARTICLES);
             warden.remove(Entity.RemovalReason.KILLED);
         }
-
     }
 
     @Inject(method = "tick", at = @At("TAIL"))
