@@ -45,7 +45,7 @@ public class SaveableGameEvent {
     public SaveableGameEvent(GameEvent event, Vec3d originPos, GameEvent.Emitter emitter) {
         this.event = Registry.GAME_EVENT.getId(event);
         this.originPos = originPos;
-        if (emitter.sourceEntity()!=null) {
+        if (emitter.sourceEntity() != null) {
             this.uuid = emitter.sourceEntity().getUuid().toString();
         } else {
             this.uuid = "noEntity";
@@ -55,7 +55,7 @@ public class SaveableGameEvent {
     public SaveableGameEvent(GameEvent event, Vec3d originPos, @Nullable Entity entity) {
         this.event = Registry.GAME_EVENT.getId(event);
         this.originPos = originPos;
-        if (entity!=null) {
+        if (entity != null) {
             this.uuid = entity.getUuid().toString();
         } else {
             this.uuid = "noEntity";
@@ -66,7 +66,8 @@ public class SaveableGameEvent {
         Optional<GameEvent> event = Registry.GAME_EVENT.getOrEmpty(this.event);
         if (event.isPresent()) {
             return this.originPos != null;
-        } return false;
+        }
+        return false;
     }
 
     public void emitGameEvent(World world, BlockPos exitPos) {
@@ -103,12 +104,21 @@ public class SaveableGameEvent {
                     return entity;
                 }
             }
-        } return null;
+        }
+        return null;
     }
 
-    public Identifier getEventID() { return this.event; }
-    public Vec3d getOriginPos() { return this.originPos; }
-    public String getUUID() { return this.uuid; }
+    public Identifier getEventID() {
+        return this.event;
+    }
+
+    public Vec3d getOriginPos() {
+        return this.originPos;
+    }
+
+    public String getUUID() {
+        return this.uuid;
+    }
 
     public static SaveableGameEvent readNbt(NbtCompound nbt) {
         Optional<SaveableGameEvent> event = Optional.empty();
@@ -121,7 +131,7 @@ public class SaveableGameEvent {
     }
 
     public static void writeNbt(NbtCompound nbt, @Nullable SaveableGameEvent saveableGameEvent) {
-        if (saveableGameEvent!=null) {
+        if (saveableGameEvent != null) {
             SaveableGameEvent.CODEC
                     .encodeStart(NbtOps.INSTANCE, saveableGameEvent)
                     .resultOrPartial(LOGGER::error)

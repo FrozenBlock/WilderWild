@@ -196,6 +196,7 @@ public class WildPlacedFeatures {
 
     public static final RegistryEntry<PlacedFeature> GLORY_OF_THE_SNOW_PATH = register("glory_of_the_snow_path",
             WildConfiguredFeatures.GLORY_OF_THE_SNOW_PATH, RarityFilterPlacementModifier.of(2), CountPlacementModifier.of(1), PlacedFeatures.WORLD_SURFACE_WG_HEIGHTMAP, SquarePlacementModifier.of(), BiomePlacementModifier.of());
+
     public static RegistryEntry<PlacedFeature> register(
             @NotNull String id, RegistryEntry<? extends ConfiguredFeature<?, ?>> registryEntry, @NotNull List<PlacementModifier> modifiers
     ) {

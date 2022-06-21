@@ -62,7 +62,7 @@ public class WilderTags {
     }
 
     /**
-     * @deprecated  Use entity.isIn(tag) instead
+     * @deprecated Use entity.isIn(tag) instead
      */
     @Deprecated
     public static boolean entityTagContains(EntityType<?> type, TagKey<EntityType<?>> tag) {

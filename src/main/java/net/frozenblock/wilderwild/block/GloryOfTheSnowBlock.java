@@ -43,7 +43,7 @@ public class GloryOfTheSnowBlock extends MultiColorFlowerBlock {
 
     @Override
     public void randomTick(BlockState state, ServerWorld world, BlockPos pos, Random random) {
-        if (random.nextFloat()>0.9F && state.get(COLORS)== FlowerColors.NONE) {
+        if (random.nextFloat() > 0.9F && state.get(COLORS) == FlowerColors.NONE) {
             world.setBlockState(pos, state.with(COLORS, COLOR_LIST.get((int) (Math.random() * COLOR_LIST.size()))));
         }
     }

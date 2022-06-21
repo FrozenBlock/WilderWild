@@ -24,11 +24,11 @@ public class NoisePathUnderWaterFeature extends Feature<PathFeatureConfig> {
         BlockPos blockPos = context.getOrigin();
         StructureWorldAccess world = context.getWorld();
         EasyNoiseSampler.setSeed(world.getSeed());
-        PerlinNoiseSampler sampler = config.noise == 1 ? EasyNoiseSampler.perlinSimple : config.noise == 2 ? EasyNoiseSampler.perlinAtomic :  config.noise == 3 ? EasyNoiseSampler.perlinBlocking : EasyNoiseSampler.perlinXoro;
+        PerlinNoiseSampler sampler = config.noise == 1 ? EasyNoiseSampler.perlinSimple : config.noise == 2 ? EasyNoiseSampler.perlinAtomic : config.noise == 3 ? EasyNoiseSampler.perlinBlocking : EasyNoiseSampler.perlinXoro;
         BlockPos.Mutable mutable = blockPos.mutableCopy();
         int bx = mutable.getX();
         int bz = mutable.getZ();
-        int by = mutable.getY();;
+        int by = mutable.getY();
         int radiusSquared = config.radius * config.radius;
         Random random = world.getRandom();
 

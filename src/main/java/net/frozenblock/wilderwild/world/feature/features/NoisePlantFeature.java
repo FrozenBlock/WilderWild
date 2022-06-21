@@ -25,7 +25,7 @@ public class NoisePlantFeature extends Feature<PathFeatureConfig> {
         int radiusSquared = config.radius * config.radius;
         EasyNoiseSampler.setSeed(world.getSeed());
         Random random = world.getRandom();
-        PerlinNoiseSampler sampler = config.noise == 1 ? EasyNoiseSampler.perlinSimple : config.noise == 2 ? EasyNoiseSampler.perlinAtomic :  config.noise == 3 ? EasyNoiseSampler.perlinBlocking : EasyNoiseSampler.perlinXoro;
+        PerlinNoiseSampler sampler = config.noise == 1 ? EasyNoiseSampler.perlinSimple : config.noise == 2 ? EasyNoiseSampler.perlinAtomic : config.noise == 3 ? EasyNoiseSampler.perlinBlocking : EasyNoiseSampler.perlinXoro;
         int bx = blockPos.getX();
         int bz = blockPos.getZ();
         BlockPos.Mutable mutable = blockPos.mutableCopy();

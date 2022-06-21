@@ -6,7 +6,6 @@ import net.minecraft.client.render.entity.animation.Animation;
 import net.minecraft.client.render.entity.animation.AnimationHelper;
 import net.minecraft.client.render.entity.animation.Keyframe;
 import net.minecraft.client.render.entity.animation.Transformation;
-import net.minecraft.entity.AnimationState;
 
 /**
  * put custom warden animations in here. for example, death, flying, swimming. not for overrides

@@ -19,7 +19,6 @@ import net.minecraft.server.world.ServerWorld;
 import net.minecraft.state.property.Properties;
 import net.minecraft.tag.TagKey;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Box;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
@@ -29,9 +28,6 @@ import net.minecraft.world.event.listener.GameEventListener;
 import net.minecraft.world.event.listener.VibrationListener;
 import org.jetbrains.annotations.Nullable;
 import org.slf4j.Logger;
-
-import java.util.List;
-import java.util.Objects;
 
 public class SculkEchoerBlockEntity extends BlockEntity implements VibrationListener.Callback {
     private static final Logger LOGGER = LogUtils.getLogger();
@@ -149,7 +145,7 @@ public class SculkEchoerBlockEntity extends BlockEntity implements VibrationList
         if (SculkEchoerBlock.isInactive(blockState)) {
             this.lastVibrationFrequency = SculkEchoerBlock.FREQUENCIES.getInt(event);
             SculkEchoerBlock.setActive(entity, world, this.pos, blockState, getBubbles(distance, listener.getRange()));
-            this.savedEvent = new SaveableGameEvent(event, Vec3d.ofCenter(pos), sourceEntity!=null ? sourceEntity : entity);
+            this.savedEvent = new SaveableGameEvent(event, Vec3d.ofCenter(pos), sourceEntity != null ? sourceEntity : entity);
         }
     }
 

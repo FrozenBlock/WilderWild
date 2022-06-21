@@ -34,21 +34,29 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(WardenEntity.class)
 public abstract class WardenEntityMixin extends HostileEntity implements WardenAnimationInterface {
-    @Shadow protected abstract SoundEvent getDeathSound();
+    @Shadow
+    protected abstract SoundEvent getDeathSound();
 
-    @Shadow protected abstract float getSoundVolume();
+    @Shadow
+    protected abstract float getSoundVolume();
 
-    @Shadow public abstract Brain<WardenEntity> getBrain();
+    @Shadow
+    public abstract Brain<WardenEntity> getBrain();
 
-    @Shadow public AnimationState emergingAnimationState;
+    @Shadow
+    public AnimationState emergingAnimationState;
 
-    @Shadow public AnimationState diggingAnimationState;
+    @Shadow
+    public AnimationState diggingAnimationState;
 
-    @Shadow public AnimationState roaringAnimationState;
+    @Shadow
+    public AnimationState roaringAnimationState;
 
-    @Shadow public AnimationState sniffingAnimationState;
+    @Shadow
+    public AnimationState sniffingAnimationState;
 
-    @Shadow protected abstract void addDigParticles(AnimationState animationState);
+    @Shadow
+    protected abstract void addDigParticles(AnimationState animationState);
 
     protected WardenEntityMixin(EntityType<? extends HostileEntity> entityType, World world) {
         super(entityType, world);
@@ -213,7 +221,7 @@ public abstract class WardenEntityMixin extends HostileEntity implements WardenA
             warden.setHealth(999F);
             warden.setPose(EntityPose.DYING);
             warden.emitGameEvent(GameEvent.ENTITY_DIE);
-            this.deathTicks=0;
+            this.deathTicks = 0;
             this.isDead = true;
             warden.dead = false;
             warden.getBrain().clear();
@@ -233,7 +241,7 @@ public abstract class WardenEntityMixin extends HostileEntity implements WardenA
             this.tickDeath();
         }
 
-        switch(this.getPose()) {
+        switch (this.getPose()) {
             case DYING:
                 this.addDigParticles(this.getDyingAnimationState());
                 break;

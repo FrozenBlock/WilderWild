@@ -2,8 +2,8 @@ package net.frozenblock.wilderwild.mixin.client;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.frozenblock.wilderwild.entity.render.animations.WardenAnimationInterface;
 import net.frozenblock.wilderwild.entity.render.animations.CustomWardenAnimations;
+import net.frozenblock.wilderwild.entity.render.animations.WardenAnimationInterface;
 import net.minecraft.client.model.ModelPart;
 import net.minecraft.client.render.entity.model.WardenEntityModel;
 import net.minecraft.entity.mob.WardenEntity;
@@ -24,7 +24,7 @@ public class WardenEntityModelMixin<T extends WardenEntity> {
     @Shadow
     protected ModelPart leftTendril;
 
-    private WardenEntityModel<T> model = WardenEntityModel.class.cast(this);
+    private final WardenEntityModel<T> model = WardenEntityModel.class.cast(this);
 
     @Inject(at = @At("HEAD"), method = "setTendrilPitches", cancellable = true)
     private void setTendrilPitches(T warden, float animationProgress, float tickDelta, CallbackInfo info) {
@@ -47,6 +47,6 @@ public class WardenEntityModelMixin<T extends WardenEntity> {
 
     @Inject(method = "setAngles(Lnet/minecraft/entity/mob/WardenEntity;FFFFF)V", at = @At("TAIL"))
     private void setAngles(T wardenEntity, float f, float g, float h, float i, float j, CallbackInfo ci) {
-        model.updateAnimation(((WardenAnimationInterface)wardenEntity).getDyingAnimationState(), CustomWardenAnimations.DYING, h);
+        model.updateAnimation(((WardenAnimationInterface) wardenEntity).getDyingAnimationState(), CustomWardenAnimations.DYING, h);
     }
 }
