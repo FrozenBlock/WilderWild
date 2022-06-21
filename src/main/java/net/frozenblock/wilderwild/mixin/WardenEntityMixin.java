@@ -181,10 +181,14 @@ public abstract class WardenEntityMixin extends HostileEntity implements WardenA
 
     private void tickDeath() {
         WardenEntity warden = WardenEntity.class.cast(this);
+        this.setPose(EntityPose.DYING);
         ++this.timeToDie;
         if (this.timeToDie == 100 && !warden.world.isClient()) {
             warden.remove(RemovalReason.KILLED);
         }
+        warden.getBrain().clear();
+        warden.clearGoalsAndTasks();
+        warden.setAiDisabled(true);
     }
 
     private boolean isDead = false;
