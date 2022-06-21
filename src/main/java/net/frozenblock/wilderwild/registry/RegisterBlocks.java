@@ -73,6 +73,7 @@ public abstract class RegisterBlocks {
     public static final Block HANGING_TENDRIL = new HangingTendrilBlock(FabricBlockSettings.copyOf(Blocks.SCULK_SENSOR).strength(0.7F).collidable(false).luminance((state) -> 1)
             .sounds(RegisterBlockSoundGroups.HANGING_TENDRIL).emissiveLighting((state, world, pos) -> HangingTendrilBlock.shouldHavePogLighting(state)), 4);
     public static final Block ECHO_GLASS = new EchoGlassBlock(FabricBlockSettings.of(Material.GLASS, MapColor.CYAN).strength(0.3F).nonOpaque().sounds(RegisterBlockSoundGroups.ECHO_GLASS));
+    public static final Block SCULK_STAIRS = new StairsBlock(Blocks.SCULK.getDefaultState(), FabricBlockSettings.copy(Blocks.SCULK));
 
     public static void registerDeepDark() {
         registerBlock("sculk_echoer", SCULK_ECHOER, ItemGroup.DECORATIONS);
@@ -80,6 +81,7 @@ public abstract class RegisterBlocks {
         registerBlock("osseous_sculk", OSSEOUS_SCULK, ItemGroup.DECORATIONS);
         registerBlock("hanging_tendril", HANGING_TENDRIL, ItemGroup.DECORATIONS);
         registerBlock("echo_glass", ECHO_GLASS, ItemGroup.DECORATIONS);
+        registerBlock("sculk_stairs", SCULK_STAIRS, ItemGroup.DECORATIONS);
     }
 
     public static final Block TERMITE_MOUND = new TermiteMound(FabricBlockSettings.of(Material.WOOD, MapColor.BROWN).strength(0.3F).sounds(RegisterBlockSoundGroups.COARSEDIRT));
