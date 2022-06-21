@@ -6,8 +6,6 @@ import net.minecraft.block.Blocks;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.brain.Brain;
 import net.minecraft.entity.ai.brain.MemoryModuleType;
-import net.minecraft.entity.ai.brain.task.EmergeTask;
-import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.mob.Angriness;
 import net.minecraft.entity.mob.HostileEntity;
@@ -42,8 +40,20 @@ public abstract class WardenEntityMixin extends HostileEntity implements WardenA
 
     @Shadow public abstract Brain<WardenEntity> getBrain();
 
+    @Shadow public AnimationState emergingAnimationState;
+
+    @Shadow public AnimationState diggingAnimationState;
+
+    @Shadow public AnimationState roaringAnimationState;
+
+    @Shadow public AnimationState sniffingAnimationState;
+
     protected WardenEntityMixin(EntityType<? extends HostileEntity> entityType, World world) {
         super(entityType, world);
+    }
+
+    public AnimationState getDyingAnimationState() {
+        return this.dyingAnimationState;
     }
 
     /*@Inject(at = @At("HEAD"), method = "isValidTarget", cancellable = true)
@@ -142,16 +152,32 @@ public abstract class WardenEntityMixin extends HostileEntity implements WardenA
         info.cancel();
     }
 
-    @Inject(method = "onTrackedDataSet", at = @At("HEAD"))
-    private void onTrackedDataSet(TrackedData<?> data, CallbackInfo ci) {
-        WardenEntity warden = WardenEntity.class.cast(this);
+    /**
+     * @author FrozenBlock
+     * @reason HELP
+     */
+    @Overwrite
+    public void onTrackedDataSet(TrackedData<?> data) {
         if (POSE.equals(data)) {
-            if (warden.getPose() == EntityPose.DYING || this.canDieNow) {
-                this.dyingAnimationState.start(warden.age);
-            } else {
-                this.dyingAnimationState.stop();
+            switch(this.getPose()) {
+                case DYING:
+                    this.getDyingAnimationState().start(this.age);
+                    break;
+                case EMERGING:
+                    this.emergingAnimationState.start(this.age);
+                    break;
+                case DIGGING:
+                    this.diggingAnimationState.start(this.age);
+                    break;
+                case ROARING:
+                    this.roaringAnimationState.start(this.age);
+                    break;
+                case SNIFFING:
+                    this.sniffingAnimationState.start(this.age);
             }
         }
+
+        super.onTrackedDataSet(data);
     }
 
     private int timeToDie = 0;
