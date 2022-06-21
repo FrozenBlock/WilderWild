@@ -30,7 +30,7 @@ public class RegisterItems {
     public static final Item CYPRESS_SIGN = new SignItem(new FabricItemSettings().group(ItemGroup.DECORATIONS).maxCount(16),
             RegisterBlocks.CYPRESS_SIGN_BLOCK, RegisterBlocks.CYPRESS_WALL_SIGN);
 
-    public static final Item FIREFLY_BOTTLE = new FireflyBottleItem(new FabricItemSettings().group(ItemGroup.MISC).maxCount(32), "null");
+    public static final Item FIREFLY_BOTTLE = new FireflyBottleItem(new FabricItemSettings().group(ItemGroup.MISC).maxCount(32), "on");
 
     public static final Item BLACK_FIREFLY_BOTTLE = new FireflyBottleItem(new FabricItemSettings().group(ItemGroup.MISC).maxCount(32), "black");
     public static final Item RED_FIREFLY_BOTTLE = new FireflyBottleItem(new FabricItemSettings().group(ItemGroup.MISC).maxCount(32), "red");
@@ -48,6 +48,12 @@ public class RegisterItems {
     public static final Item MAGENTA_FIREFLY_BOTTLE = new FireflyBottleItem(new FabricItemSettings().group(ItemGroup.MISC).maxCount(32), "magenta");
     public static final Item ORANGE_FIREFLY_BOTTLE = new FireflyBottleItem(new FabricItemSettings().group(ItemGroup.MISC).maxCount(32), "orange");
     public static final Item WHITE_FIREFLY_BOTTLE = new FireflyBottleItem(new FabricItemSettings().group(ItemGroup.MISC).maxCount(32), "white");
+
+    public static final Item POLLEN = new BlockItem(RegisterBlocks.POLLEN_BLOCK, new FabricItemSettings().group(ItemGroup.DECORATIONS));
+    public static final Item BLUE_GLORY_OF_THE_SNOW = new BlockItem(RegisterBlocks.BLUE_GLORY_OF_THE_SNOW, new FabricItemSettings().group(ItemGroup.DECORATIONS));
+    public static final Item WHITE_GLORY_OF_THE_SNOW = new BlockItem(RegisterBlocks.WHITE_GLORY_OF_THE_SNOW, new FabricItemSettings().group(ItemGroup.DECORATIONS));
+    public static final Item PINK_GLORY_OF_THE_SNOW = new BlockItem(RegisterBlocks.PINK_GLORY_OF_THE_SNOW, new FabricItemSettings().group(ItemGroup.DECORATIONS));
+    public static final Item PURPLE_GLORY_OF_THE_SNOW = new BlockItem(RegisterBlocks.PURPLE_GLORY_OF_THE_SNOW, new FabricItemSettings().group(ItemGroup.DECORATIONS));
 
 
     public static void registerItems() {
@@ -85,5 +91,11 @@ public class RegisterItems {
         Registry.register(Registry.ITEM, new Identifier(WilderWild.MOD_ID, "light_blue_firefly_bottle"), LIGHT_BLUE_FIREFLY_BOTTLE);
         Registry.register(Registry.ITEM, new Identifier(WilderWild.MOD_ID, "orange_firefly_bottle"), ORANGE_FIREFLY_BOTTLE);
         Registry.register(Registry.ITEM, new Identifier(WilderWild.MOD_ID, "white_firefly_bottle"), WHITE_FIREFLY_BOTTLE);
+
+        Registry.register(Registry.ITEM, new Identifier(WilderWild.MOD_ID, "pollen"), POLLEN);
+        Registry.register(Registry.ITEM, new Identifier(WilderWild.MOD_ID, "blue_giant_glory_of_the_snow"), BLUE_GLORY_OF_THE_SNOW);
+        Registry.register(Registry.ITEM, new Identifier(WilderWild.MOD_ID, "pink_giant_glory_of_the_snow"), PINK_GLORY_OF_THE_SNOW);
+        Registry.register(Registry.ITEM, new Identifier(WilderWild.MOD_ID, "violet_beauty_glory_of_the_snow"), PURPLE_GLORY_OF_THE_SNOW);
+        Registry.register(Registry.ITEM, new Identifier(WilderWild.MOD_ID, "alba_glory_of_the_snow"), WHITE_GLORY_OF_THE_SNOW);
     }
 }

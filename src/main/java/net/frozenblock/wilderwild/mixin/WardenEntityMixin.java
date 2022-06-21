@@ -1,31 +1,80 @@
 package net.frozenblock.wilderwild.mixin;
 
+import com.mojang.logging.LogUtils;
+import net.frozenblock.wilderwild.entity.render.animations.WardenAnimationInterface;
 import net.frozenblock.wilderwild.registry.RegisterProperties;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.*;
+import net.minecraft.entity.ai.brain.Brain;
 import net.minecraft.entity.ai.brain.MemoryModuleType;
+import net.minecraft.entity.damage.DamageSource;
+import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.mob.Angriness;
+import net.minecraft.entity.mob.HostileEntity;
 import net.minecraft.entity.mob.WardenBrain;
 import net.minecraft.entity.mob.WardenEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.server.world.ServerWorld;
+import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.Unit;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.LocalDifficulty;
 import net.minecraft.world.ServerWorldAccess;
+import net.minecraft.world.World;
 import net.minecraft.world.event.GameEvent;
 import net.minecraft.world.event.listener.GameEventListener;
 import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Overwrite;
+import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(WardenEntity.class)
-public class WardenEntityMixin {
+public abstract class WardenEntityMixin extends HostileEntity implements WardenAnimationInterface {
+    @Shadow
+    protected abstract SoundEvent getDeathSound();
+
+    @Shadow
+    protected abstract float getSoundVolume();
+
+    @Shadow
+    public abstract Brain<WardenEntity> getBrain();
+
+    @Shadow
+    public AnimationState emergingAnimationState;
+
+    @Shadow
+    public AnimationState diggingAnimationState;
+
+    @Shadow
+    public AnimationState roaringAnimationState;
+
+    @Shadow
+    public AnimationState sniffingAnimationState;
+
+    @Shadow
+    protected abstract void addDigParticles(AnimationState animationState);
+
+    @Shadow public AnimationState chargingSonicBoomAnimationState;
+
+    @Shadow public AnimationState attackingAnimationState;
+
+    @Shadow private int tendrilPitch;
+
+    protected WardenEntityMixin(EntityType<? extends HostileEntity> entityType, World world) {
+        super(entityType, world);
+    }
+
+    public AnimationState dyingAnimationState = new AnimationState();
+
+    public AnimationState getDyingAnimationState() {
+        return this.dyingAnimationState;
+    }
 
     /*@Inject(at = @At("HEAD"), method = "isValidTarget", cancellable = true)
     public void isValidTarget(@Nullable Entity entity, CallbackInfoReturnable<Boolean> info) {
@@ -72,6 +121,15 @@ public class WardenEntityMixin {
         }
     }
 
+    /**
+     * @author FrozenBlock
+     * @reason we need it to stop doing stuff when it dies lol
+     */
+    @Overwrite
+    private boolean isDiggingOrEmerging() {
+        return /*this.isInPose(EntityPose.DYING) || */this.isInPose(EntityPose.DIGGING) || this.isInPose(EntityPose.EMERGING);
+    }
+
     @Inject(at = @At("HEAD"), method = "accept", cancellable = true)
     public void accept(ServerWorld world, GameEventListener listener, BlockPos pos, GameEvent event, @Nullable Entity entity, @Nullable Entity sourceEntity, float f, CallbackInfo info) {
         WardenEntity warden = WardenEntity.class.cast(this);
@@ -112,5 +170,101 @@ public class WardenEntityMixin {
             WardenBrain.lookAtDisturbance(warden, blockPos);
         }
         info.cancel();
+    }
+
+    /**
+     * @author FrozenBlock
+     * @reason HELP
+     */
+    @Overwrite
+    public void onTrackedDataSet(TrackedData<?> data) {
+        WardenEntity warden = WardenEntity.class.cast(this);
+        if (POSE.equals(data)) {
+            switch (this.getPose()) {
+                case DYING -> this.getDyingAnimationState().start(warden.age);
+                case EMERGING -> this.emergingAnimationState.start(warden.age);
+                case DIGGING -> this.diggingAnimationState.start(warden.age);
+                case ROARING -> this.roaringAnimationState.start(warden.age);
+                case SNIFFING -> this.sniffingAnimationState.start(warden.age);
+            }
+        }
+
+        super.onTrackedDataSet(data);
+    }
+
+    @Override
+    public boolean isDead() {
+        return this.deathTime >= 100;
+    }
+
+    @Override
+    public boolean isAlive() {
+        return super.isAlive();//this.deathTime < 100 && !this.isRemoved();
+    }
+
+    @Override
+    public void onDeath(DamageSource damageSource) {
+        WardenEntity warden = WardenEntity.class.cast(this);
+        if (!warden.isRemoved() && !warden.dead) {
+
+            Entity entity = damageSource.getAttacker();
+            LivingEntity livingEntity = warden.getPrimeAdversary();
+            if (this.scoreAmount >= 0 && livingEntity != null) {
+                livingEntity.updateKilledAdvancementCriterion(warden, this.scoreAmount, damageSource);
+            }
+
+            if (this.isSleeping()) {
+                this.wakeUp();
+            }
+
+            if (!warden.world.isClient && this.hasCustomName()) {
+                LogUtils.getLogger().info("Named entity {} died: {}", warden, warden.getDamageTracker().getDeathMessage().getString());
+            }
+
+            warden.dead = true;
+            this.getDamageTracker().update();
+            if (this.world instanceof ServerWorld) {
+                if (entity == null || entity.onKilledOther((ServerWorld)warden.world, warden)) {
+                    warden.emitGameEvent(GameEvent.ENTITY_DIE);
+                    this.drop(damageSource);
+                    this.onKilledBy(livingEntity);
+                }
+
+                warden.world.sendEntityStatus(warden, EntityStatuses.PLAY_DEATH_SOUND_OR_ADD_PROJECTILE_HIT_PARTICLES);
+            }
+            warden.setHealth(1.0F);
+            warden.setInvulnerable(true);
+            warden.setPose(EntityPose.DYING);
+            /*warden.getBrain().clear();
+            warden.clearGoalsAndTasks();
+            warden.setAiDisabled(true);
+            */
+        }
+    }
+
+
+
+    protected void updatePostDeath() {
+        WardenEntity warden = WardenEntity.class.cast(this);
+        ++warden.deathTime;
+        if (warden.deathTime == 100 && !warden.world.isClient()) {
+            warden.world.sendEntityStatus(warden, EntityStatuses.ADD_DEATH_PARTICLES);
+            warden.remove(Entity.RemovalReason.KILLED);
+        }
+    }
+
+    @Inject(method = "tick", at = @At("TAIL"))
+    private void tick(CallbackInfo ci) {
+        WardenEntity warden = WardenEntity.class.cast(this);
+
+        if (this.dead) {
+            this.updatePostDeath();
+        }
+
+        switch (warden.getPose()) {
+            case DYING:
+                this.addDigParticles(this.getDyingAnimationState());
+                break;
+        }
     }
 }

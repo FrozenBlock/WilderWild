@@ -33,7 +33,10 @@
 	"worldgen.VanillaSurfaceRulesMixin"
   ],
   "client": [
-	"WardenEntityModelMixin"
+	"client.OsmioooWardenRenderer",
+	"client.ModifiedWardenAnimations",
+	"client.WardenEntityModelMixin",
+	"client.XfrtrexSusFrogRenderer"
   ],
   "injectors": {
 	"defaultRequire": 1

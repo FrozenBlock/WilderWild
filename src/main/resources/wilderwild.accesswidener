@@ -13,3 +13,6 @@ accessible    method    net/minecraft/structure/StructurePiece    fillWithOutlin
 accessible    method    net/minecraft/structure/StructurePiece    addBlock    (Lnet/minecraft/world/StructureWorldAccess;Lnet/minecraft/block/BlockState;IIILnet/minecraft/util/math/BlockBox;)V
 accessible    method    net/minecraft/structure/StructurePiece    fillDownwards    (Lnet/minecraft/world/StructureWorldAccess;Lnet/minecraft/block/BlockState;IIILnet/minecraft/util/math/BlockBox;)V
 accessible    method    net/minecraft/structure/StructurePiece    offsetPos    (III)Lnet/minecraft/util/math/BlockPos$Mutable;
+accessible    field    net/minecraft/entity/Entity    POSE    Lnet/minecraft/entity/data/TrackedData;
+accessible    method    net/minecraft/client/render/entity/model/SinglePartEntityModel    updateAnimation    (Lnet/minecraft/entity/AnimationState;Lnet/minecraft/client/render/entity/animation/Animation;F)V
+accessible    field    net/minecraft/entity/LivingEntity    dead    Z

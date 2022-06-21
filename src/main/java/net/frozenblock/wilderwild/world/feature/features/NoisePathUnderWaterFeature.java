@@ -4,15 +4,13 @@ import com.mojang.serialization.Codec;
 import net.frozenblock.api.mathematics.EasyNoiseSampler;
 import net.frozenblock.wilderwild.world.feature.features.config.PathFeatureConfig;
 import net.minecraft.block.Blocks;
-import net.minecraft.block.PlantBlock;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.noise.PerlinNoiseSampler;
-import net.minecraft.world.Heightmap.Type;
+import net.minecraft.util.math.random.Random;
 import net.minecraft.world.StructureWorldAccess;
 import net.minecraft.world.gen.feature.Feature;
 import net.minecraft.world.gen.feature.util.FeatureContext;
 
-import java.util.ArrayList;
 import java.util.Iterator;
 
 public class NoisePathUnderWaterFeature extends Feature<PathFeatureConfig> {
@@ -26,12 +24,13 @@ public class NoisePathUnderWaterFeature extends Feature<PathFeatureConfig> {
         BlockPos blockPos = context.getOrigin();
         StructureWorldAccess world = context.getWorld();
         EasyNoiseSampler.setSeed(world.getSeed());
-        PerlinNoiseSampler sampler = config.noise == 1 ? EasyNoiseSampler.perlinSimple : config.noise == 2 ? EasyNoiseSampler.perlinAtomic :  config.noise == 3 ? EasyNoiseSampler.perlinBlocking : EasyNoiseSampler.perlinXoro;
+        PerlinNoiseSampler sampler = config.noise == 1 ? EasyNoiseSampler.perlinSimple : config.noise == 2 ? EasyNoiseSampler.perlinAtomic : config.noise == 3 ? EasyNoiseSampler.perlinBlocking : EasyNoiseSampler.perlinXoro;
         BlockPos.Mutable mutable = blockPos.mutableCopy();
         int bx = mutable.getX();
         int bz = mutable.getZ();
-        int by = mutable.getY();;
+        int by = mutable.getY();
         int radiusSquared = config.radius * config.radius;
+        Random random = world.getRandom();
 
         for (int x = bx - config.radius; x <= bx + config.radius; x++) {
             for (int z = bz - config.radius; z <= bz + config.radius; z++) {
@@ -43,7 +42,7 @@ public class NoisePathUnderWaterFeature extends Feature<PathFeatureConfig> {
                         //double sample2 = EasyNoiseSampler.samplePerlinSimplePositive(mutable, config.multiplier, config.multiplyY, config.useY);
                         if (sample1 > config.minThresh && sample1 < config.maxThresh && world.getBlockState(mutable).isIn(config.replaceable) && isWaterNearby(world, mutable, 2)) {
                             generated = true;
-                            world.setBlockState(mutable, config.pathBlock.getDefaultState(), 3);
+                            world.setBlockState(mutable, config.pathBlock.getBlockState(random, mutable), 3);
                         }
                     }
                 }

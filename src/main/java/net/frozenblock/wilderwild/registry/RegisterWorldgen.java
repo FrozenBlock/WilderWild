@@ -3,18 +3,13 @@ package net.frozenblock.wilderwild.registry;
 import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.world.feature.WildMiscPlaced;
 import net.minecraft.client.sound.MusicType;
-import net.minecraft.client.sound.Sound;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.SpawnGroup;
 import net.minecraft.sound.BiomeMoodSound;
 import net.minecraft.sound.MusicSound;
-import net.minecraft.sound.SoundEvent;
-import net.minecraft.sound.SoundEvents;
-import net.minecraft.structure.processor.StructureProcessorList;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.BuiltinRegistries;
 import net.minecraft.util.registry.Registry;
-import net.minecraft.util.registry.RegistryEntry;
 import net.minecraft.util.registry.RegistryKey;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.BiomeEffects;
@@ -22,9 +17,9 @@ import net.minecraft.world.biome.GenerationSettings;
 import net.minecraft.world.biome.SpawnSettings;
 import net.minecraft.world.gen.GenerationStep;
 import net.minecraft.world.gen.feature.DefaultBiomeFeatures;
-import net.minecraft.world.gen.feature.MiscPlacedFeatures;
 
 import static net.minecraft.world.biome.OverworldBiomeCreator.createJungle;
+import static net.minecraft.world.biome.OverworldBiomeCreator.createSwamp;
 
 public class RegisterWorldgen {
     public static final RegistryKey<Biome> MIXED_FOREST = register("mixed_forest");
@@ -44,9 +39,9 @@ public class RegisterWorldgen {
         SpawnSettings.Builder builder = new SpawnSettings.Builder();
         DefaultBiomeFeatures.addBatsAndMonsters(builder);
         DefaultBiomeFeatures.addPlainsMobs(builder);
+        builder.spawn(SpawnGroup.CREATURE, new SpawnSettings.SpawnEntry(EntityType.WOLF, 5, 4, 4));
         GenerationSettings.Builder builder2 = new GenerationSettings.Builder();
         addBasicFeatures(builder2);
-        DefaultBiomeFeatures.addDefaultOres(builder2);
         DefaultBiomeFeatures.addDefaultDisks(builder2);
         MusicSound musicSound = MusicType.createIngameMusic(RegisterSounds.MUSIC_OVERWORLD_WILD_FORESTS);
         return new Biome.Builder()
@@ -75,7 +70,7 @@ public class RegisterWorldgen {
         GenerationSettings.Builder builder2 = new GenerationSettings.Builder();
         addBasicFeatures(builder2);
         addCypressPaths(builder2);
-        DefaultBiomeFeatures.addDefaultOres(builder2);
+        //addCypressVegetation(builder2);
         MusicSound musicSound = MusicType.createIngameMusic(RegisterSounds.MUSIC_OVERWORLD_WILD_FORESTS);
         return new Biome.Builder()
                 .precipitation(Biome.Precipitation.RAIN)
@@ -86,7 +81,7 @@ public class RegisterWorldgen {
                                 .waterColor(4552818)
                                 .waterFogColor(4552818)
                                 .fogColor(12638463)
-                                .skyColor(createJungle().getSkyColor())
+                                .skyColor(createSwamp().getSkyColor())
                                 .foliageColor(5877296)
                                 .grassColor(7979098)
                                 .moodSound(BiomeMoodSound.CAVE)
@@ -95,11 +90,15 @@ public class RegisterWorldgen {
                 .generationSettings(builder2.build())
                 .build();
     }
+
     public static void addCypressPaths(GenerationSettings.Builder builder) {
         builder.feature(GenerationStep.Feature.UNDERGROUND_ORES, WildMiscPlaced.UNDER_WATER_SAND_PATH);
         builder.feature(GenerationStep.Feature.UNDERGROUND_ORES, WildMiscPlaced.UNDER_WATER_GRAVEL_PATH);
         builder.feature(GenerationStep.Feature.UNDERGROUND_ORES, WildMiscPlaced.UNDER_WATER_CLAY_PATH);
     }
+    //public static void addCypressVegetation(GenerationSettings.Builder builder) {
+    // builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, VegetationPlacedFeatures.PATCH_SUGAR_CANE_SWAMP);
+    // builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, VegetationPlacedFeatures.PATCH_PUMPKIN);}
 
     private static void addBasicFeatures(GenerationSettings.Builder generationSettings) {
         DefaultBiomeFeatures.addLandCarvers(generationSettings);
@@ -108,6 +107,7 @@ public class RegisterWorldgen {
         DefaultBiomeFeatures.addMineables(generationSettings);
         DefaultBiomeFeatures.addSprings(generationSettings);
         DefaultBiomeFeatures.addFrozenTopLayer(generationSettings);
+        DefaultBiomeFeatures.addDefaultOres(generationSettings);
     }
 
     private static void addCypressWetlandsMobs(SpawnSettings.Builder builder) {
