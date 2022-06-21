@@ -2,10 +2,9 @@ package net.frozenblock.wilderwild.mixin.client;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.frozenblock.wilderwild.entity.render.WardenAnimationInterface;
+import net.frozenblock.wilderwild.entity.render.animations.WardenAnimationInterface;
 import net.frozenblock.wilderwild.entity.render.animations.CustomWardenAnimations;
 import net.minecraft.client.model.ModelPart;
-import net.minecraft.client.render.entity.animation.WardenAnimations;
 import net.minecraft.client.render.entity.model.WardenEntityModel;
 import net.minecraft.entity.mob.WardenEntity;
 import org.spongepowered.asm.mixin.Final;

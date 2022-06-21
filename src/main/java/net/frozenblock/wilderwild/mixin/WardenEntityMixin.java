@@ -1,6 +1,6 @@
 package net.frozenblock.wilderwild.mixin;
 
-import net.frozenblock.wilderwild.entity.render.WardenAnimationInterface;
+import net.frozenblock.wilderwild.entity.render.animations.WardenAnimationInterface;
 import net.frozenblock.wilderwild.registry.RegisterProperties;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.*;
@@ -23,7 +23,6 @@ import net.minecraft.world.ServerWorldAccess;
 import net.minecraft.world.World;
 import net.minecraft.world.event.GameEvent;
 import net.minecraft.world.event.listener.GameEventListener;
-import net.minecraft.world.gen.foliage.FoliagePlacerType;
 import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Overwrite;

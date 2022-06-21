@@ -1,4 +1,4 @@
-package net.frozenblock.wilderwild.entity.render;
+package net.frozenblock.wilderwild.entity.render.animations;
 
 import net.minecraft.entity.AnimationState;
 
