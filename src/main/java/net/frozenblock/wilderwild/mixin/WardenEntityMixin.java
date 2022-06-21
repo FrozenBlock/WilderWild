@@ -52,6 +52,11 @@ public abstract class WardenEntityMixin extends HostileEntity implements WardenA
         super(entityType, world);
     }
 
+    @Inject(method = "<init>", at = @At("TAIL"))
+    private void WardenEntity(EntityType<? extends HostileEntity> entityType, World world, CallbackInfo ci) {
+        this.isDead = false;
+    }
+
     public AnimationState getDyingAnimationState() {
         return this.dyingAnimationState;
     }
@@ -174,29 +179,32 @@ public abstract class WardenEntityMixin extends HostileEntity implements WardenA
 
     private int timeToDie = 0;
 
-    private void wardenDie() {
+    private void tickDeath() {
         WardenEntity warden = WardenEntity.class.cast(this);
         ++this.timeToDie;
         if (this.timeToDie == 100 && !warden.world.isClient()) {
-            warden.remove(RemovalReason.DISCARDED);
+            warden.remove(RemovalReason.KILLED);
         }
     }
 
-    private boolean canDieNow=false;
+    private boolean isDead = false;
 
     @Inject(method = "tick", at = @At("TAIL"))
     private void tick(CallbackInfo ci) {
+        WardenEntity warden = WardenEntity.class.cast(this);
         if (this.getHealth() <= 0.0F) {
             this.setHealth(1.0F);
-            this.dead=false;
-            this.deathTime=0;
-            this.setPose(EntityPose.DYING);
+            warden.setPose(EntityPose.DYING);
+            this.dead=true;
+            this.setAiDisabled(true);
             this.emitGameEvent(GameEvent.ENTITY_DIE);
-            this.canDieNow=true;
+            this.dead=false;
+            this.timeToDie=0;
+            this.isDead = true;
         }
 
-        if (this.canDieNow) {
-            this.wardenDie();
+        if (this.isDead) {
+            this.tickDeath();
         }
     }
 }
