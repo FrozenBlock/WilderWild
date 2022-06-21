@@ -186,13 +186,11 @@ public abstract class WardenEntityMixin extends HostileEntity implements WardenA
         super.onTrackedDataSet(data);
     }
 
-    private boolean isDeadOther = false;
-
     private int deathTicks = 0;
 
     @Override
     public boolean isDead() {
-        return super.isDead();//this.deathTicks > 0;
+        return super.isDead();
     }
 
     @Override
@@ -230,6 +228,8 @@ public abstract class WardenEntityMixin extends HostileEntity implements WardenA
 
                 warden.world.sendEntityStatus(warden, EntityStatuses.PLAY_DEATH_SOUND_OR_ADD_PROJECTILE_HIT_PARTICLES);
             }
+
+            warden.setPose(EntityPose.DYING);
         }
     }
 
@@ -250,20 +250,6 @@ public abstract class WardenEntityMixin extends HostileEntity implements WardenA
     @Inject(method = "tick", at = @At("TAIL"))
     private void tick(CallbackInfo ci) {
         WardenEntity warden = WardenEntity.class.cast(this);
-
-        if (warden.getHealth()<=0.0F) {
-            //warden.setHealth(1.0F);
-            warden.setInvulnerable(true);
-            warden.setPose(EntityPose.DYING);
-            /*warden.getBrain().clear();
-            warden.clearGoalsAndTasks();
-            warden.setAiDisabled(true);
-            */this.isDeadOther = true;
-        }
-
-        if (this.isDeadOther && !this.isDead()) {
-            this.updatePostDeath();
-        }
 
         switch (warden.getPose()) {
             case DYING:
