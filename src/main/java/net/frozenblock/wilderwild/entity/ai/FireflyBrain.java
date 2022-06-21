@@ -50,10 +50,21 @@ public class FireflyBrain {
         return optional.filter(globalPos -> globalPos.getDimension() == firefly.world.getRegistryKey()).isPresent();
     }
 
+    public static void rememberHidingPlace(LivingEntity firefly, BlockPos pos) {
+        Brain<?> brain = firefly.getBrain();
+        GlobalPos globalPos = GlobalPos.create(firefly.getWorld().getRegistryKey(), pos);
+        brain.remember(MemoryModuleType.HIDING_PLACE, globalPos);
+    }
+
     public static void rememberHome(LivingEntity firefly, BlockPos pos) {
         Brain<?> brain = firefly.getBrain();
         GlobalPos globalPos = GlobalPos.create(firefly.getWorld().getRegistryKey(), pos);
         brain.remember(MemoryModuleType.HOME, globalPos);
+    }
+
+    private static boolean shouldGoHiding(LivingEntity firefly, GlobalPos pos) {
+        World world = firefly.getWorld();
+        return world.getRegistryKey() == pos.getDimension() && !world.isNight();
     }
 
     private static boolean shouldGoTowardsHome(LivingEntity firefly, GlobalPos pos) {
@@ -63,9 +74,15 @@ public class FireflyBrain {
 
     private static Optional<LookTarget> getLookTarget(LivingEntity firefly) {
         Brain<?> brain = firefly.getBrain();
-        Optional<GlobalPos> optional = brain.getOptionalMemory(MemoryModuleType.HOME);
-        if (optional.isPresent()) {
-            GlobalPos globalPos = optional.get();
+        Optional<GlobalPos> home = brain.getOptionalMemory(MemoryModuleType.HOME);
+        Optional<GlobalPos> hiding = brain.getOptionalMemory(MemoryModuleType.HIDING_PLACE);
+        if (hiding.isPresent()) {
+            GlobalPos globalPos = hiding.get();
+            if (shouldGoHiding(firefly, globalPos)) {
+                //return Optional.of(new BlockPosLookTarget(HELP I NEED A NEAREST PIECE OF GRASS, firefly.world));
+            }
+        } else if (home.isPresent()) {
+            GlobalPos globalPos = home.get();
             if (shouldGoTowardsHome(firefly, globalPos)) {
                 return Optional.of(new BlockPosLookTarget(randomPosAround(globalPos.getPos(), firefly.world)));
             }
