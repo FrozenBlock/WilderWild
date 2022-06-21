@@ -23,6 +23,7 @@ import net.minecraft.world.ServerWorldAccess;
 import net.minecraft.world.World;
 import net.minecraft.world.event.GameEvent;
 import net.minecraft.world.event.listener.GameEventListener;
+import net.minecraft.world.gen.foliage.FoliagePlacerType;
 import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Overwrite;
@@ -181,6 +182,16 @@ public abstract class WardenEntityMixin extends HostileEntity implements WardenA
         super.onTrackedDataSet(data);
     }
 
+    @Override
+    public boolean isDead() {
+        return this.deathTicks >= 100;
+    }
+
+    @Override
+    public boolean isAlive() {
+        return this.deathTicks < 100;
+    }
+
     private int deathTicks = 0;
 
     private void tickDeath() {
@@ -192,9 +203,6 @@ public abstract class WardenEntityMixin extends HostileEntity implements WardenA
         if (this.deathTicks == 100 && !warden.world.isClient()) {
             warden.remove(RemovalReason.KILLED);
         }
-        warden.getBrain().clear();
-        warden.clearGoalsAndTasks();
-        warden.setAiDisabled(true);
     }
 
     private boolean isDead = false;
@@ -203,16 +211,24 @@ public abstract class WardenEntityMixin extends HostileEntity implements WardenA
     private void tick(CallbackInfo ci) {
         WardenEntity warden = WardenEntity.class.cast(this);
         if (warden.getHealth() <= 0.0F) {
-            warden.setHealth(1.0F);
+            warden.setHealth(999F);
             warden.setPose(EntityPose.DYING);
             warden.emitGameEvent(GameEvent.ENTITY_DIE);
             this.deathTicks=0;
             this.isDead = true;
+            warden.dead = false;
+            warden.getBrain().clear();
+            warden.clearGoalsAndTasks();
+            warden.setAiDisabled(true);
         }
 
         if (this.isDead) {
             if (!warden.isInPose(EntityPose.DYING)) {
                 this.getDyingAnimationState().stop();
+            }
+
+            if (warden.dead) {
+                warden.dead = false;
             }
 
             this.tickDeath();
