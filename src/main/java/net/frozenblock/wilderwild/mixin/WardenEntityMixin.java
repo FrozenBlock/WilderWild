@@ -48,6 +48,8 @@ public abstract class WardenEntityMixin extends HostileEntity implements WardenA
 
     @Shadow public AnimationState sniffingAnimationState;
 
+    @Shadow protected abstract void addDigParticles(AnimationState animationState);
+
     protected WardenEntityMixin(EntityType<? extends HostileEntity> entityType, World world) {
         super(entityType, world);
     }
@@ -56,6 +58,8 @@ public abstract class WardenEntityMixin extends HostileEntity implements WardenA
     private void WardenEntity(EntityType<? extends HostileEntity> entityType, World world, CallbackInfo ci) {
         this.isDead = false;
     }
+
+    public AnimationState dyingAnimationState = new AnimationState();
 
     public AnimationState getDyingAnimationState() {
         return this.dyingAnimationState;
@@ -181,6 +185,9 @@ public abstract class WardenEntityMixin extends HostileEntity implements WardenA
 
     private void tickDeath() {
         WardenEntity warden = WardenEntity.class.cast(this);
+        if (!warden.isInPose(EntityPose.DYING)) {
+            warden.setPose(EntityPose.DYING);
+        }
         ++this.deathTicks;
         if (this.deathTicks == 100 && !warden.world.isClient()) {
             warden.remove(RemovalReason.KILLED);
@@ -195,18 +202,26 @@ public abstract class WardenEntityMixin extends HostileEntity implements WardenA
     @Inject(method = "tick", at = @At("TAIL"))
     private void tick(CallbackInfo ci) {
         WardenEntity warden = WardenEntity.class.cast(this);
-        if (this.getHealth() <= 0.0F) {
-            this.setHealth(1.0F);
+        if (warden.getHealth() <= 0.0F) {
+            warden.setHealth(1.0F);
             warden.setPose(EntityPose.DYING);
-            this.dead=true;
-            this.emitGameEvent(GameEvent.ENTITY_DIE);
-            this.dead=false;
+            warden.emitGameEvent(GameEvent.ENTITY_DIE);
             this.deathTicks=0;
             this.isDead = true;
         }
 
         if (this.isDead) {
+            if (!warden.isInPose(EntityPose.DYING)) {
+                this.getDyingAnimationState().stop();
+            }
+
             this.tickDeath();
+        }
+
+        switch(this.getPose()) {
+            case DYING:
+                this.addDigParticles(this.getDyingAnimationState());
+                break;
         }
     }
 }
