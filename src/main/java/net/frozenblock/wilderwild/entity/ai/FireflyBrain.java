@@ -62,7 +62,7 @@ public class FireflyBrain {
         brain.remember(MemoryModuleType.HOME, globalPos);
     }
 
-    private static boolean shouldGoHiding(LivingEntity firefly, GlobalPos pos) {
+    private static boolean shouldGoToHidingPlace(LivingEntity firefly, GlobalPos pos) {
         World world = firefly.getWorld();
         return world.getRegistryKey() == pos.getDimension() && !world.isNight();
     }
@@ -78,7 +78,7 @@ public class FireflyBrain {
         Optional<GlobalPos> hiding = brain.getOptionalMemory(MemoryModuleType.HIDING_PLACE);
         if (hiding.isPresent()) {
             GlobalPos globalPos = hiding.get();
-            if (shouldGoHiding(firefly, globalPos)) {
+            if (shouldGoToHidingPlace(firefly, globalPos)) {
                 //return Optional.of(new BlockPosLookTarget(HELP I NEED A NEAREST PIECE OF GRASS, firefly.world));
             }
         } else if (home.isPresent()) {

@@ -1,11 +1,13 @@
 package net.frozenblock.wilderwild.mixin;
 
+import com.mojang.logging.LogUtils;
 import net.frozenblock.wilderwild.entity.render.animations.WardenAnimationInterface;
 import net.frozenblock.wilderwild.registry.RegisterProperties;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.brain.Brain;
 import net.minecraft.entity.ai.brain.MemoryModuleType;
+import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.mob.Angriness;
 import net.minecraft.entity.mob.HostileEntity;
@@ -58,13 +60,14 @@ public abstract class WardenEntityMixin extends HostileEntity implements WardenA
     @Shadow
     protected abstract void addDigParticles(AnimationState animationState);
 
+    @Shadow public AnimationState chargingSonicBoomAnimationState;
+
+    @Shadow public AnimationState attackingAnimationState;
+
+    @Shadow private int tendrilPitch;
+
     protected WardenEntityMixin(EntityType<? extends HostileEntity> entityType, World world) {
         super(entityType, world);
-    }
-
-    @Inject(method = "<init>", at = @At("TAIL"))
-    private void WardenEntity(EntityType<? extends HostileEntity> entityType, World world, CallbackInfo ci) {
-        this.isDead = false;
     }
 
     public AnimationState dyingAnimationState = new AnimationState();
@@ -124,7 +127,7 @@ public abstract class WardenEntityMixin extends HostileEntity implements WardenA
      */
     @Overwrite
     private boolean isDiggingOrEmerging() {
-        return this.isInPose(EntityPose.DYING) || this.isInPose(EntityPose.DIGGING) || this.isInPose(EntityPose.EMERGING);
+        return /*this.isInPose(EntityPose.DYING) || */this.isInPose(EntityPose.DIGGING) || this.isInPose(EntityPose.EMERGING);
     }
 
     @Inject(at = @At("HEAD"), method = "accept", cancellable = true)
@@ -191,57 +194,77 @@ public abstract class WardenEntityMixin extends HostileEntity implements WardenA
 
     @Override
     public boolean isDead() {
-        return this.deathTicks >= 100;
+        return super.isDead();//this.deathTime >= 100;
     }
 
     @Override
     public boolean isAlive() {
-        return this.deathTicks < 100;
+        return super.isAlive();//this.deathTime < 100 && !this.isRemoved();
     }
 
-    private int deathTicks = 0;
-
-    private void tickDeath() {
+    @Override
+    public void onDeath(DamageSource damageSource) {
         WardenEntity warden = WardenEntity.class.cast(this);
-        if (!warden.isInPose(EntityPose.DYING)) {
+        if (!warden.isRemoved() && !warden.dead) {
+
+            Entity entity = damageSource.getAttacker();
+            LivingEntity livingEntity = this.getPrimeAdversary();
+            if (this.scoreAmount >= 0 && livingEntity != null) {
+                livingEntity.updateKilledAdvancementCriterion(this, this.scoreAmount, damageSource);
+            }
+
+            if (this.isSleeping()) {
+                this.wakeUp();
+            }
+
+            if (!this.world.isClient && this.hasCustomName()) {
+                LogUtils.getLogger().info("Named entity {} died: {}", this, this.getDamageTracker().getDeathMessage().getString());
+            }
+
+            warden.dead = true;
+            this.getDamageTracker().update();
+            if (this.world instanceof ServerWorld) {
+                if (entity == null || entity.onKilledOther((ServerWorld)this.world, this)) {
+                    this.emitGameEvent(GameEvent.ENTITY_DIE);
+                    this.drop(damageSource);
+                    this.onKilledBy(livingEntity);
+                }
+
+                this.world.sendEntityStatus(this, EntityStatuses.PLAY_DEATH_SOUND_OR_ADD_PROJECTILE_HIT_PARTICLES);
+            }
+
             warden.setPose(EntityPose.DYING);
         }
-        ++this.deathTicks;
-        if (this.deathTicks == 100 && !warden.world.isClient()) {
-            warden.remove(RemovalReason.KILLED);
-        }
     }
 
-    private boolean isDead = false;
+
+
+    protected void updatePostDeath() {
+        WardenEntity warden = WardenEntity.class.cast(this);
+        /*++this.deathTime;
+        if (this.deathTime == 100 && !this.world.isClient()) {
+            this.world.sendEntityStatus(this, EntityStatuses.ADD_DEATH_PARTICLES);
+            this.remove(Entity.RemovalReason.KILLED);
+        }
+*/
+        ++warden.deathTime;
+        if (warden.deathTime == 20 && !warden.world.isClient()) {
+            warden.world.sendEntityStatus(warden, EntityStatuses.ADD_DEATH_PARTICLES);
+            warden.remove(Entity.RemovalReason.KILLED);
+        }
+
+    }
 
     @Inject(method = "tick", at = @At("TAIL"))
     private void tick(CallbackInfo ci) {
         WardenEntity warden = WardenEntity.class.cast(this);
         if (warden.getHealth() <= 0.0F) {
-            warden.setHealth(999F);
-            warden.setPose(EntityPose.DYING);
-            warden.emitGameEvent(GameEvent.ENTITY_DIE);
-            this.deathTicks = 0;
-            this.isDead = true;
-            warden.dead = false;
-            warden.getBrain().clear();
-            warden.clearGoalsAndTasks();
-            warden.setAiDisabled(true);
+            //warden.setPose(EntityPose.DYING);
+            //warden.setHealth(999F);
+            //this.deathTime = 0;
         }
 
-        if (this.isDead) {
-            if (!warden.isInPose(EntityPose.DYING)) {
-                this.getDyingAnimationState().stop();
-            }
-
-            if (warden.dead) {
-                warden.dead = false;
-            }
-
-            this.tickDeath();
-        }
-
-        switch (this.getPose()) {
+        switch (warden.getPose()) {
             case DYING:
                 this.addDigParticles(this.getDyingAnimationState());
                 break;
