@@ -60,12 +60,6 @@ public abstract class WardenEntityMixin extends HostileEntity implements WardenA
     @Shadow
     protected abstract void addDigParticles(AnimationState animationState);
 
-    @Shadow public AnimationState chargingSonicBoomAnimationState;
-
-    @Shadow public AnimationState attackingAnimationState;
-
-    @Shadow private int tendrilPitch;
-
     protected WardenEntityMixin(EntityType<? extends HostileEntity> entityType, World world) {
         super(entityType, world);
     }
@@ -127,7 +121,7 @@ public abstract class WardenEntityMixin extends HostileEntity implements WardenA
      */
     @Overwrite
     private boolean isDiggingOrEmerging() {
-        return /*this.isInPose(EntityPose.DYING) || */this.isInPose(EntityPose.DIGGING) || this.isInPose(EntityPose.EMERGING);
+        return this.isInPose(EntityPose.DYING) || this.isInPose(EntityPose.DIGGING) || this.isInPose(EntityPose.EMERGING);
     }
 
     @Inject(at = @At("HEAD"), method = "accept", cancellable = true)
@@ -192,14 +186,18 @@ public abstract class WardenEntityMixin extends HostileEntity implements WardenA
         super.onTrackedDataSet(data);
     }
 
+    private boolean isDeadOther = false;
+
+    private int deathTicks = 0;
+
     @Override
     public boolean isDead() {
-        return this.deathTime >= 100;
+        return super.isDead();//this.deathTicks > 0;
     }
 
     @Override
     public boolean isAlive() {
-        return super.isAlive();//this.deathTime < 100 && !this.isRemoved();
+        return this.deathTicks < 100 && !this.isRemoved();
     }
 
     @Override
@@ -232,22 +230,18 @@ public abstract class WardenEntityMixin extends HostileEntity implements WardenA
 
                 warden.world.sendEntityStatus(warden, EntityStatuses.PLAY_DEATH_SOUND_OR_ADD_PROJECTILE_HIT_PARTICLES);
             }
-            warden.setHealth(1.0F);
-            warden.setInvulnerable(true);
-            warden.setPose(EntityPose.DYING);
-            /*warden.getBrain().clear();
-            warden.clearGoalsAndTasks();
-            warden.setAiDisabled(true);
-            */
         }
     }
 
-
-
+    @Override
     protected void updatePostDeath() {
         WardenEntity warden = WardenEntity.class.cast(this);
-        ++warden.deathTime;
-        if (warden.deathTime == 100 && !warden.world.isClient()) {
+        ++this.deathTicks;
+        if (this.deathTicks == 50 && !warden.world.isClient()) {
+            warden.deathTime = 50;
+        }
+
+        if (this.deathTicks == 100 && !warden.world.isClient()) {
             warden.world.sendEntityStatus(warden, EntityStatuses.ADD_DEATH_PARTICLES);
             warden.remove(Entity.RemovalReason.KILLED);
         }
@@ -257,7 +251,17 @@ public abstract class WardenEntityMixin extends HostileEntity implements WardenA
     private void tick(CallbackInfo ci) {
         WardenEntity warden = WardenEntity.class.cast(this);
 
-        if (this.dead) {
+        if (warden.getHealth()<=0.0F) {
+            //warden.setHealth(1.0F);
+            warden.setInvulnerable(true);
+            warden.setPose(EntityPose.DYING);
+            /*warden.getBrain().clear();
+            warden.clearGoalsAndTasks();
+            warden.setAiDisabled(true);
+            */this.isDeadOther = true;
+        }
+
+        if (this.isDeadOther && !this.isDead()) {
             this.updatePostDeath();
         }
 
