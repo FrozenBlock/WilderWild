@@ -194,7 +194,7 @@ public abstract class WardenEntityMixin extends HostileEntity implements WardenA
 
     @Override
     public boolean isDead() {
-        return super.isDead();//this.deathTime >= 100;
+        return this.deathTime >= 100;
     }
 
     @Override
@@ -232,8 +232,13 @@ public abstract class WardenEntityMixin extends HostileEntity implements WardenA
 
                 warden.world.sendEntityStatus(warden, EntityStatuses.PLAY_DEATH_SOUND_OR_ADD_PROJECTILE_HIT_PARTICLES);
             }
-
+            warden.setHealth(1.0F);
+            warden.setInvulnerable(true);
             warden.setPose(EntityPose.DYING);
+            /*warden.getBrain().clear();
+            warden.clearGoalsAndTasks();
+            warden.setAiDisabled(true);
+            */
         }
     }
 
@@ -251,6 +256,10 @@ public abstract class WardenEntityMixin extends HostileEntity implements WardenA
     @Inject(method = "tick", at = @At("TAIL"))
     private void tick(CallbackInfo ci) {
         WardenEntity warden = WardenEntity.class.cast(this);
+
+        if (this.dead) {
+            this.updatePostDeath();
+        }
 
         switch (warden.getPose()) {
             case DYING:
