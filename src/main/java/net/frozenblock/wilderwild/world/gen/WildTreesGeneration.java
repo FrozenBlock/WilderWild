@@ -98,11 +98,5 @@ public class WildTreesGeneration {
 
         BiomeModifications.addFeature(BiomeSelectors.includeByKey(RegisterWorldgen.CYPRESS_WETLANDS),
                 GenerationStep.Feature.VEGETAL_DECORATION, WildPlacedFeatures.FALLEN_OAK_AND_CYPRESS_PLACED.getKey().get());
-
-        BiomeModifications.addFeature(BiomeSelectors.includeByKey(BiomeKeys.SWAMP),
-                GenerationStep.Feature.VEGETAL_DECORATION, WildPlacedFeatures.CYPRESS_TREES_SWAMP.getKey().get());
-
-        BiomeModifications.addFeature(BiomeSelectors.includeByKey(BiomeKeys.SWAMP),
-                GenerationStep.Feature.VEGETAL_DECORATION, WildPlacedFeatures.CYPRESS_TREES_WATER_1.getKey().get());
     }
 }
