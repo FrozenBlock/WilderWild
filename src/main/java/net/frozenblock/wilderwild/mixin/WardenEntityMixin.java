@@ -177,13 +177,12 @@ public abstract class WardenEntityMixin extends HostileEntity implements WardenA
         super.onTrackedDataSet(data);
     }
 
-    private int timeToDie = 0;
+    private int deathTicks = 0;
 
     private void tickDeath() {
         WardenEntity warden = WardenEntity.class.cast(this);
-        this.setPose(EntityPose.DYING);
-        ++this.timeToDie;
-        if (this.timeToDie == 100 && !warden.world.isClient()) {
+        ++this.deathTicks;
+        if (this.deathTicks == 100 && !warden.world.isClient()) {
             warden.remove(RemovalReason.KILLED);
         }
         warden.getBrain().clear();
@@ -200,10 +199,9 @@ public abstract class WardenEntityMixin extends HostileEntity implements WardenA
             this.setHealth(1.0F);
             warden.setPose(EntityPose.DYING);
             this.dead=true;
-            this.setAiDisabled(true);
             this.emitGameEvent(GameEvent.ENTITY_DIE);
             this.dead=false;
-            this.timeToDie=0;
+            this.deathTicks=0;
             this.isDead = true;
         }
 
