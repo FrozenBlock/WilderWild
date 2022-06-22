@@ -8,7 +8,6 @@ import net.minecraft.block.Blocks;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.brain.Brain;
 import net.minecraft.entity.ai.brain.MemoryModuleType;
-import net.minecraft.entity.ai.brain.task.DigTask;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.mob.Angriness;
@@ -51,9 +50,6 @@ public abstract class WardenEntityMixin extends HostileEntity implements WardenA
         warden.playSound(RegisterSounds.ENTITY_WARDEN_DYING, 5.0F, 1.0F);
         return SoundEvents.ENTITY_WARDEN_DEATH;
     }
-
-    @Shadow
-    protected abstract float getSoundVolume();
 
     @Shadow
     public abstract Brain<WardenEntity> getBrain();
@@ -124,15 +120,6 @@ public abstract class WardenEntityMixin extends HostileEntity implements WardenA
                 }
             }
         }
-    }
-
-    /**
-     * @author FrozenBlock
-     * @reason we need it to stop doing stuff when it dies lol
-     */
-    @Overwrite
-    private boolean isDiggingOrEmerging() {
-        return this.isInPose(EntityPose.DYING) || this.isInPose(EntityPose.DIGGING) || this.isInPose(EntityPose.EMERGING);
     }
 
     @Inject(at = @At("HEAD"), method = "accept", cancellable = true)
@@ -228,7 +215,7 @@ public abstract class WardenEntityMixin extends HostileEntity implements WardenA
             warden.dead = true;
             this.getDamageTracker().update();
             if (this.world instanceof ServerWorld) {
-                if (entity == null || entity.onKilledOther((ServerWorld)warden.world, warden)) {
+                if (entity == null || entity.onKilledOther((ServerWorld) warden.world, warden)) {
                     warden.emitGameEvent(GameEvent.ENTITY_DIE);
                     this.drop(damageSource);
                     this.onKilledBy(livingEntity);
@@ -238,15 +225,17 @@ public abstract class WardenEntityMixin extends HostileEntity implements WardenA
             }
 
             warden.setPose(EntityPose.DYING);
+            warden.getBrain().clear();
+            warden.clearGoalsAndTasks();
+            warden.setAiDisabled(true);
         }
     }
 
     private void addAdditionalDeathParticles() {
-        for(int i = 0; i < 20; ++i) {
+        for (int i = 0; i < 20; ++i) {
             double d = this.random.nextGaussian() * 0.02;
             double e = this.random.nextGaussian() * 0.02;
             double f = this.random.nextGaussian() * 0.02;
-            this.world.addParticle(ParticleTypes.SCULK_CHARGE_POP, this.getParticleX(1.0), this.getRandomBodyY(), this.getParticleZ(1.0), d, e, f);
             this.world.addParticle(ParticleTypes.SCULK_CHARGE_POP, this.getParticleX(1.0), this.getRandomBodyY(), this.getParticleZ(1.0), d, e, f);
         }
 
@@ -261,7 +250,7 @@ public abstract class WardenEntityMixin extends HostileEntity implements WardenA
 
         if (this.deathTicks == 39 && !warden.world.isClient()) {
             warden.world.sendEntityStatus(warden, EntityStatuses.ADD_DEATH_PARTICLES);
-            this.addAdditionalDeathParticles();
+            warden.world.sendEntityStatus(warden, (byte)69420);
             warden.playSound(SoundEvents.ENTITY_WARDEN_ANGRY, 3.0F, 0.7F);
         }
 
@@ -276,6 +265,13 @@ public abstract class WardenEntityMixin extends HostileEntity implements WardenA
             case DYING:
                 this.addDigParticles(this.getDyingAnimationState());
                 break;
+        }
+    }
+
+    @Inject(method = "handleStatus", at = @At("HEAD"))
+    private void handleStatus(byte status, CallbackInfo ci) {
+        if (status == (byte)69420) {
+            this.addAdditionalDeathParticles();
         }
     }
 }
