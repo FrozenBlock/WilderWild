@@ -15,6 +15,7 @@ import net.minecraft.entity.mob.WardenBrain;
 import net.minecraft.entity.mob.WardenEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.NbtCompound;
+import net.minecraft.particle.ParticleTypes;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
@@ -239,6 +240,17 @@ public abstract class WardenEntityMixin extends HostileEntity implements WardenA
         }
     }
 
+    private void addAdditionalDeathParticles() {
+        for(int i = 0; i < 20; ++i) {
+            double d = this.random.nextGaussian() * 0.02;
+            double e = this.random.nextGaussian() * 0.02;
+            double f = this.random.nextGaussian() * 0.02;
+            this.world.addParticle(ParticleTypes.SCULK_CHARGE_POP, this.getParticleX(1.0), this.getRandomBodyY(), this.getParticleZ(1.0), d, e, f);
+            this.world.addParticle(ParticleTypes.SCULK_CHARGE_POP, this.getParticleX(1.0), this.getRandomBodyY(), this.getParticleZ(1.0), d, e, f);
+        }
+
+    }
+
     @Override
     protected void updatePostDeath() {
         WardenEntity warden = WardenEntity.class.cast(this);
@@ -247,8 +259,12 @@ public abstract class WardenEntityMixin extends HostileEntity implements WardenA
             warden.deathTime = 26;
         }
 
-        if (this.deathTicks == 53 && !warden.world.isClient()) {
+        if (this.deathTicks == 39 && !warden.world.isClient()) {
             warden.world.sendEntityStatus(warden, EntityStatuses.ADD_DEATH_PARTICLES);
+            this.addAdditionalDeathParticles();
+        }
+
+        if (this.deathTicks == 53 && !warden.world.isClient()) {
             warden.remove(Entity.RemovalReason.KILLED);
         }
     }
