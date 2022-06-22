@@ -2,10 +2,9 @@
   "replace": false,
   "values": [
     "wilderwild:osseous_sculk",
-    "wilderwild:sculk_echoer",
-    "wilderwild:sculk_jaw",
     "wilderwild:sculk_slab",
     "wilderwild:sculk_stairs",
+    "wilderwild:sculk_wall",
     "wilderwild:hanging_tendril",
     "wilderwild:baobab_leaves",
     "wilderwild:cypress_leaves"
