@@ -7,6 +7,7 @@ import net.minecraft.block.Blocks;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.brain.Brain;
 import net.minecraft.entity.ai.brain.MemoryModuleType;
+import net.minecraft.entity.ai.brain.task.DigTask;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.mob.Angriness;
@@ -43,7 +44,9 @@ public abstract class WardenEntityMixin extends HostileEntity implements WardenA
      */
     @Overwrite
     public SoundEvent getDeathSound() {
-        return SoundEvents.ENTITY_WARDEN_HURT;
+        WardenEntity warden = WardenEntity.class.cast(this);
+        warden.playSound(SoundEvents.ENTITY_WARDEN_DIG, 5.0F, 1.0F);
+        return SoundEvents.ENTITY_WARDEN_DEATH;
     };
 
     @Shadow
