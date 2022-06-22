@@ -34,7 +34,7 @@
   ],
   "client": [
 	"client.OsmioooWardenRenderer",
-	"client.ModifiedWardenAnimations",
+	"client.WardenAnimationOverwrites",
 	"client.WardenEntityModelMixin",
 	"client.XfrtrexSusFrogRenderer"
   ],

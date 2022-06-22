@@ -13,7 +13,7 @@ import org.spongepowered.asm.mixin.Shadow;
  */
 @Environment(EnvType.CLIENT)
 @Mixin(WardenAnimations.class)
-public class ModifiedWardenAnimations {
+public class WardenAnimationOverwrites {
 
     @Final
     @Mutable
