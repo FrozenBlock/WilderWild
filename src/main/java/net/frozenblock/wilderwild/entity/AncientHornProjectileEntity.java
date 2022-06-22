@@ -255,14 +255,6 @@ public class AncientHornProjectileEntity extends PersistentProjectileEntity {
                     setCooldown(getCooldown(this.getOwner(), sensorCooldown));
                 }
             }
-            /*if (blockState.getBlock() == RegisterBlocks.SCULK_ECHOER) {
-                BlockPos pos = blockHitResult.getBlockPos();
-                WilderWild.log(RegisterBlocks.SCULK_ECHOER, pos, "Horn Projectile Touched", WilderWild.UNSTABLE_LOGGING);
-                if (SculkEchoerBlock.isInactive(blockState)) {
-                    SculkEchoerBlock.setActive(owner, world, pos, world.getBlockState(pos), server.random.nextBetween(160, 220));
-                    setCooldown(getCooldown(this.getOwner(), echoerCooldown));
-                }
-            }*/
         }
         this.setSound(RegisterSounds.ANCIENT_HORN_VIBRATION_DISSIPATE);
         this.setShotFromCrossbow(false);

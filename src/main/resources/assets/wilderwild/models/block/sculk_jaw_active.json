@@ -1,6 +1,0 @@
-{
-  "parent": "wilderwild:block/sculk_jaw",
-  "textures": {
-    "top": "wilderwild:block/sculk_jaw_active"
-  }
-}

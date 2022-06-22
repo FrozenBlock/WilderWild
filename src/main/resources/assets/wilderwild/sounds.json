@@ -689,32 +689,6 @@
 		],
 		"subtitle": "subtitles.block.generic.footsteps"
 	},
-	"block.sculk_echoer.echo": {
-		"sounds": [
-			"wilderwild:block/sculk_echoer/echo1",
-			"wilderwild:block/sculk_echoer/echo2",
-			"wilderwild:block/sculk_echoer/echo3",
-			"wilderwild:block/sculk_echoer/echo4",
-			"wilderwild:block/sculk_echoer/echo5",
-			"wilderwild:block/sculk_echoer/echo6"
-		],
-		"subtitle": "subtitles.block.sculk_echoer.echo"
-	},
-	"block.sculk_jaw.clamp": {
-		"sounds": [
-			"wilderwild:block/sculk_jaw/clamp1",
-			"wilderwild:block/sculk_jaw/clamp2",
-			"wilderwild:block/sculk_jaw/clamp3"
-		],
-		"subtitle": "subtitles.block.sculk_jaw.clamp"
-	},
-	"block.sculk_jaw.retract": {
-		"sounds": [
-			"wilderwild:block/sculk_jaw/retract1",
-			"wilderwild:block/sculk_jaw/retract2",
-			"wilderwild:block/sculk_jaw/retract3"
-		]
-	},
 	"block.sculk_sensor.hiccup": {
 		"sounds": [
 			"wilderwild:block/sculk_sensor/hiccup1",
