@@ -116,15 +116,15 @@ public class CustomWardenAnimations {
                             Transformation.Targets.TRANSLATE,
                             new Keyframe(0.0F, AnimationHelper.method_41823(0.0F, 0.0F, 0.0F), Transformation.Interpolations.field_37885),
                             new Keyframe(0.36F, AnimationHelper.method_41823(4.78F, -6.87F, -0.42F), Transformation.Interpolations.field_37885),
-                            new Keyframe(0.84F, AnimationHelper.method_41823(8.0F, -23F, -2F), Transformation.Interpolations.field_37885),
-                            new Keyframe(1.4356F, AnimationHelper.method_41823(8.0F, -44.8F, -2.0F), Transformation.Interpolations.field_37885),
-                            new Keyframe(1.8812F, AnimationHelper.method_41823(8.0F, -52.54F, 0.0F), Transformation.Interpolations.field_37885),
-                            new Keyframe(2.4455F, AnimationHelper.method_41823(8.0F, -60.0F, -2.0F), Transformation.Interpolations.field_37885),
-                            new Keyframe(2.64F, AnimationHelper.method_41823(8.0F, -60.0F, -2.0F), Transformation.Interpolations.field_37885),
-                            new Keyframe(2.84F, AnimationHelper.method_41823(8.0F, -42.0F, -2.0F), Transformation.Interpolations.field_37885),
-                            new Keyframe(2.95F, AnimationHelper.method_41823(8.0F, -81.58F, -2.0F), Transformation.Interpolations.field_37885),
-                            new Keyframe(3.198F, AnimationHelper.method_41823(8.0F, -196.77F, -2.0F), Transformation.Interpolations.field_37885),
-                            new Keyframe(3.5F, AnimationHelper.method_41823(8.0F, -490.0F, -2.0F), Transformation.Interpolations.field_37885)
+                            new Keyframe(0.84F, AnimationHelper.method_41823(8.0F, -23F, 1.0F), Transformation.Interpolations.field_37885),
+                            new Keyframe(1.4356F, AnimationHelper.method_41823(8.0F, -44.8F, 1.0F), Transformation.Interpolations.field_37885),
+                            new Keyframe(1.8812F, AnimationHelper.method_41823(8.0F, -52.54F, 3.0F), Transformation.Interpolations.field_37885),
+                            new Keyframe(2.4455F, AnimationHelper.method_41823(8.0F, -60.0F, 1.0F), Transformation.Interpolations.field_37885),
+                            new Keyframe(2.64F, AnimationHelper.method_41823(8.0F, -60.0F, 1.0F), Transformation.Interpolations.field_37885),
+                            new Keyframe(2.84F, AnimationHelper.method_41823(8.0F, -42.0F, 1.0F), Transformation.Interpolations.field_37885),
+                            new Keyframe(2.95F, AnimationHelper.method_41823(8.0F, -81.58F, 1.0F), Transformation.Interpolations.field_37885),
+                            new Keyframe(3.198F, AnimationHelper.method_41823(8.0F, -196.77F, 1.0F), Transformation.Interpolations.field_37885),
+                            new Keyframe(3.5F, AnimationHelper.method_41823(8.0F, -490.0F, 1.0F), Transformation.Interpolations.field_37885)
                     )
             )
             .addBoneAnimation(
