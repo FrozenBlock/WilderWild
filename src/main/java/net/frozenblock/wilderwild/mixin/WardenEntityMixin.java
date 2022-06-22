@@ -79,14 +79,6 @@ public abstract class WardenEntityMixin extends HostileEntity implements WardenA
         return this.dyingAnimationState;
     }
 
-    /*@Inject(at = @At("HEAD"), method = "isValidTarget", cancellable = true)
-    public void isValidTarget(@Nullable Entity entity, CallbackInfoReturnable<Boolean> info) {
-        if (entity instanceof SculkSensorTendrilEntity) {
-            info.setReturnValue(false);
-            info.cancel();
-        }
-    }*/
-
     @Inject(at = @At("HEAD"), method = "initialize")
     public void initialize(ServerWorldAccess serverWorldAccess, LocalDifficulty localDifficulty, SpawnReason spawnReason, @Nullable EntityData entityData, @Nullable NbtCompound nbtCompound, CallbackInfoReturnable<EntityData> info) {
         warden.getBrain().remember(MemoryModuleType.DIG_COOLDOWN, Unit.INSTANCE, 1200L);
@@ -155,9 +147,7 @@ public abstract class WardenEntityMixin extends HostileEntity implements WardenA
             warden.increaseAngerAt(entity, additionalAnger, false);
         }
 
-        if (warden.getAngriness() != Angriness.ANGRY && (sourceEntity != null || warden.getAngerManager().getPrimeSuspect().map((suspect) -> {
-            return suspect == entity;
-        }).orElse(true))) {
+        if (warden.getAngriness() != Angriness.ANGRY && (sourceEntity != null || warden.getAngerManager().getPrimeSuspect().map((suspect) -> suspect == entity).orElse(true))) {
             WardenBrain.lookAtDisturbance(warden, blockPos);
         }
         info.cancel();
@@ -178,7 +168,6 @@ public abstract class WardenEntityMixin extends HostileEntity implements WardenA
                 case SNIFFING -> this.sniffingAnimationState.start(warden.age);
             }
         }
-
         super.onTrackedDataSet(data);
     }
 
@@ -263,10 +252,8 @@ public abstract class WardenEntityMixin extends HostileEntity implements WardenA
 
     @Inject(method = "tick", at = @At("TAIL"))
     private void tick(CallbackInfo ci) {
-        switch (warden.getPose()) {
-            case DYING:
-                this.addDigParticles(this.getDyingAnimationState());
-                break;
+        if (warden.getPose() == EntityPose.DYING) {
+            this.addDigParticles(this.getDyingAnimationState());
         }
     }
 
