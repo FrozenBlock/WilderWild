@@ -38,13 +38,15 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(WardenEntity.class)
 public abstract class WardenEntityMixin extends HostileEntity implements WardenAnimationInterface {
+
+    WardenEntity warden = WardenEntity.class.cast(this);
+
     /**
      * @author FrozenBlock
      * @reason custom death sound
      */
     @Overwrite
     public SoundEvent getDeathSound() {
-        WardenEntity warden = WardenEntity.class.cast(this);
         warden.playSound(SoundEvents.ENTITY_WARDEN_DIG, 5.0F, 1.0F);
         return SoundEvents.ENTITY_WARDEN_DEATH;
     };
@@ -90,19 +92,17 @@ public abstract class WardenEntityMixin extends HostileEntity implements WardenA
 
     @Inject(at = @At("HEAD"), method = "initialize")
     public void initialize(ServerWorldAccess serverWorldAccess, LocalDifficulty localDifficulty, SpawnReason spawnReason, @Nullable EntityData entityData, @Nullable NbtCompound nbtCompound, CallbackInfoReturnable<EntityData> info) {
-        WardenEntity entity = WardenEntity.class.cast(this);
-        entity.getBrain().remember(MemoryModuleType.DIG_COOLDOWN, Unit.INSTANCE, 1200L);
-        entity.getBrain().remember(MemoryModuleType.TOUCH_COOLDOWN, Unit.INSTANCE, WardenBrain.EMERGE_DURATION);
+        warden.getBrain().remember(MemoryModuleType.DIG_COOLDOWN, Unit.INSTANCE, 1200L);
+        warden.getBrain().remember(MemoryModuleType.TOUCH_COOLDOWN, Unit.INSTANCE, WardenBrain.EMERGE_DURATION);
         if (spawnReason == SpawnReason.SPAWN_EGG || spawnReason == SpawnReason.COMMAND) {
-            entity.setPose(EntityPose.EMERGING);
-            entity.getBrain().remember(MemoryModuleType.IS_EMERGING, Unit.INSTANCE, WardenBrain.EMERGE_DURATION);
-            entity.setPersistent();
+            warden.setPose(EntityPose.EMERGING);
+            warden.getBrain().remember(MemoryModuleType.IS_EMERGING, Unit.INSTANCE, WardenBrain.EMERGE_DURATION);
+            warden.setPersistent();
         }
     }
 
     @Inject(at = @At("HEAD"), method = "pushAway")
     protected void pushAway(Entity entity, CallbackInfo info) {
-        WardenEntity warden = WardenEntity.class.cast(this);
         if (!warden.getBrain().hasMemoryModule(MemoryModuleType.ATTACK_COOLING_DOWN) && !warden.getBrain().hasMemoryModule(MemoryModuleType.TOUCH_COOLDOWN) && !(entity instanceof WardenEntity) && !warden.isInPose(EntityPose.EMERGING) && !warden.isInPose(EntityPose.DIGGING) && !warden.isInPose(EntityPose.DYING)) {
             if (!entity.isInvulnerable()) {
                 LivingEntity livingEntity = (LivingEntity) entity;
@@ -136,7 +136,6 @@ public abstract class WardenEntityMixin extends HostileEntity implements WardenA
 
     @Inject(at = @At("HEAD"), method = "accept", cancellable = true)
     public void accept(ServerWorld world, GameEventListener listener, BlockPos pos, GameEvent event, @Nullable Entity entity, @Nullable Entity sourceEntity, float f, CallbackInfo info) {
-        WardenEntity warden = WardenEntity.class.cast(this);
         int additionalAnger = 0;
         if (world.getBlockState(pos).isOf(Blocks.SCULK_SENSOR)) {
             if (!world.getBlockState(pos).get(RegisterProperties.NOT_HICCUPPING)) {
@@ -182,7 +181,6 @@ public abstract class WardenEntityMixin extends HostileEntity implements WardenA
      */
     @Overwrite
     public void onTrackedDataSet(TrackedData<?> data) {
-        WardenEntity warden = WardenEntity.class.cast(this);
         if (POSE.equals(data)) {
             switch (this.getPose()) {
                 case DYING -> this.getDyingAnimationState().start(warden.age);
@@ -210,7 +208,6 @@ public abstract class WardenEntityMixin extends HostileEntity implements WardenA
 
     @Override
     public void onDeath(DamageSource damageSource) {
-        WardenEntity warden = WardenEntity.class.cast(this);
         if (!warden.isRemoved() && !warden.dead) {
 
             Entity entity = damageSource.getAttacker();
@@ -256,7 +253,6 @@ public abstract class WardenEntityMixin extends HostileEntity implements WardenA
 
     @Override
     protected void updatePostDeath() {
-        WardenEntity warden = WardenEntity.class.cast(this);
         ++this.deathTicks;
         if (this.deathTicks == 26 && !warden.world.isClient()) {
             warden.deathTime = 26;
@@ -274,8 +270,6 @@ public abstract class WardenEntityMixin extends HostileEntity implements WardenA
 
     @Inject(method = "tick", at = @At("TAIL"))
     private void tick(CallbackInfo ci) {
-        WardenEntity warden = WardenEntity.class.cast(this);
-
         switch (warden.getPose()) {
             case DYING:
                 this.addDigParticles(this.getDyingAnimationState());
