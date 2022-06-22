@@ -47,7 +47,7 @@ public abstract class WardenEntityMixin extends HostileEntity implements WardenA
      */
     @Overwrite
     public SoundEvent getDeathSound() {
-        warden.playSound(SoundEvents.ENTITY_WARDEN_DIG, 5.0F, 1.0F);
+        warden.playSound(SoundEvents.ENTITY_WARDEN_DIG, 5.0F, 1.25F);
         return SoundEvents.ENTITY_WARDEN_DEATH;
     };
 
@@ -261,6 +261,7 @@ public abstract class WardenEntityMixin extends HostileEntity implements WardenA
         if (this.deathTicks == 39 && !warden.world.isClient()) {
             warden.world.sendEntityStatus(warden, EntityStatuses.ADD_DEATH_PARTICLES);
             this.addAdditionalDeathParticles();
+            warden.playSound(SoundEvents.ENTITY_WARDEN_ANGRY, 3.0F, 0.7F);
         }
 
         if (this.deathTicks == 53 && !warden.world.isClient()) {
