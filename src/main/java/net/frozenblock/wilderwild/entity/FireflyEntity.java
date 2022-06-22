@@ -259,13 +259,16 @@ public class FireflyEntity extends PathAwareEntity implements Flutterer {
                 this.discard();
             }
         }
-        if (this.homeCheckCooldown > 0) {
-            --this.homeCheckCooldown;
-        } else {
-            this.homeCheckCooldown = 200;
-            if (FireflyBrain.getHome(this) != null) {
-                if (!this.navigation.isValidPosition(FireflyBrain.getHome(this))) {
-                    FireflyBrain.rememberHome(this, this.getBlockPos());
+        if (this.hasHome) {
+            if (this.homeCheckCooldown > 0) {
+                --this.homeCheckCooldown;
+            } else {
+                this.homeCheckCooldown = 200;
+                BlockPos home = FireflyBrain.getHome(this);
+                if (home != null && FireflyBrain.isInHomeDimension(this)) {
+                    if (!this.navigation.isValidPosition(home) || !world.getBlockState(home).getFluidState().isEmpty()) {
+                        FireflyBrain.rememberHome(this, this.getBlockPos());
+                    }
                 }
             }
         }
