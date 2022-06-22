@@ -60,8 +60,7 @@ public abstract class SculkBlockMixin {
                 if (random.nextInt(j) < i) {
                     BlockPos blockPos2 = blockPos.up();
                     BlockState blockState = this.getExtraBlockState(world, blockPos2, random, spreadManager.isWorldGen());
-
-                    BlockState placeBlockBelow = null;
+                    
                     BlockState stateDown = world.getBlockState(blockPos.down());
                     Block blockDown = stateDown.getBlock();
                     if ((stateDown.isAir() || blockDown == Blocks.WATER || blockDown == Blocks.LAVA || blockDown == Blocks.SCULK_VEIN)) {
@@ -88,24 +87,6 @@ public abstract class SculkBlockMixin {
                         int amount = Math.max(0, blockState.get(OsseousSculkBlock.HEIGHT_LEFT) - random.nextInt(1));
                         for (int a = 0; a < amount; a++) {
                             OsseousSculkBlock.worldGenSpread(blockPos2, world, random);
-                        }
-                    }
-
-                    if (placeBlockBelow != null) {
-                        world.removeBlock(blockPos2.down(), false);
-                        world.setBlockState(blockPos2.down(), placeBlockBelow, 3);
-                        blockPos2 = blockPos2.down().down();
-                        for (int o = 0; o < 4; o++) {
-                            stateDown = world.getBlockState(blockPos2);
-                            blockDown = stateDown.getBlock();
-                            if (stateDown.isIn(BlockTags.SCULK_REPLACEABLE) || stateDown.isAir() || blockDown == Blocks.WATER || blockDown == Blocks.LAVA || blockDown == Blocks.SCULK_VEIN || blockDown == Blocks.SCULK) {
-                                if (EasyNoiseSampler.localRandom.nextInt(o + 1) == 0) {
-                                    world.setBlockState(blockPos2, placeBlockBelow, 3);
-                                    blockPos2 = blockPos2.down();
-                                } else {
-                                    break;
-                                }
-                            }
                         }
                     }
 
