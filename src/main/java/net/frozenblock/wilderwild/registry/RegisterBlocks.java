@@ -67,8 +67,8 @@ public abstract class RegisterBlocks {
     }
 
     // SCULK
-    //public static final Block SCULK_ECHOER = new SculkEchoerBlock(FabricBlockSettings.of(Material.SCULK, MapColor.CYAN).strength(3.0F, 3.0F).sounds(BlockSoundGroup.SCULK_CATALYST), 8);
-    //public static final Block SCULK_JAW = new SculkJawBlock(FabricBlockSettings.of(Material.SCULK).strength(0.6F).sounds(BlockSoundGroup.SCULK));
+    public static final Block SCULK_ECHOER = new SculkEchoerBlock(FabricBlockSettings.of(Material.SCULK, MapColor.CYAN).strength(3.0F, 3.0F).sounds(BlockSoundGroup.SCULK_CATALYST), 8);
+    public static final Block SCULK_JAW = new SculkJawBlock(FabricBlockSettings.of(Material.SCULK).strength(0.6F).sounds(BlockSoundGroup.SCULK));
     public static final Block OSSEOUS_SCULK = new OsseousSculkBlock(FabricBlockSettings.of(Material.STONE, MapColor.PALE_YELLOW).requiresTool().strength(2.0F).sounds(RegisterBlockSoundGroups.OSSEOUS_SCULK));
     public static final Block HANGING_TENDRIL = new HangingTendrilBlock(FabricBlockSettings.copyOf(Blocks.SCULK_SENSOR).strength(0.7F).collidable(false).luminance((state) -> 1)
             .sounds(RegisterBlockSoundGroups.HANGING_TENDRIL).emissiveLighting((state, world, pos) -> HangingTendrilBlock.shouldHavePogLighting(state)), 4);
@@ -77,8 +77,8 @@ public abstract class RegisterBlocks {
     public static final Block SCULK_SLAB = new SculkSlabBlock(FabricBlockSettings.of(Material.SCULK).strength(0.2F).sounds(BlockSoundGroup.SCULK));
 
     public static void registerDeepDark() {
-        //registerBlock("sculk_echoer", SCULK_ECHOER, ItemGroup.DECORATIONS);
-        //registerBlock("sculk_jaw", SCULK_JAW, ItemGroup.DECORATIONS);
+        registerBlock("sculk_echoer", SCULK_ECHOER, ItemGroup.DECORATIONS);
+        registerBlock("sculk_jaw", SCULK_JAW, ItemGroup.DECORATIONS);
         registerBlock("osseous_sculk", OSSEOUS_SCULK, ItemGroup.DECORATIONS);
         registerBlock("hanging_tendril", HANGING_TENDRIL, ItemGroup.DECORATIONS);
         registerBlock("echo_glass", ECHO_GLASS, ItemGroup.DECORATIONS);

@@ -1,4 +1,4 @@
-/*package net.frozenblock.wilderwild.block;
+package net.frozenblock.wilderwild.block;
 
 import it.unimi.dsi.fastutil.objects.Object2IntMap;
 import it.unimi.dsi.fastutil.objects.Object2IntMaps;
@@ -284,4 +284,3 @@ public class SculkEchoerBlock extends BlockWithEntity implements Waterloggable {
         }) : null;
     }
 }
-*/

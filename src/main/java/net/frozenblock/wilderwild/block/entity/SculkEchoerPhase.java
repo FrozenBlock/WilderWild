@@ -1,4 +1,4 @@
-/*package net.frozenblock.wilderwild.block.entity;
+package net.frozenblock.wilderwild.block.entity;
 
 import net.minecraft.util.StringIdentifiable;
 
@@ -21,4 +21,3 @@ public enum SculkEchoerPhase implements StringIdentifiable {
         return this.name;
     }
 }
-*/

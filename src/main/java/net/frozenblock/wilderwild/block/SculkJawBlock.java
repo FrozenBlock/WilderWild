@@ -1,4 +1,4 @@
-/*package net.frozenblock.wilderwild.block;
+package net.frozenblock.wilderwild.block;
 
 import net.frozenblock.wilderwild.misc.NewDamageSource;
 import net.frozenblock.wilderwild.registry.RegisterGameEvents;
@@ -103,4 +103,3 @@ public class SculkJawBlock extends Block implements SculkSpreadable {
         return Math.max(1, (int) ((float) charge * g * 0.5F));
     }
 }
-*/

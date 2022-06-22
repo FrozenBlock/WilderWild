@@ -3,6 +3,7 @@ package net.frozenblock.wilderwild.entity;
 import io.netty.buffer.Unpooled;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.frozenblock.wilderwild.WilderWild;
+import net.frozenblock.wilderwild.block.SculkEchoerBlock;
 import net.frozenblock.wilderwild.block.entity.HangingTendrilBlockEntity;
 import net.frozenblock.wilderwild.misc.NewProjectileDamageSource;
 import net.frozenblock.wilderwild.misc.server.EasyPacket;
@@ -255,14 +256,14 @@ public class AncientHornProjectileEntity extends PersistentProjectileEntity {
                     setCooldown(getCooldown(this.getOwner(), sensorCooldown));
                 }
             }
-            /*if (blockState.getBlock() == RegisterBlocks.SCULK_ECHOER) {
+            if (blockState.getBlock() == RegisterBlocks.SCULK_ECHOER) {
                 BlockPos pos = blockHitResult.getBlockPos();
                 WilderWild.log(RegisterBlocks.SCULK_ECHOER, pos, "Horn Projectile Touched", WilderWild.UNSTABLE_LOGGING);
                 if (SculkEchoerBlock.isInactive(blockState)) {
                     SculkEchoerBlock.setActive(owner, world, pos, world.getBlockState(pos), server.random.nextBetween(160, 220));
                     setCooldown(getCooldown(this.getOwner(), echoerCooldown));
                 }
-            }*/
+            }
         }
         this.setSound(RegisterSounds.ANCIENT_HORN_VIBRATION_DISSIPATE);
         this.setShotFromCrossbow(false);

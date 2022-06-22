@@ -78,12 +78,12 @@ public abstract class SculkBlockMixin {
                         blockPos2 = blockPos.down();
                     }
 
-                    /*if (blockState.getBlock() == RegisterBlocks.SCULK_JAW) {
+                    if (blockState.getBlock() == RegisterBlocks.SCULK_JAW) {
                         blockPos2 = blockPos;
                     }
                     if (blockState.getBlock() == RegisterBlocks.SCULK_ECHOER) {
                         placeBlockBelow = RegisterBlocks.OSSEOUS_SCULK.getDefaultState();
-                    }*/
+                    }
                     if (isWorldGen && blockState.isOf(RegisterBlocks.OSSEOUS_SCULK)) {
                         j = -2;
                     }
@@ -172,18 +172,18 @@ public abstract class SculkBlockMixin {
             blockState = Blocks.SCULK_SHRIEKER.getDefaultState().with(SculkShriekerBlock.CAN_SUMMON, allowShrieker);
             decided = true;
         }
-        /*if (!decided && random.nextInt(5) <= 1) {
+        if (!decided && random.nextInt(5) <= 1) {
             blockState = RegisterBlocks.SCULK_JAW.getDefaultState();
             decided = true;
-        }*/
+        }
         if (canPlaceBone(pos, allowShrieker, world) && blockState.isOf(Blocks.SCULK_SENSOR)) {
             int pillarHeight = (int) MathHelper.clamp(EasyNoiseSampler.samplePositive(EasyNoiseSampler.perlinXoro, pos, randomness, false, false) * heightMultiplier, 2, maxHeight);
             blockState = RegisterBlocks.OSSEOUS_SCULK.getDefaultState().with(OsseousSculkBlock.HEIGHT_LEFT, pillarHeight).with(OsseousSculkBlock.TOTAL_HEIGHT, pillarHeight + 1);
             decided = true;
         }
-        /*if (!decided && (Math.random() * 5 > 4)) {
+        if (!decided && (Math.random() * 5 > 4)) {
             blockState = RegisterBlocks.SCULK_ECHOER.getDefaultState();
-        }*/
+        }
         return blockState.contains(Properties.WATERLOGGED) && !world.getFluidState(pos).isEmpty() ? blockState.with(Properties.WATERLOGGED, true) : blockState;
     }
 

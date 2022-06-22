@@ -1,4 +1,4 @@
-/*package net.frozenblock.wilderwild.block.entity;
+package net.frozenblock.wilderwild.block.entity;
 
 import com.mojang.logging.LogUtils;
 import com.mojang.serialization.Dynamic;
@@ -162,4 +162,3 @@ public class SculkEchoerBlockEntity extends BlockEntity implements VibrationList
         this.lastVibrationFrequency = lastVibrationFrequency;
     }
 }
-*/
