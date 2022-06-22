@@ -75,6 +75,7 @@ public abstract class RegisterBlocks {
     public static final Block ECHO_GLASS = new EchoGlassBlock(FabricBlockSettings.of(Material.GLASS, MapColor.CYAN).strength(0.3F).nonOpaque().sounds(RegisterBlockSoundGroups.ECHO_GLASS));
     public static final Block SCULK_STAIRS = new SculkStairsBlock(Blocks.SCULK.getDefaultState(), FabricBlockSettings.copy(Blocks.SCULK));
     public static final Block SCULK_SLAB = new SculkSlabBlock(FabricBlockSettings.of(Material.SCULK).strength(0.2F).sounds(BlockSoundGroup.SCULK));
+    public static final Block SCULK_WALL = new SculkWallBlock(FabricBlockSettings.copy(Blocks.SCULK));
 
     public static void registerDeepDark() {
         registerBlock("sculk_echoer", SCULK_ECHOER, ItemGroup.DECORATIONS);
@@ -84,6 +85,7 @@ public abstract class RegisterBlocks {
         registerBlock("echo_glass", ECHO_GLASS, ItemGroup.DECORATIONS);
         registerBlock("sculk_stairs", SCULK_STAIRS, ItemGroup.DECORATIONS);
         registerBlock("sculk_slab", SCULK_SLAB, ItemGroup.DECORATIONS);
+        registerBlock("sculk_wall", SCULK_WALL, ItemGroup.DECORATIONS);
     }
 
     public static final Block TERMITE_MOUND = new TermiteMound(FabricBlockSettings.of(Material.WOOD, MapColor.BROWN).strength(0.3F).sounds(RegisterBlockSoundGroups.COARSEDIRT));

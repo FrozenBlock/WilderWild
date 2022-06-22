@@ -689,44 +689,6 @@
 		],
 		"subtitle": "subtitles.block.generic.footsteps"
 	},
-	"block.sculk_chirper.exhale": {
-		"sounds": [
-			"wilderwild:block/sculk_chirper/sculk_chirper_exhale"
-		],
-		"subtitle": "subtitles.block.sculk_chirper.exhale"
-	},
-	"block.sculk_chirper.swell": {
-		"sounds": [
-			"wilderwild:block/sculk_chirper/sculk_chirper_swell"
-		],
-		"subtitle": "subtitles.block.sculk_chirper.swell"
-	},
-	"block.sculk_echoer.echo": {
-		"sounds": [
-			"wilderwild:block/sculk_echoer/echo1",
-			"wilderwild:block/sculk_echoer/echo2",
-			"wilderwild:block/sculk_echoer/echo3",
-			"wilderwild:block/sculk_echoer/echo4",
-			"wilderwild:block/sculk_echoer/echo5",
-			"wilderwild:block/sculk_echoer/echo6"
-		],
-		"subtitle": "subtitles.block.sculk_echoer.echo"
-	},
-	"block.sculk_jaw.clamp": {
-		"sounds": [
-			"wilderwild:block/sculk_jaw/clamp1",
-			"wilderwild:block/sculk_jaw/clamp2",
-			"wilderwild:block/sculk_jaw/clamp3"
-		],
-		"subtitle": "subtitles.block.sculk_jaw.clamp"
-	},
-	"block.sculk_jaw.retract": {
-		"sounds": [
-			"wilderwild:block/sculk_jaw/retract1",
-			"wilderwild:block/sculk_jaw/retract2",
-			"wilderwild:block/sculk_jaw/retract3"
-		]
-	},
 	"block.sculk_sensor.hiccup": {
 		"sounds": [
 			"wilderwild:block/sculk_sensor/hiccup1",
@@ -801,6 +763,12 @@
 			"wilderwild:mob/firefly/hurt_1",
 			"wilderwild:mob/firefly/hurt_2",
 			"wilderwild:mob/firefly/hurt_3"
+		]
+	},
+	"entity.warden.dying": {
+		"sounds": [
+			"wilderwild:mob/warden/dying1",
+			"wilderwild:mob/warden/dying2"
 		]
 	},
 	"item.ancient_horn.call": {

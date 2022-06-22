@@ -9,7 +9,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static net.frozenblock.wilderwild.registry.RegisterBlockSoundGroups.*;
-import static net.frozenblock.wilderwild.registry.RegisterBlocks.*;
+import static net.frozenblock.wilderwild.registry.RegisterBlocks.BAOBAB_LEAVES;
+import static net.frozenblock.wilderwild.registry.RegisterBlocks.CYPRESS_LEAVES;
 import static net.minecraft.block.Blocks.*;
 
 

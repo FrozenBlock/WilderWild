@@ -2,7 +2,7 @@ package net.frozenblock.wilderwild.block;
 
 import net.minecraft.block.BlockState;
 import net.minecraft.block.SculkSpreadable;
-import net.minecraft.block.SlabBlock;
+import net.minecraft.block.WallBlock;
 import net.minecraft.block.entity.SculkSpreadManager;
 import net.minecraft.item.ItemStack;
 import net.minecraft.server.world.ServerWorld;
@@ -11,9 +11,8 @@ import net.minecraft.util.math.intprovider.ConstantIntProvider;
 import net.minecraft.util.math.random.Random;
 import net.minecraft.world.WorldAccess;
 
-public class SculkSlabBlock extends SlabBlock implements SculkSpreadable {
-
-    public SculkSlabBlock(Settings settings) {
+public class SculkWallBlock extends WallBlock implements SculkSpreadable {
+    public SculkWallBlock(Settings settings) {
         super(settings);
     }
 

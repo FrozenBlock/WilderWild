@@ -3,6 +3,7 @@ package net.frozenblock.wilderwild.mixin;
 import com.mojang.logging.LogUtils;
 import net.frozenblock.wilderwild.entity.render.animations.WardenAnimationInterface;
 import net.frozenblock.wilderwild.registry.RegisterProperties;
+import net.frozenblock.wilderwild.registry.RegisterSounds;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.brain.Brain;
@@ -15,6 +16,7 @@ import net.minecraft.entity.mob.WardenBrain;
 import net.minecraft.entity.mob.WardenEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.NbtCompound;
+import net.minecraft.particle.ParticleTypes;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
@@ -36,17 +38,18 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(WardenEntity.class)
 public abstract class WardenEntityMixin extends HostileEntity implements WardenAnimationInterface {
+
+    WardenEntity warden = WardenEntity.class.cast(this);
+
     /**
      * @author FrozenBlock
      * @reason custom death sound
      */
     @Overwrite
     public SoundEvent getDeathSound() {
-        return SoundEvents.ENTITY_WARDEN_HURT;
-    };
-
-    @Shadow
-    protected abstract float getSoundVolume();
+        warden.playSound(RegisterSounds.ENTITY_WARDEN_DYING, 5.0F, 1.0F);
+        return SoundEvents.ENTITY_WARDEN_DEATH;
+    }
 
     @Shadow
     public abstract Brain<WardenEntity> getBrain();
@@ -86,19 +89,17 @@ public abstract class WardenEntityMixin extends HostileEntity implements WardenA
 
     @Inject(at = @At("HEAD"), method = "initialize")
     public void initialize(ServerWorldAccess serverWorldAccess, LocalDifficulty localDifficulty, SpawnReason spawnReason, @Nullable EntityData entityData, @Nullable NbtCompound nbtCompound, CallbackInfoReturnable<EntityData> info) {
-        WardenEntity entity = WardenEntity.class.cast(this);
-        entity.getBrain().remember(MemoryModuleType.DIG_COOLDOWN, Unit.INSTANCE, 1200L);
-        entity.getBrain().remember(MemoryModuleType.TOUCH_COOLDOWN, Unit.INSTANCE, WardenBrain.EMERGE_DURATION);
+        warden.getBrain().remember(MemoryModuleType.DIG_COOLDOWN, Unit.INSTANCE, 1200L);
+        warden.getBrain().remember(MemoryModuleType.TOUCH_COOLDOWN, Unit.INSTANCE, WardenBrain.EMERGE_DURATION);
         if (spawnReason == SpawnReason.SPAWN_EGG || spawnReason == SpawnReason.COMMAND) {
-            entity.setPose(EntityPose.EMERGING);
-            entity.getBrain().remember(MemoryModuleType.IS_EMERGING, Unit.INSTANCE, WardenBrain.EMERGE_DURATION);
-            entity.setPersistent();
+            warden.setPose(EntityPose.EMERGING);
+            warden.getBrain().remember(MemoryModuleType.IS_EMERGING, Unit.INSTANCE, WardenBrain.EMERGE_DURATION);
+            warden.setPersistent();
         }
     }
 
     @Inject(at = @At("HEAD"), method = "pushAway")
     protected void pushAway(Entity entity, CallbackInfo info) {
-        WardenEntity warden = WardenEntity.class.cast(this);
         if (!warden.getBrain().hasMemoryModule(MemoryModuleType.ATTACK_COOLING_DOWN) && !warden.getBrain().hasMemoryModule(MemoryModuleType.TOUCH_COOLDOWN) && !(entity instanceof WardenEntity) && !warden.isInPose(EntityPose.EMERGING) && !warden.isInPose(EntityPose.DIGGING) && !warden.isInPose(EntityPose.DYING)) {
             if (!entity.isInvulnerable()) {
                 LivingEntity livingEntity = (LivingEntity) entity;
@@ -121,18 +122,8 @@ public abstract class WardenEntityMixin extends HostileEntity implements WardenA
         }
     }
 
-    /**
-     * @author FrozenBlock
-     * @reason we need it to stop doing stuff when it dies lol
-     */
-    @Overwrite
-    private boolean isDiggingOrEmerging() {
-        return this.isInPose(EntityPose.DYING) || this.isInPose(EntityPose.DIGGING) || this.isInPose(EntityPose.EMERGING);
-    }
-
     @Inject(at = @At("HEAD"), method = "accept", cancellable = true)
     public void accept(ServerWorld world, GameEventListener listener, BlockPos pos, GameEvent event, @Nullable Entity entity, @Nullable Entity sourceEntity, float f, CallbackInfo info) {
-        WardenEntity warden = WardenEntity.class.cast(this);
         int additionalAnger = 0;
         if (world.getBlockState(pos).isOf(Blocks.SCULK_SENSOR)) {
             if (!world.getBlockState(pos).get(RegisterProperties.NOT_HICCUPPING)) {
@@ -178,7 +169,6 @@ public abstract class WardenEntityMixin extends HostileEntity implements WardenA
      */
     @Overwrite
     public void onTrackedDataSet(TrackedData<?> data) {
-        WardenEntity warden = WardenEntity.class.cast(this);
         if (POSE.equals(data)) {
             switch (this.getPose()) {
                 case DYING -> this.getDyingAnimationState().start(warden.age);
@@ -201,12 +191,11 @@ public abstract class WardenEntityMixin extends HostileEntity implements WardenA
 
     @Override
     public boolean isAlive() {
-        return this.deathTicks < 100 && !this.isRemoved();
+        return this.deathTicks < 70 && !this.isRemoved();
     }
 
     @Override
     public void onDeath(DamageSource damageSource) {
-        WardenEntity warden = WardenEntity.class.cast(this);
         if (!warden.isRemoved() && !warden.dead) {
 
             Entity entity = damageSource.getAttacker();
@@ -226,7 +215,7 @@ public abstract class WardenEntityMixin extends HostileEntity implements WardenA
             warden.dead = true;
             this.getDamageTracker().update();
             if (this.world instanceof ServerWorld) {
-                if (entity == null || entity.onKilledOther((ServerWorld)warden.world, warden)) {
+                if (entity == null || entity.onKilledOther((ServerWorld) warden.world, warden)) {
                     warden.emitGameEvent(GameEvent.ENTITY_DIE);
                     this.drop(damageSource);
                     this.onKilledBy(livingEntity);
@@ -236,31 +225,55 @@ public abstract class WardenEntityMixin extends HostileEntity implements WardenA
             }
 
             warden.setPose(EntityPose.DYING);
+            warden.getBrain().clear();
+            warden.clearGoalsAndTasks();
+            warden.setAiDisabled(true);
         }
+    }
+
+    private void addAdditionalDeathParticles() {
+        for (int i = 0; i < 20; ++i) {
+            double d = this.random.nextGaussian() * 0.02;
+            double e = this.random.nextGaussian() * 0.02;
+            double f = this.random.nextGaussian() * 0.02;
+            this.world.addParticle(ParticleTypes.SCULK_CHARGE_POP, this.getParticleX(1.0), this.getRandomBodyY(), this.getParticleZ(1.0), d, e, f);
+            this.world.addParticle(ParticleTypes.SCULK_SOUL, this.getParticleX(1.0), this.getRandomBodyY(), this.getParticleZ(1.0), d, e, f);
+        }
+
     }
 
     @Override
     protected void updatePostDeath() {
-        WardenEntity warden = WardenEntity.class.cast(this);
         ++this.deathTicks;
-        if (this.deathTicks == 50 && !warden.world.isClient()) {
-            warden.deathTime = 50;
+        if (this.deathTicks == 35 && !warden.world.isClient()) {
+            warden.playSound(SoundEvents.ENTITY_WARDEN_AGITATED, 3.0F, 1.05F);
+            warden.deathTime = 35;
         }
 
-        if (this.deathTicks == 100 && !warden.world.isClient()) {
+        if (this.deathTicks == 53 && !warden.world.isClient()) {
             warden.world.sendEntityStatus(warden, EntityStatuses.ADD_DEATH_PARTICLES);
+            warden.world.sendEntityStatus(warden, (byte)69420);
+            warden.playSound(SoundEvents.ENTITY_WARDEN_ANGRY, 3.0F, 0.7F);
+        }
+
+        if (this.deathTicks == 70 && !warden.world.isClient()) {
             warden.remove(Entity.RemovalReason.KILLED);
         }
     }
 
     @Inject(method = "tick", at = @At("TAIL"))
     private void tick(CallbackInfo ci) {
-        WardenEntity warden = WardenEntity.class.cast(this);
-
         switch (warden.getPose()) {
             case DYING:
                 this.addDigParticles(this.getDyingAnimationState());
                 break;
+        }
+    }
+
+    @Inject(method = "handleStatus", at = @At("HEAD"))
+    private void handleStatus(byte status, CallbackInfo ci) {
+        if (status == (byte)69420) {
+            this.addAdditionalDeathParticles();
         }
     }
 }
