@@ -437,9 +437,10 @@ public class AncientHornProjectileEntity extends PersistentProjectileEntity {
                 entity.setOnFireFor(5);
             }
             if (entity instanceof WardenEntity warden && entity2 != null && canInteract()) {
-                WilderWild.log(warden, "Horn Projectile Touched", WilderWild.UNSTABLE_LOGGING);
+                WilderWild.log(warden, "Horn Projectile Touched", WilderWild.DEV_LOGGING);
                 warden.increaseAngerAt(entity2, 100, true);
                 warden.playSound(SoundEvents.ENTITY_WARDEN_TENDRIL_CLICKS, 5.0F, warden.getSoundPitch());
+                this.discard();
             } else if (entity.damage(damageSource, (float) i)) {
                 if (entity instanceof LivingEntity livingEntity) {
                     WilderWild.log(livingEntity, "Horn Projectile Touched", WilderWild.DEV_LOGGING);
