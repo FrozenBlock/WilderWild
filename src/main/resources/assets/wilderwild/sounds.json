@@ -689,18 +689,6 @@
 		],
 		"subtitle": "subtitles.block.generic.footsteps"
 	},
-	"block.sculk_chirper.exhale": {
-		"sounds": [
-			"wilderwild:block/sculk_chirper/sculk_chirper_exhale"
-		],
-		"subtitle": "subtitles.block.sculk_chirper.exhale"
-	},
-	"block.sculk_chirper.swell": {
-		"sounds": [
-			"wilderwild:block/sculk_chirper/sculk_chirper_swell"
-		],
-		"subtitle": "subtitles.block.sculk_chirper.swell"
-	},
 	"block.sculk_echoer.echo": {
 		"sounds": [
 			"wilderwild:block/sculk_echoer/echo1",
