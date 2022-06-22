@@ -13,7 +13,7 @@ import net.minecraft.client.render.entity.animation.Transformation;
 @Environment(EnvType.CLIENT)
 public class CustomWardenAnimations {
 
-    public static final Animation DYING = Animation.Builder.create(5.0F)
+    public static final Animation DYING = Animation.Builder.create(2.64F)
             .addBoneAnimation(
                     "body",
                     new Transformation(
