@@ -8,6 +8,7 @@ import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.block.*;
 import net.frozenblock.wilderwild.block.entity.TermiteMoundBlockEntity;
 import net.frozenblock.wilderwild.item.FloweredLilyPadItem;
+import net.frozenblock.wilderwild.misc.FlowerColors;
 import net.frozenblock.wilderwild.mixin.SignTypeAccessor;
 import net.frozenblock.wilderwild.world.gen.sapling.BaobabSaplingGenerator;
 import net.frozenblock.wilderwild.world.gen.sapling.CypressSaplingGenerator;
@@ -25,6 +26,8 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.world.BlockView;
+
+import java.util.List;
 
 public abstract class RegisterBlocks {
     private static final MapColor planksColor = MapColor.ORANGE;
@@ -64,19 +67,21 @@ public abstract class RegisterBlocks {
     }
 
     // SCULK
-    public static final Block SCULK_ECHOER = new SculkEchoerBlock(FabricBlockSettings.of(Material.SCULK, MapColor.CYAN).strength(3.0F, 3.0F).sounds(BlockSoundGroup.SCULK_CATALYST), 8);
-    public static final Block SCULK_JAW = new SculkJawBlock(FabricBlockSettings.of(Material.SCULK).strength(0.6F).sounds(BlockSoundGroup.SCULK));
     public static final Block OSSEOUS_SCULK = new OsseousSculkBlock(FabricBlockSettings.of(Material.STONE, MapColor.PALE_YELLOW).requiresTool().strength(2.0F).sounds(RegisterBlockSoundGroups.OSSEOUS_SCULK));
     public static final Block HANGING_TENDRIL = new HangingTendrilBlock(FabricBlockSettings.copyOf(Blocks.SCULK_SENSOR).strength(0.7F).collidable(false).luminance((state) -> 1)
             .sounds(RegisterBlockSoundGroups.HANGING_TENDRIL).emissiveLighting((state, world, pos) -> HangingTendrilBlock.shouldHavePogLighting(state)), 4);
     public static final Block ECHO_GLASS = new EchoGlassBlock(FabricBlockSettings.of(Material.GLASS, MapColor.CYAN).strength(0.3F).nonOpaque().sounds(RegisterBlockSoundGroups.ECHO_GLASS));
+    public static final Block SCULK_STAIRS = new SculkStairsBlock(Blocks.SCULK.getDefaultState(), FabricBlockSettings.copy(Blocks.SCULK));
+    public static final Block SCULK_SLAB = new SculkSlabBlock(FabricBlockSettings.of(Material.SCULK).strength(0.2F).sounds(BlockSoundGroup.SCULK));
+    public static final Block SCULK_WALL = new SculkWallBlock(FabricBlockSettings.copy(Blocks.SCULK));
 
     public static void registerDeepDark() {
-        registerBlock("sculk_echoer", SCULK_ECHOER, ItemGroup.DECORATIONS);
-        registerBlock("sculk_jaw", SCULK_JAW, ItemGroup.DECORATIONS);
         registerBlock("osseous_sculk", OSSEOUS_SCULK, ItemGroup.DECORATIONS);
         registerBlock("hanging_tendril", HANGING_TENDRIL, ItemGroup.DECORATIONS);
         registerBlock("echo_glass", ECHO_GLASS, ItemGroup.DECORATIONS);
+        registerBlock("sculk_stairs", SCULK_STAIRS, ItemGroup.DECORATIONS);
+        registerBlock("sculk_slab", SCULK_SLAB, ItemGroup.DECORATIONS);
+        registerBlock("sculk_wall", SCULK_WALL, ItemGroup.DECORATIONS);
     }
 
     public static final Block TERMITE_MOUND = new TermiteMound(FabricBlockSettings.of(Material.WOOD, MapColor.BROWN).strength(0.3F).sounds(RegisterBlockSoundGroups.COARSEDIRT));
@@ -85,10 +90,17 @@ public abstract class RegisterBlocks {
     public static final Block DATURA = new TallFlowerBlock(FabricBlockSettings.copy(Blocks.ROSE_BUSH).strength(0.0F).nonOpaque());
     public static final Block CATTAIL = new WaterloggableTallFlowerBlock(FabricBlockSettings.copy(Blocks.ROSE_BUSH).sounds(BlockSoundGroup.WET_GRASS).strength(0.0F).nonOpaque());
     public static final Block CARNATION = new FlowerBlock(StatusEffects.REGENERATION, 12, FabricBlockSettings.copy(Blocks.DANDELION).sounds(BlockSoundGroup.SPORE_BLOSSOM).strength(0.0F).nonOpaque());
-    public static final Block POTTED_CARNATION = new FlowerPotBlock(RegisterBlocks.CARNATION, FabricBlockSettings.of(Material.DECORATION).breakInstantly().nonOpaque());
     public static final Block WHITE_DANDELION = new WhiteDandelionBlock(StatusEffects.SLOW_FALLING, 12, FabricBlockSettings.copy(Blocks.DANDELION).sounds(BlockSoundGroup.SPORE_BLOSSOM).strength(0.0F).nonOpaque());
-    public static final Block POTTED_WHITE_DANDELION = new FlowerPotBlock(RegisterBlocks.WHITE_DANDELION, FabricBlockSettings.of(Material.DECORATION).breakInstantly().nonOpaque());
     public static final Block MILKWEED = new MilkweedBlock(FabricBlockSettings.copy(Blocks.ROSE_BUSH).strength(0.0F).nonOpaque());
+    public static final Block GLORY_OF_THE_SNOW = new GloryOfTheSnowBlock(FabricBlockSettings.copy(Blocks.DANDELION).sounds(BlockSoundGroup.SPORE_BLOSSOM).strength(0.0F).nonOpaque().ticksRandomly(), List.of(FlowerColors.BLUE, FlowerColors.PINK, FlowerColors.PURPLE, FlowerColors.WHITE));
+
+    public static final Block POTTED_CARNATION = new FlowerPotBlock(RegisterBlocks.CARNATION, FabricBlockSettings.of(Material.DECORATION).breakInstantly().nonOpaque());
+    public static final Block POTTED_WHITE_DANDELION = new FlowerPotBlock(RegisterBlocks.WHITE_DANDELION, FabricBlockSettings.of(Material.DECORATION).breakInstantly().nonOpaque());
+
+    public static final Block BLUE_GLORY_OF_THE_SNOW = new FlowerLichenBlock(FabricBlockSettings.copyOf(Blocks.GRASS).collidable(false).offsetType(AbstractBlock.OffsetType.NONE).mapColor(MapColor.BLUE).sounds(BlockSoundGroup.VINE));
+    public static final Block PINK_GLORY_OF_THE_SNOW = new FlowerLichenBlock(FabricBlockSettings.copyOf(Blocks.GRASS).collidable(false).offsetType(AbstractBlock.OffsetType.NONE).mapColor(MapColor.DULL_PINK).sounds(BlockSoundGroup.VINE));
+    public static final Block PURPLE_GLORY_OF_THE_SNOW = new FlowerLichenBlock(FabricBlockSettings.copyOf(Blocks.GRASS).collidable(false).offsetType(AbstractBlock.OffsetType.NONE).mapColor(MapColor.PURPLE).sounds(BlockSoundGroup.VINE));
+    public static final Block WHITE_GLORY_OF_THE_SNOW = new FlowerLichenBlock(FabricBlockSettings.copyOf(Blocks.GRASS).collidable(false).offsetType(AbstractBlock.OffsetType.NONE).mapColor(MapColor.OFF_WHITE).sounds(BlockSoundGroup.VINE));
 
     public static void registerPlants() {
         registerBlock("datura", DATURA, ItemGroup.DECORATIONS);
@@ -98,14 +110,19 @@ public abstract class RegisterBlocks {
         registerBlock("white_dandelion", WHITE_DANDELION, ItemGroup.DECORATIONS);
         registerBlockWithoutBlockItem("potted_white_dandelion", POTTED_WHITE_DANDELION);
         registerBlock("milkweed", MILKWEED, ItemGroup.DECORATIONS);
+        registerBlock("glory_of_the_snow", GLORY_OF_THE_SNOW, ItemGroup.DECORATIONS);
+        registerBlockWithoutBlockItem("blue_giant_glory_of_the_snow", BLUE_GLORY_OF_THE_SNOW);
+        registerBlockWithoutBlockItem("pink_giant_glory_of_the_snow", PINK_GLORY_OF_THE_SNOW);
+        registerBlockWithoutBlockItem("violet_beauty_glory_of_the_snow", PURPLE_GLORY_OF_THE_SNOW);
+        registerBlockWithoutBlockItem("alba_glory_of_the_snow", WHITE_GLORY_OF_THE_SNOW);
     }
 
-    public static final Block POLLEN_BLOCK = new PollenBlock(FabricBlockSettings.copyOf(Blocks.GRASS).collidable(false).offsetType(AbstractBlock.OffsetType.NONE).mapColor(MapColor.PALE_YELLOW).sounds(BlockSoundGroup.VINE));
+    public static final Block POLLEN_BLOCK = new FlowerLichenBlock(FabricBlockSettings.copyOf(Blocks.GRASS).collidable(false).offsetType(AbstractBlock.OffsetType.NONE).mapColor(MapColor.PALE_YELLOW).sounds(BlockSoundGroup.VINE));
     public static final Block BROWN_SHELF_FUNGUS = new ShelfFungusBlock(FabricBlockSettings.copyOf(Blocks.BROWN_MUSHROOM_BLOCK).luminance(1).collidable(false).nonOpaque().sounds(RegisterBlockSoundGroups.MUSHROOM));
     public static final Block RED_SHELF_FUNGUS = new ShelfFungusBlock(FabricBlockSettings.copyOf(Blocks.RED_MUSHROOM_BLOCK).collidable(false).nonOpaque().sounds(RegisterBlockSoundGroups.MUSHROOM));
 
     public static void registerNotSoPlants() {
-        registerBlock("pollen", POLLEN_BLOCK, ItemGroup.DECORATIONS);
+        registerBlockWithoutBlockItem("pollen", POLLEN_BLOCK);
         registerBlock("brown_shelf_fungus", BROWN_SHELF_FUNGUS, ItemGroup.DECORATIONS);
         registerBlock("red_shelf_fungus", RED_SHELF_FUNGUS, ItemGroup.DECORATIONS);
     }

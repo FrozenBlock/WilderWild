@@ -2,14 +2,18 @@ package net.frozenblock.wilderwild.world.feature;
 
 import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.block.ShelfFungusBlock;
+import net.frozenblock.wilderwild.misc.FlowerColors;
 import net.frozenblock.wilderwild.registry.RegisterBlocks;
 import net.frozenblock.wilderwild.registry.RegisterProperties;
 import net.frozenblock.wilderwild.world.feature.features.config.ColumnWithDiskFeatureConfig;
+import net.frozenblock.wilderwild.world.feature.features.config.PathFeatureConfig;
 import net.frozenblock.wilderwild.world.feature.features.config.ShelfFungusFeatureConfig;
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.MultifaceGrowthBlock;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.collection.DataPool;
 import net.minecraft.util.math.intprovider.UniformIntProvider;
 import net.minecraft.util.registry.BuiltinRegistries;
 import net.minecraft.util.registry.Registry;
@@ -18,6 +22,7 @@ import net.minecraft.util.registry.RegistryEntryList;
 import net.minecraft.world.gen.ProbabilityConfig;
 import net.minecraft.world.gen.feature.*;
 import net.minecraft.world.gen.stateprovider.BlockStateProvider;
+import net.minecraft.world.gen.stateprovider.WeightedBlockStateProvider;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
@@ -183,6 +188,10 @@ public class WildConfiguredFeatures {
             register("short_cypress_trees", Feature.RANDOM_SELECTOR,
                     new RandomFeatureConfig(List.of(new RandomFeatureEntry(WildTreePlaced.SHORT_CYPRESS, 0.7F),
                             new RandomFeatureEntry(WildTreePlaced.SHORT_FUNGUS_CYPRESS, 0.3F)), WildTreePlaced.SHORT_FUNGUS_CYPRESS));
+
+    public static final DataPool<BlockState> GLORY_OF_THE_SNOW_POOL = DataPool.<BlockState>builder().add(RegisterBlocks.GLORY_OF_THE_SNOW.getDefaultState().with(RegisterProperties.FLOWER_COLOR, FlowerColors.BLUE), 3).add(RegisterBlocks.GLORY_OF_THE_SNOW.getDefaultState().with(RegisterProperties.FLOWER_COLOR, FlowerColors.PURPLE), 3).add(RegisterBlocks.GLORY_OF_THE_SNOW.getDefaultState().with(RegisterProperties.FLOWER_COLOR, FlowerColors.PINK), 2).add(RegisterBlocks.GLORY_OF_THE_SNOW.getDefaultState().with(RegisterProperties.FLOWER_COLOR, FlowerColors.WHITE), 1).build();
+    public static final RegistryEntry<ConfiguredFeature<PathFeatureConfig, ?>> GLORY_OF_THE_SNOW_PATH = WildConfiguredFeatures.register("glory_of_the_snow_path", WilderWild.NOISE_PLANT_FEATURE, new PathFeatureConfig(new WeightedBlockStateProvider(GLORY_OF_THE_SNOW_POOL), 6, 3, 0.1, 0.18, 0.7, true, true, RegistryEntryList.of(Blocks.AIR.getRegistryEntry(), Blocks.GRASS.getRegistryEntry())));
+
 
     public static void registerConfiguredFeatures() {
         WilderWild.logWild("Registering WildConfiguredFeatures for", true);

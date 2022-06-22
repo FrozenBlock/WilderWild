@@ -1,7 +1,7 @@
 package net.frozenblock.wilderwild.registry;
 
 import net.frozenblock.wilderwild.block.entity.HangingTendrilPhase;
-import net.frozenblock.wilderwild.block.entity.SculkEchoerPhase;
+import net.frozenblock.wilderwild.misc.FlowerColors;
 import net.minecraft.state.property.BooleanProperty;
 import net.minecraft.state.property.EnumProperty;
 import net.minecraft.state.property.IntProperty;
@@ -9,9 +9,6 @@ import net.minecraft.state.property.Properties;
 
 public class RegisterProperties extends Properties {
 
-    //Sculk Echoer
-    public static final EnumProperty<SculkEchoerPhase> SCULK_ECHOER_PHASE = EnumProperty.of("sculk_echoer_phase", SculkEchoerPhase.class);
-    public static final BooleanProperty ECHOING = BooleanProperty.of("echoing");
     //Osseous Sculk
     public static final IntProperty PILLAR_HEIGHT_LEFT = IntProperty.of("pillar_height_left", 0, 15);
     public static final BooleanProperty UPSIDE_DOWN = BooleanProperty.of("upside_down");
@@ -26,6 +23,8 @@ public class RegisterProperties extends Properties {
     public static final IntProperty FUNUGS_STAGE = IntProperty.of("shelf_fungus_stage", 1, 4);
     //Termite Mound
     public static final BooleanProperty NATURAL = BooleanProperty.of("natural");
+    //Glory of The Snow
+    public static final EnumProperty<FlowerColors> FLOWER_COLOR = EnumProperty.of("flower_color", FlowerColors.class);
     //Cypress Roots
     public static final IntProperty ROOTS = IntProperty.of("roots", 1, 4);
 

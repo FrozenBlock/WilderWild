@@ -39,7 +39,6 @@ public class AncientCityGoatHorn extends Item {
 
     public static final int shriekerCooldown = 900;
     public static final int sensorCooldown = 400;
-    public static final int echoerCooldown = 580;
     public static final int tendrilCooldown = 380;
 
     public AncientCityGoatHorn(Settings settings, TagKey<Instrument> instrumentTag) {

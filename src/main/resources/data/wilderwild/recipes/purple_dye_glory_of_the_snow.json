@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "group": "glory_of_the_snow",
+  "ingredients": [
+    {
+      "item": "wilderwild:violet_beauty_glory_of_the_snow"
+    }
+  ],
+  "result": {
+    "item": "minecraft:purple_dye",
+    "count": 2
+  }
+}

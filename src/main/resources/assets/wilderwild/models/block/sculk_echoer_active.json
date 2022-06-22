@@ -1,9 +1,0 @@
-{
-	"parent": "wilderwild:block/sculk_echoer",
-	"textures": {
-		"0": "wilderwild:block/sculk_echoer_top_active",
-		"1": "wilderwild:block/sculk_echoer_bottom",
-		"2": "wilderwild:block/sculk_echoer_side_active",
-		"particle": "wilderwild:block/sculk_echoer_side"
-	}
-}

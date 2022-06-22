@@ -1,7 +1,0 @@
-{
-  "parent": "block/cube_top",
-  "textures": {
-    "top": "wilderwild:block/sculk_jaw",
-    "side": "minecraft:block/sculk"
-  }
-}
