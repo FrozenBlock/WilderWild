@@ -1,6 +1,5 @@
 package net.frozenblock.wilderwild.block;
 
-import net.frozenblock.wilderwild.registry.RegisterBlocks;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.SculkSpreadable;
 import net.minecraft.block.WallBlock;
