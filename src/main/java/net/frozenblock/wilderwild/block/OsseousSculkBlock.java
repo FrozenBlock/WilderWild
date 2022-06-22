@@ -105,7 +105,7 @@ public class OsseousSculkBlock extends PillarBlock implements SculkSpreadable {
 
                         if (pillarHeight == 1 && !state.get(UPSIDEDOWN) && state.get(TOTAL_HEIGHT) > 0) {
                             if (EasyNoiseSampler.localRandom.nextInt(Math.max(1, state.get(TOTAL_HEIGHT) / 2)) <= 1) {
-                                blockState = RegisterBlocks.SCULK_ECHOER.getDefaultState();
+                                //blockState = RegisterBlocks.SCULK_ECHOER.getDefaultState();
                                 if (random.nextInt(11) == 0) {
                                     blockState = Blocks.SCULK_CATALYST.getDefaultState();
                                 }
@@ -113,7 +113,7 @@ public class OsseousSculkBlock extends PillarBlock implements SculkSpreadable {
                         }
                         if (pillarHeight == 1 && state.get(UPSIDEDOWN) && state.get(TOTAL_HEIGHT) > 0) {
                             if (EasyNoiseSampler.localRandom.nextInt(3) <= 1) {
-                                blockState = RegisterBlocks.SCULK_ECHOER.getDefaultState().with(SculkEchoerBlock.UPSIDEDOWN, true);
+                                //blockState = RegisterBlocks.SCULK_ECHOER.getDefaultState().with(SculkEchoerBlock.UPSIDEDOWN, true);
                             }
                         }
                         if (blockState.getBlock() == RegisterBlocks.OSSEOUS_SCULK) {
@@ -174,7 +174,7 @@ public class OsseousSculkBlock extends PillarBlock implements SculkSpreadable {
 
                     if (pillarHeight == 1 && !state.get(UPSIDEDOWN) && state.get(TOTAL_HEIGHT) > 0) {
                         if (EasyNoiseSampler.localRandom.nextInt(Math.max(1, state.get(TOTAL_HEIGHT) / 2)) <= 1) {
-                            blockState = RegisterBlocks.SCULK_ECHOER.getDefaultState();
+                            //blockState = RegisterBlocks.SCULK_ECHOER.getDefaultState();
                             if (random.nextInt(11) == 0) {
                                 blockState = Blocks.SCULK_CATALYST.getDefaultState();
                             }
@@ -182,7 +182,7 @@ public class OsseousSculkBlock extends PillarBlock implements SculkSpreadable {
                     }
                     if (pillarHeight == 1 && state.get(UPSIDEDOWN) && state.get(TOTAL_HEIGHT) > 0) {
                         if (EasyNoiseSampler.localRandom.nextInt(3) <= 1) {
-                            blockState = RegisterBlocks.SCULK_ECHOER.getDefaultState().with(SculkEchoerBlock.UPSIDEDOWN, true);
+                            //blockState = RegisterBlocks.SCULK_ECHOER.getDefaultState().with(SculkEchoerBlock.UPSIDEDOWN, true);
                         }
                     }
                     if (blockState.getBlock() == RegisterBlocks.OSSEOUS_SCULK) {
@@ -205,7 +205,7 @@ public class OsseousSculkBlock extends PillarBlock implements SculkSpreadable {
                     world.setBlockState(topPos.offset(direction), blockState, 3);
                     world.playSound(null, blockPos, blockState.getSoundGroup().getPlaceSound(), SoundCategory.BLOCKS, 1.0F, 1.0F);
 
-                    if (blockState.getBlock() == Blocks.SCULK_CATALYST || blockState.getBlock() == RegisterBlocks.SCULK_ECHOER || (blockState.getBlock() == RegisterBlocks.OSSEOUS_SCULK && blockState.get(HEIGHT_LEFT) == 0)) {
+                    if (blockState.getBlock() == Blocks.SCULK_CATALYST || /*blockState.getBlock() == RegisterBlocks.SCULK_ECHOER || */(blockState.getBlock() == RegisterBlocks.OSSEOUS_SCULK && blockState.get(HEIGHT_LEFT) == 0)) {
                         for (int i = 0; i < 4; i++) {
                             BlockPos bottom = getBottom(world, topPos, state.get(TOTAL_HEIGHT));
                             if (bottom != null) {
