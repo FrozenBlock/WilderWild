@@ -191,7 +191,7 @@ public abstract class WardenEntityMixin extends HostileEntity implements WardenA
 
     @Override
     public boolean isAlive() {
-        return this.deathTicks < 53 && !this.isRemoved();
+        return this.deathTicks < 70 && !this.isRemoved();
     }
 
     @Override
@@ -245,17 +245,18 @@ public abstract class WardenEntityMixin extends HostileEntity implements WardenA
     @Override
     protected void updatePostDeath() {
         ++this.deathTicks;
-        if (this.deathTicks == 26 && !warden.world.isClient()) {
-            warden.deathTime = 26;
+        if (this.deathTicks == 35 && !warden.world.isClient()) {
+            warden.playSound(SoundEvents.ENTITY_WARDEN_AGITATED, 3.0F, 1.05F);
+            warden.deathTime = 35;
         }
 
-        if (this.deathTicks == 39 && !warden.world.isClient()) {
+        if (this.deathTicks == 53 && !warden.world.isClient()) {
             warden.world.sendEntityStatus(warden, EntityStatuses.ADD_DEATH_PARTICLES);
             warden.world.sendEntityStatus(warden, (byte)69420);
             warden.playSound(SoundEvents.ENTITY_WARDEN_ANGRY, 3.0F, 0.7F);
         }
 
-        if (this.deathTicks == 53 && !warden.world.isClient()) {
+        if (this.deathTicks == 70 && !warden.world.isClient()) {
             warden.remove(Entity.RemovalReason.KILLED);
         }
     }
