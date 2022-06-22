@@ -3,6 +3,7 @@ package net.frozenblock.wilderwild.mixin;
 import com.mojang.logging.LogUtils;
 import net.frozenblock.wilderwild.entity.render.animations.WardenAnimationInterface;
 import net.frozenblock.wilderwild.registry.RegisterProperties;
+import net.frozenblock.wilderwild.registry.RegisterSounds;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.brain.Brain;
@@ -47,9 +48,9 @@ public abstract class WardenEntityMixin extends HostileEntity implements WardenA
      */
     @Overwrite
     public SoundEvent getDeathSound() {
-        warden.playSound(SoundEvents.ENTITY_WARDEN_DIG, 5.0F, 1.25F);
+        warden.playSound(RegisterSounds.ENTITY_WARDEN_DYING, 5.0F, 1.0F);
         return SoundEvents.ENTITY_WARDEN_DEATH;
-    };
+    }
 
     @Shadow
     protected abstract float getSoundVolume();

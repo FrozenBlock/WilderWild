@@ -765,6 +765,12 @@
 			"wilderwild:mob/firefly/hurt_3"
 		]
 	},
+	"entity.warden.dying": {
+		"sounds": [
+			"wilderwild:mob/warden/dying1",
+			"wilderwild:mob/warden/dying2"
+		]
+	},
 	"item.ancient_horn.call": {
 		"sounds": [
 			"wilderwild:item/ancient_horn/call0",
