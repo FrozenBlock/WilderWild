@@ -20,8 +20,7 @@ public class CustomWardenAnimations {
                             Transformation.Targets.ROTATE,
                             new Keyframe(0.0F, AnimationHelper.method_41829(0.0F, 0.0F, 0.0F), Transformation.Interpolations.field_37885),
                             new Keyframe(0.52F, AnimationHelper.method_41829(-12.59F, 0F, 6.67F), Transformation.Interpolations.field_37885),
-                            new Keyframe(1.2F, AnimationHelper.method_41829(-42.5F, 0.0F, 22.5F), Transformation.Interpolations.field_37885),
-                            new Keyframe(2.64F, AnimationHelper.method_41823(0.0F, 0.0F, 0.0F), Transformation.Interpolations.field_37884)
+                            new Keyframe(1.2F, AnimationHelper.method_41829(-42.5F, 0.0F, 22.5F), Transformation.Interpolations.field_37885)
                     )
             )
             .addBoneAnimation(
@@ -30,7 +29,7 @@ public class CustomWardenAnimations {
                             Transformation.Targets.TRANSLATE,
                             new Keyframe(0.0F, AnimationHelper.method_41823(0.0F, 0.0F, 0.0F), Transformation.Interpolations.field_37885),
                             new Keyframe(0.36F, AnimationHelper.method_41823(5.7F, -11.93F, 4F), Transformation.Interpolations.field_37885),
-                            new Keyframe(1.32F, AnimationHelper.method_41823(12.0F, -56F, 11F), Transformation.Interpolations.field_37885),
+                            new Keyframe(1.44F, AnimationHelper.method_41823(12.0F, -56F, 11F), Transformation.Interpolations.field_37885),
                             new Keyframe(2.44F, AnimationHelper.method_41823(12.0F, -70F, 8F), Transformation.Interpolations.field_37885)
                     )
             )
