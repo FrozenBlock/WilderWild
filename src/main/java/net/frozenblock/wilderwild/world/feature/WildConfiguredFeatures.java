@@ -184,6 +184,14 @@ public class WildConfiguredFeatures {
                             new RandomFeatureEntry(WildTreePlaced.SHORT_FUNGUS_CYPRESS, 0.25F)
                     ), WildTreePlaced.CYPRESS));
 
+    public static final RegistryEntry<ConfiguredFeature<RandomFeatureConfig, ?>> TALL_CYPRESS_TREE_BIASED =
+            register("tall_cypress_tree_biased", Feature.RANDOM_SELECTOR,
+                    new RandomFeatureConfig(List.of(new RandomFeatureEntry(WildTreePlaced.CYPRESS, 0.50F),
+                            new RandomFeatureEntry(WildTreePlaced.FUNGUS_CYPRESS, 0.25F),
+                            new RandomFeatureEntry(WildTreePlaced.SHORT_CYPRESS, 0.125F),
+                            new RandomFeatureEntry(WildTreePlaced.SHORT_FUNGUS_CYPRESS, 0.125F)
+                    ), WildTreePlaced.CYPRESS));
+
     public static final RegistryEntry<ConfiguredFeature<RandomFeatureConfig, ?>> SHORT_CYPRESS_TREES =
             register("short_cypress_trees", Feature.RANDOM_SELECTOR,
                     new RandomFeatureConfig(List.of(new RandomFeatureEntry(WildTreePlaced.SHORT_CYPRESS, 0.7F),
