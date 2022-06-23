@@ -79,7 +79,7 @@ public class FireflyEntity extends PathAwareEntity implements Flutterer {
     @Override
     public EntityData initialize(ServerWorldAccess world, LocalDifficulty difficulty, SpawnReason spawnReason, @Nullable EntityData entityData, @Nullable NbtCompound entityNbt) {
         this.natural = spawnReason == SpawnReason.NATURAL;
-        this.hasHome = false;
+        this.hasHome = true;
         FireflyBrain.rememberHome(this, this.getBlockPos());
         return super.initialize(world, difficulty, spawnReason, entityData, entityNbt);
     }

@@ -1,9 +1,12 @@
 package net.frozenblock.wilderwild.world.feature;
 
 import net.frozenblock.wilderwild.WilderWild;
+import net.frozenblock.wilderwild.registry.RegisterBlocks;
 import net.minecraft.block.Blocks;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.intprovider.ClampedIntProvider;
+import net.minecraft.util.math.intprovider.UniformIntProvider;
 import net.minecraft.util.registry.BuiltinRegistries;
 import net.minecraft.util.registry.RegistryEntry;
 import net.minecraft.world.Heightmap;
@@ -65,19 +68,19 @@ public class WildPlacedFeatures {
             WildConfiguredFeatures.CYPRESS_WETLANDS_TREES, modifiers(PlacedFeatures.createCountExtraModifier(20, 0.1F, 1)));
 
     public static final RegistryEntry<PlacedFeature> CYPRESS_TREES = register("cypress_trees",
-            WildConfiguredFeatures.CYPRESS_TREES, modifiers(PlacedFeatures.createCountExtraModifier(35, 0.1F, 1)));
+            WildConfiguredFeatures.CYPRESS_TREES, CountPlacementModifier.of(35), SquarePlacementModifier.of(), PlacedFeatures.WORLD_SURFACE_WG_HEIGHTMAP, BiomePlacementModifier.of(), BlockFilterPlacementModifier.of(BlockPredicate.wouldSurvive(RegisterBlocks.CYPRESS_SAPLING.getDefaultState(), BlockPos.ORIGIN)));
 
     public static final RegistryEntry<PlacedFeature> SHORT_CYPRESS_TREES = register("short_cypress_trees",
-            WildConfiguredFeatures.SHORT_CYPRESS_TREES, modifiers(PlacedFeatures.createCountExtraModifier(5, 0.1F, 1)));
+            WildConfiguredFeatures.SHORT_CYPRESS_TREES, CountPlacementModifier.of(5), SquarePlacementModifier.of(), PlacedFeatures.WORLD_SURFACE_WG_HEIGHTMAP, BiomePlacementModifier.of(), BlockFilterPlacementModifier.of(BlockPredicate.wouldSurvive(RegisterBlocks.CYPRESS_SAPLING.getDefaultState(), BlockPos.ORIGIN)));
 
     public static final RegistryEntry<PlacedFeature> CYPRESS_TREES_SWAMP = register("cypress_trees_swamp",
-            WildConfiguredFeatures.CYPRESS_TREES, modifiers(PlacedFeatures.createCountExtraModifier(1, 0.1F, 1)));
+            WildConfiguredFeatures.CYPRESS_TREES, CountPlacementModifier.of(1), SquarePlacementModifier.of(), PlacedFeatures.WORLD_SURFACE_WG_HEIGHTMAP, BiomePlacementModifier.of(), BlockFilterPlacementModifier.of(BlockPredicate.wouldSurvive(RegisterBlocks.CYPRESS_SAPLING.getDefaultState(), BlockPos.ORIGIN)));
 
     public static final RegistryEntry<PlacedFeature> CYPRESS_TREES_WATER_2 = register("cypress_trees_water_2", WildConfiguredFeatures.TALL_CYPRESS_TREE_BIASED,
-            PlacedFeatures.createCountExtraModifier(40, 0.1F, 1), SquarePlacementModifier.of(), SurfaceWaterDepthFilterPlacementModifier.of(5), PlacedFeatures.OCEAN_FLOOR_HEIGHTMAP, BiomePlacementModifier.of());
+            CountPlacementModifier.of(40), SquarePlacementModifier.of(), SurfaceWaterDepthFilterPlacementModifier.of(5), PlacedFeatures.OCEAN_FLOOR_HEIGHTMAP, BiomePlacementModifier.of(), BlockFilterPlacementModifier.of(BlockPredicate.wouldSurvive(RegisterBlocks.CYPRESS_SAPLING.getDefaultState(), BlockPos.ORIGIN)));
 
     public static final RegistryEntry<PlacedFeature> CYPRESS_TREES_WATER_1 = register("cypress_trees_water_1", WildConfiguredFeatures.TALL_CYPRESS_TREE_BIASED,
-            PlacedFeatures.createCountExtraModifier(1, 0.1F, 1), SquarePlacementModifier.of(), SurfaceWaterDepthFilterPlacementModifier.of(5), PlacedFeatures.OCEAN_FLOOR_HEIGHTMAP, BiomePlacementModifier.of());
+            CountPlacementModifier.of(1), SquarePlacementModifier.of(), SurfaceWaterDepthFilterPlacementModifier.of(5), PlacedFeatures.OCEAN_FLOOR_HEIGHTMAP, BiomePlacementModifier.of(), BlockFilterPlacementModifier.of(BlockPredicate.wouldSurvive(RegisterBlocks.CYPRESS_SAPLING.getDefaultState(), BlockPos.ORIGIN)));
 
     public static final RegistryEntry<PlacedFeature> NEW_BIRCH_PLACED = register("new_birch_placed",
             WildTreeConfigured.NEW_BIRCH_BEES_0004, modifiersWithWouldSurvive(PlacedFeatures.createCountExtraModifier(10, 0.1F, 1), Blocks.BIRCH_SAPLING));
@@ -178,7 +181,19 @@ public class WildPlacedFeatures {
             WildConfiguredFeatures.WHITE_DANDELION, RarityFilterPlacementModifier.of(9), SquarePlacementModifier.of(),
             PlacedFeatures.MOTION_BLOCKING_HEIGHTMAP, BiomePlacementModifier.of());
 
+    public static final RegistryEntry<PlacedFeature> WHITE_DANDELION_CYPRESS = register("white_dandelion_cypress",
+            WildConfiguredFeatures.WHITE_DANDELION, RarityFilterPlacementModifier.of(9), SquarePlacementModifier.of(),
+            PlacedFeatures.MOTION_BLOCKING_HEIGHTMAP, BiomePlacementModifier.of());
+
+    public static final RegistryEntry<PlacedFeature> WHITE_DANDELION_MIXED = register("white_dandelion_mixed",
+            WildConfiguredFeatures.WHITE_DANDELION, RarityFilterPlacementModifier.of(9), SquarePlacementModifier.of(),
+            PlacedFeatures.MOTION_BLOCKING_HEIGHTMAP, BiomePlacementModifier.of());
+
     public static final RegistryEntry<PlacedFeature> MILKWEED = register("milkweed",
+            WildConfiguredFeatures.MILKWEED, RarityFilterPlacementModifier.of(12), SquarePlacementModifier.of(),
+            PlacedFeatures.MOTION_BLOCKING_HEIGHTMAP, BiomePlacementModifier.of());
+
+    public static final RegistryEntry<PlacedFeature> MILKWEED_CYPRESS = register("milkweed_cypress",
             WildConfiguredFeatures.MILKWEED, RarityFilterPlacementModifier.of(12), SquarePlacementModifier.of(),
             PlacedFeatures.MOTION_BLOCKING_HEIGHTMAP, BiomePlacementModifier.of());
 
@@ -196,6 +211,16 @@ public class WildPlacedFeatures {
 
     public static final RegistryEntry<PlacedFeature> GLORY_OF_THE_SNOW_PATH = register("glory_of_the_snow_path",
             WildConfiguredFeatures.GLORY_OF_THE_SNOW_PATH, RarityFilterPlacementModifier.of(2), CountPlacementModifier.of(1), PlacedFeatures.WORLD_SURFACE_WG_HEIGHTMAP, SquarePlacementModifier.of(), BiomePlacementModifier.of());
+
+    public static final RegistryEntry<PlacedFeature> FLOWER_FOREST_FLOWERS = register(
+            "flower_forest_flowers",
+            VegetationConfiguredFeatures.FOREST_FLOWERS,
+            RarityFilterPlacementModifier.of(7),
+            SquarePlacementModifier.of(),
+            PlacedFeatures.MOTION_BLOCKING_HEIGHTMAP,
+            CountPlacementModifier.of(ClampedIntProvider.create(UniformIntProvider.create(-1, 3), 0, 3)),
+            BiomePlacementModifier.of()
+    );
 
     public static RegistryEntry<PlacedFeature> register(
             @NotNull String id, RegistryEntry<? extends ConfiguredFeature<?, ?>> registryEntry, @NotNull List<PlacementModifier> modifiers

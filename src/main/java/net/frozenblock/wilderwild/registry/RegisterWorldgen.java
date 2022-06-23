@@ -100,9 +100,9 @@ public class RegisterWorldgen {
         builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, WildPlacedFeatures.DENSE_FERN_PLACED);
         builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, WildPlacedFeatures.DENSE_TALL_GRASS_PLACED);
         builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, WildPlacedFeatures.SEAGRASS_CYPRESS);
-        //builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, WildPlacedFeatures.WHITE_DANDELION);
-        //builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, WildPlacedFeatures.MILKWEED);
-        //builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, VegetationPlacedFeatures.FLOWER_FOREST_FLOWERS);
+        builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, WildPlacedFeatures.WHITE_DANDELION_CYPRESS);
+        builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, WildPlacedFeatures.MILKWEED_CYPRESS);
+        builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, WildPlacedFeatures.FLOWER_FOREST_FLOWERS);
         //builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, WildPlacedFeatures.PATCH_CYPRESS_ROOTS);
         builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, WildPlacedFeatures.DENSE_FLOWER_PLACED);
         builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, WildPlacedFeatures.CYPRESS_WETLANDS_TREES);
@@ -121,7 +121,7 @@ public class RegisterWorldgen {
     }
 
     public static void addMixedForestFeatures(GenerationSettings.Builder builder) {
-        //builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, WildPlacedFeatures.WHITE_DANDELION);
+        builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, WildPlacedFeatures.WHITE_DANDELION_MIXED);
         builder.feature(GenerationStep.Feature.TOP_LAYER_MODIFICATION, WildMiscPlaced.COARSE_PATH_5);
         builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, WildPlacedFeatures.MIXED_MUSHROOMS_PLACED);
         builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, WildPlacedFeatures.MIXED_TREES);

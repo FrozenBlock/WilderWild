@@ -10,9 +10,8 @@ import net.minecraft.loot.provider.number.UniformLootNumberProvider;
 import net.minecraft.util.Rarity;
 
 public class RegisterLootTables {
-    // allows for other mods to add their items to the loot table without breaking anything
 
-    // delete the ancient city chest override when this works lol
+    // allows for other mods to add their items to the loot table without breaking anything
     public static void init() {
         LootTableEvents.MODIFY.register((resourceManager, lootManager, id, tableBuilder, source) -> {
             if (LootTables.ANCIENT_CITY_CHEST.equals(id) && source.isBuiltin()) {
