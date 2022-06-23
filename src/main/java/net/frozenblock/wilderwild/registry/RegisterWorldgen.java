@@ -130,7 +130,6 @@ public class RegisterWorldgen {
         DefaultBiomeFeatures.addForestFlowers(builder);
         DefaultBiomeFeatures.addDefaultOres(builder);
         DefaultBiomeFeatures.addDefaultDisks(builder);
-
     }
 
     private static void addBasicFeatures(GenerationSettings.Builder generationSettings) {
