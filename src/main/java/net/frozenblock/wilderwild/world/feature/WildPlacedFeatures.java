@@ -62,7 +62,7 @@ public class WildPlacedFeatures {
             WildConfiguredFeatures.MIXED_TREES, modifiers(PlacedFeatures.createCountExtraModifier(10, 0.1F, 1)));
 
     public static final RegistryEntry<PlacedFeature> CYPRESS_WETLANDS_TREES = register("cypress_wetlands_trees",
-            WildConfiguredFeatures.CYPRESS_FOREST_TREES, modifiers(PlacedFeatures.createCountExtraModifier(20, 0.1F, 1)));
+            WildConfiguredFeatures.CYPRESS_WETLANDS_TREES, modifiers(PlacedFeatures.createCountExtraModifier(10, 0.1F, 1)));
 
     public static final RegistryEntry<PlacedFeature> CYPRESS_TREES = register("cypress_trees",
             WildConfiguredFeatures.CYPRESS_TREES, modifiers(PlacedFeatures.createCountExtraModifier(35, 0.1F, 1)));
@@ -74,7 +74,7 @@ public class WildPlacedFeatures {
             WildConfiguredFeatures.CYPRESS_TREES, modifiers(PlacedFeatures.createCountExtraModifier(1, 0.1F, 1)));
 
     public static final RegistryEntry<PlacedFeature> CYPRESS_TREES_WATER_2 = register("cypress_trees_water_2", WildConfiguredFeatures.ALL_CYPRESS_TREES_EQUAL,
-            PlacedFeatures.createCountExtraModifier(2, 0.1F, 1), SquarePlacementModifier.of(), SurfaceWaterDepthFilterPlacementModifier.of(2), PlacedFeatures.OCEAN_FLOOR_HEIGHTMAP, BiomePlacementModifier.of());
+            PlacedFeatures.createCountExtraModifier(25, 0.1F, 1), SquarePlacementModifier.of(), SurfaceWaterDepthFilterPlacementModifier.of(2), PlacedFeatures.OCEAN_FLOOR_HEIGHTMAP, BiomePlacementModifier.of());
 
     public static final RegistryEntry<PlacedFeature> CYPRESS_TREES_WATER_1 = register("cypress_trees_water_1", WildConfiguredFeatures.ALL_CYPRESS_TREES_EQUAL,
             PlacedFeatures.createCountExtraModifier(1, 0.1F, 1), SquarePlacementModifier.of(), SurfaceWaterDepthFilterPlacementModifier.of(2), PlacedFeatures.OCEAN_FLOOR_HEIGHTMAP, BiomePlacementModifier.of());
