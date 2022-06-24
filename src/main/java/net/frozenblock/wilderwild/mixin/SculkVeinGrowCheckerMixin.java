@@ -1,5 +1,6 @@
 package net.frozenblock.wilderwild.mixin;
 
+import net.fabricmc.loader.api.FabricLoader;
 import net.frozenblock.wilderwild.registry.RegisterBlocks;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.SculkVeinBlock;
@@ -16,10 +17,12 @@ public class SculkVeinGrowCheckerMixin {
 
     @Inject(at = @At("HEAD"), method = "canGrow*", cancellable = true)
     public void newBlocks(BlockView world, BlockPos pos, BlockPos growPos, Direction direction, BlockState state, CallbackInfoReturnable<Boolean> info) {
-        BlockState blockState = world.getBlockState(growPos.offset(direction));
-        if (blockState.isOf(RegisterBlocks.OSSEOUS_SCULK) || blockState.isOf(RegisterBlocks.SCULK_JAW)) {
-            info.setReturnValue(false);
-            info.cancel();
+        if (!FabricLoader.getInstance().isModLoaded("customsculk")) {
+            BlockState blockState = world.getBlockState(growPos.offset(direction));
+            if (blockState.isOf(RegisterBlocks.OSSEOUS_SCULK) || blockState.isOf(RegisterBlocks.SCULK_JAW)) {
+                info.setReturnValue(false);
+                info.cancel();
+            }
         }
     }
 

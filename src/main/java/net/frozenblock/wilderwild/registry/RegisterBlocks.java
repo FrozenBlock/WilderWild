@@ -269,6 +269,8 @@ public abstract class RegisterBlocks {
         CompostingChanceRegistry.INSTANCE.add(RED_SHELF_FUNGUS, 0.65F);
         CompostingChanceRegistry.INSTANCE.add(CYPRESS_LEAVES, 0.3F);
         CompostingChanceRegistry.INSTANCE.add(BAOBAB_LEAVES, 0.3F);
+        CompostingChanceRegistry.INSTANCE.add(BAOBAB_SAPLING, 0.3F);
+        CompostingChanceRegistry.INSTANCE.add(CYPRESS_SAPLING, 0.3F);
     }
 
     private static Block registerBlockWithoutBlockItem(String name, Block block) {
