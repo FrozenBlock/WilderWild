@@ -2,6 +2,7 @@ package net.frozenblock.wilderwild.registry;
 
 import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.world.feature.WildMiscPlaced;
+import net.frozenblock.wilderwild.world.feature.WildPlacedFeatures;
 import net.minecraft.client.sound.MusicType;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.SpawnGroup;
@@ -17,6 +18,7 @@ import net.minecraft.world.biome.GenerationSettings;
 import net.minecraft.world.biome.SpawnSettings;
 import net.minecraft.world.gen.GenerationStep;
 import net.minecraft.world.gen.feature.DefaultBiomeFeatures;
+import net.minecraft.world.gen.feature.VegetationPlacedFeatures;
 
 import static net.minecraft.world.biome.OverworldBiomeCreator.createJungle;
 import static net.minecraft.world.biome.OverworldBiomeCreator.createSwamp;
@@ -41,8 +43,7 @@ public class RegisterWorldgen {
         DefaultBiomeFeatures.addPlainsMobs(builder);
         builder.spawn(SpawnGroup.CREATURE, new SpawnSettings.SpawnEntry(EntityType.WOLF, 5, 4, 4));
         GenerationSettings.Builder builder2 = new GenerationSettings.Builder();
-        addBasicFeatures(builder2);
-        DefaultBiomeFeatures.addDefaultDisks(builder2);
+        addMixedForestFeatures(builder2);
         MusicSound musicSound = MusicType.createIngameMusic(RegisterSounds.MUSIC_OVERWORLD_WILD_FORESTS);
         return new Biome.Builder()
                 .precipitation(Biome.Precipitation.RAIN)
@@ -68,9 +69,7 @@ public class RegisterWorldgen {
         DefaultBiomeFeatures.addBatsAndMonsters(builder);
         addCypressWetlandsMobs(builder);
         GenerationSettings.Builder builder2 = new GenerationSettings.Builder();
-        addBasicFeatures(builder2);
-        addCypressPaths(builder2);
-        //addCypressVegetation(builder2);
+        addCypressWetlandsFeatures(builder2);
         MusicSound musicSound = MusicType.createIngameMusic(RegisterSounds.MUSIC_OVERWORLD_WILD_FORESTS);
         return new Biome.Builder()
                 .precipitation(Biome.Precipitation.RAIN)
@@ -96,9 +95,42 @@ public class RegisterWorldgen {
         builder.feature(GenerationStep.Feature.UNDERGROUND_ORES, WildMiscPlaced.UNDER_WATER_GRAVEL_PATH);
         builder.feature(GenerationStep.Feature.UNDERGROUND_ORES, WildMiscPlaced.UNDER_WATER_CLAY_PATH);
     }
-    //public static void addCypressVegetation(GenerationSettings.Builder builder) {
-    // builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, VegetationPlacedFeatures.PATCH_SUGAR_CANE_SWAMP);
-    // builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, VegetationPlacedFeatures.PATCH_PUMPKIN);}
+
+    public static void addCypressWetlandsFeatures(GenerationSettings.Builder builder) {
+        builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, WildPlacedFeatures.DENSE_FERN_PLACED);
+        builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, WildPlacedFeatures.DENSE_TALL_GRASS_PLACED);
+        builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, WildPlacedFeatures.SEAGRASS_CYPRESS);
+        builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, WildPlacedFeatures.WHITE_DANDELION_CYPRESS);
+        builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, WildPlacedFeatures.MILKWEED_CYPRESS);
+        builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, WildPlacedFeatures.FLOWER_FOREST_FLOWERS);
+        //builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, WildPlacedFeatures.PATCH_CYPRESS_ROOTS);
+        builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, WildPlacedFeatures.DENSE_FLOWER_PLACED);
+        builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, WildPlacedFeatures.CYPRESS_WETLANDS_TREES);
+        builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, WildPlacedFeatures.CYPRESS_TREES);
+        builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, WildPlacedFeatures.SHORT_CYPRESS_TREES);
+        builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, WildPlacedFeatures.CYPRESS_TREES_WATER_2);
+        builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, WildPlacedFeatures.FALLEN_OAK_AND_CYPRESS_PLACED);
+        addCypressPaths(builder);
+        addBasicFeatures(builder);
+        addCypressVegetation(builder);
+    }
+
+    public static void addCypressVegetation(GenerationSettings.Builder builder) {
+        builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, VegetationPlacedFeatures.PATCH_SUGAR_CANE_SWAMP);
+        builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, VegetationPlacedFeatures.PATCH_PUMPKIN);
+    }
+
+    public static void addMixedForestFeatures(GenerationSettings.Builder builder) {
+        builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, WildPlacedFeatures.WHITE_DANDELION_MIXED);
+        builder.feature(GenerationStep.Feature.TOP_LAYER_MODIFICATION, WildMiscPlaced.COARSE_PATH_5);
+        builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, WildPlacedFeatures.MIXED_MUSHROOMS_PLACED);
+        builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, WildPlacedFeatures.MIXED_TREES);
+        builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, WildPlacedFeatures.FALLEN_TREES_MIXED_PLACED);
+        addBasicFeatures(builder);
+        DefaultBiomeFeatures.addForestFlowers(builder);
+        DefaultBiomeFeatures.addDefaultOres(builder);
+        DefaultBiomeFeatures.addDefaultDisks(builder);
+    }
 
     private static void addBasicFeatures(GenerationSettings.Builder generationSettings) {
         DefaultBiomeFeatures.addLandCarvers(generationSettings);
@@ -107,10 +139,9 @@ public class RegisterWorldgen {
         DefaultBiomeFeatures.addMineables(generationSettings);
         DefaultBiomeFeatures.addSprings(generationSettings);
         DefaultBiomeFeatures.addFrozenTopLayer(generationSettings);
-        DefaultBiomeFeatures.addDefaultOres(generationSettings);
     }
 
-    private static void addCypressWetlandsMobs(SpawnSettings.Builder builder) {
+    public static void addCypressWetlandsMobs(SpawnSettings.Builder builder) {
         builder.spawn(SpawnGroup.WATER_AMBIENT, new SpawnSettings.SpawnEntry(EntityType.COD, 5, 2, 6));
         //builder.spawn(SpawnGroup.WATER_CREATURE, new SpawnSettings.SpawnEntry(EntityType.TADPOLE, 6, 2, 4));
         builder.spawn(SpawnGroup.CREATURE, new SpawnSettings.SpawnEntry(EntityType.FROG, 12, 4, 5));

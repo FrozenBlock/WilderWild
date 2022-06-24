@@ -79,7 +79,7 @@ public class FireflyEntity extends PathAwareEntity implements Flutterer {
     @Override
     public EntityData initialize(ServerWorldAccess world, LocalDifficulty difficulty, SpawnReason spawnReason, @Nullable EntityData entityData, @Nullable NbtCompound entityNbt) {
         this.natural = spawnReason == SpawnReason.NATURAL;
-        this.hasHome = false;
+        this.hasHome = true;
         FireflyBrain.rememberHome(this, this.getBlockPos());
         return super.initialize(world, difficulty, spawnReason, entityData, entityNbt);
     }
@@ -266,13 +266,22 @@ public class FireflyEntity extends PathAwareEntity implements Flutterer {
                 this.homeCheckCooldown = 200;
                 BlockPos home = FireflyBrain.getHome(this);
                 if (home != null && FireflyBrain.isInHomeDimension(this)) {
-                    if (!this.navigation.isValidPosition(home) || !world.getBlockState(home).getFluidState().isEmpty()) {
+                    if (!isValidHomePos(world, home)) {
                         FireflyBrain.rememberHome(this, this.getBlockPos());
                     }
                 }
             }
         }
         //WilderWild.log(this, this.getBrain().getOptionalMemory(MemoryModuleType.HOME).toString(), WilderWild.DEV_LOGGING);
+    }
+
+    public static boolean isValidHomePos(World world, BlockPos pos) {
+        BlockState state = world.getBlockState(pos);
+        if (!state.getFluidState().isEmpty()) {
+            return false;
+        }
+        if (state.isSolidBlock(world, pos)) { return false; }
+        return state.isAir() || (!state.getMaterial().blocksMovement() && !state.getMaterial().isSolid());
     }
 
     protected void mobTick() {

@@ -93,8 +93,7 @@ public abstract class WardenEntityMixin extends HostileEntity implements WardenA
     @Inject(at = @At("HEAD"), method = "pushAway")
     protected void pushAway(Entity entity, CallbackInfo info) {
         if (!warden.getBrain().hasMemoryModule(MemoryModuleType.ATTACK_COOLING_DOWN) && !warden.getBrain().hasMemoryModule(MemoryModuleType.TOUCH_COOLDOWN) && !(entity instanceof WardenEntity) && !warden.isInPose(EntityPose.EMERGING) && !warden.isInPose(EntityPose.DIGGING) && !warden.isInPose(EntityPose.DYING)) {
-            if (!entity.isInvulnerable()) {
-                LivingEntity livingEntity = (LivingEntity) entity;
+            if (!entity.isInvulnerable() && entity instanceof LivingEntity livingEntity) {
                 if (!(entity instanceof PlayerEntity player)) {
                     warden.increaseAngerAt(entity, Angriness.ANGRY.getThreshold() + 20, false);
 
@@ -147,9 +146,7 @@ public abstract class WardenEntityMixin extends HostileEntity implements WardenA
             warden.increaseAngerAt(entity, additionalAnger, false);
         }
 
-        if (warden.getAngriness() != Angriness.ANGRY && (sourceEntity != null || warden.getAngerManager().getPrimeSuspect().map((suspect) -> {
-            return suspect == entity;
-        }).orElse(true))) {
+        if (warden.getAngriness() != Angriness.ANGRY && (sourceEntity != null || warden.getAngerManager().getPrimeSuspect().map((suspect) -> suspect == entity).orElse(true))) {
             WardenBrain.lookAtDisturbance(warden, blockPos);
         }
         info.cancel();
@@ -170,7 +167,6 @@ public abstract class WardenEntityMixin extends HostileEntity implements WardenA
                 case SNIFFING -> this.sniffingAnimationState.start(warden.age);
             }
         }
-
         super.onTrackedDataSet(data);
     }
 
@@ -255,10 +251,8 @@ public abstract class WardenEntityMixin extends HostileEntity implements WardenA
 
     @Inject(method = "tick", at = @At("TAIL"))
     private void tick(CallbackInfo ci) {
-        switch (warden.getPose()) {
-            case DYING:
-                this.addDigParticles(this.getDyingAnimationState());
-                break;
+        if (warden.getPose() == EntityPose.DYING) {
+            this.addDigParticles(this.getDyingAnimationState());
         }
     }
 

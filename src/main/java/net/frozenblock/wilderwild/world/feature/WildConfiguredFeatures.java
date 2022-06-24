@@ -166,8 +166,8 @@ public class WildConfiguredFeatures {
     public static final RegistryEntry<ConfiguredFeature<ColumnWithDiskFeatureConfig, ?>> TERMITE_CONFIGURED =
             register("termite_mound_baobab", WilderWild.COLUMN_WITH_DISK_FEATURE, new ColumnWithDiskFeatureConfig(RegisterBlocks.TERMITE_MOUND.getDefaultState().with(RegisterProperties.NATURAL, true), UniformIntProvider.create(4, 9), UniformIntProvider.create(3, 7), UniformIntProvider.create(1, 3), RegistryEntryList.of(Block::getRegistryEntry, Blocks.GRASS_BLOCK, Blocks.STONE, Blocks.DIORITE, Blocks.ANDESITE, Blocks.GRANITE), RegistryEntryList.of(Block::getRegistryEntry, Blocks.COARSE_DIRT, Blocks.SAND, Blocks.ROOTED_DIRT)));
 
-    public static final RegistryEntry<ConfiguredFeature<RandomFeatureConfig, ?>> CYPRESS_FOREST_TREES =
-            register("cypress_forest_trees", Feature.RANDOM_SELECTOR,
+    public static final RegistryEntry<ConfiguredFeature<RandomFeatureConfig, ?>> CYPRESS_WETLANDS_TREES =
+            register("cypress_wetlands_trees", Feature.RANDOM_SELECTOR,
                     new RandomFeatureConfig(List.of(new RandomFeatureEntry(WildTreePlaced.CYPRESS, 0.5F),
                             new RandomFeatureEntry(WildTreePlaced.NEW_OAK_CHECKED, 0.5F)), WildTreePlaced.FUNGUS_CYPRESS));
 
@@ -182,6 +182,14 @@ public class WildConfiguredFeatures {
                             new RandomFeatureEntry(WildTreePlaced.FUNGUS_CYPRESS, 0.25F),
                             new RandomFeatureEntry(WildTreePlaced.SHORT_CYPRESS, 0.25F),
                             new RandomFeatureEntry(WildTreePlaced.SHORT_FUNGUS_CYPRESS, 0.25F)
+                    ), WildTreePlaced.CYPRESS));
+
+    public static final RegistryEntry<ConfiguredFeature<RandomFeatureConfig, ?>> TALL_CYPRESS_TREE_BIASED =
+            register("tall_cypress_tree_biased", Feature.RANDOM_SELECTOR,
+                    new RandomFeatureConfig(List.of(new RandomFeatureEntry(WildTreePlaced.CYPRESS, 0.50F),
+                            new RandomFeatureEntry(WildTreePlaced.FUNGUS_CYPRESS, 0.25F),
+                            new RandomFeatureEntry(WildTreePlaced.SHORT_CYPRESS, 0.125F),
+                            new RandomFeatureEntry(WildTreePlaced.SHORT_FUNGUS_CYPRESS, 0.125F)
                     ), WildTreePlaced.CYPRESS));
 
     public static final RegistryEntry<ConfiguredFeature<RandomFeatureConfig, ?>> SHORT_CYPRESS_TREES =

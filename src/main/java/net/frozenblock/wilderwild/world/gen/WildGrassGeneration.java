@@ -2,7 +2,6 @@ package net.frozenblock.wilderwild.world.gen;
 
 import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
 import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
-import net.frozenblock.wilderwild.registry.RegisterWorldgen;
 import net.frozenblock.wilderwild.world.feature.WildPlacedFeatures;
 import net.minecraft.tag.BiomeTags;
 import net.minecraft.world.biome.BiomeKeys;
@@ -16,12 +15,6 @@ public class WildGrassGeneration {
         BiomeModifications.addFeature(BiomeSelectors.tag(BiomeTags.IS_FOREST),
                 GenerationStep.Feature.VEGETAL_DECORATION, WildPlacedFeatures.NEW_TALL_GRASS.getKey().get());
 
-        BiomeModifications.addFeature(BiomeSelectors.includeByKey(RegisterWorldgen.CYPRESS_WETLANDS),
-                GenerationStep.Feature.VEGETAL_DECORATION, WildPlacedFeatures.DENSE_FERN_PLACED.getKey().get());
-        BiomeModifications.addFeature(BiomeSelectors.includeByKey(RegisterWorldgen.CYPRESS_WETLANDS),
-                GenerationStep.Feature.VEGETAL_DECORATION, WildPlacedFeatures.DENSE_TALL_GRASS_PLACED.getKey().get());
-        BiomeModifications.addFeature(BiomeSelectors.includeByKey(RegisterWorldgen.CYPRESS_WETLANDS),
-                GenerationStep.Feature.VEGETAL_DECORATION, WildPlacedFeatures.SEAGRASS_CYPRESS.getKey().get());
     }
 
     public static void generateGrassTaiga() {
