@@ -18,7 +18,7 @@ public class AncientHornProjectileModel extends Model {
     public float merp = (float) (90 * (Math.PI / 180));
     public float merp2 = (float) (-90 * (Math.PI / 180));
     public double pulse2Extra = 8 / 1.5;
-    public double pulse3Extra = 8 / 3;
+    public double pulse3Extra = 8F / 3F;
 
     public AncientHornProjectileModel(ModelPart root) {
         super(RenderLayer::getEntityTranslucentEmissive);
@@ -38,7 +38,7 @@ public class AncientHornProjectileModel extends Model {
     }
 
     public void render(MatrixStack matrices, VertexConsumer vertices, int light, int overlay, float red, float green, float blue, float alpha, float tickDelta, AncientHornProjectileEntity entity) {
-        matrices.scale(1.5f, 1.5f, 1.5f);
+        matrices.scale(1.5F, 1.5F, 1.5F);
         this.root.yaw = merp;
         this.root.pitch = merp2;
 

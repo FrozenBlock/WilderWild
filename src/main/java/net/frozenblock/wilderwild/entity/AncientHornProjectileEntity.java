@@ -42,6 +42,7 @@ import net.minecraft.world.RaycastContext;
 import net.minecraft.world.World;
 import net.minecraft.world.event.GameEvent;
 import net.minecraft.world.explosion.Explosion;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
@@ -61,7 +62,7 @@ public class AncientHornProjectileEntity extends PersistentProjectileEntity {
     public boolean shotByPlayer;
     private BlockState inBlockState;
 
-    public AncientHornProjectileEntity(EntityType<? extends PersistentProjectileEntity> entityType, World world) {
+    public AncientHornProjectileEntity(@NotNull EntityType<? extends PersistentProjectileEntity> entityType, World world) {
         super(entityType, world);
         this.setSound(RegisterSounds.ANCIENT_HORN_VIBRATION_DISSIPATE);
     }
@@ -174,11 +175,11 @@ public class AncientHornProjectileEntity extends PersistentProjectileEntity {
         this.checkBlockCollision();
     }
 
-    public void setCooldown(int i) {
+    public void setCooldown(int cooldown) {
         Entity entity = this.getOwner();
         if (entity != null) {
             if (entity instanceof PlayerEntity user) {
-                user.getItemCooldownManager().set(RegisterItems.ANCIENT_HORN, i);
+                user.getItemCooldownManager().set(RegisterItems.ANCIENT_HORN, cooldown);
             }
         }
     }
