@@ -5,7 +5,6 @@ accessible    method    net/minecraft/world/gen/trunk/TrunkPlacerType    <init> 
 accessible    method    net/minecraft/item/MusicDiscItem    <init>    (ILnet/minecraft/sound/SoundEvent;Lnet/minecraft/item/Item$Settings;)V
 extendable    method    net/minecraft/block/AbstractBlock    getLootTableId    ()Lnet/minecraft/util/Identifier;
 accessible    field    net/minecraft/entity/player/ItemCooldownManager    entries    Ljava/util/Map;
-accessible    class    net/minecraft/entity/player/ItemCooldownManager$Entry
 accessible    field    net/minecraft/entity/player/ItemCooldownManager$Entry    startTick    I
 accessible    field    net/minecraft/entity/player/ItemCooldownManager$Entry    endTick    I
 accessible    method    net/minecraft/structure/ShiftableStructurePiece    adjustToAverageHeight    (Lnet/minecraft/world/WorldAccess;Lnet/minecraft/util/math/BlockBox;I)Z
