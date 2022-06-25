@@ -86,7 +86,7 @@ public class FireflyBottleItem extends Item {
                 }
             }
         }
-
+        user.emitGameEvent(GameEvent.DRINK);
         return ItemUsage.consumeHeldItem(world, user, hand);
     }
 
