@@ -44,7 +44,7 @@ public class HollowedLogBlock extends Block implements Waterloggable {
 
     @Override
     public VoxelShape getOutlineShape(BlockState state, BlockView world, BlockPos pos, ShapeContext context) {
-        return switch (state.get(AXIS)) {
+        return switch (state.get(FACING).getAxis()) {
             default -> X_SHAPE;
             case Y -> Y_SHAPE;
             case Z -> Z_SHAPE;
@@ -64,7 +64,7 @@ public class HollowedLogBlock extends Block implements Waterloggable {
 
     @Override
     public BlockState getPlacementState(ItemPlacementContext ctx) {
-        return Objects.requireNonNull(super.getPlacementState(ctx)).with(FACING, ctx.getPlayerLookDirection().getOpposite());
+        return Objects.requireNonNull(super.getPlacementState(ctx)).with(FACING, ctx.getSide());
     }
 
     @Override

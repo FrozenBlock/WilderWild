@@ -1,14 +1,26 @@
 {
   "variants": {
-    "axis=x": {
+    "facing=east": {
       "model": "wilderwild:block/hollowed_dark_oak_log_horizontal",
       "x": 90,
       "y": 90
     },
-    "axis=y": {
+    "facing=west": {
+      "model": "wilderwild:block/hollowed_dark_oak_log_horizontal",
+      "x": 90,
+      "y": 90
+    },
+    "facing=up": {
       "model": "wilderwild:block/hollowed_dark_oak_log"
     },
-    "axis=z": {
+    "facing=down": {
+      "model": "wilderwild:block/hollowed_dark_oak_log"
+    },
+    "facing=north": {
+      "model": "wilderwild:block/hollowed_dark_oak_log_horizontal",
+      "x": 90
+    },
+    "facing=south": {
       "model": "wilderwild:block/hollowed_dark_oak_log_horizontal",
       "x": 90
     }
