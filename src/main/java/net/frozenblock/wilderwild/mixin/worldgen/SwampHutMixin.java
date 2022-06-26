@@ -27,15 +27,12 @@ import org.spongepowered.asm.mixin.Shadow;
 
 
 @Mixin(SwampHutGenerator.class)
-public abstract class SwampHutMixin {
+public class SwampHutMixin {
     @Shadow
     private boolean hasWitch;
     private boolean hasCat;
 
     private final SwampHutGenerator swampHut = SwampHutGenerator.class.cast(this);
-
-    @Shadow
-    protected abstract void writeNbt(StructureContext context, NbtCompound nbt);
 
     /**
      * @author FrozenBlock

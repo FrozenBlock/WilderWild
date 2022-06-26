@@ -39,7 +39,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 @Mixin(WardenEntity.class)
 public abstract class WardenEntityMixin extends HostileEntity implements WardenAnimationInterface {
 
-    WardenEntity warden = WardenEntity.class.cast(this);
+    private final WardenEntity warden = WardenEntity.class.cast(this);
 
     /**
      * @author FrozenBlock
