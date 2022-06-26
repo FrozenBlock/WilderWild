@@ -26,7 +26,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.Objects;
 
-public class HollowedLogBlock extends PillarBlock implements Waterloggable {
+public class HollowedLogBlock extends Block implements Waterloggable {
     public static final BooleanProperty WATERLOGGED;
     protected static final VoxelShape X_SHAPE;
     protected static final VoxelShape Y_SHAPE;

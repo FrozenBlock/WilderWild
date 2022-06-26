@@ -285,7 +285,7 @@ public abstract class RegisterBlocks {
 
     private static HollowedLogBlock createHollowedLogBlock(MapColor topMapColor, MapColor sideMapColor) {
         return new HollowedLogBlock(FabricBlockSettings.of(Material.WOOD,
-                        (state) -> state.get(PillarBlock.AXIS) == Direction.Axis.Y ? topMapColor : sideMapColor)
+                        (state) -> state.get(HollowedLogBlock.FACING).getAxis() == Direction.Axis.Y ? topMapColor : sideMapColor)
                 .strength(2.0F).sounds(BlockSoundGroup.WOOD));
     }
 
