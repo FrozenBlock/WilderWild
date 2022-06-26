@@ -34,13 +34,13 @@ public class SculkBlockMixin {
         return Math.max(1, (int)((float)charge * g * 0.5F));
     }
 
-    private static final int heightMultiplier = 20; //The higher, the less short pillars you'll see.
-    private static final int maxHeight = 15; //The rarest and absolute tallest height of pillars
-    private static final double randomness = 0.9; //The higher, the more random. The lower, the more gradual the heights change.
+    private static final int HEIGHT_MULTIPLIER = 20; //The higher, the less short pillars you'll see.
+    private static final int MAX_HEIGHT = 15; //The rarest and absolute tallest height of pillars
+    private static final double RANDOMNESS = 0.9; //The higher, the more random. The lower, the more gradual the heights change.
 
-    private static final double osseousSculkAreaSize = 0.09; //The smaller, the larger the area pillars can grow, but the larger the gaps between them.
-    private static final double osseousSculkThreshold = 0.15; //The higher, the harder it is for pillars to appear. If set to 1 or higher, they'll never grow.
-    private static final double osseousSculkWorldGenThreshold = 0.16; //The higher, the harder it is for pillars to appear. If set to 1 or higher, they'll never grow. (CEILINGS IN WORLDGEN ONLY)
+    private static final double OSSEOUS_SCULK_AREA_SIZE = 0.09; //The smaller, the larger the area pillars can grow, but the larger the gaps between them.
+    private static final double OSSEOUS_SCULK_THRESHOLD = 0.15; //The higher, the harder it is for pillars to appear. If set to 1 or higher, they'll never grow.
+    private static final double OSSEOUS_SCULK_WORLD_GEN_THRESHOLD = 0.16; //The higher, the harder it is for pillars to appear. If set to 1 or higher, they'll never grow. (CEILINGS IN WORLDGEN ONLY)
 
     @Inject(at = @At("HEAD"), method = "spread", cancellable = true)
     public void spread(SculkSpreadManager.Cursor cursor, WorldAccess world, BlockPos catalystPos, Random random, SculkSpreadManager spreadManager, boolean shouldConvertToBlock, CallbackInfoReturnable<Integer> info) {
@@ -64,7 +64,7 @@ public class SculkBlockMixin {
                     Block blockDown = stateDown.getBlock();
                     if ((stateDown.isAir() || blockDown == Blocks.WATER || blockDown == Blocks.LAVA || blockDown == Blocks.SCULK_VEIN)) {
                         if (canPlaceOsseousSculk(blockPos, isWorldGen, world)) {
-                            int pillarHeight = (int) MathHelper.clamp(EasyNoiseSampler.sample(EasyNoiseSampler.perlinXoro, blockPos.down(), randomness, false, false) * heightMultiplier, 2, maxHeight);
+                            int pillarHeight = (int) MathHelper.clamp(EasyNoiseSampler.sample(EasyNoiseSampler.perlinXoro, blockPos.down(), RANDOMNESS, false, false) * HEIGHT_MULTIPLIER, 2, MAX_HEIGHT);
                             blockState = RegisterBlocks.OSSEOUS_SCULK.getDefaultState().with(OsseousSculkBlock.HEIGHT_LEFT, pillarHeight).with(OsseousSculkBlock.TOTAL_HEIGHT, pillarHeight + 1).with(OsseousSculkBlock.UPSIDEDOWN, true);
                         } else {
                             blockState = RegisterBlocks.HANGING_TENDRIL.getDefaultState();
@@ -132,11 +132,11 @@ public class SculkBlockMixin {
     private static boolean canPlaceOsseousSculk(BlockPos pos, boolean worldGen, WorldAccess world) {
         if (worldGen) {
             if (!ancientCityOrPillarNearby(world, pos)) {
-                return EasyNoiseSampler.sample(EasyNoiseSampler.perlinXoro, pos, osseousSculkAreaSize, true, true) > osseousSculkWorldGenThreshold;
+                return EasyNoiseSampler.sample(EasyNoiseSampler.perlinXoro, pos, OSSEOUS_SCULK_AREA_SIZE, true, true) > OSSEOUS_SCULK_WORLD_GEN_THRESHOLD;
             }
             return false;
         }
-        return EasyNoiseSampler.sample(EasyNoiseSampler.perlinXoro, pos, osseousSculkAreaSize, true, true) > osseousSculkThreshold;
+        return EasyNoiseSampler.sample(EasyNoiseSampler.perlinXoro, pos, OSSEOUS_SCULK_AREA_SIZE, true, true) > OSSEOUS_SCULK_THRESHOLD;
     }
 
     private BlockState getExtraBlockState(WorldAccess world, BlockPos pos, Random random, boolean allowShrieker) {
@@ -147,7 +147,7 @@ public class SculkBlockMixin {
             decided = true;
         }
         if (canPlaceOsseousSculk(pos, allowShrieker, world) && blockState.isOf(Blocks.SCULK_SENSOR)) {
-            int pillarHeight = (int) MathHelper.clamp(EasyNoiseSampler.samplePositive(EasyNoiseSampler.perlinXoro, pos, randomness, false, false) * heightMultiplier, 2, maxHeight);
+            int pillarHeight = (int) MathHelper.clamp(EasyNoiseSampler.samplePositive(EasyNoiseSampler.perlinXoro, pos, RANDOMNESS, false, false) * HEIGHT_MULTIPLIER, 2, MAX_HEIGHT);
             blockState = RegisterBlocks.OSSEOUS_SCULK.getDefaultState().with(OsseousSculkBlock.HEIGHT_LEFT, pillarHeight).with(OsseousSculkBlock.TOTAL_HEIGHT, pillarHeight + 1);
             decided = true;
         }

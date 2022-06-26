@@ -30,11 +30,11 @@ import net.minecraft.world.event.GameEvent;
 import org.jetbrains.annotations.Nullable;
 
 public class CypressRootsBlock extends Block implements Waterloggable {
-    public static final IntProperty ROOTS;
-    public static final BooleanProperty WATERLOGGED;
-    public static final BooleanProperty UPSIDEDOWN;
-    protected static final VoxelShape FLOOR_SHAPE;
-    protected static final VoxelShape CEILING_SHAPE;
+    public static final IntProperty ROOTS = RegisterProperties.ROOTS;
+    public static final BooleanProperty WATERLOGGED = Properties.WATERLOGGED;
+    public static final BooleanProperty UPSIDEDOWN = RegisterProperties.UPSIDE_DOWN;
+    protected static final VoxelShape FLOOR_SHAPE = Block.createCuboidShape(0.0D, 0.0D, 0.0D, 16.0D, 4.0D, 16.0D);
+    protected static final VoxelShape CEILING_SHAPE = Block.createCuboidShape(0.0D, 12.0D, 0.0D, 16.0D, 16.0D, 16.0D);
 
     public CypressRootsBlock(AbstractBlock.Settings settings) {
         super(settings);
@@ -156,13 +156,5 @@ public class CypressRootsBlock extends Block implements Waterloggable {
             return CEILING_SHAPE;
         }
         return FLOOR_SHAPE;
-    }
-
-    static {
-        ROOTS = RegisterProperties.ROOTS;
-        WATERLOGGED = Properties.WATERLOGGED;
-        UPSIDEDOWN = RegisterProperties.UPSIDE_DOWN;
-        FLOOR_SHAPE = Block.createCuboidShape(0.0D, 0.0D, 0.0D, 16.0D, 4.0D, 16.0D);
-        CEILING_SHAPE = Block.createCuboidShape(0.0D, 12.0D, 0.0D, 16.0D, 16.0D, 16.0D);
     }
 }
