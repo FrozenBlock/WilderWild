@@ -432,6 +432,22 @@ public class WardenAnimationOverwrites {
                     )
             )
             .addBoneAnimation(
+                    "right_tendril",
+                    new Transformation(
+                            Transformation.Targets.ROTATE,
+                            new Keyframe(1.75F, AnimationHelper.method_41829(0.0F, 0.0F, 0.0F), Transformation.Interpolations.field_37885),
+                            new Keyframe(2.5417F, AnimationHelper.method_41829(-36.51F, -77.52F, 37.17F), Transformation.Interpolations.field_37884)
+                    )
+            )
+            .addBoneAnimation(
+                    "left_tendril",
+                    new Transformation(
+                            Transformation.Targets.ROTATE,
+                            new Keyframe(1.75F, AnimationHelper.method_41829(0.0F, 0.0F, 0.0F), Transformation.Interpolations.field_37885),
+                            new Keyframe(2.5417F, AnimationHelper.method_41829(-36.51F, 77.52F, -37.17F), Transformation.Interpolations.field_37884)
+                    )
+            )
+            .addBoneAnimation(
                     "right_arm",
                     new Transformation(
                             Transformation.Targets.ROTATE,

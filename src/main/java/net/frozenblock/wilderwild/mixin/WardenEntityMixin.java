@@ -86,7 +86,7 @@ public abstract class WardenEntityMixin extends HostileEntity implements WardenA
         if (spawnReason == SpawnReason.SPAWN_EGG || spawnReason == SpawnReason.COMMAND) {
             warden.setPose(EntityPose.EMERGING);
             warden.getBrain().remember(MemoryModuleType.IS_EMERGING, Unit.INSTANCE, WardenBrain.EMERGE_DURATION);
-            warden.setPersistent();
+            this.playSound(SoundEvents.ENTITY_WARDEN_AGITATED, 5.0F, 1.0F);
         }
     }
 
