@@ -7,6 +7,7 @@ import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Mutable;
 import org.spongepowered.asm.mixin.Shadow;
+import org.spongepowered.asm.mixin.gen.Accessor;
 
 @Environment(EnvType.CLIENT)
 @Mixin(WardenAnimations.class)
@@ -120,10 +121,14 @@ public class WardenAnimationOverwrites {
                     )
             )
             .addBoneAnimation(
-                    "right_ear",
+                    "right_tendril",
                     new Transformation(
                             Transformation.Targets.ROTATE,
-                            new Keyframe(0.0F, AnimationHelper.method_41829(0.0F, 0.0F, 0.0F), Transformation.Interpolations.field_37885),
+                            new Keyframe(2.88F, AnimationHelper.method_41829(0.0F, 0.0F, 0.0F), Transformation.Interpolations.field_37885),
+                            new Keyframe(4.0F, AnimationHelper.method_41829(-36.51F, -77.52F, 37.17F), Transformation.Interpolations.field_37885),
+                            new Keyframe(5.8F, AnimationHelper.method_41829(-36.51F, -77.52F, 37.17F), Transformation.Interpolations.field_37885),
+                            new Keyframe(6.64F, AnimationHelper.method_41829(0.0F, 0.0F, 0.0F), Transformation.Interpolations.field_37885)
+                            /*new Keyframe(0.0F, AnimationHelper.method_41829(0.0F, 0.0F, 0.0F), Transformation.Interpolations.field_37885),
                             new Keyframe(0.52F, AnimationHelper.method_41829(0.0F, 0.0F, 0.0F), Transformation.Interpolations.field_37885),
                             new Keyframe(2.28F, AnimationHelper.method_41829(0.0F, 0.0F, 0.0F), Transformation.Interpolations.field_37885),
                             new Keyframe(2.88F, AnimationHelper.method_41829(0.0F, 0.0F, 0.0F), Transformation.Interpolations.field_37885),
@@ -131,11 +136,11 @@ public class WardenAnimationOverwrites {
                             new Keyframe(4.56F, AnimationHelper.method_41829(0.0F, 0.0F, 0.0F), Transformation.Interpolations.field_37885),
                             new Keyframe(5.0F, AnimationHelper.method_41829(0.0F, 0.0F, 0.0F), Transformation.Interpolations.field_37885),
                             new Keyframe(5.8F, AnimationHelper.method_41829(0.0F, 0.0F, 0.0F), Transformation.Interpolations.field_37885),
-                            new Keyframe(6.64F, AnimationHelper.method_41829(0.0F, 0.0F, 0.0F), Transformation.Interpolations.field_37885)
+                            new Keyframe(6.64F, AnimationHelper.method_41829(0.0F, 0.0F, 0.0F), Transformation.Interpolations.field_37885)*/
                     )
             )
             .addBoneAnimation(
-                    "right_ear",
+                    "right_tendril",
                     new Transformation(
                             Transformation.Targets.TRANSLATE,
                             new Keyframe(0.0F, AnimationHelper.method_41823(0.0F, 0.0F, 0.0F), Transformation.Interpolations.field_37885),
@@ -150,22 +155,20 @@ public class WardenAnimationOverwrites {
                     )
             )
             .addBoneAnimation(
-                    "left_ear",
+                    "left_tendril",
                     new Transformation(
                             Transformation.Targets.ROTATE,
                             new Keyframe(0.0F, AnimationHelper.method_41829(0.0F, 0.0F, 0.0F), Transformation.Interpolations.field_37885),
                             new Keyframe(0.52F, AnimationHelper.method_41829(0.0F, 0.0F, 0.0F), Transformation.Interpolations.field_37885),
                             new Keyframe(2.28F, AnimationHelper.method_41829(0.0F, 0.0F, 0.0F), Transformation.Interpolations.field_37885),
                             new Keyframe(2.88F, AnimationHelper.method_41829(0.0F, 0.0F, 0.0F), Transformation.Interpolations.field_37885),
-                            new Keyframe(3.36F, AnimationHelper.method_41829(0.0F, 0.0F, 0.0F), Transformation.Interpolations.field_37885),
-                            new Keyframe(4.56F, AnimationHelper.method_41829(0.0F, 0.0F, 0.0F), Transformation.Interpolations.field_37885),
-                            new Keyframe(5.0F, AnimationHelper.method_41829(0.0F, 0.0F, 0.0F), Transformation.Interpolations.field_37885),
-                            new Keyframe(5.8F, AnimationHelper.method_41829(0.0F, 0.0F, 0.0F), Transformation.Interpolations.field_37885),
+                            new Keyframe(4.0F, AnimationHelper.method_41829(-36.51F, 77.52F, -37.17F), Transformation.Interpolations.field_37885),
+                            new Keyframe(5.8F, AnimationHelper.method_41829(-36.51F, 77.52F, -37.17F), Transformation.Interpolations.field_37885),
                             new Keyframe(6.64F, AnimationHelper.method_41829(0.0F, 0.0F, 0.0F), Transformation.Interpolations.field_37885)
                     )
             )
             .addBoneAnimation(
-                    "left_ear",
+                    "left_tendril",
                     new Transformation(
                             Transformation.Targets.TRANSLATE,
                             new Keyframe(0.0F, AnimationHelper.method_41823(0.0F, 0.0F, 0.0F), Transformation.Interpolations.field_37885),
@@ -603,7 +606,7 @@ public class WardenAnimationOverwrites {
                     )
             )
             .addBoneAnimation(
-                    "right_ear",
+                    "right_tendril",
                     new Transformation(
                             Transformation.Targets.ROTATE,
                             new Keyframe(0.0F, AnimationHelper.method_41829(0.0F, 0.0F, 0.0F), Transformation.Interpolations.field_37885),
@@ -617,7 +620,7 @@ public class WardenAnimationOverwrites {
                     )
             )
             .addBoneAnimation(
-                    "left_ear",
+                    "left_tendril",
                     new Transformation(
                             Transformation.Targets.ROTATE,
                             new Keyframe(0.0F, AnimationHelper.method_41829(0.0F, 0.0F, 0.0F), Transformation.Interpolations.field_37885),
