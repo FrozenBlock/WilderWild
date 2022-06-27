@@ -15,7 +15,7 @@ public class WildFlowersGeneration {
         BiomeModifications.addFeature(BiomeSelectors.includeByKey(BiomeKeys.BIRCH_FOREST, BiomeKeys.OLD_GROWTH_BIRCH_FOREST),
                 GenerationStep.Feature.VEGETAL_DECORATION, WildPlacedFeatures.DATURA_BIRCH.getKey().get());
 
-        BiomeModifications.addFeature(BiomeSelectors.includeByKey(BiomeKeys.BIRCH_FOREST),
+        BiomeModifications.addFeature(BiomeSelectors.includeByKey(BiomeKeys.BIRCH_FOREST, BiomeKeys.OLD_GROWTH_BIRCH_FOREST),
                 GenerationStep.Feature.VEGETAL_DECORATION, WildPlacedFeatures.GLORY_OF_THE_SNOW_PATH.getKey().get());
 
         BiomeModifications.addFeature(BiomeSelectors.includeByKey(BiomeKeys.DARK_FOREST, BiomeKeys.FOREST, BiomeKeys.OLD_GROWTH_BIRCH_FOREST, BiomeKeys.BIRCH_FOREST, BiomeKeys.PLAINS, BiomeKeys.FLOWER_FOREST, BiomeKeys.SUNFLOWER_PLAINS, BiomeKeys.SWAMP, BiomeKeys.MANGROVE_SWAMP, BiomeKeys.TAIGA, BiomeKeys.SNOWY_TAIGA),

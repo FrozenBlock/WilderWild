@@ -9,8 +9,6 @@ import net.minecraft.entity.EntityType;
 import net.minecraft.entity.SpawnReason;
 import net.minecraft.entity.mob.WitchEntity;
 import net.minecraft.entity.passive.CatEntity;
-import net.minecraft.nbt.NbtCompound;
-import net.minecraft.structure.StructureContext;
 import net.minecraft.structure.SwampHutGenerator;
 import net.minecraft.util.math.BlockBox;
 import net.minecraft.util.math.BlockPos;

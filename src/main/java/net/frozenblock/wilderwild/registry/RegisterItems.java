@@ -59,10 +59,8 @@ public class RegisterItems {
     public static void registerItems() {
         WilderWild.logWild("Registering Items for", WilderWild.UNSTABLE_LOGGING);
         Registry.register(Registry.ITEM, new Identifier(WilderWild.MOD_ID, "baobab_boat"), BAOBAB_BOAT_ITEM);
-        Registry.register(Registry.ITEM, new Identifier(WilderWild.MOD_ID, "baobab_sign"), BAOBAB_SIGN);
         Registry.register(Registry.ITEM, new Identifier(WilderWild.MOD_ID, "baobab_chest_boat"), BAOBAB_CHEST_BOAT_ITEM);
         Registry.register(Registry.ITEM, new Identifier(WilderWild.MOD_ID, "cypress_boat"), CYPRESS_BOAT_ITEM);
-        Registry.register(Registry.ITEM, new Identifier(WilderWild.MOD_ID, "cypress_sign"), CYPRESS_SIGN);
         Registry.register(Registry.ITEM, new Identifier(WilderWild.MOD_ID, "cypress_chest_boat"), CYPRESS_CHEST_BOAT_ITEM);
         Registry.register(Registry.ITEM, new Identifier(WilderWild.MOD_ID, "ancient_horn"), ANCIENT_HORN);
         Registry.register(Registry.ITEM, new Identifier(WilderWild.MOD_ID, "milkweed_pod"), MILKWEED_POD);
