@@ -919,6 +919,30 @@ public class WardenAnimationOverwrites {
                     )
             )
             .addBoneAnimation(
+                    "right_tendril",
+                    new Transformation(
+                            Transformation.Targets.ROTATE,
+                            new Keyframe(0.0F, AnimationHelper.method_41829(0.0F, 0.0F, 0.0F), Transformation.Interpolations.field_37885),
+                            new Keyframe(1.0F, AnimationHelper.method_41829(0.0F, -65.0F, 0.0F), Transformation.Interpolations.field_37885),
+                            new Keyframe(1.75F, AnimationHelper.method_41829(0.0F, -65.0F, 0.0F), Transformation.Interpolations.field_37885),
+                            new Keyframe(1.9167F, AnimationHelper.method_41829(0.0F, 65.0F, 0.0F), Transformation.Interpolations.field_37885),
+                            new Keyframe(2.5F, AnimationHelper.method_41829(0.0F, 65.0F, 0.0F), Transformation.Interpolations.field_37885),
+                            new Keyframe(2.875F, AnimationHelper.method_41829(0.0F, 0.0F, 0.0F), Transformation.Interpolations.field_37885)
+                    )
+            )
+            .addBoneAnimation(
+                    "left_tendril",
+                    new Transformation(
+                            Transformation.Targets.ROTATE,
+                            new Keyframe(0.0F, AnimationHelper.method_41829(0.0F, 0.0F, 0.0F), Transformation.Interpolations.field_37885),
+                            new Keyframe(1.0F, AnimationHelper.method_41829(0.0F, 65.0F, 0.0F), Transformation.Interpolations.field_37885),
+                            new Keyframe(1.75F, AnimationHelper.method_41829(0.0F, 65.0F, 0.0F), Transformation.Interpolations.field_37885),
+                            new Keyframe(1.9167F, AnimationHelper.method_41829(0.0F, -65.0F, 0.0F), Transformation.Interpolations.field_37885),
+                            new Keyframe(2.5F, AnimationHelper.method_41829(0.0F, -65.0F, 0.0F), Transformation.Interpolations.field_37885),
+                            new Keyframe(2.875F, AnimationHelper.method_41829(0.0F, 0.0F, 0.0F), Transformation.Interpolations.field_37885)
+                    )
+            )
+            .addBoneAnimation(
                     "right_arm",
                     new Transformation(
                             Transformation.Targets.ROTATE,
