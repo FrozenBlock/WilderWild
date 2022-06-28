@@ -1,5 +1,6 @@
 package net.frozenblock.wilderwild.misc;
 
+import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.block.Block;
 import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.util.Identifier;
@@ -33,6 +34,34 @@ public class BlockSoundGroupOverwrites {
         addBlock(SUGAR_CANE, SUGARCANE);
         addBlock(COARSE_DIRT, COARSEDIRT);
 
+        if (FabricLoader.getInstance().isModLoaded("betternether")) {
+            addBlock("betternether", "willow_leaves", LEAVES);
+            addBlock("betternether", "rubeous_leaves", LEAVES);
+            addBlock("betternether", "anchor_tree_leaves", LEAVES);
+            addBlock("betternether", "nether_sakura_leaves", LEAVES);
+        }
+
+        if (FabricLoader.getInstance().isModLoaded("betterend")) {
+            addBlock("betterend", "pythadendron_leaves", LEAVES);
+            addBlock("betterend", "lacugrove_leaves", LEAVES);
+            addBlock("betterend", "dragon_tree_leaves", LEAVES);
+            addBlock("betterend", "tenanea_leaves", LEAVES);
+            addBlock("betterend", "helix_tree_leaves", LEAVES);
+            addBlock("betterend", "lucernia_leaves", LEAVES);
+        }
+
+        if (FabricLoader.getInstance().isModLoaded("blockus")) {
+            addBlock("blockus", "white_oak_leaves", LEAVES);
+            addBlock("blockus", "legacy_leaves", LEAVES);
+        }
+
+        if (FabricLoader.getInstance().isModLoaded("edenring")) {
+            addBlock("edenring", "auritis_leaves", LEAVES);
+        }
+
+        if (FabricLoader.getInstance().isModLoaded("techreborn")) {
+            addBlock("techreborn", "rubber_leaves", LEAVES);
+        }
     }
 
     /**

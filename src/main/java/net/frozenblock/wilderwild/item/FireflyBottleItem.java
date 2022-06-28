@@ -4,17 +4,22 @@ import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.entity.FireflyEntity;
 import net.frozenblock.wilderwild.entity.ai.FireflyBrain;
 import net.frozenblock.wilderwild.registry.RegisterEntities;
+import net.minecraft.advancement.criterion.Criteria;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
+import net.minecraft.item.*;
+import net.minecraft.potion.PotionUtil;
+import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundEvents;
+import net.minecraft.stat.Stats;
 import net.minecraft.util.Hand;
 import net.minecraft.util.TypedActionResult;
 import net.minecraft.util.UseAction;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
+import net.minecraft.world.event.GameEvent;
 
 public class FireflyBottleItem extends Item {
 
@@ -25,9 +30,36 @@ public class FireflyBottleItem extends Item {
         this.color = color;
     }
 
+    @Override
+    public ItemStack finishUsing(ItemStack stack, World world, LivingEntity user) {
+        PlayerEntity playerEntity = user instanceof PlayerEntity ? (PlayerEntity)user : null;
+        if (playerEntity instanceof ServerPlayerEntity) {
+            Criteria.CONSUME_ITEM.trigger((ServerPlayerEntity)playerEntity, stack);
+        }
+
+        if (playerEntity != null) {
+            playerEntity.incrementStat(Stats.USED.getOrCreateStat(this));
+            if (!playerEntity.getAbilities().creativeMode) {
+                stack.decrement(1);
+            }
+        }
+
+        if (playerEntity == null || !playerEntity.getAbilities().creativeMode) {
+            if (stack.isEmpty()) {
+                return new ItemStack(Items.GLASS_BOTTLE);
+            }
+
+            if (playerEntity != null) {
+                playerEntity.getInventory().insertStack(new ItemStack(Items.GLASS_BOTTLE));
+            }
+        }
+
+        user.emitGameEvent(GameEvent.DRINK);
+        return stack;
+    }
+
     public TypedActionResult<ItemStack> use(World world, PlayerEntity user, Hand hand) {
         WilderWild.log(user, "Used Firefly Bottle", WilderWild.DEV_LOGGING);
-        ItemStack itemStack = user.getStackInHand(hand);
         if (world instanceof ServerWorld server) {
             float pitch = user.getPitch();
             float yaw = user.getYaw();
@@ -39,7 +71,6 @@ public class FireflyBottleItem extends Item {
                 FireflyEntity entity = RegisterEntities.FIREFLY.create(server);
                 if (entity != null) {
                     //TODO: FIREFLY BOTTLE SOUNDS
-                    entity.playSound(SoundEvents.ITEM_BOTTLE_EMPTY, 1.0F, 1.0F);
                     entity.setVelocity(f * 0.7, g * 0.7, h * 0.7);
                     entity.refreshPositionAndAngles(user.getX(), user.getEyeY(), user.getZ(), user.getPitch(), user.getYaw());
                     entity.setFromBottle(true);
@@ -48,22 +79,22 @@ public class FireflyBottleItem extends Item {
                         entity.hasHome = true;
                         FireflyBrain.rememberHome(entity, entity.getBlockPos());
                         entity.setColor(this.color);
-                        if (!user.isCreative()) {
-                            user.getStackInHand(hand).decrement(1);
-                            user.getInventory().offerOrDrop(new ItemStack(Items.GLASS_BOTTLE));
-                        }
                     } else {
                         WilderWild.log("Couldn't spawn Firefly from bottle @ " + user.getBlockPos().toShortString(), WilderWild.UNSTABLE_LOGGING);
                     }
                 }
             }
         }
-
-        return TypedActionResult.consume(itemStack);
+        user.emitGameEvent(GameEvent.DRINK);
+        return ItemUsage.consumeHeldItem(world, user, hand);
     }
 
     public UseAction getUseAction(ItemStack stack) {
         return UseAction.DRINK; //sus funny funny funny among us sus funny all
     }
 
+    @Override
+    public int getMaxUseTime(ItemStack stack) {
+        return 1;
+    }
 }

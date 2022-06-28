@@ -8,6 +8,7 @@ import net.frozenblock.wilderwild.misc.server.EasyPacket;
 import net.frozenblock.wilderwild.registry.RegisterSounds;
 import net.frozenblock.wilderwild.tag.WildBiomeTags;
 import net.minecraft.block.BlockState;
+import net.minecraft.block.Blocks;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.brain.Brain;
 import net.minecraft.entity.ai.brain.MemoryModuleType;
@@ -40,6 +41,7 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.math.random.Random;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.world.*;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Objects;
@@ -93,14 +95,14 @@ public class FireflyEntity extends PathAwareEntity implements Flutterer {
         this.dataTracker.startTracking(COLOR, "on");
     }
 
-    public ActionResult interactMob(PlayerEntity player, Hand hand) {
+    protected ActionResult interactMob(PlayerEntity player, Hand hand) {
         if (!this.despawning) {
             return tryCapture(player, hand, this).orElse(super.interactMob(player, hand));
         }
         return ActionResult.PASS;
     }
 
-    public static Optional<ActionResult> tryCapture(PlayerEntity player, Hand hand, FireflyEntity entity) {
+    public static Optional<ActionResult> tryCapture(PlayerEntity player, Hand hand, @NotNull FireflyEntity entity) {
         ItemStack itemStack = player.getStackInHand(hand);
         if (itemStack.getItem() == Items.GLASS_BOTTLE && entity.isAlive()) {
             WilderWild.log("Firefly capture attempt starting @ " + entity.getBlockPos().toShortString() + " by " + player.getDisplayName().getString(), WilderWild.UNSTABLE_LOGGING);
@@ -282,6 +284,15 @@ public class FireflyEntity extends PathAwareEntity implements Flutterer {
         }
         if (state.isSolidBlock(world, pos)) { return false; }
         return state.isAir() || (!state.getMaterial().blocksMovement() && !state.getMaterial().isSolid());
+    }
+
+    public static boolean isValidHidingPlace(World world, BlockPos pos) {
+        BlockState state = world.getBlockState(pos);
+        if (!state.getFluidState().isEmpty()) {
+            return false;
+        }
+
+        return state.isOf(Blocks.GRASS) || state.isOf(Blocks.TALL_GRASS);
     }
 
     protected void mobTick() {

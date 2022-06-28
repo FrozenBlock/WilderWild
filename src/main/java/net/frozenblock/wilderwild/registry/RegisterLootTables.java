@@ -16,7 +16,7 @@ public class RegisterLootTables {
         LootTableEvents.MODIFY.register((resourceManager, lootManager, id, tableBuilder, source) -> {
             if (LootTables.ANCIENT_CITY_CHEST.equals(id) && source.isBuiltin()) {
                 LootPool.Builder pool = LootPool.builder()
-                        .with(ItemEntry.builder(RegisterItems.ANCIENT_HORN).weight(1).quality(Rarity.EPIC.ordinal() + 1)).apply(SetCountLootFunction.builder(UniformLootNumberProvider.create(0.0F, 1.0F)));
+                        .with(ItemEntry.builder(RegisterItems.ANCIENT_HORN).weight(1).quality(Rarity.EPIC.ordinal() + 1)).apply(SetCountLootFunction.builder(UniformLootNumberProvider.create(-10.0F, 0.5F)));
 
                 tableBuilder.pool(pool);
             }

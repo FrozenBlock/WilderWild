@@ -37,9 +37,9 @@ public class AncientCityGoatHorn extends Item {
     private static final String INSTRUMENT_KEY = "instrument";
     private final TagKey<Instrument> instrumentTag;
 
-    public static final int shriekerCooldown = 900;
-    public static final int sensorCooldown = 400;
-    public static final int tendrilCooldown = 380;
+    public static final int SHRIEKER_COOLDOWN = 900;
+    public static final int SENSOR_COOLDOWN = 400;
+    public static final int TENDRIL_COOLDOWN = 380;
 
     public AncientCityGoatHorn(Settings settings, TagKey<Instrument> instrumentTag) {
         super(settings);
@@ -91,22 +91,22 @@ public class AncientCityGoatHorn extends Item {
         return iterator.hasNext() ? Optional.of(iterator.next()) : Optional.empty();
     }
 
-    public static int getCooldown(@Nullable Entity entity, int i) {
+    public static int getCooldown(@Nullable Entity entity, int cooldown) {
         if (entity != null) {
             if (entity instanceof PlayerEntity player) {
-                i = player.isCreative() ? 5 : i;
+                cooldown = player.isCreative() ? 5 : cooldown;
             }
         }
-        return i;
+        return cooldown;
     }
 
-    public static int getCooldown(@Nullable Entity entity, int i, int additionalCooldown) {
+    public static int getCooldown(@Nullable Entity entity, int cooldown, int additionalCooldown) {
         if (entity != null) {
             if (entity instanceof PlayerEntity player) {
-                i = player.isCreative() ? 5 : i + additionalCooldown;
+                cooldown = player.isCreative() ? 5 : cooldown + additionalCooldown;
             }
         }
-        return i;
+        return cooldown;
     }
 
     public static ArrayList<ItemStack> getHorns(PlayerEntity player) {
@@ -122,17 +122,17 @@ public class AncientCityGoatHorn extends Item {
         return horns;
     }
 
-    public static int decreaseCooldown(PlayerEntity user, int i) {
+    public static int decreaseCooldown(PlayerEntity user, int time) {
         if (!user.isCreative()) {
             ItemCooldownManager manager = user.getItemCooldownManager();
             ItemCooldownManager.Entry entry = manager.entries.get(RegisterItems.ANCIENT_HORN);
             if (entry != null) {
                 int between = entry.endTick - entry.startTick;
-                if (between > 140 & between >= i) {
-                    int cooldown = Math.max(between - i, 1);
+                if (between > 140 & between >= time) {
+                    int cooldown = Math.max(between - time, 1);
                     manager.remove(RegisterItems.ANCIENT_HORN);
                     manager.set(RegisterItems.ANCIENT_HORN, cooldown);
-                    return i;
+                    return time;
                 }
             }
         }

@@ -28,47 +28,47 @@ public class FireflyEntityRenderer extends EntityRenderer<FireflyEntity> {
     private final double yOffset = 0.155F;
 
     @Override
-    public void render(FireflyEntity entity, float yaw, float tickDelta, MatrixStack matrixStack, VertexConsumerProvider vertexConsumerProvider, int i) {
+    public void render(FireflyEntity entity, float yaw, float tickDelta, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light) {
         float scale = entity.getScale() == 1.5F ? 1.5F : entity.getScale() - (tickDelta * 0.001875F); //0.0375
-        matrixStack.push();
-        matrixStack.scale(scale, scale, scale);
-        matrixStack.translate(0, yOffset, 0);
-        matrixStack.multiply(this.dispatcher.getRotation());
-        matrixStack.multiply(Vec3f.POSITIVE_Y.getDegreesQuaternion(180.0F));
+        matrices.push();
+        matrices.scale(scale, scale, scale);
+        matrices.translate(0, yOffset, 0);
+        matrices.multiply(this.dispatcher.getRotation());
+        matrices.multiply(Vec3f.POSITIVE_Y.getDegreesQuaternion(180.0F));
 
-        MatrixStack.Entry entry = matrixStack.peek();
+        MatrixStack.Entry entry = matrices.peek();
         Matrix4f matrix4f = entry.getPositionMatrix();
         Matrix3f matrix3f = entry.getNormalMatrix();
-        VertexConsumer vertexConsumer = vertexConsumerProvider.getBuffer(LAYER);
+        VertexConsumer vertexConsumer = vertexConsumers.getBuffer(LAYER);
 
         int overlay = getOverlay(entity, 0);
 
-        vertex(vertexConsumer, matrix4f, matrix3f, i, 0.0F, 0, 0, 1, overlay);
-        vertex(vertexConsumer, matrix4f, matrix3f, i, 1.0F, 0, 1, 1, overlay);
-        vertex(vertexConsumer, matrix4f, matrix3f, i, 1.0F, 1, 1, 0, overlay);
-        vertex(vertexConsumer, matrix4f, matrix3f, i, 0.0F, 1, 0, 0, overlay);
+        vertex(vertexConsumer, matrix4f, matrix3f, light, 0.0F, 0, 0, 1, overlay);
+        vertex(vertexConsumer, matrix4f, matrix3f, light, 1.0F, 0, 1, 1, overlay);
+        vertex(vertexConsumer, matrix4f, matrix3f, light, 1.0F, 1, 1, 0, overlay);
+        vertex(vertexConsumer, matrix4f, matrix3f, light, 0.0F, 1, 0, 0, overlay);
 
-        matrixStack.pop();
+        matrices.pop();
 
         //OVERLAY
-        matrixStack.push();
-        matrixStack.scale(scale, scale, scale);
-        matrixStack.translate(0, yOffset, 0);
-        matrixStack.multiply(this.dispatcher.getRotation());
-        matrixStack.multiply(Vec3f.POSITIVE_Y.getDegreesQuaternion(180.0F));
+        matrices.push();
+        matrices.scale(scale, scale, scale);
+        matrices.translate(0, yOffset, 0);
+        matrices.multiply(this.dispatcher.getRotation());
+        matrices.multiply(Vec3f.POSITIVE_Y.getDegreesQuaternion(180.0F));
 
-        entry = matrixStack.peek();
+        entry = matrices.peek();
         matrix4f = entry.getPositionMatrix();
         matrix3f = entry.getNormalMatrix();
-        vertexConsumer = vertexConsumerProvider.getBuffer(RenderLayer.getEntityTranslucentEmissive(new Identifier(WilderWild.MOD_ID, "textures/entity/firefly/firefly_" + entity.getColor() + ".png")));
+        vertexConsumer = vertexConsumers.getBuffer(RenderLayer.getEntityTranslucentEmissive(new Identifier(WilderWild.MOD_ID, "textures/entity/firefly/firefly_" + entity.getColor() + ".png")));
 
-        vertexPulsate(vertexConsumer, matrix4f, matrix3f, i, 0.0F, 0, 0, 1, entity.getFlickerAge(), entity.flickers(), tickDelta, overlay);
-        vertexPulsate(vertexConsumer, matrix4f, matrix3f, i, 1.0F, 0, 1, 1, entity.getFlickerAge(), entity.flickers(), tickDelta, overlay);
-        vertexPulsate(vertexConsumer, matrix4f, matrix3f, i, 1.0F, 1, 1, 0, entity.getFlickerAge(), entity.flickers(), tickDelta, overlay);
-        vertexPulsate(vertexConsumer, matrix4f, matrix3f, i, 0.0F, 1, 0, 0, entity.getFlickerAge(), entity.flickers(), tickDelta, overlay);
+        vertexPulsate(vertexConsumer, matrix4f, matrix3f, light, 0.0F, 0, 0, 1, entity.getFlickerAge(), entity.flickers(), tickDelta, overlay);
+        vertexPulsate(vertexConsumer, matrix4f, matrix3f, light, 1.0F, 0, 1, 1, entity.getFlickerAge(), entity.flickers(), tickDelta, overlay);
+        vertexPulsate(vertexConsumer, matrix4f, matrix3f, light, 1.0F, 1, 1, 0, entity.getFlickerAge(), entity.flickers(), tickDelta, overlay);
+        vertexPulsate(vertexConsumer, matrix4f, matrix3f, light, 0.0F, 1, 0, 0, entity.getFlickerAge(), entity.flickers(), tickDelta, overlay);
 
-        matrixStack.pop();
-        super.render(entity, yaw, tickDelta, matrixStack, vertexConsumerProvider, i);
+        matrices.pop();
+        super.render(entity, yaw, tickDelta, matrices, vertexConsumers, light);
     }
 
     @Override
@@ -76,25 +76,25 @@ public class FireflyEntityRenderer extends EntityRenderer<FireflyEntity> {
         return TEXTURE;
     }
 
-    private static void vertex(VertexConsumer vertexConsumer, Matrix4f matrix4f, Matrix3f matrix3f, int i, float f, int j, int k, int l, int overlay) {
+    private static void vertex(VertexConsumer vertexConsumer, Matrix4f matrix4f, Matrix3f matrix3f, int light, float f, int j, int k, int l, int overlay) {
         vertexConsumer
                 .vertex(matrix4f, f - 0.5F, j - 0.5F, 0.0F)
                 .color(255, 255, 255, 255)
                 .texture(k, l)
                 .overlay(overlay)
-                .light(i)
+                .light(light)
                 .normal(matrix3f, 0.0F, 1.0F, 0.0F)
                 .next();
     }
 
-    private static void vertexPulsate(VertexConsumer vertexConsumer, Matrix4f matrix4f, Matrix3f matrix3f, int i, float f, int j, int k, int l, int age, boolean flickers, float tickDelta, int overlay) {
+    private static void vertexPulsate(VertexConsumer vertexConsumer, Matrix4f matrix4f, Matrix3f matrix3f, int light, float f, int j, int k, int l, int age, boolean flickers, float tickDelta, int overlay) {
         int colors = !flickers ? (int) ((int) Math.max((255 * (Math.cos(((age + tickDelta) * Math.PI) / 20))), 0)) : (int) ((int) (255 * (Math.cos(((age + tickDelta) * Math.PI) / 40))) + 127.5);
         vertexConsumer
                 .vertex(matrix4f, f - 0.5F, j - 0.5F, 0.0F)
                 .color(colors, colors, colors, colors)
                 .texture(k, l)
                 .overlay(overlay)
-                .light(i)
+                .light(light)
                 .normal(matrix3f, 0.0F, 1.0F, 0.0F)
                 .next();
     }

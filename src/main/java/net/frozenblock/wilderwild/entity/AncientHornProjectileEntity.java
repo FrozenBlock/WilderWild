@@ -42,6 +42,7 @@ import net.minecraft.world.RaycastContext;
 import net.minecraft.world.World;
 import net.minecraft.world.event.GameEvent;
 import net.minecraft.world.explosion.Explosion;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
@@ -61,7 +62,7 @@ public class AncientHornProjectileEntity extends PersistentProjectileEntity {
     public boolean shotByPlayer;
     private BlockState inBlockState;
 
-    public AncientHornProjectileEntity(EntityType<? extends PersistentProjectileEntity> entityType, World world) {
+    public AncientHornProjectileEntity(@NotNull EntityType<? extends PersistentProjectileEntity> entityType, World world) {
         super(entityType, world);
         this.setSound(RegisterSounds.ANCIENT_HORN_VIBRATION_DISSIPATE);
     }
@@ -174,11 +175,11 @@ public class AncientHornProjectileEntity extends PersistentProjectileEntity {
         this.checkBlockCollision();
     }
 
-    public void setCooldown(int i) {
+    public void setCooldown(int cooldown) {
         Entity entity = this.getOwner();
         if (entity != null) {
             if (entity instanceof PlayerEntity user) {
-                user.getItemCooldownManager().set(RegisterItems.ANCIENT_HORN, i);
+                user.getItemCooldownManager().set(RegisterItems.ANCIENT_HORN, cooldown);
             }
         }
     }
@@ -238,7 +239,7 @@ public class AncientHornProjectileEntity extends PersistentProjectileEntity {
                     WardenEntity.addDarknessToClosePlayers(server, Vec3d.ofCenter(this.getBlockPos()), null, 40);
                     server.syncWorldEvent(3007, pos, 0);
                     server.emitGameEvent(GameEvent.SHRIEK, pos, GameEvent.Emitter.of(owner));
-                    setCooldown(getCooldown(this.getOwner(), shriekerCooldown));
+                    setCooldown(getCooldown(this.getOwner(), SHRIEKER_COOLDOWN));
                     this.setSound(RegisterSounds.ANCIENT_HORN_VIBRATION_DISSIPATE);
                     this.setShotFromCrossbow(false);
                     this.remove(RemovalReason.DISCARDED);
@@ -252,7 +253,7 @@ public class AncientHornProjectileEntity extends PersistentProjectileEntity {
                     SculkSensorBlock.setActive(owner, world, pos, world.getBlockState(pos), (int) (Math.random() * 15));
                     world.emitGameEvent(null, GameEvent.SCULK_SENSOR_TENDRILS_CLICKING, pos);
                     world.emitGameEvent(null, RegisterGameEvents.SCULK_SENSOR_ACTIVATE, pos);
-                    setCooldown(getCooldown(this.getOwner(), sensorCooldown));
+                    setCooldown(getCooldown(this.getOwner(), SENSOR_COOLDOWN));
                 }
             }
         }
@@ -286,7 +287,7 @@ public class AncientHornProjectileEntity extends PersistentProjectileEntity {
                     tendril.storedXP = 0;
                     world.createExplosion(this, this.getX(), this.getY(), this.getZ(), 3, Explosion.DestructionType.BREAK);
                     ExperienceOrbEntity.spawn(server, Vec3d.ofCenter(pos).add(0, 0, 0), XP);
-                    setCooldown(getCooldown(this.getOwner(), tendrilCooldown));
+                    setCooldown(getCooldown(this.getOwner(), TENDRIL_COOLDOWN));
                     this.setShotFromCrossbow(false);
                     this.remove(RemovalReason.DISCARDED);
                 }

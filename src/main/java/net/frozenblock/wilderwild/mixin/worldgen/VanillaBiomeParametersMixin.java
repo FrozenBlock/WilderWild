@@ -31,9 +31,6 @@ public final class VanillaBiomeParametersMixin {
     private MultiNoiseUtil.ParameterRange[] humidityParameters;
     @Shadow
     @Final
-    private MultiNoiseUtil.ParameterRange nearInlandContinentalness;
-    @Shadow
-    @Final
     private MultiNoiseUtil.ParameterRange[] temperatureParameters;
     @Shadow
     @Final
@@ -58,7 +55,7 @@ public final class VanillaBiomeParametersMixin {
                 parameters,
                 MultiNoiseUtil.ParameterRange.combine(this.temperatureParameters[1], this.temperatureParameters[2]),
                 this.defaultParameter,
-                MultiNoiseUtil.ParameterRange.combine(this.nearInlandContinentalness, this.farInlandContinentalness),
+                MultiNoiseUtil.ParameterRange.combine(this.riverContinentalness, this.farInlandContinentalness),
                 this.erosionParameters[2],
                 weirdness,
                 0.0F,
@@ -80,7 +77,7 @@ public final class VanillaBiomeParametersMixin {
                 parameters,
                 MultiNoiseUtil.ParameterRange.combine(this.temperatureParameters[1], this.temperatureParameters[2]),
                 this.defaultParameter,
-                MultiNoiseUtil.ParameterRange.combine(this.nearInlandContinentalness, this.farInlandContinentalness),
+                MultiNoiseUtil.ParameterRange.combine(this.riverContinentalness, this.farInlandContinentalness),
                 this.erosionParameters[1],
                 weirdness,
                 0.0F,

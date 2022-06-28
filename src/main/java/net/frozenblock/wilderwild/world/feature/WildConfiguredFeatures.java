@@ -39,14 +39,14 @@ public class WildConfiguredFeatures {
                             new RandomFeatureEntry(WildTreePlaced.FUNGUS_PINE_CHECKED, 0.09F),
                             new RandomFeatureEntry(WildTreePlaced.NEW_SPRUCE_SHORT_CHECKED, 0.13F),
                             new RandomFeatureEntry(WildTreePlaced.NEW_FANCY_OAK_BEES_0004, 0.28F),
-                            new RandomFeatureEntry(WildTreePlaced.SHORT_OAK_CHECKED, 0.1F),
+                            new RandomFeatureEntry(WildTreePlaced.SHORT_OAK_CHECKED, 0.13F),
                             new RandomFeatureEntry(WildTreePlaced.SHORT_BIRCH, 0.32F)), WildTreePlaced.NEW_OAK_CHECKED));
 
     public static final RegistryEntry<ConfiguredFeature<RandomFeatureConfig, ?>> SAVANNA_TREES =
             register("savanna_trees", Feature.RANDOM_SELECTOR,
                     new RandomFeatureConfig(List.of(new RandomFeatureEntry(TreePlacedFeatures.ACACIA_CHECKED, 0.8F),
-                            new RandomFeatureEntry(WildTreePlaced.BAOBAB, 0.09F),
-                            new RandomFeatureEntry(WildTreePlaced.BAOBAB_TALL, 0.055F)), WildTreePlaced.NEW_OAK_CHECKED));
+                            new RandomFeatureEntry(WildTreePlaced.BAOBAB, 0.082F),
+                            new RandomFeatureEntry(WildTreePlaced.BAOBAB_TALL, 0.045F)), WildTreePlaced.NEW_OAK_CHECKED));
 
     public static final RegistryEntry<ConfiguredFeature<RandomFeatureConfig, ?>> WINDSWEPT_SAVANNA_TREES =
             register("windswept_savanna_trees", Feature.RANDOM_SELECTOR,
@@ -118,7 +118,9 @@ public class WildConfiguredFeatures {
 
     public static final RegistryEntry<ConfiguredFeature<RandomFeatureConfig, ?>> NEW_TREES_PLAINS =
             register("new_trees_plains", Feature.RANDOM_SELECTOR,
-                    new RandomFeatureConfig(List.of(new RandomFeatureEntry(PlacedFeatures.createEntry(WildTreeConfigured.NEW_FANCY_OAK_BEES_0004), 0.33333334F)), PlacedFeatures.createEntry(WildTreeConfigured.NEW_OAK_BEES_0004)));
+                    new RandomFeatureConfig(List.of(new RandomFeatureEntry(PlacedFeatures.createEntry(WildTreeConfigured.NEW_FANCY_OAK_BEES_0004), 0.33333334F),
+                            new RandomFeatureEntry(PlacedFeatures.createEntry(WildTreeConfigured.SHORT_OAK), 0.169F)),
+                            PlacedFeatures.createEntry(WildTreeConfigured.NEW_OAK_BEES_0004)));
 
     public static final RegistryEntry<ConfiguredFeature<RandomFeatureConfig, ?>> NEW_FALLEN_BIRCH_AND_OAK =
             register("new_fallen_birch_and_oak", Feature.RANDOM_SELECTOR,

@@ -39,7 +39,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 @Mixin(WardenEntity.class)
 public abstract class WardenEntityMixin extends HostileEntity implements WardenAnimationInterface {
 
-    WardenEntity warden = WardenEntity.class.cast(this);
+    private final WardenEntity warden = WardenEntity.class.cast(this);
 
     /**
      * @author FrozenBlock
@@ -86,7 +86,7 @@ public abstract class WardenEntityMixin extends HostileEntity implements WardenA
         if (spawnReason == SpawnReason.SPAWN_EGG || spawnReason == SpawnReason.COMMAND) {
             warden.setPose(EntityPose.EMERGING);
             warden.getBrain().remember(MemoryModuleType.IS_EMERGING, Unit.INSTANCE, WardenBrain.EMERGE_DURATION);
-            warden.setPersistent();
+            this.playSound(SoundEvents.ENTITY_WARDEN_AGITATED, 5.0F, 1.0F);
         }
     }
 

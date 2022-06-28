@@ -29,12 +29,11 @@ public class BoatTypeMixin {
     }
 
     @SuppressWarnings("ShadowTarget")
-    @Shadow
     @Final
+    @Shadow
     @Mutable
     private static BoatEntity.Type[] field_7724;
 
-    @SuppressWarnings("UnresolvedMixinReference")
     @Inject(method = "<clinit>", at = @At(value = "FIELD",
             opcode = Opcodes.PUTSTATIC,
             target = "Lnet/minecraft/entity/vehicle/BoatEntity$Type;field_7724:[Lnet/minecraft/entity/vehicle/BoatEntity$Type;",
