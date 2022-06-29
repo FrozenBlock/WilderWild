@@ -6,6 +6,7 @@ import net.frozenblock.wilderwild.item.AncientCityGoatHorn;
 import net.frozenblock.wilderwild.item.FireflyBottleItem;
 import net.frozenblock.wilderwild.item.MilkweedPodItem;
 import net.frozenblock.wilderwild.misc.CustomBoatType;
+import net.minecraft.client.item.ModelPredicateProviderRegistry;
 import net.minecraft.item.*;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.Rarity;
@@ -95,5 +96,7 @@ public class RegisterItems {
         Registry.register(Registry.ITEM, new Identifier(WilderWild.MOD_ID, "pink_giant_glory_of_the_snow"), PINK_GLORY_OF_THE_SNOW);
         Registry.register(Registry.ITEM, new Identifier(WilderWild.MOD_ID, "violet_beauty_glory_of_the_snow"), PURPLE_GLORY_OF_THE_SNOW);
         Registry.register(Registry.ITEM, new Identifier(WilderWild.MOD_ID, "alba_glory_of_the_snow"), WHITE_GLORY_OF_THE_SNOW);
+
+        ModelPredicateProviderRegistry.register(ANCIENT_HORN, new Identifier("tooting"), (itemStack, clientWorld, livingEntity, seed) -> livingEntity != null && livingEntity.isUsingItem() && livingEntity.getActiveItem() == itemStack ? 1.0F : 0.0F);
     }
 }
