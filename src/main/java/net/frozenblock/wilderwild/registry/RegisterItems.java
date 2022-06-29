@@ -1,6 +1,8 @@
 package net.frozenblock.wilderwild.registry;
 
+import net.fabricmc.api.EnvType;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
+import net.fabricmc.loader.api.FabricLoader;
 import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.item.AncientCityGoatHorn;
 import net.frozenblock.wilderwild.item.FireflyBottleItem;
@@ -97,6 +99,8 @@ public class RegisterItems {
         Registry.register(Registry.ITEM, new Identifier(WilderWild.MOD_ID, "violet_beauty_glory_of_the_snow"), PURPLE_GLORY_OF_THE_SNOW);
         Registry.register(Registry.ITEM, new Identifier(WilderWild.MOD_ID, "alba_glory_of_the_snow"), WHITE_GLORY_OF_THE_SNOW);
 
-        ModelPredicateProviderRegistry.register(ANCIENT_HORN, new Identifier("tooting"), (itemStack, clientWorld, livingEntity, seed) -> livingEntity != null && livingEntity.isUsingItem() && livingEntity.getActiveItem() == itemStack ? 1.0F : 0.0F);
+        if (FabricLoader.getInstance().getEnvironmentType() == EnvType.CLIENT) {
+            ModelPredicateProviderRegistry.register(ANCIENT_HORN, new Identifier("tooting"), (itemStack, clientWorld, livingEntity, seed) -> livingEntity != null && livingEntity.isUsingItem() && livingEntity.getActiveItem() == itemStack ? 1.0F : 0.0F);
+        }
     }
 }
