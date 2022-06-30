@@ -35,7 +35,6 @@ import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
-import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.math.random.Random;
@@ -282,7 +281,9 @@ public class FireflyEntity extends PathAwareEntity implements Flutterer {
         if (!state.getFluidState().isEmpty()) {
             return false;
         }
-        if (state.isSolidBlock(world, pos)) { return false; }
+        if (state.isSolidBlock(world, pos)) {
+            return false;
+        }
         return state.isAir() || (!state.getMaterial().blocksMovement() && !state.getMaterial().isSolid());
     }
 

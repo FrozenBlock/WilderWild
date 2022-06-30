@@ -350,10 +350,10 @@ public class TermiteMoundBlockEntity extends BlockEntity {
             return this.natural;
         }
 
-        public static ArrayList<Block> degradableBlocks = new ArrayList<>();
-        public static ArrayList<Block> degradableBlockResults = new ArrayList<>();
-        public static ArrayList<Block> naturalDegradableBlocks = new ArrayList<>();
-        public static ArrayList<Block> naturalDegradableBlockResults = new ArrayList<>();
+        public static final ArrayList<Block> degradableBlocks = new ArrayList<>();
+        public static final ArrayList<Block> degradableBlockResults = new ArrayList<>();
+        public static final ArrayList<Block> naturalDegradableBlocks = new ArrayList<>();
+        public static final ArrayList<Block> naturalDegradableBlockResults = new ArrayList<>();
 
         public static void addDegradableBlocks() {
             addDegradable(Blocks.ACACIA_LOG, RegisterBlocks.HOLLOWED_ACACIA_LOG);

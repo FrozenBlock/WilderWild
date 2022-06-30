@@ -15,6 +15,7 @@ import net.minecraft.world.WorldAccess;
 public class SculkStairsBlock extends StairsBlock implements SculkSpreadable {
 
     private final IntProvider experience = ConstantIntProvider.create(1);
+
     public SculkStairsBlock(BlockState baseBlockState, Settings settings) {
         super(baseBlockState, settings);
     }

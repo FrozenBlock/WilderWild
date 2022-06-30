@@ -33,7 +33,6 @@ import net.minecraft.entity.EntityType;
 import net.minecraft.particle.ParticleEffect;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvent;
-import net.minecraft.util.Identifier;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.registry.Registry;
 
@@ -127,7 +126,7 @@ public class WildClientMod implements ClientModInitializer {
         ClientTickEvents.START_WORLD_TICK.register(e -> {
             MinecraftClient client = MinecraftClient.getInstance();
             if (client.world != null) {
-                FlyBySoundHub.clientFlyby.update(client, client.player, false); //CHANGE TO FALSE TO NOT AUTOMATICALLY ADD FLYBY SOUNDS
+                FlyBySoundHub.ClientFlyby.update(client, client.player, false); //CHANGE TO FALSE TO NOT AUTOMATICALLY ADD FLYBY SOUNDS
             }
         });
     }
@@ -281,7 +280,7 @@ public class WildClientMod implements ClientModInitializer {
                 Entity entity = world.getEntityById(id);
                 if (entity == null)
                     throw new IllegalStateException("Unable to add flyby sound to non-existent entity!");
-                FlyBySoundHub.clientFlyby.addEntity(entity, sound, category, volume, pitch);
+                FlyBySoundHub.ClientFlyby.addEntity(entity, sound, category, volume, pitch);
                 WilderWild.log("ADDED ENTITY TO FLYBYS", true);
             });
         });

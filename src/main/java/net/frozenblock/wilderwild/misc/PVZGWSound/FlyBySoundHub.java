@@ -32,43 +32,43 @@ import java.util.List;
 public class FlyBySoundHub {
 
     @Environment(EnvType.CLIENT)
-    public static class clientFlyby {
+    public static class ClientFlyby {
 
-        public static ArrayList<EntityType<?>> flybyEntitiesAuto = new ArrayList<>() {{
+        public static final ArrayList<EntityType<?>> flybyEntitiesAuto = new ArrayList<>() {{
             add(RegisterEntities.ANCIENT_HORN_PROJECTILE_ENTITY);
             add(EntityType.ARROW);
             add(EntityType.BAT);
         }};
-        public static ArrayList<SoundEvent> flybySoundsAuto = new ArrayList<>() {{
+        public static final ArrayList<SoundEvent> flybySoundsAuto = new ArrayList<>() {{
             add(RegisterSounds.PVZGW_CHEETO_FLYBY);
             add(RegisterSounds.PVZGW_CHEETO_FLYBY);
             add(SoundEvents.ENTITY_BAT_TAKEOFF);
         }};
-        public static ArrayList<SoundCategory> categoriesAuto = new ArrayList<>() {{
+        public static final ArrayList<SoundCategory> categoriesAuto = new ArrayList<>() {{
             add(SoundCategory.PLAYERS);
             add(SoundCategory.NEUTRAL);
             add(SoundCategory.NEUTRAL);
         }};
-        public static FloatArrayList volumesAuto = new FloatArrayList() {{
+        public static final FloatArrayList volumesAuto = new FloatArrayList() {{
             add(0.15F);
             add(0.15F);
             add(0.15F);
         }};
-        public static FloatArrayList pitchesAuto = new FloatArrayList() {{
+        public static final FloatArrayList pitchesAuto = new FloatArrayList() {{
             add(0.8F);
             add(1.6F);
             add(1.0F);
         }};
 
-        public static ArrayList<Entity> flybyEntities = new ArrayList<>();
-        public static ArrayList<SoundEvent> flybySounds = new ArrayList<>();
-        public static ArrayList<SoundCategory> categories = new ArrayList<>();
-        public static FloatArrayList volumes = new FloatArrayList();
-        public static FloatArrayList pitches = new FloatArrayList();
-        public static IntArrayList cooldowns = new IntArrayList();
+        public static final ArrayList<Entity> flybyEntities = new ArrayList<>();
+        public static final ArrayList<SoundEvent> flybySounds = new ArrayList<>();
+        public static final ArrayList<SoundCategory> categories = new ArrayList<>();
+        public static final FloatArrayList volumes = new FloatArrayList();
+        public static final FloatArrayList pitches = new FloatArrayList();
+        public static final IntArrayList cooldowns = new IntArrayList();
 
-        public static ArrayList<Entity> flybyEntitiesClear = new ArrayList<>();
-        public static int checkAroundCooldown;
+        public static final ArrayList<Entity> flybyEntitiesClear = new ArrayList<>();
+        private static int checkAroundCooldown;
 
         public static void update(MinecraftClient client, PlayerEntity player, boolean autoSounds) {
             for (Entity entity : flybyEntities) {

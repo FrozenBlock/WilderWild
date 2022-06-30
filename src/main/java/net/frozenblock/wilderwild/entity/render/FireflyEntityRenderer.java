@@ -25,7 +25,7 @@ public class FireflyEntityRenderer extends EntityRenderer<FireflyEntity> {
     private static final Identifier TEXTURE = WilderWild.id("textures/entity/firefly/firefly_off.png");
     private static final RenderLayer LAYER = RenderLayer.getEntityCutout(TEXTURE);
 
-    private final double yOffset = 0.155F;
+    private static final double yOffset = 0.155F;
 
     @Override
     public void render(FireflyEntity entity, float yaw, float tickDelta, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light) {

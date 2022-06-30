@@ -152,22 +152,13 @@ public abstract class WardenEntityMixin extends HostileEntity implements WardenA
         info.cancel();
     }
 
-    /**
-     * @author FrozenBlock
-     * @reason HELP
-     */
-    @Overwrite
-    public void onTrackedDataSet(TrackedData<?> data) {
+    @Inject(method = "onTrackedDataSet", at = @At("HEAD"))
+    public void onTrackedDataSet(TrackedData<?> data, CallbackInfo ci) {
         if (POSE.equals(data)) {
-            switch (this.getPose()) {
-                case DYING -> this.getDyingAnimationState().start(warden.age);
-                case EMERGING -> this.emergingAnimationState.start(warden.age);
-                case DIGGING -> this.diggingAnimationState.start(warden.age);
-                case ROARING -> this.roaringAnimationState.start(warden.age);
-                case SNIFFING -> this.sniffingAnimationState.start(warden.age);
+            if (this.getPose() == EntityPose.DYING) {
+                this.getDyingAnimationState().start(warden.age);
             }
         }
-        super.onTrackedDataSet(data);
     }
 
     private int deathTicks = 0;
@@ -240,7 +231,7 @@ public abstract class WardenEntityMixin extends HostileEntity implements WardenA
 
         if (this.deathTicks == 53 && !warden.world.isClient()) {
             warden.world.sendEntityStatus(warden, EntityStatuses.ADD_DEATH_PARTICLES);
-            warden.world.sendEntityStatus(warden, (byte)69420);
+            warden.world.sendEntityStatus(warden, (byte) 69420);
             warden.playSound(SoundEvents.ENTITY_WARDEN_ANGRY, 3.0F, 0.7F);
         }
 
@@ -258,7 +249,7 @@ public abstract class WardenEntityMixin extends HostileEntity implements WardenA
 
     @Inject(method = "handleStatus", at = @At("HEAD"))
     private void handleStatus(byte status, CallbackInfo ci) {
-        if (status == (byte)69420) {
+        if (status == (byte) 69420) {
             this.addAdditionalDeathParticles();
         }
     }

@@ -103,7 +103,7 @@ public class BaobabTrunkPlacer extends TrunkPlacer {
 
                         int branchlenght = (int) AdvancedMath.range(branchmin, branchmax, (float) Math.random());
 
-                        int fh = height - (int) AdvancedMath.range(height / 2, height, (float) Math.random());
+                        int fh = height - (int) AdvancedMath.range((float) height / 2, height, (float) Math.random());
 
                         boolean case1 = (x == -1 && z == -1);
                         boolean case2 = (x == 2 && z == 2);

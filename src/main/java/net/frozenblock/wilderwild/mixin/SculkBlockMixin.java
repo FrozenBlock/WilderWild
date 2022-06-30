@@ -28,10 +28,10 @@ public class SculkBlockMixin {
     @Shadow
     private static int getDecay(SculkSpreadManager spreadManager, BlockPos cursorPos, BlockPos catalystPos, int charge) {
         int i = spreadManager.getMaxDistance();
-        float f = MathHelper.square((float)Math.sqrt(cursorPos.getSquaredDistance(catalystPos)) - (float)i);
+        float f = MathHelper.square((float) Math.sqrt(cursorPos.getSquaredDistance(catalystPos)) - (float) i);
         int j = MathHelper.square(24 - i);
-        float g = Math.min(1.0F, f / (float)j);
-        return Math.max(1, (int)((float)charge * g * 0.5F));
+        float g = Math.min(1.0F, f / (float) j);
+        return Math.max(1, (int) ((float) charge * g * 0.5F));
     }
 
     private static final int HEIGHT_MULTIPLIER = 20; //The higher, the less short pillars you'll see.
@@ -59,7 +59,7 @@ public class SculkBlockMixin {
                 if (random.nextInt(j) < i) {
                     BlockPos blockPos2 = blockPos.up();
                     BlockState blockState = this.getExtraBlockState(world, blockPos2, random, spreadManager.isWorldGen());
-                    
+
                     BlockState stateDown = world.getBlockState(blockPos.down());
                     Block blockDown = stateDown.getBlock();
                     if ((stateDown.isAir() || blockDown == Blocks.WATER || blockDown == Blocks.LAVA || blockDown == Blocks.SCULK_VEIN)) {

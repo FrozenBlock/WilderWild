@@ -6,7 +6,6 @@ import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.registry.RegisterSounds;
 import net.minecraft.client.sound.MusicType;
 import net.minecraft.sound.BiomeAdditionsSound;
-import net.minecraft.util.Identifier;
 import net.minecraft.world.biome.BiomeKeys;
 
 public class WildMusic {

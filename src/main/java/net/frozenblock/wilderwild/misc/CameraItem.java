@@ -21,7 +21,7 @@ public class CameraItem extends Item {
         super(settings);
     }
 
-    public static boolean canGo;
+    private boolean canGo;
 
     @Override
     public void inventoryTick(ItemStack itemStack, World world, Entity entity, int i, boolean bl) {

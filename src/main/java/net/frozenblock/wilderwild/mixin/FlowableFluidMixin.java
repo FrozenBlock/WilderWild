@@ -79,7 +79,7 @@ public abstract class FlowableFluidMixin {
     }
 
     private boolean receivesFlow(Direction face, BlockView world, BlockPos pos, BlockState state, BlockPos fromPos, BlockState fromState) {
-        Object2ByteLinkedOpenHashMap object2ByteLinkedOpenHashMap;
+        Object2ByteLinkedOpenHashMap<Block.NeighborGroup> object2ByteLinkedOpenHashMap;
         if (!state.getBlock().hasDynamicBounds() && !fromState.getBlock().hasDynamicBounds()) {
             object2ByteLinkedOpenHashMap = getField_15901().get();
         } else {

@@ -27,6 +27,7 @@ import net.minecraft.item.Instrument;
 import net.minecraft.tag.TagKey;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.random.Random;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.world.gen.ProbabilityConfig;
 import net.minecraft.world.gen.feature.Feature;
@@ -38,8 +39,8 @@ import org.slf4j.LoggerFactory;
 public class WilderWild implements ModInitializer {
     public static final String MOD_ID = "wilderwild";
     public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
-    public static boolean DEV_LOGGING = false;
-    public static boolean UNSTABLE_LOGGING = true; //Used for features that may possibly be unstable and crash in public builds - it's smart to use this for at least registries.
+    public static final boolean DEV_LOGGING = false;
+    public static final boolean UNSTABLE_LOGGING = true; //Used for features that may possibly be unstable and crash in public builds - it's smart to use this for at least registries.
 
     public static final TrunkPlacerType<StraightTrunkWithLogs> STRAIGHT_TRUNK_WITH_LOGS_PLACER_TYPE = registerTrunk("straight_trunk_logs_placer", StraightTrunkWithLogs.CODEC);
     public static final TrunkPlacerType<FallenTrunkWithLogs> FALLEN_TRUNK_WITH_LOGS_PLACER_TYPE = registerTrunk("fallen_trunk_logs_placer", FallenTrunkWithLogs.CODEC);
@@ -68,7 +69,7 @@ public class WilderWild implements ModInitializer {
         WildMusic.playMusic();
         RegisterFlammability.register();
         RegisterGameEvents.registerEvents();
-        RegisterWorldgen.RegisterWorldGen();
+        RegisterWorldgen.registerWorldGen();
 
         RegisterSounds.init();
         RegisterBlockSoundGroups.init();
@@ -90,6 +91,10 @@ public class WilderWild implements ModInitializer {
 
         TermiteMoundBlockEntity.Termite.addDegradableBlocks();
         TermiteMoundBlockEntity.Termite.addNaturalDegradableBlocks();
+    }
+
+    public static Random random() {
+        return Random.create();
     }
 
     public static Identifier id(String path) {

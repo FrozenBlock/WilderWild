@@ -2,7 +2,6 @@ package net.frozenblock.wilderwild.tag;
 
 import net.frozenblock.wilderwild.WilderWild;
 import net.minecraft.tag.TagKey;
-import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.world.biome.Biome;
 
