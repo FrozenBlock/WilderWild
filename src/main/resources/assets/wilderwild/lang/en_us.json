@@ -67,6 +67,7 @@
 	"death.attack.ancient_horn": "%1$s experienced maximum bass",
 	"death.attack.ancient_horn.item": "%1$s was blown to smithereens by %2$s using %3$s",
 	"entity.wilderwild.firefly": "Firefly",
+  	"entity.wilderwild.ancient_horn_projectile": "Ancient Horn Projectile",
 	"item.wilderwild.firefly_spawn_egg": "Firefly Spawn Egg",
 	"block.wilderwild.baobab_log": "Baobab Log",
 	"block.wilderwild.stripped_baobab_log": "Stripped Baobab Log",
