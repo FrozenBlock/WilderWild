@@ -18,7 +18,7 @@ import java.util.Objects;
 @Mixin(FrogEntityRenderer.class)
 public class XfrtrexSusFrogRenderer {
 
-    private static final Identifier SUS_TEXTURE = new Identifier(WilderWild.MOD_ID, "textures/entity/frog/sus_frog.png");
+    private static final Identifier SUS_TEXTURE = WilderWild.id("textures/entity/frog/sus_frog.png");
 
 
     @Inject(method = "getTexture(Lnet/minecraft/entity/passive/FrogEntity;)Lnet/minecraft/util/Identifier;", at = @At("HEAD"), cancellable = true)

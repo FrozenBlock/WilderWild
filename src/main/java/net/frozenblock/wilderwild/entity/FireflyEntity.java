@@ -112,7 +112,7 @@ public class FireflyEntity extends PathAwareEntity implements Flutterer {
                 player.getStackInHand(hand).decrement(1);
             }
             String color = entity.getColor();
-            player.getInventory().offerOrDrop(new ItemStack(Registry.ITEM.get(new Identifier(WilderWild.MOD_ID, Objects.equals(color, "on") ? "firefly_bottle" : color + "_firefly_bottle"))));
+            player.getInventory().offerOrDrop(new ItemStack(Registry.ITEM.get(WilderWild.id(Objects.equals(color, "on") ? "firefly_bottle" : color + "_firefly_bottle"))));
             World world = entity.world;
             if (!world.isClient) {
                 EasyPacket.EasyCompetitionPacket.sendFireflyCaptureInfo(world, player, entity);

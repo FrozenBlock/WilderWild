@@ -34,7 +34,7 @@ public class RegisterWorldgen {
     }
 
     private static RegistryKey<Biome> register(String name) {
-        return RegistryKey.of(Registry.BIOME_KEY, new Identifier(WilderWild.MOD_ID, name));
+        return RegistryKey.of(Registry.BIOME_KEY, WilderWild.id(name));
     }
 
     public static Biome createMixedForest() {

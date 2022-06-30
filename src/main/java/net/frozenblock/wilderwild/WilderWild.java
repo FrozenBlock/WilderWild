@@ -53,7 +53,7 @@ public class WilderWild implements ModInitializer {
 
     public static final SpawnGroup FIREFLIES = ClassTinkerers.getEnum(SpawnGroup.class, "FIREFLIES");
 
-    public static final TagKey<Instrument> WILD_HORNS = TagKey.of(Registry.INSTRUMENT_KEY, new Identifier(WilderWild.MOD_ID, "wild_horns"));
+    public static final TagKey<Instrument> WILD_HORNS = TagKey.of(Registry.INSTRUMENT_KEY, id("wild_horns"));
 
     @Override
     public void onInitialize() {
@@ -77,12 +77,12 @@ public class WilderWild implements ModInitializer {
         BlockSoundGroupOverwrites.init();
         RegisterLootTables.init();
 
-        Registry.register(Registry.FEATURE, new Identifier(WilderWild.MOD_ID, "shelf_fungus_feature"), SHELF_FUNGUS_FEATURE);
-        Registry.register(Registry.FEATURE, new Identifier(WilderWild.MOD_ID, "cattail_feature"), CATTAIL_FEATURE);
-        Registry.register(Registry.FEATURE, new Identifier(WilderWild.MOD_ID, "noise_path_feature"), NOISE_PATH_FEATURE);
-        Registry.register(Registry.FEATURE, new Identifier(WilderWild.MOD_ID, "noise_plant_feature"), NOISE_PLANT_FEATURE);
-        Registry.register(Registry.FEATURE, new Identifier(WilderWild.MOD_ID, "noise_path_under_water_feature"), NOISE_PATH_UNDER_WATER_FEATURE);
-        Registry.register(Registry.FEATURE, new Identifier(WilderWild.MOD_ID, "column_with_disk_feature"), COLUMN_WITH_DISK_FEATURE);
+        Registry.register(Registry.FEATURE, id("shelf_fungus_feature"), SHELF_FUNGUS_FEATURE);
+        Registry.register(Registry.FEATURE, id("cattail_feature"), CATTAIL_FEATURE);
+        Registry.register(Registry.FEATURE, id("noise_path_feature"), NOISE_PATH_FEATURE);
+        Registry.register(Registry.FEATURE, id("noise_plant_feature"), NOISE_PLANT_FEATURE);
+        Registry.register(Registry.FEATURE, id("noise_path_under_water_feature"), NOISE_PATH_UNDER_WATER_FEATURE);
+        Registry.register(Registry.FEATURE, id("column_with_disk_feature"), COLUMN_WITH_DISK_FEATURE);
 
         if (FabricLoader.getInstance().isDevelopmentEnvironment()) { /* DEV-ONLY */
             RegisterDevelopment.init();
@@ -92,16 +92,20 @@ public class WilderWild implements ModInitializer {
         TermiteMoundBlockEntity.Termite.addNaturalDegradableBlocks();
     }
 
-    public static final Identifier SEED_PACKET = new Identifier(WilderWild.MOD_ID, "seed_particle_packet");
-    public static final Identifier CONTROLLED_SEED_PACKET = new Identifier(WilderWild.MOD_ID, "controlled_seed_particle_packet");
-    public static final Identifier FLOATING_SCULK_BUBBLE_PACKET = new Identifier(WilderWild.MOD_ID, "floating_sculk_bubble_easy_packet");
-    public static final Identifier TERMITE_PARTICLE_PACKET = new Identifier(WilderWild.MOD_ID, "termite_particle_packet");
-    public static final Identifier HORN_PROJECTILE_PACKET_ID = new Identifier(WilderWild.MOD_ID, "ancient_horn_projectile_packet");
+    public static Identifier id(String path) {
+        return new Identifier(MOD_ID, path);
+    }
 
-    public static final Identifier CAPTURE_FIREFLY_NOTIFY_PACKET = new Identifier(WilderWild.MOD_ID, "capture_firefly_notify_packet");
-    public static final Identifier ANCIENT_HORN_KILL_NOTIFY_PACKET = new Identifier(WilderWild.MOD_ID, "ancient_horn_kill_notify_packet");
-    public static final Identifier FLYBY_SOUND_PACKET = new Identifier(WilderWild.MOD_ID, "flyby_sound_packet");
-    public static final Identifier MOVING_LOOPING_SOUND_PACKET = new Identifier(WilderWild.MOD_ID, "moving_looping_sound_packet");
+    public static final Identifier SEED_PACKET = id("seed_particle_packet");
+    public static final Identifier CONTROLLED_SEED_PACKET = id("controlled_seed_particle_packet");
+    public static final Identifier FLOATING_SCULK_BUBBLE_PACKET = id("floating_sculk_bubble_easy_packet");
+    public static final Identifier TERMITE_PARTICLE_PACKET = id("termite_particle_packet");
+    public static final Identifier HORN_PROJECTILE_PACKET_ID = id("ancient_horn_projectile_packet");
+
+    public static final Identifier CAPTURE_FIREFLY_NOTIFY_PACKET = id("capture_firefly_notify_packet");
+    public static final Identifier ANCIENT_HORN_KILL_NOTIFY_PACKET = id("ancient_horn_kill_notify_packet");
+    public static final Identifier FLYBY_SOUND_PACKET = id("flyby_sound_packet");
+    public static final Identifier MOVING_LOOPING_SOUND_PACKET = id("moving_looping_sound_packet");
 
     public static void log(String string, boolean shouldLog) {
         if (shouldLog) {
@@ -150,6 +154,6 @@ public class WilderWild implements ModInitializer {
 
 
     private static <P extends TrunkPlacer> TrunkPlacerType<P> registerTrunk(String id, Codec<P> codec) {
-        return Registry.register(Registry.TRUNK_PLACER_TYPE, new Identifier(MOD_ID, id), new TrunkPlacerType<>(codec));
+        return Registry.register(Registry.TRUNK_PLACER_TYPE, id(id), new TrunkPlacerType<>(codec));
     }
 }

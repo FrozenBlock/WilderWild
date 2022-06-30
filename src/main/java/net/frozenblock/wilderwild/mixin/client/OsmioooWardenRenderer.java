@@ -18,7 +18,7 @@ import java.util.Objects;
 @Mixin(WardenEntityRenderer.class)
 public class OsmioooWardenRenderer {
 
-    private static final Identifier OSMIOOO_WARDEN = new Identifier(WilderWild.MOD_ID, "textures/entity/warden/osmiooo_warden.png");
+    private static final Identifier OSMIOOO_WARDEN = WilderWild.id("textures/entity/warden/osmiooo_warden.png");
 
     @Inject(method = "getTexture(Lnet/minecraft/entity/mob/WardenEntity;)Lnet/minecraft/util/Identifier;", at = @At("HEAD"), cancellable = true)
     public void getTexture(WardenEntity warden, CallbackInfoReturnable<Identifier> cir) {

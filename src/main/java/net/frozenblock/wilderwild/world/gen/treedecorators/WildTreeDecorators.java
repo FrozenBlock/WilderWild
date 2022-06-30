@@ -17,6 +17,6 @@ public class WildTreeDecorators {
     }
 
     private static <P extends TreeDecorator> TreeDecoratorType<P> register(String id, Codec<P> codec) {
-        return Registry.register(Registry.TREE_DECORATOR_TYPE, new Identifier(WilderWild.MOD_ID, id), new TreeDecoratorType<P>(codec));
+        return Registry.register(Registry.TREE_DECORATOR_TYPE, WilderWild.id(id), new TreeDecoratorType<P>(codec));
     }
 }

@@ -17,6 +17,6 @@ public class WildBlockTags {
     }
 
     private static TagKey<Block> of(String id) {
-        return TagKey.of(Registry.BLOCK_KEY, new Identifier(WilderWild.MOD_ID, id));
+        return TagKey.of(Registry.BLOCK_KEY, WilderWild.id(id));
     }
 }

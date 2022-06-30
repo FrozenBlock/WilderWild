@@ -220,6 +220,6 @@ public class WildConfiguredFeatures {
     }
 
     public static <V extends T, T> RegistryEntry<V> addCasted(Registry<T> registry, String id, V value) {
-        return (RegistryEntry<V>) BuiltinRegistries.add(registry, new Identifier(WilderWild.MOD_ID, id), value);
+        return (RegistryEntry<V>) BuiltinRegistries.add(registry, WilderWild.id(id), value);
     }
 }
