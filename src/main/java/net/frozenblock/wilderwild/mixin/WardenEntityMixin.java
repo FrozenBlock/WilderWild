@@ -73,7 +73,7 @@ public abstract class WardenEntityMixin extends HostileEntity implements WardenA
         super(entityType, world);
     }
 
-    public AnimationState dyingAnimationState = new AnimationState();
+    private final AnimationState dyingAnimationState = new AnimationState();
 
     public AnimationState getDyingAnimationState() {
         return this.dyingAnimationState;
