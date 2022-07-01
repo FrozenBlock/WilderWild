@@ -67,6 +67,8 @@ public class FireflyEntity extends PathAwareEntity implements Flutterer {
         this.moveControl = new FlightMoveControl(this, 20, true);
         this.setFlickers(world.random.nextInt(5) == 0);
         this.setFlickerAge(world.random.nextBetween(0, 19));
+        this.setScale(1.5F);
+        this.setColor("on");
     }
 
     public static boolean canSpawn(EntityType<FireflyEntity> type, WorldAccess world, SpawnReason spawnReason, BlockPos pos, Random random) {
@@ -78,11 +80,15 @@ public class FireflyEntity extends PathAwareEntity implements Flutterer {
 
     @Nullable
     @Override
-    public EntityData initialize(ServerWorldAccess world, LocalDifficulty difficulty, SpawnReason spawnReason, @Nullable EntityData entityData, @Nullable NbtCompound entityNbt) {
+    public EntityData initialize(ServerWorldAccess world, LocalDifficulty difficulty, SpawnReason spawnReason, @Nullable EntityData entityData, @Nullable NbtCompound nbt) {
         this.natural = spawnReason == SpawnReason.NATURAL;
         this.hasHome = true;
         FireflyBrain.rememberHome(this, this.getBlockPos());
-        return super.initialize(world, difficulty, spawnReason, entityData, entityNbt);
+        if (spawnReason == SpawnReason.COMMAND) {
+            this.setScale(1.5F);
+            this.setColor("on");
+        }
+        return super.initialize(world, difficulty, spawnReason, entityData, nbt);
     }
 
     protected void initDataTracker() {
