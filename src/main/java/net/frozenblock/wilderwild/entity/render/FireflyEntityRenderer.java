@@ -51,7 +51,7 @@ public class FireflyEntityRenderer extends EntityRenderer<FireflyEntity> {
         MatrixStack.Entry entry = matrices.peek();
         Matrix4f matrix4f = entry.getPositionMatrix();
         Matrix3f matrix3f = entry.getNormalMatrix();
-        VertexConsumer vertexConsumer = vertexConsumers.getBuffer(nectar ? MathHelper.isPowerOfTwo(age) ? NECTAR_LAYER : NECTAR_FLAP_LAYER : LAYER);
+        VertexConsumer vertexConsumer = vertexConsumers.getBuffer(nectar ? age % 2 == 0 ? NECTAR_LAYER : NECTAR_FLAP_LAYER : LAYER);
 
         int overlay = getOverlay(entity, 0);
 
