@@ -137,6 +137,11 @@ public class FallenTrunkWithLogs extends TrunkPlacer {
                     if (random.nextFloat() > 0.28) {
                         logs.add(new BlockPos(x, y, z));
                     }
+                } else if (config.trunkProvider.getBlockState(random, pos.set(x, y, z)).contains(Properties.FACING)) {
+                    replacer.accept(pos.set(x, y, z), config.trunkProvider.getBlockState(random, pos.set(x, y, z)).with(Properties.FACING, direction));
+                    if (random.nextFloat() > 0.28) {
+                        logs.add(new BlockPos(x, y, z));
+                    }
                 } else {
                     this.getAndSetState(world, replacer, random, pos.set(x, y, z), config);
                     if (random.nextFloat() > 0.28) {
