@@ -77,6 +77,7 @@ public class WilderWild implements ModInitializer {
         RegisterEntities.init();
         BlockSoundGroupOverwrites.init();
         RegisterLootTables.init();
+        RegisterParticles.registerParticles();
 
         Registry.register(Registry.FEATURE, id("shelf_fungus_feature"), SHELF_FUNGUS_FEATURE);
         Registry.register(Registry.FEATURE, id("cattail_feature"), CATTAIL_FEATURE);
