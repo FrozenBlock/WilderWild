@@ -54,7 +54,7 @@ public class FireflyBottleItem extends Item {
             }
         }
 
-        user.emitGameEvent(GameEvent.DRINK);
+        user.emitGameEvent(GameEvent.ENTITY_PLACE);
         return stack;
     }
 
@@ -67,6 +67,7 @@ public class FireflyBottleItem extends Item {
             float f = -MathHelper.sin(yaw * 0.017453292F) * MathHelper.cos(pitch * 0.017453292F);
             float g = -MathHelper.sin((pitch + roll) * 0.017453292F);
             float h = MathHelper.cos(yaw * 0.017453292F) * MathHelper.cos(pitch * 0.017453292F);
+            ItemStack stack = user.getStackInHand(hand);
             if (user.getAbilities().allowModifyWorld) {
                 FireflyEntity entity = RegisterEntities.FIREFLY.create(server);
                 if (entity != null) {
@@ -79,6 +80,9 @@ public class FireflyBottleItem extends Item {
                         entity.hasHome = true;
                         FireflyBrain.rememberHome(entity, entity.getBlockPos());
                         entity.setColor(this.color);
+                        if (stack.hasCustomName()) {
+                            entity.setCustomName(stack.getName());
+                        }
                     } else {
                         WilderWild.log("Couldn't spawn Firefly from bottle @ " + user.getBlockPos().toShortString(), WilderWild.UNSTABLE_LOGGING);
                     }

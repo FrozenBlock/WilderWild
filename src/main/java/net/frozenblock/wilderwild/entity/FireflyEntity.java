@@ -5,6 +5,7 @@ import com.mojang.serialization.Dynamic;
 import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.entity.ai.FireflyBrain;
 import net.frozenblock.wilderwild.misc.server.EasyPacket;
+import net.frozenblock.wilderwild.registry.RegisterItems;
 import net.frozenblock.wilderwild.registry.RegisterSounds;
 import net.frozenblock.wilderwild.tag.WildBiomeTags;
 import net.minecraft.block.BlockState;
@@ -26,6 +27,7 @@ import net.minecraft.entity.data.TrackedDataHandlerRegistry;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.mob.PathAwareEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.nbt.NbtCompound;
@@ -107,17 +109,27 @@ public class FireflyEntity extends PathAwareEntity implements Flutterer {
         return ActionResult.PASS;
     }
 
+
     public static Optional<ActionResult> tryCapture(PlayerEntity player, Hand hand, @NotNull FireflyEntity entity) {
         ItemStack itemStack = player.getStackInHand(hand);
         if (itemStack.getItem() == Items.GLASS_BOTTLE && entity.isAlive()) {
             WilderWild.log("Firefly capture attempt starting @ " + entity.getBlockPos().toShortString() + " by " + player.getDisplayName().getString(), WilderWild.UNSTABLE_LOGGING);
             //TODO: FIREFLY BOTTLE SOUNDS
+            String color = entity.getColor();
+            Optional<Item> optionalItem = Registry.ITEM.getOrEmpty(WilderWild.id(Objects.equals(color, "on") ? "firefly_bottle" : color + "_firefly_bottle"));
+            Item item = RegisterItems.FIREFLY_BOTTLE;
+            if (optionalItem.isPresent()) {
+                item = optionalItem.get();
+            }
             entity.playSound(SoundEvents.ITEM_BOTTLE_FILL, 1.0F, 1.0F);
             if (!player.isCreative()) {
                 player.getStackInHand(hand).decrement(1);
             }
-            String color = entity.getColor();
-            player.getInventory().offerOrDrop(new ItemStack(Registry.ITEM.get(WilderWild.id(Objects.equals(color, "on") ? "firefly_bottle" : color + "_firefly_bottle"))));
+            ItemStack bottleStack = new ItemStack(item);
+            if (entity.hasCustomName()) {
+                bottleStack.setCustomName(entity.getCustomName());
+            }
+            player.getInventory().offerOrDrop(new ItemStack(item));
             World world = entity.world;
             if (!world.isClient) {
                 EasyPacket.EasyCompetitionPacket.sendFireflyCaptureInfo(world, player, entity);
@@ -397,11 +409,6 @@ public class FireflyEntity extends PathAwareEntity implements Flutterer {
     protected void sendAiDebugData() {
         super.sendAiDebugData();
         DebugInfoSender.sendBrainDebugData(this);
-    }
-
-    @Override
-    public void tickMovement() {
-        super.tickMovement();
     }
 
     @Override
