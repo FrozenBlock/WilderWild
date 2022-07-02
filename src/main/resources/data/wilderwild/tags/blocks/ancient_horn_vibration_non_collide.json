@@ -9,6 +9,9 @@
     "minecraft:bell",
     "minecraft:pointed_dripstone",
     "minecraft:bamboo",
-    "minecraft:ice"
+    "minecraft:ice",
+    "wilderwild:sculk_stairs",
+    "wilderwild:sculk_slab",
+    "wilderwild:sculk_wall"
   ]
 }
