@@ -129,7 +129,7 @@ public class FireflyEntity extends PathAwareEntity implements Flutterer {
             if (entity.hasCustomName()) {
                 bottleStack.setCustomName(entity.getCustomName());
             }
-            player.getInventory().offerOrDrop(new ItemStack(item));
+            player.getInventory().offerOrDrop(bottleStack);
             World world = entity.world;
             if (!world.isClient) {
                 EasyPacket.EasyCompetitionPacket.sendFireflyCaptureInfo(world, player, entity);

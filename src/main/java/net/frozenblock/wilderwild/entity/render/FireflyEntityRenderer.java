@@ -38,6 +38,9 @@ public class FireflyEntityRenderer extends EntityRenderer<FireflyEntity> {
         if (entity.hasCustomName()) {
             nectar = entity.getCustomName().getString().toLowerCase().contains("nectar");
         }
+        if (this.hasLabel(entity)) {
+            this.renderLabelIfPresent(entity, entity.getDisplayName(), matrices, vertexConsumers, light);
+        }
         int age = entity.getFlickerAge();
         boolean flickers = entity.flickers();
         float scale = entity.getScale() == 1.5F ? 1.5F : entity.getScale() - (tickDelta * 0.001875F); //0.0375
