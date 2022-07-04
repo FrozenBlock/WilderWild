@@ -45,21 +45,31 @@ public class FireflyBrain {
         return optional.map(GlobalPos::getPos).orElse(null);
     }
 
+    public static BlockPos getHidingPlace(FireflyEntity firefly) {
+        Optional<GlobalPos> optional = firefly.getBrain().getOptionalMemory(MemoryModuleType.HIDING_PLACE);
+        return optional.map(GlobalPos::getPos).orElse(null);
+    }
+
     public static boolean isInHomeDimension(FireflyEntity firefly) {
         Optional<GlobalPos> optional = firefly.getBrain().getOptionalMemory(MemoryModuleType.HOME);
         return optional.filter(globalPos -> globalPos.getDimension() == firefly.world.getRegistryKey()).isPresent();
     }
 
-    public static void rememberHidingPlace(LivingEntity firefly, BlockPos pos) {
-        Brain<?> brain = firefly.getBrain();
-        GlobalPos globalPos = GlobalPos.create(firefly.getWorld().getRegistryKey(), pos);
-        brain.remember(MemoryModuleType.HIDING_PLACE, globalPos);
+    public static boolean isInHidingPlaceDimension(FireflyEntity firefly) {
+        Optional<GlobalPos> optional = firefly.getBrain().getOptionalMemory(MemoryModuleType.HIDING_PLACE);
+        return optional.filter(globalPos -> globalPos.getDimension() == firefly.world.getRegistryKey()).isPresent();
     }
 
     public static void rememberHome(LivingEntity firefly, BlockPos pos) {
         Brain<?> brain = firefly.getBrain();
         GlobalPos globalPos = GlobalPos.create(firefly.getWorld().getRegistryKey(), pos);
         brain.remember(MemoryModuleType.HOME, globalPos);
+    }
+
+    public static void rememberHidingPlace(LivingEntity firefly, BlockPos pos) {
+        Brain<?> brain = firefly.getBrain();
+        GlobalPos globalPos = GlobalPos.create(firefly.getWorld().getRegistryKey(), pos);
+        brain.remember(MemoryModuleType.HIDING_PLACE, globalPos);
     }
 
     private static boolean shouldGoToHidingPlace(LivingEntity firefly, GlobalPos pos) {

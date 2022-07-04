@@ -61,6 +61,7 @@ public class FireflyEntity extends PathAwareEntity implements Flutterer {
 
     public boolean natural;
     public boolean hasHome; //TODO: POSSIBLY HAVE DIFFERING "SAFE RANGES" INSTEAD OF BOOLEAN
+    public boolean hasHidingPlace;
     public boolean despawning;
     public int homeCheckCooldown;
 
@@ -86,6 +87,7 @@ public class FireflyEntity extends PathAwareEntity implements Flutterer {
         this.natural = spawnReason == SpawnReason.NATURAL;
         this.hasHome = true;
         FireflyBrain.rememberHome(this, this.getBlockPos());
+        // help how do i find the nearest grass or tall grass
         if (spawnReason == SpawnReason.COMMAND) {
             this.setScale(1.5F);
             this.setColor("on");
@@ -291,6 +293,16 @@ public class FireflyEntity extends PathAwareEntity implements Flutterer {
                 }
             }
         }
+
+        if (this.hasHidingPlace) {
+            BlockPos hidingPlace = FireflyBrain.getHidingPlace(this);
+            if (hidingPlace != null && FireflyBrain.isInHidingPlaceDimension(this)) {
+                if (!isValidHidingPlacePos(world, hidingPlace)) {
+                    // help how do i find the nearest grass or tall grass
+                    FireflyBrain.rememberHidingPlace(this, this.getBlockPos());
+                }
+            }
+        }
         //WilderWild.log(this, this.getBrain().getOptionalMemory(MemoryModuleType.HOME).toString(), WilderWild.DEV_LOGGING);
     }
 
@@ -305,7 +317,7 @@ public class FireflyEntity extends PathAwareEntity implements Flutterer {
         return state.isAir() || (!state.getMaterial().blocksMovement() && !state.getMaterial().isSolid());
     }
 
-    public static boolean isValidHidingPlace(World world, BlockPos pos) {
+    public static boolean isValidHidingPlacePos(World world, BlockPos pos) {
         BlockState state = world.getBlockState(pos);
         if (!state.getFluidState().isEmpty()) {
             return false;
