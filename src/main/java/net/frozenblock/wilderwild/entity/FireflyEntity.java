@@ -38,6 +38,7 @@ import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Box;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.math.random.Random;
 import net.minecraft.util.registry.Registry;
@@ -45,6 +46,7 @@ import net.minecraft.world.*;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.Iterator;
 import java.util.Objects;
 import java.util.Optional;
 
@@ -87,6 +89,13 @@ public class FireflyEntity extends PathAwareEntity implements Flutterer {
         this.natural = spawnReason == SpawnReason.NATURAL;
         this.hasHome = true;
         FireflyBrain.rememberHome(this, this.getBlockPos());
+        Box box = new Box(this.getBlockPos().add(-10, -10, -10), this.getBlockPos().add(10, 10, 10));
+        Iterator<BlockPos> var4 = BlockPos.iterate(this.getBlockPos().add(-10, -10, -10), this.getBlockPos().add(10, 10, 10)).iterator();
+        BlockPos blockPos = var4.next();
+        BlockState hidingPos = world.getBlockState(blockPos);
+        if (hidingPos.isOf(Blocks.GRASS) || hidingPos.isOf(Blocks.TALL_GRASS)) {
+            FireflyBrain.rememberHidingPlace(this, blockPos);
+        }
         // help how do i find the nearest grass or tall grass
         if (spawnReason == SpawnReason.COMMAND) {
             this.setScale(1.5F);

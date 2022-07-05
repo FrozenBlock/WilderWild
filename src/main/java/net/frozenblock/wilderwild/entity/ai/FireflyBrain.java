@@ -89,7 +89,7 @@ public class FireflyBrain {
         if (hiding.isPresent()) {
             GlobalPos globalPos = hiding.get();
             if (shouldGoToHidingPlace(firefly, globalPos)) {
-                //return Optional.of(new BlockPosLookTarget(HELP I NEED A NEAREST PIECE OF GRASS, firefly.world));
+                return Optional.of(new BlockPosLookTarget(globalPos.getPos()));
             }
         } else if (home.isPresent()) {
             GlobalPos globalPos = home.get();
