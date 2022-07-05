@@ -89,12 +89,12 @@ public class FireflyEntity extends PathAwareEntity implements Flutterer {
         this.natural = spawnReason == SpawnReason.NATURAL;
         this.hasHome = true;
         FireflyBrain.rememberHome(this, this.getBlockPos());
-        Box box = new Box(this.getBlockPos().add(-10, -10, -10), this.getBlockPos().add(10, 10, 10));
         Iterator<BlockPos> var4 = BlockPos.iterate(this.getBlockPos().add(-10, -10, -10), this.getBlockPos().add(10, 10, 10)).iterator();
         BlockPos blockPos = var4.next();
         BlockState hidingPos = world.getBlockState(blockPos);
         if (hidingPos.isOf(Blocks.GRASS) || hidingPos.isOf(Blocks.TALL_GRASS)) {
             FireflyBrain.rememberHidingPlace(this, blockPos);
+            this.hasHidingPlace = true;
         }
         // help how do i find the nearest grass or tall grass
         if (spawnReason == SpawnReason.COMMAND) {
@@ -306,9 +306,9 @@ public class FireflyEntity extends PathAwareEntity implements Flutterer {
         if (this.hasHidingPlace) {
             BlockPos hidingPlace = FireflyBrain.getHidingPlace(this);
             if (hidingPlace != null && FireflyBrain.isInHidingPlaceDimension(this)) {
-                if (!isValidHidingPlacePos(world, hidingPlace)) {
+                if (isValidHidingPlacePos(world, hidingPlace)) {
                     // help how do i find the nearest grass or tall grass
-                    FireflyBrain.rememberHidingPlace(this, this.getBlockPos());
+                    FireflyBrain.rememberHidingPlace(this, hidingPlace);
                 }
             }
         }
