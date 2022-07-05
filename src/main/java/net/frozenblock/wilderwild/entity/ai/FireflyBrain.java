@@ -74,12 +74,12 @@ public class FireflyBrain {
 
     private static boolean shouldGoToHidingPlace(LivingEntity firefly, GlobalPos pos) {
         World world = firefly.getWorld();
-        return world.getRegistryKey() == pos.getDimension() && !world.isNight();
+        return ((FireflyEntity) firefly).hasHidingPlace && world.getRegistryKey() == pos.getDimension() && world.isDay();
     }
 
     private static boolean shouldGoTowardsHome(LivingEntity firefly, GlobalPos pos) {
         World world = firefly.getWorld();
-        return ((FireflyEntity) firefly).hasHome && world.getRegistryKey() == pos.getDimension() && world.isNight();
+        return ((FireflyEntity) firefly).hasHome && world.getRegistryKey() == pos.getDimension();
     }
 
     private static Optional<LookTarget> getHidingPlaceLookTarget(LivingEntity firefly) {

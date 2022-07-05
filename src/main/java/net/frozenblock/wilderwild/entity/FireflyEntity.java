@@ -53,7 +53,7 @@ import java.util.Optional;
 public class FireflyEntity extends PathAwareEntity implements Flutterer {
 
     protected static final ImmutableList<SensorType<? extends Sensor<? super FireflyEntity>>> SENSORS = ImmutableList.of(SensorType.NEAREST_LIVING_ENTITIES, SensorType.HURT_BY);
-    protected static final ImmutableList<MemoryModuleType<?>> MEMORY_MODULES = ImmutableList.of(MemoryModuleType.PATH, MemoryModuleType.VISIBLE_MOBS, MemoryModuleType.WALK_TARGET, MemoryModuleType.CANT_REACH_WALK_TARGET_SINCE, MemoryModuleType.HOME, MemoryModuleType.HIDING_PLACE);
+    protected static final ImmutableList<MemoryModuleType<?>> MEMORY_MODULES = ImmutableList.of(MemoryModuleType.PATH, MemoryModuleType.VISIBLE_MOBS, MemoryModuleType.WALK_TARGET, MemoryModuleType.CANT_REACH_WALK_TARGET_SINCE, MemoryModuleType.LOOK_TARGET, MemoryModuleType.HOME, MemoryModuleType.HIDING_PLACE);
     private static final TrackedData<Boolean> FROM_BOTTLE = DataTracker.registerData(FireflyEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
     private static final TrackedData<Boolean> FLICKERS = DataTracker.registerData(FireflyEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
     private static final TrackedData<Integer> AGE = DataTracker.registerData(FireflyEntity.class, TrackedDataHandlerRegistry.INTEGER);
@@ -90,18 +90,14 @@ public class FireflyEntity extends PathAwareEntity implements Flutterer {
         this.natural = spawnReason == SpawnReason.NATURAL;
         this.hasHome = true;
         FireflyBrain.rememberHome(this, this.getBlockPos());
-        Iterator<BlockPos> hidingPlaceRange = BlockPos.iterate(this.getBlockPos().add(-16, -16, -16), this.getBlockPos().add(16, 16, 16)).iterator();
-        BlockPos hidingPos = hidingPlaceRange.next();
-        BlockState hidingBlockState = world.getBlockState(hidingPos);
-        if (hidingBlockState.isOf(Blocks.GRASS) || hidingBlockState.isOf(Blocks.TALL_GRASS) || hidingBlockState.isOf(Blocks.FERN) || hidingBlockState.isOf(Blocks.LARGE_FERN)) {
-            FireflyBrain.rememberHidingPlace(this, hidingPos);
-            this.hasHidingPlace = true;
-        }
-        // help how do i find the nearest grass or tall grass
+        this.hasHidingPlace = true;
+        FireflyBrain.rememberHidingPlace(this, this.getBlockPos());
+
         if (spawnReason == SpawnReason.COMMAND) {
             this.setScale(1.5F);
             this.setColor("on");
         }
+
         return super.initialize(world, difficulty, spawnReason, entityData, nbt);
     }
 
@@ -295,11 +291,19 @@ public class FireflyEntity extends PathAwareEntity implements Flutterer {
             if (this.hidingPlaceCheckCooldown > 0) {
                 --this.hidingPlaceCheckCooldown;
             } else {
-                this.hidingPlaceCheckCooldown = 190;
+                this.hidingPlaceCheckCooldown = 200;
                 BlockPos hidingPlace = FireflyBrain.getHidingPlace(this);
                 if (hidingPlace != null && FireflyBrain.isInHidingPlaceDimension(this)) {
-                    if (isValidHidingPlacePos(world, hidingPlace)) {
-                        FireflyBrain.rememberHidingPlace(this, hidingPlace);
+                    if (!isValidHidingPlacePos(world, hidingPlace)) {
+                        Iterator<BlockPos> hidingPlaceRange = BlockPos.iterateOutwards(this.getBlockPos(), 16, 16, 16).iterator();
+                        BlockPos foundPos = null;
+                        while (hidingPlaceRange.hasNext()) {
+                            foundPos = hidingPlaceRange.next();
+                            if (this.world.getBlockState(foundPos).isOf(Blocks.GRASS) || this.world.getBlockState(foundPos).isOf(Blocks.TALL_GRASS) || this.world.getBlockState(foundPos).isOf(Blocks.FERN) || this.world.getBlockState(foundPos).isOf(Blocks.LARGE_FERN)) {
+                                FireflyBrain.rememberHidingPlace(this, foundPos);
+                            }
+                            foundPos = null;
+                        }
                     }
                 }
             }
@@ -311,7 +315,7 @@ public class FireflyEntity extends PathAwareEntity implements Flutterer {
             } else {
                 this.homeCheckCooldown = 200;
                 BlockPos home = FireflyBrain.getHome(this);
-                if (home != null && FireflyBrain.isInHomeDimension(this) && this.getBlockPos() == FireflyBrain.getHidingPlace(this)) {
+                if (home != null && FireflyBrain.isInHomeDimension(this) && this.getBlockPos() != FireflyBrain.getHidingPlace(this)) {
                     if (!isValidHomePos(world, home)) {
                         FireflyBrain.rememberHome(this, this.getBlockPos());
                     }
