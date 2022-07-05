@@ -33,7 +33,7 @@ public class FireflyBrain {
     }
 
     private static void addIdleActivities(Brain<FireflyEntity> brain) {
-        brain.setTaskList(Activity.IDLE, ImmutableList.of(Pair.of(2, new WalkTowardsLookTargetTask<>(FireflyBrain::getLookTarget, 7, 16, 1.0F)), Pair.of(3, new TimeLimitedTask<>(new FollowMobTask((firefly) -> true, 6.0F), UniformIntProvider.create(30, 60))), Pair.of(4, new RandomTask<>(ImmutableList.of(Pair.of(new NoPenaltyStrollTask(1.0F), 2), Pair.of(new GoTowardsLookTarget(1.0F, 3), 2), Pair.of(new WaitTask(30, 60), 1))))), ImmutableSet.of());
+        brain.setTaskList(Activity.IDLE, ImmutableList.of(Pair.of(1, new WalkTowardsLookTargetTask<>(FireflyBrain::getHidingPlaceLookTarget, 1, 16, 1.0F)), Pair.of(2, new WalkTowardsLookTargetTask<>(FireflyBrain::getLookTarget, 7, 16, 1.0F)), Pair.of(3, new TimeLimitedTask<>(new FollowMobTask((firefly) -> true, 6.0F), UniformIntProvider.create(30, 60))), Pair.of(4, new RandomTask<>(ImmutableList.of(Pair.of(new NoPenaltyStrollTask(1.0F), 2), Pair.of(new GoTowardsLookTarget(1.0F, 3), 2), Pair.of(new WaitTask(30, 60), 1))))), ImmutableSet.of());
     }
 
     public static void updateActivities(FireflyEntity firefly) {
@@ -79,19 +79,25 @@ public class FireflyBrain {
 
     private static boolean shouldGoTowardsHome(LivingEntity firefly, GlobalPos pos) {
         World world = firefly.getWorld();
-        return ((FireflyEntity) firefly).hasHome && world.getRegistryKey() == pos.getDimension();
+        return ((FireflyEntity) firefly).hasHome && world.getRegistryKey() == pos.getDimension() && world.isNight();
+    }
+
+    private static Optional<LookTarget> getHidingPlaceLookTarget(LivingEntity firefly) {
+        Brain<?> brain = firefly.getBrain();
+        Optional<GlobalPos> hiding = brain.getOptionalMemory(MemoryModuleType.HIDING_PLACE);
+        if (hiding.isPresent()) {
+            GlobalPos hidingPos = hiding.get();
+            if (shouldGoToHidingPlace(firefly, hidingPos)) {
+                return Optional.of(new BlockPosLookTarget(hidingPos.getPos()));
+            }
+        }
+        return Optional.empty();
     }
 
     private static Optional<LookTarget> getLookTarget(LivingEntity firefly) {
         Brain<?> brain = firefly.getBrain();
         Optional<GlobalPos> home = brain.getOptionalMemory(MemoryModuleType.HOME);
-        Optional<GlobalPos> hiding = brain.getOptionalMemory(MemoryModuleType.HIDING_PLACE);
-        if (hiding.isPresent()) {
-            GlobalPos globalPos = hiding.get();
-            if (shouldGoToHidingPlace(firefly, globalPos)) {
-                return Optional.of(new BlockPosLookTarget(globalPos.getPos()));
-            }
-        } else if (home.isPresent()) {
+        if (home.isPresent()) {
             GlobalPos globalPos = home.get();
             if (shouldGoTowardsHome(firefly, globalPos)) {
                 return Optional.of(new BlockPosLookTarget(randomPosAround(globalPos.getPos(), firefly.world)));

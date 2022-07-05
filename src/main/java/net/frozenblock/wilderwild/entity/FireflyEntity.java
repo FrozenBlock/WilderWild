@@ -66,6 +66,7 @@ public class FireflyEntity extends PathAwareEntity implements Flutterer {
     public boolean hasHidingPlace;
     public boolean despawning;
     public int homeCheckCooldown;
+    public int hidingPlaceCheckCooldown;
 
     public FireflyEntity(EntityType<? extends PathAwareEntity> entityType, World world) {
         super(entityType, world);
@@ -89,11 +90,11 @@ public class FireflyEntity extends PathAwareEntity implements Flutterer {
         this.natural = spawnReason == SpawnReason.NATURAL;
         this.hasHome = true;
         FireflyBrain.rememberHome(this, this.getBlockPos());
-        Iterator<BlockPos> var4 = BlockPos.iterate(this.getBlockPos().add(-10, -10, -10), this.getBlockPos().add(10, 10, 10)).iterator();
-        BlockPos blockPos = var4.next();
-        BlockState hidingPos = world.getBlockState(blockPos);
-        if (hidingPos.isOf(Blocks.GRASS) || hidingPos.isOf(Blocks.TALL_GRASS)) {
-            FireflyBrain.rememberHidingPlace(this, blockPos);
+        Iterator<BlockPos> hidingPlaceRange = BlockPos.iterate(this.getBlockPos().add(-16, -16, -16), this.getBlockPos().add(16, 16, 16)).iterator();
+        BlockPos hidingPos = hidingPlaceRange.next();
+        BlockState hidingBlockState = world.getBlockState(hidingPos);
+        if (hidingBlockState.isOf(Blocks.GRASS) || hidingBlockState.isOf(Blocks.TALL_GRASS) || hidingBlockState.isOf(Blocks.FERN) || hidingBlockState.isOf(Blocks.LARGE_FERN)) {
+            FireflyBrain.rememberHidingPlace(this, hidingPos);
             this.hasHidingPlace = true;
         }
         // help how do i find the nearest grass or tall grass
@@ -289,26 +290,31 @@ public class FireflyEntity extends PathAwareEntity implements Flutterer {
                 this.discard();
             }
         }
+
+        if (this.hasHidingPlace) {
+            if (this.hidingPlaceCheckCooldown > 0) {
+                --this.hidingPlaceCheckCooldown;
+            } else {
+                this.hidingPlaceCheckCooldown = 190;
+                BlockPos hidingPlace = FireflyBrain.getHidingPlace(this);
+                if (hidingPlace != null && FireflyBrain.isInHidingPlaceDimension(this)) {
+                    if (isValidHidingPlacePos(world, hidingPlace)) {
+                        FireflyBrain.rememberHidingPlace(this, hidingPlace);
+                    }
+                }
+            }
+        }
+
         if (this.hasHome) {
             if (this.homeCheckCooldown > 0) {
                 --this.homeCheckCooldown;
             } else {
                 this.homeCheckCooldown = 200;
                 BlockPos home = FireflyBrain.getHome(this);
-                if (home != null && FireflyBrain.isInHomeDimension(this)) {
+                if (home != null && FireflyBrain.isInHomeDimension(this) && this.getBlockPos() == FireflyBrain.getHidingPlace(this)) {
                     if (!isValidHomePos(world, home)) {
                         FireflyBrain.rememberHome(this, this.getBlockPos());
                     }
-                }
-            }
-        }
-
-        if (this.hasHidingPlace) {
-            BlockPos hidingPlace = FireflyBrain.getHidingPlace(this);
-            if (hidingPlace != null && FireflyBrain.isInHidingPlaceDimension(this)) {
-                if (isValidHidingPlacePos(world, hidingPlace)) {
-                    // help how do i find the nearest grass or tall grass
-                    FireflyBrain.rememberHidingPlace(this, hidingPlace);
                 }
             }
         }
@@ -332,7 +338,7 @@ public class FireflyEntity extends PathAwareEntity implements Flutterer {
             return false;
         }
 
-        return state.isOf(Blocks.GRASS) || state.isOf(Blocks.TALL_GRASS);
+        return state.isOf(Blocks.GRASS) || state.isOf(Blocks.TALL_GRASS) || state.isOf(Blocks.FERN) || state.isOf(Blocks.LARGE_FERN);
     }
 
     protected void mobTick() {
@@ -400,6 +406,8 @@ public class FireflyEntity extends PathAwareEntity implements Flutterer {
         nbt.putBoolean("despawning", this.despawning);
         nbt.putString("color", this.getColor());
         nbt.putInt("homeCheckCooldown", this.homeCheckCooldown);
+        nbt.putBoolean("hasHidingPlace", this.hasHidingPlace);
+        nbt.putInt("hidingPlaceCheckCooldown", this.hidingPlaceCheckCooldown);
     }
 
     public void readCustomDataFromNbt(NbtCompound nbt) {
@@ -413,6 +421,8 @@ public class FireflyEntity extends PathAwareEntity implements Flutterer {
         this.despawning = nbt.getBoolean("despawning");
         this.setColor(nbt.getString("color"));
         this.homeCheckCooldown = nbt.getInt("homeCheckCooldown");
+        this.hasHidingPlace = nbt.getBoolean("hasHidingPlace");
+        this.hidingPlaceCheckCooldown = nbt.getInt("hidingPlaceCheckCooldown");
     }
 
     protected boolean shouldFollowLeash() {
