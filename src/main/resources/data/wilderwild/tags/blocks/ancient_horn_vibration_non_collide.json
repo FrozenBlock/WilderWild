@@ -3,7 +3,9 @@
   "values": [
     "minecraft:sculk",
     "wilderwild:osseous_sculk",
+    "#c:glass",
     "#c:glass_blocks",
+    "#c:glass_pane",
     "#c:glass_panes",
     "#minecraft:leaves",
     "minecraft:bell",

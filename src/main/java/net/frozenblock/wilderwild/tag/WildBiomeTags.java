@@ -11,7 +11,7 @@ public class WildBiomeTags {
     private WildBiomeTags() {
     }
 
-    private static TagKey<Biome> of(String id) {
-        return TagKey.of(Registry.BIOME_KEY, WilderWild.id(id));
+    private static TagKey<Biome> of(String path) {
+        return TagKey.of(Registry.BIOME_KEY, WilderWild.id(path));
     }
 }

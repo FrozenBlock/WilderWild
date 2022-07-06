@@ -12,6 +12,6 @@ public class RegisterBlockEntities {
     public static final BlockEntityType<TermiteMoundBlockEntity> TERMITE_MOUND = Registry.register(Registry.BLOCK_ENTITY_TYPE, WilderWild.id("termite_mound"), FabricBlockEntityTypeBuilder.create(TermiteMoundBlockEntity::new, RegisterBlocks.TERMITE_MOUND).build(null));
 
     public static void register() {
-        WilderWild.logWild("Registering BlockEntityTypes for", WilderWild.UNSTABLE_LOGGING);
+        WilderWild.logWild("Registering BlockEntities for", WilderWild.UNSTABLE_LOGGING);
     }
 }

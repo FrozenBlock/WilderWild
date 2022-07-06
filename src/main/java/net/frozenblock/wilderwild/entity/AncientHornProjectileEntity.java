@@ -52,7 +52,7 @@ import java.util.Optional;
 import static net.frozenblock.wilderwild.item.AncientCityGoatHorn.*;
 
 public class AncientHornProjectileEntity extends PersistentProjectileEntity {
-    private final TagKey<Block> NON_COLLIDE = WildBlockTags.HORN_PROJECTILE_NON_COLLIDE;
+    private final TagKey<Block> NON_COLLIDE = WildBlockTags.ANCIENT_HORN_NON_COLLIDE;
     private boolean shot;
     private boolean leftOwner;
     public int aliveTicks;
