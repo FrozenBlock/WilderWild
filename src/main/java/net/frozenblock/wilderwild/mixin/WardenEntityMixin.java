@@ -1,6 +1,8 @@
 package net.frozenblock.wilderwild.mixin;
 
 import com.mojang.logging.LogUtils;
+import net.frozenblock.wilderwild.entity.ai.WardenMoveControl;
+import net.frozenblock.wilderwild.entity.ai.WardenNavigation;
 import net.frozenblock.wilderwild.entity.render.animations.WardenAnimationInterface;
 import net.frozenblock.wilderwild.registry.RegisterProperties;
 import net.frozenblock.wilderwild.registry.RegisterSounds;
@@ -8,12 +10,15 @@ import net.minecraft.block.Blocks;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.brain.Brain;
 import net.minecraft.entity.ai.brain.MemoryModuleType;
+import net.minecraft.entity.ai.control.AquaticMoveControl;
+import net.minecraft.entity.ai.pathing.EntityNavigation;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.mob.Angriness;
 import net.minecraft.entity.mob.HostileEntity;
 import net.minecraft.entity.mob.WardenBrain;
 import net.minecraft.entity.mob.WardenEntity;
+import net.minecraft.entity.passive.AxolotlEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.particle.ParticleTypes;
@@ -22,6 +27,7 @@ import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.Unit;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.LocalDifficulty;
 import net.minecraft.world.ServerWorldAccess;
 import net.minecraft.world.World;
@@ -55,19 +61,10 @@ public abstract class WardenEntityMixin extends HostileEntity implements WardenA
     public abstract Brain<WardenEntity> getBrain();
 
     @Shadow
-    public AnimationState emergingAnimationState;
-
-    @Shadow
-    public AnimationState diggingAnimationState;
-
-    @Shadow
-    public AnimationState roaringAnimationState;
-
-    @Shadow
-    public AnimationState sniffingAnimationState;
-
-    @Shadow
     protected abstract void addDigParticles(AnimationState animationState);
+
+    @Shadow
+    protected abstract boolean isDiggingOrEmerging();
 
     protected WardenEntityMixin(EntityType<? extends HostileEntity> entityType, World world) {
         super(entityType, world);
@@ -75,8 +72,16 @@ public abstract class WardenEntityMixin extends HostileEntity implements WardenA
 
     private final AnimationState dyingAnimationState = new AnimationState();
 
+    private final AnimationState swimmingAnimationState = new AnimationState();
+
+    @Override
     public AnimationState getDyingAnimationState() {
         return this.dyingAnimationState;
+    }
+
+    @Override
+    public AnimationState getSwimmingAnimationState() {
+        return this.swimmingAnimationState;
     }
 
     @Inject(at = @At("HEAD"), method = "initialize")
@@ -92,7 +97,7 @@ public abstract class WardenEntityMixin extends HostileEntity implements WardenA
 
     @Inject(at = @At("HEAD"), method = "pushAway")
     protected void pushAway(Entity entity, CallbackInfo info) {
-        if (!warden.getBrain().hasMemoryModule(MemoryModuleType.ATTACK_COOLING_DOWN) && !warden.getBrain().hasMemoryModule(MemoryModuleType.TOUCH_COOLDOWN) && !(entity instanceof WardenEntity) && !warden.isInPose(EntityPose.EMERGING) && !warden.isInPose(EntityPose.DIGGING) && !warden.isInPose(EntityPose.DYING)) {
+    if (!warden.getBrain().hasMemoryModule(MemoryModuleType.ATTACK_COOLING_DOWN) && !warden.getBrain().hasMemoryModule(MemoryModuleType.TOUCH_COOLDOWN) && !(entity instanceof WardenEntity) && !this.isDiggingOrEmerging() && !warden.isInPose(EntityPose.DYING) && !warden.isInPose(EntityPose.ROARING)) {
             if (!entity.isInvulnerable() && entity instanceof LivingEntity livingEntity) {
                 if (!(entity instanceof PlayerEntity player)) {
                     warden.increaseAngerAt(entity, Angriness.ANGRY.getThreshold() + 20, false);
@@ -157,6 +162,8 @@ public abstract class WardenEntityMixin extends HostileEntity implements WardenA
         if (POSE.equals(data)) {
             if (this.getPose() == EntityPose.DYING) {
                 this.getDyingAnimationState().start(warden.age);
+            } else if (this.getPose() == EntityPose.SWIMMING) {
+                this.getSwimmingAnimationState().start(warden.age);
             }
         }
     }
@@ -252,5 +259,34 @@ public abstract class WardenEntityMixin extends HostileEntity implements WardenA
         if (status == (byte) 69420) {
             this.addAdditionalDeathParticles();
         }
+    }
+
+    /**
+     * @author FrozenBlock
+     * @reason allows for further warden navigation customization
+     */
+    @Overwrite
+    public EntityNavigation createNavigation(World world) {
+        WardenEntity wardenEntity = WardenEntity.class.cast(this);
+        // for some reason it needs a new one lol
+        return new WardenNavigation(wardenEntity, world);
+    }
+
+    @Override
+    public void travel(Vec3d movementInput) {
+        if (this.canMoveVoluntarily() && this.isTouchingWater()) {
+            this.updateVelocity(this.getMovementSpeed(), movementInput);
+            this.move(MovementType.SELF, this.getVelocity());
+            this.setVelocity(this.getVelocity().multiply(0.9));
+        } else {
+            super.travel(movementInput);
+        }
+
+    }
+
+    @Inject(method = "<init>", at = @At("TAIL"))
+    private void WardenEntity(EntityType<? extends HostileEntity> entityType, World world, CallbackInfo ci) {
+        WardenEntity wardenEntity = WardenEntity.class.cast(this);
+        this.moveControl = new WardenMoveControl(wardenEntity);
     }
 }

@@ -3,6 +3,7 @@ package net.frozenblock.wilderwild.entity.render.animations;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.render.entity.animation.Animation;
+import net.minecraft.client.render.entity.animation.Animation.Builder;
 import net.minecraft.client.render.entity.animation.AnimationHelper;
 import net.minecraft.client.render.entity.animation.Keyframe;
 import net.minecraft.client.render.entity.animation.Transformation;
@@ -13,7 +14,7 @@ import net.minecraft.client.render.entity.animation.Transformation;
 @Environment(EnvType.CLIENT)
 public class CustomWardenAnimations {
 
-    public static final Animation DYING = Animation.Builder.create(3.5F)
+    public static final Animation DYING = Builder.create(3.5F)
             .addBoneAnimation(
                     "body",
                     new Transformation(
@@ -178,4 +179,6 @@ public class CustomWardenAnimations {
                     )
             )
             .build();
+
+    public static final Animation SWIMMING = Builder.create(0.0F).build();
 }
