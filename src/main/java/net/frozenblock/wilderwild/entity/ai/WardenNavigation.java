@@ -2,6 +2,7 @@ package net.frozenblock.wilderwild.entity.ai;
 
 import net.minecraft.entity.ai.pathing.*;
 import net.minecraft.entity.mob.MobEntity;
+import net.minecraft.entity.passive.AxolotlSwimNavigation;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 
@@ -17,10 +18,10 @@ public class WardenNavigation extends MobNavigation {
         this.nodeMaker.setCanEnterOpenDoors(true);
         return new PathNodeNavigator(this.nodeMaker, range) {
             public float getDistance(PathNode a, PathNode b) {
-                if (!entity.isSwimming()) {
-                    return a.getHorizontalDistance(b);
-                } else {
+                if (entity.isSubmergedInWater()) {
                     return a.getDistance(b);
+                } else {
+                    return a.getHorizontalDistance(b);
                 }
             }
         };
@@ -48,5 +49,10 @@ public class WardenNavigation extends MobNavigation {
 
     @Override
     public void setCanSwim(boolean canSwim) {
+    }
+
+    @Override
+    protected boolean canWalkOnPath(PathNodeType pathType) {
+        return pathType != PathNodeType.OPEN;
     }
 }
