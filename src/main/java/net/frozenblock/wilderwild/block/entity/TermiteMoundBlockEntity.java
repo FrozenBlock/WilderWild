@@ -6,7 +6,7 @@ import com.mojang.serialization.DataResult;
 import com.mojang.serialization.Dynamic;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.frozenblock.wilderwild.misc.server.EasyPacket;
-import net.frozenblock.wilderwild.registry.RegisterBlockEntityType;
+import net.frozenblock.wilderwild.registry.RegisterBlockEntities;
 import net.frozenblock.wilderwild.registry.RegisterBlocks;
 import net.frozenblock.wilderwild.registry.RegisterProperties;
 import net.frozenblock.wilderwild.tag.WildBlockTags;
@@ -46,7 +46,7 @@ public class TermiteMoundBlockEntity extends BlockEntity {
     public int lastLight;
 
     public TermiteMoundBlockEntity(BlockPos pos, BlockState state) {
-        super(RegisterBlockEntityType.TERMITE_MOUND, pos, state);
+        super(RegisterBlockEntities.TERMITE_MOUND, pos, state);
     }
 
     public void readNbt(NbtCompound nbt) {
@@ -350,10 +350,10 @@ public class TermiteMoundBlockEntity extends BlockEntity {
             return this.natural;
         }
 
-        public static ArrayList<Block> degradableBlocks = new ArrayList<>();
-        public static ArrayList<Block> degradableBlockResults = new ArrayList<>();
-        public static ArrayList<Block> naturalDegradableBlocks = new ArrayList<>();
-        public static ArrayList<Block> naturalDegradableBlockResults = new ArrayList<>();
+        public static final ArrayList<Block> degradableBlocks = new ArrayList<>();
+        public static final ArrayList<Block> degradableBlockResults = new ArrayList<>();
+        public static final ArrayList<Block> naturalDegradableBlocks = new ArrayList<>();
+        public static final ArrayList<Block> naturalDegradableBlockResults = new ArrayList<>();
 
         public static void addDegradableBlocks() {
             addDegradable(Blocks.ACACIA_LOG, RegisterBlocks.HOLLOWED_ACACIA_LOG);

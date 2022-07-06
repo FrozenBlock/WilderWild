@@ -13,6 +13,7 @@ import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.*;
 import net.minecraft.entity.damage.DamageSource;
+import net.minecraft.entity.mob.Angriness;
 import net.minecraft.entity.mob.WardenEntity;
 import net.minecraft.entity.player.ItemCooldownManager;
 import net.minecraft.entity.player.PlayerEntity;
@@ -51,7 +52,7 @@ import java.util.Optional;
 import static net.frozenblock.wilderwild.item.AncientCityGoatHorn.*;
 
 public class AncientHornProjectileEntity extends PersistentProjectileEntity {
-    private final TagKey<Block> NON_COLLIDE = WildBlockTags.HORN_PROJECTILE_NON_COLLIDE;
+    private final TagKey<Block> NON_COLLIDE = WildBlockTags.ANCIENT_HORN_NON_COLLIDE;
     private boolean shot;
     private boolean leftOwner;
     public int aliveTicks;
@@ -250,7 +251,7 @@ public class AncientHornProjectileEntity extends PersistentProjectileEntity {
                 WilderWild.log(Blocks.SCULK_SENSOR, pos, "Horn Projectile Touched", WilderWild.UNSTABLE_LOGGING);
                 server.setBlockState(pos, blockState.with(RegisterProperties.NOT_HICCUPPING, false));
                 if (SculkSensorBlock.isInactive(blockState)) {
-                    SculkSensorBlock.setActive(owner, world, pos, world.getBlockState(pos), (int) (Math.random() * 15));
+                    SculkSensorBlock.setActive(owner, world, pos, world.getBlockState(pos), WilderWild.random().nextInt(15));
                     world.emitGameEvent(null, GameEvent.SCULK_SENSOR_TENDRILS_CLICKING, pos);
                     world.emitGameEvent(null, RegisterGameEvents.SCULK_SENSOR_ACTIVATE, pos);
                     setCooldown(getCooldown(this.getOwner(), SENSOR_COOLDOWN));
@@ -431,7 +432,7 @@ public class AncientHornProjectileEntity extends PersistentProjectileEntity {
             }
             if (entity instanceof WardenEntity warden && entity2 != null && canInteract()) {
                 WilderWild.log(warden, "Horn Projectile Touched", WilderWild.DEV_LOGGING);
-                warden.increaseAngerAt(entity2, 100, true);
+                warden.increaseAngerAt(entity2, Angriness.ANGRY.getThreshold() + 20, true);
                 warden.playSound(SoundEvents.ENTITY_WARDEN_TENDRIL_CLICKS, 5.0F, warden.getSoundPitch());
                 this.discard();
             } else if (entity.damage(damageSource, (float) i)) {

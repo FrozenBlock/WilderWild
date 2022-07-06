@@ -5,6 +5,7 @@ import com.mojang.serialization.Dynamic;
 import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.entity.ai.FireflyBrain;
 import net.frozenblock.wilderwild.misc.server.EasyPacket;
+import net.frozenblock.wilderwild.registry.RegisterItems;
 import net.frozenblock.wilderwild.registry.RegisterSounds;
 import net.frozenblock.wilderwild.tag.WildBiomeTags;
 import net.minecraft.block.BlockState;
@@ -26,6 +27,7 @@ import net.minecraft.entity.data.TrackedDataHandlerRegistry;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.mob.PathAwareEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.nbt.NbtCompound;
@@ -35,7 +37,6 @@ import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
-import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.math.random.Random;
@@ -44,13 +45,14 @@ import net.minecraft.world.*;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.Iterator;
 import java.util.Objects;
 import java.util.Optional;
 
 public class FireflyEntity extends PathAwareEntity implements Flutterer {
 
     protected static final ImmutableList<SensorType<? extends Sensor<? super FireflyEntity>>> SENSORS = ImmutableList.of(SensorType.NEAREST_LIVING_ENTITIES, SensorType.HURT_BY);
-    protected static final ImmutableList<MemoryModuleType<?>> MEMORY_MODULES = ImmutableList.of(MemoryModuleType.PATH, MemoryModuleType.VISIBLE_MOBS, MemoryModuleType.WALK_TARGET, MemoryModuleType.CANT_REACH_WALK_TARGET_SINCE, MemoryModuleType.HOME, MemoryModuleType.HIDING_PLACE);
+    protected static final ImmutableList<MemoryModuleType<?>> MEMORY_MODULES = ImmutableList.of(MemoryModuleType.PATH, MemoryModuleType.VISIBLE_MOBS, MemoryModuleType.WALK_TARGET, MemoryModuleType.CANT_REACH_WALK_TARGET_SINCE, MemoryModuleType.LOOK_TARGET, MemoryModuleType.HOME, MemoryModuleType.HIDING_PLACE);
     private static final TrackedData<Boolean> FROM_BOTTLE = DataTracker.registerData(FireflyEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
     private static final TrackedData<Boolean> FLICKERS = DataTracker.registerData(FireflyEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
     private static final TrackedData<Integer> AGE = DataTracker.registerData(FireflyEntity.class, TrackedDataHandlerRegistry.INTEGER);
@@ -60,14 +62,18 @@ public class FireflyEntity extends PathAwareEntity implements Flutterer {
 
     public boolean natural;
     public boolean hasHome; //TODO: POSSIBLY HAVE DIFFERING "SAFE RANGES" INSTEAD OF BOOLEAN
+    public boolean hasHidingPlace;
     public boolean despawning;
     public int homeCheckCooldown;
+    public int hidingPlaceCheckCooldown;
 
     public FireflyEntity(EntityType<? extends PathAwareEntity> entityType, World world) {
         super(entityType, world);
         this.moveControl = new FlightMoveControl(this, 20, true);
         this.setFlickers(world.random.nextInt(5) == 0);
         this.setFlickerAge(world.random.nextBetween(0, 19));
+        this.setScale(1.5F);
+        this.setColor("on");
     }
 
     public static boolean canSpawn(EntityType<FireflyEntity> type, WorldAccess world, SpawnReason spawnReason, BlockPos pos, Random random) {
@@ -79,11 +85,19 @@ public class FireflyEntity extends PathAwareEntity implements Flutterer {
 
     @Nullable
     @Override
-    public EntityData initialize(ServerWorldAccess world, LocalDifficulty difficulty, SpawnReason spawnReason, @Nullable EntityData entityData, @Nullable NbtCompound entityNbt) {
+    public EntityData initialize(ServerWorldAccess world, LocalDifficulty difficulty, SpawnReason spawnReason, @Nullable EntityData entityData, @Nullable NbtCompound nbt) {
         this.natural = spawnReason == SpawnReason.NATURAL;
         this.hasHome = true;
         FireflyBrain.rememberHome(this, this.getBlockPos());
-        return super.initialize(world, difficulty, spawnReason, entityData, entityNbt);
+        this.hasHidingPlace = true;
+        FireflyBrain.rememberHidingPlace(this, this.getBlockPos());
+
+        if (spawnReason == SpawnReason.COMMAND) {
+            this.setScale(1.5F);
+            this.setColor("on");
+        }
+
+        return super.initialize(world, difficulty, spawnReason, entityData, nbt);
     }
 
     protected void initDataTracker() {
@@ -102,17 +116,27 @@ public class FireflyEntity extends PathAwareEntity implements Flutterer {
         return ActionResult.PASS;
     }
 
+
     public static Optional<ActionResult> tryCapture(PlayerEntity player, Hand hand, @NotNull FireflyEntity entity) {
         ItemStack itemStack = player.getStackInHand(hand);
         if (itemStack.getItem() == Items.GLASS_BOTTLE && entity.isAlive()) {
             WilderWild.log("Firefly capture attempt starting @ " + entity.getBlockPos().toShortString() + " by " + player.getDisplayName().getString(), WilderWild.UNSTABLE_LOGGING);
             //TODO: FIREFLY BOTTLE SOUNDS
+            String color = entity.getColor();
+            Optional<Item> optionalItem = Registry.ITEM.getOrEmpty(WilderWild.id(Objects.equals(color, "on") ? "firefly_bottle" : color + "_firefly_bottle"));
+            Item item = RegisterItems.FIREFLY_BOTTLE;
+            if (optionalItem.isPresent()) {
+                item = optionalItem.get();
+            }
             entity.playSound(SoundEvents.ITEM_BOTTLE_FILL, 1.0F, 1.0F);
             if (!player.isCreative()) {
                 player.getStackInHand(hand).decrement(1);
             }
-            String color = entity.getColor();
-            player.getInventory().offerOrDrop(new ItemStack(Registry.ITEM.get(new Identifier(WilderWild.MOD_ID, Objects.equals(color, "on") ? "firefly_bottle" : color + "_firefly_bottle"))));
+            ItemStack bottleStack = new ItemStack(item);
+            if (entity.hasCustomName()) {
+                bottleStack.setCustomName(entity.getCustomName());
+            }
+            player.getInventory().offerOrDrop(bottleStack);
             World world = entity.world;
             if (!world.isClient) {
                 EasyPacket.EasyCompetitionPacket.sendFireflyCaptureInfo(world, player, entity);
@@ -261,13 +285,36 @@ public class FireflyEntity extends PathAwareEntity implements Flutterer {
                 this.discard();
             }
         }
+
+        if (this.hasHidingPlace) {
+            if (this.hidingPlaceCheckCooldown > 0) {
+                --this.hidingPlaceCheckCooldown;
+            } else {
+                this.hidingPlaceCheckCooldown = 200;
+                BlockPos hidingPlace = FireflyBrain.getHidingPlace(this);
+                if (hidingPlace != null && FireflyBrain.isInHidingPlaceDimension(this)) {
+                    if (!isValidHidingPlacePos(world, hidingPlace)) {
+                        Iterator<BlockPos> hidingPlaceRange = BlockPos.iterateOutwards(this.getBlockPos(), 16, 16, 16).iterator();
+                        BlockPos foundPos = null;
+                        while (hidingPlaceRange.hasNext()) {
+                            foundPos = hidingPlaceRange.next();
+                            if (this.world.getBlockState(foundPos).isOf(Blocks.GRASS) || this.world.getBlockState(foundPos).isOf(Blocks.TALL_GRASS) || this.world.getBlockState(foundPos).isOf(Blocks.FERN) || this.world.getBlockState(foundPos).isOf(Blocks.LARGE_FERN)) {
+                                FireflyBrain.rememberHidingPlace(this, foundPos);
+                            }
+                            foundPos = null;
+                        }
+                    }
+                }
+            }
+        }
+
         if (this.hasHome) {
             if (this.homeCheckCooldown > 0) {
                 --this.homeCheckCooldown;
             } else {
                 this.homeCheckCooldown = 200;
                 BlockPos home = FireflyBrain.getHome(this);
-                if (home != null && FireflyBrain.isInHomeDimension(this)) {
+                if (home != null && FireflyBrain.isInHomeDimension(this) && this.getBlockPos() != FireflyBrain.getHidingPlace(this)) {
                     if (!isValidHomePos(world, home)) {
                         FireflyBrain.rememberHome(this, this.getBlockPos());
                     }
@@ -282,17 +329,19 @@ public class FireflyEntity extends PathAwareEntity implements Flutterer {
         if (!state.getFluidState().isEmpty()) {
             return false;
         }
-        if (state.isSolidBlock(world, pos)) { return false; }
+        if (state.isSolidBlock(world, pos)) {
+            return false;
+        }
         return state.isAir() || (!state.getMaterial().blocksMovement() && !state.getMaterial().isSolid());
     }
 
-    public static boolean isValidHidingPlace(World world, BlockPos pos) {
+    public static boolean isValidHidingPlacePos(World world, BlockPos pos) {
         BlockState state = world.getBlockState(pos);
         if (!state.getFluidState().isEmpty()) {
             return false;
         }
 
-        return state.isOf(Blocks.GRASS) || state.isOf(Blocks.TALL_GRASS);
+        return state.isOf(Blocks.GRASS) || state.isOf(Blocks.TALL_GRASS) || state.isOf(Blocks.FERN) || state.isOf(Blocks.LARGE_FERN);
     }
 
     protected void mobTick() {
@@ -360,6 +409,8 @@ public class FireflyEntity extends PathAwareEntity implements Flutterer {
         nbt.putBoolean("despawning", this.despawning);
         nbt.putString("color", this.getColor());
         nbt.putInt("homeCheckCooldown", this.homeCheckCooldown);
+        nbt.putBoolean("hasHidingPlace", this.hasHidingPlace);
+        nbt.putInt("hidingPlaceCheckCooldown", this.hidingPlaceCheckCooldown);
     }
 
     public void readCustomDataFromNbt(NbtCompound nbt) {
@@ -373,6 +424,8 @@ public class FireflyEntity extends PathAwareEntity implements Flutterer {
         this.despawning = nbt.getBoolean("despawning");
         this.setColor(nbt.getString("color"));
         this.homeCheckCooldown = nbt.getInt("homeCheckCooldown");
+        this.hasHidingPlace = nbt.getBoolean("hasHidingPlace");
+        this.hidingPlaceCheckCooldown = nbt.getInt("hidingPlaceCheckCooldown");
     }
 
     protected boolean shouldFollowLeash() {
@@ -390,11 +443,6 @@ public class FireflyEntity extends PathAwareEntity implements Flutterer {
     protected void sendAiDebugData() {
         super.sendAiDebugData();
         DebugInfoSender.sendBrainDebugData(this);
-    }
-
-    @Override
-    public void tickMovement() {
-        super.tickMovement();
     }
 
     @Override

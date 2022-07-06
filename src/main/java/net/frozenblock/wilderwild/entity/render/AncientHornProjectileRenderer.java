@@ -19,7 +19,7 @@ import net.minecraft.util.math.Vec3f;
 
 @Environment(EnvType.CLIENT)
 public class AncientHornProjectileRenderer extends EntityRenderer<AncientHornProjectileEntity> {
-    public static final Identifier TEXTURE = new Identifier(WilderWild.MOD_ID, "textures/entity/ancient_horn_projectile.png");
+    public static final Identifier TEXTURE = WilderWild.id("textures/entity/ancient_horn_projectile.png");
     private final AncientHornProjectileModel model;
 
     public AncientHornProjectileRenderer(EntityRendererFactory.Context context) {

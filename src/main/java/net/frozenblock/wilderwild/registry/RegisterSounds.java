@@ -2,7 +2,6 @@ package net.frozenblock.wilderwild.registry;
 
 import net.frozenblock.wilderwild.WilderWild;
 import net.minecraft.sound.SoundEvent;
-import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 
 public class RegisterSounds {
@@ -106,8 +105,8 @@ public class RegisterSounds {
     public static final SoundEvent MUSIC_DISC_THE_OTHER_SIDE = register("music_disc.the_other_side");
     public static final SoundEvent MUSIC_OVERWORLD_WILD_FORESTS = register("music.overworld.wild_forests");
 
-    public static SoundEvent register(String string) {
-        return Registry.register(Registry.SOUND_EVENT, new Identifier(WilderWild.MOD_ID, string), new SoundEvent(new Identifier(WilderWild.MOD_ID, string)));
+    public static SoundEvent register(String path) {
+        return Registry.register(Registry.SOUND_EVENT, WilderWild.id(path), new SoundEvent(WilderWild.id(path)));
     }
 
     public static void init() {

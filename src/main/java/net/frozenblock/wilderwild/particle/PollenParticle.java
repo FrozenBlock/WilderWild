@@ -57,8 +57,8 @@ public class PollenParticle extends SpriteBillboardParticle {
             this.spriteProvider = spriteProvider;
         }
 
-        public Particle createParticle(DefaultParticleType defaultParticleType, ClientWorld clientWorld, double d, double e, double f, double g, double h, double i) {
-            PollenParticle pollenParticle = new PollenParticle(clientWorld, this.spriteProvider, d, e, f, 0.0D, -0.800000011920929D, 0.0D) {
+        public Particle createParticle(DefaultParticleType defaultParticleType, ClientWorld clientWorld, double x, double y, double z, double g, double h, double i) {
+            PollenParticle pollenParticle = new PollenParticle(clientWorld, this.spriteProvider, x, y, z, 0.0D, -0.800000011920929D, 0.0D) {
             };
             pollenParticle.maxAge = MathHelper.nextBetween(clientWorld.random, 500, 1000);
             pollenParticle.gravityStrength = 0.01F;
@@ -75,10 +75,10 @@ public class PollenParticle extends SpriteBillboardParticle {
             this.spriteProvider = spriteProvider;
         }
 
-        public Particle createParticle(DefaultParticleType defaultParticleType, ClientWorld clientWorld, double d, double e, double f, double g, double h, double i) {
+        public Particle createParticle(DefaultParticleType defaultParticleType, ClientWorld clientWorld, double x, double y, double z, double g, double h, double i) {
             double windex = Math.cos((clientWorld.getTimeOfDay() * Math.PI) / 12000) * 1.1;
             double windZ = -Math.sin((clientWorld.getTimeOfDay() * Math.PI) / 12000) * 1.1;
-            PollenParticle pollenParticle = new PollenParticle(clientWorld, this.spriteProvider, d, e, f, windex, -0.800000011920929D, windZ);
+            PollenParticle pollenParticle = new PollenParticle(clientWorld, this.spriteProvider, x, y, z, windex, -0.800000011920929D, windZ);
             pollenParticle.maxAge = MathHelper.nextBetween(clientWorld.random, 500, 1000);
             pollenParticle.gravityStrength = 0.01F;
             pollenParticle.velocityX = (windex + clientWorld.random.nextTriangular(0, 0.8)) / 17;
@@ -97,10 +97,10 @@ public class PollenParticle extends SpriteBillboardParticle {
             this.spriteProvider = spriteProvider;
         }
 
-        public Particle createParticle(DefaultParticleType defaultParticleType, ClientWorld clientWorld, double d, double e, double f, double g, double h, double i) {
+        public Particle createParticle(DefaultParticleType defaultParticleType, ClientWorld clientWorld, double x, double y, double z, double g, double h, double i) {
             double windex = Math.cos((clientWorld.getTimeOfDay() * Math.PI) / 12000) * 1.1;
             double windZ = -Math.sin((clientWorld.getTimeOfDay() * Math.PI) / 12000) * 1.1;
-            PollenParticle pollenParticle = new PollenParticle(clientWorld, this.spriteProvider, d, e, f, windex, -0.800000011920929D, windZ);
+            PollenParticle pollenParticle = new PollenParticle(clientWorld, this.spriteProvider, x, y, z, windex, -0.800000011920929D, windZ);
             pollenParticle.maxAge = MathHelper.nextBetween(clientWorld.random, 500, 1000);
             pollenParticle.gravityStrength = 0.016F;
             pollenParticle.velocityX = (windex + clientWorld.random.nextTriangular(0, 0.8)) / 20;

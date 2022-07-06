@@ -98,8 +98,8 @@ public class BlockSoundGroupOverwrites {
         namespaceSoundGroups.add(sounds);
     }
 
-    public static List<Identifier> ids = new ArrayList<>();
-    public static List<BlockSoundGroup> soundGroups = new ArrayList<>();
-    public static List<String> namespaces = new ArrayList<>();
-    public static List<BlockSoundGroup> namespaceSoundGroups = new ArrayList<>();
+    public static final List<Identifier> ids = new ArrayList<>();
+    public static final List<BlockSoundGroup> soundGroups = new ArrayList<>();
+    public static final List<String> namespaces = new ArrayList<>();
+    public static final List<BlockSoundGroup> namespaceSoundGroups = new ArrayList<>();
 }

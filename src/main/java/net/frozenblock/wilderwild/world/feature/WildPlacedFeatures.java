@@ -3,7 +3,6 @@ package net.frozenblock.wilderwild.world.feature;
 import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.registry.RegisterBlocks;
 import net.minecraft.block.Blocks;
-import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.intprovider.ClampedIntProvider;
 import net.minecraft.util.math.intprovider.UniformIntProvider;
@@ -209,8 +208,8 @@ public class WildPlacedFeatures {
     public static final RegistryEntry<PlacedFeature> TERMITE_PLACED = register("termite_placed",
             WildConfiguredFeatures.TERMITE_CONFIGURED, RarityFilterPlacementModifier.of(40), CountPlacementModifier.of(1), PlacedFeatures.WORLD_SURFACE_WG_HEIGHTMAP, SquarePlacementModifier.of(), SurfaceThresholdFilterPlacementModifier.of(Heightmap.Type.WORLD_SURFACE_WG, 0, 128), BiomePlacementModifier.of());
 
-    public static final RegistryEntry<PlacedFeature> GLORY_OF_THE_SNOW_PATH = register("glory_of_the_snow_path",
-            WildConfiguredFeatures.GLORY_OF_THE_SNOW_PATH, RarityFilterPlacementModifier.of(2), CountPlacementModifier.of(1), PlacedFeatures.WORLD_SURFACE_WG_HEIGHTMAP, SquarePlacementModifier.of(), BiomePlacementModifier.of());
+    public static final RegistryEntry<PlacedFeature> GLORY_OF_THE_SNOW = register("glory_of_the_snow",
+            WildConfiguredFeatures.GLORY_OF_THE_SNOW, RarityFilterPlacementModifier.of(5), CountPlacementModifier.of(3), PlacedFeatures.WORLD_SURFACE_WG_HEIGHTMAP, SquarePlacementModifier.of(), BiomePlacementModifier.of());
 
     public static final RegistryEntry<PlacedFeature> FLOWER_FOREST_FLOWERS = register(
             "flower_forest_flowers",
@@ -225,7 +224,7 @@ public class WildPlacedFeatures {
     public static RegistryEntry<PlacedFeature> register(
             @NotNull String id, RegistryEntry<? extends ConfiguredFeature<?, ?>> registryEntry, @NotNull List<PlacementModifier> modifiers
     ) {
-        return BuiltinRegistries.add(BuiltinRegistries.PLACED_FEATURE, new Identifier(WilderWild.MOD_ID, id), new PlacedFeature(RegistryEntry.upcast(registryEntry), List.copyOf(modifiers)));
+        return BuiltinRegistries.add(BuiltinRegistries.PLACED_FEATURE, WilderWild.id(id), new PlacedFeature(RegistryEntry.upcast(registryEntry), List.copyOf(modifiers)));
     }
 
     public static RegistryEntry<PlacedFeature> register(

@@ -2,7 +2,6 @@ package net.frozenblock.wilderwild.tag;
 
 import net.frozenblock.wilderwild.WilderWild;
 import net.minecraft.tag.TagKey;
-import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.world.biome.Biome;
 
@@ -12,7 +11,7 @@ public class WildBiomeTags {
     private WildBiomeTags() {
     }
 
-    private static TagKey<Biome> of(String id) {
-        return TagKey.of(Registry.BIOME_KEY, new Identifier(WilderWild.MOD_ID, id));
+    private static TagKey<Biome> of(String path) {
+        return TagKey.of(Registry.BIOME_KEY, WilderWild.id(path));
     }
 }

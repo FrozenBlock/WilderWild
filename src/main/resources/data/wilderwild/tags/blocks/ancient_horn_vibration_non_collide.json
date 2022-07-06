@@ -3,12 +3,17 @@
   "values": [
     "minecraft:sculk",
     "wilderwild:osseous_sculk",
+    "#c:glass",
     "#c:glass_blocks",
+    "#c:glass_pane",
     "#c:glass_panes",
     "#minecraft:leaves",
     "minecraft:bell",
     "minecraft:pointed_dripstone",
     "minecraft:bamboo",
-    "minecraft:ice"
+    "minecraft:ice",
+    "wilderwild:sculk_stairs",
+    "wilderwild:sculk_slab",
+    "wilderwild:sculk_wall"
   ]
 }

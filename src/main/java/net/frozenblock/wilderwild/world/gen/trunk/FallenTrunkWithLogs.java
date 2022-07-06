@@ -81,6 +81,17 @@ public class FallenTrunkWithLogs extends TrunkPlacer {
                             }
                             ++placedLogs;
                             logsAboveHole += holeAddition;
+                        } else if (config.trunkProvider.getBlockState(random, mutable.set(x, startPos.getY(), z)).contains(Properties.FACING)) {
+                            replacer.accept(mutable.set(x, startPos.getY(), z), config.trunkProvider.getBlockState(random, mutable.set(x, startPos.getY(), z)).with(Properties.FACING, logDir));
+                            if (random.nextFloat() > 0.28) {
+                                logs.add(new BlockPos(x, startPos.getY(), z));
+                            }
+                            if (i < height - 1 && random.nextFloat() < this.logChance && placedLogs < maxLogs) {
+                                Direction direction = random.nextFloat() >= 0.33 ? Direction.Type.HORIZONTAL.random(random) : Direction.Type.VERTICAL.random(random);
+                                this.generateExtraBranch(logs, world, replacer, random, config, mutable, logDir, i, direction);
+                            }
+                            ++placedLogs;
+                            logsAboveHole += holeAddition;
                         } else if (this.getAndSetState(world, replacer, random, mutable.set(x, startPos.getY(), z), config)) {
                             if (random.nextFloat() > 0.28) {
                                 logs.add(new BlockPos(x, startPos.getY(), z));
@@ -123,6 +134,11 @@ public class FallenTrunkWithLogs extends TrunkPlacer {
                 if (config.trunkProvider.getBlockState(random, pos.set(x, y, z)).contains(Properties.AXIS)) {
                     Direction.Axis axis = direction.getOffsetX() != 0 ? Direction.Axis.X : (direction.getOffsetY() != 0 ? Direction.Axis.Y : Direction.Axis.Z);
                     replacer.accept(pos.set(x, y, z), config.trunkProvider.getBlockState(random, pos.set(x, y, z)).with(Properties.AXIS, axis));
+                    if (random.nextFloat() > 0.28) {
+                        logs.add(new BlockPos(x, y, z));
+                    }
+                } else if (config.trunkProvider.getBlockState(random, pos.set(x, y, z)).contains(Properties.FACING)) {
+                    replacer.accept(pos.set(x, y, z), config.trunkProvider.getBlockState(random, pos.set(x, y, z)).with(Properties.FACING, direction));
                     if (random.nextFloat() > 0.28) {
                         logs.add(new BlockPos(x, y, z));
                     }

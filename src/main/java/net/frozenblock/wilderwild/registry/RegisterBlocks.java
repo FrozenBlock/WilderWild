@@ -20,7 +20,6 @@ import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.sound.BlockSoundGroup;
-import net.minecraft.util.Identifier;
 import net.minecraft.util.SignType;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
@@ -39,7 +38,7 @@ public class RegisterBlocks {
     private static final MapColor CYPRESS_BARK_COLOR = MapColor.STONE_GRAY;
 
     // CHISELED PACKED MUD
-    public static Block CHISELED_MUD_BRICKS = new Block(FabricBlockSettings.copy(Blocks.CHISELED_STONE_BRICKS).strength(1.5F).requiresTool().sounds(BlockSoundGroup.MUD_BRICKS));
+    public static final Block CHISELED_MUD_BRICKS = new Block(FabricBlockSettings.copy(Blocks.CHISELED_STONE_BRICKS).strength(1.5F).requiresTool().sounds(BlockSoundGroup.MUD_BRICKS));
 
     // WOOD
     public static final Block BAOBAB_PLANKS = new Block(FabricBlockSettings.of(Material.WOOD, BAOBAB_PLANKS_COLOR).strength(2.0F, 3.0F).sounds(BlockSoundGroup.WOOD));
@@ -147,10 +146,10 @@ public class RegisterBlocks {
         registerBlock(baobab + "_fence", BAOBAB_FENCE, ItemGroup.DECORATIONS);
         registerBlock(cypress + "_fence", CYPRESS_FENCE, ItemGroup.DECORATIONS);
 
-        Registry.register(Registry.ITEM, new Identifier(WilderWild.MOD_ID, "baobab_sign"), BAOBAB_SIGN);
+        Registry.register(Registry.ITEM, WilderWild.id("baobab_sign"), BAOBAB_SIGN);
         registerBlockWithoutBlockItem(baobab + "_sign", BAOBAB_SIGN_BLOCK);
         registerBlockWithoutBlockItem(baobab + "_wall_sign", BAOBAB_WALL_SIGN);
-        Registry.register(Registry.ITEM, new Identifier(WilderWild.MOD_ID, "cypress_sign"), CYPRESS_SIGN);
+        Registry.register(Registry.ITEM, WilderWild.id("cypress_sign"), CYPRESS_SIGN);
         registerBlockWithoutBlockItem(cypress + "_sign", CYPRESS_SIGN_BLOCK);
         registerBlockWithoutBlockItem(cypress + "_wall_sign", CYPRESS_WALL_SIGN);
     }
@@ -283,10 +282,9 @@ public class RegisterBlocks {
         registerDeepDark();
         registerBlock("termite_mound", TERMITE_MOUND, ItemGroup.DECORATIONS);
         registerPlants();
-        Registry.register(Registry.BLOCK, new Identifier(WilderWild.MOD_ID, "flowered_lily_pad"), FLOWERED_LILY_PAD);
-        Registry.register(Registry.ITEM, new Identifier(WilderWild.MOD_ID, "flowered_lily_pad"), new FloweredLilyPadItem(FLOWERED_LILY_PAD, new FabricItemSettings().group(ItemGroup.DECORATIONS)));
+        Registry.register(Registry.BLOCK, WilderWild.id("flowered_lily_pad"), FLOWERED_LILY_PAD);
+        Registry.register(Registry.ITEM, WilderWild.id("flowered_lily_pad"), new FloweredLilyPadItem(FLOWERED_LILY_PAD, new FabricItemSettings().group(ItemGroup.DECORATIONS)));
         registerNotSoPlants();
-
 
 
         CompostingChanceRegistry.INSTANCE.add(CARNATION, 0.65F);
@@ -305,16 +303,16 @@ public class RegisterBlocks {
     }
 
     private static Block registerBlockWithoutBlockItem(String name, Block block) {
-        return Registry.register(Registry.BLOCK, new Identifier(WilderWild.MOD_ID, name), block);
+        return Registry.register(Registry.BLOCK, WilderWild.id(name), block);
     }
 
     private static Block registerBlock(String name, Block block, ItemGroup group) {
         registerBlockItem(name, block, group);
-        return Registry.register(Registry.BLOCK, new Identifier(WilderWild.MOD_ID, name), block);
+        return Registry.register(Registry.BLOCK, WilderWild.id(name), block);
     }
 
     private static BlockItem registerBlockItem(String name, Block block, ItemGroup group) {
-        return Registry.register(Registry.ITEM, new Identifier(WilderWild.MOD_ID, name),
+        return Registry.register(Registry.ITEM, WilderWild.id(name),
                 new BlockItem(block, new FabricItemSettings().group(group)));
     }
 

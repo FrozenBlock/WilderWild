@@ -14,7 +14,7 @@ public class WildSignBlock extends SignBlock {
 
     @Override
     public final Identifier getLootTableId() {
-        Identifier correctedLootTableId = new Identifier(WilderWild.MOD_ID, "blocks/" + this.getSignType().getName() + "_sign");
+        Identifier correctedLootTableId = WilderWild.id("blocks/" + this.getSignType().getName() + "_sign");
 
         if (!Objects.equals(this.lootTableId, correctedLootTableId)) {
             this.lootTableId = correctedLootTableId;

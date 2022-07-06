@@ -35,8 +35,8 @@ public class TermiteParticle extends SpriteBillboardParticle {
             this.spriteProvider = spriteProvider;
         }
 
-        public Particle createParticle(DefaultParticleType defaultParticleType, ClientWorld clientWorld, double d, double e, double f, double g, double h, double i) {
-            TermiteParticle termite = new TermiteParticle(clientWorld, d, e, f, g, h, i, this.spriteProvider);
+        public Particle createParticle(DefaultParticleType defaultParticleType, ClientWorld clientWorld, double x, double y, double z, double g, double h, double i) {
+            TermiteParticle termite = new TermiteParticle(clientWorld, x, y, z, g, h, i, this.spriteProvider);
             termite.setAlpha(1.0F);
             termite.setVelocity(g, h, i);
             termite.setMaxAge(clientWorld.random.nextInt(4) + 6);

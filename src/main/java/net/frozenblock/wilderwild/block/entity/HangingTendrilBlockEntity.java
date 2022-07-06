@@ -4,7 +4,7 @@ import com.mojang.logging.LogUtils;
 import com.mojang.serialization.DataResult;
 import com.mojang.serialization.Dynamic;
 import net.frozenblock.wilderwild.block.HangingTendrilBlock;
-import net.frozenblock.wilderwild.registry.RegisterBlockEntityType;
+import net.frozenblock.wilderwild.registry.RegisterBlockEntities;
 import net.frozenblock.wilderwild.registry.RegisterGameEvents;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.SculkSensorBlock;
@@ -37,7 +37,7 @@ public class HangingTendrilBlockEntity extends BlockEntity implements VibrationL
     public int ringOutTicksLeft;
 
     public HangingTendrilBlockEntity(BlockPos pos, BlockState state) {
-        super(RegisterBlockEntityType.HANGING_TENDRIL, pos, state);
+        super(RegisterBlockEntities.HANGING_TENDRIL, pos, state);
         this.listener = new VibrationListener(new BlockPositionSource(this.pos), ((HangingTendrilBlock) state.getBlock()).getRange(), this, null, 0, 0);
     }
 
