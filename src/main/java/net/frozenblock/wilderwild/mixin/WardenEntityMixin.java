@@ -22,11 +22,13 @@ import net.minecraft.entity.mob.WardenBrain;
 import net.minecraft.entity.mob.WardenEntity;
 import net.minecraft.entity.passive.AxolotlEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.fluid.Fluid;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
+import net.minecraft.tag.TagKey;
 import net.minecraft.util.Unit;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
@@ -309,5 +311,9 @@ public abstract class WardenEntityMixin extends HostileEntity implements WardenA
     @Override
     public SoundEvent getSwimSound() {
         return SoundEvents.ENTITY_FISH_SWIM;
+    }
+
+    @Override
+    public void swimUpward(TagKey<Fluid> fluid) {
     }
 }
