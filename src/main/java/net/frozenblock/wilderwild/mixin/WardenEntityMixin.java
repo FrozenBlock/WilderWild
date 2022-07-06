@@ -1,5 +1,6 @@
 package net.frozenblock.wilderwild.mixin;
 
+import com.google.common.collect.Maps;
 import com.mojang.logging.LogUtils;
 import net.frozenblock.wilderwild.entity.ai.WardenMoveControl;
 import net.frozenblock.wilderwild.entity.ai.WardenNavigation;
@@ -12,6 +13,7 @@ import net.minecraft.entity.ai.brain.Brain;
 import net.minecraft.entity.ai.brain.MemoryModuleType;
 import net.minecraft.entity.ai.control.AquaticMoveControl;
 import net.minecraft.entity.ai.pathing.EntityNavigation;
+import net.minecraft.entity.ai.pathing.PathNodeType;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.mob.Angriness;
@@ -28,6 +30,7 @@ import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.Unit;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
+import net.minecraft.util.math.Vec3f;
 import net.minecraft.world.LocalDifficulty;
 import net.minecraft.world.ServerWorldAccess;
 import net.minecraft.world.World;
@@ -41,6 +44,8 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
+
+import java.util.Map;
 
 @Mixin(WardenEntity.class)
 public abstract class WardenEntityMixin extends HostileEntity implements WardenAnimationInterface {
@@ -287,6 +292,22 @@ public abstract class WardenEntityMixin extends HostileEntity implements WardenA
     @Inject(method = "<init>", at = @At("TAIL"))
     private void WardenEntity(EntityType<? extends HostileEntity> entityType, World world, CallbackInfo ci) {
         WardenEntity wardenEntity = WardenEntity.class.cast(this);
+        wardenEntity.setPathfindingPenalty(PathNodeType.WATER, 0.0F);
         this.moveControl = new WardenMoveControl(wardenEntity);
+    }
+
+    @Override
+    public boolean canBreatheInWater() {
+        return true;
+    }
+
+    @Override
+    public boolean isPushedByFluids() {
+        return false;
+    }
+
+    @Override
+    public SoundEvent getSwimSound() {
+        return SoundEvents.ENTITY_FISH_SWIM;
     }
 }
