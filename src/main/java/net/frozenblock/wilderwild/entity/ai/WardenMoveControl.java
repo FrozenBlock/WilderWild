@@ -7,6 +7,6 @@ import net.minecraft.entity.passive.AxolotlEntity;
 public class WardenMoveControl extends AquaticMoveControl {
 
     public WardenMoveControl(WardenEntity warden) {
-        super(warden, 85, 10, 0.1F, 0.5F, false);
+        super(warden, 85, 10, 0.1F, 1.0F, false);
     }
 }
