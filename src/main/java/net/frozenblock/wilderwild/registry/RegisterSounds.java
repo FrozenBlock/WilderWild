@@ -105,8 +105,8 @@ public class RegisterSounds {
     public static final SoundEvent MUSIC_DISC_THE_OTHER_SIDE = register("music_disc.the_other_side");
     public static final SoundEvent MUSIC_OVERWORLD_WILD_FORESTS = register("music.overworld.wild_forests");
 
-    public static SoundEvent register(String string) {
-        return Registry.register(Registry.SOUND_EVENT, WilderWild.id(string), new SoundEvent(WilderWild.id(string)));
+    public static SoundEvent register(String path) {
+        return Registry.register(Registry.SOUND_EVENT, WilderWild.id(path), new SoundEvent(WilderWild.id(path)));
     }
 
     public static void init() {

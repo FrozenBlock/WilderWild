@@ -15,7 +15,6 @@ import net.frozenblock.wilderwild.world.feature.features.*;
 import net.frozenblock.wilderwild.world.feature.features.config.ColumnWithDiskFeatureConfig;
 import net.frozenblock.wilderwild.world.feature.features.config.PathFeatureConfig;
 import net.frozenblock.wilderwild.world.feature.features.config.ShelfFungusFeatureConfig;
-import net.frozenblock.wilderwild.world.gen.WildMusic;
 import net.frozenblock.wilderwild.world.gen.WildWorldGen;
 import net.frozenblock.wilderwild.world.gen.trunk.BaobabTrunkPlacer;
 import net.frozenblock.wilderwild.world.gen.trunk.FallenTrunkWithLogs;
@@ -72,7 +71,7 @@ public class WilderWild implements ModInitializer {
 
         RegisterSounds.init();
         RegisterBlockSoundGroups.init();
-        RegisterBlockEntityType.register();
+        RegisterBlockEntities.register();
         RegisterEntities.init();
         BlockSoundGroupOverwrites.init();
         RegisterLootTables.init();

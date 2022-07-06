@@ -13,6 +13,7 @@ import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.*;
 import net.minecraft.entity.damage.DamageSource;
+import net.minecraft.entity.mob.Angriness;
 import net.minecraft.entity.mob.WardenEntity;
 import net.minecraft.entity.player.ItemCooldownManager;
 import net.minecraft.entity.player.PlayerEntity;
@@ -431,7 +432,7 @@ public class AncientHornProjectileEntity extends PersistentProjectileEntity {
             }
             if (entity instanceof WardenEntity warden && entity2 != null && canInteract()) {
                 WilderWild.log(warden, "Horn Projectile Touched", WilderWild.DEV_LOGGING);
-                warden.increaseAngerAt(entity2, 100, true);
+                warden.increaseAngerAt(entity2, Angriness.ANGRY.getThreshold() + 20, true);
                 warden.playSound(SoundEvents.ENTITY_WARDEN_TENDRIL_CLICKS, 5.0F, warden.getSoundPitch());
                 this.discard();
             } else if (entity.damage(damageSource, (float) i)) {
