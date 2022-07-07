@@ -140,7 +140,7 @@ public class WildClientMod implements ClientModInitializer {
         ClientTickEvents.START_WORLD_TICK.register(e -> {
             MinecraftClient client = MinecraftClient.getInstance();
             if (client.world != null) {
-                FlyBySoundHub.ClientFlyby.update(client, client.player, false); //CHANGE TO FALSE TO NOT AUTOMATICALLY ADD FLYBY SOUNDS
+                FlyBySoundHub.update(client, client.player, false); //CHANGE TO FALSE TO NOT AUTOMATICALLY ADD FLYBY SOUNDS
             }
         });
     }
@@ -294,7 +294,7 @@ public class WildClientMod implements ClientModInitializer {
                 Entity entity = world.getEntityById(id);
                 if (entity == null)
                     throw new IllegalStateException("Unable to add flyby sound to non-existent entity!");
-                FlyBySoundHub.ClientFlyby.addEntity(entity, sound, category, volume, pitch);
+                FlyBySoundHub.addEntity(entity, sound, category, volume, pitch);
                 WilderWild.log("ADDED ENTITY TO FLYBYS", true);
             });
         });
