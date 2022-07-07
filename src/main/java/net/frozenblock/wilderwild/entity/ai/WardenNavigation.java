@@ -5,6 +5,7 @@ import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.passive.AxolotlSwimNavigation;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
+import net.minecraft.world.chunk.ChunkCache;
 
 public class WardenNavigation extends MobNavigation {
 
@@ -14,7 +15,7 @@ public class WardenNavigation extends MobNavigation {
 
     @Override
     public PathNodeNavigator createPathNodeNavigator(int range) {
-        this.nodeMaker = new AmphibiousPathNodeMaker(false);
+        this.nodeMaker = new WardenPathNodeMaker(false);
         this.nodeMaker.setCanEnterOpenDoors(true);
         return new PathNodeNavigator(this.nodeMaker, range) {
             public float getDistance(PathNode a, PathNode b) {
