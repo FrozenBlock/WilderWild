@@ -26,25 +26,22 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.Objects;
 
-public class HollowedLogBlock extends Block implements Waterloggable {
+public class HollowedLogBlock extends PillarBlock implements Waterloggable {
     public static final BooleanProperty WATERLOGGED;
     protected static final VoxelShape X_SHAPE;
     protected static final VoxelShape Y_SHAPE;
     protected static final VoxelShape Z_SHAPE;
     protected static final VoxelShape RAYCAST_SHAPE;
-    public static final IntProperty LEVEL;
-
-    public static final DirectionProperty FACING;
 
     // CLASS's BASE METHODS
     public HollowedLogBlock(Settings settings) {
         super(settings);
-        this.setDefaultState(this.getDefaultState().with(WATERLOGGED, false).with(FACING, Direction.UP).with(LEVEL, 0));
+        this.setDefaultState(this.getDefaultState().with(WATERLOGGED, false).with(AXIS, Direction.Axis.Y));
     }
 
     @Override
     public VoxelShape getOutlineShape(BlockState state, BlockView world, BlockPos pos, ShapeContext context) {
-        return switch (state.get(FACING).getAxis()) {
+        return switch (state.get(AXIS)) {
             default -> X_SHAPE;
             case Y -> Y_SHAPE;
             case Z -> Z_SHAPE;
@@ -55,16 +52,16 @@ public class HollowedLogBlock extends Block implements Waterloggable {
         return RAYCAST_SHAPE;
     }
 
-    @Override
+    /*@Override
     public void onPlaced(World world, BlockPos pos, BlockState state, @Nullable LivingEntity placer, ItemStack itemStack) {
         updateWaterCompatibility(world, state, pos);
         world.createAndScheduleBlockTick(pos, this, 1);
         super.onPlaced(world, pos, state, placer, itemStack);
-    }
+    }*/
 
     @Override
     public BlockState getPlacementState(ItemPlacementContext ctx) {
-        return Objects.requireNonNull(super.getPlacementState(ctx)).with(FACING, ctx.getSide());
+        return this.getDefaultState().with(AXIS, ctx.getSide().getAxis()).with(WATERLOGGED, ctx.getWorld().getFluidState(ctx.getBlockPos()).isOf(Fluids.WATER));
     }
 
     @Override
@@ -77,7 +74,7 @@ public class HollowedLogBlock extends Block implements Waterloggable {
     }
 
 
-    public void scheduledTick(BlockState state, ServerWorld world, BlockPos pos, Random random) {
+    /*public void scheduledTick(BlockState state, ServerWorld world, BlockPos pos, Random random) {
         updateWaterCompatibility(world, world.getBlockState(pos), pos);
     }
 
@@ -155,7 +152,7 @@ public class HollowedLogBlock extends Block implements Waterloggable {
 
     public ItemStack tryDrainFluid(WorldAccess world, BlockPos pos, BlockState state) {
         return tryDrainFluid(world, pos, state, 0);
-    }
+    }*/
 
     @Override
     public FluidState getFluidState(BlockState state) {
@@ -165,7 +162,7 @@ public class HollowedLogBlock extends Block implements Waterloggable {
     @Override
     protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
         super.appendProperties(builder);
-        builder.add(WATERLOGGED, FACING, LEVEL);
+        builder.add(WATERLOGGED, AXIS);
     }
 
     // RENDERING
@@ -190,8 +187,8 @@ public class HollowedLogBlock extends Block implements Waterloggable {
         Z_SHAPE = VoxelShapes.union(Block.createCuboidShape(13, 0, 0, 16, 16, 16), Block.createCuboidShape(0, 0, 0, 3, 16, 16), Block.createCuboidShape(0, 13, 0, 16, 16, 16), Block.createCuboidShape(0, 0, 0, 16, 3, 16));
 
         WATERLOGGED = Properties.WATERLOGGED;
-        FACING = Properties.FACING;
-        LEVEL = IntProperty.of("level", 0, 9);
+        //FACING = Properties.FACING;
+        //LEVEL = IntProperty.of("level", 0, 9);
     }
 
 }
