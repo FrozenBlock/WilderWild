@@ -22,12 +22,14 @@ import net.minecraft.entity.mob.WardenBrain;
 import net.minecraft.entity.mob.WardenEntity;
 import net.minecraft.entity.passive.AxolotlEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.vehicle.BoatEntity;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
+import net.minecraft.tag.FluidTags;
 import net.minecraft.tag.TagKey;
 import net.minecraft.util.Unit;
 import net.minecraft.util.math.BlockPos;
@@ -295,7 +297,7 @@ public abstract class WardenEntityMixin extends HostileEntity implements WardenA
     private void WardenEntity(EntityType<? extends HostileEntity> entityType, World world, CallbackInfo ci) {
         WardenEntity wardenEntity = WardenEntity.class.cast(this);
         wardenEntity.setPathfindingPenalty(PathNodeType.WATER, 0.0F);
-        this.moveControl = new WardenMoveControl(wardenEntity, 85, 10, 0.2F, 1.0F, true);
+        this.moveControl = new WardenMoveControl(wardenEntity, 85, 10, 0.1F, 1.0F, true);
     }
 
     @Override
@@ -315,5 +317,14 @@ public abstract class WardenEntityMixin extends HostileEntity implements WardenA
 
     @Override
     public void swimUpward(TagKey<Fluid> fluid) {
+    }
+
+    @Override
+    protected boolean updateWaterState() {
+        this.fluidHeight.clear();
+        warden.checkWaterState();
+        //double d = warden.world.getDimension().ultrawarm() ? 0.007 : 0.0023333333333333335;
+        boolean bl = warden.updateMovementInFluid(FluidTags.LAVA, 0.1D);
+        return warden.isTouchingWater() || bl;
     }
 }
