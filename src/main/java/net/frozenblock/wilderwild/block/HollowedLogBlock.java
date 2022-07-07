@@ -162,7 +162,7 @@ public class HollowedLogBlock extends PillarBlock implements Waterloggable {
     @Override
     protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
         super.appendProperties(builder);
-        builder.add(WATERLOGGED, AXIS);
+        builder.add(WATERLOGGED);
     }
 
     // RENDERING
