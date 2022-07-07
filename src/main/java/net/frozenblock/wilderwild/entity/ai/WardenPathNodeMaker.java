@@ -1,8 +1,10 @@
 package net.frozenblock.wilderwild.entity.ai;
 
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.ai.pathing.*;
 import net.minecraft.entity.ai.pathing.AmphibiousPathNodeMaker;
 import net.minecraft.entity.mob.MobEntity;
+import net.minecraft.tag.FluidTags;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.MathHelper;
@@ -68,24 +70,68 @@ public class WardenPathNodeMaker extends AmphibiousPathNodeMaker {
         }
 
         double d = this.getFeetY(new BlockPos(node.x, node.y, node.z));
-        PathNode pathNode = this.getPathNode(node.x, node.y + 1, node.z, Math.max(0, j - 1), d, Direction.UP, pathNodeType2);
-        PathNode pathNode2 = this.getPathNode(node.x, node.y - 1, node.z, j, d, Direction.DOWN, pathNodeType2);
-        if (this.isValidAquaticAdjacentSuccessor(pathNode, node)) {
-            successors[i++] = pathNode;
-        }
-
-        if (this.isValidAquaticAdjacentSuccessor(pathNode2, node) && pathNodeType2 != PathNodeType.TRAPDOOR) {
-            successors[i++] = pathNode2;
-        }
-
-        for(int k = 0; k < i; ++k) {
-            PathNode pathNode3 = successors[k];
-            if (pathNode3.type == PathNodeType.WATER && this.penalizeDeepWater && pathNode3.y < this.entity.world.getSeaLevel() - 10) {
-                ++pathNode3.penalty;
+        if (isEntityTouchingWaterOrLava(this.entity)) {
+            PathNode pathNode = this.getPathNode(node.x, node.y + 1, node.z, Math.max(0, j - 1), d, Direction.UP, pathNodeType2);
+            PathNode pathNode2 = this.getPathNode(node.x, node.y - 1, node.z, j, d, Direction.DOWN, pathNodeType2);
+            if (this.isValidAquaticAdjacentSuccessor(pathNode, node)) {
+                successors[i++] = pathNode;
             }
-        }
 
-        return i;
+            if (this.isValidAquaticAdjacentSuccessor(pathNode2, node) && pathNodeType2 != PathNodeType.TRAPDOOR) {
+                successors[i++] = pathNode2;
+            }
+
+            for (int k = 0; k < i; ++k) {
+                PathNode pathNode3 = successors[k];
+                if (pathNode3.type == PathNodeType.WATER && this.penalizeDeepWater && pathNode3.y < this.entity.world.getSeaLevel() - 10) {
+                    ++pathNode3.penalty;
+                }
+            }
+
+            return i;
+        } else {
+            PathNode pathNode = this.getPathNode(node.x, node.y, node.z + 1, j, d, Direction.SOUTH, pathNodeType2);
+            if (this.isValidAdjacentSuccessor(pathNode, node)) {
+                successors[i++] = pathNode;
+            }
+
+            PathNode pathNode2 = this.getPathNode(node.x - 1, node.y, node.z, j, d, Direction.WEST, pathNodeType2);
+            if (this.isValidAdjacentSuccessor(pathNode2, node)) {
+                successors[i++] = pathNode2;
+            }
+
+            PathNode pathNode3 = this.getPathNode(node.x + 1, node.y, node.z, j, d, Direction.EAST, pathNodeType2);
+            if (this.isValidAdjacentSuccessor(pathNode3, node)) {
+                successors[i++] = pathNode3;
+            }
+
+            PathNode pathNode4 = this.getPathNode(node.x, node.y, node.z - 1, j, d, Direction.NORTH, pathNodeType2);
+            if (this.isValidAdjacentSuccessor(pathNode4, node)) {
+                successors[i++] = pathNode4;
+            }
+
+            PathNode pathNode5 = this.getPathNode(node.x - 1, node.y, node.z - 1, j, d, Direction.NORTH, pathNodeType2);
+            if (this.isValidDiagonalSuccessor(node, pathNode2, pathNode4, pathNode5)) {
+                successors[i++] = pathNode5;
+            }
+
+            PathNode pathNode6 = this.getPathNode(node.x + 1, node.y, node.z - 1, j, d, Direction.NORTH, pathNodeType2);
+            if (this.isValidDiagonalSuccessor(node, pathNode3, pathNode4, pathNode6)) {
+                successors[i++] = pathNode6;
+            }
+
+            PathNode pathNode7 = this.getPathNode(node.x - 1, node.y, node.z + 1, j, d, Direction.SOUTH, pathNodeType2);
+            if (this.isValidDiagonalSuccessor(node, pathNode2, pathNode, pathNode7)) {
+                successors[i++] = pathNode7;
+            }
+
+            PathNode pathNode8 = this.getPathNode(node.x + 1, node.y, node.z + 1, j, d, Direction.SOUTH, pathNodeType2);
+            if (this.isValidDiagonalSuccessor(node, pathNode3, pathNode, pathNode8)) {
+                successors[i++] = pathNode8;
+            }
+
+            return i;
+        }
     }
 
     private boolean isValidAquaticAdjacentSuccessor(@Nullable PathNode node, PathNode successor) {
@@ -122,6 +168,14 @@ public class WardenPathNodeMaker extends AmphibiousPathNodeMaker {
         } else {
             return getLandNodeType(world, mutable);
         }
+    }
+
+    private boolean isEntityTouchingWaterOrLava(Entity entity) {
+        return entity.isTouchingWater() || entity.isInLava();
+    }
+
+    private boolean isEntitySubmergedInWaterOrLava(Entity entity) {
+        return entity.isSubmergedIn(FluidTags.WATER) || entity.isSubmergedIn(FluidTags.LAVA);
     }
 }
 

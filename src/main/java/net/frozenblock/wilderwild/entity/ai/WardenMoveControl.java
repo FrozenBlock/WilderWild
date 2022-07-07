@@ -2,6 +2,7 @@ package net.frozenblock.wilderwild.entity.ai;
 
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.ai.brain.MemoryModuleType;
 import net.minecraft.entity.ai.control.AquaticMoveControl;
 import net.minecraft.entity.ai.control.MoveControl;
 import net.minecraft.entity.ai.pathing.EntityNavigation;
@@ -39,10 +40,14 @@ public class WardenMoveControl extends AquaticMoveControl {
     public void tick() {
         if (this.isEntityTouchingWaterOrLava(this.entity)) {
             if (this.buoyant && this.isEntityTouchingWaterOrLava(this.entity)) {
-                if (!this.isEntityTouchingWaterOrLava(this.entity)) {
-                    this.entity.setVelocity(this.entity.getVelocity().add(0.0, 0.01, 0.0));
+                if (((WardenEntity) this.entity).getBrain().hasMemoryModule(MemoryModuleType.ROAR_TARGET) || ((WardenEntity) this.entity).getBrain().hasMemoryModule(MemoryModuleType.ATTACK_TARGET)) {
+                    this.entity.setVelocity(this.entity.getVelocity().add(0.0, 0.0, 0.0));
                 } else {
-                    this.entity.setVelocity(this.entity.getVelocity().add(0.0, 0.005, 0.0));
+                    if (!this.isEntitySubmergedInWaterOrLava(this.entity)) {
+                        this.entity.setVelocity(this.entity.getVelocity().add(0.0, 0.01, 0.0));
+                    } else if (this.isEntityTouchingWaterOrLava(this.entity)) {
+                        this.entity.setVelocity(this.entity.getVelocity().add(0.0, 0.005, 0.0));
+                    }
                 }
             }
 
@@ -59,7 +64,7 @@ public class WardenMoveControl extends AquaticMoveControl {
                     this.entity.bodyYaw = this.entity.getYaw();
                     this.entity.headYaw = this.entity.getYaw();
                     float i = (float) (this.speed * this.entity.getAttributeValue(EntityAttributes.GENERIC_MOVEMENT_SPEED));
-                    if (this.entity.isTouchingWater()) {
+                    if (this.isEntityTouchingWaterOrLava(entity)) {
                         this.entity.setMovementSpeed(i * this.speedInWater);
                         double j = Math.sqrt(d * d + f * f);
                         if (Math.abs(e) > 1.0E-5F || Math.abs(j) > 1.0E-5F) {

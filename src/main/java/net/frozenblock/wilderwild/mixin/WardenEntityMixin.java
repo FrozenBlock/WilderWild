@@ -169,10 +169,15 @@ public abstract class WardenEntityMixin extends HostileEntity implements WardenA
     @Inject(method = "onTrackedDataSet", at = @At("HEAD"))
     public void onTrackedDataSet(TrackedData<?> data, CallbackInfo ci) {
         if (POSE.equals(data)) {
-            if (this.getPose() == EntityPose.DYING) {
-                this.getDyingAnimationState().start(warden.age);
-            } else if (this.getPose() == EntityPose.SWIMMING) {
-                this.getSwimmingAnimationState().start(warden.age);
+            switch(this.getPose()) {
+                case DYING:
+                    this.getDyingAnimationState().start(warden.age);
+                    break;
+                case SWIMMING:
+                    if (this.isSubmergedInWaterOrLava()) {
+                        this.getSwimmingAnimationState().start(warden.age);
+                    }
+                    break;
             }
         }
     }
@@ -283,7 +288,7 @@ public abstract class WardenEntityMixin extends HostileEntity implements WardenA
 
     @Override
     public void travel(Vec3d movementInput) {
-        if (this.canMoveVoluntarily() && this.isTouchingWater()) {
+        if (this.canMoveVoluntarily() && this.isTouchingWaterOrLava()) {
             this.updateVelocity(this.getMovementSpeed(), movementInput);
             this.move(MovementType.SELF, this.getVelocity());
             this.setVelocity(this.getVelocity().multiply(0.9));
@@ -325,6 +330,14 @@ public abstract class WardenEntityMixin extends HostileEntity implements WardenA
         warden.checkWaterState();
         //double d = warden.world.getDimension().ultrawarm() ? 0.007 : 0.0023333333333333335;
         boolean bl = warden.updateMovementInFluid(FluidTags.LAVA, 0.1D);
-        return warden.isTouchingWater() || bl;
+        return this.isTouchingWaterOrLava() || bl;
+    }
+
+    private boolean isTouchingWaterOrLava() {
+        return warden.isTouchingWater() || warden.isInLava();
+    }
+
+    private boolean isSubmergedInWaterOrLava() {
+        return warden.isSubmergedIn(FluidTags.WATER) || warden.isSubmergedIn(FluidTags.LAVA);
     }
 }
