@@ -72,7 +72,7 @@ public class FireflyEntity extends PathAwareEntity implements Flutterer {
     public FireflyEntity(EntityType<? extends PathAwareEntity> entityType, World world) {
         super(entityType, world);
         this.setPathfindingPenalty(PathNodeType.LAVA, 8.0F);
-        this.setPathfindingPenalty(PathNodeType.DANGER_FIRE, 16.0F);
+        this.setPathfindingPenalty(PathNodeType.DANGER_FIRE, 4.0F);
         this.setPathfindingPenalty(PathNodeType.DAMAGE_FIRE, -1.0F);
         this.moveControl = new FlightMoveControl(this, 20, true);
         this.setFlickers(world.random.nextInt(5) == 0);
