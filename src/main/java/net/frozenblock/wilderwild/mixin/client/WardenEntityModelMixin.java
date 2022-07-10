@@ -2,6 +2,8 @@ package net.frozenblock.wilderwild.mixin.client;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.fabricmc.loader.impl.util.log.Log;
+import net.fabricmc.loader.impl.util.log.LogCategory;
 import net.frozenblock.wilderwild.entity.render.animations.CustomWardenAnimations;
 import net.frozenblock.wilderwild.entity.render.animations.WardenAnimationInterface;
 import net.minecraft.client.model.ModelPart;
@@ -16,6 +18,8 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+
+import java.io.PrintStream;
 
 @Environment(EnvType.CLIENT)
 @Mixin(WardenEntityModel.class)
@@ -85,7 +89,7 @@ public class WardenEntityModelMixin<T extends WardenEntity> {
 
         if (wardenEntity.isSubmergedInWater() && !isAnimating) { //need to figure out how to also include the death animation & the sonic boom animation in this check
 
-            this.root.pitch = j * 0.017453292F + 1.5708F;
+            this.root.pitch = MathHelper.clamp(g * 5, 0,j * 0.017453292F + 1.5708F);
             this.root.yaw = i * 0.017453292F;
             this.root.pivotZ = -24;
 
