@@ -6,6 +6,8 @@ import net.frozenblock.wilderwild.entity.render.animations.CustomWardenAnimation
 import net.frozenblock.wilderwild.entity.render.animations.WardenAnimationInterface;
 import net.minecraft.client.model.ModelPart;
 import net.minecraft.client.render.entity.model.WardenEntityModel;
+import net.minecraft.entity.AnimationState;
+import net.minecraft.entity.EntityPose;
 import net.minecraft.entity.mob.WardenEntity;
 import net.minecraft.util.math.MathHelper;
 import org.spongepowered.asm.mixin.Final;
@@ -78,10 +80,13 @@ public class WardenEntityModelMixin<T extends WardenEntity> {
     @Inject(method = "setAngles(Lnet/minecraft/entity/mob/WardenEntity;FFFFF)V", at = @At("TAIL"))
     private void setAngles(T wardenEntity, float f, float g, float h, float i, float j, CallbackInfo ci) {
         model.updateAnimation(((WardenAnimationInterface) wardenEntity).getDyingAnimationState(), CustomWardenAnimations.DYING, h);
-        if (wardenEntity.isSubmergedInWater()) {
 
-            this.root.pitch = j;
-            this.root.yaw = i;
+        boolean isAnimating = !wardenEntity.isInPose(EntityPose.STANDING) || !wardenEntity.isInPose(EntityPose.SWIMMING);
+
+        if (wardenEntity.isSubmergedInWater() && !isAnimating) {
+
+            this.root.pitch = j * 0.017453292F;
+            this.root.yaw = i * 0.017453292F;
 
             float e = f * 0.8662F;
             float l = MathHelper.cos(e);
