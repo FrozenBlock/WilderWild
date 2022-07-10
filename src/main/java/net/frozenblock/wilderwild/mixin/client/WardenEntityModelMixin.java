@@ -83,7 +83,7 @@ public class WardenEntityModelMixin<T extends WardenEntity> {
 
         boolean isAnimating = wardenEntity.isInPose(EntityPose.ROARING) || wardenEntity.isInPose(EntityPose.SNIFFING) || wardenEntity.isInPose(EntityPose.EMERGING) || wardenEntity.isInPose(EntityPose.DIGGING);
 
-        if (wardenEntity.isSubmergedInWater() && !isAnimating) {
+        if (wardenEntity.isSubmergedInWater() && !isAnimating) { //need to figure out how to also include the death animation & the sonic boom animation in this check
 
             this.root.pitch = j * 0.017453292F + 1.5708F;
             this.root.yaw = i * 0.017453292F;
@@ -91,28 +91,28 @@ public class WardenEntityModelMixin<T extends WardenEntity> {
 
             float e = f * 0.8662F;
             float l = MathHelper.cos(e);
-            float m = Math.min(0.5F, 3.0F * l);
-            float n = MathHelper.sin(e);
-            float o = MathHelper.sin(m * 0.5F);
-            float p = MathHelper.cos(m * 2.0F);
+            float m = MathHelper.sin(e);
+            float n = Math.min(0.5F, 3.0F * l);
+            float o = MathHelper.sin(n * 0.5F);
+            float p = MathHelper.cos(n * 2.0F);
             float rad = (float) (Math.PI / 180);
 
-            this.head.pitch = (n * -10 - 60) * rad;
+            this.head.pitch = (m * -10 - 60) * rad;
             this.head.roll = 0;
             this.head.pivotY = -17;
 
-            this.body.pitch = (n * 15 - 10) * rad;
+            this.body.pitch = (m * 15 - 10) * rad;
             this.body.yaw = (o * 5) * rad;
             this.body.pivotY = -l * 2;
 
             this.rightArm.pitch = 0f;
             this.rightArm.yaw = (-l * 25) * rad;
-            this.rightArm.roll = (n * -90 + 90) * rad;
+            this.rightArm.roll = (m * -90 + 90) * rad;
             this.rightArm.pivotX = p * 2 - 11;
 
             this.leftArm.pitch = 0f;
             this.leftArm.yaw = (l * 25) * rad;
-            this.leftArm.roll = (n * 90 - 90) * rad;
+            this.leftArm.roll = (m * 90 - 90) * rad;
             this.leftArm.pivotX = p * -2 + 11;
 
             this.leftLeg.pitch = (-l * 35 + 15) * rad;
