@@ -7,4 +7,12 @@ public interface WardenAnimationInterface {
     AnimationState getDyingAnimationState();
 
     AnimationState getSwimmingAnimationState();
+
+    AnimationState getSwimmingRoaringAnimationState();
+
+    AnimationState getSwimmingEmergingAnimationState();
+
+    AnimationState getSwimmingDyingAnimationState();
+
+    AnimationState getSwimmingSniffingAnimationState();
 }
