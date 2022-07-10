@@ -15,7 +15,7 @@ public class RoarTaskMixin {
 
     @Inject(at = @At("TAIL"), method = "run", cancellable = true)
     private void run(ServerWorld serverWorld, WardenEntity wardenEntity, long l, CallbackInfo info) {
-        wardenEntity.setPose(wardenEntity.isSwimming() ? WilderWild.SWIMMING_ROARING : EntityPose.ROARING);
+        wardenEntity.setPose(wardenEntity.isSubmergedInWater() ? WilderWild.SWIMMING_ROARING : EntityPose.ROARING);
     }
 
     @Inject(at = @At("HEAD"), method = "finishRunning", cancellable = true)
