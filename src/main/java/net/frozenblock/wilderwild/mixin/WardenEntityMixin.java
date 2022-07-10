@@ -199,6 +199,7 @@ public abstract class WardenEntityMixin extends HostileEntity implements WardenA
                     } else {
                         warden.sniffingAnimationState.start(warden.age);
                     }
+                    break;
                 case DYING:
                     this.getDyingAnimationState().start(warden.age);
                     break;
