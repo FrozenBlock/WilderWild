@@ -108,7 +108,10 @@ public class WardenEntityModelMixin<T extends WardenEntity> {
         model.updateAnimation(((WardenAnimationInterface) wardenEntity).getDyingAnimationState(), CustomWardenAnimations.DYING, h);
 
         boolean cannotSwim = wardenEntity.isInPose(EntityPose.EMERGING) || wardenEntity.isInPose(EntityPose.DIGGING);
-        boolean shouldMoveArms = !wardenEntity.isInPose(EntityPose.ROARING) && !wardenEntity.isInPose(EntityPose.EMERGING) && !wardenEntity.isInPose(EntityPose.DIGGING);
+        boolean shouldMoveArms = !wardenEntity.isInPose(EntityPose.ROARING) && !wardenEntity.isInPose(EntityPose.EMERGING) && !wardenEntity.isInPose(EntityPose.DIGGING) && !wardenEntity.chargingSonicBoomAnimationState.isRunning();
+        boolean shouldMoveBody = !wardenEntity.isInPose(EntityPose.ROARING) && !wardenEntity.isInPose(EntityPose.EMERGING) && !wardenEntity.isInPose(EntityPose.DIGGING);
+        boolean shouldMoveHead = !wardenEntity.isInPose(EntityPose.ROARING) && !wardenEntity.isInPose(EntityPose.EMERGING) && !wardenEntity.isInPose(EntityPose.DIGGING);
+
         if (g > 0 && swimming && !cannotSwim) { //need to figure out how to also include the death animation & the sonic boom animation in this check
 
             this.root.pitch = MathHelper.clamp(g * 5, 0,j * 0.017453292F + 1.5708F);
@@ -123,12 +126,17 @@ public class WardenEntityModelMixin<T extends WardenEntity> {
             float p = MathHelper.cos(n * 2.0F);
             float rad = (float) (Math.PI / 180);
 
-            this.head.pitch = (m * -10 - 60) * rad;
-            this.head.roll = 0;
-            this.head.pivotY = -17;
+            if (shouldMoveHead) {
+                this.head.pitch = (m * -10 - 60) * rad;
+                this.head.roll = 0;
+                this.head.pivotY = -17;
+            }
 
-            this.body.pitch = (m * 15 - 10) * rad;
-            this.body.yaw = (o * 5) * rad;
+            if (shouldMoveBody) {
+                this.body.pitch = (m * 15 - 10) * rad;
+                this.body.yaw = (o * 5) * rad;
+            }
+
             this.body.pivotY = -l * 2;
 
             if (shouldMoveArms) {
