@@ -1,6 +1,5 @@
 package net.frozenblock.wilderwild.mixin;
 
-import com.google.common.collect.Maps;
 import com.mojang.logging.LogUtils;
 import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.entity.ai.WardenMoveControl;
@@ -12,7 +11,6 @@ import net.minecraft.block.Blocks;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.brain.Brain;
 import net.minecraft.entity.ai.brain.MemoryModuleType;
-import net.minecraft.entity.ai.control.AquaticMoveControl;
 import net.minecraft.entity.ai.pathing.EntityNavigation;
 import net.minecraft.entity.ai.pathing.PathNodeType;
 import net.minecraft.entity.damage.DamageSource;
@@ -21,9 +19,7 @@ import net.minecraft.entity.mob.Angriness;
 import net.minecraft.entity.mob.HostileEntity;
 import net.minecraft.entity.mob.WardenBrain;
 import net.minecraft.entity.mob.WardenEntity;
-import net.minecraft.entity.passive.AxolotlEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.vehicle.BoatEntity;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.particle.ParticleTypes;
@@ -35,7 +31,6 @@ import net.minecraft.tag.TagKey;
 import net.minecraft.util.Unit;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
-import net.minecraft.util.math.Vec3f;
 import net.minecraft.world.LocalDifficulty;
 import net.minecraft.world.ServerWorldAccess;
 import net.minecraft.world.World;
@@ -49,8 +44,6 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
-
-import java.util.Map;
 
 @Mixin(WardenEntity.class)
 public abstract class WardenEntityMixin extends HostileEntity implements WardenAnimationInterface {
@@ -298,6 +291,9 @@ public abstract class WardenEntityMixin extends HostileEntity implements WardenA
 
     @Inject(method = "handleStatus", at = @At("HEAD"))
     private void handleStatus(byte status, CallbackInfo ci) {
+        if (status == (byte) 4) {
+            this.getSwimmingRoaringAnimationState().stop();
+        }
         if (status == (byte) 69420) {
             this.addAdditionalDeathParticles();
         }
