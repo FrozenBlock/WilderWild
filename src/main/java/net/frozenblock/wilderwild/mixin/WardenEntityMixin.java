@@ -116,7 +116,7 @@ public abstract class WardenEntityMixin extends HostileEntity implements WardenA
 
     @Inject(at = @At("HEAD"), method = "pushAway")
     protected void pushAway(Entity entity, CallbackInfo info) {
-    if (!warden.getBrain().hasMemoryModule(MemoryModuleType.ATTACK_COOLING_DOWN) && !warden.getBrain().hasMemoryModule(MemoryModuleType.TOUCH_COOLDOWN) && !(entity instanceof WardenEntity) && !this.isDiggingOrEmerging() && !warden.isInPose(EntityPose.DYING) && !warden.isInPose(EntityPose.ROARING) && !warden.isInPose(WilderWild.SWIMMING_ROARING) && !warden.isInPose(WilderWild.SWIMMING_EMERGING) && !warden.isInPose(WilderWild.SWIMMING_DYING)) {
+    if (!warden.getBrain().hasMemoryModule(MemoryModuleType.ATTACK_COOLING_DOWN) && !warden.getBrain().hasMemoryModule(MemoryModuleType.TOUCH_COOLDOWN) && !(entity instanceof WardenEntity) && !this.isDiggingOrEmerging() && !warden.isInPose(EntityPose.DYING) && !warden.isInPose(EntityPose.ROARING)) {
             if (!entity.isInvulnerable() && entity instanceof LivingEntity livingEntity) {
                 if (!(entity instanceof PlayerEntity player)) {
                     warden.increaseAngerAt(entity, Angriness.ANGRY.getThreshold() + 20, false);
@@ -179,15 +179,27 @@ public abstract class WardenEntityMixin extends HostileEntity implements WardenA
     @Inject(method = "onTrackedDataSet", at = @At("HEAD"), cancellable = true)
     public void onTrackedDataSet(TrackedData<?> data, CallbackInfo ci) {
         if (POSE.equals(data)) {
-            if (this.getPose() == WilderWild.SWIMMING_ROARING) {
-                this.getSwimmingRoaringAnimationState().start(warden.age);
-                ci.cancel();
-            }
-            if (this.getPose() == WilderWild.SWIMMING_SNIFFING) {
-                this.getSwimmingSniffingAnimationState().start(warden.age);
-                ci.cancel();
-            }
-            switch(this.getPose()) {
+            boolean swimming = warden.isSubmergedInWater();
+            switch(warden.getPose()) {
+                case EMERGING:
+                    warden.emergingAnimationState.start(this.age);
+                    break;
+                case DIGGING:
+                    warden.diggingAnimationState.start(this.age);
+                    break;
+                case ROARING:
+                    if (swimming) {
+                        this.swimmingRoaringAnimationState.start(warden.age);
+                    } else {
+                        warden.roaringAnimationState.start(warden.age);
+                    }
+                    break;
+                case SNIFFING:
+                    if (swimming) {
+                        this.swimmingSniffingAnimationState.start(warden.age);
+                    } else {
+                        warden.sniffingAnimationState.start(warden.age);
+                    }
                 case DYING:
                     this.getDyingAnimationState().start(warden.age);
                     break;
