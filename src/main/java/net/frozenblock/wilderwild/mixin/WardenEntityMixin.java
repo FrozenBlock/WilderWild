@@ -76,12 +76,6 @@ public abstract class WardenEntityMixin extends HostileEntity implements WardenA
 
     private final AnimationState swimmingAnimationState = new AnimationState();
 
-    //private final AnimationState swimmingDyingAnimationState = new AnimationState();
-
-    private final AnimationState swimmingRoaringAnimationState = new AnimationState();
-
-    private final AnimationState swimmingSniffingAnimationState = new AnimationState();
-
     @Override
     public AnimationState getDyingAnimationState() {
         return this.dyingAnimationState;
@@ -90,16 +84,6 @@ public abstract class WardenEntityMixin extends HostileEntity implements WardenA
     @Override
     public AnimationState getSwimmingAnimationState() {
         return this.swimmingAnimationState;
-    }
-
-    @Override
-    public AnimationState getSwimmingSniffingAnimationState() {
-        return this.swimmingSniffingAnimationState;
-    }
-
-    @Override
-    public AnimationState getSwimmingRoaringAnimationState() {
-        return this.swimmingRoaringAnimationState;
     }
 
     @Inject(at = @At("HEAD"), method = "initialize")
@@ -178,28 +162,7 @@ public abstract class WardenEntityMixin extends HostileEntity implements WardenA
     @Inject(method = "onTrackedDataSet", at = @At("HEAD"), cancellable = true)
     public void onTrackedDataSet(TrackedData<?> data, CallbackInfo ci) {
         if (POSE.equals(data)) {
-            boolean swimming = warden.isSubmergedInWater();
             switch(warden.getPose()) {
-                case EMERGING:
-                    warden.emergingAnimationState.start(this.age);
-                    break;
-                case DIGGING:
-                    warden.diggingAnimationState.start(this.age);
-                    break;
-                case ROARING:
-                    if (swimming) {
-                        this.swimmingRoaringAnimationState.start(warden.age);
-                    } else {
-                        warden.roaringAnimationState.start(warden.age);
-                    }
-                    break;
-                case SNIFFING:
-                    if (swimming) {
-                        this.swimmingSniffingAnimationState.start(warden.age);
-                    } else {
-                        warden.sniffingAnimationState.start(warden.age);
-                    }
-                    break;
                 case DYING:
                     this.getDyingAnimationState().start(warden.age);
                     break;
@@ -295,9 +258,6 @@ public abstract class WardenEntityMixin extends HostileEntity implements WardenA
 
     @Inject(method = "handleStatus", at = @At("HEAD"))
     private void handleStatus(byte status, CallbackInfo ci) {
-        if (status == (byte) 4) {
-            this.getSwimmingRoaringAnimationState().stop();
-        }
         if (status == (byte) 69420) {
             this.addAdditionalDeathParticles();
         }

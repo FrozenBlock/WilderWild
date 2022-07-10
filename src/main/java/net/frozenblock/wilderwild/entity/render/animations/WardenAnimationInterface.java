@@ -8,11 +8,4 @@ public interface WardenAnimationInterface {
 
     AnimationState getSwimmingAnimationState();
 
-    AnimationState getSwimmingRoaringAnimationState();
-
-    AnimationState getSwimmingEmergingAnimationState();
-
-    AnimationState getSwimmingDyingAnimationState();
-
-    AnimationState getSwimmingSniffingAnimationState();
 }

@@ -5,6 +5,7 @@ import net.fabricmc.api.Environment;
 import net.frozenblock.wilderwild.entity.render.animations.CustomWardenAnimations;
 import net.frozenblock.wilderwild.entity.render.animations.WardenAnimationInterface;
 import net.minecraft.client.model.ModelPart;
+import net.minecraft.client.render.entity.animation.WardenAnimations;
 import net.minecraft.client.render.entity.model.WardenEntityModel;
 import net.minecraft.entity.EntityPose;
 import net.minecraft.entity.mob.WardenEntity;
@@ -55,6 +56,18 @@ public class WardenEntityModelMixin<T extends WardenEntity> {
     @Shadow
     protected ModelPart rightArm;
 
+    @Shadow
+    private void setHeadAngle(float i, float j) {}
+
+    @Shadow
+    private void setLimbAngles(float f, float g) {}
+
+    @Shadow
+    private void setHeadAndBodyAngles(float k) {}
+
+    @Shadow
+    private void setTendrilPitches(T warden, float animationProgress, float tickDelta) {}
+
     private final WardenEntityModel<T> model = WardenEntityModel.class.cast(this);
 
     @Inject(at = @At("HEAD"), method = "setTendrilPitches", cancellable = true)
@@ -76,13 +89,27 @@ public class WardenEntityModelMixin<T extends WardenEntity> {
         info.cancel();
     }
 
-    @Inject(method = "setAngles(Lnet/minecraft/entity/mob/WardenEntity;FFFFF)V", at = @At("TAIL"))
+    @Inject(method = "setAngles(Lnet/minecraft/entity/mob/WardenEntity;FFFFF)V", at = @At("HEAD"), cancellable = true)
     private void setAngles(T wardenEntity, float f, float g, float h, float i, float j, CallbackInfo ci) {
+        ci.cancel();
+        boolean swimming = wardenEntity.isSubmergedInWater();
+        model.getPart().traverse().forEach(ModelPart::resetTransform);
+        float k = h - (float)wardenEntity.age;
+        this.setHeadAngle(i, j);
+        this.setLimbAngles(f, g);
+        this.setHeadAndBodyAngles(h);
+        this.setTendrilPitches(wardenEntity, h, k);
+        model.updateAnimation(wardenEntity.attackingAnimationState, WardenAnimations.ATTACKING, h);
+        model.updateAnimation(wardenEntity.chargingSonicBoomAnimationState, WardenAnimations.CHARGING_SONIC_BOOM, h);
+        model.updateAnimation(wardenEntity.diggingAnimationState, WardenAnimations.DIGGING, h);
+        model.updateAnimation(wardenEntity.emergingAnimationState, WardenAnimations.EMERGING, h);
+        model.updateAnimation(wardenEntity.roaringAnimationState, WardenAnimations.ROARING, h);
+        model.updateAnimation(wardenEntity.sniffingAnimationState, swimming ? CustomWardenAnimations.SWIMMING_SNIFFING : WardenAnimations.SNIFFING, h);
         model.updateAnimation(((WardenAnimationInterface) wardenEntity).getDyingAnimationState(), CustomWardenAnimations.DYING, h);
 
-        boolean isAnimating = wardenEntity.isInPose(EntityPose.ROARING) || wardenEntity.isInPose(EntityPose.SNIFFING) || wardenEntity.isInPose(EntityPose.EMERGING) || wardenEntity.isInPose(EntityPose.DIGGING);
-
-        if (g > 0 && wardenEntity.isSubmergedInWater() && !isAnimating) { //need to figure out how to also include the death animation & the sonic boom animation in this check
+        boolean cannotSwim = wardenEntity.isInPose(EntityPose.EMERGING) || wardenEntity.isInPose(EntityPose.DIGGING);
+        boolean shouldMoveArms = !wardenEntity.isInPose(EntityPose.ROARING) && !wardenEntity.isInPose(EntityPose.EMERGING) && !wardenEntity.isInPose(EntityPose.DIGGING);
+        if (g > 0 && swimming && !cannotSwim) { //need to figure out how to also include the death animation & the sonic boom animation in this check
 
             this.root.pitch = MathHelper.clamp(g * 5, 0,j * 0.017453292F + 1.5708F);
             this.root.yaw = i * 0.017453292F;
@@ -104,15 +131,17 @@ public class WardenEntityModelMixin<T extends WardenEntity> {
             this.body.yaw = (o * 5) * rad;
             this.body.pivotY = -l * 2;
 
-            this.rightArm.pitch = 0f;
-            this.rightArm.yaw = (-l * 25) * rad;
-            this.rightArm.roll = (m * -90 + 90) * rad;
-            this.rightArm.pivotX = p * 2 - 11;
+            if (shouldMoveArms) {
+                this.rightArm.pitch = 0f;
+                this.rightArm.yaw = (-l * 25) * rad;
+                this.rightArm.roll = (m * -90 + 90) * rad;
+                this.rightArm.pivotX = p * 2 - 11;
 
-            this.leftArm.pitch = 0f;
-            this.leftArm.yaw = (l * 25) * rad;
-            this.leftArm.roll = (m * 90 - 90) * rad;
-            this.leftArm.pivotX = p * -2 + 11;
+                this.leftArm.pitch = 0f;
+                this.leftArm.yaw = (l * 25) * rad;
+                this.leftArm.roll = (m * 90 - 90) * rad;
+                this.leftArm.pivotX = p * -2 + 11;
+            }
 
             this.leftLeg.pitch = (-l * 35 + 15) * rad;
             this.leftLeg.pivotY = 8;
