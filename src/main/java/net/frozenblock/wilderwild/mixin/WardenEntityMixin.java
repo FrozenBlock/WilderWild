@@ -191,11 +191,6 @@ public abstract class WardenEntityMixin extends HostileEntity implements WardenA
                 case DYING:
                     this.getDyingAnimationState().start(warden.age);
                     break;
-                case SWIMMING:
-                    if (this.isSubmergedInWaterOrLava()) {
-                        this.getSwimmingAnimationState().start(warden.age);
-                    }
-                    break;
             }
         }
     }
@@ -284,9 +279,6 @@ public abstract class WardenEntityMixin extends HostileEntity implements WardenA
         if (warden.getPose() == EntityPose.DYING) {
             this.addDigParticles(this.getDyingAnimationState());
         }
-        if (warden.isSubmergedInWater()) {
-            warden.setPose(EntityPose.SWIMMING);
-        }
     }
 
     @Inject(method = "handleStatus", at = @At("HEAD"))
@@ -367,7 +359,7 @@ public abstract class WardenEntityMixin extends HostileEntity implements WardenA
 
     @Inject(method = "getDimensions", at = @At("HEAD"), cancellable = true)
     public void getDimensions(EntityPose pose, CallbackInfoReturnable<EntityDimensions> info) {
-        if (pose == EntityPose.SWIMMING) {
+        if (warden.isSubmergedInWater()) {
             info.setReturnValue(EntityDimensions.fixed(warden.getType().getWidth(), 1.0F));
             info.cancel();
         }
