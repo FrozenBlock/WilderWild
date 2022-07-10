@@ -266,6 +266,9 @@ public abstract class WardenEntityMixin extends HostileEntity implements WardenA
         if (warden.getPose() == EntityPose.DYING) {
             this.addDigParticles(this.getDyingAnimationState());
         }
+        if (warden.isSwimming()) {
+            warden.setPose(EntityPose.SWIMMING);
+        }
     }
 
     @Inject(method = "handleStatus", at = @At("HEAD"))
