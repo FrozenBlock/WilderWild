@@ -13,9 +13,10 @@ public class EarlyRiser implements Runnable {
         String spawnGroup = remapper.mapClassName("intermediary", "net.minecraft.class_1311");
         ClassTinkerers.enumBuilder(spawnGroup, String.class, int.class, boolean.class, boolean.class, int.class).addEnum("FIREFLIES", "fireflies", 56, true, false, 80).build();
 
-        /*String boatType = remapper.mapClassName("intermediary","net.minecraft.class_1690$class_1692");
-        String block = "L" + remapper.mapClassName("intermediary","net.minecraft.class_2248") + ";";
-        //COMMENTED OUT BECAUSE IT REFUSES TO WORK
-        ClassTinkerers.enumBuilder(boatType, block, String.class).addEnum("BAOBAB", RegisterBlocks.BAOBAB_PLANKS, "baobab").build();*/
+        String entityPose = remapper.mapClassName("intermediary", "net.minecraft.class_4050");
+        ClassTinkerers.enumBuilder(entityPose).addEnum("SWIMMING_ROARING").build();
+        ClassTinkerers.enumBuilder(entityPose).addEnum("SWIMMING_SNIFFING").build();
+        ClassTinkerers.enumBuilder(entityPose).addEnum("SWIMMING_DYING").build();
+        ClassTinkerers.enumBuilder(entityPose).addEnum("SWIMMING_EMERGING").build();
     }
 }
