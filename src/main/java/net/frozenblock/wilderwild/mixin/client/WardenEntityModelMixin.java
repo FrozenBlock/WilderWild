@@ -30,7 +30,7 @@ public class WardenEntityModelMixin<T extends WardenEntity> {
 
     @Final
     @Shadow
-    private ModelPart head;
+    protected ModelPart head;
 
     @Final
     @Shadow
@@ -42,7 +42,7 @@ public class WardenEntityModelMixin<T extends WardenEntity> {
 
     @Final
     @Shadow
-    private ModelPart leftLeg;
+    protected ModelPart leftLeg;
 
     @Final
     @Shadow
@@ -68,7 +68,7 @@ public class WardenEntityModelMixin<T extends WardenEntity> {
     @Shadow
     private void setTendrilPitches(T warden, float animationProgress, float tickDelta) {}
 
-    private final WardenEntityModel<T> model = WardenEntityModel.class.cast(this);
+    private final WardenEntityModel model = WardenEntityModel.class.cast(this);
 
     @Inject(at = @At("HEAD"), method = "setTendrilPitches", cancellable = true)
     private void setTendrilPitches(T warden, float animationProgress, float tickDelta, CallbackInfo info) {
@@ -92,7 +92,7 @@ public class WardenEntityModelMixin<T extends WardenEntity> {
     @Inject(method = "setAngles(Lnet/minecraft/entity/mob/WardenEntity;FFFFF)V", at = @At("HEAD"), cancellable = true)
     private void setAngles(T wardenEntity, float f, float g, float h, float i, float j, CallbackInfo ci) {
         ci.cancel();
-        boolean swimming = wardenEntity.isSubmergedInWater();
+        boolean swimming = wardenEntity.isSubmergedInWater() && g > 0;
         model.getPart().traverse().forEach(ModelPart::resetTransform);
         float k = h - (float)wardenEntity.age;
         this.setHeadAngle(i, j);
@@ -107,13 +107,13 @@ public class WardenEntityModelMixin<T extends WardenEntity> {
         model.updateAnimation(wardenEntity.sniffingAnimationState, swimming ? CustomWardenAnimations.SWIMMING_SNIFFING : WardenAnimations.SNIFFING, h);
         model.updateAnimation(((WardenAnimationInterface) wardenEntity).getDyingAnimationState(), CustomWardenAnimations.DYING, h);
 
-        boolean cannotSwim = wardenEntity.isInPose(EntityPose.EMERGING) || wardenEntity.isInPose(EntityPose.DIGGING);
+        boolean cannotSwim = wardenEntity.isInPose(EntityPose.EMERGING) || wardenEntity.isInPose(EntityPose.DIGGING) || wardenEntity.isInPose(EntityPose.DYING);
         boolean shouldMoveArms = !wardenEntity.isInPose(EntityPose.ROARING) && !wardenEntity.isInPose(EntityPose.EMERGING) && !wardenEntity.isInPose(EntityPose.DIGGING);
-        if (g > 0 && swimming && !cannotSwim) { //need to figure out how to also include the death animation & the sonic boom animation in this check
+        if (swimming && !cannotSwim) {
 
             this.root.pitch = MathHelper.clamp(g * 5, 0,j * 0.017453292F + 1.5708F);
             this.root.yaw = i * 0.017453292F;
-            this.root.pivotZ = MathHelper.clamp(g * 5, 0, -24);
+            this.root.pivotZ = Math.max(-g,-24);
 
             float e = f * 0.8662F;
             float l = MathHelper.cos(e);
@@ -123,15 +123,15 @@ public class WardenEntityModelMixin<T extends WardenEntity> {
             float p = MathHelper.cos(n * 2.0F);
             float rad = (float) (Math.PI / 180);
 
-            this.head.pitch = (m * -10 - 60) * rad;
-            this.head.roll = 0;
-            this.head.pivotY = -17;
+            this.head.pitch = Math.max(g * -10, (m * -10 - 60) * rad);
+            this.head.pivotY = Math.max((g * -10) - 13, -17);
 
-            this.body.pitch = (m * 15 - 10) * rad;
+            this.body.pitch = Math.max(g * -10, (m * 15 - 10) * rad);
             this.body.yaw = (o * 5) * rad;
-            this.body.pivotY = -l * 2;
+            this.body.pivotY = Math.min(g * 10, -l * 2);
 
             if (shouldMoveArms) {
+
                 this.rightArm.pitch = 0f;
                 this.rightArm.yaw = (-l * 25) * rad;
                 this.rightArm.roll = (m * -90 + 90) * rad;
@@ -141,6 +141,7 @@ public class WardenEntityModelMixin<T extends WardenEntity> {
                 this.leftArm.yaw = (l * 25) * rad;
                 this.leftArm.roll = (m * 90 - 90) * rad;
                 this.leftArm.pivotX = p * -2 + 11;
+
             }
 
             this.leftLeg.pitch = (-l * 35 + 15) * rad;
@@ -149,7 +150,20 @@ public class WardenEntityModelMixin<T extends WardenEntity> {
             this.rightLeg.pitch = (l * 35 + 15) * rad;
             this.rightLeg.pivotY = 8;
 
-        } else if (g <= 0 && wardenEntity.isSubmergedInWater()) {
+        } else if (!swimming && wardenEntity.isSubmergedInWater()){
+
+            this.rightArm.yaw = 0;
+            this.rightArm.roll = 0;
+
+            this.leftArm.yaw = 0;
+            this.leftArm.roll = 0;
+
+            ci.cancel();
+            model.getPart().traverse().forEach(ModelPart::resetTransform);
+            this.setHeadAngle(i, j);
+            this.setLimbAngles(f, g);
+            this.setHeadAndBodyAngles(h);
+            this.setTendrilPitches(wardenEntity, h, k);
         }
     }
 }
