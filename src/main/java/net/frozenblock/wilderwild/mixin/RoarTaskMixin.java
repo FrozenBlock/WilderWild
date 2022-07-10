@@ -13,7 +13,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(RoarTask.class)
 public class RoarTaskMixin {
 
-    @Inject(at = @At("HEAD"), method = "run", cancellable = true)
+    @Inject(at = @At("TAIL"), method = "run", cancellable = true)
     private void run(ServerWorld serverWorld, WardenEntity wardenEntity, long l, CallbackInfo info) {
         wardenEntity.setPose(wardenEntity.isSwimming() ? WilderWild.SWIMMING_ROARING : EntityPose.ROARING);
     }
