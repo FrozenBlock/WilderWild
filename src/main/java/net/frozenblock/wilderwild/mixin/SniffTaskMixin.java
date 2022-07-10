@@ -14,7 +14,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public class SniffTaskMixin<E extends WardenEntity> {
 
     @Inject(at = @At("HEAD"), method = "finishRunning", cancellable = true)
-    protected void finishRunning(ServerWorld serverWorld, E wardenEntity, long l, CallbackInfo info) {
+    private void finishRunning(ServerWorld serverWorld, E wardenEntity, long l, CallbackInfo info) {
         if (wardenEntity.isInPose(WilderWild.SWIMMING_SNIFFING)) {
             wardenEntity.setPose(EntityPose.STANDING);
         }
