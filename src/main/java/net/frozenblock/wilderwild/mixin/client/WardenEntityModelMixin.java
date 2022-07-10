@@ -50,4 +50,26 @@ public class WardenEntityModelMixin<T extends WardenEntity> {
         model.updateAnimation(((WardenAnimationInterface) wardenEntity).getDyingAnimationState(), CustomWardenAnimations.DYING, h);
         model.updateAnimation(((WardenAnimationInterface) wardenEntity).getSwimmingAnimationState(), CustomWardenAnimations.SWIMMING, h);
     }
+
+    @Inject(method = "setHeadAndBodyAngles", at = @At("TAIL"))
+    private void setHeadAndBodyAngles(float animationProgress, CallbackInfo ci) {
+        float a = (float) (Math.cos(animationProgress * 500D) * 15D - 10D);
+        float b = (float) (Math.sin(animationProgress * 250D) * 5D);
+        float c = (float) (Math.cos(animationProgress * 500D) * -2D);
+
+        float d = (float) (Math.sin(animationProgress * 500D) * -10D - 60D);
+
+        float e = (float) (-Math.cos(animationProgress * 500D) * 25D);
+        float f = (float) (Math.sin(animationProgress * 500D) * -90D + 90D);
+        float g = (float) (Math.sin(animationProgress * 1000D) * 2D + 2D);
+
+        float h = (float) (Math.cos(animationProgress * 500D) * 25D);
+        float i = (float) (-Math.sin(animationProgress * 500D) * -90D - 90D);
+        float j = (float) (Math.sin(animationProgress * 1000D) * 2D - 2D);
+
+        float k = (float) (Math.cos(animationProgress * 500D) * 35D + 15D);
+
+        float l = (float) (-Math.cos(animationProgress * 500D) * 35D + 15D);
+        // im stupid im still trying to figure out how to implement these i hate entity models
+    }
 }
