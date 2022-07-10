@@ -8,6 +8,10 @@ import net.minecraft.client.model.ModelPart;
 import net.minecraft.client.render.entity.model.WardenEntityModel;
 import net.minecraft.entity.EntityPose;
 import net.minecraft.entity.mob.WardenEntity;
+import net.minecraft.fluid.Fluid;
+import net.minecraft.fluid.Fluids;
+import net.minecraft.fluid.LavaFluid;
+import net.minecraft.tag.TagKey;
 import net.minecraft.util.math.MathHelper;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
@@ -82,11 +86,11 @@ public class WardenEntityModelMixin<T extends WardenEntity> {
 
         boolean isAnimating = wardenEntity.isInPose(EntityPose.ROARING) || wardenEntity.isInPose(EntityPose.SNIFFING) || wardenEntity.isInPose(EntityPose.EMERGING) || wardenEntity.isInPose(EntityPose.DIGGING);
 
-        if (g > 0 && wardenEntity.isSubmergedInWater() && !isAnimating) { //need to figure out how to also include the death animation & the sonic boom animation in this check
+        if (g > 0 && wardenEntity.isSubmergedInWater() /*|| wardenEntity.isSubmergedIn()*/ && !isAnimating) { //need to figure out how to also include the death animation & the sonic boom animation in this check
 
             this.root.pitch = MathHelper.clamp(g * 5, 0,j * 0.017453292F + 1.5708F);
             this.root.yaw = i * 0.017453292F;
-            this.root.pivotZ = MathHelper.clamp(g * 5, 0, -24);
+            this.root.pivotZ = MathHelper.clamp(g, 0, -24);
 
             float e = f * 0.8662F;
             float l = MathHelper.cos(e);
@@ -96,7 +100,7 @@ public class WardenEntityModelMixin<T extends WardenEntity> {
             float p = MathHelper.cos(n * 2.0F);
             float rad = (float) (Math.PI / 180);
 
-            this.head.pitch = (m * -10 - 60) * rad;
+            this.head.pitch = MathHelper.clamp(g * 5, 0,(m * -10 - 60) * rad);
             this.head.roll = 0;
             this.head.pivotY = -17;
 
@@ -106,12 +110,12 @@ public class WardenEntityModelMixin<T extends WardenEntity> {
 
             this.rightArm.pitch = 0f;
             this.rightArm.yaw = (-l * 25) * rad;
-            this.rightArm.roll = (m * -90 + 90) * rad;
+            this.rightArm.roll = MathHelper.clamp(g * 5, (m * -90 + 90) * rad, 0);
             this.rightArm.pivotX = p * 2 - 11;
 
             this.leftArm.pitch = 0f;
             this.leftArm.yaw = (l * 25) * rad;
-            this.leftArm.roll = (m * 90 - 90) * rad;
+            this.leftArm.roll = MathHelper.clamp(-g * 5, 0,(m * 90 - 90) * rad);
             this.leftArm.pivotX = p * -2 + 11;
 
             this.leftLeg.pitch = (-l * 35 + 15) * rad;
@@ -120,7 +124,6 @@ public class WardenEntityModelMixin<T extends WardenEntity> {
             this.rightLeg.pitch = (l * 35 + 15) * rad;
             this.rightLeg.pivotY = 8;
 
-        } else if (g <= 0 && wardenEntity.isSubmergedInWater()) {
         }
     }
 }
