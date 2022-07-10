@@ -81,12 +81,13 @@ public class WardenEntityModelMixin<T extends WardenEntity> {
     private void setAngles(T wardenEntity, float f, float g, float h, float i, float j, CallbackInfo ci) {
         model.updateAnimation(((WardenAnimationInterface) wardenEntity).getDyingAnimationState(), CustomWardenAnimations.DYING, h);
 
-        boolean isAnimating = !wardenEntity.isInPose(EntityPose.STANDING) || !wardenEntity.isInPose(EntityPose.SWIMMING);
+        boolean isAnimating = wardenEntity.isInPose(EntityPose.ROARING) || wardenEntity.isInPose(EntityPose.SNIFFING) || wardenEntity.isInPose(EntityPose.EMERGING) || wardenEntity.isInPose(EntityPose.DIGGING);
 
         if (wardenEntity.isSubmergedInWater() && !isAnimating) {
 
-            this.root.pitch = j * 0.017453292F;
+            this.root.pitch = j * 0.017453292F + 1.5708F;
             this.root.yaw = i * 0.017453292F;
+            this.root.pivotZ = -24;
 
             float e = f * 0.8662F;
             float l = MathHelper.cos(e);
@@ -98,7 +99,7 @@ public class WardenEntityModelMixin<T extends WardenEntity> {
 
             this.head.pitch = (n * -10 - 60) * rad;
             this.head.roll = 0;
-            this.head.pivotY = 2;
+            this.head.pivotY = -17;
 
             this.body.pitch = (n * 15 - 10) * rad;
             this.body.yaw = (o * 5) * rad;
@@ -107,15 +108,19 @@ public class WardenEntityModelMixin<T extends WardenEntity> {
             this.rightArm.pitch = 0f;
             this.rightArm.yaw = (-l * 25) * rad;
             this.rightArm.roll = (n * -90 + 90) * rad;
-            this.rightArm.pivotX = p * 2 + 2;
+            this.rightArm.pivotX = p * 2 - 11;
 
             this.leftArm.pitch = 0f;
             this.leftArm.yaw = (l * 25) * rad;
-            this.leftArm.roll = (-n * -90 + 90) * rad;
-            this.leftArm.pivotX = p * -2 - 2;
+            this.leftArm.roll = (n * 90 - 90) * rad;
+            this.leftArm.pivotX = p * -2 + 11;
 
             this.leftLeg.pitch = (-l * 35 + 15) * rad;
+            this.leftLeg.pivotY = 8;
+
             this.rightLeg.pitch = (l * 35 + 15) * rad;
+            this.rightLeg.pivotY = 8;
+
         }
     }
 }
