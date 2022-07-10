@@ -7,6 +7,7 @@ import net.frozenblock.wilderwild.entity.render.animations.WardenAnimationInterf
 import net.minecraft.client.model.ModelPart;
 import net.minecraft.client.render.entity.model.WardenEntityModel;
 import net.minecraft.entity.mob.WardenEntity;
+import net.minecraft.util.math.MathHelper;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -20,12 +21,38 @@ public class WardenEntityModelMixin<T extends WardenEntity> {
     @Final
     @Shadow
     private ModelPart root;
+
+    @Final
+    @Shadow
+    protected ModelPart body;
+
+    @Final
+    @Shadow
+    private ModelPart head;
+
     @Final
     @Shadow
     protected ModelPart rightTendril;
+
     @Final
     @Shadow
     protected ModelPart leftTendril;
+
+    @Final
+    @Shadow
+    private ModelPart leftLeg;
+
+    @Final
+    @Shadow
+    protected ModelPart leftArm;
+
+    @Final
+    @Shadow
+    protected ModelPart rightLeg;
+
+    @Final
+    @Shadow
+    protected ModelPart rightArm;
 
     private final WardenEntityModel<T> model = WardenEntityModel.class.cast(this);
 
@@ -51,31 +78,39 @@ public class WardenEntityModelMixin<T extends WardenEntity> {
     @Inject(method = "setAngles(Lnet/minecraft/entity/mob/WardenEntity;FFFFF)V", at = @At("TAIL"))
     private void setAngles(T wardenEntity, float f, float g, float h, float i, float j, CallbackInfo ci) {
         model.updateAnimation(((WardenAnimationInterface) wardenEntity).getDyingAnimationState(), CustomWardenAnimations.DYING, h);
-        if (wardenEntity.isInSwimmingPose()) {
-            this.root.pitch = wardenEntity.getHeadYaw();
+        if (wardenEntity.isSubmergedInWater()) {
+
+            this.root.pitch = j;
+            this.root.yaw = i;
+
+            float e = f * 0.8662F;
+            float l = MathHelper.cos(e);
+            float m = Math.min(0.5F, 3.0F * l);
+            float n = MathHelper.sin(e);
+            float o = MathHelper.sin(m * 0.5F);
+            float p = MathHelper.cos(m * 2.0F);
+            float rad = (float) (Math.PI / 180);
+
+            this.head.pitch = (n * -10 - 60) * rad;
+            this.head.roll = 0;
+            this.head.pivotY = 2;
+
+            this.body.pitch = (n * 15 - 10) * rad;
+            this.body.yaw = (o * 5) * rad;
+            this.body.pivotY = -l * 2;
+
+            this.rightArm.pitch = 0f;
+            this.rightArm.yaw = (-l * 25) * rad;
+            this.rightArm.roll = (n * -90 + 90) * rad;
+            this.rightArm.pivotX = p * 2 + 2;
+
+            this.leftArm.pitch = 0f;
+            this.leftArm.yaw = (l * 25) * rad;
+            this.leftArm.roll = (-n * -90 + 90) * rad;
+            this.leftArm.pivotX = p * -2 - 2;
+
+            this.leftLeg.pitch = (-l * 35 + 15) * rad;
+            this.rightLeg.pitch = (l * 35 + 15) * rad;
         }
-        model.updateAnimation(((WardenAnimationInterface) wardenEntity).getSwimmingAnimationState(), CustomWardenAnimations.SWIMMING, h);
-    }
-
-    @Inject(method = "setHeadAndBodyAngles", at = @At("TAIL"))
-    private void setHeadAndBodyAngles(float animationProgress, CallbackInfo ci) {
-        float a = (float) (Math.cos(animationProgress * 500D) * 15D - 10D);
-        float b = (float) (Math.sin(animationProgress * 250D) * 5D);
-        float c = (float) (Math.cos(animationProgress * 500D) * -2D);
-
-        float d = (float) (Math.sin(animationProgress * 500D) * -10D - 60D);
-
-        float e = (float) (-Math.cos(animationProgress * 500D) * 25D);
-        float f = (float) (Math.sin(animationProgress * 500D) * -90D + 90D);
-        float g = (float) (Math.sin(animationProgress * 1000D) * 2D + 2D);
-
-        float h = (float) (Math.cos(animationProgress * 500D) * 25D);
-        float i = (float) (-Math.sin(animationProgress * 500D) * -90D - 90D);
-        float j = (float) (Math.sin(animationProgress * 1000D) * 2D - 2D);
-
-        float k = (float) (Math.cos(animationProgress * 500D) * 35D + 15D);
-
-        float l = (float) (-Math.cos(animationProgress * 500D) * 35D + 15D);
-        // im stupid im still trying to figure out how to implement these i hate entity models
     }
 }
