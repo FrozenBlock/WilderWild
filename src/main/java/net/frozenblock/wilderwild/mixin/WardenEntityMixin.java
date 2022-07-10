@@ -1,7 +1,6 @@
 package net.frozenblock.wilderwild.mixin;
 
 import com.mojang.logging.LogUtils;
-import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.entity.ai.WardenMoveControl;
 import net.frozenblock.wilderwild.entity.ai.WardenNavigation;
 import net.frozenblock.wilderwild.entity.render.animations.WardenAnimationInterface;
