@@ -101,28 +101,28 @@ public class WardenEntityModelMixin<T extends WardenEntity> {
             float p = MathHelper.cos(n * 2.0F);
             float rad = (float) (Math.PI / 180);
 
-            this.head.pitch = (m * -10 - 60) * rad;
+            this.head.pitch = MathHelper.clamp(g * 5, 0,(m * -10 - 60) * rad);
             this.head.roll = 0;
-            this.head.pivotY = -17;
+            this.head.pivotY = MathHelper.clamp(g * 5, -13,-17);
 
-            this.body.pitch = (m * 15 - 10) * rad;
-            this.body.yaw = (o * 5) * rad;
-            this.body.pivotY = -l * 2;
+            this.body.pitch = MathHelper.clamp(g * 5, 0,(m * 15 - 10) * rad);
+            this.body.yaw = MathHelper.clamp(g * 5, 0,(o * 5) * rad);
+            this.body.pivotY = MathHelper.clamp(g * 5, 0,-l * 2);
 
             this.rightArm.pitch = 0f;
-            this.rightArm.yaw = (-l * 25) * rad;
-            this.rightArm.roll = (m * -90 + 90) * rad;
-            this.rightArm.pivotX = p * 2 - 11;
+            this.rightArm.yaw = MathHelper.clamp(g * 5, 0,(-l * 25) * rad);
+            this.rightArm.roll = MathHelper.clamp(g * 5, 0,(m * -90 + 90) * rad);
+            this.rightArm.pivotX = MathHelper.clamp(g * 5, -13,p * 2 - 11);
 
             this.leftArm.pitch = 0f;
-            this.leftArm.yaw = (l * 25) * rad;
-            this.leftArm.roll = (m * 90 - 90) * rad;
-            this.leftArm.pivotX = p * -2 + 11;
+            this.leftArm.yaw = MathHelper.clamp(g * 5, 0,(l * 25) * rad);
+            this.leftArm.roll = MathHelper.clamp(g * 5, 0,(m * 90 - 90) * rad);
+            this.leftArm.pivotX = MathHelper.clamp(g * 5, -13,p * -2 + 11);
 
-            this.leftLeg.pitch = (-l * 35 + 15) * rad;
+            this.leftLeg.pitch = MathHelper.clamp(g * 5, 0,(-l * 35 + 15) * rad);
             this.leftLeg.pivotY = 8;
 
-            this.rightLeg.pitch = (l * 35 + 15) * rad;
+            this.rightLeg.pitch = MathHelper.clamp(g * 5, 0,(l * 35 + 15) * rad);
             this.rightLeg.pivotY = 8;
 
         }
