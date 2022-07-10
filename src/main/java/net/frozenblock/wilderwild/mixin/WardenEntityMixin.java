@@ -1,7 +1,6 @@
 package net.frozenblock.wilderwild.mixin;
 
 import com.mojang.logging.LogUtils;
-import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.entity.ai.WardenMoveControl;
 import net.frozenblock.wilderwild.entity.ai.WardenNavigation;
 import net.frozenblock.wilderwild.entity.render.animations.WardenAnimationInterface;
@@ -77,12 +76,6 @@ public abstract class WardenEntityMixin extends HostileEntity implements WardenA
 
     private final AnimationState swimmingAnimationState = new AnimationState();
 
-    //private final AnimationState swimmingDyingAnimationState = new AnimationState();
-
-    private final AnimationState swimmingRoaringAnimationState = new AnimationState();
-
-    private final AnimationState swimmingSniffingAnimationState = new AnimationState();
-
     @Override
     public AnimationState getDyingAnimationState() {
         return this.dyingAnimationState;
@@ -91,16 +84,6 @@ public abstract class WardenEntityMixin extends HostileEntity implements WardenA
     @Override
     public AnimationState getSwimmingAnimationState() {
         return this.swimmingAnimationState;
-    }
-
-    @Override
-    public AnimationState getSwimmingSniffingAnimationState() {
-        return this.swimmingSniffingAnimationState;
-    }
-
-    @Override
-    public AnimationState getSwimmingRoaringAnimationState() {
-        return this.swimmingRoaringAnimationState;
     }
 
     @Inject(at = @At("HEAD"), method = "initialize")
@@ -116,7 +99,7 @@ public abstract class WardenEntityMixin extends HostileEntity implements WardenA
 
     @Inject(at = @At("HEAD"), method = "pushAway")
     protected void pushAway(Entity entity, CallbackInfo info) {
-    if (!warden.getBrain().hasMemoryModule(MemoryModuleType.ATTACK_COOLING_DOWN) && !warden.getBrain().hasMemoryModule(MemoryModuleType.TOUCH_COOLDOWN) && !(entity instanceof WardenEntity) && !this.isDiggingOrEmerging() && !warden.isInPose(EntityPose.DYING) && !warden.isInPose(EntityPose.ROARING) && !warden.isInPose(WilderWild.SWIMMING_ROARING) && !warden.isInPose(WilderWild.SWIMMING_EMERGING) && !warden.isInPose(WilderWild.SWIMMING_DYING)) {
+    if (!warden.getBrain().hasMemoryModule(MemoryModuleType.ATTACK_COOLING_DOWN) && !warden.getBrain().hasMemoryModule(MemoryModuleType.TOUCH_COOLDOWN) && !(entity instanceof WardenEntity) && !this.isDiggingOrEmerging() && !warden.isInPose(EntityPose.DYING) && !warden.isInPose(EntityPose.ROARING)) {
             if (!entity.isInvulnerable() && entity instanceof LivingEntity livingEntity) {
                 if (!(entity instanceof PlayerEntity player)) {
                     warden.increaseAngerAt(entity, Angriness.ANGRY.getThreshold() + 20, false);
@@ -179,22 +162,9 @@ public abstract class WardenEntityMixin extends HostileEntity implements WardenA
     @Inject(method = "onTrackedDataSet", at = @At("HEAD"), cancellable = true)
     public void onTrackedDataSet(TrackedData<?> data, CallbackInfo ci) {
         if (POSE.equals(data)) {
-            if (this.getPose() == WilderWild.SWIMMING_ROARING) {
-                this.getSwimmingRoaringAnimationState().start(warden.age);
-                ci.cancel();
-            }
-            if (this.getPose() == WilderWild.SWIMMING_SNIFFING) {
-                this.getSwimmingSniffingAnimationState().start(warden.age);
-                ci.cancel();
-            }
-            switch(this.getPose()) {
+            switch(warden.getPose()) {
                 case DYING:
                     this.getDyingAnimationState().start(warden.age);
-                    break;
-                case SWIMMING:
-                    if (this.isSubmergedInWaterOrLava()) {
-                        this.getSwimmingAnimationState().start(warden.age);
-                    }
                     break;
             }
         }
@@ -284,16 +254,10 @@ public abstract class WardenEntityMixin extends HostileEntity implements WardenA
         if (warden.getPose() == EntityPose.DYING) {
             this.addDigParticles(this.getDyingAnimationState());
         }
-        if (warden.isSwimming()) {
-            warden.setPose(EntityPose.SWIMMING);
-        }
     }
 
     @Inject(method = "handleStatus", at = @At("HEAD"))
     private void handleStatus(byte status, CallbackInfo ci) {
-        if (status == (byte) 4) {
-            this.getSwimmingRoaringAnimationState().stop();
-        }
         if (status == (byte) 69420) {
             this.addAdditionalDeathParticles();
         }
@@ -367,7 +331,7 @@ public abstract class WardenEntityMixin extends HostileEntity implements WardenA
 
     @Inject(method = "getDimensions", at = @At("HEAD"), cancellable = true)
     public void getDimensions(EntityPose pose, CallbackInfoReturnable<EntityDimensions> info) {
-        if (pose == EntityPose.SWIMMING) {
+        if (warden.isSubmergedInWater()) {
             info.setReturnValue(EntityDimensions.fixed(warden.getType().getWidth(), 1.0F));
             info.cancel();
         }

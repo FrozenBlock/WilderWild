@@ -56,10 +56,6 @@ public class WilderWild implements ModInitializer {
 
     //ClassTinkerers
     public static final SpawnGroup FIREFLIES = ClassTinkerers.getEnum(SpawnGroup.class, "FIREFLIES");
-    public static final EntityPose SWIMMING_ROARING = ClassTinkerers.getEnum(EntityPose.class, "SWIMMING_ROARING");
-    public static final EntityPose SWIMMING_SNIFFING = ClassTinkerers.getEnum(EntityPose.class, "SWIMMING_SNIFFING");
-    public static final EntityPose SWIMMING_DYING = ClassTinkerers.getEnum(EntityPose.class, "SWIMMING_DYING");
-    public static final EntityPose SWIMMING_EMERGING = ClassTinkerers.getEnum(EntityPose.class, "SWIMMING_EMERGING");
 
     @Override
     public void onInitialize() {
