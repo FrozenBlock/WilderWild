@@ -61,6 +61,7 @@ public class AncientHornProjectileEntity extends PersistentProjectileEntity {
     public double vecY;
     public double vecZ;
     public boolean shotByPlayer;
+    public int bubbles;
     private BlockState inBlockState;
 
     public AncientHornProjectileEntity(@NotNull EntityType<? extends PersistentProjectileEntity> entityType, World world) {
@@ -83,6 +84,10 @@ public class AncientHornProjectileEntity extends PersistentProjectileEntity {
 
     public void tick() {
         this.baseTick();
+        if (this.bubbles > 0 && this.world instanceof ServerWorld server) {
+            --this.bubbles;
+            EasyPacket.EasyFloatingSculkBubblePacket.createParticle(server, this.getPos(), Math.random() > 0.7 ? 1 : 0, 20 + (int)(Math.random()*40), 0.05, server.random.nextBetween(1, 3));
+        }
         if (this.aliveTicks > 300) {
             this.remove(RemovalReason.DISCARDED);
         }
@@ -356,6 +361,7 @@ public class AncientHornProjectileEntity extends PersistentProjectileEntity {
             nbt.putDouble("originY", this.vecY);
             nbt.putDouble("originZ", this.vecZ);
             nbt.putBoolean("shotByPlayer", this.shotByPlayer);
+            nbt.putInt("bubbles", this.bubbles);
         }
     }
 
@@ -371,6 +377,7 @@ public class AncientHornProjectileEntity extends PersistentProjectileEntity {
             this.vecY = nbt.getDouble("originY");
             this.vecZ = nbt.getDouble("originZ");
             this.shotByPlayer = nbt.getBoolean("shotByPlayer");
+            this.bubbles = nbt.getInt("bubbles");
         }
     }
 
