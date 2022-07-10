@@ -349,6 +349,7 @@ public abstract class WardenEntityMixin extends HostileEntity implements WardenA
         EntityDimensions entityDimensions = super.getDimensions(pose);
         if (warden.isSwimming()) {
             info.setReturnValue(EntityDimensions.fixed(entityDimensions.width, 1.0F));
+            info.cancel();
         }
     }
 }
