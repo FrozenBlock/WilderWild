@@ -87,11 +87,11 @@ public class WardenEntityModelMixin<T extends WardenEntity> {
 
         boolean isAnimating = wardenEntity.isInPose(EntityPose.ROARING) || wardenEntity.isInPose(EntityPose.SNIFFING) || wardenEntity.isInPose(EntityPose.EMERGING) || wardenEntity.isInPose(EntityPose.DIGGING);
 
-        if (wardenEntity.isSubmergedInWater() && !isAnimating) { //need to figure out how to also include the death animation & the sonic boom animation in this check
+        if (wardenEntity.isSubmergedInWater() && g > 0 && !isAnimating) { //need to figure out how to also include the death animation & the sonic boom animation in this check
 
             this.root.pitch = MathHelper.clamp(g * 5, 0,j * 0.017453292F + 1.5708F);
             this.root.yaw = i * 0.017453292F;
-            this.root.pivotZ = -24;
+            this.root.pivotZ = MathHelper.clamp(g * 5, 0, -24);
 
             float e = f * 0.8662F;
             float l = MathHelper.cos(e);
