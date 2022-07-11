@@ -31,7 +31,7 @@ public abstract class FlowableFluidMixin {
     }
 
 
-    @Inject(at = @At("RETURN"), method = "canFlow", cancellable = true)
+    /*@Inject(at = @At("RETURN"), method = "canFlow", cancellable = true)
     private void canFlowHollowedLog(BlockView world, BlockPos fluidPos, BlockState fluidBlockState, Direction flowDirection, BlockPos flowTo, BlockState flowToBlockState, FluidState fluidState, Fluid fluid, CallbackInfoReturnable<Boolean> cir) {
         if (world.getFluidState(fluidPos).getFluid() == Fluids.WATER && world.getBlockState(fluidPos).getBlock() instanceof HollowedLogBlock) {
             if (world.getBlockState(fluidPos).get(HollowedLogBlock.FACING) != flowDirection) {
@@ -109,5 +109,5 @@ public abstract class FlowableFluidMixin {
         }
 
         return bl;
-    }
+    }*/
 }

@@ -59,7 +59,7 @@ public class WardenNavigation extends MobNavigation {
             BlockState blockState = this.world.getBlockState(new BlockPos(this.entity.getX(), i, this.entity.getZ()));
             int j = 0;
 
-            while(blockState.isOf(Blocks.WATER)) {
+            while(blockState.getFluidState().isIn(FluidTags.WATER) || blockState.getFluidState().isIn(FluidTags.LAVA)) {
                 blockState = this.world.getBlockState(new BlockPos(this.entity.getX(), ++i, this.entity.getZ()));
                 if (++j > 16) {
                     return this.entity.getBlockY();

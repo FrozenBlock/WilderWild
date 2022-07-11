@@ -320,7 +320,7 @@ public abstract class WardenEntityMixin extends HostileEntity implements WardenA
     }
 
     private boolean isTouchingWaterOrLava() {
-        return warden.isTouchingWater() || warden.isInLava();
+        return warden.isInsideWaterOrBubbleColumn() || warden.isInLava();
     }
 
     private boolean isSubmergedInWaterOrLava() {
@@ -330,7 +330,7 @@ public abstract class WardenEntityMixin extends HostileEntity implements WardenA
     @Inject(method = "getDimensions", at = @At("HEAD"), cancellable = true)
     public void getDimensions(EntityPose pose, CallbackInfoReturnable<EntityDimensions> info) {
         if (warden.isSubmergedInWater()) {
-            info.setReturnValue(EntityDimensions.fixed(warden.getType().getWidth(), 1.0F));
+            info.setReturnValue(EntityDimensions.fixed(warden.getType().getWidth(), 1.8F));
             info.cancel();
         }
     }
