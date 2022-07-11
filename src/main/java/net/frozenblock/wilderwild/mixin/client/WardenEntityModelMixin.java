@@ -157,7 +157,7 @@ public class WardenEntityModelMixin<T extends WardenEntity> {
             this.rightLeg.pitch = (l * 35 + 15) * rad;
             this.rightLeg.pivotY = 8;
 
-        } else if (!swimming && wardenEntity.isSubmergedInWater()){
+        } else if (wardenEntity.isSubmergedInWater() && g <= 0){
 
             this.rightArm.yaw = 0;
             this.rightArm.roll = 0;
