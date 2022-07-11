@@ -33,7 +33,7 @@ public class FireflyBrain {
     }
 
     private static void addIdleActivities(Brain<FireflyEntity> brain) {
-        brain.setTaskList(Activity.IDLE, ImmutableList.of(Pair.of(1, new WalkTowardsLookTargetTask<>(FireflyBrain::getHidingPlaceLookTarget, 1, 16, 1.0F)), Pair.of(2, new WalkTowardsLookTargetTask<>(FireflyBrain::getLookTarget, 7, 16, 1.0F)), Pair.of(3, new TimeLimitedTask<>(new FollowMobTask((firefly) -> true, 6.0F), UniformIntProvider.create(30, 60))), Pair.of(4, new RandomTask<>(ImmutableList.of(Pair.of(new NoPenaltyStrollTask(1.0F), 2), Pair.of(new GoTowardsLookTarget(1.0F, 3), 2), Pair.of(new WaitTask(30, 60), 1))))), ImmutableSet.of());
+        brain.setTaskList(Activity.IDLE, ImmutableList.of(/*Pair.of(1, new WalkTowardsLookTargetTask<>(FireflyBrain::getHidingPlaceLookTarget, 1, 16, 1.0F)), */Pair.of(2, new WalkTowardsLookTargetTask<>(FireflyBrain::getLookTarget, 7, 16, 1.0F)), Pair.of(3, new TimeLimitedTask<>(new FollowMobTask((firefly) -> true, 6.0F), UniformIntProvider.create(30, 60))), Pair.of(4, new RandomTask<>(ImmutableList.of(Pair.of(new NoPenaltyStrollTask(1.0F), 2), Pair.of(new GoTowardsLookTarget(1.0F, 3), 2), Pair.of(new WaitTask(30, 60), 1))))), ImmutableSet.of());
     }
 
     public static void updateActivities(FireflyEntity firefly) {
@@ -55,10 +55,10 @@ public class FireflyBrain {
         return optional.filter(globalPos -> globalPos.getDimension() == firefly.world.getRegistryKey()).isPresent();
     }
 
-    public static boolean isInHidingPlaceDimension(FireflyEntity firefly) {
+    /*public static boolean isInHidingPlaceDimension(FireflyEntity firefly) {
         Optional<GlobalPos> optional = firefly.getBrain().getOptionalMemory(MemoryModuleType.HIDING_PLACE);
         return optional.filter(globalPos -> globalPos.getDimension() == firefly.world.getRegistryKey()).isPresent();
-    }
+    }*/
 
     public static void rememberHome(LivingEntity firefly, BlockPos pos) {
         Brain<?> brain = firefly.getBrain();
@@ -66,23 +66,23 @@ public class FireflyBrain {
         brain.remember(MemoryModuleType.HOME, globalPos);
     }
 
-    public static void rememberHidingPlace(LivingEntity firefly, BlockPos pos) {
+    /*public static void rememberHidingPlace(LivingEntity firefly, BlockPos pos) {
         Brain<?> brain = firefly.getBrain();
         GlobalPos globalPos = GlobalPos.create(firefly.getWorld().getRegistryKey(), pos);
         brain.remember(MemoryModuleType.HIDING_PLACE, globalPos);
-    }
+    }*/
 
-    private static boolean shouldGoToHidingPlace(LivingEntity firefly, GlobalPos pos) {
+    /*private static boolean shouldGoToHidingPlace(LivingEntity firefly, GlobalPos pos) {
         World world = firefly.getWorld();
         return ((FireflyEntity) firefly).hasHidingPlace && world.getRegistryKey() == pos.getDimension() && world.isDay();
-    }
+    }*/
 
     private static boolean shouldGoTowardsHome(LivingEntity firefly, GlobalPos pos) {
         World world = firefly.getWorld();
-        return ((FireflyEntity) firefly).hasHome && world.getRegistryKey() == pos.getDimension();
+        return ((FireflyEntity) firefly).hasHome && world.getRegistryKey() == pos.getDimension() && !((FireflyEntity) firefly).shouldHide();
     }
 
-    private static Optional<LookTarget> getHidingPlaceLookTarget(LivingEntity firefly) {
+    /*private static Optional<LookTarget> getHidingPlaceLookTarget(LivingEntity firefly) {
         Brain<?> brain = firefly.getBrain();
         Optional<GlobalPos> hiding = brain.getOptionalMemory(MemoryModuleType.HIDING_PLACE);
         if (hiding.isPresent()) {
@@ -92,7 +92,7 @@ public class FireflyBrain {
             }
         }
         return Optional.empty();
-    }
+    }*/
 
     private static Optional<LookTarget> getLookTarget(LivingEntity firefly) {
         Brain<?> brain = firefly.getBrain();
