@@ -120,6 +120,7 @@ public class WardenEntityModelMixin<T extends WardenEntity> {
 
             this.bone.pitch = MathHelper.clamp(g * 5, 0,j * 0.017453292F + 1.5708F);
             this.bone.yaw = i * 0.017453292F;
+            this.bone.pivotY = 0F;
             this.bone.pivotZ = Math.max(-g,-24);
 
             float e = f * 0.8662F;
@@ -155,17 +156,17 @@ public class WardenEntityModelMixin<T extends WardenEntity> {
 
             }
 
-            //this.leftLeg.pitch = (-l * 35 + 15) * rad;
-            //this.leftLeg.pivotY = 8;
+            this.leftLeg.pitch = (-l * 35 + 15) * rad;
+            this.leftLeg.pivotY = 8;
 
-            //this.rightLeg.pitch = (l * 35 + 15) * rad;
-            //this.rightLeg.pivotY = 8;
+            this.rightLeg.pitch = (l * 35 + 15) * rad;
+            this.rightLeg.pivotY = 8;
 
         } else if (wardenEntity.isSubmergedInWater() && g <= 0){
 
-            this.rightLeg.pivotY = 0;
+            this.rightLeg.pivotY = -8;
 
-            this.leftLeg.pivotY = 0;
+            this.leftLeg.pivotY = -8;
 
             ci.cancel();
             model.getPart().traverse().forEach(ModelPart::resetTransform);
