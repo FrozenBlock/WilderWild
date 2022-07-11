@@ -2,6 +2,7 @@ package net.frozenblock.wilderwild.registry;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
+import net.fabricmc.fabric.api.object.builder.v1.trade.TradeOfferHelper;
 import net.fabricmc.loader.api.FabricLoader;
 import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.item.AncientCityGoatHorn;
@@ -14,6 +15,7 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.Rarity;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.util.registry.RegistryKey;
+import net.minecraft.village.TradeOffers;
 
 public class RegisterItems {
     public static final AncientCityGoatHorn ANCIENT_HORN = new AncientCityGoatHorn(new FabricItemSettings().group(ItemGroup.MISC).maxCount(1).rarity(Rarity.EPIC), WilderWild.WILD_HORNS);
@@ -102,5 +104,10 @@ public class RegisterItems {
         if (FabricLoader.getInstance().getEnvironmentType() == EnvType.CLIENT) {
             ModelPredicateProviderRegistry.register(ANCIENT_HORN, new Identifier("tooting"), (itemStack, clientWorld, livingEntity, seed) -> livingEntity != null && livingEntity.isUsingItem() && livingEntity.getActiveItem() == itemStack ? 1.0F : 0.0F);
         }
+
+        TradeOfferHelper.registerWanderingTraderOffers(2, factories -> {
+            factories.add(new TradeOffers.SellItemFactory(RegisterBlocks.BAOBAB_SAPLING.asItem(), 5, 1, 8, 1));
+            factories.add(new TradeOffers.SellItemFactory(RegisterBlocks.CYPRESS_SAPLING.asItem(), 5, 1, 8, 1));
+        });
     }
 }

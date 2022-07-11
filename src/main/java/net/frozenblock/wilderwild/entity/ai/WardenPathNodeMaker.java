@@ -10,6 +10,7 @@ import net.minecraft.entity.ai.pathing.*;
 import net.minecraft.entity.ai.pathing.AmphibiousPathNodeMaker;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.passive.FishEntity;
+import net.minecraft.entity.passive.WanderingTraderEntity;
 import net.minecraft.fluid.Fluids;
 import net.minecraft.tag.FluidTags;
 import net.minecraft.util.math.BlockPos;
@@ -17,6 +18,7 @@ import net.minecraft.util.math.Box;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.BlockView;
+import net.minecraft.world.WanderingTraderManager;
 import net.minecraft.world.chunk.ChunkCache;
 import org.jetbrains.annotations.Nullable;
 
@@ -38,7 +40,7 @@ public class WardenPathNodeMaker extends LandPathNodeMaker {
         this.oldWalkablePenalty = entity.getPathfindingPenalty(PathNodeType.WALKABLE);
         entity.setPathfindingPenalty(PathNodeType.WALKABLE, 0.0F);
         this.oldWaterBorderPenalty = entity.getPathfindingPenalty(PathNodeType.WATER_BORDER);
-        entity.setPathfindingPenalty(PathNodeType.WATER_BORDER, 0.0F);
+        entity.setPathfindingPenalty(PathNodeType.WATER_BORDER, 4.0F);
     }
 
     @Override
@@ -63,7 +65,7 @@ public class WardenPathNodeMaker extends LandPathNodeMaker {
         } else {
             BlockPos.Mutable mutable = new BlockPos.Mutable();
             int i = this.entity.getBlockY();
-            BlockState blockState = this.cachedWorld.getBlockState(mutable.set(this.entity.getX(), (double)i, this.entity.getZ()));
+            BlockState blockState = this.cachedWorld.getBlockState(mutable.set(this.entity.getX(), i, this.entity.getZ()));
             if (!this.entity.canWalkOnFluid(blockState.getFluidState())) {
                 if (this.canSwim() && this.entity.isTouchingWater()) {
                     while(true) {
@@ -72,7 +74,7 @@ public class WardenPathNodeMaker extends LandPathNodeMaker {
                             break;
                         }
 
-                        blockState = this.cachedWorld.getBlockState(mutable.set(this.entity.getX(), (double)(++i), this.entity.getZ()));
+                        blockState = this.cachedWorld.getBlockState(mutable.set(this.entity.getX(), ++i, this.entity.getZ()));
                     }
                 } else if (this.entity.isOnGround()) {
                     i = MathHelper.floor(this.entity.getY() + 0.5);
@@ -103,10 +105,10 @@ public class WardenPathNodeMaker extends LandPathNodeMaker {
             PathNodeType pathNodeType = this.getNodeType(this.entity, blockPos.getX(), i, blockPos.getZ());
             if (this.entity.getPathfindingPenalty(pathNodeType) < 0.0F) {
                 Box box = this.entity.getBoundingBox();
-                if (this.canPathThrough(mutable.set(box.minX, (double)i, box.minZ))
-                        || this.canPathThrough(mutable.set(box.minX, (double)i, box.maxZ))
-                        || this.canPathThrough(mutable.set(box.maxX, (double)i, box.minZ))
-                        || this.canPathThrough(mutable.set(box.maxX, (double)i, box.maxZ))) {
+                if (this.canPathThrough(mutable.set(box.minX, i, box.minZ))
+                        || this.canPathThrough(mutable.set(box.minX, i, box.maxZ))
+                        || this.canPathThrough(mutable.set(box.maxX, i, box.minZ))
+                        || this.canPathThrough(mutable.set(box.maxX, i, box.maxZ))) {
                     return this.getStart(mutable);
                 }
             }
@@ -137,7 +139,11 @@ public class WardenPathNodeMaker extends LandPathNodeMaker {
     @Nullable
     @Override
     public TargetPathNode getNode(double x, double y, double z) {
-        return this.asTargetPathNode(this.getNode(MathHelper.floor(x), MathHelper.floor(y + 0.5), MathHelper.floor(z)));
+        if (this.isEntityTouchingWaterOrLava(this.entity)) {
+            return this.asTargetPathNode(this.getNode(MathHelper.floor(x), MathHelper.floor(y + 0.5), MathHelper.floor(z)));
+        } else {
+            return this.asTargetPathNode(this.getNode(MathHelper.floor(x), MathHelper.floor(y), MathHelper.floor(z)));
+        }
     }
 
     @Override
