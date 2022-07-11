@@ -1,24 +1,33 @@
 package net.frozenblock.wilderwild.entity.ai;
 
+import it.unimi.dsi.fastutil.longs.Long2ObjectFunction;
+import it.unimi.dsi.fastutil.longs.Long2ObjectMap;
+import it.unimi.dsi.fastutil.longs.Long2ObjectOpenHashMap;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.Blocks;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.ai.pathing.*;
 import net.minecraft.entity.ai.pathing.AmphibiousPathNodeMaker;
 import net.minecraft.entity.mob.MobEntity;
+import net.minecraft.entity.passive.FishEntity;
+import net.minecraft.fluid.Fluids;
 import net.minecraft.tag.FluidTags;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Box;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.BlockView;
 import net.minecraft.world.chunk.ChunkCache;
 import org.jetbrains.annotations.Nullable;
 
-public class WardenPathNodeMaker extends AmphibiousPathNodeMaker {
+public class WardenPathNodeMaker extends LandPathNodeMaker {
     private final boolean penalizeDeepWater;
     private float oldWalkablePenalty;
     private float oldWaterBorderPenalty;
 
+    private final Long2ObjectMap<PathNodeType> nodeTypes = new Long2ObjectOpenHashMap<>();
+
     public WardenPathNodeMaker(boolean penalizeDeepWater) {
-        super(penalizeDeepWater);
         this.penalizeDeepWater = penalizeDeepWater;
     }
 
@@ -36,19 +45,93 @@ public class WardenPathNodeMaker extends AmphibiousPathNodeMaker {
     public void clear() {
         this.entity.setPathfindingPenalty(PathNodeType.WALKABLE, this.oldWalkablePenalty);
         this.entity.setPathfindingPenalty(PathNodeType.WATER_BORDER, this.oldWaterBorderPenalty);
+        this.nodeTypes.clear();
         super.clear();
     }
 
     @Nullable
     @Override
     public PathNode getStart() {
-        return this.getStart(
-                new BlockPos(
-                        MathHelper.floor(this.entity.getBoundingBox().minX),
-                        MathHelper.floor(this.entity.getBoundingBox().minY + 0.5),
-                        MathHelper.floor(this.entity.getBoundingBox().minZ)
-                )
-        );
+        if (this.isEntityTouchingWaterOrLava(this.entity)) {
+            return this.getStart(
+                    new BlockPos(
+                            MathHelper.floor(this.entity.getBoundingBox().minX),
+                            MathHelper.floor(this.entity.getBoundingBox().minY + 0.5),
+                            MathHelper.floor(this.entity.getBoundingBox().minZ)
+                    )
+            );
+        } else {
+            BlockPos.Mutable mutable = new BlockPos.Mutable();
+            int i = this.entity.getBlockY();
+            BlockState blockState = this.cachedWorld.getBlockState(mutable.set(this.entity.getX(), (double)i, this.entity.getZ()));
+            if (!this.entity.canWalkOnFluid(blockState.getFluidState())) {
+                if (this.canSwim() && this.entity.isTouchingWater()) {
+                    while(true) {
+                        if (!blockState.isOf(Blocks.WATER) && blockState.getFluidState() != Fluids.WATER.getStill(false)) {
+                            --i;
+                            break;
+                        }
+
+                        blockState = this.cachedWorld.getBlockState(mutable.set(this.entity.getX(), (double)(++i), this.entity.getZ()));
+                    }
+                } else if (this.entity.isOnGround()) {
+                    i = MathHelper.floor(this.entity.getY() + 0.5);
+                } else {
+                    BlockPos blockPos = this.entity.getBlockPos();
+
+                    while(
+                            (
+                                    this.cachedWorld.getBlockState(blockPos).isAir()
+                                            || this.cachedWorld.getBlockState(blockPos).canPathfindThrough(this.cachedWorld, blockPos, NavigationType.LAND)
+                            )
+                                    && blockPos.getY() > this.entity.world.getBottomY()
+                    ) {
+                        blockPos = blockPos.down();
+                    }
+
+                    i = blockPos.up().getY();
+                }
+            } else {
+                while(this.entity.canWalkOnFluid(blockState.getFluidState())) {
+                    blockState = this.cachedWorld.getBlockState(mutable.set(this.entity.getX(), (double)(++i), this.entity.getZ()));
+                }
+
+                --i;
+            }
+
+            BlockPos blockPos = this.entity.getBlockPos();
+            PathNodeType pathNodeType = this.getNodeType(this.entity, blockPos.getX(), i, blockPos.getZ());
+            if (this.entity.getPathfindingPenalty(pathNodeType) < 0.0F) {
+                Box box = this.entity.getBoundingBox();
+                if (this.canPathThrough(mutable.set(box.minX, (double)i, box.minZ))
+                        || this.canPathThrough(mutable.set(box.minX, (double)i, box.maxZ))
+                        || this.canPathThrough(mutable.set(box.maxX, (double)i, box.minZ))
+                        || this.canPathThrough(mutable.set(box.maxX, (double)i, box.maxZ))) {
+                    return this.getStart(mutable);
+                }
+            }
+
+            return this.getStart(new BlockPos(blockPos.getX(), i, blockPos.getZ()));
+        }
+    }
+
+    private boolean canPathThrough(BlockPos pos) {
+        PathNodeType pathNodeType = this.getNodeType(this.entity, pos);
+        return this.entity.getPathfindingPenalty(pathNodeType) >= 0.0F;
+    }
+
+    private PathNodeType getNodeType(MobEntity entity, BlockPos pos) {
+        return this.getNodeType(entity, pos.getX(), pos.getY(), pos.getZ());
+    }
+
+    protected PathNodeType getNodeType(MobEntity entity, int x, int y, int z) {
+        return this.nodeTypes
+                .computeIfAbsent(
+                        BlockPos.asLong(x, y, z),
+                        (l -> this.getNodeType(
+                                this.cachedWorld, x, y, z, entity, this.entityBlockXSize, this.entityBlockYSize, this.entityBlockZSize, this.canOpenDoors(), this.canEnterOpenDoors()
+                        ))
+                );
     }
 
     @Nullable
