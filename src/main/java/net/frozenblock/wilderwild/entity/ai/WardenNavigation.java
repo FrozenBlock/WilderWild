@@ -1,11 +1,14 @@
 package net.frozenblock.wilderwild.entity.ai;
 
-import net.minecraft.entity.ai.pathing.*;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.ai.pathing.MobNavigation;
+import net.minecraft.entity.ai.pathing.PathNode;
+import net.minecraft.entity.ai.pathing.PathNodeNavigator;
+import net.minecraft.entity.ai.pathing.PathNodeType;
 import net.minecraft.entity.mob.MobEntity;
-import net.minecraft.entity.passive.AxolotlSwimNavigation;
+import net.minecraft.tag.FluidTags;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
-import net.minecraft.world.chunk.ChunkCache;
 
 public class WardenNavigation extends MobNavigation {
 
@@ -19,11 +22,15 @@ public class WardenNavigation extends MobNavigation {
         this.nodeMaker.setCanEnterOpenDoors(true);
         return new PathNodeNavigator(this.nodeMaker, range) {
             public float getDistance(PathNode a, PathNode b) {
-                if (entity.isSubmergedInWater()) {
+                if (this.isEntitySubmergedInWaterOrLava(entity)) {
                     return a.getDistance(b);
                 } else {
                     return a.getHorizontalDistance(b);
                 }
+            }
+
+            private boolean isEntitySubmergedInWaterOrLava(Entity entity) {
+                return entity.isSubmergedIn(FluidTags.WATER) || entity.isSubmergedIn(FluidTags.LAVA);
             }
         };
     }

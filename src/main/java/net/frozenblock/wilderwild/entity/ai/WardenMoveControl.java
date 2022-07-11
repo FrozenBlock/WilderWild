@@ -156,13 +156,10 @@ public class WardenMoveControl extends AquaticMoveControl {
         EntityNavigation entityNavigation = this.entity.getNavigation();
         if (entityNavigation != null) {
             PathNodeMaker pathNodeMaker = entityNavigation.getNodeMaker();
-            if (pathNodeMaker != null
-                    && pathNodeMaker.getDefaultNodeType(
-                    this.entity.world, MathHelper.floor(this.entity.getX() + (double)x), this.entity.getBlockY(), MathHelper.floor(this.entity.getZ() + (double)z)
-            )
-                    != PathNodeType.WALKABLE) {
-                return false;
-            }
+            return pathNodeMaker == null
+                    || pathNodeMaker.getDefaultNodeType(
+                    this.entity.world, MathHelper.floor(this.entity.getX() + (double) x), this.entity.getBlockY(), MathHelper.floor(this.entity.getZ() + (double) z)
+            ) == PathNodeType.WALKABLE;
         }
 
         return true;
