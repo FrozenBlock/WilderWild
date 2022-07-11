@@ -140,6 +140,8 @@ public class WardenEntityModelMixin<T extends WardenEntity> {
                 this.body.pitch = Math.max(g * -10, (m * 15 - 10) * rad);
                 this.body.yaw = (o * 5) * rad;
                 this.body.pivotY = Math.min(g * 10, -l * 2);
+            } else {
+                this.body.pivotY = 0;
             }
 
             if (shouldMoveArms) {
@@ -164,9 +166,7 @@ public class WardenEntityModelMixin<T extends WardenEntity> {
 
         } else if (wardenEntity.isSubmergedInWater() && g <= 0){
 
-            this.rightLeg.pivotY = -8;
-
-            this.leftLeg.pivotY = -8;
+            this.body.pivotY = 8;
 
             ci.cancel();
             model.getPart().traverse().forEach(ModelPart::resetTransform);
