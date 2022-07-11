@@ -109,7 +109,6 @@ public class RegisterWorldgen {
         builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, WildPlacedFeatures.SHORT_CYPRESS_TREES);
         builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, WildPlacedFeatures.CYPRESS_TREES_WATER_2);
         builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, WildPlacedFeatures.FALLEN_OAK_AND_CYPRESS_PLACED);
-        builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, WildPlacedFeatures.PATCH_CATTAIL);
         addCypressPaths(builder);
         addBasicFeatures(builder);
         addCypressVegetation(builder);
