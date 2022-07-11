@@ -83,7 +83,7 @@ public class WardenPathNodeMaker extends AmphibiousPathNodeMaker {
 
             for (int k = 0; k < i; ++k) {
                 PathNode pathNode3 = successors[k];
-                if (pathNode3.type == PathNodeType.WATER && this.penalizeDeepWater && pathNode3.y < this.entity.world.getSeaLevel() - 10) {
+                if ((pathNode3.type == PathNodeType.WATER || pathNode3.type == PathNodeType.LAVA) && this.penalizeDeepWater && pathNode3.y < this.entity.world.getSeaLevel() - 10) {
                     ++pathNode3.penalty;
                 }
             }
@@ -140,7 +140,7 @@ public class WardenPathNodeMaker extends AmphibiousPathNodeMaker {
 
     @Override
     protected double getFeetY(BlockPos pos) {
-        return this.entity.isTouchingWater() ? (double)pos.getY() + 0.5 : super.getFeetY(pos);
+        return this.isEntityTouchingWaterOrLava(this.entity) ? (double)pos.getY() + 0.5 : super.getFeetY(pos);
     }
 
     @Override
