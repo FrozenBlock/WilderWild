@@ -1,6 +1,8 @@
 package net.frozenblock.wilderwild.mixin;
 
 import com.mojang.logging.LogUtils;
+import net.frozenblock.wilderwild.entity.ai.WardenMoveControl;
+import net.frozenblock.wilderwild.entity.ai.WardenNavigation;
 import net.frozenblock.wilderwild.entity.render.animations.WardenAnimationInterface;
 import net.frozenblock.wilderwild.registry.RegisterProperties;
 import net.frozenblock.wilderwild.registry.RegisterSounds;
@@ -8,6 +10,8 @@ import net.minecraft.block.Blocks;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.brain.Brain;
 import net.minecraft.entity.ai.brain.MemoryModuleType;
+import net.minecraft.entity.ai.pathing.EntityNavigation;
+import net.minecraft.entity.ai.pathing.PathNodeType;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.mob.Angriness;
@@ -15,13 +19,17 @@ import net.minecraft.entity.mob.HostileEntity;
 import net.minecraft.entity.mob.WardenBrain;
 import net.minecraft.entity.mob.WardenEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.fluid.Fluid;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
+import net.minecraft.tag.FluidTags;
+import net.minecraft.tag.TagKey;
 import net.minecraft.util.Unit;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.LocalDifficulty;
 import net.minecraft.world.ServerWorldAccess;
 import net.minecraft.world.World;
@@ -55,19 +63,10 @@ public abstract class WardenEntityMixin extends HostileEntity implements WardenA
     public abstract Brain<WardenEntity> getBrain();
 
     @Shadow
-    public AnimationState emergingAnimationState;
-
-    @Shadow
-    public AnimationState diggingAnimationState;
-
-    @Shadow
-    public AnimationState roaringAnimationState;
-
-    @Shadow
-    public AnimationState sniffingAnimationState;
-
-    @Shadow
     protected abstract void addDigParticles(AnimationState animationState);
+
+    @Shadow
+    protected abstract boolean isDiggingOrEmerging();
 
     protected WardenEntityMixin(EntityType<? extends HostileEntity> entityType, World world) {
         super(entityType, world);
@@ -75,8 +74,16 @@ public abstract class WardenEntityMixin extends HostileEntity implements WardenA
 
     private final AnimationState dyingAnimationState = new AnimationState();
 
+    private final AnimationState swimmingAnimationState = new AnimationState();
+
+    @Override
     public AnimationState getDyingAnimationState() {
         return this.dyingAnimationState;
+    }
+
+    @Override
+    public AnimationState getSwimmingAnimationState() {
+        return this.swimmingAnimationState;
     }
 
     @Inject(at = @At("HEAD"), method = "initialize")
@@ -92,7 +99,7 @@ public abstract class WardenEntityMixin extends HostileEntity implements WardenA
 
     @Inject(at = @At("HEAD"), method = "pushAway")
     protected void pushAway(Entity entity, CallbackInfo info) {
-        if (!warden.getBrain().hasMemoryModule(MemoryModuleType.ATTACK_COOLING_DOWN) && !warden.getBrain().hasMemoryModule(MemoryModuleType.TOUCH_COOLDOWN) && !(entity instanceof WardenEntity) && !warden.isInPose(EntityPose.EMERGING) && !warden.isInPose(EntityPose.DIGGING) && !warden.isInPose(EntityPose.DYING)) {
+    if (!warden.getBrain().hasMemoryModule(MemoryModuleType.ATTACK_COOLING_DOWN) && !warden.getBrain().hasMemoryModule(MemoryModuleType.TOUCH_COOLDOWN) && !(entity instanceof WardenEntity) && !this.isDiggingOrEmerging() && !warden.isInPose(EntityPose.DYING) && !warden.isInPose(EntityPose.ROARING)) {
             if (!entity.isInvulnerable() && entity instanceof LivingEntity livingEntity) {
                 if (!(entity instanceof PlayerEntity player)) {
                     warden.increaseAngerAt(entity, Angriness.ANGRY.getThreshold() + 20, false);
@@ -152,11 +159,13 @@ public abstract class WardenEntityMixin extends HostileEntity implements WardenA
         info.cancel();
     }
 
-    @Inject(method = "onTrackedDataSet", at = @At("HEAD"))
+    @Inject(method = "onTrackedDataSet", at = @At("HEAD"), cancellable = true)
     public void onTrackedDataSet(TrackedData<?> data, CallbackInfo ci) {
         if (POSE.equals(data)) {
-            if (this.getPose() == EntityPose.DYING) {
-                this.getDyingAnimationState().start(warden.age);
+            switch(warden.getPose()) {
+                case DYING:
+                    this.getDyingAnimationState().start(warden.age);
+                    break;
             }
         }
     }
@@ -225,14 +234,12 @@ public abstract class WardenEntityMixin extends HostileEntity implements WardenA
     protected void updatePostDeath() {
         ++this.deathTicks;
         if (this.deathTicks == 35 && !warden.world.isClient()) {
-            warden.playSound(SoundEvents.ENTITY_WARDEN_AGITATED, 3.0F, 1.05F);
             warden.deathTime = 35;
         }
 
         if (this.deathTicks == 53 && !warden.world.isClient()) {
             warden.world.sendEntityStatus(warden, EntityStatuses.ADD_DEATH_PARTICLES);
             warden.world.sendEntityStatus(warden, (byte) 69420);
-            warden.playSound(SoundEvents.ENTITY_WARDEN_ANGRY, 3.0F, 0.7F);
         }
 
         if (this.deathTicks == 70 && !warden.world.isClient()) {
@@ -253,4 +260,78 @@ public abstract class WardenEntityMixin extends HostileEntity implements WardenA
             this.addAdditionalDeathParticles();
         }
     }
+
+    /**
+     * @author FrozenBlock
+     * @reason allows for further warden navigation customization
+     */
+    @Overwrite
+    public EntityNavigation createNavigation(World world) {
+        WardenEntity wardenEntity = WardenEntity.class.cast(this);
+        // for some reason it needs a new one lol
+        return new WardenNavigation(wardenEntity, world);
+    }
+
+    @Override
+    public void travel(Vec3d movementInput) {
+        if (this.canMoveVoluntarily() && this.isTouchingWaterOrLava()) {
+            this.updateVelocity(this.getMovementSpeed(), movementInput);
+            this.move(MovementType.SELF, this.getVelocity());
+            this.setVelocity(this.getVelocity().multiply(0.9));
+        } else {
+            super.travel(movementInput);
+        }
+
+    }
+
+    @Inject(method = "<init>", at = @At("TAIL"))
+    private void WardenEntity(EntityType<? extends HostileEntity> entityType, World world, CallbackInfo ci) {
+        WardenEntity wardenEntity = WardenEntity.class.cast(this);
+        wardenEntity.setPathfindingPenalty(PathNodeType.WATER, 0.0F);
+        this.moveControl = new WardenMoveControl(wardenEntity, 3, 26, 0.13F, 1.0F, true);
+    }
+
+    @Override
+    public boolean canBreatheInWater() {
+        return true;
+    }
+
+    @Override
+    public boolean isPushedByFluids() {
+        return false;
+    }
+
+    @Override
+    public SoundEvent getSwimSound() {
+        return SoundEvents.ENTITY_FISH_SWIM;
+    }
+
+    @Override
+    public void swimUpward(TagKey<Fluid> fluid) {
+    }
+
+    @Override
+    protected boolean updateWaterState() {
+        this.fluidHeight.clear();
+        warden.checkWaterState();
+        //double d = warden.world.getDimension().ultrawarm() ? 0.007 : 0.0023333333333333335;
+        boolean bl = warden.updateMovementInFluid(FluidTags.LAVA, 0.1D);
+        return this.isTouchingWaterOrLava() || bl;
+    }
+
+    private boolean isTouchingWaterOrLava() {
+        return warden.isInsideWaterOrBubbleColumn() || warden.isInLava();
+    }
+
+    private boolean isSubmergedInWaterOrLava() {
+        return warden.isSubmergedIn(FluidTags.WATER) || warden.isSubmergedIn(FluidTags.LAVA);
+    }
+
+    /*@Inject(method = "getDimensions", at = @At("HEAD"), cancellable = true)
+    public void getDimensions(EntityPose pose, CallbackInfoReturnable<EntityDimensions> info) {
+        if (this.isSubmergedInWaterOrLava()) {
+            info.setReturnValue(EntityDimensions.fixed(warden.getType().getWidth() * 1.4F, 1.3F));
+            info.cancel();
+        }
+    }*/
 }

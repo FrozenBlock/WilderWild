@@ -21,6 +21,7 @@ import net.frozenblock.wilderwild.world.gen.trunk.FallenTrunkWithLogs;
 import net.frozenblock.wilderwild.world.gen.trunk.StraightTrunkWithLogs;
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityPose;
 import net.minecraft.entity.SpawnGroup;
 import net.minecraft.item.Instrument;
 import net.minecraft.tag.TagKey;
@@ -51,9 +52,10 @@ public class WilderWild implements ModInitializer {
     public static final NoisePathUnderWaterFeature NOISE_PATH_UNDER_WATER_FEATURE = new NoisePathUnderWaterFeature(PathFeatureConfig.CODEC);
     public static final ColumnWithDiskFeature COLUMN_WITH_DISK_FEATURE = new ColumnWithDiskFeature(ColumnWithDiskFeatureConfig.CODEC);
 
-    public static final SpawnGroup FIREFLIES = ClassTinkerers.getEnum(SpawnGroup.class, "FIREFLIES");
-
     public static final TagKey<Instrument> WILD_HORNS = TagKey.of(Registry.INSTRUMENT_KEY, id("wild_horns"));
+
+    //ClassTinkerers
+    public static final SpawnGroup FIREFLIES = ClassTinkerers.getEnum(SpawnGroup.class, "FIREFLIES");
 
     @Override
     public void onInitialize() {

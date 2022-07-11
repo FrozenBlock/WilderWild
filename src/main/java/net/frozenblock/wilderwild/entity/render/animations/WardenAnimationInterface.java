@@ -5,4 +5,7 @@ import net.minecraft.entity.AnimationState;
 public interface WardenAnimationInterface {
 
     AnimationState getDyingAnimationState();
+
+    AnimationState getSwimmingAnimationState();
+
 }
