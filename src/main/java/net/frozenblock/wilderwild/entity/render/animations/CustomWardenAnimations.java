@@ -114,7 +114,8 @@ public class CustomWardenAnimations {
                             Transformation.Targets.TRANSLATE,
                             new Keyframe(0.0F, AnimationHelper.method_41823(0.0F, 0.0F, 0.0F), Transformation.Interpolations.field_37885),
                             new Keyframe(0.36F, AnimationHelper.method_41823(4.78F, -6.87F, -0.42F), Transformation.Interpolations.field_37885),
-                            new Keyframe(0.84F, AnimationHelper.method_41823(8.0F, -23F, -2F), Transformation.Interpolations.field_37885)
+                            new Keyframe(0.84F, AnimationHelper.method_41823(8.0F, -23F, -2F), Transformation.Interpolations.field_37885),
+                            new Keyframe(2.64F, AnimationHelper.method_41829(-133.8547F, 12.8091F, -12.025F), Transformation.Interpolations.field_37884)
                     )
             )
             .addBoneAnimation(
@@ -131,7 +132,10 @@ public class CustomWardenAnimations {
                     new Transformation(
                             Transformation.Targets.TRANSLATE,
                             new Keyframe(0.0F, AnimationHelper.method_41823(0.0F, 0.0F, 0.0F), Transformation.Interpolations.field_37885),
-                            new Keyframe(1.08F, AnimationHelper.method_41823(10.0F, -33.0F, 6.0F), Transformation.Interpolations.field_37885)
+                            new Keyframe(1.18F, AnimationHelper.method_41823(6.0F, -37.2F, -4.8F), Transformation.Interpolations.field_37885),
+                            new Keyframe(1.4455F, AnimationHelper.method_41823(7.0F, -45.37F, -4.0F), Transformation.Interpolations.field_37885),
+                            new Keyframe(2.099F, AnimationHelper.method_41823(8.0F, -57.0F, -2.0F), Transformation.Interpolations.field_37885),
+                            new Keyframe(2.64F, AnimationHelper.method_41823(8.0F, -65.0F, 0.0F), Transformation.Interpolations.field_37885)
                     )
             )
             .build();
