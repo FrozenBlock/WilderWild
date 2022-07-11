@@ -155,11 +155,11 @@ public class WardenEntityModelMixin<T extends WardenEntity> {
 
             }
 
-            this.leftLeg.pitch = (-l * 35 + 15) * rad;
-            this.leftLeg.pivotY = 8;
+            //this.leftLeg.pitch = (-l * 35 + 15) * rad;
+            //this.leftLeg.pivotY = 8;
 
-            this.rightLeg.pitch = (l * 35 + 15) * rad;
-            this.rightLeg.pivotY = 8;
+            //this.rightLeg.pitch = (l * 35 + 15) * rad;
+            //this.rightLeg.pivotY = 8;
 
         } else if (wardenEntity.isSubmergedInWater() && g <= 0){
 
