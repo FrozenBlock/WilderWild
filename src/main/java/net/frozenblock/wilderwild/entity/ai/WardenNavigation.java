@@ -92,6 +92,6 @@ public class WardenNavigation extends MobNavigation {
     }
 
     private boolean isEntityTouchingWaterOrLava(Entity entity) {
-        return entity.isTouchingWater() || entity.isInLava();
+        return entity.isInsideWaterOrBubbleColumn() || entity.isInLava();
     }
 }

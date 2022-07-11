@@ -181,7 +181,7 @@ public class WardenMoveControl extends AquaticMoveControl {
     }
 
     private boolean isEntityTouchingWaterOrLava(Entity entity) {
-        return entity.isTouchingWater() || entity.isInLava();
+        return entity.isInsideWaterOrBubbleColumn() || entity.isInLava();
     }
 
     private boolean isEntitySubmergedInWaterOrLava(Entity entity) {
