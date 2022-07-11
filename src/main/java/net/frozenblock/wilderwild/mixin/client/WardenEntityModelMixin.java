@@ -159,13 +159,9 @@ public class WardenEntityModelMixin<T extends WardenEntity> {
 
         } else if (wardenEntity.isSubmergedInWater() && g <= 0){
 
-            this.rightArm.yaw = 0;
-            this.rightArm.roll = 0;
-            this.rightLeg.pivotY = 8;
+            this.rightLeg.pivotY = 0;
 
-            this.leftArm.yaw = 0;
-            this.leftArm.roll = 0;
-            this.leftLeg.pivotY = 8;
+            this.leftLeg.pivotY = 0;
 
             ci.cancel();
             model.getPart().traverse().forEach(ModelPart::resetTransform);
