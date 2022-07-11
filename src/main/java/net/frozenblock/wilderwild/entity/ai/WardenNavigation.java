@@ -1,5 +1,7 @@
 package net.frozenblock.wilderwild.entity.ai;
 
+import net.minecraft.block.BlockState;
+import net.minecraft.block.Blocks;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.ai.pathing.MobNavigation;
 import net.minecraft.entity.ai.pathing.PathNode;
@@ -7,6 +9,8 @@ import net.minecraft.entity.ai.pathing.PathNodeNavigator;
 import net.minecraft.entity.ai.pathing.PathNodeType;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.tag.FluidTags;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 
@@ -37,12 +41,35 @@ public class WardenNavigation extends MobNavigation {
 
     @Override
     protected boolean isAtValidPosition() {
-        return true;
+        if (this.isEntityTouchingWaterOrLava(this.entity)) {
+            return true;
+        } else {
+            return this.entity.isOnGround() || this.isInLiquid() || this.entity.hasVehicle();
+        }
     }
 
     @Override
     protected Vec3d getPos() {
-        return new Vec3d(this.entity.getX(), this.entity.getBodyY(1.0D), this.entity.getZ());
+        return new Vec3d(this.entity.getX(), this.getPathfindingY(), this.entity.getZ());
+    }
+
+    private int getPathfindingY() {
+        if (this.entity.isTouchingWater() && this.canSwim()) {
+            int i = this.entity.getBlockY();
+            BlockState blockState = this.world.getBlockState(new BlockPos(this.entity.getX(), i, this.entity.getZ()));
+            int j = 0;
+
+            while(blockState.isOf(Blocks.WATER)) {
+                blockState = this.world.getBlockState(new BlockPos(this.entity.getX(), ++i, this.entity.getZ()));
+                if (++j > 16) {
+                    return this.entity.getBlockY();
+                }
+            }
+
+            return i;
+        } else {
+            return MathHelper.floor(this.entity.getY() + 0.5);
+        }
     }
 
     @Override
@@ -62,5 +89,9 @@ public class WardenNavigation extends MobNavigation {
     @Override
     protected boolean canWalkOnPath(PathNodeType pathType) {
         return pathType != PathNodeType.OPEN;
+    }
+
+    private boolean isEntityTouchingWaterOrLava(Entity entity) {
+        return entity.isTouchingWater() || entity.isInLava();
     }
 }
