@@ -150,12 +150,12 @@ public class WardenEntityModelMixin<T extends WardenEntity> {
                 this.rightArm.pitch = 0f;
                 this.rightArm.yaw = Math.max(g * -10, (-l * 25) * rad);
                 this.rightArm.roll = Math.min(g * 10, (m * -90 + 90) * rad);
-                this.rightArm.pivotX = p * 2 - 11;
+                this.rightArm.pivotX = Math.min(g * 10, p * 2 - 11);
 
                 this.leftArm.pitch = 0f;
-                this.leftArm.yaw = (l * 25) * rad;
-                this.leftArm.roll = (m * 90 - 90) * rad;
-                this.leftArm.pivotX = p * -2 + 11;
+                this.leftArm.yaw = Math.max(g * -10,(l * 25) * rad);
+                this.leftArm.roll = Math.max(g * -10,(m * 90 - 90) * rad);
+                this.leftArm.pivotX = Math.max(g * -10, p * -2 + 11);
 
             }
 
