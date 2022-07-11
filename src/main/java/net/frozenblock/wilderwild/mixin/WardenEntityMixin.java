@@ -330,7 +330,7 @@ public abstract class WardenEntityMixin extends HostileEntity implements WardenA
     @Inject(method = "getDimensions", at = @At("HEAD"), cancellable = true)
     public void getDimensions(EntityPose pose, CallbackInfoReturnable<EntityDimensions> info) {
         if (warden.isSubmergedInWater()) {
-            info.setReturnValue(EntityDimensions.fixed(warden.getType().getWidth(), 1.8F));
+            info.setReturnValue(EntityDimensions.fixed(warden.getType().getWidth() * 1.4F, 1.3F));
             info.cancel();
         }
     }
