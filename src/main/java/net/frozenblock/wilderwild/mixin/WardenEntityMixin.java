@@ -327,11 +327,11 @@ public abstract class WardenEntityMixin extends HostileEntity implements WardenA
         return warden.isSubmergedIn(FluidTags.WATER) || warden.isSubmergedIn(FluidTags.LAVA);
     }
 
-    @Inject(method = "getDimensions", at = @At("HEAD"), cancellable = true)
+    /*@Inject(method = "getDimensions", at = @At("HEAD"), cancellable = true)
     public void getDimensions(EntityPose pose, CallbackInfoReturnable<EntityDimensions> info) {
         if (this.isSubmergedInWaterOrLava()) {
             info.setReturnValue(EntityDimensions.fixed(warden.getType().getWidth() * 1.4F, 1.3F));
             info.cancel();
         }
-    }
+    }*/
 }

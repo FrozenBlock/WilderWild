@@ -54,7 +54,7 @@ public class WardenNavigation extends MobNavigation {
     }
 
     private int getPathfindingY() {
-        if (this.entity.isTouchingWater() && this.canSwim()) {
+        if (this.isEntityTouchingWaterOrLava(this.entity) && this.canSwim()) {
             int i = this.entity.getBlockY();
             BlockState blockState = this.world.getBlockState(new BlockPos(this.entity.getX(), i, this.entity.getZ()));
             int j = 0;
