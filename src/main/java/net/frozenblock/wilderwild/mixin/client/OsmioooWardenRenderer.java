@@ -19,6 +19,10 @@ import java.util.Objects;
 public class OsmioooWardenRenderer {
 
     private static final Identifier OSMIOOO_WARDEN = WilderWild.id("textures/entity/warden/osmiooo_warden.png");
+    private static final Identifier OSMIOOO_WARDEN_BIOLUMINESCENT = WilderWild.id("textures/entity/warden/osmiooo_warden_bioluminescent_overlay.png");
+    private static final Identifier OSMIOOO_WARDEN_HEART = WilderWild.id("textures/entity/warden/osmiooo_warden_heart.png");
+    private static final Identifier OSMIOOO_WARDEN_PULSATING_SPOTS_1 = new Identifier("textures/entity/warden/osmiooo_warden_pulsating_spots_1.png");
+    private static final Identifier OSMIOOO_WARDEN_PULSATING_SPOTS_2 = new Identifier("textures/entity/warden/osmiooo_warden_pulsating_spots_2.png"); //how
 
     @Inject(method = "getTexture(Lnet/minecraft/entity/mob/WardenEntity;)Lnet/minecraft/util/Identifier;", at = @At("HEAD"), cancellable = true)
     public void getTexture(WardenEntity warden, CallbackInfoReturnable<Identifier> cir) {
