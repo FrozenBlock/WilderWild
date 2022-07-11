@@ -9,6 +9,7 @@ import net.minecraft.client.render.entity.animation.WardenAnimations;
 import net.minecraft.client.render.entity.model.WardenEntityModel;
 import net.minecraft.entity.EntityPose;
 import net.minecraft.entity.mob.WardenEntity;
+import net.minecraft.tag.FluidTags;
 import net.minecraft.util.math.MathHelper;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
@@ -96,7 +97,7 @@ public class WardenEntityModelMixin<T extends WardenEntity> {
     @Inject(method = "setAngles(Lnet/minecraft/entity/mob/WardenEntity;FFFFF)V", at = @At("HEAD"), cancellable = true)
     private void setAngles(T wardenEntity, float f, float g, float h, float i, float j, CallbackInfo ci) {
         ci.cancel();
-        boolean swimming = wardenEntity.isSubmergedInWater() && g > 0;
+        boolean swimming = this.isSubmergedInWaterOrLava(wardenEntity) && g > 0;
         model.getPart().traverse().forEach(ModelPart::resetTransform);
         float k = h - (float)wardenEntity.age;
         this.setHeadAngle(i, j);
@@ -164,7 +165,7 @@ public class WardenEntityModelMixin<T extends WardenEntity> {
             this.rightLeg.pitch = (l * 35 + 15) * rad;
             this.rightLeg.pivotY = 8;
 
-        } else if (wardenEntity.isSubmergedInWater() && g <= 0){
+        } else if (this.isSubmergedInWaterOrLava(wardenEntity) && g <= 0){
 
             this.body.pivotY = 8;
 
@@ -175,5 +176,9 @@ public class WardenEntityModelMixin<T extends WardenEntity> {
             this.setHeadAndBodyAngles(h);
             this.setTendrilPitches(wardenEntity, h, k);
         }
+    }
+
+    private boolean isSubmergedInWaterOrLava(WardenEntity warden) {
+        return warden.isSubmergedIn(FluidTags.WATER) || warden.isSubmergedIn(FluidTags.LAVA);
     }
 }
