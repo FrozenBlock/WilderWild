@@ -112,7 +112,7 @@ public class WardenEntityModelMixin<T extends WardenEntity> {
         model.updateAnimation(wardenEntity.sniffingAnimationState, swimming ? CustomWardenAnimations.SWIMMING_SNIFFING : WardenAnimations.SNIFFING, h);
         model.updateAnimation(((WardenAnimationInterface) wardenEntity).getDyingAnimationState(), CustomWardenAnimations.DYING, h);
 
-        boolean cannotSwim = wardenEntity.isInPose(EntityPose.EMERGING) || wardenEntity.isInPose(EntityPose.DIGGING) || wardenEntity.isInPose(EntityPose.DYING) || !wardenEntity.chargingSonicBoomAnimationState.isRunning();
+        boolean cannotSwim = wardenEntity.isInPose(EntityPose.EMERGING) || wardenEntity.isInPose(EntityPose.DIGGING) || wardenEntity.isInPose(EntityPose.DYING) || wardenEntity.chargingSonicBoomAnimationState.isRunning();
         boolean shouldMoveArms = !wardenEntity.isInPose(EntityPose.ROARING) && !wardenEntity.isInPose(EntityPose.EMERGING) && !wardenEntity.isInPose(EntityPose.DIGGING) && !wardenEntity.chargingSonicBoomAnimationState.isRunning();
         boolean shouldMoveBody = !wardenEntity.isInPose(EntityPose.ROARING) && !wardenEntity.isInPose(EntityPose.EMERGING) && !wardenEntity.isInPose(EntityPose.DIGGING);
         boolean shouldMoveHead = !wardenEntity.isInPose(EntityPose.ROARING) && !wardenEntity.isInPose(EntityPose.EMERGING) && !wardenEntity.isInPose(EntityPose.DIGGING);
