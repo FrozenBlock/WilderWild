@@ -157,6 +157,22 @@ public class WardenEntityModelMixin<T extends WardenEntity> {
             this.rightLeg.pitch = (l * 35 + 15) * rad;
             this.rightLeg.pivotY = 8;
 
+        } else if (wardenEntity.isSubmergedInWater() && g <= 0){
+
+            this.rightArm.yaw = 0;
+            this.rightArm.roll = 0;
+            this.rightLeg.pivotY = 8;
+
+            this.leftArm.yaw = 0;
+            this.leftArm.roll = 0;
+            this.leftLeg.pivotY = 8;
+
+            ci.cancel();
+            model.getPart().traverse().forEach(ModelPart::resetTransform);
+            this.setHeadAngle(i, j);
+            this.setLimbAngles(f, g);
+            this.setHeadAndBodyAngles(h);
+            this.setTendrilPitches(wardenEntity, h, k);
         }
     }
 }
