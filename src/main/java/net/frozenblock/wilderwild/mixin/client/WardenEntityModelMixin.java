@@ -26,6 +26,10 @@ public class WardenEntityModelMixin<T extends WardenEntity> {
 
     @Final
     @Shadow
+    protected ModelPart bone;
+
+    @Final
+    @Shadow
     protected ModelPart body;
 
     @Final
@@ -114,9 +118,9 @@ public class WardenEntityModelMixin<T extends WardenEntity> {
 
         if (swimming && !cannotSwim) {
 
-            this.root.pitch = MathHelper.clamp(g * 5, 0,j * 0.017453292F + 1.5708F);
-            this.root.yaw = i * 0.017453292F;
-            this.root.pivotZ = Math.max(-g,-24);
+            this.bone.pitch = MathHelper.clamp(g * 5, 0,j * 0.017453292F + 1.5708F);
+            this.bone.yaw = i * 0.017453292F;
+            this.bone.pivotZ = Math.max(-g,-24);
 
             float e = f * 0.8662F;
             float l = MathHelper.cos(e);
