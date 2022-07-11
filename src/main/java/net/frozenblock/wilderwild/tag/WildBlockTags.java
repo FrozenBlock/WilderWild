@@ -11,6 +11,7 @@ public class WildBlockTags {
     public static final TagKey<Block> KILLS_TERMITE = of("kills_termite");
     public static final TagKey<Block> TERMITE_BREAKABLE = of("termite_breakable");
     public static final TagKey<Block> BLOCKS_TERMITE = of("blocks_termite");
+    public static final TagKey<Block> FIREFLY_HIDEABLE_BLOCKS = of("firefly_hideable_blocks");
 
     private WildBlockTags() {
     }
