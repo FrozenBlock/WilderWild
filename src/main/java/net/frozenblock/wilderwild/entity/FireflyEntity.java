@@ -18,6 +18,7 @@ import net.minecraft.entity.ai.brain.sensor.SensorType;
 import net.minecraft.entity.ai.control.FlightMoveControl;
 import net.minecraft.entity.ai.pathing.BirdNavigation;
 import net.minecraft.entity.ai.pathing.EntityNavigation;
+import net.minecraft.entity.ai.pathing.PathNodeType;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.damage.DamageSource;
@@ -42,6 +43,7 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.math.random.Random;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.world.*;
+import net.minecraft.world.event.GameEvent;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -69,6 +71,9 @@ public class FireflyEntity extends PathAwareEntity implements Flutterer {
 
     public FireflyEntity(EntityType<? extends PathAwareEntity> entityType, World world) {
         super(entityType, world);
+        this.setPathfindingPenalty(PathNodeType.LAVA, 8.0F);
+        this.setPathfindingPenalty(PathNodeType.DANGER_FIRE, 4.0F);
+        this.setPathfindingPenalty(PathNodeType.DAMAGE_FIRE, -1.0F);
         this.moveControl = new FlightMoveControl(this, 20, true);
         this.setFlickers(world.random.nextInt(5) == 0);
         this.setFlickerAge(world.random.nextBetween(0, 19));
@@ -454,6 +459,14 @@ public class FireflyEntity extends PathAwareEntity implements Flutterer {
     }
 
     protected void tickCramming() {
+    }
+
+    @Override
+    public void emitGameEvent(GameEvent event, @Nullable Entity entity) {
+    }
+
+    @Override
+    public void emitGameEvent(GameEvent event) {
     }
 
 }

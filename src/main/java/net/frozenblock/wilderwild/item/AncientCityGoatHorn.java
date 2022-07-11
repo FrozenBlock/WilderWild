@@ -1,17 +1,16 @@
 package net.frozenblock.wilderwild.item;
 
+import net.frozenblock.api.mathematics.AdvancedMath;
 import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.entity.AncientHornProjectileEntity;
 import net.frozenblock.wilderwild.misc.PVZGWSound.MovingSoundLoop;
+import net.frozenblock.wilderwild.misc.server.EasyPacket;
 import net.frozenblock.wilderwild.registry.RegisterItems;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.ItemCooldownManager;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.Instrument;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemGroup;
-import net.minecraft.item.ItemStack;
+import net.minecraft.item.*;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
@@ -22,6 +21,8 @@ import net.minecraft.text.MutableText;
 import net.minecraft.text.Text;
 import net.minecraft.util.*;
 import net.minecraft.util.collection.DefaultedList;
+import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.util.registry.RegistryEntry;
 import net.minecraft.util.registry.RegistryKey;
@@ -157,7 +158,19 @@ public class AncientCityGoatHorn extends Item {
                 projectileEntity.shotByPlayer = true;
                 server.spawnEntity(projectileEntity);
                 MovingSoundLoop.createMovingLoopingSound(server, projectileEntity, SoundEvents.BLOCK_SCULK_CHARGE, SoundCategory.NEUTRAL, 1.0F, 1.0F);
-                //FlyBySoundHub.createFlybySound(world, projectileEntity, RegisterSounds.ANCIENT_HORN_VIBRATION_DISSIPATE, SoundCategory.PLAYERS, 1.0F, 0.7F);
+                ItemStack mainHand = user.getStackInHand(Hand.MAIN_HAND);
+                ItemStack offHand = user.getStackInHand(Hand.OFF_HAND);
+                if (mainHand.isOf(Items.WATER_BUCKET) || mainHand.isOf(Items.POTION) || offHand.isOf(Items.WATER_BUCKET) || offHand.isOf(Items.POTION)) {
+                    projectileEntity.bubbles = world.random.nextBetween(10, 25);
+                    /*float yawNew = user.getYaw() * 0.017453292F;
+                    float pitchNew = MathHelper.cos(user.getPitch() * 0.017453292F);
+                    float f = -MathHelper.sin(yawNew) * pitchNew;
+                    float h = MathHelper.cos(yawNew) * pitchNew;
+                    for (int bubble=0; bubble < Math.random()*10; bubble++) {
+                        EasyPacket.EasyFloatingSculkBubblePacket.createParticle(server, user.getEyePos(), Math.random() > 0.7 ? 1 : 0, 20 + (int)(Math.random()*40), 0.05, 1);
+                    }*/
+                }
+                //FlyBySoundPacket.createFlybySound(world, projectileEntity, RegisterSounds.ANCIENT_HORN_VIBRATION_DISSIPATE, SoundCategory.PLAYERS, 1.0F, 0.7F);
             }
             return TypedActionResult.consume(itemStack);
         } else {
