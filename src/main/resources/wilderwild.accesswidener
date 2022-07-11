@@ -16,3 +16,4 @@ accessible    field    net/minecraft/entity/Entity    POSE    Lnet/minecraft/ent
 accessible    method    net/minecraft/client/render/entity/model/SinglePartEntityModel    updateAnimation    (Lnet/minecraft/entity/AnimationState;Lnet/minecraft/client/render/entity/animation/Animation;F)V
 accessible    field    net/minecraft/entity/LivingEntity    dead    Z
 accessible    method    net/minecraft/entity/Entity    checkWaterState    ()V
+accessible    class    net/minecraft/village/TradeOffers$SellItemFactory
