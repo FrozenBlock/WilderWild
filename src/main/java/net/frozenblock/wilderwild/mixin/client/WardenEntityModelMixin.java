@@ -124,7 +124,7 @@ public class WardenEntityModelMixin<T extends WardenEntity> {
             this.bone.pivotY = 0F;
             this.bone.pivotZ = Math.max(-g,-24);
 
-            float e = f * 0.8662F;
+            float e = (float) (f * (Math.PI * 0.2));
             float l = MathHelper.cos(e);
             float m = MathHelper.sin(e);
             float n = Math.min(0.5F, 3.0F * l);
