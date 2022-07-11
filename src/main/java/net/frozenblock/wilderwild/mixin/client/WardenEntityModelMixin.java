@@ -148,8 +148,8 @@ public class WardenEntityModelMixin<T extends WardenEntity> {
             if (shouldMoveArms) {
 
                 this.rightArm.pitch = 0f;
-                this.rightArm.yaw = (-l * 25) * rad;
-                this.rightArm.roll = (m * -90 + 90) * rad;
+                this.rightArm.yaw = Math.max(g * -10, (-l * 25) * rad);
+                this.rightArm.roll = Math.min(g * 10, (m * -90 + 90) * rad);
                 this.rightArm.pivotX = p * 2 - 11;
 
                 this.leftArm.pitch = 0f;
