@@ -121,7 +121,7 @@ public class WardenEntityModelMixin<T extends WardenEntity> {
 
             this.bone.pitch = MathHelper.clamp(g * 5, 0,j * 0.017453292F + 1.5708F);
             this.bone.yaw = i * 0.017453292F;
-            this.bone.pivotY = 0F;
+            this.bone.pivotY = -2F;
             this.bone.pivotZ = Math.max(-g,-24);
 
             float e = (float) (f * (Math.PI * 0.2));
