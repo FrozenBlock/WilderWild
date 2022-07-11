@@ -19,6 +19,8 @@ import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.shape.VoxelShape;
 
+import java.util.Objects;
+
 public class WardenMoveControl extends AquaticMoveControl {
 
     private final int pitchChange;
@@ -40,13 +42,26 @@ public class WardenMoveControl extends AquaticMoveControl {
     public void tick() {
         if (this.isEntityTouchingWaterOrLava(this.entity)) {
             if (this.buoyant && this.isEntityTouchingWaterOrLava(this.entity)) {
-                if (((WardenEntity) this.entity).getBrain().hasMemoryModule(MemoryModuleType.ROAR_TARGET) || ((WardenEntity) this.entity).getBrain().hasMemoryModule(MemoryModuleType.ATTACK_TARGET)) {
-                    this.entity.setVelocity(this.entity.getVelocity().add(0.0, 0.0, 0.0));
+                if ((((WardenEntity) this.entity).getBrain().hasMemoryModule(MemoryModuleType.ROAR_TARGET) || ((WardenEntity) this.entity).getBrain().hasMemoryModule(MemoryModuleType.ATTACK_TARGET))) {
+                    if (this.entity.getBrain().getOptionalMemory(MemoryModuleType.ROAR_TARGET).isPresent()) {
+                        if (this.entity.getBrain().getOptionalMemory(MemoryModuleType.ROAR_TARGET).get().getY() > this.entity.getY()) {
+                            this.entity.setVelocity(this.entity.getVelocity().add(0.0D, 0.017D, 0.0D));
+                        } else {
+                            this.entity.setVelocity(this.entity.getVelocity().add(0.0D, -0.017D, 0.0D));
+                        }
+
+                    } else if (this.entity.getBrain().getOptionalMemory(MemoryModuleType.ATTACK_TARGET).isPresent()) {
+                        if (this.entity.getBrain().getOptionalMemory(MemoryModuleType.ATTACK_TARGET).get().getY()>this.entity.getY()) {
+                            this.entity.setVelocity(this.entity.getVelocity().add(0.0D, 0.017D, 0.0D));
+                        } else {
+                            this.entity.setVelocity(this.entity.getVelocity().add(0.0D, -0.017D, 0.0D));
+                        }
+                    }
                 } else {
                     if (!this.isEntitySubmergedInWaterOrLava(this.entity)) {
-                        this.entity.setVelocity(this.entity.getVelocity().add(0.0, 0.01, 0.0));
-                    } else if (this.isEntityTouchingWaterOrLava(this.entity)) {
-                        this.entity.setVelocity(this.entity.getVelocity().add(0.0, 0.005, 0.0));
+                        this.entity.setVelocity(this.entity.getVelocity().add(0.0D, 0.013D, 0.0D));
+                    } else {
+                        this.entity.setVelocity(this.entity.getVelocity().add(0.0D, 0.006D, 0.0D));
                     }
                 }
             }
