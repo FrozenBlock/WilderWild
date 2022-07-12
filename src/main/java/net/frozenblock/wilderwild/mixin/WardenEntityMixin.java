@@ -94,7 +94,7 @@ public abstract class WardenEntityMixin extends HostileEntity implements WardenA
     public void initialize(ServerWorldAccess serverWorldAccess, LocalDifficulty localDifficulty, SpawnReason spawnReason, @Nullable EntityData entityData, @Nullable NbtCompound nbtCompound, CallbackInfoReturnable<EntityData> info) {
         warden.getBrain().remember(MemoryModuleType.DIG_COOLDOWN, Unit.INSTANCE, 1200L);
         warden.getBrain().remember(MemoryModuleType.TOUCH_COOLDOWN, Unit.INSTANCE, WardenBrain.EMERGE_DURATION);
-        if (spawnReason == SpawnReason.SPAWN_EGG) {
+        if (spawnReason == SpawnReason.SPAWN_EGG && !this.isTouchingWaterOrLava()) {
             warden.setPose(EntityPose.EMERGING);
             warden.getBrain().remember(MemoryModuleType.IS_EMERGING, Unit.INSTANCE, WardenBrain.EMERGE_DURATION);
             this.playSound(SoundEvents.ENTITY_WARDEN_AGITATED, 5.0F, 1.0F);
