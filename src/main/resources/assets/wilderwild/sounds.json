@@ -767,8 +767,15 @@
 	},
 	"entity.warden.dying": {
 		"sounds": [
-			"wilderwild:mob/warden/dying1",
-			"wilderwild:mob/warden/dying2"
+			"wilderwild:mob/warden/dying_1",
+			"wilderwild:mob/warden/dying_2"
+		]
+	},
+	"entity.warden.dying_underwater": {
+		"sounds": [
+			"wilderwild:mob/warden/dying_underwater_1",
+			"wilderwild:mob/warden/dying_underwater_2",
+			"wilderwild:mob/warden/dying_underwater_3"
 		]
 	},
 	"item.ancient_horn.call": {

@@ -97,6 +97,8 @@ public class RegisterSounds {
 
     public static final SoundEvent ENTITY_WARDEN_DYING = register("entity.warden.dying");
 
+    public static final SoundEvent ENTITY_WARDEN_UNDERWATER_DYING = register("entity.warden.dying_underwater");
+
     public static final SoundEvent ANCIENT_HORN_CALL = register("item.ancient_horn.call");
     public static final SoundEvent ANCIENT_HORN_VIBRATION_DISSIPATE = register("entity.ancient_horn_projectile.dissipate");
 

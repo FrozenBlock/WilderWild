@@ -55,7 +55,11 @@ public abstract class WardenEntityMixin extends HostileEntity implements WardenA
      */
     @Overwrite
     public SoundEvent getDeathSound() {
-        warden.playSound(RegisterSounds.ENTITY_WARDEN_DYING, 5.0F, 1.0F);
+        if (!(warden.isSubmergedIn(FluidTags.WATER) || warden.isSubmergedIn(FluidTags.LAVA))) {
+            warden.playSound(RegisterSounds.ENTITY_WARDEN_DYING, 5.0F, 1.0F);
+        } else if (warden.isSubmergedIn(FluidTags.WATER) || warden.isSubmergedIn(FluidTags.LAVA)) {
+            warden.playSound(RegisterSounds.ENTITY_WARDEN_UNDERWATER_DYING, 0.75F, 0.75F);
+        }
         return SoundEvents.ENTITY_WARDEN_DEATH;
     }
 
@@ -74,7 +78,7 @@ public abstract class WardenEntityMixin extends HostileEntity implements WardenA
 
     private final AnimationState dyingAnimationState = new AnimationState();
 
-    private final AnimationState swimmingAnimationState = new AnimationState();
+    private final AnimationState waterDyingAnimationState = new AnimationState();
 
     @Override
     public AnimationState getDyingAnimationState() {
@@ -82,15 +86,15 @@ public abstract class WardenEntityMixin extends HostileEntity implements WardenA
     }
 
     @Override
-    public AnimationState getSwimmingAnimationState() {
-        return this.swimmingAnimationState;
+    public AnimationState getWaterDyingAnimationState() {
+        return this.waterDyingAnimationState;
     }
 
     @Inject(at = @At("HEAD"), method = "initialize")
     public void initialize(ServerWorldAccess serverWorldAccess, LocalDifficulty localDifficulty, SpawnReason spawnReason, @Nullable EntityData entityData, @Nullable NbtCompound nbtCompound, CallbackInfoReturnable<EntityData> info) {
         warden.getBrain().remember(MemoryModuleType.DIG_COOLDOWN, Unit.INSTANCE, 1200L);
         warden.getBrain().remember(MemoryModuleType.TOUCH_COOLDOWN, Unit.INSTANCE, WardenBrain.EMERGE_DURATION);
-        if (spawnReason == SpawnReason.SPAWN_EGG || spawnReason == SpawnReason.COMMAND) {
+        if (spawnReason == SpawnReason.SPAWN_EGG) {
             warden.setPose(EntityPose.EMERGING);
             warden.getBrain().remember(MemoryModuleType.IS_EMERGING, Unit.INSTANCE, WardenBrain.EMERGE_DURATION);
             this.playSound(SoundEvents.ENTITY_WARDEN_AGITATED, 5.0F, 1.0F);
@@ -162,10 +166,14 @@ public abstract class WardenEntityMixin extends HostileEntity implements WardenA
     @Inject(method = "onTrackedDataSet", at = @At("HEAD"), cancellable = true)
     public void onTrackedDataSet(TrackedData<?> data, CallbackInfo ci) {
         if (POSE.equals(data)) {
-            switch(warden.getPose()) {
-                case DYING:
-                    this.getDyingAnimationState().start(warden.age);
-                    break;
+                if (warden.getPose() == EntityPose.DYING) {
+                    if (!(warden.isSubmergedIn(FluidTags.WATER) || warden.isSubmergedIn(FluidTags.LAVA))) {
+                        ci.cancel();
+                        this.getDyingAnimationState().start(warden.age);
+                } else {
+                        ci.cancel();
+                        this.getWaterDyingAnimationState().start(warden.age);
+                }
             }
         }
     }
@@ -303,7 +311,7 @@ public abstract class WardenEntityMixin extends HostileEntity implements WardenA
 
     @Override
     public SoundEvent getSwimSound() {
-        return SoundEvents.ENTITY_FISH_SWIM;
+        return SoundEvents.ENTITY_GENERIC_SWIM;
     }
 
     @Override

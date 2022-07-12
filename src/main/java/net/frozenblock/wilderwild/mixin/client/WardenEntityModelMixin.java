@@ -124,6 +124,7 @@ public class WardenEntityModelMixin<T extends WardenEntity> {
         model.updateAnimation(wardenEntity.roaringAnimationState, WardenAnimations.ROARING, anim);
         model.updateAnimation(wardenEntity.sniffingAnimationState, WardenAnimations.SNIFFING, anim);
         model.updateAnimation(((WardenAnimationInterface) wardenEntity).getDyingAnimationState(), CustomWardenAnimations.DYING, anim);
+        model.updateAnimation(((WardenAnimationInterface) wardenEntity).getWaterDyingAnimationState(), CustomWardenAnimations.WATER_DYING, anim);
 
     }
 
@@ -159,7 +160,7 @@ public class WardenEntityModelMixin<T extends WardenEntity> {
                 this.body.pitch = this.lerpAngleDegrees(o, this.body.pitch, (sin * 15 - 10) * rad);
                 this.body.yaw = this.lerpAngleDegrees(o, this.body.yaw, (sin0 * 5) * rad);
                 this.body.pivotY = this.lerp(o, this.body.pivotY + 21,0);
-                this.body.pivotZ = this.lerp(o, this.body.pivotZ,-cos * 2);
+                this.body.pivotZ = this.lerp(o, this.body.pivotZ,cos * 2);
             } else {
                 this.body.pivotY = 0;
             }
