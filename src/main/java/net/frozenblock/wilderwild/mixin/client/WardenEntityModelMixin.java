@@ -72,6 +72,24 @@ public class WardenEntityModelMixin<T extends WardenEntity> {
 
     private final WardenEntityModel model = WardenEntityModel.class.cast(this);
 
+
+    private float lerp(float start, float end) {
+        return MathHelper.lerp(1F, start, end);
+    }
+
+    private float lerpDelta(float delta, float start, float end) {
+        return MathHelper.lerp(delta, start, end);
+    }
+
+    private float lerpAngleDegrees(float start, float end) {
+        return MathHelper.lerpAngleDegrees(1F, start, end);
+    }
+
+    private float lerpAngleDegreesDelta(float delta, float start, float end) {
+        return MathHelper.lerpAngleDegrees(delta, start, end);
+    }
+
+
     @Inject(at = @At("HEAD"), method = "setTendrilPitches", cancellable = true)
     private void setTendrilPitches(T warden, float animationProgress, float tickDelta, CallbackInfo info) {
         float cos = warden.getTendrilPitch(tickDelta) * (float) (Math.cos((double) animationProgress * 2.25D) * 3.141592653589793D * 0.10000000149011612D);
@@ -94,13 +112,18 @@ public class WardenEntityModelMixin<T extends WardenEntity> {
     @Inject(method = "setAngles(Lnet/minecraft/entity/mob/WardenEntity;FFFFF)V", at = @At("HEAD"), cancellable = true)
     private void setAngles(T wardenEntity, float angle, float distance, float anim, float headYaw, float headPitch, CallbackInfo ci) {
         ci.cancel();
-        boolean swimming = this.isSubmergedInWaterOrLava(wardenEntity) && distance > 0;
+        boolean swimming = this.isSubmerged(wardenEntity) && distance > 0;
+        boolean cannotSwim = wardenEntity.isInPose(EntityPose.EMERGING) || wardenEntity.isInPose(EntityPose.DIGGING) || wardenEntity.isInPose(EntityPose.DYING);
+        boolean shouldMoveArms = !wardenEntity.isInPose(EntityPose.ROARING) && !wardenEntity.isInPose(EntityPose.EMERGING) && !wardenEntity.isInPose(EntityPose.DIGGING);
+        boolean shouldMoveBody = !wardenEntity.isInPose(EntityPose.ROARING) && !wardenEntity.isInPose(EntityPose.EMERGING) && !wardenEntity.isInPose(EntityPose.DIGGING);
+        boolean shouldMoveHead = !wardenEntity.isInPose(EntityPose.ROARING) && !wardenEntity.isInPose(EntityPose.EMERGING) && !wardenEntity.isInPose(EntityPose.DIGGING);
         model.getPart().traverse().forEach(ModelPart::resetTransform);
         float k = anim - (float)wardenEntity.age;
         this.setHeadAngle(headYaw, headPitch);
         this.setLimbAngles(angle, distance);
         this.setHeadAndBodyAngles(anim);
         this.setTendrilPitches(wardenEntity, anim, k);
+        this.setSwimmingAngles(wardenEntity, angle, distance, anim, k, headYaw, headPitch, swimming, shouldMoveArms, shouldMoveBody, shouldMoveHead, cannotSwim, ci);
         model.updateAnimation(wardenEntity.attackingAnimationState, WardenAnimations.ATTACKING, anim);
         model.updateAnimation(wardenEntity.chargingSonicBoomAnimationState, WardenAnimations.CHARGING_SONIC_BOOM, anim);
         model.updateAnimation(wardenEntity.diggingAnimationState, WardenAnimations.DIGGING, anim);
@@ -109,61 +132,71 @@ public class WardenEntityModelMixin<T extends WardenEntity> {
         model.updateAnimation(wardenEntity.sniffingAnimationState, WardenAnimations.SNIFFING, anim);
         model.updateAnimation(((WardenAnimationInterface) wardenEntity).getDyingAnimationState(), CustomWardenAnimations.DYING, anim);
 
-        boolean cannotSwim = wardenEntity.isInPose(EntityPose.EMERGING) || wardenEntity.isInPose(EntityPose.DIGGING) || wardenEntity.isInPose(EntityPose.DYING);
-        boolean shouldMoveArms = !wardenEntity.isInPose(EntityPose.ROARING) && !wardenEntity.isInPose(EntityPose.EMERGING) && !wardenEntity.isInPose(EntityPose.DIGGING);
-        boolean shouldMoveBody = !wardenEntity.isInPose(EntityPose.ROARING) && !wardenEntity.isInPose(EntityPose.EMERGING) && !wardenEntity.isInPose(EntityPose.DIGGING);
-        boolean shouldMoveHead = !wardenEntity.isInPose(EntityPose.ROARING) && !wardenEntity.isInPose(EntityPose.EMERGING) && !wardenEntity.isInPose(EntityPose.DIGGING);
+    }
+
+    private void setSwimmingAngles(T wardenEntity, float angle, float distance, float anim, float k, float headYaw, float headPitch, boolean swimming, boolean moveArms, boolean moveBody, boolean moveHead, boolean cannotSwim, CallbackInfo ci) {
 
         if (swimming && !cannotSwim) {
 
-            this.bone.pitch = MathHelper.clamp(distance * 5, 0,headYaw * 0.017453292F + 1.5708F);
-            this.bone.yaw = headPitch * 0.017453292F;
-            this.bone.pivotY = -2F;
-            this.bone.pivotZ = Math.max(-distance,-24);
+            float speed = (float) (angle * (Math.PI * 0.2));
 
-            float time = (float) (angle * (Math.PI * 0.2));
-            float cos = MathHelper.cos(time);
-            float sin = MathHelper.sin(time);
-            float sin0 = MathHelper.sin(time * 0.5F);
-            float cos0 = MathHelper.cos(time * 2.0F);
+            float time = anim * 0.1F;
+
+            float cos = MathHelper.cos(speed);
+            float sin = MathHelper.sin(speed);
+
+            float sin0 = MathHelper.sin(speed * 0.5F);
+            float cos0 = MathHelper.cos(speed * 2.0F);
+
+            float o = isSubmerged(wardenEntity) ? Math.min(distance / 0.3F, 1.0F) : 0;
+
             float rad = (float) (Math.PI / 180);
 
-            if (shouldMoveHead) {
-                this.head.pitch = Math.max(distance * -10, (sin * -10 - 60) * rad);
-                this.head.pivotY = Math.max((distance * -10) - 13, -17);
+            this.bone.pitch = this.lerpAngleDegreesDelta(o, this.bone.pitch, headPitch * 0.017453292F + 1.5708F);
+            this.bone.yaw = this.lerpAngleDegreesDelta(o, this.bone.yaw, headYaw * 0.017453292F);
+            this.bone.pivotY = this.lerpDelta(o, this.bone.pivotZ, 24) + 3;
+
+            if (moveHead) {
+                this.head.pitch = this.lerpAngleDegreesDelta(o, this.head.pitch, (sin * -10 - 60) * rad);
+                this.head.roll = this.lerpAngleDegreesDelta(o, this.head.roll, 0);
+                this.head.yaw = this.lerpAngleDegreesDelta(o, this.head.yaw, 0);
             }
 
-            if (shouldMoveBody) {
-                this.body.pitch = Math.max(distance * -10, (sin * 15 - 10) * rad);
-                this.body.yaw = (sin0 * 5) * rad;
-                this.body.pivotY = Math.min(distance * 10, -cos * 2);
+            if (moveBody) {
+                this.body.pitch = this.lerpAngleDegreesDelta(o, this.body.pitch, (sin * 15 - 10) * rad);
+                this.body.yaw = this.lerpAngleDegreesDelta(o, this.body.yaw, (sin0 * 5) * rad);
+                this.body.pivotY = this.lerpDelta(o, this.body.pivotY + 21,0);
+                this.body.pivotZ = this.lerpDelta(o, this.body.pivotZ,-cos * 2);
             } else {
                 this.body.pivotY = 0;
             }
 
-            if (shouldMoveArms) {
+            if (moveArms) {
 
-                this.rightArm.pitch = 0f;
-                this.rightArm.yaw = Math.max(distance * -10, (-cos * 25) * rad);
-                this.rightArm.roll = Math.min(distance * 10, (sin * -90 + 90) * rad);
-                this.rightArm.pivotX = cos0 * 2 - 11;
+                this.rightArm.pitch = this.lerpAngleDegreesDelta(o, this.rightArm.pitch, 0f);
+                this.rightArm.yaw = this.lerpAngleDegreesDelta(o, this.rightArm.yaw, (-cos * 25)) * rad;
+                this.rightArm.roll = this.lerpAngleDegreesDelta(o, this.rightArm.roll, (sin * -90 + 90)) * rad;
+                this.rightArm.pivotX = this.lerpDelta(o, this.rightArm.pivotX, (cos0 * 2 + 2) - 13);
 
-                this.leftArm.pitch = 0f;
-                this.leftArm.yaw = Math.max(distance * -10,(cos * 25) * rad);
-                this.leftArm.roll = Math.max(distance * -10,(sin * 90 - 90) * rad);
-                this.leftArm.pivotX = cos0 * -2 + 11;
+                this.leftArm.pitch = this.lerpAngleDegreesDelta(o, this.leftArm.pitch, 0f);
+                this.leftArm.yaw = this.lerpAngleDegreesDelta(o, this.leftArm.yaw, (cos * 25) * rad);
+                this.leftArm.roll = this.lerpAngleDegreesDelta(o, this.leftArm.roll, (sin * 90 - 90) * rad);
+                this.leftArm.pivotX = this.lerpDelta(o, this.leftArm.pivotX, (cos0 * -2 - 2) + 13);
 
             }
 
-            this.leftLeg.pitch = (-cos * 35 + 15) * rad;
+            this.leftLeg.pitch = this.lerpAngleDegreesDelta(o, this.leftLeg.pitch, (-cos * 35 + 15) * rad);
+            this.leftLeg.pitch += (MathHelper.sin(time) * 15 + 15) * rad;
+
+            this.rightLeg.pitch = this.lerpAngleDegreesDelta(o, this.rightLeg.pitch, (cos * 35 + 15) * rad);
+            this.rightLeg.pitch += (MathHelper.sin(time) * -15 + 15) * rad;
+
+            this.rightLeg.pivotY = 8;
             this.leftLeg.pivotY = 8;
 
-            this.rightLeg.pitch = (cos * 35 + 15) * rad;
-            this.rightLeg.pivotY = 8;
+        } else if (this.isSubmerged(wardenEntity) && distance <= 0) {
 
-        } else if (this.isSubmergedInWaterOrLava(wardenEntity) && distance <= 0){
-
-            this.body.pivotY = 8;
+            this.body.pivotY = 0;
 
             ci.cancel();
             model.getPart().traverse().forEach(ModelPart::resetTransform);
@@ -174,7 +207,7 @@ public class WardenEntityModelMixin<T extends WardenEntity> {
         }
     }
 
-    private boolean isSubmergedInWaterOrLava(WardenEntity warden) {
+    private boolean isSubmerged(WardenEntity warden) {
         return warden.isSubmergedIn(FluidTags.WATER) || warden.isSubmergedIn(FluidTags.LAVA);
     }
 }
