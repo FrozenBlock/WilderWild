@@ -182,8 +182,8 @@ public class WardenEntityModelMixin<T extends WardenEntity> {
 
             }
 
-            this.leftLeg.pitch = this.lerpAngleDegrees(o, this.leftLeg.pitch, (-cos * 35 + 15) * rad);
-            this.rightLeg.pitch = this.lerpAngleDegrees(o, this.rightLeg.pitch, (cos * 35 + 15) * rad);
+            this.leftLeg.pitch = this.lerpAngleDegrees(o, this.leftLeg.pitch, (-cos * 35 - 5) * rad);
+            this.rightLeg.pitch = this.lerpAngleDegrees(o, this.rightLeg.pitch, (cos * 35 - 5) * rad);
 
             this.rightLeg.pivotY = 8;
             this.leftLeg.pivotY = 8;
