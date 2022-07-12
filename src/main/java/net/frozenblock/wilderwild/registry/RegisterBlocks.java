@@ -232,7 +232,7 @@ public class RegisterBlocks {
 
     }
 
-    public static final Block BROWN_SHELF_FUNGUS = new ShelfFungusBlock(FabricBlockSettings.copyOf(Blocks.BROWN_MUSHROOM_BLOCK).lightLevel(1).collidable(false).nonOpaque().sounds(RegisterBlockSoundGroups.MUSHROOM));
+    public static final Block BROWN_SHELF_FUNGUS = new ShelfFungusBlock(FabricBlockSettings.copyOf(Blocks.BROWN_MUSHROOM_BLOCK).luminance(1).collidable(false).nonOpaque().sounds(RegisterBlockSoundGroups.MUSHROOM));
     public static final Block RED_SHELF_FUNGUS = new ShelfFungusBlock(FabricBlockSettings.copyOf(Blocks.RED_MUSHROOM_BLOCK).collidable(false).nonOpaque().sounds(RegisterBlockSoundGroups.MUSHROOM));
     public static final Block POLLEN_BLOCK = new FlowerLichenBlock(FabricBlockSettings.copyOf(Blocks.GRASS).collidable(false).offsetType(AbstractBlock.OffsetType.NONE).mapColor(MapColor.PALE_YELLOW).sounds(BlockSoundGroup.VINE));
 
@@ -302,24 +302,24 @@ public class RegisterBlocks {
         CompostingChanceRegistry.INSTANCE.add(CYPRESS_SAPLING, 0.3F);
     }
 
-    private static Block registerBlockWithoutBlockItem(String name, Block block) {
-        return Registry.register(Registry.BLOCK, WilderWild.id(name), block);
+    private static void registerBlockWithoutBlockItem(String name, Block block) {
+        Registry.register(Registry.BLOCK, WilderWild.id(name), block);
     }
 
-    private static Block registerBlock(String name, Block block, ItemGroup group) {
+    private static void registerBlock(String name, Block block, ItemGroup group) {
         registerBlockItem(name, block, group);
-        return Registry.register(Registry.BLOCK, WilderWild.id(name), block);
+        Registry.register(Registry.BLOCK, WilderWild.id(name), block);
     }
 
-    private static BlockItem registerBlockItem(String name, Block block, ItemGroup group) {
-        return Registry.register(Registry.ITEM, WilderWild.id(name),
+    private static void registerBlockItem(String name, Block block, ItemGroup group) {
+        Registry.register(Registry.ITEM, WilderWild.id(name),
                 new BlockItem(block, new FabricItemSettings().group(group)));
     }
 
     private static HollowedLogBlock createHollowedLogBlock(MapColor topMapColor, MapColor sideMapColor) {
         return new HollowedLogBlock(FabricBlockSettings.of(Material.WOOD,
                         (state) -> state.get(HollowedLogBlock.AXIS) == Direction.Axis.Y ? topMapColor : sideMapColor)
-                .strength(2.0F).sounds(BlockSoundGroup.WOOD));
+                .strength(2.0F).sounds(RegisterBlockSoundGroups.HOLLOWED_LOG));
     }
 
     public static void addBaobab() {

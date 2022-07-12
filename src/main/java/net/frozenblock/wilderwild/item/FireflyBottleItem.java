@@ -89,12 +89,12 @@ public class FireflyBottleItem extends Item {
                 }
             }
         }
-        user.emitGameEvent(GameEvent.DRINK);
+        user.emitGameEvent(GameEvent.ITEM_INTERACT_FINISH);
         return ItemUsage.consumeHeldItem(world, user, hand);
     }
 
     public UseAction getUseAction(ItemStack stack) {
-        return UseAction.DRINK; //sus funny funny funny among us sus funny all
+        return UseAction.NONE; //sus funny funny funny among us sus funny all
     }
 
     @Override

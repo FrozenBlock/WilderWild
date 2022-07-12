@@ -12,7 +12,8 @@ public class RegisterBlockSoundGroups {
             BLOCK_OSSEOUS_SCULK_STEP,
             BLOCK_OSSEOUS_SCULK_PLACE,
             BLOCK_OSSEOUS_SCULK_HIT,
-            BLOCK_OSSEOUS_SCULK_FALL);
+            BLOCK_OSSEOUS_SCULK_FALL
+    );
 
     public static final BlockSoundGroup HANGING_TENDRIL = new BlockSoundGroup(1.0F, 1.25F,
             RegisterSounds.BLOCK_HANGING_TENDRIL_BREAK,
@@ -20,6 +21,14 @@ public class RegisterBlockSoundGroups {
             RegisterSounds.BLOCK_HANGING_TENDRIL_PLACE,
             RegisterSounds.BLOCK_HANGING_TENDRIL_HIT,
             RegisterSounds.BLOCK_HANGING_TENDRIL_FALL
+    );
+
+    public static final BlockSoundGroup HOLLOWED_LOG = new BlockSoundGroup(1.0F, 1.0F,
+            BLOCK_HOLLOWED_LOG_BREAK,
+            BLOCK_HOLLOWED_LOG_STEP,
+            BLOCK_HOLLOWED_LOG_PLACE,
+            BLOCK_HOLLOWED_LOG_HIT,
+            BLOCK_HOLLOWED_LOG_FALL
     );
 
     public static final BlockSoundGroup ECHO_GLASS = new BlockSoundGroup(1.0F, 1.25F,
