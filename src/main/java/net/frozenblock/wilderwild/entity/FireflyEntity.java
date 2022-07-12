@@ -72,6 +72,7 @@ public class FireflyEntity extends PathAwareEntity implements Flutterer {
 
     public FireflyEntity(EntityType<? extends FireflyEntity> entityType, World world) {
         super(entityType, world);
+        this.setPathfindingPenalty(PathNodeType.LAVA, -1.0F);
         this.setPathfindingPenalty(PathNodeType.DANGER_FIRE, -1.0F);
         this.setPathfindingPenalty(PathNodeType.WATER, -1.0F);
         this.setPathfindingPenalty(PathNodeType.WATER_BORDER, 16.0F);
@@ -114,6 +115,10 @@ public class FireflyEntity extends PathAwareEntity implements Flutterer {
         this.dataTracker.startTracking(AGE, 0);
         this.dataTracker.startTracking(SCALE, 1.5F);
         this.dataTracker.startTracking(COLOR, "on");
+    }
+
+    public boolean occludeVibrationSignals() {
+        return true;
     }
 
     protected ActionResult interactMob(PlayerEntity player, Hand hand) {
@@ -474,14 +479,6 @@ public class FireflyEntity extends PathAwareEntity implements Flutterer {
     }
 
     protected void tickCramming() {
-    }
-
-    @Override
-    public void emitGameEvent(GameEvent event, @Nullable Entity entity) {
-    }
-
-    @Override
-    public void emitGameEvent(GameEvent event) {
     }
 
 }
