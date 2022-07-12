@@ -3,7 +3,6 @@ package net.frozenblock.wilderwild.registry;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.misc.CameraItem;
-import net.minecraft.item.Item;
 import net.minecraft.util.registry.Registry;
 
 public class RegisterDevelopment {

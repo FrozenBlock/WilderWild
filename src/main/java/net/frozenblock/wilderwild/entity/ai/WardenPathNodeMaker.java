@@ -1,16 +1,12 @@
 package net.frozenblock.wilderwild.entity.ai;
 
-import it.unimi.dsi.fastutil.longs.Long2ObjectFunction;
 import it.unimi.dsi.fastutil.longs.Long2ObjectMap;
 import it.unimi.dsi.fastutil.longs.Long2ObjectOpenHashMap;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.ai.pathing.*;
-import net.minecraft.entity.ai.pathing.AmphibiousPathNodeMaker;
 import net.minecraft.entity.mob.MobEntity;
-import net.minecraft.entity.passive.FishEntity;
-import net.minecraft.entity.passive.WanderingTraderEntity;
 import net.minecraft.fluid.Fluids;
 import net.minecraft.tag.FluidTags;
 import net.minecraft.util.math.BlockPos;
@@ -18,7 +14,6 @@ import net.minecraft.util.math.Box;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.BlockView;
-import net.minecraft.world.WanderingTraderManager;
 import net.minecraft.world.chunk.ChunkCache;
 import org.jetbrains.annotations.Nullable;
 
@@ -68,7 +63,7 @@ public class WardenPathNodeMaker extends LandPathNodeMaker {
             BlockState blockState = this.cachedWorld.getBlockState(mutable.set(this.entity.getX(), i, this.entity.getZ()));
             if (!this.entity.canWalkOnFluid(blockState.getFluidState())) {
                 if (this.canSwim() && this.entity.isTouchingWater()) {
-                    while(true) {
+                    while (true) {
                         if (!blockState.isOf(Blocks.WATER) && blockState.getFluidState() != Fluids.WATER.getStill(false)) {
                             --i;
                             break;
@@ -81,7 +76,7 @@ public class WardenPathNodeMaker extends LandPathNodeMaker {
                 } else {
                     BlockPos blockPos = this.entity.getBlockPos();
 
-                    while(
+                    while (
                             (
                                     this.cachedWorld.getBlockState(blockPos).isAir()
                                             || this.cachedWorld.getBlockState(blockPos).canPathfindThrough(this.cachedWorld, blockPos, NavigationType.LAND)
@@ -94,8 +89,8 @@ public class WardenPathNodeMaker extends LandPathNodeMaker {
                     i = blockPos.up().getY();
                 }
             } else {
-                while(this.entity.canWalkOnFluid(blockState.getFluidState())) {
-                    blockState = this.cachedWorld.getBlockState(mutable.set(this.entity.getX(), (double)(++i), this.entity.getZ()));
+                while (this.entity.canWalkOnFluid(blockState.getFluidState())) {
+                    blockState = this.cachedWorld.getBlockState(mutable.set(this.entity.getX(), ++i, this.entity.getZ()));
                 }
 
                 --i;
@@ -229,7 +224,7 @@ public class WardenPathNodeMaker extends LandPathNodeMaker {
 
     @Override
     protected double getFeetY(BlockPos pos) {
-        return this.isEntityTouchingWaterOrLava(this.entity) ? (double)pos.getY() + 0.5 : super.getFeetY(pos);
+        return this.isEntityTouchingWaterOrLava(this.entity) ? (double) pos.getY() + 0.5 : super.getFeetY(pos);
     }
 
     @Override
@@ -242,7 +237,7 @@ public class WardenPathNodeMaker extends LandPathNodeMaker {
         BlockPos.Mutable mutable = new BlockPos.Mutable();
         PathNodeType pathNodeType = getCommonNodeType(world, mutable.set(x, y, z));
         if (pathNodeType == PathNodeType.WATER || pathNodeType == PathNodeType.LAVA) {
-            for(Direction direction : Direction.values()) {
+            for (Direction direction : Direction.values()) {
                 PathNodeType pathNodeType2 = getCommonNodeType(world, mutable.set(x, y, z).move(direction));
                 if (pathNodeType2 == PathNodeType.BLOCKED) {
                     return PathNodeType.WATER_BORDER;

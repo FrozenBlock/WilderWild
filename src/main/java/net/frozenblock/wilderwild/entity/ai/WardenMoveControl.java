@@ -9,17 +9,13 @@ import net.minecraft.entity.ai.pathing.EntityNavigation;
 import net.minecraft.entity.ai.pathing.PathNodeMaker;
 import net.minecraft.entity.ai.pathing.PathNodeType;
 import net.minecraft.entity.attribute.EntityAttributes;
-import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.mob.WardenEntity;
-import net.minecraft.entity.passive.AxolotlEntity;
 import net.minecraft.tag.BlockTags;
 import net.minecraft.tag.FluidTags;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.shape.VoxelShape;
-
-import java.util.Objects;
 
 public class WardenMoveControl extends AquaticMoveControl {
 
@@ -51,7 +47,7 @@ public class WardenMoveControl extends AquaticMoveControl {
                         }
 
                     } else if (this.entity.getBrain().getOptionalMemory(MemoryModuleType.ATTACK_TARGET).isPresent()) {
-                        if (this.entity.getBrain().getOptionalMemory(MemoryModuleType.ATTACK_TARGET).get().getY()>this.entity.getY()) {
+                        if (this.entity.getBrain().getOptionalMemory(MemoryModuleType.ATTACK_TARGET).get().getY() > this.entity.getY()) {
                             this.entity.setVelocity(this.entity.getVelocity().add(0.0D, 0.017D, 0.0D));
                         } else {
                             this.entity.setVelocity(this.entity.getVelocity().add(0.0D, -0.017D, 0.0D));
@@ -59,7 +55,7 @@ public class WardenMoveControl extends AquaticMoveControl {
                     }
                 } else {
                     if (!this.isEntitySubmergedInWaterOrLava(this.entity)) {
-                        this.entity.setVelocity(this.entity.getVelocity().add(0.0D, 0.013D, 0.0D));
+                        this.entity.setVelocity(this.entity.getVelocity().add(0.0D, 0.01D, 0.0D));
                     } else {
                         this.entity.setVelocity(this.entity.getVelocity().add(0.0D, 0.006D, 0.0D));
                     }

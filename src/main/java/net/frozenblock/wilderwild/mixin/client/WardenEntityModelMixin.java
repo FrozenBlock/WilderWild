@@ -59,19 +59,22 @@ public class WardenEntityModelMixin<T extends WardenEntity> {
     protected ModelPart rightArm;
 
     @Shadow
-    private void setHeadAngle(float i, float j) {}
+    private void setHeadAngle(float i, float j) {
+    }
 
     @Shadow
-    private void setLimbAngles(float f, float g) {}
+    private void setLimbAngles(float f, float g) {
+    }
 
     @Shadow
-    private void setHeadAndBodyAngles(float k) {}
+    private void setHeadAndBodyAngles(float k) {
+    }
 
     @Shadow
-    private void setTendrilPitches(T warden, float animationProgress, float tickDelta) {}
+    private void setTendrilPitches(T warden, float animationProgress, float tickDelta) {
+    }
 
     private final WardenEntityModel model = WardenEntityModel.class.cast(this);
-
 
 
     private float lerp(float delta, float start, float end) {
@@ -106,12 +109,12 @@ public class WardenEntityModelMixin<T extends WardenEntity> {
     private void setAngles(T wardenEntity, float angle, float distance, float anim, float headYaw, float headPitch, CallbackInfo ci) {
         ci.cancel();
         boolean swimming = this.isSubmerged(wardenEntity) && distance > 0;
-        boolean cannotSwim = wardenEntity.isInPose(EntityPose.EMERGING) || wardenEntity.isInPose(EntityPose.DIGGING) || wardenEntity.isInPose(EntityPose.DYING);
+        boolean cannotSwim = wardenEntity.isInPose(EntityPose.EMERGING) || wardenEntity.isInPose(EntityPose.DIGGING) || wardenEntity.isInPose(EntityPose.DYING) || ((WardenAnimationInterface) wardenEntity).getSwimmingDyingAnimation().isRunning();
         boolean shouldMoveArms = !wardenEntity.isInPose(EntityPose.ROARING) && !wardenEntity.isInPose(EntityPose.EMERGING) && !wardenEntity.isInPose(EntityPose.DIGGING);
         boolean shouldMoveBody = !wardenEntity.isInPose(EntityPose.ROARING) && !wardenEntity.isInPose(EntityPose.EMERGING) && !wardenEntity.isInPose(EntityPose.DIGGING);
         boolean shouldMoveHead = !wardenEntity.isInPose(EntityPose.ROARING) && !wardenEntity.isInPose(EntityPose.EMERGING) && !wardenEntity.isInPose(EntityPose.DIGGING);
         model.getPart().traverse().forEach(ModelPart::resetTransform);
-        float k = anim - (float)wardenEntity.age;
+        float k = anim - (float) wardenEntity.age;
         this.setHeadAngle(headYaw, headPitch);
         this.setLimbAngles(angle, distance);
         this.setHeadAndBodyAngles(anim);
@@ -124,7 +127,7 @@ public class WardenEntityModelMixin<T extends WardenEntity> {
         model.updateAnimation(wardenEntity.roaringAnimationState, WardenAnimations.ROARING, anim);
         model.updateAnimation(wardenEntity.sniffingAnimationState, WardenAnimations.SNIFFING, anim);
         model.updateAnimation(((WardenAnimationInterface) wardenEntity).getDyingAnimationState(), CustomWardenAnimations.DYING, anim);
-        model.updateAnimation(((WardenAnimationInterface) wardenEntity).getWaterDyingAnimationState(), CustomWardenAnimations.WATER_DYING, anim);
+        model.updateAnimation(((WardenAnimationInterface) wardenEntity).getSwimmingDyingAnimation(), CustomWardenAnimations.WATER_DYING, anim);
 
     }
 
@@ -159,8 +162,8 @@ public class WardenEntityModelMixin<T extends WardenEntity> {
             if (moveBody) {
                 this.body.pitch = this.lerpAngleDegrees(o, this.body.pitch, (sin * 15 - 10) * rad);
                 this.body.yaw = this.lerpAngleDegrees(o, this.body.yaw, (sin0 * 5) * rad);
-                this.body.pivotY = this.lerp(o, this.body.pivotY + 21,0);
-                this.body.pivotZ = this.lerp(o, this.body.pivotZ,cos * 2);
+                this.body.pivotY = this.lerp(o, this.body.pivotY + 21, 0);
+                this.body.pivotZ = this.lerp(o, this.body.pivotZ, cos * 2);
             } else {
                 this.body.pivotY = 0;
             }
@@ -211,6 +214,6 @@ public class WardenEntityModelMixin<T extends WardenEntity> {
     }
 
     private boolean isSubmerged(WardenEntity warden) {
-        return warden.isSubmergedIn(FluidTags.WATER) || warden.isSubmergedIn(FluidTags.LAVA);
+        return warden.isInsideWaterOrBubbleColumn() || warden.isSubmergedIn(FluidTags.LAVA);
     }
 }

@@ -2,12 +2,8 @@ package net.frozenblock.wilderwild.entity.ai;
 
 import net.frozenblock.wilderwild.entity.FireflyEntity;
 import net.frozenblock.wilderwild.tag.WildBlockTags;
-import net.minecraft.block.Block;
-import net.minecraft.block.Blocks;
 import net.minecraft.entity.ai.goal.MoveToTargetPosGoal;
-import net.minecraft.entity.mob.PathAwareEntity;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.WorldEvents;
 import net.minecraft.world.WorldView;
 
 public class FireflyHidingGoal extends MoveToTargetPosGoal {

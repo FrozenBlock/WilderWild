@@ -1,14 +1,12 @@
 package net.frozenblock.wilderwild.entity.ai;
 
 import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.ai.pathing.MobNavigation;
 import net.minecraft.entity.ai.pathing.PathNode;
 import net.minecraft.entity.ai.pathing.PathNodeNavigator;
 import net.minecraft.entity.ai.pathing.PathNodeType;
 import net.minecraft.entity.mob.MobEntity;
-import net.minecraft.entity.passive.AxolotlSwimNavigation;
 import net.minecraft.tag.FluidTags;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
@@ -60,7 +58,7 @@ public class WardenNavigation extends MobNavigation {
             BlockState blockState = this.world.getBlockState(new BlockPos(this.entity.getX(), i, this.entity.getZ()));
             int j = 0;
 
-            while(blockState.getFluidState().isIn(FluidTags.WATER) || blockState.getFluidState().isIn(FluidTags.LAVA)) {
+            while (blockState.getFluidState().isIn(FluidTags.WATER) || blockState.getFluidState().isIn(FluidTags.LAVA)) {
                 blockState = this.world.getBlockState(new BlockPos(this.entity.getX(), ++i, this.entity.getZ()));
                 if (++j > 16) {
                     return this.entity.getBlockY();

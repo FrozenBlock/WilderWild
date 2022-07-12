@@ -86,7 +86,7 @@ public class AncientHornProjectileEntity extends PersistentProjectileEntity {
         this.baseTick();
         if (this.bubbles > 0 && this.world instanceof ServerWorld server) {
             --this.bubbles;
-            EasyPacket.EasyFloatingSculkBubblePacket.createParticle(server, this.getPos(), Math.random() > 0.7 ? 1 : 0, 20 + (int)(Math.random()*40), 0.05, server.random.nextBetween(1, 3));
+            EasyPacket.EasyFloatingSculkBubblePacket.createParticle(server, this.getPos(), Math.random() > 0.7 ? 1 : 0, 20 + (int) (Math.random() * 40), 0.05, server.random.nextBetween(1, 3));
         }
         if (this.aliveTicks > 300) {
             this.remove(RemovalReason.DISCARDED);

@@ -6,6 +6,6 @@ public interface WardenAnimationInterface {
 
     AnimationState getDyingAnimationState();
 
-    AnimationState getWaterDyingAnimationState();
+    AnimationState getSwimmingDyingAnimation();
 
 }

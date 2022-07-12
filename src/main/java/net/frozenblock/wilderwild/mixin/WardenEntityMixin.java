@@ -55,9 +55,9 @@ public abstract class WardenEntityMixin extends HostileEntity implements WardenA
      */
     @Overwrite
     public SoundEvent getDeathSound() {
-        if (!(warden.isSubmergedIn(FluidTags.WATER) || warden.isSubmergedIn(FluidTags.LAVA))) {
+        if (!this.isSubmergedInWaterOrLava()) {
             warden.playSound(RegisterSounds.ENTITY_WARDEN_DYING, 5.0F, 1.0F);
-        } else if (warden.isSubmergedIn(FluidTags.WATER) || warden.isSubmergedIn(FluidTags.LAVA)) {
+        } else if (this.isSubmergedInWaterOrLava()) {
             warden.playSound(RegisterSounds.ENTITY_WARDEN_UNDERWATER_DYING, 0.75F, 0.75F);
         }
         return SoundEvents.ENTITY_WARDEN_DEATH;
@@ -78,7 +78,7 @@ public abstract class WardenEntityMixin extends HostileEntity implements WardenA
 
     private final AnimationState dyingAnimationState = new AnimationState();
 
-    private final AnimationState waterDyingAnimationState = new AnimationState();
+    private final AnimationState swimmingDyingAnimation = new AnimationState();
 
     @Override
     public AnimationState getDyingAnimationState() {
@@ -86,8 +86,8 @@ public abstract class WardenEntityMixin extends HostileEntity implements WardenA
     }
 
     @Override
-    public AnimationState getWaterDyingAnimationState() {
-        return this.waterDyingAnimationState;
+    public AnimationState getSwimmingDyingAnimation() {
+        return this.swimmingDyingAnimation;
     }
 
     @Inject(at = @At("HEAD"), method = "initialize")
@@ -103,7 +103,7 @@ public abstract class WardenEntityMixin extends HostileEntity implements WardenA
 
     @Inject(at = @At("HEAD"), method = "pushAway")
     protected void pushAway(Entity entity, CallbackInfo info) {
-    if (!warden.getBrain().hasMemoryModule(MemoryModuleType.ATTACK_COOLING_DOWN) && !warden.getBrain().hasMemoryModule(MemoryModuleType.TOUCH_COOLDOWN) && !(entity instanceof WardenEntity) && !this.isDiggingOrEmerging() && !warden.isInPose(EntityPose.DYING) && !warden.isInPose(EntityPose.ROARING)) {
+        if (!warden.getBrain().hasMemoryModule(MemoryModuleType.ATTACK_COOLING_DOWN) && !warden.getBrain().hasMemoryModule(MemoryModuleType.TOUCH_COOLDOWN) && !(entity instanceof WardenEntity) && !this.isDiggingOrEmerging() && !warden.isInPose(EntityPose.DYING) && !warden.isInPose(EntityPose.ROARING)) {
             if (!entity.isInvulnerable() && entity instanceof LivingEntity livingEntity) {
                 if (!(entity instanceof PlayerEntity player)) {
                     warden.increaseAngerAt(entity, Angriness.ANGRY.getThreshold() + 20, false);
@@ -166,13 +166,13 @@ public abstract class WardenEntityMixin extends HostileEntity implements WardenA
     @Inject(method = "onTrackedDataSet", at = @At("HEAD"), cancellable = true)
     public void onTrackedDataSet(TrackedData<?> data, CallbackInfo ci) {
         if (POSE.equals(data)) {
-                if (warden.getPose() == EntityPose.DYING) {
-                    if (!(warden.isSubmergedIn(FluidTags.WATER) || warden.isSubmergedIn(FluidTags.LAVA))) {
-                        ci.cancel();
-                        this.getDyingAnimationState().start(warden.age);
+            if (warden.getPose() == EntityPose.DYING) {
+                if (!this.isSubmergedInWaterOrLava()) {
+                    this.getDyingAnimationState().start(warden.age);
+                    ci.cancel();
                 } else {
-                        ci.cancel();
-                        this.getWaterDyingAnimationState().start(warden.age);
+                    this.getSwimmingDyingAnimation().start(warden.age);
+                    ci.cancel();
                 }
             }
         }
@@ -322,7 +322,6 @@ public abstract class WardenEntityMixin extends HostileEntity implements WardenA
     protected boolean updateWaterState() {
         this.fluidHeight.clear();
         warden.checkWaterState();
-        //double d = warden.world.getDimension().ultrawarm() ? 0.007 : 0.0023333333333333335;
         boolean bl = warden.updateMovementInFluid(FluidTags.LAVA, 0.1D);
         return this.isTouchingWaterOrLava() || bl;
     }
@@ -338,7 +337,7 @@ public abstract class WardenEntityMixin extends HostileEntity implements WardenA
     @Inject(method = "getDimensions", at = @At("HEAD"), cancellable = true)
     public void getDimensions(EntityPose pose, CallbackInfoReturnable<EntityDimensions> info) {
         if (this.isSubmergedInWaterOrLava()) {
-            info.setReturnValue(EntityDimensions.changing(warden.getType().getWidth(), 0.8F));
+            info.setReturnValue(EntityDimensions.changing(warden.getType().getWidth(), 0.85F));
             info.cancel();
         }
     }
