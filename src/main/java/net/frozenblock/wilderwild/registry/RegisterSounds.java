@@ -53,6 +53,12 @@ public class RegisterSounds {
     public static final SoundEvent BLOCK_MUSHROOM_BLOCK_STEP = register("block.mushroom_block.step");
     public static final SoundEvent BLOCK_MUSHROOM_BLOCK_FALL = register("block.mushroom_block.fall");
 
+    public static final SoundEvent BLOCK_HOLLOWED_LOG_PLACE = register("block.hollowed_log.place");
+    public static final SoundEvent BLOCK_HOLLOWED_LOG_HIT = register("block.hollowed_log.hit");
+    public static final SoundEvent BLOCK_HOLLOWED_LOG_BREAK = register("block.hollowed_log.break");
+    public static final SoundEvent BLOCK_HOLLOWED_LOG_STEP = register("block.hollowed_log.step");
+    public static final SoundEvent BLOCK_HOLLOWED_LOG_FALL = register("block.hollowed_log.fall");
+
     public static final SoundEvent BLOCK_OSSEOUS_SCULK_PLACE = register("block.osseous_sculk.place");
     public static final SoundEvent BLOCK_OSSEOUS_SCULK_HIT = register("block.osseous_sculk.hit");
     public static final SoundEvent BLOCK_OSSEOUS_SCULK_BREAK = register("block.osseous_sculk.break");
@@ -99,8 +105,13 @@ public class RegisterSounds {
 
     public static final SoundEvent ENTITY_WARDEN_UNDERWATER_DYING = register("entity.warden.dying_underwater");
 
+    public static final SoundEvent ITEM_BOTTLE_CATCH_FIREFLY = register("item.bottle.catch_firefly");
+    public static final SoundEvent ITEM_BOTTLE_RELEASE_FIREFLY = register("item.bottle.release_firefly");
+
     public static final SoundEvent ANCIENT_HORN_CALL = register("item.ancient_horn.call");
-    public static final SoundEvent ANCIENT_HORN_VIBRATION_DISSIPATE = register("entity.ancient_horn_projectile.dissipate");
+    public static final SoundEvent ANCIENT_HORN_BLAST = register("item.ancient_horn.blast");
+    public static final SoundEvent ANCIENT_HORN_PROJECTILE_LOOP = register("entity.ancient_horn_projectile.loop");
+    public static final SoundEvent ANCIENT_HORN_PROJECTILE_DISSIPATE = register("entity.ancient_horn_projectile.dissipate");
 
     public static final SoundEvent MUSIC_DISC_BENEATH = register("music_disc.beneath");
     public static final SoundEvent MUSIC_DISC_GOATHORN_SYMPHONY = register("music_disc.goathorn_symphony");

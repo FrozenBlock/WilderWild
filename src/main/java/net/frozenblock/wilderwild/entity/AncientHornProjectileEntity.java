@@ -66,12 +66,12 @@ public class AncientHornProjectileEntity extends PersistentProjectileEntity {
 
     public AncientHornProjectileEntity(@NotNull EntityType<? extends PersistentProjectileEntity> entityType, World world) {
         super(entityType, world);
-        this.setSound(RegisterSounds.ANCIENT_HORN_VIBRATION_DISSIPATE);
+        this.setSound(RegisterSounds.ANCIENT_HORN_PROJECTILE_DISSIPATE);
     }
 
     public AncientHornProjectileEntity(World world, double x, double y, double z) {
         super(RegisterEntities.ANCIENT_HORN_PROJECTILE_ENTITY, x, y, z, world);
-        this.setSound(RegisterSounds.ANCIENT_HORN_VIBRATION_DISSIPATE);
+        this.setSound(RegisterSounds.ANCIENT_HORN_PROJECTILE_DISSIPATE);
     }
 
     public List<Entity> collidingEntities() {
@@ -246,7 +246,7 @@ public class AncientHornProjectileEntity extends PersistentProjectileEntity {
                     server.syncWorldEvent(3007, pos, 0);
                     server.emitGameEvent(GameEvent.SHRIEK, pos, GameEvent.Emitter.of(owner));
                     setCooldown(getCooldown(this.getOwner(), SHRIEKER_COOLDOWN));
-                    this.setSound(RegisterSounds.ANCIENT_HORN_VIBRATION_DISSIPATE);
+                    this.setSound(RegisterSounds.ANCIENT_HORN_PROJECTILE_DISSIPATE);
                     this.setShotFromCrossbow(false);
                     this.remove(RemovalReason.DISCARDED);
                 }
@@ -263,7 +263,7 @@ public class AncientHornProjectileEntity extends PersistentProjectileEntity {
                 }
             }
         }
-        this.setSound(RegisterSounds.ANCIENT_HORN_VIBRATION_DISSIPATE);
+        this.setSound(RegisterSounds.ANCIENT_HORN_PROJECTILE_DISSIPATE);
         this.setShotFromCrossbow(false);
         this.remove(RemovalReason.DISCARDED);
     }
@@ -276,7 +276,7 @@ public class AncientHornProjectileEntity extends PersistentProjectileEntity {
     }
 
     protected SoundEvent getHitSound() {
-        return RegisterSounds.ANCIENT_HORN_VIBRATION_DISSIPATE;
+        return RegisterSounds.ANCIENT_HORN_PROJECTILE_DISSIPATE;
     }
 
     public boolean isNoClip() {
@@ -310,9 +310,9 @@ public class AncientHornProjectileEntity extends PersistentProjectileEntity {
         Vec3d vec3d3 = this.getPos();
         Vec3d vec3d = this.getVelocity();
         Vec3d vec3d2 = vec3d3.add(vec3d.multiply(0.08));
-        HitResult hitResult = this.world.raycast(new RaycastContext(vec3d3, vec3d2, RaycastContext.ShapeType.COLLIDER, RaycastContext.FluidHandling.NONE, this));
+        BlockHitResult hitResult = this.world.raycast(new RaycastContext(vec3d3, vec3d2, RaycastContext.ShapeType.COLLIDER, RaycastContext.FluidHandling.NONE, this));
         if (hitResult.getType() == HitResult.Type.BLOCK) {
-            BlockState state = world.getBlockState(((BlockHitResult) hitResult).getBlockPos());
+            BlockState state = world.getBlockState(hitResult.getBlockPos());
             return state.isIn(this.NON_COLLIDE);
         }
         return false;
@@ -464,7 +464,7 @@ public class AncientHornProjectileEntity extends PersistentProjectileEntity {
                     }
                 }
 
-                this.playSound(RegisterSounds.ANCIENT_HORN_VIBRATION_DISSIPATE, 1.0F, 1.2F / (this.random.nextFloat() * 0.2F + 0.9F));
+                this.playSound(RegisterSounds.ANCIENT_HORN_PROJECTILE_DISSIPATE, 1.0F, 1.2F / (this.random.nextFloat() * 0.2F + 0.9F));
             } else {
                 entity.setFireTicks(j);
                 if (!this.world.isClient && this.getVelocity().lengthSquared() < 1.0E-7D) {
