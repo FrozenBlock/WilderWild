@@ -311,7 +311,7 @@ public abstract class WardenEntityMixin extends HostileEntity implements WardenA
 
     @Override
     public SoundEvent getSwimSound() {
-        return SoundEvents.ENTITY_GENERIC_SWIM;
+        return RegisterSounds.ENTITY_WARDEN_SWIM;
     }
 
     @Override
