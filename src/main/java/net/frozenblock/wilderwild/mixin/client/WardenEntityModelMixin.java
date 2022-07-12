@@ -73,19 +73,12 @@ public class WardenEntityModelMixin<T extends WardenEntity> {
     private final WardenEntityModel model = WardenEntityModel.class.cast(this);
 
 
-    private float lerp(float start, float end) {
-        return MathHelper.lerp(1F, start, end);
-    }
 
-    private float lerpDelta(float delta, float start, float end) {
+    private float lerp(float delta, float start, float end) {
         return MathHelper.lerp(delta, start, end);
     }
 
-    private float lerpAngleDegrees(float start, float end) {
-        return MathHelper.lerpAngleDegrees(1F, start, end);
-    }
-
-    private float lerpAngleDegreesDelta(float delta, float start, float end) {
+    private float lerpAngleDegrees(float delta, float start, float end) {
         return MathHelper.lerpAngleDegrees(delta, start, end);
     }
 
@@ -152,47 +145,56 @@ public class WardenEntityModelMixin<T extends WardenEntity> {
 
             float rad = (float) (Math.PI / 180);
 
-            this.bone.pitch = this.lerpAngleDegreesDelta(o, this.bone.pitch, headPitch * 0.017453292F + 1.5708F);
-            this.bone.yaw = this.lerpAngleDegreesDelta(o, this.bone.yaw, headYaw * 0.017453292F);
-            this.bone.pivotY = this.lerpDelta(o, this.bone.pivotZ, 24) + 3;
+            this.bone.pitch = this.lerpAngleDegrees(o, this.bone.pitch, headPitch * 0.017453292F + 1.5708F);
+            this.bone.yaw = this.lerpAngleDegrees(o, this.bone.yaw, headYaw * 0.017453292F);
+            this.bone.pivotY = this.lerp(o, this.bone.pivotZ, 24) + 3;
 
             if (moveHead) {
-                this.head.pitch = this.lerpAngleDegreesDelta(o, this.head.pitch, (sin * -10 - 60) * rad);
-                this.head.roll = this.lerpAngleDegreesDelta(o, this.head.roll, 0);
-                this.head.yaw = this.lerpAngleDegreesDelta(o, this.head.yaw, 0);
+                this.head.pitch = this.lerpAngleDegrees(o, this.head.pitch, (sin * -10 - 60) * rad);
+                this.head.roll = this.lerpAngleDegrees(o, this.head.roll, 0);
+                this.head.yaw = this.lerpAngleDegrees(o, this.head.yaw, 0);
             }
 
             if (moveBody) {
-                this.body.pitch = this.lerpAngleDegreesDelta(o, this.body.pitch, (sin * 15 - 10) * rad);
-                this.body.yaw = this.lerpAngleDegreesDelta(o, this.body.yaw, (sin0 * 5) * rad);
-                this.body.pivotY = this.lerpDelta(o, this.body.pivotY + 21,0);
-                this.body.pivotZ = this.lerpDelta(o, this.body.pivotZ,-cos * 2);
+                this.body.pitch = this.lerpAngleDegrees(o, this.body.pitch, (sin * 15 - 10) * rad);
+                this.body.yaw = this.lerpAngleDegrees(o, this.body.yaw, (sin0 * 5) * rad);
+                this.body.pivotY = this.lerp(o, this.body.pivotY + 21,0);
+                this.body.pivotZ = this.lerp(o, this.body.pivotZ,-cos * 2);
             } else {
                 this.body.pivotY = 0;
             }
 
             if (moveArms) {
 
-                this.rightArm.pitch = this.lerpAngleDegreesDelta(o, this.rightArm.pitch, 0f);
-                this.rightArm.yaw = this.lerpAngleDegreesDelta(o, this.rightArm.yaw, (-cos * 25)) * rad;
-                this.rightArm.roll = this.lerpAngleDegreesDelta(o, this.rightArm.roll, (sin * -90 + 90)) * rad;
-                this.rightArm.pivotX = this.lerpDelta(o, this.rightArm.pivotX, (cos0 * 2 + 2) - 13);
+                this.rightArm.pitch = this.lerpAngleDegrees(o, this.rightArm.pitch, 0f);
+                this.rightArm.yaw = this.lerpAngleDegrees(o, this.rightArm.yaw, (-cos * 25)) * rad;
+                this.rightArm.roll = this.lerpAngleDegrees(o, this.rightArm.roll, (sin * -90 + 90)) * rad;
+                this.rightArm.pivotX = this.lerp(o, this.rightArm.pivotX, (cos0 * 2 + 2) - 13);
 
-                this.leftArm.pitch = this.lerpAngleDegreesDelta(o, this.leftArm.pitch, 0f);
-                this.leftArm.yaw = this.lerpAngleDegreesDelta(o, this.leftArm.yaw, (cos * 25) * rad);
-                this.leftArm.roll = this.lerpAngleDegreesDelta(o, this.leftArm.roll, (sin * 90 - 90) * rad);
-                this.leftArm.pivotX = this.lerpDelta(o, this.leftArm.pivotX, (cos0 * -2 - 2) + 13);
+                this.leftArm.pitch = this.lerpAngleDegrees(o, this.leftArm.pitch, 0f);
+                this.leftArm.yaw = this.lerpAngleDegrees(o, this.leftArm.yaw, (cos * 25) * rad);
+                this.leftArm.roll = this.lerpAngleDegrees(o, this.leftArm.roll, (sin * 90 - 90) * rad);
+                this.leftArm.pivotX = this.lerp(o, this.leftArm.pivotX, (cos0 * -2 - 2) + 13);
 
             }
 
-            this.leftLeg.pitch = this.lerpAngleDegreesDelta(o, this.leftLeg.pitch, (-cos * 35 + 15) * rad);
-            this.leftLeg.pitch += (MathHelper.sin(time) * 15 + 15) * rad;
-
-            this.rightLeg.pitch = this.lerpAngleDegreesDelta(o, this.rightLeg.pitch, (cos * 35 + 15) * rad);
-            this.rightLeg.pitch += (MathHelper.sin(time) * -15 + 15) * rad;
+            this.leftLeg.pitch = this.lerpAngleDegrees(o, this.leftLeg.pitch, (-cos * 35 + 15) * rad);
+            this.rightLeg.pitch = this.lerpAngleDegrees(o, this.rightLeg.pitch, (cos * 35 + 15) * rad);
 
             this.rightLeg.pivotY = 8;
             this.leftLeg.pivotY = 8;
+
+            this.bone.pivotY += MathHelper.cos(time);
+
+            this.head.pitch += (MathHelper.sin(time) * -5) * rad;
+
+            this.body.pitch += (MathHelper.cos(time) * -5) * rad;
+
+            this.leftArm.roll += (-MathHelper.sin(time) * -5 - 5) * rad;
+            this.rightArm.roll += (-MathHelper.sin(time) * 5 + 5) * rad;
+
+            this.leftLeg.pitch += (MathHelper.sin(time) * 15 + 15) * rad;
+            this.rightLeg.pitch += (MathHelper.sin(time) * -15 + 15) * rad;
 
         } else if (this.isSubmerged(wardenEntity) && distance <= 0) {
 
