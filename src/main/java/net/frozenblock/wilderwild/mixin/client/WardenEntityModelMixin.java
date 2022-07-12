@@ -147,7 +147,7 @@ public class WardenEntityModelMixin<T extends WardenEntity> {
 
             this.bone.pitch = this.lerpAngleDegrees(o, this.bone.pitch, headPitch * 0.017453292F + 1.5708F);
             this.bone.yaw = this.lerpAngleDegrees(o, this.bone.yaw, headYaw * 0.017453292F);
-            this.bone.pivotY = this.lerp(o, this.bone.pivotZ, 24) + 3;
+            this.bone.pivotY = this.lerp(o, this.bone.pivotZ, 21) + 3;
 
             if (moveHead) {
                 this.head.pitch = this.lerpAngleDegrees(o, this.head.pitch, (sin * -10 - 60) * rad);
