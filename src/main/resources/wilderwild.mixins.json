@@ -24,21 +24,22 @@
 	"server.VibrationListenerMixin",
 	"server.WardenBrainMixin",
 	"server.WardenEntityMixin",
-    "worldgen.BirchSaplingGeneratorMixin",
-    "worldgen.DefaultBiomeFeaturesMixin",
-    "worldgen.GenerationSettingsBuilderMixin",
-    "worldgen.OakSaplingGeneratorMixin",
-    "worldgen.SpruceSaplingGeneratorMixin",
-    "worldgen.SwampHutMixin",
-    "worldgen.VanillaBiomeParametersMixin",
-    "worldgen.VanillaSurfaceRulesMixin"
+	"worldgen.BirchSaplingGeneratorMixin",
+	"worldgen.DefaultBiomeFeaturesMixin",
+	"worldgen.GenerationSettingsBuilderMixin",
+	"worldgen.OakSaplingGeneratorMixin",
+	"worldgen.SpruceSaplingGeneratorMixin",
+	"worldgen.SwampHutMixin",
+	"worldgen.VanillaBiomeParametersMixin",
+	"worldgen.VanillaSurfaceRulesMixin"
   ],
   "client": [
-    "client.OsmioooWardenRenderer",
-    "client.WardenEntityModelMixin",
-    "client.XfrtrexSusFrogRenderer"
+	"client.OsmioooWardenRenderer",
+	"client.WardenEntityModelMixin",
+	"client.WardenFeatureRendererMixin",
+	"client.XfrtrexSusFrogRenderer"
   ],
   "injectors": {
-    "defaultRequire": 1
+	"defaultRequire": 1
   }
 }
