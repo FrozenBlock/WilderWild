@@ -12,6 +12,7 @@ import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.PropaguleBlock;
 import net.minecraft.tag.BlockTags;
+import net.minecraft.util.collection.DataPool;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.intprovider.ConstantIntProvider;
 import net.minecraft.util.math.intprovider.IntProvider;
@@ -20,6 +21,7 @@ import net.minecraft.util.registry.Registry;
 import net.minecraft.util.registry.RegistryEntry;
 import net.minecraft.util.registry.RegistryEntryList;
 import net.minecraft.world.gen.feature.ConfiguredFeature;
+import net.minecraft.world.gen.feature.ConfiguredFeatures;
 import net.minecraft.world.gen.feature.Feature;
 import net.minecraft.world.gen.feature.TreeFeatureConfig;
 import net.minecraft.world.gen.feature.size.ThreeLayersFeatureSize;
@@ -30,14 +32,12 @@ import net.minecraft.world.gen.root.MangroveRootPlacement;
 import net.minecraft.world.gen.root.MangroveRootPlacer;
 import net.minecraft.world.gen.stateprovider.BlockStateProvider;
 import net.minecraft.world.gen.stateprovider.RandomizedIntBlockStateProvider;
+import net.minecraft.world.gen.stateprovider.WeightedBlockStateProvider;
 import net.minecraft.world.gen.treedecorator.AlterGroundTreeDecorator;
 import net.minecraft.world.gen.treedecorator.AttachedToLeavesTreeDecorator;
 import net.minecraft.world.gen.treedecorator.BeehiveTreeDecorator;
 import net.minecraft.world.gen.treedecorator.LeavesVineTreeDecorator;
-import net.minecraft.world.gen.trunk.DarkOakTrunkPlacer;
-import net.minecraft.world.gen.trunk.GiantTrunkPlacer;
-import net.minecraft.world.gen.trunk.LargeOakTrunkPlacer;
-import net.minecraft.world.gen.trunk.StraightTrunkPlacer;
+import net.minecraft.world.gen.trunk.*;
 
 import java.util.List;
 import java.util.Optional;
@@ -95,7 +95,7 @@ public class WildTreeConfigured {
     public static final RegistryEntry<ConfiguredFeature<TreeFeatureConfig, ?>> FUNGUS_CYPRESS = WildConfiguredFeatures.register("fungus_cypress", Feature.TREE, new TreeFeatureConfig.Builder(BlockStateProvider.of(RegisterBlocks.CYPRESS_LOG), new StraightTrunkPlacer(8, 4, 3), BlockStateProvider.of(RegisterBlocks.CYPRESS_LEAVES), new SpruceFoliagePlacer(ConstantIntProvider.create(1), UniformIntProvider.create(1, 3), UniformIntProvider.create(6, 8)), new TwoLayersFeatureSize(2, 1, 2)).decorators(ImmutableList.of(SHELF_FUNGUS_007_ONLY_BROWN, VINES_008_UNDER_82)).ignoreVines().build());
     public static final RegistryEntry<ConfiguredFeature<TreeFeatureConfig, ?>> SHORT_CYPRESS = WildConfiguredFeatures.register("short_cypress", Feature.TREE, new TreeFeatureConfig.Builder(BlockStateProvider.of(RegisterBlocks.CYPRESS_LOG), new StraightTrunkPlacer(3, 2, 3), BlockStateProvider.of(RegisterBlocks.CYPRESS_LEAVES), new SpruceFoliagePlacer(ConstantIntProvider.create(1), UniformIntProvider.create(1, 3), UniformIntProvider.create(4, 6)), new TwoLayersFeatureSize(2, 1, 2)).decorators(ImmutableList.of(VINES_012_UNDER_76)).ignoreVines().build());
     public static final RegistryEntry<ConfiguredFeature<TreeFeatureConfig, ?>> SHORT_FUNGUS_CYPRESS = WildConfiguredFeatures.register("short_fungus_cypress", Feature.TREE, new TreeFeatureConfig.Builder(BlockStateProvider.of(RegisterBlocks.CYPRESS_LOG), new StraightTrunkPlacer(4, 3, 1), BlockStateProvider.of(RegisterBlocks.CYPRESS_LEAVES), new SpruceFoliagePlacer(ConstantIntProvider.create(1), UniformIntProvider.create(1, 3), UniformIntProvider.create(6, 8)), new TwoLayersFeatureSize(2, 1, 2)).decorators(ImmutableList.of(SHELF_FUNGUS_007_ONLY_BROWN, VINES_008_UNDER_82)).ignoreVines().build());
-
+    public static final RegistryEntry<ConfiguredFeature<TreeFeatureConfig, ?>> SWAMP_CYPRESS = WildConfiguredFeatures.register("swamp_cypress", Feature.TREE, (new TreeFeatureConfig.Builder(BlockStateProvider.of(RegisterBlocks.CYPRESS_LOG), new UpwardsBranchingTrunkPlacer(10, 4, 2, UniformIntProvider.create(2, 3), 0.3F, UniformIntProvider.create(0, 1), Registry.BLOCK.getOrCreateEntryList(BlockTags.MANGROVE_LOGS_CAN_GROW_THROUGH)), BlockStateProvider.of(RegisterBlocks.CYPRESS_LEAVES), new RandomSpreadFoliagePlacer(ConstantIntProvider.create(1), ConstantIntProvider.create(0), ConstantIntProvider.create(2), 48), new TwoLayersFeatureSize(1, 0, 1))).decorators(ImmutableList.of(SHELF_FUNGUS_007_ONLY_BROWN, VINES_008_UNDER_82)).ignoreVines().build());
     public WildTreeConfigured() {
     }
 
