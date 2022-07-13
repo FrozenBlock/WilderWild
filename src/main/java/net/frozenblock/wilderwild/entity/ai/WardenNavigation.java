@@ -2,10 +2,7 @@ package net.frozenblock.wilderwild.entity.ai;
 
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.ai.pathing.MobNavigation;
-import net.minecraft.entity.ai.pathing.PathNode;
-import net.minecraft.entity.ai.pathing.PathNodeNavigator;
-import net.minecraft.entity.ai.pathing.PathNodeType;
+import net.minecraft.entity.ai.pathing.*;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.tag.FluidTags;
 import net.minecraft.util.math.BlockPos;
@@ -21,7 +18,7 @@ public class WardenNavigation extends MobNavigation {
 
     @Override
     public PathNodeNavigator createPathNodeNavigator(int range) {
-        this.nodeMaker = new WardenPathNodeMaker(false);
+        this.nodeMaker = new WardenPathNodeMaker();
         this.nodeMaker.setCanEnterOpenDoors(true);
         return new PathNodeNavigator(this.nodeMaker, range) {
             public float getDistance(PathNode a, PathNode b) {

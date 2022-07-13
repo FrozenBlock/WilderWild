@@ -9,10 +9,10 @@ import net.fabricmc.fabric.api.client.rendering.v1.EntityModelLayerRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
 import net.fabricmc.fabric.api.event.client.ClientSpriteRegistryCallback;
 import net.frozenblock.api.mathematics.AdvancedMath;
-import net.frozenblock.wilderwild.entity.AncientHornProjectileEntity;
+import net.frozenblock.wilderwild.entity.AncientHornProjectile;
 import net.frozenblock.wilderwild.entity.render.AncientHornProjectileModel;
 import net.frozenblock.wilderwild.entity.render.AncientHornProjectileRenderer;
-import net.frozenblock.wilderwild.entity.render.FireflyEntityRenderer;
+import net.frozenblock.wilderwild.entity.render.FireflyRenderer;
 import net.frozenblock.wilderwild.misc.CompetitionCounter;
 import net.frozenblock.wilderwild.misc.FlowerLichenParticleRegistry;
 import net.frozenblock.wilderwild.misc.PVZGWSound.FlyBySoundHub;
@@ -102,7 +102,7 @@ public class WilderWildClient implements ClientModInitializer {
         ParticleFactoryRegistry.getInstance().register(RegisterParticles.FLOATING_SCULK_BUBBLE, FloatingSculkBubbleParticle.BubbleFactory::new);
         ParticleFactoryRegistry.getInstance().register(RegisterParticles.TERMITE, TermiteParticle.Factory::new);
 
-        EntityRendererRegistry.register(RegisterEntities.FIREFLY, FireflyEntityRenderer::new);
+        EntityRendererRegistry.register(RegisterEntities.FIREFLY, FireflyRenderer::new);
         EntityRendererRegistry.register(RegisterEntities.ANCIENT_HORN_PROJECTILE_ENTITY, AncientHornProjectileRenderer::new);
         EntityModelLayerRegistry.registerModelLayer(ANCIENT_HORN_PROJECTILE_LAYER, AncientHornProjectileModel::getTexturedModelData);
 
@@ -151,9 +151,9 @@ public class WilderWildClient implements ClientModInitializer {
             EntityType<?> et = Registry.ENTITY_TYPE.get(byteBuf.readVarInt());
             UUID uuid = byteBuf.readUuid();
             int entityId = byteBuf.readVarInt();
-            Vec3d pos = AncientHornProjectileEntity.EntitySpawnPacket.PacketBufUtil.readVec3d(byteBuf);
-            float pitch = AncientHornProjectileEntity.EntitySpawnPacket.PacketBufUtil.readAngle(byteBuf);
-            float yaw = AncientHornProjectileEntity.EntitySpawnPacket.PacketBufUtil.readAngle(byteBuf);
+            Vec3d pos = AncientHornProjectile.EntitySpawnPacket.PacketBufUtil.readVec3d(byteBuf);
+            float pitch = AncientHornProjectile.EntitySpawnPacket.PacketBufUtil.readAngle(byteBuf);
+            float yaw = AncientHornProjectile.EntitySpawnPacket.PacketBufUtil.readAngle(byteBuf);
             WilderWild.log("Receiving Ancient Horn Projectile Packet At " + pos, WilderWild.DEV_LOGGING);
             ctx.execute(() -> {
                 if (MinecraftClient.getInstance().world == null)

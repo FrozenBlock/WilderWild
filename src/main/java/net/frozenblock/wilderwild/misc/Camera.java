@@ -15,9 +15,9 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class CameraItem extends Item {
+public class Camera extends Item {
 
-    public CameraItem(Settings settings) {
+    public Camera(Settings settings) {
         super(settings);
     }
 

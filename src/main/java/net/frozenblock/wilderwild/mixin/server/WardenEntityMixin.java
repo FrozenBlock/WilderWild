@@ -1,4 +1,4 @@
-package net.frozenblock.wilderwild.mixin;
+package net.frozenblock.wilderwild.mixin.server;
 
 import com.mojang.logging.LogUtils;
 import net.frozenblock.wilderwild.entity.ai.WardenMoveControl;
@@ -305,7 +305,7 @@ public abstract class WardenEntityMixin extends HostileEntity implements WardenA
             }
         } else {
             super.travel(movementInput);
-            if (!this.isSubmergedInWaterOrLava() && this.getMovementSpeed() <= 0F){
+            if (!this.isSubmergedInWaterOrLava() && this.getMovementSpeed() <= 0F && !this.isDiggingOrEmerging() && !warden.isInPose(EntityPose.SNIFFING) && !warden.isInPose(EntityPose.DYING) && !warden.isInPose(EntityPose.ROARING)){
                 warden.setPose(EntityPose.STANDING);
             }
         }

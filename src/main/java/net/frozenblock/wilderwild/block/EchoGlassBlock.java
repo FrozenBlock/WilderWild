@@ -1,7 +1,7 @@
 package net.frozenblock.wilderwild.block;
 
 import net.frozenblock.wilderwild.WilderWild;
-import net.frozenblock.wilderwild.entity.AncientHornProjectileEntity;
+import net.frozenblock.wilderwild.entity.AncientHornProjectile;
 import net.frozenblock.wilderwild.registry.RegisterProperties;
 import net.frozenblock.wilderwild.registry.RegisterSounds;
 import net.minecraft.block.Block;
@@ -113,7 +113,7 @@ public class EchoGlassBlock extends TintedGlassBlock {
 
     @Override
     public void onProjectileHit(World world, BlockState state, BlockHitResult hit, ProjectileEntity projectile) {
-        if (projectile instanceof AncientHornProjectileEntity) {
+        if (projectile instanceof AncientHornProjectile) {
             damage(world, hit.getBlockPos());
         }
         super.onProjectileHit(world, state, hit, projectile);

@@ -49,15 +49,15 @@ import org.jetbrains.annotations.Nullable;
 import java.util.Objects;
 import java.util.Optional;
 
-public class FireflyEntity extends PathAwareEntity implements Flutterer {
+public class Firefly extends PathAwareEntity implements Flutterer {
 
-    protected static final ImmutableList<SensorType<? extends Sensor<? super FireflyEntity>>> SENSORS = ImmutableList.of(SensorType.NEAREST_LIVING_ENTITIES, SensorType.HURT_BY);
+    protected static final ImmutableList<SensorType<? extends Sensor<? super Firefly>>> SENSORS = ImmutableList.of(SensorType.NEAREST_LIVING_ENTITIES, SensorType.HURT_BY);
     protected static final ImmutableList<MemoryModuleType<?>> MEMORY_MODULES = ImmutableList.of(MemoryModuleType.PATH, MemoryModuleType.VISIBLE_MOBS, MemoryModuleType.WALK_TARGET, MemoryModuleType.CANT_REACH_WALK_TARGET_SINCE, MemoryModuleType.LOOK_TARGET, MemoryModuleType.HOME, MemoryModuleType.HIDING_PLACE);
-    private static final TrackedData<Boolean> FROM_BOTTLE = DataTracker.registerData(FireflyEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
-    private static final TrackedData<Boolean> FLICKERS = DataTracker.registerData(FireflyEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
-    private static final TrackedData<Integer> AGE = DataTracker.registerData(FireflyEntity.class, TrackedDataHandlerRegistry.INTEGER);
-    private static final TrackedData<Float> SCALE = DataTracker.registerData(FireflyEntity.class, TrackedDataHandlerRegistry.FLOAT);
-    private static final TrackedData<String> COLOR = DataTracker.registerData(FireflyEntity.class, TrackedDataHandlerRegistry.STRING);
+    private static final TrackedData<Boolean> FROM_BOTTLE = DataTracker.registerData(Firefly.class, TrackedDataHandlerRegistry.BOOLEAN);
+    private static final TrackedData<Boolean> FLICKERS = DataTracker.registerData(Firefly.class, TrackedDataHandlerRegistry.BOOLEAN);
+    private static final TrackedData<Integer> AGE = DataTracker.registerData(Firefly.class, TrackedDataHandlerRegistry.INTEGER);
+    private static final TrackedData<Float> SCALE = DataTracker.registerData(Firefly.class, TrackedDataHandlerRegistry.FLOAT);
+    private static final TrackedData<String> COLOR = DataTracker.registerData(Firefly.class, TrackedDataHandlerRegistry.STRING);
 
 
     public boolean natural;
@@ -67,7 +67,7 @@ public class FireflyEntity extends PathAwareEntity implements Flutterer {
     public int homeCheckCooldown;
     //public int hidingPlaceCheckCooldown;
 
-    public FireflyEntity(EntityType<? extends FireflyEntity> entityType, World world) {
+    public Firefly(EntityType<? extends Firefly> entityType, World world) {
         super(entityType, world);
         this.setPathfindingPenalty(PathNodeType.LAVA, -1.0F);
         this.setPathfindingPenalty(PathNodeType.DANGER_FIRE, -1.0F);
@@ -81,7 +81,7 @@ public class FireflyEntity extends PathAwareEntity implements Flutterer {
         this.setColor("on");
     }
 
-    public static boolean canSpawn(EntityType<FireflyEntity> type, WorldAccess world, SpawnReason spawnReason, BlockPos pos, Random random) {
+    public static boolean canSpawn(EntityType<Firefly> type, WorldAccess world, SpawnReason spawnReason, BlockPos pos, Random random) {
         if (world.getBiome(pos).isIn(WildBiomeTags.FIREFLY_SPAWNABLE_DURING_DAY)) {
             return world.getLightLevel(LightType.SKY, pos) >= 6;
         }
@@ -126,7 +126,7 @@ public class FireflyEntity extends PathAwareEntity implements Flutterer {
     }
 
 
-    public static Optional<ActionResult> tryCapture(PlayerEntity player, Hand hand, @NotNull FireflyEntity entity) {
+    public static Optional<ActionResult> tryCapture(PlayerEntity player, Hand hand, @NotNull Firefly entity) {
         ItemStack itemStack = player.getStackInHand(hand);
         if (itemStack.getItem() == Items.GLASS_BOTTLE && entity.isAlive()) {
             WilderWild.log("Firefly capture attempt starting @ " + entity.getBlockPos().toShortString() + " by " + player.getDisplayName().getString(), WilderWild.UNSTABLE_LOGGING);
@@ -166,7 +166,7 @@ public class FireflyEntity extends PathAwareEntity implements Flutterer {
         return false;
     }
 
-    protected Brain.Profile<FireflyEntity> createBrainProfile() {
+    protected Brain.Profile<Firefly> createBrainProfile() {
         return Brain.createProfile(MEMORY_MODULES, SENSORS);
     }
 
@@ -222,8 +222,8 @@ public class FireflyEntity extends PathAwareEntity implements Flutterer {
         return 0.0F;
     }
 
-    public Brain<FireflyEntity> getBrain() {
-        return (Brain<FireflyEntity>) super.getBrain();
+    public Brain<Firefly> getBrain() {
+        return (Brain<Firefly>) super.getBrain();
     }
 
     @Override

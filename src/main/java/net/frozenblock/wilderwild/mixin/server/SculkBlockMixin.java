@@ -1,4 +1,4 @@
-package net.frozenblock.wilderwild.mixin;
+package net.frozenblock.wilderwild.mixin.server;
 
 import net.frozenblock.api.mathematics.EasyNoiseSampler;
 import net.frozenblock.wilderwild.WilderWild;

@@ -1,6 +1,6 @@
-package net.frozenblock.wilderwild.mixin;
+package net.frozenblock.wilderwild.mixin.server;
 
-import net.frozenblock.wilderwild.item.AncientCityGoatHorn;
+import net.frozenblock.wilderwild.item.AncientHorn;
 import net.minecraft.entity.ExperienceOrbEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import org.spongepowered.asm.mixin.Mixin;
@@ -16,7 +16,7 @@ public class ExperienceOrbEntityMixin {
 
     @Inject(at = @At("TAIL"), method = "repairPlayerGears", cancellable = true)
     private void repairPlayerGears(PlayerEntity player, int amount, CallbackInfoReturnable<Integer> info) {
-        int hornCooldown = AncientCityGoatHorn.decreaseCooldown(player, amount * 8);
+        int hornCooldown = AncientHorn.decreaseCooldown(player, amount * 8);
         if (hornCooldown != -1) {
             info.setReturnValue(0);
             info.cancel();

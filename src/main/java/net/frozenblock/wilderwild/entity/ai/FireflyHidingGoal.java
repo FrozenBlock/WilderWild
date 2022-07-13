@@ -1,19 +1,19 @@
 package net.frozenblock.wilderwild.entity.ai;
 
-import net.frozenblock.wilderwild.entity.FireflyEntity;
+import net.frozenblock.wilderwild.entity.Firefly;
 import net.frozenblock.wilderwild.tag.WildBlockTags;
 import net.minecraft.entity.ai.goal.MoveToTargetPosGoal;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.WorldView;
 
 public class FireflyHidingGoal extends MoveToTargetPosGoal {
-    public FireflyHidingGoal(FireflyEntity mob, double speed, int range, int maxYDifference) {
+    public FireflyHidingGoal(Firefly mob, double speed, int range, int maxYDifference) {
         super(mob, speed, range, maxYDifference);
     }
 
     @Override
     public boolean canStart() {
-        if (!((FireflyEntity) this.mob).shouldHide()) return false;
+        if (!((Firefly) this.mob).shouldHide()) return false;
 
         return super.canStart();
     }

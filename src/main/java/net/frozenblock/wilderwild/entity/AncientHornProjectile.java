@@ -4,7 +4,7 @@ import io.netty.buffer.Unpooled;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.block.entity.HangingTendrilBlockEntity;
-import net.frozenblock.wilderwild.misc.NewProjectileDamageSource;
+import net.frozenblock.wilderwild.misc.WildProjectileDamageSource;
 import net.frozenblock.wilderwild.misc.server.EasyPacket;
 import net.frozenblock.wilderwild.registry.*;
 import net.frozenblock.wilderwild.tag.WildBlockTags;
@@ -49,14 +49,13 @@ import org.jetbrains.annotations.Nullable;
 import java.util.List;
 import java.util.Optional;
 
-import static net.frozenblock.wilderwild.item.AncientCityGoatHorn.*;
+import static net.frozenblock.wilderwild.item.AncientHorn.*;
 
-public class AncientHornProjectileEntity extends PersistentProjectileEntity {
+public class AncientHornProjectile extends PersistentProjectileEntity {
     private final TagKey<Block> NON_COLLIDE = WildBlockTags.ANCIENT_HORN_NON_COLLIDE;
     private boolean shot;
     private boolean leftOwner;
     public int aliveTicks;
-    public int prevAliveTicks;
     public double vecX;
     public double vecY;
     public double vecZ;
@@ -64,12 +63,12 @@ public class AncientHornProjectileEntity extends PersistentProjectileEntity {
     public int bubbles;
     private BlockState inBlockState;
 
-    public AncientHornProjectileEntity(@NotNull EntityType<? extends PersistentProjectileEntity> entityType, World world) {
+    public AncientHornProjectile(@NotNull EntityType<? extends PersistentProjectileEntity> entityType, World world) {
         super(entityType, world);
         this.setSound(RegisterSounds.ANCIENT_HORN_PROJECTILE_DISSIPATE);
     }
 
-    public AncientHornProjectileEntity(World world, double x, double y, double z) {
+    public AncientHornProjectile(World world, double x, double y, double z) {
         super(RegisterEntities.ANCIENT_HORN_PROJECTILE_ENTITY, x, y, z, world);
         this.setSound(RegisterSounds.ANCIENT_HORN_PROJECTILE_DISSIPATE);
     }
@@ -86,12 +85,11 @@ public class AncientHornProjectileEntity extends PersistentProjectileEntity {
         this.baseTick();
         if (this.bubbles > 0 && this.world instanceof ServerWorld server) {
             --this.bubbles;
-            EasyPacket.EasyFloatingSculkBubblePacket.createParticle(server, this.getPos(), Math.random() > 0.7 ? 1 : 0, 20 + (int) (Math.random() * 40), 0.05, server.random.nextBetween(1, 3));
+            EasyPacket.EasyFloatingSculkBubblePacket.createParticle(server, this.getPos(), Math.random() > 0.7 ? 1 : 0, 20 + WilderWild.random().nextInt(40), 0.05, server.random.nextBetween(1, 3));
         }
         if (this.aliveTicks > 300) {
             this.remove(RemovalReason.DISCARDED);
         }
-        this.prevAliveTicks = this.aliveTicks;
         ++this.aliveTicks;
         if (!this.shot) {
             this.shot = true;
@@ -426,9 +424,9 @@ public class AncientHornProjectileEntity extends PersistentProjectileEntity {
         if (entity != entity2) {
             DamageSource damageSource;
             if (entity2 == null) {
-                damageSource = NewProjectileDamageSource.ancientHornDamageSource(this, this);
+                damageSource = WildProjectileDamageSource.ancientHorn(this, this);
             } else {
-                damageSource = NewProjectileDamageSource.ancientHornDamageSource(this, entity2);
+                damageSource = WildProjectileDamageSource.ancientHorn(this, entity2);
                 if (entity2 instanceof LivingEntity) {
                     ((LivingEntity) entity2).onAttacking(entity);
                 }

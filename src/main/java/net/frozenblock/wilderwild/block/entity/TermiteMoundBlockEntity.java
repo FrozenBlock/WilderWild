@@ -5,6 +5,7 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.DataResult;
 import com.mojang.serialization.Dynamic;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.misc.server.EasyPacket;
 import net.frozenblock.wilderwild.registry.RegisterBlockEntities;
 import net.frozenblock.wilderwild.registry.RegisterBlocks;
@@ -126,7 +127,7 @@ public class TermiteMoundBlockEntity extends BlockEntity {
             }
         }
         while (this.termites.size() > maxTermites) {
-            Termite termite = this.termites.get((int) (Math.random() * this.termites.size()));
+            Termite termite = this.termites.get(WilderWild.random().nextInt(this.termites.size()));
             //TODO: TERMITE SPAWN (EXIT MOUND,) DESPAWN, EATING, AND MOVING SOUNDS
             world.playSound(null, termite.pos, SoundEvents.BLOCK_BEEHIVE_ENTER, SoundCategory.NEUTRAL, 1.0F, 1.0F);
             world.emitGameEvent(null, GameEvent.ENTITY_DIE, Vec3d.ofCenter(termite.pos));

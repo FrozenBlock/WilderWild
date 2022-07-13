@@ -1,5 +1,6 @@
 package net.frozenblock.wilderwild.block;
 
+import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.misc.FlowerColors;
 import net.frozenblock.wilderwild.registry.RegisterProperties;
 import net.minecraft.block.Block;
@@ -36,7 +37,7 @@ public class MultiColorFlowerBlock extends PlantBlock {
     @Override
     public void randomTick(BlockState state, ServerWorld world, BlockPos pos, Random random) {
         if (random.nextFloat() > 0.9F && state.get(COLORS) == FlowerColors.NONE) {
-            world.setBlockState(pos, state.with(COLORS, COLOR_LIST.get((int) (Math.random() * COLOR_LIST.size()))));
+            world.setBlockState(pos, state.with(COLORS, COLOR_LIST.get(WilderWild.random().nextInt(COLOR_LIST.size()))));
         }
     }
 

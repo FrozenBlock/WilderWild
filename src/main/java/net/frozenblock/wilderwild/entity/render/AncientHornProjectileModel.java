@@ -2,7 +2,7 @@ package net.frozenblock.wilderwild.entity.render;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.frozenblock.wilderwild.entity.AncientHornProjectileEntity;
+import net.frozenblock.wilderwild.entity.AncientHornProjectile;
 import net.minecraft.client.model.*;
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.VertexConsumer;
@@ -40,7 +40,7 @@ public class AncientHornProjectileModel extends Model {
         return TexturedModelData.of(modelData, 64, 64);
     }
 
-    public void render(MatrixStack matrices, VertexConsumer vertices, int light, int overlay, float red, float green, float blue, float alpha, float tickDelta, AncientHornProjectileEntity entity) {
+    public void render(MatrixStack matrices, VertexConsumer vertices, int light, int overlay, float red, float green, float blue, float alpha, float tickDelta, AncientHornProjectile entity) {
         matrices.scale(1.0F, 1.0F, 1.0F);
 
         this.bone.yaw = (float) (90 * (Math.PI / 180));

@@ -1,7 +1,7 @@
 package net.frozenblock.wilderwild.entity.render;
 
 import net.frozenblock.wilderwild.WilderWild;
-import net.frozenblock.wilderwild.entity.FireflyEntity;
+import net.frozenblock.wilderwild.entity.Firefly;
 import net.minecraft.client.render.OverlayTexture;
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.VertexConsumer;
@@ -14,11 +14,11 @@ import net.minecraft.util.math.Matrix3f;
 import net.minecraft.util.math.Matrix4f;
 import net.minecraft.util.math.Vec3f;
 
-public class FireflyEntityRenderer extends EntityRenderer<FireflyEntity> {
+public class FireflyRenderer extends EntityRenderer<Firefly> {
 
     //CREDIT TO magistermaks ON GITHUB!!
 
-    public FireflyEntityRenderer(EntityRendererFactory.Context ctx) {
+    public FireflyRenderer(EntityRendererFactory.Context ctx) {
         super(ctx);
     }
 
@@ -33,7 +33,7 @@ public class FireflyEntityRenderer extends EntityRenderer<FireflyEntity> {
     private static final double yOffset = 0.155F;
 
     @Override
-    public void render(FireflyEntity entity, float yaw, float tickDelta, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light) {
+    public void render(Firefly entity, float yaw, float tickDelta, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light) {
         boolean nectar = false;
         if (entity.hasCustomName()) {
             nectar = entity.getCustomName().getString().toLowerCase().contains("nectar");
@@ -88,7 +88,7 @@ public class FireflyEntityRenderer extends EntityRenderer<FireflyEntity> {
     }
 
     @Override
-    public Identifier getTexture(FireflyEntity entity) {
+    public Identifier getTexture(Firefly entity) {
         return TEXTURE;
     }
 
@@ -115,7 +115,7 @@ public class FireflyEntityRenderer extends EntityRenderer<FireflyEntity> {
                 .next();
     }
 
-    public static int getOverlay(FireflyEntity entity, float whiteOverlayProgress) {
+    public static int getOverlay(Firefly entity, float whiteOverlayProgress) {
         return OverlayTexture.packUv(OverlayTexture.getU(whiteOverlayProgress), OverlayTexture.getV(entity.hurtTime > 0 || entity.deathTime > 0));
     }
 

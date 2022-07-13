@@ -12,9 +12,9 @@ import net.minecraft.util.UseAction;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 
-public class MilkweedPodItem extends Item {
+public class MilkweedPod extends Item {
 
-    public MilkweedPodItem(Settings settings) {
+    public MilkweedPod(Settings settings) {
         super(settings);
     }
 
