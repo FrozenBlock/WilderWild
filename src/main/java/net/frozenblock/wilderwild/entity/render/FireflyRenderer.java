@@ -65,7 +65,6 @@ public class FireflyRenderer extends EntityRenderer<Firefly> {
         matrices.pop();
 
         //OVERLAY
-        if (!nectar) {
             matrices.push();
             matrices.scale(scale, scale, scale);
             matrices.translate(0, yOffset, 0);
@@ -75,7 +74,12 @@ public class FireflyRenderer extends EntityRenderer<Firefly> {
             entry = matrices.peek();
             matrix4f = entry.getPositionMatrix();
             matrix3f = entry.getNormalMatrix();
-            vertexConsumer = vertexConsumers.getBuffer(RenderLayer.getEntityTranslucentEmissive(WilderWild.id("textures/entity/firefly/firefly_" + entity.getColor() + ".png")));
+
+            if (!nectar) {
+                vertexConsumer = vertexConsumers.getBuffer(RenderLayer.getEntityTranslucentEmissive(WilderWild.id("textures/entity/firefly/firefly_" + entity.getColor() + ".png")));
+            } else {
+                vertexConsumer = vertexConsumers.getBuffer(RenderLayer.getEntityTranslucentEmissive(WilderWild.id("textures/entity/firefly/nectar_overlay.png")));
+            }
 
             vertexPulsate(vertexConsumer, matrix4f, matrix3f, light, 0.0F, 0, 0, 1, age, flickers, tickDelta, overlay);
             vertexPulsate(vertexConsumer, matrix4f, matrix3f, light, 1.0F, 0, 1, 1, age, flickers, tickDelta, overlay);
@@ -83,7 +87,6 @@ public class FireflyRenderer extends EntityRenderer<Firefly> {
             vertexPulsate(vertexConsumer, matrix4f, matrix3f, light, 0.0F, 1, 0, 0, age, flickers, tickDelta, overlay);
 
             matrices.pop();
-        }
         super.render(entity, yaw, tickDelta, matrices, vertexConsumers, light);
     }
 
