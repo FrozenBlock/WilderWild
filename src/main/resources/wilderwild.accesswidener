@@ -17,3 +17,6 @@ accessible    method    net/minecraft/client/render/entity/model/SinglePartEntit
 accessible    field    net/minecraft/entity/LivingEntity    dead    Z
 accessible    method    net/minecraft/entity/Entity    checkWaterState    ()V
 accessible    class    net/minecraft/village/TradeOffers$SellItemFactory
+accessible    field    net/minecraft/client/render/entity/feature/WardenFeatureRenderer    animationAngleAdjuster    Lnet/minecraft/client/render/entity/feature/WardenFeatureRenderer$AnimationAngleAdjuster;
+accessible    field    net/minecraft/client/render/entity/feature/WardenFeatureRenderer    modelPartVisibility    Lnet/minecraft/client/render/entity/feature/WardenFeatureRenderer$ModelPartVisibility;
+accessible    field    net/minecraft/client/render/entity/feature/WardenFeatureRenderer    texture    Lnet/minecraft/util/Identifier;
