@@ -919,18 +919,18 @@
 			"wilderwild:particle/floating_sculk_bubble/pop5"
 		]
 	},
-	"flyby.pvzgw_cheeto": {
+	"entity.ancient_horn_projectile.flyby": {
 		"sounds": [
 			{
-				"name": "wilderwild:flyby/cheetogrenade_flyby",
+				"name": "wilderwild:flyby/flyby1",
 				"attenuation_distance": 6
 			},
 			{
-				"name": "wilderwild:flyby/cheetogrenade_flyby2",
+				"name": "wilderwild:flyby/flyby2",
 				"attenuation_distance": 6
 			},
 			{
-				"name": "wilderwild:flyby/cheetogrenade_flyby3",
+				"name": "wilderwild:flyby/flyby3",
 				"attenuation_distance": 6
 			}
 		]

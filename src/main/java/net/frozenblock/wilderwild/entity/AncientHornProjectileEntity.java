@@ -291,7 +291,7 @@ public class AncientHornProjectileEntity extends PersistentProjectileEntity {
                 int XP = tendril.storedXP;
                 if (XP > 0) {
                     tendril.storedXP = 0;
-                    world.createExplosion(this, this.getX(), this.getY(), this.getZ(), 3, Explosion.DestructionType.BREAK);
+                    world.createExplosion(this, this.getX(), this.getY(), this.getZ(), 0, Explosion.DestructionType.NONE);
                     ExperienceOrbEntity.spawn(server, Vec3d.ofCenter(pos).add(0, 0, 0), XP);
                     setCooldown(getCooldown(this.getOwner(), TENDRIL_COOLDOWN));
                     this.setShotFromCrossbow(false);

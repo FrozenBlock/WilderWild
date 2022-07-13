@@ -29,8 +29,8 @@ public class FlyBySoundHub {
         add(EntityType.BAT);
     }};
     public static final ArrayList<SoundEvent> flybySoundsAuto = new ArrayList<>() {{
-        add(RegisterSounds.PVZGW_CHEETO_FLYBY);
-        add(RegisterSounds.PVZGW_CHEETO_FLYBY);
+        add(RegisterSounds.ANCIENT_HORN_PROJECTILE_FLYBY);
+        add(RegisterSounds.ANCIENT_HORN_PROJECTILE_FLYBY);
         add(SoundEvents.ENTITY_BAT_TAKEOFF);
     }};
     public static final ArrayList<SoundCategory> categoriesAuto = new ArrayList<>() {{

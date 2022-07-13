@@ -4,6 +4,7 @@ import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.entity.AncientHornProjectileEntity;
 import net.frozenblock.wilderwild.misc.PVZGWSound.MovingSoundLoop;
 import net.frozenblock.wilderwild.registry.RegisterItems;
+import net.frozenblock.wilderwild.registry.RegisterSounds;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.ItemCooldownManager;
@@ -153,7 +154,7 @@ public class AncientCityGoatHorn extends Item {
                 projectileEntity.setVelocity(user, user.getPitch(), user.getYaw(), 0.0F, 1.0F, 0.0F);
                 projectileEntity.shotByPlayer = true;
                 server.spawnEntity(projectileEntity);
-                MovingSoundLoop.createMovingLoopingSound(server, projectileEntity, SoundEvents.BLOCK_SCULK_CHARGE, SoundCategory.NEUTRAL, 1.0F, 1.0F);
+                MovingSoundLoop.createMovingLoopingSound(server, projectileEntity, RegisterSounds.ANCIENT_HORN_PROJECTILE_LOOP, SoundCategory.NEUTRAL, 1.0F, 1.0F);
                 ItemStack mainHand = user.getStackInHand(Hand.MAIN_HAND);
                 ItemStack offHand = user.getStackInHand(Hand.OFF_HAND);
                 if (mainHand.isOf(Items.WATER_BUCKET) || mainHand.isOf(Items.POTION) || offHand.isOf(Items.WATER_BUCKET) || offHand.isOf(Items.POTION)) {
