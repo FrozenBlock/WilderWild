@@ -17,14 +17,14 @@ import net.minecraft.world.BlockView;
 import net.minecraft.world.chunk.ChunkCache;
 import org.jetbrains.annotations.Nullable;
 
-public class WardenPathNodeMaker extends LandPathNodeMaker {
+public class WardenAquaticPathNodeMaker extends LandPathNodeMaker {
     private final boolean penalizeDeepWater;
     private float oldWalkablePenalty;
     private float oldWaterBorderPenalty;
 
     private final Long2ObjectMap<PathNodeType> nodeTypes = new Long2ObjectOpenHashMap<>();
 
-    public WardenPathNodeMaker(boolean penalizeDeepWater) {
+    public WardenAquaticPathNodeMaker(boolean penalizeDeepWater) {
         this.penalizeDeepWater = penalizeDeepWater;
     }
 
