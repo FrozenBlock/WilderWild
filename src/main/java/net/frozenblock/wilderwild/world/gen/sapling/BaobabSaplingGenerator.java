@@ -21,6 +21,6 @@ public class BaobabSaplingGenerator extends BaobabTreeSaplingGenerator {
     @Nullable
     @Override
     protected RegistryEntry<? extends ConfiguredFeature<?, ?>> getTreeFeature(Random random, boolean bees) {
-        return this.getBaobabTreeFeature(random);
+        return null;
     }
 }
