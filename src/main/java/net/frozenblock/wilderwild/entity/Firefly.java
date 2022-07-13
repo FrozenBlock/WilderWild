@@ -130,8 +130,6 @@ public class Firefly extends PathAwareEntity implements Flutterer {
         ItemStack itemStack = player.getStackInHand(hand);
         if (itemStack.getItem() == Items.GLASS_BOTTLE && entity.isAlive()) {
             WilderWild.log("Firefly capture attempt starting @ " + entity.getBlockPos().toShortString() + " by " + player.getDisplayName().getString(), WilderWild.UNSTABLE_LOGGING);
-            //TODO: FIREFLY BOTTLE SOUNDS
-            entity.playSound(RegisterSounds.ITEM_BOTTLE_RELEASE_FIREFLY, 1.0F, 1.0F);
             String color = entity.getColor();
             Optional<Item> optionalItem = Registry.ITEM.getOrEmpty(WilderWild.id(Objects.equals(color, "on") ? "firefly_bottle" : color + "_firefly_bottle"));
             Item item = RegisterItems.FIREFLY_BOTTLE;

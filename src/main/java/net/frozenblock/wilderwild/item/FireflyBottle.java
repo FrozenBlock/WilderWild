@@ -4,6 +4,7 @@ import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.entity.Firefly;
 import net.frozenblock.wilderwild.entity.ai.FireflyBrain;
 import net.frozenblock.wilderwild.registry.RegisterEntities;
+import net.frozenblock.wilderwild.registry.RegisterSounds;
 import net.minecraft.advancement.criterion.Criteria;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -71,12 +72,12 @@ public class FireflyBottle extends Item {
             if (user.getAbilities().allowModifyWorld) {
                 Firefly entity = RegisterEntities.FIREFLY.create(server);
                 if (entity != null) {
-                    //TODO: FIREFLY BOTTLE SOUNDS
                     entity.setVelocity(f * 0.7, g * 0.7, h * 0.7);
                     entity.refreshPositionAndAngles(user.getX(), user.getEyeY(), user.getZ(), user.getPitch(), user.getYaw());
                     entity.setFromBottle(true);
                     boolean spawned = server.spawnEntity(entity);
                     if (spawned) {
+                        entity.playSound(RegisterSounds.ITEM_BOTTLE_RELEASE_FIREFLY, 1.0F, 1.0F);
                         entity.hasHome = true;
                         FireflyBrain.rememberHome(entity, entity.getBlockPos());
                         entity.setColor(this.color);
