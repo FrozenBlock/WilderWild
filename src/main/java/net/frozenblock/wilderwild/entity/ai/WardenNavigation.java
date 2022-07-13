@@ -13,15 +13,15 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 
-public class WardenAquaticNavigation extends MobNavigation {
+public class WardenNavigation extends MobNavigation {
 
-    public WardenAquaticNavigation(MobEntity warden, World world) {
+    public WardenNavigation(MobEntity warden, World world) {
         super(warden, world);
     }
 
     @Override
     public PathNodeNavigator createPathNodeNavigator(int range) {
-        this.nodeMaker = new WardenAquaticPathNodeMaker(false);
+        this.nodeMaker = new WardenPathNodeMaker(false);
         this.nodeMaker.setCanEnterOpenDoors(true);
         return new PathNodeNavigator(this.nodeMaker, range) {
             public float getDistance(PathNode a, PathNode b) {

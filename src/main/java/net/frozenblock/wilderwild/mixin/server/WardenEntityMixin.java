@@ -1,9 +1,8 @@
 package net.frozenblock.wilderwild.mixin.server;
 
 import com.mojang.logging.LogUtils;
-import net.frozenblock.wilderwild.entity.ai.WardenLandNavigation;
-import net.frozenblock.wilderwild.entity.ai.WardenAquaticMoveControl;
-import net.frozenblock.wilderwild.entity.ai.WardenAquaticNavigation;
+import net.frozenblock.wilderwild.entity.ai.WardenMoveControl;
+import net.frozenblock.wilderwild.entity.ai.WardenNavigation;
 import net.frozenblock.wilderwild.entity.render.animations.WardenAnimationInterface;
 import net.frozenblock.wilderwild.registry.RegisterProperties;
 import net.frozenblock.wilderwild.registry.RegisterSounds;
@@ -11,7 +10,6 @@ import net.minecraft.block.Blocks;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.brain.Brain;
 import net.minecraft.entity.ai.brain.MemoryModuleType;
-import net.minecraft.entity.ai.control.MoveControl;
 import net.minecraft.entity.ai.pathing.EntityNavigation;
 import net.minecraft.entity.ai.pathing.PathNodeType;
 import net.minecraft.entity.damage.DamageSource;
@@ -50,7 +48,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 @Mixin(WardenEntity.class)
 public abstract class WardenEntityMixin extends HostileEntity implements WardenAnimationInterface {
 
-    private WardenEntity warden = WardenEntity.class.cast(this);
+    private final WardenEntity warden = WardenEntity.class.cast(this);
 
     /**
      * @author FrozenBlock
@@ -267,20 +265,6 @@ public abstract class WardenEntityMixin extends HostileEntity implements WardenA
         if (warden.getPose() == EntityPose.DYING) {
             this.addDigParticles(this.getDyingAnimationState());
         }
-        this.updateNavigation();
-    }
-
-    private int navigationUpdateCooldown = 120;
-
-    private void updateNavigation() {
-        WardenEntity wardenEntity = WardenEntity.class.cast(this);
-        if (this.navigationUpdateCooldown > 0) {
-            --navigationUpdateCooldown;
-        } else {
-            this.moveControl = this.isTouchingWaterOrLava() ? new WardenAquaticMoveControl(wardenEntity, 3, 26, 0.13F, 1.0F, true) : new MoveControl(wardenEntity);
-            this.navigation = this.isTouchingWaterOrLava() ? new WardenAquaticNavigation(wardenEntity, world) : new WardenLandNavigation(wardenEntity, world);
-            this.navigationUpdateCooldown = 120;
-        }
     }
 
     private void updateLeaningPitch() {
@@ -307,8 +291,8 @@ public abstract class WardenEntityMixin extends HostileEntity implements WardenA
     @Overwrite
     public EntityNavigation createNavigation(World world) {
         WardenEntity wardenEntity = WardenEntity.class.cast(this);
-
-        return this.isTouchingWaterOrLava() ? new WardenAquaticNavigation(wardenEntity, world) : new WardenLandNavigation(wardenEntity, world);
+        // for some reason it needs a new one lol
+        return new WardenNavigation(wardenEntity, world);
     }
     @Override
     public void travel(Vec3d movementInput) {
@@ -332,7 +316,7 @@ public abstract class WardenEntityMixin extends HostileEntity implements WardenA
     private void WardenEntity(EntityType<? extends HostileEntity> entityType, World world, CallbackInfo ci) {
         WardenEntity wardenEntity = WardenEntity.class.cast(this);
         wardenEntity.setPathfindingPenalty(PathNodeType.WATER, 0.0F);
-        this.moveControl = this.isTouchingWaterOrLava() ? new WardenAquaticMoveControl(wardenEntity, 3, 26, 0.13F, 1.0F, true) : new MoveControl(wardenEntity);
+        this.moveControl = new WardenMoveControl(wardenEntity, 3, 26, 0.13F, 1.0F, true);
     }
 
     @Override
@@ -367,13 +351,11 @@ public abstract class WardenEntityMixin extends HostileEntity implements WardenA
     }
 
     private boolean isTouchingWaterOrLava() {
-        WardenEntity wardenEntity = WardenEntity.class.cast(this);
-        return wardenEntity.isInsideWaterOrBubbleColumn() || wardenEntity.isInLava();
+        return warden.isInsideWaterOrBubbleColumn() || warden.isInLava();
     }
 
     private boolean isSubmergedInWaterOrLava() {
-        WardenEntity wardenEntity = WardenEntity.class.cast(this);
-        return wardenEntity.isSubmergedIn(FluidTags.WATER) || wardenEntity.isSubmergedIn(FluidTags.LAVA);
+        return warden.isSubmergedIn(FluidTags.WATER) || warden.isSubmergedIn(FluidTags.LAVA);
     }
 
     @Inject(method = "getDimensions", at = @At("HEAD"), cancellable = true)
