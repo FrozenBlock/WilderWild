@@ -14,6 +14,8 @@ import net.minecraft.client.render.entity.animation.Transformation;
 @Environment(EnvType.CLIENT)
 public class CustomWardenAnimations {
 
+    static float rad = (float) (Math.PI / 180);
+
     public static final Animation DYING = Builder.create(3.5F)
             .addBoneAnimation(
                     "bone",
@@ -21,7 +23,7 @@ public class CustomWardenAnimations {
                             Transformation.Targets.ROTATE,
                             new Keyframe(0.0F, AnimationHelper.method_41823(0.0F, 0.0F, 0.0F), Transformation.Interpolations.field_37884),
                             new Keyframe(1.56F, AnimationHelper.method_41823(0.0F, 0.0F, 0.0F), Transformation.Interpolations.field_37884),
-                            new Keyframe(2.44F, AnimationHelper.method_41823(-37.7838F, -14.24F, -17.6045F), Transformation.Interpolations.field_37885)
+                            new Keyframe(2.44F, AnimationHelper.method_41823(-37.7838F * rad, -14.24F * rad, -17.6045F * rad), Transformation.Interpolations.field_37885)
                     )
             )
             .addBoneAnimation(
@@ -154,8 +156,6 @@ public class CustomWardenAnimations {
                     )
             )
             .build();
-
-    static float rad = (float) (Math.PI / 180);
 
     public static final Animation WATER_DYING = Builder.create(3.5F)
             .addBoneAnimation(
