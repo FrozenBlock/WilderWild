@@ -294,18 +294,19 @@ public abstract class WardenEntityMixin extends HostileEntity implements WardenA
         // for some reason it needs a new one lol
         return new WardenNavigation(wardenEntity, world);
     }
+
     @Override
     public void travel(Vec3d movementInput) {
         if (this.canMoveVoluntarily() && this.isTouchingWaterOrLava()) {
             this.updateVelocity(this.getMovementSpeed(), movementInput);
             this.move(MovementType.SELF, this.getVelocity());
             this.setVelocity(this.getVelocity().multiply(0.9));
-            if (this.isSubmergedInWaterOrLava() && this.getMovementSpeed() > 0F){
+            if (this.isSubmergedInWaterOrLava() && this.getMovementSpeed() > 0F) {
                 warden.setPose(EntityPose.SWIMMING);
             }
         } else {
             super.travel(movementInput);
-            if (!this.isSubmergedInWaterOrLava() && this.getMovementSpeed() <= 0F && !this.isDiggingOrEmerging() && !warden.isInPose(EntityPose.SNIFFING) && !warden.isInPose(EntityPose.DYING) && !warden.isInPose(EntityPose.ROARING)){
+            if (!this.isSubmergedInWaterOrLava() && this.getMovementSpeed() <= 0F && !this.isDiggingOrEmerging() && !warden.isInPose(EntityPose.SNIFFING) && !warden.isInPose(EntityPose.DYING) && !warden.isInPose(EntityPose.ROARING)) {
                 warden.setPose(EntityPose.STANDING);
             }
         }
