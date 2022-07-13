@@ -29,6 +29,7 @@ import net.minecraft.tag.FluidTags;
 import net.minecraft.tag.TagKey;
 import net.minecraft.util.Unit;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.LocalDifficulty;
 import net.minecraft.world.ServerWorldAccess;
@@ -89,6 +90,9 @@ public abstract class WardenEntityMixin extends HostileEntity implements WardenA
     public AnimationState getSwimmingDyingAnimation() {
         return this.swimmingDyingAnimation;
     }
+
+    private float leaningPitch;
+    private float lastLeaningPitch;
 
     @Inject(at = @At("HEAD"), method = "initialize")
     public void initialize(ServerWorldAccess serverWorldAccess, LocalDifficulty localDifficulty, SpawnReason spawnReason, @Nullable EntityData entityData, @Nullable NbtCompound nbtCompound, CallbackInfoReturnable<EntityData> info) {
@@ -257,9 +261,20 @@ public abstract class WardenEntityMixin extends HostileEntity implements WardenA
 
     @Inject(method = "tick", at = @At("TAIL"))
     private void tick(CallbackInfo ci) {
+        this.updateLeaningPitch();
         if (warden.getPose() == EntityPose.DYING) {
             this.addDigParticles(this.getDyingAnimationState());
         }
+    }
+
+    private void updateLeaningPitch() {
+        this.lastLeaningPitch = this.leaningPitch;
+        if (this.isInSwimmingPose()) {
+            this.leaningPitch = Math.min(1.0F, this.leaningPitch + 0.09F);
+        } else {
+            this.leaningPitch = Math.max(0.0F, this.leaningPitch - 0.09F);
+        }
+
     }
 
     @Inject(method = "handleStatus", at = @At("HEAD"))
@@ -279,15 +294,20 @@ public abstract class WardenEntityMixin extends HostileEntity implements WardenA
         // for some reason it needs a new one lol
         return new WardenNavigation(wardenEntity, world);
     }
-
     @Override
     public void travel(Vec3d movementInput) {
         if (this.canMoveVoluntarily() && this.isTouchingWaterOrLava()) {
             this.updateVelocity(this.getMovementSpeed(), movementInput);
             this.move(MovementType.SELF, this.getVelocity());
             this.setVelocity(this.getVelocity().multiply(0.9));
+            if (this.isSubmergedInWaterOrLava() && this.getMovementSpeed() > 0F){
+                warden.setPose(EntityPose.SWIMMING);
+            }
         } else {
             super.travel(movementInput);
+            if (!this.isSubmergedInWaterOrLava() && this.getMovementSpeed() <= 0F){
+                warden.setPose(EntityPose.STANDING);
+            }
         }
 
     }
@@ -318,6 +338,10 @@ public abstract class WardenEntityMixin extends HostileEntity implements WardenA
     public void swimUpward(TagKey<Fluid> fluid) {
     }
 
+    public float getLeaningPitch(float tickDelta) {
+        return MathHelper.lerp(tickDelta, this.lastLeaningPitch, this.leaningPitch);
+    }
+
     @Override
     protected boolean updateWaterState() {
         this.fluidHeight.clear();
@@ -336,7 +360,7 @@ public abstract class WardenEntityMixin extends HostileEntity implements WardenA
 
     @Inject(method = "getDimensions", at = @At("HEAD"), cancellable = true)
     public void getDimensions(EntityPose pose, CallbackInfoReturnable<EntityDimensions> info) {
-        if (this.isSubmergedInWaterOrLava()) {
+        if (this.isInSwimmingPose()) {
             info.setReturnValue(EntityDimensions.changing(warden.getType().getWidth(), 0.85F));
             info.cancel();
         }
