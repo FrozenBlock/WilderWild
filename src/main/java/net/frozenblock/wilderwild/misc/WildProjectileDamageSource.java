@@ -13,7 +13,7 @@ public class WildProjectileDamageSource extends ProjectileDamageSource {
         super(name, projectile, attacker);
     }
 
-    public static DamageSource ancientHornDamageSource(Entity projectile, @Nullable Entity attacker) {
+    public static DamageSource ancientHorn(Entity projectile, @Nullable Entity attacker) {
         return new WildProjectileDamageSource("ancient_horn", projectile, attacker).setBypassesArmor();
     }
 
