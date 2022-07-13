@@ -1,5 +1,7 @@
 package net.frozenblock.wilderwild.entity.ai;
 
+import com.google.common.collect.Maps;
+import it.unimi.dsi.fastutil.longs.Long2ObjectFunction;
 import it.unimi.dsi.fastutil.longs.Long2ObjectMap;
 import it.unimi.dsi.fastutil.longs.Long2ObjectOpenHashMap;
 import net.minecraft.block.BlockState;
@@ -17,15 +19,15 @@ import net.minecraft.world.BlockView;
 import net.minecraft.world.chunk.ChunkCache;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.Map;
+
 public class WardenPathNodeMaker extends LandPathNodeMaker {
-    private final boolean penalizeDeepWater;
     private float oldWalkablePenalty;
     private float oldWaterBorderPenalty;
 
     private final Long2ObjectMap<PathNodeType> nodeTypes = new Long2ObjectOpenHashMap<>();
 
-    public WardenPathNodeMaker(boolean penalizeDeepWater) {
-        this.penalizeDeepWater = penalizeDeepWater;
+    public WardenPathNodeMaker() {
     }
 
     @Override
@@ -134,46 +136,46 @@ public class WardenPathNodeMaker extends LandPathNodeMaker {
     @Nullable
     @Override
     public TargetPathNode getNode(double x, double y, double z) {
-        if (this.isEntityTouchingWaterOrLava(this.entity)) {
-            return this.asTargetPathNode(this.getNode(MathHelper.floor(x), MathHelper.floor(y + 0.5), MathHelper.floor(z)));
-        } else {
-            return this.asTargetPathNode(this.getNode(MathHelper.floor(x), MathHelper.floor(y), MathHelper.floor(z)));
-        }
+        return this.asTargetPathNode(super.getNode(MathHelper.floor(x), MathHelper.floor(y), MathHelper.floor(z)));
     }
 
     @Override
     public int getSuccessors(PathNode[] successors, PathNode node) {
-        int i = super.getSuccessors(successors, node);
-        PathNodeType pathNodeType = this.getNodeType(this.entity, node.x, node.y + 1, node.z);
-        PathNodeType pathNodeType2 = this.getNodeType(this.entity, node.x, node.y, node.z);
-        int j;
-        if (this.entity.getPathfindingPenalty(pathNodeType) >= 0.0F && pathNodeType2 != PathNodeType.STICKY_HONEY) {
-            j = MathHelper.floor(Math.max(1.0F, this.entity.stepHeight));
-        } else {
-            j = 0;
-        }
-
-        double d = this.getFeetY(new BlockPos(node.x, node.y, node.z));
         if (isEntityTouchingWaterOrLava(this.entity)) {
-            PathNode pathNode = this.getPathNode(node.x, node.y + 1, node.z, Math.max(0, j - 1), d, Direction.UP, pathNodeType2);
-            PathNode pathNode2 = this.getPathNode(node.x, node.y - 1, node.z, j, d, Direction.DOWN, pathNodeType2);
-            if (this.isValidAquaticAdjacentSuccessor(pathNode, node)) {
-                successors[i++] = pathNode;
+            int i = 0;
+            Map<Direction, PathNode> map = Maps.newEnumMap(Direction.class);
+
+            for(Direction direction : Direction.values()) {
+                PathNode pathNode = this.getNode(node.x + direction.getOffsetX(), node.y + direction.getOffsetY(), node.z + direction.getOffsetZ());
+                map.put(direction, pathNode);
+                if (this.hasNotVisited(pathNode)) {
+                    successors[i++] = pathNode;
+                }
             }
 
-            if (this.isValidAquaticAdjacentSuccessor(pathNode2, node) && pathNodeType2 != PathNodeType.TRAPDOOR) {
-                successors[i++] = pathNode2;
-            }
-
-            for (int k = 0; k < i; ++k) {
-                PathNode pathNode3 = successors[k];
-                if ((pathNode3.type == PathNodeType.WATER || pathNode3.type == PathNodeType.LAVA) && this.penalizeDeepWater && pathNode3.y < this.entity.world.getSeaLevel() - 10) {
-                    ++pathNode3.penalty;
+            for(Direction direction2 : Direction.Type.HORIZONTAL) {
+                Direction direction3 = direction2.rotateYClockwise();
+                PathNode pathNode2 = this.getNode(
+                        node.x + direction2.getOffsetX() + direction3.getOffsetX(), node.y, node.z + direction2.getOffsetZ() + direction3.getOffsetZ()
+                );
+                if (this.method_38488(pathNode2, map.get(direction2), map.get(direction3))) {
+                    successors[i++] = pathNode2;
                 }
             }
 
             return i;
         } else {
+            int i = super.getSuccessors(successors, node);
+            PathNodeType pathNodeType = this.getNodeType(this.entity, node.x, node.y + 1, node.z);
+            PathNodeType pathNodeType2 = this.getNodeType(this.entity, node.x, node.y, node.z);
+            int j;
+            if (this.entity.getPathfindingPenalty(pathNodeType) >= 0.0F && pathNodeType2 != PathNodeType.STICKY_HONEY) {
+                j = MathHelper.floor(Math.max(1.0F, this.entity.stepHeight));
+            } else {
+                j = 0;
+            }
+
+            double d = this.getFeetY(new BlockPos(node.x, node.y, node.z));
             PathNode pathNode = this.getPathNode(node.x, node.y, node.z + 1, j, d, Direction.SOUTH, pathNodeType2);
             if (this.isValidAdjacentSuccessor(pathNode, node)) {
                 successors[i++] = pathNode;
@@ -216,6 +218,14 @@ public class WardenPathNodeMaker extends LandPathNodeMaker {
 
             return i;
         }
+    }
+
+    protected boolean hasNotVisited(@Nullable PathNode pathNode) {
+        return pathNode != null && !pathNode.visited;
+    }
+
+    protected boolean method_38488(@Nullable PathNode pathNode, @Nullable PathNode pathNode2, @Nullable PathNode pathNode3) {
+        return this.hasNotVisited(pathNode) && pathNode2 != null && pathNode2.penalty >= 0.0F && pathNode3 != null && pathNode3.penalty >= 0.0F;
     }
 
     private boolean isValidAquaticAdjacentSuccessor(@Nullable PathNode node, PathNode successor) {

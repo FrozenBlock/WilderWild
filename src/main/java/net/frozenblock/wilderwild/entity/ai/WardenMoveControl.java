@@ -17,7 +17,7 @@ import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.shape.VoxelShape;
 
-public class WardenMoveControl extends AquaticMoveControl {
+public class WardenMoveControl extends MoveControl {
 
     private final int pitchChange;
     private final int yawChange;
@@ -26,7 +26,7 @@ public class WardenMoveControl extends AquaticMoveControl {
     private final boolean buoyant;
 
     public WardenMoveControl(WardenEntity warden, int pitchChange, int yawChange, float speedInWater, float speedInAir, boolean buoyant) {
-        super(warden, pitchChange, yawChange, speedInWater, speedInAir, buoyant);
+        super(warden);
         this.pitchChange = pitchChange;
         this.yawChange = yawChange;
         this.speedInWater = speedInWater;
