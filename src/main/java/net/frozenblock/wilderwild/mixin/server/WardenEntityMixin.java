@@ -1,4 +1,4 @@
-package net.frozenblock.wilderwild.mixin;
+package net.frozenblock.wilderwild.mixin.server;
 
 import com.mojang.logging.LogUtils;
 import net.frozenblock.wilderwild.entity.ai.WardenMoveControl;

@@ -1,4 +1,4 @@
-package net.frozenblock.wilderwild.mixin;
+package net.frozenblock.wilderwild.mixin.server;
 
 import net.minecraft.entity.EntityType;
 import org.spongepowered.asm.mixin.Mixin;

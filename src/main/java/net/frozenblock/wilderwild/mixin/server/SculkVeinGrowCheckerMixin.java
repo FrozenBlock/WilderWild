@@ -1,4 +1,4 @@
-package net.frozenblock.wilderwild.mixin;
+package net.frozenblock.wilderwild.mixin.server;
 
 import net.fabricmc.loader.api.FabricLoader;
 import net.frozenblock.wilderwild.registry.RegisterBlocks;

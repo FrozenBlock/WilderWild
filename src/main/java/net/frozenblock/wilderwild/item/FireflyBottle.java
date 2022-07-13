@@ -1,7 +1,7 @@
 package net.frozenblock.wilderwild.item;
 
 import net.frozenblock.wilderwild.WilderWild;
-import net.frozenblock.wilderwild.entity.FireflyEntity;
+import net.frozenblock.wilderwild.entity.Firefly;
 import net.frozenblock.wilderwild.entity.ai.FireflyBrain;
 import net.frozenblock.wilderwild.registry.RegisterEntities;
 import net.minecraft.advancement.criterion.Criteria;
@@ -21,11 +21,11 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 import net.minecraft.world.event.GameEvent;
 
-public class FireflyBottleItem extends Item {
+public class FireflyBottle extends Item {
 
     private final String color;
 
-    public FireflyBottleItem(Settings settings, String color) {
+    public FireflyBottle(Settings settings, String color) {
         super(settings);
         this.color = color;
     }
@@ -69,7 +69,7 @@ public class FireflyBottleItem extends Item {
             float h = MathHelper.cos(yaw * 0.017453292F) * MathHelper.cos(pitch * 0.017453292F);
             ItemStack stack = user.getStackInHand(hand);
             if (user.getAbilities().allowModifyWorld) {
-                FireflyEntity entity = RegisterEntities.FIREFLY.create(server);
+                Firefly entity = RegisterEntities.FIREFLY.create(server);
                 if (entity != null) {
                     //TODO: FIREFLY BOTTLE SOUNDS
                     entity.setVelocity(f * 0.7, g * 0.7, h * 0.7);

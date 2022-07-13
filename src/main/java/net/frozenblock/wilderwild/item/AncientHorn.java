@@ -1,7 +1,7 @@
 package net.frozenblock.wilderwild.item;
 
 import net.frozenblock.wilderwild.WilderWild;
-import net.frozenblock.wilderwild.entity.AncientHornProjectileEntity;
+import net.frozenblock.wilderwild.entity.AncientHornProjectile;
 import net.frozenblock.wilderwild.misc.PVZGWSound.MovingSoundLoop;
 import net.frozenblock.wilderwild.registry.RegisterItems;
 import net.frozenblock.wilderwild.registry.RegisterSounds;
@@ -14,7 +14,6 @@ import net.minecraft.nbt.NbtCompound;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvent;
-import net.minecraft.sound.SoundEvents;
 import net.minecraft.tag.TagKey;
 import net.minecraft.text.MutableText;
 import net.minecraft.text.Text;
@@ -31,7 +30,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
 
-public class AncientCityGoatHorn extends Item {
+public class AncientHorn extends Item {
     private static final String INSTRUMENT_KEY = "instrument";
     private final TagKey<Instrument> instrumentTag;
 
@@ -39,7 +38,7 @@ public class AncientCityGoatHorn extends Item {
     public static final int SENSOR_COOLDOWN = 400;
     public static final int TENDRIL_COOLDOWN = 380;
 
-    public AncientCityGoatHorn(Settings settings, TagKey<Instrument> instrumentTag) {
+    public AncientHorn(Settings settings, TagKey<Instrument> instrumentTag) {
         super(settings);
         this.instrumentTag = instrumentTag;
     }
@@ -150,7 +149,7 @@ public class AncientCityGoatHorn extends Item {
             world.playSoundFromEntity(user, user, soundEvent, SoundCategory.RECORDS, range, 1.0F);
             user.getItemCooldownManager().set(RegisterItems.ANCIENT_HORN, getCooldown(user, 300));
             if (world instanceof ServerWorld server) {
-                AncientHornProjectileEntity projectileEntity = new AncientHornProjectileEntity(world, user.getX(), user.getEyeY(), user.getZ());
+                AncientHornProjectile projectileEntity = new AncientHornProjectile(world, user.getX(), user.getEyeY(), user.getZ());
                 projectileEntity.setVelocity(user, user.getPitch(), user.getYaw(), 0.0F, 1.0F, 0.0F);
                 projectileEntity.shotByPlayer = true;
                 server.spawnEntity(projectileEntity);
