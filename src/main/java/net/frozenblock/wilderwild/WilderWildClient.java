@@ -39,7 +39,7 @@ import net.minecraft.util.registry.Registry;
 
 import java.util.UUID;
 
-public class WildClientMod implements ClientModInitializer {
+public class WilderWildClient implements ClientModInitializer {
     public static final EntityModelLayer ANCIENT_HORN_PROJECTILE_LAYER = new EntityModelLayer(WilderWild.id("ancient_horn_projectile"), "main");
 
     @Override
