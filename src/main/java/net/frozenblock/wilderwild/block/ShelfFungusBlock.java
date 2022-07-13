@@ -122,7 +122,7 @@ public class ShelfFungusBlock extends WallMountedBlock implements Waterloggable 
     }
 
     static {
-        STAGE = RegisterProperties.FUNUGS_STAGE;
+        STAGE = RegisterProperties.FUNGUS_STAGE;
         WATERLOGGED = Properties.WATERLOGGED;
         NORTH_WALL_SHAPE = Block.createCuboidShape(0.0D, 0.0D, 13.0D, 16.0D, 16.0D, 16.0D);
         SOUTH_WALL_SHAPE = Block.createCuboidShape(0.0D, 0.0D, 0.0D, 16.0D, 16.0D, 3.0D);
