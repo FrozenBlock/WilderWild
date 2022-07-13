@@ -1,16 +1,11 @@
 package net.frozenblock.wilderwild.registry;
 
 import net.fabricmc.fabric.api.loot.v2.LootTableEvents;
-import net.minecraft.entity.EntityType;
 import net.minecraft.loot.LootPool;
 import net.minecraft.loot.LootTables;
-import net.minecraft.loot.condition.EntityPropertiesLootCondition;
-import net.minecraft.loot.context.LootContext;
 import net.minecraft.loot.entry.ItemEntry;
 import net.minecraft.loot.function.SetCountLootFunction;
 import net.minecraft.loot.provider.number.UniformLootNumberProvider;
-import net.minecraft.predicate.entity.EntityPredicate;
-import net.minecraft.tag.EntityTypeTags;
 import net.minecraft.util.Rarity;
 
 public class RegisterLootTables {
@@ -25,14 +20,5 @@ public class RegisterLootTables {
                 tableBuilder.pool(pool);
             }
         });
-
-        LootTableEvents.MODIFY.register(((resourceManager, lootManager, id, tableBuilder, source) -> {
-            if (EntityType.GOAT.getLootTableId().equals(id) && source.isBuiltin()) {
-                LootPool.Builder pool = LootPool.builder()
-                        .with(ItemEntry.builder(RegisterItems.MUSIC_DISC_GOAT_HORN_SYMPHONY).conditionally(EntityPropertiesLootCondition.builder(LootContext.EntityTarget.KILLER, EntityPredicate.Builder.create().type(EntityTypeTags.SKELETONS))));
-
-                tableBuilder.pool(pool);
-            }
-        }));
     }
 }
