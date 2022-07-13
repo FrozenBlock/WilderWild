@@ -56,7 +56,6 @@ public class AncientHornProjectile extends PersistentProjectileEntity {
     private boolean shot;
     private boolean leftOwner;
     public int aliveTicks;
-    public int prevAliveTicks;
     public double vecX;
     public double vecY;
     public double vecZ;
@@ -86,12 +85,11 @@ public class AncientHornProjectile extends PersistentProjectileEntity {
         this.baseTick();
         if (this.bubbles > 0 && this.world instanceof ServerWorld server) {
             --this.bubbles;
-            EasyPacket.EasyFloatingSculkBubblePacket.createParticle(server, this.getPos(), Math.random() > 0.7 ? 1 : 0, 20 + (int) (Math.random() * 40), 0.05, server.random.nextBetween(1, 3));
+            EasyPacket.EasyFloatingSculkBubblePacket.createParticle(server, this.getPos(), Math.random() > 0.7 ? 1 : 0, 20 + WilderWild.random().nextInt(40), 0.05, server.random.nextBetween(1, 3));
         }
         if (this.aliveTicks > 300) {
             this.remove(RemovalReason.DISCARDED);
         }
-        this.prevAliveTicks = this.aliveTicks;
         ++this.aliveTicks;
         if (!this.shot) {
             this.shot = true;
