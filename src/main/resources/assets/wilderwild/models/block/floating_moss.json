@@ -1,8 +1,8 @@
 {
   "ambientocclusion": false,
   "textures": {
-	"particle": "block/moss_block",
-	"texture": "block/moss_block"
+	"particle": "wilderwild:block/floating_moss",
+	"texture": "wilderwild:block/floating_moss"
   },
   "elements": [
 	{   "from": [  0, 0.25,  0 ],

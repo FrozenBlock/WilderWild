@@ -136,7 +136,7 @@ public class WardenEntityModelMixin<T extends WardenEntity> {
         float time = tickDelta * 0.1F;
         float rad = (float) (Math.PI / 180);
 
-        if (wardenEntity.isInSwimmingPose() && !cannotSwim) {
+        if (swimming && !cannotSwim) {
 
             float angles = (float) (angle * (Math.PI * 0.2));
 
@@ -183,14 +183,6 @@ public class WardenEntityModelMixin<T extends WardenEntity> {
 
             }
 
-            this.leftLeg.pitch = this.lerpAngleDegrees(speedDelta, this.leftLeg.pitch, (-cos * 35 - 5) * rad);
-            this.rightLeg.pitch = this.lerpAngleDegrees(speedDelta, this.rightLeg.pitch, (cos * 35 - 5) * rad);
-
-            this.rightLeg.pivotY = 8;
-            this.leftLeg.pivotY = 8;
-
-        } else if (this.isSubmerged(wardenEntity) && !wardenEntity.isInSwimmingPose()) {
-
             this.bone.pivotY += MathHelper.cos(time);
 
             this.head.pitch += (MathHelper.sin(time) * -5) * rad;
@@ -202,6 +194,14 @@ public class WardenEntityModelMixin<T extends WardenEntity> {
 
             this.leftLeg.pitch += (MathHelper.sin(time) * 15 + 15) * rad;
             this.rightLeg.pitch += (MathHelper.sin(time) * -15 + 15) * rad;
+
+            this.leftLeg.pitch = this.lerpAngleDegrees(speedDelta, this.leftLeg.pitch, (-cos * 35 - 5) * rad);
+            this.rightLeg.pitch = this.lerpAngleDegrees(speedDelta, this.rightLeg.pitch, (cos * 35 - 5) * rad);
+
+            this.rightLeg.pivotY = 8;
+            this.leftLeg.pivotY = 8;
+
+        } else if (this.isSubmerged(wardenEntity) && !swimming) {
 
             this.body.pivotY = 0;
 
