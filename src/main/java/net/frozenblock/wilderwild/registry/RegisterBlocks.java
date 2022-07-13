@@ -225,7 +225,7 @@ public class RegisterBlocks {
     public static final Block CATTAIL = new WaterloggableTallFlowerBlock(FabricBlockSettings.copy(Blocks.ROSE_BUSH).sounds(BlockSoundGroup.WET_GRASS).strength(0.0F).nonOpaque());
     public static final Block FLOWERED_LILY_PAD = new FloweredLilyPadBlock(FabricBlockSettings.copy(Blocks.LILY_PAD).sounds(RegisterBlockSoundGroups.LILYPAD));
 
-    public static final Block FLOATING_MOSS = new FloatingMossBlock(FabricBlockSettings.of(FLOATING_MOSS_MATERIAL).breakInstantly().nonOpaque().noCollision().sounds(BlockSoundGroup.MOSS_CARPET));
+    public static final Block FLOATING_MOSS = new FloatingMossBlock(FabricBlockSettings.of(FLOATING_MOSS_MATERIAL).breakInstantly().nonOpaque().noCollision().sounds(BlockSoundGroup.SLIME));
 
     public static void registerPlants() {
         registerBlock("white_dandelion", WHITE_DANDELION, ItemGroup.DECORATIONS);
