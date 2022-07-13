@@ -1,5 +1,6 @@
 package net.frozenblock.wilderwild.block;
 
+import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.misc.FlowerColors;
 import net.frozenblock.wilderwild.registry.RegisterItems;
 import net.frozenblock.wilderwild.registry.RegisterProperties;
@@ -44,7 +45,7 @@ public class GloryOfTheSnowBlock extends MultiColorFlowerBlock {
     @Override
     public void randomTick(BlockState state, ServerWorld world, BlockPos pos, Random random) {
         if (random.nextFloat() > 0.9F && state.get(COLORS) == FlowerColors.NONE) {
-            world.setBlockState(pos, state.with(COLORS, COLOR_LIST.get((int) (Math.random() * COLOR_LIST.size()))));
+            world.setBlockState(pos, state.with(COLORS, COLOR_LIST.get(WilderWild.random().nextInt(COLOR_LIST.size()))));
         }
     }
 
