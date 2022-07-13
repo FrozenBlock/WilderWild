@@ -45,9 +45,9 @@ public class AncientHornProjectileModel extends Model {
 
         this.bone.yaw = (float) (90 * (Math.PI / 180));
         this.bone.pitch = (float) (90 * (Math.PI / 180));
-        this.bone.pivotX = 0;
+        this.bone.pivotX = 4;
         this.bone.pivotY = 0;
-        this.bone.pivotZ = -4;
+        this.bone.pivotZ = 0;
 
         float aliveDelta = entity.aliveTicks + tickDelta;
 
