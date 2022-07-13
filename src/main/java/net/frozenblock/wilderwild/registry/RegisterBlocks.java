@@ -2,12 +2,14 @@ package net.frozenblock.wilderwild.registry;
 
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
+import net.fabricmc.fabric.api.object.builder.v1.block.FabricMaterialBuilder;
 import net.fabricmc.fabric.api.registry.CompostingChanceRegistry;
 import net.fabricmc.fabric.api.registry.StrippableBlockRegistry;
 import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.block.*;
 import net.frozenblock.wilderwild.block.entity.TermiteMoundBlockEntity;
 import net.frozenblock.wilderwild.item.FloweredLilyPadItem;
+import net.frozenblock.wilderwild.item.WaterMossItem;
 import net.frozenblock.wilderwild.misc.FlowerColors;
 import net.frozenblock.wilderwild.mixin.SignTypeAccessor;
 import net.frozenblock.wilderwild.world.gen.sapling.BaobabSaplingGenerator;
@@ -196,6 +198,13 @@ public class RegisterBlocks {
     }
 
     // MISC
+    private static final Material WATER_MOSS_MATERIAL = new FabricMaterialBuilder(MapColor.DARK_GREEN)
+            .allowsMovement()
+            .lightPassesThrough()
+            .notSolid()
+            .destroyedByPiston()
+            .build();
+
     public static final Block TERMITE_MOUND = new TermiteMound(FabricBlockSettings.of(Material.WOOD, MapColor.BROWN).strength(0.3F).sounds(RegisterBlockSoundGroups.COARSEDIRT));
 
     // PLANTS
@@ -215,6 +224,8 @@ public class RegisterBlocks {
 
     public static final Block CATTAIL = new WaterloggableTallFlowerBlock(FabricBlockSettings.copy(Blocks.ROSE_BUSH).sounds(BlockSoundGroup.WET_GRASS).strength(0.0F).nonOpaque());
     public static final Block FLOWERED_LILY_PAD = new FloweredLilyPadBlock(FabricBlockSettings.copy(Blocks.LILY_PAD).sounds(RegisterBlockSoundGroups.LILYPAD));
+
+    public static final Block WATER_MOSS = new WaterMossBlock(FabricBlockSettings.of(WATER_MOSS_MATERIAL).breakInstantly().nonOpaque().noCollision().sounds(BlockSoundGroup.MOSS_CARPET));
 
     public static void registerPlants() {
         registerBlock("white_dandelion", WHITE_DANDELION, ItemGroup.DECORATIONS);
@@ -284,6 +295,8 @@ public class RegisterBlocks {
         registerPlants();
         Registry.register(Registry.BLOCK, WilderWild.id("flowered_lily_pad"), FLOWERED_LILY_PAD);
         Registry.register(Registry.ITEM, WilderWild.id("flowered_lily_pad"), new FloweredLilyPadItem(FLOWERED_LILY_PAD, new FabricItemSettings().group(ItemGroup.DECORATIONS)));
+        Registry.register(Registry.BLOCK, WilderWild.id("water_moss"), WATER_MOSS);
+        Registry.register(Registry.ITEM, WilderWild.id("water_moss"), new WaterMossItem(WATER_MOSS, new FabricItemSettings().group(ItemGroup.DECORATIONS)));
         registerNotSoPlants();
 
 
