@@ -2,7 +2,7 @@ package net.frozenblock.wilderwild.entity.render;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.frozenblock.wilderwild.WildClientMod;
+import net.frozenblock.wilderwild.WilderWildClient;
 import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.entity.AncientHornProjectileEntity;
 import net.minecraft.client.render.OverlayTexture;
@@ -24,7 +24,7 @@ public class AncientHornProjectileRenderer extends EntityRenderer<AncientHornPro
 
     public AncientHornProjectileRenderer(EntityRendererFactory.Context context) {
         super(context);
-        this.model = new AncientHornProjectileModel(context.getPart(WildClientMod.ANCIENT_HORN_PROJECTILE_LAYER));
+        this.model = new AncientHornProjectileModel(context.getPart(WilderWildClient.ANCIENT_HORN_PROJECTILE_LAYER));
     }
 
     public void render(AncientHornProjectileEntity projectile, float yaw, float tickDelta, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light) {
