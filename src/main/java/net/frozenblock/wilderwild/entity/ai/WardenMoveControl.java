@@ -41,16 +41,16 @@ public class WardenMoveControl extends MoveControl {
                 if ((((WardenEntity) this.entity).getBrain().hasMemoryModule(MemoryModuleType.ROAR_TARGET) || ((WardenEntity) this.entity).getBrain().hasMemoryModule(MemoryModuleType.ATTACK_TARGET))) {
                     if (this.entity.getBrain().getOptionalMemory(MemoryModuleType.ROAR_TARGET).isPresent()) {
                         if (this.entity.getBrain().getOptionalMemory(MemoryModuleType.ROAR_TARGET).get().getY() > this.entity.getY()) {
-                            this.entity.setVelocity(this.entity.getVelocity().add(0.0D, 0.017D, 0.0D));
+                            this.entity.setVelocity(this.entity.getVelocity().add(0.0D, 0.005D, 0.0D));
                         } else {
-                            this.entity.setVelocity(this.entity.getVelocity().add(0.0D, -0.017D, 0.0D));
+                            this.entity.setVelocity(this.entity.getVelocity().add(0.0D, -0.005D, 0.0D));
                         }
 
                     } else if (this.entity.getBrain().getOptionalMemory(MemoryModuleType.ATTACK_TARGET).isPresent()) {
                         if (this.entity.getBrain().getOptionalMemory(MemoryModuleType.ATTACK_TARGET).get().getY() > this.entity.getY()) {
-                            this.entity.setVelocity(this.entity.getVelocity().add(0.0D, 0.017D, 0.0D));
+                            this.entity.setVelocity(this.entity.getVelocity().add(0.0D, 0.005D, 0.0D));
                         } else {
-                            this.entity.setVelocity(this.entity.getVelocity().add(0.0D, -0.017D, 0.0D));
+                            this.entity.setVelocity(this.entity.getVelocity().add(0.0D, -0.005D, 0.0D));
                         }
                     }
                 } else {
