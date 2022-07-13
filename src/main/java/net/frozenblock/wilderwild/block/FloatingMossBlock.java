@@ -16,7 +16,7 @@ import net.minecraft.world.WorldAccess;
 import net.minecraft.world.WorldView;
 
 public class FloatingMossBlock extends Block {
-    protected static final VoxelShape SHAPE = Block.createCuboidShape(0.1, 0.0, 0.1, 15.9, 1.0, 15.9);
+    protected static final VoxelShape SHAPE = Block.createCuboidShape(0.0, 0.0, 0.0, 16, 1.0, 16);
 
     public FloatingMossBlock(AbstractBlock.Settings settings) {
         super(settings);
