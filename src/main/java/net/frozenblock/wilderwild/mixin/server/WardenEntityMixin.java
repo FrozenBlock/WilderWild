@@ -276,6 +276,9 @@ public abstract class WardenEntityMixin extends HostileEntity implements WardenA
         WardenEntity wardenEntity = WardenEntity.class.cast(this);
         if (this.navigationUpdateCooldown > 0) {
             --navigationUpdateCooldown;
+            if (this.navigationUpdateCooldown == 90 || this.navigationUpdateCooldown == 60 || this.navigationUpdateCooldown == 30) {
+                this.moveControl = this.isTouchingWaterOrLava() ? new WardenAquaticMoveControl(wardenEntity, 3, 26, 0.13F, 1.0F, true) : new MoveControl(wardenEntity);
+            }
         } else {
             this.moveControl = this.isTouchingWaterOrLava() ? new WardenAquaticMoveControl(wardenEntity, 3, 26, 0.13F, 1.0F, true) : new MoveControl(wardenEntity);
             this.navigation = this.isTouchingWaterOrLava() ? new WardenAquaticNavigation(wardenEntity, world) : new WardenLandNavigation(wardenEntity, world);
