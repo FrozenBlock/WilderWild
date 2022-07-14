@@ -5,6 +5,7 @@ import com.mojang.serialization.Dynamic;
 import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.entity.ai.FireflyBrain;
 import net.frozenblock.wilderwild.entity.ai.FireflyHidingGoal;
+import net.frozenblock.wilderwild.misc.PVZGWSound.MovingSoundLoop;
 import net.frozenblock.wilderwild.misc.server.EasyPacket;
 import net.frozenblock.wilderwild.registry.RegisterItems;
 import net.frozenblock.wilderwild.registry.RegisterSounds;
@@ -34,6 +35,7 @@ import net.minecraft.item.Items;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.server.network.DebugInfoSender;
 import net.minecraft.server.world.ServerWorld;
+import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.ActionResult;
@@ -65,6 +67,7 @@ public class Firefly extends PathAwareEntity implements Flutterer {
     //public boolean hasHidingPlace;
     public boolean despawning;
     public int homeCheckCooldown;
+
     //public int hidingPlaceCheckCooldown;
 
     public Firefly(EntityType<? extends Firefly> entityType, World world) {
@@ -295,6 +298,15 @@ public class Firefly extends PathAwareEntity implements Flutterer {
 
     @Override
     public void tick() {
+        boolean nectar = false;
+        if (this.hasCustomName()) {
+            nectar = this.getCustomName().getString().toLowerCase().contains("nectar");
+        }
+        if (world instanceof ServerWorld server) {
+            if (nectar) {
+                MovingSoundLoop.createMovingLoopingSound(server, this, SoundEvents.ENTITY_BEE_LOOP_AGGRESSIVE, SoundCategory.NEUTRAL, 1.0F, 1.5F);
+            }
+        }
         super.tick();
         if (!this.isAlive()) {
             this.setNoGravity(false);
