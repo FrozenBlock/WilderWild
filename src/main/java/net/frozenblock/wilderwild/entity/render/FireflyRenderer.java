@@ -25,9 +25,6 @@ public class FireflyRenderer extends EntityRenderer<Firefly> {
     private static final Identifier TEXTURE = WilderWild.id("textures/entity/firefly/firefly_off.png");
     private static final RenderLayer LAYER = RenderLayer.getEntityCutout(TEXTURE);
 
-    private static final Identifier MERP = WilderWild.id("textures/entity/firefly/merp.png");
-    private static final RenderLayer MERPLAYER = RenderLayer.getEntityCutout(MERP);
-
     private static final Identifier NECTAR = WilderWild.id("textures/entity/firefly/nectar.png");
     private static final RenderLayer NECTAR_LAYER = RenderLayer.getEntityCutout(NECTAR);
     private static final Identifier NECTAR_FLAP = WilderWild.id("textures/entity/firefly/nectar_wings_down.png");
@@ -41,12 +38,6 @@ public class FireflyRenderer extends EntityRenderer<Firefly> {
         if (entity.hasCustomName()) {
             nectar = entity.getCustomName().getString().toLowerCase().contains("nectar");
         }
-
-        boolean merp = false;
-        if (entity.hasCustomName()) {
-            merp = entity.getCustomName().getString().toLowerCase().contains("merp");
-        }
-
         if (this.hasLabel(entity)) {
             this.renderLabelIfPresent(entity, entity.getDisplayName(), matrices, vertexConsumers, light);
         }
@@ -62,7 +53,7 @@ public class FireflyRenderer extends EntityRenderer<Firefly> {
         MatrixStack.Entry entry = matrices.peek();
         Matrix4f matrix4f = entry.getPositionMatrix();
         Matrix3f matrix3f = entry.getNormalMatrix();
-        VertexConsumer vertexConsumer = vertexConsumers.getBuffer(merp ? nectar ? age % 2 == 0 ? NECTAR_LAYER : NECTAR_FLAP_LAYER : LAYER : MERPLAYER);
+        VertexConsumer vertexConsumer = vertexConsumers.getBuffer(nectar ? age % 2 == 0 ? NECTAR_LAYER : NECTAR_FLAP_LAYER : LAYER);
 
         int overlay = getOverlay(entity, 0);
 
@@ -84,9 +75,9 @@ public class FireflyRenderer extends EntityRenderer<Firefly> {
             matrix4f = entry.getPositionMatrix();
             matrix3f = entry.getNormalMatrix();
 
-            if (!nectar && !merp) {
+            if (!nectar) {
                 vertexConsumer = vertexConsumers.getBuffer(RenderLayer.getEntityTranslucentEmissive(WilderWild.id("textures/entity/firefly/firefly_" + entity.getColor() + ".png")));
-            } else if (!merp) {
+            } else { //NECTAR OVERLAY
                 vertexConsumer = vertexConsumers.getBuffer(RenderLayer.getEntityTranslucentEmissive(WilderWild.id("textures/entity/firefly/nectar_overlay.png")));
             }
 
