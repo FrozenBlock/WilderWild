@@ -168,34 +168,16 @@ public class WildConfiguredFeatures {
 
     public static final RegistryEntry<ConfiguredFeature<RandomFeatureConfig, ?>> CYPRESS_WETLANDS_TREES =
             register("cypress_wetlands_trees", Feature.RANDOM_SELECTOR,
-                    new RandomFeatureConfig(List.of(new RandomFeatureEntry(WildTreePlaced.CYPRESS, 0.5F),
-                            new RandomFeatureEntry(WildTreePlaced.NEW_OAK_CHECKED, 0.5F)), WildTreePlaced.FUNGUS_CYPRESS));
-
-    public static final RegistryEntry<ConfiguredFeature<RandomFeatureConfig, ?>> CYPRESS_TREES =
-            register("cypress_trees", Feature.RANDOM_SELECTOR,
                     new RandomFeatureConfig(List.of(new RandomFeatureEntry(WildTreePlaced.CYPRESS, 0.4F),
-                            new RandomFeatureEntry(WildTreePlaced.FUNGUS_CYPRESS, 0.6F)), WildTreePlaced.FUNGUS_CYPRESS));
-
-    public static final RegistryEntry<ConfiguredFeature<RandomFeatureConfig, ?>> ALL_CYPRESS_TREES_EQUAL =
-            register("all_cypress_trees_equal", Feature.RANDOM_SELECTOR,
-                    new RandomFeatureConfig(List.of(new RandomFeatureEntry(WildTreePlaced.CYPRESS, 0.25F),
-                            new RandomFeatureEntry(WildTreePlaced.FUNGUS_CYPRESS, 0.25F),
                             new RandomFeatureEntry(WildTreePlaced.SHORT_CYPRESS, 0.25F),
-                            new RandomFeatureEntry(WildTreePlaced.SHORT_FUNGUS_CYPRESS, 0.25F)
-                    ), WildTreePlaced.CYPRESS));
+                            new RandomFeatureEntry(WildTreePlaced.SWAMP_CYPRESS, 0.81F),
+                            new RandomFeatureEntry(WildTreePlaced.NEW_OAK_CHECKED, 0.1F)),WildTreePlaced.FUNGUS_CYPRESS));
 
-    public static final RegistryEntry<ConfiguredFeature<RandomFeatureConfig, ?>> TALL_CYPRESS_TREE_BIASED =
-            register("tall_cypress_tree_biased", Feature.RANDOM_SELECTOR,
-                    new RandomFeatureConfig(List.of(new RandomFeatureEntry(WildTreePlaced.CYPRESS, 0.50F),
-                            new RandomFeatureEntry(WildTreePlaced.FUNGUS_CYPRESS, 0.25F),
-                            new RandomFeatureEntry(WildTreePlaced.SHORT_CYPRESS, 0.125F),
-                            new RandomFeatureEntry(WildTreePlaced.SHORT_FUNGUS_CYPRESS, 0.125F)
-                    ), WildTreePlaced.CYPRESS));
-
-    public static final RegistryEntry<ConfiguredFeature<RandomFeatureConfig, ?>> SHORT_CYPRESS_TREES =
-            register("short_cypress_trees", Feature.RANDOM_SELECTOR,
-                    new RandomFeatureConfig(List.of(new RandomFeatureEntry(WildTreePlaced.SHORT_CYPRESS, 0.7F),
-                            new RandomFeatureEntry(WildTreePlaced.SHORT_FUNGUS_CYPRESS, 0.3F)), WildTreePlaced.SHORT_FUNGUS_CYPRESS));
+    public static final RegistryEntry<ConfiguredFeature<RandomFeatureConfig, ?>> CYPRESS_WETLANDS_TREES_WATER =
+            register("cypress_wetlands_trees_water", Feature.RANDOM_SELECTOR,
+                    new RandomFeatureConfig(List.of(new RandomFeatureEntry(WildTreePlaced.CYPRESS, 0.3F),
+                            new RandomFeatureEntry(WildTreePlaced.SHORT_CYPRESS, 0.12F),
+                            new RandomFeatureEntry(WildTreePlaced.SWAMP_CYPRESS, 0.81F)), WildTreePlaced.FUNGUS_CYPRESS));
 
     public static final DataPool<BlockState> GLORY_OF_THE_SNOW_POOL = DataPool.<BlockState>builder().add(RegisterBlocks.GLORY_OF_THE_SNOW.getDefaultState().with(RegisterProperties.FLOWER_COLOR, FlowerColors.BLUE), 3).add(RegisterBlocks.GLORY_OF_THE_SNOW.getDefaultState().with(RegisterProperties.FLOWER_COLOR, FlowerColors.PURPLE), 3).add(RegisterBlocks.GLORY_OF_THE_SNOW.getDefaultState().with(RegisterProperties.FLOWER_COLOR, FlowerColors.PINK), 2).add(RegisterBlocks.GLORY_OF_THE_SNOW.getDefaultState().with(RegisterProperties.FLOWER_COLOR, FlowerColors.WHITE), 1).build();
     public static final RegistryEntry<ConfiguredFeature<RandomPatchFeatureConfig, ?>> GLORY_OF_THE_SNOW =
