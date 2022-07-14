@@ -143,7 +143,7 @@ public abstract class WardenEntityModelMixin<T extends WardenEntity> implements 
 
     private void setSwimmingAngles(T wardenEntity, float angle, float distance, float anim, float k, float headYaw, float headPitch, boolean swimming, boolean moveArms, boolean moveBody, boolean moveHead, boolean cannotSwim, CallbackInfo ci) {
 
-        if (this.isSubmerged(wardenEntity) && !cannotSwim) {
+        if (wardenEntity.isInSwimmingPose() && this.isSubmerged(wardenEntity) && !cannotSwim) {
 
             float angles = (float) (angle * (Math.PI * 0.2));
 
