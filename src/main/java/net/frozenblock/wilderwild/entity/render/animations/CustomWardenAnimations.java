@@ -276,6 +276,32 @@ public class CustomWardenAnimations {
             .build();
         public static final Animation KIRBY_DEATH = Builder.create(3.5F)
                 .addBoneAnimation(
+                        "bone",
+                        new Transformation(
+                                Transformation.Targets.ROTATE,
+                                new Keyframe(0f, AnimationHelper.method_41829(0f, 0f, 0f), Transformation.Interpolations.field_37884),
+                                new Keyframe(1.32f, AnimationHelper.method_41829(0f, 0f, 0f), Transformation.Interpolations.field_37884),
+                                new Keyframe(3.48f, AnimationHelper.method_41829(0f, 0f, -2465f), Transformation.Interpolations.field_37884)
+                        )
+                )
+                .addBoneAnimation(
+                        "bone",
+                        new Transformation(
+                                Transformation.Targets.TRANSLATE,
+                                new Keyframe(0f, AnimationHelper.method_41823(0f, 0f, 0f), Transformation.Interpolations.field_37885),
+                                new Keyframe(0.16f, AnimationHelper.method_41823(0f, -1f, 0f), Transformation.Interpolations.field_37885),
+                                new Keyframe(0.28f, AnimationHelper.method_41823(0f, 32f, 0f), Transformation.Interpolations.field_37885),
+                                new Keyframe(0.68f, AnimationHelper.method_41823(0f, 29f, 0f), Transformation.Interpolations.field_37885),
+                                new Keyframe(0.92f, AnimationHelper.method_41823(0f, -12f, 0f), Transformation.Interpolations.field_37885),
+                                new Keyframe(1.04f, AnimationHelper.method_41823(0f, -12f, 0f), Transformation.Interpolations.field_37885),
+                                new Keyframe(1.2f, AnimationHelper.method_41823(0f, -12f, 0f), Transformation.Interpolations.field_37884),
+                                new Keyframe(1.32f, AnimationHelper.method_41823(0f, -12f, 0f), Transformation.Interpolations.field_37884),
+                                new Keyframe(2.08f, AnimationHelper.method_41823(0f, 50f, 0f), Transformation.Interpolations.field_37885),
+                                new Keyframe(2.96f, AnimationHelper.method_41823(0f, -500f, 0f), Transformation.Interpolations.field_37885),
+                                new Keyframe(3.28f, AnimationHelper.method_41823(0f, -500f, 0f), Transformation.Interpolations.field_37885)
+                        )
+                )
+                .addBoneAnimation(
                         "body",
                         new Transformation(
                                 Transformation.Targets.ROTATE,
@@ -431,32 +457,6 @@ public class CustomWardenAnimations {
                                 new Keyframe(1.08f, AnimationHelper.method_41829(-88.43738f, -19.53723f, -9.46391f), Transformation.Interpolations.field_37885),
                                 new Keyframe(1.12f, AnimationHelper.method_41829(-100.93738f, -19.53723f, -9.46391f), Transformation.Interpolations.field_37885),
                                 new Keyframe(1.32f, AnimationHelper.method_41829(-100.94f, -19.54f, -9.46f), Transformation.Interpolations.field_37885)
-                        )
-                )
-                .addBoneAnimation(
-                        "root",
-                        new Transformation(
-                                Transformation.Targets.TRANSLATE,
-                                new Keyframe(0f, AnimationHelper.method_41823(0f, 0f, 0f), Transformation.Interpolations.field_37885),
-                                new Keyframe(0.16f, AnimationHelper.method_41823(0f, -1f, 0f), Transformation.Interpolations.field_37885),
-                                new Keyframe(0.28f, AnimationHelper.method_41823(0f, 32f, 0f), Transformation.Interpolations.field_37885),
-                                new Keyframe(0.68f, AnimationHelper.method_41823(0f, 29f, 0f), Transformation.Interpolations.field_37885),
-                                new Keyframe(0.92f, AnimationHelper.method_41823(0f, -12f, 0f), Transformation.Interpolations.field_37885),
-                                new Keyframe(1.04f, AnimationHelper.method_41823(0f, -12f, 0f), Transformation.Interpolations.field_37885),
-                                new Keyframe(1.2f, AnimationHelper.method_41823(0f, -12f, 0f), Transformation.Interpolations.field_37884),
-                                new Keyframe(1.32f, AnimationHelper.method_41823(0f, -12f, 0f), Transformation.Interpolations.field_37884),
-                                new Keyframe(2.08f, AnimationHelper.method_41823(0f, 50f, 0f), Transformation.Interpolations.field_37885),
-                                new Keyframe(2.96f, AnimationHelper.method_41823(0f, -500f, 0f), Transformation.Interpolations.field_37885),
-                                new Keyframe(3.28f, AnimationHelper.method_41823(0f, -500f, 0f), Transformation.Interpolations.field_37885)
-                        )
-                )
-                .addBoneAnimation(
-                        "bone",
-                        new Transformation(
-                                Transformation.Targets.ROTATE,
-                                new Keyframe(0f, AnimationHelper.method_41829(0f, 0f, 0f), Transformation.Interpolations.field_37884),
-                                new Keyframe(1.32f, AnimationHelper.method_41829(0f, 0f, 0f), Transformation.Interpolations.field_37884),
-                                new Keyframe(3.48f, AnimationHelper.method_41829(0f, 0f, -2465f), Transformation.Interpolations.field_37884)
                         )
                 )
                 .build();
