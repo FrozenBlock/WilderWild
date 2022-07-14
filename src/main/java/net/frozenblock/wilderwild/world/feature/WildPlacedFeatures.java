@@ -118,6 +118,10 @@ public class WildPlacedFeatures {
             register("cattail", WildConfiguredFeatures.CATTAIL,
                     RarityFilterPlacementModifier.of(3), SquarePlacementModifier.of(), PlacedFeatures.MOTION_BLOCKING_HEIGHTMAP, BiomePlacementModifier.of());
 
+    public static final RegistryEntry<PlacedFeature> WATER_MOSS =
+            register("water_moss", WildConfiguredFeatures.WATER_MOSS,
+                    RarityFilterPlacementModifier.of(2), SquarePlacementModifier.of(), PlacedFeatures.MOTION_BLOCKING_HEIGHTMAP, BiomePlacementModifier.of());
+
     public static final RegistryEntry<PlacedFeature> PATCH_FLOWERED_WATERLILY = register("patch_flowered_waterlily",
             WildConfiguredFeatures.PATCH_FLOWERED_WATERLILY, modifiers(1));
     public static final RegistryEntry<PlacedFeature> SEAGRASS_CYPRESS = register("seagrass_cypress",
