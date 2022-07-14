@@ -5,10 +5,10 @@ import net.minecraft.tag.TagKey;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.world.biome.Biome;
 
-public class WildBiomeTags {
+public class WilderBiomeTags {
     public static final TagKey<Biome> FIREFLY_SPAWNABLE_DURING_DAY = of("firefly_spawnable_during_day");
 
-    private WildBiomeTags() {
+    private WilderBiomeTags() {
     }
 
     private static TagKey<Biome> of(String path) {

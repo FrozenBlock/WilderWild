@@ -1,7 +1,7 @@
 package net.frozenblock.wilderwild.entity.ai;
 
 import net.frozenblock.wilderwild.entity.Firefly;
-import net.frozenblock.wilderwild.tag.WildBlockTags;
+import net.frozenblock.wilderwild.tag.WilderBlockTags;
 import net.minecraft.entity.ai.goal.MoveToTargetPosGoal;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.WorldView;
@@ -29,7 +29,7 @@ public class FireflyHidingGoal extends MoveToTargetPosGoal {
 
     @Override
     protected boolean isTargetPos(WorldView world, BlockPos pos) {
-        return world.getBlockState(pos).isIn(WildBlockTags.FIREFLY_HIDEABLE_BLOCKS);
+        return world.getBlockState(pos).isIn(WilderBlockTags.FIREFLY_HIDEABLE_BLOCKS);
     }
 
     @Override

@@ -4,7 +4,7 @@ import net.frozenblock.api.mathematics.EasyNoiseSampler;
 import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.block.OsseousSculkBlock;
 import net.frozenblock.wilderwild.registry.RegisterBlocks;
-import net.frozenblock.wilderwild.tag.WildBlockTags;
+import net.frozenblock.wilderwild.tag.WilderBlockTags;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.SculkSpreadManager;
 import net.minecraft.fluid.Fluids;
@@ -114,7 +114,7 @@ public class SculkBlockMixin {
             BlockPos blockPos = var4.next();
             BlockState blockState2 = world.getBlockState(blockPos);
             boolean osseousIsPresent = blockState2.isOf(RegisterBlocks.OSSEOUS_SCULK);
-            if (blockState2.isIn(WildBlockTags.ANCIENT_CITY_BLOCKS) || (osseousIsPresent && (blockPos.getX() != pos.getX() && blockPos.getZ() != pos.getZ()))) {
+            if (blockState2.isIn(WilderBlockTags.ANCIENT_CITY_BLOCKS) || (osseousIsPresent && (blockPos.getX() != pos.getX() && blockPos.getZ() != pos.getZ()))) {
                 if (osseousIsPresent) {
                     ++i;
                 }

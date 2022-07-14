@@ -6,7 +6,7 @@ import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.registry.RegisterEntities;
 import net.minecraft.world.biome.BiomeKeys;
 
-public class WildSpawns {
+public class WilderSpawns {
 
     public static void addFirefliesSwamps() {
         BiomeModifications.addSpawn(BiomeSelectors.includeByKey(BiomeKeys.SWAMP, BiomeKeys.MANGROVE_SWAMP),

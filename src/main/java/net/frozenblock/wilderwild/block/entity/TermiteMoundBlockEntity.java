@@ -1,6 +1,5 @@
 package net.frozenblock.wilderwild.block.entity;
 
-import com.mojang.logging.LogUtils;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.DataResult;
 import com.mojang.serialization.Dynamic;
@@ -10,7 +9,7 @@ import net.frozenblock.wilderwild.misc.server.EasyPacket;
 import net.frozenblock.wilderwild.registry.RegisterBlockEntities;
 import net.frozenblock.wilderwild.registry.RegisterBlocks;
 import net.frozenblock.wilderwild.registry.RegisterProperties;
-import net.frozenblock.wilderwild.tag.WildBlockTags;
+import net.frozenblock.wilderwild.tag.WilderBlockTags;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
@@ -193,7 +192,7 @@ public class TermiteMoundBlockEntity extends BlockEntity {
                 BlockState blockState = world.getBlockState(this.pos);
                 Block block = blockState.getBlock();
                 boolean degradable = !this.natural ? degradableBlocks.contains(block) : naturalDegradableBlocks.contains(block);
-                boolean breakable = blockState.isIn(WildBlockTags.TERMITE_BREAKABLE);
+                boolean breakable = blockState.isIn(WilderBlockTags.TERMITE_BREAKABLE);
                 boolean leaves = blockState.isIn(BlockTags.LEAVES);
                 if (degradable || breakable) {
                     this.eating = true;
@@ -203,7 +202,7 @@ public class TermiteMoundBlockEntity extends BlockEntity {
                     if (this.blockDestroyPower > 200) {
                         this.blockDestroyPower = 0;
                         this.aliveTicks = Math.max(0, this.aliveTicks - (200 / additionalPower));
-                        if (blockState.isIn(WildBlockTags.TERMITE_BREAKABLE)) {
+                        if (blockState.isIn(WilderBlockTags.TERMITE_BREAKABLE)) {
                             world.breakBlock(this.pos, true);
                         } else {
                             Direction.Axis axis = blockState.contains(Properties.AXIS) ? blockState.get(Properties.AXIS) : Direction.Axis.X;
@@ -224,7 +223,7 @@ public class TermiteMoundBlockEntity extends BlockEntity {
                     }
                     BlockPos offest = this.pos.offset(direction);
                     BlockState state = world.getBlockState(offest);
-                    if (state.isIn(WildBlockTags.KILLS_TERMITE) || state.isOf(Blocks.WATER) || state.isOf(Blocks.LAVA)) {
+                    if (state.isIn(WilderBlockTags.KILLS_TERMITE) || state.isOf(Blocks.WATER) || state.isOf(Blocks.LAVA)) {
                         return false;
                     }
 
@@ -264,7 +263,7 @@ public class TermiteMoundBlockEntity extends BlockEntity {
         @Nullable
         public static BlockPos ledgePos(World world, BlockPos pos, boolean natural) {
             BlockState state = world.getBlockState(pos);
-            if (degradableBlocks.contains(state.getBlock()) || state.isIn(WildBlockTags.TERMITE_BREAKABLE)) {
+            if (degradableBlocks.contains(state.getBlock()) || state.isIn(WilderBlockTags.TERMITE_BREAKABLE)) {
                 return pos;
             }
             pos = pos.down();
@@ -284,12 +283,12 @@ public class TermiteMoundBlockEntity extends BlockEntity {
         public static BlockPos degradableBreakablePos(World world, BlockPos pos, boolean natural) {
             List<Direction> directions = Util.copyShuffled(Direction.values(), world.random);
             BlockState upState = world.getBlockState(pos.offset(Direction.UP));
-            if ((!natural ? degradableBlocks.contains(upState.getBlock()) : naturalDegradableBlocks.contains(upState.getBlock())) || upState.isIn(WildBlockTags.TERMITE_BREAKABLE)) {
+            if ((!natural ? degradableBlocks.contains(upState.getBlock()) : naturalDegradableBlocks.contains(upState.getBlock())) || upState.isIn(WilderBlockTags.TERMITE_BREAKABLE)) {
                 return pos.offset(Direction.UP);
             }
             for (Direction direction : directions) {
                 BlockState state = world.getBlockState(pos.offset(direction));
-                if ((!natural ? degradableBlocks.contains(state.getBlock()) : naturalDegradableBlocks.contains(state.getBlock())) || state.isIn(WildBlockTags.TERMITE_BREAKABLE)) {
+                if ((!natural ? degradableBlocks.contains(state.getBlock()) : naturalDegradableBlocks.contains(state.getBlock())) || state.isIn(WilderBlockTags.TERMITE_BREAKABLE)) {
                     return pos.offset(direction);
                 }
             }
@@ -299,7 +298,7 @@ public class TermiteMoundBlockEntity extends BlockEntity {
         public static boolean exposedToAir(World world, BlockPos pos, boolean natural) {
             for (Direction direction : Direction.values()) {
                 BlockState state = world.getBlockState(pos.offset(direction));
-                if (state.isAir() || (!state.isSolidBlock(world, pos.offset(direction)) && !state.isIn(WildBlockTags.BLOCKS_TERMITE)) || (!natural && degradableBlocks.contains(state.getBlock())) || (natural && naturalDegradableBlocks.contains(state.getBlock())) || state.isIn(WildBlockTags.TERMITE_BREAKABLE)) {
+                if (state.isAir() || (!state.isSolidBlock(world, pos.offset(direction)) && !state.isIn(WilderBlockTags.BLOCKS_TERMITE)) || (!natural && degradableBlocks.contains(state.getBlock())) || (natural && naturalDegradableBlocks.contains(state.getBlock())) || state.isIn(WilderBlockTags.TERMITE_BREAKABLE)) {
                     return true;
                 }
             }
@@ -314,7 +313,7 @@ public class TermiteMoundBlockEntity extends BlockEntity {
         }
 
         public static boolean isBlockMovable(BlockState state, Direction direction) {
-            if (state.isIn(WildBlockTags.BLOCKS_TERMITE)) {
+            if (state.isIn(WilderBlockTags.BLOCKS_TERMITE)) {
                 return false;
             }
             boolean moveableUp = !(direction == Direction.UP && (state.isIn(BlockTags.INSIDE_STEP_SOUND_BLOCKS) || state.isIn(BlockTags.REPLACEABLE_PLANTS) || state.isIn(BlockTags.FLOWERS)));

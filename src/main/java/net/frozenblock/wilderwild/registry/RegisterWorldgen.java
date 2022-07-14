@@ -1,8 +1,8 @@
 package net.frozenblock.wilderwild.registry;
 
 import net.frozenblock.wilderwild.WilderWild;
-import net.frozenblock.wilderwild.world.feature.WildMiscPlaced;
-import net.frozenblock.wilderwild.world.feature.WildPlacedFeatures;
+import net.frozenblock.wilderwild.world.feature.WilderMiscPlaced;
+import net.frozenblock.wilderwild.world.feature.WilderPlacedFeatures;
 import net.minecraft.client.sound.MusicType;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.SpawnGroup;
@@ -90,23 +90,23 @@ public class RegisterWorldgen {
     }
 
     public static void addCypressPaths(GenerationSettings.Builder builder) {
-        builder.feature(GenerationStep.Feature.UNDERGROUND_ORES, WildMiscPlaced.UNDER_WATER_SAND_PATH);
-        builder.feature(GenerationStep.Feature.UNDERGROUND_ORES, WildMiscPlaced.UNDER_WATER_GRAVEL_PATH);
-        builder.feature(GenerationStep.Feature.UNDERGROUND_ORES, WildMiscPlaced.UNDER_WATER_CLAY_PATH);
+        builder.feature(GenerationStep.Feature.UNDERGROUND_ORES, WilderMiscPlaced.UNDER_WATER_SAND_PATH);
+        builder.feature(GenerationStep.Feature.UNDERGROUND_ORES, WilderMiscPlaced.UNDER_WATER_GRAVEL_PATH);
+        builder.feature(GenerationStep.Feature.UNDERGROUND_ORES, WilderMiscPlaced.UNDER_WATER_CLAY_PATH);
     }
 
     public static void addCypressWetlandsFeatures(GenerationSettings.Builder builder) {
-        builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, WildPlacedFeatures.DENSE_FERN_PLACED);
-        builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, WildPlacedFeatures.DENSE_TALL_GRASS_PLACED);
-        builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, WildPlacedFeatures.SEAGRASS_CYPRESS);
-        builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, WildPlacedFeatures.WHITE_DANDELION_CYPRESS);
-        builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, WildPlacedFeatures.MILKWEED_CYPRESS);
-        builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, WildPlacedFeatures.FLOWER_FOREST_FLOWERS);
-        //builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, WildPlacedFeatures.PATCH_CYPRESS_ROOTS);
-        builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, WildPlacedFeatures.DENSE_FLOWER_PLACED);
-        builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, WildPlacedFeatures.CYPRESS_WETLANDS_TREES);
-        builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, WildPlacedFeatures.CYPRESS_WETLANDS_TREES_WATER);
-        builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, WildPlacedFeatures.FALLEN_OAK_AND_CYPRESS_PLACED);
+        builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, WilderPlacedFeatures.DENSE_FERN_PLACED);
+        builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, WilderPlacedFeatures.DENSE_TALL_GRASS_PLACED);
+        builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, WilderPlacedFeatures.SEAGRASS_CYPRESS);
+        builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, WilderPlacedFeatures.WHITE_DANDELION_CYPRESS);
+        builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, WilderPlacedFeatures.MILKWEED_CYPRESS);
+        builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, WilderPlacedFeatures.FLOWER_FOREST_FLOWERS);
+        //builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, WilderPlacedFeatures.PATCH_CYPRESS_ROOTS);
+        builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, WilderPlacedFeatures.DENSE_FLOWER_PLACED);
+        builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, WilderPlacedFeatures.CYPRESS_WETLANDS_TREES);
+        builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, WilderPlacedFeatures.CYPRESS_WETLANDS_TREES_WATER);
+        builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, WilderPlacedFeatures.FALLEN_OAK_AND_CYPRESS_PLACED);
         addCypressPaths(builder);
         addBasicFeatures(builder);
         addCypressVegetation(builder);
@@ -118,11 +118,11 @@ public class RegisterWorldgen {
     }
 
     public static void addMixedForestFeatures(GenerationSettings.Builder builder) {
-        builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, WildPlacedFeatures.WHITE_DANDELION_MIXED);
-        builder.feature(GenerationStep.Feature.TOP_LAYER_MODIFICATION, WildMiscPlaced.COARSE_PATH_5);
-        builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, WildPlacedFeatures.MIXED_MUSHROOMS_PLACED);
-        builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, WildPlacedFeatures.MIXED_TREES);
-        builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, WildPlacedFeatures.FALLEN_TREES_MIXED_PLACED);
+        builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, WilderPlacedFeatures.WHITE_DANDELION_MIXED);
+        builder.feature(GenerationStep.Feature.TOP_LAYER_MODIFICATION, WilderMiscPlaced.COARSE_PATH_5);
+        builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, WilderPlacedFeatures.MIXED_MUSHROOMS_PLACED);
+        builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, WilderPlacedFeatures.MIXED_TREES);
+        builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, WilderPlacedFeatures.FALLEN_TREES_MIXED_PLACED);
         addBasicFeatures(builder);
         DefaultBiomeFeatures.addForestFlowers(builder);
         DefaultBiomeFeatures.addDefaultOres(builder);

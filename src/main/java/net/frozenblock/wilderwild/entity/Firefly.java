@@ -9,7 +9,7 @@ import net.frozenblock.wilderwild.misc.PVZGWSound.MovingSoundLoop;
 import net.frozenblock.wilderwild.misc.server.EasyPacket;
 import net.frozenblock.wilderwild.registry.RegisterItems;
 import net.frozenblock.wilderwild.registry.RegisterSounds;
-import net.frozenblock.wilderwild.tag.WildBiomeTags;
+import net.frozenblock.wilderwild.tag.WilderBiomeTags;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.brain.Brain;
@@ -41,7 +41,6 @@ import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.math.random.Random;
 import net.minecraft.util.registry.Registry;
@@ -86,7 +85,7 @@ public class Firefly extends PathAwareEntity implements Flutterer {
     }
 
     public static boolean canSpawn(EntityType<Firefly> type, WorldAccess world, SpawnReason spawnReason, BlockPos pos, Random random) {
-        if (world.getBiome(pos).isIn(WildBiomeTags.FIREFLY_SPAWNABLE_DURING_DAY)) {
+        if (world.getBiome(pos).isIn(WilderBiomeTags.FIREFLY_SPAWNABLE_DURING_DAY)) {
             return world.getLightLevel(LightType.SKY, pos) >= 6;
         }
         return random.nextFloat() > 0.6F && (!world.getDimension().hasFixedTime() && world.getAmbientDarkness() > 4) && world.isSkyVisible(pos);
@@ -235,7 +234,7 @@ public class Firefly extends PathAwareEntity implements Flutterer {
     }
 
     public boolean shouldHide() {
-        if (!this.natural || this.world.getBiome(this.getBlockPos()).isIn(WildBiomeTags.FIREFLY_SPAWNABLE_DURING_DAY)) {
+        if (!this.natural || this.world.getBiome(this.getBlockPos()).isIn(WilderBiomeTags.FIREFLY_SPAWNABLE_DURING_DAY)) {
             return false;
         }
 
@@ -415,7 +414,7 @@ public class Firefly extends PathAwareEntity implements Flutterer {
             if (entity != null) {
                 int i;
                 double d = entity.squaredDistanceTo(this);
-                if (this.canImmediatelyDespawn(d) && !this.world.getBiome(this.getBlockPos()).isIn(WildBiomeTags.FIREFLY_SPAWNABLE_DURING_DAY) && this.world.isDay() && Math.sqrt(d) > 18) {
+                if (this.canImmediatelyDespawn(d) && !this.world.getBiome(this.getBlockPos()).isIn(WilderBiomeTags.FIREFLY_SPAWNABLE_DURING_DAY) && this.world.isDay() && Math.sqrt(d) > 18) {
                     this.despawning = true;
                 }
                 if (d > (double) ((i = this.getType().getSpawnGroup().getImmediateDespawnRange()) * i) && this.canImmediatelyDespawn(d)) {

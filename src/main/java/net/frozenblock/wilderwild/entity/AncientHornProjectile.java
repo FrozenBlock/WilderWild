@@ -7,7 +7,7 @@ import net.frozenblock.wilderwild.block.entity.HangingTendrilBlockEntity;
 import net.frozenblock.wilderwild.misc.WildProjectileDamageSource;
 import net.frozenblock.wilderwild.misc.server.EasyPacket;
 import net.frozenblock.wilderwild.registry.*;
-import net.frozenblock.wilderwild.tag.WildBlockTags;
+import net.frozenblock.wilderwild.tag.WilderBlockTags;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.enchantment.EnchantmentHelper;
@@ -52,7 +52,7 @@ import java.util.Optional;
 import static net.frozenblock.wilderwild.item.AncientHorn.*;
 
 public class AncientHornProjectile extends PersistentProjectileEntity {
-    private final TagKey<Block> NON_COLLIDE = WildBlockTags.ANCIENT_HORN_NON_COLLIDE;
+    private final TagKey<Block> NON_COLLIDE = WilderBlockTags.ANCIENT_HORN_NON_COLLIDE;
     private boolean shot;
     private boolean leftOwner;
     public int aliveTicks;
