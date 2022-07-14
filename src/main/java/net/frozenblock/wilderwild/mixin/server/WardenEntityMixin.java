@@ -61,9 +61,14 @@ public abstract class WardenEntityMixin extends HostileEntity implements WardenA
     @Overwrite
     public SoundEvent getDeathSound() {
         String string = Formatting.strip(warden.getName().getString());
-        if (Objects.equals(string, "Osmiooo")) {
-            warden.playSound(RegisterSounds.ENTITY_WARDEN_KIRBY_DEATH, 5.0F, 1.0F);
-        } else {
+        boolean skipCheck = false;
+        if (string!=null) {
+            if (string.equals("Osmiooo") || string.equalsIgnoreCase("kirby")) {
+                warden.playSound(RegisterSounds.ENTITY_WARDEN_KIRBY_DEATH, 5.0F, 1.0F);
+                skipCheck = true;
+            }
+        }
+        if (!skipCheck) {
             if (!this.isSubmergedInWaterOrLava()) {
                 warden.playSound(RegisterSounds.ENTITY_WARDEN_DYING, 5.0F, 1.0F);
             } else if (this.isSubmergedInWaterOrLava()) {
@@ -187,10 +192,15 @@ public abstract class WardenEntityMixin extends HostileEntity implements WardenA
         if (POSE.equals(data)) {
             if (warden.getPose() == EntityPose.DYING) {
                 String string = Formatting.strip(warden.getName().getString());
-                if (Objects.equals(string, "Osmiooo")) {
-                    this.getKirbyDeathAnimationState().start(warden.age);
-                    ci.cancel();
-                } else {
+                boolean skip = false;
+                if (string != null) {
+                    if (string.equals("Osmiooo") || string.equalsIgnoreCase("kirby")) {
+                        this.getKirbyDeathAnimationState().start(warden.age);
+                        skip = true;
+                        ci.cancel();
+                    }
+                }
+                if (!skip ) {
                     if (!this.isSubmergedInWaterOrLava()) {
                         this.getDyingAnimationState().start(warden.age);
                         ci.cancel();
