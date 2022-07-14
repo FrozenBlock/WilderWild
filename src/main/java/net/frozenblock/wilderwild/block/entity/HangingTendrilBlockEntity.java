@@ -3,6 +3,7 @@ package net.frozenblock.wilderwild.block.entity;
 import com.mojang.logging.LogUtils;
 import com.mojang.serialization.DataResult;
 import com.mojang.serialization.Dynamic;
+import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.block.HangingTendrilBlock;
 import net.frozenblock.wilderwild.registry.RegisterBlockEntities;
 import net.frozenblock.wilderwild.registry.RegisterGameEvents;
@@ -29,7 +30,6 @@ import org.slf4j.Logger;
 import java.util.Objects;
 
 public class HangingTendrilBlockEntity extends BlockEntity implements VibrationListener.Callback {
-    private static final Logger LOGGER = LogUtils.getLogger();
     private VibrationListener listener;
     private int lastVibrationFrequency;
     public int ticksToStopTwitching;
@@ -70,7 +70,7 @@ public class HangingTendrilBlockEntity extends BlockEntity implements VibrationL
         this.ringOutTicksLeft = nbt.getInt("ringOutTicksLeft");
         if (nbt.contains("listener", 10)) {
             DataResult<?> var10000 = VibrationListener.createCodec(this).parse(new Dynamic<>(NbtOps.INSTANCE, nbt.getCompound("listener")));
-            Logger var10001 = LOGGER;
+            Logger var10001 = WilderWild.LOGGER;
             Objects.requireNonNull(var10001);
             var10000.resultOrPartial(var10001::error).ifPresent((vibrationListener) -> this.listener = (VibrationListener) vibrationListener);
         }
@@ -83,7 +83,7 @@ public class HangingTendrilBlockEntity extends BlockEntity implements VibrationL
         nbt.putInt("storedXP", this.storedXP);
         nbt.putInt("ringOutTicksLeft", this.ringOutTicksLeft);
         DataResult<?> var10000 = VibrationListener.createCodec(this).encodeStart(NbtOps.INSTANCE, this.listener);
-        Logger var10001 = LOGGER;
+        Logger var10001 = WilderWild.LOGGER;
         Objects.requireNonNull(var10001);
         var10000.resultOrPartial(var10001::error).ifPresent((nbtElement) -> nbt.put("listener", (NbtElement) nbtElement));
     }

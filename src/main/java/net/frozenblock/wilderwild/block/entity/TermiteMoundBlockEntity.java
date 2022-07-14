@@ -40,7 +40,6 @@ import java.util.Objects;
 import java.util.Optional;
 
 public class TermiteMoundBlockEntity extends BlockEntity {
-    private static final Logger LOGGER = LogUtils.getLogger();
     ArrayList<Termite> termites = new ArrayList<>();
     public int ticksToNextTermite;
     public int ticksToCheckLight;
@@ -58,7 +57,7 @@ public class TermiteMoundBlockEntity extends BlockEntity {
         if (nbt.contains("termites", 9)) {
             this.termites.clear();
             DataResult<?> var10000 = Termite.CODEC.listOf().parse(new Dynamic<>(NbtOps.INSTANCE, nbt.getList("termites", 10)));
-            Logger var10001 = LOGGER;
+            Logger var10001 = WilderWild.LOGGER;
             Objects.requireNonNull(var10001);
             Optional<List> list = (Optional<List>) var10000.resultOrPartial(var10001::error);
             if (list.isPresent()) {
@@ -79,7 +78,7 @@ public class TermiteMoundBlockEntity extends BlockEntity {
         nbt.putInt("ticksToCheckLight", this.ticksToCheckLight);
         nbt.putInt("lastLight", this.lastLight);
         DataResult<?> var10000 = Termite.CODEC.listOf().encodeStart(NbtOps.INSTANCE, this.termites);
-        Logger var10001 = LOGGER;
+        Logger var10001 = WilderWild.LOGGER;
         Objects.requireNonNull(var10001);
         var10000.resultOrPartial(var10001::error).ifPresent((cursorsNbt) -> {
             nbt.put("termites", (NbtElement) cursorsNbt);
