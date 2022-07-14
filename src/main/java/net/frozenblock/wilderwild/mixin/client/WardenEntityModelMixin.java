@@ -119,7 +119,7 @@ public abstract class WardenEntityModelMixin<T extends WardenEntity> implements 
     private void setAngles(T wardenEntity, float angle, float distance, float anim, float headYaw, float headPitch, CallbackInfo ci) {
         ci.cancel();
         boolean swimming = this.isSubmerged(wardenEntity) && distance > 0;
-        boolean cannotSwim = wardenEntity.isInPose(EntityPose.EMERGING) || wardenEntity.isInPose(EntityPose.DIGGING) || wardenEntity.isInPose(EntityPose.DYING) || ((WardenAnimationInterface) wardenEntity).getSwimmingDyingAnimation().isRunning();
+        boolean cannotSwim = wardenEntity.isInPose(EntityPose.EMERGING) || wardenEntity.isInPose(EntityPose.DIGGING) || wardenEntity.isInPose(EntityPose.DYING) || ((WardenAnimationInterface) wardenEntity).getSwimmingDyingAnimationState().isRunning() || ((WardenAnimationInterface) wardenEntity).getKirbyDeathAnimationState().isRunning();
         boolean shouldMoveArms = !wardenEntity.isInPose(EntityPose.ROARING) && !wardenEntity.isInPose(EntityPose.EMERGING) && !wardenEntity.isInPose(EntityPose.DIGGING);
         boolean shouldMoveBody = !wardenEntity.isInPose(EntityPose.ROARING) && !wardenEntity.isInPose(EntityPose.EMERGING) && !wardenEntity.isInPose(EntityPose.DIGGING);
         boolean shouldMoveHead = !wardenEntity.isInPose(EntityPose.ROARING) && !wardenEntity.isInPose(EntityPose.EMERGING) && !wardenEntity.isInPose(EntityPose.DIGGING);
@@ -137,13 +137,14 @@ public abstract class WardenEntityModelMixin<T extends WardenEntity> implements 
         model.updateAnimation(wardenEntity.roaringAnimationState, WardenAnimations.ROARING, anim);
         model.updateAnimation(wardenEntity.sniffingAnimationState, WardenAnimations.SNIFFING, anim);
         model.updateAnimation(((WardenAnimationInterface) wardenEntity).getDyingAnimationState(), CustomWardenAnimations.DYING, anim);
-        model.updateAnimation(((WardenAnimationInterface) wardenEntity).getSwimmingDyingAnimation(), CustomWardenAnimations.WATER_DYING, anim);
+        model.updateAnimation(((WardenAnimationInterface) wardenEntity).getSwimmingDyingAnimationState(), CustomWardenAnimations.WATER_DYING, anim);
+        model.updateAnimation(((WardenAnimationInterface) wardenEntity).getKirbyDeathAnimationState(), CustomWardenAnimations.KIRBY_DEATH, anim);
 
     }
 
     private void setSwimmingAngles(T wardenEntity, float angle, float distance, float anim, float k, float headYaw, float headPitch, boolean swimming, boolean moveArms, boolean moveBody, boolean moveHead, boolean cannotSwim, CallbackInfo ci) {
 
-        if (this.isSubmerged(wardenEntity) && !cannotSwim) {
+        if (wardenEntity.isInSwimmingPose() && this.isSubmerged(wardenEntity) && !cannotSwim) {
 
             float angles = (float) (angle * (Math.PI * 0.2));
 

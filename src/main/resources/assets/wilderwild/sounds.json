@@ -834,6 +834,11 @@
 			"wilderwild:mob/warden/dying_underwater_3"
 		]
 	},
+	"entity.warden.kirby_death": {
+		"sounds": [
+			"wilderwild:mob/warden/kirbydeath"
+		]
+	},
 	"entity.warden.swim": {
 		"sounds": [
 			"wilderwild:mob/warden/swim_1",

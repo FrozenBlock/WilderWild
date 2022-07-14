@@ -99,6 +99,8 @@ public class RegisterSounds {
     public static final SoundEvent FLOATING_SCULK_BUBBLE_POP = register("particle.floating_sculk_bubble.pop");
     public static final SoundEvent FLOATING_SCULK_BUBBLE_BIG_POP = register("particle.floating_sculk_bubble.big_pop");
 
+    public static final SoundEvent ENTITY_WARDEN_KIRBY_DEATH = register("entity.warden.kirby_death");
+
     public static final SoundEvent ENTITY_WARDEN_DYING = register("entity.warden.dying");
 
     public static final SoundEvent ENTITY_WARDEN_UNDERWATER_DYING = register("entity.warden.dying_underwater");

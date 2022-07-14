@@ -28,6 +28,7 @@ import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.tag.FluidTags;
 import net.minecraft.tag.TagKey;
+import net.minecraft.util.Formatting;
 import net.minecraft.util.Unit;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
@@ -46,6 +47,8 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
+import java.util.Objects;
+
 @Mixin(WardenEntity.class)
 public abstract class WardenEntityMixin extends HostileEntity implements WardenAnimationInterface {
 
@@ -57,12 +60,21 @@ public abstract class WardenEntityMixin extends HostileEntity implements WardenA
      */
     @Overwrite
     public SoundEvent getDeathSound() {
-        if (!this.isSubmergedInWaterOrLava()) {
-            warden.playSound(RegisterSounds.ENTITY_WARDEN_DYING, 5.0F, 1.0F);
-        } else if (this.isSubmergedInWaterOrLava()) {
-            warden.playSound(RegisterSounds.ENTITY_WARDEN_UNDERWATER_DYING, 0.75F, 1.0F);
+        String string = Formatting.strip(warden.getName().getString());
+        boolean skipCheck = false;
+        if (string!=null) {
+            if (string.equals("Osmiooo") || string.equalsIgnoreCase("kirby")) {
+                warden.playSound(RegisterSounds.ENTITY_WARDEN_KIRBY_DEATH, 5.0F, 1.0F);
+                skipCheck = true;
+            }
         }
-        return SoundEvents.ENTITY_WARDEN_DEATH;
+        if (!skipCheck) {
+            if (!this.isSubmergedInWaterOrLava()) {
+                warden.playSound(RegisterSounds.ENTITY_WARDEN_DYING, 5.0F, 1.0F);
+            } else if (this.isSubmergedInWaterOrLava()) {
+                warden.playSound(RegisterSounds.ENTITY_WARDEN_UNDERWATER_DYING, 0.75F, 1.0F);
+            }
+        } return SoundEvents.ENTITY_WARDEN_DEATH;
     }
 
     @Shadow
@@ -80,7 +92,9 @@ public abstract class WardenEntityMixin extends HostileEntity implements WardenA
 
     private final AnimationState dyingAnimationState = new AnimationState();
 
-    private final AnimationState swimmingDyingAnimation = new AnimationState();
+    private final AnimationState swimmingDyingAnimationState = new AnimationState();
+
+    private final AnimationState kirbyDeathAnimationState = new AnimationState();
 
     @Override
     public AnimationState getDyingAnimationState() {
@@ -88,8 +102,13 @@ public abstract class WardenEntityMixin extends HostileEntity implements WardenA
     }
 
     @Override
-    public AnimationState getSwimmingDyingAnimation() {
-        return this.swimmingDyingAnimation;
+    public AnimationState getSwimmingDyingAnimationState() {
+        return this.swimmingDyingAnimationState;
+    }
+
+    @Override
+    public AnimationState getKirbyDeathAnimationState() {
+        return this.kirbyDeathAnimationState;
     }
 
     private float leaningPitch;
@@ -172,12 +191,23 @@ public abstract class WardenEntityMixin extends HostileEntity implements WardenA
     public void onTrackedDataSet(TrackedData<?> data, CallbackInfo ci) {
         if (POSE.equals(data)) {
             if (warden.getPose() == EntityPose.DYING) {
-                if (!this.isSubmergedInWaterOrLava()) {
-                    this.getDyingAnimationState().start(warden.age);
-                    ci.cancel();
-                } else {
-                    this.getSwimmingDyingAnimation().start(warden.age);
-                    ci.cancel();
+                String string = Formatting.strip(warden.getName().getString());
+                boolean skip = false;
+                if (string != null) {
+                    if (string.equals("Osmiooo") || string.equalsIgnoreCase("kirby")) {
+                        this.getKirbyDeathAnimationState().start(warden.age);
+                        skip = true;
+                        ci.cancel();
+                    }
+                }
+                if (!skip ) {
+                    if (!this.isSubmergedInWaterOrLava()) {
+                        this.getDyingAnimationState().start(warden.age);
+                        ci.cancel();
+                    } else {
+                        this.getSwimmingDyingAnimationState().start(warden.age);
+                        ci.cancel();
+                    }
                 }
             }
         }

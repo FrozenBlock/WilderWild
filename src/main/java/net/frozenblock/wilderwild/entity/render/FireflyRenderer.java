@@ -77,7 +77,7 @@ public class FireflyRenderer extends EntityRenderer<Firefly> {
 
             if (!nectar) {
                 vertexConsumer = vertexConsumers.getBuffer(RenderLayer.getEntityTranslucentEmissive(WilderWild.id("textures/entity/firefly/firefly_" + entity.getColor() + ".png")));
-            } else {
+            } else { //NECTAR OVERLAY
                 vertexConsumer = vertexConsumers.getBuffer(RenderLayer.getEntityTranslucentEmissive(WilderWild.id("textures/entity/firefly/nectar_overlay.png")));
             }
 
