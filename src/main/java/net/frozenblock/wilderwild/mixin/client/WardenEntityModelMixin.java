@@ -1,7 +1,9 @@
 package net.frozenblock.wilderwild.mixin.client;
 
+import com.google.common.collect.ImmutableList;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.frozenblock.wilderwild.entity.render.WardenModelInterface;
 import net.frozenblock.wilderwild.entity.render.animations.CustomWardenAnimations;
 import net.frozenblock.wilderwild.entity.render.animations.WardenAnimationInterface;
 import net.minecraft.client.model.ModelPart;
@@ -18,9 +20,11 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
+import java.util.List;
+
 @Environment(EnvType.CLIENT)
 @Mixin(WardenEntityModel.class)
-public class WardenEntityModelMixin<T extends WardenEntity> {
+public abstract class WardenEntityModelMixin<T extends WardenEntity> implements WardenModelInterface {
 
     @Final
     @Shadow
@@ -74,8 +78,14 @@ public class WardenEntityModelMixin<T extends WardenEntity> {
     private void setTendrilPitches(T warden, float animationProgress, float tickDelta) {
     }
 
+    private List<ModelPart> headAndTendrils;
+
     private final WardenEntityModel model = WardenEntityModel.class.cast(this);
 
+    @Inject(method = "<init>", at = @At("TAIL"))
+    private void WardenEntityModel(ModelPart root, CallbackInfo ci) {
+        this.headAndTendrils = ImmutableList.of(this.head, this.leftTendril, this.rightTendril);
+    }
 
     private float lerp(float delta, float start, float end) {
         return MathHelper.lerp(delta, start, end);
@@ -217,5 +227,10 @@ public class WardenEntityModelMixin<T extends WardenEntity> {
 
     private boolean isSubmerged(WardenEntity warden) {
         return warden.isInsideWaterOrBubbleColumn() || warden.isSubmergedIn(FluidTags.LAVA);
+    }
+
+    @Override
+    public List<ModelPart> getHeadAndTendrils() {
+        return this.headAndTendrils;
     }
 }
