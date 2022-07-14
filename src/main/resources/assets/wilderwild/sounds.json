@@ -841,6 +841,11 @@
 			"wilderwild:mob/warden/swim_3"
 		]
 	},
+  	"entity.warden.brap": {
+	  "sounds": [
+		"wilderwild:mob/warden/brap"
+	  ]
+	},
 	"item.ancient_horn.call": {
 		"sounds": [
 			"wilderwild:item/ancient_horn/horn1",

@@ -4,6 +4,7 @@ import net.fabricmc.loader.api.FabricLoader;
 import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.block.EchoGlassBlock;
 import net.frozenblock.wilderwild.registry.RegisterBlocks;
+import net.frozenblock.wilderwild.registry.RegisterSounds;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.ai.brain.MemoryModuleType;
 import net.minecraft.entity.ai.brain.task.SonicBoomTask;
@@ -13,6 +14,7 @@ import net.minecraft.entity.mob.WardenEntity;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundEvents;
+import net.minecraft.util.Formatting;
 import net.minecraft.util.Unit;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.hit.HitResult;
@@ -28,6 +30,8 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+
+import java.util.Objects;
 
 @Mixin(SonicBoomTask.class)
 public class SonicBoomTaskMixin {
@@ -62,7 +66,12 @@ public class SonicBoomTaskMixin {
                         }
                     }
 
-                    wardenEntity.playSound(SoundEvents.ENTITY_WARDEN_SONIC_BOOM, 3.0F, 1.0F);
+                    String string = Formatting.strip(wardenEntity.getName().getString());
+                    if (Objects.equals(string, "Osmiooo")) {
+                        wardenEntity.playSound(RegisterSounds.ENTITY_WARDEN_BRAP, 3.0F, 1.0F);
+                    } else {
+                        wardenEntity.playSound(SoundEvents.ENTITY_WARDEN_SONIC_BOOM, 3.0F, 1.0F);
+                    }
                     if (!blocked) {
                         target.damage(DamageSource.sonicBoom(wardenEntity), 10.0F);
                         double d = 0.5D * (1.0D - target.getAttributeValue(EntityAttributes.GENERIC_KNOCKBACK_RESISTANCE));
