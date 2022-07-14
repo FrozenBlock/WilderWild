@@ -105,6 +105,8 @@ public class RegisterSounds {
 
     public static final SoundEvent ENTITY_WARDEN_SWIM = register("entity.warden.swim");
 
+    public static final SoundEvent ENTITY_WARDEN_BRAP = register("entity.warden.brap");
+
     public static final SoundEvent ITEM_BOTTLE_CATCH_FIREFLY = register("item.bottle.catch_firefly");
     public static final SoundEvent ITEM_BOTTLE_RELEASE_FIREFLY = register("item.bottle.release_firefly");
 
