@@ -3,7 +3,7 @@ package net.frozenblock.wilderwild.mixin.client;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.frozenblock.wilderwild.WilderWild;
-import net.frozenblock.wilderwild.entity.render.WildWardenFeatureRenderer;
+import net.frozenblock.wilderwild.entity.render.OsmioooWardenFeatureRenderer;
 import net.minecraft.client.render.entity.EntityRendererFactory;
 import net.minecraft.client.render.entity.MobEntityRenderer;
 import net.minecraft.client.render.entity.WardenEntityRenderer;
@@ -26,9 +26,9 @@ public abstract class OsmioooWardenRenderer extends MobEntityRenderer<WardenEnti
 
     private static final Identifier OSMIOOO_TEXTURE = WilderWild.id("textures/entity/warden/osmiooo_warden.png");
     private static final Identifier OSMIOOO_BIOLUMINESCENT_LAYER_TEXTURE = WilderWild.id("textures/entity/warden/osmiooo_warden_bioluminescent_overlay.png");
-    private static final Identifier OSMIOOO_HEART = WilderWild.id("textures/entity/warden/osmiooo_warden_heart.png");
-    private static final Identifier OSMIOOO_PULSATING_SPOTS_1_TEXTURE = new Identifier("textures/entity/warden/osmiooo_warden_pulsating_spots_1.png");
-    private static final Identifier OSMIOOO_PULSATING_SPOTS_2_TEXTURE = new Identifier("textures/entity/warden/osmiooo_warden_pulsating_spots_2.png"); //how
+    private static final Identifier OSMIOOO_HEART_TEXTURE = WilderWild.id("textures/entity/warden/osmiooo_warden_heart.png");
+    private static final Identifier OSMIOOO_PULSATING_SPOTS_1_TEXTURE = WilderWild.id("textures/entity/warden/osmiooo_warden_pulsating_spots_1.png");
+    private static final Identifier OSMIOOO_PULSATING_SPOTS_2_TEXTURE = WilderWild.id("textures/entity/warden/osmiooo_warden_pulsating_spots_2.png"); //how
 
     public OsmioooWardenRenderer(EntityRendererFactory.Context context, WardenEntityModel<WardenEntity> entityModel, float f) {
         super(context, entityModel, f);
@@ -37,10 +37,10 @@ public abstract class OsmioooWardenRenderer extends MobEntityRenderer<WardenEnti
     @Inject(method = "<init>", at = @At("TAIL"))
     private void WardenEntity(EntityRendererFactory.Context context, CallbackInfo ci) {
         this.addFeature(
-                new WildWardenFeatureRenderer<>(this, OSMIOOO_BIOLUMINESCENT_LAYER_TEXTURE, (warden, tickDelta, animationProgress) -> 1.0F, WardenEntityModel::getHeadAndLimbs)
+                new OsmioooWardenFeatureRenderer<>(this, OSMIOOO_BIOLUMINESCENT_LAYER_TEXTURE, (warden, tickDelta, animationProgress) -> 1.0F, WardenEntityModel::getHeadAndLimbs)
         );
         this.addFeature(
-                new WildWardenFeatureRenderer<>(
+                new OsmioooWardenFeatureRenderer<>(
                         this,
                         OSMIOOO_PULSATING_SPOTS_1_TEXTURE,
                         (warden, tickDelta, animationProgress) -> Math.max(0.0F, MathHelper.cos(animationProgress * 0.045F) * 0.25F),
@@ -48,7 +48,7 @@ public abstract class OsmioooWardenRenderer extends MobEntityRenderer<WardenEnti
                 )
         );
         this.addFeature(
-                new WildWardenFeatureRenderer<>(
+                new OsmioooWardenFeatureRenderer<>(
                         this,
                         OSMIOOO_PULSATING_SPOTS_2_TEXTURE,
                         (warden, tickDelta, animationProgress) -> Math.max(0.0F, MathHelper.cos(animationProgress * 0.045F + (float) Math.PI) * 0.25F),
@@ -56,10 +56,14 @@ public abstract class OsmioooWardenRenderer extends MobEntityRenderer<WardenEnti
                 )
         );
         this.addFeature(
-                new WildWardenFeatureRenderer<>(this, OSMIOOO_TEXTURE, (warden, tickDelta, animationProgress) -> warden.getTendrilPitch(tickDelta), WardenEntityModel::getTendrils)
+                new OsmioooWardenFeatureRenderer<>(
+                        this, OSMIOOO_TEXTURE, (warden, tickDelta, animationProgress) -> warden.getTendrilPitch(tickDelta), WardenEntityModel::getTendrils
+                )
         );
         this.addFeature(
-                new WildWardenFeatureRenderer<>(this, OSMIOOO_HEART, (warden, tickDelta, animationProgress) -> warden.getHeartPitch(tickDelta), WardenEntityModel::getBody)
+                new OsmioooWardenFeatureRenderer<>(
+                        this, OSMIOOO_HEART_TEXTURE, (warden, tickDelta, animationProgress) -> warden.getHeartPitch(tickDelta), WardenEntityModel::getBody
+                )
         );
     }
 
