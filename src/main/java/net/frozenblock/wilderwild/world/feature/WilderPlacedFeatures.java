@@ -161,11 +161,11 @@ public class WilderPlacedFeatures {
             VegetationConfiguredFeatures.FLOWER_DEFAULT, modifiers(1));
 
     public static final RegistryEntry<PlacedFeature> DATURA_BIRCH = register("datura_birch",
-            WilderConfiguredFeatures.DATURA, RarityFilterPlacementModifier.of(5), SquarePlacementModifier.of(),
+            WilderConfiguredFeatures.DATURA, RarityFilterPlacementModifier.of(4), SquarePlacementModifier.of(),
             PlacedFeatures.MOTION_BLOCKING_HEIGHTMAP, BiomePlacementModifier.of());
 
     public static final RegistryEntry<PlacedFeature> CARNATION_BIRCH = register("carnation_birch",
-            WilderConfiguredFeatures.CARNATION, RarityFilterPlacementModifier.of(4), SquarePlacementModifier.of(),
+            WilderConfiguredFeatures.CARNATION, RarityFilterPlacementModifier.of(3), SquarePlacementModifier.of(),
             PlacedFeatures.MOTION_BLOCKING_HEIGHTMAP, BiomePlacementModifier.of());
 
     public static final RegistryEntry<PlacedFeature> WHITE_DANDELION = register("white_dandelion",
