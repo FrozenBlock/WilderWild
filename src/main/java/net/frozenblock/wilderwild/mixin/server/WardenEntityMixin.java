@@ -1,6 +1,7 @@
 package net.frozenblock.wilderwild.mixin.server;
 
 import com.mojang.logging.LogUtils;
+import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.entity.ai.WardenMoveControl;
 import net.frozenblock.wilderwild.entity.ai.WardenNavigation;
 import net.frozenblock.wilderwild.entity.render.animations.WardenAnimationInterface;
@@ -209,7 +210,7 @@ public abstract class WardenEntityMixin extends HostileEntity implements WardenA
             }
 
             if (!warden.world.isClient && this.hasCustomName()) {
-                LogUtils.getLogger().info("Named entity {} died: {}", warden, warden.getDamageTracker().getDeathMessage().getString());
+                WilderWild.LOGGER.info("Named entity {} died: {}", warden, warden.getDamageTracker().getDeathMessage().getString());
             }
 
             warden.dead = true;
