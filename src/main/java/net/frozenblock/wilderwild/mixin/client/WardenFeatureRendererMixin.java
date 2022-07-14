@@ -26,12 +26,15 @@ public abstract class WardenFeatureRendererMixin<T extends WardenEntity, M exten
         super(context);
     }
 
-    @Shadow protected abstract void updateModelPartVisibility();
+    @Shadow
+    protected abstract void updateModelPartVisibility();
 
-    @Shadow @Final
+    @Shadow
+    @Final
     public Identifier texture;
 
-    @Shadow @Final
+    @Shadow
+    @Final
     public WardenFeatureRenderer.AnimationAngleAdjuster<T> animationAngleAdjuster;
 
     @Shadow

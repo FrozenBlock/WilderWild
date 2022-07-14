@@ -1,7 +1,6 @@
 package net.frozenblock.wilderwild.entity.ai;
 
 import com.google.common.collect.Maps;
-import it.unimi.dsi.fastutil.longs.Long2ObjectFunction;
 import it.unimi.dsi.fastutil.longs.Long2ObjectMap;
 import it.unimi.dsi.fastutil.longs.Long2ObjectOpenHashMap;
 import net.minecraft.block.BlockState;
@@ -145,7 +144,7 @@ public class WardenPathNodeMaker extends LandPathNodeMaker {
             int i = 0;
             Map<Direction, PathNode> map = Maps.newEnumMap(Direction.class);
 
-            for(Direction direction : Direction.values()) {
+            for (Direction direction : Direction.values()) {
                 PathNode pathNode = this.getNode(node.x + direction.getOffsetX(), node.y + direction.getOffsetY(), node.z + direction.getOffsetZ());
                 map.put(direction, pathNode);
                 if (this.hasNotVisited(pathNode)) {
@@ -153,7 +152,7 @@ public class WardenPathNodeMaker extends LandPathNodeMaker {
                 }
             }
 
-            for(Direction direction2 : Direction.Type.HORIZONTAL) {
+            for (Direction direction2 : Direction.Type.HORIZONTAL) {
                 Direction direction3 = direction2.rotateYClockwise();
                 PathNode pathNode2 = this.getNode(
                         node.x + direction2.getOffsetX() + direction3.getOffsetX(), node.y, node.z + direction2.getOffsetZ() + direction3.getOffsetZ()
