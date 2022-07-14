@@ -28,8 +28,9 @@ public abstract class OsmioooWardenRenderer extends MobEntityRenderer<WardenEnti
     private static final Identifier OSMIOOO_TEXTURE = WilderWild.id("textures/entity/warden/osmiooo_warden.png");
     private static final Identifier OSMIOOO_BIOLUMINESCENT_LAYER_TEXTURE = WilderWild.id("textures/entity/warden/osmiooo_warden_bioluminescent_overlay.png");
     private static final Identifier OSMIOOO_HEART_TEXTURE = WilderWild.id("textures/entity/warden/osmiooo_warden_heart.png");
+    private static final Identifier OSMIOOO_TENDRILS_TEXTURE = WilderWild.id("textures/entity/warden/osmiooo_warden_tendrils.png");
     private static final Identifier OSMIOOO_PULSATING_SPOTS_1_TEXTURE = WilderWild.id("textures/entity/warden/osmiooo_warden_pulsating_spots_1.png");
-    private static final Identifier OSMIOOO_PULSATING_SPOTS_2_TEXTURE = WilderWild.id("textures/entity/warden/osmiooo_warden_pulsating_spots_2.png"); //how
+    private static final Identifier OSMIOOO_PULSATING_SPOTS_2_TEXTURE = WilderWild.id("textures/entity/warden/osmiooo_warden_pulsating_spots_2.png");
 
     public OsmioooWardenRenderer(EntityRendererFactory.Context context, WardenEntityModel<WardenEntity> entityModel, float f) {
         super(context, entityModel, f);
@@ -58,7 +59,7 @@ public abstract class OsmioooWardenRenderer extends MobEntityRenderer<WardenEnti
         );
         this.addFeature(
                 new OsmioooWardenFeatureRenderer<>(
-                        this, OSMIOOO_TEXTURE, (warden, tickDelta, animationProgress) -> warden.getTendrilPitch(tickDelta), model -> ((WardenModelInterface) model).getHeadAndTendrils()
+                        this, OSMIOOO_TENDRILS_TEXTURE, (warden, tickDelta, animationProgress) -> warden.getTendrilPitch(tickDelta), model -> ((WardenModelInterface) model).getHeadAndTendrils()
                 )
         );
         this.addFeature(
