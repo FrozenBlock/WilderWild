@@ -30,5 +30,9 @@ public class WildMusic {
         //dripstone caves
         BiomeModifications.create(WilderWild.id("modify_dripstone_caves_ambience")).add(ModificationPhase.REPLACEMENTS, (context) -> context.getBiomeKey().equals(BiomeKeys.DRIPSTONE_CAVES),
                 (selectionContext, modificationContext) -> modificationContext.getEffects().setAmbientSound(RegisterSounds.AMBIENT_DRIPSTONE_CAVES_LOOP));
+
+        //lush caves
+        BiomeModifications.create(WilderWild.id("modify_lush_caves_ambience")).add(ModificationPhase.REPLACEMENTS, (context) -> context.getBiomeKey().equals(BiomeKeys.LUSH_CAVES),
+                (selectionContext, modificationContext) -> modificationContext.getEffects().setAmbientSound(RegisterSounds.AMBIENT_LUSH_CAVES_LOOP));
     }
 }
