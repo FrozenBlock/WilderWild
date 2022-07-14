@@ -41,6 +41,7 @@ import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.math.random.Random;
 import net.minecraft.util.registry.Registry;
@@ -304,7 +305,7 @@ public class Firefly extends PathAwareEntity implements Flutterer {
         }
         if (world instanceof ServerWorld server) {
             if (nectar) {
-                MovingSoundLoop.createMovingLoopingSound(server, this, SoundEvents.ENTITY_BEE_LOOP_AGGRESSIVE, SoundCategory.NEUTRAL, 1.0F, 1.5F);
+                MovingSoundLoop.createMovingLoopingSound(server, this, SoundEvents.ENTITY_BEE_LOOP_AGGRESSIVE, SoundCategory.NEUTRAL, 1.0F, (float) (Math.random() + 1.0));
             }
         }
         super.tick();
