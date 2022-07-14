@@ -41,6 +41,7 @@ public class WildTreePlaced {
     public static final RegistryEntry<PlacedFeature> FUNGUS_CYPRESS = PlacedFeatures.register("fungus_cypress", WildTreeConfigured.FUNGUS_CYPRESS, PlacedFeatures.wouldSurvive(RegisterBlocks.CYPRESS_SAPLING));
     public static final RegistryEntry<PlacedFeature> SHORT_CYPRESS = PlacedFeatures.register("short_cypress", WildTreeConfigured.SHORT_CYPRESS, PlacedFeatures.wouldSurvive(RegisterBlocks.CYPRESS_SAPLING));
     public static final RegistryEntry<PlacedFeature> SHORT_FUNGUS_CYPRESS = PlacedFeatures.register("short_fungus_cypress", WildTreeConfigured.SHORT_FUNGUS_CYPRESS, PlacedFeatures.wouldSurvive(RegisterBlocks.CYPRESS_SAPLING));
+    public static final RegistryEntry<PlacedFeature> SWAMP_CYPRESS = PlacedFeatures.register("swamp_cypress", WildTreeConfigured.SWAMP_CYPRESS, PlacedFeatures.wouldSurvive(RegisterBlocks.CYPRESS_SAPLING));
 
     public static void registerTreePlaced() {
         WilderWild.logWild("Registering WildTreePlaced for", true);
