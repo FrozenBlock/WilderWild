@@ -98,6 +98,9 @@ public class WildConfiguredFeatures {
     public static final RegistryEntry<ConfiguredFeature<ProbabilityConfig, ?>> CATTAIL =
             register("cattail", WilderWild.CATTAIL_FEATURE, new ProbabilityConfig(0.8F));
 
+    public static final RegistryEntry<ConfiguredFeature<ProbabilityConfig, ?>> WATER_MOSS =
+            register("water_moss", WilderWild.WATER_MOSS_FEATURE, new ProbabilityConfig(0.8F));
+
     public static final RegistryEntry<ConfiguredFeature<RandomPatchFeatureConfig, ?>> PATCH_FLOWERED_WATERLILY =
             register("patch_flowered_waterlily", Feature.RANDOM_PATCH,
                     new RandomPatchFeatureConfig(10, 7, 3, PlacedFeatures.createEntry(Feature.SIMPLE_BLOCK,

@@ -31,6 +31,9 @@ public class WildFlowersGeneration {
         BiomeModifications.addFeature(BiomeSelectors.includeByKey(BiomeKeys.SWAMP, BiomeKeys.MANGROVE_SWAMP, RegisterWorldgen.CYPRESS_WETLANDS),
                 GenerationStep.Feature.VEGETAL_DECORATION, WildPlacedFeatures.PATCH_CATTAIL.getKey().get());
 
+        BiomeModifications.addFeature(BiomeSelectors.includeByKey(BiomeKeys.SWAMP, BiomeKeys.MANGROVE_SWAMP, RegisterWorldgen.CYPRESS_WETLANDS, BiomeKeys.STONY_SHORE),
+                GenerationStep.Feature.VEGETAL_DECORATION, WildPlacedFeatures.WATER_MOSS.getKey().get());
+
         BiomeModifications.addFeature(BiomeSelectors.includeByKey(BiomeKeys.OLD_GROWTH_BIRCH_FOREST, BiomeKeys.FLOWER_FOREST, BiomeKeys.SUNFLOWER_PLAINS, BiomeKeys.PLAINS, BiomeKeys.FOREST, BiomeKeys.MEADOW, BiomeKeys.WINDSWEPT_HILLS, BiomeKeys.WINDSWEPT_FOREST, BiomeKeys.WINDSWEPT_GRAVELLY_HILLS, BiomeKeys.TAIGA),
                 GenerationStep.Feature.VEGETAL_DECORATION, WildPlacedFeatures.WHITE_DANDELION.getKey().get());
 
