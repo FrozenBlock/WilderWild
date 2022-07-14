@@ -103,7 +103,6 @@ public class RegisterWorldgen {
         builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, WilderPlacedFeatures.MILKWEED_CYPRESS);
         builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, WilderPlacedFeatures.FLOWER_FOREST_FLOWERS);
         //builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, WilderPlacedFeatures.PATCH_CYPRESS_ROOTS);
-        builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, WilderPlacedFeatures.DENSE_FLOWER_PLACED);
         builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, WilderPlacedFeatures.CYPRESS_WETLANDS_TREES);
         builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, WilderPlacedFeatures.CYPRESS_WETLANDS_TREES_WATER);
         builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, WilderPlacedFeatures.FALLEN_OAK_AND_CYPRESS_PLACED);
