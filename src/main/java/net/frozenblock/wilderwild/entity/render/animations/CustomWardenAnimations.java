@@ -276,7 +276,7 @@ public class CustomWardenAnimations {
             .build();
         public static final Animation KIRBY_DEATH = Builder.create(3.5F)
                 .addBoneAnimation(
-                        "bone",
+                        "root",
                         new Transformation(
                                 Transformation.Targets.ROTATE,
                                 new Keyframe(0f, AnimationHelper.method_41829(0f, 0f, 0f), Transformation.Interpolations.field_37884),
@@ -285,7 +285,7 @@ public class CustomWardenAnimations {
                         )
                 )
                 .addBoneAnimation(
-                        "bone",
+                        "root",
                         new Transformation(
                                 Transformation.Targets.TRANSLATE,
                                 new Keyframe(0f, AnimationHelper.method_41823(0f, 0f, 0f), Transformation.Interpolations.field_37885),
