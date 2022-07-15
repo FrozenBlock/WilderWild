@@ -286,7 +286,7 @@ public class CustomWardenAnimations {
                                 new Keyframe(0.92f, AnimationHelper.method_41823(0f, -12f, 0f), Transformation.Interpolations.field_37885),
                                 new Keyframe(1.04f, AnimationHelper.method_41823(0f, -12f, 0f), Transformation.Interpolations.field_37885),
                                 new Keyframe(1.2f, AnimationHelper.method_41823(0f, -12f, 0f), Transformation.Interpolations.field_37884),
-                                new Keyframe(1.32f, AnimationHelper.method_41823(0f, -12f, 0f), Transformation.Interpolations.field_37884),
+                                new Keyframe(1.32f, AnimationHelper.method_41823(0f, -12f, 0f), Transformation.Interpolations.field_37885),
                                 new Keyframe(2.08f, AnimationHelper.method_41823(0f, 50f, 0f), Transformation.Interpolations.field_37885),
                                 new Keyframe(2.96f, AnimationHelper.method_41823(0f, -500f, 0f), Transformation.Interpolations.field_37885),
                                 new Keyframe(3.28f, AnimationHelper.method_41823(0f, -500f, 0f), Transformation.Interpolations.field_37885)
