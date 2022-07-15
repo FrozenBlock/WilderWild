@@ -55,7 +55,7 @@ public final class VanillaBiomeParametersMixin {
         uncommonBiomes[4][0] = BiomeKeys.WOODED_BADLANDS; //
         uncommonBiomes[4][3] = RegisterWorldgen.CYPRESS_WETLANDS;
         uncommonBiomes[4][4] = BiomeKeys.MANGROVE_SWAMP;
-        commonBiomes[4][2] = RegisterWorldgen.SPONGEBOB_ISLAND; //Would it be possible to add a new Tropical Biome, a mix of Beach and Jungle?
+        uncommonBiomes[4][2] = RegisterWorldgen.SPONGEBOB_ISLAND; //Would it be possible to add a new Tropical Biome, a mix of Beach and Jungle?
         commonBiomes[4][4] = BiomeKeys.JUNGLE;
     }
 
