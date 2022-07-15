@@ -231,7 +231,7 @@ public class RegisterBlocks {
     public static final Block CATTAIL = new WaterloggableTallFlowerBlock(FabricBlockSettings.copy(Blocks.ROSE_BUSH).sounds(BlockSoundGroup.WET_GRASS).strength(0.0F).nonOpaque());
     public static final Block FLOWERED_LILY_PAD = new FloweredLilyPadBlock(FabricBlockSettings.copy(Blocks.LILY_PAD).sounds(RegisterBlockSoundGroups.LILYPAD));
 
-    public static final Block FLOATING_MOSS = new FloatingMossBlock(FabricBlockSettings.of(FLOATING_MOSS_MATERIAL).breakInstantly().nonOpaque().noCollision().sounds(BlockSoundGroup.SLIME));
+    public static final Block FLOATING_MOSS = new FloatingMossBlock(FabricBlockSettings.of(FLOATING_MOSS_MATERIAL).breakInstantly().velocityMultiplier(0.4F).nonOpaque().noCollision().sounds(BlockSoundGroup.SLIME));
 
     public static void registerPlants() {
         registerBlock("white_dandelion", WHITE_DANDELION, ItemGroup.DECORATIONS);
@@ -319,6 +319,12 @@ public class RegisterBlocks {
         CompostingChanceRegistry.INSTANCE.add(BAOBAB_LEAVES, 0.3F);
         CompostingChanceRegistry.INSTANCE.add(BAOBAB_SAPLING, 0.3F);
         CompostingChanceRegistry.INSTANCE.add(CYPRESS_SAPLING, 0.3F);
+        CompostingChanceRegistry.INSTANCE.add(GLORY_OF_THE_SNOW, 0.65F);
+        CompostingChanceRegistry.INSTANCE.add(BLUE_GLORY_OF_THE_SNOW, 0.65F);
+        CompostingChanceRegistry.INSTANCE.add(WHITE_GLORY_OF_THE_SNOW, 0.65F);
+        CompostingChanceRegistry.INSTANCE.add(PINK_GLORY_OF_THE_SNOW, 0.65F);
+        CompostingChanceRegistry.INSTANCE.add(PURPLE_GLORY_OF_THE_SNOW, 0.65F);
+        CompostingChanceRegistry.INSTANCE.add(FLOATING_MOSS, 0.3F);
 
         registerFlammability();
         registerFuels();
