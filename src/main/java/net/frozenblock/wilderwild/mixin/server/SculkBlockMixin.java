@@ -63,19 +63,6 @@ public class SculkBlockMixin {
 
                     BlockState stateDown = world.getBlockState(blockPos.down());
                     Block blockDown = stateDown.getBlock();
-                    if (isWorldGen) {
-                        if (world.getBlockState(blockPos2).isIn(WilderBlockTags.ANCIENT_CITY_BLOCKS)) {
-                            if (world.getBlockState(blockPos).isIn(BlockTags.STAIRS)) {
-                                blockState = RegisterBlocks.SCULK_STAIRS.getDefaultState();
-                            }
-                            if (world.getBlockState(blockPos).isIn(BlockTags.SLABS)) {
-                                blockState = RegisterBlocks.SCULK_SLAB.getDefaultState();
-                            }
-                            if (world.getBlockState(blockPos).isIn(BlockTags.WALLS)) {
-                                blockState = RegisterBlocks.SCULK_WALL.getDefaultState();
-                            }
-                        }
-                    }
                     if ((stateDown.isAir() || blockDown == Blocks.WATER || blockDown == Blocks.LAVA || blockDown == Blocks.SCULK_VEIN)) {
                         if (canPlaceOsseousSculk(blockPos, isWorldGen, world)) {
                             int pillarHeight = (int) MathHelper.clamp(EasyNoiseSampler.sample(EasyNoiseSampler.perlinXoro, blockPos.down(), RANDOMNESS, false, false) * HEIGHT_MULTIPLIER, 2, MAX_HEIGHT);
@@ -92,6 +79,16 @@ public class SculkBlockMixin {
 
                     if (isWorldGen && blockState.isOf(RegisterBlocks.OSSEOUS_SCULK)) {
                         j = -2;
+                    }
+
+                    if (world.getBlockState(blockPos).isIn(WilderBlockTags.SCULK_STAIR_REPLACEABLE_WORLDGEN)) {
+                        blockState = RegisterBlocks.SCULK_STAIRS.getDefaultState();
+                    }
+                    if (world.getBlockState(blockPos).isIn(WilderBlockTags.SCULK_SLAB_REPLACEABLE_WORLDGEN)) {
+                        blockState = RegisterBlocks.SCULK_SLAB.getDefaultState();
+                    }
+                    if (world.getBlockState(blockPos).isIn(WilderBlockTags.SCULK_WALL_REPLACEABLE_WORLDGEN)) {
+                        blockState = RegisterBlocks.SCULK_WALL.getDefaultState();
                     }
 
                     world.setBlockState(blockPos2, blockState, 3);
