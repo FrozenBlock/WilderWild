@@ -21,6 +21,10 @@ import static net.minecraft.world.gen.feature.VegetationPlacedFeatures.*;
 
 public class WilderPlacedFeatures {
     //TREES
+
+    public static final RegistryEntry<PlacedFeature> SPONGEBOB_ISLAND_JUNGLE_TREES = register("common_short_jungle_trees", VegetationConfiguredFeatures.TREES_SPARSE_JUNGLE,
+            modifiers(PlacedFeatures.createCountExtraModifier(8, 0.1F, 1)));
+
     public static final RegistryEntry<PlacedFeature> FALLEN_TREES_MIXED_PLACED = register("fallen_trees_mixed_placed",
             WilderConfiguredFeatures.FALLEN_TREES_MIXED, RarityFilterPlacementModifier.of(5), SquarePlacementModifier.of(),
             PlacedFeatures.MOTION_BLOCKING_HEIGHTMAP, BiomePlacementModifier.of());

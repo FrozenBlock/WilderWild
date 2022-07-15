@@ -190,6 +190,7 @@ public class RegisterWorldgen {
         builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, WilderPlacedFeatures.MILKWEED_CYPRESS);
         builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, WilderPlacedFeatures.FLOWER_FOREST_FLOWERS);
         builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, WilderPlacedFeatures.CYPRESS_TREES_RARE);
+        builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, WilderPlacedFeatures.SPONGEBOB_ISLAND_JUNGLE_TREES);
         addSpongeBobPaths(builder);
         addBasicFeatures(builder);
         addCypressVegetation(builder);
