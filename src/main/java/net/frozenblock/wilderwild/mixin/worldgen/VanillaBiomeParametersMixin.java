@@ -4,6 +4,7 @@ import com.mojang.datafixers.util.Pair;
 import net.frozenblock.wilderwild.registry.RegisterWorldgen;
 import net.minecraft.util.registry.RegistryKey;
 import net.minecraft.world.biome.Biome;
+import net.minecraft.world.biome.BiomeKeys;
 import net.minecraft.world.biome.source.util.MultiNoiseUtil;
 import net.minecraft.world.biome.source.util.VanillaBiomeParameters;
 import org.spongepowered.asm.mixin.Final;
@@ -102,5 +103,31 @@ public final class VanillaBiomeParametersMixin {
                 MultiNoiseUtil.ParameterRange.of(-0.2F, 0.5F),
                 MultiNoiseUtil.ParameterRange.of(0.50F, 1.0F), weirdness, 0.0F, RegisterWorldgen.CYPRESS_WETLANDS
         );
+    }
+
+    @Inject(method = "writeBiomeParameters", at = @At("HEAD"))
+    private void writeBiomeParameters(Consumer<Pair<MultiNoiseUtil.NoiseHypercube, RegistryKey<Biome>>> parameters, MultiNoiseUtil.ParameterRange temperature, MultiNoiseUtil.ParameterRange humidity, MultiNoiseUtil.ParameterRange continentalness, MultiNoiseUtil.ParameterRange erosion, MultiNoiseUtil.ParameterRange weirdness, float offset, RegistryKey<Biome> biome, CallbackInfo info) {
+        if (biome.equals(BiomeKeys.MANGROVE_SWAMP)) {
+            parameters.accept(Pair.of(MultiNoiseUtil.createNoiseHypercube(
+                    MultiNoiseUtil.ParameterRange.combine(this.temperatureParameters[1], this.temperatureParameters[3]), //Temperature
+                    MultiNoiseUtil.ParameterRange.combine(this.humidityParameters[2], this.humidityParameters[4]), //Humidity
+                    continentalness,
+                    erosion,
+                    MultiNoiseUtil.ParameterRange.of(0.0F),
+                    weirdness,
+                    offset),
+                    biome));
+
+            parameters.accept(Pair.of(MultiNoiseUtil.createNoiseHypercube(
+                            MultiNoiseUtil.ParameterRange.combine(this.temperatureParameters[1], this.temperatureParameters[3]), //Temperature
+                            MultiNoiseUtil.ParameterRange.combine(this.humidityParameters[2], this.humidityParameters[4]), //Humidity
+                            continentalness,
+                            erosion,
+                            MultiNoiseUtil.ParameterRange.of(1.0F),
+                            weirdness,
+                            offset),
+                    biome));
+            info.cancel();
+        }
     }
 }
