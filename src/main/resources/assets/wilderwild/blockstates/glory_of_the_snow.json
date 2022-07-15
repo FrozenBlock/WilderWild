@@ -14,42 +14,6 @@
 		},
 		"flower_color=purple": {
 			"model": "wilderwild:block/purple_glory_of_the_snow"
-		},
-		"flower_color=light_gray": {
-			"model": "wilderwild:block/glory_of_the_snow"
-		},
-		"flower_color=gray": {
-			"model": "wilderwild:block/glory_of_the_snow"
-		},
-		"flower_color=green": {
-			"model": "wilderwild:block/glory_of_the_snow"
-		},
-		"flower_color=cyan": {
-			"model": "wilderwild:block/glory_of_the_snow"
-		},
-		"flower_color=light_blue": {
-			"model": "wilderwild:block/glory_of_the_snow"
-		},
-		"flower_color=red": {
-			"model": "wilderwild:block/glory_of_the_snow"
-		},
-		"flower_color=yellow": {
-			"model": "wilderwild:block/glory_of_the_snow"
-		},
-		"flower_color=lime": {
-			"model": "wilderwild:block/glory_of_the_snow"
-		},
-		"flower_color=magenta": {
-			"model": "wilderwild:block/glory_of_the_snow"
-		},
-		"flower_color=black": {
-			"model": "wilderwild:block/glory_of_the_snow"
-		},
-		"flower_color=orange": {
-			"model": "wilderwild:block/glory_of_the_snow"
-		},
-		"flower_color=brown": {
-			"model": "wilderwild:block/glory_of_the_snow"
 		}
 	}
 }
