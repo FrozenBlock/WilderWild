@@ -68,15 +68,20 @@ public abstract class WardenEntityMixin extends HostileEntity implements WardenA
     @Overwrite
     public SoundEvent getDeathSound() {
         String string = Formatting.strip(warden.getName().getString());
-        if ((string != null && string.equals("Osmiooo")) || (string != null && string.equalsIgnoreCase("Kirby"))) {
-            return RegisterSounds.ENTITY_WARDEN_KIRBY_DEATH;
-        } else {
-            if (!this.isSubmergedInWaterOrLava()) {
-                return RegisterSounds.ENTITY_WARDEN_DYING;
-            } else {
-                return RegisterSounds.ENTITY_WARDEN_UNDERWATER_DYING;
+        boolean skipCheck = false;
+        if (string!=null) {
+            if (string.equals("Osmiooo") || string.equalsIgnoreCase("kirby")) {
+                warden.playSound(RegisterSounds.ENTITY_WARDEN_KIRBY_DEATH, 5.0F, 1.0F);
+                skipCheck = true;
             }
         }
+        if (!skipCheck) {
+            if (!this.isSubmergedInWaterOrLava()) {
+                warden.playSound(RegisterSounds.ENTITY_WARDEN_DYING, 5.0F, 1.0F);
+            } else if (this.isSubmergedInWaterOrLava()) {
+                warden.playSound(RegisterSounds.ENTITY_WARDEN_UNDERWATER_DYING, 0.75F, 1.0F);
+            }
+        } return SoundEvents.ENTITY_WARDEN_DEATH;
     }
 
     @Shadow
