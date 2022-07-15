@@ -30,7 +30,7 @@ import net.minecraft.world.event.GameEvent;
 import java.util.List;
 
 public class GloryOfTheSnowBlock extends MultiColorFlowerBlock {
-    private static final VoxelShape SHAPE = Block.createCuboidShape(0.0D, 0.0D, 0.0D, 16.0D, 5.0D, 16.0D);
+    private static final VoxelShape SHAPE = Block.createCuboidShape(1.0D, 0.0D, 1.0D, 15.0D, 11.0D, 15.0D);
     public static final EnumProperty<FlowerColors> COLORS = RegisterProperties.FLOWER_COLOR;
 
     public GloryOfTheSnowBlock(Settings settings, List<FlowerColors> list) {
