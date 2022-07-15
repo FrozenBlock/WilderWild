@@ -52,6 +52,8 @@ import java.util.Optional;
 
 import static net.frozenblock.wilderwild.item.AncientHorn.*;
 
+//TODO: Fix rendering (Renders too bright or too dark depending on direction; renders under other translucents like water, doesn't render further than 8 block away)
+
 public class AncientHornProjectile extends PersistentProjectileEntity {
     private final TagKey<Block> NON_COLLIDE = WilderBlockTags.ANCIENT_HORN_NON_COLLIDE;
     private boolean shot;
