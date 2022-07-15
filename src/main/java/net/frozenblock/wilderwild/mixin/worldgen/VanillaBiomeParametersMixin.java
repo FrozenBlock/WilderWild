@@ -129,7 +129,7 @@ public final class VanillaBiomeParametersMixin {
                     continentalness,
                     erosion,
                     MultiNoiseUtil.ParameterRange.of(0.0F),
-                    weirdness,
+                    MultiNoiseUtil.ParameterRange.of(-0.525F),
                     offset),
                     biome));
 
@@ -139,7 +139,7 @@ public final class VanillaBiomeParametersMixin {
                     continentalness,
                     erosion,
                     MultiNoiseUtil.ParameterRange.of(1.0F),
-                    weirdness,
+                    MultiNoiseUtil.ParameterRange.of(0.15F),
                     offset),
                     biome));
             info.cancel();
