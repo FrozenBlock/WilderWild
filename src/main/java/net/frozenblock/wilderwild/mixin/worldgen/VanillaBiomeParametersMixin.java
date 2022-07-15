@@ -52,8 +52,11 @@ public final class VanillaBiomeParametersMixin {
     @Inject(method = "<init>", at = @At("TAIL"))
     private void injectBiomes(CallbackInfo ci) {
         uncommonBiomes[1][0] = RegisterWorldgen.MIXED_FOREST;
+        uncommonBiomes[4][0] = BiomeKeys.WOODED_BADLANDS; //
         uncommonBiomes[4][3] = RegisterWorldgen.CYPRESS_WETLANDS;
         uncommonBiomes[4][4] = BiomeKeys.MANGROVE_SWAMP;
+        commonBiomes[4][2] = RegisterWorldgen.SPONGEBOB_ISLAND; //Would it be possible to add a new Tropical Biome, a mix of Beach and Jungle?
+        commonBiomes[4][4] = BiomeKeys.JUNGLE;
     }
 
     @Inject(method = "writeBiomesNearRivers", at = @At("TAIL"))
@@ -71,11 +74,17 @@ public final class VanillaBiomeParametersMixin {
         this.writeBiomeParameters(
                 parameters,
                 MultiNoiseUtil.ParameterRange.combine(this.temperatureParameters[1], this.temperatureParameters[3]),
-                MultiNoiseUtil.ParameterRange.combine(this.humidityParameters[2], this.humidityParameters[4]),
+                MultiNoiseUtil.ParameterRange.combine(this.humidityParameters[3], this.humidityParameters[4]),
                 MultiNoiseUtil.ParameterRange.of(-0.2F, 0.5F),
                 MultiNoiseUtil.ParameterRange.of(0.50F, 1.0F), weirdness, 0.0F, RegisterWorldgen.CYPRESS_WETLANDS
         );
-
+        this.writeBiomeParameters(
+                parameters,
+                this.temperatureParameters[4],
+                this.humidityParameters[2],
+                MultiNoiseUtil.ParameterRange.of(-0.2F, 0.5F),
+                MultiNoiseUtil.ParameterRange.of(0.50F, 1.0F), weirdness, 0.0F, RegisterWorldgen.SPONGEBOB_ISLAND
+        );
     }
 
     @Inject(method = "writeMixedBiomes", at = @At("TAIL"))
@@ -94,9 +103,17 @@ public final class VanillaBiomeParametersMixin {
         this.writeBiomeParameters(
                 parameters,
                 MultiNoiseUtil.ParameterRange.combine(this.temperatureParameters[1], this.temperatureParameters[3]),
-                MultiNoiseUtil.ParameterRange.combine(this.humidityParameters[2], this.humidityParameters[4]),
+                MultiNoiseUtil.ParameterRange.combine(this.humidityParameters[3], this.humidityParameters[4]),
                 MultiNoiseUtil.ParameterRange.of(-0.2F, 0.5F),
                 MultiNoiseUtil.ParameterRange.of(0.50F, 1.0F), weirdness, 0.0F, RegisterWorldgen.CYPRESS_WETLANDS
+        );
+
+        this.writeBiomeParameters(
+                parameters,
+                this.temperatureParameters[4],
+                this.humidityParameters[2],
+                MultiNoiseUtil.ParameterRange.of(-0.2F, 0.5F),
+                MultiNoiseUtil.ParameterRange.of(0.50F, 1.0F), weirdness, 0.0F, RegisterWorldgen.SPONGEBOB_ISLAND
         );
     }
 
@@ -105,18 +122,33 @@ public final class VanillaBiomeParametersMixin {
         this.writeBiomeParameters(
                 parameters,
                 MultiNoiseUtil.ParameterRange.combine(this.temperatureParameters[1], this.temperatureParameters[3]),
-                MultiNoiseUtil.ParameterRange.combine(this.humidityParameters[2], this.humidityParameters[4]),
+                MultiNoiseUtil.ParameterRange.combine(this.humidityParameters[3], this.humidityParameters[4]),
                 MultiNoiseUtil.ParameterRange.of(-0.2F, 0.5F),
                 MultiNoiseUtil.ParameterRange.of(0.50F, 1.0F), weirdness, 0.0F, RegisterWorldgen.CYPRESS_WETLANDS
         );
+
+        this.writeBiomeParameters(
+                parameters,
+                this.temperatureParameters[4],
+                this.humidityParameters[2],
+                MultiNoiseUtil.ParameterRange.of(-0.2F, 0.5F),
+                MultiNoiseUtil.ParameterRange.of(0.50F, 1.0F), weirdness, 0.0F, RegisterWorldgen.SPONGEBOB_ISLAND
+        );
     }
+
+    @Inject(method = "getBiomeOrWindsweptSavanna", at = @At("HEAD"), cancellable = true)
+    private void getBiomeOrWindsweptSavanna(int temperature, int humidity, MultiNoiseUtil.ParameterRange weirdness, RegistryKey<Biome> biomeKey, CallbackInfoReturnable<RegistryKey<Biome>> info) {
+        info.setReturnValue(temperature > 2 && humidity < 2 && weirdness.max() >= 0L ? BiomeKeys.WINDSWEPT_SAVANNA : biomeKey);
+        info.cancel();
+    }
+
 
     @Inject(method = "writeBiomeParameters", at = @At("HEAD"), cancellable = true)
     private void writeBiomeParameters(Consumer<Pair<MultiNoiseUtil.NoiseHypercube, RegistryKey<Biome>>> parameters, MultiNoiseUtil.ParameterRange temperature, MultiNoiseUtil.ParameterRange humidity, MultiNoiseUtil.ParameterRange continentalness, MultiNoiseUtil.ParameterRange erosion, MultiNoiseUtil.ParameterRange weirdness, float offset, RegistryKey<Biome> biome, CallbackInfo info) {
         if (biome.equals(BiomeKeys.MANGROVE_SWAMP)) {
             parameters.accept(Pair.of(MultiNoiseUtil.createNoiseHypercube(
                     MultiNoiseUtil.ParameterRange.combine(this.temperatureParameters[2], this.temperatureParameters[4]), //Temperature
-                    MultiNoiseUtil.ParameterRange.combine(this.humidityParameters[2], this.humidityParameters[4]), //Humidity
+                    MultiNoiseUtil.ParameterRange.combine(this.humidityParameters[3], this.humidityParameters[4]), //Humidity
                     continentalness,
                     erosion,
                     MultiNoiseUtil.ParameterRange.of(0.0F),
@@ -125,20 +157,20 @@ public final class VanillaBiomeParametersMixin {
                     biome));
 
             parameters.accept(Pair.of(MultiNoiseUtil.createNoiseHypercube(
-                            MultiNoiseUtil.ParameterRange.combine(this.temperatureParameters[2], this.temperatureParameters[4]), //Temperature
-                            MultiNoiseUtil.ParameterRange.combine(this.humidityParameters[2], this.humidityParameters[4]), //Humidity
-                            continentalness,
-                            erosion,
-                            MultiNoiseUtil.ParameterRange.of(1.0F),
-                            weirdness,
-                            offset),
+                    MultiNoiseUtil.ParameterRange.combine(this.temperatureParameters[2], this.temperatureParameters[4]), //Temperature
+                    MultiNoiseUtil.ParameterRange.combine(this.humidityParameters[3], this.humidityParameters[4]), //Humidity
+                    continentalness,
+                    erosion,
+                    MultiNoiseUtil.ParameterRange.of(1.0F),
+                    weirdness,
+                    offset),
                     biome));
             info.cancel();
         }
         if (biome.equals(BiomeKeys.SWAMP)) {
             parameters.accept(Pair.of(MultiNoiseUtil.createNoiseHypercube(
                             MultiNoiseUtil.ParameterRange.combine(this.temperatureParameters[1], this.temperatureParameters[3]), //Temperature
-                            MultiNoiseUtil.ParameterRange.combine(this.humidityParameters[2], this.humidityParameters[3]), //Humidity
+                            MultiNoiseUtil.ParameterRange.combine(this.humidityParameters[3], this.humidityParameters[4]), //Humidity
                             continentalness,
                             erosion,
                             MultiNoiseUtil.ParameterRange.of(0.0F),
@@ -148,7 +180,7 @@ public final class VanillaBiomeParametersMixin {
 
             parameters.accept(Pair.of(MultiNoiseUtil.createNoiseHypercube(
                             MultiNoiseUtil.ParameterRange.combine(this.temperatureParameters[1], this.temperatureParameters[3]), //Temperature
-                            MultiNoiseUtil.ParameterRange.combine(this.humidityParameters[2], this.humidityParameters[3]), //Humidity
+                            MultiNoiseUtil.ParameterRange.combine(this.humidityParameters[3], this.humidityParameters[4]), //Humidity
                             continentalness,
                             erosion,
                             MultiNoiseUtil.ParameterRange.of(1.0F),

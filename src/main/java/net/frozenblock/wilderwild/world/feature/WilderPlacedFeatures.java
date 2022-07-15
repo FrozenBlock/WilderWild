@@ -21,6 +21,10 @@ import static net.minecraft.world.gen.feature.VegetationPlacedFeatures.*;
 
 public class WilderPlacedFeatures {
     //TREES
+
+    public static final RegistryEntry<PlacedFeature> SPONGEBOB_ISLAND_JUNGLE_TREES = register("common_short_jungle_trees", VegetationConfiguredFeatures.TREES_SPARSE_JUNGLE,
+            modifiers(PlacedFeatures.createCountExtraModifier(12, 0.1F, 1)));
+
     public static final RegistryEntry<PlacedFeature> FALLEN_TREES_MIXED_PLACED = register("fallen_trees_mixed_placed",
             WilderConfiguredFeatures.FALLEN_TREES_MIXED, RarityFilterPlacementModifier.of(5), SquarePlacementModifier.of(),
             PlacedFeatures.MOTION_BLOCKING_HEIGHTMAP, BiomePlacementModifier.of());
@@ -68,6 +72,9 @@ public class WilderPlacedFeatures {
 
     public static final RegistryEntry<PlacedFeature> CYPRESS_WETLANDS_TREES_WATER = register("cypress_wetlands_trees_water",
             WilderConfiguredFeatures.CYPRESS_WETLANDS_TREES_WATER, CountPlacementModifier.of(15), SurfaceWaterDepthFilterPlacementModifier.of(5), PlacedFeatures.OCEAN_FLOOR_HEIGHTMAP, BiomePlacementModifier.of(), BlockFilterPlacementModifier.of(BlockPredicate.wouldSurvive(RegisterBlocks.CYPRESS_SAPLING.getDefaultState(), BlockPos.ORIGIN)));
+
+    public static final RegistryEntry<PlacedFeature> CYPRESS_TREES_RARE = register("cypress_trees_rare",
+            WilderConfiguredFeatures.CYPRESS_WETLANDS_TREES, CountPlacementModifier.of(2), SquarePlacementModifier.of(), PlacedFeatures.WORLD_SURFACE_WG_HEIGHTMAP, BiomePlacementModifier.of(), BlockFilterPlacementModifier.of(BlockPredicate.wouldSurvive(RegisterBlocks.CYPRESS_SAPLING.getDefaultState(), BlockPos.ORIGIN)));
 
     public static final RegistryEntry<PlacedFeature> NEW_BIRCH_PLACED = register("new_birch_placed",
             WilderTreeConfigured.NEW_BIRCH_BEES_0004, modifiersWithWouldSurvive(PlacedFeatures.createCountExtraModifier(10, 0.1F, 1), Blocks.BIRCH_SAPLING));

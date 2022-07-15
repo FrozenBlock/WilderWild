@@ -77,5 +77,6 @@ public class WilderTreesGeneration {
 
         BiomeModifications.addFeature(BiomeSelectors.tag(BiomeTags.IS_SAVANNA),
                 GenerationStep.Feature.VEGETAL_DECORATION, WilderPlacedFeatures.TERMITE_PLACED.getKey().get());
+
     }
 }
