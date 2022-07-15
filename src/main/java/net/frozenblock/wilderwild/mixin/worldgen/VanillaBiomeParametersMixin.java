@@ -119,7 +119,7 @@ public final class VanillaBiomeParametersMixin {
         if (biome.equals(BiomeKeys.MANGROVE_SWAMP)) {
             parameters.accept(Pair.of(MultiNoiseUtil.createNoiseHypercube(
                     MultiNoiseUtil.ParameterRange.combine(this.temperatureParameters[2], this.temperatureParameters[4]), //Temperature
-                    MultiNoiseUtil.ParameterRange.combine(this.humidityParameters[2], this.humidityParameters[4]), //Humidity
+                    MultiNoiseUtil.ParameterRange.combine(this.humidityParameters[3], this.humidityParameters[4]), //Humidity
                     continentalness,
                     erosion,
                     MultiNoiseUtil.ParameterRange.of(0.0F),
@@ -128,20 +128,20 @@ public final class VanillaBiomeParametersMixin {
                     biome));
 
             parameters.accept(Pair.of(MultiNoiseUtil.createNoiseHypercube(
-                            MultiNoiseUtil.ParameterRange.combine(this.temperatureParameters[2], this.temperatureParameters[4]), //Temperature
-                            MultiNoiseUtil.ParameterRange.combine(this.humidityParameters[2], this.humidityParameters[4]), //Humidity
-                            continentalness,
-                            erosion,
-                            MultiNoiseUtil.ParameterRange.of(1.0F),
-                            weirdness,
-                            offset),
+                    MultiNoiseUtil.ParameterRange.combine(this.temperatureParameters[2], this.temperatureParameters[4]), //Temperature
+                    MultiNoiseUtil.ParameterRange.combine(this.humidityParameters[3], this.humidityParameters[4]), //Humidity
+                    continentalness,
+                    erosion,
+                    MultiNoiseUtil.ParameterRange.of(1.0F),
+                    weirdness,
+                    offset),
                     biome));
             info.cancel();
         }
         if (biome.equals(BiomeKeys.SWAMP)) {
             parameters.accept(Pair.of(MultiNoiseUtil.createNoiseHypercube(
                             MultiNoiseUtil.ParameterRange.combine(this.temperatureParameters[1], this.temperatureParameters[3]), //Temperature
-                            MultiNoiseUtil.ParameterRange.combine(this.humidityParameters[2], this.humidityParameters[3]), //Humidity
+                            MultiNoiseUtil.ParameterRange.combine(this.humidityParameters[3], this.humidityParameters[4]), //Humidity
                             continentalness,
                             erosion,
                             MultiNoiseUtil.ParameterRange.of(0.0F),
@@ -151,7 +151,7 @@ public final class VanillaBiomeParametersMixin {
 
             parameters.accept(Pair.of(MultiNoiseUtil.createNoiseHypercube(
                             MultiNoiseUtil.ParameterRange.combine(this.temperatureParameters[1], this.temperatureParameters[3]), //Temperature
-                            MultiNoiseUtil.ParameterRange.combine(this.humidityParameters[2], this.humidityParameters[3]), //Humidity
+                            MultiNoiseUtil.ParameterRange.combine(this.humidityParameters[3], this.humidityParameters[4]), //Humidity
                             continentalness,
                             erosion,
                             MultiNoiseUtil.ParameterRange.of(1.0F),
