@@ -2,14 +2,18 @@ package net.frozenblock.wilderwild.registry;
 
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
+import net.fabricmc.fabric.api.object.builder.v1.block.FabricMaterialBuilder;
 import net.fabricmc.fabric.api.registry.CompostingChanceRegistry;
+import net.fabricmc.fabric.api.registry.FlammableBlockRegistry;
+import net.fabricmc.fabric.api.registry.FuelRegistry;
 import net.fabricmc.fabric.api.registry.StrippableBlockRegistry;
 import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.block.*;
 import net.frozenblock.wilderwild.block.entity.TermiteMoundBlockEntity;
+import net.frozenblock.wilderwild.item.FloatingMossItem;
 import net.frozenblock.wilderwild.item.FloweredLilyPadItem;
 import net.frozenblock.wilderwild.misc.FlowerColors;
-import net.frozenblock.wilderwild.mixin.SignTypeAccessor;
+import net.frozenblock.wilderwild.mixin.server.SignTypeAccessor;
 import net.frozenblock.wilderwild.world.gen.sapling.BaobabSaplingGenerator;
 import net.frozenblock.wilderwild.world.gen.sapling.CypressSaplingGenerator;
 import net.minecraft.block.*;
@@ -77,8 +81,10 @@ public class RegisterBlocks {
     public static final Block BAOBAB_FENCE_GATE = new FenceGateBlock(FabricBlockSettings.of(Material.WOOD, BAOBAB_PLANKS.getDefaultMapColor()).strength(2.0F, 3.0F).sounds(BlockSoundGroup.WOOD));
     public static final Block CYPRESS_FENCE_GATE = new FenceGateBlock(FabricBlockSettings.of(Material.WOOD, CYPRESS_PLANKS.getDefaultMapColor()).strength(2.0F, 3.0F).sounds(BlockSoundGroup.WOOD));
 
-    public static final Block BAOBAB_SAPLING = new SaplingBlock(new BaobabSaplingGenerator(), FabricBlockSettings.of(Material.PLANT));
+    public static final Block BAOBAB_SAPLING = new SaplingBlock(new BaobabSaplingGenerator(), FabricBlockSettings.of(Material.PLANT).noCollision().ticksRandomly().breakInstantly().sounds(BlockSoundGroup.GRASS));
+    public static final Block POTTED_BAOBAB_SAPLING = new FlowerPotBlock(RegisterBlocks.BAOBAB_SAPLING, FabricBlockSettings.of(Material.DECORATION).breakInstantly().nonOpaque());
     public static final Block CYPRESS_SAPLING = new WaterloggableSaplingBlock(new CypressSaplingGenerator(), FabricBlockSettings.copyOf(Blocks.BIRCH_SAPLING));
+    public static final Block POTTED_CYPRESS_SAPLING = new FlowerPotBlock(RegisterBlocks.CYPRESS_SAPLING, FabricBlockSettings.of(Material.DECORATION).breakInstantly().nonOpaque());
 
     public static final Block BAOBAB_LEAVES = new LeavesBlock(FabricBlockSettings.of(Material.LEAVES, MapColor.GREEN).strength(0.2F).ticksRandomly().sounds(BlockSoundGroup.GRASS).nonOpaque().allowsSpawning(RegisterBlocks::canSpawnOnLeaves).suffocates(RegisterBlocks::never).blockVision(RegisterBlocks::never));
     public static final Block CYPRESS_LEAVES = new LeavesBlock(FabricBlockSettings.of(Material.LEAVES, MapColor.GREEN).strength(0.2F).ticksRandomly().sounds(BlockSoundGroup.GRASS).nonOpaque().allowsSpawning(RegisterBlocks::canSpawnOnLeaves).suffocates(RegisterBlocks::never).blockVision(RegisterBlocks::never));
@@ -138,7 +144,9 @@ public class RegisterBlocks {
         registerBlock(cypress + "_fence_gate", CYPRESS_FENCE_GATE, ItemGroup.REDSTONE);
 
         registerBlock(baobab + "_sapling", BAOBAB_SAPLING, ItemGroup.DECORATIONS);
+        registerBlockWithoutBlockItem("potted_" + baobab + "_sapling", POTTED_BAOBAB_SAPLING);
         registerBlock(cypress + "_sapling", CYPRESS_SAPLING, ItemGroup.DECORATIONS);
+        registerBlockWithoutBlockItem("potted_" + cypress + "_sapling", POTTED_CYPRESS_SAPLING);
 
         registerBlock(baobab + "_leaves", BAOBAB_LEAVES, ItemGroup.DECORATIONS);
         registerBlock(cypress + "_leaves", CYPRESS_LEAVES, ItemGroup.DECORATIONS);
@@ -196,6 +204,13 @@ public class RegisterBlocks {
     }
 
     // MISC
+    private static final Material FLOATING_MOSS_MATERIAL = new FabricMaterialBuilder(MapColor.DARK_GREEN)
+            .allowsMovement()
+            .lightPassesThrough()
+            .notSolid()
+            .destroyedByPiston()
+            .build();
+
     public static final Block TERMITE_MOUND = new TermiteMound(FabricBlockSettings.of(Material.WOOD, MapColor.BROWN).strength(0.3F).sounds(RegisterBlockSoundGroups.COARSEDIRT));
 
     // PLANTS
@@ -216,6 +231,8 @@ public class RegisterBlocks {
     public static final Block CATTAIL = new WaterloggableTallFlowerBlock(FabricBlockSettings.copy(Blocks.ROSE_BUSH).sounds(BlockSoundGroup.WET_GRASS).strength(0.0F).nonOpaque());
     public static final Block FLOWERED_LILY_PAD = new FloweredLilyPadBlock(FabricBlockSettings.copy(Blocks.LILY_PAD).sounds(RegisterBlockSoundGroups.LILYPAD));
 
+    public static final Block FLOATING_MOSS = new FloatingMossBlock(FabricBlockSettings.of(FLOATING_MOSS_MATERIAL).breakInstantly().velocityMultiplier(0.4F).nonOpaque().noCollision().sounds(BlockSoundGroup.SLIME));
+
     public static void registerPlants() {
         registerBlock("white_dandelion", WHITE_DANDELION, ItemGroup.DECORATIONS);
         registerBlockWithoutBlockItem("potted_white_dandelion", POTTED_WHITE_DANDELION);
@@ -232,7 +249,7 @@ public class RegisterBlocks {
 
     }
 
-    public static final Block BROWN_SHELF_FUNGUS = new ShelfFungusBlock(FabricBlockSettings.copyOf(Blocks.BROWN_MUSHROOM_BLOCK).lightLevel(1).collidable(false).nonOpaque().sounds(RegisterBlockSoundGroups.MUSHROOM));
+    public static final Block BROWN_SHELF_FUNGUS = new ShelfFungusBlock(FabricBlockSettings.copyOf(Blocks.BROWN_MUSHROOM_BLOCK).luminance(1).collidable(false).nonOpaque().sounds(RegisterBlockSoundGroups.MUSHROOM));
     public static final Block RED_SHELF_FUNGUS = new ShelfFungusBlock(FabricBlockSettings.copyOf(Blocks.RED_MUSHROOM_BLOCK).collidable(false).nonOpaque().sounds(RegisterBlockSoundGroups.MUSHROOM));
     public static final Block POLLEN_BLOCK = new FlowerLichenBlock(FabricBlockSettings.copyOf(Blocks.GRASS).collidable(false).offsetType(AbstractBlock.OffsetType.NONE).mapColor(MapColor.PALE_YELLOW).sounds(BlockSoundGroup.VINE));
 
@@ -284,6 +301,8 @@ public class RegisterBlocks {
         registerPlants();
         Registry.register(Registry.BLOCK, WilderWild.id("flowered_lily_pad"), FLOWERED_LILY_PAD);
         Registry.register(Registry.ITEM, WilderWild.id("flowered_lily_pad"), new FloweredLilyPadItem(FLOWERED_LILY_PAD, new FabricItemSettings().group(ItemGroup.DECORATIONS)));
+        Registry.register(Registry.BLOCK, WilderWild.id("floating_moss"), FLOATING_MOSS);
+        Registry.register(Registry.ITEM, WilderWild.id("floating_moss"), new FloatingMossItem(FLOATING_MOSS, new FabricItemSettings().group(ItemGroup.DECORATIONS)));
         registerNotSoPlants();
 
 
@@ -300,26 +319,35 @@ public class RegisterBlocks {
         CompostingChanceRegistry.INSTANCE.add(BAOBAB_LEAVES, 0.3F);
         CompostingChanceRegistry.INSTANCE.add(BAOBAB_SAPLING, 0.3F);
         CompostingChanceRegistry.INSTANCE.add(CYPRESS_SAPLING, 0.3F);
+        CompostingChanceRegistry.INSTANCE.add(GLORY_OF_THE_SNOW, 0.65F);
+        CompostingChanceRegistry.INSTANCE.add(BLUE_GLORY_OF_THE_SNOW, 0.65F);
+        CompostingChanceRegistry.INSTANCE.add(WHITE_GLORY_OF_THE_SNOW, 0.65F);
+        CompostingChanceRegistry.INSTANCE.add(PINK_GLORY_OF_THE_SNOW, 0.65F);
+        CompostingChanceRegistry.INSTANCE.add(PURPLE_GLORY_OF_THE_SNOW, 0.65F);
+        CompostingChanceRegistry.INSTANCE.add(FLOATING_MOSS, 0.3F);
+
+        registerFlammability();
+        registerFuels();
     }
 
-    private static Block registerBlockWithoutBlockItem(String name, Block block) {
-        return Registry.register(Registry.BLOCK, WilderWild.id(name), block);
+    private static void registerBlockWithoutBlockItem(String name, Block block) {
+        Registry.register(Registry.BLOCK, WilderWild.id(name), block);
     }
 
-    private static Block registerBlock(String name, Block block, ItemGroup group) {
+    private static void registerBlock(String name, Block block, ItemGroup group) {
         registerBlockItem(name, block, group);
-        return Registry.register(Registry.BLOCK, WilderWild.id(name), block);
+        Registry.register(Registry.BLOCK, WilderWild.id(name), block);
     }
 
-    private static BlockItem registerBlockItem(String name, Block block, ItemGroup group) {
-        return Registry.register(Registry.ITEM, WilderWild.id(name),
+    private static void registerBlockItem(String name, Block block, ItemGroup group) {
+        Registry.register(Registry.ITEM, WilderWild.id(name),
                 new BlockItem(block, new FabricItemSettings().group(group)));
     }
 
     private static HollowedLogBlock createHollowedLogBlock(MapColor topMapColor, MapColor sideMapColor) {
         return new HollowedLogBlock(FabricBlockSettings.of(Material.WOOD,
                         (state) -> state.get(HollowedLogBlock.AXIS) == Direction.Axis.Y ? topMapColor : sideMapColor)
-                .strength(2.0F).sounds(BlockSoundGroup.WOOD));
+                .strength(2.0F).sounds(RegisterBlockSoundGroups.HOLLOWED_LOG));
     }
 
     public static void addBaobab() {
@@ -354,6 +382,69 @@ public class RegisterBlocks {
 
     protected static Boolean canSpawnOnLeaves(BlockState state, BlockView world, BlockPos pos, EntityType<?> type) {
         return type == EntityType.OCELOT || type == EntityType.PARROT;
+    }
+
+    private static void registerFlammability() {
+        WilderWild.logWild("Registering Flammability for", WilderWild.UNSTABLE_LOGGING);
+        FlammableBlockRegistry.getDefaultInstance().add(RegisterBlocks.POLLEN_BLOCK, 100, 60);
+        FlammableBlockRegistry.getDefaultInstance().add(RegisterBlocks.WHITE_DANDELION, 100, 60);
+        FlammableBlockRegistry.getDefaultInstance().add(RegisterBlocks.CARNATION, 100, 60);
+        FlammableBlockRegistry.getDefaultInstance().add(RegisterBlocks.CATTAIL, 100, 60);
+        FlammableBlockRegistry.getDefaultInstance().add(RegisterBlocks.DATURA, 100, 60);
+        FlammableBlockRegistry.getDefaultInstance().add(RegisterBlocks.MILKWEED, 100, 60);
+
+        FlammableBlockRegistry.getDefaultInstance().add(RegisterBlocks.HOLLOWED_BIRCH_LOG, 5, 5);
+        FlammableBlockRegistry.getDefaultInstance().add(RegisterBlocks.HOLLOWED_OAK_LOG, 5, 5);
+        FlammableBlockRegistry.getDefaultInstance().add(RegisterBlocks.HOLLOWED_ACACIA_LOG, 5, 5);
+        FlammableBlockRegistry.getDefaultInstance().add(RegisterBlocks.HOLLOWED_JUNGLE_LOG, 5, 5);
+        FlammableBlockRegistry.getDefaultInstance().add(RegisterBlocks.HOLLOWED_DARK_OAK_LOG, 5, 5);
+        FlammableBlockRegistry.getDefaultInstance().add(RegisterBlocks.HOLLOWED_MANGROVE_LOG, 5, 5);
+        FlammableBlockRegistry.getDefaultInstance().add(RegisterBlocks.HOLLOWED_SPRUCE_LOG, 5, 5);
+        FlammableBlockRegistry.getDefaultInstance().add(RegisterBlocks.HOLLOWED_BAOBAB_LOG, 5, 5);
+        FlammableBlockRegistry.getDefaultInstance().add(RegisterBlocks.BAOBAB_LOG, 5, 5);
+        FlammableBlockRegistry.getDefaultInstance().add(RegisterBlocks.STRIPPED_BAOBAB_LOG, 5, 5);
+        FlammableBlockRegistry.getDefaultInstance().add(RegisterBlocks.BAOBAB_WOOD, 5, 5);
+        FlammableBlockRegistry.getDefaultInstance().add(RegisterBlocks.STRIPPED_BAOBAB_WOOD, 5, 5);
+        FlammableBlockRegistry.getDefaultInstance().add(RegisterBlocks.BAOBAB_PLANKS, 5, 20);
+        FlammableBlockRegistry.getDefaultInstance().add(RegisterBlocks.BAOBAB_STAIRS, 5, 20);
+        FlammableBlockRegistry.getDefaultInstance().add(RegisterBlocks.BAOBAB_DOOR, 5, 20);
+        FlammableBlockRegistry.getDefaultInstance().add(RegisterBlocks.BAOBAB_FENCE, 5, 20);
+        FlammableBlockRegistry.getDefaultInstance().add(RegisterBlocks.BAOBAB_SLAB, 5, 20);
+        FlammableBlockRegistry.getDefaultInstance().add(RegisterBlocks.BAOBAB_FENCE_GATE, 5, 20);
+        FlammableBlockRegistry.getDefaultInstance().add(RegisterBlocks.BAOBAB_PRESSURE_PLATE, 5, 20);
+        FlammableBlockRegistry.getDefaultInstance().add(RegisterBlocks.BAOBAB_TRAPDOOR, 5, 20);
+        FlammableBlockRegistry.getDefaultInstance().add(RegisterBlocks.BAOBAB_LEAVES, 100, 60);
+        FlammableBlockRegistry.getDefaultInstance().add(RegisterBlocks.BAOBAB_BUTTON, 5, 20);
+        FlammableBlockRegistry.getDefaultInstance().add(RegisterBlocks.BAOBAB_SIGN_BLOCK, 5, 20);
+        FlammableBlockRegistry.getDefaultInstance().add(RegisterBlocks.BAOBAB_WALL_SIGN, 5, 20);
+
+        FlammableBlockRegistry.getDefaultInstance().add(RegisterBlocks.HOLLOWED_CYPRESS_LOG, 5, 5);
+        FlammableBlockRegistry.getDefaultInstance().add(RegisterBlocks.CYPRESS_LOG, 5, 5);
+        FlammableBlockRegistry.getDefaultInstance().add(RegisterBlocks.STRIPPED_CYPRESS_LOG, 5, 5);
+        FlammableBlockRegistry.getDefaultInstance().add(RegisterBlocks.CYPRESS_WOOD, 5, 5);
+        FlammableBlockRegistry.getDefaultInstance().add(RegisterBlocks.STRIPPED_CYPRESS_WOOD, 5, 5);
+        FlammableBlockRegistry.getDefaultInstance().add(RegisterBlocks.CYPRESS_PLANKS, 5, 20);
+        FlammableBlockRegistry.getDefaultInstance().add(RegisterBlocks.CYPRESS_STAIRS, 5, 20);
+        FlammableBlockRegistry.getDefaultInstance().add(RegisterBlocks.CYPRESS_DOOR, 5, 20);
+        FlammableBlockRegistry.getDefaultInstance().add(RegisterBlocks.CYPRESS_FENCE, 5, 20);
+        FlammableBlockRegistry.getDefaultInstance().add(RegisterBlocks.CYPRESS_SLAB, 5, 20);
+        FlammableBlockRegistry.getDefaultInstance().add(RegisterBlocks.CYPRESS_FENCE_GATE, 5, 20);
+        FlammableBlockRegistry.getDefaultInstance().add(RegisterBlocks.CYPRESS_PRESSURE_PLATE, 5, 20);
+        FlammableBlockRegistry.getDefaultInstance().add(RegisterBlocks.CYPRESS_TRAPDOOR, 5, 20);
+        FlammableBlockRegistry.getDefaultInstance().add(RegisterBlocks.CYPRESS_LEAVES, 100, 60);
+        FlammableBlockRegistry.getDefaultInstance().add(RegisterBlocks.CYPRESS_BUTTON, 5, 20);
+        FlammableBlockRegistry.getDefaultInstance().add(RegisterBlocks.CYPRESS_SIGN_BLOCK, 5, 20);
+        FlammableBlockRegistry.getDefaultInstance().add(RegisterBlocks.CYPRESS_WALL_SIGN, 5, 20);
+    }
+
+    private static void registerFuels() {
+        WilderWild.logWild("Registering Fuels for", WilderWild.UNSTABLE_LOGGING);
+        FuelRegistry registry = FuelRegistry.INSTANCE;
+
+        registry.add(BAOBAB_FENCE.asItem(), 300);
+        registry.add(BAOBAB_FENCE_GATE.asItem(), 300);
+        registry.add(CYPRESS_FENCE.asItem(), 300);
+        registry.add(CYPRESS_FENCE_GATE.asItem(), 300);
     }
 }
 

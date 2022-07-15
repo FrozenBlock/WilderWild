@@ -1,6 +1,6 @@
 package net.frozenblock.wilderwild.mixin.worldgen;
 
-import net.frozenblock.wilderwild.world.feature.WildTreeConfigured;
+import net.frozenblock.wilderwild.world.feature.WilderTreeConfigured;
 import net.minecraft.block.sapling.OakSaplingGenerator;
 import net.minecraft.util.math.random.Random;
 import net.minecraft.util.registry.RegistryEntry;
@@ -16,10 +16,10 @@ public class OakSaplingGeneratorMixin {
     @Inject(method = "getTreeFeature", at = @At("HEAD"), cancellable = true)
     public void getTreeFeature(Random random, boolean bees, CallbackInfoReturnable<RegistryEntry<? extends ConfiguredFeature<?, ?>>> cir) {
         if (random.nextInt(10) == 0) {
-            cir.setReturnValue(bees ? WildTreeConfigured.NEW_FANCY_OAK_BEES_0004 : WildTreeConfigured.NEW_FANCY_OAK);
+            cir.setReturnValue(bees ? WilderTreeConfigured.NEW_FANCY_OAK_BEES_0004 : WilderTreeConfigured.NEW_FANCY_OAK);
             cir.cancel();
         } else {
-            cir.setReturnValue(bees ? WildTreeConfigured.NEW_OAK_BEES_0004 : WildTreeConfigured.NEW_OAK);
+            cir.setReturnValue(bees ? WilderTreeConfigured.NEW_OAK_BEES_0004 : WilderTreeConfigured.NEW_OAK);
             cir.cancel();
         }
     }

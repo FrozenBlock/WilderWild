@@ -1,13 +1,9 @@
 package net.frozenblock.wilderwild.misc.PVZGWSound;
 
-import io.netty.buffer.Unpooled;
 import it.unimi.dsi.fastutil.floats.FloatArrayList;
 import it.unimi.dsi.fastutil.ints.IntArrayList;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.fabricmc.fabric.api.networking.v1.PlayerLookup;
-import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
-import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.registry.RegisterEntities;
 import net.frozenblock.wilderwild.registry.RegisterSounds;
 import net.minecraft.client.MinecraftClient;
@@ -15,16 +11,11 @@ import net.minecraft.client.sound.EntityTrackingSoundInstance;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.network.PacketByteBuf;
-import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.math.Box;
 import net.minecraft.util.math.Vec3d;
-import net.minecraft.util.registry.Registry;
-import net.minecraft.world.World;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,8 +29,8 @@ public class FlyBySoundHub {
         add(EntityType.BAT);
     }};
     public static final ArrayList<SoundEvent> flybySoundsAuto = new ArrayList<>() {{
-        add(RegisterSounds.PVZGW_CHEETO_FLYBY);
-        add(RegisterSounds.PVZGW_CHEETO_FLYBY);
+        add(RegisterSounds.ANCIENT_HORN_PROJECTILE_FLYBY);
+        add(RegisterSounds.ANCIENT_HORN_PROJECTILE_FLYBY);
         add(SoundEvents.ENTITY_BAT_TAKEOFF);
     }};
     public static final ArrayList<SoundCategory> categoriesAuto = new ArrayList<>() {{

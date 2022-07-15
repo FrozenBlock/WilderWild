@@ -7,15 +7,15 @@ import net.fabricmc.loader.api.FabricLoader;
 import net.frozenblock.wilderwild.block.entity.TermiteMoundBlockEntity;
 import net.frozenblock.wilderwild.misc.BlockSoundGroupOverwrites;
 import net.frozenblock.wilderwild.registry.*;
-import net.frozenblock.wilderwild.world.feature.WildConfiguredFeatures;
-import net.frozenblock.wilderwild.world.feature.WildMiscConfigured;
-import net.frozenblock.wilderwild.world.feature.WildTreeConfigured;
-import net.frozenblock.wilderwild.world.feature.WildTreePlaced;
+import net.frozenblock.wilderwild.world.feature.WilderConfiguredFeatures;
+import net.frozenblock.wilderwild.world.feature.WilderMiscConfigured;
+import net.frozenblock.wilderwild.world.feature.WilderTreeConfigured;
+import net.frozenblock.wilderwild.world.feature.WilderTreePlaced;
 import net.frozenblock.wilderwild.world.feature.features.*;
 import net.frozenblock.wilderwild.world.feature.features.config.ColumnWithDiskFeatureConfig;
 import net.frozenblock.wilderwild.world.feature.features.config.PathFeatureConfig;
 import net.frozenblock.wilderwild.world.feature.features.config.ShelfFungusFeatureConfig;
-import net.frozenblock.wilderwild.world.gen.WildWorldGen;
+import net.frozenblock.wilderwild.world.gen.WilderWorldGen;
 import net.frozenblock.wilderwild.world.gen.trunk.BaobabTrunkPlacer;
 import net.frozenblock.wilderwild.world.gen.trunk.FallenTrunkWithLogs;
 import net.frozenblock.wilderwild.world.gen.trunk.StraightTrunkWithLogs;
@@ -46,26 +46,27 @@ public class WilderWild implements ModInitializer {
     public static final TrunkPlacerType<BaobabTrunkPlacer> BAOBAB_TRUNK_PLACER = registerTrunk("baobab_trunk_placer", BaobabTrunkPlacer.CODEC);
     public static final Feature<ShelfFungusFeatureConfig> SHELF_FUNGUS_FEATURE = new ShelfFungusFeature(ShelfFungusFeatureConfig.CODEC);
     public static final CattailFeature CATTAIL_FEATURE = new CattailFeature(ProbabilityConfig.CODEC);
+    public static final WaterMossFeature WATER_MOSS_FEATURE = new WaterMossFeature(ProbabilityConfig.CODEC);
     public static final NoisePathFeature NOISE_PATH_FEATURE = new NoisePathFeature(PathFeatureConfig.CODEC);
     public static final NoisePlantFeature NOISE_PLANT_FEATURE = new NoisePlantFeature(PathFeatureConfig.CODEC);
     public static final NoisePathUnderWaterFeature NOISE_PATH_UNDER_WATER_FEATURE = new NoisePathUnderWaterFeature(PathFeatureConfig.CODEC);
     public static final ColumnWithDiskFeature COLUMN_WITH_DISK_FEATURE = new ColumnWithDiskFeature(ColumnWithDiskFeatureConfig.CODEC);
 
-    public static final SpawnGroup FIREFLIES = ClassTinkerers.getEnum(SpawnGroup.class, "FIREFLIES");
-
     public static final TagKey<Instrument> WILD_HORNS = TagKey.of(Registry.INSTRUMENT_KEY, id("wild_horns"));
+
+    //ClassTinkerers
+    public static final SpawnGroup FIREFLIES = ClassTinkerers.getEnum(SpawnGroup.class, "FIREFLIES");
 
     @Override
     public void onInitialize() {
         RegisterBlocks.registerBlocks();
         RegisterBlocks.addBaobab();
         RegisterItems.registerItems();
-        WildConfiguredFeatures.registerConfiguredFeatures();
-        WildTreeConfigured.registerTreeConfigured();
-        WildTreePlaced.registerTreePlaced();
-        WildMiscConfigured.registerMiscPlaced();
-        WildWorldGen.generateWildWorldGen();
-        RegisterFlammability.register();
+        WilderConfiguredFeatures.registerConfiguredFeatures();
+        WilderTreeConfigured.registerTreeConfigured();
+        WilderTreePlaced.registerTreePlaced();
+        WilderMiscConfigured.registerMiscPlaced();
+        WilderWorldGen.generateWildWorldGen();
         RegisterGameEvents.registerEvents();
         RegisterWorldgen.registerWorldGen();
 
@@ -79,6 +80,7 @@ public class WilderWild implements ModInitializer {
 
         Registry.register(Registry.FEATURE, id("shelf_fungus_feature"), SHELF_FUNGUS_FEATURE);
         Registry.register(Registry.FEATURE, id("cattail_feature"), CATTAIL_FEATURE);
+        Registry.register(Registry.FEATURE, id("water_moss_feature"), WATER_MOSS_FEATURE);
         Registry.register(Registry.FEATURE, id("noise_path_feature"), NOISE_PATH_FEATURE);
         Registry.register(Registry.FEATURE, id("noise_plant_feature"), NOISE_PLANT_FEATURE);
         Registry.register(Registry.FEATURE, id("noise_path_under_water_feature"), NOISE_PATH_UNDER_WATER_FEATURE);
@@ -105,6 +107,7 @@ public class WilderWild implements ModInitializer {
     public static final Identifier FLOATING_SCULK_BUBBLE_PACKET = id("floating_sculk_bubble_easy_packet");
     public static final Identifier TERMITE_PARTICLE_PACKET = id("termite_particle_packet");
     public static final Identifier HORN_PROJECTILE_PACKET_ID = id("ancient_horn_projectile_packet");
+    public static final Identifier SENSOR_HICCUP_PACKET = id("sensor_hiccup_packet");
 
     public static final Identifier CAPTURE_FIREFLY_NOTIFY_PACKET = id("capture_firefly_notify_packet");
     public static final Identifier ANCIENT_HORN_KILL_NOTIFY_PACKET = id("ancient_horn_kill_notify_packet");

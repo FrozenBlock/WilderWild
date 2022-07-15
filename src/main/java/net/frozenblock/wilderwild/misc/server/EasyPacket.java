@@ -4,7 +4,7 @@ import io.netty.buffer.Unpooled;
 import net.fabricmc.fabric.api.networking.v1.PlayerLookup;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.frozenblock.wilderwild.WilderWild;
-import net.frozenblock.wilderwild.entity.FireflyEntity;
+import net.frozenblock.wilderwild.entity.Firefly;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.network.PacketByteBuf;
@@ -67,6 +67,20 @@ public class EasyPacket {
         }
     }
 
+    public static class EasySensorHiccupPacket {
+        public static void createParticle(World world, Vec3d pos) {
+            if (world.isClient)
+                throw new IllegalStateException("Particle attempting spawning on THE CLIENT JESUS CHRIST WHAT THE HECK SPAWN ON SERVER NEXT TIME STUPID IDIOT");
+            PacketByteBuf byteBuf = new PacketByteBuf(Unpooled.buffer());
+            byteBuf.writeDouble(pos.x);
+            byteBuf.writeDouble(pos.y);
+            byteBuf.writeDouble(pos.z);
+            for (ServerPlayerEntity player : PlayerLookup.around((ServerWorld) world, pos, 32)) {
+                ServerPlayNetworking.send(player, WilderWild.SENSOR_HICCUP_PACKET, byteBuf);
+            }
+        }
+    }
+
     public static class EasyTermitePacket {
         public static void createParticle(World world, Vec3d pos, int count) {
             if (world.isClient)
@@ -83,7 +97,7 @@ public class EasyPacket {
     }
 
     public static class EasyCompetitionPacket {
-        public static void sendFireflyCaptureInfo(World world, PlayerEntity player, FireflyEntity firefly) { //Can possibly be used for competitions
+        public static void sendFireflyCaptureInfo(World world, PlayerEntity player, Firefly firefly) { //Can possibly be used for competitions
             if (world.isClient)
                 throw new IllegalStateException("FIREFLY CAPTURE ON CLIENT!??!?!?!?! OH HOW TERRIBLE OF YOU!1!!!!!!!!!!!!!!!!!!!!!1!!1!!!!111");
             PacketByteBuf byteBuf = new PacketByteBuf(Unpooled.buffer());

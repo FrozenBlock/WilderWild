@@ -20,7 +20,7 @@ public class RegisterProperties extends Properties {
     //Echo Glass
     public static final IntProperty DAMAGE = IntProperty.of("damage", 0, 3);
     //Shelf Fungus
-    public static final IntProperty FUNUGS_STAGE = IntProperty.of("shelf_fungus_stage", 1, 4);
+    public static final IntProperty FUNGUS_STAGE = IntProperty.of("shelf_fungus_stage", 1, 4);
     //Termite Mound
     public static final BooleanProperty NATURAL = BooleanProperty.of("natural");
     //Glory of The Snow
