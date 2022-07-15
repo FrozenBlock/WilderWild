@@ -74,7 +74,8 @@ public abstract class WardenEntityMixin extends HostileEntity implements WardenA
             if (!this.isSubmergedInWaterOrLava()) {
                 return RegisterSounds.ENTITY_WARDEN_DYING;
             } else {
-                return RegisterSounds.ENTITY_WARDEN_UNDERWATER_DYING;
+                warden.playSound(RegisterSounds.ENTITY_WARDEN_UNDERWATER_DYING, 4.0F, 1.0F);
+                return null;
             }
         }
     }
