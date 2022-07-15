@@ -78,7 +78,13 @@ public final class VanillaBiomeParametersMixin {
                 MultiNoiseUtil.ParameterRange.of(-0.2F, 0.5F),
                 MultiNoiseUtil.ParameterRange.of(0.50F, 1.0F), weirdness, 0.0F, RegisterWorldgen.CYPRESS_WETLANDS
         );
-
+        this.writeBiomeParameters(
+                parameters,
+                MultiNoiseUtil.ParameterRange.combine(this.temperatureParameters[3], this.temperatureParameters[4]),
+                MultiNoiseUtil.ParameterRange.combine(this.humidityParameters[2], this.humidityParameters[3]),
+                MultiNoiseUtil.ParameterRange.of(-0.2F, 0.5F),
+                MultiNoiseUtil.ParameterRange.of(0.50F, 1.0F), weirdness, 0.0F, RegisterWorldgen.SPONGEBOB_ISLAND
+        );
     }
 
     @Inject(method = "writeMixedBiomes", at = @At("TAIL"))
@@ -101,6 +107,14 @@ public final class VanillaBiomeParametersMixin {
                 MultiNoiseUtil.ParameterRange.of(-0.2F, 0.5F),
                 MultiNoiseUtil.ParameterRange.of(0.50F, 1.0F), weirdness, 0.0F, RegisterWorldgen.CYPRESS_WETLANDS
         );
+
+        this.writeBiomeParameters(
+                parameters,
+                MultiNoiseUtil.ParameterRange.combine(this.temperatureParameters[2], this.temperatureParameters[3]),
+                MultiNoiseUtil.ParameterRange.combine(this.humidityParameters[2], this.humidityParameters[3]),
+                MultiNoiseUtil.ParameterRange.of(-0.2F, 0.5F),
+                MultiNoiseUtil.ParameterRange.of(0.50F, 1.0F), weirdness, 0.0F, RegisterWorldgen.SPONGEBOB_ISLAND
+        );
     }
 
     @Inject(method = "writeRiverBiomes", at = @At("TAIL"))
@@ -111,6 +125,14 @@ public final class VanillaBiomeParametersMixin {
                 MultiNoiseUtil.ParameterRange.combine(this.humidityParameters[3], this.humidityParameters[4]),
                 MultiNoiseUtil.ParameterRange.of(-0.2F, 0.5F),
                 MultiNoiseUtil.ParameterRange.of(0.50F, 1.0F), weirdness, 0.0F, RegisterWorldgen.CYPRESS_WETLANDS
+        );
+
+        this.writeBiomeParameters(
+                parameters,
+                MultiNoiseUtil.ParameterRange.combine(this.temperatureParameters[2], this.temperatureParameters[3]),
+                MultiNoiseUtil.ParameterRange.combine(this.humidityParameters[2], this.humidityParameters[3]),
+                MultiNoiseUtil.ParameterRange.of(-0.2F, 0.5F),
+                MultiNoiseUtil.ParameterRange.of(0.50F, 1.0F), weirdness, 0.0F, RegisterWorldgen.SPONGEBOB_ISLAND
         );
     }
 
