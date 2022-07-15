@@ -74,7 +74,7 @@ public final class VanillaBiomeParametersMixin {
         this.writeBiomeParameters(
                 parameters,
                 MultiNoiseUtil.ParameterRange.combine(this.temperatureParameters[1], this.temperatureParameters[3]),
-                MultiNoiseUtil.ParameterRange.combine(this.humidityParameters[2], this.humidityParameters[4]),
+                MultiNoiseUtil.ParameterRange.combine(this.humidityParameters[3], this.humidityParameters[4]),
                 MultiNoiseUtil.ParameterRange.of(-0.2F, 0.5F),
                 MultiNoiseUtil.ParameterRange.of(0.50F, 1.0F), weirdness, 0.0F, RegisterWorldgen.CYPRESS_WETLANDS
         );
@@ -97,7 +97,7 @@ public final class VanillaBiomeParametersMixin {
         this.writeBiomeParameters(
                 parameters,
                 MultiNoiseUtil.ParameterRange.combine(this.temperatureParameters[1], this.temperatureParameters[3]),
-                MultiNoiseUtil.ParameterRange.combine(this.humidityParameters[2], this.humidityParameters[4]),
+                MultiNoiseUtil.ParameterRange.combine(this.humidityParameters[3], this.humidityParameters[4]),
                 MultiNoiseUtil.ParameterRange.of(-0.2F, 0.5F),
                 MultiNoiseUtil.ParameterRange.of(0.50F, 1.0F), weirdness, 0.0F, RegisterWorldgen.CYPRESS_WETLANDS
         );
@@ -108,7 +108,7 @@ public final class VanillaBiomeParametersMixin {
         this.writeBiomeParameters(
                 parameters,
                 MultiNoiseUtil.ParameterRange.combine(this.temperatureParameters[1], this.temperatureParameters[3]),
-                MultiNoiseUtil.ParameterRange.combine(this.humidityParameters[2], this.humidityParameters[4]),
+                MultiNoiseUtil.ParameterRange.combine(this.humidityParameters[3], this.humidityParameters[4]),
                 MultiNoiseUtil.ParameterRange.of(-0.2F, 0.5F),
                 MultiNoiseUtil.ParameterRange.of(0.50F, 1.0F), weirdness, 0.0F, RegisterWorldgen.CYPRESS_WETLANDS
         );
