@@ -35,7 +35,6 @@ jobs:
       - name: Build
         run: ./gradlew build
       - name: Capture Build Artifacts
-        #if: ${{ runner.os == 'Linux' && matrix.java == '17' }} # Only upload artifacts from Linux
         uses: actions/upload-artifact@v3
         with:
           name: WilderWild-Artifacts-${{ steps.ref.outputs.branch }}
