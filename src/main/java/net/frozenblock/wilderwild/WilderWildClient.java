@@ -114,6 +114,7 @@ public class WilderWildClient implements ClientModInitializer {
         receiveSeedPacket();
         receiveControlledSeedPacket();
         receiveTermitePacket();
+        receiveSensorHiccupPacket();
 
         receiveFireflyCaptureInfoPacket();
         receiveAncientHornKillInfoPacket();
