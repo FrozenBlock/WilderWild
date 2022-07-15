@@ -28,6 +28,7 @@ import net.minecraft.network.packet.s2c.play.GameStateChangeS2CPacket;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
+import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.tag.TagKey;
@@ -237,7 +238,11 @@ public class AncientHornProjectile extends PersistentProjectileEntity {
                 BlockPos pos = blockHitResult.getBlockPos();
                 WilderWild.log(Blocks.SCULK_SHRIEKER, pos, "Horn Projectile Touched", WilderWild.UNSTABLE_LOGGING);
                 if (blockState.get(RegisterProperties.SOULS_TAKEN) < 2 && !blockState.get(SculkShriekerBlock.SHRIEKING)) {
-                    server.setBlockState(pos, blockState.with(RegisterProperties.SOULS_TAKEN, blockState.get(RegisterProperties.SOULS_TAKEN) + 1));
+                    if (!blockState.get(SculkShriekerBlock.CAN_SUMMON)) {
+                        server.setBlockState(pos, blockState.with(RegisterProperties.SOULS_TAKEN, blockState.get(RegisterProperties.SOULS_TAKEN) + 1));
+                    } else {
+                        server.setBlockState(pos, blockState.with(SculkShriekerBlock.CAN_SUMMON, false));
+                    }
                     server.spawnParticles(ParticleTypes.SCULK_SOUL, (double) pos.getX() + 0.5D, (double) pos.getY() + 1.15D, (double) pos.getZ() + 0.5D, 1, 0.2D, 0.0D, 0.2D, 0.0D);
                     trySpawnWarden(server, pos);
                     WardenEntity.addDarknessToClosePlayers(server, Vec3d.ofCenter(this.getBlockPos()), null, 40);
@@ -290,6 +295,8 @@ public class AncientHornProjectile extends PersistentProjectileEntity {
                 if (XP > 0) {
                     tendril.storedXP = 0;
                     world.createExplosion(this, this.getX(), this.getY(), this.getZ(), 0, Explosion.DestructionType.NONE);
+                    world.playSound(this.getX(), this.getY(), this.getZ(), RegisterSounds.ANCIENT_HORN_BLAST, SoundCategory.NEUTRAL, 1.0F, 1.0F, true);
+                    world.breakBlock(this.getBlockPos(), false);
                     ExperienceOrbEntity.spawn(server, Vec3d.ofCenter(pos).add(0, 0, 0), XP);
                     setCooldown(getCooldown(this.getOwner(), TENDRIL_COOLDOWN));
                     this.setShotFromCrossbow(false);
