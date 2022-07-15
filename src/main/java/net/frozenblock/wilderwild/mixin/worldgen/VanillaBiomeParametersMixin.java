@@ -13,6 +13,7 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import java.util.function.Consumer;
 
@@ -38,6 +39,9 @@ public final class VanillaBiomeParametersMixin {
     private MultiNoiseUtil.ParameterRange defaultParameter;
     @Shadow
     @Final
+    private RegistryKey<Biome>[][] commonBiomes;
+    @Shadow
+    @Final
     private RegistryKey<Biome>[][] uncommonBiomes;
 
     @Shadow
@@ -48,6 +52,8 @@ public final class VanillaBiomeParametersMixin {
     @Inject(method = "<init>", at = @At("TAIL"))
     private void injectBiomes(CallbackInfo ci) {
         uncommonBiomes[1][0] = RegisterWorldgen.MIXED_FOREST;
+        commonBiomes[4][4] = BiomeKeys.MANGROVE_SWAMP;
+        commonBiomes[3][3] = RegisterWorldgen.CYPRESS_WETLANDS;
     }
 
     @Inject(method = "writeBiomesNearRivers", at = @At("TAIL"))
@@ -174,4 +180,17 @@ public final class VanillaBiomeParametersMixin {
             info.cancel();
         }
     }
+
+    /*
+    This is the list of common biomes. Each separate "list" is one increment in temperature, and each value of each list is one increment in humidity. What a flawed system. Or is it?
+    this.commonBiomes = new RegistryKey[][]{
+        {BiomeKeys.SNOWY_PLAINS, BiomeKeys.SNOWY_PLAINS, BiomeKeys.SNOWY_PLAINS, BiomeKeys.SNOWY_TAIGA, BiomeKeys.TAIGA}, //0
+        {BiomeKeys.PLAINS, BiomeKeys.PLAINS, BiomeKeys.FOREST, BiomeKeys.TAIGA, BiomeKeys.OLD_GROWTH_SPRUCE_TAIGA}, //1
+        {BiomeKeys.FLOWER_FOREST, BiomeKeys.PLAINS, BiomeKeys.FOREST, BiomeKeys.BIRCH_FOREST, BiomeKeys.DARK_FOREST}, //2
+        {BiomeKeys.SAVANNA, BiomeKeys.SAVANNA, BiomeKeys.FOREST, BiomeKeys.JUNGLE, BiomeKeys.JUNGLE}, //3
+        {BiomeKeys.DESERT, BiomeKeys.DESERT, BiomeKeys.DESERT, BiomeKeys.DESERT, BiomeKeys.DESERT} //4
+    };
+    For instance, let's get the biome with the highest temperature and humidity. So, we go to 4, and it's filled with deserts.
+    Then, starting from 0, we count to the right. So, it's a desert at [4][4]. Not even a Jungle..?
+     */
 }
