@@ -55,7 +55,7 @@ public final class VanillaBiomeParametersMixin {
         uncommonBiomes[4][0] = BiomeKeys.WOODED_BADLANDS; //
         uncommonBiomes[4][3] = RegisterWorldgen.CYPRESS_WETLANDS;
         uncommonBiomes[4][4] = BiomeKeys.MANGROVE_SWAMP;
-        commonBiomes[4][3] = RegisterWorldgen.SPONGEBOB_ISLAND; //Would it be possible to add a new Tropical Biome, a mix of Beach and Jungle?
+        commonBiomes[4][2] = RegisterWorldgen.SPONGEBOB_ISLAND; //Would it be possible to add a new Tropical Biome, a mix of Beach and Jungle?
         commonBiomes[4][4] = BiomeKeys.JUNGLE;
     }
 
@@ -81,7 +81,7 @@ public final class VanillaBiomeParametersMixin {
         this.writeBiomeParameters(
                 parameters,
                 this.temperatureParameters[4],
-                MultiNoiseUtil.ParameterRange.combine(this.humidityParameters[2], this.humidityParameters[4]),
+                this.humidityParameters[2],
                 MultiNoiseUtil.ParameterRange.of(-0.2F, 0.5F),
                 MultiNoiseUtil.ParameterRange.of(0.50F, 1.0F), weirdness, 0.0F, RegisterWorldgen.SPONGEBOB_ISLAND
         );
@@ -111,7 +111,7 @@ public final class VanillaBiomeParametersMixin {
         this.writeBiomeParameters(
                 parameters,
                 this.temperatureParameters[4],
-                MultiNoiseUtil.ParameterRange.combine(this.humidityParameters[2], this.humidityParameters[4]),
+                this.humidityParameters[2],
                 MultiNoiseUtil.ParameterRange.of(-0.2F, 0.5F),
                 MultiNoiseUtil.ParameterRange.of(0.50F, 1.0F), weirdness, 0.0F, RegisterWorldgen.SPONGEBOB_ISLAND
         );
@@ -130,7 +130,7 @@ public final class VanillaBiomeParametersMixin {
         this.writeBiomeParameters(
                 parameters,
                 this.temperatureParameters[4],
-                MultiNoiseUtil.ParameterRange.combine(this.humidityParameters[2], this.humidityParameters[4]),
+                this.humidityParameters[2],
                 MultiNoiseUtil.ParameterRange.of(-0.2F, 0.5F),
                 MultiNoiseUtil.ParameterRange.of(0.50F, 1.0F), weirdness, 0.0F, RegisterWorldgen.SPONGEBOB_ISLAND
         );
