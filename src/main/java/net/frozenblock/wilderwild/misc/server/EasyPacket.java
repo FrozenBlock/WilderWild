@@ -67,6 +67,20 @@ public class EasyPacket {
         }
     }
 
+    public static class EasySensorHiccupPacket {
+        public static void createParticle(World world, Vec3d pos) {
+            if (world.isClient)
+                throw new IllegalStateException("Particle attempting spawning on THE CLIENT JESUS CHRIST WHAT THE HECK SPAWN ON SERVER NEXT TIME STUPID IDIOT");
+            PacketByteBuf byteBuf = new PacketByteBuf(Unpooled.buffer());
+            byteBuf.writeDouble(pos.x);
+            byteBuf.writeDouble(pos.y);
+            byteBuf.writeDouble(pos.z);
+            for (ServerPlayerEntity player : PlayerLookup.around((ServerWorld) world, pos, 32)) {
+                ServerPlayNetworking.send(player, WilderWild.SENSOR_HICCUP_PACKET, byteBuf);
+            }
+        }
+    }
+
     public static class EasyTermitePacket {
         public static void createParticle(World world, Vec3d pos, int count) {
             if (world.isClient)

@@ -31,6 +31,7 @@ import net.minecraft.client.world.ClientWorld;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.particle.ParticleEffect;
+import net.minecraft.particle.ParticleTypes;
 import net.minecraft.screen.PlayerScreenHandler;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvent;
@@ -234,6 +235,25 @@ public class WilderWildClient implements ClientModInitializer {
                     throw new IllegalStateException("why is your world null");
                 for (int i = 0; i < count; i++) {
                     MinecraftClient.getInstance().world.addParticle(RegisterParticles.TERMITE, pos.x, pos.y, pos.z, AdvancedMath.randomPosNeg() / 7, AdvancedMath.randomPosNeg() / 7, AdvancedMath.randomPosNeg() / 7);
+                }
+            });
+        });
+    }
+
+    public void receiveSensorHiccupPacket() {
+        ClientPlayNetworking.registerGlobalReceiver(WilderWild.SENSOR_HICCUP_PACKET, (ctx, handler, byteBuf, responseSender) -> {
+            Vec3d pos = new Vec3d(byteBuf.readDouble(), byteBuf.readDouble(), byteBuf.readDouble());
+            ctx.execute(() -> {
+                if (MinecraftClient.getInstance().world == null)
+                    throw new IllegalStateException("why is your world null");
+                ClientWorld world = MinecraftClient.getInstance().world;
+                int i = 5578058;
+                boolean bl2 = world.random.nextBoolean();
+                if (bl2) {
+                    double d = (double) (i >> 16 & 255) / 255.0D;
+                    double e = (double) (i >> 8 & 255) / 255.0D;
+                    double f = (double) (i & 255) / 255.0D;
+                    world.addParticle(ParticleTypes.ENTITY_EFFECT, pos.x, pos.y, pos.z, d, e, f);
                 }
             });
         });
