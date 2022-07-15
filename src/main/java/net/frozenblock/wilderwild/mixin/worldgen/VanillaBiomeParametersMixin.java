@@ -105,7 +105,7 @@ public final class VanillaBiomeParametersMixin {
         );
     }
 
-    @Inject(method = "writeBiomeParameters", at = @At("HEAD"))
+    @Inject(method = "writeBiomeParameters", at = @At("HEAD"), cancellable = true)
     private void writeBiomeParameters(Consumer<Pair<MultiNoiseUtil.NoiseHypercube, RegistryKey<Biome>>> parameters, MultiNoiseUtil.ParameterRange temperature, MultiNoiseUtil.ParameterRange humidity, MultiNoiseUtil.ParameterRange continentalness, MultiNoiseUtil.ParameterRange erosion, MultiNoiseUtil.ParameterRange weirdness, float offset, RegistryKey<Biome> biome, CallbackInfo info) {
         if (biome.equals(BiomeKeys.MANGROVE_SWAMP)) {
             parameters.accept(Pair.of(MultiNoiseUtil.createNoiseHypercube(
