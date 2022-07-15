@@ -52,8 +52,8 @@ public final class VanillaBiomeParametersMixin {
     @Inject(method = "<init>", at = @At("TAIL"))
     private void injectBiomes(CallbackInfo ci) {
         uncommonBiomes[1][0] = RegisterWorldgen.MIXED_FOREST;
-        commonBiomes[4][4] = BiomeKeys.MANGROVE_SWAMP;
-        commonBiomes[3][3] = RegisterWorldgen.CYPRESS_WETLANDS;
+        uncommonBiomes[4][3] = RegisterWorldgen.CYPRESS_WETLANDS;
+        uncommonBiomes[4][4] = BiomeKeys.MANGROVE_SWAMP;
     }
 
     @Inject(method = "writeBiomesNearRivers", at = @At("TAIL"))
@@ -190,7 +190,18 @@ public final class VanillaBiomeParametersMixin {
         {BiomeKeys.SAVANNA, BiomeKeys.SAVANNA, BiomeKeys.FOREST, BiomeKeys.JUNGLE, BiomeKeys.JUNGLE}, //3
         {BiomeKeys.DESERT, BiomeKeys.DESERT, BiomeKeys.DESERT, BiomeKeys.DESERT, BiomeKeys.DESERT} //4
     };
-    For instance, let's get the biome with the highest temperature and humidity. So, we go to 4, and it's filled with deserts.
+    For instance, let's get the biome with the highest temperature and humidity. So, we go to 4, and it's filled with Deserts.
     Then, starting from 0, we count to the right. So, it's a desert at [4][4]. Not even a Jungle..?
+
+    ..And same goes for Uncommon Biomes. Just this time, if the Weirdness' max is below 0, this list never gets used.
+    However, if weirdness is above 0, then it'll pick from the list. If a null value is chosen, however, then it'll use the Common Biome list instead.
+    this.uncommonBiomes = new RegistryKey[][]{
+        {BiomeKeys.ICE_SPIKES, null, BiomeKeys.SNOWY_TAIGA, null, null}, //0
+        {null, null, null, null, BiomeKeys.OLD_GROWTH_PINE_TAIGA}, //1
+        {BiomeKeys.SUNFLOWER_PLAINS, null, null, BiomeKeys.OLD_GROWTH_BIRCH_FOREST, null}, //2
+        {null, null, BiomeKeys.PLAINS, BiomeKeys.SPARSE_JUNGLE, BiomeKeys.BAMBOO_JUNGLE}, //3
+        {null, null, null, null, null} //4
+    };
+    Note how there's absolutely NOTHING that can be chosen instead of Deserts.
      */
 }
