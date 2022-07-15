@@ -151,5 +151,27 @@ public final class VanillaBiomeParametersMixin {
                     biome));
             info.cancel();
         }
+        if (biome.equals(BiomeKeys.DESERT) || biome.equals(BiomeKeys.BADLANDS)) {
+            parameters.accept(Pair.of(MultiNoiseUtil.createNoiseHypercube(
+                            temperature, //Temperature
+                            MultiNoiseUtil.ParameterRange.combine(this.humidityParameters[0], this.humidityParameters[1]), //Humidity
+                            continentalness,
+                            erosion,
+                            MultiNoiseUtil.ParameterRange.of(0.0F),
+                            weirdness,
+                            offset),
+                    biome));
+
+            parameters.accept(Pair.of(MultiNoiseUtil.createNoiseHypercube(
+                            temperature, //Temperature
+                            MultiNoiseUtil.ParameterRange.combine(this.humidityParameters[0], this.humidityParameters[1]), //Humidity
+                            continentalness,
+                            erosion,
+                            MultiNoiseUtil.ParameterRange.of(1.0F),
+                            weirdness,
+                            offset),
+                    biome));
+            info.cancel();
+        }
     }
 }
