@@ -197,7 +197,7 @@ public abstract class WardenEntityMixin extends HostileEntity implements WardenA
                 String string = Formatting.strip(warden.getName().getString());
                 boolean skip = false;
                 if (string != null) {
-                    if (string.equals("Osmiooo") || string.equalsIgnoreCase("kirby")) {
+                    if (string.equals("Osmiooo") || string.equalsIgnoreCase("Kirby")) {
                         this.getKirbyDeathAnimationState().start(warden.age);
                         skip = true;
                         ci.cancel();
