@@ -109,7 +109,7 @@ public final class VanillaBiomeParametersMixin {
     private void writeBiomeParameters(Consumer<Pair<MultiNoiseUtil.NoiseHypercube, RegistryKey<Biome>>> parameters, MultiNoiseUtil.ParameterRange temperature, MultiNoiseUtil.ParameterRange humidity, MultiNoiseUtil.ParameterRange continentalness, MultiNoiseUtil.ParameterRange erosion, MultiNoiseUtil.ParameterRange weirdness, float offset, RegistryKey<Biome> biome, CallbackInfo info) {
         if (biome.equals(BiomeKeys.MANGROVE_SWAMP)) {
             parameters.accept(Pair.of(MultiNoiseUtil.createNoiseHypercube(
-                    MultiNoiseUtil.ParameterRange.combine(this.temperatureParameters[1], this.temperatureParameters[4]), //Temperature
+                    MultiNoiseUtil.ParameterRange.combine(this.temperatureParameters[2], this.temperatureParameters[4]), //Temperature
                     MultiNoiseUtil.ParameterRange.combine(this.humidityParameters[2], this.humidityParameters[4]), //Humidity
                     continentalness,
                     erosion,
@@ -119,8 +119,30 @@ public final class VanillaBiomeParametersMixin {
                     biome));
 
             parameters.accept(Pair.of(MultiNoiseUtil.createNoiseHypercube(
-                            MultiNoiseUtil.ParameterRange.combine(this.temperatureParameters[1], this.temperatureParameters[4]), //Temperature
+                            MultiNoiseUtil.ParameterRange.combine(this.temperatureParameters[2], this.temperatureParameters[4]), //Temperature
                             MultiNoiseUtil.ParameterRange.combine(this.humidityParameters[2], this.humidityParameters[4]), //Humidity
+                            continentalness,
+                            erosion,
+                            MultiNoiseUtil.ParameterRange.of(1.0F),
+                            weirdness,
+                            offset),
+                    biome));
+            info.cancel();
+        }
+        if (biome.equals(BiomeKeys.SWAMP)) {
+            parameters.accept(Pair.of(MultiNoiseUtil.createNoiseHypercube(
+                            MultiNoiseUtil.ParameterRange.combine(this.temperatureParameters[1], this.temperatureParameters[3]), //Temperature
+                            MultiNoiseUtil.ParameterRange.combine(this.humidityParameters[2], this.humidityParameters[3]), //Humidity
+                            continentalness,
+                            erosion,
+                            MultiNoiseUtil.ParameterRange.of(0.0F),
+                            weirdness,
+                            offset),
+                    biome));
+
+            parameters.accept(Pair.of(MultiNoiseUtil.createNoiseHypercube(
+                            MultiNoiseUtil.ParameterRange.combine(this.temperatureParameters[1], this.temperatureParameters[3]), //Temperature
+                            MultiNoiseUtil.ParameterRange.combine(this.humidityParameters[2], this.humidityParameters[3]), //Humidity
                             continentalness,
                             erosion,
                             MultiNoiseUtil.ParameterRange.of(1.0F),
