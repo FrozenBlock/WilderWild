@@ -7,6 +7,7 @@ import net.frozenblock.wilderwild.entity.ai.WardenNavigation;
 import net.frozenblock.wilderwild.entity.render.animations.WardenAnimationInterface;
 import net.frozenblock.wilderwild.registry.RegisterProperties;
 import net.frozenblock.wilderwild.registry.RegisterSounds;
+import net.minecraft.advancement.criterion.Criteria;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.brain.Brain;
@@ -14,18 +15,24 @@ import net.minecraft.entity.ai.brain.MemoryModuleType;
 import net.minecraft.entity.ai.pathing.EntityNavigation;
 import net.minecraft.entity.ai.pathing.PathNodeType;
 import net.minecraft.entity.damage.DamageSource;
+import net.minecraft.entity.damage.EntityDamageSource;
+import net.minecraft.entity.damage.ProjectileDamageSource;
 import net.minecraft.entity.data.TrackedData;
+import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.mob.Angriness;
 import net.minecraft.entity.mob.HostileEntity;
 import net.minecraft.entity.mob.WardenBrain;
 import net.minecraft.entity.mob.WardenEntity;
+import net.minecraft.entity.passive.WolfEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.particle.ParticleTypes;
+import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
+import net.minecraft.stat.Stats;
 import net.minecraft.tag.FluidTags;
 import net.minecraft.tag.TagKey;
 import net.minecraft.util.Formatting;
@@ -61,20 +68,15 @@ public abstract class WardenEntityMixin extends HostileEntity implements WardenA
     @Overwrite
     public SoundEvent getDeathSound() {
         String string = Formatting.strip(warden.getName().getString());
-        boolean skipCheck = false;
-        if (string!=null) {
-            if (string.equals("Osmiooo") || string.equalsIgnoreCase("kirby")) {
-                warden.playSound(RegisterSounds.ENTITY_WARDEN_KIRBY_DEATH, 5.0F, 1.0F);
-                skipCheck = true;
+        if ((string != null && string.equals("Osmiooo")) || (string != null && string.equalsIgnoreCase("kirby"))) {
+            return RegisterSounds.ENTITY_WARDEN_KIRBY_DEATH;
+        } else {
+            if (!this.isSubmergedInWaterOrLava()) {
+                return RegisterSounds.ENTITY_WARDEN_DYING;
+            } else {
+                return RegisterSounds.ENTITY_WARDEN_UNDERWATER_DYING;
             }
         }
-        if (!skipCheck) {
-            if (!this.isSubmergedInWaterOrLava()) {
-                warden.playSound(RegisterSounds.ENTITY_WARDEN_DYING, 5.0F, 1.0F);
-            } else if (this.isSubmergedInWaterOrLava()) {
-                warden.playSound(RegisterSounds.ENTITY_WARDEN_UNDERWATER_DYING, 0.75F, 1.0F);
-            }
-        } return SoundEvents.ENTITY_WARDEN_DEATH;
     }
 
     @Shadow
