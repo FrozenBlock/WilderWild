@@ -25,13 +25,11 @@ import static net.minecraft.world.biome.OverworldBiomeCreator.createSwamp;
 public class RegisterWorldgen {
     public static final RegistryKey<Biome> MIXED_FOREST = register("mixed_forest");
     public static final RegistryKey<Biome> CYPRESS_WETLANDS = register("cypress_wetlands");
-    public static final RegistryKey<Biome> SPONGEBOB_ISLAND = register("tropical_woods");
 
     public static void registerWorldGen() {
         WilderWild.logWild("Registering Biomes for", WilderWild.UNSTABLE_LOGGING);
         BuiltinRegistries.add(BuiltinRegistries.BIOME, MIXED_FOREST, createMixedForest());
         BuiltinRegistries.add(BuiltinRegistries.BIOME, CYPRESS_WETLANDS, createCypressWetlands());
-        BuiltinRegistries.add(BuiltinRegistries.BIOME, SPONGEBOB_ISLAND, createSpongeBobIsland());
     }
 
     private static RegistryKey<Biome> register(String name) {
@@ -55,32 +53,6 @@ public class RegisterWorldgen {
                                 .waterFogColor(329011)
                                 .fogColor(12638463)
                                 .skyColor(createJungle().getSkyColor())
-                                .foliageColor(5877296)
-                                .grassColor(7979098)
-                                .moodSound(BiomeMoodSound.CAVE)
-                                .music(musicSound).build())
-                .spawnSettings(builder.build())
-                .generationSettings(builder2.build())
-                .build();
-    }
-
-    public static Biome createSpongeBobIsland() {
-        SpawnSettings.Builder builder = new SpawnSettings.Builder();
-        DefaultBiomeFeatures.addBatsAndMonsters(builder);
-        addSpongeBobMobs(builder);
-        GenerationSettings.Builder builder2 = new GenerationSettings.Builder();
-        addSpongeBobFeatures(builder2);
-        MusicSound musicSound = MusicType.createIngameMusic(RegisterSounds.MUSIC_OVERWORLD_WILD_FORESTS);
-        return new Biome.Builder()
-                .precipitation(Biome.Precipitation.RAIN)
-                .temperature(0.6F)
-                .downfall(0.7F)
-                .effects(
-                        new BiomeEffects.Builder()
-                                .waterColor(4552818)
-                                .waterFogColor(4552818)
-                                .fogColor(12638463)
-                                .skyColor(createSwamp().getSkyColor())
                                 .foliageColor(5877296)
                                 .grassColor(7979098)
                                 .moodSound(BiomeMoodSound.CAVE)
@@ -175,33 +147,4 @@ public class RegisterWorldgen {
         builder.spawn(WilderWild.FIREFLIES, new SpawnSettings.SpawnEntry(RegisterEntities.FIREFLY, 1, 2, 6));
     }
 
-    public static void addSpongeBobPaths(GenerationSettings.Builder builder) {
-        builder.feature(GenerationStep.Feature.UNDERGROUND_ORES, WilderMiscPlaced.UNDER_WATER_SAND_PATH);
-        builder.feature(GenerationStep.Feature.UNDERGROUND_ORES, WilderMiscPlaced.UNDER_WATER_GRAVEL_PATH);
-        builder.feature(GenerationStep.Feature.UNDERGROUND_ORES, WilderMiscPlaced.UNDER_WATER_CLAY_PATH);
-        builder.feature(GenerationStep.Feature.TOP_LAYER_MODIFICATION, WilderMiscPlaced.SAND_PATH);
-    }
-
-    public static void addSpongeBobFeatures(GenerationSettings.Builder builder) {
-        builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, WilderPlacedFeatures.DENSE_FERN_PLACED);
-        builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, WilderPlacedFeatures.DENSE_TALL_GRASS_PLACED);
-        builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, WilderPlacedFeatures.SEAGRASS_CYPRESS);
-        builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, WilderPlacedFeatures.WHITE_DANDELION_CYPRESS);
-        builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, WilderPlacedFeatures.MILKWEED_CYPRESS);
-        builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, WilderPlacedFeatures.FLOWER_FOREST_FLOWERS);
-        builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, WilderPlacedFeatures.CYPRESS_TREES_RARE);
-        builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, WilderPlacedFeatures.SPONGEBOB_ISLAND_JUNGLE_TREES);
-        addSpongeBobPaths(builder);
-        addBasicFeatures(builder);
-        addCypressVegetation(builder);
-    }
-
-    public static void addSpongeBobMobs(SpawnSettings.Builder builder) {
-        builder.spawn(SpawnGroup.CREATURE, new SpawnSettings.SpawnEntry(EntityType.FROG, 2, 4, 5));
-        builder.spawn(SpawnGroup.CREATURE, new SpawnSettings.SpawnEntry(EntityType.PIG, 7, 2, 4));
-        builder.spawn(SpawnGroup.CREATURE, new SpawnSettings.SpawnEntry(EntityType.CHICKEN, 7, 2, 4));
-        builder.spawn(SpawnGroup.CREATURE, new SpawnSettings.SpawnEntry(EntityType.COW, 7, 2, 4));
-        builder.spawn(SpawnGroup.CREATURE, new SpawnSettings.SpawnEntry(EntityType.SHEEP, 4, 2, 4));
-        builder.spawn(WilderWild.FIREFLIES, new SpawnSettings.SpawnEntry(RegisterEntities.FIREFLY, 1, 2, 6));
-    }
 }
