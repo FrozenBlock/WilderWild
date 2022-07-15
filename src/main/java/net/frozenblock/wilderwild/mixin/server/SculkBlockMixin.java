@@ -10,6 +10,7 @@ import net.minecraft.block.entity.SculkSpreadManager;
 import net.minecraft.fluid.Fluids;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.state.property.Properties;
+import net.minecraft.tag.BlockTags;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.random.Random;
@@ -62,6 +63,19 @@ public class SculkBlockMixin {
 
                     BlockState stateDown = world.getBlockState(blockPos.down());
                     Block blockDown = stateDown.getBlock();
+                    if (isWorldGen) {
+                        if (world.getBlockState(blockPos2).isIn(WilderBlockTags.ANCIENT_CITY_BLOCKS)) {
+                            if (world.getBlockState(blockPos).isIn(BlockTags.STAIRS)) {
+                                blockState = RegisterBlocks.SCULK_STAIRS.getDefaultState();
+                            }
+                            if (world.getBlockState(blockPos).isIn(BlockTags.SLABS)) {
+                                blockState = RegisterBlocks.SCULK_SLAB.getDefaultState();
+                            }
+                            if (world.getBlockState(blockPos).isIn(BlockTags.WALLS)) {
+                                blockState = RegisterBlocks.SCULK_WALL.getDefaultState();
+                            }
+                        }
+                    }
                     if ((stateDown.isAir() || blockDown == Blocks.WATER || blockDown == Blocks.LAVA || blockDown == Blocks.SCULK_VEIN)) {
                         if (canPlaceOsseousSculk(blockPos, isWorldGen, world)) {
                             int pillarHeight = (int) MathHelper.clamp(EasyNoiseSampler.sample(EasyNoiseSampler.perlinXoro, blockPos.down(), RANDOMNESS, false, false) * HEIGHT_MULTIPLIER, 2, MAX_HEIGHT);
