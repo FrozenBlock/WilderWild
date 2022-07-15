@@ -7,19 +7,7 @@ public enum FlowerColors implements StringIdentifiable {
     BLUE("blue"),
     WHITE("white"),
     PINK("pink"),
-    PURPLE("purple"),
-    ORANGE("orange"),
-    YELLOW("yellow"),
-    CYAN("cyan"),
-    LIGHT_BLUE("light_blue"),
-    GRAY("gray"),
-    LIGHT_GRAY("light_gray"),
-    LIME("lime"),
-    GREEN("green"),
-    BLACK("black"),
-    BROWN("brown"),
-    RED("red"),
-    MAGENTA("magenta");
+    PURPLE("purple");
 
     private final String name;
 
