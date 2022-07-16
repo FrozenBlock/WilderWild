@@ -23,7 +23,8 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import java.util.Arrays;
 
-import static net.minecraft.block.MultifaceGrowthBlock.*;
+import static net.minecraft.block.MultifaceGrowthBlock.getProperty;
+import static net.minecraft.block.MultifaceGrowthBlock.hasDirection;
 import static net.minecraft.client.render.WorldRenderer.DIRECTIONS;
 
 @Mixin(SculkVeinBlock.class)
@@ -31,7 +32,7 @@ public class SculkVeinBlockMixin {
 
     @Final
     @Shadow
-    private  LichenGrower allGrowTypeGrower;
+    private LichenGrower allGrowTypeGrower;
 
     @Overwrite
     private boolean convertToBlock(SculkSpreadManager spreadManager, WorldAccess world, BlockPos pos, Random random) {
@@ -79,7 +80,8 @@ public class SculkVeinBlockMixin {
     }
 
     @Shadow
-    public void spreadAtSamePosition(WorldAccess world, BlockState state, BlockPos pos, Random random) {}
+    public void spreadAtSamePosition(WorldAccess world, BlockState state, BlockPos pos, Random random) {
+    }
 
     @Inject(at = @At("HEAD"), method = "spreadAtSamePosition", cancellable = true)
     public void spreadAtSamePosition(WorldAccess world, BlockState state, BlockPos pos, Random random, CallbackInfo info) {

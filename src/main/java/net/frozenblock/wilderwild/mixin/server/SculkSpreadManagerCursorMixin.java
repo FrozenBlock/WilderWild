@@ -5,7 +5,6 @@ import net.frozenblock.wilderwild.misc.ToSculkSpreader;
 import net.frozenblock.wilderwild.tag.WilderBlockTags;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.SculkSpreadManager;
-import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
@@ -21,7 +20,6 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Overwrite;
 import org.spongepowered.asm.mixin.Shadow;
 
-import java.util.Iterator;
 import java.util.List;
 import java.util.Objects;
 import java.util.Set;
@@ -100,7 +98,7 @@ public class SculkSpreadManagerCursorMixin {
         Block var2 = state.getBlock();
         SculkSpreadable var10000;
         if (var2 instanceof SculkSpreadable) {
-            var10000 = (SculkSpreadable)var2;
+            var10000 = (SculkSpreadable) var2;
         } else if (isWorldGen && (state.isIn(WilderBlockTags.SCULK_WALL_REPLACEABLE_WORLDGEN) || state.isIn(WilderBlockTags.SCULK_SLAB_REPLACEABLE_WORLDGEN) || state.isIn(WilderBlockTags.SCULK_STAIR_REPLACEABLE_WORLDGEN))) {
             var10000 = new ToSculkSpreader();
         } else {
@@ -157,7 +155,7 @@ public class SculkSpreadManagerCursorMixin {
         Block var2 = state.getBlock();
         SculkSpreadable var10000;
         if (var2 instanceof SculkSpreadable) {
-            var10000 = (SculkSpreadable)var2;
+            var10000 = (SculkSpreadable) var2;
         } else {
             var10000 = SculkSpreadable.VEIN_ONLY_SPREADER;
         }

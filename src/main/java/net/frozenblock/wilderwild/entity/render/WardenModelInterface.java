@@ -6,5 +6,5 @@ import java.util.List;
 
 public interface WardenModelInterface {
 
-    public List<ModelPart> getHeadAndTendrils();
+    List<ModelPart> getHeadAndTendrils();
 }

@@ -128,23 +128,23 @@ public final class VanillaBiomeParametersMixin {
             mangroveRound = mangroveRound + 1;
             MultiNoiseUtil.ParameterRange continentalnessNew = mangroveRound == 1 ? MultiNoiseUtil.ParameterRange.combine(MultiNoiseUtil.ParameterRange.of(-0.11F, 0.03F), this.farInlandContinentalness) : mangroveRound == 2 ? MultiNoiseUtil.ParameterRange.combine(MultiNoiseUtil.ParameterRange.of(-0.11F, 0.03F), this.farInlandContinentalness) : MultiNoiseUtil.ParameterRange.combine(MultiNoiseUtil.ParameterRange.of(-0.19F, -0.11F), this.farInlandContinentalness);
             parameters.accept(Pair.of(MultiNoiseUtil.createNoiseHypercube(
-                    MultiNoiseUtil.ParameterRange.combine(this.temperatureParameters[2], this.temperatureParameters[4]), //Temperature
-                    MultiNoiseUtil.ParameterRange.combine(this.humidityParameters[3], this.humidityParameters[4]), //Humidity
-                    continentalnessNew,
-                    erosion,
-                    MultiNoiseUtil.ParameterRange.of(0.0F),
-                    weirdness,
-                    offset),
+                            MultiNoiseUtil.ParameterRange.combine(this.temperatureParameters[2], this.temperatureParameters[4]), //Temperature
+                            MultiNoiseUtil.ParameterRange.combine(this.humidityParameters[3], this.humidityParameters[4]), //Humidity
+                            continentalnessNew,
+                            erosion,
+                            MultiNoiseUtil.ParameterRange.of(0.0F),
+                            weirdness,
+                            offset),
                     biome));
 
             parameters.accept(Pair.of(MultiNoiseUtil.createNoiseHypercube(
-                    MultiNoiseUtil.ParameterRange.combine(this.temperatureParameters[2], this.temperatureParameters[4]), //Temperature
-                    MultiNoiseUtil.ParameterRange.combine(this.humidityParameters[3], this.humidityParameters[4]), //Humidity
-                    continentalnessNew,
-                    erosion,
-                    MultiNoiseUtil.ParameterRange.of(1.0F),
-                    weirdness,
-                    offset),
+                            MultiNoiseUtil.ParameterRange.combine(this.temperatureParameters[2], this.temperatureParameters[4]), //Temperature
+                            MultiNoiseUtil.ParameterRange.combine(this.humidityParameters[3], this.humidityParameters[4]), //Humidity
+                            continentalnessNew,
+                            erosion,
+                            MultiNoiseUtil.ParameterRange.of(1.0F),
+                            weirdness,
+                            offset),
                     biome));
             info.cancel();
         }
