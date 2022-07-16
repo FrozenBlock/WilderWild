@@ -18,6 +18,7 @@
 	"server.SculkShriekerBlockEntityMixin",
 	"server.SculkShriekerBlockMixin",
 	"server.SculkSpreadManagerCursorMixin",
+	"server.SculkVeinBlockMixin",
 	"server.SculkVeinGrowCheckerMixin",
 	"server.SignTypeAccessor",
 	"server.SonicBoomTaskMixin",

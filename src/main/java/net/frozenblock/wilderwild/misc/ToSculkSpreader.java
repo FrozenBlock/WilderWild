@@ -38,6 +38,22 @@ public class ToSculkSpreader implements SculkSpreadable {
 
     @Override
     public boolean spread(WorldAccess world, BlockPos pos, BlockState state, @Nullable Collection<Direction> directions, boolean markForPostProcessing) {
-        return true;
+        BlockState placementState = null;
+        BlockState currentState = world.getBlockState(pos);
+        if (currentState.isIn(WilderBlockTags.SCULK_STAIR_REPLACEABLE_WORLDGEN)) {
+            placementState = RegisterBlocks.SCULK_STAIRS.getDefaultState().with(StairsBlock.FACING, currentState.get(StairsBlock.FACING)).with(StairsBlock.HALF, currentState.get(StairsBlock.HALF)).with(StairsBlock.SHAPE, currentState.get(StairsBlock.SHAPE)).with(StairsBlock.WATERLOGGED, currentState.get(StairsBlock.WATERLOGGED));
+        } else if (currentState.isIn(WilderBlockTags.SCULK_WALL_REPLACEABLE_WORLDGEN)) {
+            placementState = RegisterBlocks.SCULK_WALL.getDefaultState().with(WallBlock.UP, currentState.get(WallBlock.UP)).with(WallBlock.NORTH_SHAPE, currentState.get(WallBlock.NORTH_SHAPE))
+                    .with(WallBlock.EAST_SHAPE, currentState.get(WallBlock.EAST_SHAPE)).with(WallBlock.WEST_SHAPE, currentState.get(WallBlock.WEST_SHAPE))
+                    .with(WallBlock.SOUTH_SHAPE, currentState.get(WallBlock.SOUTH_SHAPE)).with(WallBlock.WATERLOGGED, currentState.get(WallBlock.WATERLOGGED));
+        } else if (currentState.isIn(WilderBlockTags.SCULK_SLAB_REPLACEABLE_WORLDGEN)) {
+            placementState = RegisterBlocks.SCULK_SLAB.getDefaultState().with(SlabBlock.WATERLOGGED, currentState.get(SlabBlock.WATERLOGGED)).with(SlabBlock.TYPE, currentState.get(SlabBlock.TYPE));
+        }
+
+        if (placementState != null) {
+            world.setBlockState(pos, placementState, 3);
+            return true;
+        }
+        return false;
     }
 }
