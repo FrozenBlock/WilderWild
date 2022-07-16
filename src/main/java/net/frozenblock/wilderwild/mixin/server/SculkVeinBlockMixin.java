@@ -4,8 +4,10 @@ import net.frozenblock.wilderwild.registry.RegisterBlocks;
 import net.frozenblock.wilderwild.tag.WilderBlockTags;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.SculkSpreadManager;
+import net.minecraft.fluid.FluidState;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
+import net.minecraft.state.property.BooleanProperty;
 import net.minecraft.tag.TagKey;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
@@ -15,8 +17,13 @@ import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Overwrite;
 import org.spongepowered.asm.mixin.Shadow;
+import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-import static net.minecraft.block.MultifaceGrowthBlock.hasDirection;
+import java.util.Arrays;
+
+import static net.minecraft.block.MultifaceGrowthBlock.*;
 import static net.minecraft.client.render.WorldRenderer.DIRECTIONS;
 
 @Mixin(SculkVeinBlock.class)
@@ -73,5 +80,31 @@ public class SculkVeinBlockMixin {
 
     @Shadow
     public void spreadAtSamePosition(WorldAccess world, BlockState state, BlockPos pos, Random random) {}
+
+    @Inject(at = @At("HEAD"), method = "spreadAtSamePosition", cancellable = true)
+    public void spreadAtSamePosition(WorldAccess world, BlockState state, BlockPos pos, Random random, CallbackInfo info) {
+        if (state.isOf(Blocks.SCULK_VEIN)) {
+
+            for (Direction direction : DIRECTIONS) {
+                BooleanProperty booleanProperty = getProperty(direction);
+                if (state.get(booleanProperty) && world.getBlockState(pos.offset(direction)).isIn(WilderBlockTags.SCULK_VEIN_REMOVE)) {
+                    state = state.with(booleanProperty, false);
+                }
+            }
+
+            if (!hasAnyDirection(state)) {
+                FluidState fluidState = world.getFluidState(pos);
+                state = (fluidState.isEmpty() ? Blocks.AIR : Blocks.WATER).getDefaultState();
+            }
+
+            world.setBlockState(pos, state, 3);
+        }
+    }
+
+    private static boolean hasAnyDirection(BlockState state) {
+        return Arrays.stream(DIRECTIONS).anyMatch((direction) -> {
+            return hasDirection(state, direction);
+        });
+    }
 
 }
