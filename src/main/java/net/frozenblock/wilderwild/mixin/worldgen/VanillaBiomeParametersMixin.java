@@ -55,8 +55,8 @@ public final class VanillaBiomeParametersMixin {
     private void injectBiomes(CallbackInfo ci) {
         uncommonBiomes[1][0] = RegisterWorldgen.MIXED_FOREST;
         uncommonBiomes[4][0] = BiomeKeys.WOODED_BADLANDS;
-        uncommonBiomes[4][3] = RegisterWorldgen.CYPRESS_WETLANDS;
-        uncommonBiomes[4][4] = BiomeKeys.MANGROVE_SWAMP;
+        //uncommonBiomes[4][3] = RegisterWorldgen.CYPRESS_WETLANDS;
+        //uncommonBiomes[4][4] = BiomeKeys.MANGROVE_SWAMP;
         uncommonBiomes[4][3] = BiomeKeys.JUNGLE;
         commonBiomes[4][4] = BiomeKeys.JUNGLE;
     }
