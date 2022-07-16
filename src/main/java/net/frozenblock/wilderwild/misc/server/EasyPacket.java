@@ -5,13 +5,17 @@ import net.fabricmc.fabric.api.networking.v1.PlayerLookup;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.entity.Firefly;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
+import net.minecraft.sound.SoundCategory;
+import net.minecraft.sound.SoundEvent;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
+import net.minecraft.util.registry.Registry;
 import net.minecraft.world.World;
 
 public class EasyPacket {
@@ -121,6 +125,20 @@ public class EasyPacket {
             } else {
                 throw new IllegalStateException("NOT A SERVER PLAYER BRUH");
             }
+        }
+    }
+
+    public static void createMovingLoopingSound(World world, Entity entity, SoundEvent sound, SoundCategory category, float volume, float pitch) {
+        if (world.isClient)
+            throw new IllegalStateException("no sounds on the client, you freaking idiot!");
+        PacketByteBuf byteBuf = new PacketByteBuf(Unpooled.buffer());
+        byteBuf.writeVarInt(entity.getId());
+        byteBuf.writeRegistryValue(Registry.SOUND_EVENT, sound);
+        byteBuf.writeEnumConstant(category);
+        byteBuf.writeFloat(volume);
+        byteBuf.writeFloat(pitch);
+        for (ServerPlayerEntity player : PlayerLookup.around((ServerWorld) world, entity.getBlockPos(), 32)) {
+            ServerPlayNetworking.send(player, WilderWild.MOVING_LOOPING_SOUND_PACKET, byteBuf);
         }
     }
 }

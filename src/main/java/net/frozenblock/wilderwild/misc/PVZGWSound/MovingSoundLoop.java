@@ -57,17 +57,4 @@ public class MovingSoundLoop extends MovingSoundInstance {
         }
     }
 
-    public static void createMovingLoopingSound(World world, Entity entity, SoundEvent sound, SoundCategory category, float volume, float pitch) {
-        if (world.isClient)
-            throw new IllegalStateException("no sounds on the client, you freaking idiot!");
-        PacketByteBuf byteBuf = new PacketByteBuf(Unpooled.buffer());
-        byteBuf.writeVarInt(entity.getId());
-        byteBuf.writeRegistryValue(Registry.SOUND_EVENT, sound);
-        byteBuf.writeEnumConstant(category);
-        byteBuf.writeFloat(volume);
-        byteBuf.writeFloat(pitch);
-        for (ServerPlayerEntity player : PlayerLookup.around((ServerWorld) world, entity.getBlockPos(), 32)) {
-            ServerPlayNetworking.send(player, WilderWild.MOVING_LOOPING_SOUND_PACKET, byteBuf);
-        }
-    }
 }
