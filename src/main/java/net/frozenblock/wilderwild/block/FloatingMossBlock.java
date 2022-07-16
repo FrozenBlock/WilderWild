@@ -44,14 +44,14 @@ public class FloatingMossBlock extends Block {
     @Override
     public void scheduledTick(BlockState state, ServerWorld world, BlockPos pos, Random random) {
         if (!this.canPlaceAt(state, world, pos)) {
-            this.breakWithoutDrop(world, pos);
+            world.breakBlock(pos, false);
         }
     }
 
     @Override
     public void onEntityCollision(BlockState state, World world, BlockPos pos, Entity entity) {
         if (entity.getType().equals(EntityType.FALLING_BLOCK)) {
-            this.breakWithoutDrop(world, pos);
+            world.breakBlock(pos, false);
         }
 
     }
@@ -62,7 +62,4 @@ public class FloatingMossBlock extends Block {
         return fluidState.getFluid() == Fluids.WATER && fluidState2.getFluid() == Fluids.EMPTY;
     }
 
-    private void breakWithoutDrop(World world, BlockPos pos) {
-        world.breakBlock(pos, false);
-    }
 }
