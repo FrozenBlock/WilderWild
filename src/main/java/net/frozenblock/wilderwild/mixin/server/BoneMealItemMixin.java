@@ -53,12 +53,12 @@ public class BoneMealItemMixin {
                 info.cancel();
             }
         }
-        if (state.getBlock() instanceof FloatingMossBlock) {
+        if (state.isOf(RegisterBlocks.FLOATING_MOSS)) {
             WilderWild.log("Floating Moss Bonemealed @ " + blockPos, WilderWild.DEV_LOGGING);
             if (!world.isClient) {
                 for (Direction offset : shuffleOffsets(world.getRandom())) {
                     BlockPos pos = blockPos.offset(offset);
-                    if (state.getBlock().canPlaceAt(state, world, pos)) {
+                    if (world.getBlockState(pos).isAir() && state.getBlock().canPlaceAt(state, world, pos)) {
                         world.syncWorldEvent(1505, blockPos, 0);
                         world.syncWorldEvent(1505, pos, 0);
                         world.setBlockState(pos, state);
