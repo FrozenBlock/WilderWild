@@ -60,7 +60,8 @@ public class BoneMealItemMixin {
                     BlockPos pos = blockPos.offset(offset);
                     if (state.getBlock().canPlaceAt(state, world, pos)) {
                         world.syncWorldEvent(1505, blockPos, 0);
-                        world.setBlockState(blockPos, state);
+                        world.syncWorldEvent(1505, pos, 0);
+                        world.setBlockState(pos, state);
                         context.getStack().decrement(1);
                         break;
                     }
