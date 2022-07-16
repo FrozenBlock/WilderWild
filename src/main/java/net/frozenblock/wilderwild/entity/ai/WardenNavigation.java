@@ -22,7 +22,7 @@ public class WardenNavigation extends MobNavigation {
         this.nodeMaker.setCanEnterOpenDoors(true);
         return new PathNodeNavigator(this.nodeMaker, range) {
             public float getDistance(PathNode a, PathNode b) {
-                return a.getHorizontalDistance(b);
+                return this.isEntitySubmergedInWaterOrLava(entity) ? a.getDistance(b) : a.getHorizontalDistance(b);
             }
 
             private boolean isEntitySubmergedInWaterOrLava(Entity entity) {
