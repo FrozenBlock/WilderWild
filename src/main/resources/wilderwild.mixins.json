@@ -21,6 +21,7 @@
 	"server.SculkVeinBlockMixin",
 	"server.SculkVeinGrowCheckerMixin",
 	"server.SignTypeAccessor",
+	"server.SlimeMixin",
 	"server.SonicBoomTaskMixin",
 	"server.VibrationListenerMixin",
 	"server.WardenBrainMixin",
