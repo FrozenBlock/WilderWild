@@ -216,5 +216,7 @@ public final class VanillaBiomeParametersMixin {
         {null, null, null, null, null} //4
     };
     Note how there's absolutely NOTHING that can be chosen instead of Deserts.
+
+    Do also note that these biomes COMPLETELY ignore other parameters like Erosion- only Temperature and Humidity seem to have effect here, as well as weirdness for choosing uncommon biomes.
      */
 }
