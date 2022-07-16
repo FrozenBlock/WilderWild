@@ -130,7 +130,7 @@ public final class VanillaBiomeParametersMixin {
             parameters.accept(Pair.of(MultiNoiseUtil.createNoiseHypercube(
                     MultiNoiseUtil.ParameterRange.combine(this.temperatureParameters[2], this.temperatureParameters[4]), //Temperature
                     MultiNoiseUtil.ParameterRange.combine(this.humidityParameters[3], this.humidityParameters[4]), //Humidity
-                    continentalness,
+                    continentalnessNew,
                     erosion,
                     MultiNoiseUtil.ParameterRange.of(0.0F),
                     weirdness,
@@ -140,7 +140,7 @@ public final class VanillaBiomeParametersMixin {
             parameters.accept(Pair.of(MultiNoiseUtil.createNoiseHypercube(
                     MultiNoiseUtil.ParameterRange.combine(this.temperatureParameters[2], this.temperatureParameters[4]), //Temperature
                     MultiNoiseUtil.ParameterRange.combine(this.humidityParameters[3], this.humidityParameters[4]), //Humidity
-                    continentalness,
+                    continentalnessNew,
                     erosion,
                     MultiNoiseUtil.ParameterRange.of(1.0F),
                     weirdness,
