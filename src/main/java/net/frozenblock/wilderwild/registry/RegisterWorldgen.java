@@ -17,6 +17,7 @@ import net.minecraft.world.biome.GenerationSettings;
 import net.minecraft.world.biome.SpawnSettings;
 import net.minecraft.world.gen.GenerationStep;
 import net.minecraft.world.gen.feature.DefaultBiomeFeatures;
+import net.minecraft.world.gen.feature.MiscPlacedFeatures;
 import net.minecraft.world.gen.feature.VegetationPlacedFeatures;
 
 import static net.minecraft.world.biome.OverworldBiomeCreator.createJungle;
@@ -106,7 +107,7 @@ public class RegisterWorldgen {
         builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, WilderPlacedFeatures.CYPRESS_WETLANDS_TREES_WATER);
         builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, WilderPlacedFeatures.FALLEN_OAK_AND_CYPRESS_PLACED);
         addCypressPaths(builder);
-        addBasicFeatures(builder);
+        addBasicFeatures(builder, CYPRESS_WETLANDS);
         addCypressVegetation(builder);
     }
 
@@ -121,19 +122,23 @@ public class RegisterWorldgen {
         builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, WilderPlacedFeatures.MIXED_MUSHROOMS_PLACED);
         builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, WilderPlacedFeatures.MIXED_TREES);
         builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, WilderPlacedFeatures.FALLEN_TREES_MIXED_PLACED);
-        addBasicFeatures(builder);
+        addBasicFeatures(builder, MIXED_FOREST);
         DefaultBiomeFeatures.addForestFlowers(builder);
         DefaultBiomeFeatures.addDefaultOres(builder);
         DefaultBiomeFeatures.addDefaultDisks(builder);
     }
 
-    private static void addBasicFeatures(GenerationSettings.Builder generationSettings) {
-        DefaultBiomeFeatures.addLandCarvers(generationSettings);
-        DefaultBiomeFeatures.addAmethystGeodes(generationSettings);
-        DefaultBiomeFeatures.addDungeons(generationSettings);
-        DefaultBiomeFeatures.addMineables(generationSettings);
-        DefaultBiomeFeatures.addSprings(generationSettings);
-        DefaultBiomeFeatures.addFrozenTopLayer(generationSettings);
+    private static void addBasicFeatures(GenerationSettings.Builder builder, RegistryKey<Biome> biome) {
+        DefaultBiomeFeatures.addLandCarvers(builder);
+        DefaultBiomeFeatures.addAmethystGeodes(builder);
+        DefaultBiomeFeatures.addDungeons(builder);
+        DefaultBiomeFeatures.addMineables(builder);
+        if (biome == CYPRESS_WETLANDS) {
+            builder.feature(GenerationStep.Feature.FLUID_SPRINGS, MiscPlacedFeatures.SPRING_WATER);
+        } else {
+            DefaultBiomeFeatures.addSprings(builder);
+        }
+        DefaultBiomeFeatures.addFrozenTopLayer(builder);
     }
 
     public static void addCypressWetlandsMobs(SpawnSettings.Builder builder) {

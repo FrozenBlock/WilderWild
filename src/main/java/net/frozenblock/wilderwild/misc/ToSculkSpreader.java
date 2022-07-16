@@ -33,7 +33,7 @@ public class ToSculkSpreader implements SculkSpreadable {
             world.setBlockState(cursorPos, placementState, 3);
             return cursor.getCharge() - 1;
         }
-        return random.nextInt(spreadManager.getSpreadChance()) == 0 ? MathHelper.floor((float)cursor.getCharge() * 0.5F) : cursor.getCharge();
+        return random.nextInt(spreadManager.getSpreadChance()) == 0 ? MathHelper.floor((float) cursor.getCharge() * 0.5F) : cursor.getCharge();
     }
 
     @Override

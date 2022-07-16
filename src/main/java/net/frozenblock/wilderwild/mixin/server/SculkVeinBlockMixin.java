@@ -23,15 +23,15 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import java.util.Arrays;
 
-import static net.minecraft.block.MultifaceGrowthBlock.*;
-import static net.minecraft.client.render.WorldRenderer.DIRECTIONS;
+import static net.minecraft.block.MultifaceGrowthBlock.getProperty;
+import static net.minecraft.block.MultifaceGrowthBlock.hasDirection;
 
 @Mixin(SculkVeinBlock.class)
 public class SculkVeinBlockMixin {
 
     @Final
     @Shadow
-    private  LichenGrower allGrowTypeGrower;
+    private LichenGrower allGrowTypeGrower;
 
     /**
      * @author Frozenblock
@@ -64,7 +64,7 @@ public class SculkVeinBlockMixin {
                     this.allGrowTypeGrower.grow(blockState3, world, blockPos, spreadManager.isWorldGen());
                     Direction direction2 = direction.getOpposite();
 
-                    for (Direction direction3 : DIRECTIONS) {
+                    for (Direction direction3 : Direction.values()) {
                         if (direction3 != direction2) {
                             BlockPos blockPos2 = blockPos.offset(direction3);
                             BlockState blockState4 = world.getBlockState(blockPos2);
@@ -83,13 +83,14 @@ public class SculkVeinBlockMixin {
     }
 
     @Shadow
-    public void spreadAtSamePosition(WorldAccess world, BlockState state, BlockPos pos, Random random) {}
+    public void spreadAtSamePosition(WorldAccess world, BlockState state, BlockPos pos, Random random) {
+    }
 
     @Inject(at = @At("HEAD"), method = "spreadAtSamePosition", cancellable = true)
     public void spreadAtSamePosition(WorldAccess world, BlockState state, BlockPos pos, Random random, CallbackInfo info) {
         if (state.isOf(Blocks.SCULK_VEIN)) {
 
-            for (Direction direction : DIRECTIONS) {
+            for (Direction direction : Direction.values()) {
                 BooleanProperty booleanProperty = getProperty(direction);
                 if (state.get(booleanProperty) && world.getBlockState(pos.offset(direction)).isIn(WilderBlockTags.SCULK_VEIN_REMOVE)) {
                     state = state.with(booleanProperty, false);
@@ -106,7 +107,7 @@ public class SculkVeinBlockMixin {
     }
 
     private static boolean hasAnyDirection(BlockState state) {
-        return Arrays.stream(DIRECTIONS).anyMatch((direction) -> {
+        return Arrays.stream(Direction.values()).anyMatch((direction) -> {
             return hasDirection(state, direction);
         });
     }

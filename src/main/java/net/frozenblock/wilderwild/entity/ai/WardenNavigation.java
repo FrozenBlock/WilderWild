@@ -1,6 +1,5 @@
 package net.frozenblock.wilderwild.entity.ai;
 
-import net.minecraft.block.BlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.ai.pathing.MobNavigation;
 import net.minecraft.entity.ai.pathing.PathNode;
@@ -8,8 +7,6 @@ import net.minecraft.entity.ai.pathing.PathNodeNavigator;
 import net.minecraft.entity.ai.pathing.PathNodeType;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.tag.FluidTags;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 
@@ -25,11 +22,7 @@ public class WardenNavigation extends MobNavigation {
         this.nodeMaker.setCanEnterOpenDoors(true);
         return new PathNodeNavigator(this.nodeMaker, range) {
             public float getDistance(PathNode a, PathNode b) {
-                if (this.isEntitySubmergedInWaterOrLava(entity)) {
-                    return a.getDistance(b);
-                } else {
-                    return a.getHorizontalDistance(b);
-                }
+                return this.isEntitySubmergedInWaterOrLava(entity) ? a.getDistance(b) : a.getHorizontalDistance(b);
             }
 
             private boolean isEntitySubmergedInWaterOrLava(Entity entity) {
@@ -40,35 +33,12 @@ public class WardenNavigation extends MobNavigation {
 
     @Override
     protected boolean isAtValidPosition() {
-        if (this.isEntityTouchingWaterOrLava(this.entity)) {
-            return true;
-        } else {
-            return this.entity.isOnGround() || this.isInLiquid() || this.entity.hasVehicle();
-        }
+        return this.isEntityTouchingWaterOrLava(this.entity) || super.isAtValidPosition();
     }
 
     @Override
     protected Vec3d getPos() {
-        return new Vec3d(this.entity.getX(), this.getPathfindingY(), this.entity.getZ());
-    }
-
-    private int getPathfindingY() {
-        if (this.isEntityTouchingWaterOrLava(this.entity) && this.canSwim()) {
-            int i = this.entity.getBlockY();
-            BlockState blockState = this.world.getBlockState(new BlockPos(this.entity.getX(), i, this.entity.getZ()));
-            int j = 0;
-
-            while (blockState.getFluidState().isIn(FluidTags.WATER) || blockState.getFluidState().isIn(FluidTags.LAVA)) {
-                blockState = this.world.getBlockState(new BlockPos(this.entity.getX(), ++i, this.entity.getZ()));
-                if (++j > 16) {
-                    return this.entity.getBlockY();
-                }
-            }
-
-            return i;
-        } else {
-            return MathHelper.floor(this.entity.getY() + 0.5);
-        }
+        return this.isEntityTouchingWaterOrLava(this.entity) ? new Vec3d(this.entity.getX(), this.entity.getBodyY(0.5), this.entity.getZ()) : super.getPos();
     }
 
     @Override
