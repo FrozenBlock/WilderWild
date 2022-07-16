@@ -30,7 +30,7 @@ public abstract class SlimeMixin extends MobEntity {
     private static void canSpawn(EntityType<SlimeEntity> type, WorldAccess world, SpawnReason spawnReason, BlockPos pos, Random random, CallbackInfoReturnable<Boolean> info) {
         if (world.getDifficulty() != Difficulty.PEACEFUL) {
             if (world.getBiome(pos).isIn(WilderBiomeTags.SLIMES_SPAWN_ON_FLOATING_MOSS)) {
-                boolean test = spawnReason == SpawnReason.SPAWNER || random.nextInt(15) == 0;
+                boolean test = spawnReason == SpawnReason.SPAWNER || random.nextInt(8) == 0;
                 if (test && isFloatingMossNearby(world, pos, 1)) {
                     info.setReturnValue(true);
                     info.cancel();
