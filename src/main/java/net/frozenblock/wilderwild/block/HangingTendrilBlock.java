@@ -45,17 +45,12 @@ public class HangingTendrilBlock extends BlockWithEntity implements Waterloggabl
     public static final BooleanProperty TWITCHING;
     public static final BooleanProperty WRINGING_OUT;
     protected static final VoxelShape OUTLINE_SHAPE;
-    private final int range;
 
-    public HangingTendrilBlock(Settings settings, int range) {
+    public HangingTendrilBlock(Settings settings) {
         super(settings);
         this.setDefaultState(this.stateManager.getDefaultState().with(HANGING_TENDRIL_PHASE, HangingTendrilPhase.INACTIVE).with(WATERLOGGED, false).with(TWITCHING, false).with(WRINGING_OUT, false));
-        this.range = range;
     }
 
-    public int getRange() {
-        return this.range;
-    }
 
     public boolean canPlaceAt(BlockState state, WorldView world, BlockPos pos) {
         BlockPos blockPos = pos.up();
