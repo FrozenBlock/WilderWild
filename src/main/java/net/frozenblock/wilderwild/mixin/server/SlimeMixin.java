@@ -51,7 +51,7 @@ public abstract class SlimeMixin extends MobEntity {
 
     @Override
     public boolean canSpawn(WorldView world) {
-        return world.doesNotIntersectEntities(this);
+        return (!world.containsFluid(this.getBoundingBox()) || isFloatingMossNearby(this.getWorld(), this.getBlockPos(), 1)) && world.doesNotIntersectEntities(this);
     }
 
 }
