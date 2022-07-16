@@ -33,6 +33,10 @@ public class SculkVeinBlockMixin {
     @Shadow
     private  LichenGrower allGrowTypeGrower;
 
+    /**
+     * @author Frozenblock
+     * @reason sus
+     */
     @Overwrite
     private boolean convertToBlock(SculkSpreadManager spreadManager, WorldAccess world, BlockPos pos, Random random) {
         BlockState blockState = world.getBlockState(pos);
@@ -57,7 +61,7 @@ public class SculkVeinBlockMixin {
                     world.setBlockState(blockPos, blockState3, 3);
                     Block.pushEntitiesUpBeforeBlockChange(blockState2, blockState3, world, blockPos);
                     world.playSound(null, blockPos, SoundEvents.BLOCK_SCULK_SPREAD, SoundCategory.BLOCKS, 1.0F, 1.0F);
-                    this.allGrowTypeGrower.grow(blockState3, world, blockPos, spreadManager.isWorldGen());
+                    this.allGrowTypeGrower.grow(blockState3, world, blockPos, !spreadManager.isWorldGen());
                     Direction direction2 = direction.getOpposite();
 
                     for (Direction direction3 : DIRECTIONS) {

@@ -51,19 +51,23 @@ public class SculkSpreadManagerCursorMixin {
     @Shadow
     private Set<Direction> faces;
 
+    /**
+     * @author Frozenblock
+     * @reason
+     */
     @Overwrite
     public void spread(WorldAccess world, BlockPos pos, Random random, SculkSpreadManager spreadManager, boolean shouldConvertToBlock) {
         SculkSpreadManager.Cursor cursor = SculkSpreadManager.Cursor.class.cast(this);
-        if (this.canSpread(world, pos, spreadManager.isWorldGen())) {
+        if (this.canSpread(world, pos, !spreadManager.isWorldGen())) {
             if (this.update > 0) {
                 --this.update;
             } else {
                 BlockState blockState = world.getBlockState(this.pos);
-                SculkSpreadable sculkSpreadable = getSpreadableNew(blockState, spreadManager.isWorldGen());
+                SculkSpreadable sculkSpreadable = getSpreadableNew(blockState, !spreadManager.isWorldGen());
                 if (shouldConvertToBlock && sculkSpreadable.spread(world, this.pos, blockState, this.faces, spreadManager.isWorldGen())) { //Place Veins
                     if (sculkSpreadable.shouldConvertToSpreadable()) {
                         blockState = world.getBlockState(this.pos);
-                        sculkSpreadable = getSpreadableNew(blockState, spreadManager.isWorldGen());
+                        sculkSpreadable = getSpreadableNew(blockState, !spreadManager.isWorldGen());
                     }
 
                     world.playSound(null, this.pos, SoundEvents.BLOCK_SCULK_SPREAD, SoundCategory.BLOCKS, 1.0F, 1.0F);
@@ -77,7 +81,7 @@ public class SculkSpreadManagerCursorMixin {
                     if (blockPos != null) {
                         sculkSpreadable.spreadAtSamePosition(world, blockState, this.pos, random);
                         this.pos = blockPos.toImmutable();
-                        if (spreadManager.isWorldGen() && !this.pos.isWithinDistance(new Vec3i(pos.getX(), this.pos.getY(), pos.getZ()), 15.0D)) {
+                        if (!spreadManager.isWorldGen() && !this.pos.isWithinDistance(new Vec3i(pos.getX(), this.pos.getY(), pos.getZ()), 15.0D)) {
                             this.charge = 0;
                             return;
                         }
