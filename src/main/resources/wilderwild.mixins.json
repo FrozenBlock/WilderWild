@@ -23,6 +23,7 @@
 	"server.SignTypeAccessor",
 	"server.SlimeMixin",
 	"server.SonicBoomTaskMixin",
+	"server.SpawnRestrictionMixin",
 	"server.VibrationListenerMixin",
 	"server.WardenBrainMixin",
 	"server.WardenEntityMixin",
