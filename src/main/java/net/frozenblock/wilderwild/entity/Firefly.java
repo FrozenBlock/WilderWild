@@ -303,7 +303,7 @@ public class Firefly extends PathAwareEntity implements Flutterer {
         }
         if (world instanceof ServerWorld server) {
             if (nectar) {
-                EasyPacket.createMovingLoopingSound(server, this, SoundEvents.ENTITY_BEE_LOOP_AGGRESSIVE, SoundCategory.NEUTRAL, 1.0F, 1.5F);
+                EasyPacket.createMovingLoopingSound(server, this, SoundEvents.ENTITY_BEE_LOOP_AGGRESSIVE, SoundCategory.NEUTRAL, 1.0F, 1.5F, WilderWild.id("nectar"));
             }
         }
         super.tick();

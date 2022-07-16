@@ -13,10 +13,12 @@ import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvent;
+import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.world.World;
+import org.jetbrains.annotations.Nullable;
 
 public class EasyPacket {
 
@@ -128,7 +130,7 @@ public class EasyPacket {
         }
     }
 
-    public static void createMovingLoopingSound(World world, Entity entity, SoundEvent sound, SoundCategory category, float volume, float pitch) {
+    public static void createMovingLoopingSound(World world, Entity entity, SoundEvent sound, SoundCategory category, float volume, float pitch, Identifier id) {
         if (world.isClient)
             throw new IllegalStateException("no sounds on the client, you freaking idiot!");
         PacketByteBuf byteBuf = new PacketByteBuf(Unpooled.buffer());
@@ -137,6 +139,7 @@ public class EasyPacket {
         byteBuf.writeEnumConstant(category);
         byteBuf.writeFloat(volume);
         byteBuf.writeFloat(pitch);
+        byteBuf.writeIdentifier(id);
         for (ServerPlayerEntity player : PlayerLookup.around((ServerWorld) world, entity.getBlockPos(), 32)) {
             ServerPlayNetworking.send(player, WilderWild.MOVING_LOOPING_SOUND_PACKET, byteBuf);
         }
