@@ -127,7 +127,7 @@ public class SculkSpreadManagerCursorMixin {
         }
     }
 
-    @Shadow
+    @Overwrite
     private static boolean canSpread(WorldAccess world, BlockPos sourcePos, BlockPos targetPos) {
         if (sourcePos.getManhattanDistance(targetPos) == 1) {
             return true;
@@ -174,7 +174,8 @@ public class SculkSpreadManagerCursorMixin {
         return Util.copyShuffled(OFFSETS, random);
     }
 
-    @Shadow
+
+    @Overwrite
     @Nullable
     private static BlockPos getSpreadPos(WorldAccess world, BlockPos pos, Random random) {
         BlockPos.Mutable mutable = pos.mutableCopy();
@@ -194,5 +195,4 @@ public class SculkSpreadManagerCursorMixin {
 
         return mutable.equals(pos) ? null : mutable;
     }
-
 }
