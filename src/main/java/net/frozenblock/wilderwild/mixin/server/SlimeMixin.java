@@ -8,10 +8,7 @@ import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.mob.SlimeEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.random.Random;
-import net.minecraft.world.Difficulty;
-import net.minecraft.world.World;
-import net.minecraft.world.WorldAccess;
-import net.minecraft.world.WorldView;
+import net.minecraft.world.*;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -29,7 +26,8 @@ public abstract class SlimeMixin extends MobEntity {
     @Inject(method = "canSpawn", at = @At("HEAD"), cancellable = true)
     private static void canSpawn(EntityType<SlimeEntity> type, WorldAccess world, SpawnReason spawnReason, BlockPos pos, Random random, CallbackInfoReturnable<Boolean> info) {
         if (world.getDifficulty() != Difficulty.PEACEFUL) {
-            if (world.getBiome(pos).isIn(WilderBiomeTags.SLIMES_SPAWN_ON_FLOATING_MOSS)) {
+            //if (world.getBiome(pos).isIn(WilderBiomeTags.SLIMES_SPAWN_ON_FLOATING_MOSS)) {
+            if (world.getLightLevel(LightType.BLOCK, pos) < 8) {
                 boolean test = spawnReason == SpawnReason.SPAWNER || random.nextInt(5) == 0;
                 if (test && isFloatingMossNearby(world, pos, 1)) {
                     info.setReturnValue(true);
