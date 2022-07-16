@@ -5,9 +5,13 @@ import net.frozenblock.wilderwild.tag.WilderBlockTags;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.SculkSpreadManager;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.random.Random;
 import net.minecraft.world.WorldAccess;
+import org.jetbrains.annotations.Nullable;
+
+import java.util.Collection;
 
 public class ToSculkSpreader implements SculkSpreadable {
     @Override
@@ -30,5 +34,15 @@ public class ToSculkSpreader implements SculkSpreadable {
             return cursor.getCharge() - 1;
         }
         return random.nextInt(spreadManager.getSpreadChance()) == 0 ? MathHelper.floor((float)cursor.getCharge() * 0.5F) : cursor.getCharge();
+    }
+
+    @Override
+    public boolean spread(WorldAccess world, BlockPos pos, BlockState state, @Nullable Collection<Direction> directions, boolean markForPostProcessing) {
+        BlockState currentState = world.getBlockState(pos);
+        if (currentState.isIn(WilderBlockTags.SCULK_STAIR_REPLACEABLE_WORLDGEN)) {
+            return true;
+        } else if (currentState.isIn(WilderBlockTags.SCULK_WALL_REPLACEABLE_WORLDGEN)) {
+            return true;
+        } else return currentState.isIn(WilderBlockTags.SCULK_SLAB_REPLACEABLE_WORLDGEN);
     }
 }
