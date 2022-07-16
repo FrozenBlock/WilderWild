@@ -175,7 +175,8 @@ public class SculkSpreadManagerCursorMixin {
         for (Vec3i vec3i : shuffleOffsets(random)) {
             mutable2.set(pos, vec3i);
             BlockState blockState = world.getBlockState(mutable2);
-            if (blockState.getBlock() instanceof SculkSpreadable && canSpread(world, pos, (BlockPos) mutable2)) {
+            boolean isInTags = blockState.isIn(WilderBlockTags.SCULK_SLAB_REPLACEABLE_WORLDGEN) || blockState.isIn(WilderBlockTags.SCULK_WALL_REPLACEABLE_WORLDGEN) || blockState.isIn(WilderBlockTags.SCULK_STAIR_REPLACEABLE_WORLDGEN);
+            if ((blockState.getBlock() instanceof SculkSpreadable || isInTags) && canSpread(world, pos, mutable2)) {
                 mutable.set(mutable2);
                 if (SculkVeinBlock.veinCoversSculkReplaceable(world, blockState, mutable2)) {
                     break;

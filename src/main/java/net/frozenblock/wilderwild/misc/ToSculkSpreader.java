@@ -38,11 +38,6 @@ public class ToSculkSpreader implements SculkSpreadable {
 
     @Override
     public boolean spread(WorldAccess world, BlockPos pos, BlockState state, @Nullable Collection<Direction> directions, boolean markForPostProcessing) {
-        BlockState currentState = world.getBlockState(pos);
-        if (currentState.isIn(WilderBlockTags.SCULK_STAIR_REPLACEABLE_WORLDGEN)) {
-            return true;
-        } else if (currentState.isIn(WilderBlockTags.SCULK_WALL_REPLACEABLE_WORLDGEN)) {
-            return true;
-        } else return currentState.isIn(WilderBlockTags.SCULK_SLAB_REPLACEABLE_WORLDGEN);
+        return true;
     }
 }
