@@ -5,7 +5,6 @@ import com.mojang.serialization.Dynamic;
 import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.entity.ai.FireflyBrain;
 import net.frozenblock.wilderwild.entity.ai.FireflyHidingGoal;
-import net.frozenblock.wilderwild.misc.PVZGWSound.MovingSoundLoop;
 import net.frozenblock.wilderwild.misc.server.EasyPacket;
 import net.frozenblock.wilderwild.registry.RegisterItems;
 import net.frozenblock.wilderwild.registry.RegisterSounds;
@@ -304,7 +303,7 @@ public class Firefly extends PathAwareEntity implements Flutterer {
         }
         if (world instanceof ServerWorld server) {
             if (nectar) {
-                MovingSoundLoop.createMovingLoopingSound(server, this, SoundEvents.ENTITY_BEE_LOOP_AGGRESSIVE, SoundCategory.NEUTRAL, 1.0F, 1.5F);
+                EasyPacket.createMovingLoopingSound(server, this, SoundEvents.ENTITY_BEE_LOOP_AGGRESSIVE, SoundCategory.NEUTRAL, 1.0F, 1.5F);
             }
         }
         super.tick();
