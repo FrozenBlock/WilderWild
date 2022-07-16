@@ -11,8 +11,8 @@ import java.util.ArrayList;
 
 public class RegisterLoopingSoundRestrictions {
     private static boolean frozen;
-    private static ArrayList<Identifier> ids;
-    private static ArrayList<LoopPredicate<?>> predicates;
+    private static final ArrayList<Identifier> ids = new ArrayList<>();
+    private static final ArrayList<LoopPredicate<?>> predicates = new ArrayList<>();
 
     public static void register(Identifier id, LoopPredicate<?> predicate) {
         if (!frozen) {
