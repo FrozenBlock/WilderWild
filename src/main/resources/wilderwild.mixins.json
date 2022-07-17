@@ -17,9 +17,13 @@
 	"server.SculkSensorBlockMixin",
 	"server.SculkShriekerBlockEntityMixin",
 	"server.SculkShriekerBlockMixin",
+	"server.SculkSpreadManagerCursorMixin",
+	"server.SculkVeinBlockMixin",
 	"server.SculkVeinGrowCheckerMixin",
 	"server.SignTypeAccessor",
+	"server.SlimeMixin",
 	"server.SonicBoomTaskMixin",
+	"server.SpawnRestrictionMixin",
 	"server.VibrationListenerMixin",
 	"server.WardenBrainMixin",
 	"server.WardenEntityMixin",
@@ -37,6 +41,7 @@
 	"client.WardenAnimationOverwrites",
 	"client.WardenEntityModelMixin",
 	"client.WardenFeatureRendererMixin",
+	"client.WorldRendererMixin",
 	"client.XfrtrexSusFrogRenderer"
   ],
   "injectors": {

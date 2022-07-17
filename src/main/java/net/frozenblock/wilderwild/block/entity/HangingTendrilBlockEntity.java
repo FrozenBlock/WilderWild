@@ -37,7 +37,7 @@ public class HangingTendrilBlockEntity extends BlockEntity implements VibrationL
 
     public HangingTendrilBlockEntity(BlockPos pos, BlockState state) {
         super(RegisterBlockEntities.HANGING_TENDRIL, pos, state);
-        this.listener = new VibrationListener(new BlockPositionSource(this.pos), ((HangingTendrilBlock) state.getBlock()).getRange(), this, null, 0, 0);
+        this.listener = new VibrationListener(new BlockPositionSource(this.pos), 4, this, null, 0, 0);
     }
 
     public void serverTick(World world, BlockPos pos, BlockState state) {

@@ -22,6 +22,7 @@ import net.frozenblock.wilderwild.particle.PollenParticle;
 import net.frozenblock.wilderwild.particle.TermiteParticle;
 import net.frozenblock.wilderwild.registry.RegisterBlocks;
 import net.frozenblock.wilderwild.registry.RegisterEntities;
+import net.frozenblock.wilderwild.registry.RegisterLoopingSoundRestrictions;
 import net.frozenblock.wilderwild.registry.RegisterParticles;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.color.world.BiomeColors;
@@ -35,6 +36,7 @@ import net.minecraft.particle.ParticleTypes;
 import net.minecraft.screen.PlayerScreenHandler;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvent;
+import net.minecraft.util.Identifier;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.registry.Registry;
 
@@ -291,6 +293,7 @@ public class WilderWildClient implements ClientModInitializer {
             SoundCategory category = byteBuf.readEnumConstant(SoundCategory.class);
             float volume = byteBuf.readFloat();
             float pitch = byteBuf.readFloat();
+            Identifier predicateId = byteBuf.readIdentifier();
             ctx.execute(() -> {
                 ClientWorld world = MinecraftClient.getInstance().world;
                 if (world == null)
@@ -298,7 +301,11 @@ public class WilderWildClient implements ClientModInitializer {
                 Entity entity = world.getEntityById(id);
                 if (entity == null)
                     throw new IllegalStateException("Unable to play moving looping sound (from wilderwild) whilst entity does not exist!");
-                MinecraftClient.getInstance().getSoundManager().play(new MovingSoundLoop(entity, sound, category, volume, pitch));
+                RegisterLoopingSoundRestrictions.LoopPredicate<?> predicate = RegisterLoopingSoundRestrictions.getPredicate(predicateId);
+                if (predicate == null) {
+                    predicate = RegisterLoopingSoundRestrictions.getPredicate(WilderWild.id("default"));
+                }
+                MinecraftClient.getInstance().getSoundManager().play(new MovingSoundLoop(entity, sound, category, volume, pitch, predicate));
             });
         });
     }

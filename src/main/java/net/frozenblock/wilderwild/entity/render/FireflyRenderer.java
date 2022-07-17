@@ -65,28 +65,28 @@ public class FireflyRenderer extends EntityRenderer<Firefly> {
         matrices.pop();
 
         //OVERLAY
-            matrices.push();
-            matrices.scale(scale, scale, scale);
-            matrices.translate(0, yOffset, 0);
-            matrices.multiply(this.dispatcher.getRotation());
-            matrices.multiply(Vec3f.POSITIVE_Y.getDegreesQuaternion(180.0F));
+        matrices.push();
+        matrices.scale(scale, scale, scale);
+        matrices.translate(0, yOffset, 0);
+        matrices.multiply(this.dispatcher.getRotation());
+        matrices.multiply(Vec3f.POSITIVE_Y.getDegreesQuaternion(180.0F));
 
-            entry = matrices.peek();
-            matrix4f = entry.getPositionMatrix();
-            matrix3f = entry.getNormalMatrix();
+        entry = matrices.peek();
+        matrix4f = entry.getPositionMatrix();
+        matrix3f = entry.getNormalMatrix();
 
-            if (!nectar) {
-                vertexConsumer = vertexConsumers.getBuffer(RenderLayer.getEntityTranslucentEmissive(WilderWild.id("textures/entity/firefly/firefly_" + entity.getColor() + ".png")));
-            } else { //NECTAR OVERLAY
-                vertexConsumer = vertexConsumers.getBuffer(RenderLayer.getEntityTranslucentEmissive(WilderWild.id("textures/entity/firefly/nectar_overlay.png")));
-            }
+        if (!nectar) {
+            vertexConsumer = vertexConsumers.getBuffer(RenderLayer.getEntityTranslucentEmissive(WilderWild.id("textures/entity/firefly/firefly_" + entity.getColor() + ".png")));
+        } else { //NECTAR OVERLAY
+            vertexConsumer = vertexConsumers.getBuffer(RenderLayer.getEntityTranslucentEmissive(WilderWild.id("textures/entity/firefly/nectar_overlay.png")));
+        }
 
-            vertexPulsate(vertexConsumer, matrix4f, matrix3f, light, 0.0F, 0, 0, 1, age, flickers, tickDelta, overlay);
-            vertexPulsate(vertexConsumer, matrix4f, matrix3f, light, 1.0F, 0, 1, 1, age, flickers, tickDelta, overlay);
-            vertexPulsate(vertexConsumer, matrix4f, matrix3f, light, 1.0F, 1, 1, 0, age, flickers, tickDelta, overlay);
-            vertexPulsate(vertexConsumer, matrix4f, matrix3f, light, 0.0F, 1, 0, 0, age, flickers, tickDelta, overlay);
+        vertexPulsate(vertexConsumer, matrix4f, matrix3f, light, 0.0F, 0, 0, 1, age, flickers, tickDelta, overlay);
+        vertexPulsate(vertexConsumer, matrix4f, matrix3f, light, 1.0F, 0, 1, 1, age, flickers, tickDelta, overlay);
+        vertexPulsate(vertexConsumer, matrix4f, matrix3f, light, 1.0F, 1, 1, 0, age, flickers, tickDelta, overlay);
+        vertexPulsate(vertexConsumer, matrix4f, matrix3f, light, 0.0F, 1, 0, 0, age, flickers, tickDelta, overlay);
 
-            matrices.pop();
+        matrices.pop();
         super.render(entity, yaw, tickDelta, matrices, vertexConsumers, light);
     }
 

@@ -80,6 +80,16 @@ public class SculkBlockMixin {
                         j = -2;
                     }
 
+                    if (world.getBlockState(blockPos).isIn(WilderBlockTags.SCULK_STAIR_REPLACEABLE_WORLDGEN)) {
+                        blockState = RegisterBlocks.SCULK_STAIRS.getDefaultState();
+                    }
+                    if (world.getBlockState(blockPos).isIn(WilderBlockTags.SCULK_SLAB_REPLACEABLE_WORLDGEN)) {
+                        blockState = RegisterBlocks.SCULK_SLAB.getDefaultState();
+                    }
+                    if (world.getBlockState(blockPos).isIn(WilderBlockTags.SCULK_WALL_REPLACEABLE_WORLDGEN)) {
+                        blockState = RegisterBlocks.SCULK_WALL.getDefaultState();
+                    }
+
                     world.setBlockState(blockPos2, blockState, 3);
 
                     if (isWorldGen && world.getBlockState(blockPos2).getBlock() == RegisterBlocks.OSSEOUS_SCULK) {

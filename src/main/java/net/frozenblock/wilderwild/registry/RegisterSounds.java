@@ -93,8 +93,9 @@ public class RegisterSounds {
     public static final SoundEvent BLOCK_ECHO_GLASS_CRACK = register("block.echo_glass.crack");
     public static final SoundEvent BLOCK_ECHO_GLASS_REPAIR = register("block.echo_glass.repair");
 
-
     public static final SoundEvent BLOCK_SCULK_SENSOR_HICCUP = register("block.sculk_sensor.hiccup");
+
+    public static final SoundEvent BLOCK_SCULK_SHRIEKER_GARGLE = register("block.sculk_shrieker.gargle");
 
     public static final SoundEvent ENTITY_FIREFLY_HURT = register("entity.firefly.hurt");
 

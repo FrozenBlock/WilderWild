@@ -60,12 +60,12 @@ public class FallenTrunkWithLogs extends TrunkPlacer {
         int logsAboveHole = 0;
         Direction logDir = Direction.Type.HORIZONTAL.random(random);
         int placedLogs = 0;
-        boolean solidBelowInitial = !TreeFeature.canReplace(world, mutable.set(startPos.getX(), startPos.getY() - 1, startPos.getZ()));
+        boolean solidBelowInitial = !TreeFeature.canReplace(world, mutable.set(startPos.getX(), startPos.getY() - 1, startPos.getZ())) && !TreeFeature.isAirOrLeaves(world, mutable.set(startPos.getX(), startPos.getY() - 1, startPos.getZ()));
         if (solidBelowInitial) {
             for (int i = 0; i < height; ++i) {
                 int x = startPos.getX() + (logDir.getOffsetX() * i);
                 int z = startPos.getZ() + (logDir.getOffsetZ() * i);
-                boolean solidBelow = !TreeFeature.canReplace(world, mutable.set(x, startPos.getY() - 1, z));
+                boolean solidBelow = !TreeFeature.canReplace(world, mutable.set(x, startPos.getY() - 1, z)) && !TreeFeature.isAirOrLeaves(world, mutable.set(x, startPos.getY() - 1, z));
                 if (solidBelow || logsAboveHole < maxAboveHole) {
                     int holeAddition = !solidBelow ? 1 : 0;
                     if (TreeFeature.canReplace(world, mutable.set(x, startPos.getY(), z))) {

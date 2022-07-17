@@ -757,6 +757,14 @@
 		],
 		"subtitle": "subtitles.block.sculk_sensor.hiccup"
 	},
+  "block.sculk_shrieker.gargle": {
+	"sounds": [
+	  "wilderwild:block/sculk_shrieker/gargle_1",
+	  "wilderwild:block/sculk_shrieker/gargle_2",
+	  "wilderwild:block/sculk_shrieker/gargle_3"
+	],
+	"subtitle": "subtitles.block.sculk_shrieker.gargle"
+  },
 	"block.sugar_cane.break": {
 		"sounds": [
 			"wilderwild:block/sugar_cane/place1",

@@ -16,7 +16,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(SculkShriekerBlock.class)
 public class SculkShriekerBlockMixin {
 
-    @Inject(at = @At("TAIL"), method = "appendProperties", cancellable = true)
+    @Inject(at = @At("TAIL"), method = "appendProperties")
     public void appendProperties(StateManager.Builder<Block, BlockState> builder, CallbackInfo info) {
         builder.add(RegisterProperties.SOULS_TAKEN);
     }

@@ -5,7 +5,6 @@ import com.mojang.serialization.Dynamic;
 import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.entity.ai.FireflyBrain;
 import net.frozenblock.wilderwild.entity.ai.FireflyHidingGoal;
-import net.frozenblock.wilderwild.misc.PVZGWSound.MovingSoundLoop;
 import net.frozenblock.wilderwild.misc.server.EasyPacket;
 import net.frozenblock.wilderwild.registry.RegisterItems;
 import net.frozenblock.wilderwild.registry.RegisterSounds;
@@ -67,6 +66,7 @@ public class Firefly extends PathAwareEntity implements Flutterer {
     //public boolean hasHidingPlace;
     public boolean despawning;
     public int homeCheckCooldown;
+    public boolean wasNamedNectar;
 
     //public int hidingPlaceCheckCooldown;
 
@@ -303,8 +303,15 @@ public class Firefly extends PathAwareEntity implements Flutterer {
             nectar = this.getCustomName().getString().toLowerCase().contains("nectar");
         }
         if (world instanceof ServerWorld server) {
-            if (nectar) {
-                MovingSoundLoop.createMovingLoopingSound(server, this, SoundEvents.ENTITY_BEE_LOOP_AGGRESSIVE, SoundCategory.NEUTRAL, 1.0F, 1.5F);
+            if (nectar != wasNamedNectar) {
+                if (nectar) {
+                    EasyPacket.createMovingLoopingSound(server, this, SoundEvents.ENTITY_BEE_LOOP_AGGRESSIVE, SoundCategory.NEUTRAL, 1.0F, 1.5F, WilderWild.id("nectar"));
+                    this.wasNamedNectar = true;
+                } else {
+                    this.wasNamedNectar = false;
+                }
+            } else {
+                this.wasNamedNectar = false;
             }
         }
         super.tick();
@@ -444,6 +451,7 @@ public class Firefly extends PathAwareEntity implements Flutterer {
         nbt.putInt("homeCheckCooldown", this.homeCheckCooldown);
         //nbt.putBoolean("hasHidingPlace", this.hasHidingPlace);
         //nbt.putInt("hidingPlaceCheckCooldown", this.hidingPlaceCheckCooldown);
+        nbt.putBoolean("wasNamedNectar", this.wasNamedNectar);
     }
 
     public void readCustomDataFromNbt(NbtCompound nbt) {
@@ -459,6 +467,7 @@ public class Firefly extends PathAwareEntity implements Flutterer {
         this.homeCheckCooldown = nbt.getInt("homeCheckCooldown");
         //this.hasHidingPlace = nbt.getBoolean("hasHidingPlace");
         //this.hidingPlaceCheckCooldown = nbt.getInt("hidingPlaceCheckCooldown");
+        this.wasNamedNectar = nbt.getBoolean("wasNamedNectar");
     }
 
     protected boolean shouldFollowLeash() {

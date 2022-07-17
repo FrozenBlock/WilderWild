@@ -59,7 +59,7 @@ public abstract class WardenEntityMixin extends HostileEntity implements WardenA
     public SoundEvent getDeathSound() {
         String string = Formatting.strip(warden.getName().getString());
         boolean skipCheck = false;
-        if (string!=null) {
+        if (string != null) {
             if (string.equals("Osmiooo") || string.equalsIgnoreCase("kirby")) {
                 warden.playSound(RegisterSounds.ENTITY_WARDEN_KIRBY_DEATH, 5.0F, 1.0F);
                 skipCheck = true;
@@ -71,7 +71,8 @@ public abstract class WardenEntityMixin extends HostileEntity implements WardenA
             } else if (this.isSubmergedInWaterOrLava()) {
                 warden.playSound(RegisterSounds.ENTITY_WARDEN_UNDERWATER_DYING, 0.75F, 1.0F);
             }
-        } return SoundEvents.ENTITY_WARDEN_DEATH;
+        }
+        return SoundEvents.ENTITY_WARDEN_DEATH;
     }
 
     @Shadow
@@ -197,7 +198,7 @@ public abstract class WardenEntityMixin extends HostileEntity implements WardenA
                         ci.cancel();
                     }
                 }
-                if (!skip ) {
+                if (!skip) {
                     if (!this.isSubmergedInWaterOrLava()) {
                         this.getDyingAnimationState().start(warden.age);
                         ci.cancel();
@@ -345,7 +346,7 @@ public abstract class WardenEntityMixin extends HostileEntity implements WardenA
     private void WardenEntity(EntityType<? extends HostileEntity> entityType, World world, CallbackInfo ci) {
         WardenEntity wardenEntity = WardenEntity.class.cast(this);
         wardenEntity.setPathfindingPenalty(PathNodeType.WATER, 0.0F);
-        this.moveControl = new WardenMoveControl(wardenEntity, 3, 26, 0.13F, 1.0F, true);
+        this.moveControl = new WardenMoveControl(wardenEntity, 0, 26, 0.13F, 1.0F, true);
     }
 
     @Override
@@ -391,6 +392,10 @@ public abstract class WardenEntityMixin extends HostileEntity implements WardenA
     public void getDimensions(EntityPose pose, CallbackInfoReturnable<EntityDimensions> info) {
         if (this.isInSwimmingPose()) {
             info.setReturnValue(EntityDimensions.changing(warden.getType().getWidth(), 0.85F));
+            info.cancel();
+        }
+        if (deathTicks > 0) {
+            info.setReturnValue(EntityDimensions.fixed(warden.getType().getWidth(), 0.35F));
             info.cancel();
         }
     }

@@ -2,7 +2,7 @@ package net.frozenblock.wilderwild.item;
 
 import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.entity.AncientHornProjectile;
-import net.frozenblock.wilderwild.misc.PVZGWSound.MovingSoundLoop;
+import net.frozenblock.wilderwild.misc.server.EasyPacket;
 import net.frozenblock.wilderwild.registry.RegisterItems;
 import net.frozenblock.wilderwild.registry.RegisterSounds;
 import net.minecraft.client.item.TooltipContext;
@@ -153,7 +153,7 @@ public class AncientHorn extends Item {
                 projectileEntity.setVelocity(user, user.getPitch(), user.getYaw(), 0.0F, 1.0F, 0.0F);
                 projectileEntity.shotByPlayer = true;
                 server.spawnEntity(projectileEntity);
-                MovingSoundLoop.createMovingLoopingSound(server, projectileEntity, RegisterSounds.ANCIENT_HORN_PROJECTILE_LOOP, SoundCategory.NEUTRAL, 1.0F, 1.0F);
+                EasyPacket.createMovingLoopingSound(server, projectileEntity, RegisterSounds.ANCIENT_HORN_PROJECTILE_LOOP, SoundCategory.NEUTRAL, 1.0F, 1.0F, WilderWild.id("default"));
                 ItemStack mainHand = user.getStackInHand(Hand.MAIN_HAND);
                 ItemStack offHand = user.getStackInHand(Hand.OFF_HAND);
                 if (mainHand.isOf(Items.WATER_BUCKET) || mainHand.isOf(Items.POTION) || offHand.isOf(Items.WATER_BUCKET) || offHand.isOf(Items.POTION)) {

@@ -186,12 +186,12 @@ public class RegisterBlocks {
     }
 
     // SCULK
-    public static final Block SCULK_STAIRS = new SculkStairsBlock(Blocks.SCULK.getDefaultState(), FabricBlockSettings.copy(Blocks.SCULK));
-    public static final Block SCULK_SLAB = new SculkSlabBlock(FabricBlockSettings.of(Material.SCULK).strength(0.2F).sounds(BlockSoundGroup.SCULK));
-    public static final Block SCULK_WALL = new SculkWallBlock(FabricBlockSettings.copy(Blocks.SCULK));
+    public static final Block SCULK_STAIRS = new SculkStairsBlock(Blocks.SCULK.getDefaultState(), FabricBlockSettings.of(Material.SCULK).strength(0.2F).sounds(BlockSoundGroup.SCULK).dropsLike(Blocks.SCULK));
+    public static final Block SCULK_SLAB = new SculkSlabBlock(FabricBlockSettings.of(Material.SCULK).strength(0.2F).sounds(BlockSoundGroup.SCULK).dropsLike(Blocks.SCULK));
+    public static final Block SCULK_WALL = new SculkWallBlock(FabricBlockSettings.of(Material.SCULK).strength(0.2F).sounds(BlockSoundGroup.SCULK).dropsLike(Blocks.SCULK));
     public static final Block OSSEOUS_SCULK = new OsseousSculkBlock(FabricBlockSettings.of(Material.STONE, MapColor.PALE_YELLOW).requiresTool().strength(2.0F).sounds(RegisterBlockSoundGroups.OSSEOUS_SCULK));
     public static final Block HANGING_TENDRIL = new HangingTendrilBlock(FabricBlockSettings.copyOf(Blocks.SCULK_SENSOR).strength(0.7F).collidable(false).luminance((state) -> 1)
-            .sounds(RegisterBlockSoundGroups.HANGING_TENDRIL).emissiveLighting((state, world, pos) -> HangingTendrilBlock.shouldHavePogLighting(state)), 4);
+            .sounds(RegisterBlockSoundGroups.HANGING_TENDRIL).emissiveLighting((state, world, pos) -> HangingTendrilBlock.shouldHavePogLighting(state)));
     public static final Block ECHO_GLASS = new EchoGlassBlock(FabricBlockSettings.of(Material.GLASS, MapColor.CYAN).strength(0.3F).nonOpaque().sounds(RegisterBlockSoundGroups.ECHO_GLASS));
 
     public static void registerDeepDark() {
@@ -239,10 +239,10 @@ public class RegisterBlocks {
         registerBlock("carnation", CARNATION, ItemGroup.DECORATIONS);
         registerBlockWithoutBlockItem("potted_carnation", POTTED_CARNATION);
         registerBlock("glory_of_the_snow", GLORY_OF_THE_SNOW, ItemGroup.DECORATIONS);
-        registerBlockWithoutBlockItem("blue_giant_glory_of_the_snow", BLUE_GLORY_OF_THE_SNOW);
-        registerBlockWithoutBlockItem("pink_giant_glory_of_the_snow", PINK_GLORY_OF_THE_SNOW);
-        registerBlockWithoutBlockItem("violet_beauty_glory_of_the_snow", PURPLE_GLORY_OF_THE_SNOW);
-        registerBlockWithoutBlockItem("alba_glory_of_the_snow", WHITE_GLORY_OF_THE_SNOW);
+        registerBlock("blue_giant_glory_of_the_snow", BLUE_GLORY_OF_THE_SNOW, ItemGroup.DECORATIONS);
+        registerBlock("pink_giant_glory_of_the_snow", PINK_GLORY_OF_THE_SNOW, ItemGroup.DECORATIONS);
+        registerBlock("violet_beauty_glory_of_the_snow", PURPLE_GLORY_OF_THE_SNOW, ItemGroup.DECORATIONS);
+        registerBlock("alba_glory_of_the_snow", WHITE_GLORY_OF_THE_SNOW, ItemGroup.DECORATIONS);
         registerBlock("datura", DATURA, ItemGroup.DECORATIONS);
         registerBlock("milkweed", MILKWEED, ItemGroup.DECORATIONS);
         registerBlock("cattail", CATTAIL, ItemGroup.DECORATIONS);

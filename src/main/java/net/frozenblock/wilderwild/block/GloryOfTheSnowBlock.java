@@ -2,7 +2,7 @@ package net.frozenblock.wilderwild.block;
 
 import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.misc.FlowerColors;
-import net.frozenblock.wilderwild.registry.RegisterItems;
+import net.frozenblock.wilderwild.registry.RegisterBlocks;
 import net.frozenblock.wilderwild.registry.RegisterProperties;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -56,8 +56,8 @@ public class GloryOfTheSnowBlock extends MultiColorFlowerBlock {
             if (color != FlowerColors.NONE) {
                 ItemStack itemStack = player.getStackInHand(hand);
                 if (itemStack.isOf(Items.SHEARS)) {
-                    Item item = color == FlowerColors.BLUE ? RegisterItems.BLUE_GLORY_OF_THE_SNOW : color == FlowerColors.PINK ? RegisterItems.PINK_GLORY_OF_THE_SNOW :
-                            color == FlowerColors.PURPLE ? RegisterItems.PURPLE_GLORY_OF_THE_SNOW : RegisterItems.WHITE_GLORY_OF_THE_SNOW;
+                    Item item = color == FlowerColors.BLUE ? RegisterBlocks.BLUE_GLORY_OF_THE_SNOW.asItem() : color == FlowerColors.PINK ? RegisterBlocks.PINK_GLORY_OF_THE_SNOW.asItem() :
+                            color == FlowerColors.PURPLE ? RegisterBlocks.PURPLE_GLORY_OF_THE_SNOW.asItem() : RegisterBlocks.WHITE_GLORY_OF_THE_SNOW.asItem();
                     ItemStack stack = new ItemStack(item);
                     stack.setCount(world.random.nextBetween(1, 2));
                     dropStack(world, pos, stack);
