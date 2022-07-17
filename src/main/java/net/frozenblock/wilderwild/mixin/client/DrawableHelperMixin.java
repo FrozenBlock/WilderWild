@@ -15,10 +15,12 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(DrawableHelper.class)
 public class DrawableHelperMixin {
 
-    @Inject(at = @At(value = "TAIL"), method = "drawStringWithShadow", cancellable = true)
+    @Inject(at = @At(value = "HEAD"), method = "drawStringWithShadow", cancellable = true)
     private static void drawStringWithShadow(MatrixStack matrices, TextRenderer textRenderer, String text, int x, int y, int color, CallbackInfo info) {
-         info.cancel();
-         textRenderer.drawWithShadow(matrices, "Minecraft " + WilderWild.snapshotName + "/snapshot", (float) x, (float) y, color);
+        if (text.contains("Modded")) {
+            info.cancel();
+            textRenderer.drawWithShadow(matrices, "Minecraft + WilderWild " + WilderWild.snapshotName + "/snapshot", (float) x, (float) y, color);
+        }
     }
 
 }
