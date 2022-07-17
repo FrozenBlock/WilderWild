@@ -176,6 +176,13 @@ public class WilderConfiguredFeatures {
                             new RandomFeatureEntry(WilderTreePlaced.SWAMP_CYPRESS, 0.81F),
                             new RandomFeatureEntry(WilderTreePlaced.NEW_OAK_CHECKED, 0.1F)), WilderTreePlaced.FUNGUS_CYPRESS));
 
+    public static final RegistryEntry<ConfiguredFeature<RandomFeatureConfig, ?>> CYPRESS_WETLANDS_TREES_SAPLING =
+            register("cypress_wetlands_trees", Feature.RANDOM_SELECTOR,
+                    new RandomFeatureConfig(List.of(new RandomFeatureEntry(WilderTreePlaced.CYPRESS, 0.4F),
+                            new RandomFeatureEntry(WilderTreePlaced.SHORT_CYPRESS, 0.25F),
+                            new RandomFeatureEntry(WilderTreePlaced.SWAMP_CYPRESS, 0.81F)),
+                            WilderTreePlaced.FUNGUS_CYPRESS));
+
     public static final RegistryEntry<ConfiguredFeature<RandomFeatureConfig, ?>> CYPRESS_WETLANDS_TREES_WATER =
             register("cypress_wetlands_trees_water", Feature.RANDOM_SELECTOR,
                     new RandomFeatureConfig(List.of(new RandomFeatureEntry(WilderTreePlaced.CYPRESS, 0.3F),
