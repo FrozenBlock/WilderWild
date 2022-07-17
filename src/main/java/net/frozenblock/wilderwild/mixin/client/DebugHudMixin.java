@@ -47,4 +47,25 @@ public class DebugHudMixin {
         }
     }
 
+    @Inject(at = @At("TAIL"), method = "getRightText", cancellable = true)
+    protected void getRightText(CallbackInfoReturnable<List<String>> info) {
+        WildConfig.WildConfigJson config = WildConfig.getConfig();
+        if (config != null) {
+            if (config.getOverwrite_Fabric()) {
+                List<String> strings = new ArrayList<>() {{
+                    addAll(info.getReturnValue());
+                }};
+                if (FabricLoader.getInstance().isDevelopmentEnvironment() && !config.getIncludeWild()) {
+                    for (String string : strings) {
+                        String newString = string.replaceAll("wilderwild:", "minecraft:");
+                        strings.set(strings.indexOf(string), newString);
+                    }
+
+                }
+                info.setReturnValue(strings);
+                info.cancel();
+            }
+        }
+    }
+
 }
