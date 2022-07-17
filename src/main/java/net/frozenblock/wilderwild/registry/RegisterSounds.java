@@ -93,11 +93,15 @@ public class RegisterSounds {
     public static final SoundEvent BLOCK_ECHO_GLASS_CRACK = register("block.echo_glass.crack");
     public static final SoundEvent BLOCK_ECHO_GLASS_REPAIR = register("block.echo_glass.repair");
 
+    public static final SoundEvent BLOCK_TERMITE_MOUND_ENTER = register("block.termite_mound.enter");
+    public static final SoundEvent BLOCK_TERMITE_MOUND_EXIT = register("block.termite_mound.exit");
+
     public static final SoundEvent BLOCK_SCULK_SENSOR_HICCUP = register("block.sculk_sensor.hiccup");
 
     public static final SoundEvent BLOCK_SCULK_SHRIEKER_GARGLE = register("block.sculk_shrieker.gargle");
 
     public static final SoundEvent ENTITY_FIREFLY_HURT = register("entity.firefly.hurt");
+    public static final SoundEvent ENTITY_FIREFLY_NECTAR = register("entity.firefly.nectar");
 
     public static final SoundEvent FLOATING_SCULK_BUBBLE_POP = register("particle.floating_sculk_bubble.pop");
     public static final SoundEvent FLOATING_SCULK_BUBBLE_BIG_POP = register("particle.floating_sculk_bubble.big_pop");

@@ -9,6 +9,7 @@ import net.frozenblock.wilderwild.misc.server.EasyPacket;
 import net.frozenblock.wilderwild.registry.RegisterBlockEntities;
 import net.frozenblock.wilderwild.registry.RegisterBlocks;
 import net.frozenblock.wilderwild.registry.RegisterProperties;
+import net.frozenblock.wilderwild.registry.RegisterSounds;
 import net.frozenblock.wilderwild.tag.WilderBlockTags;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -101,7 +102,6 @@ public class TermiteMoundBlockEntity extends BlockEntity {
         ArrayList<Termite> termitesToRemove = new ArrayList<>();
         for (Termite termite : this.termites) {
             if (termite.tick(world)) {
-                //TODO: TERMITE SPAWNING, MOVING, AND EATING TEXTURES + PARTICLES
                 EasyPacket.EasyTermitePacket.createParticle(world, Vec3d.ofCenter(termite.pos), termite.eating ? 5 : 9);
             } else {
                 world.playSound(null, termite.pos, SoundEvents.BLOCK_BEEHIVE_ENTER, SoundCategory.NEUTRAL, 1.0F, 1.0F);
@@ -119,16 +119,14 @@ public class TermiteMoundBlockEntity extends BlockEntity {
             } else {
                 this.addTermite(pos);
                 world.emitGameEvent(null, GameEvent.BLOCK_CHANGE, Vec3d.ofCenter(pos));
-                //TODO: TERMITE SPAWN (EXIT MOUND,) DESPAWN, EATING, AND MOVING SOUNDS
-                world.playSound(null, this.pos, SoundEvents.BLOCK_BEEHIVE_EXIT, SoundCategory.NEUTRAL, 1.0F, 1.0F);
+                world.playSound(null, this.pos, RegisterSounds.BLOCK_TERMITE_MOUND_EXIT, SoundCategory.NEUTRAL, 1.0F, 1.0F);
                 this.ticksToNextTermite = this.getCachedState().get(RegisterProperties.NATURAL) ? 320 : 200;
             }
         }
         while (this.termites.size() > maxTermites) {
             Termite termite = this.termites.get(WilderWild.random().nextInt(this.termites.size()));
-            //TODO: TERMITE SPAWN (EXIT MOUND,) DESPAWN, EATING, AND MOVING SOUNDS
-            world.playSound(null, termite.pos, SoundEvents.BLOCK_BEEHIVE_ENTER, SoundCategory.NEUTRAL, 1.0F, 1.0F);
-            world.emitGameEvent(null, GameEvent.ENTITY_DIE, Vec3d.ofCenter(termite.pos));
+            world.playSound(null, termite.pos, RegisterSounds.BLOCK_TERMITE_MOUND_ENTER, SoundCategory.NEUTRAL, 1.0F, 1.0F);
+            world.emitGameEvent(null, GameEvent.TELEPORT, Vec3d.ofCenter(termite.pos));
             this.termites.remove(termite);
             world.emitGameEvent(null, GameEvent.BLOCK_CHANGE, Vec3d.ofCenter(pos));
         }
