@@ -2,6 +2,7 @@ package net.frozenblock.wilderwild.mixin.server;
 
 import com.google.gson.JsonObject;
 import net.frozenblock.wilderwild.WilderWild;
+import net.frozenblock.wilderwild.misc.WildConfig;
 import net.minecraft.MinecraftVersion;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
@@ -24,13 +25,17 @@ public class MinecraftVersionMixin {
 
     @Inject(at = @At(value = "RETURN"), method = "<init>()V")
     private void changeVersion(CallbackInfo info) {
-        this.name = !WilderWild.DEV_LOGGING ? WilderWild.snapshotName : "FROZENBLOCK";
-        this.releaseTarget = "1.19.wilderwild";
+        if (WildConfig.overwriteFabric()) {
+            this.name = !WilderWild.DEV_LOGGING ? WilderWild.snapshotName : "FROZENBLOCK";
+            this.releaseTarget = "1.19.wilderwild";
+        }
     }
 
     @Inject(at = @At("RETURN"), method = "<init>(Lcom/google/gson/JsonObject;)V")
     public void changeVersion(JsonObject jsonObject, CallbackInfo info) {
-        changeVersion(info);
+        if (WildConfig.overwriteFabric()) {
+            changeVersion(info);
+        }
     }
 
 

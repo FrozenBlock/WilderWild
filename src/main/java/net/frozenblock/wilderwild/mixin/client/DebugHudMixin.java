@@ -2,7 +2,7 @@ package net.frozenblock.wilderwild.mixin.client;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.fabricmc.loader.api.FabricLoader;
+import net.frozenblock.wilderwild.misc.WildConfig;
 import net.minecraft.client.gui.hud.DebugHud;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -21,7 +21,7 @@ public class DebugHudMixin {
 
     @Inject(at = @At("TAIL"), method = "getLeftText", cancellable = true)
     protected void getLeftText(CallbackInfoReturnable<List<String>> info) {
-        if (FabricLoader.getInstance().isDevelopmentEnvironment()) {
+        if (WildConfig.overwriteFabric()) {
             List<String> strings = new ArrayList<>() {{
                 addAll(info.getReturnValue());
             }};
