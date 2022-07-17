@@ -41,12 +41,14 @@ public abstract class SlimeMixin extends MobEntity {
         int count = 0;
         BlockPos pos;
         do {
-            if (!iterator.hasNext()) { return false; }
+            if (!iterator.hasNext()) {
+                return false;
+            }
             pos = iterator.next();
             if (world.getBlockState(pos).isOf(RegisterBlocks.FLOATING_MOSS)) {
                 count = count + 1;
             }
-        } while(count < 3);
+        } while (count < 3);
         return true;
     }
 

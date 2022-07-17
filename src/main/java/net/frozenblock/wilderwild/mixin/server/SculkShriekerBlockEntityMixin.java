@@ -40,7 +40,7 @@ public class SculkShriekerBlockEntityMixin {
         }
     }
 
-    @Inject(at = @At("HEAD"), method = "shriek", cancellable = true)
+    @Inject(at = @At("HEAD"), method = "shriek(Lnet/minecraft/server/world/ServerWorld;Lnet/minecraft/server/network/ServerPlayerEntity;)V", cancellable = true)
     public void shriek(ServerWorld world, @Nullable ServerPlayerEntity player, CallbackInfo info) {
         SculkShriekerBlockEntity entity = SculkShriekerBlockEntity.class.cast(this);
         if (entity.getCachedState().get(RegisterProperties.SOULS_TAKEN) == 2) {

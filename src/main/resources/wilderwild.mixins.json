@@ -41,6 +41,7 @@
 	"client.WardenAnimationOverwrites",
 	"client.WardenEntityModelMixin",
 	"client.WardenFeatureRendererMixin",
+	"client.WorldRendererMixin",
 	"client.XfrtrexSusFrogRenderer"
   ],
   "injectors": {

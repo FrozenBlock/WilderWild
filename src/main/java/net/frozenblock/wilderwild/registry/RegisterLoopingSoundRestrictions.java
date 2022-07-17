@@ -37,8 +37,8 @@ public class RegisterLoopingSoundRestrictions {
     }
 
     @FunctionalInterface
-    public static interface LoopPredicate<T extends Entity> {
-        public boolean test(Entity entity);
+    public interface LoopPredicate<T extends Entity> {
+        boolean test(Entity entity);
     }
 
     public static void init() {

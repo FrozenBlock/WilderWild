@@ -1,7 +1,6 @@
 package net.frozenblock.wilderwild.mixin.server;
 
 import net.frozenblock.wilderwild.WilderWild;
-import net.frozenblock.wilderwild.block.FloatingMossBlock;
 import net.frozenblock.wilderwild.block.ShelfFungusBlock;
 import net.frozenblock.wilderwild.registry.RegisterBlocks;
 import net.frozenblock.wilderwild.registry.RegisterProperties;
