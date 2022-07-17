@@ -14,9 +14,17 @@ import java.util.List;
 @Mixin(DebugHud.class)
 public class DebugHudMixin {
 
+    private static final boolean HIDE_FABRIC_RENDER = true;
+    private static final boolean HIDE_ENTITY_CULLING = true;
+
     @Inject(at = @At("RETURN"), method = "getLeftText", cancellable = true)
     protected void getLeftText(CallbackInfoReturnable<List<String>> info) {
-        info.getReturnValue().removeIf(string -> string.contains("Active renderer"));
+        if (HIDE_FABRIC_RENDER) {
+            info.getReturnValue().removeIf(string -> string.contains("Active renderer"));
+        }
+        if (HIDE_ENTITY_CULLING) {
+            info.getReturnValue().removeIf(string -> string.contains("[Culling]"));
+        }
     }
 
 }
