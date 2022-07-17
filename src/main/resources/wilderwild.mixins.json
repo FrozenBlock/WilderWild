@@ -12,6 +12,7 @@
 	"server.ChestBoatDropsMixin",
 	"server.ExperienceOrbEntityMixin",
 	"server.FlowableFluidMixin",
+	"server.MinecraftVersionMixin",
 	"server.SculkBlockMixin",
 	"server.SculkSensorBlockEntityMixin",
 	"server.SculkSensorBlockMixin",
@@ -37,6 +38,9 @@
 	"worldgen.VanillaSurfaceRulesMixin"
   ],
   "client": [
+	"client.ClientBrandRetrieverMixin",
+	"client.DebugHudMixin",
+	"client.MinecraftClientMixin",
 	"client.OsmioooWardenRenderer",
 	"client.WardenAnimationOverwrites",
 	"client.WardenEntityModelMixin",
