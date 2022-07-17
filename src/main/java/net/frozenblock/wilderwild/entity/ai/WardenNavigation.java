@@ -6,15 +6,20 @@ import net.minecraft.entity.ai.pathing.PathNode;
 import net.minecraft.entity.ai.pathing.PathNodeNavigator;
 import net.minecraft.entity.ai.pathing.PathNodeType;
 import net.minecraft.entity.mob.MobEntity;
+import net.minecraft.entity.mob.WardenEntity;
 import net.minecraft.tag.FluidTags;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
+import org.jetbrains.annotations.NotNull;
 
 public class WardenNavigation extends MobNavigation {
 
-    public WardenNavigation(MobEntity warden, World world) {
+    private final WardenEntity entity;
+
+    public WardenNavigation(@NotNull WardenEntity warden, World world) {
         super(warden, world);
+        this.entity = warden;
     }
 
     @Override
@@ -30,11 +35,6 @@ public class WardenNavigation extends MobNavigation {
                 return entity.isSubmergedIn(FluidTags.WATER) || entity.isSubmergedIn(FluidTags.LAVA);
             }
         };
-    }
-
-    @Override
-    protected boolean isAtValidPosition() {
-        return this.isInLiquid() || super.isAtValidPosition();
     }
 
     @Override
