@@ -17,7 +17,7 @@ public class SculkVeinGrowCheckerMixin {
 
     @Inject(at = @At("HEAD"), method = "canGrow*", cancellable = true)
     public void newBlocks(BlockView world, BlockPos pos, BlockPos growPos, Direction direction, BlockState state, CallbackInfoReturnable<Boolean> info) {
-        if (!FabricLoader.getInstance().isModLoaded("customsculk")) {
+        if (FabricLoader.getInstance().getModContainer("customsculk").isEmpty()) {
             BlockState blockState = world.getBlockState(growPos.offset(direction));
             if (blockState.isOf(RegisterBlocks.OSSEOUS_SCULK)) {
                 info.setReturnValue(false);
