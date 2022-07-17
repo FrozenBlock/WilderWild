@@ -18,8 +18,9 @@ public class ClientBrandRetrieverMixin {
     private static void getClientModName(CallbackInfoReturnable<String> info) {
         WildConfig.WildConfigJson config = WildConfig.getConfig();
         if (config != null) {
-            if (config.getOverwrite_Fabric())
+            if (config.getOverwrite_Fabric()) {
                 info.setReturnValue(FabricLoader.getInstance().isDevelopmentEnvironment() && !config.getIncludeWild() ? "vanilla" : "wilderwild");
+            }
         }
     }
 
