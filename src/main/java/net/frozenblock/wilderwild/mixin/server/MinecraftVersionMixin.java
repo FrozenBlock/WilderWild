@@ -25,7 +25,7 @@ public class MinecraftVersionMixin {
     @Inject(at = @At(value = "RETURN"), method = "<init>()V")
     private void changeVersion(CallbackInfo info) {
         this.name = !WilderWild.DEV_LOGGING ? WilderWild.snapshotName : "MOJANGSTAAAAAA";
-        this.releaseTarget = "1.20";
+        this.releaseTarget = "1.19.wilderwild";
     }
 
     @Inject(at = @At("RETURN"), method = "<init>(Lcom/google/gson/JsonObject;)V")

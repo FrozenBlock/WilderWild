@@ -2,6 +2,7 @@ package net.frozenblock.wilderwild.mixin.client;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.client.gui.hud.DebugHud;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -20,17 +21,19 @@ public class DebugHudMixin {
 
     @Inject(at = @At("TAIL"), method = "getLeftText", cancellable = true)
     protected void getLeftText(CallbackInfoReturnable<List<String>> info) {
-        List<String> strings = new ArrayList<>() {{
-            addAll(info.getReturnValue());
-        }};
-        if (HIDE_FABRIC_RENDER) {
-            strings.removeIf(string -> string.contains("Active renderer"));
+        if (FabricLoader.getInstance().isDevelopmentEnvironment()) {
+            List<String> strings = new ArrayList<>() {{
+                addAll(info.getReturnValue());
+            }};
+            if (HIDE_FABRIC_RENDER) {
+                strings.removeIf(string -> string.contains("Active renderer"));
+            }
+            if (HIDE_ENTITY_CULLING) {
+                strings.removeIf(string -> string.contains("Culling"));
+            }
+            info.setReturnValue(strings);
+            info.cancel();
         }
-        if (HIDE_ENTITY_CULLING) {
-            strings.removeIf(string -> string.contains("Culling"));
-        }
-        info.setReturnValue(strings);
-        info.cancel();
     }
 
 }

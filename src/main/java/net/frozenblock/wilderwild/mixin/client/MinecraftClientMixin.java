@@ -39,7 +39,7 @@ public class MinecraftClientMixin {
 
     @Inject(at = @At(value = "HEAD"), method = "getGameVersion", cancellable = true)
     public void getGameVersion(CallbackInfoReturnable<String> info) {
-        info.setReturnValue(!WilderWild.DEV_LOGGING ? WilderWild.snapshotName : "MOJANGSTAAAAAA");
+        info.setReturnValue(!WilderWild.DEV_LOGGING ? WilderWild.snapshotName : "FROZENBLOCK");
         info.cancel();
     }
 
