@@ -162,16 +162,20 @@ public class WilderPlacedFeatures {
             VegetationConfiguredFeatures.FLOWER_DEFAULT, modifiers(1));
 
     public static final RegistryEntry<PlacedFeature> DATURA_BIRCH = register("datura_birch",
-            WilderConfiguredFeatures.DATURA, RarityFilterPlacementModifier.of(4), SquarePlacementModifier.of(),
+            WilderConfiguredFeatures.DATURA, RarityFilterPlacementModifier.of(6), SquarePlacementModifier.of(),
             PlacedFeatures.MOTION_BLOCKING_HEIGHTMAP, BiomePlacementModifier.of());
 
-    public static final RegistryEntry<PlacedFeature> CARNATION_BIRCH = register("carnation_birch",
-            WilderConfiguredFeatures.CARNATION, RarityFilterPlacementModifier.of(4), SquarePlacementModifier.of(),
+    public static final RegistryEntry<PlacedFeature> CARNATION = register("carnation",
+            WilderConfiguredFeatures.CARNATION, RarityFilterPlacementModifier.of(5), SquarePlacementModifier.of(),
             PlacedFeatures.MOTION_BLOCKING_HEIGHTMAP, BiomePlacementModifier.of());
 
     public static final RegistryEntry<PlacedFeature> WHITE_DANDELION = register("white_dandelion",
             WilderConfiguredFeatures.WHITE_DANDELION, RarityFilterPlacementModifier.of(9), SquarePlacementModifier.of(),
             PlacedFeatures.MOTION_BLOCKING_HEIGHTMAP, BiomePlacementModifier.of());
+
+    public static final RegistryEntry<PlacedFeature> NEW_FLOWER_PLAIN = register("new_flower_plains",
+            WilderConfiguredFeatures.NEW_FLOWER_PLAIN, new PlacementModifier[]{NoiseThresholdCountPlacementModifier.of(-0.8, 15, 4), RarityFilterPlacementModifier.of(32), SquarePlacementModifier.of(),
+                    PlacedFeatures.MOTION_BLOCKING_HEIGHTMAP, BiomePlacementModifier.of()});
 
     public static final RegistryEntry<PlacedFeature> WHITE_DANDELION_CYPRESS = register("white_dandelion_cypress",
             WilderConfiguredFeatures.WHITE_DANDELION, RarityFilterPlacementModifier.of(9), SquarePlacementModifier.of(),
@@ -202,7 +206,7 @@ public class WilderPlacedFeatures {
             WilderConfiguredFeatures.TERMITE_CONFIGURED, RarityFilterPlacementModifier.of(40), CountPlacementModifier.of(1), PlacedFeatures.WORLD_SURFACE_WG_HEIGHTMAP, SquarePlacementModifier.of(), SurfaceThresholdFilterPlacementModifier.of(Heightmap.Type.WORLD_SURFACE_WG, 0, 128), BiomePlacementModifier.of());
 
     public static final RegistryEntry<PlacedFeature> GLORY_OF_THE_SNOW = register("glory_of_the_snow",
-            WilderConfiguredFeatures.GLORY_OF_THE_SNOW, RarityFilterPlacementModifier.of(5), CountPlacementModifier.of(3), PlacedFeatures.WORLD_SURFACE_WG_HEIGHTMAP, SquarePlacementModifier.of(), BiomePlacementModifier.of());
+            WilderConfiguredFeatures.GLORY_OF_THE_SNOW, RarityFilterPlacementModifier.of(7), CountPlacementModifier.of(3), PlacedFeatures.WORLD_SURFACE_WG_HEIGHTMAP, SquarePlacementModifier.of(), BiomePlacementModifier.of());
 
     public static final RegistryEntry<PlacedFeature> FLOWER_FOREST_FLOWERS = register(
             "flower_forest_flowers",

@@ -46,7 +46,6 @@ public class DefaultBiomeFeaturesMixin {
     @Overwrite
     public static void addPlainsFeatures(GenerationSettings.Builder builder) {
         WilderWild.log("Overriding " + "Plains Features" + " in order to properly update biomes!", WilderWild.UNSTABLE_LOGGING);
-        builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, VegetationPlacedFeatures.FLOWER_PLAIN);
         builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, VegetationPlacedFeatures.PATCH_GRASS_PLAIN);
     }
 
