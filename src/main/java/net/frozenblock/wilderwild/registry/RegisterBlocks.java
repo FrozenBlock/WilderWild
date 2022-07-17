@@ -239,10 +239,10 @@ public class RegisterBlocks {
         registerBlock("carnation", CARNATION, ItemGroup.DECORATIONS);
         registerBlockWithoutBlockItem("potted_carnation", POTTED_CARNATION);
         registerBlock("glory_of_the_snow", GLORY_OF_THE_SNOW, ItemGroup.DECORATIONS);
-        registerBlockWithoutBlockItem("blue_giant_glory_of_the_snow", BLUE_GLORY_OF_THE_SNOW);
-        registerBlockWithoutBlockItem("pink_giant_glory_of_the_snow", PINK_GLORY_OF_THE_SNOW);
-        registerBlockWithoutBlockItem("violet_beauty_glory_of_the_snow", PURPLE_GLORY_OF_THE_SNOW);
-        registerBlockWithoutBlockItem("alba_glory_of_the_snow", WHITE_GLORY_OF_THE_SNOW);
+        registerBlock("blue_giant_glory_of_the_snow", BLUE_GLORY_OF_THE_SNOW, ItemGroup.DECORATIONS);
+        registerBlock("pink_giant_glory_of_the_snow", PINK_GLORY_OF_THE_SNOW, ItemGroup.DECORATIONS);
+        registerBlock("violet_beauty_glory_of_the_snow", PURPLE_GLORY_OF_THE_SNOW, ItemGroup.DECORATIONS);
+        registerBlock("alba_glory_of_the_snow", WHITE_GLORY_OF_THE_SNOW, ItemGroup.DECORATIONS);
         registerBlock("datura", DATURA, ItemGroup.DECORATIONS);
         registerBlock("milkweed", MILKWEED, ItemGroup.DECORATIONS);
         registerBlock("cattail", CATTAIL, ItemGroup.DECORATIONS);
