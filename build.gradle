@@ -51,7 +51,7 @@ dependencies {
 		modRuntimeOnly "maven.modrinth:modmenu:4.0.0"
 		modRuntimeOnly "maven.modrinth:starlight:1.1.1+1.19"
 		//modRuntimeOnly "maven.modrinth:indium:1.0.6+mc1.19"
-		modRuntimeOnly "maven.modrinth:lithium:mc1.19-0.8.1"
+		//modRuntimeOnly "maven.modrinth:lithium:mc1.19-0.8.1"
 		//modRuntimeOnly "maven.modrinth:sodium:mc1.19-0.4.2"
 		modRuntimeOnly "maven.modrinth:entityculling:1.5.2-fabric-1.19"
 		//modRuntimeOnly "maven.modrinth:c2me-fabric:0.2.0+alpha.8.2+1.19"
