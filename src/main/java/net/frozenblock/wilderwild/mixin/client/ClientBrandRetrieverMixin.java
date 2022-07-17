@@ -2,6 +2,7 @@ package net.frozenblock.wilderwild.mixin.client;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.fabricmc.loader.api.FabricLoader;
 import net.frozenblock.wilderwild.misc.WildConfig;
 import net.minecraft.client.ClientBrandRetriever;
 import org.spongepowered.asm.mixin.Mixin;
@@ -18,7 +19,7 @@ public class ClientBrandRetrieverMixin {
         WildConfig.WildConfigJson config = WildConfig.getConfig();
         if (config != null) {
             if (config.getOverwrite_Fabric())
-                info.setReturnValue("wilderwild");
+                info.setReturnValue(FabricLoader.getInstance().isDevelopmentEnvironment() && !config.getIncludeWild() ? "vanilla" : "wilderwild");
         }
     }
 
