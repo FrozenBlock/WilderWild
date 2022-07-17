@@ -33,7 +33,7 @@ public class WardenNavigation extends MobNavigation {
     protected boolean isAtValidPosition() {
         return this.isInLiquid() || super.isAtValidPosition();
     }
-
+/*
     @Override
     protected Vec3d getPos() {
         return this.isInLiquid() ? new Vec3d(this.entity.getX(), this.entity.getBodyY(0.5), this.entity.getZ()) : super.getPos();
@@ -57,5 +57,5 @@ public class WardenNavigation extends MobNavigation {
     @Override
     protected boolean canWalkOnPath(PathNodeType pathType) {
         return pathType != PathNodeType.OPEN;
-    }
+    }*/
 }
