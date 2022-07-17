@@ -2,6 +2,7 @@ package net.frozenblock.wilderwild.mixin.client;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.fabricmc.loader.api.FabricLoader;
 import net.frozenblock.wilderwild.misc.WildConfig;
 import net.minecraft.client.gui.hud.DebugHud;
 import org.spongepowered.asm.mixin.Mixin;
@@ -32,6 +33,13 @@ public class DebugHudMixin {
                 }
                 if (HIDE_ENTITY_CULLING) {
                     strings.removeIf(string -> string.contains("Culling"));
+                }
+                if (FabricLoader.getInstance().isDevelopmentEnvironment() && !config.getIncludeWild()) {
+                    for (String string : strings) {
+                        String newString = string.replaceAll("wilderwild:", "minecraft:");
+                        strings.set(strings.indexOf(string), newString);
+                    }
+
                 }
                 info.setReturnValue(strings);
                 info.cancel();
