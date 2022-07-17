@@ -8,6 +8,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Environment(EnvType.CLIENT)
@@ -17,14 +18,19 @@ public class DebugHudMixin {
     private static final boolean HIDE_FABRIC_RENDER = true;
     private static final boolean HIDE_ENTITY_CULLING = true;
 
-    @Inject(at = @At("RETURN"), method = "getLeftText", cancellable = true)
+    @Inject(at = @At("TAIL"), method = "getLeftText", cancellable = true)
     protected void getLeftText(CallbackInfoReturnable<List<String>> info) {
+        List<String> strings = new ArrayList<>() {{
+            addAll(info.getReturnValue());
+        }};
         if (HIDE_FABRIC_RENDER) {
-            info.getReturnValue().removeIf(string -> string.contains("Active renderer"));
+            strings.removeIf(string -> string.contains("Active renderer"));
         }
         if (HIDE_ENTITY_CULLING) {
-            info.getReturnValue().removeIf(string -> string.contains("[Culling]"));
+            strings.removeIf(string -> string.contains("Culling"));
         }
+        info.setReturnValue(strings);
+        info.cancel();
     }
 
 }
