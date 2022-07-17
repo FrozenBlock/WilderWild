@@ -24,7 +24,7 @@ public class MinecraftVersionMixin {
 
     @Inject(at = @At(value = "RETURN"), method = "<init>()V")
     private void changeVersion(CallbackInfo info) {
-        this.name = !WilderWild.DEV_LOGGING ? WilderWild.snapshotName : "MOJANGSTAAAAAA";
+        this.name = !WilderWild.DEV_LOGGING ? WilderWild.snapshotName : "FROZENBLOCK";
         this.releaseTarget = "1.19.wilderwild";
     }
 
