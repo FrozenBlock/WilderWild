@@ -20,12 +20,10 @@ import net.frozenblock.wilderwild.misc.PVZGWSound.MovingSoundLoop;
 import net.frozenblock.wilderwild.particle.FloatingSculkBubbleParticle;
 import net.frozenblock.wilderwild.particle.PollenParticle;
 import net.frozenblock.wilderwild.particle.TermiteParticle;
-import net.frozenblock.wilderwild.registry.RegisterBlocks;
-import net.frozenblock.wilderwild.registry.RegisterEntities;
-import net.frozenblock.wilderwild.registry.RegisterLoopingSoundRestrictions;
-import net.frozenblock.wilderwild.registry.RegisterParticles;
+import net.frozenblock.wilderwild.registry.*;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.color.world.BiomeColors;
+import net.minecraft.client.item.ModelPredicateProviderRegistry;
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.entity.model.EntityModelLayer;
 import net.minecraft.client.world.ClientWorld;
@@ -123,6 +121,8 @@ public class WilderWildClient implements ClientModInitializer {
 
         receiveFlybySoundPacket();
         receiveMovingLoopingSoundPacket();
+
+        ModelPredicateProviderRegistry.register(RegisterItems.ANCIENT_HORN, new Identifier("tooting"), (itemStack, clientWorld, livingEntity, seed) -> livingEntity != null && livingEntity.isUsingItem() && livingEntity.getActiveItem() == itemStack ? 1.0F : 0.0F);
 
         ColorProviderRegistry.BLOCK.register(((state, world, pos, tintIndex) -> {
             if (world == null || pos == null) {

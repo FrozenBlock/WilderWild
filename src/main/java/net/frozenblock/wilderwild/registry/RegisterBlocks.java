@@ -259,7 +259,7 @@ public class RegisterBlocks {
         registerBlock("red_shelf_fungus", RED_SHELF_FUNGUS, ItemGroup.DECORATIONS);
     }
 
-    // BLOCK FAMILY
+    // BLOCK FAMILIES
     public static final BlockFamily BAOBAB = BlockFamilies.register(BAOBAB_PLANKS)
             .button(BAOBAB_BUTTON)
             .slab(BAOBAB_SLAB)
@@ -290,6 +290,7 @@ public class RegisterBlocks {
             .build();
 
     // HELLO EVERYBODY
+    // hi - treetrain
     public static void registerBlocks() {
         WilderWild.logWild("Registering Blocks for", WilderWild.UNSTABLE_LOGGING);
         registerBlock("chiseled_mud_bricks", CHISELED_MUD_BRICKS, ItemGroup.BUILDING_BLOCKS);
@@ -305,27 +306,7 @@ public class RegisterBlocks {
         Registry.register(Registry.ITEM, WilderWild.id("floating_moss"), new FloatingMossItem(FLOATING_MOSS, new FabricItemSettings().group(ItemGroup.DECORATIONS)));
         registerNotSoPlants();
 
-
-        CompostingChanceRegistry.INSTANCE.add(CARNATION, 0.65F);
-        CompostingChanceRegistry.INSTANCE.add(CATTAIL, 0.65F);
-        CompostingChanceRegistry.INSTANCE.add(DATURA, 0.65F);
-        CompostingChanceRegistry.INSTANCE.add(MILKWEED, 0.65F);
-        CompostingChanceRegistry.INSTANCE.add(RegisterItems.MILKWEED_POD, 0.25F);
-        CompostingChanceRegistry.INSTANCE.add(WHITE_DANDELION, 0.65F);
-        CompostingChanceRegistry.INSTANCE.add(FLOWERED_LILY_PAD, 0.65F);
-        CompostingChanceRegistry.INSTANCE.add(BROWN_SHELF_FUNGUS, 0.65F);
-        CompostingChanceRegistry.INSTANCE.add(RED_SHELF_FUNGUS, 0.65F);
-        CompostingChanceRegistry.INSTANCE.add(CYPRESS_LEAVES, 0.3F);
-        CompostingChanceRegistry.INSTANCE.add(BAOBAB_LEAVES, 0.3F);
-        CompostingChanceRegistry.INSTANCE.add(BAOBAB_SAPLING, 0.3F);
-        CompostingChanceRegistry.INSTANCE.add(CYPRESS_SAPLING, 0.3F);
-        CompostingChanceRegistry.INSTANCE.add(GLORY_OF_THE_SNOW, 0.65F);
-        CompostingChanceRegistry.INSTANCE.add(BLUE_GLORY_OF_THE_SNOW, 0.65F);
-        CompostingChanceRegistry.INSTANCE.add(WHITE_GLORY_OF_THE_SNOW, 0.65F);
-        CompostingChanceRegistry.INSTANCE.add(PINK_GLORY_OF_THE_SNOW, 0.65F);
-        CompostingChanceRegistry.INSTANCE.add(PURPLE_GLORY_OF_THE_SNOW, 0.65F);
-        CompostingChanceRegistry.INSTANCE.add(FLOATING_MOSS, 0.3F);
-
+        registerComposting();
         registerFlammability();
         registerFuels();
     }
@@ -382,6 +363,28 @@ public class RegisterBlocks {
 
     protected static Boolean canSpawnOnLeaves(BlockState state, BlockView world, BlockPos pos, EntityType<?> type) {
         return type == EntityType.OCELOT || type == EntityType.PARROT;
+    }
+
+    private static void registerComposting() {
+        CompostingChanceRegistry.INSTANCE.add(CARNATION, 0.65F);
+        CompostingChanceRegistry.INSTANCE.add(CATTAIL, 0.65F);
+        CompostingChanceRegistry.INSTANCE.add(DATURA, 0.65F);
+        CompostingChanceRegistry.INSTANCE.add(MILKWEED, 0.65F);
+        CompostingChanceRegistry.INSTANCE.add(RegisterItems.MILKWEED_POD, 0.25F);
+        CompostingChanceRegistry.INSTANCE.add(WHITE_DANDELION, 0.65F);
+        CompostingChanceRegistry.INSTANCE.add(FLOWERED_LILY_PAD, 0.65F);
+        CompostingChanceRegistry.INSTANCE.add(BROWN_SHELF_FUNGUS, 0.65F);
+        CompostingChanceRegistry.INSTANCE.add(RED_SHELF_FUNGUS, 0.65F);
+        CompostingChanceRegistry.INSTANCE.add(CYPRESS_LEAVES, 0.3F);
+        CompostingChanceRegistry.INSTANCE.add(BAOBAB_LEAVES, 0.3F);
+        CompostingChanceRegistry.INSTANCE.add(BAOBAB_SAPLING, 0.3F);
+        CompostingChanceRegistry.INSTANCE.add(CYPRESS_SAPLING, 0.3F);
+        CompostingChanceRegistry.INSTANCE.add(GLORY_OF_THE_SNOW, 0.65F);
+        CompostingChanceRegistry.INSTANCE.add(BLUE_GLORY_OF_THE_SNOW, 0.65F);
+        CompostingChanceRegistry.INSTANCE.add(WHITE_GLORY_OF_THE_SNOW, 0.65F);
+        CompostingChanceRegistry.INSTANCE.add(PINK_GLORY_OF_THE_SNOW, 0.65F);
+        CompostingChanceRegistry.INSTANCE.add(PURPLE_GLORY_OF_THE_SNOW, 0.65F);
+        CompostingChanceRegistry.INSTANCE.add(FLOATING_MOSS, 0.3F);
     }
 
     private static void registerFlammability() {
