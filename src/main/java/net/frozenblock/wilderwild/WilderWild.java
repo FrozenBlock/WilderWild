@@ -96,7 +96,7 @@ public class WilderWild implements ModInitializer {
 
         TermiteMoundBlockEntity.Termite.addDegradableBlocks();
         TermiteMoundBlockEntity.Termite.addNaturalDegradableBlocks();
-        WildConfig.makeAndGetConfig();
+        WildConfig.makeConfig();
     }
 
     public static Random random() {

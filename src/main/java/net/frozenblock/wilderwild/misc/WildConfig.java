@@ -16,8 +16,8 @@ public class WildConfig {
     public static WildConfigJson config = null;
 
     @Nullable
-    public static void makeAndGetConfig() {
-        if (!hasRun && config == null) {
+    public static void makeConfig() {
+        if (!hasRun) {
             FabricLoader loader = FabricLoader.getInstance();
             if (loader != null) {
                 File directory = loader.getConfigDir().toFile();
@@ -66,6 +66,9 @@ public class WildConfig {
         if (!hasRun) {
             FabricLoader loader = FabricLoader.getInstance();
             if (loader != null) {
+                if (config == null) {
+                    makeConfig();
+                }
                 File directory = loader.getConfigDir().toFile();
                 File destination = new File(directory, "config.wild");
                 directory.mkdirs();
