@@ -13,11 +13,11 @@ import java.nio.file.Files;
 public class WildConfig {
     public static boolean hasRun = false;
 
-    public static boolean OVERWRITE_FABRIC = false;
+    public static WildConfigJson config = null;
 
     @Nullable
     public static void makeAndGetConfig() {
-        if (!hasRun) {
+        if (!hasRun && config == null) {
             FabricLoader loader = FabricLoader.getInstance();
             if (loader != null) {
                 File directory = loader.getConfigDir().toFile();
@@ -29,22 +29,22 @@ public class WildConfig {
                         .serializeNulls()
                         .create();
 
-                boolean overwriteFabric = false;
                 WildConfigJson configJson = new WildConfigJson();
+                boolean skipWriting = false;
 
                 if (destination.exists()) {
                     try (Reader reader = Files.newBufferedReader(destination.toPath())) {
                         JsonElement values = JsonParser.parseReader(reader);
                         if (values.isJsonObject()) {
                             JsonObject obj = values.getAsJsonObject();
-                            overwriteFabric = obj.get("overwrite_fabric").getAsBoolean();
+                            configJson.setOverwrite_Fabric(obj.get("overwrite_fabric").getAsBoolean());
+                            configJson.setInclude_Wild(obj.get("include_wild").getAsBoolean());
                         }
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
                 }
 
-                configJson.setOverwrite_Fabric(overwriteFabric);
                 String json = gson.toJson(configJson);
 
                 try {
@@ -55,13 +55,14 @@ public class WildConfig {
                     e.printStackTrace();
                 }
 
-                OVERWRITE_FABRIC = configJson.getOverwrite_Fabric();
+                config = configJson;
                 hasRun = true;
             }
         }
     }
 
-    public static boolean overwriteFabric() {
+    @Nullable
+    public static WildConfigJson getConfig() {
         if (!hasRun) {
             FabricLoader loader = FabricLoader.getInstance();
             if (loader != null) {
@@ -69,7 +70,6 @@ public class WildConfig {
                 File destination = new File(directory, "config.wild");
                 directory.mkdirs();
 
-                boolean overwriteFabric = false;
                 WildConfigJson configJson = new WildConfigJson();
 
                 if (destination.exists()) {
@@ -77,26 +77,26 @@ public class WildConfig {
                         JsonElement values = JsonParser.parseReader(reader);
                         if (values.isJsonObject()) {
                             JsonObject obj = values.getAsJsonObject();
-                            overwriteFabric = obj.get("overwrite_fabric").getAsBoolean();
+                            configJson.setOverwrite_Fabric(obj.get("overwrite_fabric").getAsBoolean());
+                            configJson.setInclude_Wild(obj.get("include_wild").getAsBoolean());
                         }
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
                 }
 
-                configJson.setOverwrite_Fabric(overwriteFabric);
-
-                OVERWRITE_FABRIC = configJson.getOverwrite_Fabric();
+                config = configJson;
                 hasRun = true;
-                return OVERWRITE_FABRIC;
+                return config;
             }
         }
-        return OVERWRITE_FABRIC;
+        return config;
     }
 
     public static class WildConfigJson {
 
         private boolean overwrite_fabric;
+        private boolean include_wild;
 
         public boolean getOverwrite_Fabric() {
             return overwrite_fabric;
@@ -104,6 +104,14 @@ public class WildConfig {
 
         public void setOverwrite_Fabric(boolean bool) {
             this.overwrite_fabric = bool;
+        }
+
+        public boolean getIncludeWild() {
+            return include_wild;
+        }
+
+        public void setInclude_Wild(boolean bool) {
+            this.include_wild = bool;
         }
 
     }

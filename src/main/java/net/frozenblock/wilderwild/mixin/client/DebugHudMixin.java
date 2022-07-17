@@ -21,18 +21,21 @@ public class DebugHudMixin {
 
     @Inject(at = @At("TAIL"), method = "getLeftText", cancellable = true)
     protected void getLeftText(CallbackInfoReturnable<List<String>> info) {
-        if (WildConfig.overwriteFabric()) {
-            List<String> strings = new ArrayList<>() {{
-                addAll(info.getReturnValue());
-            }};
-            if (HIDE_FABRIC_RENDER) {
-                strings.removeIf(string -> string.contains("Active renderer"));
+        WildConfig.WildConfigJson config = WildConfig.getConfig();
+        if (config != null) {
+            if (config.getOverwrite_Fabric()) {
+                List<String> strings = new ArrayList<>() {{
+                    addAll(info.getReturnValue());
+                }};
+                if (HIDE_FABRIC_RENDER) {
+                    strings.removeIf(string -> string.contains("Active renderer"));
+                }
+                if (HIDE_ENTITY_CULLING) {
+                    strings.removeIf(string -> string.contains("Culling"));
+                }
+                info.setReturnValue(strings);
+                info.cancel();
             }
-            if (HIDE_ENTITY_CULLING) {
-                strings.removeIf(string -> string.contains("Culling"));
-            }
-            info.setReturnValue(strings);
-            info.cancel();
         }
     }
 

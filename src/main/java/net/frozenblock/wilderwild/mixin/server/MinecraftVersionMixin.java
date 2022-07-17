@@ -25,16 +25,22 @@ public class MinecraftVersionMixin {
 
     @Inject(at = @At(value = "RETURN"), method = "<init>()V")
     private void changeVersion(CallbackInfo info) {
-        if (WildConfig.overwriteFabric()) {
-            this.name = !WilderWild.DEV_LOGGING ? WilderWild.snapshotName : "FROZENBLOCK";
-            this.releaseTarget = "1.19.wilderwild";
+        WildConfig.WildConfigJson config = WildConfig.getConfig();
+        if (config != null) {
+            if (config.getOverwrite_Fabric()) {
+                this.name = !WilderWild.DEV_LOGGING ? WilderWild.snapshotName : "FROZENBLOCK";
+                this.releaseTarget = config.getIncludeWild() ? "1.20" : "1.19";
+            }
         }
     }
 
     @Inject(at = @At("RETURN"), method = "<init>(Lcom/google/gson/JsonObject;)V")
     public void changeVersion(JsonObject jsonObject, CallbackInfo info) {
-        if (WildConfig.overwriteFabric()) {
-            changeVersion(info);
+        WildConfig.WildConfigJson config = WildConfig.getConfig();
+        if (config != null) {
+            if (config.getOverwrite_Fabric()) {
+                changeVersion(info);
+            }
         }
     }
 

@@ -18,9 +18,12 @@ public class DrawableHelperMixin {
 
     @Inject(at = @At(value = "HEAD"), method = "drawStringWithShadow", cancellable = true)
     private static void drawStringWithShadow(MatrixStack matrices, TextRenderer textRenderer, String text, int x, int y, int color, CallbackInfo info) {
-        if (WildConfig.overwriteFabric() && text.contains("Modded")) {
-            info.cancel();
-            textRenderer.drawWithShadow(matrices, "Minecraft + WilderWild " + WilderWild.snapshotName + "/snapshot", (float) x, (float) y, color);
+        WildConfig.WildConfigJson config = WildConfig.getConfig();
+        if (config != null) {
+            if (config.getOverwrite_Fabric() && text.contains("Modded")) {
+                info.cancel();
+                textRenderer.drawWithShadow(matrices, new String(config.getIncludeWild() ? "Minecraft + WilderWild " : "Minecraft ") + WilderWild.snapshotName + "/snapshot", (float) x, (float) y, color);
+            }
         }
     }
 

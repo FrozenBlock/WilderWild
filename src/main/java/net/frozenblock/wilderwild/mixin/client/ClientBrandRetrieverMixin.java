@@ -15,8 +15,10 @@ public class ClientBrandRetrieverMixin {
 
     @Inject(at = @At(value = "TAIL"), method = "getClientModName", cancellable = true, remap = false)
     private static void getClientModName(CallbackInfoReturnable<String> info) {
-        if (WildConfig.OVERWRITE_FABRIC) {
-            info.setReturnValue("wilderwild");
+        WildConfig.WildConfigJson config = WildConfig.getConfig();
+        if (config != null) {
+            if (config.getOverwrite_Fabric())
+                info.setReturnValue("wilderwild");
         }
     }
 

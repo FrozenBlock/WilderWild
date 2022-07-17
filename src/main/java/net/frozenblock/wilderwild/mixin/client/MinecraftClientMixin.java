@@ -19,40 +19,49 @@ public class MinecraftClientMixin {
 
     @Inject(at = @At(value = "HEAD"), method = "getWindowTitle", cancellable = true)
     private void getWindowTitle(CallbackInfoReturnable<String> info) {
-        if (WildConfig.overwriteFabric()) {
-            MinecraftClient client = MinecraftClient.class.cast(this);
-            StringBuilder title = new StringBuilder();
-            title.append("Minecraft + WilderWild ").append(SharedConstants.getGameVersion().getName());
-            ClientPlayNetworkHandler clientPlayNetworkHandler = client.getNetworkHandler();
-            if (clientPlayNetworkHandler != null && clientPlayNetworkHandler.getConnection().isOpen()) {
-                title.append(" - ");
-                if (client.getServer() != null && !client.getServer().isRemote()) {
-                    title.append(I18n.translate("title.singleplayer"));
-                } else if (client.isConnectedToRealms()) {
-                    title.append(I18n.translate("title.multiplayer.realms"));
-                } else if (client.getServer() == null && (client.getCurrentServerEntry() == null || !client.getCurrentServerEntry().isLocal())) {
-                    title.append(I18n.translate("title.multiplayer.other"));
-                } else {
-                    title.append(I18n.translate("title.multiplayer.lan"));
+        WildConfig.WildConfigJson config = WildConfig.getConfig();
+        if (config != null) {
+            if (config.getOverwrite_Fabric()) {
+                MinecraftClient client = MinecraftClient.class.cast(this);
+                StringBuilder title = new StringBuilder();
+                title.append(new String(config.getIncludeWild() ? "Minecraft + WilderWild " : "Minecraft ")).append(SharedConstants.getGameVersion().getName());
+                ClientPlayNetworkHandler clientPlayNetworkHandler = client.getNetworkHandler();
+                if (clientPlayNetworkHandler != null && clientPlayNetworkHandler.getConnection().isOpen()) {
+                    title.append(" - ");
+                    if (client.getServer() != null && !client.getServer().isRemote()) {
+                        title.append(I18n.translate("title.singleplayer"));
+                    } else if (client.isConnectedToRealms()) {
+                        title.append(I18n.translate("title.multiplayer.realms"));
+                    } else if (client.getServer() == null && (client.getCurrentServerEntry() == null || !client.getCurrentServerEntry().isLocal())) {
+                        title.append(I18n.translate("title.multiplayer.other"));
+                    } else {
+                        title.append(I18n.translate("title.multiplayer.lan"));
+                    }
                 }
+                info.setReturnValue(title.toString());
             }
-            info.setReturnValue(title.toString());
         }
     }
 
     @Inject(at = @At(value = "HEAD"), method = "getGameVersion", cancellable = true)
     public void getGameVersion(CallbackInfoReturnable<String> info) {
-        if (WildConfig.overwriteFabric()) {
-            info.setReturnValue(!WilderWild.DEV_LOGGING ? WilderWild.snapshotName : "FROZENBLOCK");
-            info.cancel();
+        WildConfig.WildConfigJson config = WildConfig.getConfig();
+        if (config != null) {
+            if (config.getOverwrite_Fabric()) {
+                info.setReturnValue(!WilderWild.DEV_LOGGING ? WilderWild.snapshotName : "FROZENBLOCK");
+                info.cancel();
+            }
         }
     }
 
     @Inject(at = @At(value = "HEAD"), method = "getVersionType", cancellable = true)
     public void getVersionType(CallbackInfoReturnable<String> info) {
-        if (WildConfig.overwriteFabric()) {
-            info.setReturnValue("snapshot");
-            info.cancel();
+        WildConfig.WildConfigJson config = WildConfig.getConfig();
+        if (config != null) {
+            if (config.getOverwrite_Fabric()) {
+                info.setReturnValue("snapshot");
+                info.cancel();
+            }
         }
     }
 
