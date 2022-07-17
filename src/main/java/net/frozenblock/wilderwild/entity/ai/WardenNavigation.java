@@ -1,12 +1,10 @@
 package net.frozenblock.wilderwild.entity.ai;
 
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.ai.pathing.MobNavigation;
-import net.minecraft.entity.ai.pathing.PathNode;
-import net.minecraft.entity.ai.pathing.PathNodeNavigator;
-import net.minecraft.entity.ai.pathing.PathNodeType;
+import net.minecraft.entity.ai.pathing.*;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.tag.FluidTags;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 
@@ -43,7 +41,8 @@ public class WardenNavigation extends MobNavigation {
 
     @Override
     protected double adjustTargetY(Vec3d pos) {
-        return pos.y;
+        BlockPos blockPos = new BlockPos(pos);
+        return this.isEntityTouchingWaterOrLava(this.entity) || this.world.getBlockState(blockPos.down()).isAir() ? pos.y : WardenPathNodeMaker.getFeetY(this.world, blockPos);
     }
 
     @Override
