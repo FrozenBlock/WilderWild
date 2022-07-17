@@ -31,18 +31,18 @@ public class WardenNavigation extends MobNavigation {
 
     @Override
     protected boolean isAtValidPosition() {
-        return this.isEntityTouchingWaterOrLava(this.entity) || super.isAtValidPosition();
+        return this.isInLiquid() || super.isAtValidPosition();
     }
 
     @Override
     protected Vec3d getPos() {
-        return this.isEntityTouchingWaterOrLava(this.entity) ? new Vec3d(this.entity.getX(), this.entity.getBodyY(0.5), this.entity.getZ()) : super.getPos();
+        return this.isInLiquid() ? new Vec3d(this.entity.getX(), this.entity.getBodyY(0.5), this.entity.getZ()) : super.getPos();
     }
 
     @Override
     protected double adjustTargetY(Vec3d pos) {
         BlockPos blockPos = new BlockPos(pos);
-        return this.isEntityTouchingWaterOrLava(this.entity) || this.world.getBlockState(blockPos.down()).isAir() ? pos.y : WardenPathNodeMaker.getFeetY(this.world, blockPos);
+        return this.isInLiquid() || this.world.getBlockState(blockPos.down()).isAir() ? pos.y : WardenPathNodeMaker.getFeetY(this.world, blockPos);
     }
 
     @Override
@@ -57,9 +57,5 @@ public class WardenNavigation extends MobNavigation {
     @Override
     protected boolean canWalkOnPath(PathNodeType pathType) {
         return pathType != PathNodeType.OPEN;
-    }
-
-    private boolean isEntityTouchingWaterOrLava(Entity entity) {
-        return entity.isInsideWaterOrBubbleColumn() || entity.isInLava();
     }
 }
