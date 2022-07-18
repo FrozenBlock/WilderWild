@@ -6,7 +6,7 @@ import it.unimi.dsi.fastutil.ints.IntArrayList;
 import net.frozenblock.wilderwild.block.SculkEchoerBlock;
 import net.frozenblock.wilderwild.misc.SaveableGameEvent;
 import net.frozenblock.wilderwild.misc.server.EasyPacket;
-import net.frozenblock.wilderwild.registry.RegisterBlockEntityType;
+import net.frozenblock.wilderwild.registry.RegisterBlockEntities;
 import net.frozenblock.wilderwild.registry.RegisterGameEvents;
 import net.frozenblock.wilderwild.registry.RegisterProperties;
 import net.frozenblock.wilderwild.tag.WildEventTags;
@@ -41,7 +41,7 @@ public class SculkEchoerBlockEntity extends BlockEntity implements VibrationList
     public SaveableGameEvent savedEvent;
 
     public SculkEchoerBlockEntity(BlockPos pos, BlockState state) {
-        super(RegisterBlockEntityType.SCULK_ECHOER, pos, state);
+        super(RegisterBlockEntities.SCULK_ECHOER, pos, state);
         this.listener = new VibrationListener(new BlockPositionSource(this.pos), ((SculkEchoerBlock) state.getBlock()).getRange(), this, null, 0.0F, 0);
     }
 

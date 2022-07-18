@@ -10,6 +10,7 @@ import net.minecraft.block.entity.SculkSpreadManager;
 import net.minecraft.fluid.Fluids;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.state.property.Properties;
+import net.minecraft.tag.BlockTags;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.random.Random;
@@ -60,6 +61,7 @@ public class SculkBlockMixin {
                     BlockPos blockPos2 = blockPos.up();
                     BlockState blockState = this.getExtraBlockState(world, blockPos2, random, spreadManager.isWorldGen());
 
+                    BlockState placeBlockBelow = null;
                     BlockState stateDown = world.getBlockState(blockPos.down());
                     Block blockDown = stateDown.getBlock();
                     if ((stateDown.isAir() || blockDown == Blocks.WATER || blockDown == Blocks.LAVA || blockDown == Blocks.SCULK_VEIN)) {
@@ -97,6 +99,24 @@ public class SculkBlockMixin {
                     }
 
                     world.setBlockState(blockPos2, blockState, 3);
+
+                    if (placeBlockBelow != null) {
+                        world.removeBlock(blockPos2.down(), false);
+                        world.setBlockState(blockPos2.down(), placeBlockBelow, 3);
+                        blockPos2 = blockPos2.down().down();
+                        for (int o = 0; o < 4; o++) {
+                            stateDown = world.getBlockState(blockPos2);
+                            blockDown = stateDown.getBlock();
+                            if (stateDown.isIn(BlockTags.SCULK_REPLACEABLE) || stateDown.isAir() || blockDown == Blocks.WATER || blockDown == Blocks.LAVA || blockDown == Blocks.SCULK_VEIN || blockDown == Blocks.SCULK) {
+                                if (EasyNoiseSampler.localRandom.nextInt(o + 1) == 0) {
+                                    world.setBlockState(blockPos2, placeBlockBelow, 3);
+                                    blockPos2 = blockPos2.down();
+                                } else {
+                                    break;
+                                }
+                            }
+                        }
+                    }
 
                     if (isWorldGen && world.getBlockState(blockPos2).getBlock() == RegisterBlocks.OSSEOUS_SCULK) {
                         int amount = Math.max(0, blockState.get(OsseousSculkBlock.HEIGHT_LEFT) - random.nextInt(1));

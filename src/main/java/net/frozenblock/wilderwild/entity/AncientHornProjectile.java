@@ -274,7 +274,7 @@ public class AncientHornProjectile extends PersistentProjectileEntity {
                 WilderWild.log(RegisterBlocks.SCULK_ECHOER, pos, "Horn Projectile Touched", WilderWild.UNSTABLE_LOGGING);
                 if (SculkEchoerBlock.isInactive(blockState)) {
                     SculkEchoerBlock.setActive(owner, world, pos, world.getBlockState(pos), server.random.nextBetween(160, 220));
-                    setCooldown(getCooldown(this.getOwner(), echoerCooldown));
+                    setCooldown(getCooldown(this.getOwner(), ECHOER_COOLDOWN));
                 }
             }
         }
