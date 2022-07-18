@@ -14,6 +14,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.random.Random;
 import net.minecraft.world.World;
+import net.minecraft.world.WorldEvents;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -33,7 +34,7 @@ public class BoneMealItemMixin {
         if (state.isOf(Blocks.LILY_PAD)) {
             WilderWild.log(Blocks.LILY_PAD, blockPos, "Bonemeal", WilderWild.DEV_LOGGING);
             if (!world.isClient) {
-                world.syncWorldEvent(1505, blockPos, 0);
+                world.syncWorldEvent(WorldEvents.BONE_MEAL_USED, blockPos, 0);
                 world.setBlockState(blockPos, RegisterBlocks.FLOWERED_LILY_PAD.getDefaultState());
                 context.getStack().decrement(1);
             }
@@ -44,7 +45,7 @@ public class BoneMealItemMixin {
             if (state.get(RegisterProperties.FUNGUS_STAGE) < 4) {
                 WilderWild.log("Shelf Fungus Bonemealed @ " + blockPos + " with FungusStage of " + state.get(RegisterProperties.FUNGUS_STAGE), WilderWild.DEV_LOGGING);
                 if (!world.isClient) {
-                    world.syncWorldEvent(1505, blockPos, 0);
+                    world.syncWorldEvent(WorldEvents.BONE_MEAL_USED, blockPos, 0);
                     world.setBlockState(blockPos, state.with(RegisterProperties.FUNGUS_STAGE, state.get(RegisterProperties.FUNGUS_STAGE) + 1));
                     context.getStack().decrement(1);
                 }
@@ -58,8 +59,8 @@ public class BoneMealItemMixin {
                 for (Direction offset : shuffleOffsets(world.getRandom())) {
                     BlockPos pos = blockPos.offset(offset);
                     if (world.getBlockState(pos).isAir() && state.getBlock().canPlaceAt(state, world, pos)) {
-                        world.syncWorldEvent(1505, blockPos, 0);
-                        world.syncWorldEvent(1505, pos, 0);
+                        world.syncWorldEvent(WorldEvents.BONE_MEAL_USED, blockPos, 0);
+                        world.syncWorldEvent(WorldEvents.BONE_MEAL_USED, pos, 0);
                         world.setBlockState(pos, state);
                         context.getStack().decrement(1);
                         break;

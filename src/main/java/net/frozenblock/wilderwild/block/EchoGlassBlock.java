@@ -25,6 +25,7 @@ import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.random.Random;
 import net.minecraft.world.LightType;
 import net.minecraft.world.World;
+import net.minecraft.world.WorldEvents;
 import org.jetbrains.annotations.Nullable;
 
 public class EchoGlassBlock extends TintedGlassBlock {
@@ -57,7 +58,7 @@ public class EchoGlassBlock extends TintedGlassBlock {
         if (state.get(DAMAGE) < 3) {
             world.setBlockState(pos, state.with(DAMAGE, state.get(DAMAGE) + 1));
             world.playSound(null, pos, RegisterSounds.BLOCK_ECHO_GLASS_CRACK, SoundCategory.BLOCKS, 1.0F, 1.0F);
-            world.syncWorldEvent(null, 2001, pos, getRawIdFromState(state));
+            world.syncWorldEvent(null, WorldEvents.BLOCK_BROKEN, pos, getRawIdFromState(state));
         } else {
             world.breakBlock(pos, false);
         }
