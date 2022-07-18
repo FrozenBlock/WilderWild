@@ -1,7 +1,8 @@
 package net.frozenblock.wilderwild.block;
 
+import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.misc.FlowerColors;
-import net.frozenblock.wilderwild.registry.RegisterItems;
+import net.frozenblock.wilderwild.registry.RegisterBlocks;
 import net.frozenblock.wilderwild.registry.RegisterProperties;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -29,7 +30,7 @@ import net.minecraft.world.event.GameEvent;
 import java.util.List;
 
 public class GloryOfTheSnowBlock extends MultiColorFlowerBlock {
-    private static final VoxelShape SHAPE = Block.createCuboidShape(0.0D, 0.0D, 0.0D, 16.0D, 5.0D, 16.0D);
+    private static final VoxelShape SHAPE = Block.createCuboidShape(2.0D, 0.0D, 2.0D, 14.0D, 10.0D, 14.0D);
     public static final EnumProperty<FlowerColors> COLORS = RegisterProperties.FLOWER_COLOR;
 
     public GloryOfTheSnowBlock(Settings settings, List<FlowerColors> list) {
@@ -44,7 +45,7 @@ public class GloryOfTheSnowBlock extends MultiColorFlowerBlock {
     @Override
     public void randomTick(BlockState state, ServerWorld world, BlockPos pos, Random random) {
         if (random.nextFloat() > 0.9F && state.get(COLORS) == FlowerColors.NONE) {
-            world.setBlockState(pos, state.with(COLORS, COLOR_LIST.get((int) (Math.random() * COLOR_LIST.size()))));
+            world.setBlockState(pos, state.with(COLORS, COLOR_LIST.get(WilderWild.random().nextInt(COLOR_LIST.size()))));
         }
     }
 
@@ -55,8 +56,8 @@ public class GloryOfTheSnowBlock extends MultiColorFlowerBlock {
             if (color != FlowerColors.NONE) {
                 ItemStack itemStack = player.getStackInHand(hand);
                 if (itemStack.isOf(Items.SHEARS)) {
-                    Item item = color == FlowerColors.BLUE ? RegisterItems.BLUE_GLORY_OF_THE_SNOW : color == FlowerColors.PINK ? RegisterItems.PINK_GLORY_OF_THE_SNOW :
-                            color == FlowerColors.PURPLE ? RegisterItems.PURPLE_GLORY_OF_THE_SNOW : RegisterItems.WHITE_GLORY_OF_THE_SNOW;
+                    Item item = color == FlowerColors.BLUE ? RegisterBlocks.BLUE_GLORY_OF_THE_SNOW.asItem() : color == FlowerColors.PINK ? RegisterBlocks.PINK_GLORY_OF_THE_SNOW.asItem() :
+                            color == FlowerColors.PURPLE ? RegisterBlocks.PURPLE_GLORY_OF_THE_SNOW.asItem() : RegisterBlocks.WHITE_GLORY_OF_THE_SNOW.asItem();
                     ItemStack stack = new ItemStack(item);
                     stack.setCount(world.random.nextBetween(1, 2));
                     dropStack(world, pos, stack);

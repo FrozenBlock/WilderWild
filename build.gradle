@@ -1,11 +1,9 @@
 plugins {
 	id 'fabric-loom' version '0.12-SNAPSHOT'
 	id 'io.github.juuxel.loom-quiltflower' version '1.7.+'
+	id 'org.quiltmc.quilt-mappings-on-loom' version '4.2.1'
 	id 'maven-publish'
 }
-
-sourceCompatibility = JavaVersion.VERSION_17
-targetCompatibility = JavaVersion.VERSION_17
 
 archivesBaseName = project.archives_base_name
 version = getVersion()
@@ -37,7 +35,10 @@ repositories {
 
 dependencies {
 	minecraft "com.mojang:minecraft:${project.minecraft_version}"
-	mappings "net.fabricmc:yarn:${project.yarn_mappings}:v2"
+	mappings(loom.layered {
+		addLayer(quiltMappings.mappings("org.quiltmc:quilt-mappings:${minecraft_version}+build.${quilt_mappings}:v2"))
+		mappings("net.fabricmc:yarn:${project.yarn_mappings}:v2")
+	})
 	modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
 
 	implementation 'javax.json:javax.json-api:1.1.4'
@@ -52,12 +53,16 @@ dependencies {
 	// only affects runClient, does not affect gradlew build. add -PuseThirdPartyMods=false to not use these
 	if (findProperty("useThirdPartyMods") != "false") {
 		modRuntimeOnly "maven.modrinth:ferrite-core:5.0.0-fabric"
-		//modRuntimeOnly "maven.modrinth:indium:1.0.6+mc1.19"
 		modRuntimeOnly "maven.modrinth:lazydfu:0.1.3"
-		//modRuntimeOnly "maven.modrinth:lithium:mc1.19-0.8.0"
-		//modRuntimeOnly "maven.modrinth:modmenu:4.0.0"
-		//modRuntimeOnly "maven.modrinth:sodium:mc1.19-0.4.2"
+		modRuntimeOnly "maven.modrinth:modmenu:4.0.4"
 		modRuntimeOnly "maven.modrinth:starlight:1.1.1+1.19"
+		//modRuntimeOnly "maven.modrinth:indium:1.0.6+mc1.19"
+		//modRuntimeOnly "maven.modrinth:lithium:mc1.19-0.8.1"
+		//modRuntimeOnly "maven.modrinth:sodium:mc1.19-0.4.2"
+		modRuntimeOnly "maven.modrinth:entityculling:1.5.2-fabric-1.19"
+		//modRuntimeOnly "maven.modrinth:c2me-fabric:0.2.0+alpha.8.2+1.19"
+		modRuntimeOnly "maven.modrinth:ksyxis:1.1"
+		//modRuntimeOnly "maven.modrinth:iris:1.19.x-v1.2.5"
 	}
 }
 
@@ -81,6 +86,9 @@ tasks.withType(Test).configureEach {
 }
 
 java {
+	sourceCompatibility = JavaVersion.VERSION_17
+	targetCompatibility = JavaVersion.VERSION_17
+
 	// Loom will automatically attach sourcesJar to a RemapSourcesJar task and to the "build" task
 	// if it is present.
 	// If you remove this line, sources will not be generated.

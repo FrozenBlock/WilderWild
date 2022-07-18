@@ -2,7 +2,7 @@ package net.frozenblock.wilderwild.block;
 
 import net.frozenblock.wilderwild.block.entity.HangingTendrilBlockEntity;
 import net.frozenblock.wilderwild.block.entity.HangingTendrilPhase;
-import net.frozenblock.wilderwild.registry.RegisterBlockEntityType;
+import net.frozenblock.wilderwild.registry.RegisterBlockEntities;
 import net.frozenblock.wilderwild.registry.RegisterBlocks;
 import net.frozenblock.wilderwild.registry.RegisterProperties;
 import net.frozenblock.wilderwild.registry.RegisterSounds;
@@ -45,17 +45,12 @@ public class HangingTendrilBlock extends BlockWithEntity implements Waterloggabl
     public static final BooleanProperty TWITCHING;
     public static final BooleanProperty WRINGING_OUT;
     protected static final VoxelShape OUTLINE_SHAPE;
-    private final int range;
 
-    public HangingTendrilBlock(Settings settings, int range) {
+    public HangingTendrilBlock(Settings settings) {
         super(settings);
         this.setDefaultState(this.stateManager.getDefaultState().with(HANGING_TENDRIL_PHASE, HangingTendrilPhase.INACTIVE).with(WATERLOGGED, false).with(TWITCHING, false).with(WRINGING_OUT, false));
-        this.range = range;
     }
 
-    public int getRange() {
-        return this.range;
-    }
 
     public boolean canPlaceAt(BlockState state, WorldView world, BlockPos pos) {
         BlockPos blockPos = pos.up();
@@ -143,7 +138,7 @@ public class HangingTendrilBlock extends BlockWithEntity implements Waterloggabl
 
     @Nullable
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(World world, BlockState state, BlockEntityType<T> type) {
-        return !world.isClient ? checkType(type, RegisterBlockEntityType.HANGING_TENDRIL, (worldx, pos, statex, blockEntity) -> {
+        return !world.isClient ? checkType(type, RegisterBlockEntities.HANGING_TENDRIL, (worldx, pos, statex, blockEntity) -> {
             blockEntity.serverTick(worldx, pos, statex);
         }) : null;
     }

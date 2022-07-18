@@ -1,7 +1,6 @@
 package net.frozenblock.wilderwild.registry;
 
 import net.frozenblock.wilderwild.WilderWild;
-import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.world.event.GameEvent;
 
@@ -13,7 +12,7 @@ public class RegisterGameEvents {
 
     public static void registerEvents() {
         WilderWild.logWild("Registering GameEvents for", WilderWild.UNSTABLE_LOGGING);
-        Registry.register(Registry.GAME_EVENT, new Identifier(WilderWild.MOD_ID, "sculk_sensor_activate"), SCULK_SENSOR_ACTIVATE);
-        Registry.register(Registry.GAME_EVENT, new Identifier(WilderWild.MOD_ID, "hanging_tendril_extract_xp"), TENDRIL_EXTRACT_XP);
+        Registry.register(Registry.GAME_EVENT, WilderWild.id("sculk_sensor_activate"), SCULK_SENSOR_ACTIVATE);
+        Registry.register(Registry.GAME_EVENT, WilderWild.id("hanging_tendril_extract_xp"), TENDRIL_EXTRACT_XP);
     }
 }

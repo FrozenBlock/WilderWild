@@ -19,12 +19,12 @@ public class FloatingSculkBubbleParticle extends AbstractSlowingParticle {
     private float currentInflation = 0;
     private float targetInflation = 2;
 
-    public int getBrightness(float f) {
+    public int getBrightness(float tint) {
         return 240;
     }
 
-    protected FloatingSculkBubbleParticle(ClientWorld clientWorld, double d, double e, double f, double size, double maxAge, double yVel, SpriteProvider spriteProvider) {
-        super(clientWorld, d, e, f, 0, 0, 0);
+    protected FloatingSculkBubbleParticle(ClientWorld clientWorld, double x, double y, double z, double size, double maxAge, double yVel, SpriteProvider spriteProvider) {
+        super(clientWorld, x, y, z, 0, 0, 0);
         this.velocityX = (Math.random() - 0.5) / 9.5;
         this.velocityZ = (Math.random() - 0.5) / 9.5;
         this.spriteProvider = spriteProvider;
@@ -128,8 +128,8 @@ public class FloatingSculkBubbleParticle extends AbstractSlowingParticle {
         }
 
         @Override
-        public Particle createParticle(DefaultParticleType defaultParticleType, ClientWorld clientWorld, double d, double e, double f, double size, double maxAge, double yVel) {
-            FloatingSculkBubbleParticle bubble = new FloatingSculkBubbleParticle(clientWorld, d, e, f, size, maxAge, yVel, this.spriteProvider);
+        public Particle createParticle(DefaultParticleType defaultParticleType, ClientWorld clientWorld, double x, double y, double z, double size, double maxAge, double yVel) {
+            FloatingSculkBubbleParticle bubble = new FloatingSculkBubbleParticle(clientWorld, x, y, z, size, maxAge, yVel, this.spriteProvider);
             bubble.setAlpha(1.0F);
             return bubble;
         }
