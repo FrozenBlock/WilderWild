@@ -7,17 +7,20 @@ import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.mob.WardenEntity;
 import net.minecraft.tag.FluidTags;
 import net.minecraft.util.math.MathHelper;
+import org.jetbrains.annotations.NotNull;
 
 public class WardenMoveControl extends MoveControl {
 
-    private final int pitchChange;
-    private final int yawChange;
+    private final WardenEntity entity;
+    private final float pitchChange;
+    private final float yawChange;
     private final float speedInWater;
     private final float speedInAir;
     private final boolean buoyant;
 
-    public WardenMoveControl(WardenEntity warden, int pitchChange, int yawChange, float speedInWater, float speedInAir, boolean buoyant) {
+    public WardenMoveControl(@NotNull WardenEntity warden, float pitchChange, float yawChange, float speedInWater, float speedInAir, boolean buoyant) {
         super(warden);
+        this.entity = warden;
         this.pitchChange = pitchChange;
         this.yawChange = yawChange;
         this.speedInWater = speedInWater;
@@ -28,8 +31,8 @@ public class WardenMoveControl extends MoveControl {
     @Override
     public void tick() {
         if (this.isEntityTouchingWaterOrLava(this.entity)) {
-            if (this.buoyant && this.isEntityTouchingWaterOrLava(this.entity)) {
-                if ((((WardenEntity) this.entity).getBrain().hasMemoryModule(MemoryModuleType.ROAR_TARGET) || ((WardenEntity) this.entity).getBrain().hasMemoryModule(MemoryModuleType.ATTACK_TARGET))) {
+            if (this.buoyant) {
+                if ((this.entity.getBrain().hasMemoryModule(MemoryModuleType.ROAR_TARGET) || this.entity.getBrain().hasMemoryModule(MemoryModuleType.ATTACK_TARGET))) {
                     if (this.entity.getBrain().getOptionalMemory(MemoryModuleType.ROAR_TARGET).isPresent()) {
                         if (this.entity.getBrain().getOptionalMemory(MemoryModuleType.ROAR_TARGET).get().getY() > this.entity.getY()) {
                             this.entity.setVelocity(this.entity.getVelocity().add(0.0D, 0.008D, 0.0D));
@@ -62,7 +65,7 @@ public class WardenMoveControl extends MoveControl {
                     this.entity.setForwardSpeed(0.0F);
                 } else {
                     float h = (float) (MathHelper.atan2(f, d) * 180.0F / (float) Math.PI) - 90.0F;
-                    this.entity.setYaw(this.wrapDegrees(this.entity.getYaw(), h, (float) this.yawChange));
+                    this.entity.setYaw(this.wrapDegrees(this.entity.getYaw(), h, this.yawChange));
                     this.entity.bodyYaw = this.entity.getYaw();
                     this.entity.headYaw = this.entity.getYaw();
                     float i = (float) (this.speed * this.entity.getAttributeValue(EntityAttributes.GENERIC_MOVEMENT_SPEED));
@@ -71,7 +74,7 @@ public class WardenMoveControl extends MoveControl {
                         double j = Math.sqrt(d * d + f * f);
                         if (Math.abs(e) > 1.0E-5F || Math.abs(j) > 1.0E-5F) {
                             float k = -((float) (MathHelper.atan2(e, j) * 180.0F / (float) Math.PI));
-                            k = MathHelper.clamp(MathHelper.wrapDegrees(k), (float) (-this.pitchChange), (float) this.pitchChange);
+                            k = MathHelper.clamp(MathHelper.wrapDegrees(k), -this.pitchChange, this.pitchChange);
                             this.entity.setPitch(this.wrapDegrees(this.entity.getPitch(), k, 5.0F));
                         }
 

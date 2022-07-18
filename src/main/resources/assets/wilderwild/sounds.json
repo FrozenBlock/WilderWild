@@ -820,6 +820,40 @@
 		],
 		"subtitle": "subtitles.block.generic.footsteps"
 	},
+	"block.termite_mound.enter": {
+		"sounds": [
+			{
+				"attenuation_distance": 14,
+				"name": "block/beehive/enter",
+				"pitch": 0.7
+			},
+			{
+				"attenuation_distance": 14,
+				"name": "block/beehive/enter",
+				"pitch": 0.8
+			}
+		],
+		"subtitle": "subtitles.block.termite_mound.enter"
+	},
+	"block.termite_mound.exit": {
+		"sounds": [
+			{
+				"attenuation_distance": 14,
+				"name": "block/beehive/exit"
+			},
+			{
+				"attenuation_distance": 14,
+				"name": "block/beehive/exit",
+				"pitch": 0.9
+			},
+			{
+				"attenuation_distance": 14,
+				"name": "block/beehive/exit",
+				"pitch": 1.1
+			}
+		],
+		"subtitle": "subtitles.block.termite_mound.exit"
+	},
 	"entity.ancient_horn_projectile.dissipate": {
 		"sounds": [
 			"wilderwild:item/ancient_horn/projectile_dissipate_1",
@@ -837,6 +871,26 @@
 			"wilderwild:mob/firefly/hurt_2",
 			"wilderwild:mob/firefly/hurt_3"
 		]
+	},
+	"entity.firefly.nectar": {
+		"sounds": [
+			{
+				"attenuation_distance": 10,
+				"name": "mob/bee/aggressive1",
+				"volume": 0.8
+			},
+			{
+				"attenuation_distance": 10,
+				"name": "mob/bee/aggressive2",
+				"volume": 0.8
+			},
+			{
+				"attenuation_distance": 10,
+				"name": "mob/bee/aggressive3",
+				"volume": 0.8
+			}
+		],
+		"subtitle": "subtitles.entity.firefly.nectar"
 	},
 	"entity.warden.dying": {
 		"sounds": [

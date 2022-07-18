@@ -346,7 +346,7 @@ public abstract class WardenEntityMixin extends HostileEntity implements WardenA
     private void WardenEntity(EntityType<? extends HostileEntity> entityType, World world, CallbackInfo ci) {
         WardenEntity wardenEntity = WardenEntity.class.cast(this);
         wardenEntity.setPathfindingPenalty(PathNodeType.WATER, 0.0F);
-        this.moveControl = new WardenMoveControl(wardenEntity, 0, 26, 0.13F, 1.0F, true);
+        this.moveControl = new WardenMoveControl(wardenEntity, 3.0F, 26.0F, 0.13F, 1.0F, true);
     }
 
     @Override

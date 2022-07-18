@@ -1,17 +1,13 @@
 package net.frozenblock.wilderwild.registry;
 
-import net.fabricmc.api.EnvType;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.fabric.api.object.builder.v1.trade.TradeOfferHelper;
-import net.fabricmc.loader.api.FabricLoader;
 import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.item.AncientHorn;
 import net.frozenblock.wilderwild.item.FireflyBottle;
 import net.frozenblock.wilderwild.item.MilkweedPod;
 import net.frozenblock.wilderwild.misc.WildBoats;
-import net.minecraft.client.item.ModelPredicateProviderRegistry;
 import net.minecraft.item.*;
-import net.minecraft.util.Identifier;
 import net.minecraft.util.Rarity;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.util.registry.RegistryKey;
@@ -91,10 +87,6 @@ public class RegisterItems {
         Registry.register(Registry.ITEM, WilderWild.id("white_firefly_bottle"), WHITE_FIREFLY_BOTTLE);
 
         Registry.register(Registry.ITEM, WilderWild.id("pollen"), POLLEN);
-
-        if (FabricLoader.getInstance().getEnvironmentType() == EnvType.CLIENT) {
-            ModelPredicateProviderRegistry.register(ANCIENT_HORN, new Identifier("tooting"), (itemStack, clientWorld, livingEntity, seed) -> livingEntity != null && livingEntity.isUsingItem() && livingEntity.getActiveItem() == itemStack ? 1.0F : 0.0F);
-        }
 
         TradeOfferHelper.registerWanderingTraderOffers(2, factories -> {
             factories.add(new TradeOffers.SellItemFactory(RegisterBlocks.BAOBAB_SAPLING.asItem(), 5, 1, 8, 1));
