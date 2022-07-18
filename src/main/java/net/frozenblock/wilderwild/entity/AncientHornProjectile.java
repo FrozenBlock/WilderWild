@@ -42,6 +42,7 @@ import net.minecraft.util.registry.Registry;
 import net.minecraft.world.GameRules;
 import net.minecraft.world.RaycastContext;
 import net.minecraft.world.World;
+import net.minecraft.world.WorldEvents;
 import net.minecraft.world.event.GameEvent;
 import net.minecraft.world.explosion.Explosion;
 import org.jetbrains.annotations.NotNull;
@@ -248,7 +249,7 @@ public class AncientHornProjectile extends PersistentProjectileEntity {
                     server.spawnParticles(ParticleTypes.SCULK_SOUL, (double) pos.getX() + 0.5D, (double) pos.getY() + 1.15D, (double) pos.getZ() + 0.5D, 1, 0.2D, 0.0D, 0.2D, 0.0D);
                     trySpawnWarden(server, pos);
                     WardenEntity.addDarknessToClosePlayers(server, Vec3d.ofCenter(this.getBlockPos()), null, 40);
-                    server.syncWorldEvent(3007, pos, 0);
+                    server.syncWorldEvent(WorldEvents.SCULK_SHRIEKS, pos, 0);
                     server.emitGameEvent(GameEvent.SHRIEK, pos, GameEvent.Emitter.of(owner));
                     setCooldown(getCooldown(this.getOwner(), SHRIEKER_COOLDOWN));
                     this.setSound(RegisterSounds.ANCIENT_HORN_PROJECTILE_DISSIPATE);
