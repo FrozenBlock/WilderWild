@@ -125,7 +125,7 @@ public class WilderWildClient implements ClientModInitializer {
         EntityRendererRegistry.register(RegisterEntities.ANCIENT_HORN_PROJECTILE_ENTITY, AncientHornProjectileRenderer::new);
         EntityModelLayerRegistry.registerModelLayer(ANCIENT_HORN_PROJECTILE_LAYER, AncientHornProjectileModel::getTexturedModelData);
 
-        BlockEntityRendererRegistry.register(RegisterBlockEntityType.NEW_SCULK_SENSOR, SculkSensorBlockEntityRenderer::new);
+        BlockEntityRendererRegistry.register(RegisterBlockEntities.NEW_SCULK_SENSOR, SculkSensorBlockEntityRenderer::new);
         EntityModelLayerRegistry.registerModelLayer(SCULK_SENSOR, SculkSensorBlockEntityRenderer::getTexturedModelData);
 
         receiveAncientHornProjectilePacket();

@@ -2,8 +2,8 @@ package net.frozenblock.wilderwild.entity.render;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.frozenblock.wilderwild.WildClientMod;
 import net.frozenblock.wilderwild.WilderWild;
+import net.frozenblock.wilderwild.WilderWildClient;
 import net.frozenblock.wilderwild.block.entity.NewSculkSensorBlockEntity;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
@@ -33,7 +33,7 @@ public class SculkSensorBlockEntityRenderer<T extends NewSculkSensorBlockEntity>
     RenderLayer ACTIVE_SENSOR_LAYER = RenderLayer.getEntityCutout(new Identifier(WilderWild.MOD_ID, "textures/entity/sculk_sensor_tendrils/active_overlay.png"));
 
     public SculkSensorBlockEntityRenderer(Context ctx) {
-        ModelPart root = ctx.getLayerModelPart(WildClientMod.SCULK_SENSOR);
+        ModelPart root = ctx.getLayerModelPart(WilderWildClient.SCULK_SENSOR);
         this.base = root.getChild("base");
         this.se = root.getChild("se");
         this.ne = root.getChild("ne");
@@ -49,7 +49,7 @@ public class SculkSensorBlockEntityRenderer<T extends NewSculkSensorBlockEntity>
     }
 
     public void render(T entity, float tickDelta, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, int overlay) {
-        if (WildClientMod.RENDER_TENDRILS) {
+        if (WilderWildClient.RENDER_TENDRILS) {
             BlockState blockState = entity.getWorld() != null ? entity.getCachedState() : Blocks.SCULK_SENSOR.getDefaultState();
             if (blockState.getBlock() instanceof SculkSensorBlock) {
                 boolean active = blockState.get(Properties.SCULK_SENSOR_PHASE) == SculkSensorPhase.ACTIVE;

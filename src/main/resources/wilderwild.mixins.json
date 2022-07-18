@@ -10,7 +10,6 @@
 	"server.BoatTypeMixin",
 	"server.BoneMealItemMixin",
 	"server.ChestBoatDropsMixin",
-	"server.EntityTypeMixin",
 	"server.ExperienceOrbEntityMixin",
 	"server.MinecraftVersionMixin",
 	"server.SculkBlockMixin",

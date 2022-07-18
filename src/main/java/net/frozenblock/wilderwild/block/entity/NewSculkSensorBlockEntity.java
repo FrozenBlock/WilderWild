@@ -4,7 +4,7 @@ import com.mojang.logging.LogUtils;
 import com.mojang.serialization.DataResult;
 import com.mojang.serialization.Dynamic;
 import net.frozenblock.wilderwild.WilderWild;
-import net.frozenblock.wilderwild.registry.RegisterBlockEntityType;
+import net.frozenblock.wilderwild.registry.RegisterBlockEntities;
 import net.frozenblock.wilderwild.registry.RegisterGameEvents;
 import net.frozenblock.wilderwild.registry.RegisterProperties;
 import net.frozenblock.wilderwild.registry.RegisterSounds;
@@ -41,7 +41,7 @@ public class NewSculkSensorBlockEntity extends BlockEntity implements Callback {
     public int age;
 
     public NewSculkSensorBlockEntity(BlockPos pos, BlockState state) {
-        super(RegisterBlockEntityType.NEW_SCULK_SENSOR, pos, state);
+        super(RegisterBlockEntities.NEW_SCULK_SENSOR, pos, state);
         this.listener = new VibrationListener(new BlockPositionSource(this.pos), ((SculkSensorBlock) state.getBlock()).getRange(), this, null, 0.0F, 0);
     }
 

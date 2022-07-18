@@ -1,8 +1,8 @@
 package net.frozenblock.wilderwild.mixin.server;
 
-import net.frozenblock.wilderwild.WildClientMod;
+import net.frozenblock.wilderwild.WilderWildClient;
 import net.frozenblock.wilderwild.block.entity.NewSculkSensorBlockEntity;
-import net.frozenblock.wilderwild.registry.RegisterBlockEntityType;
+import net.frozenblock.wilderwild.registry.RegisterBlockEntities;
 import net.frozenblock.wilderwild.registry.RegisterProperties;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockRenderType;
@@ -56,9 +56,9 @@ public class SculkSensorBlockMixin {
     @Nullable
     @Inject(at = @At("HEAD"), method = "getTicker", cancellable = true)
     public <T extends BlockEntity> void getTicker(World world, BlockState state, BlockEntityType<T> type, CallbackInfoReturnable<BlockEntityTicker<T>> info) {
-        BlockEntityTicker<T> ticker = !world.isClient ? checkType(type, RegisterBlockEntityType.NEW_SCULK_SENSOR, (worldx, pos, statex, blockEntity) -> {
+        BlockEntityTicker<T> ticker = !world.isClient ? checkType(type, RegisterBlockEntities.NEW_SCULK_SENSOR, (worldx, pos, statex, blockEntity) -> {
             blockEntity.tickServer(worldx, pos, statex);
-        }) : checkType(type, RegisterBlockEntityType.NEW_SCULK_SENSOR, (worldx, pos, statex, blockEntity) -> {
+        }) : checkType(type, RegisterBlockEntities.NEW_SCULK_SENSOR, (worldx, pos, statex, blockEntity) -> {
             blockEntity.tickClient();
         });
         if (ticker == null) {
@@ -72,7 +72,7 @@ public class SculkSensorBlockMixin {
 
     @Inject(at = @At("HEAD"), method = "getRenderType", cancellable = true)
     public void getRenderType(BlockState state, CallbackInfoReturnable<BlockRenderType> info) {
-        info.setReturnValue(WildClientMod.RENDER_TENDRILS ? BlockRenderType.INVISIBLE : BlockRenderType.MODEL);
+        info.setReturnValue(WilderWildClient.RENDER_TENDRILS ? BlockRenderType.INVISIBLE : BlockRenderType.MODEL);
     }
 
 
