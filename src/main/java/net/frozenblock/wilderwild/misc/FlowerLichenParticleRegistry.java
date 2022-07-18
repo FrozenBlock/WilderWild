@@ -19,6 +19,6 @@ public class FlowerLichenParticleRegistry {
         particles.add(particle);
     }
 
-    public static List<Block> blocks = new ArrayList<>();
-    public static List<ParticleEffect> particles = new ArrayList<>();
+    public static final List<Block> blocks = new ArrayList<>();
+    public static final List<ParticleEffect> particles = new ArrayList<>();
 }

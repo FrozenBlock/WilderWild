@@ -1,5 +1,6 @@
 package net.frozenblock.api.simplemethods;
 
+import net.frozenblock.wilderwild.WilderWild;
 import net.minecraft.block.Block;
 import net.minecraft.entity.EntityType;
 import net.minecraft.fluid.Fluid;
@@ -47,7 +48,7 @@ public class WilderTags {
             }
         }
         if (!blocks.isEmpty()) {
-            return blocks.get((int) (Math.random() * blocks.size()));
+            return blocks.get(WilderWild.random().nextInt(blocks.size()));
         }
         return null;
     }

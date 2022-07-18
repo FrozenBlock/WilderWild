@@ -4,14 +4,19 @@ import io.netty.buffer.Unpooled;
 import net.fabricmc.fabric.api.networking.v1.PlayerLookup;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.frozenblock.wilderwild.WilderWild;
-import net.frozenblock.wilderwild.entity.FireflyEntity;
+import net.frozenblock.wilderwild.entity.Firefly;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
+import net.minecraft.sound.SoundCategory;
+import net.minecraft.sound.SoundEvent;
+import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
+import net.minecraft.util.registry.Registry;
 import net.minecraft.world.World;
 
 public class EasyPacket {
@@ -67,6 +72,20 @@ public class EasyPacket {
         }
     }
 
+    public static class EasySensorHiccupPacket {
+        public static void createParticle(World world, Vec3d pos) {
+            if (world.isClient)
+                throw new IllegalStateException("Particle attempting spawning on THE CLIENT JESUS CHRIST WHAT THE HECK SPAWN ON SERVER NEXT TIME STUPID IDIOT");
+            PacketByteBuf byteBuf = new PacketByteBuf(Unpooled.buffer());
+            byteBuf.writeDouble(pos.x);
+            byteBuf.writeDouble(pos.y);
+            byteBuf.writeDouble(pos.z);
+            for (ServerPlayerEntity player : PlayerLookup.around((ServerWorld) world, pos, 32)) {
+                ServerPlayNetworking.send(player, WilderWild.SENSOR_HICCUP_PACKET, byteBuf);
+            }
+        }
+    }
+
     public static class EasyTermitePacket {
         public static void createParticle(World world, Vec3d pos, int count) {
             if (world.isClient)
@@ -83,7 +102,7 @@ public class EasyPacket {
     }
 
     public static class EasyCompetitionPacket {
-        public static void sendFireflyCaptureInfo(World world, PlayerEntity player, FireflyEntity firefly) { //Can possibly be used for competitions
+        public static void sendFireflyCaptureInfo(World world, PlayerEntity player, Firefly firefly) { //Can possibly be used for competitions
             if (world.isClient)
                 throw new IllegalStateException("FIREFLY CAPTURE ON CLIENT!??!?!?!?! OH HOW TERRIBLE OF YOU!1!!!!!!!!!!!!!!!!!!!!!1!!1!!!!111");
             PacketByteBuf byteBuf = new PacketByteBuf(Unpooled.buffer());
@@ -107,6 +126,21 @@ public class EasyPacket {
             } else {
                 throw new IllegalStateException("NOT A SERVER PLAYER BRUH");
             }
+        }
+    }
+
+    public static void createMovingLoopingSound(World world, Entity entity, SoundEvent sound, SoundCategory category, float volume, float pitch, Identifier id) {
+        if (world.isClient)
+            throw new IllegalStateException("no sounds on the client, you freaking idiot!");
+        PacketByteBuf byteBuf = new PacketByteBuf(Unpooled.buffer());
+        byteBuf.writeVarInt(entity.getId());
+        byteBuf.writeRegistryValue(Registry.SOUND_EVENT, sound);
+        byteBuf.writeEnumConstant(category);
+        byteBuf.writeFloat(volume);
+        byteBuf.writeFloat(pitch);
+        byteBuf.writeIdentifier(id);
+        for (ServerPlayerEntity player : PlayerLookup.around((ServerWorld) world, entity.getBlockPos(), 32)) {
+            ServerPlayNetworking.send(player, WilderWild.MOVING_LOOPING_SOUND_PACKET, byteBuf);
         }
     }
 }

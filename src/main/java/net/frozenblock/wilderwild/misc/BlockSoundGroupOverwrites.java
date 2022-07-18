@@ -1,9 +1,13 @@
 package net.frozenblock.wilderwild.misc;
 
+import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.block.Block;
 import net.minecraft.sound.BlockSoundGroup;
+import net.minecraft.tag.BlockTags;
+import net.minecraft.tag.TagKey;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
+import net.minecraft.util.registry.RegistryEntry;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,6 +26,7 @@ public class BlockSoundGroupOverwrites {
         addBlock(CACTUS, BlockSoundGroup.SWEET_BERRY_BUSH);
         addBlock(PODZOL, BlockSoundGroup.ROOTED_DIRT);
 
+        addBlockTag(BlockTags.LEAVES, LEAVES);
         addBlocks(new Block[]{ACACIA_LEAVES, BIRCH_LEAVES, DARK_OAK_LEAVES, JUNGLE_LEAVES, MANGROVE_LEAVES, OAK_LEAVES, SPRUCE_LEAVES, BAOBAB_LEAVES, CYPRESS_LEAVES}, LEAVES);
         addBlocks(new Block[]{DANDELION, POPPY, BLUE_ORCHID, ALLIUM, AZURE_BLUET, RED_TULIP, ORANGE_TULIP, WHITE_TULIP, PINK_TULIP, OXEYE_DAISY, CORNFLOWER, LILY_OF_THE_VALLEY}, FLOWER);
         addBlocks(new Block[]{RED_MUSHROOM, BROWN_MUSHROOM}, MUSHROOM);
@@ -33,6 +38,34 @@ public class BlockSoundGroupOverwrites {
         addBlock(SUGAR_CANE, SUGARCANE);
         addBlock(COARSE_DIRT, COARSEDIRT);
 
+        if (FabricLoader.getInstance().getModContainer("betternether").isPresent()) {
+            addBlock("betternether", "willow_leaves", LEAVES);
+            addBlock("betternether", "rubeous_leaves", LEAVES);
+            addBlock("betternether", "anchor_tree_leaves", LEAVES);
+            addBlock("betternether", "nether_sakura_leaves", LEAVES);
+        }
+
+        if (FabricLoader.getInstance().getModContainer("betterend").isPresent()) {
+            addBlock("betterend", "pythadendron_leaves", LEAVES);
+            addBlock("betterend", "lacugrove_leaves", LEAVES);
+            addBlock("betterend", "dragon_tree_leaves", LEAVES);
+            addBlock("betterend", "tenanea_leaves", LEAVES);
+            addBlock("betterend", "helix_tree_leaves", LEAVES);
+            addBlock("betterend", "lucernia_leaves", LEAVES);
+        }
+
+        if (FabricLoader.getInstance().getModContainer("blockus").isPresent()) {
+            addBlock("blockus", "white_oak_leaves", LEAVES);
+            addBlock("blockus", "legacy_leaves", LEAVES);
+        }
+
+        if (FabricLoader.getInstance().getModContainer("edenring").isPresent()) {
+            addBlock("edenring", "auritis_leaves", LEAVES);
+        }
+
+        if (FabricLoader.getInstance().getModContainer("techreborn").isPresent()) {
+            addBlock("techreborn", "rubber_leaves", LEAVES);
+        }
     }
 
     /**
@@ -64,13 +97,20 @@ public class BlockSoundGroupOverwrites {
         }
     }
 
+    public static void addBlockTag(TagKey<Block> tag, BlockSoundGroup sounds) {
+        for (RegistryEntry<Block> block : Registry.BLOCK.iterateEntries(tag)) {
+            ids.add(Registry.BLOCK.getId(block.value()));
+            soundGroups.add(sounds);
+        }
+    }
+
     public static void addNamespace(String nameSpace, BlockSoundGroup sounds) {
         namespaces.add(nameSpace);
         namespaceSoundGroups.add(sounds);
     }
 
-    public static List<Identifier> ids = new ArrayList<>();
-    public static List<BlockSoundGroup> soundGroups = new ArrayList<>();
-    public static List<String> namespaces = new ArrayList<>();
-    public static List<BlockSoundGroup> namespaceSoundGroups = new ArrayList<>();
+    public static final List<Identifier> ids = new ArrayList<>();
+    public static final List<BlockSoundGroup> soundGroups = new ArrayList<>();
+    public static final List<String> namespaces = new ArrayList<>();
+    public static final List<BlockSoundGroup> namespaceSoundGroups = new ArrayList<>();
 }

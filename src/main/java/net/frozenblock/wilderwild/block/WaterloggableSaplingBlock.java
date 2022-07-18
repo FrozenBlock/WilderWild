@@ -14,8 +14,10 @@ import net.minecraft.world.BlockView;
 import net.minecraft.world.WorldAccess;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.Objects;
+
 public class WaterloggableSaplingBlock extends SaplingBlock implements Waterloggable {
-    private static final BooleanProperty WATERLOGGED;
+    private static final BooleanProperty WATERLOGGED = Properties.WATERLOGGED;
 
     public WaterloggableSaplingBlock(SaplingGenerator generator, Settings settings) {
         super(generator, settings);
@@ -34,7 +36,7 @@ public class WaterloggableSaplingBlock extends SaplingBlock implements Waterlogg
     public BlockState getPlacementState(ItemPlacementContext ctx) {
         FluidState fluidState = ctx.getWorld().getFluidState(ctx.getBlockPos());
         boolean bl = fluidState.getFluid() == Fluids.WATER;
-        return super.getPlacementState(ctx).with(WATERLOGGED, bl);
+        return Objects.requireNonNull(super.getPlacementState(ctx)).with(WATERLOGGED, bl);
     }
 
     public BlockState getStateForNeighborUpdate(BlockState state, Direction direction, BlockState neighborState, WorldAccess world, BlockPos pos, BlockPos neighborPos) {
@@ -47,10 +49,5 @@ public class WaterloggableSaplingBlock extends SaplingBlock implements Waterlogg
 
     public FluidState getFluidState(BlockState state) {
         return state.get(WATERLOGGED) ? Fluids.WATER.getStill(false) : super.getFluidState(state);
-    }
-
-
-    static {
-        WATERLOGGED = Properties.WATERLOGGED;
     }
 }

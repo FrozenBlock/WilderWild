@@ -4,7 +4,7 @@
   "version": "${version}",
 
   "name": "Wilder Wild",
-  "description": "This is a mod that adds additional features to the Wild Update",
+  "description": "Delivers on the Wild Update's promises and more!",
   "authors": [
     "FrozenBlock"
   ],
@@ -26,7 +26,7 @@
       "net.frozenblock.wilderwild.EarlyRiser"
     ],
     "client": [
-      "net.frozenblock.wilderwild.WildClientMod"
+	  "net.frozenblock.wilderwild.WilderWildClient"
     ]
   },
   "mixins": [
@@ -37,8 +37,8 @@
 
   "depends": {
     "mm": ">=2.3",
-    "fabricloader": ">=0.14.8",
-    "fabric": ">=0.56.2",
+    "fabricloader": ">=0.14.6",
+    "fabric": ">=0.57.0",
     "minecraft": "1.19.x",
     "java": ">=17"
   }

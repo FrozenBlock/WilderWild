@@ -1,7 +1,7 @@
 package net.frozenblock.wilderwild.block;
 
 import net.frozenblock.wilderwild.WilderWild;
-import net.frozenblock.wilderwild.entity.AncientHornProjectileEntity;
+import net.frozenblock.wilderwild.entity.AncientHornProjectile;
 import net.frozenblock.wilderwild.registry.RegisterProperties;
 import net.frozenblock.wilderwild.registry.RegisterSounds;
 import net.minecraft.block.Block;
@@ -25,6 +25,7 @@ import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.random.Random;
 import net.minecraft.world.LightType;
 import net.minecraft.world.World;
+import net.minecraft.world.WorldEvents;
 import org.jetbrains.annotations.Nullable;
 
 public class EchoGlassBlock extends TintedGlassBlock {
@@ -57,7 +58,7 @@ public class EchoGlassBlock extends TintedGlassBlock {
         if (state.get(DAMAGE) < 3) {
             world.setBlockState(pos, state.with(DAMAGE, state.get(DAMAGE) + 1));
             world.playSound(null, pos, RegisterSounds.BLOCK_ECHO_GLASS_CRACK, SoundCategory.BLOCKS, 1.0F, 1.0F);
-            world.syncWorldEvent(null, 2001, pos, getRawIdFromState(state));
+            world.syncWorldEvent(null, WorldEvents.BLOCK_BROKEN, pos, getRawIdFromState(state));
         } else {
             world.breakBlock(pos, false);
         }
@@ -113,7 +114,7 @@ public class EchoGlassBlock extends TintedGlassBlock {
 
     @Override
     public void onProjectileHit(World world, BlockState state, BlockHitResult hit, ProjectileEntity projectile) {
-        if (projectile instanceof AncientHornProjectileEntity) {
+        if (projectile instanceof AncientHornProjectile) {
             damage(world, hit.getBlockPos());
         }
         super.onProjectileHit(world, state, hit, projectile);

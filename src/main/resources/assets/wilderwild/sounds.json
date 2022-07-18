@@ -93,7 +93,7 @@
 			},
 			{
 				"name": "wilderwild:ambient/cave/deep_dark/wind",
-				"volume": 1.25,
+				"volume": 1.0,
 				"weight": 15
 			}
 		]
@@ -111,6 +111,15 @@
 		"sounds": [
 			{
 				"name": "wilderwild:ambient/cave/dripstone_caves/ambience",
+				"stream": true,
+				"volume": 1.0
+			}
+		]
+	},
+	"ambient.lush_caves.loop": {
+		"sounds": [
+			{
+				"name": "wilderwild:ambient/cave/lush_caves/ambience",
 				"stream": true,
 				"volume": 1.0
 			}
@@ -381,6 +390,57 @@
 			"wilderwild:block/hanging_tendril/wring4"
 		],
 		"subtitle": "subtitles.block.hanging_tendril.wring"
+	},
+	"block.hollowed_log.break": {
+		"sounds": [
+			"wilderwild:block/hollowed_log/break1",
+			"wilderwild:block/hollowed_log/break2",
+			"wilderwild:block/hollowed_log/break3",
+			"wilderwild:block/hollowed_log/break4"
+		],
+		"subtitle": "subtitles.block.generic.break"
+	},
+	"block.hollowed_log.fall": {
+		"sounds": [
+			"wilderwild:block/hollowed_log/step1",
+			"wilderwild:block/hollowed_log/step2",
+			"wilderwild:block/hollowed_log/step3",
+			"wilderwild:block/hollowed_log/step4",
+			"wilderwild:block/hollowed_log/step5",
+			"wilderwild:block/hollowed_log/step6"
+		],
+		"subtitle": "subtitles.block.generic.fall"
+	},
+	"block.hollowed_log.hit": {
+		"sounds": [
+			"wilderwild:block/hollowed_log/step1",
+			"wilderwild:block/hollowed_log/step2",
+			"wilderwild:block/hollowed_log/step3",
+			"wilderwild:block/hollowed_log/step4",
+			"wilderwild:block/hollowed_log/step5",
+			"wilderwild:block/hollowed_log/step6"
+		],
+		"subtitle": "subtitles.block.generic.hit"
+	},
+	"block.hollowed_log.place": {
+		"sounds": [
+			"wilderwild:block/hollowed_log/break1",
+			"wilderwild:block/hollowed_log/break2",
+			"wilderwild:block/hollowed_log/break3",
+			"wilderwild:block/hollowed_log/break4"
+		],
+		"subtitle": "subtitles.block.generic.place"
+	},
+	"block.hollowed_log.step": {
+		"sounds": [
+			"wilderwild:block/hollowed_log/step1",
+			"wilderwild:block/hollowed_log/step2",
+			"wilderwild:block/hollowed_log/step3",
+			"wilderwild:block/hollowed_log/step4",
+			"wilderwild:block/hollowed_log/step5",
+			"wilderwild:block/hollowed_log/step6"
+		],
+		"subtitle": "subtitles.block.generic.footsteps"
 	},
 	"block.ice.break": {
 		"sounds": [
@@ -723,6 +783,14 @@
 		],
 		"subtitle": "subtitles.block.sculk_sensor.hiccup"
 	},
+  "block.sculk_shrieker.gargle": {
+	"sounds": [
+	  "wilderwild:block/sculk_shrieker/gargle_1",
+	  "wilderwild:block/sculk_shrieker/gargle_2",
+	  "wilderwild:block/sculk_shrieker/gargle_3"
+	],
+	"subtitle": "subtitles.block.sculk_shrieker.gargle"
+  },
 	"block.sugar_cane.break": {
 		"sounds": [
 			"wilderwild:block/sugar_cane/place1",
@@ -778,10 +846,49 @@
 		],
 		"subtitle": "subtitles.block.generic.footsteps"
 	},
+	"block.termite_mound.enter": {
+		"sounds": [
+			{
+				"attenuation_distance": 14,
+				"name": "block/beehive/enter",
+				"pitch": 0.7
+			},
+			{
+				"attenuation_distance": 14,
+				"name": "block/beehive/enter",
+				"pitch": 0.8
+			}
+		],
+		"subtitle": "subtitles.block.termite_mound.enter"
+	},
+	"block.termite_mound.exit": {
+		"sounds": [
+			{
+				"attenuation_distance": 14,
+				"name": "block/beehive/exit"
+			},
+			{
+				"attenuation_distance": 14,
+				"name": "block/beehive/exit",
+				"pitch": 0.9
+			},
+			{
+				"attenuation_distance": 14,
+				"name": "block/beehive/exit",
+				"pitch": 1.1
+			}
+		],
+		"subtitle": "subtitles.block.termite_mound.exit"
+	},
 	"entity.ancient_horn_projectile.dissipate": {
 		"sounds": [
-			"wilderwild:mob/ancient_horn_projectile/dissipate_1",
-			"wilderwild:mob/ancient_horn_projectile/dissipate_2"
+			"wilderwild:item/ancient_horn/projectile_dissipate_1",
+			"wilderwild:item/ancient_horn/projectile_dissipate_2"
+		]
+	},
+	"entity.ancient_horn_projectile.loop": {
+		"sounds": [
+			"wilderwild:item/ancient_horn/projectile_loop"
 		]
 	},
 	"entity.firefly.hurt": {
@@ -791,19 +898,82 @@
 			"wilderwild:mob/firefly/hurt_3"
 		]
 	},
+	"entity.firefly.nectar": {
+		"sounds": [
+			{
+				"attenuation_distance": 10,
+				"name": "mob/bee/aggressive1",
+				"volume": 0.8
+			},
+			{
+				"attenuation_distance": 10,
+				"name": "mob/bee/aggressive2",
+				"volume": 0.8
+			},
+			{
+				"attenuation_distance": 10,
+				"name": "mob/bee/aggressive3",
+				"volume": 0.8
+			}
+		],
+		"subtitle": "subtitles.entity.firefly.nectar"
+	},
 	"entity.warden.dying": {
 		"sounds": [
-			"wilderwild:mob/warden/dying1",
-			"wilderwild:mob/warden/dying2"
+			"wilderwild:mob/warden/dying_1",
+			"wilderwild:mob/warden/dying_2"
 		]
+	},
+	"entity.warden.dying_underwater": {
+		"sounds": [
+			"wilderwild:mob/warden/dying_underwater_1",
+			"wilderwild:mob/warden/dying_underwater_2",
+			"wilderwild:mob/warden/dying_underwater_3"
+		]
+	},
+	"entity.warden.kirby_death": {
+		"sounds": [
+			"wilderwild:mob/warden/kirbydeath"
+		]
+	},
+	"entity.warden.swim": {
+		"sounds": [
+			"wilderwild:mob/warden/swim_1",
+			"wilderwild:mob/warden/swim_2",
+			"wilderwild:mob/warden/swim_3"
+		]
+	},
+  	"entity.warden.brap": {
+	  "sounds": [
+		"wilderwild:mob/warden/brap"
+	  ]
 	},
 	"item.ancient_horn.call": {
 		"sounds": [
-			"wilderwild:item/ancient_horn/call0",
-			"wilderwild:item/ancient_horn/call1",
-			"wilderwild:item/ancient_horn/call2"
+			"wilderwild:item/ancient_horn/horn1",
+			"wilderwild:item/ancient_horn/horn2",
+			"wilderwild:item/ancient_horn/horn3"
 		],
-		"subtitle": "subtitles.item.ancient_horn.blast"
+		"subtitle": "subtitles.item.ancient_horn.call"
+	},
+	"item.ancient_horn.blast": {
+		"sounds": [
+			"wilderwild:item/ancient_horn/blast1",
+			"wilderwild:item/ancient_horn/blast2"
+		]
+	},
+	"item.bottle.catch_firefly": {
+		"sounds": [
+			"wilderwild:item/bottle/catch_firefly1",
+			"wilderwild:item/bottle/catch_firefly2"
+		],
+		"subtitle": "subtitles.item.bottle.catch_firefly"
+	},
+	"item.bottle.release_firefly": {
+		"sounds": [
+			"wilderwild:item/bottle/release_firefly1"
+		],
+		"subtitle": "subtitles.item.bottle.release_firefly"
 	},
 	"music.overworld.wild_forests": {
 		"sounds": [
@@ -856,18 +1026,18 @@
 			"wilderwild:particle/floating_sculk_bubble/pop5"
 		]
 	},
-	"flyby.pvzgw_cheeto": {
+	"entity.ancient_horn_projectile.flyby": {
 		"sounds": [
 			{
-				"name": "wilderwild:flyby/cheetogrenade_flyby",
+				"name": "wilderwild:flyby/flyby1",
 				"attenuation_distance": 6
 			},
 			{
-				"name": "wilderwild:flyby/cheetogrenade_flyby2",
+				"name": "wilderwild:flyby/flyby2",
 				"attenuation_distance": 6
 			},
 			{
-				"name": "wilderwild:flyby/cheetogrenade_flyby3",
+				"name": "wilderwild:flyby/flyby3",
 				"attenuation_distance": 6
 			}
 		]

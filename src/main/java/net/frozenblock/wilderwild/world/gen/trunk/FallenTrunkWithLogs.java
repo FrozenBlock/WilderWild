@@ -60,18 +60,29 @@ public class FallenTrunkWithLogs extends TrunkPlacer {
         int logsAboveHole = 0;
         Direction logDir = Direction.Type.HORIZONTAL.random(random);
         int placedLogs = 0;
-        boolean solidBelowInitial = !TreeFeature.canReplace(world, mutable.set(startPos.getX(), startPos.getY() - 1, startPos.getZ()));
+        boolean solidBelowInitial = !TreeFeature.canReplace(world, mutable.set(startPos.getX(), startPos.getY() - 1, startPos.getZ())) && !TreeFeature.isAirOrLeaves(world, mutable.set(startPos.getX(), startPos.getY() - 1, startPos.getZ()));
         if (solidBelowInitial) {
             for (int i = 0; i < height; ++i) {
                 int x = startPos.getX() + (logDir.getOffsetX() * i);
                 int z = startPos.getZ() + (logDir.getOffsetZ() * i);
-                boolean solidBelow = !TreeFeature.canReplace(world, mutable.set(x, startPos.getY() - 1, z));
+                boolean solidBelow = !TreeFeature.canReplace(world, mutable.set(x, startPos.getY() - 1, z)) && !TreeFeature.isAirOrLeaves(world, mutable.set(x, startPos.getY() - 1, z));
                 if (solidBelow || logsAboveHole < maxAboveHole) {
                     int holeAddition = !solidBelow ? 1 : 0;
                     if (TreeFeature.canReplace(world, mutable.set(x, startPos.getY(), z))) {
                         if (config.trunkProvider.getBlockState(random, mutable.set(x, startPos.getY(), z)).contains(Properties.AXIS)) {
                             Direction.Axis axis = logDir.getOffsetX() != 0 ? Direction.Axis.X : (logDir.getOffsetY() != 0 ? Direction.Axis.Y : Direction.Axis.Z);
                             replacer.accept(mutable.set(x, startPos.getY(), z), config.trunkProvider.getBlockState(random, mutable.set(x, startPos.getY(), z)).with(Properties.AXIS, axis));
+                            if (random.nextFloat() > 0.28) {
+                                logs.add(new BlockPos(x, startPos.getY(), z));
+                            }
+                            if (i < height - 1 && random.nextFloat() < this.logChance && placedLogs < maxLogs) {
+                                Direction direction = random.nextFloat() >= 0.33 ? Direction.Type.HORIZONTAL.random(random) : Direction.Type.VERTICAL.random(random);
+                                this.generateExtraBranch(logs, world, replacer, random, config, mutable, logDir, i, direction);
+                            }
+                            ++placedLogs;
+                            logsAboveHole += holeAddition;
+                        } else if (config.trunkProvider.getBlockState(random, mutable.set(x, startPos.getY(), z)).contains(Properties.FACING)) {
+                            replacer.accept(mutable.set(x, startPos.getY(), z), config.trunkProvider.getBlockState(random, mutable.set(x, startPos.getY(), z)).with(Properties.FACING, logDir));
                             if (random.nextFloat() > 0.28) {
                                 logs.add(new BlockPos(x, startPos.getY(), z));
                             }
@@ -123,6 +134,11 @@ public class FallenTrunkWithLogs extends TrunkPlacer {
                 if (config.trunkProvider.getBlockState(random, pos.set(x, y, z)).contains(Properties.AXIS)) {
                     Direction.Axis axis = direction.getOffsetX() != 0 ? Direction.Axis.X : (direction.getOffsetY() != 0 ? Direction.Axis.Y : Direction.Axis.Z);
                     replacer.accept(pos.set(x, y, z), config.trunkProvider.getBlockState(random, pos.set(x, y, z)).with(Properties.AXIS, axis));
+                    if (random.nextFloat() > 0.28) {
+                        logs.add(new BlockPos(x, y, z));
+                    }
+                } else if (config.trunkProvider.getBlockState(random, pos.set(x, y, z)).contains(Properties.FACING)) {
+                    replacer.accept(pos.set(x, y, z), config.trunkProvider.getBlockState(random, pos.set(x, y, z)).with(Properties.FACING, direction));
                     if (random.nextFloat() > 0.28) {
                         logs.add(new BlockPos(x, y, z));
                     }
