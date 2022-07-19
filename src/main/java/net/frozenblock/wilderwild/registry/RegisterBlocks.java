@@ -41,8 +41,15 @@ public class RegisterBlocks {
     private static final MapColor CYPRESS_PLANKS_COLOR = MapColor.LIGHT_GRAY;
     private static final MapColor CYPRESS_BARK_COLOR = MapColor.STONE_GRAY;
 
-    // CHISELED PACKED MUD
+    // OTHER(BUILDING BLOCKS)
+    public static final Block SANDY_DIRT = new Block(FabricBlockSettings.of(Material.SOIL, MapColor.DIRT_BROWN).strength(0.5F).sounds(BlockSoundGroup.GRAVEL));
     public static final Block CHISELED_MUD_BRICKS = new Block(FabricBlockSettings.copy(Blocks.CHISELED_STONE_BRICKS).strength(1.5F).requiresTool().sounds(BlockSoundGroup.MUD_BRICKS));
+
+    public static void registerOtherBB() {
+        // BB = Building Blocks
+        registerBlock("sandy_dirt", SANDY_DIRT, ItemGroup.BUILDING_BLOCKS);
+        registerBlock("chiseled_mud_bricks", CHISELED_MUD_BRICKS, ItemGroup.BUILDING_BLOCKS);
+    }
 
     // WOOD
     public static final Block BAOBAB_PLANKS = new Block(FabricBlockSettings.of(Material.WOOD, BAOBAB_PLANKS_COLOR).strength(2.0F, 3.0F).sounds(BlockSoundGroup.WOOD));
@@ -293,8 +300,8 @@ public class RegisterBlocks {
     // hi - treetrain
     public static void registerBlocks() {
         WilderWild.logWild("Registering Blocks for", WilderWild.UNSTABLE_LOGGING);
-        registerBlock("chiseled_mud_bricks", CHISELED_MUD_BRICKS, ItemGroup.BUILDING_BLOCKS);
 
+        registerOtherBB();
         registerWoods();
         registerHollowedLogs();
         registerDeepDark();

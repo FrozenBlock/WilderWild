@@ -1,6 +1,7 @@
 package net.frozenblock.wilderwild.world.feature;
 
 import net.frozenblock.wilderwild.WilderWild;
+import net.frozenblock.wilderwild.registry.RegisterBlocks;
 import net.frozenblock.wilderwild.world.feature.features.config.PathFeatureConfig;
 import net.minecraft.block.Blocks;
 import net.minecraft.fluid.Fluids;
@@ -24,6 +25,7 @@ public class WilderMiscConfigured {
     public static final RegistryEntry<ConfiguredFeature<PathFeatureConfig, ?>> COARSE_PATH = WilderConfiguredFeatures.register("coarse_dirt_path", WilderWild.NOISE_PATH_FEATURE, new PathFeatureConfig(BlockStateProvider.of(Blocks.COARSE_DIRT), 11, 3, 0.12, -0.2, 0.3, false, false, RegistryEntryList.of(Blocks.DIRT.getRegistryEntry(), Blocks.GRASS_BLOCK.getRegistryEntry(), Blocks.PODZOL.getRegistryEntry())));
     public static final RegistryEntry<ConfiguredFeature<PathFeatureConfig, ?>> MOSS_PATH = WilderConfiguredFeatures.register("moss_path", WilderWild.NOISE_PATH_FEATURE, new PathFeatureConfig(BlockStateProvider.of(Blocks.MOSS_BLOCK), 9, 1, 0.15, 0.18, 1, true, true, RegistryEntryList.of(Blocks.GRASS_BLOCK.getRegistryEntry(), Blocks.PODZOL.getRegistryEntry())));
     public static final RegistryEntry<ConfiguredFeature<PathFeatureConfig, ?>> SAND_PATH = WilderConfiguredFeatures.register("sand_path", WilderWild.NOISE_PATH_FEATURE, new PathFeatureConfig(BlockStateProvider.of(Blocks.SAND), 11, 3, 0.12, -0.2, 0.3, false, false, RegistryEntryList.of(Blocks.DIRT.getRegistryEntry(), Blocks.GRASS_BLOCK.getRegistryEntry())));
+    public static final RegistryEntry<ConfiguredFeature<PathFeatureConfig, ?>> SANDY_DIRT_PATH = WilderConfiguredFeatures.register("sandy_dirt_path", WilderWild.NOISE_PATH_FEATURE, new PathFeatureConfig(BlockStateProvider.of(RegisterBlocks.SANDY_DIRT), 9, 1, 0.12, 0.20, 1, true, true, RegistryEntryList.of(Blocks.DIRT.getRegistryEntry(), Blocks.GRASS_BLOCK.getRegistryEntry(), Blocks.SAND.getRegistryEntry(), Blocks.COARSE_DIRT.getRegistryEntry())));
 
     public static final RegistryEntry<ConfiguredFeature<PathFeatureConfig, ?>> UNDER_WATER_SAND_PATH = WilderConfiguredFeatures.register("under_water_sand_path", WilderWild.NOISE_PATH_UNDER_WATER_FEATURE, new PathFeatureConfig(BlockStateProvider.of(Blocks.SAND), 16, 4, 0.05, 0.2, 0.54, true, true, RegistryEntryList.of(Blocks.DIRT.getRegistryEntry(), Blocks.GRAVEL.getRegistryEntry(), Blocks.GRASS_BLOCK.getRegistryEntry())));
     public static final RegistryEntry<ConfiguredFeature<PathFeatureConfig, ?>> UNDER_WATER_GRAVEL_PATH = WilderConfiguredFeatures.register("under_water_gravel_path", WilderWild.NOISE_PATH_UNDER_WATER_FEATURE, new PathFeatureConfig(BlockStateProvider.of(Blocks.GRAVEL), 16, 1, 0.07, -0.7, -0.3, true, true, RegistryEntryList.of(Blocks.DIRT.getRegistryEntry(), Blocks.GRASS_BLOCK.getRegistryEntry(), Blocks.STONE.getRegistryEntry())));
