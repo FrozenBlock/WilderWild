@@ -45,10 +45,10 @@ public class FireflyBrain {
         return optional.map(GlobalPos::getPos).orElse(null);
     }
 
-    public static BlockPos getHidingPlace(Firefly firefly) {
+    /*public static BlockPos getHidingPlace(Firefly firefly) {
         Optional<GlobalPos> optional = firefly.getBrain().getOptionalMemory(MemoryModuleType.HIDING_PLACE);
         return optional.map(GlobalPos::getPos).orElse(null);
-    }
+    }*/
 
     public static boolean isInHomeDimension(Firefly firefly) {
         Optional<GlobalPos> optional = firefly.getBrain().getOptionalMemory(MemoryModuleType.HOME);
