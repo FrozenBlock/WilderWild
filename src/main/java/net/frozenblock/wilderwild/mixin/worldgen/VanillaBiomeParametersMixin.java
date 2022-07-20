@@ -125,11 +125,10 @@ public final class VanillaBiomeParametersMixin {
     @Inject(method = "writeBiomeParameters", at = @At("HEAD"), cancellable = true)
     private void writeBiomeParameters(Consumer<Pair<MultiNoiseUtil.NoiseHypercube, RegistryKey<Biome>>> parameters, MultiNoiseUtil.ParameterRange temperature, MultiNoiseUtil.ParameterRange humidity, MultiNoiseUtil.ParameterRange continentalness, MultiNoiseUtil.ParameterRange erosion, MultiNoiseUtil.ParameterRange weirdness, float offset, RegistryKey<Biome> biome, CallbackInfo info) {
         if (biome.equals(BiomeKeys.MANGROVE_SWAMP)) {
-            mangroveRound = mangroveRound + 1;
             parameters.accept(Pair.of(MultiNoiseUtil.createNoiseHypercube(
                             MultiNoiseUtil.ParameterRange.combine(this.temperatureParameters[2], this.temperatureParameters[4]), //Temperature
                             MultiNoiseUtil.ParameterRange.combine(this.humidityParameters[3], this.humidityParameters[4]), //Humidity
-                            MultiNoiseUtil.ParameterRange.combine(MultiNoiseUtil.ParameterRange.of(-0.19F, 0.03F), this.farInlandContinentalness),
+                            continentalness,
                             erosion,
                             MultiNoiseUtil.ParameterRange.of(0.0F),
                             weirdness,
@@ -139,7 +138,7 @@ public final class VanillaBiomeParametersMixin {
             parameters.accept(Pair.of(MultiNoiseUtil.createNoiseHypercube(
                             MultiNoiseUtil.ParameterRange.combine(this.temperatureParameters[2], this.temperatureParameters[4]), //Temperature
                             MultiNoiseUtil.ParameterRange.combine(this.humidityParameters[3], this.humidityParameters[4]), //Humidity
-                            MultiNoiseUtil.ParameterRange.combine(MultiNoiseUtil.ParameterRange.of(-0.19F, 0.03F), this.farInlandContinentalness),
+                            continentalness,
                             erosion,
                             MultiNoiseUtil.ParameterRange.of(1.0F),
                             weirdness,
