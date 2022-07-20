@@ -221,6 +221,10 @@ public class WilderPlacedFeatures {
             register("water_moss", WilderConfiguredFeatures.WATER_MOSS,
                     RarityFilterPlacementModifier.of(3), SquarePlacementModifier.of(), PlacedFeatures.MOTION_BLOCKING_HEIGHTMAP, BiomePlacementModifier.of());
 
+    public static final RegistryEntry<PlacedFeature> WATER_MOSS_5 =
+            register("water_moss_5", WilderConfiguredFeatures.WATER_MOSS,
+                    RarityFilterPlacementModifier.of(5), SquarePlacementModifier.of(), PlacedFeatures.MOTION_BLOCKING_HEIGHTMAP, BiomePlacementModifier.of());
+
     public static final RegistryEntry<PlacedFeature> TERMITE_PLACED = register("termite_placed",
             WilderConfiguredFeatures.TERMITE_CONFIGURED, RarityFilterPlacementModifier.of(40), CountPlacementModifier.of(1), PlacedFeatures.WORLD_SURFACE_WG_HEIGHTMAP, SquarePlacementModifier.of(), SurfaceThresholdFilterPlacementModifier.of(Heightmap.Type.WORLD_SURFACE_WG, 0, 128), BiomePlacementModifier.of());
 

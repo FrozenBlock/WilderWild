@@ -66,8 +66,8 @@ public class EchoGlassBlock extends TintedGlassBlock {
 
     public static void heal(World world, BlockPos pos) {
         BlockState state = world.getBlockState(pos);
-        WilderWild.log("Echo Glass Healed @ " + pos, WilderWild.UNSTABLE_LOGGING);
         if (state.get(DAMAGE) > 0) {
+            WilderWild.log("Echo Glass Healed @ " + pos, WilderWild.UNSTABLE_LOGGING);
             world.setBlockState(pos, state.with(DAMAGE, state.get(DAMAGE) - 1));
             world.playSound(
                     null,
