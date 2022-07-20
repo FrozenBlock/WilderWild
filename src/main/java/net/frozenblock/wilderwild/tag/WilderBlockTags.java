@@ -16,7 +16,7 @@ public class WilderBlockTags {
     public static final TagKey<Block> TERMITE_BREAKABLE = of("termite_breakable");
     public static final TagKey<Block> BLOCKS_TERMITE = of("blocks_termite");
     public static final TagKey<Block> FIREFLY_HIDEABLE_BLOCKS = of("firefly_hideable_blocks");
-    public static final TagKey<Block> SANDY_DIRT_REPLACEABLE = of("sandy_dirt_replaceable");
+    public static final TagKey<Block> PACKED_MUD_REPLACEABLE = of("packed_mud_replaceable");
 
     private WilderBlockTags() {
     }
