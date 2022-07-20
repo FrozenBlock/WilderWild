@@ -3,7 +3,6 @@
   "values": [
     "#wilderwild:sculk_slab_replaceable_worldgen",
     "#wilderwild:sculk_stair_replaceable_worldgen",
-    "#wilderwild:sculk_wall_replaceable_worldgen",
-    "wilderwild:sandy_dirt"
+    "#wilderwild:sculk_wall_replaceable_worldgen"
   ]
 }
