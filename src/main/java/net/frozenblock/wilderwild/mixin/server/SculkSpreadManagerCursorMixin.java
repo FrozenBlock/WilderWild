@@ -125,7 +125,7 @@ public class SculkSpreadManagerCursorMixin {
         }
     }
 
-    @Inject(method = "canSpread", at = @At("HEAD"), cancellable = true)
+    @Inject(method = "canSpread(Lnet/minecraft/world/WorldAccess;Lnet/minecraft/util/math/BlockPos;Lnet/minecraft/util/math/BlockPos;)Z", at = @At("HEAD"), cancellable = true)
     private static void canSpread(WorldAccess world, BlockPos sourcePos, BlockPos targetPos, CallbackInfoReturnable<Boolean> info) {
         if (sourcePos.getManhattanDistance(targetPos) == 1) {
             info.setReturnValue(true);
