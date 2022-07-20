@@ -1,9 +1,9 @@
 package net.frozenblock.wilderwild.tag;
 
 import net.frozenblock.wilderwild.WilderWild;
-import net.minecraft.block.Block;
-import net.minecraft.tag.TagKey;
-import net.minecraft.util.registry.Registry;
+import net.minecraft.core.Registry;
+import net.minecraft.tags.TagKey;
+import net.minecraft.world.level.block.Block;
 
 public class WilderBlockTags {
     public static final TagKey<Block> ANCIENT_CITY_BLOCKS = of("ancient_city_blocks");
@@ -21,6 +21,6 @@ public class WilderBlockTags {
     }
 
     private static TagKey<Block> of(String path) {
-        return TagKey.of(Registry.BLOCK_KEY, WilderWild.id(path));
+        return TagKey.create(Registry.BLOCK_REGISTRY, WilderWild.id(path));
     }
 }

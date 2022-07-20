@@ -1,9 +1,9 @@
 package net.frozenblock.wilderwild.world.gen.sapling;
 
 import net.frozenblock.wilderwild.world.feature.WilderTreeConfigured;
-import net.minecraft.util.math.random.Random;
-import net.minecraft.util.registry.RegistryEntry;
-import net.minecraft.world.gen.feature.ConfiguredFeature;
+import net.minecraft.core.Holder;
+import net.minecraft.util.RandomSource;
+import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import org.jetbrains.annotations.Nullable;
 
 public class BaobabSaplingGenerator extends BaobabTreeSaplingGenerator {
@@ -14,13 +14,13 @@ public class BaobabSaplingGenerator extends BaobabTreeSaplingGenerator {
 
     @Nullable
     @Override
-    protected RegistryEntry<? extends ConfiguredFeature<?, ?>> getBaobabTreeFeature(Random random) {
+    protected Holder<? extends ConfiguredFeature<?, ?>> getBaobabTreeFeature(RandomSource random) {
         return random.nextFloat() < 0.856F ? WilderTreeConfigured.BAOBAB : WilderTreeConfigured.BAOBAB_TALL;
     }
 
     @Nullable
     @Override
-    protected RegistryEntry<? extends ConfiguredFeature<?, ?>> getTreeFeature(Random random, boolean bees) {
+    protected Holder<? extends ConfiguredFeature<?, ?>> getConfiguredFeature(RandomSource random, boolean bees) {
         return null;
     }
 }

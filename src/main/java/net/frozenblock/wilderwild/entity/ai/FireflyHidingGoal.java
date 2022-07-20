@@ -2,25 +2,25 @@ package net.frozenblock.wilderwild.entity.ai;
 
 import net.frozenblock.wilderwild.entity.Firefly;
 import net.frozenblock.wilderwild.tag.WilderBlockTags;
-import net.minecraft.entity.ai.goal.MoveToTargetPosGoal;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.WorldView;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.entity.ai.goal.MoveToBlockGoal;
+import net.minecraft.world.level.LevelReader;
 
-public class FireflyHidingGoal extends MoveToTargetPosGoal {
+public class FireflyHidingGoal extends MoveToBlockGoal {
     public FireflyHidingGoal(Firefly mob, double speed, int range, int maxYDifference) {
         super(mob, speed, range, maxYDifference);
     }
 
     @Override
-    public boolean canStart() {
+    public boolean canUse() {
         if (!((Firefly) this.mob).shouldHide()) return false;
 
-        return super.canStart();
+        return super.canUse();
     }
 
     @Override
     public void tick() {
-        if (this.hasReached()) {
+        if (this.isReachedTarget()) {
             this.mob.discard();
         }
 
@@ -28,12 +28,12 @@ public class FireflyHidingGoal extends MoveToTargetPosGoal {
     }
 
     @Override
-    protected boolean isTargetPos(WorldView world, BlockPos pos) {
-        return world.getBlockState(pos).isIn(WilderBlockTags.FIREFLY_HIDEABLE_BLOCKS);
+    protected boolean isValidTarget(LevelReader world, BlockPos pos) {
+        return world.getBlockState(pos).is(WilderBlockTags.FIREFLY_HIDEABLE_BLOCKS);
     }
 
     @Override
-    protected BlockPos getTargetPos() {
-        return this.targetPos;
+    protected BlockPos getMoveToTarget() {
+        return this.blockPos;
     }
 }

@@ -1,6 +1,6 @@
 package net.frozenblock.wilderwild.entity.render;
 
-import net.minecraft.client.model.ModelPart;
+import net.minecraft.client.model.geom.ModelPart;
 
 import java.util.List;
 

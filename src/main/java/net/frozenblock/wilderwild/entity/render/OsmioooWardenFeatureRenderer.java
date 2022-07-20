@@ -1,54 +1,54 @@
 package net.frozenblock.wilderwild.entity.render;
 
-import net.minecraft.client.model.ModelPart;
-import net.minecraft.client.render.RenderLayer;
-import net.minecraft.client.render.VertexConsumer;
-import net.minecraft.client.render.VertexConsumerProvider;
-import net.minecraft.client.render.entity.LivingEntityRenderer;
-import net.minecraft.client.render.entity.feature.FeatureRendererContext;
-import net.minecraft.client.render.entity.feature.WardenFeatureRenderer;
-import net.minecraft.client.render.entity.model.WardenEntityModel;
-import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.entity.mob.WardenEntity;
-import net.minecraft.util.Formatting;
-import net.minecraft.util.Identifier;
+import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.blaze3d.vertex.VertexConsumer;
+import net.minecraft.ChatFormatting;
+import net.minecraft.client.model.WardenModel;
+import net.minecraft.client.model.geom.ModelPart;
+import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.entity.LivingEntityRenderer;
+import net.minecraft.client.renderer.entity.RenderLayerParent;
+import net.minecraft.client.renderer.entity.layers.WardenEmissiveLayer;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.monster.warden.Warden;
 
 import java.util.List;
 import java.util.Objects;
 
-public class OsmioooWardenFeatureRenderer<T extends WardenEntity, M extends WardenEntityModel<T>> extends WardenFeatureRenderer<T, M> {
-    public OsmioooWardenFeatureRenderer(FeatureRendererContext<T, M> context, Identifier texture, AnimationAngleAdjuster<T> animationAngleAdjuster, ModelPartVisibility<T, M> modelPartVisibility) {
+public class OsmioooWardenFeatureRenderer<T extends Warden, M extends WardenModel<T>> extends WardenEmissiveLayer<T, M> {
+    public OsmioooWardenFeatureRenderer(RenderLayerParent<T, M> context, ResourceLocation texture, AlphaFunction<T> animationAngleAdjuster, DrawSelector<T, M> modelPartVisibility) {
         super(context, texture, animationAngleAdjuster, modelPartVisibility);
     }
 
     @Override
-    public void render(MatrixStack matrixStack, VertexConsumerProvider vertexConsumerProvider, int i, T wardenEntity, float f, float g, float h, float j, float k, float l) {
-        String string = Formatting.strip(wardenEntity.getName().getString());
+    public void render(PoseStack matrixStack, MultiBufferSource vertexConsumerProvider, int i, T wardenEntity, float f, float g, float h, float j, float k, float l) {
+        String string = ChatFormatting.stripFormatting(wardenEntity.getName().getString());
         if (!wardenEntity.isInvisible() && Objects.equals(string, "Osmiooo")) {
-            this.updateModelPartVisibility();
-            VertexConsumer vertexConsumer = vertexConsumerProvider.getBuffer(RenderLayer.getEntityTranslucentEmissive(this.texture));
-            this.getContextModel()
-                    .render(
+            this.onlyDrawSelectedParts();
+            VertexConsumer vertexConsumer = vertexConsumerProvider.getBuffer(RenderType.entityTranslucentEmissive(this.texture));
+            this.getParentModel()
+                    .renderToBuffer(
                             matrixStack,
                             vertexConsumer,
                             i,
-                            LivingEntityRenderer.getOverlay(wardenEntity, 0.0F),
+                            LivingEntityRenderer.getOverlayCoords(wardenEntity, 0.0F),
                             1.0F,
                             1.0F,
                             1.0F,
-                            this.animationAngleAdjuster.apply(wardenEntity, h, j)
+                            this.alphaFunction.apply(wardenEntity, h, j)
                     );
-            this.unhideAllModelParts();
+            this.resetDrawForAllParts();
         }
     }
 
-    private void updateModelPartVisibility() {
-        List<ModelPart> list = this.modelPartVisibility.getPartsToDraw(this.getContextModel());
-        this.getContextModel().getPart().traverse().forEach(part -> part.hidden = true);
-        list.forEach(part -> part.hidden = false);
+    private void onlyDrawSelectedParts() {
+        List<ModelPart> list = this.drawSelector.getPartsToDraw(this.getParentModel());
+        this.getParentModel().root().getAllParts().forEach(part -> part.skipDraw = true);
+        list.forEach(part -> part.skipDraw = false);
     }
 
-    private void unhideAllModelParts() {
-        this.getContextModel().getPart().traverse().forEach(part -> part.hidden = false);
+    private void resetDrawForAllParts() {
+        this.getParentModel().root().getAllParts().forEach(part -> part.skipDraw = false);
     }
 }

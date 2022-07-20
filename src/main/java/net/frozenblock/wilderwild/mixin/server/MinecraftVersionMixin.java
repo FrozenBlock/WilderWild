@@ -3,7 +3,7 @@ package net.frozenblock.wilderwild.mixin.server;
 import com.google.gson.JsonObject;
 import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.misc.WildConfig;
-import net.minecraft.MinecraftVersion;
+import net.minecraft.DetectedVersion;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Mutable;
@@ -12,7 +12,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-@Mixin(MinecraftVersion.class)
+@Mixin(DetectedVersion.class)
 public class MinecraftVersionMixin {
     @Mutable
     @Final

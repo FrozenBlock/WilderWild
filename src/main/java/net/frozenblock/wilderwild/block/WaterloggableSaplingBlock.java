@@ -1,53 +1,57 @@
 package net.frozenblock.wilderwild.block;
 
-import net.minecraft.block.*;
-import net.minecraft.block.sapling.SaplingGenerator;
-import net.minecraft.fluid.FluidState;
-import net.minecraft.fluid.Fluids;
-import net.minecraft.item.ItemPlacementContext;
-import net.minecraft.state.StateManager;
-import net.minecraft.state.property.BooleanProperty;
-import net.minecraft.state.property.Properties;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
-import net.minecraft.world.BlockView;
-import net.minecraft.world.WorldAccess;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.world.item.context.BlockPlaceContext;
+import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.SaplingBlock;
+import net.minecraft.world.level.block.SimpleWaterloggedBlock;
+import net.minecraft.world.level.block.grower.AbstractTreeGrower;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.block.state.properties.BooleanProperty;
+import net.minecraft.world.level.material.FluidState;
+import net.minecraft.world.level.material.Fluids;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Objects;
 
-public class WaterloggableSaplingBlock extends SaplingBlock implements Waterloggable {
-    private static final BooleanProperty WATERLOGGED = Properties.WATERLOGGED;
+public class WaterloggableSaplingBlock extends SaplingBlock implements SimpleWaterloggedBlock {
+    private static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
 
-    public WaterloggableSaplingBlock(SaplingGenerator generator, Settings settings) {
+    public WaterloggableSaplingBlock(AbstractTreeGrower generator, Properties settings) {
         super(generator, settings);
-        this.setDefaultState(this.stateManager.getDefaultState().with(STAGE, 0).with(WATERLOGGED, false));
+        this.registerDefaultState(this.stateDefinition.any().setValue(STAGE, 0).setValue(WATERLOGGED, false));
     }
 
-    protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
+    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
         builder.add(STAGE).add(WATERLOGGED);
     }
 
-    protected boolean canPlantOnTop(BlockState floor, BlockView world, BlockPos pos) {
-        return super.canPlantOnTop(floor, world, pos) || floor.isOf(Blocks.CLAY) || floor.isOf(Blocks.MUD);
+    protected boolean mayPlaceOn(BlockState floor, BlockGetter world, BlockPos pos) {
+        return super.mayPlaceOn(floor, world, pos) || floor.is(Blocks.CLAY) || floor.is(Blocks.MUD);
     }
 
     @Nullable
-    public BlockState getPlacementState(ItemPlacementContext ctx) {
-        FluidState fluidState = ctx.getWorld().getFluidState(ctx.getBlockPos());
-        boolean bl = fluidState.getFluid() == Fluids.WATER;
-        return Objects.requireNonNull(super.getPlacementState(ctx)).with(WATERLOGGED, bl);
+    public BlockState getStateForPlacement(BlockPlaceContext ctx) {
+        FluidState fluidState = ctx.getLevel().getFluidState(ctx.getClickedPos());
+        boolean bl = fluidState.getType() == Fluids.WATER;
+        return Objects.requireNonNull(super.getStateForPlacement(ctx)).setValue(WATERLOGGED, bl);
     }
 
-    public BlockState getStateForNeighborUpdate(BlockState state, Direction direction, BlockState neighborState, WorldAccess world, BlockPos pos, BlockPos neighborPos) {
-        if (state.get(WATERLOGGED)) {
-            world.createAndScheduleFluidTick(pos, Fluids.WATER, Fluids.WATER.getTickRate(world));
+    public BlockState updateShape(BlockState state, Direction direction, BlockState neighborState, LevelAccessor world, BlockPos pos, BlockPos neighborPos) {
+        if (state.getValue(WATERLOGGED)) {
+            world.scheduleTick(pos, Fluids.WATER, Fluids.WATER.getTickDelay(world));
         }
 
-        return direction == Direction.UP && !state.canPlaceAt(world, pos) ? Blocks.AIR.getDefaultState() : super.getStateForNeighborUpdate(state, direction, neighborState, world, pos, neighborPos);
+        return direction == Direction.UP && !state.canSurvive(world, pos) ? Blocks.AIR.defaultBlockState() : super.updateShape(state, direction, neighborState, world, pos, neighborPos);
     }
 
     public FluidState getFluidState(BlockState state) {
-        return state.get(WATERLOGGED) ? Fluids.WATER.getStill(false) : super.getFluidState(state);
+        return state.getValue(WATERLOGGED) ? Fluids.WATER.getSource(false) : super.getFluidState(state);
     }
 }

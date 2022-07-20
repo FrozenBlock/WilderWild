@@ -3,17 +3,22 @@ package net.frozenblock.wilderwild.mixin.server;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
 import com.mojang.datafixers.util.Pair;
-import net.minecraft.entity.ai.brain.Activity;
-import net.minecraft.entity.ai.brain.Brain;
-import net.minecraft.entity.ai.brain.MemoryModuleState;
-import net.minecraft.entity.ai.brain.MemoryModuleType;
-import net.minecraft.entity.ai.brain.task.*;
-import net.minecraft.entity.mob.WardenBrain;
-import net.minecraft.entity.mob.WardenEntity;
+import net.minecraft.world.entity.ai.Brain;
+import net.minecraft.world.entity.ai.behavior.DoNothing;
+import net.minecraft.world.entity.ai.behavior.RandomStroll;
+import net.minecraft.world.entity.ai.behavior.RandomSwim;
+import net.minecraft.world.entity.ai.behavior.RunOne;
+import net.minecraft.world.entity.ai.behavior.warden.SetRoarTarget;
+import net.minecraft.world.entity.ai.behavior.warden.TryToSniff;
+import net.minecraft.world.entity.ai.memory.MemoryModuleType;
+import net.minecraft.world.entity.ai.memory.MemoryStatus;
+import net.minecraft.world.entity.monster.warden.Warden;
+import net.minecraft.world.entity.monster.warden.WardenAi;
+import net.minecraft.world.entity.schedule.Activity;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Overwrite;
 
-@Mixin(WardenBrain.class)
+@Mixin(WardenAi.class)
 public class WardenBrainMixin {
 
     /**
@@ -21,16 +26,16 @@ public class WardenBrainMixin {
      * @reason SWIMMY WARDEN
      */
     @Overwrite
-    private static void addIdleActivities(Brain<WardenEntity> brain) {
-        brain.setTaskList(
+    private static void initIdleActivity(Brain<Warden> brain) {
+        brain.addActivity(
                 Activity.IDLE,
                 10,
                 ImmutableList.of(
-                        new FindRoarTargetTask<>(WardenEntity::getPrimeSuspect),
-                        new StartSniffingTask(),
-                        new RandomTask<>(
-                                ImmutableMap.of(MemoryModuleType.IS_SNIFFING, MemoryModuleState.VALUE_ABSENT),
-                                ImmutableList.of(Pair.of(new AquaticStrollTask(0.5F), 2), Pair.of(new StrollTask(0.5F), 2), Pair.of(new WaitTask(30, 60), 1))
+                        new SetRoarTarget<>(Warden::getEntityAngryAt),
+                        new TryToSniff(),
+                        new RunOne<>(
+                                ImmutableMap.of(MemoryModuleType.IS_SNIFFING, MemoryStatus.VALUE_ABSENT),
+                                ImmutableList.of(Pair.of(new RandomSwim(0.5F), 2), Pair.of(new RandomStroll(0.5F), 2), Pair.of(new DoNothing(30, 60), 1))
                         )
                 )
         );

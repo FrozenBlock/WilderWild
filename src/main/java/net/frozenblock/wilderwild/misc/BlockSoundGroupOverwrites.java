@@ -1,13 +1,13 @@
 package net.frozenblock.wilderwild.misc;
 
 import net.fabricmc.loader.api.FabricLoader;
-import net.minecraft.block.Block;
-import net.minecraft.sound.BlockSoundGroup;
-import net.minecraft.tag.BlockTags;
-import net.minecraft.tag.TagKey;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.registry.Registry;
-import net.minecraft.util.registry.RegistryEntry;
+import net.minecraft.core.Holder;
+import net.minecraft.core.Registry;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.tags.BlockTags;
+import net.minecraft.tags.TagKey;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.SoundType;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,16 +15,16 @@ import java.util.List;
 import static net.frozenblock.wilderwild.registry.RegisterBlockSoundGroups.*;
 import static net.frozenblock.wilderwild.registry.RegisterBlocks.BAOBAB_LEAVES;
 import static net.frozenblock.wilderwild.registry.RegisterBlocks.CYPRESS_LEAVES;
-import static net.minecraft.block.Blocks.*;
+import static net.minecraft.world.level.block.Blocks.*;
 
 
 public class BlockSoundGroupOverwrites {
 
     public static void init() {
-        addBlock(WITHER_ROSE, BlockSoundGroup.SWEET_BERRY_BUSH);
-        addBlock(DEAD_BUSH, BlockSoundGroup.NETHER_SPROUTS);
-        addBlock(CACTUS, BlockSoundGroup.SWEET_BERRY_BUSH);
-        addBlock(PODZOL, BlockSoundGroup.ROOTED_DIRT);
+        addBlock(WITHER_ROSE, SoundType.SWEET_BERRY_BUSH);
+        addBlock(DEAD_BUSH, SoundType.NETHER_SPROUTS);
+        addBlock(CACTUS, SoundType.SWEET_BERRY_BUSH);
+        addBlock(PODZOL, SoundType.ROOTED_DIRT);
 
         addBlockTag(BlockTags.LEAVES, LEAVES);
         addBlocks(new Block[]{ACACIA_LEAVES, BIRCH_LEAVES, DARK_OAK_LEAVES, JUNGLE_LEAVES, MANGROVE_LEAVES, OAK_LEAVES, SPRUCE_LEAVES, BAOBAB_LEAVES, CYPRESS_LEAVES}, LEAVES);
@@ -75,42 +75,42 @@ public class BlockSoundGroupOverwrites {
      * You can also add a LIST of blocks (IDs not allowed,) by using new Block[]{block1, block2}.
      */
 
-    public static void addBlock(String id, BlockSoundGroup sounds) {
-        ids.add(new Identifier(id));
+    public static void addBlock(String id, SoundType sounds) {
+        ids.add(new ResourceLocation(id));
         soundGroups.add(sounds);
     }
 
-    public static void addBlock(String nameSpace, String id, BlockSoundGroup sounds) {
-        ids.add(new Identifier(nameSpace, id));
+    public static void addBlock(String nameSpace, String id, SoundType sounds) {
+        ids.add(new ResourceLocation(nameSpace, id));
         soundGroups.add(sounds);
     }
 
-    public static void addBlock(Block block, BlockSoundGroup sounds) {
-        ids.add(Registry.BLOCK.getId(block));
+    public static void addBlock(Block block, SoundType sounds) {
+        ids.add(Registry.BLOCK.getKey(block));
         soundGroups.add(sounds);
     }
 
-    public static void addBlocks(Block[] blocks, BlockSoundGroup sounds) {
+    public static void addBlocks(Block[] blocks, SoundType sounds) {
         for (Block block : blocks) {
-            ids.add(Registry.BLOCK.getId(block));
+            ids.add(Registry.BLOCK.getKey(block));
             soundGroups.add(sounds);
         }
     }
 
-    public static void addBlockTag(TagKey<Block> tag, BlockSoundGroup sounds) {
-        for (RegistryEntry<Block> block : Registry.BLOCK.iterateEntries(tag)) {
-            ids.add(Registry.BLOCK.getId(block.value()));
+    public static void addBlockTag(TagKey<Block> tag, SoundType sounds) {
+        for (Holder<Block> block : Registry.BLOCK.getTagOrEmpty(tag)) {
+            ids.add(Registry.BLOCK.getKey(block.value()));
             soundGroups.add(sounds);
         }
     }
 
-    public static void addNamespace(String nameSpace, BlockSoundGroup sounds) {
+    public static void addNamespace(String nameSpace, SoundType sounds) {
         namespaces.add(nameSpace);
         namespaceSoundGroups.add(sounds);
     }
 
-    public static final List<Identifier> ids = new ArrayList<>();
-    public static final List<BlockSoundGroup> soundGroups = new ArrayList<>();
+    public static final List<ResourceLocation> ids = new ArrayList<>();
+    public static final List<SoundType> soundGroups = new ArrayList<>();
     public static final List<String> namespaces = new ArrayList<>();
-    public static final List<BlockSoundGroup> namespaceSoundGroups = new ArrayList<>();
+    public static final List<SoundType> namespaceSoundGroups = new ArrayList<>();
 }

@@ -1,6 +1,6 @@
 package net.frozenblock.api.simplemethods;
 
-import net.minecraft.util.math.Direction;
+import net.minecraft.core.Direction;
 
 public class Worldgeneration {
 

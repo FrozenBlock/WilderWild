@@ -4,8 +4,8 @@ import net.fabricmc.fabric.api.object.builder.v1.block.entity.FabricBlockEntityT
 import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.block.entity.HangingTendrilBlockEntity;
 import net.frozenblock.wilderwild.block.entity.TermiteMoundBlockEntity;
-import net.minecraft.block.entity.BlockEntityType;
-import net.minecraft.util.registry.Registry;
+import net.minecraft.core.Registry;
+import net.minecraft.world.level.block.entity.BlockEntityType;
 
 public class RegisterBlockEntities {
     public static final BlockEntityType<HangingTendrilBlockEntity> HANGING_TENDRIL = Registry.register(Registry.BLOCK_ENTITY_TYPE, WilderWild.id("hanging_tendril"), FabricBlockEntityTypeBuilder.create(HangingTendrilBlockEntity::new, RegisterBlocks.HANGING_TENDRIL).build(null));

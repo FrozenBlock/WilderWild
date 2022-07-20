@@ -1,12 +1,15 @@
 package net.frozenblock.wilderwild.entity.render;
 
+import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.blaze3d.vertex.VertexConsumer;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.frozenblock.wilderwild.entity.AncientHornProjectile;
-import net.minecraft.client.model.*;
-import net.minecraft.client.render.RenderLayer;
-import net.minecraft.client.render.VertexConsumer;
-import net.minecraft.client.util.math.MatrixStack;
+import net.minecraft.client.model.Model;
+import net.minecraft.client.model.geom.ModelPart;
+import net.minecraft.client.model.geom.PartPose;
+import net.minecraft.client.model.geom.builders.*;
+import net.minecraft.client.renderer.RenderType;
 
 @Environment(EnvType.CLIENT)
 public class AncientHornProjectileModel extends Model {
@@ -16,38 +19,38 @@ public class AncientHornProjectileModel extends Model {
     private final ModelPart back;
 
     public AncientHornProjectileModel(ModelPart root) {
-        super(RenderLayer::getEntityTranslucentEmissive);
+        super(RenderType::entityTranslucentEmissive);
         this.bone = root.getChild("bone");
         this.front = bone.getChild("front");
         this.middle = bone.getChild("middle");
         this.back = bone.getChild("back");
     }
 
-    public static TexturedModelData getTexturedModelData() {
+    public static LayerDefinition getTexturedModelData() {
 
-        ModelData modelData = new ModelData();
+        MeshDefinition modelData = new MeshDefinition();
 
-        ModelPartData modelPartData = modelData.getRoot();
+        PartDefinition modelPartData = modelData.getRoot();
 
-        ModelPartData bone = modelPartData.addChild("bone", ModelPartBuilder.create(), ModelTransform.pivot(0.0F, 24.0F, 0.0F));
+        PartDefinition bone = modelPartData.addOrReplaceChild("bone", CubeListBuilder.create(), PartPose.offset(0.0F, 24.0F, 0.0F));
 
-        ModelPartData front = bone.addChild("front", ModelPartBuilder.create().uv(0, 32).cuboid(-8.0F, -8.0F, 0.0F, 16.0F, 16.0F, 0.0F, new Dilation(0.0F)), ModelTransform.pivot(0.0F, 0.0F, -4.0F));
+        PartDefinition front = bone.addOrReplaceChild("front", CubeListBuilder.create().texOffs(0, 32).addBox(-8.0F, -8.0F, 0.0F, 16.0F, 16.0F, 0.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 0.0F, -4.0F));
 
-        ModelPartData middle = bone.addChild("middle", ModelPartBuilder.create().uv(0, 16).cuboid(-8.0F, -8.0F, 0.0F, 16.0F, 16.0F, 0.0F, new Dilation(0.0F)), ModelTransform.pivot(0.0F, 0.0F, 0.0F));
+        PartDefinition middle = bone.addOrReplaceChild("middle", CubeListBuilder.create().texOffs(0, 16).addBox(-8.0F, -8.0F, 0.0F, 16.0F, 16.0F, 0.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 0.0F, 0.0F));
 
-        ModelPartData back = bone.addChild("back", ModelPartBuilder.create().uv(0, 0).cuboid(-8.0F, -8.0F, 0.0F, 16.0F, 16.0F, 0.0F, new Dilation(0.0F)), ModelTransform.pivot(0.0F, 0.0F, 4.0F));
+        PartDefinition back = bone.addOrReplaceChild("back", CubeListBuilder.create().texOffs(0, 0).addBox(-8.0F, -8.0F, 0.0F, 16.0F, 16.0F, 0.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 0.0F, 4.0F));
 
-        return TexturedModelData.of(modelData, 64, 64);
+        return LayerDefinition.create(modelData, 64, 64);
     }
 
-    public void render(MatrixStack matrices, VertexConsumer vertices, int light, int overlay, float red, float green, float blue, float alpha, float tickDelta, AncientHornProjectile entity) {
+    public void render(PoseStack matrices, VertexConsumer vertices, int light, int overlay, float red, float green, float blue, float alpha, float tickDelta, AncientHornProjectile entity) {
         matrices.scale(1.0F, 1.0F, 1.0F);
 
-        this.bone.yaw = (float) (90 * (Math.PI / 180));
-        this.bone.pitch = (float) (90 * (Math.PI / 180));
-        this.bone.pivotX = 4;
-        this.bone.pivotY = 0;
-        this.bone.pivotZ = 0;
+        this.bone.yRot = (float) (90 * (Math.PI / 180));
+        this.bone.xRot = (float) (90 * (Math.PI / 180));
+        this.bone.x = 4;
+        this.bone.y = 0;
+        this.bone.z = 0;
 
         float aliveDelta = entity.aliveTicks + tickDelta;
 
@@ -60,21 +63,21 @@ public class AncientHornProjectileModel extends Model {
 
         this.front.xScale = pulse;
         this.front.yScale = pulse;
-        this.front.pivotZ = pulse3 * 2.0F - 6.0F;
+        this.front.z = pulse3 * 2.0F - 6.0F;
 
         this.middle.xScale = pulse2;
         this.middle.yScale = pulse2;
-        this.middle.pivotZ = pulse * 2.0F - 2.0F;
+        this.middle.z = pulse * 2.0F - 2.0F;
 
         this.back.xScale = pulse3;
         this.back.yScale = pulse3;
-        this.back.pivotZ = pulse2 * 2.0F + 2.0F;
+        this.back.z = pulse2 * 2.0F + 2.0F;
 
         this.bone.render(matrices, vertices, light, overlay, 1.0F, 1.0F, 1.0F, 1.0F);
     }
 
     @Override
-    public void render(MatrixStack matrices, VertexConsumer vertices, int light, int overlay, float red, float green, float blue, float alpha) {
+    public void renderToBuffer(PoseStack matrices, VertexConsumer vertices, int light, int overlay, float red, float green, float blue, float alpha) {
 
     }
 }

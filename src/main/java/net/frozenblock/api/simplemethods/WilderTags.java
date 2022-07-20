@@ -1,14 +1,14 @@
 package net.frozenblock.api.simplemethods;
 
 import net.frozenblock.wilderwild.WilderWild;
-import net.minecraft.block.Block;
-import net.minecraft.entity.EntityType;
-import net.minecraft.fluid.Fluid;
-import net.minecraft.item.Item;
-import net.minecraft.tag.TagKey;
-import net.minecraft.util.math.random.Random;
-import net.minecraft.util.registry.Registry;
-import net.minecraft.util.registry.RegistryEntry;
+import net.minecraft.core.Holder;
+import net.minecraft.core.Registry;
+import net.minecraft.tags.TagKey;
+import net.minecraft.util.RandomSource;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.material.Fluid;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
@@ -31,8 +31,8 @@ public class WilderTags {
     // lol just a port from twm
 
     public static boolean blockTagContains(Block block1, TagKey<Block> tag) {
-        for (RegistryEntry<Block> block : Registry.BLOCK.iterateEntries(tag)) {
-            if (block.getKey().equals(Registry.BLOCK.getKey(block1))) {
+        for (Holder<Block> block : Registry.BLOCK.getTagOrEmpty(tag)) {
+            if (block.unwrapKey().equals(Registry.BLOCK.getResourceKey(block1))) {
                 return true;
             }
         }
@@ -40,11 +40,11 @@ public class WilderTags {
     }
 
     @Nullable
-    public static Block getRandomBlock(Random random, TagKey<Block> tag) {
+    public static Block getRandomBlock(RandomSource random, TagKey<Block> tag) {
         ArrayList<Block> blocks = new ArrayList<>();
-        for (RegistryEntry<Block> block : Registry.BLOCK.iterateEntries(tag)) {
-            if (block.getKey().isPresent()) {
-                Registry.BLOCK.getOrEmpty(block.getKey().get()).ifPresent(blocks::add);
+        for (Holder<Block> block : Registry.BLOCK.getTagOrEmpty(tag)) {
+            if (block.unwrapKey().isPresent()) {
+                Registry.BLOCK.getOptional(block.unwrapKey().get()).ifPresent(blocks::add);
             }
         }
         if (!blocks.isEmpty()) {
@@ -54,8 +54,8 @@ public class WilderTags {
     }
 
     public static boolean fluidTagContains(Fluid fluid1, TagKey<Fluid> tag) {
-        for (RegistryEntry<Fluid> fluid : Registry.FLUID.iterateEntries(tag)) {
-            if (fluid.getKey().equals(Registry.FLUID.getKey(fluid1))) {
+        for (Holder<Fluid> fluid : Registry.FLUID.getTagOrEmpty(tag)) {
+            if (fluid.unwrapKey().equals(Registry.FLUID.getResourceKey(fluid1))) {
                 return true;
             }
         }
@@ -67,8 +67,8 @@ public class WilderTags {
      */
     @Deprecated
     public static boolean entityTagContains(EntityType<?> type, TagKey<EntityType<?>> tag) {
-        for (RegistryEntry<EntityType<?>> entity : Registry.ENTITY_TYPE.iterateEntries(tag)) {
-            if (entity.getKey().equals(Registry.ENTITY_TYPE.getKey(type))) {
+        for (Holder<EntityType<?>> entity : Registry.ENTITY_TYPE.getTagOrEmpty(tag)) {
+            if (entity.unwrapKey().equals(Registry.ENTITY_TYPE.getResourceKey(type))) {
                 return true;
             }
         }
@@ -76,8 +76,8 @@ public class WilderTags {
     }
 
     public static boolean itemTagContains(Item item1, TagKey<Item> tag) {
-        for (RegistryEntry<Item> item : Registry.ITEM.iterateEntries(tag)) {
-            if (item.getKey().equals(Registry.ITEM.getKey(item1))) {
+        for (Holder<Item> item : Registry.ITEM.getTagOrEmpty(tag)) {
+            if (item.unwrapKey().equals(Registry.ITEM.getResourceKey(item1))) {
                 return true;
             }
         }

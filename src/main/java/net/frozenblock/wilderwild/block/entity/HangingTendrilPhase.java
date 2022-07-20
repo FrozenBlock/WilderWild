@@ -1,8 +1,8 @@
 package net.frozenblock.wilderwild.block.entity;
 
-import net.minecraft.util.StringIdentifiable;
+import net.minecraft.util.StringRepresentable;
 
-public enum HangingTendrilPhase implements StringIdentifiable {
+public enum HangingTendrilPhase implements StringRepresentable {
     INACTIVE("inactive"),
     ACTIVE("active"),
     COOLDOWN("cooldown");
@@ -17,7 +17,7 @@ public enum HangingTendrilPhase implements StringIdentifiable {
         return this.name;
     }
 
-    public String asString() {
+    public String getSerializedName() {
         return this.name;
     }
 }

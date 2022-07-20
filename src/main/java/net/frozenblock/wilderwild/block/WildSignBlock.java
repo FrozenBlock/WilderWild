@@ -1,25 +1,25 @@
 package net.frozenblock.wilderwild.block;
 
 import net.frozenblock.wilderwild.WilderWild;
-import net.minecraft.block.SignBlock;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.SignType;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.level.block.StandingSignBlock;
+import net.minecraft.world.level.block.state.properties.WoodType;
 
 import java.util.Objects;
 
-public class WildSignBlock extends SignBlock {
-    public WildSignBlock(Settings settings, SignType signType) {
+public class WildSignBlock extends StandingSignBlock {
+    public WildSignBlock(Properties settings, WoodType signType) {
         super(settings, signType);
     }
 
     @Override
-    public final Identifier getLootTableId() {
-        Identifier correctedLootTableId = WilderWild.id("blocks/" + this.getSignType().getName() + "_sign");
+    public final ResourceLocation getLootTable() {
+        ResourceLocation correctedLootTableId = WilderWild.id("blocks/" + this.type().name() + "_sign");
 
-        if (!Objects.equals(this.lootTableId, correctedLootTableId)) {
-            this.lootTableId = correctedLootTableId;
+        if (!Objects.equals(this.drops, correctedLootTableId)) {
+            this.drops = correctedLootTableId;
         }
 
-        return this.lootTableId;
+        return this.drops;
     }
 }

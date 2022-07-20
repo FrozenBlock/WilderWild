@@ -2,7 +2,7 @@ package net.frozenblock.wilderwild.misc;
 
 import com.google.gson.*;
 import net.frozenblock.wilderwild.WilderWild;
-import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.Minecraft;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -17,9 +17,9 @@ public class CompetitionCounter {
 
     public static void addFireflyCapture(boolean creative, boolean natural) {
         if (FIREFLY_CAPTURE_COMPETITION) {
-            MinecraftClient client = MinecraftClient.getInstance();
+            Minecraft client = Minecraft.getInstance();
             if (client != null && client.player != null) {
-                File directory = new File(client.runDirectory, "wilderwild");
+                File directory = new File(client.gameDirectory, "wilderwild");
                 File directory1 = new File(directory, "competitions");
                 File destination = new File(directory1, "fireflies.wild");
                 directory1.mkdirs();
@@ -40,7 +40,7 @@ public class CompetitionCounter {
 
                 int count = 0;
                 FireflyCounter flyCounterObj = new FireflyCounter();
-                flyCounterObj.setPlayerUUID(client.player.getUuidAsString());
+                flyCounterObj.setPlayerUUID(client.player.getStringUUID());
 
                 if (destination.exists()) {
                     try (Reader reader = Files.newBufferedReader(destination.toPath())) {
@@ -77,9 +77,9 @@ public class CompetitionCounter {
 
     public static void addAncientHornKill(boolean creative, boolean natural) {
         if (ANCIENT_HORN_KILL_COMPETITION) {
-            MinecraftClient client = MinecraftClient.getInstance();
+            Minecraft client = Minecraft.getInstance();
             if (client != null && client.player != null) {
-                File directory = new File(client.runDirectory, "wilderwild");
+                File directory = new File(client.gameDirectory, "wilderwild");
                 File directory1 = new File(directory, "competitions");
                 File destination = new File(directory1, "ancient_horn_kills.wild");
                 directory1.mkdirs();
@@ -100,7 +100,7 @@ public class CompetitionCounter {
 
                 int count = 0;
                 AncientHornKillCounter ancientKillCounter = new AncientHornKillCounter();
-                ancientKillCounter.setPlayerUUID(client.player.getUuidAsString());
+                ancientKillCounter.setPlayerUUID(client.player.getStringUUID());
 
                 if (destination.exists()) {
                     try (Reader reader = Files.newBufferedReader(destination.toPath())) {

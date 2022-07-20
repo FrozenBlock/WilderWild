@@ -1,58 +1,58 @@
 package net.frozenblock.wilderwild.block;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.TallFlowerBlock;
-import net.minecraft.block.Waterloggable;
-import net.minecraft.fluid.FluidState;
-import net.minecraft.fluid.Fluids;
-import net.minecraft.item.ItemPlacementContext;
-import net.minecraft.state.StateManager;
-import net.minecraft.state.property.BooleanProperty;
-import net.minecraft.state.property.Properties;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
-import net.minecraft.world.World;
-import net.minecraft.world.WorldAccess;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.world.item.context.BlockPlaceContext;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.SimpleWaterloggedBlock;
+import net.minecraft.world.level.block.TallFlowerBlock;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.block.state.properties.BooleanProperty;
+import net.minecraft.world.level.material.FluidState;
+import net.minecraft.world.level.material.Fluids;
 import org.jetbrains.annotations.Nullable;
 
-public class WaterloggableTallFlowerBlock extends TallFlowerBlock implements Waterloggable {
+public class WaterloggableTallFlowerBlock extends TallFlowerBlock implements SimpleWaterloggedBlock {
     public static final BooleanProperty WATERLOGGED;
 
-    public WaterloggableTallFlowerBlock(Settings settings) {
+    public WaterloggableTallFlowerBlock(Properties settings) {
         super(settings);
-        this.setDefaultState(this.getDefaultState().with(WATERLOGGED, false));
+        this.registerDefaultState(this.defaultBlockState().setValue(WATERLOGGED, false));
     }
 
     @Override
-    public BlockState getStateForNeighborUpdate(BlockState state, Direction direction, BlockState neighborState, WorldAccess world, BlockPos pos, BlockPos neighborPos) {
-        if (state.get(WATERLOGGED)) {
-            world.createAndScheduleFluidTick(pos, Fluids.WATER, Fluids.WATER.getTickRate(world));
+    public BlockState updateShape(BlockState state, Direction direction, BlockState neighborState, LevelAccessor world, BlockPos pos, BlockPos neighborPos) {
+        if (state.getValue(WATERLOGGED)) {
+            world.scheduleTick(pos, Fluids.WATER, Fluids.WATER.getTickDelay(world));
         }
-        return super.getStateForNeighborUpdate(state, direction, neighborState, world, pos, neighborPos);
+        return super.updateShape(state, direction, neighborState, world, pos, neighborPos);
     }
 
     @Nullable
-    public BlockState getPlacementState(ItemPlacementContext ctx) {
-        BlockPos blockPos = ctx.getBlockPos();
-        World world = ctx.getWorld();
+    public BlockState getStateForPlacement(BlockPlaceContext ctx) {
+        BlockPos blockPos = ctx.getClickedPos();
+        Level world = ctx.getLevel();
         FluidState fluidState = world.getFluidState(blockPos);
-        return blockPos.getY() < world.getTopY() - 1 && world.getBlockState(blockPos.up()).canReplace(ctx) ?
-                this.getDefaultState().with(WATERLOGGED, fluidState.getFluid() == Fluids.WATER) : null;
+        return blockPos.getY() < world.getMaxBuildHeight() - 1 && world.getBlockState(blockPos.above()).canBeReplaced(ctx) ?
+                this.defaultBlockState().setValue(WATERLOGGED, fluidState.getType() == Fluids.WATER) : null;
     }
 
     @Override
     public FluidState getFluidState(BlockState state) {
-        return state.get(WATERLOGGED) ? Fluids.WATER.getStill(false) : super.getFluidState(state);
+        return state.getValue(WATERLOGGED) ? Fluids.WATER.getSource(false) : super.getFluidState(state);
     }
 
     @Override
-    protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
-        super.appendProperties(builder);
+    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
+        super.createBlockStateDefinition(builder);
         builder.add(WATERLOGGED);
     }
 
     static {
-        WATERLOGGED = Properties.WATERLOGGED;
+        WATERLOGGED = BlockStateProperties.WATERLOGGED;
     }
 }

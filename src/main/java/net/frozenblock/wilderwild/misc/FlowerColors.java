@@ -1,8 +1,8 @@
 package net.frozenblock.wilderwild.misc;
 
-import net.minecraft.util.StringIdentifiable;
+import net.minecraft.util.StringRepresentable;
 
-public enum FlowerColors implements StringIdentifiable {
+public enum FlowerColors implements StringRepresentable {
     NONE("none"),
     BLUE("blue"),
     WHITE("white"),
@@ -19,7 +19,7 @@ public enum FlowerColors implements StringIdentifiable {
         return this.name;
     }
 
-    public String asString() {
+    public String getSerializedName() {
         return this.name;
     }
 }

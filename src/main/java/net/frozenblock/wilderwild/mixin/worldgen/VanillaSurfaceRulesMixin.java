@@ -1,35 +1,35 @@
 package net.frozenblock.wilderwild.mixin.worldgen;
 
 import net.frozenblock.wilderwild.registry.RegisterWorldgen;
-import net.minecraft.world.gen.YOffset;
-import net.minecraft.world.gen.noise.NoiseParametersKeys;
-import net.minecraft.world.gen.surfacebuilder.MaterialRules;
-import net.minecraft.world.gen.surfacebuilder.VanillaSurfaceRules;
+import net.minecraft.data.worldgen.SurfaceRuleData;
+import net.minecraft.world.level.levelgen.Noises;
+import net.minecraft.world.level.levelgen.SurfaceRules;
+import net.minecraft.world.level.levelgen.VerticalAnchor;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyVariable;
 
-@Mixin(VanillaSurfaceRules.class)
+@Mixin(SurfaceRuleData.class)
 public class VanillaSurfaceRulesMixin {
 
     @Shadow
     @Final
-    private static MaterialRules.MaterialRule WATER;
+    private static SurfaceRules.RuleSource WATER;
 
-    @ModifyVariable(method = "createDefaultRule", at = @At("STORE"), ordinal = 8)
-    private static MaterialRules.MaterialRule injected(MaterialRules.MaterialRule materialRule) {
+    @ModifyVariable(method = "overworldLike", at = @At("STORE"), ordinal = 8)
+    private static SurfaceRules.RuleSource injected(SurfaceRules.RuleSource materialRule) {
 
-        return MaterialRules.sequence(MaterialRules.condition(
-                MaterialRules.STONE_DEPTH_FLOOR, MaterialRules.sequence(
-                        MaterialRules.condition(
-                                MaterialRules.biome(RegisterWorldgen.CYPRESS_WETLANDS),
-                                MaterialRules.condition(
-                                        MaterialRules.aboveY(YOffset.fixed(60), 0),
-                                        MaterialRules.condition(
-                                                MaterialRules.not(MaterialRules.aboveY(YOffset.fixed(63), 0)),
-                                                MaterialRules.condition(MaterialRules.noiseThreshold(NoiseParametersKeys.SURFACE_SWAMP, 0.0), WATER)
+        return SurfaceRules.sequence(SurfaceRules.ifTrue(
+                SurfaceRules.ON_FLOOR, SurfaceRules.sequence(
+                        SurfaceRules.ifTrue(
+                                SurfaceRules.isBiome(RegisterWorldgen.CYPRESS_WETLANDS),
+                                SurfaceRules.ifTrue(
+                                        SurfaceRules.yBlockCheck(VerticalAnchor.absolute(60), 0),
+                                        SurfaceRules.ifTrue(
+                                                SurfaceRules.not(SurfaceRules.yBlockCheck(VerticalAnchor.absolute(63), 0)),
+                                                SurfaceRules.ifTrue(SurfaceRules.noiseCondition(Noises.SWAMP, 0.0), WATER)
                                         )
                                 )
                         )
