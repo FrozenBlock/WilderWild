@@ -222,7 +222,7 @@ public class WilderPlacedFeatures {
                     RarityFilterPlacementModifier.of(3), SquarePlacementModifier.of(), PlacedFeatures.MOTION_BLOCKING_HEIGHTMAP, BiomePlacementModifier.of());
 
     public static final RegistryEntry<PlacedFeature> WATER_MOSS_5 =
-            register("water_moss", WilderConfiguredFeatures.WATER_MOSS,
+            register("water_moss_5", WilderConfiguredFeatures.WATER_MOSS,
                     RarityFilterPlacementModifier.of(5), SquarePlacementModifier.of(), PlacedFeatures.MOTION_BLOCKING_HEIGHTMAP, BiomePlacementModifier.of());
 
     public static final RegistryEntry<PlacedFeature> TERMITE_PLACED = register("termite_placed",
