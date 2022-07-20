@@ -15,10 +15,10 @@ import net.minecraft.world.World;
 import net.minecraft.world.WorldAccess;
 import net.minecraft.world.WorldView;
 
-public class FloatingMossBlock extends Block {
+public class AlgaeBlock extends Block {
     protected static final VoxelShape SHAPE = Block.createCuboidShape(0.0, 0.0, 0.0, 16, 1.0, 16);
 
-    public FloatingMossBlock(AbstractBlock.Settings settings) {
+    public AlgaeBlock(AbstractBlock.Settings settings) {
         super(settings);
     }
 

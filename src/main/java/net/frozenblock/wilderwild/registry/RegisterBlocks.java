@@ -10,7 +10,7 @@ import net.fabricmc.fabric.api.registry.StrippableBlockRegistry;
 import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.block.*;
 import net.frozenblock.wilderwild.block.entity.TermiteMoundBlockEntity;
-import net.frozenblock.wilderwild.item.FloatingMossItem;
+import net.frozenblock.wilderwild.item.AlgaeItem;
 import net.frozenblock.wilderwild.item.FloweredLilyPadItem;
 import net.frozenblock.wilderwild.misc.FlowerColors;
 import net.frozenblock.wilderwild.mixin.server.SignTypeAccessor;
@@ -211,7 +211,7 @@ public class RegisterBlocks {
     }
 
     // MISC
-    private static final Material FLOATING_MOSS_MATERIAL = new FabricMaterialBuilder(MapColor.DARK_GREEN)
+    private static final Material ALGAE_MATERIAL = new FabricMaterialBuilder(MapColor.DARK_GREEN)
             .allowsMovement()
             .lightPassesThrough()
             .notSolid()
@@ -238,7 +238,7 @@ public class RegisterBlocks {
     public static final Block CATTAIL = new WaterloggableTallFlowerBlock(FabricBlockSettings.copy(Blocks.ROSE_BUSH).sounds(BlockSoundGroup.WET_GRASS).strength(0.0F).nonOpaque());
     public static final Block FLOWERED_LILY_PAD = new FloweredLilyPadBlock(FabricBlockSettings.copy(Blocks.LILY_PAD).sounds(RegisterBlockSoundGroups.LILYPAD));
 
-    public static final Block FLOATING_MOSS = new FloatingMossBlock(FabricBlockSettings.of(FLOATING_MOSS_MATERIAL).breakInstantly().velocityMultiplier(0.4F).nonOpaque().noCollision().sounds(BlockSoundGroup.SLIME));
+    public static final Block ALGAE = new AlgaeBlock(FabricBlockSettings.of(ALGAE_MATERIAL).breakInstantly().velocityMultiplier(0.4F).nonOpaque().noCollision().sounds(BlockSoundGroup.SLIME));
 
     public static void registerPlants() {
         registerBlock("white_dandelion", WHITE_DANDELION, ItemGroup.DECORATIONS);
@@ -309,8 +309,8 @@ public class RegisterBlocks {
         registerPlants();
         Registry.register(Registry.BLOCK, WilderWild.id("flowered_lily_pad"), FLOWERED_LILY_PAD);
         Registry.register(Registry.ITEM, WilderWild.id("flowered_lily_pad"), new FloweredLilyPadItem(FLOWERED_LILY_PAD, new FabricItemSettings().group(ItemGroup.DECORATIONS)));
-        Registry.register(Registry.BLOCK, WilderWild.id("floating_moss"), FLOATING_MOSS);
-        Registry.register(Registry.ITEM, WilderWild.id("floating_moss"), new FloatingMossItem(FLOATING_MOSS, new FabricItemSettings().group(ItemGroup.DECORATIONS)));
+        Registry.register(Registry.BLOCK, WilderWild.id("algae"), ALGAE);
+        Registry.register(Registry.ITEM, WilderWild.id("algae"), new AlgaeItem(ALGAE, new FabricItemSettings().group(ItemGroup.DECORATIONS)));
         registerNotSoPlants();
 
         registerComposting();
@@ -391,7 +391,7 @@ public class RegisterBlocks {
         CompostingChanceRegistry.INSTANCE.add(WHITE_GLORY_OF_THE_SNOW, 0.65F);
         CompostingChanceRegistry.INSTANCE.add(PINK_GLORY_OF_THE_SNOW, 0.65F);
         CompostingChanceRegistry.INSTANCE.add(PURPLE_GLORY_OF_THE_SNOW, 0.65F);
-        CompostingChanceRegistry.INSTANCE.add(FLOATING_MOSS, 0.3F);
+        CompostingChanceRegistry.INSTANCE.add(ALGAE, 0.3F);
     }
 
     private static void registerFlammability() {

@@ -11,8 +11,8 @@ import net.minecraft.world.gen.ProbabilityConfig;
 import net.minecraft.world.gen.feature.Feature;
 import net.minecraft.world.gen.feature.util.FeatureContext;
 
-public class WaterMossFeature extends Feature<ProbabilityConfig> {
-    public WaterMossFeature(Codec<ProbabilityConfig> codec) {
+public class AlgaeFeature extends Feature<ProbabilityConfig> {
+    public AlgaeFeature(Codec<ProbabilityConfig> codec) {
         super(codec);
     }
 
@@ -38,10 +38,10 @@ public class WaterMossFeature extends Feature<ProbabilityConfig> {
                         if (random.nextFloat() > 0.2F) {
                             if (fade) {
                                 if (random.nextFloat() > 0.5F) {
-                                    world.setBlockState(mutableDisk, RegisterBlocks.FLOATING_MOSS.getDefaultState(), 3);
+                                    world.setBlockState(mutableDisk, RegisterBlocks.ALGAE.getDefaultState(), 3);
                                 }
                             } else {
-                                world.setBlockState(mutableDisk, RegisterBlocks.FLOATING_MOSS.getDefaultState(), 3);
+                                world.setBlockState(mutableDisk, RegisterBlocks.ALGAE.getDefaultState(), 3);
                             }
                         }
                     }

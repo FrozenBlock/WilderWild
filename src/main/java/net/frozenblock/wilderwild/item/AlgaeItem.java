@@ -12,9 +12,9 @@ import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.world.RaycastContext;
 import net.minecraft.world.World;
 
-public class FloatingMossItem extends BlockItem {
+public class AlgaeItem extends BlockItem {
 
-    public FloatingMossItem(Block block, Settings settings) {
+    public AlgaeItem(Block block, Settings settings) {
         super(block, settings);
     }
 
