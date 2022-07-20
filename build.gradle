@@ -61,6 +61,7 @@ dependencies {
 		//modRuntimeOnly "maven.modrinth:c2me-fabric:0.2.0+alpha.8.2+1.19"
 		modRuntimeOnly "maven.modrinth:ksyxis:1.1"
 		//modRuntimeOnly "maven.modrinth:iris:1.19.x-v1.2.5"
+		modRuntimeOnly "maven.modrinth:no-unused-chunks-fabric:v1.1b"
 	}
 }
 
