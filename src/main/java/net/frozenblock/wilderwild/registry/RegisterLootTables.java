@@ -24,7 +24,7 @@ public class RegisterLootTables {
         LootTableEvents.MODIFY.register((resourceManager, lootManager, id, tableBuilder, source) -> {
             if (LootTables.SHIPWRECK_SUPPLY_CHEST.equals(id) && source.isBuiltin()) {
                 LootPool.Builder pool = LootPool.builder()
-                        .with(ItemEntry.builder(RegisterBlocks.FLOATING_MOSS.asItem()).weight(5).quality(Rarity.COMMON.ordinal() + 1)).apply(SetCountLootFunction.builder(UniformLootNumberProvider.create(-1.0F, 1.0F)));
+                        .with(ItemEntry.builder(RegisterBlocks.ALGAE.asItem()).weight(5).quality(Rarity.COMMON.ordinal() + 1)).apply(SetCountLootFunction.builder(UniformLootNumberProvider.create(-1.0F, 1.0F)));
 
                 tableBuilder.pool(pool);
             }
