@@ -2,7 +2,7 @@ package net.frozenblock.api.simplemethods;
 
 import net.minecraft.util.math.Direction;
 
-public class Worldgeneration {
+public class WorldGeneration {
 
     public Direction randomDir(Direction.Axis axis) {
         double random = Math.random();
