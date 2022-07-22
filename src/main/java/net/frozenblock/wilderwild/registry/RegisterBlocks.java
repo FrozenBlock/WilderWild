@@ -234,7 +234,7 @@ public class RegisterBlocks {
     public static final Block MILKWEED = new MilkweedBlock(FabricBlockSettings.copy(Blocks.ROSE_BUSH).strength(0.0F).nonOpaque());
 
     public static final Block CATTAIL = new WaterloggableTallFlowerBlock(FabricBlockSettings.copy(Blocks.ROSE_BUSH).sounds(BlockSoundGroup.WET_GRASS).strength(0.0F).nonOpaque());
-    public static final Block FLOWERED_LILY_PAD = new FloweredLilyPadBlock(FabricBlockSettings.copy(Blocks.LILY_PAD).sounds(RegisterBlockSoundGroups.LILYPAD));
+    public static final Block FLOWERING_LILY_PAD = new FloweringLilyPadBlock(FabricBlockSettings.copy(Blocks.LILY_PAD).sounds(RegisterBlockSoundGroups.LILYPAD));
 
     public static final Block ALGAE = new AlgaeBlock(FabricBlockSettings.of(ALGAE_MATERIAL).breakInstantly().velocityMultiplier(0.4F).nonOpaque().noCollision().sounds(BlockSoundGroup.SLIME));
 
@@ -305,8 +305,8 @@ public class RegisterBlocks {
         registerDeepDark();
         registerBlock("termite_mound", TERMITE_MOUND, ItemGroup.DECORATIONS);
         registerPlants();
-        Registry.register(Registry.BLOCK, WilderWild.id("flowered_lily_pad"), FLOWERED_LILY_PAD);
-        Registry.register(Registry.ITEM, WilderWild.id("flowered_lily_pad"), new FloweredLilyPadItem(FLOWERED_LILY_PAD, new FabricItemSettings().group(ItemGroup.DECORATIONS)));
+        Registry.register(Registry.BLOCK, WilderWild.id("flowering_lily_pad"), FLOWERING_LILY_PAD);
+        Registry.register(Registry.ITEM, WilderWild.id("flowering_lily_pad"), new FloweredLilyPadItem(FLOWERING_LILY_PAD, new FabricItemSettings().group(ItemGroup.DECORATIONS)));
         Registry.register(Registry.BLOCK, WilderWild.id("algae"), ALGAE);
         Registry.register(Registry.ITEM, WilderWild.id("algae"), new AlgaeItem(ALGAE, new FabricItemSettings().group(ItemGroup.DECORATIONS)));
         registerNotSoPlants();
@@ -377,7 +377,7 @@ public class RegisterBlocks {
         CompostingChanceRegistry.INSTANCE.add(MILKWEED, 0.65F);
         CompostingChanceRegistry.INSTANCE.add(RegisterItems.MILKWEED_POD, 0.25F);
         CompostingChanceRegistry.INSTANCE.add(BLOOMING_DANDELION, 0.65F);
-        CompostingChanceRegistry.INSTANCE.add(FLOWERED_LILY_PAD, 0.65F);
+        CompostingChanceRegistry.INSTANCE.add(FLOWERING_LILY_PAD, 0.65F);
         CompostingChanceRegistry.INSTANCE.add(BROWN_SHELF_FUNGUS, 0.65F);
         CompostingChanceRegistry.INSTANCE.add(RED_SHELF_FUNGUS, 0.65F);
         CompostingChanceRegistry.INSTANCE.add(CYPRESS_LEAVES, 0.3F);

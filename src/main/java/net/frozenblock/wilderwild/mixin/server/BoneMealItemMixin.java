@@ -35,7 +35,7 @@ public class BoneMealItemMixin {
             WilderWild.log(Blocks.LILY_PAD, blockPos, "Bonemeal", WilderWild.DEV_LOGGING);
             if (!world.isClient) {
                 world.syncWorldEvent(WorldEvents.BONE_MEAL_USED, blockPos, 0);
-                world.setBlockState(blockPos, RegisterBlocks.FLOWERED_LILY_PAD.getDefaultState());
+                world.setBlockState(blockPos, RegisterBlocks.FLOWERING_LILY_PAD.getDefaultState());
                 context.getStack().decrement(1);
             }
             info.setReturnValue(ActionResult.success(world.isClient));

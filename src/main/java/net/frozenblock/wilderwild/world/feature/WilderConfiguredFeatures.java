@@ -193,7 +193,7 @@ public class WilderConfiguredFeatures {
     public static final RegistryEntry<ConfiguredFeature<RandomPatchFeatureConfig, ?>> PATCH_FLOWERED_WATERLILY =
             register("patch_flowered_waterlily", Feature.RANDOM_PATCH,
                     new RandomPatchFeatureConfig(10, 7, 3, PlacedFeatures.createEntry(Feature.SIMPLE_BLOCK,
-                            new SimpleBlockFeatureConfig(BlockStateProvider.of(RegisterBlocks.FLOWERED_LILY_PAD)))));
+                            new SimpleBlockFeatureConfig(BlockStateProvider.of(RegisterBlocks.FLOWERING_LILY_PAD)))));
 
     public static final RegistryEntry<ConfiguredFeature<ProbabilityConfig, ?>> PATCH_ALGAE =
             register("patch_algae", WilderWild.ALGAE_FEATURE, new ProbabilityConfig(0.8F));
