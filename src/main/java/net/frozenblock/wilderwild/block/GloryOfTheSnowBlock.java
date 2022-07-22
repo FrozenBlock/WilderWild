@@ -6,6 +6,7 @@ import net.frozenblock.wilderwild.registry.RegisterBlocks;
 import net.frozenblock.wilderwild.registry.RegisterProperties;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
+import net.minecraft.block.PlantBlock;
 import net.minecraft.block.ShapeContext;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
@@ -29,12 +30,15 @@ import net.minecraft.world.event.GameEvent;
 
 import java.util.List;
 
-public class GloryOfTheSnowBlock extends MultiColorFlowerBlock {
+public class GloryOfTheSnowBlock extends PlantBlock {
     private static final VoxelShape SHAPE = Block.createCuboidShape(2.0D, 0.0D, 2.0D, 14.0D, 10.0D, 14.0D);
     public static final EnumProperty<FlowerColors> COLORS = RegisterProperties.FLOWER_COLOR;
 
+    public final List<FlowerColors> COLOR_LIST;
+
     public GloryOfTheSnowBlock(Settings settings, List<FlowerColors> list) {
-        super(settings, list);
+        super(settings);
+        this.COLOR_LIST = list;
     }
 
     @Override
