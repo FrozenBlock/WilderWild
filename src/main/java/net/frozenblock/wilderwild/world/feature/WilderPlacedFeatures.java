@@ -217,12 +217,12 @@ public class WilderPlacedFeatures {
     public static final RegistryEntry<PlacedFeature> PATCH_FLOWERED_WATERLILY = register("patch_flowered_waterlily",
             WilderConfiguredFeatures.PATCH_FLOWERED_WATERLILY, modifiers(1));
 
-    public static final RegistryEntry<PlacedFeature> WATER_MOSS =
-            register("water_moss", WilderConfiguredFeatures.WATER_MOSS,
+    public static final RegistryEntry<PlacedFeature> PATCH_ALGAE =
+            register("patch_algae", WilderConfiguredFeatures.PATCH_ALGAE,
                     RarityFilterPlacementModifier.of(3), SquarePlacementModifier.of(), PlacedFeatures.MOTION_BLOCKING_HEIGHTMAP, BiomePlacementModifier.of());
 
-    public static final RegistryEntry<PlacedFeature> WATER_MOSS_5 =
-            register("water_moss_5", WilderConfiguredFeatures.WATER_MOSS,
+    public static final RegistryEntry<PlacedFeature> PATCH_ALGAE_5 =
+            register("patch_algae_5", WilderConfiguredFeatures.PATCH_ALGAE,
                     RarityFilterPlacementModifier.of(5), SquarePlacementModifier.of(), PlacedFeatures.MOTION_BLOCKING_HEIGHTMAP, BiomePlacementModifier.of());
 
     public static final RegistryEntry<PlacedFeature> TERMITE_PLACED = register("termite_placed",
