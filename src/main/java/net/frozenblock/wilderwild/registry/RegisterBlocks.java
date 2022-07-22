@@ -41,13 +41,11 @@ public class RegisterBlocks {
     private static final MapColor CYPRESS_PLANKS_COLOR = MapColor.LIGHT_GRAY;
     private static final MapColor CYPRESS_BARK_COLOR = MapColor.STONE_GRAY;
 
-    // OTHER(BUILDING BLOCKS)
-    public static final Block SANDY_DIRT = new Block(FabricBlockSettings.of(Material.SOIL, MapColor.DIRT_BROWN).strength(0.5F).sounds(BlockSoundGroup.GRAVEL));
+    // OTHER (BUILDING BLOCKS)
     public static final Block CHISELED_MUD_BRICKS = new Block(FabricBlockSettings.copy(Blocks.CHISELED_STONE_BRICKS).strength(1.5F).requiresTool().sounds(BlockSoundGroup.MUD_BRICKS));
 
     public static void registerOtherBB() {
         // BB = Building Blocks
-        registerBlock("sandy_dirt", SANDY_DIRT, ItemGroup.BUILDING_BLOCKS);
         registerBlock("chiseled_mud_bricks", CHISELED_MUD_BRICKS, ItemGroup.BUILDING_BLOCKS);
     }
 
@@ -100,12 +98,12 @@ public class RegisterBlocks {
     public static final Block CYPRESS_FENCE = new FenceBlock(FabricBlockSettings.of(Material.WOOD, CYPRESS_PLANKS_COLOR).strength(2.0F, 3.0F).sounds(BlockSoundGroup.WOOD));
 
     public static final SignType BAOBAB_SIGN_TYPE = SignTypeAccessor.newSignType("baobab");
-    public static final Block BAOBAB_SIGN_BLOCK = new WildSignBlock(FabricBlockSettings.of(Material.WOOD, BAOBAB_LOG.getDefaultMapColor()).noCollision().strength(1.0F).sounds(BlockSoundGroup.WOOD), BAOBAB_SIGN_TYPE);
-    public static final Block BAOBAB_WALL_SIGN = new WildWallSignBlock(FabricBlockSettings.of(Material.WOOD, BAOBAB_LOG.getDefaultMapColor()).noCollision().strength(1.0F).sounds(BlockSoundGroup.WOOD).dropsLike(BAOBAB_SIGN_BLOCK), BAOBAB_SIGN_TYPE);
+    public static final Block BAOBAB_SIGN_BLOCK = new WilderSignBlock(FabricBlockSettings.of(Material.WOOD, BAOBAB_LOG.getDefaultMapColor()).noCollision().strength(1.0F).sounds(BlockSoundGroup.WOOD), BAOBAB_SIGN_TYPE);
+    public static final Block BAOBAB_WALL_SIGN = new WilderWallSignBlock(FabricBlockSettings.of(Material.WOOD, BAOBAB_LOG.getDefaultMapColor()).noCollision().strength(1.0F).sounds(BlockSoundGroup.WOOD).dropsLike(BAOBAB_SIGN_BLOCK), BAOBAB_SIGN_TYPE);
 
     public static final SignType CYPRESS_SIGN_TYPE = SignTypeAccessor.newSignType("cypress");
-    public static final Block CYPRESS_SIGN_BLOCK = new WildSignBlock(FabricBlockSettings.of(Material.WOOD, CYPRESS_LOG.getDefaultMapColor()).noCollision().strength(1.0F).sounds(BlockSoundGroup.WOOD), CYPRESS_SIGN_TYPE);
-    public static final Block CYPRESS_WALL_SIGN = new WildWallSignBlock(FabricBlockSettings.of(Material.WOOD, CYPRESS_LOG.getDefaultMapColor()).noCollision().strength(1.0F).sounds(BlockSoundGroup.WOOD).dropsLike(CYPRESS_SIGN_BLOCK), CYPRESS_SIGN_TYPE);
+    public static final Block CYPRESS_SIGN_BLOCK = new WilderSignBlock(FabricBlockSettings.of(Material.WOOD, CYPRESS_LOG.getDefaultMapColor()).noCollision().strength(1.0F).sounds(BlockSoundGroup.WOOD), CYPRESS_SIGN_TYPE);
+    public static final Block CYPRESS_WALL_SIGN = new WilderWallSignBlock(FabricBlockSettings.of(Material.WOOD, CYPRESS_LOG.getDefaultMapColor()).noCollision().strength(1.0F).sounds(BlockSoundGroup.WOOD).dropsLike(CYPRESS_SIGN_BLOCK), CYPRESS_SIGN_TYPE);
 
     public static void registerWoods() {
         String baobab = "baobab";
