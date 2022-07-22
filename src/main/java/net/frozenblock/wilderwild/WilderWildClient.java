@@ -1,6 +1,5 @@
 package net.frozenblock.wilderwild;
 
-import com.google.gson.*;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
@@ -9,7 +8,6 @@ import net.fabricmc.fabric.api.client.rendering.v1.ColorProviderRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityModelLayerRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
 import net.fabricmc.fabric.api.event.client.ClientSpriteRegistryCallback;
-import net.fabricmc.loader.api.FabricLoader;
 import net.frozenblock.api.mathematics.AdvancedMath;
 import net.frozenblock.wilderwild.entity.AncientHornProjectile;
 import net.frozenblock.wilderwild.entity.render.AncientHornProjectileModel;
@@ -40,12 +38,6 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.registry.Registry;
 
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.Reader;
-import java.nio.file.Files;
-import java.util.Objects;
 import java.util.UUID;
 
 public class WilderWildClient implements ClientModInitializer {
