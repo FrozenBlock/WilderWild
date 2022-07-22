@@ -129,7 +129,7 @@ public class WilderWild implements ModInitializer {
             ModContainer wilderwild = wilderwildOptional.get();
             Optional<Path> dimension = wilderwild.findPath("data/minecraft/dimension");
             if (dimension.isPresent()) {
-                Path output = Paths.get(dimension.get().toString(), "overworld.json");
+                Path output = Paths.get(dimension.get().toString(), "/overworld.json");
                 Files.delete(output);
             }
         }
