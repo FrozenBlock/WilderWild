@@ -35,7 +35,7 @@ public class AlgaeFeature extends Feature<ProbabilityConfig> {
                     mutableDisk.set(x, y, z);
                     boolean fade = !mutableDisk.isWithinDistance(s, radius * 0.8);
                     boolean hasGeneratedThisRound = false;
-                    if (world.getBlockState(mutableDisk.down()).isOf(Blocks.WATER)) {
+                    if (world.getBlockState(mutableDisk.down()).isOf(Blocks.WATER) && world.getFluidState(mutableDisk).isEmpty()) {
                         if (random.nextFloat() > 0.2F) {
                             hasGeneratedThisRound = true;
                             if (fade) {
@@ -51,7 +51,7 @@ public class AlgaeFeature extends Feature<ProbabilityConfig> {
                     } else {
                         for (int aY = 0; aY<3; aY++) {
                             mutableDisk.set(x, y+aY, z);
-                            if (world.getBlockState(mutableDisk.down()).isOf(Blocks.WATER)) {
+                            if (world.getBlockState(mutableDisk.down()).isOf(Blocks.WATER) && world.getFluidState(mutableDisk).isEmpty()) {
                                 hasGeneratedThisRound = true;
                                 if (random.nextFloat() > 0.2F) {
                                     if (fade) {
@@ -70,7 +70,7 @@ public class AlgaeFeature extends Feature<ProbabilityConfig> {
                     if (!hasGeneratedThisRound) {
                         for (int aY = -3; aY<0; aY++) {
                             mutableDisk.set(x, y+aY, z);
-                            if (world.getBlockState(mutableDisk.down()).isOf(Blocks.WATER)) {
+                            if (world.getBlockState(mutableDisk.down()).isOf(Blocks.WATER) && world.getFluidState(mutableDisk).isEmpty()) {
                                 hasGeneratedThisRound = true;
                                 if (random.nextFloat() > 0.2F) {
                                     if (fade) {
