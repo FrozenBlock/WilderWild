@@ -63,7 +63,6 @@
 	"block.wilderwild.potted_cypress_sapling": "Potted Cypress Sapling",
 	"block.wilderwild.potted_blooming_dandelion": "Potted Blooming Dandelion",
 	"block.wilderwild.red_shelf_fungus": "Red Shelf Fungus",
-	"block.wilderwild.sandy_dirt": "Sandy Dirt",
 	"block.wilderwild.sculk_slab": "Sculk Slab",
 	"block.wilderwild.sculk_stairs": "Sculk Stairs",
 	"block.wilderwild.sculk_wall": "Sculk Wall",
@@ -124,6 +123,6 @@
 	"subtitles.item.ancient_horn.call": "Ancient Horn plays",
 	"subtitles.item.bottle.catch_firefly": "Bottle fills with Firefly",
 	"subtitles.item.bottle.release_firefly": "Firefly released from Bottle",
-	"wilderwild.ancient_horn.advancement.use": "Vibe Check",
+	"wilderwild.ancient_horn.advancement.use": "Whirs of the Ancient",
 	"wilderwild.ancient_horn.advancement.use.description": "Find and use an Ancient Horn."
 }
