@@ -4,6 +4,7 @@ import com.chocohead.mm.api.ClassTinkerers;
 import com.mojang.serialization.Codec;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.loader.api.FabricLoader;
+import net.fabricmc.loader.api.ModContainer;
 import net.frozenblock.wilderwild.block.entity.TermiteMoundBlockEntity;
 import net.frozenblock.wilderwild.misc.BlockSoundGroupOverwrites;
 import net.frozenblock.wilderwild.misc.WildConfig;
@@ -35,6 +36,13 @@ import net.minecraft.world.gen.trunk.TrunkPlacer;
 import net.minecraft.world.gen.trunk.TrunkPlacerType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.Optional;
 
 public class WilderWild implements ModInitializer {
     public static final String MOD_ID = "wilderwild";
@@ -97,6 +105,31 @@ public class WilderWild implements ModInitializer {
         TermiteMoundBlockEntity.Termite.addDegradableBlocks();
         TermiteMoundBlockEntity.Termite.addNaturalDegradableBlocks();
         WildConfig.makeConfig();
+
+
+        try {
+            terralith();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void terralith() throws IOException {
+        Optional<ModContainer> wilderwildOptional = FabricLoader.getInstance().getModContainer("wilderwild");
+        Optional<ModContainer> terralithOptional = FabricLoader.getInstance().getModContainer("terralith");
+        if (wilderwildOptional.isPresent() /*&& terralithOptional.isPresent()*/) {
+            ModContainer wilderwild = wilderwildOptional.get();
+            Optional<Path> terraWorld = wilderwild.findPath("data/terralith_overworld.json");
+            Optional<Path> dimension = wilderwild.findPath("data/minecraft/dimension");
+            if (terraWorld.isPresent() && dimension.isPresent()) {
+                Path output = Paths.get(String.valueOf(dimension.get().toFile()), "overworld.json");
+                Files.copy(terraWorld.get(), output);
+            }
+        }
+    }
+
+    public static void removeTerralith() {
+
     }
 
     public static Random random() {
