@@ -37,11 +37,11 @@ import net.minecraft.world.gen.trunk.TrunkPlacerType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.util.Optional;
 
 public class WilderWild implements ModInitializer {
@@ -117,19 +117,22 @@ public class WilderWild implements ModInitializer {
     public static void terralith() throws IOException {
         Optional<ModContainer> wilderwildOptional = FabricLoader.getInstance().getModContainer("wilderwild");
         Optional<ModContainer> terralithOptional = FabricLoader.getInstance().getModContainer("terralith");
-        if (wilderwildOptional.isPresent() /*&& terralithOptional.isPresent()*/) {
+        if (wilderwildOptional.isPresent() && terralithOptional.isPresent()) {
             ModContainer wilderwild = wilderwildOptional.get();
             Optional<Path> terraWorld = wilderwild.findPath("data/terralith_overworld.json");
             Optional<Path> dimension = wilderwild.findPath("data/minecraft/dimension");
             if (terraWorld.isPresent() && dimension.isPresent()) {
-                Path output = Paths.get(String.valueOf(dimension.get().toFile()), "overworld.json");
-                Files.copy(terraWorld.get(), output);
+                Path output = Paths.get(dimension.get().toString(), "overworld.json");
+                Files.copy(terraWorld.get(), output, StandardCopyOption.REPLACE_EXISTING);
+            }
+        } else if (wilderwildOptional.isPresent()) {
+            ModContainer wilderwild = wilderwildOptional.get();
+            Optional<Path> dimension = wilderwild.findPath("data/minecraft/dimension");
+            if (dimension.isPresent()) {
+                Path output = Paths.get(dimension.get().toString(), "overworld.json");
+                Files.delete(output);
             }
         }
-    }
-
-    public static void removeTerralith() {
-
     }
 
     public static Random random() {
