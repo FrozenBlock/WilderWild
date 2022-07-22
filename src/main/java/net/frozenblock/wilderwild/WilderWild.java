@@ -106,7 +106,6 @@ public class WilderWild implements ModInitializer {
         TermiteMoundBlockEntity.Termite.addNaturalDegradableBlocks();
         WildConfig.makeConfig();
 
-
         try {
             terralith();
         } catch (IOException e) {
@@ -124,9 +123,14 @@ public class WilderWild implements ModInitializer {
             if (terraWorld.isPresent()) {
                 Files.copy(terraWorld.get(), destPath, StandardCopyOption.REPLACE_EXISTING);
             }
-        } else {
+        } else if (destPath.toFile().exists()) {
             Files.delete(destPath);
         }
+    }
+
+    public static boolean hasTerralith() {
+        Optional<ModContainer> terralithOptional = FabricLoader.getInstance().getModContainer("terralith");
+        return terralithOptional.isPresent();
     }
 
     public static Random random() {
