@@ -24,7 +24,7 @@ public class SculkShriekerBlockEntityMixin {
     private void canWarn(ServerWorld world, CallbackInfoReturnable<Boolean> info) {
         SculkShriekerBlockEntity entity = SculkShriekerBlockEntity.class.cast(this);
         BlockState blockState = entity.getCachedState();
-        if (blockState.get(RegisterProperties.SOULS_TAKEN) == 2 && !entity.getCachedState().get(RegisterProperties.CAN_SUMMON)) {
+        if (blockState.get(RegisterProperties.SOULS_TAKEN) == 2) {
             WilderWild.log(Blocks.SCULK_SHRIEKER, entity.getPos(), "All Souls Have Already Been Taken, Cannot Warn", WilderWild.DEV_LOGGING);
             info.setReturnValue(false);
             info.cancel();
@@ -34,7 +34,7 @@ public class SculkShriekerBlockEntityMixin {
     @Inject(at = @At("HEAD"), method = "accepts", cancellable = true)
     public void accepts(ServerWorld world, GameEventListener listener, BlockPos pos, GameEvent event, GameEvent.Emitter emitter, CallbackInfoReturnable<Boolean> info) {
         SculkShriekerBlockEntity entity = SculkShriekerBlockEntity.class.cast(this);
-        if ((entity.getCachedState().get(RegisterProperties.SOULS_TAKEN) == 2 && !entity.getCachedState().get(RegisterProperties.CAN_SUMMON))) {
+        if (entity.getCachedState().get(RegisterProperties.SOULS_TAKEN) == 2) {
             info.setReturnValue(false);
             info.cancel();
         }
@@ -43,7 +43,7 @@ public class SculkShriekerBlockEntityMixin {
     @Inject(at = @At("HEAD"), method = "shriek(Lnet/minecraft/server/world/ServerWorld;Lnet/minecraft/server/network/ServerPlayerEntity;)V", cancellable = true)
     public void shriek(ServerWorld world, @Nullable ServerPlayerEntity player, CallbackInfo info) {
         SculkShriekerBlockEntity entity = SculkShriekerBlockEntity.class.cast(this);
-        if (entity.getCachedState().get(RegisterProperties.SOULS_TAKEN) == 2 && !entity.getCachedState().get(RegisterProperties.CAN_SUMMON)) {
+        if (entity.getCachedState().get(RegisterProperties.SOULS_TAKEN) == 2) {
             info.cancel();
         }
     }
