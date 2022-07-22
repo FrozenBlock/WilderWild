@@ -100,6 +100,6 @@ public class DefaultBiomeFeaturesMixin {
             info.cancel();
         }
     }
-    
+
 }
 
