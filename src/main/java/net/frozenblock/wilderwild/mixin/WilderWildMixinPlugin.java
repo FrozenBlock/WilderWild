@@ -31,7 +31,7 @@ public class WilderWildMixinPlugin implements IMixinConfigPlugin {
         String mixin = mixinClassName.substring(MIXIN_PACKAGE_ROOT.length());
 
         if (mixin.contains("simple_copper_pipes")) {
-            return FabricLoader.getInstance().getModContainer("copper_pipe").isPresent();
+            return FabricLoader.getInstance().isModLoaded("copper_pipe");
         }
 
         return true;

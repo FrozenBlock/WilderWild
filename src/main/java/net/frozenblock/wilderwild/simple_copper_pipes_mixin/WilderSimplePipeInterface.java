@@ -1,4 +1,4 @@
-package net.frozenblock.wilderwild.misc.simple_copper_pipes;
+package net.frozenblock.wilderwild.simple_copper_pipes_mixin;
 
 import net.minecraft.block.BlockState;
 import net.minecraft.util.math.BlockPos;

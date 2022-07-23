@@ -35,9 +35,7 @@
 	"worldgen.SpruceSaplingGeneratorMixin",
 	"worldgen.SwampHutMixin",
 	"worldgen.VanillaBiomeParametersMixin",
-	"worldgen.VanillaSurfaceRulesMixin",
-	"simple_copper_pipes.CopperFittingEntityMixin",
-	"simple_copper_pipes.CopperPipeEntityMixin"
+	"worldgen.VanillaSurfaceRulesMixin"
   ],
   "client": [
 	"client.ClientBrandRetrieverMixin",
