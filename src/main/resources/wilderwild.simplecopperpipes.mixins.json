@@ -1,5 +1,5 @@
 {
-  "required": false,
+  "required": true,
   "minVersion": "0.8",
   "package": "net.frozenblock.wilderwild.simple_copper_pipes_mixin",
   "compatibilityLevel": "JAVA_17",
@@ -9,6 +9,6 @@
 	  "simple_copper_pipes.CopperPipeEntityMixin"
   ],
   "injectors": {
-	"defaultRequire": 0
+	"defaultRequire": 1
   }
 }
