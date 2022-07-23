@@ -1,7 +1,7 @@
 package net.frozenblock.wilderwild.mixin.server;
 
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
-import net.frozenblock.wilderwild.misc.ToSculkSpreader;
+import net.frozenblock.wilderwild.misc.WilderSculkSpreader;
 import net.frozenblock.wilderwild.tag.WilderBlockTags;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.SculkSpreadManager;
@@ -104,7 +104,7 @@ public class SculkSpreadManagerCursorMixin {
         if (var2 instanceof SculkSpreadable) {
             var10000 = (SculkSpreadable) var2;
         } else if (isWorldGen && (state.isIn(WilderBlockTags.SCULK_WALL_REPLACEABLE_WORLDGEN) || state.isIn(WilderBlockTags.SCULK_SLAB_REPLACEABLE_WORLDGEN) || state.isIn(WilderBlockTags.SCULK_STAIR_REPLACEABLE_WORLDGEN))) {
-            var10000 = new ToSculkSpreader();
+            var10000 = new WilderSculkSpreader();
         } else {
             var10000 = SculkSpreadable.VEIN_ONLY_SPREADER;
         }

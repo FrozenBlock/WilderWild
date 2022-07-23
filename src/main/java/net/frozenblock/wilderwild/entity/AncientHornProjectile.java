@@ -4,7 +4,7 @@ import io.netty.buffer.Unpooled;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.block.entity.HangingTendrilBlockEntity;
-import net.frozenblock.wilderwild.misc.WildProjectileDamageSource;
+import net.frozenblock.wilderwild.misc.WilderProjectileDamageSource;
 import net.frozenblock.wilderwild.misc.server.EasyPacket;
 import net.frozenblock.wilderwild.misc.simple_pipe_compatability.SaveableAncientHorn;
 import net.frozenblock.wilderwild.misc.simple_pipe_compatability.WilderSimplePipeInterface;
@@ -450,9 +450,9 @@ public class AncientHornProjectile extends PersistentProjectileEntity {
         if (entity != entity2) {
             DamageSource damageSource;
             if (entity2 == null) {
-                damageSource = WildProjectileDamageSource.ancientHorn(this, this);
+                damageSource = WilderProjectileDamageSource.ancientHorn(this, this);
             } else {
-                damageSource = WildProjectileDamageSource.ancientHorn(this, entity2);
+                damageSource = WilderProjectileDamageSource.ancientHorn(this, entity2);
                 if (entity2 instanceof LivingEntity) {
                     ((LivingEntity) entity2).onAttacking(entity);
                 }

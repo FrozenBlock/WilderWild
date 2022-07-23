@@ -10,7 +10,7 @@ import java.io.IOException;
 import java.io.Reader;
 import java.nio.file.Files;
 
-public class WildConfig {
+public class WilderConfig {
     public static boolean hasRun = false;
 
     public static WildConfigJson config = null;

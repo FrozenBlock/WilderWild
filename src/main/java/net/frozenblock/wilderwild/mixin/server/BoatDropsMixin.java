@@ -1,6 +1,6 @@
 package net.frozenblock.wilderwild.mixin.server;
 
-import net.frozenblock.wilderwild.misc.WildBoats;
+import net.frozenblock.wilderwild.misc.WilderBoats;
 import net.frozenblock.wilderwild.registry.RegisterItems;
 import net.minecraft.entity.vehicle.BoatEntity;
 import net.minecraft.item.Item;
@@ -16,11 +16,11 @@ public class BoatDropsMixin {
 
     @Inject(method = "asItem", at = @At("HEAD"), cancellable = true)
     public void asItem(CallbackInfoReturnable<Item> ci) {
-        if (((BoatEntity) (Object) this).getBoatType() == WildBoats.BAOBAB) {
+        if (((BoatEntity) (Object) this).getBoatType() == WilderBoats.BAOBAB) {
             ci.setReturnValue(RegisterItems.BAOBAB_BOAT_ITEM);
             ci.cancel();
         }
-        if (((BoatEntity) (Object) this).getBoatType() == WildBoats.CYPRESS) {
+        if (((BoatEntity) (Object) this).getBoatType() == WilderBoats.CYPRESS) {
             ci.setReturnValue(RegisterItems.CYPRESS_BOAT_ITEM);
             ci.cancel();
         }
