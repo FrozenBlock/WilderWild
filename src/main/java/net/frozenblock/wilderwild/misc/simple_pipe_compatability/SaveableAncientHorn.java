@@ -1,4 +1,4 @@
-package net.frozenblock.wilderwild.simple_copper_pipes_mixin;
+package net.frozenblock.wilderwild.misc.simple_pipe_compatability;
 
 import com.mojang.logging.LogUtils;
 import com.mojang.serialization.Codec;

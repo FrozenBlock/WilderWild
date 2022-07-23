@@ -1,7 +1,7 @@
 package net.frozenblock.wilderwild.simple_copper_pipes_mixin.simple_copper_pipes;
 
-import net.frozenblock.wilderwild.simple_copper_pipes_mixin.SaveableAncientHorn;
-import net.frozenblock.wilderwild.simple_copper_pipes_mixin.WilderSimplePipeInterface;
+import net.frozenblock.wilderwild.misc.simple_pipe_compatability.SaveableAncientHorn;
+import net.frozenblock.wilderwild.misc.simple_pipe_compatability.WilderSimplePipeInterface;
 import net.lunade.copper.block_entity.CopperFittingEntity;
 import net.lunade.copper.block_entity.CopperPipeEntity;
 import net.lunade.copper.blocks.CopperPipe;
