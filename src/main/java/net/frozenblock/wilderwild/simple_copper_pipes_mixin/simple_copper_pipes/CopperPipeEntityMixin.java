@@ -27,9 +27,6 @@ import static net.minecraft.state.property.Properties.FACING;
 @Mixin(CopperPipeEntity.class)
 public class CopperPipeEntityMixin implements WilderSimplePipeInterface {
 
-    @Shadow
-    public MoveablePipeDataHandler moveablePipeDataHandler;
-
     @Inject(at = @At("HEAD"), method = "serverTick")
     public void serverTick(World world, BlockPos blockPos, BlockState blockState, CallbackInfo info) {
         if (!world.isClient) {
@@ -48,21 +45,22 @@ public class CopperPipeEntityMixin implements WilderSimplePipeInterface {
         boolean bl3 = dirBlock == Blocks.WATER;
         boolean bl4 = oppBlock != Blocks.WATER;
         if ((bl1 || bl3) && (bl2 && bl4)) {
-            MoveablePipeDataHandler.SaveableMovablePipeNbt nbt = this.moveablePipeDataHandler.getMoveablePipeNbt(RegisterSaveableMoveablePipeNbt.horn);
+            CopperPipeEntity pipe = CopperPipeEntity.class.cast(this);
+            MoveablePipeDataHandler.SaveableMovablePipeNbt nbt = pipe.moveablePipeDataHandler.getMoveablePipeNbt(RegisterSaveableMoveablePipeNbt.horn);
             if (nbt != null) {
-                SaveableAncientHorn horn = (SaveableAncientHorn)nbt;
+                SaveableAncientHorn horn = SaveableAncientHorn.class.cast(nbt);
                 horn.dispense(serverWorld, blockPos);
                 this.moveHorn(serverWorld, blockPos, blockState);
-                this.moveablePipeDataHandler.removeMoveablePipeNbt(RegisterSaveableMoveablePipeNbt.horn);
+                pipe.moveablePipeDataHandler.removeMoveablePipeNbt(RegisterSaveableMoveablePipeNbt.horn);
             }
         }
     }
 
     @Override
     public void moveHorn(World world, BlockPos blockPos, BlockState blockState) {
-        MoveablePipeDataHandler.SaveableMovablePipeNbt nbt = this.moveablePipeDataHandler.getMoveablePipeNbt(RegisterSaveableMoveablePipeNbt.horn);
+        CopperPipeEntity pipe = CopperPipeEntity.class.cast(this);
+        MoveablePipeDataHandler.SaveableMovablePipeNbt nbt = pipe.moveablePipeDataHandler.getMoveablePipeNbt(RegisterSaveableMoveablePipeNbt.horn);
         if (nbt!=null) {
-            SaveableAncientHorn horn = (SaveableAncientHorn)nbt;
             Direction facing = blockState.get(FACING);
             Direction except = facing.getOpposite();
             for (Direction direction : Direction.values()) {
@@ -74,7 +72,7 @@ public class CopperPipeEntityMixin implements WilderSimplePipeInterface {
                             if (state.get(FACING) == direction || direction == facing) {
                                 BlockEntity entity = world.getBlockEntity(newPos);
                                 if (entity instanceof CopperPipeEntity pipeEntity) {
-                                    pipeEntity.moveablePipeDataHandler.setMoveablePipeNbt(RegisterSaveableMoveablePipeNbt.horn, horn);
+                                    pipeEntity.moveablePipeDataHandler.setMoveablePipeNbt(RegisterSaveableMoveablePipeNbt.horn, nbt);
                                 }
                             }
                         }
@@ -82,15 +80,15 @@ public class CopperPipeEntityMixin implements WilderSimplePipeInterface {
                             if (state.getBlock() instanceof CopperFitting) {
                                 BlockEntity entity = world.getBlockEntity(newPos);
                                 if (entity instanceof CopperFittingEntity fittingEntity) {
-                                    fittingEntity.moveablePipeDataHandler.setMoveablePipeNbt(RegisterSaveableMoveablePipeNbt.horn, horn);
+                                    fittingEntity.moveablePipeDataHandler.setMoveablePipeNbt(RegisterSaveableMoveablePipeNbt.horn, nbt);
                                 }
                             }
                         }
                     }
                 }
             }
-            this.moveablePipeDataHandler.removeMoveablePipeNbt(RegisterSaveableMoveablePipeNbt.horn);
-            CopperPipeEntity.class.cast(this).markDirty();
+            pipe.moveablePipeDataHandler.removeMoveablePipeNbt(RegisterSaveableMoveablePipeNbt.horn);
+            pipe.markDirty();
         }
     }
 
