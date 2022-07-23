@@ -123,8 +123,6 @@ public class WilderWild implements ModInitializer {
             if (terraWorld.isPresent()) {
                 Files.copy(terraWorld.get(), destPath, StandardCopyOption.REPLACE_EXISTING);
             }
-        } else if (destPath.toFile().exists()) {
-            Files.delete(destPath);
         }
     }
 
