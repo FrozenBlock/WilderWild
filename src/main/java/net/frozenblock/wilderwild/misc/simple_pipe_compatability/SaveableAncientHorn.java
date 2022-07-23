@@ -24,7 +24,7 @@ import java.util.List;
 public class SaveableAncientHorn extends MoveablePipeDataHandler.SaveableMovablePipeNbt {
 
     public SaveableAncientHorn(Vec3d originPos, String uuid, boolean hasEmittedParticle) {
-        super(null, originPos, uuid, hasEmittedParticle, null);
+        super(RegisterSaveableMoveablePipeNbt.horn, originPos, uuid, hasEmittedParticle, new BlockPos(2,2,2));
         this.originPos = originPos;
         this.uuid = uuid;
         this.hasEmittedParticle = hasEmittedParticle;
