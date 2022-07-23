@@ -14,6 +14,7 @@ import net.minecraft.util.registry.Registry;
 public class RegisterSaveableMoveablePipeNbt {
     public static final Identifier horn = new Identifier(WilderWild.MOD_ID, "ancient_horn");
     public static void init() {
+        WilderWild.log("Registering Saveable Moveable Pipe NBT For WildeWild!", true);
         Main.SAVEABLE_PIPE_NBT_IDS.add(horn);
         Main.SAVEABLE_PIPE_NBT_CLASSES.add(SaveableAncientHorn.class);
     }
