@@ -3,12 +3,12 @@
   "minVersion": "0.8",
   "package": "net.frozenblock.wilderwild.simple_copper_pipes_mixin",
   "compatibilityLevel": "JAVA_17",
-  "plugin": "net.frozenblock.wilderwild.mixin.WilderWildMixinPlugin",
+  "plugin": "net.frozenblock.wilderwild.simple_copper_pipes_mixin.PipesPlugin",
   "server": [
 	  "simple_copper_pipes.CopperFittingEntityMixin",
 	  "simple_copper_pipes.CopperPipeEntityMixin"
   ],
   "injectors": {
-	"defaultRequire": 1
+	"defaultRequire": 0
   }
 }

@@ -1,7 +1,6 @@
-package net.frozenblock.wilderwild.mixin;
+package net.frozenblock.wilderwild.simple_copper_pipes_mixin;
 
 import net.fabricmc.loader.api.FabricLoader;
-import net.frozenblock.wilderwild.WilderWild;
 import org.objectweb.asm.tree.ClassNode;
 import org.spongepowered.asm.mixin.extensibility.IMixinConfigPlugin;
 import org.spongepowered.asm.mixin.extensibility.IMixinInfo;
@@ -9,8 +8,7 @@ import org.spongepowered.asm.mixin.extensibility.IMixinInfo;
 import java.util.List;
 import java.util.Set;
 
-public class WilderWildMixinPlugin implements IMixinConfigPlugin {
-    private static final String MIXIN_PACKAGE_ROOT = "net.frozenblock.wilderwild.mixin.";
+public class PipesPlugin implements IMixinConfigPlugin {
 
     @Override
     public void onLoad(String mixinPackage) {
@@ -24,17 +22,7 @@ public class WilderWildMixinPlugin implements IMixinConfigPlugin {
 
     @Override
     public boolean shouldApplyMixin(String targetClassName, String mixinClassName) {
-        if (!mixinClassName.startsWith(MIXIN_PACKAGE_ROOT)) {
-            return false;
-        }
-
-        String mixin = mixinClassName.substring(MIXIN_PACKAGE_ROOT.length());
-
-        if (mixin.contains("simple_copper_pipes")) {
-            return FabricLoader.getInstance().isModLoaded("copper_pipe");
-        }
-
-        return true;
+        return FabricLoader.getInstance().isModLoaded("copper_pipe");
     }
 
     @Override
