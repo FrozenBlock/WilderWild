@@ -38,6 +38,7 @@ public class SaveableAncientHorn extends MoveablePipeDataHandler.SaveableMovable
             if (id.getNamespace().equals("lunade") && id.getPath().contains("pipe")) {
                 Direction direction = state.get(Properties.FACING);
                 if (world instanceof ServerWorld server && this.getEntity(world) != null) {
+                    this.hasEmittedParticle = true;
                     BlockPos offsetPos = pos.offset(direction);
                     AncientHornProjectile projectileEntity = new AncientHornProjectile(world, offsetPos.getX() + 0.5, offsetPos.getY() + 0.5, offsetPos.getZ() + 0.5);
                     projectileEntity.setVelocity(direction.getOffsetX(), direction.getOffsetY(), direction.getOffsetZ(), 1.0F, 0.0F);
