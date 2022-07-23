@@ -2,7 +2,6 @@ package net.frozenblock.wilderwild.simple_copper_pipes_mixin.simple_copper_pipes
 
 import net.frozenblock.wilderwild.misc.simple_pipe_compatability.RegisterSaveableMoveablePipeNbt;
 import net.frozenblock.wilderwild.misc.simple_pipe_compatability.SaveableAncientHorn;
-import net.frozenblock.wilderwild.misc.simple_pipe_compatability.WilderSimplePipeInterface;
 import net.lunade.copper.block_entity.CopperFittingEntity;
 import net.lunade.copper.block_entity.CopperPipeEntity;
 import net.lunade.copper.blocks.CopperFitting;
@@ -17,7 +16,6 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
@@ -25,7 +23,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import static net.minecraft.state.property.Properties.FACING;
 
 @Mixin(CopperPipeEntity.class)
-public class CopperPipeEntityMixin implements WilderSimplePipeInterface {
+public class CopperPipeEntityMixin {
 
     @Inject(at = @At("HEAD"), method = "serverTick")
     public void serverTick(World world, BlockPos blockPos, BlockState blockState, CallbackInfo info) {
@@ -56,7 +54,6 @@ public class CopperPipeEntityMixin implements WilderSimplePipeInterface {
         }
     }
 
-    @Override
     public void moveHorn(World world, BlockPos blockPos, BlockState blockState) {
         CopperPipeEntity pipe = CopperPipeEntity.class.cast(this);
         MoveablePipeDataHandler.SaveableMovablePipeNbt nbt = pipe.moveablePipeDataHandler.getMoveablePipeNbt(RegisterSaveableMoveablePipeNbt.horn);
