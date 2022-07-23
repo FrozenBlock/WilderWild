@@ -30,8 +30,7 @@
     ]
   },
   "mixins": [
-    "wilderwild.mixins.json",
-    "wilderwild.simplecopperpipes.mixins.json"
+    "wilderwild.mixins.json"
   ],
 
   "accessWidener" : "wilderwild.accesswidener",

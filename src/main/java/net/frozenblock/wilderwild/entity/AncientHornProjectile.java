@@ -6,9 +6,7 @@ import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.block.entity.HangingTendrilBlockEntity;
 import net.frozenblock.wilderwild.misc.WilderProjectileDamageSource;
 import net.frozenblock.wilderwild.misc.server.EasyPacket;
-import net.frozenblock.wilderwild.misc.simple_pipe_compatability.RegisterSaveableMoveablePipeNbt;
-import net.frozenblock.wilderwild.misc.simple_pipe_compatability.SaveableAncientHorn;
-import net.frozenblock.wilderwild.misc.simple_pipe_compatability.WilderSimplePipeInterface;
+import net.frozenblock.wilderwild.misc.simple_pipe_compatability.InteractionHandler;
 import net.frozenblock.wilderwild.registry.*;
 import net.frozenblock.wilderwild.tag.WilderBlockTags;
 import net.minecraft.block.*;
@@ -236,7 +234,7 @@ public class AncientHornProjectile extends PersistentProjectileEntity {
         Entity owner = this.getOwner();
         if (WilderWild.isCopperPipe(blockState) && owner != null) {
             if (blockHitResult.getSide() == blockState.get(Properties.FACING).getOpposite()) {
-                if (RegisterSaveableMoveablePipeNbt.addHornNbtToBlock((ServerWorld) world, blockHitResult.getBlockPos(), owner)) {
+                if (InteractionHandler.addHornNbtToBlock((ServerWorld) world, blockHitResult.getBlockPos(), owner)) {
                     this.discard();
                 }
             }
