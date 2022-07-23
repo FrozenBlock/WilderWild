@@ -1,17 +1,12 @@
 package net.frozenblock.wilderwild.misc.simple_pipe_compatability;
 
-import com.mojang.logging.LogUtils;
-import com.mojang.serialization.Codec;
-import com.mojang.serialization.Dynamic;
-import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.entity.AncientHornProjectile;
 import net.frozenblock.wilderwild.misc.server.EasyPacket;
 import net.frozenblock.wilderwild.registry.RegisterSounds;
+import net.lunade.copper.pipe_nbt.MoveablePipeDataHandler;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.Entity;
-import net.minecraft.nbt.NbtCompound;
-import net.minecraft.nbt.NbtOps;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.state.property.Properties;
@@ -23,41 +18,21 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
-import org.slf4j.Logger;
 
 import java.util.List;
-import java.util.Optional;
 
-public class SaveableAncientHorn {
+public class SaveableAncientHorn extends MoveablePipeDataHandler.SaveableMovablePipeNbt {
 
-    private static final Logger LOGGER = LogUtils.getLogger();
-    public String uuid;
-    public Vec3d originPos;
-    public boolean hasEmitted;
-
-    //TEMP STORAGE
-    public Entity foundEntity;
-
-    public static final Codec<SaveableAncientHorn> CODEC = RecordCodecBuilder.create((instance) -> instance.group(
-            Codec.STRING.fieldOf("uuid").forGetter(SaveableAncientHorn::getUUID),
-            Vec3d.CODEC.fieldOf("originPos").forGetter(SaveableAncientHorn::getOriginPos),
-            Codec.BOOL.fieldOf("hasEmitted").forGetter(SaveableAncientHorn::hasEmitted)
-    ).apply(instance, SaveableAncientHorn::new));
-
-    public SaveableAncientHorn(String uuid, Vec3d originPos) {
-        this.uuid = uuid;
+    public SaveableAncientHorn(Vec3d originPos, String uuid, boolean hasEmittedParticle) {
+        super(null, originPos, uuid, hasEmittedParticle, null);
         this.originPos = originPos;
-        this.hasEmitted = false;
+        this.uuid = uuid;
+        this.hasEmittedParticle = hasEmittedParticle;
+        this.setNbtId(RegisterSaveableMoveablePipeNbt.horn);
     }
 
-    public SaveableAncientHorn(String uuid, Vec3d originPos, boolean hasEmitted) {
-        this.uuid = uuid;
-        this.originPos = originPos;
-        this.hasEmitted = hasEmitted;
-    }
-
-    public void emit(World world, BlockPos pos) {
-        if (!this.hasEmitted) {
+    public void dispense(World world, BlockPos pos) {
+        if (!this.hasEmittedParticle) {
             BlockState state = world.getBlockState(pos);
             Identifier id = Registry.BLOCK.getId(state.getBlock());
             if (id.getNamespace().equals("lunade") && id.getPath().contains("pipe")) {
@@ -98,43 +73,4 @@ public class SaveableAncientHorn {
         return null;
     }
 
-
-    public Vec3d getOriginPos() {
-        return this.originPos;
-    }
-
-    public String getUUID() {
-        return this.uuid;
-    }
-
-    public boolean hasEmitted() {
-        return this.hasEmitted;
-    }
-
-    public static SaveableAncientHorn readNbt(NbtCompound nbt) {
-        Optional<SaveableAncientHorn> horn = Optional.empty();
-        if (nbt.contains("savedAncientHorn", 10)) {
-            horn = SaveableAncientHorn.CODEC
-                    .parse(new Dynamic<>(NbtOps.INSTANCE, nbt.getCompound("savedAncientHorn")))
-                    .resultOrPartial(LOGGER::error);
-        }
-        return horn.orElse(null);
-    }
-
-    public static void writeNbt(NbtCompound nbt, @Nullable SaveableAncientHorn saveableAncientHorn) {
-        if (saveableAncientHorn != null) {
-            SaveableAncientHorn.CODEC
-                    .encodeStart(NbtOps.INSTANCE, saveableAncientHorn)
-                    .resultOrPartial(LOGGER::error)
-                    .ifPresent(saveableHornNbt -> nbt.put("savedAncientHorn", saveableHornNbt));
-        } else {
-            if (nbt.contains("savedAncientHorn", 10)) {
-                nbt.remove("savedAncientHorn");
-            }
-        }
-    }
-
-    public SaveableAncientHorn copyOf() {
-        return new SaveableAncientHorn(this.uuid, this.originPos, this.hasEmitted);
-    }
 }

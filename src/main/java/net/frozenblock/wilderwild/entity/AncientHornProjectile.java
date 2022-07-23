@@ -6,6 +6,7 @@ import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.block.entity.HangingTendrilBlockEntity;
 import net.frozenblock.wilderwild.misc.WilderProjectileDamageSource;
 import net.frozenblock.wilderwild.misc.server.EasyPacket;
+import net.frozenblock.wilderwild.misc.simple_pipe_compatability.RegisterSaveableMoveablePipeNbt;
 import net.frozenblock.wilderwild.misc.simple_pipe_compatability.SaveableAncientHorn;
 import net.frozenblock.wilderwild.misc.simple_pipe_compatability.WilderSimplePipeInterface;
 import net.frozenblock.wilderwild.registry.*;
@@ -235,10 +236,7 @@ public class AncientHornProjectile extends PersistentProjectileEntity {
         Entity owner = this.getOwner();
         if (WilderWild.isCopperPipe(blockState) && owner != null) {
             if (blockHitResult.getSide() == blockState.get(Properties.FACING).getOpposite()) {
-                BlockEntity entity = world.getBlockEntity(blockHitResult.getBlockPos());
-                if (entity != null) {
-                    world.playSound(null, blockHitResult.getBlockPos(), Registry.SOUND_EVENT.get(new Identifier("lunade", "block.copper_pipe.item_in")), SoundCategory.BLOCKS, 0.2F, (world.random.nextFloat() * 0.25F) + 0.8F);
-                    ((WilderSimplePipeInterface)entity).setSavedAncientHorn(new SaveableAncientHorn(owner.getUuid().toString(), owner.getPos()));
+                if (RegisterSaveableMoveablePipeNbt.addHornNbtToBlock((ServerWorld) world, blockHitResult.getBlockPos(), owner)) {
                     this.discard();
                 }
             }

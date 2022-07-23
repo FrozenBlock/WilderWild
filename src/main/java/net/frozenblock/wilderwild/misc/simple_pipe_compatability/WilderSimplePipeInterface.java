@@ -6,9 +6,6 @@ import net.minecraft.world.World;
 
 public interface WilderSimplePipeInterface {
 
-    SaveableAncientHorn getSavedAncientHorn();
-
-    public void setSavedAncientHorn(SaveableAncientHorn horn);
-
     public void moveHorn(World world, BlockPos blockPos, BlockState blockState);
+
 }

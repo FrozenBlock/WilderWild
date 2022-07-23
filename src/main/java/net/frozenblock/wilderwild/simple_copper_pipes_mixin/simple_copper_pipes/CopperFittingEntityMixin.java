@@ -1,17 +1,19 @@
 package net.frozenblock.wilderwild.simple_copper_pipes_mixin.simple_copper_pipes;
 
+import net.frozenblock.wilderwild.misc.simple_pipe_compatability.RegisterSaveableMoveablePipeNbt;
 import net.frozenblock.wilderwild.misc.simple_pipe_compatability.SaveableAncientHorn;
 import net.frozenblock.wilderwild.misc.simple_pipe_compatability.WilderSimplePipeInterface;
 import net.lunade.copper.block_entity.CopperFittingEntity;
 import net.lunade.copper.block_entity.CopperPipeEntity;
 import net.lunade.copper.blocks.CopperPipe;
+import net.lunade.copper.pipe_nbt.MoveablePipeDataHandler;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.nbt.NbtCompound;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
@@ -19,7 +21,8 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(CopperFittingEntity.class)
 public class CopperFittingEntityMixin implements WilderSimplePipeInterface {
 
-    public SaveableAncientHorn savedHorn;
+    @Shadow
+    public MoveablePipeDataHandler moveablePipeDataHandler;
 
     @Inject(at = @At("HEAD"), method = "serverTick")
     private static void serverTick(World world, BlockPos blockPos, BlockState blockState, CopperFittingEntity copperFittingEntity, CallbackInfo info) {
@@ -28,8 +31,11 @@ public class CopperFittingEntityMixin implements WilderSimplePipeInterface {
         }
     }
 
+    @Override
     public void moveHorn(World world, BlockPos blockPos, BlockState blockState) {
-        if (this.savedHorn!=null) {
+        MoveablePipeDataHandler.SaveableMovablePipeNbt nbt = this.moveablePipeDataHandler.getMoveablePipeNbt(RegisterSaveableMoveablePipeNbt.horn);
+        if (nbt!=null) {
+            SaveableAncientHorn horn = (SaveableAncientHorn)nbt;
             for (Direction direction : Direction.values()) {
                 BlockPos newPos = blockPos.offset(direction);
                 if (world.isChunkLoaded(newPos)) {
@@ -38,34 +44,15 @@ public class CopperFittingEntityMixin implements WilderSimplePipeInterface {
                         if (state.get(CopperPipe.FACING) == direction) {
                             BlockEntity entity = world.getBlockEntity(newPos);
                             if (entity instanceof CopperPipeEntity pipeEntity) {
-                                ((WilderSimplePipeInterface)pipeEntity).setSavedAncientHorn(this.savedHorn);
+                                pipeEntity.moveablePipeDataHandler.setMoveablePipeNbt(RegisterSaveableMoveablePipeNbt.horn, horn);
                             }
                         }
                     }
                 }
             }
-            this.savedHorn = null;
+            this.moveablePipeDataHandler.removeMoveablePipeNbt(RegisterSaveableMoveablePipeNbt.horn);
             CopperFittingEntity.class.cast(this).markDirty();
         }
     }
 
-    @Inject(at = @At("TAIL"), method = "readNbt")
-    public void readNbt(NbtCompound nbtCompound, CallbackInfo info) {
-        this.savedHorn = SaveableAncientHorn.readNbt(nbtCompound);
-    }
-
-    @Inject(at = @At("TAIL"), method = "writeNbt")
-    public void writeNbt(NbtCompound nbtCompound, CallbackInfo info) {
-        SaveableAncientHorn.writeNbt(nbtCompound, this.savedHorn);
-    }
-
-    @Override
-    public SaveableAncientHorn getSavedAncientHorn() {
-        return this.savedHorn;
-    }
-
-    @Override
-    public void setSavedAncientHorn(SaveableAncientHorn horn) {
-        this.savedHorn = horn;
-    }
 }

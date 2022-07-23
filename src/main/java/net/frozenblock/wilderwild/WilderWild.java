@@ -8,6 +8,7 @@ import net.fabricmc.loader.api.ModContainer;
 import net.frozenblock.wilderwild.block.entity.TermiteMoundBlockEntity;
 import net.frozenblock.wilderwild.misc.BlockSoundGroupOverwrites;
 import net.frozenblock.wilderwild.misc.WilderConfig;
+import net.frozenblock.wilderwild.misc.simple_pipe_compatability.RegisterSaveableMoveablePipeNbt;
 import net.frozenblock.wilderwild.registry.*;
 import net.frozenblock.wilderwild.world.feature.WilderConfiguredFeatures;
 import net.frozenblock.wilderwild.world.feature.WilderMiscConfigured;
@@ -111,6 +112,10 @@ public class WilderWild implements ModInitializer {
             terralith();
         } catch (IOException e) {
             e.printStackTrace();
+        }
+
+        if (hasSimpleCopperPipes()) {
+            RegisterSaveableMoveablePipeNbt.init();
         }
     }
 
