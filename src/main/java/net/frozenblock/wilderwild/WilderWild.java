@@ -22,6 +22,7 @@ import net.frozenblock.wilderwild.world.gen.trunk.BaobabTrunkPlacer;
 import net.frozenblock.wilderwild.world.gen.trunk.FallenTrunkWithLogs;
 import net.frozenblock.wilderwild.world.gen.trunk.StraightTrunkWithLogs;
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.SpawnGroup;
 import net.minecraft.item.Instrument;
@@ -127,8 +128,19 @@ public class WilderWild implements ModInitializer {
     }
 
     public static boolean hasTerralith() {
-        Optional<ModContainer> terralithOptional = FabricLoader.getInstance().getModContainer("terralith");
-        return terralithOptional.isPresent();
+        return FabricLoader.getInstance().getModContainer("terralith").isPresent();
+    }
+
+    public static boolean hasSimpleCopperPipes() {
+        return FabricLoader.getInstance().getModContainer("copper_pipe").isPresent();
+    }
+
+    public static boolean isCopperPipe(BlockState state) {
+        if (hasSimpleCopperPipes()) {
+            Identifier id = Registry.BLOCK.getId(state.getBlock());
+            return id.getNamespace().equals("lunade") && id.getPath().contains("pipe");
+        }
+        return false;
     }
 
     public static Random random() {

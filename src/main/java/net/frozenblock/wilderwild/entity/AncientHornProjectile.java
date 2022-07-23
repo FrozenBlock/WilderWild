@@ -6,6 +6,8 @@ import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.block.entity.HangingTendrilBlockEntity;
 import net.frozenblock.wilderwild.misc.WildProjectileDamageSource;
 import net.frozenblock.wilderwild.misc.server.EasyPacket;
+import net.frozenblock.wilderwild.misc.simple_copper_pipes.SaveableAncientHorn;
+import net.frozenblock.wilderwild.misc.simple_copper_pipes.WilderSimplePipeInterface;
 import net.frozenblock.wilderwild.registry.*;
 import net.frozenblock.wilderwild.tag.WilderBlockTags;
 import net.minecraft.block.*;
@@ -31,6 +33,7 @@ import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
+import net.minecraft.state.property.Properties;
 import net.minecraft.tag.TagKey;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.hit.BlockHitResult;
@@ -155,6 +158,9 @@ public class AncientHornProjectile extends PersistentProjectileEntity {
         }
         if (!this.isRemoved() && hitResult != null && !bl) {
             this.onCollision(hitResult);
+            if (this.isRemoved()) {
+                return;
+            }
             this.velocityDirty = true;
         }
         vec3d = this.getVelocity();
@@ -226,6 +232,17 @@ public class AncientHornProjectile extends PersistentProjectileEntity {
     protected void onBlockHit(BlockHitResult blockHitResult) {
         this.inBlockState = this.world.getBlockState(blockHitResult.getBlockPos());
         BlockState blockState = this.world.getBlockState(blockHitResult.getBlockPos());
+        Entity owner = this.getOwner();
+        if (WilderWild.isCopperPipe(blockState) && owner != null) {
+            if (blockHitResult.getSide() == blockState.get(Properties.FACING).getOpposite()) {
+                BlockEntity entity = world.getBlockEntity(blockHitResult.getBlockPos());
+                if (entity != null) {
+                    world.playSound(null, blockHitResult.getBlockPos(), Registry.SOUND_EVENT.get(new Identifier("lunade", "block.copper_pipe.item_in")), SoundCategory.BLOCKS, 0.2F, (world.random.nextFloat() * 0.25F) + 0.8F);
+                    ((WilderSimplePipeInterface)entity).setSavedAncientHorn(new SaveableAncientHorn(owner.getUuid().toString(), owner.getPos()));
+                    this.discard();
+                }
+            }
+        }
         blockState.onProjectileHit(this.world, blockState, blockHitResult, this);
         Vec3d vec3d = blockHitResult.getPos().subtract(this.getX(), this.getY(), this.getZ());
         this.setVelocity(vec3d);
@@ -235,7 +252,6 @@ public class AncientHornProjectile extends PersistentProjectileEntity {
         this.inGround = true;
         this.shake = 7;
         this.setCritical(false);
-        Entity owner = this.getOwner();
         if (world instanceof ServerWorld server && canInteract()) {
             if (blockState.getBlock() == Blocks.SCULK_SHRIEKER) {
                 BlockPos pos = blockHitResult.getBlockPos();

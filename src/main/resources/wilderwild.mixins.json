@@ -3,6 +3,7 @@
   "minVersion": "0.8",
   "package": "net.frozenblock.wilderwild.mixin",
   "compatibilityLevel": "JAVA_17",
+  "plugin": "net.frozenblock.wilderwild.mixin.WilderWildMixinPlugin",
   "mixins": [
 	"server.BlockEntityTypeMixin",
 	"server.BlockMixin",
@@ -34,7 +35,9 @@
 	"worldgen.SpruceSaplingGeneratorMixin",
 	"worldgen.SwampHutMixin",
 	"worldgen.VanillaBiomeParametersMixin",
-	"worldgen.VanillaSurfaceRulesMixin"
+	"worldgen.VanillaSurfaceRulesMixin",
+	"simple_copper_pipes.CopperFittingEntityMixin",
+	"simple_copper_pipes.CopperPipeEntityMixin"
   ],
   "client": [
 	"client.ClientBrandRetrieverMixin",
