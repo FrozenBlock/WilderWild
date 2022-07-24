@@ -440,7 +440,9 @@ public class Firefly extends PathAwareEntity implements Flutterer {
             if (entity != null) {
                 int i;
                 double d = entity.squaredDistanceTo(this);
-                if (this.canImmediatelyDespawn(d) && !this.world.getBiome(this.getBlockPos()).isIn(WilderBiomeTags.FIREFLY_SPAWNABLE_DURING_DAY) && this.world.isDay() && Math.sqrt(d) > 18) {
+                boolean dayKey = this.world.getBiome(this.getBlockPos()).isIn(WilderBiomeTags.FIREFLY_SPAWNABLE_DURING_DAY);
+                boolean caveKey = this.world.getBiome(this.getBlockPos()).isIn(WilderBiomeTags.FIREFLY_SPAWNABLE_CAVE);
+                if (this.canImmediatelyDespawn(d) && !dayKey && !caveKey && Math.sqrt(d) > 18) {
                     this.despawning = true;
                 }
                 if (d > (double) ((i = this.getType().getSpawnGroup().getImmediateDespawnRange()) * i) && this.canImmediatelyDespawn(d)) {
@@ -535,24 +537,9 @@ public class Firefly extends PathAwareEntity implements Flutterer {
             if (biome.isPresent()) {
                 for (int i = 0; i < BIOMES.size(); ++i) {
                     Identifier biomeID = BIOMES.get(i);
-                    if (biomeID == biome.get().getRegistry()) {
+                    if (biomeID == biome.get().getValue()) {
                         colors.add(COLORS.get(i));
                     }
-                }
-            }
-            if (colors.isEmpty()) {
-                return null;
-            }
-            return colors.get((int) (WilderWild.random().nextDouble() * colors.size()));
-        }
-
-        @Nullable
-        public static String getBiomeColor(RegistryKey<Biome> biome) {
-            ArrayList<String> colors = new ArrayList<>();
-            for (int i = 0; i < BIOMES.size(); ++i) {
-                Identifier biomeID = BIOMES.get(i);
-                if (biomeID == biome.getRegistry()) {
-                    colors.add(COLORS.get(i));
                 }
             }
             if (colors.isEmpty()) {
