@@ -15,8 +15,7 @@ public class WilderWorldGen {
         WilderMushroomGeneration.generateMushroom();
 
         WilderMusic.playMusic();
-        WilderSpawns.addFirefliesByTags();
-        WilderSpawns.addFirefliesOthers();
+        WilderSpawns.addFireflies();
     }
 }
 
