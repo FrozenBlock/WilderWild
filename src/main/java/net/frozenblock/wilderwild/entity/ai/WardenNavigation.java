@@ -32,7 +32,7 @@ public class WardenNavigation extends MobNavigation {
             }
 
             private boolean isEntitySubmergedInWaterOrLava(Entity entity) {
-                return entity.isSubmergedIn(FluidTags.WATER) || entity.isSubmergedIn(FluidTags.LAVA);
+                return entity.isSubmergedInWater() || entity.isSubmergedIn(FluidTags.LAVA);
             }
         };
     }
