@@ -306,10 +306,12 @@ public class Firefly extends PathAwareEntity implements Flutterer {
     @Override
     public void tick() {
 
-        if (this.shouldCheckSpawn && !this.isFromBottle()) {
-            String biomeColor = FireflyBiomeColorRegistry.getBiomeColor(world.getBiome(this.getBlockPos()));
-            if (biomeColor != null) {
-                this.setColor(biomeColor);
+        if (this.shouldCheckSpawn) {
+            if (!this.isFromBottle()) {
+                String biomeColor = FireflyBiomeColorRegistry.getBiomeColor(world.getBiome(this.getBlockPos()));
+                if (biomeColor != null) {
+                    this.setColor(biomeColor);
+                }
             }
             this.shouldCheckSpawn = false;
         }
