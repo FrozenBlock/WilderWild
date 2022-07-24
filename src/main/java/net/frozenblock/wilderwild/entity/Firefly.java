@@ -44,7 +44,6 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.math.random.Random;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.util.registry.RegistryEntry;
-import net.minecraft.util.registry.RegistryKey;
 import net.minecraft.world.*;
 import net.minecraft.world.biome.Biome;
 import org.jetbrains.annotations.NotNull;
@@ -533,23 +532,6 @@ public class Firefly extends PathAwareEntity implements Flutterer {
         public static void addBiomeColor(Identifier biome, String string) {
             BIOMES.add(biome);
             COLORS.add(string);
-        }
-
-        @Nullable
-        public static String getBiomeColor(Optional<RegistryKey<Biome>> biome) {
-            ArrayList<String> colors = new ArrayList<>();
-            if (biome.isPresent()) {
-                for (int i = 0; i < BIOMES.size(); ++i) {
-                    Identifier biomeID = BIOMES.get(i);
-                    if (biomeID == biome.get().getValue()) {
-                        colors.add(COLORS.get(i));
-                    }
-                }
-            }
-            if (colors.isEmpty()) {
-                return null;
-            }
-            return colors.get((int) (WilderWild.random().nextDouble() * colors.size()));
         }
 
         @Nullable
