@@ -70,7 +70,7 @@ public class Firefly extends PathAwareEntity implements Flutterer {
     public boolean despawning;
     public int homeCheckCooldown;
     public boolean wasNamedNectar;
-    public boolean shouldCheckSpawn = true;
+    public boolean shouldCheckSpawn;
 
     //public int hidingPlaceCheckCooldown;
 
