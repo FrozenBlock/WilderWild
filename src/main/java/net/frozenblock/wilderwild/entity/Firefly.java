@@ -554,14 +554,11 @@ public class Firefly extends PathAwareEntity implements Flutterer {
 
         @Nullable
         public static String getBiomeColor(RegistryEntry<Biome> biomeEntry) {
-            Optional<RegistryKey<Biome>> biome = biomeEntry.getKey();
             ArrayList<String> colors = new ArrayList<>();
-            if (biome.isPresent()) {
-                for (int i = 0; i < BIOMES.size(); ++i) {
-                    Identifier biomeID = BIOMES.get(i);
-                    if (biomeID == biome.get().getRegistry()) {
-                        colors.add(COLORS.get(i));
-                    }
+            for (int i = 0; i < BIOMES.size(); ++i) {
+                Identifier biomeID = BIOMES.get(i);
+                if (biomeEntry.matchesId(biomeID)) {
+                    colors.add(COLORS.get(i));
                 }
             }
             if (colors.isEmpty()) {
