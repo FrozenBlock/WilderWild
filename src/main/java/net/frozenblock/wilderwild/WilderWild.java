@@ -129,8 +129,8 @@ public class WilderWild implements ModInitializer {
             Firefly.FireflyBiomeColorRegistry.addBiomeColor(new Identifier("terralith", "frostfire_caves"), "blue");
             Firefly.FireflyBiomeColorRegistry.addBiomeColor(new Identifier("terralith", "frostfire_caves"), "light_blue");
 
-            Firefly.FireflyBiomeColorRegistry.addBiomeColor(new Identifier("terralith", "frostfire_caves"), "red");
-            Firefly.FireflyBiomeColorRegistry.addBiomeColor(new Identifier("terralith", "frostfire_caves"), "orange");
+            Firefly.FireflyBiomeColorRegistry.addBiomeColor(new Identifier("terralith", "thermal_caves"), "red");
+            Firefly.FireflyBiomeColorRegistry.addBiomeColor(new Identifier("terralith", "thermal_caves"), "orange");
 
             ModContainer wilderwild = wilderwildOptional.get();
             Optional<Path> terraWorld = wilderwild.findPath("data/z_wilderwild_terralith_compat.jar");
