@@ -440,10 +440,14 @@ public class Firefly extends PathAwareEntity implements Flutterer {
             if (entity != null) {
                 int i;
                 double d = entity.squaredDistanceTo(this);
-                boolean dayKey = !this.world.getBiome(this.getBlockPos()).isIn(WilderBiomeTags.FIREFLY_SPAWNABLE_DURING_DAY) && this.world.isDay();
-                boolean caveKey = !this.world.getBiome(this.getBlockPos()).isIn(WilderBiomeTags.FIREFLY_SPAWNABLE_CAVE) && this.world.getLightLevel(LightType.SKY, this.getBlockPos()) >= 6;
-                if (this.canImmediatelyDespawn(d) && (dayKey && caveKey) && Math.sqrt(d) > 18) {
-                    this.despawning = true;
+                boolean dayKey = !this.world.getBiome(this.getBlockPos()).isIn(WilderBiomeTags.FIREFLY_SPAWNABLE_DURING_DAY) && this.world.isDay() && !this.world.getBiome(this.getBlockPos()).isIn(WilderBiomeTags.FIREFLY_SPAWNABLE_CAVE);
+                boolean caveKey = this.world.getBiome(this.getBlockPos()).isIn(WilderBiomeTags.FIREFLY_SPAWNABLE_CAVE) && this.world.getLightLevel(LightType.SKY, this.getBlockPos()) >= 6;
+                if (this.canImmediatelyDespawn(d)&& Math.sqrt(d) > 18) {
+                    if (dayKey) {
+                        this.despawning = true;
+                    } else if (caveKey) {
+                        this.despawning = true;
+                    }
                 }
                 if (d > (double) ((i = this.getType().getSpawnGroup().getImmediateDespawnRange()) * i) && this.canImmediatelyDespawn(d)) {
                     this.despawning = true;
