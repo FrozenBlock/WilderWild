@@ -38,6 +38,7 @@ import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
+import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.math.random.Random;
@@ -512,10 +513,10 @@ public class Firefly extends PathAwareEntity implements Flutterer {
 
     public static class FireflyBiomeColorRegistry {
 
-        public static ArrayList<RegistryKey<Biome>> BIOMES = new ArrayList<>();
+        public static ArrayList<Identifier> BIOMES = new ArrayList<>();
         public static ArrayList<String> COLORS = new ArrayList<>();
 
-        public static void addBiomeColor(RegistryKey<Biome> biome, String string) {
+        public static void addBiomeColor(Identifier biome, String string) {
             BIOMES.add(biome);
             COLORS.add(string);
         }
@@ -525,10 +526,25 @@ public class Firefly extends PathAwareEntity implements Flutterer {
             ArrayList<String> colors = new ArrayList<>();
             if (biome.isPresent()) {
                 for (int i = 0; i < BIOMES.size(); ++i) {
-                    RegistryKey<Biome> biomeKey = BIOMES.get(i);
-                    if (biomeKey == biome.get()) {
+                    Identifier biomeID = BIOMES.get(i);
+                    if (biomeID == biome.get().getRegistry()) {
                         colors.add(COLORS.get(i));
                     }
+                }
+            }
+            if (colors.isEmpty()) {
+                return null;
+            }
+            return colors.get((int) (WilderWild.random().nextDouble() * colors.size()));
+        }
+
+        @Nullable
+        public static String getBiomeColor(RegistryKey<Biome> biome) {
+            ArrayList<String> colors = new ArrayList<>();
+            for (int i = 0; i < BIOMES.size(); ++i) {
+                Identifier biomeID = BIOMES.get(i);
+                if (biomeID == biome.getRegistry()) {
+                    colors.add(COLORS.get(i));
                 }
             }
             if (colors.isEmpty()) {

@@ -6,6 +6,7 @@ import net.fabricmc.api.ModInitializer;
 import net.fabricmc.loader.api.FabricLoader;
 import net.fabricmc.loader.api.ModContainer;
 import net.frozenblock.wilderwild.block.entity.TermiteMoundBlockEntity;
+import net.frozenblock.wilderwild.entity.Firefly;
 import net.frozenblock.wilderwild.misc.BlockSoundGroupOverwrites;
 import net.frozenblock.wilderwild.misc.WilderConfig;
 import net.frozenblock.wilderwild.misc.simple_pipe_compatability.RegisterSaveableMoveablePipeNbt;
@@ -124,6 +125,13 @@ public class WilderWild implements ModInitializer {
         Optional<ModContainer> wilderwildOptional = FabricLoader.getInstance().getModContainer("wilderwild");
         Optional<ModContainer> terralithOptional = FabricLoader.getInstance().getModContainer("terralith");
         if (wilderwildOptional.isPresent() && terralithOptional.isPresent()) {
+
+            Firefly.FireflyBiomeColorRegistry.addBiomeColor(new Identifier("terralith", "frostfire_caves"), "blue");
+            Firefly.FireflyBiomeColorRegistry.addBiomeColor(new Identifier("terralith", "frostfire_caves"), "light_blue");
+
+            Firefly.FireflyBiomeColorRegistry.addBiomeColor(new Identifier("terralith", "frostfire_caves"), "red");
+            Firefly.FireflyBiomeColorRegistry.addBiomeColor(new Identifier("terralith", "frostfire_caves"), "orange");
+
             ModContainer wilderwild = wilderwildOptional.get();
             Optional<Path> terraWorld = wilderwild.findPath("data/z_wilderwild_terralith_compat.jar");
             if (terraWorld.isPresent()) {
