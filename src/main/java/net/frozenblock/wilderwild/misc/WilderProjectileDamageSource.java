@@ -8,13 +8,13 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.text.Text;
 import org.jetbrains.annotations.Nullable;
 
-public class WildProjectileDamageSource extends ProjectileDamageSource {
-    public WildProjectileDamageSource(String name, Entity projectile, @Nullable Entity attacker) {
+public class WilderProjectileDamageSource extends ProjectileDamageSource {
+    public WilderProjectileDamageSource(String name, Entity projectile, @Nullable Entity attacker) {
         super(name, projectile, attacker);
     }
 
     public static DamageSource ancientHorn(Entity projectile, @Nullable Entity attacker) {
-        return new WildProjectileDamageSource("ancient_horn", projectile, attacker).setBypassesArmor();
+        return new WilderProjectileDamageSource("ancient_horn", projectile, attacker).setBypassesArmor();
     }
 
     public Text getDeathMessage(LivingEntity entity) {

@@ -150,7 +150,7 @@ public class WilderConfiguredFeatures {
     public static final RegistryEntry<ConfiguredFeature<RandomPatchFeatureConfig, ?>> WHITE_DANDELION =
             register("white_dandelion", Feature.FLOWER,
                     ConfiguredFeatures.createRandomPatchFeatureConfig(48, PlacedFeatures.createEntry(Feature.SIMPLE_BLOCK,
-                            new SimpleBlockFeatureConfig(BlockStateProvider.of(RegisterBlocks.WHITE_DANDELION)))));
+                            new SimpleBlockFeatureConfig(BlockStateProvider.of(RegisterBlocks.BLOOMING_DANDELION)))));
 
     public static final RegistryEntry<ConfiguredFeature<RandomPatchFeatureConfig, ?>> CARNATION =
             register("carnation", Feature.FLOWER,
@@ -163,8 +163,8 @@ public class WilderConfiguredFeatures {
                             new SimpleBlockFeatureConfig(BlockStateProvider.of(RegisterBlocks.DATURA)))));
 
     public static final RegistryEntry<ConfiguredFeature<RandomPatchFeatureConfig, ?>> NEW_FLOWER_PLAIN =
-            register("new_flower_plain", Feature.FLOWER, new RandomPatchFeatureConfig(64, 6, 2,PlacedFeatures.createEntry(Feature.SIMPLE_BLOCK,
-                    new SimpleBlockFeatureConfig(new NoiseThresholdBlockStateProvider(2345L, new DoublePerlinNoiseSampler.NoiseParameters(0, 1.0, new double[0]), 0.005F, -0.8F, 0.33333334F, Blocks.DANDELION.getDefaultState(), List.of(Blocks.ORANGE_TULIP.getDefaultState(), Blocks.RED_TULIP.getDefaultState(), Blocks.PINK_TULIP.getDefaultState(), Blocks.WHITE_TULIP.getDefaultState()), List.of(RegisterBlocks.WHITE_DANDELION.getDefaultState(), Blocks.POPPY.getDefaultState(), Blocks.AZURE_BLUET.getDefaultState(), Blocks.OXEYE_DAISY.getDefaultState(), Blocks.CORNFLOWER.getDefaultState()))))));
+            register("new_flower_plain", Feature.FLOWER, new RandomPatchFeatureConfig(64, 6, 2, PlacedFeatures.createEntry(Feature.SIMPLE_BLOCK,
+                    new SimpleBlockFeatureConfig(new NoiseThresholdBlockStateProvider(2345L, new DoublePerlinNoiseSampler.NoiseParameters(0, 1.0), 0.005F, -0.8F, 0.33333334F, Blocks.DANDELION.getDefaultState(), List.of(Blocks.ORANGE_TULIP.getDefaultState(), Blocks.RED_TULIP.getDefaultState(), Blocks.PINK_TULIP.getDefaultState(), Blocks.WHITE_TULIP.getDefaultState()), List.of(RegisterBlocks.BLOOMING_DANDELION.getDefaultState(), Blocks.POPPY.getDefaultState(), Blocks.AZURE_BLUET.getDefaultState(), Blocks.OXEYE_DAISY.getDefaultState(), Blocks.CORNFLOWER.getDefaultState()))))));
 
     public static final RegistryEntry<ConfiguredFeature<RandomPatchFeatureConfig, ?>> MILKWEED =
             register("milkweed", Feature.FLOWER,
@@ -193,10 +193,10 @@ public class WilderConfiguredFeatures {
     public static final RegistryEntry<ConfiguredFeature<RandomPatchFeatureConfig, ?>> PATCH_FLOWERED_WATERLILY =
             register("patch_flowered_waterlily", Feature.RANDOM_PATCH,
                     new RandomPatchFeatureConfig(10, 7, 3, PlacedFeatures.createEntry(Feature.SIMPLE_BLOCK,
-                            new SimpleBlockFeatureConfig(BlockStateProvider.of(RegisterBlocks.FLOWERED_LILY_PAD)))));
+                            new SimpleBlockFeatureConfig(BlockStateProvider.of(RegisterBlocks.FLOWERING_LILY_PAD)))));
 
-    public static final RegistryEntry<ConfiguredFeature<ProbabilityConfig, ?>> WATER_MOSS =
-            register("water_moss", WilderWild.WATER_MOSS_FEATURE, new ProbabilityConfig(0.8F));
+    public static final RegistryEntry<ConfiguredFeature<ProbabilityConfig, ?>> PATCH_ALGAE =
+            register("patch_algae", WilderWild.ALGAE_FEATURE, new ProbabilityConfig(0.8F));
 
     public static final RegistryEntry<ConfiguredFeature<ColumnWithDiskFeatureConfig, ?>> TERMITE_CONFIGURED =
             register("termite_mound_baobab", WilderWild.COLUMN_WITH_DISK_FEATURE, new ColumnWithDiskFeatureConfig(RegisterBlocks.TERMITE_MOUND.getDefaultState().with(RegisterProperties.NATURAL, true), UniformIntProvider.create(4, 9), UniformIntProvider.create(3, 7), UniformIntProvider.create(1, 3), RegistryEntryList.of(Block::getRegistryEntry, Blocks.GRASS_BLOCK, Blocks.STONE, Blocks.DIORITE, Blocks.ANDESITE, Blocks.GRANITE), RegistryEntryList.of(Block::getRegistryEntry, Blocks.COARSE_DIRT, Blocks.SAND, Blocks.PACKED_MUD)));

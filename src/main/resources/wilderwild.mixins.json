@@ -42,6 +42,7 @@
 	"client.DrawableHelperMixin",
 	"client.MinecraftClientMixin",
 	"client.OsmioooWardenRenderer",
+	"client.VexModelMixin",
 	"client.WardenAnimationOverwrites",
 	"client.WardenEntityModelMixin",
 	"client.WardenFeatureRendererMixin",

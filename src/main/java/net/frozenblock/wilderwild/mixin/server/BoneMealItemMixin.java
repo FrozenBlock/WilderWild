@@ -1,7 +1,9 @@
 package net.frozenblock.wilderwild.mixin.server;
 
 import net.frozenblock.wilderwild.WilderWild;
+import net.frozenblock.wilderwild.block.GloryOfTheSnowBlock;
 import net.frozenblock.wilderwild.block.ShelfFungusBlock;
+import net.frozenblock.wilderwild.misc.FlowerColors;
 import net.frozenblock.wilderwild.registry.RegisterBlocks;
 import net.frozenblock.wilderwild.registry.RegisterProperties;
 import net.minecraft.block.BlockState;
@@ -35,7 +37,7 @@ public class BoneMealItemMixin {
             WilderWild.log(Blocks.LILY_PAD, blockPos, "Bonemeal", WilderWild.DEV_LOGGING);
             if (!world.isClient) {
                 world.syncWorldEvent(WorldEvents.BONE_MEAL_USED, blockPos, 0);
-                world.setBlockState(blockPos, RegisterBlocks.FLOWERED_LILY_PAD.getDefaultState());
+                world.setBlockState(blockPos, RegisterBlocks.FLOWERING_LILY_PAD.getDefaultState());
                 context.getStack().decrement(1);
             }
             info.setReturnValue(ActionResult.success(world.isClient));
@@ -69,6 +71,18 @@ public class BoneMealItemMixin {
             }
             info.setReturnValue(ActionResult.success(world.isClient));
             info.cancel();
+        }
+        if (state.getBlock() instanceof GloryOfTheSnowBlock glory) {
+            if (state.get(RegisterProperties.FLOWER_COLOR) == FlowerColors.NONE) {
+                WilderWild.log("Glory Of The Snow Bonemealed @ " + blockPos, WilderWild.DEV_LOGGING);
+                if (!world.isClient) {
+                    world.syncWorldEvent(WorldEvents.BONE_MEAL_USED, blockPos, 0);
+                    world.setBlockState(blockPos, state.with(RegisterProperties.FLOWER_COLOR, glory.COLOR_LIST.get(WilderWild.random().nextInt(glory.COLOR_LIST.size()))));
+                    context.getStack().decrement(1);
+                }
+                info.setReturnValue(ActionResult.success(world.isClient));
+                info.cancel();
+            }
         }
     }
 

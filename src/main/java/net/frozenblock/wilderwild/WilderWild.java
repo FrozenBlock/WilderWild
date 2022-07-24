@@ -4,9 +4,11 @@ import com.chocohead.mm.api.ClassTinkerers;
 import com.mojang.serialization.Codec;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.loader.api.FabricLoader;
+import net.fabricmc.loader.api.ModContainer;
 import net.frozenblock.wilderwild.block.entity.TermiteMoundBlockEntity;
 import net.frozenblock.wilderwild.misc.BlockSoundGroupOverwrites;
-import net.frozenblock.wilderwild.misc.WildConfig;
+import net.frozenblock.wilderwild.misc.WilderConfig;
+import net.frozenblock.wilderwild.misc.simple_pipe_compatability.RegisterSaveableMoveablePipeNbt;
 import net.frozenblock.wilderwild.registry.*;
 import net.frozenblock.wilderwild.world.feature.WilderConfiguredFeatures;
 import net.frozenblock.wilderwild.world.feature.WilderMiscConfigured;
@@ -21,6 +23,7 @@ import net.frozenblock.wilderwild.world.gen.trunk.BaobabTrunkPlacer;
 import net.frozenblock.wilderwild.world.gen.trunk.FallenTrunkWithLogs;
 import net.frozenblock.wilderwild.world.gen.trunk.StraightTrunkWithLogs;
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.SpawnGroup;
 import net.minecraft.item.Instrument;
@@ -36,6 +39,13 @@ import net.minecraft.world.gen.trunk.TrunkPlacerType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
+import java.util.Optional;
+
 public class WilderWild implements ModInitializer {
     public static final String MOD_ID = "wilderwild";
     public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
@@ -48,7 +58,7 @@ public class WilderWild implements ModInitializer {
     public static final TrunkPlacerType<BaobabTrunkPlacer> BAOBAB_TRUNK_PLACER = registerTrunk("baobab_trunk_placer", BaobabTrunkPlacer.CODEC);
     public static final Feature<ShelfFungusFeatureConfig> SHELF_FUNGUS_FEATURE = new ShelfFungusFeature(ShelfFungusFeatureConfig.CODEC);
     public static final CattailFeature CATTAIL_FEATURE = new CattailFeature(ProbabilityConfig.CODEC);
-    public static final AlgaeFeature WATER_MOSS_FEATURE = new AlgaeFeature(ProbabilityConfig.CODEC);
+    public static final AlgaeFeature ALGAE_FEATURE = new AlgaeFeature(ProbabilityConfig.CODEC);
     public static final NoisePathFeature NOISE_PATH_FEATURE = new NoisePathFeature(PathFeatureConfig.CODEC);
     public static final NoisePlantFeature NOISE_PLANT_FEATURE = new NoisePlantFeature(PathFeatureConfig.CODEC);
     public static final NoisePathUnderWaterFeature NOISE_PATH_UNDER_WATER_FEATURE = new NoisePathUnderWaterFeature(PathFeatureConfig.CODEC);
@@ -84,7 +94,7 @@ public class WilderWild implements ModInitializer {
 
         Registry.register(Registry.FEATURE, id("shelf_fungus_feature"), SHELF_FUNGUS_FEATURE);
         Registry.register(Registry.FEATURE, id("cattail_feature"), CATTAIL_FEATURE);
-        Registry.register(Registry.FEATURE, id("water_moss_feature"), WATER_MOSS_FEATURE);
+        Registry.register(Registry.FEATURE, id("algae_feature"), ALGAE_FEATURE);
         Registry.register(Registry.FEATURE, id("noise_path_feature"), NOISE_PATH_FEATURE);
         Registry.register(Registry.FEATURE, id("noise_plant_feature"), NOISE_PLANT_FEATURE);
         Registry.register(Registry.FEATURE, id("noise_path_under_water_feature"), NOISE_PATH_UNDER_WATER_FEATURE);
@@ -96,7 +106,46 @@ public class WilderWild implements ModInitializer {
 
         TermiteMoundBlockEntity.Termite.addDegradableBlocks();
         TermiteMoundBlockEntity.Termite.addNaturalDegradableBlocks();
-        WildConfig.makeConfig();
+        WilderConfig.makeConfig();
+
+        try {
+            terralith();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        if (hasSimpleCopperPipes()) {
+            RegisterSaveableMoveablePipeNbt.init();
+        }
+    }
+
+    public static void terralith() throws IOException {
+        Path destPath = Paths.get(FabricLoader.getInstance().getGameDir().toString(), "mods", "z_wilderwild_terralith_compat.jar");
+        Optional<ModContainer> wilderwildOptional = FabricLoader.getInstance().getModContainer("wilderwild");
+        Optional<ModContainer> terralithOptional = FabricLoader.getInstance().getModContainer("terralith");
+        if (wilderwildOptional.isPresent() && terralithOptional.isPresent()) {
+            ModContainer wilderwild = wilderwildOptional.get();
+            Optional<Path> terraWorld = wilderwild.findPath("data/z_wilderwild_terralith_compat.jar");
+            if (terraWorld.isPresent()) {
+                Files.copy(terraWorld.get(), destPath, StandardCopyOption.REPLACE_EXISTING);
+            }
+        }
+    }
+
+    public static boolean hasTerralith() {
+        return FabricLoader.getInstance().getModContainer("terralith").isPresent();
+    }
+
+    public static boolean hasSimpleCopperPipes() {
+        return FabricLoader.getInstance().getModContainer("copper_pipe").isPresent();
+    }
+
+    public static boolean isCopperPipe(BlockState state) {
+        if (hasSimpleCopperPipes()) {
+            Identifier id = Registry.BLOCK.getId(state.getBlock());
+            return id.getNamespace().equals("lunade") && id.getPath().contains("pipe");
+        }
+        return false;
     }
 
     public static Random random() {

@@ -13,8 +13,8 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.math.random.Random;
 import net.minecraft.world.World;
 
-public class WhiteDandelionBlock extends FlowerBlock {
-    public WhiteDandelionBlock(StatusEffect suspiciousStewEffect, int effectDuration, Settings settings) {
+public class BloomingDandelionBlock extends FlowerBlock {
+    public BloomingDandelionBlock(StatusEffect suspiciousStewEffect, int effectDuration, Settings settings) {
         super(suspiciousStewEffect, effectDuration, settings);
     }
 

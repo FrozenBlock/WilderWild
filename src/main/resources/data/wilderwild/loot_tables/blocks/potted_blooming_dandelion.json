@@ -22,7 +22,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "wilderwild:white_dandelion"
+          "name": "wilderwild:blooming_dandelion"
         }
       ],
       "conditions": [

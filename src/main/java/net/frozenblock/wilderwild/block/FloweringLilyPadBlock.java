@@ -11,10 +11,10 @@ import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 
-public class FloweredLilyPadBlock extends LilyPadBlock {
+public class FloweringLilyPadBlock extends LilyPadBlock {
     protected static final VoxelShape SHAPE = Block.createCuboidShape(1.0D, 0.0D, 1.0D, 15.0D, 1.5D, 15.0D);
 
-    public FloweredLilyPadBlock(Settings settings) {
+    public FloweringLilyPadBlock(Settings settings) {
         super(settings);
     }
 

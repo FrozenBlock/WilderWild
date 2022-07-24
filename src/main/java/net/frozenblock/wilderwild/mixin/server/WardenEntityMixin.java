@@ -3,7 +3,7 @@ package net.frozenblock.wilderwild.mixin.server;
 import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.entity.ai.WardenMoveControl;
 import net.frozenblock.wilderwild.entity.ai.WardenNavigation;
-import net.frozenblock.wilderwild.entity.render.animations.WardenAnimationInterface;
+import net.frozenblock.wilderwild.entity.render.animations.WilderWardenAnimations;
 import net.frozenblock.wilderwild.registry.RegisterProperties;
 import net.frozenblock.wilderwild.registry.RegisterSounds;
 import net.minecraft.block.Blocks;
@@ -47,7 +47,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(WardenEntity.class)
-public abstract class WardenEntityMixin extends HostileEntity implements WardenAnimationInterface {
+public abstract class WardenEntityMixin extends HostileEntity implements WilderWardenAnimations {
 
     private final WardenEntity warden = WardenEntity.class.cast(this);
 

@@ -5,7 +5,6 @@ import net.minecraft.entity.ai.pathing.MobNavigation;
 import net.minecraft.entity.ai.pathing.PathNode;
 import net.minecraft.entity.ai.pathing.PathNodeNavigator;
 import net.minecraft.entity.ai.pathing.PathNodeType;
-import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.mob.WardenEntity;
 import net.minecraft.tag.FluidTags;
 import net.minecraft.util.math.BlockPos;
@@ -32,7 +31,7 @@ public class WardenNavigation extends MobNavigation {
             }
 
             private boolean isEntitySubmergedInWaterOrLava(Entity entity) {
-                return entity.isSubmergedIn(FluidTags.WATER) || entity.isSubmergedIn(FluidTags.LAVA);
+                return entity.isSubmergedInWater() || entity.isSubmergedIn(FluidTags.LAVA);
             }
         };
     }

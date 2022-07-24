@@ -116,15 +116,15 @@ public class WilderTreeConfigured {
     }
 
     private static TreeFeatureConfig.Builder new_birch() {
-        return builder(Blocks.BIRCH_LOG, Blocks.BIRCH_LEAVES, 8, 5, 4, 0.2F, UniformIntProvider.create(1, 2), UniformIntProvider.create(1, 3), ConstantIntProvider.create(1), 2).ignoreVines();
+        return builder(Blocks.BIRCH_LOG, Blocks.BIRCH_LEAVES, 8, 5, 4, 0.15F, UniformIntProvider.create(1, 2), UniformIntProvider.create(1, 3), ConstantIntProvider.create(1), 2).ignoreVines();
     }
 
     private static TreeFeatureConfig.Builder new_superBirch() {
-        return builder(Blocks.BIRCH_LOG, Blocks.BIRCH_LEAVES, 8, 6, 6, 0.2F, UniformIntProvider.create(1, 2), UniformIntProvider.create(1, 3), ConstantIntProvider.create(1), 2).ignoreVines();
+        return builder(Blocks.BIRCH_LOG, Blocks.BIRCH_LEAVES, 8, 6, 6, 0.15F, UniformIntProvider.create(1, 2), UniformIntProvider.create(1, 3), ConstantIntProvider.create(1), 2).ignoreVines();
     }
 
     private static TreeFeatureConfig.Builder new_short_birch() {
-        return builder(Blocks.BIRCH_LOG, Blocks.BIRCH_LEAVES, 6, 2, 2, 0.15F, UniformIntProvider.create(1, 2), UniformIntProvider.create(1, 3), ConstantIntProvider.create(1), 2).ignoreVines();
+        return builder(Blocks.BIRCH_LOG, Blocks.BIRCH_LEAVES, 6, 2, 2, 0.12F, UniformIntProvider.create(1, 2), UniformIntProvider.create(1, 3), ConstantIntProvider.create(1), 2).ignoreVines();
     }
 
     private static TreeFeatureConfig.Builder fallen_birch() {

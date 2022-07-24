@@ -3,7 +3,7 @@ package net.frozenblock.wilderwild.mixin.client;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.frozenblock.wilderwild.WilderWild;
-import net.frozenblock.wilderwild.misc.WildConfig;
+import net.frozenblock.wilderwild.misc.WilderConfig;
 import net.minecraft.SharedConstants;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.network.ClientPlayNetworkHandler;
@@ -19,12 +19,12 @@ public class MinecraftClientMixin {
 
     @Inject(at = @At(value = "HEAD"), method = "getWindowTitle", cancellable = true)
     private void getWindowTitle(CallbackInfoReturnable<String> info) {
-        WildConfig.WildConfigJson config = WildConfig.getConfig();
+        WilderConfig.WildConfigJson config = WilderConfig.getConfig();
         if (config != null) {
             if (config.getOverwrite_Fabric()) {
                 MinecraftClient client = MinecraftClient.class.cast(this);
                 StringBuilder title = new StringBuilder();
-                title.append(new String(config.getIncludeWild() ? "Minecraft + WilderWild " : "Minecraft ")).append(SharedConstants.getGameVersion().getName());
+                title.append(config.getIncludeWild() ? "Minecraft + WilderWild " : "Minecraft ").append(SharedConstants.getGameVersion().getName());
                 ClientPlayNetworkHandler clientPlayNetworkHandler = client.getNetworkHandler();
                 if (clientPlayNetworkHandler != null && clientPlayNetworkHandler.getConnection().isOpen()) {
                     title.append(" - ");
@@ -45,7 +45,7 @@ public class MinecraftClientMixin {
 
     @Inject(at = @At(value = "HEAD"), method = "getGameVersion", cancellable = true)
     public void getGameVersion(CallbackInfoReturnable<String> info) {
-        WildConfig.WildConfigJson config = WildConfig.getConfig();
+        WilderConfig.WildConfigJson config = WilderConfig.getConfig();
         if (config != null) {
             if (config.getOverwrite_Fabric()) {
                 info.setReturnValue(!WilderWild.DEV_LOGGING ? WilderWild.snapshotName : "FROZENBLOCK");
@@ -56,7 +56,7 @@ public class MinecraftClientMixin {
 
     @Inject(at = @At(value = "HEAD"), method = "getVersionType", cancellable = true)
     public void getVersionType(CallbackInfoReturnable<String> info) {
-        WildConfig.WildConfigJson config = WildConfig.getConfig();
+        WilderConfig.WildConfigJson config = WilderConfig.getConfig();
         if (config != null) {
             if (config.getOverwrite_Fabric()) {
                 info.setReturnValue("snapshot");

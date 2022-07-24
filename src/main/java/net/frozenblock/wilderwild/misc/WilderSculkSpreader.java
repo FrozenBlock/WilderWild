@@ -13,7 +13,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.Collection;
 
-public class ToSculkSpreader implements SculkSpreadable {
+public class WilderSculkSpreader implements SculkSpreadable {
     @Override
     public int spread(SculkSpreadManager.Cursor cursor, WorldAccess world, BlockPos catalystPos, Random random, SculkSpreadManager spreadManager, boolean shouldConvertToBlock) {
         BlockState placementState = null;

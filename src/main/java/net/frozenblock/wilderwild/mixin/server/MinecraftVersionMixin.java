@@ -2,7 +2,7 @@ package net.frozenblock.wilderwild.mixin.server;
 
 import com.google.gson.JsonObject;
 import net.frozenblock.wilderwild.WilderWild;
-import net.frozenblock.wilderwild.misc.WildConfig;
+import net.frozenblock.wilderwild.misc.WilderConfig;
 import net.minecraft.MinecraftVersion;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
@@ -25,7 +25,7 @@ public class MinecraftVersionMixin {
 
     @Inject(at = @At(value = "RETURN"), method = "<init>()V")
     private void changeVersion(CallbackInfo info) {
-        WildConfig.WildConfigJson config = WildConfig.getConfig();
+        WilderConfig.WildConfigJson config = WilderConfig.getConfig();
         if (config != null) {
             if (config.getOverwrite_Fabric()) {
                 this.name = !WilderWild.DEV_LOGGING ? WilderWild.snapshotName : "FROZENBLOCK";
@@ -36,7 +36,7 @@ public class MinecraftVersionMixin {
 
     @Inject(at = @At("RETURN"), method = "<init>(Lcom/google/gson/JsonObject;)V")
     public void changeVersion(JsonObject jsonObject, CallbackInfo info) {
-        WildConfig.WildConfigJson config = WildConfig.getConfig();
+        WilderConfig.WildConfigJson config = WilderConfig.getConfig();
         if (config != null) {
             if (config.getOverwrite_Fabric()) {
                 changeVersion(info);

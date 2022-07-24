@@ -7,7 +7,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "wilderwild:flowered_lily_pad"
+          "name": "wilderwild:flowering_lily_pad"
         }
       ],
       "conditions": [

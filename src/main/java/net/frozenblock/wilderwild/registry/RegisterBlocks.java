@@ -98,12 +98,12 @@ public class RegisterBlocks {
     public static final Block CYPRESS_FENCE = new FenceBlock(FabricBlockSettings.of(Material.WOOD, CYPRESS_PLANKS_COLOR).strength(2.0F, 3.0F).sounds(BlockSoundGroup.WOOD));
 
     public static final SignType BAOBAB_SIGN_TYPE = SignTypeAccessor.newSignType("baobab");
-    public static final Block BAOBAB_SIGN_BLOCK = new WildSignBlock(FabricBlockSettings.of(Material.WOOD, BAOBAB_LOG.getDefaultMapColor()).noCollision().strength(1.0F).sounds(BlockSoundGroup.WOOD), BAOBAB_SIGN_TYPE);
-    public static final Block BAOBAB_WALL_SIGN = new WildWallSignBlock(FabricBlockSettings.of(Material.WOOD, BAOBAB_LOG.getDefaultMapColor()).noCollision().strength(1.0F).sounds(BlockSoundGroup.WOOD).dropsLike(BAOBAB_SIGN_BLOCK), BAOBAB_SIGN_TYPE);
+    public static final Block BAOBAB_SIGN_BLOCK = new WilderSignBlock(FabricBlockSettings.of(Material.WOOD, BAOBAB_LOG.getDefaultMapColor()).noCollision().strength(1.0F).sounds(BlockSoundGroup.WOOD), BAOBAB_SIGN_TYPE);
+    public static final Block BAOBAB_WALL_SIGN = new WilderWallSignBlock(FabricBlockSettings.of(Material.WOOD, BAOBAB_LOG.getDefaultMapColor()).noCollision().strength(1.0F).sounds(BlockSoundGroup.WOOD).dropsLike(BAOBAB_SIGN_BLOCK), BAOBAB_SIGN_TYPE);
 
     public static final SignType CYPRESS_SIGN_TYPE = SignTypeAccessor.newSignType("cypress");
-    public static final Block CYPRESS_SIGN_BLOCK = new WildSignBlock(FabricBlockSettings.of(Material.WOOD, CYPRESS_LOG.getDefaultMapColor()).noCollision().strength(1.0F).sounds(BlockSoundGroup.WOOD), CYPRESS_SIGN_TYPE);
-    public static final Block CYPRESS_WALL_SIGN = new WildWallSignBlock(FabricBlockSettings.of(Material.WOOD, CYPRESS_LOG.getDefaultMapColor()).noCollision().strength(1.0F).sounds(BlockSoundGroup.WOOD).dropsLike(CYPRESS_SIGN_BLOCK), CYPRESS_SIGN_TYPE);
+    public static final Block CYPRESS_SIGN_BLOCK = new WilderSignBlock(FabricBlockSettings.of(Material.WOOD, CYPRESS_LOG.getDefaultMapColor()).noCollision().strength(1.0F).sounds(BlockSoundGroup.WOOD), CYPRESS_SIGN_TYPE);
+    public static final Block CYPRESS_WALL_SIGN = new WilderWallSignBlock(FabricBlockSettings.of(Material.WOOD, CYPRESS_LOG.getDefaultMapColor()).noCollision().strength(1.0F).sounds(BlockSoundGroup.WOOD).dropsLike(CYPRESS_SIGN_BLOCK), CYPRESS_SIGN_TYPE);
 
     public static void registerWoods() {
         String baobab = "baobab";
@@ -219,8 +219,8 @@ public class RegisterBlocks {
     public static final Block TERMITE_MOUND = new TermiteMound(FabricBlockSettings.of(Material.WOOD, MapColor.BROWN).strength(0.3F).sounds(RegisterBlockSoundGroups.COARSEDIRT));
 
     // PLANTS
-    public static final Block WHITE_DANDELION = new WhiteDandelionBlock(StatusEffects.SLOW_FALLING, 12, FabricBlockSettings.copy(Blocks.DANDELION).sounds(BlockSoundGroup.SPORE_BLOSSOM).strength(0.0F).nonOpaque());
-    public static final Block POTTED_WHITE_DANDELION = new FlowerPotBlock(RegisterBlocks.WHITE_DANDELION, FabricBlockSettings.of(Material.DECORATION).breakInstantly().nonOpaque());
+    public static final Block BLOOMING_DANDELION = new BloomingDandelionBlock(StatusEffects.SLOW_FALLING, 12, FabricBlockSettings.copy(Blocks.DANDELION).sounds(BlockSoundGroup.SPORE_BLOSSOM).strength(0.0F).nonOpaque());
+    public static final Block POTTED_BLOOMING_DANDELION = new FlowerPotBlock(RegisterBlocks.BLOOMING_DANDELION, FabricBlockSettings.of(Material.DECORATION).breakInstantly().nonOpaque());
     public static final Block CARNATION = new FlowerBlock(StatusEffects.REGENERATION, 12, FabricBlockSettings.copy(Blocks.DANDELION).sounds(BlockSoundGroup.SPORE_BLOSSOM).strength(0.0F).nonOpaque());
     public static final Block POTTED_CARNATION = new FlowerPotBlock(RegisterBlocks.CARNATION, FabricBlockSettings.of(Material.DECORATION).breakInstantly().nonOpaque());
     public static final Block GLORY_OF_THE_SNOW = new GloryOfTheSnowBlock(FabricBlockSettings.copy(Blocks.DANDELION).sounds(BlockSoundGroup.SPORE_BLOSSOM).strength(0.0F).nonOpaque().ticksRandomly(), List.of(FlowerColors.BLUE, FlowerColors.PINK, FlowerColors.PURPLE, FlowerColors.WHITE));
@@ -234,13 +234,13 @@ public class RegisterBlocks {
     public static final Block MILKWEED = new MilkweedBlock(FabricBlockSettings.copy(Blocks.ROSE_BUSH).strength(0.0F).nonOpaque());
 
     public static final Block CATTAIL = new WaterloggableTallFlowerBlock(FabricBlockSettings.copy(Blocks.ROSE_BUSH).sounds(BlockSoundGroup.WET_GRASS).strength(0.0F).nonOpaque());
-    public static final Block FLOWERED_LILY_PAD = new FloweredLilyPadBlock(FabricBlockSettings.copy(Blocks.LILY_PAD).sounds(RegisterBlockSoundGroups.LILYPAD));
+    public static final Block FLOWERING_LILY_PAD = new FloweringLilyPadBlock(FabricBlockSettings.copy(Blocks.LILY_PAD).sounds(RegisterBlockSoundGroups.LILYPAD));
 
     public static final Block ALGAE = new AlgaeBlock(FabricBlockSettings.of(ALGAE_MATERIAL).breakInstantly().velocityMultiplier(0.4F).nonOpaque().noCollision().sounds(BlockSoundGroup.SLIME));
 
     public static void registerPlants() {
-        registerBlock("white_dandelion", WHITE_DANDELION, ItemGroup.DECORATIONS);
-        registerBlockWithoutBlockItem("potted_white_dandelion", POTTED_WHITE_DANDELION);
+        registerBlock("blooming_dandelion", BLOOMING_DANDELION, ItemGroup.DECORATIONS);
+        registerBlockWithoutBlockItem("potted_blooming_dandelion", POTTED_BLOOMING_DANDELION);
         registerBlock("carnation", CARNATION, ItemGroup.DECORATIONS);
         registerBlockWithoutBlockItem("potted_carnation", POTTED_CARNATION);
         registerBlock("glory_of_the_snow", GLORY_OF_THE_SNOW, ItemGroup.DECORATIONS);
@@ -305,8 +305,8 @@ public class RegisterBlocks {
         registerDeepDark();
         registerBlock("termite_mound", TERMITE_MOUND, ItemGroup.DECORATIONS);
         registerPlants();
-        Registry.register(Registry.BLOCK, WilderWild.id("flowered_lily_pad"), FLOWERED_LILY_PAD);
-        Registry.register(Registry.ITEM, WilderWild.id("flowered_lily_pad"), new FloweredLilyPadItem(FLOWERED_LILY_PAD, new FabricItemSettings().group(ItemGroup.DECORATIONS)));
+        Registry.register(Registry.BLOCK, WilderWild.id("flowering_lily_pad"), FLOWERING_LILY_PAD);
+        Registry.register(Registry.ITEM, WilderWild.id("flowering_lily_pad"), new FloweredLilyPadItem(FLOWERING_LILY_PAD, new FabricItemSettings().group(ItemGroup.DECORATIONS)));
         Registry.register(Registry.BLOCK, WilderWild.id("algae"), ALGAE);
         Registry.register(Registry.ITEM, WilderWild.id("algae"), new AlgaeItem(ALGAE, new FabricItemSettings().group(ItemGroup.DECORATIONS)));
         registerNotSoPlants();
@@ -376,8 +376,8 @@ public class RegisterBlocks {
         CompostingChanceRegistry.INSTANCE.add(DATURA, 0.65F);
         CompostingChanceRegistry.INSTANCE.add(MILKWEED, 0.65F);
         CompostingChanceRegistry.INSTANCE.add(RegisterItems.MILKWEED_POD, 0.25F);
-        CompostingChanceRegistry.INSTANCE.add(WHITE_DANDELION, 0.65F);
-        CompostingChanceRegistry.INSTANCE.add(FLOWERED_LILY_PAD, 0.65F);
+        CompostingChanceRegistry.INSTANCE.add(BLOOMING_DANDELION, 0.65F);
+        CompostingChanceRegistry.INSTANCE.add(FLOWERING_LILY_PAD, 0.65F);
         CompostingChanceRegistry.INSTANCE.add(BROWN_SHELF_FUNGUS, 0.65F);
         CompostingChanceRegistry.INSTANCE.add(RED_SHELF_FUNGUS, 0.65F);
         CompostingChanceRegistry.INSTANCE.add(CYPRESS_LEAVES, 0.3F);
@@ -395,7 +395,7 @@ public class RegisterBlocks {
     private static void registerFlammability() {
         WilderWild.logWild("Registering Flammability for", WilderWild.UNSTABLE_LOGGING);
         FlammableBlockRegistry.getDefaultInstance().add(RegisterBlocks.POLLEN_BLOCK, 100, 60);
-        FlammableBlockRegistry.getDefaultInstance().add(RegisterBlocks.WHITE_DANDELION, 100, 60);
+        FlammableBlockRegistry.getDefaultInstance().add(RegisterBlocks.BLOOMING_DANDELION, 100, 60);
         FlammableBlockRegistry.getDefaultInstance().add(RegisterBlocks.CARNATION, 100, 60);
         FlammableBlockRegistry.getDefaultInstance().add(RegisterBlocks.CATTAIL, 100, 60);
         FlammableBlockRegistry.getDefaultInstance().add(RegisterBlocks.DATURA, 100, 60);

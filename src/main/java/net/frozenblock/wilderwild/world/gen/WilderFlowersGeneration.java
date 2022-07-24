@@ -36,10 +36,10 @@ public class WilderFlowersGeneration {
                 GenerationStep.Feature.VEGETAL_DECORATION, WilderPlacedFeatures.PATCH_CATTAIL.getKey().get());
 
         BiomeModifications.addFeature(BiomeSelectors.tag(BiomeTags.ALLOWS_SURFACE_SLIME_SPAWNS),
-                GenerationStep.Feature.VEGETAL_DECORATION, WilderPlacedFeatures.WATER_MOSS_5.getKey().get());
+                GenerationStep.Feature.VEGETAL_DECORATION, WilderPlacedFeatures.PATCH_ALGAE_5.getKey().get());
 
         BiomeModifications.addFeature(BiomeSelectors.includeByKey(RegisterWorldgen.CYPRESS_WETLANDS),
-                GenerationStep.Feature.VEGETAL_DECORATION, WilderPlacedFeatures.WATER_MOSS.getKey().get());
+                GenerationStep.Feature.VEGETAL_DECORATION, WilderPlacedFeatures.PATCH_ALGAE.getKey().get());
 
         BiomeModifications.addFeature(BiomeSelectors.includeByKey(BiomeKeys.OLD_GROWTH_BIRCH_FOREST, BiomeKeys.FLOWER_FOREST, BiomeKeys.SUNFLOWER_PLAINS, BiomeKeys.FOREST, BiomeKeys.MEADOW, BiomeKeys.WINDSWEPT_HILLS, BiomeKeys.WINDSWEPT_FOREST, BiomeKeys.WINDSWEPT_GRAVELLY_HILLS, BiomeKeys.TAIGA),
                 GenerationStep.Feature.VEGETAL_DECORATION, WilderPlacedFeatures.WHITE_DANDELION.getKey().get());
