@@ -179,8 +179,8 @@ public class WilderPlacedFeatures {
             PlacedFeatures.MOTION_BLOCKING_HEIGHTMAP, BiomePlacementModifier.of());
 
     public static final RegistryEntry<PlacedFeature> NEW_FLOWER_PLAIN = register("new_flower_plains",
-            WilderConfiguredFeatures.NEW_FLOWER_PLAIN, new PlacementModifier[]{NoiseThresholdCountPlacementModifier.of(-0.8, 15, 4), RarityFilterPlacementModifier.of(32), SquarePlacementModifier.of(),
-                    PlacedFeatures.MOTION_BLOCKING_HEIGHTMAP, BiomePlacementModifier.of()});
+            WilderConfiguredFeatures.NEW_FLOWER_PLAIN, NoiseThresholdCountPlacementModifier.of(-0.8, 15, 4), RarityFilterPlacementModifier.of(32), SquarePlacementModifier.of(),
+            PlacedFeatures.MOTION_BLOCKING_HEIGHTMAP, BiomePlacementModifier.of());
 
     public static final RegistryEntry<PlacedFeature> DENSE_FLOWER_PLACED = register("dense_flower_placed",
             VegetationConfiguredFeatures.FLOWER_DEFAULT, modifiers(1));

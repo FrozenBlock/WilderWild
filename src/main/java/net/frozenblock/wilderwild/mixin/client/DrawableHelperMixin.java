@@ -22,7 +22,7 @@ public class DrawableHelperMixin {
         if (config != null) {
             if (config.getOverwrite_Fabric() && text.contains("Modded")) {
                 info.cancel();
-                textRenderer.drawWithShadow(matrices, new String(config.getIncludeWild() ? "Minecraft + WilderWild " : "Minecraft ") + WilderWild.snapshotName + "/snapshot", (float) x, (float) y, color);
+                textRenderer.drawWithShadow(matrices, (config.getIncludeWild() ? "Minecraft + WilderWild " : "Minecraft ") + WilderWild.snapshotName + "/snapshot", (float) x, (float) y, color);
             }
         }
     }

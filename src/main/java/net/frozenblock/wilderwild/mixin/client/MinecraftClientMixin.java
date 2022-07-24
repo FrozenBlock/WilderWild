@@ -24,7 +24,7 @@ public class MinecraftClientMixin {
             if (config.getOverwrite_Fabric()) {
                 MinecraftClient client = MinecraftClient.class.cast(this);
                 StringBuilder title = new StringBuilder();
-                title.append(new String(config.getIncludeWild() ? "Minecraft + WilderWild " : "Minecraft ")).append(SharedConstants.getGameVersion().getName());
+                title.append(config.getIncludeWild() ? "Minecraft + WilderWild " : "Minecraft ").append(SharedConstants.getGameVersion().getName());
                 ClientPlayNetworkHandler clientPlayNetworkHandler = client.getNetworkHandler();
                 if (clientPlayNetworkHandler != null && clientPlayNetworkHandler.getConnection().isOpen()) {
                     title.append(" - ");

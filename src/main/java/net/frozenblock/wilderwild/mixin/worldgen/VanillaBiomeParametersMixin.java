@@ -49,7 +49,7 @@ public final class VanillaBiomeParametersMixin {
         parameters.accept(Pair.of(MultiNoiseUtil.createNoiseHypercube(temperature, humidity, continentalness, erosion, MultiNoiseUtil.ParameterRange.of(0.0F, 1.0F), weirdness, offset), biome));
     }
 
-    private int mangroveRound = 0;
+    private final int mangroveRound = 0;
 
     @Inject(method = "<init>", at = @At("TAIL"))
     private void injectBiomes(CallbackInfo ci) {

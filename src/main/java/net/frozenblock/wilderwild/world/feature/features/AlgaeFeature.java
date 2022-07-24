@@ -49,8 +49,8 @@ public class AlgaeFeature extends Feature<ProbabilityConfig> {
                             }
                         }
                     } else {
-                        for (int aY = 0; aY<3; aY++) {
-                            mutableDisk.set(x, y+aY, z);
+                        for (int aY = 0; aY < 3; aY++) {
+                            mutableDisk.set(x, y + aY, z);
                             if (world.getBlockState(mutableDisk.down()).isOf(Blocks.WATER) && world.getFluidState(mutableDisk).isEmpty() && world.getBlockState(mutableDisk).isAir()) {
                                 hasGeneratedThisRound = true;
                                 if (random.nextFloat() > 0.2F) {
@@ -68,8 +68,8 @@ public class AlgaeFeature extends Feature<ProbabilityConfig> {
                         }
                     }
                     if (!hasGeneratedThisRound) {
-                        for (int aY = -3; aY<0; aY++) {
-                            mutableDisk.set(x, y+aY, z);
+                        for (int aY = -3; aY < 0; aY++) {
+                            mutableDisk.set(x, y + aY, z);
                             if (world.getBlockState(mutableDisk.down()).isOf(Blocks.WATER) && world.getFluidState(mutableDisk).isEmpty() && world.getBlockState(mutableDisk).isAir()) {
                                 hasGeneratedThisRound = true;
                                 if (random.nextFloat() > 0.2F) {
