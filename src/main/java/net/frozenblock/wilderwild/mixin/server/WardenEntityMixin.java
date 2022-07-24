@@ -293,12 +293,12 @@ public abstract class WardenEntityMixin extends HostileEntity implements WilderW
     }
 
 
-    @Inject(method = "tick", at = @At("TAIL"))
+    @Inject(method = "writeCustomDataToNbt", at = @At("TAIL"))
     public void writeCustomDataToNbt(NbtCompound nbt, CallbackInfo info) {
         nbt.putInt("death_ticks", this.deathTicks);
     }
 
-    @Inject(method = "tick", at = @At("TAIL"))
+    @Inject(method = "readCustomDataFromNbt", at = @At("TAIL"))
     public void readCustomDataFromNbt(NbtCompound nbt, CallbackInfo info) {
         this.deathTicks = nbt.getInt("death_ticks");
     }
