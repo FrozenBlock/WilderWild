@@ -305,6 +305,7 @@ public class Firefly extends PathAwareEntity implements Flutterer {
 
     @Override
     public void tick() {
+        super.tick();
 
         if (this.shouldCheckSpawn) {
             if (!this.isFromBottle()) {
@@ -332,7 +333,7 @@ public class Firefly extends PathAwareEntity implements Flutterer {
                 this.wasNamedNectar = false;
             }
         }
-        super.tick();
+
         if (!this.isAlive()) {
             this.setNoGravity(false);
         }
