@@ -19,12 +19,12 @@ public class RegisterSaveableMoveablePipeNbt {
     public static void init() {
         WilderWild.log("Registering A Saveable Moveable Simple Copper Pipe NBT Dispense Method For WilderWild!", true);
         RegisterPipeNbtMethods.register(horn, (nbt, world, pos, blockState, copperPipeEntity) -> {
-            if (!nbt.hasEmittedParticle) {
+            if (!nbt.getCanOnlyBeUsedOnce() || nbt.getUseCount() < 1) {
                 BlockState state = world.getBlockState(pos);
                 if (state.getBlock() instanceof CopperPipe) {
                     Direction direction = state.get(Properties.FACING);
                     if (nbt.getEntity(world) != null) {
-                        nbt.hasEmittedParticle = true;
+                        nbt.useCount = nbt.getUseCount() + 1;
                         BlockPos offsetPos = pos.offset(direction);
                         AncientHornProjectile projectileEntity = new AncientHornProjectile(world, offsetPos.getX() + 0.5, offsetPos.getY() + 0.5, offsetPos.getZ() + 0.5);
                         projectileEntity.setVelocity(direction.getOffsetX(), direction.getOffsetY(), direction.getOffsetZ(), 1.0F, 0.0F);

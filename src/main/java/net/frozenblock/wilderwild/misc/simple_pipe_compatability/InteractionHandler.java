@@ -19,7 +19,7 @@ public class InteractionHandler {
         if (entity != null) {
             if (entity instanceof CopperPipeEntity pipe) {
                 world.playSound(null, pos, Registry.SOUND_EVENT.get(new Identifier("lunade", "block.copper_pipe.item_in")), SoundCategory.BLOCKS, 0.2F, (world.random.nextFloat() * 0.25F) + 0.8F);
-                pipe.moveablePipeDataHandler.setMoveablePipeNbt(horn, new MoveablePipeDataHandler.SaveableMovablePipeNbt(horn, owner.getPos(), owner.getUuid().toString(), false, pos, horn));
+                pipe.moveablePipeDataHandler.setMoveablePipeNbt(horn, new MoveablePipeDataHandler.SaveableMovablePipeNbt(horn, owner.getPos(), owner.getUuid().toString(), 0, pos, true, true, horn));
                 return true;
             }
         }
