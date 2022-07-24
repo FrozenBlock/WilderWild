@@ -70,6 +70,7 @@ public class Firefly extends PathAwareEntity implements Flutterer {
     public boolean despawning;
     public int homeCheckCooldown;
     public boolean wasNamedNectar;
+    public boolean shouldCheckSpawn = true;
 
     //public int hidingPlaceCheckCooldown;
 
@@ -84,7 +85,6 @@ public class Firefly extends PathAwareEntity implements Flutterer {
         this.setFlickers(world.random.nextInt(5) == 0);
         this.setFlickerAge(world.random.nextBetween(0, 19));
         this.setScale(1.5F);
-        this.setColor("on");
     }
 
     public static boolean canSpawn(EntityType<Firefly> type, WorldAccess world, SpawnReason spawnReason, BlockPos pos, Random random) {
@@ -100,7 +100,7 @@ public class Firefly extends PathAwareEntity implements Flutterer {
     @Nullable
     @Override
     public EntityData initialize(ServerWorldAccess world, LocalDifficulty difficulty, SpawnReason spawnReason, @Nullable EntityData entityData, @Nullable NbtCompound nbt) {
-        this.natural = spawnReason == SpawnReason.NATURAL;
+        this.natural = spawnReason == SpawnReason.NATURAL || spawnReason == SpawnReason.CHUNK_GENERATION;
         this.hasHome = true;
         FireflyBrain.rememberHome(this, this.getBlockPos());
         //this.hasHidingPlace = true;
@@ -112,10 +112,7 @@ public class Firefly extends PathAwareEntity implements Flutterer {
         }
 
         if (natural) {
-            String biomeColor = FireflyBiomeColorRegistry.getBiomeColor(world.getBiome(this.getBlockPos()).getKey());
-            if (biomeColor != null) {
-                this.setColor(biomeColor);
-            }
+            this.shouldCheckSpawn = true;
         }
 
         return super.initialize(world, difficulty, spawnReason, entityData, nbt);
@@ -311,6 +308,15 @@ public class Firefly extends PathAwareEntity implements Flutterer {
 
     @Override
     public void tick() {
+
+        if (this.shouldCheckSpawn) {
+            String biomeColor = FireflyBiomeColorRegistry.getBiomeColor(world.getBiome(this.getBlockPos()).getKey());
+            if (biomeColor != null) {
+                this.setColor(biomeColor);
+            }
+            this.shouldCheckSpawn = false;
+        }
+
         boolean nectar = false;
         if (this.hasCustomName()) {
             nectar = this.getCustomName().getString().toLowerCase().contains("nectar");
@@ -465,6 +471,7 @@ public class Firefly extends PathAwareEntity implements Flutterer {
         //nbt.putBoolean("hasHidingPlace", this.hasHidingPlace);
         //nbt.putInt("hidingPlaceCheckCooldown", this.hidingPlaceCheckCooldown);
         nbt.putBoolean("wasNamedNectar", this.wasNamedNectar);
+        nbt.putBoolean("shouldCheckSpawn", this.shouldCheckSpawn);
     }
 
     public void readCustomDataFromNbt(NbtCompound nbt) {
@@ -481,6 +488,7 @@ public class Firefly extends PathAwareEntity implements Flutterer {
         //this.hasHidingPlace = nbt.getBoolean("hasHidingPlace");
         //this.hidingPlaceCheckCooldown = nbt.getInt("hidingPlaceCheckCooldown");
         this.wasNamedNectar = nbt.getBoolean("wasNamedNectar");
+        this.shouldCheckSpawn = nbt.getBoolean("shouldCheckSpawn");
     }
 
     protected boolean shouldFollowLeash() {
