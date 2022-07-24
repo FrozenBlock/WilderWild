@@ -42,10 +42,13 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.math.random.Random;
 import net.minecraft.util.registry.Registry;
+import net.minecraft.util.registry.RegistryKey;
 import net.minecraft.world.*;
+import net.minecraft.world.biome.Biome;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.ArrayList;
 import java.util.Objects;
 import java.util.Optional;
 
@@ -87,6 +90,9 @@ public class Firefly extends PathAwareEntity implements Flutterer {
         if (world.getBiome(pos).isIn(WilderBiomeTags.FIREFLY_SPAWNABLE_DURING_DAY)) {
             return world.getLightLevel(LightType.SKY, pos) >= 6;
         }
+        if (world.getBiome(pos).isIn(WilderBiomeTags.FIREFLY_SPAWNABLE_CAVE)) {
+            return world.getLightLevel(LightType.SKY, pos) <= 6;
+        }
         return random.nextFloat() > 0.6F && (!world.getDimension().hasFixedTime() && world.getAmbientDarkness() > 4) && world.isSkyVisible(pos);
     }
 
@@ -102,6 +108,13 @@ public class Firefly extends PathAwareEntity implements Flutterer {
         if (spawnReason == SpawnReason.COMMAND) {
             this.setScale(1.5F);
             this.setColor("on");
+        }
+
+        if (natural) {
+            String biomeColor = FireflyBiomeColorRegistry.getBiomeColor(world.getBiome(this.getBlockPos()).getKey());
+            if (biomeColor != null) {
+                this.setColor(biomeColor);
+            }
         }
 
         return super.initialize(world, difficulty, spawnReason, entityData, nbt);
@@ -495,6 +508,35 @@ public class Firefly extends PathAwareEntity implements Flutterer {
     }
 
     protected void tickCramming() {
+    }
+
+    public static class FireflyBiomeColorRegistry {
+
+        public static ArrayList<RegistryKey<Biome>> BIOMES = new ArrayList<>();
+        public static ArrayList<String> COLORS = new ArrayList<>();
+
+        public static void addBiomeColor(RegistryKey<Biome> biome, String string) {
+            BIOMES.add(biome);
+            COLORS.add(string);
+        }
+
+        @Nullable
+        public static String getBiomeColor(Optional<RegistryKey<Biome>> biome) {
+            ArrayList<String> colors = new ArrayList<>();
+            if (biome.isPresent()) {
+                for (int i = 0; i < BIOMES.size(); ++i) {
+                    RegistryKey<Biome> biomeKey = BIOMES.get(i);
+                    if (biomeKey == biome.get()) {
+                        colors.add(COLORS.get(i));
+                    }
+                }
+            }
+            if (colors.isEmpty()) {
+                return null;
+            }
+            return colors.get((int) (WilderWild.random().nextDouble() * colors.size()));
+        }
+
     }
 
 }
