@@ -11,7 +11,6 @@ import net.minecraft.particle.DustColorTransitionParticleEffect;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.state.property.Properties;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 
 public class RegisterSaveableMoveablePipeNbt {
@@ -25,9 +24,8 @@ public class RegisterSaveableMoveablePipeNbt {
                 if (state.getBlock() instanceof CopperPipe pipe) {
                     Direction direction = state.get(Properties.FACING);
                     if (nbt.getEntity(world) != null) {
-                        nbt.useCount = nbt.getUseCount() + 1;
-                        BlockPos offsetPos = pos.offset(direction);
-                        AncientHornProjectile projectileEntity = new AncientHornProjectile(world, offsetPos.getX() + 0.5, offsetPos.getY() + 0.5, offsetPos.getZ() + 0.5);
+                        nbt.withUseCount(nbt.getUseCount() + 1);
+                        AncientHornProjectile projectileEntity = new AncientHornProjectile(world, pos.getX() + pipe.getDripX(direction), pos.getY() + pipe.getDripY(direction), pos.getZ() + pipe.getDripZ(direction));
                         projectileEntity.setVelocity(direction.getOffsetX(), direction.getOffsetY(), direction.getOffsetZ(), 1.0F, 0.0F);
                         projectileEntity.setOwner(nbt.foundEntity);
                         projectileEntity.shotByPlayer = true;
@@ -44,7 +42,9 @@ public class RegisterSaveableMoveablePipeNbt {
             }
             if (blockState.getBlock() instanceof CopperPipe pipe) {
                 Direction direction = blockState.get(Properties.FACING);
-                world.addParticle(new DustColorTransitionParticleEffect(DustColorTransitionParticleEffect.SCULK_BLUE, DustColorTransitionParticleEffect.SCULK_BLUE, 1.0f), pipe.getDripX(direction, world.getRandom()), pipe.getDripY(direction, world.getRandom()), pipe.getDripZ(direction, world.getRandom()), 0.0, 0.0, 0.0);
+                for (int i = 0; i < world.getRandom().nextBetween(3, 10); i++) {
+                    world.spawnParticles(new DustColorTransitionParticleEffect(DustColorTransitionParticleEffect.SCULK_BLUE, DustColorTransitionParticleEffect.SCULK_BLUE, 1.0f), pos.getX() + pipe.getDripX(direction, world.getRandom()), pos.getY() + pipe.getDripY(direction, world.getRandom()), pos.getZ() + pipe.getDripZ(direction, world.getRandom()), 1, 0.0, 0.0, 0.0, 0.7);
+                }
             }
         });
     }

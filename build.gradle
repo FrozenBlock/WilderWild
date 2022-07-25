@@ -49,7 +49,7 @@ dependencies {
 	include "com.github.Chocohead:Fabric-ASM:${project.fabric_asm_version}"
 
 	//Simple Copper Pipes
-	modImplementation "maven.modrinth:simple-copper-pipes:1.11b1"
+	modImplementation "maven.modrinth:simple-copper-pipes:1.11b2"
 
 	// only affects runClient, does not affect gradlew build. add -PuseThirdPartyMods=false to not use these
 	if (findProperty("useThirdPartyMods") != "false") {
