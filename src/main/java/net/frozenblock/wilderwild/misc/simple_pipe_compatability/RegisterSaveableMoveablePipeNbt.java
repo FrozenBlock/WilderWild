@@ -35,6 +35,10 @@ public class RegisterSaveableMoveablePipeNbt {
                     }
                 }
             }
+        }, (nbt, world, pos, blockState, blockEntity) -> {
+
+        }, (nbt, world, pos, blockState, blockEntity) -> {
+
         });
     }
 
