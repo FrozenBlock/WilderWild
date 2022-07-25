@@ -30,8 +30,11 @@ public class SchemasMixin {
         wildBlockItemRenamer(builder, schema, "white_dandelion", "seeding_dandelion");
         wildBlockItemRenamer(builder, schema, "blooming_dandelion", "seeding_dandelion");
         wildBlockRenamer(builder, schema, "potted_white_dandelion", "potted_seeding_dandelion");
-        wildItemRenamer(builder, schema, "potted_blooming_dandelion", "potted_seeding_dandelion");
+        wildBlockRenamer(builder, schema, "potted_blooming_dandelion", "potted_seeding_dandelion");
         wildBlockItemRenamer(builder, schema, "floating_moss", "algae");
+
+        //TESTING
+        //wildBlockItemRenamer(builder, schema, "test_1", "test_2");
     }
 
     private static void wildBlockItemRenamer(DataFixerBuilder builder, Schema schema, String startString, String endString) {
