@@ -61,7 +61,7 @@ public class TermiteMoundBlockEntity extends BlockEntity {
             Objects.requireNonNull(var10001);
             Optional<List> list = (Optional<List>) var10000.resultOrPartial(var10001::error);
             if (list.isPresent()) {
-                List termitesAllAllAll = list.get();
+                List<?> termitesAllAllAll = list.get();
                 int max = this.world != null ? maxTermites(this.world, this.lastLight, this.getCachedState().get(RegisterProperties.NATURAL)) : 5;
                 int i = Math.min(termitesAllAllAll.size(), max);
 

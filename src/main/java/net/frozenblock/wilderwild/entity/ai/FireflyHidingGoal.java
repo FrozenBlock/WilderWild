@@ -3,7 +3,9 @@ package net.frozenblock.wilderwild.entity.ai;
 import net.frozenblock.wilderwild.entity.Firefly;
 import net.frozenblock.wilderwild.tag.WilderBlockTags;
 import net.minecraft.entity.ai.goal.MoveToTargetPosGoal;
+import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.WorldEvents;
 import net.minecraft.world.WorldView;
 
 public class FireflyHidingGoal extends MoveToTargetPosGoal {
@@ -21,6 +23,7 @@ public class FireflyHidingGoal extends MoveToTargetPosGoal {
     @Override
     public void tick() {
         if (this.hasReached()) {
+            this.mob.playSound(SoundEvents.BLOCK_BEEHIVE_ENTER, 1.0F, 1.3F);
             this.mob.discard();
         }
 

@@ -6,6 +6,7 @@ import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.WilderWildClient;
 import net.frozenblock.wilderwild.entity.AncientHornProjectile;
 import net.minecraft.client.render.OverlayTexture;
+import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.VertexConsumer;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.entity.EntityRenderer;
@@ -18,7 +19,7 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3f;
 
 @Environment(EnvType.CLIENT)
-public class AncientHornProjectileRenderer extends EntityRenderer<AncientHornProjectile> {
+public class AncientHornProjectileRenderer<T extends AncientHornProjectile> extends EntityRenderer<T> {
     public static final Identifier TEXTURE = WilderWild.id("textures/entity/ancient_horn_projectile.png");
     private final AncientHornProjectileModel model;
 
@@ -27,7 +28,8 @@ public class AncientHornProjectileRenderer extends EntityRenderer<AncientHornPro
         this.model = new AncientHornProjectileModel(context.getPart(WilderWildClient.ANCIENT_HORN_PROJECTILE_LAYER));
     }
 
-    public void render(AncientHornProjectile projectile, float yaw, float tickDelta, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light) {
+    @Override
+    public void render(T projectile, float yaw, float tickDelta, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light) {
         matrices.push();
         matrices.multiply(Vec3f.POSITIVE_Y.getDegreesQuaternion(MathHelper.lerp(tickDelta, projectile.prevYaw, projectile.getYaw()) - 90.0F));
         matrices.multiply(Vec3f.POSITIVE_Z.getDegreesQuaternion(MathHelper.lerp(tickDelta, projectile.prevPitch, projectile.getPitch()) + 90.0F));
@@ -39,11 +41,13 @@ public class AncientHornProjectileRenderer extends EntityRenderer<AncientHornPro
         super.render(projectile, yaw, tickDelta, matrices, vertexConsumers, light);
     }
 
-    public Identifier getTexture(AncientHornProjectile entity) {
+    @Override
+    public Identifier getTexture(T entity) {
         return TEXTURE;
     }
 
-    protected int getBlockLight(AncientHornProjectile entity, BlockPos blockPos) {
+    @Override
+    protected int getBlockLight(T entity, BlockPos blockPos) {
         return 15;
     }
 

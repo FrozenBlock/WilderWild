@@ -233,8 +233,8 @@ public class AncientHornProjectile extends PersistentProjectileEntity {
         BlockState blockState = this.world.getBlockState(blockHitResult.getBlockPos());
         Entity owner = this.getOwner();
         if (WilderWild.isCopperPipe(blockState) && owner != null) {
-            if (blockHitResult.getSide() == blockState.get(Properties.FACING).getOpposite()) {
-                if (InteractionHandler.addHornNbtToBlock((ServerWorld) world, blockHitResult.getBlockPos(), owner)) {
+            if (blockHitResult.getSide() == blockState.get(Properties.FACING).getOpposite() && this.world instanceof ServerWorld server) {
+                if (InteractionHandler.addHornNbtToBlock(server, blockHitResult.getBlockPos(), owner)) {
                     this.discard();
                 }
             }
