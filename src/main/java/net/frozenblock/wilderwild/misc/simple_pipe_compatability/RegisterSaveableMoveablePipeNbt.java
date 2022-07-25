@@ -7,6 +7,7 @@ import net.frozenblock.wilderwild.registry.RegisterSounds;
 import net.lunade.copper.RegisterPipeNbtMethods;
 import net.lunade.copper.blocks.CopperPipe;
 import net.minecraft.block.BlockState;
+import net.minecraft.particle.DustColorTransitionParticleEffect;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.state.property.Properties;
 import net.minecraft.util.Identifier;
@@ -38,7 +39,10 @@ public class RegisterSaveableMoveablePipeNbt {
         }, (nbt, world, pos, blockState, blockEntity) -> {
 
         }, (nbt, world, pos, blockState, blockEntity) -> {
-
+            if (blockState.getBlock() instanceof CopperPipe pipe) {
+                Direction direction = blockState.get(Properties.FACING);
+                world.addParticle(new DustColorTransitionParticleEffect(DustColorTransitionParticleEffect.SCULK_BLUE, DustColorTransitionParticleEffect.SCULK_BLUE, 1.0f), pipe.getDripX(direction, world.getRandom()), pipe.getDripY(direction, world.getRandom()), pipe.getDripZ(direction, world.getRandom()), 0.0, 0.0, 0.0);
+            }
         });
     }
 
