@@ -5,7 +5,6 @@ import net.frozenblock.wilderwild.tag.WilderBlockTags;
 import net.minecraft.entity.ai.goal.MoveToTargetPosGoal;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.WorldEvents;
 import net.minecraft.world.WorldView;
 
 public class FireflyHidingGoal extends MoveToTargetPosGoal {

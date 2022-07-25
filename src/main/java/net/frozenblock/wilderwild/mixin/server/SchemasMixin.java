@@ -20,16 +20,18 @@ import java.util.function.BiFunction;
 @Debug(export = true)
 public class SchemasMixin {
 
-    @Shadow @Final private static BiFunction<Integer, Schema, Schema> EMPTY;
+    @Shadow
+    @Final
+    private static BiFunction<Integer, Schema, Schema> EMPTY;
 
     @Inject(method = "build", at = @At("TAIL"))
     private static void build(DataFixerBuilder builder, CallbackInfo ci) {
         Schema schema69420 = builder.addSchema(3546, EMPTY);
         builder.addFixer(
-            BlockNameFix.create(
-                schema69420,
-                "white_dandelion block renamer",
-                id -> Objects.equals(IdentifierNormalizingSchema.normalize(id), "wilderwild:white_dandelion") ? "wilderwild:blooming_dandelion" : id
-        ));
+                BlockNameFix.create(
+                        schema69420,
+                        "white_dandelion block renamer",
+                        id -> Objects.equals(IdentifierNormalizingSchema.normalize(id), "wilderwild:white_dandelion") ? "wilderwild:blooming_dandelion" : id
+                ));
     }
 }

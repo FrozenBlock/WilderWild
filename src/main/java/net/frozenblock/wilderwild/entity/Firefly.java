@@ -405,7 +405,7 @@ public class Firefly extends PathAwareEntity implements Flutterer {
                 double d = entity.squaredDistanceTo(this);
                 boolean dayKey = !this.world.getBiome(this.getBlockPos()).isIn(WilderBiomeTags.FIREFLY_SPAWNABLE_DURING_DAY) && this.world.isDay() && !this.world.getBiome(this.getBlockPos()).isIn(WilderBiomeTags.FIREFLY_SPAWNABLE_CAVE);
                 boolean caveKey = this.world.getBiome(this.getBlockPos()).isIn(WilderBiomeTags.FIREFLY_SPAWNABLE_CAVE) && this.world.getLightLevel(LightType.SKY, this.getBlockPos()) >= 6;
-                if (this.canImmediatelyDespawn(d)&& Math.sqrt(d) > 18) {
+                if (this.canImmediatelyDespawn(d) && Math.sqrt(d) > 18) {
                     if (dayKey) {
                         this.despawning = true;
                     } else if (caveKey) {
