@@ -42,7 +42,7 @@ public class RegisterSaveableMoveablePipeNbt {
             }
             if (blockState.getBlock() instanceof CopperPipe pipe) {
                 Direction direction = blockState.get(Properties.FACING);
-                for (int i = 0; i < world.getRandom().nextBetween(3, 10); i++) {
+                for (int i = 0; i < world.getRandom().nextBetween(10, 20); i++) {
                     world.spawnParticles(new DustColorTransitionParticleEffect(DustColorTransitionParticleEffect.SCULK_BLUE, DustColorTransitionParticleEffect.SCULK_BLUE, 1.0f), pos.getX() + pipe.getDripX(direction, world.getRandom()), pos.getY() + pipe.getDripY(direction, world.getRandom()), pos.getZ() + pipe.getDripZ(direction, world.getRandom()), 1, 0.0, 0.0, 0.0, 0.7);
                 }
             }
