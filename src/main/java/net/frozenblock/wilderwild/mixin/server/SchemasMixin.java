@@ -27,29 +27,29 @@ public class SchemasMixin {
     @Inject(method = "build", at = @At("TAIL"))
     private static void build(DataFixerBuilder builder, CallbackInfo ci) {
         Schema schema = builder.addSchema(3097, EMPTY_IDENTIFIER_NORMALIZE);
-        wildBlockItemRenamer(builder, schema, "white_dandelion", "seeding_dandelion");
-        wildBlockItemRenamer(builder, schema, "blooming_dandelion", "seeding_dandelion");
-        wildBlockRenamer(builder, schema, "potted_white_dandelion", "potted_seeding_dandelion");
-        wildBlockRenamer(builder, schema, "potted_blooming_dandelion", "potted_seeding_dandelion");
-        wildBlockItemRenamer(builder, schema, "floating_moss", "algae");
+        wilderBlockItemRenamer(builder, schema, "white_dandelion", "seeding_dandelion");
+        wilderBlockItemRenamer(builder, schema, "blooming_dandelion", "seeding_dandelion");
+        wilderBlockRenamer(builder, schema, "potted_white_dandelion", "potted_seeding_dandelion");
+        wilderBlockRenamer(builder, schema, "potted_blooming_dandelion", "potted_seeding_dandelion");
+        wilderBlockItemRenamer(builder, schema, "floating_moss", "algae");
 
         //TESTING
-        //wildBlockItemRenamer(builder, schema, "test_1", "test_2");
+        wilderBlockItemRenamer(builder, schema, "test_1", "test_2");
     }
 
-    private static void wildBlockItemRenamer(DataFixerBuilder builder, Schema schema, String startString, String endString) {
-        wildBlockRenamer(builder, schema, startString, endString);
-        wildItemRenamer(builder, schema, startString, endString);
+    private static void wilderBlockItemRenamer(DataFixerBuilder builder, Schema schema, String startString, String endString) {
+        wilderBlockRenamer(builder, schema, startString, endString);
+        wilderItemRenamer(builder, schema, startString, endString);
     }
 
-    private static void wildBlockRenamer(DataFixerBuilder builder, Schema schema, String startString, String endString) {
+    private static void wilderBlockRenamer(DataFixerBuilder builder, Schema schema, String startString, String endString) {
         builder.addFixer(
                 BlockNameFix.create(schema,startString + " block renamer",
                         id -> Objects.equals(IdentifierNormalizingSchema.normalize(id), WilderWild.string(startString)) ? WilderWild.string(endString) : id
                 ));
     }
 
-    private static void wildItemRenamer(DataFixerBuilder builder, Schema schema, String startString, String endString) {
+    private static void wilderItemRenamer(DataFixerBuilder builder, Schema schema, String startString, String endString) {
         builder.addFixer(
                 ItemNameFix.create(schema,startString + " block renamer",
                         id -> Objects.equals(IdentifierNormalizingSchema.normalize(id), WilderWild.string(startString)) ? WilderWild.string(endString) : id
