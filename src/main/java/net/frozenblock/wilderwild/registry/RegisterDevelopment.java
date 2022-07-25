@@ -6,6 +6,8 @@ import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.misc.Camera;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
+import net.minecraft.item.BlockItem;
+import net.minecraft.item.ItemGroup;
 import net.minecraft.util.registry.Registry;
 
 public class RegisterDevelopment {
@@ -15,7 +17,16 @@ public class RegisterDevelopment {
 
     public static void init() {
         Registry.register(Registry.ITEM, WilderWild.id("camera"), CAMERA);
-        Registry.register(Registry.BLOCK, WilderWild.id("test_1"), DEV_BLOCK);
-        Registry.register(Registry.ITEM, WilderWild.id("test_1"), DEV_BLOCK.asItem());
+        registerBlock("test_1", DEV_BLOCK, ItemGroup.MISC);
+    }
+
+    private static void registerBlock(String name, Block block, ItemGroup group) {
+        registerBlockItem(name, block, group);
+        Registry.register(Registry.BLOCK, WilderWild.id(name), block);
+    }
+
+    private static void registerBlockItem(String name, Block block, ItemGroup group) {
+        Registry.register(Registry.ITEM, WilderWild.id(name),
+                new BlockItem(block, new FabricItemSettings().group(group)));
     }
 }
