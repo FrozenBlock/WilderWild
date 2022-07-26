@@ -244,7 +244,7 @@ public class WilderWild implements ModInitializer {
     public static void stopMeasuring(Object object) {
         if (instantMap.containsKey(object)) {
             String name = object.getClass().getName();
-            LOGGER.error("{} took {} milliseconds", name.substring(name.lastIndexOf(".") + 1), System.nanoTime() - instantMap.get(object));
+            LOGGER.error("{} took {} nanoseconds", name.substring(name.lastIndexOf(".") + 1), System.nanoTime() - instantMap.get(object));
             instantMap.remove(object);
         }
     }
