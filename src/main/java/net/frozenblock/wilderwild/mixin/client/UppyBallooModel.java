@@ -30,7 +30,7 @@ public abstract class UppyBallooModel<T extends Entity>
         String string = Formatting.strip(entity.getName().getString());
         assert string != null;
         if (string.equalsIgnoreCase("a view from the top")) {
-            this.body.pitch = 90 * ((float)Math.PI / 180);
+            this.body.pitch = 180 * ((float)Math.PI / 180);
         }
     }
 }
