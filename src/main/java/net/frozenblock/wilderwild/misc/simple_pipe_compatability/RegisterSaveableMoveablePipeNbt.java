@@ -111,25 +111,27 @@ public class RegisterSaveableMoveablePipeNbt {
         });
 
         FittingPipeDispenses.register(RegisterItems.ANCIENT_HORN, (world, stack, i, direction, position, state, corroded, pos, pipe) -> {
-            double d = position.getX();
-            double e = position.getY();
-            double f = position.getZ();
-            Random random = world.random;
-            double random1 = random.nextDouble() * 7.0D - 3.5D;
-            Direction.Axis axis = direction.getAxis();
-            if (axis == Direction.Axis.Y) {
-                e -= 0.125D;
-            } else {
-                e -= 0.15625D;
-            }
+            if (!world.isClient) {
+                double d = position.getX();
+                double e = position.getY();
+                double f = position.getZ();
+                Random random = world.random;
+                double random1 = random.nextDouble() * 7.0D - 3.5D;
+                Direction.Axis axis = direction.getAxis();
+                if (axis == Direction.Axis.Y) {
+                    e -= 0.125D;
+                } else {
+                    e -= 0.15625D;
+                }
 
-            int offY = direction.getOffsetY();
-            double velY = axis == Direction.Axis.Y ? (double)(i * offY * 2) : (corroded ? random1 : random1 * 0.1D);
-            UniformIntProvider ran1 = UniformIntProvider.create(-3, 3);
-            UniformIntProvider ran2 = UniformIntProvider.create(-1, 1);
-            UniformIntProvider ran3 = UniformIntProvider.create(-3, 3);
-            for(int o = 0; o < random.nextBetween(1, 10); ++o) {
-                EasyPacket.EasyFloatingSculkBubblePacket.createParticle(world, new Vec3d(d + (double)ran1.get(world.random) * 0.1D, e + (double)ran2.get(world.random) * 0.1D, f + (double)ran3.get(world.random) * 0.1D), random.nextInt(), random.nextBetween(40, 80), velY, 1);
+                int offY = direction.getOffsetY();
+                double velY = axis == Direction.Axis.Y ? (double) (i * offY * 2) : (corroded ? random1 : random1 * 0.1D);
+                UniformIntProvider ran1 = UniformIntProvider.create(-3, 3);
+                UniformIntProvider ran2 = UniformIntProvider.create(-1, 1);
+                UniformIntProvider ran3 = UniformIntProvider.create(-3, 3);
+                for (int o = 0; o < random.nextBetween(1, 4); ++o) {
+                    EasyPacket.EasyFloatingSculkBubblePacket.createParticle(world, new Vec3d(d + (double) ran1.get(world.random) * 0.1D, e + (double) ran2.get(world.random) * 0.1D, f + (double) ran3.get(world.random) * 0.1D), Math.random() > 0.7 ? 1 : 0, random.nextBetween(60, 80), velY * 0.1, 1);
+                }
             }
         });
         
