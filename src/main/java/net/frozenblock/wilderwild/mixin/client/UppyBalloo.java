@@ -4,7 +4,7 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.frozenblock.wilderwild.WilderWild;
 import net.minecraft.client.render.entity.PigEntityRenderer;
-import net.minecraft.entity.passive.GoatEntity;
+import net.minecraft.entity.passive.PigEntity;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.Identifier;
 import org.spongepowered.asm.mixin.Mixin;
@@ -19,9 +19,9 @@ public class UppyBalloo {
     private static final Identifier UPPY_BALLOO = WilderWild.id("textures/entity/pig/uppy_balloo.png");
 
 
-    @Inject(method = "getTexture(Lnet/minecraft/entity/passive/GoatEntity;)Lnet/minecraft/util/Identifier;", at = @At("HEAD"), cancellable = true)
-    public void getTexture(GoatEntity goatEntity, CallbackInfoReturnable<Identifier> cir) {
-        String string = Formatting.strip(goatEntity.getName().getString());
+    @Inject(method = "getTexture", at = @At("HEAD"), cancellable = true)
+    public void getTexture(PigEntity pig, CallbackInfoReturnable<Identifier> cir) {
+        String string = Formatting.strip(pig.getName().getString());
         assert string != null;
         if (string.equalsIgnoreCase("a view from the top")) {
             cir.setReturnValue(UPPY_BALLOO);
