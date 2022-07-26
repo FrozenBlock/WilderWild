@@ -24,7 +24,7 @@ public class SchemasMixin {
 
     @Inject(method = "build", at = @At("TAIL"))
     private static void build(DataFixerBuilder builder, CallbackInfo ci) {
-        Schema schema = builder.addSchema(3097, EMPTY_IDENTIFIER_NORMALIZE);
+        Schema schema = builder.addSchema(3105, EMPTY_IDENTIFIER_NORMALIZE);
         wilderBlockItemRenamer(builder, schema, "white_dandelion", "seeding_dandelion");
         wilderBlockItemRenamer(builder, schema, "blooming_dandelion", "seeding_dandelion");
         wilderBlockRenamer(builder, schema, "potted_white_dandelion", "potted_seeding_dandelion");
