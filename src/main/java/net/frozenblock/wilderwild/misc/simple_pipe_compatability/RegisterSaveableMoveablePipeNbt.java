@@ -130,7 +130,7 @@ public class RegisterSaveableMoveablePipeNbt {
                 UniformIntProvider ran2 = UniformIntProvider.create(-1, 1);
                 UniformIntProvider ran3 = UniformIntProvider.create(-3, 3);
                 for (int o = 0; o < random.nextBetween(1, 4); ++o) {
-                    EasyPacket.EasyFloatingSculkBubblePacket.createParticle(world, new Vec3d(d + (double) ran1.get(world.random) * 0.1D, e + (double) ran2.get(world.random) * 0.1D, f + (double) ran3.get(world.random) * 0.1D), Math.random() > 0.7 ? 1 : 0, random.nextBetween(60, 80), velY * 0.1, 1);
+                    EasyPacket.EasyFloatingSculkBubblePacket.createParticle(world, new Vec3d(d + (double) ran1.get(world.random) * 0.1D, e + (double) ran2.get(world.random) * 0.1D, f + (double) ran3.get(world.random) * 0.1D), Math.random() > 0.7 ? 1 : 0, random.nextBetween(60, 80), velY * 0.05, 1);
                 }
             }
         });
