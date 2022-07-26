@@ -46,6 +46,8 @@ public class RegisterSaveableMoveablePipeNbt {
                     world.spawnParticles(new DustColorTransitionParticleEffect(DustColorTransitionParticleEffect.SCULK_BLUE, DustColorTransitionParticleEffect.SCULK_BLUE, 1.0f), pos.getX() + pipe.getDripX(direction, world.getRandom()), pos.getY() + pipe.getDripY(direction, world.getRandom()), pos.getZ() + pipe.getDripZ(direction, world.getRandom()), 1, 0.0, 0.0, 0.0, 0.7);
                 }
             }
+        }, (nbt, world, pos, blockState, blockEntity) -> {
+            return true;
         });
     }
 
