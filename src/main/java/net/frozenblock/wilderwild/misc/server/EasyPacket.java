@@ -22,7 +22,7 @@ import net.minecraft.world.World;
 public class EasyPacket {
 
     public static class EasySeedPacket {
-        public static void createParticle(World world, Vec3d pos, int count, boolean isMilkweed) {
+        public static void createParticle(World world, Vec3d pos, int count, boolean isMilkweed, int radius) {
             if (world.isClient)
                 throw new IllegalStateException("Particle attempting spawning on THE CLIENT JESUS CHRIST WHAT THE HECK SPAWN ON SERVER NEXT TIME PLS");
             PacketByteBuf byteBuf = new PacketByteBuf(Unpooled.buffer());
@@ -31,12 +31,12 @@ public class EasyPacket {
             byteBuf.writeDouble(pos.z);
             byteBuf.writeVarInt(count);
             byteBuf.writeBoolean(isMilkweed);
-            for (ServerPlayerEntity player : PlayerLookup.tracking((ServerWorld) world, new BlockPos(pos))) {
+            for (ServerPlayerEntity player : PlayerLookup.around((ServerWorld) world, pos, 128)) {
                 ServerPlayNetworking.send(player, WilderWild.SEED_PACKET, byteBuf);
             }
         }
 
-        public static void createControlledParticle(World world, Vec3d pos, double xvel, double yvel, double zvel, int count, boolean isMilkweed) {
+        public static void createControlledParticle(World world, Vec3d pos, double xvel, double yvel, double zvel, int count, boolean isMilkweed, int radius) {
             if (world.isClient)
                 throw new IllegalStateException("Particle attempting spawning on THE CLIENT JESUS CHRIST WHAT THE HECK SPAWN ON SERVER NEXT TIME PLS");
             PacketByteBuf byteBuf = new PacketByteBuf(Unpooled.buffer());
@@ -48,7 +48,7 @@ public class EasyPacket {
             byteBuf.writeDouble(zvel * 1.5);
             byteBuf.writeVarInt(count);
             byteBuf.writeBoolean(isMilkweed);
-            for (ServerPlayerEntity player : PlayerLookup.tracking((ServerWorld) world, new BlockPos(pos))) {
+            for (ServerPlayerEntity player : PlayerLookup.around((ServerWorld) world, pos, radius)) {
                 ServerPlayNetworking.send(player, WilderWild.CONTROLLED_SEED_PACKET, byteBuf);
             }
         }

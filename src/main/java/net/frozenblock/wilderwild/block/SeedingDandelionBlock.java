@@ -27,7 +27,7 @@ public class SeedingDandelionBlock extends FlowerBlock {
     public void onEntityCollision(BlockState state, World world, BlockPos pos, Entity entity) {
         if (world instanceof ServerWorld server) {
             if (server.random.nextFloat() > 0.95) {
-                EasyPacket.EasySeedPacket.createParticle(world, Vec3d.ofCenter(pos).add(0, 0.3, 0), server.random.nextBetween(1, 3), false);
+                EasyPacket.EasySeedPacket.createParticle(world, Vec3d.ofCenter(pos).add(0, 0.3, 0), server.random.nextBetween(1, 3), false, 32);
             }
         }
     }
@@ -36,7 +36,7 @@ public class SeedingDandelionBlock extends FlowerBlock {
     public void onBreak(World world, BlockPos pos, BlockState state, PlayerEntity player) {
         super.onBreak(world, pos, state, player);
         if (world instanceof ServerWorld server) {
-            EasyPacket.EasySeedPacket.createParticle(world, Vec3d.ofCenter(pos).add(0, 0.3, 0), server.random.nextBetween(3, 7), false);
+            EasyPacket.EasySeedPacket.createParticle(world, Vec3d.ofCenter(pos).add(0, 0.3, 0), server.random.nextBetween(3, 7), false,32);
         }
     }
 }
