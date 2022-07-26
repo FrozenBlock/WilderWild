@@ -19,13 +19,6 @@ public abstract class UppyBallooModel<T extends Entity>
         super(root, false, 4.0f, 4.0f, 2.0f, 2.0f, 24);
     }
 
-    public static TexturedModelData getTexturedModelData(Dilation dilation) {
-        ModelData modelData = QuadrupedEntityModel.getModelData(6, dilation);
-        ModelPartData modelPartData = modelData.getRoot();
-        modelPartData.addChild("head", ModelPartBuilder.create().uv(0, 0).cuboid(-4.0f, -4.0f, -8.0f, 8.0f, 8.0f, 8.0f, dilation).uv(16, 16).cuboid(-2.0f, 0.0f, -9.0f, 4.0f, 3.0f, 1.0f, dilation), ModelTransform.pivot(0.0f, 12.0f, -6.0f));
-        return TexturedModelData.of(modelData, 64, 32);
-    }
-
     @Override
     public void setAngles(T entity, float limbAngle, float limbDistance, float animationProgress, float headYaw, float headPitch) {
         this.head.pitch = headPitch * ((float)Math.PI / 180);
