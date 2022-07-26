@@ -39,6 +39,8 @@
   "client": [
 	"client.OsmioooWardenRenderer",
 	"client.Treetrain1GoatRenderer",
+	"client.UppyBallo",
+	"client.UppyBallooModel",
 	"client.VexModelMixin",
 	"client.WardenAnimationOverwrites",
 	"client.WardenEntityModelMixin",
