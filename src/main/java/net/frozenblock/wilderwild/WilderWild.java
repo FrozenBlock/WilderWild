@@ -232,10 +232,10 @@ public class WilderWild implements ModInitializer {
         return Registry.register(Registry.TRUNK_PLACER_TYPE, id(id), new TrunkPlacerType<>(codec));
     }
 
-    public static Map<Object, Instant> instantMap = new HashMap<>();
+    public static Map<Object, Long> instantMap = new HashMap<>();
 
     public static void startMeasuring(Object object) {
-        Instant started = Instant.now();
+        long started = System.nanoTime();
         String name = object.getClass().getName();
         LOGGER.error("Started measuring {}", name.substring(name.lastIndexOf(".") + 1));
         instantMap.put(object, started);
@@ -244,7 +244,7 @@ public class WilderWild implements ModInitializer {
     public static void stopMeasuring(Object object) {
         if (instantMap.containsKey(object)) {
             String name = object.getClass().getName();
-            LOGGER.error("{} took {} milliseconds", name.substring(name.lastIndexOf(".") + 1), Duration.between(instantMap.get(object), Instant.now()).toMillis());
+            LOGGER.error("{} took {} milliseconds", name.substring(name.lastIndexOf(".") + 1), System.nanoTime() - instantMap.get(object));
             instantMap.remove(object);
         }
     }

@@ -91,6 +91,7 @@ public class TermiteMoundBlockEntity extends BlockEntity {
     }
 
     public void tick(World world, BlockPos pos) {
+        WilderWild.startMeasuring(this);
         if (this.ticksToCheckLight > 0) {
             --this.ticksToCheckLight;
         } else {
@@ -130,6 +131,7 @@ public class TermiteMoundBlockEntity extends BlockEntity {
             this.termites.remove(termite);
             world.emitGameEvent(null, GameEvent.BLOCK_CHANGE, Vec3d.ofCenter(pos));
         }
+        WilderWild.stopMeasuring(this);
     }
 
     public static int maxTermites(World world, int light, boolean natural) {
@@ -180,7 +182,7 @@ public class TermiteMoundBlockEntity extends BlockEntity {
             this.natural = natural;
         }
 
-        public boolean tick(World world) {
+        synchronized public boolean tick(World world) {
             boolean exit = false;
             ++this.aliveTicks;
             if (this.aliveTicks > (this.natural ? 1200 : 2000) || isTooFar(this.natural, this.mound, this.pos)) {
