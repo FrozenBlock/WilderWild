@@ -14,6 +14,9 @@ import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.*;
 import net.minecraft.entity.damage.DamageSource;
+import net.minecraft.entity.data.DataTracker;
+import net.minecraft.entity.data.TrackedData;
+import net.minecraft.entity.data.TrackedDataHandlerRegistry;
 import net.minecraft.entity.mob.Angriness;
 import net.minecraft.entity.mob.WardenEntity;
 import net.minecraft.entity.player.ItemCooldownManager;
@@ -55,7 +58,7 @@ import java.util.Optional;
 
 import static net.frozenblock.wilderwild.item.AncientHorn.*;
 
-//TODO: Fix rendering (Renders too bright or too dark depending on direction; renders under other translucents like water, doesn't render further than 8 block away)
+//TODO: Fix rendering (Renders too bright or too dark depending on direction; renders under other translucents like water)
 
 public class AncientHornProjectile extends PersistentProjectileEntity {
     private final TagKey<Block> NON_COLLIDE = WilderBlockTags.ANCIENT_HORN_NON_COLLIDE;
@@ -68,6 +71,7 @@ public class AncientHornProjectile extends PersistentProjectileEntity {
     public boolean shotByPlayer;
     public int bubbles;
     private BlockState inBlockState;
+    private static final TrackedData<Float> SCALE = DataTracker.registerData(Firefly.class, TrackedDataHandlerRegistry.FLOAT);
 
     public AncientHornProjectile(@NotNull EntityType<? extends PersistentProjectileEntity> entityType, World world) {
         super(entityType, world);
@@ -77,6 +81,11 @@ public class AncientHornProjectile extends PersistentProjectileEntity {
     public AncientHornProjectile(World world, double x, double y, double z) {
         super(RegisterEntities.ANCIENT_HORN_PROJECTILE_ENTITY, x, y, z, world);
         this.setSound(RegisterSounds.ANCIENT_HORN_PROJECTILE_DISSIPATE);
+    }
+
+    protected void initDataTracker() {
+        super.initDataTracker();
+        this.dataTracker.startTracking(SCALE, 0F);
     }
 
     public List<Entity> collidingEntities() {
@@ -89,6 +98,9 @@ public class AncientHornProjectile extends PersistentProjectileEntity {
 
     public void tick() {
         this.baseTick();
+        if (this.getScale() < 1F) {
+            this.setScale(this.getScale() + 0.25F);
+        }
         if (this.bubbles > 0 && this.world instanceof ServerWorld server) {
             --this.bubbles;
             EasyPacket.EasyFloatingSculkBubblePacket.createParticle(server, this.getPos(), Math.random() > 0.7 ? 1 : 0, 20 + WilderWild.random().nextInt(40), 0.05, server.random.nextBetween(1, 3));
@@ -367,6 +379,14 @@ public class AncientHornProjectile extends PersistentProjectileEntity {
         return ItemStack.EMPTY;
     }
 
+    public float getScale() {
+        return this.dataTracker.get(SCALE);
+    }
+
+    public void setScale(float value) {
+        this.dataTracker.set(SCALE, value);
+    }
+
     public void writeCustomDataToNbt(NbtCompound nbt) {
         if (!this.isRemoved()) {
             if (this.inBlockState != null) {
@@ -382,6 +402,7 @@ public class AncientHornProjectile extends PersistentProjectileEntity {
             nbt.putDouble("originZ", this.vecZ);
             nbt.putBoolean("shotByPlayer", this.shotByPlayer);
             nbt.putInt("bubbles", this.bubbles);
+            nbt.putFloat("scale", this.getScale());
         }
     }
 
@@ -398,6 +419,7 @@ public class AncientHornProjectile extends PersistentProjectileEntity {
             this.vecZ = nbt.getDouble("originZ");
             this.shotByPlayer = nbt.getBoolean("shotByPlayer");
             this.bubbles = nbt.getInt("bubbles");
+            this.setScale(nbt.getFloat("scale"));
         }
     }
 

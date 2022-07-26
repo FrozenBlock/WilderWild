@@ -40,8 +40,8 @@ public class AncientHornProjectileModel extends Model {
         return TexturedModelData.of(modelData, 64, 64);
     }
 
-    public void render(MatrixStack matrices, VertexConsumer vertices, int light, int overlay, float red, float green, float blue, float alpha, float tickDelta, AncientHornProjectile entity) {
-        matrices.scale(1.0F, 1.0F, 1.0F);
+    public void render(MatrixStack matrices, VertexConsumer vertices, int light, int overlay, float red, float green, float blue, float alpha, float tickDelta, AncientHornProjectile entity, float scale) {
+        matrices.scale(scale, scale, scale);
 
         this.bone.yaw = (float) (90 * (Math.PI / 180));
         this.bone.pitch = (float) (90 * (Math.PI / 180));

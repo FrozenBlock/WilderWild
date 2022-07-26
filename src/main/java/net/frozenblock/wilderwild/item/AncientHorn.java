@@ -149,7 +149,7 @@ public class AncientHorn extends Item {
             world.playSoundFromEntity(user, user, soundEvent, SoundCategory.RECORDS, range, 1.0F);
             user.getItemCooldownManager().set(RegisterItems.ANCIENT_HORN, getCooldown(user, 300));
             if (world instanceof ServerWorld server) {
-                AncientHornProjectile projectileEntity = new AncientHornProjectile(world, user.getX(), user.getEyeY(), user.getZ());
+                AncientHornProjectile projectileEntity = new AncientHornProjectile(world, user.getX(), user.getEyeY()-0.1, user.getZ());
                 projectileEntity.setVelocity(user, user.getPitch(), user.getYaw(), 0.0F, 1.0F, 0.0F);
                 projectileEntity.shotByPlayer = true;
                 server.spawnEntity(projectileEntity);
