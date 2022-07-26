@@ -16,6 +16,7 @@ public abstract class UppyBallooModel<T extends Entity>
         extends QuadrupedEntityModel<T> {
 
     private static final float radians = ((float)Math.PI / 180);
+    private static final float non_uppy_balloo_angle = 90 * radians;
 
     public UppyBallooModel(ModelPart root) {
         super(root, false, 4.0f, 4.0f, 2.0f, 2.0f, 24);
@@ -34,6 +35,8 @@ public abstract class UppyBallooModel<T extends Entity>
         assert string != null;
         if (string.equalsIgnoreCase("a view from the top")) {
             this.body.pitch = 0;
+        } else {
+            this.body.pitch = non_uppy_balloo_angle;
         }
     }
 
