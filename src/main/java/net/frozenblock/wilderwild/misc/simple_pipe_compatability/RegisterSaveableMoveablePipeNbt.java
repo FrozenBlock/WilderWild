@@ -3,6 +3,7 @@ package net.frozenblock.wilderwild.misc.simple_pipe_compatability;
 import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.entity.AncientHornProjectile;
 import net.frozenblock.wilderwild.misc.server.EasyPacket;
+import net.frozenblock.wilderwild.registry.RegisterBlocks;
 import net.frozenblock.wilderwild.registry.RegisterItems;
 import net.frozenblock.wilderwild.registry.RegisterSounds;
 import net.lunade.copper.FittingPipeDispenses;
@@ -77,10 +78,38 @@ public class RegisterSaveableMoveablePipeNbt {
             UniformIntProvider ran2 = UniformIntProvider.create(-1, 1);
             UniformIntProvider ran3 = UniformIntProvider.create(-3, 3);
             for(int o = 0; o < random.nextBetween(10, 30); ++o) {
-                EasyPacket.EasySeedPacket.createControlledParticle(world, new Vec3d(d + (double)ran1.get(world.random) * 0.1D, e + (double)ran2.get(world.random) * 0.1D, f + (double)ran3.get(world.random) * 0.1D), velX, velY, velZ, 1, true, 128);
+                EasyPacket.EasySeedPacket.createControlledParticle(world, new Vec3d(d + (double)ran1.get(world.random) * 0.1D, e + (double)ran2.get(world.random) * 0.1D, f + (double)ran3.get(world.random) * 0.1D), velX, velY, velZ, 1, true, 64);
+            }
+        });
+
+        FittingPipeDispenses.register(RegisterBlocks.SEEDING_DANDELION.asItem(), (world, stack, i, direction, position, state, corroded, pos, pipe) -> {
+            double d = position.getX();
+            double e = position.getY();
+            double f = position.getZ();
+            Random random = world.random;
+            double random1 = random.nextDouble() * 7.0D - 3.5D;
+            double random2 = random.nextDouble() * 7.0D - 3.5D;
+            Direction.Axis axis = direction.getAxis();
+            if (axis == Direction.Axis.Y) {
+                e -= 0.125D;
+            } else {
+                e -= 0.15625D;
             }
 
+            int offX = direction.getOffsetX();
+            int offY = direction.getOffsetY();
+            int offZ = direction.getOffsetZ();
+            double velX = axis == Direction.Axis.X ? (double)(i * offX * 2) : (axis == Direction.Axis.Z ? (corroded ? random2 : random2 * 0.1D) : (corroded ? random1 : random1 * 0.1D));
+            double velY = axis == Direction.Axis.Y ? (double)(i * offY * 2) : (corroded ? random1 : random1 * 0.1D);
+            double velZ = axis == Direction.Axis.Z ? (double)(i * offZ * 2) : (corroded ? random2 : random2 * 0.1D);
+            UniformIntProvider ran1 = UniformIntProvider.create(-3, 3);
+            UniformIntProvider ran2 = UniformIntProvider.create(-1, 1);
+            UniformIntProvider ran3 = UniformIntProvider.create(-3, 3);
+            for(int o = 0; o < random.nextBetween(1, 10); ++o) {
+                EasyPacket.EasySeedPacket.createControlledParticle(world, new Vec3d(d + (double)ran1.get(world.random) * 0.1D, e + (double)ran2.get(world.random) * 0.1D, f + (double)ran3.get(world.random) * 0.1D), velX, velY, velZ, 1, false, 64);
+            }
         });
+        
     }
 
 }
