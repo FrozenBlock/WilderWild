@@ -38,6 +38,7 @@
   ],
   "client": [
 	"client.OsmioooWardenRenderer",
+	"client.Treetrain1GoatRenderer",
 	"client.VexModelMixin",
 	"client.WardenAnimationOverwrites",
 	"client.WardenEntityModelMixin",
