@@ -31,7 +31,7 @@ public class EasyPacket {
             byteBuf.writeDouble(pos.z);
             byteBuf.writeVarInt(count);
             byteBuf.writeBoolean(isMilkweed);
-            for (ServerPlayerEntity player : PlayerLookup.around((ServerWorld) world, pos, 32)) {
+            for (ServerPlayerEntity player : PlayerLookup.tracking((ServerWorld) world, new BlockPos(pos))) {
                 ServerPlayNetworking.send(player, WilderWild.SEED_PACKET, byteBuf);
             }
         }
@@ -48,7 +48,7 @@ public class EasyPacket {
             byteBuf.writeDouble(zvel * 1.5);
             byteBuf.writeVarInt(count);
             byteBuf.writeBoolean(isMilkweed);
-            for (ServerPlayerEntity player : PlayerLookup.around((ServerWorld) world, pos, 32)) {
+            for (ServerPlayerEntity player : PlayerLookup.tracking((ServerWorld) world, new BlockPos(pos))) {
                 ServerPlayNetworking.send(player, WilderWild.CONTROLLED_SEED_PACKET, byteBuf);
             }
         }
