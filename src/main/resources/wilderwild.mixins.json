@@ -37,6 +37,8 @@
 	"worldgen.VanillaSurfaceRulesMixin"
   ],
   "client": [
+	"client.AlexDolphinRenderer",
+	"client.MerpSlimeRenderer",
 	"client.OsmioooWardenRenderer",
 	"client.Treetrain1GoatRenderer",
 	"client.VexModelMixin",
