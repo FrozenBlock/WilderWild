@@ -44,6 +44,10 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
+import java.time.Duration;
+import java.time.Instant;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Optional;
 
 public class WilderWild implements ModInitializer {
@@ -70,6 +74,7 @@ public class WilderWild implements ModInitializer {
 
     @Override
     public void onInitialize() {
+        startMeasuring(this);
         RegisterBlocks.registerBlocks();
         RegisterBlocks.addBaobab();
         RegisterItems.registerItems();
@@ -116,6 +121,7 @@ public class WilderWild implements ModInitializer {
         if (hasSimpleCopperPipes()) {
             RegisterSaveableMoveablePipeNbt.init();
         }
+        stopMeasuring(this);
     }
 
     public static void terralith() throws IOException {
@@ -162,7 +168,7 @@ public class WilderWild implements ModInitializer {
         return new Identifier(MOD_ID, path);
     }
     public static String string(String path) {
-        return MOD_ID + ":" + path;
+        return id(path).toString();
     }
 
     public static final Identifier SEED_PACKET = id("seed_particle_packet");
@@ -222,8 +228,24 @@ public class WilderWild implements ModInitializer {
         }
     }
 
-
     private static <P extends TrunkPlacer> TrunkPlacerType<P> registerTrunk(String id, Codec<P> codec) {
         return Registry.register(Registry.TRUNK_PLACER_TYPE, id(id), new TrunkPlacerType<>(codec));
+    }
+
+    public static Map<Object, Instant> instantMap = new HashMap<>();
+
+    public static void startMeasuring(Object object) {
+        Instant started = Instant.now();
+        String name = object.getClass().getName();
+        LOGGER.error("Started measuring {}", name.substring(name.lastIndexOf(".") + 1));
+        instantMap.put(object, started);
+    }
+
+    public static void stopMeasuring(Object object) {
+        if (instantMap.containsKey(object)) {
+            String name = object.getClass().getName();
+            LOGGER.error("{} took {} milliseconds", name.substring(name.lastIndexOf(".") + 1), Duration.between(instantMap.get(object), Instant.now()).toMillis());
+            instantMap.remove(object);
+        }
     }
 }
