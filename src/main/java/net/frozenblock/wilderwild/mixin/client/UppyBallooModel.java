@@ -15,22 +15,26 @@ import org.spongepowered.asm.mixin.Mixin;
 public abstract class UppyBallooModel<T extends Entity>
         extends QuadrupedEntityModel<T> {
 
+    private static final float radians = ((float)Math.PI / 180);
+
     public UppyBallooModel(ModelPart root) {
         super(root, false, 4.0f, 4.0f, 2.0f, 2.0f, 24);
     }
 
     @Override
     public void setAngles(T entity, float limbAngle, float limbDistance, float animationProgress, float headYaw, float headPitch) {
-        this.head.pitch = headPitch * ((float)Math.PI / 180);
-        this.head.yaw = headYaw * ((float)Math.PI / 180);
-        this.rightHindLeg.pitch = MathHelper.cos(limbAngle * 0.6662f) * 1.4f * limbDistance;
-        this.leftHindLeg.pitch = MathHelper.cos(limbAngle * 0.6662f + (float)Math.PI) * 1.4f * limbDistance;
-        this.rightFrontLeg.pitch = MathHelper.cos(limbAngle * 0.6662f + (float)Math.PI) * 1.4f * limbDistance;
-        this.leftFrontLeg.pitch = MathHelper.cos(limbAngle * 0.6662f) * 1.4f * limbDistance;
+        this.head.pitch = headPitch * radians;
+        this.head.yaw = headYaw * radians;
+        float limbs = limbAngle * 0.6662f;
+        this.rightHindLeg.pitch = MathHelper.cos(limbs) * 1.4f * limbDistance;
+        this.leftHindLeg.pitch = MathHelper.cos(limbs + (float)Math.PI) * 1.4f * limbDistance;
+        this.rightFrontLeg.pitch = this.leftHindLeg.pitch;
+        this.leftFrontLeg.pitch = this.rightHindLeg.pitch;
         String string = Formatting.strip(entity.getName().getString());
         assert string != null;
         if (string.equalsIgnoreCase("a view from the top")) {
-            this.body.pitch = 180 * ((float)Math.PI / 180);
+            this.body.pitch = (float) -Math.PI;
         }
     }
+
 }
