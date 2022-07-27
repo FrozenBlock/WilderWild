@@ -50,5 +50,8 @@ public class WilderFlowersGeneration {
         BiomeModifications.addFeature(BiomeSelectors.includeByKey(BiomeKeys.PLAINS),
                 GenerationStep.Feature.VEGETAL_DECORATION, WilderPlacedFeatures.NEW_FLOWER_PLAIN.getKey().get());
 
+        BiomeModifications.addFeature(BiomeSelectors.includeByKey(BiomeKeys.FLOWER_FOREST, RegisterWorldgen.MIXED_FOREST),
+                GenerationStep.Feature.VEGETAL_DECORATION, WilderPlacedFeatures.PATCH_BERRY_FOREST.getKey().get());
+
     }
 }
