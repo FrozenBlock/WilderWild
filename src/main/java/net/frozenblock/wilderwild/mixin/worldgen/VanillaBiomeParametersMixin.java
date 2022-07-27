@@ -61,8 +61,8 @@ public final class VanillaBiomeParametersMixin {
         commonBiomes[4][4] = BiomeKeys.JUNGLE;
     }
 
-    @Inject(method = "writeBiomesNearRivers", at = @At("TAIL"))
-    private void writeBiomesNearRivers(Consumer<Pair<MultiNoiseUtil.NoiseHypercube, RegistryKey<Biome>>> parameters, MultiNoiseUtil.ParameterRange weirdness, CallbackInfo ci) {
+    @Inject(method = "writeLowBiomes", at = @At("TAIL"))
+    private void injectLowBiomes(Consumer<Pair<MultiNoiseUtil.NoiseHypercube, RegistryKey<Biome>>> parameters, MultiNoiseUtil.ParameterRange weirdness, CallbackInfo ci) {
         this.writeBiomeParameters(
                 parameters,
                 MultiNoiseUtil.ParameterRange.combine(this.temperatureParameters[1], this.temperatureParameters[2]),
@@ -82,8 +82,8 @@ public final class VanillaBiomeParametersMixin {
         );
     }
 
-    @Inject(method = "writeMixedBiomes", at = @At("TAIL"))
-    private void injectMixedBiomes(Consumer<Pair<MultiNoiseUtil.NoiseHypercube, RegistryKey<Biome>>> parameters, MultiNoiseUtil.ParameterRange weirdness, CallbackInfo ci) {
+    @Inject(method = "writeMidBiomes", at = @At("TAIL"))
+    private void injectMidBiomes(Consumer<Pair<MultiNoiseUtil.NoiseHypercube, RegistryKey<Biome>>> parameters, MultiNoiseUtil.ParameterRange weirdness, CallbackInfo ci) {
         this.writeBiomeParameters(
                 parameters,
                 MultiNoiseUtil.ParameterRange.combine(this.temperatureParameters[1], this.temperatureParameters[2]),
@@ -104,8 +104,8 @@ public final class VanillaBiomeParametersMixin {
         );
     }
 
-    @Inject(method = "writeRiverBiomes", at = @At("TAIL"))
-    private void writeRiverBiomes(Consumer<Pair<MultiNoiseUtil.NoiseHypercube, RegistryKey<Biome>>> parameters, MultiNoiseUtil.ParameterRange weirdness, CallbackInfo ci) {
+    @Inject(method = "writeValleyBiomes", at = @At("TAIL"))
+    private void injectValleyBiomes(Consumer<Pair<MultiNoiseUtil.NoiseHypercube, RegistryKey<Biome>>> parameters, MultiNoiseUtil.ParameterRange weirdness, CallbackInfo ci) {
         this.writeBiomeParameters(
                 parameters,
                 MultiNoiseUtil.ParameterRange.combine(this.temperatureParameters[1], this.temperatureParameters[3]),

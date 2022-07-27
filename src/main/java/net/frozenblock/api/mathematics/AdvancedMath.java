@@ -37,4 +37,15 @@ public class AdvancedMath {
             return 8;
         }
     }
+
+    public static double cutCos(double value, double offset, boolean inverse) {
+        double equation = Math.cos(value);
+        if (!inverse) {
+            return Math.max(equation, offset);
+        } else {
+            return Math.max(-equation, offset);
+        }
+    }
+
+
 }

@@ -2,7 +2,7 @@ accessWidener    v1    named
 accessible    class    net/minecraft/block/SculkVeinBlock$SculkVeinGrowChecker
 accessible    method    net/minecraft/world/gen/treedecorator/TreeDecoratorType    <init>    (Lcom/mojang/serialization/Codec;)V
 accessible    method    net/minecraft/world/gen/trunk/TrunkPlacerType    <init>    (Lcom/mojang/serialization/Codec;)V
-accessible    method    net/minecraft/item/MusicDiscItem    <init>    (ILnet/minecraft/sound/SoundEvent;Lnet/minecraft/item/Item$Settings;)V
+accessible    method    net/minecraft/item/MusicDiscItem    <init>    (ILnet/minecraft/sound/SoundEvent;Lnet/minecraft/item/Item$Settings;I)V
 extendable    method    net/minecraft/block/AbstractBlock    getLootTableId    ()Lnet/minecraft/util/Identifier;
 accessible    field    net/minecraft/entity/player/ItemCooldownManager    entries    Ljava/util/Map;
 accessible    field    net/minecraft/entity/player/ItemCooldownManager$Entry    startTick    I
