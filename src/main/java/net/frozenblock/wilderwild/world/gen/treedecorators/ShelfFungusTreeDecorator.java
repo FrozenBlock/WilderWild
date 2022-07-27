@@ -30,7 +30,7 @@ public class ShelfFungusTreeDecorator extends TreeDecorator {
     }
 
     protected TreeDecoratorType<?> getType() {
-        return WildTreeDecorators.FUNGUS_TREE_DECORATOR;
+        return WilderTreeDecorators.FUNGUS_TREE_DECORATOR;
     }
 
     public void generate(TreeDecorator.Generator generator) {

@@ -22,5 +22,11 @@ public class WilderMiscGeneration {
 
         BiomeModifications.addFeature(BiomeSelectors.includeByKey(BiomeKeys.JUNGLE, BiomeKeys.BAMBOO_JUNGLE, BiomeKeys.SPARSE_JUNGLE),
                 GenerationStep.Feature.TOP_LAYER_MODIFICATION, WilderMiscPlaced.MOSS_PATH.getKey().get());
+
+        BiomeModifications.addFeature(BiomeSelectors.includeByKey(BiomeKeys.SAVANNA, BiomeKeys.SAVANNA_PLATEAU, BiomeKeys.WINDSWEPT_SAVANNA),
+                GenerationStep.Feature.TOP_LAYER_MODIFICATION, WilderMiscPlaced.PACKED_MUD_PATH.getKey().get());
+
+        BiomeModifications.addFeature(BiomeSelectors.includeByKey(BiomeKeys.WINDSWEPT_SAVANNA, BiomeKeys.DESERT),
+                GenerationStep.Feature.UNDERGROUND_ORES, WilderMiscPlaced.ORE_PACKED_MUD.getKey().get());
     }
 }

@@ -4,7 +4,7 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.entity.render.OsmioooWardenFeatureRenderer;
-import net.frozenblock.wilderwild.entity.render.WardenModelInterface;
+import net.frozenblock.wilderwild.entity.render.WilderWardenModel;
 import net.minecraft.client.render.entity.EntityRendererFactory;
 import net.minecraft.client.render.entity.MobEntityRenderer;
 import net.minecraft.client.render.entity.WardenEntityRenderer;
@@ -59,7 +59,7 @@ public abstract class OsmioooWardenRenderer extends MobEntityRenderer<WardenEnti
         );
         this.addFeature(
                 new OsmioooWardenFeatureRenderer<>(
-                        this, OSMIOOO_TENDRILS_TEXTURE, (warden, tickDelta, animationProgress) -> warden.getTendrilPitch(tickDelta), model -> ((WardenModelInterface) model).getHeadAndTendrils()
+                        this, OSMIOOO_TENDRILS_TEXTURE, (warden, tickDelta, animationProgress) -> warden.getTendrilPitch(tickDelta), model -> ((WilderWardenModel) model).getHeadAndTendrils()
                 )
         );
         this.addFeature(

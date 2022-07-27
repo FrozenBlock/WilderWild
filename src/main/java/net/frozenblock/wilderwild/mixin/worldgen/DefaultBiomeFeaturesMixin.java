@@ -6,107 +6,100 @@ import net.minecraft.world.gen.GenerationStep;
 import net.minecraft.world.gen.feature.DefaultBiomeFeatures;
 import net.minecraft.world.gen.feature.VegetationPlacedFeatures;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Overwrite;
+import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(DefaultBiomeFeatures.class)
 public class DefaultBiomeFeaturesMixin {
 
 
-    /**
-     * @author FrozenBlock
-     * @reason Replaced with new Birch Trees
-     */
-    @Overwrite
-    public static void addBirchTrees(GenerationSettings.Builder builder) {
-        WilderWild.log("Removing " + "Birch Trees" + " in order to properly update biomes!", WilderWild.UNSTABLE_LOGGING);
+    @Inject(method = "addBirchTrees", at = @At("HEAD"), cancellable = true)
+    private static void addBirchTrees(GenerationSettings.Builder builder, CallbackInfo info) {
+        if (!WilderWild.hasTerralith()) {
+            WilderWild.log("Removing " + "Birch Trees" + " in order to properly update biomes!", WilderWild.UNSTABLE_LOGGING);
+            info.cancel();
+        }
     }
 
-    /**
-     * @author FrozenBlock
-     * @reason Replaced with new Grass Patches
-     */
-    @Overwrite
-    public static void addForestGrass(GenerationSettings.Builder builder) {
-        WilderWild.log("Removing " + "Forest Grass" + " in order to properly update biomes!", WilderWild.UNSTABLE_LOGGING);
+    @Inject(method = "addForestGrass", at = @At("HEAD"), cancellable = true)
+    private static void addForestGrass(GenerationSettings.Builder builder, CallbackInfo info) {
+        if (!WilderWild.hasTerralith()) {
+            WilderWild.log("Removing " + "Forest Grass" + " in order to properly update biomes!", WilderWild.UNSTABLE_LOGGING);
+            info.cancel();
+        }
     }
 
-    /**
-     * @author FrozenBlock
-     * @reason Replaced with new Forest Trees
-     */
-    @Overwrite
-    public static void addForestTrees(GenerationSettings.Builder builder) {
-        WilderWild.log("Removing " + "Forest Trees" + " in order to properly update biomes!", WilderWild.UNSTABLE_LOGGING);
+    @Inject(method = "addForestTrees", at = @At("HEAD"), cancellable = true)
+    private static void addForestTrees(GenerationSettings.Builder builder, CallbackInfo info) {
+        if (!WilderWild.hasTerralith()) {
+            WilderWild.log("Removing " + "Forest Trees" + " in order to properly update biomes!", WilderWild.UNSTABLE_LOGGING);
+            info.cancel();
+        }
     }
 
-    /**
-     * @author FrozenBlock
-     * @reason Replaced with new Plains Trees
-     */
-    @Overwrite
-    public static void addPlainsFeatures(GenerationSettings.Builder builder) {
-        WilderWild.log("Overriding " + "Plains Features" + " in order to properly update biomes!", WilderWild.UNSTABLE_LOGGING);
-        builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, VegetationPlacedFeatures.PATCH_GRASS_PLAIN);
+    @Inject(method = "addPlainsFeatures", at = @At("HEAD"), cancellable = true)
+    private static void addPlainsFeatures(GenerationSettings.Builder builder, CallbackInfo info) {
+        if (!WilderWild.hasTerralith()) {
+            WilderWild.log("Overriding " + "Plains Features" + " in order to properly update biomes!", WilderWild.UNSTABLE_LOGGING);
+            builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, VegetationPlacedFeatures.PATCH_GRASS_PLAIN);
+            info.cancel();
+        }
     }
 
-    /**
-     * @author FrozenBlock
-     * @reason Replaced with new Swamp Trees
-     */
-    @Overwrite
-    public static void addSwampFeatures(GenerationSettings.Builder builder) {
-        WilderWild.log("Overriding " + "Swamp Features" + " in order to properly update biomes!", WilderWild.UNSTABLE_LOGGING);
-        builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, VegetationPlacedFeatures.FLOWER_SWAMP);
-        builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, VegetationPlacedFeatures.PATCH_GRASS_NORMAL);
-        builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, VegetationPlacedFeatures.PATCH_DEAD_BUSH);
-        builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, VegetationPlacedFeatures.PATCH_WATERLILY);
-        builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, VegetationPlacedFeatures.BROWN_MUSHROOM_SWAMP);
-        builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, VegetationPlacedFeatures.RED_MUSHROOM_SWAMP);
+    @Inject(method = "addSwampFeatures", at = @At("HEAD"), cancellable = true)
+    private static void addSwampFeatures(GenerationSettings.Builder builder, CallbackInfo info) {
+        if (!WilderWild.hasTerralith()) {
+            WilderWild.log("Overriding " + "Swamp Features" + " in order to properly update biomes!", WilderWild.UNSTABLE_LOGGING);
+            builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, VegetationPlacedFeatures.FLOWER_SWAMP);
+            builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, VegetationPlacedFeatures.PATCH_GRASS_NORMAL);
+            builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, VegetationPlacedFeatures.PATCH_DEAD_BUSH);
+            builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, VegetationPlacedFeatures.PATCH_WATERLILY);
+            builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, VegetationPlacedFeatures.BROWN_MUSHROOM_SWAMP);
+            builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, VegetationPlacedFeatures.RED_MUSHROOM_SWAMP);
+            info.cancel();
+        }
     }
 
-    /**
-     * @author FrozenBlock
-     * @reason Replaced with new Birch Trees
-     */
-    @Overwrite
-    public static void addTallBirchTrees(GenerationSettings.Builder builder) {
-        WilderWild.log("Removing " + "Tall Birch Trees" + " in order to properly update biomes!", WilderWild.UNSTABLE_LOGGING);
+    @Inject(method = "addTallBirchTrees", at = @At("HEAD"), cancellable = true)
+    private static void addTallBirchTrees(GenerationSettings.Builder builder, CallbackInfo info) {
+        if (!WilderWild.hasTerralith()) {
+            WilderWild.log("Removing " + "Tall Birch Trees" + " in order to properly update biomes!", WilderWild.UNSTABLE_LOGGING);
+            info.cancel();
+        }
     }
 
-    /**
-     * @author FrozenBlock
-     * @reason Replaced with new Taiga Trees
-     */
-    @Overwrite
-    public static void addTaigaTrees(GenerationSettings.Builder builder) {
-        WilderWild.log("Removing " + "Taiga Trees" + " in order to properly update biomes!", WilderWild.UNSTABLE_LOGGING);
+    @Inject(method = "addTaigaTrees", at = @At("HEAD"), cancellable = true)
+    private static void addTaigaTrees(GenerationSettings.Builder builder, CallbackInfo info) {
+        if (!WilderWild.hasTerralith()) {
+            WilderWild.log("Removing " + "Taiga Trees" + " in order to properly update biomes!", WilderWild.UNSTABLE_LOGGING);
+            info.cancel();
+        }
     }
 
-    /**
-     * @author FrozenBlock
-     * @reason Replaced with new Grove Trees
-     */
-    @Overwrite
-    public static void addGroveTrees(GenerationSettings.Builder builder) {
-        WilderWild.log("Removing " + "Grove Trees" + " in order to properly update biomes!", WilderWild.UNSTABLE_LOGGING);
+    @Inject(method = "addGroveTrees", at = @At("HEAD"), cancellable = true)
+    private static void addGroveTrees(GenerationSettings.Builder builder, CallbackInfo info) {
+        if (!WilderWild.hasTerralith()) {
+            WilderWild.log("Removing " + "Grove Trees" + " in order to properly update biomes!", WilderWild.UNSTABLE_LOGGING);
+            info.cancel();
+        }
     }
 
-    /**
-     * @author FrozenBlock
-     * @reason Replaced with new Savanna Trees
-     */
-    @Overwrite
-    public static void addSavannaTrees(GenerationSettings.Builder builder) {
-        WilderWild.log("Removing " + "Savanna Trees" + " in order to properly update biomes!", WilderWild.UNSTABLE_LOGGING);
+    @Inject(method = "addSavannaTrees", at = @At("HEAD"), cancellable = true)
+    private static void addSavannaTrees(GenerationSettings.Builder builder, CallbackInfo info) {
+        if (!WilderWild.hasTerralith()) {
+            WilderWild.log("Removing " + "Savanna Trees" + " in order to properly update biomes!", WilderWild.UNSTABLE_LOGGING);
+            info.cancel();
+        }
     }
 
-    /**
-     * @author FrozenBlock
-     * @reason Replaced with new Windswept Savanna Trees
-     */
-    @Overwrite
-    public static void addExtraSavannaTrees(GenerationSettings.Builder builder) {
-        WilderWild.log("Removing " + "Extra Savanna Trees" + " in order to properly update biomes!", WilderWild.UNSTABLE_LOGGING);
+    @Inject(method = "addExtraSavannaTrees", at = @At("HEAD"), cancellable = true)
+    private static void addExtraSavannaTrees(GenerationSettings.Builder builder, CallbackInfo info) {
+        if (!WilderWild.hasTerralith()) {
+            WilderWild.log("Removing " + "Extra Savanna Trees" + " in order to properly update biomes!", WilderWild.UNSTABLE_LOGGING);
+            info.cancel();
+        }
     }
+
 }
 

@@ -3,9 +3,9 @@ package net.frozenblock.wilderwild.mixin.client;
 import com.google.common.collect.ImmutableList;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.frozenblock.wilderwild.entity.render.WardenModelInterface;
+import net.frozenblock.wilderwild.entity.render.WilderWardenModel;
 import net.frozenblock.wilderwild.entity.render.animations.CustomWardenAnimations;
-import net.frozenblock.wilderwild.entity.render.animations.WardenAnimationInterface;
+import net.frozenblock.wilderwild.entity.render.animations.WilderWarden;
 import net.minecraft.client.model.ModelPart;
 import net.minecraft.client.render.entity.animation.WardenAnimations;
 import net.minecraft.client.render.entity.model.WardenEntityModel;
@@ -24,7 +24,7 @@ import java.util.List;
 
 @Environment(EnvType.CLIENT)
 @Mixin(WardenEntityModel.class)
-public abstract class WardenEntityModelMixin<T extends WardenEntity> implements WardenModelInterface {
+public abstract class WardenEntityModelMixin<T extends WardenEntity> implements WilderWardenModel {
 
     @Final
     @Shadow
@@ -119,7 +119,7 @@ public abstract class WardenEntityModelMixin<T extends WardenEntity> implements 
     private void setAngles(T wardenEntity, float angle, float distance, float anim, float headYaw, float headPitch, CallbackInfo ci) {
         ci.cancel();
         boolean swimming = this.isSubmerged(wardenEntity) && distance > 0;
-        boolean cannotSwim = wardenEntity.isInPose(EntityPose.EMERGING) || wardenEntity.isInPose(EntityPose.DIGGING) || wardenEntity.isInPose(EntityPose.DYING) || ((WardenAnimationInterface) wardenEntity).getSwimmingDyingAnimationState().isRunning() || ((WardenAnimationInterface) wardenEntity).getKirbyDeathAnimationState().isRunning();
+        boolean cannotSwim = wardenEntity.isInPose(EntityPose.EMERGING) || wardenEntity.isInPose(EntityPose.DIGGING) || wardenEntity.isInPose(EntityPose.DYING) || ((WilderWarden) wardenEntity).getSwimmingDyingAnimationState().isRunning() || ((WilderWarden) wardenEntity).getKirbyDeathAnimationState().isRunning();
         boolean shouldMoveArms = !wardenEntity.isInPose(EntityPose.ROARING) && !wardenEntity.isInPose(EntityPose.EMERGING) && !wardenEntity.isInPose(EntityPose.DIGGING);
         boolean shouldMoveBody = !wardenEntity.isInPose(EntityPose.ROARING) && !wardenEntity.isInPose(EntityPose.EMERGING) && !wardenEntity.isInPose(EntityPose.DIGGING);
         boolean shouldMoveHead = !wardenEntity.isInPose(EntityPose.ROARING) && !wardenEntity.isInPose(EntityPose.EMERGING) && !wardenEntity.isInPose(EntityPose.DIGGING);
@@ -136,9 +136,9 @@ public abstract class WardenEntityModelMixin<T extends WardenEntity> implements 
         model.updateAnimation(wardenEntity.emergingAnimationState, WardenAnimations.EMERGING, anim);
         model.updateAnimation(wardenEntity.roaringAnimationState, WardenAnimations.ROARING, anim);
         model.updateAnimation(wardenEntity.sniffingAnimationState, WardenAnimations.SNIFFING, anim);
-        model.updateAnimation(((WardenAnimationInterface) wardenEntity).getDyingAnimationState(), CustomWardenAnimations.DYING, anim);
-        model.updateAnimation(((WardenAnimationInterface) wardenEntity).getSwimmingDyingAnimationState(), CustomWardenAnimations.WATER_DYING, anim);
-        model.updateAnimation(((WardenAnimationInterface) wardenEntity).getKirbyDeathAnimationState(), CustomWardenAnimations.KIRBY_DEATH, anim);
+        model.updateAnimation(((WilderWarden) wardenEntity).getDyingAnimationState(), CustomWardenAnimations.DYING, anim);
+        model.updateAnimation(((WilderWarden) wardenEntity).getSwimmingDyingAnimationState(), CustomWardenAnimations.WATER_DYING, anim);
+        model.updateAnimation(((WilderWarden) wardenEntity).getKirbyDeathAnimationState(), CustomWardenAnimations.KIRBY_DEATH, anim);
 
     }
 

@@ -5,8 +5,9 @@ import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.block.SculkEchoerBlock;
 import net.frozenblock.wilderwild.block.entity.HangingTendrilBlockEntity;
-import net.frozenblock.wilderwild.misc.WildProjectileDamageSource;
+import net.frozenblock.wilderwild.misc.WilderProjectileDamageSource;
 import net.frozenblock.wilderwild.misc.server.EasyPacket;
+import net.frozenblock.wilderwild.misc.simple_pipe_compatability.InteractionHandler;
 import net.frozenblock.wilderwild.registry.*;
 import net.frozenblock.wilderwild.tag.WilderBlockTags;
 import net.minecraft.block.*;
@@ -32,6 +33,7 @@ import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
+import net.minecraft.state.property.Properties;
 import net.minecraft.tag.TagKey;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.hit.BlockHitResult;
@@ -156,6 +158,9 @@ public class AncientHornProjectile extends PersistentProjectileEntity {
         }
         if (!this.isRemoved() && hitResult != null && !bl) {
             this.onCollision(hitResult);
+            if (this.isRemoved()) {
+                return;
+            }
             this.velocityDirty = true;
         }
         vec3d = this.getVelocity();
@@ -213,7 +218,7 @@ public class AncientHornProjectile extends PersistentProjectileEntity {
     }
 
     public boolean canHit(Entity entity) {
-        if (!entity.isSpectator() && entity.isAlive() && entity.collides() && !(entity instanceof ProjectileEntity)) {
+        if (!entity.isSpectator() && entity.isAlive() && entity.isCollidable() && !(entity instanceof ProjectileEntity)) {
             Entity entity2 = this.getOwner();
             return entity2 == null || this.leftOwner || !entity2.isConnectedThroughVehicle(entity);
         } else {
@@ -227,6 +232,14 @@ public class AncientHornProjectile extends PersistentProjectileEntity {
     protected void onBlockHit(BlockHitResult blockHitResult) {
         this.inBlockState = this.world.getBlockState(blockHitResult.getBlockPos());
         BlockState blockState = this.world.getBlockState(blockHitResult.getBlockPos());
+        Entity owner = this.getOwner();
+        if (WilderWild.isCopperPipe(blockState) && owner != null) {
+            if (blockHitResult.getSide() == blockState.get(Properties.FACING).getOpposite() && this.world instanceof ServerWorld server) {
+                if (InteractionHandler.addHornNbtToBlock(server, blockHitResult.getBlockPos(), owner)) {
+                    this.discard();
+                }
+            }
+        }
         blockState.onProjectileHit(this.world, blockState, blockHitResult, this);
         Vec3d vec3d = blockHitResult.getPos().subtract(this.getX(), this.getY(), this.getZ());
         this.setVelocity(vec3d);
@@ -236,7 +249,6 @@ public class AncientHornProjectile extends PersistentProjectileEntity {
         this.inGround = true;
         this.shake = 7;
         this.setCritical(false);
-        Entity owner = this.getOwner();
         if (world instanceof ServerWorld server && canInteract()) {
             if (blockState.getBlock() == Blocks.SCULK_SHRIEKER) {
                 BlockPos pos = blockHitResult.getBlockPos();
@@ -338,7 +350,7 @@ public class AncientHornProjectile extends PersistentProjectileEntity {
     private boolean shouldLeaveOwner() {
         Entity entity = this.getOwner();
         if (entity != null) {
-            for (Entity entity2 : this.world.getOtherEntities(this, this.getBoundingBox().stretch(this.getVelocity()).expand(1.0D), (entityx) -> !entityx.isSpectator() && entityx.collides())) {
+            for (Entity entity2 : this.world.getOtherEntities(this, this.getBoundingBox().stretch(this.getVelocity()).expand(1.0D), (entityx) -> !entityx.isSpectator() && entityx.isCollidable())) {
                 if (entity2.getRootVehicle() == entity.getRootVehicle()) {
                     return false;
                 }
@@ -443,9 +455,9 @@ public class AncientHornProjectile extends PersistentProjectileEntity {
         if (entity != entity2) {
             DamageSource damageSource;
             if (entity2 == null) {
-                damageSource = WildProjectileDamageSource.ancientHorn(this, this);
+                damageSource = WilderProjectileDamageSource.ancientHorn(this, this);
             } else {
-                damageSource = WildProjectileDamageSource.ancientHorn(this, entity2);
+                damageSource = WilderProjectileDamageSource.ancientHorn(this, entity2);
                 if (entity2 instanceof LivingEntity) {
                     ((LivingEntity) entity2).onAttacking(entity);
                 }

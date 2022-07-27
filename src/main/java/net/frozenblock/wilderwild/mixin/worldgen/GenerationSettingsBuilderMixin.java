@@ -29,11 +29,13 @@ public class GenerationSettingsBuilderMixin {
 
     @Inject(at = @At("HEAD"), method = "feature(Lnet/minecraft/world/gen/GenerationStep$Feature;Lnet/minecraft/util/registry/RegistryEntry;)Lnet/minecraft/world/biome/GenerationSettings$Builder;", cancellable = true)
     public void feature(net.minecraft.world.gen.GenerationStep.Feature featureStep, RegistryEntry<PlacedFeature> feature, CallbackInfoReturnable<GenerationSettings.Builder> info) {
-        GenerationSettings.Builder builder = GenerationSettings.Builder.class.cast(this);
-        if (removedFeatures.contains(feature)) {
-            WilderWild.log("Removing feature " + feature.getKey().toString() + " in order to properly update biomes!", WilderWild.UNSTABLE_LOGGING);
-            info.setReturnValue(builder);
-            info.cancel();
+        if (!WilderWild.hasTerralith()) {
+            GenerationSettings.Builder builder = GenerationSettings.Builder.class.cast(this);
+            if (removedFeatures.contains(feature)) {
+                WilderWild.log("Removing feature " + feature.getKey().toString() + " in order to properly update biomes!", WilderWild.UNSTABLE_LOGGING);
+                info.setReturnValue(builder);
+                info.cancel();
+            }
         }
     }
 
