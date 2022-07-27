@@ -2,6 +2,7 @@ package net.frozenblock.wilderwild.misc;
 
 import net.fabricmc.fabric.api.client.command.v2.ClientCommandRegistrationCallback;
 import net.minecraft.client.MinecraftClient;
+import net.minecraft.text.Text;
 
 import java.io.FileNotFoundException;
 
@@ -16,7 +17,7 @@ public class EnableDisableTendrilCommand {
                             .executes(context -> {
                                 try {
                                     assert MinecraftClient.getInstance().player != null;
-                                    MinecraftClient.getInstance().player.sendChatMessage("Game restart required for this feature to work!");
+                                    MinecraftClient.getInstance().player.sendChatMessage("Game restart required for this feature to work!", Text.literal("Game restart required for this feature to work!"));
                                     return enable();
                                 } catch (FileNotFoundException e) {
                                     e.printStackTrace();
@@ -27,7 +28,7 @@ public class EnableDisableTendrilCommand {
                             .executes(context -> {
                                 try {
                                     assert MinecraftClient.getInstance().player != null;
-                                    MinecraftClient.getInstance().player.sendChatMessage("Game restart required for this feature to work!");
+                                    MinecraftClient.getInstance().player.sendChatMessage("Game restart required for this feature to work!", Text.literal("Game restart required for this feature to work!"));
                                     return disable();
                                 } catch (FileNotFoundException e) {
                                     e.printStackTrace();
