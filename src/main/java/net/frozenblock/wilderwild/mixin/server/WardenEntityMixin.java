@@ -348,6 +348,8 @@ public abstract class WardenEntityMixin extends HostileEntity implements WilderW
     private void WardenEntity(EntityType<? extends HostileEntity> entityType, World world, CallbackInfo ci) {
         WardenEntity wardenEntity = WardenEntity.class.cast(this);
         wardenEntity.setPathfindingPenalty(PathNodeType.WATER, 0.0F);
+        wardenEntity.setPathfindingPenalty(PathNodeType.POWDER_SNOW, -1.0F);
+        wardenEntity.setPathfindingPenalty(PathNodeType.DANGER_POWDER_SNOW, -1.0F);
         this.moveControl = new WardenMoveControl(wardenEntity, 3.0F, 26.0F, 0.13F, 1.0F, true);
     }
 
