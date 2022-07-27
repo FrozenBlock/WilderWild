@@ -21,7 +21,6 @@ public class MerpSlimeRenderer {
 
     private static final Identifier MERP_SLIME = WilderWild.id("textures/entity/slime/merp_slime.png");
 
-
     @Inject(method = "getTexture(Lnet/minecraft/entity/mob/SlimeEntity;)Lnet/minecraft/util/Identifier;", at = @At("HEAD"), cancellable = true)
     public void getTexture(SlimeEntity slimeEntity, CallbackInfoReturnable<Identifier> cir) {
         String string = Formatting.strip(slimeEntity.getName().getString());
