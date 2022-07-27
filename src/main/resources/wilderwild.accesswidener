@@ -21,3 +21,5 @@ accessible    class    net/minecraft/village/TradeOffers$SellItemFactory
 accessible    field    net/minecraft/client/render/entity/feature/WardenFeatureRenderer    animationAngleAdjuster    Lnet/minecraft/client/render/entity/feature/WardenFeatureRenderer$AnimationAngleAdjuster;
 accessible    field    net/minecraft/client/render/entity/feature/WardenFeatureRenderer    modelPartVisibility    Lnet/minecraft/client/render/entity/feature/WardenFeatureRenderer$ModelPartVisibility;
 accessible    field    net/minecraft/client/render/entity/feature/WardenFeatureRenderer    texture    Lnet/minecraft/util/Identifier;
+accessible    method    net/minecraft/datafixer/Schemas    replacing    (Ljava/util/Map;)Ljava/util/function/UnaryOperator;
+accessible    method    net/minecraft/datafixer/Schemas    replacing    (Ljava/lang/String;Ljava/lang/String;)Ljava/util/function/UnaryOperator;

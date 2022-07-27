@@ -219,8 +219,8 @@ public class RegisterBlocks {
     public static final Block TERMITE_MOUND = new TermiteMound(FabricBlockSettings.of(Material.WOOD, MapColor.BROWN).strength(0.3F).sounds(RegisterBlockSoundGroups.COARSEDIRT));
 
     // PLANTS
-    public static final Block BLOOMING_DANDELION = new BloomingDandelionBlock(StatusEffects.SLOW_FALLING, 12, FabricBlockSettings.copy(Blocks.DANDELION).sounds(BlockSoundGroup.SPORE_BLOSSOM).strength(0.0F).nonOpaque());
-    public static final Block POTTED_BLOOMING_DANDELION = new FlowerPotBlock(RegisterBlocks.BLOOMING_DANDELION, FabricBlockSettings.of(Material.DECORATION).breakInstantly().nonOpaque());
+    public static final Block SEEDING_DANDELION = new SeedingDandelionBlock(StatusEffects.SLOW_FALLING, 12, FabricBlockSettings.copy(Blocks.DANDELION).sounds(BlockSoundGroup.SPORE_BLOSSOM).strength(0.0F).nonOpaque());
+    public static final Block POTTED_SEEDING_DANDELION = new FlowerPotBlock(RegisterBlocks.SEEDING_DANDELION, FabricBlockSettings.of(Material.DECORATION).breakInstantly().nonOpaque());
     public static final Block CARNATION = new FlowerBlock(StatusEffects.REGENERATION, 12, FabricBlockSettings.copy(Blocks.DANDELION).sounds(BlockSoundGroup.SPORE_BLOSSOM).strength(0.0F).nonOpaque());
     public static final Block POTTED_CARNATION = new FlowerPotBlock(RegisterBlocks.CARNATION, FabricBlockSettings.of(Material.DECORATION).breakInstantly().nonOpaque());
     public static final Block GLORY_OF_THE_SNOW = new GloryOfTheSnowBlock(FabricBlockSettings.copy(Blocks.DANDELION).sounds(BlockSoundGroup.SPORE_BLOSSOM).strength(0.0F).nonOpaque().ticksRandomly(), List.of(FlowerColors.BLUE, FlowerColors.PINK, FlowerColors.PURPLE, FlowerColors.WHITE));
@@ -236,11 +236,11 @@ public class RegisterBlocks {
     public static final Block CATTAIL = new WaterloggableTallFlowerBlock(FabricBlockSettings.copy(Blocks.ROSE_BUSH).sounds(BlockSoundGroup.WET_GRASS).strength(0.0F).nonOpaque());
     public static final Block FLOWERING_LILY_PAD = new FloweringLilyPadBlock(FabricBlockSettings.copy(Blocks.LILY_PAD).sounds(RegisterBlockSoundGroups.LILYPAD));
 
-    public static final Block ALGAE = new AlgaeBlock(FabricBlockSettings.of(ALGAE_MATERIAL).breakInstantly().velocityMultiplier(0.4F).nonOpaque().noCollision().sounds(BlockSoundGroup.SLIME));
+    public static final Block ALGAE = new AlgaeBlock(FabricBlockSettings.of(ALGAE_MATERIAL).breakInstantly().velocityMultiplier(0.6F).nonOpaque().noCollision().sounds(BlockSoundGroup.SLIME));
 
     public static void registerPlants() {
-        registerBlock("blooming_dandelion", BLOOMING_DANDELION, ItemGroup.DECORATIONS);
-        registerBlockWithoutBlockItem("potted_blooming_dandelion", POTTED_BLOOMING_DANDELION);
+        registerBlock("seeding_dandelion", SEEDING_DANDELION, ItemGroup.DECORATIONS);
+        registerBlockWithoutBlockItem("potted_seeding_dandelion", POTTED_SEEDING_DANDELION);
         registerBlock("carnation", CARNATION, ItemGroup.DECORATIONS);
         registerBlockWithoutBlockItem("potted_carnation", POTTED_CARNATION);
         registerBlock("glory_of_the_snow", GLORY_OF_THE_SNOW, ItemGroup.DECORATIONS);
@@ -376,7 +376,7 @@ public class RegisterBlocks {
         CompostingChanceRegistry.INSTANCE.add(DATURA, 0.65F);
         CompostingChanceRegistry.INSTANCE.add(MILKWEED, 0.65F);
         CompostingChanceRegistry.INSTANCE.add(RegisterItems.MILKWEED_POD, 0.25F);
-        CompostingChanceRegistry.INSTANCE.add(BLOOMING_DANDELION, 0.65F);
+        CompostingChanceRegistry.INSTANCE.add(SEEDING_DANDELION, 0.65F);
         CompostingChanceRegistry.INSTANCE.add(FLOWERING_LILY_PAD, 0.65F);
         CompostingChanceRegistry.INSTANCE.add(BROWN_SHELF_FUNGUS, 0.65F);
         CompostingChanceRegistry.INSTANCE.add(RED_SHELF_FUNGUS, 0.65F);
@@ -395,7 +395,7 @@ public class RegisterBlocks {
     private static void registerFlammability() {
         WilderWild.logWild("Registering Flammability for", WilderWild.UNSTABLE_LOGGING);
         FlammableBlockRegistry.getDefaultInstance().add(RegisterBlocks.POLLEN_BLOCK, 100, 60);
-        FlammableBlockRegistry.getDefaultInstance().add(RegisterBlocks.BLOOMING_DANDELION, 100, 60);
+        FlammableBlockRegistry.getDefaultInstance().add(RegisterBlocks.SEEDING_DANDELION, 100, 60);
         FlammableBlockRegistry.getDefaultInstance().add(RegisterBlocks.CARNATION, 100, 60);
         FlammableBlockRegistry.getDefaultInstance().add(RegisterBlocks.CATTAIL, 100, 60);
         FlammableBlockRegistry.getDefaultInstance().add(RegisterBlocks.DATURA, 100, 60);

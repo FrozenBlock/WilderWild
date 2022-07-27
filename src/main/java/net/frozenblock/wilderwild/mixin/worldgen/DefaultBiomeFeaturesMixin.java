@@ -14,7 +14,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public class DefaultBiomeFeaturesMixin {
 
 
-    @Inject(method = "addBirchTrees", at = @At("INVOKE"), cancellable = true)
+    @Inject(method = "addBirchTrees", at = @At("HEAD"), cancellable = true)
     private static void addBirchTrees(GenerationSettings.Builder builder, CallbackInfo info) {
         if (!WilderWild.hasTerralith()) {
             WilderWild.log("Removing " + "Birch Trees" + " in order to properly update biomes!", WilderWild.UNSTABLE_LOGGING);
@@ -22,7 +22,7 @@ public class DefaultBiomeFeaturesMixin {
         }
     }
 
-    @Inject(method = "addForestGrass", at = @At("INVOKE"), cancellable = true)
+    @Inject(method = "addForestGrass", at = @At("HEAD"), cancellable = true)
     private static void addForestGrass(GenerationSettings.Builder builder, CallbackInfo info) {
         if (!WilderWild.hasTerralith()) {
             WilderWild.log("Removing " + "Forest Grass" + " in order to properly update biomes!", WilderWild.UNSTABLE_LOGGING);
@@ -30,7 +30,7 @@ public class DefaultBiomeFeaturesMixin {
         }
     }
 
-    @Inject(method = "addForestTrees", at = @At("INVOKE"), cancellable = true)
+    @Inject(method = "addForestTrees", at = @At("HEAD"), cancellable = true)
     private static void addForestTrees(GenerationSettings.Builder builder, CallbackInfo info) {
         if (!WilderWild.hasTerralith()) {
             WilderWild.log("Removing " + "Forest Trees" + " in order to properly update biomes!", WilderWild.UNSTABLE_LOGGING);
@@ -38,7 +38,7 @@ public class DefaultBiomeFeaturesMixin {
         }
     }
 
-    @Inject(method = "addPlainsFeatures", at = @At("INVOKE"), cancellable = true)
+    @Inject(method = "addPlainsFeatures", at = @At("HEAD"), cancellable = true)
     private static void addPlainsFeatures(GenerationSettings.Builder builder, CallbackInfo info) {
         if (!WilderWild.hasTerralith()) {
             WilderWild.log("Overriding " + "Plains Features" + " in order to properly update biomes!", WilderWild.UNSTABLE_LOGGING);
@@ -47,7 +47,7 @@ public class DefaultBiomeFeaturesMixin {
         }
     }
 
-    @Inject(method = "addSwampFeatures", at = @At("INVOKE"), cancellable = true)
+    @Inject(method = "addSwampFeatures", at = @At("HEAD"), cancellable = true)
     private static void addSwampFeatures(GenerationSettings.Builder builder, CallbackInfo info) {
         if (!WilderWild.hasTerralith()) {
             WilderWild.log("Overriding " + "Swamp Features" + " in order to properly update biomes!", WilderWild.UNSTABLE_LOGGING);
@@ -61,7 +61,7 @@ public class DefaultBiomeFeaturesMixin {
         }
     }
 
-    @Inject(method = "addTallBirchTrees", at = @At("INVOKE"), cancellable = true)
+    @Inject(method = "addTallBirchTrees", at = @At("HEAD"), cancellable = true)
     private static void addTallBirchTrees(GenerationSettings.Builder builder, CallbackInfo info) {
         if (!WilderWild.hasTerralith()) {
             WilderWild.log("Removing " + "Tall Birch Trees" + " in order to properly update biomes!", WilderWild.UNSTABLE_LOGGING);
@@ -69,7 +69,7 @@ public class DefaultBiomeFeaturesMixin {
         }
     }
 
-    @Inject(method = "addTaigaTrees", at = @At("INVOKE"), cancellable = true)
+    @Inject(method = "addTaigaTrees", at = @At("HEAD"), cancellable = true)
     private static void addTaigaTrees(GenerationSettings.Builder builder, CallbackInfo info) {
         if (!WilderWild.hasTerralith()) {
             WilderWild.log("Removing " + "Taiga Trees" + " in order to properly update biomes!", WilderWild.UNSTABLE_LOGGING);
@@ -77,7 +77,7 @@ public class DefaultBiomeFeaturesMixin {
         }
     }
 
-    @Inject(method = "addGroveTrees", at = @At("INVOKE"), cancellable = true)
+    @Inject(method = "addGroveTrees", at = @At("HEAD"), cancellable = true)
     private static void addGroveTrees(GenerationSettings.Builder builder, CallbackInfo info) {
         if (!WilderWild.hasTerralith()) {
             WilderWild.log("Removing " + "Grove Trees" + " in order to properly update biomes!", WilderWild.UNSTABLE_LOGGING);
@@ -85,7 +85,7 @@ public class DefaultBiomeFeaturesMixin {
         }
     }
 
-    @Inject(method = "addSavannaTrees", at = @At("INVOKE"), cancellable = true)
+    @Inject(method = "addSavannaTrees", at = @At("HEAD"), cancellable = true)
     private static void addSavannaTrees(GenerationSettings.Builder builder, CallbackInfo info) {
         if (!WilderWild.hasTerralith()) {
             WilderWild.log("Removing " + "Savanna Trees" + " in order to properly update biomes!", WilderWild.UNSTABLE_LOGGING);
@@ -93,7 +93,7 @@ public class DefaultBiomeFeaturesMixin {
         }
     }
 
-    @Inject(method = "addExtraSavannaTrees", at = @At("INVOKE"), cancellable = true)
+    @Inject(method = "addExtraSavannaTrees", at = @At("HEAD"), cancellable = true)
     private static void addExtraSavannaTrees(GenerationSettings.Builder builder, CallbackInfo info) {
         if (!WilderWild.hasTerralith()) {
             WilderWild.log("Removing " + "Extra Savanna Trees" + " in order to properly update biomes!", WilderWild.UNSTABLE_LOGGING);

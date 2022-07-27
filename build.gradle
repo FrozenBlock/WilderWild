@@ -37,7 +37,7 @@ dependencies {
 	// To change the versions see the gradle.properties file
 	minecraft "com.mojang:minecraft:${project.minecraft_version}"
 	mappings(loom.layered {
-		addLayer(quiltMappings.mappings("org.quiltmc:quilt-mappings:${minecraft_version}+build.${quilt_mappings}:v2"))
+		addLayer(quiltMappings.mappings("org.quiltmc:quilt-mappings:1.19.1-rc3+build.${quilt_mappings}:v2"))
 		mappings("net.fabricmc:yarn:${project.yarn_mappings}:v2")
 	})
 	modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
@@ -49,22 +49,21 @@ dependencies {
 	include "com.github.Chocohead:Fabric-ASM:${project.fabric_asm_version}"
 
 	//Simple Copper Pipes
-	modImplementation "maven.modrinth:simple-copper-pipes:1.11a5b"
+	modImplementation "maven.modrinth:simple-copper-pipes:1.11b4"
 
 	// only affects runClient, does not affect gradlew build. add -PuseThirdPartyMods=false to not use these
 	if (findProperty("useThirdPartyMods") != "false") {
-		modRuntimeOnly "maven.modrinth:ferrite-core:5.0.0-fabric"
-		modRuntimeOnly "maven.modrinth:lazydfu:0.1.3"
-		modRuntimeOnly "maven.modrinth:modmenu:4.0.4"
-		modRuntimeOnly "maven.modrinth:starlight:1.1.1+1.19"
+		//modRuntimeOnly "maven.modrinth:ferrite-core:5.0.0-fabric"
+		//modRuntimeOnly "maven.modrinth:lazydfu:0.1.3"
+		//modRuntimeOnly "maven.modrinth:modmenu:4.0.4"
+		//modRuntimeOnly "maven.modrinth:starlight:1.1.1+1.19"
 		//modRuntimeOnly "maven.modrinth:indium:1.0.6+mc1.19"
 		//modRuntimeOnly "maven.modrinth:lithium:mc1.19-0.8.1"
 		//modRuntimeOnly "maven.modrinth:sodium:mc1.19-0.4.2"
-		modRuntimeOnly "maven.modrinth:entityculling:1.5.2-fabric-1.19"
+		//modRuntimeOnly "maven.modrinth:entityculling:1.5.2-fabric-1.19"
 		//modRuntimeOnly "maven.modrinth:c2me-fabric:0.2.0+alpha.8.2+1.19"
-		modRuntimeOnly "maven.modrinth:ksyxis:1.1"
+		//modRuntimeOnly "maven.modrinth:ksyxis:1.1"
 		//modRuntimeOnly "maven.modrinth:iris:1.19.x-v1.2.5"
-		modRuntimeOnly "maven.modrinth:no-unused-chunks-fabric:v1.1b"
 	}
 }
 

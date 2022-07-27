@@ -21,8 +21,10 @@ import net.minecraft.world.StructureWorldAccess;
 import net.minecraft.world.gen.StructureAccessor;
 import net.minecraft.world.gen.chunk.ChunkGenerator;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Overwrite;
 import org.spongepowered.asm.mixin.Shadow;
+import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 
 @Mixin(SwampHutGenerator.class)
@@ -33,12 +35,9 @@ public class SwampHutMixin {
 
     private final SwampHutGenerator swampHut = SwampHutGenerator.class.cast(this);
 
-    /**
-     * @author FrozenBlock
-     * @reason SWAMP HUTS!
-     */
-    @Overwrite
-    public void generate(StructureWorldAccess world, StructureAccessor structureAccessor, ChunkGenerator chunkGenerator, Random random, BlockBox chunkBox, ChunkPos chunkPos, BlockPos pivot) {
+    @Inject(method = "generate", at = @At("HEAD"), cancellable = true)
+    public void generate(StructureWorldAccess world, StructureAccessor structureAccessor, ChunkGenerator chunkGenerator, Random random, BlockBox chunkBox, ChunkPos chunkPos, BlockPos pivot, CallbackInfo info) {
+        info.cancel();
         if (swampHut.adjustToAverageHeight(world, chunkBox, 0)) {
             swampHut.fillWithOutline(world, chunkBox, 1, 1, 1, 5, 1, 7, RegisterBlocks.CYPRESS_PLANKS.getDefaultState(), RegisterBlocks.CYPRESS_PLANKS.getDefaultState(), false);
             swampHut.fillWithOutline(world, chunkBox, 1, 4, 2, 5, 4, 7, RegisterBlocks.CYPRESS_PLANKS.getDefaultState(), RegisterBlocks.CYPRESS_PLANKS.getDefaultState(), false);
