@@ -61,8 +61,8 @@ public final class VanillaBiomeParametersMixin {
         commonBiomes[4][4] = BiomeKeys.JUNGLE;
     }
 
-    @Inject(method = "writeLowBiomes", at = @At("TAIL"))
-    private void injectLowBiomes(Consumer<Pair<MultiNoiseUtil.NoiseHypercube, RegistryKey<Biome>>> parameters, MultiNoiseUtil.ParameterRange weirdness, CallbackInfo ci) {
+    @Inject(method = "writeBiomesNearRivers", at = @At("TAIL"))
+    private void injectBiomesNearRivers(Consumer<Pair<MultiNoiseUtil.NoiseHypercube, RegistryKey<Biome>>> parameters, MultiNoiseUtil.ParameterRange weirdness, CallbackInfo ci) {
         this.writeBiomeParameters(
                 parameters,
                 MultiNoiseUtil.ParameterRange.combine(this.temperatureParameters[1], this.temperatureParameters[2]),
@@ -82,8 +82,8 @@ public final class VanillaBiomeParametersMixin {
         );
     }
 
-    @Inject(method = "writeMidBiomes", at = @At("TAIL"))
-    private void injectMidBiomes(Consumer<Pair<MultiNoiseUtil.NoiseHypercube, RegistryKey<Biome>>> parameters, MultiNoiseUtil.ParameterRange weirdness, CallbackInfo ci) {
+    @Inject(method = "writeMixedBiomes", at = @At("TAIL"))
+    private void injectMixedBiomes(Consumer<Pair<MultiNoiseUtil.NoiseHypercube, RegistryKey<Biome>>> parameters, MultiNoiseUtil.ParameterRange weirdness, CallbackInfo ci) {
         this.writeBiomeParameters(
                 parameters,
                 MultiNoiseUtil.ParameterRange.combine(this.temperatureParameters[1], this.temperatureParameters[2]),
@@ -104,8 +104,8 @@ public final class VanillaBiomeParametersMixin {
         );
     }
 
-    @Inject(method = "writeValleyBiomes", at = @At("TAIL"))
-    private void injectValleyBiomes(Consumer<Pair<MultiNoiseUtil.NoiseHypercube, RegistryKey<Biome>>> parameters, MultiNoiseUtil.ParameterRange weirdness, CallbackInfo ci) {
+    @Inject(method = "writeRiverBiomes", at = @At("TAIL"))
+    private void injectRiverBiomes(Consumer<Pair<MultiNoiseUtil.NoiseHypercube, RegistryKey<Biome>>> parameters, MultiNoiseUtil.ParameterRange weirdness, CallbackInfo ci) {
         this.writeBiomeParameters(
                 parameters,
                 MultiNoiseUtil.ParameterRange.combine(this.temperatureParameters[1], this.temperatureParameters[3]),
@@ -115,7 +115,7 @@ public final class VanillaBiomeParametersMixin {
         );
     }
 
-    @Inject(method = "getBiomeOrWindsweptSavanna", at = @At("HEAD"), cancellable = true)
+    @Inject(method = "getBiomeOrWindsweptSavanna(IILnet/minecraft/world/biome/source/util/MultiNoiseUtil$ParameterRange;Lnet/minecraft/util/registry/RegistryKey;)Lnet/minecraft/util/registry/RegistryKey;", at = @At("HEAD"), cancellable = true)
     private void getBiomeOrWindsweptSavanna(int temperature, int humidity, MultiNoiseUtil.ParameterRange weirdness, RegistryKey<Biome> biomeKey, CallbackInfoReturnable<RegistryKey<Biome>> info) {
         info.setReturnValue(temperature > 2 && humidity < 2 && weirdness.max() >= 0L ? BiomeKeys.WINDSWEPT_SAVANNA : biomeKey);
         info.cancel();
