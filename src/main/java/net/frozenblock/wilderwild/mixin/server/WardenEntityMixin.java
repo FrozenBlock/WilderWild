@@ -3,7 +3,7 @@ package net.frozenblock.wilderwild.mixin.server;
 import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.entity.ai.WardenMoveControl;
 import net.frozenblock.wilderwild.entity.ai.WardenNavigation;
-import net.frozenblock.wilderwild.entity.render.animations.WardenAnimationInterface;
+import net.frozenblock.wilderwild.entity.render.animations.WilderWarden;
 import net.frozenblock.wilderwild.registry.RegisterProperties;
 import net.frozenblock.wilderwild.registry.RegisterSounds;
 import net.minecraft.block.Blocks;
@@ -39,7 +39,6 @@ import net.minecraft.world.event.GameEvent;
 import net.minecraft.world.event.listener.GameEventListener;
 import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Overwrite;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -47,16 +46,12 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(WardenEntity.class)
-public abstract class WardenEntityMixin extends HostileEntity implements WardenAnimationInterface {
+public abstract class WardenEntityMixin extends HostileEntity implements WilderWarden {
 
     private final WardenEntity warden = WardenEntity.class.cast(this);
 
-    /**
-     * @author FrozenBlock
-     * @reason custom death sound
-     */
-    @Overwrite
-    public SoundEvent getDeathSound() {
+    @Inject(at = @At("HEAD"), method = "getDeathSound", cancellable = true)
+    public void getDeathSound(CallbackInfoReturnable<SoundEvent> info) {
         String string = Formatting.strip(warden.getName().getString());
         boolean skipCheck = false;
         if (string != null) {
@@ -72,7 +67,8 @@ public abstract class WardenEntityMixin extends HostileEntity implements WardenA
                 warden.playSound(RegisterSounds.ENTITY_WARDEN_UNDERWATER_DYING, 0.75F, 1.0F);
             }
         }
-        return SoundEvents.ENTITY_WARDEN_DEATH;
+        info.setReturnValue(SoundEvents.ENTITY_WARDEN_DEATH);
+        info.cancel();
     }
 
     @Shadow
@@ -296,6 +292,17 @@ public abstract class WardenEntityMixin extends HostileEntity implements WardenA
         }
     }
 
+
+    @Inject(method = "writeCustomDataToNbt", at = @At("TAIL"))
+    public void writeCustomDataToNbt(NbtCompound nbt, CallbackInfo info) {
+        nbt.putInt("death_ticks", this.deathTicks);
+    }
+
+    @Inject(method = "readCustomDataFromNbt", at = @At("TAIL"))
+    public void readCustomDataFromNbt(NbtCompound nbt, CallbackInfo info) {
+        this.deathTicks = nbt.getInt("death_ticks");
+    }
+
     private void updateLeaningPitch() {
         this.lastLeaningPitch = this.leaningPitch;
         if (this.isInSwimmingPose()) {
@@ -313,15 +320,10 @@ public abstract class WardenEntityMixin extends HostileEntity implements WardenA
         }
     }
 
-    /**
-     * @author FrozenBlock
-     * @reason allows for further warden navigation customization
-     */
-    @Overwrite
-    public EntityNavigation createNavigation(World world) {
-        WardenEntity wardenEntity = WardenEntity.class.cast(this);
-        // for some reason it needs a new one lol
-        return new WardenNavigation(wardenEntity, world);
+    @Inject(at = @At("HEAD"), method = "createNavigation", cancellable = true)
+    public void createNavigation(World world, CallbackInfoReturnable<EntityNavigation> info) {
+        info.setReturnValue(new WardenNavigation(WardenEntity.class.cast(this), world));
+        info.cancel();
     }
 
     @Override
@@ -346,6 +348,8 @@ public abstract class WardenEntityMixin extends HostileEntity implements WardenA
     private void WardenEntity(EntityType<? extends HostileEntity> entityType, World world, CallbackInfo ci) {
         WardenEntity wardenEntity = WardenEntity.class.cast(this);
         wardenEntity.setPathfindingPenalty(PathNodeType.WATER, 0.0F);
+        wardenEntity.setPathfindingPenalty(PathNodeType.POWDER_SNOW, -1.0F);
+        wardenEntity.setPathfindingPenalty(PathNodeType.DANGER_POWDER_SNOW, -1.0F);
         this.moveControl = new WardenMoveControl(wardenEntity, 3.0F, 26.0F, 0.13F, 1.0F, true);
     }
 

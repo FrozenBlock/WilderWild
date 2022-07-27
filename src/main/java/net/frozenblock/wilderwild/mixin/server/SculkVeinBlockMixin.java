@@ -15,11 +15,11 @@ import net.minecraft.util.math.random.Random;
 import net.minecraft.world.WorldAccess;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Overwrite;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import java.util.Arrays;
 
@@ -33,8 +33,8 @@ public class SculkVeinBlockMixin {
     @Shadow
     private LichenGrower allGrowTypeGrower;
 
-    @Overwrite
-    private boolean convertToBlock(SculkSpreadManager spreadManager, WorldAccess world, BlockPos pos, Random random) {
+    @Inject(at = @At("HEAD"), method = "convertToBlock", cancellable = true)
+    private void convertToBlock(SculkSpreadManager spreadManager, WorldAccess world, BlockPos pos, Random random, CallbackInfoReturnable<Boolean> info) {
         BlockState blockState = world.getBlockState(pos);
         TagKey<Block> tagKey = spreadManager.getReplaceableTag();
 
@@ -70,12 +70,14 @@ public class SculkVeinBlockMixin {
                         }
                     }
 
-                    return true;
+                    info.setReturnValue(true);
+                    info.cancel();
                 }
             }
         }
 
-        return false;
+        info.setReturnValue(false);
+        info.cancel();
     }
 
     @Shadow

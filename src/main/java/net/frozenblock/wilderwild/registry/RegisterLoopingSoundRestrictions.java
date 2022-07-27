@@ -47,7 +47,9 @@ public class RegisterLoopingSoundRestrictions {
         register(WilderWild.id("default"), (var1) -> !var1.isSilent());
 
         register(WilderWild.id("nectar"), (LoopPredicate<Firefly>) entity -> {
-            if (entity.isSilent()) { return false; }
+            if (entity.isSilent()) {
+                return false;
+            }
             if (entity.hasCustomName()) {
                 Text name = entity.getCustomName();
                 if (name != null) {

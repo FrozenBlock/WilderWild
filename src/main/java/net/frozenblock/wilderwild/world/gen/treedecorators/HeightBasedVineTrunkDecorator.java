@@ -30,7 +30,7 @@ public class HeightBasedVineTrunkDecorator extends TreeDecorator {
     }
 
     protected TreeDecoratorType<?> getType() {
-        return WildTreeDecorators.HEIGHT_BASED_VINE_TRUNK_DECORATOR;
+        return WilderTreeDecorators.HEIGHT_BASED_VINE_TRUNK_DECORATOR;
     }
 
     public void generate(Generator generator) {

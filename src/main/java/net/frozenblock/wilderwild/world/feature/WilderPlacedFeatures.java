@@ -179,8 +179,8 @@ public class WilderPlacedFeatures {
             PlacedFeatures.MOTION_BLOCKING_HEIGHTMAP, BiomePlacementModifier.of());
 
     public static final RegistryEntry<PlacedFeature> NEW_FLOWER_PLAIN = register("new_flower_plains",
-            WilderConfiguredFeatures.NEW_FLOWER_PLAIN, new PlacementModifier[]{NoiseThresholdCountPlacementModifier.of(-0.8, 15, 4), RarityFilterPlacementModifier.of(32), SquarePlacementModifier.of(),
-                    PlacedFeatures.MOTION_BLOCKING_HEIGHTMAP, BiomePlacementModifier.of()});
+            WilderConfiguredFeatures.NEW_FLOWER_PLAIN, NoiseThresholdCountPlacementModifier.of(-0.8, 15, 4), RarityFilterPlacementModifier.of(32), SquarePlacementModifier.of(),
+            PlacedFeatures.MOTION_BLOCKING_HEIGHTMAP, BiomePlacementModifier.of());
 
     public static final RegistryEntry<PlacedFeature> DENSE_FLOWER_PLACED = register("dense_flower_placed",
             VegetationConfiguredFeatures.FLOWER_DEFAULT, modifiers(1));
@@ -217,9 +217,16 @@ public class WilderPlacedFeatures {
     public static final RegistryEntry<PlacedFeature> PATCH_FLOWERED_WATERLILY = register("patch_flowered_waterlily",
             WilderConfiguredFeatures.PATCH_FLOWERED_WATERLILY, modifiers(1));
 
-    public static final RegistryEntry<PlacedFeature> WATER_MOSS =
-            register("water_moss", WilderConfiguredFeatures.WATER_MOSS,
+    public static final RegistryEntry<PlacedFeature> PATCH_ALGAE =
+            register("patch_algae", WilderConfiguredFeatures.PATCH_ALGAE,
                     RarityFilterPlacementModifier.of(3), SquarePlacementModifier.of(), PlacedFeatures.MOTION_BLOCKING_HEIGHTMAP, BiomePlacementModifier.of());
+
+    public static final RegistryEntry<PlacedFeature> PATCH_ALGAE_5 =
+            register("patch_algae_5", WilderConfiguredFeatures.PATCH_ALGAE,
+                    RarityFilterPlacementModifier.of(5), SquarePlacementModifier.of(), PlacedFeatures.MOTION_BLOCKING_HEIGHTMAP, BiomePlacementModifier.of());
+
+    public static final RegistryEntry<PlacedFeature> PATCH_BERRY_FOREST =
+            register("patch_berry_forest", VegetationConfiguredFeatures.PATCH_BERRY_BUSH, RarityFilterPlacementModifier.of(28), SquarePlacementModifier.of(), PlacedFeatures.WORLD_SURFACE_WG_HEIGHTMAP, BiomePlacementModifier.of());
 
     public static final RegistryEntry<PlacedFeature> TERMITE_PLACED = register("termite_placed",
             WilderConfiguredFeatures.TERMITE_CONFIGURED, RarityFilterPlacementModifier.of(40), CountPlacementModifier.of(1), PlacedFeatures.WORLD_SURFACE_WG_HEIGHTMAP, SquarePlacementModifier.of(), SurfaceThresholdFilterPlacementModifier.of(Heightmap.Type.WORLD_SURFACE_WG, 0, 128), BiomePlacementModifier.of());
