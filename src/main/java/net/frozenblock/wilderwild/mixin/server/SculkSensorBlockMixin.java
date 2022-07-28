@@ -35,7 +35,9 @@ public class SculkSensorBlockMixin {
     public <T extends BlockEntity> void getTicker(World world, BlockState state, BlockEntityType<T> type, CallbackInfoReturnable<BlockEntityTicker<T>> info) {
         info.cancel();
         if (world.isClient) {
-            info.setReturnValue(null);
+            info.setReturnValue(checkType(type, BlockEntityType.SCULK_SENSOR, (worldx, pos, statex, blockEntity) -> {
+                ((SculkSensorTickInterface)blockEntity).tickClient(worldx, pos, statex);
+            }));
         } else {
             info.setReturnValue(checkType(type, BlockEntityType.SCULK_SENSOR, (worldx, pos, statex, blockEntity) -> {
                 ((SculkSensorTickInterface)blockEntity).tickServer((ServerWorld) worldx, pos, statex);

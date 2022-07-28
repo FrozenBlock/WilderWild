@@ -22,6 +22,7 @@ import net.minecraft.sound.SoundCategory;
 import net.minecraft.state.property.Properties;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
+import net.minecraft.world.World;
 import net.minecraft.world.event.GameEvent;
 import net.minecraft.world.event.listener.GameEventListener;
 import org.jetbrains.annotations.Nullable;
@@ -37,6 +38,7 @@ public abstract class SculkSensorBlockEntityMixin extends BlockEntity implements
     public int prevAnimTicks;
     public int age;
     public boolean active;
+    public boolean prevActive;
 
     public SculkSensorBlockEntityMixin(BlockEntityType<?> type, BlockPos pos, BlockState state) {
         super(type, pos, state);
@@ -79,9 +81,22 @@ public abstract class SculkSensorBlockEntityMixin extends BlockEntity implements
         }
         ++this.age;
         this.active = state.get(Properties.SCULK_SENSOR_PHASE) == SculkSensorPhase.ACTIVE;
-        for (ServerPlayerEntity player : PlayerLookup.tracking(world, pos)) {
-            player.networkHandler.sendPacket(sensor.toUpdatePacket());
+        if (this.active != this.prevActive || this.animTicks == 10) {
+            for (ServerPlayerEntity player : PlayerLookup.tracking(world, pos)) {
+                player.networkHandler.sendPacket(sensor.toUpdatePacket());
+            }
         }
+        this.prevActive = this.active;
+    }
+
+    @Override
+    public void tickClient(World world, BlockPos pos, BlockState state) {
+        SculkSensorBlockEntity sensor = SculkSensorBlockEntity.class.cast(this);
+        this.prevAnimTicks = this.animTicks;
+        if (this.animTicks > 0) {
+            --this.animTicks;
+        }
+        ++this.age;
     }
 
     @Override
@@ -136,6 +151,7 @@ public abstract class SculkSensorBlockEntityMixin extends BlockEntity implements
         this.animTicks = nbt.getInt("animTicks");
         this.prevAnimTicks = nbt.getInt("prevAnimTicks");
         this.active = nbt.getBoolean("active");
+        this.prevActive = nbt.getBoolean("prevActive");
     }
 
     @Inject(at = @At("TAIL"), method = "writeNbt")
@@ -144,6 +160,7 @@ public abstract class SculkSensorBlockEntityMixin extends BlockEntity implements
         nbt.putInt("animTicks", this.animTicks);
         nbt.putInt("prevAnimTicks", this.prevAnimTicks);
         nbt.putBoolean("active", this.active);
+        nbt.putBoolean("prevActive", this.prevActive);
     }
 
 }
