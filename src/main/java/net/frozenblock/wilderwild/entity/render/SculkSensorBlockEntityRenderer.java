@@ -5,11 +5,7 @@ import net.fabricmc.api.Environment;
 import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.WilderWildClient;
 import net.frozenblock.wilderwild.misc.SculkSensorTickInterface;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
-import net.minecraft.block.SculkSensorBlock;
 import net.minecraft.block.entity.SculkSensorBlockEntity;
-import net.minecraft.block.enums.SculkSensorPhase;
 import net.minecraft.client.model.*;
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.VertexConsumer;
@@ -17,7 +13,6 @@ import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.block.entity.BlockEntityRenderer;
 import net.minecraft.client.render.block.entity.BlockEntityRendererFactory.Context;
 import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.state.property.Properties;
 import net.minecraft.util.math.MathHelper;
 
 @Environment(EnvType.CLIENT)
@@ -54,8 +49,9 @@ public class SculkSensorBlockEntityRenderer<T extends SculkSensorBlockEntity> im
             if (active) {
                 double animationProgress = ((SculkSensorTickInterface)entity).getAge() + tickDelta;
                 float pitch = MathHelper.lerp(tickDelta, (float) ((SculkSensorTickInterface)entity).getPrevAnimTicks(), (float) ((SculkSensorTickInterface)entity).getAnimTicks()) / 10.0F;
-                this.ne.pitch = pitch * (float) (Math.cos(animationProgress * 2.25D) * merp25);
-                this.se.pitch = pitch * (float) (-Math.sin(animationProgress * 2.25D) * merp25);
+                float animProg = (float) (animationProgress * 2.25D);
+                this.ne.pitch = pitch * (MathHelper.cos(animProg) * merp25);
+                this.se.pitch = pitch * (-MathHelper.sin(animProg) * merp25);
             } else {
                 this.ne.pitch = 0;
                 this.se.pitch = 0;

@@ -1,5 +1,6 @@
 package net.frozenblock.wilderwild.mixin.server;
 
+import net.fabricmc.fabric.api.networking.v1.PlayerLookup;
 import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.misc.SculkSensorTickInterface;
 import net.frozenblock.wilderwild.misc.server.EasyPacket;
@@ -11,14 +12,16 @@ import net.minecraft.block.SculkSensorBlock;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.block.entity.SculkSensorBlockEntity;
+import net.minecraft.block.enums.SculkSensorPhase;
 import net.minecraft.entity.Entity;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.network.packet.s2c.play.BlockEntityUpdateS2CPacket;
+import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
+import net.minecraft.state.property.Properties;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
-import net.minecraft.world.World;
 import net.minecraft.world.event.GameEvent;
 import net.minecraft.world.event.listener.GameEventListener;
 import org.jetbrains.annotations.Nullable;
@@ -54,8 +57,6 @@ public abstract class SculkSensorBlockEntityMixin extends BlockEntity implements
     public void tickServer(ServerWorld world, BlockPos pos, BlockState state) {
         SculkSensorBlockEntity sensor = SculkSensorBlockEntity.class.cast(this);
         sensor.getEventListener().tick(world);
-        boolean inactive = SculkSensorBlock.isInactive(state);
-        this.active = !inactive;
         boolean bl2 = world.random.nextBoolean();
         if (!state.get(RegisterProperties.NOT_HICCUPPING)) {
             if (bl2) {
@@ -64,7 +65,7 @@ public abstract class SculkSensorBlockEntityMixin extends BlockEntity implements
                 double z = (pos.getZ() - 0.1) + (world.random.nextFloat() * 1.2);
                 EasyPacket.EasySensorHiccupPacket.createParticle(world, new Vec3d(x, y, z));
             }
-            if (inactive && world.random.nextInt(320) <= 1) {
+            if (SculkSensorBlock.isInactive(state) && world.random.nextInt(320) <= 1) {
                 WilderWild.log("Sensor Hiccups " + pos, WilderWild.DEV_LOGGING);
                 SculkSensorBlock.setActive(null, world, pos, state, (int) (Math.random() * 15));
                 world.emitGameEvent(null, GameEvent.SCULK_SENSOR_TENDRILS_CLICKING, pos);
@@ -77,6 +78,10 @@ public abstract class SculkSensorBlockEntityMixin extends BlockEntity implements
             --this.animTicks;
         }
         ++this.age;
+        this.active = state.get(Properties.SCULK_SENSOR_PHASE) == SculkSensorPhase.ACTIVE;
+        for (ServerPlayerEntity player : PlayerLookup.tracking(world, pos)) {
+            player.networkHandler.sendPacket(sensor.toUpdatePacket());
+        }
     }
 
     @Override
