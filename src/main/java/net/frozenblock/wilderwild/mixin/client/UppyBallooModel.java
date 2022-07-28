@@ -9,14 +9,10 @@ import net.minecraft.entity.Entity;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.math.MathHelper;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Environment(EnvType.CLIENT)
 @Mixin(PigEntityModel.class)
-public abstract class UppyBallooModel<T extends Entity>
-        extends QuadrupedEntityModel<T> {
+public abstract class UppyBallooModel<T extends Entity> extends QuadrupedEntityModel<T> {
 
     private static final float radians = ((float)Math.PI / 180);
     private static final float non_uppy_balloo_angle = 90 * radians;
@@ -25,9 +21,8 @@ public abstract class UppyBallooModel<T extends Entity>
         super(root, false, 4.0f, 4.0f, 2.0f, 2.0f, 24);
     }
 
-    @Inject(at = @At("HEAD"), method = "setAngles(Lnet/minecraft/entity/Entity;FFFFF)V", cancellable = true)
-    public void setAngles(T entity, float limbAngle, float limbDistance, float h, float i, float j, CallbackInfo info) {
-        info.cancel();
+    @Override
+    public void setAngles(Entity entity, float limbAngle, float limbDistance, float h, float i, float j) {
         this.head.pitch = j * 0.017453292F;
         this.head.yaw = i * 0.017453292F;
         float fastLimbAngle = limbAngle * 0.6662F;
