@@ -26,7 +26,7 @@ public class SetTendrilsCommand {
     }
 
     private static int setTendrils(boolean bool) throws FileNotFoundException {
-        SensorConfig.config.setTendrils(!bool);
+        SensorConfig.config.setTendrils(bool);
         SensorConfig.rewriteConfig();
         WilderWild.RENDER_TENDRILS = bool;
         return 1;
