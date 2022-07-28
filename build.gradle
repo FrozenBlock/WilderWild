@@ -50,6 +50,7 @@ dependencies {
 
 	//Simple Copper Pipes
 	modImplementation "maven.modrinth:simple-copper-pipes:1.11b4"
+	modImplementation "maven.modrinth:fastanim:1.4"
 
 	// only affects runClient, does not affect gradlew build. add -PuseThirdPartyMods=false to not use these
 	if (findProperty("useThirdPartyMods") != "false") {
@@ -64,7 +65,6 @@ dependencies {
 		//modRuntimeOnly "maven.modrinth:c2me-fabric:0.2.0+alpha.8.2+1.19"
 		modRuntimeOnly "maven.modrinth:ksyxis:1.1"
 		//modRuntimeOnly "maven.modrinth:iris:1.19.x-v1.2.5"
-		modRuntimeOnly "maven.modrinth:fastanim:1.4"
 	}
 }
 
