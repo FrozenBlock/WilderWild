@@ -10,6 +10,7 @@ import net.minecraft.block.SculkSensorBlock;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityTicker;
 import net.minecraft.block.entity.BlockEntityType;
+import net.minecraft.block.entity.SculkSensorBlockEntity;
 import net.minecraft.entity.Entity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.state.StateManager;
@@ -34,9 +35,7 @@ public class SculkSensorBlockMixin {
     public <T extends BlockEntity> void getTicker(World world, BlockState state, BlockEntityType<T> type, CallbackInfoReturnable<BlockEntityTicker<T>> info) {
         info.cancel();
         if (world.isClient) {
-            info.setReturnValue(checkType(type, BlockEntityType.SCULK_SENSOR, (worldx, pos, statex, blockEntity) -> {
-                ((SculkSensorTickInterface)blockEntity).tickClient(worldx, pos, statex);
-            }));
+            info.setReturnValue(null);
         } else {
             info.setReturnValue(checkType(type, BlockEntityType.SCULK_SENSOR, (worldx, pos, statex, blockEntity) -> {
                 ((SculkSensorTickInterface)blockEntity).tickServer((ServerWorld) worldx, pos, statex);
@@ -46,7 +45,10 @@ public class SculkSensorBlockMixin {
 
     @Inject(at = @At("HEAD"), method = "setActive")
     private static void setActive(@Nullable Entity entity, World world, BlockPos pos, BlockState state, int power, CallbackInfo info) {
-       // world.addSyncedBlockEvent(pos, state.getBlock(), 1, 1);
+       if (world.getBlockEntity(pos) instanceof SculkSensorBlockEntity blockEntity) {
+           ((SculkSensorTickInterface)blockEntity).setActive(true);
+           ((SculkSensorTickInterface)blockEntity).setAnimTicks(10);
+       }
     }
 
     @Inject(at = @At("HEAD"), method = "getRenderType", cancellable = true)
