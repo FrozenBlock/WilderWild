@@ -48,9 +48,8 @@ public class SculkSensorBlockEntityRenderer<T extends SculkSensorBlockEntity> im
             boolean active = ((SculkSensorTickInterface)entity).isActive();
             if (active) {
                 SculkSensorTickInterface tickInterface = ((SculkSensorTickInterface)entity);
-                double animationProgress = tickInterface.getAge() + tickDelta;
                 float pitch = MathHelper.lerp(tickDelta, tickInterface.getPrevAnimTicks(), tickInterface.getAnimTicks()) / 10.0F;
-                float animProg = (float) (animationProgress * 2.25D);
+                float animProg = (float) (tickInterface.getAge() + tickDelta * 2.25D);
                 this.ne.pitch = pitch * (MathHelper.cos(animProg) * merp25);
                 this.se.pitch = pitch * (-MathHelper.sin(animProg) * merp25);
             } else {
