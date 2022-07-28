@@ -2,7 +2,7 @@ package net.frozenblock.wilderwild.mixin.client;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.minecraft.client.model.*;
+import net.minecraft.client.model.ModelPart;
 import net.minecraft.client.render.entity.model.PigEntityModel;
 import net.minecraft.client.render.entity.model.QuadrupedEntityModel;
 import net.minecraft.entity.Entity;
@@ -12,8 +12,7 @@ import org.spongepowered.asm.mixin.Mixin;
 
 @Environment(EnvType.CLIENT)
 @Mixin(PigEntityModel.class)
-public abstract class UppyBallooModel<T extends Entity>
-        extends QuadrupedEntityModel<T> {
+public abstract class UppyBallooModel<T extends Entity> extends QuadrupedEntityModel<T> {
 
     private static final float radians = ((float)Math.PI / 180);
     private static final float non_uppy_balloo_angle = 90 * radians;
