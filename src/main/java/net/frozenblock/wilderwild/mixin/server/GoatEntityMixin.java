@@ -22,38 +22,11 @@ public class GoatEntityMixin {
         return Objects.equals(string, "Treetrain1");
     }
 
-    @Inject(method = "getAmbientSound", at = @At("HEAD"), cancellable = true)
-    private void getAmbientSound(CallbackInfoReturnable<SoundEvent> cir) {
+    @Inject(method = "isScreaming", at = @At("HEAD"), cancellable = true)
+    private void isScreaming(CallbackInfoReturnable<Boolean> cir) {
         if (this.isTreetrain1()) {
-            cir.setReturnValue(SoundEvents.ENTITY_GOAT_SCREAMING_AMBIENT);
-        }
-    }
-
-    @Inject(method = "getHurtSound", at = @At("HEAD"), cancellable = true)
-    private void getHurtSound(DamageSource source, CallbackInfoReturnable<SoundEvent> cir) {
-        if (this.isTreetrain1()) {
-            cir.setReturnValue(SoundEvents.ENTITY_GOAT_SCREAMING_HURT);
-        }
-    }
-
-    @Inject(method = "getDeathSound", at = @At("HEAD"), cancellable = true)
-    private void getDeathSound(CallbackInfoReturnable<SoundEvent> cir) {
-        if (this.isTreetrain1()) {
-            cir.setReturnValue(SoundEvents.ENTITY_GOAT_SCREAMING_DEATH);
-        }
-    }
-
-    @Inject(method = "getMilkingSound", at = @At("HEAD"), cancellable = true)
-    private void getMilkingSound(CallbackInfoReturnable<SoundEvent> cir) {
-        if (this.isTreetrain1()) {
-            cir.setReturnValue(SoundEvents.ENTITY_GOAT_SCREAMING_MILK);
-        }
-    }
-
-    @Inject(method = "getEatSound", at = @At("HEAD"), cancellable = true)
-    private void getEatSound(ItemStack stack, CallbackInfoReturnable<SoundEvent> cir) {
-        if (this.isTreetrain1()) {
-            cir.setReturnValue(SoundEvents.ENTITY_GOAT_SCREAMING_EAT);
+            cir.setReturnValue(true);
+            cir.cancel();
         }
     }
 }
