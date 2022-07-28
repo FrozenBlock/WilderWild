@@ -25,7 +25,7 @@ public abstract class UppyBallooModel<T extends Entity>
         super(root, false, 4.0f, 4.0f, 2.0f, 2.0f, 24);
     }
 
-    @Inject(at = {@At("HEAD")}, method = {"setAngles"}, cancellable = true)
+    @Inject(at = @At("HEAD"), method = "setAngles(Lnet/minecraft/entity/Entity;FFFFF)V", cancellable = true)
     public void setAngles(T entity, float limbAngle, float limbDistance, float h, float i, float j, CallbackInfo info) {
         info.cancel();
         this.head.pitch = j * 0.017453292F;
