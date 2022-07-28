@@ -1,0 +1,52 @@
+package net.frozenblock.wilderwild.misc;
+
+import net.fabricmc.fabric.api.client.command.v2.ClientCommandRegistrationCallback;
+import net.minecraft.client.MinecraftClient;
+import net.minecraft.text.Text;
+
+import java.io.FileNotFoundException;
+
+import static net.fabricmc.fabric.api.client.command.v2.ClientCommandManager.literal;
+
+public class EnableDisableTendrilCommand {
+
+    public static void register() {
+        ClientCommandRegistrationCallback.EVENT.register(((dispatcher, registryAccess) -> {
+            dispatcher.register(literal("sensorTendrils")
+                    .then(literal("enable")
+                            .executes(context -> {
+                                try {
+                                    assert MinecraftClient.getInstance().player != null;
+                                    MinecraftClient.getInstance().player.sendChatMessage("Game restart required for this feature to work!", Text.literal("Game restart required for this feature to work!"));
+                                    return enable();
+                                } catch (FileNotFoundException e) {
+                                    e.printStackTrace();
+                                }
+                                return 0;
+                            }))
+                    .then(literal("disable")
+                            .executes(context -> {
+                                try {
+                                    assert MinecraftClient.getInstance().player != null;
+                                    MinecraftClient.getInstance().player.sendChatMessage("Game restart required for this feature to work!", Text.literal("Game restart required for this feature to work!"));
+                                    return disable();
+                                } catch (FileNotFoundException e) {
+                                    e.printStackTrace();
+                                }
+                                return 0;
+                            })));
+        }));
+
+    }
+
+    private static int disable() throws FileNotFoundException {
+        ConfigManager.setEnabled(false);
+        return 1;
+    }
+
+    private static int enable() throws FileNotFoundException {
+        ConfigManager.setEnabled(true);
+        return 1;
+    }
+
+}
