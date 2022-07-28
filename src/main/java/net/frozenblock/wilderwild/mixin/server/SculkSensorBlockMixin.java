@@ -1,7 +1,7 @@
 package net.frozenblock.wilderwild.mixin.server;
 
 import net.frozenblock.wilderwild.WilderWild;
-import net.frozenblock.wilderwild.misc.SculkSensorTickInterface;
+import net.frozenblock.wilderwild.misc.TendrilConfig.SculkSensorTickInterface;
 import net.frozenblock.wilderwild.registry.RegisterProperties;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockRenderType;

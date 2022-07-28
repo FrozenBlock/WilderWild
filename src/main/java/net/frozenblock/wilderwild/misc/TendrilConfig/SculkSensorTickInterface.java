@@ -1,4 +1,4 @@
-package net.frozenblock.wilderwild.misc;
+package net.frozenblock.wilderwild.misc.TendrilConfig;
 
 import net.minecraft.block.BlockState;
 import net.minecraft.server.world.ServerWorld;

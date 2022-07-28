@@ -8,6 +8,7 @@ import net.fabricmc.loader.api.ModContainer;
 import net.frozenblock.wilderwild.block.entity.TermiteMoundBlockEntity;
 import net.frozenblock.wilderwild.entity.Firefly;
 import net.frozenblock.wilderwild.misc.BlockSoundGroupOverwrites;
+import net.frozenblock.wilderwild.misc.TendrilConfig.SensorConfig;
 import net.frozenblock.wilderwild.misc.simple_pipe_compatability.RegisterSaveableMoveablePipeNbt;
 import net.frozenblock.wilderwild.registry.*;
 import net.frozenblock.wilderwild.world.feature.WilderConfiguredFeatures;
@@ -121,6 +122,11 @@ public class WilderWild implements ModInitializer {
 
         if (hasSimpleCopperPipes()) {
             RegisterSaveableMoveablePipeNbt.init();
+        }
+
+        SensorConfig.makeConfig();
+        if (SensorConfig.config != null) {
+            RENDER_TENDRILS = SensorConfig.config.getTendrils();
         }
         stopMeasuring(this);
     }

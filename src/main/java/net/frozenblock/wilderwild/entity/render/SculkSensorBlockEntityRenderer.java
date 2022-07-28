@@ -4,7 +4,7 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.WilderWildClient;
-import net.frozenblock.wilderwild.misc.SculkSensorTickInterface;
+import net.frozenblock.wilderwild.misc.TendrilConfig.SculkSensorTickInterface;
 import net.minecraft.block.entity.SculkSensorBlockEntity;
 import net.minecraft.client.model.*;
 import net.minecraft.client.render.RenderLayer;

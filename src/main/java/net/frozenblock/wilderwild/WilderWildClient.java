@@ -2,6 +2,7 @@ package net.frozenblock.wilderwild;
 
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
+import net.fabricmc.fabric.api.client.command.v2.ClientCommandRegistrationCallback;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.fabricmc.fabric.api.client.particle.v1.ParticleFactoryRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.BlockEntityRendererRegistry;
@@ -19,6 +20,7 @@ import net.frozenblock.wilderwild.misc.CompetitionCounter;
 import net.frozenblock.wilderwild.misc.FlowerLichenParticleRegistry;
 import net.frozenblock.wilderwild.misc.PVZGWSound.FlyBySoundHub;
 import net.frozenblock.wilderwild.misc.PVZGWSound.MovingSoundLoop;
+import net.frozenblock.wilderwild.misc.TendrilConfig.SetTendrilsCommand;
 import net.frozenblock.wilderwild.particle.FloatingSculkBubbleParticle;
 import net.frozenblock.wilderwild.particle.PollenParticle;
 import net.frozenblock.wilderwild.particle.TermiteParticle;
@@ -156,6 +158,8 @@ public class WilderWildClient implements ClientModInitializer {
                 FlyBySoundHub.update(client, client.player, false); //CHANGE TO FALSE TO NOT AUTOMATICALLY ADD FLYBY SOUNDS
             }
         });*/
+
+        ClientCommandRegistrationCallback.EVENT.register(((dispatcher, registryAccess) -> SetTendrilsCommand.register(dispatcher)));
     }
 
 
