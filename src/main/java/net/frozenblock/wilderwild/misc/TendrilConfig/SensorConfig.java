@@ -41,7 +41,7 @@ public class SensorConfig {
                     e.printStackTrace();
                 }
             } else {
-                configJson.setTendrils(true);
+                configJson.setTendrils(false);
             }
 
             String json = gson.toJson(configJson);
