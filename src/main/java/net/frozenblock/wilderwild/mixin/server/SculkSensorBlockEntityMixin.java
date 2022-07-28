@@ -33,6 +33,7 @@ public abstract class SculkSensorBlockEntityMixin extends BlockEntity implements
     public int animTicks;
     public int prevAnimTicks;
     public int age;
+    public boolean active;
 
     public SculkSensorBlockEntityMixin(BlockEntityType<?> type, BlockPos pos, BlockState state) {
         super(type, pos, state);
@@ -44,6 +45,7 @@ public abstract class SculkSensorBlockEntityMixin extends BlockEntity implements
         BlockState blockState = sculkSensorBlockEntity.getCachedState();
         if (SculkSensorBlock.isInactive(blockState)) {
             this.animTicks = 10;
+            this.active = true;
             world.emitGameEvent(entity, RegisterGameEvents.SCULK_SENSOR_ACTIVATE, sculkSensorBlockEntity.getPos());
             BlockState state = world.getBlockState(sculkSensorBlockEntity.getPos());
             world.setBlockState(sculkSensorBlockEntity.getPos(), state.with(RegisterProperties.NOT_HICCUPPING, true));
@@ -54,6 +56,8 @@ public abstract class SculkSensorBlockEntityMixin extends BlockEntity implements
     public void tickServer(ServerWorld world, BlockPos pos, BlockState state) {
         SculkSensorBlockEntity sensor = SculkSensorBlockEntity.class.cast(this);
         sensor.getEventListener().tick(world);
+        boolean inactive = SculkSensorBlock.isInactive(state);
+        this.active = !inactive;
         boolean bl2 = world.random.nextBoolean();
         if (bl2) {
             double x = (pos.getX() - 0.1) + (world.random.nextFloat() * 1.2);
@@ -61,7 +65,9 @@ public abstract class SculkSensorBlockEntityMixin extends BlockEntity implements
             double z = (pos.getZ() - 0.1) + (world.random.nextFloat() * 1.2);
             EasyPacket.EasySensorHiccupPacket.createParticle(world, new Vec3d(x, y, z));
         }
-        if (SculkSensorBlock.isInactive(state) && !state.get(RegisterProperties.NOT_HICCUPPING) && world.random.nextInt(320) <= 1) {
+        if (inactive && !state.get(RegisterProperties.NOT_HICCUPPING) && world.random.nextInt(320) <= 1) {
+            this.animTicks = 10;
+            this.active = true;
             WilderWild.log("Sensor Hiccups " + pos, WilderWild.DEV_LOGGING);
             SculkSensorBlock.setActive(null, world, pos, state, (int) (Math.random() * 15));
             world.emitGameEvent(null, GameEvent.SCULK_SENSOR_TENDRILS_CLICKING, pos);
@@ -115,11 +121,17 @@ public abstract class SculkSensorBlockEntityMixin extends BlockEntity implements
         return this.prevAnimTicks;
     }
 
+    @Override
+    public boolean isActive() {
+        return this.active;
+    }
+
     @Inject(at = @At("TAIL"), method = "readNbt")
     public void readNbt(NbtCompound nbt, CallbackInfo info) {
         this.age = nbt.getInt("age");
         this.animTicks = nbt.getInt("animTicks");
         this.prevAnimTicks = nbt.getInt("prevAnimTicks");
+        this.active = nbt.getBoolean("active");
     }
 
     @Inject(at = @At("TAIL"), method = "writeNbt")
@@ -127,6 +139,7 @@ public abstract class SculkSensorBlockEntityMixin extends BlockEntity implements
         nbt.putInt("age", this.age);
         nbt.putInt("animTicks", this.animTicks);
         nbt.putInt("prevAnimTicks", this.prevAnimTicks);
+        nbt.putBoolean("active", this.active);
     }
 
 }

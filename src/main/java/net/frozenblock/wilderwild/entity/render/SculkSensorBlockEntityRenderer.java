@@ -50,8 +50,7 @@ public class SculkSensorBlockEntityRenderer<T extends SculkSensorBlockEntity> im
 
     public void render(T entity, float tickDelta, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, int overlay) {
         if (WilderWild.RENDER_TENDRILS) {
-            BlockState blockState = entity.getCachedState();
-            boolean active = blockState.get(Properties.SCULK_SENSOR_PHASE) == SculkSensorPhase.ACTIVE;
+            boolean active = ((SculkSensorTickInterface)entity).isActive();
             if (active) {
                 double animationProgress = ((SculkSensorTickInterface)entity).getAge() + tickDelta;
                 float pitch = MathHelper.lerp(tickDelta, (float) ((SculkSensorTickInterface)entity).getPrevAnimTicks(), (float) ((SculkSensorTickInterface)entity).getAnimTicks()) / 10.0F;

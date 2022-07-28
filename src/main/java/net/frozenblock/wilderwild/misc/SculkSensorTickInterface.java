@@ -17,4 +17,6 @@ public interface SculkSensorTickInterface {
 
     int getPrevAnimTicks();
 
+    boolean isActive();
+
 }
