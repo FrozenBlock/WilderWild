@@ -135,18 +135,16 @@ public class AncientHornProjectile extends PersistentProjectileEntity {
             for (Entity entity : entities) {
                 if (!this.isRemoved() && entity != null && entity != owner) {
                     boolean shouldDamage = true;
-                    if (owner != null) {
-                        if (entity instanceof PlayerEntity player) {
-                            if (player.isCreative()) {
-                                shouldDamage = false;
-                            }
-                            if (owner instanceof PlayerEntity && !((PlayerEntity) owner).shouldDamagePlayer((PlayerEntity) entity)) {
-                                shouldDamage = false;
-                            }
-                        }
-                        if (entity.isInvulnerable()) {
+                    if (entity instanceof PlayerEntity player) {
+                        if (player.isCreative()) {
                             shouldDamage = false;
                         }
+                        if (owner instanceof PlayerEntity && !((PlayerEntity) owner).shouldDamagePlayer((PlayerEntity) entity)) {
+                            shouldDamage = false;
+                        }
+                    }
+                    if (entity.isInvulnerable()) {
+                        shouldDamage = false;
                     }
                     if (shouldDamage) {
                         this.hitEntity(entity);
@@ -217,9 +215,9 @@ public class AncientHornProjectile extends PersistentProjectileEntity {
     }
 
     public boolean canHit(Entity entity) {
-        if (!entity.isSpectator() && entity.isAlive() && entity.isCollidable() && !(entity instanceof ProjectileEntity)) {
+        if (!entity.isSpectator() && entity.isAlive() && !(entity instanceof ProjectileEntity)) {
             Entity entity2 = this.getOwner();
-            return entity2 == null || this.leftOwner || !entity2.isConnectedThroughVehicle(entity);
+            return entity2 != null && (this.leftOwner || !entity2.isConnectedThroughVehicle(entity));
         } else {
             return false;
         }
