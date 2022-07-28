@@ -46,7 +46,7 @@ public class SculkSensorBlockMixin {
 
     @Inject(at = @At("HEAD"), method = "setActive")
     private static void setActive(@Nullable Entity entity, World world, BlockPos pos, BlockState state, int power, CallbackInfo info) {
-        world.addSyncedBlockEvent(pos, state.getBlock(), 1, 1);
+       // world.addSyncedBlockEvent(pos, state.getBlock(), 1, 1);
     }
 
     @Inject(at = @At("HEAD"), method = "getRenderType", cancellable = true)
