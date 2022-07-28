@@ -356,10 +356,7 @@ public class AncientHornProjectile extends PersistentProjectileEntity {
     }
 
     public boolean canInteract() {
-        if (!this.shotByPlayer && !world.isClient) {
-            return this.getOwner() != null;
-        }
-        return true;
+        return this.getOwner() != null;
     }
 
     @Override
