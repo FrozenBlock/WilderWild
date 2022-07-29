@@ -1,6 +1,7 @@
 package net.frozenblock.wilderwild;
 
 import com.chocohead.mm.api.ClassTinkerers;
+import com.google.common.base.Preconditions;
 import com.mojang.datafixers.DataFixUtils;
 import com.mojang.datafixers.DataFixerBuilder;
 import com.mojang.datafixers.schemas.Schema;
@@ -275,10 +276,18 @@ public class WilderWild implements ModInitializer {
     }
 
     private static void wilderBlockRenamer(DataFixerBuilder builder, Schema schema, String startString, String endString) {
+        Preconditions.checkNotNull(builder, "builder can't be null");
+        Preconditions.checkNotNull(schema, "schema can't be null");
+        Preconditions.checkNotNull(startString, "starting block can't be null");
+        Preconditions.checkNotNull(endString, "ending block can't be null");
         builder.addFixer(BlockNameFix.create(schema, startString + " block renamer", Schemas.replacing(WilderWild.string(startString), WilderWild.string(endString))));
     }
 
     private static void wilderItemRenamer(DataFixerBuilder builder, Schema schema, String startString, String endString) {
+        Preconditions.checkNotNull(builder, "builder can't be null");
+        Preconditions.checkNotNull(schema, "schema can't be null");
+        Preconditions.checkNotNull(startString, "starting item can't be null");
+        Preconditions.checkNotNull(endString, "ending item can't be null");
         builder.addFixer(ItemNameFix.create(schema, startString + " item renamer", Schemas.replacing(WilderWild.string(startString), WilderWild.string(endString))));
     }
 }
