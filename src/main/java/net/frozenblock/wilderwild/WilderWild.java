@@ -263,12 +263,13 @@ public class WilderWild implements ModInitializer {
 
     private static void applyDataFixes() {
         DataFixerBuilder builder = new DataFixerBuilder(SharedConstants.getGameVersion().getWorldVersion());
-        Schema schema = Schemas.getFixer().getSchema(3097);
+        Schema schema = Schemas.getFixer().getSchema(3117);
         wilderBlockItemRenamer(builder, schema, "white_dandelion", "seeding_dandelion");
         wilderBlockItemRenamer(builder, schema, "blooming_dandelion", "seeding_dandelion");
         wilderBlockRenamer(builder, schema, "potted_white_dandelion", "potted_seeding_dandelion");
         wilderBlockRenamer(builder, schema, "potted_blooming_dandelion", "potted_seeding_dandelion");
         wilderBlockItemRenamer(builder, schema, "floating_moss", "algae");
+        //wilderBlockItemRenamer(builder, schema, "test_2", "test_1");
     }
 
     private static void wilderBlockItemRenamer(@NotNull DataFixerBuilder builder, @NotNull Schema schema, @NotNull String startString, @NotNull String endString) {
