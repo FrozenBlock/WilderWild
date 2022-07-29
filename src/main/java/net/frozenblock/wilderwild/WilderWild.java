@@ -1,6 +1,8 @@
 package net.frozenblock.wilderwild;
 
 import com.chocohead.mm.api.ClassTinkerers;
+import com.mojang.datafixers.DataFixerBuilder;
+import com.mojang.datafixers.schemas.Schema;
 import com.mojang.serialization.Codec;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.loader.api.FabricLoader;
@@ -24,6 +26,10 @@ import net.frozenblock.wilderwild.world.gen.trunk.FallenTrunkWithLogs;
 import net.frozenblock.wilderwild.world.gen.trunk.StraightTrunkWithLogs;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
+import net.minecraft.datafixer.Schemas;
+import net.minecraft.datafixer.fix.BlockNameFix;
+import net.minecraft.datafixer.fix.ItemNameFix;
+import net.minecraft.datafixer.schema.IdentifierNormalizingSchema;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.SpawnGroup;
 import net.minecraft.item.Instrument;
@@ -49,6 +55,7 @@ import java.time.Instant;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
+import java.util.function.BiFunction;
 
 public class WilderWild implements ModInitializer {
     public static final String MOD_ID = "wilderwild";
@@ -72,8 +79,20 @@ public class WilderWild implements ModInitializer {
     //ClassTinkerers
     public static final SpawnGroup FIREFLIES = ClassTinkerers.getEnum(SpawnGroup.class, "FIREFLIES");
 
+    private static final int DATA_VERSION = 1;
+
+    private static final BiFunction<Integer, Schema, Schema> EMPTY_IDENTIFIER_NORMALIZE = IdentifierNormalizingSchema::new;
+
     @Override
     public void onInitialize() {
+        DataFixerBuilder builder = new DataFixerBuilder(DATA_VERSION);
+        Schema schema = builder.addSchema(1, EMPTY_IDENTIFIER_NORMALIZE);
+        wilderBlockItemRenamer(builder, schema, "white_dandelion", "seeding_dandelion");
+        wilderBlockItemRenamer(builder, schema, "blooming_dandelion", "seeding_dandelion");
+        wilderBlockRenamer(builder, schema, "potted_white_dandelion", "potted_seeding_dandelion");
+        wilderBlockRenamer(builder, schema, "potted_blooming_dandelion", "potted_seeding_dandelion");
+        wilderBlockItemRenamer(builder, schema, "floating_moss", "algae");
+
         startMeasuring(this);
         RegisterBlocks.registerBlocks();
         RegisterBlocks.addBaobab();
@@ -247,5 +266,18 @@ public class WilderWild implements ModInitializer {
             LOGGER.error("{} took {} nanoseconds", name.substring(name.lastIndexOf(".") + 1), System.nanoTime() - instantMap.get(object));
             instantMap.remove(object);
         }
+    }
+
+    private static void wilderBlockItemRenamer(DataFixerBuilder builder, Schema schema, String startString, String endString) {
+        wilderBlockRenamer(builder, schema, startString, endString);
+        wilderItemRenamer(builder, schema, startString, endString);
+    }
+
+    private static void wilderBlockRenamer(DataFixerBuilder builder, Schema schema, String startString, String endString) {
+        builder.addFixer(BlockNameFix.create(schema,startString + " block renamer", Schemas.replacing(WilderWild.string(startString),  WilderWild.string(endString))));
+    }
+
+    private static void wilderItemRenamer(DataFixerBuilder builder, Schema schema, String startString, String endString) {
+        builder.addFixer(ItemNameFix.create(schema,startString + " item renamer", Schemas.replacing(WilderWild.string(startString),  WilderWild.string(endString))));
     }
 }
