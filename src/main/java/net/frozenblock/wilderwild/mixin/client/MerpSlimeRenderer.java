@@ -5,7 +5,6 @@ import net.fabricmc.api.Environment;
 import net.frozenblock.wilderwild.WilderWild;
 import net.minecraft.client.render.entity.SlimeEntityRenderer;
 import net.minecraft.entity.mob.SlimeEntity;
-import net.minecraft.entity.passive.GoatEntity;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.Identifier;
 import org.spongepowered.asm.mixin.Mixin;

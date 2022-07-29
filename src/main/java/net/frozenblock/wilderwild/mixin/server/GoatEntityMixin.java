@@ -1,10 +1,6 @@
 package net.frozenblock.wilderwild.mixin.server;
 
-import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.passive.GoatEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.sound.SoundEvent;
-import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.Formatting;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;

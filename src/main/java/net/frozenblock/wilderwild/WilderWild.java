@@ -31,7 +31,6 @@ import net.minecraft.block.BlockState;
 import net.minecraft.datafixer.Schemas;
 import net.minecraft.datafixer.fix.BlockNameFix;
 import net.minecraft.datafixer.fix.ItemNameFix;
-import net.minecraft.datafixer.schema.IdentifierNormalizingSchema;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.SpawnGroup;
 import net.minecraft.item.Instrument;
@@ -52,12 +51,9 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
-import java.time.Duration;
-import java.time.Instant;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
-import java.util.function.BiFunction;
 
 public class WilderWild implements ModInitializer {
     public static final String MOD_ID = "wilderwild";
@@ -85,8 +81,6 @@ public class WilderWild implements ModInitializer {
 
     public static final Schema VANILLA_SCHEMA = Schemas.getFixer()
             .getSchema(DataFixUtils.makeKey(SharedConstants.getGameVersion().getSaveVersion().getId()));
-
-    private static final BiFunction<Integer, Schema, Schema> EMPTY_IDENTIFIER_NORMALIZE = IdentifierNormalizingSchema::new;
 
     @Override
     public void onInitialize() {
@@ -185,6 +179,7 @@ public class WilderWild implements ModInitializer {
     public static Identifier id(String path) {
         return new Identifier(MOD_ID, path);
     }
+
     public static String string(String path) {
         return id(path).toString();
     }
@@ -283,10 +278,10 @@ public class WilderWild implements ModInitializer {
     }
 
     private static void wilderBlockRenamer(DataFixerBuilder builder, Schema schema, String startString, String endString) {
-        builder.addFixer(BlockNameFix.create(schema,startString + " block renamer", Schemas.replacing(WilderWild.string(startString),  WilderWild.string(endString))));
+        builder.addFixer(BlockNameFix.create(schema, startString + " block renamer", Schemas.replacing(WilderWild.string(startString), WilderWild.string(endString))));
     }
 
     private static void wilderItemRenamer(DataFixerBuilder builder, Schema schema, String startString, String endString) {
-        builder.addFixer(ItemNameFix.create(schema,startString + " item renamer", Schemas.replacing(WilderWild.string(startString),  WilderWild.string(endString))));
+        builder.addFixer(ItemNameFix.create(schema, startString + " item renamer", Schemas.replacing(WilderWild.string(startString), WilderWild.string(endString))));
     }
 }
