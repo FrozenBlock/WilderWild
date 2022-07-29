@@ -49,13 +49,9 @@ public final class VanillaBiomeParametersMixin {
         parameters.accept(Pair.of(MultiNoiseUtil.createNoiseHypercube(temperature, humidity, continentalness, erosion, MultiNoiseUtil.ParameterRange.of(0.0F, 1.0F), weirdness, offset), biome));
     }
 
-    private final int mangroveRound = 0;
-
     @Inject(method = "<init>", at = @At("TAIL"))
     private void injectBiomes(CallbackInfo ci) {
-        uncommonBiomes[1][0] = RegisterWorldgen.MIXED_FOREST;
         uncommonBiomes[4][0] = BiomeKeys.WOODED_BADLANDS;
-        //uncommonBiomes[4][3] = RegisterWorldgen.CYPRESS_WETLANDS;
         //uncommonBiomes[4][4] = BiomeKeys.MANGROVE_SWAMP;
         uncommonBiomes[4][3] = BiomeKeys.JUNGLE;
         commonBiomes[4][4] = BiomeKeys.JUNGLE;
@@ -79,7 +75,10 @@ public final class VanillaBiomeParametersMixin {
                 MultiNoiseUtil.ParameterRange.combine(this.temperatureParameters[1], this.temperatureParameters[3]),
                 MultiNoiseUtil.ParameterRange.combine(this.humidityParameters[2], this.humidityParameters[4]),
                 MultiNoiseUtil.ParameterRange.of(-0.2F, 0.5F),
-                MultiNoiseUtil.ParameterRange.of(0.50F, 1.0F), weirdness, 0.0F, RegisterWorldgen.CYPRESS_WETLANDS
+                MultiNoiseUtil.ParameterRange.of(0.50F, 1.0F),
+                weirdness,
+                0.0F,
+                RegisterWorldgen.CYPRESS_WETLANDS
         );
     }
 
@@ -102,7 +101,10 @@ public final class VanillaBiomeParametersMixin {
                 MultiNoiseUtil.ParameterRange.combine(this.temperatureParameters[1], this.temperatureParameters[3]),
                 MultiNoiseUtil.ParameterRange.combine(this.humidityParameters[2], this.humidityParameters[4]),
                 MultiNoiseUtil.ParameterRange.of(-0.2F, 0.5F),
-                MultiNoiseUtil.ParameterRange.of(0.50F, 1.0F), weirdness, 0.0F, RegisterWorldgen.CYPRESS_WETLANDS
+                MultiNoiseUtil.ParameterRange.of(0.50F, 1.0F),
+                weirdness,
+                0.0F,
+                RegisterWorldgen.CYPRESS_WETLANDS
         );
     }
 
@@ -114,7 +116,10 @@ public final class VanillaBiomeParametersMixin {
                 MultiNoiseUtil.ParameterRange.combine(this.temperatureParameters[1], this.temperatureParameters[3]),
                 MultiNoiseUtil.ParameterRange.combine(this.humidityParameters[2], this.humidityParameters[4]),
                 MultiNoiseUtil.ParameterRange.of(-0.2F, 0.5F),
-                MultiNoiseUtil.ParameterRange.of(0.50F, 1.0F), weirdness, 0.0F, RegisterWorldgen.CYPRESS_WETLANDS
+                MultiNoiseUtil.ParameterRange.of(0.50F, 1.0F),
+                weirdness,
+                0.0F,
+                RegisterWorldgen.CYPRESS_WETLANDS
         );
     }
 
