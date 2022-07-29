@@ -171,11 +171,11 @@ public class WilderPlacedFeatures {
             PlacedFeatures.MOTION_BLOCKING_HEIGHTMAP, BiomePlacementModifier.of());
 
     public static final RegistryEntry<PlacedFeature> CARNATION = register("carnation",
-            WilderConfiguredFeatures.CARNATION, RarityFilterPlacementModifier.of(5), SquarePlacementModifier.of(),
+            WilderConfiguredFeatures.CARNATION, RarityFilterPlacementModifier.of(6), SquarePlacementModifier.of(),
             PlacedFeatures.MOTION_BLOCKING_HEIGHTMAP, BiomePlacementModifier.of());
 
     public static final RegistryEntry<PlacedFeature> DATURA_BIRCH = register("datura_birch",
-            WilderConfiguredFeatures.DATURA, RarityFilterPlacementModifier.of(6), SquarePlacementModifier.of(),
+            WilderConfiguredFeatures.DATURA, RarityFilterPlacementModifier.of(7), SquarePlacementModifier.of(),
             PlacedFeatures.MOTION_BLOCKING_HEIGHTMAP, BiomePlacementModifier.of());
 
     public static final RegistryEntry<PlacedFeature> NEW_FLOWER_PLAIN = register("new_flower_plains",
@@ -204,7 +204,7 @@ public class WilderPlacedFeatures {
             PlacedFeatures.MOTION_BLOCKING_HEIGHTMAP, BiomePlacementModifier.of());
 
     public static final RegistryEntry<PlacedFeature> GLORY_OF_THE_SNOW = register("glory_of_the_snow",
-            WilderConfiguredFeatures.GLORY_OF_THE_SNOW, RarityFilterPlacementModifier.of(7), CountPlacementModifier.of(3), PlacedFeatures.WORLD_SURFACE_WG_HEIGHTMAP, SquarePlacementModifier.of(), BiomePlacementModifier.of());
+            WilderConfiguredFeatures.GLORY_OF_THE_SNOW, RarityFilterPlacementModifier.of(10), CountPlacementModifier.of(3), PlacedFeatures.WORLD_SURFACE_WG_HEIGHTMAP, SquarePlacementModifier.of(), BiomePlacementModifier.of());
 
     //VEGETATION
     public static final RegistryEntry<PlacedFeature> POLLEN_PLACED = register("pollen",
