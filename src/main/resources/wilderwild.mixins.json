@@ -12,7 +12,6 @@
 	"server.ChestBoatDropsMixin",
 	"server.ExperienceOrbEntityMixin",
 	"server.GoatEntityMixin",
-	"server.SchemasMixin",
 	"server.SculkBlockMixin",
 	"server.SculkSensorBlockEntityMixin",
 	"server.SculkSensorBlockMixin",
