@@ -77,10 +77,7 @@ public class WilderWild implements ModInitializer {
     //ClassTinkerers
     public static final SpawnGroup FIREFLIES = ClassTinkerers.getEnum(SpawnGroup.class, "FIREFLIES");
 
-    private static final int DATA_VERSION = 10000;
-
-    public static final Schema VANILLA_SCHEMA = Schemas.getFixer()
-            .getSchema(DataFixUtils.makeKey(SharedConstants.getGameVersion().getSaveVersion().getId()));
+    private static final int DATA_VERSION = 3105;
 
     @Override
     public void onInitialize() {
@@ -264,7 +261,7 @@ public class WilderWild implements ModInitializer {
 
     private static void applyDataFixes() {
         DataFixerBuilder builder = new DataFixerBuilder(DATA_VERSION);
-        Schema schema = VANILLA_SCHEMA;
+        Schema schema = Schemas.getFixer().getSchema(3097);
         wilderBlockItemRenamer(builder, schema, "white_dandelion", "seeding_dandelion");
         wilderBlockItemRenamer(builder, schema, "blooming_dandelion", "seeding_dandelion");
         wilderBlockRenamer(builder, schema, "potted_white_dandelion", "potted_seeding_dandelion");
