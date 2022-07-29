@@ -44,6 +44,7 @@ import net.minecraft.world.gen.ProbabilityConfig;
 import net.minecraft.world.gen.feature.Feature;
 import net.minecraft.world.gen.trunk.TrunkPlacer;
 import net.minecraft.world.gen.trunk.TrunkPlacerType;
+import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -270,12 +271,12 @@ public class WilderWild implements ModInitializer {
         wilderBlockItemRenamer(builder, schema, "floating_moss", "algae");
     }
 
-    private static void wilderBlockItemRenamer(DataFixerBuilder builder, Schema schema, String startString, String endString) {
+    private static void wilderBlockItemRenamer(@NotNull DataFixerBuilder builder, @NotNull Schema schema, @NotNull String startString, @NotNull String endString) {
         wilderBlockRenamer(builder, schema, startString, endString);
         wilderItemRenamer(builder, schema, startString, endString);
     }
 
-    private static void wilderBlockRenamer(DataFixerBuilder builder, Schema schema, String startString, String endString) {
+    private static void wilderBlockRenamer(@NotNull DataFixerBuilder builder, @NotNull Schema schema, @NotNull String startString, @NotNull String endString) {
         Preconditions.checkNotNull(builder, "builder can't be null");
         Preconditions.checkNotNull(schema, "schema can't be null");
         Preconditions.checkNotNull(startString, "starting block can't be null");
@@ -283,7 +284,7 @@ public class WilderWild implements ModInitializer {
         builder.addFixer(BlockNameFix.create(schema, startString + " block renamer", Schemas.replacing(WilderWild.string(startString), WilderWild.string(endString))));
     }
 
-    private static void wilderItemRenamer(DataFixerBuilder builder, Schema schema, String startString, String endString) {
+    private static void wilderItemRenamer(@NotNull DataFixerBuilder builder, @NotNull Schema schema, @NotNull String startString, @NotNull String endString) {
         Preconditions.checkNotNull(builder, "builder can't be null");
         Preconditions.checkNotNull(schema, "schema can't be null");
         Preconditions.checkNotNull(startString, "starting item can't be null");
