@@ -90,15 +90,9 @@ public class WilderWild implements ModInitializer {
 
     @Override
     public void onInitialize() {
-        DataFixerBuilder builder = new DataFixerBuilder(DATA_VERSION);
-        Schema schema = VANILLA_SCHEMA;
-        wilderBlockItemRenamer(builder, schema, "white_dandelion", "seeding_dandelion");
-        wilderBlockItemRenamer(builder, schema, "blooming_dandelion", "seeding_dandelion");
-        wilderBlockRenamer(builder, schema, "potted_white_dandelion", "potted_seeding_dandelion");
-        wilderBlockRenamer(builder, schema, "potted_blooming_dandelion", "potted_seeding_dandelion");
-        wilderBlockItemRenamer(builder, schema, "floating_moss", "algae");
-
         startMeasuring(this);
+        applyDataFixes();
+
         RegisterBlocks.registerBlocks();
         RegisterBlocks.addBaobab();
         RegisterItems.registerItems();
@@ -271,6 +265,16 @@ public class WilderWild implements ModInitializer {
             LOGGER.error("{} took {} nanoseconds", name.substring(name.lastIndexOf(".") + 1), System.nanoTime() - instantMap.get(object));
             instantMap.remove(object);
         }
+    }
+
+    private static void applyDataFixes() {
+        DataFixerBuilder builder = new DataFixerBuilder(DATA_VERSION);
+        Schema schema = VANILLA_SCHEMA;
+        wilderBlockItemRenamer(builder, schema, "white_dandelion", "seeding_dandelion");
+        wilderBlockItemRenamer(builder, schema, "blooming_dandelion", "seeding_dandelion");
+        wilderBlockRenamer(builder, schema, "potted_white_dandelion", "potted_seeding_dandelion");
+        wilderBlockRenamer(builder, schema, "potted_blooming_dandelion", "potted_seeding_dandelion");
+        wilderBlockItemRenamer(builder, schema, "floating_moss", "algae");
     }
 
     private static void wilderBlockItemRenamer(DataFixerBuilder builder, Schema schema, String startString, String endString) {
