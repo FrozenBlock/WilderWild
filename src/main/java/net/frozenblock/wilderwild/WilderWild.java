@@ -1,6 +1,7 @@
 package net.frozenblock.wilderwild;
 
 import com.chocohead.mm.api.ClassTinkerers;
+import com.mojang.datafixers.DataFixUtils;
 import com.mojang.datafixers.DataFixerBuilder;
 import com.mojang.datafixers.schemas.Schema;
 import com.mojang.serialization.Codec;
@@ -24,6 +25,7 @@ import net.frozenblock.wilderwild.world.gen.WilderWorldGen;
 import net.frozenblock.wilderwild.world.gen.trunk.BaobabTrunkPlacer;
 import net.frozenblock.wilderwild.world.gen.trunk.FallenTrunkWithLogs;
 import net.frozenblock.wilderwild.world.gen.trunk.StraightTrunkWithLogs;
+import net.minecraft.SharedConstants;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.datafixer.Schemas;
@@ -79,14 +81,17 @@ public class WilderWild implements ModInitializer {
     //ClassTinkerers
     public static final SpawnGroup FIREFLIES = ClassTinkerers.getEnum(SpawnGroup.class, "FIREFLIES");
 
-    private static final int DATA_VERSION = 1;
+    private static final int DATA_VERSION = 10000;
+
+    public static final Schema VANILLA_SCHEMA = Schemas.getFixer()
+            .getSchema(DataFixUtils.makeKey(SharedConstants.getGameVersion().getSaveVersion().getId()));
 
     private static final BiFunction<Integer, Schema, Schema> EMPTY_IDENTIFIER_NORMALIZE = IdentifierNormalizingSchema::new;
 
     @Override
     public void onInitialize() {
         DataFixerBuilder builder = new DataFixerBuilder(DATA_VERSION);
-        Schema schema = builder.addSchema(1, EMPTY_IDENTIFIER_NORMALIZE);
+        Schema schema = VANILLA_SCHEMA;
         wilderBlockItemRenamer(builder, schema, "white_dandelion", "seeding_dandelion");
         wilderBlockItemRenamer(builder, schema, "blooming_dandelion", "seeding_dandelion");
         wilderBlockRenamer(builder, schema, "potted_white_dandelion", "potted_seeding_dandelion");
