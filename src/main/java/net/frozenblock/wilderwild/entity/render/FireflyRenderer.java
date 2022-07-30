@@ -87,7 +87,7 @@ public class FireflyRenderer extends EntityRenderer<Firefly> {
         vertexConsumer
                 .vertex(matrix4f, -0.5F, 0.5F, 0.0F)
                 .color(255, 255, 255, 255)
-                .texture(1, 0)
+                .texture(0, 0)
                 .overlay(overlay)
                 .light(light)
                 .normal(matrix3f, 0.0F, 1.0F, 0.0F)
@@ -141,7 +141,7 @@ public class FireflyRenderer extends EntityRenderer<Firefly> {
         vertexConsumer
                 .vertex(matrix4f, -0.5F, 0.5F, 0.0F)
                 .color(color, color, color, color)
-                .texture(1, 0)
+                .texture(0, 0)
                 .overlay(overlay)
                 .light(light)
                 .normal(matrix3f, 0.0F, 1.0F, 0.0F)
