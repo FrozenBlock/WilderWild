@@ -27,29 +27,29 @@ public class FireflyRenderer extends EntityRenderer<Firefly> {
 
     private static final Identifier TEXTURE = WilderWild.id("textures/entity/firefly/firefly_off.png");
     private static final RenderLayer LAYER = RenderLayer.getEntityCutout(TEXTURE);
-    
+
     private static final RenderLayer NECTAR_LAYER = RenderLayer.getEntityCutout(WilderWild.id("textures/entity/firefly/nectar.png"));
     private static final RenderLayer NECTAR_FLAP_LAYER = RenderLayer.getEntityCutout(WilderWild.id("textures/entity/firefly/nectar_wings_down.png"));
-    private static final RenderLayer NECTAR_OVERLAY = RenderLayer.getEntityTranslucentEmissive(WilderWild.id("textures/entity/firefly/nectar_overlay.png"));
+    private static final RenderLayer NECTAR_OVERLAY = RenderLayer.getEntityTranslucentEmissive(WilderWild.id("textures/entity/firefly/nectar_overlay.png"), true);
 
     public static Object2ObjectMap<String, RenderLayer> layers = new Object2ObjectLinkedOpenHashMap<>() {{
-        put("on", RenderLayer.getEntityTranslucentEmissive(WilderWild.id("textures/entity/firefly/firefly_on.png")));
-        put("red", RenderLayer.getEntityTranslucentEmissive(WilderWild.id("textures/entity/firefly/firefly_red.png")));
-        put("orange", RenderLayer.getEntityTranslucentEmissive(WilderWild.id("textures/entity/firefly/firefly_orange.png")));
-        put("yellow", RenderLayer.getEntityTranslucentEmissive(WilderWild.id("textures/entity/firefly/firefly_yellow.png")));
-        put("lime", RenderLayer.getEntityTranslucentEmissive(WilderWild.id("textures/entity/firefly/firefly_lime.png")));
-        put("green", RenderLayer.getEntityTranslucentEmissive(WilderWild.id("textures/entity/firefly/firefly_green.png")));
-        put("cyan", RenderLayer.getEntityTranslucentEmissive(WilderWild.id("textures/entity/firefly/firefly_cyan.png")));
-        put("light_blue", RenderLayer.getEntityTranslucentEmissive(WilderWild.id("textures/entity/firefly/firefly_light_blue.png")));
-        put("blue", RenderLayer.getEntityTranslucentEmissive(WilderWild.id("textures/entity/firefly/firefly_blue.png")));
-        put("pink", RenderLayer.getEntityTranslucentEmissive(WilderWild.id("textures/entity/firefly/firefly_pink.png")));
-        put("magenta", RenderLayer.getEntityTranslucentEmissive(WilderWild.id("textures/entity/firefly/firefly_magenta.png")));
-        put("purple", RenderLayer.getEntityTranslucentEmissive(WilderWild.id("textures/entity/firefly/firefly_purple.png")));
-        put("black", RenderLayer.getEntityTranslucentEmissive(WilderWild.id("textures/entity/firefly/firefly_black.png")));
-        put("gray", RenderLayer.getEntityTranslucentEmissive(WilderWild.id("textures/entity/firefly/firefly_gray.png")));
-        put("light_gray", RenderLayer.getEntityTranslucentEmissive(WilderWild.id("textures/entity/firefly/firefly_light_gray.png")));
-        put("white", RenderLayer.getEntityTranslucentEmissive(WilderWild.id("textures/entity/firefly/firefly_white.png")));
-        put("brown", RenderLayer.getEntityTranslucentEmissive(WilderWild.id("textures/entity/firefly/firefly_brown.png")));
+        put("on", RenderLayer.getEntityTranslucentEmissive(WilderWild.id("textures/entity/firefly/firefly_on.png"), true));
+        put("red", RenderLayer.getEntityTranslucentEmissive(WilderWild.id("textures/entity/firefly/firefly_red.png"), true));
+        put("orange", RenderLayer.getEntityTranslucentEmissive(WilderWild.id("textures/entity/firefly/firefly_orange.png"), true));
+        put("yellow", RenderLayer.getEntityTranslucentEmissive(WilderWild.id("textures/entity/firefly/firefly_yellow.png"), true));
+        put("lime", RenderLayer.getEntityTranslucentEmissive(WilderWild.id("textures/entity/firefly/firefly_lime.png"), true));
+        put("green", RenderLayer.getEntityTranslucentEmissive(WilderWild.id("textures/entity/firefly/firefly_green.png"), true));
+        put("cyan", RenderLayer.getEntityTranslucentEmissive(WilderWild.id("textures/entity/firefly/firefly_cyan.png"), true));
+        put("light_blue", RenderLayer.getEntityTranslucentEmissive(WilderWild.id("textures/entity/firefly/firefly_light_blue.png"), true));
+        put("blue", RenderLayer.getEntityTranslucentEmissive(WilderWild.id("textures/entity/firefly/firefly_blue.png"), true));
+        put("pink", RenderLayer.getEntityTranslucentEmissive(WilderWild.id("textures/entity/firefly/firefly_pink.png"), true));
+        put("magenta", RenderLayer.getEntityTranslucentEmissive(WilderWild.id("textures/entity/firefly/firefly_magenta.png"), true));
+        put("purple", RenderLayer.getEntityTranslucentEmissive(WilderWild.id("textures/entity/firefly/firefly_purple.png"), true));
+        put("black", RenderLayer.getEntityTranslucentEmissive(WilderWild.id("textures/entity/firefly/firefly_black.png"), true));
+        put("gray", RenderLayer.getEntityTranslucentEmissive(WilderWild.id("textures/entity/firefly/firefly_gray.png"), true));
+        put("light_gray", RenderLayer.getEntityTranslucentEmissive(WilderWild.id("textures/entity/firefly/firefly_light_gray.png"), true));
+        put("white", RenderLayer.getEntityTranslucentEmissive(WilderWild.id("textures/entity/firefly/firefly_white.png"), true));
+        put("brown", RenderLayer.getEntityTranslucentEmissive(WilderWild.id("textures/entity/firefly/firefly_brown.png"), true));
     }};
 
     private static final double yOffset = 0.155F;
