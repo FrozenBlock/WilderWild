@@ -12,6 +12,7 @@ import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.Matrix3f;
 import net.minecraft.util.math.Matrix4f;
+import net.minecraft.util.math.Quaternion;
 import net.minecraft.util.math.Vec3f;
 
 public class FireflyRenderer extends EntityRenderer<Firefly> {
@@ -31,6 +32,7 @@ public class FireflyRenderer extends EntityRenderer<Firefly> {
     private static final RenderLayer NECTAR_FLAP_LAYER = RenderLayer.getEntityCutout(NECTAR_FLAP);
 
     private static final double yOffset = 0.155F;
+    private static final Quaternion one80Quat = Vec3f.POSITIVE_Y.getDegreesQuaternion(180.0F);
 
     @Override
     public void render(Firefly entity, float yaw, float tickDelta, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light) {
@@ -44,11 +46,12 @@ public class FireflyRenderer extends EntityRenderer<Firefly> {
         int age = entity.getFlickerAge();
         boolean flickers = entity.flickers();
         float scale = entity.getScale() == 1.5F ? 1.5F : entity.getScale() - (tickDelta * 0.001875F); //0.0375
+        Quaternion rotation = this.dispatcher.getRotation();
         matrices.push();
         matrices.scale(scale, scale, scale);
         matrices.translate(0, yOffset, 0);
-        matrices.multiply(this.dispatcher.getRotation());
-        matrices.multiply(Vec3f.POSITIVE_Y.getDegreesQuaternion(180.0F));
+        matrices.multiply(rotation);
+        matrices.multiply(one80Quat);
 
         MatrixStack.Entry entry = matrices.peek();
         Matrix4f matrix4f = entry.getPositionMatrix();
@@ -68,8 +71,8 @@ public class FireflyRenderer extends EntityRenderer<Firefly> {
         matrices.push();
         matrices.scale(scale, scale, scale);
         matrices.translate(0, yOffset, 0);
-        matrices.multiply(this.dispatcher.getRotation());
-        matrices.multiply(Vec3f.POSITIVE_Y.getDegreesQuaternion(180.0F));
+        matrices.multiply(rotation);
+        matrices.multiply(one80Quat);
 
         entry = matrices.peek();
         matrix4f = entry.getPositionMatrix();
