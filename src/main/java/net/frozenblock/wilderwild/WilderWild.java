@@ -1,6 +1,10 @@
 package net.frozenblock.wilderwild;
 
 import com.chocohead.mm.api.ClassTinkerers;
+import com.google.common.base.Preconditions;
+import com.mojang.datafixers.DataFixUtils;
+import com.mojang.datafixers.DataFixerBuilder;
+import com.mojang.datafixers.schemas.Schema;
 import com.mojang.serialization.Codec;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.loader.api.FabricLoader;
@@ -22,8 +26,12 @@ import net.frozenblock.wilderwild.world.gen.WilderWorldGen;
 import net.frozenblock.wilderwild.world.gen.trunk.BaobabTrunkPlacer;
 import net.frozenblock.wilderwild.world.gen.trunk.FallenTrunkWithLogs;
 import net.frozenblock.wilderwild.world.gen.trunk.StraightTrunkWithLogs;
+import net.minecraft.SharedConstants;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
+import net.minecraft.datafixer.Schemas;
+import net.minecraft.datafixer.fix.BlockNameFix;
+import net.minecraft.datafixer.fix.ItemNameFix;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.SpawnGroup;
 import net.minecraft.item.Instrument;
@@ -36,6 +44,7 @@ import net.minecraft.world.gen.ProbabilityConfig;
 import net.minecraft.world.gen.feature.Feature;
 import net.minecraft.world.gen.trunk.TrunkPlacer;
 import net.minecraft.world.gen.trunk.TrunkPlacerType;
+import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -44,8 +53,6 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
-import java.time.Duration;
-import java.time.Instant;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
@@ -72,9 +79,13 @@ public class WilderWild implements ModInitializer {
     //ClassTinkerers
     public static final SpawnGroup FIREFLIES = ClassTinkerers.getEnum(SpawnGroup.class, "FIREFLIES");
 
+    private static final int DATA_VERSION = 3105;
+
     @Override
     public void onInitialize() {
         startMeasuring(this);
+        applyDataFixes();
+
         RegisterBlocks.registerBlocks();
         RegisterBlocks.addBaobab();
         RegisterItems.registerItems();
@@ -167,6 +178,7 @@ public class WilderWild implements ModInitializer {
     public static Identifier id(String path) {
         return new Identifier(MOD_ID, path);
     }
+
     public static String string(String path) {
         return id(path).toString();
     }
@@ -247,5 +259,37 @@ public class WilderWild implements ModInitializer {
             LOGGER.error("{} took {} nanoseconds", name.substring(name.lastIndexOf(".") + 1), System.nanoTime() - instantMap.get(object));
             instantMap.remove(object);
         }
+    }
+
+    private static void applyDataFixes() {
+        DataFixerBuilder builder = new DataFixerBuilder(SharedConstants.getGameVersion().getWorldVersion());
+        Schema schema = Schemas.getFixer().getSchema(3117);
+        wilderBlockItemRenamer(builder, schema, "white_dandelion", "seeding_dandelion");
+        wilderBlockItemRenamer(builder, schema, "blooming_dandelion", "seeding_dandelion");
+        wilderBlockRenamer(builder, schema, "potted_white_dandelion", "potted_seeding_dandelion");
+        wilderBlockRenamer(builder, schema, "potted_blooming_dandelion", "potted_seeding_dandelion");
+        wilderBlockItemRenamer(builder, schema, "floating_moss", "algae");
+        //wilderBlockItemRenamer(builder, schema, "test_2", "test_1");
+    }
+
+    private static void wilderBlockItemRenamer(@NotNull DataFixerBuilder builder, @NotNull Schema schema, @NotNull String startString, @NotNull String endString) {
+        wilderBlockRenamer(builder, schema, startString, endString);
+        wilderItemRenamer(builder, schema, startString, endString);
+    }
+
+    private static void wilderBlockRenamer(@NotNull DataFixerBuilder builder, @NotNull Schema schema, @NotNull String startString, @NotNull String endString) {
+        Preconditions.checkNotNull(builder, "builder can't be null");
+        Preconditions.checkNotNull(schema, "schema can't be null");
+        Preconditions.checkNotNull(startString, "starting block can't be null");
+        Preconditions.checkNotNull(endString, "ending block can't be null");
+        builder.addFixer(BlockNameFix.create(schema, startString + " block renamer", Schemas.replacing(WilderWild.string(startString), WilderWild.string(endString))));
+    }
+
+    private static void wilderItemRenamer(@NotNull DataFixerBuilder builder, @NotNull Schema schema, @NotNull String startString, @NotNull String endString) {
+        Preconditions.checkNotNull(builder, "builder can't be null");
+        Preconditions.checkNotNull(schema, "schema can't be null");
+        Preconditions.checkNotNull(startString, "starting item can't be null");
+        Preconditions.checkNotNull(endString, "ending item can't be null");
+        builder.addFixer(ItemNameFix.create(schema, startString + " item renamer", Schemas.replacing(WilderWild.string(startString), WilderWild.string(endString))));
     }
 }

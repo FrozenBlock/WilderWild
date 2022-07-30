@@ -5,7 +5,6 @@ import net.fabricmc.api.Environment;
 import net.frozenblock.wilderwild.WilderWild;
 import net.minecraft.client.render.entity.DolphinEntityRenderer;
 import net.minecraft.entity.passive.DolphinEntity;
-import net.minecraft.entity.passive.GoatEntity;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.Identifier;
 import org.spongepowered.asm.mixin.Mixin;
