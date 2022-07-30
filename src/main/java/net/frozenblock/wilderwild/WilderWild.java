@@ -79,7 +79,9 @@ public class WilderWild implements ModInitializer {
     //ClassTinkerers
     public static final SpawnGroup FIREFLIES = ClassTinkerers.getEnum(SpawnGroup.class, "FIREFLIES");
 
-    private static final int DATA_VERSION = 3105;
+    public static Random random() {
+        return Random.create();
+    }
 
     @Override
     public void onInitialize() {
@@ -135,6 +137,41 @@ public class WilderWild implements ModInitializer {
         stopMeasuring(this);
     }
 
+    //DataFixer
+    //TODO: WORK
+    private static void applyDataFixes() {
+        DataFixerBuilder builder = new DataFixerBuilder(SharedConstants.getGameVersion().getWorldVersion());
+        Schema schema = Schemas.getFixer().getSchema(3117);
+        wilderBlockItemRenamer(builder, schema, "white_dandelion", "seeding_dandelion");
+        wilderBlockItemRenamer(builder, schema, "blooming_dandelion", "seeding_dandelion");
+        wilderBlockRenamer(builder, schema, "potted_white_dandelion", "potted_seeding_dandelion");
+        wilderBlockRenamer(builder, schema, "potted_blooming_dandelion", "potted_seeding_dandelion");
+        wilderBlockItemRenamer(builder, schema, "floating_moss", "algae");
+        //wilderBlockItemRenamer(builder, schema, "test_2", "test_1");
+    }
+
+    private static void wilderBlockItemRenamer(@NotNull DataFixerBuilder builder, @NotNull Schema schema, @NotNull String startString, @NotNull String endString) {
+        wilderBlockRenamer(builder, schema, startString, endString);
+        wilderItemRenamer(builder, schema, startString, endString);
+    }
+
+    private static void wilderBlockRenamer(@NotNull DataFixerBuilder builder, @NotNull Schema schema, @NotNull String startString, @NotNull String endString) {
+        Preconditions.checkNotNull(builder, "builder can't be null");
+        Preconditions.checkNotNull(schema, "schema can't be null");
+        Preconditions.checkNotNull(startString, "starting block can't be null");
+        Preconditions.checkNotNull(endString, "ending block can't be null");
+        builder.addFixer(BlockNameFix.create(schema, startString + " block renamer", Schemas.replacing(WilderWild.string(startString), WilderWild.string(endString))));
+    }
+
+    private static void wilderItemRenamer(@NotNull DataFixerBuilder builder, @NotNull Schema schema, @NotNull String startString, @NotNull String endString) {
+        Preconditions.checkNotNull(builder, "builder can't be null");
+        Preconditions.checkNotNull(schema, "schema can't be null");
+        Preconditions.checkNotNull(startString, "starting item can't be null");
+        Preconditions.checkNotNull(endString, "ending item can't be null");
+        builder.addFixer(ItemNameFix.create(schema, startString + " item renamer", Schemas.replacing(WilderWild.string(startString), WilderWild.string(endString))));
+    }
+
+    //MOD COMPATIBILITY
     public static void terralith() throws IOException {
         Path destPath = Paths.get(FabricLoader.getInstance().getGameDir().toString(), "mods", "z_wilderwild_terralith_compat.jar");
         Optional<ModContainer> wilderwildOptional = FabricLoader.getInstance().getModContainer("wilderwild");
@@ -171,30 +208,7 @@ public class WilderWild implements ModInitializer {
         return false;
     }
 
-    public static Random random() {
-        return Random.create();
-    }
-
-    public static Identifier id(String path) {
-        return new Identifier(MOD_ID, path);
-    }
-
-    public static String string(String path) {
-        return id(path).toString();
-    }
-
-    public static final Identifier SEED_PACKET = id("seed_particle_packet");
-    public static final Identifier CONTROLLED_SEED_PACKET = id("controlled_seed_particle_packet");
-    public static final Identifier FLOATING_SCULK_BUBBLE_PACKET = id("floating_sculk_bubble_easy_packet");
-    public static final Identifier TERMITE_PARTICLE_PACKET = id("termite_particle_packet");
-    public static final Identifier HORN_PROJECTILE_PACKET_ID = id("ancient_horn_projectile_packet");
-    public static final Identifier SENSOR_HICCUP_PACKET = id("sensor_hiccup_packet");
-
-    public static final Identifier CAPTURE_FIREFLY_NOTIFY_PACKET = id("capture_firefly_notify_packet");
-    public static final Identifier ANCIENT_HORN_KILL_NOTIFY_PACKET = id("ancient_horn_kill_notify_packet");
-    public static final Identifier FLYBY_SOUND_PACKET = id("flyby_sound_packet");
-    public static final Identifier MOVING_LOOPING_SOUND_PACKET = id("moving_looping_sound_packet");
-
+    //LOGGING
     public static void log(String string, boolean shouldLog) {
         if (shouldLog) {
             LOGGER.info(string);
@@ -244,6 +258,7 @@ public class WilderWild implements ModInitializer {
         return Registry.register(Registry.TRUNK_PLACER_TYPE, id(id), new TrunkPlacerType<>(codec));
     }
 
+    //MEASURING
     public static Map<Object, Long> instantMap = new HashMap<>();
 
     public static void startMeasuring(Object object) {
@@ -261,35 +276,24 @@ public class WilderWild implements ModInitializer {
         }
     }
 
-    private static void applyDataFixes() {
-        DataFixerBuilder builder = new DataFixerBuilder(SharedConstants.getGameVersion().getWorldVersion());
-        Schema schema = Schemas.getFixer().getSchema(3117);
-        wilderBlockItemRenamer(builder, schema, "white_dandelion", "seeding_dandelion");
-        wilderBlockItemRenamer(builder, schema, "blooming_dandelion", "seeding_dandelion");
-        wilderBlockRenamer(builder, schema, "potted_white_dandelion", "potted_seeding_dandelion");
-        wilderBlockRenamer(builder, schema, "potted_blooming_dandelion", "potted_seeding_dandelion");
-        wilderBlockItemRenamer(builder, schema, "floating_moss", "algae");
-        //wilderBlockItemRenamer(builder, schema, "test_2", "test_1");
+    //IDENTIFIERS
+    public static final Identifier SEED_PACKET = id("seed_particle_packet");
+    public static final Identifier CONTROLLED_SEED_PACKET = id("controlled_seed_particle_packet");
+    public static final Identifier FLOATING_SCULK_BUBBLE_PACKET = id("floating_sculk_bubble_easy_packet");
+    public static final Identifier TERMITE_PARTICLE_PACKET = id("termite_particle_packet");
+    public static final Identifier HORN_PROJECTILE_PACKET_ID = id("ancient_horn_projectile_packet");
+    public static final Identifier SENSOR_HICCUP_PACKET = id("sensor_hiccup_packet");
+
+    public static final Identifier CAPTURE_FIREFLY_NOTIFY_PACKET = id("capture_firefly_notify_packet");
+    public static final Identifier ANCIENT_HORN_KILL_NOTIFY_PACKET = id("ancient_horn_kill_notify_packet");
+    public static final Identifier FLYBY_SOUND_PACKET = id("flyby_sound_packet");
+    public static final Identifier MOVING_LOOPING_SOUND_PACKET = id("moving_looping_sound_packet");
+
+    public static Identifier id(String path) {
+        return new Identifier(MOD_ID, path);
     }
 
-    private static void wilderBlockItemRenamer(@NotNull DataFixerBuilder builder, @NotNull Schema schema, @NotNull String startString, @NotNull String endString) {
-        wilderBlockRenamer(builder, schema, startString, endString);
-        wilderItemRenamer(builder, schema, startString, endString);
-    }
-
-    private static void wilderBlockRenamer(@NotNull DataFixerBuilder builder, @NotNull Schema schema, @NotNull String startString, @NotNull String endString) {
-        Preconditions.checkNotNull(builder, "builder can't be null");
-        Preconditions.checkNotNull(schema, "schema can't be null");
-        Preconditions.checkNotNull(startString, "starting block can't be null");
-        Preconditions.checkNotNull(endString, "ending block can't be null");
-        builder.addFixer(BlockNameFix.create(schema, startString + " block renamer", Schemas.replacing(WilderWild.string(startString), WilderWild.string(endString))));
-    }
-
-    private static void wilderItemRenamer(@NotNull DataFixerBuilder builder, @NotNull Schema schema, @NotNull String startString, @NotNull String endString) {
-        Preconditions.checkNotNull(builder, "builder can't be null");
-        Preconditions.checkNotNull(schema, "schema can't be null");
-        Preconditions.checkNotNull(startString, "starting item can't be null");
-        Preconditions.checkNotNull(endString, "ending item can't be null");
-        builder.addFixer(ItemNameFix.create(schema, startString + " item renamer", Schemas.replacing(WilderWild.string(startString), WilderWild.string(endString))));
+    public static String string(String path) {
+        return id(path).toString();
     }
 }
