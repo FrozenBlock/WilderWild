@@ -12,6 +12,7 @@ import net.fabricmc.loader.api.ModContainer;
 import net.frozenblock.wilderwild.block.entity.TermiteMoundBlockEntity;
 import net.frozenblock.wilderwild.entity.Firefly;
 import net.frozenblock.wilderwild.misc.BlockSoundGroupOverwrites;
+import net.frozenblock.wilderwild.misc.WildDataFixerBuilder;
 import net.frozenblock.wilderwild.misc.simple_pipe_compatability.RegisterSaveableMoveablePipeNbt;
 import net.frozenblock.wilderwild.registry.*;
 import net.frozenblock.wilderwild.world.feature.WilderConfiguredFeatures;
@@ -44,6 +45,7 @@ import net.minecraft.world.gen.ProbabilityConfig;
 import net.minecraft.world.gen.feature.Feature;
 import net.minecraft.world.gen.trunk.TrunkPlacer;
 import net.minecraft.world.gen.trunk.TrunkPlacerType;
+import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -56,6 +58,7 @@ import java.nio.file.StandardCopyOption;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
+import java.util.function.BiFunction;
 
 public class WilderWild implements ModInitializer {
     public static final String MOD_ID = "wilderwild";
@@ -137,11 +140,27 @@ public class WilderWild implements ModInitializer {
         stopMeasuring(this);
     }
 
+    private static final int DATA_VERSION = 1;
+
+    public static final Schema VANILLA_SCHEMA = Schemas.getFixer()
+            .getSchema(DataFixUtils.makeKey(SharedConstants.getGameVersion().getSaveVersion().getId()));
+
+    @Contract(value = "-> new", pure = true)
+    public static @NotNull Schema createBaseSchema() {
+        return new Schema(0, VANILLA_SCHEMA);
+    }
+
+    public static final BiFunction<Integer, Schema, Schema> BASE_SCHEMA = (version, parent) -> {
+        Preconditions.checkArgument(version == 0, "version must be 0");
+        Preconditions.checkArgument(parent == null, "parent must be null");
+        return createBaseSchema();
+    };
+
     //DataFixer
     //TODO: WORK
     private static void applyDataFixes() {
-        DataFixerBuilder builder = new DataFixerBuilder(SharedConstants.getGameVersion().getWorldVersion());
-        Schema schema = Schemas.getFixer().getSchema(3117);
+        WildDataFixerBuilder builder = new WildDataFixerBuilder(DATA_VERSION);
+        Schema schema = builder.addSchema(0, BASE_SCHEMA);
         wilderBlockItemRenamer(builder, schema, "white_dandelion", "seeding_dandelion");
         wilderBlockItemRenamer(builder, schema, "blooming_dandelion", "seeding_dandelion");
         wilderBlockRenamer(builder, schema, "potted_white_dandelion", "potted_seeding_dandelion");
