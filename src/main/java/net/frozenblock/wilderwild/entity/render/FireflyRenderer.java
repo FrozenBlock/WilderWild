@@ -84,10 +84,12 @@ public class FireflyRenderer extends EntityRenderer<Firefly> {
             vertexConsumer = vertexConsumers.getBuffer(RenderLayer.getEntityTranslucentEmissive(WilderWild.id("textures/entity/firefly/nectar_overlay.png")));
         }
 
-        vertexPulsate(vertexConsumer, matrix4f, matrix3f, light, 0.0F, 0, 0, 1, age, flickers, tickDelta, overlay);
-        vertexPulsate(vertexConsumer, matrix4f, matrix3f, light, 1.0F, 0, 1, 1, age, flickers, tickDelta, overlay);
-        vertexPulsate(vertexConsumer, matrix4f, matrix3f, light, 1.0F, 1, 1, 0, age, flickers, tickDelta, overlay);
-        vertexPulsate(vertexConsumer, matrix4f, matrix3f, light, 0.0F, 1, 0, 0, age, flickers, tickDelta, overlay);
+        int color = flickers ? (int) ((255 * (Math.cos(((age + tickDelta) * pi) / 40))) + 127.5) : (int) Math.max((255 * (Math.cos(((age + tickDelta) * pi) / 20))), 0);
+
+        vertexPulsate(vertexConsumer, matrix4f, matrix3f, light, 0.0F, 0, 0, 1, color, overlay);
+        vertexPulsate(vertexConsumer, matrix4f, matrix3f, light, 1.0F, 0, 1, 1, color, overlay);
+        vertexPulsate(vertexConsumer, matrix4f, matrix3f, light, 1.0F, 1, 1, 0, color, overlay);
+        vertexPulsate(vertexConsumer, matrix4f, matrix3f, light, 0.0F, 1, 0, 0, color, overlay);
 
         matrices.pop();
         super.render(entity, yaw, tickDelta, matrices, vertexConsumers, light);
@@ -97,6 +99,8 @@ public class FireflyRenderer extends EntityRenderer<Firefly> {
     public Identifier getTexture(Firefly entity) {
         return TEXTURE;
     }
+
+    private static final float pi = (float)Math.PI;
 
     private static void vertex(VertexConsumer vertexConsumer, Matrix4f matrix4f, Matrix3f matrix3f, int light, float f, int j, int k, int l, int overlay) {
         vertexConsumer
@@ -109,8 +113,7 @@ public class FireflyRenderer extends EntityRenderer<Firefly> {
                 .next();
     }
 
-    private static void vertexPulsate(VertexConsumer vertexConsumer, Matrix4f matrix4f, Matrix3f matrix3f, int light, float f, int j, int k, int l, int age, boolean flickers, float tickDelta, int overlay) {
-        int colors = !flickers ? (int) ((int) Math.max((255 * (Math.cos(((age + tickDelta) * Math.PI) / 20))), 0)) : (int) ((int) (255 * (Math.cos(((age + tickDelta) * Math.PI) / 40))) + 127.5);
+    private static void vertexPulsate(VertexConsumer vertexConsumer, Matrix4f matrix4f, Matrix3f matrix3f, int light, float f, int j, int k, int l, int colors, int overlay) {
         vertexConsumer
                 .vertex(matrix4f, f - 0.5F, j - 0.5F, 0.0F)
                 .color(colors, colors, colors, colors)
