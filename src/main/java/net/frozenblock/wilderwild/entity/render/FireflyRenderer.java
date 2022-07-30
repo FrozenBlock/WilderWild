@@ -44,15 +44,15 @@ public class FireflyRenderer extends EntityRenderer<Firefly> {
 
         int age = entity.getFlickerAge();
         boolean flickers = entity.flickers();
-        float scale = entity.getScale() == 1.5F ? 1.5F : entity.getScale() - (tickDelta * 0.001875F);
-
-        Quaternion rotation = this.dispatcher.getRotation();
+        float preScale = entity.getScale();
+        float scale = preScale == 1.5F ? 1.5F : preScale - (tickDelta * 0.001875F);
+        
         int overlay = getOverlay(entity, 0);
 
         matrices.push();
         matrices.scale(scale, scale, scale);
         matrices.translate(0, yOffset, 0);
-        matrices.multiply(rotation);
+        matrices.multiply(this.dispatcher.getRotation());
         matrices.multiply(one80Quat);
 
         MatrixStack.Entry entry = matrices.peek();
@@ -92,19 +92,6 @@ public class FireflyRenderer extends EntityRenderer<Firefly> {
                 .light(light)
                 .normal(matrix3f, 0.0F, 1.0F, 0.0F)
                 .next();
-
-        matrices.pop();
-
-        //OVERLAY
-        matrices.push();
-        matrices.scale(scale, scale, scale);
-        matrices.translate(0, yOffset, 0);
-        matrices.multiply(rotation);
-        matrices.multiply(one80Quat);
-
-        entry = matrices.peek();
-        matrix4f = entry.getPositionMatrix();
-        matrix3f = entry.getNormalMatrix();
 
         if (!nectar) {
             vertexConsumer = vertexConsumers.getBuffer(RenderLayer.getEntityTranslucentEmissive(WilderWild.id("textures/entity/firefly/firefly_" + entity.getColor() + ".png")));
