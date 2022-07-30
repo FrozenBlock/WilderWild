@@ -34,6 +34,9 @@ repositories {
 	maven {
 		url = 'https://maven.terraformersmc.com'
 	}
+	maven {
+		url = 'https://maven.shedaniel.me/'
+	}
 }
 
 dependencies {
@@ -57,6 +60,7 @@ dependencies {
 
 	// Mod Menu
 	modImplementation "com.terraformersmc:modmenu:${modmenu_version}"
+	modImplementation("me.shedaniel.cloth:cloth-config:${project.cloth_config_version}")
 
 	// only affects runClient, does not affect gradlew build. add -PuseThirdPartyMods=false to not use these
 	if (findProperty("useThirdPartyMods") != "false") {

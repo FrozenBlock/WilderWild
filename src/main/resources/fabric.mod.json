@@ -29,7 +29,7 @@
       "net.frozenblock.wilderwild.EarlyRiser"
     ],
     "modmenu": [
-      "net.frozenblock.wilderwild.misc.ModMenuIntegration"
+      "net.frozenblock.wilderwild.misc.config.ModMenuIntegration"
     ]
   },
   "mixins": [
