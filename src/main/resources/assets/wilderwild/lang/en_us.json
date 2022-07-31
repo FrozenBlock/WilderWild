@@ -124,5 +124,27 @@
 	"subtitles.item.bottle.catch_firefly": "Bottle fills with Firefly",
 	"subtitles.item.bottle.release_firefly": "Firefly released from Bottle",
 	"wilderwild.ancient_horn.advancement.use": "Whirs of the Ancient",
-	"wilderwild.ancient_horn.advancement.use.description": "Find and use an Ancient Horn."
+	"wilderwild.ancient_horn.advancement.use.description": "Find and use an Ancient Horn.",
+
+	"option.modmenu.modify_desert_placement": "Desert Placement",
+	"option.modmenu.modify_badlands_placement": "Badlands Placement",
+	"option.modmenu.modify_windswept_savanna_placement": "Windswept Savanna Placement",
+	"option.modmenu.modify_jungle_placement": "Jungle Placement",
+	"option.modmenu.modify_swamp_placement": "Swamp Placement",
+	"option.modmenu.modify_mangrove_swamp_placement": "Mangrove Swamp Placement",
+	"option.modmenu.mc_live_sensor_tendrils": "Sculk Sensor Type",
+	"option.modmenu.modify_desert_placement.true": "New",
+	"option.modmenu.modify_desert_placement.false": "Vanilla",
+	"option.modmenu.modify_badlands_placement.true": "New",
+	"option.modmenu.modify_badlands_placement.false": "Vanilla",
+	"option.modmenu.modify_windswept_savanna_placement.true": "New",
+	"option.modmenu.modify_windswept_savanna_placement.false": "Vanilla",
+	"option.modmenu.modify_jungle_placement.true": "New",
+	"option.modmenu.modify_jungle_placement.false": "Vanilla",
+	"option.modmenu.modify_swamp_placement.true": "New",
+	"option.modmenu.modify_swamp_placement.false": "Vanilla",
+	"option.modmenu.modify_mangrove_swamp_placement.true": "New",
+	"option.modmenu.modify_mangrove_swamp_placement.false": "Vanilla",
+	"option.modmenu.mc_live_sensor_tendrils.true": "Minecraft Live 2020",
+	"option.modmenu.mc_live_sensor_tendrils.false": "Vanilla"
 }

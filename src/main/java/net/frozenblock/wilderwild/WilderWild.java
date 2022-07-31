@@ -1,6 +1,10 @@
 package net.frozenblock.wilderwild;
 
 import com.chocohead.mm.api.ClassTinkerers;
+import com.google.common.base.Preconditions;
+import com.mojang.datafixers.DataFixUtils;
+import com.mojang.datafixers.DataFixerBuilder;
+import com.mojang.datafixers.schemas.Schema;
 import com.mojang.serialization.Codec;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.loader.api.FabricLoader;
@@ -9,6 +13,7 @@ import net.frozenblock.wilderwild.block.entity.TermiteMoundBlockEntity;
 import net.frozenblock.wilderwild.entity.Firefly;
 import net.frozenblock.wilderwild.misc.BlockSoundGroupOverwrites;
 import net.frozenblock.wilderwild.misc.TendrilConfig.SensorConfig;
+import net.frozenblock.wilderwild.misc.WildDataFixerBuilder;
 import net.frozenblock.wilderwild.misc.simple_pipe_compatability.RegisterSaveableMoveablePipeNbt;
 import net.frozenblock.wilderwild.registry.*;
 import net.frozenblock.wilderwild.world.feature.WilderConfiguredFeatures;
@@ -23,8 +28,12 @@ import net.frozenblock.wilderwild.world.gen.WilderWorldGen;
 import net.frozenblock.wilderwild.world.gen.trunk.BaobabTrunkPlacer;
 import net.frozenblock.wilderwild.world.gen.trunk.FallenTrunkWithLogs;
 import net.frozenblock.wilderwild.world.gen.trunk.StraightTrunkWithLogs;
+import net.minecraft.SharedConstants;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
+import net.minecraft.datafixer.Schemas;
+import net.minecraft.datafixer.fix.BlockNameFix;
+import net.minecraft.datafixer.fix.ItemNameFix;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.SpawnGroup;
 import net.minecraft.item.Instrument;
@@ -37,6 +46,8 @@ import net.minecraft.world.gen.ProbabilityConfig;
 import net.minecraft.world.gen.feature.Feature;
 import net.minecraft.world.gen.trunk.TrunkPlacer;
 import net.minecraft.world.gen.trunk.TrunkPlacerType;
+import org.jetbrains.annotations.Contract;
+import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -45,11 +56,10 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
-import java.time.Duration;
-import java.time.Instant;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
+import java.util.function.BiFunction;
 
 public class WilderWild implements ModInitializer {
     public static final String MOD_ID = "wilderwild";
@@ -74,9 +84,15 @@ public class WilderWild implements ModInitializer {
     //ClassTinkerers
     public static final SpawnGroup FIREFLIES = ClassTinkerers.getEnum(SpawnGroup.class, "FIREFLIES");
 
+    public static Random random() {
+        return Random.create();
+    }
+
     @Override
     public void onInitialize() {
         startMeasuring(this);
+        applyDataFixes();
+
         RegisterBlocks.registerBlocks();
         RegisterBlocks.addBaobab();
         RegisterItems.registerItems();
@@ -131,6 +147,57 @@ public class WilderWild implements ModInitializer {
         stopMeasuring(this);
     }
 
+    private static final int DATA_VERSION = 1;
+
+    public static final Schema VANILLA_SCHEMA = Schemas.getFixer()
+            .getSchema(DataFixUtils.makeKey(SharedConstants.getGameVersion().getSaveVersion().getId()));
+
+    @Contract(value = "-> new", pure = true)
+    public static @NotNull Schema createBaseSchema() {
+        return new Schema(0, VANILLA_SCHEMA);
+    }
+
+    public static final BiFunction<Integer, Schema, Schema> BASE_SCHEMA = (version, parent) -> {
+        Preconditions.checkArgument(version == 0, "version must be 0");
+        Preconditions.checkArgument(parent == null, "parent must be null");
+        return createBaseSchema();
+    };
+
+    //DataFixer
+    //TODO: WORK
+    private static void applyDataFixes() {
+        WildDataFixerBuilder builder = new WildDataFixerBuilder(DATA_VERSION);
+        Schema schema = builder.addSchema(0, BASE_SCHEMA);
+        wilderBlockItemRenamer(builder, schema, "white_dandelion", "seeding_dandelion");
+        wilderBlockItemRenamer(builder, schema, "blooming_dandelion", "seeding_dandelion");
+        wilderBlockRenamer(builder, schema, "potted_white_dandelion", "potted_seeding_dandelion");
+        wilderBlockRenamer(builder, schema, "potted_blooming_dandelion", "potted_seeding_dandelion");
+        wilderBlockItemRenamer(builder, schema, "floating_moss", "algae");
+        //wilderBlockItemRenamer(builder, schema, "test_2", "test_1");
+    }
+
+    private static void wilderBlockItemRenamer(@NotNull DataFixerBuilder builder, @NotNull Schema schema, @NotNull String startString, @NotNull String endString) {
+        wilderBlockRenamer(builder, schema, startString, endString);
+        wilderItemRenamer(builder, schema, startString, endString);
+    }
+
+    private static void wilderBlockRenamer(@NotNull DataFixerBuilder builder, @NotNull Schema schema, @NotNull String startString, @NotNull String endString) {
+        Preconditions.checkNotNull(builder, "builder can't be null");
+        Preconditions.checkNotNull(schema, "schema can't be null");
+        Preconditions.checkNotNull(startString, "starting block can't be null");
+        Preconditions.checkNotNull(endString, "ending block can't be null");
+        builder.addFixer(BlockNameFix.create(schema, startString + " block renamer", Schemas.replacing(WilderWild.string(startString), WilderWild.string(endString))));
+    }
+
+    private static void wilderItemRenamer(@NotNull DataFixerBuilder builder, @NotNull Schema schema, @NotNull String startString, @NotNull String endString) {
+        Preconditions.checkNotNull(builder, "builder can't be null");
+        Preconditions.checkNotNull(schema, "schema can't be null");
+        Preconditions.checkNotNull(startString, "starting item can't be null");
+        Preconditions.checkNotNull(endString, "ending item can't be null");
+        builder.addFixer(ItemNameFix.create(schema, startString + " item renamer", Schemas.replacing(WilderWild.string(startString), WilderWild.string(endString))));
+    }
+
+    //MOD COMPATIBILITY
     public static void terralith() throws IOException {
         Path destPath = Paths.get(FabricLoader.getInstance().getGameDir().toString(), "mods", "z_wilderwild_terralith_compat.jar");
         Optional<ModContainer> wilderwildOptional = FabricLoader.getInstance().getModContainer("wilderwild");
@@ -159,6 +226,10 @@ public class WilderWild implements ModInitializer {
         return FabricLoader.getInstance().getModContainer("copper_pipe").isPresent();
     }
 
+    public static boolean hasModMenu() {
+        return FabricLoader.getInstance().getModContainer("modmenu").isPresent();
+    }
+
     public static boolean isCopperPipe(BlockState state) {
         if (hasSimpleCopperPipes()) {
             Identifier id = Registry.BLOCK.getId(state.getBlock());
@@ -167,29 +238,7 @@ public class WilderWild implements ModInitializer {
         return false;
     }
 
-    public static Random random() {
-        return Random.create();
-    }
-
-    public static Identifier id(String path) {
-        return new Identifier(MOD_ID, path);
-    }
-    public static String string(String path) {
-        return id(path).toString();
-    }
-
-    public static final Identifier SEED_PACKET = id("seed_particle_packet");
-    public static final Identifier CONTROLLED_SEED_PACKET = id("controlled_seed_particle_packet");
-    public static final Identifier FLOATING_SCULK_BUBBLE_PACKET = id("floating_sculk_bubble_easy_packet");
-    public static final Identifier TERMITE_PARTICLE_PACKET = id("termite_particle_packet");
-    public static final Identifier HORN_PROJECTILE_PACKET_ID = id("ancient_horn_projectile_packet");
-    public static final Identifier SENSOR_HICCUP_PACKET = id("sensor_hiccup_packet");
-
-    public static final Identifier CAPTURE_FIREFLY_NOTIFY_PACKET = id("capture_firefly_notify_packet");
-    public static final Identifier ANCIENT_HORN_KILL_NOTIFY_PACKET = id("ancient_horn_kill_notify_packet");
-    public static final Identifier FLYBY_SOUND_PACKET = id("flyby_sound_packet");
-    public static final Identifier MOVING_LOOPING_SOUND_PACKET = id("moving_looping_sound_packet");
-
+    //LOGGING
     public static void log(String string, boolean shouldLog) {
         if (shouldLog) {
             LOGGER.info(string);
@@ -239,6 +288,7 @@ public class WilderWild implements ModInitializer {
         return Registry.register(Registry.TRUNK_PLACER_TYPE, id(id), new TrunkPlacerType<>(codec));
     }
 
+    //MEASURING
     public static Map<Object, Long> instantMap = new HashMap<>();
 
     public static void startMeasuring(Object object) {
@@ -254,5 +304,26 @@ public class WilderWild implements ModInitializer {
             LOGGER.error("{} took {} nanoseconds", name.substring(name.lastIndexOf(".") + 1), System.nanoTime() - instantMap.get(object));
             instantMap.remove(object);
         }
+    }
+
+    //IDENTIFIERS
+    public static final Identifier SEED_PACKET = id("seed_particle_packet");
+    public static final Identifier CONTROLLED_SEED_PACKET = id("controlled_seed_particle_packet");
+    public static final Identifier FLOATING_SCULK_BUBBLE_PACKET = id("floating_sculk_bubble_easy_packet");
+    public static final Identifier TERMITE_PARTICLE_PACKET = id("termite_particle_packet");
+    public static final Identifier HORN_PROJECTILE_PACKET_ID = id("ancient_horn_projectile_packet");
+    public static final Identifier SENSOR_HICCUP_PACKET = id("sensor_hiccup_packet");
+
+    public static final Identifier CAPTURE_FIREFLY_NOTIFY_PACKET = id("capture_firefly_notify_packet");
+    public static final Identifier ANCIENT_HORN_KILL_NOTIFY_PACKET = id("ancient_horn_kill_notify_packet");
+    public static final Identifier FLYBY_SOUND_PACKET = id("flyby_sound_packet");
+    public static final Identifier MOVING_LOOPING_SOUND_PACKET = id("moving_looping_sound_packet");
+
+    public static Identifier id(String path) {
+        return new Identifier(MOD_ID, path);
+    }
+
+    public static String string(String path) {
+        return id(path).toString();
     }
 }

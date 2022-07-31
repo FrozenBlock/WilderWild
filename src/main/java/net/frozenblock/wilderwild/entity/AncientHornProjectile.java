@@ -139,7 +139,7 @@ public class AncientHornProjectile extends PersistentProjectileEntity {
                         if (player.isCreative()) {
                             shouldDamage = false;
                         }
-                        if (owner instanceof PlayerEntity && !((PlayerEntity) owner).shouldDamagePlayer((PlayerEntity) entity)) {
+                        if (owner instanceof PlayerEntity playerOwner && !playerOwner.shouldDamagePlayer(player)) {
                             shouldDamage = false;
                         }
                     }
