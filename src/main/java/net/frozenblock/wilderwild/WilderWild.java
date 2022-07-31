@@ -89,7 +89,6 @@ public class WilderWild implements ModInitializer {
     @Override
     public void onInitialize() {
         startMeasuring(this);
-        applyDataFixes();
 
         RegisterBlocks.registerBlocks();
         RegisterBlocks.addBaobab();
@@ -156,49 +155,15 @@ public class WilderWild implements ModInitializer {
         return createBaseSchema();
     };
 
-    //DataFixer
-    //TODO: WORK
-
-    public static final HashMap<String, Identifier> DataFixMap = new HashMap<>() {{
-        put(WilderWild.string("blooming_dandelion"), WilderWild.id("seeding_dandelion"));
-        put(WilderWild.string("white_dandelion"), WilderWild.id("seeding_dandelion"));
-        put(WilderWild.string("potted_blooming_dandelion"), WilderWild.id("potted_seeding_dandelion"));
-        put(WilderWild.string("potted_white_dandelion"), WilderWild.id("potted_seeding_dandelion"));
-        put(WilderWild.string("floating_moss"), WilderWild.id("algae"));
-        //put(WilderWild.string("test_1"), WilderWild.id("test_2"));
+    //Renaming
+    public static final HashMap<Identifier, Identifier> DataFixMap = new HashMap<>() {{
+        put(WilderWild.id("blooming_dandelion"), WilderWild.id("seeding_dandelion"));
+        put(WilderWild.id("white_dandelion"), WilderWild.id("seeding_dandelion"));
+        put(WilderWild.id("potted_blooming_dandelion"), WilderWild.id("potted_seeding_dandelion"));
+        put(WilderWild.id("potted_white_dandelion"), WilderWild.id("potted_seeding_dandelion"));
+        put(WilderWild.id("floating_moss"), WilderWild.id("algae"));
+        //put(WilderWild.id("test_1"), WilderWild.id("test_2"));
     }};
-
-    private static void applyDataFixes() {
-        WildDataFixerBuilder builder = new WildDataFixerBuilder(DATA_VERSION);
-        Schema schema = builder.addSchema(0, BASE_SCHEMA);
-        wilderBlockItemRenamer(builder, schema, "white_dandelion", "seeding_dandelion");
-        wilderBlockItemRenamer(builder, schema, "blooming_dandelion", "seeding_dandelion");
-        wilderBlockRenamer(builder, schema, "potted_white_dandelion", "potted_seeding_dandelion");
-        wilderBlockRenamer(builder, schema, "potted_blooming_dandelion", "potted_seeding_dandelion");
-        wilderBlockItemRenamer(builder, schema, "floating_moss", "algae");
-        //wilderBlockItemRenamer(builder, schema, "test_2", "test_1");
-    }
-
-    private static void wilderBlockItemRenamer(@NotNull DataFixerBuilder builder, @NotNull Schema schema, @NotNull String startString, @NotNull String endString) {
-        wilderBlockRenamer(builder, schema, startString, endString);
-        wilderItemRenamer(builder, schema, startString, endString);
-    }
-
-    private static void wilderBlockRenamer(@NotNull DataFixerBuilder builder, @NotNull Schema schema, @NotNull String startString, @NotNull String endString) {
-        Preconditions.checkNotNull(builder, "builder can't be null");
-        Preconditions.checkNotNull(schema, "schema can't be null");
-        Preconditions.checkNotNull(startString, "starting block can't be null");
-        Preconditions.checkNotNull(endString, "ending block can't be null");
-        builder.addFixer(BlockNameFix.create(schema, startString + " block renamer", Schemas.replacing(WilderWild.string(startString), WilderWild.string(endString))));
-    }
-
-    private static void wilderItemRenamer(@NotNull DataFixerBuilder builder, @NotNull Schema schema, @NotNull String startString, @NotNull String endString) {
-        Preconditions.checkNotNull(builder, "builder can't be null");
-        Preconditions.checkNotNull(schema, "schema can't be null");
-        Preconditions.checkNotNull(startString, "starting item can't be null");
-        Preconditions.checkNotNull(endString, "ending item can't be null");
-        builder.addFixer(ItemNameFix.create(schema, startString + " item renamer", Schemas.replacing(WilderWild.string(startString), WilderWild.string(endString))));
-    }
 
     //MOD COMPATIBILITY
     public static void terralith() throws IOException {

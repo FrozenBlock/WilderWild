@@ -25,7 +25,6 @@
 
 package net.frozenblock.wilderwild.mixin.server;
 
-import it.unimi.dsi.fastutil.objects.Object2ObjectMap;
 import net.frozenblock.wilderwild.WilderWild;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.DefaultedRegistry;
@@ -38,8 +37,6 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
-
-import java.util.HashMap;
 
 @Mixin(DefaultedRegistry.class)
 public abstract class WilderIDReplacerMixin<T> {
@@ -64,7 +61,7 @@ public abstract class WilderIDReplacerMixin<T> {
         }
 
         isInLookup = true;
-        T result = get(WilderWild.DataFixMap.getOrDefault(capturedId.toString(), capturedId));
+        T result = get(WilderWild.DataFixMap.getOrDefault(capturedId, capturedId));
         isInLookup = false;
 
         return result;
