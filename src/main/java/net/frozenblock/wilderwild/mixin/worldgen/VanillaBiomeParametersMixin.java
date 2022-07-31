@@ -132,13 +132,14 @@ public final class VanillaBiomeParametersMixin {
         }
     }
 
+    public static final int swampHumidity = 2;
 
     @Inject(method = "writeBiomeParameters", at = @At("HEAD"), cancellable = true)
     private void writeBiomeParameters(Consumer<Pair<MultiNoiseUtil.NoiseHypercube, RegistryKey<Biome>>> parameters, MultiNoiseUtil.ParameterRange temperature, MultiNoiseUtil.ParameterRange humidity, MultiNoiseUtil.ParameterRange continentalness, MultiNoiseUtil.ParameterRange erosion, MultiNoiseUtil.ParameterRange weirdness, float offset, RegistryKey<Biome> biome, CallbackInfo info) {
         if (biome.equals(BiomeKeys.MANGROVE_SWAMP) && ModMenuInteractionHandler.modMangroveSwampPlacement()) {
             parameters.accept(Pair.of(MultiNoiseUtil.createNoiseHypercube(
                     MultiNoiseUtil.ParameterRange.combine(this.temperatureParameters[2], this.temperatureParameters[4]), //Temperature
-                            MultiNoiseUtil.ParameterRange.combine(this.humidityParameters[3], this.humidityParameters[4]), //Humidity
+                            MultiNoiseUtil.ParameterRange.combine(this.humidityParameters[swampHumidity], this.humidityParameters[4]), //Humidity
                             continentalness,
                             erosion,
                             MultiNoiseUtil.ParameterRange.of(0.0F),
@@ -148,7 +149,7 @@ public final class VanillaBiomeParametersMixin {
 
             parameters.accept(Pair.of(MultiNoiseUtil.createNoiseHypercube(
                     MultiNoiseUtil.ParameterRange.combine(this.temperatureParameters[2], this.temperatureParameters[4]), //Temperature
-                            MultiNoiseUtil.ParameterRange.combine(this.humidityParameters[3], this.humidityParameters[4]), //Humidity
+                            MultiNoiseUtil.ParameterRange.combine(this.humidityParameters[swampHumidity], this.humidityParameters[4]), //Humidity
                             continentalness,
                             erosion,
                             MultiNoiseUtil.ParameterRange.of(1.0F),
@@ -160,7 +161,7 @@ public final class VanillaBiomeParametersMixin {
         if (biome.equals(BiomeKeys.SWAMP) && ModMenuInteractionHandler.modSwampPlacement()) {
             parameters.accept(Pair.of(MultiNoiseUtil.createNoiseHypercube(
                     MultiNoiseUtil.ParameterRange.combine(this.temperatureParameters[1], this.temperatureParameters[3]), //Temperature
-                            MultiNoiseUtil.ParameterRange.combine(this.humidityParameters[3], this.humidityParameters[4]), //Humidity
+                            MultiNoiseUtil.ParameterRange.combine(this.humidityParameters[swampHumidity], this.humidityParameters[4]), //Humidity
                             continentalness,
                             erosion,
                             MultiNoiseUtil.ParameterRange.of(0.0F),
@@ -170,7 +171,7 @@ public final class VanillaBiomeParametersMixin {
 
             parameters.accept(Pair.of(MultiNoiseUtil.createNoiseHypercube(
                     MultiNoiseUtil.ParameterRange.combine(this.temperatureParameters[1], this.temperatureParameters[3]), //Temperature
-                            MultiNoiseUtil.ParameterRange.combine(this.humidityParameters[3], this.humidityParameters[4]), //Humidity
+                            MultiNoiseUtil.ParameterRange.combine(this.humidityParameters[swampHumidity], this.humidityParameters[4]), //Humidity
                             continentalness,
                             erosion,
                             MultiNoiseUtil.ParameterRange.of(1.0F),
