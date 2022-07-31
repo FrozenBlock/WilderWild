@@ -132,7 +132,7 @@ public final class VanillaBiomeParametersMixin {
         }
     }
 
-    public static final int swampHumidity = 2;
+    private static final int swampHumidity = 2;
 
     @Inject(method = "writeBiomeParameters", at = @At("HEAD"), cancellable = true)
     private void writeBiomeParameters(Consumer<Pair<MultiNoiseUtil.NoiseHypercube, RegistryKey<Biome>>> parameters, MultiNoiseUtil.ParameterRange temperature, MultiNoiseUtil.ParameterRange humidity, MultiNoiseUtil.ParameterRange continentalness, MultiNoiseUtil.ParameterRange erosion, MultiNoiseUtil.ParameterRange weirdness, float offset, RegistryKey<Biome> biome, CallbackInfo info) {
