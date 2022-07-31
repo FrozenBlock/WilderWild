@@ -219,6 +219,10 @@ public class WilderWild implements ModInitializer {
         return FabricLoader.getInstance().getModContainer("copper_pipe").isPresent();
     }
 
+    public static boolean hasModMenu() {
+        return FabricLoader.getInstance().getModContainer("modmenu").isPresent();
+    }
+
     public static boolean isCopperPipe(BlockState state) {
         if (hasSimpleCopperPipes()) {
             Identifier id = Registry.BLOCK.getId(state.getBlock());
