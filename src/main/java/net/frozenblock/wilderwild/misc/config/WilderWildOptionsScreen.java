@@ -49,6 +49,6 @@ public class WilderWildOptionsScreen extends GameOptionsScreen {
     }
 
     public void removed() {
-        ModMenuConfigManager.save();
+        WilderWildConfigManager.save();
     }
 }
