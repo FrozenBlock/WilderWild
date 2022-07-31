@@ -1,4 +1,4 @@
-package net.frozenblock.wilderwild.misc.simple_pipe_compatability;
+package net.frozenblock.wilderwild.misc.mod_compat.simple_copper_pipes;
 
 import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.entity.AncientHornProjectile;

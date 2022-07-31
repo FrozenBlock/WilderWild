@@ -1,10 +1,6 @@
 package net.frozenblock.wilderwild;
 
 import com.chocohead.mm.api.ClassTinkerers;
-import com.google.common.base.Preconditions;
-import com.mojang.datafixers.DataFixUtils;
-import com.mojang.datafixers.DataFixerBuilder;
-import com.mojang.datafixers.schemas.Schema;
 import com.mojang.serialization.Codec;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.loader.api.FabricLoader;
@@ -12,8 +8,8 @@ import net.fabricmc.loader.api.ModContainer;
 import net.frozenblock.wilderwild.block.entity.TermiteMoundBlockEntity;
 import net.frozenblock.wilderwild.entity.Firefly;
 import net.frozenblock.wilderwild.misc.BlockSoundGroupOverwrites;
-import net.frozenblock.wilderwild.misc.WildDataFixerBuilder;
-import net.frozenblock.wilderwild.misc.simple_pipe_compatability.RegisterSaveableMoveablePipeNbt;
+import net.frozenblock.wilderwild.misc.mod_compat.simple_copper_pipes.RegisterSaveableMoveablePipeNbt;
+import net.frozenblock.wilderwild.misc.mod_compat.ufu.InteractionHandler;
 import net.frozenblock.wilderwild.registry.*;
 import net.frozenblock.wilderwild.world.feature.WilderConfiguredFeatures;
 import net.frozenblock.wilderwild.world.feature.WilderMiscConfigured;
@@ -27,12 +23,8 @@ import net.frozenblock.wilderwild.world.gen.WilderWorldGen;
 import net.frozenblock.wilderwild.world.gen.trunk.BaobabTrunkPlacer;
 import net.frozenblock.wilderwild.world.gen.trunk.FallenTrunkWithLogs;
 import net.frozenblock.wilderwild.world.gen.trunk.StraightTrunkWithLogs;
-import net.minecraft.SharedConstants;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
-import net.minecraft.datafixer.Schemas;
-import net.minecraft.datafixer.fix.BlockNameFix;
-import net.minecraft.datafixer.fix.ItemNameFix;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.SpawnGroup;
 import net.minecraft.item.Instrument;
@@ -45,8 +37,6 @@ import net.minecraft.world.gen.ProbabilityConfig;
 import net.minecraft.world.gen.feature.Feature;
 import net.minecraft.world.gen.trunk.TrunkPlacer;
 import net.minecraft.world.gen.trunk.TrunkPlacerType;
-import org.jetbrains.annotations.Contract;
-import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -58,7 +48,6 @@ import java.nio.file.StandardCopyOption;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
-import java.util.function.BiFunction;
 
 public class WilderWild implements ModInitializer {
     public static final String MOD_ID = "wilderwild";
@@ -136,17 +125,21 @@ public class WilderWild implements ModInitializer {
         if (hasSimpleCopperPipes()) {
             RegisterSaveableMoveablePipeNbt.init();
         }
+
+        if (FabricLoader.getInstance().getModContainer("updatefixerupper").isPresent()) {
+            InteractionHandler.addToUFU();
+        }
         stopMeasuring(this);
     }
 
     //Renaming
-    public static final HashMap<Identifier, Identifier> DataFixMap = new HashMap<>() {{
-        put(WilderWild.id("blooming_dandelion"), WilderWild.id("seeding_dandelion"));
-        put(WilderWild.id("white_dandelion"), WilderWild.id("seeding_dandelion"));
-        put(WilderWild.id("potted_blooming_dandelion"), WilderWild.id("potted_seeding_dandelion"));
-        put(WilderWild.id("potted_white_dandelion"), WilderWild.id("potted_seeding_dandelion"));
-        put(WilderWild.id("floating_moss"), WilderWild.id("algae"));
-        //put(WilderWild.id("test_1"), WilderWild.id("test_2"));
+    public static final HashMap<String, Identifier> DataFixMap = new HashMap<>() {{
+        put(WilderWild.string("blooming_dandelion"), WilderWild.id("seeding_dandelion"));
+        put(WilderWild.string("white_dandelion"), WilderWild.id("seeding_dandelion"));
+        put(WilderWild.string("potted_blooming_dandelion"), WilderWild.id("potted_seeding_dandelion"));
+        put(WilderWild.string("potted_white_dandelion"), WilderWild.id("potted_seeding_dandelion"));
+        put(WilderWild.string("floating_moss"), WilderWild.id("algae"));
+        //put(WilderWild.string("test_1"), WilderWild.id("test_2"));
     }};
 
     //MOD COMPATIBILITY

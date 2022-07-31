@@ -61,7 +61,7 @@ public abstract class WilderIDReplacerMixin<T> {
         }
 
         isInLookup = true;
-        T result = get(WilderWild.DataFixMap.getOrDefault(capturedId, capturedId));
+        T result = get(WilderWild.DataFixMap.getOrDefault(capturedId.toString(), capturedId));
         isInLookup = false;
 
         return result;

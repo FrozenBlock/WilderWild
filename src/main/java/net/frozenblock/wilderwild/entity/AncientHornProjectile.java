@@ -6,7 +6,7 @@ import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.block.entity.HangingTendrilBlockEntity;
 import net.frozenblock.wilderwild.misc.WilderProjectileDamageSource;
 import net.frozenblock.wilderwild.misc.server.EasyPacket;
-import net.frozenblock.wilderwild.misc.simple_pipe_compatability.InteractionHandler;
+import net.frozenblock.wilderwild.misc.mod_compat.simple_copper_pipes.InteractionHandler;
 import net.frozenblock.wilderwild.registry.*;
 import net.frozenblock.wilderwild.tag.WilderBlockTags;
 import net.minecraft.block.*;
