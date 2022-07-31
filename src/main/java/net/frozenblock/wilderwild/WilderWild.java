@@ -158,6 +158,16 @@ public class WilderWild implements ModInitializer {
 
     //DataFixer
     //TODO: WORK
+
+    public static final HashMap<String, Identifier> DataFixMap = new HashMap<>() {{
+        put(WilderWild.string("blooming_dandelion"), WilderWild.id("seeding_dandelion"));
+        put(WilderWild.string("white_dandelion"), WilderWild.id("seeding_dandelion"));
+        put(WilderWild.string("potted_blooming_dandelion"), WilderWild.id("potted_seeding_dandelion"));
+        put(WilderWild.string("potted_white_dandelion"), WilderWild.id("potted_seeding_dandelion"));
+        put(WilderWild.string("floating_moss"), WilderWild.id("algae"));
+        //put(WilderWild.string("test_1"), WilderWild.id("test_2"));
+    }};
+
     private static void applyDataFixes() {
         WildDataFixerBuilder builder = new WildDataFixerBuilder(DATA_VERSION);
         Schema schema = builder.addSchema(0, BASE_SCHEMA);

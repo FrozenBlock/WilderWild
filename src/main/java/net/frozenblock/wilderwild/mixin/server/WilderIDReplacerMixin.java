@@ -46,15 +46,6 @@ public abstract class WilderIDReplacerMixin<T> {
     //From UpdateFixerUpper by TheoreticallyUseful, usage allowed through MIT Licence.
     //GitHub Link: https://github.com/SilverAndro/UpdateFixerUpper
 
-    private static final HashMap<String, Identifier> updateMap = new HashMap<>() {{
-        put(WilderWild.string("blooming_dandelion"), WilderWild.id("seeding_dandelion"));
-        put(WilderWild.string("white_dandelion"), WilderWild.id("seeding_dandelion"));
-        put(WilderWild.string("potted_blooming_dandelion"), WilderWild.id("potted_seeding_dandelion"));
-        put(WilderWild.string("potted_white_dandelion"), WilderWild.id("potted_seeding_dandelion"));
-        put(WilderWild.string("floating_moss"), WilderWild.id("algae"));
-        //put(WilderWild.string("test_1"), WilderWild.id("test_2"));
-    }};
-
     @Shadow
     public abstract @NotNull T get(@Nullable Identifier id);
 
@@ -73,7 +64,7 @@ public abstract class WilderIDReplacerMixin<T> {
         }
 
         isInLookup = true;
-        T result = get(updateMap.getOrDefault(capturedId.toString(), capturedId));
+        T result = get(WilderWild.DataFixMap.getOrDefault(capturedId.toString(), capturedId));
         isInLookup = false;
 
         return result;
