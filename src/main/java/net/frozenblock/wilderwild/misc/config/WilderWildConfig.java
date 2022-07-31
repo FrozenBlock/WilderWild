@@ -12,5 +12,5 @@ public class WilderWildConfig implements ConfigData {
 
     //@ConfigEntry.Category("generation")
     //@ConfigEntry.Gui.CollapsibleObject
-    //public SusConfig mudLakeConfig = new SusConfig(true, 25);
+    //public SusConfig susConfig = new SusConfig(true, 25);
 }
