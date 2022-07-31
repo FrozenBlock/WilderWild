@@ -139,22 +139,6 @@ public class WilderWild implements ModInitializer {
         stopMeasuring(this);
     }
 
-    private static final int DATA_VERSION = 1;
-
-    public static final Schema VANILLA_SCHEMA = Schemas.getFixer()
-            .getSchema(DataFixUtils.makeKey(SharedConstants.getGameVersion().getSaveVersion().getId()));
-
-    @Contract(value = "-> new", pure = true)
-    public static @NotNull Schema createBaseSchema() {
-        return new Schema(0, VANILLA_SCHEMA);
-    }
-
-    public static final BiFunction<Integer, Schema, Schema> BASE_SCHEMA = (version, parent) -> {
-        Preconditions.checkArgument(version == 0, "version must be 0");
-        Preconditions.checkArgument(parent == null, "parent must be null");
-        return createBaseSchema();
-    };
-
     //Renaming
     public static final HashMap<Identifier, Identifier> DataFixMap = new HashMap<>() {{
         put(WilderWild.id("blooming_dandelion"), WilderWild.id("seeding_dandelion"));
