@@ -11,7 +11,7 @@ public class ModMenuIntegration implements ModMenuApi {
 
     @Override
     public ConfigScreenFactory<?> getModConfigScreenFactory() {
-        return screen -> null;//AutoConfig.getConfigScreen(WilderWildConfig.class, screen).get();
+        return WilderWildOptionsScreen::new;
     }
 
 }
