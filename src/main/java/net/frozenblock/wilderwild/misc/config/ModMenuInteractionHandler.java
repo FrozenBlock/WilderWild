@@ -50,7 +50,7 @@ public class ModMenuInteractionHandler {
         if (WilderWild.hasModMenu()) {
             return WilderWildConfig.MC_LIVE_SENSOR_TENDRILS.getValue();
         }
-        return true;
+        return false;
     }
 
 }
