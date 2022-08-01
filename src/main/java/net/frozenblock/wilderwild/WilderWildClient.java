@@ -157,8 +157,10 @@ public class WilderWildClient implements ClientModInitializer {
                 FlyBySoundHub.update(client, client.player, false); //CHANGE TO FALSE TO NOT AUTOMATICALLY ADD FLYBY SOUNDS
             }
         });*/
-
-        WilderWild.RENDER_TENDRILS = ModMenuInteractionHandler.tendrilsEnabled();
+        if (WilderWild.hasModMenu()) {
+            WilderWild.RENDER_TENDRILS = ModMenuInteractionHandler.tendrilsEnabled();
+            ModMenuInteractionHandler.loadConfig();
+        }
     }
 
 

@@ -4,6 +4,10 @@ import net.frozenblock.wilderwild.WilderWild;
 
 public class ModMenuInteractionHandler {
 
+    public static void loadConfig() {
+        WilderWildConfigManager.initializeConfig();
+    }
+
     public static boolean modDesertPlacement() {
         if (WilderWild.hasModMenu()) {
             return WilderWildConfig.MODIFY_DESERT_PLACEMENT.getValue();
