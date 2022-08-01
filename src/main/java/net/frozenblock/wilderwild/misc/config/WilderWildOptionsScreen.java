@@ -28,7 +28,7 @@ public class WilderWildOptionsScreen extends GameOptionsScreen {
 
     protected void init() {
         this.list = new ButtonListWidget(this.client, this.width, this.height, 32, this.height - 32, 25);
-        this.list.addAll(WilderWildConfig.asOptions());
+        this.list.addAll(WilderWildConfig.asOptions()); //TODO: split each config option into its own button so we can add tooltips and stuff
         this.addSelectableChild(this.list);
         this.addDrawableChild(new ButtonWidget(this.width / 2 - 100, this.height - 27, 200, 20, ScreenTexts.DONE, (button) -> {
             ModMenuConfigManager.save();
