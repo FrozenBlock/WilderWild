@@ -1,6 +1,7 @@
 package net.frozenblock.wilderwild.misc.config;
 
 import com.terraformersmc.modmenu.config.ModMenuConfigManager;
+import net.frozenblock.wilderwild.WilderWild;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.screen.option.GameOptionsScreen;
@@ -49,5 +50,6 @@ public class WilderWildOptionsScreen extends GameOptionsScreen {
 
     public void removed() {
         WilderWildConfigManager.save();
+        WilderWild.RENDER_TENDRILS = WilderWildConfig.MC_LIVE_SENSOR_TENDRILS.getValue();
     }
 }

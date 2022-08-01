@@ -46,4 +46,11 @@ public class ModMenuInteractionHandler {
         return true;
     }
 
+    public static boolean tendrilsEnabled() {
+        if (WilderWild.hasModMenu()) {
+            return WilderWildConfig.MC_LIVE_SENSOR_TENDRILS.getValue();
+        }
+        return true;
+    }
+
 }
