@@ -67,7 +67,7 @@ public class SonicBoomTaskMixin {
                     }
 
                     String string = Formatting.strip(wardenEntity.getName().getString());
-                    if (Objects.equals(string, "Osmiooo")) {
+                    if (string != null && (string.equalsIgnoreCase("Osmiooo") || string.equalsIgnoreCase("Mossmio"))) {
                         wardenEntity.playSound(RegisterSounds.ENTITY_WARDEN_BRAP, 3.0F, 1.0F);
                     } else {
                         wardenEntity.playSound(SoundEvents.ENTITY_WARDEN_SONIC_BOOM, 3.0F, 1.0F);

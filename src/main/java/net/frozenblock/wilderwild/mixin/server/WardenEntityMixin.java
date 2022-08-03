@@ -55,7 +55,7 @@ public abstract class WardenEntityMixin extends HostileEntity implements WilderW
         String string = Formatting.strip(warden.getName().getString());
         boolean skipCheck = false;
         if (string != null) {
-            if (string.equals("Osmiooo") || string.equalsIgnoreCase("kirby")) {
+            if (string.equalsIgnoreCase("Osmiooo") || string.equalsIgnoreCase("Mossmio") || string.equalsIgnoreCase("kirby")) {
                 warden.playSound(RegisterSounds.ENTITY_WARDEN_KIRBY_DEATH, 5.0F, 1.0F);
                 skipCheck = true;
             }
@@ -188,7 +188,7 @@ public abstract class WardenEntityMixin extends HostileEntity implements WilderW
                 String string = Formatting.strip(warden.getName().getString());
                 boolean skip = false;
                 if (string != null) {
-                    if (string.equals("Osmiooo") || string.equalsIgnoreCase("Kirby")) {
+                    if (string.equalsIgnoreCase("Osmiooo") || string.equalsIgnoreCase("Mossmio") || string.equalsIgnoreCase("Kirby")) {
                         this.getKirbyDeathAnimationState().start(warden.age);
                         skip = true;
                         ci.cancel();
