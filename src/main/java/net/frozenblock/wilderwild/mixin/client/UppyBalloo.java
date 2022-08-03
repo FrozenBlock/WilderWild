@@ -18,11 +18,10 @@ public class UppyBalloo {
 
     private static final Identifier UPPY_BALLOO = WilderWild.id("textures/entity/pig/uppy_balloo.png");
 
-    @Inject(method = "getTexture", at = @At("HEAD"), cancellable = true)
+    @Inject(method = "getTexture(Lnet/minecraft/entity/passive/PigEntity;)Lnet/minecraft/util/Identifier;", at = @At("HEAD"), cancellable = true)
     public void getTexture(PigEntity pig, CallbackInfoReturnable<Identifier> cir) {
         String string = Formatting.strip(pig.getName().getString());
-        assert string != null;
-        if (string.equalsIgnoreCase("a view from the top")) {
+        if (string != null && string.equalsIgnoreCase("a view from the top")) {
             cir.setReturnValue(UPPY_BALLOO);
         }
     }

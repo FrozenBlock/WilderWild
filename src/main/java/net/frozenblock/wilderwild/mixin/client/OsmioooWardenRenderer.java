@@ -72,7 +72,7 @@ public abstract class OsmioooWardenRenderer extends MobEntityRenderer<WardenEnti
     @Inject(method = "getTexture(Lnet/minecraft/entity/mob/WardenEntity;)Lnet/minecraft/util/Identifier;", at = @At("HEAD"), cancellable = true)
     public void getTexture(WardenEntity wardenEntity, CallbackInfoReturnable<Identifier> cir) {
         String string = Formatting.strip(wardenEntity.getName().getString());
-        if (Objects.equals(string, "Osmiooo")) {
+        if (string != null && (string.equalsIgnoreCase("Osmiooo") || string.equalsIgnoreCase("Mossmio"))) {
             cir.setReturnValue(OSMIOOO_TEXTURE);
         }
     }

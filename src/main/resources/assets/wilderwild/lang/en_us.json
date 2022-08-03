@@ -124,5 +124,36 @@
 	"subtitles.item.bottle.catch_firefly": "Bottle fills with Firefly",
 	"subtitles.item.bottle.release_firefly": "Firefly released from Bottle",
 	"wilderwild.ancient_horn.advancement.use": "Whirs of the Ancient",
-	"wilderwild.ancient_horn.advancement.use.description": "Find and use an Ancient Horn."
+	"wilderwild.ancient_horn.advancement.use.description": "Find and use an Ancient Horn.",
+
+
+	"wilderwild.options": "Wilder Wild Options",
+
+	"option.modmenu.modify_desert_placement": "Desert Placement",
+	"tooltip.modmenu.modify_desert_placement": "Whether Deserts should use vanilla placement vs. Wilder Wild placement",
+	"option.modmenu.modify_badlands_placement": "Badlands Placement",
+	"tooltip.modmenu.modify_windswept_savanna_placement": "Whether Windswept Savannas should use vanilla placement vs. Wilder Wild placement",
+	"option.modmenu.modify_windswept_savanna_placement": "Windswept Savanna Placement",
+	"tooltip.modmenu.modify_jungle_placement": "Whether Jungles should use vanilla placement vs. Wilder Wild placement",
+	"option.modmenu.modify_jungle_placement": "Jungle Placement",
+	"tooltip.modmenu.modify_swamp_placement": "Whether Swamps should use vanilla placement vs. Wilder Wild placement",
+	"option.modmenu.modify_swamp_placement": "Swamp Placement",
+	"tooltip.modmenu.modify_mangrove_swamp_placement": "Whether Mangrove Swamps should use vanilla placement vs. Wilder Wild placement",
+	"option.modmenu.modify_mangrove_swamp_placement": "Mangrove Swamp Placement",
+	"tooltip.modmenu.sensor_tendrils": "Vanilla (Default): Uses texture animation for Sculk Sensors' tendrils\nMinecraft Live 2020: Uses block entity animation for Sculk Sensors' tendrils",
+	"option.modmenu.mc_live_sensor_tendrils": "Sculk Sensor Type",
+	"option.modmenu.modify_desert_placement.true": "§aNew",
+	"option.modmenu.modify_desert_placement.false": "§cVanilla",
+	"option.modmenu.modify_badlands_placement.true": "§aNew",
+	"option.modmenu.modify_badlands_placement.false": "§cVanilla",
+	"option.modmenu.modify_windswept_savanna_placement.true": "§aNew",
+	"option.modmenu.modify_windswept_savanna_placement.false": "§cVanilla",
+	"option.modmenu.modify_jungle_placement.true": "§aNew",
+	"option.modmenu.modify_jungle_placement.false": "§cVanilla",
+	"option.modmenu.modify_swamp_placement.true": "§aNew",
+	"option.modmenu.modify_swamp_placement.false": "§cVanilla",
+	"option.modmenu.modify_mangrove_swamp_placement.true": "§aNew",
+	"option.modmenu.modify_mangrove_swamp_placement.false": "§cVanilla",
+	"option.modmenu.mc_live_sensor_tendrils.true": "Minecraft Live 2020",
+	"option.modmenu.mc_live_sensor_tendrils.false": "Vanilla"
 }

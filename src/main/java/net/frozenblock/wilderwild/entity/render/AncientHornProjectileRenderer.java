@@ -14,7 +14,6 @@ import net.minecraft.client.render.item.ItemRenderer;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3f;
 
 @Environment(EnvType.CLIENT)
@@ -30,8 +29,8 @@ public class AncientHornProjectileRenderer<T extends AncientHornProjectile> exte
     @Override
     public void render(T projectile, float yaw, float tickDelta, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light) {
         matrices.push();
-        matrices.multiply(Vec3f.POSITIVE_Y.getDegreesQuaternion(MathHelper.lerp(tickDelta, projectile.prevYaw, projectile.getYaw()) - 90.0F));
-        matrices.multiply(Vec3f.POSITIVE_Z.getDegreesQuaternion(MathHelper.lerp(tickDelta, projectile.prevPitch, projectile.getPitch()) + 90.0F));
+        matrices.multiply(Vec3f.POSITIVE_Y.getDegreesQuaternion((projectile.prevYaw + tickDelta * (projectile.getYaw() - projectile.prevYaw)) - 90.0F));
+        matrices.multiply(Vec3f.POSITIVE_Z.getDegreesQuaternion((projectile.prevPitch + tickDelta * (projectile.getPitch() - projectile.prevPitch)) + 90.0F));
 
         VertexConsumer vertexConsumer = ItemRenderer.getDirectItemGlintConsumer(vertexConsumers, this.model.getLayer(this.getTexture(projectile)), false, false);
         this.model.render(matrices, vertexConsumer, light, OverlayTexture.DEFAULT_UV, 1.0F, 1.0F, 1.0F, 1.0F, tickDelta, projectile);

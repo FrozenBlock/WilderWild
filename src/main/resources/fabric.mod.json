@@ -22,11 +22,14 @@
     "main": [
       "net.frozenblock.wilderwild.WilderWild"
     ],
+    "client": [
+	  "net.frozenblock.wilderwild.WilderWildClient"
+    ],
     "mm:early_risers": [
       "net.frozenblock.wilderwild.EarlyRiser"
     ],
-    "client": [
-	  "net.frozenblock.wilderwild.WilderWildClient"
+    "modmenu": [
+      "net.frozenblock.wilderwild.misc.config.ModMenuIntegration"
     ]
   },
   "mixins": [

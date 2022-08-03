@@ -1,7 +1,6 @@
 package net.frozenblock.wilderwild.mixin.worldgen;
 
 import net.frozenblock.wilderwild.WilderWild;
-import net.frozenblock.wilderwild.world.feature.WilderPlacedFeatures;
 import net.minecraft.world.biome.GenerationSettings;
 import net.minecraft.world.gen.GenerationStep;
 import net.minecraft.world.gen.feature.DefaultBiomeFeatures;
@@ -19,8 +18,6 @@ public class DefaultBiomeFeaturesMixin {
     private static void addBirchTrees(GenerationSettings.Builder builder, CallbackInfo info) {
         if (!WilderWild.hasTerralith()) {
             WilderWild.log("Removing " + "Birch Trees" + " in order to properly update biomes!", WilderWild.UNSTABLE_LOGGING);
-            builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, WilderPlacedFeatures.NEW_BIRCH_PLACED);
-            builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, WilderPlacedFeatures.NEW_FALLEN_BIRCH_PLACED);
             info.cancel();
         }
     }
@@ -37,8 +34,6 @@ public class DefaultBiomeFeaturesMixin {
     private static void addForestTrees(GenerationSettings.Builder builder, CallbackInfo info) {
         if (!WilderWild.hasTerralith()) {
             WilderWild.log("Removing " + "Forest Trees" + " in order to properly update biomes!", WilderWild.UNSTABLE_LOGGING);
-            builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, WilderPlacedFeatures.NEW_TREES_BIRCH_AND_OAK);
-            builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, WilderPlacedFeatures.NEW_FALLEN_OAK_AND_BIRCH_PLACED);
             info.cancel();
         }
     }
@@ -47,8 +42,6 @@ public class DefaultBiomeFeaturesMixin {
     private static void addPlainsFeatures(GenerationSettings.Builder builder, CallbackInfo info) {
         if (!WilderWild.hasTerralith()) {
             WilderWild.log("Overriding " + "Plains Features" + " in order to properly update biomes!", WilderWild.UNSTABLE_LOGGING);
-            builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, WilderPlacedFeatures.NEW_TREES_PLAINS);
-            builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, VegetationPlacedFeatures.FLOWER_PLAIN);
             builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, VegetationPlacedFeatures.PATCH_GRASS_PLAIN);
             info.cancel();
         }
@@ -58,7 +51,6 @@ public class DefaultBiomeFeaturesMixin {
     private static void addSwampFeatures(GenerationSettings.Builder builder, CallbackInfo info) {
         if (!WilderWild.hasTerralith()) {
             WilderWild.log("Overriding " + "Swamp Features" + " in order to properly update biomes!", WilderWild.UNSTABLE_LOGGING);
-            builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, WilderPlacedFeatures.NEW_TREES_SWAMP);
             builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, VegetationPlacedFeatures.FLOWER_SWAMP);
             builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, VegetationPlacedFeatures.PATCH_GRASS_NORMAL);
             builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, VegetationPlacedFeatures.PATCH_DEAD_BUSH);
@@ -73,7 +65,6 @@ public class DefaultBiomeFeaturesMixin {
     private static void addTallBirchTrees(GenerationSettings.Builder builder, CallbackInfo info) {
         if (!WilderWild.hasTerralith()) {
             WilderWild.log("Removing " + "Tall Birch Trees" + " in order to properly update biomes!", WilderWild.UNSTABLE_LOGGING);
-            builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, WilderPlacedFeatures.NEW_TALL_BIRCH_PLACED);
             info.cancel();
         }
     }
@@ -90,7 +81,6 @@ public class DefaultBiomeFeaturesMixin {
     private static void addGroveTrees(GenerationSettings.Builder builder, CallbackInfo info) {
         if (!WilderWild.hasTerralith()) {
             WilderWild.log("Removing " + "Grove Trees" + " in order to properly update biomes!", WilderWild.UNSTABLE_LOGGING);
-            builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, WilderPlacedFeatures.NEW_TREES_GROVE);
             info.cancel();
         }
     }
@@ -99,7 +89,6 @@ public class DefaultBiomeFeaturesMixin {
     private static void addSavannaTrees(GenerationSettings.Builder builder, CallbackInfo info) {
         if (!WilderWild.hasTerralith()) {
             WilderWild.log("Removing " + "Savanna Trees" + " in order to properly update biomes!", WilderWild.UNSTABLE_LOGGING);
-            builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, WilderPlacedFeatures.SAVANNA_TREES);
             info.cancel();
         }
     }
@@ -108,15 +97,7 @@ public class DefaultBiomeFeaturesMixin {
     private static void addExtraSavannaTrees(GenerationSettings.Builder builder, CallbackInfo info) {
         if (!WilderWild.hasTerralith()) {
             WilderWild.log("Removing " + "Extra Savanna Trees" + " in order to properly update biomes!", WilderWild.UNSTABLE_LOGGING);
-            builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, WilderPlacedFeatures.WINDSWEPT_SAVANNA_TREES);
             info.cancel();
-        }
-    }
-
-    @Inject(method = "addMeadowFlowers", at = @At("HEAD"))
-    private static void addMeadowFlowers(GenerationSettings.Builder builder, CallbackInfo info) {
-        if (!WilderWild.hasTerralith()) {
-            builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, WilderPlacedFeatures.NEW_TREES_MEADOW);
         }
     }
 

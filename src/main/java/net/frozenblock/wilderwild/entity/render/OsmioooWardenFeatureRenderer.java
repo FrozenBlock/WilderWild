@@ -24,7 +24,7 @@ public class OsmioooWardenFeatureRenderer<T extends WardenEntity, M extends Ward
     @Override
     public void render(MatrixStack matrixStack, VertexConsumerProvider vertexConsumerProvider, int i, T wardenEntity, float f, float g, float h, float j, float k, float l) {
         String string = Formatting.strip(wardenEntity.getName().getString());
-        if (!wardenEntity.isInvisible() && Objects.equals(string, "Osmiooo")) {
+        if (!wardenEntity.isInvisible() && string != null && (string.equalsIgnoreCase("Osmiooo") || string.equalsIgnoreCase("Mossmio"))) {
             this.updateModelPartVisibility();
             VertexConsumer vertexConsumer = vertexConsumerProvider.getBuffer(RenderLayer.getEntityTranslucentEmissive(this.texture));
             this.getContextModel()
