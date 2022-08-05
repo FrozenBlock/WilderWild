@@ -1,14 +1,14 @@
 package net.frozenblock.wilderwild.mixin.client;
 
-import com.mojang.blaze3d.vertex.PoseStack;
-import net.minecraft.ChatFormatting;
-import net.minecraft.client.model.WardenModel;
-import net.minecraft.client.renderer.MultiBufferSource;
-import net.minecraft.client.renderer.entity.RenderLayerParent;
-import net.minecraft.client.renderer.entity.layers.RenderLayer;
-import net.minecraft.client.renderer.entity.layers.WardenEmissiveLayer;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.entity.monster.warden.Warden;
+import net.minecraft.client.render.VertexConsumerProvider;
+import net.minecraft.client.render.entity.feature.FeatureRenderer;
+import net.minecraft.client.render.entity.feature.FeatureRendererContext;
+import net.minecraft.client.render.entity.feature.WardenFeatureRenderer;
+import net.minecraft.client.render.entity.model.WardenEntityModel;
+import net.minecraft.client.util.math.MatrixStack;
+import net.minecraft.entity.mob.WardenEntity;
+import net.minecraft.util.Formatting;
+import net.minecraft.util.Identifier;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -18,21 +18,21 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import java.util.Objects;
 
-@Mixin(WardenEmissiveLayer.class)
-public abstract class WardenFeatureRendererMixin<T extends Warden, M extends WardenModel<T>> extends RenderLayer<T, M> {
+@Mixin(WardenFeatureRenderer.class)
+public abstract class WardenFeatureRendererMixin<T extends WardenEntity, M extends WardenEntityModel<T>> extends FeatureRenderer<T, M> {
 
-    public WardenFeatureRendererMixin(RenderLayerParent<T, M> context) {
+    public WardenFeatureRendererMixin(FeatureRendererContext<T, M> context) {
         super(context);
     }
 
     @Shadow
     @Final
-    public ResourceLocation texture;
+    public Identifier texture;
 
-    @Inject(at = @At("HEAD"), method = "render(Lcom/mojang/blaze3d/vertex/PoseStack;Lnet/minecraft/client/renderer/MultiBufferSource;ILnet/minecraft/world/entity/monster/warden/Warden;FFFFFF)V", cancellable = true)
-    public void render(PoseStack matrixStack, MultiBufferSource vertexConsumerProvider, int i, T wardenEntity, float f, float g, float h, float j, float k, float l, CallbackInfo ci) {
-        String string = ChatFormatting.stripFormatting(wardenEntity.getName().getString());
-        if (Objects.equals(string, "Osmiooo")) {
+    @Inject(at = @At("HEAD"), method = "render(Lnet/minecraft/client/util/math/MatrixStack;Lnet/minecraft/client/render/VertexConsumerProvider;ILnet/minecraft/entity/mob/WardenEntity;FFFFFF)V", cancellable = true)
+    public void render(MatrixStack matrixStack, VertexConsumerProvider vertexConsumerProvider, int i, T wardenEntity, float f, float g, float h, float j, float k, float l, CallbackInfo ci) {
+        String string = Formatting.strip(wardenEntity.getName().getString());
+        if (string != null && (string.equalsIgnoreCase("Osmiooo") || string.equalsIgnoreCase("Mossmio"))) {
             ci.cancel();
         }
     }

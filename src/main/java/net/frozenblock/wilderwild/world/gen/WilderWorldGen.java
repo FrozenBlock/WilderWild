@@ -1,6 +1,6 @@
 package net.frozenblock.wilderwild.world.gen;
 
-import net.frozenblock.wilderwild.world.gen.treedecorators.WildTreeDecorators;
+import net.frozenblock.wilderwild.world.gen.treedecorators.WilderTreeDecorators;
 
 public class WilderWorldGen {
     public static void generateWildWorldGen() {
@@ -10,13 +10,12 @@ public class WilderWorldGen {
         WilderGrassGeneration.generateGrassTaiga();
         WilderMiscGeneration.generateMisc();
 
-        WildTreeDecorators.generateTreeDecorators();
+        WilderTreeDecorators.generateTreeDecorators();
         WilderTreesGeneration.generateTrees();
         WilderMushroomGeneration.generateMushroom();
 
         WilderMusic.playMusic();
-        WilderSpawns.addFirefliesSwamps();
-        WilderSpawns.addFirefliesOthers();
+        WilderSpawns.addFireflies();
     }
 }
 

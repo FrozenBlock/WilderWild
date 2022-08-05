@@ -9,7 +9,7 @@
     "FrozenBlock"
   ],
   "contact": {
-    "homepage": "https://github.com/Soro335/WilderWild/",
+    "homepage": "https://www.curseforge.com/minecraft/mc-mods/wilder-wild-fabric",
     "sources": "https://github.com/Soro335/WilderWild/",
     "issues": "https://github.com/Soro335/WilderWild/issues"
   },
@@ -22,11 +22,14 @@
     "main": [
       "net.frozenblock.wilderwild.WilderWild"
     ],
+    "client": [
+	  "net.frozenblock.wilderwild.WilderWildClient"
+    ],
     "mm:early_risers": [
       "net.frozenblock.wilderwild.EarlyRiser"
     ],
-    "client": [
-	  "net.frozenblock.wilderwild.WilderWildClient"
+    "modmenu": [
+      "net.frozenblock.wilderwild.misc.config.ModMenuIntegration"
     ]
   },
   "mixins": [
@@ -37,9 +40,9 @@
 
   "depends": {
     "mm": ">=2.3",
-    "fabricloader": ">=0.14.6",
-    "fabric": ">=0.57.0",
-    "minecraft": "1.19.x",
+    "fabricloader": ">=0.14.8",
+    "fabric": ">=0.58.4",
+    "minecraft": ">=1.19.1",
     "java": ">=17"
   }
 }

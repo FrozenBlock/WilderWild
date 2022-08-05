@@ -1,6 +1,6 @@
 package net.frozenblock.wilderwild.mixin.server;
 
-import net.frozenblock.wilderwild.misc.WildBoats;
+import net.frozenblock.wilderwild.misc.WilderBoats;
 import net.frozenblock.wilderwild.registry.RegisterBlocks;
 import net.minecraft.world.entity.vehicle.Boat;
 import net.minecraft.world.level.block.Block;
@@ -42,12 +42,12 @@ public class BoatTypeMixin {
         var types = new ArrayList<>(Arrays.asList($VALUES));
         var last = types.get(types.size() - 1);
 
-        var baobab = newType("BAOBAB", last.ordinal() + 1, RegisterBlocks.BAOBAB_PLANKS, "baobab");
-        WildBoats.BAOBAB = baobab;
+        var baobab = newType("WILDER_BAOBAB", last.ordinal() + 1, RegisterBlocks.BAOBAB_PLANKS, "baobab");
+        WilderBoats.BAOBAB = baobab;
         types.add(baobab);
 
-        var cypress = newType("CYPRESS", last.ordinal() + 2, RegisterBlocks.CYPRESS_PLANKS, "cypress");
-        WildBoats.CYPRESS = cypress;
+        var cypress = newType("WILDER_CYPRESS", last.ordinal() + 2, RegisterBlocks.CYPRESS_PLANKS, "cypress");
+        WilderBoats.CYPRESS = cypress;
         types.add(cypress);
         $VALUES = types.toArray(new Boat.Type[0]);
     }

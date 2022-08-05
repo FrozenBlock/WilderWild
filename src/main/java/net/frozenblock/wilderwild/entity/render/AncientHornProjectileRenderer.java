@@ -1,51 +1,51 @@
 package net.frozenblock.wilderwild.entity.render;
 
-import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.blaze3d.vertex.VertexConsumer;
-import com.mojang.math.Vector3f;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.WilderWildClient;
 import net.frozenblock.wilderwild.entity.AncientHornProjectile;
-import net.minecraft.client.renderer.MultiBufferSource;
-import net.minecraft.client.renderer.entity.EntityRenderer;
-import net.minecraft.client.renderer.entity.EntityRendererProvider;
-import net.minecraft.client.renderer.entity.ItemRenderer;
-import net.minecraft.client.renderer.texture.OverlayTexture;
-import net.minecraft.core.BlockPos;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.util.Mth;
-import org.jetbrains.annotations.NotNull;
+import net.minecraft.client.render.OverlayTexture;
+import net.minecraft.client.render.VertexConsumer;
+import net.minecraft.client.render.VertexConsumerProvider;
+import net.minecraft.client.render.entity.EntityRenderer;
+import net.minecraft.client.render.entity.EntityRendererFactory;
+import net.minecraft.client.render.item.ItemRenderer;
+import net.minecraft.client.util.math.MatrixStack;
+import net.minecraft.util.Identifier;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Vec3f;
 
 @Environment(EnvType.CLIENT)
-public class AncientHornProjectileRenderer extends EntityRenderer<AncientHornProjectile> {
-    public static final ResourceLocation TEXTURE = WilderWild.id("textures/entity/ancient_horn_projectile.png");
+public class AncientHornProjectileRenderer<T extends AncientHornProjectile> extends EntityRenderer<T> {
+    public static final Identifier TEXTURE = WilderWild.id("textures/entity/ancient_horn_projectile.png");
     private final AncientHornProjectileModel model;
 
-    public AncientHornProjectileRenderer(EntityRendererProvider.Context context) {
+    public AncientHornProjectileRenderer(EntityRendererFactory.Context context) {
         super(context);
-        this.model = new AncientHornProjectileModel(context.bakeLayer(WilderWildClient.ANCIENT_HORN_PROJECTILE_LAYER));
+        this.model = new AncientHornProjectileModel(context.getPart(WilderWildClient.ANCIENT_HORN_PROJECTILE_LAYER));
     }
 
     @Override
-    public void render(AncientHornProjectile projectile, float yaw, float tickDelta, PoseStack matrices, @NotNull MultiBufferSource vertexConsumers, int light) {
-        matrices.pushPose();
-        matrices.mulPose(Vector3f.YP.rotationDegrees(Mth.lerp(tickDelta, projectile.yRotO, projectile.getYRot()) - 90.0F));
-        matrices.mulPose(Vector3f.ZP.rotationDegrees(Mth.lerp(tickDelta, projectile.xRotO, projectile.getXRot()) + 90.0F));
+    public void render(T projectile, float yaw, float tickDelta, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light) {
+        matrices.push();
+        matrices.multiply(Vec3f.POSITIVE_Y.getDegreesQuaternion((projectile.prevYaw + tickDelta * (projectile.getYaw() - projectile.prevYaw)) - 90.0F));
+        matrices.multiply(Vec3f.POSITIVE_Z.getDegreesQuaternion((projectile.prevPitch + tickDelta * (projectile.getPitch() - projectile.prevPitch)) + 90.0F));
 
-        VertexConsumer vertexConsumer = ItemRenderer.getFoilBufferDirect(vertexConsumers, this.model.renderType(this.getTextureLocation(projectile)), false, false);
-        this.model.render(matrices, vertexConsumer, light, OverlayTexture.NO_OVERLAY, 1.0F, 1.0F, 1.0F, 1.0F, tickDelta, projectile);
+        VertexConsumer vertexConsumer = ItemRenderer.getDirectItemGlintConsumer(vertexConsumers, this.model.getLayer(this.getTexture(projectile)), false, false);
+        this.model.render(matrices, vertexConsumer, light, OverlayTexture.DEFAULT_UV, 1.0F, 1.0F, 1.0F, 1.0F, tickDelta, projectile);
 
-        matrices.popPose();
+        matrices.pop();
         super.render(projectile, yaw, tickDelta, matrices, vertexConsumers, light);
     }
 
-    public ResourceLocation getTextureLocation(@NotNull AncientHornProjectile entity) {
+    @Override
+    public Identifier getTexture(T entity) {
         return TEXTURE;
     }
 
-    protected int getBlockLight(AncientHornProjectile entity, BlockPos blockPos) {
+    @Override
+    protected int getBlockLight(T entity, BlockPos blockPos) {
         return 15;
     }
 

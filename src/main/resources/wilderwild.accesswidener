@@ -2,7 +2,7 @@ accessWidener    v1    named
 accessible    class    net/minecraft/world/level/block/SculkVeinBlock$SculkVeinSpreaderConfig
 accessible    method    net/minecraft/world/level/levelgen/feature/treedecorators/TreeDecoratorType    <init>    (Lcom/mojang/serialization/Codec;)V
 accessible    method    net/minecraft/world/level/levelgen/feature/trunkplacers/TrunkPlacerType    <init>    (Lcom/mojang/serialization/Codec;)V
-accessible    method    net/minecraft/world/item/RecordItem    <init>    (ILnet/minecraft/sounds/SoundEvent;Lnet/minecraft/world/item/Item$Properties;)V
+accessible    method    net/minecraft/world/item/RecordItem    <init>    (ILnet/minecraft/sounds/SoundEvent;Lnet/minecraft/world/item/Item$Properties;I)V
 extendable    method    net/minecraft/world/level/block/state/BlockBehaviour    getLootTable    ()Lnet/minecraft/resources/ResourceLocation;
 accessible    field    net/minecraft/world/item/ItemCooldowns    cooldowns    Ljava/util/Map;
 accessible    field    net/minecraft/world/item/ItemCooldowns$CooldownInstance    startTime    I
@@ -10,8 +10,8 @@ accessible    field    net/minecraft/world/item/ItemCooldowns$CooldownInstance  
 accessible    method    net/minecraft/world/level/levelgen/structure/ScatteredFeaturePiece    updateAverageGroundHeight    (Lnet/minecraft/world/level/LevelAccessor;Lnet/minecraft/world/level/levelgen/structure/BoundingBox;I)Z
 accessible    method    net/minecraft/world/level/levelgen/structure/StructurePiece    generateBox    (Lnet/minecraft/world/level/WorldGenLevel;Lnet/minecraft/world/level/levelgen/structure/BoundingBox;IIIIIILnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/world/level/block/state/BlockState;Z)V
 accessible    method    net/minecraft/world/level/levelgen/structure/StructurePiece    placeBlock    (Lnet/minecraft/world/level/WorldGenLevel;Lnet/minecraft/world/level/block/state/BlockState;IIILnet/minecraft/world/level/levelgen/structure/BoundingBox;)V
-accessible method net/minecraft/world/level/levelgen/structure/StructurePiece    fillColumnDown    (Lnet/minecraft/world/level/WorldGenLevel;Lnet/minecraft/world/level/block/state/BlockState;IIILnet/minecraft/world/level/levelgen/structure/BoundingBox;)V
-accessible method net/minecraft/world/level/levelgen/structure/StructurePiece    getWorldPos    (III)Lnet/minecraft/core/BlockPos$MutableBlockPos;
+accessible    method    net/minecraft/world/level/levelgen/structure/StructurePiece    fillColumnDown    (Lnet/minecraft/world/level/WorldGenLevel;Lnet/minecraft/world/level/block/state/BlockState;IIILnet/minecraft/world/level/levelgen/structure/BoundingBox;)V
+accessible    method    net/minecraft/world/level/levelgen/structure/StructurePiece    getWorldPos    (III)Lnet/minecraft/core/BlockPos$MutableBlockPos;
 accessible    field    net/minecraft/world/entity/Entity    DATA_POSE    Lnet/minecraft/network/syncher/EntityDataAccesor;
 accessible    method    net/minecraft/client/model/HierarchicalModel    animate    (Lnet/minecraft/world/entity/AnimationState;Lnet/minecraft/client/animation/AnimationDefinition;F)V
 accessible    field    net/minecraft/world/entity/LivingEntity    dead    Z
@@ -21,3 +21,5 @@ accessible    class    net/minecraft/world/entity/npc/VillagerTrades$ItemsForEme
 accessible    field    net/minecraft/client/renderer/entity/layers/WardenEmissiveLayer    alphaFunction    Lnet/minecraft/client/renderer/entity/layers/WardenEmissiveLayer$AlphaFunction;
 accessible    field    net/minecraft/client/renderer/entity/layers/WardenEmissiveLayer    drawSelector    Lnet/minecraft/client/renderer/entity/layers/WardenEmissiveLayer$DrawSelector;
 accessible    field    net/minecraft/client/renderer/entity/layers/WardenEmissiveLayer    texture    Lnet/minecraft/resources/ResourceLocation;
+accessible    method    net/minecraft/util/datafix/DataFixers    createRenamer    (Ljava/util/Map;)Ljava/util/function/UnaryOperator;
+accessible    method    net/minecraft/util/datafix/DataFixers    createRenamer    (Ljava/lang/String;Ljava/lang/String;)Ljava/util/function/UnaryOperator;

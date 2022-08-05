@@ -1,12 +1,13 @@
 package net.frozenblock.wilderwild.mixin.worldgen;
 
 import com.mojang.datafixers.util.Pair;
+import net.frozenblock.wilderwild.misc.config.ModMenuInteractionHandler;
 import net.frozenblock.wilderwild.registry.RegisterWorldgen;
-import net.minecraft.resources.ResourceKey;
-import net.minecraft.world.level.biome.Biome;
-import net.minecraft.world.level.biome.Biomes;
-import net.minecraft.world.level.biome.Climate;
-import net.minecraft.world.level.biome.OverworldBiomeBuilder;
+import net.minecraft.util.registry.RegistryKey;
+import net.minecraft.world.biome.Biome;
+import net.minecraft.world.biome.BiomeKeys;
+import net.minecraft.world.biome.source.util.MultiNoiseUtil;
+import net.minecraft.world.biome.source.util.VanillaBiomeParameters;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -17,174 +18,185 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import java.util.function.Consumer;
 
-@Mixin(OverworldBiomeBuilder.class)
-public abstract class VanillaBiomeParametersMixin {
+@Mixin(VanillaBiomeParameters.class)
+public final class VanillaBiomeParametersMixin {
     @Shadow
     @Final
-    private Climate.Parameter inlandContinentalness;
+    private MultiNoiseUtil.ParameterRange riverContinentalness;
     @Shadow
     @Final
-    private Climate.Parameter farInlandContinentalness;
+    private MultiNoiseUtil.ParameterRange farInlandContinentalness;
     @Shadow
     @Final
-    private Climate.Parameter[] erosions;
+    private MultiNoiseUtil.ParameterRange[] erosionParameters;
     @Shadow
     @Final
-    private Climate.Parameter[] humidities;
+    private MultiNoiseUtil.ParameterRange[] humidityParameters;
     @Shadow
     @Final
-    private Climate.Parameter[] temperatures;
+    private MultiNoiseUtil.ParameterRange[] temperatureParameters;
     @Shadow
     @Final
-    private Climate.Parameter FULL_RANGE;
+    private MultiNoiseUtil.ParameterRange defaultParameter;
     @Shadow
     @Final
-    private ResourceKey<Biome>[][] MIDDLE_BIOMES;
+    private RegistryKey<Biome>[][] commonBiomes;
     @Shadow
     @Final
-    private ResourceKey<Biome>[][] MIDDLE_BIOMES_VARIANT;
+    private RegistryKey<Biome>[][] uncommonBiomes;
 
     @Shadow
-    protected abstract void addSurfaceBiome(Consumer<Pair<Climate.ParameterPoint, ResourceKey<Biome>>> parameters, Climate.Parameter temperature, Climate.Parameter humidity, Climate.Parameter continentalness, Climate.Parameter erosion, Climate.Parameter weirdness, final float offset, ResourceKey<Biome> biome);
-
-    private int mangroveRound = 0;
+    private void writeBiomeParameters(Consumer<Pair<MultiNoiseUtil.NoiseHypercube, RegistryKey<Biome>>> parameters, MultiNoiseUtil.ParameterRange temperature, MultiNoiseUtil.ParameterRange humidity, MultiNoiseUtil.ParameterRange continentalness, MultiNoiseUtil.ParameterRange erosion, MultiNoiseUtil.ParameterRange weirdness, final float offset, RegistryKey<Biome> biome) {
+        parameters.accept(Pair.of(MultiNoiseUtil.createNoiseHypercube(temperature, humidity, continentalness, erosion, MultiNoiseUtil.ParameterRange.of(0.0F, 1.0F), weirdness, offset), biome));
+    }
 
     @Inject(method = "<init>", at = @At("TAIL"))
     private void injectBiomes(CallbackInfo ci) {
-        MIDDLE_BIOMES_VARIANT[1][0] = RegisterWorldgen.MIXED_FOREST;
-        MIDDLE_BIOMES_VARIANT[4][0] = Biomes.WOODED_BADLANDS;
-        //uncommonBiomes[4][3] = RegisterWorldgen.CYPRESS_WETLANDS;
-        //uncommonBiomes[4][4] = BiomeKeys.MANGROVE_SWAMP;
-        MIDDLE_BIOMES_VARIANT[4][3] = Biomes.JUNGLE;
-        MIDDLE_BIOMES[4][4] = Biomes.JUNGLE;
+        if (ModMenuInteractionHandler.modJunglePlacement()) {
+            uncommonBiomes[4][3] = BiomeKeys.JUNGLE;
+            commonBiomes[4][4] = BiomeKeys.JUNGLE;
+        }
     }
 
-    @Inject(method = "addLowSlice", at = @At("TAIL"))
-    private void writeBiomesNearRivers(Consumer<Pair<Climate.ParameterPoint, ResourceKey<Biome>>> parameters, Climate.Parameter weirdness, CallbackInfo ci) {
-        this.addSurfaceBiome(
+    @Inject(method = "writeLowBiomes", at = @At("TAIL"))
+    // also can be injectLowBiomes
+    private void injectBiomesNearRivers(Consumer<Pair<MultiNoiseUtil.NoiseHypercube, RegistryKey<Biome>>> parameters, MultiNoiseUtil.ParameterRange weirdness, CallbackInfo ci) {
+        this.writeBiomeParameters(
                 parameters,
-                Climate.Parameter.span(this.temperatures[1], this.temperatures[2]),
-                this.FULL_RANGE,
-                Climate.Parameter.span(this.inlandContinentalness, this.farInlandContinentalness),
-                this.erosions[2],
+                MultiNoiseUtil.ParameterRange.combine(this.temperatureParameters[1], this.temperatureParameters[2]),
+                this.defaultParameter,
+                MultiNoiseUtil.ParameterRange.combine(this.riverContinentalness, this.farInlandContinentalness),
+                this.erosionParameters[2],
                 weirdness,
                 0.0F,
                 RegisterWorldgen.MIXED_FOREST
         );
-        this.addSurfaceBiome(
+        this.writeBiomeParameters(
                 parameters,
-                Climate.Parameter.span(this.temperatures[1], this.temperatures[3]),
-                Climate.Parameter.span(this.humidities[2], this.humidities[4]),
-                Climate.Parameter.span(-0.2F, 0.5F),
-                Climate.Parameter.span(0.50F, 1.0F), weirdness, 0.0F, RegisterWorldgen.CYPRESS_WETLANDS
+                MultiNoiseUtil.ParameterRange.combine(this.temperatureParameters[1], this.temperatureParameters[3]),
+                MultiNoiseUtil.ParameterRange.combine(this.humidityParameters[2], this.humidityParameters[4]),
+                MultiNoiseUtil.ParameterRange.of(-0.2F, 0.5F),
+                MultiNoiseUtil.ParameterRange.of(0.50F, 1.0F),
+                weirdness,
+                0.0F,
+                RegisterWorldgen.CYPRESS_WETLANDS
         );
     }
 
-    @Inject(method = "addMidSlice", at = @At("TAIL"))
-    private void injectMixedBiomes(Consumer<Pair<Climate.ParameterPoint, ResourceKey<Biome>>> parameters, Climate.Parameter weirdness, CallbackInfo ci) {
-        this.addSurfaceBiome(
+    @Inject(method = "writeMidBiomes", at = @At("TAIL"))
+    // also can be injectMidBiomes
+    private void injectMixedBiomes(Consumer<Pair<MultiNoiseUtil.NoiseHypercube, RegistryKey<Biome>>> parameters, MultiNoiseUtil.ParameterRange weirdness, CallbackInfo ci) {
+        this.writeBiomeParameters(
                 parameters,
-                Climate.Parameter.span(this.temperatures[1], this.temperatures[2]),
-                this.FULL_RANGE,
-                Climate.Parameter.span(this.inlandContinentalness, this.farInlandContinentalness),
-                this.erosions[1],
+                MultiNoiseUtil.ParameterRange.combine(this.temperatureParameters[1], this.temperatureParameters[2]),
+                this.defaultParameter,
+                MultiNoiseUtil.ParameterRange.combine(this.riverContinentalness, this.farInlandContinentalness),
+                this.erosionParameters[1],
                 weirdness,
                 0.0F,
                 RegisterWorldgen.MIXED_FOREST
         );
 
-        this.addSurfaceBiome(
+        this.writeBiomeParameters(
                 parameters,
-                Climate.Parameter.span(this.temperatures[1], this.temperatures[3]),
-                Climate.Parameter.span(this.humidities[2], this.humidities[4]),
-                Climate.Parameter.span(-0.2F, 0.5F),
-                Climate.Parameter.span(0.50F, 1.0F), weirdness, 0.0F, RegisterWorldgen.CYPRESS_WETLANDS
+                MultiNoiseUtil.ParameterRange.combine(this.temperatureParameters[1], this.temperatureParameters[3]),
+                MultiNoiseUtil.ParameterRange.combine(this.humidityParameters[2], this.humidityParameters[4]),
+                MultiNoiseUtil.ParameterRange.of(-0.2F, 0.5F),
+                MultiNoiseUtil.ParameterRange.of(0.50F, 1.0F),
+                weirdness,
+                0.0F,
+                RegisterWorldgen.CYPRESS_WETLANDS
         );
     }
 
-    @Inject(method = "addValleys", at = @At("TAIL"))
-    private void writeRiverBiomes(Consumer<Pair<Climate.ParameterPoint, ResourceKey<Biome>>> parameters, Climate.Parameter weirdness, CallbackInfo ci) {
-        this.addSurfaceBiome(
+    @Inject(method = "writeValleyBiomes", at = @At("TAIL"))
+    // can also be injectValleyBiomes
+    private void injectRiverBiomes(Consumer<Pair<MultiNoiseUtil.NoiseHypercube, RegistryKey<Biome>>> parameters, MultiNoiseUtil.ParameterRange weirdness, CallbackInfo ci) {
+        this.writeBiomeParameters(
                 parameters,
-                Climate.Parameter.span(this.temperatures[1], this.temperatures[3]),
-                Climate.Parameter.span(this.humidities[2], this.humidities[4]),
-                Climate.Parameter.span(-0.2F, 0.5F),
-                Climate.Parameter.span(0.50F, 1.0F), weirdness, 0.0F, RegisterWorldgen.CYPRESS_WETLANDS
+                MultiNoiseUtil.ParameterRange.combine(this.temperatureParameters[1], this.temperatureParameters[3]),
+                MultiNoiseUtil.ParameterRange.combine(this.humidityParameters[2], this.humidityParameters[4]),
+                MultiNoiseUtil.ParameterRange.of(-0.2F, 0.5F),
+                MultiNoiseUtil.ParameterRange.of(0.50F, 1.0F),
+                weirdness,
+                0.0F,
+                RegisterWorldgen.CYPRESS_WETLANDS
         );
     }
 
-    @Inject(method = "maybePickWindsweptSavannaBiome", at = @At("HEAD"), cancellable = true)
-    private void maybePickWindsweptSavannaBiome(int temperature, int humidity, Climate.Parameter weirdness, ResourceKey<Biome> biomeKey, CallbackInfoReturnable<ResourceKey<Biome>> info) {
-        info.setReturnValue(temperature > 2 && humidity < 2 && weirdness.max() >= 0L ? Biomes.WINDSWEPT_SAVANNA : biomeKey);
-        info.cancel();
+    @Inject(method = "getBiomeOrWindsweptSavanna", at = @At("HEAD"), cancellable = true)
+    private void getBiomeOrWindsweptSavanna(int temperature, int humidity, MultiNoiseUtil.ParameterRange weirdness, RegistryKey<Biome> biomeKey, CallbackInfoReturnable<RegistryKey<Biome>> info) {
+        if (ModMenuInteractionHandler.modWindsweptSavannaPlacement()) {
+            info.setReturnValue(temperature > 2 && humidity < 2 && weirdness.max() >= 0L ? BiomeKeys.WINDSWEPT_SAVANNA : biomeKey);
+            info.cancel();
+        }
     }
 
+    private static final int swampHumidity = 2;
 
-    @Inject(method = "addSurfaceBiome", at = @At("HEAD"), cancellable = true)
-    private void addSurfaceBiome(Consumer<Pair<Climate.ParameterPoint, ResourceKey<Biome>>> parameters, Climate.Parameter temperature, Climate.Parameter humidity, Climate.Parameter continentalness, Climate.Parameter erosion, Climate.Parameter weirdness, float offset, ResourceKey<Biome> biome, CallbackInfo info) {
-        if (biome.equals(Biomes.MANGROVE_SWAMP)) {
-            mangroveRound = mangroveRound + 1;
-            Climate.Parameter continentalnessNew = mangroveRound == 1 ? Climate.Parameter.span(Climate.Parameter.span(-0.11F, 0.03F), this.farInlandContinentalness) : mangroveRound == 2 ? Climate.Parameter.span(Climate.Parameter.span(-0.11F, 0.03F), this.farInlandContinentalness) : Climate.Parameter.span(Climate.Parameter.span(-0.19F, -0.11F), this.farInlandContinentalness);
-            parameters.accept(Pair.of(Climate.parameters(
-                            Climate.Parameter.span(this.temperatures[2], this.temperatures[4]), //Temperature
-                            Climate.Parameter.span(this.humidities[3], this.humidities[4]), //Humidity
-                            continentalnessNew,
+    @Inject(method = "writeBiomeParameters", at = @At("HEAD"), cancellable = true)
+    private void writeBiomeParameters(Consumer<Pair<MultiNoiseUtil.NoiseHypercube, RegistryKey<Biome>>> parameters, MultiNoiseUtil.ParameterRange temperature, MultiNoiseUtil.ParameterRange humidity, MultiNoiseUtil.ParameterRange continentalness, MultiNoiseUtil.ParameterRange erosion, MultiNoiseUtil.ParameterRange weirdness, float offset, RegistryKey<Biome> biome, CallbackInfo info) {
+        if (biome.equals(BiomeKeys.MANGROVE_SWAMP) && ModMenuInteractionHandler.modMangroveSwampPlacement()) {
+            parameters.accept(Pair.of(MultiNoiseUtil.createNoiseHypercube(
+                    MultiNoiseUtil.ParameterRange.combine(this.temperatureParameters[2], this.temperatureParameters[4]), //Temperature
+                            MultiNoiseUtil.ParameterRange.combine(this.humidityParameters[swampHumidity], this.humidityParameters[4]), //Humidity
+                            continentalness,
                             erosion,
-                            Climate.Parameter.point(0.0F),
+                            MultiNoiseUtil.ParameterRange.of(0.0F),
                             weirdness,
                             offset),
                     biome));
 
-            parameters.accept(Pair.of(Climate.parameters(
-                            Climate.Parameter.span(this.temperatures[2], this.temperatures[4]), //Temperature
-                            Climate.Parameter.span(this.humidities[3], this.humidities[4]), //Humidity
-                            continentalnessNew,
+            parameters.accept(Pair.of(MultiNoiseUtil.createNoiseHypercube(
+                    MultiNoiseUtil.ParameterRange.combine(this.temperatureParameters[2], this.temperatureParameters[4]), //Temperature
+                            MultiNoiseUtil.ParameterRange.combine(this.humidityParameters[swampHumidity], this.humidityParameters[4]), //Humidity
+                            continentalness,
                             erosion,
-                            Climate.Parameter.point(1.0F),
+                            MultiNoiseUtil.ParameterRange.of(1.0F),
                             weirdness,
                             offset),
                     biome));
             info.cancel();
         }
-        if (biome.equals(Biomes.SWAMP)) {
-            parameters.accept(Pair.of(Climate.parameters(
-                            Climate.Parameter.span(this.temperatures[1], this.temperatures[3]), //Temperature
-                            Climate.Parameter.span(this.humidities[3], this.humidities[4]), //Humidity
+        if (biome.equals(BiomeKeys.SWAMP) && ModMenuInteractionHandler.modSwampPlacement()) {
+            parameters.accept(Pair.of(MultiNoiseUtil.createNoiseHypercube(
+                    MultiNoiseUtil.ParameterRange.combine(this.temperatureParameters[1], this.temperatureParameters[3]), //Temperature
+                            MultiNoiseUtil.ParameterRange.combine(this.humidityParameters[swampHumidity], this.humidityParameters[4]), //Humidity
                             continentalness,
                             erosion,
-                            Climate.Parameter.point(0.0F),
+                            MultiNoiseUtil.ParameterRange.of(0.0F),
                             weirdness,
                             offset),
                     biome));
 
-            parameters.accept(Pair.of(Climate.parameters(
-                            Climate.Parameter.span(this.temperatures[1], this.temperatures[3]), //Temperature
-                            Climate.Parameter.span(this.humidities[3], this.humidities[4]), //Humidity
+            parameters.accept(Pair.of(MultiNoiseUtil.createNoiseHypercube(
+                    MultiNoiseUtil.ParameterRange.combine(this.temperatureParameters[1], this.temperatureParameters[3]), //Temperature
+                            MultiNoiseUtil.ParameterRange.combine(this.humidityParameters[swampHumidity], this.humidityParameters[4]), //Humidity
                             continentalness,
                             erosion,
-                            Climate.Parameter.point(1.0F),
+                            MultiNoiseUtil.ParameterRange.of(1.0F),
                             weirdness,
                             offset),
                     biome));
             info.cancel();
         }
-        if (biome.equals(Biomes.DESERT) || biome.equals(Biomes.BADLANDS)) {
-            parameters.accept(Pair.of(Climate.parameters(
+        if ((biome.equals(BiomeKeys.DESERT) && ModMenuInteractionHandler.modDesertPlacement()) || (biome.equals(BiomeKeys.BADLANDS) && ModMenuInteractionHandler.modBadlandsPlacement())) {
+            parameters.accept(Pair.of(MultiNoiseUtil.createNoiseHypercube(
                             temperature, //Temperature
-                            Climate.Parameter.span(this.humidities[0], this.humidities[1]), //Humidity
+                            MultiNoiseUtil.ParameterRange.combine(this.humidityParameters[0], this.humidityParameters[1]), //Humidity
                             continentalness,
                             erosion,
-                            Climate.Parameter.point(0.0F),
+                            MultiNoiseUtil.ParameterRange.of(0.0F),
                             weirdness,
                             offset),
                     biome));
 
-            parameters.accept(Pair.of(Climate.parameters(
+            parameters.accept(Pair.of(MultiNoiseUtil.createNoiseHypercube(
                             temperature, //Temperature
-                            Climate.Parameter.span(this.humidities[0], this.humidities[1]), //Humidity
+                            MultiNoiseUtil.ParameterRange.combine(this.humidityParameters[0], this.humidityParameters[1]), //Humidity
                             continentalness,
                             erosion,
-                            Climate.Parameter.point(1.0F),
+                            MultiNoiseUtil.ParameterRange.of(1.0F),
                             weirdness,
                             offset),
                     biome));

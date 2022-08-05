@@ -3,16 +3,16 @@ package net.frozenblock.wilderwild.mixin.client;
 import com.google.common.collect.ImmutableList;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.frozenblock.wilderwild.entity.render.WardenModelInterface;
+import net.frozenblock.wilderwild.entity.render.WilderWardenModel;
 import net.frozenblock.wilderwild.entity.render.animations.CustomWardenAnimations;
-import net.frozenblock.wilderwild.entity.render.animations.WardenAnimationInterface;
-import net.minecraft.client.animation.definitions.WardenAnimation;
-import net.minecraft.client.model.WardenModel;
-import net.minecraft.client.model.geom.ModelPart;
-import net.minecraft.tags.FluidTags;
-import net.minecraft.util.Mth;
-import net.minecraft.world.entity.Pose;
-import net.minecraft.world.entity.monster.warden.Warden;
+import net.frozenblock.wilderwild.entity.render.animations.WilderWarden;
+import net.minecraft.client.model.ModelPart;
+import net.minecraft.client.render.entity.animation.WardenAnimations;
+import net.minecraft.client.render.entity.model.WardenEntityModel;
+import net.minecraft.entity.EntityPose;
+import net.minecraft.entity.mob.WardenEntity;
+import net.minecraft.tag.FluidTags;
+import net.minecraft.util.math.MathHelper;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -23,8 +23,8 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import java.util.List;
 
 @Environment(EnvType.CLIENT)
-@Mixin(WardenModel.class)
-public abstract class WardenEntityModelMixin<T extends Warden> implements WardenModelInterface {
+@Mixin(WardenEntityModel.class)
+public abstract class WardenEntityModelMixin<T extends WardenEntity> implements WilderWardenModel {
 
     @Final
     @Shadow
@@ -63,20 +63,24 @@ public abstract class WardenEntityModelMixin<T extends Warden> implements Warden
     protected ModelPart rightArm;
 
     @Shadow
-    protected abstract void animateHeadLookTarget(float i, float j);
+    private void setHeadAngle(float i, float j) {
+    }
 
     @Shadow
-    protected abstract void animateWalk(float f, float g);
+    private void setLimbAngles(float f, float g) {
+    }
 
     @Shadow
-    protected abstract void animateIdlePose(float k);
+    private void setHeadAndBodyAngles(float k) {
+    }
 
     @Shadow
-    protected abstract void animateTendrils(T warden, float animationProgress, float tickDelta);
+    private void setTendrilPitches(T warden, float animationProgress, float tickDelta) {
+    }
 
     private List<ModelPart> headAndTendrils;
 
-    private final WardenModel model = WardenModel.class.cast(this);
+    private final WardenEntityModel model = WardenEntityModel.class.cast(this);
 
     @Inject(method = "<init>", at = @At("TAIL"))
     private void WardenEntityModel(ModelPart root, CallbackInfo ci) {
@@ -84,73 +88,73 @@ public abstract class WardenEntityModelMixin<T extends Warden> implements Warden
     }
 
     private float lerp(float delta, float start, float end) {
-        return Mth.lerp(delta, start, end);
+        return MathHelper.lerp(delta, start, end);
     }
 
     private float lerpAngleDegrees(float delta, float start, float end) {
-        return Mth.rotLerp(delta, start, end);
+        return MathHelper.lerpAngleDegrees(delta, start, end);
     }
 
 
-    @Inject(at = @At("HEAD"), method = "animateTendrils", cancellable = true)
-    private void animateTendrils(T warden, float animationProgress, float tickDelta, CallbackInfo info) {
-        float cos = warden.getTendrilAnimation(tickDelta) * (float) (Math.cos((double) animationProgress * 2.25D) * 3.141592653589793D * 0.10000000149011612D);
-        float sin = warden.getTendrilAnimation(tickDelta) * (float) (-Math.sin((double) animationProgress * 2.25D) * 3.141592653589793D * 0.12500000149011612D);
+    @Inject(at = @At("HEAD"), method = "setTendrilPitches", cancellable = true)
+    private void setTendrilPitches(T warden, float animationProgress, float tickDelta, CallbackInfo info) {
+        float cos = warden.getTendrilPitch(tickDelta) * (float) (Math.cos((double) animationProgress * 2.25D) * 3.141592653589793D * 0.10000000149011612D);
+        float sin = warden.getTendrilPitch(tickDelta) * (float) (-Math.sin((double) animationProgress * 2.25D) * 3.141592653589793D * 0.12500000149011612D);
 
         //hecc yeah we're using all axes for this one >:3 -merp
         //hi merp
 
-        this.leftTendril.xRot = cos;
-        this.rightTendril.xRot = cos;
+        this.leftTendril.pitch = cos;
+        this.rightTendril.pitch = cos;
 
-        this.leftTendril.yRot = sin / 2f;
-        this.rightTendril.yRot = -sin / 2f;
+        this.leftTendril.yaw = sin / 2f;
+        this.rightTendril.yaw = -sin / 2f;
 
-        this.leftTendril.zRot = cos / 2f;
-        this.rightTendril.zRot = -cos / 2f;
+        this.leftTendril.roll = cos / 2f;
+        this.rightTendril.roll = -cos / 2f;
         info.cancel();
     }
 
-    @Inject(method = "setupAnim(Lnet/minecraft/world/entity/monster/warden/Warden;FFFFF)V", at = @At("HEAD"), cancellable = true)
+    @Inject(method = "setAngles(Lnet/minecraft/entity/mob/WardenEntity;FFFFF)V", at = @At("HEAD"), cancellable = true)
     private void setAngles(T wardenEntity, float angle, float distance, float anim, float headYaw, float headPitch, CallbackInfo ci) {
         ci.cancel();
         boolean swimming = this.isSubmerged(wardenEntity) && distance > 0;
-        boolean cannotSwim = wardenEntity.hasPose(Pose.EMERGING) || wardenEntity.hasPose(Pose.DIGGING) || wardenEntity.hasPose(Pose.DYING) || ((WardenAnimationInterface) wardenEntity).getSwimmingDyingAnimationState().isStarted() || ((WardenAnimationInterface) wardenEntity).getKirbyDeathAnimationState().isStarted();
-        boolean shouldMoveArms = !wardenEntity.hasPose(Pose.ROARING) && !wardenEntity.hasPose(Pose.EMERGING) && !wardenEntity.hasPose(Pose.DIGGING);
-        boolean shouldMoveBody = !wardenEntity.hasPose(Pose.ROARING) && !wardenEntity.hasPose(Pose.EMERGING) && !wardenEntity.hasPose(Pose.DIGGING);
-        boolean shouldMoveHead = !wardenEntity.hasPose(Pose.ROARING) && !wardenEntity.hasPose(Pose.EMERGING) && !wardenEntity.hasPose(Pose.DIGGING);
-        model.root().getAllParts().forEach(ModelPart::resetPose);
-        float k = anim - (float) wardenEntity.tickCount;
-        this.animateHeadLookTarget(headYaw, headPitch);
-        this.animateWalk(angle, distance);
-        this.animateIdlePose(anim);
-        this.animateTendrils(wardenEntity, anim, k);
+        boolean cannotSwim = wardenEntity.isInPose(EntityPose.EMERGING) || wardenEntity.isInPose(EntityPose.DIGGING) || wardenEntity.isInPose(EntityPose.DYING) || ((WilderWarden) wardenEntity).getSwimmingDyingAnimationState().isRunning() || ((WilderWarden) wardenEntity).getKirbyDeathAnimationState().isRunning();
+        boolean shouldMoveArms = !wardenEntity.isInPose(EntityPose.ROARING) && !wardenEntity.isInPose(EntityPose.EMERGING) && !wardenEntity.isInPose(EntityPose.DIGGING);
+        boolean shouldMoveBody = !wardenEntity.isInPose(EntityPose.ROARING) && !wardenEntity.isInPose(EntityPose.EMERGING) && !wardenEntity.isInPose(EntityPose.DIGGING);
+        boolean shouldMoveHead = !wardenEntity.isInPose(EntityPose.ROARING) && !wardenEntity.isInPose(EntityPose.EMERGING) && !wardenEntity.isInPose(EntityPose.DIGGING);
+        model.getPart().traverse().forEach(ModelPart::resetTransform);
+        float k = anim - (float) wardenEntity.age;
+        this.setHeadAngle(headYaw, headPitch);
+        this.setLimbAngles(angle, distance);
+        this.setHeadAndBodyAngles(anim);
+        this.setTendrilPitches(wardenEntity, anim, k);
         this.setSwimmingAngles(wardenEntity, angle, distance, anim, k, headYaw, headPitch, swimming, shouldMoveArms, shouldMoveBody, shouldMoveHead, cannotSwim, ci);
-        model.animate(wardenEntity.attackAnimationState, WardenAnimation.WARDEN_ATTACK, anim);
-        model.animate(wardenEntity.sonicBoomAnimationState, WardenAnimation.WARDEN_SONIC_BOOM, anim);
-        model.animate(wardenEntity.diggingAnimationState, WardenAnimation.WARDEN_DIG, anim);
-        model.animate(wardenEntity.emergeAnimationState, WardenAnimation.WARDEN_EMERGE, anim);
-        model.animate(wardenEntity.roarAnimationState, WardenAnimation.WARDEN_ROAR, anim);
-        model.animate(wardenEntity.sniffAnimationState, WardenAnimation.WARDEN_SNIFF, anim);
-        model.animate(((WardenAnimationInterface) wardenEntity).getDyingAnimationState(), CustomWardenAnimations.DYING, anim);
-        model.animate(((WardenAnimationInterface) wardenEntity).getSwimmingDyingAnimationState(), CustomWardenAnimations.WATER_DYING, anim);
-        model.animate(((WardenAnimationInterface) wardenEntity).getKirbyDeathAnimationState(), CustomWardenAnimations.KIRBY_DEATH, anim);
+        model.updateAnimation(wardenEntity.attackingAnimationState, WardenAnimations.ATTACKING, anim);
+        model.updateAnimation(wardenEntity.chargingSonicBoomAnimationState, WardenAnimations.CHARGING_SONIC_BOOM, anim);
+        model.updateAnimation(wardenEntity.diggingAnimationState, WardenAnimations.DIGGING, anim);
+        model.updateAnimation(wardenEntity.emergingAnimationState, WardenAnimations.EMERGING, anim);
+        model.updateAnimation(wardenEntity.roaringAnimationState, WardenAnimations.ROARING, anim);
+        model.updateAnimation(wardenEntity.sniffingAnimationState, WardenAnimations.SNIFFING, anim);
+        model.updateAnimation(((WilderWarden) wardenEntity).getDyingAnimationState(), CustomWardenAnimations.DYING, anim);
+        model.updateAnimation(((WilderWarden) wardenEntity).getSwimmingDyingAnimationState(), CustomWardenAnimations.WATER_DYING, anim);
+        model.updateAnimation(((WilderWarden) wardenEntity).getKirbyDeathAnimationState(), CustomWardenAnimations.KIRBY_DEATH, anim);
 
     }
 
     private void setSwimmingAngles(T wardenEntity, float angle, float distance, float anim, float k, float headYaw, float headPitch, boolean swimming, boolean moveArms, boolean moveBody, boolean moveHead, boolean cannotSwim, CallbackInfo ci) {
 
-        if (wardenEntity.isVisuallySwimming() && this.isSubmerged(wardenEntity) && !cannotSwim) {
+        if (wardenEntity.isInSwimmingPose() && this.isSubmerged(wardenEntity) && !cannotSwim) {
 
             float angles = (float) (angle * (Math.PI * 0.2));
 
             float time = anim * 0.1F;
 
-            float cos = Mth.cos(angles);
-            float sin = Mth.sin(angles);
+            float cos = MathHelper.cos(angles);
+            float sin = MathHelper.sin(angles);
 
-            float sin0 = Mth.sin(angles * 0.5F);
-            float cos0 = Mth.cos(angles * 2.0F);
+            float sin0 = MathHelper.sin(angles * 0.5F);
+            float cos0 = MathHelper.cos(angles * 2.0F);
 
             float speedDelta = isSubmerged(wardenEntity) ? Math.min(distance / 0.3F, 1.0F) : 0;
 
@@ -158,72 +162,72 @@ public abstract class WardenEntityModelMixin<T extends Warden> implements Warden
 
             float rad = (float) (Math.PI / 180);
 
-            this.bone.xRot = this.lerpAngleDegrees(speedDelta, this.bone.xRot, headPitch * 0.017453292F + 1.5708F);
-            this.bone.yRot = this.lerpAngleDegrees(speedDelta, this.bone.yRot, headYaw * 0.017453292F);
-            this.bone.y = this.lerp(speedDelta, this.bone.z, 21) + 3;
+            this.bone.pitch = this.lerpAngleDegrees(speedDelta, this.bone.pitch, headPitch * 0.017453292F + 1.5708F);
+            this.bone.yaw = this.lerpAngleDegrees(speedDelta, this.bone.yaw, headYaw * 0.017453292F);
+            this.bone.pivotY = this.lerp(speedDelta, this.bone.pivotZ, 21) + 3;
 
             if (moveHead) {
-                this.head.xRot = this.lerpAngleDegrees(speedDelta, this.head.xRot, (sin * -10 - 60) * rad);
-                this.head.zRot = this.lerpAngleDegrees(speedDelta, this.head.zRot, 0);
-                this.head.yRot = this.lerpAngleDegrees(speedDelta, this.head.yRot, 0);
+                this.head.pitch = this.lerpAngleDegrees(speedDelta, this.head.pitch, (sin * -10 - 60) * rad);
+                this.head.roll = this.lerpAngleDegrees(speedDelta, this.head.roll, 0);
+                this.head.yaw = this.lerpAngleDegrees(speedDelta, this.head.yaw, 0);
             }
 
             if (moveBody) {
-                this.body.xRot = this.lerpAngleDegrees(speedDelta, this.body.xRot, (sin * 15 - 10) * rad);
-                this.body.yRot = this.lerpAngleDegrees(speedDelta, this.body.yRot, (sin0 * 5) * rad);
-                this.body.y = this.lerp(speedDelta, this.body.y + 21, 0);
-                this.body.z = this.lerp(speedDelta, this.body.z, cos * 2);
+                this.body.pitch = this.lerpAngleDegrees(speedDelta, this.body.pitch, (sin * 15 - 10) * rad);
+                this.body.yaw = this.lerpAngleDegrees(speedDelta, this.body.yaw, (sin0 * 5) * rad);
+                this.body.pivotY = this.lerp(speedDelta, this.body.pivotY + 21, 0);
+                this.body.pivotZ = this.lerp(speedDelta, this.body.pivotZ, cos * 2);
             } else {
-                this.body.y = 0;
+                this.body.pivotY = 0;
             }
 
             if (moveArms) {
 
-                this.rightArm.xRot = this.lerpAngleDegrees(speedDelta, this.rightArm.xRot, 0f);
-                this.rightArm.yRot = this.lerpAngleDegrees(speedDelta, this.rightArm.yRot, (-cos * 25)) * rad;
-                this.rightArm.zRot = this.lerpAngleDegrees(speedDelta, this.rightArm.zRot, (sin * -90 + 90)) * rad;
-                this.rightArm.x = this.lerp(speedDelta, this.rightArm.x, (cos0 * 2 + 2) - 13);
+                this.rightArm.pitch = this.lerpAngleDegrees(speedDelta, this.rightArm.pitch, 0f);
+                this.rightArm.yaw = this.lerpAngleDegrees(speedDelta, this.rightArm.yaw, (-cos * 25)) * rad;
+                this.rightArm.roll = this.lerpAngleDegrees(speedDelta, this.rightArm.roll, (sin * -90 + 90)) * rad;
+                this.rightArm.pivotX = this.lerp(speedDelta, this.rightArm.pivotX, (cos0 * 2 + 2) - 13);
 
-                this.leftArm.xRot = this.lerpAngleDegrees(speedDelta, this.leftArm.xRot, 0f);
-                this.leftArm.yRot = this.lerpAngleDegrees(speedDelta, this.leftArm.yRot, (cos * 25) * rad);
-                this.leftArm.zRot = this.lerpAngleDegrees(speedDelta, this.leftArm.zRot, (sin * 90 - 90) * rad);
-                this.leftArm.x = this.lerp(speedDelta, this.leftArm.x, (cos0 * -2 - 2) + 13);
+                this.leftArm.pitch = this.lerpAngleDegrees(speedDelta, this.leftArm.pitch, 0f);
+                this.leftArm.yaw = this.lerpAngleDegrees(speedDelta, this.leftArm.yaw, (cos * 25) * rad);
+                this.leftArm.roll = this.lerpAngleDegrees(speedDelta, this.leftArm.roll, (sin * 90 - 90) * rad);
+                this.leftArm.pivotX = this.lerp(speedDelta, this.leftArm.pivotX, (cos0 * -2 - 2) + 13);
 
             }
 
-            this.leftLeg.xRot = this.lerpAngleDegrees(speedDelta, this.leftLeg.xRot, (-cos * 35 - 5) * rad);
-            this.rightLeg.xRot = this.lerpAngleDegrees(speedDelta, this.rightLeg.xRot, (cos * 35 - 5) * rad);
+            this.leftLeg.pitch = this.lerpAngleDegrees(speedDelta, this.leftLeg.pitch, (-cos * 35 - 5) * rad);
+            this.rightLeg.pitch = this.lerpAngleDegrees(speedDelta, this.rightLeg.pitch, (cos * 35 - 5) * rad);
 
-            this.rightLeg.y = 8;
-            this.leftLeg.y = 8;
+            this.rightLeg.pivotY = 8;
+            this.leftLeg.pivotY = 8;
 
-            this.bone.y += Mth.cos(time);
+            this.bone.pivotY += MathHelper.cos(time);
 
-            this.head.xRot += (Mth.sin(time) * -5) * rad;
+            this.head.pitch += (MathHelper.sin(time) * -5) * rad;
 
-            this.body.xRot += (Mth.cos(time) * -5) * rad;
+            this.body.pitch += (MathHelper.cos(time) * -5) * rad;
 
-            this.leftArm.zRot += (-Mth.sin(time) * -5 - 5) * rad;
-            this.rightArm.zRot += (-Mth.sin(time) * 5 + 5) * rad;
+            this.leftArm.roll += (-MathHelper.sin(time) * -5 - 5) * rad;
+            this.rightArm.roll += (-MathHelper.sin(time) * 5 + 5) * rad;
 
-            this.leftLeg.xRot += (Mth.sin(time) * 15 + 15) * rad;
-            this.rightLeg.xRot += (Mth.sin(time) * -15 + 15) * rad;
+            this.leftLeg.pitch += (MathHelper.sin(time) * 15 + 15) * rad;
+            this.rightLeg.pitch += (MathHelper.sin(time) * -15 + 15) * rad;
 
         } else if (this.isSubmerged(wardenEntity) && distance <= 0) {
 
-            this.body.y = 0;
+            this.body.pivotY = 0;
 
             ci.cancel();
-            model.root().getAllParts().forEach(ModelPart::resetPose);
-            this.animateHeadLookTarget(headYaw, headPitch);
-            this.animateWalk(angle, distance);
-            this.animateIdlePose(anim);
-            this.animateTendrils(wardenEntity, anim, k);
+            model.getPart().traverse().forEach(ModelPart::resetTransform);
+            this.setHeadAngle(headYaw, headPitch);
+            this.setLimbAngles(angle, distance);
+            this.setHeadAndBodyAngles(anim);
+            this.setTendrilPitches(wardenEntity, anim, k);
         }
     }
 
-    private boolean isSubmerged(Warden warden) {
-        return warden.isInWaterOrBubble() || warden.isEyeInFluid(FluidTags.LAVA);
+    private boolean isSubmerged(WardenEntity warden) {
+        return warden.isInsideWaterOrBubbleColumn() || warden.isSubmergedIn(FluidTags.LAVA);
     }
 
     @Override
