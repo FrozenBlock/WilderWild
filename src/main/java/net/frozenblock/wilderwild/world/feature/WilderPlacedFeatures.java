@@ -109,7 +109,7 @@ public class WilderPlacedFeatures {
             WilderConfiguredFeatures.CYPRESS_WETLANDS_TREES, CountPlacementModifier.of(30), SquarePlacementModifier.of(), PlacedFeatures.WORLD_SURFACE_WG_HEIGHTMAP, BiomePlacementModifier.of(), BlockFilterPlacementModifier.of(BlockPredicate.wouldSurvive(RegisterBlocks.CYPRESS_SAPLING.getDefaultState(), BlockPos.ORIGIN)));
 
     public static final RegistryEntry<PlacedFeature> CYPRESS_WETLANDS_TREES_WATER = register("cypress_wetlands_trees_water",
-            WilderConfiguredFeatures.CYPRESS_WETLANDS_TREES_WATER, CountPlacementModifier.of(18), SurfaceWaterDepthFilterPlacementModifier.of(5), PlacedFeatures.OCEAN_FLOOR_HEIGHTMAP, BiomePlacementModifier.of(), BlockFilterPlacementModifier.of(BlockPredicate.wouldSurvive(RegisterBlocks.CYPRESS_SAPLING.getDefaultState(), BlockPos.ORIGIN)));
+            WilderConfiguredFeatures.CYPRESS_WETLANDS_TREES_WATER, CountPlacementModifier.of(20), SurfaceWaterDepthFilterPlacementModifier.of(5), PlacedFeatures.OCEAN_FLOOR_HEIGHTMAP, BiomePlacementModifier.of(), BlockFilterPlacementModifier.of(BlockPredicate.wouldSurvive(RegisterBlocks.CYPRESS_SAPLING.getDefaultState(), BlockPos.ORIGIN)));
 
     //MUSHROOMS
     public static final RegistryEntry<PlacedFeature> BROWN_SHELF_FUNGUS_PLACED = register("brown_shelf_fungus_placed",
