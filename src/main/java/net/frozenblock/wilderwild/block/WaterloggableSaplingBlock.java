@@ -29,7 +29,7 @@ public class WaterloggableSaplingBlock extends SaplingBlock implements Waterlogg
     }
 
     protected boolean canPlantOnTop(BlockState floor, BlockView world, BlockPos pos) {
-        return super.canPlantOnTop(floor, world, pos) || floor.isOf(Blocks.CLAY) || floor.isOf(Blocks.MUD);
+        return super.canPlantOnTop(floor, world, pos) || floor.isOf(Blocks.CLAY) || floor.isOf(Blocks.MUD) || floor.isOf(Blocks.SAND);
     }
 
     @Nullable
