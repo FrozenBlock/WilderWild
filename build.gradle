@@ -33,12 +33,20 @@ repositories {
 	}
 	maven {
 		url = 'https://maven.terraformersmc.com'
+
+		content {
+			includeGroup "com.terraformersmc"
+		}
 	}
 	maven {
 		url = 'https://maven.shedaniel.me/'
 	}
 	maven {
 		url 'https://cursemaven.com'
+		
+		content {
+			includeGroup "curse.maven"
+		}
 	}
 }
 
