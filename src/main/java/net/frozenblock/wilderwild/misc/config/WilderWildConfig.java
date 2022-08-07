@@ -2,8 +2,6 @@ package net.frozenblock.wilderwild.misc.config;
 
 import com.terraformersmc.modmenu.config.option.BooleanConfigOption;
 import com.terraformersmc.modmenu.config.option.OptionConvertable;
-import me.shedaniel.autoconfig.ConfigData;
-import me.shedaniel.autoconfig.annotation.Config;
 import net.frozenblock.wilderwild.WilderWild;
 import net.minecraft.client.option.SimpleOption;
 
@@ -11,8 +9,7 @@ import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 
-@Config(name = WilderWild.MOD_ID)
-public class WilderWildConfig implements ConfigData {
+public class WilderWildConfig {
 
     //public static final EnumConfigOption<ModMenuConfig.ModsButtonStyle> MODS_BUTTON_STYLE = new EnumConfigOption<>("mods_button_style", ModMenuConfig.ModsButtonStyle.CLASSIC);
     public static final BooleanConfigOption MODIFY_DESERT_PLACEMENT = new BooleanConfigOption("modify_desert_placement", true);
