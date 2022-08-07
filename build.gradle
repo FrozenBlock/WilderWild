@@ -71,7 +71,6 @@ dependencies {
 
 	// Mod Menu
 	modImplementation "com.terraformersmc:modmenu:${modmenu_version}"
-	modApi("me.shedaniel.cloth:cloth-config:${project.cloth_config_version}")
 
 	//UFU
 	modImplementation "curse.maven:project-409010:3909688"
