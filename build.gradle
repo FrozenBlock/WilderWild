@@ -127,7 +127,7 @@ jar {
 }
 
 String getVersion() {
-	String version = "${mod_version}-${minecraft_version}"
+	String version = "${mod_version}+${minecraft_version}"
 
 	if (findProperty("releaseType") != "stable") {
 		version += "-unstable"
