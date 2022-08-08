@@ -3,14 +3,12 @@ package net.frozenblock.wilderwild.mixin.server;
 import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.misc.SculkSensorTickInterface;
 import net.frozenblock.wilderwild.registry.RegisterProperties;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockRenderType;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.SculkSensorBlock;
+import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityTicker;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.block.entity.SculkSensorBlockEntity;
+import net.minecraft.block.enums.SculkSensorPhase;
 import net.minecraft.entity.Entity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.state.StateManager;
@@ -18,6 +16,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
@@ -26,9 +25,15 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 @Mixin(SculkSensorBlock.class)
 public class SculkSensorBlockMixin {
 
-    @Inject(at = @At("TAIL"), method = "appendProperties", cancellable = true)
+    @Inject(at = @At("TAIL"), method = "appendProperties")
     public void appendProperties(StateManager.Builder<Block, BlockState> builder, CallbackInfo info) {
-        builder.add(RegisterProperties.NOT_HICCUPPING);
+        builder.add(RegisterProperties.HICCUPPING);
+    }
+
+    @Inject(method = "<init>", at = @At("TAIL"))
+    private void SculkSensorBlock(AbstractBlock.Settings settings, int range, CallbackInfo ci) {
+        SculkSensorBlock sculkSensor = SculkSensorBlock.class.cast(this);
+        sculkSensor.setDefaultState(sculkSensor.getStateManager().getDefaultState().with(RegisterProperties.HICCUPPING, false));
     }
 
     @Inject(at = @At("HEAD"), method = "getTicker", cancellable = true)
@@ -64,4 +69,9 @@ public class SculkSensorBlockMixin {
         return expectedType == givenType ? (BlockEntityTicker<A>) ticker : null;
     }
 
+    @Shadow
+    @Nullable
+    public BlockEntity createBlockEntity(BlockPos pos, BlockState state) {
+        return new SculkSensorBlockEntity(pos, state);
+    }
 }
