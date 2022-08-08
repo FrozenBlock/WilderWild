@@ -16,7 +16,7 @@ import java.util.List;
 
 public class WilderWildOptionsScreen extends GameOptionsScreen {
 
-    private Screen previous;
+    private final Screen previous;
     private ButtonListWidget list;
 
     @SuppressWarnings("resource")

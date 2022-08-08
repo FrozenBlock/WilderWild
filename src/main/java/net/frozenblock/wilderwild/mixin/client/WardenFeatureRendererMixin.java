@@ -1,5 +1,7 @@
 package net.frozenblock.wilderwild.mixin.client;
 
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.entity.feature.FeatureRenderer;
 import net.minecraft.client.render.entity.feature.FeatureRendererContext;
@@ -16,8 +18,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-import java.util.Objects;
-
+@Environment(EnvType.CLIENT)
 @Mixin(WardenFeatureRenderer.class)
 public abstract class WardenFeatureRendererMixin<T extends WardenEntity, M extends WardenEntityModel<T>> extends FeatureRenderer<T, M> {
 

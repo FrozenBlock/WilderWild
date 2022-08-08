@@ -11,7 +11,6 @@ import net.minecraft.tag.TagKey;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.math.random.Random;
 import net.minecraft.util.registry.Registry;
-import net.minecraft.util.registry.RegistryEntry;
 import net.minecraft.util.registry.RegistryEntryList;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
@@ -25,7 +24,9 @@ import java.util.Objects;
 @Mixin(GoatEntity.class)
 public abstract class GoatEntityMixin {
 
-    @Shadow @Final private static TrackedData<Boolean> SCREAMING;
+    @Shadow
+    @Final
+    private static TrackedData<Boolean> SCREAMING;
 
     private boolean isTreetrain1() {
         GoatEntity goat = GoatEntity.class.cast(this);

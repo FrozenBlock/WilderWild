@@ -146,7 +146,7 @@ public abstract class WardenEntityMixin extends HostileEntity implements WilderW
     public void accept(ServerWorld world, GameEventListener listener, BlockPos pos, GameEvent event, @Nullable Entity entity, @Nullable Entity sourceEntity, float f, CallbackInfo info) {
         int additionalAnger = 0;
         if (world.getBlockState(pos).isOf(Blocks.SCULK_SENSOR)) {
-            if (!world.getBlockState(pos).get(RegisterProperties.NOT_HICCUPPING)) {
+            if (world.getBlockState(pos).get(RegisterProperties.HICCUPPING)) {
                 additionalAnger = 65;
             }
         }

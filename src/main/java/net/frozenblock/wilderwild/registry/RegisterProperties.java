@@ -30,6 +30,6 @@ public class RegisterProperties extends Properties {
 
     //Vanilla Blocks
     public static final IntProperty SOULS_TAKEN = IntProperty.of("souls_taken", 0, 2); //Sculk Shrieker
-    public static final BooleanProperty NOT_HICCUPPING = BooleanProperty.of("not_hiccupping"); //Sculk Sensor
+    public static final BooleanProperty HICCUPPING = BooleanProperty.of("hiccupping"); //Sculk Sensor
 
 }

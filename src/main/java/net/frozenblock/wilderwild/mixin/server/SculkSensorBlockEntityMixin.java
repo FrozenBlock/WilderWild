@@ -51,7 +51,7 @@ public abstract class SculkSensorBlockEntityMixin extends BlockEntity implements
         if (SculkSensorBlock.isInactive(blockState)) {
             world.emitGameEvent(entity, RegisterGameEvents.SCULK_SENSOR_ACTIVATE, sculkSensorBlockEntity.getPos());
             BlockState state = world.getBlockState(sculkSensorBlockEntity.getPos());
-            world.setBlockState(sculkSensorBlockEntity.getPos(), state.with(RegisterProperties.NOT_HICCUPPING, true));
+            world.setBlockState(sculkSensorBlockEntity.getPos(), state.with(RegisterProperties.HICCUPPING, false));
         }
     }
 
@@ -60,7 +60,7 @@ public abstract class SculkSensorBlockEntityMixin extends BlockEntity implements
         SculkSensorBlockEntity sensor = SculkSensorBlockEntity.class.cast(this);
         sensor.getEventListener().tick(world);
         boolean bl2 = world.random.nextBoolean();
-        if (!state.get(RegisterProperties.NOT_HICCUPPING)) {
+        if (state.get(RegisterProperties.HICCUPPING)) {
             if (bl2) {
                 double x = (pos.getX() - 0.1) + (world.random.nextFloat() * 1.2);
                 double y = pos.getY() + world.random.nextFloat();

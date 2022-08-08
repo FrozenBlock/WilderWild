@@ -23,3 +23,4 @@ accessible    field    net/minecraft/client/render/entity/feature/WardenFeatureR
 accessible    field    net/minecraft/client/render/entity/feature/WardenFeatureRenderer    texture    Lnet/minecraft/util/Identifier;
 accessible    method    net/minecraft/datafixer/Schemas    replacing    (Ljava/util/Map;)Ljava/util/function/UnaryOperator;
 accessible    method    net/minecraft/datafixer/Schemas    replacing    (Ljava/lang/String;Ljava/lang/String;)Ljava/util/function/UnaryOperator;
+accessible    method    net/minecraft/block/Block    setDefaultState    (Lnet/minecraft/block/BlockState;)V

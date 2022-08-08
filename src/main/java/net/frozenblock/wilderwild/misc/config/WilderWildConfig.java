@@ -2,7 +2,6 @@ package net.frozenblock.wilderwild.misc.config;
 
 import com.terraformersmc.modmenu.config.option.BooleanConfigOption;
 import com.terraformersmc.modmenu.config.option.OptionConvertable;
-import net.frozenblock.wilderwild.WilderWild;
 import net.minecraft.client.option.SimpleOption;
 
 import java.lang.reflect.Field;

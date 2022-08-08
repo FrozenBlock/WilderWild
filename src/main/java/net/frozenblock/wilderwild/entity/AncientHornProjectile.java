@@ -5,8 +5,8 @@ import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.block.entity.HangingTendrilBlockEntity;
 import net.frozenblock.wilderwild.misc.WilderProjectileDamageSource;
-import net.frozenblock.wilderwild.misc.server.EasyPacket;
 import net.frozenblock.wilderwild.misc.mod_compat.simple_copper_pipes.InteractionHandler;
+import net.frozenblock.wilderwild.misc.server.EasyPacket;
 import net.frozenblock.wilderwild.registry.*;
 import net.frozenblock.wilderwild.tag.WilderBlockTags;
 import net.minecraft.block.*;
@@ -270,7 +270,11 @@ public class AncientHornProjectile extends PersistentProjectileEntity {
             if (blockState.getBlock() == Blocks.SCULK_SENSOR) {
                 BlockPos pos = blockHitResult.getBlockPos();
                 WilderWild.log(Blocks.SCULK_SENSOR, pos, "Horn Projectile Touched", WilderWild.UNSTABLE_LOGGING);
-                server.setBlockState(pos, blockState.with(RegisterProperties.NOT_HICCUPPING, false));
+                if (blockState.get(RegisterProperties.HICCUPPING)) {
+                    server.setBlockState(pos, blockState.with(RegisterProperties.HICCUPPING, false));
+                } else {
+                    server.setBlockState(pos, blockState.with(RegisterProperties.HICCUPPING, true));
+                }
                 if (SculkSensorBlock.isInactive(blockState)) {
                     SculkSensorBlock.setActive(owner, world, pos, world.getBlockState(pos), WilderWild.random().nextInt(15));
                     world.emitGameEvent(null, GameEvent.SCULK_SENSOR_TENDRILS_CLICKING, pos);

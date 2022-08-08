@@ -54,7 +54,7 @@ public class FireflyRenderer extends EntityRenderer<Firefly> {
 
     private static final double yOffset = 0.155F;
     private static final Quaternion one80Quat = Vec3f.POSITIVE_Y.getDegreesQuaternion(180.0F);
-    private static final float pi = (float)Math.PI;
+    private static final float pi = (float) Math.PI;
 
     @Override
     public void render(Firefly entity, float yaw, float tickDelta, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light) {
@@ -68,7 +68,7 @@ public class FireflyRenderer extends EntityRenderer<Firefly> {
         boolean flickers = entity.flickers();
         float preScale = entity.getScale();
         float scale = preScale == 1.5F ? 1.5F : preScale - (tickDelta * 0.001875F);
-        
+
         int overlay = getOverlay(entity, 0);
 
         matrices.push();
