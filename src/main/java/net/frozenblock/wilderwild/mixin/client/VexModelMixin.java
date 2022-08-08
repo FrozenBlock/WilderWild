@@ -1,5 +1,7 @@
 package net.frozenblock.wilderwild.mixin.client;
 
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.client.model.TexturedModelData;
 import net.minecraft.client.render.entity.model.VexEntityModel;
 import net.minecraft.entity.mob.VexEntity;
@@ -9,6 +11,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
+@Environment(EnvType.CLIENT)
 @Mixin(VexEntityModel.class)
 public class VexModelMixin {
 
