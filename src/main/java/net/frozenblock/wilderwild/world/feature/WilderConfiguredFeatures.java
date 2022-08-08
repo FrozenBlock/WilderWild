@@ -128,7 +128,7 @@ public class WilderConfiguredFeatures {
 
     public static final RegistryEntry<ConfiguredFeature<RandomFeatureConfig, ?>> CYPRESS_WETLANDS_TREES =
             register("cypress_wetlands_trees", Feature.RANDOM_SELECTOR,
-                    new RandomFeatureConfig(List.of(new RandomFeatureEntry(WilderTreePlaced.CYPRESS, 0.4F),
+                    new RandomFeatureConfig(List.of(new RandomFeatureEntry(WilderTreePlaced.CYPRESS, 0.37F),
                             new RandomFeatureEntry(WilderTreePlaced.SHORT_CYPRESS, 0.25F),
                             new RandomFeatureEntry(WilderTreePlaced.SWAMP_CYPRESS, 0.81F),
                             new RandomFeatureEntry(WilderTreePlaced.NEW_OAK_CHECKED, 0.1F)), WilderTreePlaced.FUNGUS_CYPRESS));
@@ -136,25 +136,25 @@ public class WilderConfiguredFeatures {
     public static final RegistryEntry<ConfiguredFeature<RandomFeatureConfig, ?>> CYPRESS_WETLANDS_TREES_SAPLING =
             register("cypress_wetlands_trees_sapling", Feature.RANDOM_SELECTOR,
                     new RandomFeatureConfig(List.of(new RandomFeatureEntry(WilderTreePlaced.CYPRESS, 0.4F),
-                            new RandomFeatureEntry(WilderTreePlaced.SHORT_CYPRESS, 0.25F),
+                            new RandomFeatureEntry(WilderTreePlaced.SHORT_CYPRESS, 0.15F),
                             new RandomFeatureEntry(WilderTreePlaced.SWAMP_CYPRESS, 0.81F)),
                             WilderTreePlaced.FUNGUS_CYPRESS));
 
     public static final RegistryEntry<ConfiguredFeature<RandomFeatureConfig, ?>> CYPRESS_WETLANDS_TREES_WATER =
             register("cypress_wetlands_trees_water", Feature.RANDOM_SELECTOR,
-                    new RandomFeatureConfig(List.of(new RandomFeatureEntry(WilderTreePlaced.CYPRESS, 0.3F),
-                            new RandomFeatureEntry(WilderTreePlaced.SHORT_CYPRESS, 0.12F),
-                            new RandomFeatureEntry(WilderTreePlaced.SWAMP_CYPRESS, 0.81F)), WilderTreePlaced.FUNGUS_CYPRESS));
+                    new RandomFeatureConfig(List.of(new RandomFeatureEntry(WilderTreePlaced.CYPRESS, 0.2F),
+                            new RandomFeatureEntry(WilderTreePlaced.SHORT_CYPRESS, 0.1F),
+                            new RandomFeatureEntry(WilderTreePlaced.SWAMP_CYPRESS, 0.85F)), WilderTreePlaced.FUNGUS_CYPRESS));
 
     //FLOWERS
-    public static final RegistryEntry<ConfiguredFeature<RandomPatchFeatureConfig, ?>> WHITE_DANDELION =
-            register("white_dandelion", Feature.FLOWER,
+    public static final RegistryEntry<ConfiguredFeature<RandomPatchFeatureConfig, ?>> SEEDING_DANDELION =
+            register("seeding_dandelion", Feature.FLOWER,
                     ConfiguredFeatures.createRandomPatchFeatureConfig(48, PlacedFeatures.createEntry(Feature.SIMPLE_BLOCK,
                             new SimpleBlockFeatureConfig(BlockStateProvider.of(RegisterBlocks.SEEDING_DANDELION)))));
 
     public static final RegistryEntry<ConfiguredFeature<RandomPatchFeatureConfig, ?>> CARNATION =
             register("carnation", Feature.FLOWER,
-                    ConfiguredFeatures.createRandomPatchFeatureConfig(60, PlacedFeatures.createEntry(Feature.SIMPLE_BLOCK,
+                    ConfiguredFeatures.createRandomPatchFeatureConfig(54, PlacedFeatures.createEntry(Feature.SIMPLE_BLOCK,
                             new SimpleBlockFeatureConfig(BlockStateProvider.of(RegisterBlocks.CARNATION)))));
 
     public static final RegistryEntry<ConfiguredFeature<RandomPatchFeatureConfig, ?>> DATURA =
