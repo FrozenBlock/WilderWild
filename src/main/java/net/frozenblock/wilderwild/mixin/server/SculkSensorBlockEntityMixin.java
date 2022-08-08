@@ -51,7 +51,7 @@ public abstract class SculkSensorBlockEntityMixin extends BlockEntity implements
         if (SculkSensorBlock.isInactive(blockState)) {
             world.emitGameEvent(entity, RegisterGameEvents.SCULK_SENSOR_ACTIVATE, sculkSensorBlockEntity.getPos());
             BlockState state = world.getBlockState(sculkSensorBlockEntity.getPos());
-            //world.setBlockState(sculkSensorBlockEntity.getPos(), state.with(RegisterProperties.HICCUPPING, false));
+            world.setBlockState(sculkSensorBlockEntity.getPos(), state.with(RegisterProperties.HICCUPPING, false));
         }
     }
 
