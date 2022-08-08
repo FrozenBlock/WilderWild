@@ -106,7 +106,7 @@ public class WilderPlacedFeatures {
             PlacedFeatures.createCountExtraModifier(2, 0.1F, 1), SquarePlacementModifier.of(), SurfaceWaterDepthFilterPlacementModifier.of(4), PlacedFeatures.OCEAN_FLOOR_HEIGHTMAP, BiomePlacementModifier.of(), BlockFilterPlacementModifier.of(BlockPredicate.wouldSurvive(Blocks.MANGROVE_PROPAGULE.getDefaultState(), BlockPos.ORIGIN)));
 
     public static final RegistryEntry<PlacedFeature> CYPRESS_WETLANDS_TREES = register("cypress_wetlands_trees",
-            WilderConfiguredFeatures.CYPRESS_WETLANDS_TREES, CountPlacementModifier.of(30), SquarePlacementModifier.of(), PlacedFeatures.WORLD_SURFACE_WG_HEIGHTMAP, BiomePlacementModifier.of(), BlockFilterPlacementModifier.of(BlockPredicate.wouldSurvive(RegisterBlocks.CYPRESS_SAPLING.getDefaultState(), BlockPos.ORIGIN)));
+            WilderConfiguredFeatures.CYPRESS_WETLANDS_TREES, CountPlacementModifier.of(28), SquarePlacementModifier.of(), PlacedFeatures.WORLD_SURFACE_WG_HEIGHTMAP, BiomePlacementModifier.of(), BlockFilterPlacementModifier.of(BlockPredicate.wouldSurvive(RegisterBlocks.CYPRESS_SAPLING.getDefaultState(), BlockPos.ORIGIN)));
 
     public static final RegistryEntry<PlacedFeature> CYPRESS_WETLANDS_TREES_WATER = register("cypress_wetlands_trees_water",
             WilderConfiguredFeatures.CYPRESS_WETLANDS_TREES_WATER, CountPlacementModifier.of(20), SurfaceWaterDepthFilterPlacementModifier.of(5), PlacedFeatures.OCEAN_FLOOR_HEIGHTMAP, BiomePlacementModifier.of(), BlockFilterPlacementModifier.of(BlockPredicate.wouldSurvive(RegisterBlocks.CYPRESS_SAPLING.getDefaultState(), BlockPos.ORIGIN)));
@@ -158,16 +158,16 @@ public class WilderPlacedFeatures {
             OceanConfiguredFeatures.SEAGRASS_MID, seagrassModifiers(56));
 
     //FLOWERS
-    public static final RegistryEntry<PlacedFeature> WHITE_DANDELION = register("white_dandelion",
-            WilderConfiguredFeatures.WHITE_DANDELION, RarityFilterPlacementModifier.of(9), SquarePlacementModifier.of(),
+    public static final RegistryEntry<PlacedFeature> SEEDING_DANDELION = register("seeding_dandelion",
+            WilderConfiguredFeatures.SEEDING_DANDELION, RarityFilterPlacementModifier.of(9), SquarePlacementModifier.of(),
             PlacedFeatures.MOTION_BLOCKING_HEIGHTMAP, BiomePlacementModifier.of());
 
-    public static final RegistryEntry<PlacedFeature> WHITE_DANDELION_MIXED = register("white_dandelion_mixed",
-            WilderConfiguredFeatures.WHITE_DANDELION, RarityFilterPlacementModifier.of(9), SquarePlacementModifier.of(),
+    public static final RegistryEntry<PlacedFeature> SEEDING_DANDELION_MIXED = register("seeding_dandelion_mixed",
+            WilderConfiguredFeatures.SEEDING_DANDELION, RarityFilterPlacementModifier.of(9), SquarePlacementModifier.of(),
             PlacedFeatures.MOTION_BLOCKING_HEIGHTMAP, BiomePlacementModifier.of());
 
-    public static final RegistryEntry<PlacedFeature> WHITE_DANDELION_CYPRESS = register("white_dandelion_cypress",
-            WilderConfiguredFeatures.WHITE_DANDELION, RarityFilterPlacementModifier.of(9), SquarePlacementModifier.of(),
+    public static final RegistryEntry<PlacedFeature> SEEDING_DANDELION_CYPRESS = register("seeding_dandelion_cypress",
+            WilderConfiguredFeatures.SEEDING_DANDELION, RarityFilterPlacementModifier.of(9), SquarePlacementModifier.of(),
             PlacedFeatures.MOTION_BLOCKING_HEIGHTMAP, BiomePlacementModifier.of());
 
     public static final RegistryEntry<PlacedFeature> CARNATION = register("carnation",
