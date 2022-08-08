@@ -44,13 +44,13 @@ public class SculkSensorBlockEntityRenderer<T extends SculkSensorBlockEntity> im
 
     public void render(T entity, float tickDelta, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, int overlay) {
         if (WilderWild.RENDER_TENDRILS) {
-            SculkSensorTickInterface tickInterface = ((SculkSensorTickInterface)entity);
+            SculkSensorTickInterface tickInterface = ((SculkSensorTickInterface) entity);
             if (tickInterface.isActive()) {
                 int prevTicks = tickInterface.getPrevAnimTicks();
                 float pitch = (prevTicks + tickDelta * (tickInterface.getAnimTicks() - prevTicks)) * 0.1F;
                 float animProg = (tickInterface.getAge() + tickDelta) * 2.25F;
-                this.ne.pitch = pitch * ((float)Math.cos(animProg) * merp25);
-                this.se.pitch = pitch * (-(float)Math.sin(animProg) * merp25);
+                this.ne.pitch = pitch * ((float) Math.cos(animProg) * merp25);
+                this.se.pitch = pitch * (-(float) Math.sin(animProg) * merp25);
                 VertexConsumer vertexConsumer = vertexConsumers.getBuffer(ACTIVE_SENSOR_LAYER);
                 this.base.render(matrices, vertexConsumer, light, overlay, 1.0F, 1.0F, 1.0F, 1.0F);
                 this.ne.render(matrices, vertexConsumer, light, overlay, 1.0F, 1.0F, 1.0F, 1.0F);

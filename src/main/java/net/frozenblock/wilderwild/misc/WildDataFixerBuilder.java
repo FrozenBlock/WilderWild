@@ -10,8 +10,6 @@ import org.jetbrains.annotations.Range;
 import java.util.concurrent.Executor;
 import java.util.function.Supplier;
 
-import static net.minecraft.datafixer.DataFixerPhase.*;
-
 public class WildDataFixerBuilder extends DataFixerBuilder {
 
     public WildDataFixerBuilder(@Range(from = 0, to = Integer.MAX_VALUE) int dataVersion) {

@@ -14,7 +14,6 @@ import net.minecraft.util.Formatting;
 import net.minecraft.util.Identifier;
 
 import java.util.List;
-import java.util.Objects;
 
 public class OsmioooWardenFeatureRenderer<T extends WardenEntity, M extends WardenEntityModel<T>> extends WardenFeatureRenderer<T, M> {
     public OsmioooWardenFeatureRenderer(FeatureRendererContext<T, M> context, Identifier texture, AnimationAngleAdjuster<T> animationAngleAdjuster, ModelPartVisibility<T, M> modelPartVisibility) {

@@ -8,7 +8,6 @@ import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityTicker;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.block.entity.SculkSensorBlockEntity;
-import net.minecraft.block.enums.SculkSensorPhase;
 import net.minecraft.entity.Entity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.state.StateManager;
@@ -16,7 +15,6 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
@@ -41,11 +39,11 @@ public class SculkSensorBlockMixin {
         info.cancel();
         if (world.isClient) {
             info.setReturnValue(checkType(type, BlockEntityType.SCULK_SENSOR, (worldx, pos, statex, blockEntity) -> {
-                ((SculkSensorTickInterface)blockEntity).tickClient(worldx, pos, statex);
+                ((SculkSensorTickInterface) blockEntity).tickClient(worldx, pos, statex);
             }));
         } else {
             info.setReturnValue(checkType(type, BlockEntityType.SCULK_SENSOR, (worldx, pos, statex, blockEntity) -> {
-                ((SculkSensorTickInterface)blockEntity).tickServer((ServerWorld) worldx, pos, statex);
+                ((SculkSensorTickInterface) blockEntity).tickServer((ServerWorld) worldx, pos, statex);
             }));
         }
     }
@@ -53,8 +51,8 @@ public class SculkSensorBlockMixin {
     @Inject(at = @At("HEAD"), method = "setActive")
     private static void setActive(@Nullable Entity entity, World world, BlockPos pos, BlockState state, int power, CallbackInfo info) {
         if (world.getBlockEntity(pos) instanceof SculkSensorBlockEntity blockEntity) {
-            ((SculkSensorTickInterface)blockEntity).setActive(true);
-            ((SculkSensorTickInterface)blockEntity).setAnimTicks(10);
+            ((SculkSensorTickInterface) blockEntity).setActive(true);
+            ((SculkSensorTickInterface) blockEntity).setAnimTicks(10);
         }
     }
 
