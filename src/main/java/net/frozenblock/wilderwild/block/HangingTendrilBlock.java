@@ -1,16 +1,14 @@
 package net.frozenblock.wilderwild.block;
 
 import net.frozenblock.wilderwild.block.entity.HangingTendrilBlockEntity;
-import net.frozenblock.wilderwild.registry.RegisterBlockEntities;
-import net.frozenblock.wilderwild.registry.RegisterBlocks;
-import net.frozenblock.wilderwild.registry.RegisterProperties;
-import net.frozenblock.wilderwild.registry.RegisterSounds;
+import net.frozenblock.wilderwild.registry.*;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityTicker;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.block.entity.SculkSpreadManager;
 import net.minecraft.block.enums.SculkSensorPhase;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.ai.pathing.NavigationType;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.fluid.FluidState;
@@ -36,6 +34,7 @@ import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldAccess;
 import net.minecraft.world.WorldView;
+import net.minecraft.world.event.GameEvent;
 import net.minecraft.world.event.listener.GameEventListener;
 import org.jetbrains.annotations.Nullable;
 
@@ -177,12 +176,12 @@ public class HangingTendrilBlock extends BlockWithEntity implements Waterloggabl
         updateNeighbors(world, pos);
     }
 
-    public static void setActive(World world, BlockPos pos, BlockState state, int power) {
+    public static void setActive(@Nullable Entity entity, World world, BlockPos pos, BlockState state, GameEvent event, int power) {
         world.setBlockState(pos, state.with(HANGING_TENDRIL_PHASE, SculkSensorPhase.ACTIVE), 3);
         world.createAndScheduleBlockTick(pos, state.getBlock(), 60);
         updateNeighbors(world, pos);
-
-        if (!(Boolean) state.get(WATERLOGGED)) {
+        world.emitGameEvent(entity, event, pos);
+        if (!state.get(WATERLOGGED)) {
             world.playSound(null, (double) pos.getX() + 0.5D, (double) pos.getY() + 0.5D, (double) pos.getZ() + 0.5D, SoundEvents.BLOCK_SCULK_SENSOR_CLICKING, SoundCategory.BLOCKS, 1.0F, world.random.nextFloat() * 0.2F + 1.0F);
         }
     }

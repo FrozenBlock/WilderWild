@@ -209,6 +209,13 @@ public abstract class WardenEntityMixin extends HostileEntity implements WilderW
     }
 
     @Override
+    public void onDeath(DamageSource damageSource) {
+        WardenEntity warden = WardenEntity.class.cast(this);
+        super.onDeath(damageSource);
+        warden.setAiDisabled(true);
+    }
+
+    @Override
     protected void updatePostDeath() {
         ++this.deathTicks;
         if (this.deathTicks == 35 && !warden.world.isClient()) {
@@ -323,12 +330,9 @@ public abstract class WardenEntityMixin extends HostileEntity implements WilderW
         this.fluidHeight.clear();
         warden.checkWaterState();
         boolean bl = warden.updateMovementInFluid(FluidTags.LAVA, 0.1D);
-        if (this.isTouchingWaterOrLava()) {
-            this.calculateDimensions();
-            this.calculateBoundingBox();
-            return true;
-        }
-        return bl;
+        this.calculateDimensions();
+        this.calculateBoundingBox();
+        return this.isTouchingWaterOrLava() || bl;
     }
 
     private boolean isTouchingWaterOrLava() {
