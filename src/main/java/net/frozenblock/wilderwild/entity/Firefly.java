@@ -8,6 +8,7 @@ import net.frozenblock.wilderwild.entity.ai.FireflyHidingGoal;
 import net.frozenblock.wilderwild.misc.server.EasyPacket;
 import net.frozenblock.wilderwild.registry.RegisterItems;
 import net.frozenblock.wilderwild.registry.RegisterSounds;
+import net.frozenblock.wilderwild.misc.PVZGWSound.MovingSoundLoop;
 import net.frozenblock.wilderwild.tag.WilderBiomeTags;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.*;
