@@ -330,12 +330,9 @@ public abstract class WardenEntityMixin extends HostileEntity implements WilderW
         this.fluidHeight.clear();
         warden.checkWaterState();
         boolean bl = warden.updateMovementInFluid(FluidTags.LAVA, 0.1D);
-        if (this.isTouchingWaterOrLava()) {
-            this.calculateDimensions();
-            this.calculateBoundingBox();
-            return true;
-        }
-        return bl;
+        this.calculateDimensions();
+        this.calculateBoundingBox();
+        return this.isTouchingWaterOrLava() || bl;
     }
 
     private boolean isTouchingWaterOrLava() {
