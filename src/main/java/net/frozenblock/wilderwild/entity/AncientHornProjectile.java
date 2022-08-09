@@ -266,8 +266,7 @@ public class AncientHornProjectile extends PersistentProjectileEntity {
                     this.setShotFromCrossbow(false);
                     this.remove(RemovalReason.DISCARDED);
                 }
-            }
-            if (blockState.getBlock() == Blocks.SCULK_SENSOR) {
+            } else if (blockState.getBlock() == Blocks.SCULK_SENSOR) {
                 BlockPos pos = blockHitResult.getBlockPos();
                 WilderWild.log(Blocks.SCULK_SENSOR, pos, "Horn Projectile Touched", WilderWild.UNSTABLE_LOGGING);
                 if (blockState.get(RegisterProperties.HICCUPPING)) {
