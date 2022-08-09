@@ -131,6 +131,7 @@ public class WilderWildClient implements ClientModInitializer {
         receiveMovingLoopingSoundPacket();
 
         ModelPredicateProviderRegistry.register(RegisterItems.ANCIENT_HORN, new Identifier("tooting"), (itemStack, clientWorld, livingEntity, seed) -> livingEntity != null && livingEntity.isUsingItem() && livingEntity.getActiveItem() == itemStack ? 1.0F : 0.0F);
+        ModelPredicateProviderRegistry.register(RegisterItems.COPPER_HORN, new Identifier("tooting"), (itemStack, clientWorld, livingEntity, seed) -> livingEntity != null && livingEntity.isUsingItem() && livingEntity.getActiveItem() == itemStack ? 1.0F : 0.0F);
 
         ColorProviderRegistry.BLOCK.register(((state, world, pos, tintIndex) -> {
             if (world == null || pos == null) {
