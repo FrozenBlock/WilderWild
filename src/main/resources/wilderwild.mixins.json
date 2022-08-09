@@ -13,6 +13,7 @@
 	"server.ChestBoatDropsMixin",
 	"server.ExperienceOrbEntityMixin",
 	"server.GoatEntityMixin",
+	"server.GoatHornItemMixin",
 	"server.SculkBlockMixin",
 	"server.SculkSensorBlockEntityMixin",
 	"server.SculkSensorBlockMixin",

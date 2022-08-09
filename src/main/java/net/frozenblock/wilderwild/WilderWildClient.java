@@ -19,6 +19,7 @@ import net.frozenblock.wilderwild.misc.CompetitionCounter;
 import net.frozenblock.wilderwild.misc.FlowerLichenParticleRegistry;
 import net.frozenblock.wilderwild.misc.PVZGWSound.FlyBySoundHub;
 import net.frozenblock.wilderwild.misc.PVZGWSound.MovingSoundLoop;
+import net.frozenblock.wilderwild.misc.PVZGWSound.MovingSoundWithRestriction;
 import net.frozenblock.wilderwild.misc.config.ModMenuInteractionHandler;
 import net.frozenblock.wilderwild.particle.FloatingSculkBubbleParticle;
 import net.frozenblock.wilderwild.particle.PollenParticle;
@@ -129,6 +130,7 @@ public class WilderWildClient implements ClientModInitializer {
 
         receiveFlybySoundPacket();
         receiveMovingLoopingSoundPacket();
+        receiveMovingRestrictionSoundPacket();
 
         ModelPredicateProviderRegistry.register(RegisterItems.ANCIENT_HORN, new Identifier("tooting"), (itemStack, clientWorld, livingEntity, seed) -> livingEntity != null && livingEntity.isUsingItem() && livingEntity.getActiveItem() == itemStack ? 1.0F : 0.0F);
         ModelPredicateProviderRegistry.register(RegisterItems.COPPER_HORN, new Identifier("tooting"), (itemStack, clientWorld, livingEntity, seed) -> livingEntity != null && livingEntity.isUsingItem() && livingEntity.getActiveItem() == itemStack ? 1.0F : 0.0F);
@@ -314,11 +316,35 @@ public class WilderWildClient implements ClientModInitializer {
                 Entity entity = world.getEntityById(id);
                 if (entity == null)
                     throw new IllegalStateException("Unable to play moving looping sound (from wilderwild) whilst entity does not exist!");
-                RegisterLoopingSoundRestrictions.LoopPredicate<?> predicate = RegisterLoopingSoundRestrictions.getPredicate(predicateId);
+                RegisterMovingSoundRestrictions.LoopPredicate<?> predicate = RegisterMovingSoundRestrictions.getPredicate(predicateId);
                 if (predicate == null) {
-                    predicate = RegisterLoopingSoundRestrictions.getPredicate(WilderWild.id("default"));
+                    predicate = RegisterMovingSoundRestrictions.getPredicate(WilderWild.id("default"));
                 }
                 MinecraftClient.getInstance().getSoundManager().play(new MovingSoundLoop(entity, sound, category, volume, pitch, predicate));
+            });
+        });
+    }
+
+    public void receiveMovingRestrictionSoundPacket() {
+        ClientPlayNetworking.registerGlobalReceiver(WilderWild.MOVING_RESTRICTION_SOUND_PACKET, (ctx, handler, byteBuf, responseSender) -> {
+            int id = byteBuf.readVarInt();
+            SoundEvent sound = byteBuf.readRegistryValue(Registry.SOUND_EVENT);
+            SoundCategory category = byteBuf.readEnumConstant(SoundCategory.class);
+            float volume = byteBuf.readFloat();
+            float pitch = byteBuf.readFloat();
+            Identifier predicateId = byteBuf.readIdentifier();
+            ctx.execute(() -> {
+                ClientWorld world = MinecraftClient.getInstance().world;
+                if (world == null)
+                    throw new IllegalStateException("why is your world null");
+                Entity entity = world.getEntityById(id);
+                if (entity == null)
+                    throw new IllegalStateException("Unable to play moving sound with restriction (from wilderwild) whilst entity does not exist!");
+                RegisterMovingSoundRestrictions.LoopPredicate<?> predicate = RegisterMovingSoundRestrictions.getPredicate(predicateId);
+                if (predicate == null) {
+                    predicate = RegisterMovingSoundRestrictions.getPredicate(WilderWild.id("default"));
+                }
+                MinecraftClient.getInstance().getSoundManager().play(new MovingSoundWithRestriction(entity, sound, category, volume, pitch, predicate));
             });
         });
     }

@@ -11,17 +11,16 @@ import net.minecraft.sound.SoundEvent;
 import net.minecraft.util.math.MathHelper;
 
 @Environment(EnvType.CLIENT)
-public class MovingSoundLoop extends MovingSoundInstance {
+public class MovingSoundWithRestriction extends MovingSoundInstance {
 
     private final Entity entity;
     private final RegisterMovingSoundRestrictions.LoopPredicate<?> predicate;
     private float distance = 0.0F;
 
-    public MovingSoundLoop(Entity entity, SoundEvent sound, SoundCategory category, float volume, float pitch, RegisterMovingSoundRestrictions.LoopPredicate<?> predicate) {
+    public MovingSoundWithRestriction(Entity entity, SoundEvent sound, SoundCategory category, float volume, float pitch, RegisterMovingSoundRestrictions.LoopPredicate<?> predicate) {
         super(sound, category, SoundInstance.createRandom());
         this.entity = entity;
-        this.repeat = true;
-        this.repeatDelay = 0;
+        this.repeat = false;
         this.volume = volume;
         this.pitch = pitch;
         this.x = (float) entity.getX();
@@ -49,8 +48,6 @@ public class MovingSoundLoop extends MovingSoundInstance {
                 this.y = (float) this.entity.getY();
                 this.z = (float) this.entity.getZ();
                 float f = (float) this.entity.getVelocity().horizontalLength();
-                this.distance = MathHelper.clamp(this.distance + 0.0025F, 0.0F, 1.0F);
-                this.volume = MathHelper.lerp(MathHelper.clamp(f, 0.0F, 0.5F), 0.0F, 0.7F);
             }
         }
     }
