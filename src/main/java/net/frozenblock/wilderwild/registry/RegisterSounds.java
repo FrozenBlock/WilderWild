@@ -107,17 +107,18 @@ public class RegisterSounds {
     public static final SoundEvent FLOATING_SCULK_BUBBLE_BIG_POP = register("particle.floating_sculk_bubble.big_pop");
 
     public static final SoundEvent ENTITY_WARDEN_KIRBY_DEATH = register("entity.warden.kirby_death");
-
     public static final SoundEvent ENTITY_WARDEN_DYING = register("entity.warden.dying");
-
     public static final SoundEvent ENTITY_WARDEN_UNDERWATER_DYING = register("entity.warden.dying_underwater");
-
     public static final SoundEvent ENTITY_WARDEN_SWIM = register("entity.warden.swim");
-
     public static final SoundEvent ENTITY_WARDEN_BRAP = register("entity.warden.brap");
 
     public static final SoundEvent ITEM_BOTTLE_CATCH_FIREFLY = register("item.bottle.catch_firefly");
     public static final SoundEvent ITEM_BOTTLE_RELEASE_FIREFLY = register("item.bottle.release_firefly");
+
+    public static final SoundEvent ITEM_COPPER_HORN_SAX_START = register("item.copper_horn.sax.start");
+    public static final SoundEvent ITEM_COPPER_HORN_SAX_LOOP = register("item.copper_horn.sax.loop");
+    public static final SoundEvent ITEM_COPPER_HORN_TUBA_START = register("item.copper_horn.tuba.start");
+    public static final SoundEvent ITEM_COPPER_HORN_TUBA_LOOP = register("item.copper_horn.tuba.loop");
 
     public static final SoundEvent ANCIENT_HORN_CALL = register("item.ancient_horn.call");
     public static final SoundEvent ANCIENT_HORN_BLAST = register("item.ancient_horn.blast");
