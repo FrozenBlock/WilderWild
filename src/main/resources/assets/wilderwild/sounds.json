@@ -962,6 +962,19 @@
 		],
 		"subtitle": "subtitles.item.copper_horn_call"
 	},
+
+	"item.copper_horn.flute.start": {
+		"sounds": [
+			"wilderwild:item/copper_horn/flute/start"
+		],
+		"subtitle": "subtitles.item.copper_horn_call"
+	},
+	"item.copper_horn.flute.loop": {
+		"sounds": [
+			"wilderwild:item/copper_horn/flute/loop"
+		],
+		"subtitle": "subtitles.item.copper_horn_call"
+	},
 	
 	"item.bottle.catch_firefly": {
 		"sounds": [

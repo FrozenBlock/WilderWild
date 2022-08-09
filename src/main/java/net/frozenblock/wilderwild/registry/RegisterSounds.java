@@ -117,8 +117,12 @@ public class RegisterSounds {
 
     public static final SoundEvent ITEM_COPPER_HORN_SAX_START = register("item.copper_horn.sax.start");
     public static final SoundEvent ITEM_COPPER_HORN_SAX_LOOP = register("item.copper_horn.sax.loop");
+
     public static final SoundEvent ITEM_COPPER_HORN_TUBA_START = register("item.copper_horn.tuba.start");
     public static final SoundEvent ITEM_COPPER_HORN_TUBA_LOOP = register("item.copper_horn.tuba.loop");
+
+    public static final SoundEvent ITEM_COPPER_HORN_FLUTE_START = register("item.copper_horn.flute.start");
+    public static final SoundEvent ITEM_COPPER_HORN_FLUTE_LOOP = register("item.copper_horn.flute.loop");
 
     public static final SoundEvent ANCIENT_HORN_CALL = register("item.ancient_horn.call");
     public static final SoundEvent ANCIENT_HORN_BLAST = register("item.ancient_horn.blast");
