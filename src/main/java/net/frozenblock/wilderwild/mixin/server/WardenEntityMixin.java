@@ -209,6 +209,13 @@ public abstract class WardenEntityMixin extends HostileEntity implements WilderW
     }
 
     @Override
+    public void onDeath(DamageSource damageSource) {
+        WardenEntity warden = WardenEntity.class.cast(this);
+        super.onDeath(damageSource);
+        warden.setAiDisabled(true);
+    }
+
+    @Override
     protected void updatePostDeath() {
         ++this.deathTicks;
         if (this.deathTicks == 35 && !warden.world.isClient()) {
