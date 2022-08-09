@@ -79,7 +79,7 @@ public class CopperHorn extends Item {
             user.setCurrentHand(hand);
             SoundEvent soundEvent = instrument.soundEvent();
             float range = instrument.range() / 16.0F;
-            int soundPitch = (int) Math.pow(2.0D, (user.getPitch() + 90F) * 0.06666667F);
+            int soundPitch = (int) Math.pow(2.0D, ((user.getPitch() - 90F) * -1) * 0.06666667F);
             world.playSoundFromEntity(null, user, soundEvent, SoundCategory.RECORDS, range, soundPitch);
             return TypedActionResult.consume(itemStack);
         } else {
