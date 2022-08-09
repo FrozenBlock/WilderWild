@@ -14,10 +14,7 @@ import net.minecraft.entity.ai.pathing.EntityNavigation;
 import net.minecraft.entity.ai.pathing.PathNodeType;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.data.TrackedData;
-import net.minecraft.entity.mob.Angriness;
-import net.minecraft.entity.mob.HostileEntity;
-import net.minecraft.entity.mob.WardenBrain;
-import net.minecraft.entity.mob.WardenEntity;
+import net.minecraft.entity.mob.*;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.nbt.NbtCompound;
@@ -381,7 +378,12 @@ public abstract class WardenEntityMixin extends HostileEntity implements WilderW
         this.fluidHeight.clear();
         warden.checkWaterState();
         boolean bl = warden.updateMovementInFluid(FluidTags.LAVA, 0.1D);
-        return this.isTouchingWaterOrLava() || bl;
+        if (this.isTouchingWaterOrLava()) {
+            this.calculateDimensions();
+            this.calculateBoundingBox();
+            return true;
+        }
+        return bl;
     }
 
     private boolean isTouchingWaterOrLava() {

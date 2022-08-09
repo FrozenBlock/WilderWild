@@ -1,6 +1,7 @@
 package net.frozenblock.wilderwild.entity.ai;
 
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.brain.MemoryModuleType;
 import net.minecraft.entity.ai.control.MoveControl;
 import net.minecraft.entity.attribute.EntityAttributes;
@@ -8,6 +9,8 @@ import net.minecraft.entity.mob.WardenEntity;
 import net.minecraft.tag.FluidTags;
 import net.minecraft.util.math.MathHelper;
 import org.jetbrains.annotations.NotNull;
+
+import java.util.Optional;
 
 public class WardenMoveControl extends MoveControl {
 
@@ -32,19 +35,30 @@ public class WardenMoveControl extends MoveControl {
     public void tick() {
         if (this.isEntityTouchingWaterOrLava(this.entity)) {
             if (this.buoyant) {
-                if ((this.entity.getBrain().hasMemoryModule(MemoryModuleType.ROAR_TARGET) || this.entity.getBrain().hasMemoryModule(MemoryModuleType.ATTACK_TARGET))) {
-                    if (this.entity.getBrain().getOptionalMemory(MemoryModuleType.ROAR_TARGET).isPresent()) {
-                        if (this.entity.getBrain().getOptionalMemory(MemoryModuleType.ROAR_TARGET).get().getY() > this.entity.getY()) {
-                            this.entity.setVelocity(this.entity.getVelocity().add(0.0D, 0.008D, 0.0D));
+                if (this.entity.getBrain().hasMemoryModule(MemoryModuleType.ROAR_TARGET) || this.entity.getBrain().hasMemoryModule(MemoryModuleType.ATTACK_TARGET)) {
+                    Optional<LivingEntity> ROAR_TARGET = this.entity.getBrain().getOptionalMemory(MemoryModuleType.ROAR_TARGET);
+                    Optional<LivingEntity> ATTACK_TARGET = this.entity.getBrain().getOptionalMemory(MemoryModuleType.ATTACK_TARGET);
+                    if (ROAR_TARGET.isPresent()) {
+                        LivingEntity target = ROAR_TARGET.get();
+                        if ((!this.isEntityTouchingWaterOrLava(target) || !this.isEntitySubmergedInWaterOrLava(this.entity)) && target.getY() > this.entity.getY()) {
+                            this.entity.setVelocity(this.entity.getVelocity().add(0.0D, 0.01D, 0.0D));
                         } else {
-                            this.entity.setVelocity(this.entity.getVelocity().add(0.0D, -0.008D, 0.0D));
+                            if (target.getY() > this.entity.getY()) {
+                                this.entity.setVelocity(this.entity.getVelocity().add(0.0D, 0.003D, 0.0D));
+                            } else {
+                                this.entity.setVelocity(this.entity.getVelocity().add(0.0D, -0.003D, 0.0D));
+                            }
                         }
-
-                    } else if (this.entity.getBrain().getOptionalMemory(MemoryModuleType.ATTACK_TARGET).isPresent()) {
-                        if (this.entity.getBrain().getOptionalMemory(MemoryModuleType.ATTACK_TARGET).get().getY() > this.entity.getY()) {
-                            this.entity.setVelocity(this.entity.getVelocity().add(0.0D, 0.008D, 0.0D));
+                    } else if (ATTACK_TARGET.isPresent()) {
+                        LivingEntity target = ATTACK_TARGET.get();
+                        if ((!this.isEntityTouchingWaterOrLava(target) || !this.isEntitySubmergedInWaterOrLava(this.entity)) && target.getY() > this.entity.getY()) {
+                            this.entity.setVelocity(this.entity.getVelocity().add(0.0D, 0.01D, 0.0D));
                         } else {
-                            this.entity.setVelocity(this.entity.getVelocity().add(0.0D, -0.008D, 0.0D));
+                            if (target.getY() > this.entity.getY()) {
+                                this.entity.setVelocity(this.entity.getVelocity().add(0.0D, 0.003D, 0.0D));
+                            } else {
+                                this.entity.setVelocity(this.entity.getVelocity().add(0.0D, -0.003D, 0.0D));
+                            }
                         }
                     }
                 } else {
