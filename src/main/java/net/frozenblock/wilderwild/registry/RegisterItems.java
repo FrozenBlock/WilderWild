@@ -18,7 +18,7 @@ import net.minecraft.village.TradeOffers;
 public class RegisterItems {
     public static final AncientHorn ANCIENT_HORN = new AncientHorn(new FabricItemSettings().group(ItemGroup.MISC).maxCount(1).rarity(Rarity.EPIC), WilderWild.WILD_HORNS);
     public static final RegistryKey<Instrument> ANCIENT_HORN_INSTRUMENT = RegistryKey.of(Registry.INSTRUMENT_KEY, WilderWild.id("ancient_horn"));
-    public static final CopperHorn COPPER_HORN = new CopperHorn(new FabricItemSettings().group(ItemGroup.MISC).maxCount(1), WilderWild.COPPER_HORNS);
+    public static final CopperHorn COPPER_HORN = new CopperHorn(new FabricItemSettings().group(ItemGroup.MISC).maxCount(1), WilderWild.COPPER_HORNS, 0);
     public static final RegistryKey<Instrument> COPPER_HORN_INSTRUMENT = RegistryKey.of(Registry.INSTRUMENT_KEY, WilderWild.id("copper_horn"));
     public static final MilkweedPod MILKWEED_POD = new MilkweedPod(new FabricItemSettings().group(ItemGroup.MISC).maxCount(64));
     public static final MusicDiscItem MUSIC_DISC_BENEATH = new MusicDiscItem(15, RegisterSounds.MUSIC_DISC_BENEATH, new FabricItemSettings().maxCount(1).rarity(Rarity.RARE), 169);

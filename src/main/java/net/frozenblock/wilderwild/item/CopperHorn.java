@@ -27,10 +27,12 @@ import java.util.Optional;
 public class CopperHorn extends Item {
     private static final String INSTRUMENT_KEY = "instrument";
     private final TagKey<Instrument> instrumentTag;
+    private final int shift;
 
-    public CopperHorn(Settings settings, TagKey<Instrument> instrumentTag) {
+    public CopperHorn(Settings settings, TagKey<Instrument> instrumentTag, int shift) {
         super(settings);
         this.instrumentTag = instrumentTag;
+        this.shift = shift;
     }
 
     public static ItemStack getStackForInstrument(Item item, RegistryEntry<Instrument> instrument) {
@@ -79,7 +81,7 @@ public class CopperHorn extends Item {
             user.setCurrentHand(hand);
             SoundEvent soundEvent = instrument.soundEvent();
             float range = instrument.range() / 16.0F;
-            float soundPitch = (float) Math.pow(2.0D, ((((user.getPitch() - 90F) * -1) * 0.06666667F) - 12 ) * 0.08333333F);
+            float soundPitch = (float) Math.pow(2.0D, ((((user.getPitch() - 90F) * -1) * 0.06666667F) + this.shift) * 0.08333333F);
             world.playSoundFromEntity(null, user, soundEvent, SoundCategory.RECORDS, range, soundPitch);
             return TypedActionResult.consume(itemStack);
         } else {
