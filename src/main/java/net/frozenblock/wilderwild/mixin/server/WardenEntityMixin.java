@@ -139,43 +139,24 @@ public abstract class WardenEntityMixin extends HostileEntity implements WilderW
         }
     }
 
-    @Inject(at = @At("HEAD"), method = "accept", cancellable = true)
-    public void accept(ServerWorld world, GameEventListener listener, BlockPos pos, GameEvent event, @Nullable Entity entity, @Nullable Entity sourceEntity, float f, CallbackInfo info) {
+    @Inject(method = "accept", at = @At("HEAD"))
+    private void accept(ServerWorld world, GameEventListener listener, BlockPos pos, GameEvent event, Entity entity, Entity sourceEntity, float distance, CallbackInfo ci) {
+        WardenEntity warden = WardenEntity.class.cast(this);
         int additionalAnger = 0;
-        if (world.getBlockState(pos).isOf(Blocks.SCULK_SENSOR)) {
-            if (world.getBlockState(pos).get(RegisterProperties.HICCUPPING)) {
-                additionalAnger = 65;
-            }
-        }
-        warden.getBrain().remember(MemoryModuleType.VIBRATION_COOLDOWN, Unit.INSTANCE, 40L);
-        world.sendEntityStatus(warden, (byte) 61);
-        warden.playSound(SoundEvents.ENTITY_WARDEN_TENDRIL_CLICKS, 5.0F, warden.getSoundPitch());
-        BlockPos blockPos = pos;
-        if (sourceEntity != null) {
-            if (warden.isInRange(sourceEntity, 30.0D)) {
-                if (warden.getBrain().hasMemoryModule(MemoryModuleType.RECENT_PROJECTILE)) {
-                    if (warden.isValidTarget(sourceEntity)) {
-                        blockPos = sourceEntity.getBlockPos();
-                    }
-
-                    warden.increaseAngerAt(sourceEntity);
-                    warden.increaseAngerAt(sourceEntity, additionalAnger, false);
-                } else {
-                    warden.increaseAngerAt(sourceEntity, 10, true);
-                    warden.increaseAngerAt(sourceEntity, additionalAnger, false);
+        if (!this.isDead()) {
+            if (world.getBlockState(pos).isOf(Blocks.SCULK_SENSOR)) {
+                if (world.getBlockState(pos).get(RegisterProperties.HICCUPPING)) {
+                    additionalAnger = 65;
                 }
             }
-
-            warden.getBrain().remember(MemoryModuleType.RECENT_PROJECTILE, Unit.INSTANCE, 100L);
-        } else {
-            warden.increaseAngerAt(entity);
-            warden.increaseAngerAt(entity, additionalAnger, false);
+            if (sourceEntity != null) {
+                if (warden.isInRange(sourceEntity, 30.0D)) {
+                    warden.increaseAngerAt(sourceEntity, additionalAnger, false);
+                }
+            } else {
+                warden.increaseAngerAt(entity, additionalAnger, false);
+            }
         }
-
-        if (warden.getAngriness() != Angriness.ANGRY && (sourceEntity != null || warden.getAngerManager().getPrimeSuspect().map((suspect) -> suspect == entity).orElse(true))) {
-            WardenBrain.lookAtDisturbance(warden, blockPos);
-        }
-        info.cancel();
     }
 
     @Inject(method = "onTrackedDataSet", at = @At("HEAD"), cancellable = true)
