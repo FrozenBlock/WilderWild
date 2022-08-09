@@ -47,7 +47,6 @@ public class MovingSoundWithRestriction extends MovingSoundInstance {
                 this.x = (float) this.entity.getX();
                 this.y = (float) this.entity.getY();
                 this.z = (float) this.entity.getZ();
-                float f = (float) this.entity.getVelocity().horizontalLength();
             }
         }
     }
