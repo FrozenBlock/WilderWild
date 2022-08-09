@@ -265,6 +265,7 @@ public class WilderWild implements ModInitializer {
     public static final Identifier ANCIENT_HORN_KILL_NOTIFY_PACKET = id("ancient_horn_kill_notify_packet");
     public static final Identifier FLYBY_SOUND_PACKET = id("flyby_sound_packet");
     public static final Identifier MOVING_LOOPING_SOUND_PACKET = id("moving_looping_sound_packet");
+    public static final Identifier MOVING_RESTRICTION_LOOPING_SOUND_PACKET = id("moving_restriction_looping_sound_packet");
     public static final Identifier MOVING_RESTRICTION_SOUND_PACKET = id("moving_restriction_sound_packet");
 
     public static Identifier id(String path) {

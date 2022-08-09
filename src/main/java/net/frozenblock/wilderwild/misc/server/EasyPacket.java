@@ -159,4 +159,19 @@ public class EasyPacket {
         }
     }
 
+    public static void createMovingRestrictionLoopingSound(World world, Entity entity, SoundEvent sound, SoundCategory category, float volume, float pitch, Identifier id) {
+        if (world.isClient)
+            throw new IllegalStateException("no sounds on the client, you freaking idiot!");
+        PacketByteBuf byteBuf = new PacketByteBuf(Unpooled.buffer());
+        byteBuf.writeVarInt(entity.getId());
+        byteBuf.writeRegistryValue(Registry.SOUND_EVENT, sound);
+        byteBuf.writeEnumConstant(category);
+        byteBuf.writeFloat(volume);
+        byteBuf.writeFloat(pitch);
+        byteBuf.writeIdentifier(id);
+        for (ServerPlayerEntity player : PlayerLookup.around((ServerWorld) world, entity.getBlockPos(), 64)) {
+            ServerPlayNetworking.send(player, WilderWild.MOVING_RESTRICTION_LOOPING_SOUND_PACKET, byteBuf);
+        }
+    }
+
 }
