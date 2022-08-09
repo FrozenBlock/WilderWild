@@ -107,7 +107,7 @@ public class HangingTendrilBlockEntity extends BlockEntity implements VibrationL
         BlockState blockState = this.getCachedState();
         if (HangingTendrilBlock.isInactive(blockState)) {
             this.lastVibrationFrequency = SculkSensorBlock.FREQUENCIES.getInt(event);
-            HangingTendrilBlock.setActive(world, this.pos, blockState, getPower(distance, listener.getRange()));
+            HangingTendrilBlock.setActive(entity, world, this.pos, blockState, event, getPower(distance, listener.getRange()));
         }
     }
 
