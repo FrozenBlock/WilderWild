@@ -142,8 +142,8 @@ public abstract class WardenEntityMixin extends HostileEntity implements WilderW
     @Inject(method = "accept", at = @At("HEAD"))
     private void accept(ServerWorld world, GameEventListener listener, BlockPos pos, GameEvent event, Entity entity, Entity sourceEntity, float distance, CallbackInfo ci) {
         WardenEntity warden = WardenEntity.class.cast(this);
-        int additionalAnger = 0;
-        if (!this.isDead()) {
+        if (!warden.isDead()) {
+            int additionalAnger = 0;
             if (world.getBlockState(pos).isOf(Blocks.SCULK_SENSOR)) {
                 if (world.getBlockState(pos).get(RegisterProperties.HICCUPPING)) {
                     additionalAnger = 65;
