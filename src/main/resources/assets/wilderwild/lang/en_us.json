@@ -114,6 +114,11 @@
 	"item.wilderwild.white_firefly_bottle": "White Firefly in a Bottle",
 	"item.wilderwild.yellow_firefly_bottle": "Yellow Firefly in a Bottle",
 	"item.wilderwild.copper_horn": "Copper Horn",
+
+  	"instrument.wilderwild.sax_copper_horn": "Sax",
+  	"instrument.wilderwild.tuba_copper_horn": "Tuba",
+  	"instrument.wilderwild.flute_copper_horn": "Flute",
+
 	"subtitles.block.hanging_tendril.wring": "Hanging Tendril wrung",
 	"subtitles.block.sculk_sensor.hiccup": "Sculk Sensor hiccups",
 	"subtitles.block.sculk_shrieker.gargle": "Sculk Shrieker gargles",

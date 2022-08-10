@@ -3,6 +3,7 @@ package net.frozenblock.wilderwild.item;
 import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.misc.server.EasyPacket;
 import net.frozenblock.wilderwild.registry.RegisterItems;
+import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Instrument;
 import net.minecraft.item.Item;
@@ -12,19 +13,20 @@ import net.minecraft.nbt.NbtCompound;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.tag.TagKey;
-import net.minecraft.util.Hand;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.TypedActionResult;
-import net.minecraft.util.UseAction;
+import net.minecraft.text.MutableText;
+import net.minecraft.text.Text;
+import net.minecraft.util.*;
 import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.util.registry.RegistryEntry;
 import net.minecraft.util.registry.RegistryKey;
 import net.minecraft.world.World;
 import net.minecraft.world.event.GameEvent;
+import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import java.util.Iterator;
+import java.util.List;
 import java.util.Optional;
 
 public class CopperHorn extends Item {
@@ -36,6 +38,17 @@ public class CopperHorn extends Item {
         super(settings);
         this.instrumentTag = instrumentTag;
         this.shift = shift;
+    }
+
+    @Override
+    public void appendTooltip(ItemStack stack, @Nullable World world, List<Text> tooltip, TooltipContext context) {
+        super.appendTooltip(stack, world, tooltip, context);
+        Optional<RegistryKey<Instrument>> optional = this.getInstrument(stack).flatMap(RegistryEntry::getKey);
+        if (optional.isPresent()) {
+            MutableText mutableText = Text.translatable(Util.createTranslationKey("instrument", optional.get().getValue()));
+            tooltip.add(mutableText.formatted(Formatting.GRAY));
+        }
+
     }
 
     public static ItemStack getStackForInstrument(Item item, RegistryEntry<Instrument> instrument) {
