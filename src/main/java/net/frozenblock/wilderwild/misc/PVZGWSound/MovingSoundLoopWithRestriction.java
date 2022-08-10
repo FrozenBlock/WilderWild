@@ -8,7 +8,6 @@ import net.minecraft.client.sound.SoundInstance;
 import net.minecraft.entity.Entity;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvent;
-import net.minecraft.util.math.MathHelper;
 
 @Environment(EnvType.CLIENT)
 public class MovingSoundLoopWithRestriction extends MovingSoundInstance {
@@ -17,13 +16,16 @@ public class MovingSoundLoopWithRestriction extends MovingSoundInstance {
     private final RegisterMovingSoundRestrictions.LoopPredicate<?> predicate;
     private float distance = 0.0F;
 
+    float thisPitch;
+
     public MovingSoundLoopWithRestriction(Entity entity, SoundEvent sound, SoundCategory category, float volume, float pitch, RegisterMovingSoundRestrictions.LoopPredicate<?> predicate) {
         super(sound, category, SoundInstance.createRandom());
         this.entity = entity;
         this.repeat = true;
         this.repeatDelay = 0;
-        this.volume = volume;
         this.pitch = pitch;
+        thisPitch = this.pitch;
+        this.volume = volume;
         this.x = (float) entity.getX();
         this.y = (float) entity.getY();
         this.z = (float) entity.getZ();
@@ -39,6 +41,7 @@ public class MovingSoundLoopWithRestriction extends MovingSoundInstance {
     }
 
     public void tick() {
+        this.pitch = thisPitch;
         if (this.entity.isRemoved()) {
             this.setDone();
         } else {
