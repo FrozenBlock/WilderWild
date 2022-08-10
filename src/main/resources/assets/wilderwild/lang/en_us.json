@@ -73,6 +73,7 @@
 	"block.wilderwild.termite_mound": "Termite Mound",
 	"block.wilderwild.violet_beauty_glory_of_the_snow": "Violet Beauty Glory Of The Snow",
 	"block.wilderwild.seeding_dandelion": "Seeding Dandelion",
+	"block.wilderwild.null_block": "Null Block",
 	"death.attack.ancient_horn": "%1$s was vaporized by a massive sound wave",
 	"death.attack.ancient_horn.item": "%1$s was blown to smithereens by %2$s using %3$s",
 	"entity.wilderwild.ancient_horn_projectile": "Ancient Horn Projectile",

@@ -31,7 +31,7 @@ public class SculkSensorBlockMixin {
     @Inject(method = "<init>", at = @At("TAIL"))
     private void SculkSensorBlock(AbstractBlock.Settings settings, int range, CallbackInfo ci) {
         SculkSensorBlock sculkSensor = SculkSensorBlock.class.cast(this);
-        sculkSensor.setDefaultState(sculkSensor.getStateManager().getDefaultState().with(RegisterProperties.HICCUPPING, false));
+        sculkSensor.setDefaultState(sculkSensor.getDefaultState().with(RegisterProperties.HICCUPPING, false));
     }
 
     @Inject(at = @At("HEAD"), method = "getTicker", cancellable = true)

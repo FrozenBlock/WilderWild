@@ -8,6 +8,7 @@ import net.minecraft.fluid.Fluids;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.math.random.Random;
 import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.world.BlockView;
@@ -53,7 +54,7 @@ public class AlgaeBlock extends Block {
         if (entity.getType().equals(EntityType.FALLING_BLOCK)) {
             world.breakBlock(pos, false);
         }
-
+        entity.slowMovement(state, new Vec3d(0.95D, 0.95D, 0.95D));
     }
 
     private static boolean canLayAt(BlockView world, BlockPos pos) {

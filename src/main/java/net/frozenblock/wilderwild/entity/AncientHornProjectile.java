@@ -266,8 +266,7 @@ public class AncientHornProjectile extends PersistentProjectileEntity {
                     this.setShotFromCrossbow(false);
                     this.remove(RemovalReason.DISCARDED);
                 }
-            }
-            if (blockState.getBlock() == Blocks.SCULK_SENSOR) {
+            } else if (blockState.getBlock() == Blocks.SCULK_SENSOR) {
                 BlockPos pos = blockHitResult.getBlockPos();
                 WilderWild.log(Blocks.SCULK_SENSOR, pos, "Horn Projectile Touched", WilderWild.UNSTABLE_LOGGING);
                 if (blockState.get(RegisterProperties.HICCUPPING)) {
@@ -276,8 +275,7 @@ public class AncientHornProjectile extends PersistentProjectileEntity {
                     server.setBlockState(pos, blockState.with(RegisterProperties.HICCUPPING, true));
                 }
                 if (SculkSensorBlock.isInactive(blockState)) {
-                    SculkSensorBlock.setActive(owner, world, pos, world.getBlockState(pos), WilderWild.random().nextInt(15));
-                    world.emitGameEvent(null, GameEvent.SCULK_SENSOR_TENDRILS_CLICKING, pos);
+                    SculkSensorBlock.setActive(null, world, pos, world.getBlockState(pos), WilderWild.random().nextInt(15));
                     world.emitGameEvent(null, RegisterGameEvents.SCULK_SENSOR_ACTIVATE, pos);
                     setCooldown(getCooldown(this.getOwner(), SENSOR_COOLDOWN));
                 }

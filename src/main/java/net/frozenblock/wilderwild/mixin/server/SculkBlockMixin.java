@@ -67,10 +67,12 @@ public abstract class SculkBlockMixin {
                             int pillarHeight = (int) MathHelper.clamp(EasyNoiseSampler.sample(EasyNoiseSampler.perlinXoro, blockPos.down(), RANDOMNESS, false, false) * HEIGHT_MULTIPLIER, 2, MAX_HEIGHT);
                             blockState = RegisterBlocks.OSSEOUS_SCULK.getDefaultState().with(OsseousSculkBlock.HEIGHT_LEFT, pillarHeight).with(OsseousSculkBlock.TOTAL_HEIGHT, pillarHeight + 1).with(OsseousSculkBlock.UPSIDEDOWN, true);
                         } else {
-                            blockState = RegisterBlocks.HANGING_TENDRIL.getDefaultState();
-                            WilderWild.log("Chose Hanging Tendril", WilderWild.DEV_LOGGING);
-                            if (isWorldGen && Math.random() > 0.6) {
-                                j = 0;
+                            if (world.getBlockState(blockPos.down().down()).getBlock() == Blocks.AIR && world.getBlockState(blockPos.down().down().down()).getBlock() == Blocks.AIR && world.getBlockState(blockPos.down().down().down().down()).getBlock() == Blocks.AIR) {
+                                blockState = RegisterBlocks.HANGING_TENDRIL.getDefaultState();
+                                WilderWild.log("Chose Hanging Tendril", WilderWild.DEV_LOGGING);
+                                if (isWorldGen && Math.random() > 0.6) {
+                                    j = 0;
+                                }
                             }
                         }
                         blockPos2 = blockPos.down();

@@ -185,70 +185,79 @@ public class BaobabTrunkPlacer extends TrunkPlacer {
     private FoliagePlacer.TreeNode generateBranch(int height, int length, int direction, TestableWorld world, BiConsumer<BlockPos, BlockState> replacer, Random random, BlockPos.Mutable pos, TreeFeatureConfig config, BlockPos startPos, int x, int y, int z) {
         FoliagePlacer.TreeNode node = null;
         int fy = startPos.getY() + y + 2;
-        if (direction == 1) {
-            for (int i = 0; i <= length - 1; i++) {
-                setLog(world, replacer, random, pos, config, startPos, x - i, y, z - i);
+        switch (direction) {
+            case 1 -> {
+                for (int i = 0; i <= length - 1; i++) {
+                    setLog(world, replacer, random, pos, config, startPos, x - i, y, z - i);
+                }
+                setLog(world, replacer, random, pos, config, startPos, x - length, y + 1, z - length);
+                int fx = startPos.getX() + x - length;
+                int fz = startPos.getZ() + z - length;
+                node = new FoliagePlacer.TreeNode(new BlockPos(fx, fy, fz), 0, true);
             }
-            setLog(world, replacer, random, pos, config, startPos, x - length, y + 1, z - length);
-            int fx = startPos.getX() + x - length;
-            int fz = startPos.getZ() + z - length;
-            node = new FoliagePlacer.TreeNode(new BlockPos(fx, fy, fz), 0, true);
-        } else if (direction == 2) {
-            for (int i = 0; i <= length - 1; i++) {
-                setLog(world, replacer, random, pos, config, startPos, x + i, y, z + i);
+            case 2 -> {
+                for (int i = 0; i <= length - 1; i++) {
+                    setLog(world, replacer, random, pos, config, startPos, x + i, y, z + i);
+                }
+                setLog(world, replacer, random, pos, config, startPos, x + length, y + 1, z + length);
+                int fx = startPos.getX() + x + length;
+                int fz = startPos.getZ() + z + length;
+                node = new FoliagePlacer.TreeNode(new BlockPos(fx, fy, fz), 0, true);
             }
-            setLog(world, replacer, random, pos, config, startPos, x + length, y + 1, z + length);
-            int fx = startPos.getX() + x + length;
-            int fz = startPos.getZ() + z + length;
-            node = new FoliagePlacer.TreeNode(new BlockPos(fx, fy, fz), 0, true);
-        } else if (direction == 3) {
-            for (int i = 0; i <= length - 1; i++) {
-                setLog(world, replacer, random, pos, config, startPos, x - i, y, z + i);
+            case 3 -> {
+                for (int i = 0; i <= length - 1; i++) {
+                    setLog(world, replacer, random, pos, config, startPos, x - i, y, z + i);
+                }
+                setLog(world, replacer, random, pos, config, startPos, x - length, y + 1, z + length);
+                int fx = startPos.getX() + x - length;
+                int fz = startPos.getZ() + z + length;
+                node = new FoliagePlacer.TreeNode(new BlockPos(fx, fy, fz), 0, true);
             }
-            setLog(world, replacer, random, pos, config, startPos, x - length, y + 1, z + length);
-            int fx = startPos.getX() + x - length;
-            int fz = startPos.getZ() + z + length;
-            node = new FoliagePlacer.TreeNode(new BlockPos(fx, fy, fz), 0, true);
-        } else if (direction == 4) {
-            for (int i = 0; i <= length - 1; i++) {
-                setLog(world, replacer, random, pos, config, startPos, x + i, y, z - i);
+            case 4 -> {
+                for (int i = 0; i <= length - 1; i++) {
+                    setLog(world, replacer, random, pos, config, startPos, x + i, y, z - i);
+                }
+                setLog(world, replacer, random, pos, config, startPos, x + length, y + 1, z - length);
+                int fx = startPos.getX() + x + length;
+                int fz = startPos.getZ() + z - length;
+                node = new FoliagePlacer.TreeNode(new BlockPos(fx, fy, fz), 0, true);
             }
-            setLog(world, replacer, random, pos, config, startPos, x + length, y + 1, z - length);
-            int fx = startPos.getX() + x + length;
-            int fz = startPos.getZ() + z - length;
-            node = new FoliagePlacer.TreeNode(new BlockPos(fx, fy, fz), 0, true);
-        } else if (direction == 5) {
-            for (int i = 0; i <= length - 1; i++) {
-                setLog(world, replacer, random, pos, config, startPos, x + i, y, z);
+            case 5 -> {
+                for (int i = 0; i <= length - 1; i++) {
+                    setLog(world, replacer, random, pos, config, startPos, x + i, y, z);
+                }
+                setLog(world, replacer, random, pos, config, startPos, x + length, y + 1, z);
+                int fx = startPos.getX() + x + length;
+                int fz = startPos.getZ() + z;
+                node = new FoliagePlacer.TreeNode(new BlockPos(fx, fy, fz), 0, true);
             }
-            setLog(world, replacer, random, pos, config, startPos, x + length, y + 1, z);
-            int fx = startPos.getX() + x + length;
-            int fz = startPos.getZ() + z;
-            node = new FoliagePlacer.TreeNode(new BlockPos(fx, fy, fz), 0, true);
-        } else if (direction == 6) {
-            for (int i = 0; i <= length - 1; i++) {
-                setLog(world, replacer, random, pos, config, startPos, x - i, y, z);
+            case 6 -> {
+                for (int i = 0; i <= length - 1; i++) {
+                    setLog(world, replacer, random, pos, config, startPos, x - i, y, z);
+                }
+                setLog(world, replacer, random, pos, config, startPos, x - length, y + 1, z);
+                int fx = startPos.getX() + x - length;
+                int fz = startPos.getZ() + z;
+                node = new FoliagePlacer.TreeNode(new BlockPos(fx, fy, fz), 0, true);
             }
-            setLog(world, replacer, random, pos, config, startPos, x - length, y + 1, z);
-            int fx = startPos.getX() + x - length;
-            int fz = startPos.getZ() + z;
-            node = new FoliagePlacer.TreeNode(new BlockPos(fx, fy, fz), 0, true);
-        } else if (direction == 7) {
-            for (int i = 0; i <= length - 1; i++) {
-                setLog(world, replacer, random, pos, config, startPos, x, y, z + i);
+            case 7 -> {
+                for (int i = 0; i <= length - 1; i++) {
+                    setLog(world, replacer, random, pos, config, startPos, x, y, z + i);
+                }
+                setLog(world, replacer, random, pos, config, startPos, x, y + 1, z + length);
+                int fx = startPos.getX() + x;
+                int fz = startPos.getZ() + z + length;
+                node = new FoliagePlacer.TreeNode(new BlockPos(fx, fy, fz), 0, true);
             }
-            setLog(world, replacer, random, pos, config, startPos, x, y + 1, z + length);
-            int fx = startPos.getX() + x;
-            int fz = startPos.getZ() + z + length;
-            node = new FoliagePlacer.TreeNode(new BlockPos(fx, fy, fz), 0, true);
-        } else if (direction == 8) {
-            for (int i = 0; i <= length - 1; i++) {
-                setLog(world, replacer, random, pos, config, startPos, x, y, z - i);
+            case 8 -> {
+                for (int i = 0; i <= length - 1; i++) {
+                    setLog(world, replacer, random, pos, config, startPos, x, y, z - i);
+                }
+                setLog(world, replacer, random, pos, config, startPos, x, y + 1, z - length);
+                int fx = startPos.getX() + x;
+                int fz = startPos.getZ() + z - length;
+                node = new FoliagePlacer.TreeNode(new BlockPos(fx, fy, fz), 0, true);
             }
-            setLog(world, replacer, random, pos, config, startPos, x, y + 1, z - length);
-            int fx = startPos.getX() + x;
-            int fz = startPos.getZ() + z - length;
-            node = new FoliagePlacer.TreeNode(new BlockPos(fx, fy, fz), 0, true);
         }
 
         return node;
