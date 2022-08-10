@@ -9,6 +9,7 @@ import net.frozenblock.wilderwild.item.FireflyBottle;
 import net.frozenblock.wilderwild.item.MilkweedPod;
 import net.frozenblock.wilderwild.misc.WilderBoats;
 import net.minecraft.item.*;
+import net.minecraft.recipe.RecipeType;
 import net.minecraft.util.Rarity;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.util.registry.RegistryKey;
@@ -76,7 +77,6 @@ public class RegisterItems {
         Registry.register(Registry.INSTRUMENT, SAX_COPPER_HORN, new Instrument(RegisterSounds.ITEM_COPPER_HORN_SAX_LOOP, 32767, 64.0F));
         Registry.register(Registry.INSTRUMENT, TUBA_COPPER_HORN, new Instrument(RegisterSounds.ITEM_COPPER_HORN_TUBA_LOOP, 32767, 64.0F));
         Registry.register(Registry.INSTRUMENT, FLUTE_COPPER_HORN, new Instrument(RegisterSounds.ITEM_COPPER_HORN_FLUTE_LOOP, 32767, 64.0F));
-
         Registry.register(Registry.ITEM, WilderWild.id("firefly_bottle"), FIREFLY_BOTTLE);
 
         Registry.register(Registry.ITEM, WilderWild.id("magenta_firefly_bottle"), MAGENTA_FIREFLY_BOTTLE);

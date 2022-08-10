@@ -1,5 +1,5 @@
 plugins {
-	id 'fabric-loom' version '0.13-SNAPSHOT'
+	id 'fabric-loom' version '0.12-SNAPSHOT'
 	id 'io.github.juuxel.loom-quiltflower' version '1.7.+'
 	id 'org.quiltmc.quilt-mappings-on-loom' version '4.2.1'
 	id 'maven-publish'
@@ -19,9 +19,6 @@ repositories {
 	// Loom adds the essential maven repositories to download Minecraft and libraries from automatically.
 	maven {
 		url = 'https://jitpack.io'
-		content {
-			includeGroup "com.github.Chocohead"
-		}
 	}
 	maven {
 		name = "Modrinth"
@@ -48,6 +45,10 @@ repositories {
 			includeGroup "curse.maven"
 		}
 	}
+	maven {
+		name "Siphalor's Maven"
+		url "https://maven.siphalor.de"
+	}
 }
 
 dependencies {
@@ -73,7 +74,11 @@ dependencies {
 	modImplementation "com.terraformersmc:modmenu:${modmenu_version}"
 
 	//UFU
-	modImplementation "curse.maven:project-409010:3909688"
+	modImplementation "curse.maven:UFU-409010:3909688"
+
+	// NBT Crafting
+	modImplementation "de.siphalor:nbtcrafting-1.19:2+"
+	include "de.siphalor:nbtcrafting-1.19:2+"
 
 	// only affects runClient, does not affect gradlew build. add -PuseThirdPartyMods=false to not use these
 	if (findProperty("useThirdPartyMods") != "false") {
