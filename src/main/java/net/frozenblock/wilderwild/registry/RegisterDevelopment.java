@@ -13,11 +13,9 @@ import net.minecraft.util.registry.Registry;
 public class RegisterDevelopment {
 
     public static final Camera CAMERA = new Camera(new FabricItemSettings());
-    public static final Block DEV_BLOCK = new Block(FabricBlockSettings.copyOf(Blocks.STONE));
 
     public static void init() {
         Registry.register(Registry.ITEM, WilderWild.id("camera"), CAMERA);
-        registerBlock("test_1", DEV_BLOCK, ItemGroup.MISC);
     }
 
     private static void registerBlock(String name, Block block, ItemGroup group) {
