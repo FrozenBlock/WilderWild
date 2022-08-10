@@ -16,12 +16,6 @@ import net.minecraft.util.registry.RegistryKey;
 import net.minecraft.village.TradeOffers;
 
 public class RegisterItems {
-    public static final AncientHorn ANCIENT_HORN = new AncientHorn(new FabricItemSettings().group(ItemGroup.MISC).maxCount(1).rarity(Rarity.EPIC), WilderWild.WILD_HORNS);
-    public static final RegistryKey<Instrument> ANCIENT_HORN_INSTRUMENT = RegistryKey.of(Registry.INSTRUMENT_KEY, WilderWild.id("ancient_horn"));
-    public static final CopperHorn COPPER_HORN = new CopperHorn(new FabricItemSettings().group(ItemGroup.MISC).maxCount(1), WilderWild.COPPER_HORNS, 0);
-    public static final RegistryKey<Instrument> SAX_COPPER_HORN = RegistryKey.of(Registry.INSTRUMENT_KEY, WilderWild.id("sax_copper_horn"));
-    public static final RegistryKey<Instrument> TUBA_COPPER_HORN = RegistryKey.of(Registry.INSTRUMENT_KEY, WilderWild.id("tuba_copper_horn"));
-    public static final RegistryKey<Instrument> FLUTE_COPPER_HORN = RegistryKey.of(Registry.INSTRUMENT_KEY, WilderWild.id("flute_copper_horn"));
 
     public static final MilkweedPod MILKWEED_POD = new MilkweedPod(new FabricItemSettings().group(ItemGroup.MISC).maxCount(64));
     public static final MusicDiscItem MUSIC_DISC_BENEATH = new MusicDiscItem(15, RegisterSounds.MUSIC_DISC_BENEATH, new FabricItemSettings().maxCount(1).rarity(Rarity.RARE), 169);
@@ -58,6 +52,13 @@ public class RegisterItems {
     public static final Item WHITE_FIREFLY_BOTTLE = new FireflyBottle(new FabricItemSettings().group(ItemGroup.MISC).maxCount(32), "white");
 
     public static final Item POLLEN = new BlockItem(RegisterBlocks.POLLEN_BLOCK, new FabricItemSettings().group(ItemGroup.DECORATIONS));
+
+    public static final AncientHorn ANCIENT_HORN = new AncientHorn(new FabricItemSettings().group(ItemGroup.MISC).maxCount(1).rarity(Rarity.EPIC), WilderWild.WILD_HORNS);
+    public static final RegistryKey<Instrument> ANCIENT_HORN_INSTRUMENT = RegistryKey.of(Registry.INSTRUMENT_KEY, WilderWild.id("ancient_horn"));
+    public static final CopperHorn COPPER_HORN = new CopperHorn(new FabricItemSettings().group(ItemGroup.MISC).maxCount(1), WilderWild.COPPER_HORNS, 0);
+    public static final RegistryKey<Instrument> SAX_COPPER_HORN = RegistryKey.of(Registry.INSTRUMENT_KEY, WilderWild.id("sax_copper_horn"));
+    public static final RegistryKey<Instrument> TUBA_COPPER_HORN = RegistryKey.of(Registry.INSTRUMENT_KEY, WilderWild.id("tuba_copper_horn"));
+    public static final RegistryKey<Instrument> FLUTE_COPPER_HORN = RegistryKey.of(Registry.INSTRUMENT_KEY, WilderWild.id("flute_copper_horn"));
 
     public static void registerItems() {
         WilderWild.logWild("Registering Items for", WilderWild.UNSTABLE_LOGGING);
