@@ -70,6 +70,13 @@ public class RegisterMovingSoundRestrictions {
             return false;
         });
 
+        register(WilderWild.id("copper_horn"), (LoopPredicate<PlayerEntity>) entity -> {
+            if (entity instanceof PlayerEntity player) {
+                return player.getActiveItem().isOf(RegisterItems.COPPER_HORN);
+            }
+            return false;
+        });
+
         frozen = true;
     }
 }
