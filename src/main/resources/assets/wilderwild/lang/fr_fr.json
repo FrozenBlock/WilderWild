@@ -115,5 +115,9 @@
 	"block.wilderwild.sculk_slab": "Dalle de sculk",
 	"block.wilderwild.sculk_stairs": "Escaliers de sculk",
 	"block.wilderwild.sculk_wall": "Muret de sculk",
-	"block.wilderwild.algae": "Algue"
+	"block.wilderwild.algae": "Algue",
+
+  	"instrument.wilderwild.sax_copper_horn": "Saxophone",
+  	"instrument.wilderwild.tuba_copper_horn": "Tuba",
+  	"instrument.wilderwild.flute_copper_horn": "Flûte"
 }
