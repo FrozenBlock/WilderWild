@@ -45,7 +45,7 @@ public class CopperHorn extends Item {
         super.appendTooltip(stack, world, tooltip, context);
         Optional<RegistryKey<Instrument>> optional = this.getInstrument(stack).flatMap(RegistryEntry::getKey);
         if (optional.isPresent()) {
-            MutableText mutableText = Text.translatable(Util.createTranslationKey("instrument", optional.get().getValue()));
+            MutableText mutableText = Text.translatable(Util.createTranslationKey(INSTRUMENT_KEY, optional.get().getValue()));
             tooltip.add(mutableText.formatted(Formatting.GRAY));
         }
 
@@ -96,7 +96,7 @@ public class CopperHorn extends Item {
             Instrument instrument = optional.get().value();
             user.setCurrentHand(hand);
 
-            playSound(instrument, user, world, new CallbackInfo("playSound", true));
+            playSound(instrument, user, world);
 
             return TypedActionResult.consume(itemStack);
         } else {
@@ -104,8 +104,7 @@ public class CopperHorn extends Item {
         }
     }
 
-    private void playSound(Instrument instrument, PlayerEntity user, World world, CallbackInfo info) {
-        info.cancel();
+    private void playSound(Instrument instrument, PlayerEntity user, World world) {
         SoundEvent soundEvent = instrument.soundEvent();
         float range = instrument.range() / 16.0F;
 

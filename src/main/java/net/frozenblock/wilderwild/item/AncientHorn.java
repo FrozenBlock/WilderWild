@@ -43,6 +43,7 @@ public class AncientHorn extends Item {
         this.instrumentTag = instrumentTag;
     }
 
+    @Override
     public void appendTooltip(ItemStack stack, @Nullable World world, List<Text> tooltip, TooltipContext context) {
         super.appendTooltip(stack, world, tooltip, context);
         Optional<RegistryKey<Instrument>> optional = this.getInstrument(stack).flatMap(RegistryEntry::getKey);
@@ -50,6 +51,7 @@ public class AncientHorn extends Item {
             MutableText mutableText = Text.translatable("item.wilderwild.ancient_horn.sound.0");
             tooltip.add(mutableText.formatted(Formatting.GRAY));
         }
+
     }
 
     public static ItemStack getStackForInstrument(Item item, RegistryEntry<Instrument> instrument) {
