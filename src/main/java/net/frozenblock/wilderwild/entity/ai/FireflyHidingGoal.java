@@ -20,6 +20,12 @@ public class FireflyHidingGoal extends MoveToTargetPosGoal {
     }
 
     @Override
+    public void start() {
+        super.start();
+        this.mob.getBrain().clear();
+    }
+
+    @Override
     public void tick() {
         if (this.hasReached()) {
             this.mob.playSound(SoundEvents.BLOCK_BEEHIVE_ENTER, 1.0F, 1.3F);
