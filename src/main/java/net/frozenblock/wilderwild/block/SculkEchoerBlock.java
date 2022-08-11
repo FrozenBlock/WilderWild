@@ -4,12 +4,12 @@ import it.unimi.dsi.fastutil.objects.Object2IntMap;
 import it.unimi.dsi.fastutil.objects.Object2IntMaps;
 import it.unimi.dsi.fastutil.objects.Object2IntOpenHashMap;
 import net.frozenblock.wilderwild.block.entity.SculkEchoerBlockEntity;
-import net.frozenblock.wilderwild.block.entity.SculkEchoerPhase;
 import net.frozenblock.wilderwild.registry.*;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityTicker;
 import net.minecraft.block.entity.BlockEntityType;
+import net.minecraft.block.enums.SculkSensorPhase;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.ai.pathing.NavigationType;
@@ -84,7 +84,7 @@ public class SculkEchoerBlock extends BlockWithEntity implements Waterloggable {
         map.put(GameEvent.EXPLODE, 15);
         map.put(GameEvent.LIGHTNING_STRIKE, 15);
     }));
-    public static final EnumProperty<SculkEchoerPhase> SCULK_ECHOER_PHASE = RegisterProperties.SCULK_ECHOER_PHASE;
+    public static final EnumProperty<SculkSensorPhase> SCULK_ECHOER_PHASE = Properties.SCULK_SENSOR_PHASE;
     public static final BooleanProperty WATERLOGGED = Properties.WATERLOGGED;
     public static final BooleanProperty UPSIDEDOWN = RegisterProperties.UPSIDE_DOWN;
     private final int range;
@@ -95,7 +95,7 @@ public class SculkEchoerBlock extends BlockWithEntity implements Waterloggable {
 
     public SculkEchoerBlock(Settings settings, int range) {
         super(settings);
-        this.setDefaultState(this.stateManager.getDefaultState().with(SCULK_ECHOER_PHASE, SculkEchoerPhase.INACTIVE).with(WATERLOGGED, false).with(UPSIDEDOWN, false));
+        this.setDefaultState(this.stateManager.getDefaultState().with(SCULK_ECHOER_PHASE, SculkSensorPhase.INACTIVE).with(WATERLOGGED, false).with(UPSIDEDOWN, false));
         this.range = range;
     }
 
@@ -132,7 +132,7 @@ public class SculkEchoerBlock extends BlockWithEntity implements Waterloggable {
 
     public void onStateReplaced(BlockState state, World world, BlockPos pos, BlockState newState, boolean moved) {
         if (!state.isOf(newState.getBlock())) {
-            if (getPhase(state) == SculkEchoerPhase.ACTIVE) {
+            if (getPhase(state) == SculkSensorPhase.ACTIVE) {
                 updateNeighbors(world, pos);
             }
             super.onStateReplaced(state, world, pos, newState, moved);
@@ -140,9 +140,9 @@ public class SculkEchoerBlock extends BlockWithEntity implements Waterloggable {
     }
 
     public void scheduledTick(BlockState state, ServerWorld world, BlockPos pos, Random random) {
-        if (getPhase(state) != SculkEchoerPhase.ACTIVE) {
-            if (getPhase(state) == SculkEchoerPhase.COOLDOWN) {
-                world.setBlockState(pos, state.with(SCULK_ECHOER_PHASE, SculkEchoerPhase.INACTIVE), Block.NOTIFY_ALL);
+        if (getPhase(state) != SculkSensorPhase.ACTIVE) {
+            if (getPhase(state) == SculkSensorPhase.COOLDOWN) {
+                world.setBlockState(pos, state.with(SCULK_ECHOER_PHASE, SculkSensorPhase.INACTIVE), Block.NOTIFY_ALL);
             }
         } else {
             setCooldown(world, pos, state);
@@ -178,16 +178,16 @@ public class SculkEchoerBlock extends BlockWithEntity implements Waterloggable {
         return OUTLINE;
     }
 
-    public static SculkEchoerPhase getPhase(BlockState state) {
+    public static SculkSensorPhase getPhase(BlockState state) {
         return state.get(SCULK_ECHOER_PHASE);
     }
 
     public static boolean isInactive(BlockState state) {
-        return getPhase(state) == SculkEchoerPhase.INACTIVE;
+        return getPhase(state) == SculkSensorPhase.INACTIVE;
     }
 
     public static void setCooldown(World world, BlockPos pos, BlockState state) {
-        world.setBlockState(pos, state.with(SCULK_ECHOER_PHASE, SculkEchoerPhase.COOLDOWN), Block.NOTIFY_ALL);
+        world.setBlockState(pos, state.with(SCULK_ECHOER_PHASE, SculkSensorPhase.COOLDOWN), Block.NOTIFY_ALL);
         world.createAndScheduleBlockTick(pos, state.getBlock(), 1);
         if (!state.get(WATERLOGGED)) {
             world.playSound(null, (double) pos.getX() + 0.5, (double) pos.getY() + 0.5, (double) pos.getZ() + 0.5, SoundEvents.BLOCK_SCULK_SENSOR_CLICKING_STOP, SoundCategory.BLOCKS, 1.0F, world.random.nextFloat() * 0.1F + 0.7F);
@@ -211,7 +211,7 @@ public class SculkEchoerBlock extends BlockWithEntity implements Waterloggable {
         }
         if (canRun) {
             int additionalCooldown = state.get(WATERLOGGED) ? 75 : 45;
-            world.setBlockState(pos, state.with(SCULK_ECHOER_PHASE, SculkEchoerPhase.ACTIVE), Block.NOTIFY_ALL);
+            world.setBlockState(pos, state.with(SCULK_ECHOER_PHASE, SculkSensorPhase.ACTIVE), Block.NOTIFY_ALL);
             world.createAndScheduleBlockTick(pos, state.getBlock(), bubbles + additionalCooldown);
             updateNeighbors(world, pos);
             if (!state.get(WATERLOGGED)) {
@@ -227,7 +227,7 @@ public class SculkEchoerBlock extends BlockWithEntity implements Waterloggable {
     public int getComparatorOutput(BlockState state, World world, BlockPos pos) {
         BlockEntity blockEntity = world.getBlockEntity(pos);
         if (blockEntity instanceof SculkEchoerBlockEntity echoerEntity) {
-            return getPhase(state) == SculkEchoerPhase.ACTIVE ? echoerEntity.getLastVibrationFrequency() : 0;
+            return getPhase(state) == SculkSensorPhase.ACTIVE ? echoerEntity.getLastVibrationFrequency() : 0;
         } else {
             return 0;
         }
