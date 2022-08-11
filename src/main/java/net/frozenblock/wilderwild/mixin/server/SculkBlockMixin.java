@@ -74,7 +74,7 @@ public class SculkBlockMixin {
                                     j = 0;
                                 }
                             } else {
-                                blockState = world.getBlockState(blockPos.down());
+                                blockState = stateDown;
                             }
                         }
                         blockPos2 = blockPos.down();
