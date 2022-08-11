@@ -49,15 +49,18 @@ public abstract class WardenEntityMixin extends HostileEntity implements WilderW
 
     private final WardenEntity warden = WardenEntity.class.cast(this);
 
+    @Override
+    public boolean isOsmiooo() {
+        String string = Formatting.strip(warden.getName().getString());
+        return string != null && (string.equalsIgnoreCase("Osmiooo") || string.equalsIgnoreCase("Mossmio") || string.equalsIgnoreCase("Osmio"));
+    }
+
     @Inject(at = @At("HEAD"), method = "getDeathSound", cancellable = true)
     public void getDeathSound(CallbackInfoReturnable<SoundEvent> info) {
-        String string = Formatting.strip(warden.getName().getString());
         boolean skipCheck = false;
-        if (string != null) {
-            if (string.equalsIgnoreCase("Osmiooo") || string.equalsIgnoreCase("Mossmio") || string.equalsIgnoreCase("kirby")) {
-                warden.playSound(RegisterSounds.ENTITY_WARDEN_KIRBY_DEATH, 5.0F, 1.0F);
-                skipCheck = true;
-            }
+        if (this.isOsmiooo()) {
+            warden.playSound(RegisterSounds.ENTITY_WARDEN_KIRBY_DEATH, 5.0F, 1.0F);
+            skipCheck = true;
         }
         if (!skipCheck) {
             if (!this.isSubmergedInWaterOrLava()) {
@@ -165,14 +168,11 @@ public abstract class WardenEntityMixin extends HostileEntity implements WilderW
     public void onTrackedDataSet(TrackedData<?> data, CallbackInfo ci) {
         if (POSE.equals(data)) {
             if (warden.getPose() == EntityPose.DYING) {
-                String string = Formatting.strip(warden.getName().getString());
                 boolean skip = false;
-                if (string != null) {
-                    if (string.equalsIgnoreCase("Osmiooo") || string.equalsIgnoreCase("Mossmio") || string.equalsIgnoreCase("Kirby")) {
-                        this.getKirbyDeathAnimationState().start(warden.age);
-                        skip = true;
-                        ci.cancel();
-                    }
+                if (((WilderWarden) warden).isOsmiooo()) {
+                    this.getKirbyDeathAnimationState().start(warden.age);
+                    skip = true;
+                    ci.cancel();
                 }
                 if (!skip) {
                     if (!this.isSubmergedInWaterOrLava()) {
