@@ -59,22 +59,26 @@ public class HangingTendrilBlock extends BlockWithEntity implements Waterloggabl
         return this.range;
     }
 
+    @Override
     public boolean canPlaceAt(BlockState state, WorldView world, BlockPos pos) {
         BlockPos blockPos = pos.up();
         BlockState blockState = world.getBlockState(blockPos);
-        return blockState.isSideSolidFullSquare(world, blockPos, Direction.UP);
+        return blockState.isFullCube(world, blockPos);
     }
 
+    @Override
     public BlockState getPlacementState(ItemPlacementContext ctx) {
         BlockPos blockPos = ctx.getBlockPos();
         FluidState fluidState = ctx.getWorld().getFluidState(blockPos);
         return this.getDefaultState().with(WATERLOGGED, fluidState.getFluid() == Fluids.WATER);
     }
 
+    @Override
     public boolean hasRandomTicks(BlockState state) {
         return true;
     }
 
+    @Override
     public void randomTick(BlockState state, ServerWorld world, BlockPos pos, Random random) {
         if (!state.canPlaceAt(world, pos)) {
             world.breakBlock(pos, true);
@@ -89,6 +93,7 @@ public class HangingTendrilBlock extends BlockWithEntity implements Waterloggabl
         }
     }
 
+    @Override
     public BlockState getStateForNeighborUpdate(BlockState state, Direction direction, BlockState neighborState, WorldAccess world, BlockPos pos, BlockPos neighborPos) {
         if (direction == Direction.UP && !canPlaceAt(state, world, pos)) {
             world.breakBlock(pos, true);
@@ -99,10 +104,12 @@ public class HangingTendrilBlock extends BlockWithEntity implements Waterloggabl
         return super.getStateForNeighborUpdate(state, direction, neighborState, world, pos, neighborPos);
     }
 
+    @Override
     public FluidState getFluidState(BlockState state) {
         return state.get(WATERLOGGED) ? Fluids.WATER.getStill(false) : super.getFluidState(state);
     }
 
+    @Override
     public void scheduledTick(BlockState state, ServerWorld world, BlockPos pos, Random random) {
         if (getPhase(state) != SculkSensorPhase.ACTIVE) {
             if (getPhase(state) == SculkSensorPhase.COOLDOWN) {
@@ -113,12 +120,14 @@ public class HangingTendrilBlock extends BlockWithEntity implements Waterloggabl
         }
     }
 
+    @Override
     public void onBlockAdded(BlockState state, World world, BlockPos pos, BlockState oldState, boolean notify) {
         if (!world.isClient() && !state.isOf(oldState.getBlock())) {
             world.createAndScheduleBlockTick(new BlockPos(pos), state.getBlock(), 1);
         }
     }
 
+    @Override
     public void onStateReplaced(BlockState state, World world, BlockPos pos, BlockState newState, boolean moved) {
         if (!state.isOf(newState.getBlock())) {
             if (getPhase(state) == SculkSensorPhase.ACTIVE) {
@@ -133,16 +142,19 @@ public class HangingTendrilBlock extends BlockWithEntity implements Waterloggabl
         world.updateNeighborsAlways(pos.offset(Direction.UP.getOpposite()), RegisterBlocks.HANGING_TENDRIL);
     }
 
+    @Override
     @Nullable
     public BlockEntity createBlockEntity(BlockPos pos, BlockState state) {
         return new HangingTendrilBlockEntity(pos, state);
     }
 
+    @Override
     @Nullable
     public <T extends BlockEntity> GameEventListener getGameEventListener(ServerWorld world, T blockEntity) {
         return blockEntity instanceof HangingTendrilBlockEntity tendril ? tendril.getEventListener() : null;
     }
 
+    @Override
     @Nullable
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(World world, BlockState state, BlockEntityType<T> type) {
         return !world.isClient ? checkType(type, RegisterBlockEntities.HANGING_TENDRIL, (worldx, pos, statex, blockEntity) -> {
@@ -150,14 +162,17 @@ public class HangingTendrilBlock extends BlockWithEntity implements Waterloggabl
         }) : null;
     }
 
+    @Override
     public BlockRenderType getRenderType(BlockState state) {
         return BlockRenderType.MODEL;
     }
 
+    @Override
     public VoxelShape getCullingShape(BlockState state, BlockView world, BlockPos pos) {
         return OUTLINE_SHAPE;
     }
 
+    @Override
     public VoxelShape getOutlineShape(BlockState state, BlockView world, BlockPos pos, ShapeContext context) {
         return OUTLINE_SHAPE;
     }
@@ -189,14 +204,17 @@ public class HangingTendrilBlock extends BlockWithEntity implements Waterloggabl
         }
     }
 
+    @Override
     protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
         builder.add(HANGING_TENDRIL_PHASE, WATERLOGGED, TWITCHING, WRINGING_OUT);
     }
 
+    @Override
     public boolean hasComparatorOutput(BlockState state) {
         return true;
     }
 
+    @Override
     public int getComparatorOutput(BlockState state, World world, BlockPos pos) {
         BlockEntity blockEntity = world.getBlockEntity(pos);
         if (blockEntity instanceof HangingTendrilBlockEntity hangingEntity) {
@@ -206,14 +224,17 @@ public class HangingTendrilBlock extends BlockWithEntity implements Waterloggabl
         }
     }
 
+    @Override
     public boolean canPathfindThrough(BlockState state, BlockView world, BlockPos pos, NavigationType type) {
         return true;
     }
 
+    @Override
     public boolean hasSidedTransparency(BlockState state) {
         return true;
     }
 
+    @Override
     public void onStacksDropped(BlockState state, ServerWorld world, BlockPos pos, ItemStack stack, boolean bl) {
         super.onStacksDropped(state, world, pos, stack, bl);
         this.dropExperienceWhenMined(world, pos, stack, ConstantIntProvider.create(1));
