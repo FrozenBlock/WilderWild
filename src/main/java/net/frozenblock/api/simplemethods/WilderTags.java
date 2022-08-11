@@ -1,11 +1,6 @@
 package net.frozenblock.api.simplemethods;
 
-import net.fabricmc.fabric.api.tag.convention.v1.TagUtil;
-import net.frozenblock.wilderwild.WilderWild;
 import net.minecraft.block.Block;
-import net.minecraft.entity.EntityType;
-import net.minecraft.fluid.Fluid;
-import net.minecraft.item.Item;
 import net.minecraft.tag.TagKey;
 import net.minecraft.util.math.random.Random;
 import net.minecraft.util.registry.Registry;

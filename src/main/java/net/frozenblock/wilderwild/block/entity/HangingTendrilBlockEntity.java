@@ -1,6 +1,5 @@
 package net.frozenblock.wilderwild.block.entity;
 
-import com.mojang.serialization.DataResult;
 import com.mojang.serialization.Dynamic;
 import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.block.HangingTendrilBlock;
@@ -12,7 +11,6 @@ import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.ExperienceOrbEntity;
 import net.minecraft.nbt.NbtCompound;
-import net.minecraft.nbt.NbtElement;
 import net.minecraft.nbt.NbtOps;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.math.BlockPos;
@@ -24,9 +22,6 @@ import net.minecraft.world.event.GameEvent;
 import net.minecraft.world.event.listener.GameEventListener;
 import net.minecraft.world.event.listener.VibrationListener;
 import org.jetbrains.annotations.Nullable;
-import org.slf4j.Logger;
-
-import java.util.Objects;
 
 public class HangingTendrilBlockEntity extends BlockEntity implements VibrationListener.Callback {
     private VibrationListener listener;
