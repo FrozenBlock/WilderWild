@@ -109,8 +109,8 @@ public class CopperHorn extends Item {
         float range = instrument.range() / 16.0F;
 
         if (!world.isClient) {
-            int moreShift = user.isSneaking() ? -12 : 0;
-            float soundPitch = (float) (Math.round(((user.getPitch() - 90F) * -0.1) * 0.11111111111F) + this.shift + moreShift) + 1;
+            int moreShift = user.isSneaking() ? -1 : 0;
+            float soundPitch = (float) Math.pow(2.0D,(Math.round((user.getPitch() - 90F) * -0.1F) * 0.08805347226228645F)) + moreShift;
             EasyPacket.createMovingRestrictionLoopingSound(world, user, soundEvent, SoundCategory.RECORDS, range, soundPitch, WilderWild.id("copper_horn"));
         }
         world.emitGameEvent(GameEvent.INSTRUMENT_PLAY, user.getPos(), GameEvent.Emitter.of(user));
