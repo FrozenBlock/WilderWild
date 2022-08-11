@@ -141,6 +141,8 @@ public class WilderWild implements ModInitializer {
         put(WilderWild.string("potted_white_dandelion"), WilderWild.id("potted_seeding_dandelion"));
         put(WilderWild.string("floating_moss"), WilderWild.id("algae"));
         put(WilderWild.string("test_1"), WilderWild.id("null_block"));
+        put(WilderWild.string("sculk_echoer"), WilderWild.id("null_block"));
+        put(WilderWild.string("sculk_jaw"), WilderWild.id("null_block"));
     }};
 
     //MOD COMPATIBILITY
