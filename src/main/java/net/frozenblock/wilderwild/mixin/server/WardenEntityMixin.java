@@ -338,10 +338,12 @@ public abstract class WardenEntityMixin extends HostileEntity implements WilderW
     }
 
     private boolean isTouchingWaterOrLava() {
+        WardenEntity warden = WardenEntity.class.cast(this);
         return warden.isInsideWaterOrBubbleColumn() || warden.isInLava();
     }
 
     private boolean isSubmergedInWaterOrLava() {
+        WardenEntity warden = WardenEntity.class.cast(this);
         return warden.isSubmergedIn(FluidTags.WATER) || warden.isSubmergedIn(FluidTags.LAVA);
     }
 
