@@ -38,11 +38,4 @@ Lunade (AViewFromTheTop) - best coder, deciphered a long abandoned song from 200
 LudoCrypt - Created godly music like it was nothing
 (how)
 
-Shigeru Miyamoto - modded
-(modded)
-
-Mario - luigi
-(bros)
-
-Markus Persson - Created Minecraft
-(This mod wouldn't exist without him)
+TheoreticallyUseful - Created the UpdateFixerUpper mod: https://github.com/SilverAndro/UpdateFixerUpper

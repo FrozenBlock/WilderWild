@@ -8,11 +8,11 @@
 	"block.wilderwild.milkweed": "Asclépiade",
 	"block.wilderwild.echo_glass": "Verre d'écho",
 	"block.wilderwild.flowering_lily_pad": "Nénuphar fleuri",
-	"block.wilderwild.glory_of_the_snow": "Glory Of The Snow But In French",
-	"block.wilderwild.blue_giant_glory_of_the_snow": "Blue Giant Glory Of The Snow But In French",
-	"block.wilderwild.pink_giant_glory_of_the_snow": "Pink Giant Glory Of The Snow But In French",
-	"block.wilderwild.alba_glory_of_the_snow": "Alba Glory Of The Snow But In French",
-	"block.wilderwild.violet_beauty_glory_of_the_snow": "Violet Beauty Glory Of The Snow But In French",
+	"block.wilderwild.glory_of_the_snow": "Gloire des neiges",
+	"block.wilderwild.blue_giant_glory_of_the_snow": "Gloire des neiges géante bleue",
+	"block.wilderwild.pink_giant_glory_of_the_snow": "Gloire des neiges géante rose",
+	"block.wilderwild.alba_glory_of_the_snow": "Gloire des neiges alba",
+	"block.wilderwild.violet_beauty_glory_of_the_snow": "Gloire des neiges violette magnifique",
 	"block.wilderwild.hanging_tendril": "Vrille pendue",
 	"block.wilderwild.hollowed_acacia_log": "Bûche d'acacia creusée",
 	"block.wilderwild.hollowed_birch_log": "Bûche de bouleau creusée",
@@ -113,5 +113,9 @@
 	"item.wilderwild.cypress_boat": "Bateau de stockage",
 	"item.wilderwild.cypress_chest_boat": "Bateau de stockage en cyprès",
 	"biome.wilderwild.cypress_wetlands": "Marécage de Cyprès",
-	"biome.wilderwild.mixed_forest": "Forêt mixte"
+	"biome.wilderwild.mixed_forest": "Forêt mixte",
+	"block.wilderwild.sculk_slab": "Dalle de sculk",
+	"block.wilderwild.sculk_stairs": "Escaliers de sculk",
+	"block.wilderwild.sculk_wall": "Muret de sculk",
+	"block.wilderwild.algae": "Algue"
 }

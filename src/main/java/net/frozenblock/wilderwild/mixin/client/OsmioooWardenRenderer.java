@@ -19,8 +19,6 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-import java.util.Objects;
-
 @Environment(EnvType.CLIENT)
 @Mixin(WardenEntityRenderer.class)
 public abstract class OsmioooWardenRenderer extends MobEntityRenderer<WardenEntity, WardenEntityModel<WardenEntity>> {
@@ -72,7 +70,7 @@ public abstract class OsmioooWardenRenderer extends MobEntityRenderer<WardenEnti
     @Inject(method = "getTexture(Lnet/minecraft/entity/mob/WardenEntity;)Lnet/minecraft/util/Identifier;", at = @At("HEAD"), cancellable = true)
     public void getTexture(WardenEntity wardenEntity, CallbackInfoReturnable<Identifier> cir) {
         String string = Formatting.strip(wardenEntity.getName().getString());
-        if (Objects.equals(string, "Osmiooo")) {
+        if (string != null && (string.equalsIgnoreCase("Osmiooo") || string.equalsIgnoreCase("Mossmio"))) {
             cir.setReturnValue(OSMIOOO_TEXTURE);
         }
     }

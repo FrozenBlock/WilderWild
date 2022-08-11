@@ -211,12 +211,12 @@ public class CustomWardenAnimations {
                     "right_arm",
                     new Transformation(
                             Transformation.Targets.ROTATE,
-                            new Keyframe(0.0F, AnimationHelper.translate(0.0F, 0.0F, 0.0F), Transformation.Interpolations.SPLINE),
-                            new Keyframe(0.28F, AnimationHelper.translate(-90.6636F, 9.917F, -1.8476F), Transformation.Interpolations.SPLINE),
-                            new Keyframe(0.84F, AnimationHelper.translate(-4.1947F, 21.3089F, 6.3256F), Transformation.Interpolations.SPLINE),
-                            new Keyframe(1.44F, AnimationHelper.translate(42.5707F, -3.6382F, 15.171F), Transformation.Interpolations.SPLINE),
-                            new Keyframe(2.28F, AnimationHelper.translate(49.4331F, -3.0042F, 15.7028F), Transformation.Interpolations.SPLINE),
-                            new Keyframe(3.28F, AnimationHelper.translate(79.4684F, 3.3016F, 9.7983F), Transformation.Interpolations.SPLINE)
+                            new Keyframe(0.0F, AnimationHelper.rotate(0.0F, 0.0F, 0.0F), Transformation.Interpolations.SPLINE),
+                            new Keyframe(0.28F, AnimationHelper.rotate(-90.6636F, 9.917F, -1.8476F), Transformation.Interpolations.SPLINE),
+                            new Keyframe(0.84F, AnimationHelper.rotate(-4.1947F, 21.3089F, 6.3256F), Transformation.Interpolations.SPLINE),
+                            new Keyframe(1.44F, AnimationHelper.rotate(42.5707F, -3.6382F, 15.171F), Transformation.Interpolations.SPLINE),
+                            new Keyframe(2.28F, AnimationHelper.rotate(49.4331F, -3.0042F, 15.7028F), Transformation.Interpolations.SPLINE),
+                            new Keyframe(3.28F, AnimationHelper.rotate(79.4684F, 3.3016F, 9.7983F), Transformation.Interpolations.SPLINE)
                     )
             )
             .addBoneAnimation(

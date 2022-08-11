@@ -1,12 +1,20 @@
 package net.frozenblock.wilderwild.mixin.server;
 
-import net.minecraft.entity.damage.DamageSource;
+import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.passive.GoatEntity;
+import net.minecraft.item.GoatHornItem;
+import net.minecraft.item.Instrument;
 import net.minecraft.item.ItemStack;
-import net.minecraft.sound.SoundEvent;
-import net.minecraft.sound.SoundEvents;
+import net.minecraft.item.Items;
+import net.minecraft.tag.InstrumentTags;
+import net.minecraft.tag.TagKey;
 import net.minecraft.util.Formatting;
+import net.minecraft.util.math.random.Random;
+import net.minecraft.util.registry.Registry;
+import net.minecraft.util.registry.RegistryEntryList;
+import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
@@ -14,7 +22,11 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import java.util.Objects;
 
 @Mixin(GoatEntity.class)
-public class GoatEntityMixin {
+public abstract class GoatEntityMixin {
+
+    @Shadow
+    @Final
+    private static TrackedData<Boolean> SCREAMING;
 
     private boolean isTreetrain1() {
         GoatEntity goat = GoatEntity.class.cast(this);
@@ -22,38 +34,23 @@ public class GoatEntityMixin {
         return Objects.equals(string, "Treetrain1");
     }
 
-    @Inject(method = "getAmbientSound", at = @At("HEAD"), cancellable = true)
-    private void getAmbientSound(CallbackInfoReturnable<SoundEvent> cir) {
+    @Inject(method = "isScreaming", at = @At("HEAD"), cancellable = true)
+    private void isScreaming(CallbackInfoReturnable<Boolean> cir) {
         if (this.isTreetrain1()) {
-            cir.setReturnValue(SoundEvents.ENTITY_GOAT_SCREAMING_AMBIENT);
+            cir.setReturnValue(true);
+            cir.cancel();
         }
     }
 
-    @Inject(method = "getHurtSound", at = @At("HEAD"), cancellable = true)
-    private void getHurtSound(DamageSource source, CallbackInfoReturnable<SoundEvent> cir) {
+    @Inject(method = "getGoatHornStack", at = @At("HEAD"), cancellable = true)
+    public void getGoatHornStack(CallbackInfoReturnable<ItemStack> cir) {
         if (this.isTreetrain1()) {
-            cir.setReturnValue(SoundEvents.ENTITY_GOAT_SCREAMING_HURT);
-        }
-    }
-
-    @Inject(method = "getDeathSound", at = @At("HEAD"), cancellable = true)
-    private void getDeathSound(CallbackInfoReturnable<SoundEvent> cir) {
-        if (this.isTreetrain1()) {
-            cir.setReturnValue(SoundEvents.ENTITY_GOAT_SCREAMING_DEATH);
-        }
-    }
-
-    @Inject(method = "getMilkingSound", at = @At("HEAD"), cancellable = true)
-    private void getMilkingSound(CallbackInfoReturnable<SoundEvent> cir) {
-        if (this.isTreetrain1()) {
-            cir.setReturnValue(SoundEvents.ENTITY_GOAT_SCREAMING_MILK);
-        }
-    }
-
-    @Inject(method = "getEatSound", at = @At("HEAD"), cancellable = true)
-    private void getEatSound(ItemStack stack, CallbackInfoReturnable<SoundEvent> cir) {
-        if (this.isTreetrain1()) {
-            cir.setReturnValue(SoundEvents.ENTITY_GOAT_SCREAMING_EAT);
+            GoatEntity goat = GoatEntity.class.cast(this);
+            Random random = Random.create(goat.getUuid().hashCode());
+            TagKey<Instrument> tagKey = goat.getDataTracker().get(SCREAMING) ? InstrumentTags.SCREAMING_GOAT_HORNS : InstrumentTags.REGULAR_GOAT_HORNS;
+            RegistryEntryList<Instrument> registryEntryList = Registry.INSTRUMENT.getOrCreateEntryList(tagKey);
+            cir.setReturnValue(GoatHornItem.getStackForInstrument(Items.GOAT_HORN, registryEntryList.getRandom(random).get()));
+            cir.cancel();
         }
     }
 }

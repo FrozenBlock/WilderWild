@@ -1,5 +1,7 @@
 package net.frozenblock.wilderwild.mixin.client;
 
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.entity.feature.FeatureRenderer;
 import net.minecraft.client.render.entity.feature.FeatureRendererContext;
@@ -16,8 +18,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-import java.util.Objects;
-
+@Environment(EnvType.CLIENT)
 @Mixin(WardenFeatureRenderer.class)
 public abstract class WardenFeatureRendererMixin<T extends WardenEntity, M extends WardenEntityModel<T>> extends FeatureRenderer<T, M> {
 
@@ -32,7 +33,7 @@ public abstract class WardenFeatureRendererMixin<T extends WardenEntity, M exten
     @Inject(at = @At("HEAD"), method = "render(Lnet/minecraft/client/util/math/MatrixStack;Lnet/minecraft/client/render/VertexConsumerProvider;ILnet/minecraft/entity/mob/WardenEntity;FFFFFF)V", cancellable = true)
     public void render(MatrixStack matrixStack, VertexConsumerProvider vertexConsumerProvider, int i, T wardenEntity, float f, float g, float h, float j, float k, float l, CallbackInfo ci) {
         String string = Formatting.strip(wardenEntity.getName().getString());
-        if (Objects.equals(string, "Osmiooo")) {
+        if (string != null && (string.equalsIgnoreCase("Osmiooo") || string.equalsIgnoreCase("Mossmio"))) {
             ci.cancel();
         }
     }

@@ -6,8 +6,8 @@ import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.block.SculkEchoerBlock;
 import net.frozenblock.wilderwild.block.entity.HangingTendrilBlockEntity;
 import net.frozenblock.wilderwild.misc.WilderProjectileDamageSource;
+import net.frozenblock.wilderwild.misc.mod_compat.simple_copper_pipes.InteractionHandler;
 import net.frozenblock.wilderwild.misc.server.EasyPacket;
-import net.frozenblock.wilderwild.misc.simple_pipe_compatability.InteractionHandler;
 import net.frozenblock.wilderwild.registry.*;
 import net.frozenblock.wilderwild.tag.WilderBlockTags;
 import net.minecraft.block.*;
@@ -136,18 +136,16 @@ public class AncientHornProjectile extends PersistentProjectileEntity {
             for (Entity entity : entities) {
                 if (!this.isRemoved() && entity != null && entity != owner) {
                     boolean shouldDamage = true;
-                    if (owner != null) {
-                        if (entity instanceof PlayerEntity player) {
-                            if (player.isCreative()) {
-                                shouldDamage = false;
-                            }
-                            if (owner instanceof PlayerEntity && !((PlayerEntity) owner).shouldDamagePlayer((PlayerEntity) entity)) {
-                                shouldDamage = false;
-                            }
-                        }
-                        if (entity.isInvulnerable()) {
+                    if (entity instanceof PlayerEntity player) {
+                        if (player.isCreative()) {
                             shouldDamage = false;
                         }
+                        if (owner instanceof PlayerEntity playerOwner && !playerOwner.shouldDamagePlayer(player)) {
+                            shouldDamage = false;
+                        }
+                    }
+                    if (entity.isInvulnerable()) {
+                        shouldDamage = false;
                     }
                     if (shouldDamage) {
                         this.hitEntity(entity);
@@ -218,9 +216,9 @@ public class AncientHornProjectile extends PersistentProjectileEntity {
     }
 
     public boolean canHit(Entity entity) {
-        if (!entity.isSpectator() && entity.isAlive() && entity.isCollidable() && !(entity instanceof ProjectileEntity)) {
+        if (!entity.isSpectator() && entity.isAlive() && entity.canHit() && !(entity instanceof ProjectileEntity)) {
             Entity entity2 = this.getOwner();
-            return entity2 == null || this.leftOwner || !entity2.isConnectedThroughVehicle(entity);
+            return entity2 != null && (this.leftOwner || !entity2.isConnectedThroughVehicle(entity));
         } else {
             return false;
         }
@@ -269,14 +267,16 @@ public class AncientHornProjectile extends PersistentProjectileEntity {
                     this.setShotFromCrossbow(false);
                     this.remove(RemovalReason.DISCARDED);
                 }
-            }
-            if (blockState.getBlock() == Blocks.SCULK_SENSOR) {
+            } else if (blockState.getBlock() == Blocks.SCULK_SENSOR) {
                 BlockPos pos = blockHitResult.getBlockPos();
                 WilderWild.log(Blocks.SCULK_SENSOR, pos, "Horn Projectile Touched", WilderWild.UNSTABLE_LOGGING);
-                server.setBlockState(pos, blockState.with(RegisterProperties.NOT_HICCUPPING, false));
+                if (blockState.get(RegisterProperties.HICCUPPING)) {
+                    server.setBlockState(pos, blockState.with(RegisterProperties.HICCUPPING, false));
+                } else {
+                    server.setBlockState(pos, blockState.with(RegisterProperties.HICCUPPING, true));
+                }
                 if (SculkSensorBlock.isInactive(blockState)) {
-                    SculkSensorBlock.setActive(owner, world, pos, world.getBlockState(pos), WilderWild.random().nextInt(15));
-                    world.emitGameEvent(null, GameEvent.SCULK_SENSOR_TENDRILS_CLICKING, pos);
+                    SculkSensorBlock.setActive(null, world, pos, world.getBlockState(pos), WilderWild.random().nextInt(15));
                     world.emitGameEvent(null, RegisterGameEvents.SCULK_SENSOR_ACTIVATE, pos);
                     setCooldown(getCooldown(this.getOwner(), SENSOR_COOLDOWN));
                 }
@@ -350,7 +350,7 @@ public class AncientHornProjectile extends PersistentProjectileEntity {
     private boolean shouldLeaveOwner() {
         Entity entity = this.getOwner();
         if (entity != null) {
-            for (Entity entity2 : this.world.getOtherEntities(this, this.getBoundingBox().stretch(this.getVelocity()).expand(1.0D), (entityx) -> !entityx.isSpectator() && entityx.isCollidable())) {
+            for (Entity entity2 : this.world.getOtherEntities(this, this.getBoundingBox().stretch(this.getVelocity()).expand(1.0D), (entityx) -> !entityx.isSpectator() && entityx.canHit())) {
                 if (entity2.getRootVehicle() == entity.getRootVehicle()) {
                     return false;
                 }
@@ -365,10 +365,7 @@ public class AncientHornProjectile extends PersistentProjectileEntity {
     }
 
     public boolean canInteract() {
-        if (!this.shotByPlayer && !world.isClient) {
-            return this.getOwner() != null;
-        }
-        return true;
+        return this.getOwner() != null;
     }
 
     @Override

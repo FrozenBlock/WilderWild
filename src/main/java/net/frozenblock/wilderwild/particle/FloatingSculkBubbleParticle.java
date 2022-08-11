@@ -56,55 +56,77 @@ public class FloatingSculkBubbleParticle extends AbstractSlowingParticle {
     public void tick() {
         super.tick();
         int flateAge = this.age - (this.stayInflatedTime) + 4;
-        if (this.age == 1) {
-            this.currentInflation = 0;
-            this.targetInflation = 2;
-        } else if (this.age == 2) {
-            this.currentInflation = 1;
-            this.targetInflation = 1.4F;
-        } else if (this.age == 3) {
-            this.currentInflation = 1;
-            this.targetInflation = 1.3F;
-        } else if (this.age == 4) {
-            this.currentInflation = 1.3F;
-            this.targetInflation = 0.7F;
-        } else if (this.age == 5) {
-            this.currentInflation = 0.7F;
-            this.targetInflation = 1.2F;
-        } else if (this.age == 6) {
-            this.currentInflation = 1.2F;
-            this.targetInflation = 0.9F;
-        } else if (this.age == 7) {
-            this.currentInflation = 0.9F;
-            this.targetInflation = 1.04F;
-        } else if (this.age == 8) {
-            this.currentInflation = 1.02F;
-            this.targetInflation = 0.95F;
-        } else if (this.age == 9) {
-            this.currentInflation = 0.95F;
-            this.targetInflation = 1;
-        } else if (flateAge == 3) {
-            this.currentInflation = 1F;
-            this.targetInflation = 1.3F;
-        } else if (flateAge == 4) {
-            this.currentInflation = 1;
-            this.targetInflation = 1.2F;
-        } else if (flateAge == 5) {
-            this.currentInflation = 1;
-            this.targetInflation = 1.05F;
-        } else if (flateAge == 6) {
-            this.currentInflation = 1.05F;
-            this.targetInflation = 1.1F;
-        } else if (flateAge == 7) {
-            this.currentInflation = 1.1F;
-            this.targetInflation = 1.4F;
-        } else if (flateAge == 8) {
-            this.currentInflation = 1.4F;
-            this.targetInflation = 1.65F;
-        } else {
-            this.currentInflation = 1;
-            this.targetInflation = 1;
+        switch (this.age) {
+            case 1 -> {
+                this.currentInflation = 0;
+                this.targetInflation = 2;
+            }
+            case 2 -> {
+                this.currentInflation = 1;
+                this.targetInflation = 1.4F;
+            }
+            case 3 -> {
+                this.currentInflation = 1;
+                this.targetInflation = 1.3F;
+            }
+            case 4 -> {
+                this.currentInflation = 1.3F;
+                this.targetInflation = 0.7F;
+            }
+            case 5 -> {
+                this.currentInflation = 0.7F;
+                this.targetInflation = 1.2F;
+            }
+            case 6 -> {
+                this.currentInflation = 1.2F;
+                this.targetInflation = 0.9F;
+            }
+            case 7 -> {
+                this.currentInflation = 0.9F;
+                this.targetInflation = 1.04F;
+            }
+            case 8 -> {
+                this.currentInflation = 1.02F;
+                this.targetInflation = 0.95F;
+            }
+            case 9 -> {
+                this.currentInflation = 0.95F;
+                this.targetInflation = 1;
+            }
+            default -> {
+                switch (flateAge) {
+                    case 3 -> {
+                        this.currentInflation = 1F;
+                        this.targetInflation = 1.3F;
+                    }
+                    case 4 -> {
+                        this.currentInflation = 1;
+                        this.targetInflation = 1.2F;
+                    }
+                    case 5 -> {
+                        this.currentInflation = 1;
+                        this.targetInflation = 1.05F;
+                    }
+                    case 6 -> {
+                        this.currentInflation = 1.05F;
+                        this.targetInflation = 1.1F;
+                    }
+                    case 7 -> {
+                        this.currentInflation = 1.1F;
+                        this.targetInflation = 1.4F;
+                    }
+                    case 8 -> {
+                        this.currentInflation = 1.4F;
+                        this.targetInflation = 1.65F;
+                    }
+                    default -> {
+                        this.currentInflation = 1;
+                        this.targetInflation = 1;
+                    }
+                }
+            }
         }
+
         if (this.age == this.stayInflatedTime + 1) {
             MinecraftClient client = MinecraftClient.getInstance();
             if (client != null) {

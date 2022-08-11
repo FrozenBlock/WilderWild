@@ -42,7 +42,7 @@ public class WilderFlowersGeneration {
                 GenerationStep.Feature.VEGETAL_DECORATION, WilderPlacedFeatures.PATCH_ALGAE.getKey().get());
 
         BiomeModifications.addFeature(BiomeSelectors.includeByKey(BiomeKeys.OLD_GROWTH_BIRCH_FOREST, BiomeKeys.FLOWER_FOREST, BiomeKeys.SUNFLOWER_PLAINS, BiomeKeys.FOREST, BiomeKeys.MEADOW, BiomeKeys.WINDSWEPT_HILLS, BiomeKeys.WINDSWEPT_FOREST, BiomeKeys.WINDSWEPT_GRAVELLY_HILLS, BiomeKeys.TAIGA),
-                GenerationStep.Feature.VEGETAL_DECORATION, WilderPlacedFeatures.WHITE_DANDELION.getKey().get());
+                GenerationStep.Feature.VEGETAL_DECORATION, WilderPlacedFeatures.SEEDING_DANDELION.getKey().get());
 
         BiomeModifications.addFeature(BiomeSelectors.includeByKey(BiomeKeys.BIRCH_FOREST, BiomeKeys.FLOWER_FOREST, BiomeKeys.SUNFLOWER_PLAINS, BiomeKeys.PLAINS, BiomeKeys.FOREST, BiomeKeys.MEADOW, BiomeKeys.SWAMP, BiomeKeys.SPARSE_JUNGLE),
                 GenerationStep.Feature.VEGETAL_DECORATION, WilderPlacedFeatures.MILKWEED.getKey().get());

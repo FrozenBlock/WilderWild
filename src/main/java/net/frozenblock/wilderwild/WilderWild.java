@@ -8,7 +8,8 @@ import net.fabricmc.loader.api.ModContainer;
 import net.frozenblock.wilderwild.block.entity.TermiteMoundBlockEntity;
 import net.frozenblock.wilderwild.entity.Firefly;
 import net.frozenblock.wilderwild.misc.BlockSoundGroupOverwrites;
-import net.frozenblock.wilderwild.misc.simple_pipe_compatability.RegisterSaveableMoveablePipeNbt;
+import net.frozenblock.wilderwild.misc.mod_compat.simple_copper_pipes.RegisterSaveableMoveablePipeNbt;
+import net.frozenblock.wilderwild.misc.mod_compat.ufu.InteractionHandler;
 import net.frozenblock.wilderwild.registry.*;
 import net.frozenblock.wilderwild.world.feature.WilderConfiguredFeatures;
 import net.frozenblock.wilderwild.world.feature.WilderMiscConfigured;
@@ -44,8 +45,6 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
-import java.time.Duration;
-import java.time.Instant;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
@@ -55,6 +54,7 @@ public class WilderWild implements ModInitializer {
     public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
     public static final boolean DEV_LOGGING = false;
     public static boolean UNSTABLE_LOGGING = false; //Used for features that may possibly be unstable and crash in public builds - it's smart to use this for at least registries.
+    public static boolean RENDER_TENDRILS = false;
 
     public static final TrunkPlacerType<StraightTrunkWithLogs> STRAIGHT_TRUNK_WITH_LOGS_PLACER_TYPE = registerTrunk("straight_trunk_logs_placer", StraightTrunkWithLogs.CODEC);
     public static final TrunkPlacerType<FallenTrunkWithLogs> FALLEN_TRUNK_WITH_LOGS_PLACER_TYPE = registerTrunk("fallen_trunk_logs_placer", FallenTrunkWithLogs.CODEC);
@@ -72,9 +72,14 @@ public class WilderWild implements ModInitializer {
     //ClassTinkerers
     public static final SpawnGroup FIREFLIES = ClassTinkerers.getEnum(SpawnGroup.class, "FIREFLIES");
 
+    public static Random random() {
+        return Random.create();
+    }
+
     @Override
     public void onInitialize() {
         startMeasuring(this);
+
         RegisterBlocks.registerBlocks();
         RegisterBlocks.addBaobab();
         RegisterItems.registerItems();
@@ -121,9 +126,24 @@ public class WilderWild implements ModInitializer {
         if (hasSimpleCopperPipes()) {
             RegisterSaveableMoveablePipeNbt.init();
         }
+
+        if (FabricLoader.getInstance().getModContainer("updatefixerupper").isPresent()) {
+            InteractionHandler.addToUFU();
+        }
         stopMeasuring(this);
     }
 
+    //Renaming
+    public static final HashMap<String, Identifier> DataFixMap = new HashMap<>() {{
+        put(WilderWild.string("blooming_dandelion"), WilderWild.id("seeding_dandelion"));
+        put(WilderWild.string("white_dandelion"), WilderWild.id("seeding_dandelion"));
+        put(WilderWild.string("potted_blooming_dandelion"), WilderWild.id("potted_seeding_dandelion"));
+        put(WilderWild.string("potted_white_dandelion"), WilderWild.id("potted_seeding_dandelion"));
+        put(WilderWild.string("floating_moss"), WilderWild.id("algae"));
+        put(WilderWild.string("test_1"), WilderWild.id("null_block"));
+    }};
+
+    //MOD COMPATIBILITY
     public static void terralith() throws IOException {
         Path destPath = Paths.get(FabricLoader.getInstance().getGameDir().toString(), "mods", "z_wilderwild_terralith_compat.jar");
         Optional<ModContainer> wilderwildOptional = FabricLoader.getInstance().getModContainer("wilderwild");
@@ -152,6 +172,10 @@ public class WilderWild implements ModInitializer {
         return FabricLoader.getInstance().getModContainer("copper_pipe").isPresent();
     }
 
+    public static boolean hasModMenu() {
+        return FabricLoader.getInstance().getModContainer("modmenu").isPresent();
+    }
+
     public static boolean isCopperPipe(BlockState state) {
         if (hasSimpleCopperPipes()) {
             Identifier id = Registry.BLOCK.getId(state.getBlock());
@@ -160,29 +184,7 @@ public class WilderWild implements ModInitializer {
         return false;
     }
 
-    public static Random random() {
-        return Random.create();
-    }
-
-    public static Identifier id(String path) {
-        return new Identifier(MOD_ID, path);
-    }
-    public static String string(String path) {
-        return id(path).toString();
-    }
-
-    public static final Identifier SEED_PACKET = id("seed_particle_packet");
-    public static final Identifier CONTROLLED_SEED_PACKET = id("controlled_seed_particle_packet");
-    public static final Identifier FLOATING_SCULK_BUBBLE_PACKET = id("floating_sculk_bubble_easy_packet");
-    public static final Identifier TERMITE_PARTICLE_PACKET = id("termite_particle_packet");
-    public static final Identifier HORN_PROJECTILE_PACKET_ID = id("ancient_horn_projectile_packet");
-    public static final Identifier SENSOR_HICCUP_PACKET = id("sensor_hiccup_packet");
-
-    public static final Identifier CAPTURE_FIREFLY_NOTIFY_PACKET = id("capture_firefly_notify_packet");
-    public static final Identifier ANCIENT_HORN_KILL_NOTIFY_PACKET = id("ancient_horn_kill_notify_packet");
-    public static final Identifier FLYBY_SOUND_PACKET = id("flyby_sound_packet");
-    public static final Identifier MOVING_LOOPING_SOUND_PACKET = id("moving_looping_sound_packet");
-
+    //LOGGING
     public static void log(String string, boolean shouldLog) {
         if (shouldLog) {
             LOGGER.info(string);
@@ -232,6 +234,7 @@ public class WilderWild implements ModInitializer {
         return Registry.register(Registry.TRUNK_PLACER_TYPE, id(id), new TrunkPlacerType<>(codec));
     }
 
+    //MEASURING
     public static Map<Object, Long> instantMap = new HashMap<>();
 
     public static void startMeasuring(Object object) {
@@ -247,5 +250,26 @@ public class WilderWild implements ModInitializer {
             LOGGER.error("{} took {} nanoseconds", name.substring(name.lastIndexOf(".") + 1), System.nanoTime() - instantMap.get(object));
             instantMap.remove(object);
         }
+    }
+
+    //IDENTIFIERS
+    public static final Identifier SEED_PACKET = id("seed_particle_packet");
+    public static final Identifier CONTROLLED_SEED_PACKET = id("controlled_seed_particle_packet");
+    public static final Identifier FLOATING_SCULK_BUBBLE_PACKET = id("floating_sculk_bubble_easy_packet");
+    public static final Identifier TERMITE_PARTICLE_PACKET = id("termite_particle_packet");
+    public static final Identifier HORN_PROJECTILE_PACKET_ID = id("ancient_horn_projectile_packet");
+    public static final Identifier SENSOR_HICCUP_PACKET = id("sensor_hiccup_packet");
+
+    public static final Identifier CAPTURE_FIREFLY_NOTIFY_PACKET = id("capture_firefly_notify_packet");
+    public static final Identifier ANCIENT_HORN_KILL_NOTIFY_PACKET = id("ancient_horn_kill_notify_packet");
+    public static final Identifier FLYBY_SOUND_PACKET = id("flyby_sound_packet");
+    public static final Identifier MOVING_LOOPING_SOUND_PACKET = id("moving_looping_sound_packet");
+
+    public static Identifier id(String path) {
+        return new Identifier(MOD_ID, path);
+    }
+
+    public static String string(String path) {
+        return id(path).toString();
     }
 }
