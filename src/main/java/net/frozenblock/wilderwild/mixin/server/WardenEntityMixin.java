@@ -169,7 +169,7 @@ public abstract class WardenEntityMixin extends HostileEntity implements WilderW
         if (POSE.equals(data)) {
             if (warden.getPose() == EntityPose.DYING) {
                 boolean skip = false;
-                if (((WilderWarden) warden).isOsmiooo()) {
+                if (this.isOsmiooo()) {
                     this.getKirbyDeathAnimationState().start(warden.age);
                     skip = true;
                     ci.cancel();

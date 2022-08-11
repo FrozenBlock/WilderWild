@@ -10,7 +10,6 @@ public interface WilderWarden {
 
     AnimationState getKirbyDeathAnimationState();
 
-
     boolean isOsmiooo();
 
 }
