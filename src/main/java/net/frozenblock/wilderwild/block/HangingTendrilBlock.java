@@ -63,7 +63,7 @@ public class HangingTendrilBlock extends BlockWithEntity implements Waterloggabl
     public boolean canPlaceAt(BlockState state, WorldView world, BlockPos pos) {
         BlockPos blockPos = pos.up();
         BlockState blockState = world.getBlockState(blockPos);
-        return blockState.isFullCube(world, blockPos);
+        return blockState.isSideSolidFullSquare(world, blockPos, Direction.DOWN);
     }
 
     @Override
