@@ -117,11 +117,7 @@ public class WilderWild implements ModInitializer {
         TermiteMoundBlockEntity.Termite.addDegradableBlocks();
         TermiteMoundBlockEntity.Termite.addNaturalDegradableBlocks();
 
-        try {
-            terralith();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        terralith();
 
         if (hasSimpleCopperPipes()) {
             RegisterSaveableMoveablePipeNbt.init();
@@ -141,11 +137,12 @@ public class WilderWild implements ModInitializer {
         put(WilderWild.string("potted_white_dandelion"), WilderWild.id("potted_seeding_dandelion"));
         put(WilderWild.string("floating_moss"), WilderWild.id("algae"));
         put(WilderWild.string("test_1"), WilderWild.id("null_block"));
+        put(WilderWild.string("sculk_echoer"), WilderWild.id("null_block"));
+        put(WilderWild.string("sculk_jaw"), WilderWild.id("null_block"));
     }};
 
     //MOD COMPATIBILITY
-    public static void terralith() throws IOException {
-        Path destPath = Paths.get(FabricLoader.getInstance().getGameDir().toString(), "mods", "z_wilderwild_terralith_compat.jar");
+    public static void terralith() {
         Optional<ModContainer> wilderwildOptional = FabricLoader.getInstance().getModContainer("wilderwild");
         Optional<ModContainer> terralithOptional = FabricLoader.getInstance().getModContainer("terralith");
         if (wilderwildOptional.isPresent() && terralithOptional.isPresent()) {
@@ -155,12 +152,6 @@ public class WilderWild implements ModInitializer {
 
             Firefly.FireflyBiomeColorRegistry.addBiomeColor(new Identifier("terralith", "cave/thermal_caves"), "red");
             Firefly.FireflyBiomeColorRegistry.addBiomeColor(new Identifier("terralith", "cave/thermal_caves"), "orange");
-
-            ModContainer wilderwild = wilderwildOptional.get();
-            Optional<Path> terraWorld = wilderwild.findPath("data/z_wilderwild_terralith_compat.jar");
-            if (terraWorld.isPresent()) {
-                Files.copy(terraWorld.get(), destPath, StandardCopyOption.REPLACE_EXISTING);
-            }
         }
     }
 
