@@ -7,7 +7,6 @@ import net.minecraft.client.render.entity.model.PigEntityModel;
 import net.minecraft.client.render.entity.model.QuadrupedEntityModel;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.Formatting;
-import net.minecraft.util.math.MathHelper;
 import org.spongepowered.asm.mixin.Mixin;
 
 @Environment(EnvType.CLIENT)
@@ -27,8 +26,8 @@ public abstract class UppyBallooModel<T extends Entity> extends QuadrupedEntityM
         this.head.yaw = i * 0.017453292F;
         float fastLimbAngle = limbAngle * 0.6662F;
         float fastLimbDistance = 1.4F * limbDistance;
-        float firstAngle = (float)Math.cos(fastLimbAngle) * fastLimbDistance;
-        float secondAngle = (float)Math.cos(fastLimbAngle + 3.1415927F) * fastLimbDistance;
+        float firstAngle = (float) Math.cos(fastLimbAngle) * fastLimbDistance;
+        float secondAngle = (float) Math.cos(fastLimbAngle + 3.1415927F) * fastLimbDistance;
         this.rightHindLeg.pitch = firstAngle;
         this.leftHindLeg.pitch = secondAngle;
         this.rightFrontLeg.pitch = secondAngle;

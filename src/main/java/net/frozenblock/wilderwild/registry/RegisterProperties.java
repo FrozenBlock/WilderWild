@@ -1,35 +1,33 @@
 package net.frozenblock.wilderwild.registry;
 
-import net.frozenblock.wilderwild.block.entity.HangingTendrilPhase;
 import net.frozenblock.wilderwild.misc.FlowerColors;
-import net.minecraft.world.level.block.state.properties.BlockStateProperties;
-import net.minecraft.world.level.block.state.properties.BooleanProperty;
-import net.minecraft.world.level.block.state.properties.EnumProperty;
-import net.minecraft.world.level.block.state.properties.IntegerProperty;
+import net.minecraft.state.property.BooleanProperty;
+import net.minecraft.state.property.EnumProperty;
+import net.minecraft.state.property.IntProperty;
+import net.minecraft.state.property.Properties;
 
-public class RegisterProperties extends BlockStateProperties {
+public class RegisterProperties extends Properties {
 
     //Osseous Sculk
-    public static final IntegerProperty PILLAR_HEIGHT_LEFT = IntegerProperty.create("pillar_height_left", 0, 15);
-    public static final BooleanProperty UPSIDE_DOWN = BooleanProperty.create("upside_down");
-    public static final IntegerProperty TOTAL_HEIGHT = IntegerProperty.create("total_pillar_height", 0, 16);
+    public static final IntProperty PILLAR_HEIGHT_LEFT = IntProperty.of("pillar_height_left", 0, 15);
+    public static final BooleanProperty UPSIDE_DOWN = BooleanProperty.of("upside_down");
+    public static final IntProperty TOTAL_HEIGHT = IntProperty.of("total_pillar_height", 0, 16);
     //Hanging Tendril
-    public static final EnumProperty<HangingTendrilPhase> HANGING_TENDRIL_PHASE = EnumProperty.create("hanging_tendril_phase", HangingTendrilPhase.class);
-    public static final BooleanProperty TWITCHING = BooleanProperty.create("twitching");
-    public static final BooleanProperty WRINGING_OUT = BooleanProperty.create("wringing_out");
+    public static final BooleanProperty TWITCHING = BooleanProperty.of("twitching");
+    public static final BooleanProperty WRINGING_OUT = BooleanProperty.of("wringing_out");
     //Echo Glass
-    public static final IntegerProperty DAMAGE = IntegerProperty.create("damage", 0, 3);
+    public static final IntProperty DAMAGE = IntProperty.of("damage", 0, 3);
     //Shelf Fungus
-    public static final IntegerProperty FUNGUS_STAGE = IntegerProperty.create("shelf_fungus_stage", 1, 4);
+    public static final IntProperty FUNGUS_STAGE = IntProperty.of("shelf_fungus_stage", 1, 4);
     //Termite Mound
-    public static final BooleanProperty NATURAL = BooleanProperty.create("natural");
+    public static final BooleanProperty NATURAL = BooleanProperty.of("natural");
     //Glory of The Snow
-    public static final EnumProperty<FlowerColors> FLOWER_COLOR = EnumProperty.create("flower_color", FlowerColors.class);
+    public static final EnumProperty<FlowerColors> FLOWER_COLOR = EnumProperty.of("flower_color", FlowerColors.class);
     //Cypress Roots
-    public static final IntegerProperty ROOTS = IntegerProperty.create("roots", 1, 4);
+    public static final IntProperty ROOTS = IntProperty.of("roots", 1, 4);
 
     //Vanilla Blocks
-    public static final IntegerProperty SOULS_TAKEN = IntegerProperty.create("souls_taken", 0, 2); //Sculk Shrieker
-    public static final BooleanProperty NOT_HICCUPPING = BooleanProperty.create("not_hiccupping"); //Sculk Sensor
+    public static final IntProperty SOULS_TAKEN = IntProperty.of("souls_taken", 0, 2); //Sculk Shrieker
+    public static final BooleanProperty HICCUPPING = BooleanProperty.of("hiccupping"); //Sculk Sensor
 
 }

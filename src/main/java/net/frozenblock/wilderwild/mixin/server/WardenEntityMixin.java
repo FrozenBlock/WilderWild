@@ -1,6 +1,5 @@
 package net.frozenblock.wilderwild.mixin.server;
 
-import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.entity.ai.WardenMoveControl;
 import net.frozenblock.wilderwild.entity.ai.WardenNavigation;
 import net.frozenblock.wilderwild.entity.render.animations.WilderWarden;
@@ -50,15 +49,18 @@ public abstract class WardenEntityMixin extends HostileEntity implements WilderW
 
     private final WardenEntity warden = WardenEntity.class.cast(this);
 
+    @Override
+    public boolean isOsmiooo() {
+        String string = Formatting.strip(warden.getName().getString());
+        return string != null && (string.equalsIgnoreCase("Osmiooo") || string.equalsIgnoreCase("Mossmio") || string.equalsIgnoreCase("Osmio"));
+    }
+
     @Inject(at = @At("HEAD"), method = "getDeathSound", cancellable = true)
     public void getDeathSound(CallbackInfoReturnable<SoundEvent> info) {
-        String string = Formatting.strip(warden.getName().getString());
         boolean skipCheck = false;
-        if (string != null) {
-            if (string.equalsIgnoreCase("Osmiooo") || string.equalsIgnoreCase("Mossmio") || string.equalsIgnoreCase("kirby")) {
-                warden.playSound(RegisterSounds.ENTITY_WARDEN_KIRBY_DEATH, 5.0F, 1.0F);
-                skipCheck = true;
-            }
+        if (this.isOsmiooo()) {
+            warden.playSound(RegisterSounds.ENTITY_WARDEN_KIRBY_DEATH, 5.0F, 1.0F);
+            skipCheck = true;
         }
         if (!skipCheck) {
             if (!this.isSubmergedInWaterOrLava()) {
@@ -108,11 +110,9 @@ public abstract class WardenEntityMixin extends HostileEntity implements WilderW
     private float leaningPitch;
     private float lastLeaningPitch;
 
-    @Inject(at = @At("HEAD"), method = "initialize")
+    @Inject(at = @At("RETURN"), method = "initialize")
     public void initialize(ServerWorldAccess serverWorldAccess, LocalDifficulty localDifficulty, SpawnReason spawnReason, @Nullable EntityData entityData, @Nullable NbtCompound nbtCompound, CallbackInfoReturnable<EntityData> info) {
-        warden.getBrain().remember(MemoryModuleType.DIG_COOLDOWN, Unit.INSTANCE, 1200L);
-        warden.getBrain().remember(MemoryModuleType.TOUCH_COOLDOWN, Unit.INSTANCE, WardenBrain.EMERGE_DURATION);
-        if (spawnReason == SpawnReason.SPAWN_EGG && !this.isTouchingWaterOrLava()) { //still emerges when touching a liquid for some reason??
+        if (spawnReason == SpawnReason.SPAWN_EGG) {
             warden.setPose(EntityPose.EMERGING);
             warden.getBrain().remember(MemoryModuleType.IS_EMERGING, Unit.INSTANCE, WardenBrain.EMERGE_DURATION);
             this.playSound(SoundEvents.ENTITY_WARDEN_AGITATED, 5.0F, 1.0F);
@@ -142,57 +142,35 @@ public abstract class WardenEntityMixin extends HostileEntity implements WilderW
         }
     }
 
-    @Inject(at = @At("HEAD"), method = "accept", cancellable = true)
-    public void accept(ServerWorld world, GameEventListener listener, BlockPos pos, GameEvent event, @Nullable Entity entity, @Nullable Entity sourceEntity, float f, CallbackInfo info) {
-        int additionalAnger = 0;
-        if (world.getBlockState(pos).isOf(Blocks.SCULK_SENSOR)) {
-            if (!world.getBlockState(pos).get(RegisterProperties.NOT_HICCUPPING)) {
-                additionalAnger = 65;
-            }
-        }
-        warden.getBrain().remember(MemoryModuleType.VIBRATION_COOLDOWN, Unit.INSTANCE, 40L);
-        world.sendEntityStatus(warden, (byte) 61);
-        warden.playSound(SoundEvents.ENTITY_WARDEN_TENDRIL_CLICKS, 5.0F, warden.getSoundPitch());
-        BlockPos blockPos = pos;
-        if (sourceEntity != null) {
-            if (warden.isInRange(sourceEntity, 30.0D)) {
-                if (warden.getBrain().hasMemoryModule(MemoryModuleType.RECENT_PROJECTILE)) {
-                    if (warden.isValidTarget(sourceEntity)) {
-                        blockPos = sourceEntity.getBlockPos();
-                    }
-
-                    warden.increaseAngerAt(sourceEntity);
-                    warden.increaseAngerAt(sourceEntity, additionalAnger, false);
-                } else {
-                    warden.increaseAngerAt(sourceEntity, 10, true);
-                    warden.increaseAngerAt(sourceEntity, additionalAnger, false);
+    @Inject(method = "accept", at = @At("HEAD"))
+    private void accept(ServerWorld world, GameEventListener listener, BlockPos pos, GameEvent event, Entity entity, Entity sourceEntity, float distance, CallbackInfo ci) {
+        WardenEntity warden = WardenEntity.class.cast(this);
+        if (!warden.isDead()) {
+            int additionalAnger = 0;
+            if (world.getBlockState(pos).isOf(Blocks.SCULK_SENSOR)) {
+                if (world.getBlockState(pos).get(RegisterProperties.HICCUPPING)) {
+                    additionalAnger = 65;
                 }
             }
-
-            warden.getBrain().remember(MemoryModuleType.RECENT_PROJECTILE, Unit.INSTANCE, 100L);
-        } else {
-            warden.increaseAngerAt(entity);
-            warden.increaseAngerAt(entity, additionalAnger, false);
+            if (sourceEntity != null) {
+                if (warden.isInRange(sourceEntity, 30.0D)) {
+                    warden.increaseAngerAt(sourceEntity, additionalAnger, false);
+                }
+            } else {
+                warden.increaseAngerAt(entity, additionalAnger, false);
+            }
         }
-
-        if (warden.getAngriness() != Angriness.ANGRY && (sourceEntity != null || warden.getAngerManager().getPrimeSuspect().map((suspect) -> suspect == entity).orElse(true))) {
-            WardenBrain.lookAtDisturbance(warden, blockPos);
-        }
-        info.cancel();
     }
 
     @Inject(method = "onTrackedDataSet", at = @At("HEAD"), cancellable = true)
     public void onTrackedDataSet(TrackedData<?> data, CallbackInfo ci) {
         if (POSE.equals(data)) {
             if (warden.getPose() == EntityPose.DYING) {
-                String string = Formatting.strip(warden.getName().getString());
                 boolean skip = false;
-                if (string != null) {
-                    if (string.equalsIgnoreCase("Osmiooo") || string.equalsIgnoreCase("Mossmio") || string.equalsIgnoreCase("Kirby")) {
-                        this.getKirbyDeathAnimationState().start(warden.age);
-                        skip = true;
-                        ci.cancel();
-                    }
+                if (this.isOsmiooo()) {
+                    this.getKirbyDeathAnimationState().start(warden.age);
+                    skip = true;
+                    ci.cancel();
                 }
                 if (!skip) {
                     if (!this.isSubmergedInWaterOrLava()) {
@@ -219,43 +197,6 @@ public abstract class WardenEntityMixin extends HostileEntity implements WilderW
         return this.deathTicks < 70 && !this.isRemoved();
     }
 
-    @Override
-    public void onDeath(DamageSource damageSource) {
-        if (!warden.isRemoved() && !warden.dead) {
-
-            Entity entity = damageSource.getAttacker();
-            LivingEntity livingEntity = warden.getPrimeAdversary();
-            if (this.scoreAmount >= 0 && livingEntity != null) {
-                livingEntity.updateKilledAdvancementCriterion(warden, this.scoreAmount, damageSource);
-            }
-
-            if (this.isSleeping()) {
-                this.wakeUp();
-            }
-
-            if (!warden.world.isClient && this.hasCustomName()) {
-                WilderWild.LOGGER.info("Named entity {} died: {}", warden, warden.getDamageTracker().getDeathMessage().getString());
-            }
-
-            warden.dead = true;
-            this.getDamageTracker().update();
-            if (this.world instanceof ServerWorld) {
-                if (entity == null || entity.onKilledOther((ServerWorld) warden.world, warden)) {
-                    warden.emitGameEvent(GameEvent.ENTITY_DIE);
-                    this.drop(damageSource);
-                    this.onKilledBy(livingEntity);
-                }
-
-                warden.world.sendEntityStatus(warden, EntityStatuses.PLAY_DEATH_SOUND_OR_ADD_PROJECTILE_HIT_PARTICLES);
-            }
-
-            warden.setPose(EntityPose.DYING);
-            warden.getBrain().clear();
-            warden.clearGoalsAndTasks();
-            warden.setAiDisabled(true);
-        }
-    }
-
     private void addAdditionalDeathParticles() {
         for (int i = 0; i < 20; ++i) {
             double d = this.random.nextGaussian() * 0.02;
@@ -265,6 +206,13 @@ public abstract class WardenEntityMixin extends HostileEntity implements WilderW
             this.world.addParticle(ParticleTypes.SCULK_SOUL, this.getParticleX(1.0), this.getRandomBodyY(), this.getParticleZ(1.0), d, e, f);
         }
 
+    }
+
+    @Override
+    public void onDeath(DamageSource damageSource) {
+        WardenEntity warden = WardenEntity.class.cast(this);
+        super.onDeath(damageSource);
+        warden.setAiDisabled(true);
     }
 
     @Override
@@ -313,14 +261,15 @@ public abstract class WardenEntityMixin extends HostileEntity implements WilderW
 
     }
 
-    @Inject(method = "handleStatus", at = @At("HEAD"))
+    @Inject(method = "handleStatus", at = @At("HEAD"), cancellable = true)
     private void handleStatus(byte status, CallbackInfo ci) {
         if (status == (byte) 69420) {
             this.addAdditionalDeathParticles();
+            ci.cancel();
         }
     }
 
-    @Inject(at = @At("HEAD"), method = "createNavigation", cancellable = true)
+    @Inject(at = @At("RETURN"), method = "createNavigation", cancellable = true)
     public void createNavigation(World world, CallbackInfoReturnable<EntityNavigation> info) {
         info.setReturnValue(new WardenNavigation(WardenEntity.class.cast(this), world));
         info.cancel();
@@ -381,18 +330,22 @@ public abstract class WardenEntityMixin extends HostileEntity implements WilderW
         this.fluidHeight.clear();
         warden.checkWaterState();
         boolean bl = warden.updateMovementInFluid(FluidTags.LAVA, 0.1D);
+        this.calculateDimensions();
+        this.calculateBoundingBox();
         return this.isTouchingWaterOrLava() || bl;
     }
 
     private boolean isTouchingWaterOrLava() {
+        WardenEntity warden = WardenEntity.class.cast(this);
         return warden.isInsideWaterOrBubbleColumn() || warden.isInLava();
     }
 
     private boolean isSubmergedInWaterOrLava() {
+        WardenEntity warden = WardenEntity.class.cast(this);
         return warden.isSubmergedIn(FluidTags.WATER) || warden.isSubmergedIn(FluidTags.LAVA);
     }
 
-    @Inject(method = "getDimensions", at = @At("HEAD"), cancellable = true)
+    @Inject(method = "getDimensions", at = @At("RETURN"), cancellable = true)
     public void getDimensions(EntityPose pose, CallbackInfoReturnable<EntityDimensions> info) {
         if (this.isInSwimmingPose()) {
             info.setReturnValue(EntityDimensions.changing(warden.getType().getWidth(), 0.85F));

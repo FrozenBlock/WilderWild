@@ -5,6 +5,7 @@ import net.fabricmc.api.Environment;
 import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.entity.render.OsmioooWardenFeatureRenderer;
 import net.frozenblock.wilderwild.entity.render.WilderWardenModel;
+import net.frozenblock.wilderwild.entity.render.animations.WilderWarden;
 import net.minecraft.client.render.entity.EntityRendererFactory;
 import net.minecraft.client.render.entity.MobEntityRenderer;
 import net.minecraft.client.render.entity.WardenEntityRenderer;
@@ -18,8 +19,6 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
-
-import java.util.Objects;
 
 @Environment(EnvType.CLIENT)
 @Mixin(WardenEntityRenderer.class)
@@ -71,8 +70,7 @@ public abstract class OsmioooWardenRenderer extends MobEntityRenderer<WardenEnti
 
     @Inject(method = "getTexture(Lnet/minecraft/entity/mob/WardenEntity;)Lnet/minecraft/util/Identifier;", at = @At("HEAD"), cancellable = true)
     public void getTexture(WardenEntity wardenEntity, CallbackInfoReturnable<Identifier> cir) {
-        String string = Formatting.strip(wardenEntity.getName().getString());
-        if (string != null && (string.equalsIgnoreCase("Osmiooo") || string.equalsIgnoreCase("Mossmio"))) {
+        if (((WilderWarden) wardenEntity).isOsmiooo()) {
             cir.setReturnValue(OSMIOOO_TEXTURE);
         }
     }

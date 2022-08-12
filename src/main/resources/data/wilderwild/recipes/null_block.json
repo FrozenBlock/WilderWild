@@ -10,11 +10,10 @@
 	}
   },
   "pattern": [
-	" BM",
-	" MB",
-	"   "
+	"BM",
+	"MB"
   ],
   "result": {
-	"item": "wilderwild:test_1"
+	"item": "wilderwild:null_block"
   }
 }

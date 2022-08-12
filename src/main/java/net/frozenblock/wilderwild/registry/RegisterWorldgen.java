@@ -99,7 +99,7 @@ public class RegisterWorldgen {
         builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, WilderPlacedFeatures.DENSE_FERN_PLACED);
         builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, WilderPlacedFeatures.DENSE_TALL_GRASS_PLACED);
         builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, WilderPlacedFeatures.SEAGRASS_CYPRESS);
-        builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, WilderPlacedFeatures.WHITE_DANDELION_CYPRESS);
+        builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, WilderPlacedFeatures.SEEDING_DANDELION_CYPRESS);
         builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, WilderPlacedFeatures.MILKWEED_CYPRESS);
         builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, WilderPlacedFeatures.FLOWER_FOREST_FLOWERS);
         //builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, WilderPlacedFeatures.PATCH_CYPRESS_ROOTS);
@@ -117,7 +117,7 @@ public class RegisterWorldgen {
     }
 
     public static void addMixedForestFeatures(GenerationSettings.Builder builder) {
-        builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, WilderPlacedFeatures.WHITE_DANDELION_MIXED);
+        builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, WilderPlacedFeatures.SEEDING_DANDELION_MIXED);
         builder.feature(GenerationStep.Feature.TOP_LAYER_MODIFICATION, WilderMiscPlaced.COARSE_PATH_5);
         builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, WilderPlacedFeatures.MIXED_MUSHROOMS_PLACED);
         builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, WilderPlacedFeatures.MIXED_TREES);

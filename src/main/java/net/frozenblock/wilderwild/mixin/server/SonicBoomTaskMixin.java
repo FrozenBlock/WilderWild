@@ -3,6 +3,7 @@ package net.frozenblock.wilderwild.mixin.server;
 import net.fabricmc.loader.api.FabricLoader;
 import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.block.EchoGlassBlock;
+import net.frozenblock.wilderwild.entity.render.animations.WilderWarden;
 import net.frozenblock.wilderwild.registry.RegisterBlocks;
 import net.frozenblock.wilderwild.registry.RegisterSounds;
 import net.minecraft.block.BlockState;
@@ -30,8 +31,6 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-
-import java.util.Objects;
 
 @Mixin(SonicBoomTask.class)
 public class SonicBoomTaskMixin {
@@ -67,7 +66,7 @@ public class SonicBoomTaskMixin {
                     }
 
                     String string = Formatting.strip(wardenEntity.getName().getString());
-                    if (string != null && (string.equalsIgnoreCase("Osmiooo") || string.equalsIgnoreCase("Mossmio"))) {
+                    if (((WilderWarden) wardenEntity).isOsmiooo()) {
                         wardenEntity.playSound(RegisterSounds.ENTITY_WARDEN_BRAP, 3.0F, 1.0F);
                     } else {
                         wardenEntity.playSound(SoundEvents.ENTITY_WARDEN_SONIC_BOOM, 3.0F, 1.0F);

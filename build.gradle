@@ -1,5 +1,5 @@
 plugins {
-	id 'fabric-loom' version '0.12-SNAPSHOT'
+	id 'fabric-loom' version '0.13-SNAPSHOT'
 	id 'io.github.juuxel.loom-quiltflower' version '1.7.+'
 	id 'org.quiltmc.quilt-mappings-on-loom' version '4.2.1'
 	id 'maven-publish'
@@ -33,12 +33,20 @@ repositories {
 	}
 	maven {
 		url = 'https://maven.terraformersmc.com'
+
+		content {
+			includeGroup "com.terraformersmc"
+		}
 	}
 	maven {
 		url = 'https://maven.shedaniel.me/'
 	}
 	maven {
 		url 'https://cursemaven.com'
+		
+		content {
+			includeGroup "curse.maven"
+		}
 	}
 }
 
@@ -63,7 +71,6 @@ dependencies {
 
 	// Mod Menu
 	modImplementation "com.terraformersmc:modmenu:${modmenu_version}"
-	modApi("me.shedaniel.cloth:cloth-config:${project.cloth_config_version}")
 
 	//UFU
 	modImplementation "curse.maven:project-409010:3909688"
@@ -74,7 +81,7 @@ dependencies {
 		modRuntimeOnly "maven.modrinth:lazydfu:${lazydfu_version}"
 		modRuntimeOnly "maven.modrinth:starlight:${starlight_version}"
 		//modRuntimeOnly "maven.modrinth:indium:1.0.6+mc1.19"
-		modRuntimeOnly "maven.modrinth:lithium:mc1.19.1-0.8.3"
+		//modRuntimeOnly "maven.modrinth:lithium:mc1.19.1-0.8.3"
 		//modRuntimeOnly "maven.modrinth:sodium:mc1.19-0.4.2"
 		modRuntimeOnly "maven.modrinth:entityculling:${entityculling_version}"
 		//modRuntimeOnly "maven.modrinth:c2me-fabric:0.2.0+alpha.8.32+1.19.1-rc3"
@@ -110,7 +117,7 @@ java {
 	// Loom will automatically attach sourcesJar to a RemapSourcesJar task and to the "build" task
 	// if it is present.
 	// If you remove this line, sources will not be generated.
-	withSourcesJar()
+	//withSourcesJar()
 }
 
 jar {
@@ -120,7 +127,7 @@ jar {
 }
 
 String getVersion() {
-	String version = "${mod_version}+MC_${minecraft_version}"
+	String version = "${mod_version}-${mod_loader}+${minecraft_version}"
 
 	if (findProperty("releaseType") != "stable") {
 		version += "-unstable"

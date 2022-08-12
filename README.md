@@ -1,8 +1,11 @@
 # Wilder Wild
 
-Do you think the Wild Update was a bit too mild? Do you wish it was more complete?
 
-Wilder Wild completes the Wild Update, adding features and improving existing ones.
+Wilder Wild overhauls the Wild Update, adding features and improving existing ones.
+
+Curseforge: https://www.curseforge.com/minecraft/mc-mods/wilder-wild
+
+Modrinth: https://modrinth.com/mod/wilder-wild
 
 ---
 Building:

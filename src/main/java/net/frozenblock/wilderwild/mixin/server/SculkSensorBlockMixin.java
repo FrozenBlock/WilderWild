@@ -3,10 +3,7 @@ package net.frozenblock.wilderwild.mixin.server;
 import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.misc.SculkSensorTickInterface;
 import net.frozenblock.wilderwild.registry.RegisterProperties;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockRenderType;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.SculkSensorBlock;
+import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityTicker;
 import net.minecraft.block.entity.BlockEntityType;
@@ -26,9 +23,15 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 @Mixin(SculkSensorBlock.class)
 public class SculkSensorBlockMixin {
 
-    @Inject(at = @At("TAIL"), method = "appendProperties", cancellable = true)
+    @Inject(at = @At("TAIL"), method = "appendProperties")
     public void appendProperties(StateManager.Builder<Block, BlockState> builder, CallbackInfo info) {
-        builder.add(RegisterProperties.NOT_HICCUPPING);
+        builder.add(RegisterProperties.HICCUPPING);
+    }
+
+    @Inject(method = "<init>", at = @At("TAIL"))
+    private void SculkSensorBlock(AbstractBlock.Settings settings, int range, CallbackInfo ci) {
+        SculkSensorBlock sculkSensor = SculkSensorBlock.class.cast(this);
+        sculkSensor.setDefaultState(sculkSensor.getDefaultState().with(RegisterProperties.HICCUPPING, false));
     }
 
     @Inject(at = @At("HEAD"), method = "getTicker", cancellable = true)
@@ -36,11 +39,11 @@ public class SculkSensorBlockMixin {
         info.cancel();
         if (world.isClient) {
             info.setReturnValue(checkType(type, BlockEntityType.SCULK_SENSOR, (worldx, pos, statex, blockEntity) -> {
-                ((SculkSensorTickInterface)blockEntity).tickClient(worldx, pos, statex);
+                ((SculkSensorTickInterface) blockEntity).tickClient(worldx, pos, statex);
             }));
         } else {
             info.setReturnValue(checkType(type, BlockEntityType.SCULK_SENSOR, (worldx, pos, statex, blockEntity) -> {
-                ((SculkSensorTickInterface)blockEntity).tickServer((ServerWorld) worldx, pos, statex);
+                ((SculkSensorTickInterface) blockEntity).tickServer((ServerWorld) worldx, pos, statex);
             }));
         }
     }
@@ -48,8 +51,8 @@ public class SculkSensorBlockMixin {
     @Inject(at = @At("HEAD"), method = "setActive")
     private static void setActive(@Nullable Entity entity, World world, BlockPos pos, BlockState state, int power, CallbackInfo info) {
         if (world.getBlockEntity(pos) instanceof SculkSensorBlockEntity blockEntity) {
-            ((SculkSensorTickInterface)blockEntity).setActive(true);
-            ((SculkSensorTickInterface)blockEntity).setAnimTicks(10);
+            ((SculkSensorTickInterface) blockEntity).setActive(true);
+            ((SculkSensorTickInterface) blockEntity).setAnimTicks(10);
         }
     }
 
@@ -63,5 +66,4 @@ public class SculkSensorBlockMixin {
     private static <E extends BlockEntity, A extends BlockEntity> BlockEntityTicker<A> checkType(BlockEntityType<A> givenType, BlockEntityType<E> expectedType, BlockEntityTicker<? super E> ticker) {
         return expectedType == givenType ? (BlockEntityTicker<A>) ticker : null;
     }
-
 }
