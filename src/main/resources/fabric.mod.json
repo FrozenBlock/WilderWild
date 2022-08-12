@@ -14,7 +14,7 @@
     "issues": "https://github.com/Soro335/WilderWild/issues"
   },
 
-  "license": "GPL-3.0",
+  "license": "LGPL-3.0",
   "icon": "assets/wilderwild/icon.png",
 
   "environment": "*",
