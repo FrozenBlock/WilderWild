@@ -70,7 +70,7 @@ public class WilderWild implements ModInitializer {
     public static final TagKey<Instrument> WILD_HORNS = TagKey.of(Registry.INSTRUMENT_KEY, id("wild_horns"));
 
     //ClassTinkerers
-    public static final SpawnGroup FIREFLIES = ClassTinkerers.getEnum(SpawnGroup.class, "FIREFLIES");
+    public static final SpawnGroup FIREFLIES = ClassTinkerers.getEnum(SpawnGroup.class, "DSRFOIGJDGFSJIOGFD");
 
     public static Random random() {
         return Random.create();
