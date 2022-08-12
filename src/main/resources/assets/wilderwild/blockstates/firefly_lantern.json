@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "hanging=false": {
+      "model": "wilder:block/firefly_lantern"
+    },
+    "hanging=true": {
+      "model": "wilderwild:block/firefly_lantern_hanging"
+    }
+  }
+}
