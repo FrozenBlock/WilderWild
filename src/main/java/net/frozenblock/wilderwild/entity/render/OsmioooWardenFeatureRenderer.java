@@ -1,5 +1,6 @@
 package net.frozenblock.wilderwild.entity.render;
 
+import net.frozenblock.wilderwild.entity.render.animations.WilderWarden;
 import net.minecraft.client.model.ModelPart;
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.VertexConsumer;
@@ -22,8 +23,7 @@ public class OsmioooWardenFeatureRenderer<T extends WardenEntity, M extends Ward
 
     @Override
     public void render(MatrixStack matrixStack, VertexConsumerProvider vertexConsumerProvider, int i, T wardenEntity, float f, float g, float h, float j, float k, float l) {
-        String string = Formatting.strip(wardenEntity.getName().getString());
-        if (!wardenEntity.isInvisible() && string != null && (string.equalsIgnoreCase("Osmiooo") || string.equalsIgnoreCase("Mossmio"))) {
+        if (!wardenEntity.isInvisible() && ((WilderWarden) wardenEntity).isOsmiooo()) {
             this.updateModelPartVisibility();
             VertexConsumer vertexConsumer = vertexConsumerProvider.getBuffer(RenderLayer.getEntityTranslucentEmissive(this.texture));
             this.getContextModel()
