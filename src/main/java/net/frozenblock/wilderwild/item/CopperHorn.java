@@ -17,6 +17,7 @@ import net.minecraft.text.MutableText;
 import net.minecraft.text.Text;
 import net.minecraft.util.*;
 import net.minecraft.util.collection.DefaultedList;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.util.registry.RegistryEntry;
 import net.minecraft.util.registry.RegistryKey;
@@ -109,8 +110,9 @@ public class CopperHorn extends Item {
         float range = instrument.range() / 16.0F;
 
         if (!world.isClient) {
-            int moreShift = user.isSneaking() ? -1 : 0;
-            float soundPitch = (float) Math.pow(2.0D,(Math.round((user.getPitch() - 90F) * -0.1F) * 0.08805347226228645F)) + moreShift;
+            float soundPitch = !user.isSneaking() ?
+                    (float) Math.pow(2.0D, ((Math.round(-user.getPitch() * 0.12F)) / 1.832F) / 6) :
+                    (float) Math.pow(2.0D, 0.01111F * -user.getPitch());
             EasyPacket.createMovingRestrictionLoopingSound(world, user, soundEvent, SoundCategory.RECORDS, range, soundPitch, WilderWild.id("copper_horn"));
         }
         world.emitGameEvent(GameEvent.INSTRUMENT_PLAY, user.getPos(), GameEvent.Emitter.of(user));
