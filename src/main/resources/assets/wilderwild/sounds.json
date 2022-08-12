@@ -936,6 +936,46 @@
 			"wilderwild:item/ancient_horn/blast2"
 		]
 	},
+	
+	"item.copper_horn.sax.start": {
+		"sounds": [
+			"wilderwild:item/copper_horn/sax/start"
+		],
+		"subtitle": "subtitles.item.copper_horn.call"
+	},
+	"item.copper_horn.sax.loop": {
+		"sounds": [
+			"wilderwild:item/copper_horn/sax/loop"
+		],
+		"subtitle": "subtitles.item.copper_horn.call"
+	},
+	
+	"item.copper_horn.tuba.start": {
+		"sounds": [
+			"wilderwild:item/copper_horn/tuba/start"
+		],
+		"subtitle": "subtitles.item.copper_horn.call"
+	},
+	"item.copper_horn.tuba.loop": {
+		"sounds": [
+			"wilderwild:item/copper_horn/tuba/loop"
+		],
+		"subtitle": "subtitles.item.copper_horn.call"
+	},
+
+	"item.copper_horn.flute.start": {
+		"sounds": [
+			"wilderwild:item/copper_horn/flute/start"
+		],
+		"subtitle": "subtitles.item.copper_horn.call"
+	},
+	"item.copper_horn.flute.loop": {
+		"sounds": [
+			"wilderwild:item/copper_horn/flute/loop"
+		],
+		"subtitle": "subtitles.item.copper_horn.call"
+	},
+	
 	"item.bottle.catch_firefly": {
 		"sounds": [
 			"wilderwild:item/bottle/catch_firefly1",

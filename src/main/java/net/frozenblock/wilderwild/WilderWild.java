@@ -68,6 +68,7 @@ public class WilderWild implements ModInitializer {
     public static final ColumnWithDiskFeature COLUMN_WITH_DISK_FEATURE = new ColumnWithDiskFeature(ColumnWithDiskFeatureConfig.CODEC);
 
     public static final TagKey<Instrument> WILD_HORNS = TagKey.of(Registry.INSTRUMENT_KEY, id("wild_horns"));
+    public static final TagKey<Instrument> COPPER_HORNS = TagKey.of(Registry.INSTRUMENT_KEY, id("copper_horns"));
 
     //ClassTinkerers
     public static final SpawnGroup FIREFLIES = ClassTinkerers.getEnum(SpawnGroup.class, "WILDERWILD_FIREFLIES");
@@ -99,7 +100,7 @@ public class WilderWild implements ModInitializer {
         RegisterLootTables.init();
         RegisterParticles.registerParticles();
 
-        RegisterLoopingSoundRestrictions.init();
+        RegisterMovingSoundRestrictions.init();
 
         Registry.register(Registry.FEATURE, id("shelf_fungus_feature"), SHELF_FUNGUS_FEATURE);
         Registry.register(Registry.FEATURE, id("cattail_feature"), CATTAIL_FEATURE);
@@ -255,6 +256,8 @@ public class WilderWild implements ModInitializer {
     public static final Identifier ANCIENT_HORN_KILL_NOTIFY_PACKET = id("ancient_horn_kill_notify_packet");
     public static final Identifier FLYBY_SOUND_PACKET = id("flyby_sound_packet");
     public static final Identifier MOVING_LOOPING_SOUND_PACKET = id("moving_looping_sound_packet");
+    public static final Identifier MOVING_RESTRICTION_LOOPING_SOUND_PACKET = id("moving_restriction_looping_sound_packet");
+    public static final Identifier MOVING_RESTRICTION_SOUND_PACKET = id("moving_restriction_sound_packet");
 
     public static Identifier id(String path) {
         return new Identifier(MOD_ID, path);

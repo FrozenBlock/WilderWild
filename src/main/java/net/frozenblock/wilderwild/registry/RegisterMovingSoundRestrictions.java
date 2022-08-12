@@ -3,13 +3,17 @@ package net.frozenblock.wilderwild.registry;
 import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.entity.Firefly;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.GoatHornItem;
+import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
 
-public class RegisterLoopingSoundRestrictions {
+public class RegisterMovingSoundRestrictions {
     private static boolean frozen;
     private static final ArrayList<Identifier> ids = new ArrayList<>();
     private static final ArrayList<LoopPredicate<?>> predicates = new ArrayList<>();
@@ -55,6 +59,20 @@ public class RegisterLoopingSoundRestrictions {
                 if (name != null) {
                     return name.getString().toLowerCase().contains("nectar");
                 }
+            }
+            return false;
+        });
+
+        register(WilderWild.id("horn"), (LoopPredicate<PlayerEntity>) entity -> {
+            if (entity instanceof PlayerEntity player) {
+                return player.getActiveItem().isOf(Items.GOAT_HORN);
+            }
+            return false;
+        });
+
+        register(WilderWild.id("copper_horn"), (LoopPredicate<PlayerEntity>) entity -> {
+            if (entity instanceof PlayerEntity player) {
+                return player.getActiveItem().isOf(RegisterItems.COPPER_HORN);
             }
             return false;
         });
