@@ -28,7 +28,7 @@ import java.util.Set;
 import java.util.stream.Stream;
 
 @Mixin(SculkSpreadManager.Cursor.class)
-public class SculkSpreadManagerCursorMixin {
+public class SculkSpreadManagerCursorMixin { //TODO: make sculk stairs/slabs/walls spread outside of just worldgen for the sake of making the blocks accessible to builders
 
     @Final
     @Shadow
