@@ -31,7 +31,7 @@ public class FireflyLanternBlockEntity extends BlockEntity {
     }
 
     public void serverTick(World world, BlockPos pos, BlockState state) {
-        for (FireflyInLantern firefly: this.fireflies) {
+        for (FireflyInLantern firefly : this.fireflies) {
             firefly.tick(world);
         }
     }

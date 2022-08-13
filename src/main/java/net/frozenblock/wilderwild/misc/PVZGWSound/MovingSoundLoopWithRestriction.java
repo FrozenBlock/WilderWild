@@ -8,14 +8,13 @@ import net.minecraft.client.sound.SoundInstance;
 import net.minecraft.entity.Entity;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvent;
-import net.minecraft.util.math.MathHelper;
 
 @Environment(EnvType.CLIENT)
 public class MovingSoundLoopWithRestriction extends MovingSoundInstance {
 
     private final Entity entity;
     private final RegisterMovingSoundRestrictions.LoopPredicate<?> predicate;
-    private float distance = 0.0F;
+    private final float distance = 0.0F;
 
     public MovingSoundLoopWithRestriction(Entity entity, SoundEvent sound, SoundCategory category, float volume, float pitch, RegisterMovingSoundRestrictions.LoopPredicate<?> predicate) {
         super(sound, category, SoundInstance.createRandom());

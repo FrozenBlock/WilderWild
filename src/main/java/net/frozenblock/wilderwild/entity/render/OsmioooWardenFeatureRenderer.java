@@ -11,7 +11,6 @@ import net.minecraft.client.render.entity.feature.WardenFeatureRenderer;
 import net.minecraft.client.render.entity.model.WardenEntityModel;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.mob.WardenEntity;
-import net.minecraft.util.Formatting;
 import net.minecraft.util.Identifier;
 
 import java.util.List;

@@ -9,7 +9,6 @@ import net.frozenblock.wilderwild.item.FireflyBottle;
 import net.frozenblock.wilderwild.item.MilkweedPod;
 import net.frozenblock.wilderwild.misc.WilderBoats;
 import net.minecraft.item.*;
-import net.minecraft.recipe.RecipeType;
 import net.minecraft.util.Rarity;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.util.registry.RegistryKey;
