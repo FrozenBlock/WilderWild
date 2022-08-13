@@ -295,7 +295,7 @@ public class RegisterBlocks {
 
     public static final Block DEV_BLOCK = new Block(FabricBlockSettings.copyOf(Blocks.STONE).sounds(RegisterBlockSoundGroups.NULL_BLOCK));
 
-    public static final Block FIREFLY_LANTERN = new FireflyLanternBlock(FabricBlockSettings.copyOf(Blocks.LANTERN).luminance((state) -> state.get(RegisterProperties.FIREFLIES) * 3));
+    public static final Block FIREFLY_LANTERN = new FireflyLanternBlock(FabricBlockSettings.of(Material.METAL).strength(3.5f).sounds(BlockSoundGroup.LANTERN).nonOpaque().luminance((state) -> state.get(RegisterProperties.FIREFLIES) * 3));
 
     public static void register1_1() {
         registerBlock("firefly_lantern", FIREFLY_LANTERN, ItemGroup.DECORATIONS);
