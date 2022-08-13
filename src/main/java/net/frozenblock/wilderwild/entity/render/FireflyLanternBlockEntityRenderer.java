@@ -17,6 +17,7 @@ import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.block.entity.BlockEntityRenderer;
 import net.minecraft.client.render.block.entity.BlockEntityRendererFactory.Context;
 import net.minecraft.client.util.math.MatrixStack;
+import net.minecraft.state.property.Properties;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.*;
 
@@ -52,9 +53,10 @@ public class FireflyLanternBlockEntityRenderer<T extends FireflyLanternBlockEnti
                 int age = entity.getAge();
                 boolean flickers = entity.getFlickers();
                 double ageDelta = age + tickDelta;
+                double extraHeight = lantern.getCachedState().get(Properties.HANGING) ? 0.155 : 0;
 
                 matrices.push();
-                matrices.translate(entity.pos.x, 0.225 + (entity.prevY + (tickDelta * (entity.y - entity.prevY))), entity.pos.z);
+                matrices.translate(entity.pos.x, 0.225 + extraHeight + (entity.prevY + (tickDelta * (entity.y - entity.prevY))), entity.pos.z);
                 matrices.multiply(cam);
                 matrices.multiply(one80Quat);
 
