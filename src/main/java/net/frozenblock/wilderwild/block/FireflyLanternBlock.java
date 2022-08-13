@@ -41,6 +41,7 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.util.shape.VoxelShapes;
@@ -87,7 +88,7 @@ public class FireflyLanternBlock extends BlockWithEntity implements Waterloggabl
                         player.getStackInHand(hand).decrement(1);
                     }
                     player.getInventory().offerOrDrop(new ItemStack(Items.GLASS_BOTTLE));
-                    world.setBlockState(pos, state.with(FIREFLIES, lantern.getFireflies().size()));
+                    world.setBlockState(pos, state.with(FIREFLIES, MathHelper.clamp(lantern.getFireflies().size(), 0, 4)));
                     world.playSound(null, pos, RegisterSounds.ITEM_BOTTLE_CATCH_FIREFLY, SoundCategory.BLOCKS, 1.0F, 1.0F);
                     return ActionResult.SUCCESS;
                 }
@@ -110,7 +111,7 @@ public class FireflyLanternBlock extends BlockWithEntity implements Waterloggabl
                     }
                     player.getInventory().offerOrDrop(bottleStack);
                     ((FireflyLanternBlockEntity) entity).removeFirefly(fireflyInLantern);
-                    world.setBlockState(pos, state.with(FIREFLIES, lantern.getFireflies().size()));
+                    world.setBlockState(pos, state.with(FIREFLIES, MathHelper.clamp(lantern.getFireflies().size(), 0, 4)));
                     return ActionResult.SUCCESS;
                 }
             }
