@@ -2,11 +2,10 @@ package net.frozenblock.wilderwild.block;
 
 import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.block.entity.FireflyLanternBlockEntity;
+import net.frozenblock.wilderwild.entity.Firefly;
+import net.frozenblock.wilderwild.entity.ai.FireflyBrain;
 import net.frozenblock.wilderwild.item.FireflyBottle;
-import net.frozenblock.wilderwild.registry.RegisterBlockEntities;
-import net.frozenblock.wilderwild.registry.RegisterItems;
-import net.frozenblock.wilderwild.registry.RegisterProperties;
-import net.frozenblock.wilderwild.registry.RegisterSounds;
+import net.frozenblock.wilderwild.registry.*;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityTicker;
@@ -20,6 +19,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.BooleanProperty;
@@ -179,5 +179,35 @@ public class FireflyLanternBlock extends BlockWithEntity implements Waterloggabl
     @Nullable
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(World world, BlockState state, BlockEntityType<T> type) {
         return !world.isClient ? checkType(type, RegisterBlockEntities.FIREFLY_LANTERN, (worldx, pos, statex, blockEntity) -> blockEntity.serverTick(worldx, pos, statex)) : null;
+    }
+
+    public void onStateReplaced(BlockState state, World world, BlockPos pos, BlockState newState, boolean moved) {
+        if (!state.isOf(newState.getBlock())) {
+            BlockEntity blockEntity = world.getBlockEntity(pos);
+            if (blockEntity instanceof FireflyLanternBlockEntity lanternEntity) {
+                if (world instanceof ServerWorld server) {
+                    for (FireflyLanternBlockEntity.FireflyInLantern firefly : lanternEntity.getFireflies()) {
+                        Firefly entity = RegisterEntities.FIREFLY.create(server);
+                        if (entity != null) {
+                            entity.refreshPositionAndAngles(pos.getX() + firefly.pos.x, pos.getY() + firefly.y, pos.getZ() + firefly.pos.z, 0, 0);
+                            entity.setFromBottle(true);
+                            boolean spawned = server.spawnEntity(entity);
+                            if (spawned) {
+                                entity.hasHome = true;
+                                FireflyBrain.rememberHome(entity, entity.getBlockPos());
+                                entity.setColor(firefly.color);
+                                if (!Objects.equals(firefly.customName, "")) {
+                                    entity.setCustomName(Text.of(firefly.customName));
+                                }
+                            } else {
+                                WilderWild.log("Couldn't spawn Firefly from lantern @ " + pos, WilderWild.UNSTABLE_LOGGING);
+                            }
+                        }
+                    }
+                }
+            }
+
+            super.onStateReplaced(state, world, pos, newState, moved);
+        }
     }
 }
