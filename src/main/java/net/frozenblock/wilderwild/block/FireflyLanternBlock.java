@@ -186,7 +186,7 @@ public class FireflyLanternBlock extends BlockWithEntity implements Waterloggabl
             BlockEntity blockEntity = world.getBlockEntity(pos);
             if (blockEntity instanceof FireflyLanternBlockEntity lanternEntity) {
                 if (world instanceof ServerWorld server) {
-                    double extraHeight = lanternEntity.getCachedState().get(Properties.HANGING) ? 0.155 : 0;
+                    double extraHeight = state.get(Properties.HANGING) ? 0.155 : 0;
                     for (FireflyLanternBlockEntity.FireflyInLantern firefly : lanternEntity.getFireflies()) {
                         Firefly entity = RegisterEntities.FIREFLY.create(server);
                         if (entity != null) {
