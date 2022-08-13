@@ -7,9 +7,9 @@ import net.fabricmc.api.Environment;
 import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.WilderWildClient;
 import net.frozenblock.wilderwild.block.entity.FireflyLanternBlockEntity;
-import net.frozenblock.wilderwild.misc.SculkSensorTickInterface;
-import net.minecraft.block.entity.SculkSensorBlockEntity;
-import net.minecraft.client.model.*;
+import net.minecraft.client.model.ModelData;
+import net.minecraft.client.model.ModelPart;
+import net.minecraft.client.model.TexturedModelData;
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.VertexConsumer;
 import net.minecraft.client.render.VertexConsumerProvider;
@@ -25,6 +25,7 @@ import net.minecraft.util.math.Vec3f;
 @Environment(EnvType.CLIENT)
 public class FireflyLanternBlockEntityRenderer<T extends FireflyLanternBlockEntity> implements BlockEntityRenderer<T> {
 
+    //TODO: Make four different Firefly ModelParts, move them up & down with Sin and Cos. I'll (AViewFromTheTop) handle the rest.
 
     private static final float pi = (float) Math.PI;
     private static final float merp25 = 25 * (pi / 180);
