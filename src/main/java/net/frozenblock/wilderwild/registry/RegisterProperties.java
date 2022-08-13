@@ -23,8 +23,8 @@ public class RegisterProperties extends Properties {
     public static final BooleanProperty NATURAL = BooleanProperty.of("natural");
     //Glory of The Snow
     public static final EnumProperty<FlowerColors> FLOWER_COLOR = EnumProperty.of("flower_color", FlowerColors.class);
-    //Cypress Roots
-    public static final IntProperty ROOTS = IntProperty.of("roots", 1, 4);
+    //Firefly Lantern
+    public static final IntProperty FIREFLIES = IntProperty.of("fireflies", 0, 4);
 
     //Vanilla Blocks
     public static final IntProperty SOULS_TAKEN = IntProperty.of("souls_taken", 0, 2); //Sculk Shrieker

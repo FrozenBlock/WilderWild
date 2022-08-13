@@ -11,10 +11,7 @@ import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
 import net.fabricmc.fabric.api.event.client.ClientSpriteRegistryCallback;
 import net.frozenblock.api.mathematics.AdvancedMath;
 import net.frozenblock.wilderwild.entity.AncientHornProjectile;
-import net.frozenblock.wilderwild.entity.render.AncientHornProjectileModel;
-import net.frozenblock.wilderwild.entity.render.AncientHornProjectileRenderer;
-import net.frozenblock.wilderwild.entity.render.FireflyRenderer;
-import net.frozenblock.wilderwild.entity.render.SculkSensorBlockEntityRenderer;
+import net.frozenblock.wilderwild.entity.render.*;
 import net.frozenblock.wilderwild.misc.CompetitionCounter;
 import net.frozenblock.wilderwild.misc.FlowerLichenParticleRegistry;
 import net.frozenblock.wilderwild.misc.PVZGWSound.FlyBySoundHub;
@@ -49,6 +46,7 @@ import java.util.UUID;
 public class WilderWildClient implements ClientModInitializer {
     public static final EntityModelLayer ANCIENT_HORN_PROJECTILE_LAYER = new EntityModelLayer(WilderWild.id("ancient_horn_projectile"), "main");
     public static final EntityModelLayer SCULK_SENSOR = new EntityModelLayer(WilderWild.id("sculk_sensor"), "main");
+    public static final EntityModelLayer FIREFLY_LANTERN = new EntityModelLayer(WilderWild.id("firefly_lantern"), "main");
 
     @Override
     public void onInitializeClient() {
@@ -118,6 +116,9 @@ public class WilderWildClient implements ClientModInitializer {
 
         BlockEntityRendererRegistry.register(BlockEntityType.SCULK_SENSOR, SculkSensorBlockEntityRenderer::new);
         EntityModelLayerRegistry.registerModelLayer(SCULK_SENSOR, SculkSensorBlockEntityRenderer::getTexturedModelData);
+
+        BlockEntityRendererRegistry.register(RegisterBlockEntities.FIREFLY_LANTERN, FireflyLanternBlockEntityRenderer::new);
+        EntityModelLayerRegistry.registerModelLayer(FIREFLY_LANTERN, FireflyLanternBlockEntityRenderer::getTexturedModelData);
 
         receiveAncientHornProjectilePacket();
         receiveEasyEchoerBubblePacket();
