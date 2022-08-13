@@ -79,6 +79,12 @@ public class RegisterSounds {
     public static final SoundEvent BLOCK_COARSE_DIRT_STEP = register("block.coarse_dirt.step");
     public static final SoundEvent BLOCK_COARSE_DIRT_FALL = register("block.coarse_dirt.fall");
 
+    public static final SoundEvent BLOCK_NULL_BLOCK_PLACE = register("block.null_block.place");
+    public static final SoundEvent BLOCK_NULL_BLOCK_HIT = register("block.null_block.hit");
+    public static final SoundEvent BLOCK_NULL_BLOCK_BREAK = register("block.null_block.break");
+    public static final SoundEvent BLOCK_NULL_BLOCK_STEP = register("block.null_block.step");
+    public static final SoundEvent BLOCK_NULL_BLOCK_FALL = register("block.null_block.fall");
+
     public static final SoundEvent BLOCK_HANGING_TENDRIL_PLACE = register("block.hanging_tendril.place");
     public static final SoundEvent BLOCK_HANGING_TENDRIL_HIT = register("block.hanging_tendril.hit");
     public static final SoundEvent BLOCK_HANGING_TENDRIL_BREAK = register("block.hanging_tendril.break");

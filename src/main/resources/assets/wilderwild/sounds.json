@@ -455,18 +455,18 @@
 	"block.ice.fall": {
 		"sounds": [
 			{
-			"name": "minecraft:block.glass.fall",
-			"type": "event"
+				"name": "minecraft:block.glass.fall",
+				"type": "event"
 			}
 		],
 		"subtitle": "subtitles.block.generic.fall"
 	},
 	"block.ice.hit": {
 		"sounds": [
-		{
-			"name": "minecraft:block.glass.hit",
-			"type": "event"
-		}
+			{
+				"name": "minecraft:block.glass.hit",
+				"type": "event"
+			}
 		],
 		"subtitle": "subtitles.block.generic.hit"
 	},
@@ -483,8 +483,8 @@
 	"block.ice.step": {
 		"sounds": [
 			{
-			"name": "minecraft:block.glass.step",
-			"type": "event"
+				"name": "minecraft:block.glass.step",
+				"type": "event"
 			}
 		],
 		"subtitle": "subtitles.block.generic.footsteps"
@@ -643,6 +643,57 @@
 		],
 		"subtitle": "subtitles.block.generic.footsteps"
 	},
+	"block.null_block.break": {
+		"sounds": [
+			"wilderwild:block/null_block/break1",
+			"wilderwild:block/null_block/break2",
+			"wilderwild:block/null_block/break3",
+			"wilderwild:block/null_block/break4"
+		],
+		"subtitle": "subtitles.block.generic.break"
+	},
+	"block.null_block.fall": {
+		"sounds": [
+			"wilderwild:block/null_block/step1",
+			"wilderwild:block/null_block/step2",
+			"wilderwild:block/null_block/step3",
+			"wilderwild:block/null_block/step4",
+			"wilderwild:block/null_block/step5",
+			"wilderwild:block/null_block/step6"
+		],
+		"subtitle": "subtitles.block.generic.fall"
+	},
+	"block.null_block.hit": {
+		"sounds": [
+			"wilderwild:block/null_block/step1",
+			"wilderwild:block/null_block/step2",
+			"wilderwild:block/null_block/step3",
+			"wilderwild:block/null_block/step4",
+			"wilderwild:block/null_block/step5",
+			"wilderwild:block/null_block/step6"
+		],
+		"subtitle": "subtitles.block.generic.hit"
+	},
+	"block.null_block.place": {
+		"sounds": [
+			"wilderwild:block/null_block/break1",
+			"wilderwild:block/null_block/break2",
+			"wilderwild:block/null_block/break3",
+			"wilderwild:block/null_block/break4"
+		],
+		"subtitle": "subtitles.block.generic.place"
+	},
+	"block.null_block.step": {
+		"sounds": [
+			"wilderwild:block/null_block/step1",
+			"wilderwild:block/null_block/step2",
+			"wilderwild:block/null_block/step3",
+			"wilderwild:block/null_block/step4",
+			"wilderwild:block/null_block/step5",
+			"wilderwild:block/null_block/step6"
+		],
+		"subtitle": "subtitles.block.generic.footsteps"
+	},
 	"block.osseous_sculk.break": {
 		"sounds": [
 			"wilderwild:block/osseous_sculk/break1",
@@ -757,14 +808,14 @@
 		],
 		"subtitle": "subtitles.block.sculk_sensor.hiccup"
 	},
-  "block.sculk_shrieker.gargle": {
-	"sounds": [
-	  "wilderwild:block/sculk_shrieker/gargle_1",
-	  "wilderwild:block/sculk_shrieker/gargle_2",
-	  "wilderwild:block/sculk_shrieker/gargle_3"
-	],
-	"subtitle": "subtitles.block.sculk_shrieker.gargle"
-  },
+	"block.sculk_shrieker.gargle": {
+		"sounds": [
+			"wilderwild:block/sculk_shrieker/gargle_1",
+			"wilderwild:block/sculk_shrieker/gargle_2",
+			"wilderwild:block/sculk_shrieker/gargle_3"
+		],
+		"subtitle": "subtitles.block.sculk_shrieker.gargle"
+	},
 	"block.sugar_cane.break": {
 		"sounds": [
 			"wilderwild:block/sugar_cane/place1",
@@ -860,6 +911,22 @@
 			"wilderwild:item/ancient_horn/projectile_dissipate_2"
 		]
 	},
+	"entity.ancient_horn_projectile.flyby": {
+		"sounds": [
+			{
+				"attenuation_distance": 6,
+				"name": "wilderwild:flyby/flyby1"
+			},
+			{
+				"attenuation_distance": 6,
+				"name": "wilderwild:flyby/flyby2"
+			},
+			{
+				"attenuation_distance": 6,
+				"name": "wilderwild:flyby/flyby3"
+			}
+		]
+	},
 	"entity.ancient_horn_projectile.loop": {
 		"sounds": [
 			"wilderwild:item/ancient_horn/projectile_loop"
@@ -892,6 +959,11 @@
 		],
 		"subtitle": "subtitles.entity.firefly.nectar"
 	},
+	"entity.warden.brap": {
+		"sounds": [
+			"wilderwild:mob/warden/brap"
+		]
+	},
 	"entity.warden.dying": {
 		"sounds": [
 			"wilderwild:mob/warden/dying_1",
@@ -917,10 +989,11 @@
 			"wilderwild:mob/warden/swim_3"
 		]
 	},
-  	"entity.warden.brap": {
-	  "sounds": [
-		"wilderwild:mob/warden/brap"
-	  ]
+	"item.ancient_horn.blast": {
+		"sounds": [
+			"wilderwild:item/ancient_horn/blast1",
+			"wilderwild:item/ancient_horn/blast2"
+		]
 	},
 	"item.ancient_horn.call": {
 		"sounds": [
@@ -930,52 +1003,6 @@
 		],
 		"subtitle": "subtitles.item.ancient_horn.call"
 	},
-	"item.ancient_horn.blast": {
-		"sounds": [
-			"wilderwild:item/ancient_horn/blast1",
-			"wilderwild:item/ancient_horn/blast2"
-		]
-	},
-	
-	"item.copper_horn.sax.start": {
-		"sounds": [
-			"wilderwild:item/copper_horn/sax/start"
-		],
-		"subtitle": "subtitles.item.copper_horn.call"
-	},
-	"item.copper_horn.sax.loop": {
-		"sounds": [
-			"wilderwild:item/copper_horn/sax/loop"
-		],
-		"subtitle": "subtitles.item.copper_horn.call"
-	},
-	
-	"item.copper_horn.tuba.start": {
-		"sounds": [
-			"wilderwild:item/copper_horn/tuba/start"
-		],
-		"subtitle": "subtitles.item.copper_horn.call"
-	},
-	"item.copper_horn.tuba.loop": {
-		"sounds": [
-			"wilderwild:item/copper_horn/tuba/loop"
-		],
-		"subtitle": "subtitles.item.copper_horn.call"
-	},
-
-	"item.copper_horn.flute.start": {
-		"sounds": [
-			"wilderwild:item/copper_horn/flute/start"
-		],
-		"subtitle": "subtitles.item.copper_horn.call"
-	},
-	"item.copper_horn.flute.loop": {
-		"sounds": [
-			"wilderwild:item/copper_horn/flute/loop"
-		],
-		"subtitle": "subtitles.item.copper_horn.call"
-	},
-	
 	"item.bottle.catch_firefly": {
 		"sounds": [
 			"wilderwild:item/bottle/catch_firefly1",
@@ -988,6 +1015,42 @@
 			"wilderwild:item/bottle/release_firefly1"
 		],
 		"subtitle": "subtitles.item.bottle.release_firefly"
+	},
+	"item.copper_horn.flute.loop": {
+		"sounds": [
+			"wilderwild:item/copper_horn/flute/loop"
+		],
+		"subtitle": "subtitles.item.copper_horn.call"
+	},
+	"item.copper_horn.flute.start": {
+		"sounds": [
+			"wilderwild:item/copper_horn/flute/start"
+		],
+		"subtitle": "subtitles.item.copper_horn.call"
+	},
+	"item.copper_horn.sax.loop": {
+		"sounds": [
+			"wilderwild:item/copper_horn/sax/loop"
+		],
+		"subtitle": "subtitles.item.copper_horn.call"
+	},
+	"item.copper_horn.sax.start": {
+		"sounds": [
+			"wilderwild:item/copper_horn/sax/start"
+		],
+		"subtitle": "subtitles.item.copper_horn.call"
+	},
+	"item.copper_horn.tuba.loop": {
+		"sounds": [
+			"wilderwild:item/copper_horn/tuba/loop"
+		],
+		"subtitle": "subtitles.item.copper_horn.call"
+	},
+	"item.copper_horn.tuba.start": {
+		"sounds": [
+			"wilderwild:item/copper_horn/tuba/start"
+		],
+		"subtitle": "subtitles.item.copper_horn.call"
 	},
 	"music.overworld.wild_forests": {
 		"sounds": [
@@ -1038,22 +1101,6 @@
 			"wilderwild:particle/floating_sculk_bubble/pop3",
 			"wilderwild:particle/floating_sculk_bubble/pop4",
 			"wilderwild:particle/floating_sculk_bubble/pop5"
-		]
-	},
-	"entity.ancient_horn_projectile.flyby": {
-		"sounds": [
-			{
-				"name": "wilderwild:flyby/flyby1",
-				"attenuation_distance": 6
-			},
-			{
-				"name": "wilderwild:flyby/flyby2",
-				"attenuation_distance": 6
-			},
-			{
-				"name": "wilderwild:flyby/flyby3",
-				"attenuation_distance": 6
-			}
 		]
 	}
 }

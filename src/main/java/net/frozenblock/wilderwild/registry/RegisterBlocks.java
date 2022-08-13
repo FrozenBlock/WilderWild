@@ -294,7 +294,7 @@ public class RegisterBlocks {
             .unlockCriterionName("has_planks")
             .build();
 
-    public static final Block DEV_BLOCK = new Block(FabricBlockSettings.copyOf(Blocks.STONE));
+    public static final Block DEV_BLOCK = new Block(FabricBlockSettings.copyOf(Blocks.STONE).sounds(RegisterBlockSoundGroups.NULL_BLOCK));
 
     // HELLO EVERYBODY
     // hi - treetrain
