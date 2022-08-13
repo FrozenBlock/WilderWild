@@ -93,6 +93,7 @@ dependencies {
 		modRuntimeOnly "maven.modrinth:ksyxis:${ksyxis_version}"
 		//modRuntimeOnly "maven.modrinth:iris:1.19.x-v1.2.5"
 		modRuntimeOnly "maven.modrinth:memoryleakfix:${memoryleakfix_version}"
+		modRuntimeOnly "maven.modrinth:no-unused-chunks:${no_unused_chunks_version}"
 	}
 }
 
