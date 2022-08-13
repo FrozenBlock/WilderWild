@@ -29,8 +29,6 @@ public class FireflyLanternBlockEntityRenderer<T extends FireflyLanternBlockEnti
     //TODO: Make four different Firefly ModelParts, move them up & down with Sin and Cos. I'll (AViewFromTheTop) handle the rest.
 
     private static final float pi = (float) Math.PI;
-    private static final float merp25 = 25 * (pi / 180);
-    private static final double yOffset = 0.155F;
     private static final Quaternion one80Quat = Vec3f.POSITIVE_Y.getDegreesQuaternion(180.0F);
 
     private static final Identifier TEXTURE = WilderWild.id("textures/entity/firefly/firefly_off.png");
@@ -50,7 +48,6 @@ public class FireflyLanternBlockEntityRenderer<T extends FireflyLanternBlockEnti
     }
 
     public void render(T lantern, float tickDelta, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, int overlay) {
-        MinecraftClient client = MinecraftClient.getInstance();
         Quaternion cam = MinecraftClient.getInstance().gameRenderer.getCamera().getRotation();
         if (cam != null) {
             for (FireflyLanternBlockEntity.FireflyInLantern entity : lantern.getFireflies()) {
