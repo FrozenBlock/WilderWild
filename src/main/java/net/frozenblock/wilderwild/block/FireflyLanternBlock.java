@@ -5,6 +5,7 @@ import net.frozenblock.wilderwild.block.entity.FireflyLanternBlockEntity;
 import net.frozenblock.wilderwild.item.FireflyBottle;
 import net.frozenblock.wilderwild.registry.RegisterBlockEntities;
 import net.frozenblock.wilderwild.registry.RegisterItems;
+import net.frozenblock.wilderwild.registry.RegisterProperties;
 import net.frozenblock.wilderwild.registry.RegisterSounds;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
@@ -21,6 +22,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.BooleanProperty;
+import net.minecraft.state.property.IntProperty;
 import net.minecraft.state.property.Properties;
 import net.minecraft.text.Text;
 import net.minecraft.util.ActionResult;
@@ -44,12 +46,13 @@ public class FireflyLanternBlock extends BlockWithEntity implements Waterloggabl
 
     public static final BooleanProperty WATERLOGGED = Properties.WATERLOGGED;
     public static final BooleanProperty HANGING = Properties.HANGING;
+    public static final IntProperty FIREFLIES = RegisterProperties.FIREFLIES;
     protected static final VoxelShape STANDING_SHAPE = VoxelShapes.union(Block.createCuboidShape(5.0D, 0.0D, 5.0D, 11.0D, 7.0D, 11.0D), Block.createCuboidShape(6.0D, 7.0D, 6.0D, 10.0D, 9.0D, 10.0D));
     protected static final VoxelShape HANGING_SHAPE = VoxelShapes.union(Block.createCuboidShape(5.0D, 1.0D, 5.0D, 11.0D, 8.0D, 11.0D), Block.createCuboidShape(6.0D, 8.0D, 6.0D, 10.0D, 10.0D, 10.0D));
 
     public FireflyLanternBlock(Settings settings) {
         super(settings);
-        this.setDefaultState(this.stateManager.getDefaultState().with(HANGING, false).with(WATERLOGGED, false));
+        this.setDefaultState(this.stateManager.getDefaultState().with(HANGING, false).with(WATERLOGGED, false).with(FIREFLIES, 0));
     }
 
     @Override
@@ -68,6 +71,7 @@ public class FireflyLanternBlock extends BlockWithEntity implements Waterloggabl
                             name = stack.getName().getString();
                         }
                         lantern.addFirefly(bottle, name);
+                        world.setBlockState(pos, state.with(FIREFLIES, lantern.getFireflies().size()));
                         return ActionResult.SUCCESS;
                     } else if (stack.isOf(Items.GLASS_BOTTLE)) {
                         FireflyLanternBlockEntity.FireflyInLantern fireflyInLantern = lantern.getFireflies().get((int) (lantern.getFireflies().size() * Math.random()));
@@ -86,6 +90,7 @@ public class FireflyLanternBlock extends BlockWithEntity implements Waterloggabl
                         }
                         player.getInventory().offerOrDrop(bottleStack);
                         ((FireflyLanternBlockEntity) entity).removeFirefly(fireflyInLantern);
+                        world.setBlockState(pos, state.with(FIREFLIES, lantern.getFireflies().size()));
                         return ActionResult.SUCCESS;
                     }
                 }
@@ -98,7 +103,6 @@ public class FireflyLanternBlock extends BlockWithEntity implements Waterloggabl
     public BlockState getPlacementState(ItemPlacementContext ctx) {
         FluidState fluidState = ctx.getWorld().getFluidState(ctx.getBlockPos());
         Direction[] var3 = ctx.getPlacementDirections();
-        int var4 = var3.length;
 
         for (Direction direction : var3) {
             if (direction.getAxis() == Direction.Axis.Y) {
@@ -117,7 +121,7 @@ public class FireflyLanternBlock extends BlockWithEntity implements Waterloggabl
     }
 
     protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
-        builder.add(HANGING, WATERLOGGED);
+        builder.add(HANGING, WATERLOGGED, FIREFLIES);
     }
 
     public boolean canPlaceAt(BlockState state, WorldView world, BlockPos pos) {
