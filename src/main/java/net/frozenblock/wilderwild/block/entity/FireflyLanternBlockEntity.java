@@ -56,9 +56,9 @@ public class FireflyLanternBlockEntity extends BlockEntity {
 
     public void readNbt(NbtCompound nbt) {
         super.readNbt(nbt);
-        if (nbt.contains("fireflies", 9)) {
+        if (nbt.contains("Fireflies", 9)) {
             this.fireflies.clear();
-            DataResult<?> var10000 = FireflyInLantern.CODEC.listOf().parse(new Dynamic<>(NbtOps.INSTANCE, nbt.getList("fireflies", 10)));
+            DataResult<?> var10000 = FireflyInLantern.CODEC.listOf().parse(new Dynamic<>(NbtOps.INSTANCE, nbt.getList("Fireflies", 10)));
             Logger var10001 = WilderWild.LOGGER;
             Objects.requireNonNull(var10001);
             Optional<List> list = (Optional<List>) var10000.resultOrPartial(var10001::error);
@@ -77,7 +77,7 @@ public class FireflyLanternBlockEntity extends BlockEntity {
         Logger var10001 = WilderWild.LOGGER;
         Objects.requireNonNull(var10001);
         var10000.resultOrPartial(var10001::error).ifPresent((cursorsNbt) -> {
-            nbt.put("fireflies", (NbtElement) cursorsNbt);
+            nbt.put("Fireflies", (NbtElement) cursorsNbt);
         });
     }
 
