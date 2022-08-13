@@ -49,8 +49,8 @@ public class FireflyLanternBlockEntityRenderer<T extends FireflyLanternBlockEnti
             double extraHeight = lantern.getCachedState().get(Properties.HANGING) ? 0.225 + 0.155 : 0.225;
             for (FireflyLanternBlockEntity.FireflyInLantern entity : lantern.getFireflies()) {
                 boolean nectar = entity.getCustomName().toLowerCase().contains("nectar");
-                int age = entity.getAge();
-                boolean flickers = entity.getFlickers();
+                int age = entity.age;
+                boolean flickers = entity.flickers;
                 double ageDelta = age + tickDelta;
 
                 matrices.push();
