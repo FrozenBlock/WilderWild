@@ -33,12 +33,12 @@ public class FireflyLanternBlockEntity extends BlockEntity {
         super(RegisterBlockEntities.FIREFLY_LANTERN, pos, state);
     }
 
-    public void serverTick(World world, BlockPos pos, BlockState state) {
+    public void serverTick() {
         if (!this.fireflies.isEmpty()) {
             for (FireflyInLantern firefly : this.fireflies) {
                 firefly.tick();
             }
-            for (ServerPlayerEntity player : PlayerLookup.tracking((ServerWorld) world, pos)) {
+            for (ServerPlayerEntity player : PlayerLookup.tracking(this)) {
                 player.networkHandler.sendPacket(this.toUpdatePacket());
             }
         }
