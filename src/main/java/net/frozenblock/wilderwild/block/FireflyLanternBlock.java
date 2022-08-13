@@ -101,6 +101,7 @@ public class FireflyLanternBlock extends BlockWithEntity implements Waterloggabl
     }
 
     @Nullable
+    @Override
     public BlockState getPlacementState(ItemPlacementContext ctx) {
         FluidState fluidState = ctx.getWorld().getFluidState(ctx.getBlockPos());
         Direction[] var3 = ctx.getPlacementDirections();
@@ -117,27 +118,32 @@ public class FireflyLanternBlock extends BlockWithEntity implements Waterloggabl
         return null;
     }
 
+    @Override
     public VoxelShape getOutlineShape(BlockState state, BlockView world, BlockPos pos, ShapeContext context) {
         return state.get(HANGING) ? HANGING_SHAPE : STANDING_SHAPE;
     }
 
+    @Override
     protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
         builder.add(HANGING, WATERLOGGED, FIREFLIES);
     }
 
+    @Override
     public boolean canPlaceAt(BlockState state, WorldView world, BlockPos pos) {
         Direction direction = attachedDirection(state).getOpposite();
         return Block.sideCoversSmallSquare(world, pos.offset(direction), direction.getOpposite());
     }
 
-    protected static Direction attachedDirection(BlockState state) {
+    private static Direction attachedDirection(BlockState state) {
         return state.get(HANGING) ? Direction.DOWN : Direction.UP;
     }
 
+    @Override
     public PistonBehavior getPistonBehavior(BlockState state) {
         return PistonBehavior.DESTROY;
     }
 
+    @Override
     public BlockState getStateForNeighborUpdate(BlockState state, Direction direction, BlockState neighborState, WorldAccess world, BlockPos pos, BlockPos neighborPos) {
         if (state.get(WATERLOGGED)) {
             world.createAndScheduleFluidTick(pos, Fluids.WATER, Fluids.WATER.getTickRate(world));
@@ -146,10 +152,12 @@ public class FireflyLanternBlock extends BlockWithEntity implements Waterloggabl
         return attachedDirection(state).getOpposite() == direction && !state.canPlaceAt(world, pos) ? Blocks.AIR.getDefaultState() : super.getStateForNeighborUpdate(state, direction, neighborState, world, pos, neighborPos);
     }
 
+    @Override
     public FluidState getFluidState(BlockState state) {
         return state.get(WATERLOGGED) ? Fluids.WATER.getStill(false) : super.getFluidState(state);
     }
 
+    @Override
     public boolean canPathfindThrough(BlockState state, BlockView world, BlockPos pos, NavigationType type) {
         return false;
     }
