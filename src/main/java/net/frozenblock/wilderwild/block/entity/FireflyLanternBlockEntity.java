@@ -87,7 +87,7 @@ public class FireflyLanternBlockEntity extends BlockEntity {
     }
 
     public void addFirefly(FireflyBottle bottle, String name, World world) {
-        Vec3d newVec = new Vec3d(world.random.nextTriangular(0.5, 0.2), 0.155F + 0.3125, world.random.nextTriangular(0.5, 0.2));
+        Vec3d newVec = new Vec3d(0.5 + world.random.nextTriangular(0, 0.2), 0.155F + 0.3125, 0.5 + world.random.nextTriangular(0, 0.2));
         this.fireflies.add(new FireflyInLantern(Vec3d.ZERO, bottle.color, name, Math.random() > 0.7, (int) (Math.random() * 20)));
     }
 
