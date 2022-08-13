@@ -11,6 +11,7 @@ import net.frozenblock.wilderwild.entity.ai.FireflyBrain;
 import net.frozenblock.wilderwild.item.FireflyBottle;
 import net.frozenblock.wilderwild.registry.RegisterBlockEntities;
 import net.frozenblock.wilderwild.registry.RegisterEntities;
+import net.frozenblock.wilderwild.registry.RegisterSounds;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.nbt.NbtCompound;
@@ -18,6 +19,8 @@ import net.minecraft.nbt.NbtElement;
 import net.minecraft.nbt.NbtOps;
 import net.minecraft.network.packet.s2c.play.BlockEntityUpdateS2CPacket;
 import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.sound.SoundCategory;
+import net.minecraft.sound.SoundEvents;
 import net.minecraft.state.property.Properties;
 import net.minecraft.text.Text;
 import net.minecraft.util.math.BlockPos;
@@ -31,16 +34,17 @@ import java.util.Objects;
 import java.util.Optional;
 
 public class FireflyLanternBlockEntity extends BlockEntity {
+
     ArrayList<FireflyInLantern> fireflies = new ArrayList<>();
 
     public FireflyLanternBlockEntity(BlockPos pos, BlockState state) {
         super(RegisterBlockEntities.FIREFLY_LANTERN, pos, state);
     }
 
-    public void serverTick() {
+    public void serverTick(World world, BlockPos pos) {
         if (!this.fireflies.isEmpty()) {
             for (FireflyInLantern firefly : this.fireflies) {
-                firefly.tick();
+                firefly.tick(world, pos);
             }
             for (ServerPlayerEntity player : PlayerLookup.tracking(this)) {
                 player.networkHandler.sendPacket(this.toUpdatePacket());
@@ -156,6 +160,7 @@ public class FireflyLanternBlockEntity extends BlockEntity {
         public int age;
         public double y;
         public double prevY;
+        public boolean wasNamedNectar;
 
         public static final Codec<FireflyInLantern> CODEC = RecordCodecBuilder.create((instance) -> instance.group(
                 Vec3d.CODEC.fieldOf("pos").forGetter(FireflyInLantern::getPos),
@@ -177,10 +182,26 @@ public class FireflyLanternBlockEntity extends BlockEntity {
             this.prevY = prevY;
         }
 
-        public void tick() {
+        boolean nectar = false;
+
+        public void tick(World world, BlockPos pos) {
             ++this.age;
             this.prevY = this.y;
             this.y = Math.sin(this.age * 0.03) * 0.15;
+            nectar = this.getCustomName().toLowerCase().contains("nectar");
+
+            if (nectar != wasNamedNectar) {
+                if (nectar) {
+                    if (world.getTime() % 70L == 0L) {
+                        world.playSound(null, pos, RegisterSounds.BLOCK_FIREFLY_LANTERN_NECTAR_LOOP, SoundCategory.AMBIENT, 0.5F, 1.0F);
+                    }
+                    this.wasNamedNectar = true;
+                } else {
+                    this.wasNamedNectar = false;
+                }
+            } else {
+                this.wasNamedNectar = false;
+            }
         }
 
         public Vec3d getPos() {

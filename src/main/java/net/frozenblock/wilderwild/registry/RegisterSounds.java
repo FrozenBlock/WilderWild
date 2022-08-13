@@ -13,6 +13,8 @@ public class RegisterSounds {
 
     public static final SoundEvent AMBIENT_LUSH_CAVES_LOOP = register("ambient.lush_caves.loop");
 
+    public static final SoundEvent BLOCK_FIREFLY_LANTERN_NECTAR_LOOP = register("block.firefly_lantern.nectar_inside_loop");
+
     public static final SoundEvent BLOCK_REINFORCED_DEEPSLATE_PLACE = register("block.reinforced_deepslate.place");
     public static final SoundEvent BLOCK_REINFORCED_DEEPSLATE_HIT = register("block.reinforced_deepslate.hit");
     public static final SoundEvent BLOCK_REINFORCED_DEEPSLATE_BREAK = register("block.reinforced_deepslate.break");
