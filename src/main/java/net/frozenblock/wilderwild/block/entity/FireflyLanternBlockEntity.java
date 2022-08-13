@@ -37,7 +37,7 @@ public class FireflyLanternBlockEntity extends BlockEntity {
     public void serverTick(World world, BlockPos pos, BlockState state) {
         if (!this.fireflies.isEmpty()) {
             for (FireflyInLantern firefly : this.fireflies) {
-                firefly.tick(world);
+                firefly.tick();
             }
             for (ServerPlayerEntity player : PlayerLookup.tracking((ServerWorld) world, pos)) {
                 player.networkHandler.sendPacket(this.toUpdatePacket());
@@ -86,8 +86,9 @@ public class FireflyLanternBlockEntity extends BlockEntity {
         return this.fireflies;
     }
 
-    public void addFirefly(FireflyBottle bottle, String name) {
-        this.fireflies.add(new FireflyInLantern(Vec3d.ZERO, Vec3d.ZERO, bottle.color, name, Math.random() > 0.7, (int) (Math.random() * 20)));
+    public void addFirefly(FireflyBottle bottle, String name, World world) {
+        Vec3d newVec = new Vec3d(world.random.nextTriangular(0.5, 0.2), 0.155F + 0.3125, world.random.nextTriangular(0.5, 0.2));
+        this.fireflies.add(new FireflyInLantern(Vec3d.ZERO, bottle.color, name, Math.random() > 0.7, (int) (Math.random() * 20)));
     }
 
     public void removeFirefly(FireflyInLantern firefly) {
@@ -96,7 +97,6 @@ public class FireflyLanternBlockEntity extends BlockEntity {
 
     public static class FireflyInLantern {
         public Vec3d pos;
-        public Vec3d prevPos;
         public String color;
         public String customName;
         public boolean flickers;
@@ -104,40 +104,26 @@ public class FireflyLanternBlockEntity extends BlockEntity {
 
         public static final Codec<FireflyInLantern> CODEC = RecordCodecBuilder.create((instance) -> instance.group(
                 Vec3d.CODEC.fieldOf("pos").forGetter(FireflyInLantern::getPos),
-                Vec3d.CODEC.fieldOf("prevPos").forGetter(FireflyInLantern::getPrevPos),
                 Codec.STRING.fieldOf("color").forGetter(FireflyInLantern::getColor),
                 Codec.STRING.fieldOf("customName").orElse("").forGetter(FireflyInLantern::getCustomName),
                 Codec.BOOL.fieldOf("flickers").orElse(false).forGetter(FireflyInLantern::getFlickers),
                 Codec.INT.fieldOf("age").forGetter(FireflyInLantern::getAge)
         ).apply(instance, FireflyInLantern::new));
 
-        public FireflyInLantern(Vec3d pos, Vec3d prevPos, String color, String customName, boolean flickers, int age) {
+        public FireflyInLantern(Vec3d pos, String color, String customName, boolean flickers, int age) {
             this.pos = pos;
-            this.prevPos = prevPos;
             this.color = color;
             this.customName = customName;
             this.flickers = flickers;
             this.age = age;
         }
 
-        public void tick(World world) {
-            this.prevPos = this.pos;
-            double x = this.pos.x;
-            double y = this.pos.y;
-            double z = this.pos.z;
-            x = MathHelper.clamp(x + ((Math.random() * (world.random.nextBoolean() ? 1 : -1)) * 0.02), -0.15625, 0.15625);
-            y = MathHelper.clamp(y + ((Math.random() * (world.random.nextBoolean() ? 1 : -1)) * 0.02), -0.3125, 0.3125);
-            z = MathHelper.clamp(z + ((Math.random() * (world.random.nextBoolean() ? 1 : -1)) * 0.02), -0.15625, 0.15625);
-            this.pos = new Vec3d(x, y, z);
+        public void tick() {
             ++this.age;
         }
 
         public Vec3d getPos() {
             return this.pos;
-        }
-
-        public Vec3d getPrevPos() {
-            return this.prevPos;
         }
 
         public String getColor() {
