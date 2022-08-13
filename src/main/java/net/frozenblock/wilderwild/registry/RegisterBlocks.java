@@ -296,8 +296,12 @@ public class RegisterBlocks {
 
     public static final Block DEV_BLOCK = new Block(FabricBlockSettings.copyOf(Blocks.STONE));
 
-    // HELLO EVERYBODY
-    // hi - treetrain
+    public static final Block FIREFLY_LANTERN = new AlgaeBlock(FabricBlockSettings.copyOf(Blocks.LANTERN));
+
+    public static void register1_1() {
+        registerBlock("firefly_lantern", FIREFLY_LANTERN, ItemGroup.DECORATIONS);
+    }
+
     public static void registerBlocks() {
         WilderWild.logWild("Registering Blocks for", WilderWild.UNSTABLE_LOGGING);
 
@@ -313,6 +317,7 @@ public class RegisterBlocks {
         Registry.register(Registry.ITEM, WilderWild.id("algae"), new AlgaeItem(ALGAE, new FabricItemSettings().group(ItemGroup.DECORATIONS)));
         registerBlock("null_block", DEV_BLOCK, ItemGroup.MISC);
         registerNotSoPlants();
+        register1_1();
 
         registerComposting();
         registerFlammability();

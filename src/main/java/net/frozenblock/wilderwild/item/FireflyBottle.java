@@ -24,7 +24,7 @@ import net.minecraft.world.event.GameEvent;
 
 public class FireflyBottle extends Item {
 
-    private final String color;
+    public final String color;
 
     public FireflyBottle(Settings settings, String color) {
         super(settings);
