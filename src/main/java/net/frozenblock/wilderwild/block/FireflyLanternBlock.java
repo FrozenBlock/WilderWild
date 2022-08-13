@@ -196,26 +196,27 @@ public class FireflyLanternBlock extends BlockWithEntity implements Waterloggabl
     public void afterBreak(World world, PlayerEntity player, BlockPos pos, BlockState state, @Nullable BlockEntity blockEntity, ItemStack stack) {
         player.addExhaustion(0.005F);
         if (blockEntity instanceof FireflyLanternBlockEntity lanternEntity) {
-        boolean silk = EnchantmentHelper.getLevel(Enchantments.SILK_TOUCH, stack) != 0 && !lanternEntity.getFireflies().isEmpty();
-        if (!silk) {
-            if (world instanceof ServerWorld server) {
-                double extraHeight = state.get(Properties.HANGING) ? 0.155 : 0;
-                for (FireflyLanternBlockEntity.FireflyInLantern firefly : lanternEntity.getFireflies()) {
-                    Firefly entity = RegisterEntities.FIREFLY.create(server);
-                    if (entity != null) {
-                        entity.refreshPositionAndAngles(pos.getX() + firefly.pos.x, pos.getY() + firefly.y + extraHeight + 0.11, pos.getZ() + firefly.pos.z, 0, 0);
-                        entity.setFromBottle(true);
-                        boolean spawned = server.spawnEntity(entity);
-                        if (spawned) {
-                            entity.hasHome = true;
-                            FireflyBrain.rememberHome(entity, entity.getBlockPos());
-                            entity.setColor(firefly.color);
-                            entity.setScale(1.0F);
-                            if (!Objects.equals(firefly.customName, "")) {
-                                entity.setCustomName(Text.of(firefly.customName));
+            boolean silk = EnchantmentHelper.getLevel(Enchantments.SILK_TOUCH, stack) != 0 && !lanternEntity.getFireflies().isEmpty();
+            if (!silk) {
+                if (world instanceof ServerWorld server) {
+                    double extraHeight = state.get(Properties.HANGING) ? 0.155 : 0;
+                    for (FireflyLanternBlockEntity.FireflyInLantern firefly : lanternEntity.getFireflies()) {
+                        Firefly entity = RegisterEntities.FIREFLY.create(server);
+                        if (entity != null) {
+                            entity.refreshPositionAndAngles(pos.getX() + firefly.pos.x, pos.getY() + firefly.y + extraHeight + 0.11, pos.getZ() + firefly.pos.z, 0, 0);
+                            entity.setFromBottle(true);
+                            boolean spawned = server.spawnEntity(entity);
+                            if (spawned) {
+                                entity.hasHome = true;
+                                FireflyBrain.rememberHome(entity, entity.getBlockPos());
+                                entity.setColor(firefly.color);
+                                entity.setScale(1.0F);
+                                if (!Objects.equals(firefly.customName, "")) {
+                                    entity.setCustomName(Text.of(firefly.customName));
+                                }
+                            } else {
+                                WilderWild.log("Couldn't spawn Firefly from lantern @ " + pos, WilderWild.UNSTABLE_LOGGING);
                             }
-                        } else {
-                            WilderWild.log("Couldn't spawn Firefly from lantern @ " + pos, WilderWild.UNSTABLE_LOGGING);
                         }
                     }
                 }
@@ -231,7 +232,6 @@ public class FireflyLanternBlock extends BlockWithEntity implements Waterloggabl
                 1.0F,
                 world.random.nextFloat() * 0.1F + 0.8F
             );
-        }
     }
 
     @Deprecated
