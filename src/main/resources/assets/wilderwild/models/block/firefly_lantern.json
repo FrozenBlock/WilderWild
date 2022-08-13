@@ -1,5 +1,5 @@
 {
-  	"parent": "minecraft:block/template_lantern",
+	"parent": "minecraft:block/template_lantern",
 	"ambientocclusion": false,
 	"textures": {
 		"0": "wilderwild:block/firefly_lantern",
@@ -19,8 +19,8 @@
 			}
 		},
 		{
-			"from": [11, 7, 11],
-			"to": [5, 0, 5],
+			"from": [10.9, 6.9, 10.9],
+			"to": [5.1, 0.1, 5.1],
 			"faces": {
 				"north": {"uv": [6, 8, 0, 1], "texture": "#0"},
 				"east": {"uv": [6, 8, 0, 1], "texture": "#0"},
