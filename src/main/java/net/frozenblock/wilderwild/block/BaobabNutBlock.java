@@ -3,7 +3,6 @@ package net.frozenblock.wilderwild.block;
 import net.frozenblock.wilderwild.registry.RegisterBlocks;
 import net.frozenblock.wilderwild.world.gen.sapling.BaobabSaplingGenerator;
 import net.minecraft.block.*;
-import net.minecraft.block.sapling.MangroveSaplingGenerator;
 import net.minecraft.fluid.FluidState;
 import net.minecraft.fluid.Fluids;
 import net.minecraft.item.ItemPlacementContext;
@@ -12,16 +11,13 @@ import net.minecraft.state.StateManager;
 import net.minecraft.state.property.BooleanProperty;
 import net.minecraft.state.property.IntProperty;
 import net.minecraft.state.property.Properties;
-import net.minecraft.state.property.Property;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.math.random.Random;
 import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.util.shape.VoxelShapes;
 import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
-import net.minecraft.world.WorldAccess;
 import net.minecraft.world.WorldView;
 import org.jetbrains.annotations.Nullable;
 
@@ -37,7 +33,7 @@ public class BaobabNutBlock extends SaplingBlock {
     }
 
     protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
-        builder.add(new Property[]{STAGE}).add(new Property[]{AGE}).add(new Property[]{HANGING});
+        builder.add(STAGE, AGE, HANGING);
     }
 
     protected boolean canPlantOnTop(BlockState floor, BlockView world, BlockPos pos) {
@@ -54,10 +50,10 @@ public class BaobabNutBlock extends SaplingBlock {
     public VoxelShape getOutlineShape(BlockState state, BlockView world, BlockPos pos, ShapeContext context) {
         Vec3d vec3d = state.getModelOffset(world, pos);
         VoxelShape voxelShape;
-        if (!(Boolean)state.get(HANGING)) {
+        if (!state.get(HANGING)) {
             voxelShape = SHAPES[4];
         } else {
-            voxelShape = SHAPES[(Integer)state.get(AGE)];
+            voxelShape = SHAPES[state.get(AGE)];
         }
 
         return voxelShape.offset(vec3d.x, vec3d.y, vec3d.z);
@@ -76,7 +72,7 @@ public class BaobabNutBlock extends SaplingBlock {
 
         } else {
             if (!isFullyGrown(state)) {
-                world.setBlockState(pos, (BlockState)state.cycle(AGE), 2);
+                world.setBlockState(pos, state.cycle(AGE), 2);
             }
 
         }
@@ -92,7 +88,7 @@ public class BaobabNutBlock extends SaplingBlock {
 
     public void grow(ServerWorld world, Random random, BlockPos pos, BlockState state) {
         if (isHanging(state) && !isFullyGrown(state)) {
-            world.setBlockState(pos, (BlockState)state.cycle(AGE), 2);
+            world.setBlockState(pos, state.cycle(AGE), 2);
         } else {
             super.grow(world, random, pos, state);
         }
@@ -100,11 +96,11 @@ public class BaobabNutBlock extends SaplingBlock {
     }
 
     private static boolean isHanging(BlockState state) {
-        return (Boolean)state.get(HANGING);
+        return state.get(HANGING);
     }
 
     private static boolean isFullyGrown(BlockState state) {
-        return (Integer)state.get(AGE) == 2;
+        return state.get(AGE) == 2;
     }
 
     public static BlockState getDefaultHangingState() {
@@ -112,7 +108,7 @@ public class BaobabNutBlock extends SaplingBlock {
     }
 
     public static BlockState getHangingState(int age) {
-        return (BlockState)((BlockState) RegisterBlocks.BAOBAB_SAPLING.getDefaultState().with(HANGING, true)).with(AGE, age);
+        return RegisterBlocks.BAOBAB_SAPLING.getDefaultState().with(HANGING, true).with(AGE, age);
     }
 
     static {
