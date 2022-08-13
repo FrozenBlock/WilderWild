@@ -39,3 +39,5 @@ LudoCrypt - Created godly music like it was nothing
 (how)
 
 TheoreticallyUseful - Created the UpdateFixerUpper mod: https://github.com/SilverAndro/UpdateFixerUpper
+
+nekkok - Spanish Translation
