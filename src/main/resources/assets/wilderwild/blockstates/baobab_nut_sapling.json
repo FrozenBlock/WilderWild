@@ -12,8 +12,11 @@
     "age=1,hanging=true": {
       "model": "wilderwild:block/baobab_nut_stage_2"
     },
-    "age=2,hanging=false": {
-      "model": "wilderwild:block/baobab_nut_sapling"
+    "age=2,hanging=false,stage=0": {
+      "model": "wilderwild:block/baobab_nut_sapling_0"
+    },
+    "age=2,hanging=false,stage=1": {
+      "model": "wilderwild:block/baobab_nut_sapling_1"
     },
     "age=2,hanging=true": {
       "model": "wilderwild:block/baobab_nut_stage_3"
