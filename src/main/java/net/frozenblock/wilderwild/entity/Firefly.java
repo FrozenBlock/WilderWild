@@ -117,6 +117,7 @@ public class Firefly extends PathAwareEntity implements Flutterer {
         this.dataTracker.startTracking(FLICKERS, false);
         this.dataTracker.startTracking(AGE, 0);
         this.dataTracker.startTracking(SCALE, 1.5F);
+        this.dataTracker.startTracking(PREV_SCALE, 1.5F);
         this.dataTracker.startTracking(COLOR, "on");
     }
 
