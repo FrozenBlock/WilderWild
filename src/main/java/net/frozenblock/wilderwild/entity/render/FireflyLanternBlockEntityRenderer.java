@@ -54,7 +54,7 @@ public class FireflyLanternBlockEntityRenderer<T extends FireflyLanternBlockEnti
                 double ageDelta = age + tickDelta;
 
                 matrices.push();
-                matrices.translate(entity.pos.x, 0.225 + 0.155 + (entity.prevY + (tickDelta * (entity.y - entity.prevY))), entity.pos.z);
+                matrices.translate(entity.pos.x, 0.225 + (entity.prevY + (tickDelta * (entity.y - entity.prevY))), entity.pos.z);
                 matrices.multiply(cam);
                 matrices.multiply(one80Quat);
 
