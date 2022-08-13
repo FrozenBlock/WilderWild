@@ -81,6 +81,7 @@ public class WilderWildClient implements ClientModInitializer {
         BlockRenderLayerMap.INSTANCE.putBlock(RegisterBlocks.PURPLE_GLORY_OF_THE_SNOW, RenderLayer.getCutout());
         //BlockRenderLayerMap.INSTANCE.putBlock(RegisterBlocks.CYPRESS_ROOTS, RenderLayer.getCutout());
         BlockRenderLayerMap.INSTANCE.putBlock(RegisterBlocks.TERMITE_MOUND, RenderLayer.getSolid());
+        BlockRenderLayerMap.INSTANCE.putBlock(RegisterBlocks.FIREFLY_LANTERN, RenderLayer.getCutout());
 
         ClientSpriteRegistryCallback.event(PlayerScreenHandler.BLOCK_ATLAS_TEXTURE).register((((atlasTexture, registry) -> {
             registry.register(WilderWild.id("particle/floating_sculk_bubble_0"));
