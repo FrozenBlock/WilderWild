@@ -146,14 +146,22 @@ public class SculkSpreadManagerCursorMixin { //TODO: make sculk stairs/slabs/wal
         }
     }
 
-    private static boolean canSpreadNew(WorldAccess world, BlockPos sourcePos, BlockPos targetPos) {
+    @Inject(method = "canSpread(Lnet/minecraft/world/WorldAccess;Lnet/minecraft/util/math/BlockPos;Lnet/minecraft/util/math/BlockPos;)Z", at = @At("HEAD"), cancellable = true)
+    private static void canSpread(WorldAccess world, BlockPos sourcePos, BlockPos targetPos, CallbackInfoReturnable<Boolean> cir) {
+        if (!(sourcePos.getManhattanDistance(targetPos) == 1)) {
+            BlockState cheatState = world.getBlockState(targetPos);
+            if (cheatState.isIn(WilderBlockTags.SCULK_STAIR_REPLACEABLE_WORLDGEN) || cheatState.isIn(WilderBlockTags.SCULK_WALL_REPLACEABLE_WORLDGEN) || cheatState.isIn(WilderBlockTags.SCULK_SLAB_REPLACEABLE_WORLDGEN)) {
+                cir.setReturnValue(true);
+                cir.cancel();
+            }
+        }
+    }
+
+    @Shadow
+    private static boolean canSpread(WorldAccess world, BlockPos sourcePos, BlockPos targetPos) {
         if (sourcePos.getManhattanDistance(targetPos) == 1) {
             return true;
         } else {
-            BlockState cheatState = world.getBlockState(targetPos);
-            if (cheatState.isIn(WilderBlockTags.SCULK_STAIR_REPLACEABLE_WORLDGEN) || cheatState.isIn(WilderBlockTags.SCULK_WALL_REPLACEABLE_WORLDGEN) || cheatState.isIn(WilderBlockTags.SCULK_SLAB_REPLACEABLE_WORLDGEN)) {
-                return true;
-            }
             BlockPos blockPos = targetPos.subtract(sourcePos);
             Direction direction = Direction.from(Direction.Axis.X, blockPos.getX() < 0 ? Direction.AxisDirection.NEGATIVE : Direction.AxisDirection.POSITIVE);
             Direction direction2 = Direction.from(Direction.Axis.Y, blockPos.getY() < 0 ? Direction.AxisDirection.NEGATIVE : Direction.AxisDirection.POSITIVE);
@@ -186,7 +194,7 @@ public class SculkSpreadManagerCursorMixin { //TODO: make sculk stairs/slabs/wal
             mutable2.set(pos, vec3i);
             BlockState blockState = world.getBlockState(mutable2);
             boolean isInTags = blockState.isIn(WilderBlockTags.SCULK_SLAB_REPLACEABLE_WORLDGEN) || blockState.isIn(WilderBlockTags.SCULK_WALL_REPLACEABLE_WORLDGEN) || blockState.isIn(WilderBlockTags.SCULK_STAIR_REPLACEABLE_WORLDGEN);
-            if ((blockState.getBlock() instanceof SculkSpreadable || isInTags) && canSpreadNew(world, pos, mutable2)) {
+            if ((blockState.getBlock() instanceof SculkSpreadable || isInTags) && canSpread(world, pos, mutable2)) {
                 mutable.set(mutable2);
                 if (SculkVeinBlock.veinCoversSculkReplaceable(world, blockState, mutable2)) {
                     break;
