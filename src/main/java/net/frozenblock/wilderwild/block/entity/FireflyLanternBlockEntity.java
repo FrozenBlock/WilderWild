@@ -87,7 +87,7 @@ public class FireflyLanternBlockEntity extends BlockEntity {
     }
 
     public void addFirefly(FireflyBottle bottle, String name) {
-        Vec3d newVec = new Vec3d(0.5 + (0.2 - Math.random() * 0.4), 0.3125, 0.5 + (0.2 - Math.random() * 0.4));
+        Vec3d newVec = new Vec3d(0.5 + (0.2 - Math.random() * 0.4), 0, 0.5 + (0.2 - Math.random() * 0.4));
         this.fireflies.add(new FireflyInLantern(newVec, bottle.color, name, Math.random() > 0.7, (int) (Math.random() * 20)));
     }
 
@@ -101,6 +101,10 @@ public class FireflyLanternBlockEntity extends BlockEntity {
         public String customName;
         public boolean flickers;
         public int age;
+
+        //CLIENT ONLY
+        public double y;
+        public double prevY;
 
         public static final Codec<FireflyInLantern> CODEC = RecordCodecBuilder.create((instance) -> instance.group(
                 Vec3d.CODEC.fieldOf("pos").forGetter(FireflyInLantern::getPos),
