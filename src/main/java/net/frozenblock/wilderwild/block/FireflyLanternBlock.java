@@ -203,14 +203,14 @@ public class FireflyLanternBlock extends BlockWithEntity implements Waterloggabl
         if (blockEntity instanceof FireflyLanternBlockEntity lanternEntity) {
             boolean silk = EnchantmentHelper.getLevel(Enchantments.SILK_TOUCH, stack) != 0 && !lanternEntity.getFireflies().isEmpty();
             if (!silk) {
-                if (world instanceof ServerWorld server) {
+                if (!world.isClient) {
                     double extraHeight = state.get(Properties.HANGING) ? 0.155 : 0;
                     for (FireflyLanternBlockEntity.FireflyInLantern firefly : lanternEntity.getFireflies()) {
-                        Firefly entity = RegisterEntities.FIREFLY.create(server);
+                        Firefly entity = RegisterEntities.FIREFLY.create(world);
                         if (entity != null) {
                             entity.refreshPositionAndAngles(pos.getX() + firefly.pos.x, pos.getY() + firefly.y + extraHeight + 0.11, pos.getZ() + firefly.pos.z, 0, 0);
                             entity.setFromBottle(true);
-                            boolean spawned = server.spawnEntity(entity);
+                            boolean spawned = world.spawnEntity(entity);
                             if (spawned) {
                                 entity.hasHome = true;
                                 FireflyBrain.rememberHome(entity, entity.getBlockPos());
