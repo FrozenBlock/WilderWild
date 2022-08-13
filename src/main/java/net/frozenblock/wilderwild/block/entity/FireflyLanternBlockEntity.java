@@ -117,9 +117,9 @@ public class FireflyLanternBlockEntity extends BlockEntity {
             double x = this.pos.x;
             double y = this.pos.y;
             double z = this.pos.z;
-            x = MathHelper.clamp(x + ((Math.random() * (world.random.nextBoolean() ? 1 : -1)) * 0.5), -0.3, 0.3);
-            y = MathHelper.clamp(y + ((Math.random() * (world.random.nextBoolean() ? 1 : -1)) * 0.5), -0.3, 0.3);
-            z = MathHelper.clamp(z + ((Math.random() * (world.random.nextBoolean() ? 1 : -1)) * 0.5), -0.3, 0.3);
+            x = MathHelper.clamp(x + ((Math.random() * (world.random.nextBoolean() ? 1 : -1)) * 0.05), -0.3, 0.3);
+            y = MathHelper.clamp(y + ((Math.random() * (world.random.nextBoolean() ? 1 : -1)) * 0.05), -0.3, 0.3);
+            z = MathHelper.clamp(z + ((Math.random() * (world.random.nextBoolean() ? 1 : -1)) * 0.05), -0.3, 0.3);
             this.pos = new Vec3d(x, y, z);
             ++this.age;
         }
