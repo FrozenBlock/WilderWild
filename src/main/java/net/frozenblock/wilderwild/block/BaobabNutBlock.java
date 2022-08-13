@@ -18,6 +18,7 @@ import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.math.random.Random;
 import net.minecraft.util.shape.VoxelShape;
+import net.minecraft.util.shape.VoxelShapes;
 import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldAccess;
@@ -32,7 +33,7 @@ public class BaobabNutBlock extends SaplingBlock {
 
     public BaobabNutBlock(AbstractBlock.Settings settings) {
         super(new BaobabSaplingGenerator(), settings);
-        this.setDefaultState((BlockState)((BlockState)((BlockState)((BlockState)((BlockState)this.stateManager.getDefaultState()).with(STAGE, 0)).with(AGE, 0)).with(HANGING, false)));
+        this.setDefaultState(this.stateManager.getDefaultState().with(STAGE, 0).with(AGE, 0).with(HANGING, false));
     }
 
     protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
@@ -47,7 +48,7 @@ public class BaobabNutBlock extends SaplingBlock {
     public BlockState getPlacementState(ItemPlacementContext ctx) {
         FluidState fluidState = ctx.getWorld().getFluidState(ctx.getBlockPos());
         boolean bl = fluidState.getFluid() == Fluids.WATER;
-        return (BlockState)((BlockState)super.getPlacementState(ctx).with(AGE, 2));
+        return super.getPlacementState(ctx).with(AGE, 2);
     }
 
     public VoxelShape getOutlineShape(BlockState state, BlockView world, BlockPos pos, ShapeContext context) {
@@ -116,7 +117,12 @@ public class BaobabNutBlock extends SaplingBlock {
 
     static {
         AGE = Properties.AGE_2;
-        SHAPES = new VoxelShape[]{Block.createCuboidShape(7.0, 13.0, 7.0, 9.0, 16.0, 9.0), Block.createCuboidShape(7.0, 10.0, 7.0, 9.0, 16.0, 9.0), Block.createCuboidShape(7.0, 7.0, 7.0, 9.0, 16.0, 9.0), Block.createCuboidShape(7.0, 3.0, 7.0, 9.0, 16.0, 9.0), Block.createCuboidShape(7.0, 0.0, 7.0, 9.0, 16.0, 9.0)};
+        SHAPES = new VoxelShape[]{
+                VoxelShapes.union(Block.createCuboidShape(7.0, 13.0, 7.0, 9.0, 16.0, 9.0),Block.createCuboidShape(5.0, 6.0, 5.0, 11.0, 13.0, 11.0)),
+                VoxelShapes.union(Block.createCuboidShape(7.0, 12.0, 7.0, 9.0, 16.0, 9.0),Block.createCuboidShape(4.0, 3.0, 4.0, 12.0, 12.0, 12.0)),
+                VoxelShapes.union(Block.createCuboidShape(7.0, 10.0, 7.0, 9.0, 16.0, 9.0),Block.createCuboidShape(4.0, 0.0, 4.0, 12.0, 10.0, 12.0)),
+                Block.createCuboidShape(7.0, 3.0, 7.0, 9.0, 16.0, 9.0), Block.createCuboidShape(2.0D, 0.0D, 2.0D, 14.0D, 12.0D, 14.0D)
+        };
         HANGING = Properties.HANGING;
     }
 }
