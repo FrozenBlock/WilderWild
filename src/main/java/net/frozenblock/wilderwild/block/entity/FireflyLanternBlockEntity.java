@@ -12,6 +12,7 @@ import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtElement;
 import net.minecraft.nbt.NbtOps;
+import net.minecraft.network.packet.s2c.play.BlockEntityUpdateS2CPacket;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
@@ -34,6 +35,16 @@ public class FireflyLanternBlockEntity extends BlockEntity {
         for (FireflyInLantern firefly : this.fireflies) {
             firefly.tick(world);
         }
+    }
+
+    @Override
+    public BlockEntityUpdateS2CPacket toUpdatePacket() {
+        return BlockEntityUpdateS2CPacket.create(this);
+    }
+
+    @Override
+    public NbtCompound toInitialChunkDataNbt() {
+        return this.createNbt();
     }
 
     public void readNbt(NbtCompound nbt) {
@@ -110,6 +121,7 @@ public class FireflyLanternBlockEntity extends BlockEntity {
             y = MathHelper.clamp(y + ((Math.random() * (world.random.nextBoolean() ? 1 : -1)) * 0.5), -0.3, 0.3);
             z = MathHelper.clamp(z + ((Math.random() * (world.random.nextBoolean() ? 1 : -1)) * 0.5), -0.3, 0.3);
             this.pos = new Vec3d(x, y, z);
+            ++this.age;
         }
 
         public Vec3d getPos() {
