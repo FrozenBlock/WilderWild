@@ -366,7 +366,7 @@ public class Firefly extends PathAwareEntity implements Flutterer {
                 this.discard();
             }
         } else if (this.getScale() < 1.5F) {
-            this.setScale(Math.max(this.getScale() + 0.0125F, 1.5F));
+            this.setScale(Math.min(this.getScale() + 0.0125F, 1.5F));
         }
     }
 
