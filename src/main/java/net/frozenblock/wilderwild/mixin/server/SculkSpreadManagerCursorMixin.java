@@ -75,7 +75,7 @@ public class SculkSpreadManagerCursorMixin { //TODO: make sculk stairs/slabs/wal
                 if (this.charge <= 0) {
                     sculkSpreadable.spreadAtSamePosition(world, blockState, this.pos, random);
                 } else {
-                    BlockPos blockPos = getSpreadPosNew(world, this.pos, random);
+                    BlockPos blockPos = getSpreadPos(world, this.pos, random);
                     if (blockPos != null) {
                         sculkSpreadable.spreadAtSamePosition(world, blockState, this.pos, random);
                         this.pos = blockPos.toImmutable();
@@ -184,6 +184,46 @@ public class SculkSpreadManagerCursorMixin { //TODO: make sculk stairs/slabs/wal
     @Shadow
     private static List<Vec3i> shuffleOffsets(Random random) {
         return Util.copyShuffled(OFFSETS, random);
+    }
+
+    @Inject(method = "getSpreadPos", at = @At("HEAD"), cancellable = true)
+    private static void getSpreadPos(WorldAccess world, BlockPos pos, Random random, CallbackInfoReturnable<BlockPos> cir) {
+        BlockPos.Mutable mutable = pos.mutableCopy();
+        BlockPos.Mutable mutable2 = pos.mutableCopy();
+
+        for(Vec3i vec3i : shuffleOffsets(random)) {
+            mutable2.set(pos, vec3i);
+            BlockState blockState = world.getBlockState(mutable2);
+            boolean isInTags = blockState.isIn(WilderBlockTags.SCULK_SLAB_REPLACEABLE_WORLDGEN) || blockState.isIn(WilderBlockTags.SCULK_WALL_REPLACEABLE_WORLDGEN) || blockState.isIn(WilderBlockTags.SCULK_STAIR_REPLACEABLE_WORLDGEN);
+            if (isInTags && canSpread(world, pos, mutable2)) {
+                mutable.set(mutable2);
+                if (SculkVeinBlock.veinCoversSculkReplaceable(world, blockState, mutable2)) {
+                    break;
+                }
+                cir.setReturnValue(mutable.equals(pos) ? null : mutable);
+                cir.cancel();
+            }
+        }
+    }
+
+    @Shadow
+    @Nullable
+    private static BlockPos getSpreadPos(WorldAccess world, BlockPos pos, Random random) {
+        BlockPos.Mutable mutable = pos.mutableCopy();
+        BlockPos.Mutable mutable2 = pos.mutableCopy();
+
+        for(Vec3i vec3i : shuffleOffsets(random)) {
+            mutable2.set(pos, vec3i);
+            BlockState blockState = world.getBlockState(mutable2);
+            if (blockState.getBlock() instanceof SculkSpreadable && canSpread(world, pos, mutable2)) {
+                mutable.set(mutable2);
+                if (SculkVeinBlock.veinCoversSculkReplaceable(world, blockState, mutable2)) {
+                    break;
+                }
+            }
+        }
+
+        return mutable.equals(pos) ? null : mutable;
     }
 
     private static BlockPos getSpreadPosNew(WorldAccess world, BlockPos pos, Random random) {
