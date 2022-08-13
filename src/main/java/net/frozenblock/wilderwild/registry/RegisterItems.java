@@ -8,6 +8,7 @@ import net.frozenblock.wilderwild.item.CopperHorn;
 import net.frozenblock.wilderwild.item.FireflyBottle;
 import net.frozenblock.wilderwild.item.MilkweedPod;
 import net.frozenblock.wilderwild.misc.WilderBoats;
+import net.minecraft.block.Blocks;
 import net.minecraft.item.*;
 import net.minecraft.util.Rarity;
 import net.minecraft.util.registry.Registry;
@@ -30,6 +31,8 @@ public class RegisterItems {
     public static final Item CYPRESS_CHEST_BOAT_ITEM = new BoatItem(true, WilderBoats.CYPRESS, new FabricItemSettings().maxCount(1).group(ItemGroup.TRANSPORTATION));
     public static final Item CYPRESS_SIGN = new SignItem(new FabricItemSettings().group(ItemGroup.DECORATIONS).maxCount(16),
             RegisterBlocks.CYPRESS_SIGN_BLOCK, RegisterBlocks.CYPRESS_WALL_SIGN);
+
+    public static final Item BAOBAB_NUT = new BlockItem(RegisterBlocks.BAOBAB_NUT_SAPLING, (new Item.Settings()).group(ItemGroup.FOOD).food(FoodComponents.SWEET_BERRIES));
 
     public static final Item FIREFLY_BOTTLE = new FireflyBottle(new FabricItemSettings().group(ItemGroup.MISC).maxCount(32), "on");
 
@@ -77,6 +80,9 @@ public class RegisterItems {
         Registry.register(Registry.INSTRUMENT, SAX_COPPER_HORN, new Instrument(RegisterSounds.ITEM_COPPER_HORN_SAX_LOOP, 32767, 64.0F));
         Registry.register(Registry.INSTRUMENT, TUBA_COPPER_HORN, new Instrument(RegisterSounds.ITEM_COPPER_HORN_TUBA_LOOP, 32767, 64.0F));
         Registry.register(Registry.INSTRUMENT, FLUTE_COPPER_HORN, new Instrument(RegisterSounds.ITEM_COPPER_HORN_FLUTE_LOOP, 32767, 64.0F));
+
+        Registry.register(Registry.ITEM, WilderWild.id("baobab_nut"), BAOBAB_NUT);
+
         Registry.register(Registry.ITEM, WilderWild.id("firefly_bottle"), FIREFLY_BOTTLE);
 
         Registry.register(Registry.ITEM, WilderWild.id("magenta_firefly_bottle"), MAGENTA_FIREFLY_BOTTLE);
@@ -99,7 +105,7 @@ public class RegisterItems {
         Registry.register(Registry.ITEM, WilderWild.id("pollen"), POLLEN);
 
         TradeOfferHelper.registerWanderingTraderOffers(2, factories -> {
-            factories.add(new TradeOffers.SellItemFactory(RegisterBlocks.BAOBAB_SAPLING.asItem(), 5, 1, 8, 1));
+            factories.add(new TradeOffers.SellItemFactory(RegisterItems.BAOBAB_NUT.asItem(), 5, 1, 8, 1));
             factories.add(new TradeOffers.SellItemFactory(RegisterBlocks.CYPRESS_SAPLING.asItem(), 5, 1, 8, 1));
         });
     }

@@ -86,8 +86,8 @@ public class RegisterBlocks {
     public static final Block BAOBAB_FENCE_GATE = new FenceGateBlock(FabricBlockSettings.of(Material.WOOD, BAOBAB_PLANKS.getDefaultMapColor()).strength(2.0F, 3.0F).sounds(BlockSoundGroup.WOOD));
     public static final Block CYPRESS_FENCE_GATE = new FenceGateBlock(FabricBlockSettings.of(Material.WOOD, CYPRESS_PLANKS.getDefaultMapColor()).strength(2.0F, 3.0F).sounds(BlockSoundGroup.WOOD));
 
-    public static final Block BAOBAB_SAPLING = new BaobabNutBlock(AbstractBlock.Settings.of(Material.PLANT).noCollision().ticksRandomly().breakInstantly().sounds(BlockSoundGroup.GRASS).offsetType(AbstractBlock.OffsetType.XZ));
-    public static final Block POTTED_BAOBAB_SAPLING = new FlowerPotBlock(RegisterBlocks.BAOBAB_SAPLING, FabricBlockSettings.of(Material.DECORATION).breakInstantly().nonOpaque());
+    public static final Block BAOBAB_NUT_SAPLING = new BaobabNutSaplingBlock(AbstractBlock.Settings.of(Material.PLANT).noCollision().ticksRandomly().breakInstantly().sounds(BlockSoundGroup.GRASS).offsetType(AbstractBlock.OffsetType.XZ));
+    public static final Block POTTED_BAOBAB_SAPLING = new FlowerPotBlock(RegisterBlocks.BAOBAB_NUT_SAPLING, FabricBlockSettings.of(Material.DECORATION).breakInstantly().nonOpaque());
     public static final Block CYPRESS_SAPLING = new WaterloggableSaplingBlock(new CypressSaplingGenerator(), FabricBlockSettings.copyOf(Blocks.BIRCH_SAPLING));
     public static final Block POTTED_CYPRESS_SAPLING = new FlowerPotBlock(RegisterBlocks.CYPRESS_SAPLING, FabricBlockSettings.of(Material.DECORATION).breakInstantly().nonOpaque());
 
@@ -148,7 +148,7 @@ public class RegisterBlocks {
         registerBlock(baobab + "_fence_gate", BAOBAB_FENCE_GATE, ItemGroup.REDSTONE);
         registerBlock(cypress + "_fence_gate", CYPRESS_FENCE_GATE, ItemGroup.REDSTONE);
 
-        registerBlock(baobab + "_sapling", BAOBAB_SAPLING, ItemGroup.DECORATIONS);
+        registerBlockWithoutBlockItem(baobab + "_nut_" + "sapling", BAOBAB_NUT_SAPLING);
         registerBlockWithoutBlockItem("potted_" + baobab + "_sapling", POTTED_BAOBAB_SAPLING);
         registerBlock(cypress + "_sapling", CYPRESS_SAPLING, ItemGroup.DECORATIONS);
         registerBlockWithoutBlockItem("potted_" + cypress + "_sapling", POTTED_CYPRESS_SAPLING);
@@ -390,7 +390,7 @@ public class RegisterBlocks {
         CompostingChanceRegistry.INSTANCE.add(RED_SHELF_FUNGUS, 0.65F);
         CompostingChanceRegistry.INSTANCE.add(CYPRESS_LEAVES, 0.3F);
         CompostingChanceRegistry.INSTANCE.add(BAOBAB_LEAVES, 0.3F);
-        CompostingChanceRegistry.INSTANCE.add(BAOBAB_SAPLING, 0.3F);
+        CompostingChanceRegistry.INSTANCE.add(RegisterItems.BAOBAB_NUT, 0.3F);
         CompostingChanceRegistry.INSTANCE.add(CYPRESS_SAPLING, 0.3F);
         CompostingChanceRegistry.INSTANCE.add(GLORY_OF_THE_SNOW, 0.65F);
         CompostingChanceRegistry.INSTANCE.add(BLUE_GLORY_OF_THE_SNOW, 0.65F);

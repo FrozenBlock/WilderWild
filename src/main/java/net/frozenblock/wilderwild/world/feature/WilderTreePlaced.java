@@ -45,8 +45,8 @@ public class WilderTreePlaced {
     public static final RegistryEntry<PlacedFeature> FALLEN_SPRUCE_CHECKED = PlacedFeatures.register("fallen_spruce_checked", WilderTreeConfigured.FALLEN_SPRUCE_TREE, PlacedFeatures.wouldSurvive(Blocks.SPRUCE_SAPLING));
 
     //BAOBAB
-    public static final RegistryEntry<PlacedFeature> BAOBAB = PlacedFeatures.register("baobab", WilderTreeConfigured.BAOBAB, PlacedFeatures.wouldSurvive(RegisterBlocks.BAOBAB_SAPLING));
-    public static final RegistryEntry<PlacedFeature> BAOBAB_TALL = PlacedFeatures.register("baobab_tall", WilderTreeConfigured.BAOBAB_TALL, PlacedFeatures.wouldSurvive(RegisterBlocks.BAOBAB_SAPLING));
+    public static final RegistryEntry<PlacedFeature> BAOBAB = PlacedFeatures.register("baobab", WilderTreeConfigured.BAOBAB, PlacedFeatures.wouldSurvive(RegisterBlocks.BAOBAB_NUT_SAPLING));
+    public static final RegistryEntry<PlacedFeature> BAOBAB_TALL = PlacedFeatures.register("baobab_tall", WilderTreeConfigured.BAOBAB_TALL, PlacedFeatures.wouldSurvive(RegisterBlocks.BAOBAB_NUT_SAPLING));
 
     //CYPRESS
     public static final RegistryEntry<PlacedFeature> CYPRESS = PlacedFeatures.register("cypress", WilderTreeConfigured.CYPRESS, PlacedFeatures.wouldSurvive(RegisterBlocks.CYPRESS_SAPLING));
