@@ -2,16 +2,16 @@ package net.frozenblock.wilderwild.mixin.client;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.minecraft.client.model.ModelPart;
-import net.minecraft.client.render.entity.model.PigEntityModel;
-import net.minecraft.client.render.entity.model.QuadrupedEntityModel;
-import net.minecraft.entity.Entity;
-import net.minecraft.util.Formatting;
+import net.minecraft.ChatFormatting;
+import net.minecraft.client.model.PigModel;
+import net.minecraft.client.model.QuadrupedModel;
+import net.minecraft.client.model.geom.ModelPart;
+import net.minecraft.world.entity.Entity;
 import org.spongepowered.asm.mixin.Mixin;
 
 @Environment(EnvType.CLIENT)
-@Mixin(PigEntityModel.class)
-public abstract class UppyBallooModel<T extends Entity> extends QuadrupedEntityModel<T> {
+@Mixin(PigModel.class)
+public abstract class UppyBallooModel<T extends Entity> extends QuadrupedModel<T> {
 
     private static final float radians = ((float) Math.PI / 180);
     private static final float non_uppy_balloo_angle = 90 * radians;
@@ -21,23 +21,23 @@ public abstract class UppyBallooModel<T extends Entity> extends QuadrupedEntityM
     }
 
     @Override
-    public void setAngles(Entity entity, float limbAngle, float limbDistance, float h, float i, float j) {
-        this.head.pitch = j * 0.017453292F;
-        this.head.yaw = i * 0.017453292F;
+    public void setupAnim(Entity entity, float limbAngle, float limbDistance, float h, float i, float j) {
+        this.head.xRot = j * 0.017453292F;
+        this.head.yRot = i * 0.017453292F;
         float fastLimbAngle = limbAngle * 0.6662F;
         float fastLimbDistance = 1.4F * limbDistance;
         float firstAngle = (float) Math.cos(fastLimbAngle) * fastLimbDistance;
         float secondAngle = (float) Math.cos(fastLimbAngle + 3.1415927F) * fastLimbDistance;
-        this.rightHindLeg.pitch = firstAngle;
-        this.leftHindLeg.pitch = secondAngle;
-        this.rightFrontLeg.pitch = secondAngle;
-        this.leftFrontLeg.pitch = firstAngle;
-        String string = Formatting.strip(entity.getName().getString());
+        this.rightHindLeg.xRot = firstAngle;
+        this.leftHindLeg.xRot = secondAngle;
+        this.rightFrontLeg.xRot = secondAngle;
+        this.leftFrontLeg.xRot = firstAngle;
+        String string = ChatFormatting.stripFormatting(entity.getName().getString());
         assert string != null;
         if (string.equalsIgnoreCase("a view from the top")) {
-            this.body.pitch = 0;
+            this.body.xRot = 0;
         } else {
-            this.body.pitch = non_uppy_balloo_angle;
+            this.body.xRot = non_uppy_balloo_angle;
         }
     }
 

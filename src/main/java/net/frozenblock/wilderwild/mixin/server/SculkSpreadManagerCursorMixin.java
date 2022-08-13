@@ -3,17 +3,17 @@ package net.frozenblock.wilderwild.mixin.server;
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import net.frozenblock.wilderwild.misc.WilderSculkSpreader;
 import net.frozenblock.wilderwild.tag.WilderBlockTags;
-import net.minecraft.block.*;
-import net.minecraft.block.entity.SculkSpreadManager;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.sound.SoundCategory;
-import net.minecraft.sound.SoundEvents;
-import net.minecraft.util.Util;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
-import net.minecraft.util.math.Vec3i;
-import net.minecraft.util.math.random.Random;
-import net.minecraft.world.WorldAccess;
+import net.minecraft.Util;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.core.Vec3i;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.util.RandomSource;
+import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.block.*;
+import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
@@ -27,15 +27,15 @@ import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Stream;
 
-@Mixin(SculkSpreadManager.Cursor.class)
+@Mixin(SculkSpreader.ChargeCursor.class)
 public class SculkSpreadManagerCursorMixin {
 
     @Final
     @Shadow
-    private static final ObjectArrayList<Vec3i> OFFSETS = Util.make(new ObjectArrayList<>(18), (objectArrayList) -> {
-        Stream<BlockPos> var10000 = BlockPos.stream(new BlockPos(-1, -1, -1), new BlockPos(1, 1, 1)).filter((pos) -> {
-            return (pos.getX() == 0 || pos.getY() == 0 || pos.getZ() == 0) && !pos.equals(BlockPos.ORIGIN);
-        }).map(BlockPos::toImmutable);
+    private static final ObjectArrayList<Vec3i> NON_CORNER_NEIGHBOURS = Util.make(new ObjectArrayList<>(18), (objectArrayList) -> {
+        Stream<BlockPos> var10000 = BlockPos.betweenClosedStream(new BlockPos(-1, -1, -1), new BlockPos(1, 1, 1)).filter((pos) -> {
+            return (pos.getX() == 0 || pos.getY() == 0 || pos.getZ() == 0) && !pos.equals(BlockPos.ZERO);
+        }).map(BlockPos::immutable);
         Objects.requireNonNull(objectArrayList);
         var10000.forEach(objectArrayList::add);
     });
@@ -44,42 +44,42 @@ public class SculkSpreadManagerCursorMixin {
     @Shadow
     int charge;
     @Shadow
-    private int update;
+    private int updateDelay;
     @Shadow
-    private int decay;
+    private int decayDelay;
     @Nullable
     @Shadow
-    private Set<Direction> faces;
+    private Set<Direction> facings;
 
-    @Inject(method = "spread", at = @At("HEAD"), cancellable = true)
-    public void spread(WorldAccess world, BlockPos pos, Random random, SculkSpreadManager spreadManager, boolean shouldConvertToBlock, CallbackInfo info) {
-        if (spreadManager.isWorldGen()) {
+    @Inject(method = "update", at = @At("HEAD"), cancellable = true)
+    public void spread(LevelAccessor world, BlockPos pos, RandomSource random, SculkSpreader spreadManager, boolean shouldConvertToBlock, CallbackInfo info) {
+        if (spreadManager.isWorldGeneration()) {
             info.cancel();
-            SculkSpreadManager.Cursor cursor = SculkSpreadManager.Cursor.class.cast(this);
-            if (this.canSpread(world, pos, spreadManager.isWorldGen())) {
-                if (this.update > 0) {
-                    --this.update;
+            SculkSpreader.ChargeCursor cursor = SculkSpreader.ChargeCursor.class.cast(this);
+            if (this.shouldUpdate(world, pos, spreadManager.isWorldGeneration())) {
+                if (this.updateDelay > 0) {
+                    --this.updateDelay;
                 } else {
                     BlockState blockState = world.getBlockState(this.pos);
-                    SculkSpreadable sculkSpreadable = getSpreadableNew(blockState, spreadManager.isWorldGen());
-                    if (shouldConvertToBlock && sculkSpreadable.spread(world, this.pos, blockState, this.faces, spreadManager.isWorldGen())) { //Place Veins
-                        if (sculkSpreadable.shouldConvertToSpreadable()) {
+                    SculkBehaviour sculkSpreadable = getSpreadableNew(blockState, spreadManager.isWorldGeneration());
+                    if (shouldConvertToBlock && sculkSpreadable.attemptSpreadVein(world, this.pos, blockState, this.facings, spreadManager.isWorldGeneration())) { //Place Veins
+                        if (sculkSpreadable.canChangeBlockStateOnSpread()) {
                             blockState = world.getBlockState(this.pos);
-                            sculkSpreadable = getSpreadableNew(blockState, spreadManager.isWorldGen());
+                            sculkSpreadable = getSpreadableNew(blockState, spreadManager.isWorldGeneration());
                         }
 
-                        world.playSound(null, this.pos, SoundEvents.BLOCK_SCULK_SPREAD, SoundCategory.BLOCKS, 1.0F, 1.0F);
+                        world.playSound(null, this.pos, SoundEvents.SCULK_BLOCK_SPREAD, SoundSource.BLOCKS, 1.0F, 1.0F);
                     }
 
-                    this.charge = sculkSpreadable.spread(cursor, world, pos, random, spreadManager, shouldConvertToBlock);
+                    this.charge = sculkSpreadable.attemptUseCharge(cursor, world, pos, random, spreadManager, shouldConvertToBlock);
                     if (this.charge <= 0) {
-                        sculkSpreadable.spreadAtSamePosition(world, blockState, this.pos, random);
+                        sculkSpreadable.onDischarged(world, blockState, this.pos, random);
                     } else {
                         BlockPos blockPos = getSpreadPosNew(world, this.pos, random);
                         if (blockPos != null) {
-                            sculkSpreadable.spreadAtSamePosition(world, blockState, this.pos, random);
-                            this.pos = blockPos.toImmutable();
-                            if (spreadManager.isWorldGen() && !this.pos.isWithinDistance(new Vec3i(pos.getX(), this.pos.getY(), pos.getZ()), 15.0D)) {
+                            sculkSpreadable.onDischarged(world, blockState, this.pos, random);
+                            this.pos = blockPos.immutable();
+                            if (spreadManager.isWorldGeneration() && !this.pos.closerThan(new Vec3i(pos.getX(), this.pos.getY(), pos.getZ()), 15.0D)) {
                                 this.charge = 0;
                                 return;
                             }
@@ -87,100 +87,100 @@ public class SculkSpreadManagerCursorMixin {
                             blockState = world.getBlockState(blockPos);
                         }
 
-                        if (blockState.getBlock() instanceof SculkSpreadable) {
-                            this.faces = MultifaceGrowthBlock.collectDirections(blockState);
+                        if (blockState.getBlock() instanceof SculkBehaviour) {
+                            this.facings = MultifaceBlock.availableFaces(blockState);
                         }
 
-                        this.decay = sculkSpreadable.getDecay(this.decay);
-                        this.update = sculkSpreadable.getUpdate();
+                        this.decayDelay = sculkSpreadable.updateDecayDelay(this.decayDelay);
+                        this.updateDelay = sculkSpreadable.getSculkSpreadDelay();
                     }
                 }
             }
         }
     }
 
-    private static SculkSpreadable getSpreadableNew(BlockState state, boolean isWorldGen) {
+    private static SculkBehaviour getSpreadableNew(BlockState state, boolean isWorldGen) {
         Block var2 = state.getBlock();
-        SculkSpreadable var10000;
-        if (var2 instanceof SculkSpreadable) {
-            var10000 = (SculkSpreadable) var2;
-        } else if (isWorldGen && (state.isIn(WilderBlockTags.SCULK_WALL_REPLACEABLE_WORLDGEN) || state.isIn(WilderBlockTags.SCULK_SLAB_REPLACEABLE_WORLDGEN) || state.isIn(WilderBlockTags.SCULK_STAIR_REPLACEABLE_WORLDGEN))) {
+        SculkBehaviour var10000;
+        if (var2 instanceof SculkBehaviour) {
+            var10000 = (SculkBehaviour) var2;
+        } else if (isWorldGen && (state.is(WilderBlockTags.SCULK_WALL_REPLACEABLE_WORLDGEN) || state.is(WilderBlockTags.SCULK_SLAB_REPLACEABLE_WORLDGEN) || state.is(WilderBlockTags.SCULK_STAIR_REPLACEABLE_WORLDGEN))) {
             var10000 = new WilderSculkSpreader();
         } else {
-            var10000 = SculkSpreadable.VEIN_ONLY_SPREADER;
+            var10000 = SculkBehaviour.DEFAULT;
         }
 
         return var10000;
     }
 
     @Shadow
-    private boolean canSpread(WorldAccess world, BlockPos pos, boolean worldGen) {
+    private boolean shouldUpdate(LevelAccessor world, BlockPos pos, boolean worldGen) {
         if (this.charge <= 0) {
             return false;
         } else if (worldGen) {
             return true;
-        } else if (world instanceof ServerWorld serverWorld) {
-            return serverWorld.shouldTickBlockPos(pos);
+        } else if (world instanceof ServerLevel serverWorld) {
+            return serverWorld.shouldTickBlocksAt(pos);
         } else {
             return false;
         }
     }
 
-    private static boolean canSpreadNew(WorldAccess world, BlockPos sourcePos, BlockPos targetPos) {
-        if (sourcePos.getManhattanDistance(targetPos) == 1) {
+    private static boolean canSpreadNew(LevelAccessor world, BlockPos sourcePos, BlockPos targetPos) {
+        if (sourcePos.distManhattan(targetPos) == 1) {
             return true;
         } else {
             BlockState cheatState = world.getBlockState(targetPos);
-            if (cheatState.isIn(WilderBlockTags.SCULK_STAIR_REPLACEABLE_WORLDGEN) || cheatState.isIn(WilderBlockTags.SCULK_WALL_REPLACEABLE_WORLDGEN) || cheatState.isIn(WilderBlockTags.SCULK_SLAB_REPLACEABLE_WORLDGEN)) {
+            if (cheatState.is(WilderBlockTags.SCULK_STAIR_REPLACEABLE_WORLDGEN) || cheatState.is(WilderBlockTags.SCULK_WALL_REPLACEABLE_WORLDGEN) || cheatState.is(WilderBlockTags.SCULK_SLAB_REPLACEABLE_WORLDGEN)) {
                 return true;
             }
             BlockPos blockPos = targetPos.subtract(sourcePos);
-            Direction direction = Direction.from(Direction.Axis.X, blockPos.getX() < 0 ? Direction.AxisDirection.NEGATIVE : Direction.AxisDirection.POSITIVE);
-            Direction direction2 = Direction.from(Direction.Axis.Y, blockPos.getY() < 0 ? Direction.AxisDirection.NEGATIVE : Direction.AxisDirection.POSITIVE);
-            Direction direction3 = Direction.from(Direction.Axis.Z, blockPos.getZ() < 0 ? Direction.AxisDirection.NEGATIVE : Direction.AxisDirection.POSITIVE);
+            Direction direction = Direction.fromAxisAndDirection(Direction.Axis.X, blockPos.getX() < 0 ? Direction.AxisDirection.NEGATIVE : Direction.AxisDirection.POSITIVE);
+            Direction direction2 = Direction.fromAxisAndDirection(Direction.Axis.Y, blockPos.getY() < 0 ? Direction.AxisDirection.NEGATIVE : Direction.AxisDirection.POSITIVE);
+            Direction direction3 = Direction.fromAxisAndDirection(Direction.Axis.Z, blockPos.getZ() < 0 ? Direction.AxisDirection.NEGATIVE : Direction.AxisDirection.POSITIVE);
             if (blockPos.getX() == 0) {
-                return canSpread(world, sourcePos, direction2) || canSpread(world, sourcePos, direction3);
+                return shouldUpdate(world, sourcePos, direction2) || shouldUpdate(world, sourcePos, direction3);
             } else if (blockPos.getY() == 0) {
-                return canSpread(world, sourcePos, direction) || canSpread(world, sourcePos, direction3);
+                return shouldUpdate(world, sourcePos, direction) || shouldUpdate(world, sourcePos, direction3);
             } else {
-                return canSpread(world, sourcePos, direction) || canSpread(world, sourcePos, direction2);
+                return shouldUpdate(world, sourcePos, direction) || shouldUpdate(world, sourcePos, direction2);
             }
         }
     }
 
-    private static boolean canSpread(WorldAccess world, BlockPos pos, Direction direction) {
-        BlockPos blockPos = pos.offset(direction);
-        return !world.getBlockState(blockPos).isSideSolidFullSquare(world, blockPos, direction.getOpposite());
+    private static boolean shouldUpdate(LevelAccessor world, BlockPos pos, Direction direction) {
+        BlockPos blockPos = pos.relative(direction);
+        return !world.getBlockState(blockPos).isFaceSturdy(world, blockPos, direction.getOpposite());
     }
 
-    private static SculkSpreadable getSpreadable(BlockState state) {
+    private static SculkBehaviour getSpreadable(BlockState state) {
         Block var2 = state.getBlock();
-        SculkSpreadable var10000;
-        if (var2 instanceof SculkSpreadable) {
-            var10000 = (SculkSpreadable) var2;
+        SculkBehaviour var10000;
+        if (var2 instanceof SculkBehaviour) {
+            var10000 = (SculkBehaviour) var2;
         } else {
-            var10000 = SculkSpreadable.VEIN_ONLY_SPREADER;
+            var10000 = SculkBehaviour.DEFAULT;
         }
 
         return var10000;
     }
 
     @Shadow
-    private static List<Vec3i> shuffleOffsets(Random random) {
-        return Util.copyShuffled(OFFSETS, random);
+    private static List<Vec3i> getRandomizedNonCornerNeighbourOffsets(RandomSource random) {
+        return Util.shuffledCopy(NON_CORNER_NEIGHBOURS, random);
     }
 
-    private static BlockPos getSpreadPosNew(WorldAccess world, BlockPos pos, Random random) {
-        BlockPos.Mutable mutable = pos.mutableCopy();
-        BlockPos.Mutable mutable2 = pos.mutableCopy();
+    private static BlockPos getSpreadPosNew(LevelAccessor world, BlockPos pos, RandomSource random) {
+        BlockPos.MutableBlockPos mutable = pos.mutable();
+        BlockPos.MutableBlockPos mutable2 = pos.mutable();
 
-        for (Vec3i vec3i : shuffleOffsets(random)) {
-            mutable2.set(pos, vec3i);
+        for (Vec3i vec3i : getRandomizedNonCornerNeighbourOffsets(random)) {
+            mutable2.setWithOffset(pos, vec3i);
             BlockState blockState = world.getBlockState(mutable2);
-            boolean isInTags = blockState.isIn(WilderBlockTags.SCULK_SLAB_REPLACEABLE_WORLDGEN) || blockState.isIn(WilderBlockTags.SCULK_WALL_REPLACEABLE_WORLDGEN) || blockState.isIn(WilderBlockTags.SCULK_STAIR_REPLACEABLE_WORLDGEN);
-            if ((blockState.getBlock() instanceof SculkSpreadable || isInTags) && canSpreadNew(world, pos, mutable2)) {
+            boolean isInTags = blockState.is(WilderBlockTags.SCULK_SLAB_REPLACEABLE_WORLDGEN) || blockState.is(WilderBlockTags.SCULK_WALL_REPLACEABLE_WORLDGEN) || blockState.is(WilderBlockTags.SCULK_STAIR_REPLACEABLE_WORLDGEN);
+            if ((blockState.getBlock() instanceof SculkBehaviour || isInTags) && canSpreadNew(world, pos, mutable2)) {
                 mutable.set(mutable2);
-                if (SculkVeinBlock.veinCoversSculkReplaceable(world, blockState, mutable2)) {
+                if (SculkVeinBlock.hasSubstrateAccess(world, blockState, mutable2)) {
                     break;
                 }
             }

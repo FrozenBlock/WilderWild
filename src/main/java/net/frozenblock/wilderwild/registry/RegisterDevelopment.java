@@ -3,10 +3,10 @@ package net.frozenblock.wilderwild.registry;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.misc.Camera;
-import net.minecraft.block.Block;
-import net.minecraft.item.BlockItem;
-import net.minecraft.item.ItemGroup;
-import net.minecraft.util.registry.Registry;
+import net.minecraft.core.Registry;
+import net.minecraft.world.item.BlockItem;
+import net.minecraft.world.item.CreativeModeTab;
+import net.minecraft.world.level.block.Block;
 
 public class RegisterDevelopment {
 
@@ -16,13 +16,13 @@ public class RegisterDevelopment {
         Registry.register(Registry.ITEM, WilderWild.id("camera"), CAMERA);
     }
 
-    private static void registerBlock(String name, Block block, ItemGroup group) {
+    private static void registerBlock(String name, Block block, CreativeModeTab group) {
         registerBlockItem(name, block, group);
         Registry.register(Registry.BLOCK, WilderWild.id(name), block);
     }
 
-    private static void registerBlockItem(String name, Block block, ItemGroup group) {
+    private static void registerBlockItem(String name, Block block, CreativeModeTab group) {
         Registry.register(Registry.ITEM, WilderWild.id(name),
-                new BlockItem(block, new FabricItemSettings().group(group)));
+                new BlockItem(block, new FabricItemSettings().tab(group)));
     }
 }

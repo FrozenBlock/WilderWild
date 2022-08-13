@@ -2,7 +2,7 @@ package net.frozenblock.wilderwild.misc.config;
 
 import com.terraformersmc.modmenu.config.option.BooleanConfigOption;
 import com.terraformersmc.modmenu.config.option.OptionConvertable;
-import net.minecraft.client.option.SimpleOption;
+import net.minecraft.client.OptionInstance;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
@@ -20,8 +20,8 @@ public class WilderWildConfig {
     public static final BooleanConfigOption MC_LIVE_SENSOR_TENDRILS = new BooleanConfigOption("mc_live_sensor_tendrils", false);
     //public static final StringSetConfigOption HIDDEN_MODS = new StringSetConfigOption("hidden_mods", new HashSet<>());
 
-    public static SimpleOption<?>[] asOptions() {
-        ArrayList<SimpleOption<?>> options = new ArrayList<>();
+    public static OptionInstance<?>[] asOptions() {
+        ArrayList<OptionInstance<?>> options = new ArrayList<>();
         for (Field field : WilderWildConfig.class.getDeclaredFields()) {
             if (Modifier.isStatic(field.getModifiers()) && Modifier.isFinal(field.getModifiers()) && OptionConvertable.class.isAssignableFrom(field.getType())) {
                 try {
@@ -31,7 +31,7 @@ public class WilderWildConfig {
                 }
             }
         }
-        return options.toArray(SimpleOption[]::new);
+        return options.toArray(OptionInstance[]::new);
     }
 
 }

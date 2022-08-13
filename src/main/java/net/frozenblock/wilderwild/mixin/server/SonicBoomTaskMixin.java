@@ -6,25 +6,25 @@ import net.frozenblock.wilderwild.block.EchoGlassBlock;
 import net.frozenblock.wilderwild.entity.render.animations.WilderWarden;
 import net.frozenblock.wilderwild.registry.RegisterBlocks;
 import net.frozenblock.wilderwild.registry.RegisterSounds;
-import net.minecraft.block.BlockState;
-import net.minecraft.entity.ai.brain.MemoryModuleType;
-import net.minecraft.entity.ai.brain.task.SonicBoomTask;
-import net.minecraft.entity.attribute.EntityAttributes;
-import net.minecraft.entity.damage.DamageSource;
-import net.minecraft.entity.mob.WardenEntity;
-import net.minecraft.particle.ParticleTypes;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.sound.SoundEvents;
-import net.minecraft.util.Formatting;
+import net.minecraft.ChatFormatting;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.util.Mth;
 import net.minecraft.util.Unit;
-import net.minecraft.util.hit.BlockHitResult;
-import net.minecraft.util.hit.HitResult;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
-import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.math.Vec3d;
-import net.minecraft.world.BlockStateRaycastContext;
-import net.minecraft.world.World;
+import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.ai.behavior.warden.SonicBoom;
+import net.minecraft.world.entity.ai.memory.MemoryModuleType;
+import net.minecraft.world.entity.monster.warden.Warden;
+import net.minecraft.world.level.ClipBlockStateContext;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.phys.HitResult;
+import net.minecraft.world.phys.Vec3;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -32,50 +32,50 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-@Mixin(SonicBoomTask.class)
+@Mixin(SonicBoom.class)
 public class SonicBoomTaskMixin {
     @Final
     @Shadow
-    private static int RUN_TIME;
+    private static int DURATION;
 
-    @Inject(at = @At("HEAD"), method = "keepRunning(Lnet/minecraft/server/world/ServerWorld;Lnet/minecraft/entity/mob/WardenEntity;J)V", cancellable = true)
-    public void keepRunning(ServerWorld serverWorld, WardenEntity wardenEntity, long l, CallbackInfo info) {
+    @Inject(at = @At("HEAD"), method = "tick(Lnet/minecraft/server/level/ServerLevel;Lnet/minecraft/world/entity/monster/warden/Warden;J)V", cancellable = true)
+    public void tick(ServerLevel serverWorld, Warden wardenEntity, long l, CallbackInfo info) {
         if (FabricLoader.getInstance().getModContainer("customsculk").isEmpty()) {
-            if (!wardenEntity.getBrain().hasMemoryModule(MemoryModuleType.SONIC_BOOM_SOUND_DELAY) && !wardenEntity.getBrain().hasMemoryModule(MemoryModuleType.SONIC_BOOM_SOUND_COOLDOWN)) {
-                wardenEntity.getBrain().remember(MemoryModuleType.SONIC_BOOM_SOUND_COOLDOWN, Unit.INSTANCE, RUN_TIME - 34);
-                wardenEntity.getBrain().getOptionalMemory(MemoryModuleType.ATTACK_TARGET).filter((target) -> {
-                    return wardenEntity.isInRange(target, 15.0D, 20.0D);
+            if (!wardenEntity.getBrain().hasMemoryValue(MemoryModuleType.SONIC_BOOM_SOUND_DELAY) && !wardenEntity.getBrain().hasMemoryValue(MemoryModuleType.SONIC_BOOM_SOUND_COOLDOWN)) {
+                wardenEntity.getBrain().setMemoryWithExpiry(MemoryModuleType.SONIC_BOOM_SOUND_COOLDOWN, Unit.INSTANCE, DURATION - 34);
+                wardenEntity.getBrain().getMemory(MemoryModuleType.ATTACK_TARGET).filter((target) -> {
+                    return wardenEntity.closerThan(target, 15.0D, 20.0D);
                 }).ifPresent((target) -> {
-                    Vec3d vec3d = wardenEntity.getPos().add(0.0D, 1.600000023841858D, 0.0D);
-                    Vec3d vec3d2 = target.getEyePos().subtract(vec3d);
-                    Vec3d vec3d3 = vec3d2.normalize();
+                    Vec3 vec3d = wardenEntity.position().add(0.0D, 1.600000023841858D, 0.0D);
+                    Vec3 vec3d2 = target.getEyePosition().subtract(vec3d);
+                    Vec3 vec3d3 = vec3d2.normalize();
 
                     boolean blocked = false;
-                    for (int i = 1; i < MathHelper.floor(vec3d2.length()) + 7; ++i) {
-                        Vec3d vec3d4 = vec3d.add(vec3d3.multiply(i));
-                        serverWorld.spawnParticles(ParticleTypes.SONIC_BOOM, vec3d4.x, vec3d4.y, vec3d4.z, 1, 0.0D, 0.0D, 0.0D, 0.0D);
+                    for (int i = 1; i < Mth.floor(vec3d2.length()) + 7; ++i) {
+                        Vec3 vec3d4 = vec3d.add(vec3d3.scale(i));
+                        serverWorld.sendParticles(ParticleTypes.SONIC_BOOM, vec3d4.x, vec3d4.y, vec3d4.z, 1, 0.0D, 0.0D, 0.0D, 0.0D);
                         BlockPos hitPos = isOccluded(serverWorld, vec3d, vec3d4);
                         if (hitPos != null) {
                             BlockState state = serverWorld.getBlockState(hitPos);
-                            if (state.isOf(RegisterBlocks.ECHO_GLASS)) {
-                                i = MathHelper.floor(vec3d2.length()) + 10;
+                            if (state.is(RegisterBlocks.ECHO_GLASS)) {
+                                i = Mth.floor(vec3d2.length()) + 10;
                                 blocked = true;
                                 EchoGlassBlock.damage(serverWorld, hitPos);
                             }
                         }
                     }
 
-                    String string = Formatting.strip(wardenEntity.getName().getString());
+                    String string = ChatFormatting.stripFormatting(wardenEntity.getName().getString());
                     if (((WilderWarden) wardenEntity).isOsmiooo()) {
                         wardenEntity.playSound(RegisterSounds.ENTITY_WARDEN_BRAP, 3.0F, 1.0F);
                     } else {
-                        wardenEntity.playSound(SoundEvents.ENTITY_WARDEN_SONIC_BOOM, 3.0F, 1.0F);
+                        wardenEntity.playSound(SoundEvents.WARDEN_SONIC_BOOM, 3.0F, 1.0F);
                     }
                     if (!blocked) {
-                        target.damage(DamageSource.sonicBoom(wardenEntity), 10.0F);
-                        double d = 0.5D * (1.0D - target.getAttributeValue(EntityAttributes.GENERIC_KNOCKBACK_RESISTANCE));
-                        double e = 2.5D * (1.0D - target.getAttributeValue(EntityAttributes.GENERIC_KNOCKBACK_RESISTANCE));
-                        target.addVelocity(vec3d3.getX() * e, vec3d3.getY() * d, vec3d3.getZ() * e);
+                        target.hurt(DamageSource.sonicBoom(wardenEntity), 10.0F);
+                        double d = 0.5D * (1.0D - target.getAttributeValue(Attributes.KNOCKBACK_RESISTANCE));
+                        double e = 2.5D * (1.0D - target.getAttributeValue(Attributes.KNOCKBACK_RESISTANCE));
+                        target.push(vec3d3.x() * e, vec3d3.y() * d, vec3d3.z() * e);
                     }
                 });
             }
@@ -83,14 +83,14 @@ public class SonicBoomTaskMixin {
         }
     }
 
-    private static BlockPos isOccluded(World world, Vec3d start, Vec3d end) {
-        Vec3d vec3d = new Vec3d((double) MathHelper.floor(start.x) + 0.5D, (double) MathHelper.floor(start.y) + 0.5D, (double) MathHelper.floor(start.z) + 0.5D);
-        Vec3d vec3d2 = new Vec3d((double) MathHelper.floor(end.x) + 0.5D, (double) MathHelper.floor(end.y) + 0.5D, (double) MathHelper.floor(end.z) + 0.5D);
+    private static BlockPos isOccluded(Level world, Vec3 start, Vec3 end) {
+        Vec3 vec3d = new Vec3((double) Mth.floor(start.x) + 0.5D, (double) Mth.floor(start.y) + 0.5D, (double) Mth.floor(start.z) + 0.5D);
+        Vec3 vec3d2 = new Vec3((double) Mth.floor(end.x) + 0.5D, (double) Mth.floor(end.y) + 0.5D, (double) Mth.floor(end.z) + 0.5D);
         BlockPos hitPos = null;
         boolean blocked = true;
         for (Direction direction : Direction.values()) {
-            Vec3d vec3d3 = vec3d.withBias(direction, 9.999999747378752E-6D);
-            BlockHitResult hit = world.raycast(new BlockStateRaycastContext(vec3d3, vec3d2, (state) -> state.isOf(RegisterBlocks.ECHO_GLASS)));
+            Vec3 vec3d3 = vec3d.relative(direction, 9.999999747378752E-6D);
+            BlockHitResult hit = world.isBlockInLine(new ClipBlockStateContext(vec3d3, vec3d2, (state) -> state.is(RegisterBlocks.ECHO_GLASS)));
             if (hit.getType() != HitResult.Type.BLOCK) {
                 blocked = false;
             } else {

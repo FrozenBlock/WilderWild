@@ -1,10 +1,10 @@
 package net.frozenblock.api.simplemethods;
 
-import net.minecraft.block.Block;
-import net.minecraft.tag.TagKey;
-import net.minecraft.util.math.random.Random;
-import net.minecraft.util.registry.Registry;
-import net.minecraft.util.registry.RegistryEntry;
+import net.minecraft.core.Holder;
+import net.minecraft.core.Registry;
+import net.minecraft.tags.TagKey;
+import net.minecraft.util.RandomSource;
+import net.minecraft.world.level.block.Block;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
@@ -27,11 +27,11 @@ public class WilderTags {
     // lol just a port from twm
 
     @Nullable
-    public static Block getRandomBlock(Random random, TagKey<Block> tag) {
+    public static Block getRandomBlock(RandomSource random, TagKey<Block> tag) {
         ArrayList<Block> blocks = new ArrayList<>();
-        for (RegistryEntry<Block> block : Registry.BLOCK.iterateEntries(tag)) {
-            if (block.getKey().isPresent()) {
-                Registry.BLOCK.getOrEmpty(block.getKey().get()).ifPresent(blocks::add);
+        for (Holder<Block> block : Registry.BLOCK.getTagOrEmpty(tag)) {
+            if (block.unwrapKey().isPresent()) {
+                Registry.BLOCK.getOptional(block.unwrapKey().get()).ifPresent(blocks::add);
             }
         }
         if (!blocks.isEmpty()) {

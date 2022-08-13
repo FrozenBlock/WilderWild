@@ -23,20 +23,20 @@ import net.frozenblock.wilderwild.world.gen.WilderWorldGen;
 import net.frozenblock.wilderwild.world.gen.trunk.BaobabTrunkPlacer;
 import net.frozenblock.wilderwild.world.gen.trunk.FallenTrunkWithLogs;
 import net.frozenblock.wilderwild.world.gen.trunk.StraightTrunkWithLogs;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.SpawnGroup;
-import net.minecraft.item.Instrument;
-import net.minecraft.tag.TagKey;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.random.Random;
-import net.minecraft.util.registry.Registry;
-import net.minecraft.world.gen.ProbabilityConfig;
-import net.minecraft.world.gen.feature.Feature;
-import net.minecraft.world.gen.trunk.TrunkPlacer;
-import net.minecraft.world.gen.trunk.TrunkPlacerType;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Registry;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.tags.TagKey;
+import net.minecraft.util.RandomSource;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.MobCategory;
+import net.minecraft.world.item.Instrument;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.levelgen.feature.Feature;
+import net.minecraft.world.level.levelgen.feature.configurations.ProbabilityFeatureConfiguration;
+import net.minecraft.world.level.levelgen.feature.trunkplacers.TrunkPlacer;
+import net.minecraft.world.level.levelgen.feature.trunkplacers.TrunkPlacerType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -60,20 +60,20 @@ public class WilderWild implements ModInitializer {
     public static final TrunkPlacerType<FallenTrunkWithLogs> FALLEN_TRUNK_WITH_LOGS_PLACER_TYPE = registerTrunk("fallen_trunk_logs_placer", FallenTrunkWithLogs.CODEC);
     public static final TrunkPlacerType<BaobabTrunkPlacer> BAOBAB_TRUNK_PLACER = registerTrunk("baobab_trunk_placer", BaobabTrunkPlacer.CODEC);
     public static final Feature<ShelfFungusFeatureConfig> SHELF_FUNGUS_FEATURE = new ShelfFungusFeature(ShelfFungusFeatureConfig.CODEC);
-    public static final CattailFeature CATTAIL_FEATURE = new CattailFeature(ProbabilityConfig.CODEC);
-    public static final AlgaeFeature ALGAE_FEATURE = new AlgaeFeature(ProbabilityConfig.CODEC);
+    public static final CattailFeature CATTAIL_FEATURE = new CattailFeature(ProbabilityFeatureConfiguration.CODEC);
+    public static final AlgaeFeature ALGAE_FEATURE = new AlgaeFeature(ProbabilityFeatureConfiguration.CODEC);
     public static final NoisePathFeature NOISE_PATH_FEATURE = new NoisePathFeature(PathFeatureConfig.CODEC);
     public static final NoisePlantFeature NOISE_PLANT_FEATURE = new NoisePlantFeature(PathFeatureConfig.CODEC);
     public static final NoisePathUnderWaterFeature NOISE_PATH_UNDER_WATER_FEATURE = new NoisePathUnderWaterFeature(PathFeatureConfig.CODEC);
     public static final ColumnWithDiskFeature COLUMN_WITH_DISK_FEATURE = new ColumnWithDiskFeature(ColumnWithDiskFeatureConfig.CODEC);
 
-    public static final TagKey<Instrument> WILD_HORNS = TagKey.of(Registry.INSTRUMENT_KEY, id("wild_horns"));
+    public static final TagKey<Instrument> WILD_HORNS = TagKey.create(Registry.INSTRUMENT_REGISTRY, id("wild_horns"));
 
     //ClassTinkerers
-    public static final SpawnGroup FIREFLIES = ClassTinkerers.getEnum(SpawnGroup.class, "WILDERWILD_FIREFLIES");
+    public static final MobCategory FIREFLIES = ClassTinkerers.getEnum(MobCategory.class, "WILDERWILD_FIREFLIES");
 
-    public static Random random() {
-        return Random.create();
+    public static RandomSource random() {
+        return RandomSource.create();
     }
 
     @Override
@@ -130,7 +130,7 @@ public class WilderWild implements ModInitializer {
     }
 
     //Renaming
-    public static final HashMap<String, Identifier> DataFixMap = new HashMap<>() {{
+    public static final HashMap<String, ResourceLocation> DataFixMap = new HashMap<>() {{
         put(WilderWild.string("blooming_dandelion"), WilderWild.id("seeding_dandelion"));
         put(WilderWild.string("white_dandelion"), WilderWild.id("seeding_dandelion"));
         put(WilderWild.string("potted_blooming_dandelion"), WilderWild.id("potted_seeding_dandelion"));
@@ -147,11 +147,11 @@ public class WilderWild implements ModInitializer {
         Optional<ModContainer> terralithOptional = FabricLoader.getInstance().getModContainer("terralith");
         if (wilderwildOptional.isPresent() && terralithOptional.isPresent()) {
 
-            Firefly.FireflyBiomeColorRegistry.addBiomeColor(new Identifier("terralith", "cave/frostfire_caves"), "blue");
-            Firefly.FireflyBiomeColorRegistry.addBiomeColor(new Identifier("terralith", "cave/frostfire_caves"), "light_blue");
+            Firefly.FireflyBiomeColorRegistry.addBiomeColor(new ResourceLocation("terralith", "cave/frostfire_caves"), "blue");
+            Firefly.FireflyBiomeColorRegistry.addBiomeColor(new ResourceLocation("terralith", "cave/frostfire_caves"), "light_blue");
 
-            Firefly.FireflyBiomeColorRegistry.addBiomeColor(new Identifier("terralith", "cave/thermal_caves"), "red");
-            Firefly.FireflyBiomeColorRegistry.addBiomeColor(new Identifier("terralith", "cave/thermal_caves"), "orange");
+            Firefly.FireflyBiomeColorRegistry.addBiomeColor(new ResourceLocation("terralith", "cave/thermal_caves"), "red");
+            Firefly.FireflyBiomeColorRegistry.addBiomeColor(new ResourceLocation("terralith", "cave/thermal_caves"), "orange");
         }
     }
 
@@ -169,7 +169,7 @@ public class WilderWild implements ModInitializer {
 
     public static boolean isCopperPipe(BlockState state) {
         if (hasSimpleCopperPipes()) {
-            Identifier id = Registry.BLOCK.getId(state.getBlock());
+            ResourceLocation id = Registry.BLOCK.getKey(state.getBlock());
             return id.getNamespace().equals("lunade") && id.getPath().contains("pipe");
         }
         return false;
@@ -199,7 +199,7 @@ public class WilderWild implements ModInitializer {
 
     public static void log(Entity entity, String string, boolean shouldLog) {
         if (shouldLog) {
-            LOGGER.info(entity.toString() + " : " + string + " : " + entity.getPos());
+            LOGGER.info(entity.toString() + " : " + string + " : " + entity.position());
         }
     }
 
@@ -222,7 +222,7 @@ public class WilderWild implements ModInitializer {
     }
 
     private static <P extends TrunkPlacer> TrunkPlacerType<P> registerTrunk(String id, Codec<P> codec) {
-        return Registry.register(Registry.TRUNK_PLACER_TYPE, id(id), new TrunkPlacerType<>(codec));
+        return Registry.register(Registry.TRUNK_PLACER_TYPES, id(id), new TrunkPlacerType<>(codec));
     }
 
     //MEASURING
@@ -244,20 +244,20 @@ public class WilderWild implements ModInitializer {
     }
 
     //IDENTIFIERS
-    public static final Identifier SEED_PACKET = id("seed_particle_packet");
-    public static final Identifier CONTROLLED_SEED_PACKET = id("controlled_seed_particle_packet");
-    public static final Identifier FLOATING_SCULK_BUBBLE_PACKET = id("floating_sculk_bubble_easy_packet");
-    public static final Identifier TERMITE_PARTICLE_PACKET = id("termite_particle_packet");
-    public static final Identifier HORN_PROJECTILE_PACKET_ID = id("ancient_horn_projectile_packet");
-    public static final Identifier SENSOR_HICCUP_PACKET = id("sensor_hiccup_packet");
+    public static final ResourceLocation SEED_PACKET = id("seed_particle_packet");
+    public static final ResourceLocation CONTROLLED_SEED_PACKET = id("controlled_seed_particle_packet");
+    public static final ResourceLocation FLOATING_SCULK_BUBBLE_PACKET = id("floating_sculk_bubble_easy_packet");
+    public static final ResourceLocation TERMITE_PARTICLE_PACKET = id("termite_particle_packet");
+    public static final ResourceLocation HORN_PROJECTILE_PACKET_ID = id("ancient_horn_projectile_packet");
+    public static final ResourceLocation SENSOR_HICCUP_PACKET = id("sensor_hiccup_packet");
 
-    public static final Identifier CAPTURE_FIREFLY_NOTIFY_PACKET = id("capture_firefly_notify_packet");
-    public static final Identifier ANCIENT_HORN_KILL_NOTIFY_PACKET = id("ancient_horn_kill_notify_packet");
-    public static final Identifier FLYBY_SOUND_PACKET = id("flyby_sound_packet");
-    public static final Identifier MOVING_LOOPING_SOUND_PACKET = id("moving_looping_sound_packet");
+    public static final ResourceLocation CAPTURE_FIREFLY_NOTIFY_PACKET = id("capture_firefly_notify_packet");
+    public static final ResourceLocation ANCIENT_HORN_KILL_NOTIFY_PACKET = id("ancient_horn_kill_notify_packet");
+    public static final ResourceLocation FLYBY_SOUND_PACKET = id("flyby_sound_packet");
+    public static final ResourceLocation MOVING_LOOPING_SOUND_PACKET = id("moving_looping_sound_packet");
 
-    public static Identifier id(String path) {
-        return new Identifier(MOD_ID, path);
+    public static ResourceLocation id(String path) {
+        return new ResourceLocation(MOD_ID, path);
     }
 
     public static String string(String path) {

@@ -22,29 +22,29 @@ public class RegisterLootTables {
         });
         //FLOATING MOSS
         LootTableEvents.MODIFY.register((resourceManager, lootManager, id, tableBuilder, source) -> {
-            if (LootTables.SHIPWRECK_SUPPLY_CHEST.equals(id) && source.isBuiltin()) {
-                LootPool.Builder pool = LootPool.builder()
-                        .with(ItemEntry.builder(RegisterBlocks.ALGAE.asItem()).weight(5).quality(Rarity.COMMON.ordinal() + 1)).apply(SetCountLootFunction.builder(UniformLootNumberProvider.create(-1.0F, 1.0F)));
+            if (BuiltInLootTables.SHIPWRECK_SUPPLY.equals(id) && source.isBuiltin()) {
+                LootPool.Builder pool = LootPool.lootPool()
+                        .add(LootItem.lootTableItem(RegisterBlocks.ALGAE.asItem()).setWeight(5).setQuality(Rarity.COMMON.ordinal() + 1)).apply(SetItemCountFunction.setCount(UniformGenerator.between(-1.0F, 1.0F)));
 
-                tableBuilder.pool(pool);
+                tableBuilder.withPool(pool);
             }
         });
         //BAOBAB SAPLING
         LootTableEvents.MODIFY.register((resourceManager, lootManager, id, tableBuilder, source) -> {
-            if (LootTables.VILLAGE_SAVANNA_HOUSE_CHEST.equals(id) && source.isBuiltin()) {
-                LootPool.Builder pool = LootPool.builder()
-                        .with(ItemEntry.builder(RegisterBlocks.BAOBAB_SAPLING.asItem()).weight(2).quality(Rarity.COMMON.ordinal() + 1)).apply(SetCountLootFunction.builder(UniformLootNumberProvider.create(-1.0F, 1.0F)));
+            if (BuiltInLootTables.VILLAGE_SAVANNA_HOUSE.equals(id) && source.isBuiltin()) {
+                LootPool.Builder pool = LootPool.lootPool()
+                        .add(LootItem.lootTableItem(RegisterBlocks.BAOBAB_SAPLING.asItem()).setWeight(2).setQuality(Rarity.COMMON.ordinal() + 1)).apply(SetItemCountFunction.setCount(UniformGenerator.between(-1.0F, 1.0F)));
 
-                tableBuilder.pool(pool);
+                tableBuilder.withPool(pool);
             }
         });
         //BAOBAB LOG
         LootTableEvents.MODIFY.register((resourceManager, lootManager, id, tableBuilder, source) -> {
-            if (LootTables.VILLAGE_SAVANNA_HOUSE_CHEST.equals(id) && source.isBuiltin()) {
-                LootPool.Builder pool = LootPool.builder()
-                        .with(ItemEntry.builder(RegisterBlocks.BAOBAB_LOG.asItem()).weight(2).quality(Rarity.COMMON.ordinal() + 1)).apply(SetCountLootFunction.builder(UniformLootNumberProvider.create(-1.0F, 1.0F)));
+            if (BuiltInLootTables.VILLAGE_SAVANNA_HOUSE.equals(id) && source.isBuiltin()) {
+                LootPool.Builder pool = LootPool.lootPool()
+                        .add(LootItem.lootTableItem(RegisterBlocks.BAOBAB_LOG.asItem()).setWeight(2).setQuality(Rarity.COMMON.ordinal() + 1)).apply(SetItemCountFunction.setCount(UniformGenerator.between(-1.0F, 1.0F)));
 
-                tableBuilder.pool(pool);
+                tableBuilder.withPool(pool);
             }
         });
     }

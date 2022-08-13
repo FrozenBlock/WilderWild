@@ -26,9 +26,10 @@
 package net.frozenblock.wilderwild.mixin.server;
 
 import net.frozenblock.wilderwild.WilderWild;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.registry.DefaultedRegistry;
-import net.minecraft.util.registry.RegistryEntry;
+import net.minecraft.core.DefaultedRegistry;
+import net.minecraft.core.Holder;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.resources.ResourceLocation;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
@@ -44,18 +45,18 @@ public abstract class WilderIDReplacerMixin<T> {
     //GitHub Link: https://github.com/SilverAndro/UpdateFixerUpper
 
     @Shadow
-    public abstract @NotNull T get(@Nullable Identifier id);
+    public abstract @NotNull T get(@Nullable ResourceLocation id);
 
-    private static Identifier capturedId;
+    private static ResourceLocation capturedId;
     private static boolean isInLookup = false;
 
     @Inject(method = "get(Lnet/minecraft/util/Identifier;)Ljava/lang/Object;", at = @At("HEAD"))
-    void setCapturedId(Identifier id, CallbackInfoReturnable<T> info) {
+    void setCapturedId(ResourceLocation id, CallbackInfoReturnable<T> info) {
         capturedId = id;
     }
 
-    @Redirect(method = "get(Lnet/minecraft/util/Identifier;)Ljava/lang/Object;", at = @At(value = "INVOKE", target = "Lnet/minecraft/util/registry/RegistryEntry;value()Ljava/lang/Object;"))
-    T fixMissingFromRegistry(RegistryEntry<T> instance) {
+    @Redirect(method = "get(Lnet/minecraft/resources/ResourceLocation;)Ljava/lang/Object;", at = @At(value = "INVOKE", target = "Lnet/minecraft/resources/ResourceKey;value()Ljava/lang/Object;"))
+    T fixMissingFromRegistry(Holder<T> instance) {
         if (capturedId == null || isInLookup) {
             return instance.value();
         }

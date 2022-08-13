@@ -18,7 +18,7 @@ public class WildDataFixerBuilder extends DataFixerBuilder {
 
     @Contract(value = "_ -> new")
     public @NotNull DataFixer build(@NotNull Supplier<Executor> executorGetter) {
-        return switch (SharedConstants.dataFixerPhase) {
+        return switch (SharedConstants.DATAFIXER_OPTIMIZATION_OPTION) {
             case UNINITIALIZED_UNOPTIMIZED, INITIALIZED_UNOPTIMIZED -> buildUnoptimized();
             case UNINITIALIZED_OPTIMIZED, INITIALIZED_OPTIMIZED -> buildOptimized(executorGetter.get());
         };

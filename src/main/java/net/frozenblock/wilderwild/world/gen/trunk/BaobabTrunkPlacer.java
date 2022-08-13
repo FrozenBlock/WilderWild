@@ -5,37 +5,37 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.frozenblock.api.mathematics.AdvancedMath;
 import net.frozenblock.wilderwild.WilderWild;
-import net.minecraft.block.BlockState;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.random.Random;
-import net.minecraft.world.TestableWorld;
-import net.minecraft.world.gen.feature.TreeFeatureConfig;
-import net.minecraft.world.gen.foliage.FoliagePlacer;
-import net.minecraft.world.gen.trunk.TrunkPlacer;
-import net.minecraft.world.gen.trunk.TrunkPlacerType;
+import net.minecraft.core.BlockPos;
+import net.minecraft.util.RandomSource;
+import net.minecraft.world.level.LevelSimulatedReader;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.levelgen.feature.configurations.TreeConfiguration;
+import net.minecraft.world.level.levelgen.feature.foliageplacers.FoliagePlacer;
+import net.minecraft.world.level.levelgen.feature.trunkplacers.TrunkPlacer;
+import net.minecraft.world.level.levelgen.feature.trunkplacers.TrunkPlacerType;
 
 import java.util.List;
 import java.util.function.BiConsumer;
 
 public class BaobabTrunkPlacer extends TrunkPlacer {
     public static final Codec<net.frozenblock.wilderwild.world.gen.trunk.BaobabTrunkPlacer> CODEC = RecordCodecBuilder.create((instance) ->
-            fillTrunkPlacerFields(instance).apply(instance, BaobabTrunkPlacer::new));
+            trunkPlacerParts(instance).apply(instance, BaobabTrunkPlacer::new));
 
     public BaobabTrunkPlacer(int i, int j, int k) {
         super(i, j, k);
     }
 
-    protected TrunkPlacerType<?> getType() {
+    protected TrunkPlacerType<?> type() {
         return WilderWild.BAOBAB_TRUNK_PLACER;
     }
 
     @Override
-    public List<FoliagePlacer.TreeNode> generate(TestableWorld world, BiConsumer<BlockPos, BlockState> replacer, Random random, int height, BlockPos startPos, TreeFeatureConfig config) {
+    public List<FoliagePlacer.FoliageAttachment> placeTrunk(LevelSimulatedReader world, BiConsumer<BlockPos, BlockState> replacer, RandomSource random, int height, BlockPos startPos, TreeConfiguration config) {
         // TRUNK
-        BlockPos.Mutable mutable = new BlockPos.Mutable();
+        BlockPos.MutableBlockPos mutable = new BlockPos.MutableBlockPos();
         for (int x = -1; x <= 2; x++) {
             for (int z = -1; z <= 2; z++) {
-                setToDirt(world, replacer, random, new BlockPos(startPos.getX() + x, startPos.getY() - 1, startPos.getZ() + z), config);
+                setDirtAt(world, replacer, random, new BlockPos(startPos.getX() + x, startPos.getY() - 1, startPos.getZ() + z), config);
 
                 for (int h = 0; h <= height; h++) {
                     setLog(world, replacer, random, mutable, config, startPos, x, h, z);
@@ -54,8 +54,8 @@ public class BaobabTrunkPlacer extends TrunkPlacer {
                     boolean four = x == 3 && z == 3;
                     if (!(one || two || three || four)) { // no edges
                         if (Math.random() <= percentage / 100) {
-                            setToDirt(world, replacer, random, new BlockPos(startPos.getX() + x - 1, startPos.getY() - 1, startPos.getZ() + z), config);
-                            setToDirt(world, replacer, random, new BlockPos(startPos.getX() + x - 1, startPos.getY() - 1, startPos.getZ() + z), config);
+                            setDirtAt(world, replacer, random, new BlockPos(startPos.getX() + x - 1, startPos.getY() - 1, startPos.getZ() + z), config);
+                            setDirtAt(world, replacer, random, new BlockPos(startPos.getX() + x - 1, startPos.getY() - 1, startPos.getZ() + z), config);
                             for (int h = 0; h <= height / 3; h++) {
                                 if (x == -2) {
                                     setLog(world, replacer, random, mutable, config, startPos, x - 1, h, z);
@@ -94,8 +94,8 @@ public class BaobabTrunkPlacer extends TrunkPlacer {
         return branchBase(branchpercentage, branchmin, branchmax, height, world, replacer, random, mutable, config, startPos);
     }
 
-    private List<FoliagePlacer.TreeNode> branchBase(float branchpercentage, int branchmin, int branchmax, int height, TestableWorld world, BiConsumer<BlockPos, BlockState> replacer, Random random, BlockPos.Mutable mutable, TreeFeatureConfig config, BlockPos startPos) {
-        List<FoliagePlacer.TreeNode> list = Lists.newArrayList();
+    private List<FoliagePlacer.FoliageAttachment> branchBase(float branchpercentage, int branchmin, int branchmax, int height, LevelSimulatedReader world, BiConsumer<BlockPos, BlockState> replacer, RandomSource random, BlockPos.MutableBlockPos mutable, TreeConfiguration config, BlockPos startPos) {
+        List<FoliagePlacer.FoliageAttachment> list = Lists.newArrayList();
         for (int x = -1; x <= 2; x++) {
             for (int z = -1; z <= 2; z++) {
                 if ((x < 0 || x > 1) || (z < 0 || z > 1)) { // only walls
@@ -182,8 +182,8 @@ public class BaobabTrunkPlacer extends TrunkPlacer {
      * any number different than these will make the game crash cause i want it :)
      * length must be > 0 or ill punch your head with xfrtrex's disc
      **/
-    private FoliagePlacer.TreeNode generateBranch(int height, int length, int direction, TestableWorld world, BiConsumer<BlockPos, BlockState> replacer, Random random, BlockPos.Mutable pos, TreeFeatureConfig config, BlockPos startPos, int x, int y, int z) {
-        FoliagePlacer.TreeNode node = null;
+    private FoliagePlacer.FoliageAttachment generateBranch(int height, int length, int direction, LevelSimulatedReader world, BiConsumer<BlockPos, BlockState> replacer, RandomSource random, BlockPos.MutableBlockPos pos, TreeConfiguration config, BlockPos startPos, int x, int y, int z) {
+        FoliagePlacer.FoliageAttachment node = null;
         int fy = startPos.getY() + y + 2;
         switch (direction) {
             case 1 -> {
@@ -193,7 +193,7 @@ public class BaobabTrunkPlacer extends TrunkPlacer {
                 setLog(world, replacer, random, pos, config, startPos, x - length, y + 1, z - length);
                 int fx = startPos.getX() + x - length;
                 int fz = startPos.getZ() + z - length;
-                node = new FoliagePlacer.TreeNode(new BlockPos(fx, fy, fz), 0, true);
+                node = new FoliagePlacer.FoliageAttachment(new BlockPos(fx, fy, fz), 0, true);
             }
             case 2 -> {
                 for (int i = 0; i <= length - 1; i++) {
@@ -202,7 +202,7 @@ public class BaobabTrunkPlacer extends TrunkPlacer {
                 setLog(world, replacer, random, pos, config, startPos, x + length, y + 1, z + length);
                 int fx = startPos.getX() + x + length;
                 int fz = startPos.getZ() + z + length;
-                node = new FoliagePlacer.TreeNode(new BlockPos(fx, fy, fz), 0, true);
+                node = new FoliagePlacer.FoliageAttachment(new BlockPos(fx, fy, fz), 0, true);
             }
             case 3 -> {
                 for (int i = 0; i <= length - 1; i++) {
@@ -211,7 +211,7 @@ public class BaobabTrunkPlacer extends TrunkPlacer {
                 setLog(world, replacer, random, pos, config, startPos, x - length, y + 1, z + length);
                 int fx = startPos.getX() + x - length;
                 int fz = startPos.getZ() + z + length;
-                node = new FoliagePlacer.TreeNode(new BlockPos(fx, fy, fz), 0, true);
+                node = new FoliagePlacer.FoliageAttachment(new BlockPos(fx, fy, fz), 0, true);
             }
             case 4 -> {
                 for (int i = 0; i <= length - 1; i++) {
@@ -220,7 +220,7 @@ public class BaobabTrunkPlacer extends TrunkPlacer {
                 setLog(world, replacer, random, pos, config, startPos, x + length, y + 1, z - length);
                 int fx = startPos.getX() + x + length;
                 int fz = startPos.getZ() + z - length;
-                node = new FoliagePlacer.TreeNode(new BlockPos(fx, fy, fz), 0, true);
+                node = new FoliagePlacer.FoliageAttachment(new BlockPos(fx, fy, fz), 0, true);
             }
             case 5 -> {
                 for (int i = 0; i <= length - 1; i++) {
@@ -229,7 +229,7 @@ public class BaobabTrunkPlacer extends TrunkPlacer {
                 setLog(world, replacer, random, pos, config, startPos, x + length, y + 1, z);
                 int fx = startPos.getX() + x + length;
                 int fz = startPos.getZ() + z;
-                node = new FoliagePlacer.TreeNode(new BlockPos(fx, fy, fz), 0, true);
+                node = new FoliagePlacer.FoliageAttachment(new BlockPos(fx, fy, fz), 0, true);
             }
             case 6 -> {
                 for (int i = 0; i <= length - 1; i++) {
@@ -238,7 +238,7 @@ public class BaobabTrunkPlacer extends TrunkPlacer {
                 setLog(world, replacer, random, pos, config, startPos, x - length, y + 1, z);
                 int fx = startPos.getX() + x - length;
                 int fz = startPos.getZ() + z;
-                node = new FoliagePlacer.TreeNode(new BlockPos(fx, fy, fz), 0, true);
+                node = new FoliagePlacer.FoliageAttachment(new BlockPos(fx, fy, fz), 0, true);
             }
             case 7 -> {
                 for (int i = 0; i <= length - 1; i++) {
@@ -247,7 +247,7 @@ public class BaobabTrunkPlacer extends TrunkPlacer {
                 setLog(world, replacer, random, pos, config, startPos, x, y + 1, z + length);
                 int fx = startPos.getX() + x;
                 int fz = startPos.getZ() + z + length;
-                node = new FoliagePlacer.TreeNode(new BlockPos(fx, fy, fz), 0, true);
+                node = new FoliagePlacer.FoliageAttachment(new BlockPos(fx, fy, fz), 0, true);
             }
             case 8 -> {
                 for (int i = 0; i <= length - 1; i++) {
@@ -256,7 +256,7 @@ public class BaobabTrunkPlacer extends TrunkPlacer {
                 setLog(world, replacer, random, pos, config, startPos, x, y + 1, z - length);
                 int fx = startPos.getX() + x;
                 int fz = startPos.getZ() + z - length;
-                node = new FoliagePlacer.TreeNode(new BlockPos(fx, fy, fz), 0, true);
+                node = new FoliagePlacer.FoliageAttachment(new BlockPos(fx, fy, fz), 0, true);
             }
         }
 
@@ -264,14 +264,14 @@ public class BaobabTrunkPlacer extends TrunkPlacer {
     }
 
 
-    private void setLog(TestableWorld world, BiConsumer<BlockPos, BlockState> replacer, Random random, BlockPos.Mutable pos, TreeFeatureConfig config, BlockPos startPos, int x, int y, int z, boolean condition) {
+    private void setLog(LevelSimulatedReader world, BiConsumer<BlockPos, BlockState> replacer, RandomSource random, BlockPos.MutableBlockPos pos, TreeConfiguration config, BlockPos startPos, int x, int y, int z, boolean condition) {
         if (condition) {
-            pos.set(startPos, x, y, z);
-            trySetState(world, replacer, random, pos, config);
+            pos.setWithOffset(startPos, x, y, z);
+            placeLogIfFree(world, replacer, random, pos, config);
         }
     }
 
-    private void setLog(TestableWorld world, BiConsumer<BlockPos, BlockState> replacer, Random random, BlockPos.Mutable pos, TreeFeatureConfig config, BlockPos startPos, int x, int y, int z) {
+    private void setLog(LevelSimulatedReader world, BiConsumer<BlockPos, BlockState> replacer, RandomSource random, BlockPos.MutableBlockPos pos, TreeConfiguration config, BlockPos startPos, int x, int y, int z) {
         setLog(world, replacer, random, pos, config, startPos, x, y, z, true);
     }
 }
