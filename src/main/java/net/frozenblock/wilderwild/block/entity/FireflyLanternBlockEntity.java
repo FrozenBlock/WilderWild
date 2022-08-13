@@ -4,6 +4,7 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.DataResult;
 import com.mojang.serialization.Dynamic;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import net.fabricmc.fabric.api.networking.v1.PlayerLookup;
 import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.item.FireflyBottle;
 import net.frozenblock.wilderwild.registry.RegisterBlockEntities;
@@ -13,6 +14,8 @@ import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtElement;
 import net.minecraft.nbt.NbtOps;
 import net.minecraft.network.packet.s2c.play.BlockEntityUpdateS2CPacket;
+import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
@@ -32,8 +35,13 @@ public class FireflyLanternBlockEntity extends BlockEntity {
     }
 
     public void serverTick(World world, BlockPos pos, BlockState state) {
-        for (FireflyInLantern firefly : this.fireflies) {
-            firefly.tick(world);
+        if (!this.fireflies.isEmpty()) {
+            for (FireflyInLantern firefly : this.fireflies) {
+                firefly.tick(world);
+            }
+            for (ServerPlayerEntity player : PlayerLookup.tracking((ServerWorld) world, pos)) {
+                player.networkHandler.sendPacket(this.toUpdatePacket());
+            }
         }
     }
 
@@ -117,9 +125,9 @@ public class FireflyLanternBlockEntity extends BlockEntity {
             double x = this.pos.x;
             double y = this.pos.y;
             double z = this.pos.z;
-            x = MathHelper.clamp(x + ((Math.random() * (world.random.nextBoolean() ? 1 : -1)) * 0.05), -0.3, 0.3);
-            y = MathHelper.clamp(y + ((Math.random() * (world.random.nextBoolean() ? 1 : -1)) * 0.05), -0.3, 0.3);
-            z = MathHelper.clamp(z + ((Math.random() * (world.random.nextBoolean() ? 1 : -1)) * 0.05), -0.3, 0.3);
+            x = MathHelper.clamp(x + ((Math.random() * (world.random.nextBoolean() ? 1 : -1)) * 0.01), -0.3, 0.3);
+            y = MathHelper.clamp(y + ((Math.random() * (world.random.nextBoolean() ? 1 : -1)) * 0.01), -0.3, 0.3);
+            z = MathHelper.clamp(z + ((Math.random() * (world.random.nextBoolean() ? 1 : -1)) * 0.01), -0.3, 0.3);
             this.pos = new Vec3d(x, y, z);
             ++this.age;
         }
