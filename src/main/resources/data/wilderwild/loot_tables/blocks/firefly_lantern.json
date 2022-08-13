@@ -5,50 +5,16 @@
       "rolls": 1.0,
       "bonus_rolls": 0.0,
       "entries": [
-            {
-              "type": "minecraft:item",
-              "conditions": [
-                {
-                  "condition": "minecraft:survives_explosion"
-                }
-              ],
-              "name": "wilderwild:firefly_lantern"
-            },
         {
-          "type": "minecraft:alternatives",
-          "children": [
-            {
-              "type": "minecraft:item",
-              "conditions": [
-                {
-                  "condition": "minecraft:match_tool",
-                  "predicate": {
-                    "enchantments": [
-                      {
-                        "enchantment": "minecraft:silk_touch",
-                        "levels": {
-                          "min": 1
-                        }
-                      }
-                    ]
-                  }
-                }
-              ],
-              "name": "wilderwild:firefly_lantern"
-            }
-          ]
+          "type": "minecraft:item",
+          "name": "wilderwild:firefly_lantern"
         }
       ],
-      "functions": [
+      "conditions": [
         {
-          "function": "minecraft:copy_state",
-          "block": "wilderwild:firefly_lantern",
-          "properties": [
-            "fireflies"
-          ]
+          "condition": "minecraft:survives_explosion"
         }
-      ],
-      "name": "wilderwild:firefly_lantern"
+      ]
     }
   ]
 }

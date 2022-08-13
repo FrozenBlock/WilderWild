@@ -11,6 +11,8 @@ import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityTicker;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.block.piston.PistonBehavior;
+import net.minecraft.enchantment.EnchantmentHelper;
+import net.minecraft.enchantment.Enchantments;
 import net.minecraft.entity.ai.pathing.NavigationType;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.fluid.FluidState;
@@ -19,8 +21,15 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
+import net.minecraft.loot.LootTable;
+import net.minecraft.loot.LootTables;
+import net.minecraft.loot.context.LootContext;
+import net.minecraft.loot.context.LootContextParameters;
+import net.minecraft.loot.context.LootContextTypes;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
+import net.minecraft.sound.SoundEvents;
+import net.minecraft.stat.Stats;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.BooleanProperty;
 import net.minecraft.state.property.IntProperty;
@@ -28,6 +37,7 @@ import net.minecraft.state.property.Properties;
 import net.minecraft.text.Text;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
+import net.minecraft.util.Identifier;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
@@ -40,6 +50,8 @@ import net.minecraft.world.WorldAccess;
 import net.minecraft.world.WorldView;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.Collections;
+import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
@@ -181,35 +193,71 @@ public class FireflyLanternBlock extends BlockWithEntity implements Waterloggabl
         return !world.isClient ? checkType(type, RegisterBlockEntities.FIREFLY_LANTERN, (worldx, pos, statex, blockEntity) -> blockEntity.serverTick(worldx, pos, statex)) : null;
     }
 
-    public void onStateReplaced(BlockState state, World world, BlockPos pos, BlockState newState, boolean moved) {
-        if (!state.isOf(newState.getBlock())) {
-            BlockEntity blockEntity = world.getBlockEntity(pos);
-            if (blockEntity instanceof FireflyLanternBlockEntity lanternEntity) {
-                if (world instanceof ServerWorld server) {
-                    double extraHeight = state.get(Properties.HANGING) ? 0.155 : 0;
-                    for (FireflyLanternBlockEntity.FireflyInLantern firefly : lanternEntity.getFireflies()) {
-                        Firefly entity = RegisterEntities.FIREFLY.create(server);
-                        if (entity != null) {
-                            entity.refreshPositionAndAngles(pos.getX() + firefly.pos.x, pos.getY() + firefly.y + extraHeight + 0.11, pos.getZ() + firefly.pos.z, 0, 0);
-                            entity.setFromBottle(true);
-                            boolean spawned = server.spawnEntity(entity);
-                            if (spawned) {
-                                entity.hasHome = true;
-                                FireflyBrain.rememberHome(entity, entity.getBlockPos());
-                                entity.setColor(firefly.color);
-                                entity.setScale(1.0F);
-                                if (!Objects.equals(firefly.customName, "")) {
-                                    entity.setCustomName(Text.of(firefly.customName));
-                                }
-                            } else {
-                                WilderWild.log("Couldn't spawn Firefly from lantern @ " + pos, WilderWild.UNSTABLE_LOGGING);
+    public void afterBreak(World world, PlayerEntity player, BlockPos pos, BlockState state, @Nullable BlockEntity blockEntity, ItemStack stack) {
+        player.addExhaustion(0.005F);
+        if (blockEntity instanceof FireflyLanternBlockEntity lanternEntity) {
+        boolean silk = EnchantmentHelper.getLevel(Enchantments.SILK_TOUCH, stack) != 0 && !lanternEntity.getFireflies().isEmpty();
+        if (!silk) {
+            if (world instanceof ServerWorld server) {
+                double extraHeight = state.get(Properties.HANGING) ? 0.155 : 0;
+                for (FireflyLanternBlockEntity.FireflyInLantern firefly : lanternEntity.getFireflies()) {
+                    Firefly entity = RegisterEntities.FIREFLY.create(server);
+                    if (entity != null) {
+                        entity.refreshPositionAndAngles(pos.getX() + firefly.pos.x, pos.getY() + firefly.y + extraHeight + 0.11, pos.getZ() + firefly.pos.z, 0, 0);
+                        entity.setFromBottle(true);
+                        boolean spawned = server.spawnEntity(entity);
+                        if (spawned) {
+                            entity.hasHome = true;
+                            FireflyBrain.rememberHome(entity, entity.getBlockPos());
+                            entity.setColor(firefly.color);
+                            entity.setScale(1.0F);
+                            if (!Objects.equals(firefly.customName, "")) {
+                                entity.setCustomName(Text.of(firefly.customName));
                             }
+                        } else {
+                            WilderWild.log("Couldn't spawn Firefly from lantern @ " + pos, WilderWild.UNSTABLE_LOGGING);
                         }
                     }
                 }
             }
-
-            super.onStateReplaced(state, world, pos, newState, moved);
+        }
+        player.incrementStat(Stats.MINED.getOrCreateStat(this));
+        dropStacks(state, world, pos, blockEntity, player, stack);
+        world.playSound(
+                null,
+                pos,
+                SoundEvents.BLOCK_LANTERN_BREAK,
+                SoundCategory.BLOCKS,
+                1.0F,
+                world.random.nextFloat() * 0.1F + 0.8F
+            );
         }
     }
+
+    @Deprecated
+    public List<ItemStack> getDroppedStacks(BlockState state, LootContext.Builder builder) {
+        Identifier identifier = this.getLootTableId();
+        if (builder.getNullable(LootContextParameters.TOOL) != null) {
+            ItemStack stack = builder.get(LootContextParameters.TOOL);
+            if (EnchantmentHelper.getLevel(Enchantments.SILK_TOUCH, stack) != 0) {
+                if (builder.getNullable(LootContextParameters.BLOCK_ENTITY) != null) {
+                    BlockEntity blockEntity = builder.get(LootContextParameters.BLOCK_ENTITY);
+                    if (blockEntity instanceof FireflyLanternBlockEntity lanternBlockEntity) {
+                        if (!lanternBlockEntity.getFireflies().isEmpty()) {
+                            identifier = new Identifier("wilderwild", "blocks/" + "firefly_lantern_fireflies");
+                        }
+                    }
+                }
+            }
+        }
+        if (identifier == LootTables.EMPTY) {
+            return Collections.emptyList();
+        } else {
+            LootContext lootContext = builder.parameter(LootContextParameters.BLOCK_STATE, state).build(LootContextTypes.BLOCK);
+            ServerWorld serverWorld = lootContext.getWorld();
+            LootTable lootTable = serverWorld.getServer().getLootManager().getTable(identifier);
+            return lootTable.generateLoot(lootContext);
+        }
+    }
+
 }
