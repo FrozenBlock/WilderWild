@@ -24,8 +24,6 @@ import net.minecraft.util.math.*;
 @Environment(EnvType.CLIENT)
 public class FireflyLanternBlockEntityRenderer<T extends FireflyLanternBlockEntity> implements BlockEntityRenderer<T> {
 
-    //TODO: Make four different Firefly ModelParts, move them up & down with Sin and Cos. I'll (AViewFromTheTop) handle the rest.
-
     private static final float pi = (float) Math.PI;
     private static final Quaternion one80Quat = Vec3f.POSITIVE_Y.getDegreesQuaternion(180.0F);
 
