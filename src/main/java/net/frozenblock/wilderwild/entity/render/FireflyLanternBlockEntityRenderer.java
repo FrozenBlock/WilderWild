@@ -56,7 +56,7 @@ public class FireflyLanternBlockEntityRenderer<T extends FireflyLanternBlockEnti
                 boolean flickers = entity.getFlickers();
 
                 matrices.push();
-                matrices.translate(entity.pos.x, entity.pos.y + (Math.sin(((age + tickDelta)) * 0.015) * 0.15625), entity.pos.z);
+                matrices.translate(entity.pos.x, entity.pos.y + (Math.sin(((age + tickDelta)) * 0.03) * 0.15625), entity.pos.z);
                 matrices.multiply(cam);
                 matrices.multiply(one80Quat);
 
