@@ -129,84 +129,84 @@ public class WilderWild implements ModInitializer {
 
     public static void doDataFixers(DataFixerBuilder builder) {
         // 3121 is one after minecraft's max value
-        Schema schema3121 = builder.addSchema(3121, IdentifierNormalizingSchema::new);
+        Schema schema3109 = builder.addSchema(3109, IdentifierNormalizingSchema::new);
         builder.addFixer(
                 BlockNameFix.create(
-                        schema3121,
+                        schema3109,
                         "Rename blooming_dandelion to seeding_dandelion",
                         id -> Objects.equals(IdentifierNormalizingSchema.normalize(id), string("blooming_dandelion")) ? string("seeding_dandelion") : id
                 )
         );
         builder.addFixer(
                 BlockNameFix.create(
-                        schema3121,
+                        schema3109,
                         "Rename white_dandelion to seeding_dandelion",
                         id -> Objects.equals(IdentifierNormalizingSchema.normalize(id), string("white_dandelion")) ? string("seeding_dandelion") : id
                 )
         );
-        Schema schema3122 = builder.addSchema(3122, IdentifierNormalizingSchema::new);
+        Schema schema3110 = builder.addSchema(3110, IdentifierNormalizingSchema::new);
         builder.addFixer(
                 BlockNameFix.create(
-                        schema3122,
+                        schema3110,
                         "Rename potted_blooming_dandelion to potted_seeding_dandelion",
                         id -> Objects.equals(IdentifierNormalizingSchema.normalize(id), string("potted_blooming_dandelion")) ? string("potted_seeding_dandelion") : id
                 )
         );
         builder.addFixer(
                 BlockNameFix.create(
-                        schema3122,
+                        schema3110,
                         "Rename potted_white_dandelion to potted_seeding_dandelion",
                         id -> Objects.equals(IdentifierNormalizingSchema.normalize(id), string("potted_white_dandelion")) ? string("potted_seeding_dandelion") : id
                 )
         );
-        Schema schema3123 = builder.addSchema(3123, IdentifierNormalizingSchema::new);
+        Schema schema3111 = builder.addSchema(3111, IdentifierNormalizingSchema::new);
         builder.addFixer(
                 BlockNameFix.create(
-                        schema3123,
+                        schema3111,
                         "Rename floating_moss to algae",
                         id -> Objects.equals(IdentifierNormalizingSchema.normalize(id), string("floating_moss")) ? string("algae") : id
                 )
         );
         builder.addFixer(
                 ItemNameFix.create(
-                        schema3123,
+                        schema3111,
                         "Rename floating_moss to algae",
                         id -> Objects.equals(IdentifierNormalizingSchema.normalize(id), string("floating_moss")) ? string("algae") : id
                 )
         );
-        Schema schema3124 = builder.addSchema(3124, IdentifierNormalizingSchema::new);
+        Schema schema3112 = builder.addSchema(3112, IdentifierNormalizingSchema::new);
         builder.addFixer(
                 BlockNameFix.create(
-                        schema3124,
+                        schema3112,
                         "Rename test_1 to null_block",
                         id -> Objects.equals(IdentifierNormalizingSchema.normalize(id), string("test_1")) ? string("null_block") : id
                 )
         );
         builder.addFixer(
                 BlockNameFix.create(
-                        schema3124,
+                        schema3112,
                         "Rename sculk_echoer to null_block",
                         id -> Objects.equals(IdentifierNormalizingSchema.normalize(id), string("sculk_echoer")) ? string("null_block") : id
                 )
         );
         builder.addFixer(
                 BlockNameFix.create(
-                        schema3124,
+                        schema3112,
                         "Rename sculk_jaw to null_block",
                         id -> Objects.equals(IdentifierNormalizingSchema.normalize(id), string("sculk_jaw")) ? string("null_block") : id
                 )
         );
-        Schema schema3125 = builder.addSchema(3125, IdentifierNormalizingSchema::new);
+        Schema schema3113 = builder.addSchema(3113, IdentifierNormalizingSchema::new);
         builder.addFixer(
                 BlockNameFix.create(
-                        schema3125,
+                        schema3113,
                         "Rename baobab_sapling to baobab_nut",
                         id -> Objects.equals(IdentifierNormalizingSchema.normalize(id), string("baobab_sapling")) ? string("baobab_nut") : id
                 )
         );
         builder.addFixer(
                 BlockNameFix.create(
-                        schema3125,
+                        schema3113,
                         "Rename baobab_nut_sapling to baobab_nut",
                         id -> Objects.equals(IdentifierNormalizingSchema.normalize(id), string("baobab_nut_sapling")) ? string("baobab_nut") : id
                 )
