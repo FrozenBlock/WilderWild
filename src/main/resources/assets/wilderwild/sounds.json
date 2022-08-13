@@ -1016,6 +1016,12 @@
 		],
 		"subtitle": "subtitles.item.bottle.release_firefly"
 	},
+	"item.bottle.put_in_lantern_firefly": {
+		"sounds": [
+			"wilderwild:item/bottle/release_firefly1"
+		],
+		"subtitle": "subtitles.item.bottle.put_in_lantern_firefly"
+	},
 	"item.copper_horn.flute.loop": {
 		"sounds": [
 			"wilderwild:item/copper_horn/flute/loop"

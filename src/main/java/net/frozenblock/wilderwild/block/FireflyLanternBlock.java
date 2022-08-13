@@ -89,7 +89,7 @@ public class FireflyLanternBlock extends BlockWithEntity implements Waterloggabl
                     }
                     player.getInventory().offerOrDrop(new ItemStack(Items.GLASS_BOTTLE));
                     world.setBlockState(pos, state.with(FIREFLIES, MathHelper.clamp(lantern.getFireflies().size(), 0, 4)));
-                    world.playSound(null, pos, RegisterSounds.ITEM_BOTTLE_CATCH_FIREFLY, SoundCategory.BLOCKS, 1.0F, 1.0F);
+                    world.playSound(null, pos, RegisterSounds.ITEM_BOTTLE_PUT_IN_LANTERN_FIREFLY, SoundCategory.BLOCKS, 1.0F, 1.0F);
                     return ActionResult.SUCCESS;
                 }
             }
