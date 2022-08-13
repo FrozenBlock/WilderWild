@@ -20,6 +20,6 @@ public class BaobabLeaves extends LeavesBlock implements Fertilizable {
 
 
     public void grow(ServerWorld world, Random random, BlockPos pos, BlockState state) {
-        world.setBlockState(pos.down(), BaobabNutSaplingBlock.getDefaultHangingState(), 2);
+        world.setBlockState(pos.down(), BaobabNutBlock.getDefaultHangingState(), 2);
     }
 }

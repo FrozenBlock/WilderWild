@@ -21,13 +21,13 @@ import net.minecraft.world.World;
 import net.minecraft.world.WorldView;
 import org.jetbrains.annotations.Nullable;
 
-public class BaobabNutSaplingBlock extends SaplingBlock {
+public class BaobabNutBlock extends SaplingBlock {
     public static final IntProperty AGE;
     public static final int MAX_AGE = 2;
     private static final VoxelShape[] SHAPES;
     public static final BooleanProperty HANGING;
 
-    public BaobabNutSaplingBlock(AbstractBlock.Settings settings) {
+    public BaobabNutBlock(AbstractBlock.Settings settings) {
         super(new BaobabSaplingGenerator(), settings);
         this.setDefaultState(this.stateManager.getDefaultState().with(STAGE, 0).with(AGE, 0).with(HANGING, false));
     }
@@ -108,7 +108,7 @@ public class BaobabNutSaplingBlock extends SaplingBlock {
     }
 
     public static BlockState getHangingState(int age) {
-        return RegisterBlocks.BAOBAB_NUT_SAPLING.getDefaultState().with(HANGING, true).with(AGE, age);
+        return RegisterBlocks.BAOBAB_NUT.getDefaultState().with(HANGING, true).with(AGE, age);
     }
 
     static {

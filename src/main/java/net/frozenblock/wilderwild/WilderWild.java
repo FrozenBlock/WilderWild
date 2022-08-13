@@ -127,14 +127,16 @@ public class WilderWild implements ModInitializer {
 
     //Renaming
     public static final HashMap<String, Identifier> DataFixMap = new HashMap<>() {{
-        put(WilderWild.string("blooming_dandelion"), WilderWild.id("seeding_dandelion"));
-        put(WilderWild.string("white_dandelion"), WilderWild.id("seeding_dandelion"));
-        put(WilderWild.string("potted_blooming_dandelion"), WilderWild.id("potted_seeding_dandelion"));
-        put(WilderWild.string("potted_white_dandelion"), WilderWild.id("potted_seeding_dandelion"));
-        put(WilderWild.string("floating_moss"), WilderWild.id("algae"));
-        put(WilderWild.string("test_1"), WilderWild.id("null_block"));
-        put(WilderWild.string("sculk_echoer"), WilderWild.id("null_block"));
-        put(WilderWild.string("sculk_jaw"), WilderWild.id("null_block"));
+        put(string("blooming_dandelion"), id("seeding_dandelion"));
+        put(string("white_dandelion"), id("seeding_dandelion"));
+        put(string("potted_blooming_dandelion"), id("potted_seeding_dandelion"));
+        put(string("potted_white_dandelion"), id("potted_seeding_dandelion"));
+        put(string("floating_moss"), id("algae"));
+        put(string("test_1"), id("null_block"));
+        put(string("sculk_echoer"), id("null_block"));
+        put(string("sculk_jaw"), id("null_block"));
+        put(string("baobab_sapling"), id("baobab_nut"));
+        put(string("baobab_nut_sapling"), id("baobab_nut"));
     }};
 
     //MOD COMPATIBILITY
