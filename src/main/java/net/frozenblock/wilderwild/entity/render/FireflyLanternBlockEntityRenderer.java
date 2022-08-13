@@ -51,9 +51,10 @@ public class FireflyLanternBlockEntityRenderer<T extends FireflyLanternBlockEnti
                 boolean nectar = entity.getCustomName().toLowerCase().contains("nectar");
                 int age = entity.getAge();
                 boolean flickers = entity.getFlickers();
+                double ageDelta = age + tickDelta;
 
                 matrices.push();
-                matrices.translate(entity.pos.x, entity.pos.y + (MathHelper.sin((float) (((age + tickDelta)) * 0.03)) * 0.15625), entity.pos.z);
+                matrices.translate(entity.pos.x, entity.pos.y + (Math.sin(((ageDelta) * 0.03)) * 0.15), entity.pos.z);
                 matrices.multiply(cam);
                 matrices.multiply(one80Quat);
 
@@ -101,7 +102,7 @@ public class FireflyLanternBlockEntityRenderer<T extends FireflyLanternBlockEnti
                     vertexConsumer = vertexConsumers.getBuffer(NECTAR_OVERLAY);
                 }
 
-                int color = flickers ? (int) ((255 * (Math.cos(((age + tickDelta) * pi) * 0.025))) + 127.5) : (int) Math.max((255 * (Math.cos(((age + tickDelta) * pi) * 0.05))), 0);
+                int color = flickers ? (int) ((255 * (Math.cos((ageDelta * pi) * 0.025))) + 127.5) : (int) Math.max((255 * (Math.cos((ageDelta * pi) * 0.05))), 0);
 
                 vertexConsumer
                         .vertex(matrix4f, -0.5F, -0.5F, 0.0F)
