@@ -51,10 +51,7 @@ public class FireflyLanternBlockEntityRenderer<T extends FireflyLanternBlockEnti
 
     public void render(T lantern, float tickDelta, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, int overlay) {
         MinecraftClient client = MinecraftClient.getInstance();
-        Quaternion cam = null;
-        if (client != null) {
-            cam = client.gameRenderer.getCamera().getRotation();
-        }
+        Quaternion cam = MinecraftClient.getInstance().gameRenderer.getCamera().getRotation();
         if (cam != null) {
             for (FireflyLanternBlockEntity.FireflyInLantern entity : lantern.getFireflies()) {
                 boolean nectar = entity.getCustomName().toLowerCase().contains("nectar");
