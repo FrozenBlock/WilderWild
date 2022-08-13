@@ -196,6 +196,7 @@ public class FireflyLanternBlock extends BlockWithEntity implements Waterloggabl
                                 entity.hasHome = true;
                                 FireflyBrain.rememberHome(entity, entity.getBlockPos());
                                 entity.setColor(firefly.color);
+                                entity.setScale(1.0F);
                                 if (!Objects.equals(firefly.customName, "")) {
                                     entity.setCustomName(Text.of(firefly.customName));
                                 }

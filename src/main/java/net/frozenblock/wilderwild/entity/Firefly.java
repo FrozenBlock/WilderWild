@@ -61,6 +61,7 @@ public class Firefly extends PathAwareEntity implements Flutterer {
     private static final TrackedData<Boolean> FLICKERS = DataTracker.registerData(Firefly.class, TrackedDataHandlerRegistry.BOOLEAN);
     private static final TrackedData<Integer> AGE = DataTracker.registerData(Firefly.class, TrackedDataHandlerRegistry.INTEGER);
     private static final TrackedData<Float> SCALE = DataTracker.registerData(Firefly.class, TrackedDataHandlerRegistry.FLOAT);
+    private static final TrackedData<Float> PREV_SCALE = DataTracker.registerData(Firefly.class, TrackedDataHandlerRegistry.FLOAT);
     private static final TrackedData<String> COLOR = DataTracker.registerData(Firefly.class, TrackedDataHandlerRegistry.STRING);
 
 
@@ -103,6 +104,7 @@ public class Firefly extends PathAwareEntity implements Flutterer {
 
         if (spawnReason == SpawnReason.COMMAND) {
             this.setScale(1.5F);
+            this.setPrevScale(1.5F);
             this.setColor("on");
         }
 
@@ -207,6 +209,14 @@ public class Firefly extends PathAwareEntity implements Flutterer {
 
     public void setScale(float value) {
         this.dataTracker.set(SCALE, value);
+    }
+
+    public float getPrevScale() {
+        return this.dataTracker.get(PREV_SCALE);
+    }
+
+    public void setPrevScale(float value) {
+        this.dataTracker.set(PREV_SCALE, value);
     }
 
     public String getColor() {
@@ -332,12 +342,6 @@ public class Firefly extends PathAwareEntity implements Flutterer {
             this.setNoGravity(false);
         }
         this.setFlickerAge(this.getFlickerAge() + 1);
-        if (this.despawning) {
-            this.setScale(this.getScale() - 0.0375F);
-            if (this.getScale() < 0.0F) {
-                this.discard();
-            }
-        }
 
         if (this.hasHome) {
             if (this.homeCheckCooldown > 0) {
@@ -352,7 +356,17 @@ public class Firefly extends PathAwareEntity implements Flutterer {
                 }
             }
         }
-        //WilderWild.log(this, this.getBrain().getOptionalMemory(MemoryModuleType.HOME).toString(), WilderWild.DEV_LOGGING);
+
+        this.setPrevScale(this.getScale());
+
+        if (this.despawning) {
+            this.setScale(this.getScale() - 0.0375F);
+            if (this.getScale() < 0.0F) {
+                this.discard();
+            }
+        } else if (this.getScale() < 1.5F) {
+            this.setScale(Math.max(this.getScale() + 0.0125F, 1.5F));
+        }
     }
 
     public static boolean isValidHomePos(World world, BlockPos pos) {
@@ -434,6 +448,7 @@ public class Firefly extends PathAwareEntity implements Flutterer {
         nbt.putInt("flickerAge", this.getFlickerAge());
         nbt.putBoolean("hasHome", this.hasHome);
         nbt.putFloat("scale", this.getScale());
+        nbt.putFloat("prevScale", this.getPrevScale());
         nbt.putBoolean("despawning", this.despawning);
         nbt.putString("color", this.getColor());
         nbt.putInt("homeCheckCooldown", this.homeCheckCooldown);
@@ -449,6 +464,7 @@ public class Firefly extends PathAwareEntity implements Flutterer {
         this.setFlickerAge(nbt.getInt("flickerAge"));
         this.hasHome = nbt.getBoolean("hasHome");
         this.setScale(nbt.getFloat("scale"));
+        this.setPrevScale(nbt.getFloat("prevScale"));
         this.despawning = nbt.getBoolean("despawning");
         this.setColor(nbt.getString("color"));
         this.homeCheckCooldown = nbt.getInt("homeCheckCooldown");
