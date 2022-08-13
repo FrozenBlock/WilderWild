@@ -249,7 +249,7 @@ public class FireflyLanternBlock extends BlockWithEntity implements Waterloggabl
                     BlockEntity blockEntity = builder.get(LootContextParameters.BLOCK_ENTITY);
                     if (blockEntity instanceof FireflyLanternBlockEntity lanternBlockEntity) {
                         if (!lanternBlockEntity.getFireflies().isEmpty()) {
-                            identifier = new Identifier("wilderwild", "blocks/" + "firefly_lantern_fireflies");
+                            identifier = WilderWild.id("blocks/firefly_lantern_fireflies");
                         }
                     }
                 }
