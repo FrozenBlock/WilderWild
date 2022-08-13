@@ -67,8 +67,8 @@ public class FireflyLanternBlockEntity extends BlockEntity {
         return this.fireflies;
     }
 
-    public void addFirefly(FireflyBottle bottle) {
-        this.fireflies.add(new FireflyInLantern(Vec3d.ZERO, Vec3d.ZERO, bottle.color, Math.random() > 0.7, (int) (Math.random() * 20)));
+    public void addFirefly(FireflyBottle bottle, String name) {
+        this.fireflies.add(new FireflyInLantern(Vec3d.ZERO, Vec3d.ZERO, bottle.color, name, Math.random() > 0.7, (int) (Math.random() * 20)));
     }
 
     public void removeFirefly(FireflyInLantern firefly) {
@@ -79,6 +79,7 @@ public class FireflyLanternBlockEntity extends BlockEntity {
         public Vec3d pos;
         public Vec3d prevPos;
         public String color;
+        public String customName;
         public boolean flickers;
         public int age;
 
@@ -86,14 +87,16 @@ public class FireflyLanternBlockEntity extends BlockEntity {
                 Vec3d.CODEC.fieldOf("pos").forGetter(FireflyInLantern::getPos),
                 Vec3d.CODEC.fieldOf("prevPos").forGetter(FireflyInLantern::getPrevPos),
                 Codec.STRING.fieldOf("color").forGetter(FireflyInLantern::getColor),
+                Codec.STRING.fieldOf("customName").orElse("").forGetter(FireflyInLantern::getCustomName),
                 Codec.BOOL.fieldOf("flickers").orElse(false).forGetter(FireflyInLantern::getFlickers),
                 Codec.INT.fieldOf("age").forGetter(FireflyInLantern::getAge)
         ).apply(instance, FireflyInLantern::new));
 
-        public FireflyInLantern(Vec3d pos, Vec3d prevPos, String color, boolean flickers, int age) {
+        public FireflyInLantern(Vec3d pos, Vec3d prevPos, String color, String customName, boolean flickers, int age) {
             this.pos = pos;
             this.prevPos = prevPos;
             this.color = color;
+            this.customName = customName;
             this.flickers = flickers;
             this.age = age;
         }
@@ -119,6 +122,10 @@ public class FireflyLanternBlockEntity extends BlockEntity {
 
         public String getColor() {
             return this.color;
+        }
+
+        public String getCustomName() {
+            return this.customName;
         }
 
         public boolean getFlickers() {

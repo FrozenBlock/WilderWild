@@ -22,6 +22,7 @@ import net.minecraft.item.Items;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.BooleanProperty;
 import net.minecraft.state.property.Properties;
+import net.minecraft.text.Text;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.hit.BlockHitResult;
@@ -62,7 +63,11 @@ public class FireflyLanternBlock extends BlockWithEntity implements Waterloggabl
                 if (lantern.getFireflies().size() < 4) {
                     ItemStack stack = player.getStackInHand(hand);
                     if (stack.getItem() instanceof FireflyBottle bottle) {
-                        lantern.addFirefly(bottle);
+                        String name = "";
+                        if (stack.hasCustomName()) {
+                            name = stack.getName().getString();
+                        }
+                        lantern.addFirefly(bottle, name);
                         return ActionResult.SUCCESS;
                     } else if (stack.isOf(Items.GLASS_BOTTLE)) {
                         FireflyLanternBlockEntity.FireflyInLantern fireflyInLantern = lantern.getFireflies().get((int) (lantern.getFireflies().size() * Math.random()));
@@ -76,9 +81,9 @@ public class FireflyLanternBlock extends BlockWithEntity implements Waterloggabl
                             player.getStackInHand(hand).decrement(1);
                         }
                         ItemStack bottleStack = new ItemStack(item);
-                    /*if (entity.hasCustomName()) {
-                        bottleStack.setCustomName(entity.getCustomName());
-                    }*/
+                        if (!Objects.equals(fireflyInLantern.customName, "")) {
+                            bottleStack.setCustomName(Text.of(fireflyInLantern.customName));
+                        }
                         player.getInventory().offerOrDrop(bottleStack);
                         ((FireflyLanternBlockEntity) entity).removeFirefly(fireflyInLantern);
                         return ActionResult.SUCCESS;
