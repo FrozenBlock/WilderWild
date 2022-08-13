@@ -154,10 +154,10 @@
 	},
 	"block.baobab_nut.place": {
 		"sounds": [
-			"wilderwild:block/coarse_dirt/break1",
-			"wilderwild:block/coarse_dirt/break2",
-			"wilderwild:block/coarse_dirt/break3",
-			"wilderwild:block/coarse_dirt/break4"
+			"wilderwild:block/baobab_nut/break1",
+			"wilderwild:block/baobab_nut/break2",
+			"wilderwild:block/baobab_nut/break3",
+			"wilderwild:block/baobab_nut/break4"
 		],
 		"subtitle": "subtitles.block.generic.place"
 	},
