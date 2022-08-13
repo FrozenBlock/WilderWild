@@ -1,9 +1,10 @@
 package net.frozenblock.wilderwild.block;
 
+import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.block.entity.FireflyLanternBlockEntity;
-import net.frozenblock.wilderwild.block.entity.HangingTendrilBlockEntity;
 import net.frozenblock.wilderwild.item.FireflyBottle;
 import net.frozenblock.wilderwild.registry.RegisterBlockEntities;
+import net.frozenblock.wilderwild.registry.RegisterItems;
 import net.frozenblock.wilderwild.registry.RegisterSounds;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
@@ -14,9 +15,10 @@ import net.minecraft.entity.ai.pathing.NavigationType;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.fluid.FluidState;
 import net.minecraft.fluid.Fluids;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.item.ItemStack;
-import net.minecraft.sound.SoundCategory;
+import net.minecraft.item.Items;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.BooleanProperty;
 import net.minecraft.state.property.Properties;
@@ -25,6 +27,7 @@ import net.minecraft.util.Hand;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
+import net.minecraft.util.registry.Registry;
 import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.util.shape.VoxelShapes;
 import net.minecraft.world.BlockView;
@@ -32,6 +35,9 @@ import net.minecraft.world.World;
 import net.minecraft.world.WorldAccess;
 import net.minecraft.world.WorldView;
 import org.jetbrains.annotations.Nullable;
+
+import java.util.Objects;
+import java.util.Optional;
 
 public class FireflyLanternBlock extends BlockWithEntity implements Waterloggable {
 
@@ -52,11 +58,31 @@ public class FireflyLanternBlock extends BlockWithEntity implements Waterloggabl
         }
         BlockEntity entity = world.getBlockEntity(pos);
         if (entity instanceof FireflyLanternBlockEntity lantern) {
-            if (lantern.getFireflies().size() < 4) {
-                ItemStack stack = player.getStackInHand(hand);
-                if (stack.getItem() instanceof FireflyBottle bottle) {
-                    lantern.addFirefly(bottle);
-                    return ActionResult.SUCCESS;
+            if (!lantern.getFireflies().isEmpty()) {
+                if (lantern.getFireflies().size() < 4) {
+                    ItemStack stack = player.getStackInHand(hand);
+                    if (stack.getItem() instanceof FireflyBottle bottle) {
+                        lantern.addFirefly(bottle);
+                        return ActionResult.SUCCESS;
+                    } else if (stack.isOf(Items.GLASS_BOTTLE)) {
+                        FireflyLanternBlockEntity.FireflyInLantern fireflyInLantern = lantern.getFireflies().get((int) (lantern.getFireflies().size() * Math.random()));
+                        Optional <Item> optionalItem = Registry.ITEM.getOrEmpty(WilderWild.id(Objects.equals(fireflyInLantern.color, "on") ? "firefly_bottle" : fireflyInLantern.color + "_firefly_bottle"));
+                        Item item = RegisterItems.FIREFLY_BOTTLE;
+                        if (optionalItem.isPresent()) {
+                            item = optionalItem.get();
+                        }
+                        player.playSound(RegisterSounds.ITEM_BOTTLE_CATCH_FIREFLY, 1.0F, 1.0F);
+                        if (!player.isCreative()) {
+                            player.getStackInHand(hand).decrement(1);
+                        }
+                        ItemStack bottleStack = new ItemStack(item);
+                    /*if (entity.hasCustomName()) {
+                        bottleStack.setCustomName(entity.getCustomName());
+                    }*/
+                        player.getInventory().offerOrDrop(bottleStack);
+                        ((FireflyLanternBlockEntity) entity).removeFirefly(fireflyInLantern);
+                        return ActionResult.SUCCESS;
+                    }
                 }
             }
         }

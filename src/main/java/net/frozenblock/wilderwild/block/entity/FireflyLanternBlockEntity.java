@@ -71,6 +71,10 @@ public class FireflyLanternBlockEntity extends BlockEntity {
         this.fireflies.add(new FireflyInLantern(Vec3d.ZERO, Vec3d.ZERO, bottle.color, Math.random() > 0.7, (int) (Math.random() * 20)));
     }
 
+    public void removeFirefly(FireflyInLantern firefly) {
+        this.fireflies.remove(firefly);
+    }
+
     public static class FireflyInLantern {
         public Vec3d pos;
         public Vec3d prevPos;
