@@ -65,7 +65,7 @@ public class FireflyLanternBlockEntityRenderer<T extends FireflyLanternBlockEnti
                 double newX = entity.prevPos.x + tickDelta * (entity.pos.x - entity.prevPos.x);
                 double newY = entity.prevPos.y + tickDelta * (entity.pos.y - entity.prevPos.y);
                 double newZ = entity.prevPos.z + tickDelta * (entity.pos.z - entity.prevPos.z);
-                matrices.translate(0.5 + newX, newY, 0.5 + newZ);
+                matrices.translate(0.5 + newX, 0.5 + newY, 0.5 + newZ);
                 matrices.multiply(cam);
                 matrices.multiply(one80Quat);
 
