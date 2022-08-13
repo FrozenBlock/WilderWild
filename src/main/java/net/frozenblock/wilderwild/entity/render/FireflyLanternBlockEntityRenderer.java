@@ -46,15 +46,15 @@ public class FireflyLanternBlockEntityRenderer<T extends FireflyLanternBlockEnti
     public void render(T lantern, float tickDelta, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, int overlay) {
         Quaternion cam = MinecraftClient.getInstance().gameRenderer.getCamera().getRotation();
         if (cam != null) {
+            double extraHeight = lantern.getCachedState().get(Properties.HANGING) ? 0.225 + 0.155 : 0.225;
             for (FireflyLanternBlockEntity.FireflyInLantern entity : lantern.getFireflies()) {
                 boolean nectar = entity.getCustomName().toLowerCase().contains("nectar");
                 int age = entity.getAge();
                 boolean flickers = entity.getFlickers();
                 double ageDelta = age + tickDelta;
-                double extraHeight = lantern.getCachedState().get(Properties.HANGING) ? 0.155 : 0;
 
                 matrices.push();
-                matrices.translate(entity.pos.x, 0.225 + extraHeight + (entity.prevY + (tickDelta * (entity.y - entity.prevY))), entity.pos.z);
+                matrices.translate(entity.pos.x, extraHeight + entity.prevY + tickDelta * (entity.y - entity.prevY), entity.pos.z);
                 matrices.multiply(cam);
                 matrices.multiply(one80Quat);
 

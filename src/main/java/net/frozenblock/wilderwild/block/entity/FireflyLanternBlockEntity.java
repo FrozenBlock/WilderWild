@@ -126,7 +126,7 @@ public class FireflyLanternBlockEntity extends BlockEntity {
         public void tick() {
             ++this.age;
             this.prevY = this.y;
-            this.y = Math.sin((this.age * 0.03)) * 0.15;
+            this.y = Math.sin(this.age * 0.03) * 0.15;
         }
 
         public Vec3d getPos() {
