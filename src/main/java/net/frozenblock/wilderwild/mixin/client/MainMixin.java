@@ -1,4 +1,4 @@
-package net.frozenblock.wilderwild.mixin.server;
+package net.frozenblock.wilderwild.mixin.client;
 
 import net.frozenblock.wilderwild.misc.WilderConstants;
 import net.minecraft.client.main.Main;
