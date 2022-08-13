@@ -951,17 +951,17 @@
 		"sounds": [
 			{
 				"attenuation_distance": 10,
-				"name": "mob/bee/aggressive1",
+				"name": "wilderwild:mob/firefly/nectar3",
 				"volume": 0.8
 			},
 			{
 				"attenuation_distance": 10,
-				"name": "mob/bee/aggressive2",
+				"name": "wilderwild:mob/firefly/nectar3",
 				"volume": 0.8
 			},
 			{
 				"attenuation_distance": 10,
-				"name": "mob/bee/aggressive3",
+				"name": "wilderwild:mob/firefly/nectar3",
 				"volume": 0.8
 			}
 		],
