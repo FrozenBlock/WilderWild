@@ -20,6 +20,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
+import net.minecraft.sound.SoundCategory;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.BooleanProperty;
 import net.minecraft.state.property.IntProperty;
@@ -71,7 +72,7 @@ public class FireflyLanternBlock extends BlockWithEntity implements Waterloggabl
                     }
                     lantern.addFirefly(bottle, name);
                     world.setBlockState(pos, state.with(FIREFLIES, lantern.getFireflies().size()));
-                    player.playSound(RegisterSounds.ITEM_BOTTLE_CATCH_FIREFLY, 1.0F, 1.0F);
+                    world.playSound(null, pos, RegisterSounds.ITEM_BOTTLE_CATCH_FIREFLY, SoundCategory.BLOCKS, 1.0F, 1.0F);
                     return ActionResult.SUCCESS;
                 } else if (stack.isOf(Items.GLASS_BOTTLE)) {
                     if (!lantern.getFireflies().isEmpty()) {
@@ -81,7 +82,7 @@ public class FireflyLanternBlock extends BlockWithEntity implements Waterloggabl
                         if (optionalItem.isPresent()) {
                             item = optionalItem.get();
                         }
-                        player.playSound(RegisterSounds.ITEM_BOTTLE_CATCH_FIREFLY, 1.0F, 1.0F);
+                        world.playSound(null, pos, RegisterSounds.ITEM_BOTTLE_CATCH_FIREFLY, SoundCategory.BLOCKS, 1.0F, 1.0F);
                         if (!player.isCreative()) {
                             player.getStackInHand(hand).decrement(1);
                         }
