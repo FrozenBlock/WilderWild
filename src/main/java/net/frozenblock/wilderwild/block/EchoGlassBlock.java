@@ -13,12 +13,18 @@ import net.minecraft.enchantment.Enchantments;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.projectile.ProjectileEntity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.loot.LootTable;
+import net.minecraft.loot.LootTables;
+import net.minecraft.loot.context.LootContext;
+import net.minecraft.loot.context.LootContextParameters;
+import net.minecraft.loot.context.LootContextTypes;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.stat.Stats;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.IntProperty;
+import net.minecraft.util.Identifier;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
@@ -27,6 +33,9 @@ import net.minecraft.world.LightType;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldEvents;
 import org.jetbrains.annotations.Nullable;
+
+import java.util.Collections;
+import java.util.List;
 
 public class EchoGlassBlock extends TintedGlassBlock {
     public static final IntProperty DAMAGE = RegisterProperties.DAMAGE;
@@ -109,6 +118,27 @@ public class EchoGlassBlock extends TintedGlassBlock {
                     1.3F,
                     world.random.nextFloat() * 0.1F + 0.8F
             );
+        }
+    }
+
+    @Deprecated
+    public List<ItemStack> getDroppedStacks(BlockState state, LootContext.Builder builder) {
+        Identifier identifier = this.getLootTableId();
+        if (builder.getNullable(LootContextParameters.TOOL) != null) {
+            ItemStack stack = builder.get(LootContextParameters.TOOL);
+            if (EnchantmentHelper.getLevel(Enchantments.SILK_TOUCH, stack) != 0) {
+                if (state.get(DAMAGE) == 0) {
+                    identifier = WilderWild.id("blocks/echo_glass_full");
+                }
+            }
+        }
+        if (identifier == LootTables.EMPTY) {
+            return Collections.emptyList();
+        } else {
+            LootContext lootContext = builder.parameter(LootContextParameters.BLOCK_STATE, state).build(LootContextTypes.BLOCK);
+            ServerWorld serverWorld = lootContext.getWorld();
+            LootTable lootTable = serverWorld.getServer().getLootManager().getTable(identifier);
+            return lootTable.generateLoot(lootContext);
         }
     }
 
