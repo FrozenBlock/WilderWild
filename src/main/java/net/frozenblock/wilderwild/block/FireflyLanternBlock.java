@@ -41,6 +41,7 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.util.shape.VoxelShapes;
@@ -83,8 +84,12 @@ public class FireflyLanternBlock extends BlockWithEntity implements Waterloggabl
                         name = stack.getName().getString();
                     }
                     lantern.addFirefly(bottle, name);
-                    world.setBlockState(pos, state.with(FIREFLIES, lantern.getFireflies().size()));
-                    world.playSound(null, pos, RegisterSounds.ITEM_BOTTLE_CATCH_FIREFLY, SoundCategory.BLOCKS, 1.0F, 1.0F);
+                    if (!player.isCreative()) {
+                        player.getStackInHand(hand).decrement(1);
+                    }
+                    player.getInventory().offerOrDrop(new ItemStack(Items.GLASS_BOTTLE));
+                    world.setBlockState(pos, state.with(FIREFLIES, MathHelper.clamp(lantern.getFireflies().size(), 0, 4)));
+                    world.playSound(null, pos, RegisterSounds.ITEM_BOTTLE_PUT_IN_LANTERN_FIREFLY, SoundCategory.BLOCKS, 1.0F, 1.0F);
                     return ActionResult.SUCCESS;
                 }
             }
@@ -106,7 +111,7 @@ public class FireflyLanternBlock extends BlockWithEntity implements Waterloggabl
                     }
                     player.getInventory().offerOrDrop(bottleStack);
                     ((FireflyLanternBlockEntity) entity).removeFirefly(fireflyInLantern);
-                    world.setBlockState(pos, state.with(FIREFLIES, lantern.getFireflies().size()));
+                    world.setBlockState(pos, state.with(FIREFLIES, MathHelper.clamp(lantern.getFireflies().size(), 0, 4)));
                     return ActionResult.SUCCESS;
                 }
             }
@@ -198,14 +203,14 @@ public class FireflyLanternBlock extends BlockWithEntity implements Waterloggabl
         if (blockEntity instanceof FireflyLanternBlockEntity lanternEntity) {
             boolean silk = EnchantmentHelper.getLevel(Enchantments.SILK_TOUCH, stack) != 0 && !lanternEntity.getFireflies().isEmpty();
             if (!silk) {
-                if (world instanceof ServerWorld server) {
+                if (!world.isClient) {
                     double extraHeight = state.get(Properties.HANGING) ? 0.155 : 0;
                     for (FireflyLanternBlockEntity.FireflyInLantern firefly : lanternEntity.getFireflies()) {
-                        Firefly entity = RegisterEntities.FIREFLY.create(server);
+                        Firefly entity = RegisterEntities.FIREFLY.create(world);
                         if (entity != null) {
                             entity.refreshPositionAndAngles(pos.getX() + firefly.pos.x, pos.getY() + firefly.y + extraHeight + 0.11, pos.getZ() + firefly.pos.z, 0, 0);
                             entity.setFromBottle(true);
-                            boolean spawned = server.spawnEntity(entity);
+                            boolean spawned = world.spawnEntity(entity);
                             if (spawned) {
                                 entity.hasHome = true;
                                 FireflyBrain.rememberHome(entity, entity.getBlockPos());
@@ -224,14 +229,6 @@ public class FireflyLanternBlock extends BlockWithEntity implements Waterloggabl
         }
         player.incrementStat(Stats.MINED.getOrCreateStat(this));
         dropStacks(state, world, pos, blockEntity, player, stack);
-        world.playSound(
-                null,
-                pos,
-                SoundEvents.BLOCK_LANTERN_BREAK,
-                SoundCategory.BLOCKS,
-                1.0F,
-                world.random.nextFloat() * 0.1F + 0.8F
-            );
     }
 
     @Deprecated
@@ -244,7 +241,7 @@ public class FireflyLanternBlock extends BlockWithEntity implements Waterloggabl
                     BlockEntity blockEntity = builder.get(LootContextParameters.BLOCK_ENTITY);
                     if (blockEntity instanceof FireflyLanternBlockEntity lanternBlockEntity) {
                         if (!lanternBlockEntity.getFireflies().isEmpty()) {
-                            identifier = new Identifier("wilderwild", "blocks/" + "firefly_lantern_fireflies");
+                            identifier = WilderWild.id("blocks/firefly_lantern_fireflies");
                         }
                     }
                 }

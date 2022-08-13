@@ -131,6 +131,7 @@
 	"subtitles.item.copper_horn.call": "Copper Horn plays",
 	"subtitles.item.bottle.catch_firefly": "Bottle fills with Firefly",
 	"subtitles.item.bottle.release_firefly": "Firefly released from Bottle",
+	"subtitles.item.bottle.put_in_lantern_firefly": "Firefly placed in Lantern",
 	"wilderwild.ancient_horn.advancement.use": "Whirs of the Ancient",
 	"wilderwild.ancient_horn.advancement.use.description": "Find and use an Ancient Horn.",
 	"wilderwild.null_block.advancement.place": "Hackermode = §aON",
