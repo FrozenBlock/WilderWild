@@ -676,10 +676,10 @@
 	},
 	"block.null_block.place": {
 		"sounds": [
-			"wilderwild:block/null_block/break1",
-			"wilderwild:block/null_block/break2",
-			"wilderwild:block/null_block/break3",
-			"wilderwild:block/null_block/break4"
+			"wilderwild:block/null_block/place1",
+			"wilderwild:block/null_block/place2",
+			"wilderwild:block/null_block/place3",
+			"wilderwild:block/null_block/place4"
 		],
 		"subtitle": "subtitles.block.generic.place"
 	},
