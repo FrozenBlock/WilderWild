@@ -256,7 +256,7 @@ public class WilderWildClient implements ClientModInitializer {
                 if (MinecraftClient.getInstance().world == null)
                     throw new IllegalStateException("why is your world null");
                 for (int i = 0; i < count; i++) {
-                    MinecraftClient.getInstance().world.addParticle(RegisterParticles.TERMITE, pos.x, pos.y, pos.z, AdvancedMath.randomPosNeg() / 7, AdvancedMath.randomPosNeg() / 7, AdvancedMath.randomPosNeg() / 7);
+                    MinecraftClient.getInstance().world.addParticle(RegisterParticles.TERMITE, pos.x, pos.y, pos.z, AdvancedMath.randomPosNeg() / 14, AdvancedMath.randomPosNeg() / 14, AdvancedMath.randomPosNeg() / 14);
                 }
             });
         });
