@@ -135,8 +135,7 @@ public class WilderWild implements ModInitializer {
         put(string("test_1"), id("null_block"));
         put(string("sculk_echoer"), id("null_block"));
         put(string("sculk_jaw"), id("null_block"));
-        put(string("baobab_sapling"), id("baobab_nut"));
-        put(string("baobab_nut_sapling"), id("baobab_nut"));
+        put(string("baobab_nut"), id("baobab_nut"));
     }};
 
     //MOD COMPATIBILITY
