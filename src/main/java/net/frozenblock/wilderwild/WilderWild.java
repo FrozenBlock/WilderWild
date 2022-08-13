@@ -1,6 +1,8 @@
 package net.frozenblock.wilderwild;
 
 import com.chocohead.mm.api.ClassTinkerers;
+import com.mojang.datafixers.DataFixerBuilder;
+import com.mojang.datafixers.schemas.Schema;
 import com.mojang.serialization.Codec;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.loader.api.FabricLoader;
@@ -23,8 +25,12 @@ import net.frozenblock.wilderwild.world.gen.WilderWorldGen;
 import net.frozenblock.wilderwild.world.gen.trunk.BaobabTrunkPlacer;
 import net.frozenblock.wilderwild.world.gen.trunk.FallenTrunkWithLogs;
 import net.frozenblock.wilderwild.world.gen.trunk.StraightTrunkWithLogs;
+import net.minecraft.SharedConstants;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
+import net.minecraft.datafixer.fix.BlockNameFix;
+import net.minecraft.datafixer.fix.ItemNameFix;
+import net.minecraft.datafixer.schema.IdentifierNormalizingSchema;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.SpawnGroup;
 import net.minecraft.item.Instrument;
@@ -42,6 +48,7 @@ import org.slf4j.LoggerFactory;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Optional;
 
 public class WilderWild implements ModInitializer {
@@ -125,9 +132,95 @@ public class WilderWild implements ModInitializer {
         stopMeasuring(this);
     }
 
+    public static void doDataFixers(DataFixerBuilder builder) {
+        // 3121 is one after minecraft's max value
+        Schema schema3121 = builder.addSchema(3121, IdentifierNormalizingSchema::new);
+        builder.addFixer(
+                BlockNameFix.create(
+                        schema3121,
+                        "Rename blooming_dandelion to seeding_dandelion",
+                        id -> Objects.equals(IdentifierNormalizingSchema.normalize(id), string("blooming_dandelion")) ? string("seeding_dandelion") : id
+                )
+        );
+        builder.addFixer(
+                BlockNameFix.create(
+                        schema3121,
+                        "Rename white_dandelion to seeding_dandelion",
+                        id -> Objects.equals(IdentifierNormalizingSchema.normalize(id), string("white_dandelion")) ? string("seeding_dandelion") : id
+                )
+        );
+        Schema schema3122 = builder.addSchema(3122, IdentifierNormalizingSchema::new);
+        builder.addFixer(
+                BlockNameFix.create(
+                        schema3122,
+                        "Rename potted_blooming_dandelion to potted_seeding_dandelion",
+                        id -> Objects.equals(IdentifierNormalizingSchema.normalize(id), string("potted_blooming_dandelion")) ? string("potted_seeding_dandelion") : id
+                )
+        );
+        builder.addFixer(
+                BlockNameFix.create(
+                        schema3122,
+                        "Rename potted_white_dandelion to potted_seeding_dandelion",
+                        id -> Objects.equals(IdentifierNormalizingSchema.normalize(id), string("potted_white_dandelion")) ? string("potted_seeding_dandelion") : id
+                )
+        );
+        Schema schema3123 = builder.addSchema(3123, IdentifierNormalizingSchema::new);
+        builder.addFixer(
+                BlockNameFix.create(
+                        schema3123,
+                        "Rename floating_moss to algae",
+                        id -> Objects.equals(IdentifierNormalizingSchema.normalize(id), string("floating_moss")) ? string("algae") : id
+                )
+        );
+        builder.addFixer(
+                ItemNameFix.create(
+                        schema3123,
+                        "Rename floating_moss to algae",
+                        id -> Objects.equals(IdentifierNormalizingSchema.normalize(id), string("floating_moss")) ? string("algae") : id
+                )
+        );
+        Schema schema3124 = builder.addSchema(3124, IdentifierNormalizingSchema::new);
+        builder.addFixer(
+                BlockNameFix.create(
+                        schema3124,
+                        "Rename test_1 to null_block",
+                        id -> Objects.equals(IdentifierNormalizingSchema.normalize(id), string("test_1")) ? string("null_block") : id
+                )
+        );
+        builder.addFixer(
+                BlockNameFix.create(
+                        schema3124,
+                        "Rename sculk_echoer to null_block",
+                        id -> Objects.equals(IdentifierNormalizingSchema.normalize(id), string("sculk_echoer")) ? string("null_block") : id
+                )
+        );
+        builder.addFixer(
+                BlockNameFix.create(
+                        schema3124,
+                        "Rename sculk_jaw to null_block",
+                        id -> Objects.equals(IdentifierNormalizingSchema.normalize(id), string("sculk_jaw")) ? string("null_block") : id
+                )
+        );
+        Schema schema3125 = builder.addSchema(3125, IdentifierNormalizingSchema::new);
+        builder.addFixer(
+                BlockNameFix.create(
+                        schema3125,
+                        "Rename baobab_sapling to baobab_nut",
+                        id -> Objects.equals(IdentifierNormalizingSchema.normalize(id), string("baobab_sapling")) ? string("baobab_nut") : id
+                )
+        );
+        builder.addFixer(
+                BlockNameFix.create(
+                        schema3125,
+                        "Rename baobab_nut_sapling to baobab_nut",
+                        id -> Objects.equals(IdentifierNormalizingSchema.normalize(id), string("baobab_nut_sapling")) ? string("baobab_nut") : id
+                )
+        );
+    }
+
     //Renaming
     public static final HashMap<String, Identifier> DataFixMap = new HashMap<>() {{
-        put(string("blooming_dandelion"), id("seeding_dandelion"));
+        /*put(string("blooming_dandelion"), id("seeding_dandelion"));
         put(string("white_dandelion"), id("seeding_dandelion"));
         put(string("potted_blooming_dandelion"), id("potted_seeding_dandelion"));
         put(string("potted_white_dandelion"), id("potted_seeding_dandelion"));
@@ -136,7 +229,7 @@ public class WilderWild implements ModInitializer {
         put(string("sculk_echoer"), id("null_block"));
         put(string("sculk_jaw"), id("null_block"));
         put(string("baobab_sapling"), id("baobab_nut"));
-        put(string("baobab_nut_sapling"), id("baobab_nut"));
+        put(string("baobab_nut_sapling"), id("baobab_nut"));*/
     }};
 
     //MOD COMPATIBILITY
