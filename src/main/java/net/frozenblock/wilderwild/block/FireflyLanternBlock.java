@@ -229,14 +229,6 @@ public class FireflyLanternBlock extends BlockWithEntity implements Waterloggabl
         }
         player.incrementStat(Stats.MINED.getOrCreateStat(this));
         dropStacks(state, world, pos, blockEntity, player, stack);
-        world.playSound(
-                null,
-                pos,
-                SoundEvents.BLOCK_LANTERN_BREAK,
-                SoundCategory.BLOCKS,
-                1.0F,
-                world.random.nextFloat() * 0.1F + 0.8F
-            );
     }
 
     @Deprecated
