@@ -2,10 +2,11 @@ package net.frozenblock.wilderwild.block;
 
 import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.block.entity.FireflyLanternBlockEntity;
-import net.frozenblock.wilderwild.entity.Firefly;
-import net.frozenblock.wilderwild.entity.ai.FireflyBrain;
 import net.frozenblock.wilderwild.item.FireflyBottle;
-import net.frozenblock.wilderwild.registry.*;
+import net.frozenblock.wilderwild.registry.RegisterBlockEntities;
+import net.frozenblock.wilderwild.registry.RegisterItems;
+import net.frozenblock.wilderwild.registry.RegisterProperties;
+import net.frozenblock.wilderwild.registry.RegisterSounds;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityTicker;
@@ -172,7 +173,14 @@ public class FireflyLanternBlock extends BlockWithEntity implements Waterloggabl
             world.createAndScheduleFluidTick(pos, Fluids.WATER, Fluids.WATER.getTickRate(world));
         }
 
-        return attachedDirection(state).getOpposite() == direction && !state.canPlaceAt(world, pos) ? Blocks.AIR.getDefaultState() : super.getStateForNeighborUpdate(state, direction, neighborState, world, pos, neighborPos);
+        if (attachedDirection(state).getOpposite() == direction && !state.canPlaceAt(world, pos)) {
+            BlockEntity entity = world.getBlockEntity(pos);
+            if (entity instanceof FireflyLanternBlockEntity lanternEntity) {
+                lanternEntity.spawnFireflies();
+            }
+            return Blocks.AIR.getDefaultState();
+        }
+        return super.getStateForNeighborUpdate(state, direction, neighborState, world, pos, neighborPos);
     }
 
     @Override
@@ -203,26 +211,7 @@ public class FireflyLanternBlock extends BlockWithEntity implements Waterloggabl
             boolean silk = EnchantmentHelper.getLevel(Enchantments.SILK_TOUCH, stack) != 0 && !lanternEntity.getFireflies().isEmpty();
             if (!silk) {
                 if (!world.isClient) {
-                    double extraHeight = state.get(Properties.HANGING) ? 0.155 : 0;
-                    for (FireflyLanternBlockEntity.FireflyInLantern firefly : lanternEntity.getFireflies()) {
-                        Firefly entity = RegisterEntities.FIREFLY.create(world);
-                        if (entity != null) {
-                            entity.refreshPositionAndAngles(pos.getX() + firefly.pos.x, pos.getY() + firefly.y + extraHeight + 0.11, pos.getZ() + firefly.pos.z, 0, 0);
-                            entity.setFromBottle(true);
-                            boolean spawned = world.spawnEntity(entity);
-                            if (spawned) {
-                                entity.hasHome = true;
-                                FireflyBrain.rememberHome(entity, entity.getBlockPos());
-                                entity.setColor(firefly.color);
-                                entity.setScale(1.0F);
-                                if (!Objects.equals(firefly.customName, "")) {
-                                    entity.setCustomName(Text.of(firefly.customName));
-                                }
-                            } else {
-                                WilderWild.log("Couldn't spawn Firefly from lantern @ " + pos, WilderWild.UNSTABLE_LOGGING);
-                            }
-                        }
-                    }
+                    lanternEntity.spawnFireflies(world);
                 }
             }
         }

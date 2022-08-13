@@ -6,8 +6,11 @@ import com.mojang.serialization.Dynamic;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.fabricmc.fabric.api.networking.v1.PlayerLookup;
 import net.frozenblock.wilderwild.WilderWild;
+import net.frozenblock.wilderwild.entity.Firefly;
+import net.frozenblock.wilderwild.entity.ai.FireflyBrain;
 import net.frozenblock.wilderwild.item.FireflyBottle;
 import net.frozenblock.wilderwild.registry.RegisterBlockEntities;
+import net.frozenblock.wilderwild.registry.RegisterEntities;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.nbt.NbtCompound;
@@ -15,7 +18,8 @@ import net.minecraft.nbt.NbtElement;
 import net.minecraft.nbt.NbtOps;
 import net.minecraft.network.packet.s2c.play.BlockEntityUpdateS2CPacket;
 import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.server.world.ServerWorld;
+import net.minecraft.state.property.Properties;
+import net.minecraft.text.Text;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
@@ -92,6 +96,56 @@ public class FireflyLanternBlockEntity extends BlockEntity {
 
     public void removeFirefly(FireflyInLantern firefly) {
         this.fireflies.remove(firefly);
+    }
+
+    public void spawnFireflies() {
+        if (this.world != null) {
+            if (!this.world.isClient) {
+                double extraHeight = this.getCachedState().get(Properties.HANGING) ? 0.155 : 0;
+                for (FireflyLanternBlockEntity.FireflyInLantern firefly : this.getFireflies()) {
+                    Firefly entity = RegisterEntities.FIREFLY.create(world);
+                    if (entity != null) {
+                        entity.refreshPositionAndAngles(pos.getX() + firefly.pos.x, pos.getY() + firefly.y + extraHeight + 0.07, pos.getZ() + firefly.pos.z, 0, 0);
+                        entity.setFromBottle(true);
+                        boolean spawned = world.spawnEntity(entity);
+                        if (spawned) {
+                            entity.hasHome = true;
+                            FireflyBrain.rememberHome(entity, entity.getBlockPos());
+                            entity.setColor(firefly.color);
+                            entity.setScale(1.0F);
+                            if (!Objects.equals(firefly.customName, "")) {
+                                entity.setCustomName(Text.of(firefly.customName));
+                            }
+                        } else {
+                            WilderWild.log("Couldn't spawn Firefly from lantern @ " + pos, WilderWild.UNSTABLE_LOGGING);
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    public void spawnFireflies(World world) {
+        double extraHeight = this.getCachedState().get(Properties.HANGING) ? 0.155 : 0;
+        for (FireflyLanternBlockEntity.FireflyInLantern firefly : this.getFireflies()) {
+            Firefly entity = RegisterEntities.FIREFLY.create(world);
+            if (entity != null) {
+                entity.refreshPositionAndAngles(pos.getX() + firefly.pos.x, pos.getY() + firefly.y + extraHeight + 0.07, pos.getZ() + firefly.pos.z, 0, 0);
+                entity.setFromBottle(true);
+                boolean spawned = world.spawnEntity(entity);
+                if (spawned) {
+                    entity.hasHome = true;
+                    FireflyBrain.rememberHome(entity, entity.getBlockPos());
+                    entity.setColor(firefly.color);
+                    entity.setScale(1.0F);
+                    if (!Objects.equals(firefly.customName, "")) {
+                        entity.setCustomName(Text.of(firefly.customName));
+                    }
+                } else {
+                    WilderWild.log("Couldn't spawn Firefly from lantern @ " + pos, WilderWild.UNSTABLE_LOGGING);
+                }
+            }
+        }
     }
 
     public static class FireflyInLantern {
