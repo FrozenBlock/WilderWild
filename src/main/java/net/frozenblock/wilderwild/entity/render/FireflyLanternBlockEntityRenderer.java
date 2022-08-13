@@ -18,10 +18,7 @@ import net.minecraft.client.render.block.entity.BlockEntityRenderer;
 import net.minecraft.client.render.block.entity.BlockEntityRendererFactory.Context;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.math.Matrix3f;
-import net.minecraft.util.math.Matrix4f;
-import net.minecraft.util.math.Quaternion;
-import net.minecraft.util.math.Vec3f;
+import net.minecraft.util.math.*;
 
 @Environment(EnvType.CLIENT)
 public class FireflyLanternBlockEntityRenderer<T extends FireflyLanternBlockEntity> implements BlockEntityRenderer<T> {
@@ -56,7 +53,7 @@ public class FireflyLanternBlockEntityRenderer<T extends FireflyLanternBlockEnti
                 boolean flickers = entity.getFlickers();
 
                 matrices.push();
-                matrices.translate(entity.pos.x, entity.pos.y + (Math.sin(((age + tickDelta)) * 0.03) * 0.15625), entity.pos.z);
+                matrices.translate(entity.pos.x, entity.pos.y + (MathHelper.sin((float) (((age + tickDelta)) * 0.03)) * 0.15625), entity.pos.z);
                 matrices.multiply(cam);
                 matrices.multiply(one80Quat);
 
