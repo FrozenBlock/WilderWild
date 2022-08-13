@@ -14,6 +14,7 @@
 	"server.ExperienceOrbEntityMixin",
 	"server.GoatEntityMixin",
 	"server.GoatHornItemMixin",
+	"server.SchemasMixin",
 	"server.SculkBlockMixin",
 	"server.SculkSensorBlockEntityMixin",
 	"server.SculkSensorBlockMixin",
@@ -28,7 +29,6 @@
 	"server.SpawnRestrictionMixin",
 	"server.WardenBrainMixin",
 	"server.WardenEntityMixin",
-	"server.WilderIDReplacerMixin",
 	"worldgen.BirchSaplingGeneratorMixin",
 	"worldgen.DefaultBiomeFeaturesMixin",
 	"worldgen.GenerationSettingsBuilderMixin",
@@ -50,7 +50,8 @@
 	"client.WardenEntityModelMixin",
 	"client.WardenFeatureRendererMixin",
 	"client.WorldRendererMixin",
-	"client.XfrtrexSusFrogRenderer"
+	"client.XfrtrexSusFrogRenderer",
+	"server.MainMixin"
   ],
   "injectors": {
 	"defaultRequire": 1

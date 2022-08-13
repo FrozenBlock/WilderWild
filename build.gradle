@@ -73,9 +73,6 @@ dependencies {
 	// Mod Menu
 	modImplementation "com.terraformersmc:modmenu:${modmenu_version}"
 
-	//UFU
-	modImplementation "curse.maven:UFU-409010:3909688"
-
 	// NBT Crafting
 	modImplementation "de.siphalor:nbtcrafting-1.19:2+"
 	include "de.siphalor:nbtcrafting-1.19:2+"
