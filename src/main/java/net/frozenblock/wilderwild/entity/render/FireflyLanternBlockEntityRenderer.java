@@ -30,7 +30,6 @@ public class FireflyLanternBlockEntityRenderer<T extends FireflyLanternBlockEnti
     private static final float merp25 = 25 * (pi / 180);
     private static final double yOffset = 0.155F;
     private static final Quaternion one80Quat = Vec3f.POSITIVE_Y.getDegreesQuaternion(180.0F);
-    private static final float pi = (float) Math.PI;
 
     private static final Identifier TEXTURE = WilderWild.id("textures/entity/firefly/firefly_off.png");
     private static final RenderLayer LAYER = RenderLayer.getEntityCutout(TEXTURE);
@@ -56,7 +55,7 @@ public class FireflyLanternBlockEntityRenderer<T extends FireflyLanternBlockEnti
 
             matrices.push();
             matrices.translate(0, yOffset, 0);
-            matrices.multiply(this.getRenderDistance().getRotation());
+            //matrices.multiply(this.getRenderDistance().getRotation());
             matrices.multiply(one80Quat);
 
             MatrixStack.Entry entry = matrices.peek();
