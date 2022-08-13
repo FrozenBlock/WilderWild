@@ -30,13 +30,13 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(SwampHutPiece.class)
 public class SwampHutMixin {
     @Shadow
-    private boolean hasWitch;
-    private boolean hasCat;
+    private boolean spawnedWitch;
+    private boolean spawnedCat;
 
     private final SwampHutPiece swampHut = SwampHutPiece.class.cast(this);
 
-    @Inject(method = "generate", at = @At("HEAD"), cancellable = true)
-    public void generate(WorldGenLevel world, StructureManager structureAccessor, ChunkGenerator chunkGenerator, RandomSource random, BoundingBox chunkBox, ChunkPos chunkPos, BlockPos pivot, CallbackInfo info) {
+    @Inject(method = "postProcess", at = @At("HEAD"), cancellable = true)
+    public void postProcess(WorldGenLevel world, StructureManager structureAccessor, ChunkGenerator chunkGenerator, RandomSource random, BoundingBox chunkBox, ChunkPos chunkPos, BlockPos pivot, CallbackInfo info) {
         info.cancel();
         if (swampHut.updateAverageGroundHeight(world, chunkBox, 0)) {
             swampHut.generateBox(world, chunkBox, 1, 1, 1, 5, 1, 7, RegisterBlocks.CYPRESS_PLANKS.defaultBlockState(), RegisterBlocks.CYPRESS_PLANKS.defaultBlockState(), false);
@@ -79,10 +79,10 @@ public class SwampHutMixin {
                 }
             }
 
-            if (!this.hasWitch) {
+            if (!this.spawnedWitch) {
                 BlockPos blockPos = swampHut.getWorldPos(2, 2, 5);
                 if (chunkBox.isInside(blockPos)) {
-                    this.hasWitch = true;
+                    this.spawnedWitch = true;
                     Witch witchEntity = EntityType.WITCH.create(world.getLevel());
                     assert witchEntity != null;
                     witchEntity.setPersistenceRequired();
@@ -98,10 +98,10 @@ public class SwampHutMixin {
 
     @Shadow
     private void spawnCat(ServerLevelAccessor world, BoundingBox box) {
-        if (!this.hasCat) {
+        if (!this.spawnedCat) {
             BlockPos blockPos = swampHut.getWorldPos(2, 2, 5);
             if (box.isInside(blockPos)) {
-                this.hasCat = true;
+                this.spawnedCat = true;
                 Cat catEntity = EntityType.CAT.create(world.getLevel());
                 assert catEntity != null;
                 catEntity.setPersistenceRequired();

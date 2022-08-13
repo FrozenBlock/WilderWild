@@ -28,11 +28,8 @@
 	"server.WardenBrainMixin",
 	"server.WardenEntityMixin",
 	"server.WilderIDReplacerMixin",
-	"worldgen.BirchSaplingGeneratorMixin",
 	"worldgen.DefaultBiomeFeaturesMixin",
 	"worldgen.GenerationSettingsBuilderMixin",
-	"worldgen.OakSaplingGeneratorMixin",
-	"worldgen.SpruceSaplingGeneratorMixin",
 	"worldgen.SwampHutMixin",
 	"worldgen.VanillaBiomeParametersMixin",
 	"worldgen.VanillaSurfaceRulesMixin"

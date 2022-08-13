@@ -58,7 +58,7 @@ public final class VanillaBiomeParametersMixin {
         }
     }
 
-    @Inject(method = "writeLowBiomes", at = @At("TAIL"))
+    @Inject(method = "addLowSlice", at = @At("TAIL"))
     // also can be injectLowBiomes
     private void injectBiomesNearRivers(Consumer<Pair<Climate.ParameterPoint, ResourceKey<Biome>>> parameters, Climate.Parameter weirdness, CallbackInfo ci) {
         this.writeBiomeParameters(
@@ -83,7 +83,7 @@ public final class VanillaBiomeParametersMixin {
         );
     }
 
-    @Inject(method = "writeMidBiomes", at = @At("TAIL"))
+    @Inject(method = "addMidSlice", at = @At("TAIL"))
     // also can be injectMidBiomes
     private void injectMixedBiomes(Consumer<Pair<Climate.ParameterPoint, ResourceKey<Biome>>> parameters, Climate.Parameter weirdness, CallbackInfo ci) {
         this.writeBiomeParameters(
@@ -109,7 +109,7 @@ public final class VanillaBiomeParametersMixin {
         );
     }
 
-    @Inject(method = "writeValleyBiomes", at = @At("TAIL"))
+    @Inject(method = "addValleys", at = @At("TAIL"))
     // can also be injectValleyBiomes
     private void injectRiverBiomes(Consumer<Pair<Climate.ParameterPoint, ResourceKey<Biome>>> parameters, Climate.Parameter weirdness, CallbackInfo ci) {
         this.writeBiomeParameters(
@@ -124,7 +124,7 @@ public final class VanillaBiomeParametersMixin {
         );
     }
 
-    @Inject(method = "getBiomeOrWindsweptSavanna", at = @At("HEAD"), cancellable = true)
+    @Inject(method = "maybePickWindsweptSavannaBiome", at = @At("HEAD"), cancellable = true)
     private void getBiomeOrWindsweptSavanna(int temperature, int humidity, Climate.Parameter weirdness, ResourceKey<Biome> biomeKey, CallbackInfoReturnable<ResourceKey<Biome>> info) {
         if (ModMenuInteractionHandler.modWindsweptSavannaPlacement()) {
             info.setReturnValue(temperature > 2 && humidity < 2 && weirdness.max() >= 0L ? Biomes.WINDSWEPT_SAVANNA : biomeKey);
@@ -134,7 +134,7 @@ public final class VanillaBiomeParametersMixin {
 
     private static final int swampHumidity = 2;
 
-    @Inject(method = "writeBiomeParameters", at = @At("HEAD"), cancellable = true)
+    @Inject(method = "addSurfaceBiome", at = @At("HEAD"), cancellable = true)
     private void writeBiomeParameters(Consumer<Pair<Climate.ParameterPoint, ResourceKey<Biome>>> parameters, Climate.Parameter temperature, Climate.Parameter humidity, Climate.Parameter continentalness, Climate.Parameter erosion, Climate.Parameter weirdness, float offset, ResourceKey<Biome> biome, CallbackInfo info) {
         if (biome.equals(Biomes.MANGROVE_SWAMP) && ModMenuInteractionHandler.modMangroveSwampPlacement()) {
             parameters.accept(Pair.of(Climate.parameters(

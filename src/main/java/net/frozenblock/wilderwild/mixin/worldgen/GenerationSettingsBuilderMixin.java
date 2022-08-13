@@ -4,6 +4,7 @@ import net.frozenblock.wilderwild.WilderWild;
 import net.minecraft.core.Holder;
 import net.minecraft.data.worldgen.placement.VegetationPlacements;
 import net.minecraft.world.level.biome.BiomeGenerationSettings;
+import net.minecraft.world.level.levelgen.GenerationStep;
 import net.minecraft.world.level.levelgen.placement.PlacedFeature;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -27,8 +28,8 @@ public class GenerationSettingsBuilderMixin {
         add(VegetationPlacements.TREES_MEADOW);
     }};
 
-    @Inject(at = @At("HEAD"), method = "feature(Lnet/minecraft/world/gen/GenerationStep$Feature;Lnet/minecraft/util/registry/RegistryEntry;)Lnet/minecraft/world/biome/GenerationSettings$Builder;", cancellable = true)
-    public void feature(net.minecraft.world.level.levelgen.GenerationStep.Decoration featureStep, Holder<PlacedFeature> feature, CallbackInfoReturnable<BiomeGenerationSettings.Builder> info) {
+    @Inject(at = @At("HEAD"), method = "addFeature(Lnet/minecraft/world/level/levelgen/GenerationStep$Decoration;Lnet/minecraft/core/Holder;)Lnet/minecraft/world/level/biome/BiomeGenerationSettings$Builder;", cancellable = true)
+    public void addFeature(GenerationStep.Decoration featureStep, Holder<PlacedFeature> feature, CallbackInfoReturnable<BiomeGenerationSettings.Builder> info) {
         if (!WilderWild.hasTerralith()) {
             BiomeGenerationSettings.Builder builder = BiomeGenerationSettings.Builder.class.cast(this);
             if (removedFeatures.contains(feature)) {

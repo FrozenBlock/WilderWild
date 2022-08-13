@@ -26,7 +26,7 @@ public abstract class GoatEntityMixin {
 
     @Shadow
     @Final
-    private static EntityDataAccessor<Boolean> SCREAMING;
+    private static EntityDataAccessor<Boolean> DATA_IS_SCREAMING_GOAT;
 
     private boolean isTreetrain1() {
         Goat goat = Goat.class.cast(this);
@@ -47,7 +47,7 @@ public abstract class GoatEntityMixin {
         if (this.isTreetrain1()) {
             Goat goat = Goat.class.cast(this);
             RandomSource random = RandomSource.create(goat.getUUID().hashCode());
-            TagKey<Instrument> tagKey = goat.getEntityData().get(SCREAMING) ? InstrumentTags.SCREAMING_GOAT_HORNS : InstrumentTags.REGULAR_GOAT_HORNS;
+            TagKey<Instrument> tagKey = goat.getEntityData().get(DATA_IS_SCREAMING_GOAT) ? InstrumentTags.SCREAMING_GOAT_HORNS : InstrumentTags.REGULAR_GOAT_HORNS;
             HolderSet<Instrument> registryEntryList = Registry.INSTRUMENT.getOrCreateTag(tagKey);
             cir.setReturnValue(InstrumentItem.create(Items.GOAT_HORN, registryEntryList.getRandomElement(random).get()));
             cir.cancel();
