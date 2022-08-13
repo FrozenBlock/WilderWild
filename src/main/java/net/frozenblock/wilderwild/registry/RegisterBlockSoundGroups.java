@@ -7,6 +7,14 @@ import static net.frozenblock.wilderwild.registry.RegisterSounds.*;
 
 public class RegisterBlockSoundGroups {
 
+    public static final BlockSoundGroup BAOBAB_NUT = new BlockSoundGroup(1.0F, 1.0F,
+            BLOCK_BAOBAB_NUT_BREAK,
+            BLOCK_BAOBAB_NUT_STEP,
+            BLOCK_BAOBAB_NUT_PLACE,
+            BLOCK_BAOBAB_NUT_HIT,
+            BLOCK_BAOBAB_NUT_FALL
+    );
+
     public static final BlockSoundGroup OSSEOUS_SCULK = new BlockSoundGroup(1.0F, 1.0F,
             BLOCK_OSSEOUS_SCULK_BREAK,
             BLOCK_OSSEOUS_SCULK_STEP,

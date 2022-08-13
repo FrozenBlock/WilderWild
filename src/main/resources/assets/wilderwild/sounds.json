@@ -125,6 +125,51 @@
 			}
 		]
 	},
+	"block.baobab_nut.break": {
+		"sounds": [
+			"wilderwild:block/baobab_nut/break1",
+			"wilderwild:block/baobab_nut/break2",
+			"wilderwild:block/baobab_nut/break3",
+			"wilderwild:block/baobab_nut/break4"
+		],
+		"subtitle": "subtitles.block.generic.break"
+	},
+	"block.baobab_nut.fall": {
+		"sounds": [
+			"wilderwild:block/baobab_nut/step1",
+			"wilderwild:block/baobab_nut/step2",
+			"wilderwild:block/baobab_nut/step3",
+			"wilderwild:block/baobab_nut/step4"
+		],
+		"subtitle": "subtitles.block.generic.fall"
+	},
+	"block.baobab_nut.hit": {
+		"sounds": [
+			"wilderwild:block/baobab_nut/step1",
+			"wilderwild:block/baobab_nut/step2",
+			"wilderwild:block/baobab_nut/step3",
+			"wilderwild:block/baobab_nut/step4"
+		],
+		"subtitle": "subtitles.block.generic.hit"
+	},
+	"block.baobab_nut.place": {
+		"sounds": [
+			"wilderwild:block/coarse_dirt/break1",
+			"wilderwild:block/coarse_dirt/break2",
+			"wilderwild:block/coarse_dirt/break3",
+			"wilderwild:block/coarse_dirt/break4"
+		],
+		"subtitle": "subtitles.block.generic.place"
+	},
+	"block.baobab_nut.step": {
+		"sounds": [
+			"wilderwild:block/baobab_nut/step1",
+			"wilderwild:block/baobab_nut/step2",
+			"wilderwild:block/baobab_nut/step3",
+			"wilderwild:block/baobab_nut/step4"
+		],
+		"subtitle": "subtitles.block.generic.footsteps"
+	},
 	"block.coarse_dirt.break": {
 		"sounds": [
 			"wilderwild:block/coarse_dirt/break1",
