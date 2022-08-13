@@ -2,6 +2,7 @@ package net.frozenblock.wilderwild.world.feature;
 
 import com.google.common.collect.ImmutableList;
 import net.frozenblock.wilderwild.WilderWild;
+import net.frozenblock.wilderwild.block.BaobabNutBlock;
 import net.frozenblock.wilderwild.registry.RegisterBlocks;
 import net.frozenblock.wilderwild.world.gen.treedecorators.HeightBasedVineTrunkDecorator;
 import net.frozenblock.wilderwild.world.gen.treedecorators.ShelfFungusTreeDecorator;
@@ -9,6 +10,7 @@ import net.frozenblock.wilderwild.world.gen.trunk.BaobabTrunkPlacer;
 import net.frozenblock.wilderwild.world.gen.trunk.FallenTrunkWithLogs;
 import net.frozenblock.wilderwild.world.gen.trunk.StraightTrunkWithLogs;
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.PropaguleBlock;
 import net.minecraft.tag.BlockTags;
@@ -85,8 +87,10 @@ public class WilderTreeConfigured {
     public static final RegistryEntry<ConfiguredFeature<TreeFeatureConfig, ?>> MEGA_FUNGUS_PINE = WilderConfiguredFeatures.register("mega_fungus_pine", Feature.TREE, new TreeFeatureConfig.Builder(BlockStateProvider.of(Blocks.SPRUCE_LOG), new GiantTrunkPlacer(13, 2, 14), BlockStateProvider.of(Blocks.SPRUCE_LEAVES), new MegaPineFoliagePlacer(ConstantIntProvider.create(0), ConstantIntProvider.create(0), UniformIntProvider.create(3, 7)), new TwoLayersFeatureSize(1, 1, 2)).decorators(ImmutableList.of(new AlterGroundTreeDecorator(BlockStateProvider.of(Blocks.PODZOL)), SHELF_FUNGUS_007_ONLY_BROWN)).build());
     public static final RegistryEntry<ConfiguredFeature<TreeFeatureConfig, ?>> FALLEN_SPRUCE_TREE = WilderConfiguredFeatures.register("fallen_spruce_tree", Feature.TREE, fallen_spruce().dirtProvider(BlockStateProvider.of(Blocks.DIRT)).build());
     //BAOBAB
-    public static final RegistryEntry<ConfiguredFeature<TreeFeatureConfig, ?>> BAOBAB = WilderConfiguredFeatures.register("baobab", Feature.TREE, new TreeFeatureConfig.Builder(BlockStateProvider.of(RegisterBlocks.BAOBAB_LOG), new BaobabTrunkPlacer(10, 2, 2), BlockStateProvider.of(RegisterBlocks.BAOBAB_LEAVES), new AcaciaFoliagePlacer(ConstantIntProvider.create(2), ConstantIntProvider.create(0)), new TwoLayersFeatureSize(1, 0, 2)).decorators(ImmutableList.of()).build());
-    public static final RegistryEntry<ConfiguredFeature<TreeFeatureConfig, ?>> BAOBAB_TALL = WilderConfiguredFeatures.register("baobab_tall", Feature.TREE, new TreeFeatureConfig.Builder(BlockStateProvider.of(RegisterBlocks.BAOBAB_LOG), new BaobabTrunkPlacer(12, 4, 2), BlockStateProvider.of(RegisterBlocks.BAOBAB_LEAVES), new AcaciaFoliagePlacer(ConstantIntProvider.create(2), ConstantIntProvider.create(0)), new TwoLayersFeatureSize(1, 0, 2)).decorators(ImmutableList.of()).build());
+    public static final RegistryEntry<ConfiguredFeature<TreeFeatureConfig, ?>> BAOBAB = WilderConfiguredFeatures.register("baobab", Feature.TREE, new TreeFeatureConfig.Builder(BlockStateProvider.of(RegisterBlocks.BAOBAB_LOG), new BaobabTrunkPlacer(10, 2, 2), BlockStateProvider.of(RegisterBlocks.BAOBAB_LEAVES), new AcaciaFoliagePlacer(ConstantIntProvider.create(2), ConstantIntProvider.create(0)), new TwoLayersFeatureSize(1, 0, 2)).decorators(List.of(new AttachedToLeavesTreeDecorator(0.04F, 1, 0,
+            new RandomizedIntBlockStateProvider(BlockStateProvider.of(RegisterBlocks.BAOBAB_SAPLING.getDefaultState().with(PropaguleBlock.HANGING, true)), BaobabNutBlock.AGE, UniformIntProvider.create(0, 2)), 4, List.of(Direction.DOWN)))).ignoreVines().build());
+    public static final RegistryEntry<ConfiguredFeature<TreeFeatureConfig, ?>> BAOBAB_TALL = WilderConfiguredFeatures.register("baobab_tall", Feature.TREE, new TreeFeatureConfig.Builder(BlockStateProvider.of(RegisterBlocks.BAOBAB_LOG), new BaobabTrunkPlacer(12, 4, 2), BlockStateProvider.of(RegisterBlocks.BAOBAB_LEAVES), new AcaciaFoliagePlacer(ConstantIntProvider.create(2), ConstantIntProvider.create(0)), new TwoLayersFeatureSize(1, 0, 2)).decorators(List.of(new AttachedToLeavesTreeDecorator(0.04F, 1, 0,
+            new RandomizedIntBlockStateProvider(BlockStateProvider.of(RegisterBlocks.BAOBAB_SAPLING.getDefaultState().with(PropaguleBlock.HANGING, true)), BaobabNutBlock.AGE, UniformIntProvider.create(0, 2)), 4, List.of(Direction.DOWN)))).ignoreVines().build());
     //CYPRESS
     public static final RegistryEntry<ConfiguredFeature<TreeFeatureConfig, ?>> CYPRESS = WilderConfiguredFeatures.register("cypress", Feature.TREE, new TreeFeatureConfig.Builder(BlockStateProvider.of(RegisterBlocks.CYPRESS_LOG), new StraightTrunkPlacer(6, 2, 3), BlockStateProvider.of(RegisterBlocks.CYPRESS_LEAVES), new SpruceFoliagePlacer(ConstantIntProvider.create(1), UniformIntProvider.create(1, 3), UniformIntProvider.create(4, 6)), new TwoLayersFeatureSize(2, 1, 2)).decorators(ImmutableList.of(VINES_012_UNDER_76)).ignoreVines().build());
     public static final RegistryEntry<ConfiguredFeature<TreeFeatureConfig, ?>> FUNGUS_CYPRESS = WilderConfiguredFeatures.register("fungus_cypress", Feature.TREE, new TreeFeatureConfig.Builder(BlockStateProvider.of(RegisterBlocks.CYPRESS_LOG), new StraightTrunkPlacer(8, 4, 3), BlockStateProvider.of(RegisterBlocks.CYPRESS_LEAVES), new SpruceFoliagePlacer(ConstantIntProvider.create(1), UniformIntProvider.create(1, 3), UniformIntProvider.create(6, 8)), new TwoLayersFeatureSize(2, 1, 2)).decorators(ImmutableList.of(SHELF_FUNGUS_007_ONLY_BROWN, VINES_008_UNDER_82)).ignoreVines().build());
