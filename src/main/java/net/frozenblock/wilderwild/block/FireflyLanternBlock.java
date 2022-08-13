@@ -62,18 +62,18 @@ public class FireflyLanternBlock extends BlockWithEntity implements Waterloggabl
         }
         BlockEntity entity = world.getBlockEntity(pos);
         if (entity instanceof FireflyLanternBlockEntity lantern) {
-            if (!lantern.getFireflies().isEmpty()) {
-                if (lantern.getFireflies().size() < 4) {
-                    ItemStack stack = player.getStackInHand(hand);
-                    if (stack.getItem() instanceof FireflyBottle bottle) {
-                        String name = "";
-                        if (stack.hasCustomName()) {
-                            name = stack.getName().getString();
-                        }
-                        lantern.addFirefly(bottle, name);
-                        world.setBlockState(pos, state.with(FIREFLIES, state.get(FIREFLIES) + 1));
-                        return ActionResult.SUCCESS;
-                    } else if (stack.isOf(Items.GLASS_BOTTLE)) {
+            if (lantern.getFireflies().size() < 4) {
+                ItemStack stack = player.getStackInHand(hand);
+                if (stack.getItem() instanceof FireflyBottle bottle) {
+                    String name = "";
+                    if (stack.hasCustomName()) {
+                        name = stack.getName().getString();
+                    }
+                    lantern.addFirefly(bottle, name);
+                    world.setBlockState(pos, state.with(FIREFLIES, lantern.getFireflies().size()));
+                    return ActionResult.SUCCESS;
+                } else if (stack.isOf(Items.GLASS_BOTTLE)) {
+                    if (!lantern.getFireflies().isEmpty()) {
                         FireflyLanternBlockEntity.FireflyInLantern fireflyInLantern = lantern.getFireflies().get((int) (lantern.getFireflies().size() * Math.random()));
                         Optional <Item> optionalItem = Registry.ITEM.getOrEmpty(WilderWild.id(Objects.equals(fireflyInLantern.color, "on") ? "firefly_bottle" : fireflyInLantern.color + "_firefly_bottle"));
                         Item item = RegisterItems.FIREFLY_BOTTLE;
@@ -90,7 +90,7 @@ public class FireflyLanternBlock extends BlockWithEntity implements Waterloggabl
                         }
                         player.getInventory().offerOrDrop(bottleStack);
                         ((FireflyLanternBlockEntity) entity).removeFirefly(fireflyInLantern);
-                        world.setBlockState(pos, state.with(FIREFLIES, state.get(FIREFLIES) - 1));
+                        world.setBlockState(pos, state.with(FIREFLIES, lantern.getFireflies().size()));
                         return ActionResult.SUCCESS;
                     }
                 }
