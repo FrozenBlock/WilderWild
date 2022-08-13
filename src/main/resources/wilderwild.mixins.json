@@ -14,7 +14,6 @@
 	"server.ExperienceOrbEntityMixin",
 	"server.GoatEntityMixin",
 	"server.GoatHornItemMixin",
-	"server.SchemasMixin",
 	"server.SculkBlockMixin",
 	"server.SculkSensorBlockEntityMixin",
 	"server.SculkSensorBlockMixin",
@@ -40,7 +39,6 @@
   ],
   "client": [
 	"client.AlexDolphinRenderer",
-	"client.MainMixin",
 	"client.MerpSlimeRenderer",
 	"client.OsmioooWardenRenderer",
 	"client.Treetrain1GoatRenderer",
