@@ -71,7 +71,7 @@ public class FireflyLanternBlock extends BlockWithEntity implements Waterloggabl
                             name = stack.getName().getString();
                         }
                         lantern.addFirefly(bottle, name);
-                        world.setBlockState(pos, state.with(FIREFLIES, lantern.getFireflies().size()));
+                        world.setBlockState(pos, state.with(FIREFLIES, state.get(FIREFLIES) + 1));
                         return ActionResult.SUCCESS;
                     } else if (stack.isOf(Items.GLASS_BOTTLE)) {
                         FireflyLanternBlockEntity.FireflyInLantern fireflyInLantern = lantern.getFireflies().get((int) (lantern.getFireflies().size() * Math.random()));
@@ -90,7 +90,7 @@ public class FireflyLanternBlock extends BlockWithEntity implements Waterloggabl
                         }
                         player.getInventory().offerOrDrop(bottleStack);
                         ((FireflyLanternBlockEntity) entity).removeFirefly(fireflyInLantern);
-                        world.setBlockState(pos, state.with(FIREFLIES, lantern.getFireflies().size()));
+                        world.setBlockState(pos, state.with(FIREFLIES, state.get(FIREFLIES) - 1));
                         return ActionResult.SUCCESS;
                     }
                 }
