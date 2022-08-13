@@ -71,6 +71,7 @@ public class FireflyLanternBlock extends BlockWithEntity implements Waterloggabl
                     }
                     lantern.addFirefly(bottle, name);
                     world.setBlockState(pos, state.with(FIREFLIES, lantern.getFireflies().size()));
+                    player.playSound(RegisterSounds.ITEM_BOTTLE_CATCH_FIREFLY, 1.0F, 1.0F);
                     return ActionResult.SUCCESS;
                 } else if (stack.isOf(Items.GLASS_BOTTLE)) {
                     if (!lantern.getFireflies().isEmpty()) {
