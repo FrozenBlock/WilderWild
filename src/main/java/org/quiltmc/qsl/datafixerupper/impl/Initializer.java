@@ -15,19 +15,24 @@
  * limitations under the License.
  */
 
-package net.frozenblock.api.quiltmc.datafixerupper.impl;
+package org.quiltmc.qsl.datafixerupper.impl;
 
+import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
-import net.minecraft.server.MinecraftServer;
+import net.frozenblock.wilderwild.WilderWild;
 import org.jetbrains.annotations.ApiStatus;
 
 /**
  * Modified to work on Fabric
  */
 @ApiStatus.Internal
-public final class Initializer implements ServerLifecycleEvents.ServerStarting {
+public final class Initializer implements ModInitializer {
+
     @Override
-    public void onServerStarting(MinecraftServer server) {
-        QuiltDataFixesInternals.freeze();
+    public void onInitialize() {
+        ServerLifecycleEvents.SERVER_STARTING.register(server -> {
+            WilderWild.LOGGER.info("QuiltMC's DataFixer Server Registry was frozen");
+            QuiltDataFixesInternals.freeze();
+        });
     }
 }
