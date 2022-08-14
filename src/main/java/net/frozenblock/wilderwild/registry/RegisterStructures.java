@@ -1,10 +1,17 @@
 package net.frozenblock.wilderwild.registry;
 
+import com.google.common.collect.ImmutableList;
 import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.tag.WilderBiomeTags;
 import net.frozenblock.wilderwild.world.structure.AbandonedCabinGenerator;
+import net.frozenblock.wilderwild.world.structure.WilderStructureProcessors;
+import net.minecraft.block.Blocks;
 import net.minecraft.entity.SpawnGroup;
 import net.minecraft.structure.StructureSet;
+import net.minecraft.structure.processor.*;
+import net.minecraft.structure.rule.AlwaysTrueRuleTest;
+import net.minecraft.structure.rule.RandomBlockMatchRuleTest;
+import net.minecraft.tag.BlockTags;
 import net.minecraft.tag.TagKey;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.collection.Pool;
@@ -74,6 +81,7 @@ public class RegisterStructures {
     );
 
     public static void init() {
+        WilderStructureProcessors.init();
         AbandonedCabinGenerator.init();
     }
 

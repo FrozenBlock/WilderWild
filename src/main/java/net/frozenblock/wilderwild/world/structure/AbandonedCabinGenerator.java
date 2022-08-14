@@ -4,6 +4,7 @@ import com.google.common.collect.ImmutableList;
 import com.mojang.datafixers.util.Either;
 import com.mojang.datafixers.util.Pair;
 import net.frozenblock.wilderwild.WilderWild;
+import net.frozenblock.wilderwild.registry.RegisterStructures;
 import net.minecraft.structure.pool.SinglePoolElement;
 import net.minecraft.structure.pool.StructurePool;
 import net.minecraft.structure.pool.StructurePools;
@@ -21,9 +22,9 @@ public class AbandonedCabinGenerator {
                     WilderWild.id("abandoned_cabin/cabin_center"),
                     new Identifier("empty"),
                     ImmutableList.of(
-                            Pair.of(ofProcessedSingle("abandoned_cabin/cabin_center/city_center_1", StructureProcessorLists.ANCIENT_CITY_START_DEGRADATION), 1),
-                            Pair.of(ofProcessedSingle("abandoned_cabin/cabin_center/city_center_2", StructureProcessorLists.ANCIENT_CITY_START_DEGRADATION), 1),
-                            Pair.of(ofProcessedSingle("abandoned_cabin/cabin_center/city_center_3", StructureProcessorLists.ANCIENT_CITY_START_DEGRADATION), 1)
+                            Pair.of(ofProcessedSingle("abandoned_cabin/cabin_center/city_center_1", WilderStructureProcessors.ABANDONED_CABIN_PROCESSOR), 1),
+                            Pair.of(ofProcessedSingle("abandoned_cabin/cabin_center/city_center_2", WilderStructureProcessors.ABANDONED_CABIN_PROCESSOR), 1),
+                            Pair.of(ofProcessedSingle("abandoned_cabin/cabin_center/city_center_3", WilderStructureProcessors.ABANDONED_CABIN_PROCESSOR), 1)
                     ),
                     StructurePool.Projection.RIGID
             )
