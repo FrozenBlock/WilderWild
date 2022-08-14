@@ -29,6 +29,7 @@ import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.color.world.BiomeColors;
 import net.minecraft.client.item.ModelPredicateProviderRegistry;
 import net.minecraft.client.render.RenderLayer;
+import net.minecraft.client.render.TexturedRenderLayers;
 import net.minecraft.client.render.entity.model.EntityModelLayer;
 import net.minecraft.client.world.ClientWorld;
 import net.minecraft.entity.Entity;
@@ -51,6 +52,9 @@ public class WilderWildClient implements ClientModInitializer {
     public static final EntityModelLayer ANCIENT_HORN_PROJECTILE_LAYER = new EntityModelLayer(WilderWild.id("ancient_horn_projectile"), "main");
     public static final EntityModelLayer SCULK_SENSOR = new EntityModelLayer(WilderWild.id("sculk_sensor"), "main");
     public static final EntityModelLayer FIREFLY_LANTERN = new EntityModelLayer(WilderWild.id("firefly_lantern"), "main");
+    public static final EntityModelLayer STONE_CHEST = new EntityModelLayer(WilderWild.id("stone_chest"), "main");
+    public static final EntityModelLayer DOUBLE_STONE_CHEST_LEFT = new EntityModelLayer(WilderWild.id("double_stone_chest_left"), "main");
+    public static final EntityModelLayer DOUBLE_STONE_CHEST_RIGHT = new EntityModelLayer(WilderWild.id("double_stone_chest_right"), "main");
 
     @Override
     public void onInitializeClient() {
@@ -60,7 +64,7 @@ public class WilderWildClient implements ClientModInitializer {
         BlockRenderLayerMap.INSTANCE.putBlock(RegisterBlocks.SEEDING_DANDELION, RenderLayer.getCutout());
         BlockRenderLayerMap.INSTANCE.putBlock(RegisterBlocks.POTTED_CARNATION, RenderLayer.getCutout());
         BlockRenderLayerMap.INSTANCE.putBlock(RegisterBlocks.POTTED_SEEDING_DANDELION, RenderLayer.getCutout());
-        BlockRenderLayerMap.INSTANCE.putBlock(RegisterBlocks.POTTED_BAOBAB_SAPLING, RenderLayer.getCutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(RegisterBlocks.POTTED_BAOBAB_NUT, RenderLayer.getCutout());
         BlockRenderLayerMap.INSTANCE.putBlock(RegisterBlocks.POTTED_CYPRESS_SAPLING, RenderLayer.getCutout());
         BlockRenderLayerMap.INSTANCE.putBlock(RegisterBlocks.DATURA, RenderLayer.getCutout());
         BlockRenderLayerMap.INSTANCE.putBlock(RegisterBlocks.CATTAIL, RenderLayer.getCutout());
@@ -86,6 +90,7 @@ public class WilderWildClient implements ClientModInitializer {
         //BlockRenderLayerMap.INSTANCE.putBlock(RegisterBlocks.CYPRESS_ROOTS, RenderLayer.getCutout());
         BlockRenderLayerMap.INSTANCE.putBlock(RegisterBlocks.TERMITE_MOUND, RenderLayer.getSolid());
         BlockRenderLayerMap.INSTANCE.putBlock(RegisterBlocks.FIREFLY_LANTERN, RenderLayer.getCutout());
+        //BlockRenderLayerMap.INSTANCE.putBlock(RegisterBlocks.STONE_CHEST, RenderLayer.getEntityCutout(TexturedRenderLayers.CHEST_ATLAS_TEXTURE));
 
         ClientSpriteRegistryCallback.event(PlayerScreenHandler.BLOCK_ATLAS_TEXTURE).register((((atlasTexture, registry) -> {
             registry.register(WilderWild.id("particle/floating_sculk_bubble_0"));
@@ -124,6 +129,11 @@ public class WilderWildClient implements ClientModInitializer {
 
         BlockEntityRendererRegistry.register(RegisterBlockEntities.FIREFLY_LANTERN, FireflyLanternBlockEntityRenderer::new);
         EntityModelLayerRegistry.registerModelLayer(FIREFLY_LANTERN, FireflyLanternBlockEntityRenderer::getTexturedModelData);
+
+        BlockEntityRendererRegistry.register(RegisterBlockEntities.STONE_CHEST, StoneChestBlockEntityRenderer::new);
+        EntityModelLayerRegistry.registerModelLayer(STONE_CHEST, StoneChestBlockEntityRenderer::getSingleTexturedModelData);
+        EntityModelLayerRegistry.registerModelLayer(DOUBLE_STONE_CHEST_LEFT, StoneChestBlockEntityRenderer::getLeftDoubleTexturedModelData);
+        EntityModelLayerRegistry.registerModelLayer(DOUBLE_STONE_CHEST_RIGHT, StoneChestBlockEntityRenderer::getRightDoubleTexturedModelData);
 
         receiveAncientHornProjectilePacket();
         receiveEasyEchoerBubblePacket();
