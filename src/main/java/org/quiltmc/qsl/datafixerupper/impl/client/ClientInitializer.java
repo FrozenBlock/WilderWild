@@ -17,9 +17,11 @@
 
 package org.quiltmc.qsl.datafixerupper.impl.client;
 
+import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientLifecycleEvents;
+import net.frozenblock.wilderwild.WilderWild;
 import org.quiltmc.qsl.datafixerupper.impl.QuiltDataFixesInternals;
 import net.minecraft.client.MinecraftClient;
 import org.jetbrains.annotations.ApiStatus;
@@ -29,9 +31,13 @@ import org.jetbrains.annotations.ApiStatus;
  */
 @Environment(EnvType.CLIENT)
 @ApiStatus.Internal
-public final class ClientInitializer implements ClientLifecycleEvents.ClientStarted {
+public final class ClientInitializer implements ClientModInitializer {
+
     @Override
-    public void onClientStarted(MinecraftClient client) {
-        QuiltDataFixesInternals.freeze();
+    public void onInitializeClient() {
+        ClientLifecycleEvents.CLIENT_STARTED.register(client -> {
+            WilderWild.LOGGER.info("QuiltMC's DataFixer Client Registry was frozen");
+            QuiltDataFixesInternals.freeze();
+        });
     }
 }
