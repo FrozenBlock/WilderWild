@@ -28,7 +28,6 @@
 	"server.SpawnRestrictionMixin",
 	"server.WardenBrainMixin",
 	"server.WardenEntityMixin",
-	"server.WilderIDReplacerMixin",
 	"worldgen.BirchSaplingGeneratorMixin",
 	"worldgen.DefaultBiomeFeaturesMixin",
 	"worldgen.GenerationSettingsBuilderMixin",
