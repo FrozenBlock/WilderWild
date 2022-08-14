@@ -18,6 +18,7 @@ import net.frozenblock.wilderwild.misc.PVZGWSound.FlyBySoundHub;
 import net.frozenblock.wilderwild.misc.PVZGWSound.MovingSoundLoop;
 import net.frozenblock.wilderwild.misc.PVZGWSound.MovingSoundLoopWithRestriction;
 import net.frozenblock.wilderwild.misc.PVZGWSound.MovingSoundWithRestriction;
+import net.frozenblock.wilderwild.misc.config.MMDistantInteractions;
 import net.frozenblock.wilderwild.misc.config.ModMenuInteractionHandler;
 import net.frozenblock.wilderwild.particle.FloatingSculkBubbleParticle;
 import net.frozenblock.wilderwild.particle.PollenParticle;
@@ -165,8 +166,8 @@ public class WilderWildClient implements ClientModInitializer {
             }
         });*/
         if (WilderWild.hasModMenu()) {
-            ModMenuInteractionHandler.loadConfig();
-            WilderWild.RENDER_TENDRILS = ModMenuInteractionHandler.tendrilsEnabled();
+            MMDistantInteractions.loadConfig();
+            WilderWild.RENDER_TENDRILS = MMDistantInteractions.tendrilsEnabled();
         }
     }
 
