@@ -210,8 +210,7 @@ public class FireflyLanternBlock extends BlockWithEntity implements Waterloggabl
         super.afterBreak(world, player, pos, state, blockEntity, stack);
         if (!world.isClient() && blockEntity instanceof FireflyLanternBlockEntity lanternEntity) {
             if (!lanternEntity.getFireflies().isEmpty()) {
-                silk = EnchantmentHelper.getLevel(Enchantments.SILK_TOUCH, stack) != 0;
-                        if (!silk) {
+                if (EnchantmentHelper.getLevel(Enchantments.SILK_TOUCH, stack) == 0) {
                             lanternEntity.spawnFireflies(world);
                 }
             }
@@ -237,7 +236,7 @@ public class FireflyLanternBlock extends BlockWithEntity implements Waterloggabl
                     nbtCompound = new NbtCompound();
                     nbtCompound.putInt("num_fireflies", fireflies);
                     stack.setSubNbt("BlockStateTag", nbtCompound);
-                    ItemEntity itemEntity = new ItemEntity(world, (double) pos.getX(), (double) pos.getY(), (double) pos.getZ(), stack);
+                    ItemEntity itemEntity = new ItemEntity(world, pos.getX(), pos.getY(), pos.getZ(), stack);
                     itemEntity.setToDefaultPickupDelay();
                     world.spawnEntity(itemEntity);
                 }
