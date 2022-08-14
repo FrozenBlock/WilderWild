@@ -9,7 +9,7 @@
 	"StructureMixin"
   ],
   "client": [
-	"HotbarStorageMixin"
+	"client.HotbarStorageMixin"
   ],
   "injectors": {
 	"defaultRequire": 1
