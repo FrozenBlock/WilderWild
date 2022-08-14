@@ -4,7 +4,6 @@ import com.google.common.collect.ImmutableList;
 import com.mojang.datafixers.util.Either;
 import com.mojang.datafixers.util.Pair;
 import net.frozenblock.wilderwild.WilderWild;
-import net.minecraft.structure.AncientCityOutskirtsGenerator;
 import net.minecraft.structure.pool.SinglePoolElement;
 import net.minecraft.structure.pool.StructurePool;
 import net.minecraft.structure.pool.StructurePools;
@@ -35,6 +34,5 @@ public class AbandonedCabinGenerator {
     }
 
     public static void init() {
-        AncientCityOutskirtsGenerator.init();
     }
 }
