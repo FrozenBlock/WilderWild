@@ -30,10 +30,14 @@
     ],
     "modmenu": [
       "net.frozenblock.wilderwild.misc.config.ModMenuIntegration"
+    ],
+    "events": [
+      "net.frozenblock.wilderwild.WilderWild"
     ]
   },
   "mixins": [
-    "wilderwild.mixins.json"
+    "wilderwild.mixins.json",
+    "quilt_datafixerupper.mixins.json"
   ],
 
   "accessWidener" : "wilderwild.accesswidener",
