@@ -5,9 +5,11 @@ import net.frozenblock.wilderwild.tag.WilderBiomeTags;
 import net.frozenblock.wilderwild.world.structure.AbandonedCabinGenerator;
 import net.minecraft.entity.SpawnGroup;
 import net.minecraft.structure.StructureSet;
+import net.minecraft.tag.BiomeTags;
 import net.minecraft.tag.TagKey;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.collection.Pool;
+import net.minecraft.util.math.Vec3i;
 import net.minecraft.util.registry.*;
 import net.minecraft.world.StructureSpawns;
 import net.minecraft.world.biome.Biome;
@@ -60,19 +62,21 @@ public class RegisterStructures {
                     ),
                     AbandonedCabinGenerator.CITY_CENTER,
                     Optional.of(new Identifier("city_anchor")),
-                    7,
-                    ConstantHeightProvider.create(YOffset.fixed(-27)),
+                    3,
+                    ConstantHeightProvider.create(YOffset.fixed(0)),
                     false,
                     Optional.empty(),
-                    116
+                    60
             )
     );
 
+    // ancient city salt is 20083232
     public static final RegistryEntry<StructureSet> ABANDONED_CABINS = register(
-            ABANDONED_CABINS_KEY, ABANDONED_CABIN, new RandomSpreadStructurePlacement(24, 8, SpreadType.LINEAR, 20083232)
+            ABANDONED_CABINS_KEY, ABANDONED_CABIN, new RandomSpreadStructurePlacement(8, 3, SpreadType.LINEAR, 20088232)
     );
 
     public static void init() {
+        AbandonedCabinGenerator.init();
     }
 
     private static RegistryKey<Structure> of(String id) {
