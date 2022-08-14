@@ -8,25 +8,26 @@ import net.frozenblock.wilderwild.registry.RegisterItems;
 import net.frozenblock.wilderwild.registry.RegisterProperties;
 import net.frozenblock.wilderwild.registry.RegisterSounds;
 import net.minecraft.block.*;
+import net.minecraft.block.entity.BeehiveBlockEntity;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityTicker;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.block.piston.PistonBehavior;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.enchantment.Enchantments;
+import net.minecraft.entity.ItemEntity;
 import net.minecraft.entity.ai.pathing.NavigationType;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.fluid.FluidState;
 import net.minecraft.fluid.Fluids;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemPlacementContext;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
+import net.minecraft.item.*;
 import net.minecraft.loot.LootTable;
 import net.minecraft.loot.LootTables;
 import net.minecraft.loot.context.LootContext;
 import net.minecraft.loot.context.LootContextParameters;
 import net.minecraft.loot.context.LootContextTypes;
+import net.minecraft.nbt.NbtCompound;
+import net.minecraft.nbt.NbtElement;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.stat.Stats;
@@ -45,10 +46,7 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.util.shape.VoxelShapes;
-import net.minecraft.world.BlockView;
-import net.minecraft.world.World;
-import net.minecraft.world.WorldAccess;
-import net.minecraft.world.WorldView;
+import net.minecraft.world.*;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Collections;
@@ -205,18 +203,47 @@ public class FireflyLanternBlock extends BlockWithEntity implements Waterloggabl
         return !world.isClient ? checkType(type, RegisterBlockEntities.FIREFLY_LANTERN, (worldx, pos, statex, blockEntity) -> blockEntity.serverTick(world, pos)) : null;
     }
 
+    boolean silk = false;
+
     public void afterBreak(World world, PlayerEntity player, BlockPos pos, BlockState state, @Nullable BlockEntity blockEntity, ItemStack stack) {
         player.addExhaustion(0.005F);
-        if (blockEntity instanceof FireflyLanternBlockEntity lanternEntity) {
-            boolean silk = EnchantmentHelper.getLevel(Enchantments.SILK_TOUCH, stack) != 0 && !lanternEntity.getFireflies().isEmpty();
-            if (!silk) {
-                if (!world.isClient) {
-                    lanternEntity.spawnFireflies(world);
+        super.afterBreak(world, player, pos, state, blockEntity, stack);
+        if (!world.isClient() && blockEntity instanceof FireflyLanternBlockEntity lanternEntity) {
+            if (!lanternEntity.getFireflies().isEmpty()) {
+                silk = EnchantmentHelper.getLevel(Enchantments.SILK_TOUCH, stack) != 0;
+                        if (!silk) {
+                            lanternEntity.spawnFireflies(world);
                 }
             }
         }
         player.incrementStat(Stats.MINED.getOrCreateStat(this));
-        dropStacks(state, world, pos, blockEntity, player, stack);
+    }
+
+    public void onBreak(World world, BlockPos pos, BlockState state, PlayerEntity player) {
+        BlockEntity blockEntity = world.getBlockEntity(pos);
+        if (blockEntity instanceof FireflyLanternBlockEntity lanternEntity) {
+            if (!world.isClient && player.isCreative() && world.getGameRules().getBoolean(GameRules.DO_TILE_DROPS)) {
+                ItemStack stack = new ItemStack(this);
+                boolean hasFireflies = !lanternEntity.getFireflies().isEmpty();
+                int fireflies = state.get(FIREFLIES);
+                if (hasFireflies || fireflies > 0) {
+                    NbtCompound nbtCompound;
+                    if (hasFireflies) {
+                        nbtCompound = new NbtCompound();
+                        nbtCompound.put("Fireflies", (NbtElement) lanternEntity.getFireflies());
+                        BlockItem.setBlockEntityNbt(stack, RegisterBlockEntities.FIREFLY_LANTERN, nbtCompound);
+                    }
+
+                    nbtCompound = new NbtCompound();
+                    nbtCompound.putInt("num_fireflies", fireflies);
+                    stack.setSubNbt("BlockStateTag", nbtCompound);
+                    ItemEntity itemEntity = new ItemEntity(world, (double) pos.getX(), (double) pos.getY(), (double) pos.getZ(), stack);
+                    itemEntity.setToDefaultPickupDelay();
+                    world.spawnEntity(itemEntity);
+                }
+            }
+        }
+        super.onBreak(world, pos, state, player);
     }
 
     @Deprecated

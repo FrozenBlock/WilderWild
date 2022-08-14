@@ -49,12 +49,13 @@ public class RegisterMovingSoundRestrictions {
         register(WilderWild.id("default"), (var1) -> !var1.isSilent());
 
         register(WilderWild.id("nectar"), (LoopPredicate<Firefly>) entity -> {
-            if (!entity.isSilent()) {
-                if (entity.hasCustomName()) {
-                    Text name = entity.getCustomName();
-                    if (name != null) {
-                        return name.getString().toLowerCase().contains("nectar");
-                    }
+            if (entity.isSilent()) {
+                return false;
+            }
+            if (entity.hasCustomName()) {
+                Text name = entity.getCustomName();
+                if (name != null) {
+                    return name.getString().toLowerCase().contains("nectar");
                 }
             }
             return false;
