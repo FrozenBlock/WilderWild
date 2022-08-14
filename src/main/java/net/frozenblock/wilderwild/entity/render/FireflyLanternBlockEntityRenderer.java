@@ -11,21 +11,29 @@ import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.model.ModelData;
 import net.minecraft.client.model.ModelPart;
 import net.minecraft.client.model.TexturedModelData;
+import net.minecraft.client.render.OverlayTexture;
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.VertexConsumer;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.block.entity.BlockEntityRenderer;
 import net.minecraft.client.render.block.entity.BlockEntityRendererFactory.Context;
+import net.minecraft.client.render.item.ItemRenderer;
+import net.minecraft.client.render.model.json.ModelTransformation;
 import net.minecraft.client.util.math.MatrixStack;
+import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
 import net.minecraft.state.property.Properties;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.*;
+
+import java.util.Optional;
 
 @Environment(EnvType.CLIENT)
 public class FireflyLanternBlockEntityRenderer<T extends FireflyLanternBlockEntity> implements BlockEntityRenderer<T> {
 
     private static final float pi = (float) Math.PI;
     private static final Quaternion one80Quat = Vec3f.POSITIVE_Y.getDegreesQuaternion(180.0F);
+    private final ItemRenderer itemRenderer;
 
     private static final Identifier TEXTURE = WilderWild.id("textures/entity/firefly/firefly_off.png");
     private static final RenderLayer LAYER = RenderLayer.getEntityCutout(TEXTURE);
@@ -36,6 +44,7 @@ public class FireflyLanternBlockEntityRenderer<T extends FireflyLanternBlockEnti
 
     public FireflyLanternBlockEntityRenderer(Context ctx) {
         ModelPart root = ctx.getLayerModelPart(WilderWildClient.FIREFLY_LANTERN);
+        this.itemRenderer = ctx.getItemRenderer();
     }
 
     public static TexturedModelData getTexturedModelData() {
@@ -45,7 +54,18 @@ public class FireflyLanternBlockEntityRenderer<T extends FireflyLanternBlockEnti
 
     public void render(T lantern, float tickDelta, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, int overlay) {
         Quaternion cam = MinecraftClient.getInstance().gameRenderer.getCamera().getRotation();
-        if (cam != null) {
+        Optional<ItemStack> stack = lantern.getItem();
+        if (stack.isPresent()) {
+            matrices.push();
+            double extraHeight = 0.05;
+                    //lantern.getCachedState().get(Properties.HANGING) ? 0.38 : 0.225;
+            matrices.translate(0.5, extraHeight, 0.5);
+            matrices.scale(0.7F, 0.7F, 0.7F);
+            float n = (lantern.age + tickDelta) / 20;
+            matrices.multiply(Vec3f.POSITIVE_Y.getRadialQuaternion(n));
+            this.itemRenderer.renderItem(stack.get(), ModelTransformation.Mode.GROUND, light, OverlayTexture.DEFAULT_UV, matrices, vertexConsumers, 1);
+            matrices.pop();
+        } else if (cam != null) {
             double extraHeight = lantern.getCachedState().get(Properties.HANGING) ? 0.38 : 0.225;
             for (FireflyLanternBlockEntity.FireflyInLantern entity : lantern.getFireflies()) {
                 boolean nectar = entity.getCustomName().toLowerCase().contains("nectar");

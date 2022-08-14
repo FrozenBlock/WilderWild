@@ -14,15 +14,18 @@ import net.frozenblock.wilderwild.registry.RegisterEntities;
 import net.frozenblock.wilderwild.registry.RegisterSounds;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.inventory.Inventories;
+import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtElement;
 import net.minecraft.nbt.NbtOps;
 import net.minecraft.network.packet.s2c.play.BlockEntityUpdateS2CPacket;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.sound.SoundCategory;
-import net.minecraft.sound.SoundEvents;
 import net.minecraft.state.property.Properties;
 import net.minecraft.text.Text;
+import net.minecraft.util.ActionResult;
+import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
@@ -34,21 +37,25 @@ import java.util.Objects;
 import java.util.Optional;
 
 public class FireflyLanternBlockEntity extends BlockEntity {
-
+    public DefaultedList<ItemStack> inventory;
     ArrayList<FireflyInLantern> fireflies = new ArrayList<>();
+
+    public int age;
 
     public FireflyLanternBlockEntity(BlockPos pos, BlockState state) {
         super(RegisterBlockEntities.FIREFLY_LANTERN, pos, state);
+        this.inventory = DefaultedList.ofSize(1, ItemStack.EMPTY);
     }
 
     public void serverTick(World world, BlockPos pos) {
+        ++this.age;
         if (!this.fireflies.isEmpty()) {
             for (FireflyInLantern firefly : this.fireflies) {
                 firefly.tick(world, pos);
             }
-            for (ServerPlayerEntity player : PlayerLookup.tracking(this)) {
-                player.networkHandler.sendPacket(this.toUpdatePacket());
-            }
+        }
+        for (ServerPlayerEntity player : PlayerLookup.tracking(this)) {
+            player.networkHandler.sendPacket(this.toUpdatePacket());
         }
     }
 
@@ -60,6 +67,19 @@ public class FireflyLanternBlockEntity extends BlockEntity {
     @Override
     public NbtCompound toInitialChunkDataNbt() {
         return this.createNbt();
+    }
+
+    public boolean invEmpty() {
+        Optional<ItemStack> stack1 = this.inventory.stream().findFirst();
+        return stack1.map(itemStack -> itemStack == ItemStack.EMPTY).orElse(true);
+    }
+
+    public Optional<ItemStack> getItem() {
+        return this.inventory.stream().findFirst();
+    }
+
+    public boolean noFireflies() {
+        return this.getFireflies().isEmpty();
     }
 
     public void readNbt(NbtCompound nbt) {
@@ -77,6 +97,9 @@ public class FireflyLanternBlockEntity extends BlockEntity {
                 }
             }
         }
+        this.inventory = DefaultedList.ofSize(1, ItemStack.EMPTY);
+        Inventories.readNbt(nbt, this.inventory);
+        this.age = nbt.getInt("age");
     }
 
     protected void writeNbt(NbtCompound nbt) {
@@ -87,6 +110,8 @@ public class FireflyLanternBlockEntity extends BlockEntity {
         var10000.resultOrPartial(var10001::error).ifPresent((cursorsNbt) -> {
             nbt.put("Fireflies", (NbtElement) cursorsNbt);
         });
+        Inventories.writeNbt(nbt, this.inventory);
+        nbt.putInt("age", this.age);
     }
 
     public ArrayList<FireflyInLantern> getFireflies() {

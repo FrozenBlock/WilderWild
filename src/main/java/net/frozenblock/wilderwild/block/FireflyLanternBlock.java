@@ -77,41 +77,54 @@ public class FireflyLanternBlock extends BlockWithEntity implements Waterloggabl
         BlockEntity entity = world.getBlockEntity(pos);
         if (entity instanceof FireflyLanternBlockEntity lantern) {
             ItemStack stack = player.getStackInHand(hand);
-            if (stack.getItem() instanceof FireflyBottle bottle) {
-                if (lantern.getFireflies().size() < 4) {
-                    String name = "";
-                    if (stack.hasCustomName()) {
-                        name = stack.getName().getString();
+            if (lantern.invEmpty()) {
+                if (stack.getItem() instanceof FireflyBottle bottle) {
+                    if (lantern.getFireflies().size() < 4) {
+                        String name = "";
+                        if (stack.hasCustomName()) {
+                            name = stack.getName().getString();
+                        }
+                        lantern.addFirefly(bottle, name);
+                        if (!player.isCreative()) {
+                            player.getStackInHand(hand).decrement(1);
+                        }
+                        player.getInventory().offerOrDrop(new ItemStack(Items.GLASS_BOTTLE));
+                        world.setBlockState(pos, state.with(FIREFLIES, MathHelper.clamp(lantern.getFireflies().size(), 0, 4)));
+                        world.playSound(null, pos, RegisterSounds.ITEM_BOTTLE_PUT_IN_LANTERN_FIREFLY, SoundCategory.BLOCKS, 1.0F, 1.0F);
+                        return ActionResult.SUCCESS;
                     }
-                    lantern.addFirefly(bottle, name);
-                    if (!player.isCreative()) {
-                        player.getStackInHand(hand).decrement(1);
+                }
+                if (stack.isOf(Items.GLASS_BOTTLE)) {
+                    if (!lantern.getFireflies().isEmpty()) {
+                        FireflyLanternBlockEntity.FireflyInLantern fireflyInLantern = lantern.getFireflies().get((int) (lantern.getFireflies().size() * Math.random()));
+                        Optional<Item> optionalItem = Registry.ITEM.getOrEmpty(WilderWild.id(Objects.equals(fireflyInLantern.color, "on") ? "firefly_bottle" : fireflyInLantern.color + "_firefly_bottle"));
+                        Item item = RegisterItems.FIREFLY_BOTTLE;
+                        if (optionalItem.isPresent()) {
+                            item = optionalItem.get();
+                        }
+                        world.playSound(null, pos, RegisterSounds.ITEM_BOTTLE_CATCH_FIREFLY, SoundCategory.BLOCKS, 1.0F, 1.0F);
+                        if (!player.isCreative()) {
+                            player.getStackInHand(hand).decrement(1);
+                        }
+                        ItemStack bottleStack = new ItemStack(item);
+                        if (!Objects.equals(fireflyInLantern.customName, "")) {
+                            bottleStack.setCustomName(Text.of(fireflyInLantern.customName));
+                        }
+                        player.getInventory().offerOrDrop(bottleStack);
+                        ((FireflyLanternBlockEntity) entity).removeFirefly(fireflyInLantern);
+                        world.setBlockState(pos, state.with(FIREFLIES, MathHelper.clamp(lantern.getFireflies().size(), 0, 4)));
+                        return ActionResult.SUCCESS;
                     }
-                    player.getInventory().offerOrDrop(new ItemStack(Items.GLASS_BOTTLE));
-                    world.setBlockState(pos, state.with(FIREFLIES, MathHelper.clamp(lantern.getFireflies().size(), 0, 4)));
-                    world.playSound(null, pos, RegisterSounds.ITEM_BOTTLE_PUT_IN_LANTERN_FIREFLY, SoundCategory.BLOCKS, 1.0F, 1.0F);
+                }
+                if (!stack.isEmpty()) {
+                    lantern.inventory.set(0, stack.split(1));
                     return ActionResult.SUCCESS;
                 }
-            }
-            if (stack.isOf(Items.GLASS_BOTTLE)) {
-                if (!lantern.getFireflies().isEmpty()) {
-                    FireflyLanternBlockEntity.FireflyInLantern fireflyInLantern = lantern.getFireflies().get((int) (lantern.getFireflies().size() * Math.random()));
-                    Optional<Item> optionalItem = Registry.ITEM.getOrEmpty(WilderWild.id(Objects.equals(fireflyInLantern.color, "on") ? "firefly_bottle" : fireflyInLantern.color + "_firefly_bottle"));
-                    Item item = RegisterItems.FIREFLY_BOTTLE;
-                    if (optionalItem.isPresent()) {
-                        item = optionalItem.get();
-                    }
-                    world.playSound(null, pos, RegisterSounds.ITEM_BOTTLE_CATCH_FIREFLY, SoundCategory.BLOCKS, 1.0F, 1.0F);
-                    if (!player.isCreative()) {
-                        player.getStackInHand(hand).decrement(1);
-                    }
-                    ItemStack bottleStack = new ItemStack(item);
-                    if (!Objects.equals(fireflyInLantern.customName, "")) {
-                        bottleStack.setCustomName(Text.of(fireflyInLantern.customName));
-                    }
-                    player.getInventory().offerOrDrop(bottleStack);
-                    ((FireflyLanternBlockEntity) entity).removeFirefly(fireflyInLantern);
-                    world.setBlockState(pos, state.with(FIREFLIES, MathHelper.clamp(lantern.getFireflies().size(), 0, 4)));
+            } else {
+                Optional<ItemStack> stack1 = lantern.inventory.stream().findFirst();
+                if (stack1.isPresent()) {
+                    dropStack(world, pos, stack1.get());
+                    lantern.inventory.clear();
                     return ActionResult.SUCCESS;
                 }
             }
