@@ -4,8 +4,18 @@ import com.chocohead.mm.api.ClassTinkerers;
 import com.mojang.datafixers.schemas.Schema;
 import com.mojang.serialization.Codec;
 import net.fabricmc.api.ModInitializer;
+import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
+import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.fabricmc.loader.api.FabricLoader;
 import net.fabricmc.loader.api.ModContainer;
+import net.frozenblock.wilderwild.block.entity.FireflyLanternBlockEntity;
+import net.frozenblock.wilderwild.entity.AncientHornProjectile;
+import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.client.MinecraftClient;
+import net.minecraft.entity.EntityType;
+import net.minecraft.server.MinecraftServer;
+import net.minecraft.util.math.Vec3d;
+import net.minecraft.world.World;
 import org.quiltmc.qsl.datafixerupper.api.QuiltDataFixes;
 import org.quiltmc.qsl.datafixerupper.api.SimpleFixes;
 import net.frozenblock.wilderwild.block.entity.TermiteMoundBlockEntity;
@@ -47,6 +57,7 @@ import org.slf4j.LoggerFactory;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
+import java.util.UUID;
 
 public class WilderWild implements ModInitializer {
     public static final String MOD_ID = "wilderwild";
@@ -117,6 +128,8 @@ public class WilderWild implements ModInitializer {
 
         TermiteMoundBlockEntity.Termite.addDegradableBlocks();
         TermiteMoundBlockEntity.Termite.addNaturalDegradableBlocks();
+
+        sendLanternSync();
 
         terralith();
 
@@ -270,11 +283,28 @@ public class WilderWild implements ModInitializer {
     public static final Identifier MOVING_RESTRICTION_LOOPING_SOUND_PACKET = id("moving_restriction_looping_sound_packet");
     public static final Identifier MOVING_RESTRICTION_SOUND_PACKET = id("moving_restriction_sound_packet");
 
+    public static final Identifier REQUEST_LANTERN_SYNC_PACKET = id("request_lantern_sync_packet");
+
     public static Identifier id(String path) {
         return new Identifier(MOD_ID, path);
     }
 
     public static String string(String path) {
         return id(path).toString();
+    }
+
+    public void sendLanternSync() {
+        ServerPlayNetworking.registerGlobalReceiver(REQUEST_LANTERN_SYNC_PACKET, (ctx, player, handler, byteBuf, responseSender) -> {
+            ctx.execute(() -> {
+                BlockPos pos = new BlockPos(byteBuf.readInt(), byteBuf.readInt(), byteBuf.readInt());
+                World world = ctx.getWorld(byteBuf.readRegistryKey(Registry.WORLD_KEY));
+                if (world != null) {
+                    BlockEntity entity = world.getBlockEntity(pos);
+                    if (entity instanceof FireflyLanternBlockEntity lantern) {
+                        lantern.updatePlayer(player);
+                    }
+                }
+            });
+        });
     }
 }

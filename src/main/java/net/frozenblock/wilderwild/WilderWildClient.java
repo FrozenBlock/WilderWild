@@ -1,5 +1,6 @@
 package net.frozenblock.wilderwild;
 
+import io.netty.buffer.Unpooled;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
@@ -33,14 +34,17 @@ import net.minecraft.client.render.entity.model.EntityModelLayer;
 import net.minecraft.client.world.ClientWorld;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
+import net.minecraft.network.PacketByteBuf;
 import net.minecraft.particle.ParticleEffect;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.screen.PlayerScreenHandler;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.registry.Registry;
+import net.minecraft.world.World;
 
 import java.util.UUID;
 
@@ -171,6 +175,14 @@ public class WilderWildClient implements ClientModInitializer {
         }
     }
 
+    public static void requestLanternSync(BlockPos pos, World world) {
+        PacketByteBuf byteBuf = new PacketByteBuf(Unpooled.buffer());
+        byteBuf.writeInt(pos.getX());
+        byteBuf.writeInt(pos.getY());
+        byteBuf.writeInt(pos.getZ());
+        byteBuf.writeRegistryKey(world.getRegistryKey());
+        ClientPlayNetworking.send(WilderWild.REQUEST_LANTERN_SYNC_PACKET, byteBuf);
+    }
 
     public void receiveAncientHornProjectilePacket() {
         ClientPlayNetworking.registerGlobalReceiver(WilderWild.HORN_PROJECTILE_PACKET_ID, (ctx, handler, byteBuf, responseSender) -> {

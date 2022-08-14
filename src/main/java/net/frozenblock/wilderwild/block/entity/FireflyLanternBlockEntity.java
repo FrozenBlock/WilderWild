@@ -9,6 +9,7 @@ import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.entity.Firefly;
 import net.frozenblock.wilderwild.entity.ai.FireflyBrain;
 import net.frozenblock.wilderwild.item.FireflyBottle;
+import net.frozenblock.wilderwild.misc.ClientMethodInteractionThingy;
 import net.frozenblock.wilderwild.registry.RegisterBlockEntities;
 import net.frozenblock.wilderwild.registry.RegisterEntities;
 import net.frozenblock.wilderwild.registry.RegisterSounds;
@@ -24,7 +25,6 @@ import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.state.property.Properties;
 import net.minecraft.text.Text;
-import net.minecraft.util.ActionResult;
 import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
@@ -41,6 +41,7 @@ public class FireflyLanternBlockEntity extends BlockEntity {
     ArrayList<FireflyInLantern> fireflies = new ArrayList<>();
 
     public int age;
+    public boolean hasUpdated = false;
 
     public FireflyLanternBlockEntity(BlockPos pos, BlockState state) {
         super(RegisterBlockEntities.FIREFLY_LANTERN, pos, state);
@@ -48,12 +49,33 @@ public class FireflyLanternBlockEntity extends BlockEntity {
     }
 
     public void serverTick(World world, BlockPos pos) {
-        ++this.age;
         if (!this.fireflies.isEmpty()) {
             for (FireflyInLantern firefly : this.fireflies) {
                 firefly.tick(world, pos);
             }
         }
+    }
+
+    public void clientTick(World world, BlockPos pos) {
+        if (world.isClient) {
+        if (!this.hasUpdated) {
+            this.hasUpdated = true;
+            ClientMethodInteractionThingy.requestClientLanternBlahBlahBlah(pos, world);
+            }
+        }
+        this.age += 1;
+        if (!this.fireflies.isEmpty()) {
+            for (FireflyInLantern firefly : this.fireflies) {
+                firefly.tick(world, pos);
+            }
+        }
+    }
+
+    public void updatePlayer(ServerPlayerEntity player) {
+        player.networkHandler.sendPacket(this.toUpdatePacket());
+    }
+
+    public void updateSync() {
         for (ServerPlayerEntity player : PlayerLookup.tracking(this)) {
             player.networkHandler.sendPacket(this.toUpdatePacket());
         }
@@ -210,7 +232,7 @@ public class FireflyLanternBlockEntity extends BlockEntity {
         boolean nectar = false;
 
         public void tick(World world, BlockPos pos) {
-            ++this.age;
+            this.age += 1;
             this.prevY = this.y;
             this.y = Math.sin(this.age * 0.03) * 0.15;
             nectar = this.getCustomName().toLowerCase().contains("nectar");
