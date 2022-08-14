@@ -57,7 +57,7 @@ public class FireflyLanternBlockEntityRenderer<T extends FireflyLanternBlockEnti
         Optional<ItemStack> stack = lantern.getItem();
         if (stack.isPresent()) {
             matrices.push();
-            double extraHeight = 0.155;
+            double extraHeight = lantern.getCachedState().get(Properties.HANGING) ? 0.155 : 0.125;
                     //lantern.getCachedState().get(Properties.HANGING) ? 0.38 : 0.225;
             matrices.translate(0.5, extraHeight, 0.5);
             matrices.scale(0.7F, 0.7F, 0.7F);
