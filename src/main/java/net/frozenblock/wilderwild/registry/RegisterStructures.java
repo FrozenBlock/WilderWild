@@ -2,11 +2,9 @@ package net.frozenblock.wilderwild.registry;
 
 import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.tag.WilderBiomeTags;
+import net.frozenblock.wilderwild.world.structure.AbandonedCabinGenerator;
 import net.minecraft.entity.SpawnGroup;
-import net.minecraft.structure.AncientCityGenerator;
 import net.minecraft.structure.StructureSet;
-import net.minecraft.structure.StructureSetKeys;
-import net.minecraft.tag.BiomeTags;
 import net.minecraft.tag.TagKey;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.collection.Pool;
@@ -22,8 +20,6 @@ import net.minecraft.world.gen.chunk.placement.StructurePlacement;
 import net.minecraft.world.gen.heightprovider.ConstantHeightProvider;
 import net.minecraft.world.gen.structure.JigsawStructure;
 import net.minecraft.world.gen.structure.Structure;
-import net.minecraft.world.gen.structure.StructureKeys;
-import net.minecraft.world.gen.structure.Structures;
 
 import java.util.Arrays;
 import java.util.Map;
@@ -62,7 +58,7 @@ public class RegisterStructures {
                             GenerationStep.Feature.UNDERGROUND_DECORATION,
                             StructureTerrainAdaptation.BEARD_BOX
                     ),
-                    AncientCityGenerator.CITY_CENTER,
+                    AbandonedCabinGenerator.CITY_CENTER,
                     Optional.of(new Identifier("city_anchor")),
                     7,
                     ConstantHeightProvider.create(YOffset.fixed(-27)),

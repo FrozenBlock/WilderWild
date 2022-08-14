@@ -33,6 +33,7 @@
 	"worldgen.GenerationSettingsBuilderMixin",
 	"worldgen.OakSaplingGeneratorMixin",
 	"worldgen.SpruceSaplingGeneratorMixin",
+	"worldgen.StructurePoolsMixin",
 	"worldgen.SwampHutMixin",
 	"worldgen.VanillaBiomeParametersMixin",
 	"worldgen.VanillaSurfaceRulesMixin"
