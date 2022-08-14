@@ -77,7 +77,7 @@ public class FireflyLanternBlock extends BlockWithEntity implements Waterloggabl
         BlockEntity entity = world.getBlockEntity(pos);
         if (entity instanceof FireflyLanternBlockEntity lantern) {
             ItemStack stack = player.getStackInHand(hand);
-            if (lantern.invEmpty() && lantern.noFireflies()) {
+            if (lantern.invEmpty()) {
                 if (stack.getItem() instanceof FireflyBottle bottle) {
                     if (lantern.getFireflies().size() < 4) {
                         String name = "";
@@ -116,11 +116,11 @@ public class FireflyLanternBlock extends BlockWithEntity implements Waterloggabl
                         return ActionResult.SUCCESS;
                     }
                 }
-                if (!stack.isEmpty()) {
+                if (!stack.isEmpty() && lantern.noFireflies()) {
                     lantern.inventory.set(0, stack.split(1));
                     return ActionResult.SUCCESS;
                 }
-            } else {
+            } else if (lantern.noFireflies()) {
                 Optional<ItemStack> stack1 = lantern.inventory.stream().findFirst();
                 if (stack1.isPresent()) {
                     dropStack(world, pos, stack1.get());
