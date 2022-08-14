@@ -20,7 +20,6 @@ import net.frozenblock.wilderwild.misc.PVZGWSound.MovingSoundLoop;
 import net.frozenblock.wilderwild.misc.PVZGWSound.MovingSoundLoopWithRestriction;
 import net.frozenblock.wilderwild.misc.PVZGWSound.MovingSoundWithRestriction;
 import net.frozenblock.wilderwild.misc.config.MMDistantInteractions;
-import net.frozenblock.wilderwild.misc.config.ModMenuInteractionHandler;
 import net.frozenblock.wilderwild.particle.FloatingSculkBubbleParticle;
 import net.frozenblock.wilderwild.particle.PollenParticle;
 import net.frozenblock.wilderwild.particle.TermiteParticle;

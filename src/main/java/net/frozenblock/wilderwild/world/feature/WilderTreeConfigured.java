@@ -2,7 +2,6 @@ package net.frozenblock.wilderwild.world.feature;
 
 import com.google.common.collect.ImmutableList;
 import net.frozenblock.wilderwild.WilderWild;
-
 import net.frozenblock.wilderwild.block.BaobabNutBlock;
 import net.frozenblock.wilderwild.registry.RegisterBlocks;
 import net.frozenblock.wilderwild.world.gen.treedecorators.HeightBasedVineTrunkDecorator;
