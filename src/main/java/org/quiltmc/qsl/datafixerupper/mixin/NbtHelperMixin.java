@@ -15,11 +15,13 @@
  * limitations under the License.
  */
 
-package net.frozenblock.api.quiltmc.datafixerupper.mixin;
+package org.quiltmc.qsl.datafixerupper.mixin;
 
-import net.frozenblock.api.quiltmc.datafixerupper.impl.QuiltDataFixesInternals;
+import com.mojang.datafixers.DataFixer;
+import org.quiltmc.qsl.datafixerupper.impl.QuiltDataFixesInternals;
+import net.minecraft.datafixer.DataFixTypes;
 import net.minecraft.nbt.NbtCompound;
-import net.minecraft.structure.StructureTemplate;
+import net.minecraft.nbt.NbtHelper;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -28,12 +30,15 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 /**
  * Modified to work on Fabric
  */
-@Mixin(StructureTemplate.class)
-public abstract class StructureMixin {
-    @Inject(method = "writeNbt", at = @At("TAIL"), cancellable = true)
-    private void addModDataVersions(NbtCompound compound, CallbackInfoReturnable<NbtCompound> cir) {
-        NbtCompound out = cir.getReturnValue();
-        QuiltDataFixesInternals.addModDataVersions(out);
-        cir.setReturnValue(out);
+@Mixin(NbtHelper.class)
+public abstract class NbtHelperMixin {
+    @Inject(
+            method = "update(Lcom/mojang/datafixers/DataFixer;Lnet/minecraft/datafixer/DataFixTypes;Lnet/minecraft/nbt/NbtCompound;II)Lnet/minecraft/nbt/NbtCompound;",
+            at = @At("RETURN"),
+            cancellable = true
+    )
+    private static void updateDataWithFixers(DataFixer fixer, DataFixTypes fixTypes, NbtCompound compound,
+                                             int oldVersion, int targetVersion, CallbackInfoReturnable<NbtCompound> cir) {
+        cir.setReturnValue(QuiltDataFixesInternals.updateWithAllFixers(fixTypes, cir.getReturnValue()));
     }
 }

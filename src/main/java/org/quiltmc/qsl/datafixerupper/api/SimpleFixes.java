@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-package net.frozenblock.api.quiltmc.datafixerupper.api;
+package org.quiltmc.qsl.datafixerupper.api;
 
 import com.google.common.collect.ImmutableMap;
 import com.mojang.datafixers.DataFix;
