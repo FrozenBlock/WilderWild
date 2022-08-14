@@ -156,6 +156,7 @@ public class WilderWild implements ModInitializer {
         Schema schemaV6 = builder.addSchema(6, IdentifierNormalizingSchema::new);
         SimpleFixes.addBlockRenameFix(builder, "Rename baobab_sapling to baobab_nut", id("baobab_sapling"), id("baobab_nut"), schemaV6);
         SimpleFixes.addBlockRenameFix(builder, "Rename baobab_nut_sapling to baobab_nut", id("baobab_nut_sapling"), id("baobab_nut"), schemaV6);
+        SimpleFixes.addBlockRenameFix(builder, "Rename potted_baobab_sapling to potted_baobab_nut", id("potted_baobab_sapling"), id("potted_baobab_nut"), schemaV6);
 
         QuiltDataFixes.buildAndRegisterFixer(mod, builder);
     }

@@ -29,6 +29,7 @@ import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.color.world.BiomeColors;
 import net.minecraft.client.item.ModelPredicateProviderRegistry;
 import net.minecraft.client.render.RenderLayer;
+import net.minecraft.client.render.TexturedRenderLayers;
 import net.minecraft.client.render.entity.model.EntityModelLayer;
 import net.minecraft.client.world.ClientWorld;
 import net.minecraft.entity.Entity;
@@ -51,6 +52,9 @@ public class WilderWildClient implements ClientModInitializer {
     public static final EntityModelLayer ANCIENT_HORN_PROJECTILE_LAYER = new EntityModelLayer(WilderWild.id("ancient_horn_projectile"), "main");
     public static final EntityModelLayer SCULK_SENSOR = new EntityModelLayer(WilderWild.id("sculk_sensor"), "main");
     public static final EntityModelLayer FIREFLY_LANTERN = new EntityModelLayer(WilderWild.id("firefly_lantern"), "main");
+    public static final EntityModelLayer STONE_CHEST = new EntityModelLayer(WilderWild.id("stone_chest"), "main");
+    public static final EntityModelLayer DOUBLE_STONE_CHEST_LEFT = new EntityModelLayer(WilderWild.id("double_stone_chest_left"), "main");
+    public static final EntityModelLayer DOUBLE_STONE_CHEST_RIGHT = new EntityModelLayer(WilderWild.id("double_stone_chest_right"), "main");
 
     @Override
     public void onInitializeClient() {
@@ -60,7 +64,7 @@ public class WilderWildClient implements ClientModInitializer {
         BlockRenderLayerMap.INSTANCE.putBlock(RegisterBlocks.SEEDING_DANDELION, RenderLayer.getCutout());
         BlockRenderLayerMap.INSTANCE.putBlock(RegisterBlocks.POTTED_CARNATION, RenderLayer.getCutout());
         BlockRenderLayerMap.INSTANCE.putBlock(RegisterBlocks.POTTED_SEEDING_DANDELION, RenderLayer.getCutout());
-        BlockRenderLayerMap.INSTANCE.putBlock(RegisterBlocks.POTTED_BAOBAB_SAPLING, RenderLayer.getCutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(RegisterBlocks.POTTED_BAOBAB_NUT, RenderLayer.getCutout());
         BlockRenderLayerMap.INSTANCE.putBlock(RegisterBlocks.POTTED_CYPRESS_SAPLING, RenderLayer.getCutout());
         BlockRenderLayerMap.INSTANCE.putBlock(RegisterBlocks.DATURA, RenderLayer.getCutout());
         BlockRenderLayerMap.INSTANCE.putBlock(RegisterBlocks.CATTAIL, RenderLayer.getCutout());
@@ -125,6 +129,11 @@ public class WilderWildClient implements ClientModInitializer {
         BlockEntityRendererRegistry.register(RegisterBlockEntities.FIREFLY_LANTERN, FireflyLanternBlockEntityRenderer::new);
         EntityModelLayerRegistry.registerModelLayer(FIREFLY_LANTERN, FireflyLanternBlockEntityRenderer::getTexturedModelData);
 
+        BlockEntityRendererRegistry.register(RegisterBlockEntities.STONE_CHEST, StoneChestBlockEntityRenderer::new);
+        EntityModelLayerRegistry.registerModelLayer(STONE_CHEST, StoneChestBlockEntityRenderer::getSingleTexturedModelData);
+        EntityModelLayerRegistry.registerModelLayer(DOUBLE_STONE_CHEST_LEFT, StoneChestBlockEntityRenderer::getLeftDoubleTexturedModelData);
+        EntityModelLayerRegistry.registerModelLayer(DOUBLE_STONE_CHEST_RIGHT, StoneChestBlockEntityRenderer::getRightDoubleTexturedModelData);
+
         receiveAncientHornProjectilePacket();
         receiveEasyEchoerBubblePacket();
         receiveSeedPacket();
@@ -183,7 +192,7 @@ public class WilderWildClient implements ClientModInitializer {
         ClientPlayNetworking.send(WilderWild.REQUEST_LANTERN_SYNC_PACKET, byteBuf);
     }
 
-    public void receiveAncientHornProjectilePacket() {
+    private static void receiveAncientHornProjectilePacket() {
         ClientPlayNetworking.registerGlobalReceiver(WilderWild.HORN_PROJECTILE_PACKET_ID, (ctx, handler, byteBuf, responseSender) -> {
             EntityType<?> et = Registry.ENTITY_TYPE.get(byteBuf.readVarInt());
             UUID uuid = byteBuf.readUuid();
@@ -210,7 +219,7 @@ public class WilderWildClient implements ClientModInitializer {
         });
     }
 
-    public void receiveEasyEchoerBubblePacket() {
+    private static void receiveEasyEchoerBubblePacket() {
         ClientPlayNetworking.registerGlobalReceiver(WilderWild.FLOATING_SCULK_BUBBLE_PACKET, (ctx, handler, byteBuf, responseSender) -> {
             Vec3d pos = new Vec3d(byteBuf.readDouble(), byteBuf.readDouble(), byteBuf.readDouble());
             int size = byteBuf.readVarInt();
@@ -227,7 +236,7 @@ public class WilderWildClient implements ClientModInitializer {
         });
     }
 
-    public void receiveSeedPacket() {
+    private static void receiveSeedPacket() {
         ClientPlayNetworking.registerGlobalReceiver(WilderWild.SEED_PACKET, (ctx, handler, byteBuf, responseSender) -> {
             Vec3d pos = new Vec3d(byteBuf.readDouble(), byteBuf.readDouble(), byteBuf.readDouble());
             int count = byteBuf.readVarInt();
@@ -242,7 +251,7 @@ public class WilderWildClient implements ClientModInitializer {
         });
     }
 
-    public void receiveControlledSeedPacket() {
+    private static void receiveControlledSeedPacket() {
         ClientPlayNetworking.registerGlobalReceiver(WilderWild.CONTROLLED_SEED_PACKET, (ctx, handler, byteBuf, responseSender) -> {
             Vec3d pos = new Vec3d(byteBuf.readDouble(), byteBuf.readDouble(), byteBuf.readDouble());
             double velx = byteBuf.readDouble();
@@ -260,7 +269,7 @@ public class WilderWildClient implements ClientModInitializer {
         });
     }
 
-    public void receiveTermitePacket() {
+    private static void receiveTermitePacket() {
         ClientPlayNetworking.registerGlobalReceiver(WilderWild.TERMITE_PARTICLE_PACKET, (ctx, handler, byteBuf, responseSender) -> {
             Vec3d pos = new Vec3d(byteBuf.readDouble(), byteBuf.readDouble(), byteBuf.readDouble());
             int count = byteBuf.readVarInt();
@@ -274,7 +283,7 @@ public class WilderWildClient implements ClientModInitializer {
         });
     }
 
-    public void receiveSensorHiccupPacket() {
+    private static void receiveSensorHiccupPacket() {
         ClientPlayNetworking.registerGlobalReceiver(WilderWild.SENSOR_HICCUP_PACKET, (ctx, handler, byteBuf, responseSender) -> {
             Vec3d pos = new Vec3d(byteBuf.readDouble(), byteBuf.readDouble(), byteBuf.readDouble());
             ctx.execute(() -> {
@@ -293,7 +302,7 @@ public class WilderWildClient implements ClientModInitializer {
         });
     }
 
-    public void receiveFireflyCaptureInfoPacket() {
+    private static void receiveFireflyCaptureInfoPacket() {
         ClientPlayNetworking.registerGlobalReceiver(WilderWild.CAPTURE_FIREFLY_NOTIFY_PACKET, (ctx, handler, byteBuf, responseSender) -> {
             boolean creative = byteBuf.readBoolean();
             boolean natural = byteBuf.readBoolean();
@@ -305,7 +314,7 @@ public class WilderWildClient implements ClientModInitializer {
         });
     }
 
-    public void receiveAncientHornKillInfoPacket() {
+    private static void receiveAncientHornKillInfoPacket() {
         ClientPlayNetworking.registerGlobalReceiver(WilderWild.ANCIENT_HORN_KILL_NOTIFY_PACKET, (ctx, handler, byteBuf, responseSender) -> {
             boolean creative = byteBuf.readBoolean();
             boolean natural = byteBuf.readBoolean();
@@ -317,7 +326,7 @@ public class WilderWildClient implements ClientModInitializer {
         });
     }
 
-    public void receiveMovingLoopingSoundPacket() {
+    private static void receiveMovingLoopingSoundPacket() {
         ClientPlayNetworking.registerGlobalReceiver(WilderWild.MOVING_LOOPING_SOUND_PACKET, (ctx, handler, byteBuf, responseSender) -> {
             int id = byteBuf.readVarInt();
             SoundEvent sound = byteBuf.readRegistryValue(Registry.SOUND_EVENT);
@@ -341,7 +350,7 @@ public class WilderWildClient implements ClientModInitializer {
         });
     }
 
-    public void receiveMovingRestrictionSoundPacket() {
+    private static void receiveMovingRestrictionSoundPacket() {
         ClientPlayNetworking.registerGlobalReceiver(WilderWild.MOVING_RESTRICTION_SOUND_PACKET, (ctx, handler, byteBuf, responseSender) -> {
             int id = byteBuf.readVarInt();
             SoundEvent sound = byteBuf.readRegistryValue(Registry.SOUND_EVENT);
@@ -365,7 +374,7 @@ public class WilderWildClient implements ClientModInitializer {
         });
     }
 
-    public void receiveMovingRestrictionLoopingSoundPacket() {
+    private static void receiveMovingRestrictionLoopingSoundPacket() {
         ClientPlayNetworking.registerGlobalReceiver(WilderWild.MOVING_RESTRICTION_LOOPING_SOUND_PACKET, (ctx, handler, byteBuf, responseSender) -> {
             int id = byteBuf.readVarInt();
             SoundEvent sound = byteBuf.readRegistryValue(Registry.SOUND_EVENT);
@@ -389,7 +398,7 @@ public class WilderWildClient implements ClientModInitializer {
         });
     }
 
-    public void receiveFlybySoundPacket() {
+    private static void receiveFlybySoundPacket() {
         ClientPlayNetworking.registerGlobalReceiver(WilderWild.FLYBY_SOUND_PACKET, (ctx, handler, byteBuf, responseSender) -> {
             int id = byteBuf.readVarInt();
             SoundEvent sound = byteBuf.readRegistryValue(Registry.SOUND_EVENT);

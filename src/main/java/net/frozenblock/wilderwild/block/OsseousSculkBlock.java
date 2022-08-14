@@ -90,7 +90,7 @@ public class OsseousSculkBlock extends PillarBlock implements SculkSpreadable {
         }
         int i = cursor.getCharge();
         int j = 1;
-        if (i != 0 && random.nextInt(1) == 0) {
+        if (i != 0 && random.nextInt(2) == 0) {
             BlockPos blockPos = cursor.getPos();
             boolean bl = blockPos.isWithinDistance(catalystPos, spreadManager.getMaxDistance());
             if (!bl) {
