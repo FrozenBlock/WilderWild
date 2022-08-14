@@ -5,11 +5,9 @@ import net.frozenblock.wilderwild.tag.WilderBiomeTags;
 import net.frozenblock.wilderwild.world.structure.AbandonedCabinGenerator;
 import net.minecraft.entity.SpawnGroup;
 import net.minecraft.structure.StructureSet;
-import net.minecraft.tag.BiomeTags;
 import net.minecraft.tag.TagKey;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.collection.Pool;
-import net.minecraft.util.math.Vec3i;
 import net.minecraft.util.registry.*;
 import net.minecraft.world.StructureSpawns;
 import net.minecraft.world.biome.Biome;
@@ -60,7 +58,7 @@ public class RegisterStructures {
                             GenerationStep.Feature.UNDERGROUND_DECORATION,
                             StructureTerrainAdaptation.BEARD_BOX
                     ),
-                    AbandonedCabinGenerator.CITY_CENTER,
+                    AbandonedCabinGenerator.CABIN,
                     Optional.of(new Identifier("city_anchor")),
                     3,
                     ConstantHeightProvider.create(YOffset.fixed(0)),

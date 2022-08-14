@@ -31,6 +31,7 @@ import net.minecraft.client.item.ModelPredicateProviderRegistry;
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.TexturedRenderLayers;
 import net.minecraft.client.render.entity.model.EntityModelLayer;
+import net.minecraft.client.util.SpriteIdentifier;
 import net.minecraft.client.world.ClientWorld;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
@@ -55,6 +56,10 @@ public class WilderWildClient implements ClientModInitializer {
     public static final EntityModelLayer STONE_CHEST = new EntityModelLayer(WilderWild.id("stone_chest"), "main");
     public static final EntityModelLayer DOUBLE_STONE_CHEST_LEFT = new EntityModelLayer(WilderWild.id("double_stone_chest_left"), "main");
     public static final EntityModelLayer DOUBLE_STONE_CHEST_RIGHT = new EntityModelLayer(WilderWild.id("double_stone_chest_right"), "main");
+
+    public static final SpriteIdentifier STONE = TexturedRenderLayers.getChestTextureId("stone");
+    public static final SpriteIdentifier STONE_LEFT = TexturedRenderLayers.getChestTextureId("stone_left");
+    public static final SpriteIdentifier STONE_RIGHT = TexturedRenderLayers.getChestTextureId("stone_right");
 
     @Override
     public void onInitializeClient() {

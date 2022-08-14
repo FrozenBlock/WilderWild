@@ -1,6 +1,5 @@
 package net.frozenblock.wilderwild.entity.render;
 
-import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.WilderWildClient;
 import net.frozenblock.wilderwild.block.StoneChestBlock;
 import net.frozenblock.wilderwild.block.entity.StoneChestBlockEntity;
@@ -17,6 +16,7 @@ import net.minecraft.client.render.block.entity.ChestBlockEntityRenderer;
 import net.minecraft.client.render.block.entity.LightmapCoordinatesRetriever;
 import net.minecraft.client.util.SpriteIdentifier;
 import net.minecraft.client.util.math.MatrixStack;
+import net.minecraft.util.Identifier;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.Vec3f;
 import net.minecraft.world.World;
@@ -35,10 +35,6 @@ public class StoneChestBlockEntityRenderer<T extends StoneChestBlockEntity & Lid
     private final ModelPart doubleChestRightLid;
     private final ModelPart doubleChestRightBase;
     private final ModelPart doubleChestRightLatch;
-
-    public static final SpriteIdentifier NORMAL = TexturedRenderLayers.getChestTextureId("stone");
-    public static final SpriteIdentifier NORMAL_LEFT = TexturedRenderLayers.getChestTextureId("stone_left");
-    public static final SpriteIdentifier NORMAL_RIGHT = TexturedRenderLayers.getChestTextureId("stone_right");
 
     public StoneChestBlockEntityRenderer(BlockEntityRendererFactory.Context ctx) {
         super(ctx);
@@ -109,7 +105,7 @@ public class StoneChestBlockEntityRenderer<T extends StoneChestBlockEntity & Lid
             g = 1.0F - g;
             g = 1.0F - g * g * g;
             int i = propertySource.apply(new LightmapCoordinatesRetriever<>()).applyAsInt(light);
-            SpriteIdentifier spriteIdentifier = getChestTexture(entity, chestType, false);
+            SpriteIdentifier spriteIdentifier = WilderWildClient.STONE;//TexturedRenderLayers.getChestTexture(entity, chestType, false);
             VertexConsumer vertexConsumer = spriteIdentifier.getVertexConsumer(vertexConsumers, RenderLayer::getEntityCutout);
             if (bl2) {
                 if (chestType == ChestType.LEFT) {
@@ -134,7 +130,7 @@ public class StoneChestBlockEntityRenderer<T extends StoneChestBlockEntity & Lid
     }
 
     public static SpriteIdentifier getChestTexture(BlockEntity blockEntity, ChestType type, boolean christmas) {
-        return getChestTexture(type, NORMAL, NORMAL_LEFT, NORMAL_RIGHT);
+        return getChestTexture(type, WilderWildClient.STONE, WilderWildClient.STONE_LEFT, WilderWildClient.STONE_RIGHT);
     }
 
     private static SpriteIdentifier getChestTexture(ChestType type, SpriteIdentifier single, SpriteIdentifier left, SpriteIdentifier right) {
