@@ -95,6 +95,7 @@ public class WilderWild implements ModInitializer {
         WilderWorldGen.generateWildWorldGen();
         RegisterGameEvents.registerEvents();
         RegisterWorldgen.registerWorldGen();
+        RegisterStructures.init();
 
         RegisterSounds.init();
         RegisterBlockSoundGroups.init();
