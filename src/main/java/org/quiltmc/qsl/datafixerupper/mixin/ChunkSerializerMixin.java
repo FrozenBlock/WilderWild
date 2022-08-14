@@ -15,9 +15,9 @@
  * limitations under the License.
  */
 
-package net.frozenblock.api.quiltmc.datafixerupper.mixin;
+package org.quiltmc.qsl.datafixerupper.mixin;
 
-import net.frozenblock.api.quiltmc.datafixerupper.impl.QuiltDataFixesInternals;
+import org.quiltmc.qsl.datafixerupper.impl.QuiltDataFixesInternals;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.world.ChunkSerializer;
 import org.spongepowered.asm.mixin.Mixin;
