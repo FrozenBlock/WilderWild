@@ -55,7 +55,7 @@ public class FireflyLanternBlockEntityRenderer<T extends FireflyLanternBlockEnti
     public void render(T lantern, float tickDelta, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, int overlay) {
         Quaternion cam = MinecraftClient.getInstance().gameRenderer.getCamera().getRotation();
         Optional<ItemStack> stack = lantern.getItem();
-        if (stack.isPresent()) {
+        if (!lantern.invEmpty() && stack.isPresent()) {
             matrices.push();
             double extraHeight = lantern.getCachedState().get(Properties.HANGING) ? 0.155 : 0.125;
                     //lantern.getCachedState().get(Properties.HANGING) ? 0.38 : 0.225;
