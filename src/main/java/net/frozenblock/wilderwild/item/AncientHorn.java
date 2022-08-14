@@ -11,6 +11,8 @@ import net.minecraft.entity.player.ItemCooldownManager;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.*;
 import net.minecraft.nbt.NbtCompound;
+import net.minecraft.particle.ParticleEffect;
+import net.minecraft.particle.ShriekParticleEffect;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvent;
@@ -149,6 +151,8 @@ public class AncientHorn extends Item {
             SoundEvent soundEvent = instrument.soundEvent();
             float range = instrument.range() / 16.0F;
             world.playSoundFromEntity(user, user, soundEvent, SoundCategory.RECORDS, range, 1.0F);
+            ParticleEffect ShriekParticleEffect = new ShriekParticleEffect(0);
+            world.addParticle(ShriekParticleEffect, true, user.getX(), user.getY(), user.getZ(), user.getYaw(),user.getPitch(), -user.getYaw());
             user.getItemCooldownManager().set(RegisterItems.ANCIENT_HORN, getCooldown(user, 300));
             if (world instanceof ServerWorld server) {
                 AncientHornProjectile projectileEntity = new AncientHornProjectile(world, user.getX(), user.getEyeY(), user.getZ());
