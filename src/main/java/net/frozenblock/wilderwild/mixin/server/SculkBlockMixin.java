@@ -97,7 +97,7 @@ public class SculkBlockMixin {
                     world.setBlockState(blockPos2, blockState, 3);
 
                     if (isWorldGen && world.getBlockState(blockPos2).getBlock() == RegisterBlocks.OSSEOUS_SCULK) {
-                        int amount = Math.max(0, blockState.get(OsseousSculkBlock.HEIGHT_LEFT) - random.nextInt(1));
+                        int amount = Math.max(0, blockState.get(OsseousSculkBlock.HEIGHT_LEFT) - random.nextInt(2));
                         for (int a = 0; a < amount; a++) {
                             OsseousSculkBlock.worldGenSpread(blockPos2, world, random);
                         }
