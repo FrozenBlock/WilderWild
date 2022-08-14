@@ -36,9 +36,9 @@ public class StoneChestBlockEntityRenderer<T extends StoneChestBlockEntity & Lid
     private final ModelPart doubleChestRightBase;
     private final ModelPart doubleChestRightLatch;
 
-    public static final SpriteIdentifier NORMAL = TexturedRenderLayers.getChestTextureId("textures/entity/chest/stone");
-    public static final SpriteIdentifier NORMAL_LEFT = TexturedRenderLayers.getChestTextureId("textures/entity/chest/stone_left");
-    public static final SpriteIdentifier NORMAL_RIGHT = TexturedRenderLayers.getChestTextureId("textures/entity/chest/stone_right");
+    public static final SpriteIdentifier NORMAL = TexturedRenderLayers.getChestTextureId("stone");
+    public static final SpriteIdentifier NORMAL_LEFT = TexturedRenderLayers.getChestTextureId("stone_left");
+    public static final SpriteIdentifier NORMAL_RIGHT = TexturedRenderLayers.getChestTextureId("stone_right");
 
     public StoneChestBlockEntityRenderer(BlockEntityRendererFactory.Context ctx) {
         super(ctx);
