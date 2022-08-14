@@ -91,6 +91,7 @@ public class FireflyLanternBlock extends BlockWithEntity implements Waterloggabl
                         player.getInventory().offerOrDrop(new ItemStack(Items.GLASS_BOTTLE));
                         world.setBlockState(pos, state.with(FIREFLIES, MathHelper.clamp(lantern.getFireflies().size(), 0, 4)));
                         world.playSound(null, pos, RegisterSounds.ITEM_BOTTLE_PUT_IN_LANTERN_FIREFLY, SoundCategory.BLOCKS, 1.0F, 1.0F);
+                        lantern.updateSync();
                         return ActionResult.SUCCESS;
                     }
                 }
@@ -113,11 +114,13 @@ public class FireflyLanternBlock extends BlockWithEntity implements Waterloggabl
                         player.getInventory().offerOrDrop(bottleStack);
                         ((FireflyLanternBlockEntity) entity).removeFirefly(fireflyInLantern);
                         world.setBlockState(pos, state.with(FIREFLIES, MathHelper.clamp(lantern.getFireflies().size(), 0, 4)));
+                        lantern.updateSync();
                         return ActionResult.SUCCESS;
                     }
                 }
                 if (!stack.isEmpty() && lantern.noFireflies()) {
                     lantern.inventory.set(0, stack.split(1));
+                    lantern.updateSync();
                     return ActionResult.SUCCESS;
                 }
             } else if (lantern.noFireflies()) {
@@ -125,6 +128,7 @@ public class FireflyLanternBlock extends BlockWithEntity implements Waterloggabl
                 if (stack1.isPresent()) {
                     dropStack(world, pos, stack1.get());
                     lantern.inventory.clear();
+                    lantern.updateSync();
                     return ActionResult.SUCCESS;
                 }
             }
@@ -215,7 +219,7 @@ public class FireflyLanternBlock extends BlockWithEntity implements Waterloggabl
     @Override
     @Nullable
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(World world, BlockState state, BlockEntityType<T> type) {
-        return !world.isClient ? checkType(type, RegisterBlockEntities.FIREFLY_LANTERN, (worldx, pos, statex, blockEntity) -> blockEntity.serverTick(world, pos)) : null;
+        return !world.isClient ? checkType(type, RegisterBlockEntities.FIREFLY_LANTERN, (worldx, pos, statex, blockEntity) -> blockEntity.serverTick(world, pos)) : checkType(type, RegisterBlockEntities.FIREFLY_LANTERN, (worldx, pos, statex, blockEntity) -> blockEntity.clientTick(world, pos));
     }
 
     public void afterBreak(World world, PlayerEntity player, BlockPos pos, BlockState state, @Nullable BlockEntity blockEntity, ItemStack stack) {
