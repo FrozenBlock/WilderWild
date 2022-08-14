@@ -1,7 +1,5 @@
 package net.frozenblock.wilderwild.entity.render;
 
-import it.unimi.dsi.fastutil.floats.Float2FloatFunction;
-import it.unimi.dsi.fastutil.ints.Int2IntFunction;
 import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.WilderWildClient;
 import net.frozenblock.wilderwild.block.StoneChestBlock;
@@ -38,9 +36,9 @@ public class StoneChestBlockEntityRenderer<T extends StoneChestBlockEntity & Lid
     private final ModelPart doubleChestRightBase;
     private final ModelPart doubleChestRightLatch;
 
-    public static final SpriteIdentifier NORMAL = getChestTextureId("normal");
-    public static final SpriteIdentifier NORMAL_LEFT = getChestTextureId("normal_left");
-    public static final SpriteIdentifier NORMAL_RIGHT = getChestTextureId("normal_right");
+    public static final SpriteIdentifier NORMAL = TexturedRenderLayers.getChestTextureId("stone_chest_normal");
+    public static final SpriteIdentifier NORMAL_LEFT = TexturedRenderLayers.getChestTextureId("stone_chest_normal_left");
+    public static final SpriteIdentifier NORMAL_RIGHT = TexturedRenderLayers.getChestTextureId("stone_chest_normal_right");
 
     public StoneChestBlockEntityRenderer(BlockEntityRendererFactory.Context ctx) {
         super(ctx);
@@ -111,7 +109,7 @@ public class StoneChestBlockEntityRenderer<T extends StoneChestBlockEntity & Lid
             g = 1.0F - g;
             g = 1.0F - g * g * g;
             int i = propertySource.apply(new LightmapCoordinatesRetriever<>()).applyAsInt(light);
-            SpriteIdentifier spriteIdentifier = TexturedRenderLayers.getChestTexture(entity, chestType, false);
+            SpriteIdentifier spriteIdentifier = getChestTexture(entity, chestType, false);
             VertexConsumer vertexConsumer = spriteIdentifier.getVertexConsumer(vertexConsumers, RenderLayer::getEntityCutout);
             if (bl2) {
                 if (chestType == ChestType.LEFT) {
@@ -135,20 +133,19 @@ public class StoneChestBlockEntityRenderer<T extends StoneChestBlockEntity & Lid
         base.render(matrices, vertices, light, overlay);
     }
 
-    public static SpriteIdentifier getChestTexture(BlockEntity blockEntity, ChestType type) {
-        return blockEntity instanceof StoneChestBlockEntity ? getChestTexture(type, NORMAL, NORMAL_LEFT, NORMAL_RIGHT) : null;
+    public static SpriteIdentifier getChestTexture(BlockEntity blockEntity, ChestType type, boolean christmas) {
+        return getChestTexture(type, NORMAL, NORMAL_LEFT, NORMAL_RIGHT);
     }
 
     private static SpriteIdentifier getChestTexture(ChestType type, SpriteIdentifier single, SpriteIdentifier left, SpriteIdentifier right) {
-        return switch (type) {
-            case LEFT -> left;
-            case RIGHT -> right;
-            case SINGLE -> single;
-            default -> single;
-        };
-    }
-
-    private static SpriteIdentifier getChestTextureId(String variant) {
-        return new SpriteIdentifier(TexturedRenderLayers.CHEST_ATLAS_TEXTURE, WilderWild.id("entity/stone_chest/" + variant));
+        switch(type) {
+            case LEFT:
+                return left;
+            case RIGHT:
+                return right;
+            case SINGLE:
+            default:
+                return single;
+        }
     }
 }
