@@ -869,6 +869,18 @@
 		],
 		"subtitle": "subtitles.block.sculk_shrieker.gargle"
 	},
+	"block.stone_chest.close": {
+		"sounds": [
+			"wilderwild:block/stone_chest/close"
+		],
+		"subtitle": "subtitles.block.chest.close"
+	},
+	"block.stone_chest.open": {
+		"sounds": [
+			"wilderwild:block/stone_chest/open"
+		],
+		"subtitle": "subtitles.block.chest.open"
+	},
 	"block.sugar_cane.break": {
 		"sounds": [
 			"wilderwild:block/sugar_cane/place1",
