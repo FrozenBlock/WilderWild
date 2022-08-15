@@ -63,6 +63,8 @@ public class StoneChestBlockEntity extends ChestBlockEntity {
     }
 
     public static void clientStoneTick(World world, BlockPos pos, BlockState state, StoneChestBlockEntity blockEntity) {
+        blockEntity.prevLidX = blockEntity.lidX;
+        blockEntity.prevLidZ = blockEntity.lidZ;
         if (!blockEntity.hasUpdated) {
             ClientMethodInteractionThingy.requestBlockEntitySync(pos, world);
             blockEntity.hasUpdated = true;
