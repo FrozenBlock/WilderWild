@@ -49,7 +49,7 @@ public class StoneChestBlock extends ChestBlock {
         } else {
             BlockEntity entity = world.getBlockEntity(pos);
             if (entity instanceof StoneChestBlockEntity stoneChest) {
-                stoneChest.lidX = stoneChest.lidX - 0.1F;
+                stoneChest.lidX = stoneChest.lidX - 0.2F;
                 stoneChest.updateSync();
             }
         }

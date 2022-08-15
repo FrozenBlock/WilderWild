@@ -106,9 +106,9 @@ public class StoneChestBlockEntityRenderer<T extends StoneChestBlockEntity & Lid
                 propertySource = DoubleBlockProperties.PropertyRetriever::getFallback;
             }
 
-            float x = entity.getLidX(tickDelta);
-            float z = entity.getLidZ(tickDelta);
-            float y = entity.getLidY(tickDelta);
+            float x = entity.getLidX(tickDelta) * -1;
+            float z = entity.getLidZ(tickDelta) * -1;
+            float y = (entity.getLidY(tickDelta) * -1) + 9;
             int i = propertySource.apply(new LightmapCoordinatesRetriever<>()).applyAsInt(light);
             SpriteIdentifier spriteIdentifier = getChestTexture(entity, chestType, false);
             VertexConsumer vertexConsumer = spriteIdentifier.getVertexConsumer(vertexConsumers, RenderLayer::getEntityCutout);
