@@ -108,7 +108,7 @@ public class StoneChestBlockEntityRenderer<T extends StoneChestBlockEntity & Lid
 
             float x = entity.getLidX(tickDelta);
             float z = entity.getLidZ(tickDelta);
-            float y = entity.getLidY(tickDelta);
+            float y = entity.getLidY(tickDelta) + 9;
             int i = propertySource.apply(new LightmapCoordinatesRetriever<>()).applyAsInt(light);
             SpriteIdentifier spriteIdentifier = getChestTexture(entity, chestType, false);
             VertexConsumer vertexConsumer = spriteIdentifier.getVertexConsumer(vertexConsumers, RenderLayer::getEntityCutout);

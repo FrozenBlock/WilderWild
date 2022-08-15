@@ -73,7 +73,32 @@ public class StoneChestBlockEntity extends ChestBlockEntity {
         blockEntity.prevLidZ = blockEntity.lidZ;
         blockEntity.prevLidY = blockEntity.lidY;
         if (blockEntity.lidX > 1.0F) {
-            blockEntity.lidY = blockEntity.lidY + 0.2F;
+            blockEntity.lidY = blockEntity.lidY + 0.3F;
+            blockEntity.updateSync();
+            if (world.getBlockState(pos.add(blockEntity.lidX, blockEntity.lidY, blockEntity.lidZ)).getMaterial().isSolid()) {
+                blockEntity.hasLid = false;
+                world.syncWorldEvent(2001, pos, Block.getRawIdFromState(state));
+                blockEntity.updateSync();
+            }
+        } else if (blockEntity.lidX < 0.0F) {
+            blockEntity.lidY = blockEntity.lidY + 0.3F;
+            blockEntity.updateSync();
+            if (world.getBlockState(pos.add(blockEntity.lidX, blockEntity.lidY, blockEntity.lidZ)).getMaterial().isSolid()) {
+                blockEntity.hasLid = false;
+                world.syncWorldEvent(2001, pos, Block.getRawIdFromState(state));
+                blockEntity.updateSync();
+            }
+        }
+        if (blockEntity.lidZ > 1.0F) {
+            blockEntity.lidY = blockEntity.lidY + 0.3F;
+            blockEntity.updateSync();
+            if (world.getBlockState(pos.add(blockEntity.lidX, blockEntity.lidY, blockEntity.lidZ)).getMaterial().isSolid()) {
+                blockEntity.hasLid = false;
+                world.syncWorldEvent(2001, pos, Block.getRawIdFromState(state));
+                blockEntity.updateSync();
+            }
+        } else if (blockEntity.lidZ < 0.0F) {
+            blockEntity.lidY = blockEntity.lidY + 0.3F;
             blockEntity.updateSync();
             if (world.getBlockState(pos.add(blockEntity.lidX, blockEntity.lidY, blockEntity.lidZ)).getMaterial().isSolid()) {
                 blockEntity.hasLid = false;
