@@ -6,7 +6,7 @@ import net.frozenblock.wilderwild.world.feature.WilderMiscPlaced;
 import net.minecraft.world.biome.BiomeKeys;
 import net.minecraft.world.gen.GenerationStep;
 
-public class WilderMiscGeneration {
+public final class WilderMiscGeneration {
     public static void generateMisc() {
         BiomeModifications.addFeature(BiomeSelectors.includeByKey(BiomeKeys.SWAMP),
                 GenerationStep.Feature.TOP_LAYER_MODIFICATION, WilderMiscPlaced.DISK_MUD.getKey().orElseThrow());

@@ -7,7 +7,7 @@ import net.minecraft.tag.BiomeTags;
 import net.minecraft.world.biome.BiomeKeys;
 import net.minecraft.world.gen.GenerationStep;
 
-public class WilderTreesGeneration {
+public final class WilderTreesGeneration {
     public static void generateTrees() {
         BiomeModifications.addFeature(BiomeSelectors.includeByKey(BiomeKeys.BIRCH_FOREST, BiomeKeys.OLD_GROWTH_BIRCH_FOREST),
                 GenerationStep.Feature.VEGETAL_DECORATION, WilderPlacedFeatures.NEW_BIRCH_PLACED.getKey().orElseThrow());

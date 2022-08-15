@@ -6,7 +6,7 @@ import net.frozenblock.wilderwild.world.feature.WilderPlacedFeatures;
 import net.minecraft.world.biome.BiomeKeys;
 import net.minecraft.world.gen.GenerationStep;
 
-public class WilderMushroomGeneration {
+public final class WilderMushroomGeneration {
     public static void generateMushroom() {
         BiomeModifications.addFeature(BiomeSelectors.includeByKey(BiomeKeys.FOREST, BiomeKeys.FLOWER_FOREST),
                 GenerationStep.Feature.VEGETAL_DECORATION, WilderPlacedFeatures.HUGE_RED_MUSHROOM_PLACED.getKey().orElseThrow());

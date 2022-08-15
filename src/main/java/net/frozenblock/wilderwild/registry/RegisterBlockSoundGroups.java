@@ -5,7 +5,7 @@ import net.minecraft.sound.SoundEvents;
 
 import static net.frozenblock.wilderwild.registry.RegisterSounds.*;
 
-public class RegisterBlockSoundGroups {
+public final class RegisterBlockSoundGroups {
 
     public static final BlockSoundGroup BAOBAB_NUT = new BlockSoundGroup(1.0F, 1.0F,
             BLOCK_BAOBAB_NUT_BREAK,

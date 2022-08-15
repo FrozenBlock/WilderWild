@@ -9,7 +9,7 @@ import net.minecraft.world.gen.feature.PlacedFeatures;
 
 import static net.minecraft.world.gen.feature.TreePlacedFeatures.ON_SNOW_MODIFIERS;
 
-public class WilderTreePlaced {
+public final class WilderTreePlaced {
     //BIRCH
     public static final RegistryEntry<PlacedFeature> NEW_BIRCH_CHECKED = PlacedFeatures.register("new_birch_checked", WilderTreeConfigured.NEW_BIRCH_TREE, PlacedFeatures.wouldSurvive(Blocks.BIRCH_SAPLING));
     public static final RegistryEntry<PlacedFeature> NEW_BIRCH_BEES_0004 = PlacedFeatures.register("new_birch_bees_0004", WilderTreeConfigured.NEW_BIRCH_BEES_0004, PlacedFeatures.wouldSurvive(Blocks.BIRCH_SAPLING));

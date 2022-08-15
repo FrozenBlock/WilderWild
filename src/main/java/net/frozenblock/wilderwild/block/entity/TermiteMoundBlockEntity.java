@@ -59,7 +59,7 @@ public class TermiteMoundBlockEntity extends BlockEntity {
             DataResult<?> var10000 = Termite.CODEC.listOf().parse(new Dynamic<>(NbtOps.INSTANCE, nbt.getList("termites", 10)));
             Logger var10001 = WilderWild.LOGGER;
             Objects.requireNonNull(var10001);
-            Optional<List> list = (Optional<List>) var10000.resultOrPartial(var10001::error);
+            Optional<List<?>> list = (Optional<List<?>>) var10000.resultOrPartial(var10001::error);
             if (list.isPresent()) {
                 List<?> termitesAllAllAll = list.get();
                 int max = this.world != null ? maxTermites(this.world, this.lastLight, this.getCachedState().get(RegisterProperties.NATURAL)) : 5;
