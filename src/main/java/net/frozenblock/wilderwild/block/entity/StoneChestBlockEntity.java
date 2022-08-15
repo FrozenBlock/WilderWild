@@ -124,6 +124,11 @@ public class StoneChestBlockEntity extends ChestBlockEntity {
         this.openProgress = openProgress;
     }
 
+    public void setOpenProgress(float openProgress, float prevOpenProgress) {
+        this.prevOpenProgress = prevOpenProgress;
+        this.openProgress = openProgress;
+    }
+
     public List<PlayerEntity> getInRangeViewers(World world, BlockPos pos) {
         int i = pos.getX();
         int j = pos.getY();
@@ -143,7 +148,7 @@ public class StoneChestBlockEntity extends ChestBlockEntity {
     public void syncLidValues(World world, BlockPos pos, BlockState state) {
         StoneChestBlockEntity stoneChest = getOtherEntity(world, pos, state);
         if (stoneChest != null) {
-            stoneChest.setOpenProgress(this.openProgress);
+            stoneChest.setOpenProgress(this.openProgress, this.prevOpenProgress);
             stoneChest.stillLidTicks = this.stillLidTicks;
             stoneChest.hasLid = this.hasLid;
             stoneChest.shouldSkip = true;
