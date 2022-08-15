@@ -50,7 +50,7 @@ public class StoneChestBlock extends ChestBlock {
             BlockEntity entity = world.getBlockEntity(pos);
             if (entity instanceof StoneChestBlockEntity stoneChest) {
                 stoneChest.openProgress = stoneChest.openProgress + 0.05F;
-                stoneChest.stillLidTicks = (int) (stoneChest.openProgress * 20);
+                stoneChest.stillLidTicks = (int) (stoneChest.openProgress * 60);
                 stoneChest.updateSync();
             }
         }
