@@ -42,7 +42,7 @@ import java.util.Optional;
 import java.util.OptionalInt;
 
 
-public class WilderTreeConfigured {
+public final class WilderTreeConfigured {
     private static final ShelfFungusTreeDecorator SHELF_FUNGUS_008 = new ShelfFungusTreeDecorator(0.08F, 0.3F);
     private static final ShelfFungusTreeDecorator SHELF_FUNGUS_007 = new ShelfFungusTreeDecorator(0.07F, 0.15F);
     private static final ShelfFungusTreeDecorator SHELF_FUNGUS_007_ONLY_BROWN = new ShelfFungusTreeDecorator(0.07F, 0.0F);

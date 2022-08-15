@@ -14,7 +14,7 @@ import net.minecraft.util.registry.Registry;
 import net.minecraft.util.registry.RegistryKey;
 import net.minecraft.village.TradeOffers;
 
-public class RegisterItems {
+public final class RegisterItems {
 
     public static final MilkweedPod MILKWEED_POD = new MilkweedPod(new FabricItemSettings().group(ItemGroup.MISC).maxCount(64));
     public static final MusicDiscItem MUSIC_DISC_BENEATH = new MusicDiscItem(15, RegisterSounds.MUSIC_DISC_BENEATH, new FabricItemSettings().maxCount(1).rarity(Rarity.RARE), 169);
@@ -31,7 +31,7 @@ public class RegisterItems {
     public static final Item CYPRESS_SIGN = new SignItem(new FabricItemSettings().group(ItemGroup.DECORATIONS).maxCount(16),
             RegisterBlocks.CYPRESS_SIGN_BLOCK, RegisterBlocks.CYPRESS_WALL_SIGN);
 
-    public static final Item BAOBAB_NUT = new BlockItem(RegisterBlocks.BAOBAB_NUT, (new Item.Settings()).group(ItemGroup.FOOD).food(FoodComponents.SWEET_BERRIES));
+    public static final Item BAOBAB_NUT = new BlockItem(RegisterBlocks.BAOBAB_NUT, (new Item.Settings()).group(ItemGroup.DECORATIONS).food(FoodComponents.SWEET_BERRIES));
 
     public static final Item FIREFLY_BOTTLE = new FireflyBottle(new FabricItemSettings().group(ItemGroup.MISC).maxCount(32), "on");
 

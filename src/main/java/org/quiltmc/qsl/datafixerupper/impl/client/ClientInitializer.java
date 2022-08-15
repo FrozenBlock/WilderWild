@@ -36,8 +36,9 @@ public final class ClientInitializer implements ClientModInitializer {
     @Override
     public void onInitializeClient() {
         ClientLifecycleEvents.CLIENT_STARTED.register(client -> {
-            WilderWild.LOGGER.info("QuiltMC's DataFixer Client Registry was frozen");
+            WilderWild.log("QuiltMC's DataFixer Client Registry is about to freeze", true);
             QuiltDataFixesInternals.freeze();
+            WilderWild.log("QuiltMC's DataFixer Client Registry was frozen", true);
         });
     }
 }

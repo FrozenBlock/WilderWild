@@ -869,17 +869,23 @@
 		],
 		"subtitle": "subtitles.block.sculk_shrieker.gargle"
 	},
-	"block.stone_chest.close": {
+	"block.stone_chest.close_start": {
 		"sounds": [
-			"wilderwild:block/stone_chest/close"
+			"wilderwild:block/stone_chest/close_start"
 		],
-		"subtitle": "subtitles.block.chest.close"
+		"subtitle": "subtitles.block.stone_chest.close_start"
+	},
+	"block.stone_chest.slam": {
+		"sounds": [
+			"wilderwild:block/stone_chest/slam"
+		],
+		"subtitle": "subtitles.block.stone_chest.slam"
 	},
 	"block.stone_chest.open": {
 		"sounds": [
 			"wilderwild:block/stone_chest/open"
 		],
-		"subtitle": "subtitles.block.chest.open"
+		"subtitle": "subtitles.block.stone_chest.open"
 	},
 	"block.sugar_cane.break": {
 		"sounds": [

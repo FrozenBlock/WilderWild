@@ -28,7 +28,7 @@ import org.jetbrains.annotations.NotNull;
 import java.util.List;
 
 
-public class WilderConfiguredFeatures {
+public final class WilderConfiguredFeatures {
     //FALLEN TREES
     public static final RegistryEntry<ConfiguredFeature<RandomFeatureConfig, ?>> FALLEN_TREES_MIXED =
             register("fallen_trees_mixed", Feature.RANDOM_SELECTOR,

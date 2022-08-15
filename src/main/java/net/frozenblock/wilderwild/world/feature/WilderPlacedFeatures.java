@@ -19,7 +19,7 @@ import java.util.List;
 import static net.minecraft.world.gen.feature.OceanPlacedFeatures.seagrassModifiers;
 import static net.minecraft.world.gen.feature.VegetationPlacedFeatures.*;
 
-public class WilderPlacedFeatures {
+public final class WilderPlacedFeatures {
     //FALLEN TREES
 
     public static final RegistryEntry<PlacedFeature> FALLEN_TREES_MIXED_PLACED = register("fallen_trees_mixed_placed",

@@ -3,7 +3,6 @@
   "minVersion": "0.8",
   "package": "net.frozenblock.wilderwild.mixin",
   "compatibilityLevel": "JAVA_17",
-  "plugin": "net.frozenblock.wilderwild.mixin.WilderMixinPlugin",
   "mixins": [
 	"server.BlockEntityTypeMixin",
 	"server.BlockMixin",
@@ -42,7 +41,6 @@
 	"client.AlexDolphinRenderer",
 	"client.MerpSlimeRenderer",
 	"client.OsmioooWardenRenderer",
-	"client.TexturedRenderLayersMixin",
 	"client.Treetrain1GoatRenderer",
 	"client.UppyBalloo",
 	"client.UppyBallooModel",
