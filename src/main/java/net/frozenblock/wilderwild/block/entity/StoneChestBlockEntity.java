@@ -95,6 +95,8 @@ public class StoneChestBlockEntity extends ChestBlockEntity {
             stoneChest.prevOpenProgress = this.prevOpenProgress;
             stoneChest.stillLidTicks = this.stillLidTicks;
             stoneChest.hasLid = this.hasLid;
+            stoneChest.shouldSkip = true;
+            stoneChest.updateSync();
         }
     }
 
