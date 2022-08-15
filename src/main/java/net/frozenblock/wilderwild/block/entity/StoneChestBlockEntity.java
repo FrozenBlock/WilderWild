@@ -147,8 +147,8 @@ public class StoneChestBlockEntity extends ChestBlockEntity {
         }
     }
 
-    public void syncUpdateLidValues(World world, BlockPos pos, BlockState state) {
-        StoneChestBlockEntity stoneChest = getOtherEntity(world, pos, state);
+    public void updateSync() {
+        StoneChestBlockEntity stoneChest = getOtherEntity(world, pos, this.getCachedState());
         if (stoneChest != null) {
             stoneChest.openProgress = this.openProgress;
             stoneChest.prevOpenProgress = this.prevOpenProgress;
@@ -156,14 +156,10 @@ public class StoneChestBlockEntity extends ChestBlockEntity {
             stoneChest.hasLid = this.hasLid;
             stoneChest.shouldSkip = true;
             stoneChest.closing = this.closing;
-            for (ServerPlayerEntity player : PlayerLookup.tracking(this)) {
+            for (ServerPlayerEntity player : PlayerLookup.tracking(stoneChest)) {
                 player.networkHandler.sendPacket(stoneChest.toUpdatePacket());
             }
         }
-    }
-
-    public void updateSync() {
-        this.syncUpdateLidValues(world, pos, this.getCachedState());
         for (ServerPlayerEntity player : PlayerLookup.tracking(this)) {
             player.networkHandler.sendPacket(this.toUpdatePacket());
         }
