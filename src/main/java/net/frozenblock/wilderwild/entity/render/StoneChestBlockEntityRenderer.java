@@ -1,5 +1,6 @@
 package net.frozenblock.wilderwild.entity.render;
 
+import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.WilderWildClient;
 import net.frozenblock.wilderwild.block.StoneChestBlock;
 import net.frozenblock.wilderwild.block.entity.StoneChestBlockEntity;
@@ -35,6 +36,10 @@ public class StoneChestBlockEntityRenderer<T extends StoneChestBlockEntity & Lid
     private final ModelPart doubleChestRightLid;
     private final ModelPart doubleChestRightBase;
     private final ModelPart doubleChestRightLatch;
+
+    public static final SpriteIdentifier STONE = getChestTextureId("stone");
+    public static final SpriteIdentifier STONE_LEFT = getChestTextureId("stone_left");
+    public static final SpriteIdentifier STONE_RIGHT = getChestTextureId("stone_right");
 
     public StoneChestBlockEntityRenderer(BlockEntityRendererFactory.Context ctx) {
         super(ctx);
@@ -105,7 +110,7 @@ public class StoneChestBlockEntityRenderer<T extends StoneChestBlockEntity & Lid
             g = 1.0F - g;
             g = 1.0F - g * g * g;
             int i = propertySource.apply(new LightmapCoordinatesRetriever<>()).applyAsInt(light);
-            SpriteIdentifier spriteIdentifier = WilderWildClient.STONE;//TexturedRenderLayers.getChestTexture(entity, chestType, false);
+            SpriteIdentifier spriteIdentifier = getChestTexture(entity, chestType, false);
             VertexConsumer vertexConsumer = spriteIdentifier.getVertexConsumer(vertexConsumers, RenderLayer::getEntityCutout);
             if (bl2) {
                 if (chestType == ChestType.LEFT) {
@@ -130,7 +135,7 @@ public class StoneChestBlockEntityRenderer<T extends StoneChestBlockEntity & Lid
     }
 
     public static SpriteIdentifier getChestTexture(BlockEntity blockEntity, ChestType type, boolean christmas) {
-        return getChestTexture(type, WilderWildClient.STONE, WilderWildClient.STONE_LEFT, WilderWildClient.STONE_RIGHT);
+        return getChestTexture(type, STONE, STONE_LEFT, STONE_RIGHT);
     }
 
     private static SpriteIdentifier getChestTexture(ChestType type, SpriteIdentifier single, SpriteIdentifier left, SpriteIdentifier right) {
@@ -143,5 +148,9 @@ public class StoneChestBlockEntityRenderer<T extends StoneChestBlockEntity & Lid
             default:
                 return single;
         }
+    }
+
+    public static SpriteIdentifier getChestTextureId(String variant) {
+        return new SpriteIdentifier(TexturedRenderLayers.CHEST_ATLAS_TEXTURE, WilderWild.id("entity/stone_chest/" + variant));
     }
 }

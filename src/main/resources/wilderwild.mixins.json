@@ -42,7 +42,6 @@
 	"client.AlexDolphinRenderer",
 	"client.MerpSlimeRenderer",
 	"client.OsmioooWardenRenderer",
-	"client.TexturedRenderLayersMixin",
 	"client.Treetrain1GoatRenderer",
 	"client.UppyBalloo",
 	"client.UppyBallooModel",

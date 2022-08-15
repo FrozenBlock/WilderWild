@@ -57,10 +57,6 @@ public class WilderWildClient implements ClientModInitializer {
     public static final EntityModelLayer DOUBLE_STONE_CHEST_LEFT = new EntityModelLayer(WilderWild.id("double_stone_chest_left"), "main");
     public static final EntityModelLayer DOUBLE_STONE_CHEST_RIGHT = new EntityModelLayer(WilderWild.id("double_stone_chest_right"), "main");
 
-    public static final SpriteIdentifier STONE = TexturedRenderLayers.getChestTextureId("stone");
-    public static final SpriteIdentifier STONE_LEFT = TexturedRenderLayers.getChestTextureId("stone_left");
-    public static final SpriteIdentifier STONE_RIGHT = TexturedRenderLayers.getChestTextureId("stone_right");
-
     @Override
     public void onInitializeClient() {
         FlowerLichenParticleRegistry.init();
@@ -96,7 +92,7 @@ public class WilderWildClient implements ClientModInitializer {
         BlockRenderLayerMap.INSTANCE.putBlock(RegisterBlocks.TERMITE_MOUND, RenderLayer.getSolid());
         BlockRenderLayerMap.INSTANCE.putBlock(RegisterBlocks.FIREFLY_LANTERN, RenderLayer.getCutout());
 
-        ClientSpriteRegistryCallback.event(PlayerScreenHandler.BLOCK_ATLAS_TEXTURE).register((((atlasTexture, registry) -> {
+        ClientSpriteRegistryCallback.event(PlayerScreenHandler.BLOCK_ATLAS_TEXTURE).register((atlasTexture, registry) -> {
             registry.register(WilderWild.id("particle/floating_sculk_bubble_0"));
             registry.register(WilderWild.id("particle/floating_sculk_bubble_1"));
             registry.register(WilderWild.id("particle/floating_sculk_bubble_2"));
@@ -114,7 +110,13 @@ public class WilderWildClient implements ClientModInitializer {
             registry.register(WilderWild.id("particle/termite_7"));
             registry.register(WilderWild.id("particle/termite_8"));
             registry.register(WilderWild.id("particle/termite_9"));
-        })));
+        });
+
+        ClientSpriteRegistryCallback.event(TexturedRenderLayers.CHEST_ATLAS_TEXTURE).register((atlasTexture, registry) -> {
+            registry.register(WilderWild.id("entity/stone_chest/stone"));
+            registry.register(WilderWild.id("entity/stone_chest/stone_left"));
+            registry.register(WilderWild.id("entity/stone_chest/stone_right"));
+        });
 
         ParticleFactoryRegistry.getInstance().register(RegisterParticles.POLLEN, PollenParticle.PollenFactory::new);
         ParticleFactoryRegistry.getInstance().register(RegisterParticles.DANDELION_SEED, PollenParticle.DandelionFactory::new);
