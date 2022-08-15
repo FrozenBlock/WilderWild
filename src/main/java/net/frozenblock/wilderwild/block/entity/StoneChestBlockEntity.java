@@ -13,8 +13,11 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 
 public class StoneChestBlockEntity extends ChestBlockEntity {
-    public float lidPushProgress;
-    public float prevLidPushProgress;
+    public float lidX;
+    public float prevLidX;
+    public float lidZ;
+    public float prevLidZ;
+    public boolean hasLid;
 
     public boolean hasUpdated = false;
 
@@ -25,22 +28,37 @@ public class StoneChestBlockEntity extends ChestBlockEntity {
     @Override
     public void readNbt(NbtCompound nbt) {
         super.readNbt(nbt);
-        this.lidPushProgress = nbt.getFloat("lidPushProgress");
-        this.prevLidPushProgress = nbt.getFloat("prevLidPushProgress");
+        this.lidX = nbt.getFloat("lidX");
+        this.prevLidX = nbt.getFloat("prevLidX");
+        this.lidZ = nbt.getFloat("lidZ");
+        this.prevLidZ = nbt.getFloat("prevLidZ");
+        this.hasLid = nbt.getBoolean("hasLid");
     }
 
     @Override
     protected void writeNbt(NbtCompound nbt) {
         super.writeNbt(nbt);
-        nbt.putFloat("lidPushProgress", this.lidPushProgress);
-        nbt.putFloat("prevLidPushProgress", this.prevLidPushProgress);
+        nbt.putFloat("lidX", this.lidX);
+        nbt.putFloat("prevLidX", this.prevLidX);
+        nbt.putFloat("lidZ", this.lidZ);
+        nbt.putFloat("prevLidZ", this.prevLidZ);
+        nbt.putBoolean("hasLid", this.hasLid);
     }
 
-    public float getPushProgress(float delta) {
-        return MathHelper.lerp(delta, this.prevLidPushProgress, this.lidPushProgress);
+    public float getLidX(float delta) {
+        return MathHelper.lerp(delta, this.prevLidX, this.lidX);
     }
 
-    public static void clientTick(World world, BlockPos pos, BlockState state, StoneChestBlockEntity blockEntity) {
+    public float getLidZ(float delta) {
+        return MathHelper.lerp(delta, this.lidX, this.lidZ);
+    }
+
+    public static void serverStoneTick(World world, BlockPos pos, BlockState state, StoneChestBlockEntity blockEntity) {
+        blockEntity.prevLidX = blockEntity.lidX;
+        blockEntity.prevLidZ = blockEntity.lidZ;
+    }
+
+    public static void clientStoneTick(World world, BlockPos pos, BlockState state, StoneChestBlockEntity blockEntity) {
         if (!blockEntity.hasUpdated) {
             ClientMethodInteractionThingy.requestBlockEntitySync(pos, world);
             blockEntity.hasUpdated = true;

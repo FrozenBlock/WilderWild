@@ -106,29 +106,30 @@ public class StoneChestBlockEntityRenderer<T extends StoneChestBlockEntity & Lid
                 propertySource = DoubleBlockProperties.PropertyRetriever::getFallback;
             }
 
-            float g = entity.getPushProgress(tickDelta);
-            g = 1.0F - g;
-            g = 1.0F - g * g * g;
+            float x = entity.getLidX(tickDelta);
+            float z = entity.getLidZ(tickDelta);
             int i = propertySource.apply(new LightmapCoordinatesRetriever<>()).applyAsInt(light);
             SpriteIdentifier spriteIdentifier = getChestTexture(entity, chestType, false);
             VertexConsumer vertexConsumer = spriteIdentifier.getVertexConsumer(vertexConsumers, RenderLayer::getEntityCutout);
             if (bl2) {
                 if (chestType == ChestType.LEFT) {
-                    this.render(matrices, vertexConsumer, this.doubleChestLeftLid, this.doubleChestLeftLatch, this.doubleChestLeftBase, g, i, overlay);
+                    this.renderLid(matrices, vertexConsumer, this.doubleChestLeftLid, this.doubleChestLeftLatch, this.doubleChestLeftBase, x, z, i, overlay);
                 } else {
-                    this.render(matrices, vertexConsumer, this.doubleChestRightLid, this.doubleChestRightLatch, this.doubleChestRightBase, g, i, overlay);
+                    this.renderLid(matrices, vertexConsumer, this.doubleChestRightLid, this.doubleChestRightLatch, this.doubleChestRightBase, x, z, i, overlay);
                 }
             } else {
-                this.render(matrices, vertexConsumer, this.singleChestLid, this.singleChestLatch, this.singleChestBase, g, i, overlay);
+                this.renderLid(matrices, vertexConsumer, this.singleChestLid, this.singleChestLatch, this.singleChestBase, x, z, i, overlay);
             }
 
             matrices.pop();
         }
     }
 
-    private void render(MatrixStack matrices, VertexConsumer vertices, ModelPart lid, ModelPart latch, ModelPart base, float openFactor, int light, int overlay) {
-        lid.pitch = -(openFactor * (float) (Math.PI / 2));
-        latch.pitch = lid.pitch;
+    private void renderLid(MatrixStack matrices, VertexConsumer vertices, ModelPart lid, ModelPart latch, ModelPart base, float x, float z, int light, int overlay) {
+        lid.pivotX = x;
+        lid.pivotZ = z;
+        latch.pivotX = x;
+        latch.pivotZ = z;
         lid.render(matrices, vertices, light, overlay);
         latch.render(matrices, vertices, light, overlay);
         base.render(matrices, vertices, light, overlay);
