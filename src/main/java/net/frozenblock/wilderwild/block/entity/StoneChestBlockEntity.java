@@ -33,6 +33,7 @@ public class StoneChestBlockEntity extends ChestBlockEntity {
     public float openProgress;
     public float prevOpenProgress;
     public int stillLidTicks;
+    public int cooldownTicks;
     public boolean closing;
     public boolean hasLid;
 
@@ -50,6 +51,7 @@ public class StoneChestBlockEntity extends ChestBlockEntity {
         this.openProgress = nbt.getFloat("openProgress");
         this.prevOpenProgress = nbt.getFloat("prevOpenProgress");
         this.stillLidTicks = nbt.getInt("stillLidTicks");
+        this.cooldownTicks = nbt.getInt("cooldownTicks");
         this.hasLid = nbt.getBoolean("hasLid");
         this.closing = nbt.getBoolean("closing");
         this.shouldSkip = nbt.getBoolean("shouldSkip");
@@ -61,6 +63,7 @@ public class StoneChestBlockEntity extends ChestBlockEntity {
         nbt.putFloat("openProgress", this.openProgress);
         nbt.putFloat("prevOpenProgress", this.prevOpenProgress);
         nbt.putInt("stillLidTicks", this.stillLidTicks);
+        nbt.putInt("cooldownTicks", this.cooldownTicks);
         nbt.putBoolean("hasLid", this.hasLid);
         nbt.putBoolean("closing", this.closing);
         nbt.putBoolean("shouldSkip", this.shouldSkip);
@@ -72,6 +75,9 @@ public class StoneChestBlockEntity extends ChestBlockEntity {
 
     public static void serverStoneTick(World world, BlockPos pos, BlockState state, StoneChestBlockEntity blockEntity) {
         if (!blockEntity.shouldSkip) {
+            if (blockEntity.cooldownTicks > 0) {
+                --blockEntity.cooldownTicks;
+            }
             blockEntity.prevOpenProgress = blockEntity.openProgress;
             if (blockEntity.stillLidTicks > 0) {
                 blockEntity.stillLidTicks -= 1;
@@ -90,6 +96,7 @@ public class StoneChestBlockEntity extends ChestBlockEntity {
                 if (blockEntity.openProgress <= 0F) {
                     playSound(world, pos, state, RegisterSounds.BLOCK_STONE_CHEST_SLAM);
                     blockEntity.closing = false;
+                    blockEntity.cooldownTicks = 15;
                 }
             }
             if (isLeft(pos, state)) {
@@ -101,6 +108,9 @@ public class StoneChestBlockEntity extends ChestBlockEntity {
 
     public static void clientStoneTick(World world, BlockPos pos, BlockState state, StoneChestBlockEntity blockEntity) {
         if (!blockEntity.shouldSkip) {
+            if (blockEntity.cooldownTicks > 0) {
+                --blockEntity.cooldownTicks;
+            }
             blockEntity.prevOpenProgress = blockEntity.openProgress;
             if (blockEntity.stillLidTicks > 0) {
                 blockEntity.stillLidTicks -= 1;
@@ -109,6 +119,7 @@ public class StoneChestBlockEntity extends ChestBlockEntity {
                 blockEntity.openProgress = Math.max(0F, blockEntity.openProgress - 0.035F);
                 if (blockEntity.openProgress <= 0F) {
                     blockEntity.closing = false;
+                    blockEntity.cooldownTicks = 15;
                 }
             }
         }
@@ -144,6 +155,7 @@ public class StoneChestBlockEntity extends ChestBlockEntity {
             stoneChest.openProgress = this.openProgress;
             stoneChest.prevOpenProgress = this.prevOpenProgress;
             stoneChest.stillLidTicks = this.stillLidTicks;
+            stoneChest.cooldownTicks = this.cooldownTicks;
             stoneChest.hasLid = this.hasLid;
             stoneChest.shouldSkip = true;
             stoneChest.closing = this.closing;
@@ -156,6 +168,7 @@ public class StoneChestBlockEntity extends ChestBlockEntity {
             stoneChest.openProgress = this.openProgress;
             stoneChest.prevOpenProgress = this.prevOpenProgress;
             stoneChest.stillLidTicks = this.stillLidTicks;
+            stoneChest.cooldownTicks = this.cooldownTicks;
             stoneChest.hasLid = this.hasLid;
             stoneChest.shouldSkip = true;
             stoneChest.closing = this.closing;
