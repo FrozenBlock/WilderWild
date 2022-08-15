@@ -97,11 +97,11 @@ public class RegisterBlocks {
     public static final Block BAOBAB_FENCE = new FenceBlock(FabricBlockSettings.of(Material.WOOD, BAOBAB_PLANKS_COLOR).strength(2.0F, 3.0F).sounds(BlockSoundGroup.WOOD));
     public static final Block CYPRESS_FENCE = new FenceBlock(FabricBlockSettings.of(Material.WOOD, CYPRESS_PLANKS_COLOR).strength(2.0F, 3.0F).sounds(BlockSoundGroup.WOOD));
 
-    public static final SignType BAOBAB_SIGN_TYPE = SignTypeAccessor.newSignType("baobab");
+    public static final SignType BAOBAB_SIGN_TYPE = SignTypeAccessor.newSignType("wilderwildbaobab");
     public static final Block BAOBAB_SIGN_BLOCK = new WilderSignBlock(FabricBlockSettings.of(Material.WOOD, BAOBAB_LOG.getDefaultMapColor()).noCollision().strength(1.0F).sounds(BlockSoundGroup.WOOD), BAOBAB_SIGN_TYPE);
     public static final Block BAOBAB_WALL_SIGN = new WilderWallSignBlock(FabricBlockSettings.of(Material.WOOD, BAOBAB_LOG.getDefaultMapColor()).noCollision().strength(1.0F).sounds(BlockSoundGroup.WOOD).dropsLike(BAOBAB_SIGN_BLOCK), BAOBAB_SIGN_TYPE);
 
-    public static final SignType CYPRESS_SIGN_TYPE = SignTypeAccessor.newSignType("cypress");
+    public static final SignType CYPRESS_SIGN_TYPE = SignTypeAccessor.newSignType("wilderwildcypress");
     public static final Block CYPRESS_SIGN_BLOCK = new WilderSignBlock(FabricBlockSettings.of(Material.WOOD, CYPRESS_LOG.getDefaultMapColor()).noCollision().strength(1.0F).sounds(BlockSoundGroup.WOOD), CYPRESS_SIGN_TYPE);
     public static final Block CYPRESS_WALL_SIGN = new WilderWallSignBlock(FabricBlockSettings.of(Material.WOOD, CYPRESS_LOG.getDefaultMapColor()).noCollision().strength(1.0F).sounds(BlockSoundGroup.WOOD).dropsLike(CYPRESS_SIGN_BLOCK), CYPRESS_SIGN_TYPE);
 
