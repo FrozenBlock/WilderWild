@@ -57,12 +57,16 @@ public class StoneChestBlockEntity extends ChestBlockEntity {
             blockEntity.stillLidTicks -= 1;
         } else if (blockEntity.openProgress > 0F) {
             blockEntity.openProgress = Math.min(0, blockEntity.openProgress) - 0.05F;
-            blockEntity.updateSync();
         }
     }
 
     public static void clientStoneTick(World world, BlockPos pos, BlockState state, StoneChestBlockEntity blockEntity) {
         blockEntity.prevOpenProgress = blockEntity.openProgress;
+        if (blockEntity.stillLidTicks > 0) {
+            blockEntity.stillLidTicks -= 1;
+        } else if (blockEntity.openProgress > 0F) {
+            blockEntity.openProgress = Math.min(0, blockEntity.openProgress) - 0.05F;
+        }
         if (!blockEntity.hasUpdated) {
             ClientMethodInteractionThingy.requestBlockEntitySync(pos, world);
             blockEntity.hasUpdated = true;
