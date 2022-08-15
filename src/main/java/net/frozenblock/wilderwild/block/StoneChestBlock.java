@@ -39,16 +39,16 @@ public class StoneChestBlock extends ChestBlock {
         if (world.isClient) {
             return ActionResult.SUCCESS;
         }
-        if (!hasLid(world, pos) && !player.isSneaking()) {
-            NamedScreenHandlerFactory namedScreenHandlerFactory = this.createScreenHandlerFactory(state, world, pos);
-            if (namedScreenHandlerFactory != null) {
-                player.openHandledScreen(namedScreenHandlerFactory);
-                player.incrementStat(this.getOpenStat());
-                PiglinBrain.onGuardedBlockInteracted(player, true);
-            }
-        } else {
-            BlockEntity entity = world.getBlockEntity(pos);
-            if (entity instanceof StoneChestBlockEntity stoneChest) {
+        BlockEntity entity = world.getBlockEntity(pos);
+        if (entity instanceof StoneChestBlockEntity stoneChest) {
+            if (!hasLid(world, pos) && (!player.isSneaking() || stoneChest.openProgress >= 1F)) {
+                NamedScreenHandlerFactory namedScreenHandlerFactory = this.createScreenHandlerFactory(state, world, pos);
+                if (namedScreenHandlerFactory != null) {
+                    player.openHandledScreen(namedScreenHandlerFactory);
+                    player.incrementStat(this.getOpenStat());
+                    PiglinBrain.onGuardedBlockInteracted(player, true);
+                }
+            } else {
                 stoneChest.openProgress = stoneChest.openProgress + 0.05F;
                 stoneChest.stillLidTicks = (int) (Math.max((stoneChest.openProgress), 1) * 100);
                 stoneChest.updateSync();
