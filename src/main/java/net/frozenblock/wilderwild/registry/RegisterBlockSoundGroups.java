@@ -4,6 +4,7 @@ import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.sound.SoundEvents;
 
 import static net.frozenblock.wilderwild.registry.RegisterSounds.*;
+import static net.frozenblock.wilderwild.registry.RegisterSounds.BLOCK_NULL_BLOCK_PLACE;
 
 public class RegisterBlockSoundGroups {
 
@@ -13,6 +14,14 @@ public class RegisterBlockSoundGroups {
             BLOCK_OSSEOUS_SCULK_PLACE,
             BLOCK_OSSEOUS_SCULK_HIT,
             BLOCK_OSSEOUS_SCULK_FALL
+    );
+
+    public static final BlockSoundGroup NULL_BLOCK = new BlockSoundGroup(1.0F, 1.0F,
+            BLOCK_NULL_BLOCK_BREAK,
+            BLOCK_NULL_BLOCK_STEP,
+            BLOCK_NULL_BLOCK_PLACE,
+            BLOCK_NULL_BLOCK_HIT,
+            BLOCK_NULL_BLOCK_FALL
     );
 
     public static final BlockSoundGroup HANGING_TENDRIL = new BlockSoundGroup(1.0F, 1.25F,
