@@ -81,6 +81,11 @@ public class StoneChestBlockEntity extends ChestBlockEntity {
                 blockEntity.openProgress = Math.max(0F, blockEntity.openProgress - 0.05F);
                 if (blockEntity.openProgress <= 0F) {
                     playSound(world, pos, state, RegisterSounds.BLOCK_STONE_CHEST_CLOSE);
+                    for (PlayerEntity player : blockEntity.getInRangeViewers(world, pos)) {
+                        if (player instanceof ServerPlayerEntity serverPlayer) {
+                            serverPlayer.closeHandledScreen();
+                        }
+                    }
                 }
             }
             blockEntity.syncLidValues(world, pos, state);
@@ -95,9 +100,6 @@ public class StoneChestBlockEntity extends ChestBlockEntity {
                 blockEntity.stillLidTicks -= 1;
             } else if (blockEntity.openProgress > 0F) {
                 blockEntity.openProgress = Math.max(0F, blockEntity.openProgress - 0.05F);
-                if (blockEntity.openProgress <= 0F) {
-                    ClientMethodInteractionThingy.closeInv();
-                }
             }
             blockEntity.syncLidValues(world, pos, state);
         }
@@ -106,6 +108,22 @@ public class StoneChestBlockEntity extends ChestBlockEntity {
             ClientMethodInteractionThingy.requestBlockEntitySync(pos, world);
             blockEntity.hasUpdated = true;
         }
+    }
+
+    public List<PlayerEntity> getInRangeViewers(World world, BlockPos pos) {
+        int i = pos.getX();
+        int j = pos.getY();
+        int k = pos.getZ();
+        Box box = new Box((float)i - 5.0f, (float)j - 5.0f, (float)k - 5.0f, (float)(i + 1) + 5.0f, (float)(j + 1) + 5.0f, (float)(k + 1) + 5.0f);
+        return world.getEntitiesByType(TypeFilter.instanceOf(PlayerEntity.class), box, this::isPlayerViewing);
+    }
+
+    public boolean isPlayerViewing(PlayerEntity player) {
+        if (player.currentScreenHandler instanceof GenericContainerScreenHandler) {
+            Inventory inventory = ((GenericContainerScreenHandler)player.currentScreenHandler).getInventory();
+            return inventory == StoneChestBlockEntity.this || inventory instanceof DoubleInventory && ((DoubleInventory)inventory).isPart(StoneChestBlockEntity.this);
+        }
+        return false;
     }
 
     public void syncLidValues(World world, BlockPos pos, BlockState state) {
