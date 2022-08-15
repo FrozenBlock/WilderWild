@@ -47,14 +47,15 @@ public class StoneChestBlock extends ChestBlock {
                 return ActionResult.FAIL;
             }
             StoneChestBlockEntity stoneEntity = stoneChest.getLeftEntity(world, pos, state, stoneChest);
-            NamedScreenHandlerFactory namedScreenHandlerFactory = this.createScreenHandlerFactory(state, world, pos);
             if (canInteract(world, pos)) {
+                NamedScreenHandlerFactory namedScreenHandlerFactory = this.createScreenHandlerFactory(state, world, pos);
                 if (!hasLid(world, pos) && (!player.isSneaking() || stoneEntity.openProgress >= 0.5F) && namedScreenHandlerFactory != null) {
                     player.openHandledScreen(namedScreenHandlerFactory);
                     player.incrementStat(this.getOpenStat());
                     PiglinBrain.onGuardedBlockInteracted(player, true);
                 } else {
-                    if (namedScreenHandlerFactory == null) {
+                    DoubleBlockProperties.PropertySource<? extends ChestBlockEntity> source = getBlockEntitySourceIgnoreLid(state, world, pos, false);
+                    if (source == null) {
                         if (stoneEntity.openProgress < 0.05F) {
                             stoneEntity.openProgress = stoneEntity.openProgress + 0.025F;
                         } else {
@@ -122,8 +123,21 @@ public class StoneChestBlock extends ChestBlock {
         return DoubleBlockProperties.toPropertySource((BlockEntityType)this.entityTypeRetriever.get(), ChestBlock::getDoubleBlockType, ChestBlock::getFacing, FACING, state, world2, pos2, biPredicate);
     }
 
+    @Override
+    public DoubleBlockProperties.PropertySource<? extends ChestBlockEntity> getBlockEntitySourceIgnoreLid(BlockState state, World world2, BlockPos pos2, boolean ignoreBlocked) {
+        BiPredicate<WorldAccess, BlockPos> biPredicate = ignoreBlocked ? (world, pos) -> false : StoneChestBlock::isStoneChestBlockedNoLid;
+        return DoubleBlockProperties.toPropertySource((BlockEntityType)this.entityTypeRetriever.get(), ChestBlock::getDoubleBlockType, ChestBlock::getFacing, FACING, state, world2, pos2, biPredicate);
+    }
+
     public static boolean isStoneChestBlocked(WorldAccess world, BlockPos pos) {
         if (!canInteract(world, pos) || hasLid(world, pos)) {
+            return true;
+        }
+        return hasBlockOnTop(world, pos) || hasCatOnTop(world, pos);
+    }
+
+    public static boolean isStoneChestBlockedNoLid(WorldAccess world, BlockPos pos) {
+        if (!canInteract(world, pos)) {
             return true;
         }
         return hasBlockOnTop(world, pos) || hasCatOnTop(world, pos);
