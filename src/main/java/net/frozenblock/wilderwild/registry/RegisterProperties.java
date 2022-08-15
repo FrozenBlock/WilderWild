@@ -6,7 +6,7 @@ import net.minecraft.state.property.EnumProperty;
 import net.minecraft.state.property.IntProperty;
 import net.minecraft.state.property.Properties;
 
-public class RegisterProperties extends Properties {
+public final class RegisterProperties extends Properties {
 
     //Osseous Sculk
     public static final IntProperty PILLAR_HEIGHT_LEFT = IntProperty.of("pillar_height_left", 0, 15);

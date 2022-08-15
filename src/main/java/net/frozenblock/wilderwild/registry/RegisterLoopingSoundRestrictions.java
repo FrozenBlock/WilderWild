@@ -9,7 +9,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
 
-public class RegisterLoopingSoundRestrictions {
+public final class RegisterLoopingSoundRestrictions {
     private static boolean frozen;
     private static final ArrayList<Identifier> ids = new ArrayList<>();
     private static final ArrayList<LoopPredicate<?>> predicates = new ArrayList<>();

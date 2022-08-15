@@ -53,7 +53,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 
-public class WilderWild implements ModInitializer {
+public final class WilderWild implements ModInitializer {
     public static final String MOD_ID = "wilderwild";
     public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
     public static final boolean DEV_LOGGING = false;

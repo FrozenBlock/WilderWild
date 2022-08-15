@@ -35,7 +35,7 @@ import java.util.List;
 import static net.frozenblock.wilderwild.registry.RegisterItems.BAOBAB_SIGN;
 import static net.frozenblock.wilderwild.registry.RegisterItems.CYPRESS_SIGN;
 
-public class RegisterBlocks {
+public final class RegisterBlocks {
     private static final MapColor BAOBAB_PLANKS_COLOR = MapColor.ORANGE;
     private static final MapColor BAOBAB_BARK_COLOR = MapColor.BROWN;
     private static final MapColor CYPRESS_PLANKS_COLOR = MapColor.LIGHT_GRAY;
