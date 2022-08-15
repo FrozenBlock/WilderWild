@@ -101,7 +101,7 @@ public class StoneChestBlockEntityRenderer<T extends StoneChestBlockEntity & Lid
                 propertySource = DoubleBlockProperties.PropertyRetriever::getFallback;
             }
 
-            float g = propertySource.apply(StoneChestBlock.getAnimationProgressRetriever(entity)).get(tickDelta);
+            float g = entity.getPushProgress(tickDelta);
             g = 1.0F - g;
             g = 1.0F - g * g * g;
             int i = propertySource.apply(new LightmapCoordinatesRetriever<>()).applyAsInt(light);
