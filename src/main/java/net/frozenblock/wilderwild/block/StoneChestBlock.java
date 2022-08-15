@@ -47,15 +47,21 @@ public class StoneChestBlock extends ChestBlock {
                 return ActionResult.FAIL;
             }
             StoneChestBlockEntity stoneEntity = stoneChest.getLeftEntity(world, pos, state, stoneChest);
-            if (!hasLid(world, pos) && (!player.isSneaking() || stoneEntity.openProgress >= 0.5F)) {
-                NamedScreenHandlerFactory namedScreenHandlerFactory = this.createScreenHandlerFactory(state, world, pos);
-                if (namedScreenHandlerFactory != null) {
-                    player.openHandledScreen(namedScreenHandlerFactory);
-                    player.incrementStat(this.getOpenStat());
-                    PiglinBrain.onGuardedBlockInteracted(player, true);
-                }
+            NamedScreenHandlerFactory namedScreenHandlerFactory = this.createScreenHandlerFactory(state, world, pos);
+            if (!hasLid(world, pos) && (!player.isSneaking() || stoneEntity.openProgress >= 0.5F) && namedScreenHandlerFactory != null) {
+                player.openHandledScreen(namedScreenHandlerFactory);
+                player.incrementStat(this.getOpenStat());
+                PiglinBrain.onGuardedBlockInteracted(player, true);
             } else {
-                stoneEntity.openProgress = stoneEntity.openProgress + 0.025F;
+                if (namedScreenHandlerFactory == null) {
+                    if (stoneEntity.openProgress < 0.05F) {
+                        stoneEntity.openProgress = stoneEntity.openProgress + 0.025F;
+                    } else {
+                        return ActionResult.PASS;
+                    }
+                } else {
+                    stoneEntity.openProgress = stoneEntity.openProgress + 0.025F;
+                }
                 stoneEntity.stillLidTicks = (int) (Math.max((stoneEntity.openProgress), 0.5) * 90);
                 StoneChestBlockEntity.playSound(world, pos, state, RegisterSounds.BLOCK_STONE_CHEST_OPEN);
                 world.emitGameEvent(player, GameEvent.CONTAINER_OPEN, pos);
