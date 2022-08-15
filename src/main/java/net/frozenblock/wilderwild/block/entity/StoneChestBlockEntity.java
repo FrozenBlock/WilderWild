@@ -80,7 +80,7 @@ public class StoneChestBlockEntity extends ChestBlockEntity {
                 blockEntity.openProgress = Math.max(0F, blockEntity.openProgress - 0.05F);
                 if (!blockEntity.closing) {
                     blockEntity.closing = true;
-                    playSound(world, pos, state, RegisterSounds.BLOCK_STONE_CHEST_CLOSE);
+                    playSound(world, pos, state, RegisterSounds.BLOCK_STONE_CHEST_CLOSE_START);
                     for (PlayerEntity player : blockEntity.getInRangeViewers(world, pos)) {
                         if (player instanceof ServerPlayerEntity serverPlayer) {
                             serverPlayer.closeHandledScreen();
@@ -88,6 +88,7 @@ public class StoneChestBlockEntity extends ChestBlockEntity {
                     }
                 }
                 if (blockEntity.openProgress <= 0F) {
+                    playSound(world, pos, state, RegisterSounds.BLOCK_STONE_CHEST_SLAM);
                     blockEntity.closing = false;
                 }
             }

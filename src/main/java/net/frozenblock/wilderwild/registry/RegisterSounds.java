@@ -75,7 +75,8 @@ public final class RegisterSounds {
     public static final SoundEvent BLOCK_BAOBAB_NUT_STEP = register("block.baobab_nut.step");
     public static final SoundEvent BLOCK_BAOBAB_NUT_FALL = register("block.baobab_nut.fall");
 
-    public static final SoundEvent BLOCK_STONE_CHEST_CLOSE = register("block.stone_chest.close");
+    public static final SoundEvent BLOCK_STONE_CHEST_CLOSE_START = register("block.stone_chest.close_start");
+    public static final SoundEvent BLOCK_STONE_CHEST_SLAM = register("block.stone_chest.slam");
     public static final SoundEvent BLOCK_STONE_CHEST_OPEN = register("block.stone_chest.open");
 
     public static final SoundEvent BLOCK_SUGAR_CANE_PLACE = register("block.sugar_cane.place");
