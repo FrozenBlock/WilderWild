@@ -134,6 +134,7 @@ public class WilderWild implements ModInitializer {
     private static final int DATA_VERSION = 5;
 
     private static void applyDataFixes(ModContainer mod) {
+        logWild("Applying DataFixes for", true);
         var builder = new QuiltDataFixerBuilder(DATA_VERSION);
         builder.addSchema(0, QuiltDataFixes.BASE_SCHEMA);
         Schema schemaV1 = builder.addSchema(1, IdentifierNormalizingSchema::new);
@@ -152,6 +153,7 @@ public class WilderWild implements ModInitializer {
         SimpleFixes.addBlockRenameFix(builder, "Rename sculk_jaw to null_block", id("sculk_jaw"), id("null_block"), schemaV5);
 
         QuiltDataFixes.buildAndRegisterFixer(mod, builder);
+        log("DataFixes for Wilder Wild have been applied", true);
     }
 
     //MOD COMPATIBILITY
