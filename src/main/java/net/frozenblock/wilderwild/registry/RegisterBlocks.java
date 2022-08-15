@@ -316,7 +316,7 @@ public final class RegisterBlocks {
         Registry.register(Registry.ITEM, WilderWild.id("flowering_lily_pad"), new FloweredLilyPadItem(FLOWERING_LILY_PAD, new FabricItemSettings().group(ItemGroup.DECORATIONS)));
         Registry.register(Registry.BLOCK, WilderWild.id("algae"), ALGAE);
         Registry.register(Registry.ITEM, WilderWild.id("algae"), new AlgaeItem(ALGAE, new FabricItemSettings().group(ItemGroup.DECORATIONS)));
-        registerBlock("null_block", NULL_BLOCK, ItemGroup.MISC);
+        registerBlock("null_block", NULL_BLOCK, ItemGroup.DECORATIONS);
         registerNotSoPlants();
         register1_1();
 
