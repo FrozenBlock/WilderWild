@@ -43,19 +43,25 @@ public class StoneChestBlock extends ChestBlock {
         }
         BlockEntity entity = world.getBlockEntity(pos);
         if (entity instanceof StoneChestBlockEntity stoneChest) {
+            NamedScreenHandlerFactory namedScreenHandlerFactory = this.createScreenHandlerFactory(state, world, pos);
             if (stoneChest.closing) {
                 return ActionResult.FAIL;
             }
             StoneChestBlockEntity stoneEntity = stoneChest.getLeftEntity(world, pos, state, stoneChest);
-            if (!hasLid(world, pos) && (!player.isSneaking() || stoneEntity.openProgress >= 0.5F)) {
-                NamedScreenHandlerFactory namedScreenHandlerFactory = this.createScreenHandlerFactory(state, world, pos);
-                if (namedScreenHandlerFactory != null) {
-                    player.openHandledScreen(namedScreenHandlerFactory);
-                    player.incrementStat(this.getOpenStat());
-                    PiglinBrain.onGuardedBlockInteracted(player, true);
-                }
+            if (!hasLid(world, pos) && (!player.isSneaking() || stoneEntity.openProgress >= 0.5F) && namedScreenHandlerFactory != null) {
+                player.openHandledScreen(namedScreenHandlerFactory);
+                player.incrementStat(this.getOpenStat());
+                PiglinBrain.onGuardedBlockInteracted(player, true);
             } else {
-                stoneEntity.openProgress = stoneEntity.openProgress + 0.025F;
+                if (namedScreenHandlerFactory == null) {
+                    stoneEntity.openProgress = stoneEntity.openProgress + 0.025F;
+                } else {
+                    if (stoneEntity.openProgress < 0.5F) {
+                        stoneEntity.openProgress = stoneEntity.openProgress + 0.025F;
+                    } else {
+                        return ActionResult.PASS;
+                    }
+                }
                 stoneEntity.stillLidTicks = (int) (Math.max((stoneEntity.openProgress), 0.5) * 90);
                 StoneChestBlockEntity.playSound(world, pos, state, RegisterSounds.BLOCK_STONE_CHEST_OPEN);
                 world.emitGameEvent(player, GameEvent.CONTAINER_OPEN, pos);
