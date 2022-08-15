@@ -60,7 +60,7 @@ public class FireflyLanternBlockEntity extends BlockEntity {
         if (world.isClient) {
         if (!this.hasUpdated) {
             this.hasUpdated = true;
-            ClientMethodInteractionThingy.requestClientLanternBlahBlahBlah(pos, world);
+            ClientMethodInteractionThingy.requestBlockEntitySync(pos, world);
             }
         }
         this.age += 1;

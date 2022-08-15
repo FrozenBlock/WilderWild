@@ -123,7 +123,7 @@ public class WilderWild implements ModInitializer {
         TermiteMoundBlockEntity.Termite.addDegradableBlocks();
         TermiteMoundBlockEntity.Termite.addNaturalDegradableBlocks();
 
-        sendLanternSync();
+        sendBlockEntitySync();
 
         terralith();
 
@@ -278,7 +278,7 @@ public class WilderWild implements ModInitializer {
     public static final Identifier MOVING_RESTRICTION_LOOPING_SOUND_PACKET = id("moving_restriction_looping_sound_packet");
     public static final Identifier MOVING_RESTRICTION_SOUND_PACKET = id("moving_restriction_sound_packet");
 
-    public static final Identifier REQUEST_LANTERN_SYNC_PACKET = id("request_lantern_sync_packet");
+    public static final Identifier REQUEST_BLOCK_ENTITY_SYNC_PACKET = id("request_block_entity_sync_packet");
 
     public static Identifier id(String path) {
         return new Identifier(MOD_ID, path);
@@ -288,15 +288,15 @@ public class WilderWild implements ModInitializer {
         return id(path).toString();
     }
 
-    public void sendLanternSync() {
-        ServerPlayNetworking.registerGlobalReceiver(REQUEST_LANTERN_SYNC_PACKET, (ctx, player, handler, byteBuf, responseSender) -> {
+    public void sendBlockEntitySync() {
+        ServerPlayNetworking.registerGlobalReceiver(REQUEST_BLOCK_ENTITY_SYNC_PACKET, (ctx, player, handler, byteBuf, responseSender) -> {
             ctx.execute(() -> {
                 BlockPos pos = new BlockPos(byteBuf.readInt(), byteBuf.readInt(), byteBuf.readInt());
                 World world = ctx.getWorld(byteBuf.readRegistryKey(Registry.WORLD_KEY));
                 if (world != null) {
                     BlockEntity entity = world.getBlockEntity(pos);
-                    if (entity instanceof FireflyLanternBlockEntity lantern) {
-                        lantern.updatePlayer(player);
+                    if (entity != null) {
+                        player.networkHandler.sendPacket(entity.toUpdatePacket());
                     }
                 }
             });
