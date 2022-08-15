@@ -96,7 +96,7 @@ public class StoneChestBlockEntity extends ChestBlockEntity {
                 if (blockEntity.openProgress <= 0F) {
                     playSound(world, pos, state, RegisterSounds.BLOCK_STONE_CHEST_SLAM);
                     blockEntity.closing = false;
-                    blockEntity.cooldownTicks = 15;
+                    blockEntity.cooldownTicks = 30;
                 }
             }
             if (isLeft(pos, state)) {
@@ -119,7 +119,7 @@ public class StoneChestBlockEntity extends ChestBlockEntity {
                 blockEntity.openProgress = Math.max(0F, blockEntity.openProgress - 0.035F);
                 if (blockEntity.openProgress <= 0F) {
                     blockEntity.closing = false;
-                    blockEntity.cooldownTicks = 15;
+                    blockEntity.cooldownTicks = 30;
                 }
             }
         }
