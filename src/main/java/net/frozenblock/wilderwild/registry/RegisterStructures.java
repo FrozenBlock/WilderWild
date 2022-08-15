@@ -1,15 +1,20 @@
 package net.frozenblock.wilderwild.registry;
 
+import com.google.common.collect.ImmutableList;
 import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.tag.WilderBiomeTags;
 import net.frozenblock.wilderwild.world.structure.AbandonedCabinGenerator;
+import net.frozenblock.wilderwild.world.structure.WilderStructureProcessors;
+import net.minecraft.block.Blocks;
 import net.minecraft.entity.SpawnGroup;
 import net.minecraft.structure.StructureSet;
-import net.minecraft.tag.BiomeTags;
+import net.minecraft.structure.processor.*;
+import net.minecraft.structure.rule.AlwaysTrueRuleTest;
+import net.minecraft.structure.rule.RandomBlockMatchRuleTest;
+import net.minecraft.tag.BlockTags;
 import net.minecraft.tag.TagKey;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.collection.Pool;
-import net.minecraft.util.math.Vec3i;
 import net.minecraft.util.registry.*;
 import net.minecraft.world.StructureSpawns;
 import net.minecraft.world.biome.Biome;
@@ -60,7 +65,7 @@ public class RegisterStructures {
                             GenerationStep.Feature.UNDERGROUND_DECORATION,
                             StructureTerrainAdaptation.BEARD_BOX
                     ),
-                    AbandonedCabinGenerator.CITY_CENTER,
+                    AbandonedCabinGenerator.CABIN,
                     Optional.of(new Identifier("city_anchor")),
                     3,
                     ConstantHeightProvider.create(YOffset.fixed(0)),
@@ -76,6 +81,7 @@ public class RegisterStructures {
     );
 
     public static void init() {
+        WilderStructureProcessors.init();
         AbandonedCabinGenerator.init();
     }
 

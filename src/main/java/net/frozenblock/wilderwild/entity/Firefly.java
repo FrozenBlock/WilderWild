@@ -143,7 +143,7 @@ public class Firefly extends PathAwareEntity implements Flutterer {
             if (optionalItem.isPresent()) {
                 item = optionalItem.get();
             }
-            entity.playSound(RegisterSounds.ITEM_BOTTLE_CATCH_FIREFLY, 1.0F, 1.0F);
+            entity.playSound(RegisterSounds.ITEM_BOTTLE_CATCH_FIREFLY, 1.0F, entity.random.nextFloat() * 0.2f + 0.8f);
             if (!player.isCreative()) {
                 player.getStackInHand(hand).decrement(1);
             }

@@ -90,7 +90,7 @@ public class FireflyLanternBlock extends BlockWithEntity implements Waterloggabl
                         }
                         player.getInventory().offerOrDrop(new ItemStack(Items.GLASS_BOTTLE));
                         world.setBlockState(pos, state.with(FIREFLIES, MathHelper.clamp(lantern.getFireflies().size(), 0, 4)));
-                        world.playSound(null, pos, RegisterSounds.ITEM_BOTTLE_PUT_IN_LANTERN_FIREFLY, SoundCategory.BLOCKS, 1.0F, 1.0F);
+                        world.playSound(null, pos, RegisterSounds.ITEM_BOTTLE_PUT_IN_LANTERN_FIREFLY, SoundCategory.BLOCKS, 1.0F, world.random.nextFloat() * 0.2f + 0.9f);
                         lantern.updateSync();
                         return ActionResult.SUCCESS;
                     }
@@ -103,7 +103,7 @@ public class FireflyLanternBlock extends BlockWithEntity implements Waterloggabl
                         if (optionalItem.isPresent()) {
                             item = optionalItem.get();
                         }
-                        world.playSound(null, pos, RegisterSounds.ITEM_BOTTLE_CATCH_FIREFLY, SoundCategory.BLOCKS, 1.0F, 1.0F);
+                        world.playSound(null, pos, RegisterSounds.ITEM_BOTTLE_CATCH_FIREFLY, SoundCategory.BLOCKS, 1.0F, world.random.nextFloat() * 0.2f + 0.9f);
                         if (!player.isCreative()) {
                             player.getStackInHand(hand).decrement(1);
                         }
@@ -198,6 +198,20 @@ public class FireflyLanternBlock extends BlockWithEntity implements Waterloggabl
             return Blocks.AIR.getDefaultState();
         }
         return super.getStateForNeighborUpdate(state, direction, neighborState, world, pos, neighborPos);
+    }
+
+    @Override
+    public void onStateReplaced(BlockState state, World world, BlockPos pos, BlockState newState, boolean moved) {
+        if (!state.isOf(newState.getBlock())) {
+            BlockEntity entity = world.getBlockEntity(pos);
+            if (entity instanceof FireflyLanternBlockEntity lantern) {
+                for (ItemStack item : lantern.inventory) {
+                    dropStack(world, pos, item);
+                }
+                lantern.inventory.clear();
+            }
+        }
+        super.onStateReplaced(state, world, pos, newState, moved);
     }
 
     @Override

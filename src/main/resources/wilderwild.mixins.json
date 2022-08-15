@@ -35,12 +35,14 @@
 	"worldgen.SpruceSaplingGeneratorMixin",
 	"worldgen.SwampHutMixin",
 	"worldgen.VanillaBiomeParametersMixin",
-	"worldgen.VanillaSurfaceRulesMixin"
+	"worldgen.VanillaSurfaceRulesMixin",
+	"worldgen.VegetationPlacedFeaturesMixin"
   ],
   "client": [
 	"client.AlexDolphinRenderer",
 	"client.MerpSlimeRenderer",
 	"client.OsmioooWardenRenderer",
+	"client.TexturedRenderLayersMixin",
 	"client.Treetrain1GoatRenderer",
 	"client.UppyBalloo",
 	"client.UppyBallooModel",

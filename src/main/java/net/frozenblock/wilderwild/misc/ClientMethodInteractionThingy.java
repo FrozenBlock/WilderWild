@@ -6,8 +6,8 @@ import net.minecraft.world.World;
 
 public class ClientMethodInteractionThingy {
 
-    public static void requestClientLanternBlahBlahBlah(BlockPos pos, World world) {
-        WilderWildClient.requestLanternSync(pos, world);
+    public static void requestBlockEntitySync(BlockPos pos, World world) {
+        WilderWildClient.requestBlockEntitySync(pos, world);
     }
 
 }
