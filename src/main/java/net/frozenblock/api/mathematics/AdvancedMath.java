@@ -1,6 +1,6 @@
 package net.frozenblock.api.mathematics;
 
-public class AdvancedMath {
+public final class AdvancedMath {
     /**
      * ADVANCED MATH
      * <p>

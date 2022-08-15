@@ -4,9 +4,8 @@ import net.frozenblock.wilderwild.misc.FlowerColors;
 import net.minecraft.state.property.BooleanProperty;
 import net.minecraft.state.property.EnumProperty;
 import net.minecraft.state.property.IntProperty;
-import net.minecraft.state.property.Properties;
 
-public class RegisterProperties extends Properties {
+public final class RegisterProperties {
 
     //Osseous Sculk
     public static final IntProperty PILLAR_HEIGHT_LEFT = IntProperty.of("pillar_height_left", 0, 15);

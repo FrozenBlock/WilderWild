@@ -4,7 +4,7 @@ import net.frozenblock.wilderwild.WilderWild;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.util.registry.Registry;
 
-public class RegisterSounds {
+public final class RegisterSounds {
 
     public static final SoundEvent AMBIENT_DEEP_DARK_ADDITIONS = register("ambient.deep_dark.additions");
     public static final SoundEvent AMBIENT_DEEP_DARK_LOOP = register("ambient.deep_dark.loop");

@@ -8,7 +8,7 @@ import net.minecraft.loot.function.SetCountLootFunction;
 import net.minecraft.loot.provider.number.UniformLootNumberProvider;
 import net.minecraft.util.Rarity;
 
-public class RegisterLootTables {
+public final class RegisterLootTables {
 
     public static void init() {
         //ANCIENT HORN

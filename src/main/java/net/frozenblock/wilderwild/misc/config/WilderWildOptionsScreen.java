@@ -25,7 +25,7 @@ public class WilderWildOptionsScreen extends GameOptionsScreen {
         this.previous = previous;
     }
 
-
+    @Override
     protected void init() {
         this.list = new ButtonListWidget(this.client, this.width, this.height, 32, this.height - 32, 25);
         this.list.addAll(WilderWildConfig.asOptions()); //TODO: split each config option into its own button so we can add tooltips and stuff
@@ -36,6 +36,7 @@ public class WilderWildOptionsScreen extends GameOptionsScreen {
         }));
     }
 
+    @Override
     public void render(MatrixStack matrices, int mouseX, int mouseY, float delta) {
         this.renderBackground(matrices);
         this.list.render(matrices, mouseX, mouseY, delta);
@@ -48,6 +49,7 @@ public class WilderWildOptionsScreen extends GameOptionsScreen {
 
     }
 
+    @Override
     public void removed() {
         WilderWildConfigManager.save();
         WilderWild.RENDER_TENDRILS = WilderWildConfig.MC_LIVE_SENSOR_TENDRILS.getValue();

@@ -4,9 +4,8 @@ import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.sound.SoundEvents;
 
 import static net.frozenblock.wilderwild.registry.RegisterSounds.*;
-import static net.frozenblock.wilderwild.registry.RegisterSounds.BLOCK_NULL_BLOCK_PLACE;
 
-public class RegisterBlockSoundGroups {
+public final class RegisterBlockSoundGroups {
 
     public static final BlockSoundGroup OSSEOUS_SCULK = new BlockSoundGroup(1.0F, 1.0F,
             BLOCK_OSSEOUS_SCULK_BREAK,

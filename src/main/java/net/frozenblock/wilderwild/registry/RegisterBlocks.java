@@ -35,7 +35,7 @@ import java.util.List;
 import static net.frozenblock.wilderwild.registry.RegisterItems.BAOBAB_SIGN;
 import static net.frozenblock.wilderwild.registry.RegisterItems.CYPRESS_SIGN;
 
-public class RegisterBlocks {
+public final class RegisterBlocks {
     private static final MapColor BAOBAB_PLANKS_COLOR = MapColor.ORANGE;
     private static final MapColor BAOBAB_BARK_COLOR = MapColor.BROWN;
     private static final MapColor CYPRESS_PLANKS_COLOR = MapColor.LIGHT_GRAY;
@@ -361,7 +361,7 @@ public class RegisterBlocks {
         TermiteMoundBlockEntity.Termite.addNaturalDegradable(CYPRESS_WOOD, STRIPPED_CYPRESS_WOOD);
     }
 
-    protected static boolean never(BlockState state, BlockView world, BlockPos pos) {
+    private static boolean never(BlockState state, BlockView world, BlockPos pos) {
         return false;
     }
 
@@ -369,7 +369,7 @@ public class RegisterBlocks {
         return false;
     }
 
-    protected static Boolean canSpawnOnLeaves(BlockState state, BlockView world, BlockPos pos, EntityType<?> type) {
+    private static Boolean canSpawnOnLeaves(BlockState state, BlockView world, BlockPos pos, EntityType<?> type) {
         return type == EntityType.OCELOT || type == EntityType.PARROT;
     }
 

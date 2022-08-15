@@ -44,7 +44,7 @@ import net.minecraft.util.registry.Registry;
 
 import java.util.UUID;
 
-public class WilderWildClient implements ClientModInitializer {
+public final class WilderWildClient implements ClientModInitializer {
     public static final EntityModelLayer ANCIENT_HORN_PROJECTILE_LAYER = new EntityModelLayer(WilderWild.id("ancient_horn_projectile"), "main");
     public static final EntityModelLayer SCULK_SENSOR = new EntityModelLayer(WilderWild.id("sculk_sensor"), "main");
 

@@ -4,7 +4,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.noise.PerlinNoiseSampler;
 import net.minecraft.util.math.random.*;
 
-public class EasyNoiseSampler {
+public final class EasyNoiseSampler {
 
     /**
      * EASY NOISE SAMPLER
