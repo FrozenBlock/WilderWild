@@ -1,5 +1,6 @@
 package net.frozenblock.wilderwild.block.entity;
 
+import net.fabricmc.fabric.api.networking.v1.PlayerLookup;
 import net.frozenblock.wilderwild.misc.ClientMethodInteractionThingy;
 import net.frozenblock.wilderwild.registry.RegisterBlockEntities;
 import net.minecraft.block.BlockState;
@@ -7,6 +8,8 @@ import net.minecraft.block.entity.ChestBlockEntity;
 import net.minecraft.inventory.Inventories;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
+import net.minecraft.network.packet.s2c.play.BlockEntityUpdateS2CPacket;
+import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
@@ -64,6 +67,22 @@ public class StoneChestBlockEntity extends ChestBlockEntity {
             ClientMethodInteractionThingy.requestBlockEntitySync(pos, world);
             blockEntity.hasUpdated = true;
         }
+    }
+
+    public void updateSync() {
+        for (ServerPlayerEntity player : PlayerLookup.tracking(this)) {
+            player.networkHandler.sendPacket(this.toUpdatePacket());
+        }
+    }
+
+    @Override
+    public BlockEntityUpdateS2CPacket toUpdatePacket() {
+        return BlockEntityUpdateS2CPacket.create(this);
+    }
+
+    @Override
+    public NbtCompound toInitialChunkDataNbt() {
+        return this.createNbt();
     }
 
 }

@@ -2,7 +2,10 @@ package net.frozenblock.wilderwild.block;
 
 import net.frozenblock.wilderwild.block.entity.StoneChestBlockEntity;
 import net.frozenblock.wilderwild.registry.RegisterBlockEntities;
-import net.minecraft.block.*;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.BlockWithEntity;
+import net.minecraft.block.ChestBlock;
+import net.minecraft.block.DoubleBlockProperties;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityTicker;
 import net.minecraft.block.entity.BlockEntityType;
@@ -11,8 +14,6 @@ import net.minecraft.entity.mob.PiglinBrain;
 import net.minecraft.entity.passive.CatEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.screen.NamedScreenHandlerFactory;
-import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.hit.BlockHitResult;
@@ -49,9 +50,7 @@ public class StoneChestBlock extends ChestBlock {
             BlockEntity entity = world.getBlockEntity(pos);
             if (entity instanceof StoneChestBlockEntity stoneChest) {
                 stoneChest.lidX = stoneChest.lidX - 0.1F;
-                if (player instanceof ServerPlayerEntity server) {
-                    server.networkHandler.sendPacket(stoneChest.toUpdatePacket());
-                }
+                stoneChest.updateSync();
             }
         }
         return ActionResult.CONSUME;
