@@ -217,9 +217,6 @@ public class StoneChestBlockEntity extends ChestBlockEntity {
 
     public static void playSound(World world, BlockPos pos, BlockState state, SoundEvent soundEvent) {
         ChestType chestType = state.get(ChestBlock.CHEST_TYPE);
-        if (chestType == ChestType.LEFT) {
-            return;
-        }
         double d = (double)pos.getX() + 0.5;
         double e = (double)pos.getY() + 0.5;
         double f = (double)pos.getZ() + 0.5;
@@ -227,6 +224,10 @@ public class StoneChestBlockEntity extends ChestBlockEntity {
             Direction direction = ChestBlock.getFacing(state);
             d += (double)direction.getOffsetX() * 0.5;
             f += (double)direction.getOffsetZ() * 0.5;
+        } else if (chestType == ChestType.LEFT) {
+            Direction direction = ChestBlock.getFacing(state);
+            d -= (double)direction.getOffsetX() * 0.5;
+            f -= (double)direction.getOffsetZ() * 0.5;
         }
         world.playSound(null, d, e, f, soundEvent, SoundCategory.BLOCKS, 0.5f, world.random.nextFloat() * 0.1f + 0.9f);
     }
