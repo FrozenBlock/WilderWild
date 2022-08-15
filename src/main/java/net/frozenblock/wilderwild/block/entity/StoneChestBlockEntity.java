@@ -83,6 +83,7 @@ public class StoneChestBlockEntity extends ChestBlockEntity {
                     playSound(world, pos, state, RegisterSounds.BLOCK_STONE_CHEST_CLOSE);
                 }
             }
+            blockEntity.syncLidValues(world, pos, state);
         }
         blockEntity.shouldSkip = false;
     }
@@ -98,28 +99,13 @@ public class StoneChestBlockEntity extends ChestBlockEntity {
                     ClientMethodInteractionThingy.closeInv();
                 }
             }
+            blockEntity.syncLidValues(world, pos, state);
         }
         blockEntity.shouldSkip = false;
         if (!blockEntity.hasUpdated) {
             ClientMethodInteractionThingy.requestBlockEntitySync(pos, world);
             blockEntity.hasUpdated = true;
         }
-    }
-
-    public List<PlayerEntity> getInRangeViewers(World world, BlockPos pos) {
-        int i = pos.getX();
-        int j = pos.getY();
-        int k = pos.getZ();
-        Box box = new Box((float)i - 5.0f, (float)j - 5.0f, (float)k - 5.0f, (float)(i + 1) + 5.0f, (float)(j + 1) + 5.0f, (float)(k + 1) + 5.0f);
-        return world.getEntitiesByType(TypeFilter.instanceOf(PlayerEntity.class), box, this::isPlayerViewing);
-    }
-
-    public boolean isPlayerViewing(PlayerEntity player) {
-        if (player.currentScreenHandler instanceof GenericContainerScreenHandler) {
-            Inventory inventory = ((GenericContainerScreenHandler)player.currentScreenHandler).getInventory();
-            return inventory == StoneChestBlockEntity.this || inventory instanceof DoubleInventory && ((DoubleInventory)inventory).isPart(StoneChestBlockEntity.this);
-        }
-        return false;
     }
 
     public void syncLidValues(World world, BlockPos pos, BlockState state) {
