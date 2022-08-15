@@ -76,11 +76,9 @@ public class StoneChestBlockEntity extends ChestBlockEntity {
                 blockEntity.openProgress = Math.max(0F, blockEntity.openProgress - 0.05F);
                 if (blockEntity.openProgress <= 0F) {
                     playSound(world, pos, state, RegisterSounds.BLOCK_STONE_CHEST_CLOSE);
-                    if (world instanceof ServerWorld serverWorld) {
-                        for (PlayerEntity player : blockEntity.getInRangeViewers(world, pos)) {
-                            if (player instanceof ServerPlayerEntity serverPlayer) {
-                                EasyPacket.sendCloseInventoryPacket(serverPlayer);
-                            }
+                    for (PlayerEntity player : blockEntity.getInRangeViewers(world, pos)) {
+                        if (player instanceof ServerPlayerEntity serverPlayer) {
+                            EasyPacket.sendCloseInventoryPacket(serverPlayer);
                         }
                     }
                 }

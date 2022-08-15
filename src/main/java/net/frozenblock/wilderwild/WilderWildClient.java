@@ -155,6 +155,7 @@ public final class WilderWildClient implements ClientModInitializer {
 
         receiveFireflyCaptureInfoPacket();
         receiveAncientHornKillInfoPacket();
+        receiveCloseInventoryPacket();
 
         receiveFlybySoundPacket();
         receiveMovingLoopingSoundPacket();
@@ -197,11 +198,13 @@ public final class WilderWildClient implements ClientModInitializer {
 
     public static void requestBlockEntitySync(BlockPos pos, World world) {
         PacketByteBuf byteBuf = new PacketByteBuf(Unpooled.buffer());
-        byteBuf.writeInt(pos.getX());
-        byteBuf.writeInt(pos.getY());
-        byteBuf.writeInt(pos.getZ());
-        byteBuf.writeRegistryKey(world.getRegistryKey());
-        ClientPlayNetworking.send(WilderWild.REQUEST_BLOCK_ENTITY_SYNC_PACKET, byteBuf);
+        if (pos != null && world != null) {
+            byteBuf.writeInt(pos.getX());
+            byteBuf.writeInt(pos.getY());
+            byteBuf.writeInt(pos.getZ());
+            byteBuf.writeRegistryKey(world.getRegistryKey());
+            ClientPlayNetworking.send(WilderWild.REQUEST_BLOCK_ENTITY_SYNC_PACKET, byteBuf);
+        }
     }
 
     private static void receiveAncientHornProjectilePacket() {
