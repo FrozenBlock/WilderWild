@@ -42,7 +42,8 @@ public class StoneChestBlock extends ChestBlock {
         }
         BlockEntity entity = world.getBlockEntity(pos);
         if (entity instanceof StoneChestBlockEntity stoneChest) {
-            if (!hasLid(world, pos) && (!player.isSneaking() || stoneChest.openProgress >= 0.7F)) {
+            StoneChestBlockEntity stoneEntity = stoneChest.getLeftEntity(world, pos, state, stoneChest);
+            if (!hasLid(world, pos) && (!player.isSneaking() || stoneEntity.openProgress >= 0.7F)) {
                 NamedScreenHandlerFactory namedScreenHandlerFactory = this.createScreenHandlerFactory(state, world, pos);
                 if (namedScreenHandlerFactory != null) {
                     player.openHandledScreen(namedScreenHandlerFactory);
@@ -50,11 +51,10 @@ public class StoneChestBlock extends ChestBlock {
                     PiglinBrain.onGuardedBlockInteracted(player, true);
                 }
             } else {
-                stoneChest.openProgress = stoneChest.openProgress + 0.05F;
-                stoneChest.stillLidTicks = (int) (Math.max((stoneChest.openProgress), 1) * 100);
-                stoneChest.syncLidValues(world, pos, state);
+                stoneEntity.openProgress = stoneEntity.openProgress + 0.05F;
+                stoneEntity.stillLidTicks = (int) (Math.max((stoneEntity.openProgress), 1) * 50);
                 StoneChestBlockEntity.playSound(world, pos, state, RegisterSounds.BLOCK_STONE_CHEST_OPEN);
-                stoneChest.updateSync();
+                stoneEntity.updateSync();
             }
         }
         return ActionResult.CONSUME;

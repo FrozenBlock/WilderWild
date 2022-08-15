@@ -30,7 +30,7 @@ import org.jetbrains.annotations.Nullable;
 import java.util.List;
 
 public class StoneChestBlockEntity extends ChestBlockEntity {
-    //public float targetOpenProgress;
+    public float targetOpenProgress;
     public float openProgress;
     public float prevOpenProgress;
     public int stillLidTicks;
@@ -47,7 +47,7 @@ public class StoneChestBlockEntity extends ChestBlockEntity {
     @Override
     public void readNbt(NbtCompound nbt) {
         super.readNbt(nbt);
-        //this.targetOpenProgress = nbt.getFloat("targetOpenProgress");
+        this.targetOpenProgress = nbt.getFloat("targetOpenProgress");
         this.openProgress = nbt.getFloat("openProgress");
         this.prevOpenProgress = nbt.getFloat("prevOpenProgress");
         this.stillLidTicks = nbt.getInt("stillLidTicks");
@@ -58,7 +58,7 @@ public class StoneChestBlockEntity extends ChestBlockEntity {
     @Override
     protected void writeNbt(NbtCompound nbt) {
         super.writeNbt(nbt);
-        //nbt.putFloat("targetOpenProgress", this.targetOpenProgress);
+        nbt.putFloat("targetOpenProgress", this.targetOpenProgress);
         nbt.putFloat("openProgress", this.openProgress);
         nbt.putFloat("prevOpenProgress", this.prevOpenProgress);
         nbt.putInt("stillLidTicks", this.stillLidTicks);
@@ -86,6 +86,9 @@ public class StoneChestBlockEntity extends ChestBlockEntity {
                     }
                 }
             }
+            if (isLeft(world, pos, state)) {
+                blockEntity.syncLidValues(world, pos, state);
+            }
         }
         blockEntity.shouldSkip = false;
     }
@@ -97,6 +100,9 @@ public class StoneChestBlockEntity extends ChestBlockEntity {
                 blockEntity.stillLidTicks -= 1;
             } else if (blockEntity.openProgress > 0F) {
                 blockEntity.openProgress = Math.max(0F, blockEntity.openProgress - 0.05F);
+            }
+            if (isLeft(world, pos, state)) {
+                blockEntity.syncLidValues(world, pos, state);
             }
         }
         blockEntity.shouldSkip = false;
@@ -130,7 +136,6 @@ public class StoneChestBlockEntity extends ChestBlockEntity {
             stoneChest.stillLidTicks = this.stillLidTicks;
             stoneChest.hasLid = this.hasLid;
             stoneChest.shouldSkip = true;
-            stoneChest.updateSync();
         }
     }
 
@@ -150,12 +155,8 @@ public class StoneChestBlockEntity extends ChestBlockEntity {
         return this.createNbt();
     }
 
-    @Nullable
     public StoneChestBlockEntity getOtherEntity(World world, BlockPos pos, BlockState state) {
         ChestType chestType = state.get(ChestBlock.CHEST_TYPE);
-        if (chestType == ChestType.SINGLE) {
-            return null;
-        }
         double d = pos.getX();
         double e = pos.getY();
         double f = pos.getZ();
@@ -175,6 +176,35 @@ public class StoneChestBlockEntity extends ChestBlockEntity {
             entity = stone;
         }
         return entity;
+    }
+
+    public StoneChestBlockEntity getLeftEntity(World world, BlockPos pos, BlockState state, StoneChestBlockEntity source) {
+        ChestType chestType = state.get(ChestBlock.CHEST_TYPE);
+        if (chestType == ChestType.SINGLE) {
+            return source;
+        }
+        double d = pos.getX();
+        double e = pos.getY();
+        double f = pos.getZ();
+        if (chestType == ChestType.RIGHT) {
+            Direction direction = ChestBlock.getFacing(state);
+            d += direction.getOffsetX();
+            f += direction.getOffsetZ();
+        } else if (chestType == ChestType.LEFT) {
+            return source;
+        }
+        BlockPos newPos = new BlockPos(d, e, f);
+        BlockEntity be = world.getBlockEntity(newPos);
+        StoneChestBlockEntity entity = null;
+        if (be instanceof StoneChestBlockEntity stone) {
+            entity = stone;
+        }
+        return entity;
+    }
+
+    public static boolean isLeft(World world, BlockPos pos, BlockState state) {
+        ChestType chestType = state.get(ChestBlock.CHEST_TYPE);
+        return chestType == ChestType.LEFT;
     }
 
     @Override
