@@ -75,16 +75,18 @@ public class StoneChestBlockEntity extends ChestBlockEntity {
             if (blockEntity.stillLidTicks > 0) {
                 blockEntity.stillLidTicks -= 1;
             } else if (blockEntity.openProgress > 0F) {
-                blockEntity.closing = true;
                 blockEntity.openProgress = Math.max(0F, blockEntity.openProgress - 0.05F);
                 playSound(world, pos, state, RegisterSounds.BLOCK_STONE_CHEST_CLOSE);
-                if (blockEntity.openProgress <= 0F) {
-                    blockEntity.closing = false;
+                if (!blockEntity.closing) {
+                    blockEntity.closing = true;
                     for (PlayerEntity player : blockEntity.getInRangeViewers(world, pos)) {
                         if (player instanceof ServerPlayerEntity serverPlayer) {
                             serverPlayer.closeHandledScreen();
                         }
                     }
+                }
+                if (blockEntity.openProgress <= 0F) {
+                    blockEntity.closing = false;
                 }
             }
             if (isLeft(pos, state)) {
