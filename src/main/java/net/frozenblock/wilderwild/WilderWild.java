@@ -83,7 +83,7 @@ public class WilderWild implements ModInitializer {
     @Override
     public void onInitialize() {
         startMeasuring(this);
-        applyDataFixes(FabricLoader.getInstance().getModContainer(MOD_ID).get());
+        applyDataFixes(FabricLoader.getInstance().getModContainer(MOD_ID).orElseThrow());
 
         RegisterBlocks.registerBlocks();
         RegisterBlocks.addBaobab();
