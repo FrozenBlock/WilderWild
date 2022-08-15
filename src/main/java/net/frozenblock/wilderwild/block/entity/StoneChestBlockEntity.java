@@ -23,6 +23,7 @@ public class StoneChestBlockEntity extends ChestBlockEntity {
 
     public StoneChestBlockEntity(BlockPos blockPos, BlockState blockState) {
         super(RegisterBlockEntities.STONE_CHEST, blockPos, blockState);
+        this.hasLid = true;
     }
 
     @Override
