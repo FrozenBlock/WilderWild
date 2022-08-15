@@ -55,8 +55,8 @@ public class StoneChestBlockEntity extends ChestBlockEntity {
         blockEntity.prevOpenProgress = blockEntity.openProgress;
         if (blockEntity.stillLidTicks > 0) {
             blockEntity.stillLidTicks -= 1;
-        } else if (blockEntity.openProgress > 1F) {
-            blockEntity.openProgress = Math.min(1F, blockEntity.openProgress) - 0.05F;
+        } else if (blockEntity.openProgress > 0F) {
+            blockEntity.openProgress = Math.min(0F, blockEntity.openProgress) - 0.05F;
         }
     }
 
@@ -64,8 +64,8 @@ public class StoneChestBlockEntity extends ChestBlockEntity {
         blockEntity.prevOpenProgress = blockEntity.openProgress;
         if (blockEntity.stillLidTicks > 0) {
             blockEntity.stillLidTicks -= 1;
-        } else if (blockEntity.openProgress > 1F) {
-            blockEntity.openProgress = Math.min(1F, blockEntity.openProgress) - 0.05F;
+        } else if (blockEntity.openProgress > 0F) {
+            blockEntity.openProgress = Math.min(0F, blockEntity.openProgress) - 0.05F;
         }
         if (!blockEntity.hasUpdated) {
             ClientMethodInteractionThingy.requestBlockEntitySync(pos, world);
