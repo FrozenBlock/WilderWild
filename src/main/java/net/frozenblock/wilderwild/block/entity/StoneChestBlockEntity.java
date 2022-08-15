@@ -76,9 +76,9 @@ public class StoneChestBlockEntity extends ChestBlockEntity {
                 blockEntity.stillLidTicks -= 1;
             } else if (blockEntity.openProgress > 0F) {
                 blockEntity.openProgress = Math.max(0F, blockEntity.openProgress - 0.05F);
-                playSound(world, pos, state, RegisterSounds.BLOCK_STONE_CHEST_CLOSE);
                 if (!blockEntity.closing) {
                     blockEntity.closing = true;
+                    playSound(world, pos, state, RegisterSounds.BLOCK_STONE_CHEST_CLOSE);
                     for (PlayerEntity player : blockEntity.getInRangeViewers(world, pos)) {
                         if (player instanceof ServerPlayerEntity serverPlayer) {
                             serverPlayer.closeHandledScreen();
