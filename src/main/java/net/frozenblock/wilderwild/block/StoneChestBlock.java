@@ -62,8 +62,8 @@ public class StoneChestBlock extends ChestBlock {
                 } else {
                     stoneEntity.openProgress = stoneEntity.openProgress + 0.025F;
                 }
-                stoneEntity.stillLidTicks = (int) (Math.max((stoneEntity.openProgress), 0.5) * 90);
-                StoneChestBlockEntity.playSound(world, pos, state, RegisterSounds.BLOCK_STONE_CHEST_OPEN);
+                stoneEntity.stillLidTicks = stoneEntity.openProgress < 0.5F ? 60 : 140;
+                StoneChestBlockEntity.playSound(world, pos, state, stoneEntity.stillLidTicks == 140 ? RegisterSounds.BLOCK_STONE_CHEST_OPEN : RegisterSounds.BLOCK_STONE_CHEST_OPEN_START);
                 world.emitGameEvent(player, GameEvent.CONTAINER_OPEN, pos);
                 stoneEntity.updateSync();
             }
@@ -99,7 +99,7 @@ public class StoneChestBlock extends ChestBlock {
     public static boolean isStoneChestBlocked(WorldAccess world, BlockPos pos) {
         BlockEntity entity = world.getBlockEntity(pos);
         if (entity instanceof StoneChestBlockEntity stoneChest) {
-            if (stoneChest.openProgress < 0.3F || stoneChest.closing | stoneChest.cooldownTicks > 0) {
+            if (stoneChest.openProgress < 0.3F || stoneChest.closing || stoneChest.cooldownTicks > 0) {
                 return true;
             }
         }

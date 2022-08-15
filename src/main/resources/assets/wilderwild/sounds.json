@@ -881,6 +881,12 @@
 		],
 		"subtitle": "subtitles.block.stone_chest.slam"
 	},
+	"block.stone_chest.open_start": {
+		"sounds": [
+			"wilderwild:block/stone_chest/open_start"
+		],
+		"subtitle": "subtitles.block.stone_chest.open_start"
+	},
 	"block.stone_chest.open": {
 		"sounds": [
 			"wilderwild:block/stone_chest/open"
