@@ -361,7 +361,7 @@ public final class RegisterBlocks {
         TermiteMoundBlockEntity.Termite.addNaturalDegradable(CYPRESS_WOOD, STRIPPED_CYPRESS_WOOD);
     }
 
-    protected static boolean never(BlockState state, BlockView world, BlockPos pos) {
+    private static boolean never(BlockState state, BlockView world, BlockPos pos) {
         return false;
     }
 
@@ -369,7 +369,7 @@ public final class RegisterBlocks {
         return false;
     }
 
-    protected static Boolean canSpawnOnLeaves(BlockState state, BlockView world, BlockPos pos, EntityType<?> type) {
+    private static Boolean canSpawnOnLeaves(BlockState state, BlockView world, BlockPos pos, EntityType<?> type) {
         return type == EntityType.OCELOT || type == EntityType.PARROT;
     }
 

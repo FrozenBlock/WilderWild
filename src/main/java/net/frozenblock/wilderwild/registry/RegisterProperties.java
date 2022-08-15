@@ -4,7 +4,6 @@ import net.frozenblock.wilderwild.misc.FlowerColors;
 import net.minecraft.state.property.BooleanProperty;
 import net.minecraft.state.property.EnumProperty;
 import net.minecraft.state.property.IntProperty;
-import net.minecraft.state.property.Properties;
 
 public final class RegisterProperties {
 

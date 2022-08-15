@@ -4,7 +4,6 @@ import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.sound.SoundEvents;
 
 import static net.frozenblock.wilderwild.registry.RegisterSounds.*;
-import static net.frozenblock.wilderwild.registry.RegisterSounds.BLOCK_NULL_BLOCK_PLACE;
 
 public final class RegisterBlockSoundGroups {
 
