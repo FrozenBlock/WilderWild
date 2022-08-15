@@ -25,7 +25,6 @@ import net.minecraft.util.math.Box;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
-import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
@@ -71,39 +70,35 @@ public class StoneChestBlockEntity extends ChestBlockEntity {
     }
 
     public static void serverStoneTick(World world, BlockPos pos, BlockState state, StoneChestBlockEntity blockEntity) {
-        if (!blockEntity.shouldSkip) {
-            blockEntity.prevOpenProgress = blockEntity.openProgress;
-            if (blockEntity.stillLidTicks > 0) {
-                blockEntity.stillLidTicks -= 1;
-            } else if (blockEntity.openProgress > 0F) {
-                blockEntity.openProgress = Math.max(0F, blockEntity.openProgress - 0.05F);
-                if (blockEntity.openProgress <= 0F) {
-                    playSound(world, pos, state, RegisterSounds.BLOCK_STONE_CHEST_CLOSE);
-                    for (PlayerEntity player : blockEntity.getInRangeViewers(world, pos)) {
-                        if (player instanceof ServerPlayerEntity serverPlayer) {
-                            serverPlayer.closeHandledScreen();
-                        }
+        if (isLeft(pos, state)) {
+            blockEntity.syncLidValues(world, pos, state);
+        }
+        blockEntity.prevOpenProgress = blockEntity.openProgress;
+        if (blockEntity.stillLidTicks > 0) {
+            blockEntity.stillLidTicks -= 1;
+        } else if (blockEntity.openProgress > 0F) {
+            blockEntity.openProgress = Math.max(0F, blockEntity.openProgress - 0.05F);
+            if (blockEntity.openProgress <= 0F) {
+                playSound(world, pos, state, RegisterSounds.BLOCK_STONE_CHEST_CLOSE);
+                for (PlayerEntity player : blockEntity.getInRangeViewers(world, pos)) {
+                    if (player instanceof ServerPlayerEntity serverPlayer) {
+                        serverPlayer.closeHandledScreen();
                     }
                 }
-            }
-            if (isLeft(world, pos, state)) {
-                blockEntity.syncLidValues(world, pos, state);
             }
         }
         blockEntity.shouldSkip = false;
     }
 
     public static void clientStoneTick(World world, BlockPos pos, BlockState state, StoneChestBlockEntity blockEntity) {
-        if (!blockEntity.shouldSkip) {
-            blockEntity.prevOpenProgress = blockEntity.openProgress;
-            if (blockEntity.stillLidTicks > 0) {
-                blockEntity.stillLidTicks -= 1;
-            } else if (blockEntity.openProgress > 0F) {
-                blockEntity.openProgress = Math.max(0F, blockEntity.openProgress - 0.05F);
-            }
-            if (isLeft(world, pos, state)) {
-                blockEntity.syncLidValues(world, pos, state);
-            }
+        if (isLeft(pos, state)) {
+            blockEntity.syncLidValues(world, pos, state);
+        }
+        blockEntity.prevOpenProgress = blockEntity.openProgress;
+        if (blockEntity.stillLidTicks > 0) {
+            blockEntity.stillLidTicks -= 1;
+        } else if (blockEntity.openProgress > 0F) {
+            blockEntity.openProgress = Math.max(0F, blockEntity.openProgress - 0.05F);
         }
         blockEntity.shouldSkip = false;
         if (!blockEntity.hasUpdated) {
@@ -202,7 +197,7 @@ public class StoneChestBlockEntity extends ChestBlockEntity {
         return entity;
     }
 
-    public static boolean isLeft(World world, BlockPos pos, BlockState state) {
+    public static boolean isLeft(BlockPos pos, BlockState state) {
         ChestType chestType = state.get(ChestBlock.CHEST_TYPE);
         return chestType == ChestType.LEFT;
     }
