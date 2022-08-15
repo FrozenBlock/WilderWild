@@ -11,6 +11,7 @@ import net.fabricmc.fabric.api.client.rendering.v1.EntityModelLayerRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
 import net.fabricmc.fabric.api.event.client.ClientSpriteRegistryCallback;
 import net.frozenblock.api.mathematics.AdvancedMath;
+import net.frozenblock.wilderwild.block.entity.StoneChestBlockEntity;
 import net.frozenblock.wilderwild.entity.AncientHornProjectile;
 import net.frozenblock.wilderwild.entity.render.*;
 import net.frozenblock.wilderwild.misc.CompetitionCounter;
@@ -155,7 +156,6 @@ public final class WilderWildClient implements ClientModInitializer {
 
         receiveFireflyCaptureInfoPacket();
         receiveAncientHornKillInfoPacket();
-        receiveCloseInventoryPacket();
 
         receiveFlybySoundPacket();
         receiveMovingLoopingSoundPacket();
@@ -433,20 +433,15 @@ public final class WilderWildClient implements ClientModInitializer {
         });
     }
 
-    private static void receiveCloseInventoryPacket() {
-        ClientPlayNetworking.registerGlobalReceiver(WilderWild.CLOSE_INVENTORY_PACKET, (ctx, handler, byteBuf, responseSender) -> {
-            ctx.execute(() -> {
-                if (MinecraftClient.getInstance().world == null)
-                    throw new IllegalStateException("why is your world null");
-                MinecraftClient client = MinecraftClient.getInstance();
-                ClientPlayerEntity clientPlayer = client.player;
-                if (clientPlayer != null) {
-                    if (clientPlayer.currentScreenHandler instanceof GenericContainerScreenHandler) {
-                        clientPlayer.currentScreenHandler.close(clientPlayer);
-                    }
-                }
-            });
-        });
+    public static void closeInv() {
+        MinecraftClient client = MinecraftClient.getInstance();
+        ClientPlayerEntity clientPlayer = client.player;
+        if (clientPlayer != null) {
+            if (clientPlayer.currentScreenHandler instanceof GenericContainerScreenHandler) {
+                clientPlayer.currentScreenHandler.close(clientPlayer);
+                clientPlayer.currentScreenHandler = clientPlayer.playerScreenHandler;
+            }
+        }
     }
 
 }

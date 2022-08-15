@@ -32,6 +32,7 @@ import org.jetbrains.annotations.Nullable;
 import java.util.List;
 
 public class StoneChestBlockEntity extends ChestBlockEntity {
+    //public float targetOpenProgress;
     public float openProgress;
     public float prevOpenProgress;
     public int stillLidTicks;
@@ -48,19 +49,23 @@ public class StoneChestBlockEntity extends ChestBlockEntity {
     @Override
     public void readNbt(NbtCompound nbt) {
         super.readNbt(nbt);
+        //this.targetOpenProgress = nbt.getFloat("targetOpenProgress");
         this.openProgress = nbt.getFloat("openProgress");
         this.prevOpenProgress = nbt.getFloat("prevOpenProgress");
         this.stillLidTicks = nbt.getInt("stillLidTicks");
         this.hasLid = nbt.getBoolean("hasLid");
+        this.shouldSkip = nbt.getBoolean("shouldSkip");
     }
 
     @Override
     protected void writeNbt(NbtCompound nbt) {
         super.writeNbt(nbt);
+        //nbt.putFloat("targetOpenProgress", this.targetOpenProgress);
         nbt.putFloat("openProgress", this.openProgress);
         nbt.putFloat("prevOpenProgress", this.prevOpenProgress);
         nbt.putInt("stillLidTicks", this.stillLidTicks);
         nbt.putBoolean("hasLid", this.hasLid);
+        nbt.putBoolean("shouldSkip", this.shouldSkip);
     }
 
     public float getOpenProgress(float delta) {
@@ -76,11 +81,6 @@ public class StoneChestBlockEntity extends ChestBlockEntity {
                 blockEntity.openProgress = Math.max(0F, blockEntity.openProgress - 0.05F);
                 if (blockEntity.openProgress <= 0F) {
                     playSound(world, pos, state, RegisterSounds.BLOCK_STONE_CHEST_CLOSE);
-                    for (PlayerEntity player : blockEntity.getInRangeViewers(world, pos)) {
-                        if (player instanceof ServerPlayerEntity serverPlayer) {
-                            EasyPacket.sendCloseInventoryPacket(serverPlayer);
-                        }
-                    }
                 }
             }
         }
@@ -94,6 +94,9 @@ public class StoneChestBlockEntity extends ChestBlockEntity {
                 blockEntity.stillLidTicks -= 1;
             } else if (blockEntity.openProgress > 0F) {
                 blockEntity.openProgress = Math.max(0F, blockEntity.openProgress - 0.05F);
+                if (blockEntity.openProgress <= 0F) {
+                    ClientMethodInteractionThingy.closeInv();
+                }
             }
         }
         blockEntity.shouldSkip = false;
