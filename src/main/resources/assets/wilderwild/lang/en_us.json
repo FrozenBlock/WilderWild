@@ -129,6 +129,8 @@
   "subtitles.block.sculk_shrieker.gargle": "Sculk Shrieker gargles",
   "subtitles.block.termite_mound.enter": "Termites enter mound",
   "subtitles.block.termite_mound.exit": "Termites exit mound",
+  "subtitles.block.stone_chest.open": "Stone Lid lifts",
+  "subtitles.block.stone_chest.close": "Stone Lid slams",
   "subtitles.entity.firefly.nectar": "WE HAVE COME FOR YOUR NECTAR",
   "subtitles.item.ancient_horn.call": "Ancient Horn plays",
   "subtitles.item.copper_horn.call": "Copper Horn plays",

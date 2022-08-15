@@ -54,7 +54,7 @@ public class StoneChestBlock extends ChestBlock {
                     PiglinBrain.onGuardedBlockInteracted(player, true);
                 }
             } else {
-                stoneEntity.openProgress = stoneEntity.openProgress + 0.05F;
+                stoneEntity.openProgress = stoneEntity.openProgress + 0.025F;
                 stoneEntity.stillLidTicks = (int) (Math.max((stoneEntity.openProgress), 1) * 90);
                 StoneChestBlockEntity.playSound(world, pos, state, RegisterSounds.BLOCK_STONE_CHEST_OPEN);
                 stoneEntity.updateSync();
