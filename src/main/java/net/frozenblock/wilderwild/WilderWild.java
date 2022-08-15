@@ -281,7 +281,6 @@ public final class WilderWild implements ModInitializer {
     public static final Identifier MOVING_RESTRICTION_SOUND_PACKET = id("moving_restriction_sound_packet");
 
     public static final Identifier REQUEST_BLOCK_ENTITY_SYNC_PACKET = id("request_block_entity_sync_packet");
-    public static final Identifier CLOSE_INVENTORY_PACKET = id("close_inventory_packet");
 
     public static Identifier id(String path) {
         return new Identifier(MOD_ID, path);
