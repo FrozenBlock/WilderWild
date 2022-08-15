@@ -56,7 +56,7 @@ public class StoneChestBlockEntity extends ChestBlockEntity {
         if (blockEntity.stillLidTicks > 0) {
             blockEntity.stillLidTicks -= 1;
         } else if (blockEntity.openProgress > 0F) {
-            blockEntity.openProgress -= 0.05F;
+            blockEntity.openProgress = Math.min(0, blockEntity.openProgress) - 0.05F;
             blockEntity.updateSync();
         }
     }
