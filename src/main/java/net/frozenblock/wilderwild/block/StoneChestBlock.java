@@ -43,7 +43,7 @@ public class StoneChestBlock extends ChestBlock {
         BlockEntity entity = world.getBlockEntity(pos);
         if (entity instanceof StoneChestBlockEntity stoneChest) {
             StoneChestBlockEntity stoneEntity = stoneChest.getLeftEntity(world, pos, state, stoneChest);
-            if (!hasLid(world, pos) && (!player.isSneaking() || stoneEntity.openProgress >= 0.7F)) {
+            if (!hasLid(world, pos) && (!player.isSneaking() || stoneEntity.openProgress >= 0.5F)) {
                 NamedScreenHandlerFactory namedScreenHandlerFactory = this.createScreenHandlerFactory(state, world, pos);
                 if (namedScreenHandlerFactory != null) {
                     player.openHandledScreen(namedScreenHandlerFactory);
