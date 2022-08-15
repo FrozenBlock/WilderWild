@@ -77,7 +77,7 @@ public class FireflyBottle extends Item {
                     entity.setFromBottle(true);
                     boolean spawned = server.spawnEntity(entity);
                     if (spawned) {
-                        entity.playSound(RegisterSounds.ITEM_BOTTLE_RELEASE_FIREFLY, 1.0F, 0.8F + world.random.nextFloat() * 0.2F);
+                        entity.playSound(RegisterSounds.ITEM_BOTTLE_RELEASE_FIREFLY, 1.0F, world.random.nextFloat() * 0.2f + 0.9f);
                         entity.hasHome = true;
                         FireflyBrain.rememberHome(entity, entity.getBlockPos());
                         entity.setColor(this.color);
