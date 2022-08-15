@@ -174,4 +174,9 @@ public class EasyPacket {
         }
     }
 
+    public static void sendCloseInventoryPacket(ServerPlayerEntity player) {
+        PacketByteBuf byteBuf = new PacketByteBuf(Unpooled.buffer());
+        ServerPlayNetworking.send(player, WilderWild.CLOSE_INVENTORY_PACKET, byteBuf);
+    }
+
 }

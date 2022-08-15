@@ -63,7 +63,7 @@ public class StoneChestBlock extends ChestBlock {
     public static boolean hasLid(World world, BlockPos pos) {
         BlockEntity entity = world.getBlockEntity(pos);
         if (entity instanceof StoneChestBlockEntity stoneChest) {
-            return stoneChest.openProgress < 0.2F;
+            return stoneChest.openProgress < 0.3F;
         }
         return false;
     }
@@ -88,7 +88,7 @@ public class StoneChestBlock extends ChestBlock {
     public static boolean isStoneChestBlocked(WorldAccess world, BlockPos pos) {
         BlockEntity entity = world.getBlockEntity(pos);
         if (entity instanceof StoneChestBlockEntity stoneChest) {
-            if (stoneChest.openProgress < 0.2F) {
+            if (stoneChest.openProgress < 0.3F) {
                 return true;
             }
         }

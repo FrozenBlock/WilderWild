@@ -10,4 +10,8 @@ public class ClientMethodInteractionThingy {
         WilderWildClient.requestBlockEntitySync(pos, world);
     }
 
+    public static void closeInv(BlockPos pos, World world) {
+        WilderWildClient.requestBlockEntitySync(pos, world);
+    }
+
 }

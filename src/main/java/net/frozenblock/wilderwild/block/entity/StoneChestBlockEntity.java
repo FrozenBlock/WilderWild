@@ -2,7 +2,9 @@ package net.frozenblock.wilderwild.block.entity;
 
 import net.fabricmc.fabric.api.networking.v1.PlayerLookup;
 import net.frozenblock.wilderwild.misc.ClientMethodInteractionThingy;
+import net.frozenblock.wilderwild.misc.server.EasyPacket;
 import net.frozenblock.wilderwild.registry.RegisterBlockEntities;
+import net.frozenblock.wilderwild.registry.RegisterSounds;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.ChestBlock;
 import net.minecraft.block.entity.BlockEntity;
@@ -16,13 +18,18 @@ import net.minecraft.nbt.NbtCompound;
 import net.minecraft.network.packet.s2c.play.BlockEntityUpdateS2CPacket;
 import net.minecraft.screen.GenericContainerScreenHandler;
 import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvent;
+import net.minecraft.util.TypeFilter;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Box;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
+
+import java.util.List;
 
 public class StoneChestBlockEntity extends ChestBlockEntity {
     public float openProgress;
@@ -67,6 +74,16 @@ public class StoneChestBlockEntity extends ChestBlockEntity {
                 blockEntity.stillLidTicks -= 1;
             } else if (blockEntity.openProgress > 0F) {
                 blockEntity.openProgress = Math.max(0F, blockEntity.openProgress - 0.05F);
+                if (blockEntity.openProgress <= 0F) {
+                    playSound(world, pos, state, RegisterSounds.BLOCK_STONE_CHEST_CLOSE);
+                    if (world instanceof ServerWorld serverWorld) {
+                        for (PlayerEntity player : blockEntity.getInRangeViewers(world, pos)) {
+                            if (player instanceof ServerPlayerEntity serverPlayer) {
+                                EasyPacket.sendCloseInventoryPacket(serverPlayer);
+                            }
+                        }
+                    }
+                }
             }
         }
         blockEntity.shouldSkip = false;
@@ -86,6 +103,22 @@ public class StoneChestBlockEntity extends ChestBlockEntity {
             ClientMethodInteractionThingy.requestBlockEntitySync(pos, world);
             blockEntity.hasUpdated = true;
         }
+    }
+
+    public List<PlayerEntity> getInRangeViewers(World world, BlockPos pos) {
+        int i = pos.getX();
+        int j = pos.getY();
+        int k = pos.getZ();
+        Box box = new Box((float)i - 5.0f, (float)j - 5.0f, (float)k - 5.0f, (float)(i + 1) + 5.0f, (float)(j + 1) + 5.0f, (float)(k + 1) + 5.0f);
+        return world.getEntitiesByType(TypeFilter.instanceOf(PlayerEntity.class), box, this::isPlayerViewing);
+    }
+
+    public boolean isPlayerViewing(PlayerEntity player) {
+        if (player.currentScreenHandler instanceof GenericContainerScreenHandler) {
+            Inventory inventory = ((GenericContainerScreenHandler)player.currentScreenHandler).getInventory();
+            return inventory == StoneChestBlockEntity.this || inventory instanceof DoubleInventory && ((DoubleInventory)inventory).isPart(StoneChestBlockEntity.this);
+        }
+        return false;
     }
 
     public void syncLidValues(World world, BlockPos pos, BlockState state) {

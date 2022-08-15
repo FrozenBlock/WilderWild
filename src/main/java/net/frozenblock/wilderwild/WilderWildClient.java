@@ -25,9 +25,11 @@ import net.frozenblock.wilderwild.particle.PollenParticle;
 import net.frozenblock.wilderwild.particle.TermiteParticle;
 import net.frozenblock.wilderwild.registry.*;
 import net.minecraft.block.entity.BlockEntityType;
+import net.minecraft.block.entity.ChestBlockEntity;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.color.world.BiomeColors;
 import net.minecraft.client.item.ModelPredicateProviderRegistry;
+import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.TexturedRenderLayers;
 import net.minecraft.client.render.entity.model.EntityModelLayer;
@@ -35,9 +37,12 @@ import net.minecraft.client.util.SpriteIdentifier;
 import net.minecraft.client.world.ClientWorld;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
+import net.minecraft.inventory.DoubleInventory;
+import net.minecraft.inventory.Inventory;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.particle.ParticleEffect;
 import net.minecraft.particle.ParticleTypes;
+import net.minecraft.screen.GenericContainerScreenHandler;
 import net.minecraft.screen.PlayerScreenHandler;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvent;
@@ -421,6 +426,22 @@ public final class WilderWildClient implements ClientModInitializer {
                     throw new IllegalStateException("Unable to add flyby sound to non-existent entity!");
                 FlyBySoundHub.addEntity(entity, sound, category, volume, pitch);
                 WilderWild.log("ADDED ENTITY TO FLYBYS", true);
+            });
+        });
+    }
+
+    private static void receiveCloseInventoryPacket() {
+        ClientPlayNetworking.registerGlobalReceiver(WilderWild.CLOSE_INVENTORY_PACKET, (ctx, handler, byteBuf, responseSender) -> {
+            ctx.execute(() -> {
+                if (MinecraftClient.getInstance().world == null)
+                    throw new IllegalStateException("why is your world null");
+                MinecraftClient client = MinecraftClient.getInstance();
+                ClientPlayerEntity clientPlayer = client.player;
+                if (clientPlayer != null) {
+                    if (clientPlayer.currentScreenHandler instanceof GenericContainerScreenHandler) {
+                        clientPlayer.currentScreenHandler.close(clientPlayer);
+                    }
+                }
             });
         });
     }
