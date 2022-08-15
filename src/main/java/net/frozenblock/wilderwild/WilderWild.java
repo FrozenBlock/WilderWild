@@ -52,7 +52,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 
-public class WilderWild implements ModInitializer {
+public final class WilderWild implements ModInitializer {
     public static final String MOD_ID = "wilderwild";
     public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
     public static final boolean DEV_LOGGING = false;
@@ -137,6 +137,7 @@ public class WilderWild implements ModInitializer {
     private static final int DATA_VERSION = 6;
 
     private static void applyDataFixes(ModContainer mod) {
+        logWild("Applying DataFixes for", true);
         var builder = new QuiltDataFixerBuilder(DATA_VERSION);
         builder.addSchema(0, QuiltDataFixes.BASE_SCHEMA);
         Schema schemaV1 = builder.addSchema(1, IdentifierNormalizingSchema::new);
@@ -159,6 +160,7 @@ public class WilderWild implements ModInitializer {
         SimpleFixes.addBlockRenameFix(builder, "Rename potted_baobab_sapling to potted_baobab_nut", id("potted_baobab_sapling"), id("potted_baobab_nut"), schemaV6);
 
         QuiltDataFixes.buildAndRegisterFixer(mod, builder);
+        log("DataFixes for Wilder Wild have been applied", true);
     }
 
     //MOD COMPATIBILITY

@@ -49,7 +49,7 @@ import net.minecraft.world.World;
 
 import java.util.UUID;
 
-public class WilderWildClient implements ClientModInitializer {
+public final class WilderWildClient implements ClientModInitializer {
     public static final EntityModelLayer ANCIENT_HORN_PROJECTILE_LAYER = new EntityModelLayer(WilderWild.id("ancient_horn_projectile"), "main");
     public static final EntityModelLayer SCULK_SENSOR = new EntityModelLayer(WilderWild.id("sculk_sensor"), "main");
     public static final EntityModelLayer FIREFLY_LANTERN = new EntityModelLayer(WilderWild.id("firefly_lantern"), "main");

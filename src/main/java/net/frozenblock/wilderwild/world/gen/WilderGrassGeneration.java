@@ -7,7 +7,7 @@ import net.minecraft.tag.BiomeTags;
 import net.minecraft.world.biome.BiomeKeys;
 import net.minecraft.world.gen.GenerationStep;
 
-public class WilderGrassGeneration {
+public final class WilderGrassGeneration {
     public static void generateGrassForest() {
         BiomeModifications.addFeature(BiomeSelectors.tag(BiomeTags.IS_FOREST),
                 GenerationStep.Feature.VEGETAL_DECORATION, WilderPlacedFeatures.NEW_GRASS_PLACED.getKey().orElseThrow());

@@ -8,7 +8,7 @@ import net.minecraft.item.BlockItem;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.util.registry.Registry;
 
-public class RegisterDevelopment {
+public final class RegisterDevelopment {
 
     public static final Camera CAMERA = new Camera(new FabricItemSettings());
 

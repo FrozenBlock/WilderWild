@@ -5,7 +5,7 @@ import net.frozenblock.wilderwild.WilderWild;
 import net.minecraft.particle.DefaultParticleType;
 import net.minecraft.util.registry.Registry;
 
-public class RegisterParticles {
+public final class RegisterParticles {
     public static final DefaultParticleType POLLEN = FabricParticleTypes.simple();
     public static final DefaultParticleType DANDELION_SEED = FabricParticleTypes.simple();
     public static final DefaultParticleType CONTROLLED_DANDELION_SEED = FabricParticleTypes.simple();

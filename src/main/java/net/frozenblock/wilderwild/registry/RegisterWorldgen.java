@@ -23,7 +23,7 @@ import net.minecraft.world.gen.feature.VegetationPlacedFeatures;
 import static net.minecraft.world.biome.OverworldBiomeCreator.createJungle;
 import static net.minecraft.world.biome.OverworldBiomeCreator.createSwamp;
 
-public class RegisterWorldgen {
+public final class RegisterWorldgen {
     public static final RegistryKey<Biome> MIXED_FOREST = register("mixed_forest");
     public static final RegistryKey<Biome> CYPRESS_WETLANDS = register("cypress_wetlands");
 

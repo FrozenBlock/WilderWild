@@ -31,8 +31,9 @@ public final class Initializer implements ModInitializer {
     @Override
     public void onInitialize() {
         ServerLifecycleEvents.SERVER_STARTING.register(server -> {
-            WilderWild.LOGGER.info("QuiltMC's DataFixer Server Registry was frozen");
+            WilderWild.log("QuiltMC's DataFixer Server Registry is about to freeze", true);
             QuiltDataFixesInternals.freeze();
+            WilderWild.log("QuiltMC's DataFixer Server Registry was frozen", true);
         });
     }
 }

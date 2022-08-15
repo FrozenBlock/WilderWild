@@ -5,7 +5,7 @@ import net.minecraft.block.Block;
 import net.minecraft.tag.TagKey;
 import net.minecraft.util.registry.Registry;
 
-public class WilderBlockTags {
+public final class WilderBlockTags {
     public static final TagKey<Block> ANCIENT_CITY_BLOCKS = of("ancient_city_blocks");
     public static final TagKey<Block> SCULK_SLAB_REPLACEABLE_WORLDGEN = of("sculk_slab_replaceable_worldgen");
     public static final TagKey<Block> SCULK_STAIR_REPLACEABLE_WORLDGEN = of("sculk_stair_replaceable_worldgen");

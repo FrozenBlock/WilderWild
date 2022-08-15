@@ -12,7 +12,7 @@ import net.minecraft.client.render.entity.animation.Transformation;
  * put custom warden animations in here. for example, death, flying, swimming. not for overrides
  */
 @Environment(EnvType.CLIENT)
-public class CustomWardenAnimations {
+public final class CustomWardenAnimations {
 
     public static final Animation DYING = Builder.create(3.5F)
             .addBoneAnimation(
