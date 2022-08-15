@@ -55,6 +55,12 @@ public class RegisterSounds {
     public static final SoundEvent BLOCK_MUSHROOM_BLOCK_STEP = register("block.mushroom_block.step");
     public static final SoundEvent BLOCK_MUSHROOM_BLOCK_FALL = register("block.mushroom_block.fall");
 
+    public static final SoundEvent BLOCK_NULL_BLOCK_PLACE = register("block.null_block.place");
+    public static final SoundEvent BLOCK_NULL_BLOCK_HIT = register("block.null_block.hit");
+    public static final SoundEvent BLOCK_NULL_BLOCK_BREAK = register("block.null_block.break");
+    public static final SoundEvent BLOCK_NULL_BLOCK_STEP = register("block.null_block.step");
+    public static final SoundEvent BLOCK_NULL_BLOCK_FALL = register("block.null_block.fall");
+
     public static final SoundEvent BLOCK_HOLLOWED_LOG_PLACE = register("block.hollowed_log.place");
     public static final SoundEvent BLOCK_HOLLOWED_LOG_HIT = register("block.hollowed_log.hit");
     public static final SoundEvent BLOCK_HOLLOWED_LOG_BREAK = register("block.hollowed_log.break");

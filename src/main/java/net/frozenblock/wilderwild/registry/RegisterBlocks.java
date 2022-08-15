@@ -294,7 +294,7 @@ public class RegisterBlocks {
             .unlockCriterionName("has_planks")
             .build();
 
-    public static final Block DEV_BLOCK = new Block(FabricBlockSettings.copyOf(Blocks.STONE));
+    public static final Block NULL_BLOCK = new Block(FabricBlockSettings.copyOf(Blocks.STONE).sounds(RegisterBlockSoundGroups.NULL_BLOCK)); // B) -merp
 
     // HELLO EVERYBODY
     // hi - treetrain
@@ -311,7 +311,7 @@ public class RegisterBlocks {
         Registry.register(Registry.ITEM, WilderWild.id("flowering_lily_pad"), new FloweredLilyPadItem(FLOWERING_LILY_PAD, new FabricItemSettings().group(ItemGroup.DECORATIONS)));
         Registry.register(Registry.BLOCK, WilderWild.id("algae"), ALGAE);
         Registry.register(Registry.ITEM, WilderWild.id("algae"), new AlgaeItem(ALGAE, new FabricItemSettings().group(ItemGroup.DECORATIONS)));
-        registerBlock("null_block", DEV_BLOCK, ItemGroup.MISC);
+        registerBlock("null_block", NULL_BLOCK, ItemGroup.MISC);
         registerNotSoPlants();
 
         registerComposting();

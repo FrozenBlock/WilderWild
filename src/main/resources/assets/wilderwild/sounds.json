@@ -643,6 +643,57 @@
 		],
 		"subtitle": "subtitles.block.generic.footsteps"
 	},
+	"block.null_block.break": {
+		"sounds": [
+			"wilderwild:block/null_block/break1",
+			"wilderwild:block/null_block/break2",
+			"wilderwild:block/null_block/break3",
+			"wilderwild:block/null_block/break4"
+		],
+		"subtitle": "subtitles.block.generic.break"
+	},
+	"block.null_block.fall": {
+		"sounds": [
+			"wilderwild:block/null_block/step1",
+			"wilderwild:block/null_block/step2",
+			"wilderwild:block/null_block/step3",
+			"wilderwild:block/null_block/step4",
+			"wilderwild:block/null_block/step5",
+			"wilderwild:block/null_block/step6"
+		],
+		"subtitle": "subtitles.block.generic.fall"
+	},
+	"block.null_block.hit": {
+		"sounds": [
+			"wilderwild:block/null_block/step1",
+			"wilderwild:block/null_block/step2",
+			"wilderwild:block/null_block/step3",
+			"wilderwild:block/null_block/step4",
+			"wilderwild:block/null_block/step5",
+			"wilderwild:block/null_block/step6"
+		],
+		"subtitle": "subtitles.block.generic.hit"
+	},
+	"block.null_block.place": {
+		"sounds": [
+			"wilderwild:block/null_block/break1",
+			"wilderwild:block/null_block/break2",
+			"wilderwild:block/null_block/break3",
+			"wilderwild:block/null_block/break4"
+		],
+		"subtitle": "subtitles.block.generic.place"
+	},
+	"block.null_block.step": {
+		"sounds": [
+			"wilderwild:block/null_block/step1",
+			"wilderwild:block/null_block/step2",
+			"wilderwild:block/null_block/step3",
+			"wilderwild:block/null_block/step4",
+			"wilderwild:block/null_block/step5",
+			"wilderwild:block/null_block/step6"
+		],
+		"subtitle": "subtitles.block.generic.footsteps"
+	},
 	"block.osseous_sculk.break": {
 		"sounds": [
 			"wilderwild:block/osseous_sculk/break1",
