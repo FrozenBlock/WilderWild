@@ -70,40 +70,44 @@ public class StoneChestBlockEntity extends ChestBlockEntity {
     }
 
     public static void serverStoneTick(World world, BlockPos pos, BlockState state, StoneChestBlockEntity blockEntity) {
-        if (isLeft(pos, state)) {
-            blockEntity.syncLidValues(world, pos, state);
-        }
-        blockEntity.prevOpenProgress = blockEntity.openProgress;
-        if (blockEntity.stillLidTicks > 0) {
-            blockEntity.stillLidTicks -= 1;
-        } else if (blockEntity.openProgress > 0F) {
-            blockEntity.openProgress = Math.max(0F, blockEntity.openProgress - 0.05F);
-            if (blockEntity.openProgress <= 0F) {
-                playSound(world, pos, state, RegisterSounds.BLOCK_STONE_CHEST_CLOSE);
-                for (PlayerEntity player : blockEntity.getInRangeViewers(world, pos)) {
-                    if (player instanceof ServerPlayerEntity serverPlayer) {
-                        serverPlayer.closeHandledScreen();
+        if (!blockEntity.shouldSkip) {
+            blockEntity.prevOpenProgress = blockEntity.openProgress;
+            if (blockEntity.stillLidTicks > 0) {
+                blockEntity.stillLidTicks -= 1;
+            } else if (blockEntity.openProgress > 0F) {
+                blockEntity.openProgress = Math.max(0F, blockEntity.openProgress - 0.05F);
+                if (blockEntity.openProgress <= 0F) {
+                    playSound(world, pos, state, RegisterSounds.BLOCK_STONE_CHEST_CLOSE);
+                    for (PlayerEntity player : blockEntity.getInRangeViewers(world, pos)) {
+                        if (player instanceof ServerPlayerEntity serverPlayer) {
+                            serverPlayer.closeHandledScreen();
+                        }
                     }
                 }
+            }
+            if (isLeft(pos, state)) {
+                blockEntity.syncLidValues(world, pos, state);
             }
         }
         blockEntity.shouldSkip = false;
     }
 
     public static void clientStoneTick(World world, BlockPos pos, BlockState state, StoneChestBlockEntity blockEntity) {
-        if (isLeft(pos, state)) {
-            blockEntity.syncLidValues(world, pos, state);
-        }
-        blockEntity.prevOpenProgress = blockEntity.openProgress;
-        if (blockEntity.stillLidTicks > 0) {
-            blockEntity.stillLidTicks -= 1;
-        } else if (blockEntity.openProgress > 0F) {
-            blockEntity.openProgress = Math.max(0F, blockEntity.openProgress - 0.05F);
+        if (!blockEntity.shouldSkip) {
+            blockEntity.prevOpenProgress = blockEntity.openProgress;
+            if (blockEntity.stillLidTicks > 0) {
+                blockEntity.stillLidTicks -= 1;
+            } else if (blockEntity.openProgress > 0F) {
+                blockEntity.openProgress = Math.max(0F, blockEntity.openProgress - 0.05F);
+            }
         }
         blockEntity.shouldSkip = false;
         if (!blockEntity.hasUpdated) {
             ClientMethodInteractionThingy.requestBlockEntitySync(pos, world);
             blockEntity.hasUpdated = true;
+        }
+        if (isLeft(pos, state)) {
+            blockEntity.syncLidValues(world, pos, state);
         }
     }
 
