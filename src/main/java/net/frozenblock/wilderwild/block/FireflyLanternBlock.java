@@ -201,6 +201,20 @@ public class FireflyLanternBlock extends BlockWithEntity implements Waterloggabl
     }
 
     @Override
+    public void onStateReplaced(BlockState state, World world, BlockPos pos, BlockState newState, boolean moved) {
+        if (!state.isOf(newState.getBlock())) {
+            BlockEntity entity = world.getBlockEntity(pos);
+            if (entity instanceof FireflyLanternBlockEntity lantern) {
+                for (ItemStack item : lantern.inventory) {
+                    dropStack(world, pos, item);
+                }
+                lantern.inventory.clear();
+            }
+        }
+        super.onStateReplaced(state, world, pos, newState, moved);
+    }
+
+    @Override
     public FluidState getFluidState(BlockState state) {
         return state.get(WATERLOGGED) ? Fluids.WATER.getStill(false) : super.getFluidState(state);
     }
