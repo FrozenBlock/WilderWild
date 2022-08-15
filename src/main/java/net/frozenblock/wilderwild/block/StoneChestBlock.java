@@ -2,6 +2,7 @@ package net.frozenblock.wilderwild.block;
 
 import net.frozenblock.wilderwild.block.entity.StoneChestBlockEntity;
 import net.frozenblock.wilderwild.registry.RegisterBlockEntities;
+import net.frozenblock.wilderwild.registry.RegisterSounds;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.BlockWithEntity;
 import net.minecraft.block.ChestBlock;
@@ -52,6 +53,7 @@ public class StoneChestBlock extends ChestBlock {
                 stoneChest.openProgress = stoneChest.openProgress + 0.05F;
                 stoneChest.stillLidTicks = (int) (Math.max((stoneChest.openProgress), 1) * 100);
                 stoneChest.syncLidValues(world, pos, state);
+                StoneChestBlockEntity.playSound(world, pos, state, RegisterSounds.BLOCK_STONE_CHEST_OPEN);
                 stoneChest.updateSync();
             }
         }
