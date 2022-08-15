@@ -17,12 +17,9 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 
 public class StoneChestBlockEntity extends ChestBlockEntity {
-    public float lidX;
-    public float prevLidX;
-    public float lidZ;
-    public float prevLidZ;
-    public float lidY;
-    public float prevLidY;
+    public float openProgress;
+    public float prevOpenProgress;
+    public int stillLidTicks;
     public boolean hasLid;
 
     public boolean hasUpdated = false;
@@ -35,90 +32,37 @@ public class StoneChestBlockEntity extends ChestBlockEntity {
     @Override
     public void readNbt(NbtCompound nbt) {
         super.readNbt(nbt);
-        this.lidX = nbt.getFloat("lidX");
-        this.prevLidX = nbt.getFloat("prevLidX");
-        this.lidZ = nbt.getFloat("lidZ");
-        this.prevLidZ = nbt.getFloat("prevLidZ");
-        this.lidY = nbt.getFloat("lidY");
-        this.prevLidY = nbt.getFloat("prevLidY");
+        this.openProgress = nbt.getFloat("openProgress");
+        this.prevOpenProgress = nbt.getFloat("prevOpenProgress");
+        this.stillLidTicks = nbt.getInt("stillLidTicks");
         this.hasLid = nbt.getBoolean("hasLid");
     }
 
     @Override
     protected void writeNbt(NbtCompound nbt) {
         super.writeNbt(nbt);
-        nbt.putFloat("lidX", this.lidX);
-        nbt.putFloat("prevLidX", this.prevLidX);
-        nbt.putFloat("lidZ", this.lidZ);
-        nbt.putFloat("prevLidZ", this.prevLidZ);
-        nbt.putFloat("lidY", this.lidY);
-        nbt.putFloat("prevLidY", this.prevLidY);
+        nbt.putFloat("openProgress", this.openProgress);
+        nbt.putFloat("prevOpenProgress", this.prevOpenProgress);
+        nbt.putInt("stillLidTicks", this.stillLidTicks);
         nbt.putBoolean("hasLid", this.hasLid);
     }
 
-    public float getLidX(float delta) {
-        return MathHelper.lerp(delta, this.prevLidX, this.lidX);
-    }
-
-    public float getLidZ(float delta) {
-        return MathHelper.lerp(delta, this.prevLidZ, this.lidZ);
-    }
-
-    public float getLidY(float delta) {
-        return MathHelper.lerp(delta, this.prevLidY, this.lidY);
+    public float getOpenProgress(float delta) {
+        return MathHelper.lerp(delta, this.prevOpenProgress, this.openProgress);
     }
 
     public static void serverStoneTick(World world, BlockPos pos, BlockState state, StoneChestBlockEntity blockEntity) {
-        blockEntity.prevLidX = blockEntity.lidX;
-        blockEntity.prevLidZ = blockEntity.lidZ;
-        blockEntity.prevLidY = blockEntity.lidY;
-        BlockPos newPos = pos.add(blockEntity.lidX, blockEntity.lidY, blockEntity.lidZ);
-        if (blockEntity.lidX > 1.0F) {
-            blockEntity.lidY = blockEntity.lidY + 0.3F;
+        blockEntity.prevOpenProgress = blockEntity.openProgress;
+        if (blockEntity.stillLidTicks > 0) {
+            blockEntity.stillLidTicks -= 1;
+        } else if (blockEntity.openProgress > 0F) {
+            blockEntity.openProgress -= 0.05F;
             blockEntity.updateSync();
-            if (world.getBlockState(newPos).isSolidBlock(world, newPos)) {
-                blockEntity.hasLid = false;
-                world.syncWorldEvent(2001, pos, Block.getRawIdFromState(state));
-                blockEntity.updateSync();
-            }
-        } else if (blockEntity.lidX < 0.0F) {
-            blockEntity.lidY = blockEntity.lidY + 0.3F;
-            blockEntity.updateSync();
-            if (world.getBlockState(newPos).isSolidBlock(world, newPos)) {
-                blockEntity.hasLid = false;
-                world.syncWorldEvent(2001, pos, Block.getRawIdFromState(state));
-                blockEntity.updateSync();
-            }
-        }
-        if (blockEntity.lidZ > 1.0F) {
-            blockEntity.lidY = blockEntity.lidY + 0.3F;
-            blockEntity.updateSync();
-            if (world.getBlockState(newPos).isSolidBlock(world, newPos)) {
-                blockEntity.hasLid = false;
-                world.syncWorldEvent(2001, pos, Block.getRawIdFromState(state));
-                blockEntity.updateSync();
-            }
-        } else if (blockEntity.lidZ < 0.0F) {
-            blockEntity.lidY = blockEntity.lidY + 0.3F;
-            blockEntity.updateSync();
-            if (world.getBlockState(newPos).isSolidBlock(world, newPos)) {
-                blockEntity.hasLid = false;
-                world.syncWorldEvent(2001, pos, Block.getRawIdFromState(state));
-                blockEntity.updateSync();
-            }
-        } else if (blockEntity.lidY < 25F) {
-            if (world.getBlockState(newPos).isSolidBlock(world, newPos)) {
-                blockEntity.hasLid = false;
-                world.syncWorldEvent(2001, pos, Block.getRawIdFromState(state));
-                blockEntity.updateSync();
-            }
         }
     }
 
     public static void clientStoneTick(World world, BlockPos pos, BlockState state, StoneChestBlockEntity blockEntity) {
-        blockEntity.prevLidX = blockEntity.lidX;
-        blockEntity.prevLidZ = blockEntity.lidZ;
-        blockEntity.prevLidY = blockEntity.lidY;
+        blockEntity.prevOpenProgress = blockEntity.openProgress;
         if (!blockEntity.hasUpdated) {
             ClientMethodInteractionThingy.requestBlockEntitySync(pos, world);
             blockEntity.hasUpdated = true;

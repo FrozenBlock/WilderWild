@@ -39,7 +39,7 @@ public class StoneChestBlock extends ChestBlock {
         if (world.isClient) {
             return ActionResult.SUCCESS;
         }
-        if (!hasLid(world, pos)) {
+        if (!hasLid(world, pos) && !player.isSneaking()) {
             NamedScreenHandlerFactory namedScreenHandlerFactory = this.createScreenHandlerFactory(state, world, pos);
             if (namedScreenHandlerFactory != null) {
                 player.openHandledScreen(namedScreenHandlerFactory);
@@ -49,7 +49,8 @@ public class StoneChestBlock extends ChestBlock {
         } else {
             BlockEntity entity = world.getBlockEntity(pos);
             if (entity instanceof StoneChestBlockEntity stoneChest) {
-                stoneChest.lidX = stoneChest.lidX - 0.2F;
+                stoneChest.openProgress = stoneChest.openProgress + 0.05F;
+                stoneChest.stillLidTicks = (int) (stoneChest.openProgress * 20);
                 stoneChest.updateSync();
             }
         }
@@ -59,7 +60,7 @@ public class StoneChestBlock extends ChestBlock {
     public static boolean hasLid(World world, BlockPos pos) {
         BlockEntity entity = world.getBlockEntity(pos);
         if (entity instanceof StoneChestBlockEntity stoneChest) {
-            return stoneChest.hasLid;
+            return stoneChest.openProgress < 0.2F;
         }
         return false;
     }
@@ -84,7 +85,7 @@ public class StoneChestBlock extends ChestBlock {
     public static boolean isStoneChestBlocked(WorldAccess world, BlockPos pos) {
         BlockEntity entity = world.getBlockEntity(pos);
         if (entity instanceof StoneChestBlockEntity stoneChest) {
-            if (stoneChest.hasLid) {
+            if (stoneChest.openProgress <= 0F) {
                 return true;
             }
         }
