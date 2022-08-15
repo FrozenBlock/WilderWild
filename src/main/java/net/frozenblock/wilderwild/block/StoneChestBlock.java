@@ -23,6 +23,7 @@ import net.minecraft.util.math.Box;
 import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldAccess;
+import net.minecraft.world.event.GameEvent;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
@@ -55,8 +56,9 @@ public class StoneChestBlock extends ChestBlock {
                 }
             } else {
                 stoneEntity.openProgress = stoneEntity.openProgress + 0.025F;
-                stoneEntity.stillLidTicks = (int) (Math.max((stoneEntity.openProgress), 1) * 90);
+                stoneEntity.stillLidTicks = (int) (Math.max((stoneEntity.openProgress), 0.5) * 90);
                 StoneChestBlockEntity.playSound(world, pos, state, RegisterSounds.BLOCK_STONE_CHEST_OPEN);
+                world.emitGameEvent(player, GameEvent.CONTAINER_OPEN, pos);
                 stoneEntity.updateSync();
             }
         }

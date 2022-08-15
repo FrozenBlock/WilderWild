@@ -25,6 +25,7 @@ import net.minecraft.util.math.Box;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
+import net.minecraft.world.event.GameEvent;
 
 import java.util.List;
 
@@ -75,6 +76,7 @@ public class StoneChestBlockEntity extends ChestBlockEntity {
             if (blockEntity.stillLidTicks > 0) {
                 blockEntity.stillLidTicks -= 1;
             } else if (blockEntity.openProgress > 0F) {
+                world.emitGameEvent(null, GameEvent.CONTAINER_CLOSE, pos);
                 blockEntity.openProgress = Math.max(0F, blockEntity.openProgress - 0.05F);
                 if (!blockEntity.closing) {
                     blockEntity.closing = true;
