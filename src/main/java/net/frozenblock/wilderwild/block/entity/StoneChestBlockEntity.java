@@ -72,10 +72,11 @@ public class StoneChestBlockEntity extends ChestBlockEntity {
         blockEntity.prevLidX = blockEntity.lidX;
         blockEntity.prevLidZ = blockEntity.lidZ;
         blockEntity.prevLidY = blockEntity.lidY;
+        BlockPos newPos = pos.add(blockEntity.lidX, blockEntity.lidY, blockEntity.lidZ);
         if (blockEntity.lidX > 1.0F) {
             blockEntity.lidY = blockEntity.lidY + 0.3F;
             blockEntity.updateSync();
-            if (world.getBlockState(pos.add(blockEntity.lidX, blockEntity.lidY, blockEntity.lidZ)).getMaterial().isSolid()) {
+            if (world.getBlockState(newPos).isSolidBlock(world, newPos)) {
                 blockEntity.hasLid = false;
                 world.syncWorldEvent(2001, pos, Block.getRawIdFromState(state));
                 blockEntity.updateSync();
@@ -83,7 +84,7 @@ public class StoneChestBlockEntity extends ChestBlockEntity {
         } else if (blockEntity.lidX < 0.0F) {
             blockEntity.lidY = blockEntity.lidY + 0.3F;
             blockEntity.updateSync();
-            if (world.getBlockState(pos.add(blockEntity.lidX, blockEntity.lidY, blockEntity.lidZ)).getMaterial().isSolid()) {
+            if (world.getBlockState(newPos).isSolidBlock(world, newPos)) {
                 blockEntity.hasLid = false;
                 world.syncWorldEvent(2001, pos, Block.getRawIdFromState(state));
                 blockEntity.updateSync();
@@ -92,7 +93,7 @@ public class StoneChestBlockEntity extends ChestBlockEntity {
         if (blockEntity.lidZ > 1.0F) {
             blockEntity.lidY = blockEntity.lidY + 0.3F;
             blockEntity.updateSync();
-            if (world.getBlockState(pos.add(blockEntity.lidX, blockEntity.lidY, blockEntity.lidZ)).getMaterial().isSolid()) {
+            if (world.getBlockState(newPos).isSolidBlock(world, newPos)) {
                 blockEntity.hasLid = false;
                 world.syncWorldEvent(2001, pos, Block.getRawIdFromState(state));
                 blockEntity.updateSync();
@@ -100,7 +101,13 @@ public class StoneChestBlockEntity extends ChestBlockEntity {
         } else if (blockEntity.lidZ < 0.0F) {
             blockEntity.lidY = blockEntity.lidY + 0.3F;
             blockEntity.updateSync();
-            if (world.getBlockState(pos.add(blockEntity.lidX, blockEntity.lidY, blockEntity.lidZ)).getMaterial().isSolid()) {
+            if (world.getBlockState(newPos).isSolidBlock(world, newPos)) {
+                blockEntity.hasLid = false;
+                world.syncWorldEvent(2001, pos, Block.getRawIdFromState(state));
+                blockEntity.updateSync();
+            }
+        } else if (blockEntity.lidY < 25F) {
+            if (world.getBlockState(newPos).isSolidBlock(world, newPos)) {
                 blockEntity.hasLid = false;
                 world.syncWorldEvent(2001, pos, Block.getRawIdFromState(state));
                 blockEntity.updateSync();
