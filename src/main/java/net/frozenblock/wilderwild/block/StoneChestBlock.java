@@ -123,7 +123,6 @@ public class StoneChestBlock extends ChestBlock {
         return DoubleBlockProperties.toPropertySource((BlockEntityType)this.entityTypeRetriever.get(), ChestBlock::getDoubleBlockType, ChestBlock::getFacing, FACING, state, world2, pos2, biPredicate);
     }
 
-    @Override
     public DoubleBlockProperties.PropertySource<? extends ChestBlockEntity> getBlockEntitySourceIgnoreLid(BlockState state, World world2, BlockPos pos2, boolean ignoreBlocked) {
         BiPredicate<WorldAccess, BlockPos> biPredicate = ignoreBlocked ? (world, pos) -> false : StoneChestBlock::isStoneChestBlockedNoLid;
         return DoubleBlockProperties.toPropertySource((BlockEntityType)this.entityTypeRetriever.get(), ChestBlock::getDoubleBlockType, ChestBlock::getFacing, FACING, state, world2, pos2, biPredicate);
