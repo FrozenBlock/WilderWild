@@ -108,28 +108,31 @@ public class StoneChestBlockEntityRenderer<T extends StoneChestBlockEntity & Lid
 
             float x = entity.getLidX(tickDelta);
             float z = entity.getLidZ(tickDelta);
+            float y = entity.getLidY(tickDelta);
             int i = propertySource.apply(new LightmapCoordinatesRetriever<>()).applyAsInt(light);
             SpriteIdentifier spriteIdentifier = getChestTexture(entity, chestType, false);
             VertexConsumer vertexConsumer = spriteIdentifier.getVertexConsumer(vertexConsumers, RenderLayer::getEntityCutout);
             if (bl2) {
                 if (chestType == ChestType.LEFT) {
-                    this.renderLid(matrices, vertexConsumer, this.doubleChestLeftLid, this.doubleChestLeftLatch, this.doubleChestLeftBase, x, z, i, overlay);
+                    this.renderLid(matrices, vertexConsumer, this.doubleChestLeftLid, this.doubleChestLeftLatch, this.doubleChestLeftBase, x, z, y, i, overlay);
                 } else {
-                    this.renderLid(matrices, vertexConsumer, this.doubleChestRightLid, this.doubleChestRightLatch, this.doubleChestRightBase, x, z, i, overlay);
+                    this.renderLid(matrices, vertexConsumer, this.doubleChestRightLid, this.doubleChestRightLatch, this.doubleChestRightBase, x, z, y, i, overlay);
                 }
             } else {
-                this.renderLid(matrices, vertexConsumer, this.singleChestLid, this.singleChestLatch, this.singleChestBase, x, z, i, overlay);
+                this.renderLid(matrices, vertexConsumer, this.singleChestLid, this.singleChestLatch, this.singleChestBase, x, z, y, i, overlay);
             }
 
             matrices.pop();
         }
     }
 
-    private void renderLid(MatrixStack matrices, VertexConsumer vertices, ModelPart lid, ModelPart latch, ModelPart base, float x, float z, int light, int overlay) {
+    private void renderLid(MatrixStack matrices, VertexConsumer vertices, ModelPart lid, ModelPart latch, ModelPart base, float x, float z, float y, int light, int overlay) {
         lid.pivotX = x;
         lid.pivotZ = z;
+        lid.pivotY = y;
         latch.pivotX = x;
         latch.pivotZ = z;
+        latch.pivotY = y-1;
         lid.render(matrices, vertices, light, overlay);
         latch.render(matrices, vertices, light, overlay);
         base.render(matrices, vertices, light, overlay);

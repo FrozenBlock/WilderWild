@@ -3,6 +3,7 @@ package net.frozenblock.wilderwild.block.entity;
 import net.fabricmc.fabric.api.networking.v1.PlayerLookup;
 import net.frozenblock.wilderwild.misc.ClientMethodInteractionThingy;
 import net.frozenblock.wilderwild.registry.RegisterBlockEntities;
+import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.ChestBlockEntity;
 import net.minecraft.inventory.Inventories;
@@ -20,6 +21,8 @@ public class StoneChestBlockEntity extends ChestBlockEntity {
     public float prevLidX;
     public float lidZ;
     public float prevLidZ;
+    public float lidY;
+    public float prevLidY;
     public boolean hasLid;
 
     public boolean hasUpdated = false;
@@ -36,6 +39,8 @@ public class StoneChestBlockEntity extends ChestBlockEntity {
         this.prevLidX = nbt.getFloat("prevLidX");
         this.lidZ = nbt.getFloat("lidZ");
         this.prevLidZ = nbt.getFloat("prevLidZ");
+        this.lidY = nbt.getFloat("lidY");
+        this.prevLidY = nbt.getFloat("prevLidY");
         this.hasLid = nbt.getBoolean("hasLid");
     }
 
@@ -46,6 +51,8 @@ public class StoneChestBlockEntity extends ChestBlockEntity {
         nbt.putFloat("prevLidX", this.prevLidX);
         nbt.putFloat("lidZ", this.lidZ);
         nbt.putFloat("prevLidZ", this.prevLidZ);
+        nbt.putFloat("lidY", this.lidY);
+        nbt.putFloat("prevLidY", this.prevLidY);
         nbt.putBoolean("hasLid", this.hasLid);
     }
 
@@ -54,15 +61,32 @@ public class StoneChestBlockEntity extends ChestBlockEntity {
     }
 
     public float getLidZ(float delta) {
-        return MathHelper.lerp(delta, this.lidX, this.lidZ);
+        return MathHelper.lerp(delta, this.prevLidZ, this.lidZ);
+    }
+
+    public float getLidY(float delta) {
+        return MathHelper.lerp(delta, this.prevLidY, this.lidY);
     }
 
     public static void serverStoneTick(World world, BlockPos pos, BlockState state, StoneChestBlockEntity blockEntity) {
         blockEntity.prevLidX = blockEntity.lidX;
         blockEntity.prevLidZ = blockEntity.lidZ;
+        blockEntity.prevLidY = blockEntity.lidY;
+        if (blockEntity.lidX > 1.0F) {
+            blockEntity.lidY = blockEntity.lidY + 0.2F;
+            blockEntity.updateSync();
+            if (world.getBlockState(pos.add(blockEntity.lidX, blockEntity.lidY, blockEntity.lidZ)).getMaterial().isSolid()) {
+                blockEntity.hasLid = false;
+                world.syncWorldEvent(2001, pos, Block.getRawIdFromState(state));
+                blockEntity.updateSync();
+            }
+        }
     }
 
     public static void clientStoneTick(World world, BlockPos pos, BlockState state, StoneChestBlockEntity blockEntity) {
+        blockEntity.prevLidX = blockEntity.lidX;
+        blockEntity.prevLidZ = blockEntity.lidZ;
+        blockEntity.prevLidY = blockEntity.lidY;
         if (!blockEntity.hasUpdated) {
             ClientMethodInteractionThingy.requestBlockEntitySync(pos, world);
             blockEntity.hasUpdated = true;
