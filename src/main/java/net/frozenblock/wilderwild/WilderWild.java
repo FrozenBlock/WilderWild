@@ -1,16 +1,19 @@
 package net.frozenblock.wilderwild;
 
 import com.chocohead.mm.api.ClassTinkerers;
+import com.mojang.datafixers.schemas.Schema;
 import com.mojang.serialization.Codec;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.loader.api.FabricLoader;
 import net.fabricmc.loader.api.ModContainer;
+import org.quiltmc.qsl.datafixerupper.api.QuiltDataFixes;
+import org.quiltmc.qsl.datafixerupper.api.SimpleFixes;
 import net.frozenblock.wilderwild.block.entity.TermiteMoundBlockEntity;
 import net.frozenblock.wilderwild.entity.Firefly;
 import net.frozenblock.wilderwild.misc.BlockSoundGroupOverwrites;
 import net.frozenblock.wilderwild.misc.mod_compat.simple_copper_pipes.RegisterSaveableMoveablePipeNbt;
-import net.frozenblock.wilderwild.misc.mod_compat.ufu.InteractionHandler;
 import net.frozenblock.wilderwild.registry.*;
+import org.quiltmc.qsl.datafixerupper.api.QuiltDataFixerBuilder;
 import net.frozenblock.wilderwild.world.feature.WilderConfiguredFeatures;
 import net.frozenblock.wilderwild.world.feature.WilderMiscConfigured;
 import net.frozenblock.wilderwild.world.feature.WilderTreeConfigured;
@@ -25,6 +28,7 @@ import net.frozenblock.wilderwild.world.gen.trunk.FallenTrunkWithLogs;
 import net.frozenblock.wilderwild.world.gen.trunk.StraightTrunkWithLogs;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
+import net.minecraft.datafixer.schema.IdentifierNormalizingSchema;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.SpawnGroup;
 import net.minecraft.item.Instrument;
@@ -79,6 +83,7 @@ public class WilderWild implements ModInitializer {
     @Override
     public void onInitialize() {
         startMeasuring(this);
+        applyDataFixes(FabricLoader.getInstance().getModContainer(MOD_ID).orElseThrow());
 
         RegisterBlocks.registerBlocks();
         RegisterBlocks.addBaobab();
@@ -123,23 +128,31 @@ public class WilderWild implements ModInitializer {
             RegisterSaveableMoveablePipeNbt.init();
         }
 
-        if (FabricLoader.getInstance().getModContainer("updatefixerupper").isPresent()) {
-            InteractionHandler.addToUFU();
-        }
         stopMeasuring(this);
     }
 
-    //Renaming
-    public static final HashMap<String, Identifier> DataFixMap = new HashMap<>() {{
-        put(WilderWild.string("blooming_dandelion"), WilderWild.id("seeding_dandelion"));
-        put(WilderWild.string("white_dandelion"), WilderWild.id("seeding_dandelion"));
-        put(WilderWild.string("potted_blooming_dandelion"), WilderWild.id("potted_seeding_dandelion"));
-        put(WilderWild.string("potted_white_dandelion"), WilderWild.id("potted_seeding_dandelion"));
-        put(WilderWild.string("floating_moss"), WilderWild.id("algae"));
-        put(WilderWild.string("test_1"), WilderWild.id("null_block"));
-        put(WilderWild.string("sculk_echoer"), WilderWild.id("null_block"));
-        put(WilderWild.string("sculk_jaw"), WilderWild.id("null_block"));
-    }};
+    private static final int DATA_VERSION = 5;
+
+    private static void applyDataFixes(ModContainer mod) {
+        var builder = new QuiltDataFixerBuilder(DATA_VERSION);
+        builder.addSchema(0, QuiltDataFixes.BASE_SCHEMA);
+        Schema schemaV1 = builder.addSchema(1, IdentifierNormalizingSchema::new);
+        SimpleFixes.addBlockRenameFix(builder, "Rename white_dandelion to blooming_dandelion", id("white_dandelion"), id("blooming_dandelion"), schemaV1);
+        SimpleFixes.addBlockRenameFix(builder, "Rename potted_white_dandelion to potted_blooming_dandelion", id("potted_white_dandelion"), id("potted_blooming_dandelion"), schemaV1);
+        Schema schemaV2 = builder.addSchema(2, IdentifierNormalizingSchema::new);
+        SimpleFixes.addBlockRenameFix(builder, "Rename blooming_dandelion to seeding_dandelion", id("blooming_dandelion"), id("seeding_dandelion"), schemaV2);
+        SimpleFixes.addBlockRenameFix(builder, "Rename potted_blooming_dandelion to potted_seeding_dandelion", id("potted_blooming_dandelion"), id("potted_seeding_dandelion"), schemaV2);
+        Schema schemaV3 = builder.addSchema(3, IdentifierNormalizingSchema::new);
+        SimpleFixes.addBlockRenameFix(builder, "Rename floating_moss to algae", id("floating_moss"), id("algae"), schemaV3);
+        SimpleFixes.addItemRenameFix(builder, "Rename floating_moss to algae", id("floating_moss"), id("algae"), schemaV3);
+        Schema schemaV4 = builder.addSchema(4, IdentifierNormalizingSchema::new);
+        SimpleFixes.addBlockRenameFix(builder, "Rename test_1 to null_block", id("test_1"), id("null_block"), schemaV4);
+        Schema schemaV5 = builder.addSchema(5, IdentifierNormalizingSchema::new);
+        SimpleFixes.addBlockRenameFix(builder, "Rename sculk_echoer to null_block", id("sculk_echoer"), id("null_block"), schemaV5);
+        SimpleFixes.addBlockRenameFix(builder, "Rename sculk_jaw to null_block", id("sculk_jaw"), id("null_block"), schemaV5);
+
+        QuiltDataFixes.buildAndRegisterFixer(mod, builder);
+    }
 
     //MOD COMPATIBILITY
     public static void terralith() {

@@ -20,10 +20,12 @@
   "environment": "*",
   "entrypoints": {
     "main": [
-      "net.frozenblock.wilderwild.WilderWild"
+      "net.frozenblock.wilderwild.WilderWild",
+      "org.quiltmc.qsl.datafixerupper.impl.Initializer"
     ],
     "client": [
-	  "net.frozenblock.wilderwild.WilderWildClient"
+	  "net.frozenblock.wilderwild.WilderWildClient",
+      "org.quiltmc.qsl.datafixerupper.impl.client.ClientInitializer"
     ],
     "mm:early_risers": [
       "net.frozenblock.wilderwild.EarlyRiser"
@@ -33,7 +35,8 @@
     ]
   },
   "mixins": [
-    "wilderwild.mixins.json"
+    "wilderwild.mixins.json",
+    "quilt_datafixerupper.mixins.json"
   ],
 
   "accessWidener" : "wilderwild.accesswidener",
