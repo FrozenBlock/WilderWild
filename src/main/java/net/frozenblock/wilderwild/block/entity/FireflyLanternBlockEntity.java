@@ -142,7 +142,7 @@ public class FireflyLanternBlockEntity extends BlockEntity {
 
     public void addFirefly(FireflyBottle bottle, String name) {
         Vec3d newVec = new Vec3d(0.5 + (0.15 - Math.random() * 0.3), 0, 0.5 + (0.15 - Math.random() * 0.3));
-        this.fireflies.add(new FireflyInLantern(newVec, bottle.color, name, Math.random() > 0.7, (int) (Math.random() * 20), 0, 0));
+        this.fireflies.add(new FireflyInLantern(newVec, bottle.color, name, Math.random() > 0.7, (int) (Math.random() * 20), 0));
     }
 
     public void removeFirefly(FireflyInLantern firefly) {
@@ -206,7 +206,6 @@ public class FireflyLanternBlockEntity extends BlockEntity {
         public boolean flickers;
         public int age;
         public double y;
-        public double prevY;
         public boolean wasNamedNectar;
 
         public static final Codec<FireflyInLantern> CODEC = RecordCodecBuilder.create((instance) -> instance.group(
@@ -215,25 +214,22 @@ public class FireflyLanternBlockEntity extends BlockEntity {
                 Codec.STRING.fieldOf("customName").orElse("").forGetter(FireflyInLantern::getCustomName),
                 Codec.BOOL.fieldOf("flickers").orElse(false).forGetter(FireflyInLantern::getFlickers),
                 Codec.INT.fieldOf("age").forGetter(FireflyInLantern::getAge),
-                Codec.DOUBLE.fieldOf("y").forGetter(FireflyInLantern::getY),
-                Codec.DOUBLE.fieldOf("prevY").forGetter(FireflyInLantern::getPrevY)
+                Codec.DOUBLE.fieldOf("y").forGetter(FireflyInLantern::getY)
         ).apply(instance, FireflyInLantern::new));
 
-        public FireflyInLantern(Vec3d pos, String color, String customName, boolean flickers, int age, double y, double prevY) {
+        public FireflyInLantern(Vec3d pos, String color, String customName, boolean flickers, int age, double y) {
             this.pos = pos;
             this.color = color;
             this.customName = customName;
             this.flickers = flickers;
             this.age = age;
             this.y = y;
-            this.prevY = prevY;
         }
 
         boolean nectar = false;
 
         public void tick(World world, BlockPos pos) {
             this.age += 1;
-            this.prevY = this.y;
             this.y = Math.sin(this.age * 0.03) * 0.15;
             nectar = this.getCustomName().toLowerCase().contains("nectar");
 
@@ -273,10 +269,6 @@ public class FireflyLanternBlockEntity extends BlockEntity {
 
         public double getY() {
             return this.y;
-        }
-
-        public double getPrevY() {
-            return this.prevY;
         }
 
     }
