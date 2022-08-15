@@ -152,7 +152,7 @@ public class AncientHorn extends Item {
             float range = instrument.range() / 16.0F;
             world.playSoundFromEntity(user, user, soundEvent, SoundCategory.RECORDS, range, 1.0F);
             ParticleEffect ShriekParticleEffect = new ShriekParticleEffect(0);
-            world.addParticle(ShriekParticleEffect, true, user.getX(), user.getY(), user.getZ(), user.getYaw(),user.getPitch(), -user.getYaw());
+            world.addParticle(ShriekParticleEffect, true, user.getX(), user.getY(), user.getZ(), user.getYaw(),user.getPitch(), -user.getYaw()); //change this to the new particle whenever we add it
             user.getItemCooldownManager().set(RegisterItems.ANCIENT_HORN, getCooldown(user, 300));
             if (world instanceof ServerWorld server) {
                 AncientHornProjectile projectileEntity = new AncientHornProjectile(world, user.getX(), user.getEyeY(), user.getZ());
