@@ -52,6 +52,7 @@ public class StoneChestBlock extends ChestBlock {
             } else {
                 stoneChest.openProgress = stoneChest.openProgress + 0.05F;
                 stoneChest.stillLidTicks = (int) (Math.max((stoneChest.openProgress), 1) * 100);
+                stoneChest.syncLidValues(world, pos, state);
                 StoneChestBlockEntity.playSound(world, pos, state, RegisterSounds.BLOCK_STONE_CHEST_OPEN);
                 stoneChest.updateSync();
             }

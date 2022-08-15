@@ -86,7 +86,6 @@ public class StoneChestBlockEntity extends ChestBlockEntity {
                     }
                 }
             }
-            blockEntity.syncLidValues(world, pos, state);
         }
         blockEntity.shouldSkip = false;
     }
@@ -99,7 +98,6 @@ public class StoneChestBlockEntity extends ChestBlockEntity {
             } else if (blockEntity.openProgress > 0F) {
                 blockEntity.openProgress = Math.max(0F, blockEntity.openProgress - 0.05F);
             }
-            blockEntity.syncLidValues(world, pos, state);
         }
         blockEntity.shouldSkip = false;
         if (!blockEntity.hasUpdated) {
