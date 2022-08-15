@@ -107,7 +107,7 @@ public class StoneChestBlockEntityRenderer<T extends StoneChestBlockEntity & Lid
             }
 
             float openProg = entity.getOpenProgress(tickDelta);
-            openProg = 1.0f - (openProg + 0.2F);
+            openProg = 1.0f - (openProg + 0.05F);
             openProg = 1.0f - openProg * openProg * openProg;
             int i = propertySource.apply(new LightmapCoordinatesRetriever<>()).applyAsInt(light);
             SpriteIdentifier spriteIdentifier = getChestTexture(entity, chestType, false);
