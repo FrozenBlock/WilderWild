@@ -44,14 +44,6 @@ public class HopperBlockEntityMixin {
         }
     }
 
-    @Inject(at = @At("HEAD"), method = "getInventoryAt(Lnet/minecraft/world/World;DDD)Lnet/minecraft/inventory/Inventory;", cancellable = true)
-    private static void getInventoryAt(World world, double x, double y, double z, CallbackInfoReturnable<Inventory> info) {
-        if (world.getBlockEntity(new BlockPos(x, y, z)) instanceof StoneChestBlockEntity) {
-            info.setReturnValue(null);
-            info.cancel();
-        }
-    }
-
     @Nullable @Shadow
     private static Inventory getOutputInventory(World world, BlockPos pos, BlockState state) {
         Direction direction = state.get(HopperBlock.FACING);
