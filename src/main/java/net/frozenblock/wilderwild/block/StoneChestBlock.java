@@ -14,7 +14,12 @@ import net.minecraft.block.entity.ChestBlockEntity;
 import net.minecraft.entity.mob.PiglinBrain;
 import net.minecraft.entity.passive.CatEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.PlayerInventory;
+import net.minecraft.inventory.DoubleInventory;
+import net.minecraft.screen.GenericContainerScreenHandler;
 import net.minecraft.screen.NamedScreenHandlerFactory;
+import net.minecraft.screen.ScreenHandler;
+import net.minecraft.text.Text;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.hit.BlockHitResult;
@@ -27,6 +32,7 @@ import net.minecraft.world.event.GameEvent;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.function.BiPredicate;
 import java.util.function.Supplier;
 
@@ -118,6 +124,11 @@ public class StoneChestBlock extends ChestBlock {
         return world.isClient ? BlockWithEntity.checkType(type, RegisterBlockEntities.STONE_CHEST, StoneChestBlockEntity::clientStoneTick) : BlockWithEntity.checkType(type, RegisterBlockEntities.STONE_CHEST, StoneChestBlockEntity::serverStoneTick);
     }
 
+    @Nullable
+    public NamedScreenHandlerFactory createScreenHandlerFactory(BlockState state, World world, BlockPos pos) {
+        return (NamedScreenHandlerFactory)((Optional)this.getBlockEntitySource(state, world, pos, false).apply(STONE_NAME_RETRIEVER)).orElse((Object)null);
+    }
+
     @Override
     public DoubleBlockProperties.PropertySource<? extends ChestBlockEntity> getBlockEntitySource(BlockState state, World world2, BlockPos pos2, boolean ignoreBlocked) {
         BiPredicate<WorldAccess, BlockPos> biPredicate = ignoreBlocked ? (world, pos) -> false : StoneChestBlock::isStoneChestBlocked;
@@ -128,6 +139,49 @@ public class StoneChestBlock extends ChestBlock {
         BiPredicate<WorldAccess, BlockPos> biPredicate = ignoreBlocked ? (world, pos) -> false : StoneChestBlock::isStoneChestBlockedNoLid;
         return DoubleBlockProperties.toPropertySource((BlockEntityType)this.entityTypeRetriever.get(), ChestBlock::getDoubleBlockType, ChestBlock::getFacing, FACING, state, world2, pos2, biPredicate);
     }
+
+    public static final DoubleBlockProperties.PropertyRetriever<ChestBlockEntity, Optional<NamedScreenHandlerFactory>> STONE_NAME_RETRIEVER = new DoubleBlockProperties.PropertyRetriever<ChestBlockEntity, Optional<NamedScreenHandlerFactory>>(){
+
+        @Override
+        public Optional<NamedScreenHandlerFactory> getFromBoth(final ChestBlockEntity chestBlockEntity, final ChestBlockEntity chestBlockEntity2) {
+            final DoubleInventory inventory = new DoubleInventory(chestBlockEntity, chestBlockEntity2);
+            return Optional.of(new NamedScreenHandlerFactory(){
+
+                @Override
+                @Nullable
+                public ScreenHandler createMenu(int i, PlayerInventory playerInventory, PlayerEntity playerEntity) {
+                    if (chestBlockEntity.checkUnlocked(playerEntity) && chestBlockEntity2.checkUnlocked(playerEntity)) {
+                        chestBlockEntity.checkLootInteraction(playerInventory.player);
+                        chestBlockEntity2.checkLootInteraction(playerInventory.player);
+                        return GenericContainerScreenHandler.createGeneric9x6(i, playerInventory, inventory);
+                    }
+                    return null;
+                }
+
+                @Override
+                public Text getDisplayName() {
+                    if (chestBlockEntity.hasCustomName()) {
+                        return chestBlockEntity.getDisplayName();
+                    }
+                    if (chestBlockEntity2.hasCustomName()) {
+                        return chestBlockEntity2.getDisplayName();
+                    }
+                    return Text.translatable("container.stoneChestDouble");
+                }
+            });
+        }
+
+        @Override
+        public Optional<NamedScreenHandlerFactory> getFrom(ChestBlockEntity chestBlockEntity) {
+            return Optional.of(chestBlockEntity);
+        }
+
+        @Override
+        public Optional<NamedScreenHandlerFactory> getFallback() {
+            return Optional.empty();
+        }
+
+    };
 
 
     public static boolean isStoneChestBlocked(WorldAccess world, BlockPos pos) {
