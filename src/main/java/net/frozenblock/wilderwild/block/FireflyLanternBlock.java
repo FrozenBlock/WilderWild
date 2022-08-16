@@ -118,7 +118,7 @@ public class FireflyLanternBlock extends BlockWithEntity implements Waterloggabl
                 if (!stack.isEmpty() && lantern.noFireflies()) {
                     int light = 0;
                     if (stack.getItem() instanceof BlockItem blockItem) {
-                        world.setBlockState(pos, state.with(LIGHT, blockItem.getBlock().getDefaultState().getLuminance()));
+                        light = blockItem.getBlock().getDefaultState().getLuminance();
                     } else if (stack.hasEnchantments()) {
                         light = (int) Math.round(stack.getEnchantments().size() * 0.5);
                     }
