@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:block/cross",
   "textures": {
-    "cross": "wilderwild:block/cypress_sapling"
+	"cross": "wilderwild:block/cypress_sapling"
   }
 }

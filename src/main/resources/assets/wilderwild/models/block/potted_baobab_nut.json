@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:block/flower_pot_cross",
   "textures": {
-    "plant": "wilderwild:block/baobab_nut_stage_0"
+	"plant": "wilderwild:block/baobab_nut_stage_0"
   }
 }

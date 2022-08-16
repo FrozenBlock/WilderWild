@@ -60,6 +60,7 @@ public final class RegisterItems {
     public static final RegistryKey<Instrument> SAX_COPPER_HORN = RegistryKey.of(Registry.INSTRUMENT_KEY, WilderWild.id("sax_copper_horn"));
     public static final RegistryKey<Instrument> TUBA_COPPER_HORN = RegistryKey.of(Registry.INSTRUMENT_KEY, WilderWild.id("tuba_copper_horn"));
     public static final RegistryKey<Instrument> FLUTE_COPPER_HORN = RegistryKey.of(Registry.INSTRUMENT_KEY, WilderWild.id("flute_copper_horn"));
+    public static final RegistryKey<Instrument> OBOE_COPPER_HORN = RegistryKey.of(Registry.INSTRUMENT_KEY, WilderWild.id("oboe_copper_horn"));
 
     public static void registerItems() {
         WilderWild.logWild("Registering Items for", WilderWild.UNSTABLE_LOGGING);
@@ -79,6 +80,7 @@ public final class RegisterItems {
         Registry.register(Registry.INSTRUMENT, SAX_COPPER_HORN, new Instrument(RegisterSounds.ITEM_COPPER_HORN_SAX_LOOP, 32767, 64.0F));
         Registry.register(Registry.INSTRUMENT, TUBA_COPPER_HORN, new Instrument(RegisterSounds.ITEM_COPPER_HORN_TUBA_LOOP, 32767, 64.0F));
         Registry.register(Registry.INSTRUMENT, FLUTE_COPPER_HORN, new Instrument(RegisterSounds.ITEM_COPPER_HORN_FLUTE_LOOP, 32767, 64.0F));
+        Registry.register(Registry.INSTRUMENT, OBOE_COPPER_HORN, new Instrument(RegisterSounds.ITEM_COPPER_HORN_OBOE_LOOP, 32767, 64.0F));
 
         Registry.register(Registry.ITEM, WilderWild.id("baobab_nut"), BAOBAB_NUT);
 

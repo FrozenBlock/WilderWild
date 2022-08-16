@@ -1,26 +1,26 @@
 {
   "display": {
-    "icon": {
-      "item": "wilderwild:null_block"
-    },
-    "title": {
-      "translate": "wilderwild.null_block.advancement.place"
-    },
-    "description": {
-      "translate": "wilderwild.null_block.advancement.place.description"
-    },
-    "frame": "task",
-    "show_toast": true,
-    "announce_to_chat": true,
-    "hidden": false
+	"icon": {
+	  "item": "wilderwild:null_block"
+	},
+	"title": {
+	  "translate": "wilderwild.null_block.advancement.place"
+	},
+	"description": {
+	  "translate": "wilderwild.null_block.advancement.place.description"
+	},
+	"frame": "task",
+	"show_toast": true,
+	"announce_to_chat": true,
+	"hidden": false
   },
   "parent": "minecraft:adventure/root",
   "criteria": {
-    "requirement": {
-      "trigger": "minecraft:placed_block",
-      "conditions": {
-        "block": "wilderwild:null_block"
-      }
-    }
+	"requirement": {
+	  "trigger": "minecraft:placed_block",
+	  "conditions": {
+		"block": "wilderwild:null_block"
+	  }
+	}
   }
 }

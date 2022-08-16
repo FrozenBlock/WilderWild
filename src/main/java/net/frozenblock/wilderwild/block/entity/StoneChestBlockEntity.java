@@ -138,14 +138,14 @@ public class StoneChestBlockEntity extends ChestBlockEntity {
         int i = pos.getX();
         int j = pos.getY();
         int k = pos.getZ();
-        Box box = new Box((float)i - 5.0f, (float)j - 5.0f, (float)k - 5.0f, (float)(i + 1) + 5.0f, (float)(j + 1) + 5.0f, (float)(k + 1) + 5.0f);
+        Box box = new Box((float) i - 5.0f, (float) j - 5.0f, (float) k - 5.0f, (float) (i + 1) + 5.0f, (float) (j + 1) + 5.0f, (float) (k + 1) + 5.0f);
         return world.getEntitiesByType(TypeFilter.instanceOf(PlayerEntity.class), box, this::isPlayerViewing);
     }
 
     public boolean isPlayerViewing(PlayerEntity player) {
         if (player.currentScreenHandler instanceof GenericContainerScreenHandler) {
-            Inventory inventory = ((GenericContainerScreenHandler)player.currentScreenHandler).getInventory();
-            return inventory == StoneChestBlockEntity.this || inventory instanceof DoubleInventory && ((DoubleInventory)inventory).isPart(StoneChestBlockEntity.this);
+            Inventory inventory = ((GenericContainerScreenHandler) player.currentScreenHandler).getInventory();
+            return inventory == StoneChestBlockEntity.this || inventory instanceof DoubleInventory && ((DoubleInventory) inventory).isPart(StoneChestBlockEntity.this);
         }
         return false;
     }
@@ -262,7 +262,7 @@ public class StoneChestBlockEntity extends ChestBlockEntity {
         }
     }
 
-    private final ViewerCountManager stoneStateManager = new ViewerCountManager(){
+    private final ViewerCountManager stoneStateManager = new ViewerCountManager() {
 
         @Override
         protected void onContainerOpen(World world, BlockPos pos, BlockState state) {
@@ -281,8 +281,8 @@ public class StoneChestBlockEntity extends ChestBlockEntity {
         @Override
         protected boolean isPlayerViewing(PlayerEntity player) {
             if (player.currentScreenHandler instanceof GenericContainerScreenHandler) {
-                Inventory inventory = ((GenericContainerScreenHandler)player.currentScreenHandler).getInventory();
-                return inventory == StoneChestBlockEntity.this || inventory instanceof DoubleInventory && ((DoubleInventory)inventory).isPart(StoneChestBlockEntity.this);
+                Inventory inventory = ((GenericContainerScreenHandler) player.currentScreenHandler).getInventory();
+                return inventory == StoneChestBlockEntity.this || inventory instanceof DoubleInventory && ((DoubleInventory) inventory).isPart(StoneChestBlockEntity.this);
             }
             return false;
         }
@@ -290,17 +290,17 @@ public class StoneChestBlockEntity extends ChestBlockEntity {
 
     public static void playSound(World world, BlockPos pos, BlockState state, SoundEvent soundEvent) {
         ChestType chestType = state.get(ChestBlock.CHEST_TYPE);
-        double d = (double)pos.getX() + 0.5;
-        double e = (double)pos.getY() + 0.5;
-        double f = (double)pos.getZ() + 0.5;
+        double d = (double) pos.getX() + 0.5;
+        double e = (double) pos.getY() + 0.5;
+        double f = (double) pos.getZ() + 0.5;
         if (chestType == ChestType.RIGHT) {
             Direction direction = ChestBlock.getFacing(state);
-            d += (double)direction.getOffsetX() * 0.5;
-            f += (double)direction.getOffsetZ() * 0.5;
+            d += (double) direction.getOffsetX() * 0.5;
+            f += (double) direction.getOffsetZ() * 0.5;
         } else if (chestType == ChestType.LEFT) {
             Direction direction = ChestBlock.getFacing(state);
-            d -= (double)direction.getOffsetX() * 0.5;
-            f -= (double)direction.getOffsetZ() * 0.5;
+            d -= (double) direction.getOffsetX() * 0.5;
+            f -= (double) direction.getOffsetZ() * 0.5;
         }
         world.playSound(null, d, e, f, soundEvent, SoundCategory.BLOCKS, 0.5f, world.random.nextFloat() * 0.1f + 0.9f);
     }

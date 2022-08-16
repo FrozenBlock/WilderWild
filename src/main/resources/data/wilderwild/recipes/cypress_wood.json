@@ -2,16 +2,16 @@
   "type": "minecraft:crafting_shaped",
   "group": "bark",
   "key": {
-    "#": {
-      "item": "wilderwild:cypress_log"
-    }
+	"#": {
+	  "item": "wilderwild:cypress_log"
+	}
   },
   "pattern": [
-    "##",
-    "##"
+	"##",
+	"##"
   ],
   "result": {
-    "count": 3,
-    "item": "wilderwild:cypress_wood"
+	"count": 3,
+	"item": "wilderwild:cypress_wood"
   }
 }

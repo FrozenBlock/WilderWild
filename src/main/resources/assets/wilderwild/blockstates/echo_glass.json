@@ -1,16 +1,16 @@
 {
   "variants": {
-    "damage=0": {
-      "model": "wilderwild:block/echo_glass"
-    },
-    "damage=1": {
-      "model": "wilderwild:block/echo_glass_1"
-    },
-    "damage=2": {
-      "model": "wilderwild:block/echo_glass_2"
-    },
-    "damage=3": {
-      "model": "wilderwild:block/echo_glass_3"
-    }
+	"damage=0": {
+	  "model": "wilderwild:block/echo_glass"
+	},
+	"damage=1": {
+	  "model": "wilderwild:block/echo_glass_1"
+	},
+	"damage=2": {
+	  "model": "wilderwild:block/echo_glass_2"
+	},
+	"damage=3": {
+	  "model": "wilderwild:block/echo_glass_3"
+	}
   }
 }

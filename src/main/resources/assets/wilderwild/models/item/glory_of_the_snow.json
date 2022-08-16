@@ -1,6 +1,6 @@
 {
   "parent": "item/generated",
   "textures": {
-    "layer0": "wilderwild:block/glory_of_the_snow"
+	"layer0": "wilderwild:block/glory_of_the_snow"
   }
 }

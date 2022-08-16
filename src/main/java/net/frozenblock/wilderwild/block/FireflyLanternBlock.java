@@ -241,7 +241,7 @@ public class FireflyLanternBlock extends BlockWithEntity implements Waterloggabl
         if (!world.isClient && blockEntity instanceof FireflyLanternBlockEntity lanternEntity) {
             boolean silk = EnchantmentHelper.getLevel(Enchantments.SILK_TOUCH, stack) == 0 || player.isCreative();
             if (silk && !lanternEntity.getFireflies().isEmpty()) {
-                    lanternEntity.spawnFireflies(world);
+                lanternEntity.spawnFireflies(world);
             }
         }
         player.incrementStat(Stats.MINED.getOrCreateStat(this));

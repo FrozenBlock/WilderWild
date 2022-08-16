@@ -115,9 +115,9 @@ public class BaobabNutBlock extends SaplingBlock {
     static {
         AGE = Properties.AGE_2;
         SHAPES = new VoxelShape[]{
-                VoxelShapes.union(Block.createCuboidShape(7.0, 13.0, 7.0, 9.0, 16.0, 9.0),Block.createCuboidShape(5.0, 6.0, 5.0, 11.0, 13.0, 11.0)),
-                VoxelShapes.union(Block.createCuboidShape(7.0, 12.0, 7.0, 9.0, 16.0, 9.0),Block.createCuboidShape(4.0, 3.0, 4.0, 12.0, 12.0, 12.0)),
-                VoxelShapes.union(Block.createCuboidShape(7.0, 10.0, 7.0, 9.0, 16.0, 9.0),Block.createCuboidShape(4.0, 0.0, 4.0, 12.0, 10.0, 12.0)),
+                VoxelShapes.union(Block.createCuboidShape(7.0, 13.0, 7.0, 9.0, 16.0, 9.0), Block.createCuboidShape(5.0, 6.0, 5.0, 11.0, 13.0, 11.0)),
+                VoxelShapes.union(Block.createCuboidShape(7.0, 12.0, 7.0, 9.0, 16.0, 9.0), Block.createCuboidShape(4.0, 3.0, 4.0, 12.0, 12.0, 12.0)),
+                VoxelShapes.union(Block.createCuboidShape(7.0, 10.0, 7.0, 9.0, 16.0, 9.0), Block.createCuboidShape(4.0, 0.0, 4.0, 12.0, 10.0, 12.0)),
                 Block.createCuboidShape(7.0, 3.0, 7.0, 9.0, 16.0, 9.0), Block.createCuboidShape(2.0D, 0.0D, 2.0D, 14.0D, 12.0D, 14.0D)
         };
         HANGING = Properties.HANGING;

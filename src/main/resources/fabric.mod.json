@@ -2,51 +2,46 @@
   "schemaVersion": 1,
   "id": "wilderwild",
   "version": "${version}",
-
   "name": "Wilder Wild",
   "description": "Wilder Wild overhauls the Wild Update, adding features and improving existing ones.",
   "authors": [
-    "FrozenBlock"
+	"FrozenBlock"
   ],
   "contact": {
-    "homepage": "https://www.curseforge.com/minecraft/mc-mods/wilder-wild",
-    "sources": "https://github.com/Soro335/WilderWild/",
-    "issues": "https://github.com/Soro335/WilderWild/issues"
+	"homepage": "https://www.curseforge.com/minecraft/mc-mods/wilder-wild",
+	"sources": "https://github.com/Soro335/WilderWild/",
+	"issues": "https://github.com/Soro335/WilderWild/issues"
   },
-
   "license": "LGPL-3.0",
   "icon": "assets/wilderwild/icon.png",
-
   "environment": "*",
   "entrypoints": {
-    "main": [
-      "net.frozenblock.wilderwild.WilderWild",
-      "org.quiltmc.qsl.datafixerupper.impl.Initializer"
-    ],
-    "client": [
+	"main": [
+	  "net.frozenblock.wilderwild.WilderWild",
+	  "org.quiltmc.qsl.datafixerupper.impl.Initializer"
+	],
+	"client": [
 	  "net.frozenblock.wilderwild.WilderWildClient",
-      "org.quiltmc.qsl.datafixerupper.impl.client.ClientInitializer"
-    ],
-    "mm:early_risers": [
-      "net.frozenblock.wilderwild.EarlyRiser"
-    ],
-    "modmenu": [
-      "net.frozenblock.wilderwild.misc.config.ModMenuIntegration"
-    ]
+	  "org.quiltmc.qsl.datafixerupper.impl.client.ClientInitializer"
+	],
+	"mm:early_risers": [
+	  "net.frozenblock.wilderwild.EarlyRiser"
+	],
+	"modmenu": [
+	  "net.frozenblock.wilderwild.misc.config.ModMenuIntegration"
+	]
   },
   "mixins": [
-    "wilderwild.mixins.json",
-    "quilt/quilt_datafixerupper.mixins.json"
+	"wilderwild.mixins.json",
+	"quilt/quilt_datafixerupper.mixins.json"
   ],
-
-  "accessWidener" : "wilderwild.accesswidener",
-
+  "accessWidener": "wilderwild.accesswidener",
   "depends": {
-    "mm": ">=2.3",
-    "nbtcrafting": ">=2.1.4",
-    "fabricloader": ">=0.14.8",
-    "fabric-api": ">=0.60.0",
-    "minecraft": ">=1.19.2",
-    "java": ">=17"
+	"mm": ">=2.3",
+	"nbtcrafting": ">=2.1.4",
+	"fabricloader": ">=0.14.8",
+	"fabric-api": ">=0.60.0",
+	"minecraft": ">=1.19.2",
+	"java": ">=17"
   }
 }

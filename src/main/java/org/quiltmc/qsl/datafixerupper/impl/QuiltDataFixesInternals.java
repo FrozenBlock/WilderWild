@@ -39,7 +39,8 @@ import java.util.Map;
  */
 @ApiStatus.Internal
 public final class QuiltDataFixesInternals {
-    private QuiltDataFixesInternals() { }
+    private QuiltDataFixesInternals() {
+    }
 
     public static final Logger LOGGER = LogUtils.getLogger();
 
@@ -114,5 +115,6 @@ public final class QuiltDataFixesInternals {
         return frozen;
     }
 
-    public record DataFixerEntry(DataFixer dataFixer, int currentVersion) { }
+    public record DataFixerEntry(DataFixer dataFixer, int currentVersion) {
+    }
 }

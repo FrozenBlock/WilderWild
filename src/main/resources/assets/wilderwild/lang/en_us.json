@@ -121,11 +121,10 @@
   "item.wilderwild.copper_horn": "Copper Horn",
   "container.stone_chest": "Stone Chest",
   "container.double_stone_chest": "Large Stone Chest",
-
   "instrument.wilderwild.sax_copper_horn": "Saxophone",
   "instrument.wilderwild.tuba_copper_horn": "Tuba",
   "instrument.wilderwild.flute_copper_horn": "Flute",
-
+  "instrument.wilderwild.oboe_copper_horn": "Oboe",
   "subtitles.block.hanging_tendril.wring": "Hanging Tendril wrung",
   "subtitles.block.sculk_sensor.hiccup": "Sculk Sensor hiccups",
   "subtitles.block.sculk_shrieker.gargle": "Sculk Shrieker gargles",
@@ -145,10 +144,7 @@
   "wilderwild.ancient_horn.advancement.use.description": "Find and use an Ancient Horn.",
   "wilderwild.null_block.advancement.place": "Hackermode = §aON",
   "wilderwild.null_block.advancement.place.description": "Obtain and place a Null Block.",
-
-
   "wilderwild.options": "Wilder Wild Options",
-
   "option.modmenu.modify_desert_placement": "Desert Placement",
   "tooltip.modmenu.modify_desert_placement": "Whether Deserts should use vanilla placement vs. Wilder Wild placement",
   "option.modmenu.modify_badlands_placement": "Badlands Placement",

@@ -58,9 +58,9 @@ public class FireflyLanternBlockEntity extends BlockEntity {
 
     public void clientTick(World world, BlockPos pos) {
         if (world.isClient) {
-        if (!this.hasUpdated) {
-            this.hasUpdated = true;
-            ClientMethodInteractionThingy.requestBlockEntitySync(pos, world);
+            if (!this.hasUpdated) {
+                this.hasUpdated = true;
+                ClientMethodInteractionThingy.requestBlockEntitySync(pos, world);
             }
         }
         this.age += 1;

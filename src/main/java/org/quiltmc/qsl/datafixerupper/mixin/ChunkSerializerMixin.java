@@ -17,9 +17,9 @@
 
 package org.quiltmc.qsl.datafixerupper.mixin;
 
-import org.quiltmc.qsl.datafixerupper.impl.QuiltDataFixesInternals;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.world.ChunkSerializer;
+import org.quiltmc.qsl.datafixerupper.impl.QuiltDataFixesInternals;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyVariable;

@@ -1,19 +1,19 @@
 {
   "type": "minecraft:crafting_shaped",
   "key": {
-    "#": {
-      "item": "minecraft:glass_pane"
-    },
-    "X": {
-      "item": "minecraft:iron_nugget"
-    }
+	"#": {
+	  "item": "minecraft:glass_pane"
+	},
+	"X": {
+	  "item": "minecraft:iron_nugget"
+	}
   },
   "pattern": [
-    "XXX",
-    "X#X",
-    "XXX"
+	"XXX",
+	"X#X",
+	"XXX"
   ],
   "result": {
-    "item": "wilderwild:firefly_lantern"
+	"item": "wilderwild:firefly_lantern"
   }
 }

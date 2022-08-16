@@ -2,17 +2,17 @@
   "type": "minecraft:crafting_shaped",
   "group": "wooden_stairs",
   "key": {
-    "#": {
-      "item": "wilderwild:cypress_planks"
-    }
+	"#": {
+	  "item": "wilderwild:cypress_planks"
+	}
   },
   "pattern": [
-    "#  ",
-    "## ",
-    "###"
+	"#  ",
+	"## ",
+	"###"
   ],
   "result": {
-    "count": 4,
-    "item": "wilderwild:cypress_stairs"
+	"count": 4,
+	"item": "wilderwild:cypress_stairs"
   }
 }

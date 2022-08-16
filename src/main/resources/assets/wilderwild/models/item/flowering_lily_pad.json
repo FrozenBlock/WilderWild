@@ -1,6 +1,6 @@
 {
   "parent": "item/generated",
   "textures": {
-    "layer0": "wilderwild:item/flowering_lily_pad"
+	"layer0": "wilderwild:item/flowering_lily_pad"
   }
 }

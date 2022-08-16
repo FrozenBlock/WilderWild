@@ -1,34 +1,34 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_nugget": {
-      "conditions": {
-        "items": [
-          {
-            "items": [
-              "minecraft:iron_nugget"
-            ]
-          }
-        ]
-      },
-      "trigger": "minecraft:inventory_changed"
-    },
-    "has_the_recipe": {
-      "conditions": {
-        "recipe": "wilderwild:firefly_lantern"
-      },
-      "trigger": "minecraft:recipe_unlocked"
-    }
+	"has_nugget": {
+	  "conditions": {
+		"items": [
+		  {
+			"items": [
+			  "minecraft:iron_nugget"
+			]
+		  }
+		]
+	  },
+	  "trigger": "minecraft:inventory_changed"
+	},
+	"has_the_recipe": {
+	  "conditions": {
+		"recipe": "wilderwild:firefly_lantern"
+	  },
+	  "trigger": "minecraft:recipe_unlocked"
+	}
   },
   "requirements": [
-    [
-      "has_nugget",
-      "has_the_recipe"
-    ]
+	[
+	  "has_nugget",
+	  "has_the_recipe"
+	]
   ],
   "rewards": {
-    "recipes": [
-      "wilderwild:firefly_lantern"
-    ]
+	"recipes": [
+	  "wilderwild:firefly_lantern"
+	]
   }
 }

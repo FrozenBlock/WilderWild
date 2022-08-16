@@ -1,7 +1,7 @@
 {
   "variants": {
-    "": {
-      "model": "wilderwild:block/coated_sculk"
-    }
+	"": {
+	  "model": "wilderwild:block/coated_sculk"
+	}
   }
 }
