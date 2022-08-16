@@ -20,15 +20,11 @@ import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.text.Text;
-import net.minecraft.util.TypeFilter;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Box;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 import net.minecraft.world.event.GameEvent;
-
-import java.util.List;
 
 public class StoneChestBlockEntity extends ChestBlockEntity {
     public float openProgress;
@@ -133,7 +129,7 @@ public class StoneChestBlockEntity extends ChestBlockEntity {
         if (this.world.getBlockEntity(this.pos) != this) {
             return false;
         }
-        return (player.squaredDistanceTo((double)this.pos.getX() + 0.5, (double)this.pos.getY() + 0.5, (double)this.pos.getZ() + 0.5) > 64.0) && ((!this.closing && this.openProgress <= 0 && this.cooldownTicks <= 0) || !this.hasLid);
+        return (player.squaredDistanceTo((double)this.pos.getX() + 0.5, (double)this.pos.getY() + 0.5, (double)this.pos.getZ() + 0.5) > 64.0) && ((!this.closing && this.openProgress >= 0.3 && this.cooldownTicks <= 0) || !this.hasLid);
     }
 
     public void syncLidValues(World world, BlockPos pos, BlockState state) {
