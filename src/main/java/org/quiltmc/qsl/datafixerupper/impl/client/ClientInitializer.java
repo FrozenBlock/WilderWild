@@ -23,7 +23,6 @@ import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientLifecycleEvents;
 import net.frozenblock.wilderwild.WilderWild;
 import org.quiltmc.qsl.datafixerupper.impl.QuiltDataFixesInternals;
-import net.minecraft.client.MinecraftClient;
 import org.jetbrains.annotations.ApiStatus;
 
 /**

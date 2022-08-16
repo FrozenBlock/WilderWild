@@ -17,9 +17,9 @@
 
 package org.quiltmc.qsl.datafixerupper.mixin;
 
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.world.entity.player.Player;
 import org.quiltmc.qsl.datafixerupper.impl.QuiltDataFixesInternals;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.nbt.NbtCompound;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -28,10 +28,10 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 /**
  * Modified to work on Fabric
  */
-@Mixin(PlayerEntity.class)
+@Mixin(Player.class)
 public abstract class PlayerEntityMixin {
-    @Inject(method = "writeCustomDataToNbt", at = @At("RETURN"))
-    public void addModDataVersions(NbtCompound compound, CallbackInfo ci) {
+    @Inject(method = "addAdditionalSaveData", at = @At("RETURN"))
+    public void addModDataVersions(CompoundTag compound, CallbackInfo ci) {
         QuiltDataFixesInternals.addModDataVersions(compound);
     }
 }

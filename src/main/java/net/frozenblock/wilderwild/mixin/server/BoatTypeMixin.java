@@ -3,6 +3,7 @@ package net.frozenblock.wilderwild.mixin.server;
 import net.frozenblock.wilderwild.misc.WilderBoats;
 import net.frozenblock.wilderwild.registry.RegisterBlocks;
 import net.minecraft.world.entity.vehicle.Boat;
+import net.minecraft.world.entity.vehicle.Boat.Type;
 import net.minecraft.world.level.block.Block;
 import org.objectweb.asm.Opcodes;
 import org.spongepowered.asm.mixin.Final;

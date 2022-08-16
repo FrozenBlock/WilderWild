@@ -4,7 +4,6 @@ import net.frozenblock.wilderwild.WilderWild;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.StandingSignBlock;
 import net.minecraft.world.level.block.state.properties.WoodType;
-
 import java.util.Objects;
 
 public class WilderSignBlock extends StandingSignBlock {

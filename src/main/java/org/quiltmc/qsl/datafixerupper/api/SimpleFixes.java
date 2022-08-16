@@ -18,18 +18,20 @@
 package org.quiltmc.qsl.datafixerupper.api;
 
 import com.google.common.collect.ImmutableMap;
+import com.google.common.collect.ImmutableMap.Builder;
 import com.mojang.datafixers.DataFix;
 import com.mojang.datafixers.DataFixerBuilder;
 import com.mojang.datafixers.schemas.Schema;
-import net.minecraft.datafixer.fix.BiomeRenameFix;
-import net.minecraft.datafixer.fix.BlockNameFix;
-import net.minecraft.datafixer.fix.ItemNameFix;
-import net.minecraft.datafixer.schema.IdentifierNormalizingSchema;
-import net.minecraft.util.Identifier;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Objects;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.datafix.fixes.BlockRenameFix;
+import net.minecraft.util.datafix.fixes.ItemRenameFix;
+import net.minecraft.util.datafix.fixes.RenameBiomesFix;
+import net.minecraft.util.datafix.schemas.NamespacedSchema;
 
 import static java.util.Objects.requireNonNull;
 
@@ -51,10 +53,10 @@ public final class SimpleFixes {
      * @param oldId   the block's old identifier
      * @param newId   the block's new identifier
      * @param schema  the schema this fixer should be a part of
-     * @see BlockNameFix
+     * @see BlockRenameFix
      */
     public static void addBlockRenameFix(@NotNull DataFixerBuilder builder, @NotNull String name,
-                                         @NotNull Identifier oldId, @NotNull Identifier newId,
+                                         @NotNull ResourceLocation oldId, @NotNull ResourceLocation newId,
                                          @NotNull Schema schema) {
         requireNonNull(builder, "DataFixerBuilder cannot be null");
         requireNonNull(name, "Fix name cannot be null");
@@ -63,8 +65,8 @@ public final class SimpleFixes {
         requireNonNull(schema, "Schema cannot be null");
 
         final String oldIdStr = oldId.toString(), newIdStr = newId.toString();
-        builder.addFixer(BlockNameFix.create(schema, name, (inputName) ->
-                Objects.equals(IdentifierNormalizingSchema.normalize(inputName), oldIdStr) ? newIdStr : inputName));
+        builder.addFixer(BlockRenameFix.create(schema, name, (inputName) ->
+                Objects.equals(NamespacedSchema.ensureNamespaced(inputName), oldIdStr) ? newIdStr : inputName));
     }
 
     /**
@@ -75,10 +77,10 @@ public final class SimpleFixes {
      * @param oldId   the item's old identifier
      * @param newId   the item's new identifier
      * @param schema  the schema this fix should be a part of
-     * @see ItemNameFix
+     * @see ItemRenameFix
      */
     public static void addItemRenameFix(@NotNull DataFixerBuilder builder, @NotNull String name,
-                                        @NotNull Identifier oldId, @NotNull Identifier newId,
+                                        @NotNull ResourceLocation oldId, @NotNull ResourceLocation newId,
                                         @NotNull Schema schema) {
         requireNonNull(builder, "DataFixerBuilder cannot be null");
         requireNonNull(name, "Fix name cannot be null");
@@ -87,8 +89,8 @@ public final class SimpleFixes {
         requireNonNull(schema, "Schema cannot be null");
 
         final String oldIdStr = oldId.toString(), newIdStr = newId.toString();
-        builder.addFixer(ItemNameFix.create(schema, name, (inputName) ->
-                Objects.equals(IdentifierNormalizingSchema.normalize(inputName), oldIdStr) ? newIdStr : inputName));
+        builder.addFixer(ItemRenameFix.create(schema, name, (inputName) ->
+                Objects.equals(NamespacedSchema.ensureNamespaced(inputName), oldIdStr) ? newIdStr : inputName));
     }
 
     /**
@@ -98,10 +100,10 @@ public final class SimpleFixes {
      * @param name    the fix's name
      * @param changes a map of old biome identifiers to new biome identifiers
      * @param schema  the schema this fixer should be a part of
-     * @see BiomeRenameFix
+     * @see RenameBiomesFix
      */
     public static void addBiomeRenameFix(@NotNull DataFixerBuilder builder, @NotNull String name,
-                                         @NotNull Map<Identifier, Identifier> changes,
+                                         @NotNull Map<ResourceLocation, ResourceLocation> changes,
                                          @NotNull Schema schema) {
         requireNonNull(builder, "DataFixerBuilder cannot be null");
         requireNonNull(name, "Fix name cannot be null");
@@ -112,6 +114,6 @@ public final class SimpleFixes {
         for (var entry : changes.entrySet()) {
             mapBuilder.put(entry.getKey().toString(), entry.getValue().toString());
         }
-        builder.addFixer(new BiomeRenameFix(schema, false, name, mapBuilder.build()));
+        builder.addFixer(new RenameBiomesFix(schema, false, name, mapBuilder.build()));
     }
 }

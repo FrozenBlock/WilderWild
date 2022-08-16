@@ -22,59 +22,59 @@ import java.util.function.Consumer;
 public final class VanillaBiomeParametersMixin {
     @Shadow
     @Final
-    private Climate.Parameter riverContinentalness;
+    private Climate.Parameter inlandContinentalness;
     @Shadow
     @Final
     private Climate.Parameter farInlandContinentalness;
     @Shadow
     @Final
-    private Climate.Parameter[] erosionParameters;
+    private Climate.Parameter[] erosions;
     @Shadow
     @Final
-    private Climate.Parameter[] humidityParameters;
+    private Climate.Parameter[] humidities;
     @Shadow
     @Final
-    private Climate.Parameter[] temperatureParameters;
+    private Climate.Parameter[] temperatures;
     @Shadow
     @Final
-    private Climate.Parameter defaultParameter;
+    private Climate.Parameter FULL_RANGE;
     @Shadow
     @Final
-    private ResourceKey<Biome>[][] commonBiomes;
+    private ResourceKey<Biome>[][] MIDDLE_BIOMES;
     @Shadow
     @Final
-    private ResourceKey<Biome>[][] uncommonBiomes;
+    private ResourceKey<Biome>[][] MIDDLE_BIOMES_VARIANT;
 
     @Shadow
-    private void writeBiomeParameters(Consumer<Pair<Climate.ParameterPoint, ResourceKey<Biome>>> parameters, Climate.Parameter temperature, Climate.Parameter humidity, Climate.Parameter continentalness, Climate.Parameter erosion, Climate.Parameter weirdness, final float offset, ResourceKey<Biome> biome) {
+    private void addSurfaceBiome(Consumer<Pair<Climate.ParameterPoint, ResourceKey<Biome>>> parameters, Climate.Parameter temperature, Climate.Parameter humidity, Climate.Parameter continentalness, Climate.Parameter erosion, Climate.Parameter weirdness, final float offset, ResourceKey<Biome> biome) {
         parameters.accept(Pair.of(Climate.parameters(temperature, humidity, continentalness, erosion, Climate.Parameter.span(0.0F, 1.0F), weirdness, offset), biome));
     }
 
     @Inject(method = "<init>", at = @At("TAIL"))
     private void injectBiomes(CallbackInfo ci) {
         if (ModMenuInteractionHandler.modJunglePlacement()) {
-            uncommonBiomes[4][3] = Biomes.JUNGLE;
-            commonBiomes[4][4] = Biomes.JUNGLE;
+            MIDDLE_BIOMES_VARIANT[4][3] = Biomes.JUNGLE;
+            MIDDLE_BIOMES[4][4] = Biomes.JUNGLE;
         }
     }
 
     @Inject(method = "addLowSlice", at = @At("TAIL"))
     // also can be injectLowBiomes
     private void injectBiomesNearRivers(Consumer<Pair<Climate.ParameterPoint, ResourceKey<Biome>>> parameters, Climate.Parameter weirdness, CallbackInfo ci) {
-        this.writeBiomeParameters(
+        this.addSurfaceBiome(
                 parameters,
-                Climate.Parameter.span(this.temperatureParameters[1], this.temperatureParameters[2]),
-                this.defaultParameter,
-                Climate.Parameter.span(this.riverContinentalness, this.farInlandContinentalness),
-                this.erosionParameters[2],
+                Climate.Parameter.span(this.temperatures[1], this.temperatures[2]),
+                this.FULL_RANGE,
+                Climate.Parameter.span(this.inlandContinentalness, this.farInlandContinentalness),
+                this.erosions[2],
                 weirdness,
                 0.0F,
                 RegisterWorldgen.MIXED_FOREST
         );
-        this.writeBiomeParameters(
+        this.addSurfaceBiome(
                 parameters,
-                Climate.Parameter.span(this.temperatureParameters[1], this.temperatureParameters[3]),
-                Climate.Parameter.span(this.humidityParameters[2], this.humidityParameters[4]),
+                Climate.Parameter.span(this.temperatures[1], this.temperatures[3]),
+                Climate.Parameter.span(this.humidities[2], this.humidities[4]),
                 Climate.Parameter.span(-0.2F, 0.5F),
                 Climate.Parameter.span(0.50F, 1.0F),
                 weirdness,
@@ -86,21 +86,21 @@ public final class VanillaBiomeParametersMixin {
     @Inject(method = "addMidSlice", at = @At("TAIL"))
     // also can be injectMidBiomes
     private void injectMixedBiomes(Consumer<Pair<Climate.ParameterPoint, ResourceKey<Biome>>> parameters, Climate.Parameter weirdness, CallbackInfo ci) {
-        this.writeBiomeParameters(
+        this.addSurfaceBiome(
                 parameters,
-                Climate.Parameter.span(this.temperatureParameters[1], this.temperatureParameters[2]),
-                this.defaultParameter,
-                Climate.Parameter.span(this.riverContinentalness, this.farInlandContinentalness),
-                this.erosionParameters[1],
+                Climate.Parameter.span(this.temperatures[1], this.temperatures[2]),
+                this.FULL_RANGE,
+                Climate.Parameter.span(this.inlandContinentalness, this.farInlandContinentalness),
+                this.erosions[1],
                 weirdness,
                 0.0F,
                 RegisterWorldgen.MIXED_FOREST
         );
 
-        this.writeBiomeParameters(
+        this.addSurfaceBiome(
                 parameters,
-                Climate.Parameter.span(this.temperatureParameters[1], this.temperatureParameters[3]),
-                Climate.Parameter.span(this.humidityParameters[2], this.humidityParameters[4]),
+                Climate.Parameter.span(this.temperatures[1], this.temperatures[3]),
+                Climate.Parameter.span(this.humidities[2], this.humidities[4]),
                 Climate.Parameter.span(-0.2F, 0.5F),
                 Climate.Parameter.span(0.50F, 1.0F),
                 weirdness,
@@ -112,10 +112,10 @@ public final class VanillaBiomeParametersMixin {
     @Inject(method = "addValleys", at = @At("TAIL"))
     // can also be injectValleyBiomes
     private void injectRiverBiomes(Consumer<Pair<Climate.ParameterPoint, ResourceKey<Biome>>> parameters, Climate.Parameter weirdness, CallbackInfo ci) {
-        this.writeBiomeParameters(
+        this.addSurfaceBiome(
                 parameters,
-                Climate.Parameter.span(this.temperatureParameters[1], this.temperatureParameters[3]),
-                Climate.Parameter.span(this.humidityParameters[2], this.humidityParameters[4]),
+                Climate.Parameter.span(this.temperatures[1], this.temperatures[3]),
+                Climate.Parameter.span(this.humidities[2], this.humidities[4]),
                 Climate.Parameter.span(-0.2F, 0.5F),
                 Climate.Parameter.span(0.50F, 1.0F),
                 weirdness,
@@ -135,11 +135,11 @@ public final class VanillaBiomeParametersMixin {
     private static final int swampHumidity = 2;
 
     @Inject(method = "addSurfaceBiome", at = @At("HEAD"), cancellable = true)
-    private void writeBiomeParameters(Consumer<Pair<Climate.ParameterPoint, ResourceKey<Biome>>> parameters, Climate.Parameter temperature, Climate.Parameter humidity, Climate.Parameter continentalness, Climate.Parameter erosion, Climate.Parameter weirdness, float offset, ResourceKey<Biome> biome, CallbackInfo info) {
+    private void addSurfaceBiome(Consumer<Pair<Climate.ParameterPoint, ResourceKey<Biome>>> parameters, Climate.Parameter temperature, Climate.Parameter humidity, Climate.Parameter continentalness, Climate.Parameter erosion, Climate.Parameter weirdness, float offset, ResourceKey<Biome> biome, CallbackInfo info) {
         if (biome.equals(Biomes.MANGROVE_SWAMP) && ModMenuInteractionHandler.modMangroveSwampPlacement()) {
             parameters.accept(Pair.of(Climate.parameters(
-                            Climate.Parameter.span(this.temperatureParameters[2], this.temperatureParameters[4]), //Temperature
-                            Climate.Parameter.span(this.humidityParameters[swampHumidity], this.humidityParameters[4]), //Humidity
+                            Climate.Parameter.span(this.temperatures[2], this.temperatures[4]), //Temperature
+                            Climate.Parameter.span(this.humidities[swampHumidity], this.humidities[4]), //Humidity
                             continentalness,
                             erosion,
                             Climate.Parameter.point(0.0F),
@@ -148,8 +148,8 @@ public final class VanillaBiomeParametersMixin {
                     biome));
 
             parameters.accept(Pair.of(Climate.parameters(
-                            Climate.Parameter.span(this.temperatureParameters[2], this.temperatureParameters[4]), //Temperature
-                            Climate.Parameter.span(this.humidityParameters[swampHumidity], this.humidityParameters[4]), //Humidity
+                            Climate.Parameter.span(this.temperatures[2], this.temperatures[4]), //Temperature
+                            Climate.Parameter.span(this.humidities[swampHumidity], this.humidities[4]), //Humidity
                             continentalness,
                             erosion,
                             Climate.Parameter.point(1.0F),
@@ -160,8 +160,8 @@ public final class VanillaBiomeParametersMixin {
         }
         if (biome.equals(Biomes.SWAMP) && ModMenuInteractionHandler.modSwampPlacement()) {
             parameters.accept(Pair.of(Climate.parameters(
-                            Climate.Parameter.span(this.temperatureParameters[1], this.temperatureParameters[3]), //Temperature
-                            Climate.Parameter.span(this.humidityParameters[swampHumidity], this.humidityParameters[4]), //Humidity
+                            Climate.Parameter.span(this.temperatures[1], this.temperatures[3]), //Temperature
+                            Climate.Parameter.span(this.humidities[swampHumidity], this.humidities[4]), //Humidity
                             continentalness,
                             erosion,
                             Climate.Parameter.point(0.0F),
@@ -170,8 +170,8 @@ public final class VanillaBiomeParametersMixin {
                     biome));
 
             parameters.accept(Pair.of(Climate.parameters(
-                            Climate.Parameter.span(this.temperatureParameters[1], this.temperatureParameters[3]), //Temperature
-                            Climate.Parameter.span(this.humidityParameters[swampHumidity], this.humidityParameters[4]), //Humidity
+                            Climate.Parameter.span(this.temperatures[1], this.temperatures[3]), //Temperature
+                            Climate.Parameter.span(this.humidities[swampHumidity], this.humidities[4]), //Humidity
                             continentalness,
                             erosion,
                             Climate.Parameter.point(1.0F),
@@ -183,7 +183,7 @@ public final class VanillaBiomeParametersMixin {
         if ((biome.equals(Biomes.DESERT) && ModMenuInteractionHandler.modDesertPlacement()) || (biome.equals(Biomes.BADLANDS) && ModMenuInteractionHandler.modBadlandsPlacement())) {
             parameters.accept(Pair.of(Climate.parameters(
                             temperature, //Temperature
-                            Climate.Parameter.span(this.humidityParameters[0], this.humidityParameters[1]), //Humidity
+                            Climate.Parameter.span(this.humidities[0], this.humidities[1]), //Humidity
                             continentalness,
                             erosion,
                             Climate.Parameter.point(0.0F),
@@ -193,7 +193,7 @@ public final class VanillaBiomeParametersMixin {
 
             parameters.accept(Pair.of(Climate.parameters(
                             temperature, //Temperature
-                            Climate.Parameter.span(this.humidityParameters[0], this.humidityParameters[1]), //Humidity
+                            Climate.Parameter.span(this.humidities[0], this.humidities[1]), //Humidity
                             continentalness,
                             erosion,
                             Climate.Parameter.point(1.0F),

@@ -2,17 +2,17 @@ package net.frozenblock.wilderwild.registry;
 
 import net.fabricmc.fabric.api.particle.v1.FabricParticleTypes;
 import net.frozenblock.wilderwild.WilderWild;
-import net.minecraft.particle.DefaultParticleType;
-import net.minecraft.util.registry.Registry;
+import net.minecraft.core.Registry;
+import net.minecraft.core.particles.SimpleParticleType;
 
 public final class RegisterParticles {
-    public static final DefaultParticleType POLLEN = FabricParticleTypes.simple();
-    public static final DefaultParticleType DANDELION_SEED = FabricParticleTypes.simple();
-    public static final DefaultParticleType CONTROLLED_DANDELION_SEED = FabricParticleTypes.simple();
-    public static final DefaultParticleType MILKWEED_SEED = FabricParticleTypes.simple();
-    public static final DefaultParticleType CONTROLLED_MILKWEED_SEED = FabricParticleTypes.simple();
-    public static final DefaultParticleType FLOATING_SCULK_BUBBLE = FabricParticleTypes.simple();
-    public static final DefaultParticleType TERMITE = FabricParticleTypes.simple();
+    public static final SimpleParticleType POLLEN = FabricParticleTypes.simple();
+    public static final SimpleParticleType DANDELION_SEED = FabricParticleTypes.simple();
+    public static final SimpleParticleType CONTROLLED_DANDELION_SEED = FabricParticleTypes.simple();
+    public static final SimpleParticleType MILKWEED_SEED = FabricParticleTypes.simple();
+    public static final SimpleParticleType CONTROLLED_MILKWEED_SEED = FabricParticleTypes.simple();
+    public static final SimpleParticleType FLOATING_SCULK_BUBBLE = FabricParticleTypes.simple();
+    public static final SimpleParticleType TERMITE = FabricParticleTypes.simple();
 
     public static void registerParticles() {
         WilderWild.logWild("Registering Particles for", WilderWild.UNSTABLE_LOGGING);

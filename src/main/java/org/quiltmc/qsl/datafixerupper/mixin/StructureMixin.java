@@ -17,9 +17,9 @@
 
 package org.quiltmc.qsl.datafixerupper.mixin;
 
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.world.level.levelgen.structure.templatesystem.StructureTemplate;
 import org.quiltmc.qsl.datafixerupper.impl.QuiltDataFixesInternals;
-import net.minecraft.nbt.NbtCompound;
-import net.minecraft.structure.StructureTemplate;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -30,9 +30,9 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
  */
 @Mixin(StructureTemplate.class)
 public abstract class StructureMixin {
-    @Inject(method = "writeNbt", at = @At("TAIL"), cancellable = true)
-    private void addModDataVersions(NbtCompound compound, CallbackInfoReturnable<NbtCompound> cir) {
-        NbtCompound out = cir.getReturnValue();
+    @Inject(method = "save", at = @At("TAIL"), cancellable = true)
+    private void addModDataVersions(CompoundTag compound, CallbackInfoReturnable<CompoundTag> cir) {
+        CompoundTag out = cir.getReturnValue();
         QuiltDataFixesInternals.addModDataVersions(out);
         cir.setReturnValue(out);
     }

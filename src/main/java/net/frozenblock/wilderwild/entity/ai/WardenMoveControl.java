@@ -1,5 +1,8 @@
 package net.frozenblock.wilderwild.entity.ai;
 
+import org.jetbrains.annotations.NotNull;
+
+import java.util.Optional;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.Entity;
@@ -8,9 +11,6 @@ import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.control.MoveControl;
 import net.minecraft.world.entity.ai.memory.MemoryModuleType;
 import net.minecraft.world.entity.monster.warden.Warden;
-import org.jetbrains.annotations.NotNull;
-
-import java.util.Optional;
 
 public class WardenMoveControl extends MoveControl {
 

@@ -24,10 +24,10 @@ import com.mojang.logging.LogUtils;
 import com.mojang.serialization.Dynamic;
 import it.unimi.dsi.fastutil.objects.Object2ReferenceOpenHashMap;
 import net.minecraft.SharedConstants;
-import net.minecraft.datafixer.DataFixTypes;
-import net.minecraft.datafixer.Schemas;
-import net.minecraft.nbt.NbtCompound;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.NbtOps;
+import net.minecraft.util.datafix.DataFixTypes;
+import net.minecraft.util.datafix.DataFixers;
 import org.jetbrains.annotations.*;
 import org.slf4j.Logger;
 
@@ -60,25 +60,25 @@ public final class QuiltDataFixesInternals {
         return modDataFixers.get(modId);
     }
 
-    public static final Schema VANILLA_SCHEMA = Schemas.getFixer()
-            .getSchema(DataFixUtils.makeKey(SharedConstants.getGameVersion().getSaveVersion().getId()));
+    public static final Schema VANILLA_SCHEMA = DataFixers.getDataFixer()
+            .getSchema(DataFixUtils.makeKey(SharedConstants.getCurrentVersion().getDataVersion().getVersion()));
 
     @Contract(value = "-> new", pure = true)
     public static @NotNull Schema createBaseSchema() {
         return new Schema(0, VANILLA_SCHEMA);
     }
 
-    public static @NotNull NbtCompound updateWithAllFixers(@NotNull DataFixTypes dataFixTypes,
-                                                           @NotNull NbtCompound compound) {
-        NbtCompound current = compound;
+    public static @NotNull CompoundTag updateWithAllFixers(@NotNull DataFixTypes dataFixTypes,
+                                                           @NotNull CompoundTag compound) {
+        CompoundTag current = compound;
 
         for (Map.Entry<String, DataFixerEntry> entry : modDataFixers.entrySet()) {
             String currentModId = entry.getKey();
             int modIdCurrentDynamicVersion = getModDataVersion(compound, currentModId);
             DataFixerEntry dataFixerEntry = entry.getValue();
 
-            current = (NbtCompound) dataFixerEntry.dataFixer()
-                    .update(dataFixTypes.getTypeReference(),
+            current = (CompoundTag) dataFixerEntry.dataFixer()
+                    .update(dataFixTypes.getType(),
                             new Dynamic<>(NbtOps.INSTANCE, current),
                             modIdCurrentDynamicVersion, dataFixerEntry.currentVersion)
                     .getValue();
@@ -87,7 +87,7 @@ public final class QuiltDataFixesInternals {
         return current;
     }
 
-    public static @NotNull NbtCompound addModDataVersions(@NotNull NbtCompound compound) {
+    public static @NotNull CompoundTag addModDataVersions(@NotNull CompoundTag compound) {
         for (Map.Entry<String, DataFixerEntry> entry : modDataFixers.entrySet()) {
             compound.putInt(entry.getKey() + "_DataVersion", entry.getValue().currentVersion);
         }
@@ -97,7 +97,7 @@ public final class QuiltDataFixesInternals {
 
     @Contract(pure = true)
     @Range(from = 0, to = Integer.MAX_VALUE)
-    public static int getModDataVersion(@NotNull NbtCompound compound, @NotNull String modId) {
+    public static int getModDataVersion(@NotNull CompoundTag compound, @NotNull String modId) {
         return compound.getInt(modId + "_DataVersion");
     }
 

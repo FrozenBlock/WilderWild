@@ -10,7 +10,6 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
 import net.minecraft.world.level.levelgen.synth.ImprovedNoise;
-
 import java.util.Iterator;
 
 public class NoisePathUnderWaterFeature extends Feature<PathFeatureConfig> {
