@@ -216,7 +216,7 @@ public final class RegisterBlocks {
             .build();
 
     public static final Block TERMITE_MOUND = new TermiteMound(FabricBlockSettings.of(Material.WOOD, MapColor.BROWN).strength(0.3F).sounds(RegisterBlockSoundGroups.COARSEDIRT));
-    public static final Block STONE_CHEST = new StoneChestBlock(FabricBlockSettings.copy(Blocks.CHEST).sounds(BlockSoundGroup.DEEPSLATE), () -> RegisterBlockEntities.STONE_CHEST);
+    public static final Block STONE_CHEST = new StoneChestBlock(FabricBlockSettings.copy(Blocks.CHEST).sounds(BlockSoundGroup.DEEPSLATE).strength(29.25f, 12.0f), () -> RegisterBlockEntities.STONE_CHEST);
 
     // PLANTS
     public static final Block SEEDING_DANDELION = new SeedingDandelionBlock(StatusEffects.SLOW_FALLING, 12, FabricBlockSettings.copy(Blocks.DANDELION).sounds(BlockSoundGroup.SPORE_BLOSSOM).strength(0.0F).nonOpaque());
