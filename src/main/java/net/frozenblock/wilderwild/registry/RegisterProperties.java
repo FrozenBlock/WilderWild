@@ -23,7 +23,7 @@ public final class RegisterProperties {
     //Glory of The Snow
     public static final EnumProperty<FlowerColors> FLOWER_COLOR = EnumProperty.of("flower_color", FlowerColors.class);
     //Firefly Lantern
-    public static final IntProperty FIREFLIES = IntProperty.of("fireflies", 0, 4);
+    public static final IntProperty LIGHT = IntProperty.of("light", 0, 15);
 
     //Vanilla Blocks
     public static final IntProperty SOULS_TAKEN = IntProperty.of("souls_taken", 0, 2); //Sculk Shrieker

@@ -20,15 +20,11 @@ import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.text.Text;
-import net.minecraft.util.TypeFilter;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Box;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 import net.minecraft.world.event.GameEvent;
-
-import java.util.List;
 
 public class StoneChestBlockEntity extends ChestBlockEntity {
     public float openProgress;
@@ -87,15 +83,10 @@ public class StoneChestBlockEntity extends ChestBlockEntity {
                 blockEntity.openProgress = Math.max(0F, blockEntity.openProgress - 0.0425F);
                 if (!blockEntity.closing) {
                     blockEntity.closing = true;
-                    playSound(world, pos, state, RegisterSounds.BLOCK_STONE_CHEST_CLOSE_START);
-                    for (PlayerEntity player : blockEntity.getInRangeViewers(world, pos)) {
-                        if (player instanceof ServerPlayerEntity serverPlayer) {
-                            serverPlayer.closeHandledScreen();
-                        }
-                    }
+                    playSound(world, pos, state, RegisterSounds.BLOCK_STONE_CHEST_CLOSE_START, 0.3F);
                 }
                 if (blockEntity.openProgress <= 0F) {
-                    playSound(world, pos, state, RegisterSounds.BLOCK_STONE_CHEST_SLAM);
+                    playSound(world, pos, state, RegisterSounds.BLOCK_STONE_CHEST_SLAM, 0.6F);
                     blockEntity.closing = false;
                     blockEntity.cooldownTicks = 15;
                 }
@@ -134,20 +125,11 @@ public class StoneChestBlockEntity extends ChestBlockEntity {
         }
     }
 
-    public List<PlayerEntity> getInRangeViewers(World world, BlockPos pos) {
-        int i = pos.getX();
-        int j = pos.getY();
-        int k = pos.getZ();
-        Box box = new Box((float) i - 5.0f, (float) j - 5.0f, (float) k - 5.0f, (float) (i + 1) + 5.0f, (float) (j + 1) + 5.0f, (float) (k + 1) + 5.0f);
-        return world.getEntitiesByType(TypeFilter.instanceOf(PlayerEntity.class), box, this::isPlayerViewing);
-    }
-
-    public boolean isPlayerViewing(PlayerEntity player) {
-        if (player.currentScreenHandler instanceof GenericContainerScreenHandler) {
-            Inventory inventory = ((GenericContainerScreenHandler) player.currentScreenHandler).getInventory();
-            return inventory == StoneChestBlockEntity.this || inventory instanceof DoubleInventory && ((DoubleInventory) inventory).isPart(StoneChestBlockEntity.this);
+    public boolean canPlayerUse(PlayerEntity player) {
+        if (this.world.getBlockEntity(this.pos) != this) {
+            return false;
         }
-        return false;
+        return !(player.squaredDistanceTo((double)this.pos.getX() + 0.5, (double)this.pos.getY() + 0.5, (double)this.pos.getZ() + 0.5) > 64.0) && ((!this.closing && this.openProgress >= 0.3) || !this.hasLid);
     }
 
     public void syncLidValues(World world, BlockPos pos, BlockState state) {
@@ -288,7 +270,7 @@ public class StoneChestBlockEntity extends ChestBlockEntity {
         }
     };
 
-    public static void playSound(World world, BlockPos pos, BlockState state, SoundEvent soundEvent) {
+    public static void playSound(World world, BlockPos pos, BlockState state, SoundEvent soundEvent, float volume) {
         ChestType chestType = state.get(ChestBlock.CHEST_TYPE);
         double d = (double) pos.getX() + 0.5;
         double e = (double) pos.getY() + 0.5;
@@ -302,7 +284,7 @@ public class StoneChestBlockEntity extends ChestBlockEntity {
             d -= (double) direction.getOffsetX() * 0.5;
             f -= (double) direction.getOffsetZ() * 0.5;
         }
-        world.playSound(null, d, e, f, soundEvent, SoundCategory.BLOCKS, 0.5f, world.random.nextFloat() * 0.1f + 0.9f);
+        world.playSound(null, d, e, f, soundEvent, SoundCategory.BLOCKS, volume, world.random.nextFloat() * 0.1f + 0.9f);
     }
 
 }

@@ -1,6 +1,7 @@
 package net.frozenblock.wilderwild.mixin.worldgen;
 
 import net.frozenblock.wilderwild.registry.RegisterWorldgen;
+import net.minecraft.world.biome.BiomeKeys;
 import net.minecraft.world.gen.YOffset;
 import net.minecraft.world.gen.noise.NoiseParametersKeys;
 import net.minecraft.world.gen.surfacebuilder.MaterialRules;
@@ -18,6 +19,10 @@ public class VanillaSurfaceRulesMixin {
     @Final
     private static MaterialRules.MaterialRule WATER;
 
+    @Shadow @Final private static MaterialRules.MaterialRule GRAVEL;
+
+    @Shadow @Final private static MaterialRules.MaterialRule SAND;
+
     @ModifyVariable(method = "createDefaultRule", at = @At("STORE"), ordinal = 8)
     private static MaterialRules.MaterialRule injected(MaterialRules.MaterialRule materialRule) {
 
@@ -34,6 +39,33 @@ public class VanillaSurfaceRulesMixin {
                                 )
                         )
                 )
-        ), materialRule);
+        ), MaterialRules.sequence(MaterialRules.condition(
+                MaterialRules.STONE_DEPTH_FLOOR, MaterialRules.sequence(
+                        MaterialRules.condition(
+                                MaterialRules.biome(BiomeKeys.BIRCH_FOREST, BiomeKeys.TAIGA),
+                                MaterialRules.condition(
+                                        MaterialRules.aboveY(YOffset.fixed(60), 0),
+                                        MaterialRules.condition(
+                                                MaterialRules.not(MaterialRules.aboveY(YOffset.fixed(65), 0)),
+                                                MaterialRules.condition(MaterialRules.noiseThreshold(NoiseParametersKeys.SOUL_SAND_LAYER, 0.0), GRAVEL)
+                                        )
+                                )
+                        )
+                )
+        ), MaterialRules.sequence(MaterialRules.condition(
+                        MaterialRules.STONE_DEPTH_FLOOR, MaterialRules.sequence(
+                                MaterialRules.condition(
+                                        MaterialRules.biome(BiomeKeys.FLOWER_FOREST, BiomeKeys.PLAINS, BiomeKeys.FOREST, BiomeKeys.JUNGLE, BiomeKeys.SPARSE_JUNGLE),
+                                        MaterialRules.condition(
+                                                MaterialRules.aboveY(YOffset.fixed(60), 0),
+                                                MaterialRules.condition(
+                                                        MaterialRules.not(MaterialRules.aboveY(YOffset.fixed(64), 0)),
+                                                        MaterialRules.condition(MaterialRules.noiseThreshold(NoiseParametersKeys.SOUL_SAND_LAYER, 0.0), SAND)
+                                                )
+                                        )
+                                )
+                        )
+                ), materialRule)));
     }
 }
+//6217428885497005581

@@ -31,7 +31,9 @@ public final class RegisterItems {
     public static final Item CYPRESS_SIGN = new SignItem(new FabricItemSettings().group(ItemGroup.DECORATIONS).maxCount(16),
             RegisterBlocks.CYPRESS_SIGN_BLOCK, RegisterBlocks.CYPRESS_WALL_SIGN);
 
-    public static final Item BAOBAB_NUT = new BlockItem(RegisterBlocks.BAOBAB_NUT, (new Item.Settings()).group(ItemGroup.DECORATIONS).food(FoodComponents.SWEET_BERRIES));
+    public static final Item BAOBAB_NUT = new BlockItem(RegisterBlocks.BAOBAB_NUT, (new Item.Settings()).group(ItemGroup.DECORATIONS).food(RegisterFood.BAOBAB_NUT));
+    public static final Item PRICKLY_PEAR = new Item((new Item.Settings()).group(ItemGroup.FOOD).food(RegisterFood.PRICKLY_PEAR));
+    public static final Item PEELED_PRICKLY_PEAR = new Item((new Item.Settings()).group(ItemGroup.FOOD).food(FoodComponents.APPLE));
 
     public static final Item FIREFLY_BOTTLE = new FireflyBottle(new FabricItemSettings().group(ItemGroup.MISC).maxCount(32), "on");
 
@@ -89,6 +91,8 @@ public final class RegisterItems {
         Registry.register(Registry.INSTRUMENT, TROMBONE_COPPER_HORN, new Instrument(RegisterSounds.ITEM_COPPER_HORN_TROMBONE_LOOP, 32767, 64.0F));
 
         Registry.register(Registry.ITEM, WilderWild.id("baobab_nut"), BAOBAB_NUT);
+        Registry.register(Registry.ITEM, WilderWild.id("prickly_pear"), PRICKLY_PEAR);
+        Registry.register(Registry.ITEM, WilderWild.id("peeled_prickly_pear"), PEELED_PRICKLY_PEAR);
 
         Registry.register(Registry.ITEM, WilderWild.id("firefly_bottle"), FIREFLY_BOTTLE);
 

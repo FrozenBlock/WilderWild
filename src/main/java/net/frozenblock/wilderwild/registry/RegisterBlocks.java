@@ -216,7 +216,7 @@ public final class RegisterBlocks {
             .build();
 
     public static final Block TERMITE_MOUND = new TermiteMound(FabricBlockSettings.of(Material.WOOD, MapColor.BROWN).strength(0.3F).sounds(RegisterBlockSoundGroups.COARSEDIRT));
-    public static final Block STONE_CHEST = new StoneChestBlock(FabricBlockSettings.copy(Blocks.CHEST).sounds(BlockSoundGroup.DEEPSLATE), () -> RegisterBlockEntities.STONE_CHEST);
+    public static final Block STONE_CHEST = new StoneChestBlock(FabricBlockSettings.copy(Blocks.CHEST).sounds(BlockSoundGroup.DEEPSLATE).strength(35.0f, 12.0f), () -> RegisterBlockEntities.STONE_CHEST);
 
     // PLANTS
     public static final Block SEEDING_DANDELION = new SeedingDandelionBlock(StatusEffects.SLOW_FALLING, 12, FabricBlockSettings.copy(Blocks.DANDELION).sounds(BlockSoundGroup.SPORE_BLOSSOM).strength(0.0F).nonOpaque());
@@ -296,7 +296,7 @@ public final class RegisterBlocks {
 
     public static final Block NULL_BLOCK = new Block(FabricBlockSettings.copyOf(Blocks.STONE).sounds(RegisterBlockSoundGroups.NULL_BLOCK)); // B) -merp
 
-    public static final Block FIREFLY_LANTERN = new FireflyLanternBlock(FabricBlockSettings.of(Material.METAL).strength(3.5f).sounds(BlockSoundGroup.LANTERN).nonOpaque().luminance((state) -> state.get(RegisterProperties.FIREFLIES) * 3));
+    public static final Block FIREFLY_LANTERN = new FireflyLanternBlock(FabricBlockSettings.of(Material.METAL).strength(3.5f).sounds(BlockSoundGroup.LANTERN).nonOpaque().luminance((state) -> state.get(RegisterProperties.LIGHT)));
 
     public static void register1_1() {
         registerBlock("firefly_lantern", FIREFLY_LANTERN, ItemGroup.DECORATIONS);

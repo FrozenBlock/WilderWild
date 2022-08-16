@@ -18,10 +18,7 @@ import net.minecraft.entity.ai.pathing.NavigationType;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.fluid.FluidState;
 import net.minecraft.fluid.Fluids;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemPlacementContext;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
+import net.minecraft.item.*;
 import net.minecraft.loot.LootTable;
 import net.minecraft.loot.LootTables;
 import net.minecraft.loot.context.LootContext;
@@ -60,13 +57,13 @@ public class FireflyLanternBlock extends BlockWithEntity implements Waterloggabl
 
     public static final BooleanProperty WATERLOGGED = Properties.WATERLOGGED;
     public static final BooleanProperty HANGING = Properties.HANGING;
-    public static final IntProperty FIREFLIES = RegisterProperties.FIREFLIES;
+    public static final IntProperty LIGHT = RegisterProperties.LIGHT;
     protected static final VoxelShape STANDING_SHAPE = VoxelShapes.union(Block.createCuboidShape(5.0D, 0.0D, 5.0D, 11.0D, 7.0D, 11.0D), Block.createCuboidShape(6.0D, 7.0D, 6.0D, 10.0D, 8.0D, 10.0D));
     protected static final VoxelShape HANGING_SHAPE = VoxelShapes.union(Block.createCuboidShape(5.0D, 2.0D, 5.0D, 11.0D, 9.0D, 11.0D), Block.createCuboidShape(6.0D, 9.0D, 6.0D, 10.0D, 10.0D, 10.0D));
 
     public FireflyLanternBlock(Settings settings) {
         super(settings);
-        this.setDefaultState(this.stateManager.getDefaultState().with(HANGING, false).with(WATERLOGGED, false).with(FIREFLIES, 0));
+        this.setDefaultState(this.stateManager.getDefaultState().with(HANGING, false).with(WATERLOGGED, false).with(LIGHT, 0));
     }
 
     @Override
@@ -89,7 +86,7 @@ public class FireflyLanternBlock extends BlockWithEntity implements Waterloggabl
                             player.getStackInHand(hand).decrement(1);
                         }
                         player.getInventory().offerOrDrop(new ItemStack(Items.GLASS_BOTTLE));
-                        world.setBlockState(pos, state.with(FIREFLIES, MathHelper.clamp(lantern.getFireflies().size(), 0, 4)));
+                        world.setBlockState(pos, state.with(LIGHT, MathHelper.clamp(lantern.getFireflies().size() * 3, 0, 15)));
                         world.playSound(null, pos, RegisterSounds.ITEM_BOTTLE_PUT_IN_LANTERN_FIREFLY, SoundCategory.BLOCKS, 1.0F, world.random.nextFloat() * 0.2f + 0.9f);
                         lantern.updateSync();
                         return ActionResult.SUCCESS;
@@ -113,12 +110,19 @@ public class FireflyLanternBlock extends BlockWithEntity implements Waterloggabl
                         }
                         player.getInventory().offerOrDrop(bottleStack);
                         ((FireflyLanternBlockEntity) entity).removeFirefly(fireflyInLantern);
-                        world.setBlockState(pos, state.with(FIREFLIES, MathHelper.clamp(lantern.getFireflies().size(), 0, 4)));
+                        world.setBlockState(pos, state.with(LIGHT, MathHelper.clamp(lantern.getFireflies().size() * 3, 0, 15)));
                         lantern.updateSync();
                         return ActionResult.SUCCESS;
                     }
                 }
                 if (!stack.isEmpty() && lantern.noFireflies()) {
+                    int light = 0;
+                    if (stack.getItem() instanceof BlockItem blockItem) {
+                        light = blockItem.getBlock().getDefaultState().getLuminance();
+                    } else if (stack.hasEnchantments()) {
+                        light = (int) Math.round(stack.getEnchantments().size() * 0.5);
+                    }
+                    world.setBlockState(pos, state.with(LIGHT, MathHelper.clamp(light, 0, 15)));
                     lantern.inventory.set(0, stack.split(1));
                     lantern.updateSync();
                     return ActionResult.SUCCESS;
@@ -129,6 +133,7 @@ public class FireflyLanternBlock extends BlockWithEntity implements Waterloggabl
                     dropStack(world, pos, stack1.get());
                     lantern.inventory.clear();
                     lantern.updateSync();
+                    world.setBlockState(pos, state.with(LIGHT, 0));
                     return ActionResult.SUCCESS;
                 }
             }
@@ -161,7 +166,7 @@ public class FireflyLanternBlock extends BlockWithEntity implements Waterloggabl
 
     @Override
     protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
-        builder.add(HANGING, WATERLOGGED, FIREFLIES);
+        builder.add(HANGING, WATERLOGGED, LIGHT);
     }
 
     @Override
