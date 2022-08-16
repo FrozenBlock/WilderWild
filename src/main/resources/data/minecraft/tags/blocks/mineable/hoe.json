@@ -1,7 +1,6 @@
 {
   "replace": false,
   "values": [
-    "minecraft:cactus",
     "minecraft:sweet_berry_bush",
     "wilderwild:osseous_sculk",
     "wilderwild:sculk_slab",
