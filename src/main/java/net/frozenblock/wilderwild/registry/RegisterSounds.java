@@ -77,6 +77,7 @@ public final class RegisterSounds {
 
     public static final SoundEvent BLOCK_STONE_CHEST_CLOSE_START = register("block.stone_chest.close_start");
     public static final SoundEvent BLOCK_STONE_CHEST_SLAM = register("block.stone_chest.slam");
+    public static final SoundEvent BLOCK_STONE_CHEST_OPEN_START = register("block.stone_chest.open_start");
     public static final SoundEvent BLOCK_STONE_CHEST_OPEN = register("block.stone_chest.open");
 
     public static final SoundEvent BLOCK_SUGAR_CANE_PLACE = register("block.sugar_cane.place");

@@ -47,25 +47,28 @@ public class StoneChestBlock extends ChestBlock {
                 return ActionResult.FAIL;
             }
             StoneChestBlockEntity stoneEntity = stoneChest.getLeftEntity(world, pos, state, stoneChest);
-            NamedScreenHandlerFactory namedScreenHandlerFactory = this.createScreenHandlerFactory(state, world, pos);
-            if (!hasLid(world, pos) && (!player.isSneaking() || stoneEntity.openProgress >= 0.5F) && namedScreenHandlerFactory != null) {
-                player.openHandledScreen(namedScreenHandlerFactory);
-                player.incrementStat(this.getOpenStat());
-                PiglinBrain.onGuardedBlockInteracted(player, true);
-            } else {
-                if (namedScreenHandlerFactory == null) {
-                    if (stoneEntity.openProgress < 0.05F) {
-                        stoneEntity.openProgress = stoneEntity.openProgress + 0.025F;
-                    } else {
-                        return ActionResult.PASS;
-                    }
+            if (canInteract(world, pos)) {
+                NamedScreenHandlerFactory namedScreenHandlerFactory = this.createScreenHandlerFactory(state, world, pos);
+                if (!hasLid(world, pos) && (!player.isSneaking() || stoneEntity.openProgress >= 0.5F) && namedScreenHandlerFactory != null) {
+                    player.openHandledScreen(namedScreenHandlerFactory);
+                    player.incrementStat(this.getOpenStat());
+                    PiglinBrain.onGuardedBlockInteracted(player, true);
                 } else {
-                    stoneEntity.openProgress = stoneEntity.openProgress + 0.025F;
+                    DoubleBlockProperties.PropertySource<? extends ChestBlockEntity> source = getBlockEntitySourceIgnoreLid(state, world, pos, false);
+                    if (source == null) {
+                        if (stoneEntity.openProgress < 0.05F) {
+                            stoneEntity.openProgress = stoneEntity.openProgress + 0.025F;
+                        } else {
+                            return ActionResult.PASS;
+                        }
+                    } else {
+                        stoneEntity.openProgress = stoneEntity.openProgress + 0.025F;
+                    }
+                    stoneEntity.stillLidTicks = stoneEntity.openProgress < 0.5F ? 60 : 140;
+                    StoneChestBlockEntity.playSound(world, pos, state, stoneEntity.stillLidTicks == 140 ? RegisterSounds.BLOCK_STONE_CHEST_OPEN : RegisterSounds.BLOCK_STONE_CHEST_OPEN_START);
+                    world.emitGameEvent(player, GameEvent.CONTAINER_OPEN, pos);
+                    stoneEntity.updateSync();
                 }
-                stoneEntity.stillLidTicks = (int) (Math.max((stoneEntity.openProgress), 0.5) * 90);
-                StoneChestBlockEntity.playSound(world, pos, state, RegisterSounds.BLOCK_STONE_CHEST_OPEN);
-                world.emitGameEvent(player, GameEvent.CONTAINER_OPEN, pos);
-                stoneEntity.updateSync();
             }
         }
         return ActionResult.CONSUME;
@@ -74,9 +77,33 @@ public class StoneChestBlock extends ChestBlock {
     public static boolean hasLid(World world, BlockPos pos) {
         BlockEntity entity = world.getBlockEntity(pos);
         if (entity instanceof StoneChestBlockEntity stoneChest) {
-            return stoneChest.openProgress < 0.3F || stoneChest.closing || stoneChest.cooldownTicks > 0;
+            return stoneChest.openProgress < 0.3F;
         }
         return false;
+    }
+
+    public static boolean canInteract(World world, BlockPos pos) {
+        BlockEntity entity = world.getBlockEntity(pos);
+        if (entity instanceof StoneChestBlockEntity stoneChest) {
+            return !(stoneChest.closing || stoneChest.cooldownTicks > 0);
+        }
+        return true;
+    }
+
+    public static boolean hasLid(WorldAccess world, BlockPos pos) {
+        BlockEntity entity = world.getBlockEntity(pos);
+        if (entity instanceof StoneChestBlockEntity stoneChest) {
+            return stoneChest.openProgress < 0.3F;
+        }
+        return false;
+    }
+
+    public static boolean canInteract(WorldAccess world, BlockPos pos) {
+        BlockEntity entity = world.getBlockEntity(pos);
+        if (entity instanceof StoneChestBlockEntity stoneChest) {
+            return !(stoneChest.closing || stoneChest.cooldownTicks > 0);
+        }
+        return true;
     }
 
     @Override
@@ -96,12 +123,21 @@ public class StoneChestBlock extends ChestBlock {
         return DoubleBlockProperties.toPropertySource((BlockEntityType)this.entityTypeRetriever.get(), ChestBlock::getDoubleBlockType, ChestBlock::getFacing, FACING, state, world2, pos2, biPredicate);
     }
 
+    public DoubleBlockProperties.PropertySource<? extends ChestBlockEntity> getBlockEntitySourceIgnoreLid(BlockState state, World world2, BlockPos pos2, boolean ignoreBlocked) {
+        BiPredicate<WorldAccess, BlockPos> biPredicate = ignoreBlocked ? (world, pos) -> false : StoneChestBlock::isStoneChestBlockedNoLid;
+        return DoubleBlockProperties.toPropertySource((BlockEntityType)this.entityTypeRetriever.get(), ChestBlock::getDoubleBlockType, ChestBlock::getFacing, FACING, state, world2, pos2, biPredicate);
+    }
+
     public static boolean isStoneChestBlocked(WorldAccess world, BlockPos pos) {
-        BlockEntity entity = world.getBlockEntity(pos);
-        if (entity instanceof StoneChestBlockEntity stoneChest) {
-            if (stoneChest.openProgress < 0.3F || stoneChest.closing | stoneChest.cooldownTicks > 0) {
-                return true;
-            }
+        if (!canInteract(world, pos) || hasLid(world, pos)) {
+            return true;
+        }
+        return hasBlockOnTop(world, pos) || hasCatOnTop(world, pos);
+    }
+
+    public static boolean isStoneChestBlockedNoLid(WorldAccess world, BlockPos pos) {
+        if (!canInteract(world, pos)) {
+            return true;
         }
         return hasBlockOnTop(world, pos) || hasCatOnTop(world, pos);
     }
