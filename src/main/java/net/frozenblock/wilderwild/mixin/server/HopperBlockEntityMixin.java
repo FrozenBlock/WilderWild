@@ -26,26 +26,10 @@ import java.util.List;
 @Mixin(HopperBlockEntity.class)
 public class HopperBlockEntityMixin {
 
-    @Inject(at = @At("TAIL"), method = "canInsert", cancellable = true)
-    private static void canInsert(Inventory inventory, ItemStack stack, int slot, @Nullable Direction side, CallbackInfoReturnable<Boolean> info) {
-        if (inventory instanceof StoneChestBlockEntity) {
-            info.cancel();
-            info.setReturnValue(false);
-        }
-    }
-
-    @Inject(at = @At("TAIL"), method = "canExtract", cancellable = true)
-    private static void canExtract(Inventory inv, ItemStack stack, int slot, Direction facing, CallbackInfoReturnable<Boolean> info) {
-        if (inv instanceof StoneChestBlockEntity) {
-            info.cancel();
-            info.setReturnValue(false);
-        }
-    }
-
     @Inject(at = @At("TAIL"), method = "insert", cancellable = true)
     private static void insert(World world, BlockPos pos, BlockState state, Inventory inventory, CallbackInfoReturnable<Boolean> info) {
         Inventory inventory2 = getOutputInventory(world, pos, state);
-        if (inventory instanceof StoneChestBlockEntity) {
+        if (inventory2 instanceof StoneChestBlockEntity) {
             info.cancel();
             info.setReturnValue(false);
         }
