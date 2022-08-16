@@ -26,7 +26,7 @@ import java.util.List;
 @Mixin(HopperBlockEntity.class)
 public class HopperBlockEntityMixin {
 
-    @Inject(at = @At("TAIL"), method = "insert", cancellable = true)
+    @Inject(at = @At("HEAD"), method = "insert", cancellable = true)
     private static void insert(World world, BlockPos pos, BlockState state, Inventory inventory, CallbackInfoReturnable<Boolean> info) {
         Inventory inventory2 = getOutputInventory(world, pos, state);
         if (inventory2 instanceof StoneChestBlockEntity) {
@@ -35,7 +35,7 @@ public class HopperBlockEntityMixin {
         }
     }
 
-    @Inject(at = @At("TAIL"), method = "extract", cancellable = true)
+    @Inject(at = @At("HEAD"), method = "extract", cancellable = true)
     private static void extract(World world, Hopper hopper, CallbackInfoReturnable<Boolean> info) {
         Inventory inventory = getInputInventory(world, hopper);
         if (inventory instanceof StoneChestBlockEntity) {
@@ -44,7 +44,7 @@ public class HopperBlockEntityMixin {
         }
     }
 
-    @Inject(at = @At("TAIL"), method = "getInventoryAt(Lnet/minecraft/world/World;DDD)Lnet/minecraft/inventory/Inventory;", cancellable = true)
+    @Inject(at = @At("HEAD"), method = "getInventoryAt(Lnet/minecraft/world/World;DDD)Lnet/minecraft/inventory/Inventory;", cancellable = true)
     private static void getInventoryAt(World world, double x, double y, double z, CallbackInfoReturnable<Inventory> info) {
         if (world.getBlockEntity(new BlockPos(x, y, z)) instanceof StoneChestBlockEntity) {
             info.setReturnValue(null);
