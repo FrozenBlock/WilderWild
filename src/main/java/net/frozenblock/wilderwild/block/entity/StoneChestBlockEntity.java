@@ -150,8 +150,11 @@ public class StoneChestBlockEntity extends ChestBlockEntity {
         return false;
     }
 
-    public boolean canPlayerUse(PlayerEntity var1) {
-        return (!this.closing && this.openProgress <= 0 && this.cooldownTicks <= 0) || !this.hasLid;
+    public boolean canPlayerUse(PlayerEntity player) {
+        if (this.world.getBlockEntity(this.pos) != this) {
+            return false;
+        }
+        return (player.squaredDistanceTo((double)this.pos.getX() + 0.5, (double)this.pos.getY() + 0.5, (double)this.pos.getZ() + 0.5) > 64.0) && ((!this.closing && this.openProgress <= 0 && this.cooldownTicks <= 0) || !this.hasLid);
     }
 
     public void syncLidValues(World world, BlockPos pos, BlockState state) {
