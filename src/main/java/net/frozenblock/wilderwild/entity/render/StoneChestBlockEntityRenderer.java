@@ -83,7 +83,7 @@ public class StoneChestBlockEntityRenderer<T extends StoneChestBlockEntity & Lid
         BlockState blockState = bl ? entity.getCachedState() : Blocks.CHEST.getDefaultState().with(StoneChestBlock.FACING, Direction.SOUTH);
         ChestType chestType = blockState.contains(StoneChestBlock.CHEST_TYPE) ? blockState.get(StoneChestBlock.CHEST_TYPE) : ChestType.SINGLE;
         Block block = blockState.getBlock();
-        if (block instanceof StoneChestBlock abstractStoneChestBlock) {
+        if (block instanceof AbstractChestBlock<?> abstractStoneChestBlock) {
             boolean bl2 = chestType != ChestType.SINGLE;
             matrices.push();
             float f = blockState.get(StoneChestBlock.FACING).asRotation();
@@ -92,7 +92,7 @@ public class StoneChestBlockEntityRenderer<T extends StoneChestBlockEntity & Lid
             matrices.translate(-0.5, -0.5, -0.5);
             DoubleBlockProperties.PropertySource<? extends ChestBlockEntity> propertySource;
             if (bl) {
-                propertySource = abstractStoneChestBlock.getBlockEntitySourceIgnoreLid(blockState, world, entity.getPos(), true);
+                propertySource = abstractStoneChestBlock.getBlockEntitySource(blockState, world, entity.getPos(), true);
             } else {
                 propertySource = DoubleBlockProperties.PropertyRetriever::getFallback;
             }
