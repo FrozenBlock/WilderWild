@@ -14,7 +14,12 @@ import net.minecraft.block.entity.ChestBlockEntity;
 import net.minecraft.entity.mob.PiglinBrain;
 import net.minecraft.entity.passive.CatEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.PlayerInventory;
+import net.minecraft.inventory.DoubleInventory;
+import net.minecraft.screen.GenericContainerScreenHandler;
 import net.minecraft.screen.NamedScreenHandlerFactory;
+import net.minecraft.screen.ScreenHandler;
+import net.minecraft.text.Text;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.hit.BlockHitResult;
@@ -27,6 +32,7 @@ import net.minecraft.world.event.GameEvent;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.function.BiPredicate;
 import java.util.function.Supplier;
 
@@ -53,9 +59,10 @@ public class StoneChestBlock extends ChestBlock {
                     player.openHandledScreen(namedScreenHandlerFactory);
                     player.incrementStat(this.getOpenStat());
                     PiglinBrain.onGuardedBlockInteracted(player, true);
-                } else {
-                    DoubleBlockProperties.PropertySource<? extends ChestBlockEntity> source = getBlockEntitySourceIgnoreLid(state, world, pos, false);
-                    if (source == null) {
+                } else if (stoneEntity.openProgress < 0.5F) {
+                    NamedScreenHandlerFactory lidCheck = (NamedScreenHandlerFactory)((Optional)this.getBlockEntitySourceIgnoreLid(state, world, pos, false).apply(STONE_NAME_RETRIEVER)).orElse(null);
+                    boolean first = stoneEntity.openProgress == 0F;
+                    if (lidCheck == null) {
                         if (stoneEntity.openProgress < 0.05F) {
                             stoneEntity.openProgress = stoneEntity.openProgress + 0.025F;
                         } else {
@@ -64,8 +71,8 @@ public class StoneChestBlock extends ChestBlock {
                     } else {
                         stoneEntity.openProgress = stoneEntity.openProgress + 0.025F;
                     }
-                    stoneEntity.stillLidTicks = stoneEntity.openProgress < 0.5F ? 60 : 140;
-                    StoneChestBlockEntity.playSound(world, pos, state, stoneEntity.stillLidTicks == 140 ? RegisterSounds.BLOCK_STONE_CHEST_OPEN : RegisterSounds.BLOCK_STONE_CHEST_OPEN_START);
+                    stoneEntity.stillLidTicks = (int) (Math.max((stoneEntity.openProgress), 0.2) * 120);
+                    StoneChestBlockEntity.playSound(world, pos, state, first ? RegisterSounds.BLOCK_STONE_CHEST_OPEN : RegisterSounds.BLOCK_STONE_CHEST_LIFT);
                     world.emitGameEvent(player, GameEvent.CONTAINER_OPEN, pos);
                     stoneEntity.updateSync();
                 }
@@ -117,6 +124,11 @@ public class StoneChestBlock extends ChestBlock {
         return world.isClient ? BlockWithEntity.checkType(type, RegisterBlockEntities.STONE_CHEST, StoneChestBlockEntity::clientStoneTick) : BlockWithEntity.checkType(type, RegisterBlockEntities.STONE_CHEST, StoneChestBlockEntity::serverStoneTick);
     }
 
+    @Nullable
+    public NamedScreenHandlerFactory createScreenHandlerFactory(BlockState state, World world, BlockPos pos) {
+        return (NamedScreenHandlerFactory)((Optional)this.getBlockEntitySource(state, world, pos, false).apply(STONE_NAME_RETRIEVER)).orElse(null);
+    }
+
     @Override
     public DoubleBlockProperties.PropertySource<? extends ChestBlockEntity> getBlockEntitySource(BlockState state, World world2, BlockPos pos2, boolean ignoreBlocked) {
         BiPredicate<WorldAccess, BlockPos> biPredicate = ignoreBlocked ? (world, pos) -> false : StoneChestBlock::isStoneChestBlocked;
@@ -128,18 +140,59 @@ public class StoneChestBlock extends ChestBlock {
         return DoubleBlockProperties.toPropertySource((BlockEntityType)this.entityTypeRetriever.get(), ChestBlock::getDoubleBlockType, ChestBlock::getFacing, FACING, state, world2, pos2, biPredicate);
     }
 
+    public static final DoubleBlockProperties.PropertyRetriever<ChestBlockEntity, Optional<NamedScreenHandlerFactory>> STONE_NAME_RETRIEVER = new DoubleBlockProperties.PropertyRetriever<>() {
+
+        @Override
+        public Optional<NamedScreenHandlerFactory> getFromBoth(final ChestBlockEntity chestBlockEntity, final ChestBlockEntity chestBlockEntity2) {
+            final DoubleInventory inventory = new DoubleInventory(chestBlockEntity, chestBlockEntity2);
+            return Optional.of(new NamedScreenHandlerFactory() {
+
+                @Override
+                @Nullable
+                public ScreenHandler createMenu(int i, PlayerInventory playerInventory, PlayerEntity playerEntity) {
+                    if (chestBlockEntity.checkUnlocked(playerEntity) && chestBlockEntity2.checkUnlocked(playerEntity)) {
+                        chestBlockEntity.checkLootInteraction(playerInventory.player);
+                        chestBlockEntity2.checkLootInteraction(playerInventory.player);
+                        return GenericContainerScreenHandler.createGeneric9x6(i, playerInventory, inventory);
+                    }
+                    return null;
+                }
+
+                @Override
+                public Text getDisplayName() {
+                    if (chestBlockEntity.hasCustomName()) {
+                        return chestBlockEntity.getDisplayName();
+                    }
+                    if (chestBlockEntity2.hasCustomName()) {
+                        return chestBlockEntity2.getDisplayName();
+                    }
+                    return Text.translatable("container.double_stone_chest");
+                }
+            });
+        }
+
+        @Override
+        public Optional<NamedScreenHandlerFactory> getFrom(ChestBlockEntity chestBlockEntity) {
+            return Optional.of(chestBlockEntity);
+        }
+
+        @Override
+        public Optional<NamedScreenHandlerFactory> getFallback() {
+            return Optional.empty();
+        }
+
+    };
+
+
     public static boolean isStoneChestBlocked(WorldAccess world, BlockPos pos) {
-        if (!canInteract(world, pos) || hasLid(world, pos)) {
+        if (hasLid(world, pos)) {
             return true;
         }
-        return hasBlockOnTop(world, pos) || hasCatOnTop(world, pos);
+        return hasBlockOnTop(world, pos) || hasCatOnTop(world, pos) || !canInteract(world, pos);
     }
 
     public static boolean isStoneChestBlockedNoLid(WorldAccess world, BlockPos pos) {
-        if (!canInteract(world, pos)) {
-            return true;
-        }
-        return hasBlockOnTop(world, pos) || hasCatOnTop(world, pos);
+        return hasBlockOnTop(world, pos) || hasCatOnTop(world, pos) || !canInteract(world, pos);
     }
 
     private static boolean hasBlockOnTop(BlockView world, BlockPos pos) {

@@ -19,6 +19,7 @@ import net.minecraft.screen.GenericContainerScreenHandler;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvent;
+import net.minecraft.text.Text;
 import net.minecraft.util.TypeFilter;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Box;
@@ -83,7 +84,7 @@ public class StoneChestBlockEntity extends ChestBlockEntity {
                 blockEntity.stillLidTicks -= 1;
             } else if (blockEntity.openProgress > 0F) {
                 world.emitGameEvent(null, GameEvent.CONTAINER_CLOSE, pos);
-                blockEntity.openProgress = Math.max(0F, blockEntity.openProgress - 0.035F);
+                blockEntity.openProgress = Math.max(0F, blockEntity.openProgress - 0.0425F);
                 if (!blockEntity.closing) {
                     blockEntity.closing = true;
                     playSound(world, pos, state, RegisterSounds.BLOCK_STONE_CHEST_CLOSE_START);
@@ -99,7 +100,7 @@ public class StoneChestBlockEntity extends ChestBlockEntity {
                     blockEntity.cooldownTicks = 15;
                 }
             }
-            if (isLeft(pos, state)) {
+            if (isLeft(state)) {
                 blockEntity.syncLidValues(world, pos, state);
             }
         }
@@ -116,7 +117,7 @@ public class StoneChestBlockEntity extends ChestBlockEntity {
                 blockEntity.stillLidTicks -= 1;
             } else if (blockEntity.openProgress > 0F) {
                 blockEntity.closing = true;
-                blockEntity.openProgress = Math.max(0F, blockEntity.openProgress - 0.035F);
+                blockEntity.openProgress = Math.max(0F, blockEntity.openProgress - 0.0425F);
                 if (blockEntity.openProgress <= 0F) {
                     blockEntity.closing = false;
                     blockEntity.cooldownTicks = 15;
@@ -128,7 +129,7 @@ public class StoneChestBlockEntity extends ChestBlockEntity {
             ClientMethodInteractionThingy.requestBlockEntitySync(pos, world);
             blockEntity.hasUpdated = true;
         }
-        if (isLeft(pos, state)) {
+        if (isLeft(state)) {
             blockEntity.syncLidValues(world, pos, state);
         }
     }
@@ -204,6 +205,8 @@ public class StoneChestBlockEntity extends ChestBlockEntity {
             Direction direction = ChestBlock.getFacing(state);
             d += direction.getOffsetX();
             f += direction.getOffsetZ();
+        } else {
+            return null;
         }
         BlockPos newPos = new BlockPos(d, e, f);
         BlockEntity be = world.getBlockEntity(newPos);
@@ -238,9 +241,14 @@ public class StoneChestBlockEntity extends ChestBlockEntity {
         return entity;
     }
 
-    public static boolean isLeft(BlockPos pos, BlockState state) {
+    public static boolean isLeft(BlockState state) {
         ChestType chestType = state.get(ChestBlock.CHEST_TYPE);
         return chestType == ChestType.LEFT;
+    }
+
+    @Override
+    protected Text getContainerName() {
+        return Text.translatable("container.stone_chest");
     }
 
     @Override
