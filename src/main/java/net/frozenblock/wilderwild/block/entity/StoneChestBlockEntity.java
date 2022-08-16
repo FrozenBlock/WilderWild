@@ -150,6 +150,10 @@ public class StoneChestBlockEntity extends ChestBlockEntity {
         return false;
     }
 
+    public boolean canPlayerUse(PlayerEntity var1) {
+        return (!this.closing && this.openProgress <= 0 && this.cooldownTicks <= 0) || !this.hasLid;
+    }
+
     public void syncLidValues(World world, BlockPos pos, BlockState state) {
         StoneChestBlockEntity stoneChest = getOtherEntity(world, pos, state);
         if (stoneChest != null) {
