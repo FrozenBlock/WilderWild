@@ -133,6 +133,7 @@ public class FireflyLanternBlock extends BlockWithEntity implements Waterloggabl
                     dropStack(world, pos, stack1.get());
                     lantern.inventory.clear();
                     lantern.updateSync();
+                    world.setBlockState(pos, state.with(LIGHT, 0));
                     return ActionResult.SUCCESS;
                 }
             }
