@@ -83,10 +83,10 @@ public class StoneChestBlockEntity extends ChestBlockEntity {
                 blockEntity.openProgress = Math.max(0F, blockEntity.openProgress - 0.0425F);
                 if (!blockEntity.closing) {
                     blockEntity.closing = true;
-                    playSound(world, pos, state, RegisterSounds.BLOCK_STONE_CHEST_CLOSE_START);
+                    playSound(world, pos, state, RegisterSounds.BLOCK_STONE_CHEST_CLOSE_START, 0.2F);
                 }
                 if (blockEntity.openProgress <= 0F) {
-                    playSound(world, pos, state, RegisterSounds.BLOCK_STONE_CHEST_SLAM);
+                    playSound(world, pos, state, RegisterSounds.BLOCK_STONE_CHEST_SLAM, 0.6F);
                     blockEntity.closing = false;
                     blockEntity.cooldownTicks = 15;
                 }
@@ -270,7 +270,7 @@ public class StoneChestBlockEntity extends ChestBlockEntity {
         }
     };
 
-    public static void playSound(World world, BlockPos pos, BlockState state, SoundEvent soundEvent) {
+    public static void playSound(World world, BlockPos pos, BlockState state, SoundEvent soundEvent, float volume) {
         ChestType chestType = state.get(ChestBlock.CHEST_TYPE);
         double d = (double) pos.getX() + 0.5;
         double e = (double) pos.getY() + 0.5;
@@ -284,7 +284,7 @@ public class StoneChestBlockEntity extends ChestBlockEntity {
             d -= (double) direction.getOffsetX() * 0.5;
             f -= (double) direction.getOffsetZ() * 0.5;
         }
-        world.playSound(null, d, e, f, soundEvent, SoundCategory.BLOCKS, 0.5f, world.random.nextFloat() * 0.1f + 0.9f);
+        world.playSound(null, d, e, f, soundEvent, SoundCategory.BLOCKS, volume, world.random.nextFloat() * 0.1f + 0.9f);
     }
 
 }
