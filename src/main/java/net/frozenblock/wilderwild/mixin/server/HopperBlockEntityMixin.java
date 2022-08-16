@@ -16,7 +16,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 @Mixin(HopperBlockEntity.class)
 public class HopperBlockEntityMixin {
 
-    @Inject(at = @At("TAIL"), method = "canInsert", cancellable = true)
+    /*@Inject(at = @At("TAIL"), method = "canInsert", cancellable = true)
     private static void canInsert(Inventory inventory, ItemStack stack, int slot, @Nullable Direction side, CallbackInfoReturnable<Boolean> info) {
         if (inventory instanceof StoneChestBlockEntity) {
             info.cancel();
@@ -34,11 +34,10 @@ public class HopperBlockEntityMixin {
 
     @Inject(at = @At("HEAD"), method = "getInventoryAt(Lnet/minecraft/world/World;DDD)Lnet/minecraft/inventory/Inventory;", cancellable = true)
     private static void getInventoryAt(World world, double x, double y, double z, CallbackInfoReturnable<Inventory> info) {
-        Inventory inv = info.getReturnValue();
         if (world.getBlockEntity(new BlockPos(x, y, z)) instanceof StoneChestBlockEntity) {
             info.setReturnValue(null);
             info.cancel();
         }
-    }
+    }*/
 
 }
