@@ -129,7 +129,7 @@ public class StoneChestBlockEntity extends ChestBlockEntity {
         if (this.world.getBlockEntity(this.pos) != this) {
             return false;
         }
-        return (player.squaredDistanceTo((double)this.pos.getX() + 0.5, (double)this.pos.getY() + 0.5, (double)this.pos.getZ() + 0.5) > 64.0) && ((!this.closing && this.openProgress >= 0.3 && this.cooldownTicks <= 0) || !this.hasLid);
+        return !(player.squaredDistanceTo((double)this.pos.getX() + 0.5, (double)this.pos.getY() + 0.5, (double)this.pos.getZ() + 0.5) > 64.0) && ((!this.closing && this.openProgress >= 0.3) || !this.hasLid);
     }
 
     public void syncLidValues(World world, BlockPos pos, BlockState state) {
