@@ -55,6 +55,7 @@ public class StoneChestBlock extends ChestBlock {
                     PiglinBrain.onGuardedBlockInteracted(player, true);
                 } else {
                     DoubleBlockProperties.PropertySource<? extends ChestBlockEntity> source = getBlockEntitySourceIgnoreLid(state, world, pos, false);
+                    boolean first = stoneEntity.openProgress == 0F;
                     if (source == null) {
                         if (stoneEntity.openProgress < 0.05F) {
                             stoneEntity.openProgress = stoneEntity.openProgress + 0.025F;
@@ -64,8 +65,8 @@ public class StoneChestBlock extends ChestBlock {
                     } else {
                         stoneEntity.openProgress = stoneEntity.openProgress + 0.025F;
                     }
-                    stoneEntity.stillLidTicks = stoneEntity.openProgress < 0.5F ? 60 : 140;
-                    StoneChestBlockEntity.playSound(world, pos, state, stoneEntity.stillLidTicks == 140 ? RegisterSounds.BLOCK_STONE_CHEST_OPEN : RegisterSounds.BLOCK_STONE_CHEST_OPEN_START);
+                    stoneEntity.stillLidTicks = (int) (Math.max((stoneEntity.openProgress), 0.2) * 120);
+                    StoneChestBlockEntity.playSound(world, pos, state, first ? RegisterSounds.BLOCK_STONE_CHEST_OPEN : RegisterSounds.BLOCK_STONE_CHEST_LIFT);
                     world.emitGameEvent(player, GameEvent.CONTAINER_OPEN, pos);
                     stoneEntity.updateSync();
                 }
@@ -127,6 +128,7 @@ public class StoneChestBlock extends ChestBlock {
         BiPredicate<WorldAccess, BlockPos> biPredicate = ignoreBlocked ? (world, pos) -> false : StoneChestBlock::isStoneChestBlockedNoLid;
         return DoubleBlockProperties.toPropertySource((BlockEntityType)this.entityTypeRetriever.get(), ChestBlock::getDoubleBlockType, ChestBlock::getFacing, FACING, state, world2, pos2, biPredicate);
     }
+
 
     public static boolean isStoneChestBlocked(WorldAccess world, BlockPos pos) {
         if (!canInteract(world, pos) || hasLid(world, pos)) {
