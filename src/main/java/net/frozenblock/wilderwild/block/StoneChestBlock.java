@@ -52,7 +52,6 @@ public class StoneChestBlock extends ChestBlock {
             if (stoneChest.closing) {
                 return ActionResult.FAIL;
             }
-            boolean creative = player.isCreative();
             StoneChestBlockEntity stoneEntity = stoneChest.getLeftEntity(world, pos, state, stoneChest);
             if (canInteract(world, pos)) {
                 NamedScreenHandlerFactory namedScreenHandlerFactory = this.createScreenHandlerFactory(state, world, pos);
@@ -65,12 +64,12 @@ public class StoneChestBlock extends ChestBlock {
                     boolean first = stoneEntity.openProgress == 0F;
                     if (lidCheck == null) {
                         if (stoneEntity.openProgress < 0.05F) {
-                            stoneEntity.openProgress = !creative ? stoneEntity.openProgress + 0.025F : 0.05F;
+                            stoneEntity.openProgress = stoneEntity.openProgress + 0.025F;
                         } else {
                             return ActionResult.PASS;
                         }
                     } else {
-                        stoneEntity.openProgress = !creative ? stoneEntity.openProgress + 0.025F : 0.5F;
+                        stoneEntity.openProgress = stoneEntity.openProgress + 0.025F;
                     }
                     stoneEntity.stillLidTicks = (int) (Math.max((stoneEntity.openProgress), 0.2) * 120);
                     StoneChestBlockEntity.playSound(world, pos, state, first ? RegisterSounds.BLOCK_STONE_CHEST_OPEN : RegisterSounds.BLOCK_STONE_CHEST_LIFT);
