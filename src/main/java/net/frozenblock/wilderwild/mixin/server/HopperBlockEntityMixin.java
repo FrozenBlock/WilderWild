@@ -12,7 +12,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 @Mixin(HopperBlockEntity.class)
 public class HopperBlockEntityMixin {
 
-    @Inject(at = @At("RETURN"), method = "getInventoryAt(Lnet/minecraft/world/World;DDD)V", cancellable = true)
+    @Inject(at = @At("RETURN"), method = "getInventoryAt(Lnet/minecraft/world/World;DDD)Lnet/minecraft/inventory/Inventory;", cancellable = true)
     private static void getInventoryAt(World world, double x, double y, double z, CallbackInfoReturnable<Inventory> info) {
         Inventory inv = info.getReturnValue();
         if (inv != null) {
