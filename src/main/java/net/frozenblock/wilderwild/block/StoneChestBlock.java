@@ -59,10 +59,10 @@ public class StoneChestBlock extends ChestBlock {
                     player.openHandledScreen(namedScreenHandlerFactory);
                     player.incrementStat(this.getOpenStat());
                     PiglinBrain.onGuardedBlockInteracted(player, true);
-                } else {
-                    DoubleBlockProperties.PropertySource<? extends ChestBlockEntity> source = getBlockEntitySourceIgnoreLid(state, world, pos, false);
+                } else if (stoneEntity.openProgress < 0.5F) {
+                    NamedScreenHandlerFactory lidCheck = (NamedScreenHandlerFactory)((Optional)this.getBlockEntitySourceIgnoreLid(state, world, pos, false).apply(STONE_NAME_RETRIEVER)).orElse(null);
                     boolean first = stoneEntity.openProgress == 0F;
-                    if (source == null) {
+                    if (lidCheck == null) {
                         if (stoneEntity.openProgress < 0.05F) {
                             stoneEntity.openProgress = stoneEntity.openProgress + 0.025F;
                         } else {
@@ -126,7 +126,7 @@ public class StoneChestBlock extends ChestBlock {
 
     @Nullable
     public NamedScreenHandlerFactory createScreenHandlerFactory(BlockState state, World world, BlockPos pos) {
-        return (NamedScreenHandlerFactory)((Optional)this.getBlockEntitySource(state, world, pos, false).apply(STONE_NAME_RETRIEVER)).orElse((Object)null);
+        return (NamedScreenHandlerFactory)((Optional)this.getBlockEntitySource(state, world, pos, false).apply(STONE_NAME_RETRIEVER)).orElse(null);
     }
 
     @Override
@@ -140,12 +140,12 @@ public class StoneChestBlock extends ChestBlock {
         return DoubleBlockProperties.toPropertySource((BlockEntityType)this.entityTypeRetriever.get(), ChestBlock::getDoubleBlockType, ChestBlock::getFacing, FACING, state, world2, pos2, biPredicate);
     }
 
-    public static final DoubleBlockProperties.PropertyRetriever<ChestBlockEntity, Optional<NamedScreenHandlerFactory>> STONE_NAME_RETRIEVER = new DoubleBlockProperties.PropertyRetriever<ChestBlockEntity, Optional<NamedScreenHandlerFactory>>(){
+    public static final DoubleBlockProperties.PropertyRetriever<ChestBlockEntity, Optional<NamedScreenHandlerFactory>> STONE_NAME_RETRIEVER = new DoubleBlockProperties.PropertyRetriever<>() {
 
         @Override
         public Optional<NamedScreenHandlerFactory> getFromBoth(final ChestBlockEntity chestBlockEntity, final ChestBlockEntity chestBlockEntity2) {
             final DoubleInventory inventory = new DoubleInventory(chestBlockEntity, chestBlockEntity2);
-            return Optional.of(new NamedScreenHandlerFactory(){
+            return Optional.of(new NamedScreenHandlerFactory() {
 
                 @Override
                 @Nullable
@@ -185,17 +185,14 @@ public class StoneChestBlock extends ChestBlock {
 
 
     public static boolean isStoneChestBlocked(WorldAccess world, BlockPos pos) {
-        if (!canInteract(world, pos) || hasLid(world, pos)) {
+        if (hasLid(world, pos)) {
             return true;
         }
-        return hasBlockOnTop(world, pos) || hasCatOnTop(world, pos);
+        return hasBlockOnTop(world, pos) || hasCatOnTop(world, pos) || !canInteract(world, pos);
     }
 
     public static boolean isStoneChestBlockedNoLid(WorldAccess world, BlockPos pos) {
-        if (!canInteract(world, pos)) {
-            return true;
-        }
-        return hasBlockOnTop(world, pos) || hasCatOnTop(world, pos);
+        return hasBlockOnTop(world, pos) || hasCatOnTop(world, pos) || !canInteract(world, pos);
     }
 
     private static boolean hasBlockOnTop(BlockView world, BlockPos pos) {

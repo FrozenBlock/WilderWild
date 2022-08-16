@@ -205,6 +205,8 @@ public class StoneChestBlockEntity extends ChestBlockEntity {
             Direction direction = ChestBlock.getFacing(state);
             d += direction.getOffsetX();
             f += direction.getOffsetZ();
+        } else {
+            return null;
         }
         BlockPos newPos = new BlockPos(d, e, f);
         BlockEntity be = world.getBlockEntity(newPos);
