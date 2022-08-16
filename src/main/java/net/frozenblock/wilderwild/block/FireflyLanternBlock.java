@@ -18,10 +18,7 @@ import net.minecraft.entity.ai.pathing.NavigationType;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.fluid.FluidState;
 import net.minecraft.fluid.Fluids;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemPlacementContext;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
+import net.minecraft.item.*;
 import net.minecraft.loot.LootTable;
 import net.minecraft.loot.LootTables;
 import net.minecraft.loot.context.LootContext;
@@ -119,6 +116,13 @@ public class FireflyLanternBlock extends BlockWithEntity implements Waterloggabl
                     }
                 }
                 if (!stack.isEmpty() && lantern.noFireflies()) {
+                    int light = 0;
+                    if (stack.getItem() instanceof BlockItem blockItem) {
+                        world.setBlockState(pos, state.with(LIGHT, blockItem.getBlock().getDefaultState().getLuminance()));
+                    } else if (stack.hasEnchantments()) {
+                        light = (int) Math.round(stack.getEnchantments().size() * 0.5);
+                    }
+                    world.setBlockState(pos, state.with(LIGHT, MathHelper.clamp(light, 0, 15)));
                     lantern.inventory.set(0, stack.split(1));
                     lantern.updateSync();
                     return ActionResult.SUCCESS;
