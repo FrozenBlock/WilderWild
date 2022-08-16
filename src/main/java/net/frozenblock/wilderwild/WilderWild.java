@@ -38,9 +38,9 @@ import net.minecraft.world.gen.ProbabilityConfig;
 import net.minecraft.world.gen.feature.Feature;
 import net.minecraft.world.gen.trunk.TrunkPlacer;
 import net.minecraft.world.gen.trunk.TrunkPlacerType;
-import org.quiltmc.qsl.datafixerupper.api.QuiltDataFixerBuilder;
-import org.quiltmc.qsl.datafixerupper.api.QuiltDataFixes;
-import org.quiltmc.qsl.datafixerupper.api.SimpleFixes;
+import net.frozenblock.api.org.quiltmc.qsl.datafixerupper.api.QuiltDataFixerBuilder;
+import net.frozenblock.api.org.quiltmc.qsl.datafixerupper.api.QuiltDataFixes;
+import net.frozenblock.api.org.quiltmc.qsl.datafixerupper.api.SimpleFixes;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
