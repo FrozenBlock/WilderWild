@@ -88,11 +88,6 @@ public class StoneChestBlockEntity extends ChestBlockEntity {
                 if (!blockEntity.closing) {
                     blockEntity.closing = true;
                     playSound(world, pos, state, RegisterSounds.BLOCK_STONE_CHEST_CLOSE_START);
-                    for (PlayerEntity player : blockEntity.getInRangeViewers(world, pos)) {
-                        if (player instanceof ServerPlayerEntity serverPlayer) {
-                            serverPlayer.closeHandledScreen();
-                        }
-                    }
                 }
                 if (blockEntity.openProgress <= 0F) {
                     playSound(world, pos, state, RegisterSounds.BLOCK_STONE_CHEST_SLAM);
@@ -134,20 +129,11 @@ public class StoneChestBlockEntity extends ChestBlockEntity {
         }
     }
 
-    public List<PlayerEntity> getInRangeViewers(World world, BlockPos pos) {
-        int i = pos.getX();
-        int j = pos.getY();
-        int k = pos.getZ();
-        Box box = new Box((float) i - 5.0f, (float) j - 5.0f, (float) k - 5.0f, (float) (i + 1) + 5.0f, (float) (j + 1) + 5.0f, (float) (k + 1) + 5.0f);
-        return world.getEntitiesByType(TypeFilter.instanceOf(PlayerEntity.class), box, this::isPlayerViewing);
-    }
-
-    public boolean isPlayerViewing(PlayerEntity player) {
-        if (player.currentScreenHandler instanceof GenericContainerScreenHandler) {
-            Inventory inventory = ((GenericContainerScreenHandler) player.currentScreenHandler).getInventory();
-            return inventory == StoneChestBlockEntity.this || inventory instanceof DoubleInventory && ((DoubleInventory) inventory).isPart(StoneChestBlockEntity.this);
+    public boolean canPlayerUse(PlayerEntity player) {
+        if (this.world.getBlockEntity(this.pos) != this) {
+            return false;
         }
-        return false;
+        return (player.squaredDistanceTo((double)this.pos.getX() + 0.5, (double)this.pos.getY() + 0.5, (double)this.pos.getZ() + 0.5) > 64.0) && ((!this.closing && this.openProgress <= 0 && this.cooldownTicks <= 0) || !this.hasLid);
     }
 
     public void syncLidValues(World world, BlockPos pos, BlockState state) {
