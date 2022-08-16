@@ -166,7 +166,7 @@ public class StoneChestBlock extends ChestBlock {
                     if (chestBlockEntity2.hasCustomName()) {
                         return chestBlockEntity2.getDisplayName();
                     }
-                    return Text.translatable("container.stoneChestDouble");
+                    return Text.translatable("container.double_stone_chest");
                 }
             });
         }
