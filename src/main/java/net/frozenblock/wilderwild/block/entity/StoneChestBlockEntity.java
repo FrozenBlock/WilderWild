@@ -19,6 +19,7 @@ import net.minecraft.screen.GenericContainerScreenHandler;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvent;
+import net.minecraft.text.Text;
 import net.minecraft.util.TypeFilter;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Box;
@@ -99,7 +100,7 @@ public class StoneChestBlockEntity extends ChestBlockEntity {
                     blockEntity.cooldownTicks = 15;
                 }
             }
-            if (isLeft(pos, state)) {
+            if (isLeft(state)) {
                 blockEntity.syncLidValues(world, pos, state);
             }
         }
@@ -128,7 +129,7 @@ public class StoneChestBlockEntity extends ChestBlockEntity {
             ClientMethodInteractionThingy.requestBlockEntitySync(pos, world);
             blockEntity.hasUpdated = true;
         }
-        if (isLeft(pos, state)) {
+        if (isLeft(state)) {
             blockEntity.syncLidValues(world, pos, state);
         }
     }
@@ -238,9 +239,14 @@ public class StoneChestBlockEntity extends ChestBlockEntity {
         return entity;
     }
 
-    public static boolean isLeft(BlockPos pos, BlockState state) {
+    public static boolean isLeft(BlockState state) {
         ChestType chestType = state.get(ChestBlock.CHEST_TYPE);
         return chestType == ChestType.LEFT;
+    }
+
+    @Override
+    protected Text getContainerName() {
+        return Text.translatable("container.stone_chest");
     }
 
     @Override
