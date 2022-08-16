@@ -83,7 +83,7 @@ public class StoneChestBlockEntity extends ChestBlockEntity {
                 blockEntity.stillLidTicks -= 1;
             } else if (blockEntity.openProgress > 0F) {
                 world.emitGameEvent(null, GameEvent.CONTAINER_CLOSE, pos);
-                blockEntity.openProgress = Math.max(0F, blockEntity.openProgress - 0.035F);
+                blockEntity.openProgress = Math.max(0F, blockEntity.openProgress - 0.0425F);
                 if (!blockEntity.closing) {
                     blockEntity.closing = true;
                     playSound(world, pos, state, RegisterSounds.BLOCK_STONE_CHEST_CLOSE_START);
@@ -116,7 +116,7 @@ public class StoneChestBlockEntity extends ChestBlockEntity {
                 blockEntity.stillLidTicks -= 1;
             } else if (blockEntity.openProgress > 0F) {
                 blockEntity.closing = true;
-                blockEntity.openProgress = Math.max(0F, blockEntity.openProgress - 0.035F);
+                blockEntity.openProgress = Math.max(0F, blockEntity.openProgress - 0.0425F);
                 if (blockEntity.openProgress <= 0F) {
                     blockEntity.closing = false;
                     blockEntity.cooldownTicks = 15;
