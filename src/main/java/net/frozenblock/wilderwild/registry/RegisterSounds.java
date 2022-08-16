@@ -147,6 +147,15 @@ public final class RegisterSounds {
     public static final SoundEvent ITEM_COPPER_HORN_OBOE_START = register("item.copper_horn.oboe.start");
     public static final SoundEvent ITEM_COPPER_HORN_OBOE_LOOP = register("item.copper_horn.oboe.loop");
 
+    public static final SoundEvent ITEM_COPPER_HORN_CLARINET_START = register("item.copper_horn.clarinet.start");
+    public static final SoundEvent ITEM_COPPER_HORN_CLARINET_LOOP = register("item.copper_horn.clarinet.loop");
+
+    public static final SoundEvent ITEM_COPPER_HORN_TRUMPET_START = register("item.copper_horn.trumpet.start");
+    public static final SoundEvent ITEM_COPPER_HORN_TRUMPET_LOOP = register("item.copper_horn.trumpet.loop");
+
+    public static final SoundEvent ITEM_COPPER_HORN_TROMBONE_START = register("item.copper_horn.trombone.start");
+    public static final SoundEvent ITEM_COPPER_HORN_TROMBONE_LOOP = register("item.copper_horn.trombone.loop");
+
     public static final SoundEvent ANCIENT_HORN_CALL = register("item.ancient_horn.call");
     public static final SoundEvent ANCIENT_HORN_BLAST = register("item.ancient_horn.blast");
     public static final SoundEvent ANCIENT_HORN_PROJECTILE_LOOP = register("entity.ancient_horn_projectile.loop");
