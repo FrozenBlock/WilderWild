@@ -6,13 +6,13 @@ import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.entity.render.OsmioooWardenFeatureRenderer;
 import net.frozenblock.wilderwild.entity.render.WilderWardenModel;
 import net.frozenblock.wilderwild.entity.render.animations.WilderWarden;
-import net.minecraft.client.model.WardenModel;
-import net.minecraft.client.renderer.entity.EntityRendererProvider;
-import net.minecraft.client.renderer.entity.MobRenderer;
-import net.minecraft.client.renderer.entity.WardenRenderer;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.util.Mth;
-import net.minecraft.world.entity.monster.warden.Warden;
+import net.minecraft.client.render.entity.EntityRendererFactory;
+import net.minecraft.client.render.entity.MobEntityRenderer;
+import net.minecraft.client.render.entity.WardenEntityRenderer;
+import net.minecraft.client.render.entity.model.WardenEntityModel;
+import net.minecraft.entity.mob.WardenEntity;
+import net.minecraft.util.Identifier;
+import net.minecraft.util.math.MathHelper;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -20,55 +20,55 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Environment(EnvType.CLIENT)
-@Mixin(WardenRenderer.class)
-public abstract class OsmioooWardenRenderer extends MobRenderer<Warden, WardenModel<Warden>> {
+@Mixin(WardenEntityRenderer.class)
+public abstract class OsmioooWardenRenderer extends MobEntityRenderer<WardenEntity, WardenEntityModel<WardenEntity>> {
 
-    private static final ResourceLocation OSMIOOO_TEXTURE = WilderWild.id("textures/entity/warden/osmiooo_warden.png");
-    private static final ResourceLocation OSMIOOO_BIOLUMINESCENT_LAYER_TEXTURE = WilderWild.id("textures/entity/warden/osmiooo_warden_bioluminescent_overlay.png");
-    private static final ResourceLocation OSMIOOO_HEART_TEXTURE = WilderWild.id("textures/entity/warden/osmiooo_warden_heart.png");
-    private static final ResourceLocation OSMIOOO_TENDRILS_TEXTURE = WilderWild.id("textures/entity/warden/osmiooo_warden_tendrils.png");
-    private static final ResourceLocation OSMIOOO_PULSATING_SPOTS_1_TEXTURE = WilderWild.id("textures/entity/warden/osmiooo_warden_pulsating_spots_1.png");
-    private static final ResourceLocation OSMIOOO_PULSATING_SPOTS_2_TEXTURE = WilderWild.id("textures/entity/warden/osmiooo_warden_pulsating_spots_2.png");
+    private static final Identifier OSMIOOO_TEXTURE = WilderWild.id("textures/entity/warden/osmiooo_warden.png");
+    private static final Identifier OSMIOOO_BIOLUMINESCENT_LAYER_TEXTURE = WilderWild.id("textures/entity/warden/osmiooo_warden_bioluminescent_overlay.png");
+    private static final Identifier OSMIOOO_HEART_TEXTURE = WilderWild.id("textures/entity/warden/osmiooo_warden_heart.png");
+    private static final Identifier OSMIOOO_TENDRILS_TEXTURE = WilderWild.id("textures/entity/warden/osmiooo_warden_tendrils.png");
+    private static final Identifier OSMIOOO_PULSATING_SPOTS_1_TEXTURE = WilderWild.id("textures/entity/warden/osmiooo_warden_pulsating_spots_1.png");
+    private static final Identifier OSMIOOO_PULSATING_SPOTS_2_TEXTURE = WilderWild.id("textures/entity/warden/osmiooo_warden_pulsating_spots_2.png");
 
-    public OsmioooWardenRenderer(EntityRendererProvider.Context context, WardenModel<Warden> entityModel, float f) {
+    public OsmioooWardenRenderer(EntityRendererFactory.Context context, WardenEntityModel<WardenEntity> entityModel, float f) {
         super(context, entityModel, f);
     }
 
     @Inject(method = "<init>", at = @At("TAIL"))
-    private void WardenEntity(EntityRendererProvider.Context context, CallbackInfo ci) {
-        this.addLayer(
-                new OsmioooWardenFeatureRenderer<>(this, OSMIOOO_BIOLUMINESCENT_LAYER_TEXTURE, (warden, tickDelta, animationProgress) -> 1.0F, WardenModel::getBioluminescentLayerModelParts)
+    private void WardenEntity(EntityRendererFactory.Context context, CallbackInfo ci) {
+        this.addFeature(
+                new OsmioooWardenFeatureRenderer<>(this, OSMIOOO_BIOLUMINESCENT_LAYER_TEXTURE, (warden, tickDelta, animationProgress) -> 1.0F, WardenEntityModel::getHeadAndLimbs)
         );
-        this.addLayer(
+        this.addFeature(
                 new OsmioooWardenFeatureRenderer<>(
                         this,
                         OSMIOOO_PULSATING_SPOTS_1_TEXTURE,
-                        (warden, tickDelta, animationProgress) -> Math.max(0.0F, Mth.cos(animationProgress * 0.045F) * 0.25F),
-                        WardenModel::getPulsatingSpotsLayerModelParts
+                        (warden, tickDelta, animationProgress) -> Math.max(0.0F, MathHelper.cos(animationProgress * 0.045F) * 0.25F),
+                        WardenEntityModel::getBodyHeadAndLimbs
                 )
         );
-        this.addLayer(
+        this.addFeature(
                 new OsmioooWardenFeatureRenderer<>(
                         this,
                         OSMIOOO_PULSATING_SPOTS_2_TEXTURE,
-                        (warden, tickDelta, animationProgress) -> Math.max(0.0F, Mth.cos(animationProgress * 0.045F + (float) Math.PI) * 0.25F),
-                        WardenModel::getPulsatingSpotsLayerModelParts
+                        (warden, tickDelta, animationProgress) -> Math.max(0.0F, MathHelper.cos(animationProgress * 0.045F + (float) Math.PI) * 0.25F),
+                        WardenEntityModel::getBodyHeadAndLimbs
                 )
         );
-        this.addLayer(
+        this.addFeature(
                 new OsmioooWardenFeatureRenderer<>(
-                        this, OSMIOOO_TENDRILS_TEXTURE, (warden, tickDelta, animationProgress) -> warden.getTendrilAnimation(tickDelta), model -> ((WilderWardenModel) model).getHeadAndTendrils()
+                        this, OSMIOOO_TENDRILS_TEXTURE, (warden, tickDelta, animationProgress) -> warden.getTendrilPitch(tickDelta), model -> ((WilderWardenModel) model).getHeadAndTendrils()
                 )
         );
-        this.addLayer(
+        this.addFeature(
                 new OsmioooWardenFeatureRenderer<>(
-                        this, OSMIOOO_HEART_TEXTURE, (warden, tickDelta, animationProgress) -> warden.getHeartAnimation(tickDelta), WardenModel::getHeartLayerModelParts
+                        this, OSMIOOO_HEART_TEXTURE, (warden, tickDelta, animationProgress) -> warden.getHeartPitch(tickDelta), WardenEntityModel::getBody
                 )
         );
     }
 
-    @Inject(method = "getTextureLocation(Lnet/minecraft/world/entity/monster/warden/Warden;)Lnet/minecraft/resources/ResourceLocation;", at = @At("HEAD"), cancellable = true)
-    public void getTextureLocation(Warden wardenEntity, CallbackInfoReturnable<ResourceLocation> cir) {
+    @Inject(method = "getTexture(Lnet/minecraft/entity/mob/WardenEntity;)Lnet/minecraft/util/Identifier;", at = @At("HEAD"), cancellable = true)
+    public void getTexture(WardenEntity wardenEntity, CallbackInfoReturnable<Identifier> cir) {
         if (((WilderWarden) wardenEntity).isOsmiooo()) {
             cir.setReturnValue(OSMIOOO_TEXTURE);
         }

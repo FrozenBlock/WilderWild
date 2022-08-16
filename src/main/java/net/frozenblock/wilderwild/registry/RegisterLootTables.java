@@ -8,7 +8,7 @@ import net.minecraft.world.level.storage.loot.entries.LootItem;
 import net.minecraft.world.level.storage.loot.functions.SetItemCountFunction;
 import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
 
-public class RegisterLootTables {
+public final class RegisterLootTables {
 
     public static void init() {
         //ANCIENT HORN

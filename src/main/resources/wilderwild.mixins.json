@@ -3,7 +3,6 @@
   "minVersion": "0.8",
   "package": "net.frozenblock.wilderwild.mixin",
   "compatibilityLevel": "JAVA_17",
-  "plugin": "net.frozenblock.wilderwild.mixin.WilderMixinPlugin",
   "mixins": [
 	"server.BlockEntityTypeMixin",
 	"server.BlockMixin",
@@ -27,9 +26,11 @@
 	"server.SpawnRestrictionMixin",
 	"server.WardenBrainMixin",
 	"server.WardenEntityMixin",
-	"server.WilderIDReplacerMixin",
+	"worldgen.BirchSaplingGeneratorMixin",
 	"worldgen.DefaultBiomeFeaturesMixin",
 	"worldgen.GenerationSettingsBuilderMixin",
+	"worldgen.OakSaplingGeneratorMixin",
+	"worldgen.SpruceSaplingGeneratorMixin",
 	"worldgen.SwampHutMixin",
 	"worldgen.VanillaBiomeParametersMixin",
 	"worldgen.VanillaSurfaceRulesMixin"

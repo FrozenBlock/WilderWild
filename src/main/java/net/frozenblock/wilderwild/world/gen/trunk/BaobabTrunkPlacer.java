@@ -57,25 +57,29 @@ public class BaobabTrunkPlacer extends TrunkPlacer {
                             setDirtAt(world, replacer, random, new BlockPos(startPos.getX() + x - 1, startPos.getY() - 1, startPos.getZ() + z), config);
                             setDirtAt(world, replacer, random, new BlockPos(startPos.getX() + x - 1, startPos.getY() - 1, startPos.getZ() + z), config);
                             for (int h = 0; h <= height / 3; h++) {
-                                if (x == -2) {
-                                    setLog(world, replacer, random, mutable, config, startPos, x - 1, h, z);
-                                } else if (x == 3) {
-                                    setLog(world, replacer, random, mutable, config, startPos, x + 1, h, z);
-                                } else if (z == -2) {
-                                    setLog(world, replacer, random, mutable, config, startPos, x, h, z - 1);
-                                } else {
-                                    setLog(world, replacer, random, mutable, config, startPos, x, h, z + 1);
+                                switch (x) {
+                                    case -2 -> setLog(world, replacer, random, mutable, config, startPos, x - 1, h, z);
+                                    case 3 -> setLog(world, replacer, random, mutable, config, startPos, x + 1, h, z);
+                                    default -> {
+                                        if (z == -2) {
+                                            setLog(world, replacer, random, mutable, config, startPos, x, h, z - 1);
+                                        } else {
+                                            setLog(world, replacer, random, mutable, config, startPos, x, h, z + 1);
+                                        }
+                                    }
                                 }
                             }
                             for (int h = 0; h <= height / 2; h++) {
-                                if (x == -2) {
-                                    setLog(world, replacer, random, mutable, config, startPos, x, h, z);
-                                } else if (x == 3) {
-                                    setLog(world, replacer, random, mutable, config, startPos, x, h, z);
-                                } else if (z == -2) {
-                                    setLog(world, replacer, random, mutable, config, startPos, x, h, z);
-                                } else {
-                                    setLog(world, replacer, random, mutable, config, startPos, x, h, z);
+                                switch (x) {
+                                    case -2 -> setLog(world, replacer, random, mutable, config, startPos, x, h, z);
+                                    case 3 -> setLog(world, replacer, random, mutable, config, startPos, x, h, z);
+                                    default -> {
+                                        if (z == -2) {
+                                            setLog(world, replacer, random, mutable, config, startPos, x, h, z);
+                                        } else {
+                                            setLog(world, replacer, random, mutable, config, startPos, x, h, z);
+                                        }
+                                    }
                                 }
                             }
                         }

@@ -73,9 +73,6 @@ dependencies {
 	// Mod Menu
 	modImplementation "com.terraformersmc:modmenu:${modmenu_version}"
 
-	//UFU
-	modImplementation "curse.maven:project-409010:3909688"
-
 	// only affects runClient, does not affect gradlew build. add -PuseThirdPartyMods=false to not use these
 	if (findProperty("useThirdPartyMods") != "false") {
 		modRuntimeOnly "maven.modrinth:ferrite-core:${ferritecore_version}"

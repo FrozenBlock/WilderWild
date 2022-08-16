@@ -8,7 +8,7 @@ import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.level.block.Block;
 
-public class RegisterDevelopment {
+public final class RegisterDevelopment {
 
     public static final Camera CAMERA = new Camera(new FabricItemSettings());
 

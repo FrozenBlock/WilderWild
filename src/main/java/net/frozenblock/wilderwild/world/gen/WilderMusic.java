@@ -8,7 +8,7 @@ import net.minecraft.sounds.Musics;
 import net.minecraft.world.level.biome.AmbientAdditionsSettings;
 import net.minecraft.world.level.biome.Biomes;
 
-public class WilderMusic {
+public final class WilderMusic {
     public static void playMusic() {
         WilderWild.logWild("Adding Music And Ambience To Biomes for", true);
 

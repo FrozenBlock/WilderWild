@@ -42,11 +42,11 @@ public class BoatTypeMixin {
         var types = new ArrayList<>(Arrays.asList($VALUES));
         var last = types.get(types.size() - 1);
 
-        var baobab = newType("WILDER_BAOBAB", last.ordinal() + 1, RegisterBlocks.BAOBAB_PLANKS, "baobab");
+        var baobab = newType("WILDERWILDBAOBAB", last.ordinal() + 1, RegisterBlocks.BAOBAB_PLANKS, "wilderwildbaobab");
         WilderBoats.BAOBAB = baobab;
         types.add(baobab);
 
-        var cypress = newType("WILDER_CYPRESS", last.ordinal() + 2, RegisterBlocks.CYPRESS_PLANKS, "cypress");
+        var cypress = newType("WILDERWILDCYPRESS", last.ordinal() + 2, RegisterBlocks.CYPRESS_PLANKS, "wilderwildcypress");
         WilderBoats.CYPRESS = cypress;
         types.add(cypress);
         $VALUES = types.toArray(new Boat.Type[0]);

@@ -3,27 +3,27 @@ package net.frozenblock.wilderwild.world.gen;
 import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
 import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
 import net.frozenblock.wilderwild.world.feature.WilderPlacedFeatures;
-import net.minecraft.tags.BiomeTags;
-import net.minecraft.world.level.biome.Biomes;
-import net.minecraft.world.level.levelgen.GenerationStep;
+import net.minecraft.tag.BiomeTags;
+import net.minecraft.world.biome.BiomeKeys;
+import net.minecraft.world.gen.GenerationStep;
 
-public class WilderGrassGeneration {
+public final class WilderGrassGeneration {
     public static void generateGrassForest() {
         BiomeModifications.addFeature(BiomeSelectors.tag(BiomeTags.IS_FOREST),
-                GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.NEW_GRASS_PLACED.unwrapKey().get());
+                GenerationStep.Feature.VEGETAL_DECORATION, WilderPlacedFeatures.NEW_GRASS_PLACED.getKey().orElseThrow());
 
         BiomeModifications.addFeature(BiomeSelectors.tag(BiomeTags.IS_FOREST),
-                GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.NEW_TALL_GRASS.unwrapKey().get());
+                GenerationStep.Feature.VEGETAL_DECORATION, WilderPlacedFeatures.NEW_TALL_GRASS.getKey().orElseThrow());
 
     }
 
     public static void generateGrassTaiga() {
-        BiomeModifications.addFeature(BiomeSelectors.includeByKey(Biomes.TAIGA),
-                GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.NEW_GRASS_PLACED.unwrapKey().get());
-        BiomeModifications.addFeature(BiomeSelectors.includeByKey(Biomes.TAIGA),
-                GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.NEW_TALL_GRASS.unwrapKey().get());
+        BiomeModifications.addFeature(BiomeSelectors.includeByKey(BiomeKeys.TAIGA),
+                GenerationStep.Feature.VEGETAL_DECORATION, WilderPlacedFeatures.NEW_GRASS_PLACED.getKey().orElseThrow());
+        BiomeModifications.addFeature(BiomeSelectors.includeByKey(BiomeKeys.TAIGA),
+                GenerationStep.Feature.VEGETAL_DECORATION, WilderPlacedFeatures.NEW_TALL_GRASS.getKey().orElseThrow());
 
-        BiomeModifications.addFeature(BiomeSelectors.includeByKey(Biomes.WINDSWEPT_FOREST, Biomes.WINDSWEPT_HILLS),
-                GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.NEW_RARE_GRASS_PLACED.unwrapKey().get());
+        BiomeModifications.addFeature(BiomeSelectors.includeByKey(BiomeKeys.WINDSWEPT_FOREST, BiomeKeys.WINDSWEPT_HILLS),
+                GenerationStep.Feature.VEGETAL_DECORATION, WilderPlacedFeatures.NEW_RARE_GRASS_PLACED.getKey().orElseThrow());
     }
 }

@@ -2,7 +2,7 @@ package net.frozenblock.wilderwild.misc;
 
 import net.minecraft.world.entity.vehicle.Boat;
 
-public class WilderBoats {
+public final class WilderBoats {
     //CREDIT TO nyuppo/fabric-boat-example ON GITHUB
     static {
         Boat.Type.values();

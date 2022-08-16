@@ -23,7 +23,7 @@ import java.util.List;
 import static net.minecraft.data.worldgen.placement.AquaticPlacements.seagrassPlacement;
 import static net.minecraft.data.worldgen.placement.VegetationPlacements.*;
 
-public class WilderPlacedFeatures {
+public final class WilderPlacedFeatures {
     //FALLEN TREES
 
     public static final Holder<PlacedFeature> FALLEN_TREES_MIXED_PLACED = register("fallen_trees_mixed_placed",

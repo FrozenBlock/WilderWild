@@ -9,7 +9,7 @@ import net.minecraft.world.level.levelgen.placement.PlacedFeature;
 
 import static net.minecraft.data.worldgen.placement.TreePlacements.SNOW_TREE_FILTER_DECORATOR;
 
-public class WilderTreePlaced {
+public final class WilderTreePlaced {
     //BIRCH
     public static final Holder<PlacedFeature> NEW_BIRCH_CHECKED = PlacementUtils.register("new_birch_checked", WilderTreeConfigured.NEW_BIRCH_TREE, PlacementUtils.filteredByBlockSurvival(Blocks.BIRCH_SAPLING));
     public static final Holder<PlacedFeature> NEW_BIRCH_BEES_0004 = PlacementUtils.register("new_birch_bees_0004", WilderTreeConfigured.NEW_BIRCH_BEES_0004, PlacementUtils.filteredByBlockSurvival(Blocks.BIRCH_SAPLING));

@@ -8,7 +8,7 @@ import net.minecraft.world.level.levelgen.ThreadSafeLegacyRandomSource;
 import net.minecraft.world.level.levelgen.XoroshiroRandomSource;
 import net.minecraft.world.level.levelgen.synth.ImprovedNoise;
 
-public class EasyNoiseSampler {
+public final class EasyNoiseSampler {
 
     /**
      * EASY NOISE SAMPLER

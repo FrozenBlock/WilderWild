@@ -4,7 +4,7 @@ import net.frozenblock.wilderwild.WilderWild;
 import net.minecraft.core.Registry;
 import net.minecraft.world.level.gameevent.GameEvent;
 
-public class RegisterGameEvents {
+public final class RegisterGameEvents {
 
     public static final GameEvent SCULK_SENSOR_ACTIVATE = new GameEvent("sculk_sensor_activate", 16);
     public static final GameEvent TENDRIL_EXTRACT_XP = new GameEvent("hanging_tendril_extract_xp", 16);
