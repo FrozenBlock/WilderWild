@@ -105,22 +105,21 @@ public class StoneChestBlockEntityRenderer<T extends StoneChestBlockEntity & Lid
             VertexConsumer vertexConsumer = spriteIdentifier.getVertexConsumer(vertexConsumers, RenderLayer::getEntityCutout);
             if (bl2) {
                 if (chestType == ChestType.LEFT) {
-                    this.render(matrices, vertexConsumer, this.doubleChestLeftLid, this.doubleChestLeftLatch, this.doubleChestLeftBase, openProg, i, overlay);
+                    this.render(matrices, vertexConsumer, this.doubleChestLeftLid, this.doubleChestLeftBase, openProg, i, overlay);
                 } else {
-                    this.render(matrices, vertexConsumer, this.doubleChestRightLid, this.doubleChestRightLatch, this.doubleChestRightBase, openProg, i, overlay);
+                    this.render(matrices, vertexConsumer, this.doubleChestRightLid, this.doubleChestRightBase, openProg, i, overlay);
                 }
             } else {
-                this.render(matrices, vertexConsumer, this.singleChestLid, this.singleChestLatch, this.singleChestBase, openProg, i, overlay);
+                this.render(matrices, vertexConsumer, this.singleChestLid, this.singleChestBase, openProg, i, overlay);
             }
 
             matrices.pop();
         }
     }
 
-    private void render(MatrixStack matrices, VertexConsumer vertices, ModelPart lid, ModelPart latch, ModelPart base, float openFactor, int light, int overlay) {
-        latch.pitch = lid.pitch = -(openFactor * 1.5707964f);
+    private void render(MatrixStack matrices, VertexConsumer vertices, ModelPart lid, ModelPart base, float openFactor, int light, int overlay) {
+        lid.pitch = -(openFactor * 1.5707964f);
         lid.render(matrices, vertices, light, overlay);
-        latch.render(matrices, vertices, light, overlay);
         base.render(matrices, vertices, light, overlay);
     }
 
