@@ -39,7 +39,7 @@ import java.util.function.Supplier;
 public class StoneChestBlock extends ChestBlock {
 
     public StoneChestBlock(Settings settings, Supplier<BlockEntityType<? extends ChestBlockEntity>> supplier) {
-        super(settings, () -> RegisterBlockEntities.STONE_CHEST);
+        super(settings, supplier);
     }
 
     @Override

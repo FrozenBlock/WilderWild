@@ -296,13 +296,17 @@ public final class WilderWild implements ModInitializer {
     public void sendBlockEntitySync() {
         ServerPlayNetworking.registerGlobalReceiver(REQUEST_BLOCK_ENTITY_SYNC_PACKET, (ctx, player, handler, byteBuf, responseSender) -> {
             ctx.execute(() -> {
-                BlockPos pos = new BlockPos(byteBuf.readInt(), byteBuf.readInt(), byteBuf.readInt());
-                World world = ctx.getWorld(byteBuf.readRegistryKey(Registry.WORLD_KEY));
-                if (world != null) {
-                    BlockEntity entity = world.getBlockEntity(pos);
-                    if (entity != null) {
-                        player.networkHandler.sendPacket(entity.toUpdatePacket());
+                try {
+                    BlockPos pos = new BlockPos(byteBuf.readInt(), byteBuf.readInt(), byteBuf.readInt());
+                    World world = ctx.getWorld(byteBuf.readRegistryKey(Registry.WORLD_KEY));
+                    if (world != null) {
+                        BlockEntity entity = world.getBlockEntity(pos);
+                        if (entity != null) {
+                            player.networkHandler.sendPacket(entity.toUpdatePacket());
+                        }
                     }
+                } catch (Exception ignored) {
+
                 }
             });
         });
