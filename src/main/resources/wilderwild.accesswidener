@@ -33,3 +33,4 @@ accessible    method    net/minecraft/structure/pool/SinglePoolElement    <init>
 accessible    method    net/minecraft/client/render/TexturedRenderLayers    getChestTextureId    (Ljava/lang/String;)Lnet/minecraft/client/util/SpriteIdentifier;
 accessible    field    net/minecraft/inventory/DoubleInventory    first    Lnet/minecraft/inventory/Inventory;
 accessible    field    net/minecraft/inventory/DoubleInventory    second    Lnet/minecraft/inventory/Inventory;
+accessible    method    net/minecraft/block/AbstractCauldronBlock    canBeFilledByDripstone    (Lnet/minecraft/fluid/Fluid;)Z
