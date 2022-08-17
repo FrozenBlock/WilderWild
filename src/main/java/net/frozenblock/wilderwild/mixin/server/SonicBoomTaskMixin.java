@@ -32,7 +32,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-@Mixin(SonicBoomTask.class)
+@Mixin(value = SonicBoomTask.class, priority = 1001)
 public class SonicBoomTaskMixin {
     @Final
     @Shadow

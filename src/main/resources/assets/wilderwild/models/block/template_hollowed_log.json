@@ -4,6 +4,7 @@
 	},
 	"elements": [
 		{
+			"name": "outer",
 			"from": [0, 0, 0],
 			"to": [16, 16, 16],
 			"faces": {
@@ -16,8 +17,9 @@
 			}
 		},
 		{
-			"from": [13, 16, 13],
-			"to": [3, 0, 3],
+			"name": "inner",
+			"from": [13.01, 16.01, 13.01],
+			"to": [2.99, -0.01, 2.99],
 			"faces": {
 				"north": {"uv": [13, 16, 3, 0], "texture": "#inner"},
 				"east": {"uv": [13, 16, 3, 0], "texture": "#inner"},
