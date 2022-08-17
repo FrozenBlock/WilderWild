@@ -4,6 +4,7 @@
   "package": "net.frozenblock.wilderwild.mixin",
   "compatibilityLevel": "JAVA_17",
   "mixins": [
+	"server.AbstractBlockMixin",
 	"server.BlockEntityTypeMixin",
 	"server.BlockMixin",
 	"server.BoatDropsMixin",
