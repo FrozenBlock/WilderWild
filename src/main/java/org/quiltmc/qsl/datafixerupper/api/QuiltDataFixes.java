@@ -15,13 +15,13 @@
  * limitations under the License.
  */
 
-package net.frozenblock.api.org.quiltmc.qsl.datafixerupper.api;
+package org.quiltmc.qsl.datafixerupper.api;
 
 import com.mojang.datafixers.DataFixer;
 import com.mojang.datafixers.DataFixerBuilder;
 import com.mojang.datafixers.schemas.Schema;
 import net.fabricmc.loader.api.ModContainer;
-import net.frozenblock.api.org.quiltmc.qsl.datafixerupper.impl.QuiltDataFixesInternals;
+import org.quiltmc.qsl.datafixerupper.impl.QuiltDataFixesInternals;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.util.Util;
 import org.jetbrains.annotations.Contract;

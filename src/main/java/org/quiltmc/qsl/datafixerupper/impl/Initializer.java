@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-package net.frozenblock.api.org.quiltmc.qsl.datafixerupper.impl;
+package org.quiltmc.qsl.datafixerupper.impl;
 
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;

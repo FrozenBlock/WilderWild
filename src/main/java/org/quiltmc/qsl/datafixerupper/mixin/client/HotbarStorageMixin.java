@@ -15,9 +15,9 @@
  * limitations under the License.
  */
 
-package net.frozenblock.api.org.quiltmc.qsl.datafixerupper.mixin.client;
+package org.quiltmc.qsl.datafixerupper.mixin.client;
 
-import net.frozenblock.api.org.quiltmc.qsl.datafixerupper.impl.QuiltDataFixesInternals;
+import org.quiltmc.qsl.datafixerupper.impl.QuiltDataFixesInternals;
 import net.minecraft.client.option.HotbarStorage;
 import net.minecraft.nbt.NbtCompound;
 import org.spongepowered.asm.mixin.Mixin;

@@ -15,14 +15,15 @@
  * limitations under the License.
  */
 
-package net.frozenblock.api.org.quiltmc.qsl.datafixerupper.impl.client;
+package org.quiltmc.qsl.datafixerupper.impl.client;
 
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientLifecycleEvents;
 import net.frozenblock.wilderwild.WilderWild;
-import net.frozenblock.api.org.quiltmc.qsl.datafixerupper.impl.QuiltDataFixesInternals;
+import org.quiltmc.qsl.datafixerupper.impl.QuiltDataFixesInternals;
+import net.minecraft.client.MinecraftClient;
 import org.jetbrains.annotations.ApiStatus;
 
 /**

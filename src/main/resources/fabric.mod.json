@@ -21,11 +21,11 @@
   "entrypoints": {
     "main": [
       "net.frozenblock.wilderwild.WilderWild",
-      "net.frozenblock.api.org.quiltmc.qsl.datafixerupper.impl.Initializer"
+      "org.quiltmc.qsl.datafixerupper.impl.Initializer"
     ],
     "client": [
 	  "net.frozenblock.wilderwild.WilderWildClient",
-      "net.frozenblock.api.org.quiltmc.qsl.datafixerupper.impl.client.ClientInitializer"
+      "org.quiltmc.qsl.datafixerupper.impl.client.ClientInitializer"
     ],
     "mm:early_risers": [
       "net.frozenblock.wilderwild.EarlyRiser"
