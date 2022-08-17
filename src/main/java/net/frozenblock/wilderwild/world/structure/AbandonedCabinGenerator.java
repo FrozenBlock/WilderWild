@@ -17,12 +17,11 @@ public class AbandonedCabinGenerator {
 
     public static final RegistryEntry<StructurePool> CABIN = StructurePools.register(
             new StructurePool(
-                    WilderWild.id("abandoned_cabin/cabin_center"),
+                    WilderWild.id("abandoned_cabin/cabin"),
                     new Identifier("empty"),
                     ImmutableList.of(
-                            Pair.of(ofProcessedSingle("abandoned_cabin/cabin_center/city_center_1", WilderStructureProcessors.ABANDONED_CABIN_PROCESSOR), 1),
-                            Pair.of(ofProcessedSingle("abandoned_cabin/cabin_center/city_center_2", WilderStructureProcessors.ABANDONED_CABIN_PROCESSOR), 1),
-                            Pair.of(ofProcessedSingle("abandoned_cabin/cabin_center/city_center_3", WilderStructureProcessors.ABANDONED_CABIN_PROCESSOR), 1)
+                            Pair.of(ofProcessedSingle("abandoned_cabin/cabin/abandoned_cabin_1", WilderStructureProcessors.ABANDONED_CABIN_PROCESSOR), 1),
+                            Pair.of(ofProcessedSingle("abandoned_cabin/cabin/abandoned_cabin_2", WilderStructureProcessors.ABANDONED_CABIN_PROCESSOR), 1)
                     ),
                     StructurePool.Projection.RIGID
             )

@@ -62,7 +62,7 @@ public class RegisterStructures {
                     AbandonedCabinGenerator.CABIN,
                     Optional.of(new Identifier("city_anchor")),
                     3,
-                    ConstantHeightProvider.create(YOffset.fixed(0)),
+                    ConstantHeightProvider.create(YOffset.fixed(-26)),
                     false,
                     Optional.empty(),
                     60
