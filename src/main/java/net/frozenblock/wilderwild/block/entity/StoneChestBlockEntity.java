@@ -194,11 +194,6 @@ public class StoneChestBlockEntity extends ChestBlockEntity {
 
     @Override
     public void setStack(int slot, ItemStack stack) {
-        if (this.lootGenerated) {
-            if (stack.getOrCreateNbt().get("wilderwild_is_ancient") != null) {
-                stack.getOrCreateNbt().remove("wilderwild_is_ancient");
-            }
-        }
         this.checkLootInteraction(null);
         this.getInvStackList().set(slot, stack);
         if (stack.getCount() > this.getMaxCountPerStack()) {
