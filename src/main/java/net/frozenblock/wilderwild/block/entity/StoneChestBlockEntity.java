@@ -44,7 +44,6 @@ public class StoneChestBlockEntity extends ChestBlockEntity {
     public int stillLidTicks;
     public int cooldownTicks;
     public boolean closing;
-    public boolean hasLid;
     public boolean lootGenerated;
 
     public boolean hasUpdated = false;
@@ -52,7 +51,6 @@ public class StoneChestBlockEntity extends ChestBlockEntity {
 
     public StoneChestBlockEntity(BlockPos blockPos, BlockState blockState) {
         super(RegisterBlockEntities.STONE_CHEST, blockPos, blockState);
-        this.hasLid = true;
     }
 
     @Override
@@ -62,7 +60,6 @@ public class StoneChestBlockEntity extends ChestBlockEntity {
         this.prevOpenProgress = nbt.getFloat("prevOpenProgress");
         this.stillLidTicks = nbt.getInt("stillLidTicks");
         this.cooldownTicks = nbt.getInt("cooldownTicks");
-        this.hasLid = nbt.getBoolean("hasLid");
         this.closing = nbt.getBoolean("closing");
         this.shouldSkip = nbt.getBoolean("shouldSkip");
         this.lootGenerated = nbt.getBoolean("lootGenerated");
@@ -75,7 +72,6 @@ public class StoneChestBlockEntity extends ChestBlockEntity {
         nbt.putFloat("prevOpenProgress", this.prevOpenProgress);
         nbt.putInt("stillLidTicks", this.stillLidTicks);
         nbt.putInt("cooldownTicks", this.cooldownTicks);
-        nbt.putBoolean("hasLid", this.hasLid);
         nbt.putBoolean("closing", this.closing);
         nbt.putBoolean("shouldSkip", this.shouldSkip);
         nbt.putBoolean("lootGenerated", this.lootGenerated);
@@ -144,7 +140,7 @@ public class StoneChestBlockEntity extends ChestBlockEntity {
         if (this.world.getBlockEntity(this.pos) != this) {
             return false;
         }
-        return !(player.squaredDistanceTo((double)this.pos.getX() + 0.5, (double)this.pos.getY() + 0.5, (double)this.pos.getZ() + 0.5) > 64.0) && ((!this.closing && this.openProgress >= 0.3) || !this.hasLid);
+        return !(player.squaredDistanceTo((double)this.pos.getX() + 0.5, (double)this.pos.getY() + 0.5, (double)this.pos.getZ() + 0.5) > 64.0) && ((!this.closing && this.openProgress >= 0.3));
     }
 
     public void syncLidValues(World world, BlockPos pos, BlockState state) {
@@ -154,7 +150,6 @@ public class StoneChestBlockEntity extends ChestBlockEntity {
             stoneChest.prevOpenProgress = this.prevOpenProgress;
             stoneChest.stillLidTicks = this.stillLidTicks;
             stoneChest.cooldownTicks = this.cooldownTicks;
-            stoneChest.hasLid = this.hasLid;
             stoneChest.shouldSkip = true;
             stoneChest.closing = this.closing;
         }
@@ -167,7 +162,6 @@ public class StoneChestBlockEntity extends ChestBlockEntity {
             stoneChest.prevOpenProgress = this.prevOpenProgress;
             stoneChest.stillLidTicks = this.stillLidTicks;
             stoneChest.cooldownTicks = this.cooldownTicks;
-            stoneChest.hasLid = this.hasLid;
             stoneChest.shouldSkip = true;
             stoneChest.closing = this.closing;
             for (ServerPlayerEntity player : PlayerLookup.tracking(stoneChest)) {
@@ -201,7 +195,7 @@ public class StoneChestBlockEntity extends ChestBlockEntity {
     @Override
     public void setStack(int slot, ItemStack stack) {
         if (this.lootGenerated) {
-            if (stack.getSubNbt("wilderwild_is_ancient") != null) {
+            if (stack.getOrCreateNbt().get("wilderwild_is_ancient") != null) {
                 stack.removeSubNbt("wilderwild_is_ancient");
             }
         } 
