@@ -30,13 +30,13 @@ import org.jetbrains.annotations.ApiStatus;
  */
 @Environment(EnvType.CLIENT)
 @ApiStatus.Internal
-public final class ClientInitializer implements ClientModInitializer {
+public final class ClientFreezer implements ClientModInitializer {
 
     @Override
     public void onInitializeClient() {
         ClientLifecycleEvents.CLIENT_STARTED.register(client -> {
             WilderWild.log("QuiltMC's DataFixer Client Registry is about to freeze", true);
-            QuiltDataFixesInternals.freeze();
+            QuiltDataFixesInternals.get().freeze();
             WilderWild.log("QuiltMC's DataFixer Client Registry was frozen", true);
         });
     }

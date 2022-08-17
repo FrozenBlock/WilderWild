@@ -34,6 +34,6 @@ public abstract class ChunkSerializerMixin {
             at = @At(value = "INVOKE", target = "Lnet/minecraft/nbt/NbtCompound;putInt(Ljava/lang/String;I)V", ordinal = 0, shift = At.Shift.AFTER), index = 3
     )
     private static NbtCompound addModDataVersions(NbtCompound compound) {
-        return QuiltDataFixesInternals.addModDataVersions(compound);
+        return QuiltDataFixesInternals.get().addModDataVersions(compound);
     }
 }

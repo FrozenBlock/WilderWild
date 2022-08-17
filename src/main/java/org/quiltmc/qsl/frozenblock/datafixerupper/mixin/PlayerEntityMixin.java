@@ -32,6 +32,6 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public abstract class PlayerEntityMixin {
     @Inject(method = "writeCustomDataToNbt", at = @At("RETURN"))
     public void addModDataVersions(NbtCompound compound, CallbackInfo ci) {
-        QuiltDataFixesInternals.addModDataVersions(compound);
+        QuiltDataFixesInternals.get().addModDataVersions(compound);
     }
 }

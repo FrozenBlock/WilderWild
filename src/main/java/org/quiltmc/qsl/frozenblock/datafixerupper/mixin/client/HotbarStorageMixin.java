@@ -37,6 +37,6 @@ public abstract class HotbarStorageMixin {
             locals = LocalCapture.CAPTURE_FAILHARD
     )
     private void addModDataVersions(CallbackInfo ci, NbtCompound compound) {
-        QuiltDataFixesInternals.addModDataVersions(compound);
+        QuiltDataFixesInternals.get().addModDataVersions(compound);
     }
 }

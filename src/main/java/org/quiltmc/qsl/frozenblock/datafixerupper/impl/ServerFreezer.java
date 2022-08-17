@@ -26,13 +26,13 @@ import org.jetbrains.annotations.ApiStatus;
  * Modified to work on Fabric
  */
 @ApiStatus.Internal
-public final class Initializer implements ModInitializer {
+public final class ServerFreezer implements ModInitializer {
 
     @Override
     public void onInitialize() {
         ServerLifecycleEvents.SERVER_STARTING.register(server -> {
             WilderWild.log("QuiltMC's DataFixer Server Registry is about to freeze", true);
-            QuiltDataFixesInternals.freeze();
+            QuiltDataFixesInternals.get().freeze();
             WilderWild.log("QuiltMC's DataFixer Server Registry was frozen", true);
         });
     }
