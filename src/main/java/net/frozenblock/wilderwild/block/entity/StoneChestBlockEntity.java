@@ -188,8 +188,8 @@ public class StoneChestBlockEntity extends ChestBlockEntity {
             for (ItemStack stack : this.getInvStackList()) {
                 stack.setSubNbt("wilderwild_is_ancient", NbtByte.of(true));
             }
-            this.lootGenerated = true;
         }
+        this.lootGenerated = true;
     }
 
     @Override
@@ -198,10 +198,8 @@ public class StoneChestBlockEntity extends ChestBlockEntity {
             if (stack.getOrCreateNbt().get("wilderwild_is_ancient") != null) {
                 stack.getOrCreateNbt().remove("wilderwild_is_ancient");
             }
-        } 
-        if (this.lootTableId != null) {
-            this.checkLootInteraction(null);
         }
+        this.checkLootInteraction(null);
         this.getInvStackList().set(slot, stack);
         if (stack.getCount() > this.getMaxCountPerStack()) {
             stack.setCount(this.getMaxCountPerStack());
