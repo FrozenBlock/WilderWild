@@ -7,7 +7,6 @@ import net.frozenblock.wilderwild.registry.RegisterBlocks;
 import net.frozenblock.wilderwild.tag.WilderBlockTags;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.SculkSpreadManager;
-import net.minecraft.fluid.Fluids;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.state.property.Properties;
 import net.minecraft.util.math.BlockPos;
@@ -23,7 +22,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import java.util.Iterator;
 
 @Mixin(SculkBlock.class)
-public class SculkBlockMixin {
+public abstract class SculkBlockMixin {
 
     @Shadow
     private static int getDecay(SculkSpreadManager spreadManager, BlockPos cursorPos, BlockPos catalystPos, int charge) {
@@ -32,6 +31,11 @@ public class SculkBlockMixin {
         int j = MathHelper.square(24 - i);
         float g = Math.min(1.0F, f / (float) j);
         return Math.max(1, (int) ((float) charge * g * 0.5F));
+    }
+
+    @Shadow
+    private static boolean shouldNotDecay(WorldAccess world, BlockPos pos) {
+        return false;
     }
 
     private static final int HEIGHT_MULTIPLIER = 20; //The higher, the less short pillars you'll see.
@@ -172,7 +176,7 @@ public class SculkBlockMixin {
     private static boolean shouldNotDecay(WorldAccess world, BlockPos pos, boolean isWorldGen) {
         BlockState blockState = world.getBlockState(pos.up());
         BlockState blockState1 = world.getBlockState(pos.down());
-        if (((blockState.isAir()) || (blockState.isOf(Blocks.WATER) && blockState.getFluidState().isOf(Fluids.WATER))) || ((isWorldGen || canPlaceOsseousSculk(pos, isWorldGen, world)) && ((blockState1.isAir()) || (blockState1.isOf(Blocks.WATER) && blockState1.getFluidState().isOf(Fluids.WATER))))) {
+        if (shouldNotDecay(world, pos) || ((isWorldGen || canPlaceOsseousSculk(pos, isWorldGen, world)) && shouldNotDecay(world, pos))) {
             int i = 0;
             Iterator<BlockPos> var4 = BlockPos.iterate(pos.add(-4, 0, -4), pos.add(4, 2, 4)).iterator();
 

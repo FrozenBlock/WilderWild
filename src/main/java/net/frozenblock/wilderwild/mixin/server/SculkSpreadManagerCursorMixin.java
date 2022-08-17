@@ -32,7 +32,7 @@ public class SculkSpreadManagerCursorMixin {
 
     @Final
     @Shadow
-    private static final ObjectArrayList<Vec3i> OFFSETS = Util.make(new ObjectArrayList<>(18), (objectArrayList) -> {
+    private static ObjectArrayList<Vec3i> OFFSETS = Util.make(new ObjectArrayList<>(18), (objectArrayList) -> {
         Stream<BlockPos> var10000 = BlockPos.stream(new BlockPos(-1, -1, -1), new BlockPos(1, 1, 1)).filter((pos) -> {
             return (pos.getX() == 0 || pos.getY() == 0 || pos.getZ() == 0) && !pos.equals(BlockPos.ORIGIN);
         }).map(BlockPos::toImmutable);
