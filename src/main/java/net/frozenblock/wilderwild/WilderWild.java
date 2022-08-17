@@ -6,14 +6,11 @@ import com.mojang.serialization.Codec;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.loader.api.FabricLoader;
 import net.fabricmc.loader.api.ModContainer;
-import org.quiltmc.qsl.datafixerupper.api.QuiltDataFixes;
-import org.quiltmc.qsl.datafixerupper.api.SimpleFixes;
 import net.frozenblock.wilderwild.block.entity.TermiteMoundBlockEntity;
 import net.frozenblock.wilderwild.entity.Firefly;
 import net.frozenblock.wilderwild.misc.BlockSoundGroupOverwrites;
 import net.frozenblock.wilderwild.misc.mod_compat.simple_copper_pipes.RegisterSaveableMoveablePipeNbt;
 import net.frozenblock.wilderwild.registry.*;
-import org.quiltmc.qsl.datafixerupper.api.QuiltDataFixerBuilder;
 import net.frozenblock.wilderwild.world.feature.WilderConfiguredFeatures;
 import net.frozenblock.wilderwild.world.feature.WilderMiscConfigured;
 import net.frozenblock.wilderwild.world.feature.WilderTreeConfigured;
@@ -41,19 +38,17 @@ import net.minecraft.world.gen.ProbabilityConfig;
 import net.minecraft.world.gen.feature.Feature;
 import net.minecraft.world.gen.trunk.TrunkPlacer;
 import net.minecraft.world.gen.trunk.TrunkPlacerType;
+import net.frozenblock.api.org.quiltmc.qsl.datafixerupper.api.QuiltDataFixerBuilder;
+import net.frozenblock.api.org.quiltmc.qsl.datafixerupper.api.QuiltDataFixes;
+import net.frozenblock.api.org.quiltmc.qsl.datafixerupper.api.SimpleFixes;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.nio.file.StandardCopyOption;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 
-public class WilderWild implements ModInitializer {
+public final class WilderWild implements ModInitializer {
     public static final String MOD_ID = "wilderwild";
     public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
     public static final boolean DEV_LOGGING = false;
@@ -134,6 +129,7 @@ public class WilderWild implements ModInitializer {
     private static final int DATA_VERSION = 5;
 
     private static void applyDataFixes(ModContainer mod) {
+        logWild("Applying DataFixes for", true);
         var builder = new QuiltDataFixerBuilder(DATA_VERSION);
         builder.addSchema(0, QuiltDataFixes.BASE_SCHEMA);
         Schema schemaV1 = builder.addSchema(1, IdentifierNormalizingSchema::new);
@@ -152,6 +148,7 @@ public class WilderWild implements ModInitializer {
         SimpleFixes.addBlockRenameFix(builder, "Rename sculk_jaw to null_block", id("sculk_jaw"), id("null_block"), schemaV5);
 
         QuiltDataFixes.buildAndRegisterFixer(mod, builder);
+        log("DataFixes for Wilder Wild have been applied", true);
     }
 
     //MOD COMPATIBILITY

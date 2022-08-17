@@ -15,29 +15,25 @@
  * limitations under the License.
  */
 
-package org.quiltmc.qsl.datafixerupper.impl.client;
+package net.frozenblock.api.org.quiltmc.qsl.datafixerupper.impl;
 
-import net.fabricmc.api.ClientModInitializer;
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
-import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientLifecycleEvents;
+import net.fabricmc.api.ModInitializer;
+import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
 import net.frozenblock.wilderwild.WilderWild;
-import org.quiltmc.qsl.datafixerupper.impl.QuiltDataFixesInternals;
-import net.minecraft.client.MinecraftClient;
 import org.jetbrains.annotations.ApiStatus;
 
 /**
  * Modified to work on Fabric
  */
-@Environment(EnvType.CLIENT)
 @ApiStatus.Internal
-public final class ClientInitializer implements ClientModInitializer {
+public final class Initializer implements ModInitializer {
 
     @Override
-    public void onInitializeClient() {
-        ClientLifecycleEvents.CLIENT_STARTED.register(client -> {
-            WilderWild.LOGGER.info("QuiltMC's DataFixer Client Registry was frozen");
+    public void onInitialize() {
+        ServerLifecycleEvents.SERVER_STARTING.register(server -> {
+            WilderWild.log("QuiltMC's DataFixer Server Registry is about to freeze", true);
             QuiltDataFixesInternals.freeze();
+            WilderWild.log("QuiltMC's DataFixer Server Registry was frozen", true);
         });
     }
 }
