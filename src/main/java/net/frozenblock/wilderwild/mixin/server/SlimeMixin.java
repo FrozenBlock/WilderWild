@@ -28,7 +28,7 @@ public abstract class SlimeMixin extends MobEntity {
             //if (world.getBiome(pos).isIn(WilderBiomeTags.SLIMES_SPAWN_ON_FLOATING_MOSS)) {
             if (world.getLightLevel(LightType.BLOCK, pos) < random.nextInt(8)) {
                 boolean test = spawnReason == SpawnReason.SPAWNER || random.nextInt(5) == 0;
-                if (test && isFloatingMossNearby(world, pos, 1)) {
+                if (test && isAlgaeNearby(world, pos, 1)) {
                     info.setReturnValue(true);
                     info.cancel();
                 }
@@ -36,7 +36,7 @@ public abstract class SlimeMixin extends MobEntity {
         }
     }
 
-    private static boolean isFloatingMossNearby(WorldAccess world, BlockPos blockPos, int x) {
+    private static boolean isAlgaeNearby(WorldAccess world, BlockPos blockPos, int x) {
         Iterator<BlockPos> iterator = BlockPos.iterate(blockPos.add(-x, -x, -x), blockPos.add(x, x, x)).iterator();
         int count = 0;
         BlockPos pos;
@@ -54,7 +54,7 @@ public abstract class SlimeMixin extends MobEntity {
 
     @Override
     public boolean canSpawn(WorldView world) {
-        return (!world.containsFluid(this.getBoundingBox()) || isFloatingMossNearby(this.getWorld(), this.getBlockPos(), 1)) && world.doesNotIntersectEntities(this);
+        return (!world.containsFluid(this.getBoundingBox()) || isAlgaeNearby(this.getWorld(), this.getBlockPos(), 1)) && world.doesNotIntersectEntities(this);
     }
 
 }

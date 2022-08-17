@@ -56,7 +56,7 @@ public class BoneMealItemMixin {
             }
         }
         if (state.isOf(RegisterBlocks.ALGAE)) {
-            WilderWild.log("Floating Moss Bonemealed @ " + blockPos, WilderWild.DEV_LOGGING);
+            WilderWild.log("Algae Bonemealed @ " + blockPos, WilderWild.DEV_LOGGING);
             if (!world.isClient) {
                 for (Direction offset : shuffleOffsets(world.getRandom())) {
                     BlockPos pos = blockPos.offset(offset);
