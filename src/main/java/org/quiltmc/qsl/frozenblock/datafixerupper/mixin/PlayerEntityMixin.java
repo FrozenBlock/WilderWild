@@ -15,25 +15,23 @@
  * limitations under the License.
  */
 
-package org.quiltmc.qsl.datafixerupper.mixin;
+package org.quiltmc.qsl.frozenblock.datafixerupper.mixin;
 
+import org.quiltmc.qsl.frozenblock.datafixerupper.impl.QuiltDataFixesInternals;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.NbtCompound;
-import net.minecraft.world.ChunkSerializer;
-import org.quiltmc.qsl.datafixerupper.impl.QuiltDataFixesInternals;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.ModifyVariable;
+import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 /**
  * Modified to work on Fabric
  */
-@Mixin(ChunkSerializer.class)
-public abstract class ChunkSerializerMixin {
-    @ModifyVariable(
-            method = "serialize",
-            at = @At(value = "INVOKE", target = "Lnet/minecraft/nbt/NbtCompound;putInt(Ljava/lang/String;I)V", ordinal = 0)
-    )
-    private static NbtCompound addModDataVersions(NbtCompound compound) {
-        return QuiltDataFixesInternals.addModDataVersions(compound);
+@Mixin(value = PlayerEntity.class, priority = 1001)
+public abstract class PlayerEntityMixin {
+    @Inject(method = "writeCustomDataToNbt", at = @At("RETURN"))
+    public void addModDataVersions(NbtCompound compound, CallbackInfo ci) {
+        QuiltDataFixesInternals.get().addModDataVersions(compound);
     }
 }

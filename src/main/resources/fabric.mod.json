@@ -18,11 +18,11 @@
   "entrypoints": {
 	"main": [
 	  "net.frozenblock.wilderwild.WilderWild",
-	  "org.quiltmc.qsl.datafixerupper.impl.Initializer"
+      "org.quiltmc.qsl.frozenblock.datafixerupper.impl.ServerFreezer"
 	],
 	"client": [
 	  "net.frozenblock.wilderwild.WilderWildClient",
-	  "org.quiltmc.qsl.datafixerupper.impl.client.ClientInitializer"
+      "org.quiltmc.qsl.frozenblock.datafixerupper.impl.client.ClientFreezer"
 	],
 	"mm:early_risers": [
 	  "net.frozenblock.wilderwild.EarlyRiser"
@@ -33,7 +33,7 @@
   },
   "mixins": [
 	"wilderwild.mixins.json",
-	"quilt/quilt_datafixerupper.mixins.json"
+	"quiltmc_datafixerupper.mixins.json"
   ],
   "accessWidener": "wilderwild.accesswidener",
   "depends": {
@@ -43,5 +43,8 @@
 	"fabric-api": ">=0.60.0",
 	"minecraft": ">=1.19.2",
 	"java": ">=17"
+  },
+  "breaks": {
+    "quilted_fabric_api": ">=4.0.0-beta.9"
   }
 }

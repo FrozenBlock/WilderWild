@@ -33,9 +33,9 @@
  * }
  * </code></pre>
  *
- * @see org.quiltmc.qsl.datafixerupper.api.QuiltDataFixes
- * @see org.quiltmc.qsl.datafixerupper.api.SimpleFixes
- * @see org.quiltmc.qsl.datafixerupper.api.QuiltDataFixerBuilder
+ * @see org.quiltmc.qsl.frozenblock.datafixerupper.api.QuiltDataFixes
+ * @see org.quiltmc.qsl.frozenblock.datafixerupper.api.SimpleFixes
+ * @see org.quiltmc.qsl.frozenblock.datafixerupper.api.QuiltDataFixerBuilder
  */
 
-package org.quiltmc.qsl.datafixerupper.api;
+package org.quiltmc.qsl.frozenblock.datafixerupper.api;

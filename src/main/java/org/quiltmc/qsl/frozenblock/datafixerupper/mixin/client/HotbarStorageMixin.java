@@ -15,25 +15,28 @@
  * limitations under the License.
  */
 
-package org.quiltmc.qsl.datafixerupper.mixin;
+package org.quiltmc.qsl.frozenblock.datafixerupper.mixin.client;
 
+import org.quiltmc.qsl.frozenblock.datafixerupper.impl.QuiltDataFixesInternals;
+import net.minecraft.client.option.HotbarStorage;
 import net.minecraft.nbt.NbtCompound;
-import net.minecraft.structure.StructureTemplate;
-import org.quiltmc.qsl.datafixerupper.impl.QuiltDataFixesInternals;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 
 /**
  * Modified to work on Fabric
  */
-@Mixin(StructureTemplate.class)
-public abstract class StructureMixin {
-    @Inject(method = "writeNbt", at = @At("TAIL"), cancellable = true)
-    private void addModDataVersions(NbtCompound compound, CallbackInfoReturnable<NbtCompound> cir) {
-        NbtCompound out = cir.getReturnValue();
-        QuiltDataFixesInternals.addModDataVersions(out);
-        cir.setReturnValue(out);
+@Mixin(value = HotbarStorage.class, priority = 1001)
+public abstract class HotbarStorageMixin {
+    @Inject(
+            method = "save",
+            at = @At(value = "INVOKE", target = "Lnet/minecraft/nbt/NbtIo;write(Lnet/minecraft/nbt/NbtCompound;Ljava/io/File;)V"),
+            locals = LocalCapture.CAPTURE_FAILHARD
+    )
+    private void addModDataVersions(CallbackInfo ci, NbtCompound compound) {
+        QuiltDataFixesInternals.get().addModDataVersions(compound);
     }
 }

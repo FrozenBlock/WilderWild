@@ -15,28 +15,25 @@
  * limitations under the License.
  */
 
-package org.quiltmc.qsl.datafixerupper.mixin.client;
+package org.quiltmc.qsl.frozenblock.datafixerupper.mixin;
 
-import net.minecraft.client.option.HotbarStorage;
+import org.quiltmc.qsl.frozenblock.datafixerupper.impl.QuiltDataFixesInternals;
 import net.minecraft.nbt.NbtCompound;
-import org.quiltmc.qsl.datafixerupper.impl.QuiltDataFixesInternals;
+import net.minecraft.world.ChunkSerializer;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
+import org.spongepowered.asm.mixin.injection.ModifyVariable;
 
 /**
  * Modified to work on Fabric
  */
-@Mixin(HotbarStorage.class)
-public abstract class HotbarStorageMixin {
-    @Inject(
-            method = "save",
-            at = @At(value = "INVOKE", target = "Lnet/minecraft/nbt/NbtIo;write(Lnet/minecraft/nbt/NbtCompound;Ljava/io/File;)V"),
-            locals = LocalCapture.CAPTURE_FAILHARD
+@Mixin(value = ChunkSerializer.class, priority = 1001)
+public abstract class ChunkSerializerMixin {
+    @ModifyVariable(
+            method = "serialize",
+            at = @At(value = "INVOKE", target = "Lnet/minecraft/nbt/NbtCompound;putInt(Ljava/lang/String;I)V", ordinal = 0, shift = At.Shift.AFTER), index = 3
     )
-    private void addModDataVersions(CallbackInfo ci, NbtCompound compound) {
-        QuiltDataFixesInternals.addModDataVersions(compound);
+    private static NbtCompound addModDataVersions(NbtCompound compound) {
+        return QuiltDataFixesInternals.get().addModDataVersions(compound);
     }
 }
