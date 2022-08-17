@@ -126,7 +126,7 @@ public final class WilderWild implements ModInitializer {
         stopMeasuring(this);
     }
 
-    private static final int DATA_VERSION = 5;
+    private static final int DATA_VERSION = Integer.MAX_VALUE;
 
     private static void applyDataFixes(ModContainer mod) {
         logWild("Applying DataFixes for", true);
