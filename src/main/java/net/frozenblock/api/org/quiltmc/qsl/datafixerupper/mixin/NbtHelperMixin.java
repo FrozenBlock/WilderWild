@@ -30,7 +30,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 /**
  * Modified to work on Fabric
  */
-@Mixin(value = NbtHelper.class, priority = 999)
+@Mixin(NbtHelper.class)
 public abstract class NbtHelperMixin {
     @Inject(
             method = "update(Lcom/mojang/datafixers/DataFixer;Lnet/minecraft/datafixer/DataFixTypes;Lnet/minecraft/nbt/NbtCompound;II)Lnet/minecraft/nbt/NbtCompound;",

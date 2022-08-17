@@ -28,7 +28,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 /**
  * Modified to work on Fabric
  */
-@Mixin(value = PlayerEntity.class, priority = 999)
+@Mixin(PlayerEntity.class)
 public abstract class PlayerEntityMixin {
     @Inject(method = "writeCustomDataToNbt", at = @At("RETURN"))
     public void addModDataVersions(NbtCompound compound, CallbackInfo ci) {

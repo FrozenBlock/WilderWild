@@ -29,7 +29,7 @@ import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 /**
  * Modified to work on Fabric
  */
-@Mixin(value = HotbarStorage.class, priority = 999)
+@Mixin(HotbarStorage.class)
 public abstract class HotbarStorageMixin {
     @Inject(
             method = "save",

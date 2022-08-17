@@ -28,7 +28,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 /**
  * Modified to work on Fabric
  */
-@Mixin(value = StructureTemplate.class, priority = 999)
+@Mixin(StructureTemplate.class)
 public abstract class StructureMixin {
     @Inject(method = "writeNbt", at = @At("TAIL"), cancellable = true)
     private void addModDataVersions(NbtCompound compound, CallbackInfoReturnable<NbtCompound> cir) {

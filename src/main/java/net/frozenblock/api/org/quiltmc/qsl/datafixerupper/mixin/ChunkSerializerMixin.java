@@ -27,7 +27,7 @@ import org.spongepowered.asm.mixin.injection.ModifyVariable;
 /**
  * Modified to work on Fabric
  */
-@Mixin(value = ChunkSerializer.class, priority = 999)
+@Mixin(ChunkSerializer.class)
 public abstract class ChunkSerializerMixin {
     @ModifyVariable(
             method = "serialize",
