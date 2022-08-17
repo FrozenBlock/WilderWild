@@ -182,7 +182,6 @@ public class StoneChestBlockEntity extends ChestBlockEntity {
             if (player instanceof ServerPlayerEntity) {
                 Criteria.PLAYER_GENERATES_CONTAINER_LOOT.trigger((ServerPlayerEntity)player, this.lootTableId);
             }
-            this.lootTableId = null;
             LootContext.Builder builder = new LootContext.Builder((ServerWorld)this.world).parameter(LootContextParameters.ORIGIN, Vec3d.ofCenter(this.pos)).random(this.lootTableSeed);
             if (player != null) {
                 builder.luck(player.getLuck()).parameter(LootContextParameters.THIS_ENTITY, player);
@@ -191,7 +190,24 @@ public class StoneChestBlockEntity extends ChestBlockEntity {
             for (ItemStack stack : this.getInvStackList()) {
                 stack.setSubNbt("wilderwild_is_ancient", NbtByte.of(true));
             }
+            this.lootTableId = null;
         }
+    }
+
+    @Override
+    public void setStack(int slot, ItemStack stack) {
+        if (this.lootTableId == null) {
+            if (stack.getSubNbt("wilderwild_is_ancient") != null) {
+                stack.removeSubNbt("wilderwild_is_ancient");
+            }
+        } else {
+            this.checkLootInteraction(null);
+        }
+        this.getInvStackList().set(slot, stack);
+        if (stack.getCount() > this.getMaxCountPerStack()) {
+            stack.setCount(this.getMaxCountPerStack());
+        }
+        this.markDirty();
     }
 
     @Override
