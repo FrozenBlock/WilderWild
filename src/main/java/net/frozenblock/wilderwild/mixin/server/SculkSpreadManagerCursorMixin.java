@@ -21,6 +21,7 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import java.util.List;
 import java.util.Objects;
@@ -75,7 +76,7 @@ public abstract class SculkSpreadManagerCursorMixin {
                     if (this.charge <= 0) {
                         sculkSpreadable.spreadAtSamePosition(world, blockState, this.pos, random);
                     } else {
-                        BlockPos blockPos = getSpreadPosNew(world, this.pos, random);
+                        BlockPos blockPos = getSpreadPos(world, this.pos, random);
                         if (blockPos != null) {
                             sculkSpreadable.spreadAtSamePosition(world, blockState, this.pos, random);
                             this.pos = blockPos.toImmutable();
@@ -130,12 +131,6 @@ public abstract class SculkSpreadManagerCursorMixin {
     }
 
     @Shadow
-    private static boolean canSpread(WorldAccess world, BlockPos pos, Direction direction) {
-        BlockPos blockPos = pos.offset(direction);
-        return !world.getBlockState(blockPos).isSideSolidFullSquare(world, blockPos, direction.getOpposite());
-    }
-
-    @Shadow
     private static SculkSpreadable getSpreadable(BlockState state) {
         Block var2 = state.getBlock();
         SculkSpreadable var10000;
@@ -158,22 +153,34 @@ public abstract class SculkSpreadManagerCursorMixin {
         return false;
     }
 
-    private static BlockPos getSpreadPosNew(WorldAccess world, BlockPos pos, Random random) {
+    @Shadow
+    @Nullable
+    private static BlockPos getSpreadPos(WorldAccess world, BlockPos pos, Random random) {
+        return null;
+    }
+
+    @Inject(method = "getSpreadPos", at = @At("HEAD"), cancellable = true)
+    private static void getSpreadPos(WorldAccess world, BlockPos pos, Random random, CallbackInfoReturnable<BlockPos> cir) {
         BlockPos.Mutable mutable = pos.mutableCopy();
         BlockPos.Mutable mutable2 = pos.mutableCopy();
 
+        boolean canReturn = false;
         for (Vec3i vec3i : shuffleOffsets(random)) {
             mutable2.set(pos, vec3i);
             BlockState blockState = world.getBlockState(mutable2);
             boolean isInTags = blockState.isIn(WilderBlockTags.SCULK_SLAB_REPLACEABLE_WORLDGEN) || blockState.isIn(WilderBlockTags.SCULK_WALL_REPLACEABLE_WORLDGEN) || blockState.isIn(WilderBlockTags.SCULK_STAIR_REPLACEABLE_WORLDGEN);
-            if ((blockState.getBlock() instanceof SculkSpreadable || isInTags) && canSpreadNew(world, pos, mutable2)) {
+            if (isInTags && canSpreadNew(world, pos, mutable2)) {
                 mutable.set(mutable2);
+                canReturn = true;
                 if (SculkVeinBlock.veinCoversSculkReplaceable(world, blockState, mutable2)) {
                     break;
                 }
             }
         }
 
-        return mutable.equals(pos) ? null : mutable;
+        if (canReturn) {
+            cir.setReturnValue(mutable.equals(pos) ? null : mutable);
+            cir.cancel();
+        }
     }
 }
