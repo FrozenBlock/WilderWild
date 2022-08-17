@@ -45,6 +45,7 @@ public class StoneChestBlockEntity extends ChestBlockEntity {
     public int cooldownTicks;
     public boolean closing;
     public boolean hasLid;
+    public boolean lootGenerated;
 
     public boolean hasUpdated = false;
     public boolean shouldSkip = false;
@@ -64,6 +65,7 @@ public class StoneChestBlockEntity extends ChestBlockEntity {
         this.hasLid = nbt.getBoolean("hasLid");
         this.closing = nbt.getBoolean("closing");
         this.shouldSkip = nbt.getBoolean("shouldSkip");
+        this.lootGenerated = nbt.getBoolean("lootGenerated");
     }
 
     @Override
@@ -76,6 +78,7 @@ public class StoneChestBlockEntity extends ChestBlockEntity {
         nbt.putBoolean("hasLid", this.hasLid);
         nbt.putBoolean("closing", this.closing);
         nbt.putBoolean("shouldSkip", this.shouldSkip);
+        nbt.putBoolean("lootGenerated", this.lootGenerated);
     }
 
     public float getOpenProgress(float delta) {
@@ -182,6 +185,7 @@ public class StoneChestBlockEntity extends ChestBlockEntity {
             if (player instanceof ServerPlayerEntity) {
                 Criteria.PLAYER_GENERATES_CONTAINER_LOOT.trigger((ServerPlayerEntity)player, this.lootTableId);
             }
+            this.lootTableId = null;
             LootContext.Builder builder = new LootContext.Builder((ServerWorld)this.world).parameter(LootContextParameters.ORIGIN, Vec3d.ofCenter(this.pos)).random(this.lootTableSeed);
             if (player != null) {
                 builder.luck(player.getLuck()).parameter(LootContextParameters.THIS_ENTITY, player);
@@ -190,17 +194,18 @@ public class StoneChestBlockEntity extends ChestBlockEntity {
             for (ItemStack stack : this.getInvStackList()) {
                 stack.setSubNbt("wilderwild_is_ancient", NbtByte.of(true));
             }
-            this.lootTableId = null;
+            this.lootGenerated = true;
         }
     }
 
     @Override
     public void setStack(int slot, ItemStack stack) {
-        if (this.lootTableId == null) {
+        if (this.lootGenerated) {
             if (stack.getSubNbt("wilderwild_is_ancient") != null) {
                 stack.removeSubNbt("wilderwild_is_ancient");
             }
-        } else {
+        } 
+        if (this.lootTableId != null) {
             this.checkLootInteraction(null);
         }
         this.getInvStackList().set(slot, stack);
