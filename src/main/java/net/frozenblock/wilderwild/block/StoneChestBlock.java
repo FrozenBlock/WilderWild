@@ -2,29 +2,36 @@ package net.frozenblock.wilderwild.block;
 
 import net.frozenblock.wilderwild.block.entity.StoneChestBlockEntity;
 import net.frozenblock.wilderwild.registry.RegisterBlockEntities;
+import net.frozenblock.wilderwild.registry.RegisterProperties;
 import net.frozenblock.wilderwild.registry.RegisterSounds;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.BlockWithEntity;
-import net.minecraft.block.ChestBlock;
-import net.minecraft.block.DoubleBlockProperties;
+import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityTicker;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.block.entity.ChestBlockEntity;
+import net.minecraft.block.enums.ChestType;
 import net.minecraft.entity.mob.PiglinBrain;
 import net.minecraft.entity.passive.CatEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
+import net.minecraft.fluid.FluidState;
+import net.minecraft.fluid.Fluids;
 import net.minecraft.inventory.DoubleInventory;
+import net.minecraft.inventory.Inventory;
+import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.screen.GenericContainerScreenHandler;
 import net.minecraft.screen.NamedScreenHandlerFactory;
 import net.minecraft.screen.ScreenHandler;
+import net.minecraft.state.StateManager;
+import net.minecraft.state.property.BooleanProperty;
 import net.minecraft.text.Text;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
+import net.minecraft.util.ItemScatterer;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Box;
+import net.minecraft.util.math.Direction;
 import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldAccess;
@@ -37,9 +44,12 @@ import java.util.function.BiPredicate;
 import java.util.function.Supplier;
 
 public class StoneChestBlock extends ChestBlock {
+    public static final BooleanProperty ANCIENT = RegisterProperties.ANCIENT;
 
     public StoneChestBlock(Settings settings, Supplier<BlockEntityType<? extends ChestBlockEntity>> supplier) {
         super(settings, supplier);
+        this.setDefaultState(this.stateManager.getDefaultState().with(FACING, Direction.NORTH).with(CHEST_TYPE, ChestType.SINGLE).with(WATERLOGGED, false).with(ANCIENT, false));
+
     }
 
     @Override
@@ -210,4 +220,72 @@ public class StoneChestBlock extends ChestBlock {
         }
         return false;
     }
+
+    @Override
+    public BlockState getStateForNeighborUpdate(BlockState state, Direction direction, BlockState neighborState, WorldAccess world, BlockPos pos, BlockPos neighborPos) {
+        if (state.get(WATERLOGGED)) {
+            world.createAndScheduleFluidTick(pos, Fluids.WATER, Fluids.WATER.getTickRate(world));
+        }
+        if (neighborState.isOf(this) && direction.getAxis().isHorizontal()) {
+            if (neighborState.get(ANCIENT) == state.get(ANCIENT)) {
+                ChestType chestType = neighborState.get(CHEST_TYPE);
+                if (state.get(CHEST_TYPE) == ChestType.SINGLE && chestType != ChestType.SINGLE && state.get(FACING) == neighborState.get(FACING) && ChestBlock.getFacing(neighborState) == direction.getOpposite()) {
+                    return state.with(CHEST_TYPE, chestType.getOpposite());
+                }
+            }
+        } else if (ChestBlock.getFacing(state) == direction) {
+            return state.with(CHEST_TYPE, ChestType.SINGLE);
+        }
+        return super.getStateForNeighborUpdate(state, direction, neighborState, world, pos, neighborPos);
+    }
+
+    @Override
+    public BlockState getPlacementState(ItemPlacementContext ctx) {
+        Direction direction3;
+        ChestType chestType = ChestType.SINGLE;
+        Direction direction = ctx.getPlayerFacing().getOpposite();
+        FluidState fluidState = ctx.getWorld().getFluidState(ctx.getBlockPos());
+        boolean bl = ctx.shouldCancelInteraction();
+        Direction direction2 = ctx.getSide();
+        if (direction2.getAxis().isHorizontal() && bl && (direction3 = this.getNeighborChestDirection(ctx, direction2.getOpposite())) != null && direction3.getAxis() != direction2.getAxis()) {
+            direction = direction3;
+            ChestType chestType2 = chestType = direction.rotateYCounterclockwise() == direction2.getOpposite() ? ChestType.RIGHT : ChestType.LEFT;
+        }
+        if (chestType == ChestType.SINGLE && !bl) {
+            if (direction == this.getNeighborChestDirection(ctx, direction.rotateYClockwise())) {
+                chestType = ChestType.LEFT;
+            } else if (direction == this.getNeighborChestDirection(ctx, direction.rotateYCounterclockwise())) {
+                chestType = ChestType.RIGHT;
+            }
+        }
+        return this.getDefaultState().with(FACING, direction).with(CHEST_TYPE, chestType).with(WATERLOGGED, fluidState.getFluid() == Fluids.WATER);
+    }
+
+    @Nullable
+    private Direction getNeighborChestDirection(ItemPlacementContext ctx, Direction dir) {
+        BlockState blockState = ctx.getWorld().getBlockState(ctx.getBlockPos().offset(dir));
+        return blockState.isOf(this) && blockState.get(CHEST_TYPE) == ChestType.SINGLE && !blockState.get(ANCIENT) ? blockState.get(FACING) : null;
+    }
+
+    @Override
+    public void onStateReplaced(BlockState state, World world, BlockPos pos, BlockState newState, boolean moved) {
+        if (state.isOf(newState.getBlock())) {
+            return;
+        }
+        BlockEntity blockEntity = world.getBlockEntity(pos);
+        if (blockEntity instanceof Inventory && !state.get(ANCIENT)) {
+            ItemScatterer.spawn(world, pos, (Inventory) blockEntity);
+            world.updateComparators(pos, this);
+        }
+        if (state.hasBlockEntity() && !state.isOf(newState.getBlock())) {
+            world.removeBlockEntity(pos);
+        }
+    }
+
+    @Override
+    protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
+        builder.add(FACING, CHEST_TYPE, WATERLOGGED, ANCIENT);
+    }
+
+
 }
