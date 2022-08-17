@@ -277,7 +277,9 @@ public class StoneChestBlock extends ChestBlock {
             ItemScatterer.spawn(world, pos, (Inventory) blockEntity);
             world.updateComparators(pos, this);
         }
-        super.onStateReplaced(state, world, pos, newState, moved);
+        if (state.hasBlockEntity() && !state.isOf(newState.getBlock())) {
+            world.removeBlockEntity(pos);
+        }
     }
 
     @Override
