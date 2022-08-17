@@ -28,7 +28,7 @@ import java.util.Set;
 import java.util.stream.Stream;
 
 @Mixin(SculkSpreadManager.Cursor.class)
-public class SculkSpreadManagerCursorMixin {
+public abstract class SculkSpreadManagerCursorMixin {
 
     @Final
     @Shadow
@@ -100,17 +100,10 @@ public class SculkSpreadManagerCursorMixin {
     }
 
     private static SculkSpreadable getSpreadableNew(BlockState state, boolean isWorldGen) {
-        Block var2 = state.getBlock();
-        SculkSpreadable var10000;
-        if (var2 instanceof SculkSpreadable) {
-            var10000 = (SculkSpreadable) var2;
-        } else if (isWorldGen && (state.isIn(WilderBlockTags.SCULK_WALL_REPLACEABLE_WORLDGEN) || state.isIn(WilderBlockTags.SCULK_SLAB_REPLACEABLE_WORLDGEN) || state.isIn(WilderBlockTags.SCULK_STAIR_REPLACEABLE_WORLDGEN))) {
-            var10000 = new WilderSculkSpreader();
-        } else {
-            var10000 = SculkSpreadable.VEIN_ONLY_SPREADER;
+        if (isWorldGen && (state.isIn(WilderBlockTags.SCULK_WALL_REPLACEABLE_WORLDGEN) || state.isIn(WilderBlockTags.SCULK_SLAB_REPLACEABLE_WORLDGEN) || state.isIn(WilderBlockTags.SCULK_STAIR_REPLACEABLE_WORLDGEN))) {
+            return new WilderSculkSpreader();
         }
-
-        return var10000;
+        return getSpreadable(state);
     }
 
     @Shadow
@@ -127,32 +120,22 @@ public class SculkSpreadManagerCursorMixin {
     }
 
     private static boolean canSpreadNew(WorldAccess world, BlockPos sourcePos, BlockPos targetPos) {
-        if (sourcePos.getManhattanDistance(targetPos) == 1) {
-            return true;
-        } else {
+        if (sourcePos.getManhattanDistance(targetPos) != 1) {
             BlockState cheatState = world.getBlockState(targetPos);
             if (cheatState.isIn(WilderBlockTags.SCULK_STAIR_REPLACEABLE_WORLDGEN) || cheatState.isIn(WilderBlockTags.SCULK_WALL_REPLACEABLE_WORLDGEN) || cheatState.isIn(WilderBlockTags.SCULK_SLAB_REPLACEABLE_WORLDGEN)) {
                 return true;
             }
-            BlockPos blockPos = targetPos.subtract(sourcePos);
-            Direction direction = Direction.from(Direction.Axis.X, blockPos.getX() < 0 ? Direction.AxisDirection.NEGATIVE : Direction.AxisDirection.POSITIVE);
-            Direction direction2 = Direction.from(Direction.Axis.Y, blockPos.getY() < 0 ? Direction.AxisDirection.NEGATIVE : Direction.AxisDirection.POSITIVE);
-            Direction direction3 = Direction.from(Direction.Axis.Z, blockPos.getZ() < 0 ? Direction.AxisDirection.NEGATIVE : Direction.AxisDirection.POSITIVE);
-            if (blockPos.getX() == 0) {
-                return canSpread(world, sourcePos, direction2) || canSpread(world, sourcePos, direction3);
-            } else if (blockPos.getY() == 0) {
-                return canSpread(world, sourcePos, direction) || canSpread(world, sourcePos, direction3);
-            } else {
-                return canSpread(world, sourcePos, direction) || canSpread(world, sourcePos, direction2);
-            }
         }
+        return canSpread(world, sourcePos, targetPos);
     }
 
+    @Shadow
     private static boolean canSpread(WorldAccess world, BlockPos pos, Direction direction) {
         BlockPos blockPos = pos.offset(direction);
         return !world.getBlockState(blockPos).isSideSolidFullSquare(world, blockPos, direction.getOpposite());
     }
 
+    @Shadow
     private static SculkSpreadable getSpreadable(BlockState state) {
         Block var2 = state.getBlock();
         SculkSpreadable var10000;
@@ -168,6 +151,11 @@ public class SculkSpreadManagerCursorMixin {
     @Shadow
     private static List<Vec3i> shuffleOffsets(Random random) {
         return Util.copyShuffled(OFFSETS, random);
+    }
+
+    @Shadow
+    private static boolean canSpread(WorldAccess world, BlockPos sourcePos, BlockPos targetPos) {
+        return false;
     }
 
     private static BlockPos getSpreadPosNew(WorldAccess world, BlockPos pos, Random random) {
