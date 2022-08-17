@@ -31,3 +31,5 @@ accessible    method    net/minecraft/client/render/RenderPhase$Texture    <init
 accessible    field    net/minecraft/client/render/RenderPhase    TRANSLUCENT_TRANSPARENCY    Lnet/minecraft/client/render/RenderPhase$Transparency;
 accessible    method    net/minecraft/structure/pool/SinglePoolElement    <init>    (Lcom/mojang/datafixers/util/Either;Lnet/minecraft/util/registry/RegistryEntry;Lnet/minecraft/structure/pool/StructurePool$Projection;)V
 accessible    method    net/minecraft/client/render/TexturedRenderLayers    getChestTextureId    (Ljava/lang/String;)Lnet/minecraft/client/util/SpriteIdentifier;
+accessible    field    net/minecraft/inventory/DoubleInventory    first    Lnet/minecraft/inventory/Inventory;
+accessible    field    net/minecraft/inventory/DoubleInventory    second    Lnet/minecraft/inventory/Inventory;

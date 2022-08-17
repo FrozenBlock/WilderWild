@@ -7,6 +7,7 @@ import net.minecraft.block.entity.ChestBlockEntity;
 import net.minecraft.block.entity.Hopper;
 import net.minecraft.block.entity.HopperBlockEntity;
 import net.minecraft.entity.Entity;
+import net.minecraft.inventory.DoubleInventory;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.predicate.entity.EntityPredicates;
@@ -32,6 +33,11 @@ public class HopperBlockEntityMixin {
         if (inventory2 instanceof StoneChestBlockEntity) {
             info.cancel();
             info.setReturnValue(false);
+        } else if (inventory2 instanceof DoubleInventory doubleInventory) {
+            if (doubleInventory.first instanceof StoneChestBlockEntity || doubleInventory.second instanceof StoneChestBlockEntity) {
+                info.cancel();
+                info.setReturnValue(false);
+            }
         }
     }
 
@@ -41,6 +47,11 @@ public class HopperBlockEntityMixin {
         if (inventory instanceof StoneChestBlockEntity) {
             info.cancel();
             info.setReturnValue(false);
+        } else if (inventory instanceof DoubleInventory doubleInventory) {
+            if (doubleInventory.first instanceof StoneChestBlockEntity || doubleInventory.second instanceof StoneChestBlockEntity) {
+                info.cancel();
+                info.setReturnValue(false);
+            }
         }
     }
 
