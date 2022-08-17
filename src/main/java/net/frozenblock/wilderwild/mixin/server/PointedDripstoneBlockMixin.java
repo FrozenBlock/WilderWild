@@ -12,6 +12,9 @@ import net.minecraft.world.World;
 import net.minecraft.world.WorldAccess;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
+import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import java.util.Optional;
 import java.util.function.BiPredicate;
@@ -23,10 +26,12 @@ public class PointedDripstoneBlockMixin {
     @Shadow
     private static final VoxelShape DRIP_COLLISION_SHAPE = Block.createCuboidShape(6.0, 0.0, 6.0, 10.0, 16.0, 10.0);
 
-    private static BlockPos getCauldronPos(World world, BlockPos pos2, Fluid fluid) {
+    @Inject(at = @At("HEAD"), method = "getCauldronPos", cancellable = true)
+    private static void getCauldronPos(World world, BlockPos pos2, Fluid fluid, CallbackInfoReturnable<BlockPos> info) {
         Predicate<BlockState> predicate = state -> (state.getBlock() instanceof AbstractCauldronBlock && ((AbstractCauldronBlock)state.getBlock()).canBeFilledByDripstone(fluid)) || state.isOf(Blocks.DIRT);
         BiPredicate<BlockPos, BlockState> biPredicate = (pos, state) -> canDripThrough(world, pos, state);
-        return searchInDirection(world, pos2, Direction.DOWN.getDirection(), biPredicate, predicate, 11).orElse(null);
+        info.setReturnValue(searchInDirection(world, pos2, Direction.DOWN.getDirection(), biPredicate, predicate, 11).orElse(null));
+        info.cancel();
     }
 
     @Shadow
