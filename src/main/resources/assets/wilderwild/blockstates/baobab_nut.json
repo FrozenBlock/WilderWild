@@ -20,12 +20,6 @@
 	},
 	"age=2,hanging=true": {
 	  "model": "wilderwild:block/baobab_nut_hanging_stage_3"
-	},
-	"age=3,hanging=false": {
-	  "model": "wilderwild:block/baobab_nut"
-	},
-	"age=3,hanging=true": {
-	  "model": "wilderwild:block/baobab_nut_hanging_stage_3"
 	}
   }
 }
