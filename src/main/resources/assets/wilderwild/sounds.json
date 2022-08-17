@@ -889,7 +889,8 @@
 	},
 	"block.stone_chest.lift": {
 		"sounds": [
-			"wilderwild:block/stone_chest/lift"
+			"wilderwild:block/stone_chest/lift",
+			"wilderwild:block/stone_chest/lift2"
 		],
 		"subtitle": "subtitles.block.stone_chest.lift"
 	},
