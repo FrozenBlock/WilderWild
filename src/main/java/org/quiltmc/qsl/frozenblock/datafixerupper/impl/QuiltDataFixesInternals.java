@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-package org.quiltmc.qsl.datafixerupper.impl;
+package org.quiltmc.qsl.frozenblock.datafixerupper.impl;
 
 import com.mojang.datafixers.DataFixUtils;
 import com.mojang.datafixers.DataFixer;
