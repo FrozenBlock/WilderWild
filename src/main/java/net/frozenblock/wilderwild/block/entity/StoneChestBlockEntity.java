@@ -196,7 +196,7 @@ public class StoneChestBlockEntity extends ChestBlockEntity {
     public void setStack(int slot, ItemStack stack) {
         if (this.lootGenerated) {
             if (stack.getOrCreateNbt().get("wilderwild_is_ancient") != null) {
-                stack.removeSubNbt("wilderwild_is_ancient");
+                stack.getOrCreateNbt().remove("wilderwild_is_ancient");
             }
         } 
         if (this.lootTableId != null) {
