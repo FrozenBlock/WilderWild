@@ -31,7 +31,7 @@ import org.spongepowered.asm.mixin.injection.ModifyVariable;
 public abstract class ChunkSerializerMixin {
     @ModifyVariable(
             method = "serialize",
-            at = @At(value = "INVOKE", target = "Lnet/minecraft/nbt/NbtCompound;putInt(Ljava/lang/String;I)V", ordinal = 0, shift = At.Shift.AFTER)
+            at = @At(value = "INVOKE", target = "Lnet/minecraft/nbt/NbtCompound;putInt(Ljava/lang/String;I)V", ordinal = 0, shift = At.Shift.AFTER), index = 3
     )
     private static NbtCompound addModDataVersions(NbtCompound compound) {
         return QuiltDataFixesInternals.addModDataVersions(compound);
