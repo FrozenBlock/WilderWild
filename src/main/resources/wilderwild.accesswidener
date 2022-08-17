@@ -1,4 +1,4 @@
-accessWidener    v1    named
+accessWidener    v2    named
 accessible    class    net/minecraft/block/SculkVeinBlock$SculkVeinGrowChecker
 accessible    method    net/minecraft/world/gen/treedecorator/TreeDecoratorType    <init>    (Lcom/mojang/serialization/Codec;)V
 accessible    method    net/minecraft/world/gen/trunk/TrunkPlacerType    <init>    (Lcom/mojang/serialization/Codec;)V
@@ -32,3 +32,4 @@ accessible    field    net/minecraft/client/render/RenderPhase    ENABLE_OVERLAY
 accessible    method    net/minecraft/client/render/RenderLayer$MultiPhase    <init>    (Ljava/lang/String;Lnet/minecraft/client/render/VertexFormat;Lnet/minecraft/client/render/VertexFormat$DrawMode;IZZLnet/minecraft/client/render/RenderLayer$MultiPhaseParameters;)V
 accessible    method    net/minecraft/client/render/RenderPhase$Texture    <init>    (Lnet/minecraft/util/Identifier;ZZ)V
 accessible    field    net/minecraft/client/render/RenderPhase    TRANSLUCENT_TRANSPARENCY    Lnet/minecraft/client/render/RenderPhase$Transparency;
+accessible    method    net/minecraft/entity/SpawnRestriction    register    (Lnet/minecraft/entity/EntityType;Lnet/minecraft/entity/SpawnRestriction$Location;Lnet/minecraft/world/Heightmap$Type;Lnet/minecraft/entity/SpawnRestriction$SpawnPredicate;)V

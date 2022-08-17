@@ -15,9 +15,9 @@
  * limitations under the License.
  */
 
-package net.frozenblock.api.org.quiltmc.qsl.datafixerupper.mixin;
+package org.quiltmc.qsl.frozenblock.datafixerupper.mixin;
 
-import net.frozenblock.api.org.quiltmc.qsl.datafixerupper.impl.QuiltDataFixesInternals;
+import org.quiltmc.qsl.frozenblock.datafixerupper.impl.QuiltDataFixesInternals;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.structure.StructureTemplate;
 import org.spongepowered.asm.mixin.Mixin;
@@ -28,12 +28,12 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 /**
  * Modified to work on Fabric
  */
-@Mixin(StructureTemplate.class)
+@Mixin(value = StructureTemplate.class, priority = 1001)
 public abstract class StructureMixin {
     @Inject(method = "writeNbt", at = @At("TAIL"), cancellable = true)
     private void addModDataVersions(NbtCompound compound, CallbackInfoReturnable<NbtCompound> cir) {
         NbtCompound out = cir.getReturnValue();
-        QuiltDataFixesInternals.addModDataVersions(out);
+        QuiltDataFixesInternals.get().addModDataVersions(out);
         cir.setReturnValue(out);
     }
 }

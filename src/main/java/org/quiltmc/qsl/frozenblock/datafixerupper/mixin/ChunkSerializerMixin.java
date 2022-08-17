@@ -15,9 +15,9 @@
  * limitations under the License.
  */
 
-package net.frozenblock.api.org.quiltmc.qsl.datafixerupper.mixin;
+package org.quiltmc.qsl.frozenblock.datafixerupper.mixin;
 
-import net.frozenblock.api.org.quiltmc.qsl.datafixerupper.impl.QuiltDataFixesInternals;
+import org.quiltmc.qsl.frozenblock.datafixerupper.impl.QuiltDataFixesInternals;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.world.ChunkSerializer;
 import org.spongepowered.asm.mixin.Mixin;
@@ -27,13 +27,13 @@ import org.spongepowered.asm.mixin.injection.ModifyVariable;
 /**
  * Modified to work on Fabric
  */
-@Mixin(ChunkSerializer.class)
+@Mixin(value = ChunkSerializer.class, priority = 1001)
 public abstract class ChunkSerializerMixin {
     @ModifyVariable(
             method = "serialize",
-            at = @At(value = "INVOKE", target = "Lnet/minecraft/nbt/NbtCompound;putInt(Ljava/lang/String;I)V", ordinal = 0)
+            at = @At(value = "INVOKE", target = "Lnet/minecraft/nbt/NbtCompound;putInt(Ljava/lang/String;I)V", ordinal = 0, shift = At.Shift.AFTER), index = 3
     )
     private static NbtCompound addModDataVersions(NbtCompound compound) {
-        return QuiltDataFixesInternals.addModDataVersions(compound);
+        return QuiltDataFixesInternals.get().addModDataVersions(compound);
     }
 }
