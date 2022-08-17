@@ -9,9 +9,13 @@ public final class RegisterSounds {
     public static final SoundEvent AMBIENT_DEEP_DARK_ADDITIONS = register("ambient.deep_dark.additions");
     public static final SoundEvent AMBIENT_DEEP_DARK_LOOP = register("ambient.deep_dark.loop");
 
+    public static final SoundEvent AMBIENT_DRIPSTONE_CAVES_ADDITIONS = register("ambient.dripstone_caves.additions");
     public static final SoundEvent AMBIENT_DRIPSTONE_CAVES_LOOP = register("ambient.dripstone_caves.loop");
 
+    public static final SoundEvent AMBIENT_LUSH_CAVES_ADDITIONS = register("ambient.lush_caves.additions");
     public static final SoundEvent AMBIENT_LUSH_CAVES_LOOP = register("ambient.lush_caves.loop");
+
+    public static final SoundEvent AMBIENT_GENERIC_CAVES_LOOP = register("ambient.generic_caves.loop");
 
     public static final SoundEvent BLOCK_FIREFLY_LANTERN_NECTAR_LOOP = register("block.firefly_lantern.nectar_inside_loop");
 

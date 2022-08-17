@@ -107,6 +107,35 @@
 			}
 		]
 	},
+	"ambient.dripstone_caves.additions": {
+		"sounds": [
+			{
+				"name": "wilderwild:ambient/cave/dripstone_caves/additions1",
+				"weight": 15,
+				"volume": 1.0
+			},
+			{
+				"name": "wilderwild:ambient/cave/dripstone_caves/additions2",
+				"weight": 15,
+				"volume": 1.0
+			},
+			{
+				"name": "wilderwild:ambient/cave/dripstone_caves/additions3",
+				"weight": 15,
+				"volume": 1.0
+			},
+			{
+				"name": "wilderwild:ambient/cave/lush_caves/water1",
+				"weight": 5,
+				"volume": 1.0
+			},
+			{
+				"name": "wilderwild:ambient/cave/lush_caves/water2",
+				"weight": 5,
+				"volume": 1.0
+			}
+		]
+	},
 	"ambient.dripstone_caves.loop": {
 		"sounds": [
 			{
@@ -116,10 +145,63 @@
 			}
 		]
 	},
+	"ambient.lush_caves.additions": {
+		"sounds": [
+			{
+				"name": "wilderwild:ambient/cave/lush_caves/axolotls1",
+				"weight": 15,
+				"volume": 1.0
+			},
+			{
+				"name": "wilderwild:ambient/cave/lush_caves/axolotls2",
+				"weight": 15,
+				"volume": 1.0
+			},
+			{
+				"name": "wilderwild:ambient/cave/lush_caves/axolotls3",
+				"weight": 15,
+				"volume": 1.0
+			},
+			{
+				"name": "wilderwild:ambient/cave/lush_caves/axolotls4",
+				"weight": 15,
+				"volume": 1.0
+			},
+			{
+				"name": "wilderwild:ambient/cave/lush_caves/splashes1",
+				"weight": 10,
+				"volume": 1.0
+			},
+			{
+				"name": "wilderwild:ambient/cave/lush_caves/splashes2",
+				"weight": 10,
+				"volume": 1.0
+			},
+			{
+				"name": "wilderwild:ambient/cave/lush_caves/rustling1",
+				"weight": 5,
+				"volume": 1.0
+			},
+			{
+				"name": "wilderwild:ambient/cave/lush_caves/rustling2",
+				"weight": 5,
+				"volume": 1.0
+			}
+		]
+	},
 	"ambient.lush_caves.loop": {
 		"sounds": [
 			{
 				"name": "wilderwild:ambient/cave/lush_caves/ambience",
+				"stream": true,
+				"volume": 1.0
+			}
+		]
+	},
+	"ambient.generic_caves.loop": {
+		"sounds": [
+			{
+				"name": "wilderwild:ambient/cave/generic/ambience",
 				"stream": true,
 				"volume": 1.0
 			}
