@@ -2,7 +2,6 @@ package net.frozenblock.wilderwild.block;
 
 import net.frozenblock.wilderwild.block.entity.StoneChestBlockEntity;
 import net.frozenblock.wilderwild.registry.RegisterBlockEntities;
-import net.frozenblock.wilderwild.registry.RegisterProperties;
 import net.frozenblock.wilderwild.registry.RegisterSounds;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
@@ -10,6 +9,8 @@ import net.minecraft.block.entity.BlockEntityTicker;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.block.entity.ChestBlockEntity;
 import net.minecraft.block.enums.ChestType;
+import net.minecraft.entity.EntityType;
+import net.minecraft.entity.ItemEntity;
 import net.minecraft.entity.mob.PiglinBrain;
 import net.minecraft.entity.passive.CatEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -17,17 +18,15 @@ import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.fluid.FluidState;
 import net.minecraft.fluid.Fluids;
 import net.minecraft.inventory.DoubleInventory;
-import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemPlacementContext;
+import net.minecraft.item.ItemStack;
 import net.minecraft.screen.GenericContainerScreenHandler;
 import net.minecraft.screen.NamedScreenHandlerFactory;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.state.StateManager;
-import net.minecraft.state.property.BooleanProperty;
 import net.minecraft.text.Text;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
-import net.minecraft.util.ItemScatterer;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Box;
@@ -44,11 +43,11 @@ import java.util.function.BiPredicate;
 import java.util.function.Supplier;
 
 public class StoneChestBlock extends ChestBlock {
-    public static final BooleanProperty ANCIENT = RegisterProperties.ANCIENT;
+    //public static final BooleanProperty ANCIENT = RegisterProperties.ANCIENT;
 
     public StoneChestBlock(Settings settings, Supplier<BlockEntityType<? extends ChestBlockEntity>> supplier) {
         super(settings, supplier);
-        this.setDefaultState(this.stateManager.getDefaultState().with(FACING, Direction.NORTH).with(CHEST_TYPE, ChestType.SINGLE).with(WATERLOGGED, false).with(ANCIENT, false));
+        this.setDefaultState(this.stateManager.getDefaultState().with(FACING, Direction.NORTH).with(CHEST_TYPE, ChestType.SINGLE).with(WATERLOGGED, false));
 
     }
 
@@ -227,12 +226,12 @@ public class StoneChestBlock extends ChestBlock {
             world.createAndScheduleFluidTick(pos, Fluids.WATER, Fluids.WATER.getTickRate(world));
         }
         if (neighborState.isOf(this) && direction.getAxis().isHorizontal()) {
-            if (neighborState.get(ANCIENT) == state.get(ANCIENT)) {
+            //if (neighborState.get(ANCIENT) == state.get(ANCIENT)) {
                 ChestType chestType = neighborState.get(CHEST_TYPE);
                 if (state.get(CHEST_TYPE) == ChestType.SINGLE && chestType != ChestType.SINGLE && state.get(FACING) == neighborState.get(FACING) && ChestBlock.getFacing(neighborState) == direction.getOpposite()) {
                     return state.with(CHEST_TYPE, chestType.getOpposite());
                 }
-            }
+            //}
         } else if (ChestBlock.getFacing(state) == direction) {
             return state.with(CHEST_TYPE, ChestType.SINGLE);
         }
@@ -264,7 +263,7 @@ public class StoneChestBlock extends ChestBlock {
     @Nullable
     private Direction getNeighborChestDirection(ItemPlacementContext ctx, Direction dir) {
         BlockState blockState = ctx.getWorld().getBlockState(ctx.getBlockPos().offset(dir));
-        return blockState.isOf(this) && blockState.get(CHEST_TYPE) == ChestType.SINGLE && !blockState.get(ANCIENT) ? blockState.get(FACING) : null;
+        return blockState.isOf(this) && blockState.get(CHEST_TYPE) == ChestType.SINGLE ? blockState.get(FACING) : null;
     }
 
     @Override
@@ -273,8 +272,20 @@ public class StoneChestBlock extends ChestBlock {
             return;
         }
         BlockEntity blockEntity = world.getBlockEntity(pos);
-        if (blockEntity instanceof Inventory && !state.get(ANCIENT)) {
-            ItemScatterer.spawn(world, pos, (Inventory) blockEntity);
+        if (blockEntity instanceof StoneChestBlockEntity stoneChestBlock) {
+            for (ItemStack item : stoneChestBlock.nonAncientItems()) {
+                double d = EntityType.ITEM.getWidth();
+                double e = 1.0 - d;
+                double f = d / 2.0;
+                double g = Math.floor(pos.getX()) + world.random.nextDouble() * e + f;
+                double h = Math.floor(pos.getY()) + world.random.nextDouble() * e;
+                double i = Math.floor(pos.getZ()) + world.random.nextDouble() * e + f;
+                while (!item.isEmpty()) {
+                    ItemEntity itemEntity = new ItemEntity(world, g, h, i, item.split(world.random.nextInt(21) + 10));
+                    itemEntity.setVelocity(world.random.nextTriangular(0.0, 0.11485000171139836), world.random.nextTriangular(0.2, 0.11485000171139836), world.random.nextTriangular(0.0, 0.11485000171139836));
+                    world.spawnEntity(itemEntity);
+                }
+            }
             world.updateComparators(pos, this);
         }
         if (state.hasBlockEntity() && !state.isOf(newState.getBlock())) {
@@ -284,7 +295,7 @@ public class StoneChestBlock extends ChestBlock {
 
     @Override
     protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
-        builder.add(FACING, CHEST_TYPE, WATERLOGGED, ANCIENT);
+        builder.add(FACING, CHEST_TYPE, WATERLOGGED);
     }
 
 

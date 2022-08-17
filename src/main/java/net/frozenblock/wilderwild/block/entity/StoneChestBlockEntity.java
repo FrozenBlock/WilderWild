@@ -4,6 +4,7 @@ import net.fabricmc.fabric.api.networking.v1.PlayerLookup;
 import net.frozenblock.wilderwild.misc.ClientMethodInteractionThingy;
 import net.frozenblock.wilderwild.registry.RegisterBlockEntities;
 import net.frozenblock.wilderwild.registry.RegisterSounds;
+import net.minecraft.advancement.criterion.Criteria;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.ChestBlock;
 import net.minecraft.block.entity.BlockEntity;
@@ -13,18 +14,29 @@ import net.minecraft.block.enums.ChestType;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.DoubleInventory;
 import net.minecraft.inventory.Inventory;
+import net.minecraft.item.ItemStack;
+import net.minecraft.loot.LootTable;
+import net.minecraft.loot.context.LootContext;
+import net.minecraft.loot.context.LootContextParameters;
+import net.minecraft.loot.context.LootContextTypes;
+import net.minecraft.nbt.NbtByte;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.network.packet.s2c.play.BlockEntityUpdateS2CPacket;
 import net.minecraft.screen.GenericContainerScreenHandler;
 import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.text.Text;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import net.minecraft.world.event.GameEvent;
+import org.jetbrains.annotations.Nullable;
+
+import java.util.ArrayList;
 
 public class StoneChestBlockEntity extends ChestBlockEntity {
     public float openProgress;
@@ -164,6 +176,24 @@ public class StoneChestBlockEntity extends ChestBlockEntity {
         }
     }
 
+    public void checkLootInteraction(@Nullable PlayerEntity player) {
+        if (this.lootTableId != null && this.world.getServer() != null) {
+            LootTable lootTable = this.world.getServer().getLootManager().getTable(this.lootTableId);
+            if (player instanceof ServerPlayerEntity) {
+                Criteria.PLAYER_GENERATES_CONTAINER_LOOT.trigger((ServerPlayerEntity)player, this.lootTableId);
+            }
+            this.lootTableId = null;
+            LootContext.Builder builder = new LootContext.Builder((ServerWorld)this.world).parameter(LootContextParameters.ORIGIN, Vec3d.ofCenter(this.pos)).random(this.lootTableSeed);
+            if (player != null) {
+                builder.luck(player.getLuck()).parameter(LootContextParameters.THIS_ENTITY, player);
+            }
+            lootTable.supplyInventory(this, builder.build(LootContextTypes.CHEST));
+            for (ItemStack stack : this.getInvStackList()) {
+                stack.setSubNbt("wilderwild_is_ancient", NbtByte.of(true));
+            }
+        }
+    }
+
     @Override
     public BlockEntityUpdateS2CPacket toUpdatePacket() {
         return BlockEntityUpdateS2CPacket.create(this);
@@ -242,6 +272,16 @@ public class StoneChestBlockEntity extends ChestBlockEntity {
         if (!this.removed && !player.isSpectator()) {
             this.stoneStateManager.closeContainer(player, this.getWorld(), this.getPos(), this.getCachedState());
         }
+    }
+
+    public ArrayList<ItemStack> nonAncientItems() {
+        ArrayList<ItemStack> items = new ArrayList<>();
+        for (ItemStack item : this.getInvStackList()) {
+            if (item.getSubNbt("wilderwild_is_ancient") == null) {
+                items.add(item);
+            }
+        }
+        return items;
     }
 
     private final ViewerCountManager stoneStateManager = new ViewerCountManager() {
