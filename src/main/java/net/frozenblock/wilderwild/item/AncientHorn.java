@@ -151,7 +151,9 @@ public class AncientHorn extends Item {
             user.setCurrentHand(hand);
             SoundEvent soundEvent = instrument.soundEvent();
             float range = instrument.range() / 16.0F;
-            world.playSoundFromEntity(user, user, soundEvent, SoundCategory.RECORDS, range, 1.0F);
+            if (!world.isClient) {
+                EasyPacket.createMovingRestrictionSound(world, user, soundEvent, SoundCategory.RECORDS, range, 1.0F, WilderWild.id("ancient_horn"));
+            }
             AncientHornParticleEffect ancientHornParticle = new AncientHornParticleEffect(0);
             world.addParticle(ancientHornParticle, true, user.getX(), user.getY(), user.getZ(), user.getYaw(), user.getPitch(), -user.getYaw()); //change this to the new particle whenever we add it
             user.getItemCooldownManager().set(RegisterItems.ANCIENT_HORN, getCooldown(user, 300));
