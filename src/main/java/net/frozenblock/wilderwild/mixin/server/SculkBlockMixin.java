@@ -64,9 +64,9 @@ public class SculkBlockMixin {
                 int j = spreadManager.growthSpawnCost();
                 if (random.nextInt(j) < i) {
                     BlockPos blockPos2 = blockPos.above();
-                    net.minecraft.world.level.block.state.BlockState blockState = this.getExtraBlockState(world, blockPos2, random, spreadManager.isWorldGeneration());
+                    BlockState blockState = this.getExtraBlockState(world, blockPos2, random, spreadManager.isWorldGeneration());
 
-                    net.minecraft.world.level.block.state.BlockState stateDown = world.getBlockState(blockPos.below());
+                    BlockState stateDown = world.getBlockState(blockPos.below());
                     Block blockDown = stateDown.getBlock();
                     if ((stateDown.isAir() || blockDown == Blocks.WATER || blockDown == Blocks.LAVA || blockDown == Blocks.SCULK_VEIN)) {
                         if (canPlaceOsseousSculk(blockPos, isWorldGen, world)) {
@@ -176,9 +176,9 @@ public class SculkBlockMixin {
 
 
     private static boolean canPlaceGrowth(LevelAccessor world, BlockPos pos, boolean isWorldGen) {
-        net.minecraft.world.level.block.state.BlockState blockState = world.getBlockState(pos.above());
-        net.minecraft.world.level.block.state.BlockState blockState1 = world.getBlockState(pos.below());
-        if (canPlaceGrowth(world, pos) || ((isWorldGen || canPlaceOsseousSculk(pos, isWorldGen, world)) && canPlaceGrowth(world, pos))) {
+        BlockState blockState = world.getBlockState(pos.above());
+        BlockState blockState1 = world.getBlockState(pos.below());
+        if (((isWorldGen || canPlaceOsseousSculk(pos, isWorldGen, world)) && ((blockState1.isAir()) || (blockState1.isOf(Blocks.WATER) && blockState1.getFluidState().isOf(Fluids.WATER)))) {
             int i = 0;
             Iterator<BlockPos> var4 = BlockPos.betweenClosed(pos.offset(-4, 0, -4), pos.offset(4, 2, 4)).iterator();
 
@@ -195,6 +195,6 @@ public class SculkBlockMixin {
             } while (i <= 2);
 
         }
-        return false;
+        return canPlaceGrowth(world, pos);
     }
 }
