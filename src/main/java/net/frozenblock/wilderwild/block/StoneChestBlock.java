@@ -35,6 +35,7 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.entity.ChestBlockEntity;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.ChestType;
 import net.minecraft.world.level.gameevent.GameEvent;
@@ -60,7 +61,7 @@ public class StoneChestBlock extends ChestBlock {
     }
 
     @Override
-    public InteractionResult use(net.minecraft.world.level.block.state.BlockState state, Level world, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
+    public InteractionResult use(BlockState state, Level world, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
         if (world.isClientSide) {
             return InteractionResult.SUCCESS;
         }
@@ -131,28 +132,28 @@ public class StoneChestBlock extends ChestBlock {
     }
 
     @Override
-    public BlockEntity newBlockEntity(BlockPos pos, net.minecraft.world.level.block.state.BlockState state) {
+    public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
         return new StoneChestBlockEntity(pos, state);
     }
 
     @Override
     @Nullable
-    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level world, net.minecraft.world.level.block.state.BlockState state, BlockEntityType<T> type) {
+    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level world, BlockState state, BlockEntityType<T> type) {
         return world.isClientSide ? BaseEntityBlock.createTickerHelper(type, RegisterBlockEntities.STONE_CHEST, StoneChestBlockEntity::clientStoneTick) : BaseEntityBlock.createTickerHelper(type, RegisterBlockEntities.STONE_CHEST, StoneChestBlockEntity::serverStoneTick);
     }
 
     @Nullable
-    public MenuProvider getMenuProvider(net.minecraft.world.level.block.state.BlockState state, Level world, BlockPos pos) {
+    public MenuProvider getMenuProvider(BlockState state, Level world, BlockPos pos) {
         return (MenuProvider) ((Optional) this.combine(state, world, pos, false).apply(STONE_NAME_RETRIEVER)).orElse(null);
     }
 
     @Override
-    public DoubleBlockCombiner.NeighborCombineResult<? extends ChestBlockEntity> combine(net.minecraft.world.level.block.state.BlockState state, Level world2, BlockPos pos2, boolean ignoreBlocked) {
+    public DoubleBlockCombiner.NeighborCombineResult<? extends ChestBlockEntity> combine(BlockState state, Level world2, BlockPos pos2, boolean ignoreBlocked) {
         BiPredicate<LevelAccessor, BlockPos> biPredicate = ignoreBlocked ? (world, pos) -> false : StoneChestBlock::isStoneChestBlocked;
         return DoubleBlockCombiner.combineWithNeigbour((BlockEntityType) this.blockEntityType.get(), ChestBlock::getBlockType, ChestBlock::getConnectedDirection, FACING, state, world2, pos2, biPredicate);
     }
 
-    public DoubleBlockCombiner.NeighborCombineResult<? extends ChestBlockEntity> getBlockEntitySourceIgnoreLid(net.minecraft.world.level.block.state.BlockState state, Level world2, BlockPos pos2, boolean ignoreBlocked) {
+    public DoubleBlockCombiner.NeighborCombineResult<? extends ChestBlockEntity> getBlockEntitySourceIgnoreLid(BlockState state, Level world2, BlockPos pos2, boolean ignoreBlocked) {
         BiPredicate<LevelAccessor, BlockPos> biPredicate = ignoreBlocked ? (world, pos) -> false : StoneChestBlock::isStoneChestBlockedNoLid;
         return DoubleBlockCombiner.combineWithNeigbour((BlockEntityType) this.blockEntityType.get(), ChestBlock::getBlockType, ChestBlock::getConnectedDirection, FACING, state, world2, pos2, biPredicate);
     }
@@ -229,7 +230,7 @@ public class StoneChestBlock extends ChestBlock {
     }
 
     @Override
-    public net.minecraft.world.level.block.state.BlockState updateShape(net.minecraft.world.level.block.state.BlockState state, Direction direction, net.minecraft.world.level.block.state.BlockState neighborState, LevelAccessor world, BlockPos pos, BlockPos neighborPos) {
+    public BlockState updateShape(BlockState state, Direction direction, BlockState neighborState, LevelAccessor world, BlockPos pos, BlockPos neighborPos) {
         if (state.getValue(WATERLOGGED)) {
             world.scheduleTick(pos, Fluids.WATER, Fluids.WATER.getTickDelay(world));
         }
@@ -247,7 +248,7 @@ public class StoneChestBlock extends ChestBlock {
     }
 
     @Override
-    public net.minecraft.world.level.block.state.BlockState getStateForPlacement(BlockPlaceContext ctx) {
+    public BlockState getStateForPlacement(BlockPlaceContext ctx) {
         Direction direction3;
         ChestType chestType = ChestType.SINGLE;
         Direction direction = ctx.getHorizontalDirection().getOpposite();
@@ -270,12 +271,12 @@ public class StoneChestBlock extends ChestBlock {
 
     @Nullable
     private Direction candidatePartnerFacing(BlockPlaceContext ctx, Direction dir) {
-        net.minecraft.world.level.block.state.BlockState blockState = ctx.getLevel().getBlockState(ctx.getClickedPos().relative(dir));
+        BlockState blockState = ctx.getLevel().getBlockState(ctx.getClickedPos().relative(dir));
         return blockState.is(this) && blockState.getValue(TYPE) == ChestType.SINGLE ? blockState.getValue(FACING) : null;
     }
 
     @Override
-    public void onRemove(net.minecraft.world.level.block.state.BlockState state, Level world, BlockPos pos, net.minecraft.world.level.block.state.BlockState newState, boolean moved) {
+    public void onRemove(BlockState state, Level world, BlockPos pos, BlockState newState, boolean moved) {
         if (state.is(newState.getBlock())) {
             return;
         }
@@ -318,7 +319,7 @@ public class StoneChestBlock extends ChestBlock {
     }
 
     @Override
-    protected void createBlockStateDefinition(StateDefinition.Builder<Block, net.minecraft.world.level.block.state.BlockState> builder) {
+    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
         builder.add(FACING, TYPE, WATERLOGGED);
     }
 
