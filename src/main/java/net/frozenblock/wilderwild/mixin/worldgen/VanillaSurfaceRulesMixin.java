@@ -45,7 +45,7 @@ public class VanillaSurfaceRulesMixin {
                         MaterialRules.condition(
                                 MaterialRules.biome(BiomeKeys.BIRCH_FOREST, BiomeKeys.TAIGA, BiomeKeys.FROZEN_RIVER, BiomeKeys.OLD_GROWTH_BIRCH_FOREST, BiomeKeys.OLD_GROWTH_PINE_TAIGA, BiomeKeys.OLD_GROWTH_SPRUCE_TAIGA, BiomeKeys.SNOWY_TAIGA, RegisterWorldgen.MIXED_FOREST),
                                 MaterialRules.condition(
-                                        MaterialRules.aboveY(YOffset.fixed(60), 0),
+                                        MaterialRules.aboveY(YOffset.fixed(58), 0),
                                         MaterialRules.condition(
                                                 MaterialRules.not(MaterialRules.aboveY(YOffset.fixed(64), 0)),
                                                 MaterialRules.condition(MaterialRules.noiseThreshold(WilderNoiseKeys.SAND_BEACH, 0.12, 1.7976931348623157E308), GRAVEL)
@@ -58,7 +58,7 @@ public class VanillaSurfaceRulesMixin {
                                 MaterialRules.condition(
                                         MaterialRules.biome(BiomeKeys.FLOWER_FOREST, BiomeKeys.FOREST, BiomeKeys.JUNGLE, BiomeKeys.SPARSE_JUNGLE, BiomeKeys.SAVANNA, BiomeKeys.DARK_FOREST),
                                         MaterialRules.condition(
-                                                MaterialRules.aboveY(YOffset.fixed(60), 0),
+                                                MaterialRules.aboveY(YOffset.fixed(58), 0),
                                                 MaterialRules.condition(
                                                         MaterialRules.not(MaterialRules.aboveY(YOffset.fixed(64), 0)),
                                                         MaterialRules.condition(MaterialRules.noiseThreshold(WilderNoiseKeys.SAND_BEACH, 0.12, 1.7976931348623157E308), SAND)
