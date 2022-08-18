@@ -67,7 +67,7 @@ public class Firefly extends PathfinderMob implements FlyingAnimal {
 
 
     public boolean natural;
-    public boolean hasHome; //TODO: POSSIBLY HAVE DIFFERING "SAFE RANGES" INSTEAD OF BOOLEAN
+    public boolean hasHome;
     public boolean despawning;
     public int homeCheckCooldown;
     public boolean wasNamedNectar;
