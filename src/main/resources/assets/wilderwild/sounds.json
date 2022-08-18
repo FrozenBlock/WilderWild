@@ -983,7 +983,7 @@
 			"wilderwild:block/stone_chest/item_crumble3",
 			"wilderwild:block/stone_chest/item_crumble4"
 		],
-		"subtitle": "subtitles.block.generic.break"
+		"subtitle": "subtitles.block.stone_chest.item_crumble"
 	},
 	"block.sugar_cane.break": {
 		"sounds": [
