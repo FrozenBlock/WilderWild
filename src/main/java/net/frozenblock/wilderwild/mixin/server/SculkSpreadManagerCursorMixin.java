@@ -25,7 +25,7 @@ import java.util.Objects;
 import java.util.stream.Stream;
 
 @Mixin(SculkSpreadManager.Cursor.class)
-public class SculkSpreadManagerCursorMixin { //TODO: make sculk stairs/slabs/walls spread outside of just worldgen for the sake of making the blocks accessible to builders
+public class SculkSpreadManagerCursorMixin { //TODO: make the processed deepslate variants exclusive to worldgen and then make the slab/stair/wall variants of vanilla sculk spreadable blocks spreadable outside of worldgen
 
     @Final
     @Shadow

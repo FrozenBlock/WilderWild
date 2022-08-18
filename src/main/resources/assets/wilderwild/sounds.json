@@ -125,12 +125,12 @@
 				"volume": 1.0
 			},
 			{
-				"name": "wilderwild:ambient/cave/lush_caves/water1",
+				"name": "wilderwild:ambient/cave/dripstone_caves/water1",
 				"weight": 5,
 				"volume": 1.0
 			},
 			{
-				"name": "wilderwild:ambient/cave/lush_caves/water2",
+				"name": "wilderwild:ambient/cave/dripstone_caves/water2",
 				"weight": 5,
 				"volume": 1.0
 			}
