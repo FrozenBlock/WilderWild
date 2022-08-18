@@ -23,7 +23,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import java.util.Iterator;
 
 @Mixin(SculkBlock.class)
-public abstract class SculkBlockMixin {
+public class SculkBlockMixin {
 
     @Shadow
     private static int getDecay(SculkSpreadManager spreadManager, BlockPos cursorPos, BlockPos catalystPos, int charge) {
