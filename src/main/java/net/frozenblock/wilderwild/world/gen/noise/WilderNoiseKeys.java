@@ -1,17 +1,19 @@
 package net.frozenblock.wilderwild.world.gen.noise;
 
 import net.frozenblock.wilderwild.WilderWild;
-import net.minecraft.util.math.noise.DoublePerlinNoiseSampler;
-import net.minecraft.util.registry.Registry;
-import net.minecraft.util.registry.RegistryKey;
+import net.minecraft.core.Registry;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.world.level.levelgen.synth.NormalNoise;
 
 
 public class WilderNoiseKeys {
-    public static final RegistryKey<DoublePerlinNoiseSampler.NoiseParameters> SAND_BEACH = register("sand_beach");
+    public static final ResourceKey<NormalNoise.NoiseParameters> SAND_BEACH = register("sand_beach");
+
     public WilderNoiseKeys() {
-}
-    private static RegistryKey<DoublePerlinNoiseSampler.NoiseParameters> register(String id) {
-        return RegistryKey.of(Registry.NOISE_KEY, WilderWild.id(id));
+    }
+
+    private static ResourceKey<NormalNoise.NoiseParameters> register(String id) {
+        return ResourceKey.create(Registry.NOISE_REGISTRY, WilderWild.id(id));
     }
 }
 

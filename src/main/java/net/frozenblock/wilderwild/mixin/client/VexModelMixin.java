@@ -2,9 +2,9 @@ package net.frozenblock.wilderwild.mixin.client;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.minecraft.client.model.TexturedModelData;
-import net.minecraft.client.render.entity.model.VexEntityModel;
-import net.minecraft.entity.mob.VexEntity;
+import net.minecraft.client.model.VexModel;
+import net.minecraft.client.model.geom.builders.LayerDefinition;
+import net.minecraft.world.entity.monster.Vex;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -12,16 +12,16 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Environment(EnvType.CLIENT)
-@Mixin(VexEntityModel.class)
+@Mixin(VexModel.class)
 public class VexModelMixin {
 
-    @Inject(method = "getTexturedModelData", at = @At("HEAD"))
-    private static void getTexturedModelData(CallbackInfoReturnable<TexturedModelData> cir) {
+    @Inject(method = "createBodyLayer", at = @At("HEAD"))
+    private static void createBodyLayer(CallbackInfoReturnable<LayerDefinition> cir) {
 
     }
 
-    @Inject(method = "setAngles(Lnet/minecraft/entity/mob/VexEntity;FFFFF)V", at = @At("HEAD"))
-    private void setAngles(VexEntity vexEntity, float f, float g, float h, float i, float j, CallbackInfo ci) {
+    @Inject(method = "setupAnim(Lnet/minecraft/world/entity/monster/Vex;FFFFF)V", at = @At("HEAD"))
+    private void setAngles(Vex vexEntity, float f, float g, float h, float i, float j, CallbackInfo ci) {
 
     }
 

@@ -7,45 +7,50 @@ import net.frozenblock.wilderwild.registry.RegisterBlockEntities;
 import net.frozenblock.wilderwild.registry.RegisterItems;
 import net.frozenblock.wilderwild.registry.RegisterProperties;
 import net.frozenblock.wilderwild.registry.RegisterSounds;
-import net.minecraft.block.*;
-import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.block.entity.BlockEntityTicker;
-import net.minecraft.block.entity.BlockEntityType;
-import net.minecraft.block.piston.PistonBehavior;
-import net.minecraft.enchantment.EnchantmentHelper;
-import net.minecraft.enchantment.Enchantments;
-import net.minecraft.entity.ai.pathing.NavigationType;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.fluid.FluidState;
-import net.minecraft.fluid.Fluids;
-import net.minecraft.item.*;
-import net.minecraft.loot.LootTable;
-import net.minecraft.loot.LootTables;
-import net.minecraft.loot.context.LootContext;
-import net.minecraft.loot.context.LootContextParameters;
-import net.minecraft.loot.context.LootContextTypes;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.sound.SoundCategory;
-import net.minecraft.stat.Stats;
-import net.minecraft.state.StateManager;
-import net.minecraft.state.property.BooleanProperty;
-import net.minecraft.state.property.IntProperty;
-import net.minecraft.state.property.Properties;
-import net.minecraft.text.Text;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.Hand;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.hit.BlockHitResult;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
-import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.registry.Registry;
-import net.minecraft.util.shape.VoxelShape;
-import net.minecraft.util.shape.VoxelShapes;
-import net.minecraft.world.BlockView;
-import net.minecraft.world.World;
-import net.minecraft.world.WorldAccess;
-import net.minecraft.world.WorldView;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.core.Registry;
+import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.stats.Stats;
+import net.minecraft.util.Mth;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.BlockItem;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.item.context.BlockPlaceContext;
+import net.minecraft.world.item.enchantment.EnchantmentHelper;
+import net.minecraft.world.item.enchantment.Enchantments;
+import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.LevelReader;
+import net.minecraft.world.level.block.*;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntityTicker;
+import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.block.state.properties.BooleanProperty;
+import net.minecraft.world.level.block.state.properties.IntegerProperty;
+import net.minecraft.world.level.material.FluidState;
+import net.minecraft.world.level.material.Fluids;
+import net.minecraft.world.level.material.PushReaction;
+import net.minecraft.world.level.pathfinder.PathComputationType;
+import net.minecraft.world.level.storage.loot.BuiltInLootTables;
+import net.minecraft.world.level.storage.loot.LootContext;
+import net.minecraft.world.level.storage.loot.LootTable;
+import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
+import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
+import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.phys.shapes.CollisionContext;
+import net.minecraft.world.phys.shapes.Shapes;
+import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Collections;
@@ -53,105 +58,105 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
-public class FireflyLanternBlock extends BlockWithEntity implements Waterloggable {
+public class FireflyLanternBlock extends BaseEntityBlock implements SimpleWaterloggedBlock {
 
-    public static final BooleanProperty WATERLOGGED = Properties.WATERLOGGED;
-    public static final BooleanProperty HANGING = Properties.HANGING;
-    public static final IntProperty LIGHT = RegisterProperties.LIGHT;
-    protected static final VoxelShape STANDING_SHAPE = VoxelShapes.union(Block.createCuboidShape(5.0D, 0.0D, 5.0D, 11.0D, 7.0D, 11.0D), Block.createCuboidShape(6.0D, 7.0D, 6.0D, 10.0D, 8.0D, 10.0D));
-    protected static final VoxelShape HANGING_SHAPE = VoxelShapes.union(Block.createCuboidShape(5.0D, 2.0D, 5.0D, 11.0D, 9.0D, 11.0D), Block.createCuboidShape(6.0D, 9.0D, 6.0D, 10.0D, 10.0D, 10.0D));
+    public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
+    public static final BooleanProperty HANGING = BlockStateProperties.HANGING;
+    public static final IntegerProperty LIGHT = RegisterProperties.LIGHT;
+    protected static final VoxelShape STANDING_SHAPE = Shapes.or(Block.box(5.0D, 0.0D, 5.0D, 11.0D, 7.0D, 11.0D), Block.box(6.0D, 7.0D, 6.0D, 10.0D, 8.0D, 10.0D));
+    protected static final VoxelShape HANGING_SHAPE = Shapes.or(Block.box(5.0D, 2.0D, 5.0D, 11.0D, 9.0D, 11.0D), Block.box(6.0D, 9.0D, 6.0D, 10.0D, 10.0D, 10.0D));
 
-    public FireflyLanternBlock(Settings settings) {
+    public FireflyLanternBlock(Properties settings) {
         super(settings);
-        this.setDefaultState(this.stateManager.getDefaultState().with(HANGING, false).with(WATERLOGGED, false).with(LIGHT, 0));
+        this.registerDefaultState(this.stateDefinition.any().setValue(HANGING, false).setValue(WATERLOGGED, false).setValue(LIGHT, 0));
     }
 
     @Override
-    public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
-        if (world.isClient) {
-            return ActionResult.SUCCESS;
+    public InteractionResult use(net.minecraft.world.level.block.state.BlockState state, Level world, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
+        if (world.isClientSide) {
+            return InteractionResult.SUCCESS;
         }
         BlockEntity entity = world.getBlockEntity(pos);
         if (entity instanceof FireflyLanternBlockEntity lantern) {
-            ItemStack stack = player.getStackInHand(hand);
+            ItemStack stack = player.getItemInHand(hand);
             if (lantern.invEmpty()) {
                 if (stack.getItem() instanceof FireflyBottle bottle) {
                     if (lantern.getFireflies().size() < 4) {
                         String name = "";
-                        if (stack.hasCustomName()) {
-                            name = stack.getName().getString();
+                        if (stack.hasCustomHoverName()) {
+                            name = stack.getHoverName().getString();
                         }
                         lantern.addFirefly(bottle, name);
                         if (!player.isCreative()) {
-                            player.getStackInHand(hand).decrement(1);
+                            player.getItemInHand(hand).shrink(1);
                         }
-                        player.getInventory().offerOrDrop(new ItemStack(Items.GLASS_BOTTLE));
-                        world.setBlockState(pos, state.with(LIGHT, MathHelper.clamp(lantern.getFireflies().size() * 3, 0, 15)));
-                        world.playSound(null, pos, RegisterSounds.ITEM_BOTTLE_PUT_IN_LANTERN_FIREFLY, SoundCategory.BLOCKS, 1.0F, world.random.nextFloat() * 0.2f + 0.9f);
+                        player.getInventory().placeItemBackInInventory(new ItemStack(Items.GLASS_BOTTLE));
+                        world.setBlockAndUpdate(pos, state.setValue(LIGHT, Mth.clamp(lantern.getFireflies().size() * 3, 0, 15)));
+                        world.playSound(null, pos, RegisterSounds.ITEM_BOTTLE_PUT_IN_LANTERN_FIREFLY, SoundSource.BLOCKS, 1.0F, world.random.nextFloat() * 0.2f + 0.9f);
                         lantern.updateSync();
-                        return ActionResult.SUCCESS;
+                        return InteractionResult.SUCCESS;
                     }
                 }
-                if (stack.isOf(Items.GLASS_BOTTLE)) {
+                if (stack.is(Items.GLASS_BOTTLE)) {
                     if (!lantern.getFireflies().isEmpty()) {
                         FireflyLanternBlockEntity.FireflyInLantern fireflyInLantern = lantern.getFireflies().get((int) (lantern.getFireflies().size() * Math.random()));
-                        Optional<Item> optionalItem = Registry.ITEM.getOrEmpty(WilderWild.id(Objects.equals(fireflyInLantern.color, "on") ? "firefly_bottle" : fireflyInLantern.color + "_firefly_bottle"));
+                        Optional<Item> optionalItem = Registry.ITEM.getOptional(WilderWild.id(Objects.equals(fireflyInLantern.color, "on") ? "firefly_bottle" : fireflyInLantern.color + "_firefly_bottle"));
                         Item item = RegisterItems.FIREFLY_BOTTLE;
                         if (optionalItem.isPresent()) {
                             item = optionalItem.get();
                         }
-                        world.playSound(null, pos, RegisterSounds.ITEM_BOTTLE_CATCH_FIREFLY, SoundCategory.BLOCKS, 1.0F, world.random.nextFloat() * 0.2f + 0.9f);
+                        world.playSound(null, pos, RegisterSounds.ITEM_BOTTLE_CATCH_FIREFLY, SoundSource.BLOCKS, 1.0F, world.random.nextFloat() * 0.2f + 0.9f);
                         if (!player.isCreative()) {
-                            player.getStackInHand(hand).decrement(1);
+                            player.getItemInHand(hand).shrink(1);
                         }
                         ItemStack bottleStack = new ItemStack(item);
                         if (!Objects.equals(fireflyInLantern.customName, "")) {
-                            bottleStack.setCustomName(Text.of(fireflyInLantern.customName));
+                            bottleStack.setHoverName(Component.nullToEmpty(fireflyInLantern.customName));
                         }
-                        player.getInventory().offerOrDrop(bottleStack);
+                        player.getInventory().placeItemBackInInventory(bottleStack);
                         ((FireflyLanternBlockEntity) entity).removeFirefly(fireflyInLantern);
-                        world.setBlockState(pos, state.with(LIGHT, MathHelper.clamp(lantern.getFireflies().size() * 3, 0, 15)));
+                        world.setBlockAndUpdate(pos, state.setValue(LIGHT, Mth.clamp(lantern.getFireflies().size() * 3, 0, 15)));
                         lantern.updateSync();
-                        return ActionResult.SUCCESS;
+                        return InteractionResult.SUCCESS;
                     }
                 }
                 if (!stack.isEmpty() && lantern.noFireflies()) {
                     int light = 0;
                     if (stack.getItem() instanceof BlockItem blockItem) {
-                        light = blockItem.getBlock().getDefaultState().getLuminance();
-                    } else if (stack.hasEnchantments()) {
-                        light = (int) Math.round(stack.getEnchantments().size() * 0.5);
+                        light = blockItem.getBlock().defaultBlockState().getLightEmission();
+                    } else if (stack.isEnchanted()) {
+                        light = (int) Math.round(stack.getEnchantmentTags().size() * 0.5);
                     }
-                    world.setBlockState(pos, state.with(LIGHT, MathHelper.clamp(light, 0, 15)));
+                    world.setBlockAndUpdate(pos, state.setValue(LIGHT, Mth.clamp(light, 0, 15)));
                     lantern.inventory.set(0, stack.split(1));
                     lantern.updateSync();
-                    return ActionResult.SUCCESS;
+                    return InteractionResult.SUCCESS;
                 }
             } else if (lantern.noFireflies()) {
                 Optional<ItemStack> stack1 = lantern.inventory.stream().findFirst();
                 if (stack1.isPresent()) {
-                    dropStack(world, pos, stack1.get());
+                    popResource(world, pos, stack1.get());
                     lantern.inventory.clear();
                     lantern.updateSync();
-                    world.setBlockState(pos, state.with(LIGHT, 0));
-                    return ActionResult.SUCCESS;
+                    world.setBlockAndUpdate(pos, state.setValue(LIGHT, 0));
+                    return InteractionResult.SUCCESS;
                 }
             }
         }
-        return ActionResult.PASS;
+        return InteractionResult.PASS;
     }
 
     @Nullable
     @Override
-    public BlockState getPlacementState(ItemPlacementContext ctx) {
-        FluidState fluidState = ctx.getWorld().getFluidState(ctx.getBlockPos());
-        Direction[] var3 = ctx.getPlacementDirections();
+    public net.minecraft.world.level.block.state.BlockState getStateForPlacement(BlockPlaceContext ctx) {
+        FluidState fluidState = ctx.getLevel().getFluidState(ctx.getClickedPos());
+        Direction[] var3 = ctx.getNearestLookingDirections();
 
         for (Direction direction : var3) {
             if (direction.getAxis() == Direction.Axis.Y) {
-                BlockState blockState = this.getDefaultState().with(HANGING, direction == Direction.UP);
-                if (blockState.canPlaceAt(ctx.getWorld(), ctx.getBlockPos())) {
-                    return blockState.with(WATERLOGGED, fluidState.getFluid() == Fluids.WATER);
+                net.minecraft.world.level.block.state.BlockState blockState = this.defaultBlockState().setValue(HANGING, direction == Direction.UP);
+                if (blockState.canSurvive(ctx.getLevel(), ctx.getClickedPos())) {
+                    return blockState.setValue(WATERLOGGED, fluidState.getType() == Fluids.WATER);
                 }
             }
         }
@@ -160,107 +165,107 @@ public class FireflyLanternBlock extends BlockWithEntity implements Waterloggabl
     }
 
     @Override
-    public VoxelShape getOutlineShape(BlockState state, BlockView world, BlockPos pos, ShapeContext context) {
-        return state.get(HANGING) ? HANGING_SHAPE : STANDING_SHAPE;
+    public VoxelShape getShape(net.minecraft.world.level.block.state.BlockState state, BlockGetter world, BlockPos pos, CollisionContext context) {
+        return state.getValue(HANGING) ? HANGING_SHAPE : STANDING_SHAPE;
     }
 
     @Override
-    protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
+    protected void createBlockStateDefinition(StateDefinition.Builder<Block, net.minecraft.world.level.block.state.BlockState> builder) {
         builder.add(HANGING, WATERLOGGED, LIGHT);
     }
 
     @Override
-    public boolean canPlaceAt(BlockState state, WorldView world, BlockPos pos) {
+    public boolean canSurvive(net.minecraft.world.level.block.state.BlockState state, LevelReader world, BlockPos pos) {
         Direction direction = attachedDirection(state).getOpposite();
-        return Block.sideCoversSmallSquare(world, pos.offset(direction), direction.getOpposite());
+        return Block.canSupportCenter(world, pos.relative(direction), direction.getOpposite());
     }
 
-    private static Direction attachedDirection(BlockState state) {
-        return state.get(HANGING) ? Direction.DOWN : Direction.UP;
-    }
-
-    @Override
-    public PistonBehavior getPistonBehavior(BlockState state) {
-        return PistonBehavior.DESTROY;
+    private static Direction attachedDirection(net.minecraft.world.level.block.state.BlockState state) {
+        return state.getValue(HANGING) ? Direction.DOWN : Direction.UP;
     }
 
     @Override
-    public BlockRenderType getRenderType(BlockState blockState) {
-        return BlockRenderType.MODEL;
+    public PushReaction getPistonPushReaction(net.minecraft.world.level.block.state.BlockState state) {
+        return PushReaction.DESTROY;
     }
 
     @Override
-    public BlockState getStateForNeighborUpdate(BlockState state, Direction direction, BlockState neighborState, WorldAccess world, BlockPos pos, BlockPos neighborPos) {
-        if (state.get(WATERLOGGED)) {
-            world.createAndScheduleFluidTick(pos, Fluids.WATER, Fluids.WATER.getTickRate(world));
+    public RenderShape getRenderShape(net.minecraft.world.level.block.state.BlockState blockState) {
+        return RenderShape.MODEL;
+    }
+
+    @Override
+    public net.minecraft.world.level.block.state.BlockState updateShape(net.minecraft.world.level.block.state.BlockState state, Direction direction, net.minecraft.world.level.block.state.BlockState neighborState, LevelAccessor world, BlockPos pos, BlockPos neighborPos) {
+        if (state.getValue(WATERLOGGED)) {
+            world.scheduleTick(pos, Fluids.WATER, Fluids.WATER.getTickDelay(world));
         }
 
-        if (attachedDirection(state).getOpposite() == direction && !state.canPlaceAt(world, pos)) {
+        if (attachedDirection(state).getOpposite() == direction && !state.canSurvive(world, pos)) {
             BlockEntity entity = world.getBlockEntity(pos);
             if (entity instanceof FireflyLanternBlockEntity lanternEntity) {
                 lanternEntity.spawnFireflies();
             }
-            return Blocks.AIR.getDefaultState();
+            return Blocks.AIR.defaultBlockState();
         }
-        return super.getStateForNeighborUpdate(state, direction, neighborState, world, pos, neighborPos);
+        return super.updateShape(state, direction, neighborState, world, pos, neighborPos);
     }
 
     @Override
-    public void onStateReplaced(BlockState state, World world, BlockPos pos, BlockState newState, boolean moved) {
-        if (!state.isOf(newState.getBlock())) {
+    public void onRemove(net.minecraft.world.level.block.state.BlockState state, Level world, BlockPos pos, net.minecraft.world.level.block.state.BlockState newState, boolean moved) {
+        if (!state.is(newState.getBlock())) {
             BlockEntity entity = world.getBlockEntity(pos);
             if (entity instanceof FireflyLanternBlockEntity lantern) {
                 for (ItemStack item : lantern.inventory) {
-                    dropStack(world, pos, item);
+                    popResource(world, pos, item);
                 }
                 lantern.inventory.clear();
             }
         }
-        super.onStateReplaced(state, world, pos, newState, moved);
+        super.onRemove(state, world, pos, newState, moved);
     }
 
     @Override
-    public FluidState getFluidState(BlockState state) {
-        return state.get(WATERLOGGED) ? Fluids.WATER.getStill(false) : super.getFluidState(state);
+    public FluidState getFluidState(net.minecraft.world.level.block.state.BlockState state) {
+        return state.getValue(WATERLOGGED) ? Fluids.WATER.getSource(false) : super.getFluidState(state);
     }
 
     @Override
-    public boolean canPathfindThrough(BlockState state, BlockView world, BlockPos pos, NavigationType type) {
+    public boolean isPathfindable(net.minecraft.world.level.block.state.BlockState state, BlockGetter world, BlockPos pos, PathComputationType type) {
         return false;
     }
 
     @Nullable
     @Override
-    public BlockEntity createBlockEntity(BlockPos pos, BlockState state) {
+    public BlockEntity newBlockEntity(BlockPos pos, net.minecraft.world.level.block.state.BlockState state) {
         return new FireflyLanternBlockEntity(pos, state);
     }
 
     @Override
     @Nullable
-    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(World world, BlockState state, BlockEntityType<T> type) {
-        return !world.isClient ? checkType(type, RegisterBlockEntities.FIREFLY_LANTERN, (worldx, pos, statex, blockEntity) -> blockEntity.serverTick(world, pos)) : checkType(type, RegisterBlockEntities.FIREFLY_LANTERN, (worldx, pos, statex, blockEntity) -> blockEntity.clientTick(world, pos));
+    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level world, net.minecraft.world.level.block.state.BlockState state, BlockEntityType<T> type) {
+        return !world.isClientSide ? createTickerHelper(type, RegisterBlockEntities.FIREFLY_LANTERN, (worldx, pos, statex, blockEntity) -> blockEntity.serverTick(world, pos)) : createTickerHelper(type, RegisterBlockEntities.FIREFLY_LANTERN, (worldx, pos, statex, blockEntity) -> blockEntity.clientTick(world, pos));
     }
 
-    public void afterBreak(World world, PlayerEntity player, BlockPos pos, BlockState state, @Nullable BlockEntity blockEntity, ItemStack stack) {
-        player.addExhaustion(0.005F);
-        if (!world.isClient && blockEntity instanceof FireflyLanternBlockEntity lanternEntity) {
-            boolean silk = EnchantmentHelper.getLevel(Enchantments.SILK_TOUCH, stack) == 0 || player.isCreative();
+    public void playerDestroy(Level world, Player player, BlockPos pos, net.minecraft.world.level.block.state.BlockState state, @Nullable BlockEntity blockEntity, ItemStack stack) {
+        player.causeFoodExhaustion(0.005F);
+        if (!world.isClientSide && blockEntity instanceof FireflyLanternBlockEntity lanternEntity) {
+            boolean silk = EnchantmentHelper.getItemEnchantmentLevel(Enchantments.SILK_TOUCH, stack) == 0 || player.isCreative();
             if (silk && !lanternEntity.getFireflies().isEmpty()) {
                 lanternEntity.spawnFireflies(world);
             }
         }
-        player.incrementStat(Stats.MINED.getOrCreateStat(this));
-        dropStacks(state, world, pos, blockEntity, player, stack);
+        player.awardStat(Stats.BLOCK_MINED.get(this));
+        dropResources(state, world, pos, blockEntity, player, stack);
     }
 
     @Deprecated
-    public List<ItemStack> getDroppedStacks(BlockState state, LootContext.Builder builder) {
-        Identifier identifier = this.getLootTableId();
-        if (builder.getNullable(LootContextParameters.TOOL) != null) {
-            ItemStack stack = builder.get(LootContextParameters.TOOL);
-            if (EnchantmentHelper.getLevel(Enchantments.SILK_TOUCH, stack) != 0) {
-                if (builder.getNullable(LootContextParameters.BLOCK_ENTITY) != null) {
-                    BlockEntity blockEntity = builder.get(LootContextParameters.BLOCK_ENTITY);
+    public List<ItemStack> getDrops(net.minecraft.world.level.block.state.BlockState state, LootContext.Builder builder) {
+        ResourceLocation identifier = this.getLootTable();
+        if (builder.getOptionalParameter(LootContextParams.TOOL) != null) {
+            ItemStack stack = builder.getParameter(LootContextParams.TOOL);
+            if (EnchantmentHelper.getItemEnchantmentLevel(Enchantments.SILK_TOUCH, stack) != 0) {
+                if (builder.getOptionalParameter(LootContextParams.BLOCK_ENTITY) != null) {
+                    BlockEntity blockEntity = builder.getParameter(LootContextParams.BLOCK_ENTITY);
                     if (blockEntity instanceof FireflyLanternBlockEntity lanternBlockEntity) {
                         if (!lanternBlockEntity.getFireflies().isEmpty()) {
                             identifier = WilderWild.id("blocks/firefly_lantern_fireflies");
@@ -269,13 +274,13 @@ public class FireflyLanternBlock extends BlockWithEntity implements Waterloggabl
                 }
             }
         }
-        if (identifier == LootTables.EMPTY) {
+        if (identifier == BuiltInLootTables.EMPTY) {
             return Collections.emptyList();
         } else {
-            LootContext lootContext = builder.parameter(LootContextParameters.BLOCK_STATE, state).build(LootContextTypes.BLOCK);
-            ServerWorld serverWorld = lootContext.getWorld();
-            LootTable lootTable = serverWorld.getServer().getLootManager().getTable(identifier);
-            return lootTable.generateLoot(lootContext);
+            LootContext lootContext = builder.withParameter(LootContextParams.BLOCK_STATE, state).create(LootContextParamSets.BLOCK);
+            ServerLevel serverWorld = lootContext.getLevel();
+            LootTable lootTable = serverWorld.getServer().getLootTables().get(identifier);
+            return lootTable.getRandomItems(lootContext);
         }
     }
 

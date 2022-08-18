@@ -17,21 +17,19 @@
 
 package org.quiltmc.qsl.frozenblock.datafixerupper.api;
 
-import java.util.Optional;
-import java.util.function.BiFunction;
-
 import com.mojang.datafixers.DataFixer;
 import com.mojang.datafixers.DataFixerBuilder;
 import com.mojang.datafixers.schemas.Schema;
+import net.fabricmc.loader.api.ModContainer;
+import net.minecraft.Util;
+import net.minecraft.nbt.CompoundTag;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Range;
-
-import net.minecraft.nbt.NbtCompound;
-import net.minecraft.util.Util;
-
-import net.fabricmc.loader.api.ModContainer;
 import org.quiltmc.qsl.frozenblock.datafixerupper.impl.QuiltDataFixesInternals;
+
+import java.util.Optional;
+import java.util.function.BiFunction;
 
 import static com.google.common.base.Preconditions.checkArgument;
 import static java.util.Objects.requireNonNull;
@@ -109,7 +107,7 @@ public final class QuiltDataFixes {
         requireNonNull(dataFixerBuilder, "data fixer builder cannot be null");
 
         registerFixer(mod.getMetadata().getId(), dataFixerBuilder.getDataVersion(),
-                dataFixerBuilder.build(Util::getBootstrapExecutor));
+                dataFixerBuilder.build(Util::bootstrapExecutor));
     }
 
     /**
@@ -129,7 +127,7 @@ public final class QuiltDataFixes {
     }
 
     /**
-     * Gets a mod's data version from a {@link NbtCompound}.
+     * Gets a mod's data version from a {@link CompoundTag}.
      *
      * @param compound the compound
      * @param modId    the mod identifier
@@ -137,7 +135,7 @@ public final class QuiltDataFixes {
      */
     @Contract(pure = true)
     @Range(from = 0, to = Integer.MAX_VALUE)
-    public static int getModDataVersion(@NotNull NbtCompound compound, @NotNull String modId) {
+    public static int getModDataVersion(@NotNull CompoundTag compound, @NotNull String modId) {
         requireNonNull(compound, "compound cannot be null");
         requireNonNull(modId, "modId cannot be null");
 

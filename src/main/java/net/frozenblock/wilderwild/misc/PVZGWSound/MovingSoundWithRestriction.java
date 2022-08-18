@@ -3,23 +3,23 @@ package net.frozenblock.wilderwild.misc.PVZGWSound;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.frozenblock.wilderwild.registry.RegisterMovingSoundRestrictions;
-import net.minecraft.client.sound.MovingSoundInstance;
-import net.minecraft.client.sound.SoundInstance;
-import net.minecraft.entity.Entity;
-import net.minecraft.sound.SoundCategory;
-import net.minecraft.sound.SoundEvent;
+import net.minecraft.client.resources.sounds.AbstractTickableSoundInstance;
+import net.minecraft.client.resources.sounds.SoundInstance;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.world.entity.Entity;
 
 @Environment(EnvType.CLIENT)
-public class MovingSoundWithRestriction extends MovingSoundInstance {
+public class MovingSoundWithRestriction extends AbstractTickableSoundInstance {
 
     private final Entity entity;
     private final RegisterMovingSoundRestrictions.LoopPredicate<?> predicate;
     private final float distance = 0.0F;
 
-    public MovingSoundWithRestriction(Entity entity, SoundEvent sound, SoundCategory category, float volume, float pitch, RegisterMovingSoundRestrictions.LoopPredicate<?> predicate) {
-        super(sound, category, SoundInstance.createRandom());
+    public MovingSoundWithRestriction(Entity entity, SoundEvent sound, SoundSource category, float volume, float pitch, RegisterMovingSoundRestrictions.LoopPredicate<?> predicate) {
+        super(sound, category, SoundInstance.createUnseededRandom());
         this.entity = entity;
-        this.repeat = false;
+        this.looping = false;
         this.volume = volume;
         this.pitch = pitch;
         this.x = (float) entity.getX();
@@ -28,20 +28,20 @@ public class MovingSoundWithRestriction extends MovingSoundInstance {
         this.predicate = predicate;
     }
 
-    public boolean canPlay() {
+    public boolean canPlaySound() {
         return !this.entity.isSilent();
     }
 
-    public boolean shouldAlwaysPlay() {
+    public boolean canStartSilent() {
         return true;
     }
 
     public void tick() {
         if (this.entity.isRemoved()) {
-            this.setDone();
+            this.stop();
         } else {
             if (!this.predicate.test(this.entity)) {
-                this.setDone();
+                this.stop();
             } else {
                 this.x = (float) this.entity.getX();
                 this.y = (float) this.entity.getY();

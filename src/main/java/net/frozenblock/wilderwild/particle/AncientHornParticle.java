@@ -1,91 +1,92 @@
 package net.frozenblock.wilderwild.particle;
 
-import java.util.function.Consumer;
+import com.mojang.blaze3d.vertex.VertexConsumer;
+import com.mojang.math.Quaternion;
+import com.mojang.math.Vector3f;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.minecraft.Util;
+import net.minecraft.client.Camera;
+import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.particle.*;
-import net.minecraft.client.render.Camera;
-import net.minecraft.client.render.VertexConsumer;
-import net.minecraft.client.world.ClientWorld;
-import net.minecraft.util.Util;
-import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.math.Quaternion;
-import net.minecraft.util.math.Vec3d;
-import net.minecraft.util.math.Vec3f;
+import net.minecraft.util.Mth;
+import net.minecraft.world.phys.Vec3;
+
+import java.util.function.Consumer;
 
 @Environment(EnvType.CLIENT)
-public class AncientHornParticle extends SpriteBillboardParticle {
-    private static final Vec3f rotation = (Vec3f)Util.make(new Vec3f(0.5F, 0.5F, 0.5F), Vec3f::normalize);
-    private static final Vec3f field_38335 = new Vec3f(-1.0F, -1.0F, 0.0F);
+public class AncientHornParticle extends TextureSheetParticle {
+    private static final Vector3f rotation = Util.make(new Vector3f(0.5F, 0.5F, 0.5F), Vector3f::normalize);
+    private static final Vector3f field_38335 = new Vector3f(-1.0F, -1.0F, 0.0F);
     private static final float PI_THIRDS = 1.0472F;
     private int delay;
 
-    public AncientHornParticle(ClientWorld world, double x, double y, double z, int delay) {
+    public AncientHornParticle(ClientLevel world, double x, double y, double z, int delay) {
         super(world, x, y, z, 0.0D, 0.0D, 0.0D);
-        this.scale = 0.85F;
+        this.quadSize = 0.85F;
         this.delay = delay;
-        this.maxAge = 30;
-        this.gravityStrength = 0.0F;
-        this.velocityX = 0.0D;
-        this.velocityY = 0.1D;
-        this.velocityZ = 0.0D;
+        this.lifetime = 30;
+        this.gravity = 0.0F;
+        this.xd = 0.0D;
+        this.yd = 0.1D;
+        this.zd = 0.0D;
     }
 
 
-    public float getSize(float tickDelta) {
-        return this.scale * MathHelper.clamp(((float)this.age + tickDelta) / (float)this.maxAge * 0.75F, 0.0F, 1.0F);
+    public float getQuadSize(float tickDelta) {
+        return this.quadSize * Mth.clamp(((float) this.age + tickDelta) / (float) this.lifetime * 0.75F, 0.0F, 1.0F);
     }
 
-    public void buildGeometry(VertexConsumer vertexConsumer, Camera camera, float tickDelta) {
+    public void render(VertexConsumer vertexConsumer, Camera camera, float tickDelta) {
         if (this.delay <= 0) {
-            this.alpha = 1.0F - MathHelper.clamp(((float)this.age + tickDelta) / (float)this.maxAge, 0.0F, 1.0F);
+            this.alpha = 1.0F - Mth.clamp(((float) this.age + tickDelta) / (float) this.lifetime, 0.0F, 1.0F);
             this.pushQuad(vertexConsumer, camera, tickDelta, (angle) -> {
-                angle.hamiltonProduct(Vec3f.POSITIVE_Y.getRadialQuaternion(0.0F));
-                angle.hamiltonProduct(Vec3f.POSITIVE_X.getRadialQuaternion(-1.0472F));
+                angle.mul(Vector3f.YP.rotation(0.0F));
+                angle.mul(Vector3f.XP.rotation(-1.0472F));
             });
             this.pushQuad(vertexConsumer, camera, tickDelta, (angle) -> {
-                angle.hamiltonProduct(Vec3f.POSITIVE_Y.getRadialQuaternion(-3.1415927F));
-                angle.hamiltonProduct(Vec3f.POSITIVE_X.getRadialQuaternion(1.0472F));
+                angle.mul(Vector3f.YP.rotation(-3.1415927F));
+                angle.mul(Vector3f.XP.rotation(1.0472F));
             });
         }
     }
 
     private void pushQuad(VertexConsumer vertexConsumer, Camera camera, float tickDelta, Consumer<Quaternion> transformer) {
-        Vec3d vec3d = camera.getPos();
-        float f = (float)(MathHelper.lerp((double)tickDelta, this.prevPosX, this.x) - vec3d.getX());
-        float g = (float)(MathHelper.lerp((double)tickDelta, this.prevPosY, this.y) - vec3d.getY());
-        float h = (float)(MathHelper.lerp((double)tickDelta, this.prevPosZ, this.z) - vec3d.getZ());
+        Vec3 vec3d = camera.getPosition();
+        float f = (float) (Mth.lerp(tickDelta, this.xo, this.x) - vec3d.x());
+        float g = (float) (Mth.lerp(tickDelta, this.yo, this.y) - vec3d.y());
+        float h = (float) (Mth.lerp(tickDelta, this.zo, this.z) - vec3d.z());
         Quaternion quaternion = new Quaternion(rotation, 0.0F, true);
         transformer.accept(quaternion);
-        field_38335.rotate(quaternion);
-        Vec3f[] vec3fs = new Vec3f[]{new Vec3f(-1.0F, -1.0F, 0.0F), new Vec3f(-1.0F, 1.0F, 0.0F), new Vec3f(1.0F, 1.0F, 0.0F), new Vec3f(1.0F, -1.0F, 0.0F)};
-        float i = this.getSize(tickDelta);
+        field_38335.transform(quaternion);
+        Vector3f[] vec3fs = new Vector3f[]{new Vector3f(-1.0F, -1.0F, 0.0F), new Vector3f(-1.0F, 1.0F, 0.0F), new Vector3f(1.0F, 1.0F, 0.0F), new Vector3f(1.0F, -1.0F, 0.0F)};
+        float i = this.getQuadSize(tickDelta);
 
         int j;
-        for(j = 0; j < 4; ++j) {
-            Vec3f vec3f = vec3fs[j];
-            vec3f.rotate(quaternion);
-            vec3f.scale(i);
+        for (j = 0; j < 4; ++j) {
+            Vector3f vec3f = vec3fs[j];
+            vec3f.transform(quaternion);
+            vec3f.mul(i);
             vec3f.add(f, g, h);
         }
 
-        j = this.getBrightness(tickDelta);
-        this.pushVertex(vertexConsumer, vec3fs[0], this.getMaxU(), this.getMaxV(), j);
-        this.pushVertex(vertexConsumer, vec3fs[1], this.getMaxU(), this.getMinV(), j);
-        this.pushVertex(vertexConsumer, vec3fs[2], this.getMinU(), this.getMinV(), j);
-        this.pushVertex(vertexConsumer, vec3fs[3], this.getMinU(), this.getMaxV(), j);
+        j = this.getLightColor(tickDelta);
+        this.pushVertex(vertexConsumer, vec3fs[0], this.getU1(), this.getV1(), j);
+        this.pushVertex(vertexConsumer, vec3fs[1], this.getU1(), this.getV0(), j);
+        this.pushVertex(vertexConsumer, vec3fs[2], this.getU0(), this.getV0(), j);
+        this.pushVertex(vertexConsumer, vec3fs[3], this.getU0(), this.getV1(), j);
     }
 
-    private void pushVertex(VertexConsumer vertexConsumer, Vec3f coordinate, float u, float v, int light) {
-        vertexConsumer.vertex((double)coordinate.getX(), (double)coordinate.getY(), (double)coordinate.getZ()).texture(u, v).color(this.red, this.green, this.blue, this.alpha).light(light).next();
+    private void pushVertex(VertexConsumer vertexConsumer, Vector3f coordinate, float u, float v, int light) {
+        vertexConsumer.vertex(coordinate.x(), coordinate.y(), coordinate.z()).uv(u, v).color(this.rCol, this.gCol, this.bCol, this.alpha).uv2(light).endVertex();
     }
 
-    public int getBrightness(float tint) {
+    public int getLightColor(float tint) {
         return 240;
     }
 
-    public ParticleTextureSheet getType() {
-        return ParticleTextureSheet.PARTICLE_SHEET_TRANSLUCENT;
+    public ParticleRenderType getRenderType() {
+        return ParticleRenderType.PARTICLE_SHEET_TRANSLUCENT;
     }
 
     public void tick() {
@@ -97,16 +98,16 @@ public class AncientHornParticle extends SpriteBillboardParticle {
     }
 
     @Environment(EnvType.CLIENT)
-    public static class Factory implements ParticleFactory<AncientHornParticleEffect> {
-        private final SpriteProvider spriteProvider;
+    public static class Factory implements ParticleProvider<AncientHornParticleEffect> {
+        private final SpriteSet spriteProvider;
 
-        public Factory(SpriteProvider spriteProvider) {
+        public Factory(SpriteSet spriteProvider) {
             this.spriteProvider = spriteProvider;
         }
 
-        public Particle createParticle(AncientHornParticleEffect ancientHornParticleEffect, ClientWorld clientWorld, double d, double e, double f, double g, double h, double i) {
+        public Particle createParticle(AncientHornParticleEffect ancientHornParticleEffect, ClientLevel clientWorld, double d, double e, double f, double g, double h, double i) {
             AncientHornParticle ancientHornParticle = new AncientHornParticle(clientWorld, d, e, f, ancientHornParticleEffect.getDelay());
-            ancientHornParticle.setSprite(this.spriteProvider);
+            ancientHornParticle.pickSprite(this.spriteProvider);
             ancientHornParticle.setAlpha(1.0F);
             return ancientHornParticle;
         }

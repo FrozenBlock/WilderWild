@@ -19,13 +19,12 @@ package org.quiltmc.qsl.frozenblock.datafixerupper.impl;
 
 import com.mojang.datafixers.DataFixer;
 import com.mojang.datafixers.schemas.Schema;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.util.datafix.DataFixTypes;
 import org.jetbrains.annotations.ApiStatus;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.jetbrains.annotations.Range;
-
-import net.minecraft.datafixer.DataFixTypes;
-import net.minecraft.nbt.NbtCompound;
 
 /**
  * Modified to work on Fabric
@@ -44,7 +43,8 @@ public final class NopQuiltDataFixesInternals extends QuiltDataFixesInternals {
 
     @Override
     public void registerFixer(@NotNull String modId, @Range(from = 0, to = Integer.MAX_VALUE) int currentVersion,
-                              @NotNull DataFixer dataFixer) {}
+                              @NotNull DataFixer dataFixer) {
+    }
 
     @Override
     public @Nullable DataFixerEntry getFixerEntry(@NotNull String modId) {
@@ -57,12 +57,12 @@ public final class NopQuiltDataFixesInternals extends QuiltDataFixesInternals {
     }
 
     @Override
-    public @NotNull NbtCompound updateWithAllFixers(@NotNull DataFixTypes dataFixTypes, @NotNull NbtCompound compound) {
+    public @NotNull CompoundTag updateWithAllFixers(@NotNull DataFixTypes dataFixTypes, @NotNull CompoundTag compound) {
         return compound.copy();
     }
 
     @Override
-    public @NotNull NbtCompound addModDataVersions(@NotNull NbtCompound compound) {
+    public @NotNull CompoundTag addModDataVersions(@NotNull CompoundTag compound) {
         return compound;
     }
 

@@ -18,10 +18,10 @@
 package org.quiltmc.qsl.frozenblock.datafixerupper.mixin;
 
 import com.mojang.datafixers.DataFixer;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.NbtUtils;
+import net.minecraft.util.datafix.DataFixTypes;
 import org.quiltmc.qsl.frozenblock.datafixerupper.impl.QuiltDataFixesInternals;
-import net.minecraft.datafixer.DataFixTypes;
-import net.minecraft.nbt.NbtCompound;
-import net.minecraft.nbt.NbtHelper;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -30,15 +30,15 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 /**
  * Modified to work on Fabric
  */
-@Mixin(value = NbtHelper.class, priority = 1001)
+@Mixin(value = NbtUtils.class, priority = 1001)
 public abstract class NbtHelperMixin {
     @Inject(
-            method = "update(Lcom/mojang/datafixers/DataFixer;Lnet/minecraft/datafixer/DataFixTypes;Lnet/minecraft/nbt/NbtCompound;II)Lnet/minecraft/nbt/NbtCompound;",
+            method = "update(Lcom/mojang/datafixers/DataFixer;Lnet/minecraft/util/datafix/DataFixTypes;Lnet/minecraft/nbt/CompoundTag;II)Lnet/minecraft/nbt/CompoundTag;",
             at = @At("RETURN"),
             cancellable = true
     )
-    private static void updateDataWithFixers(DataFixer fixer, DataFixTypes fixTypes, NbtCompound compound,
-                                             int oldVersion, int targetVersion, CallbackInfoReturnable<NbtCompound> cir) {
+    private static void updateDataWithFixers(DataFixer fixer, DataFixTypes fixTypes, CompoundTag compound,
+                                             int oldVersion, int targetVersion, CallbackInfoReturnable<CompoundTag> cir) {
         cir.setReturnValue(QuiltDataFixesInternals.get().updateWithAllFixers(fixTypes, cir.getReturnValue()));
     }
 }

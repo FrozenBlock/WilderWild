@@ -1,10 +1,10 @@
 package net.frozenblock.wilderwild.mixin.server;
 
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.SpawnRestriction;
-import net.minecraft.entity.mob.MobEntity;
-import net.minecraft.util.registry.Registry;
-import net.minecraft.world.Heightmap;
+import net.minecraft.core.Registry;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.Mob;
+import net.minecraft.world.entity.SpawnPlacements;
+import net.minecraft.world.level.levelgen.Heightmap;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -14,20 +14,20 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import java.util.Map;
 
-@Mixin(SpawnRestriction.class)
+@Mixin(SpawnPlacements.class)
 public class SpawnRestrictionMixin {
 
     @Final
     @Shadow
-    private static Map<EntityType<?>, SpawnRestriction.Entry> RESTRICTIONS;
+    private static Map<EntityType<?>, SpawnPlacements.Data> DATA_BY_TYPE;
 
     @Inject(method = "register", at = @At("HEAD"), cancellable = true)
-    private static <T extends MobEntity> void register(EntityType<T> type, SpawnRestriction.Location location, Heightmap.Type heightmapType, SpawnRestriction.SpawnPredicate<T> predicate, CallbackInfo info) {
+    private static <T extends Mob> void register(EntityType<T> type, SpawnPlacements.Type location, Heightmap.Types heightmapType, SpawnPlacements.SpawnPredicate<T> predicate, CallbackInfo info) {
         if (type == EntityType.SLIME) {
             info.cancel();
-            SpawnRestriction.Entry entry = RESTRICTIONS.put(type, new SpawnRestriction.Entry(heightmapType, SpawnRestriction.Location.NO_RESTRICTIONS, predicate));
+            SpawnPlacements.Data entry = DATA_BY_TYPE.put(type, new SpawnPlacements.Data(heightmapType, SpawnPlacements.Type.NO_RESTRICTIONS, predicate));
             if (entry != null) {
-                throw new IllegalStateException("Duplicate registration for type " + Registry.ENTITY_TYPE.getId(type));
+                throw new IllegalStateException("Duplicate registration for type " + Registry.ENTITY_TYPE.getKey(type));
             }
         }
     }

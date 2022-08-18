@@ -17,21 +17,20 @@
 
 package org.quiltmc.qsl.frozenblock.datafixerupper.impl;
 
-import java.util.Collections;
-import java.util.Map;
-
 import com.mojang.datafixers.DataFixer;
 import com.mojang.datafixers.schemas.Schema;
 import com.mojang.serialization.Dynamic;
 import it.unimi.dsi.fastutil.objects.Object2ReferenceOpenHashMap;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.NbtOps;
+import net.minecraft.util.datafix.DataFixTypes;
 import org.jetbrains.annotations.ApiStatus;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.jetbrains.annotations.Range;
 
-import net.minecraft.datafixer.DataFixTypes;
-import net.minecraft.nbt.NbtCompound;
-import net.minecraft.nbt.NbtOps;
+import java.util.Collections;
+import java.util.Map;
 
 /**
  * Modified to work on Fabric
@@ -72,8 +71,8 @@ public final class QuiltDataFixesInternalsImpl extends QuiltDataFixesInternals {
     }
 
     @Override
-    public @NotNull NbtCompound updateWithAllFixers(@NotNull DataFixTypes dataFixTypes,
-                                                    @NotNull NbtCompound compound) {
+    public @NotNull CompoundTag updateWithAllFixers(@NotNull DataFixTypes dataFixTypes,
+                                                    @NotNull CompoundTag compound) {
         var current = new Dynamic<>(NbtOps.INSTANCE, compound);
 
         for (Map.Entry<String, DataFixerEntry> entry : this.modDataFixers.entrySet()) {
@@ -81,16 +80,16 @@ public final class QuiltDataFixesInternalsImpl extends QuiltDataFixesInternals {
             DataFixerEntry dataFixerEntry = entry.getValue();
 
             current = dataFixerEntry.dataFixer()
-                    .update(dataFixTypes.getTypeReference(),
+                    .update(dataFixTypes.getType(),
                             current,
                             modDataVersion, dataFixerEntry.currentVersion());
         }
 
-        return (NbtCompound) current.getValue();
+        return (CompoundTag) current.getValue();
     }
 
     @Override
-    public @NotNull NbtCompound addModDataVersions(@NotNull NbtCompound compound) {
+    public @NotNull CompoundTag addModDataVersions(@NotNull CompoundTag compound) {
         for (Map.Entry<String, DataFixerEntry> entry : this.modDataFixers.entrySet()) {
             compound.putInt(entry.getKey() + "_DataVersion", entry.getValue().currentVersion());
         }

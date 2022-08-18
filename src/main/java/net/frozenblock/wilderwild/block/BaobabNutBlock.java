@@ -2,124 +2,128 @@ package net.frozenblock.wilderwild.block;
 
 import net.frozenblock.wilderwild.registry.RegisterBlocks;
 import net.frozenblock.wilderwild.world.gen.sapling.BaobabSaplingGenerator;
-import net.minecraft.block.*;
-import net.minecraft.fluid.FluidState;
-import net.minecraft.fluid.Fluids;
-import net.minecraft.item.ItemPlacementContext;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.state.StateManager;
-import net.minecraft.state.property.BooleanProperty;
-import net.minecraft.state.property.IntProperty;
-import net.minecraft.state.property.Properties;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Vec3d;
-import net.minecraft.util.math.random.Random;
-import net.minecraft.util.shape.VoxelShape;
-import net.minecraft.util.shape.VoxelShapes;
-import net.minecraft.world.BlockView;
-import net.minecraft.world.World;
-import net.minecraft.world.WorldView;
+import net.minecraft.core.BlockPos;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.util.RandomSource;
+import net.minecraft.world.item.context.BlockPlaceContext;
+import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelReader;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.SaplingBlock;
+import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.block.state.properties.BooleanProperty;
+import net.minecraft.world.level.block.state.properties.IntegerProperty;
+import net.minecraft.world.level.material.FluidState;
+import net.minecraft.world.level.material.Fluids;
+import net.minecraft.world.phys.Vec3;
+import net.minecraft.world.phys.shapes.CollisionContext;
+import net.minecraft.world.phys.shapes.Shapes;
+import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.Nullable;
 
 // DEEZ NUTS HAHAHHA GOTTEM
 public class BaobabNutBlock extends SaplingBlock {
-    public static final IntProperty AGE;
+    public static final IntegerProperty AGE;
     public static final int MAX_AGE = 2;
     private static final VoxelShape[] SHAPES;
     public static final BooleanProperty HANGING;
 
-    public BaobabNutBlock(AbstractBlock.Settings settings) {
+    public BaobabNutBlock(BlockBehaviour.Properties settings) {
         super(new BaobabSaplingGenerator(), settings);
-        this.setDefaultState(this.stateManager.getDefaultState().with(STAGE, 0).with(AGE, 0).with(HANGING, false));
+        this.registerDefaultState(this.stateDefinition.any().setValue(STAGE, 0).setValue(AGE, 0).setValue(HANGING, false));
     }
 
-    protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
+    protected void createBlockStateDefinition(StateDefinition.Builder<Block, net.minecraft.world.level.block.state.BlockState> builder) {
         builder.add(STAGE, AGE, HANGING);
     }
 
-    protected boolean canPlantOnTop(BlockState floor, BlockView world, BlockPos pos) {
-        return super.canPlantOnTop(floor, world, pos) || floor.isOf(Blocks.CLAY);
+    protected boolean mayPlaceOn(net.minecraft.world.level.block.state.BlockState floor, BlockGetter world, BlockPos pos) {
+        return super.mayPlaceOn(floor, world, pos) || floor.is(Blocks.CLAY);
     }
 
     @Nullable
-    public BlockState getPlacementState(ItemPlacementContext ctx) {
-        FluidState fluidState = ctx.getWorld().getFluidState(ctx.getBlockPos());
-        boolean bl = fluidState.getFluid() == Fluids.WATER;
-        return super.getPlacementState(ctx).with(AGE, 2);
+    public net.minecraft.world.level.block.state.BlockState getStateForPlacement(BlockPlaceContext ctx) {
+        FluidState fluidState = ctx.getLevel().getFluidState(ctx.getClickedPos());
+        boolean bl = fluidState.getType() == Fluids.WATER;
+        return super.getStateForPlacement(ctx).setValue(AGE, 2);
     }
 
-    public VoxelShape getOutlineShape(BlockState state, BlockView world, BlockPos pos, ShapeContext context) {
-        Vec3d vec3d = state.getModelOffset(world, pos);
+    public VoxelShape getShape(net.minecraft.world.level.block.state.BlockState state, BlockGetter world, BlockPos pos, CollisionContext context) {
+        Vec3 vec3d = state.getOffset(world, pos);
         VoxelShape voxelShape;
-        if (!state.get(HANGING)) {
+        if (!state.getValue(HANGING)) {
             voxelShape = SHAPES[4];
         } else {
-            voxelShape = SHAPES[state.get(AGE)];
+            voxelShape = SHAPES[state.getValue(AGE)];
         }
 
-        return voxelShape.offset(vec3d.x, vec3d.y, vec3d.z);
+        return voxelShape.move(vec3d.x, vec3d.y, vec3d.z);
     }
 
-    public boolean canPlaceAt(BlockState state, WorldView world, BlockPos pos) {
-        return isHanging(state) ? world.getBlockState(pos.up()).isOf(RegisterBlocks.BAOBAB_LEAVES) : super.canPlaceAt(state, world, pos);
+    public boolean canSurvive(net.minecraft.world.level.block.state.BlockState state, LevelReader world, BlockPos pos) {
+        return isHanging(state) ? world.getBlockState(pos.above()).is(RegisterBlocks.BAOBAB_LEAVES) : super.canSurvive(state, world, pos);
     }
 
 
-    public void randomTick(BlockState state, ServerWorld world, BlockPos pos, Random random) {
+    public void randomTick(net.minecraft.world.level.block.state.BlockState state, ServerLevel world, BlockPos pos, RandomSource random) {
         if (!isHanging(state)) {
             if (random.nextInt(7) == 0) {
-                this.generate(world, pos, state, random);
+                this.advanceTree(world, pos, state, random);
             }
 
         } else {
             if (!isFullyGrown(state)) {
-                world.setBlockState(pos, state.cycle(AGE), 2);
+                world.setBlock(pos, state.cycle(AGE), 2);
             }
 
         }
     }
 
-    public boolean isFertilizable(BlockView world, BlockPos pos, BlockState state, boolean isClient) {
+    public boolean isValidBonemealTarget(BlockGetter world, BlockPos pos, net.minecraft.world.level.block.state.BlockState state, boolean isClient) {
         return !isHanging(state) || !isFullyGrown(state);
     }
 
-    public boolean canGrow(World world, Random random, BlockPos pos, BlockState state) {
-        return isHanging(state) ? !isFullyGrown(state) : super.canGrow(world, random, pos, state);
+    public boolean isBonemealSuccess(Level world, RandomSource random, BlockPos pos, net.minecraft.world.level.block.state.BlockState state) {
+        return isHanging(state) ? !isFullyGrown(state) : super.isBonemealSuccess(world, random, pos, state);
     }
 
-    public void grow(ServerWorld world, Random random, BlockPos pos, BlockState state) {
+    public void performBonemeal(ServerLevel world, RandomSource random, BlockPos pos, net.minecraft.world.level.block.state.BlockState state) {
         if (isHanging(state) && !isFullyGrown(state)) {
-            world.setBlockState(pos, state.cycle(AGE), 2);
+            world.setBlock(pos, state.cycle(AGE), 2);
         } else {
-            super.grow(world, random, pos, state);
+            super.performBonemeal(world, random, pos, state);
         }
 
     }
 
-    private static boolean isHanging(BlockState state) {
-        return state.get(HANGING);
+    private static boolean isHanging(net.minecraft.world.level.block.state.BlockState state) {
+        return state.getValue(HANGING);
     }
 
-    private static boolean isFullyGrown(BlockState state) {
-        return state.get(AGE) == 2;
+    private static boolean isFullyGrown(net.minecraft.world.level.block.state.BlockState state) {
+        return state.getValue(AGE) == 2;
     }
 
-    public static BlockState getDefaultHangingState() {
+    public static net.minecraft.world.level.block.state.BlockState getDefaultHangingState() {
         return getHangingState(0);
     }
 
-    public static BlockState getHangingState(int age) {
-        return RegisterBlocks.BAOBAB_NUT.getDefaultState().with(HANGING, true).with(AGE, age);
+    public static net.minecraft.world.level.block.state.BlockState getHangingState(int age) {
+        return RegisterBlocks.BAOBAB_NUT.defaultBlockState().setValue(HANGING, true).setValue(AGE, age);
     }
 
     static {
-        AGE = Properties.AGE_2;
+        AGE = BlockStateProperties.AGE_2;
         SHAPES = new VoxelShape[]{
-                VoxelShapes.union(Block.createCuboidShape(7.0, 13.0, 7.0, 9.0, 16.0, 9.0), Block.createCuboidShape(5.0, 6.0, 5.0, 11.0, 13.0, 11.0)),
-                VoxelShapes.union(Block.createCuboidShape(7.0, 12.0, 7.0, 9.0, 16.0, 9.0), Block.createCuboidShape(4.0, 3.0, 4.0, 12.0, 12.0, 12.0)),
-                VoxelShapes.union(Block.createCuboidShape(7.0, 10.0, 7.0, 9.0, 16.0, 9.0), Block.createCuboidShape(4.0, 0.0, 4.0, 12.0, 10.0, 12.0)),
-                Block.createCuboidShape(7.0, 3.0, 7.0, 9.0, 16.0, 9.0), Block.createCuboidShape(2.0D, 0.0D, 2.0D, 14.0D, 12.0D, 14.0D)
+                Shapes.or(Block.box(7.0, 13.0, 7.0, 9.0, 16.0, 9.0), Block.box(5.0, 6.0, 5.0, 11.0, 13.0, 11.0)),
+                Shapes.or(Block.box(7.0, 12.0, 7.0, 9.0, 16.0, 9.0), Block.box(4.0, 3.0, 4.0, 12.0, 12.0, 12.0)),
+                Shapes.or(Block.box(7.0, 10.0, 7.0, 9.0, 16.0, 9.0), Block.box(4.0, 0.0, 4.0, 12.0, 10.0, 12.0)),
+                Block.box(7.0, 3.0, 7.0, 9.0, 16.0, 9.0), Block.box(2.0D, 0.0D, 2.0D, 14.0D, 12.0D, 14.0D)
         };
-        HANGING = Properties.HANGING;
+        HANGING = BlockStateProperties.HANGING;
     }
 }

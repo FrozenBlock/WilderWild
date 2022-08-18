@@ -2,21 +2,21 @@ package net.frozenblock.wilderwild.registry;
 
 import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.entity.Firefly;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.Items;
-import net.minecraft.text.Text;
-import net.minecraft.util.Identifier;
+import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Items;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
 
 public final class RegisterMovingSoundRestrictions {
     private static boolean frozen;
-    private static final ArrayList<Identifier> ids = new ArrayList<>();
+    private static final ArrayList<ResourceLocation> ids = new ArrayList<>();
     private static final ArrayList<LoopPredicate<?>> predicates = new ArrayList<>();
 
-    public static void register(Identifier id, LoopPredicate<?> predicate) {
+    public static void register(ResourceLocation id, LoopPredicate<?> predicate) {
         if (!frozen) {
             if (!ids.contains(id)) {
                 ids.add(id);
@@ -30,7 +30,7 @@ public final class RegisterMovingSoundRestrictions {
     }
 
     @Nullable
-    public static LoopPredicate<?> getPredicate(Identifier id) {
+    public static LoopPredicate<?> getPredicate(ResourceLocation id) {
         if (ids.contains(id)) {
             int index = ids.indexOf(id);
             return predicates.get(index);
@@ -53,7 +53,7 @@ public final class RegisterMovingSoundRestrictions {
                 return false;
             }
             if (entity.hasCustomName()) {
-                Text name = entity.getCustomName();
+                Component name = entity.getCustomName();
                 if (name != null) {
                     return name.getString().toLowerCase().contains("nectar");
                 }
@@ -61,16 +61,23 @@ public final class RegisterMovingSoundRestrictions {
             return false;
         });
 
-        register(WilderWild.id("horn"), (LoopPredicate<PlayerEntity>) entity -> {
-            if (entity instanceof PlayerEntity player) {
-                return player.getActiveItem().isOf(Items.GOAT_HORN);
+        register(WilderWild.id("horn"), (LoopPredicate<Player>) entity -> {
+            if (entity instanceof Player player) {
+                return player.getUseItem().is(Items.GOAT_HORN);
             }
             return false;
         });
 
-        register(WilderWild.id("copper_horn"), (LoopPredicate<PlayerEntity>) entity -> {
-            if (entity instanceof PlayerEntity player) {
-                return player.getActiveItem().isOf(RegisterItems.COPPER_HORN);
+        register(WilderWild.id("copper_horn"), (LoopPredicate<Player>) entity -> {
+            if (entity instanceof Player player) {
+                return player.getUseItem().is(RegisterItems.COPPER_HORN);
+            }
+            return false;
+        });
+
+        register(WilderWild.id("ancient_horn"), (LoopPredicate<Player>) entity -> {
+            if (entity instanceof Player player) {
+                return player.getUseItem().is(RegisterItems.ANCIENT_HORN);
             }
             return false;
         });

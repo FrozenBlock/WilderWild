@@ -1,16 +1,16 @@
 package net.frozenblock.wilderwild.mixin.server;
 /*
 import it.unimi.dsi.fastutil.objects.Object2ByteLinkedOpenHashMap;
-import net.minecraft.block.Block;
-import net.minecraft.fluid.FlowableFluid;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.material.FlowingFluid;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.gen.Accessor;
 
-@Mixin(FlowableFluid.class)
+@Mixin(FlowingFluid.class)
 public abstract class FlowableFluidMixin {
 
-    @Accessor("field_15901")
-    public static ThreadLocal<Object2ByteLinkedOpenHashMap<Block.NeighborGroup>> getField_15901() {
+    @Accessor("OCCLUSION_CACHE")
+    public static ThreadLocal<Object2ByteLinkedOpenHashMap<Block.BlockStatePairKey>> getOcclusionCache() {
         throw new AssertionError();
     }
 

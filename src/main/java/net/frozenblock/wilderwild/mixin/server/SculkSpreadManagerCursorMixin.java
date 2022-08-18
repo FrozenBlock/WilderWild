@@ -1,105 +1,185 @@
 package net.frozenblock.wilderwild.mixin.server;
 
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
-import net.frozenblock.wilderwild.misc.WilderSculkSpreader;
+import net.frozenblock.wilderwild.misc.BooleanPropertySculkBehavior;
+import net.frozenblock.wilderwild.misc.SlabWallStairSculkBehavior;
+import net.frozenblock.wilderwild.registry.RegisterBlocks;
+import net.frozenblock.wilderwild.registry.RegisterProperties;
 import net.frozenblock.wilderwild.tag.WilderBlockTags;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.SculkSpreadable;
-import net.minecraft.block.SculkVeinBlock;
-import net.minecraft.block.entity.SculkSpreadManager;
-import net.minecraft.util.Util;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
-import net.minecraft.util.math.Vec3i;
-import net.minecraft.util.math.random.Random;
-import net.minecraft.world.WorldAccess;
+import net.minecraft.Util;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.core.Vec3i;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.util.RandomSource;
+import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.block.*;
+import net.minecraft.world.level.block.state.BlockState;
+import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 import java.util.stream.Stream;
 
-@Mixin(SculkSpreadManager.Cursor.class)
-public class SculkSpreadManagerCursorMixin { //TODO: make the processed deepslate variants exclusive to worldgen and then make the slab/stair/wall variants of vanilla sculk spreadable blocks spreadable outside of worldgen
+@Mixin(SculkSpreader.ChargeCursor.class)
+public abstract class SculkSpreadManagerCursorMixin {
 
     @Final
     @Shadow
-    private static final ObjectArrayList<Vec3i> OFFSETS = Util.make(new ObjectArrayList<>(18), (objectArrayList) -> {
-        Stream<BlockPos> var10000 = BlockPos.stream(new BlockPos(-1, -1, -1), new BlockPos(1, 1, 1)).filter((pos) -> {
-            return (pos.getX() == 0 || pos.getY() == 0 || pos.getZ() == 0) && !pos.equals(BlockPos.ORIGIN);
-        }).map(BlockPos::toImmutable);
+    private static ObjectArrayList<Vec3i> NON_CORNER_NEIGHBOURS = Util.make(new ObjectArrayList<>(18), (objectArrayList) -> {
+        Stream<BlockPos> var10000 = BlockPos.betweenClosedStream(new BlockPos(-1, -1, -1), new BlockPos(1, 1, 1)).filter((pos) -> {
+            return (pos.getX() == 0 || pos.getY() == 0 || pos.getZ() == 0) && !pos.equals(BlockPos.ZERO);
+        }).map(BlockPos::immutable);
         Objects.requireNonNull(objectArrayList);
         var10000.forEach(objectArrayList::add);
     });
+    @Shadow
+    private BlockPos pos;
+    @Shadow
+    int charge;
+    @Shadow
+    private int updateDelay;
+    @Shadow
+    private int decayDelay;
+    @Nullable
+    @Shadow
+    private Set<Direction> facings;
 
-    @Inject(method = "getSpreadable", at = @At("HEAD"), cancellable = true)
-    private static void getSpreadable(BlockState state, CallbackInfoReturnable<SculkSpreadable> cir) {
-        if (state.isIn(WilderBlockTags.SCULK_WALL_REPLACEABLE_WORLDGEN) || state.isIn(WilderBlockTags.SCULK_SLAB_REPLACEABLE_WORLDGEN) || state.isIn(WilderBlockTags.SCULK_STAIR_REPLACEABLE_WORLDGEN)) {
-            cir.setReturnValue(new WilderSculkSpreader());
-            cir.cancel();
-        }
-    }
+    @Inject(method = "update", at = @At("HEAD"), cancellable = true)
+    public void update(LevelAccessor world, BlockPos pos, RandomSource random, SculkSpreader spreadManager, boolean shouldConvertToBlock, CallbackInfo info) {
+        if (spreadManager.isWorldGeneration()) {
+            info.cancel();
+            SculkSpreader.ChargeCursor cursor = SculkSpreader.ChargeCursor.class.cast(this);
+            if (this.shouldUpdate(world, pos, spreadManager.isWorldGeneration())) {
+                if (this.updateDelay > 0) {
+                    --this.updateDelay;
+                } else {
+                    BlockState blockState = world.getBlockState(this.pos);
+                    SculkBehaviour sculkSpreadable = getBlockBehaviourNew(blockState, spreadManager.isWorldGeneration());
+                    if (shouldConvertToBlock && sculkSpreadable.attemptSpreadVein(world, this.pos, blockState, this.facings, spreadManager.isWorldGeneration())) { //Place Veins
+                        if (sculkSpreadable.canChangeBlockStateOnSpread()) {
+                            blockState = world.getBlockState(this.pos);
+                            sculkSpreadable = getBlockBehaviourNew(blockState, spreadManager.isWorldGeneration());
+                        }
 
-    @Inject(method = "canSpread(Lnet/minecraft/world/WorldAccess;Lnet/minecraft/util/math/BlockPos;Lnet/minecraft/util/math/BlockPos;)Z", at = @At("HEAD"), cancellable = true)
-    private static void canSpread(WorldAccess world, BlockPos sourcePos, BlockPos targetPos, CallbackInfoReturnable<Boolean> cir) {
-        if (!(sourcePos.getManhattanDistance(targetPos) == 1)) {
-            BlockState cheatState = world.getBlockState(targetPos);
-            if (cheatState.isIn(WilderBlockTags.SCULK_STAIR_REPLACEABLE_WORLDGEN) || cheatState.isIn(WilderBlockTags.SCULK_WALL_REPLACEABLE_WORLDGEN) || cheatState.isIn(WilderBlockTags.SCULK_SLAB_REPLACEABLE_WORLDGEN)) {
-                cir.setReturnValue(true);
-                cir.cancel();
+                        world.playSound(null, this.pos, SoundEvents.SCULK_BLOCK_SPREAD, SoundSource.BLOCKS, 1.0F, 1.0F);
+                    }
+
+                    this.charge = sculkSpreadable.attemptUseCharge(cursor, world, pos, random, spreadManager, shouldConvertToBlock);
+                    if (this.charge <= 0) {
+                        sculkSpreadable.onDischarged(world, blockState, this.pos, random);
+                    } else {
+                        BlockPos blockPos = getValidMovementPos(world, this.pos, random);
+                        if (blockPos != null) {
+                            sculkSpreadable.onDischarged(world, blockState, this.pos, random);
+                            this.pos = blockPos.immutable();
+                            if (spreadManager.isWorldGeneration() && !this.pos.closerThan(new Vec3i(pos.getX(), this.pos.getY(), pos.getZ()), 15.0D)) {
+                                this.charge = 0;
+                                return;
+                            }
+
+                            blockState = world.getBlockState(blockPos);
+                        }
+
+                        if (blockState.getBlock() instanceof SculkBehaviour) {
+                            this.facings = MultifaceBlock.availableFaces(blockState);
+                        }
+
+                        this.decayDelay = sculkSpreadable.updateDecayDelay(this.decayDelay);
+                        this.updateDelay = sculkSpreadable.getSculkSpreadDelay();
+                    }
+                }
             }
         }
     }
 
+    private static SculkBehaviour getBlockBehaviourNew(BlockState state, boolean isWorldGen) {
+        if (isWorldGen) {
+            if (state.is(WilderBlockTags.SCULK_WALL_REPLACEABLE_WORLDGEN) || state.is(WilderBlockTags.SCULK_SLAB_REPLACEABLE_WORLDGEN) || state.is(WilderBlockTags.SCULK_STAIR_REPLACEABLE_WORLDGEN)) {
+                return new SlabWallStairSculkBehavior();
+            } else if (state.is(RegisterBlocks.STONE_CHEST)) {
+                return new BooleanPropertySculkBehavior(RegisterProperties.ANCIENT, true);
+            }
+        }
+        return getBlockBehaviour(state);
+    }
+
     @Shadow
-    private static boolean canSpread(WorldAccess world, BlockPos sourcePos, BlockPos targetPos) {
-        if (sourcePos.getManhattanDistance(targetPos) == 1) {
+    private boolean shouldUpdate(LevelAccessor world, BlockPos pos, boolean worldGen) {
+        if (this.charge <= 0) {
+            return false;
+        } else if (worldGen) {
             return true;
+        } else if (world instanceof ServerLevel serverWorld) {
+            return serverWorld.shouldTickBlocksAt(pos);
         } else {
-            BlockPos blockPos = targetPos.subtract(sourcePos);
-            Direction direction = Direction.from(Direction.Axis.X, blockPos.getX() < 0 ? Direction.AxisDirection.NEGATIVE : Direction.AxisDirection.POSITIVE);
-            Direction direction2 = Direction.from(Direction.Axis.Y, blockPos.getY() < 0 ? Direction.AxisDirection.NEGATIVE : Direction.AxisDirection.POSITIVE);
-            Direction direction3 = Direction.from(Direction.Axis.Z, blockPos.getZ() < 0 ? Direction.AxisDirection.NEGATIVE : Direction.AxisDirection.POSITIVE);
-            if (blockPos.getX() == 0) {
-                return canSpread(world, sourcePos, direction2) || canSpread(world, sourcePos, direction3);
-            } else if (blockPos.getY() == 0) {
-                return canSpread(world, sourcePos, direction) || canSpread(world, sourcePos, direction3);
-            } else {
-                return canSpread(world, sourcePos, direction) || canSpread(world, sourcePos, direction2);
-            }
+            return false;
         }
     }
 
-    @Shadow
-    private static boolean canSpread(WorldAccess world, BlockPos pos, Direction direction) {
-        BlockPos blockPos = pos.offset(direction);
-        return !world.getBlockState(blockPos).isSideSolidFullSquare(world, blockPos, direction.getOpposite());
+    private static boolean isMovementUnobstructedNew(LevelAccessor world, BlockPos sourcePos, BlockPos targetPos) {
+        if (sourcePos.distManhattan(targetPos) != 1) {
+            BlockState cheatState = world.getBlockState(targetPos);
+            if (cheatState.is(WilderBlockTags.SCULK_STAIR_REPLACEABLE_WORLDGEN) || cheatState.is(WilderBlockTags.SCULK_WALL_REPLACEABLE_WORLDGEN) || cheatState.is(WilderBlockTags.SCULK_SLAB_REPLACEABLE_WORLDGEN) || (cheatState.is(RegisterBlocks.STONE_CHEST) && !cheatState.getValue(RegisterProperties.ANCIENT))) {
+                return true;
+            }
+        }
+        return isMovementUnobstructed(world, sourcePos, targetPos);
     }
 
     @Shadow
-    private static List<Vec3i> shuffleOffsets(Random random) {
-        return Util.copyShuffled(OFFSETS, random);
+    private static SculkBehaviour getBlockBehaviour(BlockState state) {
+        Block var2 = state.getBlock();
+        SculkBehaviour var10000;
+        if (var2 instanceof SculkBehaviour) {
+            var10000 = (SculkBehaviour) var2;
+        } else {
+            var10000 = SculkBehaviour.DEFAULT;
+        }
+
+        return var10000;
     }
 
-    @Inject(method = "getSpreadPos", at = @At("HEAD"), cancellable = true)
-    private static void getSpreadPos(WorldAccess world, BlockPos pos, Random random, CallbackInfoReturnable<BlockPos> cir) {
-        BlockPos.Mutable mutable = pos.mutableCopy();
-        BlockPos.Mutable mutable2 = pos.mutableCopy();
+    @Shadow
+    private static List<Vec3i> getRandomizedNonCornerNeighbourOffsets(RandomSource random) {
+        return Util.shuffledCopy(NON_CORNER_NEIGHBOURS, random);
+    }
+
+    @Shadow
+    private static boolean isMovementUnobstructed(LevelAccessor world, BlockPos sourcePos, BlockPos targetPos) {
+        return false;
+    }
+
+    @Shadow
+    @Nullable
+    private static BlockPos getValidMovementPos(LevelAccessor world, BlockPos pos, RandomSource random) {
+        return null;
+    }
+
+    @Inject(method = "getValidMovementPos", at = @At("HEAD"), cancellable = true)
+    private static void getValidMovementPos(LevelAccessor world, BlockPos pos, RandomSource random, CallbackInfoReturnable<BlockPos> cir) {
+        BlockPos.MutableBlockPos mutable = pos.mutable();
+        BlockPos.MutableBlockPos mutable2 = pos.mutable();
 
         boolean canReturn = false;
-        for (Vec3i vec3i : shuffleOffsets(random)) {
-            mutable2.set(pos, vec3i);
+        for (Vec3i vec3i : getRandomizedNonCornerNeighbourOffsets(random)) {
+            mutable2.setWithOffset(pos, vec3i);
             BlockState blockState = world.getBlockState(mutable2);
-            boolean isInTags = blockState.isIn(WilderBlockTags.SCULK_SLAB_REPLACEABLE_WORLDGEN) || blockState.isIn(WilderBlockTags.SCULK_WALL_REPLACEABLE_WORLDGEN) || blockState.isIn(WilderBlockTags.SCULK_STAIR_REPLACEABLE_WORLDGEN);
-            if (isInTags && canSpread(world, pos, mutable2)) {
+            boolean isInTags = blockState.is(WilderBlockTags.SCULK_SLAB_REPLACEABLE_WORLDGEN) || blockState.is(WilderBlockTags.SCULK_WALL_REPLACEABLE_WORLDGEN) || blockState.is(WilderBlockTags.SCULK_STAIR_REPLACEABLE_WORLDGEN) || (blockState.is(RegisterBlocks.STONE_CHEST) && !blockState.getValue(RegisterProperties.ANCIENT));
+            if (isInTags && isMovementUnobstructedNew(world, pos, mutable2)) {
                 mutable.set(mutable2);
                 canReturn = true;
-                if (SculkVeinBlock.veinCoversSculkReplaceable(world, blockState, mutable2)) {
+                if (SculkVeinBlock.hasSubstrateAccess(world, blockState, mutable2)) {
                     break;
                 }
             }

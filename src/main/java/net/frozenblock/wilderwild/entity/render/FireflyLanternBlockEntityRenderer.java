@@ -1,5 +1,11 @@
 package net.frozenblock.wilderwild.entity.render;
 
+import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.blaze3d.vertex.VertexConsumer;
+import com.mojang.math.Matrix3f;
+import com.mojang.math.Matrix4f;
+import com.mojang.math.Quaternion;
+import com.mojang.math.Vector3f;
 import it.unimi.dsi.fastutil.objects.Object2ObjectLinkedOpenHashMap;
 import it.unimi.dsi.fastutil.objects.Object2ObjectMap;
 import net.fabricmc.api.EnvType;
@@ -7,26 +13,20 @@ import net.fabricmc.api.Environment;
 import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.WilderWildClient;
 import net.frozenblock.wilderwild.block.entity.FireflyLanternBlockEntity;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.model.ModelData;
-import net.minecraft.client.model.ModelPart;
-import net.minecraft.client.model.TexturedModelData;
-import net.minecraft.client.render.OverlayTexture;
-import net.minecraft.client.render.RenderLayer;
-import net.minecraft.client.render.VertexConsumer;
-import net.minecraft.client.render.VertexConsumerProvider;
-import net.minecraft.client.render.block.entity.BlockEntityRenderer;
-import net.minecraft.client.render.block.entity.BlockEntityRendererFactory.Context;
-import net.minecraft.client.render.item.ItemRenderer;
-import net.minecraft.client.render.model.json.ModelTransformation;
-import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.item.ItemStack;
-import net.minecraft.state.property.Properties;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.math.Matrix3f;
-import net.minecraft.util.math.Matrix4f;
-import net.minecraft.util.math.Quaternion;
-import net.minecraft.util.math.Vec3f;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.model.geom.ModelPart;
+import net.minecraft.client.model.geom.builders.LayerDefinition;
+import net.minecraft.client.model.geom.builders.MeshDefinition;
+import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.block.model.ItemTransforms;
+import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
+import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider.Context;
+import net.minecraft.client.renderer.entity.ItemRenderer;
+import net.minecraft.client.renderer.texture.OverlayTexture;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 
 import java.util.Optional;
 
@@ -34,89 +34,89 @@ import java.util.Optional;
 public class FireflyLanternBlockEntityRenderer<T extends FireflyLanternBlockEntity> implements BlockEntityRenderer<T> {
 
     private static final float pi = (float) Math.PI;
-    private static final Quaternion one80Quat = Vec3f.POSITIVE_Y.getDegreesQuaternion(180.0F);
+    private static final Quaternion one80Quat = Vector3f.YP.rotationDegrees(180.0F);
     private final ItemRenderer itemRenderer;
 
-    private static final Identifier TEXTURE = WilderWild.id("textures/entity/firefly/firefly_off.png");
-    private static final RenderLayer LAYER = RenderLayer.getEntityCutout(TEXTURE);
+    private static final ResourceLocation TEXTURE = WilderWild.id("textures/entity/firefly/firefly_off.png");
+    private static final RenderType LAYER = RenderType.entityCutout(TEXTURE);
 
-    private static final RenderLayer NECTAR_LAYER = RenderLayer.getEntityCutout(WilderWild.id("textures/entity/firefly/nectar.png"));
-    private static final RenderLayer NECTAR_FLAP_LAYER = RenderLayer.getEntityCutout(WilderWild.id("textures/entity/firefly/nectar_wings_down.png"));
-    private static final RenderLayer NECTAR_OVERLAY = RenderLayer.getEntityTranslucentEmissive(WilderWild.id("textures/entity/firefly/nectar_overlay.png"), true);
+    private static final RenderType NECTAR_LAYER = RenderType.entityCutout(WilderWild.id("textures/entity/firefly/nectar.png"));
+    private static final RenderType NECTAR_FLAP_LAYER = RenderType.entityCutout(WilderWild.id("textures/entity/firefly/nectar_wings_down.png"));
+    private static final RenderType NECTAR_OVERLAY = RenderType.entityTranslucentEmissive(WilderWild.id("textures/entity/firefly/nectar_overlay.png"), true);
 
     public FireflyLanternBlockEntityRenderer(Context ctx) {
-        ModelPart root = ctx.getLayerModelPart(WilderWildClient.FIREFLY_LANTERN);
+        ModelPart root = ctx.bakeLayer(WilderWildClient.FIREFLY_LANTERN);
         this.itemRenderer = ctx.getItemRenderer();
     }
 
-    public static TexturedModelData getTexturedModelData() {
-        ModelData modelData = new ModelData();
-        return TexturedModelData.of(modelData, 64, 64);
+    public static LayerDefinition getTexturedModelData() {
+        MeshDefinition modelData = new MeshDefinition();
+        return LayerDefinition.create(modelData, 64, 64);
     }
 
-    public void render(T lantern, float tickDelta, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, int overlay) {
-        Quaternion cam = MinecraftClient.getInstance().gameRenderer.getCamera().getRotation();
+    public void render(T lantern, float tickDelta, PoseStack matrices, MultiBufferSource vertexConsumers, int light, int overlay) {
+        Quaternion cam = Minecraft.getInstance().gameRenderer.getMainCamera().rotation();
         Optional<ItemStack> stack = lantern.getItem();
         if (!lantern.invEmpty() && stack.isPresent()) {
-            matrices.push();
-            double extraHeight = lantern.getCachedState().get(Properties.HANGING) ? 0.25 : 0.125;
+            matrices.pushPose();
+            double extraHeight = lantern.getBlockState().getValue(BlockStateProperties.HANGING) ? 0.25 : 0.125;
             //lantern.getCachedState().get(Properties.HANGING) ? 0.38 : 0.225;
             matrices.translate(0.5, extraHeight, 0.5);
             matrices.scale(0.7F, 0.7F, 0.7F);
             float n = (lantern.age + tickDelta) / 20;
-            matrices.multiply(Vec3f.POSITIVE_Y.getRadialQuaternion(n));
-            this.itemRenderer.renderItem(stack.get(), ModelTransformation.Mode.GROUND, light, OverlayTexture.DEFAULT_UV, matrices, vertexConsumers, 1);
-            matrices.pop();
+            matrices.mulPose(Vector3f.YP.rotation(n));
+            this.itemRenderer.renderStatic(stack.get(), ItemTransforms.TransformType.GROUND, light, OverlayTexture.NO_OVERLAY, matrices, vertexConsumers, 1);
+            matrices.popPose();
         } else if (cam != null) {
-            double extraHeight = lantern.getCachedState().get(Properties.HANGING) ? 0.38 : 0.225;
+            double extraHeight = lantern.getBlockState().getValue(BlockStateProperties.HANGING) ? 0.38 : 0.225;
             for (FireflyLanternBlockEntity.FireflyInLantern entity : lantern.getFireflies()) {
                 boolean nectar = entity.getCustomName().toLowerCase().contains("nectar");
                 int age = entity.age;
                 boolean flickers = entity.flickers;
                 double ageDelta = age + tickDelta;
 
-                matrices.push();
+                matrices.pushPose();
                 matrices.translate(entity.pos.x, extraHeight + Math.sin(ageDelta * 0.03) * 0.15, entity.pos.z);
-                matrices.multiply(cam);
-                matrices.multiply(one80Quat);
+                matrices.mulPose(cam);
+                matrices.mulPose(one80Quat);
 
-                MatrixStack.Entry entry = matrices.peek();
-                Matrix4f matrix4f = entry.getPositionMatrix();
-                Matrix3f matrix3f = entry.getNormalMatrix();
+                PoseStack.Pose entry = matrices.last();
+                Matrix4f matrix4f = entry.pose();
+                Matrix3f matrix3f = entry.normal();
                 VertexConsumer vertexConsumer = vertexConsumers.getBuffer(nectar ? age % 2 == 0 ? NECTAR_LAYER : NECTAR_FLAP_LAYER : LAYER);
 
                 vertexConsumer
                         .vertex(matrix4f, -0.5F, -0.5F, 0.0F)
                         .color(255, 255, 255, 255)
-                        .texture(0, 1)
-                        .overlay(overlay)
-                        .light(light)
+                        .uv(0, 1)
+                        .overlayCoords(overlay)
+                        .uv2(light)
                         .normal(matrix3f, 0.0F, 1.0F, 0.0F)
-                        .next();
+                        .endVertex();
                 vertexConsumer
                         .vertex(matrix4f, 0.5F, -0.5F, 0.0F)
                         .color(255, 255, 255, 255)
-                        .texture(1, 1)
-                        .overlay(overlay)
-                        .light(light)
+                        .uv(1, 1)
+                        .overlayCoords(overlay)
+                        .uv2(light)
                         .normal(matrix3f, 0.0F, 1.0F, 0.0F)
-                        .next();
+                        .endVertex();
                 vertexConsumer
                         .vertex(matrix4f, 0.5F, 0.5F, 0.0F)
                         .color(255, 255, 255, 255)
-                        .texture(1, 0)
-                        .overlay(overlay)
-                        .light(light)
+                        .uv(1, 0)
+                        .overlayCoords(overlay)
+                        .uv2(light)
                         .normal(matrix3f, 0.0F, 1.0F, 0.0F)
-                        .next();
+                        .endVertex();
                 vertexConsumer
                         .vertex(matrix4f, -0.5F, 0.5F, 0.0F)
                         .color(255, 255, 255, 255)
-                        .texture(0, 0)
-                        .overlay(overlay)
-                        .light(light)
+                        .uv(0, 0)
+                        .overlayCoords(overlay)
+                        .uv2(light)
                         .normal(matrix3f, 0.0F, 1.0F, 0.0F)
-                        .next();
+                        .endVertex();
 
                 if (!nectar) {
                     vertexConsumer = vertexConsumers.getBuffer(layers.get(entity.getColor()));
@@ -129,59 +129,59 @@ public class FireflyLanternBlockEntityRenderer<T extends FireflyLanternBlockEnti
                 vertexConsumer
                         .vertex(matrix4f, -0.5F, -0.5F, 0.0F)
                         .color(color, color, color, color)
-                        .texture(0, 1)
-                        .overlay(overlay)
-                        .light(light)
+                        .uv(0, 1)
+                        .overlayCoords(overlay)
+                        .uv2(light)
                         .normal(matrix3f, 0.0F, 1.0F, 0.0F)
-                        .next();
+                        .endVertex();
                 vertexConsumer
                         .vertex(matrix4f, 0.5F, -0.5F, 0.0F)
                         .color(color, color, color, color)
-                        .texture(1, 1)
-                        .overlay(overlay)
-                        .light(light)
+                        .uv(1, 1)
+                        .overlayCoords(overlay)
+                        .uv2(light)
                         .normal(matrix3f, 0.0F, 1.0F, 0.0F)
-                        .next();
+                        .endVertex();
                 vertexConsumer
                         .vertex(matrix4f, 0.5F, 0.5F, 0.0F)
                         .color(color, color, color, color)
-                        .texture(1, 0)
-                        .overlay(overlay)
-                        .light(light)
+                        .uv(1, 0)
+                        .overlayCoords(overlay)
+                        .uv2(light)
                         .normal(matrix3f, 0.0F, 1.0F, 0.0F)
-                        .next();
+                        .endVertex();
                 vertexConsumer
                         .vertex(matrix4f, -0.5F, 0.5F, 0.0F)
                         .color(color, color, color, color)
-                        .texture(0, 0)
-                        .overlay(overlay)
-                        .light(light)
+                        .uv(0, 0)
+                        .overlayCoords(overlay)
+                        .uv2(light)
                         .normal(matrix3f, 0.0F, 1.0F, 0.0F)
-                        .next();
+                        .endVertex();
 
-                matrices.pop();
+                matrices.popPose();
             }
         }
     }
 
-    public static Object2ObjectMap<String, RenderLayer> layers = new Object2ObjectLinkedOpenHashMap<>() {{
-        put("on", RenderLayer.getEntityTranslucentEmissive(WilderWild.id("textures/entity/firefly/firefly_on.png"), true));
-        put("red", RenderLayer.getEntityTranslucentEmissive(WilderWild.id("textures/entity/firefly/firefly_red.png"), true));
-        put("orange", RenderLayer.getEntityTranslucentEmissive(WilderWild.id("textures/entity/firefly/firefly_orange.png"), true));
-        put("yellow", RenderLayer.getEntityTranslucentEmissive(WilderWild.id("textures/entity/firefly/firefly_yellow.png"), true));
-        put("lime", RenderLayer.getEntityTranslucentEmissive(WilderWild.id("textures/entity/firefly/firefly_lime.png"), true));
-        put("green", RenderLayer.getEntityTranslucentEmissive(WilderWild.id("textures/entity/firefly/firefly_green.png"), true));
-        put("cyan", RenderLayer.getEntityTranslucentEmissive(WilderWild.id("textures/entity/firefly/firefly_cyan.png"), true));
-        put("light_blue", RenderLayer.getEntityTranslucentEmissive(WilderWild.id("textures/entity/firefly/firefly_light_blue.png"), true));
-        put("blue", RenderLayer.getEntityTranslucentEmissive(WilderWild.id("textures/entity/firefly/firefly_blue.png"), true));
-        put("pink", RenderLayer.getEntityTranslucentEmissive(WilderWild.id("textures/entity/firefly/firefly_pink.png"), true));
-        put("magenta", RenderLayer.getEntityTranslucentEmissive(WilderWild.id("textures/entity/firefly/firefly_magenta.png"), true));
-        put("purple", RenderLayer.getEntityTranslucentEmissive(WilderWild.id("textures/entity/firefly/firefly_purple.png"), true));
-        put("black", RenderLayer.getEntityTranslucentEmissive(WilderWild.id("textures/entity/firefly/firefly_black.png"), true));
-        put("gray", RenderLayer.getEntityTranslucentEmissive(WilderWild.id("textures/entity/firefly/firefly_gray.png"), true));
-        put("light_gray", RenderLayer.getEntityTranslucentEmissive(WilderWild.id("textures/entity/firefly/firefly_light_gray.png"), true));
-        put("white", RenderLayer.getEntityTranslucentEmissive(WilderWild.id("textures/entity/firefly/firefly_white.png"), true));
-        put("brown", RenderLayer.getEntityTranslucentEmissive(WilderWild.id("textures/entity/firefly/firefly_brown.png"), true));
+    public static Object2ObjectMap<String, RenderType> layers = new Object2ObjectLinkedOpenHashMap<>() {{
+        put("on", RenderType.entityTranslucentEmissive(WilderWild.id("textures/entity/firefly/firefly_on.png"), true));
+        put("red", RenderType.entityTranslucentEmissive(WilderWild.id("textures/entity/firefly/firefly_red.png"), true));
+        put("orange", RenderType.entityTranslucentEmissive(WilderWild.id("textures/entity/firefly/firefly_orange.png"), true));
+        put("yellow", RenderType.entityTranslucentEmissive(WilderWild.id("textures/entity/firefly/firefly_yellow.png"), true));
+        put("lime", RenderType.entityTranslucentEmissive(WilderWild.id("textures/entity/firefly/firefly_lime.png"), true));
+        put("green", RenderType.entityTranslucentEmissive(WilderWild.id("textures/entity/firefly/firefly_green.png"), true));
+        put("cyan", RenderType.entityTranslucentEmissive(WilderWild.id("textures/entity/firefly/firefly_cyan.png"), true));
+        put("light_blue", RenderType.entityTranslucentEmissive(WilderWild.id("textures/entity/firefly/firefly_light_blue.png"), true));
+        put("blue", RenderType.entityTranslucentEmissive(WilderWild.id("textures/entity/firefly/firefly_blue.png"), true));
+        put("pink", RenderType.entityTranslucentEmissive(WilderWild.id("textures/entity/firefly/firefly_pink.png"), true));
+        put("magenta", RenderType.entityTranslucentEmissive(WilderWild.id("textures/entity/firefly/firefly_magenta.png"), true));
+        put("purple", RenderType.entityTranslucentEmissive(WilderWild.id("textures/entity/firefly/firefly_purple.png"), true));
+        put("black", RenderType.entityTranslucentEmissive(WilderWild.id("textures/entity/firefly/firefly_black.png"), true));
+        put("gray", RenderType.entityTranslucentEmissive(WilderWild.id("textures/entity/firefly/firefly_gray.png"), true));
+        put("light_gray", RenderType.entityTranslucentEmissive(WilderWild.id("textures/entity/firefly/firefly_light_gray.png"), true));
+        put("white", RenderType.entityTranslucentEmissive(WilderWild.id("textures/entity/firefly/firefly_white.png"), true));
+        put("brown", RenderType.entityTranslucentEmissive(WilderWild.id("textures/entity/firefly/firefly_brown.png"), true));
     }};
 
 }

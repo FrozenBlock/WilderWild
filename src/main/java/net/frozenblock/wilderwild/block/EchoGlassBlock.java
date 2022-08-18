@@ -4,53 +4,53 @@ import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.entity.AncientHornProjectile;
 import net.frozenblock.wilderwild.registry.RegisterProperties;
 import net.frozenblock.wilderwild.registry.RegisterSounds;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.TintedGlassBlock;
-import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.enchantment.EnchantmentHelper;
-import net.minecraft.enchantment.Enchantments;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.projectile.ProjectileEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.loot.LootTable;
-import net.minecraft.loot.LootTables;
-import net.minecraft.loot.context.LootContext;
-import net.minecraft.loot.context.LootContextParameters;
-import net.minecraft.loot.context.LootContextTypes;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.sound.SoundCategory;
-import net.minecraft.sound.SoundEvents;
-import net.minecraft.stat.Stats;
-import net.minecraft.state.StateManager;
-import net.minecraft.state.property.IntProperty;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.hit.BlockHitResult;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
-import net.minecraft.util.math.random.Random;
-import net.minecraft.world.LightType;
-import net.minecraft.world.World;
-import net.minecraft.world.WorldEvents;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.stats.Stats;
+import net.minecraft.util.RandomSource;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.entity.projectile.Projectile;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.enchantment.EnchantmentHelper;
+import net.minecraft.world.item.enchantment.Enchantments;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LightLayer;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.LevelEvent;
+import net.minecraft.world.level.block.TintedGlassBlock;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.world.level.block.state.properties.IntegerProperty;
+import net.minecraft.world.level.storage.loot.BuiltInLootTables;
+import net.minecraft.world.level.storage.loot.LootContext;
+import net.minecraft.world.level.storage.loot.LootTable;
+import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
+import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
+import net.minecraft.world.phys.BlockHitResult;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Collections;
 import java.util.List;
 
 public class EchoGlassBlock extends TintedGlassBlock {
-    public static final IntProperty DAMAGE = RegisterProperties.DAMAGE;
+    public static final IntegerProperty DAMAGE = RegisterProperties.DAMAGE;
 
-    public EchoGlassBlock(Settings settings) {
+    public EchoGlassBlock(Properties settings) {
         super(settings);
-        this.setDefaultState(this.getDefaultState().with(DAMAGE, 0));
+        this.registerDefaultState(this.defaultBlockState().setValue(DAMAGE, 0));
     }
 
-    protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
+    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
         builder.add(DAMAGE);
     }
 
     @Override
-    public void randomTick(BlockState state, ServerWorld world, BlockPos pos, Random random) {
+    public void randomTick(BlockState state, ServerLevel world, BlockPos pos, RandomSource random) {
         int light = getLightLevel(world, pos);
         if (light <= 7) {
             if (random.nextBoolean()) {
@@ -61,60 +61,60 @@ public class EchoGlassBlock extends TintedGlassBlock {
         }
     }
 
-    public static void damage(World world, BlockPos pos) {
+    public static void damage(Level world, BlockPos pos) {
         BlockState state = world.getBlockState(pos);
         WilderWild.log("Echo Glass Damaged @ " + pos, WilderWild.UNSTABLE_LOGGING);
-        if (state.get(DAMAGE) < 3) {
-            world.setBlockState(pos, state.with(DAMAGE, state.get(DAMAGE) + 1));
-            world.playSound(null, pos, RegisterSounds.BLOCK_ECHO_GLASS_CRACK, SoundCategory.BLOCKS, 1.0F, 1.0F);
-            world.syncWorldEvent(null, WorldEvents.BLOCK_BROKEN, pos, getRawIdFromState(state));
+        if (state.getValue(DAMAGE) < 3) {
+            world.setBlockAndUpdate(pos, state.setValue(DAMAGE, state.getValue(DAMAGE) + 1));
+            world.playSound(null, pos, RegisterSounds.BLOCK_ECHO_GLASS_CRACK, SoundSource.BLOCKS, 1.0F, 1.0F);
+            world.levelEvent(null, LevelEvent.PARTICLES_DESTROY_BLOCK, pos, getId(state));
         } else {
-            world.breakBlock(pos, false);
+            world.destroyBlock(pos, false);
         }
     }
 
-    public static void heal(World world, BlockPos pos) {
+    public static void heal(Level world, BlockPos pos) {
         BlockState state = world.getBlockState(pos);
-        if (state.get(DAMAGE) > 0) {
+        if (state.getValue(DAMAGE) > 0) {
             WilderWild.log("Echo Glass Healed @ " + pos, WilderWild.UNSTABLE_LOGGING);
-            world.setBlockState(pos, state.with(DAMAGE, state.get(DAMAGE) - 1));
+            world.setBlockAndUpdate(pos, state.setValue(DAMAGE, state.getValue(DAMAGE) - 1));
             world.playSound(
                     null,
                     pos,
                     RegisterSounds.BLOCK_ECHO_GLASS_REPAIR,
-                    SoundCategory.BLOCKS,
+                    SoundSource.BLOCKS,
                     1.0F,
                     world.random.nextFloat() * 0.1F + 0.9F
             );
         }
     }
 
-    public static int getLightLevel(World world, BlockPos blockPos) {
+    public static int getLightLevel(Level world, BlockPos blockPos) {
         int finalLight = 0;
-        for (Direction direction : DIRECTIONS) {
-            BlockPos pos = blockPos.offset(direction);
+        for (Direction direction : UPDATE_SHAPE_ORDER) {
+            BlockPos pos = blockPos.relative(direction);
             int skyLight = 0;
-            int blockLight = world.getLightLevel(LightType.BLOCK, pos);
+            int blockLight = world.getBrightness(LightLayer.BLOCK, pos);
             if (world.isDay() && !world.isRaining()) {
-                skyLight = world.getLightLevel(LightType.SKY, pos);
+                skyLight = world.getBrightness(LightLayer.SKY, pos);
             }
             finalLight = Math.max(finalLight, Math.max(skyLight, blockLight));
         }
         return finalLight;
     }
 
-    public void afterBreak(World world, PlayerEntity player, BlockPos pos, BlockState state, @Nullable BlockEntity blockEntity, ItemStack stack) {
-        player.addExhaustion(0.005F);
-        if (state.get(DAMAGE) < 3 && EnchantmentHelper.getLevel(Enchantments.SILK_TOUCH, player.getMainHandStack()) < 1 && !player.isCreative()) {
-            world.setBlockState(pos, state.with(DAMAGE, state.get(DAMAGE) + 1));
+    public void playerDestroy(Level world, Player player, BlockPos pos, BlockState state, @Nullable BlockEntity blockEntity, ItemStack stack) {
+        player.causeFoodExhaustion(0.005F);
+        if (state.getValue(DAMAGE) < 3 && EnchantmentHelper.getItemEnchantmentLevel(Enchantments.SILK_TOUCH, player.getMainHandItem()) < 1 && !player.isCreative()) {
+            world.setBlockAndUpdate(pos, state.setValue(DAMAGE, state.getValue(DAMAGE) + 1));
         } else {
-            player.incrementStat(Stats.MINED.getOrCreateStat(this));
-            dropStacks(state, world, pos, blockEntity, player, stack);
+            player.awardStat(Stats.BLOCK_MINED.get(this));
+            dropResources(state, world, pos, blockEntity, player, stack);
             world.playSound(
                     null,
                     pos,
-                    SoundEvents.BLOCK_GLASS_BREAK,
-                    SoundCategory.BLOCKS,
+                    SoundEvents.GLASS_BREAK,
+                    SoundSource.BLOCKS,
                     1.3F,
                     world.random.nextFloat() * 0.1F + 0.8F
             );
@@ -122,28 +122,28 @@ public class EchoGlassBlock extends TintedGlassBlock {
     }
 
     @Deprecated
-    public List<ItemStack> getDroppedStacks(BlockState state, LootContext.Builder builder) {
-        Identifier identifier = this.getLootTableId();
-        if (builder.getNullable(LootContextParameters.TOOL) != null) {
-            ItemStack stack = builder.get(LootContextParameters.TOOL);
-            if (EnchantmentHelper.getLevel(Enchantments.SILK_TOUCH, stack) != 0) {
-                if (state.get(DAMAGE) == 0) {
+    public List<ItemStack> getDrops(BlockState state, LootContext.Builder builder) {
+        ResourceLocation identifier = this.getLootTable();
+        if (builder.getOptionalParameter(LootContextParams.TOOL) != null) {
+            ItemStack stack = builder.getParameter(LootContextParams.TOOL);
+            if (EnchantmentHelper.getItemEnchantmentLevel(Enchantments.SILK_TOUCH, stack) != 0) {
+                if (state.getValue(DAMAGE) == 0) {
                     identifier = WilderWild.id("blocks/echo_glass_full");
                 }
             }
         }
-        if (identifier == LootTables.EMPTY) {
+        if (identifier == BuiltInLootTables.EMPTY) {
             return Collections.emptyList();
         } else {
-            LootContext lootContext = builder.parameter(LootContextParameters.BLOCK_STATE, state).build(LootContextTypes.BLOCK);
-            ServerWorld serverWorld = lootContext.getWorld();
-            LootTable lootTable = serverWorld.getServer().getLootManager().getTable(identifier);
-            return lootTable.generateLoot(lootContext);
+            LootContext lootContext = builder.withParameter(LootContextParams.BLOCK_STATE, state).create(LootContextParamSets.BLOCK);
+            ServerLevel serverWorld = lootContext.getLevel();
+            LootTable lootTable = serverWorld.getServer().getLootTables().get(identifier);
+            return lootTable.getRandomItems(lootContext);
         }
     }
 
     @Override
-    public void onProjectileHit(World world, BlockState state, BlockHitResult hit, ProjectileEntity projectile) {
+    public void onProjectileHit(Level world, BlockState state, BlockHitResult hit, Projectile projectile) {
         if (projectile instanceof AncientHornProjectile) {
             damage(world, hit.getBlockPos());
         }
@@ -151,7 +151,7 @@ public class EchoGlassBlock extends TintedGlassBlock {
     }
 
     @Override
-    public boolean hasRandomTicks(BlockState state) {
+    public boolean isRandomlyTicking(BlockState state) {
         return true;
     }
 }

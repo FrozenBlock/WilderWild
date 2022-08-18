@@ -2,8 +2,8 @@ package net.frozenblock.wilderwild.mixin.server;
 
 import net.frozenblock.wilderwild.misc.WilderBoats;
 import net.frozenblock.wilderwild.registry.RegisterBlocks;
-import net.minecraft.block.Block;
-import net.minecraft.entity.vehicle.BoatEntity;
+import net.minecraft.world.entity.vehicle.Boat;
+import net.minecraft.world.level.block.Block;
 import org.objectweb.asm.Opcodes;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
@@ -17,14 +17,14 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-@Mixin(BoatEntity.Type.class)
+@Mixin(Boat.Type.class)
 public class BoatTypeMixin {
 
     //CREDIT TO nyuppo/fabric-boat-example ON GITHUB
 
     @SuppressWarnings("InvokerTarget")
     @Invoker("<init>")
-    private static BoatEntity.Type newType(String internalName, int internalId, Block baseBlock, String name) {
+    private static Boat.Type newType(String internalName, int internalId, Block baseBlock, String name) {
         throw new AssertionError();
     }
 
@@ -32,14 +32,14 @@ public class BoatTypeMixin {
     @Final
     @Shadow
     @Mutable
-    private static BoatEntity.Type[] field_7724;
+    private static Boat.Type[] $VALUES;
 
     @Inject(method = "<clinit>", at = @At(value = "FIELD",
             opcode = Opcodes.PUTSTATIC,
-            target = "Lnet/minecraft/entity/vehicle/BoatEntity$Type;field_7724:[Lnet/minecraft/entity/vehicle/BoatEntity$Type;",
+            target = "Lnet/minecraft/world/entity/vehicle/Boat$Type;$VALUES:[Lnet/minecraft/world/entity/vehicle/Boat$Type;",
             shift = At.Shift.AFTER))
     private static void addCustomBoatType(CallbackInfo ci) {
-        var types = new ArrayList<>(Arrays.asList(field_7724));
+        var types = new ArrayList<>(Arrays.asList($VALUES));
         var last = types.get(types.size() - 1);
 
         var baobab = newType("WILDERWILDBAOBAB", last.ordinal() + 1, RegisterBlocks.BAOBAB_PLANKS, "wilderwildbaobab");
@@ -49,6 +49,6 @@ public class BoatTypeMixin {
         var cypress = newType("WILDERWILDCYPRESS", last.ordinal() + 2, RegisterBlocks.CYPRESS_PLANKS, "wilderwildcypress");
         WilderBoats.CYPRESS = cypress;
         types.add(cypress);
-        field_7724 = types.toArray(new BoatEntity.Type[0]);
+        $VALUES = types.toArray(new Boat.Type[0]);
     }
 }
