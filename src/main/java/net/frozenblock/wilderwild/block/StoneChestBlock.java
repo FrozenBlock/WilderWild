@@ -276,6 +276,7 @@ public class StoneChestBlock extends ChestBlock {
         if (!world.isClient) {
             BlockEntity blockEntity = world.getBlockEntity(pos);
             if (blockEntity instanceof StoneChestBlockEntity stoneChestBlock) {
+                stoneChestBlock.checkLootInteraction(null);
                 ArrayList<ItemStack> ancientItems = stoneChestBlock.ancientItems();
                 if (!ancientItems.isEmpty()) {
                     world.playSound(null, pos, RegisterSounds.BLOCK_STONE_CHEST_ITEM_CRUMBLE, SoundCategory.BLOCKS, 0.5F, 0.9F + (world.random.nextFloat() / 10F));
