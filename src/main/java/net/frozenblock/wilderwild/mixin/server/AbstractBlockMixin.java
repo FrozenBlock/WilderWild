@@ -1,23 +1,23 @@
 package net.frozenblock.wilderwild.mixin.server;
 
-import net.minecraft.block.AbstractBlock;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.random.Random;
+import net.minecraft.core.BlockPos;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.util.RandomSource;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.minecraft.world.level.block.state.BlockState;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-@Mixin(AbstractBlock.class)
+@Mixin(BlockBehaviour.class)
 public class AbstractBlockMixin {
 
-    @Inject(method = "scheduledTick", at = @At("HEAD"))
-    public void scheduledTick(BlockState state, ServerWorld world, BlockPos pos, Random random, CallbackInfo info) {
-        if (state.isOf(Blocks.DIRT)) {
-            world.setBlockState(pos, Blocks.MUD.getDefaultState());
+    @Inject(method = "tick", at = @At("HEAD"))
+    public void tick(BlockState state, ServerLevel world, BlockPos pos, RandomSource random, CallbackInfo info) {
+        if (state.is(Blocks.DIRT)) {
+            world.setBlockAndUpdate(pos, Blocks.MUD.defaultBlockState());
         }
     }
 

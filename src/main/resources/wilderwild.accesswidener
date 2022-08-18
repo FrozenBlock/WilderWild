@@ -33,8 +33,8 @@ accessible    method    net/minecraft/client/renderer/RenderType$CompositeRender
 accessible    method    net/minecraft/client/renderer/RenderStateShard$TextureStateShard    <init>    (Lnet/minecraft/resources/ResourceLocation;ZZ)V
 accessible    field    net/minecraft/client/renderer/RenderStateShard    TRANSLUCENT_TRANSPARENCY    Lnet/minecraft/client/renderer/RenderStateShard$TransparencyStateShard;
 accessible    method    net/minecraft/world/entity/SpawnPlacements   register    (Lnet/minecraft/world/entity/EntityType;Lnet/minecraft/world/entity/SpawnPlacements$Type;Lnet/minecraft/world/level/levelgen/Heightmap$Types;Lnet/minecraft/world/entity/SpawnPlacements$SpawnPredicate;)V
-accessible    method    net/minecraft/structure/pool/SinglePoolElement    <init>    (Lcom/mojang/datafixers/util/Either;Lnet/minecraft/util/registry/RegistryEntry;Lnet/minecraft/structure/pool/StructurePool$Projection;)V
+accessible method net/minecraft/world/level/levelgen/structure/pools/SinglePoolElement <init> (Lcom/mojang/datafixers/util/Either;Lnet/minecraft/core/Holder;Lnet/minecraft/world/level/levelgen/structure/pools/StructureTemplatePool$Projection;)V
 accessible    method    net/minecraft/client/render/TexturedRenderLayers    getChestTextureId    (Ljava/lang/String;)Lnet/minecraft/client/util/SpriteIdentifier;
-accessible    field    net/minecraft/inventory/DoubleInventory    first    Lnet/minecraft/inventory/Inventory;
-accessible    field    net/minecraft/inventory/DoubleInventory    second    Lnet/minecraft/inventory/Inventory;
-accessible    method    net/minecraft/block/AbstractCauldronBlock    canBeFilledByDripstone    (Lnet/minecraft/fluid/Fluid;)Z
+accessible    field    net/minecraft/world/CompoundContainer    container1    Lnet/minecraft/world/Container;
+accessible    field    net/minecraft/world/CompoundContainer    container2    Lnet/minecraft/world/Container;
+accessible method net/minecraft/world/level/block/AbstractCauldronBlock canReceiveStalactiteDrip (Lnet/minecraft/world/level/material/Fluid;)Z

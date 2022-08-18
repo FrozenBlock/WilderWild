@@ -1,7 +1,9 @@
 package net.frozenblock.wilderwild.mixin.worldgen;
 
 import net.frozenblock.wilderwild.registry.RegisterWorldgen;
+import net.frozenblock.wilderwild.world.gen.noise.WilderNoiseKeys;
 import net.minecraft.data.worldgen.SurfaceRuleData;
+import net.minecraft.world.level.biome.Biomes;
 import net.minecraft.world.level.levelgen.Noises;
 import net.minecraft.world.level.levelgen.SurfaceRules;
 import net.minecraft.world.level.levelgen.VerticalAnchor;
@@ -22,7 +24,7 @@ public class VanillaSurfaceRulesMixin {
     @Shadow @Final private static SurfaceRules.RuleSource SAND;
 
     @ModifyVariable(method = "overworldLike", at = @At("STORE"), ordinal = 8)
-    private static Surfacerules.Rulesource injected(SurfaceRules.RuleSource materialRule) {
+    private static SurfaceRules.RuleSource injected(SurfaceRules.RuleSource materialRule) {
 
         return SurfaceRules.sequence(SurfaceRules.ifTrue(
                 SurfaceRules.ON_FLOOR, SurfaceRules.sequence(
@@ -37,28 +39,28 @@ public class VanillaSurfaceRulesMixin {
                                 )
                         )
                 )
-        ), MaterialRules.sequence(MaterialRules.condition(
-                MaterialRules.STONE_DEPTH_FLOOR_WITH_SURFACE_DEPTH, MaterialRules.sequence(
-                        MaterialRules.condition(
-                                MaterialRules.biome(BiomeKeys.BIRCH_FOREST, BiomeKeys.TAIGA, BiomeKeys.FROZEN_RIVER, BiomeKeys.OLD_GROWTH_BIRCH_FOREST, BiomeKeys.OLD_GROWTH_PINE_TAIGA, BiomeKeys.OLD_GROWTH_SPRUCE_TAIGA, BiomeKeys.SNOWY_TAIGA, RegisterWorldgen.MIXED_FOREST),
-                                MaterialRules.condition(
-                                        MaterialRules.aboveY(YOffset.fixed(58), 0),
-                                        MaterialRules.condition(
-                                                MaterialRules.not(MaterialRules.aboveY(YOffset.fixed(64), 0)),
-                                                MaterialRules.condition(MaterialRules.noiseThreshold(WilderNoiseKeys.SAND_BEACH, 0.12, 1.7976931348623157E308), GRAVEL)
+        ), SurfaceRules.sequence(SurfaceRules.ifTrue(
+                SurfaceRules.UNDER_FLOOR, SurfaceRules.sequence(
+                        SurfaceRules.ifTrue(
+                                SurfaceRules.isBiome(Biomes.BIRCH_FOREST, Biomes.TAIGA, Biomes.FROZEN_RIVER, Biomes.OLD_GROWTH_BIRCH_FOREST, Biomes.OLD_GROWTH_PINE_TAIGA, Biomes.OLD_GROWTH_SPRUCE_TAIGA, Biomes.SNOWY_TAIGA, RegisterWorldgen.MIXED_FOREST),
+                                SurfaceRules.ifTrue(
+                                        SurfaceRules.yBlockCheck(VerticalAnchor.absolute(58), 0),
+                                        SurfaceRules.ifTrue(
+                                                SurfaceRules.not(SurfaceRules.yBlockCheck(VerticalAnchor.absolute(64), 0)),
+                                                SurfaceRules.ifTrue(SurfaceRules.noiseCondition(WilderNoiseKeys.SAND_BEACH, 0.12, 1.7976931348623157E308), GRAVEL)
                                         )
                                 )
                         )
                 )
-        ), MaterialRules.sequence(MaterialRules.condition(
-                        MaterialRules.STONE_DEPTH_FLOOR_WITH_SURFACE_DEPTH_RANGE_6, MaterialRules.sequence(
-                                MaterialRules.condition(
-                                        MaterialRules.biome(BiomeKeys.FLOWER_FOREST, BiomeKeys.FOREST, BiomeKeys.JUNGLE, BiomeKeys.SPARSE_JUNGLE, BiomeKeys.SAVANNA, BiomeKeys.DARK_FOREST),
-                                        MaterialRules.condition(
-                                                MaterialRules.aboveY(YOffset.fixed(58), 0),
-                                                MaterialRules.condition(
-                                                        MaterialRules.not(MaterialRules.aboveY(YOffset.fixed(64), 0)),
-                                                        MaterialRules.condition(MaterialRules.noiseThreshold(WilderNoiseKeys.SAND_BEACH, 0.12, 1.7976931348623157E308), SAND)
+        ), SurfaceRules.sequence(SurfaceRules.ifTrue(
+                        SurfaceRules.DEEP_UNDER_FLOOR, SurfaceRules.sequence(
+                                SurfaceRules.ifTrue(
+                                        SurfaceRules.isBiome(Biomes.FLOWER_FOREST, Biomes.FOREST, Biomes.JUNGLE, Biomes.SPARSE_JUNGLE, Biomes.SAVANNA, Biomes.DARK_FOREST),
+                                        SurfaceRules.ifTrue(
+                                                SurfaceRules.yBlockCheck(VerticalAnchor.absolute(58), 0),
+                                                SurfaceRules.ifTrue(
+                                                        SurfaceRules.not(SurfaceRules.yBlockCheck(VerticalAnchor.absolute(64), 0)),
+                                                        SurfaceRules.ifTrue(SurfaceRules.noiseCondition(WilderNoiseKeys.SAND_BEACH, 0.12, 1.7976931348623157E308), SAND)
                                                 )
                                         )
                                 )

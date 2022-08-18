@@ -144,32 +144,32 @@ public class EasyPacket {
         }
     }
 
-    public static void createMovingRestrictionSound(World world, Entity entity, SoundEvent sound, SoundCategory category, float volume, float pitch, Identifier id) {
-        if (world.isClient)
+    public static void createMovingRestrictionSound(Level world, Entity entity, SoundEvent sound, SoundSource category, float volume, float pitch, ResourceLocation id) {
+        if (world.isClientSide)
             throw new IllegalStateException("no sounds on the client, you freaking idiot!");
-        PacketByteBuf byteBuf = new PacketByteBuf(Unpooled.buffer());
+        FriendlyByteBuf byteBuf = new FriendlyByteBuf(Unpooled.buffer());
         byteBuf.writeVarInt(entity.getId());
-        byteBuf.writeRegistryValue(Registry.SOUND_EVENT, sound);
-        byteBuf.writeEnumConstant(category);
+        byteBuf.writeId(Registry.SOUND_EVENT, sound);
+        byteBuf.writeEnum(category);
         byteBuf.writeFloat(volume);
         byteBuf.writeFloat(pitch);
-        byteBuf.writeIdentifier(id);
-        for (ServerPlayerEntity player : PlayerLookup.around((ServerWorld) world, entity.getBlockPos(), 64)) {
+        byteBuf.writeResourceLocation(id);
+        for (ServerPlayer player : PlayerLookup.around((ServerLevel) world, entity.blockPosition(), 64)) {
             ServerPlayNetworking.send(player, WilderWild.MOVING_RESTRICTION_SOUND_PACKET, byteBuf);
         }
     }
 
-    public static void createMovingRestrictionLoopingSound(World world, Entity entity, SoundEvent sound, SoundCategory category, float volume, float pitch, Identifier id) {
-        if (world.isClient)
+    public static void createMovingRestrictionLoopingSound(Level world, Entity entity, SoundEvent sound, SoundSource category, float volume, float pitch, ResourceLocation id) {
+        if (world.isClientSide)
             throw new IllegalStateException("no sounds on the client, you freaking idiot!");
-        PacketByteBuf byteBuf = new PacketByteBuf(Unpooled.buffer());
+        FriendlyByteBuf byteBuf = new FriendlyByteBuf(Unpooled.buffer());
         byteBuf.writeVarInt(entity.getId());
-        byteBuf.writeRegistryValue(Registry.SOUND_EVENT, sound);
-        byteBuf.writeEnumConstant(category);
+        byteBuf.writeId(Registry.SOUND_EVENT, sound);
+        byteBuf.writeEnum(category);
         byteBuf.writeFloat(volume);
         byteBuf.writeFloat(pitch);
-        byteBuf.writeIdentifier(id);
-        for (ServerPlayerEntity player : PlayerLookup.around((ServerWorld) world, entity.getBlockPos(), 64)) {
+        byteBuf.writeResourceLocation(id);
+        for (ServerPlayer player : PlayerLookup.around((ServerLevel) world, entity.blockPosition(), 64)) {
             ServerPlayNetworking.send(player, WilderWild.MOVING_RESTRICTION_LOOPING_SOUND_PACKET, byteBuf);
         }
     }

@@ -5,26 +5,25 @@ import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.frozenblock.wilderwild.registry.RegisterParticles;
-import net.minecraft.network.PacketByteBuf;
-import net.minecraft.particle.ParticleEffect;
-import net.minecraft.particle.ParticleType;
-import net.minecraft.util.registry.Registry;
-
+import net.minecraft.core.Registry;
+import net.minecraft.core.particles.ParticleOptions;
+import net.minecraft.core.particles.ParticleType;
+import net.minecraft.network.FriendlyByteBuf;
 import java.util.Locale;
 
-public class AncientHornParticleEffect implements ParticleEffect {
+public class AncientHornParticleEffect implements ParticleOptions {
     public static final Codec<AncientHornParticleEffect> CODEC = RecordCodecBuilder.create(
             instance -> instance.group(Codec.INT.fieldOf("delay").forGetter(AncientHornParticleEffect -> AncientHornParticleEffect.delay))
                     .apply(instance, AncientHornParticleEffect::new)
     );
-    public static final ParticleEffect.Factory<AncientHornParticleEffect> FACTORY = new ParticleEffect.Factory<>() {
-        public AncientHornParticleEffect read(ParticleType<AncientHornParticleEffect> particleType, StringReader stringReader) throws CommandSyntaxException {
+    public static final ParticleOptions.Deserializer<AncientHornParticleEffect> FACTORY = new ParticleOptions.Deserializer<>() {
+        public AncientHornParticleEffect fromCommand(ParticleType<AncientHornParticleEffect> particleType, StringReader stringReader) throws CommandSyntaxException {
             stringReader.expect(' ');
             int i = stringReader.readInt();
             return new AncientHornParticleEffect(i);
         }
 
-        public AncientHornParticleEffect read(ParticleType<AncientHornParticleEffect> particleType, PacketByteBuf packetByteBuf) {
+        public AncientHornParticleEffect fromNetwork(ParticleType<AncientHornParticleEffect> particleType, FriendlyByteBuf packetByteBuf) {
             return new AncientHornParticleEffect(packetByteBuf.readVarInt());
         }
     };
@@ -35,13 +34,13 @@ public class AncientHornParticleEffect implements ParticleEffect {
     }
 
     @Override
-    public void write(PacketByteBuf buf) {
+    public void writeToNetwork(FriendlyByteBuf buf) {
         buf.writeVarInt(this.delay);
     }
 
     @Override
-    public String asString() {
-        return String.format(Locale.ROOT, "%s %d", Registry.PARTICLE_TYPE.getId(this.getType()), this.delay);
+    public String writeToString() {
+        return String.format(Locale.ROOT, "%s %d", Registry.PARTICLE_TYPE.getKey(this.getType()), this.delay);
     }
 
     @Override

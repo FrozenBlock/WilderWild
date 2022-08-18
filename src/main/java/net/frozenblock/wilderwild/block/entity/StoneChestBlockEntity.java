@@ -4,36 +4,36 @@ import net.fabricmc.fabric.api.networking.v1.PlayerLookup;
 import net.frozenblock.wilderwild.misc.ClientMethodInteractionThingy;
 import net.frozenblock.wilderwild.registry.RegisterBlockEntities;
 import net.frozenblock.wilderwild.registry.RegisterSounds;
-import net.minecraft.advancement.criterion.Criteria;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.ChestBlock;
-import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.block.entity.ChestBlockEntity;
-import net.minecraft.block.entity.ViewerCountManager;
-import net.minecraft.block.enums.ChestType;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.inventory.DoubleInventory;
-import net.minecraft.inventory.Inventory;
-import net.minecraft.item.ItemStack;
-import net.minecraft.loot.LootTable;
-import net.minecraft.loot.context.LootContext;
-import net.minecraft.loot.context.LootContextParameters;
-import net.minecraft.loot.context.LootContextTypes;
-import net.minecraft.nbt.NbtByte;
-import net.minecraft.nbt.NbtCompound;
-import net.minecraft.network.packet.s2c.play.BlockEntityUpdateS2CPacket;
-import net.minecraft.screen.GenericContainerScreenHandler;
-import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.sound.SoundCategory;
-import net.minecraft.sound.SoundEvent;
-import net.minecraft.text.Text;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
-import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.math.Vec3d;
-import net.minecraft.world.World;
-import net.minecraft.world.event.GameEvent;
+import net.minecraft.advancements.CriteriaTriggers;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.nbt.ByteTag;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.util.Mth;
+import net.minecraft.world.CompoundContainer;
+import net.minecraft.world.Container;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.inventory.ChestMenu;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.ChestBlock;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.ChestBlockEntity;
+import net.minecraft.world.level.block.entity.ContainerOpenersCounter;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.properties.ChestType;
+import net.minecraft.world.level.gameevent.GameEvent;
+import net.minecraft.world.level.storage.loot.LootContext;
+import net.minecraft.world.level.storage.loot.LootTable;
+import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
+import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
+import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
@@ -54,8 +54,8 @@ public class StoneChestBlockEntity extends ChestBlockEntity {
     }
 
     @Override
-    public void readNbt(NbtCompound nbt) {
-        super.readNbt(nbt);
+    public void load(CompoundTag nbt) {
+        super.load(nbt);
         this.openProgress = nbt.getFloat("openProgress");
         this.prevOpenProgress = nbt.getFloat("prevOpenProgress");
         this.stillLidTicks = nbt.getInt("stillLidTicks");
@@ -66,8 +66,8 @@ public class StoneChestBlockEntity extends ChestBlockEntity {
     }
 
     @Override
-    protected void writeNbt(NbtCompound nbt) {
-        super.writeNbt(nbt);
+    protected void saveAdditional(CompoundTag nbt) {
+        super.saveAdditional(nbt);
         nbt.putFloat("openProgress", this.openProgress);
         nbt.putFloat("prevOpenProgress", this.prevOpenProgress);
         nbt.putInt("stillLidTicks", this.stillLidTicks);
@@ -78,10 +78,10 @@ public class StoneChestBlockEntity extends ChestBlockEntity {
     }
 
     public float getOpenProgress(float delta) {
-        return MathHelper.lerp(delta, this.prevOpenProgress, this.openProgress);
+        return Mth.lerp(delta, this.prevOpenProgress, this.openProgress);
     }
 
-    public static void serverStoneTick(World world, BlockPos pos, BlockState state, StoneChestBlockEntity blockEntity) {
+    public static void serverStoneTick(Level world, BlockPos pos, BlockState state, StoneChestBlockEntity blockEntity) {
         if (!blockEntity.shouldSkip) {
             if (blockEntity.cooldownTicks > 0) {
                 --blockEntity.cooldownTicks;
@@ -90,7 +90,7 @@ public class StoneChestBlockEntity extends ChestBlockEntity {
             if (blockEntity.stillLidTicks > 0) {
                 blockEntity.stillLidTicks -= 1;
             } else if (blockEntity.openProgress > 0F) {
-                world.emitGameEvent(null, GameEvent.CONTAINER_CLOSE, pos);
+                world.gameEvent(null, GameEvent.CONTAINER_CLOSE, pos);
                 blockEntity.openProgress = Math.max(0F, blockEntity.openProgress - 0.0425F);
                 if (!blockEntity.closing) {
                     blockEntity.closing = true;
@@ -109,7 +109,7 @@ public class StoneChestBlockEntity extends ChestBlockEntity {
         blockEntity.shouldSkip = false;
     }
 
-    public static void clientStoneTick(World world, BlockPos pos, BlockState state, StoneChestBlockEntity blockEntity) {
+    public static void clientStoneTick(Level world, BlockPos pos, BlockState state, StoneChestBlockEntity blockEntity) {
         if (!blockEntity.shouldSkip) {
             if (blockEntity.cooldownTicks > 0) {
                 --blockEntity.cooldownTicks;
@@ -136,14 +136,14 @@ public class StoneChestBlockEntity extends ChestBlockEntity {
         }
     }
 
-    public boolean canPlayerUse(PlayerEntity player) {
-        if (this.world.getBlockEntity(this.pos) != this) {
+    public boolean stillValid(Player player) {
+        if (this.level.getBlockEntity(this.worldPosition) != this) {
             return false;
         }
-        return !(player.squaredDistanceTo((double)this.pos.getX() + 0.5, (double)this.pos.getY() + 0.5, (double)this.pos.getZ() + 0.5) > 64.0) && ((!this.closing && this.openProgress >= 0.3));
+        return !(player.distanceToSqr((double)this.worldPosition.getX() + 0.5, (double)this.worldPosition.getY() + 0.5, (double)this.worldPosition.getZ() + 0.5) > 64.0) && ((!this.closing && this.openProgress >= 0.3));
     }
 
-    public void syncLidValues(World world, BlockPos pos, BlockState state) {
+    public void syncLidValues(Level world, BlockPos pos, BlockState state) {
         StoneChestBlockEntity stoneChest = getOtherEntity(world, pos, state);
         if (stoneChest != null) {
             stoneChest.openProgress = this.openProgress;
@@ -156,7 +156,7 @@ public class StoneChestBlockEntity extends ChestBlockEntity {
     }
 
     public void updateSync() {
-        StoneChestBlockEntity stoneChest = getOtherEntity(world, pos, this.getCachedState());
+        StoneChestBlockEntity stoneChest = getOtherEntity(level, worldPosition, this.getBlockState());
         if (stoneChest != null) {
             stoneChest.openProgress = this.openProgress;
             stoneChest.prevOpenProgress = this.prevOpenProgress;
@@ -164,67 +164,67 @@ public class StoneChestBlockEntity extends ChestBlockEntity {
             stoneChest.cooldownTicks = this.cooldownTicks;
             stoneChest.shouldSkip = true;
             stoneChest.closing = this.closing;
-            for (ServerPlayerEntity player : PlayerLookup.tracking(stoneChest)) {
-                player.networkHandler.sendPacket(stoneChest.toUpdatePacket());
+            for (ServerPlayer player : PlayerLookup.tracking(stoneChest)) {
+                player.connection.send(stoneChest.getUpdatePacket());
             }
         }
-        for (ServerPlayerEntity player : PlayerLookup.tracking(this)) {
-            player.networkHandler.sendPacket(this.toUpdatePacket());
+        for (ServerPlayer player : PlayerLookup.tracking(this)) {
+            player.connection.send(this.getUpdatePacket());
         }
     }
 
-    public void checkLootInteraction(@Nullable PlayerEntity player) {
-        if (this.lootTableId != null && this.world.getServer() != null) {
-            LootTable lootTable = this.world.getServer().getLootManager().getTable(this.lootTableId);
-            if (player instanceof ServerPlayerEntity) {
-                Criteria.PLAYER_GENERATES_CONTAINER_LOOT.trigger((ServerPlayerEntity)player, this.lootTableId);
+    public void unpackLootTable(@Nullable Player player) {
+        if (this.lootTable != null && this.level.getServer() != null) {
+            LootTable lootTable = this.level.getServer().getLootTables().get(this.lootTable);
+            if (player instanceof ServerPlayer) {
+                CriteriaTriggers.GENERATE_LOOT.trigger((ServerPlayer)player, this.lootTable);
             }
-            this.lootTableId = null;
-            LootContext.Builder builder = new LootContext.Builder((ServerWorld)this.world).parameter(LootContextParameters.ORIGIN, Vec3d.ofCenter(this.pos)).random(this.lootTableSeed);
+            this.lootTable = null;
+            LootContext.Builder builder = new LootContext.Builder((ServerLevel)this.level).withParameter(LootContextParams.ORIGIN, Vec3.atCenterOf(this.worldPosition)).withOptionalRandomSeed(this.lootTableSeed);
             if (player != null) {
-                builder.luck(player.getLuck()).parameter(LootContextParameters.THIS_ENTITY, player);
+                builder.withLuck(player.getLuck()).withParameter(LootContextParams.THIS_ENTITY, player);
             }
-            lootTable.supplyInventory(this, builder.build(LootContextTypes.CHEST));
-            for (ItemStack stack : this.getInvStackList()) {
-                stack.setSubNbt("wilderwild_is_ancient", NbtByte.of(true));
+            lootTable.fill(this, builder.create(LootContextParamSets.CHEST));
+            for (ItemStack stack : this.getItems()) {
+                stack.addTagElement("wilderwild_is_ancient", ByteTag.valueOf(true));
             }
         }
         this.lootGenerated = true;
     }
 
     @Override
-    public void setStack(int slot, ItemStack stack) {
-        this.checkLootInteraction(null);
-        this.getInvStackList().set(slot, stack);
-        if (stack.getCount() > this.getMaxCountPerStack()) {
-            stack.setCount(this.getMaxCountPerStack());
+    public void setItem(int slot, ItemStack stack) {
+        this.unpackLootTable(null);
+        this.getItems().set(slot, stack);
+        if (stack.getCount() > this.getMaxStackSize()) {
+            stack.setCount(this.getMaxStackSize());
         }
-        this.markDirty();
+        this.setChanged();
     }
 
     @Override
-    public BlockEntityUpdateS2CPacket toUpdatePacket() {
-        return BlockEntityUpdateS2CPacket.create(this);
+    public ClientboundBlockEntityDataPacket getUpdatePacket() {
+        return ClientboundBlockEntityDataPacket.create(this);
     }
 
     @Override
-    public NbtCompound toInitialChunkDataNbt() {
-        return this.createNbt();
+    public CompoundTag getUpdateTag() {
+        return this.saveWithoutMetadata();
     }
 
-    public StoneChestBlockEntity getOtherEntity(World world, BlockPos pos, BlockState state) {
-        ChestType chestType = state.get(ChestBlock.CHEST_TYPE);
+    public StoneChestBlockEntity getOtherEntity(Level world, BlockPos pos, BlockState state) {
+        ChestType chestType = state.getValue(ChestBlock.TYPE);
         double d = pos.getX();
         double e = pos.getY();
         double f = pos.getZ();
         if (chestType == ChestType.RIGHT) {
-            Direction direction = ChestBlock.getFacing(state);
-            d += direction.getOffsetX();
-            f += direction.getOffsetZ();
+            Direction direction = ChestBlock.getConnectedDirection(state);
+            d += direction.getStepX();
+            f += direction.getStepZ();
         } else if (chestType == ChestType.LEFT) {
-            Direction direction = ChestBlock.getFacing(state);
-            d += direction.getOffsetX();
-            f += direction.getOffsetZ();
+            Direction direction = ChestBlock.getConnectedDirection(state);
+            d += direction.getStepX();
+            f += direction.getStepZ();
         } else {
             return null;
         }
@@ -237,8 +237,8 @@ public class StoneChestBlockEntity extends ChestBlockEntity {
         return entity;
     }
 
-    public StoneChestBlockEntity getLeftEntity(World world, BlockPos pos, BlockState state, StoneChestBlockEntity source) {
-        ChestType chestType = state.get(ChestBlock.CHEST_TYPE);
+    public StoneChestBlockEntity getLeftEntity(Level world, BlockPos pos, BlockState state, StoneChestBlockEntity source) {
+        ChestType chestType = state.getValue(ChestBlock.TYPE);
         if (chestType == ChestType.SINGLE) {
             return source;
         }
@@ -246,9 +246,9 @@ public class StoneChestBlockEntity extends ChestBlockEntity {
         double e = pos.getY();
         double f = pos.getZ();
         if (chestType == ChestType.RIGHT) {
-            Direction direction = ChestBlock.getFacing(state);
-            d += direction.getOffsetX();
-            f += direction.getOffsetZ();
+            Direction direction = ChestBlock.getConnectedDirection(state);
+            d += direction.getStepX();
+            f += direction.getStepZ();
         } else if (chestType == ChestType.LEFT) {
             return source;
         }
@@ -262,30 +262,30 @@ public class StoneChestBlockEntity extends ChestBlockEntity {
     }
 
     public static boolean isLeft(BlockState state) {
-        ChestType chestType = state.get(ChestBlock.CHEST_TYPE);
+        ChestType chestType = state.getValue(ChestBlock.TYPE);
         return chestType == ChestType.LEFT;
     }
 
     @Override
-    protected Text getContainerName() {
-        return Text.translatable("container.stone_chest");
+    protected Component getDefaultName() {
+        return Component.translatable("container.stone_chest");
     }
 
     @Override
-    public void onOpen(PlayerEntity player) {
+    public void startOpen(Player player) {
     }
 
     @Override
-    public void onClose(PlayerEntity player) {
-        if (!this.removed && !player.isSpectator()) {
-            this.stoneStateManager.closeContainer(player, this.getWorld(), this.getPos(), this.getCachedState());
+    public void stopOpen(Player player) {
+        if (!this.remove && !player.isSpectator()) {
+            this.stoneStateManager.decrementOpeners(player, this.getLevel(), this.getBlockPos(), this.getBlockState());
         }
     }
 
     public ArrayList<ItemStack> nonAncientItems() {
         ArrayList<ItemStack> items = new ArrayList<>();
-        for (ItemStack item : this.getInvStackList()) {
-            if (item.getOrCreateNbt().get("wilderwild_is_ancient") == null && !item.isEmpty()) {
+        for (ItemStack item : this.getItems()) {
+            if (item.getOrCreateTag().get("wilderwild_is_ancient") == null && !item.isEmpty()) {
                 items.add(item);
             }
         }
@@ -294,55 +294,55 @@ public class StoneChestBlockEntity extends ChestBlockEntity {
 
     public ArrayList<ItemStack> ancientItems() {
         ArrayList<ItemStack> items = new ArrayList<>();
-        for (ItemStack item : this.getInvStackList()) {
-            if (item.getOrCreateNbt().get("wilderwild_is_ancient") != null && !item.isEmpty()) {
+        for (ItemStack item : this.getItems()) {
+            if (item.getOrCreateTag().get("wilderwild_is_ancient") != null && !item.isEmpty()) {
                 items.add(item);
             }
         }
         return items;
     }
 
-    private final ViewerCountManager stoneStateManager = new ViewerCountManager() {
+    private final ContainerOpenersCounter stoneStateManager = new ContainerOpenersCounter() {
 
         @Override
-        protected void onContainerOpen(World world, BlockPos pos, BlockState state) {
+        protected void onOpen(Level world, BlockPos pos, BlockState state) {
             //StoneChestBlockEntity.playSound(world, pos, state, RegisterSounds.BLOCK_STONE_CHEST_SEARCH);
         }
 
         @Override
-        protected void onContainerClose(World world, BlockPos pos, BlockState state) {
+        protected void onClose(Level world, BlockPos pos, BlockState state) {
         }
 
         @Override
-        protected void onViewerCountUpdate(World world, BlockPos pos, BlockState state, int oldViewerCount, int newViewerCount) {
-            StoneChestBlockEntity.this.onInvOpenOrClose(world, pos, state, oldViewerCount, newViewerCount);
+        protected void openerCountChanged(Level world, BlockPos pos, BlockState state, int oldViewerCount, int newViewerCount) {
+            StoneChestBlockEntity.this.signalOpenCount(world, pos, state, oldViewerCount, newViewerCount);
         }
 
         @Override
-        protected boolean isPlayerViewing(PlayerEntity player) {
-            if (player.currentScreenHandler instanceof GenericContainerScreenHandler) {
-                Inventory inventory = ((GenericContainerScreenHandler) player.currentScreenHandler).getInventory();
-                return inventory == StoneChestBlockEntity.this || inventory instanceof DoubleInventory && ((DoubleInventory) inventory).isPart(StoneChestBlockEntity.this);
+        protected boolean isOwnContainer(Player player) {
+            if (player.containerMenu instanceof ChestMenu) {
+                Container inventory = ((ChestMenu) player.containerMenu).getContainer();
+                return inventory == StoneChestBlockEntity.this || inventory instanceof CompoundContainer && ((CompoundContainer) inventory).contains(StoneChestBlockEntity.this);
             }
             return false;
         }
     };
 
-    public static void playSound(World world, BlockPos pos, BlockState state, SoundEvent soundEvent, float volume) {
-        ChestType chestType = state.get(ChestBlock.CHEST_TYPE);
+    public static void playSound(Level world, BlockPos pos, BlockState state, SoundEvent soundEvent, float volume) {
+        ChestType chestType = state.getValue(ChestBlock.TYPE);
         double d = (double) pos.getX() + 0.5;
         double e = (double) pos.getY() + 0.5;
         double f = (double) pos.getZ() + 0.5;
         if (chestType == ChestType.RIGHT) {
-            Direction direction = ChestBlock.getFacing(state);
-            d += (double) direction.getOffsetX() * 0.5;
-            f += (double) direction.getOffsetZ() * 0.5;
+            Direction direction = ChestBlock.getConnectedDirection(state);
+            d += (double) direction.getStepX() * 0.5;
+            f += (double) direction.getStepZ() * 0.5;
         } else if (chestType == ChestType.LEFT) {
-            Direction direction = ChestBlock.getFacing(state);
-            d -= (double) direction.getOffsetX() * 0.5;
-            f -= (double) direction.getOffsetZ() * 0.5;
+            Direction direction = ChestBlock.getConnectedDirection(state);
+            d -= (double) direction.getStepX() * 0.5;
+            f -= (double) direction.getStepZ() * 0.5;
         }
-        world.playSound(null, d, e, f, soundEvent, SoundCategory.BLOCKS, volume, world.random.nextFloat() * 0.1f + 0.9f);
+        world.playSound(null, d, e, f, soundEvent, SoundSource.BLOCKS, volume, world.random.nextFloat() * 0.1f + 0.9f);
     }
 
 }
