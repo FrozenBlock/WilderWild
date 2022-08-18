@@ -4,7 +4,6 @@ import net.frozenblock.wilderwild.registry.RegisterItems;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.gameevent.GameEvent;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
@@ -45,9 +44,6 @@ public class LivingEntityMixin {
                 info.cancel();
             }
         }
-
-        this.useItem = ItemStack.EMPTY;
-        this.useItemRemaining = 0;
     }
 
     @Shadow
