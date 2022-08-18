@@ -18,7 +18,7 @@ import java.util.List;
 import java.util.function.BiConsumer;
 
 public class BaobabTrunkPlacer extends TrunkPlacer {
-    public static final Codec<net.frozenblock.wilderwild.world.gen.trunk.BaobabTrunkPlacer> CODEC = RecordCodecBuilder.create((instance) ->
+    public static final Codec<BaobabTrunkPlacer> CODEC = RecordCodecBuilder.create((instance) ->
             trunkPlacerParts(instance).apply(instance, BaobabTrunkPlacer::new));
 
     public BaobabTrunkPlacer(int i, int j, int k) {

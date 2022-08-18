@@ -31,9 +31,9 @@ public final class RegisterItems {
     public static final Item CYPRESS_SIGN = new SignItem(new FabricItemSettings().tab(CreativeModeTab.TAB_DECORATIONS).stacksTo(16),
             RegisterBlocks.CYPRESS_SIGN_BLOCK, RegisterBlocks.CYPRESS_WALL_SIGN);
 
-    public static final Item BAOBAB_NUT = new BlockItem(RegisterBlocks.BAOBAB_NUT, (new net.minecraft.world.item.Item.Properties()).tab(CreativeModeTab.TAB_DECORATIONS).food(RegisterFood.BAOBAB_NUT));
-    public static final Item PRICKLY_PEAR = new net.minecraft.world.item.Item((new net.minecraft.world.item.Item.Properties()).tab(CreativeModeTab.TAB_FOOD).food(RegisterFood.PRICKLY_PEAR));
-    public static final Item PEELED_PRICKLY_PEAR = new net.minecraft.world.item.Item((new net.minecraft.world.item.Item.Properties()).tab(CreativeModeTab.TAB_FOOD).food(Foods.APPLE));
+    public static final Item BAOBAB_NUT = new BlockItem(RegisterBlocks.BAOBAB_NUT, new FabricItemSettings().tab(CreativeModeTab.TAB_DECORATIONS).food(RegisterFood.BAOBAB_NUT));
+    public static final Item PRICKLY_PEAR = new Item(new FabricItemSettings().tab(CreativeModeTab.TAB_FOOD).food(RegisterFood.PRICKLY_PEAR));
+    public static final Item PEELED_PRICKLY_PEAR = new Item(new FabricItemSettings().tab(CreativeModeTab.TAB_FOOD).food(Foods.APPLE));
 
     public static final Item FIREFLY_BOTTLE = new FireflyBottle(new FabricItemSettings().tab(CreativeModeTab.TAB_MISC).stacksTo(32), "on");
 
