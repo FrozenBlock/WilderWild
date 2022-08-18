@@ -15,7 +15,9 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.SculkBlock;
 import net.minecraft.world.level.block.SculkShriekerBlock;
 import net.minecraft.world.level.block.SculkSpreader;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.material.Fluids;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
@@ -178,7 +180,7 @@ public class SculkBlockMixin {
     private static boolean canPlaceGrowth(LevelAccessor world, BlockPos pos, boolean isWorldGen) {
         BlockState blockState = world.getBlockState(pos.above());
         BlockState blockState1 = world.getBlockState(pos.below());
-        if (((isWorldGen || canPlaceOsseousSculk(pos, isWorldGen, world)) && ((blockState1.isAir()) || (blockState1.isOf(Blocks.WATER) && blockState1.getFluidState().isOf(Fluids.WATER)))) {
+        if (((isWorldGen || canPlaceOsseousSculk(pos, isWorldGen, world)) && ((blockState1.isAir()) || (blockState1.is(Blocks.WATER) && blockState1.getFluidState().is(Fluids.WATER))))) {
             int i = 0;
             Iterator<BlockPos> var4 = BlockPos.betweenClosed(pos.offset(-4, 0, -4), pos.offset(4, 2, 4)).iterator();
 
