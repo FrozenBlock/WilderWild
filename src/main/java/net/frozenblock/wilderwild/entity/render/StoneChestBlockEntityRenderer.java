@@ -7,6 +7,7 @@ import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.WilderWildClient;
 import net.frozenblock.wilderwild.block.StoneChestBlock;
 import net.frozenblock.wilderwild.block.entity.StoneChestBlockEntity;
+import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.CubeListBuilder;
 import net.minecraft.client.model.geom.builders.LayerDefinition;
@@ -35,12 +36,12 @@ public class StoneChestBlockEntityRenderer<T extends StoneChestBlockEntity & Lid
 
     private static final String BASE = "bottom";
     private static final String LID = "lid";
-    private final net.minecraft.client.model.geom.ModelPart singleChestLid;
-    private final net.minecraft.client.model.geom.ModelPart singleChestBase;
-    private final net.minecraft.client.model.geom.ModelPart doubleChestLeftLid;
-    private final net.minecraft.client.model.geom.ModelPart doubleChestLeftBase;
-    private final net.minecraft.client.model.geom.ModelPart doubleChestRightLid;
-    private final net.minecraft.client.model.geom.ModelPart doubleChestRightBase;
+    private final ModelPart singleChestLid;
+    private final ModelPart singleChestBase;
+    private final ModelPart doubleChestLeftLid;
+    private final ModelPart doubleChestLeftBase;
+    private final ModelPart doubleChestRightLid;
+    private final ModelPart doubleChestRightBase;
 
     public static final Material STONE = getChestTextureId("stone");
     public static final Material STONE_LEFT = getChestTextureId("stone_left");
@@ -49,13 +50,13 @@ public class StoneChestBlockEntityRenderer<T extends StoneChestBlockEntity & Lid
     public StoneChestBlockEntityRenderer(BlockEntityRendererProvider.Context ctx) {
         super(ctx);
 
-        net.minecraft.client.model.geom.ModelPart modelPart = ctx.bakeLayer(WilderWildClient.STONE_CHEST);
+        ModelPart modelPart = ctx.bakeLayer(WilderWildClient.STONE_CHEST);
         this.singleChestBase = modelPart.getChild(BASE);
         this.singleChestLid = modelPart.getChild(LID);
-        net.minecraft.client.model.geom.ModelPart modelPart2 = ctx.bakeLayer(WilderWildClient.DOUBLE_STONE_CHEST_LEFT);
+        ModelPart modelPart2 = ctx.bakeLayer(WilderWildClient.DOUBLE_STONE_CHEST_LEFT);
         this.doubleChestLeftBase = modelPart2.getChild(BASE);
         this.doubleChestLeftLid = modelPart2.getChild(LID);
-        net.minecraft.client.model.geom.ModelPart modelPart3 = ctx.bakeLayer(WilderWildClient.DOUBLE_STONE_CHEST_RIGHT);
+        ModelPart modelPart3 = ctx.bakeLayer(WilderWildClient.DOUBLE_STONE_CHEST_RIGHT);
         this.doubleChestRightBase = modelPart3.getChild(BASE);
         this.doubleChestRightLid = modelPart3.getChild(LID);
     }
@@ -125,7 +126,7 @@ public class StoneChestBlockEntityRenderer<T extends StoneChestBlockEntity & Lid
         }
     }
 
-    private void render(PoseStack matrices, VertexConsumer vertices, net.minecraft.client.model.geom.ModelPart lid, net.minecraft.client.model.geom.ModelPart base, float openFactor, int light, int overlay) {
+    private void render(PoseStack matrices, VertexConsumer vertices, ModelPart lid, ModelPart base, float openFactor, int light, int overlay) {
         lid.xRot = -(openFactor * 1.5707964f);
         lid.render(matrices, vertices, light, overlay);
         base.render(matrices, vertices, light, overlay);
