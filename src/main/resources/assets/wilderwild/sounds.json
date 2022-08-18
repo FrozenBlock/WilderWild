@@ -976,6 +976,15 @@
 		],
 		"subtitle": "subtitles.block.stone_chest.lift"
 	},
+	"block.stone_chest.item_crumble": {
+		"sounds": [
+			"wilderwild:block/stone_chest/item_crumble1",
+			"wilderwild:block/stone_chest/item_crumble2",
+			"wilderwild:block/stone_chest/item_crumble3",
+			"wilderwild:block/stone_chest/item_crumble4"
+		],
+		"subtitle": "subtitles.block.generic.break"
+	},
 	"block.sugar_cane.break": {
 		"sounds": [
 			"wilderwild:block/sugar_cane/place1",
