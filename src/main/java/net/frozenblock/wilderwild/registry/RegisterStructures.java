@@ -10,6 +10,7 @@ import net.minecraft.tag.TagKey;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.collection.Pool;
 import net.minecraft.util.registry.*;
+import net.minecraft.world.Heightmap;
 import net.minecraft.world.StructureSpawns;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.gen.GenerationStep;
@@ -19,6 +20,7 @@ import net.minecraft.world.gen.chunk.placement.RandomSpreadStructurePlacement;
 import net.minecraft.world.gen.chunk.placement.SpreadType;
 import net.minecraft.world.gen.chunk.placement.StructurePlacement;
 import net.minecraft.world.gen.heightprovider.ConstantHeightProvider;
+import net.minecraft.world.gen.heightprovider.UniformHeightProvider;
 import net.minecraft.world.gen.structure.JigsawStructure;
 import net.minecraft.world.gen.structure.Structure;
 
@@ -57,21 +59,18 @@ public class RegisterStructures {
                             Arrays.stream(SpawnGroup.values())
                                     .collect(Collectors.toMap(spawnGroup -> spawnGroup, spawnGroup -> new StructureSpawns(StructureSpawns.BoundingBox.STRUCTURE, Pool.empty()))),
                             GenerationStep.Feature.UNDERGROUND_DECORATION,
-                            StructureTerrainAdaptation.BEARD_BOX
+                            StructureTerrainAdaptation.BURY
                     ),
                     AbandonedCabinGenerator.CABIN,
-                    Optional.of(WilderWild.id("abandoned_cabin")),
-                    3,
-                    ConstantHeightProvider.create(YOffset.fixed(-26)),
-                    false,
-                    Optional.empty(),
-                    60
+                    5,
+                    UniformHeightProvider.create(YOffset.fixed(0), YOffset.fixed(-40)),
+                    false
             )
     );
 
     // ancient city salt is 20083232
     public static final RegistryEntry<StructureSet> ABANDONED_CABINS = register(
-            ABANDONED_CABINS_KEY, ABANDONED_CABIN, new RandomSpreadStructurePlacement(8, 3, SpreadType.LINEAR, 20088232)
+            ABANDONED_CABINS_KEY, ABANDONED_CABIN, new RandomSpreadStructurePlacement(7, 3, SpreadType.LINEAR, 20088232)
     );
 
     public static void init() {
