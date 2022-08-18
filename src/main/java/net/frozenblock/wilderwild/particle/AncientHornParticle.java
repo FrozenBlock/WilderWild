@@ -1,8 +1,3 @@
-//
-// Source code recreated from a .class file by IntelliJ IDEA
-// (powered by FernFlower decompiler)
-//
-
 package net.frozenblock.wilderwild.particle;
 
 import java.util.function.Consumer;
@@ -25,7 +20,7 @@ public class AncientHornParticle extends SpriteBillboardParticle {
     private static final float PI_THIRDS = 1.0472F;
     private int delay;
 
-    AncientHornParticle(ClientWorld world, double x, double y, double z, double xv, double yv, double zv, int delay) {
+    public AncientHornParticle(ClientWorld world, double x, double y, double z, int delay) {
         super(world, x, y, z, 0.0D, 0.0D, 0.0D);
         this.scale = 0.85F;
         this.delay = delay;

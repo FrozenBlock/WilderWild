@@ -3,6 +3,7 @@ package net.frozenblock.wilderwild.item;
 import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.entity.AncientHornProjectile;
 import net.frozenblock.wilderwild.misc.server.EasyPacket;
+import net.frozenblock.wilderwild.particle.AncientHornParticleEffect;
 import net.frozenblock.wilderwild.registry.RegisterItems;
 import net.frozenblock.wilderwild.registry.RegisterSounds;
 import net.minecraft.client.item.TooltipContext;
@@ -151,8 +152,8 @@ public class AncientHorn extends Item {
             SoundEvent soundEvent = instrument.soundEvent();
             float range = instrument.range() / 16.0F;
             world.playSoundFromEntity(user, user, soundEvent, SoundCategory.RECORDS, range, 1.0F);
-            ParticleEffect ShriekParticleEffect = new ShriekParticleEffect(0);
-            world.addParticle(ShriekParticleEffect, true, user.getX(), user.getY(), user.getZ(), user.getYaw(), user.getPitch(), -user.getYaw()); //change this to the new particle whenever we add it
+            AncientHornParticleEffect ancientHornParticle = new AncientHornParticleEffect(0);
+            world.addParticle(ancientHornParticle, true, user.getX(), user.getY(), user.getZ(), user.getYaw(), user.getPitch(), -user.getYaw()); //change this to the new particle whenever we add it
             user.getItemCooldownManager().set(RegisterItems.ANCIENT_HORN, getCooldown(user, 300));
             if (world instanceof ServerWorld server) {
                 AncientHornProjectile projectileEntity = new AncientHornProjectile(world, user.getX(), user.getEyeY(), user.getZ());
