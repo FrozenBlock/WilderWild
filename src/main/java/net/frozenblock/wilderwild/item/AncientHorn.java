@@ -6,26 +6,26 @@ import net.frozenblock.wilderwild.misc.server.EasyPacket;
 import net.frozenblock.wilderwild.particle.AncientHornParticleEffect;
 import net.frozenblock.wilderwild.registry.RegisterItems;
 import net.frozenblock.wilderwild.registry.RegisterSounds;
-import net.minecraft.client.item.TooltipContext;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.player.ItemCooldownManager;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.*;
-import net.minecraft.nbt.NbtCompound;
-import net.minecraft.particle.ParticleEffect;
-import net.minecraft.particle.ShriekParticleEffect;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.sound.SoundCategory;
-import net.minecraft.sound.SoundEvent;
-import net.minecraft.tag.TagKey;
-import net.minecraft.text.MutableText;
-import net.minecraft.text.Text;
-import net.minecraft.util.*;
-import net.minecraft.util.collection.DefaultedList;
-import net.minecraft.util.registry.Registry;
-import net.minecraft.util.registry.RegistryEntry;
-import net.minecraft.util.registry.RegistryKey;
-import net.minecraft.world.World;
+import net.minecraft.ChatFormatting;
+import net.minecraft.core.Holder;
+import net.minecraft.core.NonNullList;
+import net.minecraft.core.Registry;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.MutableComponent;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.tags.TagKey;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResultHolder;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.*;
+import net.minecraft.world.level.Level;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
@@ -41,61 +41,61 @@ public class AncientHorn extends Item {
     public static final int SENSOR_COOLDOWN = 400;
     public static final int TENDRIL_COOLDOWN = 380;
 
-    public AncientHorn(Settings settings, TagKey<Instrument> instrumentTag) {
+    public AncientHorn(Properties settings, TagKey<Instrument> instrumentTag) {
         super(settings);
         this.instrumentTag = instrumentTag;
     }
 
     @Override
-    public void appendTooltip(ItemStack stack, @Nullable World world, List<Text> tooltip, TooltipContext context) {
-        super.appendTooltip(stack, world, tooltip, context);
-        Optional<RegistryKey<Instrument>> optional = this.getInstrument(stack).flatMap(RegistryEntry::getKey);
+    public void appendHoverText(ItemStack stack, @Nullable Level world, List<Component> tooltip, TooltipFlag context) {
+        super.appendHoverText(stack, world, tooltip, context);
+        Optional<ResourceKey<Instrument>> optional = this.getInstrument(stack).flatMap(Holder::unwrapKey);
         if (optional.isPresent()) {
-            MutableText mutableText = Text.translatable("item.wilderwild.ancient_horn.sound.0");
-            tooltip.add(mutableText.formatted(Formatting.GRAY));
+            MutableComponent mutableText = Component.translatable("item.wilderwild.ancient_horn.sound.0");
+            tooltip.add(mutableText.withStyle(ChatFormatting.GRAY));
         }
 
     }
 
-    public static ItemStack getStackForInstrument(Item item, RegistryEntry<Instrument> instrument) {
+    public static ItemStack getStackForInstrument(Item item, Holder<Instrument> instrument) {
         ItemStack itemStack = new ItemStack(item);
         setInstrument(itemStack, instrument);
         return itemStack;
     }
 
-    private static void setInstrument(ItemStack stack, RegistryEntry<Instrument> instrument) {
-        NbtCompound nbtCompound = stack.getOrCreateNbt();
+    private static void setInstrument(ItemStack stack, Holder<Instrument> instrument) {
+        CompoundTag nbtCompound = stack.getOrCreateTag();
         nbtCompound.putString(
-                INSTRUMENT_KEY, (instrument.getKey().orElseThrow(() -> new IllegalStateException("Invalid instrument"))).getValue().toString()
+                INSTRUMENT_KEY, (instrument.unwrapKey().orElseThrow(() -> new IllegalStateException("Invalid instrument"))).location().toString()
         );
     }
 
     @Override
-    public void appendStacks(ItemGroup group, DefaultedList<ItemStack> stacks) {
-        if (this.isIn(group)) {
-            for (RegistryEntry<Instrument> registryEntry : Registry.INSTRUMENT.iterateEntries(this.instrumentTag)) {
+    public void fillItemCategory(CreativeModeTab group, NonNullList<ItemStack> stacks) {
+        if (this.allowedIn(group)) {
+            for (Holder<Instrument> registryEntry : Registry.INSTRUMENT.getTagOrEmpty(this.instrumentTag)) {
                 stacks.add(getStackForInstrument(RegisterItems.ANCIENT_HORN, registryEntry));
             }
         }
 
     }
 
-    private Optional<RegistryEntry<Instrument>> getInstrument(ItemStack stack) {
-        NbtCompound nbtCompound = stack.getNbt();
+    private Optional<Holder<Instrument>> getInstrument(ItemStack stack) {
+        CompoundTag nbtCompound = stack.getTag();
         if (nbtCompound != null) {
-            Identifier identifier = Identifier.tryParse(nbtCompound.getString(INSTRUMENT_KEY));
+            ResourceLocation identifier = ResourceLocation.tryParse(nbtCompound.getString(INSTRUMENT_KEY));
             if (identifier != null) {
-                return Registry.INSTRUMENT.getEntry(RegistryKey.of(Registry.INSTRUMENT_KEY, identifier));
+                return Registry.INSTRUMENT.getHolder(ResourceKey.create(Registry.INSTRUMENT_REGISTRY, identifier));
             }
         }
 
-        Iterator<RegistryEntry<Instrument>> iterator = Registry.INSTRUMENT.iterateEntries(this.instrumentTag).iterator();
+        Iterator<Holder<Instrument>> iterator = Registry.INSTRUMENT.getTagOrEmpty(this.instrumentTag).iterator();
         return iterator.hasNext() ? Optional.of(iterator.next()) : Optional.empty();
     }
 
     public static int getCooldown(@Nullable Entity entity, int cooldown) {
         if (entity != null) {
-            if (entity instanceof PlayerEntity player) {
+            if (entity instanceof Player player) {
                 cooldown = player.isCreative() ? 5 : cooldown;
             }
         }
@@ -104,36 +104,36 @@ public class AncientHorn extends Item {
 
     public static int getCooldown(@Nullable Entity entity, int cooldown, int additionalCooldown) {
         if (entity != null) {
-            if (entity instanceof PlayerEntity player) {
+            if (entity instanceof Player player) {
                 cooldown = player.isCreative() ? 5 : cooldown + additionalCooldown;
             }
         }
         return cooldown;
     }
 
-    public static ArrayList<ItemStack> getHorns(PlayerEntity player) {
+    public static ArrayList<ItemStack> getHorns(Player player) {
         ArrayList<ItemStack> horns = new ArrayList<>();
         if (player != null) {
-            if (player.getMainHandStack().isOf(RegisterItems.ANCIENT_HORN)) {
-                horns.add(player.getMainHandStack());
+            if (player.getMainHandItem().is(RegisterItems.ANCIENT_HORN)) {
+                horns.add(player.getMainHandItem());
             }
-            if (player.getOffHandStack().isOf(RegisterItems.ANCIENT_HORN)) {
-                horns.add(player.getOffHandStack());
+            if (player.getOffhandItem().is(RegisterItems.ANCIENT_HORN)) {
+                horns.add(player.getOffhandItem());
             }
         }
         return horns;
     }
 
-    public static int decreaseCooldown(PlayerEntity user, int time) {
+    public static int decreaseCooldown(Player user, int time) {
         if (!user.isCreative()) {
-            ItemCooldownManager manager = user.getItemCooldownManager();
-            ItemCooldownManager.Entry entry = manager.entries.get(RegisterItems.ANCIENT_HORN);
+            ItemCooldowns manager = user.getCooldowns();
+            ItemCooldowns.CooldownInstance entry = manager.cooldowns.get(RegisterItems.ANCIENT_HORN);
             if (entry != null) {
-                int between = entry.endTick - entry.startTick;
+                int between = entry.endTime - entry.startTime;
                 if (between > 140 & between >= time) {
                     int cooldown = Math.max(between - time, 1);
-                    manager.remove(RegisterItems.ANCIENT_HORN);
-                    manager.set(RegisterItems.ANCIENT_HORN, cooldown);
+                    manager.removeCooldown(RegisterItems.ANCIENT_HORN);
+                    manager.addCooldown(RegisterItems.ANCIENT_HORN, cooldown);
                     return time;
                 }
             }
@@ -142,29 +142,29 @@ public class AncientHorn extends Item {
     }
 
     @Override
-    public TypedActionResult<ItemStack> use(World world, PlayerEntity user, Hand hand) {
+    public InteractionResultHolder<ItemStack> use(@NotNull Level world, @NotNull Player user, @NotNull InteractionHand hand) {
         WilderWild.log(user, "Used Ancient Goat Horn", WilderWild.DEV_LOGGING);
-        ItemStack itemStack = user.getStackInHand(hand);
-        Optional<RegistryEntry<Instrument>> optional = this.getInstrument(itemStack);
+        ItemStack itemStack = user.getItemInHand(hand);
+        Optional<Holder<Instrument>> optional = this.getInstrument(itemStack);
         if (optional.isPresent()) {
             Instrument instrument = optional.get().value();
-            user.setCurrentHand(hand);
+            user.startUsingItem(hand);
             SoundEvent soundEvent = instrument.soundEvent();
             float range = instrument.range() / 16.0F;
-            world.playSoundFromEntity(user, user, soundEvent, SoundCategory.RECORDS, range, 1.0F);
+            world.playSound(user, user, soundEvent, SoundSource.RECORDS, range, 1.0F);
             AncientHornParticleEffect ancientHornParticle = new AncientHornParticleEffect(0);
             world.addParticle(ancientHornParticle, true, user.getX(), user.getY(), user.getZ(), user.getYaw(), user.getPitch(), -user.getYaw()); //change this to the new particle whenever we add it
-            user.getItemCooldownManager().set(RegisterItems.ANCIENT_HORN, getCooldown(user, 300));
-            if (world instanceof ServerWorld server) {
+            user.getCooldowns().addCooldown(RegisterItems.ANCIENT_HORN, getCooldown(user, 300));
+            if (world instanceof ServerLevel server) {
                 AncientHornProjectile projectileEntity = new AncientHornProjectile(world, user.getX(), user.getEyeY(), user.getZ());
-                projectileEntity.setVelocity(user, user.getPitch(), user.getYaw(), 0.0F, 1.0F, 0.0F);
+                projectileEntity.shootFromRotation(user, user.getXRot(), user.getYRot(), 0.0F, 1.0F, 0.0F);
                 projectileEntity.shotByPlayer = true;
-                server.spawnEntity(projectileEntity);
-                EasyPacket.createMovingLoopingSound(server, projectileEntity, RegisterSounds.ANCIENT_HORN_PROJECTILE_LOOP, SoundCategory.NEUTRAL, 1.0F, 1.0F, WilderWild.id("default"));
-                ItemStack mainHand = user.getStackInHand(Hand.MAIN_HAND);
-                ItemStack offHand = user.getStackInHand(Hand.OFF_HAND);
-                if (mainHand.isOf(Items.WATER_BUCKET) || mainHand.isOf(Items.POTION) || offHand.isOf(Items.WATER_BUCKET) || offHand.isOf(Items.POTION)) {
-                    projectileEntity.bubbles = world.random.nextBetween(10, 25);
+                server.addFreshEntity(projectileEntity);
+                EasyPacket.createMovingLoopingSound(server, projectileEntity, RegisterSounds.ANCIENT_HORN_PROJECTILE_LOOP, SoundSource.NEUTRAL, 1.0F, 1.0F, WilderWild.id("default"));
+                ItemStack mainHand = user.getItemInHand(InteractionHand.MAIN_HAND);
+                ItemStack offHand = user.getItemInHand(InteractionHand.OFF_HAND);
+                if (mainHand.is(Items.WATER_BUCKET) || mainHand.is(Items.POTION) || offHand.is(Items.WATER_BUCKET) || offHand.is(Items.POTION)) {
+                    projectileEntity.bubbles = world.random.nextIntBetweenInclusive(10, 25);
                     /*float yawNew = user.getYaw() * 0.017453292F;
                     float pitchNew = MathHelper.cos(user.getPitch() * 0.017453292F);
                     float f = -MathHelper.sin(yawNew) * pitchNew;
@@ -175,21 +175,21 @@ public class AncientHorn extends Item {
                 }
                 //FlyBySoundPacket.createFlybySound(world, projectileEntity, RegisterSounds.ANCIENT_HORN_VIBRATION_DISSIPATE, SoundCategory.PLAYERS, 1.0F, 0.7F);
             }
-            return TypedActionResult.consume(itemStack);
+            return InteractionResultHolder.consume(itemStack);
         } else {
-            return TypedActionResult.fail(itemStack);
+            return InteractionResultHolder.fail(itemStack);
         }
     }
 
     @Override
-    public int getMaxUseTime(ItemStack stack) {
-        Optional<RegistryEntry<Instrument>> optional = this.getInstrument(stack);
+    public int getUseDuration(@NotNull ItemStack stack) {
+        Optional<Holder<Instrument>> optional = this.getInstrument(stack);
         return optional.map(instrumentRegistryEntry -> instrumentRegistryEntry.value().useDuration()).orElse(0);
     }
 
     @Override
-    public UseAction getUseAction(ItemStack stack) {
-        return UseAction.TOOT_HORN;
+    public UseAnim getUseAnimation(ItemStack stack) {
+        return UseAnim.TOOT_HORN;
     }
 
 }

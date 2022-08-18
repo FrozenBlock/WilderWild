@@ -3,16 +3,16 @@ package net.frozenblock.wilderwild.mixin.client;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.frozenblock.wilderwild.registry.RegisterSounds;
-import net.minecraft.block.Blocks;
-import net.minecraft.block.SculkShriekerBlock;
-import net.minecraft.client.render.WorldRenderer;
-import net.minecraft.client.world.ClientWorld;
-import net.minecraft.particle.ShriekParticleEffect;
-import net.minecraft.sound.SoundCategory;
-import net.minecraft.sound.SoundEvents;
-import net.minecraft.state.property.Properties;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.random.Random;
+import net.minecraft.client.multiplayer.ClientLevel;
+import net.minecraft.client.renderer.LevelRenderer;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.particles.ShriekParticleOption;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.util.RandomSource;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.SculkShriekerBlock;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -21,45 +21,45 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Environment(EnvType.CLIENT)
-@Mixin(WorldRenderer.class)
+@Mixin(LevelRenderer.class)
 public class WorldRendererMixin {
 
     @Shadow
-    private @Nullable ClientWorld world;
+    private @Nullable ClientLevel level;
 
-    @Inject(method = "processWorldEvent", at = @At("HEAD"), cancellable = true)
-    private void processWorldEvent(int eventId, BlockPos pos, int data, CallbackInfo ci) {
-        assert this.world != null;
-        Random random = this.world.random;
+    @Inject(method = "globalLevelEvent", at = @At("HEAD"), cancellable = true)
+    private void globalLevelEvent(int eventId, BlockPos pos, int data, CallbackInfo ci) {
+        assert this.level != null;
+        RandomSource random = this.level.random;
         if (eventId == 3007) {
             for (int j = 0; j < 10; ++j) {
-                this.world
+                this.level
                         .addParticle(
-                                new ShriekParticleEffect(j * 5), false, (double) pos.getX() + 0.5, (double) pos.getY() + SculkShriekerBlock.TOP, (double) pos.getZ() + 0.5, 0.0, 0.0, 0.0
+                                new ShriekParticleOption(j * 5), false, (double) pos.getX() + 0.5, (double) pos.getY() + SculkShriekerBlock.TOP_Y, (double) pos.getZ() + 0.5, 0.0, 0.0, 0.0
                         );
             }
-            if (this.world.getBlockState(pos).get(Properties.WATERLOGGED) || this.world.getBlockState(pos.up()).getBlock() == Blocks.WATER) {
-                this.world
-                        .playSound(
+            if (this.level.getBlockState(pos).getValue(BlockStateProperties.WATERLOGGED) || this.level.getBlockState(pos.above()).getBlock() == Blocks.WATER) {
+                this.level
+                        .playLocalSound(
                                 (double) pos.getX() + 0.5,
-                                (double) pos.getY() + SculkShriekerBlock.TOP,
+                                (double) pos.getY() + SculkShriekerBlock.TOP_Y,
                                 (double) pos.getZ() + 0.5,
                                 RegisterSounds.BLOCK_SCULK_SHRIEKER_GARGLE,
-                                SoundCategory.BLOCKS,
+                                SoundSource.BLOCKS,
                                 2.0F,
-                                0.6F + this.world.random.nextFloat() * 0.4F,
+                                0.6F + this.level.random.nextFloat() * 0.4F,
                                 false
                         );
             } else {
-                this.world
-                        .playSound(
+                this.level
+                        .playLocalSound(
                                 (double) pos.getX() + 0.5,
-                                (double) pos.getY() + SculkShriekerBlock.TOP,
+                                (double) pos.getY() + SculkShriekerBlock.TOP_Y,
                                 (double) pos.getZ() + 0.5,
-                                SoundEvents.BLOCK_SCULK_SHRIEKER_SHRIEK,
-                                SoundCategory.BLOCKS,
+                                SoundEvents.SCULK_SHRIEKER_SHRIEK,
+                                SoundSource.BLOCKS,
                                 2.0F,
-                                0.6F + this.world.random.nextFloat() * 0.4F,
+                                0.6F + this.level.random.nextFloat() * 0.4F,
                                 false
                         );
             }

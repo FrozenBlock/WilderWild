@@ -1,15 +1,14 @@
 package net.frozenblock.wilderwild.misc;
 
 import net.frozenblock.wilderwild.WilderWild;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.Hand;
-import net.minecraft.util.TypedActionResult;
-import net.minecraft.world.World;
-
+import net.minecraft.client.Minecraft;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResultHolder;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
 import java.io.File;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -17,24 +16,24 @@ import java.util.Date;
 
 public class Camera extends Item {
 
-    public Camera(Settings settings) {
+    public Camera(Properties settings) {
         super(settings);
     }
 
     private boolean canGo;
 
     @Override
-    public void inventoryTick(ItemStack itemStack, World world, Entity entity, int i, boolean bl) {
-        if (entity instanceof PlayerEntity player) {
-            if (player.getItemCooldownManager().isCoolingDown(this) && player.getItemCooldownManager().getCooldownProgress(this, 0) == 0.9F) {
-                if (world.isClient && canGo) {
+    public void inventoryTick(ItemStack itemStack, Level world, Entity entity, int i, boolean bl) {
+        if (entity instanceof Player player) {
+            if (player.getCooldowns().isOnCooldown(this) && player.getCooldowns().getCooldownPercent(this, 0) == 0.9F) {
+                if (world.isClientSide && canGo) {
                     WilderWild.LOGGER.warn("PLAYER HAS ACCESS TO DEV CAMERA AND HAS JUST USED IT");
-                    MinecraftClient client = MinecraftClient.getInstance();
-                    File directory = getPanoramaFolderName(new File(client.runDirectory, "panoramas"));
+                    Minecraft client = Minecraft.getInstance();
+                    File directory = getPanoramaFolderName(new File(client.gameDirectory, "panoramas"));
                     File directory1 = new File(directory, "screenshots");
                     directory1.mkdir();
                     directory1.mkdirs();
-                    client.takePanorama(directory, 2048, 2048);
+                    client.grabPanoramixScreenshot(directory, 2048, 2048);
                     canGo = false;
                 }
             }
@@ -55,16 +54,16 @@ public class Camera extends Item {
         }
     }
 
-    public TypedActionResult<ItemStack> use(World world, PlayerEntity user, Hand hand) {
-        ItemStack itemStack = user.getStackInHand(hand);
-        if (!user.getItemCooldownManager().isCoolingDown(this)) {
-            user.getItemCooldownManager().set(this, 10);
-            if (world.isClient) {
+    public InteractionResultHolder<ItemStack> use(Level world, Player user, InteractionHand hand) {
+        ItemStack itemStack = user.getItemInHand(hand);
+        if (!user.getCooldowns().isOnCooldown(this)) {
+            user.getCooldowns().addCooldown(this, 10);
+            if (world.isClientSide) {
                 canGo = true;
             }
-            return TypedActionResult.success(itemStack);
+            return InteractionResultHolder.success(itemStack);
         }
-        return TypedActionResult.fail(itemStack);
+        return InteractionResultHolder.fail(itemStack);
     }
 
 }

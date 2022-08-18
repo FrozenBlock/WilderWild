@@ -27,10 +27,10 @@ import org.jetbrains.annotations.Nullable;
 import org.jetbrains.annotations.Range;
 
 import net.minecraft.SharedConstants;
-import net.minecraft.datafixer.DataFixTypes;
-import net.minecraft.datafixer.Schemas;
-import net.minecraft.nbt.NbtCompound;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.NbtOps;
+import net.minecraft.util.datafix.DataFixTypes;
+import net.minecraft.util.datafix.DataFixers;
 import org.jetbrains.annotations.*;
 import org.slf4j.Logger;
 
@@ -46,7 +46,7 @@ public abstract class QuiltDataFixesInternals {
 
     @Contract(pure = true)
     @Range(from = 0, to = Integer.MAX_VALUE)
-    public static int getModDataVersion(@NotNull NbtCompound compound, @NotNull String modId) {
+    public static int getModDataVersion(@NotNull CompoundTag compound, @NotNull String modId) {
         return compound.getInt(modId + "_DataVersion");
     }
 
@@ -56,8 +56,8 @@ public abstract class QuiltDataFixesInternals {
         if (instance == null) {
             Schema latestVanillaSchema;
             try {
-                latestVanillaSchema = Schemas.getFixer()
-                        .getSchema(DataFixUtils.makeKey(SharedConstants.getGameVersion().getSaveVersion().getId()));
+                latestVanillaSchema = DataFixers.getDataFixer()
+                        .getSchema(DataFixUtils.makeKey(SharedConstants.getCurrentVersion().getDataVersion().getVersion()));
             } catch (Exception e) {
                 latestVanillaSchema = null;
             }
@@ -83,11 +83,11 @@ public abstract class QuiltDataFixesInternals {
     @Contract(value = "-> new", pure = true)
     public abstract @NotNull Schema createBaseSchema();
 
-    public abstract @NotNull NbtCompound updateWithAllFixers(@NotNull DataFixTypes dataFixTypes,
-                                                             @NotNull NbtCompound compound);
+    public abstract @NotNull CompoundTag updateWithAllFixers(@NotNull DataFixTypes dataFixTypes,
+                                                             @NotNull CompoundTag compound);
 
     @Contract("_ -> new")
-    public abstract @NotNull NbtCompound addModDataVersions(@NotNull NbtCompound compound);
+    public abstract @NotNull CompoundTag addModDataVersions(@NotNull CompoundTag compound);
 
     public abstract void freeze();
 

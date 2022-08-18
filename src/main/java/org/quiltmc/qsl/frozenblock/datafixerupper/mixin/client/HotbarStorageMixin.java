@@ -17,9 +17,9 @@
 
 package org.quiltmc.qsl.frozenblock.datafixerupper.mixin.client;
 
+import net.minecraft.client.HotbarManager;
+import net.minecraft.nbt.CompoundTag;
 import org.quiltmc.qsl.frozenblock.datafixerupper.impl.QuiltDataFixesInternals;
-import net.minecraft.client.option.HotbarStorage;
-import net.minecraft.nbt.NbtCompound;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -29,14 +29,14 @@ import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 /**
  * Modified to work on Fabric
  */
-@Mixin(value = HotbarStorage.class, priority = 1001)
+@Mixin(value = HotbarManager.class, priority = 1001)
 public abstract class HotbarStorageMixin {
     @Inject(
             method = "save",
-            at = @At(value = "INVOKE", target = "Lnet/minecraft/nbt/NbtIo;write(Lnet/minecraft/nbt/NbtCompound;Ljava/io/File;)V"),
+            at = @At(value = "INVOKE", target = "Lnet/minecraft/nbt/NbtIo;write(Lnet/minecraft/nbt/CompoundTag;Ljava/io/File;)V"),
             locals = LocalCapture.CAPTURE_FAILHARD
     )
-    private void addModDataVersions(CallbackInfo ci, NbtCompound compound) {
+    private void addModDataVersions(CallbackInfo ci, CompoundTag compound) {
         QuiltDataFixesInternals.get().addModDataVersions(compound);
     }
 }

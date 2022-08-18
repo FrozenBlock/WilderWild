@@ -64,7 +64,7 @@ public class QuiltDataFixerBuilder extends DataFixerBuilder {
      */
     @Contract(value = "_ -> new")
     public @NotNull DataFixer build(@NotNull Supplier<Executor> executorGetter) {
-        return switch (SharedConstants.dataFixerPhase) {
+        return switch (SharedConstants.DATAFIXER_OPTIMIZATION_OPTION) {
             case UNINITIALIZED_UNOPTIMIZED, INITIALIZED_UNOPTIMIZED -> this.buildUnoptimized();
             case UNINITIALIZED_OPTIMIZED, INITIALIZED_OPTIMIZED -> this.buildOptimized(executorGetter.get());
         };

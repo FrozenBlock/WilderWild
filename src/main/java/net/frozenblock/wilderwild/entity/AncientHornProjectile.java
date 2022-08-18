@@ -9,44 +9,44 @@ import net.frozenblock.wilderwild.misc.mod_compat.simple_copper_pipes.Interactio
 import net.frozenblock.wilderwild.misc.server.EasyPacket;
 import net.frozenblock.wilderwild.registry.*;
 import net.frozenblock.wilderwild.tag.WilderBlockTags;
-import net.minecraft.block.*;
-import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.enchantment.EnchantmentHelper;
-import net.minecraft.entity.*;
-import net.minecraft.entity.damage.DamageSource;
-import net.minecraft.entity.mob.Angriness;
-import net.minecraft.entity.mob.WardenEntity;
-import net.minecraft.entity.player.ItemCooldownManager;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.projectile.PersistentProjectileEntity;
-import net.minecraft.entity.projectile.ProjectileEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NbtCompound;
-import net.minecraft.nbt.NbtHelper;
-import net.minecraft.network.Packet;
-import net.minecraft.network.PacketByteBuf;
-import net.minecraft.network.packet.s2c.play.GameStateChangeS2CPacket;
-import net.minecraft.particle.ParticleTypes;
-import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.sound.SoundCategory;
-import net.minecraft.sound.SoundEvent;
-import net.minecraft.sound.SoundEvents;
-import net.minecraft.state.property.Properties;
-import net.minecraft.tag.TagKey;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.hit.BlockHitResult;
-import net.minecraft.util.hit.HitResult;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.math.Vec3d;
-import net.minecraft.util.registry.Registry;
-import net.minecraft.world.GameRules;
-import net.minecraft.world.RaycastContext;
-import net.minecraft.world.World;
-import net.minecraft.world.WorldEvents;
-import net.minecraft.world.event.GameEvent;
-import net.minecraft.world.explosion.Explosion;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Registry;
+import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.NbtUtils;
+import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.protocol.Packet;
+import net.minecraft.network.protocol.game.ClientboundGameEventPacket;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.tags.TagKey;
+import net.minecraft.util.Mth;
+import net.minecraft.util.SpawnUtil;
+import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.monster.warden.AngerLevel;
+import net.minecraft.world.entity.monster.warden.Warden;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.entity.projectile.AbstractArrow;
+import net.minecraft.world.entity.projectile.Projectile;
+import net.minecraft.world.item.ItemCooldowns;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.enchantment.EnchantmentHelper;
+import net.minecraft.world.level.ClipContext;
+import net.minecraft.world.level.Explosion;
+import net.minecraft.world.level.GameRules;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.*;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.gameevent.GameEvent;
+import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.phys.HitResult;
+import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -57,7 +57,7 @@ import static net.frozenblock.wilderwild.item.AncientHorn.*;
 
 //TODO: Fix rendering (Renders too bright or too dark depending on direction; renders under other translucents like water, doesn't render further than 8 block away)
 
-public class AncientHornProjectile extends PersistentProjectileEntity {
+public class AncientHornProjectile extends AbstractArrow {
     private final TagKey<Block> NON_COLLIDE = WilderBlockTags.ANCIENT_HORN_NON_COLLIDE;
     private boolean shot;
     private boolean leftOwner;
@@ -67,20 +67,20 @@ public class AncientHornProjectile extends PersistentProjectileEntity {
     public double vecZ;
     public boolean shotByPlayer;
     public int bubbles;
-    private BlockState inBlockState;
+    private net.minecraft.world.level.block.state.BlockState inBlockState;
 
-    public AncientHornProjectile(@NotNull EntityType<? extends PersistentProjectileEntity> entityType, World world) {
+    public AncientHornProjectile(@NotNull EntityType<? extends AbstractArrow> entityType, Level world) {
         super(entityType, world);
-        this.setSound(RegisterSounds.ANCIENT_HORN_PROJECTILE_DISSIPATE);
+        this.setSoundEvent(RegisterSounds.ANCIENT_HORN_PROJECTILE_DISSIPATE);
     }
 
-    public AncientHornProjectile(World world, double x, double y, double z) {
+    public AncientHornProjectile(Level world, double x, double y, double z) {
         super(RegisterEntities.ANCIENT_HORN_PROJECTILE_ENTITY, x, y, z, world);
-        this.setSound(RegisterSounds.ANCIENT_HORN_PROJECTILE_DISSIPATE);
+        this.setSoundEvent(RegisterSounds.ANCIENT_HORN_PROJECTILE_DISSIPATE);
     }
 
     public List<Entity> collidingEntities() {
-        return world.getOtherEntities(this, this.getBoundingBox().stretch(this.getVelocity()).expand(1.0D), this::canHit);
+        return level.getEntities(this, this.getBoundingBox().expandTowards(this.getDeltaMovement()).inflate(1.0D), this::canHitEntity);
     }
 
     public boolean shouldRender(double cameraX, double cameraY, double cameraZ) {
@@ -89,9 +89,9 @@ public class AncientHornProjectile extends PersistentProjectileEntity {
 
     public void tick() {
         this.baseTick();
-        if (this.bubbles > 0 && this.world instanceof ServerWorld server) {
+        if (this.bubbles > 0 && this.level instanceof ServerLevel server) {
             --this.bubbles;
-            EasyPacket.EasyFloatingSculkBubblePacket.createParticle(server, this.getPos(), Math.random() > 0.7 ? 1 : 0, 20 + WilderWild.random().nextInt(40), 0.05, server.random.nextBetween(1, 3));
+            EasyPacket.EasyFloatingSculkBubblePacket.createParticle(server, this.position(), Math.random() > 0.7 ? 1 : 0, 20 + WilderWild.random().nextInt(40), 0.05, server.random.nextIntBetweenInclusive(1, 3));
         }
         if (this.aliveTicks > 300) {
             this.remove(RemovalReason.DISCARDED);
@@ -101,45 +101,45 @@ public class AncientHornProjectile extends PersistentProjectileEntity {
             this.shot = true;
         }
         if (!this.leftOwner) {
-            this.leftOwner = this.shouldLeaveOwner();
+            this.leftOwner = this.checkLeftOwner();
         }
-        boolean bl = this.isNoClip();
-        Vec3d vec3d = this.getVelocity();
-        if (this.prevPitch == 0.0F && this.prevYaw == 0.0F) {
-            double d = vec3d.horizontalLength();
-            this.setYaw((float) (MathHelper.atan2(vec3d.x, vec3d.z) * 57.2957763671875D));
-            this.setPitch((float) (MathHelper.atan2(vec3d.y, d) * 57.2957763671875D));
-            this.prevYaw = this.getYaw();
-            this.prevPitch = this.getPitch();
+        boolean bl = this.isNoPhysics();
+        Vec3 vec3d = this.getDeltaMovement();
+        if (this.xRotO == 0.0F && this.yRotO == 0.0F) {
+            double d = vec3d.horizontalDistance();
+            this.setYRot((float) (Mth.atan2(vec3d.x, vec3d.z) * 57.2957763671875D));
+            this.setXRot((float) (Mth.atan2(vec3d.y, d) * 57.2957763671875D));
+            this.yRotO = this.getYRot();
+            this.xRotO = this.getXRot();
         }
-        BlockPos blockPos = this.getBlockPos();
-        BlockState blockState = this.world.getBlockState(blockPos);
-        Vec3d vec3d2;
+        BlockPos blockPos = this.blockPosition();
+        net.minecraft.world.level.block.state.BlockState blockState = this.level.getBlockState(blockPos);
+        Vec3 vec3d2;
 
-        if (this.shake > 0) {
-            --this.shake;
+        if (this.shakeTime > 0) {
+            --this.shakeTime;
         }
 
-        if (this.isTouchingWater() && world instanceof ServerWorld server) {
-            EasyPacket.EasyFloatingSculkBubblePacket.createParticle(server, new Vec3d(this.prevX, this.prevY, this.prevZ), 0, 60, 0.05, 4);
+        if (this.isInWater() && level instanceof ServerLevel server) {
+            EasyPacket.EasyFloatingSculkBubblePacket.createParticle(server, new Vec3(this.xo, this.yo, this.zo), 0, 60, 0.05, 4);
         }
-        if (this.isTouchingWaterOrRain() || blockState.isOf(Blocks.POWDER_SNOW)) {
-            this.extinguish();
+        if (this.isInWaterOrRain() || blockState.is(Blocks.POWDER_SNOW)) {
+            this.clearFire();
         }
-        Vec3d vec3d3 = this.getPos();
+        Vec3 vec3d3 = this.position();
         vec3d2 = vec3d3.add(vec3d);
-        HitResult hitResult = this.world.raycast(new RaycastContext(vec3d3, vec3d2, RaycastContext.ShapeType.COLLIDER, RaycastContext.FluidHandling.NONE, this));
+        HitResult hitResult = this.level.clip(new ClipContext(vec3d3, vec3d2, ClipContext.Block.COLLIDER, ClipContext.Fluid.NONE, this));
         while (!this.isRemoved() && canInteract()) {
             List<Entity> entities = this.collidingEntities();
             Entity owner = this.getOwner();
             for (Entity entity : entities) {
                 if (!this.isRemoved() && entity != null && entity != owner) {
                     boolean shouldDamage = true;
-                    if (entity instanceof PlayerEntity player) {
+                    if (entity instanceof Player player) {
                         if (player.isCreative()) {
                             shouldDamage = false;
                         }
-                        if (owner instanceof PlayerEntity playerOwner && !playerOwner.shouldDamagePlayer(player)) {
+                        if (owner instanceof Player playerOwner && !playerOwner.canHarmPlayer(player)) {
                             shouldDamage = false;
                         }
                     }
@@ -154,43 +154,43 @@ public class AncientHornProjectile extends PersistentProjectileEntity {
             break;
         }
         if (!this.isRemoved() && hitResult != null && !bl) {
-            this.onCollision(hitResult);
+            this.onHit(hitResult);
             if (this.isRemoved()) {
                 return;
             }
-            this.velocityDirty = true;
+            this.hasImpulse = true;
         }
-        vec3d = this.getVelocity();
+        vec3d = this.getDeltaMovement();
         double e = vec3d.x;
         double f = vec3d.y;
         double g = vec3d.z;
-        if (this.isCritical()) {
+        if (this.isCritArrow()) {
             for (int i = 0; i < 4; ++i) {
-                this.world.addParticle(ParticleTypes.CRIT, this.getX() + e * (double) i / 4.0D, this.getY() + f * (double) i / 4.0D, this.getZ() + g * (double) i / 4.0D, -e, -f + 0.2D, -g);
+                this.level.addParticle(ParticleTypes.CRIT, this.getX() + e * (double) i / 4.0D, this.getY() + f * (double) i / 4.0D, this.getZ() + g * (double) i / 4.0D, -e, -f + 0.2D, -g);
             }
         }
         double h = this.getX() + e;
         double j = this.getY() + f;
         double k = this.getZ() + g;
-        double l = vec3d.horizontalLength();
+        double l = vec3d.horizontalDistance();
         if (bl) {
-            this.setYaw((float) (MathHelper.atan2(-e, -g) * 57.2957763671875D));
+            this.setYRot((float) (Mth.atan2(-e, -g) * 57.2957763671875D));
         } else {
-            this.setYaw((float) (MathHelper.atan2(e, g) * 57.2957763671875D));
+            this.setYRot((float) (Mth.atan2(e, g) * 57.2957763671875D));
         }
-        this.setPitch((float) (MathHelper.atan2(f, l) * 57.2957763671875D));
-        this.setPitch(updateRotation(this.prevPitch, this.getPitch()));
-        this.setYaw(updateRotation(this.prevYaw, this.getYaw()));
+        this.setXRot((float) (Mth.atan2(f, l) * 57.2957763671875D));
+        this.setXRot(lerpRotation(this.xRotO, this.getXRot()));
+        this.setYRot(lerpRotation(this.yRotO, this.getYRot()));
 
-        this.setPosition(h, j, k);
-        this.checkBlockCollision();
+        this.setPos(h, j, k);
+        this.checkInsideBlocks();
     }
 
     public void setCooldown(int cooldown) {
         Entity entity = this.getOwner();
         if (entity != null) {
-            if (entity instanceof PlayerEntity user) {
-                user.getItemCooldownManager().set(RegisterItems.ANCIENT_HORN, cooldown);
+            if (entity instanceof Player user) {
+                user.getCooldowns().addCooldown(RegisterItems.ANCIENT_HORN, cooldown);
             }
         }
     }
@@ -198,150 +198,150 @@ public class AncientHornProjectile extends PersistentProjectileEntity {
     public void addCooldown(int i) {
         Entity entity = this.getOwner();
         if (entity != null) {
-            if (entity instanceof PlayerEntity user) {
+            if (entity instanceof Player user) {
                 if (!user.isCreative()) {
-                    ItemCooldownManager manager = user.getItemCooldownManager();
-                    ItemCooldownManager.Entry entry = manager.entries.get(RegisterItems.ANCIENT_HORN);
+                    ItemCooldowns manager = user.getCooldowns();
+                    ItemCooldowns.CooldownInstance entry = manager.cooldowns.get(RegisterItems.ANCIENT_HORN);
                     if (entry != null) {
-                        int cooldown = (entry.endTick - entry.startTick) + i;
-                        manager.remove(RegisterItems.ANCIENT_HORN);
-                        manager.set(RegisterItems.ANCIENT_HORN, Math.min(600, cooldown));
+                        int cooldown = (entry.endTime - entry.startTime) + i;
+                        manager.removeCooldown(RegisterItems.ANCIENT_HORN);
+                        manager.addCooldown(RegisterItems.ANCIENT_HORN, Math.min(600, cooldown));
                     } else {
-                        manager.set(RegisterItems.ANCIENT_HORN, i);
+                        manager.addCooldown(RegisterItems.ANCIENT_HORN, i);
                     }
                 }
             }
         }
     }
 
-    public boolean canHit(Entity entity) {
-        if (!entity.isSpectator() && entity.isAlive() && entity.canHit() && !(entity instanceof ProjectileEntity)) {
+    public boolean canHitEntity(Entity entity) {
+        if (!entity.isSpectator() && entity.isAlive() && entity.isPickable() && !(entity instanceof Projectile)) {
             Entity entity2 = this.getOwner();
-            return entity2 != null && (this.leftOwner || !entity2.isConnectedThroughVehicle(entity));
+            return entity2 != null && (this.leftOwner || !entity2.isPassengerOfSameVehicle(entity));
         } else {
             return false;
         }
     }
 
-    public void onPlayerCollision(PlayerEntity player) {
+    public void playerTouch(Player player) {
     }
 
-    protected void onBlockHit(BlockHitResult blockHitResult) {
-        this.inBlockState = this.world.getBlockState(blockHitResult.getBlockPos());
-        BlockState blockState = this.world.getBlockState(blockHitResult.getBlockPos());
+    protected void onHitBlock(BlockHitResult blockHitResult) {
+        this.inBlockState = this.level.getBlockState(blockHitResult.getBlockPos());
+        net.minecraft.world.level.block.state.BlockState blockState = this.level.getBlockState(blockHitResult.getBlockPos());
         Entity owner = this.getOwner();
         if (WilderWild.isCopperPipe(blockState) && owner != null) {
-            if (blockHitResult.getSide() == blockState.get(Properties.FACING).getOpposite() && this.world instanceof ServerWorld server) {
+            if (blockHitResult.getDirection() == blockState.getValue(BlockStateProperties.FACING).getOpposite() && this.level instanceof ServerLevel server) {
                 if (InteractionHandler.addHornNbtToBlock(server, blockHitResult.getBlockPos(), owner)) {
                     this.discard();
                 }
             }
         }
-        blockState.onProjectileHit(this.world, blockState, blockHitResult, this);
-        Vec3d vec3d = blockHitResult.getPos().subtract(this.getX(), this.getY(), this.getZ());
-        this.setVelocity(vec3d);
-        Vec3d vec3d2 = vec3d.normalize().multiply(0.05000000074505806D);
-        this.setPos(this.getX() - vec3d2.x, this.getY() - vec3d2.y, this.getZ() - vec3d2.z);
-        this.playSound(this.getSound(), 1.0F, 1.2F / (this.random.nextFloat() * 0.2F + 0.9F));
+        blockState.onProjectileHit(this.level, blockState, blockHitResult, this);
+        Vec3 vec3d = blockHitResult.getLocation().subtract(this.getX(), this.getY(), this.getZ());
+        this.setDeltaMovement(vec3d);
+        Vec3 vec3d2 = vec3d.normalize().scale(0.05000000074505806D);
+        this.setPosRaw(this.getX() - vec3d2.x, this.getY() - vec3d2.y, this.getZ() - vec3d2.z);
+        this.playSound(this.getHitGroundSoundEvent(), 1.0F, 1.2F / (this.random.nextFloat() * 0.2F + 0.9F));
         this.inGround = true;
-        this.shake = 7;
-        this.setCritical(false);
-        if (world instanceof ServerWorld server && canInteract()) {
+        this.shakeTime = 7;
+        this.setCritArrow(false);
+        if (level instanceof ServerLevel server && canInteract()) {
             if (blockState.getBlock() == Blocks.SCULK_SHRIEKER) {
                 BlockPos pos = blockHitResult.getBlockPos();
                 WilderWild.log(Blocks.SCULK_SHRIEKER, pos, "Horn Projectile Touched", WilderWild.UNSTABLE_LOGGING);
-                if (blockState.get(RegisterProperties.SOULS_TAKEN) < 2 && !blockState.get(SculkShriekerBlock.SHRIEKING)) {
-                    if (!blockState.get(SculkShriekerBlock.CAN_SUMMON)) {
-                        server.setBlockState(pos, blockState.with(RegisterProperties.SOULS_TAKEN, blockState.get(RegisterProperties.SOULS_TAKEN) + 1));
+                if (blockState.getValue(RegisterProperties.SOULS_TAKEN) < 2 && !blockState.getValue(SculkShriekerBlock.SHRIEKING)) {
+                    if (!blockState.getValue(SculkShriekerBlock.CAN_SUMMON)) {
+                        server.setBlockAndUpdate(pos, blockState.setValue(RegisterProperties.SOULS_TAKEN, blockState.getValue(RegisterProperties.SOULS_TAKEN) + 1));
                     } else {
-                        server.setBlockState(pos, blockState.with(SculkShriekerBlock.CAN_SUMMON, false));
+                        server.setBlockAndUpdate(pos, blockState.setValue(SculkShriekerBlock.CAN_SUMMON, false));
                     }
-                    server.spawnParticles(ParticleTypes.SCULK_SOUL, (double) pos.getX() + 0.5D, (double) pos.getY() + 1.15D, (double) pos.getZ() + 0.5D, 1, 0.2D, 0.0D, 0.2D, 0.0D);
+                    server.sendParticles(ParticleTypes.SCULK_SOUL, (double) pos.getX() + 0.5D, (double) pos.getY() + 1.15D, (double) pos.getZ() + 0.5D, 1, 0.2D, 0.0D, 0.2D, 0.0D);
                     trySpawnWarden(server, pos);
-                    WardenEntity.addDarknessToClosePlayers(server, Vec3d.ofCenter(this.getBlockPos()), null, 40);
-                    server.syncWorldEvent(WorldEvents.SCULK_SHRIEKS, pos, 0);
-                    server.emitGameEvent(GameEvent.SHRIEK, pos, GameEvent.Emitter.of(owner));
+                    Warden.applyDarknessAround(server, Vec3.atCenterOf(this.blockPosition()), null, 40);
+                    server.levelEvent(LevelEvent.PARTICLES_SCULK_SHRIEK, pos, 0);
+                    server.gameEvent(GameEvent.SHRIEK, pos, GameEvent.Context.of(owner));
                     setCooldown(getCooldown(this.getOwner(), SHRIEKER_COOLDOWN));
-                    this.setSound(RegisterSounds.ANCIENT_HORN_PROJECTILE_DISSIPATE);
+                    this.setSoundEvent(RegisterSounds.ANCIENT_HORN_PROJECTILE_DISSIPATE);
                     this.setShotFromCrossbow(false);
                     this.remove(RemovalReason.DISCARDED);
                 }
             } else if (blockState.getBlock() == Blocks.SCULK_SENSOR) {
                 BlockPos pos = blockHitResult.getBlockPos();
                 WilderWild.log(Blocks.SCULK_SENSOR, pos, "Horn Projectile Touched", WilderWild.UNSTABLE_LOGGING);
-                if (blockState.get(RegisterProperties.HICCUPPING)) {
-                    server.setBlockState(pos, blockState.with(RegisterProperties.HICCUPPING, false));
+                if (blockState.getValue(RegisterProperties.HICCUPPING)) {
+                    server.setBlockAndUpdate(pos, blockState.setValue(RegisterProperties.HICCUPPING, false));
                 } else {
-                    server.setBlockState(pos, blockState.with(RegisterProperties.HICCUPPING, true));
+                    server.setBlockAndUpdate(pos, blockState.setValue(RegisterProperties.HICCUPPING, true));
                 }
-                if (SculkSensorBlock.isInactive(blockState)) {
-                    SculkSensorBlock.setActive(null, world, pos, world.getBlockState(pos), WilderWild.random().nextInt(15));
-                    world.emitGameEvent(null, RegisterGameEvents.SCULK_SENSOR_ACTIVATE, pos);
+                if (SculkSensorBlock.canActivate(blockState)) {
+                    SculkSensorBlock.activate(null, level, pos, level.getBlockState(pos), WilderWild.random().nextInt(15));
+                    level.gameEvent(null, RegisterGameEvents.SCULK_SENSOR_ACTIVATE, pos);
                     setCooldown(getCooldown(this.getOwner(), SENSOR_COOLDOWN));
                 }
             }
         }
-        this.setSound(RegisterSounds.ANCIENT_HORN_PROJECTILE_DISSIPATE);
+        this.setSoundEvent(RegisterSounds.ANCIENT_HORN_PROJECTILE_DISSIPATE);
         this.setShotFromCrossbow(false);
         this.remove(RemovalReason.DISCARDED);
     }
 
-    private static void trySpawnWarden(ServerWorld world, BlockPos pos) {
-        if (world.getGameRules().getBoolean(GameRules.DO_WARDEN_SPAWNING)) {
-            Optional<WardenEntity> warden = LargeEntitySpawnHelper.trySpawnAt(EntityType.WARDEN, SpawnReason.TRIGGERED, world, pos, 20, 5, 6, LargeEntitySpawnHelper.Requirements.WARDEN);
-            warden.ifPresent(wardenEntity -> wardenEntity.playSound(SoundEvents.ENTITY_WARDEN_AGITATED, 5.0F, 1.0F));
+    private static void trySpawnWarden(ServerLevel world, BlockPos pos) {
+        if (world.getGameRules().getBoolean(GameRules.RULE_DO_WARDEN_SPAWNING)) {
+            Optional<Warden> warden = SpawnUtil.trySpawnMob(EntityType.WARDEN, MobSpawnType.TRIGGERED, world, pos, 20, 5, 6, SpawnUtil.Strategy.ON_TOP_OF_COLLIDER);
+            warden.ifPresent(wardenEntity -> wardenEntity.playSound(SoundEvents.WARDEN_AGITATED, 5.0F, 1.0F));
         }
     }
 
-    protected SoundEvent getHitSound() {
+    protected SoundEvent getDefaultHitGroundSoundEvent() {
         return RegisterSounds.ANCIENT_HORN_PROJECTILE_DISSIPATE;
     }
 
-    public boolean isNoClip() {
-        BlockState insideState = world.getBlockState(this.getBlockPos());
-        if (insideState.isOf(RegisterBlocks.HANGING_TENDRIL) && world instanceof ServerWorld server && canInteract()) {
-            BlockPos pos = this.getBlockPos();
-            BlockEntity entity = world.getBlockEntity(pos);
+    public boolean isNoPhysics() {
+        net.minecraft.world.level.block.state.BlockState insideState = level.getBlockState(this.blockPosition());
+        if (insideState.is(RegisterBlocks.HANGING_TENDRIL) && level instanceof ServerLevel server && canInteract()) {
+            BlockPos pos = this.blockPosition();
+            BlockEntity entity = level.getBlockEntity(pos);
             WilderWild.log(RegisterBlocks.HANGING_TENDRIL, pos, "Horn Projectile Touched", WilderWild.DEV_LOGGING);
             if (entity instanceof HangingTendrilBlockEntity tendril) {
                 WilderWild.log("Horn Projectile Found Hanging Tendril Entity", WilderWild.UNSTABLE_LOGGING);
-                this.playSound(this.getSound(), 1.0F, 1.2F / (this.random.nextFloat() * 0.2F + 0.9F));
+                this.playSound(this.getHitGroundSoundEvent(), 1.0F, 1.2F / (this.random.nextFloat() * 0.2F + 0.9F));
                 int XP = tendril.storedXP;
                 if (XP > 0) {
                     tendril.storedXP = 0;
-                    world.createExplosion(this, this.getX(), this.getY(), this.getZ(), 0, Explosion.DestructionType.NONE);
-                    world.playSound(this.getX(), this.getY(), this.getZ(), RegisterSounds.ANCIENT_HORN_BLAST, SoundCategory.NEUTRAL, 1.0F, 1.0F, true);
-                    world.breakBlock(this.getBlockPos(), false);
-                    ExperienceOrbEntity.spawn(server, Vec3d.ofCenter(pos).add(0, 0, 0), XP);
+                    level.explode(this, this.getX(), this.getY(), this.getZ(), 0, Explosion.BlockInteraction.NONE);
+                    level.playLocalSound(this.getX(), this.getY(), this.getZ(), RegisterSounds.ANCIENT_HORN_BLAST, SoundSource.NEUTRAL, 1.0F, 1.0F, true);
+                    level.destroyBlock(this.blockPosition(), false);
+                    ExperienceOrb.award(server, Vec3.atCenterOf(pos).add(0, 0, 0), XP);
                     setCooldown(getCooldown(this.getOwner(), TENDRIL_COOLDOWN));
                     this.setShotFromCrossbow(false);
                     this.remove(RemovalReason.DISCARDED);
                 }
             }
         }
-        if (insideState.isIn(this.NON_COLLIDE)) {
-            if (world instanceof ServerWorld server) {
-                if (insideState.isOf(Blocks.BELL)) {
-                    ((BellBlock) insideState.getBlock()).onProjectileHit(server, insideState, this.world.raycast(new RaycastContext(this.getPos(), new Vec3d(this.getBlockX(), this.getBlockY(), this.getBlockZ()), RaycastContext.ShapeType.COLLIDER, RaycastContext.FluidHandling.NONE, this)), this);
+        if (insideState.is(this.NON_COLLIDE)) {
+            if (level instanceof ServerLevel server) {
+                if (insideState.is(Blocks.BELL)) {
+                    ((BellBlock) insideState.getBlock()).onProjectileHit(server, insideState, this.level.clip(new ClipContext(this.position(), new Vec3(this.getBlockX(), this.getBlockY(), this.getBlockZ()), ClipContext.Block.COLLIDER, ClipContext.Fluid.NONE, this)), this);
                 }
             }
             return true;
         }
-        Vec3d vec3d3 = this.getPos();
-        Vec3d vec3d = this.getVelocity();
-        Vec3d vec3d2 = vec3d3.add(vec3d.multiply(0.08));
-        BlockHitResult hitResult = this.world.raycast(new RaycastContext(vec3d3, vec3d2, RaycastContext.ShapeType.COLLIDER, RaycastContext.FluidHandling.NONE, this));
+        Vec3 vec3d3 = this.position();
+        Vec3 vec3d = this.getDeltaMovement();
+        Vec3 vec3d2 = vec3d3.add(vec3d.scale(0.08));
+        BlockHitResult hitResult = this.level.clip(new ClipContext(vec3d3, vec3d2, ClipContext.Block.COLLIDER, ClipContext.Fluid.NONE, this));
         if (hitResult.getType() == HitResult.Type.BLOCK) {
-            BlockState state = world.getBlockState(hitResult.getBlockPos());
-            return state.isIn(this.NON_COLLIDE);
+            net.minecraft.world.level.block.state.BlockState state = level.getBlockState(hitResult.getBlockPos());
+            return state.is(this.NON_COLLIDE);
         }
         return false;
     }
 
-    private boolean shouldLeaveOwner() {
+    private boolean checkLeftOwner() {
         Entity entity = this.getOwner();
         if (entity != null) {
-            for (Entity entity2 : this.world.getOtherEntities(this, this.getBoundingBox().stretch(this.getVelocity()).expand(1.0D), (entityx) -> !entityx.isSpectator() && entityx.canHit())) {
+            for (Entity entity2 : this.level.getEntities(this, this.getBoundingBox().expandTowards(this.getDeltaMovement()).inflate(1.0D), (entityx) -> !entityx.isSpectator() && entityx.isPickable())) {
                 if (entity2.getRootVehicle() == entity.getRootVehicle()) {
                     return false;
                 }
@@ -351,7 +351,7 @@ public class AncientHornProjectile extends PersistentProjectileEntity {
     }
 
     @Override
-    public Packet<?> createSpawnPacket() {
+    public Packet<?> getAddEntityPacket() {
         return EntitySpawnPacket.create(this, WilderWild.HORN_PROJECTILE_PACKET_ID);
     }
 
@@ -360,14 +360,14 @@ public class AncientHornProjectile extends PersistentProjectileEntity {
     }
 
     @Override
-    protected ItemStack asItemStack() {
+    protected ItemStack getPickupItem() {
         return ItemStack.EMPTY;
     }
 
-    public void writeCustomDataToNbt(NbtCompound nbt) {
+    public void addAdditionalSaveData(CompoundTag nbt) {
         if (!this.isRemoved()) {
             if (this.inBlockState != null) {
-                nbt.put("inBlockState", NbtHelper.fromBlockState(this.inBlockState));
+                nbt.put("inBlockState", NbtUtils.writeBlockState(this.inBlockState));
             }
             nbt.putInt("aliveTicks", this.aliveTicks);
             if (this.leftOwner) {
@@ -382,10 +382,10 @@ public class AncientHornProjectile extends PersistentProjectileEntity {
         }
     }
 
-    public void readCustomDataFromNbt(NbtCompound nbt) {
+    public void readAdditionalSaveData(CompoundTag nbt) {
         if (!this.isRemoved()) {
             if (nbt.contains("inBlockState", 10)) {
-                this.inBlockState = NbtHelper.toBlockState(nbt.getCompound("inBlockState"));
+                this.inBlockState = NbtUtils.readBlockState(nbt.getCompound("inBlockState"));
             }
             this.aliveTicks = nbt.getInt("aliveTicks");
             this.leftOwner = nbt.getBoolean("LeftOwner");
@@ -398,23 +398,23 @@ public class AncientHornProjectile extends PersistentProjectileEntity {
         }
     }
 
-    public void setVelocity(Entity shooter, float pitch, float yaw, float roll, float speed, float divergence) {
-        float f = -MathHelper.sin(yaw * 0.017453292F) * MathHelper.cos(pitch * 0.017453292F);
-        float g = -MathHelper.sin((pitch + roll) * 0.017453292F);
-        float h = MathHelper.cos(yaw * 0.017453292F) * MathHelper.cos(pitch * 0.017453292F);
-        this.setVelocity(f, g, h, speed, divergence);
+    public void shootFromRotation(Entity shooter, float pitch, float yaw, float roll, float speed, float divergence) {
+        float f = -Mth.sin(yaw * 0.017453292F) * Mth.cos(pitch * 0.017453292F);
+        float g = -Mth.sin((pitch + roll) * 0.017453292F);
+        float h = Mth.cos(yaw * 0.017453292F) * Mth.cos(pitch * 0.017453292F);
+        this.shoot(f, g, h, speed, divergence);
         this.vecX = shooter.getX();
         this.vecY = shooter.getEyeY();
         this.vecZ = shooter.getZ();
         this.setOwner(shooter);
     }
 
-    protected void onCollision(HitResult hitResult) {
+    protected void onHit(HitResult hitResult) {
         HitResult.Type type = hitResult.getType();
         if (type == HitResult.Type.BLOCK) {
             BlockHitResult blockHitResult = (BlockHitResult) hitResult;
-            if (!world.getBlockState(blockHitResult.getBlockPos()).isIn(this.NON_COLLIDE)) {
-                this.onBlockHit(blockHitResult);
+            if (!level.getBlockState(blockHitResult.getBlockPos()).is(this.NON_COLLIDE)) {
+                this.onHitBlock(blockHitResult);
                 this.remove(RemovalReason.DISCARDED);
             }
         }
@@ -422,18 +422,18 @@ public class AncientHornProjectile extends PersistentProjectileEntity {
 
     public double getDamage(@Nullable Entity entity) {
         if (entity != null) {
-            if (!(entity instanceof PlayerEntity)) {
+            if (!(entity instanceof Player)) {
                 return 22;
             }
         }
         return 15;
     }
 
-    protected float getDragInWater() {
+    protected float getWaterInertia() {
         return 1.0F;
     }
 
-    public boolean hasNoGravity() {
+    public boolean isNoGravity() {
         return true;
     }
 
@@ -447,35 +447,35 @@ public class AncientHornProjectile extends PersistentProjectileEntity {
             } else {
                 damageSource = WilderProjectileDamageSource.ancientHorn(this, entity2);
                 if (entity2 instanceof LivingEntity) {
-                    ((LivingEntity) entity2).onAttacking(entity);
+                    ((LivingEntity) entity2).setLastHurtMob(entity);
                 }
             }
-            int j = entity.getFireTicks();
+            int j = entity.getRemainingFireTicks();
             if (this.isOnFire()) {
-                entity.setOnFireFor(5);
+                entity.setSecondsOnFire(5);
             }
-            if (entity instanceof WardenEntity warden && entity2 != null && canInteract()) {
+            if (entity instanceof Warden warden && entity2 != null && canInteract()) {
                 WilderWild.log(warden, "Horn Projectile Touched", WilderWild.DEV_LOGGING);
-                warden.increaseAngerAt(entity2, Angriness.ANGRY.getThreshold() + 20, true);
-                warden.playSound(SoundEvents.ENTITY_WARDEN_TENDRIL_CLICKS, 5.0F, warden.getSoundPitch());
+                warden.increaseAngerAt(entity2, AngerLevel.ANGRY.getMinimumAnger() + 20, true);
+                warden.playSound(SoundEvents.WARDEN_TENDRIL_CLICKS, 5.0F, warden.getVoicePitch());
                 this.discard();
-            } else if (entity.damage(damageSource, (float) i)) {
+            } else if (entity.hurt(damageSource, (float) i)) {
                 if (entity instanceof LivingEntity livingEntity) {
                     WilderWild.log(livingEntity, "Horn Projectile Touched", WilderWild.DEV_LOGGING);
-                    if (!this.world.isClient && entity2 instanceof LivingEntity) {
-                        EnchantmentHelper.onUserDamaged(livingEntity, entity2);
-                        EnchantmentHelper.onTargetDamaged((LivingEntity) entity2, livingEntity);
+                    if (!this.level.isClientSide && entity2 instanceof LivingEntity) {
+                        EnchantmentHelper.doPostHurtEffects(livingEntity, entity2);
+                        EnchantmentHelper.doPostDamageEffects((LivingEntity) entity2, livingEntity);
                     }
-                    this.onHit(livingEntity);
-                    if (livingEntity instanceof PlayerEntity && entity2 instanceof ServerPlayerEntity && !this.isSilent()) {
-                        ((ServerPlayerEntity) entity2).networkHandler.sendPacket(new GameStateChangeS2CPacket(GameStateChangeS2CPacket.PROJECTILE_HIT_PLAYER, 0.0F));
+                    this.doPostHurtEffects(livingEntity);
+                    if (livingEntity instanceof Player && entity2 instanceof ServerPlayer && !this.isSilent()) {
+                        ((ServerPlayer) entity2).connection.send(new ClientboundGameEventPacket(ClientboundGameEventPacket.ARROW_HIT_PLAYER, 0.0F));
                     }
-                    if (livingEntity.isDead() && world instanceof ServerWorld server) {
-                        server.spawnParticles(ParticleTypes.SCULK_SOUL, livingEntity.getX(), livingEntity.getEyeY(), livingEntity.getZ(), 1, 0.2D, 0.0D, 0.2D, 0.0D);
+                    if (livingEntity.isDeadOrDying() && level instanceof ServerLevel server) {
+                        server.sendParticles(ParticleTypes.SCULK_SOUL, livingEntity.getX(), livingEntity.getEyeY(), livingEntity.getZ(), 1, 0.2D, 0.0D, 0.2D, 0.0D);
                         if (this.getOwner() != null) {
-                            if (this.getOwner() instanceof ServerPlayerEntity serverPlayer) {
-                                addCooldown(livingEntity.getXpToDrop() * 10);
-                                EasyPacket.EasyCompetitionPacket.sendAncientHornKillInfo(world, serverPlayer, livingEntity);
+                            if (this.getOwner() instanceof ServerPlayer serverPlayer) {
+                                addCooldown(livingEntity.getExperienceReward() * 10);
+                                EasyPacket.EasyCompetitionPacket.sendAncientHornKillInfo(level, serverPlayer, livingEntity);
                             }
                         }
                     }
@@ -483,63 +483,63 @@ public class AncientHornProjectile extends PersistentProjectileEntity {
 
                 this.playSound(RegisterSounds.ANCIENT_HORN_PROJECTILE_DISSIPATE, 1.0F, 1.2F / (this.random.nextFloat() * 0.2F + 0.9F));
             } else {
-                entity.setFireTicks(j);
-                if (!this.world.isClient && this.getVelocity().lengthSquared() < 1.0E-7D) {
+                entity.setRemainingFireTicks(j);
+                if (!this.level.isClientSide && this.getDeltaMovement().lengthSqr() < 1.0E-7D) {
                     this.discard();
                 }
             }
         }
     }
 
-    public void emitGameEvent(GameEvent event) {
+    public void gameEvent(GameEvent event) {
     }
 
-    public void emitGameEvent(GameEvent event, @Nullable Entity entity) {
+    public void gameEvent(GameEvent event, @Nullable Entity entity) {
     }
 
     public static class EntitySpawnPacket { //When the Fabric tutorial WORKS!!!!! BOM BOM BOM BOM BOM BOM BOM, BOBOBOM! DUNDUN!
-        public static Packet<?> create(Entity e, Identifier packetID) {
-            if (e.world.isClient)
+        public static Packet<?> create(Entity e, ResourceLocation packetID) {
+            if (e.level.isClientSide)
                 throw new IllegalStateException("SpawnPacketUtil.create called on the logical client!");
-            PacketByteBuf byteBuf = new PacketByteBuf(Unpooled.buffer());
-            byteBuf.writeVarInt(Registry.ENTITY_TYPE.getRawId(e.getType()));
-            byteBuf.writeUuid(e.getUuid());
+            FriendlyByteBuf byteBuf = new FriendlyByteBuf(Unpooled.buffer());
+            byteBuf.writeVarInt(Registry.ENTITY_TYPE.getId(e.getType()));
+            byteBuf.writeUUID(e.getUUID());
             byteBuf.writeVarInt(e.getId());
-            PacketBufUtil.writeVec3d(byteBuf, e.getPos());
-            PacketBufUtil.writeAngle(byteBuf, e.getPitch());
-            PacketBufUtil.writeAngle(byteBuf, e.getYaw());
+            PacketBufUtil.writeVec3d(byteBuf, e.position());
+            PacketBufUtil.writeAngle(byteBuf, e.getXRot());
+            PacketBufUtil.writeAngle(byteBuf, e.getYRot());
             return ServerPlayNetworking.createS2CPacket(packetID, byteBuf);
         }
 
         public static final class PacketBufUtil {
 
             public static byte packAngle(float angle) {
-                return (byte) MathHelper.floor(angle * 256 / 360);
+                return (byte) Mth.floor(angle * 256 / 360);
             }
 
             public static float unpackAngle(byte angleByte) {
                 return (angleByte * 360) / 256f;
             }
 
-            public static void writeAngle(PacketByteBuf byteBuf, float angle) {
+            public static void writeAngle(FriendlyByteBuf byteBuf, float angle) {
                 byteBuf.writeByte(packAngle(angle));
             }
 
-            public static float readAngle(PacketByteBuf byteBuf) {
+            public static float readAngle(FriendlyByteBuf byteBuf) {
                 return unpackAngle(byteBuf.readByte());
             }
 
-            public static void writeVec3d(PacketByteBuf byteBuf, Vec3d vec3d) {
+            public static void writeVec3d(FriendlyByteBuf byteBuf, Vec3 vec3d) {
                 byteBuf.writeDouble(vec3d.x);
                 byteBuf.writeDouble(vec3d.y);
                 byteBuf.writeDouble(vec3d.z);
             }
 
-            public static Vec3d readVec3d(PacketByteBuf byteBuf) {
+            public static Vec3 readVec3d(FriendlyByteBuf byteBuf) {
                 double x = byteBuf.readDouble();
                 double y = byteBuf.readDouble();
                 double z = byteBuf.readDouble();
-                return new Vec3d(x, y, z);
+                return new Vec3(x, y, z);
             }
         }
     }
