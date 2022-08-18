@@ -60,7 +60,7 @@ public class RegisterStructures {
                             StructureTerrainAdaptation.BEARD_BOX
                     ),
                     AbandonedCabinGenerator.CABIN,
-                    Optional.of(new Identifier("cabin_center")),
+                    Optional.of(WilderWild.id("abandoned_cabin")),
                     3,
                     ConstantHeightProvider.create(YOffset.fixed(-26)),
                     false,
