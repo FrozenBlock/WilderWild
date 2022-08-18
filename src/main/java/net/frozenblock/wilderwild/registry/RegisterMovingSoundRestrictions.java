@@ -75,6 +75,13 @@ public final class RegisterMovingSoundRestrictions {
             return false;
         });
 
+        register(WilderWild.id("ancient_horn"), (LoopPredicate<PlayerEntity>) entity -> {
+            if (entity instanceof PlayerEntity player) {
+                return player.getActiveItem().isOf(RegisterItems.ANCIENT_HORN);
+            }
+            return false;
+        });
+
         frozen = true;
     }
 }
