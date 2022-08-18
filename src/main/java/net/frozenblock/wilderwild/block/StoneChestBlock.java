@@ -311,7 +311,7 @@ public class StoneChestBlock extends ChestBlock {
 
     public static void spawnBreakParticles(World world, ItemStack stack, BlockPos pos) {
         if (world instanceof ServerWorld server) {
-            server.spawnParticles(new ItemStackParticleEffect(ParticleTypes.ITEM, stack), pos.getX(), pos.getY(), pos.getZ(), world.random.nextBetween(0, 3), 3F, 3F, 3F, 0.05D);
+            server.spawnParticles(new ItemStackParticleEffect(ParticleTypes.ITEM, stack), pos.getX(), pos.getY(), pos.getZ(), world.random.nextBetween(0, 3), 0.017F, 0.017F, 0.017F, 0.05D);
         }
     }
 
