@@ -37,15 +37,15 @@ public class RegisterStructures {
         return RegistryKey.of(Registry.STRUCTURE_SET_KEY, WilderWild.id(id));
     }
 
-    static RegistryEntry<StructureSet> initAndGetDefault(Registry<StructureSet> registry) {
+    public static RegistryEntry<StructureSet> initAndGetDefault(Registry<StructureSet> registry) {
         return registry.streamEntries().iterator().next();
     }
 
-    static RegistryEntry<StructureSet> register(RegistryKey<StructureSet> key, StructureSet structureSet) {
+    private static RegistryEntry<StructureSet> register(RegistryKey<StructureSet> key, StructureSet structureSet) {
         return BuiltinRegistries.add(BuiltinRegistries.STRUCTURE_SET, key, structureSet);
     }
 
-    static RegistryEntry<StructureSet> register(RegistryKey<StructureSet> key, RegistryEntry<Structure> structure, StructurePlacement placement) {
+    private static RegistryEntry<StructureSet> register(RegistryKey<StructureSet> key, RegistryEntry<Structure> structure, StructurePlacement placement) {
         return register(key, new StructureSet(structure, placement));
     }
 
