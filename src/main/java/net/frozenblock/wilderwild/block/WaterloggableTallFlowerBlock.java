@@ -17,7 +17,7 @@ import net.minecraft.world.WorldAccess;
 import org.jetbrains.annotations.Nullable;
 
 public class WaterloggableTallFlowerBlock extends TallFlowerBlock implements Waterloggable {
-    public static final BooleanProperty WATERLOGGED;
+    public static final BooleanProperty WATERLOGGED = Properties.WATERLOGGED;
 
     public WaterloggableTallFlowerBlock(Settings settings) {
         super(settings);
@@ -50,9 +50,5 @@ public class WaterloggableTallFlowerBlock extends TallFlowerBlock implements Wat
     protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
         super.appendProperties(builder);
         builder.add(WATERLOGGED);
-    }
-
-    static {
-        WATERLOGGED = Properties.WATERLOGGED;
     }
 }

@@ -28,14 +28,14 @@ import net.minecraft.world.event.GameEvent;
 import org.jetbrains.annotations.Nullable;
 
 public class ShelfFungusBlock extends WallMountedBlock implements Waterloggable {
-    public static final IntProperty STAGE;
-    public static final BooleanProperty WATERLOGGED;
-    protected static final VoxelShape NORTH_WALL_SHAPE;
-    protected static final VoxelShape SOUTH_WALL_SHAPE;
-    protected static final VoxelShape WEST_WALL_SHAPE;
-    protected static final VoxelShape EAST_WALL_SHAPE;
-    protected static final VoxelShape FLOOR_SHAPE;
-    protected static final VoxelShape CEILING_SHAPE;
+    public static final IntProperty STAGE = RegisterProperties.FUNGUS_STAGE;
+    public static final BooleanProperty WATERLOGGED = Properties.WATERLOGGED;
+    protected static final VoxelShape NORTH_WALL_SHAPE = Block.createCuboidShape(0.0D, 0.0D, 13.0D, 16.0D, 16.0D, 16.0D);
+    protected static final VoxelShape SOUTH_WALL_SHAPE = Block.createCuboidShape(0.0D, 0.0D, 0.0D, 16.0D, 16.0D, 3.0D);
+    protected static final VoxelShape WEST_WALL_SHAPE = Block.createCuboidShape(13.0D, 0.0D, 0.0D, 16.0D, 16.0D, 16.0D);
+    protected static final VoxelShape EAST_WALL_SHAPE = Block.createCuboidShape(0.0D, 0.0D, 0.0D, 3.0D, 16.0D, 16.0D);
+    protected static final VoxelShape FLOOR_SHAPE = Block.createCuboidShape(0.0D, 0.0D, 0.0D, 16.0D, 3.0D, 16.0D);
+    protected static final VoxelShape CEILING_SHAPE = Block.createCuboidShape(0.0D, 13.0D, 0.0D, 16.0D, 16.0D, 16.0D);
 
     public ShelfFungusBlock(Settings settings) {
         super(settings);
@@ -119,16 +119,5 @@ public class ShelfFungusBlock extends WallMountedBlock implements Waterloggable 
             };
             case CEILING -> CEILING_SHAPE;
         };
-    }
-
-    static {
-        STAGE = RegisterProperties.FUNGUS_STAGE;
-        WATERLOGGED = Properties.WATERLOGGED;
-        NORTH_WALL_SHAPE = Block.createCuboidShape(0.0D, 0.0D, 13.0D, 16.0D, 16.0D, 16.0D);
-        SOUTH_WALL_SHAPE = Block.createCuboidShape(0.0D, 0.0D, 0.0D, 16.0D, 16.0D, 3.0D);
-        WEST_WALL_SHAPE = Block.createCuboidShape(13.0D, 0.0D, 0.0D, 16.0D, 16.0D, 16.0D);
-        EAST_WALL_SHAPE = Block.createCuboidShape(0.0D, 0.0D, 0.0D, 3.0D, 16.0D, 16.0D);
-        FLOOR_SHAPE = Block.createCuboidShape(0.0D, 0.0D, 0.0D, 16.0D, 3.0D, 16.0D);
-        CEILING_SHAPE = Block.createCuboidShape(0.0D, 13.0D, 0.0D, 16.0D, 16.0D, 16.0D);
     }
 }
