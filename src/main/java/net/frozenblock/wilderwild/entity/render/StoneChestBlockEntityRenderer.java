@@ -7,6 +7,7 @@ import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.WilderWildClient;
 import net.frozenblock.wilderwild.block.StoneChestBlock;
 import net.frozenblock.wilderwild.block.entity.StoneChestBlockEntity;
+import net.frozenblock.wilderwild.registry.RegisterProperties;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.CubeListBuilder;
@@ -46,6 +47,9 @@ public class StoneChestBlockEntityRenderer<T extends StoneChestBlockEntity & Lid
     public static final Material STONE = getChestTextureId("stone");
     public static final Material STONE_LEFT = getChestTextureId("stone_left");
     public static final Material STONE_RIGHT = getChestTextureId("stone_right");
+    public static final Material STONE_SCULK = getChestTextureId("ancient");
+    public static final Material STONE_LEFT_SCULK = getChestTextureId("ancient_left");
+    public static final Material STONE_RIGHT_SCULK = getChestTextureId("ancient_right");
 
     public StoneChestBlockEntityRenderer(BlockEntityRendererProvider.Context ctx) {
         super(ctx);
@@ -110,7 +114,7 @@ public class StoneChestBlockEntityRenderer<T extends StoneChestBlockEntity & Lid
             openProg = 1.0f - openProg;
             openProg = 1.0f - openProg * openProg * openProg;
             int i = propertySource.apply(new BrightnessCombiner<>()).applyAsInt(light);
-            Material spriteIdentifier = getChestTexture(entity, chestType, false);
+            Material spriteIdentifier = getChestTexture(entity, chestType, entity.getBlockState().getValue(RegisterProperties.ANCIENT));
             VertexConsumer vertexConsumer = spriteIdentifier.buffer(vertexConsumers, RenderType::entityCutout);
             if (bl2) {
                 if (chestType == ChestType.LEFT) {
@@ -132,8 +136,8 @@ public class StoneChestBlockEntityRenderer<T extends StoneChestBlockEntity & Lid
         base.render(matrices, vertices, light, overlay);
     }
 
-    public static Material getChestTexture(BlockEntity blockEntity, ChestType type, boolean christmas) {
-        return getChestTexture(type, STONE, STONE_LEFT, STONE_RIGHT);
+    public static Material getChestTexture(BlockEntity blockEntity, ChestType type, boolean sculk) {
+        return !sculk? getChestTexture(type, STONE, STONE_LEFT, STONE_RIGHT) : getChestTexture(type, STONE_SCULK, STONE_LEFT_SCULK, STONE_RIGHT_SCULK);
     }
 
     private static Material getChestTexture(ChestType type, Material single, Material left, Material right) {

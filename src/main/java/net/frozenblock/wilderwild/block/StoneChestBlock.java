@@ -2,6 +2,7 @@ package net.frozenblock.wilderwild.block;
 
 import net.frozenblock.wilderwild.block.entity.StoneChestBlockEntity;
 import net.frozenblock.wilderwild.registry.RegisterBlockEntities;
+import net.frozenblock.wilderwild.registry.RegisterProperties;
 import net.frozenblock.wilderwild.registry.RegisterSounds;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -37,6 +38,7 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.entity.ChestBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.ChestType;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.level.material.FluidState;
@@ -52,11 +54,11 @@ import java.util.function.BiPredicate;
 import java.util.function.Supplier;
 
 public class StoneChestBlock extends ChestBlock {
-    //public static final BooleanProperty ANCIENT = RegisterProperties.ANCIENT;
+    public static final BooleanProperty ANCIENT = RegisterProperties.ANCIENT;
 
     public StoneChestBlock(Properties settings, Supplier<BlockEntityType<? extends ChestBlockEntity>> supplier) {
         super(settings, supplier);
-        this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH).setValue(TYPE, ChestType.SINGLE).setValue(WATERLOGGED, false));
+        this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH).setValue(TYPE, ChestType.SINGLE).setValue(WATERLOGGED, false).setValue(ANCIENT, false));
 
     }
 
@@ -237,7 +239,7 @@ public class StoneChestBlock extends ChestBlock {
         if (neighborState.is(this) && direction.getAxis().isHorizontal()) {
             //if (neighborState.get(ANCIENT) == state.get(ANCIENT)) {
             ChestType chestType = neighborState.getValue(TYPE);
-            if (state.getValue(TYPE) == ChestType.SINGLE && chestType != ChestType.SINGLE && state.getValue(FACING) == neighborState.getValue(FACING) && ChestBlock.getConnectedDirection(neighborState) == direction.getOpposite()) {
+            if (state.getValue(TYPE) == ChestType.SINGLE && chestType != ChestType.SINGLE && state.getValue(FACING) == neighborState.getValue(FACING) && state.getValue(ANCIENT) == neighborState.getValue(ANCIENT) && ChestBlock.getConnectedDirection(neighborState) == direction.getOpposite()) {
                 return state.setValue(TYPE, chestType.getOpposite());
             }
             //}
@@ -272,7 +274,7 @@ public class StoneChestBlock extends ChestBlock {
     @Nullable
     private Direction candidatePartnerFacing(BlockPlaceContext ctx, Direction dir) {
         BlockState blockState = ctx.getLevel().getBlockState(ctx.getClickedPos().relative(dir));
-        return blockState.is(this) && blockState.getValue(TYPE) == ChestType.SINGLE ? blockState.getValue(FACING) : null;
+        return blockState.is(this) && !blockState.getValue(ANCIENT) && blockState.getValue(TYPE) == ChestType.SINGLE ? blockState.getValue(FACING) : null;
     }
 
     @Override
@@ -320,7 +322,7 @@ public class StoneChestBlock extends ChestBlock {
 
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
-        builder.add(FACING, TYPE, WATERLOGGED);
+        builder.add(FACING, TYPE, WATERLOGGED, ANCIENT);
     }
 
 
