@@ -16,6 +16,7 @@
 	"server.GoatHornItemMixin",
 	"server.HopperBlockEntityMixin",
 	"server.ItemStackMixin",
+	"server.LivingEntityMixin",
 	"server.PointedDripstoneBlockMixin",
 	"server.SculkBlockMixin",
 	"server.SculkSensorBlockEntityMixin",
