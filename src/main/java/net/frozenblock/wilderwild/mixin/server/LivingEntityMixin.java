@@ -4,6 +4,7 @@ import net.frozenblock.wilderwild.registry.RegisterItems;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.gameevent.GameEvent;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
@@ -33,6 +34,20 @@ public class LivingEntityMixin {
                 }
             }
         }
+    }
+
+    @Inject(method = "stopUsingItem", at = @At("HEAD"), cancellable = true)
+    public void stopUsingItem(CallbackInfo info) {
+        LivingEntity entity = LivingEntity.class.cast(this);
+        if (!entity.level.isClientSide) {
+            ItemStack stack = entity.getUseItem();
+            if (stack.is(RegisterItems.ANCIENT_HORN)) {
+                info.cancel();
+            }
+        }
+
+        this.useItem = ItemStack.EMPTY;
+        this.useItemRemaining = 0;
     }
 
     @Shadow
