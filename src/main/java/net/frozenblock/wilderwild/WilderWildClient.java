@@ -125,6 +125,9 @@ public final class WilderWildClient implements ClientModInitializer {
             registry.register(WilderWild.id("entity/stone_chest/stone"));
             registry.register(WilderWild.id("entity/stone_chest/stone_left"));
             registry.register(WilderWild.id("entity/stone_chest/stone_right"));
+            registry.register(WilderWild.id("entity/stone_chest/ancient"));
+            registry.register(WilderWild.id("entity/stone_chest/ancient_left"));
+            registry.register(WilderWild.id("entity/stone_chest/ancient_right"));
         });
 
         ParticleFactoryRegistry.getInstance().register(RegisterParticles.POLLEN, PollenParticle.PollenFactory::new);
