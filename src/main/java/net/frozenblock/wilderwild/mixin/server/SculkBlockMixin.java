@@ -7,6 +7,7 @@ import net.frozenblock.wilderwild.registry.RegisterBlocks;
 import net.frozenblock.wilderwild.tag.WilderBlockTags;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.SculkSpreadManager;
+import net.minecraft.fluid.Fluids;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.state.property.Properties;
 import net.minecraft.util.math.BlockPos;
@@ -22,15 +23,15 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import java.util.Iterator;
 
 @Mixin(SculkBlock.class)
-public class SculkBlockMixin {
+public abstract class SculkBlockMixin {
 
     @Shadow
     private static int getDecay(SculkSpreadManager spreadManager, BlockPos cursorPos, BlockPos catalystPos, int charge) {
         int i = spreadManager.getMaxDistance();
-        float f = MathHelper.square((float)Math.sqrt(cursorPos.getSquaredDistance(catalystPos)) - (float)i);
+        float f = MathHelper.square((float) Math.sqrt(cursorPos.getSquaredDistance(catalystPos)) - (float) i);
         int j = MathHelper.square(24 - i);
-        float g = Math.min(1.0F, f / (float)j);
-        return Math.max(1, (int)((float)charge * g * 0.5F));
+        float g = Math.min(1.0F, f / (float) j);
+        return Math.max(1, (int) ((float) charge * g * 0.5F));
     }
 
     @Shadow
@@ -176,7 +177,7 @@ public class SculkBlockMixin {
     private static boolean shouldNotDecay(WorldAccess world, BlockPos pos, boolean isWorldGen) {
         BlockState blockState = world.getBlockState(pos.up());
         BlockState blockState1 = world.getBlockState(pos.down());
-        if (shouldNotDecay(world, pos) || ((isWorldGen || canPlaceOsseousSculk(pos, isWorldGen, world)) && shouldNotDecay(world, pos))) {
+        if (((isWorldGen || canPlaceOsseousSculk(pos, isWorldGen, world)) && ((blockState1.isAir()) || (blockState1.isOf(Blocks.WATER) && blockState1.getFluidState().isOf(Fluids.WATER))))) {
             int i = 0;
             Iterator<BlockPos> var4 = BlockPos.iterate(pos.add(-4, 0, -4), pos.add(4, 2, 4)).iterator();
 
@@ -193,6 +194,6 @@ public class SculkBlockMixin {
             } while (i <= 2);
 
         }
-        return false;
+        return shouldNotDecay(world, pos);
     }
 }
