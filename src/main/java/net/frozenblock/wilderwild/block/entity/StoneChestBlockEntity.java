@@ -285,7 +285,7 @@ public class StoneChestBlockEntity extends ChestBlockEntity {
     public ArrayList<ItemStack> nonAncientItems() {
         ArrayList<ItemStack> items = new ArrayList<>();
         for (ItemStack item : this.getInvStackList()) {
-            if (item.getOrCreateNbt().get("wilderwild_is_ancient") == null) {
+            if (item.getOrCreateNbt().get("wilderwild_is_ancient") == null && !item.isEmpty()) {
                 items.add(item);
             }
         }
@@ -295,7 +295,7 @@ public class StoneChestBlockEntity extends ChestBlockEntity {
     public ArrayList<ItemStack> ancientItems() {
         ArrayList<ItemStack> items = new ArrayList<>();
         for (ItemStack item : this.getInvStackList()) {
-            if (item.getOrCreateNbt().get("wilderwild_is_ancient") != null) {
+            if (item.getOrCreateNbt().get("wilderwild_is_ancient") != null && !item.isEmpty()) {
                 items.add(item);
             }
         }
