@@ -290,7 +290,9 @@ public class StoneChestBlock extends ChestBlock {
                 if (!ancientItems.isEmpty()) {
                     world.playSound(null, pos, RegisterSounds.BLOCK_STONE_CHEST_ITEM_CRUMBLE, SoundSource.BLOCKS, 0.4F, 0.9F + (world.random.nextFloat() / 10F));
                     for (ItemStack taunt : ancientItems) {
-                        spawnBreakParticles(world, taunt, pos);
+                        for (int taunts = 0; taunts < taunt.getCount(); taunts += 1) {
+                            spawnBreakParticles(world, taunt, pos);
+                        }
                     }
                 }
                 for (ItemStack item : stoneChestBlock.nonAncientItems()) {
@@ -316,7 +318,7 @@ public class StoneChestBlock extends ChestBlock {
 
     public static void spawnBreakParticles(Level world, ItemStack stack, BlockPos pos) {
         if (world instanceof ServerLevel server) {
-            server.sendParticles(new ItemParticleOption(ParticleTypes.ITEM, stack), pos.getX() + 0.5, pos.getY() + 0.3, pos.getZ() + 0.5, world.random.nextIntBetweenInclusive(0, 3), 0.21875F, 0.21875F, 0.21875F, 0.05D);
+            server.sendParticles(new ItemParticleOption(ParticleTypes.ITEM, stack), pos.getX() + 0.5, pos.getY() + 0.3, pos.getZ() + 0.5, world.random.nextIntBetweenInclusive(1, 3), 0.21875F, 0.21875F, 0.21875F, 0.05D);
         }
     }
 
