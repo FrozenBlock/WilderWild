@@ -20,9 +20,13 @@ import net.minecraft.fluid.Fluids;
 import net.minecraft.inventory.DoubleInventory;
 import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
+import net.minecraft.particle.ItemStackParticleEffect;
+import net.minecraft.particle.ParticleTypes;
 import net.minecraft.screen.GenericContainerScreenHandler;
 import net.minecraft.screen.NamedScreenHandlerFactory;
 import net.minecraft.screen.ScreenHandler;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.state.StateManager;
 import net.minecraft.text.Text;
@@ -279,7 +283,10 @@ public class StoneChestBlock extends ChestBlock {
                 stoneChestBlock.checkLootInteraction(null);
                 ArrayList<ItemStack> ancientItems = stoneChestBlock.ancientItems();
                 if (!ancientItems.isEmpty()) {
-                    world.playSound(null, pos, RegisterSounds.BLOCK_STONE_CHEST_ITEM_CRUMBLE, SoundCategory.BLOCKS, 0.5F, 0.9F + (world.random.nextFloat() / 10F));
+                    world.playSound(null, pos, RegisterSounds.BLOCK_STONE_CHEST_ITEM_CRUMBLE, SoundCategory.BLOCKS, 0.4F, 0.9F + (world.random.nextFloat() / 10F));
+                    for (ItemStack taunt : ancientItems) {
+                        spawnBreakParticles(world, taunt, pos);
+                    }
                 }
                 for (ItemStack item : stoneChestBlock.nonAncientItems()) {
                     double d = EntityType.ITEM.getWidth();
@@ -299,6 +306,12 @@ public class StoneChestBlock extends ChestBlock {
         }
         if (state.hasBlockEntity() && !state.isOf(newState.getBlock())) {
             world.removeBlockEntity(pos);
+        }
+    }
+
+    public static void spawnBreakParticles(World world, ItemStack stack, BlockPos pos) {
+        if (world instanceof ServerWorld server) {
+            server.spawnParticles(new ItemStackParticleEffect(ParticleTypes.ITEM, stack), pos.getX(), pos.getY(), pos.getZ(), world.random.nextBetween(0, 3), 3F, 3F, 3F, 0.05D);
         }
     }
 
