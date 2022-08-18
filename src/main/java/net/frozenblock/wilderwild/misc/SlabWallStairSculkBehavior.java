@@ -13,7 +13,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.Collection;
 
-public class WilderSculkSpreader implements SculkBehaviour {
+public class SlabWallStairSculkBehavior implements SculkBehaviour {
     @Override
     public int attemptUseCharge(SculkSpreader.ChargeCursor cursor, LevelAccessor world, BlockPos catalystPos, RandomSource random, SculkSpreader spreadManager, boolean shouldConvertToBlock) {
         BlockState placementState = null;
