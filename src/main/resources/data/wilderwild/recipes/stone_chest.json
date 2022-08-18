@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+	"CCC",
+	"C C",
+	"CCC"
+  ],
+  "key": {
+	"C": {
+	  "item": "minecraft:cobbled_deepslate"
+	}
+  },
+  "result": {
+	"item": "wilderwild:stone_chest",
+	"count": 1
+  }
+}
