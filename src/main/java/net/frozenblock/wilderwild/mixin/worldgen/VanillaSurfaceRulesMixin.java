@@ -19,9 +19,13 @@ public class VanillaSurfaceRulesMixin {
     @Shadow
     @Final
     private static SurfaceRules.RuleSource WATER;
-    @Shadow @Final private static SurfaceRules.RuleSource GRAVEL;
+    @Shadow
+    @Final
+    private static SurfaceRules.RuleSource GRAVEL;
 
-    @Shadow @Final private static SurfaceRules.RuleSource SAND;
+    @Shadow
+    @Final
+    private static SurfaceRules.RuleSource SAND;
 
     @ModifyVariable(method = "overworldLike", at = @At("STORE"), ordinal = 8)
     private static SurfaceRules.RuleSource injected(SurfaceRules.RuleSource materialRule) {
@@ -53,19 +57,19 @@ public class VanillaSurfaceRulesMixin {
                         )
                 )
         ), SurfaceRules.sequence(SurfaceRules.ifTrue(
-                        SurfaceRules.DEEP_UNDER_FLOOR, SurfaceRules.sequence(
+                SurfaceRules.DEEP_UNDER_FLOOR, SurfaceRules.sequence(
+                        SurfaceRules.ifTrue(
+                                SurfaceRules.isBiome(Biomes.FLOWER_FOREST, Biomes.FOREST, Biomes.JUNGLE, Biomes.SPARSE_JUNGLE, Biomes.SAVANNA, Biomes.DARK_FOREST),
                                 SurfaceRules.ifTrue(
-                                        SurfaceRules.isBiome(Biomes.FLOWER_FOREST, Biomes.FOREST, Biomes.JUNGLE, Biomes.SPARSE_JUNGLE, Biomes.SAVANNA, Biomes.DARK_FOREST),
+                                        SurfaceRules.yBlockCheck(VerticalAnchor.absolute(58), 0),
                                         SurfaceRules.ifTrue(
-                                                SurfaceRules.yBlockCheck(VerticalAnchor.absolute(58), 0),
-                                                SurfaceRules.ifTrue(
-                                                        SurfaceRules.not(SurfaceRules.yBlockCheck(VerticalAnchor.absolute(64), 0)),
-                                                        SurfaceRules.ifTrue(SurfaceRules.noiseCondition(WilderNoiseKeys.SAND_BEACH, 0.12, 1.7976931348623157E308), SAND)
-                                                )
+                                                SurfaceRules.not(SurfaceRules.yBlockCheck(VerticalAnchor.absolute(64), 0)),
+                                                SurfaceRules.ifTrue(SurfaceRules.noiseCondition(WilderNoiseKeys.SAND_BEACH, 0.12, 1.7976931348623157E308), SAND)
                                         )
                                 )
                         )
-                ), materialRule)));
+                )
+        ), materialRule)));
     }
 }
 //6217428885497005581

@@ -9,6 +9,7 @@ import net.minecraft.core.Registry;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleType;
 import net.minecraft.network.FriendlyByteBuf;
+
 import java.util.Locale;
 
 public class AncientHornParticleEffect implements ParticleOptions {

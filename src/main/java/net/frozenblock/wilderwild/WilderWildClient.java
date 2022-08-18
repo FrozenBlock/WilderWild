@@ -46,6 +46,7 @@ import net.minecraft.world.inventory.InventoryMenu;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.phys.Vec3;
+
 import java.util.UUID;
 
 public final class WilderWildClient implements ClientModInitializer {

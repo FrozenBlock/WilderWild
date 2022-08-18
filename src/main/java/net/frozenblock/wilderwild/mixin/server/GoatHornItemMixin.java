@@ -25,7 +25,8 @@ import java.util.Optional;
 @Mixin(InstrumentItem.class)
 public abstract class GoatHornItemMixin {
 
-    @Shadow protected abstract Optional<Holder<Instrument>> getInstrument(ItemStack stack);
+    @Shadow
+    protected abstract Optional<Holder<Instrument>> getInstrument(ItemStack stack);
 
     @Inject(method = "use", at = @At("RETURN"))
     private void use(Level world, Player user, InteractionHand hand, CallbackInfoReturnable<InteractionResultHolder<ItemStack>> cir) {

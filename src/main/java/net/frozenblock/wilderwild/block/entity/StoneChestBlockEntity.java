@@ -140,7 +140,7 @@ public class StoneChestBlockEntity extends ChestBlockEntity {
         if (this.level.getBlockEntity(this.worldPosition) != this) {
             return false;
         }
-        return !(player.distanceToSqr((double)this.worldPosition.getX() + 0.5, (double)this.worldPosition.getY() + 0.5, (double)this.worldPosition.getZ() + 0.5) > 64.0) && ((!this.closing && this.openProgress >= 0.3));
+        return !(player.distanceToSqr((double) this.worldPosition.getX() + 0.5, (double) this.worldPosition.getY() + 0.5, (double) this.worldPosition.getZ() + 0.5) > 64.0) && ((!this.closing && this.openProgress >= 0.3));
     }
 
     public void syncLidValues(Level world, BlockPos pos, BlockState state) {
@@ -177,10 +177,10 @@ public class StoneChestBlockEntity extends ChestBlockEntity {
         if (this.lootTable != null && this.level.getServer() != null) {
             LootTable lootTable = this.level.getServer().getLootTables().get(this.lootTable);
             if (player instanceof ServerPlayer) {
-                CriteriaTriggers.GENERATE_LOOT.trigger((ServerPlayer)player, this.lootTable);
+                CriteriaTriggers.GENERATE_LOOT.trigger((ServerPlayer) player, this.lootTable);
             }
             this.lootTable = null;
-            LootContext.Builder builder = new LootContext.Builder((ServerLevel)this.level).withParameter(LootContextParams.ORIGIN, Vec3.atCenterOf(this.worldPosition)).withOptionalRandomSeed(this.lootTableSeed);
+            LootContext.Builder builder = new LootContext.Builder((ServerLevel) this.level).withParameter(LootContextParams.ORIGIN, Vec3.atCenterOf(this.worldPosition)).withOptionalRandomSeed(this.lootTableSeed);
             if (player != null) {
                 builder.withLuck(player.getLuck()).withParameter(LootContextParams.THIS_ENTITY, player);
             }

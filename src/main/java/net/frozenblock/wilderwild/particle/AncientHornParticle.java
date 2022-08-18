@@ -3,7 +3,6 @@ package net.frozenblock.wilderwild.particle;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.math.Quaternion;
 import com.mojang.math.Vector3f;
-import java.util.function.Consumer;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.Util;
@@ -13,9 +12,11 @@ import net.minecraft.client.particle.*;
 import net.minecraft.util.Mth;
 import net.minecraft.world.phys.Vec3;
 
+import java.util.function.Consumer;
+
 @Environment(EnvType.CLIENT)
 public class AncientHornParticle extends TextureSheetParticle {
-    private static final Vector3f rotation = (Vector3f)Util.make(new Vector3f(0.5F, 0.5F, 0.5F), Vector3f::normalize);
+    private static final Vector3f rotation = Util.make(new Vector3f(0.5F, 0.5F, 0.5F), Vector3f::normalize);
     private static final Vector3f field_38335 = new Vector3f(-1.0F, -1.0F, 0.0F);
     private static final float PI_THIRDS = 1.0472F;
     private int delay;
@@ -33,12 +34,12 @@ public class AncientHornParticle extends TextureSheetParticle {
 
 
     public float getQuadSize(float tickDelta) {
-        return this.quadSize * Mth.clamp(((float)this.age + tickDelta) / (float)this.lifetime * 0.75F, 0.0F, 1.0F);
+        return this.quadSize * Mth.clamp(((float) this.age + tickDelta) / (float) this.lifetime * 0.75F, 0.0F, 1.0F);
     }
 
     public void render(VertexConsumer vertexConsumer, Camera camera, float tickDelta) {
         if (this.delay <= 0) {
-            this.alpha = 1.0F - Mth.clamp(((float)this.age + tickDelta) / (float)this.lifetime, 0.0F, 1.0F);
+            this.alpha = 1.0F - Mth.clamp(((float) this.age + tickDelta) / (float) this.lifetime, 0.0F, 1.0F);
             this.pushQuad(vertexConsumer, camera, tickDelta, (angle) -> {
                 angle.mul(Vector3f.YP.rotation(0.0F));
                 angle.mul(Vector3f.XP.rotation(-1.0472F));
@@ -52,9 +53,9 @@ public class AncientHornParticle extends TextureSheetParticle {
 
     private void pushQuad(VertexConsumer vertexConsumer, Camera camera, float tickDelta, Consumer<Quaternion> transformer) {
         Vec3 vec3d = camera.getPosition();
-        float f = (float)(Mth.lerp((double)tickDelta, this.xo, this.x) - vec3d.x());
-        float g = (float)(Mth.lerp((double)tickDelta, this.yo, this.y) - vec3d.y());
-        float h = (float)(Mth.lerp((double)tickDelta, this.zo, this.z) - vec3d.z());
+        float f = (float) (Mth.lerp(tickDelta, this.xo, this.x) - vec3d.x());
+        float g = (float) (Mth.lerp(tickDelta, this.yo, this.y) - vec3d.y());
+        float h = (float) (Mth.lerp(tickDelta, this.zo, this.z) - vec3d.z());
         Quaternion quaternion = new Quaternion(rotation, 0.0F, true);
         transformer.accept(quaternion);
         field_38335.transform(quaternion);
@@ -62,7 +63,7 @@ public class AncientHornParticle extends TextureSheetParticle {
         float i = this.getQuadSize(tickDelta);
 
         int j;
-        for(j = 0; j < 4; ++j) {
+        for (j = 0; j < 4; ++j) {
             Vector3f vec3f = vec3fs[j];
             vec3f.transform(quaternion);
             vec3f.mul(i);
@@ -77,7 +78,7 @@ public class AncientHornParticle extends TextureSheetParticle {
     }
 
     private void pushVertex(VertexConsumer vertexConsumer, Vector3f coordinate, float u, float v, int light) {
-        vertexConsumer.vertex((double)coordinate.x(), (double)coordinate.y(), (double)coordinate.z()).uv(u, v).color(this.rCol, this.gCol, this.bCol, this.alpha).uv2(light).endVertex();
+        vertexConsumer.vertex(coordinate.x(), coordinate.y(), coordinate.z()).uv(u, v).color(this.rCol, this.gCol, this.bCol, this.alpha).uv2(light).endVertex();
     }
 
     public int getLightColor(float tint) {

@@ -2,10 +2,11 @@ package net.frozenblock.wilderwild.misc.config;
 
 import com.terraformersmc.modmenu.config.option.BooleanConfigOption;
 import com.terraformersmc.modmenu.config.option.OptionConvertable;
+import net.minecraft.client.OptionInstance;
+
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 import java.util.ArrayList;
-import net.minecraft.client.OptionInstance;
 
 public class WilderWildConfig {
 

@@ -19,20 +19,14 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.TagKey;
-import net.minecraft.util.*;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.CreativeModeTab;
-import net.minecraft.world.item.Instrument;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemCooldowns;
-import net.minecraft.world.item.Items;
-import net.minecraft.world.item.TooltipFlag;
-import net.minecraft.world.item.UseAnim;
+import net.minecraft.world.item.*;
 import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.Nullable;
+
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -52,7 +46,7 @@ public class AncientHorn extends Item {
     }
 
     @Override
-    public void appendHoverText(net.minecraft.world.item.ItemStack stack, @Nullable Level world, List<Component> tooltip, TooltipFlag context) {
+    public void appendHoverText(ItemStack stack, @Nullable Level world, List<Component> tooltip, TooltipFlag context) {
         super.appendHoverText(stack, world, tooltip, context);
         Optional<ResourceKey<Instrument>> optional = this.getInstrument(stack).flatMap(Holder::unwrapKey);
         if (optional.isPresent()) {
@@ -62,13 +56,13 @@ public class AncientHorn extends Item {
 
     }
 
-    public static net.minecraft.world.item.ItemStack getStackForInstrument(Item item, Holder<Instrument> instrument) {
-        net.minecraft.world.item.ItemStack itemStack = new net.minecraft.world.item.ItemStack(item);
+    public static ItemStack getStackForInstrument(Item item, Holder<Instrument> instrument) {
+        ItemStack itemStack = new ItemStack(item);
         setInstrument(itemStack, instrument);
         return itemStack;
     }
 
-    private static void setInstrument(net.minecraft.world.item.ItemStack stack, Holder<Instrument> instrument) {
+    private static void setInstrument(ItemStack stack, Holder<Instrument> instrument) {
         CompoundTag nbtCompound = stack.getOrCreateTag();
         nbtCompound.putString(
                 INSTRUMENT_KEY, (instrument.unwrapKey().orElseThrow(() -> new IllegalStateException("Invalid instrument"))).location().toString()
@@ -76,7 +70,7 @@ public class AncientHorn extends Item {
     }
 
     @Override
-    public void fillItemCategory(CreativeModeTab group, NonNullList<net.minecraft.world.item.ItemStack> stacks) {
+    public void fillItemCategory(CreativeModeTab group, NonNullList<ItemStack> stacks) {
         if (this.allowedIn(group)) {
             for (Holder<Instrument> registryEntry : Registry.INSTRUMENT.getTagOrEmpty(this.instrumentTag)) {
                 stacks.add(getStackForInstrument(RegisterItems.ANCIENT_HORN, registryEntry));
@@ -85,7 +79,7 @@ public class AncientHorn extends Item {
 
     }
 
-    private Optional<Holder<Instrument>> getInstrument(net.minecraft.world.item.ItemStack stack) {
+    private Optional<Holder<Instrument>> getInstrument(ItemStack stack) {
         CompoundTag nbtCompound = stack.getTag();
         if (nbtCompound != null) {
             ResourceLocation identifier = ResourceLocation.tryParse(nbtCompound.getString(INSTRUMENT_KEY));
@@ -116,8 +110,8 @@ public class AncientHorn extends Item {
         return cooldown;
     }
 
-    public static ArrayList<net.minecraft.world.item.ItemStack> getHorns(Player player) {
-        ArrayList<net.minecraft.world.item.ItemStack> horns = new ArrayList<>();
+    public static ArrayList<ItemStack> getHorns(Player player) {
+        ArrayList<ItemStack> horns = new ArrayList<>();
         if (player != null) {
             if (player.getMainHandItem().is(RegisterItems.ANCIENT_HORN)) {
                 horns.add(player.getMainHandItem());
@@ -147,9 +141,9 @@ public class AncientHorn extends Item {
     }
 
     @Override
-    public InteractionResultHolder<net.minecraft.world.item.ItemStack> use(Level world, Player user, InteractionHand hand) {
+    public InteractionResultHolder<ItemStack> use(Level world, Player user, InteractionHand hand) {
         WilderWild.log(user, "Used Ancient Goat Horn", WilderWild.DEV_LOGGING);
-        net.minecraft.world.item.ItemStack itemStack = user.getItemInHand(hand);
+        ItemStack itemStack = user.getItemInHand(hand);
         Optional<Holder<Instrument>> optional = this.getInstrument(itemStack);
         if (optional.isPresent()) {
             Instrument instrument = optional.get().value();
@@ -168,8 +162,8 @@ public class AncientHorn extends Item {
                 projectileEntity.shotByPlayer = true;
                 server.addFreshEntity(projectileEntity);
                 EasyPacket.createMovingLoopingSound(server, projectileEntity, RegisterSounds.ANCIENT_HORN_PROJECTILE_LOOP, SoundSource.NEUTRAL, 1.0F, 1.0F, WilderWild.id("default"));
-                net.minecraft.world.item.ItemStack mainHand = user.getItemInHand(InteractionHand.MAIN_HAND);
-                net.minecraft.world.item.ItemStack offHand = user.getItemInHand(InteractionHand.OFF_HAND);
+                ItemStack mainHand = user.getItemInHand(InteractionHand.MAIN_HAND);
+                ItemStack offHand = user.getItemInHand(InteractionHand.OFF_HAND);
                 if (mainHand.is(Items.WATER_BUCKET) || mainHand.is(Items.POTION) || offHand.is(Items.WATER_BUCKET) || offHand.is(Items.POTION)) {
                     projectileEntity.bubbles = world.random.nextIntBetweenInclusive(10, 25);
                     /*float yawNew = user.getYaw() * 0.017453292F;
@@ -189,13 +183,13 @@ public class AncientHorn extends Item {
     }
 
     @Override
-    public int getUseDuration(net.minecraft.world.item.ItemStack stack) {
+    public int getUseDuration(ItemStack stack) {
         Optional<Holder<Instrument>> optional = this.getInstrument(stack);
         return optional.map(instrumentRegistryEntry -> instrumentRegistryEntry.value().useDuration()).orElse(0);
     }
 
     @Override
-    public UseAnim getUseAnimation(net.minecraft.world.item.ItemStack stack) {
+    public UseAnim getUseAnimation(ItemStack stack) {
         return UseAnim.TOOT_HORN;
     }
 

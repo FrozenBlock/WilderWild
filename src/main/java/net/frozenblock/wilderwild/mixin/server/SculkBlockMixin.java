@@ -10,11 +10,7 @@ import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.LevelAccessor;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.SculkBlock;
-import net.minecraft.world.level.block.SculkShriekerBlock;
-import net.minecraft.world.level.block.SculkSpreader;
+import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.material.Fluids;
@@ -23,6 +19,7 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
+
 import java.util.Iterator;
 
 @Mixin(SculkBlock.class)
@@ -31,10 +28,10 @@ public class SculkBlockMixin {
     @Shadow
     private static int getDecayPenalty(SculkSpreader spreadManager, BlockPos cursorPos, BlockPos catalystPos, int charge) {
         int i = spreadManager.noGrowthRadius();
-        float f = Mth.square((float)Math.sqrt(cursorPos.distSqr(catalystPos)) - (float)i);
+        float f = Mth.square((float) Math.sqrt(cursorPos.distSqr(catalystPos)) - (float) i);
         int j = Mth.square(24 - i);
-        float g = Math.min(1.0F, f / (float)j);
-        return Math.max(1, (int)((float)charge * g * 0.5F));
+        float g = Math.min(1.0F, f / (float) j);
+        return Math.max(1, (int) ((float) charge * g * 0.5F));
     }
 
     @Shadow

@@ -4,6 +4,7 @@ import net.frozenblock.wilderwild.registry.RegisterBlocks;
 import net.frozenblock.wilderwild.registry.RegisterParticles;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.world.level.block.Block;
+
 import java.util.ArrayList;
 import java.util.List;
 

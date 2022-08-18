@@ -43,6 +43,7 @@ import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.BlockHitResult;
 import org.jetbrains.annotations.Nullable;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -234,10 +235,10 @@ public class StoneChestBlock extends ChestBlock {
         }
         if (neighborState.is(this) && direction.getAxis().isHorizontal()) {
             //if (neighborState.get(ANCIENT) == state.get(ANCIENT)) {
-                ChestType chestType = neighborState.getValue(TYPE);
-                if (state.getValue(TYPE) == ChestType.SINGLE && chestType != ChestType.SINGLE && state.getValue(FACING) == neighborState.getValue(FACING) && ChestBlock.getConnectedDirection(neighborState) == direction.getOpposite()) {
-                    return state.setValue(TYPE, chestType.getOpposite());
-                }
+            ChestType chestType = neighborState.getValue(TYPE);
+            if (state.getValue(TYPE) == ChestType.SINGLE && chestType != ChestType.SINGLE && state.getValue(FACING) == neighborState.getValue(FACING) && ChestBlock.getConnectedDirection(neighborState) == direction.getOpposite()) {
+                return state.setValue(TYPE, chestType.getOpposite());
+            }
             //}
         } else if (ChestBlock.getConnectedDirection(state) == direction) {
             return state.setValue(TYPE, ChestType.SINGLE);
