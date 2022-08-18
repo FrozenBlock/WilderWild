@@ -63,7 +63,7 @@ public class RegisterStructures {
                     ),
                     AbandonedCabinGenerator.CABIN,
                     5,
-                    UniformHeightProvider.create(YOffset.fixed(0), YOffset.fixed(-40)),
+                    UniformHeightProvider.create(YOffset.fixed(-40), YOffset.fixed(0)),
                     false
             )
     );
