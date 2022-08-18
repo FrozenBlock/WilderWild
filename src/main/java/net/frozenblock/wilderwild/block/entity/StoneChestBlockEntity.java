@@ -292,6 +292,16 @@ public class StoneChestBlockEntity extends ChestBlockEntity {
         return items;
     }
 
+    public ArrayList<ItemStack> ancientItems() {
+        ArrayList<ItemStack> items = new ArrayList<>();
+        for (ItemStack item : this.getInvStackList()) {
+            if (item.getOrCreateNbt().get("wilderwild_is_ancient") != null) {
+                items.add(item);
+            }
+        }
+        return items;
+    }
+
     private final ViewerCountManager stoneStateManager = new ViewerCountManager() {
 
         @Override

@@ -275,11 +275,11 @@ public class StoneChestBlock extends ChestBlock {
         }
         BlockEntity blockEntity = world.getBlockEntity(pos);
         if (blockEntity instanceof StoneChestBlockEntity stoneChestBlock) {
-            ArrayList<ItemStack> nonAncientItems = stoneChestBlock.nonAncientItems();
-            if (!nonAncientItems.isEmpty()) {
+            ArrayList<ItemStack> ancientItems = stoneChestBlock.ancientItems();
+            if (!ancientItems.isEmpty()) {
                 world.playSound(null, pos, RegisterSounds.BLOCK_STONE_CHEST_ITEM_CRUMBLE, SoundCategory.BLOCKS, 0.5F, 0.9F + (world.random.nextFloat() / 10F));
             }
-            for (ItemStack item : nonAncientItems) {
+            for (ItemStack item : stoneChestBlock.nonAncientItems()) {
                 double d = EntityType.ITEM.getWidth();
                 double e = 1.0 - d;
                 double f = d / 2.0;
