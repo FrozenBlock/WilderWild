@@ -273,26 +273,28 @@ public class StoneChestBlock extends ChestBlock {
         if (state.isOf(newState.getBlock())) {
             return;
         }
-        BlockEntity blockEntity = world.getBlockEntity(pos);
-        if (blockEntity instanceof StoneChestBlockEntity stoneChestBlock) {
-            ArrayList<ItemStack> ancientItems = stoneChestBlock.ancientItems();
-            if (!ancientItems.isEmpty()) {
-                world.playSound(null, pos, RegisterSounds.BLOCK_STONE_CHEST_ITEM_CRUMBLE, SoundCategory.BLOCKS, 0.5F, 0.9F + (world.random.nextFloat() / 10F));
-            }
-            for (ItemStack item : stoneChestBlock.nonAncientItems()) {
-                double d = EntityType.ITEM.getWidth();
-                double e = 1.0 - d;
-                double f = d / 2.0;
-                double g = Math.floor(pos.getX()) + world.random.nextDouble() * e + f;
-                double h = Math.floor(pos.getY()) + world.random.nextDouble() * e;
-                double i = Math.floor(pos.getZ()) + world.random.nextDouble() * e + f;
-                while (!item.isEmpty()) {
-                    ItemEntity itemEntity = new ItemEntity(world, g, h, i, item.split(world.random.nextInt(21) + 10));
-                    itemEntity.setVelocity(world.random.nextTriangular(0.0, 0.11485000171139836), world.random.nextTriangular(0.2, 0.11485000171139836), world.random.nextTriangular(0.0, 0.11485000171139836));
-                    world.spawnEntity(itemEntity);
+        if (!world.isClient) {
+            BlockEntity blockEntity = world.getBlockEntity(pos);
+            if (blockEntity instanceof StoneChestBlockEntity stoneChestBlock) {
+                ArrayList<ItemStack> ancientItems = stoneChestBlock.ancientItems();
+                if (!ancientItems.isEmpty()) {
+                    world.playSound(null, pos, RegisterSounds.BLOCK_STONE_CHEST_ITEM_CRUMBLE, SoundCategory.BLOCKS, 0.5F, 0.9F + (world.random.nextFloat() / 10F));
                 }
+                for (ItemStack item : stoneChestBlock.nonAncientItems()) {
+                    double d = EntityType.ITEM.getWidth();
+                    double e = 1.0 - d;
+                    double f = d / 2.0;
+                    double g = Math.floor(pos.getX()) + world.random.nextDouble() * e + f;
+                    double h = Math.floor(pos.getY()) + world.random.nextDouble() * e;
+                    double i = Math.floor(pos.getZ()) + world.random.nextDouble() * e + f;
+                    while (!item.isEmpty()) {
+                        ItemEntity itemEntity = new ItemEntity(world, g, h, i, item.split(world.random.nextInt(21) + 10));
+                        itemEntity.setVelocity(world.random.nextTriangular(0.0, 0.11485000171139836), world.random.nextTriangular(0.2, 0.11485000171139836), world.random.nextTriangular(0.0, 0.11485000171139836));
+                        world.spawnEntity(itemEntity);
+                    }
+                }
+                world.updateComparators(pos, this);
             }
-            world.updateComparators(pos, this);
         }
         if (state.hasBlockEntity() && !state.isOf(newState.getBlock())) {
             world.removeBlockEntity(pos);
