@@ -23,6 +23,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.screen.GenericContainerScreenHandler;
 import net.minecraft.screen.NamedScreenHandlerFactory;
 import net.minecraft.screen.ScreenHandler;
+import net.minecraft.sound.SoundCategory;
 import net.minecraft.state.StateManager;
 import net.minecraft.text.Text;
 import net.minecraft.util.ActionResult;
@@ -37,6 +38,7 @@ import net.minecraft.world.WorldAccess;
 import net.minecraft.world.event.GameEvent;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.BiPredicate;
@@ -273,7 +275,11 @@ public class StoneChestBlock extends ChestBlock {
         }
         BlockEntity blockEntity = world.getBlockEntity(pos);
         if (blockEntity instanceof StoneChestBlockEntity stoneChestBlock) {
-            for (ItemStack item : stoneChestBlock.nonAncientItems()) {
+            ArrayList<ItemStack> nonAncientItems = stoneChestBlock.nonAncientItems();
+            if (!nonAncientItems.isEmpty()) {
+                world.playSound(null, pos, RegisterSounds.BLOCK_STONE_CHEST_ITEM_CRUMBLE, SoundCategory.BLOCKS, 0.5F, 0.9F + (world.random.nextFloat() / 10F));
+            }
+            for (ItemStack item : nonAncientItems) {
                 double d = EntityType.ITEM.getWidth();
                 double e = 1.0 - d;
                 double f = d / 2.0;
