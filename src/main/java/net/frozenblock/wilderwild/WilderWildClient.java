@@ -24,64 +24,74 @@ import net.frozenblock.wilderwild.particle.FloatingSculkBubbleParticle;
 import net.frozenblock.wilderwild.particle.PollenParticle;
 import net.frozenblock.wilderwild.particle.TermiteParticle;
 import net.frozenblock.wilderwild.registry.*;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.model.geom.ModelLayerLocation;
-import net.minecraft.client.multiplayer.ClientLevel;
-import net.minecraft.client.renderer.BiomeColors;
-import net.minecraft.client.renderer.RenderType;
-import net.minecraft.client.renderer.item.ItemProperties;
-import net.minecraft.core.Registry;
-import net.minecraft.core.particles.ParticleOptions;
-import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.sounds.SoundEvent;
-import net.minecraft.sounds.SoundSource;
-import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.inventory.InventoryMenu;
-import net.minecraft.world.level.block.entity.BlockEntityType;
-import net.minecraft.world.phys.Vec3;
+import net.minecraft.block.entity.BlockEntityType;
+import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.color.world.BiomeColors;
+import net.minecraft.client.item.ModelPredicateProviderRegistry;
+import net.minecraft.client.render.RenderLayer;
+import net.minecraft.client.render.entity.model.EntityModelLayer;
+import net.minecraft.client.world.ClientWorld;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityType;
+import net.minecraft.particle.ParticleEffect;
+import net.minecraft.particle.ParticleTypes;
+import net.minecraft.screen.PlayerScreenHandler;
+import net.minecraft.sound.SoundCategory;
+import net.minecraft.sound.SoundEvent;
+import net.minecraft.util.Identifier;
+import net.minecraft.util.math.Vec3d;
+import net.minecraft.util.registry.Registry;
+
 import java.util.UUID;
 
 public final class WilderWildClient implements ClientModInitializer {
-    public static final ModelLayerLocation ANCIENT_HORN_PROJECTILE_LAYER = new ModelLayerLocation(WilderWild.id("ancient_horn_projectile"), "main");
-    public static final ModelLayerLocation SCULK_SENSOR = new ModelLayerLocation(WilderWild.id("sculk_sensor"), "main");
+    public static final EntityModelLayer ANCIENT_HORN_PROJECTILE_LAYER = new EntityModelLayer(WilderWild.id("ancient_horn_projectile"), "main");
+    public static final EntityModelLayer SCULK_SENSOR = new EntityModelLayer(WilderWild.id("sculk_sensor"), "main");
 
     @Override
     public void onInitializeClient() {
         FlowerLichenParticleRegistry.init();
 
-        BlockRenderLayerMap.INSTANCE.putBlock(RegisterBlocks.CARNATION, RenderType.cutout());
-        BlockRenderLayerMap.INSTANCE.putBlock(RegisterBlocks.SEEDING_DANDELION, RenderType.cutout());
-        BlockRenderLayerMap.INSTANCE.putBlock(RegisterBlocks.POTTED_CARNATION, RenderType.cutout());
-        BlockRenderLayerMap.INSTANCE.putBlock(RegisterBlocks.POTTED_SEEDING_DANDELION, RenderType.cutout());
-        BlockRenderLayerMap.INSTANCE.putBlock(RegisterBlocks.POTTED_BAOBAB_SAPLING, RenderType.cutout());
-        BlockRenderLayerMap.INSTANCE.putBlock(RegisterBlocks.POTTED_CYPRESS_SAPLING, RenderType.cutout());
-        BlockRenderLayerMap.INSTANCE.putBlock(RegisterBlocks.DATURA, RenderType.cutout());
-        BlockRenderLayerMap.INSTANCE.putBlock(RegisterBlocks.CATTAIL, RenderType.cutout());
-        BlockRenderLayerMap.INSTANCE.putBlock(RegisterBlocks.ALGAE, RenderType.cutout());
-        BlockRenderLayerMap.INSTANCE.putBlock(RegisterBlocks.MILKWEED, RenderType.cutout());
-        BlockRenderLayerMap.INSTANCE.putBlock(RegisterBlocks.POLLEN_BLOCK, RenderType.cutout());
-        BlockRenderLayerMap.INSTANCE.putBlock(RegisterBlocks.ECHO_GLASS, RenderType.translucent());
-        BlockRenderLayerMap.INSTANCE.putBlock(RegisterBlocks.HANGING_TENDRIL, RenderType.cutout());
-        BlockRenderLayerMap.INSTANCE.putBlock(RegisterBlocks.FLOWERING_LILY_PAD, RenderType.cutout());
-        BlockRenderLayerMap.INSTANCE.putBlock(RegisterBlocks.BROWN_SHELF_FUNGUS, RenderType.cutout());
-        BlockRenderLayerMap.INSTANCE.putBlock(RegisterBlocks.RED_SHELF_FUNGUS, RenderType.cutout());
-        BlockRenderLayerMap.INSTANCE.putBlock(RegisterBlocks.BAOBAB_DOOR, RenderType.cutout());
-        BlockRenderLayerMap.INSTANCE.putBlock(RegisterBlocks.CYPRESS_DOOR, RenderType.cutout());
-        BlockRenderLayerMap.INSTANCE.putBlock(RegisterBlocks.BAOBAB_TRAPDOOR, RenderType.cutout());
-        BlockRenderLayerMap.INSTANCE.putBlock(RegisterBlocks.CYPRESS_TRAPDOOR, RenderType.cutout());
-        BlockRenderLayerMap.INSTANCE.putBlock(RegisterBlocks.BAOBAB_SAPLING, RenderType.cutout());
-        BlockRenderLayerMap.INSTANCE.putBlock(RegisterBlocks.CYPRESS_SAPLING, RenderType.cutout());
-        BlockRenderLayerMap.INSTANCE.putBlock(RegisterBlocks.GLORY_OF_THE_SNOW, RenderType.cutout());
-        BlockRenderLayerMap.INSTANCE.putBlock(RegisterBlocks.WHITE_GLORY_OF_THE_SNOW, RenderType.cutout());
-        BlockRenderLayerMap.INSTANCE.putBlock(RegisterBlocks.BLUE_GLORY_OF_THE_SNOW, RenderType.cutout());
-        BlockRenderLayerMap.INSTANCE.putBlock(RegisterBlocks.PINK_GLORY_OF_THE_SNOW, RenderType.cutout());
-        BlockRenderLayerMap.INSTANCE.putBlock(RegisterBlocks.PURPLE_GLORY_OF_THE_SNOW, RenderType.cutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(RegisterBlocks.CARNATION, RenderLayer.getCutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(RegisterBlocks.SEEDING_DANDELION, RenderLayer.getCutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(RegisterBlocks.POTTED_CARNATION, RenderLayer.getCutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(RegisterBlocks.POTTED_SEEDING_DANDELION, RenderLayer.getCutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(RegisterBlocks.POTTED_BAOBAB_SAPLING, RenderLayer.getCutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(RegisterBlocks.POTTED_CYPRESS_SAPLING, RenderLayer.getCutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(RegisterBlocks.DATURA, RenderLayer.getCutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(RegisterBlocks.CATTAIL, RenderLayer.getCutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(RegisterBlocks.ALGAE, RenderLayer.getCutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(RegisterBlocks.MILKWEED, RenderLayer.getCutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(RegisterBlocks.POLLEN_BLOCK, RenderLayer.getCutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(RegisterBlocks.ECHO_GLASS, RenderLayer.getTranslucent());
+        BlockRenderLayerMap.INSTANCE.putBlock(RegisterBlocks.HANGING_TENDRIL, RenderLayer.getCutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(RegisterBlocks.FLOWERING_LILY_PAD, RenderLayer.getCutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(RegisterBlocks.BROWN_SHELF_FUNGUS, RenderLayer.getCutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(RegisterBlocks.RED_SHELF_FUNGUS, RenderLayer.getCutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(RegisterBlocks.BAOBAB_DOOR, RenderLayer.getCutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(RegisterBlocks.CYPRESS_DOOR, RenderLayer.getCutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(RegisterBlocks.BAOBAB_TRAPDOOR, RenderLayer.getCutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(RegisterBlocks.CYPRESS_TRAPDOOR, RenderLayer.getCutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(RegisterBlocks.BAOBAB_SAPLING, RenderLayer.getCutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(RegisterBlocks.CYPRESS_SAPLING, RenderLayer.getCutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(RegisterBlocks.GLORY_OF_THE_SNOW, RenderLayer.getCutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(RegisterBlocks.WHITE_GLORY_OF_THE_SNOW, RenderLayer.getCutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(RegisterBlocks.BLUE_GLORY_OF_THE_SNOW, RenderLayer.getCutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(RegisterBlocks.PINK_GLORY_OF_THE_SNOW, RenderLayer.getCutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(RegisterBlocks.PURPLE_GLORY_OF_THE_SNOW, RenderLayer.getCutout());
         //BlockRenderLayerMap.INSTANCE.putBlock(RegisterBlocks.CYPRESS_ROOTS, RenderLayer.getCutout());
-        BlockRenderLayerMap.INSTANCE.putBlock(RegisterBlocks.TERMITE_MOUND, RenderType.solid());
+        BlockRenderLayerMap.INSTANCE.putBlock(RegisterBlocks.TERMITE_MOUND, RenderLayer.getSolid());
+        BlockRenderLayerMap.INSTANCE.putBlock(RegisterBlocks.HOLLOWED_ACACIA_LOG, RenderLayer.getCutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(RegisterBlocks.HOLLOWED_BAOBAB_LOG, RenderLayer.getCutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(RegisterBlocks.HOLLOWED_BIRCH_LOG, RenderLayer.getCutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(RegisterBlocks.HOLLOWED_CYPRESS_LOG, RenderLayer.getCutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(RegisterBlocks.HOLLOWED_DARK_OAK_LOG, RenderLayer.getCutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(RegisterBlocks.HOLLOWED_JUNGLE_LOG, RenderLayer.getCutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(RegisterBlocks.HOLLOWED_MANGROVE_LOG, RenderLayer.getCutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(RegisterBlocks.HOLLOWED_OAK_LOG, RenderLayer.getCutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(RegisterBlocks.HOLLOWED_SPRUCE_LOG, RenderLayer.getCutout());
 
-        ClientSpriteRegistryCallback.event(InventoryMenu.BLOCK_ATLAS).register((((atlasTexture, registry) -> {
+        ClientSpriteRegistryCallback.event(PlayerScreenHandler.BLOCK_ATLAS_TEXTURE).register((((atlasTexture, registry) -> {
             registry.register(WilderWild.id("particle/floating_sculk_bubble_0"));
             registry.register(WilderWild.id("particle/floating_sculk_bubble_1"));
             registry.register(WilderWild.id("particle/floating_sculk_bubble_2"));
@@ -129,7 +139,7 @@ public final class WilderWildClient implements ClientModInitializer {
         receiveFlybySoundPacket();
         receiveMovingLoopingSoundPacket();
 
-        ItemProperties.register(RegisterItems.ANCIENT_HORN, new ResourceLocation("tooting"), (itemStack, clientWorld, livingEntity, seed) -> livingEntity != null && livingEntity.isUsingItem() && livingEntity.getUseItem() == itemStack ? 1.0F : 0.0F);
+        ModelPredicateProviderRegistry.register(RegisterItems.ANCIENT_HORN, new Identifier("tooting"), (itemStack, clientWorld, livingEntity, seed) -> livingEntity != null && livingEntity.isUsingItem() && livingEntity.getActiveItem() == itemStack ? 1.0F : 0.0F);
 
         ColorProviderRegistry.BLOCK.register(((state, world, pos, tintIndex) -> {
             if (world == null || pos == null) {
@@ -143,11 +153,11 @@ public final class WilderWildClient implements ClientModInitializer {
 
         ColorProviderRegistry.BLOCK.register(((state, world, pos, tintIndex) -> {
             assert world != null;
-            return BiomeColors.getAverageFoliageColor(world, pos);
+            return BiomeColors.getFoliageColor(world, pos);
         }), RegisterBlocks.BAOBAB_LEAVES);
         ColorProviderRegistry.BLOCK.register(((state, world, pos, tintIndex) -> {
             assert world != null;
-            return BiomeColors.getAverageFoliageColor(world, pos);
+            return BiomeColors.getFoliageColor(world, pos);
         }), RegisterBlocks.CYPRESS_LEAVES);
 
         /*ClientTickEvents.START_WORLD_TICK.register(e -> {
@@ -163,104 +173,104 @@ public final class WilderWildClient implements ClientModInitializer {
     }
 
 
-    public void receiveAncientHornProjectilePacket() {
+    private static void receiveAncientHornProjectilePacket() {
         ClientPlayNetworking.registerGlobalReceiver(WilderWild.HORN_PROJECTILE_PACKET_ID, (ctx, handler, byteBuf, responseSender) -> {
-            EntityType<?> et = Registry.ENTITY_TYPE.byId(byteBuf.readVarInt());
-            UUID uuid = byteBuf.readUUID();
+            EntityType<?> et = Registry.ENTITY_TYPE.get(byteBuf.readVarInt());
+            UUID uuid = byteBuf.readUuid();
             int entityId = byteBuf.readVarInt();
-            Vec3 pos = AncientHornProjectile.EntitySpawnPacket.PacketBufUtil.readVec3d(byteBuf);
+            Vec3d pos = AncientHornProjectile.EntitySpawnPacket.PacketBufUtil.readVec3d(byteBuf);
             float pitch = AncientHornProjectile.EntitySpawnPacket.PacketBufUtil.readAngle(byteBuf);
             float yaw = AncientHornProjectile.EntitySpawnPacket.PacketBufUtil.readAngle(byteBuf);
             WilderWild.log("Receiving Ancient Horn Projectile Packet At " + pos, WilderWild.DEV_LOGGING);
             ctx.execute(() -> {
-                if (Minecraft.getInstance().level == null)
+                if (MinecraftClient.getInstance().world == null)
                     throw new IllegalStateException("Tried to spawn entity in a null world!");
-                Entity e = et.create(Minecraft.getInstance().level);
+                Entity e = et.create(MinecraftClient.getInstance().world);
                 if (e == null)
-                    throw new IllegalStateException("Failed to create instance of entity \"" + Registry.ENTITY_TYPE.getKey(et) + "\"!");
-                e.syncPacketPositionCodec(pos.x, pos.y, pos.z);
-                e.setPosRaw(pos.x, pos.y, pos.z);
-                e.setXRot(pitch);
-                e.setYRot(yaw);
+                    throw new IllegalStateException("Failed to create instance of entity \"" + Registry.ENTITY_TYPE.getId(et) + "\"!");
+                e.updateTrackedPosition(pos.x, pos.y, pos.z);
+                e.setPos(pos.x, pos.y, pos.z);
+                e.setPitch(pitch);
+                e.setYaw(yaw);
                 e.setId(entityId);
-                e.setUUID(uuid);
-                Minecraft.getInstance().level.putNonPlayerEntity(entityId, e);
+                e.setUuid(uuid);
+                MinecraftClient.getInstance().world.addEntity(entityId, e);
                 WilderWild.log("Spawned Ancient Horn Projectile", WilderWild.UNSTABLE_LOGGING);
             });
         });
     }
 
-    public void receiveEasyEchoerBubblePacket() {
+    private static void receiveEasyEchoerBubblePacket() {
         ClientPlayNetworking.registerGlobalReceiver(WilderWild.FLOATING_SCULK_BUBBLE_PACKET, (ctx, handler, byteBuf, responseSender) -> {
-            Vec3 pos = new Vec3(byteBuf.readDouble(), byteBuf.readDouble(), byteBuf.readDouble());
+            Vec3d pos = new Vec3d(byteBuf.readDouble(), byteBuf.readDouble(), byteBuf.readDouble());
             int size = byteBuf.readVarInt();
             int age = byteBuf.readVarInt();
             double yVel = byteBuf.readDouble();
             int count = byteBuf.readVarInt();
             ctx.execute(() -> {
-                if (Minecraft.getInstance().level == null)
+                if (MinecraftClient.getInstance().world == null)
                     throw new IllegalStateException("why is your world null");
                 for (int i = 0; i < count; i++) {
-                    Minecraft.getInstance().level.addParticle(RegisterParticles.FLOATING_SCULK_BUBBLE, pos.x, pos.y, pos.z, size, age, yVel);
+                    MinecraftClient.getInstance().world.addParticle(RegisterParticles.FLOATING_SCULK_BUBBLE, pos.x, pos.y, pos.z, size, age, yVel);
                 }
             });
         });
     }
 
-    public void receiveSeedPacket() {
+    private static void receiveSeedPacket() {
         ClientPlayNetworking.registerGlobalReceiver(WilderWild.SEED_PACKET, (ctx, handler, byteBuf, responseSender) -> {
-            Vec3 pos = new Vec3(byteBuf.readDouble(), byteBuf.readDouble(), byteBuf.readDouble());
+            Vec3d pos = new Vec3d(byteBuf.readDouble(), byteBuf.readDouble(), byteBuf.readDouble());
             int count = byteBuf.readVarInt();
-            ParticleOptions particle = byteBuf.readBoolean() ? RegisterParticles.MILKWEED_SEED : RegisterParticles.DANDELION_SEED;
+            ParticleEffect particle = byteBuf.readBoolean() ? RegisterParticles.MILKWEED_SEED : RegisterParticles.DANDELION_SEED;
             ctx.execute(() -> {
-                if (Minecraft.getInstance().level == null)
+                if (MinecraftClient.getInstance().world == null)
                     throw new IllegalStateException("why is your world null");
                 for (int i = 0; i < count; i++) {
-                    Minecraft.getInstance().level.addParticle(particle, pos.x, pos.y, pos.z, 0, 0, 0);
+                    MinecraftClient.getInstance().world.addParticle(particle, pos.x, pos.y, pos.z, 0, 0, 0);
                 }
             });
         });
     }
 
-    public void receiveControlledSeedPacket() {
+    private static void receiveControlledSeedPacket() {
         ClientPlayNetworking.registerGlobalReceiver(WilderWild.CONTROLLED_SEED_PACKET, (ctx, handler, byteBuf, responseSender) -> {
-            Vec3 pos = new Vec3(byteBuf.readDouble(), byteBuf.readDouble(), byteBuf.readDouble());
+            Vec3d pos = new Vec3d(byteBuf.readDouble(), byteBuf.readDouble(), byteBuf.readDouble());
             double velx = byteBuf.readDouble();
             double vely = byteBuf.readDouble();
             double velz = byteBuf.readDouble();
             int count = byteBuf.readVarInt();
-            ParticleOptions particle = byteBuf.readBoolean() ? RegisterParticles.CONTROLLED_MILKWEED_SEED : RegisterParticles.CONTROLLED_DANDELION_SEED;
+            ParticleEffect particle = byteBuf.readBoolean() ? RegisterParticles.CONTROLLED_MILKWEED_SEED : RegisterParticles.CONTROLLED_DANDELION_SEED;
             ctx.execute(() -> {
-                if (Minecraft.getInstance().level == null)
+                if (MinecraftClient.getInstance().world == null)
                     throw new IllegalStateException("why is your world null");
                 for (int i = 0; i < count; i++) {
-                    Minecraft.getInstance().level.addParticle(particle, pos.x, pos.y, pos.z, velx, vely, velz);
+                    MinecraftClient.getInstance().world.addParticle(particle, pos.x, pos.y, pos.z, velx, vely, velz);
                 }
             });
         });
     }
 
-    public void receiveTermitePacket() {
+    private static void receiveTermitePacket() {
         ClientPlayNetworking.registerGlobalReceiver(WilderWild.TERMITE_PARTICLE_PACKET, (ctx, handler, byteBuf, responseSender) -> {
-            Vec3 pos = new Vec3(byteBuf.readDouble(), byteBuf.readDouble(), byteBuf.readDouble());
+            Vec3d pos = new Vec3d(byteBuf.readDouble(), byteBuf.readDouble(), byteBuf.readDouble());
             int count = byteBuf.readVarInt();
             ctx.execute(() -> {
-                if (Minecraft.getInstance().level == null)
+                if (MinecraftClient.getInstance().world == null)
                     throw new IllegalStateException("why is your world null");
                 for (int i = 0; i < count; i++) {
-                    Minecraft.getInstance().level.addParticle(RegisterParticles.TERMITE, pos.x, pos.y, pos.z, AdvancedMath.randomPosNeg() / 7, AdvancedMath.randomPosNeg() / 7, AdvancedMath.randomPosNeg() / 7);
+                    MinecraftClient.getInstance().world.addParticle(RegisterParticles.TERMITE, pos.x, pos.y, pos.z, AdvancedMath.randomPosNeg() / 7, AdvancedMath.randomPosNeg() / 7, AdvancedMath.randomPosNeg() / 7);
                 }
             });
         });
     }
 
-    public void receiveSensorHiccupPacket() {
+    private static void receiveSensorHiccupPacket() {
         ClientPlayNetworking.registerGlobalReceiver(WilderWild.SENSOR_HICCUP_PACKET, (ctx, handler, byteBuf, responseSender) -> {
-            Vec3 pos = new Vec3(byteBuf.readDouble(), byteBuf.readDouble(), byteBuf.readDouble());
+            Vec3d pos = new Vec3d(byteBuf.readDouble(), byteBuf.readDouble(), byteBuf.readDouble());
             ctx.execute(() -> {
-                if (Minecraft.getInstance().level == null)
+                if (MinecraftClient.getInstance().world == null)
                     throw new IllegalStateException("why is your world null");
-                ClientLevel world = Minecraft.getInstance().level;
+                ClientWorld world = MinecraftClient.getInstance().world;
                 int i = 5578058;
                 boolean bl2 = world.random.nextBoolean();
                 if (bl2) {
@@ -273,66 +283,66 @@ public final class WilderWildClient implements ClientModInitializer {
         });
     }
 
-    public void receiveFireflyCaptureInfoPacket() {
+    private static void receiveFireflyCaptureInfoPacket() {
         ClientPlayNetworking.registerGlobalReceiver(WilderWild.CAPTURE_FIREFLY_NOTIFY_PACKET, (ctx, handler, byteBuf, responseSender) -> {
             boolean creative = byteBuf.readBoolean();
             boolean natural = byteBuf.readBoolean();
             ctx.execute(() -> {
-                if (Minecraft.getInstance().level == null)
+                if (MinecraftClient.getInstance().world == null)
                     throw new IllegalStateException("why is your world null");
                 CompetitionCounter.addFireflyCapture(creative, natural);
             });
         });
     }
 
-    public void receiveAncientHornKillInfoPacket() {
+    private static void receiveAncientHornKillInfoPacket() {
         ClientPlayNetworking.registerGlobalReceiver(WilderWild.ANCIENT_HORN_KILL_NOTIFY_PACKET, (ctx, handler, byteBuf, responseSender) -> {
             boolean creative = byteBuf.readBoolean();
             boolean natural = byteBuf.readBoolean();
             ctx.execute(() -> {
-                if (Minecraft.getInstance().level == null)
+                if (MinecraftClient.getInstance().world == null)
                     throw new IllegalStateException("why is your world null");
                 CompetitionCounter.addAncientHornKill(creative, natural);
             });
         });
     }
 
-    public void receiveMovingLoopingSoundPacket() {
+    private static void receiveMovingLoopingSoundPacket() {
         ClientPlayNetworking.registerGlobalReceiver(WilderWild.MOVING_LOOPING_SOUND_PACKET, (ctx, handler, byteBuf, responseSender) -> {
             int id = byteBuf.readVarInt();
-            SoundEvent sound = byteBuf.readById(Registry.SOUND_EVENT);
-            SoundSource category = byteBuf.readEnum(SoundSource.class);
+            SoundEvent sound = byteBuf.readRegistryValue(Registry.SOUND_EVENT);
+            SoundCategory category = byteBuf.readEnumConstant(SoundCategory.class);
             float volume = byteBuf.readFloat();
             float pitch = byteBuf.readFloat();
-            ResourceLocation predicateId = byteBuf.readResourceLocation();
+            Identifier predicateId = byteBuf.readIdentifier();
             ctx.execute(() -> {
-                ClientLevel world = Minecraft.getInstance().level;
+                ClientWorld world = MinecraftClient.getInstance().world;
                 if (world == null)
                     throw new IllegalStateException("why is your world null");
-                Entity entity = world.getEntity(id);
+                Entity entity = world.getEntityById(id);
                 if (entity == null)
                     throw new IllegalStateException("Unable to play moving looping sound (from wilderwild) whilst entity does not exist!");
                 RegisterLoopingSoundRestrictions.LoopPredicate<?> predicate = RegisterLoopingSoundRestrictions.getPredicate(predicateId);
                 if (predicate == null) {
                     predicate = RegisterLoopingSoundRestrictions.getPredicate(WilderWild.id("default"));
                 }
-                Minecraft.getInstance().getSoundManager().play(new MovingSoundLoop(entity, sound, category, volume, pitch, predicate));
+                MinecraftClient.getInstance().getSoundManager().play(new MovingSoundLoop(entity, sound, category, volume, pitch, predicate));
             });
         });
     }
 
-    public void receiveFlybySoundPacket() {
+    private static void receiveFlybySoundPacket() {
         ClientPlayNetworking.registerGlobalReceiver(WilderWild.FLYBY_SOUND_PACKET, (ctx, handler, byteBuf, responseSender) -> {
             int id = byteBuf.readVarInt();
-            SoundEvent sound = byteBuf.readById(Registry.SOUND_EVENT);
-            SoundSource category = byteBuf.readEnum(SoundSource.class);
+            SoundEvent sound = byteBuf.readRegistryValue(Registry.SOUND_EVENT);
+            SoundCategory category = byteBuf.readEnumConstant(SoundCategory.class);
             float volume = byteBuf.readFloat();
             float pitch = byteBuf.readFloat();
             ctx.execute(() -> {
-                ClientLevel world = Minecraft.getInstance().level;
+                ClientWorld world = MinecraftClient.getInstance().world;
                 if (world == null)
                     throw new IllegalStateException("why is your world null");
-                Entity entity = world.getEntity(id);
+                Entity entity = world.getEntityById(id);
                 if (entity == null)
                     throw new IllegalStateException("Unable to add flyby sound to non-existent entity!");
                 FlyBySoundHub.addEntity(entity, sound, category, volume, pitch);

@@ -15,25 +15,25 @@
  * limitations under the License.
  */
 
-package org.quiltmc.qsl.datafixerupper.mixin;
+package org.quiltmc.qsl.frozenblock.datafixerupper.mixin;
 
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.world.level.levelgen.structure.templatesystem.StructureTemplate;
-import org.quiltmc.qsl.datafixerupper.impl.QuiltDataFixesInternals;
+import org.quiltmc.qsl.frozenblock.datafixerupper.impl.QuiltDataFixesInternals;
+import net.minecraft.nbt.NbtCompound;
+import net.minecraft.world.ChunkSerializer;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
+import org.spongepowered.asm.mixin.injection.ModifyVariable;
 
 /**
  * Modified to work on Fabric
  */
-@Mixin(StructureTemplate.class)
-public abstract class StructureMixin {
-    @Inject(method = "save", at = @At("TAIL"), cancellable = true)
-    private void addModDataVersions(CompoundTag compound, CallbackInfoReturnable<CompoundTag> cir) {
-        CompoundTag out = cir.getReturnValue();
-        QuiltDataFixesInternals.addModDataVersions(out);
-        cir.setReturnValue(out);
+@Mixin(value = ChunkSerializer.class, priority = 1001)
+public abstract class ChunkSerializerMixin {
+    @ModifyVariable(
+            method = "serialize",
+            at = @At(value = "INVOKE", target = "Lnet/minecraft/nbt/NbtCompound;putInt(Ljava/lang/String;I)V", ordinal = 0, shift = At.Shift.AFTER), index = 3
+    )
+    private static NbtCompound addModDataVersions(NbtCompound compound) {
+        return QuiltDataFixesInternals.get().addModDataVersions(compound);
     }
 }

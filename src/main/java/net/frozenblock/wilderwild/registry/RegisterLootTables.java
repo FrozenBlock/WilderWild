@@ -20,7 +20,7 @@ public final class RegisterLootTables {
                 tableBuilder.withPool(pool);
             }
         });
-        //FLOATING MOSS
+        //ALGAE
         LootTableEvents.MODIFY.register((resourceManager, lootManager, id, tableBuilder, source) -> {
             if (BuiltInLootTables.SHIPWRECK_SUPPLY.equals(id) && source.isBuiltin()) {
                 LootPool.Builder pool = LootPool.lootPool()

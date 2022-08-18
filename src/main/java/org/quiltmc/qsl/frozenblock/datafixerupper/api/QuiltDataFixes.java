@@ -15,21 +15,23 @@
  * limitations under the License.
  */
 
-package org.quiltmc.qsl.datafixerupper.api;
+package org.quiltmc.qsl.frozenblock.datafixerupper.api;
+
+import java.util.Optional;
+import java.util.function.BiFunction;
 
 import com.mojang.datafixers.DataFixer;
 import com.mojang.datafixers.DataFixerBuilder;
 import com.mojang.datafixers.schemas.Schema;
-import net.fabricmc.loader.api.ModContainer;
-import net.minecraft.Util;
-import net.minecraft.nbt.CompoundTag;
-import org.quiltmc.qsl.datafixerupper.impl.QuiltDataFixesInternals;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Range;
 
-import java.util.Optional;
-import java.util.function.BiFunction;
+import net.minecraft.nbt.NbtCompound;
+import net.minecraft.util.Util;
+
+import net.fabricmc.loader.api.ModContainer;
+import org.quiltmc.qsl.frozenblock.datafixerupper.impl.QuiltDataFixesInternals;
 
 import static com.google.common.base.Preconditions.checkArgument;
 import static java.util.Objects.requireNonNull;
@@ -55,7 +57,7 @@ public final class QuiltDataFixes {
     public static final BiFunction<Integer, Schema, Schema> BASE_SCHEMA = (version, parent) -> {
         checkArgument(version == 0, "version must be 0");
         checkArgument(parent == null, "parent must be null");
-        return QuiltDataFixesInternals.createBaseSchema();
+        return QuiltDataFixesInternals.get().createBaseSchema();
     };
 
     /**
@@ -77,7 +79,7 @@ public final class QuiltDataFixes {
             throw new IllegalStateException("Can't register data fixer after registry is frozen");
         }
 
-        QuiltDataFixesInternals.registerFixer(modId, currentVersion, dataFixer);
+        QuiltDataFixesInternals.get().registerFixer(modId, currentVersion, dataFixer);
     }
 
     /**
@@ -107,7 +109,7 @@ public final class QuiltDataFixes {
         requireNonNull(dataFixerBuilder, "data fixer builder cannot be null");
 
         registerFixer(mod.getMetadata().getId(), dataFixerBuilder.getDataVersion(),
-                dataFixerBuilder.build(Util::bootstrapExecutor));
+                dataFixerBuilder.build(Util::getBootstrapExecutor));
     }
 
     /**
@@ -119,7 +121,7 @@ public final class QuiltDataFixes {
     public static @NotNull Optional<DataFixer> getFixer(@NotNull String modId) {
         requireNonNull(modId, "modId cannot be null");
 
-        QuiltDataFixesInternals.DataFixerEntry entry = QuiltDataFixesInternals.getFixerEntry(modId);
+        QuiltDataFixesInternals.DataFixerEntry entry = QuiltDataFixesInternals.get().getFixerEntry(modId);
         if (entry == null) {
             return Optional.empty();
         }
@@ -127,7 +129,7 @@ public final class QuiltDataFixes {
     }
 
     /**
-     * Gets a mod's data version from a {@link CompoundTag}.
+     * Gets a mod's data version from a {@link NbtCompound}.
      *
      * @param compound the compound
      * @param modId    the mod identifier
@@ -135,7 +137,7 @@ public final class QuiltDataFixes {
      */
     @Contract(pure = true)
     @Range(from = 0, to = Integer.MAX_VALUE)
-    public static int getModDataVersion(@NotNull CompoundTag compound, @NotNull String modId) {
+    public static int getModDataVersion(@NotNull NbtCompound compound, @NotNull String modId) {
         requireNonNull(compound, "compound cannot be null");
         requireNonNull(modId, "modId cannot be null");
 
@@ -149,6 +151,6 @@ public final class QuiltDataFixes {
      */
     @Contract(pure = true)
     public static boolean isFrozen() {
-        return QuiltDataFixesInternals.isFrozen();
+        return QuiltDataFixesInternals.get().isFrozen();
     }
 }
