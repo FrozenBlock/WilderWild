@@ -31,7 +31,7 @@ public class AncientCityStructurePiecesMixin {
     private static Holder<StructureTemplatePool> START = Pools.register(new StructureTemplatePool(WilderWild.id("ancient_city/city_center"), new ResourceLocation("empty"), ImmutableList.of(Pair.of(single("ancient_city/city_center/city_center_1", ProcessorLists.ANCIENT_CITY_START_DEGRADATION), 1), Pair.of(single("ancient_city/city_center/city_center_2", ProcessorLists.ANCIENT_CITY_START_DEGRADATION), 1), Pair.of(single("ancient_city/city_center/city_center_3", ProcessorLists.ANCIENT_CITY_START_DEGRADATION), 1)), StructureTemplatePool.Projection.RIGID));
 
     @Inject(method = "<clinit>", at = @At("HEAD"), cancellable = true)
-    public void name(CallbackInfo info) {
+    public static void name(CallbackInfo info) {
         info.cancel();
         START = Pools.register(new StructureTemplatePool(WilderWild.id("ancient_city/city_center"), new ResourceLocation("empty"), ImmutableList.of(Pair.of(single("ancient_city/city_center/city_center_1", ProcessorLists.ANCIENT_CITY_START_DEGRADATION), 1), Pair.of(single("ancient_city/city_center/city_center_2", ProcessorLists.ANCIENT_CITY_START_DEGRADATION), 1), Pair.of(single("ancient_city/city_center/city_center_3", ProcessorLists.ANCIENT_CITY_START_DEGRADATION), 1)), StructureTemplatePool.Projection.RIGID));
     }
