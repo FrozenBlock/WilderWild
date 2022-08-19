@@ -27,7 +27,7 @@ import java.util.Comparator;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
-@Mixin(AncientCityStructurePools.class)
+@Mixin(NbtToSnbt.class)
 public class AncientCityStructurePoolsMixin {
 
     private static final Comparator<Object> YXZ_LISTTAG_INT_COMPARATOR = Comparator.comparingInt(nbt -> ((ListTag)nbt).getInt(1)).thenComparingInt(nbt -> ((ListTag)nbt).getInt(0)).thenComparingInt(nbt -> ((ListTag)nbt).getInt(2));
