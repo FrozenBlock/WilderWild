@@ -34,8 +34,8 @@ jobs:
         run: chmod +x ./gradlew
       - name: Build
         run: ./gradlew build
-      - name: Capture Build Artifacts
-        uses: actions/upload-artifact@v3
-        with:
-          name: WilderWild-Artifacts-${{ steps.ref.outputs.branch }}
-          path: build/libs/
+      #- name: Capture Build Artifacts
+      #  uses: actions/upload-artifact@v3
+      #  with:
+      #    name: WilderWild-Artifacts-${{ steps.ref.outputs.branch }}
+      #    path: build/libs/
