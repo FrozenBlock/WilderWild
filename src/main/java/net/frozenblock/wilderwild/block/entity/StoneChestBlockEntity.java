@@ -154,11 +154,11 @@ public class StoneChestBlockEntity extends ChestBlockEntity {
     }
 
     public void onLidSlam(Level level, BlockPos pos, BlockState state) {
-        if (!level.isClientSide && state.getValue(RegisterProperties.ANCIENT) && this.highestLidPoint > 0.2F) {
-            if (level instanceof ServerLevel server) {
+        if (!level.isClientSide && level instanceof ServerLevel server) {
+            if (state.getValue(RegisterProperties.ANCIENT) && this.highestLidPoint > 0.2F) {
                 server.sendParticles(new BlockParticleOption(ParticleTypes.BLOCK, state), pos.getX() + 0.5, pos.getY() + 0.3, pos.getZ() + 0.5, level.random.nextIntBetweenInclusive(3, (int) (this.highestLidPoint * 10) + 2), 0.21875F, 0.21875F, 0.21875F, 0.05D);
-                playSound(level, pos, state, RegisterSounds.BLOCK_STONE_CHEST_SLAM, 0.5F + (this.highestLidPoint / 5F));
             }
+            playSound(level, pos, state, RegisterSounds.BLOCK_STONE_CHEST_SLAM, 0.5F + (this.highestLidPoint / 5F));
         }
         this.closing = false;
         this.cooldownTicks = 15;
