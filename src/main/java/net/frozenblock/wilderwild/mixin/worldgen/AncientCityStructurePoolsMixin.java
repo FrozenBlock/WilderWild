@@ -34,7 +34,7 @@ public class AncientCityStructurePoolsMixin {
     private static final Comparator<Object> YXZ_LISTTAG_DOUBLE_COMPARATOR = Comparator.comparingDouble(nbt -> ((ListTag)nbt).getDouble(1)).thenComparingDouble(nbt -> ((ListTag)nbt).getDouble(0)).thenComparingDouble(nbt -> ((ListTag)nbt).getDouble(2));
 
     @Inject(method = "<convertStructure>", at = @At("HEAD"), cancellable = true)
-    private static void convertStructure(CachedOutput cachedOutput, Path inputPath, String location, Path outputPath, CallbackInfoReturnable<Path> info) throws IOException {
+    public static void convertStructure(CachedOutput cachedOutput, Path inputPath, String location, Path outputPath, CallbackInfoReturnable<Path> info) throws IOException {
         if (inputPath.toString().contains("ancient_city")) {
             info.cancel();
             Path path = null;
@@ -68,7 +68,8 @@ public class AncientCityStructurePoolsMixin {
         return new SnbtPrinterTagVisitor().visit(packCityTemplate(nbt));
     }
 
-    private static CompoundTag packCityTemplate(CompoundTag nbt) {
+
+    static CompoundTag packCityTemplate(CompoundTag nbt) {
         ListTag listTag4;
         ListTag listTag3;
         boolean bl = nbt.contains("palettes", 9);
@@ -99,7 +100,7 @@ public class AncientCityStructurePoolsMixin {
         return nbt;
     }
 
-    private static String packBlockState(CompoundTag nbt) {
+    static String packBlockState(CompoundTag nbt) {
         String name = nbt.getString("Name");
         if (name.equals("minecraft:chest")) {
             name = "wilderwild:stone_chest";
