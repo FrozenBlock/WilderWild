@@ -24,7 +24,6 @@ import java.util.function.Function;
 
 @Mixin(AncientCityStructurePieces.class)
 public class AncientCityStructurePiecesMixin {
-
     @Shadow
     @Final
     @Mutable
@@ -41,7 +40,7 @@ public class AncientCityStructurePiecesMixin {
         return projection -> new SinglePoolElement(Either.left(WilderWild.id(id)), processors, projection);
     }
 
-    private static Function<StructureTemplatePool.Projection, SinglePoolElement> single(String id) {
+    public static Function<StructureTemplatePool.Projection, SinglePoolElement> single(String id) {
         return projection -> new SinglePoolElement(Either.left(WilderWild.id(id)), ProcessorLists.EMPTY, projection);
     }
     
