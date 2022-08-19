@@ -27,6 +27,7 @@
 	"server.SculkSpreadManagerCursorMixin",
 	"server.SculkVeinBlockMixin",
 	"server.SculkVeinGrowCheckerMixin",
+	"server.ShutUpExperimental",
 	"server.SignTypeAccessor",
 	"server.SlimeMixin",
 	"server.SonicBoomTaskMixin",
