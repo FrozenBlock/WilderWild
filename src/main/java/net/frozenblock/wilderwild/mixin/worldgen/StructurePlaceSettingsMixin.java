@@ -9,15 +9,14 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Mixin(StructurePlaceSettings.class)
 public class StructurePlaceSettingsMixin {
 
-    @Inject(method = "getProcessors", at = @At("TAIL"), cancellable = true)
+    @Inject(method = "getProcessors", at = @At("RETURN"), cancellable = true)
     public void getProcessors(CallbackInfoReturnable<List<StructureProcessor>> info) {
-        List<StructureProcessor> processors = new ArrayList<>(info.getReturnValue());
+        List<StructureProcessor> processors = info.getReturnValue();
         boolean has = false;
         for (StructureProcessor processor : processors) {
             for (StructureProcessor city : ProcessorLists.ANCIENT_CITY_GENERIC_DEGRADATION.value().list()) {
