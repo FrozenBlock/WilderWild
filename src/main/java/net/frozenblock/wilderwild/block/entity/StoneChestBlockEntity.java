@@ -3,10 +3,14 @@ package net.frozenblock.wilderwild.block.entity;
 import net.fabricmc.fabric.api.networking.v1.PlayerLookup;
 import net.frozenblock.wilderwild.misc.ClientMethodInteractionThingy;
 import net.frozenblock.wilderwild.registry.RegisterBlockEntities;
+import net.frozenblock.wilderwild.registry.RegisterProperties;
 import net.frozenblock.wilderwild.registry.RegisterSounds;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.particles.BlockParticleOption;
+import net.minecraft.core.particles.ItemParticleOption;
+import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.ByteTag;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
@@ -84,7 +88,7 @@ public class StoneChestBlockEntity extends ChestBlockEntity {
         return Mth.lerp(delta, this.prevOpenProgress, this.openProgress);
     }
 
-    public static void serverStoneTick(Level world, BlockPos pos, BlockState state, StoneChestBlockEntity blockEntity) {
+    public static void serverStoneTick(Level level, BlockPos pos, BlockState state, StoneChestBlockEntity blockEntity) {
         if (!blockEntity.shouldSkip) {
             if (blockEntity.cooldownTicks > 0) {
                 --blockEntity.cooldownTicks;
@@ -93,26 +97,24 @@ public class StoneChestBlockEntity extends ChestBlockEntity {
             if (blockEntity.stillLidTicks > 0) {
                 blockEntity.stillLidTicks -= 1;
             } else if (blockEntity.openProgress > 0F) {
-                world.gameEvent(null, GameEvent.CONTAINER_CLOSE, pos);
+                level.gameEvent(null, GameEvent.CONTAINER_CLOSE, pos);
                 blockEntity.openProgress = Math.max(0F, blockEntity.openProgress - 0.0425F);
                 if (!blockEntity.closing) {
                     blockEntity.closing = true;
-                    playSound(world, pos, state, RegisterSounds.BLOCK_STONE_CHEST_CLOSE_START, 0.3F);
+                    playSound(level, pos, state, RegisterSounds.BLOCK_STONE_CHEST_CLOSE_START, 0.3F);
                 }
                 if (blockEntity.openProgress <= 0F) {
-                    playSound(world, pos, state, RegisterSounds.BLOCK_STONE_CHEST_SLAM, 0.6F);
-                    blockEntity.closing = false;
-                    blockEntity.cooldownTicks = 15;
+                    blockEntity.onLidSlam(level, pos, state);
                 }
             }
             if (isLeft(state)) {
-                blockEntity.syncLidValues(world, pos, state);
+                blockEntity.syncLidValues(level, pos, state);
             }
         }
         blockEntity.shouldSkip = false;
     }
 
-    public static void clientStoneTick(Level world, BlockPos pos, BlockState state, StoneChestBlockEntity blockEntity) {
+    public static void clientStoneTick(Level level, BlockPos pos, BlockState state, StoneChestBlockEntity blockEntity) {
         if (!blockEntity.shouldSkip) {
             if (blockEntity.cooldownTicks > 0) {
                 --blockEntity.cooldownTicks;
@@ -124,18 +126,17 @@ public class StoneChestBlockEntity extends ChestBlockEntity {
                 blockEntity.closing = true;
                 blockEntity.openProgress = Math.max(0F, blockEntity.openProgress - 0.0425F);
                 if (blockEntity.openProgress <= 0F) {
-                    blockEntity.closing = false;
-                    blockEntity.cooldownTicks = 15;
+                    blockEntity.onLidSlam(level, pos, state);
                 }
             }
         }
         blockEntity.shouldSkip = false;
         if (!blockEntity.hasUpdated) {
-            ClientMethodInteractionThingy.requestBlockEntitySync(pos, world);
+            ClientMethodInteractionThingy.requestBlockEntitySync(pos, level);
             blockEntity.hasUpdated = true;
         }
         if (isLeft(state)) {
-            blockEntity.syncLidValues(world, pos, state);
+            blockEntity.syncLidValues(level, pos, state);
         }
     }
 
@@ -151,8 +152,15 @@ public class StoneChestBlockEntity extends ChestBlockEntity {
         this.stillLidTicks = (int) (Math.max((this.openProgress), 0.2) * 120);
     }
 
-    public void onLidSlam() {
-        
+    public void onLidSlam(Level level, BlockPos pos, BlockState state) {
+        if (!level.isClientSide && state.getValue(RegisterProperties.ANCIENT) && this.highestLidPoint > 0.2F) {
+            if (level instanceof ServerLevel server) {
+                server.sendParticles(new BlockParticleOption(ParticleTypes.BLOCK, state), pos.getX() + 0.5, pos.getY() + 0.3, pos.getZ() + 0.5, level.random.nextIntBetweenInclusive(3, (int) (this.highestLidPoint * 10) + 2), 0.21875F, 0.21875F, 0.21875F, 0.05D);
+                playSound(level, pos, state, RegisterSounds.BLOCK_STONE_CHEST_SLAM, 0.5F + (this.highestLidPoint / 5F));
+            }
+        }
+        this.closing = false;
+        this.cooldownTicks = 15;
         this.highestLidPoint = 0;
     }
 
