@@ -33,7 +33,7 @@ public class AncientCityStructurePoolsMixin {
     private static final Comparator<Object> YXZ_LISTTAG_INT_COMPARATOR = Comparator.comparingInt(nbt -> ((ListTag)nbt).getInt(1)).thenComparingInt(nbt -> ((ListTag)nbt).getInt(0)).thenComparingInt(nbt -> ((ListTag)nbt).getInt(2));
     private static final Comparator<Object> YXZ_LISTTAG_DOUBLE_COMPARATOR = Comparator.comparingDouble(nbt -> ((ListTag)nbt).getDouble(1)).thenComparingDouble(nbt -> ((ListTag)nbt).getDouble(0)).thenComparingDouble(nbt -> ((ListTag)nbt).getDouble(2));
 
-    @Inject(method = "convertStructure", at = @At("HEAD"), cancellable = true)
+    @Inject(method = "<convertStructure>", at = @At("HEAD"), cancellable = true)
     private static void convertStructure(CachedOutput cachedOutput, Path inputPath, String location, Path outputPath, CallbackInfoReturnable<Path> info) throws IOException {
         if (inputPath.toString().contains("ancient_city")) {
             info.cancel();
