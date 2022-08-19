@@ -39,7 +39,7 @@ public class AncientCityStructurePoolsMixin {
         return projection -> new SinglePoolElement(Either.left(WilderWild.id(id)), processors, projection);
     }
 
-    public static Function<StructureTemplatePool.Projection, SinglePoolElement> single(String id) {
+    private static Function<StructureTemplatePool.Projection, SinglePoolElement> single(String id) {
         return projection -> new SinglePoolElement(Either.left(WilderWild.id(id)), ProcessorLists.EMPTY, projection);
     }
     
