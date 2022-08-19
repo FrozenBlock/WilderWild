@@ -4,15 +4,12 @@ import com.google.common.collect.ImmutableList;
 import net.frozenblock.wilderwild.WilderWild;
 import net.minecraft.core.Holder;
 import net.minecraft.data.BuiltinRegistries;
-import net.minecraft.data.worldgen.AncientCityStructurePieces;
-import net.minecraft.data.worldgen.AncientCityStructurePools;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.levelgen.structure.templatesystem.*;
 
 public class WilderStructureProcessors {
-    AncientCityStructurePools
 
     public static final Holder<StructureProcessorList> ABANDONED_CABIN_PROCESSOR = registerProcessorList(
             "abandoned_cabin",
