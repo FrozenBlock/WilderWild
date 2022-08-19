@@ -14,7 +14,6 @@ import net.frozenblock.api.mathematics.AdvancedMath;
 import net.frozenblock.wilderwild.entity.AncientHornProjectile;
 import net.frozenblock.wilderwild.entity.render.*;
 import net.frozenblock.wilderwild.misc.CompetitionCounter;
-import net.frozenblock.wilderwild.misc.FlowerLichenParticleRegistry;
 import net.frozenblock.wilderwild.misc.PVZGWSound.FlyBySoundHub;
 import net.frozenblock.wilderwild.misc.PVZGWSound.MovingSoundLoop;
 import net.frozenblock.wilderwild.misc.PVZGWSound.MovingSoundLoopWithRestriction;
@@ -59,7 +58,6 @@ public final class WilderWildClient implements ClientModInitializer {
 
     @Override
     public void onInitializeClient() {
-        FlowerLichenParticleRegistry.init();
 
         BlockRenderLayerMap.INSTANCE.putBlock(RegisterBlocks.CARNATION, RenderType.cutout());
         BlockRenderLayerMap.INSTANCE.putBlock(RegisterBlocks.SEEDING_DANDELION, RenderType.cutout());
