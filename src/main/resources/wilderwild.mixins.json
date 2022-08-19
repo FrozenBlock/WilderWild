@@ -38,7 +38,7 @@
 	"worldgen.GenerationSettingsBuilderMixin",
 	"worldgen.OakTreeGrowerMixin",
 	"worldgen.SpruceTreeGrowerMixin",
-	"worldgen.AncientCityStructurePoolsMixin",
+	"worldgen.StructurePlaceSettingsMixin",
 	"worldgen.SwampHutMixin",
 	"worldgen.VanillaBiomeParametersMixin",
 	"worldgen.VanillaSurfaceRulesMixin",
