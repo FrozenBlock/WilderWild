@@ -1,20 +1,31 @@
 package net.frozenblock.wilderwild.mixin.worldgen;
 
+import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
+import net.frozenblock.wilderwild.misc.BlockSoundGroupOverwrites;
 import net.frozenblock.wilderwild.registry.RegisterWorldgen;
 import net.frozenblock.wilderwild.world.gen.noise.WilderNoiseKeys;
 import net.minecraft.data.worldgen.SurfaceRuleData;
+import net.minecraft.util.KeyDispatchDataCodec;
 import net.minecraft.world.level.biome.Biomes;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.levelgen.Noises;
 import net.minecraft.world.level.levelgen.SurfaceRules;
 import net.minecraft.world.level.levelgen.VerticalAnchor;
+import net.minecraft.world.level.levelgen.material.MaterialRuleList;
+import net.minecraft.world.level.levelgen.placement.CaveSurface;
+import org.jetbrains.annotations.NotNull;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyVariable;
 
+import java.security.Signature;
+import java.util.concurrent.locks.Condition;
+import java.util.function.Function;
+
 @Mixin(SurfaceRuleData.class)
-public class VanillaSurfaceRulesMixin {
+public abstract class VanillaSurfaceRulesMixin {
 
     @Shadow
     @Final
@@ -26,6 +37,9 @@ public class VanillaSurfaceRulesMixin {
     @Shadow
     @Final
     private static SurfaceRules.RuleSource SAND;
+
+    @Shadow @Final private static SurfaceRules.RuleSource SANDSTONE;
+
 
     @ModifyVariable(method = "overworldLike", at = @At("STORE"), ordinal = 8)
     private static SurfaceRules.RuleSource injected(SurfaceRules.RuleSource materialRule) {
@@ -48,9 +62,9 @@ public class VanillaSurfaceRulesMixin {
                         SurfaceRules.ifTrue(
                                 SurfaceRules.isBiome(Biomes.BIRCH_FOREST, Biomes.TAIGA, Biomes.FROZEN_RIVER, Biomes.OLD_GROWTH_BIRCH_FOREST, Biomes.OLD_GROWTH_PINE_TAIGA, Biomes.OLD_GROWTH_SPRUCE_TAIGA, Biomes.SNOWY_TAIGA, RegisterWorldgen.MIXED_FOREST),
                                 SurfaceRules.ifTrue(
-                                        SurfaceRules.yBlockCheck(VerticalAnchor.absolute(58), 0),
+                                        SurfaceRules.yStartCheck(VerticalAnchor.absolute(58), 0),
                                         SurfaceRules.ifTrue(
-                                                SurfaceRules.not(SurfaceRules.yBlockCheck(VerticalAnchor.absolute(64), 0)),
+                                                SurfaceRules.not(SurfaceRules.yStartCheck(VerticalAnchor.absolute(64), 0)),
                                                 SurfaceRules.ifTrue(SurfaceRules.noiseCondition(WilderNoiseKeys.SAND_BEACH, 0.12, 1.7976931348623157E308), GRAVEL)
                                         )
                                 )
@@ -61,9 +75,9 @@ public class VanillaSurfaceRulesMixin {
                         SurfaceRules.ifTrue(
                                 SurfaceRules.isBiome(Biomes.FLOWER_FOREST, Biomes.FOREST, Biomes.JUNGLE, Biomes.SPARSE_JUNGLE, Biomes.SAVANNA, Biomes.DARK_FOREST),
                                 SurfaceRules.ifTrue(
-                                        SurfaceRules.yBlockCheck(VerticalAnchor.absolute(58), 0),
+                                        SurfaceRules.yStartCheck(VerticalAnchor.absolute(58), 0),
                                         SurfaceRules.ifTrue(
-                                                SurfaceRules.not(SurfaceRules.yBlockCheck(VerticalAnchor.absolute(64), 0)),
+                                                SurfaceRules.not(SurfaceRules.yStartCheck(VerticalAnchor.absolute(64), 0)),
                                                 SurfaceRules.ifTrue(SurfaceRules.noiseCondition(WilderNoiseKeys.SAND_BEACH, 0.12, 1.7976931348623157E308), SAND)
                                         )
                                 )
@@ -72,4 +86,5 @@ public class VanillaSurfaceRulesMixin {
         ), materialRule)));
     }
 }
+
 //6217428885497005581
