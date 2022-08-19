@@ -41,6 +41,7 @@ import java.util.ArrayList;
 public class StoneChestBlockEntity extends ChestBlockEntity {
     public float openProgress;
     public float prevOpenProgress;
+    public float highestLidPoint;
     public int stillLidTicks;
     public int cooldownTicks;
     public boolean closing;
@@ -58,6 +59,7 @@ public class StoneChestBlockEntity extends ChestBlockEntity {
         super.load(nbt);
         this.openProgress = nbt.getFloat("openProgress");
         this.prevOpenProgress = nbt.getFloat("prevOpenProgress");
+        this.highestLidPoint = nbt.getFloat("highestLidPoint");
         this.stillLidTicks = nbt.getInt("stillLidTicks");
         this.cooldownTicks = nbt.getInt("cooldownTicks");
         this.closing = nbt.getBoolean("closing");
@@ -70,6 +72,7 @@ public class StoneChestBlockEntity extends ChestBlockEntity {
         super.saveAdditional(nbt);
         nbt.putFloat("openProgress", this.openProgress);
         nbt.putFloat("prevOpenProgress", this.prevOpenProgress);
+        nbt.putFloat("highestLidPoint", this.highestLidPoint);
         nbt.putInt("stillLidTicks", this.stillLidTicks);
         nbt.putInt("cooldownTicks", this.cooldownTicks);
         nbt.putBoolean("closing", this.closing);
@@ -136,6 +139,23 @@ public class StoneChestBlockEntity extends ChestBlockEntity {
         }
     }
 
+    public void liftLid(float liftAmount) {
+        this.openProgress = Mth.clamp(this.openProgress + liftAmount,0.0F, 0.5F);
+        this.highestLidPoint = this.openProgress;
+        this.stillLidTicks = (int) (Math.max((this.openProgress), 0.2) * 120);
+    }
+
+    public void setLid(float liftAmount) {
+        this.openProgress = Mth.clamp(liftAmount,0.0F, 0.5F);
+        this.highestLidPoint = this.openProgress;
+        this.stillLidTicks = (int) (Math.max((this.openProgress), 0.2) * 120);
+    }
+
+    public void onLidSlam() {
+        
+        this.highestLidPoint = 0;
+    }
+
     public boolean stillValid(Player player) {
         if (this.level.getBlockEntity(this.worldPosition) != this) {
             return false;
@@ -148,6 +168,7 @@ public class StoneChestBlockEntity extends ChestBlockEntity {
         if (stoneChest != null) {
             stoneChest.openProgress = this.openProgress;
             stoneChest.prevOpenProgress = this.prevOpenProgress;
+            stoneChest.highestLidPoint = this.highestLidPoint;
             stoneChest.stillLidTicks = this.stillLidTicks;
             stoneChest.cooldownTicks = this.cooldownTicks;
             stoneChest.shouldSkip = true;
@@ -160,6 +181,7 @@ public class StoneChestBlockEntity extends ChestBlockEntity {
         if (stoneChest != null) {
             stoneChest.openProgress = this.openProgress;
             stoneChest.prevOpenProgress = this.prevOpenProgress;
+            stoneChest.highestLidPoint = this.highestLidPoint;
             stoneChest.stillLidTicks = this.stillLidTicks;
             stoneChest.cooldownTicks = this.cooldownTicks;
             stoneChest.shouldSkip = true;
