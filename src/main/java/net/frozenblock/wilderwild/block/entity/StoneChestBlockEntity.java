@@ -88,7 +88,8 @@ public class StoneChestBlockEntity extends ChestBlockEntity {
         return Mth.lerp(delta, this.prevOpenProgress, this.openProgress);
     }
 
-    public static void serverStoneTick(Level level, BlockPos pos, BlockState state, StoneChestBlockEntity blockEntity) {
+    public static void serverStoneTick(Level worl, BlockPos pos, BlockState state, StoneChestBlockEntity blockEntity) {
+        ServerLevel level = (ServerLevel) worl;
         if (!blockEntity.shouldSkip) {
             if (blockEntity.cooldownTicks > 0) {
                 --blockEntity.cooldownTicks;
