@@ -7,6 +7,7 @@
 	"server.AbstractBlockMixin",
 	"server.BlockEntityTypeMixin",
 	"server.BlockMixin",
+	"server.BlocksMixin",
 	"server.BoatDropsMixin",
 	"server.BoatTypeMixin",
 	"server.BoneMealItemMixin",
