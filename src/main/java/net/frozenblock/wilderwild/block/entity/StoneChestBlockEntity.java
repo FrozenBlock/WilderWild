@@ -342,7 +342,7 @@ public class StoneChestBlockEntity extends ChestBlockEntity {
             d -= (double) direction.getStepX() * 0.5;
             f -= (double) direction.getStepZ() * 0.5;
         }
-        world.playSound(null, d, e, f, soundEvent, SoundSource.BLOCKS, volume, world.random.nextFloat() * 0.1f + 0.9f);
+        world.playSound(null, d, e, f, soundEvent, SoundSource.BLOCKS, volume, world.random.nextFloat() * 0.18f + 0.9f);
     }
 
 }
