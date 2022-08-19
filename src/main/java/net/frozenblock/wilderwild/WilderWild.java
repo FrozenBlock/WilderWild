@@ -1,6 +1,7 @@
 package net.frozenblock.wilderwild;
 
 import com.chocohead.mm.api.ClassTinkerers;
+import com.google.common.collect.ImmutableList;
 import com.mojang.datafixers.schemas.Schema;
 import com.mojang.serialization.Codec;
 import net.fabricmc.api.ModInitializer;
@@ -24,8 +25,12 @@ import net.frozenblock.wilderwild.world.gen.WilderWorldGen;
 import net.frozenblock.wilderwild.world.gen.trunk.BaobabTrunkPlacer;
 import net.frozenblock.wilderwild.world.gen.trunk.FallenTrunkWithLogs;
 import net.frozenblock.wilderwild.world.gen.trunk.StraightTrunkWithLogs;
+import net.frozenblock.wilderwild.world.structure.ChestToStoneChestProcessor;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
+import net.minecraft.data.BuiltinRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
 import net.minecraft.util.RandomSource;
@@ -35,12 +40,15 @@ import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.item.Instrument;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.configurations.ProbabilityFeatureConfiguration;
 import net.minecraft.world.level.levelgen.feature.trunkplacers.TrunkPlacer;
 import net.minecraft.world.level.levelgen.feature.trunkplacers.TrunkPlacerType;
+import net.minecraft.world.level.levelgen.structure.templatesystem.*;
 import org.quiltmc.qsl.frozenblock.datafixerupper.api.QuiltDataFixerBuilder;
 import org.quiltmc.qsl.frozenblock.datafixerupper.api.QuiltDataFixes;
 import org.quiltmc.qsl.frozenblock.datafixerupper.api.SimpleFixes;
@@ -68,6 +76,11 @@ public final class WilderWild implements ModInitializer {
     public static final NoisePlantFeature NOISE_PLANT_FEATURE = new NoisePlantFeature(PathFeatureConfig.CODEC);
     public static final NoisePathUnderWaterFeature NOISE_PATH_UNDER_WATER_FEATURE = new NoisePathUnderWaterFeature(PathFeatureConfig.CODEC);
     public static final ColumnWithDiskFeature COLUMN_WITH_DISK_FEATURE = new ColumnWithDiskFeature(ColumnWithDiskFeatureConfig.CODEC);
+    public static final Holder<StructureProcessorList> CHEST_TO_STONE = registerProcessor("chests_to_stone", ImmutableList.of(new RuleProcessor(ImmutableList.of(
+            new ProcessorRule(new BlockStateMatchTest(Blocks.CHEST.defaultBlockState().setValue(BlockStateProperties.HORIZONTAL_FACING, Direction.EAST)), new BlockMatchTest(Blocks.AIR), RegisterBlocks.STONE_CHEST.defaultBlockState().setValue(BlockStateProperties.HORIZONTAL_FACING, Direction.EAST)),
+            new ProcessorRule(new BlockStateMatchTest(Blocks.CHEST.defaultBlockState().setValue(BlockStateProperties.HORIZONTAL_FACING, Direction.NORTH)), new BlockMatchTest(Blocks.AIR), RegisterBlocks.STONE_CHEST.defaultBlockState().setValue(BlockStateProperties.HORIZONTAL_FACING, Direction.NORTH)),
+                    new ProcessorRule(new BlockStateMatchTest(Blocks.CHEST.defaultBlockState().setValue(BlockStateProperties.HORIZONTAL_FACING, Direction.SOUTH)), new BlockMatchTest(Blocks.AIR), RegisterBlocks.STONE_CHEST.defaultBlockState().setValue(BlockStateProperties.HORIZONTAL_FACING, Direction.SOUTH)),
+                            new ProcessorRule(new BlockStateMatchTest(Blocks.CHEST.defaultBlockState().setValue(BlockStateProperties.HORIZONTAL_FACING, Direction.WEST)), new BlockMatchTest(Blocks.AIR), RegisterBlocks.STONE_CHEST.defaultBlockState().setValue(BlockStateProperties.HORIZONTAL_FACING, Direction.WEST))))));
 
     public static final TagKey<Instrument> WILD_HORNS = TagKey.create(Registry.INSTRUMENT_REGISTRY, id("wild_horns"));
     public static final TagKey<Instrument> COPPER_HORNS = TagKey.create(Registry.INSTRUMENT_REGISTRY, id("copper_horns"));
@@ -160,6 +173,12 @@ public final class WilderWild implements ModInitializer {
 
         QuiltDataFixes.buildAndRegisterFixer(mod, builder);
         log("DataFixes for Wilder Wild have been applied", true);
+    }
+
+    private static Holder<StructureProcessorList> registerProcessor(String id, ImmutableList<StructureProcessor> processorList) {
+        ResourceLocation resourceLocation = id(id);
+        StructureProcessorList structureProcessorList = new StructureProcessorList(processorList);
+        return BuiltinRegistries.register(BuiltinRegistries.PROCESSOR_LIST, resourceLocation, structureProcessorList);
     }
 
     //MOD COMPATIBILITY
