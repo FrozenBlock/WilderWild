@@ -4,6 +4,10 @@
 	"wilderwild:osseous_sculk[facing=up]": "organic_solid",
 	"wilderwild:osseous_sculk": "organic_solid,bone",
 	
+	"wilderwild:sculk_stairs": "organic_solid",
+	"wilderwild:sculk_slab": "organic_solid",
+	"wilderwild:sculk_wall": "organic_solid",
+	
 	"wilderwild:datura": "NOT_EMITTER",
 	"wilderwild:datura.foliage": "brush",
 	
@@ -22,5 +26,7 @@
 	"wilderwild:seeding_dandelion": "NOT_EMITTER",
 	
 	"wilderwild:flowering_lily_pad": "waterfine",
-	"wilderwild:flowering_lily_pad.carpet": "waterfine"
+	"wilderwild:flowering_lily_pad.carpet": "waterfine",
+	
+	"wilderwild:chiseled_mud_bricks": "brickstone"
 }
