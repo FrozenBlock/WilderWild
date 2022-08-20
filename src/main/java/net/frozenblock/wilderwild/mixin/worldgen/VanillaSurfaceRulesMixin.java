@@ -1,29 +1,20 @@
 package net.frozenblock.wilderwild.mixin.worldgen;
 
-import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
-import net.frozenblock.wilderwild.misc.BlockSoundGroupOverwrites;
 import net.frozenblock.wilderwild.registry.RegisterWorldgen;
-import net.frozenblock.wilderwild.tag.WilderBiomeTags;
 import net.frozenblock.wilderwild.world.gen.noise.WilderNoiseKeys;
 import net.minecraft.data.worldgen.SurfaceRuleData;
-import net.minecraft.util.KeyDispatchDataCodec;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.tags.BiomeTags;
+import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.biome.Biomes;
-import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.levelgen.Noises;
 import net.minecraft.world.level.levelgen.SurfaceRules;
 import net.minecraft.world.level.levelgen.VerticalAnchor;
-import net.minecraft.world.level.levelgen.material.MaterialRuleList;
-import net.minecraft.world.level.levelgen.placement.CaveSurface;
-import org.jetbrains.annotations.NotNull;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyVariable;
-
-import java.security.Signature;
-import java.util.concurrent.locks.Condition;
-import java.util.function.Function;
 
 @Mixin(SurfaceRuleData.class)
 public abstract class VanillaSurfaceRulesMixin {
@@ -74,7 +65,7 @@ public abstract class VanillaSurfaceRulesMixin {
         ), SurfaceRules.sequence(SurfaceRules.ifTrue(
                 SurfaceRules.DEEP_UNDER_FLOOR, SurfaceRules.sequence(
                         SurfaceRules.ifTrue(
-                                SurfaceRules.isBiome(Biomes.FLOWER_FOREST, Biomes.FOREST, Biomes.JUNGLE, Biomes.SPARSE_JUNGLE, Biomes.SAVANNA, Biomes.DARK_FOREST),
+                                SurfaceRules.isBiome(Biomes.FLOWER_FOREST, Biomes.FOREST, Biomes.SAVANNA, Biomes.DARK_FOREST),
                                 SurfaceRules.ifTrue(
                                         SurfaceRules.yStartCheck(VerticalAnchor.absolute(58), 0),
                                         SurfaceRules.ifTrue(
@@ -84,7 +75,20 @@ public abstract class VanillaSurfaceRulesMixin {
                                 )
                         )
                 )
-        ), materialRule)));
+        ), SurfaceRules.sequence(SurfaceRules.ifTrue(
+                        SurfaceRules.DEEP_UNDER_FLOOR, SurfaceRules.sequence(
+                                SurfaceRules.ifTrue(
+                                        SurfaceRules.isBiome(Biomes.JUNGLE, Biomes.SPARSE_JUNGLE, Biomes.BAMBOO_JUNGLE),
+                                        SurfaceRules.ifTrue(
+                                                SurfaceRules.yStartCheck(VerticalAnchor.absolute(58), 0),
+                                                SurfaceRules.ifTrue(
+                                                        SurfaceRules.not(SurfaceRules.yStartCheck(VerticalAnchor.absolute(64), 0)),
+                                                        SurfaceRules.ifTrue(SurfaceRules.noiseCondition(WilderNoiseKeys.SAND_BEACH, 0.12, 1.7976931348623157E308), SAND)
+                                                )
+                                        )
+                                )
+                        )
+                ), materialRule))));
 
 
             //SurfaceRules.sequence(new SurfaceRules.RuleSource[]{SurfaceRules.ifTrue(SurfaceRules.isBiome(Biomes.FOREST, Biomes.FLOWER_FOREST, Biomes.JUNGLE),

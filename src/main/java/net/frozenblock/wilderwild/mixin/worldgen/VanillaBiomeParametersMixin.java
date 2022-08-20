@@ -180,28 +180,6 @@ public final class VanillaBiomeParametersMixin {
                     biome));
             info.cancel();
         }
-        if ((biome.equals(Biomes.DESERT) && ModMenuInteractionHandler.modDesertPlacement()) || (biome.equals(Biomes.BADLANDS) && ModMenuInteractionHandler.modBadlandsPlacement())) {
-            parameters.accept(Pair.of(Climate.parameters(
-                            temperature, //Temperature
-                            Climate.Parameter.span(this.humidities[0], this.humidities[1]), //Humidity
-                            continentalness,
-                            erosion,
-                            Climate.Parameter.point(0.0F),
-                            weirdness,
-                            offset),
-                    biome));
-
-            parameters.accept(Pair.of(Climate.parameters(
-                            temperature, //Temperature
-                            Climate.Parameter.span(this.humidities[0], this.humidities[1]), //Humidity
-                            continentalness,
-                            erosion,
-                            Climate.Parameter.point(1.0F),
-                            weirdness,
-                            offset),
-                    biome));
-            info.cancel();
-        }
     }
 
     /*
