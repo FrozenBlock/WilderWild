@@ -18,6 +18,7 @@
 	"server.HopperBlockEntityMixin",
 	"server.ItemStackMixin",
 	"server.LivingEntityMixin",
+	"server.NoExperimentalMixin",
 	"server.PointedDripstoneBlockMixin",
 	"server.SculkBlockMixin",
 	"server.SculkSensorBlockEntityMixin",

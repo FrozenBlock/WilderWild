@@ -1,7 +1,6 @@
 package net.frozenblock.wilderwild.block.entity;
 
 import net.fabricmc.fabric.api.networking.v1.PlayerLookup;
-import net.frozenblock.wilderwild.misc.ClientMethodInteractionThingy;
 import net.frozenblock.wilderwild.registry.RegisterBlockEntities;
 import net.frozenblock.wilderwild.registry.RegisterProperties;
 import net.frozenblock.wilderwild.registry.RegisterSounds;
@@ -9,7 +8,6 @@ import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.BlockParticleOption;
-import net.minecraft.core.particles.ItemParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.ByteTag;
 import net.minecraft.nbt.CompoundTag;
@@ -134,10 +132,6 @@ public class StoneChestBlockEntity extends ChestBlockEntity {
             }
         }
         blockEntity.shouldSkip = false;
-        if (!blockEntity.hasUpdated) {
-            ClientMethodInteractionThingy.requestBlockEntitySync(pos, level);
-            blockEntity.hasUpdated = true;
-        }
         if (isLeft(state)) {
             blockEntity.syncLidValuesWith(level, pos, state, stoneChest);
         }
@@ -157,11 +151,11 @@ public class StoneChestBlockEntity extends ChestBlockEntity {
 
     public void onLidSlam(Level level, BlockPos pos, BlockState state, StoneChestBlockEntity otherStoneChest) {
         if (!level.isClientSide && level instanceof ServerLevel server) {
-            if (state.getValue(RegisterProperties.ANCIENT) && this.highestLidPoint > 0.2F) {
+            if (this.highestLidPoint > 0.2F) {
                 server.sendParticles(new BlockParticleOption(ParticleTypes.BLOCK, state), pos.getX() + 0.5, pos.getY() + 0.625, pos.getZ() + 0.5, level.random.nextIntBetweenInclusive(3, (int) (this.highestLidPoint * 10) + 2), 0.21875F, 0, 0.21875F, 0.05D);
                 if (otherStoneChest != null) {
                     BlockPos otherPos = otherStoneChest.worldPosition;
-                    server.sendParticles(new BlockParticleOption(ParticleTypes.BLOCK, state), otherPos.getX() + 0.5, otherPos.getY() + 0.625, otherPos.getZ() + 0.5, level.random.nextIntBetweenInclusive(3, (int) (this.highestLidPoint * 10) + 2), 0.21875F, 0, 0.21875F, 0.05D);
+                    server.sendParticles(new BlockParticleOption(ParticleTypes.BLOCK, state), otherPos.getX() + 0.5, otherPos.getY() + 0.625, otherPos.getZ() + 0.5, level.random.nextIntBetweenInclusive(3, (int) (this.highestLidPoint * 10) + (state.getValue(RegisterProperties.ANCIENT) ? 4 : 2)), 0.21875F, 0, 0.21875F, 0.05D);
                 }
             }
             playSound(level, pos, state, RegisterSounds.BLOCK_STONE_CHEST_SLAM, 0.5F + (this.highestLidPoint / 5F));

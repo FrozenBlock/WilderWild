@@ -1,28 +1,20 @@
 package net.frozenblock.wilderwild.mixin.worldgen;
 
-import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
-import net.frozenblock.wilderwild.misc.BlockSoundGroupOverwrites;
 import net.frozenblock.wilderwild.registry.RegisterWorldgen;
 import net.frozenblock.wilderwild.world.gen.noise.WilderNoiseKeys;
 import net.minecraft.data.worldgen.SurfaceRuleData;
-import net.minecraft.util.KeyDispatchDataCodec;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.tags.BiomeTags;
+import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.biome.Biomes;
-import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.levelgen.Noises;
 import net.minecraft.world.level.levelgen.SurfaceRules;
 import net.minecraft.world.level.levelgen.VerticalAnchor;
-import net.minecraft.world.level.levelgen.material.MaterialRuleList;
-import net.minecraft.world.level.levelgen.placement.CaveSurface;
-import org.jetbrains.annotations.NotNull;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyVariable;
-
-import java.security.Signature;
-import java.util.concurrent.locks.Condition;
-import java.util.function.Function;
 
 @Mixin(SurfaceRuleData.class)
 public abstract class VanillaSurfaceRulesMixin {
@@ -38,7 +30,9 @@ public abstract class VanillaSurfaceRulesMixin {
     @Final
     private static SurfaceRules.RuleSource SAND;
 
-    @Shadow @Final private static SurfaceRules.RuleSource SANDSTONE;
+    @Shadow
+    @Final
+    private static SurfaceRules.RuleSource SANDSTONE;
 
 
     @ModifyVariable(method = "overworldLike", at = @At("STORE"), ordinal = 8)
@@ -64,7 +58,7 @@ public abstract class VanillaSurfaceRulesMixin {
                                 SurfaceRules.ifTrue(
                                         SurfaceRules.yStartCheck(VerticalAnchor.absolute(58), 0),
                                         SurfaceRules.ifTrue(
-                                                SurfaceRules.not(SurfaceRules.yStartCheck(VerticalAnchor.absolute(64), 0)),
+                                                SurfaceRules.not(SurfaceRules.yStartCheck(VerticalAnchor.absolute(65), 0)),
                                                 SurfaceRules.ifTrue(SurfaceRules.noiseCondition(WilderNoiseKeys.SAND_BEACH, 0.12, 1.7976931348623157E308), GRAVEL)
                                         )
                                 )
@@ -73,17 +67,43 @@ public abstract class VanillaSurfaceRulesMixin {
         ), SurfaceRules.sequence(SurfaceRules.ifTrue(
                 SurfaceRules.DEEP_UNDER_FLOOR, SurfaceRules.sequence(
                         SurfaceRules.ifTrue(
-                                SurfaceRules.isBiome(Biomes.FLOWER_FOREST, Biomes.FOREST, Biomes.JUNGLE, Biomes.SPARSE_JUNGLE, Biomes.SAVANNA, Biomes.DARK_FOREST),
+                                SurfaceRules.isBiome(Biomes.FLOWER_FOREST, Biomes.FOREST, Biomes.SAVANNA, Biomes.DARK_FOREST),
                                 SurfaceRules.ifTrue(
                                         SurfaceRules.yStartCheck(VerticalAnchor.absolute(58), 0),
                                         SurfaceRules.ifTrue(
-                                                SurfaceRules.not(SurfaceRules.yStartCheck(VerticalAnchor.absolute(64), 0)),
+                                                SurfaceRules.not(SurfaceRules.yStartCheck(VerticalAnchor.absolute(65), 0)),
                                                 SurfaceRules.ifTrue(SurfaceRules.noiseCondition(WilderNoiseKeys.SAND_BEACH, 0.12, 1.7976931348623157E308), SAND)
                                         )
                                 )
                         )
                 )
-        ), materialRule)));
+        ), SurfaceRules.sequence(SurfaceRules.ifTrue(
+                        SurfaceRules.DEEP_UNDER_FLOOR, SurfaceRules.sequence(
+                                SurfaceRules.ifTrue(
+                                        SurfaceRules.isBiome(Biomes.JUNGLE, Biomes.SPARSE_JUNGLE, Biomes.BAMBOO_JUNGLE),
+                                        SurfaceRules.ifTrue(
+                                                SurfaceRules.yStartCheck(VerticalAnchor.absolute(58), 0),
+                                                SurfaceRules.ifTrue(
+                                                        SurfaceRules.not(SurfaceRules.yStartCheck(VerticalAnchor.absolute(64), 0)),
+                                                        SurfaceRules.ifTrue(SurfaceRules.noiseCondition(WilderNoiseKeys.SAND_BEACH, 0.12, 1.7976931348623157E308), SAND)
+                                                )
+                                        )
+                                )
+                        )
+                ), materialRule))));
+
+
+            //SurfaceRules.sequence(new SurfaceRules.RuleSource[]{SurfaceRules.ifTrue(SurfaceRules.isBiome(Biomes.FOREST, Biomes.FLOWER_FOREST, Biomes.JUNGLE),
+                // SurfaceRules.ifTrue(SurfaceRules.yStartCheck(VerticalAnchor.absolute(58), 0),
+                // SurfaceRules.sequence(new SurfaceRules.RuleSource[]{SurfaceRules.ifTrue(SurfaceRules.yStartCheck(VerticalAnchor.absolute(65),0),
+                // SurfaceRules.ifTrue(SurfaceRules.not(SurfaceRules.steep()),
+                // SurfaceRules.sequence(new SurfaceRules.RuleSource[]{SurfaceRules.ifTrue(SurfaceRules.noiseCondition(WilderNoiseKeys.SAND_BEACH, 0.12, 1.7976931348623157E308),
+                // SurfaceRules.sequence(new SurfaceRules.RuleSource[]{SurfaceRules.ifTrue(SurfaceRules.UNDER_FLOOR,
+                // SurfaceRules.sequence(new SurfaceRules.RuleSource[]{SurfaceRules.ifTrue(SurfaceRules.stoneDepthCheck(3, false, CaveSurface.CEILING),SANDSTONE), SAND})),
+                // SurfaceRules.ifTrue(SurfaceRules.waterStartCheck(-6, -1),
+                // SurfaceRules.sequence(new SurfaceRules.RuleSource[]{SurfaceRules.ifTrue(SurfaceRules.UNDER_FLOOR,
+                // SurfaceRules.sequence(new SurfaceRules.RuleSource[]{SurfaceRules.ifTrue(SurfaceRules.ON_CEILING,
+                //SANDSTONE), SAND})), SurfaceRules.ifTrue(SurfaceRules.DEEP_UNDER_FLOOR, SANDSTONE)}))}))})))})))}));
     }
 }
 

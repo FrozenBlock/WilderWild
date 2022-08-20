@@ -202,14 +202,14 @@ public final class WilderWildClient implements ClientModInitializer {
     }
 
     public static void requestBlockEntitySync(BlockPos pos, Level world) {
-        FriendlyByteBuf byteBuf = new FriendlyByteBuf(Unpooled.buffer());
+        /*FriendlyByteBuf byteBuf = new FriendlyByteBuf(Unpooled.buffer());
         if (pos != null && world != null) {
             byteBuf.writeInt(pos.getX());
             byteBuf.writeInt(pos.getY());
             byteBuf.writeInt(pos.getZ());
             byteBuf.writeResourceKey(world.dimension());
             ClientPlayNetworking.send(WilderWild.REQUEST_BLOCK_ENTITY_SYNC_PACKET, byteBuf);
-        }
+        }*/
     }
 
     private static void receiveAncientHornProjectilePacket() {
