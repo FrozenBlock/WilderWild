@@ -3,6 +3,7 @@ package net.frozenblock.wilderwild.mixin.worldgen;
 import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
 import net.frozenblock.wilderwild.misc.BlockSoundGroupOverwrites;
 import net.frozenblock.wilderwild.registry.RegisterWorldgen;
+import net.frozenblock.wilderwild.tag.WilderBiomeTags;
 import net.frozenblock.wilderwild.world.gen.noise.WilderNoiseKeys;
 import net.minecraft.data.worldgen.SurfaceRuleData;
 import net.minecraft.util.KeyDispatchDataCodec;
@@ -64,7 +65,7 @@ public abstract class VanillaSurfaceRulesMixin {
                                 SurfaceRules.ifTrue(
                                         SurfaceRules.yStartCheck(VerticalAnchor.absolute(58), 0),
                                         SurfaceRules.ifTrue(
-                                                SurfaceRules.not(SurfaceRules.yStartCheck(VerticalAnchor.absolute(64), 0)),
+                                                SurfaceRules.not(SurfaceRules.yStartCheck(VerticalAnchor.absolute(65), 0)),
                                                 SurfaceRules.ifTrue(SurfaceRules.noiseCondition(WilderNoiseKeys.SAND_BEACH, 0.12, 1.7976931348623157E308), GRAVEL)
                                         )
                                 )
@@ -77,13 +78,26 @@ public abstract class VanillaSurfaceRulesMixin {
                                 SurfaceRules.ifTrue(
                                         SurfaceRules.yStartCheck(VerticalAnchor.absolute(58), 0),
                                         SurfaceRules.ifTrue(
-                                                SurfaceRules.not(SurfaceRules.yStartCheck(VerticalAnchor.absolute(64), 0)),
+                                                SurfaceRules.not(SurfaceRules.yStartCheck(VerticalAnchor.absolute(65), 0)),
                                                 SurfaceRules.ifTrue(SurfaceRules.noiseCondition(WilderNoiseKeys.SAND_BEACH, 0.12, 1.7976931348623157E308), SAND)
                                         )
                                 )
                         )
                 )
         ), materialRule)));
+
+
+            //SurfaceRules.sequence(new SurfaceRules.RuleSource[]{SurfaceRules.ifTrue(SurfaceRules.isBiome(Biomes.FOREST, Biomes.FLOWER_FOREST, Biomes.JUNGLE),
+                // SurfaceRules.ifTrue(SurfaceRules.yStartCheck(VerticalAnchor.absolute(58), 0),
+                // SurfaceRules.sequence(new SurfaceRules.RuleSource[]{SurfaceRules.ifTrue(SurfaceRules.yStartCheck(VerticalAnchor.absolute(65),0),
+                // SurfaceRules.ifTrue(SurfaceRules.not(SurfaceRules.steep()),
+                // SurfaceRules.sequence(new SurfaceRules.RuleSource[]{SurfaceRules.ifTrue(SurfaceRules.noiseCondition(WilderNoiseKeys.SAND_BEACH, 0.12, 1.7976931348623157E308),
+                // SurfaceRules.sequence(new SurfaceRules.RuleSource[]{SurfaceRules.ifTrue(SurfaceRules.UNDER_FLOOR,
+                // SurfaceRules.sequence(new SurfaceRules.RuleSource[]{SurfaceRules.ifTrue(SurfaceRules.stoneDepthCheck(3, false, CaveSurface.CEILING),SANDSTONE), SAND})),
+                // SurfaceRules.ifTrue(SurfaceRules.waterStartCheck(-6, -1),
+                // SurfaceRules.sequence(new SurfaceRules.RuleSource[]{SurfaceRules.ifTrue(SurfaceRules.UNDER_FLOOR,
+                // SurfaceRules.sequence(new SurfaceRules.RuleSource[]{SurfaceRules.ifTrue(SurfaceRules.ON_CEILING,
+                //SANDSTONE), SAND})), SurfaceRules.ifTrue(SurfaceRules.DEEP_UNDER_FLOOR, SANDSTONE)}))}))})))})))}));
     }
 }
 
