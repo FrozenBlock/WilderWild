@@ -9,7 +9,6 @@ import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.entity.Firefly;
 import net.frozenblock.wilderwild.entity.ai.FireflyBrain;
 import net.frozenblock.wilderwild.item.FireflyBottle;
-import net.frozenblock.wilderwild.misc.ClientMethodInteractionThingy;
 import net.frozenblock.wilderwild.registry.RegisterBlockEntities;
 import net.frozenblock.wilderwild.registry.RegisterEntities;
 import net.frozenblock.wilderwild.registry.RegisterSounds;
@@ -57,22 +56,12 @@ public class FireflyLanternBlockEntity extends BlockEntity {
     }
 
     public void clientTick(Level world, BlockPos pos) {
-        if (world.isClientSide) {
-            if (!this.hasUpdated) {
-                this.hasUpdated = true;
-                ClientMethodInteractionThingy.requestBlockEntitySync(pos, world);
-            }
-        }
         this.age += 1;
         if (!this.fireflies.isEmpty()) {
             for (FireflyInLantern firefly : this.fireflies) {
                 firefly.tick(world, pos);
             }
         }
-    }
-
-    public void updatePlayer(ServerPlayer player) {
-        player.connection.send(this.getUpdatePacket());
     }
 
     public void updateSync() {

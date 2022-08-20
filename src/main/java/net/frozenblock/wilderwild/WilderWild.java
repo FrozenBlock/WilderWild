@@ -127,8 +127,6 @@ public final class WilderWild implements ModInitializer {
         TermiteMoundBlockEntity.Termite.addDegradableBlocks();
         TermiteMoundBlockEntity.Termite.addNaturalDegradableBlocks();
 
-        sendBlockEntitySync();
-
         terralith();
 
         if (hasSimpleCopperPipes()) {
@@ -290,8 +288,6 @@ public final class WilderWild implements ModInitializer {
     public static final ResourceLocation MOVING_RESTRICTION_LOOPING_SOUND_PACKET = id("moving_restriction_looping_sound_packet");
     public static final ResourceLocation MOVING_RESTRICTION_SOUND_PACKET = id("moving_restriction_sound_packet");
 
-    public static final ResourceLocation REQUEST_BLOCK_ENTITY_SYNC_PACKET = id("request_block_entity_sync_packet");
-
     public static ResourceLocation id(String path) {
         return new ResourceLocation(MOD_ID, path);
     }
@@ -300,22 +296,4 @@ public final class WilderWild implements ModInitializer {
         return id(path).toString();
     }
 
-    public void sendBlockEntitySync() {
-        ServerPlayNetworking.registerGlobalReceiver(REQUEST_BLOCK_ENTITY_SYNC_PACKET, (ctx, player, handler, byteBuf, responseSender) -> {
-            ctx.execute(() -> {
-                try {
-                    BlockPos pos = new BlockPos(byteBuf.readInt(), byteBuf.readInt(), byteBuf.readInt());
-                    Level world = ctx.getLevel(byteBuf.readResourceKey(Registry.DIMENSION_REGISTRY));
-                    if (world != null) {
-                        BlockEntity entity = world.getBlockEntity(pos);
-                        if (entity != null) {
-                            player.connection.send(entity.getUpdatePacket());
-                        }
-                    }
-                } catch (Exception ignored) {
-
-                }
-            });
-        });
-    }
 }

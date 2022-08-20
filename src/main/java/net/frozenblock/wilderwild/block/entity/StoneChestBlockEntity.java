@@ -1,7 +1,6 @@
 package net.frozenblock.wilderwild.block.entity;
 
 import net.fabricmc.fabric.api.networking.v1.PlayerLookup;
-import net.frozenblock.wilderwild.misc.ClientMethodInteractionThingy;
 import net.frozenblock.wilderwild.registry.RegisterBlockEntities;
 import net.frozenblock.wilderwild.registry.RegisterProperties;
 import net.frozenblock.wilderwild.registry.RegisterSounds;
@@ -9,7 +8,6 @@ import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.BlockParticleOption;
-import net.minecraft.core.particles.ItemParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.ByteTag;
 import net.minecraft.nbt.CompoundTag;
@@ -134,10 +132,6 @@ public class StoneChestBlockEntity extends ChestBlockEntity {
             }
         }
         blockEntity.shouldSkip = false;
-        if (!blockEntity.hasUpdated) {
-            ClientMethodInteractionThingy.requestBlockEntitySync(pos, level);
-            blockEntity.hasUpdated = true;
-        }
         if (isLeft(state)) {
             blockEntity.syncLidValuesWith(level, pos, state, stoneChest);
         }
