@@ -133,7 +133,7 @@ public final class WilderWild implements ModInitializer {
         stopMeasuring(this);
     }
 
-    private static final int DATA_VERSION = 6;
+    private static final int DATA_VERSION = 7;
 
     private static void applyDataFixes(ModContainer mod) {
         logWild("Applying DataFixes for", true);
@@ -157,6 +157,8 @@ public final class WilderWild implements ModInitializer {
         SimpleFixes.addBlockRenameFix(builder, "Rename baobab_sapling to baobab_nut", id("baobab_sapling"), id("baobab_nut"), schemaV6);
         SimpleFixes.addBlockRenameFix(builder, "Rename baobab_nut_sapling to baobab_nut", id("baobab_nut_sapling"), id("baobab_nut"), schemaV6);
         SimpleFixes.addBlockRenameFix(builder, "Rename potted_baobab_sapling to potted_baobab_nut", id("potted_baobab_sapling"), id("potted_baobab_nut"), schemaV6);
+        Schema schemaV7 = builder.addSchema(7, NamespacedSchema::new);
+        SimpleFixes.addBlockRenameFix(builder, "Rename firefly_lantern to display_lantern", id("firefly_lantern"), id("display_lantern"), schemaV7);
 
         QuiltDataFixes.buildAndRegisterFixer(mod, builder);
         log("DataFixes for Wilder Wild have been applied", true);
