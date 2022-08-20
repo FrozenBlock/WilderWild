@@ -26,8 +26,8 @@ public class LootTableWhacker extends Item {
         BlockPos blockPos = context.getClickedPos();
         ItemStack stack = context.getItemInHand();
         if (stack.hasCustomHoverName()) {
-            if (stack.getHoverName().toString().contains(":")) {
-                String id = Objects.requireNonNull(context.getPlayer()).getItemInHand(InteractionHand.MAIN_HAND).getHoverName().getString();
+            if (stack.getHoverName().getString().contains(":")) {
+                String id = stack.getHoverName().getString();
                 List<String> strings = Arrays.stream(id.split(":")).toList();
                 ResourceLocation location = new ResourceLocation(strings.get(1), strings.get(2));
                 if (level.getBlockEntity(blockPos) instanceof RandomizableContainerBlockEntity loot) {
