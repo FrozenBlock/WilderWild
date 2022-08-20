@@ -33,7 +33,7 @@ public class AncientCityPiecesMixin {
     @Inject(method = "<clinit>", at = @At("HEAD"), cancellable = true)
     private static void init(CallbackInfo info) {
         info.cancel();
-        START = Pools.register(new StructureTemplatePool(new ResourceLocation("ancient_city/city_center"), new ResourceLocation("empty"), ImmutableList.of(Pair.of(StructurePoolElement.single("ancient_city/city_center/city_center_1", ProcessorLists.ANCIENT_CITY_START_DEGRADATION), 1), Pair.of(single("ancient_city/city_center/city_center_2", ProcessorLists.ANCIENT_CITY_START_DEGRADATION), 1), Pair.of(StructurePoolElement.single("ancient_city/city_center/city_center_3", ProcessorLists.ANCIENT_CITY_START_DEGRADATION), 1)), StructureTemplatePool.Projection.RIGID));
+        START = Pools.register(new StructureTemplatePool(new ResourceLocation("ancient_city/city_center"), new ResourceLocation("empty"), ImmutableList.of(Pair.of(single("ancient_city/city_center/city_center_1", ProcessorLists.ANCIENT_CITY_START_DEGRADATION), 1), Pair.of(single("ancient_city/city_center/city_center_2", ProcessorLists.ANCIENT_CITY_START_DEGRADATION), 1), Pair.of(single("ancient_city/city_center/city_center_3", ProcessorLists.ANCIENT_CITY_START_DEGRADATION), 1)), StructureTemplatePool.Projection.RIGID));
     }
 
     private static Function<StructureTemplatePool.Projection, SinglePoolElement> single(String id) {
