@@ -11,6 +11,8 @@ import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.RandomizableContainerBlockEntity;
 
+import java.util.Arrays;
+import java.util.List;
 import java.util.Objects;
 
 public class LootTableWhacker extends Item {
@@ -25,8 +27,9 @@ public class LootTableWhacker extends Item {
         ItemStack stack = context.getItemInHand();
         if (stack.hasCustomHoverName()) {
             if (stack.getHoverName().toString().contains(":")) {
-                String id = Objects.requireNonNull(context.getPlayer()).getItemInHand(InteractionHand.MAIN_HAND).getOrCreateTag().getString("loot_table");
-                ResourceLocation location = new ResourceLocation(id.substring(0, id.lastIndexOf(":") - 1), id.substring(id.lastIndexOf(":" + 1)));
+                String id = Objects.requireNonNull(context.getPlayer()).getItemInHand(InteractionHand.MAIN_HAND).getHoverName().getString();
+                List<String> strings = Arrays.stream(id.split(":")).toList();
+                ResourceLocation location = new ResourceLocation(strings.get(1), strings.get(2));
                 if (level.getBlockEntity(blockPos) instanceof RandomizableContainerBlockEntity loot) {
                     loot.lootTable = location;
                     WilderWild.log(location.toString(), true);
