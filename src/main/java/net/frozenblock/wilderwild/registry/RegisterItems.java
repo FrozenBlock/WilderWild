@@ -3,13 +3,11 @@ package net.frozenblock.wilderwild.registry;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.fabric.api.object.builder.v1.trade.TradeOfferHelper;
 import net.frozenblock.wilderwild.WilderWild;
-import net.frozenblock.wilderwild.item.AncientHorn;
-import net.frozenblock.wilderwild.item.CopperHorn;
-import net.frozenblock.wilderwild.item.FireflyBottle;
-import net.frozenblock.wilderwild.item.MilkweedPod;
+import net.frozenblock.wilderwild.item.*;
 import net.frozenblock.wilderwild.misc.WilderBoats;
 import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceKey;
+import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.entity.npc.VillagerTrades;
 import net.minecraft.world.food.Foods;
 import net.minecraft.world.item.*;
@@ -32,7 +30,7 @@ public final class RegisterItems {
             RegisterBlocks.CYPRESS_SIGN_BLOCK, RegisterBlocks.CYPRESS_WALL_SIGN);
 
     public static final Item BAOBAB_NUT = new BlockItem(RegisterBlocks.BAOBAB_NUT, new FabricItemSettings().tab(CreativeModeTab.TAB_DECORATIONS).food(RegisterFood.BAOBAB_NUT));
-    public static final Item PRICKLY_PEAR = new Item(new FabricItemSettings().tab(CreativeModeTab.TAB_FOOD).food(RegisterFood.PRICKLY_PEAR));
+    public static final Item PRICKLY_PEAR = new PrickOnUseItem(new FabricItemSettings().tab(CreativeModeTab.TAB_FOOD).food(RegisterFood.PRICKLY_PEAR), 2F, SoundEvents.PLAYER_HURT_SWEET_BERRY_BUSH);
     public static final Item PEELED_PRICKLY_PEAR = new Item(new FabricItemSettings().tab(CreativeModeTab.TAB_FOOD).food(Foods.APPLE));
 
     public static final Item FIREFLY_BOTTLE = new FireflyBottle(new FabricItemSettings().tab(CreativeModeTab.TAB_MISC).stacksTo(32), "on");

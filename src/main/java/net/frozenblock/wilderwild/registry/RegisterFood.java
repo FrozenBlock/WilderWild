@@ -10,6 +10,7 @@ public class RegisterFood {
 
 
     // TODO: Make Prickly pear deal normal damage, playing the Sweet Berry Thorn Sound
-    public static final FoodProperties PRICKLY_PEAR = new FoodProperties.Builder().nutrition(2).saturationMod(0.3F).effect(new MobEffectInstance(MobEffects.WITHER, 20, 1), 1.0F).build();
+    public static final FoodProperties PRICKLY_PEAR = new FoodProperties.Builder().nutrition(2).saturationMod(0.3F)
+            .effect(new MobEffectInstance(MobEffects.WITHER, 20, 1), 1.0F).build();
 
 }
