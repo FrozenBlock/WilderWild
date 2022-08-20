@@ -205,6 +205,7 @@ public class StoneChestBlockEntity extends ChestBlockEntity {
 
     public void unpackLootTable(@Nullable Player player) {
         if (this.lootTable != null && this.level.getServer() != null) {
+            this.lootGenerated = false;
             LootTable lootTable = this.level.getServer().getLootTables().get(this.lootTable);
             if (player instanceof ServerPlayer) {
                 CriteriaTriggers.GENERATE_LOOT.trigger((ServerPlayer) player, this.lootTable);
