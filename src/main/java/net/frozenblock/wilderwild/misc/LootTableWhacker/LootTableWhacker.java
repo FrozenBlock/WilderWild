@@ -29,7 +29,7 @@ public class LootTableWhacker extends Item {
                 ResourceLocation location = new ResourceLocation(id.substring(0, id.lastIndexOf(":") - 1), id.substring(id.lastIndexOf(":" + 1)));
                 if (level.getBlockEntity(blockPos) instanceof RandomizableContainerBlockEntity loot) {
                     loot.lootTable = location;
-                    WilderWild.log(location, true);
+                    WilderWild.log(location.toString(), true);
                 }
             }
         }
