@@ -167,6 +167,9 @@ public final class RegisterSounds {
     public static final SoundEvent ANCIENT_HORN_PROJECTILE_FLYBY = register("entity.ancient_horn_projectile.flyby");
     public static final SoundEvent ANCIENT_HORN_PROJECTILE_DISSIPATE = register("entity.ancient_horn_projectile.dissipate");
 
+    //TODO: Custom Prick Sound
+    public static final SoundEvent HURT_PRICKLY_PEAR = register("entity.player.hurt_prickly_pear");
+
     public static final SoundEvent MUSIC_DISC_BENEATH = register("music_disc.beneath");
     public static final SoundEvent MUSIC_DISC_GOATHORN_SYMPHONY = register("music_disc.goathorn_symphony");
     public static final SoundEvent MUSIC_DISC_THE_OTHER_SIDE = register("music_disc.the_other_side");
