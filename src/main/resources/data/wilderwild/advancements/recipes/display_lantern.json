@@ -15,7 +15,7 @@
 	},
 	"has_the_recipe": {
 	  "conditions": {
-		"recipe": "wilderwild:firefly_lantern"
+		"recipe": "wilderwild:display_lantern"
 	  },
 	  "trigger": "minecraft:recipe_unlocked"
 	}
@@ -28,7 +28,7 @@
   ],
   "rewards": {
 	"recipes": [
-	  "wilderwild:firefly_lantern"
+	  "wilderwild:display_lantern"
 	]
   }
 }

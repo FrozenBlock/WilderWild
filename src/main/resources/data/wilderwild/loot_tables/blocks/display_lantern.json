@@ -7,7 +7,7 @@
 	  "entries": [
 		{
 		  "type": "minecraft:item",
-		  "name": "wilderwild:firefly_lantern"
+		  "name": "wilderwild:display_lantern"
 		}
 	  ],
 	  "conditions": [

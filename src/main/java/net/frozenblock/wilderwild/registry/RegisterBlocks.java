@@ -44,7 +44,7 @@ public final class RegisterBlocks {
     private static final MaterialColor CYPRESS_BARK_COLOR = MaterialColor.STONE;
 
     // OTHER (BUILDING BLOCKS)
-    public static final Block CHISELED_MUD_BRICKS = new net.minecraft.world.level.block.Block(FabricBlockSettings.copy(Blocks.CHISELED_STONE_BRICKS).strength(1.5F).requiresCorrectToolForDrops().sound(SoundType.MUD_BRICKS));
+    public static final Block CHISELED_MUD_BRICKS = new Block(FabricBlockSettings.copy(Blocks.CHISELED_STONE_BRICKS).strength(1.5F).requiresCorrectToolForDrops().sound(SoundType.MUD_BRICKS));
 
     public static void registerOtherBB() {
         // BB = Building Blocks
@@ -52,8 +52,8 @@ public final class RegisterBlocks {
     }
 
     // WOOD
-    public static final Block BAOBAB_PLANKS = new net.minecraft.world.level.block.Block(FabricBlockSettings.of(Material.WOOD, BAOBAB_PLANKS_COLOR).strength(2.0F, 3.0F).sound(SoundType.WOOD));
-    public static final Block CYPRESS_PLANKS = new net.minecraft.world.level.block.Block(FabricBlockSettings.of(Material.WOOD, CYPRESS_PLANKS_COLOR).strength(2.0F, 3.0F).sound(SoundType.WOOD));
+    public static final Block BAOBAB_PLANKS = new Block(FabricBlockSettings.of(Material.WOOD, BAOBAB_PLANKS_COLOR).strength(2.0F, 3.0F).sound(SoundType.WOOD));
+    public static final Block CYPRESS_PLANKS = new Block(FabricBlockSettings.of(Material.WOOD, CYPRESS_PLANKS_COLOR).strength(2.0F, 3.0F).sound(SoundType.WOOD));
 
     public static final Block BAOBAB_LOG = new RotatedPillarBlock(FabricBlockSettings.of(Material.WOOD, state -> state.getValue(RotatedPillarBlock.AXIS) == Direction.Axis.Y ? BAOBAB_PLANKS_COLOR : BAOBAB_BARK_COLOR).strength(2.0F).sound(SoundType.WOOD));
     public static final Block CYPRESS_LOG = new RotatedPillarBlock(FabricBlockSettings.of(Material.WOOD, state -> state.getValue(RotatedPillarBlock.AXIS) == Direction.Axis.Y ? CYPRESS_PLANKS_COLOR : CYPRESS_BARK_COLOR).strength(2.0F).sound(SoundType.WOOD));
@@ -265,6 +265,10 @@ public final class RegisterBlocks {
         registerBlockWithoutBlockItem("pollen", POLLEN_BLOCK);
         registerBlock("brown_shelf_fungus", BROWN_SHELF_FUNGUS, CreativeModeTab.TAB_DECORATIONS);
         registerBlock("red_shelf_fungus", RED_SHELF_FUNGUS, CreativeModeTab.TAB_DECORATIONS);
+        Registry.register(Registry.BLOCK, WilderWild.id("flowering_lily_pad"), FLOWERING_LILY_PAD);
+        Registry.register(Registry.ITEM, WilderWild.id("flowering_lily_pad"), new FloweredLilyPadItem(FLOWERING_LILY_PAD, new FabricItemSettings().tab(CreativeModeTab.TAB_DECORATIONS)));
+        Registry.register(Registry.BLOCK, WilderWild.id("algae"), ALGAE);
+        Registry.register(Registry.ITEM, WilderWild.id("algae"), new AlgaeItem(ALGAE, new FabricItemSettings().tab(CreativeModeTab.TAB_DECORATIONS)));
     }
 
     // BLOCK FAMILIES
@@ -297,12 +301,15 @@ public final class RegisterBlocks {
             .recipeUnlockedBy("has_planks")
             .getFamily();
 
-    public static final Block NULL_BLOCK = new net.minecraft.world.level.block.Block(FabricBlockSettings.copyOf(Blocks.STONE).sound(RegisterBlockSoundGroups.NULL_BLOCK)); // B) -merp
+    public static final Block NULL_BLOCK = new Block(FabricBlockSettings.copyOf(Blocks.STONE).sound(RegisterBlockSoundGroups.NULL_BLOCK)); // B) -merp
 
-    public static final Block FIREFLY_LANTERN = new FireflyLanternBlock(FabricBlockSettings.of(Material.METAL).strength(3.5f).sound(SoundType.LANTERN).noOcclusion().lightLevel((state) -> state.getValue(RegisterProperties.LIGHT)));
+    public static final Block DISPLAY_LANTERN = new DisplayLanternBlock(FabricBlockSettings.of(Material.METAL).strength(3.5f).sound(SoundType.LANTERN).noOcclusion().lightLevel((state) -> state.getValue(RegisterProperties.LIGHT)));
 
-    public static void register1_1() {
-        registerBlock("firefly_lantern", FIREFLY_LANTERN, CreativeModeTab.TAB_DECORATIONS);
+    public static void registerMisc() {
+        registerBlock("termite_mound", TERMITE_MOUND, CreativeModeTab.TAB_DECORATIONS);
+        registerBlock("null_block", NULL_BLOCK, CreativeModeTab.TAB_DECORATIONS);
+        registerBlock("stone_chest", STONE_CHEST, CreativeModeTab.TAB_DECORATIONS);
+        registerBlock("display_lantern", DISPLAY_LANTERN, CreativeModeTab.TAB_DECORATIONS);
     }
 
     public static void registerBlocks() {
@@ -312,16 +319,9 @@ public final class RegisterBlocks {
         registerWoods();
         registerHollowedLogs();
         registerDeepDark();
-        registerBlock("termite_mound", TERMITE_MOUND, CreativeModeTab.TAB_DECORATIONS);
-        registerBlock("stone_chest", STONE_CHEST, CreativeModeTab.TAB_DECORATIONS);
         registerPlants();
-        Registry.register(Registry.BLOCK, WilderWild.id("flowering_lily_pad"), FLOWERING_LILY_PAD);
-        Registry.register(Registry.ITEM, WilderWild.id("flowering_lily_pad"), new FloweredLilyPadItem(FLOWERING_LILY_PAD, new FabricItemSettings().tab(CreativeModeTab.TAB_DECORATIONS)));
-        Registry.register(Registry.BLOCK, WilderWild.id("algae"), ALGAE);
-        Registry.register(Registry.ITEM, WilderWild.id("algae"), new AlgaeItem(ALGAE, new FabricItemSettings().tab(CreativeModeTab.TAB_DECORATIONS)));
-        registerBlock("null_block", NULL_BLOCK, CreativeModeTab.TAB_DECORATIONS);
         registerNotSoPlants();
-        register1_1();
+        registerMisc();
 
         registerComposting();
         registerFlammability();

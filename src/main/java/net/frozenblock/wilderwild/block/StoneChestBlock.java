@@ -72,7 +72,7 @@ public class StoneChestBlock extends ChestBlock {
             if (stoneChest.closing) {
                 return InteractionResult.FAIL;
             }
-            StoneChestBlockEntity stoneEntity = stoneChest.getLeftEntity(world, pos, state, stoneChest);
+            StoneChestBlockEntity stoneEntity = StoneChestBlockEntity.getLeftEntity(world, pos, state, stoneChest);
             if (canInteract(world, pos)) {
                 MenuProvider namedScreenHandlerFactory = this.getMenuProvider(state, world, pos);
                 if (!hasLid(world, pos) && (!player.isShiftKeyDown() || stoneEntity.openProgress >= 0.5F) && namedScreenHandlerFactory != null) {

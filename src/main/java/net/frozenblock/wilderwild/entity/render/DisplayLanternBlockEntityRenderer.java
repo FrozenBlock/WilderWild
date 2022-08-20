@@ -12,7 +12,7 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.WilderWildClient;
-import net.frozenblock.wilderwild.block.entity.FireflyLanternBlockEntity;
+import net.frozenblock.wilderwild.block.entity.DisplayLanternBlockEntity;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.builders.LayerDefinition;
@@ -31,7 +31,7 @@ import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import java.util.Optional;
 
 @Environment(EnvType.CLIENT)
-public class FireflyLanternBlockEntityRenderer<T extends FireflyLanternBlockEntity> implements BlockEntityRenderer<T> {
+public class DisplayLanternBlockEntityRenderer<T extends DisplayLanternBlockEntity> implements BlockEntityRenderer<T> {
 
     private static final float pi = (float) Math.PI;
     private static final Quaternion one80Quat = Vector3f.YP.rotationDegrees(180.0F);
@@ -44,8 +44,8 @@ public class FireflyLanternBlockEntityRenderer<T extends FireflyLanternBlockEnti
     private static final RenderType NECTAR_FLAP_LAYER = RenderType.entityCutout(WilderWild.id("textures/entity/firefly/nectar_wings_down.png"));
     private static final RenderType NECTAR_OVERLAY = RenderType.entityTranslucentEmissive(WilderWild.id("textures/entity/firefly/nectar_overlay.png"), true);
 
-    public FireflyLanternBlockEntityRenderer(Context ctx) {
-        ModelPart root = ctx.bakeLayer(WilderWildClient.FIREFLY_LANTERN);
+    public DisplayLanternBlockEntityRenderer(Context ctx) {
+        ModelPart root = ctx.bakeLayer(WilderWildClient.DISPLAY_LANTERN);
         this.itemRenderer = ctx.getItemRenderer();
     }
 
@@ -69,7 +69,7 @@ public class FireflyLanternBlockEntityRenderer<T extends FireflyLanternBlockEnti
             matrices.popPose();
         } else if (cam != null) {
             double extraHeight = lantern.getBlockState().getValue(BlockStateProperties.HANGING) ? 0.38 : 0.225;
-            for (FireflyLanternBlockEntity.FireflyInLantern entity : lantern.getFireflies()) {
+            for (DisplayLanternBlockEntity.FireflyInLantern entity : lantern.getFireflies()) {
                 boolean nectar = entity.getCustomName().toLowerCase().contains("nectar");
                 int age = entity.age;
                 boolean flickers = entity.flickers;

@@ -24,18 +24,18 @@
 				  "source": "block_entity"
 				},
 				{
-				  "block": "wilderwild:firefly_lantern",
+				  "block": "wilderwild:display_lantern",
 				  "function": "minecraft:copy_state",
 				  "properties": [
 					"fireflies"
 				  ]
 				}
 			  ],
-			  "name": "wilderwild:firefly_lantern"
+			  "name": "wilderwild:display_lantern"
 			},
 			{
 			  "type": "minecraft:item",
-			  "name": "wilderwild:firefly_lantern"
+			  "name": "wilderwild:display_lantern"
 			}
 		  ]
 		}

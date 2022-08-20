@@ -1,6 +1,5 @@
 package net.frozenblock.wilderwild;
 
-import io.netty.buffer.Unpooled;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
@@ -35,7 +34,6 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Registry;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundSource;
@@ -51,7 +49,7 @@ import java.util.UUID;
 public final class WilderWildClient implements ClientModInitializer {
     public static final ModelLayerLocation ANCIENT_HORN_PROJECTILE_LAYER = new ModelLayerLocation(WilderWild.id("ancient_horn_projectile"), "main");
     public static final ModelLayerLocation SCULK_SENSOR = new ModelLayerLocation(WilderWild.id("sculk_sensor"), "main");
-    public static final ModelLayerLocation FIREFLY_LANTERN = new ModelLayerLocation(WilderWild.id("firefly_lantern"), "main");
+    public static final ModelLayerLocation DISPLAY_LANTERN = new ModelLayerLocation(WilderWild.id("display_lantern"), "main");
     public static final ModelLayerLocation STONE_CHEST = new ModelLayerLocation(WilderWild.id("stone_chest"), "main");
     public static final ModelLayerLocation DOUBLE_STONE_CHEST_LEFT = new ModelLayerLocation(WilderWild.id("double_stone_chest_left"), "main");
     public static final ModelLayerLocation DOUBLE_STONE_CHEST_RIGHT = new ModelLayerLocation(WilderWild.id("double_stone_chest_right"), "main");
@@ -88,7 +86,7 @@ public final class WilderWildClient implements ClientModInitializer {
         BlockRenderLayerMap.INSTANCE.putBlock(RegisterBlocks.PURPLE_GLORY_OF_THE_SNOW, RenderType.cutout());
         //BlockRenderLayerMap.INSTANCE.putBlock(RegisterBlocks.CYPRESS_ROOTS, RenderLayer.getCutout());
         BlockRenderLayerMap.INSTANCE.putBlock(RegisterBlocks.TERMITE_MOUND, RenderType.solid());
-        BlockRenderLayerMap.INSTANCE.putBlock(RegisterBlocks.FIREFLY_LANTERN, RenderType.cutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(RegisterBlocks.DISPLAY_LANTERN, RenderType.cutout());
         BlockRenderLayerMap.INSTANCE.putBlock(RegisterBlocks.HOLLOWED_ACACIA_LOG, RenderType.cutout());
         BlockRenderLayerMap.INSTANCE.putBlock(RegisterBlocks.HOLLOWED_BAOBAB_LOG, RenderType.cutout());
         BlockRenderLayerMap.INSTANCE.putBlock(RegisterBlocks.HOLLOWED_BIRCH_LOG, RenderType.cutout());
@@ -144,8 +142,8 @@ public final class WilderWildClient implements ClientModInitializer {
         BlockEntityRendererRegistry.register(BlockEntityType.SCULK_SENSOR, SculkSensorBlockEntityRenderer::new);
         EntityModelLayerRegistry.registerModelLayer(SCULK_SENSOR, SculkSensorBlockEntityRenderer::getTexturedModelData);
 
-        BlockEntityRendererRegistry.register(RegisterBlockEntities.FIREFLY_LANTERN, FireflyLanternBlockEntityRenderer::new);
-        EntityModelLayerRegistry.registerModelLayer(FIREFLY_LANTERN, FireflyLanternBlockEntityRenderer::getTexturedModelData);
+        BlockEntityRendererRegistry.register(RegisterBlockEntities.DISPLAY_LANTERN, DisplayLanternBlockEntityRenderer::new);
+        EntityModelLayerRegistry.registerModelLayer(DISPLAY_LANTERN, DisplayLanternBlockEntityRenderer::getTexturedModelData);
 
         BlockEntityRendererRegistry.register(RegisterBlockEntities.STONE_CHEST, StoneChestBlockEntityRenderer::new);
         EntityModelLayerRegistry.registerModelLayer(STONE_CHEST, StoneChestBlockEntityRenderer::createSingleBodyLayer);

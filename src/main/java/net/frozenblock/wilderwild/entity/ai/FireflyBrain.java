@@ -8,6 +8,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.GlobalPos;
 import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.ai.Brain;
 import net.minecraft.world.entity.ai.behavior.*;
 import net.minecraft.world.entity.ai.memory.MemoryModuleType;
 import net.minecraft.world.entity.schedule.Activity;
@@ -20,7 +21,7 @@ public class FireflyBrain {
     public FireflyBrain() {
     }
 
-    public static net.minecraft.world.entity.ai.Brain<?> create(net.minecraft.world.entity.ai.Brain<Firefly> brain) {
+    public static Brain<?> create(Brain<Firefly> brain) {
         addCoreActivities(brain);
         addIdleActivities(brain);
         brain.setCoreActivities(ImmutableSet.of(Activity.CORE));
@@ -29,11 +30,11 @@ public class FireflyBrain {
         return brain;
     }
 
-    private static void addCoreActivities(net.minecraft.world.entity.ai.Brain<Firefly> brain) {
+    private static void addCoreActivities(Brain<Firefly> brain) {
         brain.addActivity(Activity.CORE, 0, ImmutableList.of(new Swim(0.8F), new AnimalPanic(2.5F), new LookAtTargetSink(45, 90), new MoveToTargetSink()));
     }
 
-    private static void addIdleActivities(net.minecraft.world.entity.ai.Brain<Firefly> brain) {
+    private static void addIdleActivities(Brain<Firefly> brain) {
         brain.addActivityWithConditions(Activity.IDLE, ImmutableList.of(Pair.of(2, new StayCloseToTarget<>(FireflyBrain::getLookTarget, 7, 16, 1.0F)), Pair.of(3, new RunSometimes<>(new SetEntityLookTarget((firefly) -> true, 6.0F), UniformInt.of(30, 60))), Pair.of(4, new RunOne<>(ImmutableList.of(Pair.of(new FlyingRandomStroll(1.0F), 2), Pair.of(new SetWalkTargetFromLookTarget(1.0F, 3), 2), Pair.of(new DoNothing(30, 60), 1))))), ImmutableSet.of());
     }
 
@@ -52,7 +53,7 @@ public class FireflyBrain {
     }
 
     public static void rememberHome(LivingEntity firefly, BlockPos pos) {
-        net.minecraft.world.entity.ai.Brain<?> brain = firefly.getBrain();
+        Brain<?> brain = firefly.getBrain();
         GlobalPos globalPos = GlobalPos.of(firefly.getLevel().dimension(), pos);
         brain.setMemory(MemoryModuleType.HOME, globalPos);
     }
@@ -63,7 +64,7 @@ public class FireflyBrain {
     }
 
     private static Optional<PositionTracker> getLookTarget(LivingEntity firefly) {
-        net.minecraft.world.entity.ai.Brain<?> brain = firefly.getBrain();
+        Brain<?> brain = firefly.getBrain();
         Optional<GlobalPos> home = brain.getMemory(MemoryModuleType.HOME);
         if (home.isPresent()) {
             GlobalPos globalPos = home.get();

@@ -17,7 +17,7 @@ public final class RegisterSounds {
 
     public static final SoundEvent AMBIENT_GENERIC_CAVES_LOOP = register("ambient.generic_caves.loop");
 
-    public static final SoundEvent BLOCK_FIREFLY_LANTERN_NECTAR_LOOP = register("block.firefly_lantern.nectar_inside_loop");
+    public static final SoundEvent BLOCK_DISPLAY_LANTERN_NECTAR_LOOP = register("block.display_lantern.nectar_inside_loop");
 
     public static final SoundEvent BLOCK_REINFORCED_DEEPSLATE_PLACE = register("block.reinforced_deepslate.place");
     public static final SoundEvent BLOCK_REINFORCED_DEEPSLATE_HIT = register("block.reinforced_deepslate.hit");

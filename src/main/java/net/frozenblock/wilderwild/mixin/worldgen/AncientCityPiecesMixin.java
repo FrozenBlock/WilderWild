@@ -6,10 +6,8 @@ import com.mojang.datafixers.util.Pair;
 import net.frozenblock.wilderwild.WilderWild;
 import net.minecraft.core.Holder;
 import net.minecraft.data.worldgen.AncientCityStructurePieces;
-import net.minecraft.data.worldgen.AncientCityStructurePools;
 import net.minecraft.data.worldgen.Pools;
 import net.minecraft.data.worldgen.ProcessorLists;
-import net.minecraft.data.worldgen.placement.CavePlacements;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.levelgen.structure.pools.SinglePoolElement;
 import net.minecraft.world.level.levelgen.structure.pools.StructurePoolElement;
@@ -30,7 +28,7 @@ public class AncientCityPiecesMixin {
     @Shadow
     @Mutable
     @Final
-    private static Holder<StructureTemplatePool> START = Pools.register(new StructureTemplatePool(new ResourceLocation("ancient_city/city_center"), new ResourceLocation("empty"), ImmutableList.of(Pair.of(StructurePoolElement.single("ancient_city/city_center/city_center_1", ProcessorLists.ANCIENT_CITY_START_DEGRADATION), 1), Pair.of(StructurePoolElement.single("ancient_city/city_center/city_center_2", ProcessorLists.ANCIENT_CITY_START_DEGRADATION), 1), Pair.of(StructurePoolElement.single("ancient_city/city_center/city_center_3", ProcessorLists.ANCIENT_CITY_START_DEGRADATION), 1)), StructureTemplatePool.Projection.RIGID));
+    public static Holder<StructureTemplatePool> START = Pools.register(new StructureTemplatePool(new ResourceLocation("ancient_city/city_center"), new ResourceLocation("empty"), ImmutableList.of(Pair.of(StructurePoolElement.single("ancient_city/city_center/city_center_1", ProcessorLists.ANCIENT_CITY_START_DEGRADATION), 1), Pair.of(StructurePoolElement.single("ancient_city/city_center/city_center_2", ProcessorLists.ANCIENT_CITY_START_DEGRADATION), 1), Pair.of(StructurePoolElement.single("ancient_city/city_center/city_center_3", ProcessorLists.ANCIENT_CITY_START_DEGRADATION), 1)), StructureTemplatePool.Projection.RIGID));
 
     @Inject(method = "<clinit>", at = @At("HEAD"), cancellable = true)
     private static void init(CallbackInfo info) {

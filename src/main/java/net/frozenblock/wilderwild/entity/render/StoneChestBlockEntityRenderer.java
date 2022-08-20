@@ -137,7 +137,7 @@ public class StoneChestBlockEntityRenderer<T extends StoneChestBlockEntity & Lid
     }
 
     public static Material getChestTexture(BlockEntity blockEntity, ChestType type, boolean sculk) {
-        return !sculk? getChestTexture(type, STONE, STONE_LEFT, STONE_RIGHT) : getChestTexture(type, STONE_SCULK, STONE_LEFT_SCULK, STONE_RIGHT_SCULK);
+        return !sculk ? getChestTexture(type, STONE, STONE_LEFT, STONE_RIGHT) : getChestTexture(type, STONE_SCULK, STONE_LEFT_SCULK, STONE_RIGHT_SCULK);
     }
 
     private static Material getChestTexture(ChestType type, Material single, Material left, Material right) {

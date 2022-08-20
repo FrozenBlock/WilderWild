@@ -1,7 +1,7 @@
 package net.frozenblock.wilderwild.block;
 
 import net.frozenblock.wilderwild.WilderWild;
-import net.frozenblock.wilderwild.block.entity.FireflyLanternBlockEntity;
+import net.frozenblock.wilderwild.block.entity.DisplayLanternBlockEntity;
 import net.frozenblock.wilderwild.item.FireflyBottle;
 import net.frozenblock.wilderwild.registry.RegisterBlockEntities;
 import net.frozenblock.wilderwild.registry.RegisterItems;
@@ -34,6 +34,7 @@ import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
@@ -58,7 +59,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
-public class FireflyLanternBlock extends BaseEntityBlock implements SimpleWaterloggedBlock {
+public class DisplayLanternBlock extends BaseEntityBlock implements SimpleWaterloggedBlock {
 
     public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
     public static final BooleanProperty HANGING = BlockStateProperties.HANGING;
@@ -66,18 +67,18 @@ public class FireflyLanternBlock extends BaseEntityBlock implements SimpleWaterl
     protected static final VoxelShape STANDING_SHAPE = Shapes.or(Block.box(5.0D, 0.0D, 5.0D, 11.0D, 7.0D, 11.0D), Block.box(6.0D, 7.0D, 6.0D, 10.0D, 8.0D, 10.0D));
     protected static final VoxelShape HANGING_SHAPE = Shapes.or(Block.box(5.0D, 2.0D, 5.0D, 11.0D, 9.0D, 11.0D), Block.box(6.0D, 9.0D, 6.0D, 10.0D, 10.0D, 10.0D));
 
-    public FireflyLanternBlock(Properties settings) {
+    public DisplayLanternBlock(Properties settings) {
         super(settings);
         this.registerDefaultState(this.stateDefinition.any().setValue(HANGING, false).setValue(WATERLOGGED, false).setValue(LIGHT, 0));
     }
 
     @Override
-    public InteractionResult use(net.minecraft.world.level.block.state.BlockState state, Level world, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
+    public InteractionResult use(BlockState state, Level world, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
         if (world.isClientSide) {
             return InteractionResult.SUCCESS;
         }
         BlockEntity entity = world.getBlockEntity(pos);
-        if (entity instanceof FireflyLanternBlockEntity lantern) {
+        if (entity instanceof DisplayLanternBlockEntity lantern) {
             ItemStack stack = player.getItemInHand(hand);
             if (lantern.invEmpty()) {
                 if (stack.getItem() instanceof FireflyBottle bottle) {
@@ -99,7 +100,7 @@ public class FireflyLanternBlock extends BaseEntityBlock implements SimpleWaterl
                 }
                 if (stack.is(Items.GLASS_BOTTLE)) {
                     if (!lantern.getFireflies().isEmpty()) {
-                        FireflyLanternBlockEntity.FireflyInLantern fireflyInLantern = lantern.getFireflies().get((int) (lantern.getFireflies().size() * Math.random()));
+                        DisplayLanternBlockEntity.FireflyInLantern fireflyInLantern = lantern.getFireflies().get((int) (lantern.getFireflies().size() * Math.random()));
                         Optional<Item> optionalItem = Registry.ITEM.getOptional(WilderWild.id(Objects.equals(fireflyInLantern.color, "on") ? "firefly_bottle" : fireflyInLantern.color + "_firefly_bottle"));
                         Item item = RegisterItems.FIREFLY_BOTTLE;
                         if (optionalItem.isPresent()) {
@@ -114,7 +115,7 @@ public class FireflyLanternBlock extends BaseEntityBlock implements SimpleWaterl
                             bottleStack.setHoverName(Component.nullToEmpty(fireflyInLantern.customName));
                         }
                         player.getInventory().placeItemBackInInventory(bottleStack);
-                        ((FireflyLanternBlockEntity) entity).removeFirefly(fireflyInLantern);
+                        ((DisplayLanternBlockEntity) entity).removeFirefly(fireflyInLantern);
                         world.setBlockAndUpdate(pos, state.setValue(LIGHT, Mth.clamp(lantern.getFireflies().size() * 3, 0, 15)));
                         lantern.updateSync();
                         return InteractionResult.SUCCESS;
@@ -148,13 +149,13 @@ public class FireflyLanternBlock extends BaseEntityBlock implements SimpleWaterl
 
     @Nullable
     @Override
-    public net.minecraft.world.level.block.state.BlockState getStateForPlacement(BlockPlaceContext ctx) {
+    public BlockState getStateForPlacement(BlockPlaceContext ctx) {
         FluidState fluidState = ctx.getLevel().getFluidState(ctx.getClickedPos());
         Direction[] var3 = ctx.getNearestLookingDirections();
 
         for (Direction direction : var3) {
             if (direction.getAxis() == Direction.Axis.Y) {
-                net.minecraft.world.level.block.state.BlockState blockState = this.defaultBlockState().setValue(HANGING, direction == Direction.UP);
+                BlockState blockState = this.defaultBlockState().setValue(HANGING, direction == Direction.UP);
                 if (blockState.canSurvive(ctx.getLevel(), ctx.getClickedPos())) {
                     return blockState.setValue(WATERLOGGED, fluidState.getType() == Fluids.WATER);
                 }
@@ -165,7 +166,7 @@ public class FireflyLanternBlock extends BaseEntityBlock implements SimpleWaterl
     }
 
     @Override
-    public VoxelShape getShape(net.minecraft.world.level.block.state.BlockState state, BlockGetter world, BlockPos pos, CollisionContext context) {
+    public VoxelShape getShape(BlockState state, BlockGetter world, BlockPos pos, CollisionContext context) {
         return state.getValue(HANGING) ? HANGING_SHAPE : STANDING_SHAPE;
     }
 
@@ -202,7 +203,7 @@ public class FireflyLanternBlock extends BaseEntityBlock implements SimpleWaterl
 
         if (attachedDirection(state).getOpposite() == direction && !state.canSurvive(world, pos)) {
             BlockEntity entity = world.getBlockEntity(pos);
-            if (entity instanceof FireflyLanternBlockEntity lanternEntity) {
+            if (entity instanceof DisplayLanternBlockEntity lanternEntity) {
                 lanternEntity.spawnFireflies();
             }
             return Blocks.AIR.defaultBlockState();
@@ -211,10 +212,10 @@ public class FireflyLanternBlock extends BaseEntityBlock implements SimpleWaterl
     }
 
     @Override
-    public void onRemove(net.minecraft.world.level.block.state.BlockState state, Level world, BlockPos pos, net.minecraft.world.level.block.state.BlockState newState, boolean moved) {
+    public void onRemove(BlockState state, Level world, BlockPos pos, BlockState newState, boolean moved) {
         if (!state.is(newState.getBlock())) {
             BlockEntity entity = world.getBlockEntity(pos);
-            if (entity instanceof FireflyLanternBlockEntity lantern) {
+            if (entity instanceof DisplayLanternBlockEntity lantern) {
                 for (ItemStack item : lantern.inventory) {
                     popResource(world, pos, item);
                 }
@@ -225,30 +226,30 @@ public class FireflyLanternBlock extends BaseEntityBlock implements SimpleWaterl
     }
 
     @Override
-    public FluidState getFluidState(net.minecraft.world.level.block.state.BlockState state) {
+    public FluidState getFluidState(BlockState state) {
         return state.getValue(WATERLOGGED) ? Fluids.WATER.getSource(false) : super.getFluidState(state);
     }
 
     @Override
-    public boolean isPathfindable(net.minecraft.world.level.block.state.BlockState state, BlockGetter world, BlockPos pos, PathComputationType type) {
+    public boolean isPathfindable(BlockState state, BlockGetter world, BlockPos pos, PathComputationType type) {
         return false;
     }
 
     @Nullable
     @Override
-    public BlockEntity newBlockEntity(BlockPos pos, net.minecraft.world.level.block.state.BlockState state) {
-        return new FireflyLanternBlockEntity(pos, state);
+    public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
+        return new DisplayLanternBlockEntity(pos, state);
     }
 
     @Override
     @Nullable
-    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level world, net.minecraft.world.level.block.state.BlockState state, BlockEntityType<T> type) {
-        return !world.isClientSide ? createTickerHelper(type, RegisterBlockEntities.FIREFLY_LANTERN, (worldx, pos, statex, blockEntity) -> blockEntity.serverTick(world, pos)) : createTickerHelper(type, RegisterBlockEntities.FIREFLY_LANTERN, (worldx, pos, statex, blockEntity) -> blockEntity.clientTick(world, pos));
+    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level world, BlockState state, BlockEntityType<T> type) {
+        return !world.isClientSide ? createTickerHelper(type, RegisterBlockEntities.DISPLAY_LANTERN, (worldx, pos, statex, blockEntity) -> blockEntity.serverTick(world, pos)) : createTickerHelper(type, RegisterBlockEntities.DISPLAY_LANTERN, (worldx, pos, statex, blockEntity) -> blockEntity.clientTick(world, pos));
     }
 
-    public void playerDestroy(Level world, Player player, BlockPos pos, net.minecraft.world.level.block.state.BlockState state, @Nullable BlockEntity blockEntity, ItemStack stack) {
+    public void playerDestroy(Level world, Player player, BlockPos pos, BlockState state, @Nullable BlockEntity blockEntity, ItemStack stack) {
         player.causeFoodExhaustion(0.005F);
-        if (!world.isClientSide && blockEntity instanceof FireflyLanternBlockEntity lanternEntity) {
+        if (!world.isClientSide && blockEntity instanceof DisplayLanternBlockEntity lanternEntity) {
             boolean silk = EnchantmentHelper.getItemEnchantmentLevel(Enchantments.SILK_TOUCH, stack) == 0 || player.isCreative();
             if (silk && !lanternEntity.getFireflies().isEmpty()) {
                 lanternEntity.spawnFireflies(world);
@@ -259,16 +260,16 @@ public class FireflyLanternBlock extends BaseEntityBlock implements SimpleWaterl
     }
 
     @Deprecated
-    public List<ItemStack> getDrops(net.minecraft.world.level.block.state.BlockState state, LootContext.Builder builder) {
+    public List<ItemStack> getDrops(BlockState state, LootContext.Builder builder) {
         ResourceLocation identifier = this.getLootTable();
         if (builder.getOptionalParameter(LootContextParams.TOOL) != null) {
             ItemStack stack = builder.getParameter(LootContextParams.TOOL);
             if (EnchantmentHelper.getItemEnchantmentLevel(Enchantments.SILK_TOUCH, stack) != 0) {
                 if (builder.getOptionalParameter(LootContextParams.BLOCK_ENTITY) != null) {
                     BlockEntity blockEntity = builder.getParameter(LootContextParams.BLOCK_ENTITY);
-                    if (blockEntity instanceof FireflyLanternBlockEntity lanternBlockEntity) {
+                    if (blockEntity instanceof DisplayLanternBlockEntity lanternBlockEntity) {
                         if (!lanternBlockEntity.getFireflies().isEmpty()) {
-                            identifier = WilderWild.id("blocks/firefly_lantern_fireflies");
+                            identifier = WilderWild.id("blocks/display_lantern_fireflies");
                         }
                     }
                 }

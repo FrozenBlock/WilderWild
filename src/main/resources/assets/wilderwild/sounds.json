@@ -405,11 +405,11 @@
 		],
 		"subtitle": "subtitles.block.generic.footsteps"
 	},
-	"block.firefly_lantern.nectar_inside_loop": {
+	"block.display_lantern.nectar_inside_loop": {
 		"sounds": [
-			"wilderwild:block/firefly_lantern/nectar_inside1",
-			"wilderwild:block/firefly_lantern/nectar_inside2",
-			"wilderwild:block/firefly_lantern/nectar_inside3"
+			"wilderwild:block/display_lantern/nectar_inside1",
+			"wilderwild:block/display_lantern/nectar_inside2",
+			"wilderwild:block/display_lantern/nectar_inside3"
 		],
 		"subtitle": "subtitles.entity.firefly.nectar"
 	},

@@ -1,8 +1,9 @@
 {
+  "parent": "minecraft:block/template_lantern",
   "ambientocclusion": false,
   "textures": {
-	"0": "wilderwild:block/firefly_lantern",
-	"particle": "wilderwild:block/firefly_lantern"
+	"0": "wilderwild:block/display_lantern",
+	"particle": "wilderwild:block/display_lantern"
   },
   "elements": [
 	{
@@ -76,48 +77,48 @@
 	},
 	{
 	  "from": [
-		10.99,
-		6.99,
-		10.99
+		10.9,
+		6.9,
+		10.9
 	  ],
 	  "to": [
-		5.01,
-		0.01,
-		5.01
+		5.1,
+		0.1,
+		5.1
 	  ],
 	  "faces": {
 		"north": {
 		  "uv": [
-			6,
+			12,
 			8,
-			0,
+			6,
 			1
 		  ],
 		  "texture": "#0"
 		},
 		"east": {
 		  "uv": [
-			6,
+			12,
 			8,
-			0,
+			6,
 			1
 		  ],
 		  "texture": "#0"
 		},
 		"south": {
 		  "uv": [
-			6,
+			12,
 			8,
-			0,
+			6,
 			1
 		  ],
 		  "texture": "#0"
 		},
 		"west": {
 		  "uv": [
-			6,
+			12,
 			8,
-			0,
+			6,
 			1
 		  ],
 		  "texture": "#0"
@@ -138,8 +139,7 @@
 			0,
 			14
 		  ],
-		  "texture": "#0",
-		  "cullface": "down"
+		  "texture": "#0"
 		}
 	  }
 	},
@@ -226,18 +226,18 @@
 	  "faces": {
 		"north": {
 		  "uv": [
-			14,
+			16,
 			1,
-			11,
+			13,
 			3
 		  ],
 		  "texture": "#0"
 		},
 		"south": {
 		  "uv": [
-			11,
+			13,
 			1,
-			14,
+			16,
 			3
 		  ],
 		  "texture": "#0"
@@ -268,18 +268,18 @@
 	  "faces": {
 		"east": {
 		  "uv": [
-			11,
+			13,
 			10,
-			14,
+			16,
 			12
 		  ],
 		  "texture": "#0"
 		},
 		"west": {
 		  "uv": [
-			14,
+			16,
 			10,
-			11,
+			13,
 			12
 		  ],
 		  "texture": "#0"

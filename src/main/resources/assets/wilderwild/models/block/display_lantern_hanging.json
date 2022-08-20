@@ -2,8 +2,8 @@
   "parent": "minecraft:block/template_hanging_lantern",
   "ambientocclusion": false,
   "textures": {
-	"0": "wilderwild:block/firefly_lantern",
-	"particle": "wilderwild:block/firefly_lantern"
+	"0": "wilderwild:block/display_lantern",
+	"particle": "wilderwild:block/display_lantern"
   },
   "elements": [
 	{
