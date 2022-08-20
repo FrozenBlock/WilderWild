@@ -46,7 +46,7 @@ public class AncientHornParticle extends TextureSheetParticle {
                 angle.mul(Vector3f.XP.rotation(0.0F));
             });
             this.pushQuad(vertexConsumer, camera, tickDelta, (angle) -> {
-                angle.mul(Vector3f.YP.rotation(projectile.getYRot()));
+                angle.mul(Vector3f.YP.rotation(projectile.getYRot())); //why are these making it face the camera
                 angle.mul(Vector3f.XP.rotation(projectile.getXRot()));
             });
         }
