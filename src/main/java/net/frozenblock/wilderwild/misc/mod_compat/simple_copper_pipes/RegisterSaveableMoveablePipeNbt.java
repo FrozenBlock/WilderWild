@@ -7,6 +7,7 @@ import net.frozenblock.wilderwild.registry.RegisterBlocks;
 import net.frozenblock.wilderwild.registry.RegisterItems;
 import net.frozenblock.wilderwild.registry.RegisterSounds;
 import net.lunade.copper.FittingPipeDispenses;
+import net.lunade.copper.PipeMovementRestrictions;
 import net.lunade.copper.RegisterPipeNbtMethods;
 import net.lunade.copper.blocks.CopperPipe;
 import net.minecraft.core.Direction;
@@ -23,7 +24,7 @@ public class RegisterSaveableMoveablePipeNbt {
     public static final ResourceLocation horn = new ResourceLocation(WilderWild.MOD_ID, "ancient_horn");
 
     public static void init() {
-        WilderWild.log("Registering A Saveable Moveable Simple Copper Pipe NBT Dispense Method For WilderWild!", true);
+        WilderWild.log("WILDERWILD AND COPPER PIPES SECRET LOG MESSAGE UNLOCKED!!!", true);
         RegisterPipeNbtMethods.register(horn, (nbt, world, pos, blockState, copperPipeEntity) -> {
             if (!nbt.getCanOnlyBeUsedOnce() || nbt.getUseCount() < 1) {
                 BlockState state = world.getBlockState(pos);
@@ -134,6 +135,10 @@ public class RegisterSaveableMoveablePipeNbt {
                 }
             }
         });
+
+        PipeMovementRestrictions.register(WilderWild.id("stone_chest"),
+                ((serverLevel, blockPos, blockState, copperPipeEntity, blockEntity) -> false),
+                ((serverLevel, blockPos, blockState, copperPipeEntity, blockEntity) -> false));
 
     }
 
