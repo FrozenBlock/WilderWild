@@ -30,7 +30,9 @@ public abstract class VanillaSurfaceRulesMixin {
     @Final
     private static SurfaceRules.RuleSource SAND;
 
-    @Shadow @Final private static SurfaceRules.RuleSource SANDSTONE;
+    @Shadow
+    @Final
+    private static SurfaceRules.RuleSource SANDSTONE;
 
 
     @ModifyVariable(method = "overworldLike", at = @At("STORE"), ordinal = 8)
