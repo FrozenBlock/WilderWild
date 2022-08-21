@@ -2,6 +2,7 @@ package net.frozenblock.wilderwild.item;
 
 import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.entity.AncientHornProjectile;
+import net.frozenblock.wilderwild.misc.CooldownInterface;
 import net.frozenblock.wilderwild.misc.server.EasyPacket;
 import net.frozenblock.wilderwild.particle.AncientHornParticleEffect;
 import net.frozenblock.wilderwild.registry.RegisterItems;
@@ -101,28 +102,6 @@ public class AncientHorn extends Item {
         return cooldown;
     }
 
-    public static int getCooldown(@Nullable Entity entity, int cooldown, int additionalCooldown) {
-        if (entity != null) {
-            if (entity instanceof Player player) {
-                cooldown = player.isCreative() ? 5 : cooldown + additionalCooldown;
-            }
-        }
-        return cooldown;
-    }
-
-    public static ArrayList<ItemStack> getHorns(Player player) {
-        ArrayList<ItemStack> horns = new ArrayList<>();
-        if (player != null) {
-            if (player.getMainHandItem().is(RegisterItems.ANCIENT_HORN)) {
-                horns.add(player.getMainHandItem());
-            }
-            if (player.getOffhandItem().is(RegisterItems.ANCIENT_HORN)) {
-                horns.add(player.getOffhandItem());
-            }
-        }
-        return horns;
-    }
-
     public static int decreaseCooldown(Player user, int time) {
         if (!user.isCreative()) {
             ItemCooldowns manager = user.getCooldowns();
@@ -130,9 +109,7 @@ public class AncientHorn extends Item {
             if (entry != null) {
                 int between = entry.endTime - entry.startTime;
                 if (between > 140 & between >= time) {
-                    int cooldown = Math.max(between - time, 1);
-                    manager.removeCooldown(RegisterItems.ANCIENT_HORN);
-                    manager.addCooldown(RegisterItems.ANCIENT_HORN, cooldown);
+                    ((CooldownInterface)user.getCooldowns()).changeCooldown(RegisterItems.ANCIENT_HORN, -time);
                     return time;
                 }
             }

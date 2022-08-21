@@ -13,6 +13,7 @@ import net.frozenblock.api.mathematics.AdvancedMath;
 import net.frozenblock.wilderwild.entity.AncientHornProjectile;
 import net.frozenblock.wilderwild.entity.render.*;
 import net.frozenblock.wilderwild.misc.CompetitionCounter;
+import net.frozenblock.wilderwild.misc.CooldownInterface;
 import net.frozenblock.wilderwild.misc.PVZGWSound.FlyBySoundHub;
 import net.frozenblock.wilderwild.misc.PVZGWSound.MovingSoundLoop;
 import net.frozenblock.wilderwild.misc.PVZGWSound.MovingSoundLoopWithRestriction;
@@ -40,6 +41,7 @@ import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.inventory.InventoryMenu;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.phys.Vec3;
@@ -164,6 +166,7 @@ public final class WilderWildClient implements ClientModInitializer {
         receiveMovingLoopingSoundPacket();
         receiveMovingRestrictionSoundPacket();
         receiveMovingRestrictionLoopingSoundPacket();
+        receiveCooldownChangePacket();
 
         ItemProperties.register(RegisterItems.ANCIENT_HORN, new ResourceLocation("tooting"), (itemStack, clientWorld, livingEntity, seed) -> livingEntity != null && livingEntity.isUsingItem() && livingEntity.getUseItem() == itemStack ? 1.0F : 0.0F);
         ItemProperties.register(RegisterItems.COPPER_HORN, new ResourceLocation("tooting"), (itemStack, clientWorld, livingEntity, seed) -> livingEntity != null && livingEntity.isUsingItem() && livingEntity.getUseItem() == itemStack ? 1.0F : 0.0F);
@@ -432,6 +435,19 @@ public final class WilderWildClient implements ClientModInitializer {
                     throw new IllegalStateException("Unable to add flyby sound to non-existent entity!");
                 FlyBySoundHub.addEntity(entity, sound, category, volume, pitch);
                 WilderWild.log("ADDED ENTITY TO FLYBYS", true);
+            });
+        });
+    }
+
+    private static void receiveCooldownChangePacket() {
+        ClientPlayNetworking.registerGlobalReceiver(WilderWild.COOLDOWN_CHANGE_PACKET, (ctx, handler, byteBuf, responseSender) -> {
+            Item item = byteBuf.readById(Registry.ITEM);
+            int additional = byteBuf.readVarInt();
+            ctx.execute(() -> {
+                ClientLevel world = Minecraft.getInstance().level;
+                if (world != null && Minecraft.getInstance().player != null) {
+                    ((CooldownInterface)Minecraft.getInstance().player.getCooldowns()).changeCooldown(item , additional);
+                }
             });
         });
     }

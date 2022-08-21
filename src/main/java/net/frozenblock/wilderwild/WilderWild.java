@@ -286,6 +286,7 @@ public final class WilderWild implements ModInitializer {
     public static final ResourceLocation MOVING_LOOPING_SOUND_PACKET = id("moving_looping_sound_packet");
     public static final ResourceLocation MOVING_RESTRICTION_LOOPING_SOUND_PACKET = id("moving_restriction_looping_sound_packet");
     public static final ResourceLocation MOVING_RESTRICTION_SOUND_PACKET = id("moving_restriction_sound_packet");
+    public static final ResourceLocation COOLDOWN_CHANGE_PACKET = id("cooldown_change_packet");
 
     public static ResourceLocation id(String path) {
         return new ResourceLocation(MOD_ID, path);

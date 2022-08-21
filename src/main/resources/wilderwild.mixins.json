@@ -34,6 +34,8 @@
 	"server.SpawnRestrictionMixin",
 	"server.WardenBrainMixin",
 	"server.WardenEntityMixin",
+	  "server.ItemCooldownsMixin",
+	  "server.ServerItemCooldownsMixin",
 	"worldgen.AncientCityPiecesMixin",
 	"worldgen.AncientCityPoolsMixin",
 	"worldgen.BirchTreeGrowerMixin",
