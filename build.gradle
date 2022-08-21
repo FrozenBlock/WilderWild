@@ -55,7 +55,7 @@ dependencies {
 	minecraft "com.mojang:minecraft:${minecraft_version}"
 	mappings(loom.layered {
 		addLayer(quiltMappings.mappings("org.quiltmc:quilt-mappings:${minecraft_version}+build.${quilt_mappings}:v2"))
-		mappings("net.fabricmc:yarn:${yarn_mappings}:v2")
+		officialMojangMappings()
 	})
 	modImplementation "net.fabricmc:fabric-loader:${loader_version}"
 	// Fabric API. This is technically optional, but you probably want it anyway.

@@ -6,17 +6,16 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.frozenblock.wilderwild.registry.RegisterEntities;
 import net.frozenblock.wilderwild.registry.RegisterSounds;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.sound.EntityTrackingSoundInstance;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.sound.SoundCategory;
-import net.minecraft.sound.SoundEvent;
-import net.minecraft.sound.SoundEvents;
-import net.minecraft.util.math.Box;
-import net.minecraft.util.math.Vec3d;
-
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.resources.sounds.EntityBoundSoundInstance;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.phys.AABB;
+import net.minecraft.world.phys.Vec3;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,12 +30,12 @@ public class FlyBySoundHub {
     public static final ArrayList<SoundEvent> flybySoundsAuto = new ArrayList<>() {{
         add(RegisterSounds.ANCIENT_HORN_PROJECTILE_FLYBY);
         add(RegisterSounds.ANCIENT_HORN_PROJECTILE_FLYBY);
-        add(SoundEvents.ENTITY_BAT_TAKEOFF);
+        add(SoundEvents.BAT_TAKEOFF);
     }};
-    public static final ArrayList<SoundCategory> categoriesAuto = new ArrayList<>() {{
-        add(SoundCategory.PLAYERS);
-        add(SoundCategory.NEUTRAL);
-        add(SoundCategory.NEUTRAL);
+    public static final ArrayList<SoundSource> categoriesAuto = new ArrayList<>() {{
+        add(SoundSource.PLAYERS);
+        add(SoundSource.NEUTRAL);
+        add(SoundSource.NEUTRAL);
     }};
     public static final FloatArrayList volumesAuto = new FloatArrayList() {{
         add(0.15F);
@@ -51,7 +50,7 @@ public class FlyBySoundHub {
 
     public static final ArrayList<Entity> flybyEntities = new ArrayList<>();
     public static final ArrayList<SoundEvent> flybySounds = new ArrayList<>();
-    public static final ArrayList<SoundCategory> categories = new ArrayList<>();
+    public static final ArrayList<SoundSource> categories = new ArrayList<>();
     public static final FloatArrayList volumes = new FloatArrayList();
     public static final FloatArrayList pitches = new FloatArrayList();
     public static final IntArrayList cooldowns = new IntArrayList();
@@ -59,9 +58,9 @@ public class FlyBySoundHub {
     public static final ArrayList<Entity> flybyEntitiesClear = new ArrayList<>();
     private static int checkAroundCooldown;
 
-    public static void update(MinecraftClient client, PlayerEntity player, boolean autoSounds) {
+    public static void update(Minecraft client, Player player, boolean autoSounds) {
         for (Entity entity : flybyEntities) {
-            if (flybySounds.size() != flybyEntities.size() || client.world == null) {
+            if (flybySounds.size() != flybyEntities.size() || client.level == null) {
                 flybySounds.clear();
                 flybyEntities.clear();
                 volumes.clear();
@@ -71,16 +70,16 @@ public class FlyBySoundHub {
             }
             int index = flybyEntities.indexOf(entity);
             if (entity != null) {
-                Vec3d vel = entity.getVelocity();
-                Vec3d playerVel = player.getVelocity();
-                Vec3d entityPos = entity.getPos();
-                Vec3d playerPos = player.getEyePos();
+                Vec3 vel = entity.getDeltaMovement();
+                Vec3 playerVel = player.getDeltaMovement();
+                Vec3 entityPos = entity.position();
+                Vec3 playerPos = player.getEyePosition();
                 double distanceTo = entityPos.distanceTo(playerPos);
                 double newDistanceTo = entityPos.add(vel).add(vel).distanceTo(playerPos.add(playerVel));
                 cooldowns.set(index, cooldowns.getInt(index) - 1);
-                if ((distanceTo > newDistanceTo && distanceTo < (vel.lengthSquared() + playerVel.length()) * 2) && cooldowns.getInt(index) <= 0) {
+                if ((distanceTo > newDistanceTo && distanceTo < (vel.lengthSqr() + playerVel.length()) * 2) && cooldowns.getInt(index) <= 0) {
                     float volume = (float) (volumes.getFloat(index) + (vel.length() / 2));
-                    client.getSoundManager().play(new EntityTrackingSoundInstance(flybySounds.get(index), categories.get(index), volume, pitches.getFloat(index), entity, client.world.random.nextLong()));
+                    client.getSoundManager().play(new EntityBoundSoundInstance(flybySounds.get(index), categories.get(index), volume, pitches.getFloat(index), entity, client.level.random.nextLong()));
                     cooldowns.set(index, 40);
                 }
             } else {
@@ -91,9 +90,9 @@ public class FlyBySoundHub {
         if (checkAroundCooldown > 0) {
             --checkAroundCooldown;
         } else {
-            if (client.world != null && autoSounds) {
-                Box box = new Box(player.getBlockPos().add(-3, -3, -3), player.getBlockPos().add(3, 3, 3));
-                List<Entity> entities = client.world.getOtherEntities(player, box);
+            if (client.level != null && autoSounds) {
+                AABB box = new AABB(player.blockPosition().offset(-3, -3, -3), player.blockPosition().offset(3, 3, 3));
+                List<Entity> entities = client.level.getEntities(player, box);
                 for (Entity entity : entities) {
                     EntityType<?> type = entity.getType();
                     if (flybyEntitiesAuto.contains(type)) {
@@ -105,7 +104,7 @@ public class FlyBySoundHub {
         }
     }
 
-    public static void addEntity(Entity entity, SoundEvent soundEvent, SoundCategory category, float volume, float pitch) {
+    public static void addEntity(Entity entity, SoundEvent soundEvent, SoundSource category, float volume, float pitch) {
         if (!flybyEntities.contains(entity)) {
             flybyEntities.add(entity);
             flybySounds.add(soundEvent);

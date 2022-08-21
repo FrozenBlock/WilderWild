@@ -1,158 +1,162 @@
 package net.frozenblock.wilderwild.block;
 
 import net.frozenblock.wilderwild.registry.RegisterProperties;
-import net.minecraft.block.*;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.fluid.FluidState;
-import net.minecraft.fluid.Fluids;
-import net.minecraft.item.ItemPlacementContext;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.sound.SoundCategory;
-import net.minecraft.sound.SoundEvents;
-import net.minecraft.state.StateManager;
-import net.minecraft.state.property.BooleanProperty;
-import net.minecraft.state.property.IntProperty;
-import net.minecraft.state.property.Properties;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.Hand;
-import net.minecraft.util.hit.BlockHitResult;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
-import net.minecraft.util.math.random.Random;
-import net.minecraft.util.shape.VoxelShape;
-import net.minecraft.world.BlockView;
-import net.minecraft.world.World;
-import net.minecraft.world.WorldAccess;
-import net.minecraft.world.WorldView;
-import net.minecraft.world.event.GameEvent;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.util.RandomSource;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.item.context.BlockPlaceContext;
+import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.LevelReader;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.SimpleWaterloggedBlock;
+import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.block.state.properties.BooleanProperty;
+import net.minecraft.world.level.block.state.properties.IntegerProperty;
+import net.minecraft.world.level.gameevent.GameEvent;
+import net.minecraft.world.level.material.FluidState;
+import net.minecraft.world.level.material.Fluids;
+import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.phys.shapes.CollisionContext;
+import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.Nullable;
 
-public class CypressRootsBlock extends Block implements Waterloggable {
-    public static final IntProperty ROOTS = RegisterProperties.ROOTS;
-    public static final BooleanProperty WATERLOGGED = Properties.WATERLOGGED;
+public class CypressRootsBlock extends Block implements SimpleWaterloggedBlock {
+    public static final IntegerProperty ROOTS = RegisterProperties.ROOTS;
+    public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
     public static final BooleanProperty UPSIDEDOWN = RegisterProperties.UPSIDE_DOWN;
-    protected static final VoxelShape FLOOR_SHAPE = Block.createCuboidShape(0.0D, 0.0D, 0.0D, 16.0D, 4.0D, 16.0D);
-    protected static final VoxelShape CEILING_SHAPE = Block.createCuboidShape(0.0D, 12.0D, 0.0D, 16.0D, 16.0D, 16.0D);
+    protected static final VoxelShape FLOOR_SHAPE = Block.box(0.0D, 0.0D, 0.0D, 16.0D, 4.0D, 16.0D);
+    protected static final VoxelShape CEILING_SHAPE = Block.box(0.0D, 12.0D, 0.0D, 16.0D, 16.0D, 16.0D);
 
-    public CypressRootsBlock(AbstractBlock.Settings settings) {
+    public CypressRootsBlock(BlockBehaviour.Properties settings) {
         super(settings);
-        this.setDefaultState(this.stateManager.getDefaultState().with(WATERLOGGED, false).with(ROOTS, 1).with(UPSIDEDOWN, false));
+        this.registerDefaultState(this.stateDefinition.any().setValue(WATERLOGGED, false).setValue(ROOTS, 1).setValue(UPSIDEDOWN, false));
     }
 
-    public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
-        ItemStack itemStack = player.getStackInHand(hand);
-        int i = state.get(ROOTS);
-        if (i > 1 && itemStack.isOf(Items.SHEARS)) {
-            dropStack(world, pos, new ItemStack(state.getBlock().asItem()));
-            world.setBlockState(pos, state.with(ROOTS, i - 1));
-            world.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.BLOCK_GROWING_PLANT_CROP, SoundCategory.BLOCKS, 1.0F, 1.0F);
-            itemStack.damage(1, player, (playerx) -> playerx.sendToolBreakStatus(hand));
-            world.emitGameEvent(player, GameEvent.SHEAR, pos);
-            return ActionResult.success(world.isClient);
+    public InteractionResult use(BlockState state, Level world, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
+        ItemStack itemStack = player.getItemInHand(hand);
+        int i = state.getValue(ROOTS);
+        if (i > 1 && itemStack.is(Items.SHEARS)) {
+            popResource(world, pos, new ItemStack(state.getBlock().asItem()));
+            world.setBlockAndUpdate(pos, state.setValue(ROOTS, i - 1));
+            world.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.GROWING_PLANT_CROP, SoundSource.BLOCKS, 1.0F, 1.0F);
+            itemStack.hurtAndBreak(1, player, (playerx) -> playerx.broadcastBreakEvent(hand));
+            world.gameEvent(player, GameEvent.SHEAR, pos);
+            return InteractionResult.sidedSuccess(world.isClientSide);
         } else {
-            return super.onUse(state, world, pos, player, hand, hit);
+            return super.use(state, world, pos, player, hand, hit);
         }
     }
 
     @Override
-    public void neighborUpdate(BlockState state, World world, BlockPos pos, Block sourceBlock, BlockPos sourcePos, boolean notify) {
-        super.neighborUpdate(state, world, pos, sourceBlock, sourcePos, notify);
+    public void neighborChanged(BlockState state, Level world, BlockPos pos, Block sourceBlock, BlockPos sourcePos, boolean notify) {
+        super.neighborChanged(state, world, pos, sourceBlock, sourcePos, notify);
         if (!canSurvive(world, pos)) {
-            world.createAndScheduleBlockTick(pos, state.getBlock(), 1);
+            world.scheduleTick(pos, state.getBlock(), 1);
         }
     }
 
     @Override
-    public void randomTick(BlockState state, ServerWorld world, BlockPos pos, Random random) {
+    public void randomTick(BlockState state, ServerLevel world, BlockPos pos, RandomSource random) {
         super.randomTick(state, world, pos, random);
         if (!canSurvive(world, pos)) {
-            world.createAndScheduleBlockTick(pos, state.getBlock(), 1);
+            world.scheduleTick(pos, state.getBlock(), 1);
         }
     }
 
     @Override
-    public boolean canPlaceAt(BlockState state, WorldView world, BlockPos pos) {
-        return world.getBlockState(pos.down()).isSideSolidFullSquare(world, pos, Direction.UP) || world.getBlockState(pos.up()).isSideSolidFullSquare(world, pos, Direction.DOWN);
+    public boolean canSurvive(BlockState state, LevelReader world, BlockPos pos) {
+        return world.getBlockState(pos.below()).isFaceSturdy(world, pos, Direction.UP) || world.getBlockState(pos.above()).isFaceSturdy(world, pos, Direction.DOWN);
     }
 
     @Override
-    public boolean hasRandomTicks(BlockState state) {
+    public boolean isRandomlyTicking(BlockState state) {
         return true;
     }
 
     @Override
-    protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
+    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
         builder.add(ROOTS, UPSIDEDOWN, WATERLOGGED);
     }
 
-    public boolean canReplace(BlockState state, ItemPlacementContext context) {
-        return !context.shouldCancelInteraction() && context.getStack().isOf(this.asItem()) && state.get(ROOTS) < 4 || super.canReplace(state, context);
+    public boolean canBeReplaced(BlockState state, BlockPlaceContext context) {
+        return !context.isSecondaryUseActive() && context.getItemInHand().is(this.asItem()) && state.getValue(ROOTS) < 4 || super.canBeReplaced(state, context);
     }
 
     @Nullable
-    public BlockState getPlacementState(ItemPlacementContext ctx) {
-        BlockState insideState = ctx.getWorld().getBlockState(ctx.getBlockPos());
-        if (insideState.isOf(this)) {
-            return insideState.with(ROOTS, Math.min(4, insideState.get(ROOTS) + 1));
+    public BlockState getStateForPlacement(BlockPlaceContext ctx) {
+        BlockState insideState = ctx.getLevel().getBlockState(ctx.getClickedPos());
+        if (insideState.is(this)) {
+            return insideState.setValue(ROOTS, Math.min(4, insideState.getValue(ROOTS) + 1));
         }
-        boolean waterlogged = insideState.contains(Properties.WATERLOGGED) ? insideState.get(Properties.WATERLOGGED) : false;
+        boolean waterlogged = insideState.hasProperty(BlockStateProperties.WATERLOGGED) ? insideState.getValue(BlockStateProperties.WATERLOGGED) : false;
         if (!waterlogged) {
-            waterlogged = ctx.getWorld().getFluidState(ctx.getBlockPos()).getFluid() == Fluids.WATER;
+            waterlogged = ctx.getLevel().getFluidState(ctx.getClickedPos()).getType() == Fluids.WATER;
         }
-        if (ctx.getSide() == Direction.DOWN) {
-            if (canSurvive(ctx.getWorld(), ctx.getBlockPos(), true)) {
-                return this.getDefaultState().with(WATERLOGGED, waterlogged);
+        if (ctx.getClickedFace() == Direction.DOWN) {
+            if (canSurvive(ctx.getLevel(), ctx.getClickedPos(), true)) {
+                return this.defaultBlockState().setValue(WATERLOGGED, waterlogged);
             }
         }
-        return this.getDefaultState().with(WATERLOGGED, waterlogged);
+        return this.defaultBlockState().setValue(WATERLOGGED, waterlogged);
     }
 
     @Override
-    public void scheduledTick(BlockState state, ServerWorld world, BlockPos pos, Random random) {
-        super.scheduledTick(state, world, pos, random);
+    public void tick(BlockState state, ServerLevel world, BlockPos pos, RandomSource random) {
+        super.tick(state, world, pos, random);
         if (!canSurvive(world, pos)) {
-            world.breakBlock(pos, true);
+            world.destroyBlock(pos, true);
         }
     }
 
-    public BlockState getStateForNeighborUpdate(BlockState state, Direction direction, BlockState neighborState, WorldAccess world, BlockPos pos, BlockPos neighborPos) {
+    public BlockState updateShape(BlockState state, Direction direction, BlockState neighborState, LevelAccessor world, BlockPos pos, BlockPos neighborPos) {
         if (!canSurvive(world, pos)) {
-            world.createAndScheduleBlockTick(pos, state.getBlock(), 1);
+            world.scheduleTick(pos, state.getBlock(), 1);
         }
-        if (state.get(WATERLOGGED)) {
-            world.createAndScheduleFluidTick(pos, Fluids.WATER, Fluids.WATER.getTickRate(world));
+        if (state.getValue(WATERLOGGED)) {
+            world.scheduleTick(pos, Fluids.WATER, Fluids.WATER.getTickDelay(world));
         }
-        return super.getStateForNeighborUpdate(state, direction, neighborState, world, pos, neighborPos);
+        return super.updateShape(state, direction, neighborState, world, pos, neighborPos);
     }
 
     public FluidState getFluidState(BlockState state) {
-        return state.get(WATERLOGGED) ? Fluids.WATER.getStill(false) : super.getFluidState(state);
+        return state.getValue(WATERLOGGED) ? Fluids.WATER.getSource(false) : super.getFluidState(state);
     }
 
-    public static boolean canSurvive(World world, BlockPos pos) {
+    public static boolean canSurvive(Level world, BlockPos pos) {
         if (world.getBlockState(pos).getBlock() instanceof CypressRootsBlock) {
-            boolean upsideDown = world.getBlockState(pos).get(UPSIDEDOWN);
-            return !upsideDown ? world.getBlockState(pos.down()).isSideSolidFullSquare(world, pos.down(), Direction.UP) : world.getBlockState(pos.up()).isSideSolidFullSquare(world, pos.up(), Direction.DOWN);
+            boolean upsideDown = world.getBlockState(pos).getValue(UPSIDEDOWN);
+            return !upsideDown ? world.getBlockState(pos.below()).isFaceSturdy(world, pos.below(), Direction.UP) : world.getBlockState(pos.above()).isFaceSturdy(world, pos.above(), Direction.DOWN);
         }
         return false;
     }
 
-    public static boolean canSurvive(WorldAccess world, BlockPos pos) {
+    public static boolean canSurvive(LevelAccessor world, BlockPos pos) {
         if (world.getBlockState(pos).getBlock() instanceof CypressRootsBlock) {
-            boolean upsideDown = world.getBlockState(pos).get(UPSIDEDOWN);
-            return !upsideDown ? world.getBlockState(pos.down()).isSideSolidFullSquare(world, pos.down(), Direction.UP) : world.getBlockState(pos.up()).isSideSolidFullSquare(world, pos.up(), Direction.DOWN);
+            boolean upsideDown = world.getBlockState(pos).getValue(UPSIDEDOWN);
+            return !upsideDown ? world.getBlockState(pos.below()).isFaceSturdy(world, pos.below(), Direction.UP) : world.getBlockState(pos.above()).isFaceSturdy(world, pos.above(), Direction.DOWN);
         }
         return false;
     }
 
-    public static boolean canSurvive(World world, BlockPos pos, boolean upsideDown) {
-        return !upsideDown ? world.getBlockState(pos.down()).isSideSolidFullSquare(world, pos.down(), Direction.UP) : world.getBlockState(pos.up()).isSideSolidFullSquare(world, pos.up(), Direction.DOWN);
+    public static boolean canSurvive(Level world, BlockPos pos, boolean upsideDown) {
+        return !upsideDown ? world.getBlockState(pos.below()).isFaceSturdy(world, pos.below(), Direction.UP) : world.getBlockState(pos.above()).isFaceSturdy(world, pos.above(), Direction.DOWN);
     }
 
-    public VoxelShape getOutlineShape(BlockState state, BlockView world, BlockPos pos, ShapeContext context) {
-        if (state.get(UPSIDEDOWN)) {
+    public VoxelShape getShape(BlockState state, BlockGetter world, BlockPos pos, CollisionContext context) {
+        if (state.getValue(UPSIDEDOWN)) {
             return CEILING_SHAPE;
         }
         return FLOOR_SHAPE;

@@ -4,27 +4,27 @@ import io.netty.buffer.Unpooled;
 import net.fabricmc.fabric.api.networking.v1.PlayerLookup;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.frozenblock.wilderwild.WilderWild;
-import net.minecraft.entity.Entity;
-import net.minecraft.network.PacketByteBuf;
-import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.sound.SoundCategory;
-import net.minecraft.sound.SoundEvent;
-import net.minecraft.util.registry.Registry;
-import net.minecraft.world.World;
+import net.minecraft.core.Registry;
+import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.level.Level;
 
 public class FlyBySoundPacket {
 
-    public static void createFlybySound(World world, Entity entity, SoundEvent sound, SoundCategory category, float volume, float pitch) {
-        if (world.isClient)
+    public static void createFlybySound(Level world, Entity entity, SoundEvent sound, SoundSource category, float volume, float pitch) {
+        if (world.isClientSide)
             throw new IllegalStateException("no sounds on the client, you freaking idiot!");
-        PacketByteBuf byteBuf = new PacketByteBuf(Unpooled.buffer());
+        FriendlyByteBuf byteBuf = new FriendlyByteBuf(Unpooled.buffer());
         byteBuf.writeVarInt(entity.getId());
-        byteBuf.writeRegistryValue(Registry.SOUND_EVENT, sound);
-        byteBuf.writeEnumConstant(category);
+        byteBuf.writeId(Registry.SOUND_EVENT, sound);
+        byteBuf.writeEnum(category);
         byteBuf.writeFloat(volume);
         byteBuf.writeFloat(pitch);
-        for (ServerPlayerEntity player : PlayerLookup.around((ServerWorld) world, entity.getBlockPos(), 128)) {
+        for (ServerPlayer player : PlayerLookup.around((ServerLevel) world, entity.blockPosition(), 128)) {
             ServerPlayNetworking.send(player, WilderWild.FLYBY_SOUND_PACKET, byteBuf);
         }
     }

@@ -2,19 +2,19 @@ package net.frozenblock.wilderwild.registry;
 
 import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.entity.Firefly;
-import net.minecraft.entity.Entity;
-import net.minecraft.text.Text;
-import net.minecraft.util.Identifier;
+import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.Entity;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
 
 public final class RegisterLoopingSoundRestrictions {
     private static boolean frozen;
-    private static final ArrayList<Identifier> ids = new ArrayList<>();
+    private static final ArrayList<ResourceLocation> ids = new ArrayList<>();
     private static final ArrayList<LoopPredicate<?>> predicates = new ArrayList<>();
 
-    public static void register(Identifier id, LoopPredicate<?> predicate) {
+    public static void register(ResourceLocation id, LoopPredicate<?> predicate) {
         if (!frozen) {
             if (!ids.contains(id)) {
                 ids.add(id);
@@ -28,7 +28,7 @@ public final class RegisterLoopingSoundRestrictions {
     }
 
     @Nullable
-    public static LoopPredicate<?> getPredicate(Identifier id) {
+    public static LoopPredicate<?> getPredicate(ResourceLocation id) {
         if (ids.contains(id)) {
             int index = ids.indexOf(id);
             return predicates.get(index);
@@ -51,7 +51,7 @@ public final class RegisterLoopingSoundRestrictions {
                 return false;
             }
             if (entity.hasCustomName()) {
-                Text name = entity.getCustomName();
+                Component name = entity.getCustomName();
                 if (name != null) {
                     return name.getString().toLowerCase().contains("nectar");
                 }

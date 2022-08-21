@@ -1,6 +1,6 @@
 package net.frozenblock.wilderwild.entity.render.animations;
 
-import net.minecraft.entity.AnimationState;
+import net.minecraft.world.entity.AnimationState;
 
 public interface WilderWarden {
 

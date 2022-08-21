@@ -29,8 +29,8 @@ Merp - Art Director (Textures, Sounds, Models, etc.), Creator of the worst lines
 zozozrob_ - Cattail Textures & Concept Design
 (none of us knew he was on our server lol)
 
-Sculk Analyzer - Sculk Echoer Concept
-()
+Sculk Analyzer - Sculk Echoer Concept & Inspiration
+(Thank you!)
 
 Lunade (AViewFromTheTop) - best coder, deciphered a long abandoned song from 2002, pushed three commits to create judaism, christianity, and islam, creator of tons of lost media
 (cool guy)
@@ -43,3 +43,5 @@ TheoreticallyUseful - Created the UpdateFixerUpper mod: https://github.com/Silve
 nekkok - Spanish Translation
 
 enri - Italian Translation
+
+wattles - Reviewing our mod and being awesome!

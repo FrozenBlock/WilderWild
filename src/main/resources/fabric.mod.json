@@ -10,8 +10,8 @@
   ],
   "contact": {
     "homepage": "https://www.curseforge.com/minecraft/mc-mods/wilder-wild",
-    "sources": "https://github.com/Soro335/WilderWild/",
-    "issues": "https://github.com/Soro335/WilderWild/issues"
+    "sources": "https://github.com/FrozenBlock/WilderWild/",
+    "issues": "https://github.com/FrozenBlock/WilderWild/issues"
   },
 
   "license": "LGPL-3.0",
@@ -49,6 +49,7 @@
     "java": ">=17"
   },
   "breaks": {
-    "quilted_fabric_api": "4.0.0-beta.8"
+    "quilted_fabric_api": "4.0.0-beta.8",
+    "copper_pipe": "<1.11-b4"
   }
 }
