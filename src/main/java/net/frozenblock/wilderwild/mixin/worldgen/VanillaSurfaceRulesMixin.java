@@ -35,7 +35,7 @@ public abstract class VanillaSurfaceRulesMixin {
 
     @ModifyVariable(method = "overworldLike", at = @At("STORE"), ordinal = 8)
     private static SurfaceRules.RuleSource injected(SurfaceRules.RuleSource materialRule) {
-        if (ModMenuInteractionHandler.modWindsweptSavannaPlacement()) {
+        if (ModMenuInteractionHandler.betaBeaches()) {
             return SurfaceRules.sequence(SurfaceRules.ifTrue(
                     SurfaceRules.ON_FLOOR, SurfaceRules.sequence(
                             SurfaceRules.ifTrue(
