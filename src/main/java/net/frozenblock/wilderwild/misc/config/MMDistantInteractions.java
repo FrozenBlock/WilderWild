@@ -38,5 +38,8 @@ public class MMDistantInteractions {
     public static boolean tendrilsEnabled() {
         return WilderWildConfig.MC_LIVE_SENSOR_TENDRILS.getValue();
     }
+    public static boolean betaBeaches() {
+        return WilderWildConfig.BETA_BEACHES.getValue();
+    }
 
 }
