@@ -1,6 +1,6 @@
 package net.frozenblock.wilderwild.mixin.server;
 
-import net.frozenblock.api.mathematics.EasyNoiseSampler;
+import net.frozenblock.lib.mathematics.EasyNoiseSampler;
 import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.block.OsseousSculkBlock;
 import net.frozenblock.wilderwild.registry.RegisterBlocks;
