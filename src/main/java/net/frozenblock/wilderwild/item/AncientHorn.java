@@ -118,7 +118,7 @@ public class AncientHorn extends Item {
 
     @Override
     public InteractionResultHolder<ItemStack> use(Level world, Player user, InteractionHand hand) {
-        WilderWild.log(user, "Used Ancient Goat Horn", WilderWild.DEV_LOGGING);
+        WilderWild.log(user, "Used Ancient Goat Horn", WilderWild.UNSTABLE_LOGGING);
         ItemStack itemStack = user.getItemInHand(hand);
         Optional<Holder<Instrument>> optional = this.getInstrument(itemStack);
         if (optional.isPresent()) {
