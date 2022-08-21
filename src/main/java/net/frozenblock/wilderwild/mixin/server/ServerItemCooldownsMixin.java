@@ -1,6 +1,5 @@
 package net.frozenblock.wilderwild.mixin.server;
 
-import com.google.common.collect.Maps;
 import io.netty.buffer.Unpooled;
 import net.fabricmc.fabric.impl.networking.server.ServerNetworkingImpl;
 import net.frozenblock.wilderwild.WilderWild;
@@ -15,15 +14,10 @@ import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 
-import java.util.Map;
-
 @Mixin(ServerItemCooldowns.class)
-public class ServerItemCooldownsMixin implements CooldownInterface {
+public class ServerItemCooldownsMixin extends ItemCooldowns implements CooldownInterface {
     @Shadow @Final
     private ServerPlayer player;
-
-    @Shadow
-    public final Map<Item, ItemCooldowns.CooldownInstance> cooldowns = Maps.newHashMap();
 
     public void changeCooldown(Item item, int additional) {
         if (this.cooldowns.containsKey(item)) {
