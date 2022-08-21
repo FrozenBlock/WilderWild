@@ -35,21 +35,23 @@ public abstract class VanillaSurfaceRulesMixin {
 
     @ModifyVariable(method = "overworldLike", at = @At("STORE"), ordinal = 8)
     private static SurfaceRules.RuleSource injected(SurfaceRules.RuleSource materialRule) {
+        var cypressWetlands = SurfaceRules.ifTrue(
+                SurfaceRules.ON_FLOOR, SurfaceRules.sequence(
+                        SurfaceRules.ifTrue(
+                                SurfaceRules.isBiome(RegisterWorldgen.CYPRESS_WETLANDS),
+                                SurfaceRules.ifTrue(
+                                        SurfaceRules.yBlockCheck(VerticalAnchor.absolute(60), 0),
+                                        SurfaceRules.ifTrue(
+                                                SurfaceRules.not(SurfaceRules.yBlockCheck(VerticalAnchor.absolute(63), 0)),
+                                                SurfaceRules.ifTrue(SurfaceRules.noiseCondition(Noises.SWAMP, 0.0), WATER)
+                                        )
+                                )
+                        )
+                )
+        );
+
         if (ModMenuInteractionHandler.betaBeaches()) {
-            return SurfaceRules.sequence(SurfaceRules.ifTrue(
-                    SurfaceRules.ON_FLOOR, SurfaceRules.sequence(
-                            SurfaceRules.ifTrue(
-                                    SurfaceRules.isBiome(RegisterWorldgen.CYPRESS_WETLANDS),
-                                    SurfaceRules.ifTrue(
-                                            SurfaceRules.yBlockCheck(VerticalAnchor.absolute(60), 0),
-                                            SurfaceRules.ifTrue(
-                                                    SurfaceRules.not(SurfaceRules.yBlockCheck(VerticalAnchor.absolute(63), 0)),
-                                                    SurfaceRules.ifTrue(SurfaceRules.noiseCondition(Noises.SWAMP, 0.0), WATER)
-                                            )
-                                    )
-                            )
-                    )
-            ), SurfaceRules.sequence(SurfaceRules.ifTrue(
+            return SurfaceRules.sequence(cypressWetlands, SurfaceRules.sequence(SurfaceRules.ifTrue(
                     SurfaceRules.UNDER_FLOOR, SurfaceRules.sequence(
                             SurfaceRules.ifTrue(
                                     SurfaceRules.isBiome(Biomes.BIRCH_FOREST, Biomes.TAIGA, Biomes.FROZEN_RIVER, Biomes.OLD_GROWTH_BIRCH_FOREST, Biomes.OLD_GROWTH_PINE_TAIGA, Biomes.OLD_GROWTH_SPRUCE_TAIGA, Biomes.SNOWY_TAIGA, RegisterWorldgen.MIXED_FOREST),
@@ -103,7 +105,7 @@ public abstract class VanillaSurfaceRulesMixin {
             // SurfaceRules.sequence(new SurfaceRules.RuleSource[]{SurfaceRules.ifTrue(SurfaceRules.ON_CEILING,
             //SANDSTONE), SAND})), SurfaceRules.ifTrue(SurfaceRules.DEEP_UNDER_FLOOR, SANDSTONE)}))}))})))})))}));
         }
-        return materialRule;
+        return SurfaceRules.sequence(cypressWetlands, materialRule);
     }
 }
 
