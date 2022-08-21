@@ -2,9 +2,9 @@ package net.frozenblock.wilderwild.entity;
 
 import io.netty.buffer.Unpooled;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
+import net.frozenblock.lib.damagesource.FrozenProjectileDamageSource;
 import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.block.entity.HangingTendrilBlockEntity;
-import net.frozenblock.wilderwild.misc.WilderProjectileDamageSource;
 import net.frozenblock.wilderwild.misc.mod_compat.simple_copper_pipes.InteractionHandler;
 import net.frozenblock.wilderwild.misc.server.EasyPacket;
 import net.frozenblock.wilderwild.registry.*;
@@ -443,9 +443,9 @@ public class AncientHornProjectile extends AbstractArrow {
         if (entity != entity2) {
             DamageSource damageSource;
             if (entity2 == null) {
-                damageSource = WilderProjectileDamageSource.ancientHorn(this, this);
+                damageSource = FrozenProjectileDamageSource.source("ancient_horn", this, this);
             } else {
-                damageSource = WilderProjectileDamageSource.ancientHorn(this, entity2);
+                damageSource = FrozenProjectileDamageSource.source("ancient_horn", this, entity2);
                 if (entity2 instanceof LivingEntity) {
                     ((LivingEntity) entity2).setLastHurtMob(entity);
                 }

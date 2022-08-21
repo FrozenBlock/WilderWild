@@ -1,5 +1,6 @@
 package net.frozenblock.wilderwild.mixin.server;
 
+import net.frozenblock.lib.sound.FrozenSoundPackets;
 import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.misc.server.EasyPacket;
 import net.minecraft.core.Holder;
@@ -45,7 +46,7 @@ public abstract class GoatHornItemMixin {
         SoundEvent soundEvent = instrument.soundEvent();
         float f = instrument.range() / 16.0F;
         if (!world.isClientSide) {
-            EasyPacket.createMovingRestrictionSound(world, player, soundEvent, SoundSource.RECORDS, f, 1.0F, WilderWild.id("horn"));
+            FrozenSoundPackets.createMovingRestrictionSound(world, player, soundEvent, SoundSource.RECORDS, f, 1.0F, WilderWild.id("horn"));
         }
         world.gameEvent(GameEvent.INSTRUMENT_PLAY, player.position(), GameEvent.Context.of(player));
     }

@@ -7,9 +7,14 @@ import com.mojang.serialization.Codec;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.loader.api.FabricLoader;
 import net.fabricmc.loader.api.ModContainer;
+import net.frozenblock.lib.replacements_and_lists.BlockScheduledTicks;
+import net.frozenblock.lib.replacements_and_lists.HopperUntouchableList;
+import net.frozenblock.lib.replacements_and_lists.SpawnRestrictionReplacements;
+import net.frozenblock.lib.sound.RegisterMovingSoundRestrictions;
 import net.frozenblock.wilderwild.block.entity.TermiteMoundBlockEntity;
 import net.frozenblock.wilderwild.entity.Firefly;
 import net.frozenblock.wilderwild.misc.BlockSoundGroupOverwrites;
+import net.frozenblock.wilderwild.misc.RegisterFrozenLib;
 import net.frozenblock.wilderwild.misc.mod_compat.simple_copper_pipes.RegisterSaveableMoveablePipeNbt;
 import net.frozenblock.wilderwild.registry.*;
 import net.frozenblock.wilderwild.world.feature.WilderConfiguredFeatures;
@@ -28,14 +33,19 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
 import net.minecraft.data.BuiltinRegistries;
+import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
 import net.minecraft.util.RandomSource;
 import net.minecraft.util.datafix.schemas.NamespacedSchema;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Instrument;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.configurations.ProbabilityFeatureConfiguration;
@@ -106,8 +116,6 @@ public final class WilderWild implements ModInitializer {
         RegisterLootTables.init();
         RegisterParticles.registerParticles();
 
-        RegisterMovingSoundRestrictions.init();
-
         Registry.register(Registry.FEATURE, id("shelf_fungus_feature"), SHELF_FUNGUS_FEATURE);
         Registry.register(Registry.FEATURE, id("cattail_feature"), CATTAIL_FEATURE);
         Registry.register(Registry.FEATURE, id("algae_feature"), ALGAE_FEATURE);
@@ -123,6 +131,8 @@ public final class WilderWild implements ModInitializer {
 
         TermiteMoundBlockEntity.Termite.addDegradableBlocks();
         TermiteMoundBlockEntity.Termite.addNaturalDegradableBlocks();
+
+        RegisterFrozenLib.init();
 
         terralith();
 
@@ -162,12 +172,6 @@ public final class WilderWild implements ModInitializer {
 
         QuiltDataFixes.buildAndRegisterFixer(mod, builder);
         log("DataFixes for Wilder Wild have been applied", true);
-    }
-
-    private static Holder<StructureProcessorList> registerProcessor(String id, ImmutableList<StructureProcessor> processorList) {
-        ResourceLocation resourceLocation = id(id);
-        StructureProcessorList structureProcessorList = new StructureProcessorList(processorList);
-        return BuiltinRegistries.register(BuiltinRegistries.PROCESSOR_LIST, resourceLocation, structureProcessorList);
     }
 
     //MOD COMPATIBILITY
@@ -283,10 +287,6 @@ public final class WilderWild implements ModInitializer {
     public static final ResourceLocation CAPTURE_FIREFLY_NOTIFY_PACKET = id("capture_firefly_notify_packet");
     public static final ResourceLocation ANCIENT_HORN_KILL_NOTIFY_PACKET = id("ancient_horn_kill_notify_packet");
     public static final ResourceLocation FLYBY_SOUND_PACKET = id("flyby_sound_packet");
-    public static final ResourceLocation MOVING_LOOPING_SOUND_PACKET = id("moving_looping_sound_packet");
-    public static final ResourceLocation MOVING_RESTRICTION_LOOPING_SOUND_PACKET = id("moving_restriction_looping_sound_packet");
-    public static final ResourceLocation MOVING_RESTRICTION_SOUND_PACKET = id("moving_restriction_sound_packet");
-    public static final ResourceLocation COOLDOWN_CHANGE_PACKET = id("cooldown_change_packet");
 
     public static ResourceLocation id(String path) {
         return new ResourceLocation(MOD_ID, path);

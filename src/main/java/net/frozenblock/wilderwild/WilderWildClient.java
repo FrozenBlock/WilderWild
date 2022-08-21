@@ -10,14 +10,10 @@ import net.fabricmc.fabric.api.client.rendering.v1.EntityModelLayerRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
 import net.fabricmc.fabric.api.event.client.ClientSpriteRegistryCallback;
 import net.frozenblock.api.mathematics.AdvancedMath;
+import net.frozenblock.lib.sound.FlyBySoundHub;
 import net.frozenblock.wilderwild.entity.AncientHornProjectile;
 import net.frozenblock.wilderwild.entity.render.*;
 import net.frozenblock.wilderwild.misc.CompetitionCounter;
-import net.frozenblock.wilderwild.misc.CooldownInterface;
-import net.frozenblock.wilderwild.misc.PVZGWSound.FlyBySoundHub;
-import net.frozenblock.wilderwild.misc.PVZGWSound.MovingSoundLoop;
-import net.frozenblock.wilderwild.misc.PVZGWSound.MovingSoundLoopWithRestriction;
-import net.frozenblock.wilderwild.misc.PVZGWSound.MovingSoundWithRestriction;
 import net.frozenblock.wilderwild.misc.config.MMDistantInteractions;
 import net.frozenblock.wilderwild.particle.AncientHornParticle;
 import net.frozenblock.wilderwild.particle.FloatingSculkBubbleParticle;
@@ -36,12 +32,10 @@ import net.minecraft.core.Registry;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.inventory.InventoryMenu;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.phys.Vec3;
@@ -161,12 +155,7 @@ public final class WilderWildClient implements ClientModInitializer {
 
         receiveFireflyCaptureInfoPacket();
         receiveAncientHornKillInfoPacket();
-
-        receiveFlybySoundPacket();
-        receiveMovingLoopingSoundPacket();
-        receiveMovingRestrictionSoundPacket();
-        receiveMovingRestrictionLoopingSoundPacket();
-        receiveCooldownChangePacket();
+        FlyBySoundHub.autoEntitiesAndSounds.put(RegisterEntities.ANCIENT_HORN_PROJECTILE_ENTITY, new FlyBySoundHub.FlyBySound(1.0F, 1.0F, SoundSource.NEUTRAL, RegisterSounds.ANCIENT_HORN_PROJECTILE_FLYBY));
 
         ItemProperties.register(RegisterItems.ANCIENT_HORN, new ResourceLocation("tooting"), (itemStack, clientWorld, livingEntity, seed) -> livingEntity != null && livingEntity.isUsingItem() && livingEntity.getUseItem() == itemStack ? 1.0F : 0.0F);
         ItemProperties.register(RegisterItems.COPPER_HORN, new ResourceLocation("tooting"), (itemStack, clientWorld, livingEntity, seed) -> livingEntity != null && livingEntity.isUsingItem() && livingEntity.getUseItem() == itemStack ? 1.0F : 0.0F);
@@ -190,12 +179,6 @@ public final class WilderWildClient implements ClientModInitializer {
             return BiomeColors.getAverageFoliageColor(world, pos);
         }), RegisterBlocks.CYPRESS_LEAVES);
 
-        /*ClientTickEvents.START_WORLD_TICK.register(e -> {
-            MinecraftClient client = MinecraftClient.getInstance();
-            if (client.world != null) {
-                FlyBySoundHub.update(client, client.player, false); //CHANGE TO FALSE TO NOT AUTOMATICALLY ADD FLYBY SOUNDS
-            }
-        });*/
         if (WilderWild.hasModMenu()) {
             MMDistantInteractions.loadConfig();
             WilderWild.RENDER_TENDRILS = MMDistantInteractions.tendrilsEnabled();
@@ -343,111 +326,6 @@ public final class WilderWildClient implements ClientModInitializer {
                 if (Minecraft.getInstance().level == null)
                     throw new IllegalStateException("why is your world null");
                 CompetitionCounter.addAncientHornKill(creative, natural);
-            });
-        });
-    }
-
-    private static void receiveMovingLoopingSoundPacket() {
-        ClientPlayNetworking.registerGlobalReceiver(WilderWild.MOVING_LOOPING_SOUND_PACKET, (ctx, handler, byteBuf, responseSender) -> {
-            int id = byteBuf.readVarInt();
-            SoundEvent sound = byteBuf.readById(Registry.SOUND_EVENT);
-            SoundSource category = byteBuf.readEnum(SoundSource.class);
-            float volume = byteBuf.readFloat();
-            float pitch = byteBuf.readFloat();
-            ResourceLocation predicateId = byteBuf.readResourceLocation();
-            ctx.execute(() -> {
-                ClientLevel world = Minecraft.getInstance().level;
-                if (world == null)
-                    throw new IllegalStateException("why is your world null");
-                Entity entity = world.getEntity(id);
-                if (entity == null)
-                    throw new IllegalStateException("Unable to play moving looping sound (from wilderwild) whilst entity does not exist!");
-                RegisterMovingSoundRestrictions.LoopPredicate<?> predicate = RegisterMovingSoundRestrictions.getPredicate(predicateId);
-                if (predicate == null) {
-                    predicate = RegisterMovingSoundRestrictions.getPredicate(WilderWild.id("default"));
-                }
-                Minecraft.getInstance().getSoundManager().play(new MovingSoundLoop(entity, sound, category, volume, pitch, predicate));
-            });
-        });
-    }
-
-    private static void receiveMovingRestrictionSoundPacket() {
-        ClientPlayNetworking.registerGlobalReceiver(WilderWild.MOVING_RESTRICTION_SOUND_PACKET, (ctx, handler, byteBuf, responseSender) -> {
-            int id = byteBuf.readVarInt();
-            SoundEvent sound = byteBuf.readById(Registry.SOUND_EVENT);
-            SoundSource category = byteBuf.readEnum(SoundSource.class);
-            float volume = byteBuf.readFloat();
-            float pitch = byteBuf.readFloat();
-            ResourceLocation predicateId = byteBuf.readResourceLocation();
-            ctx.execute(() -> {
-                ClientLevel world = Minecraft.getInstance().level;
-                if (world == null)
-                    throw new IllegalStateException("why is your world null");
-                Entity entity = world.getEntity(id);
-                if (entity == null)
-                    throw new IllegalStateException("Unable to play moving sound with restriction (from wilderwild) whilst entity does not exist!");
-                RegisterMovingSoundRestrictions.LoopPredicate<?> predicate = RegisterMovingSoundRestrictions.getPredicate(predicateId);
-                if (predicate == null) {
-                    predicate = RegisterMovingSoundRestrictions.getPredicate(WilderWild.id("default"));
-                }
-                Minecraft.getInstance().getSoundManager().play(new MovingSoundWithRestriction(entity, sound, category, volume, pitch, predicate));
-            });
-        });
-    }
-
-    private static void receiveMovingRestrictionLoopingSoundPacket() {
-        ClientPlayNetworking.registerGlobalReceiver(WilderWild.MOVING_RESTRICTION_LOOPING_SOUND_PACKET, (ctx, handler, byteBuf, responseSender) -> {
-            int id = byteBuf.readVarInt();
-            SoundEvent sound = byteBuf.readById(Registry.SOUND_EVENT);
-            SoundSource category = byteBuf.readEnum(SoundSource.class);
-            float volume = byteBuf.readFloat();
-            float pitch = byteBuf.readFloat();
-            ResourceLocation predicateId = byteBuf.readResourceLocation();
-            ctx.execute(() -> {
-                ClientLevel world = Minecraft.getInstance().level;
-                if (world == null)
-                    throw new IllegalStateException("why is your world null");
-                Entity entity = world.getEntity(id);
-                if (entity == null)
-                    throw new IllegalStateException("Unable to play moving looping sound (from wilderwild) whilst entity does not exist!");
-                RegisterMovingSoundRestrictions.LoopPredicate<?> predicate = RegisterMovingSoundRestrictions.getPredicate(predicateId);
-                if (predicate == null) {
-                    predicate = RegisterMovingSoundRestrictions.getPredicate(WilderWild.id("default"));
-                }
-                Minecraft.getInstance().getSoundManager().play(new MovingSoundLoopWithRestriction(entity, sound, category, volume, pitch, predicate));
-            });
-        });
-    }
-
-    private static void receiveFlybySoundPacket() {
-        ClientPlayNetworking.registerGlobalReceiver(WilderWild.FLYBY_SOUND_PACKET, (ctx, handler, byteBuf, responseSender) -> {
-            int id = byteBuf.readVarInt();
-            SoundEvent sound = byteBuf.readById(Registry.SOUND_EVENT);
-            SoundSource category = byteBuf.readEnum(SoundSource.class);
-            float volume = byteBuf.readFloat();
-            float pitch = byteBuf.readFloat();
-            ctx.execute(() -> {
-                ClientLevel world = Minecraft.getInstance().level;
-                if (world == null)
-                    throw new IllegalStateException("why is your world null");
-                Entity entity = world.getEntity(id);
-                if (entity == null)
-                    throw new IllegalStateException("Unable to add flyby sound to non-existent entity!");
-                FlyBySoundHub.addEntity(entity, sound, category, volume, pitch);
-                WilderWild.log("ADDED ENTITY TO FLYBYS", true);
-            });
-        });
-    }
-
-    private static void receiveCooldownChangePacket() {
-        ClientPlayNetworking.registerGlobalReceiver(WilderWild.COOLDOWN_CHANGE_PACKET, (ctx, handler, byteBuf, responseSender) -> {
-            Item item = byteBuf.readById(Registry.ITEM);
-            int additional = byteBuf.readVarInt();
-            ctx.execute(() -> {
-                ClientLevel world = Minecraft.getInstance().level;
-                if (world != null && Minecraft.getInstance().player != null) {
-                    ((CooldownInterface)Minecraft.getInstance().player.getCooldowns()).changeCooldown(item , additional);
-                }
             });
         });
     }

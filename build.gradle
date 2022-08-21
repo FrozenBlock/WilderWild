@@ -63,6 +63,10 @@ dependencies {
 	// Fabric API. This is technically optional, but you probably want it anyway.
 	modImplementation "net.fabricmc.fabric-api:fabric-api:${fabric_version}"
 
+	// FrozenLib
+	modImplementation "maven.modrinth:frozenlib:${frozenlib_version}"
+	include "maven.modrinth:frozenlib:${frozenlib_version}"
+
 	// Fabric-ASM
 	modImplementation "com.github.Chocohead:Fabric-ASM:${fabric_asm_version}"
 	include "com.github.Chocohead:Fabric-ASM:${fabric_asm_version}"

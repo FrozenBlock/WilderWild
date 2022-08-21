@@ -1,9 +1,9 @@
 package net.frozenblock.wilderwild.item;
 
+import net.frozenblock.lib.interfaces.CooldownInterface;
+import net.frozenblock.lib.sound.FrozenSoundPackets;
 import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.entity.AncientHornProjectile;
-import net.frozenblock.wilderwild.misc.CooldownInterface;
-import net.frozenblock.wilderwild.misc.server.EasyPacket;
 import net.frozenblock.wilderwild.particle.AncientHornParticleEffect;
 import net.frozenblock.wilderwild.registry.RegisterItems;
 import net.frozenblock.wilderwild.registry.RegisterSounds;
@@ -28,7 +28,6 @@ import net.minecraft.world.item.*;
 import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
@@ -128,7 +127,7 @@ public class AncientHorn extends Item {
             SoundEvent soundEvent = instrument.soundEvent();
             float range = instrument.range() / 16.0F;
             if (!world.isClientSide) {
-                EasyPacket.createMovingRestrictionSound(world, user, soundEvent, SoundSource.RECORDS, range, 1.0F, WilderWild.id("ancient_horn"));
+                FrozenSoundPackets.createMovingRestrictionSound(world, user, soundEvent, SoundSource.RECORDS, range, 1.0F, WilderWild.id("ancient_horn"));
             }
             AncientHornParticleEffect ancientHornParticle = new AncientHornParticleEffect(0);
             world.addParticle(ancientHornParticle, true, user.getX(), user.getY(), user.getZ(), user.getYRot(), user.getXRot(), -user.getYRot()); //change this to the new particle whenever we add it
@@ -138,7 +137,7 @@ public class AncientHorn extends Item {
                 projectileEntity.shootFromRotation(user, user.getXRot(), user.getYRot(), 0.0F, 1.0F, 0.0F);
                 projectileEntity.shotByPlayer = true;
                 server.addFreshEntity(projectileEntity);
-                EasyPacket.createMovingLoopingSound(server, projectileEntity, RegisterSounds.ANCIENT_HORN_PROJECTILE_LOOP, SoundSource.NEUTRAL, 1.0F, 1.0F, WilderWild.id("default"));
+                FrozenSoundPackets.createMovingLoopingSound(server, projectileEntity, RegisterSounds.ANCIENT_HORN_PROJECTILE_LOOP, SoundSource.NEUTRAL, 1.0F, 1.0F, WilderWild.id("default"));
                 ItemStack mainHand = user.getItemInHand(InteractionHand.MAIN_HAND);
                 ItemStack offHand = user.getItemInHand(InteractionHand.OFF_HAND);
                 if (mainHand.is(Items.WATER_BUCKET) || mainHand.is(Items.POTION) || offHand.is(Items.WATER_BUCKET) || offHand.is(Items.POTION)) {
