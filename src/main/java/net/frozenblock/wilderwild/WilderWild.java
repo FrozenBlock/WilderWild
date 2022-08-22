@@ -24,6 +24,7 @@ import net.frozenblock.wilderwild.world.gen.WilderWorldGen;
 import net.frozenblock.wilderwild.world.gen.trunk.BaobabTrunkPlacer;
 import net.frozenblock.wilderwild.world.gen.trunk.FallenTrunkWithLogs;
 import net.frozenblock.wilderwild.world.gen.trunk.StraightTrunkWithLogs;
+import net.minecraft.SharedConstants;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceLocation;
@@ -112,6 +113,7 @@ public final class WilderWild implements ModInitializer {
 
         if (FabricLoader.getInstance().isDevelopmentEnvironment()) { /* DEV-ONLY */
             UNSTABLE_LOGGING = true;
+            SharedConstants.IS_RUNNING_IN_IDE = true;
             RegisterDevelopment.init();
         }
 
