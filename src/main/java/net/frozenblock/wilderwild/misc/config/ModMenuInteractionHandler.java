@@ -58,7 +58,7 @@ public class ModMenuInteractionHandler {
         if (WilderWild.hasModMenu()) {
             return MMDistantInteractions.betaBeaches();
         }
-        return false;
+        return true;
     }
 
 }
