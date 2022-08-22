@@ -14,3 +14,21 @@ pluginManagement {
 }
 
 rootProject.name = "Wilder Wild"
+
+
+def allowLocalFrozenLibUse = true
+def allowFrozenLibInConsoleMode = false
+def FrozenLibPath = '../FrozenLib'
+
+def isIDE = properties.containsKey('android.injected.invoked.from.ide')
+        || (System.getenv("XPC_SERVICE_NAME") ?: "").contains("intellij")
+        || (System.getenv("XPC_SERVICE_NAME") ?: "").contains(".idea")
+        || System.getenv("IDEA_INITIAL_DIRECTORY") != null
+
+def FrozenLibFolder = new File( FrozenLibPath )
+if( allowLocalFrozenLibUse && (isIDE || allowFrozenLibInConsoleMode)  && FrozenLibFolder.exists() ) {
+
+    include ':FrozenLib'
+    project(":FrozenLib").projectDir = FrozenLibFolder
+    project(':FrozenLib').buildFileName = './build.gradle'
+}

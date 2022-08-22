@@ -130,49 +130,4 @@ public class EasyPacket {
         }
     }
 
-    public static void createMovingLoopingSound(Level world, Entity entity, SoundEvent sound, SoundSource category, float volume, float pitch, ResourceLocation id) {
-        if (world.isClientSide)
-            throw new IllegalStateException("no sounds on the client, you freaking idiot!");
-        FriendlyByteBuf byteBuf = new FriendlyByteBuf(Unpooled.buffer());
-        byteBuf.writeVarInt(entity.getId());
-        byteBuf.writeId(Registry.SOUND_EVENT, sound);
-        byteBuf.writeEnum(category);
-        byteBuf.writeFloat(volume);
-        byteBuf.writeFloat(pitch);
-        byteBuf.writeResourceLocation(id);
-        for (ServerPlayer player : PlayerLookup.around((ServerLevel) world, entity.blockPosition(), 32)) {
-            ServerPlayNetworking.send(player, WilderWild.MOVING_LOOPING_SOUND_PACKET, byteBuf);
-        }
-    }
-
-    public static void createMovingRestrictionSound(Level world, Entity entity, SoundEvent sound, SoundSource category, float volume, float pitch, ResourceLocation id) {
-        if (world.isClientSide)
-            throw new IllegalStateException("no sounds on the client, you freaking idiot!");
-        FriendlyByteBuf byteBuf = new FriendlyByteBuf(Unpooled.buffer());
-        byteBuf.writeVarInt(entity.getId());
-        byteBuf.writeId(Registry.SOUND_EVENT, sound);
-        byteBuf.writeEnum(category);
-        byteBuf.writeFloat(volume);
-        byteBuf.writeFloat(pitch);
-        byteBuf.writeResourceLocation(id);
-        for (ServerPlayer player : PlayerLookup.around((ServerLevel) world, entity.blockPosition(), 64)) {
-            ServerPlayNetworking.send(player, WilderWild.MOVING_RESTRICTION_SOUND_PACKET, byteBuf);
-        }
-    }
-
-    public static void createMovingRestrictionLoopingSound(Level world, Entity entity, SoundEvent sound, SoundSource category, float volume, float pitch, ResourceLocation id) {
-        if (world.isClientSide)
-            throw new IllegalStateException("no sounds on the client, you freaking idiot!");
-        FriendlyByteBuf byteBuf = new FriendlyByteBuf(Unpooled.buffer());
-        byteBuf.writeVarInt(entity.getId());
-        byteBuf.writeId(Registry.SOUND_EVENT, sound);
-        byteBuf.writeEnum(category);
-        byteBuf.writeFloat(volume);
-        byteBuf.writeFloat(pitch);
-        byteBuf.writeResourceLocation(id);
-        for (ServerPlayer player : PlayerLookup.around((ServerLevel) world, entity.blockPosition(), 64)) {
-            ServerPlayNetworking.send(player, WilderWild.MOVING_RESTRICTION_LOOPING_SOUND_PACKET, byteBuf);
-        }
-    }
-
 }
