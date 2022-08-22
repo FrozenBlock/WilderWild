@@ -65,6 +65,7 @@ public class ItemStackMixin {
                     info.setReturnValue(true);
                 }
             } else if (lTag.isEmpty()) {
+                info.cancel();
                 info.setReturnValue(true);
             }
         }
@@ -76,6 +77,7 @@ public class ItemStackMixin {
                     info.setReturnValue(true);
                 }
             } else if (rTag.isEmpty()) {
+                info.cancel();
                 info.setReturnValue(true);
             }
         }
