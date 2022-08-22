@@ -4,7 +4,10 @@ import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.fabric.api.object.builder.v1.trade.TradeOfferHelper;
 import net.frozenblock.lib.item.PrickOnUseItem;
 import net.frozenblock.wilderwild.WilderWild;
-import net.frozenblock.wilderwild.item.*;
+import net.frozenblock.wilderwild.item.AncientHorn;
+import net.frozenblock.wilderwild.item.CopperHorn;
+import net.frozenblock.wilderwild.item.FireflyBottle;
+import net.frozenblock.wilderwild.item.MilkweedPod;
 import net.frozenblock.wilderwild.misc.WilderBoats;
 import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceKey;
@@ -54,7 +57,7 @@ public final class RegisterItems {
 
     public static final Item POLLEN = new BlockItem(RegisterBlocks.POLLEN_BLOCK, new FabricItemSettings().tab(CreativeModeTab.TAB_DECORATIONS));
 
-    public static final AncientHorn ANCIENT_HORN = new AncientHorn(new FabricItemSettings().tab(CreativeModeTab.TAB_MISC).stacksTo(1).rarity(Rarity.EPIC), WilderWild.WILD_HORNS);
+    public static final AncientHorn ANCIENT_HORN = new AncientHorn(new FabricItemSettings().tab(CreativeModeTab.TAB_MISC).stacksTo(1).rarity(Rarity.EPIC), WilderWild.ANCIENT_HORNS);
     public static final ResourceKey<Instrument> ANCIENT_HORN_INSTRUMENT = ResourceKey.create(Registry.INSTRUMENT_REGISTRY, WilderWild.id("ancient_horn"));
     public static final CopperHorn COPPER_HORN = new CopperHorn(new FabricItemSettings().tab(CreativeModeTab.TAB_MISC).stacksTo(1), WilderWild.COPPER_HORNS, 0);
     public static final ResourceKey<Instrument> SAX_COPPER_HORN = ResourceKey.create(Registry.INSTRUMENT_REGISTRY, WilderWild.id("sax_copper_horn"));

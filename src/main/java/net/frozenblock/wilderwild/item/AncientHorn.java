@@ -33,7 +33,7 @@ import java.util.List;
 import java.util.Optional;
 
 public class AncientHorn extends Item {
-    private static final String INSTRUMENT_KEY = "instrument";
+    private static final String TAG_INSTRUMENT = "instrument";
     private final TagKey<Instrument> instrumentTag;
 
     public static final int SHRIEKER_COOLDOWN = 900;
@@ -65,7 +65,7 @@ public class AncientHorn extends Item {
     private static void setInstrument(ItemStack stack, Holder<Instrument> instrument) {
         CompoundTag nbtCompound = stack.getOrCreateTag();
         nbtCompound.putString(
-                INSTRUMENT_KEY, (instrument.unwrapKey().orElseThrow(() -> new IllegalStateException("Invalid instrument"))).location().toString()
+                TAG_INSTRUMENT, (instrument.unwrapKey().orElseThrow(() -> new IllegalStateException("Invalid instrument"))).location().toString()
         );
     }
 
@@ -82,9 +82,9 @@ public class AncientHorn extends Item {
     private Optional<Holder<Instrument>> getInstrument(ItemStack stack) {
         CompoundTag nbtCompound = stack.getTag();
         if (nbtCompound != null) {
-            ResourceLocation identifier = ResourceLocation.tryParse(nbtCompound.getString(INSTRUMENT_KEY));
-            if (identifier != null) {
-                return Registry.INSTRUMENT.getHolder(ResourceKey.create(Registry.INSTRUMENT_REGISTRY, identifier));
+            ResourceLocation resourceLocation = ResourceLocation.tryParse(nbtCompound.getString(TAG_INSTRUMENT));
+            if (resourceLocation != null) {
+                return Registry.INSTRUMENT.getHolder(ResourceKey.create(Registry.INSTRUMENT_REGISTRY, resourceLocation));
             }
         }
 
@@ -108,7 +108,7 @@ public class AncientHorn extends Item {
             if (entry != null) {
                 int between = entry.endTime - entry.startTime;
                 if (between > 140 & between >= time) {
-                    ((CooldownInterface)user.getCooldowns()).changeCooldown(RegisterItems.ANCIENT_HORN, -time);
+                    ((CooldownInterface) user.getCooldowns()).changeCooldown(RegisterItems.ANCIENT_HORN, -time);
                     return time;
                 }
             }
@@ -154,6 +154,7 @@ public class AncientHorn extends Item {
             }
             return InteractionResultHolder.consume(itemStack);
         } else {
+            WilderWild.LOGGER.error("Ancient Horn use failed");
             return InteractionResultHolder.fail(itemStack);
         }
     }

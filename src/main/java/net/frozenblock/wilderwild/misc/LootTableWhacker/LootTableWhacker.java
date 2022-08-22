@@ -3,7 +3,6 @@ package net.frozenblock.wilderwild.misc.LootTableWhacker;
 import net.frozenblock.wilderwild.WilderWild;
 import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -13,7 +12,6 @@ import net.minecraft.world.level.block.entity.RandomizableContainerBlockEntity;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.Objects;
 
 public class LootTableWhacker extends Item {
 

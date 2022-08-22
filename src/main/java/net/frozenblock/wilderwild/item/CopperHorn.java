@@ -2,7 +2,6 @@ package net.frozenblock.wilderwild.item;
 
 import net.frozenblock.lib.sound.FrozenSoundPackets;
 import net.frozenblock.wilderwild.WilderWild;
-import net.frozenblock.wilderwild.misc.server.EasyPacket;
 import net.frozenblock.wilderwild.registry.RegisterItems;
 import net.minecraft.ChatFormatting;
 import net.minecraft.Util;
@@ -111,7 +110,7 @@ public class CopperHorn extends Item {
 
         if (!world.isClientSide) {
             float soundPitch = !user.isShiftKeyDown() ?
-                    (float) Math.pow(2.0D, (note - 12.0F) / 12.0D):
+                    (float) Math.pow(2.0D, (note - 12.0F) / 12.0D) :
                     (float) Math.pow(2.0D, 0.01111F * -user.getXRot());
             FrozenSoundPackets.createMovingRestrictionLoopingSound(world, user, soundEvent, SoundSource.RECORDS, range, soundPitch, WilderWild.id("copper_horn"));
         }

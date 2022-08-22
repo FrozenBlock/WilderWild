@@ -1,12 +1,13 @@
 package net.frozenblock.wilderwild.misc;
 
-import net.frozenblock.lib.mixin.server.BoneMealItemMixin;
-import net.frozenblock.lib.replacements_and_lists.*;
+import net.frozenblock.lib.replacements_and_lists.BlockScheduledTicks;
+import net.frozenblock.lib.replacements_and_lists.HopperUntouchableList;
+import net.frozenblock.lib.replacements_and_lists.SpawnRestrictionReplacements;
+import net.frozenblock.lib.replacements_and_lists.StructurePoolElementIdReplacements;
 import net.frozenblock.lib.sound.RegisterMovingSoundRestrictions;
 import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.entity.Firefly;
 import net.frozenblock.wilderwild.registry.RegisterBlockEntities;
-import net.frozenblock.wilderwild.registry.RegisterBlocks;
 import net.frozenblock.wilderwild.registry.RegisterItems;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
@@ -15,8 +16,6 @@ import net.minecraft.world.entity.SpawnPlacements;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.LevelEvent;
-import net.minecraft.world.level.levelgen.Heightmap;
 
 public class RegisterFrozenLib {
 

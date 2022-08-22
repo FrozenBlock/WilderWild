@@ -1,16 +1,11 @@
 package net.frozenblock.wilderwild;
 
 import com.chocohead.mm.api.ClassTinkerers;
-import com.google.common.collect.ImmutableList;
 import com.mojang.datafixers.schemas.Schema;
 import com.mojang.serialization.Codec;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.loader.api.FabricLoader;
 import net.fabricmc.loader.api.ModContainer;
-import net.frozenblock.lib.replacements_and_lists.BlockScheduledTicks;
-import net.frozenblock.lib.replacements_and_lists.HopperUntouchableList;
-import net.frozenblock.lib.replacements_and_lists.SpawnRestrictionReplacements;
-import net.frozenblock.lib.sound.RegisterMovingSoundRestrictions;
 import net.frozenblock.wilderwild.block.entity.TermiteMoundBlockEntity;
 import net.frozenblock.wilderwild.entity.Firefly;
 import net.frozenblock.wilderwild.misc.BlockSoundGroupOverwrites;
@@ -30,29 +25,20 @@ import net.frozenblock.wilderwild.world.gen.trunk.BaobabTrunkPlacer;
 import net.frozenblock.wilderwild.world.gen.trunk.FallenTrunkWithLogs;
 import net.frozenblock.wilderwild.world.gen.trunk.StraightTrunkWithLogs;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
-import net.minecraft.data.BuiltinRegistries;
-import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
 import net.minecraft.util.RandomSource;
 import net.minecraft.util.datafix.schemas.NamespacedSchema;
 import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
-import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Instrument;
-import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.configurations.ProbabilityFeatureConfiguration;
 import net.minecraft.world.level.levelgen.feature.trunkplacers.TrunkPlacer;
 import net.minecraft.world.level.levelgen.feature.trunkplacers.TrunkPlacerType;
-import net.minecraft.world.level.levelgen.structure.templatesystem.StructureProcessor;
-import net.minecraft.world.level.levelgen.structure.templatesystem.StructureProcessorList;
 import org.quiltmc.qsl.frozenblock.datafixerupper.api.QuiltDataFixerBuilder;
 import org.quiltmc.qsl.frozenblock.datafixerupper.api.QuiltDataFixes;
 import org.quiltmc.qsl.frozenblock.datafixerupper.api.SimpleFixes;
@@ -81,7 +67,7 @@ public final class WilderWild implements ModInitializer {
     public static final NoisePathUnderWaterFeature NOISE_PATH_UNDER_WATER_FEATURE = new NoisePathUnderWaterFeature(PathFeatureConfig.CODEC);
     public static final ColumnWithDiskFeature COLUMN_WITH_DISK_FEATURE = new ColumnWithDiskFeature(ColumnWithDiskFeatureConfig.CODEC);
 
-    public static final TagKey<Instrument> WILD_HORNS = TagKey.create(Registry.INSTRUMENT_REGISTRY, id("wild_horns"));
+    public static final TagKey<Instrument> ANCIENT_HORNS = TagKey.create(Registry.INSTRUMENT_REGISTRY, id("ancient_horns"));
     public static final TagKey<Instrument> COPPER_HORNS = TagKey.create(Registry.INSTRUMENT_REGISTRY, id("copper_horns"));
 
     //ClassTinkerers

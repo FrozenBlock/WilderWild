@@ -11,6 +11,6 @@
 	"axis=z": {
 	  "model": "minecraft:block/reinforced_deepslate",
 	  "x": 90
-	  }
+	}
   }
 }

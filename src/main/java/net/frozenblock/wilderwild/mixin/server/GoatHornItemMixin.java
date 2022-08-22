@@ -2,7 +2,6 @@ package net.frozenblock.wilderwild.mixin.server;
 
 import net.frozenblock.lib.sound.FrozenSoundPackets;
 import net.frozenblock.wilderwild.WilderWild;
-import net.frozenblock.wilderwild.misc.server.EasyPacket;
 import net.minecraft.core.Holder;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundSource;
