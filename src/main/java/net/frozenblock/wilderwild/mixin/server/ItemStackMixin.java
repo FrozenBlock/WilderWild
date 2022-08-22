@@ -31,6 +31,9 @@ public class ItemStackMixin {
             if (lTag.get("wilderwild_is_ancient") != null) {
                 lTag.remove("wilderwild_is_ancient");
             }
+            if (lTag.isEmpty()) {
+                left.tag = null;
+            }
         }
 
         CompoundTag rTag = right.getTag();
@@ -38,47 +41,8 @@ public class ItemStackMixin {
             if (rTag.get("wilderwild_is_ancient") != null) {
                 rTag.remove("wilderwild_is_ancient");
             }
-        }
-    }
-
-    @Inject(at = @At("TAIL"), method = "matches(Lnet/minecraft/world/item/ItemStack;)Z", cancellable = true)
-    private void matches(ItemStack stack, CallbackInfoReturnable<Boolean> info) {
-        ItemStack thisStack = ItemStack.class.cast(this);
-        CompoundTag lTag = thisStack.getTag();
-        if (lTag != null) {
-            if (lTag.get("wilderwild_is_ancient") != null) {
-                lTag.remove("wilderwild_is_ancient");
-            }
-        }
-
-        CompoundTag rTag = stack.getTag();
-        if (rTag != null) {
-            if (rTag.get("wilderwild_is_ancient") != null) {
-                rTag.remove("wilderwild_is_ancient");
-            }
-        }
-
-        if (lTag != null) {
-            if (rTag != null) {
-                if (lTag.isEmpty() && rTag.isEmpty()) {
-                    info.cancel();
-                    info.setReturnValue(true);
-                }
-            } else if (lTag.isEmpty()) {
-                info.cancel();
-                info.setReturnValue(true);
-            }
-        }
-
-        if (rTag != null) {
-            if (lTag != null) {
-                if (rTag.isEmpty() && lTag.isEmpty()) {
-                    info.cancel();
-                    info.setReturnValue(true);
-                }
-            } else if (rTag.isEmpty()) {
-                info.cancel();
-                info.setReturnValue(true);
+            if (rTag.isEmpty()) {
+                right.tag = null;
             }
         }
     }

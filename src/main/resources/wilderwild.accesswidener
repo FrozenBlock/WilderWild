@@ -40,3 +40,4 @@ accessible    field    net/minecraft/world/CompoundContainer    container2    Ln
 accessible method net/minecraft/world/level/block/AbstractCauldronBlock canReceiveStalactiteDrip (Lnet/minecraft/world/level/material/Fluid;)Z
 accessible    field    net/minecraft/world/level/block/entity/RandomizableContainerBlockEntity    lootTable    Lnet/minecraft/resources/ResourceLocation;
 accessible method net/minecraft/world/item/ItemCooldowns$CooldownInstance <init> (II)V
+accessible    field    net/minecraft/world/item/ItemStack    tag    Lnet/minecraft/nbt/CompoundTag;
