@@ -114,7 +114,6 @@ public final class WilderWild implements ModInitializer {
         if (FabricLoader.getInstance().isDevelopmentEnvironment()) { /* DEV-ONLY */
             UNSTABLE_LOGGING = true;
             SharedConstants.IS_RUNNING_IN_IDE = true;
-            RegisterDevelopment.init();
         }
 
         TermiteMoundBlockEntity.Termite.addDegradableBlocks();
