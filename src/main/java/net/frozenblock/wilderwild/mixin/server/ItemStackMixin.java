@@ -41,7 +41,7 @@ public class ItemStackMixin {
         }
     }
 
-    @Inject(at = @At("HEAD"), method = "matches(Lnet/minecraft/world/item/ItemStack;)Z", cancellable = true)
+    @Inject(at = @At("TAIL"), method = "matches(Lnet/minecraft/world/item/ItemStack;)Z", cancellable = true)
     private void matches(ItemStack stack, CallbackInfoReturnable<Boolean> info) {
         ItemStack thisStack = ItemStack.class.cast(this);
         CompoundTag lTag = thisStack.getTag();
@@ -55,6 +55,28 @@ public class ItemStackMixin {
         if (rTag != null) {
             if (rTag.get("wilderwild_is_ancient") != null) {
                 rTag.remove("wilderwild_is_ancient");
+            }
+        }
+
+        if (lTag != null) {
+            if (rTag != null) {
+                if (lTag.isEmpty() && rTag.isEmpty()) {
+                    info.cancel();
+                    info.setReturnValue(true);
+                }
+            } else if (lTag.isEmpty()) {
+                info.setReturnValue(true);
+            }
+        }
+
+        if (rTag != null) {
+            if (lTag != null) {
+                if (rTag.isEmpty() && lTag.isEmpty()) {
+                    info.cancel();
+                    info.setReturnValue(true);
+                }
+            } else if (rTag.isEmpty()) {
+                info.setReturnValue(true);
             }
         }
     }
