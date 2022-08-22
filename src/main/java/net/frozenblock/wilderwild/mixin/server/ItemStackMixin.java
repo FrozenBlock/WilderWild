@@ -24,16 +24,37 @@ public class ItemStackMixin {
         }
     }
 
-    @Inject(at = @At("HEAD"), method = "tagMatches")
+    @Inject(at = @At("HEAD"), method = "tagMatches", cancellable = true)
     private static void tagMatches(ItemStack left, ItemStack right, CallbackInfoReturnable<Boolean> info) {
-        if (left.getTag() != null) {
-            if (left.getTag().get("wilderwild_is_ancient") != null) {
-                left.getTag().remove("wilderwild_is_ancient");
+        CompoundTag lTag = left.getTag();
+        if (lTag != null) {
+            if (lTag.get("wilderwild_is_ancient") != null) {
+                lTag.remove("wilderwild_is_ancient");
             }
         }
-        if (right.getTag() != null) {
-            if (right.getTag().get("wilderwild_is_ancient") != null) {
-                right.getTag().remove("wilderwild_is_ancient");
+
+        CompoundTag rTag = right.getTag();
+        if (rTag != null) {
+            if (rTag.get("wilderwild_is_ancient") != null) {
+                rTag.remove("wilderwild_is_ancient");
+            }
+        }
+    }
+
+    @Inject(at = @At("HEAD"), method = "matches(Lnet/minecraft/world/item/ItemStack;)Z", cancellable = true)
+    private void matches(ItemStack stack, CallbackInfoReturnable<Boolean> info) {
+        ItemStack thisStack = ItemStack.class.cast(this);
+        CompoundTag lTag = thisStack.getTag();
+        if (lTag != null) {
+            if (lTag.get("wilderwild_is_ancient") != null) {
+                lTag.remove("wilderwild_is_ancient");
+            }
+        }
+
+        CompoundTag rTag = stack.getTag();
+        if (rTag != null) {
+            if (rTag.get("wilderwild_is_ancient") != null) {
+                rTag.remove("wilderwild_is_ancient");
             }
         }
     }
