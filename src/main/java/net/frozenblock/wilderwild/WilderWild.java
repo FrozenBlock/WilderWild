@@ -4,6 +4,8 @@ import com.chocohead.mm.api.ClassTinkerers;
 import com.mojang.datafixers.schemas.Schema;
 import com.mojang.serialization.Codec;
 import net.fabricmc.api.ModInitializer;
+import net.fabricmc.fabric.api.gamerule.v1.GameRuleFactory;
+import net.fabricmc.fabric.api.gamerule.v1.GameRuleRegistry;
 import net.fabricmc.loader.api.FabricLoader;
 import net.fabricmc.loader.api.ModContainer;
 import net.frozenblock.wilderwild.block.entity.TermiteMoundBlockEntity;
@@ -34,6 +36,7 @@ import net.minecraft.util.datafix.schemas.NamespacedSchema;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.item.Instrument;
+import net.minecraft.world.level.GameRules;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.feature.Feature;
@@ -115,6 +118,7 @@ public final class WilderWild implements ModInitializer {
             UNSTABLE_LOGGING = true;
             SharedConstants.IS_RUNNING_IN_IDE = true;
         }
+
 
         TermiteMoundBlockEntity.Termite.addDegradableBlocks();
         TermiteMoundBlockEntity.Termite.addNaturalDegradableBlocks();
@@ -262,6 +266,10 @@ public final class WilderWild implements ModInitializer {
             instantMap.remove(object);
         }
     }
+
+    //GAMERULES
+    public static final GameRules.Key<GameRules.BooleanValue> STONE_CHEST_CLOSES =
+            GameRuleRegistry.register("stoneChestCloses", GameRules.Category.MISC, GameRuleFactory.createBooleanRule(true));
 
     //IDENTIFIERS
     public static final ResourceLocation SEED_PACKET = id("seed_particle_packet");
