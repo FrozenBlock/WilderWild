@@ -331,10 +331,6 @@ public final class RegisterBlocks {
         Registry.register(Registry.ITEM, WilderWild.id("algae"), new AlgaeItem(ALGAE, new FabricItemSettings().tab(CreativeModeTab.TAB_DECORATIONS)));
         registerBlock("null_block", NULL_BLOCK, CreativeModeTab.TAB_MISC);
         registerNotSoPlants();
-
-        registerComposting();
-        registerFlammability();
-        registerFuels();
     }
 
     private static void registerBlockWithoutBlockItem(String name, net.minecraft.world.level.block.Block block) {
