@@ -81,7 +81,6 @@ public final class WilderWild implements ModInitializer {
         applyDataFixes(FabricLoader.getInstance().getModContainer(MOD_ID).orElseThrow());
 
         RegisterBlocks.registerBlocks();
-        RegisterBlocks.addBaobab();
         RegisterItems.registerItems();
         WilderConfiguredFeatures.registerConfiguredFeatures();
         WilderTreeConfigured.registerTreeConfigured();
