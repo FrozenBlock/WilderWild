@@ -27,6 +27,7 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import java.util.Arrays;
 import java.util.Map;
@@ -39,19 +40,18 @@ public class StructuresMixin {
     @Shadow @Final @Mutable
     private static Holder<Structure> ANCIENT_CITY;
 
+    private static JigsawStructure NEW_CITY = new JigsawStructure(structure(BiomeTags.HAS_ANCIENT_CITY, Arrays.stream(MobCategory.values()).collect(Collectors.toMap
+                    (mobCategory -> mobCategory, mobCategory -> new StructureSpawnOverride(StructureSpawnOverride.BoundingBoxType.STRUCTURE, WeightedRandomList.create()))),
+            GenerationStep.Decoration.UNDERGROUND_DECORATION, TerrainAdjustment.BEARD_BOX),
+            AncientCityStructurePieces.START, Optional.of(new ResourceLocation("city_anchor")),
+            7, ConstantHeight.of(VerticalAnchor.absolute(-27)), true, Optional.empty(), 250);
 
-    @Inject(method = "<clinit>", at = @At("HEAD"))
-    private static void init(CallbackInfo info) {
-        ANCIENT_CITY = register(BuiltinStructures.ANCIENT_CITY, new JigsawStructure(structure(BiomeTags.HAS_ANCIENT_CITY, Arrays.stream(MobCategory.values()).collect(Collectors.toMap
-                (mobCategory -> mobCategory, mobCategory -> new StructureSpawnOverride(StructureSpawnOverride.BoundingBoxType.STRUCTURE, WeightedRandomList.create()))),
-                GenerationStep.Decoration.UNDERGROUND_DECORATION, TerrainAdjustment.BEARD_BOX),
-                AncientCityStructurePieces.START, Optional.of(new ResourceLocation("city_anchor")),
-                7, ConstantHeight.of(VerticalAnchor.absolute(-27)), true, Optional.empty(), 250));
-    }
-
-    @Shadow
-    private static Holder<Structure> register(ResourceKey<Structure> resourceKey, Structure structure) {
-        return BuiltinRegistries.register(BuiltinRegistries.STRUCTURES, resourceKey, structure);
+    @Inject(method = "register", at = @At("HEAD"), cancellable = true)
+    private static void register(ResourceKey<Structure> resourceKey, Structure structure, CallbackInfoReturnable<Holder<Structure>> info) {
+        if (resourceKey == BuiltinStructures.ANCIENT_CITY) {
+            info.cancel();
+            info.setReturnValue(BuiltinRegistries.register(BuiltinRegistries.STRUCTURES, resourceKey, NEW_CITY));
+        }
     }
     @Shadow
     private static Structure.StructureSettings structure(TagKey<Biome> tagKey, Map<MobCategory, StructureSpawnOverride> map, GenerationStep.Decoration decoration, TerrainAdjustment terrainAdjustment) {
