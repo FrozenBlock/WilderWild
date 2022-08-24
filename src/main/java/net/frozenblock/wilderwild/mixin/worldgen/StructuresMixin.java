@@ -50,11 +50,11 @@ public class StructuresMixin {
                 ),
                 AncientCityStructurePieces.START,
                 Optional.of(new ResourceLocation("city_anchor")),
-                15,
+                24,
                 ConstantHeight.of(VerticalAnchor.absolute(-27)),
-                true,
+                false,
                 Optional.empty(),
-                308
+                1012
         ));
     }
 

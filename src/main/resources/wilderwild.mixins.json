@@ -34,6 +34,7 @@
 	"worldgen.JigsawStructureMixin",
 	"worldgen.OakTreeGrowerMixin",
 	"worldgen.SpruceTreeGrowerMixin",
+	"worldgen.StructureSetsMixin",
 	"worldgen.StructuresMixin",
 	"worldgen.SwampHutMixin",
 	"worldgen.VanillaBiomeParametersMixin",

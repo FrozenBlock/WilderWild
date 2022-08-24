@@ -25,7 +25,7 @@ import java.util.function.Function;
 @Mixin(JigsawStructure.class)
 public class JigsawStructureMixin {
     @Shadow @Final @Mutable
-    public static int MAX_TOTAL_STRUCTURE_RANGE = 320;
+    public static int MAX_TOTAL_STRUCTURE_RANGE = 1024;
 
     @Shadow @Final @Mutable
     public static Codec<JigsawStructure> CODEC = RecordCodecBuilder.<JigsawStructure>mapCodec((instance) -> {
@@ -33,7 +33,7 @@ public class JigsawStructureMixin {
             return jigsawStructure.startPool;
         }), ResourceLocation.CODEC.optionalFieldOf("start_jigsaw_name").forGetter((jigsawStructure) -> {
             return jigsawStructure.startJigsawName;
-        }), Codec.intRange(0, 15).fieldOf("size").forGetter((jigsawStructure) -> {
+        }), Codec.intRange(0, 32).fieldOf("size").forGetter((jigsawStructure) -> {
             return jigsawStructure.maxDepth;
         }), HeightProvider.CODEC.fieldOf("start_height").forGetter((jigsawStructure) -> {
             return jigsawStructure.startHeight;
