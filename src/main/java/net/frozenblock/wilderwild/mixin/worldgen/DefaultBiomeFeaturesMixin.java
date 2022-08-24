@@ -13,15 +13,6 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(BiomeDefaultFeatures.class)
 public class DefaultBiomeFeaturesMixin {
 
-
-    @Inject(method = "addBirchTrees", at = @At("HEAD"), cancellable = true)
-    private static void addBirchTrees(BiomeGenerationSettings.Builder builder, CallbackInfo info) {
-        if (!WilderWild.hasTerralith()) {
-            WilderWild.log("Removing " + "Birch Trees" + " in order to properly update biomes!", WilderWild.UNSTABLE_LOGGING);
-            info.cancel();
-        }
-    }
-
     @Inject(method = "addForestGrass", at = @At("HEAD"), cancellable = true)
     private static void addForestGrass(BiomeGenerationSettings.Builder builder, CallbackInfo info) {
         if (!WilderWild.hasTerralith()) {
@@ -57,14 +48,6 @@ public class DefaultBiomeFeaturesMixin {
             builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, VegetationPlacements.PATCH_WATERLILY);
             builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, VegetationPlacements.BROWN_MUSHROOM_SWAMP);
             builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, VegetationPlacements.RED_MUSHROOM_SWAMP);
-            info.cancel();
-        }
-    }
-
-    @Inject(method = "addTallBirchTrees", at = @At("HEAD"), cancellable = true)
-    private static void addTallBirchTrees(BiomeGenerationSettings.Builder builder, CallbackInfo info) {
-        if (!WilderWild.hasTerralith()) {
-            WilderWild.log("Removing " + "Tall Birch Trees" + " in order to properly update biomes!", WilderWild.UNSTABLE_LOGGING);
             info.cancel();
         }
     }
