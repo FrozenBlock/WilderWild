@@ -25,28 +25,28 @@ import java.util.function.Function;
 @Mixin(JigsawStructure.class)
 public class JigsawStructureMixin {
     @Shadow @Final @Mutable
-    private static int MAX_TOTAL_STRUCTURE_RANGE;
+    public static int MAX_TOTAL_STRUCTURE_RANGE = 256;
     @Shadow @Final @Mutable
-    private static Codec<JigsawStructure> CODEC;
+    public static Codec<JigsawStructure> CODEC;
 
     @Shadow @Final
-    private Holder<StructureTemplatePool> startPool;
+    public Holder<StructureTemplatePool> startPool;
     @Shadow @Final
-    private Optional<ResourceLocation> startJigsawName;
+    public Optional<ResourceLocation> startJigsawName;
     @Shadow @Final
-    private int maxDepth;
+    public int maxDepth;
     @Shadow @Final
-    private HeightProvider startHeight;
+    public HeightProvider startHeight;
     @Shadow @Final
-    private boolean useExpansionHack;
+    public boolean useExpansionHack;
     @Shadow @Final
-    private Optional<Heightmap.Types> projectStartToHeightmap;
+    public Optional<Heightmap.Types> projectStartToHeightmap;
     @Shadow @Final
-    private int maxDistanceFromCenter;
+    public int maxDistanceFromCenter;
 
     @Inject(method = "<clinit>", at = @At("HEAD"))
     private static void classInit(CallbackInfo info) {
-        MAX_TOTAL_STRUCTURE_RANGE = 256;
+
         Codec<Object> structureCodec = RecordCodecBuilder.mapCodec((instance) -> {
             return instance.group(Structure.StructureSettings.CODEC.forGetter(structure -> ((Structure)structure).settings), StructureTemplatePool.CODEC.fieldOf("start_pool").forGetter((jigsawStructure) -> {
                 return ((JigsawStructure)jigsawStructure).startPool;

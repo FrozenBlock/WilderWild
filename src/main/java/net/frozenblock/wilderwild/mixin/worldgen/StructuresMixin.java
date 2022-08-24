@@ -38,7 +38,7 @@ import java.util.stream.Collectors;
 public class StructuresMixin {
 
     @Shadow @Final @Mutable
-    private static Holder<Structure> ANCIENT_CITY;
+    public static Holder<Structure> ANCIENT_CITY;
 
     @Inject(method = "register", at = @At("HEAD"), cancellable = true)
     private static void register(ResourceKey<Structure> resourceKey, Structure structure, CallbackInfoReturnable<Holder<Structure>> info) {
