@@ -40,17 +40,17 @@ public class StructuresMixin {
     @Shadow @Final @Mutable
     private static Holder<Structure> ANCIENT_CITY;
 
-    private static JigsawStructure NEW_CITY = new JigsawStructure(structure(BiomeTags.HAS_ANCIENT_CITY, Arrays.stream(MobCategory.values()).collect(Collectors.toMap
-                    (mobCategory -> mobCategory, mobCategory -> new StructureSpawnOverride(StructureSpawnOverride.BoundingBoxType.STRUCTURE, WeightedRandomList.create()))),
-            GenerationStep.Decoration.UNDERGROUND_DECORATION, TerrainAdjustment.BEARD_BOX),
-            AncientCityStructurePieces.START, Optional.of(new ResourceLocation("city_anchor")),
-            7, ConstantHeight.of(VerticalAnchor.absolute(-27)), true, Optional.empty(), 250);
-
     @Inject(method = "register", at = @At("HEAD"), cancellable = true)
     private static void register(ResourceKey<Structure> resourceKey, Structure structure, CallbackInfoReturnable<Holder<Structure>> info) {
         if (resourceKey == BuiltinStructures.ANCIENT_CITY) {
             info.cancel();
-            info.setReturnValue(BuiltinRegistries.register(BuiltinRegistries.STRUCTURES, resourceKey, NEW_CITY));
+            info.setReturnValue(BuiltinRegistries.register(BuiltinRegistries.STRUCTURES, resourceKey,
+                    new JigsawStructure(structure(BiomeTags.HAS_ANCIENT_CITY, Arrays.stream(MobCategory.values()).collect(Collectors.toMap
+                            (mobCategory -> mobCategory, mobCategory -> new StructureSpawnOverride(StructureSpawnOverride.BoundingBoxType.STRUCTURE, WeightedRandomList.create()))),
+                    GenerationStep.Decoration.UNDERGROUND_DECORATION, TerrainAdjustment.BEARD_BOX),
+                    AncientCityStructurePieces.START, Optional.of(new ResourceLocation("city_anchor")),
+                    7, ConstantHeight.of(VerticalAnchor.absolute(-27)), true, Optional.empty(), 250))
+            );
         }
     }
     @Shadow
