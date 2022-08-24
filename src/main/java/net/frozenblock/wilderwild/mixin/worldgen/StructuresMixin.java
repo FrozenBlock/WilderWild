@@ -41,7 +41,7 @@ public class StructuresMixin {
 
 
     @Inject(method = "<clinit>", at = @At("HEAD"))
-    public static void init(CallbackInfo info) {
+    private static void init(CallbackInfo info) {
         ANCIENT_CITY = register(BuiltinStructures.ANCIENT_CITY, new JigsawStructure(structure(BiomeTags.HAS_ANCIENT_CITY, Arrays.stream(MobCategory.values()).collect(Collectors.toMap
                 (mobCategory -> mobCategory, mobCategory -> new StructureSpawnOverride(StructureSpawnOverride.BoundingBoxType.STRUCTURE, WeightedRandomList.create()))),
                 GenerationStep.Decoration.UNDERGROUND_DECORATION, TerrainAdjustment.BEARD_BOX),
