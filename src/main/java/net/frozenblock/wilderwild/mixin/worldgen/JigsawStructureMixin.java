@@ -45,7 +45,7 @@ public class JigsawStructureMixin {
     private int maxDistanceFromCenter;
 
     @Inject(method = "<clinit>", at = @At("HEAD"))
-    public void classInit(CallbackInfo info) {
+    private static void classInit(CallbackInfo info) {
         MAX_TOTAL_STRUCTURE_RANGE = 256;
         Codec<Object> structureCodec = RecordCodecBuilder.mapCodec((instance) -> {
             return instance.group(Structure.StructureSettings.CODEC.forGetter(structure -> ((Structure)structure).settings), StructureTemplatePool.CODEC.fieldOf("start_pool").forGetter((jigsawStructure) -> {
