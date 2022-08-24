@@ -26,48 +26,25 @@ import java.util.function.Function;
 public class JigsawStructureMixin {
     @Shadow @Final @Mutable
     public static int MAX_TOTAL_STRUCTURE_RANGE = 256;
+
     @Shadow @Final @Mutable
-    public static Codec<JigsawStructure> CODEC;
-
-    @Shadow @Final
-    public Holder<StructureTemplatePool> startPool;
-    @Shadow @Final
-    public Optional<ResourceLocation> startJigsawName;
-    @Shadow @Final
-    public int maxDepth;
-    @Shadow @Final
-    public HeightProvider startHeight;
-    @Shadow @Final
-    public boolean useExpansionHack;
-    @Shadow @Final
-    public Optional<Heightmap.Types> projectStartToHeightmap;
-    @Shadow @Final
-    public int maxDistanceFromCenter;
-
-    @Inject(method = "<clinit>", at = @At("HEAD"))
-    private static void classInit(CallbackInfo info) {
-
-        Codec<Object> structureCodec = RecordCodecBuilder.mapCodec((instance) -> {
-            return instance.group(Structure.StructureSettings.CODEC.forGetter(structure -> ((Structure)structure).settings), StructureTemplatePool.CODEC.fieldOf("start_pool").forGetter((jigsawStructure) -> {
-                return ((JigsawStructure)jigsawStructure).startPool;
-            }), ResourceLocation.CODEC.optionalFieldOf("start_jigsaw_name").forGetter((jigsawStructure) -> {
-                return ((JigsawStructure)jigsawStructure).startJigsawName;
-            }), Codec.intRange(0, 7).fieldOf("size").forGetter((jigsawStructure) -> {
-                return ((JigsawStructure)jigsawStructure).maxDepth;
-            }), HeightProvider.CODEC.fieldOf("start_height").forGetter((jigsawStructure) -> {
-                return ((JigsawStructure)jigsawStructure).startHeight;
-            }), Codec.BOOL.fieldOf("use_expansion_hack").forGetter((jigsawStructure) -> {
-                return ((JigsawStructure)jigsawStructure).useExpansionHack;
-            }), Heightmap.Types.CODEC.optionalFieldOf("project_start_to_heightmap").forGetter((jigsawStructure) -> {
-                return ((JigsawStructure)jigsawStructure).projectStartToHeightmap;
-            }), Codec.intRange(1, 256).fieldOf("max_distance_from_center").forGetter((jigsawStructure) -> {
-                return ((JigsawStructure)jigsawStructure).maxDistanceFromCenter;
-            })).apply(instance, JigsawStructure::new);
-        }).codec();
-
-        CODEC = Codec.class.cast(structureCodec);
-
-    }
+    public static Codec<JigsawStructure> CODEC = RecordCodecBuilder.<JigsawStructure>mapCodec((instance) -> {
+        return instance.group(Structure.StructureSettings.CODEC.forGetter(structure -> structure.settings), StructureTemplatePool.CODEC.fieldOf("start_pool").forGetter((jigsawStructure) -> {
+            return jigsawStructure.startPool;
+        }), ResourceLocation.CODEC.optionalFieldOf("start_jigsaw_name").forGetter((jigsawStructure) -> {
+            return jigsawStructure.startJigsawName;
+        }), Codec.intRange(0, 7).fieldOf("size").forGetter((jigsawStructure) -> {
+            return jigsawStructure.maxDepth;
+        }), HeightProvider.CODEC.fieldOf("start_height").forGetter((jigsawStructure) -> {
+            return jigsawStructure.startHeight;
+        }), Codec.BOOL.fieldOf("use_expansion_hack").forGetter((jigsawStructure) -> {
+            return jigsawStructure.useExpansionHack;
+        }), Heightmap.Types.CODEC.optionalFieldOf("project_start_to_heightmap").forGetter((jigsawStructure) -> {
+            return jigsawStructure.projectStartToHeightmap;
+        }), Codec.intRange(1, 256).fieldOf("max_distance_from_center").forGetter((jigsawStructure) -> {
+            return jigsawStructure.maxDistanceFromCenter;
+        })).apply(instance, JigsawStructure::new);
+    }).flatXmap(verifyRange(), verifyRange()).codec();
 
 
     private static Function<JigsawStructure, DataResult<JigsawStructure>> verifyRange() {
