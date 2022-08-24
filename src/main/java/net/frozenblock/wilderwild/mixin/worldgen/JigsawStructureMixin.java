@@ -4,6 +4,8 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.DataResult;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import net.frozenblock.wilderwild.registry.RegisterStructures;
+import net.minecraft.client.gui.screens.inventory.JigsawBlockEditScreen;
 import net.minecraft.core.Holder;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.levelgen.Heightmap;
@@ -25,7 +27,7 @@ import java.util.function.Function;
 @Mixin(JigsawStructure.class)
 public class JigsawStructureMixin {
     @Shadow @Final @Mutable
-    public static int MAX_TOTAL_STRUCTURE_RANGE = 1024;
+    public static final int MAX_TOTAL_STRUCTURE_RANGE = RegisterStructures.MAX_DISTANCE_FROM_JIGSAW_CENTER;
 
     @Shadow @Final @Mutable
     public static Codec<JigsawStructure> CODEC = RecordCodecBuilder.<JigsawStructure>mapCodec((instance) -> {
@@ -33,7 +35,7 @@ public class JigsawStructureMixin {
             return jigsawStructure.startPool;
         }), ResourceLocation.CODEC.optionalFieldOf("start_jigsaw_name").forGetter((jigsawStructure) -> {
             return jigsawStructure.startJigsawName;
-        }), Codec.intRange(0, 32).fieldOf("size").forGetter((jigsawStructure) -> {
+        }), Codec.intRange(0, RegisterStructures.MAX_JIGSAW_SIZE).fieldOf("size").forGetter((jigsawStructure) -> {
             return jigsawStructure.maxDepth;
         }), HeightProvider.CODEC.fieldOf("start_height").forGetter((jigsawStructure) -> {
             return jigsawStructure.startHeight;

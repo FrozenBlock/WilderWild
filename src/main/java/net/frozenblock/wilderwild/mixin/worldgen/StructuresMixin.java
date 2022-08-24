@@ -1,5 +1,6 @@
 package net.frozenblock.wilderwild.mixin.worldgen;
 
+import net.frozenblock.wilderwild.registry.RegisterStructures;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderSet;
 import net.minecraft.data.BuiltinRegistries;
@@ -20,7 +21,6 @@ import net.minecraft.world.level.levelgen.structure.Structure;
 import net.minecraft.world.level.levelgen.structure.StructureSpawnOverride;
 import net.minecraft.world.level.levelgen.structure.TerrainAdjustment;
 import net.minecraft.world.level.levelgen.structure.structures.JigsawStructure;
-import org.objectweb.asm.Opcodes;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
@@ -54,7 +54,7 @@ public class StructuresMixin {
                 ConstantHeight.of(VerticalAnchor.absolute(-27)),
                 false,
                 Optional.empty(),
-                1012
+                RegisterStructures.MAX_DISTANCE_FROM_JIGSAW_CENTER - 12
         ));
     }
 

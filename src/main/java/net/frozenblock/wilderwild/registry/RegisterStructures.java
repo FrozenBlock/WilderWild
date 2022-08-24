@@ -31,6 +31,10 @@ import java.util.stream.Collectors;
 
 public class RegisterStructures {
 
+    public static final int MAX_JIGSAW_SIZE = 32;
+
+    public static final int MAX_DISTANCE_FROM_JIGSAW_CENTER = 1024;
+
     public static final ResourceKey<StructureSet> ABANDONED_CABINS_KEY = ofSet("abandoned_cabins");
 
     private static ResourceKey<StructureSet> ofSet(String id) {

@@ -1,21 +1,13 @@
 package net.frozenblock.wilderwild.mixin.worldgen;
 
+import net.frozenblock.wilderwild.registry.RegisterStructures;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.server.level.ServerLevel;
-import net.minecraft.util.RandomSource;
-import net.minecraft.world.level.ChunkPos;
-import net.minecraft.world.level.StructureManager;
-import net.minecraft.world.level.chunk.ChunkGenerator;
-import net.minecraft.world.level.levelgen.structure.BoundingBox;
-import net.minecraft.world.level.levelgen.structure.PoolElementStructurePiece;
+import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraft.world.level.levelgen.structure.Structure;
-import net.minecraft.world.level.levelgen.structure.StructurePiece;
-import net.minecraft.world.level.levelgen.structure.pieces.StructurePiecesBuilder;
 import net.minecraft.world.level.levelgen.structure.pools.JigsawPlacement;
 import net.minecraft.world.level.levelgen.structure.pools.StructureTemplatePool;
-import net.minecraft.world.level.levelgen.structure.templatesystem.StructureTemplateManager;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -26,26 +18,12 @@ import java.util.Optional;
 @Mixin(JigsawPlacement.class)
 public class JigsawPlacementMixin {
 
-    @Inject(method = "generateJigsaw", at = @At("HEAD"), cancellable = true)
-    private static void generateJigsaw(ServerLevel serverLevel, Holder<StructureTemplatePool> holder2, ResourceLocation resourceLocation, int i, BlockPos blockPos, boolean bl, CallbackInfoReturnable<Boolean> info) {
-        ChunkGenerator chunkGenerator = serverLevel.getChunkSource().getGenerator();
-        StructureTemplateManager structureTemplateManager = serverLevel.getStructureManager();
-        StructureManager structureManager = serverLevel.structureManager();
-        RandomSource randomSource = serverLevel.getRandom();
-        Structure.GenerationContext generationContext = new Structure.GenerationContext(serverLevel.registryAccess(), chunkGenerator, chunkGenerator.getBiomeSource(), serverLevel.getChunkSource().randomState(), structureTemplateManager, serverLevel.getSeed(), new ChunkPos(blockPos), serverLevel, holder -> true);
-        Optional<Structure.GenerationStub> optional = JigsawPlacement.addPieces(generationContext, holder2, Optional.of(resourceLocation), i, blockPos, false, Optional.empty(), 320);
-        if (optional.isPresent()) {
-            StructurePiecesBuilder structurePiecesBuilder = optional.get().getPiecesBuilder();
-            for (StructurePiece structurePiece : structurePiecesBuilder.build().pieces()) {
-                if (!(structurePiece instanceof PoolElementStructurePiece)) continue;
-                PoolElementStructurePiece poolElementStructurePiece = (PoolElementStructurePiece)structurePiece;
-                poolElementStructurePiece.place(serverLevel, structureManager, chunkGenerator, randomSource, BoundingBox.infinite(), blockPos, bl);
-            }
-            info.cancel();
-            info.setReturnValue(true);
+    @Inject(method = "addPieces(Lnet/minecraft/world/level/levelgen/structure/Structure$GenerationContext;Lnet/minecraft/core/Holder;Ljava/util/Optional;ILnet/minecraft/core/BlockPos;ZLjava/util/Optional;I)Ljava/util/Optional;", at = @At("HEAD"))
+    private static void addPieces(Structure.GenerationContext generationContext, Holder<StructureTemplatePool> holder, Optional<ResourceLocation> optional, int i, BlockPos blockPos, boolean bl, Optional<Heightmap.Types> optional2, int j, CallbackInfoReturnable<Optional<Structure.GenerationStub>> cir) {
+        if (j == 128) {
+            j = RegisterStructures.MAX_DISTANCE_FROM_JIGSAW_CENTER;
+        } else if (j == 256) {
+            j = RegisterStructures.MAX_DISTANCE_FROM_JIGSAW_CENTER * 2;
         }
-        info.cancel();
-        info.setReturnValue(false);
     }
-
 }
