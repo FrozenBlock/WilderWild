@@ -27,7 +27,7 @@ import java.util.Optional;
 public class JigsawPlacementMixin {
 
     @Inject(method = "generateJigsaw", at = @At("HEAD"), cancellable = true)
-    public static void generateJigsaw(ServerLevel serverLevel, Holder<StructureTemplatePool> holder2, ResourceLocation resourceLocation, int i, BlockPos blockPos, boolean bl, CallbackInfoReturnable<Boolean> info) {
+    private static void generateJigsaw(ServerLevel serverLevel, Holder<StructureTemplatePool> holder2, ResourceLocation resourceLocation, int i, BlockPos blockPos, boolean bl, CallbackInfoReturnable<Boolean> info) {
         ChunkGenerator chunkGenerator = serverLevel.getChunkSource().getGenerator();
         StructureTemplateManager structureTemplateManager = serverLevel.getStructureManager();
         StructureManager structureManager = serverLevel.structureManager();
