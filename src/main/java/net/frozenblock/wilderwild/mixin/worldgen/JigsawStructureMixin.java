@@ -25,7 +25,7 @@ import java.util.function.Function;
 @Mixin(JigsawStructure.class)
 public class JigsawStructureMixin {
     @Shadow @Final @Mutable
-    public static int MAX_TOTAL_STRUCTURE_RANGE = 256;
+    public static int MAX_TOTAL_STRUCTURE_RANGE = 320;
 
     @Shadow @Final @Mutable
     public static Codec<JigsawStructure> CODEC = RecordCodecBuilder.<JigsawStructure>mapCodec((instance) -> {
