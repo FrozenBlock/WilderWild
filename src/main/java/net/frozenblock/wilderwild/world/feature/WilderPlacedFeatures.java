@@ -70,7 +70,7 @@ public final class WilderPlacedFeatures {
     public static final Holder<PlacedFeature> NEW_BIRCH_PLACED = PlacementUtils.register("trees_birch",
             WilderTreeConfigured.NEW_BIRCH_BEES_0004, treePlacement(PlacementUtils.countExtra(10, 0.1F, 1), Blocks.BIRCH_SAPLING));
 
-    public static final Holder<PlacedFeature> NEW_TALL_BIRCH_PLACED = register("new_tall_birch_placed",
+    public static final Holder<PlacedFeature> NEW_TALL_BIRCH_PLACED = PlacementUtils.register("birch_tall",
             WilderTreeConfigured.NEW_SUPER_BIRCH_BEES_0004, treePlacement(PlacementUtils.countExtra(10, 0.1F, 1), Blocks.BIRCH_SAPLING));
 
     public static final Holder<PlacedFeature> NEW_SPRUCE_PLACED = register("new_spruce_placed",
