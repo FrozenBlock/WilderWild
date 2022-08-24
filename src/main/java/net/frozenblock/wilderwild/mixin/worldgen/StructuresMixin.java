@@ -49,7 +49,7 @@ public class StructuresMixin {
                             (mobCategory -> mobCategory, mobCategory -> new StructureSpawnOverride(StructureSpawnOverride.BoundingBoxType.STRUCTURE, WeightedRandomList.create()))),
                     GenerationStep.Decoration.UNDERGROUND_DECORATION, TerrainAdjustment.BEARD_BOX),
                     AncientCityStructurePieces.START, Optional.of(new ResourceLocation("city_anchor")),
-                    7, ConstantHeight.of(VerticalAnchor.absolute(-27)), true, Optional.empty(), 250))
+                    7, ConstantHeight.of(VerticalAnchor.absolute(-27)), true, Optional.empty(), 240))
             );
         }
     }
