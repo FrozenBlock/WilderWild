@@ -2,6 +2,7 @@ package net.frozenblock.wilderwild.mixin.worldgen;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.DataResult;
+import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.core.Holder;
 import net.minecraft.resources.ResourceLocation;
@@ -46,7 +47,7 @@ public class JigsawStructureMixin {
     @Inject(method = "<clinit>", at = @At("HEAD"))
     public void classInit(CallbackInfo info) {
         MAX_TOTAL_STRUCTURE_RANGE = 256;
-        CODEC = RecordCodecBuilder.mapCodec((instance) -> {
+        Codec<Object> structureCodec = RecordCodecBuilder.mapCodec((instance) -> {
             return instance.group(Structure.StructureSettings.CODEC.forGetter(structure -> ((Structure)structure).settings), StructureTemplatePool.CODEC.fieldOf("start_pool").forGetter((jigsawStructure) -> {
                 return ((JigsawStructure)jigsawStructure).startPool;
             }), ResourceLocation.CODEC.optionalFieldOf("start_jigsaw_name").forGetter((jigsawStructure) -> {
@@ -62,9 +63,12 @@ public class JigsawStructureMixin {
             }), Codec.intRange(1, 256).fieldOf("max_distance_from_center").forGetter((jigsawStructure) -> {
                 return ((JigsawStructure)jigsawStructure).maxDistanceFromCenter;
             })).apply(instance, JigsawStructure::new);
-        }).flatXmap(verifyRange(), verifyRange()).codec();
+        }).codec();
+
+        CODEC = Codec.class.cast(structureCodec);
 
     }
+
 
     private static Function<JigsawStructure, DataResult<JigsawStructure>> verifyRange() {
         return (jigsawStructure) -> {
