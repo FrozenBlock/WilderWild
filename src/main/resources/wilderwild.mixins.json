@@ -30,6 +30,7 @@
 	"worldgen.BirchTreeGrowerMixin",
 	"worldgen.DefaultBiomeFeaturesMixin",
 	"worldgen.GenerationSettingsBuilderMixin",
+	"worldgen.JigsawPlacementMixin",
 	"worldgen.JigsawStructureMixin",
 	"worldgen.OakTreeGrowerMixin",
 	"worldgen.SpruceTreeGrowerMixin",
