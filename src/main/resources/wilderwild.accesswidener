@@ -41,3 +41,11 @@ accessible method net/minecraft/world/level/block/AbstractCauldronBlock canRecei
 accessible    field    net/minecraft/world/level/block/entity/RandomizableContainerBlockEntity    lootTable    Lnet/minecraft/resources/ResourceLocation;
 accessible method net/minecraft/world/item/ItemCooldowns$CooldownInstance <init> (II)V
 accessible    field    net/minecraft/world/item/ItemStack    tag    Lnet/minecraft/nbt/CompoundTag;
+accessible    field    net/minecraft/world/level/levelgen/structure/structures/JigsawStructure    maxDistanceFromCenter    I
+accessible    field    net/minecraft/world/level/levelgen/structure/structures/JigsawStructure    startJigsawName    Ljava/util/Optional;
+accessible    field    net/minecraft/world/level/levelgen/structure/structures/JigsawStructure    maxDepth    I
+accessible    field    net/minecraft/world/level/levelgen/structure/structures/JigsawStructure    startHeight    Lnet/minecraft/world/level/levelgen/heightproviders/HeightProvider;
+accessible    field    net/minecraft/world/level/levelgen/structure/structures/JigsawStructure    useExpansionHack    Z
+accessible    field    net/minecraft/world/level/levelgen/structure/structures/JigsawStructure    startPool    Lnet/minecraft/core/Holder;
+accessible    field    net/minecraft/world/level/levelgen/structure/structures/JigsawStructure    projectStartToHeightmap    Ljava/util/Optional;
+accessible    field    net/minecraft/world/level/levelgen/structure/Structure    settings    Lnet/minecraft/world/level/levelgen/structure/Structure$StructureSettings;
