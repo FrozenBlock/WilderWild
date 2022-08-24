@@ -17,7 +17,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Blocks;
 
-public class RegisterFrozenLib {
+public class FrozenLibIntegration {
 
     public static void init() {
         RegisterMovingSoundRestrictions.register(WilderWild.id("ancient_horn"), (RegisterMovingSoundRestrictions.LoopPredicate<Player>) entity -> {

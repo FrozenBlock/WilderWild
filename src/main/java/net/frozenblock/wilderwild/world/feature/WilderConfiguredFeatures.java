@@ -22,6 +22,7 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.MultifaceBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
+import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.WeightedPlacedFeature;
 import net.minecraft.world.level.levelgen.feature.configurations.*;
 import net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProvider;
@@ -219,15 +220,15 @@ public final class WilderConfiguredFeatures {
         return FeatureUtils.simpleRandomPatchConfiguration(tries, PlacementUtils.onlyWhenEmpty(net.minecraft.world.level.levelgen.feature.Feature.SIMPLE_BLOCK, new SimpleBlockConfiguration(block)));
     }
 
-    public static Holder<ConfiguredFeature<NoneFeatureConfiguration, ?>> register(String id, net.minecraft.world.level.levelgen.feature.Feature<NoneFeatureConfiguration> feature) {
+    public static Holder<ConfiguredFeature<NoneFeatureConfiguration, ?>> register(String id, Feature<NoneFeatureConfiguration> feature) {
         return register(id, feature, FeatureConfiguration.NONE);
     }
 
-    public static <FC extends FeatureConfiguration, F extends net.minecraft.world.level.levelgen.feature.Feature<FC>> Holder<ConfiguredFeature<FC, ?>> register(@NotNull String id, F feature, @NotNull FC config) {
-        return addCasted(BuiltinRegistries.CONFIGURED_FEATURE, id, new ConfiguredFeature<>(feature, config));
+    public static <FC extends FeatureConfiguration, F extends Feature<FC>> Holder<ConfiguredFeature<FC, ?>> register(@NotNull String id, F feature, @NotNull FC config) {
+        return registerExact(BuiltinRegistries.CONFIGURED_FEATURE, id, new ConfiguredFeature<>(feature, config));
     }
 
-    public static <V extends T, T> Holder<V> addCasted(Registry<T> registry, String id, V value) {
+    public static <V extends T, T> Holder<V> registerExact(Registry<T> registry, String id, V value) {
         return (Holder<V>) BuiltinRegistries.register(registry, WilderWild.id(id), value);
     }
 }

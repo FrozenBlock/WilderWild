@@ -35,7 +35,7 @@
 	"worldgen.SwampHutMixin",
 	"worldgen.VanillaBiomeParametersMixin",
 	"worldgen.VanillaSurfaceRulesMixin",
-	"worldgen.VegetationPlacedFeaturesMixin"
+	"worldgen.VegetationPlacementsMixin"
   ],
   "client": [
 	"client.AlexDolphinRenderer",
