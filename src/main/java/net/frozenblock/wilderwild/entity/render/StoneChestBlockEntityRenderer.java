@@ -77,7 +77,7 @@ public class StoneChestBlockEntityRenderer<T extends StoneChestBlockEntity & Lid
         MeshDefinition modelData = new MeshDefinition();
         PartDefinition modelPartData = modelData.getRoot();
         modelPartData.addOrReplaceChild(BASE, CubeListBuilder.create().texOffs(0, 17).addBox(1.0F, 0.0F, 1.0F, 15.0F, 12.0F, 14.0F), PartPose.ZERO);
-        modelPartData.addOrReplaceChild(LID, CubeListBuilder.create().texOffs(0, 0).addBox(1.0F, 0.0F, 0.0F, 15.0F, 3.0F, 14.0F), PartPose.offset(0.0F, 12.0F, 1.0F));
+        modelPartData.addOrReplaceChild(LID, CubeListBuilder.create().texOffs(0, 0).addBox(1.0F, 0.0F, 0.0F, 15.0F, 3.0F, 14.0F), PartPose.offset(0.0F, 11.0F, 1.0F));
         return LayerDefinition.create(modelData, 64, 64);
     }
 
@@ -85,7 +85,7 @@ public class StoneChestBlockEntityRenderer<T extends StoneChestBlockEntity & Lid
         MeshDefinition modelData = new MeshDefinition();
         PartDefinition modelPartData = modelData.getRoot();
         modelPartData.addOrReplaceChild(BASE, CubeListBuilder.create().texOffs(0, 17).addBox(0.0F, 0.0F, 1.0F, 15.0F, 12.0F, 14.0F), PartPose.ZERO);
-        modelPartData.addOrReplaceChild(LID, CubeListBuilder.create().texOffs(0, 0).addBox(0.0F, 0.0F, 0.0F, 15.0F, 3.0F, 14.0F), PartPose.offset(0.0F, 12.0F, 1.0F));
+        modelPartData.addOrReplaceChild(LID, CubeListBuilder.create().texOffs(0, 0).addBox(0.0F, 0.0F, 0.0F, 15.0F, 3.0F, 14.0F), PartPose.offset(0.0F, 11.0F, 1.0F));
         return LayerDefinition.create(modelData, 64, 64);
     }
 
