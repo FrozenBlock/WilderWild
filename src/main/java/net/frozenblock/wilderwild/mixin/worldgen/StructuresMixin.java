@@ -37,7 +37,7 @@ import java.util.stream.Collectors;
 public class StructuresMixin {
 
     @Shadow @Final @Mutable
-    private static Holder<Structure> ANCIENT_CITY = register(BuiltinStructures.ANCIENT_CITY, new JigsawStructure(structure(BiomeTags.HAS_ANCIENT_CITY, Arrays.stream(MobCategory.values()).collect(Collectors.toMap(mobCategory -> mobCategory, mobCategory -> new StructureSpawnOverride(StructureSpawnOverride.BoundingBoxType.STRUCTURE, WeightedRandomList.create()))), GenerationStep.Decoration.UNDERGROUND_DECORATION, TerrainAdjustment.BEARD_BOX), AncientCityStructurePieces.START, Optional.of(new ResourceLocation("city_anchor")), 7, ConstantHeight.of(VerticalAnchor.absolute(-27)), false, Optional.empty(), 116));
+    private static Holder<Structure> ANCIENT_CITY;
 
 
     @Inject(method = "<clinit>", at = @At("HEAD"))
