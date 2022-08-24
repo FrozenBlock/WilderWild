@@ -33,7 +33,7 @@ public class JigsawStructureMixin {
             return jigsawStructure.startPool;
         }), ResourceLocation.CODEC.optionalFieldOf("start_jigsaw_name").forGetter((jigsawStructure) -> {
             return jigsawStructure.startJigsawName;
-        }), Codec.intRange(0, 7).fieldOf("size").forGetter((jigsawStructure) -> {
+        }), Codec.intRange(0, 15).fieldOf("size").forGetter((jigsawStructure) -> {
             return jigsawStructure.maxDepth;
         }), HeightProvider.CODEC.fieldOf("start_height").forGetter((jigsawStructure) -> {
             return jigsawStructure.startHeight;
@@ -41,7 +41,7 @@ public class JigsawStructureMixin {
             return jigsawStructure.useExpansionHack;
         }), Heightmap.Types.CODEC.optionalFieldOf("project_start_to_heightmap").forGetter((jigsawStructure) -> {
             return jigsawStructure.projectStartToHeightmap;
-        }), Codec.intRange(1, 256).fieldOf("max_distance_from_center").forGetter((jigsawStructure) -> {
+        }), Codec.intRange(1, MAX_TOTAL_STRUCTURE_RANGE).fieldOf("max_distance_from_center").forGetter((jigsawStructure) -> {
             return jigsawStructure.maxDistanceFromCenter;
         })).apply(instance, JigsawStructure::new);
     }).flatXmap(verifyRange(), verifyRange()).codec();
@@ -54,7 +54,7 @@ public class JigsawStructureMixin {
                 case NONE -> 0;
                 case BURY, BEARD_THIN, BEARD_BOX -> 12;
             };
-            return jigsawStructure.maxDistanceFromCenter + i > 256 ? DataResult.error("Structure size including terrain adaptation must not exceed 256") : DataResult.success(jigsawStructure);
+            return jigsawStructure.maxDistanceFromCenter + i > MAX_TOTAL_STRUCTURE_RANGE ? DataResult.error("Structure size including terrain adaptation must not exceed " + MAX_TOTAL_STRUCTURE_RANGE) : DataResult.success(jigsawStructure);
         };
     }
 }
