@@ -20,14 +20,11 @@ import net.minecraft.world.level.levelgen.structure.Structure;
 import net.minecraft.world.level.levelgen.structure.StructureSpawnOverride;
 import net.minecraft.world.level.levelgen.structure.TerrainAdjustment;
 import net.minecraft.world.level.levelgen.structure.structures.JigsawStructure;
-import org.spongepowered.asm.mixin.Final;
+import org.objectweb.asm.Opcodes;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Mutable;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
+import org.spongepowered.asm.mixin.injection.Redirect;
 
 import java.util.Arrays;
 import java.util.Map;
@@ -37,22 +34,30 @@ import java.util.stream.Collectors;
 @Mixin(Structures.class)
 public class StructuresMixin {
 
-    @Shadow @Final @Mutable
-    public static Holder<Structure> ANCIENT_CITY;
-
-    @Inject(method = "register", at = @At("HEAD"), cancellable = true)
-    private static void register(ResourceKey<Structure> resourceKey, Structure structure, CallbackInfoReturnable<Holder<Structure>> info) {
-        if (resourceKey == BuiltinStructures.ANCIENT_CITY) {
-            info.cancel();
-            info.setReturnValue(BuiltinRegistries.register(BuiltinRegistries.STRUCTURES, resourceKey,
-                    new JigsawStructure(structure(BiomeTags.HAS_ANCIENT_CITY, Arrays.stream(MobCategory.values()).collect(Collectors.toMap
-                            (mobCategory -> mobCategory, mobCategory -> new StructureSpawnOverride(StructureSpawnOverride.BoundingBoxType.STRUCTURE, WeightedRandomList.create()))),
-                    GenerationStep.Decoration.UNDERGROUND_DECORATION, TerrainAdjustment.BEARD_BOX),
-                    AncientCityStructurePieces.START, Optional.of(new ResourceLocation("city_anchor")),
-                    7, ConstantHeight.of(VerticalAnchor.absolute(-27)), true, Optional.empty(), 240))
-            );
-        }
+    @Redirect(method = "<clinit>", at = @At(value = "INVOKE", target = "Lnet/minecraft/data/worldgen/Structures;register(Lnet/minecraft/resources/ResourceKey;Lnet/minecraft/world/level/levelgen/structure/Structure;)Lnet/minecraft/core/Holder;", ordinal = 31))
+    private static Holder<Structure> newAncientCity(ResourceKey<Structure> resourceKey, Structure structure) {
+        return BuiltinRegistries.register(BuiltinRegistries.STRUCTURES, BuiltinStructures.ANCIENT_CITY, new JigsawStructure(
+                structure(
+                        BiomeTags.HAS_ANCIENT_CITY,
+                        Arrays.stream(MobCategory.values())
+                                .collect(
+                                        Collectors.toMap(
+                                                mobCategory -> mobCategory, mobCategory -> new StructureSpawnOverride(StructureSpawnOverride.BoundingBoxType.STRUCTURE, WeightedRandomList.create())
+                                        )
+                                ),
+                        GenerationStep.Decoration.UNDERGROUND_DECORATION,
+                        TerrainAdjustment.BEARD_BOX
+                ),
+                AncientCityStructurePieces.START,
+                Optional.of(new ResourceLocation("city_anchor")),
+                7,
+                ConstantHeight.of(VerticalAnchor.absolute(-27)),
+                true,
+                Optional.empty(),
+                240
+        ));
     }
+
     @Shadow
     private static Structure.StructureSettings structure(TagKey<Biome> tagKey, Map<MobCategory, StructureSpawnOverride> map, GenerationStep.Decoration decoration, TerrainAdjustment terrainAdjustment) {
         return new Structure.StructureSettings(biomes(tagKey), map, decoration, terrainAdjustment);
