@@ -54,7 +54,7 @@ public class StructuresMixin {
                 ConstantHeight.of(VerticalAnchor.absolute(-27)),
                 true,
                 Optional.empty(),
-                240
+                308
         ));
     }
 
