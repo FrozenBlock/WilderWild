@@ -34,8 +34,8 @@ import java.util.function.Function;
 @Mixin(ChunkGenerator.class)
 public class ChunkGeneratorMixin {
 
-    @Overwrite
-    public void createReferences(WorldGenLevel worldGenLevel, StructureManager structureManager, ChunkAccess chunkAccess) {
+    @Inject(method = "createReferences", at = @At("HEAD"), cancellable = true)
+    public void createReferences(WorldGenLevel worldGenLevel, StructureManager structureManager, ChunkAccess chunkAccess, CallbackInfo ci) {
         int i = 16;
         ChunkPos chunkPos = chunkAccess.getPos();
         int j = chunkPos.x;
@@ -64,6 +64,7 @@ public class ChunkGeneratorMixin {
                 }
             }
         }
+        ci.cancel();
     }
 
 }

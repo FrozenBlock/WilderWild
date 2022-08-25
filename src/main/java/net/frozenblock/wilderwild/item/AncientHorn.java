@@ -9,6 +9,7 @@ import net.frozenblock.wilderwild.registry.RegisterItems;
 import net.frozenblock.wilderwild.registry.RegisterSounds;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.Holder;
+import net.minecraft.core.NonNullList;
 import net.minecraft.core.Registry;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
@@ -44,7 +45,7 @@ public class AncientHorn extends InstrumentItem {
         this.instrumentTag = instrumentTag;
     }
 
-    /*@Override
+    @Override
     public void appendHoverText(ItemStack stack, @Nullable Level world, List<Component> tooltip, TooltipFlag context) {
         super.appendHoverText(stack, world, tooltip, context);
         Optional<ResourceKey<Instrument>> optional = this.getInstrument(stack).flatMap(Holder::unwrapKey);
@@ -53,7 +54,17 @@ public class AncientHorn extends InstrumentItem {
             tooltip.add(mutableText.withStyle(ChatFormatting.GRAY));
         }
 
-    }*/
+    }
+
+    @Override
+    public void fillItemCategory(CreativeModeTab creativeModeTab, NonNullList<ItemStack> nonNullList) {
+        if (this.allowedIn(creativeModeTab)) {
+            for(Holder<Instrument> holder : Registry.INSTRUMENT.getTagOrEmpty(this.instrumentTag)) {
+                nonNullList.add(create(RegisterItems.ANCIENT_HORN, holder));
+            }
+        }
+
+    }
 
     @Override
     public InteractionResultHolder<ItemStack> use(Level world, Player user, InteractionHand hand) {
@@ -63,9 +74,7 @@ public class AncientHorn extends InstrumentItem {
         if (optional.isPresent()) {
             Instrument instrument = optional.get().value();
             user.startUsingItem(hand);
-            SoundEvent soundEvent = instrument.soundEvent();
-            float range = instrument.range() / 16.0F;
-            world.playSound(user, user, soundEvent, SoundSource.RECORDS, range, 1.0F);
+            play(world, user, instrument);
             AncientHornParticleEffect particleEffect = new AncientHornParticleEffect(0);
             world.addParticle(particleEffect, true, user.getX(), user.getY() + user.getEyeHeight(), user.getZ(), user.getYRot(), user.getXRot(), -user.getYRot()); //change this to the new particle whenever we add it
             user.getCooldowns().addCooldown(RegisterItems.ANCIENT_HORN, getCooldown(user, 300));

@@ -23,7 +23,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import java.util.Optional;
 
 @Mixin(InstrumentItem.class)
-public abstract class GoatHornItemMixin {
+public abstract class InstrumentItemMixin {
 
     @Shadow
     protected abstract Optional<Holder<Instrument>> getInstrument(ItemStack stack);
