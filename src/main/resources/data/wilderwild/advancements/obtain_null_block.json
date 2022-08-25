@@ -4,10 +4,10 @@
 	  "item": "wilderwild:null_block"
 	},
 	"title": {
-	  "translate": "wilderwild.null_block.advancement.place"
+	  "translate": "wilderwild.null_block.advancement.obtain"
 	},
 	"description": {
-	  "translate": "wilderwild.null_block.advancement.place.description"
+	  "translate": "wilderwild.null_block.advancement.obtain.description"
 	},
 	"frame": "task",
 	"show_toast": true,
