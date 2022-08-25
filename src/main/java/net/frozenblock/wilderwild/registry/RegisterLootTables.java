@@ -17,7 +17,7 @@ public final class RegisterLootTables {
         LootTableEvents.MODIFY.register((resourceManager, lootManager, id, tableBuilder, source) -> {
             if (BuiltInLootTables.ANCIENT_CITY.equals(id) && source.isBuiltin()) {
                 LootPool.Builder pool = LootPool.lootPool()
-                        .add(LootItem.lootTableItem(RegisterItems.ANCIENT_HORN).setWeight(1).setQuality(Rarity.EPIC.ordinal() + 1)).
+                        .add(LootItem.lootTableItem(RegisterItems.SCULK_OSSEIN).setWeight(3).setQuality(Rarity.RARE.ordinal() + 1)).
                         apply(SetItemCountFunction.setCount(UniformGenerator.between(-10.0F, 0.5F))).apply(SetInstrumentFunction.setInstrumentOptions(WilderInstrumentTags.ANCIENT_HORNS));
 
                 tableBuilder.withPool(pool);

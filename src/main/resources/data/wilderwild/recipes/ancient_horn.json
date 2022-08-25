@@ -1,0 +1,30 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+	{
+	  	"item": "wilderwild:copper_horn"
+	},
+	{
+	  	"item": "minecraft:echo_shard"
+	},
+	{
+	  	"item": "minecraft:echo_shard"
+	},
+	{
+		"item": "minecraft:echo_shard"
+	},
+	{
+		"item": "wilderwild:sculk_ossein"
+	},
+	{
+		"item": "wilderwild:sculk_ossein"
+	},
+	{
+		"item": "wilderwild:sculk_ossein"
+	}
+  ],
+  "result": {
+	"item": "wilderwild:ancient_horn",
+	"count": 1
+  }
+}
