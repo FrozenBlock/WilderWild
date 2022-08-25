@@ -17,9 +17,9 @@
   "parent": "minecraft:adventure/root",
   "criteria": {
 	"requirement": {
-	  "trigger": "minecraft:placed_block",
+	  "trigger": "minecraft:inventory_changed",
 	  "conditions": {
-		"block": "wilderwild:null_block"
+		"items": "wilderwild:null_block"
 	  }
 	}
   }
