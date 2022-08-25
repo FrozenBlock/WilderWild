@@ -15,6 +15,9 @@
 		" # "
 	],
 	"result": {
-		"item": "wilderwild:ancient_horn"
+		"item": "wilderwild:ancient_horn",
+		"data": {
+			"instrument": "wilderwild:ancient_horn"
+		}
 	}
 }
