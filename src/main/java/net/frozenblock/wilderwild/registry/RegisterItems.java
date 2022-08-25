@@ -57,7 +57,7 @@ public final class RegisterItems {
 
     public static final Item POLLEN = new BlockItem(RegisterBlocks.POLLEN_BLOCK, new FabricItemSettings().tab(CreativeModeTab.TAB_DECORATIONS));
 
-    public static final Item ANCIENT_FRAGMENT = new Item(new FabricItemSettings().tab(CreativeModeTab.TAB_MISC).stacksTo(64));
+    public static final Item ANCIENT_HORN_FRAGMENT = new Item(new FabricItemSettings().tab(CreativeModeTab.TAB_MISC).stacksTo(64));
 
 
     public static final AncientHorn ANCIENT_HORN = new AncientHorn(new FabricItemSettings().tab(CreativeModeTab.TAB_MISC).stacksTo(1).rarity(Rarity.EPIC), WilderWild.ANCIENT_HORNS);
@@ -119,7 +119,7 @@ public final class RegisterItems {
 
         Registry.register(Registry.ITEM, WilderWild.id("pollen"), POLLEN);
 
-        Registry.register(Registry.ITEM, WilderWild.id("ancient_fragment"), ANCIENT_FRAGMENT);
+        Registry.register(Registry.ITEM, WilderWild.id("ancient_horn_fragment"), ANCIENT_HORN_FRAGMENT);
 
         TradeOfferHelper.registerWanderingTraderOffers(2, factories -> {
             factories.add(new VillagerTrades.ItemsForEmeralds(RegisterItems.BAOBAB_NUT.asItem(), 5, 1, 8, 1));
