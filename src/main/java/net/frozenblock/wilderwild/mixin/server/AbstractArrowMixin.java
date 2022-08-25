@@ -22,7 +22,7 @@ public class AbstractArrowMixin {
         if (!arrow.level.isClientSide) {
             if (arrow.level instanceof ServerLevel server) {
                 BlockState state = server.getBlockState(blockHitResult.getBlockPos());
-                server.sendParticles(new BlockParticleOption(ParticleTypes.BLOCK, state), blockHitResult.getLocation().x(), blockHitResult.getLocation().y(), blockHitResult.getLocation().z(), server.random.nextIntBetweenInclusive(1, (int) (vec3.distanceTo(blockHitResult.getLocation()) * 5)), 0.21875F, 0, 0.21875F, 0.05D);
+                server.sendParticles(new BlockParticleOption(ParticleTypes.BLOCK, state), blockHitResult.getLocation().x(), blockHitResult.getLocation().y(), blockHitResult.getLocation().z(), server.random.nextIntBetweenInclusive(1, (int) vec3.distanceTo(blockHitResult.getLocation())), 0.21875F, 0, 0.21875F, 0.05D);
             }
         }
     }
