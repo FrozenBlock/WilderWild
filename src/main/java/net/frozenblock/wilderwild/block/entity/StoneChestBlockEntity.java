@@ -1,6 +1,7 @@
 package net.frozenblock.wilderwild.block.entity;
 
 import net.fabricmc.fabric.api.networking.v1.PlayerLookup;
+import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.registry.RegisterBlockEntities;
 import net.frozenblock.wilderwild.registry.RegisterProperties;
 import net.frozenblock.wilderwild.registry.RegisterSounds;
@@ -93,10 +94,11 @@ public class StoneChestBlockEntity extends ChestBlockEntity {
             if (blockEntity.cooldownTicks > 0) {
                 --blockEntity.cooldownTicks;
             }
+            boolean canClose = !(worl.getGameRules().getBoolean(WilderWild.STONE_CHEST_CLOSES) && blockEntity.stoneStateManager.getOpenerCount() > 0);
             blockEntity.prevOpenProgress = blockEntity.openProgress;
             if (blockEntity.stillLidTicks > 0) {
                 blockEntity.stillLidTicks -= 1;
-            } else if (blockEntity.openProgress > 0F) {
+            } else if (blockEntity.openProgress > 0F && canClose) {
                 level.gameEvent(null, GameEvent.CONTAINER_CLOSE, pos);
                 blockEntity.openProgress = Math.max(0F, blockEntity.openProgress - 0.0425F);
                 if (!blockEntity.closing) {
@@ -120,10 +122,11 @@ public class StoneChestBlockEntity extends ChestBlockEntity {
             if (blockEntity.cooldownTicks > 0) {
                 --blockEntity.cooldownTicks;
             }
+            boolean canClose = !(level.getGameRules().getBoolean(WilderWild.STONE_CHEST_CLOSES) && blockEntity.stoneStateManager.getOpenerCount() > 0);
             blockEntity.prevOpenProgress = blockEntity.openProgress;
             if (blockEntity.stillLidTicks > 0) {
                 blockEntity.stillLidTicks -= 1;
-            } else if (blockEntity.openProgress > 0F) {
+            } else if (blockEntity.openProgress > 0F && canClose) {
                 blockEntity.closing = true;
                 blockEntity.openProgress = Math.max(0F, blockEntity.openProgress - 0.0425F);
                 if (blockEntity.openProgress <= 0F) {
