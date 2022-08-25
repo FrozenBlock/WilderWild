@@ -16,6 +16,7 @@ import org.spongepowered.asm.mixin.Mutable;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import java.util.function.Function;
 
@@ -44,7 +45,7 @@ public class JigsawStructureMixin {
     }).flatXmap(verifyRange(), verifyRange()).codec();
 
     @Inject(method = "<clinit>", at = @At("TAIL"))
-    private static void inject() {
+    private static void inject(CallbackInfo info) {
         CODEC = RecordCodecBuilder.<JigsawStructure>mapCodec((instance) -> {
             return instance.group(Structure.StructureSettings.CODEC.forGetter(structure -> structure.settings), StructureTemplatePool.CODEC.fieldOf("start_pool").forGetter((jigsawStructure) -> {
                 return jigsawStructure.startPool;
