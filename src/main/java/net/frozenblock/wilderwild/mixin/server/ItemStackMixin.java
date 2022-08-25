@@ -24,7 +24,7 @@ public class ItemStackMixin {
         }
     }
 
-    @Inject(at = @At("HEAD"), method = "tagMatches", cancellable = true)
+    @Inject(at = @At("HEAD"), method = "tagMatches")
     private static void tagMatches(ItemStack left, ItemStack right, CallbackInfoReturnable<Boolean> info) {
         CompoundTag lTag = left.getTag();
         if (lTag != null) {

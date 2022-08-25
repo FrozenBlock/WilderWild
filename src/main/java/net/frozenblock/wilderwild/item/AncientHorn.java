@@ -9,7 +9,6 @@ import net.frozenblock.wilderwild.registry.RegisterItems;
 import net.frozenblock.wilderwild.registry.RegisterSounds;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.Holder;
-import net.minecraft.core.NonNullList;
 import net.minecraft.core.Registry;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
@@ -32,7 +31,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
 
-public class AncientHorn extends Item {
+public class AncientHorn extends InstrumentItem {
     private static final String TAG_INSTRUMENT = "instrument";
     private final TagKey<Instrument> instrumentTag;
 
@@ -41,11 +40,11 @@ public class AncientHorn extends Item {
     public static final int TENDRIL_COOLDOWN = 380;
 
     public AncientHorn(Properties settings, TagKey<Instrument> instrumentTag) {
-        super(settings);
+        super(settings, instrumentTag);
         this.instrumentTag = instrumentTag;
     }
 
-    @Override
+    /*@Override
     public void appendHoverText(ItemStack stack, @Nullable Level world, List<Component> tooltip, TooltipFlag context) {
         super.appendHoverText(stack, world, tooltip, context);
         Optional<ResourceKey<Instrument>> optional = this.getInstrument(stack).flatMap(Holder::unwrapKey);
@@ -54,29 +53,53 @@ public class AncientHorn extends Item {
             tooltip.add(mutableText.withStyle(ChatFormatting.GRAY));
         }
 
-    }
+    }*/
 
-    public static ItemStack getStackForInstrument(Item item, Holder<Instrument> instrument) {
-        ItemStack itemStack = new ItemStack(item);
-        setInstrument(itemStack, instrument);
-        return itemStack;
-    }
-
-    private static void setInstrument(ItemStack stack, Holder<Instrument> instrument) {
-        CompoundTag nbtCompound = stack.getOrCreateTag();
-        nbtCompound.putString(
-                TAG_INSTRUMENT, (instrument.unwrapKey().orElseThrow(() -> new IllegalStateException("Invalid instrument"))).location().toString()
-        );
+    @Override
+    public InteractionResultHolder<ItemStack> use(Level world, Player user, InteractionHand hand) {
+        WilderWild.log(user, "Used Ancient Horn", WilderWild.UNSTABLE_LOGGING);
+        ItemStack itemStack = user.getItemInHand(hand);
+        Optional<Holder<Instrument>> optional = this.getInstrument(itemStack);
+        if (optional.isPresent()) {
+            Instrument instrument = optional.get().value();
+            user.startUsingItem(hand);
+            SoundEvent soundEvent = instrument.soundEvent();
+            float range = instrument.range() / 16.0F;
+            world.playSound(user, user, soundEvent, SoundSource.RECORDS, range, 1.0F);
+            AncientHornParticleEffect particleEffect = new AncientHornParticleEffect(0);
+            world.addParticle(particleEffect, true, user.getX(), user.getY() + user.getEyeHeight(), user.getZ(), user.getYRot(), user.getXRot(), -user.getYRot()); //change this to the new particle whenever we add it
+            user.getCooldowns().addCooldown(RegisterItems.ANCIENT_HORN, getCooldown(user, 300));
+            if (world instanceof ServerLevel server) {
+                AncientHornProjectile projectileEntity = new AncientHornProjectile(world, user.getX(), user.getEyeY(), user.getZ());
+                projectileEntity.shootFromRotation(user, user.getXRot(), user.getYRot(), 0.0F, 1.0F, 0.0F);
+                projectileEntity.shotByPlayer = true;
+                server.addFreshEntity(projectileEntity);
+                FrozenSoundPackets.createMovingLoopingSound(server, projectileEntity, RegisterSounds.ANCIENT_HORN_PROJECTILE_LOOP, SoundSource.NEUTRAL, 1.0F, 1.0F, WilderWild.id("default"));
+                ItemStack mainHand = user.getItemInHand(InteractionHand.MAIN_HAND);
+                ItemStack offHand = user.getItemInHand(InteractionHand.OFF_HAND);
+                if (mainHand.is(Items.WATER_BUCKET) || mainHand.is(Items.POTION) || offHand.is(Items.WATER_BUCKET) || offHand.is(Items.POTION)) {
+                    projectileEntity.bubbles = world.random.nextIntBetweenInclusive(10, 25);
+                    /*float yawNew = user.getYaw() * 0.017453292F;
+                    float pitchNew = MathHelper.cos(user.getPitch() * 0.017453292F);
+                    float f = -MathHelper.sin(yawNew) * pitchNew;
+                    float h = MathHelper.cos(yawNew) * pitchNew;
+                    for (int bubble=0; bubble < Math.random()*10; bubble++) {
+                        EasyPacket.EasyFloatingSculkBubblePacket.createParticle(server, user.getEyePos(), Math.random() > 0.7 ? 1 : 0, 20 + (int)(Math.random()*40), 0.05, 1);
+                    }*/
+                }
+                //FlyBySoundPacket.createFlybySound(world, projectileEntity, RegisterSounds.ANCIENT_HORN_VIBRATION_DISSIPATE, SoundCategory.PLAYERS, 1.0F, 0.7F);
+            }
+            return InteractionResultHolder.consume(itemStack);
+        } else {
+            WilderWild.LOGGER.error("Ancient Horn use failed");
+            return InteractionResultHolder.fail(itemStack);
+        }
     }
 
     @Override
-    public void fillItemCategory(CreativeModeTab group, NonNullList<ItemStack> stacks) {
-        if (this.allowedIn(group)) {
-            for (Holder<Instrument> registryEntry : Registry.INSTRUMENT.getTagOrEmpty(this.instrumentTag)) {
-                stacks.add(getStackForInstrument(RegisterItems.ANCIENT_HORN, registryEntry));
-            }
-        }
-
+    public int getUseDuration(ItemStack stack) {
+        Optional<Holder<Instrument>> optional = this.getInstrument(stack);
+        return optional.map(instrumentRegistryEntry -> instrumentRegistryEntry.value().useDuration()).orElse(0);
     }
 
     private Optional<Holder<Instrument>> getInstrument(ItemStack stack) {
@@ -117,57 +140,14 @@ public class AncientHorn extends Item {
     }
 
     @Override
-    public InteractionResultHolder<ItemStack> use(Level world, Player user, InteractionHand hand) {
-        WilderWild.log(user, "Used Ancient Goat Horn", WilderWild.UNSTABLE_LOGGING);
-        ItemStack itemStack = user.getItemInHand(hand);
-        Optional<Holder<Instrument>> optional = this.getInstrument(itemStack);
-        if (optional.isPresent()) {
-            Instrument instrument = optional.get().value();
-            user.startUsingItem(hand);
-            SoundEvent soundEvent = instrument.soundEvent();
-            float range = instrument.range() / 16.0F;
-            if (!world.isClientSide) {
-                FrozenSoundPackets.createMovingRestrictionSound(world, user, soundEvent, SoundSource.RECORDS, range, 1.0F, WilderWild.id("ancient_horn"));
-            }
-            AncientHornParticleEffect ancientHornParticle = new AncientHornParticleEffect(0);
-            world.addParticle(ancientHornParticle, true, user.getX(), user.getY(), user.getZ(), user.getYRot(), user.getXRot(), -user.getYRot()); //change this to the new particle whenever we add it
-            user.getCooldowns().addCooldown(RegisterItems.ANCIENT_HORN, getCooldown(user, 300));
-            if (world instanceof ServerLevel server) {
-                AncientHornProjectile projectileEntity = new AncientHornProjectile(world, user.getX(), user.getEyeY(), user.getZ());
-                projectileEntity.shootFromRotation(user, user.getXRot(), user.getYRot(), 0.0F, 1.0F, 0.0F);
-                projectileEntity.shotByPlayer = true;
-                server.addFreshEntity(projectileEntity);
-                FrozenSoundPackets.createMovingLoopingSound(server, projectileEntity, RegisterSounds.ANCIENT_HORN_PROJECTILE_LOOP, SoundSource.NEUTRAL, 1.0F, 1.0F, WilderWild.id("default"));
-                ItemStack mainHand = user.getItemInHand(InteractionHand.MAIN_HAND);
-                ItemStack offHand = user.getItemInHand(InteractionHand.OFF_HAND);
-                if (mainHand.is(Items.WATER_BUCKET) || mainHand.is(Items.POTION) || offHand.is(Items.WATER_BUCKET) || offHand.is(Items.POTION)) {
-                    projectileEntity.bubbles = world.random.nextIntBetweenInclusive(10, 25);
-                    /*float yawNew = user.getYaw() * 0.017453292F;
-                    float pitchNew = MathHelper.cos(user.getPitch() * 0.017453292F);
-                    float f = -MathHelper.sin(yawNew) * pitchNew;
-                    float h = MathHelper.cos(yawNew) * pitchNew;
-                    for (int bubble=0; bubble < Math.random()*10; bubble++) {
-                        EasyPacket.EasyFloatingSculkBubblePacket.createParticle(server, user.getEyePos(), Math.random() > 0.7 ? 1 : 0, 20 + (int)(Math.random()*40), 0.05, 1);
-                    }*/
-                }
-                //FlyBySoundPacket.createFlybySound(world, projectileEntity, RegisterSounds.ANCIENT_HORN_VIBRATION_DISSIPATE, SoundCategory.PLAYERS, 1.0F, 0.7F);
-            }
-            return InteractionResultHolder.consume(itemStack);
-        } else {
-            WilderWild.LOGGER.error("Ancient Horn use failed");
-            return InteractionResultHolder.fail(itemStack);
-        }
-    }
-
-    @Override
-    public int getUseDuration(ItemStack stack) {
-        Optional<Holder<Instrument>> optional = this.getInstrument(stack);
-        return optional.map(instrumentRegistryEntry -> instrumentRegistryEntry.value().useDuration()).orElse(0);
-    }
-
-    @Override
     public UseAnim getUseAnimation(ItemStack stack) {
         return UseAnim.TOOT_HORN;
+    }
+
+    private static void play(Level level, Player player, Instrument instrument) {
+        SoundEvent soundEvent = instrument.soundEvent();
+        float range = instrument.range() / 16.0F;
+        level.playSound(player, player, soundEvent, SoundSource.RECORDS, range, 1.0F);
     }
 
 }
