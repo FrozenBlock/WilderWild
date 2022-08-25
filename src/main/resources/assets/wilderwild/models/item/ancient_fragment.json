@@ -1,6 +1,6 @@
 {
   "parent": "item/generated",
   "textures": {
-	"layer0": "wilderwild:item/sculk_ossein"
+	"layer0": "wilderwild:item/ancient_fragment"
   }
 }
