@@ -70,10 +70,7 @@ public final class WilderWild implements ModInitializer {
     public static final NoisePathUnderWaterFeature NOISE_PATH_UNDER_WATER_FEATURE = new NoisePathUnderWaterFeature(PathFeatureConfig.CODEC);
     public static final ColumnWithDiskFeature COLUMN_WITH_DISK_FEATURE = new ColumnWithDiskFeature(ColumnWithDiskFeatureConfig.CODEC);
 
-    public static final TagKey<Instrument> ANCIENT_HORNS = TagKey.create(Registry.INSTRUMENT_REGISTRY, id("ancient_horns"));
-    public static final TagKey<Instrument> COPPER_HORNS = TagKey.create(Registry.INSTRUMENT_REGISTRY, id("copper_horns"));
-
-    //ClassTinkerers
+    //Fabric ASM
     public static final MobCategory FIREFLIES = ClassTinkerers.getEnum(MobCategory.class, "WILDERWILDFIREFLIES");
 
     public static RandomSource random() {
