@@ -36,7 +36,8 @@ public class ChunkStatusMixin {
     @Shadow @Final @Mutable
     public static ChunkStatus STRUCTURE_REFERENCES;
 
-    @Inject(method = "<clinit>", at = @At("TAIL")) {
+    @Inject(method = "<clinit>", at = @At("TAIL"))
+    private static void gbnruibvis() {
         STRUCTURE_REFERENCES = registerSimple("structure_references", STRUCTURE_STARTS, 16, PRE_FEATURES, ChunkStatus.ChunkType.PROTOCHUNK, (chunkStatus, serverLevel, chunkGenerator, list, chunkAccess) -> {
             WorldGenRegion worldGenRegion = new WorldGenRegion(serverLevel, list, chunkStatus, -1);
             chunkGenerator.createReferences(worldGenRegion, serverLevel.structureManager().forWorldGenRegion(worldGenRegion), chunkAccess);
