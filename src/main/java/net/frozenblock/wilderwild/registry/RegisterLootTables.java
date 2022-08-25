@@ -18,8 +18,7 @@ public final class RegisterLootTables {
             if (BuiltInLootTables.ANCIENT_CITY.equals(id) && source.isBuiltin()) {
                 LootPool.Builder pool = LootPool.lootPool()
                         .add(LootItem.lootTableItem(RegisterItems.SCULK_OSSEIN).setWeight(1).setQuality(Rarity.RARE.ordinal() + 1)).
-                        apply(SetItemCountFunction.setCount(UniformGenerator.between(-10.0F, 0.5F))).apply(SetInstrumentFunction.setInstrumentOptions(WilderInstrumentTags.ANCIENT_HORNS));
-
+                        
                 tableBuilder.withPool(pool);
             }
         });
