@@ -37,6 +37,7 @@
 	"worldgen.StructureSetsMixin",
 	"worldgen.StructuresMixin",
 	"worldgen.StructureStartMixin",
+	"worldgen.ChunkGeneratorMixin",
 	"worldgen.SwampHutMixin",
 	"worldgen.VanillaBiomeParametersMixin",
 	"worldgen.VanillaSurfaceRulesMixin",
