@@ -31,11 +31,14 @@ public class JigsawPlacementMixin {
     }
 
     @Inject(method = "addPieces(Lnet/minecraft/world/level/levelgen/structure/Structure$GenerationContext;Lnet/minecraft/core/Holder;Ljava/util/Optional;ILnet/minecraft/core/BlockPos;ZLjava/util/Optional;I)Ljava/util/Optional;", at = @At("HEAD"))
-    private static void addPieces(Structure.GenerationContext generationContext, Holder<StructureTemplatePool> holder, Optional<ResourceLocation> optional, int i, BlockPos blockPos, boolean bl, Optional<Heightmap.Types> optional2, int j, CallbackInfoReturnable<Optional<Structure.GenerationStub>> cir) {
+    private static void addPieces(Structure.GenerationContext generationContext, Holder<StructureTemplatePool> holder, Optional<ResourceLocation> optional, int i, BlockPos blockPos, boolean bl, Optional<Heightmap.Types> optional2, int j, CallbackInfoReturnable<Optional<Structure.GenerationStub>> info) {
         if (j == 128) {
-            j = RegisterStructures.MAX_DISTANCE_FROM_JIGSAW_CENTER;
+            info.cancel();
+            info.setReturnValue(addPieces(generationContext, holder, optional, i, blockPos, bl, optional2, RegisterStructures.MAX_DISTANCE_FROM_JIGSAW_CENTER));
         } else if (j == 256) {
-            j = RegisterStructures.MAX_DISTANCE_FROM_JIGSAW_CENTER * 2;
+            info.cancel();
+            info.setReturnValue(addPieces(generationContext, holder, optional, i, blockPos, bl, optional2, RegisterStructures.MAX_DISTANCE_FROM_JIGSAW_CENTER * 2));
         }
     }
+
 }
