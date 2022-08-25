@@ -51,3 +51,4 @@ accessible    field    net/minecraft/world/level/levelgen/structure/structures/J
 accessible    field    net/minecraft/world/level/levelgen/structure/Structure    settings    Lnet/minecraft/world/level/levelgen/structure/Structure$StructureSettings;
 accessible    method    net/minecraft/client/gui/screens/Screen    addRenderableWidget    (Lnet/minecraft/client/gui/components/events/GuiEventListener;)Lnet/minecraft/client/gui/components/events/GuiEventListener;
 accessible    field    net/minecraft/client/gui/screens/inventory/JigsawBlockEditScreen    MAX_LEVELS    I
+accessible    class    net/minecraft/world/level/chunk/ChunkStatus$SimpleGenerationTask

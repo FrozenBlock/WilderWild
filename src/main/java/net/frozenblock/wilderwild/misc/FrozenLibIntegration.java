@@ -20,12 +20,6 @@ import net.minecraft.world.level.block.Blocks;
 public class FrozenLibIntegration {
 
     public static void init() {
-        RegisterMovingSoundRestrictions.register(WilderWild.id("ancient_horn"), (RegisterMovingSoundRestrictions.LoopPredicate<Player>) entity -> {
-            if (entity instanceof Player player) {
-                return player.getUseItem().is(RegisterItems.ANCIENT_HORN);
-            }
-            return false;
-        });
         RegisterMovingSoundRestrictions.register(WilderWild.id("copper_horn"), (RegisterMovingSoundRestrictions.LoopPredicate<Player>) entity -> {
             if (entity instanceof Player player) {
                 return player.getUseItem().is(RegisterItems.COPPER_HORN);
