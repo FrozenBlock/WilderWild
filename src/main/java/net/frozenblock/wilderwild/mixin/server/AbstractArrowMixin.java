@@ -19,12 +19,20 @@ public class AbstractArrowMixin {
     public void onHitBlock(BlockHitResult blockHitResult, CallbackInfo info) {
         AbstractArrow arrow = AbstractArrow.class.cast(this);
         Vec3 vec3 = blockHitResult.getLocation().subtract(arrow.getX(), arrow.getY(), arrow.getZ());
+        Vec3 speed = arrow.getDeltaMovement();
         if (!arrow.level.isClientSide) {
             if (arrow.level instanceof ServerLevel server) {
                 BlockState state = server.getBlockState(blockHitResult.getBlockPos());
-                server.sendParticles(new BlockParticleOption(ParticleTypes.BLOCK, state), blockHitResult.getLocation().x(), blockHitResult.getLocation().y(), blockHitResult.getLocation().z(), server.random.nextIntBetweenInclusive(1, (int) vec3.distanceTo(blockHitResult.getLocation())), 0.21875F, 0, 0.21875F, 0.05D);
+                server.sendParticles(new BlockParticleOption(ParticleTypes.BLOCK, state), blockHitResult.getLocation().x(), blockHitResult.getLocation().y(), blockHitResult.getLocation().z(), server.random.nextIntBetweenInclusive(1, (int) nonNeg(speed.lengthSqr())), 0, 0, 0, 0.05D);
             }
         }
+    }
+
+    private double nonNeg(double d) {
+        if (d < 0) {
+            return d * -1;
+        }
+        return d;
     }
 
 
