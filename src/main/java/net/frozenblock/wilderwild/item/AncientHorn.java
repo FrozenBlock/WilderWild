@@ -46,17 +46,6 @@ public class AncientHorn extends InstrumentItem {
     }
 
     @Override
-    public void appendHoverText(ItemStack stack, @Nullable Level world, List<Component> tooltip, TooltipFlag context) {
-        super.appendHoverText(stack, world, tooltip, context);
-        Optional<ResourceKey<Instrument>> optional = this.getInstrument(stack).flatMap(Holder::unwrapKey);
-        if (optional.isPresent()) {
-            MutableComponent mutableText = Component.translatable("item.wilderwild.ancient_horn.sound.0");
-            tooltip.add(mutableText.withStyle(ChatFormatting.GRAY));
-        }
-
-    }
-
-    @Override
     public void fillItemCategory(CreativeModeTab creativeModeTab, NonNullList<ItemStack> nonNullList) {
         if (this.allowedIn(creativeModeTab)) {
             for(Holder<Instrument> holder : Registry.INSTRUMENT.getTagOrEmpty(this.instrumentTag)) {
@@ -68,7 +57,7 @@ public class AncientHorn extends InstrumentItem {
 
     @Override
     public InteractionResultHolder<ItemStack> use(Level world, Player user, InteractionHand hand) {
-        WilderWild.log(user, "Used Ancient Horn", WilderWild.UNSTABLE_LOGGING);
+        WilderWild.log(user, "Used Ancient Horn", WilderWild.DEV_LOGGING);
         ItemStack itemStack = user.getItemInHand(hand);
         Optional<Holder<Instrument>> optional = this.getInstrument(itemStack);
         if (optional.isPresent()) {
