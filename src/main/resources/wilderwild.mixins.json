@@ -30,13 +30,13 @@
 	"worldgen.BirchTreeGrowerMixin",
 	"worldgen.DefaultBiomeFeaturesMixin",
 	"worldgen.GenerationSettingsBuilderMixin",
-	"worldgen.JigsawPlacementMixin",
-	"worldgen.JigsawStructureMixin",
+
 	"worldgen.OakTreeGrowerMixin",
 	"worldgen.SpruceTreeGrowerMixin",
 	"worldgen.StructureSetsMixin",
 	"worldgen.StructuresMixin",
 	"worldgen.StructureStartMixin",
+
 	"worldgen.SwampHutMixin",
 	"worldgen.VanillaBiomeParametersMixin",
 	"worldgen.VanillaSurfaceRulesMixin",
