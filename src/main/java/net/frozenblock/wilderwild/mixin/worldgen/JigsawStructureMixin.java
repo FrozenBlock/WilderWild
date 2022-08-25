@@ -14,6 +14,8 @@ import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Mutable;
 import org.spongepowered.asm.mixin.Shadow;
+import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Inject;
 
 import java.util.function.Function;
 
@@ -40,6 +42,27 @@ public class JigsawStructureMixin {
             return jigsawStructure.maxDistanceFromCenter;
         })).apply(instance, JigsawStructure::new);
     }).flatXmap(verifyRange(), verifyRange()).codec();
+
+    @Inject(method = "<clinit>", at = @At("TAIL"))
+    private static void inject() {
+        CODEC = RecordCodecBuilder.<JigsawStructure>mapCodec((instance) -> {
+            return instance.group(Structure.StructureSettings.CODEC.forGetter(structure -> structure.settings), StructureTemplatePool.CODEC.fieldOf("start_pool").forGetter((jigsawStructure) -> {
+                return jigsawStructure.startPool;
+            }), ResourceLocation.CODEC.optionalFieldOf("start_jigsaw_name").forGetter((jigsawStructure) -> {
+                return jigsawStructure.startJigsawName;
+            }), Codec.intRange(0, RegisterStructures.MAX_JIGSAW_SIZE).fieldOf("size").forGetter((jigsawStructure) -> {
+                return jigsawStructure.maxDepth;
+            }), HeightProvider.CODEC.fieldOf("start_height").forGetter((jigsawStructure) -> {
+                return jigsawStructure.startHeight;
+            }), Codec.BOOL.fieldOf("use_expansion_hack").forGetter((jigsawStructure) -> {
+                return jigsawStructure.useExpansionHack;
+            }), Heightmap.Types.CODEC.optionalFieldOf("project_start_to_heightmap").forGetter((jigsawStructure) -> {
+                return jigsawStructure.projectStartToHeightmap;
+            }), Codec.intRange(1, RegisterStructures.MAX_DISTANCE_FROM_JIGSAW_CENTER).fieldOf("max_distance_from_center").forGetter((jigsawStructure) -> {
+                return jigsawStructure.maxDistanceFromCenter;
+            })).apply(instance, JigsawStructure::new);
+        }).flatXmap(verifyRange(), verifyRange()).codec();
+    }
 
 
     private static Function<JigsawStructure, DataResult<JigsawStructure>> verifyRange() {
