@@ -17,7 +17,7 @@ public final class RegisterLootTables {
         LootTableEvents.MODIFY.register((resourceManager, lootManager, id, tableBuilder, source) -> {
             if (BuiltInLootTables.ANCIENT_CITY.equals(id) && source.isBuiltin()) {
                 LootPool.Builder pool = LootPool.lootPool()
-                        .add(LootItem.lootTableItem(RegisterItems.ANCIENT_FRAGMENT).setWeight(1).setQuality(Rarity.RARE.ordinal() + 1)).
+                        .add(LootItem.lootTableItem(RegisterItems.ANCIENT_FRAGMENT).setWeight(1).setQuality(Rarity.RARE.ordinal() + 1));
                         
                 tableBuilder.withPool(pool);
             }
