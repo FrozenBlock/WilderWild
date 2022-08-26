@@ -39,7 +39,7 @@ public class AncientHornParticle extends TextureSheetParticle {
         return this.quadSize * Mth.clamp(((float) this.age + tickDelta) / (float) this.lifetime * 2.0F, 0.0F, 5.0F);
     }
 
-    public void render(VertexConsumer vertexConsumer, Camera camera, float tickDelta, AncientHornProjectile projectile) {
+    public void render(VertexConsumer vertexConsumer, Camera camera, float tickDelta) {
         if (this.delay <= 0) {
             this.alpha = 1.0F - Mth.clamp(((float) this.age + tickDelta) / (float) this.lifetime * 2.0F, 0.0F, 1.0F);
             this.pushQuad(vertexConsumer, camera, tickDelta, (angle) -> {
