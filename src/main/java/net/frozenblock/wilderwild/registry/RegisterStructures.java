@@ -74,7 +74,7 @@ public class RegisterStructures {
 
     // ancient city salt is 20083232
     public static final Holder<StructureSet> ABANDONED_CABINS = register(
-            ABANDONED_CABINS_KEY, ABANDONED_CABIN, new RandomSpreadStructurePlacement(7, 3, RandomSpreadType.LINEAR, 20088232)
+            ABANDONED_CABINS_KEY, ABANDONED_CABIN, new RandomSpreadStructurePlacement(7, 3, RandomSpreadType.LINEAR, 20388232)
     );
 
     public static void init() {
