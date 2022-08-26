@@ -166,6 +166,7 @@
 	"option.modmenu.warden_emerges_from_egg": "Warden Emerges from Spawn Egg",
 	"option.modmenu.warden_emerges_from_egg.false": "§cOFF",
 	"option.modmenu.warden_emerges_from_egg.true": "§aON",
+	"option.modmenu.warden_swim_animation": "Warden Swim Animation",
 	"option.modmenu.warden_swim_animation.false": "§cOFF",
 	"option.modmenu.warden_swim_animation.true": "§aON",
 	"subtitles.block.hanging_tendril.wring": "Hanging Tendril wrung",
