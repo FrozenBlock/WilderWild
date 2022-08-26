@@ -15,14 +15,12 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 @Mixin(SculkVeinBlock.SculkVeinSpreaderConfig.class)
 public class SculkVeinGrowCheckerMixin {
 
-    @Inject(at = @At("HEAD"), method = "stateCanBeReplaced", cancellable = true)
+    @Inject(at = @At("RETURN"), method = "stateCanBeReplaced", cancellable = true)
     public void newBlocks(BlockGetter world, BlockPos pos, BlockPos growPos, Direction direction, BlockState state, CallbackInfoReturnable<Boolean> info) {
-        if (FabricLoader.getInstance().getModContainer("customsculk").isEmpty()) {
-            BlockState blockState = world.getBlockState(growPos.relative(direction));
-            if (blockState.is(RegisterBlocks.OSSEOUS_SCULK)) {
-                info.setReturnValue(false);
-                info.cancel();
-            }
+        BlockState blockState = world.getBlockState(growPos.relative(direction));
+        if (blockState.is(RegisterBlocks.OSSEOUS_SCULK)) {
+            info.setReturnValue(false);
+            info.cancel();
         }
     }
 

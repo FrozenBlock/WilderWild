@@ -32,7 +32,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(SculkSensorBlockEntity.class)
-public abstract class SculkSensorBlockEntityMixin extends BlockEntity implements SculkSensorTickInterface {
+public class SculkSensorBlockEntityMixin extends BlockEntity implements SculkSensorTickInterface {
 
     public int animTicks;
     public int prevAnimTicks;

@@ -13,15 +13,18 @@ import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.material.FluidState;
+import org.objectweb.asm.Opcodes;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import java.util.Arrays;
+import java.util.Collection;
 
 import static net.minecraft.world.level.block.MultifaceBlock.getFaceProperty;
 import static net.minecraft.world.level.block.MultifaceBlock.hasFace;
@@ -84,7 +87,7 @@ public class SculkVeinBlockMixin {
     public void onDischarged(LevelAccessor world, BlockState state, BlockPos pos, RandomSource random) {
     }
 
-    @Inject(at = @At("HEAD"), method = "onDischarged", cancellable = true)
+    @Inject(at = @At("HEAD"), method = "onDischarged")
     public void onDischarged(LevelAccessor world, BlockState state, BlockPos pos, RandomSource random, CallbackInfo info) {
         if (state.is(Blocks.SCULK_VEIN)) {
 

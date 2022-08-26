@@ -51,11 +51,11 @@ public abstract class WardenEntityMixin extends Monster implements WilderWarden 
 
     @Override
     public boolean isOsmiooo() {
-        String string = ChatFormatting.stripFormatting(warden.getName().getString());
-        return string != null && (string.equalsIgnoreCase("Osmiooo") || string.equalsIgnoreCase("Mossmio") || string.equalsIgnoreCase("Osmio"));
+        String name = ChatFormatting.stripFormatting(warden.getName().getString());
+        return name != null && (name.equalsIgnoreCase("Osmiooo") || name.equalsIgnoreCase("Mossmio") || name.equalsIgnoreCase("Osmio"));
     }
 
-    @Inject(at = @At("HEAD"), method = "getDeathSound", cancellable = true)
+    @Inject(at = @At("RETURN"), method = "getDeathSound")
     public void getDeathSound(CallbackInfoReturnable<SoundEvent> info) {
         boolean skipCheck = false;
         if (this.isOsmiooo()) {
@@ -69,8 +69,6 @@ public abstract class WardenEntityMixin extends Monster implements WilderWarden 
                 warden.playSound(RegisterSounds.ENTITY_WARDEN_UNDERWATER_DYING, 0.75F, 1.0F);
             }
         }
-        info.setReturnValue(SoundEvents.WARDEN_DEATH);
-        info.cancel();
     }
 
     @Shadow
@@ -86,24 +84,24 @@ public abstract class WardenEntityMixin extends Monster implements WilderWarden 
         super(entityType, world);
     }
 
-    private final net.minecraft.world.entity.AnimationState dyingAnimationState = new net.minecraft.world.entity.AnimationState();
+    private final AnimationState dyingAnimationState = new AnimationState();
 
-    private final net.minecraft.world.entity.AnimationState swimmingDyingAnimationState = new net.minecraft.world.entity.AnimationState();
+    private final AnimationState swimmingDyingAnimationState = new AnimationState();
 
-    private final net.minecraft.world.entity.AnimationState kirbyDeathAnimationState = new net.minecraft.world.entity.AnimationState();
+    private final AnimationState kirbyDeathAnimationState = new AnimationState();
 
     @Override
-    public net.minecraft.world.entity.AnimationState getDyingAnimationState() {
+    public AnimationState getDyingAnimationState() {
         return this.dyingAnimationState;
     }
 
     @Override
-    public net.minecraft.world.entity.AnimationState getSwimmingDyingAnimationState() {
+    public AnimationState getSwimmingDyingAnimationState() {
         return this.swimmingDyingAnimationState;
     }
 
     @Override
-    public net.minecraft.world.entity.AnimationState getKirbyDeathAnimationState() {
+    public AnimationState getKirbyDeathAnimationState() {
         return this.kirbyDeathAnimationState;
     }
 
@@ -166,21 +164,16 @@ public abstract class WardenEntityMixin extends Monster implements WilderWarden 
     public void onSyncedDataUpdated(EntityDataAccessor<?> data, CallbackInfo ci) {
         if (DATA_POSE.equals(data)) {
             if (warden.getPose() == Pose.DYING) {
-                boolean skip = false;
                 if (this.isOsmiooo()) {
                     this.getKirbyDeathAnimationState().start(warden.tickCount);
-                    skip = true;
-                    ci.cancel();
-                }
-                if (!skip) {
+                } else {
                     if (!this.isSubmergedInWaterOrLava()) {
                         this.getDyingAnimationState().start(warden.tickCount);
-                        ci.cancel();
                     } else {
                         this.getSwimmingDyingAnimationState().start(warden.tickCount);
-                        ci.cancel();
                     }
                 }
+                ci.cancel();
             }
         }
     }
@@ -212,7 +205,7 @@ public abstract class WardenEntityMixin extends Monster implements WilderWarden 
     public void die(DamageSource damageSource) {
         Warden warden = Warden.class.cast(this);
         super.die(damageSource);
-        warden.setNoAi(true);
+        warden.getBrain().removeAllBehaviors();
     }
 
     @Override

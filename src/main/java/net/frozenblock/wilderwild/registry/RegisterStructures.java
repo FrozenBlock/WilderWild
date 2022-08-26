@@ -31,9 +31,9 @@ import java.util.stream.Collectors;
 
 public class RegisterStructures {
 
-    public static final int MAX_JIGSAW_SIZE = 32;
+    public static final int MAX_JIGSAW_SIZE = 24;
 
-    public static final int MAX_DISTANCE_FROM_JIGSAW_CENTER = 1024;
+    public static final int MAX_DISTANCE_FROM_JIGSAW_CENTER = 128;
 
     public static final ResourceKey<StructureSet> ABANDONED_CABINS_KEY = ofSet("abandoned_cabins");
 
@@ -74,7 +74,7 @@ public class RegisterStructures {
 
     // ancient city salt is 20083232
     public static final Holder<StructureSet> ABANDONED_CABINS = register(
-            ABANDONED_CABINS_KEY, ABANDONED_CABIN, new RandomSpreadStructurePlacement(7, 3, RandomSpreadType.LINEAR, 20088232)
+            ABANDONED_CABINS_KEY, ABANDONED_CABIN, new RandomSpreadStructurePlacement(7, 3, RandomSpreadType.LINEAR, 20388232)
     );
 
     public static void init() {
