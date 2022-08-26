@@ -18,23 +18,23 @@ public class PlayerMixin {
     @Inject(method = "getHurtSound", at = @At("HEAD"))
     public void getHurtSound(DamageSource damageSource, CallbackInfoReturnable<SoundEvent> info) {
 
-        if (damageSource == ON_FIRE) {
-            player.playSound(SoundEvents.PLAYER_HURT_ON_FIRE); //ON FIRE
-        } else
-            if (damageSource == DROWN) {
-            player.playSound(SoundEvents.PLAYER_HURT_DROWN); //DROWN
-        } else
-            if (damageSource == SWEET_BERRY_BUSH) {
-            player.playSound(SoundEvents.PLAYER_HURT_SWEET_BERRY_BUSH); //SWEET BERRY BUSH
-        } else
-            if (damageSource == CACTUS) {
-                player.playSound(RegisterSounds.PLAYER_HURT_CACTUS); //CACTUS
-        } else
-            if (damageSource == FREEZE) {
-            player.playSound(SoundEvents.PLAYER_HURT_FREEZE); //FREEZE
-        } else {
-            player.playSound(SoundEvents.PLAYER_HURT); //UNASSIGNED
-        }
+        boolean unique = (damageSource == ON_FIRE || damageSource == DROWN || damageSource == SWEET_BERRY_BUSH || damageSource == CACTUS || damageSource == FREEZE);
 
+        if (unique) {
+            if (damageSource == ON_FIRE) {
+                player.playSound(SoundEvents.PLAYER_HURT_ON_FIRE); //ON FIRE
+            } else if (damageSource == DROWN) {
+                player.playSound(SoundEvents.PLAYER_HURT_DROWN); //DROWN
+            } else if (damageSource == SWEET_BERRY_BUSH) {
+                player.playSound(SoundEvents.PLAYER_HURT_SWEET_BERRY_BUSH); //SWEET BERRY BUSH
+            } else if (damageSource == CACTUS) {
+                player.playSound(RegisterSounds.PLAYER_HURT_CACTUS); //CACTUS
+            } else if (damageSource == FREEZE) {
+                player.playSound(SoundEvents.PLAYER_HURT_FREEZE); //FREEZE
+            }
+        }
+            else {
+                player.playSound(SoundEvents.PLAYER_HURT); //UNASSIGNED
+            }
     }
 }
