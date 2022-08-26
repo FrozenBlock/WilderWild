@@ -21,7 +21,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(WardenAi.class)
-public class WardenBrainMixin {
+public class WardenAiMixin {
 
     @Inject(method = "initIdleActivity", at = @At("HEAD"), cancellable = true)
     private static void initIdleActivity(Brain<Warden> brain, CallbackInfo info) {
