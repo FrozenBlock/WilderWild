@@ -143,13 +143,13 @@ public class StoneChestBlockEntity extends ChestBlockEntity {
     public void liftLid(float liftAmount) {
         this.openProgress = Mth.clamp(this.openProgress + liftAmount, 0.0F, 0.5F);
         this.highestLidPoint = this.openProgress;
-        this.stillLidTicks = (int) (Math.max((this.openProgress), 0.2) * 120);
+        this.stillLidTicks = (int) (Math.max((this.openProgress), 0.2) * 140);
     }
 
     public void setLid(float liftAmount) {
         this.openProgress = Mth.clamp(liftAmount, 0.0F, 0.5F);
         this.highestLidPoint = this.openProgress;
-        this.stillLidTicks = (int) (Math.max((this.openProgress), 0.2) * 120);
+        this.stillLidTicks = (int) (Math.max((this.openProgress), 0.2) * 140);
     }
 
     public void onLidSlam(Level level, BlockPos pos, BlockState state, StoneChestBlockEntity otherStoneChest) {
