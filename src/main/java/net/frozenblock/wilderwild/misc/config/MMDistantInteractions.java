@@ -51,6 +51,10 @@ public class MMDistantInteractions {
         return WilderWildConfig.CUSTOM_WARDEN_TENDRILS.getValue();
     }
 
+    public static boolean wardenSwimAnimation() {
+        return WilderWildConfig.WARDEN_SWIM_ANIMATION.getValue();
+    }
+
     public static boolean shriekerGargling() {
         return WilderWildConfig.SHRIEKER_GARGLING.getValue();
     }

@@ -75,6 +75,13 @@ public class ModMenuInteractionHandler {
         return true;
     }
 
+    public static boolean wardenSwimAnimation() {
+        if (WilderWild.hasModMenu()) {
+            return MMDistantInteractions.wardenSwimAnimation();
+        }
+        return true;
+    }
+
     public static boolean shriekerGargling() {
         if (WilderWild.hasModMenu()) {
             return MMDistantInteractions.shriekerGargling();

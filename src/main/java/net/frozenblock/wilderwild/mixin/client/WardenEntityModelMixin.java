@@ -26,41 +26,23 @@ import java.util.List;
 @Mixin(WardenModel.class)
 public abstract class WardenEntityModelMixin<T extends Warden> implements WilderWardenModel {
 
-    @Final
-    @Shadow
-    protected ModelPart bone;
+    @Final @Shadow protected ModelPart bone;
 
-    @Final
-    @Shadow
-    protected ModelPart body;
+    @Final @Shadow protected ModelPart body;
 
-    @Final
-    @Shadow
-    protected ModelPart head;
+    @Final @Shadow protected ModelPart head;
 
-    @Final
-    @Shadow
-    protected ModelPart rightTendril;
+    @Final @Shadow protected ModelPart rightTendril;
 
-    @Final
-    @Shadow
-    protected ModelPart leftTendril;
+    @Final @Shadow protected ModelPart leftTendril;
 
-    @Final
-    @Shadow
-    protected ModelPart leftLeg;
+    @Final @Shadow protected ModelPart leftLeg;
 
-    @Final
-    @Shadow
-    protected ModelPart leftArm;
+    @Final @Shadow protected ModelPart leftArm;
 
-    @Final
-    @Shadow
-    protected ModelPart rightLeg;
+    @Final @Shadow protected ModelPart rightLeg;
 
-    @Final
-    @Shadow
-    protected ModelPart rightArm;
+    @Final @Shadow protected ModelPart rightArm;
 
     private List<ModelPart> headAndTendrils;
 
@@ -104,30 +86,25 @@ public abstract class WardenEntityModelMixin<T extends Warden> implements Wilder
 
     @Inject(method = "setupAnim(Lnet/minecraft/world/entity/monster/warden/Warden;FFFFF)V", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/model/WardenModel;animate(Lnet/minecraft/world/entity/AnimationState;Lnet/minecraft/client/animation/AnimationDefinition;F)V", ordinal = 0, shift = At.Shift.BEFORE))
     private void setupAnim(T wardenEntity, float angle, float distance, float anim, float headYaw, float headPitch, CallbackInfo ci) {
-        boolean swimming = this.isSubmerged(wardenEntity) && distance > 0;
         boolean cannotSwim = wardenEntity.hasPose(Pose.EMERGING) || wardenEntity.hasPose(Pose.DIGGING) || wardenEntity.hasPose(Pose.DYING) || ((WilderWarden) wardenEntity).getSwimmingDyingAnimationState().isStarted() || ((WilderWarden) wardenEntity).getKirbyDeathAnimationState().isStarted();
         boolean shouldMoveArms = !wardenEntity.hasPose(Pose.ROARING) && !wardenEntity.hasPose(Pose.EMERGING) && !wardenEntity.hasPose(Pose.DIGGING);
         boolean shouldMoveBody = !wardenEntity.hasPose(Pose.ROARING) && !wardenEntity.hasPose(Pose.EMERGING) && !wardenEntity.hasPose(Pose.DIGGING);
         boolean shouldMoveHead = !wardenEntity.hasPose(Pose.ROARING) && !wardenEntity.hasPose(Pose.EMERGING) && !wardenEntity.hasPose(Pose.DIGGING);
-        float k = anim - (float) wardenEntity.tickCount;
-        this.animateSwimming(wardenEntity, angle, distance, anim, k, headYaw, headPitch, swimming, shouldMoveArms, shouldMoveBody, shouldMoveHead, cannotSwim);
+        if (ModMenuInteractionHandler.wardenSwimAnimation()){this.animateSwimming(wardenEntity, angle, distance, anim, headYaw, headPitch, shouldMoveArms, shouldMoveBody, shouldMoveHead, cannotSwim);}
         model.animate(((WilderWarden) wardenEntity).getDyingAnimationState(), CustomWardenAnimations.DYING, anim);
         model.animate(((WilderWarden) wardenEntity).getSwimmingDyingAnimationState(), CustomWardenAnimations.WATER_DYING, anim);
         model.animate(((WilderWarden) wardenEntity).getKirbyDeathAnimationState(), CustomWardenAnimations.KIRBY_DEATH, anim);
 
     }
 
-    private void animateSwimming(T warden, float angle, float distance, float anim, float k, float headYaw, float headPitch, boolean swimming, boolean moveArms, boolean moveBody, boolean moveHead, boolean cannotSwim) {
+    private void animateSwimming(T warden, float angle, float distance, float anim, float headYaw, float headPitch, boolean moveArms, boolean moveBody, boolean moveHead, boolean cannotSwim) {
 
         if (warden.isVisuallySwimming() && this.isSubmerged(warden) && !cannotSwim) {
 
             float angles = (float) (angle * (Math.PI * 0.2));
-
             float time = anim * 0.1F;
-
             float cos = Mth.cos(angles);
             float sin = Mth.sin(angles);
-
             float sin0 = Mth.sin(angles * 0.5F);
             float cos0 = Mth.cos(angles * 2.0F);
 
