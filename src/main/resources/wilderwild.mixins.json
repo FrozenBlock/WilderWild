@@ -26,6 +26,7 @@
 	"server.SculkVeinGrowCheckerMixin",
 	"server.SlimeMixin",
 	"server.SonicBoomTaskMixin",
+	"server.SpawnRestrictionMixin",
 	"server.WardenBrainMixin",
 	"server.WardenEntityMixin",
 	"worldgen.BirchTreeGrowerMixin",
