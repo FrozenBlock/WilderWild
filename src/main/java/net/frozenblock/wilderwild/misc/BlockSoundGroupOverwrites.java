@@ -33,6 +33,7 @@ public class BlockSoundGroupOverwrites {
         addBlocks(new Block[]{RED_MUSHROOM_BLOCK, BROWN_MUSHROOM_BLOCK, MUSHROOM_STEM}, MUSHROOM_BLOCK);
         addBlocks(new Block[]{FROSTED_ICE}, ICE_BLOCKS);
         addBlock(COBWEB, WEB);
+        addBlock(CLAY, CLAY_BLOCK);
         addBlock(REINFORCED_DEEPSLATE, REINFORCEDDEEPSLATE);
         addBlock(LILY_PAD, LILYPAD);
         addBlock(SUGAR_CANE, SUGARCANE);

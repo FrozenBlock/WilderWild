@@ -252,6 +252,61 @@
 	],
 	"subtitle": "subtitles.block.generic.footsteps"
   },
+	"block.clay.break": {
+		"sounds": [
+			"wilderwild:block/clay/break1",
+			"wilderwild:block/clay/break2",
+			"wilderwild:block/clay/break3",
+			"wilderwild:block/clay/break4",
+			"wilderwild:block/clay/break5",
+			"wilderwild:block/clay/break6"
+		],
+		"subtitle": "subtitles.block.generic.break"
+	},
+	"block.clay.fall": {
+		"sounds": [
+			"wilderwild:block/clay/step1",
+			"wilderwild:block/clay/step2",
+			"wilderwild:block/clay/step3",
+			"wilderwild:block/clay/step4",
+			"wilderwild:block/clay/step5",
+			"wilderwild:block/clay/step6"
+		],
+		"subtitle": "subtitles.block.generic.fall"
+	},
+	"block.clay.hit": {
+		"sounds": [
+			"wilderwild:block/clay/step1",
+			"wilderwild:block/clay/step2",
+			"wilderwild:block/clay/step3",
+			"wilderwild:block/clay/step4",
+			"wilderwild:block/clay/step5",
+			"wilderwild:block/clay/step6"
+		],
+		"subtitle": "subtitles.block.generic.hit"
+	},
+	"block.clay.place": {
+		"sounds": [
+			"wilderwild:block/clay/break1",
+			"wilderwild:block/clay/break2",
+			"wilderwild:block/clay/break3",
+			"wilderwild:block/clay/break4",
+			"wilderwild:block/clay/break5",
+			"wilderwild:block/clay/break6"
+		],
+		"subtitle": "subtitles.block.generic.place"
+	},
+	"block.clay.step": {
+		"sounds": [
+			"wilderwild:block/clay/step1",
+			"wilderwild:block/clay/step2",
+			"wilderwild:block/clay/step3",
+			"wilderwild:block/clay/step4",
+			"wilderwild:block/clay/step5",
+			"wilderwild:block/clay/step6"
+		],
+		"subtitle": "subtitles.block.generic.footsteps"
+	},
   "block.coarse_dirt.break": {
 	"sounds": [
 	  "wilderwild:block/coarse_dirt/break1",
@@ -419,7 +474,8 @@
 	  "wilderwild:block/flower/break2",
 	  "wilderwild:block/flower/break3",
 	  "wilderwild:block/flower/break4",
-	  "wilderwild:block/flower/break5"
+	  "wilderwild:block/flower/break5",
+	  "wilderwild:block/flower/break6"
 	],
 	"subtitle": "subtitles.block.generic.break"
   },
@@ -447,11 +503,12 @@
   },
   "block.flower.place": {
 	"sounds": [
-	  "wilderwild:block/flower/break1",
-	  "wilderwild:block/flower/break2",
-	  "wilderwild:block/flower/break3",
-	  "wilderwild:block/flower/break4",
-	  "wilderwild:block/flower/break5"
+		"wilderwild:block/flower/break1",
+		"wilderwild:block/flower/break2",
+		"wilderwild:block/flower/break3",
+		"wilderwild:block/flower/break4",
+		"wilderwild:block/flower/break5",
+		"wilderwild:block/flower/break6"
 	],
 	"subtitle": "subtitles.block.generic.place"
   },
@@ -1180,10 +1237,11 @@
 	],
 	"subtitle": "subtitles.item.ancient_horn.call"
   },
-  "entity.player.hurt_prickly_pear": {
+  "entity.player.hurt.cactus": {
 	"sounds": [
-	  "entity/player/hurt/berrybush_hurt1",
-	  "entity/player/hurt/berrybush_hurt2"
+	  "wilderwild:entity/player/hurt/prickly_pear_hurt1",
+	  "wilderwild:entity/player/hurt/prickly_pear_hurt2",
+	  "wilderwild:entity/player/hurt/prickly_pear_hurt3"
 	],
 	"subtitle": "subtitles.entity.player.hurt"
   },

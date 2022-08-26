@@ -38,7 +38,7 @@ public class RegisterSaveableMoveablePipeNbt {
                         projectileEntity.setOwner(nbt.foundEntity);
                         projectileEntity.shotByPlayer = true;
                         world.addFreshEntity(projectileEntity);
-                        FrozenSoundPackets.createMovingLoopingSound(world, projectileEntity, RegisterSounds.ANCIENT_HORN_PROJECTILE_LOOP, SoundSource.NEUTRAL, 1.0F, 1.0F, WilderWild.id("default"));
+                        FrozenSoundPackets.createMovingLoopingSound(world, projectileEntity, RegisterSounds.ENTITY_ANCIENT_HORN_PROJECTILE_LOOP, SoundSource.NEUTRAL, 1.0F, 1.0F, WilderWild.id("default"));
                     }
                 }
             }

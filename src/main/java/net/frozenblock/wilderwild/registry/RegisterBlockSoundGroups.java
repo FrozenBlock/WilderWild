@@ -15,6 +15,14 @@ public final class RegisterBlockSoundGroups {
             BLOCK_BAOBAB_NUT_FALL
     );
 
+    public static final SoundType CLAY_BLOCK = new SoundType(1.0F, 1.0F,
+            BLOCK_CLAY_BREAK,
+            BLOCK_CLAY_STEP,
+            BLOCK_CLAY_PLACE,
+            BLOCK_CLAY_HIT,
+            BLOCK_CLAY_FALL
+    );
+
     public static final SoundType OSSEOUS_SCULK = new SoundType(1.0F, 1.0F,
             BLOCK_OSSEOUS_SCULK_BREAK,
             BLOCK_OSSEOUS_SCULK_STEP,

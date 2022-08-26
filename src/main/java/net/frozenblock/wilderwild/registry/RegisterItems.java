@@ -34,7 +34,7 @@ public final class RegisterItems {
             RegisterBlocks.CYPRESS_SIGN_BLOCK, RegisterBlocks.CYPRESS_WALL_SIGN);
 
     public static final Item BAOBAB_NUT = new BlockItem(RegisterBlocks.BAOBAB_NUT, new FabricItemSettings().tab(CreativeModeTab.TAB_DECORATIONS).food(RegisterFood.BAOBAB_NUT));
-    public static final Item PRICKLY_PEAR = new PrickOnUseItem(new FabricItemSettings().tab(CreativeModeTab.TAB_FOOD).food(RegisterFood.PRICKLY_PEAR), 2F, RegisterSounds.HURT_PRICKLY_PEAR, "prickly_pear");
+    public static final Item PRICKLY_PEAR = new PrickOnUseItem(new FabricItemSettings().tab(CreativeModeTab.TAB_FOOD).food(RegisterFood.PRICKLY_PEAR), 2F, RegisterSounds.PLAYER_HURT_CACTUS, "prickly_pear");
     public static final Item PEELED_PRICKLY_PEAR = new Item(new FabricItemSettings().tab(CreativeModeTab.TAB_FOOD).food(Foods.APPLE));
 
     public static final Item FIREFLY_BOTTLE = new FireflyBottle(new FabricItemSettings().tab(CreativeModeTab.TAB_MISC).stacksTo(32), "on");
@@ -86,7 +86,7 @@ public final class RegisterItems {
         Registry.register(Registry.ITEM, WilderWild.id("music_disc_the_other_side"), MUSIC_DISC_THE_OTHER_SIDE);
         Registry.register(Registry.ITEM, WilderWild.id("firefly_spawn_egg"), FIREFLY_SPAWN_EGG);
 
-        Registry.register(Registry.INSTRUMENT, ANCIENT_HORN_INSTRUMENT, new Instrument(RegisterSounds.ANCIENT_HORN_CALL, 300, 256.0F));
+        Registry.register(Registry.INSTRUMENT, ANCIENT_HORN_INSTRUMENT, new Instrument(RegisterSounds.ITEM_ANCIENT_HORN_CALL, 300, 256.0F));
         Registry.register(Registry.INSTRUMENT, SAX_COPPER_HORN, new Instrument(RegisterSounds.ITEM_COPPER_HORN_SAX_LOOP, 32767, 64.0F));
         Registry.register(Registry.INSTRUMENT, TUBA_COPPER_HORN, new Instrument(RegisterSounds.ITEM_COPPER_HORN_TUBA_LOOP, 32767, 64.0F));
         Registry.register(Registry.INSTRUMENT, FLUTE_COPPER_HORN, new Instrument(RegisterSounds.ITEM_COPPER_HORN_FLUTE_LOOP, 32767, 64.0F));

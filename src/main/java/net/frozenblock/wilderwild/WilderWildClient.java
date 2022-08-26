@@ -155,7 +155,7 @@ public final class WilderWildClient implements ClientModInitializer {
 
         receiveFireflyCaptureInfoPacket();
         receiveAncientHornKillInfoPacket();
-        FlyBySoundHub.autoEntitiesAndSounds.put(RegisterEntities.ANCIENT_HORN_PROJECTILE_ENTITY, new FlyBySoundHub.FlyBySound(1.0F, 1.0F, SoundSource.NEUTRAL, RegisterSounds.ANCIENT_HORN_PROJECTILE_FLYBY));
+        FlyBySoundHub.autoEntitiesAndSounds.put(RegisterEntities.ANCIENT_HORN_PROJECTILE_ENTITY, new FlyBySoundHub.FlyBySound(1.0F, 1.0F, SoundSource.NEUTRAL, RegisterSounds.ENTITY_ANCIENT_HORN_PROJECTILE_FLYBY));
 
         ItemProperties.register(RegisterItems.ANCIENT_HORN, new ResourceLocation("tooting"), (itemStack, clientWorld, livingEntity, seed) -> livingEntity != null && livingEntity.isUsingItem() && livingEntity.getUseItem() == itemStack ? 1.0F : 0.0F);
         ItemProperties.register(RegisterItems.COPPER_HORN, new ResourceLocation("tooting"), (itemStack, clientWorld, livingEntity, seed) -> livingEntity != null && livingEntity.isUsingItem() && livingEntity.getUseItem() == itemStack ? 1.0F : 0.0F);

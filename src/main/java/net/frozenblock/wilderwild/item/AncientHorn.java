@@ -72,7 +72,7 @@ public class AncientHorn extends InstrumentItem {
                 projectileEntity.shootFromRotation(user, user.getXRot(), user.getYRot(), 0.0F, 1.0F, 0.0F);
                 projectileEntity.shotByPlayer = true;
                 server.addFreshEntity(projectileEntity);
-                FrozenSoundPackets.createMovingLoopingSound(server, projectileEntity, RegisterSounds.ANCIENT_HORN_PROJECTILE_LOOP, SoundSource.NEUTRAL, 1.0F, 1.0F, WilderWild.id("default"));
+                FrozenSoundPackets.createMovingLoopingSound(server, projectileEntity, RegisterSounds.ENTITY_ANCIENT_HORN_PROJECTILE_LOOP, SoundSource.NEUTRAL, 1.0F, 1.0F, WilderWild.id("default"));
                 ItemStack mainHand = user.getItemInHand(InteractionHand.MAIN_HAND);
                 ItemStack offHand = user.getItemInHand(InteractionHand.OFF_HAND);
                 if (mainHand.is(Items.WATER_BUCKET) || mainHand.is(Items.POTION) || offHand.is(Items.WATER_BUCKET) || offHand.is(Items.POTION)) {

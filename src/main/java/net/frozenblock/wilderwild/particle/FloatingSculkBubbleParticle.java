@@ -30,7 +30,7 @@ public class FloatingSculkBubbleParticle extends RisingParticle {
         this.spriteProvider = spriteProvider;
         this.setSpriteFromAge(spriteProvider);
         this.yd = yVel;
-        this.sound = size <= 0 ? RegisterSounds.FLOATING_SCULK_BUBBLE_POP : RegisterSounds.FLOATING_SCULK_BUBBLE_BIG_POP;
+        this.sound = size <= 0 ? RegisterSounds.PARTICLE_FLOATING_SCULK_BUBBLE_POP : RegisterSounds.PARTICLE_FLOATING_SCULK_BUBBLE_BIG_POP;
         if (size >= 1) {
             this.scale((float) (1.4F + size));
             this.xd = (Math.random() - 0.5) / 10.5;

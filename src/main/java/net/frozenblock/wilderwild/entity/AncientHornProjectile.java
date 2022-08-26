@@ -71,12 +71,12 @@ public class AncientHornProjectile extends AbstractArrow {
 
     public AncientHornProjectile(@NotNull EntityType<? extends AbstractArrow> entityType, Level world) {
         super(entityType, world);
-        this.setSoundEvent(RegisterSounds.ANCIENT_HORN_PROJECTILE_DISSIPATE);
+        this.setSoundEvent(RegisterSounds.ENTITY_ANCIENT_HORN_PROJECTILE_DISSIPATE);
     }
 
     public AncientHornProjectile(Level world, double x, double y, double z) {
         super(RegisterEntities.ANCIENT_HORN_PROJECTILE_ENTITY, x, y, z, world);
-        this.setSoundEvent(RegisterSounds.ANCIENT_HORN_PROJECTILE_DISSIPATE);
+        this.setSoundEvent(RegisterSounds.ENTITY_ANCIENT_HORN_PROJECTILE_DISSIPATE);
     }
 
     public List<Entity> collidingEntities() {
@@ -262,7 +262,7 @@ public class AncientHornProjectile extends AbstractArrow {
                     server.levelEvent(LevelEvent.PARTICLES_SCULK_SHRIEK, pos, 0);
                     server.gameEvent(GameEvent.SHRIEK, pos, GameEvent.Context.of(owner));
                     setCooldown(getCooldown(this.getOwner(), SHRIEKER_COOLDOWN));
-                    this.setSoundEvent(RegisterSounds.ANCIENT_HORN_PROJECTILE_DISSIPATE);
+                    this.setSoundEvent(RegisterSounds.ENTITY_ANCIENT_HORN_PROJECTILE_DISSIPATE);
                     this.setShotFromCrossbow(false);
                     this.remove(RemovalReason.DISCARDED);
                 }
@@ -281,7 +281,7 @@ public class AncientHornProjectile extends AbstractArrow {
                 }
             }
         }
-        this.setSoundEvent(RegisterSounds.ANCIENT_HORN_PROJECTILE_DISSIPATE);
+        this.setSoundEvent(RegisterSounds.ENTITY_ANCIENT_HORN_PROJECTILE_DISSIPATE);
         this.setShotFromCrossbow(false);
         this.remove(RemovalReason.DISCARDED);
     }
@@ -294,7 +294,7 @@ public class AncientHornProjectile extends AbstractArrow {
     }
 
     protected SoundEvent getDefaultHitGroundSoundEvent() {
-        return RegisterSounds.ANCIENT_HORN_PROJECTILE_DISSIPATE;
+        return RegisterSounds.ENTITY_ANCIENT_HORN_PROJECTILE_DISSIPATE;
     }
 
     public boolean isNoPhysics() {
@@ -310,7 +310,7 @@ public class AncientHornProjectile extends AbstractArrow {
                 if (XP > 0) {
                     tendril.storedXP = 0;
                     level.explode(this, this.getX(), this.getY(), this.getZ(), 0, Explosion.BlockInteraction.NONE);
-                    level.playLocalSound(this.getX(), this.getY(), this.getZ(), RegisterSounds.ANCIENT_HORN_BLAST, SoundSource.NEUTRAL, 1.0F, 1.0F, true);
+                    level.playLocalSound(this.getX(), this.getY(), this.getZ(), RegisterSounds.ITEM_ANCIENT_HORN_BLAST, SoundSource.NEUTRAL, 1.0F, 1.0F, true);
                     level.destroyBlock(this.blockPosition(), false);
                     ExperienceOrb.award(server, Vec3.atCenterOf(pos).add(0, 0, 0), XP);
                     setCooldown(getCooldown(this.getOwner(), TENDRIL_COOLDOWN));
@@ -481,7 +481,7 @@ public class AncientHornProjectile extends AbstractArrow {
                     }
                 }
 
-                this.playSound(RegisterSounds.ANCIENT_HORN_PROJECTILE_DISSIPATE, 1.0F, 1.2F / (this.random.nextFloat() * 0.2F + 0.9F));
+                this.playSound(RegisterSounds.ENTITY_ANCIENT_HORN_PROJECTILE_DISSIPATE, 1.0F, 1.2F / (this.random.nextFloat() * 0.2F + 0.9F));
             } else {
                 entity.setRemainingFireTicks(j);
                 if (!this.level.isClientSide && this.getDeltaMovement().lengthSqr() < 1.0E-7D) {
