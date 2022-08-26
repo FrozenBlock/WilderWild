@@ -9,19 +9,17 @@ import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.BonemealableBlock;
 import net.minecraft.world.level.block.BushBlock;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
-public class PricklyPearBlock extends BushBlock implements BonemealableBlock {
+public class PricklyPearCactusBlock extends BushBlock implements BonemealableBlock {
     protected static final VoxelShape COLLISION_SHAPE;
     protected static final VoxelShape OUTLINE_SHAPE;
 
-    public PricklyPearBlock(Properties properties) {
+    public PricklyPearCactusBlock(Properties properties) {
         super(properties);
     }
 
