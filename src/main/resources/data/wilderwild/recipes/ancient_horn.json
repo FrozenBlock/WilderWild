@@ -7,12 +7,15 @@
 		},
 		"I": {
 			"item": "minecraft:echo_shard"
+		},
+		"G": {
+			"item": "minecraft:gold_ingot"
 		}
 	},
 	"pattern": [
+		"#G#",
 		"#I#",
-		"#I#",
-		" # "
+		"I#I"
 	],
 	"result": {
 		"item": "wilderwild:ancient_horn",
