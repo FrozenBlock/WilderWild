@@ -6,6 +6,7 @@ import com.mojang.math.Vector3f;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.frozenblock.wilderwild.entity.AncientHornProjectile;
+import net.frozenblock.wilderwild.item.AncientHorn;
 import net.minecraft.Util;
 import net.minecraft.client.Camera;
 import net.minecraft.client.multiplayer.ClientLevel;
@@ -40,14 +41,14 @@ public class AncientHornParticle extends TextureSheetParticle {
 
     public void render(VertexConsumer vertexConsumer, Camera camera, float tickDelta, AncientHornProjectile projectile) {
         if (this.delay <= 0) {
-            this.alpha = 1.0F - Mth.clamp(((float) this.age + tickDelta) / (float) this.lifetime, 0.0F, 1.0F);
+            this.alpha = 1.0F - Mth.clamp(((float) this.age + tickDelta) / (float) this.lifetime * 2.0F, 0.0F, 1.0F);
             this.pushQuad(vertexConsumer, camera, tickDelta, (angle) -> {
-                angle.mul(Vector3f.YP.rotation(0.0F));
-                angle.mul(Vector3f.XP.rotation(0.0F));
+                angle.mul(Vector3f.YP.rotation(5F));
+                angle.mul(Vector3f.XP.rotation(-1.0472F));
             });
             this.pushQuad(vertexConsumer, camera, tickDelta, (angle) -> {
-                angle.mul(Vector3f.YP.rotation(projectile.getYRot())); //why are these making it face the camera
-                angle.mul(Vector3f.XP.rotation(projectile.getXRot()));
+                angle.mul(Vector3f.YP.rotation(projectile.yRotO)); //why are these making it face the camera
+                angle.mul(Vector3f.XP.rotation(projectile.xRotO));
             });
         }
     }
