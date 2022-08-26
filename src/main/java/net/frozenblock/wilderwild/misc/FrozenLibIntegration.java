@@ -7,25 +7,18 @@ import net.frozenblock.lib.sound.RegisterMovingSoundRestrictions;
 import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.entity.Firefly;
 import net.frozenblock.wilderwild.registry.RegisterBlockEntities;
-import net.frozenblock.wilderwild.registry.RegisterItems;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.Items;
+import net.minecraft.world.item.InstrumentItem;
 import net.minecraft.world.level.block.Blocks;
 
 public class FrozenLibIntegration {
 
     public static void init() {
-        RegisterMovingSoundRestrictions.register(WilderWild.id("copper_horn"), (RegisterMovingSoundRestrictions.LoopPredicate<Player>) entity -> {
+        RegisterMovingSoundRestrictions.register(WilderWild.id("instrument"), (RegisterMovingSoundRestrictions.LoopPredicate<Player>) entity -> {
             if (entity instanceof Player player) {
-                return player.getUseItem().is(RegisterItems.COPPER_HORN);
-            }
-            return false;
-        });
-        RegisterMovingSoundRestrictions.register(WilderWild.id("horn"), (RegisterMovingSoundRestrictions.LoopPredicate<Player>) entity -> {
-            if (entity instanceof Player player) {
-                return player.getUseItem().is(Items.GOAT_HORN);
+                return (player.getUseItem().getItem() instanceof InstrumentItem);
             }
             return false;
         });
