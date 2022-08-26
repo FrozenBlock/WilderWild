@@ -82,7 +82,7 @@ public class SculkBlockMixin {
             if (!bl && canPlaceGrowth(world, cursorPos, isWorldGen)) {
                 int j = sculkSpreader.growthSpawnCost();
                 if (random.nextInt(j) < i) {
-                    boolean shouldSet = false;
+                    boolean canReturn = false;
                     BlockPos blockPos2 = cursorPos.above();
                     BlockState blockState = this.getRandomGrowthState(world, blockPos2, cursorPos, random, sculkSpreader.isWorldGeneration());
 
@@ -91,11 +91,11 @@ public class SculkBlockMixin {
                     if ((stateDown.isAir() || blockDown == Blocks.WATER || blockDown == Blocks.LAVA || blockDown == Blocks.SCULK_VEIN)) {
                         if (canPlaceOsseousSculk(cursorPos, isWorldGen, world)) {
                             int pillarHeight = (int) Mth.clamp(EasyNoiseSampler.sample(EasyNoiseSampler.perlinXoro, cursorPos.below(), RANDOMNESS, false, false) * HEIGHT_MULTIPLIER, 2, MAX_HEIGHT);
-                            shouldSet = true;
+                            canReturn = true;
                             blockState = RegisterBlocks.OSSEOUS_SCULK.defaultBlockState().setValue(OsseousSculkBlock.HEIGHT_LEFT, pillarHeight).setValue(OsseousSculkBlock.TOTAL_HEIGHT, pillarHeight + 1).setValue(OsseousSculkBlock.UPSIDEDOWN, true);
                         } else {
                             if (world.getBlockState(cursorPos.below().below()).getBlock() == Blocks.AIR && world.getBlockState(cursorPos.below().below().below()).getBlock() == Blocks.AIR) {
-                                shouldSet = true;
+                                canReturn = true;
                                 blockState = RegisterBlocks.HANGING_TENDRIL.defaultBlockState();
                                 WilderWild.log("Chose Hanging Tendril", WilderWild.DEV_LOGGING);
                                 if (isWorldGen && Math.random() > 0.6) {
@@ -113,19 +113,19 @@ public class SculkBlockMixin {
                     }
 
                     if (world.getBlockState(cursorPos).is(WilderBlockTags.SCULK_STAIR_REPLACEABLE_WORLDGEN)) {
-                        shouldSet = true;
+                        canReturn = true;
                         blockState = RegisterBlocks.SCULK_STAIRS.defaultBlockState();
                     }
                     if (world.getBlockState(cursorPos).is(WilderBlockTags.SCULK_SLAB_REPLACEABLE_WORLDGEN)) {
-                        shouldSet = true;
+                        canReturn = true;
                         blockState = RegisterBlocks.SCULK_SLAB.defaultBlockState();
                     }
                     if (world.getBlockState(cursorPos).is(WilderBlockTags.SCULK_WALL_REPLACEABLE_WORLDGEN)) {
-                        shouldSet = true;
+                        canReturn = true;
                         blockState = RegisterBlocks.SCULK_WALL.defaultBlockState();
                     }
 
-                    if (shouldSet) {
+                    if (canReturn) {
                         world.setBlock(blockPos2, blockState, 3);
 
                         if (isWorldGen && world.getBlockState(blockPos2).getBlock() == RegisterBlocks.OSSEOUS_SCULK) {
@@ -134,8 +134,9 @@ public class SculkBlockMixin {
                                 OsseousSculkBlock.worldGenSpread(blockPos2, world, random);
                             }
                         }
+
+                        info.setReturnValue(Math.max(0, i - j));
                     }
-                    info.setReturnValue(Math.max(0, i - j));
                 }
             }
         }

@@ -32,7 +32,7 @@ public final class RegisterLootTables {
                 tableBuilder.withPool(pool);
             }
         });
-        //BAOBAB SAPLING
+        //BAOBAB NUT
         LootTableEvents.MODIFY.register((resourceManager, lootManager, id, tableBuilder, source) -> {
             if (BuiltInLootTables.VILLAGE_SAVANNA_HOUSE.equals(id) && source.isBuiltin()) {
                 LootPool.Builder pool = LootPool.lootPool()
