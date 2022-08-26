@@ -19,6 +19,7 @@ public class WilderWildConfig {
     public static final BooleanConfigOption MODIFY_MANGROVE_SWAMP_PLACEMENT = new BooleanConfigOption("modify_mangrove_swamp_placement", true);
     public static final BooleanConfigOption MC_LIVE_SENSOR_TENDRILS = new BooleanConfigOption("mc_live_sensor_tendrils", false);
     public static final BooleanConfigOption BETA_BEACHES = new BooleanConfigOption("beta_beaches", true);
+    public static final BooleanConfigOption WARDEN_EMERGES_FROM_EGG = new BooleanConfigOption("warden_emerges_from_egg", false);
     //public static final StringSetConfigOption HIDDEN_MODS = new StringSetConfigOption("hidden_mods", new HashSet<>());
 
     public static OptionInstance<?>[] asOptions() {

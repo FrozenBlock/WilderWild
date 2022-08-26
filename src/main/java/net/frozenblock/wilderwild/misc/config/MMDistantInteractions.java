@@ -43,4 +43,8 @@ public class MMDistantInteractions {
         return WilderWildConfig.BETA_BEACHES.getValue();
     }
 
+    public static boolean wardenEmergesFromEgg() {
+        return WilderWildConfig.WARDEN_EMERGES_FROM_EGG.getValue();
+    }
+
 }

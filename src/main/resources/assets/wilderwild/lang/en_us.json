@@ -169,6 +169,8 @@
   "option.modmenu.mc_live_sensor_tendrils": "Sculk Sensor Type",
   "option.modmenu.beta_beaches": "Beta Beaches",
   "tooltip.modmenu.beta_beaches": "Enables Beaches near water that generate independent of the biome, mirroring the beaches that existed in Minecraft Beta",
+  "option.modmenu.warden_emerges_from_egg": "Warden Emerges from Spawn Egg",
+  "tooltip.modmenu.warden_emerges_from_egg": "Makes the Warden play the emerging animation when spawned via spawn egg",
   "option.modmenu.modify_desert_placement.true": "§aNew",
   "option.modmenu.modify_desert_placement.false": "§cVanilla",
   "option.modmenu.modify_badlands_placement.true": "§aNew",
@@ -183,6 +185,8 @@
   "option.modmenu.modify_mangrove_swamp_placement.false": "§cVanilla",
   "option.modmenu.mc_live_sensor_tendrils.true": "Minecraft Live 2020",
   "option.modmenu.mc_live_sensor_tendrils.false": "Vanilla",
-  "option.modmenu.beta_beaches.true": "§aEnabled",
-  "option.modmenu.beta_beaches.false": "§cDisabled"
+  "option.modmenu.beta_beaches.true": "§aON (Default)",
+  "option.modmenu.beta_beaches.false": "§cOFF (Vanilla)",
+  "option.modmenu.warden_emerges_from_egg.true": "§aON",
+  "option.modmenu.warden_emerges_from_egg.false": "§cOFF (Default, Vanilla)"
 }

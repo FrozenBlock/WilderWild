@@ -61,4 +61,11 @@ public class ModMenuInteractionHandler {
         return true;
     }
 
+    public static boolean wardenEmergesFromEgg() {
+        if (WilderWild.hasModMenu()) {
+            return MMDistantInteractions.wardenEmergesFromEgg();
+        }
+        return true;
+    }
+
 }
