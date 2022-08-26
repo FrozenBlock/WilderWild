@@ -29,9 +29,8 @@ public class WorldRendererMixin {
 
     @Inject(method = "globalLevelEvent", at = @At("HEAD"), cancellable = true)
     private void globalLevelEvent(int eventId, BlockPos pos, int data, CallbackInfo ci) {
-        assert this.level != null;
-        RandomSource random = this.level.random;
         if (eventId == 3007) {
+            assert this.level != null;
             for (int j = 0; j < 10; ++j) {
                 this.level
                         .addParticle(

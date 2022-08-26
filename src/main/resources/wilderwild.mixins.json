@@ -31,11 +31,10 @@
 	"worldgen.BirchTreeGrowerMixin",
 	"worldgen.DefaultBiomeFeaturesMixin",
 	"worldgen.GenerationSettingsBuilderMixin",
-
+	"worldgen.JigsawStructureMixin",
 	"worldgen.OakTreeGrowerMixin",
 	"worldgen.SpruceTreeGrowerMixin",
-
-
+	"worldgen.StructuresMixin",
 	"worldgen.SwampHutMixin",
 	"worldgen.VanillaBiomeParametersMixin",
 	"worldgen.VanillaSurfaceRulesMixin",
@@ -48,7 +47,6 @@
 	"client.Treetrain1GoatRenderer",
 	"client.UppyBalloo",
 	"client.UppyBallooModel",
-	"client.VexModelMixin",
 	"client.WardenAnimationOverwrites",
 	"client.WardenEntityModelMixin",
 	"client.WardenFeatureRendererMixin",
