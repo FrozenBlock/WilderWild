@@ -23,15 +23,15 @@ public class AncientHornParticle extends TextureSheetParticle {
     private static final float PI_THIRDS = 1.0472F;
     private int delay;
 
-    public AncientHornParticle(ClientLevel world, double x, double y, double z, int delay) {
+    public AncientHornParticle(ClientLevel world, double x, double y, double z, int delay, double xR, double zR) {
         super(world, x, y, z, 0.0D, 0.0D, 0.0D);
         this.quadSize = 1.0F;
         this.delay = delay;
         this.lifetime = 30;
         this.gravity = 0.0F;
-        this.xd = 0.0D; //TODO: make this move in the direction of the projectile
+        this.xd = xR;
         this.yd = 0.0D;
-        this.zd = 0.0D; //TODO: this too
+        this.zd = zR;
     }
 
 
@@ -47,8 +47,8 @@ public class AncientHornParticle extends TextureSheetParticle {
                 angle.mul(Vector3f.XP.rotation(0.0F));
             });
             this.pushQuad(vertexConsumer, camera, tickDelta, (angle) -> {
-                angle.mul(Vector3f.YP.rotation(projectile.yRotO)); //why are these making it face the camera
-                angle.mul(Vector3f.XP.rotation(projectile.xRotO));
+                angle.mul(Vector3f.YP.rotation((float) xd)); //why are these making it face the camera
+                angle.mul(Vector3f.XP.rotation((float) zd));
             });
         }
     }
@@ -107,8 +107,8 @@ public class AncientHornParticle extends TextureSheetParticle {
             this.spriteProvider = spriteProvider;
         }
 
-        public Particle createParticle(AncientHornParticleEffect ancientHornParticleEffect, ClientLevel clientWorld, double d, double e, double f, double g, double h, double i) {
-            AncientHornParticle ancientHornParticle = new AncientHornParticle(clientWorld, d, e, f, ancientHornParticleEffect.getDelay());
+        public Particle createParticle(AncientHornParticleEffect option, ClientLevel clientWorld, double d, double e, double f, double g, double h, double i) {
+            AncientHornParticle ancientHornParticle = new AncientHornParticle(clientWorld, d, e, f, option.getDelay(), option.getXd(), option.getZd());
             ancientHornParticle.pickSprite(this.spriteProvider);
             ancientHornParticle.setAlpha(1.0F);
             return ancientHornParticle;

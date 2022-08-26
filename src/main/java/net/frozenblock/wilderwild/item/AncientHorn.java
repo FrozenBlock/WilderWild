@@ -64,14 +64,16 @@ public class AncientHorn extends InstrumentItem {
             Instrument instrument = optional.get().value();
             user.startUsingItem(hand);
             play(world, user, instrument);
-            AncientHornParticleEffect particleEffect = new AncientHornParticleEffect(0);
-            //world.addParticle(particleEffect, true, user.getX(), user.getY() + user.getEyeHeight(), user.getZ(), user.getYRot(), user.getXRot(), -user.getYRot()); //change this to the new particle whenever we add it
             user.getCooldowns().addCooldown(RegisterItems.ANCIENT_HORN, getCooldown(user, 300));
             if (world instanceof ServerLevel server) {
                 AncientHornProjectile projectileEntity = new AncientHornProjectile(world, user.getX(), user.getEyeY(), user.getZ());
                 projectileEntity.shootFromRotation(user, user.getXRot(), user.getYRot(), 0.0F, 1.0F, 0.0F);
                 projectileEntity.shotByPlayer = true;
                 server.addFreshEntity(projectileEntity);
+
+                AncientHornParticleEffect particleEffect = new AncientHornParticleEffect(0, user.getXRot(), user.getYRot());
+                world.addParticle(particleEffect, true, user.getX(), user.getY() + user.getEyeHeight(), user.getZ(), user.getYRot(), user.getXRot(), -user.getYRot()); //change this to the new particle whenever we add it
+
                 FrozenSoundPackets.createMovingLoopingSound(server, projectileEntity, RegisterSounds.ANCIENT_HORN_PROJECTILE_LOOP, SoundSource.NEUTRAL, 1.0F, 1.0F, WilderWild.id("default"));
                 ItemStack mainHand = user.getItemInHand(InteractionHand.MAIN_HAND);
                 ItemStack offHand = user.getItemInHand(InteractionHand.OFF_HAND);

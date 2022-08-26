@@ -14,24 +14,32 @@ import java.util.Locale;
 
 public class AncientHornParticleEffect implements ParticleOptions {
     public static final Codec<AncientHornParticleEffect> CODEC = RecordCodecBuilder.create(
-            instance -> instance.group(Codec.INT.fieldOf("delay").forGetter(AncientHornParticleEffect -> AncientHornParticleEffect.delay))
+            instance -> instance.group(Codec.INT.fieldOf("delay").forGetter(AncientHornParticleEffect -> AncientHornParticleEffect.delay),
+                            Codec.DOUBLE.fieldOf("xd").forGetter(AncientHornParticleEffect -> AncientHornParticleEffect.xd),
+                            Codec.DOUBLE.fieldOf("zd").forGetter(AncientHornParticleEffect -> AncientHornParticleEffect.zd))
                     .apply(instance, AncientHornParticleEffect::new)
     );
     public static final ParticleOptions.Deserializer<AncientHornParticleEffect> FACTORY = new ParticleOptions.Deserializer<>() {
         public AncientHornParticleEffect fromCommand(ParticleType<AncientHornParticleEffect> particleType, StringReader stringReader) throws CommandSyntaxException {
             stringReader.expect(' ');
             int i = stringReader.readInt();
-            return new AncientHornParticleEffect(i);
+            double x = stringReader.readDouble();
+            double z = stringReader.readDouble();
+            return new AncientHornParticleEffect(i, x, z);
         }
 
         public AncientHornParticleEffect fromNetwork(ParticleType<AncientHornParticleEffect> particleType, FriendlyByteBuf packetByteBuf) {
-            return new AncientHornParticleEffect(packetByteBuf.readVarInt());
+            return new AncientHornParticleEffect(packetByteBuf.readVarInt(), packetByteBuf.readDouble(), packetByteBuf.readDouble());
         }
     };
     private final int delay;
+    private final double xd;
+    private final double zd;
 
-    public AncientHornParticleEffect(int delay) {
+    public AncientHornParticleEffect(int delay, double xRot, double zRot) {
         this.delay = delay;
+        this.xd = xRot;
+        this.zd = zRot;
     }
 
     @Override
@@ -51,5 +59,13 @@ public class AncientHornParticleEffect implements ParticleOptions {
 
     public int getDelay() {
         return this.delay;
+    }
+
+    public double getXd() {
+        return this.xd;
+    }
+
+    public double getZd() {
+        return this.zd;
     }
 }
