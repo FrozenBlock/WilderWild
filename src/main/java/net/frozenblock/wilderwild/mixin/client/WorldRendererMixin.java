@@ -2,6 +2,7 @@ package net.frozenblock.wilderwild.mixin.client;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.frozenblock.wilderwild.misc.config.ModMenuInteractionHandler;
 import net.frozenblock.wilderwild.registry.RegisterSounds;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.renderer.LevelRenderer;
@@ -37,7 +38,7 @@ public class WorldRendererMixin {
                                 new ShriekParticleOption(j * 5), false, (double) pos.getX() + 0.5, (double) pos.getY() + SculkShriekerBlock.TOP_Y, (double) pos.getZ() + 0.5, 0.0, 0.0, 0.0
                         );
             }
-            if (this.level.getBlockState(pos).getValue(BlockStateProperties.WATERLOGGED) || this.level.getBlockState(pos.above()).getBlock() == Blocks.WATER) {
+            if ((this.level.getBlockState(pos).getValue(BlockStateProperties.WATERLOGGED) || this.level.getBlockState(pos.above()).getBlock() == Blocks.WATER) && ModMenuInteractionHandler.shriekerGargling()) {
                 this.level
                         .playLocalSound(
                                 (double) pos.getX() + 0.5,

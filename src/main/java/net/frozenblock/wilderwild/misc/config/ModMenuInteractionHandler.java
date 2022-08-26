@@ -68,4 +68,11 @@ public class ModMenuInteractionHandler {
         return true;
     }
 
+    public static boolean shriekerGargling() {
+        if (WilderWild.hasModMenu()) {
+            return MMDistantInteractions.shriekerGargling();
+        }
+        return true;
+    }
+
 }

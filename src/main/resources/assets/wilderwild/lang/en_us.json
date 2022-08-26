@@ -171,6 +171,8 @@
   "tooltip.modmenu.beta_beaches": "Enables Beaches near water that generate independent of the biome, mirroring the beaches that existed in Minecraft Beta",
   "option.modmenu.warden_emerges_from_egg": "Warden Emerges from Spawn Egg",
   "tooltip.modmenu.warden_emerges_from_egg": "Makes the Warden play the emerging animation when spawned via spawn egg",
+  "option.modmenu.shrieker_gargling": "Shrieker Gargling",
+  "tooltip.modmenu.shrieker_gargling": "Makes Sculk Shriekers 'gargle' when waterlogged.",
   "option.modmenu.modify_desert_placement.true": "§aNew",
   "option.modmenu.modify_desert_placement.false": "§cVanilla",
   "option.modmenu.modify_badlands_placement.true": "§aNew",
@@ -188,5 +190,7 @@
   "option.modmenu.beta_beaches.true": "§aON (Default)",
   "option.modmenu.beta_beaches.false": "§cOFF (Vanilla)",
   "option.modmenu.warden_emerges_from_egg.true": "§aON",
-  "option.modmenu.warden_emerges_from_egg.false": "§cOFF (Default, Vanilla)"
+  "option.modmenu.warden_emerges_from_egg.false": "§cOFF (Vanilla)",
+  "option.modmenu.shrieker_gargling.true": "§aON",
+  "option.modmenu.shrieker_gargling.false": "§cOFF (Vanilla)"
 }
