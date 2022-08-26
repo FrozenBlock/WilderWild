@@ -241,7 +241,7 @@ public final class RegisterBlocks {
     public static final Block CATTAIL = new WaterloggableTallFlowerBlock(FabricBlockSettings.copy(Blocks.ROSE_BUSH).sound(SoundType.WET_GRASS).strength(0.0F).noOcclusion());
     public static final Block FLOWERING_LILY_PAD = new FloweringLilyPadBlock(FabricBlockSettings.copy(Blocks.LILY_PAD).sound(RegisterBlockSoundGroups.LILYPAD));
 
-    public static final Block ALGAE = new AlgaeBlock(FabricBlockSettings.of(ALGAE_MATERIAL).instabreak().speedFactor(0.6F).noOcclusion().noCollission().sound(SoundType.SLIME_BLOCK));
+    public static final Block ALGAE = new AlgaeBlock(FabricBlockSettings.of(ALGAE_MATERIAL).instabreak().noOcclusion().noCollission().sound(SoundType.SLIME_BLOCK));
 
     public static void registerPlants() {
         registerBlock("seeding_dandelion", SEEDING_DANDELION, CreativeModeTab.TAB_DECORATIONS);
