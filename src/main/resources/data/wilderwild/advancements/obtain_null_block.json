@@ -19,8 +19,17 @@
 	"requirement": {
 	  "trigger": "minecraft:inventory_changed",
 	  "conditions": {
-		"items": "wilderwild:null_block"
-	  }
+		"items": [
+			{
+				"items": [
+				"wilderwild:null_block"
+					]
+			}
+		]
+	  },
+		"slots": {
+			"occupied": 1
+		}
 	}
   }
 }

@@ -35,28 +35,19 @@ import java.util.stream.Stream;
 @Mixin(SculkSpreader.ChargeCursor.class)
 public class SculkSpreadManagerCursorMixin {
 
+
     @Final
     @Shadow
-    private static ObjectArrayList<Vec3i> NON_CORNER_NEIGHBOURS = Util.make(new ObjectArrayList<>(18), (objectArrayList) -> {
-        Stream<BlockPos> var10000 = BlockPos.betweenClosedStream(new BlockPos(-1, -1, -1), new BlockPos(1, 1, 1)).filter((pos) -> {
-            return (pos.getX() == 0 || pos.getY() == 0 || pos.getZ() == 0) && !pos.equals(BlockPos.ZERO);
-        }).map(BlockPos::immutable);
+    private static final ObjectArrayList<Vec3i> NON_CORNER_NEIGHBOURS = Util.make(new ObjectArrayList<>(18), (objectArrayList) -> {
+        Stream<BlockPos> var10000 = BlockPos.betweenClosedStream(new BlockPos(-1, -1, -1), new BlockPos(1, 1, 1)).filter((pos) -> (pos.getX() == 0 || pos.getY() == 0 || pos.getZ() == 0) && !pos.equals(BlockPos.ZERO)).map(BlockPos::immutable);
         Objects.requireNonNull(objectArrayList);
         var10000.forEach(objectArrayList::add);
     });
-    @Shadow
-    private BlockPos pos;
-    @Shadow
-    int charge;
-    @Shadow
-    private int updateDelay;
-    @Shadow
-    private int decayDelay;
-    @Nullable
-    @Shadow
-    private Set<Direction> facings;
 
     private boolean worldgen = false;
+
+    public SculkSpreadManagerCursorMixin() {
+    }
 
     @Redirect(method = "update", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/block/SculkSpreader$ChargeCursor;getBlockBehaviour(Lnet/minecraft/world/level/block/state/BlockState;)Lnet/minecraft/world/level/block/SculkBehaviour;"))
     private SculkBehaviour newSculkBehaviour(BlockState blockState) {
