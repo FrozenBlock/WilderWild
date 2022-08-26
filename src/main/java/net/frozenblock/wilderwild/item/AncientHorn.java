@@ -65,7 +65,7 @@ public class AncientHorn extends InstrumentItem {
             user.startUsingItem(hand);
             play(world, user, instrument);
             AncientHornParticleEffect particleEffect = new AncientHornParticleEffect(0);
-            world.addParticle(particleEffect, true, user.getX(), user.getY() + user.getEyeHeight(), user.getZ(), user.getYRot(), user.getXRot(), -user.getYRot()); //change this to the new particle whenever we add it
+            //world.addParticle(particleEffect, true, user.getX(), user.getY() + user.getEyeHeight(), user.getZ(), user.getYRot(), user.getXRot(), -user.getYRot()); //change this to the new particle whenever we add it
             user.getCooldowns().addCooldown(RegisterItems.ANCIENT_HORN, getCooldown(user, 300));
             if (world instanceof ServerLevel server) {
                 AncientHornProjectile projectileEntity = new AncientHornProjectile(world, user.getX(), user.getEyeY(), user.getZ());
