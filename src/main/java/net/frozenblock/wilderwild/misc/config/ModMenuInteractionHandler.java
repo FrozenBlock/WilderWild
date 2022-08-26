@@ -68,6 +68,13 @@ public class ModMenuInteractionHandler {
         return true;
     }
 
+    public static boolean customWardenTendrils() {
+        if (WilderWild.hasModMenu()) {
+            return MMDistantInteractions.customWardenTendrils();
+        }
+        return true;
+    }
+
     public static boolean shriekerGargling() {
         if (WilderWild.hasModMenu()) {
             return MMDistantInteractions.shriekerGargling();

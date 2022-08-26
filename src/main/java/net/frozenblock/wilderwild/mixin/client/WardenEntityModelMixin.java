@@ -6,6 +6,7 @@ import net.fabricmc.api.Environment;
 import net.frozenblock.wilderwild.entity.render.WilderWardenModel;
 import net.frozenblock.wilderwild.entity.render.animations.CustomWardenAnimations;
 import net.frozenblock.wilderwild.entity.render.animations.WilderWarden;
+import net.frozenblock.wilderwild.misc.config.ModMenuInteractionHandler;
 import net.minecraft.client.model.WardenModel;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.tags.FluidTags;
@@ -80,21 +81,24 @@ public abstract class WardenEntityModelMixin<T extends Warden> implements Wilder
 
 
     @Inject(at = @At("HEAD"), method = "animateTendrils", cancellable = true)
-    private void animateTendrils(T warden, float animationProgress, float tickDelta, CallbackInfo info) {
-        float cos = warden.getTendrilAnimation(tickDelta) * (float) (Math.cos((double) animationProgress * 2.25D) * 3.141592653589793D * 0.10000000149011612D);
-        float sin = warden.getTendrilAnimation(tickDelta) * (float) (-Math.sin((double) animationProgress * 2.25D) * 3.141592653589793D * 0.12500000149011612D);
+    private void animateTendrils(T warden, float animationProgress, float tickDelta, CallbackInfo info) { //CUSTOM TENDRIL ANIMATION
 
-        //hecc yeah we're using all axes for this one >:3 -merp
-        //hi merp
+            float cos = warden.getTendrilAnimation(tickDelta) * (float) (Math.cos((double) animationProgress * 2.25D) * 3.141592653589793D * 0.10000000149011612D);
+            float sin = warden.getTendrilAnimation(tickDelta) * (float) (-Math.sin((double) animationProgress * 2.25D) * 3.141592653589793D * 0.12500000149011612D);
 
-        this.leftTendril.xRot = cos;
-        this.rightTendril.xRot = cos;
+        if (ModMenuInteractionHandler.customWardenTendrils()) {
+            this.leftTendril.xRot = cos;
+            this.rightTendril.xRot = cos;
 
-        this.leftTendril.yRot = sin / 2f;
-        this.rightTendril.yRot = -sin / 2f;
+            this.leftTendril.yRot = sin / 2f;
+            this.rightTendril.yRot = -sin / 2f;
 
-        this.leftTendril.zRot = cos / 2f;
-        this.rightTendril.zRot = -cos / 2f;
+            this.leftTendril.zRot = cos / 2f;
+            this.rightTendril.zRot = -cos / 2f;
+        } else {
+            this.leftTendril.xRot = cos;
+            this.rightTendril.xRot = -cos;
+        }
         info.cancel();
     }
 
