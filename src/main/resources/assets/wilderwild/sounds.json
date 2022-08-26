@@ -1133,6 +1133,14 @@
 	  "wilderwild:mob/warden/brap"
 	]
   },
+	"entity.warden.osmiooo_heartbeat": {
+		"sounds": [
+			"wilderwild:mob/warden/osmiooo_heartbeat_1",
+			"wilderwild:mob/warden/osmiooo_heartbeat_2",
+			"wilderwild:mob/warden/osmiooo_heartbeat_3",
+			"wilderwild:mob/warden/osmiooo_heartbeat_4"
+		]
+	},
   "entity.warden.dying": {
 	"sounds": [
 	  "wilderwild:mob/warden/dying_1",
