@@ -63,6 +63,9 @@ public final class WilderWildClient implements ClientModInitializer {
         BlockRenderLayerMap.INSTANCE.putBlock(RegisterBlocks.POTTED_SEEDING_DANDELION, RenderType.cutout());
         BlockRenderLayerMap.INSTANCE.putBlock(RegisterBlocks.POTTED_BAOBAB_NUT, RenderType.cutout());
         BlockRenderLayerMap.INSTANCE.putBlock(RegisterBlocks.POTTED_CYPRESS_SAPLING, RenderType.cutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(RegisterBlocks.POTTED_BIG_DRIPLEAF, RenderType.cutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(RegisterBlocks.POTTED_SMALL_DRIPLEAF, RenderType.cutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(RegisterBlocks.POTTED_GRASS, RenderType.cutout());
         BlockRenderLayerMap.INSTANCE.putBlock(RegisterBlocks.DATURA, RenderType.cutout());
         BlockRenderLayerMap.INSTANCE.putBlock(RegisterBlocks.CATTAIL, RenderType.cutout());
         BlockRenderLayerMap.INSTANCE.putBlock(RegisterBlocks.ALGAE, RenderType.cutout());
@@ -184,6 +187,10 @@ public final class WilderWildClient implements ClientModInitializer {
             assert world != null;
             return BiomeColors.getAverageFoliageColor(world, pos);
         }), RegisterBlocks.CYPRESS_LEAVES);
+        ColorProviderRegistry.BLOCK.register(((state, world, pos, tintIndex) -> {
+            assert world != null;
+            return BiomeColors.getAverageFoliageColor(world, pos);
+        }), RegisterBlocks.POTTED_GRASS);
     }
 
     public static void requestBlockEntitySync(BlockPos pos, Level world) {

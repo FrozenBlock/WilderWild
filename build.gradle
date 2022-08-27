@@ -97,10 +97,10 @@ dependencies {
 		exclude(group: "net.fabricmc.fabric-api")
 		exclude(group: "com.terraformersmc")
 	}
-	include("me.shedaniel.cloth:cloth-config-fabric:${cloth_config_version}") {
+	/*include("me.shedaniel.cloth:cloth-config-fabric:${cloth_config_version}") {
 		exclude(group: "net.fabricmc.fabric-api")
 		exclude(group: "com.terraformersmc")
-	}
+	}*/
 
 	// NBT Crafting
 	modImplementation "de.siphalor:nbtcrafting-1.19:2+"
