@@ -3,6 +3,7 @@ package net.frozenblock.wilderwild.registry;
 import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.world.feature.WilderMiscPlaced;
 import net.frozenblock.wilderwild.world.feature.WilderPlacedFeatures;
+import net.frozenblock.wilderwild.world.gen.noise.WilderNoiseKeys;
 import net.minecraft.core.Registry;
 import net.minecraft.data.BuiltinRegistries;
 import net.minecraft.data.worldgen.BiomeDefaultFeatures;
@@ -31,6 +32,8 @@ public final class RegisterWorldgen {
         BuiltinRegistries.register(BuiltinRegistries.BIOME, MIXED_FOREST, mixedForest());
         BuiltinRegistries.register(BuiltinRegistries.BIOME, CYPRESS_WETLANDS, cypressWetlands());
         BuiltinRegistries.register(BuiltinRegistries.BIOME, JELLYFISH_CAVES, jellyfishCaves());
+
+        WilderNoiseKeys.init();
     }
 
     private static ResourceKey<Biome> register(String name) {
