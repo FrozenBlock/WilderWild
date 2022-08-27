@@ -73,6 +73,7 @@ public class StoneChestBlock extends ChestBlock {
             if (stoneChest.closing) {
                 return InteractionResult.FAIL;
             }
+            boolean ancient = state.getValue(ANCIENT);
             StoneChestBlockEntity stoneEntity = StoneChestBlockEntity.getLeftEntity(world, pos, state, stoneChest);
             if (canInteract(world, pos)) {
                 MenuProvider namedScreenHandlerFactory = this.getMenuProvider(state, world, pos);
@@ -85,12 +86,12 @@ public class StoneChestBlock extends ChestBlock {
                     boolean first = stoneEntity.openProgress == 0F;
                     if (lidCheck == null) {
                         if (stoneEntity.openProgress < 0.05F) {
-                            stoneEntity.setLid(!player.isCreative() ? stoneEntity.openProgress + 0.025F : 0.05F);
+                            stoneEntity.setLid(!ancient ? stoneEntity.openProgress + 0.025F : 0.05F);
                         } else {
                             return InteractionResult.PASS;
                         }
                     } else {
-                        stoneEntity.liftLid(!player.isCreative() ? 0.025F : 0.05F);
+                        stoneEntity.liftLid(0.025F, ancient);
                     }
                     StoneChestBlockEntity.playSound(world, pos, state, first ? RegisterSounds.BLOCK_STONE_CHEST_OPEN : RegisterSounds.BLOCK_STONE_CHEST_LIFT, 0.35F);
                     world.gameEvent(player, GameEvent.CONTAINER_OPEN, pos);
