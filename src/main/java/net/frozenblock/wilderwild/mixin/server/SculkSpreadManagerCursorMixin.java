@@ -61,7 +61,7 @@ public class SculkSpreadManagerCursorMixin {
             if (state.is(WilderBlockTags.SCULK_WALL_REPLACEABLE_WORLDGEN) || state.is(WilderBlockTags.SCULK_SLAB_REPLACEABLE_WORLDGEN) || state.is(WilderBlockTags.SCULK_STAIR_REPLACEABLE_WORLDGEN)) {
                 return new SlabWallStairSculkBehavior();
             } else if (state.is(RegisterBlocks.STONE_CHEST)) {
-                return new BooleanPropertySculkBehavior(RegisterProperties.ANCIENT, true);
+                return new BooleanPropertySculkBehavior(RegisterProperties.HAS_SCULK, true);
             }
         }
         return getBlockBehaviour(state);
@@ -70,7 +70,7 @@ public class SculkSpreadManagerCursorMixin {
     private static boolean isMovementUnobstructedNew(LevelAccessor world, BlockPos sourcePos, BlockPos targetPos) {
         if (sourcePos.distManhattan(targetPos) != 1) {
             BlockState cheatState = world.getBlockState(targetPos);
-            if (cheatState.is(WilderBlockTags.SCULK_STAIR_REPLACEABLE_WORLDGEN) || cheatState.is(WilderBlockTags.SCULK_WALL_REPLACEABLE_WORLDGEN) || cheatState.is(WilderBlockTags.SCULK_SLAB_REPLACEABLE_WORLDGEN) || (cheatState.is(RegisterBlocks.STONE_CHEST) && !cheatState.getValue(RegisterProperties.ANCIENT))) {
+            if (cheatState.is(WilderBlockTags.SCULK_STAIR_REPLACEABLE_WORLDGEN) || cheatState.is(WilderBlockTags.SCULK_WALL_REPLACEABLE_WORLDGEN) || cheatState.is(WilderBlockTags.SCULK_SLAB_REPLACEABLE_WORLDGEN) || (cheatState.is(RegisterBlocks.STONE_CHEST) && !cheatState.getValue(RegisterProperties.HAS_SCULK))) {
                 return true;
             }
         }
@@ -109,7 +109,7 @@ public class SculkSpreadManagerCursorMixin {
         for (Vec3i vec3i : getRandomizedNonCornerNeighbourOffsets(random)) {
             mutable2.setWithOffset(pos, vec3i);
             BlockState blockState = world.getBlockState(mutable2);
-            boolean isInTags = blockState.is(WilderBlockTags.SCULK_SLAB_REPLACEABLE_WORLDGEN) || blockState.is(WilderBlockTags.SCULK_WALL_REPLACEABLE_WORLDGEN) || blockState.is(WilderBlockTags.SCULK_STAIR_REPLACEABLE_WORLDGEN) || (blockState.is(RegisterBlocks.STONE_CHEST) && !blockState.getValue(RegisterProperties.ANCIENT));
+            boolean isInTags = blockState.is(WilderBlockTags.SCULK_SLAB_REPLACEABLE_WORLDGEN) || blockState.is(WilderBlockTags.SCULK_WALL_REPLACEABLE_WORLDGEN) || blockState.is(WilderBlockTags.SCULK_STAIR_REPLACEABLE_WORLDGEN) || (blockState.is(RegisterBlocks.STONE_CHEST) && !blockState.getValue(RegisterProperties.HAS_SCULK));
             if (isInTags && isMovementUnobstructedNew(world, pos, mutable2)) {
                 mutable.set(mutable2);
                 canReturn = true;

@@ -55,10 +55,11 @@ import java.util.function.Supplier;
 
 public class StoneChestBlock extends ChestBlock {
     public static final BooleanProperty ANCIENT = RegisterProperties.ANCIENT;
+    public static final BooleanProperty SCULK = RegisterProperties.HAS_SCULK;
 
     public StoneChestBlock(Properties settings, Supplier<BlockEntityType<? extends ChestBlockEntity>> supplier) {
         super(settings, supplier);
-        this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH).setValue(TYPE, ChestType.SINGLE).setValue(WATERLOGGED, false).setValue(ANCIENT, false));
+        this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH).setValue(TYPE, ChestType.SINGLE).setValue(WATERLOGGED, false).setValue(ANCIENT, false).setValue(SCULK, false));
 
     }
 
@@ -323,7 +324,7 @@ public class StoneChestBlock extends ChestBlock {
 
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
-        builder.add(FACING, TYPE, WATERLOGGED, ANCIENT);
+        builder.add(FACING, TYPE, WATERLOGGED, ANCIENT, SCULK);
     }
 
 

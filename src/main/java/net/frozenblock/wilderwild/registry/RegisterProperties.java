@@ -26,6 +26,7 @@ public final class RegisterProperties {
     public static final IntegerProperty LIGHT = IntegerProperty.create("light", 0, 15);
     //Stone Chest
     public static final BooleanProperty ANCIENT = BooleanProperty.create("ancient");
+    public static final BooleanProperty HAS_SCULK = BooleanProperty.create("has_sculk");
 
     //Vanilla Blocks
     public static final IntegerProperty SOULS_TAKEN = IntegerProperty.create("souls_taken", 0, 2); //Sculk Shrieker

@@ -27,7 +27,6 @@ import net.minecraft.world.level.block.AbstractChestBlock;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.DoubleBlockCombiner;
-import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.ChestBlockEntity;
 import net.minecraft.world.level.block.entity.LidBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
@@ -114,7 +113,7 @@ public class StoneChestBlockEntityRenderer<T extends StoneChestBlockEntity & Lid
             openProg = 1.0f - openProg;
             openProg = 1.0f - openProg * openProg * openProg;
             int i = propertySource.apply(new BrightnessCombiner<>()).applyAsInt(light);
-            Material spriteIdentifier = getChestTexture(entity, chestType, entity.getBlockState().getValue(RegisterProperties.ANCIENT));
+            Material spriteIdentifier = getChestTexture(chestType, entity.getBlockState().getValue(RegisterProperties.HAS_SCULK));
             VertexConsumer vertexConsumer = spriteIdentifier.buffer(vertexConsumers, RenderType::entityCutout);
             if (bl2) {
                 if (chestType == ChestType.LEFT) {
@@ -136,7 +135,7 @@ public class StoneChestBlockEntityRenderer<T extends StoneChestBlockEntity & Lid
         base.render(matrices, vertices, light, overlay);
     }
 
-    public static Material getChestTexture(BlockEntity blockEntity, ChestType type, boolean sculk) {
+    public static Material getChestTexture(ChestType type, boolean sculk) {
         return !sculk ? getChestTexture(type, STONE, STONE_LEFT, STONE_RIGHT) : getChestTexture(type, STONE_SCULK, STONE_LEFT_SCULK, STONE_RIGHT_SCULK);
     }
 
