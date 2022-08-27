@@ -193,7 +193,7 @@ public final class OverworldBiomeBuilderMixin {
 
     @Inject(method = "addUndergroundBiomes", at = @At("TAIL"))
     private void addUndergroundBiomes(Consumer<Pair<Climate.ParameterPoint, ResourceKey<Biome>>> consumer, CallbackInfo ci) {
-        this.addDeepBiome(
+        this.addSemiDeepBiome(
                 consumer,
                 this.FULL_RANGE,
                 this.FULL_RANGE,
@@ -216,6 +216,18 @@ public final class OverworldBiomeBuilderMixin {
             ResourceKey<Biome> resourceKey
     ) {
         consumer.accept(Pair.of(Climate.parameters(parameter, parameter2, parameter3, parameter4, Climate.Parameter.span(0.62F, 1.1F), parameter5, f), resourceKey));
+    }
+    private void addSemiDeepBiome(
+            Consumer<Pair<Climate.ParameterPoint, ResourceKey<Biome>>> consumer,
+            Climate.Parameter parameter,
+            Climate.Parameter parameter2,
+            Climate.Parameter parameter3,
+            Climate.Parameter parameter4,
+            Climate.Parameter parameter5,
+            float f,
+            ResourceKey<Biome> resourceKey
+    ) {
+        consumer.accept(Pair.of(Climate.parameters(parameter, parameter2, parameter3, parameter4, Climate.Parameter.span(0.2F, 1.1F), parameter5, f), resourceKey));
     }
 
     /*
