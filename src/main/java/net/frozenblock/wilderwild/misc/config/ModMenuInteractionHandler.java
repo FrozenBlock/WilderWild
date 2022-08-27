@@ -1,90 +1,91 @@
 package net.frozenblock.wilderwild.misc.config;
 
 import net.frozenblock.wilderwild.WilderWild;
+import net.frozenblock.wilderwild.WilderWildClient;
 
 public class ModMenuInteractionHandler {
 
 
-    public static boolean modDesertPlacement() {
+    public static boolean modifyDesertPlacement() {
         if (WilderWild.hasModMenu()) {
-            return MMDistantInteractions.modDesertPlacement();
+            return WilderWildClient.config.modifyDesertPlacement;
         }
         return true;
     }
 
-    public static boolean modBadlandsPlacement() {
+    public static boolean modifyBadlandsPlacement() {
         if (WilderWild.hasModMenu()) {
-            return MMDistantInteractions.modBadlandsPlacement();
+            return WilderWildClient.config.modifyBadlandsPlacement;
         }
         return true;
     }
 
-    public static boolean modJunglePlacement() {
+    public static boolean modifyJunglePlacement() {
         if (WilderWild.hasModMenu()) {
-            return MMDistantInteractions.modJunglePlacement();
+            return WilderWildClient.config.modifyJunglePlacement;
         }
         return true;
     }
 
-    public static boolean modSwampPlacement() {
+    public static boolean modifySwampPlacement() {
         if (WilderWild.hasModMenu()) {
-            return MMDistantInteractions.modSwampPlacement();
+            return WilderWildClient.config.modifySwampPlacement;
         }
         return true;
     }
 
-    public static boolean modMangroveSwampPlacement() {
+    public static boolean modifyMangroveSwampPlacement() {
         if (WilderWild.hasModMenu()) {
-            return MMDistantInteractions.modMangroveSwampPlacement();
+            return WilderWildClient.config.modifyMangroveSwampPlacement;
         }
         return true;
     }
 
-    public static boolean modWindsweptSavannaPlacement() {
+    public static boolean modifyWindsweptSavannaPlacement() {
         if (WilderWild.hasModMenu()) {
-            return MMDistantInteractions.modWindsweptSavannaPlacement();
+            return WilderWildClient.config.modifyWindsweptSavannaPlacement;
         }
         return true;
     }
 
-    public static boolean tendrilsEnabled() {
+    public static boolean mcLiveSensorTendrils() {
         if (WilderWild.hasModMenu()) {
-            return MMDistantInteractions.tendrilsEnabled();
+            return WilderWildClient.config.mcLiveSensorTendrils;
         }
         return false;
     }
 
     public static boolean betaBeaches() {
         if (WilderWild.hasModMenu()) {
-            return MMDistantInteractions.betaBeaches();
+            return WilderWildClient.config.betaBeaches;
         }
         return true;
     }
 
     public static boolean wardenEmergesFromEgg() {
         if (WilderWild.hasModMenu()) {
-            return MMDistantInteractions.wardenEmergesFromEgg();
+            return WilderWildClient.config.wardenEmergesFromEgg;
         }
         return true;
     }
 
     public static boolean customWardenTendrils() {
         if (WilderWild.hasModMenu()) {
-            return MMDistantInteractions.customWardenTendrils();
+            return WilderWildClient.config.customWardenTendrils;
         }
         return true;
     }
 
     public static boolean wardenSwimAnimation() {
         if (WilderWild.hasModMenu()) {
-            return MMDistantInteractions.wardenSwimAnimation();
+            return WilderWildClient.config.wardenSwimAnimation;
         }
         return true;
     }
 
     public static boolean shriekerGargling() {
         if (WilderWild.hasModMenu()) {
-            return MMDistantInteractions.shriekerGargling();
+            return WilderWildClient.config.shriekerGargling;
         }
         return true;
     }

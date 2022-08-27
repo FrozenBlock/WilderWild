@@ -52,7 +52,7 @@ public final class OverworldBiomeBuilderMixin {
 
     @Inject(method = "<init>", at = @At("TAIL"))
     private void injectBiomes(CallbackInfo ci) {
-        if (ModMenuInteractionHandler.modJunglePlacement()) {
+        if (ModMenuInteractionHandler.modifyJunglePlacement()) {
             MIDDLE_BIOMES_VARIANT[4][3] = Biomes.JUNGLE;
             MIDDLE_BIOMES[4][4] = Biomes.JUNGLE;
         }
@@ -126,7 +126,7 @@ public final class OverworldBiomeBuilderMixin {
 
     @Inject(method = "maybePickWindsweptSavannaBiome", at = @At("HEAD"), cancellable = true)
     private void getBiomeOrWindsweptSavanna(int temperature, int humidity, Climate.Parameter weirdness, ResourceKey<Biome> biomeKey, CallbackInfoReturnable<ResourceKey<Biome>> info) {
-        if (ModMenuInteractionHandler.modWindsweptSavannaPlacement()) {
+        if (ModMenuInteractionHandler.modifyWindsweptSavannaPlacement()) {
             info.setReturnValue(temperature > 2 && humidity < 2 && weirdness.max() >= 0L ? Biomes.WINDSWEPT_SAVANNA : biomeKey);
             info.cancel();
         }
@@ -136,7 +136,7 @@ public final class OverworldBiomeBuilderMixin {
 
     @Inject(method = "addSurfaceBiome", at = @At("HEAD"), cancellable = true)
     private void addSurfaceBiome(Consumer<Pair<Climate.ParameterPoint, ResourceKey<Biome>>> parameters, Climate.Parameter temperature, Climate.Parameter humidity, Climate.Parameter continentalness, Climate.Parameter erosion, Climate.Parameter weirdness, float offset, ResourceKey<Biome> biome, CallbackInfo info) {
-        if (biome.equals(Biomes.MANGROVE_SWAMP) && ModMenuInteractionHandler.modMangroveSwampPlacement()) {
+        if (biome.equals(Biomes.MANGROVE_SWAMP) && ModMenuInteractionHandler.modifyMangroveSwampPlacement()) {
             parameters.accept(Pair.of(Climate.parameters(
                             Climate.Parameter.span(this.temperatures[2], this.temperatures[4]), //Temperature
                             Climate.Parameter.span(this.humidities[swampHumidity], this.humidities[4]), //Humidity
@@ -158,7 +158,7 @@ public final class OverworldBiomeBuilderMixin {
                     biome));
             info.cancel();
         }
-        if (biome.equals(Biomes.SWAMP) && ModMenuInteractionHandler.modSwampPlacement()) {
+        if (biome.equals(Biomes.SWAMP) && ModMenuInteractionHandler.modifySwampPlacement()) {
             parameters.accept(Pair.of(Climate.parameters(
                             Climate.Parameter.span(this.temperatures[1], this.temperatures[3]), //Temperature
                             Climate.Parameter.span(this.humidities[swampHumidity], this.humidities[4]), //Humidity

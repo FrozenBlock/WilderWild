@@ -14,7 +14,8 @@ import net.frozenblock.lib.sound.FlyBySoundHub;
 import net.frozenblock.wilderwild.entity.AncientHornProjectile;
 import net.frozenblock.wilderwild.entity.render.*;
 import net.frozenblock.wilderwild.misc.CompetitionCounter;
-import net.frozenblock.wilderwild.misc.config.MMDistantInteractions;
+import net.frozenblock.wilderwild.misc.config.WilderWildClothConfig;
+import net.frozenblock.wilderwild.misc.config.WilderWildConfig;
 import net.frozenblock.wilderwild.particle.AncientHornParticle;
 import net.frozenblock.wilderwild.particle.FloatingSculkBubbleParticle;
 import net.frozenblock.wilderwild.particle.PollenParticle;
@@ -49,6 +50,8 @@ public final class WilderWildClient implements ClientModInitializer {
     public static final ModelLayerLocation STONE_CHEST = new ModelLayerLocation(WilderWild.id("stone_chest"), "main");
     public static final ModelLayerLocation DOUBLE_STONE_CHEST_LEFT = new ModelLayerLocation(WilderWild.id("double_stone_chest_left"), "main");
     public static final ModelLayerLocation DOUBLE_STONE_CHEST_RIGHT = new ModelLayerLocation(WilderWild.id("double_stone_chest_right"), "main");
+
+    public static WilderWildConfig config = WilderWildClothConfig.init();
 
     @Override
     public void onInitializeClient() {
@@ -178,11 +181,6 @@ public final class WilderWildClient implements ClientModInitializer {
             assert world != null;
             return BiomeColors.getAverageFoliageColor(world, pos);
         }), RegisterBlocks.CYPRESS_LEAVES);
-
-        if (WilderWild.hasModMenu()) {
-            MMDistantInteractions.loadConfig();
-            WilderWild.RENDER_TENDRILS = MMDistantInteractions.tendrilsEnabled();
-        }
     }
 
     public static void requestBlockEntitySync(BlockPos pos, Level world) {

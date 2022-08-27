@@ -1,6 +1,5 @@
 package net.frozenblock.wilderwild.misc.config;
 
-import com.terraformersmc.modmenu.config.option.BooleanConfigOption;
 import com.terraformersmc.modmenu.config.option.OptionConvertable;
 import net.minecraft.client.OptionInstance;
 
@@ -11,18 +10,18 @@ import java.util.ArrayList;
 public class WilderWildConfig {
 
     //public static final EnumConfigOption<ModMenuConfig.ModsButtonStyle> MODS_BUTTON_STYLE = new EnumConfigOption<>("mods_button_style", ModMenuConfig.ModsButtonStyle.CLASSIC);
-    public static final BooleanConfigOption MODIFY_DESERT_PLACEMENT = new BooleanConfigOption("modify_desert_placement", true);
-    public static final BooleanConfigOption MODIFY_BADLANDS_PLACEMENT = new BooleanConfigOption("modify_badlands_placement", true);
-    public static final BooleanConfigOption MODIFY_WINDSWEPT_SAVANNA_PLACEMENT = new BooleanConfigOption("modify_windswept_savanna_placement", true);
-    public static final BooleanConfigOption MODIFY_JUNGLE_PLACEMENT = new BooleanConfigOption("modify_jungle_placement", true);
-    public static final BooleanConfigOption MODIFY_SWAMP_PLACEMENT = new BooleanConfigOption("modify_swamp_placement", true);
-    public static final BooleanConfigOption MODIFY_MANGROVE_SWAMP_PLACEMENT = new BooleanConfigOption("modify_mangrove_swamp_placement", true);
-    public static final BooleanConfigOption MC_LIVE_SENSOR_TENDRILS = new BooleanConfigOption("mc_live_sensor_tendrils", false);
-    public static final BooleanConfigOption BETA_BEACHES = new BooleanConfigOption("beta_beaches", true);
-    public static final BooleanConfigOption WARDEN_EMERGES_FROM_EGG = new BooleanConfigOption("warden_emerges_from_egg", false);
-    public static final BooleanConfigOption CUSTOM_WARDEN_TENDRILS = new BooleanConfigOption("warden_custom_tendrils", true);
-    public static final BooleanConfigOption WARDEN_SWIM_ANIMATION = new BooleanConfigOption("warden_swim_animation", true);
-    public static final BooleanConfigOption SHRIEKER_GARGLING = new BooleanConfigOption("shrieker_gargling", true);
+    public boolean betaBeaches = true;
+    public boolean modifyDesertPlacement = true;
+    public boolean modifyBadlandsPlacement = true;
+    public boolean modifyWindsweptSavannaPlacement = true;
+    public boolean modifyJunglePlacement = true;
+    public boolean modifySwampPlacement = true;
+    public boolean modifyMangroveSwampPlacement = true;
+    public boolean mcLiveSensorTendrils = false;
+    public boolean wardenEmergesFromEgg = true;
+    public boolean customWardenTendrils = true;
+    public boolean wardenSwimAnimation = true;
+    public boolean shriekerGargling = true;
     //public static final StringSetConfigOption HIDDEN_MODS = new StringSetConfigOption("hidden_mods", new HashSet<>());
 
     public static OptionInstance<?>[] asOptions() {
