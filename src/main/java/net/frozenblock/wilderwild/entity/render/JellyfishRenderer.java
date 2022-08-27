@@ -7,6 +7,7 @@ import net.frozenblock.wilderwild.WilderWildClient;
 import net.frozenblock.wilderwild.entity.Jellyfish;
 import net.minecraft.client.renderer.entity.EntityRendererProvider.Context;
 import net.minecraft.client.renderer.entity.MobRenderer;
+import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceLocation;
 import org.jetbrains.annotations.NotNull;
 
@@ -18,6 +19,11 @@ public class JellyfishRenderer extends MobRenderer<Jellyfish, JellyfishModel<Jel
     public JellyfishRenderer(Context context) {
         super(context, new JellyfishModel<>(context.bakeLayer(WilderWildClient.JELLYFISH)), 0.9F);
     }
+
+    protected int getBlockLightLevel(Jellyfish jellyfish, BlockPos blockPos) {
+        return 15;
+    }
+
 
     @Override
     public ResourceLocation getTextureLocation(@NotNull Jellyfish jellyfish) {

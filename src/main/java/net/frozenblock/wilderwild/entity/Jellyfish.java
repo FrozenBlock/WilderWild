@@ -16,7 +16,7 @@ import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.LightLayer;
 
 public class Jellyfish extends PathfinderMob implements FlyingAnimal {
-    public Jellyfish(EntityType<? extends PathfinderMob> entityType, Level level) {
+    public Jellyfish(EntityType<? extends Jellyfish> entityType, Level level) {
         super(entityType, level);
     }
 

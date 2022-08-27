@@ -2,6 +2,8 @@ package net.frozenblock.wilderwild.entity.render;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.frozenblock.wilderwild.entity.Jellyfish;
 import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.model.HierarchicalModel;
@@ -12,6 +14,7 @@ import net.minecraft.client.renderer.RenderType;
 import net.minecraft.world.entity.Entity;
 import org.jetbrains.annotations.NotNull;
 
+@Environment(EnvType.CLIENT)
 public class JellyfishModel<T extends Jellyfish> extends HierarchicalModel<T> {
 
     private final ModelPart root;
