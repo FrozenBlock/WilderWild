@@ -13,7 +13,6 @@ import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
-import net.minecraft.world.entity.LivingEntity;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -30,12 +29,13 @@ public class JellyfishRenderer extends MobRenderer<Jellyfish, JellyfishModel<Jel
     public void setupRotations(Jellyfish jelly, PoseStack poseStack, float f, float g, float h) {
         poseStack.translate(0.0, 0.5, 0.0);
         poseStack.mulPose(Vector3f.YP.rotationDegrees(180.0f - g));
+
         poseStack.translate(0.0, -1.2f, 0.0);
     }
 
     @Override
     protected float getBob(Jellyfish jelly, float f) {
-        return (float) jelly.tickCount + f;
+
     }
 
     @Override
