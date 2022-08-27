@@ -123,6 +123,13 @@ public class Jellyfish extends AbstractFish {
         this.setMovingUp(nbt.getBoolean("movingUp"));
     }
 
+    protected void defineSynchedData() {
+        super.defineSynchedData();
+        this.entityData.define(MOVING_UP, false);
+        this.entityData.define(TENTACLE_ANGLE, 0F);
+        this.entityData.define(PREV_TENTACLE_ANGLE, 0F);
+    }
+
     @Override
     protected void registerGoals() {
         this.goalSelector.addGoal(0, new Jellyfish.JellyUpDownGoal(this));
