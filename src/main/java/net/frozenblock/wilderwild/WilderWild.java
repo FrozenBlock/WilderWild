@@ -182,8 +182,8 @@ public final class WilderWild implements ModInitializer {
         return FabricLoader.getInstance().getModContainer("copper_pipe").isPresent();
     }
 
-    public static boolean hasModMenu() {
-        return FabricLoader.getInstance().getModContainer("modmenu").isPresent();
+    public static boolean hasClothConfig() {
+        return FabricLoader.getInstance().getModContainer("cloth-config").isPresent();
     }
 
     public static boolean isCopperPipe(BlockState state) {

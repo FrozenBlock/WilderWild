@@ -1,6 +1,6 @@
 package net.frozenblock.wilderwild.mixin.worldgen;
 
-import net.frozenblock.wilderwild.misc.config.ModMenuInteractionHandler;
+import net.frozenblock.wilderwild.misc.config.ClothConfigInteractionHandler;
 import net.frozenblock.wilderwild.world.gen.noise.WilderNoiseKeys;
 import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
@@ -25,7 +25,7 @@ public class NoiseDataMixin {
 
     @Inject(method = "bootstrap", at = @At("RETURN"))
     private static void bootstrap(Registry<NormalNoise.NoiseParameters> registry, CallbackInfoReturnable<Holder<NormalNoise.NoiseParameters>> cir) {
-        if (ModMenuInteractionHandler.betaBeaches()) {
+        if (ClothConfigInteractionHandler.betaBeaches()) {
             register(registry, WilderNoiseKeys.SAND_BEACH, -9,
                     1.0,
                     1.0,

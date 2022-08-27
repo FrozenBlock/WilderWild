@@ -1,6 +1,6 @@
 package net.frozenblock.wilderwild.mixin.worldgen;
 
-import net.frozenblock.wilderwild.misc.config.ModMenuInteractionHandler;
+import net.frozenblock.wilderwild.misc.config.ClothConfigInteractionHandler;
 import net.frozenblock.wilderwild.registry.RegisterWorldgen;
 import net.frozenblock.wilderwild.world.gen.noise.WilderNoiseKeys;
 import net.minecraft.data.worldgen.SurfaceRuleData;
@@ -52,7 +52,7 @@ public class VanillaSurfaceRulesMixin {
                 )
         );
 
-        if (ModMenuInteractionHandler.betaBeaches()) {
+        if (ClothConfigInteractionHandler.betaBeaches()) {
             return SurfaceRules.sequence(cypressWetlands, SurfaceRules.sequence(SurfaceRules.ifTrue(
                     SurfaceRules.UNDER_FLOOR, SurfaceRules.sequence(
                             SurfaceRules.ifTrue(
