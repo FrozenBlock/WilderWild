@@ -7,87 +7,51 @@ public class ClothConfigInteractionHandler {
 
 
     public static boolean modifyDesertPlacement() {
-        if (WilderWild.hasClothConfig()) {
-            return WilderWildClient.config.modifyDesertPlacement;
-        }
-        return true;
+        return WilderWildClient.config.worldgen.modifyDesertPlacement;
     }
 
     public static boolean modifyBadlandsPlacement() {
-        if (WilderWild.hasClothConfig()) {
-            return WilderWildClient.config.modifyBadlandsPlacement;
-        }
-        return true;
+        return WilderWildClient.config.worldgen.modifyBadlandsPlacement;
     }
 
     public static boolean modifyJunglePlacement() {
-        if (WilderWild.hasClothConfig()) {
-            return WilderWildClient.config.modifyJunglePlacement;
-        }
-        return true;
+        return WilderWildClient.config.worldgen.modifyJunglePlacement;
     }
 
     public static boolean modifySwampPlacement() {
-        if (WilderWild.hasClothConfig()) {
-            return WilderWildClient.config.modifySwampPlacement;
-        }
-        return true;
+        return WilderWildClient.config.worldgen.modifySwampPlacement;
     }
 
     public static boolean modifyMangroveSwampPlacement() {
-        if (WilderWild.hasClothConfig()) {
-            return WilderWildClient.config.modifyMangroveSwampPlacement;
-        }
-        return true;
+        return WilderWildClient.config.worldgen.modifyMangroveSwampPlacement;
     }
 
     public static boolean modifyWindsweptSavannaPlacement() {
-        if (WilderWild.hasClothConfig()) {
-            return WilderWildClient.config.modifyWindsweptSavannaPlacement;
-        }
-        return true;
+        return WilderWildClient.config.worldgen.modifyWindsweptSavannaPlacement;
     }
 
     public static boolean mcLiveSensorTendrils() {
-        if (WilderWild.hasClothConfig()) {
-            return WilderWildClient.config.mcLiveSensorTendrils;
-        }
-        return false;
+        return WilderWildClient.config.block.mcLiveSensorTendrils;
     }
 
     public static boolean betaBeaches() {
-        if (WilderWild.hasClothConfig()) {
-            return WilderWildClient.config.betaBeaches;
-        }
-        return true;
+        return WilderWildClient.config.worldgen.betaBeaches;
     }
 
     public static boolean wardenEmergesFromEgg() {
-        if (WilderWild.hasClothConfig()) {
-            return WilderWildClient.config.wardenEmergesFromEgg;
-        }
-        return true;
+        return WilderWildClient.config.entity.wardenEmergesFromEgg;
     }
 
     public static boolean customWardenTendrils() {
-        if (WilderWild.hasClothConfig()) {
-            return WilderWildClient.config.customWardenTendrils;
-        }
-        return true;
+        return WilderWildClient.config.entity.customWardenTendrils;
     }
 
     public static boolean wardenSwimAnimation() {
-        if (WilderWild.hasClothConfig()) {
-            return WilderWildClient.config.wardenSwimAnimation;
-        }
-        return true;
+        return WilderWildClient.config.entity.wardenSwimAnimation;
     }
 
     public static boolean shriekerGargling() {
-        if (WilderWild.hasClothConfig()) {
-            return WilderWildClient.config.shriekerGargling;
-        }
-        return true;
+        return WilderWildClient.config.block.shriekerGargling;
     }
 
 }

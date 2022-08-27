@@ -24,71 +24,74 @@ public class WilderWildClothConfig extends WilderWildConfig implements ConfigDat
         return configBuilder.build();
     }
 
+
     private static void setupEntries(ConfigCategory category, ConfigEntryBuilder entryBuilder) {
-        var config = WilderWildClient.config;
-        category.addEntry(entryBuilder.startBooleanToggle(text("beta_beaches"), config.betaBeaches)
+        var worldgenConfig = WilderWildClient.config.worldgen;
+        var blockConfig = WilderWildClient.config.block;
+        var entityConfig = WilderWildClient.config.entity;
+        category.addEntry(entryBuilder.startBooleanToggle(text("beta_beaches"), worldgenConfig.betaBeaches)
                 .setDefaultValue(true)
-                .setSaveConsumer(newValue -> config.betaBeaches = newValue)
+                .setSaveConsumer(newValue -> worldgenConfig.betaBeaches = newValue)
                 .requireRestart()
                 .build());
-        category.addEntry(entryBuilder.startBooleanToggle(text("modify_desert_placement"), config.modifyDesertPlacement)
+        category.addEntry(entryBuilder.startBooleanToggle(text("modify_desert_placement"), worldgenConfig.modifyDesertPlacement)
                 .setDefaultValue(true)
-                .setSaveConsumer(newValue -> config.modifyDesertPlacement = newValue)
+                .setSaveConsumer(newValue -> worldgenConfig.modifyDesertPlacement = newValue)
                 .setYesNoTextSupplier(bool -> text("biome_placement." + bool))
                 .requireRestart()
                 .build());
-        category.addEntry(entryBuilder.startBooleanToggle(text("modify_badlands_placement"), config.modifyBadlandsPlacement)
+        category.addEntry(entryBuilder.startBooleanToggle(text("modify_badlands_placement"), worldgenConfig.modifyBadlandsPlacement)
                 .setDefaultValue(true)
-                .setSaveConsumer(newValue -> config.modifyBadlandsPlacement = newValue)
+                .setSaveConsumer(newValue -> worldgenConfig.modifyBadlandsPlacement = newValue)
                 .setYesNoTextSupplier(bool -> text("biome_placement." + bool))
                 .requireRestart()
                 .build());
-        category.addEntry(entryBuilder.startBooleanToggle(text("modify_windswept_savanna_placement"), config.modifyWindsweptSavannaPlacement)
+        category.addEntry(entryBuilder.startBooleanToggle(text("modify_windswept_savanna_placement"), worldgenConfig.modifyWindsweptSavannaPlacement)
                 .setDefaultValue(true)
-                .setSaveConsumer(newValue -> config.modifyWindsweptSavannaPlacement = newValue)
+                .setSaveConsumer(newValue -> worldgenConfig.modifyWindsweptSavannaPlacement = newValue)
                 .setYesNoTextSupplier(bool -> text("biome_placement." + bool))
                 .requireRestart()
                 .build());
-        category.addEntry(entryBuilder.startBooleanToggle(text("modify_jungle_placement"), config.modifyJunglePlacement)
+        category.addEntry(entryBuilder.startBooleanToggle(text("modify_jungle_placement"), worldgenConfig.modifyJunglePlacement)
                 .setDefaultValue(true)
-                .setSaveConsumer(newValue -> config.modifyJunglePlacement = newValue)
+                .setSaveConsumer(newValue -> worldgenConfig.modifyJunglePlacement = newValue)
                 .setYesNoTextSupplier(bool -> text("biome_placement." + bool))
                 .requireRestart()
                 .build());
-        category.addEntry(entryBuilder.startBooleanToggle(text("modify_swamp_placement"), config.modifySwampPlacement)
+        category.addEntry(entryBuilder.startBooleanToggle(text("modify_swamp_placement"), worldgenConfig.modifySwampPlacement)
                 .setDefaultValue(true)
-                .setSaveConsumer(newValue -> config.modifySwampPlacement = newValue)
+                .setSaveConsumer(newValue -> worldgenConfig.modifySwampPlacement = newValue)
                 .setYesNoTextSupplier(bool -> text("biome_placement." + bool))
                 .requireRestart()
                 .build());
-        category.addEntry(entryBuilder.startBooleanToggle(text("modify_mangrove_swamp_placement"), config.modifyMangroveSwampPlacement)
+        category.addEntry(entryBuilder.startBooleanToggle(text("modify_mangrove_swamp_placement"), worldgenConfig.modifyMangroveSwampPlacement)
                 .setDefaultValue(true)
-                .setSaveConsumer(newValue -> config.modifyMangroveSwampPlacement = newValue)
+                .setSaveConsumer(newValue -> worldgenConfig.modifyMangroveSwampPlacement = newValue)
                 .setYesNoTextSupplier(bool -> text("biome_placement." + bool))
                 .requireRestart()
                 .build());
 
-        category.addEntry(entryBuilder.startBooleanToggle(text("mc_live_sensor_tendrils"), config.mcLiveSensorTendrils)
+        category.addEntry(entryBuilder.startBooleanToggle(text("mc_live_sensor_tendrils"), blockConfig.mcLiveSensorTendrils)
                 .setDefaultValue(false)
-                .setSaveConsumer(newValue -> config.mcLiveSensorTendrils = newValue)
+                .setSaveConsumer(newValue -> blockConfig.mcLiveSensorTendrils = newValue)
                 .setYesNoTextSupplier(bool -> text("mc_live_sensor_tendrils." + bool))
                 .build());
-        category.addEntry(entryBuilder.startBooleanToggle(text("warden_emerges_from_egg"), config.wardenEmergesFromEgg)
+        category.addEntry(entryBuilder.startBooleanToggle(text("warden_emerges_from_egg"), entityConfig.wardenEmergesFromEgg)
                 .setDefaultValue(true)
-                .setSaveConsumer(newValue -> config.wardenEmergesFromEgg = newValue)
+                .setSaveConsumer(newValue -> entityConfig.wardenEmergesFromEgg = newValue)
                 .build());
-        category.addEntry(entryBuilder.startBooleanToggle(text("warden_custom_tendrils"), config.customWardenTendrils)
+        category.addEntry(entryBuilder.startBooleanToggle(text("warden_custom_tendrils"), entityConfig.customWardenTendrils)
                 .setDefaultValue(true)
-                .setSaveConsumer(newValue -> config.customWardenTendrils = newValue)
+                .setSaveConsumer(newValue -> entityConfig.customWardenTendrils = newValue)
                 .setYesNoTextSupplier(bool -> text("warden_custom_tendrils." + bool))
                 .build());
-        category.addEntry(entryBuilder.startBooleanToggle(text("warden_swim_animation"), config.wardenSwimAnimation)
+        category.addEntry(entryBuilder.startBooleanToggle(text("warden_swim_animation"), entityConfig.wardenSwimAnimation)
                 .setDefaultValue(true)
-                .setSaveConsumer(newValue -> config.wardenSwimAnimation = newValue)
+                .setSaveConsumer(newValue -> entityConfig.wardenSwimAnimation = newValue)
                 .build());
-        category.addEntry(entryBuilder.startBooleanToggle(text("shrieker_gargling"), config.shriekerGargling)
+        category.addEntry(entryBuilder.startBooleanToggle(text("shrieker_gargling"), blockConfig.shriekerGargling)
                 .setDefaultValue(true)
-                .setSaveConsumer(newValue -> config.shriekerGargling = newValue)
+                .setSaveConsumer(newValue -> blockConfig.shriekerGargling = newValue)
                 .build());
 
     }
