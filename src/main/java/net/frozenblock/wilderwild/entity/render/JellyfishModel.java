@@ -49,7 +49,7 @@ public class JellyfishModel<T extends Jellyfish> extends HierarchicalModel<T> {
     }
 
     private static String createTentacleName(int i) {
-        return "tentacle" + i;
+        return "tentacle" + (i + 1);
     }
 
     public static LayerDefinition getTexturedModelData() {
