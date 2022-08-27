@@ -9,11 +9,13 @@ import net.minecraft.data.BuiltinRegistries;
 import net.minecraft.data.worldgen.BiomeDefaultFeatures;
 import net.minecraft.data.worldgen.Carvers;
 import net.minecraft.data.worldgen.biome.OverworldBiomes;
+import net.minecraft.data.worldgen.placement.CavePlacements;
 import net.minecraft.data.worldgen.placement.MiscOverworldPlacements;
 import net.minecraft.data.worldgen.placement.VegetationPlacements;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.sounds.Music;
 import net.minecraft.sounds.Musics;
+import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.level.biome.*;
@@ -96,11 +98,8 @@ public final class RegisterWorldgen {
         MobSpawnSettings.Builder builder = new MobSpawnSettings.Builder();
         builder.addSpawn(MobCategory.UNDERGROUND_WATER_CREATURE, new MobSpawnSettings.SpawnerData(RegisterEntities.JELLYFISH, 15, 4, 6));
         BiomeGenerationSettings.Builder builder2 = new BiomeGenerationSettings.Builder();
-        builder2.addCarver(GenerationStep.Carving.AIR, Carvers.CAVE);
-        builder2.addCarver(GenerationStep.Carving.AIR, Carvers.CAVE_EXTRA_UNDERGROUND);
-        builder2.addCarver(GenerationStep.Carving.AIR, Carvers.CANYON);
         BiomeDefaultFeatures.addDefaultCrystalFormations(builder2);
-        BiomeDefaultFeatures.addDefaultMonsterRoom(builder2);
+        builder2.addFeature(GenerationStep.Decoration.UNDERGROUND_STRUCTURES, CavePlacements.MONSTER_ROOM_DEEP);
         BiomeDefaultFeatures.addDefaultUndergroundVariety(builder2);
         BiomeDefaultFeatures.addSurfaceFreezing(builder2);
         BiomeDefaultFeatures.addPlainGrass(builder2);
@@ -109,8 +108,10 @@ public final class RegisterWorldgen {
         BiomeDefaultFeatures.addPlainVegetation(builder2);
         BiomeDefaultFeatures.addDefaultMushrooms(builder2);
         BiomeDefaultFeatures.addDefaultExtraVegetation(builder2);
+        BiomeDefaultFeatures.addDefaultCarversAndLakes(builder2);
+        builder2.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, CavePlacements.LUSH_CAVES_CLAY);
         //builder2.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, WilderPlacedFeatures.PATCH_AMETHYST);
-        Music music = Musics.createGameMusic(RegisterSounds.MUSIC_OVERWORLD_WILD_FORESTS);
+        Music music = Musics.createGameMusic(SoundEvents.MUSIC_BIOME_LUSH_CAVES);
         return new Biome.BiomeBuilder()
                 .precipitation(Biome.Precipitation.RAIN)
                 .temperature(0.8F)
