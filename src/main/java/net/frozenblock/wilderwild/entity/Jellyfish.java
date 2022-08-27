@@ -1,31 +1,35 @@
 package net.frozenblock.wilderwild.entity;
 
 import net.frozenblock.wilderwild.registry.RegisterWorldgen;
-import net.frozenblock.wilderwild.tag.WilderBiomeTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.network.protocol.game.ClientboundGameEventPacket;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.Goal;
-import net.minecraft.world.entity.animal.FlyingAnimal;
-import net.minecraft.world.entity.animal.Squid;
-import net.minecraft.world.entity.animal.WaterAnimal;
+import net.minecraft.world.entity.animal.AbstractFish;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.LightLayer;
 import net.minecraft.world.phys.Vec3;
+import org.jetbrains.annotations.NotNull;
 
-public class Jellyfish extends WaterAnimal {
+import java.util.Objects;
+
+public class Jellyfish extends AbstractFish {
     public float xBodyRot;
     public float xBodyRotO;
     public float zBodyRot;
@@ -46,6 +50,19 @@ public class Jellyfish extends WaterAnimal {
         this.random.setSeed(this.getId());
         this.tentacleSpeed = 1.0f / (this.random.nextFloat() + 1.0f) * 0.2f;
     }
+
+    @Override
+    public void playerTouch(@NotNull Player player) {
+        if (player instanceof ServerPlayer && player.hurt(DamageSource.mobAttack(this), 3)) {
+            if (!this.isSilent()) {
+                ((ServerPlayer)player).connection.send(new ClientboundGameEventPacket(ClientboundGameEventPacket.PUFFER_FISH_STING, 0.0F));
+            }
+
+            player.addEffect(new MobEffectInstance(MobEffects.POISON, 300, 0), this);
+        }
+
+    }
+
     public static boolean canSpawn(EntityType<Jellyfish> type, LevelAccessor world, MobSpawnType spawnReason, BlockPos pos, RandomSource random) {
         if (world.getBiome(pos).is(RegisterWorldgen.JELLYFISH_CAVES)) {
             return world.getBrightness(LightLayer.SKY, pos) <= 6;
@@ -153,7 +170,7 @@ public class Jellyfish extends WaterAnimal {
             if (!this.level.isClientSide) {
                 double e = this.getDeltaMovement().y;
                 if (this.hasEffect(MobEffects.LEVITATION)) {
-                    e = 0.05 * (double)(this.getEffect(MobEffects.LEVITATION).getAmplifier() + 1);
+                    e = 0.05 * (double)(Objects.requireNonNull(this.getEffect(MobEffects.LEVITATION)).getAmplifier() + 1);
                 } else if (!this.isNoGravity()) {
                     e -= 0.08;
                 }
@@ -161,6 +178,11 @@ public class Jellyfish extends WaterAnimal {
             }
             this.xBodyRot += (-90.0f - this.xBodyRot) * 0.02f;
         }
+    }
+
+    @Override
+    protected SoundEvent getFlopSound() {
+        return null;
     }
 
     @Override
@@ -216,6 +238,11 @@ public class Jellyfish extends WaterAnimal {
 
     public boolean hasMovementVector() {
         return this.tx != 0.0f || this.ty != 0.0f || this.tz != 0.0f;
+    }
+
+    @Override
+    public ItemStack getBucketItemStack() {
+        return null;
     }
 
     static class JellyRandomMovementGoal
