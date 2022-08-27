@@ -28,6 +28,15 @@ public final class OverworldBiomeBuilderMixin {
     private Climate.Parameter farInlandContinentalness;
     @Shadow
     @Final
+    private Climate.Parameter deepOceanContinentalness;
+    @Shadow
+    @Final
+    private Climate.Parameter oceanContinentalness;
+    @Shadow
+    @Final
+    private Climate.Parameter coastContinentalness;
+    @Shadow
+    @Final
     private Climate.Parameter[] erosions;
     @Shadow
     @Final
@@ -188,7 +197,7 @@ public final class OverworldBiomeBuilderMixin {
                 consumer,
                 this.FULL_RANGE,
                 this.FULL_RANGE,
-                this.FULL_RANGE,
+                Climate.Parameter.span(this.deepOceanContinentalness, this.coastContinentalness),
                 Climate.Parameter.span(this.erosions[5], this.erosions[6]),
                 this.FULL_RANGE,
                 0.0F,
