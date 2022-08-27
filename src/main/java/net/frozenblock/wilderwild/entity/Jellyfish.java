@@ -20,7 +20,6 @@ import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.control.MoveControl;
 import net.minecraft.world.entity.ai.goal.Goal;
-import net.minecraft.world.entity.ai.goal.RandomSwimmingGoal;
 import net.minecraft.world.entity.animal.AbstractFish;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -84,7 +83,7 @@ public class Jellyfish extends AbstractFish {
 
     @Override
     protected void registerGoals() {
-        this.goalSelector.addGoal(0, new Jellyfish.JellySwimGoal(this));
+        this.goalSelector.addGoal(0, new Jellyfish.JellyRandomMovementGoal(this));
     }
 
     public static AttributeSupplier.Builder createAttributes() {
@@ -207,7 +206,7 @@ public class Jellyfish extends AbstractFish {
         @Override
         public void tick() {
             if (this.jelly.isEyeInFluid(FluidTags.WATER)) {
-                this.jelly.setDeltaMovement(this.jelly.getDeltaMovement().add(0.0, 0.004, 0.0));
+                this.jelly.setDeltaMovement(this.jelly.getDeltaMovement().add(0.0, -0.005, 0.0));
             }
             if (this.operation != MoveControl.Operation.MOVE_TO || this.jelly.getNavigation().isDone()) {
                 this.jelly.setSpeed(0.0f);
@@ -231,18 +230,31 @@ public class Jellyfish extends AbstractFish {
     }
 
 
-    static class JellySwimGoal
-            extends RandomSwimmingGoal {
+    static class JellyRandomMovementGoal
+            extends Goal {
         private final Jellyfish jelly;
 
-        public JellySwimGoal(Jellyfish jelly) {
-            super(jelly, 1.0, 40);
+        public JellyRandomMovementGoal(Jellyfish jelly) {
             this.jelly = jelly;
         }
 
         @Override
         public boolean canUse() {
-            return this.jelly.canRandomSwim() && super.canUse();
+            return true;
+        }
+
+        @Override
+        public void tick() {
+            int i = this.jelly.getNoActionTime();
+            if (i > 100) {
+                this.jelly.setMovementVector(0.0f, 0.0f, 0.0f);
+            } else if (this.jelly.getRandom().nextInt(Jellyfish.JellyRandomMovementGoal.reducedTickDelay(50)) == 0 || !this.jelly.wasTouchingWater || !this.jelly.hasMovementVector()) {
+                float f = this.jelly.getRandom().nextFloat() * ((float)Math.PI * 2);
+                float g = Mth.cos(f) * 0.2f;
+                float h = -0.1f + this.jelly.getRandom().nextFloat() * 0.2f;
+                float j = Mth.sin(f) * 0.2f;
+                this.jelly.setMovementVector(g, h, j);
+            }
         }
     }
 }
