@@ -243,8 +243,11 @@ public final class RegisterBlocks {
 
     public static final Block CATTAIL = new WaterloggableTallFlowerBlock(FabricBlockSettings.copy(Blocks.ROSE_BUSH).sound(SoundType.WET_GRASS).strength(0.0F).noOcclusion());
     public static final Block FLOWERING_LILY_PAD = new FloweringLilyPadBlock(FabricBlockSettings.copy(Blocks.LILY_PAD).sound(RegisterBlockSoundGroups.LILYPAD));
-
     public static final Block ALGAE = new AlgaeBlock(FabricBlockSettings.of(ALGAE_MATERIAL).instabreak().noOcclusion().noCollission().sound(SoundType.SLIME_BLOCK));
+
+    public static final Block POTTED_BIG_DRIPLEAF = new FlowerPotBlock(Blocks.BIG_DRIPLEAF, FabricBlockSettings.of(Material.DECORATION).instabreak().noOcclusion());
+    public static final Block POTTED_SMALL_DRIPLEAF = new FlowerPotBlock(Blocks.SMALL_DRIPLEAF, FabricBlockSettings.of(Material.DECORATION).instabreak().noOcclusion());
+    public static final Block POTTED_GRASS = new FlowerPotBlock(Blocks.GRASS, FabricBlockSettings.of(Material.DECORATION).instabreak().noOcclusion());
 
     public static void registerPlants() {
         registerBlock("seeding_dandelion", SEEDING_DANDELION, CreativeModeTab.TAB_DECORATIONS);
@@ -259,7 +262,9 @@ public final class RegisterBlocks {
         registerBlock("datura", DATURA, CreativeModeTab.TAB_DECORATIONS);
         registerBlock("milkweed", MILKWEED, CreativeModeTab.TAB_DECORATIONS);
         registerBlock("cattail", CATTAIL, CreativeModeTab.TAB_DECORATIONS);
-
+        registerBlockWithoutBlockItem("potted_big_dripleaf", POTTED_BIG_DRIPLEAF);
+        registerBlockWithoutBlockItem("potted_small_dripleaf", POTTED_SMALL_DRIPLEAF);
+        registerBlockWithoutBlockItem("potted_grass", POTTED_GRASS);
     }
 
     public static final Block BROWN_SHELF_FUNGUS = new ShelfFungusBlock(FabricBlockSettings.copyOf(Blocks.BROWN_MUSHROOM_BLOCK).luminance(1).collidable(false).noOcclusion().sound(RegisterBlockSoundGroups.MUSHROOM));
