@@ -1,12 +1,10 @@
 package net.frozenblock.wilderwild.registry;
 
 import net.fabricmc.fabric.api.loot.v2.LootTableEvents;
-import net.frozenblock.wilderwild.tag.WilderInstrumentTags;
 import net.minecraft.world.item.Rarity;
 import net.minecraft.world.level.storage.loot.BuiltInLootTables;
 import net.minecraft.world.level.storage.loot.LootPool;
 import net.minecraft.world.level.storage.loot.entries.LootItem;
-import net.minecraft.world.level.storage.loot.functions.SetInstrumentFunction;
 import net.minecraft.world.level.storage.loot.functions.SetItemCountFunction;
 import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
 

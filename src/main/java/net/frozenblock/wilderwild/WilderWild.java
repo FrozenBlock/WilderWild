@@ -29,12 +29,10 @@ import net.frozenblock.wilderwild.world.gen.trunk.StraightTrunkWithLogs;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.tags.TagKey;
 import net.minecraft.util.RandomSource;
 import net.minecraft.util.datafix.schemas.NamespacedSchema;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.MobCategory;
-import net.minecraft.world.item.Instrument;
 import net.minecraft.world.level.GameRules;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
@@ -276,7 +274,6 @@ public final class WilderWild implements ModInitializer {
 
     public static final ResourceLocation CAPTURE_FIREFLY_NOTIFY_PACKET = id("capture_firefly_notify_packet");
     public static final ResourceLocation ANCIENT_HORN_KILL_NOTIFY_PACKET = id("ancient_horn_kill_notify_packet");
-    public static final ResourceLocation FLYBY_SOUND_PACKET = id("flyby_sound_packet");
 
     public static ResourceLocation id(String path) {
         return new ResourceLocation(MOD_ID, path);

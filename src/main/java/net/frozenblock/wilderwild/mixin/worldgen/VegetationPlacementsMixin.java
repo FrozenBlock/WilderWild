@@ -2,19 +2,16 @@ package net.frozenblock.wilderwild.mixin.worldgen;
 
 import net.frozenblock.wilderwild.world.feature.WilderPlacedFeatures;
 import net.minecraft.core.Holder;
-import net.minecraft.data.worldgen.placement.PlacementUtils;
 import net.minecraft.data.worldgen.placement.VegetationPlacements;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.world.level.levelgen.placement.PlacedFeature;
 import net.minecraft.world.level.levelgen.placement.PlacementModifier;
-import org.objectweb.asm.Opcodes;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.Slice;
 
 import java.util.List;
-import java.util.Objects;
 
 @Mixin(VegetationPlacements.class)
 public class VegetationPlacementsMixin {

@@ -7,13 +7,10 @@ import net.frozenblock.wilderwild.entity.AncientHornProjectile;
 import net.frozenblock.wilderwild.particle.AncientHornParticleEffect;
 import net.frozenblock.wilderwild.registry.RegisterItems;
 import net.frozenblock.wilderwild.registry.RegisterSounds;
-import net.minecraft.ChatFormatting;
 import net.minecraft.core.Holder;
 import net.minecraft.core.NonNullList;
 import net.minecraft.core.Registry;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
@@ -29,7 +26,6 @@ import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Iterator;
-import java.util.List;
 import java.util.Optional;
 
 public class AncientHorn extends InstrumentItem {

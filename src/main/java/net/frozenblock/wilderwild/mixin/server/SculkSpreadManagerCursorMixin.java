@@ -8,16 +8,14 @@ import net.frozenblock.wilderwild.registry.RegisterProperties;
 import net.frozenblock.wilderwild.tag.WilderBlockTags;
 import net.minecraft.Util;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Direction;
 import net.minecraft.core.Vec3i;
-import net.minecraft.server.level.ServerLevel;
-import net.minecraft.sounds.SoundEvents;
-import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.LevelAccessor;
-import net.minecraft.world.level.block.*;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.SculkBehaviour;
+import net.minecraft.world.level.block.SculkSpreader;
+import net.minecraft.world.level.block.SculkVeinBlock;
 import net.minecraft.world.level.block.state.BlockState;
-import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -29,7 +27,6 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import java.util.List;
 import java.util.Objects;
-import java.util.Set;
 import java.util.stream.Stream;
 
 @Mixin(SculkSpreader.ChargeCursor.class)

@@ -1,35 +1,24 @@
 package net.frozenblock.wilderwild.mixin.worldgen;
 
-import com.mojang.serialization.Codec;
-import com.mojang.serialization.DataResult;
-import com.mojang.serialization.codecs.RecordCodecBuilder;
-import net.frozenblock.wilderwild.registry.RegisterStructures;
 import net.minecraft.CrashReport;
 import net.minecraft.CrashReportCategory;
-import net.minecraft.CrashReportDetail;
 import net.minecraft.ReportedException;
 import net.minecraft.core.Registry;
 import net.minecraft.core.SectionPos;
 import net.minecraft.network.protocol.game.DebugPackets;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.ChunkPos;
 import net.minecraft.world.level.StructureManager;
 import net.minecraft.world.level.WorldGenLevel;
 import net.minecraft.world.level.chunk.ChunkAccess;
 import net.minecraft.world.level.chunk.ChunkGenerator;
-import net.minecraft.world.level.levelgen.Heightmap;
-import net.minecraft.world.level.levelgen.heightproviders.HeightProvider;
 import net.minecraft.world.level.levelgen.structure.Structure;
 import net.minecraft.world.level.levelgen.structure.StructureStart;
-import net.minecraft.world.level.levelgen.structure.pools.StructureTemplatePool;
-import net.minecraft.world.level.levelgen.structure.structures.JigsawStructure;
-import org.spongepowered.asm.mixin.*;
+import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import java.util.Optional;
-import java.util.function.Function;
 
 @Mixin(ChunkGenerator.class)
 public class ChunkGeneratorMixin {

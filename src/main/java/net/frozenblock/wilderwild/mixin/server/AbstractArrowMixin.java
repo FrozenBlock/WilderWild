@@ -18,7 +18,6 @@ public class AbstractArrowMixin {
     @Inject(method = "onHitBlock", at = @At("HEAD"))
     public void onHitBlock(BlockHitResult blockHitResult, CallbackInfo info) {
         AbstractArrow arrow = AbstractArrow.class.cast(this);
-        Vec3 vec3 = blockHitResult.getLocation().subtract(arrow.getX(), arrow.getY(), arrow.getZ());
         Vec3 speed = arrow.getDeltaMovement();
         if (!arrow.level.isClientSide) {
             if (arrow.level instanceof ServerLevel server) {

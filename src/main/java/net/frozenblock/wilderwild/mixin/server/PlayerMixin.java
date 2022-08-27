@@ -21,5 +21,5 @@ public class PlayerMixin {
             info.setReturnValue(RegisterSounds.PLAYER_HURT_CACTUS);
         }
     }
-    
+
 }

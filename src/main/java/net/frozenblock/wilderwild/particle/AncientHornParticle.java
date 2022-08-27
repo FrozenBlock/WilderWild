@@ -5,8 +5,6 @@ import com.mojang.math.Quaternion;
 import com.mojang.math.Vector3f;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.frozenblock.wilderwild.entity.AncientHornProjectile;
-import net.frozenblock.wilderwild.item.AncientHorn;
 import net.minecraft.Util;
 import net.minecraft.client.Camera;
 import net.minecraft.client.multiplayer.ClientLevel;

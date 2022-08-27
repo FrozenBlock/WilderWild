@@ -1,10 +1,11 @@
 package net.frozenblock.wilderwild.mixin.worldgen;
 
-import net.minecraft.server.level.WorldGenRegion;
 import net.minecraft.world.level.chunk.ChunkStatus;
 import net.minecraft.world.level.levelgen.Heightmap;
 import org.jetbrains.annotations.Nullable;
-import org.spongepowered.asm.mixin.*;
+import org.spongepowered.asm.mixin.Final;
+import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyArgs;
 import org.spongepowered.asm.mixin.injection.invoke.arg.Args;

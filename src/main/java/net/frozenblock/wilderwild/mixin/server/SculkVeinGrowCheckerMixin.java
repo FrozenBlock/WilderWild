@@ -1,6 +1,5 @@
 package net.frozenblock.wilderwild.mixin.server;
 
-import net.fabricmc.loader.api.FabricLoader;
 import net.frozenblock.wilderwild.registry.RegisterBlocks;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
