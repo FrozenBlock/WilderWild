@@ -233,6 +233,7 @@ public abstract class WardenEntityMixin extends Monster implements WilderWarden 
 
     @Inject(method = "tick", at = @At("TAIL"))
     private void tick(CallbackInfo ci) {
+        //TODO: add osmiooo warden's heartbeat sounds here
         this.updateSwimAmount();
         if (warden.getPose() == Pose.DYING) {
             this.clientDiggingParticles(this.getDyingAnimationState());
