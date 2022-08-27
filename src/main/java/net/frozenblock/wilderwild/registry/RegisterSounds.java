@@ -60,6 +60,12 @@ public final class RegisterSounds {
     public static final SoundEvent BLOCK_FLOWER_STEP = register("block.flower.step");
     public static final SoundEvent BLOCK_FLOWER_FALL = register("block.flower.fall");
 
+    public static final SoundEvent BLOCK_GRAVEL_PLACE = register("block.gravel.place");
+    public static final SoundEvent BLOCK_GRAVEL_HIT = register("block.gravel.hit");
+    public static final SoundEvent BLOCK_GRAVEL_BREAK = register("block.gravel.break");
+    public static final SoundEvent BLOCK_GRAVEL_STEP = register("block.gravel.step");
+    public static final SoundEvent BLOCK_GRAVEL_FALL = register("block.gravel.fall");
+
     public static final SoundEvent BLOCK_HANGING_TENDRIL_PLACE = register("block.hanging_tendril.place");
     public static final SoundEvent BLOCK_HANGING_TENDRIL_HIT = register("block.hanging_tendril.hit");
     public static final SoundEvent BLOCK_HANGING_TENDRIL_BREAK = register("block.hanging_tendril.break");

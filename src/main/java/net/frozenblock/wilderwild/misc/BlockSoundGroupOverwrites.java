@@ -38,6 +38,7 @@ public class BlockSoundGroupOverwrites {
         addBlock(LILY_PAD, LILYPAD);
         addBlock(SUGAR_CANE, SUGARCANE);
         addBlock(COARSE_DIRT, COARSEDIRT);
+        addBlock(GRAVEL, GRAVELSOUNDS);
 
         if (FabricLoader.getInstance().getModContainer("betternether").isPresent()) {
             addBlock("betternether", "willow_leaves", LEAVES);

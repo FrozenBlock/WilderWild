@@ -523,6 +523,51 @@
 	],
 	"subtitle": "subtitles.block.generic.footsteps"
   },
+	"block.gravel.break": {
+		"sounds": [
+			"wilderwild:block/gravel/break1",
+			"wilderwild:block/gravel/break2",
+			"wilderwild:block/gravel/break3",
+			"wilderwild:block/gravel/break4"
+		],
+		"subtitle": "subtitles.block.generic.break"
+	},
+	"block.gravel.fall": {
+		"sounds": [
+			"wilderwild:block/gravel/step1",
+			"wilderwild:block/gravel/step2",
+			"wilderwild:block/gravel/step3",
+			"wilderwild:block/gravel/step4"
+		],
+		"subtitle": "subtitles.block.generic.fall"
+	},
+	"block.gravel.hit": {
+		"sounds": [
+			"wilderwild:block/gravel/step1",
+			"wilderwild:block/gravel/step2",
+			"wilderwild:block/gravel/step3",
+			"wilderwild:block/gravel/step4"
+		],
+		"subtitle": "subtitles.block.generic.hit"
+	},
+	"block.gravel.place": {
+		"sounds": [
+			"wilderwild:block/gravel/break1",
+			"wilderwild:block/gravel/break2",
+			"wilderwild:block/gravel/break3",
+			"wilderwild:block/gravel/break4"
+		],
+		"subtitle": "subtitles.block.generic.place"
+	},
+	"block.gravel.step": {
+		"sounds": [
+			"wilderwild:block/gravel/step1",
+			"wilderwild:block/gravel/step2",
+			"wilderwild:block/gravel/step3",
+			"wilderwild:block/gravel/step4"
+		],
+		"subtitle": "subtitles.block.generic.footsteps"
+	},
   "block.hanging_tendril.break": {
 	"sounds": [
 	  "wilderwild:block/hanging_tendril/break1",

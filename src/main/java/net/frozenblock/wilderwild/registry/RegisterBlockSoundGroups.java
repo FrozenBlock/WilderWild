@@ -23,6 +23,14 @@ public final class RegisterBlockSoundGroups {
             BLOCK_CLAY_FALL
     );
 
+    public static final SoundType GRAVELSOUNDS = new SoundType(1.0F, 1.0F,
+            BLOCK_GRAVEL_BREAK,
+            BLOCK_GRAVEL_STEP,
+            BLOCK_GRAVEL_PLACE,
+            BLOCK_GRAVEL_HIT,
+            BLOCK_GRAVEL_FALL
+    );
+
     public static final SoundType OSSEOUS_SCULK = new SoundType(1.0F, 1.0F,
             BLOCK_OSSEOUS_SCULK_BREAK,
             BLOCK_OSSEOUS_SCULK_STEP,
