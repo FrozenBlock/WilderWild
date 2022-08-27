@@ -76,17 +76,19 @@ public class JellyfishModel<T extends Jellyfish> extends HierarchicalModel<T> {
 
     private void animateTentacles(T jellyfish, float limbSwing, float limbSwingAmount, float ageInTicks) {
         float pi180 = Mth.PI / 180;
-        float mult = 2;
+        float mult = 15;
 
-        float cos = (Mth.cos(ageInTicks) * mult) * pi180;
-        float cos1 = (Mth.cos(ageInTicks + 30) * mult) * pi180;
-        float cos2 = (Mth.cos(ageInTicks + 60) * mult) * pi180;
-        float cos3 = (Mth.cos(ageInTicks + 90) * mult) * pi180;
+        float animation = ageInTicks;
 
-        float sin = (Mth.sin(ageInTicks) * mult) * pi180;
-        float sin1 = (Mth.sin(ageInTicks + 30) * mult) * pi180;
-        float sin2 = (Mth.sin(ageInTicks + 60) * mult) * pi180;
-        float sin3 = (Mth.sin(ageInTicks + 90) * mult) * pi180;
+        float cos = (Mth.cos(animation) * mult) * pi180;
+        float cos1 = (Mth.cos(animation + 30) * mult) * pi180;
+        float cos2 = (Mth.cos(animation + 60) * mult) * pi180;
+        float cos3 = (Mth.cos(animation + 90) * mult) * pi180;
+
+        float sin = (Mth.sin(animation) * mult) * pi180;
+        float sin1 = (Mth.sin(animation + 30) * mult) * pi180;
+        float sin2 = (Mth.sin(animation + 60) * mult) * pi180;
+        float sin3 = (Mth.sin(animation + 90) * mult) * pi180;
 
         //cardinal tentacles
         this.tentacle1.xRot = cos;

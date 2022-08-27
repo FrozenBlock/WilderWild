@@ -158,7 +158,7 @@ public class Jellyfish extends AbstractFish {
     }
 
     protected SoundEvent getSquirtSound() {
-        return SoundEvents.SQUID_SQUIRT;
+        return null;
     }
 
     @Override
