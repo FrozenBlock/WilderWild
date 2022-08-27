@@ -72,7 +72,7 @@ public class JellyfishModel<T extends Jellyfish> extends HierarchicalModel<T> {
     public void setupAnim(@NotNull T jellyfish, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
         this.root().getAllParts().forEach(ModelPart::resetPose);
         for (ModelPart modelPart : this.tentacles) {
-            modelPart.xRot = h;
+            //modelPart.xRot = h;
         }
     }
 
