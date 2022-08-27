@@ -323,15 +323,12 @@ public final class RegisterBlocks {
 
         registerOtherBB();
         registerWoods();
+        registerBlockProperties();
         registerHollowedLogs();
         registerDeepDark();
         registerPlants();
         registerNotSoPlants();
         registerMisc();
-
-        registerComposting();
-        registerFlammability();
-        registerFuels();
     }
 
     private static void registerBlockWithoutBlockItem(String name, Block block) {
@@ -354,10 +351,7 @@ public final class RegisterBlocks {
                 .strength(2.0F).sound(RegisterBlockSoundGroups.HOLLOWED_LOG));
     }
 
-    public static void addBaobab() {
-        StrippableBlockRegistry.register(BAOBAB_LOG, STRIPPED_BAOBAB_LOG);
-        StrippableBlockRegistry.register(BAOBAB_WOOD, STRIPPED_BAOBAB_WOOD);
-
+    public static void registerBlockProperties() {
         TermiteMoundBlockEntity.Termite.addDegradable(BAOBAB_LOG, HOLLOWED_BAOBAB_LOG);
         TermiteMoundBlockEntity.Termite.addDegradable(STRIPPED_BAOBAB_LOG, Blocks.AIR);
         TermiteMoundBlockEntity.Termite.addDegradable(BAOBAB_WOOD, STRIPPED_BAOBAB_WOOD);
@@ -365,15 +359,16 @@ public final class RegisterBlocks {
         TermiteMoundBlockEntity.Termite.addNaturalDegradable(BAOBAB_LOG, STRIPPED_BAOBAB_LOG);
         TermiteMoundBlockEntity.Termite.addNaturalDegradable(BAOBAB_WOOD, STRIPPED_BAOBAB_WOOD);
 
-        StrippableBlockRegistry.register(CYPRESS_LOG, STRIPPED_CYPRESS_LOG);
-        StrippableBlockRegistry.register(CYPRESS_WOOD, STRIPPED_CYPRESS_WOOD);
-
         TermiteMoundBlockEntity.Termite.addDegradable(CYPRESS_LOG, HOLLOWED_CYPRESS_LOG);
         TermiteMoundBlockEntity.Termite.addDegradable(STRIPPED_CYPRESS_LOG, Blocks.AIR);
         TermiteMoundBlockEntity.Termite.addDegradable(CYPRESS_WOOD, STRIPPED_CYPRESS_WOOD);
         TermiteMoundBlockEntity.Termite.addDegradable(STRIPPED_CYPRESS_WOOD, Blocks.AIR);
         TermiteMoundBlockEntity.Termite.addNaturalDegradable(CYPRESS_LOG, STRIPPED_CYPRESS_LOG);
         TermiteMoundBlockEntity.Termite.addNaturalDegradable(CYPRESS_WOOD, STRIPPED_CYPRESS_WOOD);
+        registerStrippable();
+        registerComposting();
+        registerFlammability();
+        registerFuels();
     }
 
     private static boolean never(BlockState state, BlockGetter world, BlockPos pos) {
@@ -386,6 +381,13 @@ public final class RegisterBlocks {
 
     private static Boolean canSpawnOnLeaves(BlockState state, BlockGetter world, BlockPos pos, EntityType<?> type) {
         return type == EntityType.OCELOT || type == EntityType.PARROT;
+    }
+
+    private static void registerStrippable() {
+        StrippableBlockRegistry.register(BAOBAB_LOG, STRIPPED_BAOBAB_LOG);
+        StrippableBlockRegistry.register(BAOBAB_WOOD, STRIPPED_BAOBAB_WOOD);
+        StrippableBlockRegistry.register(CYPRESS_LOG, STRIPPED_CYPRESS_LOG);
+        StrippableBlockRegistry.register(CYPRESS_WOOD, STRIPPED_CYPRESS_WOOD);
     }
 
     private static void registerComposting() {
