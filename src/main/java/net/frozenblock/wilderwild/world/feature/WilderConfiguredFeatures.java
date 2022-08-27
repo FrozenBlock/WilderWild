@@ -5,6 +5,7 @@ import net.frozenblock.wilderwild.block.ShelfFungusBlock;
 import net.frozenblock.wilderwild.misc.FlowerColors;
 import net.frozenblock.wilderwild.registry.RegisterBlocks;
 import net.frozenblock.wilderwild.registry.RegisterProperties;
+import net.frozenblock.wilderwild.world.feature.features.config.ClusterFeatureConfig;
 import net.frozenblock.wilderwild.world.feature.features.config.ColumnWithDiskFeatureConfig;
 import net.frozenblock.wilderwild.world.feature.features.config.ShelfFungusFeatureConfig;
 import net.minecraft.core.Holder;
@@ -17,6 +18,7 @@ import net.minecraft.data.worldgen.placement.PlacementUtils;
 import net.minecraft.data.worldgen.placement.TreePlacements;
 import net.minecraft.util.random.SimpleWeightedRandomList;
 import net.minecraft.util.valueproviders.UniformInt;
+import net.minecraft.world.level.block.AmethystClusterBlock;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.MultifaceBlock;
@@ -219,6 +221,16 @@ public final class WilderConfiguredFeatures {
             register("patch_cypress_roots", Feature.RANDOM_PATCH,
                     new RandomPatchFeatureConfig(10, 7, 3, PlacedFeatures.createEntry(Feature.SIMPLE_BLOCK,
                             new SimpleBlockFeatureConfig(BlockStateProvider.of(RegisterBlocks.CYPRESS_ROOTS)))));*/
+    // JELLYFISH
+    /*public static final Holder<ConfiguredFeature<ClusterFeatureConfig, ?>> PATCH_AMETHYST = register("patch_amethyst", WilderWild.CLUSTER_FEATURE,
+            new ClusterFeatureConfig((AmethystClusterBlock) Blocks.AMETHYST_CLUSTER, 20,
+                    true,
+                    true,
+                    true,
+                    1.0F,
+                    HolderSet.direct(
+                            Block::builtInRegistryHolder,
+                            Blocks.STONE, Blocks.ANDESITE, Blocks.DIORITE, Blocks.GRANITE, Blocks.DRIPSTONE_BLOCK, Blocks.CALCITE, Blocks.TUFF, Blocks.DEEPSLATE)));*/
 
     public static void registerConfiguredFeatures() {
         WilderWild.logWild("Registering WilderConfiguredFeatures for", true);

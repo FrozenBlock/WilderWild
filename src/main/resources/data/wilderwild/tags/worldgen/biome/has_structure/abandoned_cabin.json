@@ -1,6 +1,6 @@
 {
   "replace": false,
   "values": [
-	"#minecraft:has_structure/ancient_city"
+	"wilderwild:jellyfish_caves"
   ]
 }

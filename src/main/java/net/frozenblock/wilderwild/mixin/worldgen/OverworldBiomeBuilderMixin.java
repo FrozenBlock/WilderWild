@@ -19,7 +19,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import java.util.function.Consumer;
 
 @Mixin(OverworldBiomeBuilder.class)
-public final class VanillaBiomeParametersMixin {
+public final class OverworldBiomeBuilderMixin {
     @Shadow
     @Final
     private Climate.Parameter inlandContinentalness;
@@ -180,6 +180,33 @@ public final class VanillaBiomeParametersMixin {
                     biome));
             info.cancel();
         }
+    }
+
+    @Inject(method = "addUndergroundBiomes", at = @At("TAIL"))
+    private void addUndergroundBiomes(Consumer<Pair<Climate.ParameterPoint, ResourceKey<Biome>>> consumer, CallbackInfo ci) {
+        this.addDeepBiome(
+                consumer,
+                this.FULL_RANGE,
+                this.FULL_RANGE,
+                this.FULL_RANGE,
+                Climate.Parameter.span(this.erosions[5], this.erosions[6]),
+                this.FULL_RANGE,
+                0.0F,
+                RegisterWorldgen.JELLYFISH_CAVES
+        );
+    }
+
+    private void addDeepBiome(
+            Consumer<Pair<Climate.ParameterPoint, ResourceKey<Biome>>> consumer,
+            Climate.Parameter parameter,
+            Climate.Parameter parameter2,
+            Climate.Parameter parameter3,
+            Climate.Parameter parameter4,
+            Climate.Parameter parameter5,
+            float f,
+            ResourceKey<Biome> resourceKey
+    ) {
+        consumer.accept(Pair.of(Climate.parameters(parameter, parameter2, parameter3, parameter4, Climate.Parameter.span(0.65F, 1.1F), parameter5, f), resourceKey));
     }
 
     /*
