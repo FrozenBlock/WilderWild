@@ -313,7 +313,7 @@ public class Jellyfish extends AbstractFish {
         @Override
         public void tick() {
             int i = this.jelly.getNoActionTime();
-            if (i > 100) {
+            if (i > 40) {
                 boolean up = jelly.random.nextBoolean();
                 this.jelly.setMovementVector(jelly.tx, (up ? 1 : -1) * (this.jelly.getRandom().nextFloat() * 0.1f), jelly.tz);
                 this.jelly.setMovingUp(up);
@@ -336,8 +336,8 @@ public class Jellyfish extends AbstractFish {
         @Override
         public void tick() {
             int i = this.jelly.getNoActionTime();
-            if (i < 100) {
-                if (this.jelly.getRandom().nextInt(Jellyfish.JellyRandomMovementGoal.reducedTickDelay(50)) == 0 || !this.jelly.wasTouchingWater) {
+            if (i < 40) {
+                if (this.jelly.getRandom().nextInt(Jellyfish.JellyRandomMovementGoal.reducedTickDelay(50)) == 0 || !this.jelly.wasTouchingWater  || !this.jelly.hasMovementVector()) {
                     float f = this.jelly.getRandom().nextFloat() * ((float)Math.PI * 2);
                     float g = Mth.cos(f) * 0.1f;
                     float h = -0.1f + this.jelly.getRandom().nextFloat() * 0.2f;
