@@ -4,7 +4,11 @@ import net.frozenblock.wilderwild.registry.RegisterWorldgen;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.protocol.game.ClientboundGameEventPacket;
+import net.minecraft.network.syncher.EntityDataAccessor;
+import net.minecraft.network.syncher.EntityDataSerializers;
+import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
@@ -22,8 +26,6 @@ import net.minecraft.world.entity.animal.AbstractFish;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.LevelAccessor;
-import net.minecraft.world.level.LightLayer;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.phys.Vec3;
@@ -46,6 +48,10 @@ public class Jellyfish extends AbstractFish {
     private float tx;
     private float ty;
     private float tz;
+
+    private static final EntityDataAccessor<Boolean> MOVING_UP = SynchedEntityData.defineId(Jellyfish.class, EntityDataSerializers.BOOLEAN);
+    private static final EntityDataAccessor<Float> TENTACLE_ANGLE = SynchedEntityData.defineId(Jellyfish.class, EntityDataSerializers.FLOAT);
+    private static final EntityDataAccessor<Float> PREV_TENTACLE_ANGLE = SynchedEntityData.defineId(Jellyfish.class, EntityDataSerializers.FLOAT);
 
     public Jellyfish(EntityType<? extends Jellyfish> entityType, Level level) {
         super(entityType, level);
@@ -78,13 +84,48 @@ public class Jellyfish extends AbstractFish {
         return Mob.createMobAttributes().add(Attributes.MAX_HEALTH, 3.0D).add(Attributes.MOVEMENT_SPEED, 0.05F).add(Attributes.FLYING_SPEED, 0.05F).add(Attributes.FOLLOW_RANGE, 32);
     }
 
+    public float getTentacleAngle() {
+        return this.entityData.get(TENTACLE_ANGLE);
+    }
+
+    public void setTentacleAngle(float value) {
+        this.entityData.set(TENTACLE_ANGLE, value);
+    }
+
+    public float getPrevTentacleAngle() {
+        return this.entityData.get(PREV_TENTACLE_ANGLE);
+    }
+
+    public void setPrevTentacleAngle(float value) {
+        this.entityData.set(PREV_TENTACLE_ANGLE, value);
+    }
+
+    public boolean getMovingUp() {
+        return this.entityData.get(MOVING_UP);
+    }
+
+    public void setMovingUp(boolean value) {
+        this.entityData.set(MOVING_UP, value);
+    }
+
+
+    public void addAdditionalSaveData(CompoundTag nbt) {
+        super.addAdditionalSaveData(nbt);
+        nbt.putFloat("prevTentacleAngle", this.getPrevTentacleAngle());
+        nbt.putFloat("tentacleAngle", this.getTentacleAngle());
+        nbt.putBoolean("movingUp", this.getMovingUp());
+    }
+
+    public void readAdditionalSaveData(CompoundTag nbt) {
+        super.readAdditionalSaveData(nbt);
+        this.setPrevTentacleAngle(nbt.getFloat("prevTentacleAngle"));
+        this.setTentacleAngle(nbt.getFloat("tentacleAngle"));
+        this.setMovingUp(nbt.getBoolean("movingUp"));
+    }
+
     @Override
     protected void registerGoals() {
         this.goalSelector.addGoal(0, new Jellyfish.JellyRandomMovementGoal(this));
-    }
-
-    public static AttributeSupplier.Builder createAttributes() {
-        return Mob.createMobAttributes().add(Attributes.MAX_HEALTH, 10.0);
     }
 
     @Override
@@ -249,8 +290,30 @@ public class Jellyfish extends AbstractFish {
         return null;
     }
 
-    static class JellyRandomMovementGoal
-            extends Goal {
+    static class JellyUpDownGoal extends Goal {
+        private final Jellyfish jelly;
+
+        public JellyUpDownGoal(Jellyfish jelly) {
+            this.jelly = jelly;
+        }
+
+        @Override
+        public boolean canUse() {
+            return true;
+        }
+
+        @Override
+        public void tick() {
+            int i = this.jelly.getNoActionTime();
+            if (i > 100) {
+                boolean up = jelly.random.nextBoolean();
+                this.jelly.setMovementVector(jelly.tx, (up ? 1 : -1) * (this.jelly.getRandom().nextFloat() * 0.1f), jelly.tz);
+                this.jelly.setMovingUp(up);
+            }
+        }
+    }
+
+    static class JellyRandomMovementGoal extends Goal {
         private final Jellyfish jelly;
 
         public JellyRandomMovementGoal(Jellyfish jelly) {
@@ -265,14 +328,15 @@ public class Jellyfish extends AbstractFish {
         @Override
         public void tick() {
             int i = this.jelly.getNoActionTime();
-            if (i > 100) {
-                this.jelly.setMovementVector(0.0f, 0.0f, 0.0f);
-            } else if (this.jelly.getRandom().nextInt(Jellyfish.JellyRandomMovementGoal.reducedTickDelay(50)) == 0 || !this.jelly.wasTouchingWater || !this.jelly.hasMovementVector()) {
-                float f = this.jelly.getRandom().nextFloat() * ((float)Math.PI * 2);
-                float g = Mth.cos(f) * 0.2f;
-                float h = -0.1f + this.jelly.getRandom().nextFloat() * 0.2f;
-                float j = Mth.sin(f) * 0.2f;
-                this.jelly.setMovementVector(g, h, j);
+            if (i < 100) {
+                if (this.jelly.getRandom().nextInt(Jellyfish.JellyRandomMovementGoal.reducedTickDelay(50)) == 0 || !this.jelly.wasTouchingWater) {
+                    float f = this.jelly.getRandom().nextFloat() * ((float)Math.PI * 2);
+                    float g = Mth.cos(f) * 0.1f;
+                    float h = -0.1f + this.jelly.getRandom().nextFloat() * 0.2f;
+                    float j = Mth.sin(f) * 0.1f;
+                    this.jelly.setMovingUp(h >= 0);
+                    this.jelly.setMovementVector(g, h, j);
+                }
             }
         }
     }
