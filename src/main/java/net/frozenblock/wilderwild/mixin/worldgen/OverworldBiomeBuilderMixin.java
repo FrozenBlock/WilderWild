@@ -215,7 +215,7 @@ public final class OverworldBiomeBuilderMixin {
             float f,
             ResourceKey<Biome> resourceKey
     ) {
-        consumer.accept(Pair.of(Climate.parameters(parameter, parameter2, parameter3, parameter4, Climate.Parameter.span(0.65F, 1.1F), parameter5, f), resourceKey));
+        consumer.accept(Pair.of(Climate.parameters(parameter, parameter2, parameter3, parameter4, Climate.Parameter.span(0.62F, 1.1F), parameter5, f), resourceKey));
     }
 
     /*
