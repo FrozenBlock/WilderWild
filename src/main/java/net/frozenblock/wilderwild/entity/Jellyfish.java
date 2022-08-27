@@ -114,7 +114,7 @@ public class Jellyfish extends AbstractFish {
 
     @Override
     protected float getSoundVolume() {
-        return 0.4f;
+        return 0.4F;
     }
 
     @Override
@@ -182,7 +182,7 @@ public class Jellyfish extends AbstractFish {
 
     @Override
     protected SoundEvent getFlopSound() {
-        return null;
+        return SoundEvents.PUFFER_FISH_FLOP;
     }
 
     @Override
