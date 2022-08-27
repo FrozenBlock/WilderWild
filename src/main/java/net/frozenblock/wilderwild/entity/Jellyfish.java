@@ -125,6 +125,7 @@ public class Jellyfish extends AbstractFish {
 
     @Override
     protected void registerGoals() {
+        this.goalSelector.addGoal(0, new Jellyfish.JellyUpDownGoal(this));
         this.goalSelector.addGoal(0, new Jellyfish.JellyRandomMovementGoal(this));
     }
 
