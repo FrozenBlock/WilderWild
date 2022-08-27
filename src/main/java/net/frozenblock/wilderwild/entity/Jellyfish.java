@@ -35,25 +35,10 @@ import org.jetbrains.annotations.NotNull;
 import java.util.Objects;
 
 public class Jellyfish extends AbstractFish {
-    public float xBodyRot;
-    public float xBodyRotO;
-    public float zBodyRot;
-    public float zBodyRotO;
-    public float tentacleMovement;
-    public float oldTentacleMovement;
-    public float tentacleAngle;
-    public float oldTentacleAngle;
-    private float speed;
-    private float tentacleSpeed;
-    private float rotateSpeed;
-    private float tx;
-    private float ty;
-    private float tz;
 
     public Jellyfish(EntityType<? extends Jellyfish> entityType, Level level) {
         super(entityType, level);
         this.random.setSeed(this.getId());
-        this.tentacleSpeed = 1.0f / (this.random.nextFloat() + 1.0f) * 0.2f;
         this.moveControl = new JellyMoveControl(this);
     }
 
@@ -87,10 +72,6 @@ public class Jellyfish extends AbstractFish {
         this.goalSelector.addGoal(0, new Jellyfish.JellySwimGoal(this));
     }
 
-    public static AttributeSupplier.Builder createAttributes() {
-        return Mob.createMobAttributes().add(Attributes.MAX_HEALTH, 10.0);
-    }
-
     @Override
     protected float getStandingEyeHeight(Pose pose, EntityDimensions entityDimensions) {
         return entityDimensions.height * 0.5f;
@@ -111,10 +92,6 @@ public class Jellyfish extends AbstractFish {
         return SoundEvents.SQUID_DEATH;
     }
 
-    protected SoundEvent getSquirtSound() {
-        return SoundEvents.SQUID_SQUIRT;
-    }
-
     @Override
     public boolean canBeLeashed(Player player) {
         return !this.isLeashed();
@@ -126,11 +103,6 @@ public class Jellyfish extends AbstractFish {
     }
 
     @Override
-    protected Entity.MovementEmission getMovementEmission() {
-        return Entity.MovementEmission.EVENTS;
-    }
-
-    @Override
     public void aiStep() {
         super.aiStep();
     }
@@ -138,56 +110,6 @@ public class Jellyfish extends AbstractFish {
     @Override
     protected SoundEvent getFlopSound() {
         return SoundEvents.PUFFER_FISH_FLOP;
-    }
-
-    @Override
-    public boolean hurt(DamageSource damageSource, float f) {
-        if (super.hurt(damageSource, f) && this.getLastHurtByMob() != null) {
-            if (!this.level.isClientSide) {
-                this.spawnJelly();
-            }
-            return true;
-        }
-        return false;
-    }
-
-    private Vec3 rotateVector(Vec3 vec3) {
-        Vec3 vec32 = vec3.xRot(this.xBodyRotO * ((float)Math.PI / 180));
-        vec32 = vec32.yRot(-this.yBodyRotO * ((float)Math.PI / 180));
-        return vec32;
-    }
-
-    private void spawnJelly() {
-        this.playSound(this.getSquirtSound(), this.getSoundVolume(), this.getVoicePitch());
-        Vec3 vec3 = this.rotateVector(new Vec3(0.0, -1.0, 0.0)).add(this.getX(), this.getY(), this.getZ());
-        for (int i = 0; i < 30; ++i) {
-            Vec3 vec32 = this.rotateVector(new Vec3((double)this.random.nextFloat() * 0.6 - 0.3, -1.0, (double)this.random.nextFloat() * 0.6 - 0.3));
-            Vec3 vec33 = vec32.scale(0.3 + (double)(this.random.nextFloat() * 2.0f));
-            ((ServerLevel)this.level).sendParticles(this.getJellyParticle(), vec3.x, vec3.y + 0.5, vec3.z, 0, vec33.x, vec33.y, vec33.z, 0.1f);
-        }
-    }
-
-    protected ParticleOptions getJellyParticle() {
-        return ParticleTypes.BUBBLE;
-    }
-
-    @Override
-    public void handleEntityEvent(byte b) {
-        if (b == 19) {
-            this.tentacleMovement = 0.0f;
-        } else {
-            super.handleEntityEvent(b);
-        }
-    }
-
-    public void setMovementVector(float f, float g, float h) {
-        this.tx = f;
-        this.ty = g;
-        this.tz = h;
-    }
-
-    public boolean hasMovementVector() {
-        return this.tx != 0.0f || this.ty != 0.0f || this.tz != 0.0f;
     }
 
     @Override
