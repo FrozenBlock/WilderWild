@@ -73,7 +73,7 @@ public class Jellyfish extends AbstractFish {
     }
 
     @Override
-    protected float getStandingEyeHeight(Pose pose, EntityDimensions entityDimensions) {
+    protected float getStandingEyeHeight(@NotNull Pose pose, EntityDimensions entityDimensions) {
         return entityDimensions.height * 0.5f;
     }
 
@@ -83,7 +83,7 @@ public class Jellyfish extends AbstractFish {
     }
 
     @Override
-    protected SoundEvent getHurtSound(DamageSource damageSource) {
+    protected SoundEvent getHurtSound(@NotNull DamageSource damageSource) {
         return SoundEvents.SQUID_HURT;
     }
 

@@ -12,6 +12,6 @@ public final class EarlyRiser implements Runnable {
 
         String spawnGroup = remapper.mapClassName("intermediary", "net.minecraft.class_1311");
         ClassTinkerers.enumBuilder(spawnGroup, String.class, int.class, boolean.class, boolean.class, int.class).addEnum("WILDERWILDFIREFLIES", "wilderwildfireflies", 56, true, false, 80).build();
-        ClassTinkerers.enumBuilder(spawnGroup, String.class, int.class, boolean.class, boolean.class, int.class).addEnum("WILDERWILDJELLYFISH", "wilderwildjellyfish", 50, true, false, 128).build();
+        ClassTinkerers.enumBuilder(spawnGroup, String.class, int.class, boolean.class, boolean.class, int.class).addEnum("WILDERWILDJELLYFISH", "wilderwildjellyfish", 30, true, false, 64).build();
     }
 }
