@@ -9,7 +9,6 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
-import net.minecraft.tags.FluidTags;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.damagesource.DamageSource;
@@ -18,7 +17,6 @@ import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.entity.ai.control.MoveControl;
 import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.entity.animal.AbstractFish;
 import net.minecraft.world.entity.player.Player;
@@ -53,7 +51,6 @@ public class Jellyfish extends AbstractFish {
         super(entityType, level);
         this.random.setSeed(this.getId());
         this.tentacleSpeed = 1.0f / (this.random.nextFloat() + 1.0f) * 0.2f;
-        this.moveControl = new JellyMoveControl(this);
     }
 
     @Override
@@ -132,6 +129,59 @@ public class Jellyfish extends AbstractFish {
     @Override
     public void aiStep() {
         super.aiStep();
+        this.xBodyRotO = this.xBodyRot;
+        this.zBodyRotO = this.zBodyRot;
+        this.oldTentacleMovement = this.tentacleMovement;
+        this.oldTentacleAngle = this.tentacleAngle;
+        this.tentacleMovement += this.tentacleSpeed;
+        if ((double)this.tentacleMovement > Math.PI * 2) {
+            if (this.level.isClientSide) {
+                this.tentacleMovement = (float)Math.PI * 2;
+            } else {
+                this.tentacleMovement -= (float)Math.PI * 2;
+                if (this.random.nextInt(10) == 0) {
+                    this.tentacleSpeed = 1.0f / (this.random.nextFloat() + 1.0f) * 0.2f;
+                }
+                this.level.broadcastEntityEvent(this, (byte)19);
+            }
+        }
+        if (this.isInWaterOrBubble()) {
+            if (this.tentacleMovement < (float)Math.PI) {
+                float f = this.tentacleMovement / (float)Math.PI;
+                this.tentacleAngle = Mth.sin(f * f * (float)Math.PI) * (float)Math.PI * 0.25f;
+                if ((double)f > 0.75) {
+                    this.speed = 1.0f;
+                    this.rotateSpeed = 1.0f;
+                } else {
+                    this.rotateSpeed *= 0.8f;
+                }
+            } else {
+                this.tentacleAngle = 0.0f;
+                this.speed *= 0.9f;
+                this.rotateSpeed *= 0.99f;
+            }
+            if (!this.level.isClientSide) {
+                this.setDeltaMovement(this.tx * this.speed, this.ty * this.speed, this.tz * this.speed);
+            }
+            Vec3 vec3 = this.getDeltaMovement();
+            double d = vec3.horizontalDistance();
+            this.yBodyRot += (-((float)Mth.atan2(vec3.x, vec3.z)) * 57.295776f - this.yBodyRot) * 0.1f;
+            this.setYRot(this.yBodyRot);
+            this.zBodyRot += (float)Math.PI * this.rotateSpeed * 1.5f;
+            this.xBodyRot += (-((float)Mth.atan2(d, vec3.y)) * 57.295776f - this.xBodyRot) * 0.1f;
+        } else {
+            this.tentacleAngle = Mth.abs(Mth.sin(this.tentacleMovement)) * (float)Math.PI * 0.25f;
+            if (!this.level.isClientSide) {
+                double e = this.getDeltaMovement().y;
+                if (this.hasEffect(MobEffects.LEVITATION)) {
+                    e = 0.05 * (double)(Objects.requireNonNull(this.getEffect(MobEffects.LEVITATION)).getAmplifier() + 1);
+                } else if (!this.isNoGravity()) {
+                    e -= 0.08;
+                }
+                this.setDeltaMovement(0.0, e * (double)0.98f, 0.0);
+            }
+            this.xBodyRot += (-90.0f - this.xBodyRot) * 0.02f;
+        }
     }
 
     @Override
@@ -171,6 +221,11 @@ public class Jellyfish extends AbstractFish {
     }
 
     @Override
+    public void travel(Vec3 vec3) {
+        this.move(MoverType.SELF, this.getDeltaMovement());
+    }
+
+    @Override
     public void handleEntityEvent(byte b) {
         if (b == 19) {
             this.tentacleMovement = 0.0f;
@@ -193,42 +248,6 @@ public class Jellyfish extends AbstractFish {
     public ItemStack getBucketItemStack() {
         return null;
     }
-
-    static class JellyMoveControl
-            extends MoveControl {
-        private final Jellyfish jelly;
-
-        JellyMoveControl(Jellyfish jelly) {
-            super(jelly);
-            this.jelly = jelly;
-        }
-
-        @Override
-        public void tick() {
-            if (this.jelly.isEyeInFluid(FluidTags.WATER)) {
-                this.jelly.setDeltaMovement(this.jelly.getDeltaMovement().add(0.0, -0.005, 0.0));
-            }
-            if (this.operation != MoveControl.Operation.MOVE_TO || this.jelly.getNavigation().isDone()) {
-                this.jelly.setSpeed(0.0f);
-                return;
-            }
-            float f = (float)(this.speedModifier * this.jelly.getAttributeValue(Attributes.MOVEMENT_SPEED));
-            this.jelly.setSpeed(Mth.lerp(0.125f, this.jelly.getSpeed(), f));
-            double d = this.wantedX - this.jelly.getX();
-            double e = this.wantedY - this.jelly.getY();
-            double g = this.wantedZ - this.jelly.getZ();
-            if (e != 0.0) {
-                double h = Math.sqrt(d * d + e * e + g * g);
-                this.jelly.setDeltaMovement(this.jelly.getDeltaMovement().add(0.0, this.jelly.getSpeed() * (e / h) * 0.1, 0.0));
-            }
-            if (d != 0.0 || g != 0.0) {
-                float i = (float)(Mth.atan2(g, d) * 57.2957763671875) - 90.0f;
-                this.jelly.setYRot(this.rotlerp(this.jelly.getYRot(), i, 90.0f));
-                this.jelly.yBodyRot = this.jelly.getYRot();
-            }
-        }
-    }
-
 
     static class JellyRandomMovementGoal
             extends Goal {
