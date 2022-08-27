@@ -67,7 +67,7 @@ public abstract class VanillaSurfaceRulesMixin {
             ), SurfaceRules.sequence(SurfaceRules.ifTrue(
                     SurfaceRules.DEEP_UNDER_FLOOR, SurfaceRules.sequence(
                             SurfaceRules.ifTrue(
-                                    SurfaceRules.isBiome(Biomes.FLOWER_FOREST, Biomes.FOREST, Biomes.SAVANNA, Biomes.DARK_FOREST),
+                                    SurfaceRules.isBiome(Biomes.FLOWER_FOREST, Biomes.FOREST, Biomes.DARK_FOREST),
                                     SurfaceRules.ifTrue(
                                             SurfaceRules.yStartCheck(VerticalAnchor.absolute(58), 0),
                                             SurfaceRules.ifTrue(
@@ -80,7 +80,7 @@ public abstract class VanillaSurfaceRulesMixin {
             ), SurfaceRules.sequence(SurfaceRules.ifTrue(
                     SurfaceRules.DEEP_UNDER_FLOOR, SurfaceRules.sequence(
                             SurfaceRules.ifTrue(
-                                    SurfaceRules.isBiome(Biomes.JUNGLE, Biomes.SPARSE_JUNGLE, Biomes.BAMBOO_JUNGLE),
+                                    SurfaceRules.isBiome(Biomes.JUNGLE, Biomes.SPARSE_JUNGLE, Biomes.BAMBOO_JUNGLE, Biomes.SAVANNA),
                                     SurfaceRules.ifTrue(
                                             SurfaceRules.yStartCheck(VerticalAnchor.absolute(58), 0),
                                             SurfaceRules.ifTrue(

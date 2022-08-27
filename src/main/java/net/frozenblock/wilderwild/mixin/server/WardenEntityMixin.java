@@ -46,8 +46,8 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-@Mixin(Warden.class)
-public abstract class WardenEntityMixin extends Monster implements WilderWarden {
+@Mixin(value = Warden.class, priority = 69420)
+public class WardenEntityMixin extends Monster implements WilderWarden {
 
     private final Warden warden = Warden.class.cast(this);
 
@@ -74,13 +74,18 @@ public abstract class WardenEntityMixin extends Monster implements WilderWarden 
     }
 
     @Shadow
-    public abstract Brain<Warden> getBrain();
+    public Brain<Warden> getBrain() {
+        return null;
+    }
 
     @Shadow
-    protected abstract void clientDiggingParticles(AnimationState animationState);
+    private void clientDiggingParticles(AnimationState animationState) {
+    }
 
     @Shadow
-    protected abstract boolean isDiggingOrEmerging();
+    private boolean isDiggingOrEmerging() {
+        return false;
+    }
 
     protected WardenEntityMixin(EntityType<? extends Monster> entityType, Level world) {
         super(entityType, world);
@@ -110,7 +115,7 @@ public abstract class WardenEntityMixin extends Monster implements WilderWarden 
     private float leaningPitch;
     private float lastLeaningPitch;
 
-    private boolean swimming;
+    private boolean pogSwimming;
 
     @Inject(at = @At("RETURN"), method = "finalizeSpawn")
     public void finalizeSpawn(ServerLevelAccessor serverWorldAccess, DifficultyInstance localDifficulty, MobSpawnType spawnReason, @Nullable SpawnGroupData entityData, @Nullable CompoundTag nbtCompound, CallbackInfoReturnable<SpawnGroupData> info) {
@@ -208,7 +213,7 @@ public abstract class WardenEntityMixin extends Monster implements WilderWarden 
     }
 
     @Override
-    public void die(DamageSource damageSource) {
+    public void die(@NotNull DamageSource damageSource) {
         Warden warden = Warden.class.cast(this);
         super.die(damageSource);
         warden.getBrain().removeAllBehaviors();
@@ -244,11 +249,13 @@ public abstract class WardenEntityMixin extends Monster implements WilderWarden 
     @Inject(method = "addAdditionalSaveData", at = @At("TAIL"))
     public void addAdditionalSaveData(CompoundTag nbt, CallbackInfo info) {
         nbt.putInt("death_ticks", this.deathTicks);
+        nbt.putBoolean("pogSwimming", this.pogSwimming);
     }
 
     @Inject(method = "readAdditionalSaveData", at = @At("TAIL"))
     public void readAdditionalSaveData(CompoundTag nbt, CallbackInfo info) {
         this.deathTicks = nbt.getInt("death_ticks");
+        this.pogSwimming = nbt.getBoolean("pogSwimming");
     }
 
     private void updateSwimAmount() {
@@ -263,7 +270,7 @@ public abstract class WardenEntityMixin extends Monster implements WilderWarden 
 
     @Override
     public boolean isVisuallySwimming() {
-        return this.swimming || super.isVisuallySwimming();
+        return this.pogSwimming || super.isVisuallySwimming();
     }
 
     @Inject(method = "handleEntityEvent", at = @At("HEAD"), cancellable = true)
@@ -277,7 +284,6 @@ public abstract class WardenEntityMixin extends Monster implements WilderWarden 
     @Inject(at = @At("RETURN"), method = "createNavigation", cancellable = true)
     public void createNavigation(Level world, CallbackInfoReturnable<PathNavigation> info) {
         info.setReturnValue(new WardenNavigation(Warden.class.cast(this), world));
-        info.cancel();
     }
 
     @Override
@@ -293,10 +299,11 @@ public abstract class WardenEntityMixin extends Monster implements WilderWarden 
                     warden.setPose(Pose.STANDING);
                 }
             }
-            this.swimming = true;
+
+            this.pogSwimming = this.getFluidHeight(FluidTags.WATER) >= this.getEyeHeight(this.getPose()) * 0.75 || this.getFluidHeight(FluidTags.LAVA) >= this.getEyeHeight(this.getPose()) * 0.75;
         } else {
             super.travel(movementInput);
-            this.swimming = false;
+            this.pogSwimming = false;
         }
 
     }
@@ -307,7 +314,7 @@ public abstract class WardenEntityMixin extends Monster implements WilderWarden 
         wardenEntity.setPathfindingMalus(BlockPathTypes.WATER, 0.0F);
         wardenEntity.setPathfindingMalus(BlockPathTypes.POWDER_SNOW, -1.0F);
         wardenEntity.setPathfindingMalus(BlockPathTypes.DANGER_POWDER_SNOW, -1.0F);
-        this.moveControl = new WardenMoveControl(wardenEntity, 3.0F, 26.0F, 0.13F, 1.0F, true);
+        this.moveControl = new WardenMoveControl(wardenEntity, 0.1F, 60.0F, 0.13F, 1.0F, true);
     }
 
     @Override
@@ -338,8 +345,6 @@ public abstract class WardenEntityMixin extends Monster implements WilderWarden 
         this.fluidHeight.clear();
         warden.updateInWaterStateAndDoWaterCurrentPushing();
         boolean bl = warden.updateFluidHeightAndDoFluidPushing(FluidTags.LAVA, 0.1D);
-        this.refreshDimensions();
-        this.makeBoundingBox();
         return this.isTouchingWaterOrLava() || bl;
     }
 
@@ -357,11 +362,9 @@ public abstract class WardenEntityMixin extends Monster implements WilderWarden 
     public void getDimensions(Pose pose, CallbackInfoReturnable<EntityDimensions> info) {
         if (this.isVisuallySwimming()) {
             info.setReturnValue(EntityDimensions.scalable(warden.getType().getWidth(), 0.85F));
-            info.cancel();
         }
         if (deathTicks > 0) {
             info.setReturnValue(EntityDimensions.fixed(warden.getType().getWidth(), 0.35F));
-            info.cancel();
         }
     }
 }
