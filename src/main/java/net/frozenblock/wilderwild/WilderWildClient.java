@@ -354,7 +354,7 @@ public final class WilderWildClient implements ClientModInitializer {
                         .setOverlayState(RenderStateShard.OVERLAY)
                         .createCompositeState(affectsOutline);
                 return of(
-                        "ancient_horn_layer",
+                        "entity_translucent_emissive_fixed",
                         DefaultVertexFormat.NEW_ENTITY,
                         VertexFormat.Mode.QUADS,
                         256,
