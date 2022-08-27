@@ -11,6 +11,7 @@ import net.minecraft.data.worldgen.features.VegetationFeatures;
 import net.minecraft.data.worldgen.placement.PlacementUtils;
 import net.minecraft.util.valueproviders.ClampedInt;
 import net.minecraft.util.valueproviders.UniformInt;
+import net.minecraft.world.level.biome.Biomes;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraft.world.level.levelgen.blockpredicates.BlockPredicate;
@@ -43,11 +44,11 @@ public final class WilderPlacedFeatures {
             PlacementUtils.HEIGHTMAP, BiomeFilter.biome());
 
     public static final Holder<PlacedFeature> NEW_FALLEN_BIRCH_PLACED = register("new_fallen_birch_placed",
-            WilderTreeConfigured.NEW_FALLEN_BIRCH_TREE, RarityFilter.onAverageOnceEvery(5), InSquarePlacement.spread(),
+            WilderConfiguredFeatures.FALLEN_BIRCH, RarityFilter.onAverageOnceEvery(5), InSquarePlacement.spread(),
             PlacementUtils.HEIGHTMAP, BiomeFilter.biome());
 
     public static final Holder<PlacedFeature> FALLEN_SPRUCE_PLACED = register("fallen_spruce_placed",
-            WilderTreeConfigured.FALLEN_SPRUCE_TREE, RarityFilter.onAverageOnceEvery(5), InSquarePlacement.spread(),
+            WilderConfiguredFeatures.FALLEN_SPRUCE, RarityFilter.onAverageOnceEvery(5), InSquarePlacement.spread(),
             PlacementUtils.HEIGHTMAP, BiomeFilter.biome());
 
     //TREES
