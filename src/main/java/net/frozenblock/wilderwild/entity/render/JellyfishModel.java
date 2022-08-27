@@ -68,17 +68,14 @@ public class JellyfishModel<T extends Jellyfish> extends HierarchicalModel<T> {
         PartDefinition tentacle8 = tentacleRot.addOrReplaceChild("tentacle8", CubeListBuilder.create().texOffs(0, 13).addBox(-0.5F, 0.0F, 0.0F, 1.0F, 10.0F, 1.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(-2.5F, 2.0F, -2.5F, 0.0F, 0.7854F, 0.0F));
         return LayerDefinition.create(meshDefinition, 64, 64);
     }
-    @Override
-    public void setupAnim(@NotNull T jellyfish, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
-        this.root().getAllParts().forEach(ModelPart::resetPose);
-        for (ModelPart modelPart : this.tentacles) {
-            //modelPart.xRot = h;
-        }
+
+    public void render(PoseStack matrices, VertexConsumer vertices, int light, int overlay, float red, float green, float blue, float alpha, float tickDelta, Jellyfish jelly) {
+        this.bone.render(matrices, vertices, light, overlay, 1.0F, 1.0F, 1.0F, 1.0F);
     }
 
     @Override
-    public void renderToBuffer(@NotNull PoseStack poseStack, @NotNull VertexConsumer vertexConsumer, int i, int j, float f, float g, float h, float k) {
-        super.renderToBuffer(poseStack, vertexConsumer, i, j, f, g, h, k);
+    public void setupAnim(@NotNull T jellyfish, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
+
     }
 
     @Override
