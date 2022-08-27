@@ -23,6 +23,7 @@ import net.minecraft.world.entity.animal.Cat;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.ChestMenu;
 import net.minecraft.world.item.ItemStack;
@@ -78,6 +79,12 @@ public class StoneVaseBlock extends BaseEntityBlock implements SimpleWaterlogged
         return InteractionResult.FAIL;
     }
 
+    @Override
+    public void onProjectileHit(Level level, BlockState blockState, BlockHitResult blockHitResult, Projectile projectile) {
+        if (level.random.nextDouble() > 0.2) {
+            level.destroyBlock(blockHitResult.getBlockPos(), true);
+        }
+    }
 
     @Override
     public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
