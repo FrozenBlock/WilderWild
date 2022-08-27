@@ -69,7 +69,7 @@ public class Jellyfish extends AbstractFish {
 
     @Override
     protected void registerGoals() {
-        this.goalSelector.addGoal(0, new Jellyfish.JellySwimGoal(this));
+        this.goalSelector.addGoal(4, new Jellyfish.JellySwimGoal(this));
     }
 
     @Override
