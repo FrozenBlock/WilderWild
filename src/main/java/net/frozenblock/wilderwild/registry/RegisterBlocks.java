@@ -224,6 +224,7 @@ public final class RegisterBlocks {
 
     public static final Block TERMITE_MOUND = new TermiteMound(FabricBlockSettings.of(Material.WOOD, MaterialColor.COLOR_BROWN).strength(0.3F).sound(RegisterBlockSoundGroups.COARSEDIRT));
     public static final Block STONE_CHEST = new StoneChestBlock(FabricBlockSettings.copy(Blocks.CHEST).sound(SoundType.DEEPSLATE).strength(35.0f, 12.0f), () -> RegisterBlockEntities.STONE_CHEST);
+    public static final Block STONE_VASE = new StoneVaseBlock(FabricBlockSettings.copy(Blocks.CHEST).sound(SoundType.DEEPSLATE).strength(2.0f, 2.0f));
 
     // PLANTS
     public static final Block SEEDING_DANDELION = new SeedingDandelionBlock(MobEffects.SLOW_FALLING, 12, FabricBlockSettings.copy(Blocks.DANDELION).sound(SoundType.SPORE_BLOSSOM).strength(0.0F).noOcclusion());
@@ -242,8 +243,11 @@ public final class RegisterBlocks {
 
     public static final Block CATTAIL = new WaterloggableTallFlowerBlock(FabricBlockSettings.copy(Blocks.ROSE_BUSH).sound(SoundType.WET_GRASS).strength(0.0F).noOcclusion());
     public static final Block FLOWERING_LILY_PAD = new FloweringLilyPadBlock(FabricBlockSettings.copy(Blocks.LILY_PAD).sound(RegisterBlockSoundGroups.LILYPAD));
-
     public static final Block ALGAE = new AlgaeBlock(FabricBlockSettings.of(ALGAE_MATERIAL).instabreak().noOcclusion().noCollission().sound(SoundType.SLIME_BLOCK));
+
+    public static final Block POTTED_BIG_DRIPLEAF = new FlowerPotBlock(Blocks.BIG_DRIPLEAF, FabricBlockSettings.of(Material.DECORATION).instabreak().noOcclusion());
+    public static final Block POTTED_SMALL_DRIPLEAF = new FlowerPotBlock(Blocks.SMALL_DRIPLEAF, FabricBlockSettings.of(Material.DECORATION).instabreak().noOcclusion());
+    public static final Block POTTED_GRASS = new FlowerPotBlock(Blocks.GRASS, FabricBlockSettings.of(Material.DECORATION).instabreak().noOcclusion());
 
     public static void registerPlants() {
         registerBlock("seeding_dandelion", SEEDING_DANDELION, CreativeModeTab.TAB_DECORATIONS);
@@ -258,7 +262,9 @@ public final class RegisterBlocks {
         registerBlock("datura", DATURA, CreativeModeTab.TAB_DECORATIONS);
         registerBlock("milkweed", MILKWEED, CreativeModeTab.TAB_DECORATIONS);
         registerBlock("cattail", CATTAIL, CreativeModeTab.TAB_DECORATIONS);
-
+        registerBlockWithoutBlockItem("potted_big_dripleaf", POTTED_BIG_DRIPLEAF);
+        registerBlockWithoutBlockItem("potted_small_dripleaf", POTTED_SMALL_DRIPLEAF);
+        registerBlockWithoutBlockItem("potted_grass", POTTED_GRASS);
     }
 
     public static final Block BROWN_SHELF_FUNGUS = new ShelfFungusBlock(FabricBlockSettings.copyOf(Blocks.BROWN_MUSHROOM_BLOCK).luminance(1).collidable(false).noOcclusion().sound(RegisterBlockSoundGroups.MUSHROOM));
@@ -313,6 +319,7 @@ public final class RegisterBlocks {
         registerBlock("termite_mound", TERMITE_MOUND, CreativeModeTab.TAB_DECORATIONS);
         registerBlock("null_block", NULL_BLOCK, CreativeModeTab.TAB_DECORATIONS);
         registerBlock("stone_chest", STONE_CHEST, CreativeModeTab.TAB_DECORATIONS);
+        registerBlock("stone_vase", STONE_VASE, CreativeModeTab.TAB_DECORATIONS);
         registerBlock("display_lantern", DISPLAY_LANTERN, CreativeModeTab.TAB_DECORATIONS);
     }
 
@@ -321,15 +328,12 @@ public final class RegisterBlocks {
 
         registerOtherBB();
         registerWoods();
+        registerBlockProperties();
         registerHollowedLogs();
         registerDeepDark();
         registerPlants();
         registerNotSoPlants();
         registerMisc();
-
-        registerComposting();
-        registerFlammability();
-        registerFuels();
     }
 
     private static void registerBlockWithoutBlockItem(String name, Block block) {
@@ -352,10 +356,7 @@ public final class RegisterBlocks {
                 .strength(2.0F).sound(RegisterBlockSoundGroups.HOLLOWED_LOG));
     }
 
-    public static void addBaobab() {
-        StrippableBlockRegistry.register(BAOBAB_LOG, STRIPPED_BAOBAB_LOG);
-        StrippableBlockRegistry.register(BAOBAB_WOOD, STRIPPED_BAOBAB_WOOD);
-
+    public static void registerBlockProperties() {
         TermiteMoundBlockEntity.Termite.addDegradable(BAOBAB_LOG, HOLLOWED_BAOBAB_LOG);
         TermiteMoundBlockEntity.Termite.addDegradable(STRIPPED_BAOBAB_LOG, Blocks.AIR);
         TermiteMoundBlockEntity.Termite.addDegradable(BAOBAB_WOOD, STRIPPED_BAOBAB_WOOD);
@@ -363,15 +364,16 @@ public final class RegisterBlocks {
         TermiteMoundBlockEntity.Termite.addNaturalDegradable(BAOBAB_LOG, STRIPPED_BAOBAB_LOG);
         TermiteMoundBlockEntity.Termite.addNaturalDegradable(BAOBAB_WOOD, STRIPPED_BAOBAB_WOOD);
 
-        StrippableBlockRegistry.register(CYPRESS_LOG, STRIPPED_CYPRESS_LOG);
-        StrippableBlockRegistry.register(CYPRESS_WOOD, STRIPPED_CYPRESS_WOOD);
-
         TermiteMoundBlockEntity.Termite.addDegradable(CYPRESS_LOG, HOLLOWED_CYPRESS_LOG);
         TermiteMoundBlockEntity.Termite.addDegradable(STRIPPED_CYPRESS_LOG, Blocks.AIR);
         TermiteMoundBlockEntity.Termite.addDegradable(CYPRESS_WOOD, STRIPPED_CYPRESS_WOOD);
         TermiteMoundBlockEntity.Termite.addDegradable(STRIPPED_CYPRESS_WOOD, Blocks.AIR);
         TermiteMoundBlockEntity.Termite.addNaturalDegradable(CYPRESS_LOG, STRIPPED_CYPRESS_LOG);
         TermiteMoundBlockEntity.Termite.addNaturalDegradable(CYPRESS_WOOD, STRIPPED_CYPRESS_WOOD);
+        registerStrippable();
+        registerComposting();
+        registerFlammability();
+        registerFuels();
     }
 
     private static boolean never(BlockState state, BlockGetter world, BlockPos pos) {
@@ -384,6 +386,13 @@ public final class RegisterBlocks {
 
     private static Boolean canSpawnOnLeaves(BlockState state, BlockGetter world, BlockPos pos, EntityType<?> type) {
         return type == EntityType.OCELOT || type == EntityType.PARROT;
+    }
+
+    private static void registerStrippable() {
+        StrippableBlockRegistry.register(BAOBAB_LOG, STRIPPED_BAOBAB_LOG);
+        StrippableBlockRegistry.register(BAOBAB_WOOD, STRIPPED_BAOBAB_WOOD);
+        StrippableBlockRegistry.register(CYPRESS_LOG, STRIPPED_CYPRESS_LOG);
+        StrippableBlockRegistry.register(CYPRESS_WOOD, STRIPPED_CYPRESS_WOOD);
     }
 
     private static void registerComposting() {

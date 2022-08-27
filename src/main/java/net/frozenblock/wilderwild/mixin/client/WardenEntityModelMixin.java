@@ -6,7 +6,7 @@ import net.fabricmc.api.Environment;
 import net.frozenblock.wilderwild.entity.render.WilderWardenModel;
 import net.frozenblock.wilderwild.entity.render.animations.CustomWardenAnimations;
 import net.frozenblock.wilderwild.entity.render.animations.WilderWarden;
-import net.frozenblock.wilderwild.misc.config.ModMenuInteractionHandler;
+import net.frozenblock.wilderwild.misc.config.ClothConfigInteractionHandler;
 import net.minecraft.client.model.WardenModel;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.tags.FluidTags;
@@ -68,7 +68,7 @@ public abstract class WardenEntityModelMixin<T extends Warden> implements Wilder
             float cos = warden.getTendrilAnimation(tickDelta) * (float) (Math.cos((double) animationProgress * 2.25D) * 3.141592653589793D * 0.10000000149011612D);
             float sin = warden.getTendrilAnimation(tickDelta) * (float) (-Math.sin((double) animationProgress * 2.25D) * 3.141592653589793D * 0.12500000149011612D);
 
-        if (ModMenuInteractionHandler.customWardenTendrils()) {
+        if (ClothConfigInteractionHandler.customWardenTendrils()) {
             this.leftTendril.xRot = cos;
             this.rightTendril.xRot = cos;
 
@@ -90,7 +90,7 @@ public abstract class WardenEntityModelMixin<T extends Warden> implements Wilder
         boolean shouldMoveArms = !wardenEntity.hasPose(Pose.ROARING) && !wardenEntity.hasPose(Pose.EMERGING) && !wardenEntity.hasPose(Pose.DIGGING);
         boolean shouldMoveBody = !wardenEntity.hasPose(Pose.ROARING) && !wardenEntity.hasPose(Pose.EMERGING) && !wardenEntity.hasPose(Pose.DIGGING);
         boolean shouldMoveHead = !wardenEntity.hasPose(Pose.ROARING) && !wardenEntity.hasPose(Pose.EMERGING) && !wardenEntity.hasPose(Pose.DIGGING);
-        if (ModMenuInteractionHandler.wardenSwimAnimation()){
+        if (ClothConfigInteractionHandler.wardenSwimAnimation()){
             this.animateSwimming(wardenEntity, angle, distance, anim, headYaw, headPitch, shouldMoveArms, shouldMoveBody, shouldMoveHead, canSwim);
         }
         model.animate(((WilderWarden) wardenEntity).getDyingAnimationState(), CustomWardenAnimations.DYING, anim);

@@ -1,5 +1,7 @@
 package net.frozenblock.wilderwild;
 
+import com.mojang.blaze3d.vertex.DefaultVertexFormat;
+import com.mojang.blaze3d.vertex.VertexFormat;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
@@ -14,16 +16,19 @@ import net.frozenblock.lib.sound.FlyBySoundHub;
 import net.frozenblock.wilderwild.entity.AncientHornProjectile;
 import net.frozenblock.wilderwild.entity.render.*;
 import net.frozenblock.wilderwild.misc.CompetitionCounter;
-import net.frozenblock.wilderwild.misc.config.MMDistantInteractions;
+import net.frozenblock.wilderwild.misc.config.WilderWildClothConfig;
+import net.frozenblock.wilderwild.misc.config.WilderWildConfig;
 import net.frozenblock.wilderwild.particle.AncientHornParticle;
 import net.frozenblock.wilderwild.particle.FloatingSculkBubbleParticle;
 import net.frozenblock.wilderwild.particle.PollenParticle;
 import net.frozenblock.wilderwild.particle.TermiteParticle;
 import net.frozenblock.wilderwild.registry.*;
+import net.minecraft.Util;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.renderer.BiomeColors;
+import net.minecraft.client.renderer.RenderStateShard;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.Sheets;
 import net.minecraft.client.renderer.item.ItemProperties;
@@ -41,6 +46,7 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.phys.Vec3;
 
 import java.util.UUID;
+import java.util.function.BiFunction;
 
 public final class WilderWildClient implements ClientModInitializer {
     public static final ModelLayerLocation ANCIENT_HORN_PROJECTILE_LAYER = new ModelLayerLocation(WilderWild.id("ancient_horn_projectile"), "main");
@@ -49,6 +55,9 @@ public final class WilderWildClient implements ClientModInitializer {
     public static final ModelLayerLocation STONE_CHEST = new ModelLayerLocation(WilderWild.id("stone_chest"), "main");
     public static final ModelLayerLocation DOUBLE_STONE_CHEST_LEFT = new ModelLayerLocation(WilderWild.id("double_stone_chest_left"), "main");
     public static final ModelLayerLocation DOUBLE_STONE_CHEST_RIGHT = new ModelLayerLocation(WilderWild.id("double_stone_chest_right"), "main");
+    public static final ModelLayerLocation JELLYFISH = new ModelLayerLocation(WilderWild.id("jellyfish"), "main");
+
+    public static WilderWildConfig config = WilderWildClothConfig.init();
 
     @Override
     public void onInitializeClient() {
@@ -59,6 +68,9 @@ public final class WilderWildClient implements ClientModInitializer {
         BlockRenderLayerMap.INSTANCE.putBlock(RegisterBlocks.POTTED_SEEDING_DANDELION, RenderType.cutout());
         BlockRenderLayerMap.INSTANCE.putBlock(RegisterBlocks.POTTED_BAOBAB_NUT, RenderType.cutout());
         BlockRenderLayerMap.INSTANCE.putBlock(RegisterBlocks.POTTED_CYPRESS_SAPLING, RenderType.cutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(RegisterBlocks.POTTED_BIG_DRIPLEAF, RenderType.cutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(RegisterBlocks.POTTED_SMALL_DRIPLEAF, RenderType.cutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(RegisterBlocks.POTTED_GRASS, RenderType.cutout());
         BlockRenderLayerMap.INSTANCE.putBlock(RegisterBlocks.DATURA, RenderType.cutout());
         BlockRenderLayerMap.INSTANCE.putBlock(RegisterBlocks.CATTAIL, RenderType.cutout());
         BlockRenderLayerMap.INSTANCE.putBlock(RegisterBlocks.ALGAE, RenderType.cutout());
@@ -134,6 +146,8 @@ public final class WilderWildClient implements ClientModInitializer {
         EntityRendererRegistry.register(RegisterEntities.FIREFLY, FireflyRenderer::new);
         EntityRendererRegistry.register(RegisterEntities.ANCIENT_HORN_PROJECTILE_ENTITY, AncientHornProjectileRenderer::new);
         EntityModelLayerRegistry.registerModelLayer(ANCIENT_HORN_PROJECTILE_LAYER, AncientHornProjectileModel::getTexturedModelData);
+        EntityRendererRegistry.register(RegisterEntities.JELLYFISH, JellyfishRenderer::new);
+        EntityModelLayerRegistry.registerModelLayer(JELLYFISH, JellyfishModel::getTexturedModelData);
 
         BlockEntityRendererRegistry.register(BlockEntityType.SCULK_SENSOR, SculkSensorBlockEntityRenderer::new);
         EntityModelLayerRegistry.registerModelLayer(SCULK_SENSOR, SculkSensorBlockEntityRenderer::getTexturedModelData);
@@ -178,11 +192,10 @@ public final class WilderWildClient implements ClientModInitializer {
             assert world != null;
             return BiomeColors.getAverageFoliageColor(world, pos);
         }), RegisterBlocks.CYPRESS_LEAVES);
-
-        if (WilderWild.hasModMenu()) {
-            MMDistantInteractions.loadConfig();
-            WilderWild.RENDER_TENDRILS = MMDistantInteractions.tendrilsEnabled();
-        }
+        ColorProviderRegistry.BLOCK.register(((state, world, pos, tintIndex) -> {
+            assert world != null;
+            return BiomeColors.getAverageFoliageColor(world, pos);
+        }), RegisterBlocks.POTTED_GRASS);
     }
 
     public static void requestBlockEntitySync(BlockPos pos, Level world) {
@@ -330,4 +343,37 @@ public final class WilderWildClient implements ClientModInitializer {
         });
     }
 
+    public static final BiFunction<ResourceLocation, Boolean, RenderType> ENTITY_TRANSLUCENT_EMISSIVE_FIXED = Util.memoize(
+            ((identifier, affectsOutline) -> {
+                RenderType.CompositeState multiPhaseParameters = RenderType.CompositeState.builder()
+                        .setShaderState(RenderStateShard.RENDERTYPE_ENTITY_TRANSLUCENT_EMISSIVE_SHADER)
+                        .setTextureState(new RenderStateShard.TextureStateShard(identifier, false, false))
+                        .setTransparencyState(RenderStateShard.TRANSLUCENT_TRANSPARENCY)
+                        .setCullState(RenderStateShard.NO_CULL)
+                        .setWriteMaskState(RenderStateShard.COLOR_DEPTH_WRITE)
+                        .setOverlayState(RenderStateShard.OVERLAY)
+                        .createCompositeState(affectsOutline);
+                return of(
+                        "entity_translucent_emissive_fixed",
+                        DefaultVertexFormat.NEW_ENTITY,
+                        VertexFormat.Mode.QUADS,
+                        256,
+                        true,
+                        true,
+                        multiPhaseParameters
+                );
+            })
+    );
+
+    public static RenderType.CompositeRenderType of(
+            String name,
+            VertexFormat vertexFormat,
+            VertexFormat.Mode drawMode,
+            int expectedBufferSize,
+            boolean hasCrumbling,
+            boolean translucent,
+            RenderType.CompositeState phases
+    ) {
+        return new RenderType.CompositeRenderType(name, vertexFormat, drawMode, expectedBufferSize, hasCrumbling, translucent, phases);
+    }
 }

@@ -1,10 +1,10 @@
 {
   "parent": "minecraft:block/template_potted_azalea_bush",
   "textures": {
-	"0": "block/potted_dripleaf",
+	"0": "wilderwild:block/potted_small_dripleaf",
 	"1": "block/flower_pot",
-	"2": "block/dirt",
-	"particle": "block/potted_dripleaf"
+	"2": "block/clay",
+	"particle": "wilderwild:block/potted_small_dripleaf"
   },
   "elements": [
 	{

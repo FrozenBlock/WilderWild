@@ -83,7 +83,6 @@ public final class WilderWild implements ModInitializer {
         applyDataFixes(FabricLoader.getInstance().getModContainer(MOD_ID).orElseThrow());
 
         RegisterBlocks.registerBlocks();
-        RegisterBlocks.addBaobab();
         RegisterItems.registerItems();
         WilderConfiguredFeatures.registerConfiguredFeatures();
         WilderTreeConfigured.registerTreeConfigured();
@@ -183,8 +182,8 @@ public final class WilderWild implements ModInitializer {
         return FabricLoader.getInstance().getModContainer("copper_pipe").isPresent();
     }
 
-    public static boolean hasModMenu() {
-        return FabricLoader.getInstance().getModContainer("modmenu").isPresent();
+    public static boolean hasClothConfig() {
+        return FabricLoader.getInstance().getModContainer("cloth-config").isPresent();
     }
 
     public static boolean isCopperPipe(BlockState state) {
