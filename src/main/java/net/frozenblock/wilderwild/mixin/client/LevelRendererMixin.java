@@ -7,8 +7,9 @@ import net.frozenblock.wilderwild.registry.RegisterSounds;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.renderer.LevelRenderer;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.particles.ShriekParticleOption;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.tags.FluidTags;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.SculkShriekerBlock;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import org.jetbrains.annotations.Nullable;
@@ -25,28 +26,22 @@ public class LevelRendererMixin {
     @Shadow
     private @Nullable ClientLevel level;
 
-    @Inject(method = "globalLevelEvent", at = @At("HEAD"), cancellable = true)
-    private void globalLevelEvent(int eventId, BlockPos blockPos, int data, CallbackInfo ci) {
-        if (eventId == 3007 && ModMenuInteractionHandler.shriekerGargling()) {
+    @Inject(method = "levelEvent", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/multiplayer/ClientLevel;playLocalSound(DDDLnet/minecraft/sounds/SoundEvent;Lnet/minecraft/sounds/SoundSource;FFZ)V", ordinal = 0), cancellable = true)
+    private void levelEvent(int eventId, BlockPos pos, int data, CallbackInfo ci) {
+        if (ModMenuInteractionHandler.shriekerGargling()) {
             assert this.level != null;
-            if (this.level.getBlockState(blockPos).getValue(BlockStateProperties.WATERLOGGED)) {
+            if (this.level.getBlockState(pos).getValue(BlockStateProperties.WATERLOGGED) || this.level.getBlockState(pos.above()).getBlock() == Blocks.WATER || this.level.getFluidState(pos.above()).is(FluidTags.WATER)) {
                 this.level
                         .playLocalSound(
-                                (double) blockPos.getX() + 0.5D,
-                                (double) blockPos.getY() + SculkShriekerBlock.TOP_Y,
-                                (double) blockPos.getZ() + 0.5D,
+                                (double) pos.getX() + 0.5D,
+                                (double) pos.getY() + SculkShriekerBlock.TOP_Y,
+                                (double) pos.getZ() + 0.5D,
                                 RegisterSounds.BLOCK_SCULK_SHRIEKER_GARGLE,
                                 SoundSource.BLOCKS,
                                 2.0F,
                                 0.6F + this.level.random.nextFloat() * 0.4F,
                                 false
                         );
-                for (int l = 0; l < 10; ++l) {
-                    this.level
-                            .addParticle(
-                                    new ShriekParticleOption(l * 5), false, (double) blockPos.getX() + 0.5, (double) blockPos.getY() + SculkShriekerBlock.TOP_Y, (double) blockPos.getZ() + 0.5, 0.0, 0.0, 0.0
-                            );
-                }
                 ci.cancel();
             }
         }

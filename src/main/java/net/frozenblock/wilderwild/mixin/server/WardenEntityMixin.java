@@ -37,6 +37,7 @@ import net.minecraft.world.level.gameevent.GameEventListener;
 import net.minecraft.world.level.material.Fluid;
 import net.minecraft.world.level.pathfinder.BlockPathTypes;
 import net.minecraft.world.phys.Vec3;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -108,6 +109,8 @@ public abstract class WardenEntityMixin extends Monster implements WilderWarden 
 
     private float leaningPitch;
     private float lastLeaningPitch;
+
+    private boolean swimming;
 
     @Inject(at = @At("RETURN"), method = "finalizeSpawn")
     public void finalizeSpawn(ServerLevelAccessor serverWorldAccess, DifficultyInstance localDifficulty, MobSpawnType spawnReason, @Nullable SpawnGroupData entityData, @Nullable CompoundTag nbtCompound, CallbackInfoReturnable<SpawnGroupData> info) {
@@ -257,6 +260,11 @@ public abstract class WardenEntityMixin extends Monster implements WilderWarden 
 
     }
 
+    @Override
+    public boolean isVisuallySwimming() {
+        return this.swimming || super.isVisuallySwimming();
+    }
+
     @Inject(method = "handleEntityEvent", at = @At("HEAD"), cancellable = true)
     private void handleEntityEvent(byte status, CallbackInfo ci) {
         if (status == (byte) 69420) {
@@ -272,19 +280,22 @@ public abstract class WardenEntityMixin extends Monster implements WilderWarden 
     }
 
     @Override
-    public void travel(Vec3 movementInput) {
+    public void travel(@NotNull Vec3 movementInput) {
         if (this.isEffectiveAi() && this.isTouchingWaterOrLava()) {
             this.moveRelative(this.getSpeed(), movementInput);
             this.move(MoverType.SELF, this.getDeltaMovement());
             this.setDeltaMovement(this.getDeltaMovement().scale(0.9));
-            if (this.isSubmergedInWaterOrLava() && this.getSpeed() > 0F) {
-                warden.setPose(Pose.SWIMMING);
+            if (!this.isDiggingOrEmerging() && !warden.hasPose(Pose.SNIFFING) && !warden.hasPose(Pose.DYING) && !warden.hasPose(Pose.ROARING)) {
+                if (this.isSubmergedInWaterOrLava()) {
+                    warden.setPose(Pose.SWIMMING);
+                } else {
+                    warden.setPose(Pose.STANDING);
+                }
             }
+            this.swimming = true;
         } else {
             super.travel(movementInput);
-            if (!this.isSubmergedInWaterOrLava() && this.getSpeed() <= 0F && !this.isDiggingOrEmerging() && !warden.hasPose(Pose.SNIFFING) && !warden.hasPose(Pose.DYING) && !warden.hasPose(Pose.ROARING)) {
-                warden.setPose(Pose.STANDING);
-            }
+            this.swimming = false;
         }
 
     }

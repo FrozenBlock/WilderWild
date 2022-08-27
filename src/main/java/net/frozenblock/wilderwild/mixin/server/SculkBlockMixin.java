@@ -26,17 +26,13 @@ import java.util.Iterator;
 public class SculkBlockMixin {
 
     @Shadow
-    private static int getDecayPenalty(SculkSpreader spreadManager, BlockPos cursorPos, BlockPos catalystPos, int charge) {
-        int i = spreadManager.noGrowthRadius();
-        float f = Mth.square((float) Math.sqrt(cursorPos.distSqr(catalystPos)) - (float) i);
-        int j = Mth.square(24 - i);
-        float g = Math.min(1.0F, f / (float) j);
-        return Math.max(1, (int) ((float) charge * g * 0.5F));
+    private static boolean canPlaceGrowth(LevelAccessor world, BlockPos pos) {
+        return false;
     }
 
     @Shadow
-    private static boolean canPlaceGrowth(LevelAccessor world, BlockPos pos) {
-        return false;
+    private BlockState getRandomGrowthState(LevelAccessor world, BlockPos pos, RandomSource random, boolean randomize) {
+        return null;
     }
 
     private static final int HEIGHT_MULTIPLIER = 20; //The higher, the less short pillars you'll see.
@@ -177,40 +173,35 @@ public class SculkBlockMixin {
         return EasyNoiseSampler.sample(EasyNoiseSampler.perlinXoro, pos, OSSEOUS_SCULK_AREA_SIZE, true, true) > OSSEOUS_SCULK_THRESHOLD;
     }
 
-    private BlockState getRandomGrowthState(LevelAccessor world, BlockPos pos, BlockPos cursorPos, RandomSource random, boolean allowShrieker) {
+    private BlockState getRandomGrowthState(LevelAccessor world, BlockPos pos, BlockPos cursorPos, RandomSource randomSource, boolean allowShrieker) {
         BlockState blockState = Blocks.SCULK_SENSOR.defaultBlockState();
-        boolean decided = false;
-        if (random.nextInt(11) == 0) {
-            blockState = Blocks.SCULK_SHRIEKER.defaultBlockState().setValue(SculkShriekerBlock.CAN_SUMMON, allowShrieker);
-            decided = true;
-        }
         if (canPlaceOsseousSculk(pos, allowShrieker, world) && blockState.is(Blocks.SCULK_SENSOR)) {
             int pillarHeight = (int) Mth.clamp(EasyNoiseSampler.samplePositive(EasyNoiseSampler.perlinXoro, pos, RANDOMNESS, false, false) * HEIGHT_MULTIPLIER, 2, MAX_HEIGHT);
             blockState = RegisterBlocks.OSSEOUS_SCULK.defaultBlockState().setValue(OsseousSculkBlock.HEIGHT_LEFT, pillarHeight).setValue(OsseousSculkBlock.TOTAL_HEIGHT, pillarHeight + 1);
-            decided = true;
+            return blockState.hasProperty(BlockStateProperties.WATERLOGGED) && !world.getFluidState(pos).isEmpty() ? blockState.setValue(BlockStateProperties.WATERLOGGED, true) : blockState;
         }
-        return blockState.hasProperty(BlockStateProperties.WATERLOGGED) && !world.getFluidState(pos).isEmpty() ? blockState.setValue(BlockStateProperties.WATERLOGGED, true) : blockState;
+        return getRandomGrowthState(world, pos, randomSource, allowShrieker);
     }
 
 
     private static boolean canPlaceGrowth(LevelAccessor world, BlockPos pos, boolean isWorldGen) {
         BlockState blockState = world.getBlockState(pos.above());
         BlockState blockState1 = world.getBlockState(pos.below());
-        if (((isWorldGen || canPlaceOsseousSculk(pos, isWorldGen, world)) && ((blockState1.isAir()) || (blockState1.is(Blocks.WATER) && blockState1.getFluidState().is(Fluids.WATER))))) {
+        if ((isWorldGen || canPlaceOsseousSculk(pos, isWorldGen, world)) && ((blockState1.isAir()) || (blockState1.is(Blocks.WATER) && blockState1.getFluidState().is(Fluids.WATER)))) {
             int i = 0;
-            Iterator<BlockPos> var4 = BlockPos.betweenClosed(pos.offset(-4, 0, -4), pos.offset(4, 2, 4)).iterator();
 
-            do {
-                if (!var4.hasNext()) {
-                    return true;
-                }
-
-                BlockPos blockPos = var4.next();
-                net.minecraft.world.level.block.state.BlockState blockState2 = world.getBlockState(blockPos);
+            for(BlockPos blockPos2 : BlockPos.betweenClosed(pos.offset(-4, 0, -4), pos.offset(4, 2, 4))) {
+                BlockState blockState2 = world.getBlockState(blockPos2);
                 if (blockState2.is(Blocks.SCULK_SENSOR) || blockState2.is(Blocks.SCULK_SHRIEKER)) {
                     ++i;
                 }
-            } while (i <= 2);
+
+                if (i > 2) {
+                    return false;
+                }
+            }
+
+            return true;
 
         }
         return canPlaceGrowth(world, pos);
