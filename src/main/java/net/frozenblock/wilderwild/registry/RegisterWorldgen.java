@@ -94,6 +94,7 @@ public final class RegisterWorldgen {
 
     public static Biome jellyfishCaves() {
         MobSpawnSettings.Builder builder = new MobSpawnSettings.Builder();
+        builder.addSpawn(MobCategory.UNDERGROUND_WATER_CREATURE, new MobSpawnSettings.SpawnerData(RegisterEntities.JELLYFISH, 15, 4, 6));
         BiomeGenerationSettings.Builder builder2 = new BiomeGenerationSettings.Builder();
         builder2.addCarver(GenerationStep.Carving.AIR, Carvers.CAVE);
         builder2.addCarver(GenerationStep.Carving.AIR, Carvers.CAVE_EXTRA_UNDERGROUND);
