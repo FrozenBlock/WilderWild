@@ -1,5 +1,6 @@
 package net.frozenblock.wilderwild.entity;
 
+import net.frozenblock.wilderwild.registry.RegisterSounds;
 import net.frozenblock.wilderwild.registry.RegisterWorldgen;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleOptions;
@@ -123,6 +124,13 @@ public class Jellyfish extends AbstractFish {
         this.setMovingUp(nbt.getBoolean("movingUp"));
     }
 
+    protected void defineSynchedData() {
+        super.defineSynchedData();
+        this.entityData.define(MOVING_UP, false);
+        this.entityData.define(TENTACLE_ANGLE, 0F);
+        this.entityData.define(PREV_TENTACLE_ANGLE, 0F);
+    }
+
     @Override
     protected void registerGoals() {
         this.goalSelector.addGoal(0, new Jellyfish.JellyUpDownGoal(this));
@@ -136,21 +144,26 @@ public class Jellyfish extends AbstractFish {
 
     @Override
     protected SoundEvent getAmbientSound() {
-        return SoundEvents.SQUID_AMBIENT;
+        return RegisterSounds.ENTITY_JELLYFISH_AMBIENT;
     }
 
     @Override
     protected SoundEvent getHurtSound(@NotNull DamageSource damageSource) {
-        return SoundEvents.SQUID_HURT;
+        return RegisterSounds.ENTITY_JELLYFISH_HURT;
     }
 
     @Override
     protected SoundEvent getDeathSound() {
-        return SoundEvents.SQUID_DEATH;
+        return RegisterSounds.ENTITY_JELLYFISH_HURT;
     }
 
     protected SoundEvent getSquirtSound() {
         return SoundEvents.SQUID_SQUIRT;
+    }
+
+    @Override
+    protected SoundEvent getSwimSound() {
+        return RegisterSounds.ENTITY_JELLYFISH_SWIM;
     }
 
     @Override
@@ -306,7 +319,7 @@ public class Jellyfish extends AbstractFish {
         @Override
         public void tick() {
             int i = this.jelly.getNoActionTime();
-            if (i > 100) {
+            if (i > 40) {
                 boolean up = jelly.random.nextBoolean();
                 this.jelly.setMovementVector(jelly.tx, (up ? 1 : -1) * (this.jelly.getRandom().nextFloat() * 0.1f), jelly.tz);
                 this.jelly.setMovingUp(up);
@@ -329,8 +342,8 @@ public class Jellyfish extends AbstractFish {
         @Override
         public void tick() {
             int i = this.jelly.getNoActionTime();
-            if (i < 100) {
-                if (this.jelly.getRandom().nextInt(Jellyfish.JellyRandomMovementGoal.reducedTickDelay(50)) == 0 || !this.jelly.wasTouchingWater) {
+            if (i < 40) {
+                if (this.jelly.getRandom().nextInt(Jellyfish.JellyRandomMovementGoal.reducedTickDelay(50)) == 0 || !this.jelly.wasTouchingWater  || !this.jelly.hasMovementVector()) {
                     float f = this.jelly.getRandom().nextFloat() * ((float)Math.PI * 2);
                     float g = Mth.cos(f) * 0.1f;
                     float h = -0.1f + this.jelly.getRandom().nextFloat() * 0.2f;
