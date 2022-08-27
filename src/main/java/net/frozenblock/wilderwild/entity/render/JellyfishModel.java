@@ -62,8 +62,8 @@ public class JellyfishModel<T extends Jellyfish> extends HierarchicalModel<T> {
     }
 
     @Override
-    public void renderToBuffer(PoseStack poseStack, VertexConsumer vertexConsumer, int i, int j, float f, float g, float h, float k) {
-        this.root().render(poseStack, vertexConsumer, i, j, f, g, h, k);
+    public void renderToBuffer(@NotNull PoseStack poseStack, @NotNull VertexConsumer vertexConsumer, int i, int j, float f, float g, float h, float k) {
+        super.renderToBuffer(poseStack, vertexConsumer, i, j, f, g, h, k);
     }
 
     @Override
