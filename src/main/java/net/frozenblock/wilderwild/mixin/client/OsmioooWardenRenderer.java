@@ -3,7 +3,7 @@ package net.frozenblock.wilderwild.mixin.client;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.frozenblock.wilderwild.WilderWild;
-import net.frozenblock.wilderwild.entity.render.OsmioooWardenFeatureRenderer;
+import net.frozenblock.wilderwild.entity.render.feature.OsmioooWardenFeatureRenderer;
 import net.frozenblock.wilderwild.entity.render.WilderWardenModel;
 import net.frozenblock.wilderwild.entity.render.animations.WilderWarden;
 import net.minecraft.client.model.WardenModel;
