@@ -30,8 +30,8 @@ public class JellyfishRenderer extends MobRenderer<Jellyfish, JellyfishModel<Jel
     public void setupRotations(Jellyfish jelly, PoseStack poseStack, float f, float g, float h) {
         this.getModel().rotX = Mth.lerp(h, jelly.prevXRots.get(0), jelly.xBodyRot);
         this.getModel().rotZ = Mth.lerp(h, jelly.prevZRots.get(0), jelly.zBodyRot);
-        this.getModel().tentRotX = Mth.lerp(h, jelly.prevXRots.get(10), jelly.xBodyRot);
-        this.getModel().tentRotZ = Mth.lerp(h, jelly.prevZRots.get(10), jelly.zBodyRot);
+        this.getModel().tentRotX = Mth.lerp(h, jelly.prevXRots.get(9), jelly.xBodyRot);
+        this.getModel().tentRotZ = Mth.lerp(h, jelly.prevZRots.get(9), jelly.zBodyRot);
         this.getModel().whateverGIs = g;
         poseStack.translate(0.0, 0.5, 0.0);
         poseStack.translate(0.0, -1.2f, 0.0);

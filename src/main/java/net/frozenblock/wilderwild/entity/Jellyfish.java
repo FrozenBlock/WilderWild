@@ -133,25 +133,14 @@ public class Jellyfish extends AbstractFish {
                 this.prevXRots.add(0F);
             }
         }
-        for (int index = 10; index > -1; index--) {
-            if (index == 0) {
-                this.prevXRots.set(0, this.xBodyRot);
-            } else {
-                this.prevXRots.set(index, this.prevXRots.get(index - 1));
-            }
+        for (int index = 9; index > 0; index--) {
+            this.prevXRots.set(index, this.prevXRots.get(index - 1));
         }
-        if (this.prevZRots.isEmpty()) {
-            for (int index = 0; index < 10; index++) {
-                this.prevZRots.add(0F);
-            }
+        this.prevXRots.set(0, this.xBodyRot);
+        for (int index = 9; index > 0; index--) {
+            this.prevZRots.set(index, this.prevZRots.get(index - 1));
         }
-        for (int index = 10; index > -1; index--) {
-            if (index == 0) {
-                this.prevZRots.set(0, this.zBodyRot);
-            } else {
-                this.prevZRots.set(index, this.prevZRots.get(index - 1));
-            }
-        }
+        this.prevZRots.set(0, this.zBodyRot);
         this.oldTentacleMovement = this.tentacleMovement;
         this.oldTentacleAngle = this.tentacleAngle;
         this.tentacleMovement += this.tentacleSpeed;
