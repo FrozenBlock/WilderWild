@@ -16,8 +16,8 @@ import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
 public class PricklyPearCactusBlock extends BushBlock implements BonemealableBlock {
-    protected static final VoxelShape COLLISION_SHAPE;
-    protected static final VoxelShape OUTLINE_SHAPE;
+    protected static final VoxelShape COLLISION_SHAPE = Block.box(1.0D, 0.0D, 1.0D, 15.0D, 15.0D, 15.0D);
+    protected static final VoxelShape OUTLINE_SHAPE = Block.box(1.0D, 0.0D, 1.0D, 15.0D, 16.0D, 15.0D);
 
     public PricklyPearCactusBlock(Properties properties) {
         super(properties);
@@ -57,10 +57,5 @@ public class PricklyPearCactusBlock extends BushBlock implements BonemealableBlo
     @Override
     public void performBonemeal(ServerLevel serverLevel, RandomSource randomSource, BlockPos blockPos, BlockState blockState) {
 
-    }
-
-    static {
-        COLLISION_SHAPE = Block.box(1.0D, 0.0D, 1.0D, 15.0D, 15.0D, 15.0D);
-        OUTLINE_SHAPE = Block.box(1.0D, 0.0D, 1.0D, 15.0D, 16.0D, 15.0D);
     }
 }
