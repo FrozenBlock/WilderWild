@@ -33,7 +33,7 @@ jobs:
         if: ${{ runner.os != 'Windows' }}
         run: chmod +x ./gradlew
       - name: Build
-        run: ./gradlew build
+        run: ./gradlew build -PuseThirdPartyMods=false
       #- name: Capture Build Artifacts
       #  uses: actions/upload-artifact@v3
       #  with:
