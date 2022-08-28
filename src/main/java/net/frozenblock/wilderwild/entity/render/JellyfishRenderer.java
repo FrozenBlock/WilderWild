@@ -38,7 +38,12 @@ public class JellyfishRenderer extends MobRenderer<Jellyfish, JellyfishModel<Jel
 
     @Override
     protected float getBob(Jellyfish jelly, float f) {
-        return 0F;
+        if (jelly.getPushingTicks() > 0) {
+           return Mth.lerp(f, jelly.getPrevPushingTicks(), jelly.getPushingTicks());
+        } else {
+            float lerpedInhale = Mth.lerp(f, jelly.getPrevInhaleTicks(), jelly.getInhaleTicks());
+            return lerpedInhale / jelly.getInhaleLength();
+        }
         //TODO: JELLYFISH TENTACLE MOVEMENT BASED ON PUSH AND INHALE TICKS
         //return Mth.lerp(f, jelly.getPrevTentacleAngle(), jelly.getTentacleAngle());
     }
