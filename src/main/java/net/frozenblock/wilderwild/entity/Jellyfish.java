@@ -11,6 +11,7 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -34,6 +35,16 @@ public class Jellyfish extends AbstractFish {
     public float xBodyRotO;
     public float zBodyRot;
     public float zBodyRotO;
+    public float tentacleMovement;
+    public float oldTentacleMovement;
+    public float tentacleAngle;
+    public float oldTentacleAngle;
+    private float speed;
+    private float tentacleSpeed;
+    private float rotateSpeed;
+    private float tx;
+    private float ty;
+    private float tz;
 
     public Jellyfish(EntityType<? extends Jellyfish> entityType, Level level) {
         super(entityType, level);
@@ -115,7 +126,37 @@ public class Jellyfish extends AbstractFish {
         return 0.4F;
     }
 
-
+    @Override
+    public void aiStep() {
+        super.aiStep();
+        this.xBodyRotO = this.xBodyRot;
+        this.zBodyRotO = this.zBodyRot;
+        if (this.isInWaterOrBubble()) {
+            if (this.tentacleMovement < (float) Math.PI) {
+                float f = this.tentacleMovement / (float) Math.PI;
+                this.tentacleAngle = Mth.sin(f * f * (float) Math.PI) * (float) Math.PI * 0.25f;
+                if ((double) f > 0.75) {
+                    this.speed = 1.0f;
+                    this.rotateSpeed = 1.0f;
+                } else {
+                    this.rotateSpeed *= 0.8f;
+                }
+            } else {
+                this.tentacleAngle = 0.0f;
+                this.speed *= 0.9f;
+                this.rotateSpeed *= 0.99f;
+            }
+            Vec3 vec3 = this.getDeltaMovement();
+            double d = vec3.horizontalDistance();
+            this.yBodyRot += (-((float) Mth.atan2(vec3.x, vec3.z)) * 57.295776f - this.yBodyRot) * 0.1f;
+            this.setYRot(this.yBodyRot);
+            this.zBodyRot += (float) Math.PI * this.rotateSpeed * 1.5f;
+            this.xBodyRot += (-((float) Mth.atan2(d, vec3.y)) * 57.295776f - this.xBodyRot) * 0.1f;
+        } else {
+            this.tentacleAngle = Mth.abs(Mth.sin(this.tentacleMovement)) * (float) Math.PI * 0.25f;
+            this.xBodyRot += (-90.0f - this.xBodyRot) * 0.02f;
+        }
+    }
 
     @Override
     protected SoundEvent getFlopSound() {
