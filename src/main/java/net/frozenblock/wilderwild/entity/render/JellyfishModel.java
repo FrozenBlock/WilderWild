@@ -125,10 +125,10 @@ public class JellyfishModel<T extends Jellyfish> extends HierarchicalModel<T> {
         this.tentacle6.xRot = cosTentacle;
         this.tentacle8.xRot = cosTentacle;
 
-        float xZScale = (-cos + 2F) * 0.5F;
+        float xZScale = (-(cos * 1.5F) + 2F) * 0.5F;
         this.body.xScale = xZScale;
         this.body.zScale = xZScale;
-        float yCos = cos + 2F;
+        float yCos = cos + 1.5F;
         this.body.yScale = yCos;
         this.body.y = -14F - (yCos + yCos);
     }
