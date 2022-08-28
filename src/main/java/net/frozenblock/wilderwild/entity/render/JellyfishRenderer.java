@@ -38,7 +38,7 @@ public class JellyfishRenderer extends MobRenderer<Jellyfish, JellyfishModel<Jel
 
     @Override
     protected float getBob(Jellyfish jelly, float f) {
-        return Mth.lerp(f, jelly.oldTentacleAngle, jelly.tentacleAngle);
+        return Mth.lerp(f, jelly.getPrevTentacleAngle(), jelly.getTentacleAngle());
     }
 
     @Override

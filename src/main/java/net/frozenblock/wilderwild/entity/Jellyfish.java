@@ -286,6 +286,8 @@ public class Jellyfish extends AbstractFish {
         super.tick();
         this.setPrevTentacleAngle(this.getTentacleAngle());
         this.setPrevTentacleOffset(this.getTentacleOffset());
+        --this.cooldownPushTicks;
+        this.setTentacleAngle((float) new Vec3(this.tx, this.ty, this.tz).length());
     }
 
     @Override
@@ -375,15 +377,12 @@ public class Jellyfish extends AbstractFish {
             Vec3 target = this.jelly.target;
             if (target != null) {
                 if (this.jelly.cooldownPushTicks <= 0) {
-                    float f = this.jelly.getRandom().nextFloat() * ((float) Math.PI * 2);
-                    float g = Mth.cos(f) * 0.1f;
-                    float h = -0.1f + this.jelly.getRandom().nextFloat() * 0.2f;
-                    float j = Mth.sin(f) * 0.1f;
-                    this.jelly.setMovingUp(h >= 0);
-                    float toX = (float) (Mth.clamp(target.x - this.jelly.position().x, -0.4, 0.4));
-                    float toY = (float) (Mth.clamp(target.y - this.jelly.position().y, -0.4, 0.4));
-                    float toZ = (float) (Mth.clamp(target.z - this.jelly.position().z, -0.4, 0.4));
+                    float toX = (float) (Mth.clamp(target.x - this.jelly.position().x, -0.2, 0.2));
+                    float toY = (float) (Mth.clamp(target.y - this.jelly.position().y, -0.05, 0.2));
+                    float toZ = (float) (Mth.clamp(target.z - this.jelly.position().z, -0.2, 0.2));
                     this.jelly.setMovementVector(toX, toY, toZ);
+                    this.jelly.setMovingUp(toY >= 0);
+                    this.jelly.cooldownPushTicks = 15;
                 }
             }
         }

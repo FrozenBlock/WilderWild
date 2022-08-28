@@ -75,7 +75,9 @@ public class JellyfishModel<T extends Jellyfish> extends HierarchicalModel<T> {
 
     @Override
     public void setupAnim(@NotNull T jellyfish, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
-
+        for (ModelPart modelPart : this.tentacles) {
+            modelPart.xRot = ageInTicks;
+        }
     }
 
     @Override
