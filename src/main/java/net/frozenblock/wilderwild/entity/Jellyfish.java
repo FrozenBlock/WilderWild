@@ -57,6 +57,7 @@ public class Jellyfish extends AbstractFish {
     private static final EntityDataAccessor<Float> PREV_TENTACLE_OFFSET = SynchedEntityData.defineId(Jellyfish.class, EntityDataSerializers.FLOAT);
 
     public Vec3 target;
+    public Vec3 preparedMovement;
     public int inhalingTicks;
     public int prevInTicks;
     public int pushingTicks;
@@ -160,6 +161,21 @@ public class Jellyfish extends AbstractFish {
                 nbt.remove("targz");
             }
         }
+        if (this.preparedMovement != null) {
+            nbt.putDouble("preX", this.preparedMovement.x);
+            nbt.putDouble("preY", this.preparedMovement.y);
+            nbt.putDouble("preZ", this.preparedMovement.z);
+        } else {
+            if (nbt.contains("preX")) {
+                nbt.remove("preX");
+            }
+            if (nbt.contains("preY")) {
+                nbt.remove("preY");
+            }
+            if (nbt.contains("preZ")) {
+                nbt.remove("preZ");
+            }
+        }
     }
 
     public void readAdditionalSaveData(CompoundTag nbt) {
@@ -175,6 +191,9 @@ public class Jellyfish extends AbstractFish {
         this.inhaleLength = nbt.getInt("inhaleLength");
         if (nbt.contains("targx") && nbt.contains("targy") && nbt.contains("targz")) {
             this.target = new Vec3(nbt.getDouble("targx"), nbt.getDouble("targy"), nbt.getDouble("targz"));
+        }
+        if (nbt.contains("preX") && nbt.contains("preY") && nbt.contains("preZ")) {
+            this.preparedMovement = new Vec3(nbt.getDouble("preX"), nbt.getDouble("preY"), nbt.getDouble("preZ"));
         }
     }
 
@@ -377,6 +396,10 @@ public class Jellyfish extends AbstractFish {
         return null;
     }
 
+    public boolean canPush() {
+        return this.inhalingTicks > this.inhaleLength;
+    }
+
     static class JellyToTargetGoal extends Goal {
         private final Jellyfish jelly;
 
@@ -393,13 +416,12 @@ public class Jellyfish extends AbstractFish {
         public void tick() {
             Vec3 target = this.jelly.target;
             if (target != null) {
-                if (this.jelly.pushingTicks <= 0 && this.jelly.inhalingTicks > this.jelly.inhaleLength) {
+                if (this.jelly.pushingTicks <= 0) {
                     float toX = (float) (Mth.clamp(target.x - this.jelly.position().x, -0.2, 0.2));
                     float toY = (float) (Mth.clamp(target.y - this.jelly.position().y, -0.05, 0.2));
                     float toZ = (float) (Mth.clamp(target.z - this.jelly.position().z, -0.2, 0.2));
-                    this.jelly.setMovementVector(toX, toY, toZ);
-                    this.jelly.setMovingUp(toY >= 0);
-                    this.jelly.pushingTicks = 15;
+                    this.jelly.preparedMovement = new Vec3(toX, toY, toZ);
+                    this.jelly.inhaleLength = 15;
                 }
             }
         }
