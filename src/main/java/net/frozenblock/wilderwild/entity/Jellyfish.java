@@ -329,10 +329,10 @@ public class Jellyfish extends AbstractFish {
     @Override
     protected void registerGoals() {
         //super.registerGoals();
-        //this.goalSelector.addGoal(0, new PanicGoal(this, 1.25));
-        //this.goalSelector.addGoal(2, new AvoidEntityGoal<>(this, Player.class, 8.0f, 1.6, 1.4, EntitySelector.NO_SPECTATORS::test));
+        this.goalSelector.addGoal(0, new PanicGoal(this, 1.25));
+        this.goalSelector.addGoal(2, new AvoidEntityGoal<>(this, Player.class, 8.0f, 1.6, 1.4, EntitySelector.NO_SPECTATORS::test));
         this.goalSelector.addGoal(0, new JellySwimGoal(this));
-        this.goalSelector.addGoal(2, new JellyToTargetGoal(this));
+        //this.goalSelector.addGoal(2, new JellyToTargetGoal(this));
     }
 
     static class JellySwimGoal
