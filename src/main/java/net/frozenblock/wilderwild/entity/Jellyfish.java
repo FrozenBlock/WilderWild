@@ -75,12 +75,9 @@ public class Jellyfish extends AbstractFish {
     }
 
     public static boolean canSpawn(EntityType<Jellyfish> type, ServerLevelAccessor world, MobSpawnType spawnReason, BlockPos pos, RandomSource random) {
-        if (world.getBiome(pos).is(RegisterWorldgen.JELLYFISH_CAVES)) {
-            return pos.getY() <= world.getSeaLevel() - 33
-                    && world.getRawBrightness(pos, 0) <= 6
-                    && world.getBlockState(pos).is(Blocks.WATER);
-        }
-        return false;
+        return pos.getY() <= world.getSeaLevel() - 33
+                && world.getRawBrightness(pos, 0) <= 6
+                && world.getBlockState(pos).is(Blocks.WATER);
     }
 
     public static AttributeSupplier.Builder addAttributes() {
@@ -108,7 +105,7 @@ public class Jellyfish extends AbstractFish {
     }
 
     protected SoundEvent getSquirtSound() {
-        return RegisterSounds.ENTITY_WARDEN_SWIM;
+        return RegisterSounds.ENTITY_JELLYFISH_AMBIENT;
     }
 
     @Override
