@@ -10,6 +10,7 @@ import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
 import net.minecraft.client.renderer.RenderType;
+import net.minecraft.util.Mth;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Arrays;
@@ -55,8 +56,8 @@ public class JellyfishModel<T extends Jellyfish> extends HierarchicalModel<T> {
     public static LayerDefinition getTexturedModelData() {
         MeshDefinition meshDefinition = new MeshDefinition();
         PartDefinition partDefinition = meshDefinition.getRoot();
-        PartDefinition bone = partDefinition.addOrReplaceChild("bone", CubeListBuilder.create(), PartPose.offset(0.0F, 0.0F, 0.0F));
-        PartDefinition body = bone.addOrReplaceChild("body", CubeListBuilder.create().texOffs(0, 0).addBox(-4.0F, -2.0F, -4.0F, 8.0F, 5.0F, 8.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 14.0F, 0.0F));
+        PartDefinition bone = partDefinition.addOrReplaceChild("bone", CubeListBuilder.create(), PartPose.offset(0.0F, 14.0F, 0.0F));
+        PartDefinition body = bone.addOrReplaceChild("body", CubeListBuilder.create().texOffs(0, 0).addBox(-4.0F, -2.0F, -4.0F, 8.0F, 5.0F, 8.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, -14.0F, 0.0F));
         PartDefinition tentacleRot = body.addOrReplaceChild("tentacleRot", CubeListBuilder.create(), PartPose.offset(0.0F, 0.0F, 0.0F));
         PartDefinition tentacle1 = tentacleRot.addOrReplaceChild("tentacle1", CubeListBuilder.create().texOffs(0, 13).addBox(-0.5F, 0.0F, 0.0F, 1.0F, 10.0F, 1.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 2.0F, -3.0F));
         PartDefinition tentacle2 = tentacleRot.addOrReplaceChild("tentacle2", CubeListBuilder.create().texOffs(0, 13).addBox(-0.5F, 0.0F, 0.0F, 1.0F, 10.0F, 1.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(2.5F, 2.0F, -2.5F, 0.0F, -0.7854F, 0.0F));
@@ -73,9 +74,39 @@ public class JellyfishModel<T extends Jellyfish> extends HierarchicalModel<T> {
         this.bone.render(matrices, vertices, light, overlay, 1.0F, 1.0F, 1.0F, 1.0F);
     }
 
+    private void animateTentacles(T jellyfish, float limbSwing, float limbSwingAmount, float ageInTicks) {
+        float pi180 = Mth.PI / 180;
+        float mult = 15;
+
+        float animation = ageInTicks * 10;
+
+        float cos = (Mth.cos(animation) * mult - mult) * pi180;
+        float cos1 = (Mth.cos(animation + 30) * mult - mult) * pi180;
+        float cos2 = (Mth.cos(animation + 60) * mult - mult) * pi180;
+        float cos3 = (Mth.cos(animation + 90) * mult - mult) * pi180;
+
+        float sin = (Mth.sin(animation) * mult - mult) * pi180;
+        float sin1 = (Mth.sin(animation + 30) * mult - mult) * pi180;
+        float sin2 = (Mth.sin(animation + 60) * mult - mult) * pi180;
+        float sin3 = (Mth.sin(animation + 90) * mult - mult) * pi180;
+
+        //cardinal tentacles
+        this.tentacle1.xRot = cos;
+        this.tentacle3.xRot = cos1;
+        this.tentacle5.xRot = cos2;
+        this.tentacle7.xRot = cos3;
+
+        //intermediate tentacles
+        this.tentacle2.xRot = sin;
+        this.tentacle4.xRot = sin1;
+        this.tentacle6.xRot = sin2;
+        this.tentacle8.xRot = sin3;
+
+    }
+
     @Override
     public void setupAnim(@NotNull T jellyfish, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
-
+        this.animateTentacles(jellyfish, limbSwing, limbSwingAmount, ageInTicks);
     }
 
     @Override

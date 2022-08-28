@@ -1,5 +1,6 @@
 package net.frozenblock.wilderwild.entity;
 
+import net.frozenblock.wilderwild.registry.RegisterSounds;
 import net.frozenblock.wilderwild.registry.RegisterWorldgen;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleOptions;
@@ -181,6 +182,7 @@ public class Jellyfish extends AbstractFish {
     protected void registerGoals() {
         this.goalSelector.addGoal(0, new Jellyfish.JellyUpDownGoal(this));
         this.goalSelector.addGoal(0, new Jellyfish.JellyRandomMovementGoal(this));
+        this.goalSelector.addGoal(4, new Jellyfish.JellyToTargetGoal(this));
     }
 
     @Override
@@ -190,21 +192,26 @@ public class Jellyfish extends AbstractFish {
 
     @Override
     protected SoundEvent getAmbientSound() {
-        return SoundEvents.SQUID_AMBIENT;
+        return RegisterSounds.ENTITY_JELLYFISH_AMBIENT;
     }
 
     @Override
     protected SoundEvent getHurtSound(@NotNull DamageSource damageSource) {
-        return SoundEvents.SQUID_HURT;
+        return RegisterSounds.ENTITY_JELLYFISH_HURT;
     }
 
     @Override
     protected SoundEvent getDeathSound() {
-        return SoundEvents.SQUID_DEATH;
+        return RegisterSounds.ENTITY_JELLYFISH_HURT;
     }
 
     protected SoundEvent getSquirtSound() {
-        return SoundEvents.SQUID_SQUIRT;
+        return RegisterSounds.ENTITY_WARDEN_SWIM;
+    }
+
+    @Override
+    protected SoundEvent getSwimSound() {
+        return RegisterSounds.ENTITY_JELLYFISH_SWIM;
     }
 
     @Override
@@ -281,6 +288,15 @@ public class Jellyfish extends AbstractFish {
     }
 
     @Override
+    public void tick() {
+        super.tick();
+        this.setPrevTentacleAngle(this.getTentacleAngle());
+        this.setPrevTentacleOffset(this.getTentacleOffset());
+        --this.cooldownPushTicks;
+        this.setTentacleAngle((float) new Vec3(this.tx, this.ty, this.tz).length());
+    }
+
+    @Override
     protected SoundEvent getFlopSound() {
         return SoundEvents.PUFFER_FISH_FLOP;
     }
@@ -290,6 +306,7 @@ public class Jellyfish extends AbstractFish {
         if (super.hurt(damageSource, f) && this.getLastHurtByMob() != null) {
             if (!this.level.isClientSide) {
                 this.spawnJelly();
+                this.target = this.getLastHurtByMob().position();
             }
             return true;
         }
@@ -346,7 +363,7 @@ public class Jellyfish extends AbstractFish {
     }
 
     public void moveTentacles(float speed) {
-
+        this.setPrevTentacleAngle(this.getTentacleAngle());
     }
 
     static class JellyToTargetGoal extends Goal {
@@ -366,15 +383,12 @@ public class Jellyfish extends AbstractFish {
             Vec3 target = this.jelly.target;
             if (target != null) {
                 if (this.jelly.cooldownPushTicks <= 0) {
-                    float f = this.jelly.getRandom().nextFloat() * ((float) Math.PI * 2);
-                    float g = Mth.cos(f) * 0.1f;
-                    float h = -0.1f + this.jelly.getRandom().nextFloat() * 0.2f;
-                    float j = Mth.sin(f) * 0.1f;
-                    this.jelly.setMovingUp(h >= 0);
-                    float toX = (float) (Mth.clamp(target.x - this.jelly.position().x, -0.4, 0.4));
-                    float toY = (float) (Mth.clamp(target.y - this.jelly.position().y, -0.4, 0.4));
-                    float toZ = (float) (Mth.clamp(target.z - this.jelly.position().z, -0.4, 0.4));
+                    float toX = (float) (Mth.clamp(target.x - this.jelly.position().x, -0.2, 0.2));
+                    float toY = (float) (Mth.clamp(target.y - this.jelly.position().y, -0.05, 0.2));
+                    float toZ = (float) (Mth.clamp(target.z - this.jelly.position().z, -0.2, 0.2));
                     this.jelly.setMovementVector(toX, toY, toZ);
+                    this.jelly.setMovingUp(toY >= 0);
+                    this.jelly.cooldownPushTicks = 15;
                 }
             }
         }
