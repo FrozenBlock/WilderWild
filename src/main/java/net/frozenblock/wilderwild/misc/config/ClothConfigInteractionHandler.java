@@ -2,6 +2,9 @@ package net.frozenblock.wilderwild.misc.config;
 
 import net.frozenblock.wilderwild.WilderWildClient;
 
+/**
+ * @deprecated Use WilderWildClient.config instead
+ */
 @Deprecated
 public class ClothConfigInteractionHandler {
 

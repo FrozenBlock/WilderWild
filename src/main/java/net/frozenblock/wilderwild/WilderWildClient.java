@@ -57,6 +57,7 @@ public final class WilderWildClient implements ClientModInitializer {
     public static final ModelLayerLocation DOUBLE_STONE_CHEST_RIGHT = new ModelLayerLocation(WilderWild.id("double_stone_chest_right"), "main");
     public static final ModelLayerLocation JELLYFISH = new ModelLayerLocation(WilderWild.id("jellyfish"), "main");
 
+    // CONFIG
     public static WilderWildConfig config = WilderWildClothConfig.init();
 
     @Override
