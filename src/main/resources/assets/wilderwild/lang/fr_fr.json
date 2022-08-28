@@ -75,6 +75,10 @@
   "block.wilderwild.stripped_cypress_wood": "Bois de cyprès écorcé",
   "block.wilderwild.termite_mound": "Nid de termites",
   "block.wilderwild.violet_beauty_glory_of_the_snow": "Gloire des neiges violette magnifique",
+  "block.wilderwild.stone_chest": "Coffre en pierre",
+  "block.wilderwild.display_lantern": "Lanterne d'affichage",
+  "block.wilderwild.prickly_pear": "Figue de barbarie",
+  "block.wilderwild.prickly_pear_cactus": "Figuier de barbarie",
 
   "death.attack.ancient_horn": "%1$s a découvert le maximum des basses",
   "death.attack.ancient_horn.item": "%1$s a été réduit en miettes par %2$s en utilisant %3$s",
@@ -96,7 +100,7 @@
   "item.wilderwild.brown_firefly_bottle": "Fiole de luciole marron",
   "item.wilderwild.camera": "Caméra de développeur",
   "item.wilderwild.cyan_firefly_bottle": "Fiole de luciole cyan",
-  "item.wilderwild.cypress_boat": "Bateau de stockage",
+  "item.wilderwild.cypress_boat": "Bateau en cyprès",
   "item.wilderwild.cypress_chest_boat": "Bateau de stockage en cyprès",
   "item.wilderwild.firefly_bottle": "Fiole de lucioles",
   "item.wilderwild.firefly_spawn_egg": "Oeuf d'apparition de luciole",
@@ -119,6 +123,21 @@
   "item.wilderwild.red_firefly_bottle": "Fiole de luciole rouge",
   "item.wilderwild.white_firefly_bottle": "Fiole de luciole blanche",
   "item.wilderwild.yellow_firefly_bottle": "Fiole de luciole jaune",
+  "item.wilderwild.ancient_horn_fragment": "Fragment de corne ancienne",
+  "item.wilderwild.baobab_nut": "Noix de baobab",
+  "item.wilderwild.jellyfish_spawn_egg": "Oeuf d'apparition de méduse",
+  "item.wilderwild.copper_horn": "Corne de cuivre",
+  "item.wilderwild.peeled_prickly_pear": "Figue de barbarier épluchée",
+  "item.wilderwild.music_disc_back.desc": "Lunade - Back",
+
+  "instrument.wilderwild.ancient_horn": "Tourbillons anciens",
+  "instrument.wilderwild.clarinet_copper_horn": "Clarinette",
+  "instrument.wilderwild.flute_copper_horn": "Flûte",
+  "instrument.wilderwild.oboe_copper_horn": "Hautbois",
+  "instrument.wilderwild.sax_copper_horn": "Saxophone",
+  "instrument.wilderwild.trombone_copper_horn": "Trombone",
+  "instrument.wilderwild.trumpet_copper_horn": "Trompette",
+  "instrument.wilderwild.tuba_copper_horn": "Tuba",
 
   "option.modmenu.mc_live_sensor_tendrils": "Type de capteur sculk",
   "option.modmenu.mc_live_sensor_tendrils.true": "Minecraft Live 2020",
@@ -163,6 +182,8 @@
 
   "wilderwild.ancient_horn.advancement.use": "Ambiance : Validée",
   "wilderwild.ancient_horn.advancement.use.description": "Trouver et utiliser une corne ancienne",
+  "wilderwild.null_block.advancement.obtain": "Mode Hackeur = §aActivé",
+  "wilderwild.null_block.advancement.obtain.description": "Obtenir un bloc invalide",
 
   "wilderwild.options": "Options de Wilder Wild"
 }
