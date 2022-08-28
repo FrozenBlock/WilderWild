@@ -1,9 +1,7 @@
 package net.frozenblock.wilderwild.entity;
 
 import com.mojang.serialization.Dynamic;
-import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.entity.ai.JellyfishAi;
-import net.frozenblock.wilderwild.entity.variant.JellyfishVariant;
 import net.frozenblock.wilderwild.registry.RegisterItems;
 import net.frozenblock.wilderwild.registry.RegisterSounds;
 import net.minecraft.core.BlockPos;
@@ -15,7 +13,6 @@ import net.minecraft.network.protocol.game.DebugPackets;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
@@ -76,7 +73,6 @@ public class Jellyfish extends AbstractFish {
     private static final EntityDataAccessor<Integer> TARGET_LIGHT = SynchedEntityData.defineId(Jellyfish.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Float> LIGHT = SynchedEntityData.defineId(Jellyfish.class, EntityDataSerializers.FLOAT);
     private static final EntityDataAccessor<Float> PREV_LIGHT = SynchedEntityData.defineId(Jellyfish.class, EntityDataSerializers.FLOAT);
-    private static final EntityDataAccessor<JellyfishVariant> VARIANT = SynchedEntityData.defineId(Jellyfish.class, WilderWild.JELLYFISH_VARIANT);
 
     @Override
     public void playerTouch(@NotNull Player player) {
@@ -307,20 +303,11 @@ public class Jellyfish extends AbstractFish {
         return this.entityData.get(PREV_LIGHT);
     }
 
-    public void setVariant(JellyfishVariant variant) {
-        this.entityData.set(VARIANT, variant);
-    }
-
-    public JellyfishVariant getVariant() {
-        return this.entityData.get(VARIANT);
-    }
-
     protected void defineSynchedData() {
         super.defineSynchedData();
         this.entityData.define(TARGET_LIGHT, 0);
         this.entityData.define(LIGHT, 0F);
         this.entityData.define(PREV_LIGHT, 0F);
-        this.entityData.define(VARIANT, JellyfishVariant.PALE_BLUE);
     }
 
     public void addAdditionalSaveData(CompoundTag nbt) {
@@ -329,7 +316,6 @@ public class Jellyfish extends AbstractFish {
         nbt.putFloat("light", this.getLight());
         nbt.putFloat("prevLight", this.getPrevLight());
         nbt.putInt("ticksSinceCantReach", this.ticksSinceCantReach);
-        nbt.putString("variant", WilderWild.JELLYFISH_VARIANTS.getKey(this.getVariant()).toString());
     }
 
     public void readAdditionalSaveData(CompoundTag nbt) {
@@ -338,14 +324,6 @@ public class Jellyfish extends AbstractFish {
         this.setLight(nbt.getFloat("light"));
         this.setPrevLight(nbt.getFloat("prevLight"));
         this.ticksSinceCantReach = nbt.getInt("ticksSinceCantReach");
-        JellyfishVariant jellyVariant = WilderWild.JELLYFISH_VARIANTS.get(ResourceLocation.tryParse(nbt.getString("variant")));
-        if (jellyVariant != null) {
-            this.setVariant(jellyVariant);
-        }
-    }
-
-    public ResourceLocation getResourceLocation() {
-        return this.getVariant().texture();
     }
 
     @Override

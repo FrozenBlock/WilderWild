@@ -54,5 +54,3 @@ accessible    field    net/minecraft/client/gui/screens/inventory/JigsawBlockEdi
 accessible    class    net/minecraft/world/level/chunk/ChunkStatus$SimpleGenerationTask
 accessible    method    net/minecraft/data/worldgen/biome/OverworldBiomes    calculateSkyColor    (F)I
 extendable    method    net/minecraft/world/item/InstrumentItem    getInstrument    (Lnet/minecraft/world/item/ItemStack;)Ljava/util/Optional;
-accessible    method    net/minecraft/core/Registry   registerSimple    (Lnet/minecraft/resources/ResourceKey;Lnet/minecraft/core/Registry$RegistryBootstrap;)Lnet/minecraft/core/Registry;
-accessible    class    net/minecraft/core/Registry$RegistryBootstrap

@@ -36,6 +36,9 @@ import org.jetbrains.annotations.Nullable;
 @Environment(EnvType.CLIENT)
 public class JellyfishRenderer extends MobRenderer<Jellyfish, JellyfishModel<Jellyfish>> {
 
+    private static final ResourceLocation TEXTURE = WilderWild.id("textures/entity/jellyfish/jellyfish.png");
+    private static final ResourceLocation PINK_TEXTURE = WilderWild.id("textures/entity/jellyfish/pink_jellyfish.png");
+
     public JellyfishRenderer(Context context) {
         super(context, new JellyfishModel<>(context.bakeLayer(WilderWildClient.JELLYFISH)), 0.3F);
         //this.addLayer(new JellyfishFeatureRenderer<>(this, PINK_TEXTURE));
@@ -146,13 +149,13 @@ public class JellyfishRenderer extends MobRenderer<Jellyfish, JellyfishModel<Jel
     @Override
     @Nullable
     protected RenderType getRenderType(@NotNull Jellyfish jellyfish, boolean bl, boolean bl2, boolean bl3) {
-        return WilderWildClient.ENTITY_TRANSLUCENT_EMISSIVE_FIXED.apply(jellyfish.getResourceLocation(), false);
+        return WilderWildClient.ENTITY_TRANSLUCENT_EMISSIVE_FIXED.apply(TEXTURE, false);
     }
 
 
     @Override
     public ResourceLocation getTextureLocation(@NotNull Jellyfish jellyfish) {
-        return jellyfish.getResourceLocation();
+        return TEXTURE;
     }
 
     private <E extends Entity> void renderLeash(Jellyfish mob, float f, PoseStack poseStack, MultiBufferSource multiBufferSource, E entity) {
