@@ -12,6 +12,7 @@ import net.minecraft.client.renderer.entity.EntityRendererProvider.Context;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.Mth;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -30,6 +31,11 @@ public class JellyfishRenderer extends MobRenderer<Jellyfish, JellyfishModel<Jel
         poseStack.translate(0.0, 0.5, 0.0);
         poseStack.mulPose(Vector3f.YP.rotationDegrees(180.0f - g));
         poseStack.translate(0.0, -1.2f, 0.0);
+        JellyfishModel<Jellyfish> model = this.getModel();
+        model.xRot = Mth.lerp(h, jelly.getPrevXRot(), jelly.getJellyXRot());
+        model.zRot = Mth.lerp(h, jelly.getPrevZRot(), jelly.getJellyZRot());
+        model.tentXRot = Mth.lerp(h, jelly.getPrevTentXRot(), jelly.getTentXRot());
+        model.tentZRot = Mth.lerp(h, jelly.getPrevTentZRot(), jelly.getTentZRot());
     }
 
     @Override
