@@ -314,7 +314,7 @@ public class WardenEntityMixin extends Monster implements WilderWarden {
         wardenEntity.setPathfindingMalus(BlockPathTypes.WATER, 0.0F);
         wardenEntity.setPathfindingMalus(BlockPathTypes.POWDER_SNOW, -1.0F);
         wardenEntity.setPathfindingMalus(BlockPathTypes.DANGER_POWDER_SNOW, -1.0F);
-        this.moveControl = new WardenMoveControl(wardenEntity, 0.1F, 60.0F, 0.13F, 1.0F, true);
+        this.moveControl = new WardenMoveControl(wardenEntity, 0.05F, 80.0F, 0.13F, 1.0F, true);
     }
 
     @Override
