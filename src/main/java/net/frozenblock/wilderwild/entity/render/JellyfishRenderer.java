@@ -24,7 +24,7 @@ public class JellyfishRenderer extends MobRenderer<Jellyfish, JellyfishModel<Jel
     private static final ResourceLocation PINK_TEXTURE = WilderWild.id("textures/entity/jellyfish/pink_jellyfish.png");
 
     public JellyfishRenderer(Context context) {
-        super(context, new JellyfishModel<>(context.bakeLayer(WilderWildClient.JELLYFISH)), 0.9F);
+        super(context, new JellyfishModel<>(context.bakeLayer(WilderWildClient.JELLYFISH)), 0.3F);
         this.addLayer(new JellyfishFeatureRenderer<>(this, PINK_TEXTURE));
 
     }
