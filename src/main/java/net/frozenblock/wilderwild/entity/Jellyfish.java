@@ -128,6 +128,16 @@ public class Jellyfish extends AbstractFish {
 
     @Override
     public void aiStep() {
+        this.setPrevLight(this.getLight());
+        BlockPos pos = new BlockPos(this.position());
+        int block = this.level.getBrightness(LightLayer.BLOCK, pos);
+        int sky = this.level.getBrightness(LightLayer.SKY, pos);
+        this.setTargetLight(Math.max(block, sky));
+        if (this.getTargetLight() > this.getLight()) {
+            this.setLight(this.getLight() + 0.1F);
+        } else if (this.getTargetLight() < this.getLight()) {
+            this.setLight(this.getLight() - 0.1F);
+        }
         super.aiStep();
         this.xRot5 = this.xRot4;
         this.xRot4 = this.xRot3;
@@ -168,17 +178,6 @@ public class Jellyfish extends AbstractFish {
         } else {
             this.tentacleAngle = Mth.abs(Mth.sin(this.tentacleMovement)) * (float) Math.PI * 0.25f;
             this.xBodyRot += (-90.0f - this.xBodyRot) * 0.02f;
-        }
-
-        this.setPrevLight(this.getLight());
-        BlockPos pos = new BlockPos(this.position());
-        int block = this.level.getBrightness(LightLayer.BLOCK, pos);
-        int sky = this.level.getBrightness(LightLayer.SKY, pos);
-        this.setTargetLight(Math.max(block, sky));
-        if (this.getTargetLight() > this.getLight()) {
-            this.setLight(this.getLight() + 0.1F);
-        } else if (this.getTargetLight() < this.getLight()) {
-            this.setLight(this.getLight() - 0.1F);
         }
     }
 
