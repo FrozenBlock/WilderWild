@@ -69,7 +69,7 @@ public class Jellyfish extends AbstractFish {
     public void playerTouch(@NotNull Player player) {
         if (player instanceof ServerPlayer && player.hurt(DamageSource.mobAttack(this), 3)) {
             if (!this.isSilent()) {
-                ((ServerPlayer)player).connection.send(new ClientboundGameEventPacket(ClientboundGameEventPacket.PUFFER_FISH_STING, 0.0F));
+                ((ServerPlayer) player).connection.send(new ClientboundGameEventPacket(ClientboundGameEventPacket.PUFFER_FISH_STING, 0.0F));
             }
 
             player.addEffect(new MobEffectInstance(MobEffects.POISON, 300, 0, false, false), this);
@@ -253,22 +253,22 @@ public class Jellyfish extends AbstractFish {
         this.oldTentacleMovement = this.tentacleMovement;
         this.oldTentacleAngle = this.tentacleAngle;
         this.tentacleMovement += this.tentacleSpeed;
-        if ((double)this.tentacleMovement > Math.PI * 2) {
+        if ((double) this.tentacleMovement > Math.PI * 2) {
             if (this.level.isClientSide) {
-                this.tentacleMovement = (float)Math.PI * 2;
+                this.tentacleMovement = (float) Math.PI * 2;
             } else {
-                this.tentacleMovement -= (float)Math.PI * 2;
+                this.tentacleMovement -= (float) Math.PI * 2;
                 if (this.random.nextInt(10) == 0) {
                     this.tentacleSpeed = 1.0f / (this.random.nextFloat() + 1.0f) * 0.2f;
                 }
-                this.level.broadcastEntityEvent(this, (byte)19);
+                this.level.broadcastEntityEvent(this, (byte) 19);
             }
         }
         if (this.isInWaterOrBubble()) {
-            if (this.tentacleMovement < (float)Math.PI) {
-                float f = this.tentacleMovement / (float)Math.PI;
-                this.tentacleAngle = Mth.sin(f * f * (float)Math.PI) * (float)Math.PI * 0.25f;
-                if ((double)f > 0.75) {
+            if (this.tentacleMovement < (float) Math.PI) {
+                float f = this.tentacleMovement / (float) Math.PI;
+                this.tentacleAngle = Mth.sin(f * f * (float) Math.PI) * (float) Math.PI * 0.25f;
+                if ((double) f > 0.75) {
                     this.speed = 1.0f;
                     this.rotateSpeed = 1.0f;
                 } else {
@@ -284,20 +284,20 @@ public class Jellyfish extends AbstractFish {
             }
             Vec3 vec3 = this.getDeltaMovement();
             double d = vec3.horizontalDistance();
-            this.yBodyRot += (-((float)Mth.atan2(vec3.x, vec3.z)) * 57.295776f - this.yBodyRot) * 0.1f;
+            this.yBodyRot += (-((float) Mth.atan2(vec3.x, vec3.z)) * 57.295776f - this.yBodyRot) * 0.1f;
             this.setYRot(this.yBodyRot);
-            this.zBodyRot += (float)Math.PI * this.rotateSpeed * 1.5f;
-            this.xBodyRot += (-((float)Mth.atan2(d, vec3.y)) * 57.295776f - this.xBodyRot) * 0.1f;
+            this.zBodyRot += (float) Math.PI * this.rotateSpeed * 1.5f;
+            this.xBodyRot += (-((float) Mth.atan2(d, vec3.y)) * 57.295776f - this.xBodyRot) * 0.1f;
         } else {
-            this.tentacleAngle = Mth.abs(Mth.sin(this.tentacleMovement)) * (float)Math.PI * 0.25f;
+            this.tentacleAngle = Mth.abs(Mth.sin(this.tentacleMovement)) * (float) Math.PI * 0.25f;
             if (!this.level.isClientSide) {
                 double e = this.getDeltaMovement().y;
                 if (this.hasEffect(MobEffects.LEVITATION)) {
-                    e = 0.05 * (double)(Objects.requireNonNull(this.getEffect(MobEffects.LEVITATION)).getAmplifier() + 1);
+                    e = 0.05 * (double) (Objects.requireNonNull(this.getEffect(MobEffects.LEVITATION)).getAmplifier() + 1);
                 } else if (!this.isNoGravity()) {
                     e -= 0.08;
                 }
-                this.setDeltaMovement(0.0, e * (double)0.98f, 0.0);
+                this.setDeltaMovement(0.0, e * (double) 0.98f, 0.0);
             }
             this.xBodyRot += (-90.0f - this.xBodyRot) * 0.02f;
         }
@@ -317,7 +317,8 @@ public class Jellyfish extends AbstractFish {
             this.setPushTicks((int) (this.preparedMovement.length() * 10));
             this.setMovementVector((float) this.preparedMovement.x, (float) this.preparedMovement.y, (float) this.preparedMovement.z);
             this.preparedMovement = null;
-        } if (this.getPushingTicks() > 0) {
+        }
+        if (this.getPushingTicks() > 0) {
             this.setPushTicks(this.getPushingTicks() - 1);
         }
     }
@@ -340,8 +341,8 @@ public class Jellyfish extends AbstractFish {
     }
 
     private Vec3 rotateVector(Vec3 vec3) {
-        Vec3 vec32 = vec3.xRot(this.xBodyRotO * ((float)Math.PI / 180));
-        vec32 = vec32.yRot(-this.yBodyRotO * ((float)Math.PI / 180));
+        Vec3 vec32 = vec3.xRot(this.xBodyRotO * ((float) Math.PI / 180));
+        vec32 = vec32.yRot(-this.yBodyRotO * ((float) Math.PI / 180));
         return vec32;
     }
 
@@ -349,9 +350,9 @@ public class Jellyfish extends AbstractFish {
         this.playSound(this.getSquirtSound(), this.getSoundVolume(), this.getVoicePitch());
         Vec3 vec3 = this.rotateVector(new Vec3(0.0, -1.0, 0.0)).add(this.getX(), this.getY(), this.getZ());
         for (int i = 0; i < 30; ++i) {
-            Vec3 vec32 = this.rotateVector(new Vec3((double)this.random.nextFloat() * 0.6 - 0.3, -1.0, (double)this.random.nextFloat() * 0.6 - 0.3));
-            Vec3 vec33 = vec32.scale(0.3 + (double)(this.random.nextFloat() * 2.0f));
-            ((ServerLevel)this.level).sendParticles(this.getJellyParticle(), vec3.x, vec3.y + 0.5, vec3.z, 0, vec33.x, vec33.y, vec33.z, 0.1f);
+            Vec3 vec32 = this.rotateVector(new Vec3((double) this.random.nextFloat() * 0.6 - 0.3, -1.0, (double) this.random.nextFloat() * 0.6 - 0.3));
+            Vec3 vec33 = vec32.scale(0.3 + (double) (this.random.nextFloat() * 2.0f));
+            ((ServerLevel) this.level).sendParticles(this.getJellyParticle(), vec3.x, vec3.y + 0.5, vec3.z, 0, vec33.x, vec33.y, vec33.z, 0.1f);
         }
     }
 
@@ -461,8 +462,8 @@ public class Jellyfish extends AbstractFish {
         public void tick() {
             int i = this.jelly.getNoActionTime();
             if (i < 40) {
-                if (this.jelly.getRandom().nextInt(Jellyfish.JellyRandomMovementGoal.reducedTickDelay(50)) == 0 || !this.jelly.wasTouchingWater  || !this.jelly.hasMovementVector()) {
-                    float f = this.jelly.getRandom().nextFloat() * ((float)Math.PI * 2);
+                if (this.jelly.getRandom().nextInt(Jellyfish.JellyRandomMovementGoal.reducedTickDelay(50)) == 0 || !this.jelly.wasTouchingWater || !this.jelly.hasMovementVector()) {
+                    float f = this.jelly.getRandom().nextFloat() * ((float) Math.PI * 2);
                     float g = Mth.cos(f) * 0.1f;
                     float h = -0.1f + this.jelly.getRandom().nextFloat() * 0.2f;
                     float j = Mth.sin(f) * 0.1f;

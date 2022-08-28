@@ -9,9 +9,7 @@ import me.shedaniel.clothconfig2.api.ConfigBuilder;
 import me.shedaniel.clothconfig2.api.ConfigCategory;
 import me.shedaniel.clothconfig2.api.ConfigEntryBuilder;
 import net.frozenblock.wilderwild.WilderWild;
-import net.frozenblock.wilderwild.WilderWildClient;
 import net.minecraft.client.gui.screens.Screen;
-import net.minecraft.network.chat.Component;
 
 @Config(name = WilderWild.MOD_ID)
 public class WilderWildClothConfig extends WilderWildConfig implements ConfigData {
@@ -32,7 +30,7 @@ public class WilderWildClothConfig extends WilderWildConfig implements ConfigDat
     }
 
 
-    public static void setupEntries(ConfigCategory category, ConfigEntryBuilder entryBuilder) {
+    /*public static void setupEntries(ConfigCategory category, ConfigEntryBuilder entryBuilder) {
         var config = WilderWildClient.config;
         category.addEntry(entryBuilder.startBooleanToggle(text("beta_beaches"), config.betaBeaches)
                 .setDefaultValue(true)
@@ -99,7 +97,7 @@ public class WilderWildClothConfig extends WilderWildConfig implements ConfigDat
                 .setSaveConsumer(newValue -> config.shriekerGargling = newValue)
                 .build());
 
-    }
+    }*/
 
     public static WilderWildClothConfig init() {
         if (!WilderWild.areConfigsInit) {

@@ -5,7 +5,6 @@ import net.frozenblock.wilderwild.block.ClusterBlock;
 import net.minecraft.Util;
 import net.minecraft.core.Direction;
 import net.minecraft.world.level.block.*;
-import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
@@ -23,17 +22,29 @@ import java.util.Map;
 public class AmethystClusterBlockMixin extends AmethystBlock implements ClusterBlock {
 
 
-    @Shadow @Final protected VoxelShape northAabb;
+    @Shadow
+    @Final
+    protected VoxelShape northAabb;
 
-    @Shadow @Final protected VoxelShape eastAabb;
+    @Shadow
+    @Final
+    protected VoxelShape eastAabb;
 
-    @Shadow @Final protected VoxelShape southAabb;
+    @Shadow
+    @Final
+    protected VoxelShape southAabb;
 
-    @Shadow @Final protected VoxelShape westAabb;
+    @Shadow
+    @Final
+    protected VoxelShape westAabb;
 
-    @Shadow @Final protected VoxelShape upAabb;
+    @Shadow
+    @Final
+    protected VoxelShape upAabb;
 
-    @Shadow @Final protected VoxelShape downAabb;
+    @Shadow
+    @Final
+    protected VoxelShape downAabb;
 
     public AmethystClusterBlockMixin(Properties properties) {
         super(properties);
@@ -67,7 +78,7 @@ public class AmethystClusterBlockMixin extends AmethystBlock implements ClusterB
     private static BlockState getDefaultClusterState(StateDefinition<Block, BlockState> stateManager) {
         BlockState blockState = stateManager.any();
 
-        for(BooleanProperty booleanProperty : PROPERTY_BY_DIRECTION.values()) {
+        for (BooleanProperty booleanProperty : PROPERTY_BY_DIRECTION.values()) {
             if (blockState.hasProperty(booleanProperty)) {
                 blockState = blockState.setValue(booleanProperty, false);
             }

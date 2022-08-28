@@ -94,7 +94,7 @@ public class StoneChestBlockEntity extends ChestBlockEntity {
             if (blockEntity.cooldownTicks > 0) {
                 --blockEntity.cooldownTicks;
             }
-            boolean canClose = !(!worl.getGameRules().getBoolean(WilderWild.STONE_CHEST_CLOSES));
+            boolean canClose = worl.getGameRules().getBoolean(WilderWild.STONE_CHEST_CLOSES);
             blockEntity.prevOpenProgress = blockEntity.openProgress;
             if (blockEntity.stillLidTicks > 0) {
                 blockEntity.stillLidTicks -= 1;
@@ -122,7 +122,7 @@ public class StoneChestBlockEntity extends ChestBlockEntity {
             if (blockEntity.cooldownTicks > 0) {
                 --blockEntity.cooldownTicks;
             }
-            boolean canClose = !(!level.getGameRules().getBoolean(WilderWild.STONE_CHEST_CLOSES));
+            boolean canClose = level.getGameRules().getBoolean(WilderWild.STONE_CHEST_CLOSES);
             blockEntity.prevOpenProgress = blockEntity.openProgress;
             if (blockEntity.stillLidTicks > 0) {
                 blockEntity.stillLidTicks -= 1;

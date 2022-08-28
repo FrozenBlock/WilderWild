@@ -28,7 +28,7 @@ public class JellyfishRenderer extends MobRenderer<Jellyfish, JellyfishModel<Jel
     @Override
     public void setupRotations(Jellyfish jelly, PoseStack poseStack, float f, float g, float h) {
         float i = Mth.lerp(h, jelly.xBodyRotO, jelly.xBodyRot);
-        float j = Mth.lerp(h, jelly.zBodyRotO,jelly.zBodyRot);
+        float j = Mth.lerp(h, jelly.zBodyRotO, jelly.zBodyRot);
         poseStack.translate(0.0, 0.5, 0.0);
         poseStack.mulPose(Vector3f.YP.rotationDegrees(180.0f - g));
         poseStack.mulPose(Vector3f.XP.rotationDegrees(i));

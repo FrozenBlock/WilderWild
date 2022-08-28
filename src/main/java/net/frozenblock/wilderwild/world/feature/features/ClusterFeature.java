@@ -35,11 +35,11 @@ public class ClusterFeature extends Feature<ClusterFeatureConfig> {
             } else {
                 BlockPos.MutableBlockPos mutableBlockPos = blockPos.mutable();
 
-                for(Direction direction : list) {
+                for (Direction direction : list) {
                     mutableBlockPos.set(blockPos);
                     List<Direction> list2 = amethystClusterFeatureConfiguration.getShuffledDirectionsExcept(randomSource, direction.getOpposite());
 
-                    for(int i = 0; i < amethystClusterFeatureConfiguration.searchRange; ++i) {
+                    for (int i = 0; i < amethystClusterFeatureConfiguration.searchRange; ++i) {
                         mutableBlockPos.setWithOffset(blockPos, direction);
                         BlockState blockState = worldGenLevel.getBlockState(mutableBlockPos);
                         if (!isAirOrWater(blockState) && !blockState.is(amethystClusterFeatureConfiguration.placeBlock)) {
@@ -62,10 +62,10 @@ public class ClusterFeature extends Feature<ClusterFeatureConfig> {
     ) {
         BlockPos.MutableBlockPos mutableBlockPos = pos.mutable();
 
-        for(Direction direction : directions) {
+        for (Direction direction : directions) {
             BlockState blockState = world.getBlockState(mutableBlockPos.setWithOffset(pos, direction));
             if (blockState.is(config.canBePlacedOn)) {
-                BlockState blockState2 = ((ClusterBlock)config.placeBlock).getStateForPlacement(world.getBlockState(pos).getBlock(), state, world, pos, direction);
+                BlockState blockState2 = ((ClusterBlock) config.placeBlock).getStateForPlacement(world.getBlockState(pos).getBlock(), state, world, pos, direction);
                 if (blockState2 == null) {
                     return false;
                 }

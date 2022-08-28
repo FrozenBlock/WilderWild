@@ -26,23 +26,41 @@ import java.util.List;
 @Mixin(WardenModel.class)
 public abstract class WardenEntityModelMixin<T extends Warden> implements WilderWardenModel {
 
-    @Final @Shadow protected ModelPart bone;
+    @Final
+    @Shadow
+    protected ModelPart bone;
 
-    @Final @Shadow protected ModelPart body;
+    @Final
+    @Shadow
+    protected ModelPart body;
 
-    @Final @Shadow protected ModelPart head;
+    @Final
+    @Shadow
+    protected ModelPart head;
 
-    @Final @Shadow protected ModelPart rightTendril;
+    @Final
+    @Shadow
+    protected ModelPart rightTendril;
 
-    @Final @Shadow protected ModelPart leftTendril;
+    @Final
+    @Shadow
+    protected ModelPart leftTendril;
 
-    @Final @Shadow protected ModelPart leftLeg;
+    @Final
+    @Shadow
+    protected ModelPart leftLeg;
 
-    @Final @Shadow protected ModelPart leftArm;
+    @Final
+    @Shadow
+    protected ModelPart leftArm;
 
-    @Final @Shadow protected ModelPart rightLeg;
+    @Final
+    @Shadow
+    protected ModelPart rightLeg;
 
-    @Final @Shadow protected ModelPart rightArm;
+    @Final
+    @Shadow
+    protected ModelPart rightArm;
 
     private List<ModelPart> headAndTendrils;
 
@@ -65,8 +83,8 @@ public abstract class WardenEntityModelMixin<T extends Warden> implements Wilder
     @Inject(at = @At("HEAD"), method = "animateTendrils", cancellable = true)
     private void animateTendrils(T warden, float animationProgress, float tickDelta, CallbackInfo info) { //CUSTOM TENDRIL ANIMATION
 
-            float cos = warden.getTendrilAnimation(tickDelta) * (float) (Math.cos((double) animationProgress * 2.25D) * 3.141592653589793D * 0.10000000149011612D);
-            float sin = warden.getTendrilAnimation(tickDelta) * (float) (-Math.sin((double) animationProgress * 2.25D) * 3.141592653589793D * 0.12500000149011612D);
+        float cos = warden.getTendrilAnimation(tickDelta) * (float) (Math.cos((double) animationProgress * 2.25D) * 3.141592653589793D * 0.10000000149011612D);
+        float sin = warden.getTendrilAnimation(tickDelta) * (float) (-Math.sin((double) animationProgress * 2.25D) * 3.141592653589793D * 0.12500000149011612D);
 
         if (ClothConfigInteractionHandler.customWardenTendrils()) {
             this.leftTendril.xRot = cos;
@@ -90,7 +108,7 @@ public abstract class WardenEntityModelMixin<T extends Warden> implements Wilder
         boolean shouldMoveArms = !wardenEntity.hasPose(Pose.ROARING) && !wardenEntity.hasPose(Pose.EMERGING) && !wardenEntity.hasPose(Pose.DIGGING);
         boolean shouldMoveBody = !wardenEntity.hasPose(Pose.ROARING) && !wardenEntity.hasPose(Pose.EMERGING) && !wardenEntity.hasPose(Pose.DIGGING);
         boolean shouldMoveHead = !wardenEntity.hasPose(Pose.ROARING) && !wardenEntity.hasPose(Pose.EMERGING) && !wardenEntity.hasPose(Pose.DIGGING);
-        if (ClothConfigInteractionHandler.wardenSwimAnimation()){
+        if (ClothConfigInteractionHandler.wardenSwimAnimation()) {
             this.animateSwimming(wardenEntity, angle, distance, anim, headYaw, headPitch, shouldMoveArms, shouldMoveBody, shouldMoveHead, canSwim);
         }
         model.animate(((WilderWarden) wardenEntity).getDyingAnimationState(), CustomWardenAnimations.DYING, anim);

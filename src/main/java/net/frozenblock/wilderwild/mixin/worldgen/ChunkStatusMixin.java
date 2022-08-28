@@ -15,7 +15,9 @@ import java.util.EnumSet;
 @Mixin(ChunkStatus.class)
 public class ChunkStatusMixin {
 
-    @Shadow @Final public static ChunkStatus STRUCTURE_STARTS;
+    @Shadow
+    @Final
+    public static ChunkStatus STRUCTURE_STARTS;
     @Final
     @Shadow
     private static EnumSet<Heightmap.Types> PRE_FEATURES;

@@ -13,7 +13,7 @@ import org.jetbrains.annotations.Nullable;
 public interface ClusterBlock {
 
     @Nullable
-    public default BlockState getStateForPlacement(Block block, BlockState state, BlockGetter world, BlockPos pos, Direction direction) {
+    default BlockState getStateForPlacement(Block block, BlockState state, BlockGetter world, BlockPos pos, Direction direction) {
         if (!this.isValidStateForPlacement(block, world, state, pos, direction)) {
             return null;
         } else {
@@ -30,7 +30,7 @@ public interface ClusterBlock {
         }
     }
 
-    public default boolean isValidStateForPlacement(Block block, BlockGetter view, BlockState state, BlockPos pos, Direction dir) {
+    default boolean isValidStateForPlacement(Block block, BlockGetter view, BlockState state, BlockPos pos, Direction dir) {
         if ((!state.is(block) || !MultifaceBlock.hasFace(state, dir))) {
             BlockPos blockPos = pos.relative(dir);
             return MultifaceBlock.canAttachTo(view, dir, blockPos, view.getBlockState(blockPos));

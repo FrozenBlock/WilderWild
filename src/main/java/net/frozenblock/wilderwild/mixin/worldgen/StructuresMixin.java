@@ -62,6 +62,7 @@ public class StructuresMixin {
     private static Structure.StructureSettings structure(TagKey<Biome> tagKey, Map<MobCategory, StructureSpawnOverride> map, GenerationStep.Decoration decoration, TerrainAdjustment terrainAdjustment) {
         return new Structure.StructureSettings(biomes(tagKey), map, decoration, terrainAdjustment);
     }
+
     @Shadow
     private static HolderSet<Biome> biomes(TagKey<Biome> tagKey) {
         return BuiltinRegistries.BIOME.getOrCreateTag(tagKey);

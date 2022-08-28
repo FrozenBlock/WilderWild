@@ -1,8 +1,8 @@
 package net.frozenblock.wilderwild.misc.config;
 
-import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.WilderWildClient;
 
+@Deprecated
 public class ClothConfigInteractionHandler {
 
 

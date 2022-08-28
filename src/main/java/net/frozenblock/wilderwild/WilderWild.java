@@ -57,7 +57,7 @@ public final class WilderWild implements ModInitializer {
     public static final boolean DEV_LOGGING = false;
     public static boolean UNSTABLE_LOGGING = false; //Used for features that may possibly be unstable and crash in public builds - it's smart to use this for at least registries.
     public static boolean RENDER_TENDRILS = false;
-    
+
     public static boolean areConfigsInit = false;
 
     public static final TrunkPlacerType<StraightTrunkWithLogs> STRAIGHT_TRUNK_WITH_LOGS_PLACER_TYPE = registerTrunk("straight_trunk_logs_placer", StraightTrunkWithLogs.CODEC);

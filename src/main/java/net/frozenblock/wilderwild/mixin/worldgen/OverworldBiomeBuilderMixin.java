@@ -217,6 +217,7 @@ public final class OverworldBiomeBuilderMixin {
     ) {
         consumer.accept(Pair.of(Climate.parameters(parameter, parameter2, parameter3, parameter4, Climate.Parameter.span(0.62F, 1.1F), parameter5, f), resourceKey));
     }
+
     private void addSemiDeepBiome(
             Consumer<Pair<Climate.ParameterPoint, ResourceKey<Biome>>> consumer,
             Climate.Parameter parameter,

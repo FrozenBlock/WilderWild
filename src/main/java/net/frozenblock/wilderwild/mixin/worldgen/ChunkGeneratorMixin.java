@@ -37,11 +37,11 @@ public class ChunkGeneratorMixin {
                 long p = ChunkPos.asLong(n, o);
                 for (StructureStart structureStart : worldGenLevel.getChunk(n, o).getAllStarts().values()) {
                     try {
-                        if (!structureStart.isValid() || !structureStart.getBoundingBox().intersects(l, m, l + 15, m + 15)) continue;
+                        if (!structureStart.isValid() || !structureStart.getBoundingBox().intersects(l, m, l + 15, m + 15))
+                            continue;
                         structureManager.addReferenceForStructure(sectionPos, structureStart.getStructure(), p, chunkAccess);
                         DebugPackets.sendStructurePacket(worldGenLevel, structureStart);
-                    }
-                    catch (Exception exception) {
+                    } catch (Exception exception) {
                         CrashReport crashReport = CrashReport.forThrowable(exception, "Generating structure reference");
                         CrashReportCategory crashReportCategory = crashReport.addCategory("Structure");
                         Optional<Registry<Structure>> optional = (Optional<Registry<Structure>>) worldGenLevel.registryAccess().registry(Registry.STRUCTURE_REGISTRY);

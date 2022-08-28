@@ -44,7 +44,7 @@ public class AncientHorn extends InstrumentItem {
     @Override
     public void fillItemCategory(CreativeModeTab creativeModeTab, NonNullList<ItemStack> nonNullList) {
         if (this.allowedIn(creativeModeTab)) {
-            for(Holder<Instrument> holder : Registry.INSTRUMENT.getTagOrEmpty(this.instrumentTag)) {
+            for (Holder<Instrument> holder : Registry.INSTRUMENT.getTagOrEmpty(this.instrumentTag)) {
                 nonNullList.add(create(RegisterItems.ANCIENT_HORN, holder));
             }
         }

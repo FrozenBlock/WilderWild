@@ -19,10 +19,14 @@ import java.util.function.Function;
 
 @Mixin(JigsawStructure.class)
 public class JigsawStructureMixin {
-    @Shadow @Final @Mutable
+    @Shadow
+    @Final
+    @Mutable
     public static final int MAX_TOTAL_STRUCTURE_RANGE = RegisterStructures.MAX_DISTANCE_FROM_JIGSAW_CENTER;
 
-    @Shadow @Final @Mutable
+    @Shadow
+    @Final
+    @Mutable
     public static Codec<JigsawStructure> CODEC = RecordCodecBuilder.<JigsawStructure>mapCodec((instance) -> {
         return instance.group(Structure.StructureSettings.CODEC.forGetter(structure -> structure.settings), StructureTemplatePool.CODEC.fieldOf("start_pool").forGetter((jigsawStructure) -> {
             return jigsawStructure.startPool;
