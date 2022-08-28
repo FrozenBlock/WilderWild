@@ -220,8 +220,9 @@ public class Jellyfish extends AbstractFish {
         LivingEntity target = this.getTarget();
         if (target != null) {
             ++this.ticksSinceCantReach;
-            if (target.isDeadOrDying() || target.distanceTo(this) > 20) {
+            if (target.isDeadOrDying() || target.distanceTo(this) > 20 || this.ticksSinceCantReach > 600) {
                 this.getBrain().eraseMemory(MemoryModuleType.ATTACK_TARGET);
+                this.ticksSinceCantReach = 0;
             }
         }
     }
