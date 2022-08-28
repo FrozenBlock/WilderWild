@@ -23,6 +23,7 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.Level;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Iterator;
@@ -42,7 +43,7 @@ public class AncientHorn extends InstrumentItem {
     }
 
     @Override
-    public void fillItemCategory(CreativeModeTab creativeModeTab, NonNullList<ItemStack> nonNullList) {
+    public void fillItemCategory(@NotNull CreativeModeTab creativeModeTab, @NotNull NonNullList<ItemStack> nonNullList) {
         if (this.allowedIn(creativeModeTab)) {
             for (Holder<Instrument> holder : Registry.INSTRUMENT.getTagOrEmpty(this.instrumentTag)) {
                 nonNullList.add(create(RegisterItems.ANCIENT_HORN, holder));
@@ -52,7 +53,7 @@ public class AncientHorn extends InstrumentItem {
     }
 
     @Override
-    public InteractionResultHolder<ItemStack> use(Level world, Player user, InteractionHand hand) {
+    public InteractionResultHolder<ItemStack> use(@NotNull Level world, @NotNull Player user, @NotNull InteractionHand hand) {
         WilderWild.log(user, "Used Ancient Horn", WilderWild.DEV_LOGGING);
         ItemStack itemStack = user.getItemInHand(hand);
         Optional<Holder<Instrument>> optional = this.getInstrument(itemStack);
@@ -93,12 +94,13 @@ public class AncientHorn extends InstrumentItem {
     }
 
     @Override
-    public int getUseDuration(ItemStack stack) {
+    public int getUseDuration(@NotNull ItemStack stack) {
         Optional<Holder<Instrument>> optional = this.getInstrument(stack);
         return optional.map(instrumentRegistryEntry -> instrumentRegistryEntry.value().useDuration()).orElse(0);
     }
 
-    private Optional<Holder<Instrument>> getInstrument(ItemStack stack) {
+    @Override
+    public Optional<Holder<Instrument>> getInstrument(ItemStack stack) {
         CompoundTag nbtCompound = stack.getTag();
         if (nbtCompound != null) {
             ResourceLocation resourceLocation = ResourceLocation.tryParse(nbtCompound.getString(TAG_INSTRUMENT));
@@ -136,7 +138,7 @@ public class AncientHorn extends InstrumentItem {
     }
 
     @Override
-    public UseAnim getUseAnimation(ItemStack stack) {
+    public UseAnim getUseAnimation(@NotNull ItemStack stack) {
         return UseAnim.TOOT_HORN;
     }
 

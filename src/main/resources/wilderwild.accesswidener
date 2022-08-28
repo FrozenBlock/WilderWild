@@ -52,4 +52,5 @@ accessible    field    net/minecraft/world/level/levelgen/structure/Structure   
 accessible    method    net/minecraft/client/gui/screens/Screen    addRenderableWidget    (Lnet/minecraft/client/gui/components/events/GuiEventListener;)Lnet/minecraft/client/gui/components/events/GuiEventListener;
 accessible    field    net/minecraft/client/gui/screens/inventory/JigsawBlockEditScreen    MAX_LEVELS    I
 accessible    class    net/minecraft/world/level/chunk/ChunkStatus$SimpleGenerationTask
-accessible method net/minecraft/data/worldgen/biome/OverworldBiomes calculateSkyColor (F)I
+accessible    method net/minecraft/data/worldgen/biome/OverworldBiomes    calculateSkyColor    (F)I
+extendable    method    net/minecraft/world/item/InstrumentItem    getInstrument    (Lnet/minecraft/world/item/ItemStack;)Ljava/util/Optional;
