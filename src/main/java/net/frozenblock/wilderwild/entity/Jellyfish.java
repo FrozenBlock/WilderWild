@@ -72,14 +72,14 @@ public class Jellyfish extends AbstractFish {
         this.lookControl = new SmoothSwimmingLookControl(this, 10);
     }
 
-    private static final EntityDataAccessor<Float> XROT = SynchedEntityData.defineId(Firefly.class, EntityDataSerializers.FLOAT);
-    private static final EntityDataAccessor<Float> PREVXROT = SynchedEntityData.defineId(Firefly.class, EntityDataSerializers.FLOAT);
-    private static final EntityDataAccessor<Float> PREVTENTXROT = SynchedEntityData.defineId(Firefly.class, EntityDataSerializers.FLOAT);
-    private static final EntityDataAccessor<Float> TENTXROT = SynchedEntityData.defineId(Firefly.class, EntityDataSerializers.FLOAT);
-    private static final EntityDataAccessor<Float> ZROT = SynchedEntityData.defineId(Firefly.class, EntityDataSerializers.FLOAT);
-    private static final EntityDataAccessor<Float> PREVZROT = SynchedEntityData.defineId(Firefly.class, EntityDataSerializers.FLOAT);
-    private static final EntityDataAccessor<Float> PREVTENTZROT = SynchedEntityData.defineId(Firefly.class, EntityDataSerializers.FLOAT);
-    private static final EntityDataAccessor<Float> TENTZROT = SynchedEntityData.defineId(Firefly.class, EntityDataSerializers.FLOAT);
+    private static final EntityDataAccessor<Float> XROT = SynchedEntityData.defineId(Jellyfish.class, EntityDataSerializers.FLOAT);
+    private static final EntityDataAccessor<Float> PREVXROT = SynchedEntityData.defineId(Jellyfish.class, EntityDataSerializers.FLOAT);
+    private static final EntityDataAccessor<Float> PREVTENTXROT = SynchedEntityData.defineId(Jellyfish.class, EntityDataSerializers.FLOAT);
+    private static final EntityDataAccessor<Float> TENTXROT = SynchedEntityData.defineId(Jellyfish.class, EntityDataSerializers.FLOAT);
+    private static final EntityDataAccessor<Float> ZROT = SynchedEntityData.defineId(Jellyfish.class, EntityDataSerializers.FLOAT);
+    private static final EntityDataAccessor<Float> PREVZROT = SynchedEntityData.defineId(Jellyfish.class, EntityDataSerializers.FLOAT);
+    private static final EntityDataAccessor<Float> PREVTENTZROT = SynchedEntityData.defineId(Jellyfish.class, EntityDataSerializers.FLOAT);
+    private static final EntityDataAccessor<Float> TENTZROT = SynchedEntityData.defineId(Jellyfish.class, EntityDataSerializers.FLOAT);
 
     @Override
     public void playerTouch(@NotNull Player player) {
@@ -158,7 +158,6 @@ public class Jellyfish extends AbstractFish {
         this.xRot3 = this.xRot2;
         this.xRot2 = this.xRot1;
         this.xRot1 = this.xBodyRot;
-        this.setJellyXRot(this.xBodyRot);
         this.setPrevXRot(this.xRot1);
         this.setTentXRot(this.xRot10);
         this.setPrevTentXRot(this.xRot9);
@@ -173,7 +172,6 @@ public class Jellyfish extends AbstractFish {
         this.zRot3 = this.zRot2;
         this.zRot2 = this.zRot1;
         this.zRot1 = this.zBodyRot;
-        this.setJellyZRot(this.zBodyRot);
         this.setPrevZRot(this.zRot1);
         this.setTentZRot(this.zRot10);
         this.setPrevTentZRot(this.zRot9);
@@ -205,6 +203,9 @@ public class Jellyfish extends AbstractFish {
             this.tentacleAngle = Mth.abs(Mth.sin(this.tentacleMovement)) * (float) Math.PI * 0.25f;
             this.xBodyRot += (-90.0f - this.xBodyRot) * 0.02f;
         }
+
+        this.setJellyXRot(this.xBodyRot);
+        this.setJellyZRot(this.zBodyRot);
     }
 
     @Override
