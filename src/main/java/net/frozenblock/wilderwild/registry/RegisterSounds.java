@@ -149,6 +149,11 @@ public final class RegisterSounds {
     public static final SoundEvent ENTITY_FIREFLY_HURT = register("entity.firefly.hurt");
     public static final SoundEvent ENTITY_FIREFLY_NECTAR = register("entity.firefly.nectar");
 
+    public static final SoundEvent ENTITY_JELLYFISH_AMBIENT = register("entity.jellyfish.ambient");
+    public static final SoundEvent ENTITY_JELLYFISH_HURT = register("entity.jellyfish.hurt");
+    public static final SoundEvent ENTITY_JELLYFISH_SWIM = register("entity.jellyfish.swim");
+    public static final SoundEvent ENTITY_JELLYFISH_WHINE = register("entity.jellyfish.whine");
+
     public static final SoundEvent ENTITY_WARDEN_KIRBY_DEATH = register("entity.warden.kirby_death");
     public static final SoundEvent ENTITY_WARDEN_DYING = register("entity.warden.dying");
     public static final SoundEvent ENTITY_WARDEN_UNDERWATER_DYING = register("entity.warden.dying_underwater");
@@ -195,7 +200,7 @@ public final class RegisterSounds {
 
     public static final SoundEvent MUSIC_DISC_BENEATH = register("music_disc.beneath");
     public static final SoundEvent MUSIC_DISC_GOATHORN_SYMPHONY = register("music_disc.goathorn_symphony");
-    public static final SoundEvent MUSIC_DISC_THE_OTHER_SIDE = register("music_disc.the_other_side");
+    public static final SoundEvent MUSIC_DISC_BACK = register("music_disc.back");
     public static final SoundEvent MUSIC_OVERWORLD_WILD_FORESTS = register("music.overworld.wild_forests");
 
     public static SoundEvent register(String path) {

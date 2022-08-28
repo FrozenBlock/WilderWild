@@ -1230,6 +1230,36 @@
 	],
 	"subtitle": "subtitles.entity.firefly.nectar"
   },
+	"entity.jellyfish.ambient": {
+		"sounds": [
+			"wilderwild:mob/jellyfish/ambient1",
+			"wilderwild:mob/jellyfish/ambient2",
+			"wilderwild:mob/jellyfish/ambient3",
+			"wilderwild:mob/jellyfish/ambient4"
+		],
+		"subtitle": "subtitles.entity.jellyfish.ambient"
+	},
+	"entity.jellyfish.hurt": {
+		"sounds": [
+			"wilderwild:mob/jellyfish/hurt1",
+			"wilderwild:mob/jellyfish/hurt2",
+			"wilderwild:mob/jellyfish/hurt3"
+		]
+	},
+	"entity.jellyfish.swim": {
+		"sounds": [
+			"wilderwild:mob/jellyfish/swim1",
+			"wilderwild:mob/jellyfish/swim2",
+			"wilderwild:mob/jellyfish/swim3",
+			"wilderwild:mob/jellyfish/swim4"
+		]
+	},
+	"entity.jellyfish.whine": {
+		"sounds": [
+			"wilderwild:mob/jellyfish/whine1"
+		],
+		"subtitle": "subtitles.entity.jellyfish.whine"
+	},
   "entity.warden.brap": {
 	"sounds": [
 	  "wilderwild:mob/warden/brap"
@@ -1423,9 +1453,9 @@
 	  "wilderwild:records/goathorn_symphony"
 	]
   },
-  "music_disc.the_other_side": {
+  "music_disc.back": {
 	"sounds": [
-	  "wilderwild:records/the_other_side"
+	  "wilderwild:records/back"
 	]
   },
   "particle.floating_sculk_bubble.big_pop": {

@@ -1,5 +1,6 @@
 package net.frozenblock.wilderwild.entity;
 
+import net.frozenblock.wilderwild.registry.RegisterSounds;
 import net.frozenblock.wilderwild.registry.RegisterWorldgen;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleOptions;
@@ -191,21 +192,26 @@ public class Jellyfish extends AbstractFish {
 
     @Override
     protected SoundEvent getAmbientSound() {
-        return SoundEvents.SQUID_AMBIENT;
+        return RegisterSounds.ENTITY_JELLYFISH_AMBIENT;
     }
 
     @Override
     protected SoundEvent getHurtSound(@NotNull DamageSource damageSource) {
-        return SoundEvents.SQUID_HURT;
+        return RegisterSounds.ENTITY_JELLYFISH_HURT;
     }
 
     @Override
     protected SoundEvent getDeathSound() {
-        return SoundEvents.SQUID_DEATH;
+        return RegisterSounds.ENTITY_JELLYFISH_HURT;
     }
 
     protected SoundEvent getSquirtSound() {
-        return SoundEvents.SQUID_SQUIRT;
+        return null;
+    }
+
+    @Override
+    protected SoundEvent getSwimSound() {
+        return RegisterSounds.ENTITY_JELLYFISH_SWIM;
     }
 
     @Override
