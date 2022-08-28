@@ -26,13 +26,15 @@ public class WilderWildConfig extends PartitioningSerializer.GlobalData {
     @TransitiveObject
     public WorldgenConfig worldgen = new WorldgenConfig();
 
-    public boolean betaBeaches = true;
-    public boolean modifyDesertPlacement = true;
-    public boolean modifyBadlandsPlacement = true;
-    public boolean modifyWindsweptSavannaPlacement = true;
-    public boolean modifyJunglePlacement = true;
-    public boolean modifySwampPlacement = true;
-    public boolean modifyMangroveSwampPlacement = true;
+    public static boolean fallenLogs = true;
+    public static boolean wilderWildTreeGen = true;
+    public static boolean betaBeaches = true;
+    public static boolean modifyDesertPlacement = true;
+    public static boolean modifyBadlandsPlacement = true;
+    public static boolean modifyWindsweptSavannaPlacement = true;
+    public static boolean modifyJunglePlacement = true;
+    public static boolean modifySwampPlacement = true;
+    public static boolean modifyMangroveSwampPlacement = true;
 
     public static Component text(String key) {
         return Component.translatable("option." + WilderWild.MOD_ID + "." + key);

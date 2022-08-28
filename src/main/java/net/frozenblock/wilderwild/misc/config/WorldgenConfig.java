@@ -63,6 +63,18 @@ public class WorldgenConfig implements ConfigData {
                 .setTooltip(tooltip("modify_mangrove_swamp_placement"))
                 .requireRestart()
                 .build());
+        category.addEntry(entryBuilder.startBooleanToggle(text("wilder_wild_trees"), config.wilderWildTreeGen)
+                .setDefaultValue(true)
+                .setSaveConsumer(newValue -> config.wilderWildTreeGen = newValue)
+                .setTooltip(tooltip("wilder_wild_trees"))
+                .requireRestart()
+                .build());
+        category.addEntry(entryBuilder.startBooleanToggle(text("fallen_logs"), config.fallenLogs)
+                .setDefaultValue(true)
+                .setSaveConsumer(newValue -> config.fallenLogs = newValue)
+                .setTooltip(tooltip("fallen_logs"))
+                .requireRestart()
+                .build());
     }
 
     //public static final StringSetConfigOption HIDDEN_MODS = new StringSetConfigOption("hidden_mods", new HashSet<>());
