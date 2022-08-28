@@ -72,7 +72,7 @@ public class Jellyfish extends AbstractFish {
                 ((ServerPlayer)player).connection.send(new ClientboundGameEventPacket(ClientboundGameEventPacket.PUFFER_FISH_STING, 0.0F));
             }
 
-            player.addEffect(new MobEffectInstance(MobEffects.POISON, 300, 0), this);
+            player.addEffect(new MobEffectInstance(MobEffects.POISON, 300, 0, false, false), this);
         }
 
     }
@@ -310,6 +310,9 @@ public class Jellyfish extends AbstractFish {
         this.setPrevPushTicks(this.getPushingTicks());
         if (this.getInhaleTicks() < this.getInhaleLength()) {
             this.setInhaleTicks(this.getInhaleTicks() + 1);
+            if (this.getInhaleTicks() >= this.getInhaleLength()) {
+                this.setInhaleLength(0);
+            }
         } else if (this.preparedMovement != null) {
             this.setPushTicks((int) (this.preparedMovement.length() * 10));
             this.setMovementVector((float) this.preparedMovement.x, (float) this.preparedMovement.y, (float) this.preparedMovement.z);
@@ -401,13 +404,17 @@ public class Jellyfish extends AbstractFish {
             return jelly.target != null;
         }
 
+        public boolean canContinueToUse() {
+            return this.jelly.getInhaleTicks() <= 0;
+        }
+
         @Override
         public void tick() {
             Vec3 target = this.jelly.target;
             if (target != null) {
                 if (this.jelly.getPushingTicks() <= 0 && this.jelly.getInhaleTicks() <= 0) {
                     float toX = (float) (Mth.clamp(target.x() - this.jelly.getPosition(1f).x(), -0.2, 0.2));
-                    float toY = (float) (Mth.clamp(target.y() - this.jelly.getPosition(1f).y(), -0.05, 0.2));
+                    float toY = (float) (Mth.clamp(target.y() - this.jelly.getPosition(1f).y(), -0.2, 0.2));
                     float toZ = (float) (Mth.clamp(target.z() - this.jelly.getPosition(1f).z(), -0.2, 0.2));
                     this.jelly.preparedMovement = new Vec3(toX, toY, toZ);
                     this.jelly.setInhaleLength(15);
