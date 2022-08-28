@@ -314,7 +314,7 @@ public class Jellyfish extends AbstractFish {
             this.setPushTicks((int) (this.preparedMovement.length() * 10));
             this.setMovementVector((float) this.preparedMovement.x, (float) this.preparedMovement.y, (float) this.preparedMovement.z);
             this.preparedMovement = null;
-        } else if (this.getPushingTicks() > 0) {
+        } if (this.getPushingTicks() > 0) {
             this.setPushTicks(this.getPushingTicks() - 1);
         }
     }
@@ -386,7 +386,7 @@ public class Jellyfish extends AbstractFish {
     }
 
     public boolean canPush() {
-        return this.getInhaleTicks() > this.getInhaleLength();
+        return this.getInhaleTicks() > this.getInhaleLength() && this.getPushingTicks() <= 0;
     }
 
     static class JellyToTargetGoal extends Goal {
