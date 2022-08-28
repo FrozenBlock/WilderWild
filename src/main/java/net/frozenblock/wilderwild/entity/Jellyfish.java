@@ -72,15 +72,6 @@ public class Jellyfish extends AbstractFish {
         this.lookControl = new SmoothSwimmingLookControl(this, 10);
     }
 
-    private static final EntityDataAccessor<Float> XROT = SynchedEntityData.defineId(Jellyfish.class, EntityDataSerializers.FLOAT);
-    private static final EntityDataAccessor<Float> PREVXROT = SynchedEntityData.defineId(Jellyfish.class, EntityDataSerializers.FLOAT);
-    private static final EntityDataAccessor<Float> PREVTENTXROT = SynchedEntityData.defineId(Jellyfish.class, EntityDataSerializers.FLOAT);
-    private static final EntityDataAccessor<Float> TENTXROT = SynchedEntityData.defineId(Jellyfish.class, EntityDataSerializers.FLOAT);
-    private static final EntityDataAccessor<Float> ZROT = SynchedEntityData.defineId(Jellyfish.class, EntityDataSerializers.FLOAT);
-    private static final EntityDataAccessor<Float> PREVZROT = SynchedEntityData.defineId(Jellyfish.class, EntityDataSerializers.FLOAT);
-    private static final EntityDataAccessor<Float> PREVTENTZROT = SynchedEntityData.defineId(Jellyfish.class, EntityDataSerializers.FLOAT);
-    private static final EntityDataAccessor<Float> TENTZROT = SynchedEntityData.defineId(Jellyfish.class, EntityDataSerializers.FLOAT);
-
     @Override
     public void playerTouch(@NotNull Player player) {
         if (player instanceof ServerPlayer && player.hurt(DamageSource.mobAttack(this), 3)) {
@@ -158,9 +149,6 @@ public class Jellyfish extends AbstractFish {
         this.xRot3 = this.xRot2;
         this.xRot2 = this.xRot1;
         this.xRot1 = this.xBodyRot;
-        this.setPrevXRot(this.xRot1);
-        this.setTentXRot(this.xRot10);
-        this.setPrevTentXRot(this.xRot9);
 
         this.zRot10 = this.zRot9;
         this.zRot9 = this.zRot8;
@@ -172,9 +160,7 @@ public class Jellyfish extends AbstractFish {
         this.zRot3 = this.zRot2;
         this.zRot2 = this.zRot1;
         this.zRot1 = this.zBodyRot;
-        this.setPrevZRot(this.zRot1);
-        this.setTentZRot(this.zRot10);
-        this.setPrevTentZRot(this.zRot9);
+        
         this.oldTentacleMovement = this.tentacleMovement;
         this.oldTentacleAngle = this.tentacleAngle;
         this.tentacleMovement += this.tentacleSpeed;
@@ -203,9 +189,6 @@ public class Jellyfish extends AbstractFish {
             this.tentacleAngle = Mth.abs(Mth.sin(this.tentacleMovement)) * (float) Math.PI * 0.25f;
             this.xBodyRot += (-90.0f - this.xBodyRot) * 0.02f;
         }
-
-        this.setJellyXRot(this.xBodyRot);
-        this.setJellyZRot(this.zBodyRot);
     }
 
     @Override
@@ -248,106 +231,6 @@ public class Jellyfish extends AbstractFish {
     @Override
     public ItemStack getBucketItemStack() {
         return null;
-    }
-
-    public void setJellyXRot(float value) {
-        this.entityData.set(XROT, value);
-    }
-
-    public void setPrevXRot(float value) {
-        this.entityData.set(PREVXROT, value);
-    }
-
-    public void setTentXRot(float value) {
-        this.entityData.set(TENTXROT, value);
-    }
-
-    public void setPrevTentXRot(float value) {
-        this.entityData.set(PREVTENTXROT, value);
-    }
-
-    public float getJellyXRot() {
-        return this.entityData.get(XROT);
-    }
-
-    public float getPrevXRot() {
-        return this.entityData.get(PREVXROT);
-    }
-
-    public float getTentXRot() {
-        return this.entityData.get(TENTXROT);
-    }
-
-    public float getPrevTentXRot() {
-        return this.entityData.get(PREVTENTXROT);
-    }
-
-    //Z
-    public void setJellyZRot(float value) {
-        this.entityData.set(ZROT, value);
-    }
-
-    public void setPrevZRot(float value) {
-        this.entityData.set(PREVZROT, value);
-    }
-
-    public void setTentZRot(float value) {
-        this.entityData.set(TENTZROT, value);
-    }
-
-    public void setPrevTentZRot(float value) {
-        this.entityData.set(PREVTENTZROT, value);
-    }
-
-    public float getJellyZRot() {
-        return this.entityData.get(ZROT);
-    }
-
-    public float getPrevZRot() {
-        return this.entityData.get(PREVZROT);
-    }
-
-    public float getTentZRot() {
-        return this.entityData.get(TENTZROT);
-    }
-
-    public float getPrevTentZRot() {
-        return this.entityData.get(PREVTENTZROT);
-    }
-
-
-    public void addAdditionalSaveData(CompoundTag nbt) {
-        super.addAdditionalSaveData(nbt);
-        nbt.putFloat("jellyXRot", this.getJellyXRot());
-        nbt.putFloat("jellyPrevXRot", this.getPrevXRot());
-        nbt.putFloat("tentXRot", this.getTentXRot());
-        nbt.putFloat("jellyZRot", this.getJellyZRot());
-        nbt.putFloat("jellyPrevZRot", this.getPrevZRot());
-        nbt.putFloat("prevTentZRot", this.getPrevTentZRot());
-        nbt.putFloat("tentZRot", this.getTentZRot());
-    }
-
-    public void readAdditionalSaveData(CompoundTag nbt) {
-        super.readAdditionalSaveData(nbt);
-        this.setJellyXRot(nbt.getFloat("jellyXRot"));
-        this.setPrevXRot(nbt.getFloat("jellyPrevXRot"));
-        this.setTentXRot(nbt.getFloat("tentXRot"));
-        this.setJellyZRot(nbt.getFloat("jellyZRot"));
-        this.setPrevZRot(nbt.getFloat("jellyPrevZRot"));
-        this.setPrevTentZRot(nbt.getFloat("prevTentZRot"));
-        this.setTentZRot(nbt.getFloat("tentZRot"));
-    }
-
-    protected void defineSynchedData() {
-        super.defineSynchedData();
-        this.entityData.define(XROT, 0F);
-        this.entityData.define(PREVXROT, 0F);
-        this.entityData.define(PREVTENTXROT, 0F);
-        this.entityData.define(TENTXROT, 0F);
-        this.entityData.define(ZROT, 0F);
-        this.entityData.define(PREVZROT, 0F);
-        this.entityData.define(PREVTENTZROT, 0F);
-        this.entityData.define(TENTZROT, 0F);
     }
 
 }
