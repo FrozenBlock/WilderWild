@@ -13,8 +13,18 @@ import static net.frozenblock.wilderwild.misc.config.WilderWildConfig.tooltip;
 public class WorldgenConfig implements ConfigData {
     //public static final EnumConfigOption<ModMenuConfig.ModsButtonStyle> MODS_BUTTON_STYLE = new EnumConfigOption<>("mods_button_style", ModMenuConfig.ModsButtonStyle.CLASSIC);
 
+    public boolean fallenLogs = true;
+    public boolean wilderWildTreeGen = true;
+    public boolean betaBeaches = true;
+    public boolean modifyDesertPlacement = true;
+    public boolean modifyBadlandsPlacement = true;
+    public boolean modifyWindsweptSavannaPlacement = true;
+    public boolean modifyJunglePlacement = true;
+    public boolean modifySwampPlacement = true;
+    public boolean modifyMangroveSwampPlacement = true;
+
     public static void setupEntries(ConfigCategory category, ConfigEntryBuilder entryBuilder) {
-        var config = WilderWildClient.config;
+        var config = WilderWildConfig.get().worldgen;
         category.addEntry(entryBuilder.startBooleanToggle(text("beta_beaches"), config.betaBeaches)
                 .setDefaultValue(true)
                 .setSaveConsumer(newValue -> config.betaBeaches = newValue)
@@ -78,7 +88,7 @@ public class WorldgenConfig implements ConfigData {
     }
 
     //public static final StringSetConfigOption HIDDEN_MODS = new StringSetConfigOption("hidden_mods", new HashSet<>());
-    /*public static WorldgenConfig init() {
+    /*public static WorldgenConfig get() {
         AutoConfig.register(WorldgenConfig.class, GsonConfigSerializer::new);
         return AutoConfig.getConfigHolder(WorldgenConfig.class).getConfig();
     }*/
