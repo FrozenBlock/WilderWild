@@ -16,7 +16,7 @@ pluginManagement {
 rootProject.name = "Wilder Wild"
 
 
-def allowLocalFrozenLibUse = false
+def allowLocalFrozenLibUse = true
 def allowFrozenLibInConsoleMode = false
 def FrozenLibPath = '../FrozenLib'
 
