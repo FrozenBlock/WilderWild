@@ -112,6 +112,7 @@ public class JellyfishModel<T extends Jellyfish> extends HierarchicalModel<T> {
         float animation = limbSwing * 2;
 
         float cos = -Mth.cos(animation);
+        float sin = -Mth.sin(animation);
         float cosTentacle = (cos * 20 - 7.5F) * pi180;
         //cardinal tentacles
         this.tentacle1.xRot = cosTentacle;
@@ -128,9 +129,9 @@ public class JellyfishModel<T extends Jellyfish> extends HierarchicalModel<T> {
         float xZScale = 1F + (-cos * 0.25F);
         this.body.xScale = xZScale;
         this.body.zScale = xZScale;
-        float yCos = 1.25F + (cos * 0.75F);
-        this.body.yScale = yCos;
-        this.body.y = 3.5F -(yCos * 3.5F);
+        float ySin = 1.25F + (sin * 0.75F);
+        this.body.yScale = ySin;
+        this.body.y = 3.5F -(ySin * 3.5F);
     }
 
     @Override
