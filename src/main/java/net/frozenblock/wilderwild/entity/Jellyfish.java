@@ -404,7 +404,7 @@ public class Jellyfish extends AbstractFish {
         public void tick() {
             Vec3 target = this.jelly.target;
             if (target != null) {
-                if (this.jelly.pushingTicks <= 0) {
+                if (this.jelly.getPushingTicks() <= 0) {
                     float toX = (float) (Mth.clamp(target.x - this.jelly.position().x, -0.2, 0.2));
                     float toY = (float) (Mth.clamp(target.y - this.jelly.position().y, -0.05, 0.2));
                     float toZ = (float) (Mth.clamp(target.z - this.jelly.position().z, -0.2, 0.2));
