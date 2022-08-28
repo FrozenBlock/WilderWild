@@ -310,7 +310,7 @@ public class Jellyfish extends AbstractFish {
         this.setPrevPushTicks(this.getPushingTicks());
         if (this.getInhaleTicks() < this.getInhaleLength()) {
             this.setInhaleTicks(this.getInhaleTicks() + 1);
-        } else if (this.canPush() && this.preparedMovement != null) {
+        } else if (this.preparedMovement != null) {
             this.setPushTicks((int) (this.preparedMovement.length() * 10));
             this.setMovementVector((float) this.preparedMovement.x, (float) this.preparedMovement.y, (float) this.preparedMovement.z);
             this.preparedMovement = null;
