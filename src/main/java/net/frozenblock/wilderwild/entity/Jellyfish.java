@@ -35,22 +35,12 @@ public class Jellyfish extends AbstractFish {
     public float xRot3;
     public float xRot4;
     public float xRot5;
-    public float xRot6;
-    public float xRot7;
-    public float xRot8;
-    public float xRot9;
-    public float xRot10;
     public float zBodyRot;
     public float zRot1;
     public float zRot2;
     public float zRot3;
     public float zRot4;
     public float zRot5;
-    public float zRot6;
-    public float zRot7;
-    public float zRot8;
-    public float zRot9;
-    public float zRot10;
     public float tentacleMovement;
     public float oldTentacleMovement;
     public float tentacleAngle;
@@ -58,6 +48,10 @@ public class Jellyfish extends AbstractFish {
     private float speed;
     private float tentacleSpeed;
     private float rotateSpeed;
+
+    public float targetLight;
+    public float currentLight;
+    public float previousLight;
 
     public Jellyfish(EntityType<? extends Jellyfish> entityType, Level level) {
         super(entityType, level);
@@ -132,22 +126,12 @@ public class Jellyfish extends AbstractFish {
     @Override
     public void aiStep() {
         super.aiStep();
-        this.xRot10 = this.xRot9;
-        this.xRot9 = this.xRot8;
-        this.xRot8 = this.xRot7;
-        this.xRot7 = this.xRot6;
-        this.xRot6 = this.xRot5;
         this.xRot5 = this.xRot4;
         this.xRot4 = this.xRot3;
         this.xRot3 = this.xRot2;
         this.xRot2 = this.xRot1;
         this.xRot1 = this.xBodyRot;
 
-        this.zRot10 = this.zRot9;
-        this.zRot9 = this.zRot8;
-        this.zRot8 = this.zRot7;
-        this.zRot7 = this.zRot6;
-        this.zRot6 = this.zRot5;
         this.zRot5 = this.zRot4;
         this.zRot4 = this.zRot3;
         this.zRot3 = this.zRot2;
@@ -181,6 +165,14 @@ public class Jellyfish extends AbstractFish {
         } else {
             this.tentacleAngle = Mth.abs(Mth.sin(this.tentacleMovement)) * (float) Math.PI * 0.25f;
             this.xBodyRot += (-90.0f - this.xBodyRot) * 0.02f;
+        }
+
+        this.previousLight = this.currentLight;
+        this.targetLight = this.level.getLightEngine().getRawBrightness(new BlockPos(this.position()), 0);
+        if (this.targetLight > this.currentLight) {
+            this.currentLight += 0.1;
+        } else if (this.targetLight < this.currentLight) {
+            this.currentLight -= 0.1;
         }
     }
 
