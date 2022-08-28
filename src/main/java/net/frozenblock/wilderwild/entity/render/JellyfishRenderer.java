@@ -32,10 +32,10 @@ public class JellyfishRenderer extends MobRenderer<Jellyfish, JellyfishModel<Jel
         poseStack.mulPose(Vector3f.YP.rotationDegrees(180.0f - g));
         poseStack.translate(0.0, -1.2f, 0.0);
         JellyfishModel<Jellyfish> model = this.getModel();
-        model.xRot = Mth.lerp(h, jelly.getPrevXRot(), jelly.getJellyXRot());
-        model.zRot = Mth.lerp(h, jelly.getPrevZRot(), jelly.getJellyZRot());
-        model.tentXRot = Mth.lerp(h, jelly.getPrevTentXRot(), jelly.getTentXRot());
-        model.tentZRot = Mth.lerp(h, jelly.getPrevTentZRot(), jelly.getTentZRot());
+        model.xRot = Mth.lerp(h, jelly.xRot1, jelly.xBodyRot);
+        model.zRot = Mth.lerp(h, jelly.zRot1, jelly.zBodyRot);
+        model.tentXRot = Mth.lerp(h, jelly.xRot10, jelly.xRot9);
+        model.tentZRot = Mth.lerp(h, jelly.zRot10, jelly.zRot9);
     }
 
     @Override
