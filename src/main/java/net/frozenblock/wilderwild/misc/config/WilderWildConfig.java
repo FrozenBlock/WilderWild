@@ -39,6 +39,10 @@ public class WilderWildConfig extends PartitioningSerializer.GlobalData {
     public static Component text(String key) {
         return Component.translatable("option." + WilderWild.MOD_ID + "." + key);
     }
+
+    public static Component tooltip(String key) {
+        return Component.translatable("tooltip." + WilderWild.MOD_ID + "." + key);
+    }
 }
 /* public class WilderWildConfig {
 

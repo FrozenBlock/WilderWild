@@ -10,6 +10,7 @@ import me.shedaniel.clothconfig2.api.ConfigEntryBuilder;
 import net.frozenblock.wilderwild.WilderWildClient;
 
 import static net.frozenblock.wilderwild.misc.config.WilderWildConfig.text;
+import static net.frozenblock.wilderwild.misc.config.WilderWildConfig.tooltip;
 
 @Config(name = "entity")
 public class EntityConfig implements ConfigData {
@@ -19,15 +20,18 @@ public class EntityConfig implements ConfigData {
         category.addEntry(entryBuilder.startBooleanToggle(text("warden_emerges_from_egg"), config.wardenEmergesFromEgg)
                 .setDefaultValue(true)
                 .setSaveConsumer(newValue -> config.wardenEmergesFromEgg = newValue)
+                .setTooltip(tooltip("warden_emerges_from_egg"))
                 .build());
         category.addEntry(entryBuilder.startBooleanToggle(text("warden_custom_tendrils"), config.customWardenTendrils)
                 .setDefaultValue(true)
                 .setSaveConsumer(newValue -> config.customWardenTendrils = newValue)
                 .setYesNoTextSupplier(bool -> text("warden_custom_tendrils." + bool))
+                .setTooltip(tooltip("warden_custom_tendrils"))
                 .build());
         category.addEntry(entryBuilder.startBooleanToggle(text("warden_swim_animation"), config.wardenSwimAnimation)
                 .setDefaultValue(true)
                 .setSaveConsumer(newValue -> config.wardenSwimAnimation = newValue)
+                .setTooltip(tooltip("warden_swim_animation"))
                 .build());
 
     }

@@ -7,6 +7,7 @@ import me.shedaniel.clothconfig2.api.ConfigEntryBuilder;
 import net.frozenblock.wilderwild.WilderWildClient;
 
 import static net.frozenblock.wilderwild.misc.config.WilderWildConfig.text;
+import static net.frozenblock.wilderwild.misc.config.WilderWildConfig.tooltip;
 
 @Config(name = "block")
 public class BlockConfig implements ConfigData {
@@ -19,10 +20,12 @@ public class BlockConfig implements ConfigData {
                 .setDefaultValue(false)
                 .setSaveConsumer(newValue -> config.mcLiveSensorTendrils = newValue)
                 .setYesNoTextSupplier(bool -> text("mc_live_sensor_tendrils." + bool))
+                .setTooltip(tooltip("mc_live_sensor_tendrils"))
                 .build());
         category.addEntry(entryBuilder.startBooleanToggle(text("shrieker_gargling"), config.shriekerGargling)
                 .setDefaultValue(true)
                 .setSaveConsumer(newValue -> config.shriekerGargling = newValue)
+                .setTooltip(tooltip("shrieker_gargling"))
                 .build());
 
     }
