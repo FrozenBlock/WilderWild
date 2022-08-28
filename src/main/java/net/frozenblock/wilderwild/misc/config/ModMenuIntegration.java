@@ -10,7 +10,7 @@ public class ModMenuIntegration implements ModMenuApi {
 
     @Override
     public ConfigScreenFactory<?> getModConfigScreenFactory() {
-        return WilderWildClothConfig::buildScreen;
+        return WilderWildClientConfig::buildScreen;
     }
 
 }

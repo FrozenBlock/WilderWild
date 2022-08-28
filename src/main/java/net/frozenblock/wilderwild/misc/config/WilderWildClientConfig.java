@@ -8,15 +8,19 @@ import me.shedaniel.autoconfig.serializer.PartitioningSerializer;
 import me.shedaniel.clothconfig2.api.ConfigBuilder;
 import me.shedaniel.clothconfig2.api.ConfigCategory;
 import me.shedaniel.clothconfig2.api.ConfigEntryBuilder;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.frozenblock.wilderwild.WilderWild;
 import net.minecraft.client.gui.screens.Screen;
 
+@Environment(EnvType.CLIENT)
 @Config(name = WilderWild.MOD_ID)
-public class WilderWildClothConfig extends WilderWildConfig implements ConfigData {
+public class WilderWildClientConfig extends WilderWildConfig implements ConfigData {
 
+    @Environment(EnvType.CLIENT)
     public static Screen buildScreen(Screen parent) {
         var configBuilder = ConfigBuilder.create().setParentScreen(parent).setTitle(text("component.title"));
-        configBuilder.setSavingRunnable(() -> AutoConfig.getConfigHolder(WilderWildClothConfig.class).save());
+        configBuilder.setSavingRunnable(() -> AutoConfig.getConfigHolder(WilderWildConfig.class).save());
         //ConfigCategory general = configBuilder.getOrCreateCategory(text("general"));
         ConfigCategory block = configBuilder.getOrCreateCategory(text("block"));
         ConfigCategory entity = configBuilder.getOrCreateCategory(text("entity"));
@@ -25,7 +29,7 @@ public class WilderWildClothConfig extends WilderWildConfig implements ConfigDat
         BlockConfig.setupEntries(block, entryBuilder);
         EntityConfig.setupEntries(entity, entryBuilder);
         WorldgenConfig.setupEntries(worldgen, entryBuilder);
-        //WilderWildClothConfig.setupEntries(general, entryBuilder);
+        //WilderWildClientConfig.setupEntries(general, entryBuilder);
         return configBuilder.build();
     }
 
@@ -98,12 +102,4 @@ public class WilderWildClothConfig extends WilderWildConfig implements ConfigDat
                 .build());
 
     }*/
-
-    public static WilderWildClothConfig init() {
-        if (!WilderWild.areConfigsInit) {
-            AutoConfig.register(WilderWildClothConfig.class, PartitioningSerializer.wrap(GsonConfigSerializer::new));
-            WilderWild.areConfigsInit = true;
-        }
-        return AutoConfig.getConfigHolder(WilderWildClothConfig.class).getConfig();
-    }
 }
