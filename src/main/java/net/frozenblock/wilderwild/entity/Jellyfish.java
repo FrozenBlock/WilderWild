@@ -220,7 +220,7 @@ public class Jellyfish extends AbstractFish {
         LivingEntity target = this.getTarget();
         if (target != null) {
             ++this.ticksSinceCantReach;
-            if (target.isDeadOrDying() || target.distanceTo(this) > 20 || this.ticksSinceCantReach > 600) {
+            if (target.isDeadOrDying() || this.ticksSinceCantReach > 600) {
                 this.getBrain().eraseMemory(MemoryModuleType.ATTACK_TARGET);
                 this.ticksSinceCantReach = 0;
             }
@@ -331,7 +331,7 @@ public class Jellyfish extends AbstractFish {
         //super.registerGoals();
         //this.goalSelector.addGoal(0, new PanicGoal(this, 1.25));
         //this.goalSelector.addGoal(2, new AvoidEntityGoal<>(this, Player.class, 8.0f, 1.6, 1.4, EntitySelector.NO_SPECTATORS::test));
-        this.goalSelector.addGoal(4, new JellySwimGoal(this));
+        this.goalSelector.addGoal(2, new JellySwimGoal(this));
         this.goalSelector.addGoal(6, new JellyToTargetGoal(this));
     }
 
@@ -347,6 +347,11 @@ public class Jellyfish extends AbstractFish {
         @Override
         public boolean canUse() {
             return this.jelly.getTarget() == null && this.jelly.canRandomSwim() && super.canUse();
+        }
+
+        @Override
+        public boolean canContinueToUse() {
+            return this.jelly.getTarget() == null && !this.mob.getNavigation().isDone() && !this.mob.isVehicle();
         }
     }
 
