@@ -27,10 +27,15 @@ import org.jetbrains.annotations.Nullable;
 
 // DEEZ NUTS HAHAHHA GOTTEM
 public class BaobabNutBlock extends SaplingBlock {
-    public static final IntegerProperty AGE;
+    public static final IntegerProperty AGE = BlockStateProperties.AGE_2;
     public static final int MAX_AGE = 2;
-    private static final VoxelShape[] SHAPES;
-    public static final BooleanProperty HANGING;
+    private static final VoxelShape[] SHAPES = new VoxelShape[]{
+            Shapes.or(Block.box(7.0, 13.0, 7.0, 9.0, 16.0, 9.0), Block.box(5.0, 6.0, 5.0, 11.0, 13.0, 11.0)),
+            Shapes.or(Block.box(7.0, 12.0, 7.0, 9.0, 16.0, 9.0), Block.box(4.0, 3.0, 4.0, 12.0, 12.0, 12.0)),
+            Shapes.or(Block.box(7.0, 10.0, 7.0, 9.0, 16.0, 9.0), Block.box(4.0, 0.0, 4.0, 12.0, 10.0, 12.0)),
+            Block.box(7.0, 3.0, 7.0, 9.0, 16.0, 9.0), Block.box(2.0D, 0.0D, 2.0D, 14.0D, 12.0D, 14.0D)
+    };
+    public static final BooleanProperty HANGING = BlockStateProperties.HANGING;
 
     public BaobabNutBlock(BlockBehaviour.Properties settings) {
         super(new BaobabSaplingGenerator(), settings);
@@ -114,16 +119,5 @@ public class BaobabNutBlock extends SaplingBlock {
 
     public static net.minecraft.world.level.block.state.BlockState getHangingState(int age) {
         return RegisterBlocks.BAOBAB_NUT.defaultBlockState().setValue(HANGING, true).setValue(AGE, age);
-    }
-
-    static {
-        AGE = BlockStateProperties.AGE_2;
-        SHAPES = new VoxelShape[]{
-                Shapes.or(Block.box(7.0, 13.0, 7.0, 9.0, 16.0, 9.0), Block.box(5.0, 6.0, 5.0, 11.0, 13.0, 11.0)),
-                Shapes.or(Block.box(7.0, 12.0, 7.0, 9.0, 16.0, 9.0), Block.box(4.0, 3.0, 4.0, 12.0, 12.0, 12.0)),
-                Shapes.or(Block.box(7.0, 10.0, 7.0, 9.0, 16.0, 9.0), Block.box(4.0, 0.0, 4.0, 12.0, 10.0, 12.0)),
-                Block.box(7.0, 3.0, 7.0, 9.0, 16.0, 9.0), Block.box(2.0D, 0.0D, 2.0D, 14.0D, 12.0D, 14.0D)
-        };
-        HANGING = BlockStateProperties.HANGING;
     }
 }
