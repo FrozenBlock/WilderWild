@@ -310,7 +310,7 @@ public class Jellyfish extends AbstractFish {
         this.setPrevPushTicks(this.getPushingTicks());
         if (this.getInhaleTicks() < this.getInhaleLength()) {
             this.setInhaleTicks(this.getInhaleTicks() + 1);
-        } else if (this.canPush() && this.preparedMovement != null) {
+        } else if (this.preparedMovement != null) {
             this.setPushTicks((int) (this.preparedMovement.length() * 10));
             this.setMovementVector((float) this.preparedMovement.x, (float) this.preparedMovement.y, (float) this.preparedMovement.z);
             this.preparedMovement = null;
@@ -329,7 +329,7 @@ public class Jellyfish extends AbstractFish {
         if (super.hurt(damageSource, f) && this.getLastHurtByMob() != null) {
             if (!this.level.isClientSide) {
                 this.spawnJelly();
-                this.target = this.getLastHurtByMob().position();
+                this.target = this.getLastHurtByMob().getPosition(1f);
             }
             return true;
         }
@@ -405,7 +405,7 @@ public class Jellyfish extends AbstractFish {
         public void tick() {
             Vec3 target = this.jelly.target;
             if (target != null) {
-                if (this.jelly.getPushingTicks() <= 0 && this.jelly.canPush()) {
+                if (this.jelly.getPushingTicks() <= 0 && this.jelly.getInhaleTicks() <= 0) {
                     float toX = (float) (Mth.clamp(target.x - this.jelly.position().x, -0.2, 0.2));
                     float toY = (float) (Mth.clamp(target.y - this.jelly.position().y, -0.05, 0.2));
                     float toZ = (float) (Mth.clamp(target.z - this.jelly.position().z, -0.2, 0.2));
