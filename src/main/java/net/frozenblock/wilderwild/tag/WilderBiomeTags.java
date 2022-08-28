@@ -10,6 +10,7 @@ public final class WilderBiomeTags {
     public static final TagKey<Biome> FIREFLY_SPAWNABLE_CAVE = of("firefly_spawnable_cave");
     public static final TagKey<Biome> FIREFLY_SPAWNABLE = of("firefly_spawnable");
     public static final TagKey<Biome> ABANDONED_CABIN_HAS_STRUCTURE = of("has_structure/abandoned_cabin");
+    public static final TagKey<Biome> BRIGHT_JELLYFISH = of("bright_jellyfish");
 
     private WilderBiomeTags() {
     }
