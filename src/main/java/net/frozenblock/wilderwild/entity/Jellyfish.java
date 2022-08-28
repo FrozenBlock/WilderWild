@@ -52,6 +52,11 @@ public class Jellyfish extends AbstractFish {
     private static final EntityDataAccessor<Boolean> MOVING_UP = SynchedEntityData.defineId(Jellyfish.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Float> TENTACLE_ANGLE = SynchedEntityData.defineId(Jellyfish.class, EntityDataSerializers.FLOAT);
     private static final EntityDataAccessor<Float> PREV_TENTACLE_ANGLE = SynchedEntityData.defineId(Jellyfish.class, EntityDataSerializers.FLOAT);
+    private static final EntityDataAccessor<Float> TENTACLE_OFFSET = SynchedEntityData.defineId(Jellyfish.class, EntityDataSerializers.FLOAT);
+    private static final EntityDataAccessor<Float> PREV_TENTACLE_OFFSET = SynchedEntityData.defineId(Jellyfish.class, EntityDataSerializers.FLOAT);
+
+    public Vec3 target;
+    public int cooldownPushTicks;
 
     public Jellyfish(EntityType<? extends Jellyfish> entityType, Level level) {
         super(entityType, level);
@@ -108,12 +113,47 @@ public class Jellyfish extends AbstractFish {
         this.entityData.set(MOVING_UP, value);
     }
 
+    public float getPrevTentacleOffset() {
+        return this.entityData.get(PREV_TENTACLE_OFFSET);
+    }
+
+    public void setPrevTentacleOffset(float value) {
+        this.entityData.set(PREV_TENTACLE_OFFSET, value);
+    }
+
+    public float getTentacleOffset() {
+        return this.entityData.get(TENTACLE_OFFSET);
+    }
+
+    public void setTentacleOffset(float value) {
+        this.entityData.set(TENTACLE_OFFSET, value);
+    }
+
 
     public void addAdditionalSaveData(CompoundTag nbt) {
         super.addAdditionalSaveData(nbt);
         nbt.putFloat("prevTentacleAngle", this.getPrevTentacleAngle());
         nbt.putFloat("tentacleAngle", this.getTentacleAngle());
         nbt.putBoolean("movingUp", this.getMovingUp());
+        nbt.putInt("cooldownPushTicks", this.cooldownPushTicks);
+        nbt.putFloat("prevTentOffset", this.getPrevTentacleOffset());
+        nbt.putFloat("tentOffset", this.getTentacleOffset());
+
+        if (this.target != null) {
+            nbt.putDouble("targx", this.target.x);
+            nbt.putDouble("targy", this.target.y);
+            nbt.putDouble("targz", this.target.z);
+        } else {
+            if (nbt.contains("targx")) {
+                nbt.remove("targx");
+            }
+            if (nbt.contains("targy")) {
+                nbt.remove("targy");
+            }
+            if (nbt.contains("targz")) {
+                nbt.remove("targz");
+            }
+        }
     }
 
     public void readAdditionalSaveData(CompoundTag nbt) {
@@ -121,6 +161,11 @@ public class Jellyfish extends AbstractFish {
         this.setPrevTentacleAngle(nbt.getFloat("prevTentacleAngle"));
         this.setTentacleAngle(nbt.getFloat("tentacleAngle"));
         this.setMovingUp(nbt.getBoolean("movingUp"));
+        this.setPrevTentacleOffset(nbt.getFloat("prevTentOffset"));
+        this.setTentacleOffset(nbt.getFloat("tentOffset"));
+        if (nbt.contains("targx") && nbt.contains("targy") && nbt.contains("targz")) {
+            this.target = new Vec3(nbt.getDouble("targx"), nbt.getDouble("targy"), nbt.getDouble("targz"));
+        }
     }
 
     protected void defineSynchedData() {
@@ -128,6 +173,8 @@ public class Jellyfish extends AbstractFish {
         this.entityData.define(MOVING_UP, false);
         this.entityData.define(TENTACLE_ANGLE, 0F);
         this.entityData.define(PREV_TENTACLE_ANGLE, 0F);
+        this.entityData.define(TENTACLE_OFFSET, 0F);
+        this.entityData.define(PREV_TENTACLE_OFFSET, 0F);
     }
 
     @Override
@@ -296,6 +343,41 @@ public class Jellyfish extends AbstractFish {
     @Override
     public ItemStack getBucketItemStack() {
         return null;
+    }
+
+    public void moveTentacles(float speed) {
+
+    }
+
+    static class JellyToTargetGoal extends Goal {
+        private final Jellyfish jelly;
+
+        public JellyToTargetGoal(Jellyfish jelly) {
+            this.jelly = jelly;
+        }
+
+        @Override
+        public boolean canUse() {
+            return jelly.target != null;
+        }
+
+        @Override
+        public void tick() {
+            Vec3 target = this.jelly.target;
+            if (target != null) {
+                if (this.jelly.cooldownPushTicks <= 0) {
+                    float f = this.jelly.getRandom().nextFloat() * ((float) Math.PI * 2);
+                    float g = Mth.cos(f) * 0.1f;
+                    float h = -0.1f + this.jelly.getRandom().nextFloat() * 0.2f;
+                    float j = Mth.sin(f) * 0.1f;
+                    this.jelly.setMovingUp(h >= 0);
+                    float toX = (float) (Mth.clamp(target.x - this.jelly.position().x, -0.4, 0.4));
+                    float toY = (float) (Mth.clamp(target.y - this.jelly.position().y, -0.4, 0.4));
+                    float toZ = (float) (Mth.clamp(target.z - this.jelly.position().z, -0.4, 0.4));
+                    this.jelly.setMovementVector(toX, toY, toZ);
+                }
+            }
+        }
     }
 
     static class JellyUpDownGoal extends Goal {
