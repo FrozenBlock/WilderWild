@@ -78,9 +78,9 @@ public class JellyfishModel<T extends Jellyfish> extends HierarchicalModel<T> {
     private void animateBody(Jellyfish jelly, float tickDelta) {
         float pi180 = Mth.PI / 180;
 
-        this.bone.xScale = Mth.lerp(tickDelta, (float) jelly.getPrevPushingTicks(), (float) jelly.getPushingTicks());
-        this.bone.yScale = -Mth.lerp(tickDelta, (float) jelly.getPrevPushingTicks(), (float) jelly.getPushingTicks());
-        this.bone.xScale = Mth.lerp(tickDelta, (float) jelly.getPrevPushingTicks(), (float) jelly.getPushingTicks());
+        this.body.xScale = Mth.lerp(tickDelta, (float) jelly.getPrevPushingTicks(), (float) jelly.getPushingTicks());
+        this.body.yScale = -Mth.lerp(tickDelta, (float) jelly.getPrevPushingTicks(), (float) jelly.getPushingTicks());
+        this.body.xScale = Mth.lerp(tickDelta, (float) jelly.getPrevPushingTicks(), (float) jelly.getPushingTicks());
 
         this.tentacleRot.xRot = Mth.lerp(tickDelta, (float) jelly.getPrevPushingTicks(), (float) jelly.getPushingTicks()) * pi180;
 

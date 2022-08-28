@@ -39,6 +39,7 @@ public class JellyfishRenderer extends MobRenderer<Jellyfish, JellyfishModel<Jel
     @Override
     protected float getBob(Jellyfish jelly, float f) {
         if (jelly.getPushingTicks() > 0) {
+            float lerpedPush = Mth.lerp(f, jelly.getPrevPushingTicks(), jelly.getPushingTicks());
            return Mth.lerp(f, jelly.getPrevPushingTicks(), jelly.getPushingTicks());
         } else {
             float lerpedInhale = Mth.lerp(f, jelly.getPrevInhaleTicks(), jelly.getInhaleTicks());

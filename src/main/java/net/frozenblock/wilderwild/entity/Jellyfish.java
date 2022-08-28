@@ -406,7 +406,7 @@ public class Jellyfish extends AbstractFish {
         }
 
         public boolean canContinueToUse() {
-            return this.jelly.getInhaleTicks() <= 0;
+            return false;
         }
 
         @Override
@@ -414,9 +414,9 @@ public class Jellyfish extends AbstractFish {
             Vec3 target = this.jelly.target;
             if (target != null) {
                 if (this.jelly.getPushingTicks() <= 0 && this.jelly.getInhaleTicks() <= 0) {
-                    float toX = (float) (Mth.clamp(target.x() - this.jelly.getPosition(1f).x(), -0.2, 0.2));
-                    float toY = (float) (Mth.clamp(target.y() - this.jelly.getPosition(1f).y(), -0.2, 0.2));
-                    float toZ = (float) (Mth.clamp(target.z() - this.jelly.getPosition(1f).z(), -0.2, 0.2));
+                    float toX = (float) (Mth.clamp(target.x() - this.jelly.getPosition(1f).x(), -1, 1));
+                    float toY = (float) (Mth.clamp(target.y() - this.jelly.getPosition(1f).y(), -1, 1));
+                    float toZ = (float) (Mth.clamp(target.z() - this.jelly.getPosition(1f).z(), -1, 1));
                     this.jelly.preparedMovement = new Vec3(toX, toY, toZ);
                     this.jelly.setInhaleLength(15);
                 }
