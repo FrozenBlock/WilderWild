@@ -60,7 +60,8 @@ public class JellyfishModel<T extends Jellyfish> extends HierarchicalModel<T> {
         MeshDefinition meshDefinition = new MeshDefinition();
         PartDefinition partDefinition = meshDefinition.getRoot();
         PartDefinition bone = partDefinition.addOrReplaceChild("bone", CubeListBuilder.create(), PartPose.offset(0.0F, 14.0F, 0.0F));
-        PartDefinition body = bone.addOrReplaceChild("body", CubeListBuilder.create().texOffs(0, 0).addBox(-4.0F, -2.0F, -4.0F, 8.0F, 5.0F, 8.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 0.0F, 0.0F));
+        PartDefinition body = bone.addOrReplaceChild("body", CubeListBuilder.create().texOffs(0, 0).addBox(-4.0F, -2.0F, -4.0F, 8.0F, 5.0F, 8.0F, new CubeDeformation(0.0F))
+                .texOffs(4, 13).addBox(-3.0F, -1.0F, -3.0F, 6.0F, 3.0F, 6.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 0.0F, 0.0F));
         PartDefinition tentacleRot = bone.addOrReplaceChild("tentacleRot", CubeListBuilder.create(), PartPose.offset(0.0F, 0.0F, 0.0F));
         PartDefinition tentacle1 = tentacleRot.addOrReplaceChild("tentacle1", CubeListBuilder.create().texOffs(0, 13).addBox(-0.5F, 0.0F, 0.0F, 1.0F, 10.0F, 1.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 2.0F, -3.0F));
         PartDefinition tentacle2 = tentacleRot.addOrReplaceChild("tentacle2", CubeListBuilder.create().texOffs(0, 13).addBox(-0.5F, 0.0F, 0.0F, 1.0F, 10.0F, 1.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(2.5F, 2.0F, -2.5F, 0.0F, -0.7854F, 0.0F));
@@ -111,6 +112,7 @@ public class JellyfishModel<T extends Jellyfish> extends HierarchicalModel<T> {
         float animation = limbSwing * 2;
 
         float cos = -Mth.cos(animation);
+        float sin = -Mth.sin(animation);
         float cosTentacle = (cos * 20 - 7.5F) * pi180;
         //cardinal tentacles
         this.tentacle1.xRot = cosTentacle;
@@ -124,12 +126,14 @@ public class JellyfishModel<T extends Jellyfish> extends HierarchicalModel<T> {
         this.tentacle6.xRot = cosTentacle;
         this.tentacle8.xRot = cosTentacle;
 
-        float xZScale = 1F + (-cos * 0.25F);
+        float xZScale = 1F + (-sin * 0.25F);
+        float ySin = 1.25F + (sin * 0.75F);
+
         this.body.xScale = xZScale;
         this.body.zScale = xZScale;
-        float yCos = 1.25F + (cos * 0.75F);
-        this.body.yScale = yCos;
-        this.body.y = 3.5F -(yCos * 3.5F);
+
+        this.body.yScale = ySin;
+        this.body.y = 3.5F -(ySin * 3.5F);
     }
 
     @Override

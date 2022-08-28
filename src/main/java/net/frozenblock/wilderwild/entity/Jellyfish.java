@@ -1,5 +1,7 @@
 package net.frozenblock.wilderwild.entity;
 
+import com.mojang.serialization.Dynamic;
+import net.frozenblock.wilderwild.entity.ai.JellyfishAi;
 import net.frozenblock.wilderwild.registry.RegisterItems;
 import net.frozenblock.wilderwild.registry.RegisterSounds;
 import net.minecraft.core.BlockPos;
@@ -7,6 +9,7 @@ import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.protocol.game.ClientboundGameEventPacket;
+import net.minecraft.network.protocol.game.DebugPackets;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -20,8 +23,14 @@ import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.ai.Brain;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.ai.goal.AvoidEntityGoal;
+import net.minecraft.world.entity.ai.goal.Goal;
+import net.minecraft.world.entity.ai.goal.PanicGoal;
+import net.minecraft.world.entity.ai.goal.RandomSwimmingGoal;
+import net.minecraft.world.entity.ai.memory.MemoryModuleType;
 import net.minecraft.world.entity.animal.AbstractFish;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -30,6 +39,7 @@ import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 public class Jellyfish extends AbstractFish {
     public float xBodyRot;
@@ -38,12 +48,14 @@ public class Jellyfish extends AbstractFish {
     public float xRot3;
     public float xRot4;
     public float xRot5;
+    public float xRot6;
     public float zBodyRot;
     public float zRot1;
     public float zRot2;
     public float zRot3;
     public float zRot4;
     public float zRot5;
+    public float zRot6;
     public float tentacleMovement;
     public float oldTentacleMovement;
     public float tentacleAngle;
@@ -51,6 +63,8 @@ public class Jellyfish extends AbstractFish {
     private float speed;
     private float tentacleSpeed;
     private float rotateSpeed;
+
+    public int ticksSinceCantReach;
 
     public Jellyfish(EntityType<? extends Jellyfish> entityType, Level level) {
         super(entityType, level);
@@ -73,9 +87,8 @@ public class Jellyfish extends AbstractFish {
     }
 
     public static boolean canSpawn(EntityType<Jellyfish> type, ServerLevelAccessor world, MobSpawnType spawnReason, BlockPos pos, RandomSource random) {
-        return pos.getY() <= world.getSeaLevel() - 33
-                && world.getRawBrightness(pos, 0) <= 6
-                && world.getBlockState(pos).is(Blocks.WATER);
+        return spawnReason != MobSpawnType.SPAWNER ? pos.getY() <= world.getSeaLevel() - 33 && world.getRawBrightness(pos, 0) <= 6 && world.getBlockState(pos).is(Blocks.WATER)
+                : world.getBlockState(pos).is(Blocks.WATER);
     }
 
     public static AttributeSupplier.Builder addAttributes() {
@@ -122,6 +135,31 @@ public class Jellyfish extends AbstractFish {
     }
 
     @Override
+    protected Brain<?> makeBrain(Dynamic<?> dynamic) {
+        return JellyfishAi.create(this, dynamic);
+    }
+
+    public Brain<Jellyfish> getBrain() {
+        return (Brain<Jellyfish>) super.getBrain();
+    }
+
+    @Override
+    protected void sendDebugPackets() {
+        super.sendDebugPackets();
+        DebugPackets.sendEntityBrain(this);
+    }
+
+    @Override
+    @Nullable
+    public LivingEntity getTarget() {
+        return this.getBrain().getMemory(MemoryModuleType.ATTACK_TARGET).orElse(null);
+    }
+
+    public void setAttackTarget(LivingEntity livingEntity) {
+        this.getBrain().setMemory(MemoryModuleType.ATTACK_TARGET, livingEntity);
+    }
+
+    @Override
     public void aiStep() {
         /*
         this.setPrevLight(this.getLight());
@@ -136,12 +174,14 @@ public class Jellyfish extends AbstractFish {
         }
         */
         super.aiStep();
+        this.xRot6 = this.xRot5;
         this.xRot5 = this.xRot4;
         this.xRot4 = this.xRot3;
         this.xRot3 = this.xRot2;
         this.xRot2 = this.xRot1;
         this.xRot1 = this.xBodyRot;
 
+        this.zRot6 = this.zRot5;
         this.zRot5 = this.zRot4;
         this.zRot4 = this.zRot3;
         this.zRot3 = this.zRot2;
@@ -176,6 +216,24 @@ public class Jellyfish extends AbstractFish {
             this.tentacleAngle = Mth.abs(Mth.sin(this.tentacleMovement)) * (float) Math.PI * 0.25f;
             this.xBodyRot += (-90.0f - this.xBodyRot) * 0.02f;
         }
+
+        LivingEntity target = this.getTarget();
+        if (target != null) {
+            ++this.ticksSinceCantReach;
+            if (target.isDeadOrDying() || this.ticksSinceCantReach > 600) {
+                this.getBrain().eraseMemory(MemoryModuleType.ATTACK_TARGET);
+                this.ticksSinceCantReach = 0;
+            }
+        }
+    }
+
+    @Override
+    protected void customServerAiStep() {
+        ServerLevel serverLevel = (ServerLevel)this.level;
+        serverLevel.getProfiler().push("jellyfishBrain");
+        this.getBrain().tick(serverLevel, this);
+        this.level.getProfiler().pop();
+        super.customServerAiStep();
     }
 
     @Override
@@ -185,10 +243,11 @@ public class Jellyfish extends AbstractFish {
 
     @Override
     public boolean hurt(@NotNull DamageSource damageSource, float f) {
-        if (super.hurt(damageSource, f) && this.getLastHurtByMob() != null) {
+        LivingEntity target = this.getLastHurtByMob();
+        if (super.hurt(damageSource, f) && target != null) {
             if (!this.level.isClientSide) {
                 this.spawnJelly();
-                this.getNavigation().moveTo(this.getLastHurtByMob(), 2);
+                this.setAttackTarget(target);
             }
             return true;
         }
@@ -256,6 +315,7 @@ public class Jellyfish extends AbstractFish {
         nbt.putInt("targetLight", this.getTargetLight());
         nbt.putFloat("light", this.getLight());
         nbt.putFloat("prevLight", this.getPrevLight());
+        nbt.putInt("ticksSinceCantReach", this.ticksSinceCantReach);
     }
 
     public void readAdditionalSaveData(CompoundTag nbt) {
@@ -263,6 +323,68 @@ public class Jellyfish extends AbstractFish {
         this.setTargetLight(nbt.getInt("targetLight"));
         this.setLight(nbt.getFloat("light"));
         this.setPrevLight(nbt.getFloat("prevLight"));
+        this.ticksSinceCantReach = nbt.getInt("ticksSinceCantReach");
+    }
+
+    @Override
+    protected void registerGoals() {
+        //super.registerGoals();
+        //this.goalSelector.addGoal(0, new PanicGoal(this, 1.25));
+        //this.goalSelector.addGoal(2, new AvoidEntityGoal<>(this, Player.class, 8.0f, 1.6, 1.4, EntitySelector.NO_SPECTATORS::test));
+        this.goalSelector.addGoal(2, new JellySwimGoal(this));
+        this.goalSelector.addGoal(6, new JellyToTargetGoal(this));
+    }
+
+    static class JellySwimGoal
+            extends RandomSwimmingGoal {
+        private final Jellyfish jelly;
+
+        public JellySwimGoal(Jellyfish jelly) {
+            super(jelly, 1.0, 40);
+            this.jelly = jelly;
+        }
+
+        @Override
+        public boolean canUse() {
+            return this.jelly.getTarget() == null && this.jelly.canRandomSwim() && super.canUse();
+        }
+
+        @Override
+        public boolean canContinueToUse() {
+            return this.jelly.getTarget() == null && !this.mob.getNavigation().isDone() && !this.mob.isVehicle();
+        }
+    }
+
+    static class JellyToTargetGoal
+            extends Goal {
+        private final Jellyfish jelly;
+
+        public JellyToTargetGoal(Jellyfish jelly) {
+            this.jelly = jelly;
+        }
+
+        @Override
+        public boolean canUse() {
+            return this.jelly.getTarget() != null;
+        }
+
+        @Override
+        public boolean canContinueToUse() {
+            return this.jelly.getTarget() != null;
+        }
+
+        @Override
+        public void start() {
+            LivingEntity entity = this.jelly.getTarget();
+            if (entity != null) {
+                this.jelly.getNavigation().moveTo(entity, 1.4);
+            }
+        }
+
+        @Override
+        public void stop() {
+            this.jelly.getNavigation().stop();
+        }
     }
 
 }
