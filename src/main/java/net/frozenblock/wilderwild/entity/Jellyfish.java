@@ -72,7 +72,7 @@ public class Jellyfish extends AbstractFish {
                 ((ServerPlayer)player).connection.send(new ClientboundGameEventPacket(ClientboundGameEventPacket.PUFFER_FISH_STING, 0.0F));
             }
 
-            player.addEffect(new MobEffectInstance(MobEffects.POISON, 300, 0), this);
+            player.addEffect(new MobEffectInstance(MobEffects.POISON, 300, 0, false, false), this);
         }
 
     }
