@@ -1,7 +1,7 @@
 package net.frozenblock.wilderwild.entity;
 
+import net.frozenblock.wilderwild.registry.RegisterItems;
 import net.frozenblock.wilderwild.registry.RegisterSounds;
-import net.frozenblock.wilderwild.registry.RegisterWorldgen;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
@@ -22,12 +22,10 @@ import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.entity.ai.control.SmoothSwimmingLookControl;
 import net.minecraft.world.entity.animal.AbstractFish;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.LightLayer;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.phys.Vec3;
@@ -125,6 +123,7 @@ public class Jellyfish extends AbstractFish {
 
     @Override
     public void aiStep() {
+        /*
         this.setPrevLight(this.getLight());
         BlockPos pos = new BlockPos(this.position());
         int block = this.level.getBrightness(LightLayer.BLOCK, pos);
@@ -135,6 +134,7 @@ public class Jellyfish extends AbstractFish {
         } else if (this.getTargetLight() < this.getLight()) {
             this.setLight(this.getLight() - 0.1F);
         }
+        */
         super.aiStep();
         this.xRot5 = this.xRot4;
         this.xRot4 = this.xRot3;
@@ -217,7 +217,7 @@ public class Jellyfish extends AbstractFish {
 
     @Override
     public ItemStack getBucketItemStack() {
-        return null;
+        return new ItemStack(RegisterItems.JELLYFISH_BUCKET);
     }
 
     public void setTargetLight(int i) {
