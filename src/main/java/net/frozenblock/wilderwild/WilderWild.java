@@ -10,9 +10,9 @@ import net.fabricmc.loader.api.FabricLoader;
 import net.fabricmc.loader.api.ModContainer;
 import net.frozenblock.wilderwild.block.entity.TermiteMoundBlockEntity;
 import net.frozenblock.wilderwild.entity.Firefly;
+import net.frozenblock.wilderwild.entity.variant.JellyfishVariant;
 import net.frozenblock.wilderwild.misc.BlockSoundGroupOverwrites;
 import net.frozenblock.wilderwild.misc.FrozenLibIntegration;
-import net.frozenblock.wilderwild.misc.config.WilderWildConfig;
 import net.frozenblock.wilderwild.misc.mod_compat.simple_copper_pipes.RegisterSaveableMoveablePipeNbt;
 import net.frozenblock.wilderwild.registry.*;
 import net.frozenblock.wilderwild.world.feature.WilderConfiguredFeatures;
@@ -30,6 +30,8 @@ import net.frozenblock.wilderwild.world.gen.trunk.FallenTrunkWithLogs;
 import net.frozenblock.wilderwild.world.gen.trunk.StraightTrunkWithLogs;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Registry;
+import net.minecraft.network.syncher.EntityDataSerializer;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.RandomSource;
 import net.minecraft.util.datafix.schemas.NamespacedSchema;
@@ -71,6 +73,10 @@ public final class WilderWild implements ModInitializer {
     public static final NoisePathUnderWaterFeature NOISE_PATH_UNDER_WATER_FEATURE = new NoisePathUnderWaterFeature(PathFeatureConfig.CODEC);
     public static final ColumnWithDiskFeature COLUMN_WITH_DISK_FEATURE = new ColumnWithDiskFeature(ColumnWithDiskFeatureConfig.CODEC);
     public static final ClusterFeature CLUSTER_FEATURE = new ClusterFeature(ClusterFeatureConfig.CODEC);
+
+    public static final ResourceKey<Registry<JellyfishVariant>> JELLYFISH_VARIANT_REGISTRY = ResourceKey.createRegistryKey(WilderWild.id("pale_blue"));
+    public static final Registry<JellyfishVariant> JELLYFISH_VARIANTS = Registry.registerSimple(JELLYFISH_VARIANT_REGISTRY, registry -> JellyfishVariant.PALE_BLUE);
+    public static final EntityDataSerializer<JellyfishVariant> JELLYFISH_VARIANT = EntityDataSerializer.simpleId(JELLYFISH_VARIANTS);
 
     //Fabric ASM
     public static final MobCategory FIREFLIES = ClassTinkerers.getEnum(MobCategory.class, "WILDERWILDFIREFLIES");
