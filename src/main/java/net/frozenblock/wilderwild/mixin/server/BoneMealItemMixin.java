@@ -33,45 +33,6 @@ public class BoneMealItemMixin {
         Level world = context.getLevel();
         BlockPos blockPos = context.getClickedPos();
         BlockState state = world.getBlockState(blockPos);
-        if (state.is(Blocks.LILY_PAD)) {
-            WilderWild.log(Blocks.LILY_PAD, blockPos, "Bonemeal", WilderWild.DEV_LOGGING);
-            if (!world.isClientSide) {
-                world.levelEvent(LevelEvent.PARTICLES_AND_SOUND_PLANT_GROWTH, blockPos, 0);
-                world.setBlockAndUpdate(blockPos, RegisterBlocks.FLOWERING_LILY_PAD.defaultBlockState());
-                context.getItemInHand().shrink(1);
-            }
-            info.setReturnValue(InteractionResult.sidedSuccess(world.isClientSide));
-            info.cancel();
-        }
-        if (state.getBlock() instanceof ShelfFungusBlock) {
-            if (state.getValue(RegisterProperties.FUNGUS_STAGE) < 4) {
-                WilderWild.log("Shelf Fungus Bonemealed @ " + blockPos + " with FungusStage of " + state.getValue(RegisterProperties.FUNGUS_STAGE), WilderWild.DEV_LOGGING);
-                if (!world.isClientSide) {
-                    world.levelEvent(LevelEvent.PARTICLES_AND_SOUND_PLANT_GROWTH, blockPos, 0);
-                    world.setBlockAndUpdate(blockPos, state.setValue(RegisterProperties.FUNGUS_STAGE, state.getValue(RegisterProperties.FUNGUS_STAGE) + 1));
-                    context.getItemInHand().shrink(1);
-                }
-                info.setReturnValue(InteractionResult.sidedSuccess(world.isClientSide));
-                info.cancel();
-            }
-        }
-        if (state.is(RegisterBlocks.ALGAE)) {
-            WilderWild.log("Algae Bonemealed @ " + blockPos, WilderWild.DEV_LOGGING);
-            if (!world.isClientSide) {
-                for (Direction offset : shuffleOffsets(world.getRandom())) {
-                    BlockPos pos = blockPos.relative(offset);
-                    if (world.getBlockState(pos).isAir() && state.getBlock().canSurvive(state, world, pos)) {
-                        world.levelEvent(LevelEvent.PARTICLES_AND_SOUND_PLANT_GROWTH, blockPos, 0);
-                        world.levelEvent(LevelEvent.PARTICLES_AND_SOUND_PLANT_GROWTH, pos, 0);
-                        world.setBlockAndUpdate(pos, state);
-                        context.getItemInHand().shrink(1);
-                        break;
-                    }
-                }
-            }
-            info.setReturnValue(InteractionResult.sidedSuccess(world.isClientSide));
-            info.cancel();
-        }
         if (state.getBlock() instanceof GloryOfTheSnowBlock glory) {
             if (state.getValue(RegisterProperties.FLOWER_COLOR) == FlowerColors.NONE) {
                 WilderWild.log("Glory Of The Snow Bonemealed @ " + blockPos, WilderWild.DEV_LOGGING);

@@ -10,6 +10,7 @@ import net.fabricmc.fabric.api.registry.StrippableBlockRegistry;
 import net.frozenblock.lib.block.FrozenSignBlock;
 import net.frozenblock.lib.block.FrozenWallSignBlock;
 import net.frozenblock.lib.mixin.server.SignTypeAccessor;
+import net.frozenblock.lib.replacements_and_lists.BonemealBehaviors;
 import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.block.*;
 import net.frozenblock.wilderwild.block.entity.TermiteMoundBlockEntity;
@@ -17,11 +18,13 @@ import net.frozenblock.wilderwild.item.AlgaeItem;
 import net.frozenblock.wilderwild.item.FloweredLilyPadItem;
 import net.frozenblock.wilderwild.misc.FlowerColors;
 import net.frozenblock.wilderwild.world.gen.sapling.CypressSaplingGenerator;
+import net.minecraft.Util;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Registry;
 import net.minecraft.data.BlockFamilies;
 import net.minecraft.data.BlockFamily;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.BlockItem;
@@ -34,6 +37,7 @@ import net.minecraft.world.level.block.state.properties.WoodType;
 import net.minecraft.world.level.material.Material;
 import net.minecraft.world.level.material.MaterialColor;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static net.frozenblock.wilderwild.registry.RegisterItems.BAOBAB_SIGN;
@@ -374,6 +378,7 @@ public final class RegisterBlocks {
         registerComposting();
         registerFlammability();
         registerFuels();
+        registerBonemeal();
     }
 
     private static boolean never(BlockState state, BlockGetter world, BlockPos pos) {
@@ -478,6 +483,74 @@ public final class RegisterBlocks {
         registry.add(BAOBAB_FENCE_GATE.asItem(), 300);
         registry.add(CYPRESS_FENCE.asItem(), 300);
         registry.add(CYPRESS_FENCE_GATE.asItem(), 300);
+    }
+
+    private static void registerBonemeal() {
+        BonemealBehaviors.bonemeals.put(Blocks.LILY_PAD, (world, pos, state, face, horizontal) -> {
+            WilderWild.log(Blocks.LILY_PAD, pos, "Bonemeal", WilderWild.DEV_LOGGING);
+            if (!world.isClientSide) {
+                world.levelEvent(LevelEvent.PARTICLES_AND_SOUND_PLANT_GROWTH, pos, 0);
+                world.setBlockAndUpdate(pos, RegisterBlocks.FLOWERING_LILY_PAD.defaultBlockState());
+            }
+            return !world.isClientSide;
+        });
+        BonemealBehaviors.bonemeals.put(BROWN_SHELF_FUNGUS, (world, pos, state, face, horizontal) -> {
+            if (state.getValue(RegisterProperties.FUNGUS_STAGE) < 4) {
+                WilderWild.log("Shelf Fungus Bonemealed @ " + pos + " with FungusStage of " + state.getValue(RegisterProperties.FUNGUS_STAGE), WilderWild.DEV_LOGGING);
+                if (!world.isClientSide) {
+                    world.levelEvent(LevelEvent.PARTICLES_AND_SOUND_PLANT_GROWTH, pos, 0);
+                    world.setBlockAndUpdate(pos, state.setValue(RegisterProperties.FUNGUS_STAGE, state.getValue(RegisterProperties.FUNGUS_STAGE) + 1));
+                }
+            }
+            return !world.isClientSide;
+        });
+        BonemealBehaviors.bonemeals.put(RED_SHELF_FUNGUS, (world, pos, state, face, horizontal) -> {
+            if (state.getValue(RegisterProperties.FUNGUS_STAGE) < 4) {
+                WilderWild.log("Shelf Fungus Bonemealed @ " + pos + " with FungusStage of " + state.getValue(RegisterProperties.FUNGUS_STAGE), WilderWild.DEV_LOGGING);
+                if (!world.isClientSide) {
+                    world.levelEvent(LevelEvent.PARTICLES_AND_SOUND_PLANT_GROWTH, pos, 0);
+                    world.setBlockAndUpdate(pos, state.setValue(RegisterProperties.FUNGUS_STAGE, state.getValue(RegisterProperties.FUNGUS_STAGE) + 1));
+                }
+            }
+            return !world.isClientSide;
+        });
+        BonemealBehaviors.bonemeals.put(ALGAE, (world, pos, state, face, horizontal) -> {
+            WilderWild.log("Algae Bonemealed @ " + pos, WilderWild.DEV_LOGGING);
+            if (!world.isClientSide) {
+                for (Direction offset : shuffleOffsets(world.getRandom())) {
+                    BlockPos blockPos = pos.relative(offset);
+                    if (world.getBlockState(blockPos).isAir() && state.getBlock().canSurvive(state, world, blockPos)) {
+                        world.levelEvent(LevelEvent.PARTICLES_AND_SOUND_PLANT_GROWTH, blockPos, 0);
+                        world.levelEvent(LevelEvent.PARTICLES_AND_SOUND_PLANT_GROWTH, blockPos, 0);
+                        world.setBlockAndUpdate(blockPos, state);
+                        break;
+                    }
+                }
+            }
+            return !world.isClientSide;
+        });
+        /*BonemealBehaviors.bonemeals.put(RegisterBlocks.GLORY_OF_THE_SNOW, (world, pos, state, face, horizontal) -> {
+            if (state.getValue(RegisterProperties.FLOWER_COLOR) == FlowerColors.NONE) {
+                WilderWild.log("Glory Of The Snow Bonemealed @ " + pos, WilderWild.DEV_LOGGING);
+                if (!world.isClientSide) {
+                    world.levelEvent(LevelEvent.PARTICLES_AND_SOUND_PLANT_GROWTH, pos, 0);
+                    world.setBlockAndUpdate(pos, state.setValue(RegisterProperties.FLOWER_COLOR, glory.COLOR_LIST.get(WilderWild.random().nextInt(glory.COLOR_LIST.size()))));
+                }
+                return !world.isClientSide;
+            }
+            return false;
+        });*/
+    }
+
+    private static final List<Direction> offsets = new ArrayList<>() {{
+        add(Direction.EAST);
+        add(Direction.NORTH);
+        add(Direction.SOUTH);
+        add(Direction.WEST);
+    }};
+
+    private static List<Direction> shuffleOffsets(RandomSource random) {
+        return Util.toShuffledList(offsets.stream(), random);
     }
 }
 
