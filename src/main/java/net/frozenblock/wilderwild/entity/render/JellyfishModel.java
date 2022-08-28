@@ -133,7 +133,7 @@ public class JellyfishModel<T extends Jellyfish> extends HierarchicalModel<T> {
         this.body.zScale = xZScale;
 
         this.body.yScale = ySin;
-        this.body.y = 3.5F -(xZScale * 3.5F);
+        this.body.y = 3.5F -(ySin * 3.5F);
     }
 
     @Override
