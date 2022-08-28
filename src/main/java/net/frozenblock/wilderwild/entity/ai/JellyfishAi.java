@@ -21,7 +21,6 @@ public class JellyfishAi {
     public static Brain<?> create(Jellyfish jelly, Dynamic<?> dynamic) {
         Brain.Provider<Jellyfish> provider = Brain.provider(MEMORY_TYPES, SENSOR_TYPES);
         Brain<Jellyfish> brain = provider.makeBrain(dynamic);
-        brain.useDefaultActivity();
         return brain;
     }
 

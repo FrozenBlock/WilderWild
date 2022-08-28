@@ -219,8 +219,8 @@ public class Jellyfish extends AbstractFish {
 
         LivingEntity target = this.getTarget();
         if (target != null) {
-            ++this.ticksSinceCantReach;
-            if (target.isDeadOrDying() || this.ticksSinceCantReach > 600) {
+            //++this.ticksSinceCantReach;
+            if (target.isDeadOrDying()) {
                 this.getBrain().eraseMemory(MemoryModuleType.ATTACK_TARGET);
                 this.ticksSinceCantReach = 0;
             }
@@ -331,8 +331,8 @@ public class Jellyfish extends AbstractFish {
         //super.registerGoals();
         //this.goalSelector.addGoal(0, new PanicGoal(this, 1.25));
         //this.goalSelector.addGoal(2, new AvoidEntityGoal<>(this, Player.class, 8.0f, 1.6, 1.4, EntitySelector.NO_SPECTATORS::test));
-        this.goalSelector.addGoal(2, new JellySwimGoal(this));
-        this.goalSelector.addGoal(6, new JellyToTargetGoal(this));
+        this.goalSelector.addGoal(0, new JellySwimGoal(this));
+        this.goalSelector.addGoal(2, new JellyToTargetGoal(this));
     }
 
     static class JellySwimGoal
