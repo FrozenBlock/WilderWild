@@ -68,7 +68,7 @@ public class Jellyfish extends AbstractFish {
 
     public Jellyfish(EntityType<? extends Jellyfish> entityType, Level level) {
         super(entityType, level);
-        this.moveControl = new SmoothSwimmingMoveControl(this, 20, 20, 0.02f, 0.1f, true);
+        //this.moveControl = new SmoothSwimmingMoveControl(this, 20, 20, 0.02f, 0.1f, true);
         this.lookControl = new SmoothSwimmingLookControl(this, 10);
     }
 
@@ -94,7 +94,7 @@ public class Jellyfish extends AbstractFish {
     }
 
     public static AttributeSupplier.Builder addAttributes() {
-        return Mob.createMobAttributes().add(Attributes.MAX_HEALTH, 3.0D);
+        return Mob.createMobAttributes().add(Attributes.MAX_HEALTH, 3.0D).add(Attributes.MOVEMENT_SPEED, 0.3);
     }
 
     @Override
