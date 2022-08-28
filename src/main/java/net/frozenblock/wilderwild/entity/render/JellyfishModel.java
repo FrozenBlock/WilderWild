@@ -54,6 +54,8 @@ public class JellyfishModel<T extends Jellyfish> extends HierarchicalModel<T> {
         return "tentacle" + (i + 1);
     }
 
+    private static final float pi180 = Mth.PI / 180;
+
     public static LayerDefinition getTexturedModelData() {
         MeshDefinition meshDefinition = new MeshDefinition();
         PartDefinition partDefinition = meshDefinition.getRoot();
@@ -105,11 +107,10 @@ public class JellyfishModel<T extends Jellyfish> extends HierarchicalModel<T> {
     }
 
     private void animateTentacles(T jellyfish, float limbSwing, float limbSwingAmount, float ageInTicks) {
-        float pi180 = Mth.PI / 180;
         float mult = 15;
 
         float animation = ageInTicks * 10;
-
+        /*
         float cos = (Mth.cos(animation) * mult - mult) * pi180;
         float cos1 = (Mth.cos(animation + 30) * mult - mult) * pi180;
         float cos2 = (Mth.cos(animation + 60) * mult - mult) * pi180;
@@ -131,7 +132,20 @@ public class JellyfishModel<T extends Jellyfish> extends HierarchicalModel<T> {
         this.tentacle4.xRot = sin1;
         this.tentacle6.xRot = sin2;
         this.tentacle8.xRot = sin3;
+        */
 
+        float cos = (Mth.cos(animation) * mult - mult) * pi180;
+        //cardinal tentacles
+        this.tentacle1.xRot = cos;
+        this.tentacle3.xRot = cos;
+        this.tentacle5.xRot = cos;
+        this.tentacle7.xRot = cos;
+
+        //intermediate tentacles
+        this.tentacle2.xRot = cos;
+        this.tentacle4.xRot = cos;
+        this.tentacle6.xRot = cos;
+        this.tentacle8.xRot = cos;
     }
 
     @Override
