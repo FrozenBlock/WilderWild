@@ -14,6 +14,11 @@ public class EntityConfig implements ConfigData {
 
     public static void setupEntries(ConfigCategory category, ConfigEntryBuilder entryBuilder) {
         var config = WilderWildClient.config;
+        category.addEntry(entryBuilder.startBooleanToggle(text("ancient_horn_shatters_glass"), config.ancientHornShattersGlass)
+                .setDefaultValue(false)
+                .setSaveConsumer(newValue -> config.ancientHornShattersGlass = newValue)
+                .setTooltip(tooltip("ancient_horn_shatters_glass"))
+                .build());
         category.addEntry(entryBuilder.startBooleanToggle(text("warden_emerges_from_egg"), config.wardenEmergesFromEgg)
                 .setDefaultValue(true)
                 .setSaveConsumer(newValue -> config.wardenEmergesFromEgg = newValue)
