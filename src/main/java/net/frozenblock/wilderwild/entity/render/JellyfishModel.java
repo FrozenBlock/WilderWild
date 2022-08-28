@@ -71,36 +71,39 @@ public class JellyfishModel<T extends Jellyfish> extends HierarchicalModel<T> {
         return LayerDefinition.create(meshDefinition, 64, 64);
     }
 
-    public void render(PoseStack matrices, VertexConsumer vertices, int light, int overlay, float red, float green, float blue, float alpha, float tickDelta, Jellyfish jelly) {
-        this.animateBody(matrices, jelly, tickDelta);
-        matrices.pushPose();
-        matrices.mulPose(Vector3f.XP.rotationDegrees(Mth.lerp(tickDelta, jelly.getPrevXRot(), jelly.getJellyXRot())));
-        matrices.mulPose(Vector3f.YP.rotationDegrees(Mth.lerp(tickDelta, jelly.getPrevZRot(), jelly.getJellyZRot())));
-        //this.body.xRot = Mth.lerp(tickDelta, jelly.getPrevXRot(), jelly.getJellyXRot());
-        //this.body.yRot = Mth.lerp(tickDelta, jelly.getPrevZRot(), jelly.getJellyZRot());
-        this.body.render(matrices, vertices, light, overlay, 1.0F, 1.0F, 1.0F, 1.0F);
-        matrices.popPose();
+    public float xRot;
+    public float zRot;
+    public float tentXRot;
+    public float tentZRot;
+    public float lightProg;
 
-        matrices.pushPose();
-        matrices.mulPose(Vector3f.XP.rotationDegrees(Mth.lerp(tickDelta, jelly.getPrevTentXRot(), jelly.getTentXRot())));
-        matrices.mulPose(Vector3f.YP.rotationDegrees(Mth.lerp(tickDelta, jelly.getPrevTentZRot(), jelly.getTentZRot())));
-        //this.tentacleRot.xRot = Mth.lerp(tickDelta, jelly.getPrevTentXRot(), jelly.getTentXRot());
-        //this.tentacleRot.yRot = Mth.lerp(tickDelta, jelly.getPrevTentZRot(), jelly.getTentZRot());
-        this.tentacleRot.render(matrices, vertices, light, overlay, 1.0F, 1.0F, 1.0F, 1.0F);
-        matrices.popPose();
+    @Override
+    public void renderToBuffer(PoseStack poseStack, VertexConsumer vertexConsumer, int i, int j, float f, float g, float h, float k) {
+        poseStack.pushPose();
+        poseStack.mulPose(Vector3f.XP.rotationDegrees(-this.xRot));
+        poseStack.mulPose(Vector3f.YP.rotationDegrees(-this.zRot));
+        this.body.render(poseStack, vertexConsumer, i, j, 1.0F, 1.0F, 1.0F, 1.0F - this.lightProg);
+        poseStack.popPose();
 
-        //this.bone.render(matrices, vertices, light, overlay, 1.0F, 1.0F, 1.0F, 1.0F);
+        poseStack.pushPose();
+        poseStack.mulPose(Vector3f.XP.rotationDegrees(-this.tentXRot));
+        poseStack.mulPose(Vector3f.YP.rotationDegrees(-this.tentZRot));
+        this.tentacleRot.render(poseStack, vertexConsumer, 1, j, 1.0F, 1.0F, 1.0F, 1.0F - this.lightProg);
+        poseStack.popPose();
     }
 
-    private void animateBody(PoseStack matrices, Jellyfish jelly, float tickDelta) {
-        float pi180 = Mth.PI / 180;
+    public void renderDeez(PoseStack poseStack, VertexConsumer vertexConsumer, int i, int j) {
+        poseStack.pushPose();
+        poseStack.mulPose(Vector3f.XP.rotationDegrees(-this.xRot));
+        poseStack.mulPose(Vector3f.YP.rotationDegrees(-this.zRot));
+        this.body.render(poseStack, vertexConsumer, i, j, 1.0F, 1.0F, 1.0F, this.lightProg);
+        poseStack.popPose();
 
-        /*this.body.xScale = Mth.lerp(tickDelta, (float) jelly.getPrevPushingTicks(), (float) jelly.getPushingTicks());
-        this.body.yScale = -Mth.lerp(tickDelta, (float) jelly.getPrevPushingTicks(), (float) jelly.getPushingTicks());
-        this.body.xScale = Mth.lerp(tickDelta, (float) jelly.getPrevPushingTicks(), (float) jelly.getPushingTicks());
-
-        this.tentacleRot.xRot = Mth.lerp(tickDelta, (float) jelly.getPrevPushingTicks(), (float) jelly.getPushingTicks()) * pi180;*/
-
+        poseStack.pushPose();
+        poseStack.mulPose(Vector3f.XP.rotationDegrees(-this.tentXRot));
+        poseStack.mulPose(Vector3f.YP.rotationDegrees(-this.tentZRot));
+        this.tentacleRot.render(poseStack, vertexConsumer, 1, j, 1.0F, 1.0F, 1.0F, this.lightProg);
+        poseStack.popPose();
     }
 
     private void animateTentacles(T jellyfish, float limbSwing, float limbSwingAmount, float ageInTicks) {
@@ -135,7 +138,7 @@ public class JellyfishModel<T extends Jellyfish> extends HierarchicalModel<T> {
 
     @Override
     public void setupAnim(@NotNull T jellyfish, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
-        this.animateTentacles(jellyfish, limbSwing, limbSwingAmount, ageInTicks);
+        this.animateTentacles(jellyfish, limbSwing, limbSwingAmount, ageInTicks / 10);
     }
 
     @Override
