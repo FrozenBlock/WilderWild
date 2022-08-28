@@ -72,6 +72,18 @@ public class JellyfishModel<T extends Jellyfish> extends HierarchicalModel<T> {
 
     public void render(PoseStack matrices, VertexConsumer vertices, int light, int overlay, float red, float green, float blue, float alpha, float tickDelta, Jellyfish jelly) {
         this.bone.render(matrices, vertices, light, overlay, 1.0F, 1.0F, 1.0F, 1.0F);
+        this.animateBody(jelly, tickDelta);
+    }
+
+    private void animateBody(Jellyfish jelly, float tickDelta) {
+        float pi180 = Mth.PI / 180;
+
+        this.bone.xScale = Mth.lerp(tickDelta, (float) jelly.getPrevInhaleTicks(), (float) jelly.getInhaleTicks());
+        this.bone.yScale = -Mth.lerp(tickDelta, (float) jelly.getPrevInhaleTicks(), (float) jelly.getInhaleTicks());
+        this.bone.xScale = Mth.lerp(tickDelta, (float) jelly.getPrevInhaleTicks(), (float) jelly.getInhaleTicks());
+
+        this.tentacleRot.xRot = Mth.lerp(tickDelta, (float) jelly.getPrevInhaleTicks(), (float) jelly.getInhaleTicks()) * pi180;
+
     }
 
     private void animateTentacles(T jellyfish, float limbSwing, float limbSwingAmount, float ageInTicks) {
@@ -106,7 +118,7 @@ public class JellyfishModel<T extends Jellyfish> extends HierarchicalModel<T> {
 
     @Override
     public void setupAnim(@NotNull T jellyfish, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
-        this.animateTentacles(jellyfish, limbSwing, limbSwingAmount, ageInTicks);
+        //this.animateTentacles(jellyfish, limbSwing, limbSwingAmount, ageInTicks);
     }
 
     @Override
