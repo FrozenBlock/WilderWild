@@ -193,7 +193,7 @@
   "tooltip.wilderwild.shrieker_gargling": "Makes Sculk Shriekers 'gargle' when waterlogged. (Default: Yes)",
   "tooltip.wilderwild.warden_emerges_from_egg": "Makes the Warden play the emerging animation when spawned via spawn egg (Default: No)",
   "tooltip.wilderwild.warden_custom_tendrils": "Vanilla: Warden's tendrils only rotate about a single axis\nImproved (Default): Warden's tendrils rotate about all axes, improving visibility",
-  "tooltip.wilderwild.warden_swim_animation": "Whether or not the Warden should §ovisually §rSwim (Default: Yes)\n(§cWARNING: Disabling this will cause the warden to appear to phase through blocks when swimming through one block tall gaps. \nPlease only disable this if it causes incompatibilities.)",
+  "tooltip.wilderwild.warden_swim_animation": "Whether or not the Warden should §ovisually §rSwim (Default: Yes)\n§c(WARNING: Disabling this will cause the warden to appear to phase through blocks when swimming through one block tall gaps. \nPlease only disable this if it causes incompatibilities.)",
   "wilderwild.ancient_horn.advancement.use": "Whirs of the Ancient",
   "wilderwild.ancient_horn.advancement.use.description": "Find and use an Ancient Horn.",
   "wilderwild.null_block.advancement.obtain": "Hackermode = §aON",
