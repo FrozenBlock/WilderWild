@@ -12,7 +12,6 @@ import net.minecraft.client.renderer.entity.EntityRendererProvider.Context;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.util.Mth;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -27,13 +26,9 @@ public class JellyfishRenderer extends MobRenderer<Jellyfish, JellyfishModel<Jel
     }
 
     @Override
-    public void setupRotations(Jellyfish jelly, PoseStack poseStack, float f, float g, float h) {
-        this.getModel().rotX = Mth.lerp(h, jelly.prevXRots.get(0), jelly.xBodyRot);
-        this.getModel().rotZ = Mth.lerp(h, jelly.prevZRots.get(0), jelly.zBodyRot);
-        this.getModel().tentRotX = Mth.lerp(h, jelly.prevXRots.get(9), jelly.xBodyRot);
-        this.getModel().tentRotZ = Mth.lerp(h, jelly.prevZRots.get(9), jelly.zBodyRot);
-        this.getModel().whateverGIs = g;
+    public void setupRotations(@NotNull Jellyfish jelly, PoseStack poseStack, float f, float g, float h) {
         poseStack.translate(0.0, 0.5, 0.0);
+        poseStack.mulPose(Vector3f.YP.rotationDegrees(180.0f - g));
         poseStack.translate(0.0, -1.2f, 0.0);
     }
 
