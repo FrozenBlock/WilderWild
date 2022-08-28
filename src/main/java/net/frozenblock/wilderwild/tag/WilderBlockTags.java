@@ -2,6 +2,7 @@ package net.frozenblock.wilderwild.tag;
 
 import net.frozenblock.wilderwild.WilderWild;
 import net.minecraft.core.Registry;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.level.block.Block;
 
@@ -17,6 +18,9 @@ public final class WilderBlockTags {
     public static final TagKey<Block> BLOCKS_TERMITE = of("blocks_termite");
     public static final TagKey<Block> FIREFLY_HIDEABLE_BLOCKS = of("firefly_hideable_blocks");
     public static final TagKey<Block> PACKED_MUD_REPLACEABLE = of("packed_mud_replaceable");
+
+    public static final TagKey<Block> GLASS_BLOCKS = TagKey.create(Registry.BLOCK_REGISTRY, new ResourceLocation("c", "glass_blocks"));
+    public static final TagKey<Block> GLASS_PANES = TagKey.create(Registry.BLOCK_REGISTRY, new ResourceLocation("c", "glass_panes"));
 
     private WilderBlockTags() {
     }

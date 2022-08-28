@@ -48,6 +48,7 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.gameevent.GameEvent;
+import net.minecraft.world.level.material.Material;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
@@ -326,7 +327,7 @@ public class AncientHornProjectile extends AbstractArrow {
             if (this.level instanceof ServerLevel server) {
                 if (insideState.getBlock() instanceof BellBlock bell) {
                     bell.onProjectileHit(server, insideState, this.level.clip(new ClipContext(this.position(), new Vec3(this.getBlockX(), this.getBlockY(), this.getBlockZ()), ClipContext.Block.COLLIDER, ClipContext.Fluid.NONE, this)), this);
-                } else if (insideState.getBlock() instanceof AbstractGlassBlock) {
+                } else if (insideState.getBlock() instanceof AbstractGlassBlock || insideState.is(WilderBlockTags.GLASS_BLOCKS) || insideState.is(WilderBlockTags.GLASS_PANES)) {
                     if (WilderWildClient.config.ancientHornShattersGlass) {
                         insideState.onProjectileHit(this.level, insideState, this.level.clip(new ClipContext(this.position(), new Vec3(this.getBlockX(), this.getBlockY(), this.getBlockZ()), ClipContext.Block.COLLIDER, ClipContext.Fluid.NONE, this)), this);
                         this.level.destroyBlock(this.blockPosition(), false, this);
