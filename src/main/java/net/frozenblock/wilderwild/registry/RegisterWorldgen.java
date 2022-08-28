@@ -96,7 +96,7 @@ public final class RegisterWorldgen {
 
     public static Biome jellyfishCaves() {
         MobSpawnSettings.Builder builder = new MobSpawnSettings.Builder();
-        builder.addSpawn(MobCategory.UNDERGROUND_WATER_CREATURE, new MobSpawnSettings.SpawnerData(RegisterEntities.JELLYFISH, 10, 4, 6));
+        builder.addSpawn(WilderWild.JELLYFISH, new MobSpawnSettings.SpawnerData(RegisterEntities.JELLYFISH, 10, 4, 6));
         BiomeGenerationSettings.Builder builder2 = new BiomeGenerationSettings.Builder();
         BiomeDefaultFeatures.addDefaultCrystalFormations(builder2);
         builder2.addFeature(GenerationStep.Decoration.UNDERGROUND_STRUCTURES, CavePlacements.MONSTER_ROOM_DEEP);
