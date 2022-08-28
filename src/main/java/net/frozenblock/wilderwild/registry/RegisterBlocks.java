@@ -486,7 +486,7 @@ public final class RegisterBlocks {
     }
 
     private static void registerBonemeal() {
-        BonemealBehaviors.bonemeals.put(Blocks.LILY_PAD, (world, pos, state, face, horizontal) -> {
+        BonemealBehaviors.bonemeals.put(Blocks.LILY_PAD, (context, world, pos, state, face, horizontal) -> {
             WilderWild.log(Blocks.LILY_PAD, pos, "Bonemeal", WilderWild.DEV_LOGGING);
             if (!world.isClientSide) {
                 world.levelEvent(LevelEvent.PARTICLES_AND_SOUND_PLANT_GROWTH, pos, 0);
@@ -494,7 +494,7 @@ public final class RegisterBlocks {
             }
             return !world.isClientSide;
         });
-        BonemealBehaviors.bonemeals.put(BROWN_SHELF_FUNGUS, (world, pos, state, face, horizontal) -> {
+        BonemealBehaviors.bonemeals.put(BROWN_SHELF_FUNGUS, (context, world, pos, state, face, horizontal) -> {
             if (state.getValue(RegisterProperties.FUNGUS_STAGE) < 4) {
                 WilderWild.log("Shelf Fungus Bonemealed @ " + pos + " with FungusStage of " + state.getValue(RegisterProperties.FUNGUS_STAGE), WilderWild.DEV_LOGGING);
                 if (!world.isClientSide) {
@@ -504,7 +504,7 @@ public final class RegisterBlocks {
             }
             return !world.isClientSide;
         });
-        BonemealBehaviors.bonemeals.put(RED_SHELF_FUNGUS, (world, pos, state, face, horizontal) -> {
+        BonemealBehaviors.bonemeals.put(RED_SHELF_FUNGUS, (context, world, pos, state, face, horizontal) -> {
             if (state.getValue(RegisterProperties.FUNGUS_STAGE) < 4) {
                 WilderWild.log("Shelf Fungus Bonemealed @ " + pos + " with FungusStage of " + state.getValue(RegisterProperties.FUNGUS_STAGE), WilderWild.DEV_LOGGING);
                 if (!world.isClientSide) {
@@ -514,7 +514,7 @@ public final class RegisterBlocks {
             }
             return !world.isClientSide;
         });
-        BonemealBehaviors.bonemeals.put(ALGAE, (world, pos, state, face, horizontal) -> {
+        BonemealBehaviors.bonemeals.put(ALGAE, (context, world, pos, state, face, horizontal) -> {
             WilderWild.log("Algae Bonemealed @ " + pos, WilderWild.DEV_LOGGING);
             if (!world.isClientSide) {
                 for (Direction offset : shuffleOffsets(world.getRandom())) {
