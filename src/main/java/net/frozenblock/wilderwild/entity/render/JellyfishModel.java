@@ -81,20 +81,14 @@ public class JellyfishModel<T extends Jellyfish> extends HierarchicalModel<T> {
         this.animateBody(matrices, jelly, tickDelta);
 
         matrices.pushPose();
-        matrices.translate(0.0, 0.5, 0.0);
-        matrices.mulPose(Vector3f.YP.rotationDegrees(180.0f - this.whateverGIs));
-        matrices.mulPose(Vector3f.XP.rotationDegrees(this.rotX));
-        matrices.mulPose(Vector3f.YP.rotationDegrees(this.rotZ));
-        matrices.translate(0.0, -1.2f, 0.0);
+        matrices.mulPose(Vector3f.XP.rotationDegrees(Mth.lerp(tickDelta, jelly.getPrevXRot(), jelly.getJellyXRot())));
+        matrices.mulPose(Vector3f.YP.rotationDegrees(Mth.lerp(tickDelta, jelly.getPrevZRot(), jelly.getJellyZRot())));
         this.body.render(matrices, vertices, light, overlay, 1.0F, 1.0F, 1.0F, 1.0F);
         matrices.popPose();
 
         matrices.pushPose();
-        matrices.translate(0.0, 0.5, 0.0);
-        matrices.mulPose(Vector3f.YP.rotationDegrees(180.0f - this.whateverGIs));
         matrices.mulPose(Vector3f.XP.rotationDegrees(this.tentRotX));
         matrices.mulPose(Vector3f.YP.rotationDegrees(this.tentRotZ));
-        matrices.translate(0.0, -1.2f, 0.0);
         this.tentacleRot.render(matrices, vertices, light, overlay, 1.0F, 1.0F, 1.0F, 1.0F);
         matrices.popPose();
         //this.bone.render(matrices, vertices, light, overlay, 1.0F, 1.0F, 1.0F, 1.0F);
