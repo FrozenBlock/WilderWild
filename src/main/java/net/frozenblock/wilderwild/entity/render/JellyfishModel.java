@@ -108,22 +108,23 @@ public class JellyfishModel<T extends Jellyfish> extends HierarchicalModel<T> {
         poseStack.popPose();
     }
 
-    private void animate(T jellyfish, float limbSwing, float limbSwingAmount, float ageInTicks) {
+    @Override
+    public void setupAnim(@NotNull T jellyfish, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
         float animation = limbSwing * 2;
-        
+
         float sin = -Mth.sin(animation);
-        float cosTentacle = (-Mth.sin(animation + 5) * 20 - 7.5F) * pi180;
+        float sinTentacle = (-Mth.sin(animation + 5) * 20 - 7.5F) * pi180;
         //cardinal tentacles
-        this.tentacle1.xRot = cosTentacle;
-        this.tentacle3.xRot = cosTentacle;
-        this.tentacle5.xRot = cosTentacle;
-        this.tentacle7.xRot = cosTentacle;
+        this.tentacle1.xRot = sinTentacle;
+        this.tentacle3.xRot = sinTentacle;
+        this.tentacle5.xRot = sinTentacle;
+        this.tentacle7.xRot = sinTentacle;
 
         //intermediate tentacles
-        this.tentacle2.xRot = cosTentacle;
-        this.tentacle4.xRot = cosTentacle;
-        this.tentacle6.xRot = cosTentacle;
-        this.tentacle8.xRot = cosTentacle;
+        this.tentacle2.xRot = sinTentacle;
+        this.tentacle4.xRot = sinTentacle;
+        this.tentacle6.xRot = sinTentacle;
+        this.tentacle8.xRot = sinTentacle;
 
         float xZScale = 1F + (-sin * 0.25F);
         float ySin = 1.25F + (sin * 0.75F);
@@ -133,11 +134,6 @@ public class JellyfishModel<T extends Jellyfish> extends HierarchicalModel<T> {
 
         this.body.yScale = ySin;
         this.body.y = 3.5F -(ySin * 3.5F);
-    }
-
-    @Override
-    public void setupAnim(@NotNull T jellyfish, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
-        this.animate(jellyfish, limbSwing, limbSwingAmount, ageInTicks / 10);
     }
 
     @Override
