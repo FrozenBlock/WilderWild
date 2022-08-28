@@ -54,6 +54,8 @@ public class JellyfishModel<T extends Jellyfish> extends HierarchicalModel<T> {
         return "tentacle" + (i + 1);
     }
 
+    private static final float pi180 = Mth.PI / 180;
+
     public static LayerDefinition getTexturedModelData() {
         MeshDefinition meshDefinition = new MeshDefinition();
         PartDefinition partDefinition = meshDefinition.getRoot();
@@ -75,42 +77,43 @@ public class JellyfishModel<T extends Jellyfish> extends HierarchicalModel<T> {
     public float zRot;
     public float tentXRot;
     public float tentZRot;
+    public float lightProg;
 
-    public void render(PoseStack poseStack, VertexConsumer vertexConsumer, int i, int j, float lightProg) {
+    public void render(PoseStack poseStack, VertexConsumer vertexConsumer, int i, int j) {
+        float newLightProg = 1 - this.lightProg;
         poseStack.pushPose();
         poseStack.mulPose(Vector3f.XP.rotationDegrees(-this.xRot));
         poseStack.mulPose(Vector3f.YP.rotationDegrees(-this.zRot));
-        this.body.render(poseStack, vertexConsumer, i, j, 1.0F, 1.0F, 1.0F, lightProg);
+        this.body.render(poseStack, vertexConsumer, i, j, 1.0F, 1.0F, 1.0F, newLightProg);
         poseStack.popPose();
 
         poseStack.pushPose();
         poseStack.mulPose(Vector3f.XP.rotationDegrees(-this.tentXRot));
         poseStack.mulPose(Vector3f.YP.rotationDegrees(-this.tentZRot));
-        this.tentacleRot.render(poseStack, vertexConsumer, 1, j, 1.0F, 1.0F, 1.0F, lightProg);
+        this.tentacleRot.render(poseStack, vertexConsumer, 1, j, 1.0F, 1.0F, 1.0F, newLightProg);
         poseStack.popPose();
     }
 
-    public void renderDeez(PoseStack poseStack, VertexConsumer vertexConsumer, int i, int j, float lightProg) {
+    public void renderDeez(PoseStack poseStack, VertexConsumer vertexConsumer, int i, int j) {
         poseStack.pushPose();
         poseStack.mulPose(Vector3f.XP.rotationDegrees(-this.xRot));
         poseStack.mulPose(Vector3f.YP.rotationDegrees(-this.zRot));
-        this.body.render(poseStack, vertexConsumer, i, j, 1.0F, 1.0F, 1.0F, lightProg);
+        this.body.render(poseStack, vertexConsumer, i, j, 1.0F, 1.0F, 1.0F, this.lightProg);
         poseStack.popPose();
 
         poseStack.pushPose();
         poseStack.mulPose(Vector3f.XP.rotationDegrees(-this.tentXRot));
         poseStack.mulPose(Vector3f.YP.rotationDegrees(-this.tentZRot));
-        this.tentacleRot.render(poseStack, vertexConsumer, 1, j, 1.0F, 1.0F, 1.0F, lightProg);
+        this.tentacleRot.render(poseStack, vertexConsumer, 1, j, 1.0F, 1.0F, 1.0F, this.lightProg);
         poseStack.popPose();
     }
 
     private void animateTentacles(T jellyfish, float limbSwing, float limbSwingAmount, float ageInTicks) {
-        float pi180 = Mth.PI / 180;
         float mult = 15;
 
-        float animation = ageInTicks * 10;
+        float animation = ageInTicks * 5;
 
-        float cos = (Mth.cos(animation) * mult - mult) * pi180;
+        /*float cos = (Mth.cos(animation) * mult - mult) * pi180;
         float cos1 = (Mth.cos(animation + 30) * mult - mult) * pi180;
         float cos2 = (Mth.cos(animation + 60) * mult - mult) * pi180;
         float cos3 = (Mth.cos(animation + 90) * mult - mult) * pi180;
@@ -130,8 +133,20 @@ public class JellyfishModel<T extends Jellyfish> extends HierarchicalModel<T> {
         this.tentacle2.xRot = sin;
         this.tentacle4.xRot = sin1;
         this.tentacle6.xRot = sin2;
-        this.tentacle8.xRot = sin3;
+        this.tentacle8.xRot = sin3;*/
 
+        float cos = (Mth.cos(animation) * mult - mult) * pi180;
+        //cardinal tentacles
+        this.tentacle1.xRot = cos;
+        this.tentacle3.xRot = cos;
+        this.tentacle5.xRot = cos;
+        this.tentacle7.xRot = cos;
+
+        //intermediate tentacles
+        this.tentacle2.xRot = cos;
+        this.tentacle4.xRot = cos;
+        this.tentacle6.xRot = cos;
+        this.tentacle8.xRot = cos;
     }
 
     @Override
