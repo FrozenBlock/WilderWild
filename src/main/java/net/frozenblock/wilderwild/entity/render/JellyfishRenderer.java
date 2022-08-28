@@ -34,8 +34,8 @@ public class JellyfishRenderer extends MobRenderer<Jellyfish, JellyfishModel<Jel
         JellyfishModel<Jellyfish> model = this.getModel();
         model.xRot = Mth.lerp(h, jelly.xRot1, jelly.xBodyRot);
         model.zRot = Mth.lerp(h, jelly.zRot1, jelly.zBodyRot);
-        model.tentXRot = Mth.lerp(h, jelly.xRot10, jelly.xRot9);
-        model.tentZRot = Mth.lerp(h, jelly.zRot10, jelly.zRot9);
+        model.tentXRot = Mth.lerp(h, jelly.xRot6, jelly.xRot5);
+        model.tentZRot = Mth.lerp(h, jelly.zRot6, jelly.zRot5);
     }
 
     @Override
