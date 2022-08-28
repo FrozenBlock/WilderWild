@@ -39,6 +39,8 @@ public class Jellyfish extends AbstractFish {
     public float oldTentacleMovement;
     public float tentacleAngle;
     public float oldTentacleAngle;
+    private float speed;
+    private float tentacleSpeed;
     private float rotateSpeed;
 
     public Jellyfish(EntityType<? extends Jellyfish> entityType, Level level) {
