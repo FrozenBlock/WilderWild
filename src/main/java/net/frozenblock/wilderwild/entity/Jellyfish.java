@@ -58,7 +58,6 @@ public class Jellyfish extends AbstractFish {
 
     public Vec3 target;
     public Vec3 preparedMovement;
-    public int pushingTicks;
 
     public Jellyfish(EntityType<? extends Jellyfish> entityType, Level level) {
         super(entityType, level);
@@ -310,10 +309,12 @@ public class Jellyfish extends AbstractFish {
         this.setPrevInhaleTicks(this.getInhaleTicks());
         this.setPrevPushTicks(this.getPushingTicks());
         if (this.getInhaleTicks() < this.getInhaleLength()) {
-            this.setInhaleTicks(this.getInhaleTicks() - 1);
-        }
-        if (this.pushingTicks > 0) {
-            --this.pushingTicks;
+            this.setInhaleTicks(this.getInhaleTicks() + 1);
+        } else if (this.canPush() && this.preparedMovement != null) {
+            this.setPushTicks((int) (this.preparedMovement.length() * 2));
+            this.setMovementVector((float) this.preparedMovement.x, (float) this.preparedMovement.y, (float) this.preparedMovement.z);
+        } else if (this.getPushingTicks() > 0) {
+            this.setPushTicks(this.getPushingTicks() - 1);
         }
     }
 
