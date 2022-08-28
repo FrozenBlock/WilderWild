@@ -99,7 +99,8 @@ public class JellyfishRenderer extends MobRenderer<Jellyfish, JellyfishModel<Jel
                 n = 1.0f;
             }
         }
-        this.model.animate(jelly, o, g);
+        this.model.prepareMobModel(jelly, o, n, g);
+        this.model.setupAnim(jelly, o, n, l, k, m);
         Minecraft minecraft = Minecraft.getInstance();
         boolean bl = this.isBodyVisible(jelly);
         boolean bl2 = !bl && !jelly.isInvisibleTo(minecraft.player);
@@ -129,9 +130,15 @@ public class JellyfishRenderer extends MobRenderer<Jellyfish, JellyfishModel<Jel
 
     @Override
     public void setupRotations(@NotNull Jellyfish jelly, PoseStack poseStack, float f, float g, float h) {
+        //poseStack.translate(0.0, 0.5, 0.0);
         poseStack.mulPose(Vector3f.YP.rotationDegrees(180.0f - g));
         poseStack.translate(0.0, -1, 0.0);
         poseStack.scale(0.8F, 0.8F, 0.8F);
+        JellyfishModel<Jellyfish> model = this.getModel();
+        model.xRot = Mth.lerp(h, jelly.xRot1, jelly.xBodyRot);
+        model.zRot = Mth.lerp(h, jelly.zRot1, jelly.zBodyRot);
+        model.tentXRot = Mth.lerp(h, jelly.xRot6, jelly.xRot5);
+        model.tentZRot = Mth.lerp(h, jelly.zRot6, jelly.zRot5);
     }
 
     @Override
