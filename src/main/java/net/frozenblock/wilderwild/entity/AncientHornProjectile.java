@@ -6,6 +6,7 @@ import net.frozenblock.lib.damagesource.FrozenProjectileDamageSource;
 import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.WilderWildClient;
 import net.frozenblock.wilderwild.block.entity.HangingTendrilBlockEntity;
+import net.frozenblock.wilderwild.misc.config.WilderWildConfig;
 import net.frozenblock.wilderwild.misc.mod_compat.simple_copper_pipes.InteractionHandler;
 import net.frozenblock.wilderwild.misc.server.EasyPacket;
 import net.frozenblock.wilderwild.registry.*;
@@ -25,7 +26,6 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
-import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.util.Mth;
 import net.minecraft.util.SpawnUtil;
@@ -48,7 +48,6 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.gameevent.GameEvent;
-import net.minecraft.world.level.material.Material;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
@@ -328,7 +327,7 @@ public class AncientHornProjectile extends AbstractArrow {
                 if (insideState.getBlock() instanceof BellBlock bell) {
                     bell.onProjectileHit(server, insideState, this.level.clip(new ClipContext(this.position(), new Vec3(this.getBlockX(), this.getBlockY(), this.getBlockZ()), ClipContext.Block.COLLIDER, ClipContext.Fluid.NONE, this)), this);
                 } else if (insideState.getBlock() instanceof AbstractGlassBlock || insideState.is(WilderBlockTags.GLASS_BLOCKS) || insideState.is(WilderBlockTags.GLASS_PANES)) {
-                    if (WilderWildClient.config.ancientHornShattersGlass) {
+                    if (WilderWildConfig.get().entity.ancientHornShattersGlass) {
                         insideState.onProjectileHit(this.level, insideState, this.level.clip(new ClipContext(this.position(), new Vec3(this.getBlockX(), this.getBlockY(), this.getBlockZ()), ClipContext.Block.COLLIDER, ClipContext.Fluid.NONE, this)), this);
                         this.level.destroyBlock(this.blockPosition(), false, this);
                     }

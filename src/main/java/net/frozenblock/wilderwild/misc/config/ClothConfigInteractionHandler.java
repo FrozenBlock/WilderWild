@@ -3,58 +3,58 @@ package net.frozenblock.wilderwild.misc.config;
 import net.frozenblock.wilderwild.WilderWildClient;
 
 /**
- * @deprecated Use WilderWildClient.config instead
+ * @deprecated Use WilderWildConfig.get() instead
  */
 @Deprecated
 public class ClothConfigInteractionHandler {
 
 
     public static boolean modifyDesertPlacement() {
-        return WilderWildClient.config.modifyDesertPlacement;
+        return WilderWildConfig.get().worldgen.modifyDesertPlacement;
     }
 
     public static boolean modifyBadlandsPlacement() {
-        return WilderWildClient.config.modifyBadlandsPlacement;
+        return WilderWildConfig.get().worldgen.modifyBadlandsPlacement;
     }
 
     public static boolean modifyJunglePlacement() {
-        return WilderWildClient.config.modifyJunglePlacement;
+        return WilderWildConfig.get().worldgen.modifyJunglePlacement;
     }
 
     public static boolean modifySwampPlacement() {
-        return WilderWildClient.config.modifySwampPlacement;
+        return WilderWildConfig.get().worldgen.modifySwampPlacement;
     }
 
     public static boolean modifyMangroveSwampPlacement() {
-        return WilderWildClient.config.modifyMangroveSwampPlacement;
+        return WilderWildConfig.get().worldgen.modifyMangroveSwampPlacement;
     }
 
     public static boolean modifyWindsweptSavannaPlacement() {
-        return WilderWildClient.config.modifyWindsweptSavannaPlacement;
+        return WilderWildConfig.get().worldgen.modifyWindsweptSavannaPlacement;
     }
 
     public static boolean mcLiveSensorTendrils() {
-        return WilderWildClient.config.mcLiveSensorTendrils;
+        return WilderWildConfig.get().block.mcLiveSensorTendrils;
     }
 
     public static boolean betaBeaches() {
-        return WilderWildClient.config.betaBeaches;
+        return WilderWildConfig.get().worldgen.betaBeaches;
     }
 
     public static boolean wardenEmergesFromEgg() {
-        return WilderWildClient.config.wardenEmergesFromEgg;
+        return WilderWildConfig.get().entity.wardenEmergesFromEgg;
     }
 
     public static boolean customWardenTendrils() {
-        return WilderWildClient.config.customWardenTendrils;
+        return WilderWildConfig.get().entity.customWardenTendrils;
     }
 
     public static boolean wardenSwimAnimation() {
-        return WilderWildClient.config.wardenSwimAnimation;
+        return WilderWildConfig.get().entity.wardenSwimAnimation;
     }
 
     public static boolean shriekerGargling() {
-        return WilderWildClient.config.shriekerGargling;
+        return WilderWildConfig.get().block.shriekerGargling;
     }
 
 }

@@ -16,7 +16,6 @@ import net.frozenblock.lib.sound.FlyBySoundHub;
 import net.frozenblock.wilderwild.entity.AncientHornProjectile;
 import net.frozenblock.wilderwild.entity.render.*;
 import net.frozenblock.wilderwild.misc.CompetitionCounter;
-import net.frozenblock.wilderwild.misc.config.WilderWildClothConfig;
 import net.frozenblock.wilderwild.misc.config.WilderWildConfig;
 import net.frozenblock.wilderwild.particle.AncientHornParticle;
 import net.frozenblock.wilderwild.particle.FloatingSculkBubbleParticle;
@@ -56,9 +55,6 @@ public final class WilderWildClient implements ClientModInitializer {
     public static final ModelLayerLocation DOUBLE_STONE_CHEST_LEFT = new ModelLayerLocation(WilderWild.id("double_stone_chest_left"), "main");
     public static final ModelLayerLocation DOUBLE_STONE_CHEST_RIGHT = new ModelLayerLocation(WilderWild.id("double_stone_chest_right"), "main");
     public static final ModelLayerLocation JELLYFISH = new ModelLayerLocation(WilderWild.id("jellyfish"), "main");
-
-    // CONFIG
-    public static WilderWildConfig config = WilderWildClothConfig.init();
 
     @Override
     public void onInitializeClient() {
