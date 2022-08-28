@@ -109,7 +109,7 @@ public class JellyfishRenderer extends MobRenderer<Jellyfish, JellyfishModel<Jel
         if (renderType != null) {
             VertexConsumer vertexConsumer = multiBufferSource.getBuffer(renderType);
             int p = LivingEntityRenderer.getOverlayCoords(jelly, this.getWhiteOverlayProgress(jelly, g));
-            this.model.render(poseStack, vertexConsumer, i, p, 1 - Mth.lerp(h, jelly.getPrevLight(), jelly.getLight()) / 15);
+            this.model.render(poseStack, vertexConsumer, i, p, 1 - (Mth.lerp(g, jelly.getPrevLight(), jelly.getLight()) / 15));
         }
         if (!jelly.isSpectator()) {
             for (RenderLayer<Jellyfish, JellyfishModel<Jellyfish>> renderLayer : this.layers) {
