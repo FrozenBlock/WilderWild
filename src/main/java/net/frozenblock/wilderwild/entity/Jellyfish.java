@@ -313,6 +313,7 @@ public class Jellyfish extends AbstractFish {
         } else if (this.canPush() && this.preparedMovement != null) {
             this.setPushTicks((int) (this.preparedMovement.length() * 2));
             this.setMovementVector((float) this.preparedMovement.x, (float) this.preparedMovement.y, (float) this.preparedMovement.z);
+            this.preparedMovement = null;
         } else if (this.getPushingTicks() > 0) {
             this.setPushTicks(this.getPushingTicks() - 1);
         }
@@ -404,7 +405,7 @@ public class Jellyfish extends AbstractFish {
         public void tick() {
             Vec3 target = this.jelly.target;
             if (target != null) {
-                if (this.jelly.getPushingTicks() <= 0) {
+                if (this.jelly.getPushingTicks() <= 0 && this.jelly.canPush()) {
                     float toX = (float) (Mth.clamp(target.x - this.jelly.position().x, -0.2, 0.2));
                     float toY = (float) (Mth.clamp(target.y - this.jelly.position().y, -0.05, 0.2));
                     float toZ = (float) (Mth.clamp(target.z - this.jelly.position().z, -0.2, 0.2));
