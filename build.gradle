@@ -77,10 +77,11 @@ dependencies {
 	println "Using local FrozenLib: ${local_frozenlib}"
 	if (local_frozenlib) {
 		implementation(project(path: ":FrozenLib", configuration: 'dev'))
+		include(project(path: ":FrozenLib", configuration: 'dev'))
 	} else {
 		modImplementation "maven.modrinth:frozenlib:${frozenlib_version}"
+		include "maven.modrinth:frozenlib:${frozenlib_version}"
 	}
-	include "maven.modrinth:frozenlib:${frozenlib_version}"
 
 	// Fabric-ASM
 	modImplementation "com.github.Chocohead:Fabric-ASM:${fabric_asm_version}"
