@@ -3,34 +3,20 @@ package net.frozenblock.wilderwild.misc.config;
 import me.shedaniel.autoconfig.AutoConfig;
 import me.shedaniel.autoconfig.ConfigData;
 import me.shedaniel.autoconfig.annotation.Config;
+import me.shedaniel.autoconfig.annotation.ConfigEntry;
 import me.shedaniel.autoconfig.serializer.GsonConfigSerializer;
-import me.shedaniel.autoconfig.serializer.PartitioningSerializer;
 import me.shedaniel.clothconfig2.api.ConfigBuilder;
 import me.shedaniel.clothconfig2.api.ConfigCategory;
 import me.shedaniel.clothconfig2.api.ConfigEntryBuilder;
 import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.WilderWildClient;
-import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
 
-@Config(name = WilderWild.MOD_ID)
-public class WilderWildClothConfig extends WilderWildConfig implements ConfigData {
+import static net.frozenblock.wilderwild.misc.config.WilderWildConfig.text;
 
-    public static Screen buildScreen(Screen parent) {
-        var configBuilder = ConfigBuilder.create().setParentScreen(parent).setTitle(text("component.title"));
-        configBuilder.setSavingRunnable(() -> AutoConfig.getConfigHolder(WilderWildClothConfig.class).save());
-        //ConfigCategory general = configBuilder.getOrCreateCategory(text("general"));
-        ConfigCategory block = configBuilder.getOrCreateCategory(text("block"));
-        ConfigCategory entity = configBuilder.getOrCreateCategory(text("entity"));
-        ConfigCategory worldgen = configBuilder.getOrCreateCategory(text("worldgen"));
-        ConfigEntryBuilder entryBuilder = configBuilder.entryBuilder();
-        BlockConfig.setupEntries(block, entryBuilder);
-        EntityConfig.setupEntries(entity, entryBuilder);
-        WorldgenConfig.setupEntries(worldgen, entryBuilder);
-        //WilderWildClothConfig.setupEntries(general, entryBuilder);
-        return configBuilder.build();
-    }
-
+@Config(name = "worldgen")
+public class WorldgenConfig implements ConfigData {
+    //public static final EnumConfigOption<ModMenuConfig.ModsButtonStyle> MODS_BUTTON_STYLE = new EnumConfigOption<>("mods_button_style", ModMenuConfig.ModsButtonStyle.CLASSIC);
 
     public static void setupEntries(ConfigCategory category, ConfigEntryBuilder entryBuilder) {
         var config = WilderWildClient.config;
@@ -75,37 +61,11 @@ public class WilderWildClothConfig extends WilderWildConfig implements ConfigDat
                 .setYesNoTextSupplier(bool -> text("biome_placement." + bool))
                 .requireRestart()
                 .build());
-
-        category.addEntry(entryBuilder.startBooleanToggle(text("mc_live_sensor_tendrils"), config.mcLiveSensorTendrils)
-                .setDefaultValue(false)
-                .setSaveConsumer(newValue -> config.mcLiveSensorTendrils = newValue)
-                .setYesNoTextSupplier(bool -> text("mc_live_sensor_tendrils." + bool))
-                .build());
-        category.addEntry(entryBuilder.startBooleanToggle(text("warden_emerges_from_egg"), config.wardenEmergesFromEgg)
-                .setDefaultValue(true)
-                .setSaveConsumer(newValue -> config.wardenEmergesFromEgg = newValue)
-                .build());
-        category.addEntry(entryBuilder.startBooleanToggle(text("warden_custom_tendrils"), config.customWardenTendrils)
-                .setDefaultValue(true)
-                .setSaveConsumer(newValue -> config.customWardenTendrils = newValue)
-                .setYesNoTextSupplier(bool -> text("warden_custom_tendrils." + bool))
-                .build());
-        category.addEntry(entryBuilder.startBooleanToggle(text("warden_swim_animation"), config.wardenSwimAnimation)
-                .setDefaultValue(true)
-                .setSaveConsumer(newValue -> config.wardenSwimAnimation = newValue)
-                .build());
-        category.addEntry(entryBuilder.startBooleanToggle(text("shrieker_gargling"), config.shriekerGargling)
-                .setDefaultValue(true)
-                .setSaveConsumer(newValue -> config.shriekerGargling = newValue)
-                .build());
-
     }
 
-    public static WilderWildClothConfig init() {
-        if (!WilderWild.areConfigsInit) {
-            AutoConfig.register(WilderWildClothConfig.class, PartitioningSerializer.wrap(GsonConfigSerializer::new));
-            WilderWild.areConfigsInit = true;
-        }
-        return AutoConfig.getConfigHolder(WilderWildClothConfig.class).getConfig();
-    }
+    //public static final StringSetConfigOption HIDDEN_MODS = new StringSetConfigOption("hidden_mods", new HashSet<>());
+    /*public static WorldgenConfig init() {
+        AutoConfig.register(WorldgenConfig.class, GsonConfigSerializer::new);
+        return AutoConfig.getConfigHolder(WorldgenConfig.class).getConfig();
+    }*/
 }
