@@ -75,34 +75,32 @@ public class JellyfishModel<T extends Jellyfish> extends HierarchicalModel<T> {
     public float zRot;
     public float tentXRot;
     public float tentZRot;
-    public float lightProg;
 
-    @Override
-    public void renderToBuffer(PoseStack poseStack, VertexConsumer vertexConsumer, int i, int j, float f, float g, float h, float k) {
+    public void render(PoseStack poseStack, VertexConsumer vertexConsumer, int i, int j, float lightProg) {
         poseStack.pushPose();
         poseStack.mulPose(Vector3f.XP.rotationDegrees(-this.xRot));
         poseStack.mulPose(Vector3f.YP.rotationDegrees(-this.zRot));
-        this.body.render(poseStack, vertexConsumer, i, j, 1.0F, 1.0F, 1.0F, 1.0F - this.lightProg);
+        this.body.render(poseStack, vertexConsumer, i, j, 1.0F, 1.0F, 1.0F, 1.0F - lightProg);
         poseStack.popPose();
 
         poseStack.pushPose();
         poseStack.mulPose(Vector3f.XP.rotationDegrees(-this.tentXRot));
         poseStack.mulPose(Vector3f.YP.rotationDegrees(-this.tentZRot));
-        this.tentacleRot.render(poseStack, vertexConsumer, 1, j, 1.0F, 1.0F, 1.0F, 1.0F - this.lightProg);
+        this.tentacleRot.render(poseStack, vertexConsumer, 1, j, 1.0F, 1.0F, 1.0F, 1.0F - lightProg);
         poseStack.popPose();
     }
 
-    public void renderDeez(PoseStack poseStack, VertexConsumer vertexConsumer, int i, int j) {
+    public void renderDeez(PoseStack poseStack, VertexConsumer vertexConsumer, int i, int j, float lightProg) {
         poseStack.pushPose();
         poseStack.mulPose(Vector3f.XP.rotationDegrees(-this.xRot));
         poseStack.mulPose(Vector3f.YP.rotationDegrees(-this.zRot));
-        this.body.render(poseStack, vertexConsumer, i, j, 1.0F, 1.0F, 1.0F, this.lightProg);
+        this.body.render(poseStack, vertexConsumer, i, j, 1.0F, 1.0F, 1.0F, lightProg);
         poseStack.popPose();
 
         poseStack.pushPose();
         poseStack.mulPose(Vector3f.XP.rotationDegrees(-this.tentXRot));
         poseStack.mulPose(Vector3f.YP.rotationDegrees(-this.tentZRot));
-        this.tentacleRot.render(poseStack, vertexConsumer, 1, j, 1.0F, 1.0F, 1.0F, this.lightProg);
+        this.tentacleRot.render(poseStack, vertexConsumer, 1, j, 1.0F, 1.0F, 1.0F, lightProg);
         poseStack.popPose();
     }
 
