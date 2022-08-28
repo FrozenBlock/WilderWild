@@ -17,6 +17,9 @@ public final class WilderSpawns {
 
         BiomeModifications.addSpawn(BiomeSelectors.tag(WilderBiomeTags.FIREFLY_SPAWNABLE),
                 WilderWild.FIREFLIES, RegisterEntities.FIREFLY, 5, 1, 2);
+
+        BiomeModifications.addSpawn(BiomeSelectors.tag(WilderBiomeTags.BRIGHT_JELLYFISH),
+                WilderWild.JELLYFISH, RegisterEntities.JELLYFISH, 2, 1, 1);
     }
 
 }

@@ -1,10 +1,14 @@
 package net.frozenblock.wilderwild.entity;
 
 import com.mojang.serialization.Dynamic;
+import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.entity.ai.JellyfishAi;
+import net.frozenblock.wilderwild.entity.variant.JellyfishVariant;
 import net.frozenblock.wilderwild.registry.RegisterItems;
 import net.frozenblock.wilderwild.registry.RegisterSounds;
+import net.frozenblock.wilderwild.tag.WilderBiomeTags;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Holder;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
@@ -13,12 +17,14 @@ import net.minecraft.network.protocol.game.DebugPackets;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
+import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
@@ -36,6 +42,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
+import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
@@ -73,6 +80,7 @@ public class Jellyfish extends AbstractFish {
     private static final EntityDataAccessor<Integer> TARGET_LIGHT = SynchedEntityData.defineId(Jellyfish.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Float> LIGHT = SynchedEntityData.defineId(Jellyfish.class, EntityDataSerializers.FLOAT);
     private static final EntityDataAccessor<Float> PREV_LIGHT = SynchedEntityData.defineId(Jellyfish.class, EntityDataSerializers.FLOAT);
+    private static final EntityDataAccessor<JellyfishVariant> VARIANT = SynchedEntityData.defineId(Jellyfish.class, WilderWild.JELLYFISH_VARIANT);
 
     @Override
     public void playerTouch(@NotNull Player player) {
@@ -87,6 +95,11 @@ public class Jellyfish extends AbstractFish {
     }
 
     public static boolean canSpawn(EntityType<Jellyfish> type, ServerLevelAccessor world, MobSpawnType spawnReason, BlockPos pos, RandomSource random) {
+        Holder<Biome> holder = world.getBiome(pos);
+        if (holder.is(WilderBiomeTags.BRIGHT_JELLYFISH)) {
+            return spawnReason != MobSpawnType.SPAWNER ? pos.getY() <= world.getSeaLevel() - 3 &&  pos.getY() >= world.getSeaLevel() - 26 && world.getBlockState(pos).is(Blocks.WATER)
+                    : world.getBlockState(pos).is(Blocks.WATER);
+        }
         return spawnReason != MobSpawnType.SPAWNER ? pos.getY() <= world.getSeaLevel() - 33 && world.getRawBrightness(pos, 0) <= 6 && world.getBlockState(pos).is(Blocks.WATER)
                 : world.getBlockState(pos).is(Blocks.WATER);
     }
@@ -236,6 +249,18 @@ public class Jellyfish extends AbstractFish {
         super.customServerAiStep();
     }
 
+    @Nullable
+    @Override
+    public SpawnGroupData finalizeSpawn(ServerLevelAccessor serverLevelAccessor, DifficultyInstance difficultyInstance, MobSpawnType mobSpawnType, @Nullable SpawnGroupData spawnGroupData, @Nullable CompoundTag compoundTag) {
+        Holder<Biome> holder = serverLevelAccessor.getBiome(this.blockPosition());
+        if (holder.is(WilderBiomeTags.BRIGHT_JELLYFISH)) {
+            this.setVariant(JellyfishVariant.PINK);
+        } else {
+            this.setVariant(JellyfishVariant.PALE_BLUE);
+        }
+        return super.finalizeSpawn(serverLevelAccessor, difficultyInstance, mobSpawnType, spawnGroupData, compoundTag);
+    }
+
     @Override
     protected SoundEvent getFlopSound() {
         return SoundEvents.PUFFER_FISH_FLOP;
@@ -303,11 +328,20 @@ public class Jellyfish extends AbstractFish {
         return this.entityData.get(PREV_LIGHT);
     }
 
+    public void setVariant(JellyfishVariant variant) {
+        this.entityData.set(VARIANT, variant);
+    }
+
+    public JellyfishVariant getVariant() {
+        return this.entityData.get(VARIANT);
+    }
+
     protected void defineSynchedData() {
         super.defineSynchedData();
         this.entityData.define(TARGET_LIGHT, 0);
         this.entityData.define(LIGHT, 0F);
         this.entityData.define(PREV_LIGHT, 0F);
+        this.entityData.define(VARIANT, JellyfishVariant.PALE_BLUE);
     }
 
     public void addAdditionalSaveData(CompoundTag nbt) {
@@ -316,6 +350,7 @@ public class Jellyfish extends AbstractFish {
         nbt.putFloat("light", this.getLight());
         nbt.putFloat("prevLight", this.getPrevLight());
         nbt.putInt("ticksSinceCantReach", this.ticksSinceCantReach);
+        nbt.putString("variant", WilderWild.JELLYFISH_VARIANTS.getKey(this.getVariant()).toString());
     }
 
     public void readAdditionalSaveData(CompoundTag nbt) {
@@ -324,15 +359,23 @@ public class Jellyfish extends AbstractFish {
         this.setLight(nbt.getFloat("light"));
         this.setPrevLight(nbt.getFloat("prevLight"));
         this.ticksSinceCantReach = nbt.getInt("ticksSinceCantReach");
+        JellyfishVariant jellyVariant = WilderWild.JELLYFISH_VARIANTS.get(ResourceLocation.tryParse(nbt.getString("variant")));
+        if (jellyVariant != null) {
+            this.setVariant(jellyVariant);
+        }
+    }
+
+    public ResourceLocation getResourceLocation() {
+        return this.getVariant().texture();
     }
 
     @Override
     protected void registerGoals() {
         //super.registerGoals();
-        //this.goalSelector.addGoal(0, new PanicGoal(this, 1.25));
-        //this.goalSelector.addGoal(2, new AvoidEntityGoal<>(this, Player.class, 8.0f, 1.6, 1.4, EntitySelector.NO_SPECTATORS::test));
+        this.goalSelector.addGoal(0, new PanicGoal(this, 1.25));
+        this.goalSelector.addGoal(2, new AvoidEntityGoal<>(this, Player.class, 8.0f, 1.6, 1.4, EntitySelector.NO_SPECTATORS::test));
         this.goalSelector.addGoal(0, new JellySwimGoal(this));
-        this.goalSelector.addGoal(2, new JellyToTargetGoal(this));
+        //this.goalSelector.addGoal(2, new JellyToTargetGoal(this));
     }
 
     static class JellySwimGoal
