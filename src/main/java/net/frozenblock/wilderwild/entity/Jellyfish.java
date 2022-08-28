@@ -5,7 +5,11 @@ import net.frozenblock.wilderwild.registry.RegisterWorldgen;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.protocol.game.ClientboundGameEventPacket;
+import net.minecraft.network.syncher.EntityDataAccessor;
+import net.minecraft.network.syncher.EntityDataSerializers;
+import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
@@ -23,6 +27,7 @@ import net.minecraft.world.entity.animal.AbstractFish;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LightLayer;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.phys.Vec3;
@@ -49,15 +54,13 @@ public class Jellyfish extends AbstractFish {
     private float tentacleSpeed;
     private float rotateSpeed;
 
-    public float targetLight;
-    public float currentLight;
-    public float previousLight;
-
     public Jellyfish(EntityType<? extends Jellyfish> entityType, Level level) {
         super(entityType, level);
-        //this.moveControl = new SmoothSwimmingMoveControl(this, 20, 20, 0.02f, 0.1f, true);
-        //this.lookControl = new SmoothSwimmingLookControl(this, 10);
     }
+
+    private static final EntityDataAccessor<Integer> TARGET_LIGHT = SynchedEntityData.defineId(Firefly.class, EntityDataSerializers.INT);
+    private static final EntityDataAccessor<Float> LIGHT = SynchedEntityData.defineId(Firefly.class, EntityDataSerializers.FLOAT);
+    private static final EntityDataAccessor<Float> PREV_LIGHT = SynchedEntityData.defineId(Firefly.class, EntityDataSerializers.FLOAT);
 
     @Override
     public void playerTouch(@NotNull Player player) {
@@ -167,12 +170,15 @@ public class Jellyfish extends AbstractFish {
             this.xBodyRot += (-90.0f - this.xBodyRot) * 0.02f;
         }
 
-        this.previousLight = this.currentLight;
-        this.targetLight = this.level.getLightEngine().getRawBrightness(new BlockPos(this.position()), 0);
-        if (this.targetLight > this.currentLight) {
-            this.currentLight += 0.1;
-        } else if (this.targetLight < this.currentLight) {
-            this.currentLight -= 0.1;
+        this.setPrevLight(this.getLight());
+        BlockPos pos = new BlockPos(this.position());
+        int block = this.level.getBrightness(LightLayer.BLOCK, pos);
+        int sky = this.level.getBrightness(LightLayer.SKY, pos);
+        this.setTargetLight(Math.max(block, sky));
+        if (this.getTargetLight() > this.getLight()) {
+            this.setLight(this.getLight() + 0.1F);
+        } else if (this.getTargetLight() < this.getLight()) {
+            this.setLight(this.getLight() - 0.1F);
         }
     }
 
@@ -216,6 +222,51 @@ public class Jellyfish extends AbstractFish {
     @Override
     public ItemStack getBucketItemStack() {
         return null;
+    }
+
+    public void setTargetLight(int i) {
+        this.entityData.set(TARGET_LIGHT, i);
+    }
+
+    public int getTargetLight() {
+        return this.entityData.get(TARGET_LIGHT);
+    }
+
+    public void setLight(float f) {
+        this.entityData.set(LIGHT, f);
+    }
+
+    public float getLight() {
+        return this.entityData.get(LIGHT);
+    }
+
+    public void setPrevLight(float f) {
+        this.entityData.set(PREV_LIGHT, f);
+    }
+
+    public float getPrevLight() {
+        return this.entityData.get(PREV_LIGHT);
+    }
+
+    protected void defineSynchedData() {
+        super.defineSynchedData();
+        this.entityData.define(TARGET_LIGHT, 0);
+        this.entityData.define(LIGHT, 0F);
+        this.entityData.define(PREV_LIGHT, 0F);
+    }
+
+    public void addAdditionalSaveData(CompoundTag nbt) {
+        super.addAdditionalSaveData(nbt);
+        nbt.putInt("targetLight", this.getTargetLight());
+        nbt.putFloat("light", this.getLight());
+        nbt.putFloat("prevLight", this.getPrevLight());
+    }
+
+    public void readAdditionalSaveData(CompoundTag nbt) {
+        super.readAdditionalSaveData(nbt);
+        this.setTargetLight(nbt.getInt("targetLight"));
+        this.setLight(nbt.getFloat("light"));
+        this.setPrevLight(nbt.getFloat("prevLight"));
     }
 
 }

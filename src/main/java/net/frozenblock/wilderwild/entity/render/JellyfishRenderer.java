@@ -109,7 +109,7 @@ public class JellyfishRenderer extends MobRenderer<Jellyfish, JellyfishModel<Jel
         if (renderType != null) {
             VertexConsumer vertexConsumer = multiBufferSource.getBuffer(renderType);
             int p = LivingEntityRenderer.getOverlayCoords(jelly, this.getWhiteOverlayProgress(jelly, g));
-            this.model.render(poseStack, vertexConsumer, i, p, 1 - Mth.lerp(h, jelly.previousLight, jelly.currentLight) / 15);
+            this.model.render(poseStack, vertexConsumer, i, p, 1 - Mth.lerp(h, jelly.getPrevLight(), jelly.getLight()) / 15);
         }
         if (!jelly.isSpectator()) {
             for (RenderLayer<Jellyfish, JellyfishModel<Jellyfish>> renderLayer : this.layers) {
@@ -132,7 +132,7 @@ public class JellyfishRenderer extends MobRenderer<Jellyfish, JellyfishModel<Jel
     public void setupRotations(@NotNull Jellyfish jelly, PoseStack poseStack, float f, float g, float h) {
         //poseStack.translate(0.0, 0.5, 0.0);
         poseStack.mulPose(Vector3f.YP.rotationDegrees(180.0f - g));
-        poseStack.translate(0.0, -1.5, 0.0);
+        poseStack.translate(0.0, -2, 0.0);
         poseStack.scale(0.8F, 0.8F, 0.8F);
         JellyfishModel<Jellyfish> model = this.getModel();
         model.xRot = Mth.lerp(h, jelly.xRot1, jelly.xBodyRot);
