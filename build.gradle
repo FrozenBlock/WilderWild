@@ -11,11 +11,26 @@ group = project.maven_group
 def local_frozenlib = findProject(':FrozenLib') != null
 
 loom {
+	mixin {
+		defaultRefmapName = "mixins.wilderwild.refmap.json"
+	}
+
 	accessWidenerPath = file("src/main/resources/wilderwild.accesswidener")
 	interfaceInjection {
 		// When enabled injected interfaces from dependecies will be applied.
 		enableDependencyInterfaceInjection = false
 	}
+}
+
+configurations {
+	includeModImplementation
+	includeImplementation
+
+	include.extendsFrom includeImplementation
+	include.extendsFrom includeModImplementation
+
+	implementation.extendsFrom includeImplementation
+	modImplementation.extendsFrom includeModImplementation
 }
 
 repositories {
@@ -114,8 +129,16 @@ dependencies {
 		modRuntimeOnly "maven.modrinth:lazydfu:${lazydfu_version}"
 		modRuntimeOnly "maven.modrinth:starlight:${starlight_version}"
 		//modRuntimeOnly "maven.modrinth:indium:1.0.6+mc1.19"
-		//modRuntimeOnly "maven.modrinth:lithium:mc1.19.1-0.8.3"
-		//modRuntimeOnly "maven.modrinth:sodium:mc1.19-0.4.2"
+		//modRuntimeOnly "maven.modrinth:lithium:mc1.19.2-0.8.3"
+
+		// Sodium Related
+		modRuntimeOnly "maven.modrinth:sodium:${sodium_version}"
+		modRuntimeOnly "maven.modrinth:iris:${iris_version}"
+		modRuntimeOnly "maven.modrinth:indium:${indium_version}"
+		modRuntimeOnly 'io.github.douira:glsl-transformer:0.27.0'
+		modRuntimeOnly "org.joml:joml:1.10.4"
+		modRuntimeOnly "org.anarres:jcpp:1.4.14"
+
 		modRuntimeOnly "maven.modrinth:entityculling:${entityculling_version}"
 		//modRuntimeOnly "maven.modrinth:c2me-fabric:0.2.0+alpha.8.32+1.19.1-rc3"
 		modRuntimeOnly "maven.modrinth:ksyxis:${ksyxis_version}"
