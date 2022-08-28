@@ -37,9 +37,9 @@ public class JellyfishFeatureRenderer<T extends Jellyfish, M extends JellyfishMo
 
     @Override
     public void render(@NotNull PoseStack poseStack, @NotNull MultiBufferSource multiBufferSource, int i, @NotNull T jelly, float f, float g, float tickDelta, float j, float k, float l) {
-        if (!jelly.isInvisible()) {
+        /*if (!jelly.isInvisible()) {
             VertexConsumer vertexConsumer = multiBufferSource.getBuffer(WilderWildClient.ENTITY_TRANSLUCENT_EMISSIVE_FIXED.apply(TEXTURE, false));
             this.getParentModel().renderDeez(poseStack, vertexConsumer, i, LivingEntityRenderer.getOverlayCoords(jelly, 0.0f));
-        }
+        }*/
     }
 }
