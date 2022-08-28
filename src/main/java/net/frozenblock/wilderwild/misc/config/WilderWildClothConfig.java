@@ -4,6 +4,7 @@ import me.shedaniel.autoconfig.AutoConfig;
 import me.shedaniel.autoconfig.ConfigData;
 import me.shedaniel.autoconfig.annotation.Config;
 import me.shedaniel.autoconfig.serializer.GsonConfigSerializer;
+import me.shedaniel.autoconfig.serializer.PartitioningSerializer;
 import me.shedaniel.clothconfig2.api.ConfigBuilder;
 import me.shedaniel.clothconfig2.api.ConfigCategory;
 import me.shedaniel.clothconfig2.api.ConfigEntryBuilder;
@@ -18,90 +19,93 @@ public class WilderWildClothConfig extends WilderWildConfig implements ConfigDat
     public static Screen buildScreen(Screen parent) {
         var configBuilder = ConfigBuilder.create().setParentScreen(parent).setTitle(text("component.title"));
         configBuilder.setSavingRunnable(() -> AutoConfig.getConfigHolder(WilderWildClothConfig.class).save());
-        ConfigCategory general = configBuilder.getOrCreateCategory(text("general"));
+        //ConfigCategory general = configBuilder.getOrCreateCategory(text("general"));
+        ConfigCategory block = configBuilder.getOrCreateCategory(text("block"));
+        ConfigCategory entity = configBuilder.getOrCreateCategory(text("entity"));
+        ConfigCategory worldgen = configBuilder.getOrCreateCategory(text("worldgen"));
         ConfigEntryBuilder entryBuilder = configBuilder.entryBuilder();
-        WilderWildClothConfig.setupEntries(general, entryBuilder);
+        BlockConfig.setupEntries(block, entryBuilder);
+        EntityConfig.setupEntries(entity, entryBuilder);
+        WorldgenConfig.setupEntries(worldgen, entryBuilder);
+        //WilderWildClothConfig.setupEntries(general, entryBuilder);
         return configBuilder.build();
     }
 
 
-    private static void setupEntries(ConfigCategory category, ConfigEntryBuilder entryBuilder) {
-        var worldgenConfig = WilderWildClient.config.worldgen;
-        var blockConfig = WilderWildClient.config.block;
-        var entityConfig = WilderWildClient.config.entity;
-        category.addEntry(entryBuilder.startBooleanToggle(text("beta_beaches"), worldgenConfig.betaBeaches)
+    public static void setupEntries(ConfigCategory category, ConfigEntryBuilder entryBuilder) {
+        var config = WilderWildClient.config;
+        category.addEntry(entryBuilder.startBooleanToggle(text("beta_beaches"), config.betaBeaches)
                 .setDefaultValue(true)
-                .setSaveConsumer(newValue -> worldgenConfig.betaBeaches = newValue)
+                .setSaveConsumer(newValue -> config.betaBeaches = newValue)
                 .requireRestart()
                 .build());
-        category.addEntry(entryBuilder.startBooleanToggle(text("modify_desert_placement"), worldgenConfig.modifyDesertPlacement)
+        category.addEntry(entryBuilder.startBooleanToggle(text("modify_desert_placement"), config.modifyDesertPlacement)
                 .setDefaultValue(true)
-                .setSaveConsumer(newValue -> worldgenConfig.modifyDesertPlacement = newValue)
+                .setSaveConsumer(newValue -> config.modifyDesertPlacement = newValue)
                 .setYesNoTextSupplier(bool -> text("biome_placement." + bool))
                 .requireRestart()
                 .build());
-        category.addEntry(entryBuilder.startBooleanToggle(text("modify_badlands_placement"), worldgenConfig.modifyBadlandsPlacement)
+        category.addEntry(entryBuilder.startBooleanToggle(text("modify_badlands_placement"), config.modifyBadlandsPlacement)
                 .setDefaultValue(true)
-                .setSaveConsumer(newValue -> worldgenConfig.modifyBadlandsPlacement = newValue)
+                .setSaveConsumer(newValue -> config.modifyBadlandsPlacement = newValue)
                 .setYesNoTextSupplier(bool -> text("biome_placement." + bool))
                 .requireRestart()
                 .build());
-        category.addEntry(entryBuilder.startBooleanToggle(text("modify_windswept_savanna_placement"), worldgenConfig.modifyWindsweptSavannaPlacement)
+        category.addEntry(entryBuilder.startBooleanToggle(text("modify_windswept_savanna_placement"), config.modifyWindsweptSavannaPlacement)
                 .setDefaultValue(true)
-                .setSaveConsumer(newValue -> worldgenConfig.modifyWindsweptSavannaPlacement = newValue)
+                .setSaveConsumer(newValue -> config.modifyWindsweptSavannaPlacement = newValue)
                 .setYesNoTextSupplier(bool -> text("biome_placement." + bool))
                 .requireRestart()
                 .build());
-        category.addEntry(entryBuilder.startBooleanToggle(text("modify_jungle_placement"), worldgenConfig.modifyJunglePlacement)
+        category.addEntry(entryBuilder.startBooleanToggle(text("modify_jungle_placement"), config.modifyJunglePlacement)
                 .setDefaultValue(true)
-                .setSaveConsumer(newValue -> worldgenConfig.modifyJunglePlacement = newValue)
+                .setSaveConsumer(newValue -> config.modifyJunglePlacement = newValue)
                 .setYesNoTextSupplier(bool -> text("biome_placement." + bool))
                 .requireRestart()
                 .build());
-        category.addEntry(entryBuilder.startBooleanToggle(text("modify_swamp_placement"), worldgenConfig.modifySwampPlacement)
+        category.addEntry(entryBuilder.startBooleanToggle(text("modify_swamp_placement"), config.modifySwampPlacement)
                 .setDefaultValue(true)
-                .setSaveConsumer(newValue -> worldgenConfig.modifySwampPlacement = newValue)
+                .setSaveConsumer(newValue -> config.modifySwampPlacement = newValue)
                 .setYesNoTextSupplier(bool -> text("biome_placement." + bool))
                 .requireRestart()
                 .build());
-        category.addEntry(entryBuilder.startBooleanToggle(text("modify_mangrove_swamp_placement"), worldgenConfig.modifyMangroveSwampPlacement)
+        category.addEntry(entryBuilder.startBooleanToggle(text("modify_mangrove_swamp_placement"), config.modifyMangroveSwampPlacement)
                 .setDefaultValue(true)
-                .setSaveConsumer(newValue -> worldgenConfig.modifyMangroveSwampPlacement = newValue)
+                .setSaveConsumer(newValue -> config.modifyMangroveSwampPlacement = newValue)
                 .setYesNoTextSupplier(bool -> text("biome_placement." + bool))
                 .requireRestart()
                 .build());
 
-        category.addEntry(entryBuilder.startBooleanToggle(text("mc_live_sensor_tendrils"), blockConfig.mcLiveSensorTendrils)
+        category.addEntry(entryBuilder.startBooleanToggle(text("mc_live_sensor_tendrils"), config.mcLiveSensorTendrils)
                 .setDefaultValue(false)
-                .setSaveConsumer(newValue -> blockConfig.mcLiveSensorTendrils = newValue)
+                .setSaveConsumer(newValue -> config.mcLiveSensorTendrils = newValue)
                 .setYesNoTextSupplier(bool -> text("mc_live_sensor_tendrils." + bool))
                 .build());
-        category.addEntry(entryBuilder.startBooleanToggle(text("warden_emerges_from_egg"), entityConfig.wardenEmergesFromEgg)
+        category.addEntry(entryBuilder.startBooleanToggle(text("warden_emerges_from_egg"), config.wardenEmergesFromEgg)
                 .setDefaultValue(true)
-                .setSaveConsumer(newValue -> entityConfig.wardenEmergesFromEgg = newValue)
+                .setSaveConsumer(newValue -> config.wardenEmergesFromEgg = newValue)
                 .build());
-        category.addEntry(entryBuilder.startBooleanToggle(text("warden_custom_tendrils"), entityConfig.customWardenTendrils)
+        category.addEntry(entryBuilder.startBooleanToggle(text("warden_custom_tendrils"), config.customWardenTendrils)
                 .setDefaultValue(true)
-                .setSaveConsumer(newValue -> entityConfig.customWardenTendrils = newValue)
+                .setSaveConsumer(newValue -> config.customWardenTendrils = newValue)
                 .setYesNoTextSupplier(bool -> text("warden_custom_tendrils." + bool))
                 .build());
-        category.addEntry(entryBuilder.startBooleanToggle(text("warden_swim_animation"), entityConfig.wardenSwimAnimation)
+        category.addEntry(entryBuilder.startBooleanToggle(text("warden_swim_animation"), config.wardenSwimAnimation)
                 .setDefaultValue(true)
-                .setSaveConsumer(newValue -> entityConfig.wardenSwimAnimation = newValue)
+                .setSaveConsumer(newValue -> config.wardenSwimAnimation = newValue)
                 .build());
-        category.addEntry(entryBuilder.startBooleanToggle(text("shrieker_gargling"), blockConfig.shriekerGargling)
+        category.addEntry(entryBuilder.startBooleanToggle(text("shrieker_gargling"), config.shriekerGargling)
                 .setDefaultValue(true)
-                .setSaveConsumer(newValue -> blockConfig.shriekerGargling = newValue)
+                .setSaveConsumer(newValue -> config.shriekerGargling = newValue)
                 .build());
 
-    }
-
-    private static Component text(String key) {
-        return Component.translatable("option." + WilderWild.MOD_ID + "." + key);
     }
 
     public static WilderWildClothConfig init() {
-        AutoConfig.register(WilderWildClothConfig.class, GsonConfigSerializer::new);
+        if (!WilderWild.areConfigsInit) {
+            AutoConfig.register(WilderWildClothConfig.class, PartitioningSerializer.wrap(GsonConfigSerializer::new));
+            WilderWild.areConfigsInit = true;
+        }
         return AutoConfig.getConfigHolder(WilderWildClothConfig.class).getConfig();
     }
 }

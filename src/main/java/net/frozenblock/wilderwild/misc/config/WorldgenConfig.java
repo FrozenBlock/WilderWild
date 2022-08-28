@@ -5,17 +5,63 @@ import me.shedaniel.autoconfig.ConfigData;
 import me.shedaniel.autoconfig.annotation.Config;
 import me.shedaniel.autoconfig.annotation.ConfigEntry;
 import me.shedaniel.autoconfig.serializer.GsonConfigSerializer;
+import me.shedaniel.clothconfig2.api.ConfigBuilder;
+import me.shedaniel.clothconfig2.api.ConfigCategory;
+import me.shedaniel.clothconfig2.api.ConfigEntryBuilder;
+import net.frozenblock.wilderwild.WilderWild;
+import net.frozenblock.wilderwild.WilderWildClient;
+import net.minecraft.network.chat.Component;
+
+import static net.frozenblock.wilderwild.misc.config.WilderWildConfig.text;
 
 @Config(name = "worldgen")
 public class WorldgenConfig implements ConfigData {
     //public static final EnumConfigOption<ModMenuConfig.ModsButtonStyle> MODS_BUTTON_STYLE = new EnumConfigOption<>("mods_button_style", ModMenuConfig.ModsButtonStyle.CLASSIC);
-    public boolean betaBeaches = true;
-    public boolean modifyDesertPlacement = true;
-    public boolean modifyBadlandsPlacement = true;
-    public boolean modifyWindsweptSavannaPlacement = true;
-    public boolean modifyJunglePlacement = true;
-    public boolean modifySwampPlacement = true;
-    public boolean modifyMangroveSwampPlacement = true;
+
+    public static void setupEntries(ConfigCategory category, ConfigEntryBuilder entryBuilder) {
+        var config = WilderWildClient.config;
+        category.addEntry(entryBuilder.startBooleanToggle(text("beta_beaches"), config.betaBeaches)
+                .setDefaultValue(true)
+                .setSaveConsumer(newValue -> config.betaBeaches = newValue)
+                .requireRestart()
+                .build());
+        category.addEntry(entryBuilder.startBooleanToggle(text("modify_desert_placement"), config.modifyDesertPlacement)
+                .setDefaultValue(true)
+                .setSaveConsumer(newValue -> config.modifyDesertPlacement = newValue)
+                .setYesNoTextSupplier(bool -> text("biome_placement." + bool))
+                .requireRestart()
+                .build());
+        category.addEntry(entryBuilder.startBooleanToggle(text("modify_badlands_placement"), config.modifyBadlandsPlacement)
+                .setDefaultValue(true)
+                .setSaveConsumer(newValue -> config.modifyBadlandsPlacement = newValue)
+                .setYesNoTextSupplier(bool -> text("biome_placement." + bool))
+                .requireRestart()
+                .build());
+        category.addEntry(entryBuilder.startBooleanToggle(text("modify_windswept_savanna_placement"), config.modifyWindsweptSavannaPlacement)
+                .setDefaultValue(true)
+                .setSaveConsumer(newValue -> config.modifyWindsweptSavannaPlacement = newValue)
+                .setYesNoTextSupplier(bool -> text("biome_placement." + bool))
+                .requireRestart()
+                .build());
+        category.addEntry(entryBuilder.startBooleanToggle(text("modify_jungle_placement"), config.modifyJunglePlacement)
+                .setDefaultValue(true)
+                .setSaveConsumer(newValue -> config.modifyJunglePlacement = newValue)
+                .setYesNoTextSupplier(bool -> text("biome_placement." + bool))
+                .requireRestart()
+                .build());
+        category.addEntry(entryBuilder.startBooleanToggle(text("modify_swamp_placement"), config.modifySwampPlacement)
+                .setDefaultValue(true)
+                .setSaveConsumer(newValue -> config.modifySwampPlacement = newValue)
+                .setYesNoTextSupplier(bool -> text("biome_placement." + bool))
+                .requireRestart()
+                .build());
+        category.addEntry(entryBuilder.startBooleanToggle(text("modify_mangrove_swamp_placement"), config.modifyMangroveSwampPlacement)
+                .setDefaultValue(true)
+                .setSaveConsumer(newValue -> config.modifyMangroveSwampPlacement = newValue)
+                .setYesNoTextSupplier(bool -> text("biome_placement." + bool))
+                .requireRestart()
+                .build());
+    }
 
     //public static final StringSetConfigOption HIDDEN_MODS = new StringSetConfigOption("hidden_mods", new HashSet<>());
     /*public static WorldgenConfig init() {
