@@ -38,12 +38,14 @@ public class Jellyfish extends AbstractFish {
     public float xRot3;
     public float xRot4;
     public float xRot5;
+    public float xRot6;
     public float zBodyRot;
     public float zRot1;
     public float zRot2;
     public float zRot3;
     public float zRot4;
     public float zRot5;
+    public float zRot6;
     public float tentacleMovement;
     public float oldTentacleMovement;
     public float tentacleAngle;
@@ -73,9 +75,8 @@ public class Jellyfish extends AbstractFish {
     }
 
     public static boolean canSpawn(EntityType<Jellyfish> type, ServerLevelAccessor world, MobSpawnType spawnReason, BlockPos pos, RandomSource random) {
-        return pos.getY() <= world.getSeaLevel() - 33
-                && world.getRawBrightness(pos, 0) <= 6
-                && world.getBlockState(pos).is(Blocks.WATER);
+        return spawnReason != MobSpawnType.SPAWNER ? pos.getY() <= world.getSeaLevel() - 33 && world.getRawBrightness(pos, 0) <= 6 && world.getBlockState(pos).is(Blocks.WATER)
+                : world.getBlockState(pos).is(Blocks.WATER);
     }
 
     public static AttributeSupplier.Builder addAttributes() {
@@ -136,12 +137,14 @@ public class Jellyfish extends AbstractFish {
         }
         */
         super.aiStep();
+        this.xRot6 = this.xRot5;
         this.xRot5 = this.xRot4;
         this.xRot4 = this.xRot3;
         this.xRot3 = this.xRot2;
         this.xRot2 = this.xRot1;
         this.xRot1 = this.xBodyRot;
 
+        this.zRot6 = this.zRot5;
         this.zRot5 = this.zRot4;
         this.zRot4 = this.zRot3;
         this.zRot3 = this.zRot2;
