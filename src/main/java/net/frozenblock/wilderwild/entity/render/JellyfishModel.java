@@ -79,10 +79,10 @@ public class JellyfishModel<T extends Jellyfish> extends HierarchicalModel<T> {
     }
 
     public void animate(@NotNull T jelly, float limbSwing, float tickDelta) {
-        this.body.xRot = -Mth.lerp(tickDelta, jelly.xRot1, jelly.xBodyRot) * pi180;
-        this.body.zRot = -Mth.lerp(tickDelta, jelly.zRot1, jelly.zBodyRot) * pi180;
-        this.tentacleRot.xRot = -Mth.lerp(tickDelta, jelly.xRot6, jelly.xRot5) * pi180;
-        this.tentacleRot.zRot = -Mth.lerp(tickDelta, jelly.zRot6, jelly.zRot5) * pi180;
+        this.body.xRot = Mth.lerp(tickDelta, jelly.xRot1, jelly.xBodyRot) * pi180;
+        this.body.zRot = Mth.lerp(tickDelta, jelly.zRot1, jelly.zBodyRot) * pi180;
+        this.tentacleRot.xRot = Mth.lerp(tickDelta, jelly.xRot6, jelly.xRot5) * pi180;
+        this.tentacleRot.zRot = Mth.lerp(tickDelta, jelly.zRot6, jelly.zRot5) * pi180;
 
         float animation = limbSwing * 2;
 
