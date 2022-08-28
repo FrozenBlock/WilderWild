@@ -30,11 +30,13 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.ArrayList;
+
 public class Jellyfish extends AbstractFish {
     public float xBodyRot;
-    public float xBodyRotO;
+    public ArrayList<Float> prevXRots = new ArrayList<>();
     public float zBodyRot;
-    public float zBodyRotO;
+    public ArrayList<Float> prevZRots = new ArrayList<>();
     public float tentacleMovement;
     public float oldTentacleMovement;
     public float tentacleAngle;
@@ -126,8 +128,30 @@ public class Jellyfish extends AbstractFish {
     @Override
     public void aiStep() {
         super.aiStep();
-        this.xBodyRotO = this.xBodyRot;
-        this.zBodyRotO = this.zBodyRot;
+        if (this.prevXRots.isEmpty()) {
+            for (int index = 0; index < 10; index++) {
+                this.prevXRots.add(0F);
+            }
+        }
+        for (int index = 10; index > -1; index--) {
+            if (index == 0) {
+                this.prevXRots.set(0, this.xBodyRot);
+            } else {
+                this.prevXRots.set(index, this.prevXRots.get(index - 1));
+            }
+        }
+        if (this.prevZRots.isEmpty()) {
+            for (int index = 0; index < 10; index++) {
+                this.prevZRots.add(0F);
+            }
+        }
+        for (int index = 10; index > -1; index--) {
+            if (index == 0) {
+                this.prevZRots.set(0, this.zBodyRot);
+            } else {
+                this.prevZRots.set(index, this.prevZRots.get(index - 1));
+            }
+        }
         this.oldTentacleMovement = this.tentacleMovement;
         this.oldTentacleAngle = this.tentacleAngle;
         this.tentacleMovement += this.tentacleSpeed;
@@ -176,7 +200,7 @@ public class Jellyfish extends AbstractFish {
     }
 
     private Vec3 rotateVector(Vec3 vec3) {
-        Vec3 vec32 = vec3.xRot(this.xBodyRotO * ((float) Math.PI / 180));
+        Vec3 vec32 = vec3.xRot(this.prevZRots.get(0) * ((float) Math.PI / 180));
         vec32 = vec32.yRot(-this.yBodyRotO * ((float) Math.PI / 180));
         return vec32;
     }

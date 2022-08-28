@@ -2,6 +2,7 @@ package net.frozenblock.wilderwild.entity.render;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
+import com.mojang.math.Vector3f;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.frozenblock.wilderwild.entity.Jellyfish;
@@ -31,6 +32,12 @@ public class JellyfishModel<T extends Jellyfish> extends HierarchicalModel<T> {
     private final ModelPart tentacle7;
     private final ModelPart tentacle8;
     private final ModelPart[] tentacles = new ModelPart[8];
+
+    public float rotX;
+    public float rotZ;
+    public float whateverGIs;
+    public float tentRotX;
+    public float tentRotZ;
 
     public JellyfishModel(ModelPart root) {
         super(RenderType::entityTranslucentEmissive);
@@ -71,11 +78,29 @@ public class JellyfishModel<T extends Jellyfish> extends HierarchicalModel<T> {
     }
 
     public void render(PoseStack matrices, VertexConsumer vertices, int light, int overlay, float red, float green, float blue, float alpha, float tickDelta, Jellyfish jelly) {
-        this.animateBody(jelly, tickDelta);
-        this.bone.render(matrices, vertices, light, overlay, 1.0F, 1.0F, 1.0F, 1.0F);
+        this.animateBody(matrices, jelly, tickDelta);
+
+        matrices.pushPose();
+        matrices.translate(0.0, 0.5, 0.0);
+        matrices.mulPose(Vector3f.YP.rotationDegrees(180.0f - this.whateverGIs));
+        matrices.mulPose(Vector3f.XP.rotationDegrees(this.rotX));
+        matrices.mulPose(Vector3f.YP.rotationDegrees(this.rotZ));
+        matrices.translate(0.0, -1.2f, 0.0);
+        this.body.render(matrices, vertices, light, overlay, 1.0F, 1.0F, 1.0F, 1.0F);
+        matrices.popPose();
+
+        matrices.pushPose();
+        matrices.translate(0.0, 0.5, 0.0);
+        matrices.mulPose(Vector3f.YP.rotationDegrees(180.0f - this.whateverGIs));
+        matrices.mulPose(Vector3f.XP.rotationDegrees(this.tentRotX));
+        matrices.mulPose(Vector3f.YP.rotationDegrees(this.tentRotZ));
+        matrices.translate(0.0, -1.2f, 0.0);
+        this.tentacleRot.render(matrices, vertices, light, overlay, 1.0F, 1.0F, 1.0F, 1.0F);
+        matrices.popPose();
+        //this.bone.render(matrices, vertices, light, overlay, 1.0F, 1.0F, 1.0F, 1.0F);
     }
 
-    private void animateBody(Jellyfish jelly, float tickDelta) {
+    private void animateBody(PoseStack matrices, Jellyfish jelly, float tickDelta) {
         float pi180 = Mth.PI / 180;
 
         /*this.body.xScale = Mth.lerp(tickDelta, (float) jelly.getPrevPushingTicks(), (float) jelly.getPushingTicks());
