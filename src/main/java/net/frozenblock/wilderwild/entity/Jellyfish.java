@@ -69,7 +69,7 @@ public class Jellyfish extends AbstractFish {
     public Jellyfish(EntityType<? extends Jellyfish> entityType, Level level) {
         super(entityType, level);
         this.moveControl = new SmoothSwimmingMoveControl(this, 85, 10, 0.02f, 0.1f, true);
-        this.lookControl = new SmoothSwimmingLookControl(this, 10);
+        //this.lookControl = new SmoothSwimmingLookControl(this, 10);
     }
 
     @Override
