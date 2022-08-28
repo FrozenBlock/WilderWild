@@ -58,7 +58,7 @@ public class JellyfishModel<T extends Jellyfish> extends HierarchicalModel<T> {
         PartDefinition partDefinition = meshDefinition.getRoot();
         PartDefinition bone = partDefinition.addOrReplaceChild("bone", CubeListBuilder.create(), PartPose.offset(0.0F, 14.0F, 0.0F));
         PartDefinition body = bone.addOrReplaceChild("body", CubeListBuilder.create().texOffs(0, 0).addBox(-4.0F, -2.0F, -4.0F, 8.0F, 5.0F, 8.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, -14.0F, 0.0F));
-        PartDefinition tentacleRot = bone.addOrReplaceChild("tentacleRot", CubeListBuilder.create(), PartPose.offset(0.0F, 0.0F, 0.0F));
+        PartDefinition tentacleRot = bone.addOrReplaceChild("tentacleRot", CubeListBuilder.create(), PartPose.offset(0.0F, -14.0F, 0.0F));
         PartDefinition tentacle1 = tentacleRot.addOrReplaceChild("tentacle1", CubeListBuilder.create().texOffs(0, 13).addBox(-0.5F, 0.0F, 0.0F, 1.0F, 10.0F, 1.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 2.0F, -3.0F));
         PartDefinition tentacle2 = tentacleRot.addOrReplaceChild("tentacle2", CubeListBuilder.create().texOffs(0, 13).addBox(-0.5F, 0.0F, 0.0F, 1.0F, 10.0F, 1.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(2.5F, 2.0F, -2.5F, 0.0F, -0.7854F, 0.0F));
         PartDefinition tentacle3 = tentacleRot.addOrReplaceChild("tentacle3", CubeListBuilder.create().texOffs(0, 13).addBox(-0.5F, 0.0F, 0.0F, 1.0F, 10.0F, 1.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(3.0F, 2.0F, 0.0F, 0.0F, -1.5708F, 0.0F));
@@ -78,11 +78,11 @@ public class JellyfishModel<T extends Jellyfish> extends HierarchicalModel<T> {
     private void animateBody(Jellyfish jelly, float tickDelta) {
         float pi180 = Mth.PI / 180;
 
-        this.body.xScale = Mth.lerp(tickDelta, (float) jelly.getPrevPushingTicks(), (float) jelly.getPushingTicks());
+        /*this.body.xScale = Mth.lerp(tickDelta, (float) jelly.getPrevPushingTicks(), (float) jelly.getPushingTicks());
         this.body.yScale = -Mth.lerp(tickDelta, (float) jelly.getPrevPushingTicks(), (float) jelly.getPushingTicks());
         this.body.xScale = Mth.lerp(tickDelta, (float) jelly.getPrevPushingTicks(), (float) jelly.getPushingTicks());
 
-        this.tentacleRot.xRot = Mth.lerp(tickDelta, (float) jelly.getPrevPushingTicks(), (float) jelly.getPushingTicks()) * pi180;
+        this.tentacleRot.xRot = Mth.lerp(tickDelta, (float) jelly.getPrevPushingTicks(), (float) jelly.getPushingTicks()) * pi180;*/
 
     }
 

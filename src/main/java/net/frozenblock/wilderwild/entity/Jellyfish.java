@@ -7,14 +7,10 @@ import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.protocol.game.ClientboundGameEventPacket;
-import net.minecraft.network.syncher.EntityDataAccessor;
-import net.minecraft.network.syncher.EntityDataSerializers;
-import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
-import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -22,7 +18,6 @@ import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.entity.animal.AbstractFish;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -32,37 +27,14 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.Objects;
-
 public class Jellyfish extends AbstractFish {
     public float xBodyRot;
     public float xBodyRotO;
     public float zBodyRot;
     public float zBodyRotO;
-    public float tentacleMovement;
-    public float oldTentacleMovement;
-    public float tentacleAngle;
-    public float oldTentacleAngle;
-    private float speed;
-    private float tentacleSpeed;
-    private float rotateSpeed;
-    private float tx;
-    private float ty;
-    private float tz;
-
-    private static final EntityDataAccessor<Integer> INHALE_TICKS = SynchedEntityData.defineId(Jellyfish.class, EntityDataSerializers.INT);
-    private static final EntityDataAccessor<Integer> PREV_INHALE_TICKS = SynchedEntityData.defineId(Jellyfish.class, EntityDataSerializers.INT);
-    private static final EntityDataAccessor<Integer> INHALE_LENGTH = SynchedEntityData.defineId(Jellyfish.class, EntityDataSerializers.INT);
-    private static final EntityDataAccessor<Integer> PREV_PUSH_TICKS = SynchedEntityData.defineId(Jellyfish.class, EntityDataSerializers.INT);
-    private static final EntityDataAccessor<Integer> PUSH_TICKS = SynchedEntityData.defineId(Jellyfish.class, EntityDataSerializers.INT);
-
-    public Vec3 target;
-    public Vec3 preparedMovement;
 
     public Jellyfish(EntityType<? extends Jellyfish> entityType, Level level) {
         super(entityType, level);
-        this.random.setSeed(this.getId());
-        this.tentacleSpeed = 1.0f / (this.random.nextFloat() + 1.0f) * 0.2f;
     }
 
     @Override
@@ -90,115 +62,18 @@ public class Jellyfish extends AbstractFish {
         return Mob.createMobAttributes().add(Attributes.MAX_HEALTH, 3.0D).add(Attributes.MOVEMENT_SPEED, 0.05F).add(Attributes.FLYING_SPEED, 0.05F).add(Attributes.FOLLOW_RANGE, 32);
     }
 
-    public int getInhaleTicks() {
-        return this.entityData.get(INHALE_TICKS);
-    }
 
-    public void setInhaleTicks(int value) {
-        this.entityData.set(INHALE_TICKS, value);
-    }
-
-    public int getPrevInhaleTicks() {
-        return this.entityData.get(PREV_INHALE_TICKS);
-    }
-
-    public void setPrevInhaleTicks(int value) {
-        this.entityData.set(PREV_INHALE_TICKS, value);
-    }
-
-    public int getInhaleLength() {
-        return this.entityData.get(INHALE_LENGTH);
-    }
-
-    public void setInhaleLength(int value) {
-        this.entityData.set(INHALE_LENGTH, value);
-    }
-
-    public int getPushingTicks() {
-        return this.entityData.get(PUSH_TICKS);
-    }
-
-    public void setPushTicks(int value) {
-        this.entityData.set(PUSH_TICKS, value);
-    }
-
-    public int getPrevPushingTicks() {
-        return this.entityData.get(PREV_PUSH_TICKS);
-    }
-
-    public void setPrevPushTicks(int value) {
-        this.entityData.set(PREV_PUSH_TICKS, value);
-    }
-
-
-    public void addAdditionalSaveData(CompoundTag nbt) {
+    public void addAdditionalSaveData(@NotNull CompoundTag nbt) {
         super.addAdditionalSaveData(nbt);
-        nbt.putInt("pushingTicks", this.getPushingTicks());
-        nbt.putInt("prevPushingTicks", this.getPrevPushingTicks());
-        nbt.putInt("inhalingTicks", this.getInhaleTicks());
-        nbt.putInt("prevInTicks", this.getPrevInhaleTicks());
-        nbt.putInt("inhaleLength", this.getInhaleLength());
-        if (this.target != null) {
-            nbt.putDouble("targx", this.target.x);
-            nbt.putDouble("targy", this.target.y);
-            nbt.putDouble("targz", this.target.z);
-        } else {
-            if (nbt.contains("targx")) {
-                nbt.remove("targx");
-            }
-            if (nbt.contains("targy")) {
-                nbt.remove("targy");
-            }
-            if (nbt.contains("targz")) {
-                nbt.remove("targz");
-            }
-        }
-        if (this.preparedMovement != null) {
-            nbt.putDouble("preX", this.preparedMovement.x);
-            nbt.putDouble("preY", this.preparedMovement.y);
-            nbt.putDouble("preZ", this.preparedMovement.z);
-        } else {
-            if (nbt.contains("preX")) {
-                nbt.remove("preX");
-            }
-            if (nbt.contains("preY")) {
-                nbt.remove("preY");
-            }
-            if (nbt.contains("preZ")) {
-                nbt.remove("preZ");
-            }
-        }
     }
 
-    public void readAdditionalSaveData(CompoundTag nbt) {
+    public void readAdditionalSaveData(@NotNull CompoundTag nbt) {
         super.readAdditionalSaveData(nbt);
-        this.setPushTicks(nbt.getInt("pushingTicks"));
-        this.setPrevPushTicks(nbt.getInt("prevPushingTicks"));
-        this.setInhaleTicks(nbt.getInt("inhalingTicks"));
-        this.setPrevInhaleTicks(nbt.getInt("prevInTicks"));
-        this.setInhaleLength(nbt.getInt("inhaleLength"));
-        if (nbt.contains("targx") && nbt.contains("targy") && nbt.contains("targz")) {
-            this.target = new Vec3(nbt.getDouble("targx"), nbt.getDouble("targy"), nbt.getDouble("targz"));
-        }
-        if (nbt.contains("preX") && nbt.contains("preY") && nbt.contains("preZ")) {
-            this.preparedMovement = new Vec3(nbt.getDouble("preX"), nbt.getDouble("preY"), nbt.getDouble("preZ"));
-        }
-    }
-
-    protected void defineSynchedData() {
-        super.defineSynchedData();
-        this.entityData.define(PUSH_TICKS, 0);
-        this.entityData.define(PREV_PUSH_TICKS, 0);
-        this.entityData.define(INHALE_TICKS, 0);
-        this.entityData.define(PREV_INHALE_TICKS, 0);
-        this.entityData.define(INHALE_LENGTH, 0);
     }
 
     @Override
     protected void registerGoals() {
-        this.goalSelector.addGoal(0, new Jellyfish.JellyUpDownGoal(this));
-        this.goalSelector.addGoal(0, new Jellyfish.JellyRandomMovementGoal(this));
-        this.goalSelector.addGoal(4, new Jellyfish.JellyToTargetGoal(this));
+
     }
 
     @Override
@@ -231,7 +106,7 @@ public class Jellyfish extends AbstractFish {
     }
 
     @Override
-    public boolean canBeLeashed(Player player) {
+    public boolean canBeLeashed(@NotNull Player player) {
         return !this.isLeashed();
     }
 
@@ -241,86 +116,10 @@ public class Jellyfish extends AbstractFish {
     }
 
     @Override
-    protected Entity.MovementEmission getMovementEmission() {
-        return Entity.MovementEmission.EVENTS;
-    }
-
-    @Override
     public void aiStep() {
         super.aiStep();
         this.xBodyRotO = this.xBodyRot;
         this.zBodyRotO = this.zBodyRot;
-        this.oldTentacleMovement = this.tentacleMovement;
-        this.oldTentacleAngle = this.tentacleAngle;
-        this.tentacleMovement += this.tentacleSpeed;
-        if ((double) this.tentacleMovement > Math.PI * 2) {
-            if (this.level.isClientSide) {
-                this.tentacleMovement = (float) Math.PI * 2;
-            } else {
-                this.tentacleMovement -= (float) Math.PI * 2;
-                if (this.random.nextInt(10) == 0) {
-                    this.tentacleSpeed = 1.0f / (this.random.nextFloat() + 1.0f) * 0.2f;
-                }
-                this.level.broadcastEntityEvent(this, (byte) 19);
-            }
-        }
-        if (this.isInWaterOrBubble()) {
-            if (this.tentacleMovement < (float) Math.PI) {
-                float f = this.tentacleMovement / (float) Math.PI;
-                this.tentacleAngle = Mth.sin(f * f * (float) Math.PI) * (float) Math.PI * 0.25f;
-                if ((double) f > 0.75) {
-                    this.speed = 1.0f;
-                    this.rotateSpeed = 1.0f;
-                } else {
-                    this.rotateSpeed *= 0.8f;
-                }
-            } else {
-                this.tentacleAngle = 0.0f;
-                this.speed *= 0.9f;
-                this.rotateSpeed *= 0.99f;
-            }
-            if (!this.level.isClientSide) {
-                this.setDeltaMovement(this.tx * this.speed, this.ty * this.speed, this.tz * this.speed);
-            }
-            Vec3 vec3 = this.getDeltaMovement();
-            double d = vec3.horizontalDistance();
-            this.yBodyRot += (-((float) Mth.atan2(vec3.x, vec3.z)) * 57.295776f - this.yBodyRot) * 0.1f;
-            this.setYRot(this.yBodyRot);
-            this.zBodyRot += (float) Math.PI * this.rotateSpeed * 1.5f;
-            this.xBodyRot += (-((float) Mth.atan2(d, vec3.y)) * 57.295776f - this.xBodyRot) * 0.1f;
-        } else {
-            this.tentacleAngle = Mth.abs(Mth.sin(this.tentacleMovement)) * (float) Math.PI * 0.25f;
-            if (!this.level.isClientSide) {
-                double e = this.getDeltaMovement().y;
-                if (this.hasEffect(MobEffects.LEVITATION)) {
-                    e = 0.05 * (double) (Objects.requireNonNull(this.getEffect(MobEffects.LEVITATION)).getAmplifier() + 1);
-                } else if (!this.isNoGravity()) {
-                    e -= 0.08;
-                }
-                this.setDeltaMovement(0.0, e * (double) 0.98f, 0.0);
-            }
-            this.xBodyRot += (-90.0f - this.xBodyRot) * 0.02f;
-        }
-    }
-
-    @Override
-    public void tick() {
-        super.tick();
-        this.setPrevInhaleTicks(this.getInhaleTicks());
-        this.setPrevPushTicks(this.getPushingTicks());
-        if (this.getInhaleTicks() < this.getInhaleLength()) {
-            this.setInhaleTicks(this.getInhaleTicks() + 1);
-            if (this.getInhaleTicks() >= this.getInhaleLength()) {
-                this.setInhaleLength(0);
-            }
-        } else if (this.preparedMovement != null) {
-            this.setPushTicks((int) (this.preparedMovement.length() * 10));
-            this.setMovementVector((float) this.preparedMovement.x, (float) this.preparedMovement.y, (float) this.preparedMovement.z);
-            this.preparedMovement = null;
-        }
-        if (this.getPushingTicks() > 0) {
-            this.setPushTicks(this.getPushingTicks() - 1);
-        }
     }
 
     @Override
@@ -329,11 +128,11 @@ public class Jellyfish extends AbstractFish {
     }
 
     @Override
-    public boolean hurt(DamageSource damageSource, float f) {
+    public boolean hurt(@NotNull DamageSource damageSource, float f) {
         if (super.hurt(damageSource, f) && this.getLastHurtByMob() != null) {
             if (!this.level.isClientSide) {
                 this.spawnJelly();
-                this.target = this.getLastHurtByMob().getPosition(1f);
+                this.getNavigation().moveTo(this.getLastHurtByMob(), 2);
             }
             return true;
         }
@@ -361,115 +160,8 @@ public class Jellyfish extends AbstractFish {
     }
 
     @Override
-    public void travel(Vec3 vec3) {
-        this.move(MoverType.SELF, this.getDeltaMovement());
-    }
-
-    @Override
-    public void handleEntityEvent(byte b) {
-        if (b == 19) {
-            this.tentacleMovement = 0.0f;
-        } else {
-            super.handleEntityEvent(b);
-        }
-    }
-
-    public void setMovementVector(float f, float g, float h) {
-        this.tx = f;
-        this.ty = g;
-        this.tz = h;
-    }
-
-    public boolean hasMovementVector() {
-        return this.tx != 0.0f || this.ty != 0.0f || this.tz != 0.0f;
-    }
-
-    @Override
     public ItemStack getBucketItemStack() {
         return null;
     }
 
-    public boolean canPush() {
-        return this.getInhaleTicks() > this.getInhaleLength() && this.getPushingTicks() <= 0;
-    }
-
-    static class JellyToTargetGoal extends Goal {
-        private final Jellyfish jelly;
-
-        public JellyToTargetGoal(Jellyfish jelly) {
-            this.jelly = jelly;
-        }
-
-        @Override
-        public boolean canUse() {
-            return jelly.target != null;
-        }
-
-        public boolean canContinueToUse() {
-            return false;
-        }
-
-        @Override
-        public void tick() {
-            Vec3 target = this.jelly.target;
-            if (target != null) {
-                if (this.jelly.getPushingTicks() <= 0 && this.jelly.getInhaleTicks() <= 0) {
-                    float toX = (float) (Mth.clamp(target.x() - this.jelly.getPosition(1f).x(), -1, 1));
-                    float toY = (float) (Mth.clamp(target.y() - this.jelly.getPosition(1f).y(), -1, 1));
-                    float toZ = (float) (Mth.clamp(target.z() - this.jelly.getPosition(1f).z(), -1, 1));
-                    this.jelly.preparedMovement = new Vec3(toX, toY, toZ);
-                    this.jelly.setInhaleLength(15);
-                }
-            }
-        }
-    }
-
-    static class JellyUpDownGoal extends Goal {
-        private final Jellyfish jelly;
-
-        public JellyUpDownGoal(Jellyfish jelly) {
-            this.jelly = jelly;
-        }
-
-        @Override
-        public boolean canUse() {
-            return false;
-        }
-
-        @Override
-        public void tick() {
-            int i = this.jelly.getNoActionTime();
-            if (i > 40) {
-                boolean up = jelly.random.nextBoolean();
-                this.jelly.setMovementVector(jelly.tx, (up ? 1 : -1) * (this.jelly.getRandom().nextFloat() * 0.1f), jelly.tz);
-            }
-        }
-    }
-
-    static class JellyRandomMovementGoal extends Goal {
-        private final Jellyfish jelly;
-
-        public JellyRandomMovementGoal(Jellyfish jelly) {
-            this.jelly = jelly;
-        }
-
-        @Override
-        public boolean canUse() {
-            return false;
-        }
-
-        @Override
-        public void tick() {
-            int i = this.jelly.getNoActionTime();
-            if (i < 40) {
-                if (this.jelly.getRandom().nextInt(Jellyfish.JellyRandomMovementGoal.reducedTickDelay(50)) == 0 || !this.jelly.wasTouchingWater || !this.jelly.hasMovementVector()) {
-                    float f = this.jelly.getRandom().nextFloat() * ((float) Math.PI * 2);
-                    float g = Mth.cos(f) * 0.1f;
-                    float h = -0.1f + this.jelly.getRandom().nextFloat() * 0.2f;
-                    float j = Mth.sin(f) * 0.1f;
-                    this.jelly.setMovementVector(g, h, j);
-                }
-            }
-        }
-    }
 }
