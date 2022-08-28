@@ -58,9 +58,9 @@ public class Jellyfish extends AbstractFish {
         super(entityType, level);
     }
 
-    private static final EntityDataAccessor<Integer> TARGET_LIGHT = SynchedEntityData.defineId(Firefly.class, EntityDataSerializers.INT);
-    private static final EntityDataAccessor<Float> LIGHT = SynchedEntityData.defineId(Firefly.class, EntityDataSerializers.FLOAT);
-    private static final EntityDataAccessor<Float> PREV_LIGHT = SynchedEntityData.defineId(Firefly.class, EntityDataSerializers.FLOAT);
+    private static final EntityDataAccessor<Integer> TARGET_LIGHT = SynchedEntityData.defineId(Jellyfish.class, EntityDataSerializers.INT);
+    private static final EntityDataAccessor<Float> LIGHT = SynchedEntityData.defineId(Jellyfish.class, EntityDataSerializers.FLOAT);
+    private static final EntityDataAccessor<Float> PREV_LIGHT = SynchedEntityData.defineId(Jellyfish.class, EntityDataSerializers.FLOAT);
 
     @Override
     public void playerTouch(@NotNull Player player) {
