@@ -108,9 +108,9 @@ public class JellyfishModel<T extends Jellyfish> extends HierarchicalModel<T> {
 
     private void animateTentacles(T jellyfish, float limbSwing, float limbSwingAmount, float ageInTicks) {
         float pi180 = Mth.PI / 180;
-        float mult = 15;
+        float mult = 3;
 
-        float animation = ageInTicks * 10;
+        float animation = ageInTicks * 2;
 
         float cos = (Mth.cos(animation) * mult - mult) * pi180;
         float cos1 = (Mth.cos(animation + 30) * mult - mult) * pi180;
