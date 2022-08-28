@@ -31,6 +31,7 @@ public class JellyfishRenderer extends MobRenderer<Jellyfish, JellyfishModel<Jel
         //poseStack.translate(0.0, 0.5, 0.0);
         poseStack.mulPose(Vector3f.YP.rotationDegrees(180.0f - g));
         poseStack.translate(0.0, -1.2, 0.0);
+        poseStack.scale(0.6F, 0.6F, 0.6F);
         JellyfishModel<Jellyfish> model = this.getModel();
         model.xRot = Mth.lerp(h, jelly.xRot1, jelly.xBodyRot);
         model.zRot = Mth.lerp(h, jelly.zRot1, jelly.zBodyRot);
