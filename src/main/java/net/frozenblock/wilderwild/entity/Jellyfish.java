@@ -329,7 +329,7 @@ public class Jellyfish extends AbstractFish {
         if (super.hurt(damageSource, f) && this.getLastHurtByMob() != null) {
             if (!this.level.isClientSide) {
                 this.spawnJelly();
-                this.target = this.getLastHurtByMob().position();
+                this.target = this.getLastHurtByMob().getPosition(1f);
             }
             return true;
         }
