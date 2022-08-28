@@ -107,50 +107,33 @@ public class JellyfishModel<T extends Jellyfish> extends HierarchicalModel<T> {
         poseStack.popPose();
     }
 
-    private void animateTentacles(T jellyfish, float limbSwing, float limbSwingAmount, float ageInTicks) {
+    private void animate(T jellyfish, float limbSwing, float limbSwingAmount, float ageInTicks) {
         float mult = 15;
+        float animation = ageInTicks * 3;
 
-        float animation = ageInTicks * 5;
-
-        /*float cos = (Mth.cos(animation) * mult - mult) * pi180;
-        float cos1 = (Mth.cos(animation + 30) * mult - mult) * pi180;
-        float cos2 = (Mth.cos(animation + 60) * mult - mult) * pi180;
-        float cos3 = (Mth.cos(animation + 90) * mult - mult) * pi180;
-
-        float sin = (Mth.sin(animation) * mult - mult) * pi180;
-        float sin1 = (Mth.sin(animation + 30) * mult - mult) * pi180;
-        float sin2 = (Mth.sin(animation + 60) * mult - mult) * pi180;
-        float sin3 = (Mth.sin(animation + 90) * mult - mult) * pi180;
-
+        float cos = Mth.cos(animation);
+        float cosTentacle = (cos * mult - mult) * pi180;
         //cardinal tentacles
-        this.tentacle1.xRot = cos;
-        this.tentacle3.xRot = cos1;
-        this.tentacle5.xRot = cos2;
-        this.tentacle7.xRot = cos3;
+        this.tentacle1.xRot = cosTentacle;
+        this.tentacle3.xRot = cosTentacle;
+        this.tentacle5.xRot = cosTentacle;
+        this.tentacle7.xRot = cosTentacle;
 
         //intermediate tentacles
-        this.tentacle2.xRot = sin;
-        this.tentacle4.xRot = sin1;
-        this.tentacle6.xRot = sin2;
-        this.tentacle8.xRot = sin3;*/
+        this.tentacle2.xRot = cosTentacle;
+        this.tentacle4.xRot = cosTentacle;
+        this.tentacle6.xRot = cosTentacle;
+        this.tentacle8.xRot = cosTentacle;
 
-        float cos = (Mth.cos(animation) * mult - mult) * pi180;
-        //cardinal tentacles
-        this.tentacle1.xRot = cos;
-        this.tentacle3.xRot = cos;
-        this.tentacle5.xRot = cos;
-        this.tentacle7.xRot = cos;
-
-        //intermediate tentacles
-        this.tentacle2.xRot = cos;
-        this.tentacle4.xRot = cos;
-        this.tentacle6.xRot = cos;
-        this.tentacle8.xRot = cos;
+        float cosBody = cos + 2F;
+        this.body.xScale = cosBody * 0.5F;
+        this.body.zScale = cosBody * 0.5F;
+        this.body.yScale = (-cos + 2F);
     }
 
     @Override
     public void setupAnim(@NotNull T jellyfish, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
-        this.animateTentacles(jellyfish, limbSwing, limbSwingAmount, ageInTicks / 10);
+        this.animate(jellyfish, limbSwing, limbSwingAmount, ageInTicks / 10);
     }
 
     @Override
