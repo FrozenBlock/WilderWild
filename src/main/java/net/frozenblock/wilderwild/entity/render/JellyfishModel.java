@@ -78,7 +78,7 @@ public class JellyfishModel<T extends Jellyfish> extends HierarchicalModel<T> {
         float pi180 = Mth.PI / 180;
         float mult = 15;
 
-        float animation = ageInTicks;
+        float animation = ageInTicks * 10;
 
         float cos = (Mth.cos(animation) * mult - mult) * pi180;
         float cos1 = (Mth.cos(animation + 30) * mult - mult) * pi180;

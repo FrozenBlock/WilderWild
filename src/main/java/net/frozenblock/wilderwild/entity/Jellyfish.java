@@ -182,6 +182,7 @@ public class Jellyfish extends AbstractFish {
     protected void registerGoals() {
         this.goalSelector.addGoal(0, new Jellyfish.JellyUpDownGoal(this));
         this.goalSelector.addGoal(0, new Jellyfish.JellyRandomMovementGoal(this));
+        this.goalSelector.addGoal(4, new Jellyfish.JellyToTargetGoal(this));
     }
 
     @Override
@@ -287,6 +288,13 @@ public class Jellyfish extends AbstractFish {
     }
 
     @Override
+    public void tick() {
+        super.tick();
+        this.setPrevTentacleAngle(this.getTentacleAngle());
+        this.setPrevTentacleOffset(this.getTentacleOffset());
+    }
+
+    @Override
     protected SoundEvent getFlopSound() {
         return SoundEvents.PUFFER_FISH_FLOP;
     }
@@ -296,6 +304,7 @@ public class Jellyfish extends AbstractFish {
         if (super.hurt(damageSource, f) && this.getLastHurtByMob() != null) {
             if (!this.level.isClientSide) {
                 this.spawnJelly();
+                this.target = this.getLastHurtByMob().position();
             }
             return true;
         }
@@ -352,7 +361,7 @@ public class Jellyfish extends AbstractFish {
     }
 
     public void moveTentacles(float speed) {
-
+        this.setPrevTentacleAngle(this.getTentacleAngle());
     }
 
     static class JellyToTargetGoal extends Goal {
