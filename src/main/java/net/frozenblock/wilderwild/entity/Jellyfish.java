@@ -39,12 +39,7 @@ public class Jellyfish extends AbstractFish {
     public float oldTentacleMovement;
     public float tentacleAngle;
     public float oldTentacleAngle;
-    private float speed;
-    private float tentacleSpeed;
     private float rotateSpeed;
-    private float tx;
-    private float ty;
-    private float tz;
 
     public Jellyfish(EntityType<? extends Jellyfish> entityType, Level level) {
         super(entityType, level);
@@ -131,6 +126,9 @@ public class Jellyfish extends AbstractFish {
         super.aiStep();
         this.xBodyRotO = this.xBodyRot;
         this.zBodyRotO = this.zBodyRot;
+        this.oldTentacleMovement = this.tentacleMovement;
+        this.oldTentacleAngle = this.tentacleAngle;
+        this.tentacleMovement += this.tentacleSpeed;
         if (this.isInWaterOrBubble()) {
             if (this.tentacleMovement < (float) Math.PI) {
                 float f = this.tentacleMovement / (float) Math.PI;
