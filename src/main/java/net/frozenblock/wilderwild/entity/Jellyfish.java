@@ -160,7 +160,7 @@ public class Jellyfish extends AbstractFish {
         this.zRot3 = this.zRot2;
         this.zRot2 = this.zRot1;
         this.zRot1 = this.zBodyRot;
-        
+
         this.oldTentacleMovement = this.tentacleMovement;
         this.oldTentacleAngle = this.tentacleAngle;
         this.tentacleMovement += this.tentacleSpeed;
