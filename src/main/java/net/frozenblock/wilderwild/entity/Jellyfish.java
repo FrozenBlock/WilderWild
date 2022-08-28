@@ -63,7 +63,7 @@ public class Jellyfish extends AbstractFish {
     }
 
     public static AttributeSupplier.Builder addAttributes() {
-        return Mob.createMobAttributes().add(Attributes.MAX_HEALTH, 3.0D).add(Attributes.MOVEMENT_SPEED, 0.05F).add(Attributes.FLYING_SPEED, 0.05F).add(Attributes.FOLLOW_RANGE, 32);
+        return Mob.createMobAttributes().add(Attributes.MAX_HEALTH, 3.0D);
     }
 
 
@@ -74,7 +74,7 @@ public class Jellyfish extends AbstractFish {
     public void readAdditionalSaveData(@NotNull CompoundTag nbt) {
         super.readAdditionalSaveData(nbt);
     }
-    
+
 
     @Override
     protected float getStandingEyeHeight(@NotNull Pose pose, EntityDimensions entityDimensions) {
@@ -115,12 +115,7 @@ public class Jellyfish extends AbstractFish {
         return 0.4F;
     }
 
-    @Override
-    public void aiStep() {
-        super.aiStep();
-        this.xBodyRotO = this.xBodyRot;
-        this.zBodyRotO = this.zBodyRot;
-    }
+
 
     @Override
     protected SoundEvent getFlopSound() {
