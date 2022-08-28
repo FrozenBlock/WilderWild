@@ -73,18 +73,15 @@ public class JellyfishModel<T extends Jellyfish> extends HierarchicalModel<T> {
 
     public void render(PoseStack matrices, VertexConsumer vertices, int light, int overlay, float red, float green, float blue, float alpha, float tickDelta, Jellyfish jelly) {
         this.animateBody(matrices, jelly, tickDelta);
-
-        matrices.pushPose();
-        matrices.mulPose(Vector3f.XP.rotationDegrees(Mth.lerp(tickDelta, jelly.getPrevXRot(), jelly.getJellyXRot())));
-        matrices.mulPose(Vector3f.YP.rotationDegrees(Mth.lerp(tickDelta, jelly.getPrevZRot(), jelly.getJellyZRot())));
+        //matrices.mulPose(Vector3f.XP.rotationDegrees(Mth.lerp(tickDelta, jelly.getPrevXRot(), jelly.getJellyXRot())));
+        //matrices.mulPose(Vector3f.YP.rotationDegrees(Mth.lerp(tickDelta, jelly.getPrevZRot(), jelly.getJellyZRot())));
+        this.body.xRot = Mth.lerp(tickDelta, jelly.getPrevXRot(), jelly.getJellyXRot());
+        this.body.yRot = Mth.lerp(tickDelta, jelly.getPrevZRot(), jelly.getJellyZRot());
         this.body.render(matrices, vertices, light, overlay, 1.0F, 1.0F, 1.0F, 1.0F);
-        matrices.popPose();
 
-        matrices.pushPose();
-        matrices.mulPose(Vector3f.XP.rotationDegrees(Mth.lerp(tickDelta, jelly.getPrevTentXRot(), jelly.getTentXRot())));
-        matrices.mulPose(Vector3f.YP.rotationDegrees(Mth.lerp(tickDelta, jelly.getPrevTentZRot(), jelly.getTentZRot())));
+        this.tentacleRot.xRot = Mth.lerp(tickDelta, jelly.getPrevTentXRot(), jelly.getTentXRot());
+        this.tentacleRot.yRot = Mth.lerp(tickDelta, jelly.getPrevTentZRot(), jelly.getTentZRot());
         this.tentacleRot.render(matrices, vertices, light, overlay, 1.0F, 1.0F, 1.0F, 1.0F);
-        matrices.popPose();
         //this.bone.render(matrices, vertices, light, overlay, 1.0F, 1.0F, 1.0F, 1.0F);
     }
 

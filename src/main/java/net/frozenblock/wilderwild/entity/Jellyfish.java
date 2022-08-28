@@ -281,7 +281,6 @@ public class Jellyfish extends AbstractFish {
         return this.entityData.get(PREVTENTXROT);
     }
 
-
     //Z
     public void setJellyZRot(float value) {
         this.entityData.set(ZROT, value);
@@ -308,11 +307,11 @@ public class Jellyfish extends AbstractFish {
     }
 
     public float getTentZRot() {
-        return this.entityData.get(TENTXROT);
+        return this.entityData.get(TENTZROT);
     }
 
     public float getPrevTentZRot() {
-        return this.entityData.get(PREVTENTXROT);
+        return this.entityData.get(PREVTENTZROT);
     }
 
 
