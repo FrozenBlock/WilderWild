@@ -119,7 +119,7 @@ public final class RegisterWorldgen {
                 .specialEffects(
                         new BiomeSpecialEffects.Builder()
                                 .waterColor(4552818)
-                                .waterFogColor(4552818)
+                                .waterFogColor(20)
                                 .fogColor(12638463)
                                 .skyColor(OverworldBiomes.calculateSkyColor(0.8F))
                                 .foliageColorOverride(5877296)
