@@ -18,6 +18,7 @@ public class WilderWildConfig extends PartitioningSerializer.GlobalData {
     @TransitiveObject
     public EntityConfig entity = new EntityConfig();
 
+    public boolean ancientHornShattersGlass = false;
     public boolean wardenEmergesFromEgg = true;
     public boolean customWardenTendrils = true;
     public boolean wardenSwimAnimation = true;

@@ -4,6 +4,7 @@ import io.netty.buffer.Unpooled;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.frozenblock.lib.damagesource.FrozenProjectileDamageSource;
 import net.frozenblock.wilderwild.WilderWild;
+import net.frozenblock.wilderwild.WilderWildClient;
 import net.frozenblock.wilderwild.block.entity.HangingTendrilBlockEntity;
 import net.frozenblock.wilderwild.misc.mod_compat.simple_copper_pipes.InteractionHandler;
 import net.frozenblock.wilderwild.misc.server.EasyPacket;
@@ -24,6 +25,7 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.util.Mth;
 import net.minecraft.util.SpawnUtil;
@@ -43,6 +45,7 @@ import net.minecraft.world.level.GameRules;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.phys.BlockHitResult;
@@ -68,7 +71,7 @@ public class AncientHornProjectile extends AbstractArrow {
     public double vecZ;
     public boolean shotByPlayer;
     public int bubbles;
-    private net.minecraft.world.level.block.state.BlockState inBlockState;
+    private BlockState inBlockState;
 
     public AncientHornProjectile(@NotNull EntityType<? extends AbstractArrow> entityType, Level world) {
         super(entityType, world);
@@ -114,7 +117,7 @@ public class AncientHornProjectile extends AbstractArrow {
             this.xRotO = this.getXRot();
         }
         BlockPos blockPos = this.blockPosition();
-        net.minecraft.world.level.block.state.BlockState blockState = this.level.getBlockState(blockPos);
+        BlockState blockState = this.level.getBlockState(blockPos);
         Vec3 vec3d2;
 
         if (this.shakeTime > 0) {
@@ -130,7 +133,7 @@ public class AncientHornProjectile extends AbstractArrow {
         Vec3 vec3d3 = this.position();
         vec3d2 = vec3d3.add(vec3d);
         HitResult hitResult = this.level.clip(new ClipContext(vec3d3, vec3d2, ClipContext.Block.COLLIDER, ClipContext.Fluid.NONE, this));
-        while (!this.isRemoved() && canInteract()) {
+        if (!this.isRemoved() && canInteract()) {
             List<Entity> entities = this.collidingEntities();
             Entity owner = this.getOwner();
             for (Entity entity : entities) {
@@ -152,7 +155,6 @@ public class AncientHornProjectile extends AbstractArrow {
                     }
                 }
             }
-            break;
         }
         if (!this.isRemoved() && hitResult != null && !bl) {
             this.onHit(hitResult);
@@ -229,7 +231,7 @@ public class AncientHornProjectile extends AbstractArrow {
 
     protected void onHitBlock(BlockHitResult blockHitResult) {
         this.inBlockState = this.level.getBlockState(blockHitResult.getBlockPos());
-        net.minecraft.world.level.block.state.BlockState blockState = this.level.getBlockState(blockHitResult.getBlockPos());
+        BlockState blockState = this.level.getBlockState(blockHitResult.getBlockPos());
         Entity owner = this.getOwner();
         if (WilderWild.isCopperPipe(blockState) && owner != null) {
             if (blockHitResult.getDirection() == blockState.getValue(BlockStateProperties.FACING).getOpposite() && this.level instanceof ServerLevel server) {
@@ -247,7 +249,7 @@ public class AncientHornProjectile extends AbstractArrow {
         this.inGround = true;
         this.shakeTime = 7;
         this.setCritArrow(false);
-        if (level instanceof ServerLevel server && canInteract()) {
+        if (this.level instanceof ServerLevel server && canInteract()) {
             if (blockState.getBlock() == Blocks.SCULK_SHRIEKER) {
                 BlockPos pos = blockHitResult.getBlockPos();
                 WilderWild.log(Blocks.SCULK_SHRIEKER, pos, "Horn Projectile Touched", WilderWild.UNSTABLE_LOGGING);
@@ -299,7 +301,7 @@ public class AncientHornProjectile extends AbstractArrow {
     }
 
     public boolean isNoPhysics() {
-        net.minecraft.world.level.block.state.BlockState insideState = level.getBlockState(this.blockPosition());
+        BlockState insideState = level.getBlockState(this.blockPosition());
         if (insideState.is(RegisterBlocks.HANGING_TENDRIL) && level instanceof ServerLevel server && canInteract()) {
             BlockPos pos = this.blockPosition();
             BlockEntity entity = level.getBlockEntity(pos);
@@ -321,9 +323,14 @@ public class AncientHornProjectile extends AbstractArrow {
             }
         }
         if (insideState.is(this.NON_COLLIDE)) {
-            if (level instanceof ServerLevel server) {
-                if (insideState.is(Blocks.BELL)) {
-                    ((BellBlock) insideState.getBlock()).onProjectileHit(server, insideState, this.level.clip(new ClipContext(this.position(), new Vec3(this.getBlockX(), this.getBlockY(), this.getBlockZ()), ClipContext.Block.COLLIDER, ClipContext.Fluid.NONE, this)), this);
+            if (this.level instanceof ServerLevel server) {
+                if (insideState.getBlock() instanceof BellBlock bell) {
+                    bell.onProjectileHit(server, insideState, this.level.clip(new ClipContext(this.position(), new Vec3(this.getBlockX(), this.getBlockY(), this.getBlockZ()), ClipContext.Block.COLLIDER, ClipContext.Fluid.NONE, this)), this);
+                } else if (insideState.getBlock() instanceof AbstractGlassBlock) {
+                    if (WilderWildClient.config.ancientHornShattersGlass) {
+                        insideState.onProjectileHit(this.level, insideState, this.level.clip(new ClipContext(this.position(), new Vec3(this.getBlockX(), this.getBlockY(), this.getBlockZ()), ClipContext.Block.COLLIDER, ClipContext.Fluid.NONE, this)), this);
+                        this.level.destroyBlock(this.blockPosition(), false, this);
+                    }
                 }
             }
             return true;
@@ -333,7 +340,7 @@ public class AncientHornProjectile extends AbstractArrow {
         Vec3 vec3d2 = vec3d3.add(vec3d.scale(0.08));
         BlockHitResult hitResult = this.level.clip(new ClipContext(vec3d3, vec3d2, ClipContext.Block.COLLIDER, ClipContext.Fluid.NONE, this));
         if (hitResult.getType() == HitResult.Type.BLOCK) {
-            net.minecraft.world.level.block.state.BlockState state = level.getBlockState(hitResult.getBlockPos());
+            BlockState state = level.getBlockState(hitResult.getBlockPos());
             return state.is(this.NON_COLLIDE);
         }
         return false;
