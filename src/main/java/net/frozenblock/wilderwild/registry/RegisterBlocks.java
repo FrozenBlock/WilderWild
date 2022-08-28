@@ -218,6 +218,15 @@ public final class RegisterBlocks {
         registerBlock("echo_glass", ECHO_GLASS, CreativeModeTab.TAB_DECORATIONS);
     }
 
+    private static boolean always(BlockState blockState, BlockGetter blockGetter, BlockPos blockPos) {
+        return true;
+    }
+    
+    // Mesoglea
+    private static final HalfTransparentBlock MESOGLEA = new MesogleaBlock(FabricBlockSettings.of(Material.CLAY, MaterialColor.QUARTZ).friction(0.8F).sound(SoundType.SLIME_BLOCK).noOcclusion().emissiveRendering(RegisterBlocks::always).lightLevel((blockStatex) -> {
+        return 3;
+    }));
+    
     // MISC
     private static final Material ALGAE_MATERIAL = new FabricMaterialBuilder(MaterialColor.PLANT)
             .allowsMovement()
@@ -338,6 +347,7 @@ public final class RegisterBlocks {
         registerPlants();
         registerNotSoPlants();
         registerMisc();
+        registerBlock("mesoglea", MESOGLEA, CreativeModeTab.TAB_DECORATIONS);
     }
 
     private static void registerBlockWithoutBlockItem(String name, Block block) {
