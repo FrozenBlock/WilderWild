@@ -14,6 +14,7 @@ import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.util.Mth;
@@ -43,32 +44,33 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(value = Warden.class, priority = 69420)
 public class WardenEntityMixin extends Monster implements WilderWarden {
 
-    private final Warden warden = Warden.class.cast(this);
 
     @Override
     public boolean isOsmiooo() {
+        Warden warden = Warden.class.cast(this);
         String name = ChatFormatting.stripFormatting(warden.getName().getString());
         return name != null && (name.equalsIgnoreCase("Osmiooo") || name.equalsIgnoreCase("Mossmio") || name.equalsIgnoreCase("Osmio"));
     }
 
     @Inject(at = @At("RETURN"), method = "getDeathSound")
     public void getDeathSound(CallbackInfoReturnable<SoundEvent> info) {
-        boolean skipCheck = false;
+        Warden warden = Warden.class.cast(this);
         if (this.isOsmiooo()) {
             warden.playSound(RegisterSounds.ENTITY_WARDEN_KIRBY_DEATH, 5.0F, 1.0F);
-            skipCheck = true;
-        }
-        if (!skipCheck) {
-            if (!this.isSubmergedInWaterOrLava()) {
-                warden.playSound(RegisterSounds.ENTITY_WARDEN_DYING, 5.0F, 1.0F);
-            } else if (this.isSubmergedInWaterOrLava()) {
-                warden.playSound(RegisterSounds.ENTITY_WARDEN_UNDERWATER_DYING, 0.75F, 1.0F);
+        } else {
+            if (ClothConfigInteractionHandler.wardenDyingAnimation()) {
+                if (!this.isSubmergedInWaterOrLava()) {
+                    warden.playSound(RegisterSounds.ENTITY_WARDEN_DYING, 5.0F, 1.0F);
+                } else {
+                    warden.playSound(RegisterSounds.ENTITY_WARDEN_UNDERWATER_DYING, 0.75F, 1.0F);
+                }
             }
         }
     }
@@ -119,6 +121,7 @@ public class WardenEntityMixin extends Monster implements WilderWarden {
 
     @Inject(at = @At("RETURN"), method = "finalizeSpawn")
     public void finalizeSpawn(ServerLevelAccessor serverWorldAccess, DifficultyInstance localDifficulty, MobSpawnType spawnReason, @Nullable SpawnGroupData entityData, @Nullable CompoundTag nbtCompound, CallbackInfoReturnable<SpawnGroupData> info) {
+        Warden warden = Warden.class.cast(this);
         if (ClothConfigInteractionHandler.wardenEmergesFromEgg()) {
             if (spawnReason == MobSpawnType.SPAWN_EGG) {
                 warden.setPose(Pose.EMERGING);
@@ -130,6 +133,7 @@ public class WardenEntityMixin extends Monster implements WilderWarden {
 
     @Inject(at = @At("HEAD"), method = "doPush")
     protected void doPush(Entity entity, CallbackInfo info) {
+        Warden warden = Warden.class.cast(this);
         if (!warden.getBrain().hasMemoryValue(MemoryModuleType.ATTACK_COOLING_DOWN) && !warden.getBrain().hasMemoryValue(MemoryModuleType.TOUCH_COOLDOWN) && !(entity instanceof Warden) && !this.isDiggingOrEmerging() && !warden.hasPose(Pose.DYING) && !warden.hasPose(Pose.ROARING)) {
             if (!entity.isInvulnerable() && entity instanceof LivingEntity livingEntity) {
                 if (!(entity instanceof Player player)) {
@@ -173,32 +177,32 @@ public class WardenEntityMixin extends Monster implements WilderWarden {
 
     @Inject(method = "onSyncedDataUpdated", at = @At("HEAD"), cancellable = true)
     public void onSyncedDataUpdated(EntityDataAccessor<?> data, CallbackInfo ci) {
-        if (DATA_POSE.equals(data)) {
-            if (warden.getPose() == Pose.DYING) {
-                if (this.isOsmiooo()) {
-                    this.getKirbyDeathAnimationState().start(warden.tickCount);
-                } else {
-                    if (!this.isSubmergedInWaterOrLava()) {
-                        this.getDyingAnimationState().start(warden.tickCount);
+        Warden warden = Warden.class.cast(this);
+        if (ClothConfigInteractionHandler.wardenDyingAnimation() || this.isOsmiooo()) {
+            if (DATA_POSE.equals(data)) {
+                if (warden.getPose() == Pose.DYING) {
+                    if (this.isOsmiooo()) {
+                        this.getKirbyDeathAnimationState().start(warden.tickCount);
                     } else {
-                        this.getSwimmingDyingAnimationState().start(warden.tickCount);
+                        if (!this.isSubmergedInWaterOrLava()) {
+                            this.getDyingAnimationState().start(warden.tickCount);
+                        } else {
+                            this.getSwimmingDyingAnimationState().start(warden.tickCount);
+                        }
                     }
+                    ci.cancel();
                 }
-                ci.cancel();
             }
         }
     }
 
-    private int deathTicks = 0;
-
-    @Override
-    public boolean isDeadOrDying() {
-        return super.isDeadOrDying();
-    }
+    private int wilderDeathTicks = 0;
 
     @Override
     public boolean isAlive() {
-        return this.deathTicks < 70 && !this.isRemoved();
+        if (ClothConfigInteractionHandler.wardenDyingAnimation() || this.isOsmiooo()) {
+            return this.wilderDeathTicks < 70 && !this.isRemoved();
+        } else return super.isAlive();
     }
 
     private void addAdditionalDeathParticles() {
@@ -216,45 +220,64 @@ public class WardenEntityMixin extends Monster implements WilderWarden {
     public void die(@NotNull DamageSource damageSource) {
         Warden warden = Warden.class.cast(this);
         super.die(damageSource);
-        warden.getBrain().removeAllBehaviors();
+        if (ClothConfigInteractionHandler.wardenDyingAnimation() || this.isOsmiooo()) {
+            warden.getBrain().removeAllBehaviors();
+        }
     }
 
     @Override
     protected void tickDeath() {
-        ++this.deathTicks;
-        if (this.deathTicks == 35 && !warden.level.isClientSide()) {
-            warden.deathTime = 35;
-        }
+        Warden warden = Warden.class.cast(this);
+        if (ClothConfigInteractionHandler.wardenDyingAnimation() || this.isOsmiooo()) {
+            ++this.wilderDeathTicks;
+            if (this.wilderDeathTicks == 35 && !warden.level.isClientSide()) {
+                warden.deathTime = 35;
+            }
 
-        if (this.deathTicks == 53 && !warden.level.isClientSide()) {
-            warden.level.broadcastEntityEvent(warden, EntityEvent.POOF);
-            warden.level.broadcastEntityEvent(warden, (byte) 69420);
-        }
+            if (this.wilderDeathTicks == 53 && !warden.level.isClientSide()) {
+                warden.level.broadcastEntityEvent(warden, EntityEvent.POOF);
+                warden.level.broadcastEntityEvent(warden, (byte) 69420);
+            }
 
-        if (this.deathTicks == 70 && !warden.level.isClientSide()) {
-            warden.remove(Entity.RemovalReason.KILLED);
+            if (this.wilderDeathTicks == 70 && !warden.level.isClientSide()) {
+                warden.remove(Entity.RemovalReason.KILLED);
+            }
+        } else super.tickDeath();
+    }
+
+    @Inject(method = "tick", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/Level;playLocalSound(DDDLnet/minecraft/sounds/SoundEvent;Lnet/minecraft/sounds/SoundSource;FFZ)V"), cancellable = true)
+    private void osmioHeartbeat(CallbackInfo ci) {
+        if (this.isOsmiooo()) {
+            this.level
+                    .playLocalSound(
+                            this.getX(), this.getY(), this.getZ(), RegisterSounds.ENTITY_WARDEN_OSMIOOO_HEARTBEAT, this.getSoundSource(), 5.0F, this.getVoicePitch(), false
+                    );
+            ci.cancel();
         }
     }
 
     @Inject(method = "tick", at = @At("TAIL"))
     private void tick(CallbackInfo ci) {
         //TODO: add osmiooo warden's heartbeat sounds here
+        Warden warden = Warden.class.cast(this);
         this.updateSwimAmount();
-        if (warden.getPose() == Pose.DYING) {
-            this.clientDiggingParticles(this.getDyingAnimationState());
+        if (ClothConfigInteractionHandler.wardenDyingAnimation() || this.isOsmiooo()) {
+            if (warden.getPose() == Pose.DYING) {
+                this.clientDiggingParticles(this.getDyingAnimationState());
+            }
         }
     }
 
 
     @Inject(method = "addAdditionalSaveData", at = @At("TAIL"))
     public void addAdditionalSaveData(CompoundTag nbt, CallbackInfo info) {
-        nbt.putInt("death_ticks", this.deathTicks);
+        nbt.putInt("wilderDeathTicks", this.wilderDeathTicks);
         nbt.putBoolean("pogSwimming", this.pogSwimming);
     }
 
     @Inject(method = "readAdditionalSaveData", at = @At("TAIL"))
     public void readAdditionalSaveData(CompoundTag nbt, CallbackInfo info) {
-        this.deathTicks = nbt.getInt("death_ticks");
+        this.wilderDeathTicks = nbt.getInt("wilderDeathTicks");
         this.pogSwimming = nbt.getBoolean("pogSwimming");
     }
 
@@ -288,6 +311,7 @@ public class WardenEntityMixin extends Monster implements WilderWarden {
 
     @Override
     public void travel(@NotNull Vec3 movementInput) {
+        Warden warden = Warden.class.cast(this);
         if (this.isEffectiveAi() && this.isTouchingWaterOrLava()) {
             this.moveRelative(this.getSpeed(), movementInput);
             this.move(MoverType.SELF, this.getDeltaMovement());
@@ -333,7 +357,7 @@ public class WardenEntityMixin extends Monster implements WilderWarden {
     }
 
     @Override
-    public void jumpInLiquid(TagKey<Fluid> fluid) {
+    public void jumpInLiquid(@NotNull TagKey<Fluid> fluid) {
     }
 
     public float getSwimAmount(float tickDelta) {
@@ -342,6 +366,7 @@ public class WardenEntityMixin extends Monster implements WilderWarden {
 
     @Override
     protected boolean updateInWaterStateAndDoFluidPushing() {
+        Warden warden = Warden.class.cast(this);
         this.fluidHeight.clear();
         warden.updateInWaterStateAndDoWaterCurrentPushing();
         boolean bl = warden.updateFluidHeightAndDoFluidPushing(FluidTags.LAVA, 0.1D);
@@ -360,11 +385,14 @@ public class WardenEntityMixin extends Monster implements WilderWarden {
 
     @Inject(method = "getDimensions", at = @At("RETURN"), cancellable = true)
     public void getDimensions(Pose pose, CallbackInfoReturnable<EntityDimensions> info) {
+        Warden warden = Warden.class.cast(this);
         if (this.isVisuallySwimming()) {
             info.setReturnValue(EntityDimensions.scalable(warden.getType().getWidth(), 0.85F));
         }
-        if (deathTicks > 0) {
-            info.setReturnValue(EntityDimensions.fixed(warden.getType().getWidth(), 0.35F));
+        if (ClothConfigInteractionHandler.wardenDyingAnimation() || this.isOsmiooo()) {
+            if (wilderDeathTicks > 0) {
+                info.setReturnValue(EntityDimensions.fixed(warden.getType().getWidth(), 0.35F));
+            }
         }
     }
 }

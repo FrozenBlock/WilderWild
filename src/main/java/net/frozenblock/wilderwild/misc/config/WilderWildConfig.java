@@ -121,9 +121,9 @@ public class WilderWildConfig extends PartitioningSerializer.GlobalData {
                 .setDefaultValue(true)
                 .setSaveConsumer(newValue -> config.wardenEmergesFromEgg = newValue)
                 .build());
-        category.addEntry(entryBuilder.startBooleanToggle(text("warden_custom_tendrils"), config.customWardenTendrils)
+        category.addEntry(entryBuilder.startBooleanToggle(text("warden_custom_tendrils"), config.wardenCustomTendrils)
                 .setDefaultValue(true)
-                .setSaveConsumer(newValue -> config.customWardenTendrils = newValue)
+                .setSaveConsumer(newValue -> config.wardenCustomTendrils = newValue)
                 .setYesNoTextSupplier(bool -> text("warden_custom_tendrils." + bool))
                 .build());
         category.addEntry(entryBuilder.startBooleanToggle(text("warden_swim_animation"), config.wardenSwimAnimation)

@@ -86,7 +86,7 @@ public abstract class WardenEntityModelMixin<T extends Warden> implements Wilder
         float cos = warden.getTendrilAnimation(tickDelta) * (float) (Math.cos((double) animationProgress * 2.25D) * 3.141592653589793D * 0.10000000149011612D);
         float sin = warden.getTendrilAnimation(tickDelta) * (float) (-Math.sin((double) animationProgress * 2.25D) * 3.141592653589793D * 0.12500000149011612D);
 
-        if (ClothConfigInteractionHandler.customWardenTendrils()) {
+        if (ClothConfigInteractionHandler.wardenCustomTendrils()) {
             this.leftTendril.xRot = cos;
             this.rightTendril.xRot = cos;
 

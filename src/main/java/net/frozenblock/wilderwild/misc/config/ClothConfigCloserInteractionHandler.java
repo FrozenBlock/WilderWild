@@ -50,12 +50,16 @@ public class ClothConfigCloserInteractionHandler {
         return WilderWildConfig.get().block.mcLiveSensorTendrils;
     }
 
-    public static boolean wardenEmergesFromEgg() {
-        return WilderWildConfig.get().entity.wardenEmergesFromEgg;
+    public static boolean wardenCustomTendrils() {
+        return WilderWildConfig.get().entity.wardenCustomTendrils;
     }
 
-    public static boolean customWardenTendrils() {
-        return WilderWildConfig.get().entity.customWardenTendrils;
+    public static boolean wardenDyingAnimation() {
+        return WilderWildConfig.get().entity.wardenDyingAnimation;
+    }
+
+    public static boolean wardenEmergesFromEgg() {
+        return WilderWildConfig.get().entity.wardenEmergesFromEgg;
     }
 
     public static boolean wardenSwimAnimation() {
