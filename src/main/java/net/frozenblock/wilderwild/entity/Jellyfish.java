@@ -74,18 +74,6 @@ public class Jellyfish extends AbstractFish {
     private static final EntityDataAccessor<Float> PREV_LIGHT = SynchedEntityData.defineId(Jellyfish.class, EntityDataSerializers.FLOAT);
     private static final EntityDataAccessor<String> VARIANT = SynchedEntityData.defineId(Jellyfish.class, EntityDataSerializers.STRING);
 
-    @Override
-    public void playerTouch(@NotNull Player player) {
-        if (player instanceof ServerPlayer && player.hurt(DamageSource.mobAttack(this), 3)) {
-            if (!this.isSilent()) {
-                ((ServerPlayer) player).connection.send(new ClientboundGameEventPacket(ClientboundGameEventPacket.PUFFER_FISH_STING, 0.0F));
-            }
-
-            player.addEffect(new MobEffectInstance(MobEffects.POISON, 300, 0, false, false), this);
-        }
-
-    }
-
     @Nullable
     @Override
     public SpawnGroupData finalizeSpawn(ServerLevelAccessor serverLevelAccessor, DifficultyInstance difficultyInstance, MobSpawnType mobSpawnType, @Nullable SpawnGroupData spawnGroupData, @Nullable CompoundTag compoundTag) {
@@ -252,13 +240,22 @@ public class Jellyfish extends AbstractFish {
 
     public void doPush(@NotNull Entity entity) {
         super.doPush(entity);
-        if (entity instanceof Mob mob && this.isAlive()) {
-            if (targetingConditions.test(this, mob)) {
-                if (mob.isAlive()) {
-                    if (mob.hurt(DamageSource.mobAttack(this), (float) (3))) {
-                        mob.addEffect(new MobEffectInstance(MobEffects.POISON, 90 * 3, 0), this);
-                        //TODO: JELLY STING SOUND
-                        this.playSound(RegisterSounds.ENTITY_JELLYFISH_STING, 1.0F, 1.0F);
+        if (this.isAlive()) {
+            if (entity instanceof ServerPlayer player) {
+                if (player.hurt(DamageSource.mobAttack(this), 3)) {
+                    if (!this.isSilent()) {
+                        player.connection.send(new ClientboundGameEventPacket(ClientboundGameEventPacket.PUFFER_FISH_STING, 0.0F));
+                    }
+                    player.addEffect(new MobEffectInstance(MobEffects.POISON, 200, 0, false, false), this);
+                }
+            } else if (entity instanceof Mob mob) {
+                if (targetingConditions.test(this, mob)) {
+                    if (mob.isAlive()) {
+                        if (mob.hurt(DamageSource.mobAttack(this), (float) (3))) {
+                            mob.addEffect(new MobEffectInstance(MobEffects.POISON, 200, 0), this);
+                            //TODO: JELLY STING SOUND
+                            this.playSound(RegisterSounds.ENTITY_JELLYFISH_STING, 1.0F, 1.0F);
+                        }
                     }
                 }
             }
@@ -308,12 +305,6 @@ public class Jellyfish extends AbstractFish {
         return false;
     }
 
-    private Vec3 rotateVector(Vec3 vec3) {
-        Vec3 vec32 = vec3.xRot(this.zRot1 * ((float) Math.PI / 180));
-        vec32 = vec32.yRot(-this.yBodyRotO * ((float) Math.PI / 180));
-        return vec32;
-    }
-
     /*private void spawnJelly() {
         this.playSound(this.getSquirtSound(), this.getSoundVolume(), this.getVoicePitch());
         Vec3 vec3 = this.rotateVector(new Vec3(0.0, -1.0, 0.0)).add(this.getX(), this.getY(), this.getZ());
@@ -322,10 +313,6 @@ public class Jellyfish extends AbstractFish {
             Vec3 vec33 = vec32.scale(0.3 + (double) (this.random.nextFloat() * 2.0f));
             ((ServerLevel) this.level).sendParticles(this.getJellyParticle(), vec3.x, vec3.y + 0.5, vec3.z, 0, vec33.x, vec33.y, vec33.z, 0.1f);
         }
-    }*/
-
-    /*protected ParticleOptions getJellyParticle() {
-        return ParticleTypes.BUBBLE;
     }*/
 
     @Override
