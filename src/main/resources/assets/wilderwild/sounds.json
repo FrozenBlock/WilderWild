@@ -1250,8 +1250,7 @@
 		"sounds": [
 			"wilderwild:mob/jellyfish/swim1",
 			"wilderwild:mob/jellyfish/swim2",
-			"wilderwild:mob/jellyfish/swim3",
-			"wilderwild:mob/jellyfish/swim4"
+			"wilderwild:mob/jellyfish/swim3"
 		]
 	},
 	"entity.jellyfish.whine": {

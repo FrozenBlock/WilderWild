@@ -238,11 +238,11 @@ public final class RegisterBlocks {
     public static final Block STONE_VASE = new StoneVaseBlock(FabricBlockSettings.copy(Blocks.CHEST).sound(SoundType.DEEPSLATE).strength(2.0f, 2.0f));
 
     // PLANTS
-    public static final Block SEEDING_DANDELION = new SeedingDandelionBlock(MobEffects.SLOW_FALLING, 12, FabricBlockSettings.copy(Blocks.DANDELION).sound(SoundType.SPORE_BLOSSOM).strength(0.0F).noOcclusion());
+    public static final Block SEEDING_DANDELION = new SeedingDandelionBlock(MobEffects.SLOW_FALLING, 12, FabricBlockSettings.copy(Blocks.DANDELION).sound(RegisterBlockSoundGroups.FLOWER).strength(0.0F).noOcclusion());
     public static final Block POTTED_SEEDING_DANDELION = new FlowerPotBlock(RegisterBlocks.SEEDING_DANDELION, FabricBlockSettings.of(Material.DECORATION).instabreak().noOcclusion());
-    public static final Block CARNATION = new FlowerBlock(MobEffects.REGENERATION, 12, FabricBlockSettings.copy(Blocks.DANDELION).sound(SoundType.SPORE_BLOSSOM).strength(0.0F).noOcclusion());
+    public static final Block CARNATION = new FlowerBlock(MobEffects.REGENERATION, 12, FabricBlockSettings.copy(Blocks.DANDELION).sound(RegisterBlockSoundGroups.FLOWER).strength(0.0F).noOcclusion());
     public static final Block POTTED_CARNATION = new FlowerPotBlock(RegisterBlocks.CARNATION, FabricBlockSettings.of(Material.DECORATION).instabreak().noOcclusion());
-    public static final Block GLORY_OF_THE_SNOW = new GloryOfTheSnowBlock(FabricBlockSettings.copy(Blocks.DANDELION).sound(SoundType.SPORE_BLOSSOM).strength(0.0F).noOcclusion().randomTicks(), List.of(FlowerColors.BLUE, FlowerColors.PINK, FlowerColors.PURPLE, FlowerColors.WHITE));
+    public static final Block GLORY_OF_THE_SNOW = new GloryOfTheSnowBlock(FabricBlockSettings.copy(Blocks.DANDELION).sound(RegisterBlockSoundGroups.FLOWER).strength(0.0F).noOcclusion().randomTicks(), List.of(FlowerColors.BLUE, FlowerColors.PINK, FlowerColors.PURPLE, FlowerColors.WHITE));
 
     public static final Block WHITE_GLORY_OF_THE_SNOW = new FlowerLichenBlock(FabricBlockSettings.copyOf(Blocks.GRASS).collidable(false).offsetType(BlockBehaviour.OffsetType.NONE).color(MaterialColor.QUARTZ).sound(SoundType.VINE));
     public static final Block PINK_GLORY_OF_THE_SNOW = new FlowerLichenBlock(FabricBlockSettings.copyOf(Blocks.GRASS).collidable(false).offsetType(BlockBehaviour.OffsetType.NONE).color(MaterialColor.CRIMSON_STEM).sound(SoundType.VINE));
@@ -261,6 +261,9 @@ public final class RegisterBlocks {
     public static final Block POTTED_GRASS = new FlowerPotBlock(Blocks.GRASS, FabricBlockSettings.of(Material.DECORATION).instabreak().noOcclusion());
 
     public static void registerPlants() {
+        registerBlockWithoutBlockItem("potted_big_dripleaf", POTTED_BIG_DRIPLEAF);
+        registerBlockWithoutBlockItem("potted_small_dripleaf", POTTED_SMALL_DRIPLEAF);
+        registerBlockWithoutBlockItem("potted_grass", POTTED_GRASS);
         registerBlock("seeding_dandelion", SEEDING_DANDELION, CreativeModeTab.TAB_DECORATIONS);
         registerBlockWithoutBlockItem("potted_seeding_dandelion", POTTED_SEEDING_DANDELION);
         registerBlock("carnation", CARNATION, CreativeModeTab.TAB_DECORATIONS);
@@ -273,9 +276,6 @@ public final class RegisterBlocks {
         registerBlock("datura", DATURA, CreativeModeTab.TAB_DECORATIONS);
         registerBlock("milkweed", MILKWEED, CreativeModeTab.TAB_DECORATIONS);
         registerBlock("cattail", CATTAIL, CreativeModeTab.TAB_DECORATIONS);
-        registerBlockWithoutBlockItem("potted_big_dripleaf", POTTED_BIG_DRIPLEAF);
-        registerBlockWithoutBlockItem("potted_small_dripleaf", POTTED_SMALL_DRIPLEAF);
-        registerBlockWithoutBlockItem("potted_grass", POTTED_GRASS);
     }
 
     public static final Block BROWN_SHELF_FUNGUS = new ShelfFungusBlock(FabricBlockSettings.copyOf(Blocks.BROWN_MUSHROOM_BLOCK).luminance(1).collidable(false).noOcclusion().sound(RegisterBlockSoundGroups.MUSHROOM));
@@ -332,6 +332,7 @@ public final class RegisterBlocks {
         registerBlock("stone_chest", STONE_CHEST, CreativeModeTab.TAB_DECORATIONS);
         registerBlock("stone_vase", STONE_VASE, CreativeModeTab.TAB_DECORATIONS);
         registerBlock("display_lantern", DISPLAY_LANTERN, CreativeModeTab.TAB_DECORATIONS);
+        registerBlock("mesoglea", MESOGLEA, CreativeModeTab.TAB_DECORATIONS);
     }
 
     public static void registerBlocks() {
@@ -345,21 +346,20 @@ public final class RegisterBlocks {
         registerPlants();
         registerNotSoPlants();
         registerMisc();
-        registerBlock("mesoglea", MESOGLEA, CreativeModeTab.TAB_DECORATIONS);
     }
 
     private static void registerBlockWithoutBlockItem(String name, Block block) {
         Registry.register(Registry.BLOCK, WilderWild.id(name), block);
     }
 
-    private static void registerBlock(String name, Block block, CreativeModeTab group) {
-        registerBlockItem(name, block, group);
+    private static void registerBlock(String name, Block block, CreativeModeTab tab) {
+        registerBlockItem(name, block, tab);
         Registry.register(Registry.BLOCK, WilderWild.id(name), block);
     }
 
-    private static void registerBlockItem(String name, Block block, CreativeModeTab group) {
+    private static void registerBlockItem(String name, Block block, CreativeModeTab tab) {
         Registry.register(Registry.ITEM, WilderWild.id(name),
-                new BlockItem(block, new FabricItemSettings().tab(group)));
+                new BlockItem(block, new FabricItemSettings().tab(tab)));
     }
 
     private static HollowedLogBlock createHollowedLogBlock(MaterialColor topMapColor, MaterialColor sideMapColor) {
