@@ -243,10 +243,8 @@ public class Jellyfish extends AbstractFish {
         if (this.isAlive()) {
             if (entity instanceof ServerPlayer player) {
                 if (player.hurt(DamageSource.mobAttack(this), 3)) {
-                    if (!this.isSilent()) {
-                        player.connection.send(new ClientboundGameEventPacket(ClientboundGameEventPacket.PUFFER_FISH_STING, 0.0F));
-                    }
                     player.addEffect(new MobEffectInstance(MobEffects.POISON, 200, 0, false, false), this);
+                    this.playSound(RegisterSounds.ENTITY_JELLYFISH_STING, 0.4F, this.random.nextFloat() * 0.2f + 0.9f);
                 }
             } else if (entity instanceof Mob mob) {
                 if (targetingConditions.test(this, mob)) {
@@ -254,7 +252,7 @@ public class Jellyfish extends AbstractFish {
                         if (mob.hurt(DamageSource.mobAttack(this), (float) (3))) {
                             mob.addEffect(new MobEffectInstance(MobEffects.POISON, 200, 0), this);
                             //TODO: JELLY STING SOUND
-                            this.playSound(RegisterSounds.ENTITY_JELLYFISH_STING, 1.0F, 1.0F);
+                            this.playSound(RegisterSounds.ENTITY_JELLYFISH_STING, 0.4F, this.random.nextFloat() * 0.2f + 0.9f);
                         }
                     }
                 }
