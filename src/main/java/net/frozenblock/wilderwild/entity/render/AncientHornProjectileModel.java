@@ -6,19 +6,18 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.frozenblock.wilderwild.entity.AncientHornProjectile;
 import net.minecraft.client.model.Model;
-import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
 import net.minecraft.client.renderer.RenderType;
 
 @Environment(EnvType.CLIENT)
 public class AncientHornProjectileModel extends Model {
-    private final ModelPart bone;
-    private final ModelPart front;
-    private final ModelPart middle;
-    private final ModelPart back;
+    private final net.minecraft.client.model.geom.ModelPart bone;
+    private final net.minecraft.client.model.geom.ModelPart front;
+    private final net.minecraft.client.model.geom.ModelPart middle;
+    private final net.minecraft.client.model.geom.ModelPart back;
 
-    public AncientHornProjectileModel(ModelPart root) {
+    public AncientHornProjectileModel(net.minecraft.client.model.geom.ModelPart root) {
         super(RenderType::entityTranslucentEmissive);
         this.bone = root.getChild("bone");
         this.front = bone.getChild("front");

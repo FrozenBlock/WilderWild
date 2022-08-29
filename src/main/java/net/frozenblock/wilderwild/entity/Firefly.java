@@ -2,7 +2,6 @@ package net.frozenblock.wilderwild.entity;
 
 import com.google.common.collect.ImmutableList;
 import com.mojang.serialization.Dynamic;
-import net.frozenblock.lib.sound.FrozenSoundPackets;
 import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.entity.ai.FireflyBrain;
 import net.frozenblock.wilderwild.entity.ai.FireflyHidingGoal;
@@ -63,12 +62,11 @@ public class Firefly extends PathfinderMob implements FlyingAnimal {
     private static final EntityDataAccessor<Boolean> FLICKERS = SynchedEntityData.defineId(Firefly.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Integer> AGE = SynchedEntityData.defineId(Firefly.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Float> SCALE = SynchedEntityData.defineId(Firefly.class, EntityDataSerializers.FLOAT);
-    private static final EntityDataAccessor<Float> PREV_SCALE = SynchedEntityData.defineId(Firefly.class, EntityDataSerializers.FLOAT);
     private static final EntityDataAccessor<String> COLOR = SynchedEntityData.defineId(Firefly.class, EntityDataSerializers.STRING);
 
 
     public boolean natural;
-    public boolean hasHome;
+    public boolean hasHome; //TODO: POSSIBLY HAVE DIFFERING "SAFE RANGES" INSTEAD OF BOOLEAN
     public boolean despawning;
     public int homeCheckCooldown;
     public boolean wasNamedNectar;
@@ -106,7 +104,6 @@ public class Firefly extends PathfinderMob implements FlyingAnimal {
 
         if (spawnReason == MobSpawnType.COMMAND) {
             this.setScale(1.5F);
-            this.setPrevScale(1.5F);
             this.setColor("on");
         }
 
@@ -119,7 +116,6 @@ public class Firefly extends PathfinderMob implements FlyingAnimal {
         this.entityData.define(FLICKERS, false);
         this.entityData.define(AGE, 0);
         this.entityData.define(SCALE, 1.5F);
-        this.entityData.define(PREV_SCALE, 1.5F);
         this.entityData.define(COLOR, "on");
     }
 
@@ -145,7 +141,7 @@ public class Firefly extends PathfinderMob implements FlyingAnimal {
             if (optionalItem.isPresent()) {
                 item = optionalItem.get();
             }
-            entity.playSound(RegisterSounds.ITEM_BOTTLE_CATCH_FIREFLY, 1.0F, entity.random.nextFloat() * 0.2f + 0.8f);
+            entity.playSound(RegisterSounds.ITEM_BOTTLE_CATCH_FIREFLY, 1.0F, 1.0F);
             if (!player.isCreative()) {
                 player.getItemInHand(hand).shrink(1);
             }
@@ -212,14 +208,6 @@ public class Firefly extends PathfinderMob implements FlyingAnimal {
 
     public void setScale(float value) {
         this.entityData.set(SCALE, value);
-    }
-
-    public float getPrevScale() {
-        return this.entityData.get(PREV_SCALE);
-    }
-
-    public void setPrevScale(float value) {
-        this.entityData.set(PREV_SCALE, value);
     }
 
     public String getColor() {
@@ -331,7 +319,7 @@ public class Firefly extends PathfinderMob implements FlyingAnimal {
         if (level instanceof ServerLevel server) {
             if (nectar != wasNamedNectar) {
                 if (nectar) {
-                    FrozenSoundPackets.createMovingLoopingSound(server, this, RegisterSounds.ENTITY_FIREFLY_NECTAR, SoundSource.NEUTRAL, 1.0F, 1.0F, WilderWild.id("nectar"));
+                    EasyPacket.createMovingLoopingSound(server, this, RegisterSounds.ENTITY_FIREFLY_NECTAR, SoundSource.NEUTRAL, 1.0F, 1.5F, WilderWild.id("nectar"));
                     this.wasNamedNectar = true;
                 } else {
                     this.wasNamedNectar = false;
@@ -345,6 +333,12 @@ public class Firefly extends PathfinderMob implements FlyingAnimal {
             this.setNoGravity(false);
         }
         this.setFlickerAge(this.getFlickerAge() + 1);
+        if (this.despawning) {
+            this.setScale(this.getScale() - 0.0375F);
+            if (this.getScale() < 0.0F) {
+                this.discard();
+            }
+        }
 
         if (this.hasHome) {
             if (this.homeCheckCooldown > 0) {
@@ -359,17 +353,7 @@ public class Firefly extends PathfinderMob implements FlyingAnimal {
                 }
             }
         }
-
-        this.setPrevScale(this.getScale());
-
-        if (this.despawning) {
-            this.setScale(this.getScale() - 0.0375F);
-            if (this.getScale() < 0.0F) {
-                this.discard();
-            }
-        } else if (this.getScale() < 1.5F) {
-            this.setScale(Math.min(this.getScale() + 0.0125F, 1.5F));
-        }
+        //WilderWild.log(this, this.getBrain().getOptionalMemory(MemoryModuleType.HOME).toString(), WilderWild.DEV_LOGGING);
     }
 
     public static boolean isValidHomePos(Level world, BlockPos pos) {
@@ -451,7 +435,6 @@ public class Firefly extends PathfinderMob implements FlyingAnimal {
         nbt.putInt("flickerAge", this.getFlickerAge());
         nbt.putBoolean("hasHome", this.hasHome);
         nbt.putFloat("scale", this.getScale());
-        nbt.putFloat("prevScale", this.getPrevScale());
         nbt.putBoolean("despawning", this.despawning);
         nbt.putString("color", this.getColor());
         nbt.putInt("homeCheckCooldown", this.homeCheckCooldown);
@@ -467,7 +450,6 @@ public class Firefly extends PathfinderMob implements FlyingAnimal {
         this.setFlickerAge(nbt.getInt("flickerAge"));
         this.hasHome = nbt.getBoolean("hasHome");
         this.setScale(nbt.getFloat("scale"));
-        this.setPrevScale(nbt.getFloat("prevScale"));
         this.despawning = nbt.getBoolean("despawning");
         this.setColor(nbt.getString("color"));
         this.homeCheckCooldown = nbt.getInt("homeCheckCooldown");

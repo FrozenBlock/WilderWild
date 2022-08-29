@@ -18,7 +18,6 @@ import net.minecraft.world.level.levelgen.feature.stateproviders.RuleBasedBlockS
 import net.minecraft.world.level.levelgen.structure.templatesystem.RuleTest;
 import net.minecraft.world.level.levelgen.structure.templatesystem.TagMatchTest;
 import net.minecraft.world.level.material.Fluids;
-
 import java.util.List;
 
 public final class WilderMiscConfigured {

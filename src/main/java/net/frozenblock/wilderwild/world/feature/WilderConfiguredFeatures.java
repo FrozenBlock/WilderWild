@@ -5,7 +5,6 @@ import net.frozenblock.wilderwild.block.ShelfFungusBlock;
 import net.frozenblock.wilderwild.misc.FlowerColors;
 import net.frozenblock.wilderwild.registry.RegisterBlocks;
 import net.frozenblock.wilderwild.registry.RegisterProperties;
-import net.frozenblock.wilderwild.world.feature.features.config.ClusterFeatureConfig;
 import net.frozenblock.wilderwild.world.feature.features.config.ColumnWithDiskFeatureConfig;
 import net.frozenblock.wilderwild.world.feature.features.config.ShelfFungusFeatureConfig;
 import net.minecraft.core.Holder;
@@ -18,13 +17,11 @@ import net.minecraft.data.worldgen.placement.PlacementUtils;
 import net.minecraft.data.worldgen.placement.TreePlacements;
 import net.minecraft.util.random.SimpleWeightedRandomList;
 import net.minecraft.util.valueproviders.UniformInt;
-import net.minecraft.world.level.block.AmethystClusterBlock;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.MultifaceBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
-import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.WeightedPlacedFeature;
 import net.minecraft.world.level.levelgen.feature.configurations.*;
 import net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProvider;
@@ -42,14 +39,6 @@ public final class WilderConfiguredFeatures {
             register("fallen_trees_mixed", net.minecraft.world.level.levelgen.feature.Feature.RANDOM_SELECTOR,
                     new RandomFeatureConfiguration(List.of((new WeightedPlacedFeature(WilderTreePlaced.FALLEN_SPRUCE_CHECKED, 0.4F)),
                             new WeightedPlacedFeature(WilderTreePlaced.NEW_FALLEN_BIRCH_CHECKED, 0.3F)), WilderTreePlaced.NEW_FALLEN_OAK_CHECKED));
-
-    public static final Holder<ConfiguredFeature<RandomFeatureConfiguration, ?>> FALLEN_BIRCH =
-            register("fallen_birch", net.minecraft.world.level.levelgen.feature.Feature.RANDOM_SELECTOR,
-                    new RandomFeatureConfiguration(List.of(new WeightedPlacedFeature(WilderTreePlaced.NEW_FALLEN_BIRCH_CHECKED, 1.0F)), WilderTreePlaced.NEW_FALLEN_BIRCH_CHECKED));
-
-    public static final Holder<ConfiguredFeature<RandomFeatureConfiguration, ?>> FALLEN_SPRUCE =
-            register("fallen_spruce", net.minecraft.world.level.levelgen.feature.Feature.RANDOM_SELECTOR,
-                    new RandomFeatureConfiguration(List.of(new WeightedPlacedFeature(WilderTreePlaced.FALLEN_SPRUCE_CHECKED, 1.0F)), WilderTreePlaced.FALLEN_SPRUCE_CHECKED));
 
     public static final Holder<ConfiguredFeature<RandomFeatureConfiguration, ?>> FALLEN_SPRUCE_AND_OAK =
             register("fallen_spruce_and_oak", net.minecraft.world.level.levelgen.feature.Feature.RANDOM_SELECTOR,
@@ -170,7 +159,7 @@ public final class WilderConfiguredFeatures {
 
     public static final Holder<ConfiguredFeature<RandomPatchConfiguration, ?>> CARNATION =
             register("carnation", net.minecraft.world.level.levelgen.feature.Feature.FLOWER,
-                    FeatureUtils.simpleRandomPatchConfiguration(48, PlacementUtils.onlyWhenEmpty(net.minecraft.world.level.levelgen.feature.Feature.SIMPLE_BLOCK,
+                    FeatureUtils.simpleRandomPatchConfiguration(54, PlacementUtils.onlyWhenEmpty(net.minecraft.world.level.levelgen.feature.Feature.SIMPLE_BLOCK,
                             new SimpleBlockConfiguration(BlockStateProvider.simple(RegisterBlocks.CARNATION)))));
 
     public static final Holder<ConfiguredFeature<RandomPatchConfiguration, ?>> DATURA =
@@ -221,16 +210,6 @@ public final class WilderConfiguredFeatures {
             register("patch_cypress_roots", Feature.RANDOM_PATCH,
                     new RandomPatchFeatureConfig(10, 7, 3, PlacedFeatures.createEntry(Feature.SIMPLE_BLOCK,
                             new SimpleBlockFeatureConfig(BlockStateProvider.of(RegisterBlocks.CYPRESS_ROOTS)))));*/
-    // JELLYFISH
-    /*public static final Holder<ConfiguredFeature<ClusterFeatureConfig, ?>> PATCH_AMETHYST = register("patch_amethyst", WilderWild.CLUSTER_FEATURE,
-            new ClusterFeatureConfig((AmethystClusterBlock) Blocks.AMETHYST_CLUSTER, 20,
-                    true,
-                    true,
-                    true,
-                    1.0F,
-                    HolderSet.direct(
-                            Block::builtInRegistryHolder,
-                            Blocks.STONE, Blocks.ANDESITE, Blocks.DIORITE, Blocks.GRANITE, Blocks.DRIPSTONE_BLOCK, Blocks.CALCITE, Blocks.TUFF, Blocks.DEEPSLATE)));*/
 
     public static void registerConfiguredFeatures() {
         WilderWild.logWild("Registering WilderConfiguredFeatures for", true);
@@ -240,15 +219,15 @@ public final class WilderConfiguredFeatures {
         return FeatureUtils.simpleRandomPatchConfiguration(tries, PlacementUtils.onlyWhenEmpty(net.minecraft.world.level.levelgen.feature.Feature.SIMPLE_BLOCK, new SimpleBlockConfiguration(block)));
     }
 
-    public static Holder<ConfiguredFeature<NoneFeatureConfiguration, ?>> register(String id, Feature<NoneFeatureConfiguration> feature) {
+    public static Holder<ConfiguredFeature<NoneFeatureConfiguration, ?>> register(String id, net.minecraft.world.level.levelgen.feature.Feature<NoneFeatureConfiguration> feature) {
         return register(id, feature, FeatureConfiguration.NONE);
     }
 
-    public static <FC extends FeatureConfiguration, F extends Feature<FC>> Holder<ConfiguredFeature<FC, ?>> register(@NotNull String id, F feature, @NotNull FC config) {
-        return registerExact(BuiltinRegistries.CONFIGURED_FEATURE, id, new ConfiguredFeature<>(feature, config));
+    public static <FC extends FeatureConfiguration, F extends net.minecraft.world.level.levelgen.feature.Feature<FC>> Holder<ConfiguredFeature<FC, ?>> register(@NotNull String id, F feature, @NotNull FC config) {
+        return addCasted(BuiltinRegistries.CONFIGURED_FEATURE, id, new ConfiguredFeature<>(feature, config));
     }
 
-    public static <V extends T, T> Holder<V> registerExact(Registry<T> registry, String id, V value) {
+    public static <V extends T, T> Holder<V> addCasted(Registry<T> registry, String id, V value) {
         return (Holder<V>) BuiltinRegistries.register(registry, WilderWild.id(id), value);
     }
 }

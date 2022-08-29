@@ -1,5 +1,8 @@
 package net.frozenblock.wilderwild.entity.ai;
 
+import org.jetbrains.annotations.NotNull;
+
+import java.util.Optional;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.Entity;
@@ -8,9 +11,6 @@ import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.control.MoveControl;
 import net.minecraft.world.entity.ai.memory.MemoryModuleType;
 import net.minecraft.world.entity.monster.warden.Warden;
-import org.jetbrains.annotations.NotNull;
-
-import java.util.Optional;
 
 public class WardenMoveControl extends MoveControl {
 
@@ -36,22 +36,34 @@ public class WardenMoveControl extends MoveControl {
         if (this.isEntityTouchingWaterOrLava(this.entity)) {
             if (this.buoyant) {
                 if (this.entity.getBrain().hasMemoryValue(MemoryModuleType.ROAR_TARGET) || this.entity.getBrain().hasMemoryValue(MemoryModuleType.ATTACK_TARGET)) {
-                    Optional<LivingEntity> ATTACK_TARGET = this.entity.getBrain().getMemory(MemoryModuleType.ATTACK_TARGET);
                     Optional<LivingEntity> ROAR_TARGET = this.entity.getBrain().getMemory(MemoryModuleType.ROAR_TARGET);
-                    if (ATTACK_TARGET.isPresent()) {
-                        LivingEntity target = ATTACK_TARGET.get();
-                        if ((!this.isEntityTouchingWaterOrLava(target) || !this.isEntitySubmergedInWaterOrLava(this.entity)) && target.getY() > this.entity.getY()) {
-                            this.entity.setDeltaMovement(this.entity.getDeltaMovement().add(0.0D, 0.01D, 0.0D));
-                        }
-                    } else if (ROAR_TARGET.isPresent()) {
+                    Optional<LivingEntity> ATTACK_TARGET = this.entity.getBrain().getMemory(MemoryModuleType.ATTACK_TARGET);
+                    if (ROAR_TARGET.isPresent()) {
                         LivingEntity target = ROAR_TARGET.get();
                         if ((!this.isEntityTouchingWaterOrLava(target) || !this.isEntitySubmergedInWaterOrLava(this.entity)) && target.getY() > this.entity.getY()) {
                             this.entity.setDeltaMovement(this.entity.getDeltaMovement().add(0.0D, 0.01D, 0.0D));
+                        } else {
+                            if (target.getY() > this.entity.getY()) {
+                                this.entity.setDeltaMovement(this.entity.getDeltaMovement().add(0.0D, 0.003D, 0.0D));
+                            } else {
+                                this.entity.setDeltaMovement(this.entity.getDeltaMovement().add(0.0D, -0.003D, 0.0D));
+                            }
+                        }
+                    } else if (ATTACK_TARGET.isPresent()) {
+                        LivingEntity target = ATTACK_TARGET.get();
+                        if ((!this.isEntityTouchingWaterOrLava(target) || !this.isEntitySubmergedInWaterOrLava(this.entity)) && target.getY() > this.entity.getY()) {
+                            this.entity.setDeltaMovement(this.entity.getDeltaMovement().add(0.0D, 0.01D, 0.0D));
+                        } else {
+                            if (target.getY() > this.entity.getY()) {
+                                this.entity.setDeltaMovement(this.entity.getDeltaMovement().add(0.0D, 0.003D, 0.0D));
+                            } else {
+                                this.entity.setDeltaMovement(this.entity.getDeltaMovement().add(0.0D, -0.003D, 0.0D));
+                            }
                         }
                     }
                 } else {
                     if (!this.isEntitySubmergedInWaterOrLava(this.entity)) {
-                        this.entity.setDeltaMovement(this.entity.getDeltaMovement().add(0.0D, 0.006D, 0.0D));
+                        this.entity.setDeltaMovement(this.entity.getDeltaMovement().add(0.0D, 0.01D, 0.0D));
                     } else {
                         this.entity.setDeltaMovement(this.entity.getDeltaMovement().add(0.0D, 0.006D, 0.0D));
                     }

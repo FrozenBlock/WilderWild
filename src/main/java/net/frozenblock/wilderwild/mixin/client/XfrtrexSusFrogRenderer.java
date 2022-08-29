@@ -21,7 +21,7 @@ public class XfrtrexSusFrogRenderer {
     private static final ResourceLocation SUS_TEXTURE = WilderWild.id("textures/entity/frog/sus_frog.png");
 
 
-    @Inject(method = "getTextureLocation(Lnet/minecraft/world/entity/animal/frog/Frog;)Lnet/minecraft/resources/ResourceLocation;", at = @At("RETURN"), cancellable = true)
+    @Inject(method = "getTextureLocation(Lnet/minecraft/world/entity/animal/frog/Frog;)Lnet/minecraft/resources/ResourceLocation;", at = @At("HEAD"), cancellable = true)
     public void getTextureLocation(Frog frogEntity, CallbackInfoReturnable<ResourceLocation> cir) {
         String string = ChatFormatting.stripFormatting(frogEntity.getName().getString());
         if (Objects.equals(string, "Xfrtrex")) {

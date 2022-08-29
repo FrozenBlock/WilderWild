@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:block/template_seagrass",
   "textures": {
-	"texture": "wilderwild:block/cattail_bottom"
+    "texture": "wilderwild:block/cattail_bottom"
   }
 }

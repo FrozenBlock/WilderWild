@@ -11,7 +11,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 @Mixin(ExperienceOrb.class)
 public class ExperienceOrbEntityMixin {
 
-    @Inject(at = @At("RETURN"), method = "repairPlayerItems", cancellable = true)
+    @Inject(at = @At("TAIL"), method = "repairPlayerItems", cancellable = true)
     private void repairPlayerItems(Player player, int amount, CallbackInfoReturnable<Integer> info) {
         int hornCooldown = AncientHorn.decreaseCooldown(player, amount * 8);
         if (hornCooldown != -1) {

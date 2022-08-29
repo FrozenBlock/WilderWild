@@ -11,7 +11,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(BlockEntityType.class)
 public class BlockEntityTypeMixin {
-    @Inject(method = "isValid", at = @At("RETURN"), cancellable = true)
+    @Inject(method = "isValid", at = @At("HEAD"), cancellable = true)
     private void supports(BlockState state, CallbackInfoReturnable<Boolean> info) {
         if (BlockEntityType.SIGN.equals(this) && (state.getBlock() instanceof StandingSignBlock || state.getBlock() instanceof WallSignBlock)) {
             info.setReturnValue(true);

@@ -7,7 +7,9 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.*;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.RenderShape;
+import net.minecraft.world.level.block.SculkSensorBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
@@ -23,11 +25,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(SculkSensorBlock.class)
-public abstract class SculkSensorBlockMixin extends BaseEntityBlock implements SimpleWaterloggedBlock {
-
-    protected SculkSensorBlockMixin(Properties properties) {
-        super(properties);
-    }
+public class SculkSensorBlockMixin {
 
     @Inject(at = @At("TAIL"), method = "createBlockStateDefinition")
     public void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder, CallbackInfo info) {
@@ -44,11 +42,11 @@ public abstract class SculkSensorBlockMixin extends BaseEntityBlock implements S
     public <T extends BlockEntity> void getTicker(Level world, BlockState state, BlockEntityType<T> type, CallbackInfoReturnable<BlockEntityTicker<T>> info) {
         info.cancel();
         if (world.isClientSide) {
-            info.setReturnValue(createTickerHelper(type, BlockEntityType.SCULK_SENSOR, (worldx, pos, statex, blockEntity) -> {
+            info.setReturnValue(checkType(type, BlockEntityType.SCULK_SENSOR, (worldx, pos, statex, blockEntity) -> {
                 ((SculkSensorTickInterface) blockEntity).tickClient(worldx, pos, statex);
             }));
         } else {
-            info.setReturnValue(createTickerHelper(type, BlockEntityType.SCULK_SENSOR, (worldx, pos, statex, blockEntity) -> {
+            info.setReturnValue(checkType(type, BlockEntityType.SCULK_SENSOR, (worldx, pos, statex, blockEntity) -> {
                 ((SculkSensorTickInterface) blockEntity).tickServer((ServerLevel) worldx, pos, statex);
             }));
         }
@@ -66,5 +64,10 @@ public abstract class SculkSensorBlockMixin extends BaseEntityBlock implements S
     public void getRenderShape(BlockState state, CallbackInfoReturnable<RenderShape> info) {
         info.setReturnValue(WilderWild.RENDER_TENDRILS ? RenderShape.INVISIBLE : RenderShape.MODEL);
         info.cancel();
+    }
+
+    @Nullable
+    private static <E extends BlockEntity, A extends BlockEntity> BlockEntityTicker<A> checkType(BlockEntityType<A> givenType, BlockEntityType<E> expectedType, BlockEntityTicker<? super E> ticker) {
+        return expectedType == givenType ? (BlockEntityTicker<A>) ticker : null;
     }
 }

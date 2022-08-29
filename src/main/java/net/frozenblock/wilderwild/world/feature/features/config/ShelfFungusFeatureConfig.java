@@ -14,7 +14,6 @@ import net.minecraft.core.RegistryCodecs;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.levelgen.feature.configurations.FeatureConfiguration;
-
 import java.util.List;
 import java.util.Objects;
 

@@ -10,7 +10,6 @@ import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.block.state.properties.AttachFace;
 import net.minecraft.world.level.levelgen.feature.treedecorators.TreeDecorator;
 import net.minecraft.world.level.levelgen.feature.treedecorators.TreeDecoratorType;
-
 import java.util.List;
 
 public class ShelfFungusTreeDecorator extends TreeDecorator {

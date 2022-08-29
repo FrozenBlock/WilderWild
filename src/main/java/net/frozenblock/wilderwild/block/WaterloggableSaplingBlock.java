@@ -1,5 +1,8 @@
 package net.frozenblock.wilderwild.block;
 
+import org.jetbrains.annotations.Nullable;
+
+import java.util.Objects;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.item.context.BlockPlaceContext;
@@ -15,9 +18,6 @@ import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
-import org.jetbrains.annotations.Nullable;
-
-import java.util.Objects;
 
 public class WaterloggableSaplingBlock extends SaplingBlock implements SimpleWaterloggedBlock {
     private static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;

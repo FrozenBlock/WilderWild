@@ -1,7 +1,5 @@
 {
   "variants": {
-	"": {
-	  "model": "wilderwild:block/carnation"
-	}
+    "": { "model": "wilderwild:block/carnation" }
   }
 }

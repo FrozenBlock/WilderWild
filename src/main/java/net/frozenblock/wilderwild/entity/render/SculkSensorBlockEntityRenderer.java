@@ -7,7 +7,6 @@ import net.fabricmc.api.Environment;
 import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.WilderWildClient;
 import net.frozenblock.wilderwild.misc.SculkSensorTickInterface;
-import net.frozenblock.wilderwild.misc.config.ClothConfigInteractionHandler;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.CubeListBuilder;
 import net.minecraft.client.model.geom.builders.LayerDefinition;
@@ -48,7 +47,7 @@ public class SculkSensorBlockEntityRenderer<T extends SculkSensorBlockEntity> im
     }
 
     public void render(T entity, float tickDelta, PoseStack matrices, MultiBufferSource vertexConsumers, int light, int overlay) {
-        if (ClothConfigInteractionHandler.mcLiveSensorTendrils()) {
+        if (WilderWild.RENDER_TENDRILS) {
             SculkSensorTickInterface tickInterface = ((SculkSensorTickInterface) entity);
             if (tickInterface.isActive()) {
                 int prevTicks = tickInterface.getPrevAnimTicks();

@@ -1,6 +1,5 @@
 package net.frozenblock.wilderwild.misc.mod_compat.simple_copper_pipes;
 
-import net.frozenblock.lib.sound.FrozenSoundPackets;
 import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.entity.AncientHornProjectile;
 import net.frozenblock.wilderwild.misc.server.EasyPacket;
@@ -8,7 +7,6 @@ import net.frozenblock.wilderwild.registry.RegisterBlocks;
 import net.frozenblock.wilderwild.registry.RegisterItems;
 import net.frozenblock.wilderwild.registry.RegisterSounds;
 import net.lunade.copper.FittingPipeDispenses;
-import net.lunade.copper.PipeMovementRestrictions;
 import net.lunade.copper.RegisterPipeNbtMethods;
 import net.lunade.copper.blocks.CopperPipe;
 import net.minecraft.core.Direction;
@@ -25,7 +23,7 @@ public class RegisterSaveableMoveablePipeNbt {
     public static final ResourceLocation horn = new ResourceLocation(WilderWild.MOD_ID, "ancient_horn");
 
     public static void init() {
-        WilderWild.log("WILDERWILD AND COPPER PIPES SECRET LOG MESSAGE UNLOCKED!!!", true);
+        WilderWild.log("Registering A Saveable Moveable Simple Copper Pipe NBT Dispense Method For WilderWild!", true);
         RegisterPipeNbtMethods.register(horn, (nbt, world, pos, blockState, copperPipeEntity) -> {
             if (!nbt.getCanOnlyBeUsedOnce() || nbt.getUseCount() < 1) {
                 BlockState state = world.getBlockState(pos);
@@ -38,7 +36,7 @@ public class RegisterSaveableMoveablePipeNbt {
                         projectileEntity.setOwner(nbt.foundEntity);
                         projectileEntity.shotByPlayer = true;
                         world.addFreshEntity(projectileEntity);
-                        FrozenSoundPackets.createMovingLoopingSound(world, projectileEntity, RegisterSounds.ENTITY_ANCIENT_HORN_PROJECTILE_LOOP, SoundSource.NEUTRAL, 1.0F, 1.0F, WilderWild.id("default"));
+                        EasyPacket.createMovingLoopingSound(world, projectileEntity, RegisterSounds.ANCIENT_HORN_PROJECTILE_LOOP, SoundSource.NEUTRAL, 1.0F, 1.0F, WilderWild.id("default"));
                     }
                 }
             }
@@ -136,10 +134,6 @@ public class RegisterSaveableMoveablePipeNbt {
                 }
             }
         });
-
-        PipeMovementRestrictions.register(WilderWild.id("stone_chest"),
-                ((serverLevel, blockPos, blockState, copperPipeEntity, blockEntity) -> false),
-                ((serverLevel, blockPos, blockState, copperPipeEntity, blockEntity) -> false));
 
     }
 

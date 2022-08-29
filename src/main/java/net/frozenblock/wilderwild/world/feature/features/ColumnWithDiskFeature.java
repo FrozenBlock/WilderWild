@@ -14,7 +14,6 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.Heightmap.Types;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
-
 import java.util.Optional;
 
 public class ColumnWithDiskFeature extends Feature<ColumnWithDiskFeatureConfig> {
