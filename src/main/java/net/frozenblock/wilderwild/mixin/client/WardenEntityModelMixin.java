@@ -80,7 +80,7 @@ public abstract class WardenEntityModelMixin<T extends Warden> implements Wilder
     }
 
 
-    @Inject(at = @At("HEAD"), method = "animateTendrils", cancellable = true)
+    @Inject(at = @At("TAIL"), method = "animateTendrils")
     private void animateTendrils(T warden, float animationProgress, float tickDelta, CallbackInfo info) { //CUSTOM TENDRIL ANIMATION
 
         float cos = warden.getTendrilAnimation(tickDelta) * (float) (Math.cos((double) animationProgress * 2.25D) * 3.141592653589793D * 0.10000000149011612D);
@@ -99,7 +99,6 @@ public abstract class WardenEntityModelMixin<T extends Warden> implements Wilder
             this.leftTendril.xRot = cos;
             this.rightTendril.xRot = -cos;
         }
-        info.cancel();
     }
 
     @Inject(method = "setupAnim(Lnet/minecraft/world/entity/monster/warden/Warden;FFFFF)V", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/model/WardenModel;animate(Lnet/minecraft/world/entity/AnimationState;Lnet/minecraft/client/animation/AnimationDefinition;F)V", ordinal = 0, shift = At.Shift.BEFORE))
