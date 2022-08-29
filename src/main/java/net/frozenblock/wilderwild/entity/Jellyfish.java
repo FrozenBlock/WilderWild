@@ -307,9 +307,9 @@ public class Jellyfish extends AbstractFish {
         }
     }*/
 
-    //protected ParticleOptions getJellyParticle() {
+    /*protected ParticleOptions getJellyParticle() {
         return ParticleTypes.BUBBLE;
-    }
+    }*/
 
     @Override
     public ItemStack getBucketItemStack() {
