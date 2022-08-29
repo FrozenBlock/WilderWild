@@ -61,12 +61,6 @@ public class Jellyfish extends AbstractFish {
     public float zRot4;
     public float zRot5;
     public float zRot6;
-    public float tentacleMovement;
-    public float oldTentacleMovement;
-    public float tentacleAngle;
-    public float oldTentacleAngle;
-    private float speed;
-    private float tentacleSpeed;
     private float rotateSpeed;
 
     public int ticksSinceCantReach;
@@ -221,25 +215,9 @@ public class Jellyfish extends AbstractFish {
         this.zRot2 = this.zRot1;
         this.zRot1 = this.zBodyRot;
 
-        this.oldTentacleMovement = this.tentacleMovement;
-        this.oldTentacleAngle = this.tentacleAngle;
-        this.tentacleMovement += this.tentacleSpeed;
         boolean inWater = this.isInWaterOrBubble();
         if (inWater) {
-            if (this.tentacleMovement < (float) Math.PI) {
-                float f = this.tentacleMovement / (float) Math.PI;
-                this.tentacleAngle = Mth.sin(f * f * (float) Math.PI) * (float) Math.PI * 0.25f;
-                if ((double) f > 0.75) {
-                    this.speed = 1.0f;
-                    this.rotateSpeed = 1.0f;
-                } else {
-                    this.rotateSpeed *= 0.8f;
-                }
-            } else {
-                this.tentacleAngle = 0.0f;
-                this.speed *= 0.9f;
-                this.rotateSpeed *= 0.99f;
-            }
+            this.rotateSpeed *= 0.8f;
             Vec3 vec3 = this.getDeltaMovement();
             double d = vec3.horizontalDistance();
             this.yBodyRot += (-((float) Mth.atan2(vec3.x, vec3.z)) * 57.295776f - this.yBodyRot) * 0.1f;
@@ -247,7 +225,6 @@ public class Jellyfish extends AbstractFish {
             this.zBodyRot += (float) Math.PI * this.rotateSpeed * 1.5f;
             this.xBodyRot += (-((float) Mth.atan2(d, vec3.y)) * 57.295776f - this.xBodyRot) * 0.1f;
         } else {
-            this.tentacleAngle = Mth.abs(Mth.sin(this.tentacleMovement)) * (float) Math.PI * 0.25f;
             this.xBodyRot += (-90.0f - this.xBodyRot) * 0.02f;
         }
 
