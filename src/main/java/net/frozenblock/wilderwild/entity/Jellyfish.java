@@ -313,11 +313,10 @@ public class Jellyfish extends AbstractFish {
 
     @Override
     public boolean hurt(@NotNull DamageSource damageSource, float f) {
-        LivingEntity target = this.getLastHurtByMob();
-        if (super.hurt(damageSource, f) && target != null) {
+        if (super.hurt(damageSource, f)) {
             if (!this.level.isClientSide) {
                 //this.spawnJelly();
-                this.setAttackTarget(target);
+                this.setAttackTarget(this.getLastHurtByMob());
             }
             return true;
         }
