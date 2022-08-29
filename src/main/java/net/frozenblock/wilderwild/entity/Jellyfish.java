@@ -270,7 +270,7 @@ public class Jellyfish extends AbstractFish {
         }
     };
 
-    public static final TargetingConditions targetingConditions = TargetingConditions.forNonCombat().ignoreInvisibilityTesting().selector(SCARY_MOB);
+    public static final TargetingConditions targetingConditions = TargetingConditions.forNonCombat().ignoreInvisibilityTesting().ignoreLineOfSight().selector(SCARY_MOB);
 
     @Override
     protected void customServerAiStep() {
