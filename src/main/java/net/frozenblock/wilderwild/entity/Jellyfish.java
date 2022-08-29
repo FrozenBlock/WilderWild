@@ -310,9 +310,9 @@ public class Jellyfish extends AbstractFish {
     @Override
     public boolean hurt(@NotNull DamageSource damageSource, float f) {
         if (super.hurt(damageSource, f)) {
+            this.addEffect(new MobEffectInstance(MobEffects.REGENERATION, 100, 0, false, false, false), this);
             if (!this.level.isClientSide && this.level.getDifficulty() != Difficulty.PEACEFUL) {
                 //this.spawnJelly();
-                this.addEffect(new MobEffectInstance(MobEffects.REGENERATION, 100, 0, false, false, false), this);
                 this.setAttackTarget(this.getLastHurtByMob());
             }
             return true;
