@@ -137,10 +137,10 @@ public class JellyfishModel<T extends Jellyfish> extends HierarchicalModel<T> {
 
         this.body.xScale = lerp(animation, sinIdle + 1, squashStretch);
         this.body.zScale = lerp(animation, sinIdle + 1, squashStretch);
-        this.body.yScale = lerp(animation, -sinIdle + 1, 1.25F + (sin * 0.75F));
+        this.body.yScale = lerp(animation, -sinIdle + 1, 1.25F + (sin * 0.75F);
 
         this.body.y = lerp(animation, 0, 3.5F -(squashStretch * 3.5F));
-        this.tentacleRot.y = lerpAngleDegrees(animation, 0, (6F -(squashStretch * 5F)) * 2);
+        this.tentacleRot.y = lerpAngleDegrees(animation, 0, (6F -(squashStretch * 5F)) * 2));
     }
 
     @Override
