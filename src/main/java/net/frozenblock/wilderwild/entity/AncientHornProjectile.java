@@ -73,6 +73,8 @@ public class AncientHornProjectile extends AbstractArrow {
     public int bubbles;
     private BlockState inBlockState;
 
+    private float sussysize = 0.6F;
+
     public AncientHornProjectile(@NotNull EntityType<? extends AbstractArrow> entityType, Level world) {
         super(entityType, world);
         this.setSoundEvent(RegisterSounds.ENTITY_ANCIENT_HORN_PROJECTILE_DISSIPATE);
@@ -187,6 +189,13 @@ public class AncientHornProjectile extends AbstractArrow {
 
         this.setPos(h, j, k);
         this.checkInsideBlocks();
+    }
+
+    @Override
+    public EntityDimensions getDimensions(@NotNull Pose pose) {
+        this.sussysize = this.sussysize + 0.01F;
+
+        return EntityDimensions.scalable(this.getType().getWidth() + this.sussysize, this.getType().getWidth() + this.sussysize);
     }
 
     public void setCooldown(int cooldown) {
@@ -372,7 +381,8 @@ public class AncientHornProjectile extends AbstractArrow {
         return ItemStack.EMPTY;
     }
 
-    public void addAdditionalSaveData(CompoundTag nbt) {
+    @Override
+    public void addAdditionalSaveData(@NotNull CompoundTag nbt) {
         if (!this.isRemoved()) {
             if (this.inBlockState != null) {
                 nbt.put("inBlockState", NbtUtils.writeBlockState(this.inBlockState));
@@ -387,10 +397,12 @@ public class AncientHornProjectile extends AbstractArrow {
             nbt.putDouble("originZ", this.vecZ);
             nbt.putBoolean("shotByPlayer", this.shotByPlayer);
             nbt.putInt("bubbles", this.bubbles);
+            nbt.putFloat("sussysize", this.sussysize);
         }
     }
 
-    public void readAdditionalSaveData(CompoundTag nbt) {
+    @Override
+    public void readAdditionalSaveData(@NotNull CompoundTag nbt) {
         if (!this.isRemoved()) {
             if (nbt.contains("inBlockState", 10)) {
                 this.inBlockState = NbtUtils.readBlockState(nbt.getCompound("inBlockState"));
@@ -403,6 +415,7 @@ public class AncientHornProjectile extends AbstractArrow {
             this.vecZ = nbt.getDouble("originZ");
             this.shotByPlayer = nbt.getBoolean("shotByPlayer");
             this.bubbles = nbt.getInt("bubbles");
+            this.sussysize = nbt.getFloat("sussysize");
         }
     }
 
