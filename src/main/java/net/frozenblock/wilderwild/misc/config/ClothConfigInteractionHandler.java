@@ -1,7 +1,5 @@
 package net.frozenblock.wilderwild.misc.config;
 
-import net.frozenblock.wilderwild.WilderWildClient;
-
 /**
  * @deprecated Use WilderWildConfig.get() instead
  */

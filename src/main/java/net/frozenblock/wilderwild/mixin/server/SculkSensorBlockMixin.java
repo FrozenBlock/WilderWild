@@ -1,6 +1,5 @@
 package net.frozenblock.wilderwild.mixin.server;
 
-import net.frozenblock.wilderwild.WilderWildClient;
 import net.frozenblock.wilderwild.misc.SculkSensorTickInterface;
 import net.frozenblock.wilderwild.misc.config.WilderWildConfig;
 import net.frozenblock.wilderwild.registry.RegisterProperties;
