@@ -75,7 +75,7 @@ public class JellyfishRenderer extends MobRenderer<Jellyfish, JellyfishModel<Jel
         }
         if (jelly.hasPose(Pose.SLEEPING) && (direction = jelly.getBedOrientation()) != null) {
             n = jelly.getEyeHeight(Pose.STANDING) - 0.1f;
-            poseStack.translate((float)(-direction.getStepX()) * n, 0.0, (float)(-direction.getStepZ()) * n);
+            poseStack.translate((float) (-direction.getStepX()) * n, 0.0, (float) (-direction.getStepZ()) * n);
         }
         float l = this.getBob(jelly, g);
         this.setupRotations(jelly, poseStack, l, h, g);
@@ -166,9 +166,9 @@ public class JellyfishRenderer extends MobRenderer<Jellyfish, JellyfishModel<Jel
         double i = Mth.lerp(f, mob.yo, mob.getY()) + vec32.y;
         double j = Mth.lerp(f, mob.zo, mob.getZ()) + g;
         poseStack.translate(e, vec32.y, g);
-        float k = (float)(vec3.x - h);
-        float l = (float)(vec3.y - i);
-        float m = (float)(vec3.z - j);
+        float k = (float) (vec3.x - h);
+        float l = (float) (vec3.y - i);
+        float m = (float) (vec3.z - j);
         VertexConsumer vertexConsumer = multiBufferSource.getBuffer(RenderType.leash());
         Matrix4f matrix4f = poseStack.last().pose();
         float o = Mth.fastInvSqrt(k * k + m * m) * 0.025f / 2.0f;
@@ -190,7 +190,7 @@ public class JellyfishRenderer extends MobRenderer<Jellyfish, JellyfishModel<Jel
     }
 
     private static void addVertexPair(VertexConsumer vertexConsumer, Matrix4f matrix4f, float f, float g, float h, int i, int j, int k, int l, float m, float n, float o, float p, int q, boolean bl) {
-        float r = (float)q / 24.0f;
+        float r = (float) q / 24.0f;
         int s = (int) (i + r * (j - i));
         int t = (int) (k + r * (l - k));
         int u = LightTexture.pack(s, t);
