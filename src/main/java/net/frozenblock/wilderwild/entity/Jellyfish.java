@@ -224,7 +224,8 @@ public class Jellyfish extends AbstractFish {
         this.oldTentacleMovement = this.tentacleMovement;
         this.oldTentacleAngle = this.tentacleAngle;
         this.tentacleMovement += this.tentacleSpeed;
-        if (this.isInWaterOrBubble()) {
+        boolean inWater = this.isInWaterOrBubble();
+        if (inWater) {
             if (this.tentacleMovement < (float) Math.PI) {
                 float f = this.tentacleMovement / (float) Math.PI;
                 this.tentacleAngle = Mth.sin(f * f * (float) Math.PI) * (float) Math.PI * 0.25f;
@@ -250,7 +251,9 @@ public class Jellyfish extends AbstractFish {
             this.xBodyRot += (-90.0f - this.xBodyRot) * 0.02f;
         }
 
-        this.heal(0.025F);
+        if (inWater) {
+            this.heal(0.02F);
+        }
 
         LivingEntity target = this.getTarget();
         if (target != null) {
@@ -260,7 +263,7 @@ public class Jellyfish extends AbstractFish {
                 this.ticksSinceCantReach = 0;
             } else {
                 this.getNavigation().stop();
-                this.getNavigation().moveTo(this.getTarget(), 1.7);
+                this.getNavigation().moveTo(this.getTarget(), 1.8);
                 if (target.distanceTo(this) < 5) {
                     this.ticksSinceCantReach = Math.max(this.ticksSinceCantReach - 2, 0);
                 }
