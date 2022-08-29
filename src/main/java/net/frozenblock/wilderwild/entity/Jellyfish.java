@@ -283,7 +283,7 @@ public class Jellyfish extends AbstractFish {
         LivingEntity target = this.getLastHurtByMob();
         if (super.hurt(damageSource, f) && target != null) {
             if (!this.level.isClientSide) {
-                this.spawnJelly();
+                //this.spawnJelly();
                 this.setAttackTarget(target);
             }
             return true;
@@ -297,7 +297,7 @@ public class Jellyfish extends AbstractFish {
         return vec32;
     }
 
-    private void spawnJelly() {
+    /*private void spawnJelly() {
         this.playSound(this.getSquirtSound(), this.getSoundVolume(), this.getVoicePitch());
         Vec3 vec3 = this.rotateVector(new Vec3(0.0, -1.0, 0.0)).add(this.getX(), this.getY(), this.getZ());
         for (int i = 0; i < 30; ++i) {
@@ -305,9 +305,9 @@ public class Jellyfish extends AbstractFish {
             Vec3 vec33 = vec32.scale(0.3 + (double) (this.random.nextFloat() * 2.0f));
             ((ServerLevel) this.level).sendParticles(this.getJellyParticle(), vec3.x, vec3.y + 0.5, vec3.z, 0, vec33.x, vec33.y, vec33.z, 0.1f);
         }
-    }
+    }*/
 
-    protected ParticleOptions getJellyParticle() {
+    //protected ParticleOptions getJellyParticle() {
         return ParticleTypes.BUBBLE;
     }
 
