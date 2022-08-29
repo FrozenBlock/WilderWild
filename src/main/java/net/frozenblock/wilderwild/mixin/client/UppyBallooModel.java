@@ -11,7 +11,7 @@ import org.spongepowered.asm.mixin.Mixin;
 
 @Environment(EnvType.CLIENT)
 @Mixin(PigModel.class)
-public abstract class UppyBallooModel<T extends Entity> extends QuadrupedModel<T> {
+public class UppyBallooModel<T extends Entity> extends QuadrupedModel<T> {
 
     private static final float radians = ((float) Math.PI / 180);
     private static final float non_uppy_balloo_angle = 90 * radians;

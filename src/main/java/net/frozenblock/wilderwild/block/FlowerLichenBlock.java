@@ -1,14 +1,9 @@
 package net.frozenblock.wilderwild.block;
 
-import net.frozenblock.wilderwild.misc.FlowerLichenParticleRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.core.particles.ParticleOptions;
-import net.minecraft.util.Mth;
-import net.minecraft.util.RandomSource;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
-import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
@@ -22,23 +17,6 @@ public class FlowerLichenBlock extends MultifaceBlock {
 
     public FlowerLichenBlock(Properties settings) {
         super(settings);
-    }
-
-    public void animateTick(BlockState state, Level world, BlockPos pos, RandomSource random) {
-        if (FlowerLichenParticleRegistry.blocks.contains(state.getBlock())) {
-            int i = pos.getX();
-            int j = pos.getY();
-            int k = pos.getZ();
-            BlockPos.MutableBlockPos mutable = new BlockPos.MutableBlockPos();
-            ParticleOptions particle = FlowerLichenParticleRegistry.particles.get(FlowerLichenParticleRegistry.blocks.indexOf(this));
-            for (int l = 0; l < 7; ++l) {
-                mutable.set(i + Mth.nextInt(random, -10, 10), j - random.nextInt(10), k + Mth.nextInt(random, -10, 10));
-                BlockState blockState = world.getBlockState(mutable);
-                if (!blockState.isCollisionShapeFullBlock(world, mutable)) {
-                    world.addParticle(particle, (double) mutable.getX() + random.nextDouble(), (double) mutable.getY() + random.nextDouble(), (double) mutable.getZ() + random.nextDouble(), 0.0D, 0.0D, 0.0D);
-                }
-            }
-        }
     }
 
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {

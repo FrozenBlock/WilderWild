@@ -33,3 +33,23 @@ accessible    method    net/minecraft/client/renderer/RenderType$CompositeRender
 accessible    method    net/minecraft/client/renderer/RenderStateShard$TextureStateShard    <init>    (Lnet/minecraft/resources/ResourceLocation;ZZ)V
 accessible    field    net/minecraft/client/renderer/RenderStateShard    TRANSLUCENT_TRANSPARENCY    Lnet/minecraft/client/renderer/RenderStateShard$TransparencyStateShard;
 accessible    method    net/minecraft/world/entity/SpawnPlacements   register    (Lnet/minecraft/world/entity/EntityType;Lnet/minecraft/world/entity/SpawnPlacements$Type;Lnet/minecraft/world/level/levelgen/Heightmap$Types;Lnet/minecraft/world/entity/SpawnPlacements$SpawnPredicate;)V
+accessible    method    net/minecraft/world/level/levelgen/structure/pools/SinglePoolElement    <init>    (Lcom/mojang/datafixers/util/Either;Lnet/minecraft/core/Holder;Lnet/minecraft/world/level/levelgen/structure/pools/StructureTemplatePool$Projection;)V
+accessible    method    net/minecraft/client/renderer/Sheets    chestMaterial    (Ljava/lang/String;)Lnet/minecraft/client/resources/model/Material;
+accessible    field    net/minecraft/world/CompoundContainer    container1    Lnet/minecraft/world/Container;
+accessible    field    net/minecraft/world/CompoundContainer    container2    Lnet/minecraft/world/Container;
+accessible    method    net/minecraft/world/level/block/AbstractCauldronBlock    canReceiveStalactiteDrip    (Lnet/minecraft/world/level/material/Fluid;)Z
+accessible    field    net/minecraft/world/level/block/entity/RandomizableContainerBlockEntity    lootTable    Lnet/minecraft/resources/ResourceLocation;
+accessible    method    net/minecraft/world/item/ItemCooldowns$CooldownInstance    <init>    (II)V
+accessible    field    net/minecraft/world/item/ItemStack    tag    Lnet/minecraft/nbt/CompoundTag;
+accessible    field    net/minecraft/world/level/levelgen/structure/structures/JigsawStructure    maxDistanceFromCenter    I
+accessible    field    net/minecraft/world/level/levelgen/structure/structures/JigsawStructure    startJigsawName    Ljava/util/Optional;
+accessible    field    net/minecraft/world/level/levelgen/structure/structures/JigsawStructure    maxDepth    I
+accessible    field    net/minecraft/world/level/levelgen/structure/structures/JigsawStructure    startHeight    Lnet/minecraft/world/level/levelgen/heightproviders/HeightProvider;
+accessible    field    net/minecraft/world/level/levelgen/structure/structures/JigsawStructure    useExpansionHack    Z
+accessible    field    net/minecraft/world/level/levelgen/structure/structures/JigsawStructure    startPool    Lnet/minecraft/core/Holder;
+accessible    field    net/minecraft/world/level/levelgen/structure/structures/JigsawStructure    projectStartToHeightmap    Ljava/util/Optional;
+accessible    field    net/minecraft/world/level/levelgen/structure/Structure    settings    Lnet/minecraft/world/level/levelgen/structure/Structure$StructureSettings;
+accessible    method    net/minecraft/client/gui/screens/Screen    addRenderableWidget    (Lnet/minecraft/client/gui/components/events/GuiEventListener;)Lnet/minecraft/client/gui/components/events/GuiEventListener;
+accessible    field    net/minecraft/client/gui/screens/inventory/JigsawBlockEditScreen    MAX_LEVELS    I
+accessible    class    net/minecraft/world/level/chunk/ChunkStatus$SimpleGenerationTask
+accessible method net/minecraft/data/worldgen/biome/OverworldBiomes calculateSkyColor (F)I

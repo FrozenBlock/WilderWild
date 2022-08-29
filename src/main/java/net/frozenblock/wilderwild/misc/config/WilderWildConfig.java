@@ -1,36 +1,64 @@
 package net.frozenblock.wilderwild.misc.config;
 
-import com.terraformersmc.modmenu.config.option.BooleanConfigOption;
-import com.terraformersmc.modmenu.config.option.OptionConvertable;
-import java.lang.reflect.Field;
-import java.lang.reflect.Modifier;
-import java.util.ArrayList;
-import net.minecraft.client.OptionInstance;
+import net.frozenblock.wilderwild.WilderWild;
+import me.shedaniel.autoconfig.AutoConfig;
+import me.shedaniel.autoconfig.annotation.Config;
+import me.shedaniel.autoconfig.annotation.ConfigEntry;
+import me.shedaniel.autoconfig.serializer.GsonConfigSerializer;
+import me.shedaniel.autoconfig.serializer.PartitioningSerializer;
+import net.minecraft.network.chat.Component;
 
-public class WilderWildConfig {
+public class WilderWildConfig extends PartitioningSerializer.GlobalData {
+    @ConfigEntry.Category("block")
+    @ConfigEntry.Gui.TransitiveObject
+    public BlockConfig block = new BlockConfig();
 
-    //public static final EnumConfigOption<ModMenuConfig.ModsButtonStyle> MODS_BUTTON_STYLE = new EnumConfigOption<>("mods_button_style", ModMenuConfig.ModsButtonStyle.CLASSIC);
-    public static final BooleanConfigOption MODIFY_DESERT_PLACEMENT = new BooleanConfigOption("modify_desert_placement", true);
-    public static final BooleanConfigOption MODIFY_BADLANDS_PLACEMENT = new BooleanConfigOption("modify_badlands_placement", true);
-    public static final BooleanConfigOption MODIFY_WINDSWEPT_SAVANNA_PLACEMENT = new BooleanConfigOption("modify_windswept_savanna_placement", true);
-    public static final BooleanConfigOption MODIFY_JUNGLE_PLACEMENT = new BooleanConfigOption("modify_jungle_placement", true);
-    public static final BooleanConfigOption MODIFY_SWAMP_PLACEMENT = new BooleanConfigOption("modify_swamp_placement", true);
-    public static final BooleanConfigOption MODIFY_MANGROVE_SWAMP_PLACEMENT = new BooleanConfigOption("modify_mangrove_swamp_placement", true);
-    public static final BooleanConfigOption MC_LIVE_SENSOR_TENDRILS = new BooleanConfigOption("mc_live_sensor_tendrils", false);
-    //public static final StringSetConfigOption HIDDEN_MODS = new StringSetConfigOption("hidden_mods", new HashSet<>());
+    public boolean mcLiveSensorTendrils = true;
+    public boolean shriekerGargling = true;
 
-    public static OptionInstance<?>[] asOptions() {
-        ArrayList<OptionInstance<?>> options = new ArrayList<>();
-        for (Field field : WilderWildConfig.class.getDeclaredFields()) {
-            if (Modifier.isStatic(field.getModifiers()) && Modifier.isFinal(field.getModifiers()) && OptionConvertable.class.isAssignableFrom(field.getType())) {
-                try {
-                    options.add(((OptionConvertable) field.get(null)).asOption());
-                } catch (IllegalAccessException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
-        return options.toArray(OptionInstance[]::new);
+    @ConfigEntry.Category("entity")
+    @ConfigEntry.Gui.TransitiveObject
+    public EntityConfig entity = new EntityConfig();
+
+    public boolean wardenEmergesFromEgg = true;
+    public boolean customWardenTendrils = true;
+    public boolean wardenSwimAnimation = true;
+
+    @ConfigEntry.Category("worldgen")
+    @ConfigEntry.Gui.TransitiveObject
+    public WorldgenConfig worldgen = new WorldgenConfig();
+
+    public boolean betaBeaches = true;
+    public boolean modifyDesertPlacement = true;
+    public boolean modifyBadlandsPlacement = true;
+    public boolean modifyWindsweptSavannaPlacement = true;
+    public boolean modifyJunglePlacement = true;
+    public boolean modifySwampPlacement = true;
+    public boolean modifyMangroveSwampPlacement = true;
+
+    public static Component text(String key) {
+        return Component.translatable("option." + WilderWild.MOD_ID + "." + key);
     }
 
+    public static Component tooltip(String key) {
+        return Component.translatable("tooltip." + WilderWild.MOD_ID + "." + key);
+    }
 }
+/* public class WilderWildConfig {
+
+    //public static final EnumConfigOption<ModMenuConfig.ModsButtonStyle> MODS_BUTTON_STYLE = new EnumConfigOption<>("mods_button_style", ModMenuConfig.ModsButtonStyle.CLASSIC);
+    public boolean betaBeaches = true;
+    public boolean modifyDesertPlacement = true;
+    public boolean modifyBadlandsPlacement = true;
+    public boolean modifyWindsweptSavannaPlacement = true;
+    public boolean modifyJunglePlacement = true;
+    public boolean modifySwampPlacement = true;
+    public boolean modifyMangroveSwampPlacement = true;
+    public boolean mcLiveSensorTendrils = false;
+    public boolean wardenEmergesFromEgg = true;
+    public boolean customWardenTendrils = true;
+    public boolean wardenSwimAnimation = true;
+    public boolean shriekerGargling = true;
+    //public static final StringSetConfigOption HIDDEN_MODS = new StringSetConfigOption("hidden_mods", new HashSet<>());
+
+} */

@@ -1,5 +1,6 @@
 package net.frozenblock.wilderwild.block;
 
+import net.frozenblock.wilderwild.tag.WilderEntityTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
@@ -57,7 +58,9 @@ public class AlgaeBlock extends Block {
         if (entity.getType().equals(EntityType.FALLING_BLOCK)) {
             world.destroyBlock(pos, false);
         }
-        entity.makeStuckInBlock(state, new Vec3(0.95D, 0.95D, 0.95D));
+        if (!entity.getType().is(WilderEntityTags.CAN_SWIM_IN_ALGAE)) {
+            entity.makeStuckInBlock(state, new Vec3(0.57D, 0.57D, 0.57D));
+        }
     }
 
     private static boolean canLayAt(BlockGetter world, BlockPos pos) {

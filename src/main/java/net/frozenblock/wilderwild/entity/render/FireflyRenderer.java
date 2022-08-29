@@ -66,8 +66,8 @@ public class FireflyRenderer extends EntityRenderer<Firefly> {
 
         int age = entity.getFlickerAge();
         boolean flickers = entity.flickers();
-        float preScale = entity.getScale();
-        float scale = preScale == 1.5F ? 1.5F : preScale - (tickDelta * 0.001875F);
+        float prevScale = entity.getPrevScale();
+        float scale = prevScale + (tickDelta * (entity.getScale() - prevScale));
 
         int overlay = getOverlay(entity, 0);
 

@@ -1,6 +1,6 @@
 package net.frozenblock.wilderwild.block;
 
-import net.frozenblock.api.mathematics.EasyNoiseSampler;
+import net.frozenblock.lib.mathematics.EasyNoiseSampler;
 import net.frozenblock.wilderwild.registry.RegisterBlocks;
 import net.frozenblock.wilderwild.registry.RegisterProperties;
 import net.minecraft.core.BlockPos;
@@ -90,7 +90,7 @@ public class OsseousSculkBlock extends RotatedPillarBlock implements SculkBehavi
         }
         int i = cursor.getCharge();
         int j = 1;
-        if (i != 0 && random.nextInt(1) == 0) {
+        if (i != 0 && random.nextInt(2) == 0) {
             BlockPos blockPos = cursor.getPos();
             boolean bl = blockPos.closerThan(catalystPos, spreadManager.noGrowthRadius());
             if (!bl) {

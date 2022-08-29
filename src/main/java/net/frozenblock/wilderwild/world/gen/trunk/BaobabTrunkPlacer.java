@@ -3,7 +3,7 @@ package net.frozenblock.wilderwild.world.gen.trunk;
 import com.google.common.collect.Lists;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import net.frozenblock.api.mathematics.AdvancedMath;
+import net.frozenblock.lib.mathematics.AdvancedMath;
 import net.frozenblock.wilderwild.WilderWild;
 import net.minecraft.core.BlockPos;
 import net.minecraft.util.RandomSource;
@@ -13,11 +13,12 @@ import net.minecraft.world.level.levelgen.feature.configurations.TreeConfigurati
 import net.minecraft.world.level.levelgen.feature.foliageplacers.FoliagePlacer;
 import net.minecraft.world.level.levelgen.feature.trunkplacers.TrunkPlacer;
 import net.minecraft.world.level.levelgen.feature.trunkplacers.TrunkPlacerType;
+
 import java.util.List;
 import java.util.function.BiConsumer;
 
 public class BaobabTrunkPlacer extends TrunkPlacer {
-    public static final Codec<net.frozenblock.wilderwild.world.gen.trunk.BaobabTrunkPlacer> CODEC = RecordCodecBuilder.create((instance) ->
+    public static final Codec<BaobabTrunkPlacer> CODEC = RecordCodecBuilder.create((instance) ->
             trunkPlacerParts(instance).apply(instance, BaobabTrunkPlacer::new));
 
     public BaobabTrunkPlacer(int i, int j, int k) {

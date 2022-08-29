@@ -2,21 +2,15 @@
   "type": "minecraft:crafting_shapeless",
   "group": "firefly_bottle",
   "ingredients": [
-    {
-      "item": "wilderwild:firefly_bottle"
-    },
-    {
-      "item": "wilderwild:firefly_bottle"
-    },
-    {
-      "item": "wilderwild:firefly_bottle"
-    },
-    {
-      "item": "minecraft:red_dye"
-    }
+	{
+	  "item": "wilderwild:firefly_bottle"
+	},
+	{
+	  "item": "minecraft:red_dye"
+	}
   ],
   "result": {
-    "item": "wilderwild:red_firefly_bottle",
-    "count": 3
+	"item": "wilderwild:red_firefly_bottle",
+	"count": 1
   }
 }

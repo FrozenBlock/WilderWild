@@ -1,7 +1,7 @@
 package net.frozenblock.wilderwild.world.feature.features;
 
 import com.mojang.serialization.Codec;
-import net.frozenblock.api.mathematics.EasyNoiseSampler;
+import net.frozenblock.lib.mathematics.EasyNoiseSampler;
 import net.frozenblock.wilderwild.world.feature.features.config.PathFeatureConfig;
 import net.minecraft.core.BlockPos;
 import net.minecraft.util.RandomSource;
@@ -10,6 +10,7 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
 import net.minecraft.world.level.levelgen.synth.ImprovedNoise;
+
 import java.util.Iterator;
 
 public class NoisePathUnderWaterFeature extends Feature<PathFeatureConfig> {

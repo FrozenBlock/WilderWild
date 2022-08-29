@@ -11,12 +11,13 @@ import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
 public final class RegisterLootTables {
 
     public static void init() {
-        //ANCIENT HORN
+        //ANCIENT HORN FRAGMENT
         LootTableEvents.MODIFY.register((resourceManager, lootManager, id, tableBuilder, source) -> {
             if (BuiltInLootTables.ANCIENT_CITY.equals(id) && source.isBuiltin()) {
                 LootPool.Builder pool = LootPool.lootPool()
-                        .add(LootItem.lootTableItem(RegisterItems.ANCIENT_HORN).setWeight(1).setQuality(Rarity.EPIC.ordinal() + 1)).apply(SetItemCountFunction.setCount(UniformGenerator.between(-10.0F, 0.5F)));
-
+                        .add(LootItem.lootTableItem(RegisterItems.ANCIENT_HORN_FRAGMENT).setWeight(2).setQuality(Rarity.EPIC.ordinal() + 1)).
+                        apply(SetItemCountFunction.setCount(UniformGenerator.between(-0.4F, 1.2F)))/*.apply(SetInstrumentFunction.setInstrumentOptions(WilderInstrumentTags.ANCIENT_HORNS))*/;
+                        
                 tableBuilder.withPool(pool);
             }
         });
@@ -29,11 +30,11 @@ public final class RegisterLootTables {
                 tableBuilder.withPool(pool);
             }
         });
-        //BAOBAB SAPLING
+        //BAOBAB NUT
         LootTableEvents.MODIFY.register((resourceManager, lootManager, id, tableBuilder, source) -> {
             if (BuiltInLootTables.VILLAGE_SAVANNA_HOUSE.equals(id) && source.isBuiltin()) {
                 LootPool.Builder pool = LootPool.lootPool()
-                        .add(LootItem.lootTableItem(RegisterBlocks.BAOBAB_SAPLING.asItem()).setWeight(2).setQuality(Rarity.COMMON.ordinal() + 1)).apply(SetItemCountFunction.setCount(UniformGenerator.between(-1.0F, 1.0F)));
+                        .add(LootItem.lootTableItem(RegisterItems.BAOBAB_NUT.asItem()).setWeight(2).setQuality(Rarity.COMMON.ordinal() + 1)).apply(SetItemCountFunction.setCount(UniformGenerator.between(-1.0F, 1.0F)));
 
                 tableBuilder.withPool(pool);
             }

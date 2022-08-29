@@ -3,21 +3,22 @@ package net.frozenblock.wilderwild.registry;
 import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.world.feature.WilderMiscPlaced;
 import net.frozenblock.wilderwild.world.feature.WilderPlacedFeatures;
+import net.frozenblock.wilderwild.world.gen.noise.WilderNoiseKeys;
 import net.minecraft.core.Registry;
 import net.minecraft.data.BuiltinRegistries;
 import net.minecraft.data.worldgen.BiomeDefaultFeatures;
+import net.minecraft.data.worldgen.Carvers;
+import net.minecraft.data.worldgen.biome.OverworldBiomes;
+import net.minecraft.data.worldgen.placement.CavePlacements;
 import net.minecraft.data.worldgen.placement.MiscOverworldPlacements;
 import net.minecraft.data.worldgen.placement.VegetationPlacements;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.sounds.Music;
 import net.minecraft.sounds.Musics;
+import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
-import net.minecraft.world.level.biome.AmbientMoodSettings;
-import net.minecraft.world.level.biome.Biome;
-import net.minecraft.world.level.biome.BiomeGenerationSettings;
-import net.minecraft.world.level.biome.BiomeSpecialEffects;
-import net.minecraft.world.level.biome.MobSpawnSettings;
+import net.minecraft.world.level.biome.*;
 import net.minecraft.world.level.levelgen.GenerationStep;
 
 import static net.minecraft.data.worldgen.biome.OverworldBiomes.jungle;
@@ -26,18 +27,22 @@ import static net.minecraft.data.worldgen.biome.OverworldBiomes.swamp;
 public final class RegisterWorldgen {
     public static final ResourceKey<Biome> MIXED_FOREST = register("mixed_forest");
     public static final ResourceKey<Biome> CYPRESS_WETLANDS = register("cypress_wetlands");
+    public static final ResourceKey<Biome> JELLYFISH_CAVES = register("jellyfish_caves");
 
     public static void registerWorldGen() {
         WilderWild.logWild("Registering Biomes for", WilderWild.UNSTABLE_LOGGING);
-        BuiltinRegistries.register(BuiltinRegistries.BIOME, MIXED_FOREST, createMixedForest());
-        BuiltinRegistries.register(BuiltinRegistries.BIOME, CYPRESS_WETLANDS, createCypressWetlands());
+        BuiltinRegistries.register(BuiltinRegistries.BIOME, MIXED_FOREST, mixedForest());
+        BuiltinRegistries.register(BuiltinRegistries.BIOME, CYPRESS_WETLANDS, cypressWetlands());
+        BuiltinRegistries.register(BuiltinRegistries.BIOME, JELLYFISH_CAVES, jellyfishCaves());
+
+        WilderNoiseKeys.init();
     }
 
     private static ResourceKey<Biome> register(String name) {
         return ResourceKey.create(Registry.BIOME_REGISTRY, WilderWild.id(name));
     }
 
-    public static Biome createMixedForest() {
+    public static Biome mixedForest() {
         MobSpawnSettings.Builder builder = new MobSpawnSettings.Builder();
         BiomeDefaultFeatures.commonSpawns(builder);
         BiomeDefaultFeatures.plainsSpawns(builder);
@@ -63,7 +68,7 @@ public final class RegisterWorldgen {
                 .build();
     }
 
-    public static Biome createCypressWetlands() {
+    public static Biome cypressWetlands() {
         MobSpawnSettings.Builder builder = new MobSpawnSettings.Builder();
         BiomeDefaultFeatures.commonSpawns(builder);
         addCypressWetlandsMobs(builder);
@@ -84,6 +89,43 @@ public final class RegisterWorldgen {
                                 .grassColorOverride(7979098)
                                 .ambientMoodSound(AmbientMoodSettings.LEGACY_CAVE_SETTINGS)
                                 .backgroundMusic(musicSound).build())
+                .mobSpawnSettings(builder.build())
+                .generationSettings(builder2.build())
+                .build();
+    }
+
+    public static Biome jellyfishCaves() {
+        MobSpawnSettings.Builder builder = new MobSpawnSettings.Builder();
+        builder.addSpawn(MobCategory.UNDERGROUND_WATER_CREATURE, new MobSpawnSettings.SpawnerData(RegisterEntities.JELLYFISH, 5, 4, 6));
+        BiomeGenerationSettings.Builder builder2 = new BiomeGenerationSettings.Builder();
+        BiomeDefaultFeatures.addDefaultCrystalFormations(builder2);
+        builder2.addFeature(GenerationStep.Decoration.UNDERGROUND_STRUCTURES, CavePlacements.MONSTER_ROOM_DEEP);
+        BiomeDefaultFeatures.addDefaultUndergroundVariety(builder2);
+        BiomeDefaultFeatures.addSurfaceFreezing(builder2);
+        BiomeDefaultFeatures.addPlainGrass(builder2);
+        BiomeDefaultFeatures.addDefaultOres(builder2, true);
+        BiomeDefaultFeatures.addDefaultSoftDisks(builder2);
+        BiomeDefaultFeatures.addPlainVegetation(builder2);
+        BiomeDefaultFeatures.addDefaultMushrooms(builder2);
+        BiomeDefaultFeatures.addDefaultExtraVegetation(builder2);
+        BiomeDefaultFeatures.addDefaultCarversAndLakes(builder2);
+        builder2.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, CavePlacements.LUSH_CAVES_CLAY);
+        //builder2.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, WilderPlacedFeatures.PATCH_AMETHYST);
+        Music music = Musics.createGameMusic(SoundEvents.MUSIC_BIOME_LUSH_CAVES);
+        return new Biome.BiomeBuilder()
+                .precipitation(Biome.Precipitation.RAIN)
+                .temperature(0.8F)
+                .downfall(0.4F)
+                .specialEffects(
+                        new BiomeSpecialEffects.Builder()
+                                .waterColor(4552818)
+                                .waterFogColor(4552818)
+                                .fogColor(12638463)
+                                .skyColor(OverworldBiomes.calculateSkyColor(0.8F))
+                                .foliageColorOverride(5877296)
+                                .grassColorOverride(7979098)
+                                .ambientMoodSound(AmbientMoodSettings.LEGACY_CAVE_SETTINGS)
+                                .backgroundMusic(music).build())
                 .mobSpawnSettings(builder.build())
                 .generationSettings(builder2.build())
                 .build();

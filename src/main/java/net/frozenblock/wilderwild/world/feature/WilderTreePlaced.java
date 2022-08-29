@@ -45,8 +45,8 @@ public final class WilderTreePlaced {
     public static final Holder<PlacedFeature> FALLEN_SPRUCE_CHECKED = PlacementUtils.register("fallen_spruce_checked", WilderTreeConfigured.FALLEN_SPRUCE_TREE, PlacementUtils.filteredByBlockSurvival(Blocks.SPRUCE_SAPLING));
 
     //BAOBAB
-    public static final Holder<PlacedFeature> BAOBAB = PlacementUtils.register("baobab", WilderTreeConfigured.BAOBAB, PlacementUtils.filteredByBlockSurvival(RegisterBlocks.BAOBAB_SAPLING));
-    public static final Holder<PlacedFeature> BAOBAB_TALL = PlacementUtils.register("baobab_tall", WilderTreeConfigured.BAOBAB_TALL, PlacementUtils.filteredByBlockSurvival(RegisterBlocks.BAOBAB_SAPLING));
+    public static final Holder<PlacedFeature> BAOBAB = PlacementUtils.register("baobab", WilderTreeConfigured.BAOBAB, PlacementUtils.filteredByBlockSurvival(RegisterBlocks.BAOBAB_NUT));
+    public static final Holder<PlacedFeature> BAOBAB_TALL = PlacementUtils.register("baobab_tall", WilderTreeConfigured.BAOBAB_TALL, PlacementUtils.filteredByBlockSurvival(RegisterBlocks.BAOBAB_NUT));
 
     //CYPRESS
     public static final Holder<PlacedFeature> CYPRESS = PlacementUtils.register("cypress", WilderTreeConfigured.CYPRESS, PlacementUtils.filteredByBlockSurvival(RegisterBlocks.CYPRESS_SAPLING));

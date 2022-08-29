@@ -1,0 +1,34 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+	"has_shroom": {
+	  "conditions": {
+		"items": [
+		  {
+			"items": [
+			  "wilderwild:red_shelf_fungus"
+			]
+		  }
+		]
+	  },
+	  "trigger": "minecraft:inventory_changed"
+	},
+	"has_the_recipe": {
+	  "conditions": {
+		"recipe": "wilderwild:shroom_stew"
+	  },
+	  "trigger": "minecraft:recipe_unlocked"
+	}
+  },
+  "requirements": [
+	[
+	  "has_shroom",
+	  "has_the_recipe"
+	]
+  ],
+  "rewards": {
+	"recipes": [
+	  "wilderwild:shroom_stew"
+	]
+  }
+}

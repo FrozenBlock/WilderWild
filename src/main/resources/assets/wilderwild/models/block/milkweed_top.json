@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:block/cross",
   "textures": {
-    "cross": "wilderwild:block/milkweed_top"
+	"cross": "wilderwild:block/milkweed_top"
   }
 }
