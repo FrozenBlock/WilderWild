@@ -1,7 +1,7 @@
 {
   "variants": {
-	"": {
-	  "model": "wilderwild:block/cypress_leaves"
-	}
+    "": {
+      "model": "wilderwild:block/cypress_leaves"
+    }
   }
 }

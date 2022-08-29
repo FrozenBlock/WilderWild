@@ -2,14 +2,13 @@ package net.frozenblock.wilderwild.entity;
 
 import io.netty.buffer.Unpooled;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
-import net.frozenblock.lib.damagesource.FrozenProjectileDamageSource;
 import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.block.entity.HangingTendrilBlockEntity;
+import net.frozenblock.wilderwild.misc.WilderProjectileDamageSource;
 import net.frozenblock.wilderwild.misc.mod_compat.simple_copper_pipes.InteractionHandler;
 import net.frozenblock.wilderwild.misc.server.EasyPacket;
 import net.frozenblock.wilderwild.registry.*;
 import net.frozenblock.wilderwild.tag.WilderBlockTags;
-import net.frozenblock.wilderwild.tag.WilderEntityTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Registry;
 import net.minecraft.core.particles.ParticleTypes;
@@ -72,12 +71,12 @@ public class AncientHornProjectile extends AbstractArrow {
 
     public AncientHornProjectile(@NotNull EntityType<? extends AbstractArrow> entityType, Level world) {
         super(entityType, world);
-        this.setSoundEvent(RegisterSounds.ENTITY_ANCIENT_HORN_PROJECTILE_DISSIPATE);
+        this.setSoundEvent(RegisterSounds.ANCIENT_HORN_PROJECTILE_DISSIPATE);
     }
 
     public AncientHornProjectile(Level world, double x, double y, double z) {
         super(RegisterEntities.ANCIENT_HORN_PROJECTILE_ENTITY, x, y, z, world);
-        this.setSoundEvent(RegisterSounds.ENTITY_ANCIENT_HORN_PROJECTILE_DISSIPATE);
+        this.setSoundEvent(RegisterSounds.ANCIENT_HORN_PROJECTILE_DISSIPATE);
     }
 
     public List<Entity> collidingEntities() {
@@ -263,7 +262,7 @@ public class AncientHornProjectile extends AbstractArrow {
                     server.levelEvent(LevelEvent.PARTICLES_SCULK_SHRIEK, pos, 0);
                     server.gameEvent(GameEvent.SHRIEK, pos, GameEvent.Context.of(owner));
                     setCooldown(getCooldown(this.getOwner(), SHRIEKER_COOLDOWN));
-                    this.setSoundEvent(RegisterSounds.ENTITY_ANCIENT_HORN_PROJECTILE_DISSIPATE);
+                    this.setSoundEvent(RegisterSounds.ANCIENT_HORN_PROJECTILE_DISSIPATE);
                     this.setShotFromCrossbow(false);
                     this.remove(RemovalReason.DISCARDED);
                 }
@@ -282,7 +281,7 @@ public class AncientHornProjectile extends AbstractArrow {
                 }
             }
         }
-        this.setSoundEvent(RegisterSounds.ENTITY_ANCIENT_HORN_PROJECTILE_DISSIPATE);
+        this.setSoundEvent(RegisterSounds.ANCIENT_HORN_PROJECTILE_DISSIPATE);
         this.setShotFromCrossbow(false);
         this.remove(RemovalReason.DISCARDED);
     }
@@ -295,7 +294,7 @@ public class AncientHornProjectile extends AbstractArrow {
     }
 
     protected SoundEvent getDefaultHitGroundSoundEvent() {
-        return RegisterSounds.ENTITY_ANCIENT_HORN_PROJECTILE_DISSIPATE;
+        return RegisterSounds.ANCIENT_HORN_PROJECTILE_DISSIPATE;
     }
 
     public boolean isNoPhysics() {
@@ -311,7 +310,7 @@ public class AncientHornProjectile extends AbstractArrow {
                 if (XP > 0) {
                     tendril.storedXP = 0;
                     level.explode(this, this.getX(), this.getY(), this.getZ(), 0, Explosion.BlockInteraction.NONE);
-                    level.playLocalSound(this.getX(), this.getY(), this.getZ(), RegisterSounds.ITEM_ANCIENT_HORN_BLAST, SoundSource.NEUTRAL, 1.0F, 1.0F, true);
+                    level.playLocalSound(this.getX(), this.getY(), this.getZ(), RegisterSounds.ANCIENT_HORN_BLAST, SoundSource.NEUTRAL, 1.0F, 1.0F, true);
                     level.destroyBlock(this.blockPosition(), false);
                     ExperienceOrb.award(server, Vec3.atCenterOf(pos).add(0, 0, 0), XP);
                     setCooldown(getCooldown(this.getOwner(), TENDRIL_COOLDOWN));
@@ -444,9 +443,9 @@ public class AncientHornProjectile extends AbstractArrow {
         if (entity != entity2) {
             DamageSource damageSource;
             if (entity2 == null) {
-                damageSource = FrozenProjectileDamageSource.source("ancient_horn", this, this);
+                damageSource = WilderProjectileDamageSource.ancientHorn(this, this);
             } else {
-                damageSource = FrozenProjectileDamageSource.source("ancient_horn", this, entity2);
+                damageSource = WilderProjectileDamageSource.ancientHorn(this, entity2);
                 if (entity2 instanceof LivingEntity) {
                     ((LivingEntity) entity2).setLastHurtMob(entity);
                 }
@@ -460,35 +459,29 @@ public class AncientHornProjectile extends AbstractArrow {
                 warden.increaseAngerAt(entity2, AngerLevel.ANGRY.getMinimumAnger() + 20, true);
                 warden.playSound(SoundEvents.WARDEN_TENDRIL_CLICKS, 5.0F, warden.getVoicePitch());
                 this.discard();
-            } else if (!entity.getType().is(WilderEntityTags.ANCIENT_HORN_IMMUNE)) {
-                if (entity.hurt(damageSource, (float) i)) {
-                    if (entity instanceof LivingEntity livingEntity) {
-                        WilderWild.log(livingEntity, "Horn Projectile Touched", WilderWild.DEV_LOGGING);
-                        if (!this.level.isClientSide && entity2 instanceof LivingEntity) {
-                            EnchantmentHelper.doPostHurtEffects(livingEntity, entity2);
-                            EnchantmentHelper.doPostDamageEffects((LivingEntity) entity2, livingEntity);
-                        }
-                        this.doPostHurtEffects(livingEntity);
-                        if (livingEntity instanceof Player && entity2 instanceof ServerPlayer && !this.isSilent()) {
-                            ((ServerPlayer) entity2).connection.send(new ClientboundGameEventPacket(ClientboundGameEventPacket.ARROW_HIT_PLAYER, 0.0F));
-                        }
-                        if (livingEntity.isDeadOrDying() && level instanceof ServerLevel server) {
-                            server.sendParticles(ParticleTypes.SCULK_SOUL, livingEntity.getX(), livingEntity.getEyeY(), livingEntity.getZ(), 1, 0.2D, 0.0D, 0.2D, 0.0D);
-                            if (this.getOwner() != null) {
-                                if (this.getOwner() instanceof ServerPlayer serverPlayer) {
-                                    addCooldown(livingEntity.getExperienceReward() * 10);
-                                    EasyPacket.EasyCompetitionPacket.sendAncientHornKillInfo(level, serverPlayer, livingEntity);
-                                }
+            } else if (entity.hurt(damageSource, (float) i)) {
+                if (entity instanceof LivingEntity livingEntity) {
+                    WilderWild.log(livingEntity, "Horn Projectile Touched", WilderWild.DEV_LOGGING);
+                    if (!this.level.isClientSide && entity2 instanceof LivingEntity) {
+                        EnchantmentHelper.doPostHurtEffects(livingEntity, entity2);
+                        EnchantmentHelper.doPostDamageEffects((LivingEntity) entity2, livingEntity);
+                    }
+                    this.doPostHurtEffects(livingEntity);
+                    if (livingEntity instanceof Player && entity2 instanceof ServerPlayer && !this.isSilent()) {
+                        ((ServerPlayer) entity2).connection.send(new ClientboundGameEventPacket(ClientboundGameEventPacket.ARROW_HIT_PLAYER, 0.0F));
+                    }
+                    if (livingEntity.isDeadOrDying() && level instanceof ServerLevel server) {
+                        server.sendParticles(ParticleTypes.SCULK_SOUL, livingEntity.getX(), livingEntity.getEyeY(), livingEntity.getZ(), 1, 0.2D, 0.0D, 0.2D, 0.0D);
+                        if (this.getOwner() != null) {
+                            if (this.getOwner() instanceof ServerPlayer serverPlayer) {
+                                addCooldown(livingEntity.getExperienceReward() * 10);
+                                EasyPacket.EasyCompetitionPacket.sendAncientHornKillInfo(level, serverPlayer, livingEntity);
                             }
                         }
                     }
-                    this.playSound(RegisterSounds.ENTITY_ANCIENT_HORN_PROJECTILE_DISSIPATE, 1.0F, 1.2F / (this.random.nextFloat() * 0.2F + 0.9F));
-                } else {
-                    entity.setRemainingFireTicks(j);
-                    if (!this.level.isClientSide && this.getDeltaMovement().lengthSqr() < 1.0E-7D) {
-                        this.discard();
-                    }
                 }
+
+                this.playSound(RegisterSounds.ANCIENT_HORN_PROJECTILE_DISSIPATE, 1.0F, 1.2F / (this.random.nextFloat() * 0.2F + 0.9F));
             } else {
                 entity.setRemainingFireTicks(j);
                 if (!this.level.isClientSide && this.getDeltaMovement().lengthSqr() < 1.0E-7D) {

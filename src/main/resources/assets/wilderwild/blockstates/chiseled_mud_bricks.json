@@ -1,7 +1,7 @@
 {
   "variants": {
-	"": {
-	  "model": "wilderwild:block/chiseled_mud_bricks"
-	}
+    "": {
+      "model": "wilderwild:block/chiseled_mud_bricks"
+    }
   }
 }

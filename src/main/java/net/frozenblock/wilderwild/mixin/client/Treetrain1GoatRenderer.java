@@ -21,7 +21,7 @@ public class Treetrain1GoatRenderer {
     private static final ResourceLocation TREETRAIN1_GOAT = WilderWild.id("textures/entity/goat/treetrain1_goat.png");
 
 
-    @Inject(method = "getTextureLocation(Lnet/minecraft/world/entity/animal/goat/Goat;)Lnet/minecraft/resources/ResourceLocation;", at = @At("RETURN"), cancellable = true)
+    @Inject(method = "getTextureLocation(Lnet/minecraft/world/entity/animal/goat/Goat;)Lnet/minecraft/resources/ResourceLocation;", at = @At("HEAD"), cancellable = true)
     public void getTextureLocation(Goat goatEntity, CallbackInfoReturnable<ResourceLocation> cir) {
         String string = ChatFormatting.stripFormatting(goatEntity.getName().getString());
         if (Objects.equals(string, "Treetrain1")) {

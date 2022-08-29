@@ -3,7 +3,6 @@ package net.frozenblock.wilderwild.misc;
 import com.google.gson.*;
 import net.frozenblock.wilderwild.WilderWild;
 import net.minecraft.client.Minecraft;
-
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;

@@ -1,9 +1,5 @@
 package net.frozenblock.wilderwild.mixin.server;
 
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.Mob;
-import net.minecraft.world.entity.SpawnPlacements;
-import net.minecraft.world.level.levelgen.Heightmap;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -12,6 +8,11 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import java.util.Map;
+import net.minecraft.core.Registry;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.Mob;
+import net.minecraft.world.entity.SpawnPlacements;
+import net.minecraft.world.level.levelgen.Heightmap;
 
 @Mixin(SpawnPlacements.class)
 public class SpawnRestrictionMixin {
@@ -25,6 +26,9 @@ public class SpawnRestrictionMixin {
         if (type == EntityType.SLIME) {
             info.cancel();
             SpawnPlacements.Data entry = DATA_BY_TYPE.put(type, new SpawnPlacements.Data(heightmapType, SpawnPlacements.Type.NO_RESTRICTIONS, predicate));
+            if (entry != null) {
+                throw new IllegalStateException("Duplicate registration for type " + Registry.ENTITY_TYPE.getKey(type));
+            }
         }
     }
 

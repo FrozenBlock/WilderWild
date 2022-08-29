@@ -69,7 +69,7 @@ public class HollowedLogBlock extends RotatedPillarBlock implements SimpleWaterl
     }
 
 
-    /*public void tick(BlockState state, ServerWorld world, BlockPos pos, Random random) {
+    /*public void scheduledTick(BlockState state, ServerWorld world, BlockPos pos, Random random) {
         updateWaterCompatibility(world, world.getBlockState(pos), pos);
     }
 

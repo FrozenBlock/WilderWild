@@ -56,17 +56,17 @@ public class TermiteMoundBlockEntity extends BlockEntity {
         this.lastLight = nbt.getInt("lastLight");
         if (nbt.contains("termites", 9)) {
             this.termites.clear();
-            DataResult<List<Termite>> var10000 = Termite.CODEC.listOf().parse(new Dynamic<>(NbtOps.INSTANCE, nbt.getList("termites", 10)));
+            DataResult<?> var10000 = Termite.CODEC.listOf().parse(new Dynamic<>(NbtOps.INSTANCE, nbt.getList("termites", 10)));
             Logger var10001 = WilderWild.LOGGER;
             Objects.requireNonNull(var10001);
-            Optional<List<Termite>> list = var10000.resultOrPartial(var10001::error);
+            Optional<List<?>> list = (Optional<List<?>>) var10000.resultOrPartial(var10001::error);
             if (list.isPresent()) {
-                List<Termite> termitesAllAllAll = list.get();
+                List<?> termitesAllAllAll = list.get();
                 int max = this.level != null ? maxTermites(this.level, this.lastLight, this.getBlockState().getValue(RegisterProperties.NATURAL)) : 5;
                 int i = Math.min(termitesAllAllAll.size(), max);
 
                 for (int j = 0; j < i; ++j) {
-                    this.termites.add(termitesAllAllAll.get(j));
+                    this.termites.add((Termite) termitesAllAllAll.get(j));
                 }
             }
         }
@@ -77,11 +77,11 @@ public class TermiteMoundBlockEntity extends BlockEntity {
         nbt.putInt("ticksToNextTermite", this.ticksToNextTermite);
         nbt.putInt("ticksToCheckLight", this.ticksToCheckLight);
         nbt.putInt("lastLight", this.lastLight);
-        DataResult<Tag> var10000 = Termite.CODEC.listOf().encodeStart(NbtOps.INSTANCE, this.termites);
+        DataResult<?> var10000 = Termite.CODEC.listOf().encodeStart(NbtOps.INSTANCE, this.termites);
         Logger var10001 = WilderWild.LOGGER;
         Objects.requireNonNull(var10001);
         var10000.resultOrPartial(var10001::error).ifPresent((cursorsNbt) -> {
-            nbt.put("termites", cursorsNbt);
+            nbt.put("termites", (Tag) cursorsNbt);
         });
     }
 

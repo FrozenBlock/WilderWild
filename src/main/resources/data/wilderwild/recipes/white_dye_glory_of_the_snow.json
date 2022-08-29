@@ -2,12 +2,12 @@
   "type": "minecraft:crafting_shapeless",
   "group": "glory_of_the_snow",
   "ingredients": [
-	{
-	  "item": "wilderwild:alba_glory_of_the_snow"
-	}
+    {
+      "item": "wilderwild:alba_glory_of_the_snow"
+    }
   ],
   "result": {
-	"item": "minecraft:white_dye",
-	"count": 2
+    "item": "minecraft:white_dye",
+    "count": 2
   }
 }

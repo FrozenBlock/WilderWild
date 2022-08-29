@@ -1,21 +1,21 @@
 {
   "variants": {
-	"": [
-	  {
-		"model": "wilderwild:block/flowering_lily_pad"
-	  },
-	  {
-		"model": "wilderwild:block/flowering_lily_pad",
-		"y": 90
-	  },
-	  {
-		"model": "wilderwild:block/flowering_lily_pad",
-		"y": 180
-	  },
-	  {
-		"model": "wilderwild:block/flowering_lily_pad",
-		"y": 270
-	  }
-	]
+    "": [
+      {
+        "model": "wilderwild:block/flowering_lily_pad"
+      },
+      {
+        "model": "wilderwild:block/flowering_lily_pad",
+        "y": 90
+      },
+      {
+        "model": "wilderwild:block/flowering_lily_pad",
+        "y": 180
+      },
+      {
+        "model": "wilderwild:block/flowering_lily_pad",
+        "y": 270
+      }
+    ]
   }
 }

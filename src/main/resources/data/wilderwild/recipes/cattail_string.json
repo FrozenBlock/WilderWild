@@ -1,12 +1,12 @@
 {
-  "type": "minecraft:crafting_shapeless",
-  "ingredients": [
-	{
-	  "item": "wilderwild:cattail"
-	}
-  ],
-  "result": {
-	"item": "minecraft:string",
-	"count": 3
-  }
+    "type": "minecraft:crafting_shapeless",
+    "ingredients": [
+        {
+            "item": "wilderwild:cattail"
+        }
+    ],
+    "result": {
+        "item": "minecraft:string",
+        "count": 3
+    }
 }

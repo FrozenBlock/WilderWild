@@ -20,7 +20,7 @@ public class AlexDolphinRenderer {
 
     private static final ResourceLocation ALEX_DOLPHIN = WilderWild.id("textures/entity/dolphin/alex_dolphin.png");
 
-    @Inject(method = "getTextureLocation(Lnet/minecraft/world/entity/animal/Dolphin;)Lnet/minecraft/resources/ResourceLocation;", at = @At("RETURN"), cancellable = true)
+    @Inject(method = "getTextureLocation(Lnet/minecraft/world/entity/animal/Dolphin;)Lnet/minecraft/resources/ResourceLocation;", at = @At("HEAD"), cancellable = true)
     public void getTextureLocation(Dolphin dolphinEntity, CallbackInfoReturnable<ResourceLocation> cir) {
         String string = ChatFormatting.stripFormatting(dolphinEntity.getName().getString());
         if (Objects.equals(string, "AlexTheDolphin0")) {

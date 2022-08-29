@@ -1,9 +1,6 @@
 {
   "replace": false,
   "values": [
-	"wilderwild:stone_chest",
-	"wilderwild:chiseled_mud_bricks",
-	"wilderwild:null_block",
-	"wilderwild:display_lantern"
+    "wilderwild:chiseled_mud_bricks"
   ]
 }
