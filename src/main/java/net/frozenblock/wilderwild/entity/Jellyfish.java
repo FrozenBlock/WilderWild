@@ -235,7 +235,8 @@ public class Jellyfish extends AbstractFish {
         LivingEntity target = this.getTarget();
         if (target != null) {
             ++this.ticksSinceCantReach;
-            if (this.ticksSinceCantReach > 300 || target.isDeadOrDying() || target.isRemoved() || target.distanceTo(this) > 20 || this.level.getDifficulty() == Difficulty.PEACEFUL) {
+            boolean creative = target instanceof Player player && player.isCreative();
+            if (this.ticksSinceCantReach > 300 || target.isDeadOrDying() || target.isRemoved() || target.distanceTo(this) > 20 || this.level.getDifficulty() == Difficulty.PEACEFUL || target.isSpectator() || creative) {
                 this.getBrain().eraseMemory(MemoryModuleType.ATTACK_TARGET);
                 this.ticksSinceCantReach = 0;
             } else {
@@ -294,7 +295,14 @@ public class Jellyfish extends AbstractFish {
         if (super.hurt(damageSource, f)) {
             if (!this.level.isClientSide && this.level.getDifficulty() != Difficulty.PEACEFUL) {
                 //this.spawnJelly();
-                this.setAttackTarget(this.getLastHurtByMob());
+                LivingEntity target = this.getLastHurtByMob();
+                if (target instanceof Player player) {
+                    if (!player.isCreative() && !player.isSpectator()) {
+                        this.setAttackTarget(target);
+                    }
+                } else {
+                    this.setAttackTarget(target);
+                }
             }
             return true;
         }
