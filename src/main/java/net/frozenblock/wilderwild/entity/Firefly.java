@@ -331,13 +331,11 @@ public class Firefly extends PathfinderMob implements FlyingAnimal {
         if (level instanceof ServerLevel server) {
             if (nectar != wasNamedNectar) {
                 if (nectar) {
-                    FrozenSoundPackets.createMovingLoopingSound(server, this, RegisterSounds.ENTITY_FIREFLY_NECTAR, SoundSource.NEUTRAL, 1.0F, 1.0F, WilderWild.id("nectar"));
+                    FrozenSoundPackets.createMovingRestrictionLoopingSound(server, this, RegisterSounds.ENTITY_FIREFLY_NECTAR, SoundSource.NEUTRAL, 1.0F, 1.0F, WilderWild.id("nectar"));
                     this.wasNamedNectar = true;
                 } else {
                     this.wasNamedNectar = false;
                 }
-            } else {
-                this.wasNamedNectar = false;
             }
         }
 
