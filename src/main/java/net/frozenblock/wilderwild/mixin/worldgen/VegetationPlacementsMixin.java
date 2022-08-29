@@ -22,7 +22,7 @@ import org.spongepowered.asm.mixin.injection.Slice;
 import java.util.List;
 
 @Pseudo
-@Mixin(VegetationPlacements.class)
+@Mixin(value = VegetationPlacements.class, priority = 69420)
 public class VegetationPlacementsMixin {
 
     @Redirect(method = "<clinit>", slice = @Slice(from = @At(value = "CONSTANT", args = "stringValue=trees_birch")), at = @At(value = "INVOKE", target = "Lnet/minecraft/data/worldgen/placement/PlacementUtils;register(Ljava/lang/String;Lnet/minecraft/core/Holder;Ljava/util/List;)Lnet/minecraft/core/Holder;", ordinal = 0))

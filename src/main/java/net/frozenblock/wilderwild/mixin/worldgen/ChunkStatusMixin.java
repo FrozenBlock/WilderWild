@@ -12,7 +12,7 @@ import org.spongepowered.asm.mixin.injection.invoke.arg.Args;
 
 import java.util.EnumSet;
 
-@Mixin(ChunkStatus.class)
+@Mixin(value = ChunkStatus.class, priority = 69420)
 public class ChunkStatusMixin {
 
     @Shadow

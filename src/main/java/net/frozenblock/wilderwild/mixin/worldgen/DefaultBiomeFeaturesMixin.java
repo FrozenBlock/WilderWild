@@ -11,7 +11,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-@Mixin(BiomeDefaultFeatures.class)
+@Mixin(value = BiomeDefaultFeatures.class, priority = 69420)
 public class DefaultBiomeFeaturesMixin {
 
     @Inject(method = "addForestGrass", at = @At("HEAD"), cancellable = true)

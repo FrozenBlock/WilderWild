@@ -20,7 +20,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import java.util.Optional;
 
-@Mixin(ChunkGenerator.class)
+@Mixin(value = ChunkGenerator.class, priority = 69420)
 public class ChunkGeneratorMixin {
 
     @Inject(method = "createReferences", at = @At("HEAD"), cancellable = true)
