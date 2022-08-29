@@ -110,32 +110,33 @@ public class JellyfishModel<T extends Jellyfish> extends HierarchicalModel<T> {
 
     @Override
     public void setupAnim(@NotNull T jellyfish, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
+        
         float animation = limbSwing * 2;
 
         float sin = -Mth.sin(animation);
         float sinTentacle = (-Mth.sin(animation + 5) * 20 - 7.5F) * pi180;
-        //cardinal tentacles
+        
+        //CARDINAL TENTACLES
         this.tentacle1.xRot = sinTentacle;
         this.tentacle3.xRot = sinTentacle;
         this.tentacle5.xRot = sinTentacle;
         this.tentacle7.xRot = sinTentacle;
 
-        //intermediate tentacles
+        //INTERMEDIATE TENTACLES
         this.tentacle2.xRot = sinTentacle;
         this.tentacle4.xRot = sinTentacle;
         this.tentacle6.xRot = sinTentacle;
         this.tentacle8.xRot = sinTentacle;
+        
+        //SQUASH & STRETCH
+        float squashStretch = 1F + (-sin * 0.25F);
 
-        float xZScale = 1F + (-sin * 0.25F);
-        float ySin = 1.25F + (sin * 0.75F);
+        this.body.xScale = squashStretch;
+        this.body.zScale = squashStretch;
+        this.body.yScale = 1.25F + (sin * 0.75F);
 
-        this.body.xScale = xZScale;
-        this.body.zScale = xZScale;
-
-        this.body.yScale = ySin;
-
-        this.body.y = 3.5F -(xZScale * 3.5F);
-        this.tentacleRot.y = (6F -(xZScale * 5F)) * 2;
+        this.body.y = 3.5F -(squashStretch * 3.5F);
+        this.tentacleRot.y = (6F -(squashStretch * 5F)) * 2;
     }
 
     @Override
