@@ -25,7 +25,7 @@ public final class RegisterItems {
     public static final RecordItem MUSIC_DISC_BACK = new RecordItem(15, RegisterSounds.MUSIC_DISC_BACK, new FabricItemSettings().tab(CreativeModeTab.TAB_MISC).stacksTo(1).rarity(Rarity.RARE), 76);
     public static final Item FIREFLY_SPAWN_EGG = new SpawnEggItem(RegisterEntities.FIREFLY, Integer.parseInt("2A2E2B", 16), Integer.parseInt("AAF644", 16), new FabricItemSettings().tab(CreativeModeTab.TAB_MISC));
     public static final Item JELLYFISH_SPAWN_EGG = new SpawnEggItem(RegisterEntities.JELLYFISH, Integer.parseInt("B3C2CB", 16), Integer.parseInt("899AA7", 16), new FabricItemSettings().tab(CreativeModeTab.TAB_MISC));
-    public static final Item JELLYFISH_BUCKET = new MobBucketItem(RegisterEntities.JELLYFISH, Fluids.WATER, RegisterSounds.ENTITY_JELLYFISH_SWIM, new FabricItemSettings().tab(CreativeModeTab.TAB_MISC));
+    public static final Item JELLYFISH_BUCKET = new MobBucketItem(RegisterEntities.JELLYFISH, Fluids.WATER, RegisterSounds.ENTITY_JELLYFISH_SWIM, new FabricItemSettings().tab(CreativeModeTab.TAB_MISC).stacksTo(1));
 
 
     public static final Item BAOBAB_BOAT_ITEM = new BoatItem(false, WilderBoats.BAOBAB, new FabricItemSettings().stacksTo(1).tab(CreativeModeTab.TAB_TRANSPORTATION));

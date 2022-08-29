@@ -35,6 +35,7 @@ import net.minecraft.world.entity.ai.goal.PanicGoal;
 import net.minecraft.world.entity.ai.goal.RandomSwimmingGoal;
 import net.minecraft.world.entity.ai.memory.MemoryModuleType;
 import net.minecraft.world.entity.animal.AbstractFish;
+import net.minecraft.world.entity.animal.Bucketable;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
@@ -111,6 +112,20 @@ public class Jellyfish extends AbstractFish {
         }
         return spawnReason != MobSpawnType.SPAWNER ? pos.getY() <= world.getSeaLevel() - 33 && world.getRawBrightness(pos, 0) <= 6 && world.getBlockState(pos).is(Blocks.WATER)
                 : world.getBlockState(pos).is(Blocks.WATER);
+    }
+
+    public void saveToBucketTag(ItemStack itemStack) {
+        Bucketable.saveDefaultDataToBucketTag(this, itemStack);
+        CompoundTag compoundTag = itemStack.getOrCreateTag();
+        compoundTag.putString("variant", this.getVariant());
+    }
+
+    public void loadFromBucketTag(CompoundTag compoundTag) {
+        Bucketable.loadDefaultDataFromBucketTag(this, compoundTag);
+        if (compoundTag.contains("variant")) {
+            this.setVariant(compoundTag.getString("variant"));
+        }
+
     }
 
     public static AttributeSupplier.Builder addAttributes() {
