@@ -71,7 +71,7 @@ public class AncientHorn extends InstrumentItem {
                 AncientHornParticleEffect particleEffect = new AncientHornParticleEffect(0, user.getXRot(), user.getYRot());
                 world.addParticle(particleEffect, true, user.getX(), user.getY() + user.getEyeHeight(), user.getZ(), user.getYRot(), user.getXRot(), -user.getYRot()); //change this to the new particle whenever we add it
 
-                FrozenSoundPackets.createMovingLoopingSound(server, projectileEntity, RegisterSounds.ENTITY_ANCIENT_HORN_PROJECTILE_LOOP, SoundSource.NEUTRAL, 1.0F, 1.0F, WilderWild.id("default"));
+                FrozenSoundPackets.createMovingRestrictionLoopingSound(server, projectileEntity, RegisterSounds.ENTITY_ANCIENT_HORN_PROJECTILE_LOOP, SoundSource.NEUTRAL, 1.0F, 1.0F, WilderWild.id("default"));
                 ItemStack mainHand = user.getItemInHand(InteractionHand.MAIN_HAND);
                 ItemStack offHand = user.getItemInHand(InteractionHand.OFF_HAND);
                 if (mainHand.is(Items.WATER_BUCKET) || mainHand.is(Items.POTION) || offHand.is(Items.WATER_BUCKET) || offHand.is(Items.POTION)) {
