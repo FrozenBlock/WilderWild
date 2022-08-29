@@ -250,7 +250,7 @@ public class Jellyfish extends AbstractFish {
             this.xBodyRot += (-90.0f - this.xBodyRot) * 0.02f;
         }
 
-        this.heal(0.04F);
+        this.heal(0.025F);
 
         LivingEntity target = this.getTarget();
         if (target != null) {
