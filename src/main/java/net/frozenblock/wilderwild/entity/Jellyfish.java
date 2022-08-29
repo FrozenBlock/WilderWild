@@ -265,6 +265,12 @@ public class Jellyfish extends AbstractFish {
             if (this.ticksSinceCantReach > 300 || target.isDeadOrDying() || target.isRemoved() || target.distanceTo(this) > 20) {
                 this.getBrain().eraseMemory(MemoryModuleType.ATTACK_TARGET);
                 this.ticksSinceCantReach = 0;
+            } else {
+                this.getNavigation().stop();
+                this.getNavigation().moveTo(this.getTarget(), 1.7);
+                if (target.distanceTo(this) < 6) {
+                    this.ticksSinceCantReach = Math.max(this.ticksSinceCantReach - 2, 0);
+                }
             }
         } else {
             this.ticksSinceCantReach = 0;
@@ -414,7 +420,6 @@ public class Jellyfish extends AbstractFish {
         this.goalSelector.addGoal(0, new PanicGoal(this, 1.25));
         this.goalSelector.addGoal(2, new AvoidEntityGoal<>(this, Player.class, 8.0f, 1.6, 1.4, EntitySelector.NO_SPECTATORS::test));
         this.goalSelector.addGoal(4, new JellySwimGoal(this));
-        this.goalSelector.addGoal(6, new JellyToTargetGoal(this));
     }
 
     static class JellySwimGoal
@@ -434,38 +439,6 @@ public class Jellyfish extends AbstractFish {
         @Override
         public boolean canContinueToUse() {
             return this.jelly.getTarget() == null && !this.mob.getNavigation().isDone() && !this.mob.isVehicle();
-        }
-    }
-
-    static class JellyToTargetGoal
-            extends Goal {
-        private final Jellyfish jelly;
-
-        public JellyToTargetGoal(Jellyfish jelly) {
-            this.jelly = jelly;
-        }
-
-        @Override
-        public boolean canUse() {
-            return this.jelly.getTarget() != null;
-        }
-
-        @Override
-        public boolean canContinueToUse() {
-            return this.jelly.getTarget() != null;
-        }
-
-        @Override
-        public void start() {
-            LivingEntity entity = this.jelly.getTarget();
-            if (entity != null) {
-                this.jelly.getNavigation().moveTo(entity, 1.4);
-            }
-        }
-
-        @Override
-        public void stop() {
-            this.jelly.getNavigation().stop();
         }
     }
 
