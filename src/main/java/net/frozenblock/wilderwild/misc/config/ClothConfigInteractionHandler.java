@@ -4,7 +4,6 @@ import net.frozenblock.wilderwild.WilderWild;
 
 public class ClothConfigInteractionHandler {
 
-
     public static boolean modifyDesertPlacement() {
         if (WilderWild.hasClothConfig()) {
             return ClothConfigCloserInteractionHandler.modifyDesertPlacement();
@@ -87,6 +86,27 @@ public class ClothConfigInteractionHandler {
             return ClothConfigCloserInteractionHandler.shriekerGargling();
         }
         return false;
+    }
+
+    public static boolean hornShattersGlass() {
+        if (WilderWild.hasClothConfig()) {
+            return ClothConfigCloserInteractionHandler.hornShattersGlass();
+        }
+        return false;
+    }
+
+    public static boolean fallenLogs() {
+        if (WilderWild.hasClothConfig()) {
+            return ClothConfigCloserInteractionHandler.fallenLogs();
+        }
+        return true;
+    }
+
+    public static boolean wildTrees() {
+        if (WilderWild.hasClothConfig()) {
+            return ClothConfigCloserInteractionHandler.wildTrees();
+        }
+        return true;
     }
 
 }

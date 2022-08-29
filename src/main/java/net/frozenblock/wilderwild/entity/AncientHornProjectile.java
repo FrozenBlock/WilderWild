@@ -5,7 +5,7 @@ import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.frozenblock.lib.damagesource.FrozenProjectileDamageSource;
 import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.block.entity.HangingTendrilBlockEntity;
-import net.frozenblock.wilderwild.misc.config.WilderWildConfig;
+import net.frozenblock.wilderwild.misc.config.ClothConfigInteractionHandler;
 import net.frozenblock.wilderwild.misc.mod_compat.simple_copper_pipes.InteractionHandler;
 import net.frozenblock.wilderwild.misc.server.EasyPacket;
 import net.frozenblock.wilderwild.registry.*;
@@ -335,7 +335,7 @@ public class AncientHornProjectile extends AbstractArrow {
                 if (insideState.getBlock() instanceof BellBlock bell) {
                     bell.onProjectileHit(server, insideState, this.level.clip(new ClipContext(this.position(), new Vec3(this.getBlockX(), this.getBlockY(), this.getBlockZ()), ClipContext.Block.COLLIDER, ClipContext.Fluid.NONE, this)), this);
                 } else if (insideState.getBlock() instanceof AbstractGlassBlock || insideState.is(WilderBlockTags.GLASS_BLOCKS) || insideState.is(WilderBlockTags.GLASS_PANES)) {
-                    if (WilderWildConfig.get().item.ancientHornShattersGlass) {
+                    if (ClothConfigInteractionHandler.hornShattersGlass()) {
                         insideState.onProjectileHit(this.level, insideState, this.level.clip(new ClipContext(this.position(), new Vec3(this.getBlockX(), this.getBlockY(), this.getBlockZ()), ClipContext.Block.COLLIDER, ClipContext.Fluid.NONE, this)), this);
                         this.level.destroyBlock(this.blockPosition(), false, this);
                     }

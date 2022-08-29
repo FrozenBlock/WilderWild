@@ -2,7 +2,6 @@ package net.frozenblock.wilderwild.misc.config;
 
 public class ClothConfigCloserInteractionHandler {
 
-
     public static boolean modifyDesertPlacement() {
         return WilderWildConfig.get().worldgen.modifyDesertPlacement;
     }
@@ -49,6 +48,18 @@ public class ClothConfigCloserInteractionHandler {
 
     public static boolean shriekerGargling() {
         return WilderWildConfig.get().block.shriekerGargling;
+    }
+
+    public static boolean hornShattersGlass() {
+        return WilderWildConfig.get().item.ancientHornShattersGlass;
+    }
+
+    public static boolean fallenLogs() {
+        return WilderWildConfig.get().worldgen.fallenLogs;
+    }
+
+    public static boolean wildTrees() {
+        return WilderWildConfig.get().worldgen.wilderWildTreeGen;
     }
 
 }
