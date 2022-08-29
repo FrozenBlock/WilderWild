@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/cross",
+  "textures": {
+    "cross": "wilderwild:block/light_blue_lupines_top"
+  }
+}

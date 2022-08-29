@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "half=lower": {
+      "model": "wilderwild:block/purple_lupines_bottom"
+    },
+    "half=upper": {
+      "model": "wilderwild:block/purple_lupines_top"
+    }
+  }
+}
