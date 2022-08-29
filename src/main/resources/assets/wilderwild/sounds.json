@@ -1230,12 +1230,26 @@
 	],
 	"subtitle": "subtitles.entity.firefly.nectar"
   },
+	"entity.jellyfish.ambient_water": {
+		"sounds": [
+			"wilderwild:mob/jellyfish/ambient_water1",
+			"wilderwild:mob/jellyfish/ambient_water2",
+			"wilderwild:mob/jellyfish/ambient_water3"
+		],
+		"subtitle": "subtitles.entity.jellyfish.ambient"
+	},
+	"entity.jellyfish.hurt_water": {
+		"sounds": [
+			"wilderwild:mob/jellyfish/hurt_water1",
+			"wilderwild:mob/jellyfish/hurt_water2",
+			"wilderwild:mob/jellyfish/hurt_water3"
+		]
+	},
 	"entity.jellyfish.ambient": {
 		"sounds": [
 			"wilderwild:mob/jellyfish/ambient1",
 			"wilderwild:mob/jellyfish/ambient2",
-			"wilderwild:mob/jellyfish/ambient3",
-			"wilderwild:mob/jellyfish/ambient4"
+			"wilderwild:mob/jellyfish/ambient3"
 		],
 		"subtitle": "subtitles.entity.jellyfish.ambient"
 	},
@@ -1250,7 +1264,11 @@
 		"sounds": [
 			"wilderwild:mob/jellyfish/swim1",
 			"wilderwild:mob/jellyfish/swim2",
-			"wilderwild:mob/jellyfish/swim3"
+			"wilderwild:mob/jellyfish/swim3",
+			"wilderwild:mob/jellyfish/swim4",
+			"wilderwild:mob/jellyfish/swim5",
+			"wilderwild:mob/jellyfish/swim6",
+			"wilderwild:mob/jellyfish/swim7"
 		]
 	},
 	"entity.jellyfish.whine": {

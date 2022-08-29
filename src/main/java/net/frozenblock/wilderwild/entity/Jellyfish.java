@@ -142,26 +142,28 @@ public class Jellyfish extends AbstractFish {
 
     @Override
     protected SoundEvent getAmbientSound() {
-        return RegisterSounds.ENTITY_JELLYFISH_AMBIENT;
-    }
-
-    @Override
-    protected SoundEvent getHurtSound(@NotNull DamageSource damageSource) {
-        return RegisterSounds.ENTITY_JELLYFISH_HURT;
-    }
-
-    @Override
-    protected SoundEvent getDeathSound() {
-        return RegisterSounds.ENTITY_JELLYFISH_HURT;
-    }
-
-    protected SoundEvent getSquirtSound() {
-        return RegisterSounds.ENTITY_JELLYFISH_AMBIENT;
+        if (this.isInWaterOrBubble()) {
+            return RegisterSounds.ENTITY_JELLYFISH_AMBIENT_WATER;
+        } else return RegisterSounds.ENTITY_JELLYFISH_AMBIENT;
     }
 
     @Override
     protected SoundEvent getSwimSound() {
-        return RegisterSounds.ENTITY_JELLYFISH_SWIM;
+            return RegisterSounds.ENTITY_JELLYFISH_SWIM;
+    }
+
+    @Override
+    protected SoundEvent getHurtSound(@NotNull DamageSource damageSource) {
+        if (this.isInWaterOrBubble()) {
+            return RegisterSounds.ENTITY_JELLYFISH_HURT_WATER;
+        } else return RegisterSounds.ENTITY_JELLYFISH_HURT;
+    }
+
+    @Override
+    protected SoundEvent getDeathSound() {
+        if (this.isInWaterOrBubble()) {
+            return RegisterSounds.ENTITY_JELLYFISH_HURT_WATER;
+        } else return RegisterSounds.ENTITY_JELLYFISH_HURT;
     }
 
     @Override
