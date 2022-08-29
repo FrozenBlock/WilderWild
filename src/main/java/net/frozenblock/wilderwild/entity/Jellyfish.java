@@ -7,8 +7,6 @@ import net.frozenblock.wilderwild.registry.RegisterSounds;
 import net.frozenblock.wilderwild.tag.WilderBiomeTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
-import net.minecraft.core.particles.ParticleOptions;
-import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.protocol.game.ClientboundGameEventPacket;
 import net.minecraft.network.protocol.game.DebugPackets;
@@ -34,6 +32,7 @@ import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.entity.ai.goal.PanicGoal;
 import net.minecraft.world.entity.ai.goal.RandomSwimmingGoal;
 import net.minecraft.world.entity.ai.memory.MemoryModuleType;
+import net.minecraft.world.entity.ai.targeting.TargetingConditions;
 import net.minecraft.world.entity.animal.AbstractFish;
 import net.minecraft.world.entity.animal.Bucketable;
 import net.minecraft.world.entity.player.Player;
@@ -45,6 +44,10 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+
+import java.util.Iterator;
+import java.util.List;
+import java.util.function.Predicate;
 
 public class Jellyfish extends AbstractFish {
     public float xBodyRot;
@@ -262,7 +265,35 @@ public class Jellyfish extends AbstractFish {
                 this.ticksSinceCantReach = 0;
             }
         }
+        if (this.isAlive()) {
+            List<Mob> list = this.level.getEntitiesOfClass(Mob.class, this.getBoundingBox().inflate(0.3D), (mobx) -> targetingConditions.test(this, mobx));
+
+            for (Mob mob : list) {
+                if (mob.isAlive()) {
+                    this.touch(mob);
+                }
+            }
+        }
     }
+
+    private void touch(Mob mob) {
+        if (mob.hurt(DamageSource.mobAttack(this), (float)(3))) {
+            mob.addEffect(new MobEffectInstance(MobEffects.POISON, 60 * 3, 0), this);
+            //TODO: JELLY STING SOUND
+            this.playSound(SoundEvents.PUFFER_FISH_STING, 1.0F, 1.0F);
+        }
+
+    }
+
+    private static final Predicate<LivingEntity>  SCARY_MOB = (livingEntity) -> {
+        if (livingEntity instanceof Player && ((Player)livingEntity).isCreative()) {
+            return false;
+        } else {
+            return livingEntity.getMobType() != MobType.WATER;
+        }
+    };
+
+    public static final TargetingConditions targetingConditions = TargetingConditions.forNonCombat().ignoreInvisibilityTesting().ignoreLineOfSight().selector(SCARY_MOB);
 
     @Override
     protected void customServerAiStep() {
