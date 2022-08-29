@@ -38,6 +38,10 @@ public class ClothConfigCloserInteractionHandler {
         return WilderWildConfig.get().worldgen.wilderWildTreeGen;
     }
 
+    public static boolean wildGrass() {
+        return WilderWildConfig.get().worldgen.wilderWildGrassGen;
+    }
+
     public static boolean hornShattersGlass() {
         return WilderWildConfig.get().item.ancientHornShattersGlass;
     }
