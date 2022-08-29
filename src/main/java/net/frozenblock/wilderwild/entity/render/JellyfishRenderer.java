@@ -9,10 +9,7 @@ import net.fabricmc.api.Environment;
 import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.WilderWildClient;
 import net.frozenblock.wilderwild.entity.Jellyfish;
-import net.frozenblock.wilderwild.entity.render.feature.JellyfishFeatureRenderer;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.model.EntityModel;
-import net.minecraft.client.model.Model;
 import net.minecraft.client.renderer.LightTexture;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
@@ -134,10 +131,10 @@ public class JellyfishRenderer extends MobRenderer<Jellyfish, JellyfishModel<Jel
         poseStack.translate(0.0, -1, 0.0);
         poseStack.scale(0.8F, 0.8F, 0.8F);
         JellyfishModel<Jellyfish> model = this.getModel();
-        model.xRot = Mth.lerp(h, jelly.xRot1, jelly.xBodyRot);
-        model.zRot = Mth.lerp(h, jelly.zRot1, jelly.zBodyRot);
-        model.tentXRot = Mth.lerp(h, jelly.xRot6, jelly.xRot5);
-        model.tentZRot = Mth.lerp(h, jelly.zRot6, jelly.zRot5);
+        model.xRot = jelly.xRot1 + h * (jelly.xBodyRot - jelly.xRot1);
+        model.zRot = jelly.zRot1 + h * (jelly.zBodyRot - jelly.zRot1);
+        model.tentXRot = jelly.xRot6 + h * (jelly.xRot5 - jelly.xRot6);
+        model.tentZRot = jelly.zRot6 + h * (jelly.zRot5 - jelly.zRot6);
     }
 
     @Override
