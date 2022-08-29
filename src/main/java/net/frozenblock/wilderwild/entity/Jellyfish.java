@@ -266,8 +266,8 @@ public class Jellyfish extends AbstractFish {
             } else {
                 this.getNavigation().stop();
                 this.getNavigation().moveTo(this.getTarget(), 1.7);
-                if (target.distanceTo(this) < 6) {
-                    this.ticksSinceCantReach = Math.max(this.ticksSinceCantReach - 2, 0);
+                if (target.distanceTo(this) < 4) {
+                    this.ticksSinceCantReach = Math.max(this.ticksSinceCantReach - 1, 0);
                 }
             }
         } else {
