@@ -219,11 +219,10 @@ public class Jellyfish extends AbstractFish {
         if (inWater) {
             this.rotateSpeed *= 0.8f;
             Vec3 vec3 = this.getDeltaMovement();
-            double d = vec3.horizontalDistance();
-            this.yBodyRot += (-((float) Mth.atan2(vec3.x, vec3.z)) * 57.295776f - this.yBodyRot) * 0.1f;
+            this.yBodyRot += (-(Mth.atan2(vec3.x, vec3.z)) * 57.295776f - this.yBodyRot) * 0.1f;
             this.setYRot(this.yBodyRot);
             this.zBodyRot += (float) Math.PI * this.rotateSpeed * 1.5f;
-            this.xBodyRot += (-((float) Mth.atan2(d, vec3.y)) * 57.295776f - this.xBodyRot) * 0.1f;
+            this.xBodyRot += (-(Mth.atan2(vec3.horizontalDistance(), vec3.y)) * 57.295776f - this.xBodyRot) * 0.1f;
         } else {
             this.xBodyRot += (-90.0f - this.xBodyRot) * 0.02f;
         }
@@ -235,7 +234,8 @@ public class Jellyfish extends AbstractFish {
         LivingEntity target = this.getTarget();
         if (target != null) {
             ++this.ticksSinceCantReach;
-            if (this.ticksSinceCantReach > 300 || target.isDeadOrDying() || target.isRemoved() || target.distanceTo(this) > 20 || this.level.getDifficulty() == Difficulty.PEACEFUL) {
+            boolean creative = target instanceof Player player && player.isCreative();
+            if (this.ticksSinceCantReach > 300 || target.isDeadOrDying() || target.isRemoved() || target.distanceTo(this) > 20 || this.level.getDifficulty() == Difficulty.PEACEFUL || target.isSpectator() || creative) {
                 this.getBrain().eraseMemory(MemoryModuleType.ATTACK_TARGET);
                 this.ticksSinceCantReach = 0;
             } else {
@@ -294,7 +294,14 @@ public class Jellyfish extends AbstractFish {
         if (super.hurt(damageSource, f)) {
             if (!this.level.isClientSide && this.level.getDifficulty() != Difficulty.PEACEFUL) {
                 //this.spawnJelly();
-                this.setAttackTarget(this.getLastHurtByMob());
+                LivingEntity target = this.getLastHurtByMob();
+                if (target instanceof Player player) {
+                    if (!player.isCreative() && !player.isSpectator()) {
+                        this.setAttackTarget(target);
+                    }
+                } else {
+                    this.setAttackTarget(target);
+                }
             }
             return true;
         }

@@ -14,8 +14,6 @@ import net.minecraft.client.renderer.RenderType;
 import net.minecraft.util.Mth;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.Arrays;
-
 @Environment(EnvType.CLIENT)
 public class JellyfishModel<T extends Jellyfish> extends HierarchicalModel<T> {
 
@@ -31,7 +29,6 @@ public class JellyfishModel<T extends Jellyfish> extends HierarchicalModel<T> {
     private final ModelPart tentacle6;
     private final ModelPart tentacle7;
     private final ModelPart tentacle8;
-    private final ModelPart[] tentacles = new ModelPart[8];
 
     public JellyfishModel(ModelPart root) {
         super(RenderType::entityTranslucentEmissive);
@@ -47,7 +44,6 @@ public class JellyfishModel<T extends Jellyfish> extends HierarchicalModel<T> {
         this.tentacle6 = this.tentacleRot.getChild("tentacle6");
         this.tentacle7 = this.tentacleRot.getChild("tentacle7");
         this.tentacle8 = this.tentacleRot.getChild("tentacle8");
-        Arrays.setAll(this.tentacles, i -> this.tentacleRot.getChild(createTentacleName(i)));
     }
 
     private static String createTentacleName(int i) {
@@ -110,7 +106,6 @@ public class JellyfishModel<T extends Jellyfish> extends HierarchicalModel<T> {
 
     @Override
     public void setupAnim(@NotNull T jellyfish, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
-        
         float animation = limbSwing * 2;
 
         float sin = -Mth.sin(animation);

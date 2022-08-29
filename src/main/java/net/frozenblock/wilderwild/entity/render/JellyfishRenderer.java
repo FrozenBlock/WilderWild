@@ -9,10 +9,7 @@ import net.fabricmc.api.Environment;
 import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.WilderWildClient;
 import net.frozenblock.wilderwild.entity.Jellyfish;
-import net.frozenblock.wilderwild.entity.render.feature.JellyfishFeatureRenderer;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.model.EntityModel;
-import net.minecraft.client.model.Model;
 import net.minecraft.client.renderer.LightTexture;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
@@ -26,7 +23,6 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.Pose;
 import net.minecraft.world.level.LightLayer;
 import net.minecraft.world.phys.Vec3;
@@ -37,6 +33,7 @@ import org.jetbrains.annotations.Nullable;
 public class JellyfishRenderer extends MobRenderer<Jellyfish, JellyfishModel<Jellyfish>> {
 
     private static final String BASE_TEXTURE = "textures/entity/jellyfish/";
+    private static final float pi180 = Mth.PI / 180;
 
     public JellyfishRenderer(Context context) {
         super(context, new JellyfishModel<>(context.bakeLayer(WilderWildClient.JELLYFISH)), 0.3F);
@@ -55,8 +52,7 @@ public class JellyfishRenderer extends MobRenderer<Jellyfish, JellyfishModel<Jel
         float h = Mth.rotLerp(g, jelly.yBodyRotO, jelly.yBodyRot);
         float j = Mth.rotLerp(g, jelly.yHeadRotO, jelly.yHeadRot);
         float k = j - h;
-        if (jelly.isPassenger() && jelly.getVehicle() instanceof LivingEntity) {
-            LivingEntity jelly2 = (LivingEntity) jelly.getVehicle();
+        if (jelly.isPassenger() && jelly.getVehicle() instanceof LivingEntity jelly2) {
             h = Mth.rotLerp(g, jelly2.yBodyRotO, jelly2.yBodyRot);
             k = j - h;
             float l = Mth.wrapDegrees(k);
@@ -134,10 +130,10 @@ public class JellyfishRenderer extends MobRenderer<Jellyfish, JellyfishModel<Jel
         poseStack.translate(0.0, -1, 0.0);
         poseStack.scale(0.8F, 0.8F, 0.8F);
         JellyfishModel<Jellyfish> model = this.getModel();
-        model.xRot = Mth.lerp(h, jelly.xRot1, jelly.xBodyRot);
-        model.zRot = Mth.lerp(h, jelly.zRot1, jelly.zBodyRot);
-        model.tentXRot = Mth.lerp(h, jelly.xRot6, jelly.xRot5);
-        model.tentZRot = Mth.lerp(h, jelly.zRot6, jelly.zRot5);
+        model.xRot = jelly.xRot1 + h * (jelly.xBodyRot - jelly.xRot1);
+        model.zRot = jelly.zRot1 + h * (jelly.zBodyRot - jelly.zRot1);
+        model.tentXRot = jelly.xRot6 + h * (jelly.xRot5 - jelly.xRot6);
+        model.tentZRot = jelly.zRot6 + h * (jelly.zRot5 - jelly.zRot6);
     }
 
     @Override
@@ -161,24 +157,25 @@ public class JellyfishRenderer extends MobRenderer<Jellyfish, JellyfishModel<Jel
         int v;
         poseStack.pushPose();
         Vec3 vec3 = entity.getRopeHoldPosition(f);
-        double d = (double)(Mth.lerp(f, ((Mob)mob).yBodyRotO, ((Mob)mob).yBodyRot) * ((float)Math.PI / 180)) + 1.5707963267948966;
-        Vec3 vec32 = ((Entity)mob).getLeashOffset();
-        double e = Math.cos(d) * vec32.z + Math.sin(d) * vec32.x;
-        double g = Math.sin(d) * vec32.z - Math.cos(d) * vec32.x;
-        double h = Mth.lerp((double)f, ((Mob)mob).xo, ((Entity)mob).getX()) + e;
-        double i = Mth.lerp((double)f, ((Mob)mob).yo, ((Entity)mob).getY()) + vec32.y;
-        double j = Mth.lerp((double)f, ((Mob)mob).zo, ((Entity)mob).getZ()) + g;
+        double d = (mob.yBodyRotO + f * (mob.yBodyRot - mob.yBodyRotO)) * (pi180) + 1.5707963267948966;
+        Vec3 vec32 = mob.getLeashOffset();
+        double sinD = Math.sin(d);
+        double cosD = Math.cos(d);
+        double e = cosD * vec32.z + sinD * vec32.x;
+        double g = sinD * vec32.z - cosD * vec32.x;
+        double h = Mth.lerp(f, mob.xo, mob.getX()) + e;
+        double i = Mth.lerp(f, mob.yo, mob.getY()) + vec32.y;
+        double j = Mth.lerp(f, mob.zo, mob.getZ()) + g;
         poseStack.translate(e, vec32.y, g);
         float k = (float)(vec3.x - h);
         float l = (float)(vec3.y - i);
         float m = (float)(vec3.z - j);
-        float n = 0.025f;
         VertexConsumer vertexConsumer = multiBufferSource.getBuffer(RenderType.leash());
         Matrix4f matrix4f = poseStack.last().pose();
         float o = Mth.fastInvSqrt(k * k + m * m) * 0.025f / 2.0f;
         float p = m * o;
         float q = k * o;
-        BlockPos blockPos = new BlockPos(((Entity)mob).getEyePosition(f));
+        BlockPos blockPos = new BlockPos(mob.getEyePosition(f));
         BlockPos blockPos2 = new BlockPos(entity.getEyePosition(f));
         int r = this.getBlockLightLevel(mob, blockPos);
         int s = 15;
@@ -195,8 +192,8 @@ public class JellyfishRenderer extends MobRenderer<Jellyfish, JellyfishModel<Jel
 
     private static void addVertexPair(VertexConsumer vertexConsumer, Matrix4f matrix4f, float f, float g, float h, int i, int j, int k, int l, float m, float n, float o, float p, int q, boolean bl) {
         float r = (float)q / 24.0f;
-        int s = (int)Mth.lerp(r, i, j);
-        int t = (int)Mth.lerp(r, k, l);
+        int s = (int) (i + r * (j - i));
+        int t = (int) (k + r * (l - k));
         int u = LightTexture.pack(s, t);
         float v = q % 2 == (bl ? 1 : 0) ? 0.7f : 1.0f;
         float w = 0.5f * v;
