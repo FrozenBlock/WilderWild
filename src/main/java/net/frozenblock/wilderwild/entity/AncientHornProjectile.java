@@ -198,16 +198,16 @@ public class AncientHornProjectile extends AbstractArrow {
         return EntityDimensions.scalable(this.getType().getWidth() + this.sussysize, this.getType().getWidth() + this.sussysize);
     }
 
-    public void setCooldown(int cooldown) {
+    public void setCooldown(int cooldownTicks) {
         Entity entity = this.getOwner();
         if (entity != null) {
             if (entity instanceof Player user) {
-                user.getCooldowns().addCooldown(RegisterItems.ANCIENT_HORN, cooldown);
+                user.getCooldowns().addCooldown(RegisterItems.ANCIENT_HORN, cooldownTicks);
             }
         }
     }
 
-    public void addCooldown(int amountOfCooldownToBeAddedInTicksIntegerValueAlsoByTheWayXfrtrexIsSusIfYouDidntAlreadyKnowAlsoByTheWayIOnlyTakeShitsOnTuesdaysSoDontMessWithMeOnTuesdaysYouFuckingHumanSoJustPutTheIntegerValueHereOrElse) {
+    public void addCooldown(int cooldownTicks) {
         Entity entity = this.getOwner();
         if (entity != null) {
             if (entity instanceof Player user) {
@@ -215,11 +215,11 @@ public class AncientHornProjectile extends AbstractArrow {
                     ItemCooldowns manager = user.getCooldowns();
                     ItemCooldowns.CooldownInstance entry = manager.cooldowns.get(RegisterItems.ANCIENT_HORN);
                     if (entry != null) {
-                        int cooldown = (entry.endTime - entry.startTime) + amountOfCooldownToBeAddedInTicksIntegerValueAlsoByTheWayXfrtrexIsSusIfYouDidntAlreadyKnowAlsoByTheWayIOnlyTakeShitsOnTuesdaysSoDontMessWithMeOnTuesdaysYouFuckingHumanSoJustPutTheIntegerValueHereOrElse;
+                        int cooldown = (entry.endTime - entry.startTime) + cooldownTicks;
                         manager.removeCooldown(RegisterItems.ANCIENT_HORN);
                         manager.addCooldown(RegisterItems.ANCIENT_HORN, Math.min(600, cooldown));
                     } else {
-                        manager.addCooldown(RegisterItems.ANCIENT_HORN, amountOfCooldownToBeAddedInTicksIntegerValueAlsoByTheWayXfrtrexIsSusIfYouDidntAlreadyKnowAlsoByTheWayIOnlyTakeShitsOnTuesdaysSoDontMessWithMeOnTuesdaysYouFuckingHumanSoJustPutTheIntegerValueHereOrElse);
+                        manager.addCooldown(RegisterItems.ANCIENT_HORN, cooldownTicks);
                     }
                 }
             }
@@ -235,7 +235,7 @@ public class AncientHornProjectile extends AbstractArrow {
         }
     }
 
-    public void playerTouch(Player player) {
+    public void playerTouch(@NotNull Player player) {
     }
 
     protected void onHitBlock(BlockHitResult blockHitResult) {
@@ -336,7 +336,7 @@ public class AncientHornProjectile extends AbstractArrow {
                 if (insideState.getBlock() instanceof BellBlock bell) {
                     bell.onProjectileHit(server, insideState, this.level.clip(new ClipContext(this.position(), new Vec3(this.getBlockX(), this.getBlockY(), this.getBlockZ()), ClipContext.Block.COLLIDER, ClipContext.Fluid.NONE, this)), this);
                 } else if (insideState.getBlock() instanceof AbstractGlassBlock || insideState.is(WilderBlockTags.GLASS_BLOCKS) || insideState.is(WilderBlockTags.GLASS_PANES)) {
-                    if (WilderWildConfig.get().entity.ancientHornShattersGlass) {
+                    if (WilderWildConfig.get().item.ancientHornShattersGlass) {
                         insideState.onProjectileHit(this.level, insideState, this.level.clip(new ClipContext(this.position(), new Vec3(this.getBlockX(), this.getBlockY(), this.getBlockZ()), ClipContext.Block.COLLIDER, ClipContext.Fluid.NONE, this)), this);
                         this.level.destroyBlock(this.blockPosition(), false, this);
                     }
@@ -518,10 +518,10 @@ public class AncientHornProjectile extends AbstractArrow {
         }
     }
 
-    public void gameEvent(GameEvent event) {
+    public void gameEvent(@NotNull GameEvent event) {
     }
 
-    public void gameEvent(GameEvent event, @Nullable Entity entity) {
+    public void gameEvent(@NotNull GameEvent event, @Nullable Entity entity) {
     }
 
     public static class EntitySpawnPacket { //When the Fabric tutorial WORKS!!!!! BOM BOM BOM BOM BOM BOM BOM, BOBOBOM! DUNDUN!

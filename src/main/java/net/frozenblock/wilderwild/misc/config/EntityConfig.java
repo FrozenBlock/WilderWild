@@ -14,7 +14,6 @@ import static net.frozenblock.wilderwild.misc.config.WilderWildConfig.tooltip;
 @Config(name = "entity")
 public class EntityConfig implements ConfigData {
 
-    public boolean ancientHornShattersGlass = false;
     public boolean wardenEmergesFromEgg = true;
     public boolean customWardenTendrils = true;
     public boolean wardenSwimAnimation = true;
@@ -22,11 +21,6 @@ public class EntityConfig implements ConfigData {
     @Environment(EnvType.CLIENT)
     public static void setupEntries(ConfigCategory category, ConfigEntryBuilder entryBuilder) {
         var config = WilderWildConfig.get().entity;
-        category.addEntry(entryBuilder.startBooleanToggle(text("ancient_horn_shatters_glass"), config.ancientHornShattersGlass)
-                .setDefaultValue(false)
-                .setSaveConsumer(newValue -> config.ancientHornShattersGlass = newValue)
-                .setTooltip(tooltip("ancient_horn_shatters_glass"))
-                .build());
         category.addEntry(entryBuilder.startBooleanToggle(text("warden_emerges_from_egg"), config.wardenEmergesFromEgg)
                 .setDefaultValue(true)
                 .setSaveConsumer(newValue -> config.wardenEmergesFromEgg = newValue)

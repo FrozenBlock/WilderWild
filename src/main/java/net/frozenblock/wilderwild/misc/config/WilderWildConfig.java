@@ -10,6 +10,7 @@ import me.shedaniel.clothconfig2.api.ConfigBuilder;
 import me.shedaniel.clothconfig2.api.ConfigCategory;
 import me.shedaniel.clothconfig2.api.ConfigEntryBuilder;
 import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.fabricmc.loader.api.FabricLoader;
 import net.frozenblock.wilderwild.WilderWild;
 import net.minecraft.client.gui.screens.Screen;
@@ -26,17 +27,13 @@ public class WilderWildConfig extends PartitioningSerializer.GlobalData {
     @TransitiveObject
     public EntityConfig entity = new EntityConfig();
 
+    @Category("item")
+    @TransitiveObject
+    public ItemConfig item = new ItemConfig();
+
     @Category("worldgen")
     @TransitiveObject
     public WorldgenConfig worldgen = new WorldgenConfig();
-
-    public static Component text(String key) {
-        return Component.translatable("option." + WilderWild.MOD_ID + "." + key);
-    }
-
-    public static Component tooltip(String key) {
-        return Component.translatable("tooltip." + WilderWild.MOD_ID + "." + key);
-    }
 
     public static WilderWildConfig get() {
         if (!WilderWild.areConfigsInit) {
@@ -46,7 +43,35 @@ public class WilderWildConfig extends PartitioningSerializer.GlobalData {
         return AutoConfig.getConfigHolder(WilderWildConfig.class).getConfig();
     }
 
-    /*public static void setupEntries(ConfigCategory category, ConfigEntryBuilder entryBuilder) {
+    public static Component text(String key) {
+        return Component.translatable("option." + WilderWild.MOD_ID + "." + key);
+    }
+
+    public static Component tooltip(String key) {
+        return Component.translatable("tooltip." + WilderWild.MOD_ID + "." + key);
+    }
+
+    @Environment(EnvType.CLIENT)
+    public static Screen buildScreen(Screen parent) {
+        var configBuilder = ConfigBuilder.create().setParentScreen(parent).setTitle(text("component.title"));
+        configBuilder.setSavingRunnable(() -> AutoConfig.getConfigHolder(WilderWildConfig.class).save());
+        //ConfigCategory general = configBuilder.getOrCreateCategory(text("general"));
+        var block = configBuilder.getOrCreateCategory(text("block"));
+        var entity = configBuilder.getOrCreateCategory(text("entity"));
+        var item = configBuilder.getOrCreateCategory(text("item"));
+        var worldgen = configBuilder.getOrCreateCategory(text("worldgen"));
+        ConfigEntryBuilder entryBuilder = configBuilder.entryBuilder();
+        BlockConfig.setupEntries(block, entryBuilder);
+        EntityConfig.setupEntries(entity, entryBuilder);
+        ItemConfig.setupEntries(item, entryBuilder);
+        WorldgenConfig.setupEntries(worldgen, entryBuilder);
+        //WilderWildClientConfig.setupEntries(general, entryBuilder);
+        return configBuilder.build();
+    }
+
+
+    /*@Environment(EnvType.CLIENT)
+    public static void setupEntries(ConfigCategory category, ConfigEntryBuilder entryBuilder) {
         var config = WilderWildClient.config;
         category.addEntry(entryBuilder.startBooleanToggle(text("beta_beaches"), config.betaBeaches)
                 .setDefaultValue(true)
