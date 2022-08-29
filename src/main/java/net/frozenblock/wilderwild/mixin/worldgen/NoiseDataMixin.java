@@ -15,7 +15,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Pseudo
-@Mixin(NoiseData.class)
+@Mixin(value = NoiseData.class, priority = 69420)
 public class NoiseDataMixin {
 
     @Shadow

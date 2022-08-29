@@ -67,6 +67,13 @@ public class ClothConfigInteractionHandler {
         return true;
     }
 
+    public static boolean wildGrass() {
+        if (WilderWild.hasClothConfig()) {
+            return ClothConfigCloserInteractionHandler.wildGrass();
+        }
+        return true;
+    }
+
     public static boolean hornShattersGlass() {
         if (WilderWild.hasClothConfig()) {
             return ClothConfigCloserInteractionHandler.hornShattersGlass();
@@ -81,16 +88,23 @@ public class ClothConfigInteractionHandler {
         return false;
     }
 
-    public static boolean wardenEmergesFromEgg() {
+    public static boolean wardenCustomTendrils() {
         if (WilderWild.hasClothConfig()) {
-            return ClothConfigCloserInteractionHandler.wardenEmergesFromEgg();
+            return ClothConfigCloserInteractionHandler.wardenCustomTendrils();
         }
         return true;
     }
 
-    public static boolean customWardenTendrils() {
+    public static boolean wardenDyingAnimation() {
         if (WilderWild.hasClothConfig()) {
-            return ClothConfigCloserInteractionHandler.customWardenTendrils();
+            return ClothConfigCloserInteractionHandler.wardenDyingAnimation();
+        }
+        return true;
+    }
+
+    public static boolean wardenEmergesFromEgg() {
+        if (WilderWild.hasClothConfig()) {
+            return ClothConfigCloserInteractionHandler.wardenEmergesFromEgg();
         }
         return true;
     }

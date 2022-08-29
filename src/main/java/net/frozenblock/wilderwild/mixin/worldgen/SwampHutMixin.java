@@ -27,7 +27,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 
-@Mixin(SwampHutPiece.class)
+@Mixin(value = SwampHutPiece.class, priority = 999)
 public class SwampHutMixin {
     @Shadow
     private boolean spawnedWitch;

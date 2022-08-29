@@ -13,7 +13,7 @@ import org.spongepowered.asm.mixin.Mutable;
 import org.spongepowered.asm.mixin.Shadow;
 
 @Environment(EnvType.CLIENT)
-@Mixin(WardenAnimation.class)
+@Mixin(value = WardenAnimation.class, priority = 999)
 public class WardenAnimationOverwrites {
 
     @Final

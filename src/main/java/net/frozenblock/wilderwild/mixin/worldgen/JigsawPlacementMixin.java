@@ -17,7 +17,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import java.util.Optional;
 
-@Mixin(JigsawPlacement.class)
+@Mixin(value = JigsawPlacement.class, priority = 69420)
 public class JigsawPlacementMixin {
 
     @Shadow
