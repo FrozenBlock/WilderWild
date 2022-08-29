@@ -118,7 +118,7 @@ public class JellyfishModel<T extends Jellyfish> extends HierarchicalModel<T> {
 
         float sin = -Mth.sin(animation);
         float sinTentacle = (-Mth.sin(animation + 5) * 20 - 7.5F) * pi180;
-        float sinIdle = Mth.sin(ageInTicks) * 0.2F;
+        float sinIdle = Mth.sin(ageInTicks) * 0.2;
         
         //CARDINAL TENTACLES
         this.tentacle1.xRot = sinTentacle;
