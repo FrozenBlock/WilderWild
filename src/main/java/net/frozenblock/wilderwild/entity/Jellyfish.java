@@ -261,11 +261,13 @@ public class Jellyfish extends AbstractFish {
 
         LivingEntity target = this.getTarget();
         if (target != null) {
-            //++this.ticksSinceCantReach;
-            if (target.isDeadOrDying()) {
+            ++this.ticksSinceCantReach;
+            if (this.ticksSinceCantReach > 300 || target.isDeadOrDying() || target.isRemoved() || target.distanceTo(this) > 20) {
                 this.getBrain().eraseMemory(MemoryModuleType.ATTACK_TARGET);
                 this.ticksSinceCantReach = 0;
             }
+        } else {
+            this.ticksSinceCantReach = 0;
         }
         if (this.isAlive()) {
             List<Mob> list = this.level.getEntitiesOfClass(Mob.class, this.getBoundingBox().inflate(0.3D), (mobx) -> targetingConditions.test(this, mobx));
