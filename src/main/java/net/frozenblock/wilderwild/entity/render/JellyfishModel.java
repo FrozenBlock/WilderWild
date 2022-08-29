@@ -110,6 +110,7 @@ public class JellyfishModel<T extends Jellyfish> extends HierarchicalModel<T> {
 
         float sin = -Mth.sin(animation);
         float sinTentacle = (-Mth.sin(animation + 5) * 20 - 7.5F) * pi180;
+        float sinIdle = Mth.sin(ageInTicks);
         
         //CARDINAL TENTACLES
         this.tentacle1.xRot = sinTentacle;
@@ -126,8 +127,8 @@ public class JellyfishModel<T extends Jellyfish> extends HierarchicalModel<T> {
         //SQUASH & STRETCH
         float squashStretch = 1F + (-sin * 0.25F);
 
-        this.body.xScale = squashStretch;
-        this.body.zScale = squashStretch;
+        this.body.xScale = limbSwingAmount = 0 ? Mth.lerp(squashStretch, sinIdle, ageInTicks) : Mth.lerp(sinIdle, squashStretch, animation);
+        this.body.zScale = limbSwingAmount = 0 ? Mth.lerp(squashStretch, sinIdle, ageInTicks) : Mth.lerp(sinIdle, squashStretch, animation);
         this.body.yScale = 1.25F + (sin * 0.75F);
 
         this.body.y = 3.5F -(squashStretch * 3.5F);
