@@ -103,6 +103,10 @@ public class JellyfishModel<T extends Jellyfish> extends HierarchicalModel<T> {
         this.tentacleRot.render(poseStack, vertexConsumer, 1, j, 1.0F, 1.0F, 1.0F, this.lightProg);
         poseStack.popPose();
     }
+    
+    private float lerp(float delta, float start, float end) {
+        return Mth.lerp(delta, start, end);
+    }
 
     @Override
     public void setupAnim(@NotNull T jellyfish, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
@@ -110,7 +114,7 @@ public class JellyfishModel<T extends Jellyfish> extends HierarchicalModel<T> {
 
         float sin = -Mth.sin(animation);
         float sinTentacle = (-Mth.sin(animation + 5) * 20 - 7.5F) * pi180;
-        float sinIdle = Mth.sin(ageInTicks);
+        float sinIdle = Mth.sin(ageInTicks) * 0.2 + 1;
         
         //CARDINAL TENTACLES
         this.tentacle1.xRot = sinTentacle;
@@ -127,8 +131,8 @@ public class JellyfishModel<T extends Jellyfish> extends HierarchicalModel<T> {
         //SQUASH & STRETCH
         float squashStretch = 1F + (-sin * 0.25F);
 
-        this.body.xScale = limbSwingAmount == 0 ? Mth.lerp(squashStretch, sinIdle, animation) : Mth.lerp(sinIdle, squashStretch, animation);
-        this.body.zScale = limbSwingAmount == 0 ? Mth.lerp(squashStretch, sinIdle, animation) : Mth.lerp(sinIdle, squashStretch, animation);
+        this.body.xScale = lerp(animation, sinIdle, squashStretch);
+        this.body.zScale = lerp(animation, sinIdle, squashStretch);
         this.body.yScale = 1.25F + (sin * 0.75F);
 
         this.body.y = 3.5F -(squashStretch * 3.5F);
