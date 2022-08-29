@@ -50,8 +50,6 @@ public class JellyfishModel<T extends Jellyfish> extends HierarchicalModel<T> {
         return "tentacle" + (i + 1);
     }
 
-    private static final float pi180 = Mth.PI / 180;
-
     public static LayerDefinition getTexturedModelData() {
         MeshDefinition meshDefinition = new MeshDefinition();
         PartDefinition partDefinition = meshDefinition.getRoot();
@@ -104,14 +102,17 @@ public class JellyfishModel<T extends Jellyfish> extends HierarchicalModel<T> {
         poseStack.popPose();
     }
 
+    private static final float pi180 = Mth.PI / 180;
+    private static final float eightPi = -8 * pi180;
+
     @Override
     public void setupAnim(@NotNull T jellyfish, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
         float animation = limbSwing * 2;
         float movementDelta = Math.min(limbSwingAmount / 0.025F, 1.0F);
 
         float sin = -Mth.sin(animation);
-        float sinIdle = Mth.sin(ageInTicks * 0.125F) * 0.2F;
-        float tentRot = Mth.rotLerp(movementDelta, -Mth.sin(ageInTicks * 0.125F) * 0.2F * 2, (-Mth.sin(animation + 5) * 20 - 7.5F) * pi180);
+        float sinIdle = Mth.sin(ageInTicks * 0.1F) * 0.2F;
+        float tentRot = Mth.rotLerp(movementDelta, (-Mth.sin((ageInTicks - 5) * 0.1F) * 0.2F) + eightPi, (-Mth.sin(animation + 5) * 20 - 7.5F) * pi180);
 
         //CARDINAL TENTACLES
         this.tentacle1.xRot = tentRot;
