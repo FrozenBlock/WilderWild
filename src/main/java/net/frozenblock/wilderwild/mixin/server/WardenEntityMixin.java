@@ -222,6 +222,7 @@ public class WardenEntityMixin extends Monster implements WilderWarden {
         super.die(damageSource);
         if (ClothConfigInteractionHandler.wardenDyingAnimation() || this.isOsmiooo()) {
             warden.getBrain().removeAllBehaviors();
+            warden.setNoAi(true);
         }
     }
 
