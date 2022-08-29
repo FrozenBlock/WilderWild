@@ -250,6 +250,8 @@ public class Jellyfish extends AbstractFish {
             this.xBodyRot += (-90.0f - this.xBodyRot) * 0.02f;
         }
 
+        this.heal(0.04F);
+
         LivingEntity target = this.getTarget();
         if (target != null) {
             ++this.ticksSinceCantReach;
@@ -259,8 +261,8 @@ public class Jellyfish extends AbstractFish {
             } else {
                 this.getNavigation().stop();
                 this.getNavigation().moveTo(this.getTarget(), 1.7);
-                if (target.distanceTo(this) < 4) {
-                    this.ticksSinceCantReach = Math.max(this.ticksSinceCantReach - 1, 0);
+                if (target.distanceTo(this) < 5) {
+                    this.ticksSinceCantReach = Math.max(this.ticksSinceCantReach - 2, 0);
                 }
             }
         } else {
@@ -310,7 +312,6 @@ public class Jellyfish extends AbstractFish {
     @Override
     public boolean hurt(@NotNull DamageSource damageSource, float f) {
         if (super.hurt(damageSource, f)) {
-            this.addEffect(new MobEffectInstance(MobEffects.REGENERATION, 100, 0, false, false, false), this);
             if (!this.level.isClientSide && this.level.getDifficulty() != Difficulty.PEACEFUL) {
                 //this.spawnJelly();
                 this.setAttackTarget(this.getLastHurtByMob());
