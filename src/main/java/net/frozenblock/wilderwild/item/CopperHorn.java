@@ -29,13 +29,13 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
 
-public class CopperHorn extends Item {
+public class CopperHorn extends InstrumentItem {
     private static final String INSTRUMENT_KEY = "instrument";
     private final TagKey<Instrument> instrumentTag;
     private final int shift;
 
     public CopperHorn(Properties settings, TagKey<Instrument> instrumentTag, int shift) {
-        super(settings);
+        super(settings, instrumentTag);
         this.instrumentTag = instrumentTag;
         this.shift = shift;
     }
@@ -74,7 +74,7 @@ public class CopperHorn extends Item {
 
     }
 
-    private Optional<Holder<Instrument>> getInstrument(ItemStack stack) {
+    public Optional<Holder<Instrument>> getInstrument(ItemStack stack) {
         CompoundTag nbtCompound = stack.getTag();
         if (nbtCompound != null) {
             ResourceLocation identifier = ResourceLocation.tryParse(nbtCompound.getString(INSTRUMENT_KEY));
