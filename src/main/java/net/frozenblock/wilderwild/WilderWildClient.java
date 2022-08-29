@@ -25,6 +25,7 @@ import net.minecraft.Util;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.multiplayer.ClientLevel;
+import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.client.renderer.BiomeColors;
 import net.minecraft.client.renderer.RenderStateShard;
 import net.minecraft.client.renderer.RenderType;
@@ -35,6 +36,7 @@ import net.minecraft.core.Registry;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
@@ -163,6 +165,7 @@ public final class WilderWildClient implements ClientModInitializer {
         receiveControlledSeedPacket();
         receiveTermitePacket();
         receiveSensorHiccupPacket();
+        receiveJellyStingPacket();
 
         receiveFireflyCaptureInfoPacket();
         receiveAncientHornKillInfoPacket();
@@ -336,6 +339,19 @@ public final class WilderWildClient implements ClientModInitializer {
                 if (Minecraft.getInstance().level == null)
                     throw new IllegalStateException("why is your world null");
                 CompetitionCounter.addAncientHornKill(creative, natural);
+            });
+        });
+    }
+
+    private static void receiveJellyStingPacket() {
+        ClientPlayNetworking.registerGlobalReceiver(WilderWild.JELLY_STING_PACKET, (ctx, handler, byteBuf, responseSender) -> {
+            ctx.execute(() -> {
+                if (Minecraft.getInstance().level != null) {
+                    LocalPlayer player = ctx.player;
+                    if (player != null) {
+                        Minecraft.getInstance().level.playSound(player, player.getX(), player.getY(), player.getZ(), RegisterSounds.ENTITY_JELLYFISH_STING, SoundSource.NEUTRAL, 1.0f, Minecraft.getInstance().level.random.nextFloat() * 0.2f + 0.9f);
+                    }
+                }
             });
         });
     }

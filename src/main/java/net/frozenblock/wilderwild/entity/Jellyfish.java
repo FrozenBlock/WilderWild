@@ -2,6 +2,7 @@ package net.frozenblock.wilderwild.entity;
 
 import com.mojang.serialization.Dynamic;
 import net.frozenblock.wilderwild.entity.ai.JellyfishAi;
+import net.frozenblock.wilderwild.misc.server.EasyPacket;
 import net.frozenblock.wilderwild.registry.RegisterItems;
 import net.frozenblock.wilderwild.registry.RegisterSounds;
 import net.frozenblock.wilderwild.tag.WilderBiomeTags;
@@ -244,7 +245,7 @@ public class Jellyfish extends AbstractFish {
             if (entity instanceof ServerPlayer player) {
                 if (player.hurt(DamageSource.mobAttack(this), 3)) {
                     player.addEffect(new MobEffectInstance(MobEffects.POISON, 200, 0, false, false), this);
-                    this.playSound(RegisterSounds.ENTITY_JELLYFISH_STING, 0.4F, this.random.nextFloat() * 0.2f + 0.9f);
+                    EasyPacket.sendJellySting(player);
                 }
             } else if (entity instanceof Mob mob) {
                 if (targetingConditions.test(this, mob)) {

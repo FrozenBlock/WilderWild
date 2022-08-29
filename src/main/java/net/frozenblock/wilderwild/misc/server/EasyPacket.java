@@ -124,4 +124,9 @@ public class EasyPacket {
         }
     }
 
+    public static void sendJellySting(ServerPlayer player) {
+        FriendlyByteBuf byteBuf = new FriendlyByteBuf(Unpooled.buffer());
+        ServerPlayNetworking.send(player, WilderWild.JELLY_STING_PACKET, byteBuf);
+    }
+
 }
