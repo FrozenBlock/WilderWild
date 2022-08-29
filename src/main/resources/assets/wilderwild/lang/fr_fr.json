@@ -181,6 +181,8 @@
   "tooltip.modmenu.modify_swamp_placement": "Choisir si les marais se placent comme en vanilla ou comme dans Wilder Wild",
   "tooltip.modmenu.modify_windswept_savanna_placement": "Choisir si les savanes venteuses se placent comme en vanilla ou comme dans Wilder Wild",
   "tooltip.modmenu.sensor_tendrils": "Vanilla (Par défaut): Utilise l'animation de texture pour les vrilles des capteurs sculk\nMinecraft Live 2020: Utilise une animation block-entité pour les vrilles des capteurs sculk",
+  "tooltip.wilderwild.ancient_horn_shatters_glass": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA but in french",
+
 
   "wilderwild.ancient_horn.advancement.use": "Ambiance : Validée",
   "wilderwild.ancient_horn.advancement.use.description": "Trouver et utiliser une corne ancienne",
