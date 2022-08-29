@@ -67,6 +67,13 @@ public class ClothConfigInteractionHandler {
         return true;
     }
 
+    public static boolean wildGrass() {
+        if (WilderWild.hasClothConfig()) {
+            return ClothConfigCloserInteractionHandler.wildGrass();
+        }
+        return true;
+    }
+
     public static boolean hornShattersGlass() {
         if (WilderWild.hasClothConfig()) {
             return ClothConfigCloserInteractionHandler.hornShattersGlass();
