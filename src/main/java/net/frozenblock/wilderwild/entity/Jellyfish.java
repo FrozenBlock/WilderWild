@@ -274,7 +274,7 @@ public class Jellyfish extends AbstractFish {
             if (targetingConditions.test(this, mob)) {
                 if (mob.isAlive()) {
                     if (mob.hurt(DamageSource.mobAttack(this), (float) (3))) {
-                        mob.addEffect(new MobEffectInstance(MobEffects.POISON, 60 * 3, 0), this);
+                        mob.addEffect(new MobEffectInstance(MobEffects.POISON, 90 * 3, 0), this);
                         //TODO: JELLY STING SOUND
                         this.playSound(RegisterSounds.ENTITY_JELLYFISH_STING, 1.0F, 1.0F);
                     }
@@ -312,6 +312,7 @@ public class Jellyfish extends AbstractFish {
         if (super.hurt(damageSource, f)) {
             if (!this.level.isClientSide && this.level.getDifficulty() != Difficulty.PEACEFUL) {
                 //this.spawnJelly();
+                this.addEffect(new MobEffectInstance(MobEffects.REGENERATION, 100, 0, false, false, false), this);
                 this.setAttackTarget(this.getLastHurtByMob());
             }
             return true;
