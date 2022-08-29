@@ -62,7 +62,7 @@ public class JellyfishModel<T extends Jellyfish> extends HierarchicalModel<T> {
         PartDefinition bone = partDefinition.addOrReplaceChild("bone", CubeListBuilder.create(), PartPose.offset(0.0F, 14.0F, 0.0F));
         PartDefinition body = bone.addOrReplaceChild("body", CubeListBuilder.create().texOffs(0, 0).addBox(-4.0F, -2.0F, -4.0F, 8.0F, 5.0F, 8.0F, new CubeDeformation(0.0F))
                 .texOffs(4, 13).addBox(-3.0F, -1.0F, -3.0F, 6.0F, 3.0F, 6.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 0.0F, 0.0F));
-        PartDefinition tentacleRot = bone.addOrReplaceChild("tentacleRot", CubeListBuilder.create(), PartPose.offset(0.0F, 2.0F, 0.0F));
+        PartDefinition tentacleRot = bone.addOrReplaceChild("tentacleRot", CubeListBuilder.create(), PartPose.offset(0.0F, 6.0F, 0.0F));
         PartDefinition tentacle1 = tentacleRot.addOrReplaceChild("tentacle1", CubeListBuilder.create().texOffs(0, 13).addBox(-0.5F, 0.0F, 0.0F, 1.0F, 10.0F, 1.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 0.0F, -3.0F));
         PartDefinition tentacle2 = tentacleRot.addOrReplaceChild("tentacle2", CubeListBuilder.create().texOffs(0, 13).addBox(-0.5F, 0.0F, 0.0F, 1.0F, 10.0F, 1.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(2.5F, 0.0F, -2.5F, 0.0F, -0.7854F, 0.0F));
         PartDefinition tentacle3 = tentacleRot.addOrReplaceChild("tentacle3", CubeListBuilder.create().texOffs(0, 13).addBox(-0.5F, 0.0F, 0.0F, 1.0F, 10.0F, 1.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(3.0F, 0.0F, 0.0F, 0.0F, -1.5708F, 0.0F));
@@ -135,7 +135,7 @@ public class JellyfishModel<T extends Jellyfish> extends HierarchicalModel<T> {
         this.body.yScale = ySin;
 
         this.body.y = 3.5F -(xZScale * 3.5F);
-        this.tentacleRot.y = (7F -(xZScale * 7F)) * 2;
+        this.tentacleRot.y = (6F -(xZScale * 5F)) * 2;
     }
 
     @Override
