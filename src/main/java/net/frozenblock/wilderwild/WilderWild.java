@@ -38,7 +38,6 @@ import net.minecraft.world.level.GameRules;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.feature.Feature;
-import net.minecraft.world.level.levelgen.feature.configurations.HugeMushroomFeatureConfiguration;
 import net.minecraft.world.level.levelgen.feature.configurations.ProbabilityFeatureConfiguration;
 import net.minecraft.world.level.levelgen.feature.trunkplacers.TrunkPlacer;
 import net.minecraft.world.level.levelgen.feature.trunkplacers.TrunkPlacerType;
@@ -71,8 +70,6 @@ public final class WilderWild implements ModInitializer {
     public static final NoisePathUnderWaterFeature NOISE_PATH_UNDER_WATER_FEATURE = new NoisePathUnderWaterFeature(PathFeatureConfig.CODEC);
     public static final ColumnWithDiskFeature COLUMN_WITH_DISK_FEATURE = new ColumnWithDiskFeature(ColumnWithDiskFeatureConfig.CODEC);
     public static final ClusterFeature CLUSTER_FEATURE = new ClusterFeature(ClusterFeatureConfig.CODEC);
-
-    public static final Feature<HugeMushroomFeatureConfiguration> JELLYSHROOM_FEATURE = new JellyshroomFeature(HugeMushroomFeatureConfiguration.CODEC);
 
     //Fabric ASM
     public static final MobCategory FIREFLIES = ClassTinkerers.getEnum(MobCategory.class, "WILDERWILDFIREFLIES");
@@ -114,7 +111,6 @@ public final class WilderWild implements ModInitializer {
         Registry.register(Registry.FEATURE, id("noise_path_under_water_feature"), NOISE_PATH_UNDER_WATER_FEATURE);
         Registry.register(Registry.FEATURE, id("column_with_disk_feature"), COLUMN_WITH_DISK_FEATURE);
         Registry.register(Registry.FEATURE, id("cluster_feature"), CLUSTER_FEATURE);
-        Registry.register(Registry.FEATURE, id("jellyshroom_feature"), JELLYSHROOM_FEATURE);
 
         if (FabricLoader.getInstance().isDevelopmentEnvironment()) { /* DEV-ONLY */
             UNSTABLE_LOGGING = true;
