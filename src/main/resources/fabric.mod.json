@@ -36,6 +36,7 @@
   "depends": {
 	"mm": ">=2.3",
 	"nbtcrafting": ">=2.1.4",
+	"cloth-config": "*",
 	"fabricloader": ">=0.14.8",
 	"fabric-api": ">=0.60.0",
 	"frozenblocklib": ">=1.0.1",
@@ -45,8 +46,5 @@
   "breaks": {
 	"quilted_fabric_api": "4.0.0-beta.8",
 	"copper_pipe": "<1.11-b5"
-  },
-  "suggests": {
-	"cloth-config": "*"
   }
 }
