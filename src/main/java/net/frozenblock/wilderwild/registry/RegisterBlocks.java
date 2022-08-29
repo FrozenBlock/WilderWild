@@ -497,8 +497,9 @@ public final class RegisterBlocks {
             if (!world.isClientSide) {
                 world.levelEvent(LevelEvent.PARTICLES_AND_SOUND_PLANT_GROWTH, pos, 0);
                 world.setBlockAndUpdate(pos, RegisterBlocks.FLOWERING_LILY_PAD.defaultBlockState());
+                return true;
             }
-            return !world.isClientSide;
+            return false;
         });
         BonemealBehaviors.bonemeals.put(BROWN_SHELF_FUNGUS, (context, world, pos, state, face, horizontal) -> {
             if (state.getValue(RegisterProperties.FUNGUS_STAGE) < 4) {
@@ -506,9 +507,10 @@ public final class RegisterBlocks {
                 if (!world.isClientSide) {
                     world.levelEvent(LevelEvent.PARTICLES_AND_SOUND_PLANT_GROWTH, pos, 0);
                     world.setBlockAndUpdate(pos, state.setValue(RegisterProperties.FUNGUS_STAGE, state.getValue(RegisterProperties.FUNGUS_STAGE) + 1));
+                    return true;
                 }
             }
-            return !world.isClientSide;
+            return false;
         });
         BonemealBehaviors.bonemeals.put(RED_SHELF_FUNGUS, (context, world, pos, state, face, horizontal) -> {
             if (state.getValue(RegisterProperties.FUNGUS_STAGE) < 4) {
@@ -516,9 +518,10 @@ public final class RegisterBlocks {
                 if (!world.isClientSide) {
                     world.levelEvent(LevelEvent.PARTICLES_AND_SOUND_PLANT_GROWTH, pos, 0);
                     world.setBlockAndUpdate(pos, state.setValue(RegisterProperties.FUNGUS_STAGE, state.getValue(RegisterProperties.FUNGUS_STAGE) + 1));
+                    return true;
                 }
             }
-            return !world.isClientSide;
+            return false;
         });
         BonemealBehaviors.bonemeals.put(ALGAE, (context, world, pos, state, face, horizontal) -> {
             WilderWild.log("Algae Bonemealed @ " + pos, WilderWild.DEV_LOGGING);
@@ -529,23 +532,23 @@ public final class RegisterBlocks {
                         world.levelEvent(LevelEvent.PARTICLES_AND_SOUND_PLANT_GROWTH, blockPos, 0);
                         world.levelEvent(LevelEvent.PARTICLES_AND_SOUND_PLANT_GROWTH, blockPos, 0);
                         world.setBlockAndUpdate(blockPos, state);
-                        break;
+                        return true;
                     }
                 }
             }
-            return !world.isClientSide;
+            return false;
         });
-        /*BonemealBehaviors.bonemeals.put(RegisterBlocks.GLORY_OF_THE_SNOW, (world, pos, state, face, horizontal) -> {
+        BonemealBehaviors.bonemeals.put(RegisterBlocks.GLORY_OF_THE_SNOW, (context, world, pos, state, face, horizontal) -> {
             if (state.getValue(RegisterProperties.FLOWER_COLOR) == FlowerColors.NONE) {
                 WilderWild.log("Glory Of The Snow Bonemealed @ " + pos, WilderWild.DEV_LOGGING);
-                if (!world.isClientSide) {
+                if (!world.isClientSide && state.getBlock() instanceof GloryOfTheSnowBlock glory) {
                     world.levelEvent(LevelEvent.PARTICLES_AND_SOUND_PLANT_GROWTH, pos, 0);
                     world.setBlockAndUpdate(pos, state.setValue(RegisterProperties.FLOWER_COLOR, glory.COLOR_LIST.get(WilderWild.random().nextInt(glory.COLOR_LIST.size()))));
+                    return true;
                 }
-                return !world.isClientSide;
             }
             return false;
-        });*/
+        });
     }
 
     private static final List<Direction> offsets = new ArrayList<>() {{
