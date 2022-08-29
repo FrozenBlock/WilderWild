@@ -4,7 +4,9 @@ import com.mojang.serialization.Dynamic;
 import net.frozenblock.wilderwild.entity.ai.JellyfishAi;
 import net.frozenblock.wilderwild.registry.RegisterItems;
 import net.frozenblock.wilderwild.registry.RegisterSounds;
+import net.frozenblock.wilderwild.tag.WilderBiomeTags;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Holder;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
@@ -19,6 +21,7 @@ import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
+import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
@@ -36,6 +39,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
+import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
@@ -73,6 +77,7 @@ public class Jellyfish extends AbstractFish {
     private static final EntityDataAccessor<Integer> TARGET_LIGHT = SynchedEntityData.defineId(Jellyfish.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Float> LIGHT = SynchedEntityData.defineId(Jellyfish.class, EntityDataSerializers.FLOAT);
     private static final EntityDataAccessor<Float> PREV_LIGHT = SynchedEntityData.defineId(Jellyfish.class, EntityDataSerializers.FLOAT);
+    private static final EntityDataAccessor<String> VARIANT = SynchedEntityData.defineId(Jellyfish.class, EntityDataSerializers.STRING);
 
     @Override
     public void playerTouch(@NotNull Player player) {
@@ -86,7 +91,24 @@ public class Jellyfish extends AbstractFish {
 
     }
 
+    @Nullable
+    @Override
+    public SpawnGroupData finalizeSpawn(ServerLevelAccessor serverLevelAccessor, DifficultyInstance difficultyInstance, MobSpawnType mobSpawnType, @Nullable SpawnGroupData spawnGroupData, @Nullable CompoundTag compoundTag) {
+        Holder<Biome> holder = serverLevelAccessor.getBiome(this.blockPosition());
+        if (holder.is(WilderBiomeTags.PINK_JELLYFISH)) {
+            this.setVariant("pink");
+        } else {
+            this.setVariant("pale_blue");
+        }
+        return super.finalizeSpawn(serverLevelAccessor, difficultyInstance, mobSpawnType, spawnGroupData, compoundTag);
+    }
+
     public static boolean canSpawn(EntityType<Jellyfish> type, ServerLevelAccessor world, MobSpawnType spawnReason, BlockPos pos, RandomSource random) {
+        Holder<Biome> holder = world.getBiome(pos);
+        if (holder.is(WilderBiomeTags.PINK_JELLYFISH)) {
+            return spawnReason != MobSpawnType.SPAWNER ? random.nextInt(1, 4) == 4 && pos.getY() <= world.getSeaLevel() - 3 && pos.getY() <= world.getSeaLevel() - 26 && world.getBlockState(pos).is(Blocks.WATER)
+                    : world.getBlockState(pos).is(Blocks.WATER);
+        }
         return spawnReason != MobSpawnType.SPAWNER ? pos.getY() <= world.getSeaLevel() - 33 && world.getRawBrightness(pos, 0) <= 6 && world.getBlockState(pos).is(Blocks.WATER)
                 : world.getBlockState(pos).is(Blocks.WATER);
     }
@@ -303,11 +325,20 @@ public class Jellyfish extends AbstractFish {
         return this.entityData.get(PREV_LIGHT);
     }
 
+    public void setVariant(String s) {
+        this.entityData.set(VARIANT, s);
+    }
+
+    public String getVariant() {
+        return this.entityData.get(VARIANT);
+    }
+
     protected void defineSynchedData() {
         super.defineSynchedData();
         this.entityData.define(TARGET_LIGHT, 0);
         this.entityData.define(LIGHT, 0F);
         this.entityData.define(PREV_LIGHT, 0F);
+        this.entityData.define(VARIANT, "pale_blue");
     }
 
     public void addAdditionalSaveData(CompoundTag nbt) {
@@ -316,6 +347,7 @@ public class Jellyfish extends AbstractFish {
         nbt.putFloat("light", this.getLight());
         nbt.putFloat("prevLight", this.getPrevLight());
         nbt.putInt("ticksSinceCantReach", this.ticksSinceCantReach);
+        nbt.putString("variant", this.getVariant());
     }
 
     public void readAdditionalSaveData(CompoundTag nbt) {
@@ -324,6 +356,7 @@ public class Jellyfish extends AbstractFish {
         this.setLight(nbt.getFloat("light"));
         this.setPrevLight(nbt.getFloat("prevLight"));
         this.ticksSinceCantReach = nbt.getInt("ticksSinceCantReach");
+        this.setVariant(nbt.getString("variant"));
     }
 
     @Override

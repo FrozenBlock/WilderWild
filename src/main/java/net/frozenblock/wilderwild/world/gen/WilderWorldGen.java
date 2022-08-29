@@ -16,6 +16,7 @@ public final class WilderWorldGen {
 
         WilderMusic.playMusic();
         WilderSpawns.addFireflies();
+        WilderSpawns.addJellyfish();
     }
 }
 

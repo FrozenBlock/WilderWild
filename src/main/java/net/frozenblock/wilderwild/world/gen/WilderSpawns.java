@@ -19,4 +19,9 @@ public final class WilderSpawns {
                 WilderWild.FIREFLIES, RegisterEntities.FIREFLY, 5, 1, 2);
     }
 
+    public static void addJellyfish() {
+        BiomeModifications.addSpawn(BiomeSelectors.tag(WilderBiomeTags.PINK_JELLYFISH),
+                WilderWild.JELLYFISH, RegisterEntities.JELLYFISH, 1, 1, 1);
+    }
+
 }
