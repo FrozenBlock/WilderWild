@@ -147,7 +147,6 @@ public class JellyfishRenderer extends MobRenderer<Jellyfish, JellyfishModel<Jel
         return WilderWildClient.ENTITY_TRANSLUCENT_EMISSIVE_FIXED.apply(WilderWild.id(BASE_TEXTURE + jellyfish.getVariant() + ".png"), false);
     }
 
-
     @Override
     public ResourceLocation getTextureLocation(@NotNull Jellyfish jellyfish) {
         return WilderWild.id(BASE_TEXTURE + jellyfish.getVariant() + ".png");
