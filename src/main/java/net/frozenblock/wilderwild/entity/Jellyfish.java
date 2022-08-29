@@ -67,6 +67,7 @@ public class Jellyfish extends AbstractFish {
 
     public Jellyfish(EntityType<? extends Jellyfish> entityType, Level level) {
         super(entityType, level);
+        this.setVariant("pale_blue");
     }
 
     private static final EntityDataAccessor<Integer> TARGET_LIGHT = SynchedEntityData.defineId(Jellyfish.class, EntityDataSerializers.INT);
