@@ -16,7 +16,6 @@ import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
-import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.Difficulty;
@@ -140,9 +139,7 @@ public class Jellyfish extends AbstractFish {
 
     @Override
     protected SoundEvent getAmbientSound() {
-        if (this.isInWaterOrBubble()) {
-            return RegisterSounds.ENTITY_JELLYFISH_AMBIENT_WATER;
-        } else return RegisterSounds.ENTITY_JELLYFISH_AMBIENT;
+        return this.isInWaterOrBubble() ? RegisterSounds.ENTITY_JELLYFISH_AMBIENT_WATER : RegisterSounds.ENTITY_JELLYFISH_AMBIENT;
     }
 
     @Override
@@ -152,16 +149,12 @@ public class Jellyfish extends AbstractFish {
 
     @Override
     protected SoundEvent getHurtSound(@NotNull DamageSource damageSource) {
-        if (this.isInWaterOrBubble()) {
-            return RegisterSounds.ENTITY_JELLYFISH_HURT_WATER;
-        } else return RegisterSounds.ENTITY_JELLYFISH_HURT;
+        return this.isInWaterOrBubble() ? RegisterSounds.ENTITY_JELLYFISH_HURT_WATER : RegisterSounds.ENTITY_JELLYFISH_HURT;
     }
 
     @Override
     protected SoundEvent getDeathSound() {
-        if (this.isInWaterOrBubble()) {
-            return RegisterSounds.ENTITY_JELLYFISH_HURT_WATER;
-        } else return RegisterSounds.ENTITY_JELLYFISH_HURT;
+        return this.isInWaterOrBubble() ? RegisterSounds.ENTITY_JELLYFISH_DEATH_WATER : RegisterSounds.ENTITY_JELLYFISH_DEATH;
     }
 
     @Override
@@ -283,7 +276,7 @@ public class Jellyfish extends AbstractFish {
                     if (mob.hurt(DamageSource.mobAttack(this), (float) (3))) {
                         mob.addEffect(new MobEffectInstance(MobEffects.POISON, 60 * 3, 0), this);
                         //TODO: JELLY STING SOUND
-                        this.playSound(SoundEvents.PUFFER_FISH_STING, 1.0F, 1.0F);
+                        this.playSound(RegisterSounds.ENTITY_JELLYFISH_STING, 1.0F, 1.0F);
                     }
                 }
             }
@@ -311,7 +304,7 @@ public class Jellyfish extends AbstractFish {
 
     @Override
     protected SoundEvent getFlopSound() {
-        return SoundEvents.PUFFER_FISH_FLOP;
+        return RegisterSounds.ENTITY_JELLYFISH_FLOP;
     }
 
     @Override
