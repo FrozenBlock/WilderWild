@@ -44,6 +44,7 @@ import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.Objects;
 import java.util.function.Predicate;
 
 public class Jellyfish extends AbstractFish {
@@ -348,7 +349,8 @@ public class Jellyfish extends AbstractFish {
     }
 
     public String getVariant() {
-        return this.entityData.get(VARIANT);
+        String variant = this.entityData.get(VARIANT);
+        return !Objects.equals(variant, "") ? variant : "pale_blue";
     }
 
     protected void defineSynchedData() {
