@@ -133,8 +133,8 @@ public final class WilderConfiguredFeatures {
     public static final Holder<ConfiguredFeature<RandomFeatureConfiguration, ?>> SAVANNA_TREES =
             register("savanna_trees", net.minecraft.world.level.levelgen.feature.Feature.RANDOM_SELECTOR,
                     new RandomFeatureConfiguration(List.of(new WeightedPlacedFeature(TreePlacements.ACACIA_CHECKED, 0.8F),
-                            new WeightedPlacedFeature(WilderTreePlaced.BAOBAB, 0.082F),
-                            new WeightedPlacedFeature(WilderTreePlaced.BAOBAB_TALL, 0.045F)), WilderTreePlaced.NEW_OAK_CHECKED));
+                            new WeightedPlacedFeature(WilderTreePlaced.BAOBAB, 0.062F),
+                            new WeightedPlacedFeature(WilderTreePlaced.BAOBAB_TALL, 0.035F)), WilderTreePlaced.NEW_OAK_CHECKED));
 
     public static final Holder<ConfiguredFeature<RandomFeatureConfiguration, ?>> WINDSWEPT_SAVANNA_TREES =
             register("windswept_savanna_trees", net.minecraft.world.level.levelgen.feature.Feature.RANDOM_SELECTOR,
