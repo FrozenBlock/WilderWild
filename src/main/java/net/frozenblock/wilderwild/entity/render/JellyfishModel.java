@@ -31,7 +31,6 @@ public class JellyfishModel<T extends Jellyfish> extends HierarchicalModel<T> {
     private final ModelPart tentacle6;
     private final ModelPart tentacle7;
     private final ModelPart tentacle8;
-    private final ModelPart[] tentacles = new ModelPart[8];
 
     public JellyfishModel(ModelPart root) {
         super(RenderType::entityTranslucentEmissive);
@@ -47,7 +46,6 @@ public class JellyfishModel<T extends Jellyfish> extends HierarchicalModel<T> {
         this.tentacle6 = this.tentacleRot.getChild("tentacle6");
         this.tentacle7 = this.tentacleRot.getChild("tentacle7");
         this.tentacle8 = this.tentacleRot.getChild("tentacle8");
-        Arrays.setAll(this.tentacles, i -> this.tentacleRot.getChild(createTentacleName(i)));
     }
 
     private static String createTentacleName(int i) {
