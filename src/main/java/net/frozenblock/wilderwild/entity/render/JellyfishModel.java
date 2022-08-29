@@ -113,18 +113,19 @@ public class JellyfishModel<T extends Jellyfish> extends HierarchicalModel<T> {
         float sin = -Mth.sin(animation);
         float sinTentacle = (-Mth.sin(animation + 5) * 20 - 7.5F) * pi180;
         float sinIdle = Mth.sin(ageInTicks) * 0.2F;
+        float cosIdle = Mth.sin(ageInTicks) * 0.2F;
 
         //CARDINAL TENTACLES
-        this.tentacle1.xRot = sinTentacle;
-        this.tentacle3.xRot = sinTentacle;
-        this.tentacle5.xRot = sinTentacle;
-        this.tentacle7.xRot = sinTentacle;
+        this.tentacle1.xRot = Mth.rotLerp(movementDelta, -cosIdle * 2, sinTentacle);
+        this.tentacle3.xRot = Mth.rotLerp(movementDelta, -cosIdle * 2, sinTentacle);
+        this.tentacle5.xRot = Mth.rotLerp(movementDelta, -cosIdle * 2, sinTentacle);
+        this.tentacle7.xRot = Mth.rotLerp(movementDelta, -cosIdle * 2, sinTentacle);
 
         //INTERMEDIATE TENTACLES
-        this.tentacle2.xRot = sinTentacle;
-        this.tentacle4.xRot = sinTentacle;
-        this.tentacle6.xRot = sinTentacle;
-        this.tentacle8.xRot = sinTentacle;
+        this.tentacle2.xRot = Mth.rotLerp(movementDelta, -cosIdle * 2, sinTentacle);
+        this.tentacle4.xRot = Mth.rotLerp(movementDelta, -cosIdle * 2, sinTentacle);
+        this.tentacle6.xRot = Mth.rotLerp(movementDelta, -cosIdle * 2, sinTentacle);
+        this.tentacle8.xRot = Mth.rotLerp(movementDelta, -cosIdle * 2, sinTentacle);
         
         //SQUASH & STRETCH
         float squashStretch = 1F + (-sin * 0.25F);
