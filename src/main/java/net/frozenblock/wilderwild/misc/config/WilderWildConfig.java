@@ -26,17 +26,13 @@ public class WilderWildConfig extends PartitioningSerializer.GlobalData {
     @TransitiveObject
     public EntityConfig entity = new EntityConfig();
 
+    @Category("item")
+    @TransitiveObject
+    public ItemConfig item = new ItemConfig();
+
     @Category("worldgen")
     @TransitiveObject
     public WorldgenConfig worldgen = new WorldgenConfig();
-
-    public static Component text(String key) {
-        return Component.translatable("option." + WilderWild.MOD_ID + "." + key);
-    }
-
-    public static Component tooltip(String key) {
-        return Component.translatable("tooltip." + WilderWild.MOD_ID + "." + key);
-    }
 
     public static WilderWildConfig get() {
         if (!WilderWild.areConfigsInit) {
@@ -44,6 +40,14 @@ public class WilderWildConfig extends PartitioningSerializer.GlobalData {
             WilderWild.areConfigsInit = true;
         }
         return AutoConfig.getConfigHolder(WilderWildConfig.class).getConfig();
+    }
+
+    public static Component text(String key) {
+        return Component.translatable("option." + WilderWild.MOD_ID + "." + key);
+    }
+
+    public static Component tooltip(String key) {
+        return Component.translatable("tooltip." + WilderWild.MOD_ID + "." + key);
     }
 
     /*public static void setupEntries(ConfigCategory category, ConfigEntryBuilder entryBuilder) {

@@ -141,6 +141,7 @@
   "option.wilderwild.component.title": "Wilder Wild Options",
   "option.wilderwild.block": "Block",
   "option.wilderwild.entity": "Entity",
+  "option.wilderwild.item": "Item",
   "option.wilderwild.worldgen": "Worldgen",
 
   "option.wilderwild.wilder_wild_trees": "Custom Vanilla Trees",

@@ -22,12 +22,14 @@ public class WilderWildClientConfig extends WilderWildConfig implements ConfigDa
         var configBuilder = ConfigBuilder.create().setParentScreen(parent).setTitle(text("component.title"));
         configBuilder.setSavingRunnable(() -> AutoConfig.getConfigHolder(WilderWildConfig.class).save());
         //ConfigCategory general = configBuilder.getOrCreateCategory(text("general"));
-        ConfigCategory block = configBuilder.getOrCreateCategory(text("block"));
-        ConfigCategory entity = configBuilder.getOrCreateCategory(text("entity"));
-        ConfigCategory worldgen = configBuilder.getOrCreateCategory(text("worldgen"));
+        var block = configBuilder.getOrCreateCategory(text("block"));
+        var entity = configBuilder.getOrCreateCategory(text("entity"));
+        var item = configBuilder.getOrCreateCategory(text("item"));
+        var worldgen = configBuilder.getOrCreateCategory(text("worldgen"));
         ConfigEntryBuilder entryBuilder = configBuilder.entryBuilder();
         BlockConfig.setupEntries(block, entryBuilder);
         EntityConfig.setupEntries(entity, entryBuilder);
+        ItemConfig.setupEntries(item, entryBuilder);
         WorldgenConfig.setupEntries(worldgen, entryBuilder);
         //WilderWildClientConfig.setupEntries(general, entryBuilder);
         return configBuilder.build();
