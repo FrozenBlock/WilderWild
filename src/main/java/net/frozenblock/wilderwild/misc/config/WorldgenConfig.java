@@ -4,6 +4,8 @@ import me.shedaniel.autoconfig.ConfigData;
 import me.shedaniel.autoconfig.annotation.Config;
 import me.shedaniel.clothconfig2.api.ConfigCategory;
 import me.shedaniel.clothconfig2.api.ConfigEntryBuilder;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.frozenblock.wilderwild.WilderWildClient;
 
 import static net.frozenblock.wilderwild.misc.config.WilderWildConfig.text;
@@ -23,6 +25,7 @@ public class WorldgenConfig implements ConfigData {
     public boolean modifySwampPlacement = true;
     public boolean modifyMangroveSwampPlacement = true;
 
+    @Environment(EnvType.CLIENT)
     public static void setupEntries(ConfigCategory category, ConfigEntryBuilder entryBuilder) {
         var config = WilderWildConfig.get().worldgen;
         category.addEntry(entryBuilder.startBooleanToggle(text("beta_beaches"), config.betaBeaches)
