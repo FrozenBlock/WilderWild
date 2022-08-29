@@ -221,10 +221,10 @@ public final class RegisterBlocks {
     private static boolean always(BlockState blockState, BlockGetter blockGetter, BlockPos blockPos) {
         return true;
     }
-    
+
     // Mesoglea
     public static final Block MESOGLEA = new MesogleaBlock(FabricBlockSettings.of(Material.CLAY, MaterialColor.QUARTZ).friction(0.8F).sound(SoundType.SLIME_BLOCK).noOcclusion().emissiveRendering(RegisterBlocks::always).lightLevel((state) -> 3));
-    
+
     // MISC
     private static final Material ALGAE_MATERIAL = new FabricMaterialBuilder(MaterialColor.PLANT)
             .allowsMovement()

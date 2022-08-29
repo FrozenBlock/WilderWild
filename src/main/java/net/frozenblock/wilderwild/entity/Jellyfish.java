@@ -128,7 +128,7 @@ public class Jellyfish extends AbstractFish {
 
     @Override
     protected SoundEvent getSwimSound() {
-            return RegisterSounds.ENTITY_JELLYFISH_SWIM;
+        return RegisterSounds.ENTITY_JELLYFISH_SWIM;
     }
 
     @Override
@@ -263,7 +263,7 @@ public class Jellyfish extends AbstractFish {
     }
 
     private static final Predicate<LivingEntity> SCARY_MOB = (livingEntity) -> {
-        if (livingEntity instanceof Player && ((Player)livingEntity).isCreative()) {
+        if (livingEntity instanceof Player && ((Player) livingEntity).isCreative()) {
             return false;
         } else {
             return livingEntity.getMobType() != MobType.WATER;
@@ -274,7 +274,7 @@ public class Jellyfish extends AbstractFish {
 
     @Override
     protected void customServerAiStep() {
-        ServerLevel serverLevel = (ServerLevel)this.level;
+        ServerLevel serverLevel = (ServerLevel) this.level;
         serverLevel.getProfiler().push("jellyfishBrain");
         this.getBrain().tick(serverLevel, this);
         this.level.getProfiler().pop();
