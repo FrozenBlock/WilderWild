@@ -135,7 +135,7 @@ public class JellyfishModel<T extends Jellyfish> extends HierarchicalModel<T> {
         this.body.yScale = Mth.lerp(movementDelta, -sinIdle + 1, 1.25F + (sin * 0.75F));
 
         this.body.y = Mth.lerp(movementDelta, 0, 3.5F -(squashStretch * 3.5F));
-        this.tentacleRot.y = Mth.rotLerp(movementDelta, 0, (6F -(squashStretch * 5F)) * 2);
+        this.tentacleRot.y = Mth.lerp(movementDelta, 0, (6F -(squashStretch * 5F)) * 2);
     }
 
     @Override
