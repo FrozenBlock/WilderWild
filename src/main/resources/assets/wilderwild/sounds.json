@@ -1243,7 +1243,8 @@
 			"wilderwild:mob/jellyfish/hurt_water1",
 			"wilderwild:mob/jellyfish/hurt_water2",
 			"wilderwild:mob/jellyfish/hurt_water3"
-		]
+		],
+		"subtitle": "subtitles.entity.jellyfish.hurt"
 	},
 	"entity.jellyfish.ambient": {
 		"sounds": [
@@ -1258,7 +1259,8 @@
 			"wilderwild:mob/jellyfish/hurt1",
 			"wilderwild:mob/jellyfish/hurt2",
 			"wilderwild:mob/jellyfish/hurt3"
-		]
+		],
+		"subtitle": "subtitles.entity.jellyfish.hurt"
 	},
 	"entity.jellyfish.swim": {
 		"sounds": [
@@ -1269,13 +1271,46 @@
 			"wilderwild:mob/jellyfish/swim5",
 			"wilderwild:mob/jellyfish/swim6",
 			"wilderwild:mob/jellyfish/swim7"
-		]
+		],
+		"subtitle": "subtitles.entity.jellyfish.swim"
 	},
 	"entity.jellyfish.whine": {
 		"sounds": [
 			"wilderwild:mob/jellyfish/whine1"
 		],
 		"subtitle": "subtitles.entity.jellyfish.whine"
+	},
+	"entity.jellyfish.sting": {
+		"sounds": [
+			"wilderwild:mob/jellyfish/ambient1",
+			"wilderwild:mob/jellyfish/ambient2",
+			"wilderwild:mob/jellyfish/ambient3"
+		],
+		"subtitle": "subtitles.entity.jellyfish.sting"
+	},
+	"entity.jellyfish.flop": {
+		"sounds": [
+			"wilderwild:mob/jellyfish/swim1",
+			"wilderwild:mob/jellyfish/swim2",
+			"wilderwild:mob/jellyfish/swim3"
+		],
+		"subtitle": "subtitles.entity.jellyfish.flop"
+	},
+	"entity.jellyfish.death": {
+		"sounds": [
+			"wilderwild:mob/jellyfish/hurt1",
+			"wilderwild:mob/jellyfish/hurt2",
+			"wilderwild:mob/jellyfish/hurt3"
+		],
+		"subtitle": "subtitles.entity.jellyfish.death"
+	},
+	"entity.jellyfish.death_water": {
+		"sounds": [
+			"wilderwild:mob/jellyfish/hurt_water1",
+			"wilderwild:mob/jellyfish/hurt_water2",
+			"wilderwild:mob/jellyfish/hurt_water3"
+		],
+		"subtitle": "subtitles.entity.jellyfish.death"
 	},
   "entity.warden.brap": {
 	"sounds": [

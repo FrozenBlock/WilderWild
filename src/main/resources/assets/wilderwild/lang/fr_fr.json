@@ -79,6 +79,7 @@
   "block.wilderwild.display_lantern": "Lanterne d'affichage",
   "block.wilderwild.prickly_pear": "Figue de barbarie",
   "block.wilderwild.prickly_pear_cactus": "Figuier de barbarie",
+  "block.wilderwild.mesoglea": "Mésoglée",
 
   "death.attack.ancient_horn": "%1$s a découvert le maximum des basses",
   "death.attack.ancient_horn.item": "%1$s a été réduit en miettes par %2$s en utilisant %3$s",
@@ -129,6 +130,7 @@
   "item.wilderwild.copper_horn": "Corne de cuivre",
   "item.wilderwild.peeled_prickly_pear": "Figue de barbarier épluchée",
   "item.wilderwild.music_disc_back.desc": "Lunade - Back",
+  "item.wilderwild.jellyfish_bucket": "Méduse dans un seau",
 
   "instrument.wilderwild.ancient_horn": "Tourbillons anciens",
   "instrument.wilderwild.clarinet_copper_horn": "Clarinette",

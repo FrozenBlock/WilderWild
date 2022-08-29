@@ -149,12 +149,16 @@ public final class RegisterSounds {
     public static final SoundEvent ENTITY_FIREFLY_HURT = register("entity.firefly.hurt");
     public static final SoundEvent ENTITY_FIREFLY_NECTAR = register("entity.firefly.nectar");
 
+    public static final SoundEvent ENTITY_JELLYFISH_STING = register("entity.jellyfish.sting");
     public static final SoundEvent ENTITY_JELLYFISH_AMBIENT_WATER = register("entity.jellyfish.ambient_water");
     public static final SoundEvent ENTITY_JELLYFISH_HURT_WATER = register("entity.jellyfish.hurt_water");
     public static final SoundEvent ENTITY_JELLYFISH_AMBIENT = register("entity.jellyfish.ambient");
     public static final SoundEvent ENTITY_JELLYFISH_HURT = register("entity.jellyfish.hurt");
     public static final SoundEvent ENTITY_JELLYFISH_SWIM = register("entity.jellyfish.swim");
     public static final SoundEvent ENTITY_JELLYFISH_WHINE = register("entity.jellyfish.whine");
+    public static final SoundEvent ENTITY_JELLYFISH_FLOP = register("entity.jellyfish.flop");
+    public static final SoundEvent ENTITY_JELLYFISH_DEATH_WATER = register("entity.jellyfish.death_water");
+    public static final SoundEvent ENTITY_JELLYFISH_DEATH = register("entity.jellyfish.death");
 
     public static final SoundEvent ENTITY_WARDEN_KIRBY_DEATH = register("entity.warden.kirby_death");
     public static final SoundEvent ENTITY_WARDEN_DYING = register("entity.warden.dying");

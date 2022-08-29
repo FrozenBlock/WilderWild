@@ -16,9 +16,9 @@ import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
-import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
+import net.minecraft.world.Difficulty;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -28,7 +28,6 @@ import net.minecraft.world.entity.ai.Brain;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.AvoidEntityGoal;
-import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.entity.ai.goal.PanicGoal;
 import net.minecraft.world.entity.ai.goal.RandomSwimmingGoal;
 import net.minecraft.world.entity.ai.memory.MemoryModuleType;
@@ -45,8 +44,6 @@ import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.Iterator;
-import java.util.List;
 import java.util.function.Predicate;
 
 public class Jellyfish extends AbstractFish {
@@ -142,9 +139,7 @@ public class Jellyfish extends AbstractFish {
 
     @Override
     protected SoundEvent getAmbientSound() {
-        if (this.isInWaterOrBubble()) {
-            return RegisterSounds.ENTITY_JELLYFISH_AMBIENT_WATER;
-        } else return RegisterSounds.ENTITY_JELLYFISH_AMBIENT;
+        return this.isInWaterOrBubble() ? RegisterSounds.ENTITY_JELLYFISH_AMBIENT_WATER : RegisterSounds.ENTITY_JELLYFISH_AMBIENT;
     }
 
     @Override
@@ -154,16 +149,12 @@ public class Jellyfish extends AbstractFish {
 
     @Override
     protected SoundEvent getHurtSound(@NotNull DamageSource damageSource) {
-        if (this.isInWaterOrBubble()) {
-            return RegisterSounds.ENTITY_JELLYFISH_HURT_WATER;
-        } else return RegisterSounds.ENTITY_JELLYFISH_HURT;
+        return this.isInWaterOrBubble() ? RegisterSounds.ENTITY_JELLYFISH_HURT_WATER : RegisterSounds.ENTITY_JELLYFISH_HURT;
     }
 
     @Override
     protected SoundEvent getDeathSound() {
-        if (this.isInWaterOrBubble()) {
-            return RegisterSounds.ENTITY_JELLYFISH_HURT_WATER;
-        } else return RegisterSounds.ENTITY_JELLYFISH_HURT;
+        return this.isInWaterOrBubble() ? RegisterSounds.ENTITY_JELLYFISH_DEATH_WATER : RegisterSounds.ENTITY_JELLYFISH_DEATH;
     }
 
     @Override
@@ -262,37 +253,34 @@ public class Jellyfish extends AbstractFish {
         LivingEntity target = this.getTarget();
         if (target != null) {
             ++this.ticksSinceCantReach;
-            if (this.ticksSinceCantReach > 300 || target.isDeadOrDying() || target.isRemoved() || target.distanceTo(this) > 20) {
+            if (this.ticksSinceCantReach > 300 || target.isDeadOrDying() || target.isRemoved() || target.distanceTo(this) > 20 || this.level.getDifficulty() == Difficulty.PEACEFUL) {
                 this.getBrain().eraseMemory(MemoryModuleType.ATTACK_TARGET);
                 this.ticksSinceCantReach = 0;
             } else {
                 this.getNavigation().stop();
                 this.getNavigation().moveTo(this.getTarget(), 1.7);
-                if (target.distanceTo(this) < 6) {
-                    this.ticksSinceCantReach = Math.max(this.ticksSinceCantReach - 2, 0);
+                if (target.distanceTo(this) < 4) {
+                    this.ticksSinceCantReach = Math.max(this.ticksSinceCantReach - 1, 0);
                 }
             }
         } else {
             this.ticksSinceCantReach = 0;
         }
-        if (this.isAlive()) {
-            List<Mob> list = this.level.getEntitiesOfClass(Mob.class, this.getBoundingBox().inflate(0.3D), (mobx) -> targetingConditions.test(this, mobx));
+    }
 
-            for (Mob mob : list) {
+    public void doPush(@NotNull Entity entity) {
+        super.doPush(entity);
+        if (entity instanceof Mob mob && this.isAlive()) {
+            if (targetingConditions.test(this, mob)) {
                 if (mob.isAlive()) {
-                    this.touch(mob);
+                    if (mob.hurt(DamageSource.mobAttack(this), (float) (3))) {
+                        mob.addEffect(new MobEffectInstance(MobEffects.POISON, 60 * 3, 0), this);
+                        //TODO: JELLY STING SOUND
+                        this.playSound(RegisterSounds.ENTITY_JELLYFISH_STING, 1.0F, 1.0F);
+                    }
                 }
             }
         }
-    }
-
-    private void touch(Mob mob) {
-        if (mob.hurt(DamageSource.mobAttack(this), (float)(3))) {
-            mob.addEffect(new MobEffectInstance(MobEffects.POISON, 60 * 3, 0), this);
-            //TODO: JELLY STING SOUND
-            this.playSound(SoundEvents.PUFFER_FISH_STING, 1.0F, 1.0F);
-        }
-
     }
 
     private static final Predicate<LivingEntity>  SCARY_MOB = (livingEntity) -> {
@@ -316,13 +304,13 @@ public class Jellyfish extends AbstractFish {
 
     @Override
     protected SoundEvent getFlopSound() {
-        return SoundEvents.PUFFER_FISH_FLOP;
+        return RegisterSounds.ENTITY_JELLYFISH_FLOP;
     }
 
     @Override
     public boolean hurt(@NotNull DamageSource damageSource, float f) {
         if (super.hurt(damageSource, f)) {
-            if (!this.level.isClientSide) {
+            if (!this.level.isClientSide && this.level.getDifficulty() != Difficulty.PEACEFUL) {
                 //this.spawnJelly();
                 this.setAttackTarget(this.getLastHurtByMob());
             }
