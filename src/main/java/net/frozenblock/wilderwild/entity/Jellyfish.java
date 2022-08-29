@@ -28,7 +28,6 @@ import net.minecraft.world.entity.ai.Brain;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.AvoidEntityGoal;
-import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.entity.ai.goal.PanicGoal;
 import net.minecraft.world.entity.ai.goal.RandomSwimmingGoal;
 import net.minecraft.world.entity.ai.memory.MemoryModuleType;
@@ -45,8 +44,6 @@ import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.Iterator;
-import java.util.List;
 import java.util.function.Predicate;
 
 public class Jellyfish extends AbstractFish {
@@ -275,24 +272,21 @@ public class Jellyfish extends AbstractFish {
         } else {
             this.ticksSinceCantReach = 0;
         }
-        if (this.isAlive()) {
-            List<Mob> list = this.level.getEntitiesOfClass(Mob.class, this.getBoundingBox().inflate(0.3D), (mobx) -> targetingConditions.test(this, mobx));
+    }
 
-            for (Mob mob : list) {
+    public void doPush(@NotNull Entity entity) {
+        super.doPush(entity);
+        if (entity instanceof Mob mob && this.isAlive()) {
+            if (targetingConditions.test(this, mob)) {
                 if (mob.isAlive()) {
-                    this.touch(mob);
+                    if (mob.hurt(DamageSource.mobAttack(this), (float) (3))) {
+                        mob.addEffect(new MobEffectInstance(MobEffects.POISON, 60 * 3, 0), this);
+                        //TODO: JELLY STING SOUND
+                        this.playSound(SoundEvents.PUFFER_FISH_STING, 1.0F, 1.0F);
+                    }
                 }
             }
         }
-    }
-
-    private void touch(Mob mob) {
-        if (mob.hurt(DamageSource.mobAttack(this), (float)(3))) {
-            mob.addEffect(new MobEffectInstance(MobEffects.POISON, 60 * 3, 0), this);
-            //TODO: JELLY STING SOUND
-            this.playSound(SoundEvents.PUFFER_FISH_STING, 1.0F, 1.0F);
-        }
-
     }
 
     private static final Predicate<LivingEntity>  SCARY_MOB = (livingEntity) -> {
