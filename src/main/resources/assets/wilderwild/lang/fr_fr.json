@@ -181,8 +181,6 @@
   "tooltip.modmenu.modify_swamp_placement": "Choisir si les marais se placent comme en vanilla ou comme dans Wilder Wild",
   "tooltip.modmenu.modify_windswept_savanna_placement": "Choisir si les savanes venteuses se placent comme en vanilla ou comme dans Wilder Wild",
   "tooltip.modmenu.sensor_tendrils": "Vanilla (Par défaut): Utilise l'animation de texture pour les vrilles des capteurs sculk\nMinecraft Live 2020: Utilise une animation block-entité pour les vrilles des capteurs sculk",
-  "tooltip.wilderwild.ancient_horn_shatters_glass": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA but in french",
-
 
   "wilderwild.ancient_horn.advancement.use": "Ambiance : Validée",
   "wilderwild.ancient_horn.advancement.use.description": "Trouver et utiliser une corne ancienne",
@@ -233,5 +231,6 @@
   "tooltip.wilderwild.shrieker_gargling": "Fait 's'étouffer' les hurleurs sculk lorsqu'ils sont sous l'eau.",
   "tooltip.wilderwild.warden_emerges_from_egg": "Fait jouer l'animation d'émergence au warden lorsque il apparait via un oeuf d'apparition",
   "tooltip.wilderwild.warden_custom_tendrils": "Normal : Les vrilles du warden ne tournent pour un seulaxe\nAmélioré : Les vrilles du warden tournent pour tous les axes, ce qui améliore la visibilité de chaque angle",
-  "tooltip.wilderwild.warden_swim_animation": "Si le Warden doit nager §ovisuellement §rou pas\n§c(ATTENTION: Désactiver ça va causer le warden d'apparaître comme s'il passait dans les blocs lorsqu'il nage dans un trou d'un bloc de haut. \nMerci de ne désactiver ceci seulement si cela cause des incompatibilités)"
+  "tooltip.wilderwild.warden_swim_animation": "Si le Warden doit nager §ovisuellement §rou pas\n§c(ATTENTION: Désactiver ça va causer le warden d'apparaître comme s'il passait dans les blocs lorsqu'il nage dans un trou d'un bloc de haut. \nMerci de ne désactiver ceci seulement si cela cause des incompatibilités)",
+  "tooltip.wilderwild.ancient_horn_shatters_glass": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA but in french"
 }
