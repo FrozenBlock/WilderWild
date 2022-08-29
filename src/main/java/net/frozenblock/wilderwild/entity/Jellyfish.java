@@ -240,7 +240,7 @@ public class Jellyfish extends AbstractFish {
                 this.ticksSinceCantReach = 0;
             } else {
                 this.getNavigation().stop();
-                this.getNavigation().moveTo(this.getTarget(), 1.8);
+                this.getNavigation().moveTo(this.getTarget(), 2);
                 if (target.distanceTo(this) < 5) {
                     this.ticksSinceCantReach = Math.max(this.ticksSinceCantReach - 2, 0);
                 }
