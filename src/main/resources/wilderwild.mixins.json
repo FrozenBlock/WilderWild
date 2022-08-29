@@ -55,6 +55,7 @@
 	"client.WardenAnimationOverwrites",
 	"client.WardenEntityModelMixin",
 	"client.WardenFeatureRendererMixin",
+	"client.SaishoAxolotlRenderer",
 	"client.XfrtrexSusFrogRenderer"
   ],
   "injectors": {
