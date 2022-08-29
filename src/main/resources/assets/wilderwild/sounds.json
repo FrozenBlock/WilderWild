@@ -1282,9 +1282,8 @@
 	},
 	"entity.jellyfish.sting": {
 		"sounds": [
-			"wilderwild:mob/jellyfish/ambient1",
-			"wilderwild:mob/jellyfish/ambient2",
-			"wilderwild:mob/jellyfish/ambient3"
+			"wilderwild:mob/jellyfish/zap1",
+			"wilderwild:mob/jellyfish/zap2"
 		],
 		"subtitle": "subtitles.entity.jellyfish.sting"
 	},
@@ -1391,6 +1390,22 @@
 	],
 	"subtitle": "subtitles.item.bottle.put_in_lantern_firefly"
   },
+	"item.bucket.fill_jellyfish": {
+		"sounds": [
+			"wilderwild:item/bucket/fill_jellyfish1",
+			"wilderwild:item/bucket/fill_jellyfish2",
+			"wilderwild:item/bucket/fill_jellyfish3"
+		],
+		"subtitle": "subtitles.item.bucket.fill_jellyfish"
+	},
+	"item.bucket.empty_jellyfish": {
+		"sounds": [
+			"wilderwild:item/bucket/empty_jellyfish1",
+			"wilderwild:item/bucket/empty_jellyfish2",
+			"wilderwild:item/bucket/empty_jellyfish3"
+		],
+		"subtitle": "subtitles.item.bucket.empty"
+	},
   "item.copper_horn.flute.loop": {
 	"sounds": [
 	  "wilderwild:item/copper_horn/flute/loop"

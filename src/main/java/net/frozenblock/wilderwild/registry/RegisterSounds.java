@@ -176,6 +176,9 @@ public final class RegisterSounds {
     public static final SoundEvent ITEM_BOTTLE_RELEASE_FIREFLY = register("item.bottle.release_firefly");
     public static final SoundEvent ITEM_BOTTLE_PUT_IN_LANTERN_FIREFLY = register("item.bottle.put_in_lantern_firefly");
 
+    public static final SoundEvent ITEM_BUCKET_FILL_JELLYFISH = register("item.bucket.fill_jellyfish");
+    public static final SoundEvent ITEM_BUCKET_EMPTY_JELLYFISH = register("item.bucket.empty_jellyfish");
+
     public static final SoundEvent ITEM_COPPER_HORN_SAX_START = register("item.copper_horn.sax.start");
     public static final SoundEvent ITEM_COPPER_HORN_SAX_LOOP = register("item.copper_horn.sax.loop");
 

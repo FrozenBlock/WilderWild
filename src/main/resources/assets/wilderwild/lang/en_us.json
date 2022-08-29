@@ -193,6 +193,7 @@
   "subtitles.item.bottle.catch_firefly": "Bottle fills with Firefly",
   "subtitles.item.bottle.put_in_lantern_firefly": "Firefly placed in Lantern",
   "subtitles.item.bottle.release_firefly": "Firefly released from Bottle",
+  "subtitles.item.bucket.fill_jellyfish": "Jellyfish scooped",
   "subtitles.item.copper_horn.call": "Copper Horn plays",
   "tooltip.wilderwild.wilder_wild_trees": "Whether worldgen should use our custom tree types or the vanilla tree types.",
   "tooltip.wilderwild.fallen_logs": "Whether fallen (hollowed) logs will generate naturally. Disable if this causes issues with other mods.",
