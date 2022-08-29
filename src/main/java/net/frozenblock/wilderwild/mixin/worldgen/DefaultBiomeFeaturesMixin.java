@@ -25,7 +25,7 @@ public class DefaultBiomeFeaturesMixin {
     @Inject(method = "addOtherBirchTrees", at = @At("HEAD"), cancellable = true)
     private static void addOtherBirchTrees(BiomeGenerationSettings.Builder builder, CallbackInfo info) {
         if (ClothConfigInteractionHandler.wildTrees()) {
-            WilderWild.log("Removing " + "Forest TreeOverrides" + " in order to properly update biomes!", WilderWild.UNSTABLE_LOGGING);
+            WilderWild.log("Removing " + "Forest Trees" + " in order to properly update biomes!", WilderWild.UNSTABLE_LOGGING);
             info.cancel();
         }
     }
@@ -56,7 +56,7 @@ public class DefaultBiomeFeaturesMixin {
     @Inject(method = "addTaigaTrees", at = @At("HEAD"), cancellable = true)
     private static void addTaigaTrees(BiomeGenerationSettings.Builder builder, CallbackInfo info) {
         if (ClothConfigInteractionHandler.wildTrees()) {
-            WilderWild.log("Removing " + "Taiga TreeOverrides" + " in order to properly update biomes!", WilderWild.UNSTABLE_LOGGING);
+            WilderWild.log("Removing " + "Taiga Trees" + " in order to properly update biomes!", WilderWild.UNSTABLE_LOGGING);
             info.cancel();
         }
     }
@@ -64,7 +64,7 @@ public class DefaultBiomeFeaturesMixin {
     @Inject(method = "addGroveTrees", at = @At("HEAD"), cancellable = true)
     private static void addGroveTrees(BiomeGenerationSettings.Builder builder, CallbackInfo info) {
         if (ClothConfigInteractionHandler.wildTrees()) {
-            WilderWild.log("Removing " + "Grove TreeOverrides" + " in order to properly update biomes!", WilderWild.UNSTABLE_LOGGING);
+            WilderWild.log("Removing " + "Grove Trees" + " in order to properly update biomes!", WilderWild.UNSTABLE_LOGGING);
             info.cancel();
         }
     }
@@ -72,7 +72,7 @@ public class DefaultBiomeFeaturesMixin {
     @Inject(method = "addSavannaTrees", at = @At("HEAD"), cancellable = true)
     private static void addSavannaTrees(BiomeGenerationSettings.Builder builder, CallbackInfo info) {
         if (ClothConfigInteractionHandler.wildTrees()) {
-            WilderWild.log("Removing " + "Savanna TreeOverrides" + " in order to properly update biomes!", WilderWild.UNSTABLE_LOGGING);
+            WilderWild.log("Removing " + "Savanna Trees" + " in order to properly update biomes!", WilderWild.UNSTABLE_LOGGING);
             info.cancel();
         }
     }
@@ -80,7 +80,7 @@ public class DefaultBiomeFeaturesMixin {
     @Inject(method = "addShatteredSavannaTrees", at = @At("HEAD"), cancellable = true)
     private static void addShatteredSavannaTrees(BiomeGenerationSettings.Builder builder, CallbackInfo info) {
         if (ClothConfigInteractionHandler.wildTrees()) {
-            WilderWild.log("Removing " + "Extra Savanna TreeOverrides" + " in order to properly update biomes!", WilderWild.UNSTABLE_LOGGING);
+            WilderWild.log("Removing " + "Extra Savanna Trees" + " in order to properly update biomes!", WilderWild.UNSTABLE_LOGGING);
             info.cancel();
         }
     }
