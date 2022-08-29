@@ -235,7 +235,6 @@ public final class RegisterBlocks {
 
     public static final Block TERMITE_MOUND = new TermiteMound(FabricBlockSettings.of(Material.WOOD, MaterialColor.COLOR_BROWN).strength(0.3F).sound(RegisterBlockSoundGroups.COARSEDIRT));
     public static final Block STONE_CHEST = new StoneChestBlock(FabricBlockSettings.copy(Blocks.CHEST).sound(SoundType.DEEPSLATE).strength(35.0f, 12.0f), () -> RegisterBlockEntities.STONE_CHEST);
-    public static final Block STONE_VASE = new StoneVaseBlock(FabricBlockSettings.copy(Blocks.CHEST).sound(SoundType.DEEPSLATE).strength(2.0f, 2.0f));
 
     // PLANTS
     public static final Block SEEDING_DANDELION = new SeedingDandelionBlock(MobEffects.SLOW_FALLING, 12, FabricBlockSettings.copy(Blocks.DANDELION).sound(RegisterBlockSoundGroups.FLOWER).strength(0.0F).noOcclusion());
@@ -330,7 +329,6 @@ public final class RegisterBlocks {
         registerBlock("termite_mound", TERMITE_MOUND, CreativeModeTab.TAB_DECORATIONS);
         registerBlock("null_block", NULL_BLOCK, CreativeModeTab.TAB_DECORATIONS);
         registerBlock("stone_chest", STONE_CHEST, CreativeModeTab.TAB_DECORATIONS);
-        registerBlock("stone_vase", STONE_VASE, CreativeModeTab.TAB_DECORATIONS);
         registerBlock("display_lantern", DISPLAY_LANTERN, CreativeModeTab.TAB_DECORATIONS);
         registerBlock("mesoglea", MESOGLEA, CreativeModeTab.TAB_DECORATIONS);
     }
