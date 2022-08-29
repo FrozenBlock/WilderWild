@@ -338,12 +338,12 @@ public final class RegisterBlocks {
 
         registerOtherBB();
         registerWoods();
-        registerBlockProperties();
         registerHollowedLogs();
         registerDeepDark();
         registerPlants();
         registerNotSoPlants();
         registerMisc();
+        registerBlockProperties();
     }
 
     private static void registerBlockWithoutBlockItem(String name, Block block) {
