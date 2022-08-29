@@ -288,7 +288,7 @@ public class Jellyfish extends AbstractFish {
         }
     }
 
-    private static final Predicate<LivingEntity>  SCARY_MOB = (livingEntity) -> {
+    private static final Predicate<LivingEntity> SCARY_MOB = (livingEntity) -> {
         if (livingEntity instanceof Player && ((Player)livingEntity).isCreative()) {
             return false;
         } else {
@@ -296,7 +296,7 @@ public class Jellyfish extends AbstractFish {
         }
     };
 
-    public static final TargetingConditions targetingConditions = TargetingConditions.forNonCombat().ignoreInvisibilityTesting().ignoreLineOfSight().selector(SCARY_MOB);
+    public static final TargetingConditions targetingConditions = TargetingConditions.forNonCombat().ignoreInvisibilityTesting().selector(SCARY_MOB);
 
     @Override
     protected void customServerAiStep() {
