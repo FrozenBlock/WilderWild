@@ -107,31 +107,30 @@ public class JellyfishModel<T extends Jellyfish> extends HierarchicalModel<T> {
     @Override
     public void setupAnim(@NotNull T jellyfish, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
         float animation = limbSwing * 2;
-
-        float movementDelta = Math.min(limbSwingAmount / 0.3F, 1.0F);
+        float movementDelta = Math.min(limbSwingAmount / 0.025F, 1.0F);
 
         float sin = -Mth.sin(animation);
-        float sinTentacle = (-Mth.sin(animation + 5) * 20 - 7.5F) * pi180;
         float sinIdle = Mth.sin(ageInTicks * 0.125F) * 0.2F;
-        float cosIdle = Mth.sin(ageInTicks * 0.125F) * 0.2F;
+        float tentRot = Mth.rotLerp(movementDelta, -Mth.sin(ageInTicks * 0.125F) * 0.2F * 2, (-Mth.sin(animation + 5) * 20 - 7.5F) * pi180);
 
         //CARDINAL TENTACLES
-        this.tentacle1.xRot = Mth.rotLerp(movementDelta, -cosIdle * 2, sinTentacle);
-        this.tentacle3.xRot = Mth.rotLerp(movementDelta, -cosIdle * 2, sinTentacle);
-        this.tentacle5.xRot = Mth.rotLerp(movementDelta, -cosIdle * 2, sinTentacle);
-        this.tentacle7.xRot = Mth.rotLerp(movementDelta, -cosIdle * 2, sinTentacle);
+        this.tentacle1.xRot = tentRot;
+        this.tentacle3.xRot = tentRot;
+        this.tentacle5.xRot = tentRot;
+        this.tentacle7.xRot = tentRot;
 
         //INTERMEDIATE TENTACLES
-        this.tentacle2.xRot = Mth.rotLerp(movementDelta, -cosIdle * 2, sinTentacle);
-        this.tentacle4.xRot = Mth.rotLerp(movementDelta, -cosIdle * 2, sinTentacle);
-        this.tentacle6.xRot = Mth.rotLerp(movementDelta, -cosIdle * 2, sinTentacle);
-        this.tentacle8.xRot = Mth.rotLerp(movementDelta, -cosIdle * 2, sinTentacle);
+        this.tentacle2.xRot = tentRot;
+        this.tentacle4.xRot = tentRot;
+        this.tentacle6.xRot = tentRot;
+        this.tentacle8.xRot = tentRot;
         
         //SQUASH & STRETCH
         float squashStretch = 1F + (-sin * 0.25F);
-
-        this.body.xScale = Mth.lerp(movementDelta, sinIdle + 1, squashStretch);
-        this.body.zScale = Mth.lerp(movementDelta, sinIdle + 1, squashStretch);
+        float squash = Mth.lerp(movementDelta, sinIdle + 1, squashStretch);
+        
+        this.body.xScale = squash;
+        this.body.zScale = squash;
         this.body.yScale = Mth.lerp(movementDelta, -sinIdle + 1, 1.25F + (sin * 0.75F));
 
         this.body.y = Mth.lerp(movementDelta, 0, 3.5F -(squashStretch * 3.5F));
