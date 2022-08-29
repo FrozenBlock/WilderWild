@@ -207,7 +207,7 @@ public class AncientHornProjectile extends AbstractArrow {
         }
     }
 
-    public void addCooldown(int i) {
+    public void addCooldown(int amountOfCooldownToBeAddedInTicksIntegerValueAlsoByTheWayXfrtrexIsSusIfYouDidntAlreadyKnowAlsoByTheWayIOnlyTakeShitsOnTuesdaysSoDontMessWithMeOnTuesdaysYouFuckingHumanSoJustPutTheIntegerValueHereOrElse) {
         Entity entity = this.getOwner();
         if (entity != null) {
             if (entity instanceof Player user) {
@@ -215,11 +215,11 @@ public class AncientHornProjectile extends AbstractArrow {
                     ItemCooldowns manager = user.getCooldowns();
                     ItemCooldowns.CooldownInstance entry = manager.cooldowns.get(RegisterItems.ANCIENT_HORN);
                     if (entry != null) {
-                        int cooldown = (entry.endTime - entry.startTime) + i;
+                        int cooldown = (entry.endTime - entry.startTime) + amountOfCooldownToBeAddedInTicksIntegerValueAlsoByTheWayXfrtrexIsSusIfYouDidntAlreadyKnowAlsoByTheWayIOnlyTakeShitsOnTuesdaysSoDontMessWithMeOnTuesdaysYouFuckingHumanSoJustPutTheIntegerValueHereOrElse;
                         manager.removeCooldown(RegisterItems.ANCIENT_HORN);
                         manager.addCooldown(RegisterItems.ANCIENT_HORN, Math.min(600, cooldown));
                     } else {
-                        manager.addCooldown(RegisterItems.ANCIENT_HORN, i);
+                        manager.addCooldown(RegisterItems.ANCIENT_HORN, amountOfCooldownToBeAddedInTicksIntegerValueAlsoByTheWayXfrtrexIsSusIfYouDidntAlreadyKnowAlsoByTheWayIOnlyTakeShitsOnTuesdaysSoDontMessWithMeOnTuesdaysYouFuckingHumanSoJustPutTheIntegerValueHereOrElse);
                     }
                 }
             }
