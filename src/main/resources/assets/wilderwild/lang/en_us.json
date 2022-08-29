@@ -205,6 +205,7 @@
   "tooltip.wilderwild.warden_emerges_from_egg": "Makes the Warden play the emerging animation when spawned via spawn egg",
   "tooltip.wilderwild.warden_custom_tendrils": "Vanilla: Warden's tendrils only rotate about a single axis\nImproved: Warden's tendrils rotate about all axes, improving visibility from all angles",
   "tooltip.wilderwild.warden_swim_animation": "Whether or not the Warden should §ovisually §rSwim\n§c(WARNING: Disabling this will cause the warden to appear to \nphase through blocks when swimming through one block tall gaps. \nPlease only disable this if it causes incompatibilities.)",
+  "tooltip.wilderwild.ancient_horn_shatters_glass": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
   "wilderwild.ancient_horn.advancement.use": "Whirs of the Ancient",
   "wilderwild.ancient_horn.advancement.use.description": "Find and use an Ancient Horn.",
   "wilderwild.null_block.advancement.obtain": "Hackermode = §aON",

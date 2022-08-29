@@ -90,6 +90,7 @@
   "entity.wilderwild.cypress_boat": "Bateau en cyprès",
   "entity.wilderwild.cypress_chest_boat": "Bateau de stockage en cyprès",
   "entity.wilderwild.firefly": "Luciole",
+  "entity.wilderwild.jellyfish": "Méduse",
   "entity.wilderwild.sculk_sensor_tendril": "Vrilles de détecteur sculk",
 
   "item.wilderwild.ancient_horn": "Corne ancienne",
@@ -141,28 +142,6 @@
   "instrument.wilderwild.trumpet_copper_horn": "Trompette",
   "instrument.wilderwild.tuba_copper_horn": "Tuba",
 
-  "option.modmenu.mc_live_sensor_tendrils": "Type de capteur sculk",
-  "option.modmenu.mc_live_sensor_tendrils.true": "Minecraft Live 2020",
-  "option.modmenu.mc_live_sensor_tendrils.false": "Vanilla",
-  "option.modmenu.modify_badlands_placement": "Placement des badlands",
-  "option.modmenu.modify_badlands_placement.true": "§aNouveau",
-  "option.modmenu.modify_badlands_placement.false": "§cVanilla",
-  "option.modmenu.modify_desert_placement": "Placement du désert",
-  "option.modmenu.modify_desert_placement.true": "§aNouveau",
-  "option.modmenu.modify_desert_placement.false": "§cVanilla",
-  "option.modmenu.modify_jungle_placement": "Placement des jungles",
-  "option.modmenu.modify_jungle_placement.true": "§aNouvau",
-  "option.modmenu.modify_jungle_placement.false": "§cVanilla",
-  "option.modmenu.modify_mangrove_swamp_placement": "Placement des marais de mangrove",
-  "option.modmenu.modify_mangrove_swamp_placement.true": "§aNouveau",
-  "option.modmenu.modify_mangrove_swamp_placement.false": "§cVanilla",
-  "option.modmenu.modify_swamp_placement": "Placement des marais",
-  "option.modmenu.modify_swamp_placement.true": "§aNouveau",
-  "option.modmenu.modify_swamp_placement.false": "§cVanilla",
-  "option.modmenu.modify_windswept_savanna_placement": "Placement des savanes venteuses",
-  "option.modmenu.modify_windswept_savanna_placement.true": "§aNouveau",
-  "option.modmenu.modify_windswept_savanna_placement.false": "§cVanilla",
-
   "subtitles.block.hanging_tendril.wring": "Vrille suspendue essorée",
   "subtitles.block.sculk_sensor.hiccup": "Détecteur sculk hoquette",
   "subtitles.block.sculk_shrieker.gargle": "Hurleur sculk qui gargouille",
@@ -173,14 +152,6 @@
   "subtitles.item.ancient_horn.call": "La corne ancienne joue",
   "subtitles.item.bottle.catch_firefly": "Une luciole rentre dans la fiole",
   "subtitles.item.bottle.release_firefly": "Une luciole sort de la fiole",
-
-  "tooltip.modmenu.modify_badlands_placement": "Choisir si les badlands se placent comme en vanilla ou comme dans Wilder Wild",
-  "tooltip.modmenu.modify_desert_placement": "Choisir si les déserts se placent comme en vanilla ou comme dans Wilder Wild",
-  "tooltip.modmenu.modify_jungle_placement": "Choisir si les jungles se placent comme en vanilla ou comme dans Wilder Wild",
-  "tooltip.modmenu.modify_mangrove_swamp_placement": "Choisir si les marais de mangrove se placent comme en vanilla ou comme dans Wilder Wild",
-  "tooltip.modmenu.modify_swamp_placement": "Choisir si les marais se placent comme en vanilla ou comme dans Wilder Wild",
-  "tooltip.modmenu.modify_windswept_savanna_placement": "Choisir si les savanes venteuses se placent comme en vanilla ou comme dans Wilder Wild",
-  "tooltip.modmenu.sensor_tendrils": "Vanilla (Par défaut): Utilise l'animation de texture pour les vrilles des capteurs sculk\nMinecraft Live 2020: Utilise une animation block-entité pour les vrilles des capteurs sculk",
 
   "wilderwild.ancient_horn.advancement.use": "Ambiance : Validée",
   "wilderwild.ancient_horn.advancement.use.description": "Trouver et utiliser une corne ancienne",
@@ -231,5 +202,6 @@
   "tooltip.wilderwild.shrieker_gargling": "Fait 's'étouffer' les hurleurs sculk lorsqu'ils sont sous l'eau.",
   "tooltip.wilderwild.warden_emerges_from_egg": "Fait jouer l'animation d'émergence au warden lorsque il apparait via un oeuf d'apparition",
   "tooltip.wilderwild.warden_custom_tendrils": "Normal : Les vrilles du warden ne tournent pour un seulaxe\nAmélioré : Les vrilles du warden tournent pour tous les axes, ce qui améliore la visibilité de chaque angle",
-  "tooltip.wilderwild.warden_swim_animation": "Si le Warden doit nager §ovisuellement §rou pas\n§c(ATTENTION: Désactiver ça va causer le warden d'apparaître comme s'il passait dans les blocs lorsqu'il nage dans un trou d'un bloc de haut. \nMerci de ne désactiver ceci seulement si cela cause des incompatibilités)"
+  "tooltip.wilderwild.warden_swim_animation": "Si le Warden doit nager §ovisuellement §rou pas\n§c(ATTENTION: Désactiver ça va causer le warden d'apparaître comme s'il passait dans les blocs lorsqu'il nage dans un trou d'un bloc de haut. \nMerci de ne désactiver ceci seulement si cela cause des incompatibilités)",
+  "tooltip.wilderwild.ancient_horn_shatters_glass": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA but in french"
 }
