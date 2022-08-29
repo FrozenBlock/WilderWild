@@ -72,7 +72,6 @@ public class JellyfishModel<T extends Jellyfish> extends HierarchicalModel<T> {
     public float zRot;
     public float tentXRot;
     public float tentZRot;
-    public float lightProg;
 
     public void render(PoseStack poseStack, VertexConsumer vertexConsumer, int i, int j) {
         poseStack.pushPose();
@@ -88,27 +87,13 @@ public class JellyfishModel<T extends Jellyfish> extends HierarchicalModel<T> {
         poseStack.popPose();
     }
 
-    public void renderDeez(PoseStack poseStack, VertexConsumer vertexConsumer, int i, int j) {
-        poseStack.pushPose();
-        poseStack.mulPose(Vector3f.XP.rotationDegrees(-this.xRot));
-        poseStack.mulPose(Vector3f.YP.rotationDegrees(-this.zRot));
-        this.body.render(poseStack, vertexConsumer, i, j, 1.0F, 1.0F, 1.0F, this.lightProg);
-        poseStack.popPose();
-
-        poseStack.pushPose();
-        poseStack.mulPose(Vector3f.XP.rotationDegrees(-this.tentXRot));
-        poseStack.mulPose(Vector3f.YP.rotationDegrees(-this.tentZRot));
-        this.tentacleBase.render(poseStack, vertexConsumer, 1, j, 1.0F, 1.0F, 1.0F, this.lightProg);
-        poseStack.popPose();
-    }
-
     private static final float pi180 = Mth.PI / 180;
     private static final float eightPi = -8 * pi180;
 
     @Override
     public void setupAnim(@NotNull T jellyfish, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
         float animation = limbSwing * 2;
-        float movementDelta = Math.min(limbSwingAmount / 0.025F, 1.0F);
+        float movementDelta = Math.min(limbSwingAmount / 0.0375F, 1.0F);
 
         float sin = -Mth.sin(animation);
         float sinIdle = Mth.sin(ageInTicks * 0.1F) * 0.2F;
