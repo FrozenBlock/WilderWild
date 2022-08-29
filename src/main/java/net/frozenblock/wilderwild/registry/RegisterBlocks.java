@@ -332,6 +332,7 @@ public final class RegisterBlocks {
         registerBlock("stone_chest", STONE_CHEST, CreativeModeTab.TAB_DECORATIONS);
         registerBlock("stone_vase", STONE_VASE, CreativeModeTab.TAB_DECORATIONS);
         registerBlock("display_lantern", DISPLAY_LANTERN, CreativeModeTab.TAB_DECORATIONS);
+        registerBlock("mesoglea", MESOGLEA, CreativeModeTab.TAB_DECORATIONS);
     }
 
     public static void registerBlocks() {
@@ -345,7 +346,6 @@ public final class RegisterBlocks {
         registerPlants();
         registerNotSoPlants();
         registerMisc();
-        registerBlock("mesoglea", MESOGLEA, CreativeModeTab.TAB_DECORATIONS);
     }
 
     private static void registerBlockWithoutBlockItem(String name, Block block) {
