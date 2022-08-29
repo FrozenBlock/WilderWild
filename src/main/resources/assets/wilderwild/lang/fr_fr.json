@@ -212,6 +212,9 @@
   "option.wilderwild.warden_custom_tendrils.true": "§aAmélioré",
   "option.wilderwild.warden_emerges_from_egg": "Le warden émerge via l'oeuf d'apparition",
   "option.wilderwild.warden_swim_animation": "Animation de nage du warden",
+  "option.wilderwild.ancient_horn_shatters_glass": "Bris de verre de corne ancienne",
+  "option.wilderwild.ancient_horn_shatters_glass.false": "§cOFF",
+  "option.wilderwild.ancient_horn_shatters_glass.true": "§aON",
 
   "tooltip.wilderwild.wilder_wild_trees": "Si la génération du monde doit utiliser nos abres personnalisés ou les arbres normaux.",
   "tooltip.wilderwild.fallen_logs": "Si les bûches tombées (creuses) seront générées naturellement. Désactivez-le si cela cause des problèmes avec d'autres mods.",
