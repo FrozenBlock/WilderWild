@@ -102,7 +102,7 @@ dependencies {
 	modImplementation "com.github.Chocohead:Fabric-ASM:${fabric_asm_version}"
 	include "com.github.Chocohead:Fabric-ASM:${fabric_asm_version}"
 
-	// Simple Copper Pipes
+	// Lunade
 	modImplementation "maven.modrinth:simple-copper-pipes:${copperpipes_version}"
 	modImplementation "maven.modrinth:fastanim:${fastanim_version}"
 
@@ -114,10 +114,6 @@ dependencies {
 		exclude(group: "net.fabricmc.fabric-api")
 		exclude(group: "com.terraformersmc")
 	}
-	/*include("me.shedaniel.cloth:cloth-config-fabric:${cloth_config_version}") {
-		exclude(group: "net.fabricmc.fabric-api")
-		exclude(group: "com.terraformersmc")
-	}*/
 
 	// NBT Crafting
 	modImplementation "de.siphalor:nbtcrafting-1.19:2+"
@@ -128,8 +124,7 @@ dependencies {
 		modRuntimeOnly "maven.modrinth:ferrite-core:${ferritecore_version}"
 		modRuntimeOnly "maven.modrinth:lazydfu:${lazydfu_version}"
 		modRuntimeOnly "maven.modrinth:starlight:${starlight_version}"
-		//modRuntimeOnly "maven.modrinth:indium:1.0.6+mc1.19"
-		//modRuntimeOnly "maven.modrinth:lithium:mc1.19.2-0.8.3"
+		modRuntimeOnly "maven.modrinth:lithium:mc1.19.2-0.8.3"
 
 		// Sodium Related
 		modRuntimeOnly "maven.modrinth:sodium:${sodium_version}"

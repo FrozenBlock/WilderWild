@@ -125,17 +125,17 @@ public class JellyfishModel<T extends Jellyfish> extends HierarchicalModel<T> {
         this.tentacle4.xRot = tentRot;
         this.tentacle6.xRot = tentRot;
         this.tentacle8.xRot = tentRot;
-        
+
         //SQUASH & STRETCH
         float squashStretch = 1F + (-sin * 0.25F);
         float squash = Mth.lerp(movementDelta, sinIdle + 1, squashStretch);
-        
+
         this.body.xScale = squash;
         this.body.zScale = squash;
         this.body.yScale = Mth.lerp(movementDelta, -sinIdle + 1, 1.25F + (sin * 0.75F));
 
-        this.body.y = Mth.lerp(movementDelta, 0, 3.5F -(squashStretch * 3.5F));
-        this.tentacleBase.y = Mth.lerp(movementDelta, 0, (6F -(squashStretch * 5F)) * 2);
+        this.body.y = Mth.lerp(movementDelta, 0, 3.5F - (squashStretch * 3.5F));
+        this.tentacleBase.y = Mth.lerp(movementDelta, 0, (6F - (squashStretch * 5F)) * 2);
     }
 
     @Override
