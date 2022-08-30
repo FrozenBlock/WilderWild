@@ -1,5 +1,5 @@
 {
-  "credits": "Thanks to enri for this translation!",
+  "a.wilderwild.italian.credits": "Thanks to enri for this translation!",
   "biome.wilderwild.cypress_wetlands": "Acquitrino dei cipressi",
   "biome.wilderwild.mixed_forest": "Foresta mista",
   "block.wilderwild.alba_glory_of_the_snow": "Gloria della neve alba",
@@ -85,8 +85,8 @@
   "entity.wilderwild.cypress_chest_boat": "Barca di cipresso con baule",
   "entity.wilderwild.firefly": "Lucciola",
   "entity.wilderwild.sculk_sensor_tendril": "Viticci sensoriali di sculk",
+  "instrument.wilderwild.ancient_horn": "Rombo dell’antico",
   "item.wilderwild.ancient_horn": "Corno antico",
-  "item.wilderwild.ancient_horn.sound.0": "Rombo dell’antico",
   "item.wilderwild.baobab_boat": "Barca di baobab",
   "item.wilderwild.baobab_chest_boat": "Barca di baobab con baule",
   "item.wilderwild.black_firefly_bottle": "Lucciola nera in ampolla",
