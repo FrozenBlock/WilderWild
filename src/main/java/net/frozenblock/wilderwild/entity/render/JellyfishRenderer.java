@@ -12,7 +12,6 @@ import net.minecraft.client.renderer.entity.EntityRendererProvider.Context;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.util.Mth;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -20,7 +19,6 @@ import org.jetbrains.annotations.Nullable;
 public class JellyfishRenderer extends MobRenderer<Jellyfish, JellyfishModel<Jellyfish>> {
 
     private static final String BASE_TEXTURE = "textures/entity/jellyfish/";
-    private static final float pi180 = Mth.PI / 180;
 
     public JellyfishRenderer(Context context) {
         super(context, new JellyfishModel<>(context.bakeLayer(WilderWildClient.JELLYFISH)), 0.3F);
@@ -28,15 +26,9 @@ public class JellyfishRenderer extends MobRenderer<Jellyfish, JellyfishModel<Jel
 
     @Override
     public void setupRotations(@NotNull Jellyfish jelly, PoseStack poseStack, float f, float g, float h) {
-        //poseStack.translate(0.0, 0.5, 0.0);
         poseStack.mulPose(Vector3f.YP.rotationDegrees(180.0f - g));
         poseStack.translate(0, -1, 0);
         poseStack.scale(0.8F, 0.8F, 0.8F);
-        JellyfishModel<Jellyfish> model = this.getModel();
-        model.xRot = -(jelly.xRot1 + h * (jelly.xBodyRot - jelly.xRot1));
-        model.zRot = -(jelly.zRot1 + h * (jelly.zBodyRot - jelly.zRot1));
-        model.tentXRot = -(jelly.xRot6 + h * (jelly.xRot5 - jelly.xRot6));
-        model.tentZRot = -(jelly.zRot6 + h * (jelly.zRot5 - jelly.zRot6));
     }
 
     @Override

@@ -90,6 +90,14 @@ public class JellyfishModel<T extends Jellyfish> extends HierarchicalModel<T> {
     private static final float eightPi = -8 * pi180;
 
     @Override
+    public void prepareMobModel(T jelly, float f, float g, float h) {
+        this.xRot = -(jelly.xRot1 + h * (jelly.xBodyRot - jelly.xRot1));
+        this.zRot = -(jelly.zRot1 + h * (jelly.zBodyRot - jelly.zRot1));
+        this.tentXRot = -(jelly.xRot6 + h * (jelly.xRot5 - jelly.xRot6));
+        this.tentZRot = -(jelly.zRot6 + h * (jelly.zRot5 - jelly.zRot6));
+    }
+
+    @Override
     public void setupAnim(@NotNull T jellyfish, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
         float animation = limbSwing * 2;
         float movementDelta = Math.min(limbSwingAmount / 0.0375F, 1.0F);
