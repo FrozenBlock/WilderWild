@@ -1289,9 +1289,10 @@
 	},
 	"entity.jellyfish.flop": {
 		"sounds": [
-			"wilderwild:mob/jellyfish/swim1",
-			"wilderwild:mob/jellyfish/swim2",
-			"wilderwild:mob/jellyfish/swim3"
+			"wilderwild:mob/jellyfish/flop1",
+			"wilderwild:mob/jellyfish/flop2",
+			"wilderwild:mob/jellyfish/flop3",
+			"wilderwild:mob/jellyfish/flop4"
 		],
 		"subtitle": "subtitles.entity.jellyfish.flop"
 	},
