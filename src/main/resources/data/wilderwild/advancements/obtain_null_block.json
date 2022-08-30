@@ -20,16 +20,16 @@
 	  "trigger": "minecraft:inventory_changed",
 	  "conditions": {
 		"items": [
-			{
-				"items": [
-				"wilderwild:null_block"
-					]
-			}
+		  {
+			"items": [
+			  "wilderwild:null_block"
+			]
+		  }
 		]
 	  },
-		"slots": {
-			"occupied": 1
-		}
+	  "slots": {
+		"occupied": 1
+	  }
 	}
   }
 }

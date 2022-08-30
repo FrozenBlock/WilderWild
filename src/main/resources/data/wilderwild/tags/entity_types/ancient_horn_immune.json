@@ -1,7 +1,7 @@
 {
   "values": [
-	  "minecraft:wither",
-	  "minecraft:warden",
-      "minecraft:ender_dragon"
+	"minecraft:wither",
+	"minecraft:warden",
+	"minecraft:ender_dragon"
   ]
 }

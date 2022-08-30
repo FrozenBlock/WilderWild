@@ -45,17 +45,17 @@
 	"worldgen.VegetationPlacementsMixin"
   ],
   "client": [
-	"client.easter.AlexDolphinRenderer",
 	"client.LevelRendererMixin",
-	"client.easter.MerpSlimeRenderer",
-	"client.easter.OsmioooWardenRenderer",
-	"client.easter.Treetrain1GoatRenderer",
-	"client.easter.UppyBalloo",
-	"client.easter.UppyBallooModel",
 	"client.WardenAnimationOverwrites",
 	"client.WardenEntityModelMixin",
 	"client.WardenFeatureRendererMixin",
+	"client.easter.AlexDolphinRenderer",
+	"client.easter.MerpSlimeRenderer",
+	"client.easter.OsmioooWardenRenderer",
 	"client.easter.SaishoAxolotlRenderer",
+	"client.easter.Treetrain1GoatRenderer",
+	"client.easter.UppyBalloo",
+	"client.easter.UppyBallooModel",
 	"client.easter.XfrtrexSusFrogRenderer"
   ],
   "injectors": {
