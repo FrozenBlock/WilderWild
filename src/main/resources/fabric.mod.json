@@ -45,5 +45,8 @@
   "breaks": {
 	"quilted_fabric_api": "4.0.0-beta.8",
 	"copper_pipe": "<1.11-b5"
+  },
+  "suggests": {
+	"modmenu": "*"
   }
 }
