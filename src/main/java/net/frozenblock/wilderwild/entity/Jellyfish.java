@@ -71,9 +71,6 @@ public class Jellyfish extends AbstractFish {
         this.setVariant("pale_blue");
     }
 
-    private static final EntityDataAccessor<Integer> TARGET_LIGHT = SynchedEntityData.defineId(Jellyfish.class, EntityDataSerializers.INT);
-    private static final EntityDataAccessor<Float> LIGHT = SynchedEntityData.defineId(Jellyfish.class, EntityDataSerializers.FLOAT);
-    private static final EntityDataAccessor<Float> PREV_LIGHT = SynchedEntityData.defineId(Jellyfish.class, EntityDataSerializers.FLOAT);
     private static final EntityDataAccessor<String> VARIANT = SynchedEntityData.defineId(Jellyfish.class, EntityDataSerializers.STRING);
 
     @Nullable
@@ -178,18 +175,6 @@ public class Jellyfish extends AbstractFish {
 
     @Override
     public void aiStep() {
-        /*
-        this.setPrevLight(this.getLight());
-        BlockPos pos = new BlockPos(this.position());
-        int block = this.level.getBrightness(LightLayer.BLOCK, pos);
-        int sky = this.level.getBrightness(LightLayer.SKY, pos);
-        this.setTargetLight(Math.max(block, sky));
-        if (this.getTargetLight() > this.getLight()) {
-            this.setLight(this.getLight() + 0.1F);
-        } else if (this.getTargetLight() < this.getLight()) {
-            this.setLight(this.getLight() - 0.1F);
-        }
-        */
         super.aiStep();
         this.xRot6 = this.xRot5;
         this.xRot5 = this.xRot4;
@@ -287,10 +272,14 @@ public class Jellyfish extends AbstractFish {
     }
 
     @Override
+    public SoundEvent getPickupSound() {
+        return RegisterSounds.ITEM_BUCKET_FILL_JELLYFISH;
+    }
+
+    @Override
     public boolean hurt(@NotNull DamageSource damageSource, float f) {
         if (super.hurt(damageSource, f)) {
             if (!this.level.isClientSide && this.level.getDifficulty() != Difficulty.PEACEFUL) {
-                //this.spawnJelly();
                 LivingEntity target = this.getLastHurtByMob();
                 if (target instanceof Player player) {
                     if (!player.isCreative() && !player.isSpectator()) {
@@ -305,43 +294,9 @@ public class Jellyfish extends AbstractFish {
         return false;
     }
 
-    /*private void spawnJelly() {
-        this.playSound(this.getSquirtSound(), this.getSoundVolume(), this.getVoicePitch());
-        Vec3 vec3 = this.rotateVector(new Vec3(0.0, -1.0, 0.0)).add(this.getX(), this.getY(), this.getZ());
-        for (int i = 0; i < 30; ++i) {
-            Vec3 vec32 = this.rotateVector(new Vec3((double) this.random.nextFloat() * 0.6 - 0.3, -1.0, (double) this.random.nextFloat() * 0.6 - 0.3));
-            Vec3 vec33 = vec32.scale(0.3 + (double) (this.random.nextFloat() * 2.0f));
-            ((ServerLevel) this.level).sendParticles(this.getJellyParticle(), vec3.x, vec3.y + 0.5, vec3.z, 0, vec33.x, vec33.y, vec33.z, 0.1f);
-        }
-    }*/
-
     @Override
     public ItemStack getBucketItemStack() {
         return new ItemStack(RegisterItems.JELLYFISH_BUCKET);
-    }
-
-    public void setTargetLight(int i) {
-        this.entityData.set(TARGET_LIGHT, i);
-    }
-
-    public int getTargetLight() {
-        return this.entityData.get(TARGET_LIGHT);
-    }
-
-    public void setLight(float f) {
-        this.entityData.set(LIGHT, f);
-    }
-
-    public float getLight() {
-        return this.entityData.get(LIGHT);
-    }
-
-    public void setPrevLight(float f) {
-        this.entityData.set(PREV_LIGHT, f);
-    }
-
-    public float getPrevLight() {
-        return this.entityData.get(PREV_LIGHT);
     }
 
     public void setVariant(String s) {
@@ -355,26 +310,17 @@ public class Jellyfish extends AbstractFish {
 
     protected void defineSynchedData() {
         super.defineSynchedData();
-        this.entityData.define(TARGET_LIGHT, 0);
-        this.entityData.define(LIGHT, 0F);
-        this.entityData.define(PREV_LIGHT, 0F);
         this.entityData.define(VARIANT, "pale_blue");
     }
 
     public void addAdditionalSaveData(CompoundTag nbt) {
         super.addAdditionalSaveData(nbt);
-        nbt.putInt("targetLight", this.getTargetLight());
-        nbt.putFloat("light", this.getLight());
-        nbt.putFloat("prevLight", this.getPrevLight());
         nbt.putInt("ticksSinceCantReach", this.ticksSinceCantReach);
         nbt.putString("variant", this.getVariant());
     }
 
     public void readAdditionalSaveData(CompoundTag nbt) {
         super.readAdditionalSaveData(nbt);
-        this.setTargetLight(nbt.getInt("targetLight"));
-        this.setLight(nbt.getFloat("light"));
-        this.setPrevLight(nbt.getFloat("prevLight"));
         this.ticksSinceCantReach = nbt.getInt("ticksSinceCantReach");
         this.setVariant(nbt.getString("variant"));
     }

@@ -10,10 +10,10 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-@Mixin(SpruceTreeGrower.class)
+@Mixin(value = SpruceTreeGrower.class, priority = 69420)
 public class SpruceTreeGrowerMixin {
 
-    @Inject(method = "getConfiguredFeature", at = @At("HEAD"), cancellable = true)
+    @Inject(method = "getConfiguredFeature", at = @At("RETURN"), cancellable = true)
     public void getConfiguredFeature(RandomSource random, boolean bees, CallbackInfoReturnable<Holder<? extends ConfiguredFeature<?, ?>>> cir) {
         cir.setReturnValue(WilderTreeConfigured.NEW_SPRUCE);
         cir.cancel();

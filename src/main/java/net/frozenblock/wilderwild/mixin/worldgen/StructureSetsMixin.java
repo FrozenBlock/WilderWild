@@ -15,7 +15,7 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Redirect;
 
-@Mixin(StructureSets.class)
+@Mixin(value = StructureSets.class, priority = 69420)
 public interface StructureSetsMixin {
 
     @Shadow

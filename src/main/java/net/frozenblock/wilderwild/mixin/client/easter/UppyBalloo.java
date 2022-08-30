@@ -1,4 +1,4 @@
-package net.frozenblock.wilderwild.mixin.client;
+package net.frozenblock.wilderwild.mixin.client.easter;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;

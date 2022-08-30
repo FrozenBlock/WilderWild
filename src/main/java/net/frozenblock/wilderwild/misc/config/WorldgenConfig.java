@@ -14,8 +14,6 @@ import static net.frozenblock.wilderwild.misc.config.WilderWildConfig.tooltip;
 public class WorldgenConfig implements ConfigData {
     //public static final EnumConfigOption<ModMenuConfig.ModsButtonStyle> MODS_BUTTON_STYLE = new EnumConfigOption<>("mods_button_style", ModMenuConfig.ModsButtonStyle.CLASSIC);
 
-    public boolean fallenLogs = true;
-    public boolean wilderWildTreeGen = true;
     public boolean betaBeaches = true;
     public boolean modifyDesertPlacement = true;
     public boolean modifyBadlandsPlacement = true;
@@ -23,6 +21,9 @@ public class WorldgenConfig implements ConfigData {
     public boolean modifyJunglePlacement = true;
     public boolean modifySwampPlacement = true;
     public boolean modifyMangroveSwampPlacement = true;
+    public boolean fallenLogs = true;
+    public boolean wilderWildTreeGen = true;
+    public boolean wilderWildGrassGen = true;
 
     @Environment(EnvType.CLIENT)
     public static void setupEntries(ConfigCategory category, ConfigEntryBuilder entryBuilder) {
@@ -75,16 +76,22 @@ public class WorldgenConfig implements ConfigData {
                 .setTooltip(tooltip("modify_mangrove_swamp_placement"))
                 .requireRestart()
                 .build());
+        category.addEntry(entryBuilder.startBooleanToggle(text("fallen_logs"), config.fallenLogs)
+                .setDefaultValue(true)
+                .setSaveConsumer(newValue -> config.fallenLogs = newValue)
+                .setTooltip(tooltip("fallen_logs"))
+                .requireRestart()
+                .build());
         category.addEntry(entryBuilder.startBooleanToggle(text("wilder_wild_trees"), config.wilderWildTreeGen)
                 .setDefaultValue(true)
                 .setSaveConsumer(newValue -> config.wilderWildTreeGen = newValue)
                 .setTooltip(tooltip("wilder_wild_trees"))
                 .requireRestart()
                 .build());
-        category.addEntry(entryBuilder.startBooleanToggle(text("fallen_logs"), config.fallenLogs)
+        category.addEntry(entryBuilder.startBooleanToggle(text("wilder_wild_grass"), config.wilderWildGrassGen)
                 .setDefaultValue(true)
-                .setSaveConsumer(newValue -> config.fallenLogs = newValue)
-                .setTooltip(tooltip("fallen_logs"))
+                .setSaveConsumer(newValue -> config.wilderWildGrassGen = newValue)
+                .setTooltip(tooltip("wilder_wild_grass"))
                 .requireRestart()
                 .build());
     }

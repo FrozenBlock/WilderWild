@@ -17,7 +17,7 @@ import org.spongepowered.asm.mixin.Shadow;
 
 import java.util.function.Function;
 
-@Mixin(JigsawStructure.class)
+@Mixin(value = JigsawStructure.class, priority = 69420)
 public class JigsawStructureMixin {
     @Shadow
     @Final
