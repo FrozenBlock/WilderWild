@@ -73,17 +73,17 @@ public class JellyfishModel<T extends Jellyfish> extends HierarchicalModel<T> {
     public float tentXRot;
     public float tentZRot;
 
-    public void render(PoseStack poseStack, VertexConsumer vertexConsumer, int i, int j) {
+    public void renderToBuffer(PoseStack poseStack, @NotNull VertexConsumer vertexConsumer, int i, int j, float var5, float var6, float var7, float var8) {
         poseStack.pushPose();
-        poseStack.mulPose(Vector3f.XP.rotationDegrees(-this.xRot));
-        poseStack.mulPose(Vector3f.YP.rotationDegrees(-this.zRot));
+        poseStack.mulPose(Vector3f.XP.rotationDegrees(this.xRot));
+        poseStack.mulPose(Vector3f.YP.rotationDegrees(this.zRot));
         this.body.render(poseStack, vertexConsumer, i, j, 1.0F, 1.0F, 1.0F, 1.0F);
         poseStack.popPose();
 
         poseStack.pushPose();
-        poseStack.mulPose(Vector3f.XP.rotationDegrees(-this.tentXRot));
-        poseStack.mulPose(Vector3f.YP.rotationDegrees(-this.tentZRot));
-        this.tentacleBase.render(poseStack, vertexConsumer, 1, j, 1.0F, 1.0F, 1.0F, 1.0F);
+        poseStack.mulPose(Vector3f.XP.rotationDegrees(this.tentXRot));
+        poseStack.mulPose(Vector3f.YP.rotationDegrees(this.tentZRot));
+        this.tentacleBase.render(poseStack, vertexConsumer, i, j, 1.0F, 1.0F, 1.0F, 1.0F);
         poseStack.popPose();
     }
 
