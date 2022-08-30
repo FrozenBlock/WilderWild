@@ -190,7 +190,7 @@ public class AncientHornProjectile extends AbstractArrow {
 
         if (this.ancientHornSizeCooldown <= 0) {
             this.getDimensions(this.getPose()).scale(0.1F);
-            this.setBoundingBox(this.getBoundingBoxForPose(this.getPose()).inflate(0.1D));
+            this.setBoundingBox(this.getBoundingBox().inflate(0.1D));
             this.ancientHornSizeCooldown = 10;
         } else {
             --this.ancientHornSizeCooldown;
