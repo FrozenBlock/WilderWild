@@ -306,7 +306,6 @@ public final class RegisterBlocks {
 
         registerOtherBB();
         registerWoods();
-        registerBlockProperties();
         registerHollowedLogs();
         registerDeepDark();
         registerBlock("termite_mound", TERMITE_MOUND, CreativeModeTab.TAB_DECORATIONS);
@@ -317,6 +316,7 @@ public final class RegisterBlocks {
         Registry.register(Registry.ITEM, WilderWild.id("algae"), new AlgaeItem(ALGAE, new FabricItemSettings().tab(CreativeModeTab.TAB_DECORATIONS)));
         registerBlock("null_block", NULL_BLOCK, CreativeModeTab.TAB_MISC);
         registerNotSoPlants();
+        registerBlockProperties();
     }
 
     private static void registerBlockWithoutBlockItem(String name, net.minecraft.world.level.block.Block block) {
