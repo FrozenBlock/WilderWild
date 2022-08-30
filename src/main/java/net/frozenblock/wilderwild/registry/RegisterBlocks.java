@@ -224,6 +224,7 @@ public final class RegisterBlocks {
 
     // Mesoglea
     public static final Block MESOGLEA = new MesogleaBlock(FabricBlockSettings.of(Material.CLAY, MaterialColor.QUARTZ).friction(0.8F).sound(SoundType.SLIME_BLOCK).noOcclusion().emissiveRendering(RegisterBlocks::always).lightLevel((state) -> 3));
+    public static final Block NEMATOCYST = new NematocystBlock(7, 3, FabricBlockSettings.of(Material.CLAY, MaterialColor.QUARTZ).noCollision().sound(SoundType.SLIME_BLOCK).noOcclusion().emissiveRendering(RegisterBlocks::always).lightLevel((state) -> 3));
 
     // MISC
     private static final Material ALGAE_MATERIAL = new FabricMaterialBuilder(MaterialColor.PLANT)
@@ -337,6 +338,7 @@ public final class RegisterBlocks {
         registerBlock("stone_chest", STONE_CHEST, CreativeModeTab.TAB_DECORATIONS);
         registerBlock("display_lantern", DISPLAY_LANTERN, CreativeModeTab.TAB_DECORATIONS);
         registerBlock("mesoglea", MESOGLEA, CreativeModeTab.TAB_DECORATIONS);
+        registerBlock("nematocyst", NEMATOCYST, CreativeModeTab.TAB_DECORATIONS);
     }
 
     public static void registerBlocks() {
