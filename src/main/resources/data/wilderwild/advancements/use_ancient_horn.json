@@ -1,30 +1,30 @@
 {
   "display": {
-    "icon": {
-      "item": "wilderwild:ancient_horn"
-    },
-    "title": {
-      "translate": "wilderwild.ancient_horn.advancement.use"
-    },
-    "description": {
-      "translate": "wilderwild.ancient_horn.advancement.use.description"
-    },
-    "frame": "task",
-    "show_toast": true,
-    "announce_to_chat": true,
-    "hidden": false
+	"icon": {
+	  "item": "wilderwild:ancient_horn"
+	},
+	"title": {
+	  "translate": "wilderwild.ancient_horn.advancement.use"
+	},
+	"description": {
+	  "translate": "wilderwild.ancient_horn.advancement.use.description"
+	},
+	"frame": "task",
+	"show_toast": true,
+	"announce_to_chat": true,
+	"hidden": false
   },
   "parent": "minecraft:adventure/root",
   "criteria": {
-    "requirement": {
-      "trigger": "minecraft:using_item",
-      "conditions": {
-        "item": {
-          "items": [
-            "wilderwild:ancient_horn"
-          ]
-        }
-      }
-    }
+	"requirement": {
+	  "trigger": "minecraft:using_item",
+	  "conditions": {
+		"item": {
+		  "items": [
+			"wilderwild:ancient_horn"
+		  ]
+		}
+	  }
+	}
   }
 }

@@ -20,29 +20,19 @@ package org.quiltmc.qsl.frozenblock.datafixerupper.impl;
 import com.mojang.datafixers.DataFixUtils;
 import com.mojang.datafixers.DataFixer;
 import com.mojang.datafixers.schemas.Schema;
-import org.jetbrains.annotations.ApiStatus;
-import org.jetbrains.annotations.Contract;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
-import org.jetbrains.annotations.Range;
-
 import net.minecraft.SharedConstants;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.nbt.NbtOps;
 import net.minecraft.util.datafix.DataFixTypes;
 import net.minecraft.util.datafix.DataFixers;
 import org.jetbrains.annotations.*;
-import org.slf4j.Logger;
-
-import java.util.Collections;
-import java.util.Map;
 
 /**
  * Modified to work on Fabric
  */
 @ApiStatus.Internal
 public abstract class QuiltDataFixesInternals {
-    public record DataFixerEntry(DataFixer dataFixer, int currentVersion) {}
+    public record DataFixerEntry(DataFixer dataFixer, int currentVersion) {
+    }
 
     @Contract(pure = true)
     @Range(from = 0, to = Integer.MAX_VALUE)

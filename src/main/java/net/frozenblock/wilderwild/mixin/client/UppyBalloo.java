@@ -18,7 +18,7 @@ public class UppyBalloo {
 
     private static final ResourceLocation UPPY_BALLOO = WilderWild.id("textures/entity/pig/uppy_balloo.png");
 
-    @Inject(method = "getTextureLocation(Lnet/minecraft/world/entity/animal/Pig;)Lnet/minecraft/resources/ResourceLocation;", at = @At("HEAD"), cancellable = true)
+    @Inject(method = "getTextureLocation(Lnet/minecraft/world/entity/animal/Pig;)Lnet/minecraft/resources/ResourceLocation;", at = @At("RETURN"), cancellable = true)
     public void getTextureLocation(Pig pig, CallbackInfoReturnable<ResourceLocation> cir) {
         String string = ChatFormatting.stripFormatting(pig.getName().getString());
         if (string != null && string.equalsIgnoreCase("a view from the top")) {

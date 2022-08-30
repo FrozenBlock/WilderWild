@@ -33,3 +33,4 @@ accessible    method    net/minecraft/client/renderer/RenderType$CompositeRender
 accessible    method    net/minecraft/client/renderer/RenderStateShard$TextureStateShard    <init>    (Lnet/minecraft/resources/ResourceLocation;ZZ)V
 accessible    field    net/minecraft/client/renderer/RenderStateShard    TRANSLUCENT_TRANSPARENCY    Lnet/minecraft/client/renderer/RenderStateShard$TransparencyStateShard;
 accessible    method    net/minecraft/world/entity/SpawnPlacements   register    (Lnet/minecraft/world/entity/EntityType;Lnet/minecraft/world/entity/SpawnPlacements$Type;Lnet/minecraft/world/level/levelgen/Heightmap$Types;Lnet/minecraft/world/entity/SpawnPlacements$SpawnPredicate;)V
+extendable    method    net/minecraft/world/item/InstrumentItem    getInstrument    (Lnet/minecraft/world/item/ItemStack;)Ljava/util/Optional;

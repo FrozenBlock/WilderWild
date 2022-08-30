@@ -43,7 +43,8 @@ public final class NopQuiltDataFixesInternals extends QuiltDataFixesInternals {
 
     @Override
     public void registerFixer(@NotNull String modId, @Range(from = 0, to = Integer.MAX_VALUE) int currentVersion,
-                              @NotNull DataFixer dataFixer) {}
+                              @NotNull DataFixer dataFixer) {
+    }
 
     @Override
     public @Nullable DataFixerEntry getFixerEntry(@NotNull String modId) {

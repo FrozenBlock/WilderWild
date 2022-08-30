@@ -1,29 +1,29 @@
 {
   "type": "minecraft:block",
   "pools": [
-    {
-      "rolls": 1.0,
-      "bonus_rolls": 0.0,
-      "entries": [
-        {
-          "type": "minecraft:alternatives",
-          "children": [
-            {
-              "type": "minecraft:item",
-              "functions": [
-                {
-                  "function": "minecraft:copy_state",
-                  "block": "wilderwild:echo_glass",
-                  "properties": [
-                    "damage"
-                  ]
-                }
-              ],
-              "name": "wilderwild:echo_glass"
-            }
-          ]
-        }
-      ]
-    }
+	{
+	  "rolls": 1.0,
+	  "bonus_rolls": 0.0,
+	  "entries": [
+		{
+		  "type": "minecraft:alternatives",
+		  "children": [
+			{
+			  "type": "minecraft:item",
+			  "functions": [
+				{
+				  "function": "minecraft:copy_state",
+				  "block": "wilderwild:echo_glass",
+				  "properties": [
+					"damage"
+				  ]
+				}
+			  ],
+			  "name": "wilderwild:echo_glass"
+			}
+		  ]
+		}
+	  ]
+	}
   ]
 }

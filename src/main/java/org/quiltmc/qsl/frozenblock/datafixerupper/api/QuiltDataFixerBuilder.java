@@ -31,7 +31,6 @@ import java.util.function.Supplier;
  * An extended variant of the {@link DataFixerBuilder} class, which provides an extra method.
  * <p>
  * Modified to work on Fabric
- *
  */
 public class QuiltDataFixerBuilder extends DataFixerBuilder {
     protected final int dataVersion;

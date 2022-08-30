@@ -78,7 +78,7 @@ public final class WilderWild implements ModInitializer {
     @Override
     public void onInitialize() {
         startMeasuring(this);
-        applyDataFixes(FabricLoader.getInstance().getModContainer(MOD_ID).orElseThrow());
+        var dataFixer = applyDataFixes(FabricLoader.getInstance().getModContainer(MOD_ID).orElseThrow());
 
         RegisterBlocks.registerBlocks();
         RegisterItems.registerItems();
@@ -127,7 +127,7 @@ public final class WilderWild implements ModInitializer {
 
     private static final int DATA_VERSION = 5;
 
-    private static void applyDataFixes(ModContainer mod) {
+    private static QuiltDataFixerBuilder applyDataFixes(ModContainer mod) {
         logWild("Applying DataFixes for", true);
         var builder = new QuiltDataFixerBuilder(DATA_VERSION);
         builder.addSchema(0, QuiltDataFixes.BASE_SCHEMA);
@@ -148,6 +148,7 @@ public final class WilderWild implements ModInitializer {
 
         QuiltDataFixes.buildAndRegisterFixer(mod, builder);
         log("DataFixes for Wilder Wild have been applied", true);
+        return builder;
     }
 
     //MOD COMPATIBILITY
@@ -272,4 +273,5 @@ public final class WilderWild implements ModInitializer {
     public static String string(String path) {
         return id(path).toString();
     }
+
 }

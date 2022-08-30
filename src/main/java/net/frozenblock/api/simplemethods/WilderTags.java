@@ -1,13 +1,13 @@
 package net.frozenblock.api.simplemethods;
 
-import org.jetbrains.annotations.Nullable;
-
-import java.util.ArrayList;
 import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
 import net.minecraft.tags.TagKey;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.block.Block;
+import org.jetbrains.annotations.Nullable;
+
+import java.util.ArrayList;
 
 /**
  * <h2>Contains booleans to check if something is within a tag</h2>

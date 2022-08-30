@@ -1,7 +1,6 @@
 {
   "biome.wilderwild.cypress_wetlands": "Marais de Cyprès",
   "biome.wilderwild.mixed_forest": "Forêt mixte",
-
   "block.wilderwild.alba_glory_of_the_snow": "Gloire des neiges alba",
   "block.wilderwild.algae": "Algue",
   "block.wilderwild.baobab_button": "Boutton en baobab",
@@ -75,10 +74,8 @@
   "block.wilderwild.stripped_cypress_wood": "Bois de cyprès écorcé",
   "block.wilderwild.termite_mound": "Nid de termites",
   "block.wilderwild.violet_beauty_glory_of_the_snow": "Gloire des neiges violette magnifique",
-
   "death.attack.ancient_horn": "%1$s a découvert le maximum des basses",
   "death.attack.ancient_horn.item": "%1$s a été réduit en miettes par %2$s en utilisant %3$s",
-
   "entity.wilderwild.ancient_horn_projectile": "Projectile de corne ancienne",
   "entity.wilderwild.baobab_boat": "Bateau en baobab",
   "entity.wilderwild.baobab_chest_boat": "Bateau de stockage en baobab",
@@ -86,7 +83,6 @@
   "entity.wilderwild.cypress_chest_boat": "Bateau de stockage en cyprès",
   "entity.wilderwild.firefly": "Luciole",
   "entity.wilderwild.sculk_sensor_tendril": "Vrilles de détecteur sculk",
-
   "item.wilderwild.ancient_horn": "Corne ancienne",
   "item.wilderwild.ancient_horn.sound.0": "Tourbillons de l'ancien",
   "item.wilderwild.baobab_boat": "Bateau en baobab",
@@ -119,7 +115,6 @@
   "item.wilderwild.red_firefly_bottle": "Fiole de luciole rouge",
   "item.wilderwild.white_firefly_bottle": "Fiole de luciole blanche",
   "item.wilderwild.yellow_firefly_bottle": "Fiole de luciole jaune",
-
   "option.modmenu.mc_live_sensor_tendrils": "Type de capteur sculk",
   "option.modmenu.mc_live_sensor_tendrils.true": "Minecraft Live 2020",
   "option.modmenu.mc_live_sensor_tendrils.false": "Vanilla",
@@ -141,7 +136,6 @@
   "option.modmenu.modify_windswept_savanna_placement": "Placement des savanes venteuses",
   "option.modmenu.modify_windswept_savanna_placement.true": "§aNouveau",
   "option.modmenu.modify_windswept_savanna_placement.false": "§cVanilla",
-
   "subtitles.block.hanging_tendril.wring": "Vrille suspendue essorée",
   "subtitles.block.sculk_sensor.hiccup": "Détecteur sculk hoquette",
   "subtitles.block.sculk_shrieker.gargle": "Hurleur sculk qui gargouille",
@@ -152,7 +146,6 @@
   "subtitles.item.ancient_horn.call": "La corne ancienne joue",
   "subtitles.item.bottle.catch_firefly": "Une luciole rentre dans la fiole",
   "subtitles.item.bottle.release_firefly": "Une luciole sort de la fiole",
-
   "tooltip.modmenu.modify_badlands_placement": "Choisir si les badlands se placent comme en vanilla ou comme dans Wilder Wild",
   "tooltip.modmenu.modify_desert_placement": "Choisir si les déserts se placent comme en vanilla ou comme dans Wilder Wild",
   "tooltip.modmenu.modify_jungle_placement": "Choisir si les jungles se placent comme en vanilla ou comme dans Wilder Wild",
@@ -160,9 +153,7 @@
   "tooltip.modmenu.modify_swamp_placement": "Choisir si les marais se placent comme en vanilla ou comme dans Wilder Wild",
   "tooltip.modmenu.modify_windswept_savanna_placement": "Choisir si les savanes venteuses se placent comme en vanilla ou comme dans Wilder Wild",
   "tooltip.modmenu.sensor_tendrils": "Vanilla (Par défaut): Utilise l'animation de texture pour les vrilles des capteurs sculk\nMinecraft Live 2020: Utilise une animation block-entité pour les vrilles des capteurs sculk",
-
   "wilderwild.ancient_horn.advancement.use": "Ambiance : Validée",
   "wilderwild.ancient_horn.advancement.use.description": "Trouver et utiliser une corne ancienne",
-
   "wilderwild.options": "Options de Wilder Wild"
 }

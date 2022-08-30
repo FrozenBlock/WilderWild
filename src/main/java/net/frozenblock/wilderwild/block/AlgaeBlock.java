@@ -1,5 +1,6 @@
 package net.frozenblock.wilderwild.block;
 
+import net.frozenblock.wilderwild.tag.WilderEntityTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
@@ -13,11 +14,13 @@ import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
+import org.jetbrains.annotations.NotNull;
 
 public class AlgaeBlock extends Block {
     protected static final VoxelShape SHAPE = Block.box(0.0, 0.0, 0.0, 16, 1.0, 16);
@@ -27,18 +30,18 @@ public class AlgaeBlock extends Block {
     }
 
     @Override
-    public VoxelShape getShape(net.minecraft.world.level.block.state.BlockState state, BlockGetter world, BlockPos pos, CollisionContext context) {
+    public VoxelShape getShape(@NotNull BlockState state, @NotNull BlockGetter world, @NotNull BlockPos pos, @NotNull CollisionContext context) {
         return SHAPE;
     }
 
     @Override
-    public boolean canSurvive(net.minecraft.world.level.block.state.BlockState state, LevelReader world, BlockPos pos) {
+    public boolean canSurvive(BlockState state, LevelReader world, BlockPos pos) {
         return canLayAt(world, pos.below());
     }
 
     @Override
-    public net.minecraft.world.level.block.state.BlockState updateShape(
-            net.minecraft.world.level.block.state.BlockState state, Direction direction, net.minecraft.world.level.block.state.BlockState neighborState, LevelAccessor world, BlockPos pos, BlockPos neighborPos
+    public BlockState updateShape(
+            BlockState state, Direction direction, BlockState neighborState, LevelAccessor world, BlockPos pos, BlockPos neighborPos
     ) {
         return !this.canSurvive(state, world, pos)
                 ? Blocks.AIR.defaultBlockState()
@@ -46,18 +49,20 @@ public class AlgaeBlock extends Block {
     }
 
     @Override
-    public void tick(net.minecraft.world.level.block.state.BlockState state, ServerLevel world, BlockPos pos, RandomSource random) {
+    public void tick(@NotNull BlockState state, @NotNull ServerLevel world, @NotNull BlockPos pos, @NotNull RandomSource random) {
         if (!this.canSurvive(state, world, pos)) {
             world.destroyBlock(pos, false);
         }
     }
 
     @Override
-    public void entityInside(net.minecraft.world.level.block.state.BlockState state, Level world, BlockPos pos, Entity entity) {
+    public void entityInside(@NotNull BlockState state, @NotNull Level world, @NotNull BlockPos pos, Entity entity) {
         if (entity.getType().equals(EntityType.FALLING_BLOCK)) {
             world.destroyBlock(pos, false);
         }
-        entity.makeStuckInBlock(state, new Vec3(0.95D, 0.95D, 0.95D));
+        if (!entity.getType().is(WilderEntityTags.CAN_SWIM_IN_ALGAE)) {
+            entity.makeStuckInBlock(state, new Vec3(0.95D, 0.95D, 0.95D));
+        }
     }
 
     private static boolean canLayAt(BlockGetter world, BlockPos pos) {

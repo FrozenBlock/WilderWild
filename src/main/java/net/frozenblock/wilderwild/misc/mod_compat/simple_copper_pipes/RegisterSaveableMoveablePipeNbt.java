@@ -23,7 +23,7 @@ public class RegisterSaveableMoveablePipeNbt {
     public static final ResourceLocation horn = new ResourceLocation(WilderWild.MOD_ID, "ancient_horn");
 
     public static void init() {
-        WilderWild.log("Registering A Saveable Moveable Simple Copper Pipe NBT Dispense Method For WilderWild!", true);
+        WilderWild.log("WILDERWILD AND COPPER PIPES SECRET LOG MESSAGE UNLOCKED!!!", true);
         RegisterPipeNbtMethods.register(horn, (nbt, world, pos, blockState, copperPipeEntity) -> {
             if (!nbt.getCanOnlyBeUsedOnce() || nbt.getUseCount() < 1) {
                 BlockState state = world.getBlockState(pos);
