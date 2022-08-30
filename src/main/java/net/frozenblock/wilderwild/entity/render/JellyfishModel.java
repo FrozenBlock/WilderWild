@@ -18,7 +18,6 @@ import org.jetbrains.annotations.NotNull;
 public class JellyfishModel<T extends Jellyfish> extends HierarchicalModel<T> {
 
     private final ModelPart root;
-    private final ModelPart bone;
     private final ModelPart body;
     private final ModelPart tentacleBase;
     private final ModelPart tentacle1;
@@ -33,9 +32,9 @@ public class JellyfishModel<T extends Jellyfish> extends HierarchicalModel<T> {
     public JellyfishModel(ModelPart root) {
         super(RenderType::entityTranslucentEmissive);
         this.root = root;
-        this.bone = root.getChild("bone");
-        this.body = this.bone.getChild("body");
-        this.tentacleBase = this.bone.getChild("tentacleBase");
+        ModelPart bone = root.getChild("bone");
+        this.body = bone.getChild("body");
+        this.tentacleBase = bone.getChild("tentacleBase");
         this.tentacle1 = this.tentacleBase.getChild("tentacle1");
         this.tentacle2 = this.tentacleBase.getChild("tentacle2");
         this.tentacle3 = this.tentacleBase.getChild("tentacle3");
@@ -120,7 +119,7 @@ public class JellyfishModel<T extends Jellyfish> extends HierarchicalModel<T> {
         this.body.yScale = Mth.lerp(movementDelta, -sinIdle + 1, 1.25F + (sin * 0.75F));
 
         this.body.y = Mth.lerp(movementDelta, 0, 3.5F - (squashStretch * 3.5F));
-        this.tentacleBase.y = Mth.lerp(movementDelta, -2.0F, (6F - (squashStretch * 5F)) * 2);
+        this.tentacleBase.y = Mth.lerp(movementDelta, (-sinIdle * 2.0F) + 1.8F, (6F - (squashStretch * 5F)) * 2);
     }
 
     @Override
