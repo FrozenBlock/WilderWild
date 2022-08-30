@@ -45,10 +45,6 @@ public class JellyfishModel<T extends Jellyfish> extends HierarchicalModel<T> {
         this.tentacle8 = this.tentacleBase.getChild("tentacle8");
     }
 
-    private static String createTentacleName(int i) {
-        return "tentacle" + (i + 1);
-    }
-
     public static LayerDefinition getTexturedModelData() {
         MeshDefinition meshDefinition = new MeshDefinition();
         PartDefinition partDefinition = meshDefinition.getRoot();
