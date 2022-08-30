@@ -16,6 +16,7 @@ import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
+import net.minecraft.tags.TagKey;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.Difficulty;
@@ -44,6 +45,7 @@ import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.ArrayList;
 import java.util.Objects;
 import java.util.function.Predicate;
 
@@ -68,7 +70,7 @@ public class Jellyfish extends AbstractFish {
 
     public Jellyfish(EntityType<? extends Jellyfish> entityType, Level level) {
         super(entityType, level);
-        this.setVariant("pale_blue");
+        this.setVariant("pink");
     }
 
     private static final EntityDataAccessor<String> VARIANT = SynchedEntityData.defineId(Jellyfish.class, EntityDataSerializers.STRING);
@@ -77,20 +79,71 @@ public class Jellyfish extends AbstractFish {
     @Override
     public SpawnGroupData finalizeSpawn(ServerLevelAccessor serverLevelAccessor, DifficultyInstance difficultyInstance, MobSpawnType mobSpawnType, @Nullable SpawnGroupData spawnGroupData, @Nullable CompoundTag compoundTag) {
         Holder<Biome> holder = serverLevelAccessor.getBiome(this.blockPosition());
+        ArrayList<TagKey<Biome>> possibleTags = new ArrayList<>();
+        TagKey<Biome> biomeTag;
         if (holder.is(WilderBiomeTags.PINK_JELLYFISH)) {
-            this.setVariant("pink");
+            possibleTags.add(WilderBiomeTags.PINK_JELLYFISH);
+        }
+        if (holder.is(WilderBiomeTags.BLUE_JELLYFISH)) {
+            possibleTags.add(WilderBiomeTags.BLUE_JELLYFISH);
+        }
+        if (holder.is(WilderBiomeTags.LIME_JELLYFISH)) {
+            possibleTags.add(WilderBiomeTags.LIME_JELLYFISH);
+        }
+        if (holder.is(WilderBiomeTags.SCARLET_JELLYFISH)) {
+            possibleTags.add(WilderBiomeTags.SCARLET_JELLYFISH);
+        }
+        if (holder.is(WilderBiomeTags.PEARLESCENT_JELLYFISH)) {
+            possibleTags.add(WilderBiomeTags.PEARLESCENT_JELLYFISH);
+        }
+
+        if (!possibleTags.isEmpty()) {
+            biomeTag = possibleTags.get((int) (Math.random() * possibleTags.size()));
+            if (biomeTag == WilderBiomeTags.PEARLESCENT_JELLYFISH) {
+                this.setVariant("pearlescent");
+            } else if (biomeTag == WilderBiomeTags.SCARLET_JELLYFISH) {
+                this.setVariant("scarlet");
+            } else if (biomeTag == WilderBiomeTags.BLUE_JELLYFISH) {
+                this.setVariant("blue");
+            } else if (biomeTag == WilderBiomeTags.LIME_JELLYFISH) {
+                this.setVariant("lime");
+            } else {
+                this.setVariant("pink");
+            }
         } else {
-            this.setVariant("pale_blue");
+            this.setVariant("pink");
         }
         return super.finalizeSpawn(serverLevelAccessor, difficultyInstance, mobSpawnType, spawnGroupData, compoundTag);
     }
 
     public static boolean canSpawn(EntityType<Jellyfish> type, ServerLevelAccessor world, MobSpawnType spawnReason, BlockPos pos, RandomSource random) {
+        ArrayList<TagKey<Biome>> possibleTags = new ArrayList<>();
+        TagKey<Biome> biomeTag;
         Holder<Biome> holder = world.getBiome(pos);
         if (holder.is(WilderBiomeTags.PINK_JELLYFISH)) {
-            return spawnReason != MobSpawnType.SPAWNER ? random.nextInt(1, 4) == 3 && pos.getY() <= world.getSeaLevel() - 3 && pos.getY() >= world.getSeaLevel() - 26 && world.getBlockState(pos).is(Blocks.WATER)
-                    : world.getBlockState(pos).is(Blocks.WATER);
+            possibleTags.add(WilderBiomeTags.PINK_JELLYFISH);
         }
+        if (holder.is(WilderBiomeTags.BLUE_JELLYFISH)) {
+            possibleTags.add(WilderBiomeTags.BLUE_JELLYFISH);
+        }
+        if (holder.is(WilderBiomeTags.LIME_JELLYFISH)) {
+            possibleTags.add(WilderBiomeTags.LIME_JELLYFISH);
+        }
+        if (holder.is(WilderBiomeTags.SCARLET_JELLYFISH)) {
+            possibleTags.add(WilderBiomeTags.SCARLET_JELLYFISH);
+        }
+        if (holder.is(WilderBiomeTags.PEARLESCENT_JELLYFISH)) {
+            possibleTags.add(WilderBiomeTags.PEARLESCENT_JELLYFISH);
+        }
+
+        if (!possibleTags.isEmpty()) {
+            biomeTag = possibleTags.get((int) (Math.random() * possibleTags.size()));
+            if (biomeTag != WilderBiomeTags.PEARLESCENT_JELLYFISH) {
+                return spawnReason != MobSpawnType.SPAWNER ? random.nextInt(1, 4) == 3 && pos.getY() <= world.getSeaLevel() - 3 && pos.getY() >= world.getSeaLevel() - 26 && world.getBlockState(pos).is(Blocks.WATER)
+                        : world.getBlockState(pos).is(Blocks.WATER);
+            }
+        }
+
         return spawnReason != MobSpawnType.SPAWNER ? pos.getY() <= world.getSeaLevel() - 33 && world.getRawBrightness(pos, 0) <= 6 && world.getBlockState(pos).is(Blocks.WATER)
                 : world.getBlockState(pos).is(Blocks.WATER);
     }
@@ -305,12 +358,12 @@ public class Jellyfish extends AbstractFish {
 
     public String getVariant() {
         String variant = this.entityData.get(VARIANT);
-        return !Objects.equals(variant, "") ? variant : "pale_blue";
+        return !Objects.equals(variant, "") ? variant : "pink";
     }
 
     protected void defineSynchedData() {
         super.defineSynchedData();
-        this.entityData.define(VARIANT, "pale_blue");
+        this.entityData.define(VARIANT, "pink");
     }
 
     public void addAdditionalSaveData(CompoundTag nbt) {
