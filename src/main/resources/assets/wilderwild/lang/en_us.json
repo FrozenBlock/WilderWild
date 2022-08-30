@@ -138,11 +138,13 @@
   "item.wilderwild.red_firefly_bottle": "Red Firefly in a Bottle",
   "item.wilderwild.white_firefly_bottle": "White Firefly in a Bottle",
   "item.wilderwild.yellow_firefly_bottle": "Yellow Firefly in a Bottle",
+
   "option.wilderwild.component.title": "Wilder Wild Options",
   "option.wilderwild.block": "Block",
   "option.wilderwild.entity": "Entity",
   "option.wilderwild.item": "Item",
   "option.wilderwild.worldgen": "Worldgen",
+
   "option.wilderwild.ancient_horn_shatters_glass": "Ancient Horn Glass Shattering",
   "option.wilderwild.beta_beaches": "Beta Beaches",
   "option.wilderwild.biome_placement.false": "§cVanilla",

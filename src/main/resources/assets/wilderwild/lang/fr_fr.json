@@ -1,6 +1,7 @@
 {
   "biome.wilderwild.cypress_wetlands": "Marais de Cyprès",
   "biome.wilderwild.mixed_forest": "Forêt mixte",
+
   "block.wilderwild.alba_glory_of_the_snow": "Gloire des neiges alba",
   "block.wilderwild.algae": "Algue",
   "block.wilderwild.baobab_button": "Boutton en baobab",
@@ -79,8 +80,10 @@
   "block.wilderwild.prickly_pear": "Figue de barbarie",
   "block.wilderwild.prickly_pear_cactus": "Figuier de barbarie",
   "block.wilderwild.mesoglea": "Mésoglée",
+
   "death.attack.ancient_horn": "%1$s a découvert le maximum des basses",
   "death.attack.ancient_horn.item": "%1$s a été réduit en miettes par %2$s en utilisant %3$s",
+
   "entity.wilderwild.ancient_horn_projectile": "Projectile de corne ancienne",
   "entity.wilderwild.baobab_boat": "Bateau en baobab",
   "entity.wilderwild.baobab_chest_boat": "Bateau de stockage en baobab",
@@ -89,6 +92,7 @@
   "entity.wilderwild.firefly": "Luciole",
   "entity.wilderwild.jellyfish": "Méduse",
   "entity.wilderwild.sculk_sensor_tendril": "Vrilles de détecteur sculk",
+
   "item.wilderwild.ancient_horn": "Corne ancienne",
   "item.wilderwild.ancient_horn.sound.0": "Tourbillons de l'ancien",
   "item.wilderwild.baobab_boat": "Bateau en baobab",
@@ -127,6 +131,7 @@
   "item.wilderwild.jellyfish_spawn_egg": "Oeuf d'apparition de méduse",
   "item.wilderwild.copper_horn": "Corne de cuivre",
   "item.wilderwild.peeled_prickly_pear": "Figue de barbarier épluchée",
+
   "instrument.wilderwild.ancient_horn": "Tourbillons anciens",
   "instrument.wilderwild.clarinet_copper_horn": "Clarinette",
   "instrument.wilderwild.flute_copper_horn": "Flûte",
@@ -135,6 +140,7 @@
   "instrument.wilderwild.trombone_copper_horn": "Trombone",
   "instrument.wilderwild.trumpet_copper_horn": "Trompette",
   "instrument.wilderwild.tuba_copper_horn": "Tuba",
+
   "subtitles.block.hanging_tendril.wring": "Vrille suspendue essorée",
   "subtitles.block.sculk_sensor.hiccup": "Détecteur sculk hoquette",
   "subtitles.block.sculk_shrieker.gargle": "Hurleur sculk qui gargouille",
@@ -159,15 +165,18 @@
   "subtitles.entity.jellyfish.death": "Méduse qui meurt",
   "subtitles.item.bottle.put_in_lantern_firefly": "Firefly placed in Lantern",
   "subtitles.item.copper_horn.call": "Copper Horn plays",
+
   "wilderwild.ancient_horn.advancement.use": "Ambiance : Validée",
   "wilderwild.ancient_horn.advancement.use.description": "Trouver et utiliser une corne ancienne",
   "wilderwild.null_block.advancement.obtain": "Mode Hackeur = §aActivé",
   "wilderwild.null_block.advancement.obtain.description": "Obtenir un bloc invalide",
+
   "option.wilderwild.component.title": "Options de Wilder Wild",
   "option.wilderwild.block": "Bloc",
   "option.wilderwild.entity": "Entité",
   "option.wilderwild.item": "Object",
   "option.wilderwild.worldgen": "Génération",
+
   "option.wilderwild.wilder_wild_trees": "Arbres vanilla personnalisés",
   "option.wilderwild.fallen_logs": "Bûches tombés",
   "option.wilderwild.beta_beaches": "Plages de la beta",
@@ -193,6 +202,7 @@
   "option.wilderwild.ancient_horn_shatters_glass": "Bris de verre de corne ancienne",
   "option.wilderwild.ancient_horn_shatters_glass.false": "§cOFF",
   "option.wilderwild.ancient_horn_shatters_glass.true": "§aON",
+
   "tooltip.wilderwild.wilder_wild_trees": "Si la génération du monde doit utiliser nos abres personnalisés ou les arbres normaux.",
   "tooltip.wilderwild.fallen_logs": "Si les bûches tombées (creuses) seront générées naturellement. Désactivez-le si cela cause des problèmes avec d'autres mods.",
   "tooltip.wilderwild.beta_beaches": "Active les plages près de l'eau qui se génèrent indépendamment du biome, reflétant les plages qui existaient dans Minecraft Beta.",
