@@ -6,6 +6,7 @@ import net.frozenblock.wilderwild.misc.server.EasyPacket;
 import net.frozenblock.wilderwild.registry.RegisterItems;
 import net.frozenblock.wilderwild.registry.RegisterSounds;
 import net.frozenblock.wilderwild.tag.WilderBiomeTags;
+import net.frozenblock.wilderwild.tag.WilderEntityTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.nbt.CompoundTag;
@@ -46,6 +47,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 import java.util.function.Predicate;
 
@@ -259,6 +261,8 @@ public class Jellyfish extends AbstractFish {
             this.heal(0.02F);
         }
 
+        this.stingEntities();
+
         LivingEntity target = this.getTarget();
         if (target != null) {
             ++this.ticksSinceCantReach;
@@ -278,20 +282,19 @@ public class Jellyfish extends AbstractFish {
         }
     }
 
-    public void doPush(@NotNull Entity entity) {
-        super.doPush(entity);
+    public void stingEntities() {
         if (this.isAlive()) {
-            if (entity instanceof ServerPlayer player) {
-                if (player.hurt(DamageSource.mobAttack(this), 3)) {
-                    player.addEffect(new MobEffectInstance(MobEffects.POISON, 200, 0, false, false), this);
-                    EasyPacket.sendJellySting(player);
-                }
-            } else if (entity instanceof Mob mob) {
-                if (targetingConditions.test(this, mob)) {
-                    if (mob.isAlive()) {
+            List<LivingEntity> list = this.level.getEntitiesOfClass(LivingEntity.class, this.getBoundingBox().inflate(0.05));
+            for (LivingEntity entity : list) {
+                if (targetingConditions.test(this, entity)) {
+                    if (entity instanceof ServerPlayer player) {
+                        if (player.hurt(DamageSource.mobAttack(this), 3)) {
+                            player.addEffect(new MobEffectInstance(MobEffects.POISON, 200, 0, false, false), this);
+                            EasyPacket.sendJellySting(player);
+                        }
+                    } else if (entity instanceof Mob mob) {
                         if (mob.hurt(DamageSource.mobAttack(this), (float) (3))) {
                             mob.addEffect(new MobEffectInstance(MobEffects.POISON, 200, 0), this);
-                            //TODO: JELLY STING SOUND
                             this.playSound(RegisterSounds.ENTITY_JELLYFISH_STING, 0.4F, this.random.nextFloat() * 0.2f + 0.9f);
                         }
                     }
@@ -300,15 +303,15 @@ public class Jellyfish extends AbstractFish {
         }
     }
 
-    private static final Predicate<LivingEntity> SCARY_MOB = (livingEntity) -> {
-        if (livingEntity instanceof Player && ((Player) livingEntity).isCreative()) {
+    private static final Predicate<LivingEntity> CAN_TARGET = (livingEntity) -> {
+        if ((livingEntity instanceof Player && ((Player) livingEntity).isCreative()) || livingEntity.isDeadOrDying()) {
             return false;
         } else {
-            return livingEntity.getMobType() != MobType.WATER;
+            return !livingEntity.getType().is(WilderEntityTags.JELLYFISH_CANT_STING);
         }
     };
 
-    public static final TargetingConditions targetingConditions = TargetingConditions.forNonCombat().ignoreInvisibilityTesting().ignoreLineOfSight().selector(SCARY_MOB);
+    public static final TargetingConditions targetingConditions = TargetingConditions.forNonCombat().ignoreInvisibilityTesting().ignoreLineOfSight().selector(CAN_TARGET);
 
     @Override
     protected void customServerAiStep() {

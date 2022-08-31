@@ -8,6 +8,7 @@ import net.minecraft.world.entity.EntityType;
 public final class WilderEntityTags {
     public static final TagKey<EntityType<?>> CAN_SWIM_IN_ALGAE = of("can_swim_in_algae");
     public static final TagKey<EntityType<?>> ANCIENT_HORN_IMMUNE = of("ancient_horn_immune");
+    public static final TagKey<EntityType<?>> JELLYFISH_CANT_STING = of("jellyfish_cant_sting");
 
     private WilderEntityTags() {
     }
