@@ -7,7 +7,6 @@ import net.fabricmc.api.Environment;
 import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.WilderWildClient;
 import net.frozenblock.wilderwild.entity.Jellyfish;
-import net.frozenblock.wilderwild.entity.render.feature.IridescentJellyLayer;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.EntityRendererProvider.Context;
 import net.minecraft.client.renderer.entity.MobRenderer;
@@ -23,8 +22,6 @@ public class JellyfishRenderer extends MobRenderer<Jellyfish, JellyfishModel<Jel
 
     public JellyfishRenderer(Context context) {
         super(context, new JellyfishModel<>(context.bakeLayer(WilderWildClient.JELLYFISH)), 0.3F);
-        this.addLayer(new IridescentJellyLayer<>(this, false, WilderWild.id("textures/entity/jellyfish/pearlescent_blue.png")));
-        this.addLayer(new IridescentJellyLayer<>(this, false, WilderWild.id("textures/entity/jellyfish/pearlescent_purple.png")));
     }
 
     @Override
