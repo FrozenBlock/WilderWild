@@ -37,7 +37,7 @@ public class JellyParticle extends TextureSheetParticle {
         @Override
         public Particle createParticle(SimpleParticleType defaultParticleType, ClientLevel clientWorld, double x, double y, double z, double xd, double yd, double zd) {
             JellyParticle jelly = new JellyParticle(clientWorld, x, y, z, xd, yd, zd, this.spriteProvider);
-            jelly.setAlpha(1.0F);
+            jelly.scale(1.5F);
             return jelly;
         }
     }

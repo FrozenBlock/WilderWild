@@ -397,14 +397,13 @@ public class Jellyfish extends AbstractFish {
 
     private void spawnJelly() {
         if (!this.level.isClientSide) {
-        //TODO: JELLY JELLY SOUNDS
-        this.playSound(RegisterSounds.ENTITY_JELLYFISH_FLOP, this.getSoundVolume(), this.getVoicePitch());
-        this.setJellyCooldown(20 * 20 * 60 * 30);
-        Vec3 vec3 = this.getPosition(0);
-        JellyCloud cloud = new JellyCloud(this.level, vec3.x, vec3.y, vec3.z);
-        this.level.addFreshEntity(cloud);
-            ((ServerLevel)this.level).sendParticles(RegisterParticles.JELLY, vec3.x, vec3.y, vec3.z, 0, 0, 0, 0, 0.0f);
-            ((ServerLevel)this.level).sendParticles(RegisterParticles.JELLY, vec3.x, vec3.y, vec3.z, 0, 0, 0, 0, 0.0f);
+            //TODO: JELLY JELLY SOUNDS
+            this.playSound(RegisterSounds.ENTITY_JELLYFISH_FLOP, this.getSoundVolume(), this.getVoicePitch());
+            this.setJellyCooldown(20 * 20 * 60 * 30);
+            Vec3 vec3 = this.getPosition(0);
+            JellyCloud cloud = new JellyCloud(this.level, vec3.x, vec3.y, vec3.z);
+            this.level.addFreshEntity(cloud);
+            EasyPacket.sendJellyParticle(this.level, this.position());
         }
     }
 

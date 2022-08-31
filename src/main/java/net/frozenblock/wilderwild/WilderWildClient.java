@@ -173,6 +173,7 @@ public final class WilderWildClient implements ClientModInitializer {
         receiveControlledSeedPacket();
         receiveTermitePacket();
         receiveSensorHiccupPacket();
+        receiveJellyParticlePacket();
         receiveJellyStingPacket();
 
         receiveFireflyCaptureInfoPacket();
@@ -204,17 +205,6 @@ public final class WilderWildClient implements ClientModInitializer {
             assert world != null;
             return BiomeColors.getAverageFoliageColor(world, pos);
         }), RegisterBlocks.POTTED_GRASS);
-    }
-
-    public static void requestBlockEntitySync(BlockPos pos, Level world) {
-        /*FriendlyByteBuf byteBuf = new FriendlyByteBuf(Unpooled.buffer());
-        if (pos != null && world != null) {
-            byteBuf.writeInt(pos.getX());
-            byteBuf.writeInt(pos.getY());
-            byteBuf.writeInt(pos.getZ());
-            byteBuf.writeResourceKey(world.dimension());
-            ClientPlayNetworking.send(WilderWild.REQUEST_BLOCK_ENTITY_SYNC_PACKET, byteBuf);
-        }*/
     }
 
     private static void receiveAncientHornProjectilePacket() {
@@ -347,6 +337,17 @@ public final class WilderWildClient implements ClientModInitializer {
                 if (Minecraft.getInstance().level == null)
                     throw new IllegalStateException("why is your world null");
                 CompetitionCounter.addAncientHornKill(creative, natural);
+            });
+        });
+    }
+
+    private static void receiveJellyParticlePacket() {
+        ClientPlayNetworking.registerGlobalReceiver(WilderWild.JELLY_PARTICLE_PACKET, (ctx, handler, byteBuf, responseSender) -> {
+            Vec3 pos = new Vec3(byteBuf.readDouble(), byteBuf.readDouble(), byteBuf.readDouble());
+            ctx.execute(() -> {
+                if (Minecraft.getInstance().level == null)
+                    throw new IllegalStateException("why is your world null");
+                    Minecraft.getInstance().level.addParticle(RegisterParticles.JELLY, pos.x, pos.y, pos.z, 0, 0, 0);
             });
         });
     }
