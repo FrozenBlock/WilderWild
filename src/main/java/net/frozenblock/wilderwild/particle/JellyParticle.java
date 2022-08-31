@@ -10,6 +10,7 @@ import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.Mth;
+import org.jetbrains.annotations.NotNull;
 
 public class JellyParticle extends TextureSheetParticle {
     private final SpriteSet spriteProvider;
@@ -18,12 +19,25 @@ public class JellyParticle extends TextureSheetParticle {
         super(clientWorld, x, y, z, 0, 0, 0);
         this.spriteProvider = spriteProvider;
         this.setSpriteFromAge(spriteProvider);
-        this.lifetime = 9;
+        this.lifetime = 45;
     }
 
     @Override
     public ParticleRenderType getRenderType() {
         return ParticleRenderType.PARTICLE_SHEET_TRANSLUCENT;
+    }
+
+    public void tick() {
+        this.setSpriteFromAge(this.spriteProvider);
+        if (this.age++ >= this.lifetime) {
+            this.remove();
+        }
+    }
+
+    public void setSpriteFromAge(@NotNull SpriteSet spriteSet) {
+        if (!this.removed) {
+            this.setSprite(spriteSet.get(this.age / 5, this.lifetime));
+        }
     }
 
     @Environment(EnvType.CLIENT)

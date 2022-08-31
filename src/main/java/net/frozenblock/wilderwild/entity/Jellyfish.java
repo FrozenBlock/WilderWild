@@ -373,7 +373,7 @@ public class Jellyfish extends AbstractFish {
     @Override
     public InteractionResult mobInteract(Player player, InteractionHand interactionHand) {
         ItemStack itemStack = player.getItemInHand(interactionHand);
-        if (itemStack.is(Items.FEATHER) && !this.isBaby() && this.getJellyCooldown() <= 0) {
+        if (itemStack.is(Items.FEATHER) && !this.isBaby() && this.getJellyCooldown() <= 0 && this.isInWaterOrBubble()) {
             if (this.level.random.nextInt(0, 30) == 14) {
                 this.crazyTicks = this.level.random.nextInt(60, 160);
                 this.spawnJelly();
