@@ -392,7 +392,7 @@ public class Jellyfish extends AbstractFish {
             Vec3 vec33 = vec32.scale(0.3 + (double)(this.random.nextFloat() * 2.0f));
             //((ServerLevel)this.level).sendParticles(this.getInkParticle(), vec3.x, vec3.y + 0.5, vec3.z, 0, vec33.x, vec33.y, vec33.z, 0.1f);
             if (i == 1) {
-                    JellyCloud cloud = new JellyCloud(this.level, vec3.x + vec33.x * 0.1, vec3.y + vec33.y * 0.1, vec3.z+ vec33.z  * 0.1);
+                    JellyCloud cloud = new JellyCloud(this.level, vec3.x, vec3.y, vec3.z);
                     this.level.addFreshEntity(cloud);
                 }
             }
