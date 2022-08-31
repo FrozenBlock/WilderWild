@@ -3,6 +3,8 @@ package net.frozenblock.wilderwild;
 import com.mojang.blaze3d.vertex.DefaultVertexFormat;
 import com.mojang.blaze3d.vertex.VertexFormat;
 import net.fabricmc.api.ClientModInitializer;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.fabricmc.fabric.api.client.particle.v1.ParticleFactoryRegistry;
@@ -23,10 +25,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.player.LocalPlayer;
-import net.minecraft.client.renderer.BiomeColors;
-import net.minecraft.client.renderer.RenderStateShard;
-import net.minecraft.client.renderer.RenderType;
-import net.minecraft.client.renderer.Sheets;
+import net.minecraft.client.renderer.*;
 import net.minecraft.client.renderer.item.ItemProperties;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Registry;
@@ -40,10 +39,12 @@ import net.minecraft.world.inventory.InventoryMenu;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.phys.Vec3;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.UUID;
 import java.util.function.BiFunction;
 
+@Environment(EnvType.CLIENT)
 public final class WilderWildClient implements ClientModInitializer {
     public static final ModelLayerLocation ANCIENT_HORN_PROJECTILE_LAYER = new ModelLayerLocation(WilderWild.id("ancient_horn_projectile"), "main");
     public static final ModelLayerLocation SCULK_SENSOR = new ModelLayerLocation(WilderWild.id("sculk_sensor"), "main");
@@ -53,6 +54,9 @@ public final class WilderWildClient implements ClientModInitializer {
     public static final ModelLayerLocation DOUBLE_STONE_CHEST_RIGHT = new ModelLayerLocation(WilderWild.id("double_stone_chest_right"), "main");
     public static final ModelLayerLocation JELLYFISH = new ModelLayerLocation(WilderWild.id("jellyfish"), "main");
     public static final ModelLayerLocation JELLY_CLOUD = new ModelLayerLocation(WilderWild.id("jelly_cloud"), "main");
+
+    @Nullable
+    public static ShaderInstance renderTypeTranslucentCutoutShader;
 
     @Override
     public void onInitializeClient() {
@@ -99,7 +103,7 @@ public final class WilderWildClient implements ClientModInitializer {
         BlockRenderLayerMap.INSTANCE.putBlock(RegisterBlocks.HOLLOWED_OAK_LOG, RenderType.cutout());
         BlockRenderLayerMap.INSTANCE.putBlock(RegisterBlocks.HOLLOWED_SPRUCE_LOG, RenderType.cutout());
         BlockRenderLayerMap.INSTANCE.putBlock(RegisterBlocks.MESOGLEA, RenderType.translucent());
-        BlockRenderLayerMap.INSTANCE.putBlock(RegisterBlocks.NEMATOCYST, RenderType.translucent());
+        BlockRenderLayerMap.INSTANCE.putBlock(RegisterBlocks.NEMATOCYST, translucentCutout());
 
         ClientSpriteRegistryCallback.event(InventoryMenu.BLOCK_ATLAS).register((atlasTexture, registry) -> {
             registry.register(WilderWild.id("particle/floating_sculk_bubble_0"));
@@ -365,6 +369,15 @@ public final class WilderWildClient implements ClientModInitializer {
         });
     }
 
+    public static final RenderStateShard.ShaderStateShard RENDERTYPE_TRANSLUCENT_CUTOUT_SHADER = new RenderStateShard.ShaderStateShard(
+            WilderWildClient::getRenderTypeTranslucentCutoutShader
+    );
+
+    @Nullable
+    public static ShaderInstance getRenderTypeTranslucentCutoutShader() {
+        return renderTypeTranslucentCutoutShader;
+    }
+
     public static final BiFunction<ResourceLocation, Boolean, RenderType> ENTITY_TRANSLUCENT_EMISSIVE_FIXED = Util.memoize(
             ((identifier, affectsOutline) -> {
                 RenderType.CompositeState multiPhaseParameters = RenderType.CompositeState.builder()
@@ -376,7 +389,7 @@ public final class WilderWildClient implements ClientModInitializer {
                         .setOverlayState(RenderStateShard.OVERLAY)
                         .createCompositeState(affectsOutline);
                 return create(
-                        "entity_translucent_emissive_fixed",
+                        "entity_translucent_emissive_fixed_wilderwild",
                         DefaultVertexFormat.NEW_ENTITY,
                         VertexFormat.Mode.QUADS,
                         256,
@@ -386,6 +399,14 @@ public final class WilderWildClient implements ClientModInitializer {
                 );
             })
     );
+
+    public static final RenderType TRANSLUCENT_CUTOUT = create(
+            "translucent_cutout_wilderwild", DefaultVertexFormat.BLOCK, VertexFormat.Mode.QUADS, 2097152, true, true, RenderType.translucentState(RENDERTYPE_TRANSLUCENT_CUTOUT_SHADER)
+    );
+
+    public static RenderType translucentCutout() {
+        return TRANSLUCENT_CUTOUT;
+    }
 
     public static RenderType.CompositeRenderType create(
             String name,
