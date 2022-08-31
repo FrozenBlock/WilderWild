@@ -17,21 +17,22 @@
 
 package org.quiltmc.qsl.frozenblock.datafixerupper.api;
 
-import com.google.common.collect.ImmutableMap;
-import com.mojang.datafixers.DataFix;
-import com.mojang.datafixers.DataFixerBuilder;
-import com.mojang.datafixers.schemas.Schema;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.util.datafix.fixes.BlockRenameFix;
-import net.minecraft.util.datafix.fixes.ItemRenameFix;
-import net.minecraft.util.datafix.fixes.RenameBiomesFix;
-import net.minecraft.util.datafix.schemas.NamespacedSchema;
-import org.jetbrains.annotations.NotNull;
+import static java.util.Objects.requireNonNull;
 
 import java.util.Map;
 import java.util.Objects;
 
-import static java.util.Objects.requireNonNull;
+import com.google.common.collect.ImmutableMap;
+import com.mojang.datafixers.DataFix;
+import com.mojang.datafixers.DataFixerBuilder;
+import com.mojang.datafixers.schemas.Schema;
+import org.jetbrains.annotations.NotNull;
+
+import net.minecraft.util.datafix.fixes.RenameBiomesFix;
+import net.minecraft.util.datafix.fixes.BlockRenameFix;
+import net.minecraft.util.datafix.fixes.ItemRenameFix;
+import net.minecraft.util.datafix.schemas.NamespacedSchema;
+import net.minecraft.resources.ResourceLocation;
 
 /**
  * Provides methods to add common {@link DataFix}es to {@link DataFixerBuilder}s.

@@ -17,13 +17,15 @@
 
 package org.quiltmc.qsl.frozenblock.datafixerupper.mixin;
 
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.world.level.levelgen.structure.templatesystem.StructureTemplate;
-import org.quiltmc.qsl.frozenblock.datafixerupper.impl.QuiltDataFixesInternals;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
+
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.world.level.levelgen.structure.templatesystem.StructureTemplate;
+
+import org.quiltmc.qsl.frozenblock.datafixerupper.impl.QuiltDataFixesInternals;
 
 /**
  * Modified to work on Fabric

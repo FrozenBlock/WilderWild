@@ -17,20 +17,21 @@
 
 package org.quiltmc.qsl.frozenblock.datafixerupper.impl;
 
+import java.util.Collections;
+import java.util.Map;
+
 import com.mojang.datafixers.DataFixer;
 import com.mojang.datafixers.schemas.Schema;
 import com.mojang.serialization.Dynamic;
 import it.unimi.dsi.fastutil.objects.Object2ReferenceOpenHashMap;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.nbt.NbtOps;
-import net.minecraft.util.datafix.DataFixTypes;
 import org.jetbrains.annotations.ApiStatus;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.jetbrains.annotations.Range;
 
-import java.util.Collections;
-import java.util.Map;
+import net.minecraft.util.datafix.DataFixTypes;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.NbtOps;
 
 /**
  * Modified to work on Fabric
@@ -50,8 +51,7 @@ public final class QuiltDataFixesInternalsImpl extends QuiltDataFixesInternals {
     }
 
     @Override
-    public void registerFixer(@NotNull String modId,
-                              @Range(from = 0, to = Integer.MAX_VALUE) int currentVersion,
+    public void registerFixer(@NotNull String modId, @Range(from = 0, to = Integer.MAX_VALUE) int currentVersion,
                               @NotNull DataFixer dataFixer) {
         if (this.modDataFixers.containsKey(modId)) {
             throw new IllegalArgumentException("Mod '" + modId + "' already has a registered data fixer");
@@ -71,8 +71,7 @@ public final class QuiltDataFixesInternalsImpl extends QuiltDataFixesInternals {
     }
 
     @Override
-    public @NotNull CompoundTag updateWithAllFixers(@NotNull DataFixTypes dataFixTypes,
-                                                    @NotNull CompoundTag compound) {
+    public @NotNull CompoundTag updateWithAllFixers(@NotNull DataFixTypes dataFixTypes, @NotNull CompoundTag compound) {
         var current = new Dynamic<>(NbtOps.INSTANCE, compound);
 
         for (Map.Entry<String, DataFixerEntry> entry : this.modDataFixers.entrySet()) {

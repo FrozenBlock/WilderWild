@@ -20,19 +20,23 @@ package org.quiltmc.qsl.frozenblock.datafixerupper.impl;
 import com.mojang.datafixers.DataFixUtils;
 import com.mojang.datafixers.DataFixer;
 import com.mojang.datafixers.schemas.Schema;
+import com.mojang.logging.LogUtils;
+import org.jetbrains.annotations.*;
+import org.slf4j.Logger;
+
 import net.minecraft.SharedConstants;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.util.datafix.DataFixTypes;
 import net.minecraft.util.datafix.DataFixers;
-import org.jetbrains.annotations.*;
+import net.minecraft.nbt.CompoundTag;
 
 /**
  * Modified to work on Fabric
  */
 @ApiStatus.Internal
 public abstract class QuiltDataFixesInternals {
-    public record DataFixerEntry(DataFixer dataFixer, int currentVersion) {
-    }
+    private static final Logger LOGGER = LogUtils.getLogger();
+
+    public record DataFixerEntry(DataFixer dataFixer, int currentVersion) {}
 
     @Contract(pure = true)
     @Range(from = 0, to = Integer.MAX_VALUE)
@@ -53,9 +57,10 @@ public abstract class QuiltDataFixesInternals {
             }
 
             if (latestVanillaSchema == null) {
-                // either this Minecraft version is horribly broken, or someone is suppressing DFU initialization
-                // use a no-op impl
-                instance = new NopQuiltDataFixesInternals();
+                LOGGER.warn("[Quilt DFU API] Failed to initialize! Either someone stopped DFU from initializing,");
+                LOGGER.warn("[Quilt DFU API]  or this Minecraft build is hosed.");
+                LOGGER.warn("[Quilt DFU API] Using no-op implementation.");
+                instance = new NoOpQuiltDataFixesInternals();
             } else {
                 instance = new QuiltDataFixesInternalsImpl(latestVanillaSchema);
             }
@@ -64,8 +69,7 @@ public abstract class QuiltDataFixesInternals {
         return instance;
     }
 
-    public abstract void registerFixer(@NotNull String modId,
-                                       @Range(from = 0, to = Integer.MAX_VALUE) int currentVersion,
+    public abstract void registerFixer(@NotNull String modId, @Range(from = 0, to = Integer.MAX_VALUE) int currentVersion,
                                        @NotNull DataFixer dataFixer);
 
     public abstract @Nullable DataFixerEntry getFixerEntry(@NotNull String modId);
@@ -73,10 +77,8 @@ public abstract class QuiltDataFixesInternals {
     @Contract(value = "-> new", pure = true)
     public abstract @NotNull Schema createBaseSchema();
 
-    public abstract @NotNull CompoundTag updateWithAllFixers(@NotNull DataFixTypes dataFixTypes,
-                                                             @NotNull CompoundTag compound);
+    public abstract @NotNull CompoundTag updateWithAllFixers(@NotNull DataFixTypes dataFixTypes, @NotNull CompoundTag compound);
 
-    @Contract("_ -> new")
     public abstract @NotNull CompoundTag addModDataVersions(@NotNull CompoundTag compound);
 
     public abstract void freeze();
