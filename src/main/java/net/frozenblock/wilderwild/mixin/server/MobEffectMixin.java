@@ -13,11 +13,11 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 @Mixin(MobEffect.class)
 public class MobEffectMixin {
 
-    @Inject(at = @At("TAIL"), method = "isDurationEffectTick", cancellable = true)
+    @Inject(at = @At("HEAD"), method = "isDurationEffectTick", cancellable = true)
     public void isDurationEffectTick(int i, int j, CallbackInfoReturnable<Boolean> info) {
         MobEffect effect = MobEffect.class.cast(this);
         if (effect == RegisterMobEffects.VENOMOUS_STING) {
-            int k = 10 >> j;
+            int k = 60 >> j;
             if (k > 0) {
                 info.setReturnValue(i % k == 0);
                 info.cancel();

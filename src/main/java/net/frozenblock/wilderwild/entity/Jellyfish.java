@@ -370,9 +370,11 @@ public class Jellyfish extends AbstractFish {
     @Override
     public InteractionResult mobInteract(Player player, InteractionHand interactionHand) {
         ItemStack itemStack = player.getItemInHand(interactionHand);
-        if (itemStack.is(Items.FEATHER) && !this.isBaby() && this.level.random.nextInt(0, 60) == 14) {
-            this.crazyTicks = this.level.random.nextInt(60, 160);
-            this.spawnJelly();
+        if (itemStack.is(Items.FEATHER) && !this.isBaby()) {
+            if (this.level.random.nextInt(0, 30) == 14) {
+                this.crazyTicks = this.level.random.nextInt(60, 160);
+                this.spawnJelly();
+            }
             return InteractionResult.sidedSuccess(this.level.isClientSide);
         }
         return super.mobInteract(player, interactionHand);
