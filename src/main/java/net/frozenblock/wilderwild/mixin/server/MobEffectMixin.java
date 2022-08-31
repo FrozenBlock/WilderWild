@@ -21,9 +21,10 @@ public class MobEffectMixin {
             if (k > 0) {
                 info.setReturnValue(i % k == 0);
                 info.cancel();
+            } else {
+                info.setReturnValue(true);
+                info.cancel();
             }
-            info.setReturnValue(true);
-            info.cancel();
         }
     }
 
