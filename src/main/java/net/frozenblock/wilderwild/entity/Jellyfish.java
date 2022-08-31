@@ -4,19 +4,18 @@ import com.mojang.serialization.Dynamic;
 import net.frozenblock.wilderwild.entity.ai.JellyfishAi;
 import net.frozenblock.wilderwild.entity.ai.JellyfishPanicGoal;
 import net.frozenblock.wilderwild.misc.server.EasyPacket;
-import net.frozenblock.wilderwild.registry.RegisterItems;
-import net.frozenblock.wilderwild.registry.RegisterMobEffects;
-import net.frozenblock.wilderwild.registry.RegisterParticles;
-import net.frozenblock.wilderwild.registry.RegisterSounds;
+import net.frozenblock.wilderwild.registry.*;
 import net.frozenblock.wilderwild.tag.WilderBiomeTags;
 import net.frozenblock.wilderwild.tag.WilderEntityTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
+import net.minecraft.core.Registry;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.protocol.game.DebugPackets;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
@@ -46,6 +45,9 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.storage.loot.LootContext;
+import net.minecraft.world.level.storage.loot.LootTable;
+import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -379,6 +381,19 @@ public class Jellyfish extends AbstractFish {
             return InteractionResult.sidedSuccess(this.level.isClientSide);
         }
         return super.mobInteract(player, interactionHand);
+    }
+
+    public ResourceLocation getJellyLootTable() {
+        ResourceLocation resourceLocation = Registry.ENTITY_TYPE.getKey(RegisterEntities.JELLYFISH);
+        return new ResourceLocation(resourceLocation.getNamespace(), "entities/" + resourceLocation.getPath() + "_" + this.getVariant());
+    }
+
+    protected void dropFromLootTable(DamageSource damageSource, boolean bl) {
+        ResourceLocation resourceLocation = this.getJellyLootTable();
+        LootTable lootTable = this.level.getServer().getLootTables().get(resourceLocation);
+        LootContext.Builder builder = this.createLootContext(bl, damageSource);
+        lootTable.getRandomItems(builder.create(LootContextParamSets.ENTITY), this::spawnAtLocation);
+        this.lootTable = null;
     }
 
     private void spawnJelly() {
