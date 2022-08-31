@@ -4,6 +4,7 @@ import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.misc.config.ClothConfigInteractionHandler;
 import net.frozenblock.wilderwild.registry.RegisterBlocks;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;
 import net.minecraft.data.BuiltinRegistries;
 import net.minecraft.data.worldgen.features.AquaticFeatures;
@@ -11,6 +12,7 @@ import net.minecraft.data.worldgen.features.TreeFeatures;
 import net.minecraft.data.worldgen.features.VegetationFeatures;
 import net.minecraft.data.worldgen.placement.PlacementUtils;
 import net.minecraft.util.valueproviders.ClampedInt;
+import net.minecraft.util.valueproviders.ConstantInt;
 import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.levelgen.Heightmap;
@@ -266,22 +268,32 @@ public final class WilderPlacedFeatures {
 
     // JELLYFISH
     public static final Holder<PlacedFeature> PATCH_NEMATOCYST_UP = register("patch_nematocyst_up", WilderConfiguredFeatures.PATCH_NEMATOCYST_UP,
-            CountPlacement.of(UniformInt.of(204, 250)), InSquarePlacement.spread(), PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT, PlacementUtils.HEIGHTMAP, BiomeFilter.biome());
+            CountPlacement.of(ConstantInt.of(32)), InSquarePlacement.spread(), PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT, BiomeFilter.biome());
 
     public static final Holder<PlacedFeature> PATCH_NEMATOCYST_DOWN = register("patch_nematocyst_down", WilderConfiguredFeatures.PATCH_NEMATOCYST_DOWN,
-            CountPlacement.of(UniformInt.of(204, 250)), InSquarePlacement.spread(), PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT, PlacementUtils.HEIGHTMAP, BiomeFilter.biome());
+            CountPlacement.of(ConstantInt.of(32)), InSquarePlacement.spread(), PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT, BiomeFilter.biome());
 
     public static final Holder<PlacedFeature> PATCH_NEMATOCYST_NORTH = register("patch_nematocyst_north", WilderConfiguredFeatures.PATCH_NEMATOCYST_NORTH,
-            CountPlacement.of(UniformInt.of(204, 250)), InSquarePlacement.spread(), PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT, PlacementUtils.HEIGHTMAP, BiomeFilter.biome());
+            CountPlacement.of(ConstantInt.of(32)), InSquarePlacement.spread(), PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT, BiomeFilter.biome());
 
     public static final Holder<PlacedFeature> PATCH_NEMATOCYST_SOUTH = register("patch_nematocyst_south", WilderConfiguredFeatures.PATCH_NEMATOCYST_SOUTH,
-            CountPlacement.of(UniformInt.of(204, 250)), InSquarePlacement.spread(), PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT, PlacementUtils.HEIGHTMAP, BiomeFilter.biome());
+            CountPlacement.of(ConstantInt.of(32)), InSquarePlacement.spread(), PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT, BiomeFilter.biome());
 
     public static final Holder<PlacedFeature> PATCH_NEMATOCYST_EAST = register("patch_nematocyst_east", WilderConfiguredFeatures.PATCH_NEMATOCYST_EAST,
-            CountPlacement.of(UniformInt.of(204, 250)), InSquarePlacement.spread(), PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT, PlacementUtils.HEIGHTMAP, BiomeFilter.biome());
+            CountPlacement.of(ConstantInt.of(32)), InSquarePlacement.spread(), PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT, BiomeFilter.biome());
 
     public static final Holder<PlacedFeature> PATCH_NEMATOCYST_WEST = register("patch_nematocyst_west", WilderConfiguredFeatures.PATCH_NEMATOCYST_WEST,
-            CountPlacement.of(UniformInt.of(204, 250)), InSquarePlacement.spread(), PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT, PlacementUtils.HEIGHTMAP, BiomeFilter.biome());
+            CountPlacement.of(ConstantInt.of(32)), InSquarePlacement.spread(), PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT, BiomeFilter.biome());
+
+    public static final Holder<PlacedFeature> JELLYFISH_CAVES_MESOGLEA = PlacementUtils.register(
+            "jellyfish_caves_mesoglea",
+            WilderConfiguredFeatures.JELLYFISH_CAVES_MESOGLEA,
+            CountPlacement.of(15),
+            InSquarePlacement.spread(),
+            PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT,
+            EnvironmentScanPlacement.scanningFor(Direction.DOWN, BlockPredicate.solid(), BlockPredicate.ONLY_IN_AIR_OR_WATER_PREDICATE, 2),
+            RandomOffsetPlacement.vertical(ConstantInt.of(1)),
+            BiomeFilter.biome());
 
     public static Holder<PlacedFeature> register(
             @NotNull String id, Holder<? extends ConfiguredFeature<?, ?>> registryEntry, @NotNull List<PlacementModifier> modifiers

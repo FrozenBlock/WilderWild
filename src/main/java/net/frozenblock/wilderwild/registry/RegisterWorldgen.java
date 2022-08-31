@@ -175,6 +175,7 @@ public final class RegisterWorldgen {
         BiomeDefaultFeatures.addDefaultExtraVegetation(builder);
         BiomeDefaultFeatures.addDefaultCarversAndLakes(builder);
         builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, CavePlacements.LUSH_CAVES_CLAY);
+        builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.JELLYFISH_CAVES_MESOGLEA);
         addNematocyst(builder);
     }
 

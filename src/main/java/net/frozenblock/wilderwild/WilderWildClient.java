@@ -366,7 +366,7 @@ public final class WilderWildClient implements ClientModInitializer {
                         .setWriteMaskState(RenderStateShard.COLOR_DEPTH_WRITE)
                         .setOverlayState(RenderStateShard.OVERLAY)
                         .createCompositeState(affectsOutline);
-                return of(
+                return create(
                         "entity_translucent_emissive_fixed",
                         DefaultVertexFormat.NEW_ENTITY,
                         VertexFormat.Mode.QUADS,
@@ -378,7 +378,7 @@ public final class WilderWildClient implements ClientModInitializer {
             })
     );
 
-    public static RenderType.CompositeRenderType of(
+    public static RenderType.CompositeRenderType create(
             String name,
             VertexFormat vertexFormat,
             VertexFormat.Mode drawMode,
