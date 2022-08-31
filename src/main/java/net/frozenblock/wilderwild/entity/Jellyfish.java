@@ -99,6 +99,9 @@ public class Jellyfish extends AbstractFish {
         if (holder.is(WilderBiomeTags.RED_JELLYFISH)) {
             possibleTags.add(WilderBiomeTags.RED_JELLYFISH);
         }
+        if (holder.is(WilderBiomeTags.YELLOW_JELLYFISH)) {
+            possibleTags.add(WilderBiomeTags.YELLOW_JELLYFISH);
+        }
         if (holder.is(WilderBiomeTags.PEARLESCENT_JELLYFISH)) {
             possibleTags.add(WilderBiomeTags.PEARLESCENT_JELLYFISH);
         }
@@ -108,7 +111,9 @@ public class Jellyfish extends AbstractFish {
             if (biomeTag == WilderBiomeTags.PEARLESCENT_JELLYFISH) {
                 this.setVariant("pearlescent");
             } else if (biomeTag == WilderBiomeTags.RED_JELLYFISH) {
-                this.setVariant("scarlet");
+                this.setVariant("red");
+            } else if (biomeTag == WilderBiomeTags.YELLOW_JELLYFISH) {
+                this.setVariant("yellow");
             } else if (biomeTag == WilderBiomeTags.BLUE_JELLYFISH) {
                 this.setVariant("blue");
             } else if (biomeTag == WilderBiomeTags.LIME_JELLYFISH) {
@@ -138,13 +143,21 @@ public class Jellyfish extends AbstractFish {
         if (holder.is(WilderBiomeTags.RED_JELLYFISH)) {
             possibleTags.add(WilderBiomeTags.RED_JELLYFISH);
         }
+        if (holder.is(WilderBiomeTags.YELLOW_JELLYFISH)) {
+            possibleTags.add(WilderBiomeTags.YELLOW_JELLYFISH);
+        }
         if (holder.is(WilderBiomeTags.PEARLESCENT_JELLYFISH)) {
             possibleTags.add(WilderBiomeTags.PEARLESCENT_JELLYFISH);
         }
 
         if (!possibleTags.isEmpty()) {
-            biomeTag = possibleTags.get((int) (Math.random() * possibleTags.size()));
-            if (biomeTag != WilderBiomeTags.PEARLESCENT_JELLYFISH) {
+            boolean normalSpawn = true;
+            if (possibleTags.size() > 1 && possibleTags.contains(WilderBiomeTags.PEARLESCENT_JELLYFISH)) {
+                normalSpawn = random.nextBoolean();
+            } else if (possibleTags.contains(WilderBiomeTags.PEARLESCENT_JELLYFISH)) {
+                normalSpawn = false;
+            }
+            if (normalSpawn) {
                 return spawnReason != MobSpawnType.SPAWNER ? random.nextInt(1, 4) == 3 && pos.getY() <= world.getSeaLevel() - 3 && pos.getY() >= world.getSeaLevel() - 26 && world.getBlockState(pos).is(Blocks.WATER)
                         : world.getBlockState(pos).is(Blocks.WATER);
             }

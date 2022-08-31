@@ -15,6 +15,7 @@ public final class WilderBiomeTags {
     public static final TagKey<Biome> BLUE_JELLYFISH = of("blue_jellyfish");
     public static final TagKey<Biome> LIME_JELLYFISH = of("lime_jellyfish");
     public static final TagKey<Biome> RED_JELLYFISH = of("red_jellyfish");
+    public static final TagKey<Biome> YELLOW_JELLYFISH = of("yellow_jellyfish");
     public static final TagKey<Biome> PEARLESCENT_JELLYFISH = of("pearlescent_jellyfish");
 
     private WilderBiomeTags() {
