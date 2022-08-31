@@ -13,7 +13,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 @Mixin(MobEffect.class)
 public class MobEffectMixin {
 
-    @Inject(at = @At("TAIL"), method = "isDurationEffectTick")
+    @Inject(at = @At("TAIL"), method = "isDurationEffectTick", cancellable = true)
     public void isDurationEffectTick(int i, int j, CallbackInfoReturnable<Boolean> info) {
         MobEffect effect = MobEffect.class.cast(this);
         if (effect == RegisterMobEffects.VENOMOUS_STING) {
@@ -27,7 +27,7 @@ public class MobEffectMixin {
         }
     }
 
-    @Inject(at = @At("HEAD"), method = "applyEffectTick")
+    @Inject(at = @At("HEAD"), method = "applyEffectTick", cancellable = true)
     public void applyEffectTick(LivingEntity livingEntity, int i, CallbackInfo info) {
         MobEffect effect = MobEffect.class.cast(this);
         if (effect == RegisterMobEffects.VENOMOUS_STING) {

@@ -26,7 +26,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 @Mixin(BottleItem.class)
 public class BottleItemMixin {
 
-    @Inject(at = @At("HEAD"), method = "use")
+    @Inject(at = @At("HEAD"), method = "use", cancellable = true)
     public void use(Level level, Player player, InteractionHand interactionHand, CallbackInfoReturnable<InteractionResultHolder<ItemStack>> info) {
         ItemStack stack = player.getItemInHand(interactionHand);
         EntityHitResult hitResult = entityHitResult(player);
