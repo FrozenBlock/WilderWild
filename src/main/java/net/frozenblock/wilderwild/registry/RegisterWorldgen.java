@@ -98,19 +98,7 @@ public final class RegisterWorldgen {
         MobSpawnSettings.Builder builder = new MobSpawnSettings.Builder();
         builder.addSpawn(WilderWild.JELLYFISH, new MobSpawnSettings.SpawnerData(RegisterEntities.JELLYFISH, 10, 4, 6));
         BiomeGenerationSettings.Builder builder2 = new BiomeGenerationSettings.Builder();
-        BiomeDefaultFeatures.addDefaultCrystalFormations(builder2);
-        builder2.addFeature(GenerationStep.Decoration.UNDERGROUND_STRUCTURES, CavePlacements.MONSTER_ROOM_DEEP);
-        BiomeDefaultFeatures.addDefaultUndergroundVariety(builder2);
-        BiomeDefaultFeatures.addSurfaceFreezing(builder2);
-        BiomeDefaultFeatures.addPlainGrass(builder2);
-        BiomeDefaultFeatures.addDefaultOres(builder2, true);
-        BiomeDefaultFeatures.addDefaultSoftDisks(builder2);
-        BiomeDefaultFeatures.addPlainVegetation(builder2);
-        BiomeDefaultFeatures.addDefaultMushrooms(builder2);
-        BiomeDefaultFeatures.addDefaultExtraVegetation(builder2);
-        BiomeDefaultFeatures.addDefaultCarversAndLakes(builder2);
-        builder2.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, CavePlacements.LUSH_CAVES_CLAY);
-        //builder2.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, WilderPlacedFeatures.PATCH_AMETHYST);
+        addJellyfishCavesFeatures(builder2);
         Music music = Musics.createGameMusic(SoundEvents.MUSIC_BIOME_LUSH_CAVES);
         return new Biome.BiomeBuilder()
                 .precipitation(Biome.Precipitation.RAIN)
@@ -174,6 +162,22 @@ public final class RegisterWorldgen {
         BiomeDefaultFeatures.addDefaultSoftDisks(builder);
     }
 
+    public static void addJellyfishCavesFeatures(BiomeGenerationSettings.Builder builder) {
+        BiomeDefaultFeatures.addDefaultCrystalFormations(builder);
+        builder.addFeature(GenerationStep.Decoration.UNDERGROUND_STRUCTURES, CavePlacements.MONSTER_ROOM_DEEP);
+        BiomeDefaultFeatures.addDefaultUndergroundVariety(builder);
+        BiomeDefaultFeatures.addSurfaceFreezing(builder);
+        BiomeDefaultFeatures.addPlainGrass(builder);
+        BiomeDefaultFeatures.addDefaultOres(builder, true);
+        BiomeDefaultFeatures.addDefaultSoftDisks(builder);
+        BiomeDefaultFeatures.addPlainVegetation(builder);
+        BiomeDefaultFeatures.addDefaultMushrooms(builder);
+        BiomeDefaultFeatures.addDefaultExtraVegetation(builder);
+        BiomeDefaultFeatures.addDefaultCarversAndLakes(builder);
+        builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, CavePlacements.LUSH_CAVES_CLAY);
+        addNematocyst(builder);
+    }
+
     private static void addBasicFeatures(BiomeGenerationSettings.Builder builder, ResourceKey<Biome> biome) {
         BiomeDefaultFeatures.addDefaultCarversAndLakes(builder);
         BiomeDefaultFeatures.addDefaultCrystalFormations(builder);
@@ -196,6 +200,15 @@ public final class RegisterWorldgen {
         builder.addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(EntityType.COW, 6, 4, 4));
         builder.addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(EntityType.RABBIT, 10, 4, 4));
         builder.addSpawn(WilderWild.FIREFLIES, new MobSpawnSettings.SpawnerData(RegisterEntities.FIREFLY, 1, 2, 6));
+    }
+
+    private static void addNematocyst(BiomeGenerationSettings.Builder builder) {
+        builder.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, WilderPlacedFeatures.PATCH_NEMATOCYST_UP);
+        builder.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, WilderPlacedFeatures.PATCH_NEMATOCYST_DOWN);
+        builder.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, WilderPlacedFeatures.PATCH_NEMATOCYST_NORTH);
+        builder.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, WilderPlacedFeatures.PATCH_NEMATOCYST_SOUTH);
+        builder.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, WilderPlacedFeatures.PATCH_NEMATOCYST_EAST);
+        builder.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, WilderPlacedFeatures.PATCH_NEMATOCYST_WEST);
     }
 
 }
