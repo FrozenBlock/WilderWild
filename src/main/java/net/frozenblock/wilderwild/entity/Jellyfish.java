@@ -393,7 +393,6 @@ public class Jellyfish extends AbstractFish {
         LootTable lootTable = this.level.getServer().getLootTables().get(resourceLocation);
         LootContext.Builder builder = this.createLootContext(bl, damageSource);
         lootTable.getRandomItems(builder.create(LootContextParamSets.ENTITY), this::spawnAtLocation);
-        this.lootTable = null;
     }
 
     private void spawnJelly() {
