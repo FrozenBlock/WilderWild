@@ -44,7 +44,7 @@ public class JellyfishPanicGoal extends Goal {
     }
 
     protected boolean shouldPanic() {
-        return this.mob.getLastHurtByMob() != null || this.mob.isFreezing() || this.mob.isOnFire() || this.mob.isCrazy;
+        return this.mob.getLastHurtByMob() != null || this.mob.isFreezing() || this.mob.isOnFire(); //|| this.mob.isCrazy;
     }
 
     protected boolean findRandomPosition() {

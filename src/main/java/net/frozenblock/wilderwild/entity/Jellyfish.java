@@ -365,11 +365,11 @@ public class Jellyfish extends AbstractFish {
             this.crazyTicks = this.level.random.nextInt(60, 160);
             return InteractionResult.sidedSuccess(this.level.isClientSide);
         }
-        DragonBreathParticle
+        /*DragonBreathParticle;*/
         return super.mobInteract(player, interactionHand);
     }
 
-    private void spawnInk() {
+    /*private void spawnInk() {
         //TODO: JELLY JELLY SOUNDS
         this.playSound(RegisterSounds.ENTITY_JELLYFISH_FLOP, this.getSoundVolume(), this.getVoicePitch());
         Vec3 vec3 = this.rotateVector(new Vec3(0.0, -1.0, 0.0)).add(this.getX(), this.getY(), this.getZ());
@@ -378,7 +378,7 @@ public class Jellyfish extends AbstractFish {
             Vec3 vec33 = vec32.scale(0.3 + (double)(this.random.nextFloat() * 2.0f));
             ((ServerLevel)this.level).sendParticles(this.getInkParticle(), vec3.x, vec3.y + 0.5, vec3.z, 0, vec33.x, vec33.y, vec33.z, 0.1f);
         }
-    }
+    }*/
 
     private Vec3 rotateVector(Vec3 vec3) {
         Vec3 vec32 = vec3.xRot(this.xRot1 * ((float)Math.PI / 180));
