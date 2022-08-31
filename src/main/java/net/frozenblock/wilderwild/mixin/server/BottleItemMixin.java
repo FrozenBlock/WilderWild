@@ -55,7 +55,7 @@ public class BottleItemMixin {
         float l = i * j;
         float n = h * j;
         Vec3 vec32 = vec3.add((double)l * 5.0, (double) k * 5.0, (double)n * 5.0);
-        return ProjectileUtil.getEntityHitResult(player, vec3, vec32, player.getBoundingBox().inflate(6), entity -> true, 0.3f);
+        return ProjectileUtil.getEntityHitResult(player, vec3, vec32, player.getBoundingBox().inflate(7), entity -> true, 7f);
         };
 
     @Shadow
