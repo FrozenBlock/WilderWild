@@ -1,7 +1,6 @@
-package net.frozenblock.wilderwild.world.feature.features;
+package net.frozenblock.wilderwild.world.feature.features;/*
 
 import com.mojang.serialization.Codec;
-import net.frozenblock.wilderwild.block.ClusterBlock;
 import net.frozenblock.wilderwild.world.feature.features.config.ClusterFeatureConfig;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -65,7 +64,7 @@ public class ClusterFeature extends Feature<ClusterFeatureConfig> {
         for (Direction direction : directions) {
             BlockState blockState = world.getBlockState(mutableBlockPos.setWithOffset(pos, direction));
             if (blockState.is(config.canBePlacedOn)) {
-                BlockState blockState2 = ((ClusterBlock) config.placeBlock).getStateForPlacement(world.getBlockState(pos).getBlock(), state, world, pos, direction);
+                BlockState blockState2 = config.placeBlock.getStateForPlacement(state, world, pos, direction);
                 if (blockState2 == null) {
                     return false;
                 }
@@ -74,7 +73,7 @@ public class ClusterFeature extends Feature<ClusterFeatureConfig> {
                 world.getChunk(pos).markPosForPostprocessing(pos);
                 /*if (random.nextFloat() < config.chanceOfSpreading) {
                     config.placeBlock.getSpreader().spreadFromFaceTowardRandomDirection(blockState2, world, pos, direction, random, true);
-                }*/
+                }*//*
 
                 return true;
             }
@@ -87,3 +86,4 @@ public class ClusterFeature extends Feature<ClusterFeatureConfig> {
         return state.isAir() || state.is(Blocks.WATER);
     }
 }
+*/

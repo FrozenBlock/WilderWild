@@ -19,7 +19,6 @@ import net.frozenblock.wilderwild.world.feature.WilderMiscConfigured;
 import net.frozenblock.wilderwild.world.feature.WilderTreeConfigured;
 import net.frozenblock.wilderwild.world.feature.WilderTreePlaced;
 import net.frozenblock.wilderwild.world.feature.features.*;
-import net.frozenblock.wilderwild.world.feature.features.config.ClusterFeatureConfig;
 import net.frozenblock.wilderwild.world.feature.features.config.ColumnWithDiskFeatureConfig;
 import net.frozenblock.wilderwild.world.feature.features.config.PathFeatureConfig;
 import net.frozenblock.wilderwild.world.feature.features.config.ShelfFungusFeatureConfig;
@@ -69,7 +68,7 @@ public final class WilderWild implements ModInitializer {
     public static final NoisePlantFeature NOISE_PLANT_FEATURE = new NoisePlantFeature(PathFeatureConfig.CODEC);
     public static final NoisePathUnderWaterFeature NOISE_PATH_UNDER_WATER_FEATURE = new NoisePathUnderWaterFeature(PathFeatureConfig.CODEC);
     public static final ColumnWithDiskFeature COLUMN_WITH_DISK_FEATURE = new ColumnWithDiskFeature(ColumnWithDiskFeatureConfig.CODEC);
-    public static final ClusterFeature CLUSTER_FEATURE = new ClusterFeature(ClusterFeatureConfig.CODEC);
+    //public static final ClusterFeature CLUSTER_FEATURE = new ClusterFeature(ClusterFeatureConfig.CODEC);
 
     //Fabric ASM
     public static final MobCategory FIREFLIES = ClassTinkerers.getEnum(MobCategory.class, "WILDERWILDFIREFLIES");
@@ -110,7 +109,7 @@ public final class WilderWild implements ModInitializer {
         Registry.register(Registry.FEATURE, id("noise_plant_feature"), NOISE_PLANT_FEATURE);
         Registry.register(Registry.FEATURE, id("noise_path_under_water_feature"), NOISE_PATH_UNDER_WATER_FEATURE);
         Registry.register(Registry.FEATURE, id("column_with_disk_feature"), COLUMN_WITH_DISK_FEATURE);
-        Registry.register(Registry.FEATURE, id("cluster_feature"), CLUSTER_FEATURE);
+        //Registry.register(Registry.FEATURE, id("cluster_feature"), CLUSTER_FEATURE);
 
         if (FabricLoader.getInstance().isDevelopmentEnvironment()) { /* DEV-ONLY */
             UNSTABLE_LOGGING = true;
