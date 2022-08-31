@@ -100,8 +100,8 @@ public class Jellyfish extends AbstractFish {
         if (holder.is(WilderBiomeTags.LIME_JELLYFISH)) {
             possibleTags.add(WilderBiomeTags.LIME_JELLYFISH);
         }
-        if (holder.is(WilderBiomeTags.SCARLET_JELLYFISH)) {
-            possibleTags.add(WilderBiomeTags.SCARLET_JELLYFISH);
+        if (holder.is(WilderBiomeTags.RED_JELLYFISH)) {
+            possibleTags.add(WilderBiomeTags.RED_JELLYFISH);
         }
         if (holder.is(WilderBiomeTags.PEARLESCENT_JELLYFISH)) {
             possibleTags.add(WilderBiomeTags.PEARLESCENT_JELLYFISH);
@@ -111,7 +111,7 @@ public class Jellyfish extends AbstractFish {
             biomeTag = possibleTags.get((int) (Math.random() * possibleTags.size()));
             if (biomeTag == WilderBiomeTags.PEARLESCENT_JELLYFISH) {
                 this.setVariant("pearlescent");
-            } else if (biomeTag == WilderBiomeTags.SCARLET_JELLYFISH) {
+            } else if (biomeTag == WilderBiomeTags.RED_JELLYFISH) {
                 this.setVariant("scarlet");
             } else if (biomeTag == WilderBiomeTags.BLUE_JELLYFISH) {
                 this.setVariant("blue");
@@ -139,8 +139,8 @@ public class Jellyfish extends AbstractFish {
         if (holder.is(WilderBiomeTags.LIME_JELLYFISH)) {
             possibleTags.add(WilderBiomeTags.LIME_JELLYFISH);
         }
-        if (holder.is(WilderBiomeTags.SCARLET_JELLYFISH)) {
-            possibleTags.add(WilderBiomeTags.SCARLET_JELLYFISH);
+        if (holder.is(WilderBiomeTags.RED_JELLYFISH)) {
+            possibleTags.add(WilderBiomeTags.RED_JELLYFISH);
         }
         if (holder.is(WilderBiomeTags.PEARLESCENT_JELLYFISH)) {
             possibleTags.add(WilderBiomeTags.PEARLESCENT_JELLYFISH);
