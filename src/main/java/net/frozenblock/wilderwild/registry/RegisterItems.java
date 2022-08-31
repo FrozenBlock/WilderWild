@@ -4,10 +4,7 @@ import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.fabric.api.object.builder.v1.trade.TradeOfferHelper;
 import net.frozenblock.lib.item.PrickOnUseBlockItem;
 import net.frozenblock.wilderwild.WilderWild;
-import net.frozenblock.wilderwild.item.AncientHorn;
-import net.frozenblock.wilderwild.item.CopperHorn;
-import net.frozenblock.wilderwild.item.FireflyBottle;
-import net.frozenblock.wilderwild.item.MilkweedPod;
+import net.frozenblock.wilderwild.item.*;
 import net.frozenblock.wilderwild.misc.WilderBoats;
 import net.frozenblock.wilderwild.tag.WilderInstrumentTags;
 import net.minecraft.core.Registry;
@@ -43,8 +40,9 @@ public final class RegisterItems {
     public static final Item PRICKLY_PEAR = new PrickOnUseBlockItem(RegisterBlocks.PRICKLY_PEAR_CACTUS, new FabricItemSettings().tab(CreativeModeTab.TAB_FOOD).food(RegisterFood.PRICKLY_PEAR), 2F, RegisterSounds.PLAYER_HURT_CACTUS, "prickly_pear");
     public static final Item PEELED_PRICKLY_PEAR = new Item(new FabricItemSettings().tab(CreativeModeTab.TAB_FOOD).food(Foods.APPLE));
 
-    public static final Item FIREFLY_BOTTLE = new FireflyBottle(new FabricItemSettings().tab(CreativeModeTab.TAB_MISC).stacksTo(32), "on");
+    public static final Item JELLY_BOTTLE = new JellyBottleItem(new FabricItemSettings().tab(CreativeModeTab.TAB_MISC).stacksTo(16));
 
+    public static final Item FIREFLY_BOTTLE = new FireflyBottle(new FabricItemSettings().tab(CreativeModeTab.TAB_MISC).stacksTo(32), "on");
     public static final Item BLACK_FIREFLY_BOTTLE = new FireflyBottle(new FabricItemSettings().tab(CreativeModeTab.TAB_MISC).stacksTo(32), "black");
     public static final Item RED_FIREFLY_BOTTLE = new FireflyBottle(new FabricItemSettings().tab(CreativeModeTab.TAB_MISC).stacksTo(32), "red");
     public static final Item GREEN_FIREFLY_BOTTLE = new FireflyBottle(new FabricItemSettings().tab(CreativeModeTab.TAB_MISC).stacksTo(32), "green");
@@ -63,7 +61,6 @@ public final class RegisterItems {
     public static final Item WHITE_FIREFLY_BOTTLE = new FireflyBottle(new FabricItemSettings().tab(CreativeModeTab.TAB_MISC).stacksTo(32), "white");
 
     public static final Item ANCIENT_HORN_FRAGMENT = new Item(new FabricItemSettings().tab(CreativeModeTab.TAB_MISC).stacksTo(64));
-
 
     public static final AncientHorn ANCIENT_HORN = new AncientHorn(new FabricItemSettings().tab(CreativeModeTab.TAB_MISC).stacksTo(1).rarity(Rarity.EPIC), WilderInstrumentTags.ANCIENT_HORNS);
     public static final ResourceKey<Instrument> ANCIENT_HORN_INSTRUMENT = ResourceKey.create(Registry.INSTRUMENT_REGISTRY, WilderWild.id("ancient_horn"));
@@ -105,8 +102,9 @@ public final class RegisterItems {
         Registry.register(Registry.ITEM, WilderWild.id("prickly_pear"), PRICKLY_PEAR);
         Registry.register(Registry.ITEM, WilderWild.id("peeled_prickly_pear"), PEELED_PRICKLY_PEAR);
 
-        Registry.register(Registry.ITEM, WilderWild.id("firefly_bottle"), FIREFLY_BOTTLE);
+        Registry.register(Registry.ITEM, WilderWild.id("jelly_bottle"), JELLY_BOTTLE);
 
+        Registry.register(Registry.ITEM, WilderWild.id("firefly_bottle"), FIREFLY_BOTTLE);
         Registry.register(Registry.ITEM, WilderWild.id("magenta_firefly_bottle"), MAGENTA_FIREFLY_BOTTLE);
         Registry.register(Registry.ITEM, WilderWild.id("purple_firefly_bottle"), PURPLE_FIREFLY_BOTTLE);
         Registry.register(Registry.ITEM, WilderWild.id("blue_firefly_bottle"), BLUE_FIREFLY_BOTTLE);

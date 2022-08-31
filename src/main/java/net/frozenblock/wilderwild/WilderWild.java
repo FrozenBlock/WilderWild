@@ -68,6 +68,7 @@ public final class WilderWild implements ModInitializer {
     public static final NoisePlantFeature NOISE_PLANT_FEATURE = new NoisePlantFeature(PathFeatureConfig.CODEC);
     public static final NoisePathUnderWaterFeature NOISE_PATH_UNDER_WATER_FEATURE = new NoisePathUnderWaterFeature(PathFeatureConfig.CODEC);
     public static final ColumnWithDiskFeature COLUMN_WITH_DISK_FEATURE = new ColumnWithDiskFeature(ColumnWithDiskFeatureConfig.CODEC);
+
     //public static final ClusterFeature CLUSTER_FEATURE = new ClusterFeature(ClusterFeatureConfig.CODEC);
 
     //Fabric ASM
@@ -96,6 +97,7 @@ public final class WilderWild implements ModInitializer {
 
         RegisterSounds.init();
         RegisterBlockSoundGroups.init();
+        RegisterMobEffects.init();
         RegisterBlockEntities.register();
         RegisterEntities.init();
         BlockSoundGroupOverwrites.init();

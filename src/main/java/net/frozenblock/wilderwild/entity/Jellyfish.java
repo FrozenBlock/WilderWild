@@ -2,11 +2,13 @@ package net.frozenblock.wilderwild.entity;
 
 import com.mojang.serialization.Dynamic;
 import net.frozenblock.wilderwild.entity.ai.JellyfishAi;
+import net.frozenblock.wilderwild.entity.ai.JellyfishPanicGoal;
 import net.frozenblock.wilderwild.misc.server.EasyPacket;
 import net.frozenblock.wilderwild.registry.RegisterItems;
 import net.frozenblock.wilderwild.registry.RegisterSounds;
 import net.frozenblock.wilderwild.tag.WilderBiomeTags;
 import net.frozenblock.wilderwild.tag.WilderEntityTags;
+import net.minecraft.client.particle.DragonBreathParticle;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.nbt.CompoundTag;
@@ -17,11 +19,14 @@ import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundEvents;
 import net.minecraft.tags.TagKey;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.Difficulty;
 import net.minecraft.world.DifficultyInstance;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
@@ -38,6 +43,8 @@ import net.minecraft.world.entity.animal.AbstractFish;
 import net.minecraft.world.entity.animal.Bucketable;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.ItemUtils;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.biome.Biome;
@@ -69,6 +76,7 @@ public class Jellyfish extends AbstractFish {
     private float rotateSpeed;
 
     public int ticksSinceCantReach;
+    public int crazyTicks;
 
     public Jellyfish(EntityType<? extends Jellyfish> entityType, Level level) {
         super(entityType, level);
@@ -351,6 +359,34 @@ public class Jellyfish extends AbstractFish {
     }
 
     @Override
+    public InteractionResult mobInteract(Player player, InteractionHand interactionHand) {
+        ItemStack itemStack = player.getItemInHand(interactionHand);
+        if (itemStack.is(Items.FEATHER) && !this.isBaby() && this.level.random.nextInt(0, 15) == 14) {
+            this.crazyTicks = this.level.random.nextInt(60, 160);
+            return InteractionResult.sidedSuccess(this.level.isClientSide);
+        }
+        DragonBreathParticle
+        return super.mobInteract(player, interactionHand);
+    }
+
+    private void spawnInk() {
+        //TODO: JELLY JELLY SOUNDS
+        this.playSound(RegisterSounds.ENTITY_JELLYFISH_FLOP, this.getSoundVolume(), this.getVoicePitch());
+        Vec3 vec3 = this.rotateVector(new Vec3(0.0, -1.0, 0.0)).add(this.getX(), this.getY(), this.getZ());
+        for (int i = 0; i < 30; ++i) {
+            Vec3 vec32 = this.rotateVector(new Vec3((double)this.random.nextFloat() * 0.6 - 0.3, -1.0, (double)this.random.nextFloat() * 0.6 - 0.3));
+            Vec3 vec33 = vec32.scale(0.3 + (double)(this.random.nextFloat() * 2.0f));
+            ((ServerLevel)this.level).sendParticles(this.getInkParticle(), vec3.x, vec3.y + 0.5, vec3.z, 0, vec33.x, vec33.y, vec33.z, 0.1f);
+        }
+    }
+
+    private Vec3 rotateVector(Vec3 vec3) {
+        Vec3 vec32 = vec3.xRot(this.xRot1 * ((float)Math.PI / 180));
+        vec32 = vec32.yRot(-this.yBodyRotO * ((float)Math.PI / 180));
+        return vec32;
+    }
+
+    @Override
     public ItemStack getBucketItemStack() {
         return new ItemStack(RegisterItems.JELLYFISH_BUCKET);
     }
@@ -372,19 +408,21 @@ public class Jellyfish extends AbstractFish {
     public void addAdditionalSaveData(CompoundTag nbt) {
         super.addAdditionalSaveData(nbt);
         nbt.putInt("ticksSinceCantReach", this.ticksSinceCantReach);
+        nbt.putInt("crazyTicks", this.crazyTicks);
         nbt.putString("variant", this.getVariant());
     }
 
     public void readAdditionalSaveData(CompoundTag nbt) {
         super.readAdditionalSaveData(nbt);
         this.ticksSinceCantReach = nbt.getInt("ticksSinceCantReach");
+        this.crazyTicks = nbt.getInt("crazyTicks");
         this.setVariant(nbt.getString("variant"));
     }
 
     @Override
     protected void registerGoals() {
         //super.registerGoals();
-        this.goalSelector.addGoal(0, new PanicGoal(this, 1.9));
+        this.goalSelector.addGoal(0, new JellyfishPanicGoal(this, 1.9));
         this.goalSelector.addGoal(2, new AvoidEntityGoal<>(this, Player.class, 2f, 1.0, 1.4, EntitySelector.NO_SPECTATORS::test));
         this.goalSelector.addGoal(4, new JellySwimGoal(this));
     }
