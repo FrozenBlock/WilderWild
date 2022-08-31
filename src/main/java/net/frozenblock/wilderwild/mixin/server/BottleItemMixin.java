@@ -30,11 +30,12 @@ public class BottleItemMixin {
     public void use(Level level, Player player, InteractionHand interactionHand, CallbackInfoReturnable<InteractionResultHolder<ItemStack>> info) {
         ItemStack stack = player.getItemInHand(interactionHand);
         EntityHitResult hitResult = entityHitResult(player);
-        if (hitResult.getType() == HitResult.Type.ENTITY) {
+        if (hitResult != null && hitResult.getType() == HitResult.Type.ENTITY) {
             Entity entity = hitResult.getEntity();
             if (entity instanceof JellyCloud cloud) {
                 if (cloud.getAge() < JellyCloud.MAX_AGE - (JellyCloud.TEXTURE_INCREASE_PERCENT * 2)) {
                     cloud.setAge(cloud.getAge() + JellyCloud.TEXTURE_INCREASE_PERCENT);
+                    //TODO: JELLY FILL SOUND
                     level.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.BOTTLE_FILL_DRAGONBREATH, SoundSource.NEUTRAL, 1.0f, 1.0f);
                     level.gameEvent(player, GameEvent.FLUID_PICKUP, player.position());
                     info.setReturnValue(InteractionResultHolder.sidedSuccess(this.turnBottleIntoItem(stack, player, new ItemStack(RegisterItems.JELLY_BOTTLE)), level.isClientSide()));

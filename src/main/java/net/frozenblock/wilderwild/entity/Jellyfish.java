@@ -80,6 +80,7 @@ public class Jellyfish extends AbstractFish {
     }
 
     private static final EntityDataAccessor<String> VARIANT = SynchedEntityData.defineId(Jellyfish.class, EntityDataSerializers.STRING);
+    private static final EntityDataAccessor<Integer> JELLY_COOLDOWN = SynchedEntityData.defineId(Jellyfish.class, EntityDataSerializers.INT);
 
     @Nullable
     @Override
@@ -370,7 +371,7 @@ public class Jellyfish extends AbstractFish {
     @Override
     public InteractionResult mobInteract(Player player, InteractionHand interactionHand) {
         ItemStack itemStack = player.getItemInHand(interactionHand);
-        if (itemStack.is(Items.FEATHER) && !this.isBaby()) {
+        if (itemStack.is(Items.FEATHER) && !this.isBaby() && this.getJellyCooldown() <= 0) {
             if (this.level.random.nextInt(0, 30) == 14) {
                 this.crazyTicks = this.level.random.nextInt(60, 160);
                 this.spawnJelly();
@@ -383,6 +384,7 @@ public class Jellyfish extends AbstractFish {
     private void spawnJelly() {
         //TODO: JELLY JELLY SOUNDS
         this.playSound(RegisterSounds.ENTITY_JELLYFISH_FLOP, this.getSoundVolume(), this.getVoicePitch());
+        this.setJellyCooldown(20 * 20 * 60 * 30);
         Vec3 vec3 = this.rotateVector(new Vec3(0.0, -1.0, 0.0)).add(this.getX(), this.getY(), this.getZ());
         for (int i = 0; i < 30; ++i) {
             Vec3 vec32 = this.rotateVector(new Vec3((double)this.random.nextFloat() * 0.6 - 0.3, -1.0, (double)this.random.nextFloat() * 0.6 - 0.3));
@@ -390,7 +392,7 @@ public class Jellyfish extends AbstractFish {
             //((ServerLevel)this.level).sendParticles(this.getInkParticle(), vec3.x, vec3.y + 0.5, vec3.z, 0, vec33.x, vec33.y, vec33.z, 0.1f);
             if (i == 1) {
                 if (!this.level.isClientSide) {
-                    JellyCloud cloud = new JellyCloud(this.level, vec3.x + vec33.x * 0.1, vec3.y + 0.5 + vec33.y * 0.1, vec3.z+ vec33.z  * 0.1);
+                    JellyCloud cloud = new JellyCloud(this.level, vec3.x + vec33.x * 0.1, vec3.y + vec33.y * 0.1, vec3.z+ vec33.z  * 0.1);
                     this.level.addFreshEntity(cloud);
                 }
             }
@@ -417,15 +419,25 @@ public class Jellyfish extends AbstractFish {
         return !Objects.equals(variant, "") ? variant : "pink";
     }
 
+    public void setJellyCooldown(int i) {
+        this.entityData.set(JELLY_COOLDOWN, i);
+    }
+
+    public int getJellyCooldown() {
+        return this.entityData.get(JELLY_COOLDOWN);
+    }
+
     protected void defineSynchedData() {
         super.defineSynchedData();
         this.entityData.define(VARIANT, "pink");
+        this.entityData.define(JELLY_COOLDOWN, 0);
     }
 
     public void addAdditionalSaveData(@NotNull CompoundTag nbt) {
         super.addAdditionalSaveData(nbt);
         nbt.putInt("ticksSinceCantReach", this.ticksSinceCantReach);
         nbt.putInt("crazyTicks", this.crazyTicks);
+        nbt.putInt("jellyCooldown", this.getJellyCooldown());
         nbt.putString("variant", this.getVariant());
     }
 
@@ -433,6 +445,7 @@ public class Jellyfish extends AbstractFish {
         super.readAdditionalSaveData(nbt);
         this.ticksSinceCantReach = nbt.getInt("ticksSinceCantReach");
         this.crazyTicks = nbt.getInt("crazyTicks");
+        this.setJellyCooldown(nbt.getInt("jellyCooldown"));
         this.setVariant(nbt.getString("variant"));
     }
 
