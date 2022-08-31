@@ -36,7 +36,7 @@ public class JellyParticle extends TextureSheetParticle {
 
     public void setSpriteFromAge(@NotNull SpriteSet spriteSet) {
         if (!this.removed) {
-            this.setSprite(spriteSet.get(this.age / 5, this.lifetime));
+            this.setSprite(spriteSet.get((int)((int)this.age / 5), this.lifetime));
         }
     }
 
