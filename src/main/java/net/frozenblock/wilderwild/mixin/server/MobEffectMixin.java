@@ -17,7 +17,7 @@ public class MobEffectMixin {
     public void isDurationEffectTick(int i, int j, CallbackInfoReturnable<Boolean> info) {
         MobEffect effect = MobEffect.class.cast(this);
         if (effect == RegisterMobEffects.VENOMOUS_STING) {
-            int k = 60 >> j;
+            int k = 10 >> j;
             if (k > 0) {
                 info.setReturnValue(i % k == 0);
                 info.cancel();

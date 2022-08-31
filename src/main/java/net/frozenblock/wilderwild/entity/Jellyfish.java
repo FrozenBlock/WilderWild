@@ -5,6 +5,7 @@ import net.frozenblock.wilderwild.entity.ai.JellyfishAi;
 import net.frozenblock.wilderwild.entity.ai.JellyfishPanicGoal;
 import net.frozenblock.wilderwild.misc.server.EasyPacket;
 import net.frozenblock.wilderwild.registry.RegisterItems;
+import net.frozenblock.wilderwild.registry.RegisterMobEffects;
 import net.frozenblock.wilderwild.registry.RegisterSounds;
 import net.frozenblock.wilderwild.tag.WilderBiomeTags;
 import net.frozenblock.wilderwild.tag.WilderEntityTags;
@@ -27,7 +28,6 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
-import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.Brain;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
@@ -293,12 +293,12 @@ public class Jellyfish extends AbstractFish {
                 if (targetingConditions.test(this, entity)) {
                     if (entity instanceof ServerPlayer player) {
                         if (player.hurt(DamageSource.mobAttack(this), 3)) {
-                            player.addEffect(new MobEffectInstance(MobEffects.POISON, 200, 0, false, false), this);
+                            player.addEffect(new MobEffectInstance(RegisterMobEffects.VENOMOUS_STING, 200, 0, false, false), this);
                             EasyPacket.sendJellySting(player);
                         }
                     } else if (entity instanceof Mob mob) {
                         if (mob.hurt(DamageSource.mobAttack(this), (float) (3))) {
-                            mob.addEffect(new MobEffectInstance(MobEffects.POISON, 200, 0), this);
+                            mob.addEffect(new MobEffectInstance(RegisterMobEffects.VENOMOUS_STING, 200, 0), this);
                             this.playSound(RegisterSounds.ENTITY_JELLYFISH_STING, 0.4F, this.random.nextFloat() * 0.2f + 0.9f);
                         }
                     }
