@@ -103,15 +103,11 @@ public class Jellyfish extends AbstractFish {
         if (holder.is(WilderBiomeTags.YELLOW_JELLYFISH)) {
             possibleTags.add(WilderBiomeTags.YELLOW_JELLYFISH);
         }
-        if (holder.is(WilderBiomeTags.PEARLESCENT_JELLYFISH)) {
-            possibleTags.add(WilderBiomeTags.PEARLESCENT_JELLYFISH);
-        }
-
-        if (!possibleTags.isEmpty()) {
+        if (holder.is(WilderBiomeTags.PEARLESCENT_JELLYFISH) && this.blockPosition().getY() <= this.level.getSeaLevel() - 33) {
+            this.setVariant("pearlescent");
+        } else if (!possibleTags.isEmpty()) {
             biomeTag = possibleTags.get((int) (Math.random() * possibleTags.size()));
-            if (biomeTag == WilderBiomeTags.PEARLESCENT_JELLYFISH) {
-                this.setVariant("pearlescent");
-            } else if (biomeTag == WilderBiomeTags.RED_JELLYFISH) {
+            if (biomeTag == WilderBiomeTags.RED_JELLYFISH) {
                 this.setVariant("red");
             } else if (biomeTag == WilderBiomeTags.YELLOW_JELLYFISH) {
                 this.setVariant("yellow");
@@ -172,6 +168,7 @@ public class Jellyfish extends AbstractFish {
         Bucketable.saveDefaultDataToBucketTag(this, itemStack);
         CompoundTag compoundTag = itemStack.getOrCreateTag();
         compoundTag.putString("variant", this.getVariant());
+        compoundTag.putInt("jellyCooldown", this.getJellyCooldown());
     }
 
     public void loadFromBucketTag(CompoundTag compoundTag) {
@@ -179,7 +176,9 @@ public class Jellyfish extends AbstractFish {
         if (compoundTag.contains("variant")) {
             this.setVariant(compoundTag.getString("variant"));
         }
-
+        if (compoundTag.contains("jellyCooldown")) {
+            this.setJellyCooldown(compoundTag.getInt("jellyCooldown"));
+        }
     }
 
     public static AttributeSupplier.Builder addAttributes() {
