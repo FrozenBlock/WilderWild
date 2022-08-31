@@ -104,7 +104,7 @@ public class Jellyfish extends AbstractFish {
             possibleTags.add(WilderBiomeTags.YELLOW_JELLYFISH);
         }
         if (holder.is(WilderBiomeTags.PEARLESCENT_JELLYFISH) && this.blockPosition().getY() <= this.level.getSeaLevel() - 33) {
-            this.setVariant("pearlescent");
+            this.setVariant("pearlescent_blue");
         } else if (!possibleTags.isEmpty()) {
             biomeTag = possibleTags.get((int) (Math.random() * possibleTags.size()));
             if (biomeTag == WilderBiomeTags.RED_JELLYFISH) {
