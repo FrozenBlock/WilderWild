@@ -40,7 +40,7 @@ public class JellyCloudRenderer extends EntityRenderer<JellyCloud> {
         PoseStack.Pose entry = matrices.last();
         Matrix4f matrix4f = entry.pose();
         Matrix3f matrix3f = entry.normal();
-        VertexConsumer vertexConsumer = vertexConsumers.getBuffer(RenderType.entityCutout(WilderWild.id("textures/entity/jelly_cloud/" + (age / JellyCloud.TEXTURE_INCREASE_PERCENT) + ".png")));
+        VertexConsumer vertexConsumer = vertexConsumers.getBuffer(RenderType.entityCutout(WilderWild.id("textures/entity/jelly_cloud/" + ((int)(age / JellyCloud.TEXTURE_INCREASE_PERCENT)) + ".png")));
 
         vertexConsumer
                 .vertex(matrix4f, -0.5F, -0.5F, 0.0F)
