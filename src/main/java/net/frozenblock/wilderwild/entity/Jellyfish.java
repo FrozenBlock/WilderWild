@@ -284,7 +284,7 @@ public class Jellyfish extends AbstractFish {
 
     public void stingEntities() {
         if (this.isAlive()) {
-            List<LivingEntity> list = this.level.getEntitiesOfClass(LivingEntity.class, this.getBoundingBox().inflate(0.05));
+            List<LivingEntity> list = this.level.getEntitiesOfClass(LivingEntity.class, this.getBoundingBox().inflate(0.08));
             for (LivingEntity entity : list) {
                 if (targetingConditions.test(this, entity)) {
                     if (entity instanceof ServerPlayer player) {
