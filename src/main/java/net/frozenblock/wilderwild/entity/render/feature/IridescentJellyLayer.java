@@ -1,6 +1,7 @@
 package net.frozenblock.wilderwild.entity.render.feature;
 
 import com.mojang.blaze3d.vertex.PoseStack;
+import net.frozenblock.wilderwild.WilderWildClient;
 import net.frozenblock.wilderwild.entity.Jellyfish;
 import net.frozenblock.wilderwild.entity.render.JellyfishModel;
 import net.minecraft.client.renderer.MultiBufferSource;
@@ -31,9 +32,9 @@ public class IridescentJellyLayer<T extends Jellyfish, M extends JellyfishModel<
     public void render(@NotNull PoseStack poseStack, @NotNull MultiBufferSource multiBufferSource, int i, @NotNull T entity, float f, float g, float h, float j, float k, float l) {
         if (entity.getVariant().equals("pearlescent")) {
             JellyfishModel<T> model = this.getParentModel();
-            float rotation = ((model.xRot + model.zRot) / 2);
+            float rotation = (((model.xRot + 1) + (model.zRot + 1)) / 4);
             float alpha = inverse ? 1 - rotation : rotation;
-            this.getParentModel().renderToBuffer(poseStack, multiBufferSource.getBuffer(RenderType.entityTranslucentEmissive(this.TEXTURE)), 0xF00000, getOverlay(entity, 0), h, j, k, alpha);
+            this.getParentModel().renderToBuffer(poseStack, multiBufferSource.getBuffer(WilderWildClient.ENTITY_TRANSLUCENT_EMISSIVE_FIXED.apply(this.TEXTURE, false)), i, getOverlay(entity, 0), alpha, alpha, alpha, 1.0F);
         }
     }
 
