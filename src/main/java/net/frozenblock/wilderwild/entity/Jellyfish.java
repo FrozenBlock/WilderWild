@@ -103,23 +103,20 @@ public class Jellyfish extends AbstractFish {
         if (holder.is(WilderBiomeTags.YELLOW_JELLYFISH)) {
             possibleTags.add(WilderBiomeTags.YELLOW_JELLYFISH);
         }
-
-        if (!possibleTags.isEmpty()) {
-            if (holder.is(WilderBiomeTags.PEARLESCENT_JELLYFISH) && this.blockPosition().getY() <= this.level.getSeaLevel() - 33) {
-                this.setVariant("pearlescent");
+        if (holder.is(WilderBiomeTags.PEARLESCENT_JELLYFISH) && this.blockPosition().getY() <= this.level.getSeaLevel() - 33) {
+            this.setVariant("pearlescent");
+        } else if (!possibleTags.isEmpty()) {
+            biomeTag = possibleTags.get((int) (Math.random() * possibleTags.size()));
+            if (biomeTag == WilderBiomeTags.RED_JELLYFISH) {
+                this.setVariant("red");
+            } else if (biomeTag == WilderBiomeTags.YELLOW_JELLYFISH) {
+                this.setVariant("yellow");
+            } else if (biomeTag == WilderBiomeTags.BLUE_JELLYFISH) {
+                this.setVariant("blue");
+            } else if (biomeTag == WilderBiomeTags.LIME_JELLYFISH) {
+                this.setVariant("lime");
             } else {
-                biomeTag = possibleTags.get((int) (Math.random() * possibleTags.size()));
-                if (biomeTag == WilderBiomeTags.RED_JELLYFISH) {
-                    this.setVariant("red");
-                } else if (biomeTag == WilderBiomeTags.YELLOW_JELLYFISH) {
-                    this.setVariant("yellow");
-                } else if (biomeTag == WilderBiomeTags.BLUE_JELLYFISH) {
-                    this.setVariant("blue");
-                } else if (biomeTag == WilderBiomeTags.LIME_JELLYFISH) {
-                    this.setVariant("lime");
-                } else {
-                    this.setVariant("pink");
-                }
+                this.setVariant("pink");
             }
         } else {
             this.setVariant("pink");
