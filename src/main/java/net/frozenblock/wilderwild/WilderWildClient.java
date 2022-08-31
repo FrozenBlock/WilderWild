@@ -55,6 +55,7 @@ public final class WilderWildClient implements ClientModInitializer {
     public static final ModelLayerLocation DOUBLE_STONE_CHEST_LEFT = new ModelLayerLocation(WilderWild.id("double_stone_chest_left"), "main");
     public static final ModelLayerLocation DOUBLE_STONE_CHEST_RIGHT = new ModelLayerLocation(WilderWild.id("double_stone_chest_right"), "main");
     public static final ModelLayerLocation JELLYFISH = new ModelLayerLocation(WilderWild.id("jellyfish"), "main");
+    public static final ModelLayerLocation JELLY_CLOUD = new ModelLayerLocation(WilderWild.id("jelly_cloud"), "main");
 
     @Override
     public void onInitializeClient() {
@@ -147,6 +148,7 @@ public final class WilderWildClient implements ClientModInitializer {
         EntityModelLayerRegistry.registerModelLayer(ANCIENT_HORN_PROJECTILE_LAYER, AncientHornProjectileModel::getTexturedModelData);
         EntityRendererRegistry.register(RegisterEntities.JELLYFISH, JellyfishRenderer::new);
         EntityModelLayerRegistry.registerModelLayer(JELLYFISH, JellyfishModel::getTexturedModelData);
+        EntityRendererRegistry.register(RegisterEntities.JELLY_CLOUD, JellyCloudRenderer::new);
 
         BlockEntityRendererRegistry.register(BlockEntityType.SCULK_SENSOR, SculkSensorBlockEntityRenderer::new);
         EntityModelLayerRegistry.registerModelLayer(SCULK_SENSOR, SculkSensorBlockEntityRenderer::getTexturedModelData);

@@ -2,8 +2,6 @@ package net.frozenblock.wilderwild.entity;
 
 import net.frozenblock.wilderwild.registry.RegisterEntities;
 import net.frozenblock.wilderwild.registry.RegisterItems;
-import net.minecraft.core.particles.ParticleOptions;
-import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientboundAddEntityPacket;
@@ -28,15 +26,10 @@ import org.jetbrains.annotations.NotNull;
 
 public class JellyCloud extends Entity {
     private static final EntityDataAccessor<Float> DATA_RADIUS = SynchedEntityData.defineId(JellyCloud.class, EntityDataSerializers.FLOAT);
-    private static final EntityDataAccessor<Integer> DATA_COLOR = SynchedEntityData.defineId(JellyCloud.class, EntityDataSerializers.INT);
-    private static final EntityDataAccessor<Boolean> DATA_WAITING = SynchedEntityData.defineId(JellyCloud.class, EntityDataSerializers.BOOLEAN);
-    private static final EntityDataAccessor<ParticleOptions> DATA_PARTICLE = SynchedEntityData.defineId(JellyCloud.class, EntityDataSerializers.PARTICLE);
-    private int duration = 600;
-    private int waitTime = 20;
-    private int reapplicationDelay = 20;
-    private int durationOnUse;
-    private float radiusOnUse;
-    private float radiusPerTick;
+    private static final EntityDataAccessor<Integer> AGE = SynchedEntityData.defineId(JellyCloud.class, EntityDataSerializers.INT);
+
+    public static final int STOPS_GROWING_TIME = 35;
+    public static final int TEXTURE_INCREASE_PERCENT = 10;
 
     public JellyCloud(EntityType<? extends JellyCloud> entityType, Level level) {
         super(entityType, level);
@@ -51,16 +44,8 @@ public class JellyCloud extends Entity {
 
     @Override
     protected void defineSynchedData() {
-        this.getEntityData().define(DATA_COLOR, 0);
-        this.getEntityData().define(DATA_RADIUS, 0.5f);
-        this.getEntityData().define(DATA_WAITING, false);
-        this.getEntityData().define(DATA_PARTICLE, ParticleTypes.ENTITY_EFFECT);
-    }
-
-    public void setRadius(float f) {
-        if (!this.level.isClientSide) {
-            this.getEntityData().set(DATA_RADIUS, Mth.clamp(f, 0.0f, 32.0f));
-        }
+        this.getEntityData().define(AGE, 0);
+        this.getEntityData().define(DATA_RADIUS, 1.25f);
     }
 
     @Override
@@ -70,10 +55,6 @@ public class JellyCloud extends Entity {
         double f = this.getZ();
         super.refreshDimensions();
         this.setPos(d, e, f);
-    }
-
-    public float getRadius() {
-        return this.getEntityData().get(DATA_RADIUS);
     }
 
     public InteractionResult interact(@NotNull Player player, @NotNull InteractionHand interactionHand) {
@@ -94,31 +75,40 @@ public class JellyCloud extends Entity {
 
     @Override
     public void tick() {
-
+        this.setRadius(this.getRadius() - 0.0025F);
+        if (this.getRadius() <= 0) {
+            this.discard();
+        }
     }
 
     @Override
-    protected void readAdditionalSaveData(CompoundTag compoundTag) {
-        this.tickCount = compoundTag.getInt("Age");
-        this.duration = compoundTag.getInt("Duration");
-        this.waitTime = compoundTag.getInt("WaitTime");
-        this.reapplicationDelay = compoundTag.getInt("ReapplicationDelay");
-        this.durationOnUse = compoundTag.getInt("DurationOnUse");
-        this.radiusOnUse = compoundTag.getFloat("RadiusOnUse");
-        this.radiusPerTick = compoundTag.getFloat("RadiusPerTick");
-        this.setRadius(compoundTag.getFloat("Radius"));
+    protected void readAdditionalSaveData(CompoundTag nbt) {
+        this.setAge(nbt.getInt("age"));
+        this.setRadius(nbt.getFloat("Radius"));
     }
 
     @Override
-    protected void addAdditionalSaveData(CompoundTag compoundTag) {
-        compoundTag.putInt("Age", this.tickCount);
-        compoundTag.putInt("Duration", this.duration);
-        compoundTag.putInt("WaitTime", this.waitTime);
-        compoundTag.putInt("ReapplicationDelay", this.reapplicationDelay);
-        compoundTag.putInt("DurationOnUse", this.durationOnUse);
-        compoundTag.putFloat("RadiusOnUse", this.radiusOnUse);
-        compoundTag.putFloat("RadiusPerTick", this.radiusPerTick);
-        compoundTag.putFloat("Radius", this.getRadius());
+    protected void addAdditionalSaveData(CompoundTag nbt) {
+        nbt.putInt("age", this.getAge());
+        nbt.putFloat("Radius", this.getRadius());
+    }
+
+    public float getRadius() {
+        return this.getEntityData().get(DATA_RADIUS);
+    }
+
+    public void setRadius(float f) {
+        if (!this.level.isClientSide) {
+            this.getEntityData().set(DATA_RADIUS, Mth.clamp(f, 0.0f, 32.0f));
+        }
+    }
+
+    public int getAge() {
+        return this.getEntityData().get(AGE);
+    }
+
+    public void setAge(int i) {
+        this.getEntityData().set(AGE, i);
     }
 
     @Override
@@ -140,7 +130,7 @@ public class JellyCloud extends Entity {
     }
 
     @Override
-    public EntityDimensions getDimensions(Pose pose) {
+    public EntityDimensions getDimensions(@NotNull Pose pose) {
         return EntityDimensions.scalable(this.getRadius() * 2.0f, 0.5f);
     }
 }

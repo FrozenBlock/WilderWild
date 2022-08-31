@@ -16,6 +16,7 @@
 	"server.GoatEntityMixin",
 	"server.InstrumentItemMixin",
 	"server.ItemStackMixin",
+	"server.MobEffectMixin",
 	"server.PlayerMixin",
 	"server.SculkBlockMixin",
 	"server.SculkSensorBlockEntityMixin",
