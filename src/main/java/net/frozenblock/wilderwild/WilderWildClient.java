@@ -16,10 +16,7 @@ import net.frozenblock.lib.sound.FlyBySoundHub;
 import net.frozenblock.wilderwild.entity.AncientHornProjectile;
 import net.frozenblock.wilderwild.entity.render.*;
 import net.frozenblock.wilderwild.misc.CompetitionCounter;
-import net.frozenblock.wilderwild.particle.AncientHornParticle;
-import net.frozenblock.wilderwild.particle.FloatingSculkBubbleParticle;
-import net.frozenblock.wilderwild.particle.PollenParticle;
-import net.frozenblock.wilderwild.particle.TermiteParticle;
+import net.frozenblock.wilderwild.particle.*;
 import net.frozenblock.wilderwild.registry.*;
 import net.minecraft.Util;
 import net.minecraft.client.Minecraft;
@@ -59,7 +56,6 @@ public final class WilderWildClient implements ClientModInitializer {
 
     @Override
     public void onInitializeClient() {
-
         BlockRenderLayerMap.INSTANCE.putBlock(RegisterBlocks.CARNATION, RenderType.cutout());
         BlockRenderLayerMap.INSTANCE.putBlock(RegisterBlocks.SEEDING_DANDELION, RenderType.cutout());
         BlockRenderLayerMap.INSTANCE.putBlock(RegisterBlocks.POTTED_CARNATION, RenderType.cutout());
@@ -123,6 +119,15 @@ public final class WilderWildClient implements ClientModInitializer {
             registry.register(WilderWild.id("particle/termite_7"));
             registry.register(WilderWild.id("particle/termite_8"));
             registry.register(WilderWild.id("particle/termite_9"));
+            registry.register(WilderWild.id("particle/jelly_1"));
+            registry.register(WilderWild.id("particle/jelly_2"));
+            registry.register(WilderWild.id("particle/jelly_3"));
+            registry.register(WilderWild.id("particle/jelly_4"));
+            registry.register(WilderWild.id("particle/jelly_5"));
+            registry.register(WilderWild.id("particle/jelly_6"));
+            registry.register(WilderWild.id("particle/jelly_7"));
+            registry.register(WilderWild.id("particle/jelly_8"));
+            registry.register(WilderWild.id("particle/jelly_9"));
         });
 
         ClientSpriteRegistryCallback.event(Sheets.CHEST_SHEET).register((atlasTexture, registry) -> {
@@ -141,6 +146,7 @@ public final class WilderWildClient implements ClientModInitializer {
         ParticleFactoryRegistry.getInstance().register(RegisterParticles.CONTROLLED_MILKWEED_SEED, PollenParticle.ControlledMilkweedFactory::new);
         ParticleFactoryRegistry.getInstance().register(RegisterParticles.FLOATING_SCULK_BUBBLE, FloatingSculkBubbleParticle.BubbleFactory::new);
         ParticleFactoryRegistry.getInstance().register(RegisterParticles.TERMITE, TermiteParticle.Factory::new);
+        ParticleFactoryRegistry.getInstance().register(RegisterParticles.JELLY, JellyParticle.JellyFactory::new);
         ParticleFactoryRegistry.getInstance().register(RegisterParticles.ANCIENT_HORN, AncientHornParticle.Factory::new);
 
         EntityRendererRegistry.register(RegisterEntities.FIREFLY, FireflyRenderer::new);

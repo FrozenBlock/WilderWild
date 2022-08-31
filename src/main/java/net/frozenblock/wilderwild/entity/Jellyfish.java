@@ -6,6 +6,7 @@ import net.frozenblock.wilderwild.entity.ai.JellyfishPanicGoal;
 import net.frozenblock.wilderwild.misc.server.EasyPacket;
 import net.frozenblock.wilderwild.registry.RegisterItems;
 import net.frozenblock.wilderwild.registry.RegisterMobEffects;
+import net.frozenblock.wilderwild.registry.RegisterParticles;
 import net.frozenblock.wilderwild.registry.RegisterSounds;
 import net.frozenblock.wilderwild.tag.WilderBiomeTags;
 import net.frozenblock.wilderwild.tag.WilderEntityTags;
@@ -385,16 +386,11 @@ public class Jellyfish extends AbstractFish {
         //TODO: JELLY JELLY SOUNDS
         this.playSound(RegisterSounds.ENTITY_JELLYFISH_FLOP, this.getSoundVolume(), this.getVoicePitch());
         this.setJellyCooldown(20 * 20 * 60 * 30);
-        Vec3 vec3 = this.rotateVector(new Vec3(0.0, -1.0, 0.0)).add(this.getX(), this.getY(), this.getZ());
-        for (int i = 0; i < 30; ++i) {
-            Vec3 vec32 = this.rotateVector(new Vec3((double)this.random.nextFloat() * 0.6 - 0.3, -1.0, (double)this.random.nextFloat() * 0.6 - 0.3));
-            Vec3 vec33 = vec32.scale(0.3 + (double)(this.random.nextFloat() * 2.0f));
-            //((ServerLevel)this.level).sendParticles(this.getInkParticle(), vec3.x, vec3.y + 0.5, vec3.z, 0, vec33.x, vec33.y, vec33.z, 0.1f);
-            if (i == 1) {
-                    JellyCloud cloud = new JellyCloud(this.level, vec3.x, vec3.y, vec3.z);
-                    this.level.addFreshEntity(cloud);
-                }
-            }
+        Vec3 vec3 = this.getPosition(0);
+        JellyCloud cloud = new JellyCloud(this.level, vec3.x, vec3.y, vec3.z);
+        this.level.addFreshEntity(cloud);
+            ((ServerLevel)this.level).sendParticles(RegisterParticles.JELLY, vec3.x, vec3.y, vec3.z, 0, 0, 0, 0, 0.0f);
+            ((ServerLevel)this.level).sendParticles(RegisterParticles.JELLY, vec3.x, vec3.y, vec3.z, 0, 0, 0, 0, 0.0f);
         }
     }
 
