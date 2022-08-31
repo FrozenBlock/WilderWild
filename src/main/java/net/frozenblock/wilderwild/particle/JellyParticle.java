@@ -36,7 +36,7 @@ public class JellyParticle extends TextureSheetParticle {
 
     public void setSpriteFromAge(@NotNull SpriteSet spriteSet) {
         if (!this.removed) {
-            this.setSprite(spriteSet.get(this.age / 6, this.lifetime));
+            this.setSprite(spriteSet.get(this.age / 6, this.lifetime / 6));
         }
     }
 
@@ -51,7 +51,7 @@ public class JellyParticle extends TextureSheetParticle {
         @Override
         public Particle createParticle(SimpleParticleType defaultParticleType, ClientLevel clientWorld, double x, double y, double z, double xd, double yd, double zd) {
             JellyParticle jelly = new JellyParticle(clientWorld, x, y, z, xd, yd, zd, this.spriteProvider);
-            jelly.scale(1.5F);
+            jelly.scale(8F);
             return jelly;
         }
     }
