@@ -120,9 +120,9 @@ public abstract class WardenEntityModelMixin<T extends Warden> implements Wilder
             float sin0 = Mth.sin(angles * 0.5F);
             float cos0 = Mth.cos(angles * 2.0F);
 
-            float speedDelta = isSubmerged(warden) ? Math.min(distance / 0.3F, 1.0F) * (Mth.lerp(anim, leanAngle, prevLeanAngle)) : 0;
+            float distanceDelta = Math.min(distance / 0.3F, 1.0F);
 
-            //float speedDelta = this.isSubmerged(warden) ? o : this.lerp(MathHelper.cos(time * 10), o, 0);
+            float speedDelta = distanceDelta * (Mth.lerp(distanceDelta, leanAngle, prevLeanAngle));
 
             float rad = (float) (Math.PI / 180);
 
