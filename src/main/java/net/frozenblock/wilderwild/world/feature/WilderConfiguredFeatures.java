@@ -23,6 +23,7 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.MultifaceBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.levelgen.Aquifer;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.WeightedPlacedFeature;
@@ -226,6 +227,13 @@ public final class WilderConfiguredFeatures {
                             new SimpleBlockFeatureConfig(BlockStateProvider.of(RegisterBlocks.CYPRESS_ROOTS)))));*/
     // JELLYFISH
 
+    /*public static final Holder<ConfiguredFeature<MultifaceGrowthConfiguration, ?>> NEMATOCYST = register("nematocyst",
+            Feature.MULTIFACE_GROWTH,
+            new MultifaceGrowthConfiguration(
+                    (MultifaceBlock) RegisterBlocks.NEMATOCYST,
+                    20,
+                    true, true, true, 6.0F, HolderSet.direct(Block::builtInRegistryHolder, Blocks.CLAY))
+    );*/
     public static final Holder<ConfiguredFeature<RandomPatchConfiguration, ?>> PATCH_NEMATOCYST_UP = register("patch_nematocyst_up",
             Feature.RANDOM_PATCH,
             new RandomPatchConfiguration(32, 4, 2, PlacementUtils.onlyWhenEmpty(Feature.SIMPLE_BLOCK,

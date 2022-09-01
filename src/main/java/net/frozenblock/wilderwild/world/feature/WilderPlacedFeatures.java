@@ -8,6 +8,7 @@ import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;
 import net.minecraft.data.BuiltinRegistries;
 import net.minecraft.data.worldgen.features.AquaticFeatures;
+import net.minecraft.data.worldgen.features.CaveFeatures;
 import net.minecraft.data.worldgen.features.TreeFeatures;
 import net.minecraft.data.worldgen.features.VegetationFeatures;
 import net.minecraft.data.worldgen.placement.PlacementUtils;
@@ -267,6 +268,14 @@ public final class WilderPlacedFeatures {
             WilderConfiguredFeatures.PATCH_CYPRESS_ROOTS, modifiers(1));*/
 
     // JELLYFISH
+    /*public static final Holder<PlacedFeature> NEMATOCYST = PlacementUtils.register(
+            "nematocyst",
+            WilderConfiguredFeatures.NEMATOCYST,
+            CountPlacement.of(ConstantInt.of(256)),
+            InSquarePlacement.spread(),
+            PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT,
+            BiomeFilter.biome()
+    );*/
     public static final Holder<PlacedFeature> PATCH_NEMATOCYST_UP = register("patch_nematocyst_up", WilderConfiguredFeatures.PATCH_NEMATOCYST_UP,
             CountPlacement.of(ConstantInt.of(32)), InSquarePlacement.spread(), PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT, BiomeFilter.biome());
 

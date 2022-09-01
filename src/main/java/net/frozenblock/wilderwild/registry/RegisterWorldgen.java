@@ -204,6 +204,7 @@ public final class RegisterWorldgen {
     }
 
     private static void addNematocyst(BiomeGenerationSettings.Builder builder) {
+        //builder.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, WilderPlacedFeatures.NEMATOCYST);
         builder.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, WilderPlacedFeatures.PATCH_NEMATOCYST_UP);
         builder.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, WilderPlacedFeatures.PATCH_NEMATOCYST_DOWN);
         builder.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, WilderPlacedFeatures.PATCH_NEMATOCYST_NORTH);
