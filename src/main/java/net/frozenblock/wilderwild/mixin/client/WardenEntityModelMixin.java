@@ -163,7 +163,7 @@ public abstract class WardenEntityModelMixin<T extends Warden> implements Wilder
             this.rightLeg.y = 8;
             this.leftLeg.y = 8;
 
-        this.idleSwim(wardenEntity, time, rad)
+        this.idleSwim(warden, time, rad);
 
         } else if (this.isSubmerged(warden) && distance <= 0) {
 
