@@ -71,14 +71,6 @@ public abstract class WardenEntityModelMixin<T extends Warden> implements Wilder
         this.headAndTendrils = ImmutableList.of(this.head, this.leftTendril, this.rightTendril);
     }
 
-    private float lerp(float delta, float start, float end) {
-        return Mth.lerp(delta, start, end);
-    }
-
-    private float lerpAngleDegrees(float delta, float start, float end) {
-        return Mth.rotLerp(delta, start, end);
-    }
-
 
     @Inject(at = @At("TAIL"), method = "animateTendrils")
     private void animateTendrils(T warden, float animationProgress, float tickDelta, CallbackInfo info) { //CUSTOM TENDRIL ANIMATION
@@ -113,7 +105,6 @@ public abstract class WardenEntityModelMixin<T extends Warden> implements Wilder
         model.animate(((WilderWarden) wardenEntity).getDyingAnimationState(), CustomWardenAnimations.DYING, anim);
         model.animate(((WilderWarden) wardenEntity).getSwimmingDyingAnimationState(), CustomWardenAnimations.WATER_DYING, anim);
         model.animate(((WilderWarden) wardenEntity).getKirbyDeathAnimationState(), CustomWardenAnimations.KIRBY_DEATH, anim);
-
     }
 
     private void animateSwimming(T warden, float angle, float distance, float anim, float headYaw, float headPitch, boolean moveArms, boolean moveBody, boolean moveHead, boolean canSwim) {
@@ -133,56 +124,46 @@ public abstract class WardenEntityModelMixin<T extends Warden> implements Wilder
 
             float rad = (float) (Math.PI / 180);
 
-            this.bone.xRot = this.lerpAngleDegrees(speedDelta, this.bone.xRot, headPitch * 0.017453292F + 1.5708F);
-            this.bone.yRot = this.lerpAngleDegrees(speedDelta, this.bone.yRot, headYaw * 0.017453292F);
-            this.bone.y = this.lerp(speedDelta, this.bone.z, 21) + 3;
+            this.bone.xRot = Mth.rotLerp(speedDelta, this.bone.xRot, headPitch * 0.017453292F + 1.5708F);
+            this.bone.yRot = Mth.rotLerp(speedDelta, this.bone.yRot, headYaw * 0.017453292F);
+            this.bone.y = Mth.lerp(speedDelta, this.bone.z, 21) + 3;
 
             if (moveHead) {
-                this.head.xRot = this.lerpAngleDegrees(speedDelta, this.head.xRot, (sin * -10 - 60) * rad);
-                this.head.zRot = this.lerpAngleDegrees(speedDelta, this.head.zRot, 0);
-                this.head.yRot = this.lerpAngleDegrees(speedDelta, this.head.yRot, 0);
+                this.head.xRot = Mth.rotLerp(speedDelta, this.head.xRot, (sin * -10 - 60) * rad);
+                this.head.zRot = Mth.rotLerp(speedDelta, this.head.zRot, 0);
+                this.head.yRot = Mth.rotLerp(speedDelta, this.head.yRot, 0);
             }
 
             if (moveBody) {
-                this.body.xRot = this.lerpAngleDegrees(speedDelta, this.body.xRot, (sin * 15 - 10) * rad);
-                this.body.yRot = this.lerpAngleDegrees(speedDelta, this.body.yRot, (sin0 * 5) * rad);
-                this.body.y = this.lerp(speedDelta, this.body.y + 21, 0);
-                this.body.z = this.lerp(speedDelta, this.body.z, cos * 2);
+                this.body.xRot = Mth.rotLerp(speedDelta, this.body.xRot, (sin * 15 - 10) * rad);
+                this.body.yRot = Mth.rotLerp(speedDelta, this.body.yRot, (sin0 * 5) * rad);
+                this.body.y = Mth.lerp(speedDelta, this.body.y + 21, 0);
+                this.body.z = Mth.lerp(speedDelta, this.body.z, cos * 2);
             } else {
                 this.body.y = 0;
             }
 
             if (moveArms) {
 
-                this.rightArm.xRot = this.lerpAngleDegrees(speedDelta, this.rightArm.xRot, 0f);
-                this.rightArm.yRot = this.lerpAngleDegrees(speedDelta, this.rightArm.yRot, (-cos * 25)) * rad;
-                this.rightArm.zRot = this.lerpAngleDegrees(speedDelta, this.rightArm.zRot, (sin * -90 + 90)) * rad;
-                this.rightArm.x = this.lerp(speedDelta, this.rightArm.x, (cos0 * 2 + 2) - 13);
+                this.rightArm.xRot = Mth.rotLerp(speedDelta, this.rightArm.xRot, 0f);
+                this.rightArm.yRot = Mth.rotLerp(speedDelta, this.rightArm.yRot, (-cos * 25)) * rad;
+                this.rightArm.zRot = Mth.rotLerp(speedDelta, this.rightArm.zRot, (sin * -90 + 90)) * rad;
+                this.rightArm.x = Mth.lerp(speedDelta, this.rightArm.x, (cos0 * 2 + 2) - 13);
 
-                this.leftArm.xRot = this.lerpAngleDegrees(speedDelta, this.leftArm.xRot, 0f);
-                this.leftArm.yRot = this.lerpAngleDegrees(speedDelta, this.leftArm.yRot, (cos * 25) * rad);
-                this.leftArm.zRot = this.lerpAngleDegrees(speedDelta, this.leftArm.zRot, (sin * 90 - 90) * rad);
-                this.leftArm.x = this.lerp(speedDelta, this.leftArm.x, (cos0 * -2 - 2) + 13);
+                this.leftArm.xRot = Mth.rotLerp(speedDelta, this.leftArm.xRot, 0f);
+                this.leftArm.yRot = Mth.rotLerp(speedDelta, this.leftArm.yRot, (cos * 25) * rad);
+                this.leftArm.zRot = Mth.rotLerp(speedDelta, this.leftArm.zRot, (sin * 90 - 90) * rad);
+                this.leftArm.x = Mth.lerp(speedDelta, this.leftArm.x, (cos0 * -2 - 2) + 13);
 
             }
 
-            this.leftLeg.xRot = this.lerpAngleDegrees(speedDelta, this.leftLeg.xRot, (-cos * 35 - 5) * rad);
-            this.rightLeg.xRot = this.lerpAngleDegrees(speedDelta, this.rightLeg.xRot, (cos * 35 - 5) * rad);
+            this.leftLeg.xRot = Mth.rotLerp(speedDelta, this.leftLeg.xRot, (-cos * 35 - 5) * rad);
+            this.rightLeg.xRot = Mth.rotLerp(speedDelta, this.rightLeg.xRot, (cos * 35 - 5) * rad);
 
             this.rightLeg.y = 8;
             this.leftLeg.y = 8;
 
-            this.bone.y += Mth.cos(time);
-
-            this.head.xRot += (Mth.sin(time) * -5) * rad;
-
-            this.body.xRot += (Mth.cos(time) * -5) * rad;
-
-            this.leftArm.zRot += (-Mth.sin(time) * -5 - 5) * rad;
-            this.rightArm.zRot += (-Mth.sin(time) * 5 + 5) * rad;
-
-            this.leftLeg.xRot += (Mth.sin(time) * 15 + 15) * rad;
-            this.rightLeg.xRot += (Mth.sin(time) * -15 + 15) * rad;
+        this.idleSwim(wardenEntity, time, rad)
 
         } else if (this.isSubmerged(warden) && distance <= 0) {
 
@@ -190,6 +171,20 @@ public abstract class WardenEntityModelMixin<T extends Warden> implements Wilder
 
             model.root().getAllParts().forEach(ModelPart::resetPose);
         }
+    }
+
+    private void idleSwim(T warden, float time, float rad) {
+        this.bone.y += Mth.cos(time);
+
+        this.head.xRot += (Mth.sin(time) * -5) * rad;
+
+        this.body.xRot += (Mth.cos(time) * -5) * rad;
+
+        this.leftArm.zRot += (-Mth.sin(time) * -5 - 5) * rad;
+        this.rightArm.zRot += (-Mth.sin(time) * 5 + 5) * rad;
+
+        this.leftLeg.xRot += (Mth.sin(time) * 15 + 15) * rad;
+        this.rightLeg.xRot += (Mth.sin(time) * -15 + 15) * rad;
     }
 
     private boolean isSubmerged(Warden warden) {
