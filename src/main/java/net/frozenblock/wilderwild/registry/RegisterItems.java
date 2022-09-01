@@ -40,7 +40,7 @@ public final class RegisterItems {
     public static final Item PRICKLY_PEAR = new PrickOnUseBlockItem(RegisterBlocks.PRICKLY_PEAR_CACTUS, new FabricItemSettings().tab(CreativeModeTab.TAB_FOOD).food(RegisterFood.PRICKLY_PEAR), 2F, RegisterSounds.PLAYER_HURT_CACTUS, "prickly_pear");
     public static final Item PEELED_PRICKLY_PEAR = new Item(new FabricItemSettings().tab(CreativeModeTab.TAB_FOOD).food(Foods.APPLE));
 
-    public static final Item JELLY_BOTTLE = new JellyBottleItem(new FabricItemSettings().tab(CreativeModeTab.TAB_MISC).stacksTo(16));
+    public static final Item JELLY_BOTTLE = new JellyBottleItem(new FabricItemSettings().tab(CreativeModeTab.TAB_MISC).stacksTo(16).food(RegisterFood.JELLY_BOTTLE));
 
     public static final Item FIREFLY_BOTTLE = new FireflyBottle(new FabricItemSettings().tab(CreativeModeTab.TAB_MISC).stacksTo(32), "on");
     public static final Item BLACK_FIREFLY_BOTTLE = new FireflyBottle(new FabricItemSettings().tab(CreativeModeTab.TAB_MISC).stacksTo(32), "black");
