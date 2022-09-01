@@ -9,8 +9,10 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.entity.SculkShriekerBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.level.gameevent.GameEventListener;
+import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -47,10 +49,10 @@ public class SculkShriekerBlockEntityMixin {
         if (entity.getBlockState().getValue(RegisterProperties.SOULS_TAKEN) == 2) {
             info.cancel();
         }
-        if (entity.getBlockState().getValue(BlockState.WATERLOGGED)) {
-            if (this.level instanceof ServerLevel server) {
+        if (entity.getBlockState().getValue(BlockStateProperties.WATERLOGGED)) {
+            if (entity.getLevel() instanceof ServerLevel server) {
                 for (var bubbles = 0; bubbles < 50; ++bubbles) {
-                    EasyPacket.EasyFloatingSculkBubblePacket.createParticle(server, this.position(), Math.random() > 0.7 ? 1 : 0, 20 + WilderWild.random().nextInt(40), 0.05, server.random.nextIntBetweenInclusive(1, 3));
+                    EasyPacket.EasyFloatingSculkBubblePacket.createParticle(server, Vec3.atCenterOf(entity.getBlockPos()), Math.random() > 0.7 ? 1 : 0, 20 + WilderWild.random().nextInt(40), 0.05, server.random.nextIntBetweenInclusive(1, 3));
                 }
             }
         }
