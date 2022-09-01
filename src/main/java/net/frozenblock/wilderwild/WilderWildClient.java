@@ -53,7 +53,6 @@ public final class WilderWildClient implements ClientModInitializer {
     public static final ModelLayerLocation DOUBLE_STONE_CHEST_LEFT = new ModelLayerLocation(WilderWild.id("double_stone_chest_left"), "main");
     public static final ModelLayerLocation DOUBLE_STONE_CHEST_RIGHT = new ModelLayerLocation(WilderWild.id("double_stone_chest_right"), "main");
     public static final ModelLayerLocation JELLYFISH = new ModelLayerLocation(WilderWild.id("jellyfish"), "main");
-    public static final ModelLayerLocation JELLY_CLOUD = new ModelLayerLocation(WilderWild.id("jelly_cloud"), "main");
 
     @Nullable
     public static ShaderInstance renderTypeTranslucentCutoutShader;
@@ -150,7 +149,6 @@ public final class WilderWildClient implements ClientModInitializer {
         ParticleFactoryRegistry.getInstance().register(RegisterParticles.CONTROLLED_MILKWEED_SEED, PollenParticle.ControlledMilkweedFactory::new);
         ParticleFactoryRegistry.getInstance().register(RegisterParticles.FLOATING_SCULK_BUBBLE, FloatingSculkBubbleParticle.BubbleFactory::new);
         ParticleFactoryRegistry.getInstance().register(RegisterParticles.TERMITE, TermiteParticle.Factory::new);
-        ParticleFactoryRegistry.getInstance().register(RegisterParticles.JELLY, JellyParticle.JellyFactory::new);
         ParticleFactoryRegistry.getInstance().register(RegisterParticles.ANCIENT_HORN, AncientHornParticle.Factory::new);
 
         EntityRendererRegistry.register(RegisterEntities.FIREFLY, FireflyRenderer::new);
@@ -158,7 +156,6 @@ public final class WilderWildClient implements ClientModInitializer {
         EntityModelLayerRegistry.registerModelLayer(ANCIENT_HORN_PROJECTILE_LAYER, AncientHornProjectileModel::getTexturedModelData);
         EntityRendererRegistry.register(RegisterEntities.JELLYFISH, JellyfishRenderer::new);
         EntityModelLayerRegistry.registerModelLayer(JELLYFISH, JellyfishModel::getTexturedModelData);
-        EntityRendererRegistry.register(RegisterEntities.JELLY_CLOUD, JellyCloudRenderer::new);
 
         BlockEntityRendererRegistry.register(BlockEntityType.SCULK_SENSOR, SculkSensorBlockEntityRenderer::new);
         EntityModelLayerRegistry.registerModelLayer(SCULK_SENSOR, SculkSensorBlockEntityRenderer::getTexturedModelData);
@@ -177,7 +174,6 @@ public final class WilderWildClient implements ClientModInitializer {
         receiveControlledSeedPacket();
         receiveTermitePacket();
         receiveSensorHiccupPacket();
-        receiveJellyParticlePacket();
         receiveJellyStingPacket();
 
         receiveFireflyCaptureInfoPacket();
@@ -341,17 +337,6 @@ public final class WilderWildClient implements ClientModInitializer {
                 if (Minecraft.getInstance().level == null)
                     throw new IllegalStateException("why is your world null");
                 CompetitionCounter.addAncientHornKill(creative, natural);
-            });
-        });
-    }
-
-    private static void receiveJellyParticlePacket() {
-        ClientPlayNetworking.registerGlobalReceiver(WilderWild.JELLY_PARTICLE_PACKET, (ctx, handler, byteBuf, responseSender) -> {
-            Vec3 pos = new Vec3(byteBuf.readDouble(), byteBuf.readDouble(), byteBuf.readDouble());
-            ctx.execute(() -> {
-                if (Minecraft.getInstance().level == null)
-                    throw new IllegalStateException("why is your world null");
-                    Minecraft.getInstance().level.addParticle(RegisterParticles.JELLY, pos.x, pos.y, pos.z, 0, 0, 0);
             });
         });
     }

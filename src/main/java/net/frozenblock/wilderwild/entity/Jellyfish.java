@@ -2,9 +2,11 @@ package net.frozenblock.wilderwild.entity;
 
 import com.mojang.serialization.Dynamic;
 import net.frozenblock.wilderwild.entity.ai.JellyfishAi;
-import net.frozenblock.wilderwild.entity.ai.JellyfishPanicGoal;
 import net.frozenblock.wilderwild.misc.server.EasyPacket;
-import net.frozenblock.wilderwild.registry.*;
+import net.frozenblock.wilderwild.registry.RegisterEntities;
+import net.frozenblock.wilderwild.registry.RegisterItems;
+import net.frozenblock.wilderwild.registry.RegisterMobEffects;
+import net.frozenblock.wilderwild.registry.RegisterSounds;
 import net.frozenblock.wilderwild.tag.WilderBiomeTags;
 import net.frozenblock.wilderwild.tag.WilderEntityTags;
 import net.minecraft.core.BlockPos;
@@ -24,8 +26,6 @@ import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.Difficulty;
 import net.minecraft.world.DifficultyInstance;
-import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.*;
@@ -33,6 +33,7 @@ import net.minecraft.world.entity.ai.Brain;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.AvoidEntityGoal;
+import net.minecraft.world.entity.ai.goal.PanicGoal;
 import net.minecraft.world.entity.ai.goal.RandomSwimmingGoal;
 import net.minecraft.world.entity.ai.memory.MemoryModuleType;
 import net.minecraft.world.entity.ai.targeting.TargetingConditions;
@@ -40,7 +41,6 @@ import net.minecraft.world.entity.animal.AbstractFish;
 import net.minecraft.world.entity.animal.Bucketable;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.biome.Biome;
@@ -83,7 +83,6 @@ public class Jellyfish extends AbstractFish {
     }
 
     private static final EntityDataAccessor<String> VARIANT = SynchedEntityData.defineId(Jellyfish.class, EntityDataSerializers.STRING);
-    private static final EntityDataAccessor<Integer> JELLY_COOLDOWN = SynchedEntityData.defineId(Jellyfish.class, EntityDataSerializers.INT);
 
     @Nullable
     @Override
@@ -171,16 +170,12 @@ public class Jellyfish extends AbstractFish {
         Bucketable.saveDefaultDataToBucketTag(this, itemStack);
         CompoundTag compoundTag = itemStack.getOrCreateTag();
         compoundTag.putString("variant", this.getVariant());
-        compoundTag.putInt("jellyCooldown", this.getJellyCooldown());
     }
 
     public void loadFromBucketTag(CompoundTag compoundTag) {
         Bucketable.loadDefaultDataFromBucketTag(this, compoundTag);
         if (compoundTag.contains("variant")) {
             this.setVariant(compoundTag.getString("variant"));
-        }
-        if (compoundTag.contains("jellyCooldown")) {
-            this.setJellyCooldown(compoundTag.getInt("jellyCooldown"));
         }
     }
 
@@ -370,19 +365,6 @@ public class Jellyfish extends AbstractFish {
         return false;
     }
 
-    @Override
-    public InteractionResult mobInteract(Player player, InteractionHand interactionHand) {
-        ItemStack itemStack = player.getItemInHand(interactionHand);
-        if (itemStack.is(Items.FEATHER) && !this.isBaby() && this.getJellyCooldown() <= 0 && this.isInWaterOrBubble()) {
-            if (this.level.random.nextInt(0, 30) == 14) {
-                this.crazyTicks = this.level.random.nextInt(60, 160);
-                this.spawnJelly();
-            }
-            return InteractionResult.sidedSuccess(this.level.isClientSide);
-        }
-        return super.mobInteract(player, interactionHand);
-    }
-
     public ResourceLocation getJellyLootTable() {
         ResourceLocation resourceLocation = Registry.ENTITY_TYPE.getKey(RegisterEntities.JELLYFISH);
         return new ResourceLocation(resourceLocation.getNamespace(), "entities/" + resourceLocation.getPath() + "_" + this.getVariant());
@@ -393,24 +375,6 @@ public class Jellyfish extends AbstractFish {
         LootTable lootTable = this.level.getServer().getLootTables().get(resourceLocation);
         LootContext.Builder builder = this.createLootContext(bl, damageSource);
         lootTable.getRandomItems(builder.create(LootContextParamSets.ENTITY), this::spawnAtLocation);
-    }
-
-    private void spawnJelly() {
-        if (!this.level.isClientSide) {
-            //TODO: JELLY JELLY SOUNDS
-            this.playSound(RegisterSounds.ENTITY_JELLYFISH_FLOP, this.getSoundVolume(), this.getVoicePitch());
-            this.setJellyCooldown(20 * 20 * 60 * 30);
-            Vec3 vec3 = this.getPosition(0);
-            JellyCloud cloud = new JellyCloud(this.level, vec3.x, vec3.y, vec3.z);
-            this.level.addFreshEntity(cloud);
-            EasyPacket.sendJellyParticle(this.level, this.position());
-        }
-    }
-
-    private Vec3 rotateVector(Vec3 vec3) {
-        Vec3 vec32 = vec3.xRot(this.xRot1 * ((float)Math.PI / 180));
-        vec32 = vec32.yRot(-this.yBodyRotO * ((float)Math.PI / 180));
-        return vec32;
     }
 
     @Override
@@ -427,25 +391,15 @@ public class Jellyfish extends AbstractFish {
         return !Objects.equals(variant, "") ? variant : "pink";
     }
 
-    public void setJellyCooldown(int i) {
-        this.entityData.set(JELLY_COOLDOWN, i);
-    }
-
-    public int getJellyCooldown() {
-        return this.entityData.get(JELLY_COOLDOWN);
-    }
-
     protected void defineSynchedData() {
         super.defineSynchedData();
         this.entityData.define(VARIANT, "pink");
-        this.entityData.define(JELLY_COOLDOWN, 0);
     }
 
     public void addAdditionalSaveData(@NotNull CompoundTag nbt) {
         super.addAdditionalSaveData(nbt);
         nbt.putInt("ticksSinceCantReach", this.ticksSinceCantReach);
         nbt.putInt("crazyTicks", this.crazyTicks);
-        nbt.putInt("jellyCooldown", this.getJellyCooldown());
         nbt.putString("variant", this.getVariant());
     }
 
@@ -453,14 +407,13 @@ public class Jellyfish extends AbstractFish {
         super.readAdditionalSaveData(nbt);
         this.ticksSinceCantReach = nbt.getInt("ticksSinceCantReach");
         this.crazyTicks = nbt.getInt("crazyTicks");
-        this.setJellyCooldown(nbt.getInt("jellyCooldown"));
         this.setVariant(nbt.getString("variant"));
     }
 
     @Override
     protected void registerGoals() {
         //super.registerGoals();
-        this.goalSelector.addGoal(0, new JellyfishPanicGoal(this, 1.9));
+        this.goalSelector.addGoal(0, new PanicGoal(this, 1.9));
         this.goalSelector.addGoal(2, new AvoidEntityGoal<>(this, Player.class, 2f, 1.0, 1.4, EntitySelector.NO_SPECTATORS::test));
         this.goalSelector.addGoal(4, new JellySwimGoal(this));
     }

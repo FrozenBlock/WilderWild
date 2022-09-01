@@ -19,7 +19,6 @@ public final class RegisterParticles {
     public static final SimpleParticleType CONTROLLED_MILKWEED_SEED = FabricParticleTypes.simple();
     public static final SimpleParticleType FLOATING_SCULK_BUBBLE = FabricParticleTypes.simple();
     public static final SimpleParticleType TERMITE = FabricParticleTypes.simple();
-    public static final SimpleParticleType JELLY = FabricParticleTypes.simple();
     public static final ParticleType<AncientHornParticleEffect> ANCIENT_HORN = register("ancient_horn", false, AncientHornParticleEffect.FACTORY, type -> AncientHornParticleEffect.CODEC);
 
     public static void registerParticles() {
@@ -31,7 +30,6 @@ public final class RegisterParticles {
         Registry.register(Registry.PARTICLE_TYPE, WilderWild.id("controlled_milkweed_seed"), CONTROLLED_MILKWEED_SEED);
         Registry.register(Registry.PARTICLE_TYPE, WilderWild.id("floating_sculk_bubble"), FLOATING_SCULK_BUBBLE);
         Registry.register(Registry.PARTICLE_TYPE, WilderWild.id("termite"), TERMITE);
-        Registry.register(Registry.PARTICLE_TYPE, WilderWild.id("jelly"), JELLY);
     }
 
     private static <T extends ParticleOptions> ParticleType<T> register(
