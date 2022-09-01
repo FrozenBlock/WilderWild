@@ -1,5 +1,6 @@
 package net.frozenblock.wilderwild.world.feature;
 
+import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;
 import net.minecraft.data.worldgen.features.MiscOverworldFeatures;
 import net.minecraft.data.worldgen.placement.PlacementUtils;
@@ -28,6 +29,8 @@ public final class WilderMiscPlaced {
     public static final Holder<PlacedFeature> UNDER_WATER_CLAY_PATH_BEACH = WilderPlacedFeatures.register("under_water_clay_path_beach", WilderMiscConfigured.UNDER_WATER_CLAY_PATH_BEACH, RarityFilter.onAverageOnceEvery(3), InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP_WORLD_SURFACE, BiomeFilter.biome());
 
     public static final Holder<PlacedFeature> ORE_PACKED_MUD = WilderPlacedFeatures.register("ore_packed_mud", WilderMiscConfigured.ORE_PACKED_MUD, modifiersWithCount(5, HeightRangePlacement.uniform(VerticalAnchor.absolute(42), VerticalAnchor.absolute(250))));
+
+    public static final Holder<PlacedFeature> MESOGLEA_POOL = WilderPlacedFeatures.register("mesoglea_pool", WilderMiscConfigured.MESOGLEA_POOL, CountPlacement.of(72), InSquarePlacement.spread(), PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT, EnvironmentScanPlacement.scanningFor(Direction.DOWN, BlockPredicate.solid(), BlockPredicate.ONLY_IN_AIR_PREDICATE, 12), RandomOffsetPlacement.vertical(ConstantInt.of(1)), BiomeFilter.biome());
 
     public WilderMiscPlaced() {
     }
