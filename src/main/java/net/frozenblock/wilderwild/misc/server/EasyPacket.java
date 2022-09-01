@@ -129,16 +129,4 @@ public class EasyPacket {
         ServerPlayNetworking.send(player, WilderWild.JELLY_STING_PACKET, byteBuf);
     }
 
-    public static void sendJellyParticle(Level world, Vec3 pos) {
-        if (!world.isClientSide) {
-            FriendlyByteBuf byteBuf = new FriendlyByteBuf(Unpooled.buffer());
-            byteBuf.writeDouble(pos.x);
-            byteBuf.writeDouble(pos.y);
-            byteBuf.writeDouble(pos.z);
-            for (ServerPlayer player : PlayerLookup.around((ServerLevel) world, pos, 32)) {
-                ServerPlayNetworking.send(player, WilderWild.JELLY_PARTICLE_PACKET, byteBuf);
-            }
-        }
-    }
-
 }
