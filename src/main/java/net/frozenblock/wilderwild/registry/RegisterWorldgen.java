@@ -96,7 +96,7 @@ public final class RegisterWorldgen {
 
     public static Biome jellyfishCaves() {
         MobSpawnSettings.Builder builder = new MobSpawnSettings.Builder();
-        builder.addSpawn(WilderWild.JELLYFISH, new MobSpawnSettings.SpawnerData(RegisterEntities.JELLYFISH, 10, 4, 6));
+        //builder.addSpawn(WilderWild.JELLYFISH, new MobSpawnSettings.SpawnerData(RegisterEntities.JELLYFISH, 10, 4, 6));
         BiomeGenerationSettings.Builder builder2 = new BiomeGenerationSettings.Builder();
         addJellyfishCavesFeatures(builder2);
         Music music = Musics.createGameMusic(SoundEvents.MUSIC_BIOME_LUSH_CAVES);
