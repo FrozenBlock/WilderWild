@@ -127,12 +127,14 @@ dependencies {
 		modRuntimeOnly "maven.modrinth:lithium:mc1.19.2-0.8.3"
 
 		// Sodium Related
+		/*
 		modRuntimeOnly "maven.modrinth:sodium:${sodium_version}"
 		modRuntimeOnly "maven.modrinth:iris:${iris_version}"
 		modRuntimeOnly "maven.modrinth:indium:${indium_version}"
 		modRuntimeOnly 'io.github.douira:glsl-transformer:0.27.0'
 		modRuntimeOnly "org.joml:joml:1.10.4"
 		modRuntimeOnly "org.anarres:jcpp:1.4.14"
+		*/
 
 		modRuntimeOnly "maven.modrinth:entityculling:${entityculling_version}"
 		//modRuntimeOnly "maven.modrinth:c2me-fabric:0.2.0+alpha.8.32+1.19.1-rc3"
