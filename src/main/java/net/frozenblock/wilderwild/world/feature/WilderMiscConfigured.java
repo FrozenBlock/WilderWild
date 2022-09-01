@@ -46,10 +46,10 @@ public final class WilderMiscConfigured {
     public static final RuleTest PACKED_MUD_REPLACEABLE = new TagMatchTest(WilderBlockTags.PACKED_MUD_REPLACEABLE);
     public static final Holder<ConfiguredFeature<OreConfiguration, ?>> ORE_PACKED_MUD = WilderConfiguredFeatures.register("ore_packed_mud", Feature.ORE, new OreConfiguration(PACKED_MUD_REPLACEABLE, Blocks.PACKED_MUD.defaultBlockState(), 40));
 
-    public static final Holder<ConfiguredFeature<SimpleRandomFeatureConfiguration, ?>> BLANK_SHUT_UP = FeatureUtils.register("blank_shut_up", Feature.SIMPLE_RANDOM_SELECTOR, new SimpleRandomFeatureConfiguration(HolderSet.direct(
+    public static final Holder<ConfiguredFeature<SimpleRandomFeatureConfiguration, ?>> BLANK_SHUT_UP = WilderConfiguredFeatures.register("blank_shut_up", Feature.SIMPLE_RANDOM_SELECTOR, new SimpleRandomFeatureConfiguration(HolderSet.direct(
                     PlacementUtils.inlinePlaced(Feature.SIMPLE_BLOCK, new SimpleBlockConfiguration(new SimpleStateProvider(Blocks.WATER.defaultBlockState())))))
     );
-    public static final Holder<ConfiguredFeature<VegetationPatchConfiguration, ?>> MESOGLEA_POOL = WilderConfiguredFeatures.register("mesoglea_pool", Feature.WATERLOGGED_VEGETATION_PATCH, new VegetationPatchConfiguration(BlockTags.LUSH_GROUND_REPLACEABLE, BlockStateProvider.simple(RegisterBlocks.MESOGLEA), PlacementUtils.inlinePlaced(BLANK_SHUT_UP, new PlacementModifier[9000]), CaveSurface.FLOOR, ConstantInt.of(6), 0.8f, 5, 0.001f, UniformInt.of(7, 16), 0.7f));
+    public static final Holder<ConfiguredFeature<VegetationPatchConfiguration, ?>> MESOGLEA_POOL = WilderConfiguredFeatures.register("mesoglea_pool", Feature.WATERLOGGED_VEGETATION_PATCH, new VegetationPatchConfiguration(BlockTags.LUSH_GROUND_REPLACEABLE, BlockStateProvider.simple(RegisterBlocks.MESOGLEA), PlacementUtils.inlinePlaced(BLANK_SHUT_UP), CaveSurface.FLOOR, ConstantInt.of(6), 0.8f, 5, 0.001f, UniformInt.of(7, 16), 0.7f));
 
     public WilderMiscConfigured() {
     }
