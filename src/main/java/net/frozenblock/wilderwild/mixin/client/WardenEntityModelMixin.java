@@ -109,8 +109,8 @@ public abstract class WardenEntityModelMixin<T extends Warden> implements Wilder
 
     private void animateSwimming(T warden, float angle, float distance, float anim, float headYaw, float headPitch, boolean moveArms, boolean moveBody, boolean moveHead, boolean canSwim) {
         
-        float leanAngle = warden.isVisuallySwimming() ? 1 : 0;
-        float prevLeanAngle = warden.isVisuallySwimming() ? 0 : 1;
+        float swimming = warden.isVisuallySwimming() ? 1 : 0;
+        float notSwimming = warden.isVisuallySwimming() ? 0 : 1;
 
         if (warden.isVisuallySwimming() && this.isSubmerged(warden) && canSwim) {
             float angles = (float) (angle * (Math.PI * 0.2));
@@ -119,15 +119,10 @@ public abstract class WardenEntityModelMixin<T extends Warden> implements Wilder
             float sin = Mth.sin(angles);
             float sin0 = Mth.sin(angles * 0.5F);
             float cos0 = Mth.cos(angles * 2.0F);
-            float lerp;
-
-            for (lerp = 0; lerp < 60; ++lerp) {
-                ++lerp;
-            }
 
             float distanceDelta = Math.min(distance / 0.3F, 1.0F);
 
-            float speedDelta = distanceDelta * (Mth.lerp(lerp / 60, leanAngle, prevLeanAngle));
+            float speedDelta = distanceDelta * (Mth.lerp(Math.min(distance / 0.1F, 1.0F), notSwimming, swimming));
 
             float rad = (float) (Math.PI / 180);
 
