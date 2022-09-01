@@ -44,7 +44,7 @@ public class JellyBottleItem extends Item {
 
     @Override
     public int getUseDuration(@NotNull ItemStack itemStack) {
-        return 60;
+        return 30;
     }
 
     @Override
