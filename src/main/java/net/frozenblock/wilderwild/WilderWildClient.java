@@ -122,15 +122,6 @@ public final class WilderWildClient implements ClientModInitializer {
             registry.register(WilderWild.id("particle/termite_7"));
             registry.register(WilderWild.id("particle/termite_8"));
             registry.register(WilderWild.id("particle/termite_9"));
-            registry.register(WilderWild.id("particle/jelly_1"));
-            registry.register(WilderWild.id("particle/jelly_2"));
-            registry.register(WilderWild.id("particle/jelly_3"));
-            registry.register(WilderWild.id("particle/jelly_4"));
-            registry.register(WilderWild.id("particle/jelly_5"));
-            registry.register(WilderWild.id("particle/jelly_6"));
-            registry.register(WilderWild.id("particle/jelly_7"));
-            registry.register(WilderWild.id("particle/jelly_8"));
-            registry.register(WilderWild.id("particle/jelly_9"));
         });
 
         ClientSpriteRegistryCallback.event(Sheets.CHEST_SHEET).register((atlasTexture, registry) -> {
