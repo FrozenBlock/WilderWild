@@ -16,7 +16,7 @@ public final class RegisterLootTables {
             if (BuiltInLootTables.ANCIENT_CITY.equals(id) && source.isBuiltin()) {
                 LootPool.Builder pool = LootPool.lootPool()
                         .add(LootItem.lootTableItem(RegisterItems.ANCIENT_HORN_FRAGMENT).setWeight(2).setQuality(Rarity.EPIC.ordinal() + 1)).
-                        apply(SetItemCountFunction.setCount(UniformGenerator.between(-0.4F, 1.2F)))/*.apply(SetInstrumentFunction.setInstrumentOptions(WilderInstrumentTags.ANCIENT_HORNS))*/;
+                        apply(SetItemCountFunction.setCount(UniformGenerator.between(-0.5F, 1.15F)))/*.apply(SetInstrumentFunction.setInstrumentOptions(WilderInstrumentTags.ANCIENT_HORNS))*/;
 
                 tableBuilder.withPool(pool);
             }
