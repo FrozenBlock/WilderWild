@@ -30,7 +30,7 @@ public final class WilderMiscPlaced {
 
     public static final Holder<PlacedFeature> ORE_PACKED_MUD = WilderPlacedFeatures.register("ore_packed_mud", WilderMiscConfigured.ORE_PACKED_MUD, modifiersWithCount(5, HeightRangePlacement.uniform(VerticalAnchor.absolute(42), VerticalAnchor.absolute(250))));
 
-    public static final Holder<PlacedFeature> MESOGLEA_POOL = WilderPlacedFeatures.register("mesoglea_pool", WilderMiscConfigured.MESOGLEA_POOL, CountPlacement.of(62), InSquarePlacement.spread(), PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT, EnvironmentScanPlacement.scanningFor(Direction.DOWN, BlockPredicate.solid(), BlockPredicate.ONLY_IN_AIR_PREDICATE, 12), RandomOffsetPlacement.vertical(ConstantInt.of(1)), BiomeFilter.biome());
+    public static final Holder<PlacedFeature> MESOGLEA_POOL = WilderPlacedFeatures.register("mesoglea_pool", WilderMiscConfigured.MESOGLEA_POOL, CountPlacement.of(52), InSquarePlacement.spread(), PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT, EnvironmentScanPlacement.scanningFor(Direction.DOWN, BlockPredicate.solid(), BlockPredicate.ONLY_IN_AIR_PREDICATE, 12), RandomOffsetPlacement.vertical(ConstantInt.of(1)), BiomeFilter.biome());
 
     public WilderMiscPlaced() {
     }
