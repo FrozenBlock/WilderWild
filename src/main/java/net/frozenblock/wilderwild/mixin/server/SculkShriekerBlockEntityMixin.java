@@ -3,6 +3,8 @@ package net.frozenblock.wilderwild.mixin.server;
 import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.registry.RegisterProperties;
 import net.minecraft.core.BlockPos;
+import net.frozenblock.wilderwild.misc.server.EasyPacket;
+import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.level.block.Blocks;
@@ -43,8 +45,15 @@ public class SculkShriekerBlockEntityMixin {
     @Inject(at = @At("HEAD"), method = "tryShriek", cancellable = true)
     public void shriek(ServerLevel world, @Nullable ServerPlayer player, CallbackInfo info) {
         SculkShriekerBlockEntity entity = SculkShriekerBlockEntity.class.cast(this);
+        public int bubbles;
         if (entity.getBlockState().getValue(RegisterProperties.SOULS_TAKEN) == 2) {
             info.cancel();
+        }
+        if (entity.getBlockState().getValue(BlockState.WATERLOGGED)) {
+            if (this.bubbles > 0 && this.level instanceof ServerLevel server) {
+            --this.bubbles;
+            EasyPacket.EasyFloatingSculkBubblePacket.createParticle(server, this.position(), Math.random() > 0.7 ? 1 : 0, 20 + WilderWild.random().nextInt(40), 0.05, server.random.nextIntBetweenInclusive(1, 3));
+            }
         }
     }
 }
