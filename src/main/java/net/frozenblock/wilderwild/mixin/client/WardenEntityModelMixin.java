@@ -108,9 +108,11 @@ public abstract class WardenEntityModelMixin<T extends Warden> implements Wilder
     }
 
     private void animateSwimming(T warden, float angle, float distance, float anim, float headYaw, float headPitch, boolean moveArms, boolean moveBody, boolean moveHead, boolean canSwim) {
+        
+        float leanAngle = warden.isVisuallySwimming() ? 1 : 0;
+        float prevLeanAngle = warden.isVisuallySwimming() ? 0 : 1;
 
         if (warden.isVisuallySwimming() && this.isSubmerged(warden) && canSwim) {
-
             float angles = (float) (angle * (Math.PI * 0.2));
             float time = anim * 0.1F;
             float cos = Mth.cos(angles);
@@ -118,7 +120,7 @@ public abstract class WardenEntityModelMixin<T extends Warden> implements Wilder
             float sin0 = Mth.sin(angles * 0.5F);
             float cos0 = Mth.cos(angles * 2.0F);
 
-            float speedDelta = isSubmerged(warden) ? Math.min(distance / 0.3F, 1.0F) : 0;
+            float speedDelta = isSubmerged(warden) ? Math.min(distance / 0.3F, 1.0F) * (Mth.lerp(anim, leanAngle, prevLeanAngle)) : 0;
 
             //float speedDelta = this.isSubmerged(warden) ? o : this.lerp(MathHelper.cos(time * 10), o, 0);
 
