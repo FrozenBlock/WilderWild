@@ -45,14 +45,14 @@ public class SculkShriekerBlockEntityMixin {
     @Inject(at = @At("HEAD"), method = "tryShriek", cancellable = true)
     public void shriek(ServerLevel world, @Nullable ServerPlayer player, CallbackInfo info) {
         SculkShriekerBlockEntity entity = SculkShriekerBlockEntity.class.cast(this);
-        public int bubbles;
         if (entity.getBlockState().getValue(RegisterProperties.SOULS_TAKEN) == 2) {
             info.cancel();
         }
         if (entity.getBlockState().getValue(BlockState.WATERLOGGED)) {
-            if (this.bubbles > 0 && this.level instanceof ServerLevel server) {
-            --this.bubbles;
-            EasyPacket.EasyFloatingSculkBubblePacket.createParticle(server, this.position(), Math.random() > 0.7 ? 1 : 0, 20 + WilderWild.random().nextInt(40), 0.05, server.random.nextIntBetweenInclusive(1, 3));
+            if (this.level instanceof ServerLevel server) {
+                for (var bubbles = 0; bubbles < 50; ++bubbles) {
+                    EasyPacket.EasyFloatingSculkBubblePacket.createParticle(server, this.position(), Math.random() > 0.7 ? 1 : 0, 20 + WilderWild.random().nextInt(40), 0.05, server.random.nextIntBetweenInclusive(1, 3));
+                }
             }
         }
     }
