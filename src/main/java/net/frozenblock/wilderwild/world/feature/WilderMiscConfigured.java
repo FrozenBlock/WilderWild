@@ -12,6 +12,7 @@ import net.minecraft.data.worldgen.placement.PlacementUtils;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.util.valueproviders.ConstantInt;
 import net.minecraft.util.valueproviders.UniformInt;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.levelgen.blockpredicates.BlockPredicate;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
@@ -49,7 +50,7 @@ public final class WilderMiscConfigured {
     public static final Holder<ConfiguredFeature<SimpleRandomFeatureConfiguration, ?>> BLANK_SHUT_UP = WilderConfiguredFeatures.register("blank_shut_up", Feature.SIMPLE_RANDOM_SELECTOR, new SimpleRandomFeatureConfiguration(HolderSet.direct(
                     PlacementUtils.inlinePlaced(Feature.SIMPLE_BLOCK, new SimpleBlockConfiguration(new SimpleStateProvider(Blocks.WATER.defaultBlockState())))))
     );
-    public static final Holder<ConfiguredFeature<VegetationPatchConfiguration, ?>> MESOGLEA_POOL = WilderConfiguredFeatures.register("mesoglea_pool", Feature.WATERLOGGED_VEGETATION_PATCH, new VegetationPatchConfiguration(BlockTags.LUSH_GROUND_REPLACEABLE, BlockStateProvider.simple(RegisterBlocks.MESOGLEA), PlacementUtils.inlinePlaced(BLANK_SHUT_UP), CaveSurface.FLOOR, ConstantInt.of(6), 0.8f, 5, 0.001f, UniformInt.of(7, 16), 0.7f));
+    public static final Holder<ConfiguredFeature<VegetationPatchConfiguration, ?>> MESOGLEA_POOL = WilderConfiguredFeatures.register("mesoglea_pool", Feature.WATERLOGGED_VEGETATION_PATCH, new VegetationPatchConfiguration(BlockTags.LUSH_GROUND_REPLACEABLE, BlockStateProvider.simple(Blocks.DEEPSLATE), PlacementUtils.inlinePlaced(BLANK_SHUT_UP), CaveSurface.FLOOR, ConstantInt.of(6), 0.8f, 5, 0.001f, UniformInt.of(7, 16), 0.7f));
 
     public WilderMiscConfigured() {
     }
