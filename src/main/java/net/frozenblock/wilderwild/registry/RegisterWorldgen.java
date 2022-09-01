@@ -96,6 +96,7 @@ public final class RegisterWorldgen {
 
     public static Biome jellyfishCaves() {
         MobSpawnSettings.Builder builder = new MobSpawnSettings.Builder();
+        BiomeDefaultFeatures.commonSpawns(builder);
         //builder.addSpawn(WilderWild.JELLYFISH, new MobSpawnSettings.SpawnerData(RegisterEntities.JELLYFISH, 10, 4, 6));
         BiomeGenerationSettings.Builder builder2 = new BiomeGenerationSettings.Builder();
         addJellyfishCavesFeatures(builder2);
