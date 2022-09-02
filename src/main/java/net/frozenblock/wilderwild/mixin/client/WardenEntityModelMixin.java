@@ -112,18 +112,19 @@ public abstract class WardenEntityModelMixin<T extends Warden> implements Wilder
         float swimming = this.isSubmerged(warden) ? 1 : 0;
         float notSwimming = this.isSubmerged(warden) ? 0 : 1;
 
-        if (warden.isVisuallySwimming() && this.isSubmerged(warden) && canSwim) {
+        float specialLittleSnowflakeTime = anim - (float)warden.tickCount;
+        float swimLerp = Mth.rotLerp(warden.getSwimAmount(specialLittleSnowflakeTime), notSwimming, swimming);
+
+        if (warden.isVisuallySwimming() && canSwim && swimLerp > 0) {
             float angles = (float) (angle * (Math.PI * 0.2));
             float time = anim * 0.1F;
-            float specialLittleSnowflakeTime = anim - (float)warden.tickCount;
+
             float cos = Mth.cos(angles);
             float sin = Mth.sin(angles);
             float sin0 = Mth.sin(angles * 0.5F);
             float cos0 = Mth.cos(angles * 2.0F);
 
             float speedDelta = Math.min(distance / 0.3F, 1.0F);
-
-            float swimLerp = Mth.rotLerp(warden.getSwimAmount(specialLittleSnowflakeTime), notSwimming, swimming);
 
             float rad = (float) (Math.PI / 180);
 
@@ -163,10 +164,10 @@ public abstract class WardenEntityModelMixin<T extends Warden> implements Wilder
             this.leftLeg.xRot = Mth.rotLerp(speedDelta, this.leftLeg.xRot, ((-cos * 35 - 5) * rad) * swimLerp);
             this.rightLeg.xRot = Mth.rotLerp(speedDelta, this.rightLeg.xRot, ((cos * 35 - 5) * rad) * swimLerp);
 
-            this.rightLeg.y = 8;
-            this.leftLeg.y = 8;
+            this.rightLeg.y = Mth.rotLerp(speedDelta, this.rightLeg.y, 8 * swimLerp);
+            this.leftLeg.y = Mth.rotLerp(speedDelta, this.leftLeg.y, 8 * swimLerp);
 
-        this.idleSwim(time, rad);
+        this.idleSwim(warden, time, rad);
 
         } else if (this.isSubmerged(warden) && distance <= 0) {
 
@@ -176,18 +177,18 @@ public abstract class WardenEntityModelMixin<T extends Warden> implements Wilder
         }
     }
 
-    private void idleSwim(float time, float rad) {
-        this.bone.y += Mth.cos(time);
+    private void idleSwim(T warden, float time, float rad) {
+            this.bone.y += Mth.cos(time);
 
-        this.head.xRot += (Mth.sin(time) * -5) * rad;
+            this.head.xRot += (Mth.sin(time) * -5) * rad;
 
-        this.body.xRot += ((Mth.cos(time) * -5) * rad);
+            this.body.xRot += ((Mth.cos(time) * -5) * rad);
 
-        this.leftArm.zRot += ((-Mth.sin(time) * -5 - 5) * rad);
-        this.rightArm.zRot += (-Mth.sin(time) * 5 + 5) * rad;
+            this.leftArm.zRot += ((-Mth.sin(time) * -5 - 5) * rad);
+            this.rightArm.zRot += (-Mth.sin(time) * 5 + 5) * rad;
 
-        this.leftLeg.xRot += (Mth.sin(time) * 15 + 15) * rad;
-        this.rightLeg.xRot += (Mth.sin(time) * -15 + 15) * rad;
+            this.leftLeg.xRot += (Mth.sin(time) * 15 + 15) * rad;
+            this.rightLeg.xRot += (Mth.sin(time) * -15 + 15) * rad;
     }
 
     private boolean isSubmerged(Warden warden) {
