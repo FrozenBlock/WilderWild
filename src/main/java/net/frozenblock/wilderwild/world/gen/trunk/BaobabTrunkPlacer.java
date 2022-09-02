@@ -3,7 +3,6 @@ package net.frozenblock.wilderwild.world.gen.trunk;
 import com.google.common.collect.Lists;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import net.frozenblock.lib.mathematics.AdvancedMath;
 import net.frozenblock.wilderwild.WilderWild;
 import net.minecraft.core.BlockPos;
 import net.minecraft.util.RandomSource;
@@ -105,9 +104,9 @@ public class BaobabTrunkPlacer extends TrunkPlacer {
                 if ((x < 0 || x > 1) || (z < 0 || z > 1)) { // only walls
                     if (Math.random() <= branchpercentage / 200) {
 
-                        int branchlenght = (int) AdvancedMath.range(branchmin, branchmax, (float) Math.random());
+                        int branchlenght = (int) net.frozenblock.api.mathematics.AdvancedMath.range(branchmin, branchmax, (float) Math.random());
 
-                        int fh = height - (int) AdvancedMath.range((float) height / 2, height, (float) Math.random());
+                        int fh = height - (int) net.frozenblock.api.mathematics.AdvancedMath.range((float) height / 2, height, (float) Math.random());
 
                         boolean case1 = (x == -1 && z == -1);
                         boolean case2 = (x == 2 && z == 2);
@@ -141,7 +140,7 @@ public class BaobabTrunkPlacer extends TrunkPlacer {
                 if ((x < 0 || x > 1) || (z < 0 || z > 1)) { // only walls
                     if (Math.random() <= branchpercentage / 100) {
 
-                        int branchlength = (int) AdvancedMath.range(branchmin, branchmax, (float) Math.random());
+                        int branchlength = (int) net.frozenblock.api.mathematics.AdvancedMath.range(branchmin, branchmax, (float) Math.random());
 
                         boolean case1 = (x == -1 && z == -1);
                         boolean case2 = (x == 2 && z == 2);
