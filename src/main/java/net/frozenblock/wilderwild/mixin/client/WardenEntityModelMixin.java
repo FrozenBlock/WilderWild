@@ -168,12 +168,12 @@ public abstract class WardenEntityModelMixin<T extends Warden> implements Wilder
                 this.body.y = 0;
             }
 
-        } else this.idleSwim(warden, anim, rad);
+        } else this.idleSwim(warden, anim, rad, submergedLerp);
     }
 
-    private void idleSwim(T warden, float submergedLerp, float rad) {
+    private void idleSwim(T warden, float anim, float rad, float submergedLerp) {
 
-        float time = submergedLerp * 0.1F;
+        float time = anim * 0.1F;
 
             this.bone.y = Mth.lerp(submergedLerp, this.bone.y, Mth.cos(time));
 
