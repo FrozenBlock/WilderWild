@@ -29,9 +29,9 @@ public class UpwardsPillarFeature extends Feature<UpwardsPillarConfig> {
             if (context.config().replaceable.contains(world.getBlockState(mutable).getBlockHolder()) || world.getBlockState(mutable).isAir() || world.getBlockState(mutable).getFluidState() != Fluids.EMPTY.defaultFluidState()) {
                 bl = true;
                 world.setBlock(mutable, context.config().columnBlock, 3);
-                mutable.set(bx, by + height, bz);
+                mutable.set(bx, by + y, bz);
             } else {
-                mutable.set(bx, by + height, bz);
+                mutable.set(bx, by + y, bz);
             }
         }
         return bl;
