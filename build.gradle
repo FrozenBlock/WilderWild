@@ -119,6 +119,11 @@ dependencies {
 	modImplementation "de.siphalor:nbtcrafting-1.19:2+"
 	include "de.siphalor:nbtcrafting-1.19:2+"
 
+	// Mixin Extras
+	implementation("com.github.LlamaLad7:MixinExtras:0.0.12")
+	annotationProcessor("com.github.LlamaLad7:MixinExtras:0.0.12")
+	include("com.github.LlamaLad7:MixinExtras:0.0.12")
+
 	// only affects runClient, does not affect gradlew build. add -PuseThirdPartyMods=false to not use these
 	if (findProperty("useThirdPartyMods") != "false") {
 		modRuntimeOnly "maven.modrinth:ferrite-core:${ferritecore_version}"

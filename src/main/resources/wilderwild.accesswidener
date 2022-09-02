@@ -56,5 +56,7 @@ accessible    method    net/minecraft/data/worldgen/biome/OverworldBiomes    cal
 extendable    method    net/minecraft/world/item/InstrumentItem    getInstrument    (Lnet/minecraft/world/item/ItemStack;)Ljava/util/Optional;
 accessible    method    net/minecraft/world/effect/MobEffect    <init>    (Lnet/minecraft/world/effect/MobEffectCategory;I)V
 accessible    field    net/minecraft/client/renderer/RenderStateShard    RENDERTYPE_TRANSLUCENT_SHADER    Lnet/minecraft/client/renderer/RenderStateShard$ShaderStateShard;
-accessible method net/minecraft/client/renderer/RenderStateShard$ShaderStateShard <init> (Ljava/util/function/Supplier;)V
-accessible method net/minecraft/world/level/levelgen/feature/stateproviders/SimpleStateProvider <init> (Lnet/minecraft/world/level/block/state/BlockState;)V
+accessible    method    net/minecraft/client/renderer/RenderStateShard$ShaderStateShard    <init>    (Ljava/util/function/Supplier;)V
+accessible    method    net/minecraft/world/level/levelgen/feature/stateproviders/SimpleStateProvider <init> (Lnet/minecraft/world/level/block/state/BlockState;)V
+accessible    class    net/minecraft/client/renderer/chunk/ChunkRenderDispatcher$RenderChunk$RebuildTask
+accessible    class    net/minecraft/client/renderer/chunk/ChunkRenderDispatcher$RenderChunk$RebuildTask$CompileResults

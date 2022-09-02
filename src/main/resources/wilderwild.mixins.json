@@ -45,8 +45,10 @@
 	"worldgen.VegetationPlacementsMixin"
   ],
   "client": [
+	"client.RenderChunkMixin",
 	"client.GameRendererMixin",
 	"client.LevelRendererMixin",
+	"client.RenderTypeMixin",
 	"client.WardenAnimationOverwrites",
 	"client.WardenEntityModelMixin",
 	"client.WardenFeatureRendererMixin",
