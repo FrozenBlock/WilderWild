@@ -99,7 +99,7 @@ public abstract class WardenEntityModelMixin<T extends Warden> implements Wilder
         boolean shouldMoveArms = !wardenEntity.hasPose(Pose.ROARING) && !wardenEntity.hasPose(Pose.EMERGING) && !wardenEntity.hasPose(Pose.DIGGING);
         boolean shouldMoveBody = !wardenEntity.hasPose(Pose.ROARING) && !wardenEntity.hasPose(Pose.EMERGING) && !wardenEntity.hasPose(Pose.DIGGING);
         boolean shouldMoveHead = !wardenEntity.hasPose(Pose.ROARING) && !wardenEntity.hasPose(Pose.EMERGING) && !wardenEntity.hasPose(Pose.DIGGING);
-        if (ClothConfigInteractionHandler.wardenSwimAnimation()) {
+        if (ClothConfigInteractionHandler.wardenSwimAnimation() && isSubmerged(warden)) {
             this.animateSwimming(wardenEntity, angle, distance, anim, headYaw, headPitch, shouldMoveArms, shouldMoveBody, shouldMoveHead, canSwim);
         }
         model.animate(((WilderWarden) wardenEntity).getDyingAnimationState(), CustomWardenAnimations.DYING, anim);
@@ -109,18 +109,20 @@ public abstract class WardenEntityModelMixin<T extends Warden> implements Wilder
 
     private void animateSwimming(T warden, float angle, float distance, float anim, float headYaw, float headPitch, boolean moveArms, boolean moveBody, boolean moveHead, boolean canSwim) {
         
-        float swimming = this.isSubmerged(warden) ? 1 : 0;
-        float notSwimming = this.isSubmerged(warden) ? 0 : 1;
+        float swimming = warden.isVisuallySwimming() ? 1 : 0;
+        float notSwimming = warden.isVisuallySwimming() ? 0 : 1;
 
         float lerpTime = anim - (float)warden.tickCount;
         float swimLerp = Mth.rotLerp(warden.getSwimAmount(lerpTime), notSwimming, swimming);
 
-        if (warden.isVisuallySwimming() && canSwim && swimLerp > 0) { //TODO: make swim animation last until lerp is done when exiting water. how.
+        if (warden.isVisuallySwimming() && canSwim && distance > 0) {
+
+        //TODO: make swim animation last until lerp is done when exiting water. how.
             float angles = (float) (angle * (Math.PI * 0.2));
-            float time = anim * 0.1F;
 
             float cos = Mth.cos(angles);
             float sin = Mth.sin(angles);
+            
             float sin0 = Mth.sin(angles * 0.5F);
             float cos0 = Mth.cos(angles * 2.0F);
 
@@ -131,6 +133,12 @@ public abstract class WardenEntityModelMixin<T extends Warden> implements Wilder
             this.bone.xRot = Mth.rotLerp(speedDelta, this.bone.xRot, (headPitch * 0.017453292F + 1.5708F) * swimLerp);
             this.bone.yRot = Mth.rotLerp(speedDelta, this.bone.yRot, (headYaw * 0.017453292F) * swimLerp);
             this.bone.y = Mth.lerp(speedDelta, this.bone.z, 21  * swimLerp) + 3;
+
+            this.leftLeg.xRot = Mth.rotLerp(speedDelta, this.leftLeg.xRot, ((-cos * 35 - 5) * rad) * swimLerp);
+            this.rightLeg.xRot = Mth.rotLerp(speedDelta, this.rightLeg.xRot, ((cos * 35 - 5) * rad) * swimLerp);
+
+            this.rightLeg.y = Mth.rotLerp(speedDelta, this.rightLeg.y, 8 * swimLerp);
+            this.leftLeg.y = Mth.rotLerp(speedDelta, this.leftLeg.y, 8 * swimLerp);
 
             if (moveHead) {
                 this.head.xRot = Mth.rotLerp(speedDelta, this.head.xRot, ((sin * -10 - 60) * rad) * swimLerp);
@@ -148,7 +156,6 @@ public abstract class WardenEntityModelMixin<T extends Warden> implements Wilder
             }
 
             if (moveArms) {
-
                 this.rightArm.xRot = Mth.rotLerp(speedDelta, this.rightArm.xRot, 0f);
                 this.rightArm.yRot = Mth.rotLerp(speedDelta, this.rightArm.yRot, ((-cos * 25) * rad) * swimLerp);
                 this.rightArm.zRot = Mth.rotLerp(speedDelta, this.rightArm.zRot, ((sin * -90 + 90) * rad) * swimLerp);
@@ -158,26 +165,15 @@ public abstract class WardenEntityModelMixin<T extends Warden> implements Wilder
                 this.leftArm.yRot = Mth.rotLerp(speedDelta, this.leftArm.yRot, ((cos * 25) * rad) * swimLerp);
                 this.leftArm.zRot = Mth.rotLerp(speedDelta, this.leftArm.zRot, ((sin * 90 - 90) * rad) * swimLerp);
                 this.leftArm.x = Mth.lerp(speedDelta, this.leftArm.x, ((cos0 * -2 - 2) + 13) * swimLerp);
-
             }
 
-            this.leftLeg.xRot = Mth.rotLerp(speedDelta, this.leftLeg.xRot, ((-cos * 35 - 5) * rad) * swimLerp);
-            this.rightLeg.xRot = Mth.rotLerp(speedDelta, this.rightLeg.xRot, ((cos * 35 - 5) * rad) * swimLerp);
-
-            this.rightLeg.y = Mth.rotLerp(speedDelta, this.rightLeg.y, 8 * swimLerp);
-            this.leftLeg.y = Mth.rotLerp(speedDelta, this.leftLeg.y, 8 * swimLerp);
-
-        this.idleSwim(warden, time, rad);
-
-        } else if (this.isSubmerged(warden) && distance <= 0) {
-
-            this.body.y = 0;
-
-            model.root().getAllParts().forEach(ModelPart::resetPose);
-        }
+        } else this.idleSwim(warden, anim, rad);
     }
 
-    private void idleSwim(T warden, float time, float rad) {
+    private void idleSwim(T warden, float anim, float rad) {
+
+        float time = anim * 0.1F;
+
             this.bone.y += Mth.cos(time);
 
             this.head.xRot += (Mth.sin(time) * -5) * rad;
@@ -189,6 +185,8 @@ public abstract class WardenEntityModelMixin<T extends Warden> implements Wilder
 
             this.leftLeg.xRot += (Mth.sin(time) * 15 + 15) * rad;
             this.rightLeg.xRot += (Mth.sin(time) * -15 + 15) * rad;
+
+            model.root().getAllParts().forEach(ModelPart::resetPose);
     }
 
     private boolean isSubmerged(Warden warden) {
