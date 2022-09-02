@@ -147,27 +147,26 @@ public abstract class WardenEntityModelMixin<T extends Warden> implements Wilder
                 this.head.xRot = Mth.rotLerp(speedDelta, this.head.xRot, ((sin * -10 - 60) * rad) * swimLerp);
                 this.head.zRot = Mth.rotLerp(speedDelta, this.head.zRot, 0);
                 this.head.yRot = Mth.rotLerp(speedDelta, this.head.yRot, 0);
-            }
 
-            if (moveLimbs) {
                 this.body.xRot = Mth.rotLerp(speedDelta, this.body.xRot, ((sin * 15 - 10) * rad) * swimLerp);
                 this.body.yRot = Mth.rotLerp(speedDelta, this.body.yRot, ((sin0 * 5) * rad) * swimLerp);
+                
                 this.body.y = Mth.lerp(speedDelta, this.body.y + 21, 0);
                 this.body.z = Mth.lerp(speedDelta, this.body.z, (cos * 2) * swimLerp);
-            } else {
-                this.body.y = 0;
-            }
 
-            if (moveLimbs) {
                 this.rightArm.xRot = Mth.rotLerp(speedDelta, this.rightArm.xRot, 0f);
                 this.rightArm.yRot = Mth.rotLerp(speedDelta, this.rightArm.yRot, ((-cos * 25) * rad) * swimLerp);
                 this.rightArm.zRot = Mth.rotLerp(speedDelta, this.rightArm.zRot, ((sin * -90 + 90) * rad) * swimLerp);
+                
                 this.rightArm.x = Mth.lerp(speedDelta, this.rightArm.x, ((cos0 * 2 + 2) - 13) * swimLerp);
 
                 this.leftArm.xRot = Mth.rotLerp(speedDelta, this.leftArm.xRot, 0f);
                 this.leftArm.yRot = Mth.rotLerp(speedDelta, this.leftArm.yRot, ((cos * 25) * rad) * swimLerp);
                 this.leftArm.zRot = Mth.rotLerp(speedDelta, this.leftArm.zRot, ((sin * 90 - 90) * rad) * swimLerp);
+                
                 this.leftArm.x = Mth.lerp(speedDelta, this.leftArm.x, ((cos0 * -2 - 2) + 13) * swimLerp);
+            } else {
+                this.body.y = 0;
             }
 
         } else this.idleSwim(warden, anim, rad);
