@@ -247,7 +247,6 @@ public final class WilderWild implements ModInitializer {
         }
     }
 
-
     private static <P extends TrunkPlacer> TrunkPlacerType<P> registerTrunk(String id, Codec<P> codec) {
         return Registry.register(Registry.TRUNK_PLACER_TYPES, id(id), new TrunkPlacerType<>(codec));
     }
