@@ -1,11 +1,18 @@
 package net.frozenblock.wilderwild.registry;
 
 import net.fabricmc.fabric.api.loot.v2.LootTableEvents;
+import net.frozenblock.wilderwild.tag.WilderItemTags;
+import net.minecraft.advancements.critereon.EntityPredicate;
+import net.minecraft.tags.EntityTypeTags;
+import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.Rarity;
 import net.minecraft.world.level.storage.loot.BuiltInLootTables;
+import net.minecraft.world.level.storage.loot.LootContext;
 import net.minecraft.world.level.storage.loot.LootPool;
 import net.minecraft.world.level.storage.loot.entries.LootItem;
+import net.minecraft.world.level.storage.loot.entries.TagEntry;
 import net.minecraft.world.level.storage.loot.functions.SetItemCountFunction;
+import net.minecraft.world.level.storage.loot.predicates.LootItemEntityPropertyCondition;
 import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
 
 public final class RegisterLootTables {
@@ -48,5 +55,13 @@ public final class RegisterLootTables {
                 tableBuilder.withPool(pool);
             }
         });
+        //GOAT
+        LootTableEvents.MODIFY.register(((resourceManager, lootManager, id, tableBuilder, source) -> {
+            if (EntityType.GOAT.getDefaultLootTable().equals(id) && source.isBuiltin()) {
+                var pool = LootPool.lootPool().add(TagEntry.expandTag(WilderItemTags.GOAT_DROP_MUSIC_DISCS)).when(LootItemEntityPropertyCondition.hasProperties(LootContext.EntityTarget.KILLER, EntityPredicate.Builder.entity().of(EntityTypeTags.SKELETONS)));
+
+                tableBuilder.withPool(pool);
+            }
+        }));
     }
 }
