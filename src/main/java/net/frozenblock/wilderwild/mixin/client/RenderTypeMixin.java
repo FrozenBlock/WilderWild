@@ -38,7 +38,7 @@ public class RenderTypeMixin {
         return null;
     }
 
-    @Redirect(method = "<clinit>", at = @At(value = "INVOKE", target = "Lcom/google/common/collect/ImmutableList;of(Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;)Lcom/google/common/collect/ImmutableList;", ordinal = 0))
+    @Redirect(method = "<clinit>", at = @At(value = "INVOKE", target = "Lcom/google/common/collect/ImmutableList;of(Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;)Lcom/google/common/collect/ImmutableList;", ordinal = 0), remap = false)
     private static ImmutableList chunkBufferLayers(Object renderType, Object renderType1, Object renderType2, Object renderType3, Object renderType4) {
         return ImmutableList.of(renderType, renderType1, renderType2, renderType3, WilderWildClient.translucentCutout(), renderType4);
     }
