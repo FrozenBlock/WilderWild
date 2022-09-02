@@ -40,8 +40,8 @@ public final class RegisterItems {
     public static final Item POLLEN = new BlockItem(RegisterBlocks.POLLEN_BLOCK, new FabricItemSettings().tab(CreativeModeTab.TAB_DECORATIONS));
 
     public static final Item BAOBAB_NUT = new BlockItem(RegisterBlocks.BAOBAB_NUT, new FabricItemSettings().tab(CreativeModeTab.TAB_DECORATIONS).food(RegisterFood.BAOBAB_NUT));
-    public static final Item PRICKLY_PEAR = new PrickOnUseBlockItem(RegisterBlocks.PRICKLY_PEAR_CACTUS, new FabricItemSettings().tab(CreativeModeTab.TAB_FOOD).food(RegisterFood.PRICKLY_PEAR), 2F, RegisterSounds.PLAYER_HURT_CACTUS, "prickly_pear");
-    public static final Item PEELED_PRICKLY_PEAR = new Item(new FabricItemSettings().tab(CreativeModeTab.TAB_FOOD).food(Foods.APPLE));
+    //public static final Item PRICKLY_PEAR = new PrickOnUseBlockItem(RegisterBlocks.PRICKLY_PEAR_CACTUS, new FabricItemSettings().tab(CreativeModeTab.TAB_FOOD).food(RegisterFood.PRICKLY_PEAR), 2F, RegisterSounds.PLAYER_HURT_CACTUS, "prickly_pear");
+    //public static final Item PEELED_PRICKLY_PEAR = new Item(new FabricItemSettings().tab(CreativeModeTab.TAB_FOOD).food(Foods.APPLE));
 
     public static final Item FIREFLY_BOTTLE = new FireflyBottle(new FabricItemSettings().tab(CreativeModeTab.TAB_MISC).stacksTo(32), "on");
     public static final Item BLACK_FIREFLY_BOTTLE = new FireflyBottle(new FabricItemSettings().tab(CreativeModeTab.TAB_MISC).stacksTo(32), "black");
@@ -100,8 +100,8 @@ public final class RegisterItems {
         Registry.register(Registry.INSTRUMENT, TROMBONE_COPPER_HORN, new Instrument(RegisterSounds.ITEM_COPPER_HORN_TROMBONE_LOOP, 32767, 64.0F));
 
         Registry.register(Registry.ITEM, WilderWild.id("baobab_nut"), BAOBAB_NUT);
-        Registry.register(Registry.ITEM, WilderWild.id("prickly_pear"), PRICKLY_PEAR);
-        Registry.register(Registry.ITEM, WilderWild.id("peeled_prickly_pear"), PEELED_PRICKLY_PEAR);
+        //Registry.register(Registry.ITEM, WilderWild.id("prickly_pear"), PRICKLY_PEAR);
+        //Registry.register(Registry.ITEM, WilderWild.id("peeled_prickly_pear"), PEELED_PRICKLY_PEAR);
 
         Registry.register(Registry.ITEM, WilderWild.id("firefly_bottle"), FIREFLY_BOTTLE);
         Registry.register(Registry.ITEM, WilderWild.id("magenta_firefly_bottle"), MAGENTA_FIREFLY_BOTTLE);
