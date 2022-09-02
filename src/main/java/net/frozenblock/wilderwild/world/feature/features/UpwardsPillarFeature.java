@@ -7,6 +7,8 @@ import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.WorldGenLevel;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
+import net.minecraft.world.level.material.FluidState;
+import net.minecraft.world.level.material.Fluids;
 
 public class UpwardsPillarFeature extends Feature<UpwardsPillarConfig> {
     public UpwardsPillarFeature(Codec<UpwardsPillarConfig> codec) {
@@ -24,12 +26,10 @@ public class UpwardsPillarFeature extends Feature<UpwardsPillarConfig> {
         int by = blockPos.getY();
         int height = context.config().height.sample(random);
         for (int y = 0; y < height; y++) {
-            if (context.config().replaceable.contains(world.getBlockState(mutable).getBlockHolder())) {
+            if (context.config().replaceable.contains(world.getBlockState(mutable).getBlockHolder()) || world.getBlockState(mutable).isAir() || world.getBlockState(mutable).getFluidState() != Fluids.EMPTY.defaultFluidState()) {
                 bl = true;
                 world.setBlock(mutable, context.config().columnBlock, 3);
                 mutable.set(bx, by + height, bz);
-            } else if (world.getBlockState(mutable).getBlock() != context.config().columnBlock.getBlock()) {
-                break;
             } else {
                 mutable.set(bx, by + height, bz);
             }
