@@ -257,7 +257,6 @@ public class WardenEntityMixin extends Monster implements WilderWarden {
 
     @Inject(method = "tick", at = @At("TAIL"))
     private void tick(CallbackInfo ci) {
-        //TODO: add osmiooo warden's heartbeat sounds here
         Warden warden = Warden.class.cast(this);
         this.updateSwimAmount();
         if (ClothConfigInteractionHandler.wardenDyingAnimation() || this.isOsmiooo()) {

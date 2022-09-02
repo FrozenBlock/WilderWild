@@ -115,6 +115,7 @@ public abstract class WardenEntityModelMixin<T extends Warden> implements Wilder
         if (warden.isVisuallySwimming() && this.isSubmerged(warden) && canSwim) {
             float angles = (float) (angle * (Math.PI * 0.2));
             float time = anim * 0.1F;
+            float specialLittleSnowflakeTime = anim - (float)warden.tickCount;
             float cos = Mth.cos(angles);
             float sin = Mth.sin(angles);
             float sin0 = Mth.sin(angles * 0.5F);
@@ -122,13 +123,13 @@ public abstract class WardenEntityModelMixin<T extends Warden> implements Wilder
 
             float speedDelta = Math.min(distance / 0.3F, 1.0F);
 
-            float swimLerp = Mth.lerp(speedDelta, notSwimming, swimming);
+            float swimLerp = Mth.rotLerp(warden.getSwimAmount(specialLittleSnowflakeTime), notSwimming, swimming);
 
             float rad = (float) (Math.PI / 180);
 
             this.bone.xRot = Mth.rotLerp(speedDelta, this.bone.xRot, (headPitch * 0.017453292F + 1.5708F) * swimLerp);
             this.bone.yRot = Mth.rotLerp(speedDelta, this.bone.yRot, (headYaw * 0.017453292F) * swimLerp);
-            this.bone.y = Mth.lerp(speedDelta, this.bone.z, 21) + 3;
+            this.bone.y = Mth.lerp(speedDelta, this.bone.z, 21  * swimLerp) + 3;
 
             if (moveHead) {
                 this.head.xRot = Mth.rotLerp(speedDelta, this.head.xRot, ((sin * -10 - 60) * rad) * swimLerp);
@@ -165,7 +166,7 @@ public abstract class WardenEntityModelMixin<T extends Warden> implements Wilder
             this.rightLeg.y = 8;
             this.leftLeg.y = 8;
 
-        this.idleSwim(warden, time, rad);
+        this.idleSwim(time, rad);
 
         } else if (this.isSubmerged(warden) && distance <= 0) {
 
@@ -175,14 +176,14 @@ public abstract class WardenEntityModelMixin<T extends Warden> implements Wilder
         }
     }
 
-    private void idleSwim(T warden, float time, float rad) {
+    private void idleSwim(float time, float rad) {
         this.bone.y += Mth.cos(time);
 
         this.head.xRot += (Mth.sin(time) * -5) * rad;
 
-        this.body.xRot += (Mth.cos(time) * -5) * rad;
+        this.body.xRot += ((Mth.cos(time) * -5) * rad);
 
-        this.leftArm.zRot += (-Mth.sin(time) * -5 - 5) * rad;
+        this.leftArm.zRot += ((-Mth.sin(time) * -5 - 5) * rad);
         this.rightArm.zRot += (-Mth.sin(time) * 5 + 5) * rad;
 
         this.leftLeg.xRot += (Mth.sin(time) * 15 + 15) * rad;
