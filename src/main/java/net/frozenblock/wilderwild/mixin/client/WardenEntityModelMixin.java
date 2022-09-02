@@ -115,14 +115,14 @@ public abstract class WardenEntityModelMixin<T extends Warden> implements Wilder
         float lerpTime = anim - (float)warden.tickCount;
         float swimLerp = Mth.rotLerp(warden.getSwimAmount(lerpTime), notSwimming, swimming);
 
-        if (warden.isVisuallySwimming() && canSwim && distance > 0) {
+        if (((warden.isVisuallySwimming() && canSwim) || (swimLerp > 0)) && distance > 0) {
 
         //TODO: make swim animation last until lerp is done when exiting water. how.
             float angles = (float) (angle * (Math.PI * 0.2));
 
             float cos = Mth.cos(angles);
             float sin = Mth.sin(angles);
-            
+
             float sin0 = Mth.sin(angles * 0.5F);
             float cos0 = Mth.cos(angles * 2.0F);
 
