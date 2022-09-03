@@ -56,7 +56,7 @@ public class CaveWorldCarverMixin extends WorldCarver<CaveCarverConfiguration> {
             g += (randomSource.nextFloat() - randomSource.nextFloat()) * randomSource.nextFloat() * 2.0F;
             f += (randomSource.nextFloat() - randomSource.nextFloat()) * randomSource.nextFloat() * 4.0F;
             for (int yLevel = -64; yLevel < 30; ++yLevel) {
-                if (chunk.getNoiseBiome(6, 6, 6).is(RegisterWorldgen.JELLYFISH_CAVES)) {
+                if (chunk.getNoiseBiome(6, yLevel, 6).is(RegisterWorldgen.JELLYFISH_CAVES)) {
                     this.createTunnel(
                             context,
                             config,
