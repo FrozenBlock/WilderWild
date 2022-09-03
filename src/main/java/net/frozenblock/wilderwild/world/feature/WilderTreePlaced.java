@@ -2,10 +2,19 @@ package net.frozenblock.wilderwild.world.feature;
 
 import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.registry.RegisterBlocks;
+import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;
+import net.minecraft.data.worldgen.features.TreeFeatures;
 import net.minecraft.data.worldgen.placement.PlacementUtils;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.levelgen.blockpredicates.BlockPredicate;
+import net.minecraft.world.level.levelgen.placement.BlockPredicateFilter;
+import net.minecraft.world.level.levelgen.placement.EnvironmentScanPlacement;
 import net.minecraft.world.level.levelgen.placement.PlacedFeature;
+import net.minecraft.world.level.levelgen.placement.PlacementModifier;
+
+import java.util.List;
 
 import static net.minecraft.data.worldgen.placement.TreePlacements.SNOW_TREE_FILTER_DECORATOR;
 
@@ -55,6 +64,11 @@ public final class WilderTreePlaced {
     public static final Holder<PlacedFeature> SHORT_FUNGUS_CYPRESS = PlacementUtils.register("short_fungus_cypress", WilderTreeConfigured.SHORT_FUNGUS_CYPRESS, PlacementUtils.filteredByBlockSurvival(RegisterBlocks.CYPRESS_SAPLING));
     public static final Holder<PlacedFeature> SWAMP_CYPRESS = PlacementUtils.register("swamp_cypress", WilderTreeConfigured.SWAMP_CYPRESS, PlacementUtils.filteredByBlockSurvival(RegisterBlocks.CYPRESS_SAPLING));
     public static final Holder<PlacedFeature> NEW_FALLEN_CYPRESS_CHECKED = PlacementUtils.register("new_fallen_cypress_checked", WilderTreeConfigured.NEW_FALLEN_CYPRESS_TREE, PlacementUtils.filteredByBlockSurvival(RegisterBlocks.CYPRESS_SAPLING));
+    //TREE ON SAND
+    public static final BlockPredicate SNOW_TREE_PREDICATE = BlockPredicate.matchesBlocks(Direction.DOWN.getNormal(), Blocks.RED_SAND, Blocks.SAND);
+    public static final List<PlacementModifier> SAND_TREE_FILTER_DECORATOR = List.of(EnvironmentScanPlacement.scanningFor(Direction.UP, BlockPredicate.not(BlockPredicate.matchesBlocks(Blocks.SANDSTONE)), 8), BlockPredicateFilter.forPredicate(SNOW_TREE_PREDICATE));
+    //SHRUB
+    public static final Holder<PlacedFeature> BIG_SHRUB_CHECKED = PlacementUtils.register("big_shrub_checked", WilderTreeConfigured.BIG_SHRUB, SAND_TREE_FILTER_DECORATOR);
 
     public static void registerTreePlaced() {
         WilderWild.logWild("Registering WilderTreePlaced for", true);

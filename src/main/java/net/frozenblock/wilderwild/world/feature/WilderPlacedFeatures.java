@@ -114,7 +114,7 @@ public final class WilderPlacedFeatures {
                 PlacementUtils.countExtra(2, 0.1F, 1), InSquarePlacement.spread(), SurfaceWaterDepthFilter.forMaxDepth(4), PlacementUtils.HEIGHTMAP_OCEAN_FLOOR, BiomeFilter.biome(), BlockPredicateFilter.forPredicate(BlockPredicate.wouldSurvive(Blocks.MANGROVE_PROPAGULE.defaultBlockState(), BlockPos.ZERO)));
 
         public static final Holder<PlacedFeature> BIG_SHRUB = PlacementUtils.register("big_shrub",
-                WilderTreeConfigured.BIG_SHRUB, treePlacement(PlacementUtils.countExtra(10, 0.1F, 1), Blocks.OAK_SAPLING));
+                WilderConfiguredFeatures.BIG_SHRUBS, treePlacement(RarityFilter.onAverageOnceEvery(5)));
     }
 
     public static Holder<PlacedFeature> CONFIG_BIRCH_TREE() {
