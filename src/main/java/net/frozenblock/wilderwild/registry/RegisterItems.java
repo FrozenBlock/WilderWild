@@ -16,9 +16,9 @@ public final class RegisterItems {
     public static final AncientHorn ANCIENT_HORN = new AncientHorn(new FabricItemSettings().tab(CreativeModeTab.TAB_COMBAT).stacksTo(1).rarity(Rarity.EPIC), WilderWild.WILD_HORNS);
     public static final ResourceKey<Instrument> ANCIENT_HORN_INSTRUMENT = ResourceKey.create(Registry.INSTRUMENT_REGISTRY, WilderWild.id("ancient_horn"));
     public static final MilkweedPod MILKWEED_POD = new MilkweedPod(new FabricItemSettings().tab(CreativeModeTab.TAB_MISC).stacksTo(64));
-    public static final RecordItem MUSIC_DISC_BENEATH = new RecordItem(15, RegisterSounds.MUSIC_DISC_BENEATH, new FabricItemSettings().stacksTo(1).rarity(Rarity.RARE), 169);
-    public static final RecordItem MUSIC_DISC_GOAT_HORN_SYMPHONY = new RecordItem(15, RegisterSounds.MUSIC_DISC_GOATHORN_SYMPHONY, new FabricItemSettings().stacksTo(1).rarity(Rarity.RARE), 144);
-    public static final RecordItem MUSIC_DISC_THE_OTHER_SIDE = new RecordItem(15, RegisterSounds.MUSIC_DISC_THE_OTHER_SIDE, new FabricItemSettings().tab(CreativeModeTab.TAB_MISC).stacksTo(1).rarity(Rarity.RARE), 76);
+    public static final RecordItem MUSIC_DISC_BENEATH = new RecordItem(15, RegisterSounds.MUSIC_DISC_BENEATH, new FabricItemSettings().stacksTo(1).rarity(Rarity.RARE));
+    public static final RecordItem MUSIC_DISC_GOAT_HORN_SYMPHONY = new RecordItem(15, RegisterSounds.MUSIC_DISC_GOATHORN_SYMPHONY, new FabricItemSettings().stacksTo(1).rarity(Rarity.RARE));
+    public static final RecordItem MUSIC_DISC_THE_OTHER_SIDE = new RecordItem(15, RegisterSounds.MUSIC_DISC_THE_OTHER_SIDE, new FabricItemSettings().tab(CreativeModeTab.TAB_MISC).stacksTo(1).rarity(Rarity.RARE));
     public static final Item FIREFLY_SPAWN_EGG = new SpawnEggItem(RegisterEntities.FIREFLY, Integer.parseInt("2A2E2B", 16), Integer.parseInt("AAF644", 16), new FabricItemSettings().tab(CreativeModeTab.TAB_MISC));
 
     public static final Item BAOBAB_BOAT_ITEM = new BoatItem(false, WilderBoats.BAOBAB, new FabricItemSettings().stacksTo(1).tab(CreativeModeTab.TAB_TRANSPORTATION));
