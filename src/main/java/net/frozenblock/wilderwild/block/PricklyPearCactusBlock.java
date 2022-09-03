@@ -1,4 +1,4 @@
-/*package net.frozenblock.wilderwild.block;
+package net.frozenblock.wilderwild.block;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -58,4 +58,4 @@ public class PricklyPearCactusBlock extends BushBlock implements BonemealableBlo
     public void performBonemeal(ServerLevel serverLevel, RandomSource randomSource, BlockPos blockPos, BlockState blockState) {
 
     }
-}*/
+}
