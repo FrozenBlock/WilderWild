@@ -30,6 +30,7 @@
 	"server.SpawnRestrictionMixin",
 	"server.WardenAiMixin",
 	"server.WardenEntityMixin",
+	"server.FrogEntityMixin",
 	"worldgen.BirchTreeGrowerMixin",
 	"worldgen.CaveWorldCarverMixin",
 	"worldgen.DefaultBiomeFeaturesMixin",

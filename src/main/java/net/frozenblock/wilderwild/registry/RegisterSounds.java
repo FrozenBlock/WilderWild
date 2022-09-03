@@ -169,6 +169,8 @@ public final class RegisterSounds {
     public static final SoundEvent ENTITY_WARDEN_BRAP = register("entity.warden.brap");
     public static final SoundEvent ENTITY_WARDEN_OSMIOOO_HEARTBEAT = register("entity.warden.osmiooo_heartbeat");
 
+    public static final SoundEvent ENTITY_FROG_SUS_DEATH = register("entity.frog.sus_death");
+
     //ITEM
 
     public static final SoundEvent ITEM_ANCIENT_HORN_CALL = register("item.ancient_horn.call");
