@@ -24,7 +24,7 @@ public class TurtleMixin {
     }
 
     @Inject(method = "createAttributes", at = @At("TAIL"))
-    public static void createAttributes(CallbackInfoReturnable<AttributeSupplier.Builder> info) {
+    private static void createAttributes(CallbackInfoReturnable<AttributeSupplier.Builder> info) {
         AttributeSupplier.Builder builder = info.getReturnValue();
         builder.add(Attributes.ATTACK_DAMAGE, 3.0);
         info.cancel();
