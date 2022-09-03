@@ -54,6 +54,7 @@ public class BaobabTrunkPlacer extends TrunkPlacer {
 
         double percentage = 30;
         double branchpercentage = 50;
+        float toppercentage = 30;
 
         for(int x = 0; x < 4; x++) { // X
             for(int z = 0; z < 4; z++) { // Z
@@ -66,28 +67,28 @@ public class BaobabTrunkPlacer extends TrunkPlacer {
 
                 if(!AdvancedMath.squareBetween(x, z, 1, 2)) { // only sides
 
-                    if(Math.random() <= percentage / 100) {
+                    if (Math.random() <= percentage / 100) {
                         if (x == 0) {
-                            setLogs(world, replacer, random, mutable, config, center, x - 1, 0, z, height/2);
-                            setLogs(world, replacer, random, mutable, config, center, x - 2, 0, z, height/2 - 1);
+                            setLogs(world, replacer, random, mutable, config, center, x - 1, 0, z, height / 2);
+                            setLogs(world, replacer, random, mutable, config, center, x - 2, 0, z, height / 2 - 1);
                             terraformDirtBelow(world, replacer, random, new BlockPos(center.getX() + x - 1, startPos.getY() - 1, center.getZ() + z), config);
                             terraformDirtBelow(world, replacer, random, new BlockPos(center.getX() + x - 2, startPos.getY() - 1, center.getZ() + z), config);
                         }
                         if (z == 0) {
-                            setLogs(world, replacer, random, mutable, config, center, x, 0, z - 1, height/2);
-                            setLogs(world, replacer, random, mutable, config, center, x, 0, z - 2, height/2 - 1);
+                            setLogs(world, replacer, random, mutable, config, center, x, 0, z - 1, height / 2);
+                            setLogs(world, replacer, random, mutable, config, center, x, 0, z - 2, height / 2 - 1);
                             terraformDirtBelow(world, replacer, random, new BlockPos(center.getX() + x, startPos.getY() - 1, center.getZ() + z - 1), config);
                             terraformDirtBelow(world, replacer, random, new BlockPos(center.getX() + x, startPos.getY() - 1, center.getZ() + z - 2), config);
                         }
                         if (x == 3) {
-                            setLogs(world, replacer, random, mutable, config, center, x + 1, 0, z, height/2);
-                            setLogs(world, replacer, random, mutable, config, center, x + 2, 0, z, height/2 - 1);
+                            setLogs(world, replacer, random, mutable, config, center, x + 1, 0, z, height / 2);
+                            setLogs(world, replacer, random, mutable, config, center, x + 2, 0, z, height / 2 - 1);
                             terraformDirtBelow(world, replacer, random, new BlockPos(center.getX() + x + 1, startPos.getY() - 1, center.getZ() + z), config);
                             terraformDirtBelow(world, replacer, random, new BlockPos(center.getX() + x + 2, startPos.getY() - 1, center.getZ() + z), config);
                         }
                         if (z == 3) {
-                            setLogs(world, replacer, random, mutable, config, center, x, 0, z + 1, height/2);
-                            setLogs(world, replacer, random, mutable, config, center, x, 0, z + 2, height/2 - 1);
+                            setLogs(world, replacer, random, mutable, config, center, x, 0, z + 1, height / 2);
+                            setLogs(world, replacer, random, mutable, config, center, x, 0, z + 2, height / 2 - 1);
                             terraformDirtBelow(world, replacer, random, new BlockPos(center.getX() + x, startPos.getY() - 1, center.getZ() + z + 1), config);
                             terraformDirtBelow(world, replacer, random, new BlockPos(center.getX() + x, startPos.getY() - 1, center.getZ() + z + 2), config);
                         }
@@ -95,18 +96,37 @@ public class BaobabTrunkPlacer extends TrunkPlacer {
                     Direction dir1 = Direction.WEST;
                     Direction dir2 = null;
 
-                    if (x == 3) {dir1 = Direction.EAST;}
-                    if (z == 0) {dir1 = Direction.NORTH;}
-                    if (z == 3) {dir1 = Direction.SOUTH;}
-                    if (x == 0 && z == 0) {dir1 = Direction.WEST;dir2 = Direction.NORTH;}
-                    if (x == 3 && z == 0) {dir1 = Direction.EAST;dir2 = Direction.NORTH;}
-                    if (x == 0 && z == 3) {dir1 = Direction.WEST;dir2 = Direction.SOUTH;}
-                    if (x == 3 && z == 3) {dir1 = Direction.EAST;dir2 = Direction.SOUTH;}
-
-                    list.add(generateBranch(dir1, dir2, 1f/4f, height, height/4, 4, world, replacer, random, mutable, config, center, x, z));
+                    if (x == 3) {
+                        dir1 = Direction.EAST;
+                    }
+                    if (z == 0) {
+                        dir1 = Direction.NORTH;
+                    }
+                    if (z == 3) {
+                        dir1 = Direction.SOUTH;
+                    }
+                    if (x == 0 && z == 0) {
+                        dir1 = Direction.WEST;
+                        dir2 = Direction.NORTH;
+                    }
+                    if (x == 3 && z == 0) {
+                        dir1 = Direction.EAST;
+                        dir2 = Direction.NORTH;
+                    }
+                    if (x == 0 && z == 3) {
+                        dir1 = Direction.WEST;
+                        dir2 = Direction.SOUTH;
+                    }
+                    if (x == 3 && z == 3) {
+                        dir1 = Direction.EAST;
+                        dir2 = Direction.SOUTH;
+                    }
+                    if(Math.random() <= toppercentage / 100) {
+                       list.add(generateBranch(dir1, dir2, 1f / 4f, height, height / 4, 4, world, replacer, random, mutable, config, center, x, z));
+                    }
                     if(Math.random() <= branchpercentage / 100) {
-                        float min = 1f/3f, max = 1f;
-                        float p = ( ( (float)Math.random() * ( max - min ) ) + min );
+                        float min = 1f / 3f, max = 1f;
+                        float p = (((float) Math.random() * (max - min)) + min);
                         list.add(generateBranch(dir1, dir2, p, height, height, 4, world, replacer, random, mutable, config, center, x, z));
                     }
                 }
