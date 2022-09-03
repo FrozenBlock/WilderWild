@@ -29,7 +29,7 @@
 	  "net.frozenblock.wilderwild.misc.config.ModMenuIntegration"
 	],
 	"preLaunch": [
-	  "net.frozenblock.wilderwild.misc.WilderWildPreLaunch"
+	  "net.frozenblock.wilderwild.WilderWildPreLaunch"
 	]
   },
   "mixins": [
