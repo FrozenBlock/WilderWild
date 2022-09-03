@@ -3,6 +3,7 @@ package net.frozenblock.wilderwild.misc.config;
 import me.shedaniel.autoconfig.AutoConfig;
 import me.shedaniel.autoconfig.ConfigData;
 import me.shedaniel.autoconfig.annotation.Config;
+import me.shedaniel.autoconfig.annotation.ConfigEntry;
 import me.shedaniel.clothconfig2.api.ConfigCategory;
 import me.shedaniel.clothconfig2.api.ConfigEntryBuilder;
 import me.shedaniel.clothconfig2.impl.ConfigEntryBuilderImpl;
@@ -15,8 +16,10 @@ import static net.frozenblock.wilderwild.misc.config.WilderWildConfig.text;
 import static net.frozenblock.wilderwild.misc.config.WilderWildConfig.tooltip;
 
 @Config(name = "item")
+@Config.Gui.Background("wilderwild:textures/block/chiseled_mud_bricks.png")
 public class ItemConfig implements ConfigData {
 
+    @ConfigEntry.Gui.Tooltip
     public boolean ancientHornShattersGlass = false;
 
     @Environment(EnvType.CLIENT)

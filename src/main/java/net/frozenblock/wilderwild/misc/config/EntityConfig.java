@@ -3,6 +3,7 @@ package net.frozenblock.wilderwild.misc.config;
 import me.shedaniel.autoconfig.AutoConfig;
 import me.shedaniel.autoconfig.ConfigData;
 import me.shedaniel.autoconfig.annotation.Config;
+import me.shedaniel.autoconfig.annotation.ConfigEntry;
 import me.shedaniel.clothconfig2.api.ConfigCategory;
 import me.shedaniel.clothconfig2.api.ConfigEntryBuilder;
 import net.fabricmc.api.EnvType;
@@ -14,11 +15,16 @@ import static net.frozenblock.wilderwild.misc.config.WilderWildConfig.text;
 import static net.frozenblock.wilderwild.misc.config.WilderWildConfig.tooltip;
 
 @Config(name = "entity")
+@Config.Gui.Background("wilderwild:textures/block/chiseled_mud_bricks.png")
 public class EntityConfig implements ConfigData {
 
+    @ConfigEntry.Gui.Tooltip
     public boolean wardenCustomTendrils = true;
+    @ConfigEntry.Gui.Tooltip
     public boolean wardenDyingAnimation = true;
+    @ConfigEntry.Gui.Tooltip
     public boolean wardenEmergesFromEgg = true;
+    @ConfigEntry.Gui.Tooltip
     public boolean wardenSwimAnimation = true;
 
     @Environment(EnvType.CLIENT)
