@@ -28,6 +28,7 @@
 	"server.SlimeMixin",
 	"server.SonicBoomTaskMixin",
 	"server.SpawnRestrictionMixin",
+	"server.TurtleMixin",
 	"server.WardenAiMixin",
 	"server.WardenEntityMixin",
 	"server.FrogEntityMixin",
