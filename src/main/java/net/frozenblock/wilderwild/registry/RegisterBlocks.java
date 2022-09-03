@@ -339,7 +339,7 @@ public final class RegisterBlocks {
         registerBlock("stone_chest", STONE_CHEST, CreativeModeTab.TAB_DECORATIONS);
         registerBlock("display_lantern", DISPLAY_LANTERN, CreativeModeTab.TAB_DECORATIONS);
         registerBlock("blue_pearlescent_mesoglea", MESOGLEA, CreativeModeTab.TAB_DECORATIONS);
-        registerBlock("blue_pearlescent_mesoglea", PURPLE_MESOGLEA, CreativeModeTab.TAB_DECORATIONS);
+        registerBlock("purple_pearlescent_mesoglea", PURPLE_MESOGLEA, CreativeModeTab.TAB_DECORATIONS);
         registerBlock("blue_mesoglea", BLUE_MESOGLEA, CreativeModeTab.TAB_DECORATIONS);
         registerBlock("yellow_mesoglea", YELLOW_MESOGLEA, CreativeModeTab.TAB_DECORATIONS);
         registerBlock("lime_mesoglea", LIME_MESOGLEA, CreativeModeTab.TAB_DECORATIONS);
