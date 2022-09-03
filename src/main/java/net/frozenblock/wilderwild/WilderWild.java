@@ -127,8 +127,11 @@ public final class WilderWild implements ModInitializer {
         FrozenLibIntegration.init();
 
         terralith();
+        hasPipes = FabricLoader.getInstance().getModContainer("copper_pipe").isPresent();
+        hasCloth =  FabricLoader.getInstance().getModContainer("cloth-config").isPresent();
+        hasTerralith = FabricLoader.getInstance().getModContainer("terralith").isPresent();;
 
-        if (hasSimpleCopperPipes()) {
+        if (hasPipes) {
             RegisterSaveableMoveablePipeNbt.init();
         }
 
@@ -181,20 +184,14 @@ public final class WilderWild implements ModInitializer {
         }
     }
 
-    public static boolean hasTerralith() {
-        return FabricLoader.getInstance().getModContainer("terralith").isPresent();
-    }
+    public static boolean hasTerralith;
 
-    public static boolean hasSimpleCopperPipes() {
-        return FabricLoader.getInstance().getModContainer("copper_pipe").isPresent();
-    }
+    public static boolean hasPipes;
 
-    public static boolean hasClothConfig() {
-        return FabricLoader.getInstance().getModContainer("cloth-config").isPresent();
-    }
+    public static boolean hasCloth;
 
     public static boolean isCopperPipe(BlockState state) {
-        if (hasSimpleCopperPipes()) {
+        if (hasPipes) {
             ResourceLocation id = Registry.BLOCK.getKey(state.getBlock());
             return id.getNamespace().equals("lunade") && id.getPath().contains("pipe");
         }

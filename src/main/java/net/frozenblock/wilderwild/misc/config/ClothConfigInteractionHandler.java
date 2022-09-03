@@ -5,119 +5,120 @@ import net.frozenblock.wilderwild.WilderWild;
 public class ClothConfigInteractionHandler {
 
     public static boolean betaBeaches() {
-        if (WilderWild.hasClothConfig()) {
+        if (WilderWild.hasCloth) {
             return ClothConfigCloserInteractionHandler.betaBeaches();
         }
         return true;
     }
 
+    //TODO: Who removed Desert & Badlands placement?
     public static boolean modifyDesertPlacement() {
-        if (WilderWild.hasClothConfig()) {
+        if (WilderWild.hasCloth) {
             return ClothConfigCloserInteractionHandler.modifyDesertPlacement();
         }
         return true;
     }
 
     public static boolean modifyBadlandsPlacement() {
-        if (WilderWild.hasClothConfig()) {
+        if (WilderWild.hasCloth) {
             return ClothConfigCloserInteractionHandler.modifyBadlandsPlacement();
         }
         return true;
     }
 
     public static boolean modifyJunglePlacement() {
-        if (WilderWild.hasClothConfig()) {
+        if (WilderWild.hasCloth) {
             return ClothConfigCloserInteractionHandler.modifyJunglePlacement();
         }
         return true;
     }
 
     public static boolean modifySwampPlacement() {
-        if (WilderWild.hasClothConfig()) {
+        if (WilderWild.hasCloth) {
             return ClothConfigCloserInteractionHandler.modifySwampPlacement();
         }
         return true;
     }
 
     public static boolean modifyMangroveSwampPlacement() {
-        if (WilderWild.hasClothConfig()) {
+        if (WilderWild.hasCloth) {
             return ClothConfigCloserInteractionHandler.modifyMangroveSwampPlacement();
         }
         return true;
     }
 
     public static boolean modifyWindsweptSavannaPlacement() {
-        if (WilderWild.hasClothConfig()) {
+        if (WilderWild.hasCloth) {
             return ClothConfigCloserInteractionHandler.modifyWindsweptSavannaPlacement();
         }
         return true;
     }
 
     public static boolean fallenLogs() {
-        if (WilderWild.hasClothConfig()) {
+        if (WilderWild.hasCloth) {
             return ClothConfigCloserInteractionHandler.fallenLogs();
         }
         return true;
     }
 
     public static boolean wildTrees() {
-        if (WilderWild.hasClothConfig()) {
+        if (WilderWild.hasCloth) {
             return ClothConfigCloserInteractionHandler.wildTrees();
         }
         return true;
     }
 
     public static boolean wildGrass() {
-        if (WilderWild.hasClothConfig()) {
+        if (WilderWild.hasCloth) {
             return ClothConfigCloserInteractionHandler.wildGrass();
         }
         return true;
     }
 
     public static boolean hornShattersGlass() {
-        if (WilderWild.hasClothConfig()) {
+        if (WilderWild.hasCloth) {
             return ClothConfigCloserInteractionHandler.hornShattersGlass();
         }
         return false;
     }
 
     public static boolean mcLiveSensorTendrils() {
-        if (WilderWild.hasClothConfig()) {
+        if (WilderWild.hasCloth) {
             return ClothConfigCloserInteractionHandler.mcLiveSensorTendrils();
         }
         return false;
     }
 
     public static boolean wardenCustomTendrils() {
-        if (WilderWild.hasClothConfig()) {
+        if (WilderWild.hasCloth) {
             return ClothConfigCloserInteractionHandler.wardenCustomTendrils();
         }
         return true;
     }
 
     public static boolean wardenDyingAnimation() {
-        if (WilderWild.hasClothConfig()) {
+        if (WilderWild.hasCloth) {
             return ClothConfigCloserInteractionHandler.wardenDyingAnimation();
         }
         return true;
     }
 
     public static boolean wardenEmergesFromEgg() {
-        if (WilderWild.hasClothConfig()) {
+        if (WilderWild.hasCloth) {
             return ClothConfigCloserInteractionHandler.wardenEmergesFromEgg();
         }
         return true;
     }
 
     public static boolean wardenSwimAnimation() {
-        if (WilderWild.hasClothConfig()) {
+        if (WilderWild.hasCloth) {
             return ClothConfigCloserInteractionHandler.wardenSwimAnimation();
         }
         return true;
     }
 
     public static boolean shriekerGargling() {
-        if (WilderWild.hasClothConfig()) {
+        if (WilderWild.hasCloth) {
             return ClothConfigCloserInteractionHandler.shriekerGargling();
         }
         return false;

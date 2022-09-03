@@ -12,7 +12,7 @@ public class ModMenuIntegration implements ModMenuApi {
 
     @Override
     public ConfigScreenFactory<Screen> getModConfigScreenFactory() {
-        if (WilderWild.hasClothConfig()) {
+        if (WilderWild.hasCloth) {
             return ClientOnlyConfigInteractionHandler.buildScreen();
         }
         return (screen -> null);
