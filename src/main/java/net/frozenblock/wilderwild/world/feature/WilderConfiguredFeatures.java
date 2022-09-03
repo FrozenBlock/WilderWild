@@ -235,7 +235,7 @@ public final class WilderConfiguredFeatures {
                     (MultifaceBlock) RegisterBlocks.NEMATOCYST,
                     20,
                     true, true, true, 6.0F, HolderSet.direct(Block::builtInRegistryHolder, Blocks.CLAY))
-    );*/
+    );
     public static final Holder<ConfiguredFeature<RandomPatchConfiguration, ?>> PATCH_NEMATOCYST_UP = register("patch_nematocyst_up",
             Feature.RANDOM_PATCH,
             new RandomPatchConfiguration(32, 4, 2, PlacementUtils.onlyWhenEmpty(Feature.SIMPLE_BLOCK,
@@ -329,15 +329,15 @@ public final class WilderConfiguredFeatures {
                     )
             ))
     );
+    */
 
-
-    public static final Holder<ConfiguredFeature<VegetationPatchConfiguration, ?>> MESOGLEA_WITH_DRIPLEAVES = FeatureUtils.register(
-            "mesoglea_with_dripleaves",
+    public static final Holder<ConfiguredFeature<VegetationPatchConfiguration, ?>> BLUE_MESOGLEA = FeatureUtils.register(
+            "mesoglea",
             Feature.VEGETATION_PATCH,
             new VegetationPatchConfiguration(
                     BlockTags.LUSH_GROUND_REPLACEABLE,
                     BlockStateProvider.simple(RegisterBlocks.MESOGLEA),
-                    PlacementUtils.inlinePlaced(CaveFeatures.DRIPLEAF, new PlacementModifier[0]),
+                    PlacementUtils.inlinePlaced(CaveFeatures.DRIPLEAF),
                     CaveSurface.FLOOR,
                     ConstantInt.of(3),
                     0.8F,
@@ -347,13 +347,13 @@ public final class WilderConfiguredFeatures {
                     0.7F
             )
     );
-    public static final Holder<ConfiguredFeature<VegetationPatchConfiguration, ?>> MESOGLEA_POOL_WITH_DRIPLEAVES = FeatureUtils.register(
-            "mesoglea_pool_with_dripleaves",
+    public static final Holder<ConfiguredFeature<VegetationPatchConfiguration, ?>> BLUE_MESOGLEA_POOL = FeatureUtils.register(
+            "mesoglea_pool",
             Feature.WATERLOGGED_VEGETATION_PATCH,
             new VegetationPatchConfiguration(
                     BlockTags.LUSH_GROUND_REPLACEABLE,
                     BlockStateProvider.simple(RegisterBlocks.MESOGLEA),
-                    PlacementUtils.inlinePlaced(CaveFeatures.DRIPLEAF, new PlacementModifier[0]),
+                    PlacementUtils.inlinePlaced(CaveFeatures.DRIPLEAF),
                     CaveSurface.FLOOR,
                     ConstantInt.of(3),
                     0.8F,
@@ -363,12 +363,52 @@ public final class WilderConfiguredFeatures {
                     0.7F
             )
     );
-    public static final Holder<ConfiguredFeature<RandomBooleanFeatureConfiguration, ?>> JELLYFISH_CAVES_MESOGLEA = FeatureUtils.register(
-            "jellyfish_caves_mesoglea",
+    public static final Holder<ConfiguredFeature<RandomBooleanFeatureConfiguration, ?>> JELLYFISH_CAVES_BLUE_MESOGLEA = FeatureUtils.register(
+            "jellyfish_caves_blue_mesoglea",
             Feature.RANDOM_BOOLEAN_SELECTOR,
             new RandomBooleanFeatureConfiguration(
-                    PlacementUtils.inlinePlaced(MESOGLEA_WITH_DRIPLEAVES, new PlacementModifier[0]),
-                    PlacementUtils.inlinePlaced(MESOGLEA_POOL_WITH_DRIPLEAVES, new PlacementModifier[0])
+                    PlacementUtils.inlinePlaced(BLUE_MESOGLEA),
+                    PlacementUtils.inlinePlaced(BLUE_MESOGLEA_POOL)
+            )
+    );
+    public static final Holder<ConfiguredFeature<VegetationPatchConfiguration, ?>> PURPLE_MESOGLEA = FeatureUtils.register(
+            "mesoglea_with_dripleaves",
+            Feature.VEGETATION_PATCH,
+            new VegetationPatchConfiguration(
+                    BlockTags.LUSH_GROUND_REPLACEABLE,
+                    BlockStateProvider.simple(RegisterBlocks.MESOGLEA),
+                    PlacementUtils.inlinePlaced(CaveFeatures.DRIPLEAF),
+                    CaveSurface.FLOOR,
+                    ConstantInt.of(3),
+                    0.8F,
+                    2,
+                    0.025F,
+                    UniformInt.of(4, 7),
+                    0.7F
+            )
+    );
+    public static final Holder<ConfiguredFeature<VegetationPatchConfiguration, ?>> PURPLE_MESOGLEA_POOL = FeatureUtils.register(
+            "purple_mesoglea_pool",
+            Feature.WATERLOGGED_VEGETATION_PATCH,
+            new VegetationPatchConfiguration(
+                    BlockTags.LUSH_GROUND_REPLACEABLE,
+                    BlockStateProvider.simple(RegisterBlocks.PURPLE_MESOGLEA),
+                    PlacementUtils.inlinePlaced(CaveFeatures.DRIPLEAF),
+                    CaveSurface.FLOOR,
+                    ConstantInt.of(3),
+                    0.8F,
+                    5,
+                    0.025F,
+                    UniformInt.of(4, 7),
+                    0.7F
+            )
+    );
+    public static final Holder<ConfiguredFeature<RandomBooleanFeatureConfiguration, ?>> JELLYFISH_CAVES_PURPLE_MESOGLEA = FeatureUtils.register(
+            "jellyfish_caves_purple_mesoglea",
+            Feature.RANDOM_BOOLEAN_SELECTOR,
+            new RandomBooleanFeatureConfiguration(
+                    PlacementUtils.inlinePlaced(PURPLE_MESOGLEA),
+                    PlacementUtils.inlinePlaced(PURPLE_MESOGLEA_POOL)
             )
     );
 
