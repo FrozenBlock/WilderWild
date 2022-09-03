@@ -32,8 +32,8 @@
 	]
   },
   "mixins": [
-    "wilderwild.mixins.json",
-    "quiltmc_datafixerupper.mixins.json"
+	"wilderwild.mixins.json",
+	"quiltmc_datafixerupper.mixins.json"
   ],
   "accessWidener": "wilderwild.accesswidener",
   "depends": {
