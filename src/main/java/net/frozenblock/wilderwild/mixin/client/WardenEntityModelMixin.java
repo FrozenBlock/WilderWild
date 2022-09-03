@@ -126,11 +126,11 @@ public abstract class WardenEntityModelMixin<T extends Warden> implements Wilder
         //TODO: make swim animation last until lerp is done when exiting water. how.
             float angles = (float) (angle * (Math.PI * 0.2));
 
-            float cos = Mth.cos(angles);
-            float sin = Mth.sin(angles);
+            float cos = (float) Math.cos(angles);
+            float sin = (float) Math.sin(angles);
 
-            float sin0 = Mth.sin(angles * 0.5F);
-            float cos0 = Mth.cos(angles * 2.0F);
+            float sin0 = (float) Math.sin(angles * 0.5F);
+            float cos0 = (float) Math.cos(angles * 2.0F);
 
             this.bone.xRot = Mth.rotLerp(swimLerp, this.bone.xRot, (headPitch * 0.017453292F + 1.5708F));
             this.bone.yRot = Mth.rotLerp(swimLerp, this.bone.yRot, (headYaw * 0.017453292F));
@@ -177,17 +177,17 @@ public abstract class WardenEntityModelMixin<T extends Warden> implements Wilder
         } else {
             float time = anim * 0.1F;
 
-            this.bone.y += Mth.cos(time);
+            this.bone.y += Math.cos(time);
 
-            this.head.xRot += (Mth.sin(time) * -5) * rad;
+            this.head.xRot += (Math.sin(time) * -5) * rad;
 
-            this.body.xRot += ((Mth.cos(time) * -5) * rad);
+            this.body.xRot += ((Math.cos(time) * -5) * rad);
 
-            this.leftArm.zRot += ((-Mth.sin(time) * -5 - 5) * rad);
-            this.rightArm.zRot += (-Mth.sin(time) * 5 + 5) * rad;
+            this.leftArm.zRot += ((-Math.sin(time) * -5 - 5) * rad);
+            this.rightArm.zRot += (-Math.sin(time) * 5 + 5) * rad;
 
-            this.leftLeg.xRot += (Mth.sin(time) * 15 + 15) * rad;
-            this.rightLeg.xRot += (Mth.sin(time) * -15 + 15) * rad;
+            this.leftLeg.xRot += (Math.sin(time) * 15 + 15) * rad;
+            this.rightLeg.xRot += (Math.sin(time) * -15 + 15) * rad;
         }
     }
 
