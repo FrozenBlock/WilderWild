@@ -45,7 +45,7 @@ public class TurtleMixin implements TurtleCooldownInterface {
     }
 
     @Inject(method = "aiStep", at = @At("TAIL"))
-    public void aiStep() {
+    public void aiStep(CallbackInfo info) {
         if (this.attackCooldown > 0) {
             this.attackCooldown = this.attackCooldown - 1;
         }
