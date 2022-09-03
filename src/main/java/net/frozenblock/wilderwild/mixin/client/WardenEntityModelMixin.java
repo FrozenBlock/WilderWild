@@ -107,16 +107,18 @@ public abstract class WardenEntityModelMixin<T extends Warden> implements Wilder
 
     private void animateSwimming(T warden, float angle, float distance, float anim, float headYaw, float headPitch, boolean moveLimbs, boolean canSwim) {
         
-        float swimming = warden.isVisuallySwimming() ? 1 : 0;
-        float notSwimming = warden.isVisuallySwimming() ? 0 : 1;
+        float swimming = (warden.isVisuallySwimming() && distance > 0) ? 1 : 0;
+        float notSwimming = (warden.isVisuallySwimming() && distance > 0) ? 0 : 1;
 
         float submerged = isSubmerged(warden) ? 1 : 0;
         float notSubmerged = isSubmerged(warden) ? 0 : 1;
 
         float lerpTime = anim - (float)warden.tickCount;
 
-        float swimLerp = Mth.rotLerp(warden.getSwimAmount(lerpTime), notSwimming, swimming);
         float submergedLerp = Mth.rotLerp(warden.getSwimAmount(lerpTime), notSubmerged, submerged);
+        float speedDelta = Math.min(distance / 0.3F, 1.0F) * submergedLerp;
+        float swimLerp = Mth.rotLerp(warden.getSwimAmount(lerpTime), notSwimming, swimming) * speedDelta;
+
         float rad = (float) (Math.PI / 180);
 
         if (((warden.isVisuallySwimming() && canSwim) || (swimLerp > 0)) && distance > 0) {
@@ -130,64 +132,66 @@ public abstract class WardenEntityModelMixin<T extends Warden> implements Wilder
             float sin0 = Mth.sin(angles * 0.5F);
             float cos0 = Mth.cos(angles * 2.0F);
 
-            float speedDelta = Math.min(distance / 0.3F, 1.0F) * submergedLerp;
+            this.bone.xRot = Mth.rotLerp(swimLerp, this.bone.xRot, (headPitch * 0.017453292F + 1.5708F));
+            this.bone.yRot = Mth.rotLerp(swimLerp, this.bone.yRot, (headYaw * 0.017453292F));
+            this.bone.y = Mth.lerp(swimLerp, this.bone.z, 21) + 3;
 
-            this.bone.xRot = Mth.rotLerp(speedDelta, this.bone.xRot, (headPitch * 0.017453292F + 1.5708F) * swimLerp);
-            this.bone.yRot = Mth.rotLerp(speedDelta, this.bone.yRot, (headYaw * 0.017453292F) * swimLerp);
-            this.bone.y = Mth.lerp(speedDelta, this.bone.z, 21  * swimLerp) + 3;
-
-            this.leftLeg.xRot = Mth.rotLerp(speedDelta, this.leftLeg.xRot, ((-cos * 35 - 5) * rad) * swimLerp);
-            this.rightLeg.xRot = Mth.rotLerp(speedDelta, this.rightLeg.xRot, ((cos * 35 - 5) * rad) * swimLerp);
-
-            this.rightLeg.y = Mth.rotLerp(speedDelta, this.rightLeg.y, 8 * swimLerp);
-            this.leftLeg.y = Mth.rotLerp(speedDelta, this.leftLeg.y, 8 * swimLerp);
+            this.leftLeg.xRot = Mth.rotLerp(swimLerp, this.leftLeg.xRot, ((-cos * 35 - 5) * rad));
+            this.rightLeg.xRot = Mth.rotLerp(swimLerp, this.rightLeg.xRot, ((cos * 35 - 5) * rad));
 
             if (moveLimbs) {
-                this.head.xRot = Mth.rotLerp(speedDelta, this.head.xRot, ((sin * -10 - 60) * rad) * swimLerp);
-                this.head.zRot = Mth.rotLerp(speedDelta, this.head.zRot, 0);
-                this.head.yRot = Mth.rotLerp(speedDelta, this.head.yRot, 0);
+                this.head.xRot = Mth.rotLerp(swimLerp, this.head.xRot, ((sin * -10 - 60) * rad));
+                this.head.zRot = Mth.rotLerp(swimLerp, this.head.zRot, 0);
+                this.head.yRot = Mth.rotLerp(swimLerp, this.head.yRot, 0);
 
-                this.body.xRot = Mth.rotLerp(speedDelta, this.body.xRot, ((sin * 15 - 10) * rad) * swimLerp);
-                this.body.yRot = Mth.rotLerp(speedDelta, this.body.yRot, ((sin0 * 5) * rad) * swimLerp);
+                this.body.xRot = Mth.rotLerp(swimLerp, this.body.xRot, ((sin * 15 - 10) * rad));
+                this.body.yRot = Mth.rotLerp(swimLerp, this.body.yRot, ((sin0 * 5) * rad));
                 
-                this.body.y = Mth.lerp(speedDelta, this.body.y + 21, 0);
-                this.body.z = Mth.lerp(speedDelta, this.body.z, (cos * 2) * swimLerp);
+                this.body.y = Mth.lerp(swimLerp, this.body.y + 21, 0);
+                this.body.z = Mth.lerp(swimLerp, this.body.z, (cos * 2));
 
-                this.rightArm.xRot = Mth.rotLerp(speedDelta, this.rightArm.xRot, 0f);
-                this.rightArm.yRot = Mth.rotLerp(speedDelta, this.rightArm.yRot, ((-cos * 25) * rad) * swimLerp);
-                this.rightArm.zRot = Mth.rotLerp(speedDelta, this.rightArm.zRot, ((sin * -90 + 90) * rad) * swimLerp);
+                this.rightArm.xRot = Mth.rotLerp(swimLerp, this.rightArm.xRot, 0f);
+                this.rightArm.yRot = Mth.rotLerp(swimLerp, this.rightArm.yRot, ((-cos * 25) * rad));
+                this.rightArm.zRot = Mth.rotLerp(swimLerp, this.rightArm.zRot, ((sin * -90 + 90) * rad));
                 
-                this.rightArm.x = Mth.lerp(speedDelta, this.rightArm.x, ((cos0 * 2 + 2) - 13) * swimLerp);
+                this.rightArm.x = Mth.lerp(swimLerp, this.rightArm.x, ((cos0 * 2 + 2) - 13));
 
-                this.leftArm.xRot = Mth.rotLerp(speedDelta, this.leftArm.xRot, 0f);
-                this.leftArm.yRot = Mth.rotLerp(speedDelta, this.leftArm.yRot, ((cos * 25) * rad) * swimLerp);
-                this.leftArm.zRot = Mth.rotLerp(speedDelta, this.leftArm.zRot, ((sin * 90 - 90) * rad) * swimLerp);
+                this.leftArm.xRot = Mth.rotLerp(swimLerp, this.leftArm.xRot, 0f);
+                this.leftArm.yRot = Mth.rotLerp(swimLerp, this.leftArm.yRot, ((cos * 25) * rad));
+                this.leftArm.zRot = Mth.rotLerp(swimLerp, this.leftArm.zRot, ((sin * 90 - 90) * rad));
                 
-                this.leftArm.x = Mth.lerp(speedDelta, this.leftArm.x, ((cos0 * -2 - 2) + 13) * swimLerp);
+                this.leftArm.x = Mth.lerp(swimLerp, this.leftArm.x, ((cos0 * -2 - 2) + 13));
             } else {
                 this.body.y = 0;
             }
 
-        } else this.idleSwim(warden, anim, rad, submergedLerp);
+            this.rightLeg.y = Mth.rotLerp(swimLerp, this.rightLeg.y + 8, 8);
+            this.leftLeg.y = Mth.rotLerp(swimLerp, this.leftLeg.y + 8, 8);
+
+        } else if (this.isSubmerged(warden) && distance <= 0) {
+
+            this.body.y = 0;
+
+            model.root().getAllParts().forEach(ModelPart::resetPose);
+
+        } else this.idleSwim(anim, rad);
     }
 
-    private void idleSwim(T warden, float anim, float rad, float submergedLerp) {
+    private void idleSwim(float anim, float rad) {
 
         float time = anim * 0.1F;
 
-            this.bone.y = Mth.lerp(submergedLerp, this.bone.y, Mth.cos(time));
+        this.bone.y += Mth.cos(time);
 
-            this.head.xRot = Mth.rotLerp(submergedLerp, this.head.xRot, (Mth.sin(time) * -5) * rad);
+        this.head.xRot += (Mth.sin(time) * -5) * rad;
 
-            this.body.xRot = Mth.rotLerp(submergedLerp, this.body.xRot, (Mth.cos(time) * -5) * rad);
+        this.body.xRot += ((Mth.cos(time) * -5) * rad);
 
-            this.leftArm.zRot = Mth.rotLerp(submergedLerp, this.leftArm.zRot, (-Mth.sin(time) * -5 - 5) * rad);
-            this.rightArm.zRot = Mth.rotLerp(submergedLerp, this.rightArm.zRot, (-Mth.sin(time) * 5 + 5) * rad);
+        this.leftArm.zRot += ((-Mth.sin(time) * -5 - 5) * rad);
+        this.rightArm.zRot += (-Mth.sin(time) * 5 + 5) * rad;
 
-            this.leftLeg.xRot = Mth.rotLerp(submergedLerp, this.leftLeg.xRot, (Mth.sin(time) * 15 + 15) * rad);
-            this.rightLeg.xRot = Mth.rotLerp(submergedLerp, this.rightLeg.xRot, (Mth.sin(time) * -15 + 15) * rad);
-
-            model.root().getAllParts().forEach(ModelPart::resetPose);
+        this.leftLeg.xRot += (Mth.sin(time) * 15 + 15) * rad;
+        this.rightLeg.xRot += (Mth.sin(time) * -15 + 15) * rad;
     }
 
     private boolean isSubmerged(Warden warden) {
