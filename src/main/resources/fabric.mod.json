@@ -37,7 +37,7 @@
   ],
   "accessWidener": "wilderwild.accesswidener",
   "depends": {
-	"frozenblocklib": ">=1.0.5",
+	"frozenblocklib": ">=1.0.5-",
 	"mm": ">=2.3",
 	"nbtcrafting": ">=2.1.4",
 	"fabricloader": ">=0.14.8",
@@ -51,5 +51,17 @@
   },
   "suggests": {
 	"cloth-config": "*"
+  },
+  "custom": {
+	"modupdater": {
+	  "strategy": "curseforge",
+	  "projectID": "648511",
+	  "strict": "false"
+	},
+	"modmenu": {
+	  "links": {
+		"modmenu.discord": "https://discord.gg/EpkBWm844s"
+	  }
+	}
   }
 }
