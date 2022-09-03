@@ -1,4 +1,4 @@
-package net.frozenblock.wilderwild.misc;
+package net.frozenblock.wilderwild;
 
 import com.llamalad7.mixinextras.MixinExtrasBootstrap;
 import net.fabricmc.loader.api.entrypoint.PreLaunchEntrypoint;

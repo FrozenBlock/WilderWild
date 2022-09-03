@@ -60,3 +60,5 @@ accessible    method    net/minecraft/client/renderer/RenderStateShard$ShaderSta
 accessible    method    net/minecraft/world/level/levelgen/feature/stateproviders/SimpleStateProvider <init> (Lnet/minecraft/world/level/block/state/BlockState;)V
 accessible    class    net/minecraft/client/renderer/chunk/ChunkRenderDispatcher$RenderChunk$RebuildTask
 accessible    class    net/minecraft/client/renderer/chunk/ChunkRenderDispatcher$RenderChunk$RebuildTask$CompileResults
+accessible    field    net/minecraft/world/entity/Mob    goalSelector    Lnet/minecraft/world/entity/ai/goal/GoalSelector;
+accessible    field    net/minecraft/world/entity/Mob    targetSelector    Lnet/minecraft/world/entity/ai/goal/GoalSelector;

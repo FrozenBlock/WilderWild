@@ -224,6 +224,13 @@ public final class RegisterBlocks {
 
     // Mesoglea
     public static final Block MESOGLEA = new MesogleaBlock(FabricBlockSettings.of(Material.CLAY, MaterialColor.QUARTZ).nonOpaque().slipperiness(0.8F).emissiveLighting(RegisterBlocks::always).luminance((state) -> 7).sounds(SoundType.SLIME_BLOCK));
+    public static final Block PURPLE_MESOGLEA = new MesogleaBlock(FabricBlockSettings.of(Material.CLAY, MaterialColor.COLOR_PURPLE).nonOpaque().slipperiness(0.8F).emissiveLighting(RegisterBlocks::always).luminance((state) -> 7).sounds(SoundType.SLIME_BLOCK));
+    public static final Block YELLOW_MESOGLEA = new MesogleaBlock(FabricBlockSettings.of(Material.CLAY, MaterialColor.COLOR_YELLOW).nonOpaque().slipperiness(0.8F).emissiveLighting(RegisterBlocks::always).luminance((state) -> 7).sounds(SoundType.SLIME_BLOCK));
+    public static final Block BLUE_MESOGLEA = new MesogleaBlock(FabricBlockSettings.of(Material.CLAY, MaterialColor.COLOR_LIGHT_BLUE).nonOpaque().slipperiness(0.8F).emissiveLighting(RegisterBlocks::always).luminance((state) -> 7).sounds(SoundType.SLIME_BLOCK));
+    public static final Block LIME_MESOGLEA = new MesogleaBlock(FabricBlockSettings.of(Material.CLAY, MaterialColor.COLOR_LIGHT_GREEN).nonOpaque().slipperiness(0.8F).emissiveLighting(RegisterBlocks::always).luminance((state) -> 7).sounds(SoundType.SLIME_BLOCK));
+    public static final Block RED_MESOGLEA = new MesogleaBlock(FabricBlockSettings.of(Material.CLAY, MaterialColor.COLOR_RED).nonOpaque().slipperiness(0.8F).emissiveLighting(RegisterBlocks::always).luminance((state) -> 7).sounds(SoundType.SLIME_BLOCK));
+    public static final Block PINK_MESOGLEA = new MesogleaBlock(FabricBlockSettings.of(Material.CLAY, MaterialColor.COLOR_PINK).nonOpaque().slipperiness(0.8F).emissiveLighting(RegisterBlocks::always).luminance((state) -> 7).sounds(SoundType.SLIME_BLOCK));
+
     public static final Block NEMATOCYST = new NematocystBlock(7, 3, FabricBlockSettings.of(Material.CLAY, MaterialColor.QUARTZ).noCollision().nonOpaque().emissiveLighting(RegisterBlocks::always).luminance((state) -> 4).sounds(SoundType.SLIME_BLOCK));
 
     // MISC
@@ -331,7 +338,13 @@ public final class RegisterBlocks {
         registerBlock("null_block", NULL_BLOCK, CreativeModeTab.TAB_DECORATIONS);
         registerBlock("stone_chest", STONE_CHEST, CreativeModeTab.TAB_DECORATIONS);
         registerBlock("display_lantern", DISPLAY_LANTERN, CreativeModeTab.TAB_DECORATIONS);
-        registerBlock("mesoglea", MESOGLEA, CreativeModeTab.TAB_DECORATIONS);
+        registerBlock("blue_pearlescent_mesoglea", MESOGLEA, CreativeModeTab.TAB_DECORATIONS);
+        registerBlock("purple_pearlescent_mesoglea", PURPLE_MESOGLEA, CreativeModeTab.TAB_DECORATIONS);
+        registerBlock("blue_mesoglea", BLUE_MESOGLEA, CreativeModeTab.TAB_DECORATIONS);
+        registerBlock("yellow_mesoglea", YELLOW_MESOGLEA, CreativeModeTab.TAB_DECORATIONS);
+        registerBlock("lime_mesoglea", LIME_MESOGLEA, CreativeModeTab.TAB_DECORATIONS);
+        registerBlock("red_mesoglea", RED_MESOGLEA, CreativeModeTab.TAB_DECORATIONS);
+        registerBlock("pink_mesoglea", PINK_MESOGLEA, CreativeModeTab.TAB_DECORATIONS);
         registerBlock("nematocyst", NEMATOCYST, CreativeModeTab.TAB_DECORATIONS);
     }
 

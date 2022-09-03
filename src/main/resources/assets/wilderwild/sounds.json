@@ -1333,6 +1333,11 @@
 	  "wilderwild:mob/warden/swim_3"
 	]
   },
+	"entity.frog.sus_death": {
+		"sounds": [
+			"wilderwild:mob/frog/sus_death"
+		]
+	},
   "item.ancient_horn.blast": {
 	"sounds": [
 	  "wilderwild:item/ancient_horn/blast1",

@@ -40,17 +40,6 @@ public class CopperHorn extends InstrumentItem {
         this.shift = shift;
     }
 
-    @Override
-    public void appendHoverText(@NotNull ItemStack stack, @Nullable Level world, @NotNull List<Component> tooltip, @NotNull TooltipFlag context) {
-        super.appendHoverText(stack, world, tooltip, context);
-        Optional<ResourceKey<Instrument>> optional = this.getInstrument(stack).flatMap(Holder::unwrapKey);
-        if (optional.isPresent()) {
-            MutableComponent mutableText = Component.translatable(Util.makeDescriptionId(INSTRUMENT_KEY, optional.get().location()));
-            tooltip.add(mutableText.withStyle(ChatFormatting.GRAY));
-        }
-
-    }
-
     public static ItemStack getStackForInstrument(Item item, Holder<Instrument> instrument) {
         ItemStack itemStack = new ItemStack(item);
         setInstrument(itemStack, instrument);

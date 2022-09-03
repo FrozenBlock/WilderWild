@@ -24,7 +24,7 @@ public final class RegisterItems {
     public static final RecordItem MUSIC_DISC_GOAT_HORN_SYMPHONY = new RecordItem(15, RegisterSounds.MUSIC_DISC_GOATHORN_SYMPHONY, new FabricItemSettings().stacksTo(1).rarity(Rarity.RARE), 144);
     public static final RecordItem MUSIC_DISC_BACK = new RecordItem(15, RegisterSounds.MUSIC_DISC_BACK, new FabricItemSettings().tab(CreativeModeTab.TAB_MISC).stacksTo(1).rarity(Rarity.RARE), 76);
     public static final Item FIREFLY_SPAWN_EGG = new SpawnEggItem(RegisterEntities.FIREFLY, Integer.parseInt("2A2E2B", 16), Integer.parseInt("AAF644", 16), new FabricItemSettings().tab(CreativeModeTab.TAB_MISC));
-    public static final Item JELLYFISH_SPAWN_EGG = new SpawnEggItem(RegisterEntities.JELLYFISH, Integer.parseInt("B3C2CB", 16), Integer.parseInt("899AA7", 16), new FabricItemSettings().tab(CreativeModeTab.TAB_MISC));
+    public static final Item JELLYFISH_SPAWN_EGG = new SpawnEggItem(RegisterEntities.JELLYFISH, Integer.parseInt("E484E4", 16), Integer.parseInt("DF71DC", 16), new FabricItemSettings().tab(CreativeModeTab.TAB_MISC));
     public static final Item JELLYFISH_BUCKET = new MobBucketItem(RegisterEntities.JELLYFISH, Fluids.WATER, RegisterSounds.ITEM_BUCKET_EMPTY_JELLYFISH, new FabricItemSettings().tab(CreativeModeTab.TAB_MISC).stacksTo(1));
 
 

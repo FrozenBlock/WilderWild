@@ -106,7 +106,7 @@ public class Jellyfish extends AbstractFish {
             possibleTags.add(WilderBiomeTags.YELLOW_JELLYFISH);
         }
         if (holder.is(WilderBiomeTags.PEARLESCENT_JELLYFISH) && this.blockPosition().getY() <= this.level.getSeaLevel() - 33) {
-            this.setVariant("pearlescent_blue");
+            this.setVariant(random.nextBoolean() ? "pearlescent_blue" : "pearlescent_purple");
         } else if (!possibleTags.isEmpty()) {
             biomeTag = possibleTags.get((int) (Math.random() * possibleTags.size()));
             if (biomeTag == WilderBiomeTags.RED_JELLYFISH) {
@@ -162,7 +162,7 @@ public class Jellyfish extends AbstractFish {
             }
         }
 
-        return spawnReason != MobSpawnType.SPAWNER ? pos.getY() <= world.getSeaLevel() - 33 && world.getRawBrightness(pos, 0) <= 6 && world.getBlockState(pos).is(Blocks.WATER)
+        return spawnReason != MobSpawnType.SPAWNER ? pos.getY() <= world.getSeaLevel() - 33 && world.getRawBrightness(pos, 0) <= 7 && world.getBlockState(pos).is(Blocks.WATER)
                 : world.getBlockState(pos).is(Blocks.WATER);
     }
 
