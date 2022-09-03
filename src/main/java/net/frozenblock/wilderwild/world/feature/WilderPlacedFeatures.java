@@ -277,7 +277,7 @@ public final class WilderPlacedFeatures {
             InSquarePlacement.spread(),
             PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT,
             BiomeFilter.biome()
-    );*/
+    );
     public static final Holder<PlacedFeature> PATCH_NEMATOCYST_UP = register("patch_nematocyst_up", WilderConfiguredFeatures.PATCH_NEMATOCYST_UP,
             CountPlacement.of(ConstantInt.of(8)), InSquarePlacement.spread(), PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT, BiomeFilter.biome());
 
@@ -295,11 +295,21 @@ public final class WilderPlacedFeatures {
 
     public static final Holder<PlacedFeature> PATCH_NEMATOCYST_WEST = register("patch_nematocyst_west", WilderConfiguredFeatures.PATCH_NEMATOCYST_WEST,
             CountPlacement.of(ConstantInt.of(8)), InSquarePlacement.spread(), PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT, BiomeFilter.biome());
+    */
+    public static final Holder<PlacedFeature> JELLYFISH_CAVES_BLUE_MESOGLEA = PlacementUtils.register(
+            "jellyfish_caves_blue_mesoglea",
+            WilderConfiguredFeatures.JELLYFISH_CAVES_BLUE_MESOGLEA,
+            CountPlacement.of(9),
+            InSquarePlacement.spread(),
+            PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT,
+            EnvironmentScanPlacement.scanningFor(Direction.DOWN, BlockPredicate.solid(), BlockPredicate.ONLY_IN_AIR_OR_WATER_PREDICATE, 1),
+            RandomOffsetPlacement.vertical(ConstantInt.of(1)),
+            BiomeFilter.biome());
 
-    public static final Holder<PlacedFeature> JELLYFISH_CAVES_MESOGLEA = PlacementUtils.register(
-            "jellyfish_caves_mesoglea",
-            WilderConfiguredFeatures.JELLYFISH_CAVES_MESOGLEA,
-            CountPlacement.of(15),
+    public static final Holder<PlacedFeature> JELLYFISH_CAVES_PURPLE_MESOGLEA = PlacementUtils.register(
+            "jellyfish_caves_purple_mesoglea",
+            WilderConfiguredFeatures.JELLYFISH_CAVES_PURPLE_MESOGLEA,
+            CountPlacement.of(9),
             InSquarePlacement.spread(),
             PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT,
             EnvironmentScanPlacement.scanningFor(Direction.DOWN, BlockPredicate.solid(), BlockPredicate.ONLY_IN_AIR_OR_WATER_PREDICATE, 1),
