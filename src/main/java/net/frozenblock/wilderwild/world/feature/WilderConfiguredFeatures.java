@@ -376,7 +376,7 @@ public final class WilderConfiguredFeatures {
             Feature.VEGETATION_PATCH,
             new VegetationPatchConfiguration(
                     BlockTags.LUSH_GROUND_REPLACEABLE,
-                    BlockStateProvider.simple(RegisterBlocks.MESOGLEA),
+                    BlockStateProvider.simple(RegisterBlocks.PURPLE_MESOGLEA),
                     PlacementUtils.inlinePlaced(CaveFeatures.DRIPLEAF),
                     CaveSurface.FLOOR,
                     ConstantInt.of(3),
