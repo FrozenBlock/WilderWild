@@ -16,5 +16,5 @@ public class TurtleMixin {
         Turtle turtle = Turtle.class.cast(this);
         turtle.targetSelector.addGoal(10, new NearestAttackableTargetGoal<Jellyfish>(turtle, Jellyfish.class, false));
     }
-    
+
 }
