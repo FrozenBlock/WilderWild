@@ -1,11 +1,14 @@
 package net.frozenblock.wilderwild.misc.config;
 
+import me.shedaniel.autoconfig.AutoConfig;
 import me.shedaniel.autoconfig.ConfigData;
 import me.shedaniel.autoconfig.annotation.Config;
 import me.shedaniel.clothconfig2.api.ConfigCategory;
 import me.shedaniel.clothconfig2.api.ConfigEntryBuilder;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.frozenblock.wilderwild.WilderWild;
+import net.minecraft.client.gui.screens.Screen;
 
 import static net.frozenblock.wilderwild.misc.config.WilderWildConfig.text;
 import static net.frozenblock.wilderwild.misc.config.WilderWildConfig.tooltip;
@@ -18,8 +21,9 @@ public class BlockConfig implements ConfigData {
     public boolean shriekerGargling = true;
 
     @Environment(EnvType.CLIENT)
-    public static void setupEntries(ConfigCategory category, ConfigEntryBuilder entryBuilder) {
+    protected static void setupEntries(ConfigCategory category, ConfigEntryBuilder entryBuilder) {
         var config = WilderWildConfig.get().block;
+        category.setBackground(WilderWild.id("textures/block/chiseled_mud_bricks.png"));
         category.addEntry(entryBuilder.startBooleanToggle(text("mc_live_sensor_tendrils"), config.mcLiveSensorTendrils)
                 .setDefaultValue(false)
                 .setSaveConsumer(newValue -> config.mcLiveSensorTendrils = newValue)

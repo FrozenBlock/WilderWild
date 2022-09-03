@@ -7,27 +7,27 @@ public class ClothConfigCloserInteractionHandler {
     }
 
     public static boolean modifyDesertPlacement() {
-        return WilderWildConfig.get().worldgen.modifyDesertPlacement;
+        return WilderWildConfig.get().worldgen.biomePlacement.modifyDesertPlacement;
     }
 
     public static boolean modifyBadlandsPlacement() {
-        return WilderWildConfig.get().worldgen.modifyBadlandsPlacement;
+        return WilderWildConfig.get().worldgen.biomePlacement.modifyBadlandsPlacement;
     }
 
     public static boolean modifyJunglePlacement() {
-        return WilderWildConfig.get().worldgen.modifyJunglePlacement;
+        return WilderWildConfig.get().worldgen.biomePlacement.modifyJunglePlacement;
     }
 
     public static boolean modifySwampPlacement() {
-        return WilderWildConfig.get().worldgen.modifySwampPlacement;
+        return WilderWildConfig.get().worldgen.biomePlacement.modifySwampPlacement;
     }
 
     public static boolean modifyMangroveSwampPlacement() {
-        return WilderWildConfig.get().worldgen.modifyMangroveSwampPlacement;
+        return WilderWildConfig.get().worldgen.biomePlacement.modifyMangroveSwampPlacement;
     }
 
     public static boolean modifyWindsweptSavannaPlacement() {
-        return WilderWildConfig.get().worldgen.modifyWindsweptSavannaPlacement;
+        return WilderWildConfig.get().worldgen.biomePlacement.modifyWindsweptSavannaPlacement;
     }
 
     public static boolean fallenLogs() {
