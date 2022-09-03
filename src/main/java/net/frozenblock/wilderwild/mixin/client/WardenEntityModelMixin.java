@@ -105,6 +105,8 @@ public abstract class WardenEntityModelMixin<T extends Warden> implements Wilder
         model.animate(((WilderWarden) wardenEntity).getKirbyDeathAnimationState(), CustomWardenAnimations.KIRBY_DEATH, anim);
     }
 
+    private static final float rad = (float) (Math.PI / 180);
+
     private void animateSwimming(T warden, float angle, float distance, float anim, float headYaw, float headPitch, boolean moveLimbs, boolean canSwim) {
         
         float swimming = (warden.isVisuallySwimming() && distance > 0) ? 1 : 0;
@@ -118,8 +120,6 @@ public abstract class WardenEntityModelMixin<T extends Warden> implements Wilder
         float submergedLerp = Mth.rotLerp(warden.getSwimAmount(lerpTime), notSubmerged, submerged);
         float speedDelta = Math.min(distance / 0.3F, 1.0F) * submergedLerp;
         float swimLerp = Mth.rotLerp(warden.getSwimAmount(lerpTime), notSwimming, swimming) * speedDelta;
-
-        float rad = (float) (Math.PI / 180);
 
         if (((warden.isVisuallySwimming() && canSwim) || (swimLerp > 0)) && distance > 0) {
 
@@ -174,24 +174,21 @@ public abstract class WardenEntityModelMixin<T extends Warden> implements Wilder
 
             model.root().getAllParts().forEach(ModelPart::resetPose);
 
-        } else this.idleSwim(anim, rad);
-    }
+        } else {
+            float time = anim * 0.1F;
 
-    private void idleSwim(float anim, float rad) {
+            this.bone.y += Mth.cos(time);
 
-        float time = anim * 0.1F;
+            this.head.xRot += (Mth.sin(time) * -5) * rad;
 
-        this.bone.y += Mth.cos(time);
+            this.body.xRot += ((Mth.cos(time) * -5) * rad);
 
-        this.head.xRot += (Mth.sin(time) * -5) * rad;
+            this.leftArm.zRot += ((-Mth.sin(time) * -5 - 5) * rad);
+            this.rightArm.zRot += (-Mth.sin(time) * 5 + 5) * rad;
 
-        this.body.xRot += ((Mth.cos(time) * -5) * rad);
-
-        this.leftArm.zRot += ((-Mth.sin(time) * -5 - 5) * rad);
-        this.rightArm.zRot += (-Mth.sin(time) * 5 + 5) * rad;
-
-        this.leftLeg.xRot += (Mth.sin(time) * 15 + 15) * rad;
-        this.rightLeg.xRot += (Mth.sin(time) * -15 + 15) * rad;
+            this.leftLeg.xRot += (Mth.sin(time) * 15 + 15) * rad;
+            this.rightLeg.xRot += (Mth.sin(time) * -15 + 15) * rad;
+        }
     }
 
     private boolean isSubmerged(Warden warden) {

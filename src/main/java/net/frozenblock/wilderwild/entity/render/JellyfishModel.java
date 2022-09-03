@@ -96,11 +96,8 @@ public class JellyfishModel<T extends Jellyfish> extends HierarchicalModel<T> {
     @Override
     public void setupAnim(@NotNull T jellyfish, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
         float animation = limbSwing * 2;
-        float movementDelta = Math.min(limbSwingAmount / 0.0375F, 1.0F);
-
-        float sin = -Mth.sin(animation);
-        float sinIdle = Mth.sin(ageInTicks * 0.1F) * 0.2F;
-        float tentRot = Mth.rotLerp(movementDelta, (-Mth.sin((ageInTicks - 5) * 0.1F) * 0.2F) + eightPi, (-Mth.sin(animation + 5) * 20 - 7.5F) * pi180);
+        float movementDelta = Math.min(limbSwingAmount * 26.6666667F, 1.0F);
+        float tentRot = Mth.rotLerp(movementDelta, (-Mth.sin((ageInTicks - 6) * 0.1F) * 0.2F) + eightPi, (-Mth.sin(animation + 5) * 20 - 7.5F) * pi180);
 
         //CARDINAL TENTACLES
         this.tentacle1.xRot = tentRot;
@@ -115,6 +112,8 @@ public class JellyfishModel<T extends Jellyfish> extends HierarchicalModel<T> {
         this.tentacle8.xRot = tentRot;
 
         //SQUASH & STRETCH
+        float sin = -Mth.sin(animation);
+        float sinIdle = Mth.sin(ageInTicks * 0.1F) * 0.2F;
         float squashStretch = 1F + (-sin * 0.25F);
         float squash = Mth.lerp(movementDelta, sinIdle + 1, squashStretch);
 
