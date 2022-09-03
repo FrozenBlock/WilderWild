@@ -1,8 +1,8 @@
 {
   "parent": "block/block",
   "textures": {
-	"particle": "wilderwild:block/mesoglea",
-	"texture": "wilderwild:block/mesoglea"
+	"particle": "wilderwild:block/yellow_mesoglea",
+	"texture": "wilderwild:block/yellow_mesoglea"
   },
   "elements": [
 	{
