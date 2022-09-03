@@ -1,7 +1,6 @@
 {
   "biome.wilderwild.cypress_wetlands": "Humedal de los cipreses",
   "biome.wilderwild.mixed_forest": "Bosque mixto",
-
   "block.wilderwild.alba_glory_of_the_snow": "Gloria de las nieves albina",
   "block.wilderwild.algae": "Lenteja de agua",
   "block.wilderwild.baobab_button": "Botón de baobab",
@@ -75,10 +74,8 @@
   "block.wilderwild.stripped_cypress_wood": "Leño de ciprés sin corteza",
   "block.wilderwild.termite_mound": "Termitero",
   "block.wilderwild.violet_beauty_glory_of_the_snow": "Gloria de las nieves violácea",
-
   "death.attack.ancient_horn": "%1$s se desintegró debido a una resonancia atronadora",
   "death.attack.ancient_horn.item": "%1$s fue desintegrado por %2$s al usar %3$s",
-
   "entity.wilderwild.ancient_horn_projectile": "Estruendo",
   "entity.wilderwild.baobab_boat": "Barca de baobab",
   "entity.wilderwild.baobab_chest_boat": "Barca de baobab con cofre",
@@ -86,9 +83,8 @@
   "entity.wilderwild.cypress_chest_boat": "Barca de ciprés con cofre",
   "entity.wilderwild.firefly": "Luciérnaga",
   "entity.wilderwild.sculk_sensor_tendril": "Sensor de sculk colgante",
-
+  "instrument.wilderwild.ancient_horn": "Resonancia",
   "item.wilderwild.ancient_horn": "Cuerno ancestral",
-  "item.wilderwild.ancient_horn.sound.0": "Resonancia",
   "item.wilderwild.baobab_boat": "Barca de baobab",
   "item.wilderwild.baobab_chest_boat": "Barca de baobab con cofre",
   "item.wilderwild.black_firefly_bottle": "Frasco con luciérnaga negra",
@@ -119,7 +115,6 @@
   "item.wilderwild.red_firefly_bottle": "Frasco con luciérnaga roja",
   "item.wilderwild.white_firefly_bottle": "Frasco con luciérnaga blanca",
   "item.wilderwild.yellow_firefly_bottle": "Frasco con luciérnaga amarilla",
-
   "option.modmenu.mc_live_sensor_tendrils": "Sensor de sculk",
   "option.modmenu.mc_live_sensor_tendrils.true": "Beta",
   "option.modmenu.mc_live_sensor_tendrils.false": "Predeterminado",
@@ -141,7 +136,6 @@
   "option.modmenu.modify_windswept_savanna_placement": "Sabanas ventiscosas",
   "option.modmenu.modify_windswept_savanna_placement.true": "§aModificado",
   "option.modmenu.modify_windswept_savanna_placement.false": "§cOriginal",
-
   "subtitles.block.hanging_tendril.wring": "Enrosque de sculk",
   "subtitles.block.sculk_sensor.hiccup": "Hipido de sculk",
   "subtitles.block.sculk_shrieker.gargle": "Gárgara de sculk",
@@ -151,7 +145,6 @@
   "subtitles.item.ancient_horn.call": "Estruendo ancestral",
   "subtitles.item.bottle.catch_firefly": "Frasco encorchado",
   "subtitles.item.bottle.release_firefly": "Frasco descorchado",
-
   "tooltip.modmenu.modify_badlands_placement": "Decide utilizar entre la generación de mundo original o la de Wilder Wild para el bioma de páramo",
   "tooltip.modmenu.modify_desert_placement": "Decide utilizar entre la generación de mundo original o la de Wilder Wild para el bioma de desierto",
   "tooltip.modmenu.modify_jungle_placement": "Decide utilizar entre la generación de mundo original o la de Wilder Wild para el bioma de jungla",
@@ -159,9 +152,7 @@
   "tooltip.modmenu.modify_swamp_placement": "Decide utilizar entre la generación de mundo original o la de Wilder Wild para el bioma de pantano",
   "tooltip.modmenu.modify_windswept_savanna_placement": "Decide utilizar entre la generación de mundo original o la de Wilder Wild para el bioma de sabana ventiscosa",
   "tooltip.modmenu.sensor_tendrils": "Predeterminado: Utiliza el efecto visual del juego para los sensores de sculk colgantes\nBeta: Utiliza el efecto visual mostrado en el Minecraft Live 2020 para los sensores de sculk colgantes",
-
   "wilderwild.ancient_horn.advancement.use": "Ecos del pasado",
   "wilderwild.ancient_horn.advancement.use.description": "Encuentra y utiliza un cuerno ancestral.",
-
   "wilderwild.options": "Ajustes de Wilder Wild"
 }

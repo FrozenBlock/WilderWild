@@ -37,16 +37,15 @@
   ],
   "client": [
 	"client.AlexDolphinRenderer",
+	"client.LevelRendererMixin",
 	"client.MerpSlimeRenderer",
 	"client.OsmioooWardenRenderer",
 	"client.Treetrain1GoatRenderer",
 	"client.UppyBalloo",
 	"client.UppyBallooModel",
-	"client.VexModelMixin",
 	"client.WardenAnimationOverwrites",
 	"client.WardenEntityModelMixin",
 	"client.WardenFeatureRendererMixin",
-	"client.WorldRendererMixin",
 	"client.XfrtrexSusFrogRenderer"
   ],
   "injectors": {

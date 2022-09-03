@@ -22,8 +22,8 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientLifecycleEvents;
 import net.frozenblock.wilderwild.WilderWild;
-import org.quiltmc.qsl.frozenblock.datafixerupper.impl.QuiltDataFixesInternals;
 import org.jetbrains.annotations.ApiStatus;
+import org.quiltmc.qsl.frozenblock.datafixerupper.impl.QuiltDataFixesInternals;
 
 /**
  * Modified to work on Fabric
@@ -35,9 +35,9 @@ public final class ClientFreezer implements ClientModInitializer {
     @Override
     public void onInitializeClient() {
         ClientLifecycleEvents.CLIENT_STARTED.register(client -> {
-            WilderWild.log("QuiltMC's DataFixer Client Registry is about to freeze", true);
+            WilderWild.log("[Quilt DFU API] Clientside DataFixer Registry is about to freeze", true);
             QuiltDataFixesInternals.get().freeze();
-            WilderWild.log("QuiltMC's DataFixer Client Registry was frozen", true);
+            WilderWild.log("[Quilt DFU API] Clientside DataFixer Registry was frozen", true);
         });
     }
 }

@@ -6,7 +6,6 @@ import net.fabricmc.api.Environment;
 import net.frozenblock.wilderwild.entity.render.WilderWardenModel;
 import net.frozenblock.wilderwild.entity.render.animations.CustomWardenAnimations;
 import net.frozenblock.wilderwild.entity.render.animations.WilderWarden;
-import net.minecraft.client.animation.definitions.WardenAnimation;
 import net.minecraft.client.model.WardenModel;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.tags.FluidTags;
@@ -96,8 +95,9 @@ public abstract class WardenEntityModelMixin<T extends Warden> implements Wilder
     }
 
 
-    @Inject(at = @At("HEAD"), method = "animateTendrils", cancellable = true)
-    private void animateTendrils(T warden, float animationProgress, float tickDelta, CallbackInfo info) {
+    @Inject(at = @At("TAIL"), method = "animateTendrils")
+    private void animateTendrils(T warden, float animationProgress, float tickDelta, CallbackInfo info) { //CUSTOM TENDRIL ANIMATION
+
         float cos = warden.getTendrilAnimation(tickDelta) * (float) (Math.cos((double) animationProgress * 2.25D) * 3.141592653589793D * 0.10000000149011612D);
         float sin = warden.getTendrilAnimation(tickDelta) * (float) (-Math.sin((double) animationProgress * 2.25D) * 3.141592653589793D * 0.12500000149011612D);
 
@@ -112,53 +112,35 @@ public abstract class WardenEntityModelMixin<T extends Warden> implements Wilder
 
         this.leftTendril.zRot = cos / 2f;
         this.rightTendril.zRot = -cos / 2f;
-        info.cancel();
     }
 
-    @Inject(method = "setupAnim(Lnet/minecraft/world/entity/monster/warden/Warden;FFFFF)V", at = @At("HEAD"), cancellable = true)
+    @Inject(method = "setupAnim(Lnet/minecraft/world/entity/monster/warden/Warden;FFFFF)V", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/model/WardenModel;animate(Lnet/minecraft/world/entity/AnimationState;Lnet/minecraft/client/animation/AnimationDefinition;F)V", ordinal = 0, shift = At.Shift.BEFORE))
     private void setupAnim(T wardenEntity, float angle, float distance, float anim, float headYaw, float headPitch, CallbackInfo ci) {
-        ci.cancel();
-        boolean swimming = this.isSubmerged(wardenEntity) && distance > 0;
-        boolean cannotSwim = wardenEntity.hasPose(Pose.EMERGING) || wardenEntity.hasPose(Pose.DIGGING) || wardenEntity.hasPose(Pose.DYING) || ((WilderWarden) wardenEntity).getSwimmingDyingAnimationState().isStarted() || ((WilderWarden) wardenEntity).getKirbyDeathAnimationState().isStarted();
+        boolean canSwim = !wardenEntity.hasPose(Pose.EMERGING) && !wardenEntity.hasPose(Pose.DIGGING) && !wardenEntity.hasPose(Pose.DYING) && !((WilderWarden) wardenEntity).getSwimmingDyingAnimationState().isStarted() && !((WilderWarden) wardenEntity).getKirbyDeathAnimationState().isStarted();
         boolean shouldMoveArms = !wardenEntity.hasPose(Pose.ROARING) && !wardenEntity.hasPose(Pose.EMERGING) && !wardenEntity.hasPose(Pose.DIGGING);
         boolean shouldMoveBody = !wardenEntity.hasPose(Pose.ROARING) && !wardenEntity.hasPose(Pose.EMERGING) && !wardenEntity.hasPose(Pose.DIGGING);
         boolean shouldMoveHead = !wardenEntity.hasPose(Pose.ROARING) && !wardenEntity.hasPose(Pose.EMERGING) && !wardenEntity.hasPose(Pose.DIGGING);
-        model.root().getAllParts().forEach(ModelPart::resetPose);
-        float k = anim - (float) wardenEntity.tickCount;
-        this.animateHeadLookTarget(headYaw, headPitch);
-        this.animateWalk(angle, distance);
-        this.animateIdlePose(anim);
-        this.animateTendrils(wardenEntity, anim, k);
-        this.setSwimmingAngles(wardenEntity, angle, distance, anim, k, headYaw, headPitch, swimming, shouldMoveArms, shouldMoveBody, shouldMoveHead, cannotSwim, ci);
-        model.animate(wardenEntity.attackAnimationState, WardenAnimation.WARDEN_ATTACK, anim);
-        model.animate(wardenEntity.sonicBoomAnimationState, WardenAnimation.WARDEN_SONIC_BOOM, anim);
-        model.animate(wardenEntity.diggingAnimationState, WardenAnimation.WARDEN_DIG, anim);
-        model.animate(wardenEntity.emergeAnimationState, WardenAnimation.WARDEN_EMERGE, anim);
-        model.animate(wardenEntity.roarAnimationState, WardenAnimation.WARDEN_ROAR, anim);
-        model.animate(wardenEntity.sniffAnimationState, WardenAnimation.WARDEN_SNIFF, anim);
+        this.animateSwimming(wardenEntity, angle, distance, anim, headYaw, headPitch, shouldMoveArms, shouldMoveBody, shouldMoveHead, canSwim);
         model.animate(((WilderWarden) wardenEntity).getDyingAnimationState(), CustomWardenAnimations.DYING, anim);
         model.animate(((WilderWarden) wardenEntity).getSwimmingDyingAnimationState(), CustomWardenAnimations.WATER_DYING, anim);
         model.animate(((WilderWarden) wardenEntity).getKirbyDeathAnimationState(), CustomWardenAnimations.KIRBY_DEATH, anim);
 
     }
 
-    private void setSwimmingAngles(T wardenEntity, float angle, float distance, float anim, float k, float headYaw, float headPitch, boolean swimming, boolean moveArms, boolean moveBody, boolean moveHead, boolean cannotSwim, CallbackInfo ci) {
+    private void animateSwimming(T warden, float angle, float distance, float anim, float headYaw, float headPitch, boolean moveArms, boolean moveBody, boolean moveHead, boolean canSwim) {
 
-        if (wardenEntity.isVisuallySwimming() && this.isSubmerged(wardenEntity) && !cannotSwim) {
+        if (warden.isVisuallySwimming() && this.isSubmerged(warden) && canSwim) {
 
             float angles = (float) (angle * (Math.PI * 0.2));
-
             float time = anim * 0.1F;
-
             float cos = Mth.cos(angles);
             float sin = Mth.sin(angles);
-
             float sin0 = Mth.sin(angles * 0.5F);
             float cos0 = Mth.cos(angles * 2.0F);
 
-            float speedDelta = isSubmerged(wardenEntity) ? Math.min(distance / 0.3F, 1.0F) : 0;
+            float speedDelta = isSubmerged(warden) ? Math.min(distance / 0.3F, 1.0F) : 0;
 
-            //float speedDelta = this.isSubmerged(wardenEntity) ? o : this.lerp(MathHelper.cos(time * 10), o, 0);
+            //float speedDelta = this.isSubmerged(warden) ? o : this.lerp(MathHelper.cos(time * 10), o, 0);
 
             float rad = (float) (Math.PI / 180);
 
@@ -213,16 +195,11 @@ public abstract class WardenEntityModelMixin<T extends Warden> implements Wilder
             this.leftLeg.xRot += (Mth.sin(time) * 15 + 15) * rad;
             this.rightLeg.xRot += (Mth.sin(time) * -15 + 15) * rad;
 
-        } else if (this.isSubmerged(wardenEntity) && distance <= 0) {
+        } else if (this.isSubmerged(warden) && distance <= 0) {
 
             this.body.y = 0;
 
-            ci.cancel();
             model.root().getAllParts().forEach(ModelPart::resetPose);
-            this.animateHeadLookTarget(headYaw, headPitch);
-            this.animateWalk(angle, distance);
-            this.animateIdlePose(anim);
-            this.animateTendrils(wardenEntity, anim, k);
         }
     }
 

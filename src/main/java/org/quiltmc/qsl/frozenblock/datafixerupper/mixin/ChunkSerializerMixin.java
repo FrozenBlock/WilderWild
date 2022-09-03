@@ -17,12 +17,14 @@
 
 package org.quiltmc.qsl.frozenblock.datafixerupper.mixin;
 
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.world.level.chunk.storage.ChunkSerializer;
-import org.quiltmc.qsl.frozenblock.datafixerupper.impl.QuiltDataFixesInternals;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyVariable;
+
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.world.level.chunk.storage.ChunkSerializer;
+
+import org.quiltmc.qsl.frozenblock.datafixerupper.impl.QuiltDataFixesInternals;
 
 /**
  * Modified to work on Fabric
@@ -31,7 +33,7 @@ import org.spongepowered.asm.mixin.injection.ModifyVariable;
 public abstract class ChunkSerializerMixin {
     @ModifyVariable(
             method = "write",
-            at = @At(value = "INVOKE", target = "Lnet/minecraft/nbt/CompoundTag;putInt(Ljava/lang/String;I)V", ordinal = 0, shift = At.Shift.AFTER), index = 3
+            at = @At(value = "INVOKE", target = "Lnet/minecraft/nbt/CompoundTag;putInt(Ljava/lang/String;I)V", ordinal = 0)
     )
     private static CompoundTag addModDataVersions(CompoundTag compound) {
         return QuiltDataFixesInternals.get().addModDataVersions(compound);

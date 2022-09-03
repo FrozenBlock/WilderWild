@@ -1,8 +1,7 @@
 {
-  "credits": "Thanks to enri for this translation!",
+  "a.wilderwild.italian.credits": "Thanks to enri for this translation!",
   "biome.wilderwild.cypress_wetlands": "Acquitrino dei cipressi",
   "biome.wilderwild.mixed_forest": "Foresta mista",
-
   "block.wilderwild.alba_glory_of_the_snow": "Gloria della neve alba",
   "block.wilderwild.algae": "Alghe",
   "block.wilderwild.baobab_button": "Pulsante di baobab",
@@ -77,10 +76,8 @@
   "block.wilderwild.stripped_cypress_wood": "Legno di cipresso scortecciato",
   "block.wilderwild.termite_mound": "Termitaio",
   "block.wilderwild.violet_beauty_glory_of_the_snow": "Gloria della neve bellezza viola",
-
   "death.attack.ancient_horn": "%1$s è stato vaporizzato da un’enorme onda sonica",
   "death.attack.ancient_horn.item": "%1$s è stato fatto saltare in mille pezzi da %2$s mentre usava %3$s",
-
   "entity.wilderwild.ancient_horn_projectile": "Proiettile del corno antico",
   "entity.wilderwild.baobab_boat": "Barca di baobab",
   "entity.wilderwild.baobab_chest_boat": "Barca di baobab con baule",
@@ -88,9 +85,8 @@
   "entity.wilderwild.cypress_chest_boat": "Barca di cipresso con baule",
   "entity.wilderwild.firefly": "Lucciola",
   "entity.wilderwild.sculk_sensor_tendril": "Viticci sensoriali di sculk",
-
+  "instrument.wilderwild.ancient_horn": "Rombo dell’antico",
   "item.wilderwild.ancient_horn": "Corno antico",
-  "item.wilderwild.ancient_horn.sound.0": "Rombo dell’antico",
   "item.wilderwild.baobab_boat": "Barca di baobab",
   "item.wilderwild.baobab_chest_boat": "Barca di baobab con baule",
   "item.wilderwild.black_firefly_bottle": "Lucciola nera in ampolla",
@@ -121,7 +117,6 @@
   "item.wilderwild.red_firefly_bottle": "Lucciola rossa in ampolla",
   "item.wilderwild.white_firefly_bottle": "Lucciola bianca in ampolla",
   "item.wilderwild.yellow_firefly_bottle": "Lucciola gialla in ampolla",
-
   "option.modmenu.mc_live_sensor_tendrils": "Sculk Sensor Type",
   "option.modmenu.mc_live_sensor_tendrils.true": "Minecraft Live 2020",
   "option.modmenu.mc_live_sensor_tendrils.false": "Vanilla",
@@ -143,7 +138,6 @@
   "option.modmenu.modify_windswept_savanna_placement": "Windswept Savanna Placement",
   "option.modmenu.modify_windswept_savanna_placement.true": "§aNew",
   "option.modmenu.modify_windswept_savanna_placement.false": "§cVanilla",
-
   "subtitles.block.hanging_tendril.wring": "Viticcio pendulo si torce",
   "subtitles.block.sculk_sensor.hiccup": "Sensore di sculk singhiozza",
   "subtitles.block.sculk_shrieker.gargle": "Sculk urlatore gorgoglia",
@@ -153,7 +147,6 @@
   "subtitles.item.ancient_horn.call": "Corno antico suona",
   "subtitles.item.bottle.catch_firefly": "Bottiglia si riempie di lucciole",
   "subtitles.item.bottle.release_firefly": "Lucciola viene rilasciata dalla bottiglia",
-
   "tooltip.modmenu.modify_badlands_placement": "Whether Badlands should use vanilla placement vs. Wilder Wild placement",
   "tooltip.modmenu.modify_desert_placement": "Whether Deserts should use vanilla placement vs. Wilder Wild placement",
   "tooltip.modmenu.modify_jungle_placement": "Whether Jungles should use vanilla placement vs. Wilder Wild placement",
@@ -161,10 +154,8 @@
   "tooltip.modmenu.modify_swamp_placement": "Whether Swamps should use vanilla placement vs. Wilder Wild placement",
   "tooltip.modmenu.modify_windswept_savanna_placement": "Whether Windswept Savannas should use vanilla placement vs. Wilder Wild placement",
   "tooltip.modmenu.sensor_tendrils": "Vanilla (Default): Uses texture animation for Sculk Sensors' tendrils\nMinecraft Live 2020: Uses block entity animation for Sculk Sensors' tendrils",
-
   "wilderwild.ancient_horn.advancement.use": "Rombo dell’antico",
   "wilderwild.ancient_horn.advancement.use.description": "Trova e usa un Corno Antico.",
-
   "wilderwild.options": "Wilder Wild Options"
 }
   

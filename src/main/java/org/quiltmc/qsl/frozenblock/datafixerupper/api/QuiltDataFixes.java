@@ -26,19 +26,20 @@ import com.mojang.datafixers.schemas.Schema;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Range;
-import net.fabricmc.loader.api.ModContainer;
-import net.minecraft.Util;
+
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.Util;
+
+import net.fabricmc.loader.api.ModContainer;
 import org.quiltmc.qsl.frozenblock.datafixerupper.impl.QuiltDataFixesInternals;
 
 import static com.google.common.base.Preconditions.checkArgument;
 import static java.util.Objects.requireNonNull;
 
-
 /**
  * Provides methods to register custom {@link DataFixer}s.
  * <p>
- * Modified to work on Fabric.
+ * Modified to work on Fabric
  */
 public final class QuiltDataFixes {
     private QuiltDataFixes() {

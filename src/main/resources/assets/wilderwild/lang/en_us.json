@@ -1,7 +1,6 @@
 {
   "biome.wilderwild.cypress_wetlands": "Cypress Wetlands",
   "biome.wilderwild.mixed_forest": "Mixed Forest",
-
   "block.wilderwild.alba_glory_of_the_snow": "Alba Glory Of The Snow",
   "block.wilderwild.algae": "Algae",
   "block.wilderwild.baobab_button": "Baobab Button",
@@ -75,10 +74,8 @@
   "block.wilderwild.stripped_cypress_wood": "Stripped Cypress Wood",
   "block.wilderwild.termite_mound": "Termite Mound",
   "block.wilderwild.violet_beauty_glory_of_the_snow": "Violet Beauty Glory Of The Snow",
-
   "death.attack.ancient_horn": "%1$s was vaporized by a massive sound wave",
   "death.attack.ancient_horn.item": "%1$s was blown to smithereens by %2$s using %3$s",
-
   "entity.wilderwild.ancient_horn_projectile": "Ancient Horn Projectile",
   "entity.wilderwild.baobab_boat": "Baobab Boat",
   "entity.wilderwild.baobab_chest_boat": "Baobab Boat with Chest",
@@ -86,9 +83,8 @@
   "entity.wilderwild.cypress_chest_boat": "Cypress Chest Boat",
   "entity.wilderwild.firefly": "Firefly",
   "entity.wilderwild.sculk_sensor_tendril": "Sculk Sensor Tendrils",
-
+  "instrument.wilderwild.ancient_horn": "Whirs of the Ancient",
   "item.wilderwild.ancient_horn": "Ancient Horn",
-  "item.wilderwild.ancient_horn.sound.0": "Whirs of the Ancient",
   "item.wilderwild.baobab_boat": "Baobab Boat",
   "item.wilderwild.baobab_chest_boat": "Baobab Boat with Chest",
   "item.wilderwild.black_firefly_bottle": "Black Firefly in a Bottle",
@@ -119,7 +115,6 @@
   "item.wilderwild.red_firefly_bottle": "Red Firefly in a Bottle",
   "item.wilderwild.white_firefly_bottle": "White Firefly in a Bottle",
   "item.wilderwild.yellow_firefly_bottle": "Yellow Firefly in a Bottle",
-
   "option.modmenu.mc_live_sensor_tendrils": "Sculk Sensor Type",
   "option.modmenu.mc_live_sensor_tendrils.true": "Minecraft Live 2020",
   "option.modmenu.mc_live_sensor_tendrils.false": "Vanilla",
@@ -141,7 +136,6 @@
   "option.modmenu.modify_windswept_savanna_placement": "Windswept Savanna Placement",
   "option.modmenu.modify_windswept_savanna_placement.true": "§aNew",
   "option.modmenu.modify_windswept_savanna_placement.false": "§cVanilla",
-
   "subtitles.block.hanging_tendril.wring": "Hanging Tendril wrung",
   "subtitles.block.sculk_sensor.hiccup": "Sculk Sensor hiccups",
   "subtitles.block.sculk_shrieker.gargle": "Sculk Shrieker gargles",
@@ -151,7 +145,6 @@
   "subtitles.item.ancient_horn.call": "Ancient Horn plays",
   "subtitles.item.bottle.catch_firefly": "Bottle fills with Firefly",
   "subtitles.item.bottle.release_firefly": "Firefly released from Bottle",
-
   "tooltip.modmenu.modify_badlands_placement": "Whether Badlands should use vanilla placement vs. Wilder Wild placement",
   "tooltip.modmenu.modify_desert_placement": "Whether Deserts should use vanilla placement vs. Wilder Wild placement",
   "tooltip.modmenu.modify_jungle_placement": "Whether Jungles should use vanilla placement vs. Wilder Wild placement",
@@ -159,9 +152,7 @@
   "tooltip.modmenu.modify_swamp_placement": "Whether Swamps should use vanilla placement vs. Wilder Wild placement",
   "tooltip.modmenu.modify_windswept_savanna_placement": "Whether Windswept Savannas should use vanilla placement vs. Wilder Wild placement",
   "tooltip.modmenu.sensor_tendrils": "Vanilla (Default): Uses texture animation for Sculk Sensors' tendrils\nMinecraft Live 2020: Uses block entity animation for Sculk Sensors' tendrils",
-
   "wilderwild.ancient_horn.advancement.use": "Whirs of the Ancient",
   "wilderwild.ancient_horn.advancement.use.description": "Find and use an Ancient Horn.",
-
   "wilderwild.options": "Wilder Wild Options"
 }

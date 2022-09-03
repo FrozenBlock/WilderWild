@@ -20,7 +20,7 @@ import net.minecraft.world.level.gameevent.GameEvent;
 
 public class FireflyBottle extends Item {
 
-    private final String color;
+    public final String color;
 
     public FireflyBottle(Properties settings, String color) {
         super(settings);
@@ -73,7 +73,7 @@ public class FireflyBottle extends Item {
                     entity.setFromBottle(true);
                     boolean spawned = server.addFreshEntity(entity);
                     if (spawned) {
-                        entity.playSound(RegisterSounds.ITEM_BOTTLE_RELEASE_FIREFLY, 1.0F, 0.8F + world.random.nextFloat() * 0.2F);
+                        entity.playSound(RegisterSounds.ITEM_BOTTLE_RELEASE_FIREFLY, 1.0F, world.random.nextFloat() * 0.2f + 0.9f);
                         entity.hasHome = true;
                         FireflyBrain.rememberHome(entity, entity.blockPosition());
                         entity.setColor(this.color);

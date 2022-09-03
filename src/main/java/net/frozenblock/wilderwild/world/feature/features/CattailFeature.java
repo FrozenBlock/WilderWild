@@ -14,6 +14,7 @@ import net.minecraft.world.level.levelgen.Heightmap.Types;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
 import net.minecraft.world.level.levelgen.feature.configurations.ProbabilityFeatureConfiguration;
+
 import java.util.Iterator;
 
 public class CattailFeature extends Feature<ProbabilityFeatureConfiguration> {
