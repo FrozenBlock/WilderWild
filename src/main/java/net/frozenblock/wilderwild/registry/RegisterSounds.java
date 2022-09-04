@@ -91,6 +91,12 @@ public final class RegisterSounds {
     public static final SoundEvent BLOCK_LEAVES_STEP = register("block.leaves.step");
     public static final SoundEvent BLOCK_LEAVES_FALL = register("block.leaves.fall");
 
+    public static final SoundEvent BLOCK_MESOGLEA_PLACE = register("block.mesoglea.place");
+    public static final SoundEvent BLOCK_MESOGLEA_HIT = register("block.mesoglea.hit");
+    public static final SoundEvent BLOCK_MESOGLEA_BREAK = register("block.mesoglea.break");
+    public static final SoundEvent BLOCK_MESOGLEA_STEP = register("block.mesoglea.step");
+    public static final SoundEvent BLOCK_MESOGLEA_FALL = register("block.mesoglea.fall");
+
     public static final SoundEvent BLOCK_MUSHROOM_PLACE = register("block.mushroom.place");
     public static final SoundEvent BLOCK_MUSHROOM_HIT = register("block.mushroom.hit");
     public static final SoundEvent BLOCK_MUSHROOM_BREAK = register("block.mushroom.break");

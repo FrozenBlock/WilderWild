@@ -353,15 +353,6 @@ public final class WilderWildClient implements ClientModInitializer {
         });
     }
 
-    public static final RenderStateShard.ShaderStateShard RENDERTYPE_TRANSLUCENT_CUTOUT_SHADER = new RenderStateShard.ShaderStateShard(
-            WilderWildClient::getRenderTypeTranslucentCutoutShader
-    );
-
-    @Nullable
-    public static ShaderInstance getRenderTypeTranslucentCutoutShader() {
-        return renderTypeTranslucentCutoutShader;
-    }
-
     public static final BiFunction<ResourceLocation, Boolean, RenderType> ENTITY_TRANSLUCENT_EMISSIVE_FIXED = Util.memoize(
             ((identifier, affectsOutline) -> {
                 RenderType.CompositeState multiPhaseParameters = RenderType.CompositeState.builder()
@@ -383,14 +374,6 @@ public final class WilderWildClient implements ClientModInitializer {
                 );
             })
     );
-
-    public static final RenderType TRANSLUCENT_CUTOUT = create(
-            "translucent_cutout_wilderwild", DefaultVertexFormat.BLOCK, VertexFormat.Mode.QUADS, 2097152, true, true, RenderType.translucentState(RENDERTYPE_TRANSLUCENT_CUTOUT_SHADER)
-    );
-
-    public static RenderType translucentCutout() {
-        return TRANSLUCENT_CUTOUT;
-    }
 
     public static RenderType.CompositeRenderType create(
             String name,

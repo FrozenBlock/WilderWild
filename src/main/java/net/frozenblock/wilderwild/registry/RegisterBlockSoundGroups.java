@@ -4,6 +4,7 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.level.block.SoundType;
 
 import static net.frozenblock.wilderwild.registry.RegisterSounds.*;
+import static net.frozenblock.wilderwild.registry.RegisterSounds.BLOCK_MESOGLEA_PLACE;
 
 public final class RegisterBlockSoundGroups {
 
@@ -69,6 +70,14 @@ public final class RegisterBlockSoundGroups {
             RegisterSounds.BLOCK_ECHO_GLASS_PLACE,
             RegisterSounds.BLOCK_ECHO_GLASS_CRACK,
             RegisterSounds.BLOCK_ECHO_GLASS_FALL
+    );
+
+    public static final SoundType MESOGLEA = new SoundType(1.0F, 1.0F,
+            BLOCK_MESOGLEA_BREAK,
+            BLOCK_MESOGLEA_STEP,
+            BLOCK_MESOGLEA_PLACE,
+            BLOCK_MESOGLEA_HIT,
+            BLOCK_MESOGLEA_FALL
     );
 
     public static final SoundType MUSHROOM = new SoundType(1.0F, 1.0F,

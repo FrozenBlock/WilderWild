@@ -196,9 +196,9 @@ public final class OverworldBiomeBuilderMixin {
         this.addSemiDeepBiome(
                 consumer,
                 this.FULL_RANGE,
-                this.FULL_RANGE,
+                Climate.Parameter.span(this.humidities[2], this.humidities[4]),
                 Climate.Parameter.span(this.deepOceanContinentalness, this.coastContinentalness),
-                Climate.Parameter.span(this.erosions[5], this.erosions[6]),
+                Climate.Parameter.span(this.erosions[3], this.erosions[6]),
                 this.FULL_RANGE,
                 0.0F,
                 RegisterWorldgen.JELLYFISH_CAVES
@@ -206,29 +206,31 @@ public final class OverworldBiomeBuilderMixin {
     }
 
     private void addDeepBiome(
-            Consumer<Pair<Climate.ParameterPoint, ResourceKey<Biome>>> consumer,
-            Climate.Parameter parameter,
-            Climate.Parameter parameter2,
-            Climate.Parameter parameter3,
-            Climate.Parameter parameter4,
-            Climate.Parameter parameter5,
-            float f,
-            ResourceKey<Biome> resourceKey
+            Consumer<Pair<Climate.ParameterPoint, ResourceKey<Biome>>> parameters,
+            Climate.Parameter temperature,
+            Climate.Parameter humidity,
+            Climate.Parameter continentalness,
+            Climate.Parameter erosion,
+            Climate.Parameter weirdness,
+            float offset,
+            ResourceKey<Biome> biome
     ) {
-        consumer.accept(Pair.of(Climate.parameters(parameter, parameter2, parameter3, parameter4, Climate.Parameter.span(0.65F, 1.1F), parameter5, f), resourceKey));
+        parameters.accept(Pair.of(Climate.parameters(temperature, humidity, continentalness, erosion, Climate.Parameter.point(0.65F), weirdness, offset), biome));
+        parameters.accept(Pair.of(Climate.parameters(temperature, humidity, continentalness, erosion, Climate.Parameter.point(1.1F), weirdness, offset), biome));
     }
 
     private void addSemiDeepBiome(
-            Consumer<Pair<Climate.ParameterPoint, ResourceKey<Biome>>> consumer,
-            Climate.Parameter parameter,
-            Climate.Parameter parameter2,
-            Climate.Parameter parameter3,
-            Climate.Parameter parameter4,
-            Climate.Parameter parameter5,
-            float f,
-            ResourceKey<Biome> resourceKey
+            Consumer<Pair<Climate.ParameterPoint, ResourceKey<Biome>>> parameters,
+            Climate.Parameter temperature,
+            Climate.Parameter humidity,
+            Climate.Parameter continentalness,
+            Climate.Parameter erosion,
+            Climate.Parameter weirdness,
+            float offset,
+            ResourceKey<Biome> biome
     ) {
-        consumer.accept(Pair.of(Climate.parameters(parameter, parameter2, parameter3, parameter4, Climate.Parameter.span(0.4F, 1.1F), parameter5, f), resourceKey));
+        parameters.accept(Pair.of(Climate.parameters(temperature, humidity, continentalness, erosion, Climate.Parameter.point(0.4F), weirdness, offset), biome));
+        parameters.accept(Pair.of(Climate.parameters(temperature, humidity, continentalness, erosion, Climate.Parameter.point(1.05F), weirdness, offset), biome));
     }
 
     /*
