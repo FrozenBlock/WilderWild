@@ -22,8 +22,8 @@ public class BoatDropsMixin {
         } else if (((Boat) (Object) this).getBoatType() == WilderBoats.CYPRESS) {
             ci.setReturnValue(RegisterItems.CYPRESS_BOAT_ITEM);
             ci.cancel();
-        } else if (((Boat) (Object) this).getBoatType() == WilderBoats.JUNIPER) {
-            ci.setReturnValue(RegisterItems.JUNIPER_BOAT_ITEM);
+        } else if (((Boat) (Object) this).getBoatType() == WilderBoats.PALM) {
+            ci.setReturnValue(RegisterItems.PALM_BOAT_ITEM);
             ci.cancel();
         }
     }

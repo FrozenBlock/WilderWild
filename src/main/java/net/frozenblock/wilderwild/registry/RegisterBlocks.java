@@ -40,9 +40,7 @@ import net.minecraft.world.level.material.MaterialColor;
 import java.util.ArrayList;
 import java.util.List;
 
-import static net.frozenblock.wilderwild.registry.RegisterItems.BAOBAB_SIGN;
-import static net.frozenblock.wilderwild.registry.RegisterItems.CYPRESS_SIGN;
-import static net.frozenblock.wilderwild.registry.RegisterItems.JUNIPER_SIGN;
+import static net.frozenblock.wilderwild.registry.RegisterItems.*;
 
 public final class RegisterBlocks {
     private static final MaterialColor BAOBAB_PLANKS_COLOR = MaterialColor.COLOR_ORANGE;
@@ -63,61 +61,61 @@ public final class RegisterBlocks {
     // WOOD
     public static final Block BAOBAB_PLANKS = new Block(FabricBlockSettings.of(Material.WOOD, BAOBAB_PLANKS_COLOR).strength(2.0F, 3.0F).sounds(SoundType.WOOD));
     public static final Block CYPRESS_PLANKS = new Block(FabricBlockSettings.of(Material.WOOD, CYPRESS_PLANKS_COLOR).strength(2.0F, 3.0F).sounds(SoundType.WOOD));
-    public static final Block JUNIPER_PLANKS = new Block(FabricBlockSettings.of(Material.WOOD, JUNIPER_PLANKS_COLOR).strength(2.0F, 3.0F).sounds(SoundType.WOOD));
+    public static final Block PALM_PLANKS = new Block(FabricBlockSettings.of(Material.WOOD, JUNIPER_PLANKS_COLOR).strength(2.0F, 3.0F).sounds(SoundType.WOOD));
     public static final Block BAOBAB_LOG = new RotatedPillarBlock(FabricBlockSettings.of(Material.WOOD, state -> state.getValue(RotatedPillarBlock.AXIS) == Direction.Axis.Y ? BAOBAB_PLANKS_COLOR : BAOBAB_BARK_COLOR).strength(2.0F).sound(SoundType.WOOD));
     public static final Block CYPRESS_LOG = new RotatedPillarBlock(FabricBlockSettings.of(Material.WOOD, state -> state.getValue(RotatedPillarBlock.AXIS) == Direction.Axis.Y ? CYPRESS_PLANKS_COLOR : CYPRESS_BARK_COLOR).strength(2.0F).sound(SoundType.WOOD));
-    public static final Block JUNIPER_LOG = new RotatedPillarBlock(FabricBlockSettings.of(Material.WOOD, state -> state.getValue(RotatedPillarBlock.AXIS) == Direction.Axis.Y ? JUNIPER_PLANKS_COLOR : JUNIPER_BARK_COLOR).strength(2.0F).sound(SoundType.WOOD));
+    public static final Block PALM_LOG = new RotatedPillarBlock(FabricBlockSettings.of(Material.WOOD, state -> state.getValue(RotatedPillarBlock.AXIS) == Direction.Axis.Y ? JUNIPER_PLANKS_COLOR : JUNIPER_BARK_COLOR).strength(2.0F).sound(SoundType.WOOD));
     public static final Block STRIPPED_BAOBAB_LOG = new RotatedPillarBlock(FabricBlockSettings.of(Material.WOOD, state -> state.getValue(RotatedPillarBlock.AXIS) == Direction.Axis.Y ? BAOBAB_PLANKS_COLOR : BAOBAB_BARK_COLOR).strength(2.0F).sound(SoundType.WOOD));
     public static final Block STRIPPED_CYPRESS_LOG = new RotatedPillarBlock(FabricBlockSettings.of(Material.WOOD, state -> state.getValue(RotatedPillarBlock.AXIS) == Direction.Axis.Y ? CYPRESS_PLANKS_COLOR : CYPRESS_BARK_COLOR).strength(2.0F).sound(SoundType.WOOD));
-    public static final Block STRIPPED_JUNIPER_LOG = new RotatedPillarBlock(FabricBlockSettings.of(Material.WOOD, state -> state.getValue(RotatedPillarBlock.AXIS) == Direction.Axis.Y ? JUNIPER_PLANKS_COLOR : JUNIPER_BARK_COLOR).strength(2.0F).sound(SoundType.WOOD));
+    public static final Block STRIPPED_PALM_LOG = new RotatedPillarBlock(FabricBlockSettings.of(Material.WOOD, state -> state.getValue(RotatedPillarBlock.AXIS) == Direction.Axis.Y ? JUNIPER_PLANKS_COLOR : JUNIPER_BARK_COLOR).strength(2.0F).sound(SoundType.WOOD));
     public static final Block STRIPPED_BAOBAB_WOOD = new RotatedPillarBlock(FabricBlockSettings.of(Material.WOOD, state -> state.getValue(RotatedPillarBlock.AXIS) == Direction.Axis.Y ? BAOBAB_PLANKS_COLOR : BAOBAB_BARK_COLOR).strength(2.0F).sound(SoundType.WOOD));
     public static final Block STRIPPED_CYPRESS_WOOD = new RotatedPillarBlock(FabricBlockSettings.of(Material.WOOD, state -> state.getValue(RotatedPillarBlock.AXIS) == Direction.Axis.Y ? CYPRESS_PLANKS_COLOR : CYPRESS_BARK_COLOR).strength(2.0F).sound(SoundType.WOOD));
-    public static final Block STRIPPED_JUNIPER_WOOD = new RotatedPillarBlock(FabricBlockSettings.of(Material.WOOD, state -> state.getValue(RotatedPillarBlock.AXIS) == Direction.Axis.Y ? JUNIPER_PLANKS_COLOR : JUNIPER_BARK_COLOR).strength(2.0F).sound(SoundType.WOOD));
+    public static final Block STRIPPED_PALM_WOOD = new RotatedPillarBlock(FabricBlockSettings.of(Material.WOOD, state -> state.getValue(RotatedPillarBlock.AXIS) == Direction.Axis.Y ? JUNIPER_PLANKS_COLOR : JUNIPER_BARK_COLOR).strength(2.0F).sound(SoundType.WOOD));
     public static final Block BAOBAB_WOOD = new RotatedPillarBlock(FabricBlockSettings.of(Material.WOOD, state -> state.getValue(RotatedPillarBlock.AXIS) == Direction.Axis.Y ? BAOBAB_PLANKS_COLOR : BAOBAB_BARK_COLOR).strength(2.0F).sound(SoundType.WOOD));
     public static final Block CYPRESS_WOOD = new RotatedPillarBlock(FabricBlockSettings.of(Material.WOOD, state -> state.getValue(RotatedPillarBlock.AXIS) == Direction.Axis.Y ? CYPRESS_PLANKS_COLOR : CYPRESS_BARK_COLOR).strength(2.0F).sound(SoundType.WOOD));
-    public static final Block JUNIPER_WOOD = new RotatedPillarBlock(FabricBlockSettings.of(Material.WOOD, state -> state.getValue(RotatedPillarBlock.AXIS) == Direction.Axis.Y ? JUNIPER_PLANKS_COLOR : JUNIPER_BARK_COLOR).strength(2.0F).sound(SoundType.WOOD));
+    public static final Block PALM_WOOD = new RotatedPillarBlock(FabricBlockSettings.of(Material.WOOD, state -> state.getValue(RotatedPillarBlock.AXIS) == Direction.Axis.Y ? JUNIPER_PLANKS_COLOR : JUNIPER_BARK_COLOR).strength(2.0F).sound(SoundType.WOOD));
 
     public static final Block BAOBAB_SLAB = new SlabBlock(FabricBlockSettings.of(Material.WOOD, BAOBAB_PLANKS_COLOR).strength(2.0F, 3.0F).sounds(SoundType.WOOD));
     public static final Block CYPRESS_SLAB = new SlabBlock(FabricBlockSettings.of(Material.WOOD, CYPRESS_PLANKS_COLOR).strength(2.0F, 3.0F).sounds(SoundType.WOOD));
-    public static final Block JUNIPER_SLAB = new SlabBlock(FabricBlockSettings.of(Material.WOOD, JUNIPER_PLANKS_COLOR).strength(2.0F, 3.0F).sounds(SoundType.WOOD));
+    public static final Block PALM_SLAB = new SlabBlock(FabricBlockSettings.of(Material.WOOD, JUNIPER_PLANKS_COLOR).strength(2.0F, 3.0F).sounds(SoundType.WOOD));
     public static final Block BAOBAB_STAIRS = new StairBlock(BAOBAB_PLANKS.defaultBlockState(), FabricBlockSettings.copyOf(BAOBAB_PLANKS));
     public static final Block CYPRESS_STAIRS = new StairBlock(CYPRESS_PLANKS.defaultBlockState(), FabricBlockSettings.copyOf(CYPRESS_PLANKS));
-    public static final Block JUNIPER_STAIRS = new StairBlock(JUNIPER_PLANKS.defaultBlockState(), FabricBlockSettings.copyOf(JUNIPER_PLANKS));
+    public static final Block PALM_STAIRS = new StairBlock(PALM_PLANKS.defaultBlockState(), FabricBlockSettings.copyOf(PALM_PLANKS));
     public static final Block BAOBAB_BUTTON = new WoodButtonBlock(FabricBlockSettings.copyOf(Blocks.OAK_BUTTON).color(BAOBAB_PLANKS_COLOR));
     public static final Block CYPRESS_BUTTON = new WoodButtonBlock(FabricBlockSettings.copyOf(Blocks.OAK_BUTTON).color(CYPRESS_PLANKS_COLOR));
-    public static final Block JUNIPER_BUTTON = new WoodButtonBlock(FabricBlockSettings.copyOf(Blocks.OAK_BUTTON).color(JUNIPER_PLANKS_COLOR));
+    public static final Block PALM_BUTTON = new WoodButtonBlock(FabricBlockSettings.copyOf(Blocks.OAK_BUTTON).color(JUNIPER_PLANKS_COLOR));
 
     public static final Block BAOBAB_PRESSURE_PLATE = new PressurePlateBlock(PressurePlateBlock.Sensitivity.EVERYTHING, FabricBlockSettings.of(Material.WOOD, BAOBAB_PLANKS_COLOR).noCollision().strength(0.5F).sounds(SoundType.WOOD));
     public static final Block CYPRESS_PRESSURE_PLATE = new PressurePlateBlock(PressurePlateBlock.Sensitivity.EVERYTHING, FabricBlockSettings.of(Material.WOOD, CYPRESS_PLANKS_COLOR).noCollision().strength(0.5F).sounds(SoundType.WOOD));
-    public static final Block JUNIPER_PRESSURE_PLATE = new PressurePlateBlock(PressurePlateBlock.Sensitivity.EVERYTHING, FabricBlockSettings.of(Material.WOOD, JUNIPER_PLANKS_COLOR).noCollision().strength(0.5F).sounds(SoundType.WOOD));
+    public static final Block PALM_PRESSURE_PLATE = new PressurePlateBlock(PressurePlateBlock.Sensitivity.EVERYTHING, FabricBlockSettings.of(Material.WOOD, JUNIPER_PLANKS_COLOR).noCollision().strength(0.5F).sounds(SoundType.WOOD));
 
     public static final Block BAOBAB_DOOR = new DoorBlock(FabricBlockSettings.of(Material.WOOD, BAOBAB_PLANKS_COLOR).strength(3.0F).sounds(SoundType.WOOD).nonOpaque());
     public static final Block CYPRESS_DOOR = new DoorBlock(FabricBlockSettings.of(Material.WOOD, CYPRESS_PLANKS_COLOR).strength(3.0F).sounds(SoundType.WOOD).nonOpaque());
-    public static final Block JUNIPER_DOOR = new DoorBlock(FabricBlockSettings.of(Material.WOOD, JUNIPER_PLANKS_COLOR).strength(3.0F).sounds(SoundType.WOOD).nonOpaque());
+    public static final Block PALM_DOOR = new DoorBlock(FabricBlockSettings.of(Material.WOOD, JUNIPER_PLANKS_COLOR).strength(3.0F).sounds(SoundType.WOOD).nonOpaque());
 
     public static final Block BAOBAB_TRAPDOOR = new TrapDoorBlock(FabricBlockSettings.of(Material.WOOD, BAOBAB_PLANKS_COLOR).strength(3.0F).sounds(SoundType.WOOD).nonOpaque().allowsSpawning(RegisterBlocks::never));
     public static final Block CYPRESS_TRAPDOOR = new TrapDoorBlock(FabricBlockSettings.of(Material.WOOD, CYPRESS_PLANKS_COLOR).strength(3.0F).sounds(SoundType.WOOD).nonOpaque().allowsSpawning(RegisterBlocks::never));
-    public static final Block JUNIPER_TRAPDOOR = new TrapDoorBlock(FabricBlockSettings.of(Material.WOOD, JUNIPER_PLANKS_COLOR).strength(3.0F).sounds(SoundType.WOOD).nonOpaque().allowsSpawning(RegisterBlocks::never));
+    public static final Block PALM_TRAPDOOR = new TrapDoorBlock(FabricBlockSettings.of(Material.WOOD, JUNIPER_PLANKS_COLOR).strength(3.0F).sounds(SoundType.WOOD).nonOpaque().allowsSpawning(RegisterBlocks::never));
 
     public static final Block BAOBAB_FENCE_GATE = new FenceGateBlock(FabricBlockSettings.of(Material.WOOD, BAOBAB_PLANKS.defaultMaterialColor()).strength(2.0F, 3.0F).sounds(SoundType.WOOD));
     public static final Block CYPRESS_FENCE_GATE = new FenceGateBlock(FabricBlockSettings.of(Material.WOOD, CYPRESS_PLANKS.defaultMaterialColor()).strength(2.0F, 3.0F).sounds(SoundType.WOOD));
-    public static final Block JUNIPER_FENCE_GATE = new FenceGateBlock(FabricBlockSettings.of(Material.WOOD, CYPRESS_PLANKS.defaultMaterialColor()).strength(2.0F, 3.0F).sounds(SoundType.WOOD));
+    public static final Block PALM_FENCE_GATE = new FenceGateBlock(FabricBlockSettings.of(Material.WOOD, CYPRESS_PLANKS.defaultMaterialColor()).strength(2.0F, 3.0F).sounds(SoundType.WOOD));
 
     public static final Block BAOBAB_NUT = new BaobabNutBlock(FabricBlockSettings.of(Material.PLANT).noCollision().ticksRandomly().breakInstantly().sounds(RegisterBlockSoundGroups.BAOBAB_NUT).offsetType(BlockBehaviour.OffsetType.XZ));
     public static final Block POTTED_BAOBAB_NUT = new FlowerPotBlock(RegisterBlocks.BAOBAB_NUT, FabricBlockSettings.of(Material.DECORATION).breakInstantly().nonOpaque());
     public static final Block PRICKLY_PEAR_CACTUS = new PricklyPearCactusBlock(FabricBlockSettings.of(Material.CACTUS).ticksRandomly().strength(0.4F).sounds(SoundType.SWEET_BERRY_BUSH).nonOpaque());
     public static final Block CYPRESS_SAPLING = new WaterloggableSaplingBlock(new CypressSaplingGenerator(), FabricBlockSettings.copyOf(Blocks.BIRCH_SAPLING));
     public static final Block POTTED_CYPRESS_SAPLING = new FlowerPotBlock(RegisterBlocks.CYPRESS_SAPLING, FabricBlockSettings.of(Material.DECORATION).breakInstantly().nonOpaque());
-    public static final Block JUNIPER_SAPLING = new SaplingBlock(new CypressSaplingGenerator(), FabricBlockSettings.copyOf(Blocks.BIRCH_SAPLING));
-    public static final Block POTTED_JUNIPER_SAPLING = new FlowerPotBlock(RegisterBlocks.JUNIPER_SAPLING, FabricBlockSettings.of(Material.DECORATION).breakInstantly().nonOpaque());
+    public static final Block PALM_SAPLING = new SaplingBlock(new CypressSaplingGenerator(), FabricBlockSettings.copyOf(Blocks.BIRCH_SAPLING));
+    public static final Block POTTED_PALM_SAPLING = new FlowerPotBlock(RegisterBlocks.PALM_SAPLING, FabricBlockSettings.of(Material.DECORATION).breakInstantly().nonOpaque());
 
     public static final Block BAOBAB_LEAVES = new BaobabLeaves(FabricBlockSettings.of(Material.LEAVES, MaterialColor.COLOR_GREEN).strength(0.2F).ticksRandomly().sounds(SoundType.GRASS).nonOpaque().allowsSpawning(RegisterBlocks::canSpawnOnLeaves).suffocates(RegisterBlocks::never).blockVision(RegisterBlocks::never));
     public static final Block CYPRESS_LEAVES = new LeavesBlock(FabricBlockSettings.of(Material.LEAVES, MaterialColor.COLOR_GREEN).strength(0.2F).ticksRandomly().sounds(SoundType.GRASS).nonOpaque().allowsSpawning(RegisterBlocks::canSpawnOnLeaves).suffocates(RegisterBlocks::never).blockVision(RegisterBlocks::never));
-    public static final Block JUNIPER_LEAVES = new LeavesBlock(FabricBlockSettings.of(Material.LEAVES, MaterialColor.COLOR_GREEN).strength(0.2F).ticksRandomly().sounds(SoundType.GRASS).nonOpaque().allowsSpawning(RegisterBlocks::canSpawnOnLeaves).suffocates(RegisterBlocks::never).blockVision(RegisterBlocks::never));
+    public static final Block PALM_LEAVES = new LeavesBlock(FabricBlockSettings.of(Material.LEAVES, MaterialColor.COLOR_GREEN).strength(0.2F).ticksRandomly().sounds(SoundType.GRASS).nonOpaque().allowsSpawning(RegisterBlocks::canSpawnOnLeaves).suffocates(RegisterBlocks::never).blockVision(RegisterBlocks::never));
 
     public static final Block BAOBAB_FENCE = new FenceBlock(FabricBlockSettings.of(Material.WOOD, BAOBAB_PLANKS_COLOR).strength(2.0F, 3.0F).sounds(SoundType.WOOD));
     public static final Block CYPRESS_FENCE = new FenceBlock(FabricBlockSettings.of(Material.WOOD, CYPRESS_PLANKS_COLOR).strength(2.0F, 3.0F).sounds(SoundType.WOOD));
-    public static final Block JUNIPER_FENCE = new FenceBlock(FabricBlockSettings.of(Material.WOOD, JUNIPER_PLANKS_COLOR).strength(2.0F, 3.0F).sounds(SoundType.WOOD));
+    public static final Block PALM_FENCE = new FenceBlock(FabricBlockSettings.of(Material.WOOD, JUNIPER_PLANKS_COLOR).strength(2.0F, 3.0F).sounds(SoundType.WOOD));
 
     public static final WoodType BAOBAB_SIGN_TYPE = SignTypeAccessor.newSignType("wilderwildbaobab");
     public static final Block BAOBAB_SIGN_BLOCK = new FrozenSignBlock(FabricBlockSettings.of(Material.WOOD, BAOBAB_LOG.defaultMaterialColor()).noCollision().strength(1.0F).sounds(SoundType.WOOD), BAOBAB_SIGN_TYPE, WilderWild.MOD_ID);
@@ -126,82 +124,82 @@ public final class RegisterBlocks {
     public static final WoodType CYPRESS_SIGN_TYPE = SignTypeAccessor.newSignType("wilderwildcypress");
     public static final Block CYPRESS_SIGN_BLOCK = new FrozenSignBlock(FabricBlockSettings.of(Material.WOOD, CYPRESS_LOG.defaultMaterialColor()).noCollision().strength(1.0F).sounds(SoundType.WOOD), CYPRESS_SIGN_TYPE, WilderWild.MOD_ID);
     public static final Block CYPRESS_WALL_SIGN = new FrozenWallSignBlock(FabricBlockSettings.of(Material.WOOD, CYPRESS_LOG.defaultMaterialColor()).noCollision().strength(1.0F).sounds(SoundType.WOOD).dropsLike(CYPRESS_SIGN_BLOCK), CYPRESS_SIGN_TYPE, WilderWild.MOD_ID);
-    public static final WoodType JUNIPER_SIGN_TYPE = SignTypeAccessor.newSignType("wilderwildjuniper");
-    public static final Block JUNIPER_SIGN_BLOCK = new FrozenSignBlock(FabricBlockSettings.of(Material.WOOD, JUNIPER_LOG.defaultMaterialColor()).noCollision().strength(1.0F).sounds(SoundType.WOOD), JUNIPER_SIGN_TYPE, WilderWild.MOD_ID);
-    public static final Block JUNIPER_WALL_SIGN = new FrozenWallSignBlock(FabricBlockSettings.of(Material.WOOD, JUNIPER_LOG.defaultMaterialColor()).noCollision().strength(1.0F).sounds(SoundType.WOOD).dropsLike(JUNIPER_SIGN_BLOCK), JUNIPER_SIGN_TYPE, WilderWild.MOD_ID);
+    public static final WoodType PALM_SIGN_TYPE = SignTypeAccessor.newSignType("wilderwildpalm");
+    public static final Block PALM_SIGN_BLOCK = new FrozenSignBlock(FabricBlockSettings.of(Material.WOOD, PALM_LOG.defaultMaterialColor()).noCollision().strength(1.0F).sounds(SoundType.WOOD), PALM_SIGN_TYPE, WilderWild.MOD_ID);
+    public static final Block PALM_WALL_SIGN = new FrozenWallSignBlock(FabricBlockSettings.of(Material.WOOD, PALM_LOG.defaultMaterialColor()).noCollision().strength(1.0F).sounds(SoundType.WOOD).dropsLike(PALM_SIGN_BLOCK), PALM_SIGN_TYPE, WilderWild.MOD_ID);
 
     public static void registerWoods() {
         String baobab = "baobab";
         String cypress = "cypress";
-        String juniper = "juniper";
+        String palm = "palm";
 
         SignTypeAccessor.registerNew(BAOBAB_SIGN_TYPE);
         SignTypeAccessor.registerNew(CYPRESS_SIGN_TYPE);
-        SignTypeAccessor.registerNew(JUNIPER_SIGN_TYPE);
+        SignTypeAccessor.registerNew(PALM_SIGN_TYPE);
 
         registerBlock(baobab + "_planks", BAOBAB_PLANKS, CreativeModeTab.TAB_BUILDING_BLOCKS);
         registerBlock(cypress + "_planks", CYPRESS_PLANKS, CreativeModeTab.TAB_BUILDING_BLOCKS);
-        registerBlock(juniper + "_planks", JUNIPER_PLANKS, CreativeModeTab.TAB_BUILDING_BLOCKS);
+        registerBlock(palm + "_planks", PALM_PLANKS, CreativeModeTab.TAB_BUILDING_BLOCKS);
 
         registerBlock(baobab + "_log", BAOBAB_LOG, CreativeModeTab.TAB_BUILDING_BLOCKS);
         registerBlock(cypress + "_log", CYPRESS_LOG, CreativeModeTab.TAB_BUILDING_BLOCKS);
-        registerBlock(juniper + "_log", JUNIPER_LOG, CreativeModeTab.TAB_BUILDING_BLOCKS);
+        registerBlock(palm + "_log", PALM_LOG, CreativeModeTab.TAB_BUILDING_BLOCKS);
 
         registerBlock("stripped_" + baobab + "_log", STRIPPED_BAOBAB_LOG, CreativeModeTab.TAB_BUILDING_BLOCKS);
         registerBlock("stripped_" + cypress + "_log", STRIPPED_CYPRESS_LOG, CreativeModeTab.TAB_BUILDING_BLOCKS);
-        registerBlock("stripped_" + juniper + "_log", STRIPPED_JUNIPER_LOG, CreativeModeTab.TAB_BUILDING_BLOCKS);
+        registerBlock("stripped_" + palm + "_log", STRIPPED_PALM_LOG, CreativeModeTab.TAB_BUILDING_BLOCKS);
 
         registerBlock("stripped_" + baobab + "_wood", STRIPPED_BAOBAB_WOOD, CreativeModeTab.TAB_BUILDING_BLOCKS);
         registerBlock("stripped_" + cypress + "_wood", STRIPPED_CYPRESS_WOOD, CreativeModeTab.TAB_BUILDING_BLOCKS);
-        registerBlock("stripped_" + juniper + "_wood", STRIPPED_JUNIPER_WOOD, CreativeModeTab.TAB_BUILDING_BLOCKS);
+        registerBlock("stripped_" + palm + "_wood", STRIPPED_PALM_WOOD, CreativeModeTab.TAB_BUILDING_BLOCKS);
 
         registerBlock(baobab + "_wood", BAOBAB_WOOD, CreativeModeTab.TAB_BUILDING_BLOCKS);
         registerBlock(cypress + "_wood", CYPRESS_WOOD, CreativeModeTab.TAB_BUILDING_BLOCKS);
-        registerBlock(juniper + "_wood", JUNIPER_WOOD, CreativeModeTab.TAB_BUILDING_BLOCKS);
+        registerBlock(palm + "_wood", PALM_WOOD, CreativeModeTab.TAB_BUILDING_BLOCKS);
 
         registerBlock(baobab + "_slab", BAOBAB_SLAB, CreativeModeTab.TAB_BUILDING_BLOCKS);
         registerBlock(cypress + "_slab", CYPRESS_SLAB, CreativeModeTab.TAB_BUILDING_BLOCKS);
-        registerBlock(juniper + "_slab", JUNIPER_SLAB, CreativeModeTab.TAB_BUILDING_BLOCKS);
+        registerBlock(palm + "_slab", PALM_SLAB, CreativeModeTab.TAB_BUILDING_BLOCKS);
 
         registerBlock(baobab + "_stairs", BAOBAB_STAIRS, CreativeModeTab.TAB_BUILDING_BLOCKS);
         registerBlock(cypress + "_stairs", CYPRESS_STAIRS, CreativeModeTab.TAB_BUILDING_BLOCKS);
-        registerBlock(juniper + "_stairs", JUNIPER_STAIRS, CreativeModeTab.TAB_BUILDING_BLOCKS);
+        registerBlock(palm + "_stairs", PALM_STAIRS, CreativeModeTab.TAB_BUILDING_BLOCKS);
 
         registerBlock(baobab + "_button", BAOBAB_BUTTON, CreativeModeTab.TAB_REDSTONE);
         registerBlock(cypress + "_button", CYPRESS_BUTTON, CreativeModeTab.TAB_REDSTONE);
-        registerBlock(juniper + "_button", JUNIPER_BUTTON, CreativeModeTab.TAB_REDSTONE);
+        registerBlock(palm + "_button", PALM_BUTTON, CreativeModeTab.TAB_REDSTONE);
 
         registerBlock(baobab + "_pressure_plate", BAOBAB_PRESSURE_PLATE, CreativeModeTab.TAB_REDSTONE);
         registerBlock(cypress + "_pressure_plate", CYPRESS_PRESSURE_PLATE, CreativeModeTab.TAB_REDSTONE);
-        registerBlock(juniper + "_pressure_plate", JUNIPER_PRESSURE_PLATE, CreativeModeTab.TAB_REDSTONE);
+        registerBlock(palm + "_pressure_plate", PALM_PRESSURE_PLATE, CreativeModeTab.TAB_REDSTONE);
 
         registerBlock(baobab + "_door", BAOBAB_DOOR, CreativeModeTab.TAB_REDSTONE);
         registerBlock(cypress + "_door", CYPRESS_DOOR, CreativeModeTab.TAB_REDSTONE);
-        registerBlock(juniper + "_door", JUNIPER_DOOR, CreativeModeTab.TAB_REDSTONE);
+        registerBlock(palm + "_door", PALM_DOOR, CreativeModeTab.TAB_REDSTONE);
 
         registerBlock(baobab + "_trapdoor", BAOBAB_TRAPDOOR, CreativeModeTab.TAB_REDSTONE);
         registerBlock(cypress + "_trapdoor", CYPRESS_TRAPDOOR, CreativeModeTab.TAB_REDSTONE);
-        registerBlock(juniper + "_trapdoor", JUNIPER_TRAPDOOR, CreativeModeTab.TAB_REDSTONE);
+        registerBlock(palm + "_trapdoor", PALM_TRAPDOOR, CreativeModeTab.TAB_REDSTONE);
 
         registerBlock(baobab + "_fence_gate", BAOBAB_FENCE_GATE, CreativeModeTab.TAB_REDSTONE);
         registerBlock(cypress + "_fence_gate", CYPRESS_FENCE_GATE, CreativeModeTab.TAB_REDSTONE);
-        registerBlock(juniper + "_fence_gate", JUNIPER_FENCE_GATE, CreativeModeTab.TAB_REDSTONE);
+        registerBlock(palm + "_fence_gate", PALM_FENCE_GATE, CreativeModeTab.TAB_REDSTONE);
 
         registerBlockWithoutBlockItem(baobab + "_nut", BAOBAB_NUT);
         registerBlockWithoutBlockItem("potted_" + baobab + "_nut", POTTED_BAOBAB_NUT);
         registerBlockWithoutBlockItem("prickly_pear_cactus", PRICKLY_PEAR_CACTUS);
         registerBlock(cypress + "_sapling", CYPRESS_SAPLING, CreativeModeTab.TAB_DECORATIONS);
         registerBlockWithoutBlockItem("potted_" + cypress + "_sapling", POTTED_CYPRESS_SAPLING);
-        registerBlock(juniper + "_sapling", JUNIPER_SAPLING, CreativeModeTab.TAB_DECORATIONS);
-        registerBlockWithoutBlockItem("potted_" + juniper + "_sapling", POTTED_JUNIPER_SAPLING);
+        registerBlock(palm + "_sapling", PALM_SAPLING, CreativeModeTab.TAB_DECORATIONS);
+        registerBlockWithoutBlockItem("potted_" + palm + "_sapling", POTTED_PALM_SAPLING);
 
         registerBlock(baobab + "_leaves", BAOBAB_LEAVES, CreativeModeTab.TAB_DECORATIONS);
         registerBlock(cypress + "_leaves", CYPRESS_LEAVES, CreativeModeTab.TAB_DECORATIONS);
-        registerBlock(juniper + "_leaves", JUNIPER_LEAVES, CreativeModeTab.TAB_DECORATIONS);
+        registerBlock(palm + "_leaves", PALM_LEAVES, CreativeModeTab.TAB_DECORATIONS);
 
         registerBlock(baobab + "_fence", BAOBAB_FENCE, CreativeModeTab.TAB_DECORATIONS);
         registerBlock(cypress + "_fence", CYPRESS_FENCE, CreativeModeTab.TAB_DECORATIONS);
-        registerBlock(juniper + "_fence", JUNIPER_FENCE, CreativeModeTab.TAB_DECORATIONS);
+        registerBlock(palm + "_fence", PALM_FENCE, CreativeModeTab.TAB_DECORATIONS);
 
         Registry.register(Registry.ITEM, WilderWild.id("baobab_sign"), BAOBAB_SIGN);
         registerBlockWithoutBlockItem(baobab + "_sign", BAOBAB_SIGN_BLOCK);
@@ -209,9 +207,9 @@ public final class RegisterBlocks {
         Registry.register(Registry.ITEM, WilderWild.id("cypress_sign"), CYPRESS_SIGN);
         registerBlockWithoutBlockItem(cypress + "_sign", CYPRESS_SIGN_BLOCK);
         registerBlockWithoutBlockItem(cypress + "_wall_sign", CYPRESS_WALL_SIGN);
-        Registry.register(Registry.ITEM, WilderWild.id("juniper_sign"), JUNIPER_SIGN);
-        registerBlockWithoutBlockItem(juniper + "_sign", JUNIPER_SIGN_BLOCK);
-        registerBlockWithoutBlockItem(juniper + "_wall_sign", JUNIPER_WALL_SIGN);
+        Registry.register(Registry.ITEM, WilderWild.id("palm_sign"), PALM_SIGN);
+        registerBlockWithoutBlockItem(palm + "_sign", PALM_SIGN_BLOCK);
+        registerBlockWithoutBlockItem(palm + "_wall_sign", PALM_WALL_SIGN);
     }
 
     // HOLLOWED LOGS
@@ -365,16 +363,16 @@ public final class RegisterBlocks {
             .recipeUnlockedBy("has_planks")
             .getFamily();
 
-    public static final BlockFamily JUNIPER = BlockFamilies.familyBuilder(JUNIPER_PLANKS)
-            .button(JUNIPER_BUTTON)
-            .slab(JUNIPER_SLAB)
-            .stairs(JUNIPER_STAIRS)
-            .fence(JUNIPER_FENCE)
-            .fenceGate(JUNIPER_FENCE_GATE)
-            .pressurePlate(JUNIPER_PRESSURE_PLATE)
-            .sign(JUNIPER_SIGN_BLOCK, JUNIPER_WALL_SIGN)
-            .door(JUNIPER_DOOR)
-            .trapdoor(JUNIPER_TRAPDOOR)
+    public static final BlockFamily PALM = BlockFamilies.familyBuilder(PALM_PLANKS)
+            .button(PALM_BUTTON)
+            .slab(PALM_SLAB)
+            .stairs(PALM_STAIRS)
+            .fence(PALM_FENCE)
+            .fenceGate(PALM_FENCE_GATE)
+            .pressurePlate(PALM_PRESSURE_PLATE)
+            .sign(PALM_SIGN_BLOCK, PALM_WALL_SIGN)
+            .door(PALM_DOOR)
+            .trapdoor(PALM_TRAPDOOR)
             .recipeGroupPrefix("wooden")
             .recipeUnlockedBy("has_planks")
             .getFamily();
