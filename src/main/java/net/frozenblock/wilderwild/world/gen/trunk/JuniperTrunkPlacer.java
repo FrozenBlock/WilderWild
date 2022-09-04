@@ -35,37 +35,37 @@ public class JuniperTrunkPlacer extends TrunkPlacer {
         setDirtAt(levelSimulatedReader, biConsumer, randomSource, blockPos.below(), treeConfiguration);
         List<FoliagePlacer.FoliageAttachment> list = Lists.newArrayList();
         Direction direction = Direction.Plane.HORIZONTAL.getRandomDirection(randomSource);
-        int j = i - randomSource.nextInt(6) - 4;
-        int k = 3 - randomSource.nextInt(1);
+        int j = i - randomSource.nextInt(6) - 1;
+        int k = 4 - randomSource.nextInt(3);
         BlockPos.MutableBlockPos mutableBlockPos = new BlockPos.MutableBlockPos();
         int l = blockPos.getX();
         int m = blockPos.getZ();
         OptionalInt optionalInt = OptionalInt.empty();
 
         int o;
-        for(int n = 1; n < i; ++n) {
+        for(int n = 0; n < i; ++n) {
             o = blockPos.getY() + n;
-            if (n >= j && k > 2) {
+            if (n >= j && k > 0) {
                 l += direction.getStepX();
                 m += direction.getStepZ();
                 --k;
             }
 
             if (this.placeLog(levelSimulatedReader, biConsumer, randomSource, mutableBlockPos.set(l, o, m), treeConfiguration)) {
-                optionalInt = OptionalInt.of(o + 4);
+                optionalInt = OptionalInt.of(o + 1);
             }
         }
 
         if (optionalInt.isPresent()) {
-            list.add(new FoliagePlacer.FoliageAttachment(new BlockPos(l, optionalInt.getAsInt(), m), 3, false));
+            list.add(new FoliagePlacer.FoliageAttachment(new BlockPos(l, optionalInt.getAsInt(), m), 1, false));
         }
 
         l = blockPos.getX();
         m = blockPos.getZ();
         Direction direction2 = Direction.Plane.HORIZONTAL.getRandomDirection(randomSource);
         if (direction2 != direction) {
-            o = j - randomSource.nextInt(4) - 2;
-            int p = 1 + randomSource.nextInt(6);
+            o = j - randomSource.nextInt(2) - 3;
+            int p = 4 + randomSource.nextInt(3);
             optionalInt = OptionalInt.empty();
 
             for(int q = o; q < i && p > 0; --p) {
@@ -74,7 +74,7 @@ public class JuniperTrunkPlacer extends TrunkPlacer {
                     l += direction2.getStepX();
                     m += direction2.getStepZ();
                     if (this.placeLog(levelSimulatedReader, biConsumer, randomSource, mutableBlockPos.set(l, r, m), treeConfiguration)) {
-                        optionalInt = OptionalInt.of(r + 4);
+                        optionalInt = OptionalInt.of(r + 1);
                     }
                 }
 
@@ -89,3 +89,5 @@ public class JuniperTrunkPlacer extends TrunkPlacer {
         return list;
     }
 }
+
+
