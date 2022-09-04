@@ -113,7 +113,7 @@ public final class WilderPlacedFeatures {
         public static final Holder<PlacedFeature> NEW_TREES_SWAMP = register("new_trees_swamp", WilderTreeConfigured.NEW_SWAMP_TREE,
                 PlacementUtils.countExtra(2, 0.1F, 1), InSquarePlacement.spread(), SurfaceWaterDepthFilter.forMaxDepth(4), PlacementUtils.HEIGHTMAP_OCEAN_FLOOR, BiomeFilter.biome(), BlockPredicateFilter.forPredicate(BlockPredicate.wouldSurvive(Blocks.MANGROVE_PROPAGULE.defaultBlockState(), BlockPos.ZERO)));
 
-        public static final Holder<PlacedFeature> BIG_SHRUB = PlacementUtils.register("big_shrub",
+        public static final Holder<PlacedFeature> BIG_SHRUB = register("big_shrub",
                 WilderConfiguredFeatures.BIG_SHRUBS, treePlacement(RarityFilter.onAverageOnceEvery(5)));
     }
 
