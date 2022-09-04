@@ -36,6 +36,10 @@ public final class RegisterItems {
     public static final Item CYPRESS_CHEST_BOAT_ITEM = new BoatItem(true, WilderBoats.CYPRESS, new FabricItemSettings().stacksTo(1).tab(CreativeModeTab.TAB_TRANSPORTATION));
     public static final Item CYPRESS_SIGN = new SignItem(new FabricItemSettings().tab(CreativeModeTab.TAB_DECORATIONS).stacksTo(16),
             RegisterBlocks.CYPRESS_SIGN_BLOCK, RegisterBlocks.CYPRESS_WALL_SIGN);
+    public static final Item JUNIPER_BOAT_ITEM = new BoatItem(false, WilderBoats.JUNIPER, new FabricItemSettings().stacksTo(1).tab(CreativeModeTab.TAB_TRANSPORTATION));
+    public static final Item JUNIPER_CHEST_BOAT_ITEM = new BoatItem(true, WilderBoats.JUNIPER, new FabricItemSettings().stacksTo(1).tab(CreativeModeTab.TAB_TRANSPORTATION));
+    public static final Item JUNIPER_SIGN = new SignItem(new FabricItemSettings().tab(CreativeModeTab.TAB_DECORATIONS).stacksTo(16),
+            RegisterBlocks.CYPRESS_SIGN_BLOCK, RegisterBlocks.CYPRESS_WALL_SIGN);
 
     public static final Item POLLEN = new BlockItem(RegisterBlocks.POLLEN_BLOCK, new FabricItemSettings().tab(CreativeModeTab.TAB_DECORATIONS));
 
@@ -80,6 +84,8 @@ public final class RegisterItems {
         Registry.register(Registry.ITEM, WilderWild.id("baobab_chest_boat"), BAOBAB_CHEST_BOAT_ITEM);
         Registry.register(Registry.ITEM, WilderWild.id("cypress_boat"), CYPRESS_BOAT_ITEM);
         Registry.register(Registry.ITEM, WilderWild.id("cypress_chest_boat"), CYPRESS_CHEST_BOAT_ITEM);
+        Registry.register(Registry.ITEM, WilderWild.id("juniper_boat"), JUNIPER_BOAT_ITEM);
+        Registry.register(Registry.ITEM, WilderWild.id("juniper_chest_boat"), JUNIPER_CHEST_BOAT_ITEM);
         Registry.register(Registry.ITEM, WilderWild.id("ancient_horn"), ANCIENT_HORN);
         Registry.register(Registry.ITEM, WilderWild.id("copper_horn"), COPPER_HORN);
         Registry.register(Registry.ITEM, WilderWild.id("milkweed_pod"), MILKWEED_POD);

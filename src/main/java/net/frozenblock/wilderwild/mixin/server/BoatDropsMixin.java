@@ -19,9 +19,11 @@ public class BoatDropsMixin {
         if (((Boat) (Object) this).getBoatType() == WilderBoats.BAOBAB) {
             ci.setReturnValue(RegisterItems.BAOBAB_BOAT_ITEM);
             ci.cancel();
-        }
-        if (((Boat) (Object) this).getBoatType() == WilderBoats.CYPRESS) {
+        } else if (((Boat) (Object) this).getBoatType() == WilderBoats.CYPRESS) {
             ci.setReturnValue(RegisterItems.CYPRESS_BOAT_ITEM);
+            ci.cancel();
+        } else if (((Boat) (Object) this).getBoatType() == WilderBoats.JUNIPER) {
+            ci.setReturnValue(RegisterItems.JUNIPER_BOAT_ITEM);
             ci.cancel();
         }
     }

@@ -49,6 +49,11 @@ public class BoatTypeMixin {
         var cypress = newType("WILDERWILDCYPRESS", last.ordinal() + 2, RegisterBlocks.CYPRESS_PLANKS, "wilderwildcypress");
         WilderBoats.CYPRESS = cypress;
         types.add(cypress);
+
+        var juniper = newType("WILDERWILDJUNIPER", last.ordinal() + 2, RegisterBlocks.JUNIPER_PLANKS, "wilderwildjuniper");
+        WilderBoats.JUNIPER = juniper;
+        types.add(juniper);
+
         $VALUES = types.toArray(new Boat.Type[0]);
     }
 }

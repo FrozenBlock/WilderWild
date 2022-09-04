@@ -42,6 +42,7 @@ import java.util.List;
 
 import static net.frozenblock.wilderwild.registry.RegisterItems.BAOBAB_SIGN;
 import static net.frozenblock.wilderwild.registry.RegisterItems.CYPRESS_SIGN;
+import static net.frozenblock.wilderwild.registry.RegisterItems.JUNIPER_SIGN;
 
 public final class RegisterBlocks {
     private static final MaterialColor BAOBAB_PLANKS_COLOR = MaterialColor.COLOR_ORANGE;
@@ -156,39 +157,51 @@ public final class RegisterBlocks {
 
         registerBlock(baobab + "_wood", BAOBAB_WOOD, CreativeModeTab.TAB_BUILDING_BLOCKS);
         registerBlock(cypress + "_wood", CYPRESS_WOOD, CreativeModeTab.TAB_BUILDING_BLOCKS);
+        registerBlock(juniper + "_wood", JUNIPER_WOOD, CreativeModeTab.TAB_BUILDING_BLOCKS);
 
         registerBlock(baobab + "_slab", BAOBAB_SLAB, CreativeModeTab.TAB_BUILDING_BLOCKS);
         registerBlock(cypress + "_slab", CYPRESS_SLAB, CreativeModeTab.TAB_BUILDING_BLOCKS);
+        registerBlock(juniper + "_slab", JUNIPER_SLAB, CreativeModeTab.TAB_BUILDING_BLOCKS);
 
         registerBlock(baobab + "_stairs", BAOBAB_STAIRS, CreativeModeTab.TAB_BUILDING_BLOCKS);
         registerBlock(cypress + "_stairs", CYPRESS_STAIRS, CreativeModeTab.TAB_BUILDING_BLOCKS);
+        registerBlock(juniper + "_stairs", JUNIPER_STAIRS, CreativeModeTab.TAB_BUILDING_BLOCKS);
 
         registerBlock(baobab + "_button", BAOBAB_BUTTON, CreativeModeTab.TAB_REDSTONE);
         registerBlock(cypress + "_button", CYPRESS_BUTTON, CreativeModeTab.TAB_REDSTONE);
+        registerBlock(juniper + "_button", JUNIPER_BUTTON, CreativeModeTab.TAB_REDSTONE);
 
         registerBlock(baobab + "_pressure_plate", BAOBAB_PRESSURE_PLATE, CreativeModeTab.TAB_REDSTONE);
         registerBlock(cypress + "_pressure_plate", CYPRESS_PRESSURE_PLATE, CreativeModeTab.TAB_REDSTONE);
+        registerBlock(juniper + "_pressure_plate", JUNIPER_PRESSURE_PLATE, CreativeModeTab.TAB_REDSTONE);
 
         registerBlock(baobab + "_door", BAOBAB_DOOR, CreativeModeTab.TAB_REDSTONE);
         registerBlock(cypress + "_door", CYPRESS_DOOR, CreativeModeTab.TAB_REDSTONE);
+        registerBlock(juniper + "_door", JUNIPER_DOOR, CreativeModeTab.TAB_REDSTONE);
 
         registerBlock(baobab + "_trapdoor", BAOBAB_TRAPDOOR, CreativeModeTab.TAB_REDSTONE);
         registerBlock(cypress + "_trapdoor", CYPRESS_TRAPDOOR, CreativeModeTab.TAB_REDSTONE);
+        registerBlock(juniper + "_trapdoor", JUNIPER_TRAPDOOR, CreativeModeTab.TAB_REDSTONE);
 
         registerBlock(baobab + "_fence_gate", BAOBAB_FENCE_GATE, CreativeModeTab.TAB_REDSTONE);
         registerBlock(cypress + "_fence_gate", CYPRESS_FENCE_GATE, CreativeModeTab.TAB_REDSTONE);
+        registerBlock(juniper + "_fence_gate", JUNIPER_FENCE_GATE, CreativeModeTab.TAB_REDSTONE);
 
         registerBlockWithoutBlockItem(baobab + "_nut", BAOBAB_NUT);
         registerBlockWithoutBlockItem("potted_" + baobab + "_nut", POTTED_BAOBAB_NUT);
         registerBlockWithoutBlockItem("prickly_pear_cactus", PRICKLY_PEAR_CACTUS);
         registerBlock(cypress + "_sapling", CYPRESS_SAPLING, CreativeModeTab.TAB_DECORATIONS);
         registerBlockWithoutBlockItem("potted_" + cypress + "_sapling", POTTED_CYPRESS_SAPLING);
+        registerBlock(juniper + "_sapling", JUNIPER_SAPLING, CreativeModeTab.TAB_DECORATIONS);
+        registerBlockWithoutBlockItem("potted_" + juniper + "_sapling", POTTED_JUNIPER_SAPLING);
 
         registerBlock(baobab + "_leaves", BAOBAB_LEAVES, CreativeModeTab.TAB_DECORATIONS);
         registerBlock(cypress + "_leaves", CYPRESS_LEAVES, CreativeModeTab.TAB_DECORATIONS);
+        registerBlock(juniper + "_leaves", JUNIPER_LEAVES, CreativeModeTab.TAB_DECORATIONS);
 
         registerBlock(baobab + "_fence", BAOBAB_FENCE, CreativeModeTab.TAB_DECORATIONS);
         registerBlock(cypress + "_fence", CYPRESS_FENCE, CreativeModeTab.TAB_DECORATIONS);
+        registerBlock(juniper + "_fence", JUNIPER_FENCE, CreativeModeTab.TAB_DECORATIONS);
 
         Registry.register(Registry.ITEM, WilderWild.id("baobab_sign"), BAOBAB_SIGN);
         registerBlockWithoutBlockItem(baobab + "_sign", BAOBAB_SIGN_BLOCK);
@@ -196,6 +209,9 @@ public final class RegisterBlocks {
         Registry.register(Registry.ITEM, WilderWild.id("cypress_sign"), CYPRESS_SIGN);
         registerBlockWithoutBlockItem(cypress + "_sign", CYPRESS_SIGN_BLOCK);
         registerBlockWithoutBlockItem(cypress + "_wall_sign", CYPRESS_WALL_SIGN);
+        Registry.register(Registry.ITEM, WilderWild.id("juniper_sign"), JUNIPER_SIGN);
+        registerBlockWithoutBlockItem(juniper + "_sign", JUNIPER_SIGN_BLOCK);
+        registerBlockWithoutBlockItem(juniper + "_wall_sign", JUNIPER_WALL_SIGN);
     }
 
     // HOLLOWED LOGS
@@ -335,7 +351,6 @@ public final class RegisterBlocks {
             .recipeUnlockedBy("has_planks")
             .getFamily();
 
-
     public static final BlockFamily CYPRESS = BlockFamilies.familyBuilder(CYPRESS_PLANKS)
             .button(CYPRESS_BUTTON)
             .slab(CYPRESS_SLAB)
@@ -346,6 +361,20 @@ public final class RegisterBlocks {
             .sign(CYPRESS_SIGN_BLOCK, CYPRESS_WALL_SIGN)
             .door(CYPRESS_DOOR)
             .trapdoor(CYPRESS_TRAPDOOR)
+            .recipeGroupPrefix("wooden")
+            .recipeUnlockedBy("has_planks")
+            .getFamily();
+
+    public static final BlockFamily JUNIPER = BlockFamilies.familyBuilder(JUNIPER_PLANKS)
+            .button(JUNIPER_BUTTON)
+            .slab(JUNIPER_SLAB)
+            .stairs(JUNIPER_STAIRS)
+            .fence(JUNIPER_FENCE)
+            .fenceGate(JUNIPER_FENCE_GATE)
+            .pressurePlate(JUNIPER_PRESSURE_PLATE)
+            .sign(JUNIPER_SIGN_BLOCK, JUNIPER_WALL_SIGN)
+            .door(JUNIPER_DOOR)
+            .trapdoor(JUNIPER_TRAPDOOR)
             .recipeGroupPrefix("wooden")
             .recipeUnlockedBy("has_planks")
             .getFamily();

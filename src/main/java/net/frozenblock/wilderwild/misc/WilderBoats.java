@@ -10,5 +10,6 @@ public final class WilderBoats {
 
     public static Boat.Type BAOBAB;
     public static Boat.Type CYPRESS;
+    public static Boat.Type JUNIPER;
 
 }
