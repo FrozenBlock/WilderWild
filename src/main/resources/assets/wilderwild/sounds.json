@@ -769,6 +769,50 @@
 	],
 	"subtitle": "subtitles.block.generic.footsteps"
   },
+	"block.mesoglea.break": {
+		"sounds": [
+			"wilderwild:block/mesoglea/break1",
+			"wilderwild:block/mesoglea/break2",
+			"wilderwild:block/mesoglea/break3",
+			"wilderwild:block/mesoglea/break4"
+		],
+		"subtitle": "subtitles.block.generic.break"
+	},
+	"block.mesoglea.fall": {
+		"sounds": [
+			"wilderwild:block/mesoglea/step1",
+			"wilderwild:block/mesoglea/step2",
+			"wilderwild:block/mesoglea/step3",
+			"wilderwild:block/mesoglea/step4"
+		]
+	},
+	"block.mesoglea.hit": {
+		"sounds": [
+			"wilderwild:block/mesoglea/step1",
+			"wilderwild:block/mesoglea/step2",
+			"wilderwild:block/mesoglea/step3",
+			"wilderwild:block/mesoglea/step4"
+		],
+		"subtitle": "subtitles.block.generic.hit"
+	},
+	"block.mesoglea.place": {
+		"sounds": [
+			"wilderwild:block/mesoglea/break1",
+			"wilderwild:block/mesoglea/break2",
+			"wilderwild:block/mesoglea/break3",
+			"wilderwild:block/mesoglea/break4"
+		],
+		"subtitle": "subtitles.block.generic.place"
+	},
+	"block.mesoglea.step": {
+		"sounds": [
+			"wilderwild:block/mesoglea/step1",
+			"wilderwild:block/mesoglea/step2",
+			"wilderwild:block/mesoglea/step3",
+			"wilderwild:block/mesoglea/step4"
+		],
+		"subtitle": "subtitles.block.generic.footsteps"
+	},
   "block.mushroom.break": {
 	"sounds": [
 	  "wilderwild:block/mushroom/break1",
