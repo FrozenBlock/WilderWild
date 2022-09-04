@@ -134,6 +134,7 @@ public final class RegisterItems {
         TradeOfferHelper.registerWanderingTraderOffers(2, factories -> {
             factories.add(new VillagerTrades.ItemsForEmeralds(RegisterItems.BAOBAB_NUT.asItem(), 5, 1, 8, 1));
             factories.add(new VillagerTrades.ItemsForEmeralds(RegisterBlocks.CYPRESS_SAPLING.asItem(), 5, 1, 8, 1));
+            factories.add(new VillagerTrades.ItemsForEmeralds(RegisterBlocks.PALM_SAPLING.asItem(), 5, 1, 8, 1));
         });
     }
 }
