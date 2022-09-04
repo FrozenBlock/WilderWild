@@ -170,7 +170,7 @@ public final class WilderConfiguredFeatures {
 
     public static final Holder<ConfiguredFeature<RandomFeatureConfiguration, ?>> BIG_SHRUBS =
             register("big_shrubs", Feature.RANDOM_SELECTOR,
-                    new RandomFeatureConfiguration(List.of(new WeightedPlacedFeature(WilderTreePlaced.BIG_SHRUB_CHECKED, 1.0F)), WilderTreePlaced.BIG_SHRUB_CHECKED));
+                    new RandomFeatureConfiguration(List.of(new WeightedPlacedFeature(WilderTreePlaced.BIG_SHRUB_ON_SAND, 1.0F)), WilderTreePlaced.BIG_SHRUB_ON_SAND));
 
     //FLOWERS
     public static final Holder<ConfiguredFeature<RandomPatchConfiguration, ?>> SEEDING_DANDELION =
