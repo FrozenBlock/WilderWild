@@ -50,7 +50,7 @@ public class BoatTypeMixin {
         WilderBoats.CYPRESS = cypress;
         types.add(cypress);
 
-        var palm = newType("WILDERWILDJUNIPER", last.ordinal() + 2, RegisterBlocks.PALM_PLANKS, "wilderwildpalm");
+        var palm = newType("WILDERWILDPALM", last.ordinal() + 3, RegisterBlocks.PALM_PLANKS, "wilderwildpalm");
         WilderBoats.PALM = palm;
         types.add(palm);
 
