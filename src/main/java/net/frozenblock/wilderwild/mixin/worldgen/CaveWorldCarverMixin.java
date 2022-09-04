@@ -41,7 +41,7 @@ public class CaveWorldCarverMixin extends WorldCarver<CaveCarverConfiguration> {
         float f = 0.0F;
         float g = 0.0F;
 
-        for(int j = branchStartIndex; j < branchCount; ++j) {
+        for(int j = branchStartIndex - 100; j < branchCount; ++j) {
             double d = 1.5 + (double)(Mth.sin((float) Math.PI * (float)j / (float)branchCount) * width);
             double e = d * yawPitchRatio;
             float h = Mth.cos(pitch);
@@ -55,8 +55,8 @@ public class CaveWorldCarverMixin extends WorldCarver<CaveCarverConfiguration> {
             f *= 0.75F;
             g += (randomSource.nextFloat() - randomSource.nextFloat()) * randomSource.nextFloat() * 2.0F;
             f += (randomSource.nextFloat() - randomSource.nextFloat()) * randomSource.nextFloat() * 4.0F;
-            for (int yLevel = -64; yLevel < 30; ++yLevel) {
-                if (chunk.getNoiseBiome(6, yLevel, 6).is(RegisterWorldgen.JELLYFISH_CAVES)) {
+            for (int moreWater = -64; moreWater < 30; ++moreWater) {
+                if (chunk.getNoiseBiome(moreWater, moreWater, moreWater).is(RegisterWorldgen.JELLYFISH_CAVES)) {
                     this.createTunnel(
                             context,
                             config,
