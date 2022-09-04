@@ -53,7 +53,8 @@ public final class WilderMiscConfigured {
             Blocks.RED_TERRACOTTA.builtInRegistryHolder(),
             Blocks.ORANGE_TERRACOTTA.builtInRegistryHolder(),
             Blocks.YELLOW_TERRACOTTA.builtInRegistryHolder(),
-            Blocks.LIGHT_GRAY_TERRACOTTA.builtInRegistryHolder())));
+            Blocks.LIGHT_GRAY_TERRACOTTA.builtInRegistryHolder(),
+            Blocks.GRASS_BLOCK.builtInRegistryHolder())));
 
     public static final Holder<ConfiguredFeature<PathFeatureConfig, ?>> COARSE_DIRT_PATH_SMALL = WilderConfiguredFeatures.register("coarse_dirt_path_small", WilderWild.NOISE_PATH_FEATURE, new PathFeatureConfig(BlockStateProvider.simple(Blocks.COARSE_DIRT), 8, 2, 0.15, 0.2, 1, true, true, HolderSet.direct(Blocks.RED_SAND.builtInRegistryHolder())));
     public static final Holder<ConfiguredFeature<PathFeatureConfig, ?>> UNDER_WATER_SAND_PATH = WilderConfiguredFeatures.register("under_water_sand_path", WilderWild.NOISE_PATH_UNDER_WATER_FEATURE, new PathFeatureConfig(BlockStateProvider.simple(Blocks.SAND), 16, 4, 0.05, 0.2, 0.54, true, true, HolderSet.direct(Blocks.DIRT.builtInRegistryHolder(), Blocks.GRAVEL.builtInRegistryHolder(), Blocks.GRASS_BLOCK.builtInRegistryHolder())));

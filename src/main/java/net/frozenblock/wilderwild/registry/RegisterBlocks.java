@@ -18,6 +18,7 @@ import net.frozenblock.wilderwild.item.AlgaeItem;
 import net.frozenblock.wilderwild.item.FloweredLilyPadItem;
 import net.frozenblock.wilderwild.misc.FlowerColors;
 import net.frozenblock.wilderwild.world.gen.sapling.CypressSaplingGenerator;
+import net.frozenblock.wilderwild.world.gen.sapling.ShrubSaplingGenerator;
 import net.minecraft.Util;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -222,7 +223,7 @@ public final class RegisterBlocks {
     public static final Block HOLLOWED_MANGROVE_LOG = createHollowedLogBlock(MaterialColor.COLOR_RED, MaterialColor.PODZOL);
     public static final Block HOLLOWED_BAOBAB_LOG = createHollowedLogBlock(MaterialColor.COLOR_ORANGE, MaterialColor.COLOR_BROWN);
     public static final Block HOLLOWED_CYPRESS_LOG = createHollowedLogBlock(MaterialColor.COLOR_LIGHT_GRAY, MaterialColor.STONE);
-
+    public static final Block HOLLOWED_PALM_LOG = createHollowedLogBlock(MaterialColor.COLOR_LIGHT_GRAY, MaterialColor.STONE);
     public static void registerHollowedLogs() {
         registerBlock("hollowed_oak_log", HOLLOWED_OAK_LOG, CreativeModeTab.TAB_DECORATIONS);
         registerBlock("hollowed_spruce_log", HOLLOWED_SPRUCE_LOG, CreativeModeTab.TAB_DECORATIONS);
@@ -233,6 +234,7 @@ public final class RegisterBlocks {
         registerBlock("hollowed_mangrove_log", HOLLOWED_MANGROVE_LOG, CreativeModeTab.TAB_DECORATIONS);
         registerBlock("hollowed_baobab_log", HOLLOWED_BAOBAB_LOG, CreativeModeTab.TAB_DECORATIONS);
         registerBlock("hollowed_cypress_log", HOLLOWED_CYPRESS_LOG, CreativeModeTab.TAB_DECORATIONS);
+        registerBlock("hollowed_palm_log", HOLLOWED_PALM_LOG, CreativeModeTab.TAB_DECORATIONS);
     }
 
     // SCULK
@@ -297,7 +299,7 @@ public final class RegisterBlocks {
     public static final Block CATTAIL = new WaterloggableTallFlowerBlock(FabricBlockSettings.copyOf(Blocks.ROSE_BUSH).sounds(SoundType.WET_GRASS).strength(0.0F).nonOpaque());
     public static final Block FLOWERING_LILY_PAD = new FloweringLilyPadBlock(FabricBlockSettings.copyOf(Blocks.LILY_PAD).sounds(RegisterBlockSoundGroups.LILYPAD));
     public static final Block ALGAE = new AlgaeBlock(FabricBlockSettings.of(ALGAE_MATERIAL).breakInstantly().nonOpaque().noCollision().sounds(SoundType.SLIME_BLOCK));
-
+    public static final Block SHRUB = new ShrubBlock(FabricBlockSettings.of(Material.PLANT).sounds(SoundType.GRASS));
     public static final Block POTTED_BIG_DRIPLEAF = new FlowerPotBlock(Blocks.BIG_DRIPLEAF, FabricBlockSettings.of(Material.DECORATION).breakInstantly().nonOpaque());
     public static final Block POTTED_SMALL_DRIPLEAF = new FlowerPotBlock(Blocks.SMALL_DRIPLEAF, FabricBlockSettings.of(Material.DECORATION).breakInstantly().nonOpaque());
     public static final Block POTTED_GRASS = new FlowerPotBlock(Blocks.GRASS, FabricBlockSettings.of(Material.DECORATION).breakInstantly().nonOpaque());
@@ -318,6 +320,7 @@ public final class RegisterBlocks {
         registerBlock("datura", DATURA, CreativeModeTab.TAB_DECORATIONS);
         registerBlock("milkweed", MILKWEED, CreativeModeTab.TAB_DECORATIONS);
         registerBlock("cattail", CATTAIL, CreativeModeTab.TAB_DECORATIONS);
+        registerBlock("shrub", SHRUB, CreativeModeTab.TAB_DECORATIONS);
     }
 
     public static final Block BROWN_SHELF_FUNGUS = new ShelfFungusBlock(FabricBlockSettings.copyOf(Blocks.BROWN_MUSHROOM_BLOCK).luminance(1).collidable(false).nonOpaque().sounds(RegisterBlockSoundGroups.MUSHROOM));
