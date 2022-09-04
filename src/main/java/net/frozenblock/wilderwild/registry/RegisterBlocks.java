@@ -446,6 +446,13 @@ public final class RegisterBlocks {
         TermiteMoundBlockEntity.Termite.addDegradable(STRIPPED_CYPRESS_WOOD, Blocks.AIR);
         TermiteMoundBlockEntity.Termite.addNaturalDegradable(CYPRESS_LOG, STRIPPED_CYPRESS_LOG);
         TermiteMoundBlockEntity.Termite.addNaturalDegradable(CYPRESS_WOOD, STRIPPED_CYPRESS_WOOD);
+
+        TermiteMoundBlockEntity.Termite.addDegradable(PALM_LOG, HOLLOWED_PALM_LOG);
+        TermiteMoundBlockEntity.Termite.addDegradable(STRIPPED_PALM_LOG, Blocks.AIR);
+        TermiteMoundBlockEntity.Termite.addDegradable(PALM_WOOD, STRIPPED_PALM_WOOD);
+        TermiteMoundBlockEntity.Termite.addDegradable(STRIPPED_PALM_WOOD, Blocks.AIR);
+        TermiteMoundBlockEntity.Termite.addNaturalDegradable(PALM_LOG, STRIPPED_PALM_LOG);
+        TermiteMoundBlockEntity.Termite.addNaturalDegradable(PALM_WOOD, STRIPPED_PALM_WOOD);
         registerStrippable();
         registerComposting();
         registerFlammability();
@@ -470,6 +477,8 @@ public final class RegisterBlocks {
         StrippableBlockRegistry.register(BAOBAB_WOOD, STRIPPED_BAOBAB_WOOD);
         StrippableBlockRegistry.register(CYPRESS_LOG, STRIPPED_CYPRESS_LOG);
         StrippableBlockRegistry.register(CYPRESS_WOOD, STRIPPED_CYPRESS_WOOD);
+        StrippableBlockRegistry.register(PALM_LOG, STRIPPED_PALM_LOG);
+        StrippableBlockRegistry.register(PALM_WOOD, STRIPPED_PALM_WOOD);
     }
 
     private static void registerComposting() {
@@ -486,6 +495,8 @@ public final class RegisterBlocks {
         CompostingChanceRegistry.INSTANCE.add(BAOBAB_LEAVES, 0.3F);
         CompostingChanceRegistry.INSTANCE.add(RegisterItems.BAOBAB_NUT, 0.3F);
         CompostingChanceRegistry.INSTANCE.add(CYPRESS_SAPLING, 0.3F);
+        CompostingChanceRegistry.INSTANCE.add(PALM_LEAVES, 0.3F);
+        CompostingChanceRegistry.INSTANCE.add(PALM_SAPLING, 0.3F);
         CompostingChanceRegistry.INSTANCE.add(GLORY_OF_THE_SNOW, 0.65F);
         CompostingChanceRegistry.INSTANCE.add(BLUE_GLORY_OF_THE_SNOW, 0.65F);
         CompostingChanceRegistry.INSTANCE.add(WHITE_GLORY_OF_THE_SNOW, 0.65F);
@@ -545,6 +556,24 @@ public final class RegisterBlocks {
         FlammableBlockRegistry.getDefaultInstance().add(RegisterBlocks.CYPRESS_BUTTON, 5, 20);
         FlammableBlockRegistry.getDefaultInstance().add(RegisterBlocks.CYPRESS_SIGN_BLOCK, 5, 20);
         FlammableBlockRegistry.getDefaultInstance().add(RegisterBlocks.CYPRESS_WALL_SIGN, 5, 20);
+
+        FlammableBlockRegistry.getDefaultInstance().add(RegisterBlocks.HOLLOWED_PALM_LOG, 5, 5);
+        FlammableBlockRegistry.getDefaultInstance().add(RegisterBlocks.PALM_LOG, 5, 5);
+        FlammableBlockRegistry.getDefaultInstance().add(RegisterBlocks.STRIPPED_PALM_LOG, 5, 5);
+        FlammableBlockRegistry.getDefaultInstance().add(RegisterBlocks.PALM_WOOD, 5, 5);
+        FlammableBlockRegistry.getDefaultInstance().add(RegisterBlocks.STRIPPED_PALM_WOOD, 5, 5);
+        FlammableBlockRegistry.getDefaultInstance().add(RegisterBlocks.PALM_PLANKS, 5, 20);
+        FlammableBlockRegistry.getDefaultInstance().add(RegisterBlocks.PALM_STAIRS, 5, 20);
+        FlammableBlockRegistry.getDefaultInstance().add(RegisterBlocks.PALM_DOOR, 5, 20);
+        FlammableBlockRegistry.getDefaultInstance().add(RegisterBlocks.PALM_FENCE, 5, 20);
+        FlammableBlockRegistry.getDefaultInstance().add(RegisterBlocks.PALM_SLAB, 5, 20);
+        FlammableBlockRegistry.getDefaultInstance().add(RegisterBlocks.PALM_FENCE_GATE, 5, 20);
+        FlammableBlockRegistry.getDefaultInstance().add(RegisterBlocks.PALM_PRESSURE_PLATE, 5, 20);
+        FlammableBlockRegistry.getDefaultInstance().add(RegisterBlocks.PALM_TRAPDOOR, 5, 20);
+        FlammableBlockRegistry.getDefaultInstance().add(RegisterBlocks.PALM_LEAVES, 100, 60);
+        FlammableBlockRegistry.getDefaultInstance().add(RegisterBlocks.PALM_BUTTON, 5, 20);
+        FlammableBlockRegistry.getDefaultInstance().add(RegisterBlocks.PALM_SIGN_BLOCK, 5, 20);
+        FlammableBlockRegistry.getDefaultInstance().add(RegisterBlocks.PALM_WALL_SIGN, 5, 20);
     }
 
     private static void registerFuels() {
@@ -555,6 +584,8 @@ public final class RegisterBlocks {
         registry.add(BAOBAB_FENCE_GATE.asItem(), 300);
         registry.add(CYPRESS_FENCE.asItem(), 300);
         registry.add(CYPRESS_FENCE_GATE.asItem(), 300);
+        registry.add(PALM_FENCE.asItem(), 300);
+        registry.add(PALM_FENCE_GATE.asItem(), 300);
     }
 
     private static void registerBonemeal() {
