@@ -234,7 +234,7 @@ public final class WilderConfiguredFeatures {
                     ConstantInt.of(3),
                     0.8F,
                     2,
-                    0.05F,
+                    0.025F,
                     UniformInt.of(4, 7),
                     0.7F
             )
@@ -250,7 +250,7 @@ public final class WilderConfiguredFeatures {
                     ConstantInt.of(3),
                     0.8F,
                     5,
-                    0.1F,
+                    0.025F,
                     UniformInt.of(4, 7),
                     0.7F
             )
@@ -261,6 +261,22 @@ public final class WilderConfiguredFeatures {
             new RandomBooleanFeatureConfiguration(
                     PlacementUtils.inlinePlaced(BLUE_MESOGLEA),
                     PlacementUtils.inlinePlaced(BLUE_MESOGLEA_POOL)
+            )
+    );
+    public static final Holder<ConfiguredFeature<VegetationPatchConfiguration, ?>> UPSIDE_DOWN_BLUE_MESOGLEA = FeatureUtils.register(
+            "upside_down_blue_mesoglea",
+            Feature.VEGETATION_PATCH,
+            new VegetationPatchConfiguration(
+                    BlockTags.LUSH_GROUND_REPLACEABLE,
+                    BlockStateProvider.simple(RegisterBlocks.MESOGLEA),
+                    PlacementUtils.inlinePlaced(WilderMiscConfigured.DOWNWARDS_MESOGLEA_PILLAR),
+                    CaveSurface.CEILING,
+                    ConstantInt.of(3),
+                    0.8F,
+                    2,
+                    0.08F,
+                    UniformInt.of(4, 7),
+                    0.7F
             )
     );
     public static final Holder<ConfiguredFeature<VegetationPatchConfiguration, ?>> PURPLE_MESOGLEA = FeatureUtils.register(
@@ -274,7 +290,7 @@ public final class WilderConfiguredFeatures {
                     ConstantInt.of(3),
                     0.8F,
                     2,
-                    0.025F,
+                    0.015F,
                     UniformInt.of(4, 7),
                     0.7F
             )
@@ -290,7 +306,7 @@ public final class WilderConfiguredFeatures {
                     ConstantInt.of(3),
                     0.8F,
                     5,
-                    0.025F,
+                    0.015F,
                     UniformInt.of(4, 7),
                     0.7F
             )
@@ -301,6 +317,22 @@ public final class WilderConfiguredFeatures {
             new RandomBooleanFeatureConfiguration(
                     PlacementUtils.inlinePlaced(PURPLE_MESOGLEA),
                     PlacementUtils.inlinePlaced(PURPLE_MESOGLEA_POOL)
+            )
+    );
+    public static final Holder<ConfiguredFeature<VegetationPatchConfiguration, ?>> UPSIDE_DOWN_PURPLE_MESOGLEA = FeatureUtils.register(
+            "upside_down_purple_mesoglea",
+            Feature.VEGETATION_PATCH,
+            new VegetationPatchConfiguration(
+                    BlockTags.LUSH_GROUND_REPLACEABLE,
+                    BlockStateProvider.simple(RegisterBlocks.MESOGLEA),
+                    PlacementUtils.inlinePlaced(WilderMiscConfigured.DOWNWARDS_PURPLE_MESOGLEA_PILLAR),
+                    CaveSurface.CEILING,
+                    ConstantInt.of(3),
+                    0.8F,
+                    2,
+                    0.08F,
+                    UniformInt.of(4, 7),
+                    0.7F
             )
     );
 

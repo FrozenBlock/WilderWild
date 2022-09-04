@@ -262,9 +262,9 @@ public final class WilderPlacedFeatures {
 
     public static final Holder<PlacedFeature> TERMITE_PLACED = register("termite_placed",
             WilderConfiguredFeatures.TERMITE_CONFIGURED, RarityFilter.onAverageOnceEvery(45), CountPlacement.of(1), PlacementUtils.HEIGHTMAP_WORLD_SURFACE, InSquarePlacement.spread(), SurfaceRelativeThresholdFilter.of(Heightmap.Types.WORLD_SURFACE_WG, 0, 128), BiomeFilter.biome());
-    
+
     public static final Holder<PlacedFeature> JELLYFISH_CAVES_BLUE_MESOGLEA = PlacementUtils.register(
-            "jellyfish_caves_blue_mesoglea",
+            "blue_mesoglea",
             WilderConfiguredFeatures.JELLYFISH_CAVES_BLUE_MESOGLEA,
             CountPlacement.of(9),
             InSquarePlacement.spread(),
@@ -273,13 +273,33 @@ public final class WilderPlacedFeatures {
             RandomOffsetPlacement.vertical(ConstantInt.of(1)),
             BiomeFilter.biome());
 
+    public static final Holder<PlacedFeature> JELLYFISH_CAVES_UPSIDE_DOWN_BLUE_MESOGLEA = PlacementUtils.register(
+            "upside_down_blue_mesoglea",
+            WilderConfiguredFeatures.UPSIDE_DOWN_BLUE_MESOGLEA,
+            CountPlacement.of(9),
+            InSquarePlacement.spread(),
+            PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT,
+            EnvironmentScanPlacement.scanningFor(Direction.UP, BlockPredicate.solid(), BlockPredicate.ONLY_IN_AIR_OR_WATER_PREDICATE, 1),
+            RandomOffsetPlacement.vertical(ConstantInt.of(1)),
+            BiomeFilter.biome());
+
     public static final Holder<PlacedFeature> JELLYFISH_CAVES_PURPLE_MESOGLEA = PlacementUtils.register(
-            "jellyfish_caves_purple_mesoglea",
+            "purple_mesoglea",
             WilderConfiguredFeatures.JELLYFISH_CAVES_PURPLE_MESOGLEA,
             CountPlacement.of(9),
             InSquarePlacement.spread(),
             PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT,
             EnvironmentScanPlacement.scanningFor(Direction.DOWN, BlockPredicate.solid(), BlockPredicate.ONLY_IN_AIR_OR_WATER_PREDICATE, 1),
+            RandomOffsetPlacement.vertical(ConstantInt.of(1)),
+            BiomeFilter.biome());
+
+    public static final Holder<PlacedFeature> JELLYFISH_CAVES_UPSIDE_DOWN_PURPLE_MESOGLEA = PlacementUtils.register(
+            "upside_down_purple_mesoglea",
+            WilderConfiguredFeatures.UPSIDE_DOWN_BLUE_MESOGLEA,
+            CountPlacement.of(9),
+            InSquarePlacement.spread(),
+            PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT,
+            EnvironmentScanPlacement.scanningFor(Direction.UP, BlockPredicate.solid(), BlockPredicate.ONLY_IN_AIR_OR_WATER_PREDICATE, 1),
             RandomOffsetPlacement.vertical(ConstantInt.of(1)),
             BiomeFilter.biome());
 
