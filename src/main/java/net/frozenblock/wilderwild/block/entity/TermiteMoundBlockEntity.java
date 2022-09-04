@@ -80,9 +80,7 @@ public class TermiteMoundBlockEntity extends BlockEntity {
         DataResult<Tag> var10000 = Termite.CODEC.listOf().encodeStart(NbtOps.INSTANCE, this.termites);
         Logger var10001 = WilderWild.LOGGER;
         Objects.requireNonNull(var10001);
-        var10000.resultOrPartial(var10001::error).ifPresent((cursorsNbt) -> {
-            nbt.put("termites", cursorsNbt);
-        });
+        var10000.resultOrPartial(var10001::error).ifPresent((cursorsNbt) -> nbt.put("termites", cursorsNbt));
     }
 
     public void addTermite(BlockPos pos) {
@@ -199,7 +197,7 @@ public class TermiteMoundBlockEntity extends BlockEntity {
                     this.blockDestroyPower += additionalPower;
                     if (this.blockDestroyPower > 200) {
                         this.blockDestroyPower = 0;
-                        this.aliveTicks = Math.max(0, this.aliveTicks - (200 / additionalPower));
+                        this.aliveTicks = this.natural ? Math.max(0, this.aliveTicks - (200 / additionalPower)) : 0;
                         if (blockState.is(WilderBlockTags.TERMITE_BREAKABLE)) {
                             world.destroyBlock(this.pos, true);
                         } else {

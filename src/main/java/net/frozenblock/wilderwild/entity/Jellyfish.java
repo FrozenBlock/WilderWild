@@ -128,7 +128,6 @@ public class Jellyfish extends AbstractFish {
 
     public static boolean canSpawn(EntityType<Jellyfish> type, ServerLevelAccessor world, MobSpawnType spawnReason, BlockPos pos, RandomSource random) {
         ArrayList<TagKey<Biome>> possibleTags = new ArrayList<>();
-        TagKey<Biome> biomeTag;
         Holder<Biome> holder = world.getBiome(pos);
         if (holder.is(WilderBiomeTags.PINK_JELLYFISH)) {
             possibleTags.add(WilderBiomeTags.PINK_JELLYFISH);
@@ -157,12 +156,12 @@ public class Jellyfish extends AbstractFish {
                 normalSpawn = false;
             }
             if (normalSpawn) {
-                return spawnReason != MobSpawnType.SPAWNER ? random.nextInt(1, 4) == 3 && pos.getY() <= world.getSeaLevel() - 3 && pos.getY() >= world.getSeaLevel() - 26 && world.getBlockState(pos).is(Blocks.WATER)
+                return spawnReason != MobSpawnType.SPAWNER ? random.nextInt(1, 10) == 3 && pos.getY() <= world.getSeaLevel() - 3 && pos.getY() >= world.getSeaLevel() - 26 && world.getBlockState(pos).is(Blocks.WATER)
                         : world.getBlockState(pos).is(Blocks.WATER);
             }
         }
 
-        return spawnReason != MobSpawnType.SPAWNER ? pos.getY() <= world.getSeaLevel() - 33 && world.getRawBrightness(pos, 0) <= 7 && world.getBlockState(pos).is(Blocks.WATER)
+        return spawnReason != MobSpawnType.SPAWNER ? random.nextInt(1, 10) == 3 && pos.getY() <= world.getSeaLevel() - 33 && world.getRawBrightness(pos, 0) <= 7 && world.getBlockState(pos).is(Blocks.WATER)
                 : world.getBlockState(pos).is(Blocks.WATER);
     }
 
