@@ -1,47 +1,6 @@
 {
-  "parent": "block/block",
+  "parent": "wilderwild:template_mesoglea",
   "textures": {
-	"particle": "wilderwild:block/lime_mesoglea",
 	"texture": "wilderwild:block/lime_mesoglea"
-  },
-  "elements": [
-	{
-	  "from": [
-		0,
-		0,
-		0
-	  ],
-	  "to": [
-		16,
-		16,
-		16
-	  ],
-	  "faces": {
-		"down": {
-		  "texture": "#texture",
-		  "cullface": "down"
-		},
-		"up": {
-		  "texture": "#texture",
-		  "cullface": "up"
-		},
-		"north": {
-		  "texture": "#texture",
-		  "cullface": "north"
-		},
-		"south": {
-		  "texture": "#texture",
-		  "cullface": "south"
-		},
-		"west": {
-		  "texture": "#texture",
-		  "cullface": "west"
-		},
-		"east": {
-		  "texture": "#texture",
-		  "cullface": "east"
-		}
-	  }
-	}
-  ]
+  }
 }
