@@ -1,6 +1,7 @@
 {
   "biome.wilderwild.cypress_wetlands": "Cypress Wetlands",
   "biome.wilderwild.mixed_forest": "Mixed Forest",
+  "biome.wilderwild.jellyfish_caves": "Jellyfish Caves",
   "block.wilderwild.alba_glory_of_the_snow": "Alba Glory Of The Snow",
   "block.wilderwild.algae": "Algae",
   "block.wilderwild.baobab_button": "Baobab Button",
@@ -96,6 +97,7 @@
   "entity.wilderwild.firefly": "Firefly",
   "entity.wilderwild.jellyfish": "Jellyfish",
   "entity.wilderwild.sculk_sensor_tendril": "Sculk Sensor Tendrils",
+  "gamerule.stoneChestCloses": "Stone Chests close automatically",
   "instrument.wilderwild.ancient_horn": "Whirs of the Ancient",
   "instrument.wilderwild.clarinet_copper_horn": "Clarinet",
   "instrument.wilderwild.flute_copper_horn": "Flute",
