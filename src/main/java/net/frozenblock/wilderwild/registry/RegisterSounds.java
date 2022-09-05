@@ -151,6 +151,7 @@ public final class RegisterSounds {
 
     //ENTITY
 
+    public static final SoundEvent ENTITY_ANCIENT_HORN_PROJECTILE_BLAST = register("entity.ancient_horn_projectile.blast");
     public static final SoundEvent ENTITY_ANCIENT_HORN_PROJECTILE_LOOP = register("entity.ancient_horn_projectile.loop");
     public static final SoundEvent ENTITY_ANCIENT_HORN_PROJECTILE_FLYBY = register("entity.ancient_horn_projectile.flyby");
     public static final SoundEvent ENTITY_ANCIENT_HORN_PROJECTILE_DISSIPATE = register("entity.ancient_horn_projectile.dissipate");
@@ -182,7 +183,6 @@ public final class RegisterSounds {
     //ITEM
 
     public static final SoundEvent ITEM_ANCIENT_HORN_CALL = register("item.ancient_horn.call");
-    public static final SoundEvent ITEM_ANCIENT_HORN_BLAST = register("item.ancient_horn.blast");
 
     public static final SoundEvent ITEM_BOTTLE_CATCH_FIREFLY = register("item.bottle.catch_firefly");
     public static final SoundEvent ITEM_BOTTLE_RELEASE_FIREFLY = register("item.bottle.release_firefly");
