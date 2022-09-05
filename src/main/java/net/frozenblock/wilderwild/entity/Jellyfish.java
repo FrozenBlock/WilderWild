@@ -1,7 +1,6 @@
 package net.frozenblock.wilderwild.entity;
 
 import com.mojang.serialization.Dynamic;
-import net.frozenblock.wilderwild.block.MesogleaBlock;
 import net.frozenblock.wilderwild.entity.ai.JellyfishAi;
 import net.frozenblock.wilderwild.misc.server.EasyPacket;
 import net.frozenblock.wilderwild.registry.RegisterEntities;
@@ -46,8 +45,6 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.storage.loot.LootContext;
 import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
@@ -149,7 +146,6 @@ public class Jellyfish extends AbstractFish {
         if (holder.is(WilderBiomeTags.PEARLESCENT_JELLYFISH)) {
             possibleTags.add(WilderBiomeTags.PEARLESCENT_JELLYFISH);
         }
-        boolean waterSpawn = canSpawnWater(world.getBlockState(pos));
 
         if (!possibleTags.isEmpty()) {
             boolean normalSpawn = true;
@@ -159,17 +155,13 @@ public class Jellyfish extends AbstractFish {
                 normalSpawn = false;
             }
             if (normalSpawn) {
-                return spawnReason != MobSpawnType.SPAWNER ? random.nextInt(1, 10) == 3 && pos.getY() <= world.getSeaLevel() - 3 && pos.getY() >= world.getSeaLevel() - 26 && waterSpawn
-                        : waterSpawn;
+                return spawnReason != MobSpawnType.SPAWNER ? random.nextInt(1, 10) == 3 && pos.getY() <= world.getSeaLevel() - 3 && pos.getY() >= world.getSeaLevel() - 26 && world.getBlockState(pos).is(Blocks.WATER)
+                        : world.getBlockState(pos).is(Blocks.WATER);
             }
         }
 
-        return spawnReason != MobSpawnType.SPAWNER ? random.nextInt(1, 10) == 3 && pos.getY() <= world.getSeaLevel() - 33 && world.getRawBrightness(pos, 0) <= 7 && waterSpawn
-                : waterSpawn;
-    }
-
-    public static boolean canSpawnWater(BlockState state) {
-        return state.getBlock() instanceof MesogleaBlock ? state.getValue(BlockStateProperties.WATERLOGGED) : state.is(Blocks.WATER);
+        return spawnReason != MobSpawnType.SPAWNER ? random.nextInt(1, 10) == 3 && pos.getY() <= world.getSeaLevel() - 33 && world.getRawBrightness(pos, 0) <= 7 && world.getBlockState(pos).is(Blocks.WATER)
+                : world.getBlockState(pos).is(Blocks.WATER);
     }
 
     public void saveToBucketTag(ItemStack itemStack) {
