@@ -51,7 +51,7 @@ public class MesogleaBlock extends Block implements SimpleWaterloggedBlock {
 
     @Override
     public int getLightBlock(BlockState blockState, BlockGetter blockGetter, BlockPos blockPos) {
-        return 2;
+        return 1;
     }
 
     @Override
