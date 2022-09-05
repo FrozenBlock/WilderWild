@@ -39,7 +39,8 @@ public class MesogleaBlock extends /*BaseEntityBlock*/ Block implements SimpleWa
         if (state.getValue(WATERLOGGED)) {
             if (!entity.getType().is(WilderEntityTags.CAN_SWIM_IN_MESOGLEA)) {
                 if (entity instanceof ItemEntity item) {
-                    entity.makeStuckInBlock(state, new Vec3(0.9D, 1.1D, 0.9D));
+                    item.makeStuckInBlock(state, new Vec3(0.9D, 0.9D, 0.9D));
+                    item.setDeltaMovement(item.getDeltaMovement().add(0, 0.05, 0));
                 } else {
                     entity.makeStuckInBlock(state, new Vec3(0.9D, 0.9D, 0.9D));
                 }
