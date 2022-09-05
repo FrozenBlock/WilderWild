@@ -16,6 +16,9 @@ public final class RegisterSounds {
 
     public static final SoundEvent AMBIENT_GENERIC_CAVES_LOOP = register("ambient.generic_caves.loop");
 
+    public static final SoundEvent AMBIENT_JELLYFISH_CAVES_ADDITIONS = register("ambient.jellyfish_caves.additions");
+    public static final SoundEvent AMBIENT_JELLYFISH_CAVES_LOOP = register("ambient.jellyfish_caves.loop");
+
     public static final SoundEvent AMBIENT_LUSH_CAVES_ADDITIONS = register("ambient.lush_caves.additions");
     public static final SoundEvent AMBIENT_LUSH_CAVES_LOOP = register("ambient.lush_caves.loop");
 
@@ -148,6 +151,7 @@ public final class RegisterSounds {
 
     //ENTITY
 
+    public static final SoundEvent ENTITY_ANCIENT_HORN_PROJECTILE_BLAST = register("entity.ancient_horn_projectile.blast");
     public static final SoundEvent ENTITY_ANCIENT_HORN_PROJECTILE_LOOP = register("entity.ancient_horn_projectile.loop");
     public static final SoundEvent ENTITY_ANCIENT_HORN_PROJECTILE_FLYBY = register("entity.ancient_horn_projectile.flyby");
     public static final SoundEvent ENTITY_ANCIENT_HORN_PROJECTILE_DISSIPATE = register("entity.ancient_horn_projectile.dissipate");
@@ -161,7 +165,6 @@ public final class RegisterSounds {
     public static final SoundEvent ENTITY_JELLYFISH_AMBIENT = register("entity.jellyfish.ambient");
     public static final SoundEvent ENTITY_JELLYFISH_HURT = register("entity.jellyfish.hurt");
     public static final SoundEvent ENTITY_JELLYFISH_SWIM = register("entity.jellyfish.swim");
-    public static final SoundEvent ENTITY_JELLYFISH_WHINE = register("entity.jellyfish.whine");
     //TODO: UNIQUE FLOP SOUNDS
     public static final SoundEvent ENTITY_JELLYFISH_FLOP = register("entity.jellyfish.flop");
     //TODO: UNIQUE DEATH SOUNDS
@@ -180,7 +183,6 @@ public final class RegisterSounds {
     //ITEM
 
     public static final SoundEvent ITEM_ANCIENT_HORN_CALL = register("item.ancient_horn.call");
-    public static final SoundEvent ITEM_ANCIENT_HORN_BLAST = register("item.ancient_horn.blast");
 
     public static final SoundEvent ITEM_BOTTLE_CATCH_FIREFLY = register("item.bottle.catch_firefly");
     public static final SoundEvent ITEM_BOTTLE_RELEASE_FIREFLY = register("item.bottle.release_firefly");

@@ -323,7 +323,7 @@ public class AncientHornProjectile extends AbstractArrow {
                 if (XP > 0) {
                     tendril.storedXP = 0;
                     level.explode(this, this.getX(), this.getY(), this.getZ(), 0, Explosion.BlockInteraction.NONE);
-                    level.playLocalSound(this.getX(), this.getY(), this.getZ(), RegisterSounds.ITEM_ANCIENT_HORN_BLAST, SoundSource.NEUTRAL, 1.0F, 1.0F, true);
+                    level.playLocalSound(this.getX(), this.getY(), this.getZ(), RegisterSounds.ENTITY_ANCIENT_HORN_PROJECTILE_BLAST, SoundSource.NEUTRAL, 1.0F, 1.0F, true);
                     level.destroyBlock(this.blockPosition(), false);
                     ExperienceOrb.award(server, Vec3.atCenterOf(pos).add(0, 0, 0), XP);
                     setCooldown(getCooldown(this.getOwner(), TENDRIL_COOLDOWN));
