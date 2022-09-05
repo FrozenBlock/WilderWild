@@ -62,6 +62,16 @@ public class MesogleaBlock extends /*BaseEntityBlock*/ Block implements SimpleWa
     }
 
     @Override
+    public VoxelShape getBlockSupportShape(BlockState blockState, BlockGetter blockGetter, BlockPos blockPos) {
+        return Shapes.empty();
+    }
+
+    @Override
+    public int getLightBlock(BlockState blockState, BlockGetter blockGetter, BlockPos blockPos) {
+        return 2;
+    }
+
+    @Override
     public FluidState getFluidState(BlockState blockState) {
         if (blockState.getValue(WATERLOGGED)) {
             return Fluids.WATER.getSource(false);
