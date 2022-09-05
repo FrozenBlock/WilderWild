@@ -33,7 +33,6 @@
 	"server.WardenEntityMixin",
 	"server.FrogEntityMixin",
 	"worldgen.BirchTreeGrowerMixin",
-	"worldgen.CaveWorldCarverMixin",
 	"worldgen.DefaultBiomeFeaturesMixin",
 	"worldgen.GenerationSettingsBuilderMixin",
 	"worldgen.JigsawStructureMixin",
