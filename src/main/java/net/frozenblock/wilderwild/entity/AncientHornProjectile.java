@@ -3,6 +3,7 @@ package net.frozenblock.wilderwild.entity;
 import io.netty.buffer.Unpooled;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.frozenblock.lib.damagesource.FrozenProjectileDamageSource;
+import net.frozenblock.lib.sound.FlyBySoundPacket;
 import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.block.entity.HangingTendrilBlockEntity;
 import net.frozenblock.wilderwild.misc.config.ClothConfigInteractionHandler;
@@ -237,7 +238,7 @@ public class AncientHornProjectile extends AbstractArrow {
     public void playerTouch(@NotNull Player player) {
     }
 
-    protected void onHitBlock(BlockHitResult blockHitResult) {
+    protected void onHitBlock(BlockHitResult blockHitResult) { //BLOCK INTERACTIONS
         this.inBlockState = this.level.getBlockState(blockHitResult.getBlockPos());
         BlockState blockState = this.level.getBlockState(blockHitResult.getBlockPos());
         Entity owner = this.getOwner();
@@ -484,6 +485,7 @@ public class AncientHornProjectile extends AbstractArrow {
             } else if (!entity.getType().is(WilderEntityTags.ANCIENT_HORN_IMMUNE)) {
                 if (entity.hurt(damageSource, (float) damage)) {
                     if (entity instanceof LivingEntity livingEntity) {
+                        Level world = this.getLevel();
                         WilderWild.log(livingEntity, "Horn Projectile Touched", WilderWild.DEV_LOGGING);
                         if (!this.level.isClientSide && owner instanceof LivingEntity) {
                             EnchantmentHelper.doPostHurtEffects(livingEntity, owner);
@@ -492,6 +494,7 @@ public class AncientHornProjectile extends AbstractArrow {
                         this.doPostHurtEffects(livingEntity);
                         if (livingEntity instanceof Player && owner instanceof ServerPlayer && !this.isSilent()) {
                             ((ServerPlayer) owner).connection.send(new ClientboundGameEventPacket(ClientboundGameEventPacket.ARROW_HIT_PLAYER, 0.0F));
+                            FlyBySoundPacket.createFlybySound(world, this, RegisterSounds.ENTITY_ANCIENT_HORN_PROJECTILE_FLYBY, SoundSource.PLAYERS, 1.0F, 0.7F);
                         }
                         if (livingEntity.isDeadOrDying() && level instanceof ServerLevel server) {
                             server.sendParticles(ParticleTypes.SCULK_SOUL, livingEntity.getX(), livingEntity.getEyeY(), livingEntity.getZ(), 1, 0.2D, 0.0D, 0.2D, 0.0D);
