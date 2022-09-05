@@ -24,6 +24,7 @@ import net.frozenblock.wilderwild.world.feature.features.config.PathFeatureConfi
 import net.frozenblock.wilderwild.world.feature.features.config.ShelfFungusFeatureConfig;
 import net.frozenblock.wilderwild.world.feature.features.config.UpwardsPillarConfig;
 import net.frozenblock.wilderwild.world.gen.WilderWorldGen;
+import net.frozenblock.wilderwild.world.gen.foliage.PalmFoliagePlacer;
 import net.frozenblock.wilderwild.world.gen.trunk.BaobabTrunkPlacer;
 import net.frozenblock.wilderwild.world.gen.trunk.FallenTrunkWithLogs;
 import net.frozenblock.wilderwild.world.gen.trunk.JuniperTrunkPlacer;
@@ -40,7 +41,9 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.configurations.ProbabilityFeatureConfiguration;
-import net.minecraft.world.level.levelgen.feature.configurations.VegetationPatchConfiguration;
+import net.minecraft.world.level.levelgen.feature.foliageplacers.BlobFoliagePlacer;
+import net.minecraft.world.level.levelgen.feature.foliageplacers.FoliagePlacer;
+import net.minecraft.world.level.levelgen.feature.foliageplacers.FoliagePlacerType;
 import net.minecraft.world.level.levelgen.feature.trunkplacers.TrunkPlacer;
 import net.minecraft.world.level.levelgen.feature.trunkplacers.TrunkPlacerType;
 import org.quiltmc.qsl.frozenblock.datafixerupper.api.QuiltDataFixerBuilder;
@@ -74,6 +77,8 @@ public final class WilderWild implements ModInitializer {
     public static final ColumnWithDiskFeature COLUMN_WITH_DISK_FEATURE = new ColumnWithDiskFeature(ColumnWithDiskFeatureConfig.CODEC);
     public static final UpwardsPillarFeature UPWARDS_PILLAR_FEATURE = new UpwardsPillarFeature(UpwardsPillarConfig.CODEC);
     public static final DownwardsPillarFeature DOWNWARDS_PILLAR_FEATURE = new DownwardsPillarFeature(UpwardsPillarConfig.CODEC);
+
+    public static final FoliagePlacerType<PalmFoliagePlacer> PALM_FOLIAGE_PLACER =  registerFoliage("palm_foliage_placer", PalmFoliagePlacer.CODEC);
 
     //public static final ClusterFeature CLUSTER_FEATURE = new ClusterFeature(ClusterFeatureConfig.CODEC);
 
@@ -252,6 +257,9 @@ public final class WilderWild implements ModInitializer {
 
     private static <P extends TrunkPlacer> TrunkPlacerType<P> registerTrunk(String id, Codec<P> codec) {
         return Registry.register(Registry.TRUNK_PLACER_TYPES, id(id), new TrunkPlacerType<>(codec));
+    }
+    private static <P extends FoliagePlacer> FoliagePlacerType<P> registerFoliage(String id, Codec<P> codec) {
+        return Registry.register(Registry.FOLIAGE_PLACER_TYPES, id(id), new FoliagePlacerType<>(codec));
     }
 
     //MEASURING
