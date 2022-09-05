@@ -50,6 +50,10 @@ public class ClothConfigCloserInteractionHandler {
         return WilderWildConfig.get().item.ancientHornCanSummonWarden;
     }
 
+    public static boolean projectileBreakParticles() {
+        return WilderWildConfig.get().item.projectileBreakParticles;
+    }
+
     public static boolean mcLiveSensorTendrils() {
         return WilderWildConfig.get().block.mcLiveSensorTendrils;
     }

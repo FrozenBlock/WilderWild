@@ -82,6 +82,13 @@ public class ClothConfigInteractionHandler {
         return false;
     }
 
+    public static boolean projectileBreakParticles() {
+        if (WilderWild.hasCloth) {
+            return ClothConfigCloserInteractionHandler.projectileBreakParticles();
+        }
+        return false;
+    }
+
     public static boolean hornCanSummonWarden() {
         if (WilderWild.hasCloth) {
             return ClothConfigCloserInteractionHandler.hornCanSummonWarden();
