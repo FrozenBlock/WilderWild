@@ -14,7 +14,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(BlockRenderDispatcher.class)
 public class BlockRenderDispatcherMixin {
-    
+
     @Inject(method = "renderLiquid", at = @At(value = "INVOKE"), cancellable = true)
     public void renderLiquid(BlockPos blockPos, BlockAndTintGetter blockAndTintGetter, VertexConsumer vertexConsumer, BlockState blockState, FluidState fluidState, CallbackInfo info) {
         if (blockState.getBlock() instanceof MesogleaBlock) {
