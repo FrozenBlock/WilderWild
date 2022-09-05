@@ -166,7 +166,7 @@ public class Jellyfish extends AbstractFish {
             }
         }
 
-        return spawnReason != MobSpawnType.SPAWNER ? pos.getY() <= world.getSeaLevel() - 33 && world.getRawBrightness(pos, 0) <= 7 && waterSpawn
+        return spawnReason != MobSpawnType.SPAWNER ? random.nextInt(1, 10) == 3 && pos.getY() <= world.getSeaLevel() - 33 && world.getRawBrightness(pos, 0) <= 7 && waterSpawn
                 : waterSpawn;
     }
 
