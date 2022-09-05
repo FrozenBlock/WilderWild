@@ -19,6 +19,7 @@ import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.CollisionContext;
+import net.minecraft.world.phys.shapes.EntityCollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.Nullable;
@@ -47,7 +48,10 @@ public class MesogleaBlock extends Block implements SimpleWaterloggedBlock {
 
     @Override
     public VoxelShape getCollisionShape(BlockState blockState, BlockGetter blockGetter, BlockPos blockPos, CollisionContext collisionContext) {
-        return !blockState.getValue(WATERLOGGED) ? blockState.getShape(blockGetter, blockPos) : Shapes.empty();
+        if (collisionContext instanceof EntityCollisionContext && ((EntityCollisionContext)collisionContext).getEntity() != null) {
+            return Shapes.empty();
+        }
+        return super.getCollisionShape(blockState, blockGetter, blockPos, collisionContext);
     }
 
     @Override
@@ -70,7 +74,7 @@ public class MesogleaBlock extends Block implements SimpleWaterloggedBlock {
 
     @Override
     public BlockState updateShape(BlockState blockState, Direction direction, BlockState blockState2, LevelAccessor levelAccessor, BlockPos blockPos, BlockPos blockPos2) {
-        if (blockState.getValue(WATERLOGGED).booleanValue()) {
+        if (blockState.getValue(WATERLOGGED)) {
             levelAccessor.scheduleTick(blockPos, Fluids.WATER, Fluids.WATER.getTickDelay(levelAccessor));
         }
         return super.updateShape(blockState, direction, blockState2, levelAccessor, blockPos, blockPos2);
@@ -78,7 +82,7 @@ public class MesogleaBlock extends Block implements SimpleWaterloggedBlock {
 
     @Override
     public FluidState getFluidState(BlockState blockState) {
-        if (blockState.getValue(WATERLOGGED).booleanValue()) {
+        if (blockState.getValue(WATERLOGGED)) {
             return Fluids.WATER.getSource(false);
         }
         return super.getFluidState(blockState);
