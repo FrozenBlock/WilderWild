@@ -75,7 +75,6 @@ public class Jellyfish extends AbstractFish {
     private float rotateSpeed;
 
     public int ticksSinceCantReach;
-    public int crazyTicks;
 
     public Jellyfish(EntityType<? extends Jellyfish> entityType, Level level) {
         super(entityType, level);
@@ -398,14 +397,12 @@ public class Jellyfish extends AbstractFish {
     public void addAdditionalSaveData(@NotNull CompoundTag nbt) {
         super.addAdditionalSaveData(nbt);
         nbt.putInt("ticksSinceCantReach", this.ticksSinceCantReach);
-        nbt.putInt("crazyTicks", this.crazyTicks);
         nbt.putString("variant", this.getVariant());
     }
 
     public void readAdditionalSaveData(@NotNull CompoundTag nbt) {
         super.readAdditionalSaveData(nbt);
         this.ticksSinceCantReach = nbt.getInt("ticksSinceCantReach");
-        this.crazyTicks = nbt.getInt("crazyTicks");
         this.setVariant(nbt.getString("variant"));
     }
 

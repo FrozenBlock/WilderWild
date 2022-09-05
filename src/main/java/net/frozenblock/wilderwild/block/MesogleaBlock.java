@@ -39,10 +39,10 @@ public class MesogleaBlock extends /*BaseEntityBlock*/ Block implements SimpleWa
         if (state.getValue(WATERLOGGED)) {
             if (!entity.getType().is(WilderEntityTags.CAN_SWIM_IN_MESOGLEA)) {
                 if (entity instanceof ItemEntity item) {
-                    item.makeStuckInBlock(state, new Vec3(0.9D, 0.9D, 0.9D));
-                    item.setDeltaMovement(item.getDeltaMovement().add(0, 0.05, 0));
+                    item.makeStuckInBlock(state, new Vec3(0.999D, 0.999D, 0.999D));
+                    item.setDeltaMovement(item.getDeltaMovement().add(0, 0.025, 0));
                 } else {
-                    entity.makeStuckInBlock(state, new Vec3(0.9D, 0.9D, 0.9D));
+                    entity.makeStuckInBlock(state, new Vec3(0.999D, 0.999D, 0.999D));
                 }
             }
         }
@@ -55,7 +55,6 @@ public class MesogleaBlock extends /*BaseEntityBlock*/ Block implements SimpleWa
 
     @Override
     public BlockState updateShape(BlockState blockState, Direction direction, BlockState blockState2, LevelAccessor levelAccessor, BlockPos blockPos, BlockPos blockPos2) {
-        int i;
         if (blockState.getValue(WATERLOGGED)) {
             levelAccessor.scheduleTick(blockPos, Fluids.WATER, Fluids.WATER.getTickDelay(levelAccessor));
         }
@@ -78,8 +77,7 @@ public class MesogleaBlock extends /*BaseEntityBlock*/ Block implements SimpleWa
     @Override
     public BlockState getStateForPlacement(BlockPlaceContext blockPlaceContext) {
         FluidState fluidState = blockPlaceContext.getLevel().getFluidState(blockPlaceContext.getClickedPos());
-        BlockState blockState = this.defaultBlockState().setValue(WATERLOGGED, fluidState.getType() == Fluids.WATER);
-        return blockState;
+        return this.defaultBlockState().setValue(WATERLOGGED, fluidState.getType() == Fluids.WATER);
     }
 
     /*@Nullable
