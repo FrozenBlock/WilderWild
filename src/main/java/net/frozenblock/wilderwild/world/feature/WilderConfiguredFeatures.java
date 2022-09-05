@@ -234,7 +234,7 @@ public final class WilderConfiguredFeatures {
                     ConstantInt.of(3),
                     0.8F,
                     2,
-                    0.025F,
+                    0.04F,
                     UniformInt.of(4, 7),
                     0.7F
             )
@@ -250,7 +250,7 @@ public final class WilderConfiguredFeatures {
                     ConstantInt.of(3),
                     0.8F,
                     5,
-                    0.025F,
+                    0.04F,
                     UniformInt.of(4, 7),
                     0.7F
             )
@@ -290,7 +290,7 @@ public final class WilderConfiguredFeatures {
                     ConstantInt.of(3),
                     0.8F,
                     2,
-                    0.015F,
+                    0.04F,
                     UniformInt.of(4, 7),
                     0.7F
             )
@@ -306,7 +306,7 @@ public final class WilderConfiguredFeatures {
                     ConstantInt.of(3),
                     0.8F,
                     5,
-                    0.015F,
+                    0.04F,
                     UniformInt.of(4, 7),
                     0.7F
             )
