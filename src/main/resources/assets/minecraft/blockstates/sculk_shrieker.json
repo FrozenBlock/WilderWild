@@ -13,10 +13,10 @@
 	  "model": "minecraft:block/sculk_shrieker_can_summon"
 	},
 	"can_summon=true,souls_taken=1": {
-	  "model": "minecraft:block/sculk_shrieker_can_summon"
+	  "model": "minecraft:block/sculk_shrieker_one_soul"
 	},
 	"can_summon=true,souls_taken=2": {
-	  "model": "minecraft:block/sculk_shrieker_can_summon"
+	  "model": "minecraft:block/sculk_shrieker_no_soul"
 	}
   }
 }
