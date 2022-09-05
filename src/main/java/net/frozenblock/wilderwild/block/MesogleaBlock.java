@@ -42,7 +42,7 @@ public class MesogleaBlock extends /*BaseEntityBlock*/ Block implements SimpleWa
                     item.makeStuckInBlock(state, new Vec3(0.9D, 0.9D, 0.9D));
                     item.setDeltaMovement(item.getDeltaMovement().add(0, 0.05, 0));
                 } else {
-                    entity.makeStuckInBlock(state, new Vec3(0.1D, 0.1D, 0.1D));
+                    entity.makeStuckInBlock(state, new Vec3(0.9D, 0.9D, 0.9D));
                 }
             }
         }
