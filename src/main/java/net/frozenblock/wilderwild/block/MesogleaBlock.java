@@ -6,6 +6,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
@@ -37,7 +38,11 @@ public class MesogleaBlock extends /*BaseEntityBlock*/ Block implements SimpleWa
     public void entityInside(net.minecraft.world.level.block.state.BlockState state, Level world, BlockPos pos, Entity entity) {
         if (state.getValue(WATERLOGGED)) {
             if (!entity.getType().is(WilderEntityTags.CAN_SWIM_IN_MESOGLEA)) {
-                entity.makeStuckInBlock(state, new Vec3(0.7D, 0.7D, 0.7D));
+                if (entity instanceof ItemEntity item) {
+                    entity.makeStuckInBlock(state, new Vec3(0.9D, 1.1D, 0.9D));
+                } else {
+                    entity.makeStuckInBlock(state, new Vec3(0.9D, 0.9D, 0.9D));
+                }
             }
         }
     }
