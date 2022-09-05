@@ -51,8 +51,8 @@ public class SculkShriekerBlockEntityMixin {
         }
         if (entity.getBlockState().getValue(BlockStateProperties.WATERLOGGED)) {
             if (entity.getLevel() instanceof ServerLevel server) {
-                if (entity.getBlockState().getValue(BlockStateProperties.SHRIEKING)) {
-                    EasyPacket.EasyFloatingSculkBubblePacket.createParticle(server, Vec3.atCenterOf(entity.getBlockPos()), Math.random() > 0.7 ? 1 : 0, 20 + WilderWild.random().nextInt(40), 0.05, server.random.nextIntBetweenInclusive(1, 3));
+                while (entity.getBlockState().getValue(BlockStateProperties.SHRIEKING)) {
+                    EasyPacket.EasyFloatingSculkBubblePacket.createParticle(server, Vec3.atCenterOf(entity.getBlockPos()), Math.random() > 0.7 ? 1 : 0, 20 + WilderWild.random().nextInt(80), 0.075, server.random.nextIntBetweenInclusive(1, 6));
                 }
             }
         }
