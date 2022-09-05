@@ -54,10 +54,10 @@ public class MesogleaBlock extends Block implements SimpleWaterloggedBlock {
         return super.getCollisionShape(blockState, blockGetter, blockPos, collisionContext);
     }
 
-    @Override
+    /*@Override
     public VoxelShape getBlockSupportShape(BlockState blockState, BlockGetter blockGetter, BlockPos blockPos) {
         return Shapes.empty();
-    }
+    }*/
 
     @Override
     public int getLightBlock(BlockState blockState, BlockGetter blockGetter, BlockPos blockPos) {
