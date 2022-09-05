@@ -4,7 +4,7 @@ import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.misc.config.ClothConfigInteractionHandler;
 import net.frozenblock.wilderwild.world.feature.WilderMiscPlaced;
 import net.frozenblock.wilderwild.world.feature.WilderPlacedFeatures;
-import net.frozenblock.wilderwild.world.gen.noise.WilderNoiseKeys;
+import net.frozenblock.wilderwild.world.gen.noise.WilderNoise;
 import net.minecraft.core.Registry;
 import net.minecraft.data.BuiltinRegistries;
 import net.minecraft.data.worldgen.BiomeDefaultFeatures;
@@ -35,7 +35,7 @@ public final class RegisterWorldgen {
         BuiltinRegistries.register(BuiltinRegistries.BIOME, CYPRESS_WETLANDS, cypressWetlands());
         BuiltinRegistries.register(BuiltinRegistries.BIOME, JELLYFISH_CAVES, jellyfishCaves());
 
-        WilderNoiseKeys.init();
+        WilderNoise.init();
     }
 
     private static ResourceKey<Biome> register(String name) {
@@ -181,6 +181,8 @@ public final class RegisterWorldgen {
         builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderMiscPlaced.EXTRA_GLOW_LICHEN);
         builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.JELLYFISH_CAVES_BLUE_MESOGLEA);
         builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.JELLYFISH_CAVES_PURPLE_MESOGLEA);
+        builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.JELLYFISH_CAVES_UPSIDE_DOWN_BLUE_MESOGLEA);
+        builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.JELLYFISH_CAVES_UPSIDE_DOWN_PURPLE_MESOGLEA);
         builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderMiscPlaced.MESOGLEA_PILLAR);
         builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderMiscPlaced.PURPLE_MESOGLEA_PILLAR);
         addNematocyst(builder);

@@ -3,7 +3,6 @@ package net.frozenblock.wilderwild.registry;
 import com.mojang.serialization.Codec;
 import net.fabricmc.fabric.api.particle.v1.FabricParticleTypes;
 import net.frozenblock.wilderwild.WilderWild;
-import net.frozenblock.wilderwild.particle.AncientHornParticleEffect;
 import net.minecraft.core.Registry;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleType;
@@ -19,7 +18,6 @@ public final class RegisterParticles {
     public static final SimpleParticleType CONTROLLED_MILKWEED_SEED = FabricParticleTypes.simple();
     public static final SimpleParticleType FLOATING_SCULK_BUBBLE = FabricParticleTypes.simple();
     public static final SimpleParticleType TERMITE = FabricParticleTypes.simple();
-    public static final ParticleType<AncientHornParticleEffect> ANCIENT_HORN = register("ancient_horn", false, AncientHornParticleEffect.FACTORY, type -> AncientHornParticleEffect.CODEC);
 
     public static void registerParticles() {
         WilderWild.logWild("Registering Particles for", WilderWild.UNSTABLE_LOGGING);

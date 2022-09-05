@@ -46,6 +46,10 @@ public class ClothConfigCloserInteractionHandler {
         return WilderWildConfig.get().item.ancientHornShattersGlass;
     }
 
+    public static boolean hornCanSummonWarden() {
+        return WilderWildConfig.get().item.ancientHornCanSummonWarden;
+    }
+
     public static boolean mcLiveSensorTendrils() {
         return WilderWildConfig.get().block.mcLiveSensorTendrils;
     }

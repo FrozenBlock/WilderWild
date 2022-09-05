@@ -227,126 +227,18 @@ public final class WilderConfiguredFeatures {
     public static final Holder<ConfiguredFeature<ColumnWithDiskFeatureConfig, ?>> TERMITE_CONFIGURED =
             register("termite_mound_baobab", WilderWild.COLUMN_WITH_DISK_FEATURE, new ColumnWithDiskFeatureConfig(RegisterBlocks.TERMITE_MOUND.defaultBlockState().setValue(RegisterProperties.NATURAL, true), UniformInt.of(4, 9), UniformInt.of(3, 7), UniformInt.of(1, 3), HolderSet.direct(Block::builtInRegistryHolder, Blocks.GRASS_BLOCK, Blocks.STONE, Blocks.DIORITE, Blocks.ANDESITE, Blocks.GRANITE), HolderSet.direct(Block::builtInRegistryHolder, Blocks.COARSE_DIRT, Blocks.SAND, Blocks.PACKED_MUD)));
 
-    /*public static final RegistryEntry<ConfiguredFeature<RandomPatchFeatureConfig, ?>> PATCH_CYPRESS_ROOTS =
-            register("patch_cypress_roots", Feature.RANDOM_PATCH,
-                    new RandomPatchFeatureConfig(10, 7, 3, PlacedFeatures.createEntry(Feature.SIMPLE_BLOCK,
-                            new SimpleBlockFeatureConfig(BlockStateProvider.of(RegisterBlocks.CYPRESS_ROOTS)))));*/
-    // JELLYFISH
-
-    /*public static final Holder<ConfiguredFeature<MultifaceGrowthConfiguration, ?>> NEMATOCYST = register("nematocyst",
-            Feature.MULTIFACE_GROWTH,
-            new MultifaceGrowthConfiguration(
-                    (MultifaceBlock) RegisterBlocks.NEMATOCYST,
-                    20,
-                    true, true, true, 6.0F, HolderSet.direct(Block::builtInRegistryHolder, Blocks.CLAY))
-    );
-    public static final Holder<ConfiguredFeature<RandomPatchConfiguration, ?>> PATCH_NEMATOCYST_UP = register("patch_nematocyst_up",
-            Feature.RANDOM_PATCH,
-            new RandomPatchConfiguration(32, 4, 2, PlacementUtils.onlyWhenEmpty(Feature.SIMPLE_BLOCK,
-                    new SimpleBlockConfiguration(
-                            new NoiseProvider(
-                                    10L,
-                                    new NormalNoise.NoiseParameters(0, 1.0),
-                                    0.3F,
-                                    List.of(
-                                            RegisterBlocks.NEMATOCYST.defaultBlockState().setValue(BlockStateProperties.FACING, Direction.UP)
-                                    )
-                            )
-                    )
-            ))
-    );
-
-    public static final Holder<ConfiguredFeature<RandomPatchConfiguration, ?>> PATCH_NEMATOCYST_DOWN = register("patch_nematocyst_down",
-            Feature.RANDOM_PATCH,
-            new RandomPatchConfiguration(32, 4, 2, PlacementUtils.onlyWhenEmpty(Feature.SIMPLE_BLOCK,
-                    new SimpleBlockConfiguration(
-                            new NoiseProvider(
-                                    10L,
-                                    new NormalNoise.NoiseParameters(0, 1.0),
-                                    0.3F,
-                                    List.of(
-                                            RegisterBlocks.NEMATOCYST.defaultBlockState().setValue(BlockStateProperties.FACING, Direction.DOWN)
-                                    )
-                            )
-                    )
-            ))
-    );
-    public static final Holder<ConfiguredFeature<RandomPatchConfiguration, ?>> PATCH_NEMATOCYST_NORTH = register("patch_nematocyst_north",
-            Feature.RANDOM_PATCH,
-            new RandomPatchConfiguration(32, 4, 2, PlacementUtils.onlyWhenEmpty(Feature.SIMPLE_BLOCK,
-                    new SimpleBlockConfiguration(
-                            new NoiseProvider(
-                                    30L,
-                                    new NormalNoise.NoiseParameters(0, 1.0),
-                                    0.3F,
-                                    List.of(
-                                            RegisterBlocks.NEMATOCYST.defaultBlockState().setValue(BlockStateProperties.FACING, Direction.NORTH)
-                                    )
-                            )
-                    )
-            ))
-    );
-    public static final Holder<ConfiguredFeature<RandomPatchConfiguration, ?>> PATCH_NEMATOCYST_SOUTH = register("patch_nematocyst_south",
-            Feature.RANDOM_PATCH,
-            new RandomPatchConfiguration(32, 4, 2, PlacementUtils.onlyWhenEmpty(Feature.SIMPLE_BLOCK,
-                    new SimpleBlockConfiguration(
-                            new NoiseProvider(
-                                    30L,
-                                    new NormalNoise.NoiseParameters(0, 1.0),
-                                    0.3F,
-                                    List.of(
-                                            RegisterBlocks.NEMATOCYST.defaultBlockState().setValue(BlockStateProperties.FACING, Direction.SOUTH)
-                                    )
-                            )
-                    )
-            ))
-    );
-
-    public static final Holder<ConfiguredFeature<RandomPatchConfiguration, ?>> PATCH_NEMATOCYST_EAST = register("patch_nematocyst_east",
-            Feature.RANDOM_PATCH,
-            new RandomPatchConfiguration(32, 4, 2, PlacementUtils.onlyWhenEmpty(Feature.SIMPLE_BLOCK,
-                    new SimpleBlockConfiguration(
-                            new NoiseProvider(
-                                    20L,
-                                    new NormalNoise.NoiseParameters(0, 1.0),
-                                    0.3F,
-                                    List.of(
-                                            RegisterBlocks.NEMATOCYST.defaultBlockState().setValue(BlockStateProperties.FACING, Direction.EAST)
-                                    )
-                            )
-                    )
-            ))
-    );
-
-    public static final Holder<ConfiguredFeature<RandomPatchConfiguration, ?>> PATCH_NEMATOCYST_WEST = register("patch_nematocyst_west",
-            Feature.RANDOM_PATCH,
-            new RandomPatchConfiguration(32, 4, 2, PlacementUtils.onlyWhenEmpty(Feature.SIMPLE_BLOCK,
-                    new SimpleBlockConfiguration(
-                            new NoiseProvider(
-                                    20L,
-                                    new NormalNoise.NoiseParameters(0, 1.0),
-                                    0.3F,
-                                    List.of(
-                                            RegisterBlocks.NEMATOCYST.defaultBlockState().setValue(BlockStateProperties.FACING, Direction.WEST)
-                                    )
-                            )
-                    )
-            ))
-    );
-    */
-
     public static final Holder<ConfiguredFeature<VegetationPatchConfiguration, ?>> BLUE_MESOGLEA = FeatureUtils.register(
             "mesoglea",
             Feature.VEGETATION_PATCH,
             new VegetationPatchConfiguration(
                     BlockTags.LUSH_GROUND_REPLACEABLE,
-                    BlockStateProvider.simple(RegisterBlocks.MESOGLEA),
+                    BlockStateProvider.simple(RegisterBlocks.MESOGLEA.defaultBlockState().setValue(BlockStateProperties.WATERLOGGED, true)),
                     PlacementUtils.inlinePlaced(CaveFeatures.DRIPLEAF),
                     CaveSurface.FLOOR,
                     ConstantInt.of(3),
                     0.8F,
                     2,
-                    0.05F,
+                    0.04F,
                     UniformInt.of(4, 7),
                     0.7F
             )
@@ -356,13 +248,13 @@ public final class WilderConfiguredFeatures {
             Feature.WATERLOGGED_VEGETATION_PATCH,
             new VegetationPatchConfiguration(
                     BlockTags.LUSH_GROUND_REPLACEABLE,
-                    BlockStateProvider.simple(RegisterBlocks.MESOGLEA),
+                    BlockStateProvider.simple(RegisterBlocks.MESOGLEA.defaultBlockState().setValue(BlockStateProperties.WATERLOGGED, true)),
                     PlacementUtils.inlinePlaced(CaveFeatures.DRIPLEAF),
                     CaveSurface.FLOOR,
                     ConstantInt.of(3),
                     0.8F,
                     5,
-                    0.1F,
+                    0.04F,
                     UniformInt.of(4, 7),
                     0.7F
             )
@@ -375,18 +267,34 @@ public final class WilderConfiguredFeatures {
                     PlacementUtils.inlinePlaced(BLUE_MESOGLEA_POOL)
             )
     );
+    public static final Holder<ConfiguredFeature<VegetationPatchConfiguration, ?>> UPSIDE_DOWN_BLUE_MESOGLEA = FeatureUtils.register(
+            "upside_down_blue_mesoglea",
+            Feature.VEGETATION_PATCH,
+            new VegetationPatchConfiguration(
+                    BlockTags.LUSH_GROUND_REPLACEABLE,
+                    BlockStateProvider.simple(RegisterBlocks.MESOGLEA.defaultBlockState().setValue(BlockStateProperties.WATERLOGGED, true)),
+                    PlacementUtils.inlinePlaced(WilderMiscConfigured.DOWNWARDS_MESOGLEA_PILLAR),
+                    CaveSurface.CEILING,
+                    ConstantInt.of(3),
+                    0.8F,
+                    2,
+                    0.08F,
+                    UniformInt.of(4, 7),
+                    0.7F
+            )
+    );
     public static final Holder<ConfiguredFeature<VegetationPatchConfiguration, ?>> PURPLE_MESOGLEA = FeatureUtils.register(
             "mesoglea_with_dripleaves",
             Feature.VEGETATION_PATCH,
             new VegetationPatchConfiguration(
                     BlockTags.LUSH_GROUND_REPLACEABLE,
-                    BlockStateProvider.simple(RegisterBlocks.PURPLE_MESOGLEA),
+                    BlockStateProvider.simple(RegisterBlocks.PURPLE_MESOGLEA.defaultBlockState().setValue(BlockStateProperties.WATERLOGGED, true)),
                     PlacementUtils.inlinePlaced(CaveFeatures.DRIPLEAF),
                     CaveSurface.FLOOR,
                     ConstantInt.of(3),
                     0.8F,
                     2,
-                    0.025F,
+                    0.04F,
                     UniformInt.of(4, 7),
                     0.7F
             )
@@ -396,13 +304,13 @@ public final class WilderConfiguredFeatures {
             Feature.WATERLOGGED_VEGETATION_PATCH,
             new VegetationPatchConfiguration(
                     BlockTags.LUSH_GROUND_REPLACEABLE,
-                    BlockStateProvider.simple(RegisterBlocks.PURPLE_MESOGLEA),
+                    BlockStateProvider.simple(RegisterBlocks.PURPLE_MESOGLEA.defaultBlockState().setValue(BlockStateProperties.WATERLOGGED, true)),
                     PlacementUtils.inlinePlaced(CaveFeatures.DRIPLEAF),
                     CaveSurface.FLOOR,
                     ConstantInt.of(3),
                     0.8F,
                     5,
-                    0.025F,
+                    0.04F,
                     UniformInt.of(4, 7),
                     0.7F
             )
@@ -413,6 +321,22 @@ public final class WilderConfiguredFeatures {
             new RandomBooleanFeatureConfiguration(
                     PlacementUtils.inlinePlaced(PURPLE_MESOGLEA),
                     PlacementUtils.inlinePlaced(PURPLE_MESOGLEA_POOL)
+            )
+    );
+    public static final Holder<ConfiguredFeature<VegetationPatchConfiguration, ?>> UPSIDE_DOWN_PURPLE_MESOGLEA = FeatureUtils.register(
+            "upside_down_purple_mesoglea",
+            Feature.VEGETATION_PATCH,
+            new VegetationPatchConfiguration(
+                    BlockTags.LUSH_GROUND_REPLACEABLE,
+                    BlockStateProvider.simple(RegisterBlocks.PURPLE_MESOGLEA.defaultBlockState().setValue(BlockStateProperties.WATERLOGGED, true)),
+                    PlacementUtils.inlinePlaced(WilderMiscConfigured.DOWNWARDS_PURPLE_MESOGLEA_PILLAR),
+                    CaveSurface.CEILING,
+                    ConstantInt.of(3),
+                    0.8F,
+                    2,
+                    0.08F,
+                    UniformInt.of(4, 7),
+                    0.7F
             )
     );
 
