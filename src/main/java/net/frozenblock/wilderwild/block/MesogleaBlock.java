@@ -49,7 +49,7 @@ public class MesogleaBlock extends Block implements SimpleWaterloggedBlock {
     @Override
     public VoxelShape getCollisionShape(BlockState blockState, BlockGetter blockGetter, BlockPos blockPos, CollisionContext collisionContext) {
         if (collisionContext instanceof EntityCollisionContext && ((EntityCollisionContext)collisionContext).getEntity() != null) {
-            return Shapes.empty();
+            return blockState.getValue(WATERLOGGED) ? Shapes.empty() : super.getCollisionShape(blockState, blockGetter, blockPos, collisionContext);
         }
         return super.getCollisionShape(blockState, blockGetter, blockPos, collisionContext);
     }
