@@ -1,7 +1,10 @@
 {
-  "variants": {
-	"": {
-	  "model": "wilderwild:block/lime_mesoglea"
+	"variants": {
+		"waterlogged=false": {
+			"model": "wilderwild:block/lime_mesoglea"
+		},
+		"waterlogged=true": {
+			"model": "wilderwild:block/lime_mesoglea_waterlogged"
+		}
 	}
-  }
 }

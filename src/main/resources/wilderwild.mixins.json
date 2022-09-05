@@ -33,7 +33,6 @@
 	"server.WardenEntityMixin",
 	"server.FrogEntityMixin",
 	"worldgen.BirchTreeGrowerMixin",
-	"worldgen.CaveWorldCarverMixin",
 	"worldgen.DefaultBiomeFeaturesMixin",
 	"worldgen.GenerationSettingsBuilderMixin",
 	"worldgen.JigsawStructureMixin",
@@ -47,6 +46,7 @@
 	"worldgen.VegetationPlacementsMixin"
   ],
   "client": [
+	"client.BlockRenderDispatcherMixin",
 	"client.GameRendererMixin",
 	"client.LevelRendererMixin",
 	"client.WardenAnimationOverwrites",
