@@ -19,8 +19,8 @@
 			}
 		},
 		{
-			"from": [16, 16, 16],
-			"to": [0, 0, 0],
+			"from": [15.99, 15.99, 15.99],
+			"to": [0.01, 0.01, 0.01],
 			"shade": false,
 			"faces": {
 				"north": {"uv": [0, 16, 16, 0], "texture": "#texture", "cullface": "south"},
