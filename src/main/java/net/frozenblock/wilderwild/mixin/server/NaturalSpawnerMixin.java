@@ -27,23 +27,28 @@ public class NaturalSpawnerMixin {
             if (entityType.getCategory() == MobCategory.MISC) {
                 info.cancel();
                 info.setReturnValue(false);
+                return;
             }
             if (!entityType.canSpawnFarFromPlayer() && d > (double) (entityType.getCategory().getDespawnDistance() * entityType.getCategory().getDespawnDistance())) {
                 info.cancel();
                 info.setReturnValue(false);
+                return;
             }
             if (!entityType.canSummon() || !canSpawnMobAt(serverLevel, structureManager, chunkGenerator, mobCategory, spawnerData, mutableBlockPos)) {
                 info.cancel();
                 info.setReturnValue(false);
+                return;
             }
             SpawnPlacements.Type type = SpawnPlacements.getPlacementType(entityType);
             if (!NaturalSpawner.isSpawnPositionOk(type, serverLevel, mutableBlockPos, entityType)) {
                 info.cancel();
                 info.setReturnValue(false);
+                return;
             }
             if (!SpawnPlacements.checkSpawnRules(entityType, serverLevel, MobSpawnType.NATURAL, mutableBlockPos, serverLevel.random)) {
                 info.cancel();
                 info.setReturnValue(false);
+                return;
             }
             info.cancel();
             info.setReturnValue(true);
