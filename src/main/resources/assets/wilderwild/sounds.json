@@ -1282,15 +1282,15 @@
 	"sounds": [
 	  {
 		"attenuation_distance": 32,
-		"name": "wilderwild:entity/ancient_horn_prjectile/flyby1"
+		"name": "wilderwild:entity/ancient_horn_projectile/flyby1"
 	  },
 	  {
 		"attenuation_distance": 32,
-		"name": "wilderwild:entity/ancient_horn_prjectile/flyby2"
+		"name": "wilderwild:entity/ancient_horn_projectile/flyby2"
 	  },
 	  {
 		"attenuation_distance": 32,
-		"name": "wilderwild:entity/ancient_horn_prjectile/flyby3"
+		"name": "wilderwild:entity/ancient_horn_projectile/flyby3"
 	  }
 	]
   },
