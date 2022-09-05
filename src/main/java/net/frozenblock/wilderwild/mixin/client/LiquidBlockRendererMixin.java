@@ -17,11 +17,9 @@ public class LiquidBlockRendererMixin {
 
     @Inject(method = "shouldRenderFace", at = @At(value = "HEAD"), cancellable = true)
     private static void shouldRenderFace(BlockAndTintGetter blockAndTintGetter, BlockPos blockPos, FluidState fluidState, BlockState blockState, Direction direction, FluidState fluidState2, CallbackInfoReturnable<Boolean> info) {
-        if (blockState.getBlock() instanceof MesogleaBlock) {
-            if (direction != Direction.UP) {
-                info.cancel();
-                info.setReturnValue(false);
-            }
+        if (blockState.getBlock() instanceof MesogleaBlock && direction != Direction.UP) {
+            info.cancel();
+            info.setReturnValue(false);
         }
     }
 
