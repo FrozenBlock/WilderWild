@@ -17,9 +17,7 @@ public class PlayerMixin {
 
     @Inject(method = "getHurtSound", at = @At("HEAD"), cancellable = true)
     public void getHurtSound(DamageSource damageSource, CallbackInfoReturnable<SoundEvent> info) {
-        System.out.println(damageSource);
-        if (damageSource == CACTUS) {
-            System.out.println("YOU ARE TAKING DAMAGE FROM A CACTUS;" + damageSource);
+        if (damageSource == CACTUS) { //this only works for other players, so we have to find the class that controls the damage sound for the current player
             info.setReturnValue(RegisterSounds.PLAYER_HURT_CACTUS);
             info.cancel();
         }
