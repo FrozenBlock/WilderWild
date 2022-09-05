@@ -165,6 +165,49 @@
 	  }
 	]
   },
+	"ambient.jellyfish_caves.additions": {
+		"sounds": [
+			{
+				"name": "wilderwild:ambient/cave/jellyfish_caves/dribble1",
+				"volume": 0.4,
+				"weight": 1
+			},
+			{
+				"name": "wilderwild:ambient/cave/jellyfish_caves/dribble2",
+				"volume": 0.4,
+				"weight": 1
+			},
+			{
+				"name": "wilderwild:ambient/cave/jellyfish_caves/dribble3",
+				"volume": 0.4,
+				"weight": 1
+			},
+			{
+				"name": "wilderwild:ambient/cave/jellyfish_caves/sludge1",
+				"volume": 0.6,
+				"weight": 1
+			},
+			{
+				"name": "wilderwild:ambient/cave/jellyfish_caves/sludge2",
+				"volume": 0.6,
+				"weight": 1
+			},
+			{
+				"name": "wilderwild:ambient/cave/jellyfish_caves/sludge3",
+				"volume": 0.6,
+				"weight": 1
+			}
+		]
+	},
+	"ambient.jellyfish_caves.loop": {
+		"sounds": [
+			{
+				"name": "wilderwild:ambient/cave/jellyfish_caves/ambience",
+				"stream": true,
+				"volume": 1.0
+			}
+		]
+	},
   "ambient.lush_caves.additions": {
 	"sounds": [
 	  {
