@@ -49,6 +49,7 @@
   "client": [
 	"client.GameRendererMixin",
 	"client.LevelRendererMixin",
+	"client.LiquidBlockRendererMixin",
 	"client.WardenAnimationOverwrites",
 	"client.WardenEntityModelMixin",
 	"client.WardenFeatureRendererMixin",
