@@ -29,7 +29,7 @@ public class MesogleaBlock extends Block implements SimpleWaterloggedBlock {
 
     public MesogleaBlock(Properties properties) {
         super(properties);
-
+        this.registerDefaultState(this.stateDefinition.any().setValue(WATERLOGGED, false));
     }
 
     @Override

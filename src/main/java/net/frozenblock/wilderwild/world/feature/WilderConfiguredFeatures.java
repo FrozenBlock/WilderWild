@@ -228,7 +228,7 @@ public final class WilderConfiguredFeatures {
             Feature.VEGETATION_PATCH,
             new VegetationPatchConfiguration(
                     BlockTags.LUSH_GROUND_REPLACEABLE,
-                    BlockStateProvider.simple(RegisterBlocks.MESOGLEA),
+                    BlockStateProvider.simple(RegisterBlocks.MESOGLEA.defaultBlockState().setValue(BlockStateProperties.WATERLOGGED, true)),
                     PlacementUtils.inlinePlaced(CaveFeatures.DRIPLEAF),
                     CaveSurface.FLOOR,
                     ConstantInt.of(3),
@@ -244,7 +244,7 @@ public final class WilderConfiguredFeatures {
             Feature.WATERLOGGED_VEGETATION_PATCH,
             new VegetationPatchConfiguration(
                     BlockTags.LUSH_GROUND_REPLACEABLE,
-                    BlockStateProvider.simple(RegisterBlocks.MESOGLEA),
+                    BlockStateProvider.simple(RegisterBlocks.MESOGLEA.defaultBlockState().setValue(BlockStateProperties.WATERLOGGED, true)),
                     PlacementUtils.inlinePlaced(CaveFeatures.DRIPLEAF),
                     CaveSurface.FLOOR,
                     ConstantInt.of(3),
@@ -268,7 +268,7 @@ public final class WilderConfiguredFeatures {
             Feature.VEGETATION_PATCH,
             new VegetationPatchConfiguration(
                     BlockTags.LUSH_GROUND_REPLACEABLE,
-                    BlockStateProvider.simple(RegisterBlocks.MESOGLEA),
+                    BlockStateProvider.simple(RegisterBlocks.MESOGLEA.defaultBlockState().setValue(BlockStateProperties.WATERLOGGED, true)),
                     PlacementUtils.inlinePlaced(WilderMiscConfigured.DOWNWARDS_MESOGLEA_PILLAR),
                     CaveSurface.CEILING,
                     ConstantInt.of(3),
@@ -284,7 +284,7 @@ public final class WilderConfiguredFeatures {
             Feature.VEGETATION_PATCH,
             new VegetationPatchConfiguration(
                     BlockTags.LUSH_GROUND_REPLACEABLE,
-                    BlockStateProvider.simple(RegisterBlocks.PURPLE_MESOGLEA),
+                    BlockStateProvider.simple(RegisterBlocks.PURPLE_MESOGLEA.defaultBlockState().setValue(BlockStateProperties.WATERLOGGED, true)),
                     PlacementUtils.inlinePlaced(CaveFeatures.DRIPLEAF),
                     CaveSurface.FLOOR,
                     ConstantInt.of(3),
@@ -300,7 +300,7 @@ public final class WilderConfiguredFeatures {
             Feature.WATERLOGGED_VEGETATION_PATCH,
             new VegetationPatchConfiguration(
                     BlockTags.LUSH_GROUND_REPLACEABLE,
-                    BlockStateProvider.simple(RegisterBlocks.PURPLE_MESOGLEA),
+                    BlockStateProvider.simple(RegisterBlocks.PURPLE_MESOGLEA.defaultBlockState().setValue(BlockStateProperties.WATERLOGGED, true)),
                     PlacementUtils.inlinePlaced(CaveFeatures.DRIPLEAF),
                     CaveSurface.FLOOR,
                     ConstantInt.of(3),
@@ -324,7 +324,7 @@ public final class WilderConfiguredFeatures {
             Feature.VEGETATION_PATCH,
             new VegetationPatchConfiguration(
                     BlockTags.LUSH_GROUND_REPLACEABLE,
-                    BlockStateProvider.simple(RegisterBlocks.MESOGLEA),
+                    BlockStateProvider.simple(RegisterBlocks.PURPLE_MESOGLEA.defaultBlockState().setValue(BlockStateProperties.WATERLOGGED, true)),
                     PlacementUtils.inlinePlaced(WilderMiscConfigured.DOWNWARDS_PURPLE_MESOGLEA_PILLAR),
                     CaveSurface.CEILING,
                     ConstantInt.of(3),
