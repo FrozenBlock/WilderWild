@@ -4,8 +4,13 @@ import net.frozenblock.wilderwild.tag.WilderEntityTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.item.ItemEntity;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
+import net.minecraft.world.item.enchantment.EnchantmentHelper;
+import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
@@ -39,6 +44,15 @@ public class MesogleaBlock extends Block implements SimpleWaterloggedBlock {
                 if (entity instanceof ItemEntity item) {
                     item.makeStuckInBlock(state, new Vec3(0.999D, 0.999D, 0.999D));
                     item.setDeltaMovement(item.getDeltaMovement().add(0, 0.025, 0));
+                } else if (entity instanceof LivingEntity living) {
+                    ItemStack item = living.getItemBySlot(EquipmentSlot.FEET);
+                    if (item != null && !item.isEmpty()) {
+                        if (EnchantmentHelper.getItemEnchantmentLevel(Enchantments.DEPTH_STRIDER, item) <= 0) {
+                            entity.makeStuckInBlock(state, new Vec3(0.999D, 0.999D, 0.999D));
+                        }
+                    } else {
+                        entity.makeStuckInBlock(state, new Vec3(0.999D, 0.999D, 0.999D));
+                    }
                 } else {
                     entity.makeStuckInBlock(state, new Vec3(0.999D, 0.999D, 0.999D));
                 }
