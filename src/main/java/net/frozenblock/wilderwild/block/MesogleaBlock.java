@@ -40,6 +40,10 @@ public class MesogleaBlock extends Block implements SimpleWaterloggedBlock {
     @Override
     public void entityInside(net.minecraft.world.level.block.state.BlockState state, Level world, BlockPos pos, Entity entity) {
         if (state.getValue(WATERLOGGED)) {
+            if (entity instanceof ItemEntity item) {
+                item.makeStuckInBlock(state, new Vec3(0.999D, 0.999D, 0.999D));
+                item.setDeltaMovement(item.getDeltaMovement().add(0, 0.025, 0));
+            }/*
             if (!entity.getType().is(WilderEntityTags.CAN_SWIM_IN_MESOGLEA)) {
                 if (entity instanceof ItemEntity item) {
                     item.makeStuckInBlock(state, new Vec3(0.999D, 0.999D, 0.999D));
@@ -56,7 +60,7 @@ public class MesogleaBlock extends Block implements SimpleWaterloggedBlock {
                 } else {
                     entity.makeStuckInBlock(state, new Vec3(0.999D, 0.999D, 0.999D));
                 }
-            }
+            }*/
         }
     }
 
