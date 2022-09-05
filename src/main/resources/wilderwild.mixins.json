@@ -36,7 +36,6 @@
 	"worldgen.DefaultBiomeFeaturesMixin",
 	"worldgen.GenerationSettingsBuilderMixin",
 	"worldgen.JigsawStructureMixin",
-	"worldgen.NoiseDataMixin",
 	"worldgen.OakTreeGrowerMixin",
 	"worldgen.OverworldBiomeBuilderMixin",
 	"worldgen.SpruceTreeGrowerMixin",
