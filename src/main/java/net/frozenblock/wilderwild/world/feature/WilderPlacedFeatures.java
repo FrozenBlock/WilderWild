@@ -295,7 +295,7 @@ public final class WilderPlacedFeatures {
 
     public static final Holder<PlacedFeature> JELLYFISH_CAVES_UPSIDE_DOWN_PURPLE_MESOGLEA = PlacementUtils.register(
             "upside_down_purple_mesoglea",
-            WilderConfiguredFeatures.UPSIDE_DOWN_BLUE_MESOGLEA,
+            WilderConfiguredFeatures.UPSIDE_DOWN_PURPLE_MESOGLEA,
             CountPlacement.of(9),
             InSquarePlacement.spread(),
             PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT,

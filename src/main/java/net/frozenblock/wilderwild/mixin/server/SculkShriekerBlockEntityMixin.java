@@ -43,18 +43,16 @@ public class SculkShriekerBlockEntityMixin {
         }
     }
 
-    @Inject(at = @At("HEAD"), method = "tryShriek", cancellable = true)
+    @Inject(at = @At("HEAD"), method = "shriek", cancellable = true)
     public void shriek(ServerLevel world, @Nullable ServerPlayer player, CallbackInfo info) {
         SculkShriekerBlockEntity entity = SculkShriekerBlockEntity.class.cast(this);
         if (entity.getBlockState().getValue(RegisterProperties.SOULS_TAKEN) == 2) {
             info.cancel();
-        }
-        if (entity.getBlockState().getValue(BlockStateProperties.WATERLOGGED)) {
-            if (entity.getLevel() instanceof ServerLevel server) { //TODO: fix this. for some reason this only works when stepping on the shrieker.
-                if (entity.getBlockState().getValue(BlockStateProperties.SHRIEKING)) {
-                    EasyPacket.EasyFloatingSculkBubblePacket.createParticle(server, Vec3.atCenterOf(entity.getBlockPos()), Math.random() > 0.7 ? 1 : 0, 20 + WilderWild.random().nextInt(80), 0.075, server.random.nextIntBetweenInclusive(1, 6));
-                }
+        } else {
+            if (entity.getBlockState().getValue(BlockStateProperties.WATERLOGGED)) {//TODO: fix this. for some reason this only works when stepping on the shrieker.
+                EasyPacket.EasyFloatingSculkBubblePacket.createParticle(world, Vec3.atCenterOf(entity.getBlockPos()), Math.random() > 0.7 ? 1 : 0, 20 + WilderWild.random().nextInt(80), 0.075, world.random.nextIntBetweenInclusive(1, 6));
             }
         }
     }
+
 }
