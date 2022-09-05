@@ -47,6 +47,7 @@
 	"worldgen.VegetationPlacementsMixin"
   ],
   "client": [
+	"client.BlockRenderDispatcherMixin",
 	"client.GameRendererMixin",
 	"client.LevelRendererMixin",
 	"client.WardenAnimationOverwrites",
