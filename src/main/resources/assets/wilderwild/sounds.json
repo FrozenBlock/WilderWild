@@ -1329,8 +1329,7 @@
   },
   "entity.jellyfish.sting": {
 	"sounds": [
-	  "wilderwild:mob/jellyfish/zap1",
-	  "wilderwild:mob/jellyfish/zap2"
+	  "wilderwild:mob/jellyfish/sting"
 	],
 	"subtitle": "subtitles.entity.jellyfish.sting"
   },
