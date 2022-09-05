@@ -82,6 +82,13 @@ public class ClothConfigInteractionHandler {
         return false;
     }
 
+    public static boolean hornCanSummonWarden() {
+        if (WilderWild.hasCloth) {
+            return ClothConfigCloserInteractionHandler.hornCanSummonWarden();
+        }
+        return false;
+    }
+
     public static boolean mcLiveSensorTendrils() {
         if (WilderWild.hasCloth) {
             return ClothConfigCloserInteractionHandler.mcLiveSensorTendrils();
