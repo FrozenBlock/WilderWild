@@ -65,10 +65,10 @@ repositories {
 			includeGroup "curse.maven"
 		}
 	}
-	maven {
+	/*maven {
 		name "Siphalor's Maven"
 		url "https://maven.siphalor.de"
-	}
+	}*/
 	maven {
 		url "https://maven.flashyreese.me/releases"
 	}
@@ -110,7 +110,7 @@ dependencies {
 
 	// Lunade
 	modImplementation "maven.modrinth:simple-copper-pipes:${copperpipes_version}"
-	modImplementation "maven.modrinth:fastanim:${fastanim_version}"
+	//modImplementation "maven.modrinth:fastanim:${fastanim_version}"
 
 	// Mod Menu
 	modImplementation "com.terraformersmc:modmenu:${modmenu_version}"
@@ -122,8 +122,8 @@ dependencies {
 	}
 
 	// NBT Crafting
-	modImplementation "de.siphalor:nbtcrafting-1.19:2+"
-	include "de.siphalor:nbtcrafting-1.19:2+"
+	modImplementation "maven.modrinth:nbt-crafting:${nbtcrafting_version}"
+	include "maven.modrinth:nbt-crafting:${nbtcrafting_version}"
 
 	// Mixin Extras
 	implementation("com.github.LlamaLad7:MixinExtras:0.0.12")
