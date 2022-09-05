@@ -65,10 +65,10 @@ repositories {
 			includeGroup "curse.maven"
 		}
 	}
-	maven {
+	/*maven {
 		name "Siphalor's Maven"
 		url "https://maven.siphalor.de"
-	}
+	}*/
 	maven {
 		url "https://maven.flashyreese.me/releases"
 	}
