@@ -21,6 +21,6 @@ public final class RegisterEntities {
     public static void init() {
         WilderWild.logWild("Registering Entities for", WilderWild.UNSTABLE_LOGGING);
         SpawnPlacements.register(FIREFLY, SpawnPlacements.Type.NO_RESTRICTIONS, Heightmap.Types.MOTION_BLOCKING, Firefly::canSpawn);
-        SpawnPlacements.register(JELLYFISH, SpawnPlacements.Type.NO_RESTRICTIONS, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Jellyfish::canSpawn);
+        SpawnPlacements.register(JELLYFISH, SpawnPlacements.Type.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Jellyfish::canSpawn);
     }
 }

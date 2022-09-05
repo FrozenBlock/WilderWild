@@ -21,7 +21,6 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
-import net.minecraft.tags.FluidTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
@@ -49,7 +48,6 @@ import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
-import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.storage.loot.LootContext;
 import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
@@ -151,7 +149,7 @@ public class Jellyfish extends AbstractFish {
         if (holder.is(WilderBiomeTags.PEARLESCENT_JELLYFISH)) {
             possibleTags.add(WilderBiomeTags.PEARLESCENT_JELLYFISH);
         }
-        boolean waterSpawn = canSpawnWater(world, pos);
+        boolean waterSpawn = canSpawnWater(world.getBlockState(pos));
 
         if (!possibleTags.isEmpty()) {
             boolean normalSpawn = true;
@@ -170,13 +168,8 @@ public class Jellyfish extends AbstractFish {
                 : waterSpawn;
     }
 
-    public static boolean canSpawnWater(ServerLevelAccessor level, BlockPos pos) {
-        FluidState fluidState = level.getFluidState(pos);
-        BlockState state = level.getBlockState(pos);
-        if (state.getBlock() instanceof MesogleaBlock) {
-            return state.getValue(BlockStateProperties.WATERLOGGED);
-        }
-        return fluidState.is(FluidTags.WATER) && !level.getBlockState(pos).isRedstoneConductor(level, pos);
+    public static boolean canSpawnWater(BlockState state) {
+        return state.getBlock() instanceof MesogleaBlock ? state.getValue(BlockStateProperties.WATERLOGGED) : state.is(Blocks.WATER);
     }
 
     public void saveToBucketTag(ItemStack itemStack) {
