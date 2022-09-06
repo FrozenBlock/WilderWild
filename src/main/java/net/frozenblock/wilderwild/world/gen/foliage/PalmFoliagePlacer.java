@@ -43,12 +43,16 @@ public class PalmFoliagePlacer extends FoliagePlacer {
         tryPlaceLeaf(levelSimulatedReader, biConsumer, randomSource, treeConfiguration, basePos.west().north());
        //Offshoots
         tryPlaceLeaf(levelSimulatedReader, biConsumer, randomSource, treeConfiguration, basePos.north(2));
+        tryPlaceLeaf(levelSimulatedReader, biConsumer, randomSource, treeConfiguration, basePos.north(2).below());
         tryPlaceLeaf(levelSimulatedReader, biConsumer, randomSource, treeConfiguration, basePos.north(3).below());
         tryPlaceLeaf(levelSimulatedReader, biConsumer, randomSource, treeConfiguration, basePos.south(2));
+        tryPlaceLeaf(levelSimulatedReader, biConsumer, randomSource, treeConfiguration, basePos.south(2).below());
         tryPlaceLeaf(levelSimulatedReader, biConsumer, randomSource, treeConfiguration, basePos.south(3).below());
         tryPlaceLeaf(levelSimulatedReader, biConsumer, randomSource, treeConfiguration, basePos.east(2));
+        tryPlaceLeaf(levelSimulatedReader, biConsumer, randomSource, treeConfiguration, basePos.east(2).below());
         tryPlaceLeaf(levelSimulatedReader, biConsumer, randomSource, treeConfiguration, basePos.east(3).below());
         tryPlaceLeaf(levelSimulatedReader, biConsumer, randomSource, treeConfiguration, basePos.west(2));
+        tryPlaceLeaf(levelSimulatedReader, biConsumer, randomSource, treeConfiguration, basePos.west(2).below());
         tryPlaceLeaf(levelSimulatedReader, biConsumer, randomSource, treeConfiguration, basePos.west(3).below());
     }
 
