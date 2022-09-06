@@ -38,9 +38,9 @@ public class MesogleaBlock extends Block implements SimpleWaterloggedBlock {
             if (entity instanceof ItemEntity item) {
                 item.makeStuckInBlock(state, new Vec3(0.999D, 0.999D, 0.999D));
                 item.setDeltaMovement(item.getDeltaMovement().add(0, 0.025, 0));
-            } else if (!entity.getType().is(WilderEntityTags.CAN_SWIM_IN_MESOGLEA)) {
-                entity.setDeltaMovement(entity.getDeltaMovement().multiply(0.9, 0.9, 0.9));
-            }
+            } //else if (!entity.getType().is(WilderEntityTags.CAN_SWIM_IN_MESOGLEA)) {
+                //entity.setDeltaMovement(entity.getDeltaMovement().multiply(0.9, 0.9, 0.9));
+            //}
         }
     }
 
