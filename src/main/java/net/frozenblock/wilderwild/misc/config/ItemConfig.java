@@ -19,6 +19,7 @@ public class ItemConfig implements ConfigData {
 
     public boolean ancientHornShattersGlass = false;
     public boolean ancientHornCanSummonWarden = true;
+    public boolean projectileBreakParticles = true;
 
     @Environment(EnvType.CLIENT)
     protected static void setupEntries(ConfigCategory category, ConfigEntryBuilder entryBuilder) {
@@ -33,6 +34,11 @@ public class ItemConfig implements ConfigData {
                 .setDefaultValue(true)
                 .setSaveConsumer(newValue -> config.ancientHornCanSummonWarden = newValue)
                 .setTooltip(tooltip("ancient_horn_can_summon_warden"))
+                .build());
+        category.addEntry(entryBuilder.startBooleanToggle(text("projectile_break_particles"), config.projectileBreakParticles)
+                .setDefaultValue(true)
+                .setSaveConsumer(newValue -> config.projectileBreakParticles = newValue)
+                .setTooltip(tooltip("projectile_break_particles"))
                 .build());
 
     }

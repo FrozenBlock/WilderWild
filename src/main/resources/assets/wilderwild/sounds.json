@@ -68,29 +68,49 @@
 	  },
 	  {
 		"name": "wilderwild:ambient/cave/deep_dark/voices1",
-		"volume": 0.4,
+		"volume": 0.7,
 		"weight": 1
 	  },
 	  {
 		"name": "wilderwild:ambient/cave/deep_dark/voices2",
-		"volume": 0.4,
+		"volume": 0.7,
 		"weight": 1
 	  },
 	  {
-		"name": "wilderwild:ambient/cave/deep_dark/voices1",
-		"volume": 0.4,
+		"name": "wilderwild:ambient/cave/deep_dark/voices3",
+		"volume": 0.7,
 		"weight": 1
 	  },
 	  {
 		"name": "wilderwild:ambient/cave/deep_dark/voices4",
-		"volume": 0.4,
+		"volume": 0.7,
 		"weight": 1
 	  },
 	  {
 		"name": "wilderwild:ambient/cave/deep_dark/voices5",
-		"volume": 0.5,
+		"volume": 0.7,
 		"weight": 1
 	  },
+		{
+			"name": "wilderwild:ambient/cave/deep_dark/chimes1",
+			"volume": 0.6,
+			"weight": 5
+		},
+		{
+			"name": "wilderwild:ambient/cave/deep_dark/chimes2",
+			"volume": 0.6,
+			"weight": 5
+		},
+		{
+			"name": "wilderwild:ambient/cave/deep_dark/chimes3",
+			"volume": 0.6,
+			"weight": 5
+		},
+		{
+			"name": "wilderwild:ambient/cave/deep_dark/chimes4",
+			"volume": 0.6,
+			"weight": 5
+		},
 	  {
 		"name": "wilderwild:ambient/cave/deep_dark/wind",
 		"volume": 1.0,
@@ -145,6 +165,49 @@
 	  }
 	]
   },
+	"ambient.jellyfish_caves.additions": {
+		"sounds": [
+			{
+				"name": "wilderwild:ambient/cave/jellyfish_caves/dribble1",
+				"volume": 0.4,
+				"weight": 1
+			},
+			{
+				"name": "wilderwild:ambient/cave/jellyfish_caves/dribble2",
+				"volume": 0.4,
+				"weight": 1
+			},
+			{
+				"name": "wilderwild:ambient/cave/jellyfish_caves/dribble3",
+				"volume": 0.4,
+				"weight": 1
+			},
+			{
+				"name": "wilderwild:ambient/cave/jellyfish_caves/sludge1",
+				"volume": 0.6,
+				"weight": 1
+			},
+			{
+				"name": "wilderwild:ambient/cave/jellyfish_caves/sludge2",
+				"volume": 0.6,
+				"weight": 1
+			},
+			{
+				"name": "wilderwild:ambient/cave/jellyfish_caves/sludge3",
+				"volume": 0.6,
+				"weight": 1
+			}
+		]
+	},
+	"ambient.jellyfish_caves.loop": {
+		"sounds": [
+			{
+				"name": "wilderwild:ambient/cave/jellyfish_caves/ambience",
+				"stream": true,
+				"volume": 1.0
+			}
+		]
+	},
   "ambient.lush_caves.additions": {
 	"sounds": [
 	  {
@@ -1203,31 +1266,37 @@
 	],
 	"subtitle": "subtitles.block.termite_mound.exit"
   },
+	"entity.ancient_horn_projectile.blast": {
+		"sounds": [
+			"wilderwild:entity/ancient_horn_projectile/blast1",
+			"wilderwild:entity/ancient_horn_projectile/blast2"
+		]
+	},
   "entity.ancient_horn_projectile.dissipate": {
 	"sounds": [
-	  "wilderwild:item/ancient_horn/projectile_dissipate_1",
-	  "wilderwild:item/ancient_horn/projectile_dissipate_2"
+	  "wilderwild:entity/ancient_horn_projectile/dissipate1",
+	  "wilderwild:entity/ancient_horn_projectile/dissipate2"
 	]
   },
   "entity.ancient_horn_projectile.flyby": {
 	"sounds": [
 	  {
-		"attenuation_distance": 6,
-		"name": "wilderwild:flyby/flyby1"
+		"attenuation_distance": 32,
+		"name": "wilderwild:entity/ancient_horn_projectile/flyby1"
 	  },
 	  {
-		"attenuation_distance": 6,
-		"name": "wilderwild:flyby/flyby2"
+		"attenuation_distance": 32,
+		"name": "wilderwild:entity/ancient_horn_projectile/flyby2"
 	  },
 	  {
-		"attenuation_distance": 6,
-		"name": "wilderwild:flyby/flyby3"
+		"attenuation_distance": 32,
+		"name": "wilderwild:entity/ancient_horn_projectile/flyby3"
 	  }
 	]
   },
   "entity.ancient_horn_projectile.loop": {
 	"sounds": [
-	  "wilderwild:item/ancient_horn/projectile_loop"
+	  "wilderwild:entity/ancient_horn_projectile/loop"
 	]
   },
   "entity.firefly.hurt": {
@@ -1309,8 +1378,7 @@
   },
   "entity.jellyfish.sting": {
 	"sounds": [
-	  "wilderwild:mob/jellyfish/zap1",
-	  "wilderwild:mob/jellyfish/zap2"
+	  "wilderwild:mob/jellyfish/sting"
 	],
 	"subtitle": "subtitles.entity.jellyfish.sting"
   },
@@ -1382,12 +1450,6 @@
 			"wilderwild:mob/frog/sus_death"
 		]
 	},
-  "item.ancient_horn.blast": {
-	"sounds": [
-	  "wilderwild:item/ancient_horn/blast1",
-	  "wilderwild:item/ancient_horn/blast2"
-	]
-  },
   "item.ancient_horn.call": {
 	"sounds": [
 	  "wilderwild:item/ancient_horn/horn1",
