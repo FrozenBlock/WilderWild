@@ -5,7 +5,6 @@ import net.frozenblock.wilderwild.misc.server.EasyPacket;
 import net.frozenblock.wilderwild.registry.RegisterProperties;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.entity.SculkShriekerBlockEntity;
@@ -23,6 +22,8 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(SculkShriekerBlockEntity.class)
 public class SculkShriekerBlockEntityMixin {
+
+    public int bubbles;
 
     @Inject(at = @At("HEAD"), method = "canRespond", cancellable = true)
     private void canRespond(ServerLevel world, CallbackInfoReturnable<Boolean> info) {
@@ -51,8 +52,16 @@ public class SculkShriekerBlockEntityMixin {
             info.cancel();
         } else {
             if (shrieker.getBlockState().getValue(BlockStateProperties.WATERLOGGED)) {//TODO: fix this. for some reason this only works when stepping on the shrieker.
-                EasyPacket.EasyFloatingSculkBubblePacket.createParticle(world, Vec3.atCenterOf(shrieker.getBlockPos()), Math.random() > 0.7 ? 1 : 0, 20 + WilderWild.random().nextInt(80), 0.075, world.random.nextIntBetweenInclusive(1, 6));
+                bubbles(world, Vec3.atCenterOf(shrieker.getBlockPos()), shrieker);
+                this.bubbles = 60;
             }
+        }
+    }
+
+    public void bubbles(ServerLevel world, Vec3 pos, SculkShriekerBlockEntity shrieker) {
+        if (this.bubbles > 0 && world != null) {
+            --this.bubbles;
+            EasyPacket.EasyFloatingSculkBubblePacket.createParticle(world, pos, Math.random() > 0.7 ? 1 : 0, 20 + WilderWild.random().nextInt(80), 0.075, world.random.nextIntBetweenInclusive(8, 14));
         }
     }
 
