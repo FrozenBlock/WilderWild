@@ -59,7 +59,7 @@ public class StoneChestBlock extends ChestBlock {
 
     public StoneChestBlock(Properties settings, Supplier<BlockEntityType<? extends ChestBlockEntity>> supplier) {
         super(settings, supplier);
-        this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH).setValue(TYPE, ChestType.SINGLE).setValue(WATERLOGGED, false).setValue(ANCIENT, false).setValue(SCULK, false));
+        this.registerDefaultState(this.defaultBlockState().setValue(ANCIENT, false).setValue(SCULK, false));
 
     }
 
@@ -82,7 +82,7 @@ public class StoneChestBlock extends ChestBlock {
                     player.awardStat(this.getOpenChestStat());
                     PiglinAi.angerNearbyPiglins(player, true);
                 } else if (stoneEntity.openProgress < 0.5F) {
-                    MenuProvider lidCheck = (MenuProvider) ((Optional) this.getBlockEntitySourceIgnoreLid(state, world, pos, false).apply(STONE_NAME_RETRIEVER)).orElse(null);
+                    MenuProvider lidCheck = this.getBlockEntitySourceIgnoreLid(state, world, pos, false).apply(STONE_NAME_RETRIEVER).orElse(null);
                     boolean first = stoneEntity.openProgress == 0F;
                     if (lidCheck == null) {
                         if (stoneEntity.openProgress < 0.05F) {
@@ -110,7 +110,7 @@ public class StoneChestBlock extends ChestBlock {
         return false;
     }
 
-    public static boolean canInteract(Level world, BlockPos pos) {
+    public static boolean canInteract(LevelAccessor world, BlockPos pos) {
         BlockEntity entity = world.getBlockEntity(pos);
         if (entity instanceof StoneChestBlockEntity stoneChest) {
             return !(stoneChest.closing || stoneChest.cooldownTicks > 0);
@@ -126,14 +126,6 @@ public class StoneChestBlock extends ChestBlock {
         return false;
     }
 
-    public static boolean canInteract(LevelAccessor world, BlockPos pos) {
-        BlockEntity entity = world.getBlockEntity(pos);
-        if (entity instanceof StoneChestBlockEntity stoneChest) {
-            return !(stoneChest.closing || stoneChest.cooldownTicks > 0);
-        }
-        return true;
-    }
-
     @Override
     public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
         return new StoneChestBlockEntity(pos, state);
@@ -147,21 +139,21 @@ public class StoneChestBlock extends ChestBlock {
 
     @Nullable
     public MenuProvider getMenuProvider(BlockState state, Level world, BlockPos pos) {
-        return (MenuProvider) ((Optional) this.combine(state, world, pos, false).apply(STONE_NAME_RETRIEVER)).orElse(null);
+        return this.combine(state, world, pos, false).apply(STONE_NAME_RETRIEVER).orElse(null);
     }
 
     @Override
     public DoubleBlockCombiner.NeighborCombineResult<? extends ChestBlockEntity> combine(BlockState state, Level world2, BlockPos pos2, boolean ignoreBlocked) {
         BiPredicate<LevelAccessor, BlockPos> biPredicate = ignoreBlocked ? (world, pos) -> false : StoneChestBlock::isStoneChestBlocked;
-        return DoubleBlockCombiner.combineWithNeigbour((BlockEntityType) this.blockEntityType.get(), ChestBlock::getBlockType, ChestBlock::getConnectedDirection, FACING, state, world2, pos2, biPredicate);
+        return DoubleBlockCombiner.combineWithNeigbour(this.blockEntityType.get(), ChestBlock::getBlockType, ChestBlock::getConnectedDirection, FACING, state, world2, pos2, biPredicate);
     }
 
     public DoubleBlockCombiner.NeighborCombineResult<? extends ChestBlockEntity> getBlockEntitySourceIgnoreLid(BlockState state, Level world2, BlockPos pos2, boolean ignoreBlocked) {
         BiPredicate<LevelAccessor, BlockPos> biPredicate = ignoreBlocked ? (world, pos) -> false : StoneChestBlock::isStoneChestBlockedNoLid;
-        return DoubleBlockCombiner.combineWithNeigbour((BlockEntityType) this.blockEntityType.get(), ChestBlock::getBlockType, ChestBlock::getConnectedDirection, FACING, state, world2, pos2, biPredicate);
+        return DoubleBlockCombiner.combineWithNeigbour(this.blockEntityType.get(), ChestBlock::getBlockType, ChestBlock::getConnectedDirection, FACING, state, world2, pos2, biPredicate);
     }
 
-    public static final DoubleBlockCombiner.Combiner<ChestBlockEntity, Optional<MenuProvider>> STONE_NAME_RETRIEVER = new DoubleBlockCombiner.Combiner<ChestBlockEntity, Optional<MenuProvider>>() {
+    public static final DoubleBlockCombiner.Combiner<ChestBlockEntity, Optional<MenuProvider>> STONE_NAME_RETRIEVER = new DoubleBlockCombiner.Combiner<>() {
 
         @Override
         public Optional<MenuProvider> acceptDouble(final ChestBlockEntity chestBlockEntity, final ChestBlockEntity chestBlockEntity2) {
