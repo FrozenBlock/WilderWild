@@ -24,7 +24,7 @@ public class ItemConfig implements ConfigData {
     @Environment(EnvType.CLIENT)
     protected static void setupEntries(ConfigCategory category, ConfigEntryBuilder entryBuilder) {
         var config = WilderWildConfig.get().item;
-        category.setBackground(WilderWild.id("textures/block/chiseled_mud_bricks.png"));
+        category.setBackground(WilderWild.id("textures/config/item.png"));
         category.addEntry(entryBuilder.startBooleanToggle(text("ancient_horn_shatters_glass"), config.ancientHornShattersGlass)
                 .setDefaultValue(false)
                 .setSaveConsumer(newValue -> config.ancientHornShattersGlass = newValue)

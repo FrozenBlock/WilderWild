@@ -39,7 +39,7 @@ public class WorldgenConfig implements ConfigData {
     protected static void setupEntries(ConfigCategory category, ConfigEntryBuilder entryBuilder) {
         var config = WilderWildConfig.get().worldgen;
         var biomePlacement = config.biomePlacement;
-        category.setBackground(WilderWild.id("textures/block/chiseled_mud_bricks.png"));
+        category.setBackground(WilderWild.id("textures/config/worldgen.png"));
         var betaBeaches = category.addEntry(entryBuilder.startBooleanToggle(text("beta_beaches"), config.betaBeaches)
                 .setDefaultValue(true)
                 .setSaveConsumer(newValue -> config.betaBeaches = newValue)
