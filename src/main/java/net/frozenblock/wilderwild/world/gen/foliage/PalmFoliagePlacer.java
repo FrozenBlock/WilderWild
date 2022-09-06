@@ -29,11 +29,27 @@ public class PalmFoliagePlacer extends FoliagePlacer {
     }
 
     protected void createFoliage(LevelSimulatedReader levelSimulatedReader, BiConsumer<BlockPos, BlockState> biConsumer, RandomSource randomSource, TreeConfiguration treeConfiguration, int i, FoliagePlacer.FoliageAttachment foliageAttachment, int j, int k, int l) {
-        boolean bl = foliageAttachment.doubleTrunk();
-        BlockPos blockPos = foliageAttachment.pos().above(l);
-        this.placeLeavesRow(levelSimulatedReader, biConsumer, randomSource, treeConfiguration, blockPos, k + foliageAttachment.radiusOffset(), -1 - j, bl);
-        this.placeLeavesRow(levelSimulatedReader, biConsumer, randomSource, treeConfiguration, blockPos, k - 1, -j, bl);
-        this.placeLeavesRow(levelSimulatedReader, biConsumer, randomSource, treeConfiguration, blockPos, k + foliageAttachment.radiusOffset() - 1, 0, bl);
+       BlockPos basePos = foliageAttachment.pos();
+       //Inner Ring
+        tryPlaceLeaf(levelSimulatedReader, biConsumer, randomSource, treeConfiguration, basePos);
+        tryPlaceLeaf(levelSimulatedReader, biConsumer, randomSource, treeConfiguration, basePos.above());
+        tryPlaceLeaf(levelSimulatedReader, biConsumer, randomSource, treeConfiguration, basePos.north());
+        tryPlaceLeaf(levelSimulatedReader, biConsumer, randomSource, treeConfiguration, basePos.south());
+        tryPlaceLeaf(levelSimulatedReader, biConsumer, randomSource, treeConfiguration, basePos.east());
+        tryPlaceLeaf(levelSimulatedReader, biConsumer, randomSource, treeConfiguration, basePos.west());
+        tryPlaceLeaf(levelSimulatedReader, biConsumer, randomSource, treeConfiguration, basePos.north().east());
+        tryPlaceLeaf(levelSimulatedReader, biConsumer, randomSource, treeConfiguration, basePos.south().west());
+        tryPlaceLeaf(levelSimulatedReader, biConsumer, randomSource, treeConfiguration, basePos.east().south());
+        tryPlaceLeaf(levelSimulatedReader, biConsumer, randomSource, treeConfiguration, basePos.west().north());
+       //Offshoots
+        tryPlaceLeaf(levelSimulatedReader, biConsumer, randomSource, treeConfiguration, basePos.north(2));
+        tryPlaceLeaf(levelSimulatedReader, biConsumer, randomSource, treeConfiguration, basePos.north(3).below());
+        tryPlaceLeaf(levelSimulatedReader, biConsumer, randomSource, treeConfiguration, basePos.south(2));
+        tryPlaceLeaf(levelSimulatedReader, biConsumer, randomSource, treeConfiguration, basePos.south(3).below());
+        tryPlaceLeaf(levelSimulatedReader, biConsumer, randomSource, treeConfiguration, basePos.east(2));
+        tryPlaceLeaf(levelSimulatedReader, biConsumer, randomSource, treeConfiguration, basePos.east(3).below());
+        tryPlaceLeaf(levelSimulatedReader, biConsumer, randomSource, treeConfiguration, basePos.west(2));
+        tryPlaceLeaf(levelSimulatedReader, biConsumer, randomSource, treeConfiguration, basePos.west(3).below());
     }
 
     public int foliageHeight(RandomSource randomSource, int i, TreeConfiguration treeConfiguration) {

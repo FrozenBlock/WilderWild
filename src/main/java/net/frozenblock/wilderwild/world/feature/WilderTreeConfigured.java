@@ -1,9 +1,12 @@
 package net.frozenblock.wilderwild.world.feature;
 
 import com.google.common.collect.ImmutableList;
+import com.mojang.datafixers.types.templates.Const;
+import com.sun.source.tree.Tree;
 import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.block.BaobabNutBlock;
 import net.frozenblock.wilderwild.registry.RegisterBlocks;
+import net.frozenblock.wilderwild.world.gen.foliage.PalmFoliagePlacer;
 import net.frozenblock.wilderwild.world.gen.treedecorators.HeightBasedVineTrunkDecorator;
 import net.frozenblock.wilderwild.world.gen.treedecorators.ShelfFungusTreeDecorator;
 import net.frozenblock.wilderwild.world.gen.trunk.BaobabTrunkPlacer;
@@ -97,6 +100,10 @@ public final class WilderTreeConfigured {
     public static final Holder<ConfiguredFeature<TreeConfiguration, ?>> SHORT_CYPRESS = WilderConfiguredFeatures.register("short_cypress", Feature.TREE, new TreeConfiguration.TreeConfigurationBuilder(BlockStateProvider.simple(RegisterBlocks.CYPRESS_LOG), new StraightTrunkPlacer(3, 2, 3), BlockStateProvider.simple(RegisterBlocks.CYPRESS_LEAVES), new SpruceFoliagePlacer(ConstantInt.of(1), UniformInt.of(1, 3), UniformInt.of(4, 6)), new TwoLayersFeatureSize(2, 1, 2)).decorators(ImmutableList.of(VINES_012_UNDER_76)).ignoreVines().build());
     public static final Holder<ConfiguredFeature<TreeConfiguration, ?>> SHORT_FUNGUS_CYPRESS = WilderConfiguredFeatures.register("short_fungus_cypress", Feature.TREE, new TreeConfiguration.TreeConfigurationBuilder(BlockStateProvider.simple(RegisterBlocks.CYPRESS_LOG), new StraightTrunkPlacer(4, 3, 1), BlockStateProvider.simple(RegisterBlocks.CYPRESS_LEAVES), new SpruceFoliagePlacer(ConstantInt.of(1), UniformInt.of(1, 3), UniformInt.of(6, 8)), new TwoLayersFeatureSize(2, 1, 2)).decorators(ImmutableList.of(SHELF_FUNGUS_007_ONLY_BROWN, VINES_008_UNDER_82)).ignoreVines().build());
     public static final Holder<ConfiguredFeature<TreeConfiguration, ?>> SWAMP_CYPRESS = WilderConfiguredFeatures.register("swamp_cypress", Feature.TREE, (new TreeConfiguration.TreeConfigurationBuilder(BlockStateProvider.simple(RegisterBlocks.CYPRESS_LOG), new UpwardsBranchingTrunkPlacer(15, 5, 2, UniformInt.of(4, 5), 0.2F, UniformInt.of(1, 3), Registry.BLOCK.getOrCreateTag(BlockTags.MANGROVE_LOGS_CAN_GROW_THROUGH)), BlockStateProvider.simple(RegisterBlocks.CYPRESS_LEAVES), new RandomSpreadFoliagePlacer(ConstantInt.of(2), ConstantInt.of(1), ConstantInt.of(2), 14), new TwoLayersFeatureSize(1, 0, 1))).decorators(ImmutableList.of(new LeaveVineDecorator(0.1F), SHELF_FUNGUS_007_ONLY_BROWN, VINES_008_UNDER_82)).build());
+    //PALM
+
+    public static final Holder<ConfiguredFeature<TreeConfiguration, ?>> PALM = WilderConfiguredFeatures.register("palm", Feature.TREE, new TreeConfiguration.TreeConfigurationBuilder(BlockStateProvider.simple(RegisterBlocks.PALM_LOG), new StraightTrunkPlacer(4, 1, 4), BlockStateProvider.simple(RegisterBlocks.PALM_LEAVES), new PalmFoliagePlacer(ConstantInt.of(3), ConstantInt.of(3)), new TwoLayersFeatureSize(1, 0, 1)).decorators(ImmutableList.of()).build());
+    public static final Holder<ConfiguredFeature<TreeConfiguration, ?>> PALM_TALL = WilderConfiguredFeatures.register("palm_tall", Feature.TREE, new TreeConfiguration.TreeConfigurationBuilder(BlockStateProvider.simple(RegisterBlocks.PALM_LOG), new ForkingTrunkPlacer(1, 5, 8), BlockStateProvider.simple(RegisterBlocks.PALM_LEAVES), new PalmFoliagePlacer(ConstantInt.of(3), ConstantInt.of(3)), new TwoLayersFeatureSize(1, 0, 1)).decorators(ImmutableList.of()).build());
     //BIG SHRUB
     public static final Holder<ConfiguredFeature<TreeConfiguration, ?>> BIG_SHRUB = WilderConfiguredFeatures.register("big_shrub", Feature.TREE, (new TreeConfiguration.TreeConfigurationBuilder(BlockStateProvider.simple(Blocks.OAK_LOG), new StraightTrunkPlacer(1, 0, 0), BlockStateProvider.simple(Blocks.OAK_LEAVES), new BushFoliagePlacer(ConstantInt.of(2), ConstantInt.of(1), 2), new TwoLayersFeatureSize(0, 0, 0))).dirt(BlockStateProvider.simple(Blocks.COARSE_DIRT)).build());
     //JUNIPER

@@ -64,6 +64,10 @@ public final class WilderTreePlaced {
     public static final Holder<PlacedFeature> SHORT_FUNGUS_CYPRESS = PlacementUtils.register("short_fungus_cypress", WilderTreeConfigured.SHORT_FUNGUS_CYPRESS, PlacementUtils.filteredByBlockSurvival(RegisterBlocks.CYPRESS_SAPLING));
     public static final Holder<PlacedFeature> SWAMP_CYPRESS = PlacementUtils.register("swamp_cypress", WilderTreeConfigured.SWAMP_CYPRESS, PlacementUtils.filteredByBlockSurvival(RegisterBlocks.CYPRESS_SAPLING));
     public static final Holder<PlacedFeature> NEW_FALLEN_CYPRESS_CHECKED = PlacementUtils.register("new_fallen_cypress_checked", WilderTreeConfigured.NEW_FALLEN_CYPRESS_TREE, PlacementUtils.filteredByBlockSurvival(RegisterBlocks.CYPRESS_SAPLING));
+    //PALM
+    public static final Holder<PlacedFeature> PALM = PlacementUtils.register("palm", WilderTreeConfigured.PALM, PlacementUtils.filteredByBlockSurvival(RegisterBlocks.PALM_SAPLING));
+    public static final Holder<PlacedFeature> PALM_TALL = PlacementUtils.register("palm_tall", WilderTreeConfigured.PALM, PlacementUtils.filteredByBlockSurvival(RegisterBlocks.PALM_SAPLING));
+
     //TREE ON SAND
     public static final BlockPredicate SAND_TREE_PREDICATE = BlockPredicate.matchesBlocks(Direction.DOWN.getNormal(), Blocks.RED_SAND, Blocks.SAND);
     public static final List<PlacementModifier> SAND_TREE_FILTER_DECORATOR = List.of(EnvironmentScanPlacement.scanningFor(Direction.UP, BlockPredicate.not(BlockPredicate.matchesBlocks(Blocks.SANDSTONE)), 8), BlockPredicateFilter.forPredicate(SAND_TREE_PREDICATE));
