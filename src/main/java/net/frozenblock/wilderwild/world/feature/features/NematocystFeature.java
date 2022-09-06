@@ -9,6 +9,7 @@ import net.minecraft.core.Direction;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.WorldGenLevel;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.DoublePlantBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
@@ -17,6 +18,7 @@ import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
 import net.minecraft.world.level.levelgen.feature.configurations.RandomPatchConfiguration;
 import net.minecraft.world.level.levelgen.feature.configurations.SimpleBlockConfiguration;
+import net.minecraft.world.level.material.FluidState;
 
 public class NematocystFeature extends Feature<NematocystFeatureConfig> {
 
@@ -55,7 +57,11 @@ public class NematocystFeature extends Feature<NematocystFeatureConfig> {
         Direction direction = blockState.getValue(BlockStateProperties.FACING);
         BlockPos blockPos2 = blockPos.relative(direction.getOpposite());
         BlockState state2 = levelReader.getBlockState(blockPos2);
-        boolean waterlogged = blockState.getValue(BlockStateProperties.WATERLOGGED);
+        FluidState fluidState = levelReader.getFluidState(blockPos2);
+        if (!state2.isAir() || !(state2.is(Blocks.WATER) && fluidState.isSource())) {
+            return null;
+        }
+        boolean waterlogged = state2.is(Blocks.WATER) && fluidState.isSource();
         Direction facing = blockState.getValue(BlockStateProperties.FACING);
         if (blockState.is(RegisterBlocks.NEMATOCYST) && !state2.is(RegisterBlocks.MESOGLEA)) {
             blockState = RegisterBlocks.NEMATOCYST.defaultBlockState().setValue(BlockStateProperties.WATERLOGGED, waterlogged).setValue(BlockStateProperties.FACING, facing);
