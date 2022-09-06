@@ -130,6 +130,8 @@ public final class RegisterSounds {
     public static final SoundEvent BLOCK_REINFORCED_DEEPSLATE_STEP = register("block.reinforced_deepslate.step");
     public static final SoundEvent BLOCK_REINFORCED_DEEPSLATE_FALL = register("block.reinforced_deepslate.fall");
 
+    public static final SoundEvent BLOCK_SOUL_FIRE_AMBIENT = register("block.soul_fire.ambient");
+
     public static final SoundEvent BLOCK_SCULK_SENSOR_HICCUP = register("block.sculk_sensor.hiccup");
 
     public static final SoundEvent BLOCK_SCULK_SHRIEKER_GARGLE = register("block.sculk_shrieker.gargle");

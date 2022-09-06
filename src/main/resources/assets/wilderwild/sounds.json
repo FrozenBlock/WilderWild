@@ -1144,6 +1144,14 @@
 	],
 	"subtitle": "subtitles.block.sculk_shrieker.gargle"
   },
+	"block.soul_fire.ambient": {
+		"sounds": [
+			"wilderwild:block/soul_fire/ambient1",
+			"wilderwild:block/soul_fire/ambient2",
+			"wilderwild:block/soul_fire/ambient3"
+		],
+		"subtitle": "subtitles.block.fire.ambient"
+	},
   "block.stone_chest.close_start": {
 	"sounds": [
 	  "wilderwild:block/stone_chest/close_start"
