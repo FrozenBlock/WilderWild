@@ -93,23 +93,23 @@
 	  },
 		{
 			"name": "wilderwild:ambient/cave/deep_dark/chimes1",
-			"volume": 0.6,
-			"weight": 5
+			"volume": 0.4,
+			"weight": 7
 		},
 		{
 			"name": "wilderwild:ambient/cave/deep_dark/chimes2",
-			"volume": 0.6,
-			"weight": 5
+			"volume": 0.4,
+			"weight": 7
 		},
 		{
 			"name": "wilderwild:ambient/cave/deep_dark/chimes3",
-			"volume": 0.6,
-			"weight": 5
+			"volume": 0.4,
+			"weight": 7
 		},
 		{
 			"name": "wilderwild:ambient/cave/deep_dark/chimes4",
-			"volume": 0.6,
-			"weight": 5
+			"volume": 0.4,
+			"weight": 7
 		},
 	  {
 		"name": "wilderwild:ambient/cave/deep_dark/wind",
