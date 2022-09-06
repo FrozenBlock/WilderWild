@@ -59,7 +59,7 @@ public class AlgaeBlock extends Block {
             world.destroyBlock(pos, false);
         }
         if (!entity.getType().is(WilderEntityTags.CAN_SWIM_IN_ALGAE)) {
-            entity.makeStuckInBlock(state, new Vec3(0.9D, 1.0D, 0.9D));
+            entity.setDeltaMovement(entity.getDeltaMovement().multiply(0.8, 0.8, 0.8));
         }
     }
 
