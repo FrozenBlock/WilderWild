@@ -4,12 +4,18 @@ import me.shedaniel.autoconfig.AutoConfig;
 import me.shedaniel.autoconfig.ConfigData;
 import me.shedaniel.autoconfig.annotation.Config;
 import me.shedaniel.autoconfig.annotation.ConfigEntry;
+import me.shedaniel.clothconfig2.api.AbstractConfigEntry;
+import me.shedaniel.clothconfig2.api.AbstractConfigListEntry;
 import me.shedaniel.clothconfig2.api.ConfigCategory;
 import me.shedaniel.clothconfig2.api.ConfigEntryBuilder;
+import me.shedaniel.clothconfig2.impl.builders.DropdownMenuBuilder;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.frozenblock.wilderwild.WilderWild;
 import net.minecraft.client.gui.screens.Screen;
+
+import java.lang.reflect.Field;
+import java.util.List;
 
 import static net.frozenblock.wilderwild.misc.config.WilderWildConfig.text;
 import static net.frozenblock.wilderwild.misc.config.WilderWildConfig.tooltip;
@@ -62,34 +68,34 @@ public class WorldgenConfig implements ConfigData {
                 .requireRestart()
                 .build());
          */
-        var jungle = category.addEntry(entryBuilder.startBooleanToggle(text("modify_jungle_placement"), biomePlacement.modifyJunglePlacement)
+        var jungle = entryBuilder.startBooleanToggle(text("modify_jungle_placement"), biomePlacement.modifyJunglePlacement)
                 .setDefaultValue(true)
                 .setSaveConsumer(newValue -> biomePlacement.modifyJunglePlacement = newValue)
                 .setYesNoTextSupplier(bool -> text("biome_placement." + bool))
                 .setTooltip(tooltip("modify_jungle_placement"))
                 .requireRestart()
-                .build());
-        var mangroveSwamp = category.addEntry(entryBuilder.startBooleanToggle(text("modify_mangrove_swamp_placement"), biomePlacement.modifyMangroveSwampPlacement)
+                .build();
+        var mangroveSwamp = entryBuilder.startBooleanToggle(text("modify_mangrove_swamp_placement"), biomePlacement.modifyMangroveSwampPlacement)
                 .setDefaultValue(true)
                 .setSaveConsumer(newValue -> biomePlacement.modifyMangroveSwampPlacement = newValue)
                 .setYesNoTextSupplier(bool -> text("biome_placement." + bool))
                 .setTooltip(tooltip("modify_mangrove_swamp_placement"))
                 .requireRestart()
-                .build());
-        var swamp = category.addEntry(entryBuilder.startBooleanToggle(text("modify_swamp_placement"), biomePlacement.modifySwampPlacement)
+                .build();
+        var swamp = entryBuilder.startBooleanToggle(text("modify_swamp_placement"), biomePlacement.modifySwampPlacement)
                 .setDefaultValue(true)
                 .setSaveConsumer(newValue -> biomePlacement.modifySwampPlacement = newValue)
                 .setYesNoTextSupplier(bool -> text("biome_placement." + bool))
                 .setTooltip(tooltip("modify_swamp_placement"))
                 .requireRestart()
-                .build());
-        var windsweptSavanna = category.addEntry(entryBuilder.startBooleanToggle(text("modify_windswept_savanna_placement"), biomePlacement.modifyWindsweptSavannaPlacement)
+                .build();
+        var windsweptSavanna = entryBuilder.startBooleanToggle(text("modify_windswept_savanna_placement"), biomePlacement.modifyWindsweptSavannaPlacement)
                 .setDefaultValue(true)
                 .setSaveConsumer(newValue -> biomePlacement.modifyWindsweptSavannaPlacement = newValue)
                 .setYesNoTextSupplier(bool -> text("biome_placement." + bool))
                 .setTooltip(tooltip("modify_windswept_savanna_placement"))
                 .requireRestart()
-                .build());
+                .build();
         var fallenLogs = category.addEntry(entryBuilder.startBooleanToggle(text("fallen_logs"), config.fallenLogs)
                 .setDefaultValue(true)
                 .setSaveConsumer(newValue -> config.fallenLogs = newValue)
@@ -107,6 +113,13 @@ public class WorldgenConfig implements ConfigData {
                 .setSaveConsumer(newValue -> config.wilderWildGrassGen = newValue)
                 .setTooltip(tooltip("wilder_wild_grass"))
                 .requireRestart()
+                .build());
+
+        List<AbstractConfigListEntry> biomePlacementList = List.of(jungle, mangroveSwamp, swamp, windsweptSavanna);
+
+        var biomePlacementCategory = category.addEntry(entryBuilder.startSubCategory(text("biome_placement"), biomePlacementList)
+                .setExpanded(false)
+                .setTooltip(tooltip("biome_placement"))
                 .build());
     }
 
