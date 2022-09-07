@@ -96,12 +96,12 @@ public class CopperHorn extends InstrumentItem {
     private void playSound(Instrument instrument, Player user, Level world) {
         SoundEvent soundEvent = instrument.soundEvent();
         float range = instrument.range() / 16.0F;
-        int note = (int) ((-user.getXRot() + 90) / 7.5);
+        int note = (int) ((-user.getXRot() + 90) / 15);
 
         if (!world.isClientSide) {
             float soundPitch = !user.isShiftKeyDown() ?
-                    (float) Math.pow(2.0D, (note - 12.0F) / 12.0D) :
-                    (float) Math.pow(2.0D, 0.01111F * -user.getXRot());
+                    (float) Math.pow(2.0D, (note - 12.0F) / 12.0D) + 1F:
+                    (float) Math.pow(2.0D, (note - 12.0F) / 12.0D);
             FrozenSoundPackets.createMovingRestrictionLoopingSound(world, user, soundEvent, SoundSource.RECORDS, range, soundPitch, WilderWild.id("instrument"));
         }
         world.gameEvent(GameEvent.INSTRUMENT_PLAY, user.position(), GameEvent.Context.of(user));
