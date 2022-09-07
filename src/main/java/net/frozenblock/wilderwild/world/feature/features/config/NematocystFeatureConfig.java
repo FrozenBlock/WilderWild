@@ -11,9 +11,9 @@ public record NematocystFeatureConfig(BlockStateProvider stateProvider, int trie
     public static final Codec<NematocystFeatureConfig> CODEC = RecordCodecBuilder.create((instance) -> {
         return instance.group(BlockStateProvider.CODEC.fieldOf("stateProvider").forGetter((config) -> {
             return config.stateProvider;
-        }), ExtraCodecs.POSITIVE_INT.fieldOf("tries").orElse(128).forGetter((config) -> {
+        }), ExtraCodecs.POSITIVE_INT.fieldOf("tries").orElse(256).forGetter((config) -> {
             return config.tries;
-        }), ExtraCodecs.NON_NEGATIVE_INT.fieldOf("xz_spread").orElse(7).forGetter((config) -> {
+        }), ExtraCodecs.NON_NEGATIVE_INT.fieldOf("xz_spread").orElse(15).forGetter((config) -> {
             return config.xzSpread;
         }), ExtraCodecs.NON_NEGATIVE_INT.fieldOf("y_spread").orElse(3).forGetter((config) -> {
             return config.ySpread;
