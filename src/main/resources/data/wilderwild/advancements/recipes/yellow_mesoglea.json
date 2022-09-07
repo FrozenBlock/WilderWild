@@ -1,7 +1,7 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-	"has_bottle": {
+	"has_nematocyst": {
 	  "conditions": {
 		"items": [
 		  {
