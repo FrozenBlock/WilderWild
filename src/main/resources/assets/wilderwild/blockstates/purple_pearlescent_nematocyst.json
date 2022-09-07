@@ -1,16 +1,9 @@
 {
 	"variants": {
-		"facing=down": [
-			{
-				"model": "wilderwild:block/purple_pearlescent_nematocyst",
-				"x": 180
-			},
-			{
-				"model": "wilderwild:block/purple_pearlescent_nematocyst",
-				"x": 180,
-				"y": 90
-			}
-		],
+		"facing=down": {
+			"model": "wilderwild:block/purple_pearlescent_nematocyst",
+			"x": 180
+		},
 		
 		"facing=east": {
 			"model": "wilderwild:block/purple_pearlescent_nematocyst",
@@ -29,15 +22,9 @@
 			"y": 180
 		},
 		
-		"facing=up": [
-			{
-				"model": "wilderwild:block/purple_pearlescent_nematocyst"
-			},
-			{
-				"model": "wilderwild:block/purple_pearlescent_nematocyst",
-				"y": 90
-			}
-		],
+		"facing=up": {
+			"model": "wilderwild:block/purple_pearlescent_nematocyst"
+		},
 		
 		"facing=west": {
 			"model": "wilderwild:block/purple_pearlescent_nematocyst",
