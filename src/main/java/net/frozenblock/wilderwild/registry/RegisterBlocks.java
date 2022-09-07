@@ -269,7 +269,13 @@ public final class RegisterBlocks {
     public static final Block RED_MESOGLEA = new MesogleaBlock(FabricBlockSettings.of(Material.CLAY, MaterialColor.COLOR_RED).nonOpaque().slipperiness(0.8F).emissiveLighting(RegisterBlocks::always).luminance((state) -> 7).sounds(RegisterBlockSoundGroups.MESOGLEA).noOcclusion().isSuffocating(RegisterBlocks::never).isViewBlocking(RegisterBlocks::never));
     public static final Block PINK_MESOGLEA = new MesogleaBlock(FabricBlockSettings.of(Material.CLAY, MaterialColor.COLOR_PINK).nonOpaque().slipperiness(0.8F).emissiveLighting(RegisterBlocks::always).luminance((state) -> 7).sounds(RegisterBlockSoundGroups.MESOGLEA).noOcclusion().isSuffocating(RegisterBlocks::never).isViewBlocking(RegisterBlocks::never));
 
-    //public static final Block NEMATOCYST = new NematocystBlock(7, 3, FabricBlockSettings.of(Material.CLAY, MaterialColor.QUARTZ).noCollision().nonOpaque().emissiveLighting(RegisterBlocks::always).luminance((state) -> 4).sounds(SoundType.SLIME_BLOCK));
+    public static final Block NEMATOCYST = new NematocystBlock(7, 3, FabricBlockSettings.of(Material.CLAY, MaterialColor.QUARTZ).noCollision().nonOpaque().emissiveLighting(RegisterBlocks::always).luminance((state) -> 4).sounds(RegisterBlockSoundGroups.NEMATOCYST));
+    public static final Block PURPLE_NEMATOCYST = new NematocystBlock(7, 3, FabricBlockSettings.of(Material.CLAY, MaterialColor.COLOR_PURPLE).noCollision().nonOpaque().emissiveLighting(RegisterBlocks::always).luminance((state) -> 4).sounds(RegisterBlockSoundGroups.NEMATOCYST));
+    public static final Block YELLOW_NEMATOCYST = new NematocystBlock(7, 3, FabricBlockSettings.of(Material.CLAY, MaterialColor.COLOR_YELLOW).noCollision().nonOpaque().emissiveLighting(RegisterBlocks::always).luminance((state) -> 4).sounds(RegisterBlockSoundGroups.NEMATOCYST));
+    public static final Block BLUE_NEMATOCYST = new NematocystBlock(7, 3, FabricBlockSettings.of(Material.CLAY, MaterialColor.COLOR_LIGHT_BLUE).noCollision().nonOpaque().emissiveLighting(RegisterBlocks::always).luminance((state) -> 4).sounds(RegisterBlockSoundGroups.NEMATOCYST));
+    public static final Block LIME_NEMATOCYST = new NematocystBlock(7, 3, FabricBlockSettings.of(Material.CLAY, MaterialColor.COLOR_LIGHT_GREEN).noCollision().nonOpaque().emissiveLighting(RegisterBlocks::always).luminance((state) -> 4).sounds(RegisterBlockSoundGroups.NEMATOCYST));
+    public static final Block RED_NEMATOCYST = new NematocystBlock(7, 3, FabricBlockSettings.of(Material.CLAY, MaterialColor.COLOR_RED).noCollision().nonOpaque().emissiveLighting(RegisterBlocks::always).luminance((state) -> 4).sounds(RegisterBlockSoundGroups.NEMATOCYST));
+    public static final Block PINK_NEMATOCYST = new NematocystBlock(7, 3, FabricBlockSettings.of(Material.CLAY, MaterialColor.COLOR_PINK).noCollision().nonOpaque().emissiveLighting(RegisterBlocks::always).luminance((state) -> 4).sounds(RegisterBlockSoundGroups.NEMATOCYST));
 
     // MISC
     private static final Material ALGAE_MATERIAL = new FabricMaterialBuilder(MaterialColor.PLANT)
@@ -397,7 +403,13 @@ public final class RegisterBlocks {
         registerBlock("lime_mesoglea", LIME_MESOGLEA, CreativeModeTab.TAB_DECORATIONS);
         registerBlock("red_mesoglea", RED_MESOGLEA, CreativeModeTab.TAB_DECORATIONS);
         registerBlock("pink_mesoglea", PINK_MESOGLEA, CreativeModeTab.TAB_DECORATIONS);
-        //registerBlock("nematocyst", NEMATOCYST, CreativeModeTab.TAB_DECORATIONS);
+        registerBlock("blue_pearlescent_nematocyst", NEMATOCYST, CreativeModeTab.TAB_DECORATIONS);
+        registerBlock("purple_pearlescent_nematocyst", PURPLE_NEMATOCYST, CreativeModeTab.TAB_DECORATIONS);
+        registerBlock("blue_nematocyst", BLUE_NEMATOCYST, CreativeModeTab.TAB_DECORATIONS);
+        registerBlock("yellow_nematocyst", YELLOW_NEMATOCYST, CreativeModeTab.TAB_DECORATIONS);
+        registerBlock("lime_nematocyst", LIME_NEMATOCYST, CreativeModeTab.TAB_DECORATIONS);
+        registerBlock("red_nematocyst", RED_NEMATOCYST, CreativeModeTab.TAB_DECORATIONS);
+        registerBlock("pink_nematocyst", PINK_NEMATOCYST, CreativeModeTab.TAB_DECORATIONS);
     }
 
     public static void registerBlocks() {
