@@ -56,18 +56,18 @@ public class NematocystFeature extends Feature<NematocystFeatureConfig> {
     public BlockState getSurvivalState(BlockState blockState, LevelReader levelReader, BlockPos blockPos) {
         Direction direction = blockState.getValue(BlockStateProperties.FACING);
         BlockPos blockPos2 = blockPos.relative(direction.getOpposite());
-        BlockState state2 = levelReader.getBlockState(blockPos2);
+        BlockState placedOnState = levelReader.getBlockState(blockPos2);
         FluidState fluidState = levelReader.getFluidState(blockPos);
         BlockState replaceState = levelReader.getBlockState(blockPos);
-        boolean waterlogged = !fluidState.isEmpty();
-        if (replaceState.isAir() || waterlogged) {
+        boolean waterlogged = !fluidState.isEmpty() && placedOnState.is(Blocks.WATER);
+        if ((replaceState.isAir() && !waterlogged) || waterlogged) {
             Direction facing = blockState.getValue(BlockStateProperties.FACING);
-            if (state2.is(RegisterBlocks.MESOGLEA)) {
+            if (placedOnState.is(RegisterBlocks.MESOGLEA)) {
                 blockState = RegisterBlocks.NEMATOCYST.defaultBlockState().setValue(BlockStateProperties.WATERLOGGED, waterlogged).setValue(BlockStateProperties.FACING, facing);
-            } else if (state2.is(RegisterBlocks.PURPLE_MESOGLEA)) {
+            } else if (placedOnState.is(RegisterBlocks.PURPLE_MESOGLEA)) {
                 blockState = RegisterBlocks.PURPLE_NEMATOCYST.defaultBlockState().setValue(BlockStateProperties.WATERLOGGED, waterlogged).setValue(BlockStateProperties.FACING, facing);
             }
-            return state2.isFaceSturdy(levelReader, blockPos2, direction) ? blockState : null;
+            return placedOnState.isFaceSturdy(levelReader, blockPos2, direction) ? blockState : null;
         }
         return null;
     }
