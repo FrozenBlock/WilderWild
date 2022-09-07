@@ -1,5 +1,5 @@
 {
-  "parent": "wilderwild:template_nematocyst",
+  "parent": "wilderwild:block/template_nematocyst",
   "textures": {
 	"large": "wilderwild:block/blue_nematocyst_large",
 	"small": "wilderwild:block/blue_nematocyst_small"
