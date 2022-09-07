@@ -22,8 +22,8 @@ public class WorldgenConfig implements ConfigData {
     public BiomePlacement biomePlacement = new BiomePlacement();
 
     public static class BiomePlacement {
-        public boolean modifyDesertPlacement = true;
-        public boolean modifyBadlandsPlacement = true;
+        //public boolean modifyDesertPlacement = true;
+        //public boolean modifyBadlandsPlacement = true;
         public boolean modifyWindsweptSavannaPlacement = true;
         public boolean modifyJunglePlacement = true;
         public boolean modifySwampPlacement = true;
@@ -39,13 +39,14 @@ public class WorldgenConfig implements ConfigData {
     protected static void setupEntries(ConfigCategory category, ConfigEntryBuilder entryBuilder) {
         var config = WilderWildConfig.get().worldgen;
         var biomePlacement = config.biomePlacement;
-        category.setBackground(WilderWild.id("textures/block/chiseled_mud_bricks.png"));
+        category.setBackground(WilderWild.id("textures/config/worldgen.png"));
         var betaBeaches = category.addEntry(entryBuilder.startBooleanToggle(text("beta_beaches"), config.betaBeaches)
                 .setDefaultValue(true)
                 .setSaveConsumer(newValue -> config.betaBeaches = newValue)
                 .setTooltip(tooltip("beta_beaches"))
                 .requireRestart()
                 .build());
+        /*
         var badlands = category.addEntry(entryBuilder.startBooleanToggle(text("modify_badlands_placement"), biomePlacement.modifyBadlandsPlacement)
                 .setDefaultValue(true)
                 .setSaveConsumer(newValue -> biomePlacement.modifyBadlandsPlacement = newValue)
@@ -60,6 +61,7 @@ public class WorldgenConfig implements ConfigData {
                 .setTooltip(tooltip("modify_desert_placement"))
                 .requireRestart()
                 .build());
+         */
         var jungle = category.addEntry(entryBuilder.startBooleanToggle(text("modify_jungle_placement"), biomePlacement.modifyJunglePlacement)
                 .setDefaultValue(true)
                 .setSaveConsumer(newValue -> biomePlacement.modifyJunglePlacement = newValue)

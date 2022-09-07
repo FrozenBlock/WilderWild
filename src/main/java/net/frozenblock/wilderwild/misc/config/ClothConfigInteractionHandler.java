@@ -11,7 +11,7 @@ public class ClothConfigInteractionHandler {
         return true;
     }
 
-    //TODO: Who removed Desert & Badlands placement?
+/*
     public static boolean modifyDesertPlacement() {
         if (WilderWild.hasCloth) {
             return ClothConfigCloserInteractionHandler.modifyDesertPlacement();
@@ -25,7 +25,7 @@ public class ClothConfigInteractionHandler {
         }
         return true;
     }
-
+*/
     public static boolean modifyJunglePlacement() {
         if (WilderWild.hasCloth) {
             return ClothConfigCloserInteractionHandler.modifyJunglePlacement();
@@ -78,6 +78,13 @@ public class ClothConfigInteractionHandler {
     public static boolean hornShattersGlass() {
         if (WilderWild.hasCloth) {
             return ClothConfigCloserInteractionHandler.hornShattersGlass();
+        }
+        return false;
+    }
+
+    public static boolean projectileBreakParticles() {
+        if (WilderWild.hasCloth) {
+            return ClothConfigCloserInteractionHandler.projectileBreakParticles();
         }
         return false;
     }

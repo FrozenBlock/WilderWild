@@ -24,7 +24,7 @@ public class EntityConfig implements ConfigData {
     @Environment(EnvType.CLIENT)
     protected static void setupEntries(ConfigCategory category, ConfigEntryBuilder entryBuilder) {
         var config = WilderWildConfig.get().entity;
-        category.setBackground(WilderWild.id("textures/block/chiseled_mud_bricks.png"));
+        category.setBackground(WilderWild.id("textures/config/entity.png"));
         category.addEntry(entryBuilder.startBooleanToggle(text("warden_custom_tendrils"), config.wardenCustomTendrils)
                 .setDefaultValue(true)
                 .setSaveConsumer(newValue -> config.wardenCustomTendrils = newValue)
