@@ -19,6 +19,7 @@ import net.frozenblock.wilderwild.entity.AncientHornProjectile;
 import net.frozenblock.wilderwild.entity.render.*;
 import net.frozenblock.wilderwild.misc.CompetitionCounter;
 import net.frozenblock.wilderwild.particle.FloatingSculkBubbleParticle;
+import net.frozenblock.wilderwild.particle.MesogleaDripParticle;
 import net.frozenblock.wilderwild.particle.PollenParticle;
 import net.frozenblock.wilderwild.particle.TermiteParticle;
 import net.frozenblock.wilderwild.registry.*;
@@ -135,6 +136,11 @@ public final class WilderWildClient implements ClientModInitializer {
             registry.register(WilderWild.id("particle/termite_7"));
             registry.register(WilderWild.id("particle/termite_8"));
             registry.register(WilderWild.id("particle/termite_9"));
+            registry.register(WilderWild.id("particle/mesoglea_drip_falling"));
+            registry.register(WilderWild.id("particle/mesoglea_drip_hanging1"));
+            registry.register(WilderWild.id("particle/mesoglea_drip_hanging2"));
+            registry.register(WilderWild.id("particle/mesoglea_drip_hanging3"));
+            registry.register(WilderWild.id("particle/mesoglea_drip_land"));
         });
 
         ClientSpriteRegistryCallback.event(Sheets.CHEST_SHEET).register((atlasTexture, registry) -> {
@@ -153,6 +159,9 @@ public final class WilderWildClient implements ClientModInitializer {
         ParticleFactoryRegistry.getInstance().register(RegisterParticles.CONTROLLED_MILKWEED_SEED, PollenParticle.ControlledMilkweedFactory::new);
         ParticleFactoryRegistry.getInstance().register(RegisterParticles.FLOATING_SCULK_BUBBLE, FloatingSculkBubbleParticle.BubbleFactory::new);
         ParticleFactoryRegistry.getInstance().register(RegisterParticles.TERMITE, TermiteParticle.Factory::new);
+        ParticleFactoryRegistry.getInstance().register(RegisterParticles.HANGING_MESOGLEA_DRIP, MesogleaDripParticle.MesogleaHangProvider::new);
+        ParticleFactoryRegistry.getInstance().register(RegisterParticles.FALLING_MESOGLEA_DRIP, MesogleaDripParticle.MesogleaFallProvider::new);
+        ParticleFactoryRegistry.getInstance().register(RegisterParticles.LANDING_MESOGLEA_DRIP, MesogleaDripParticle.MesogleaLandProvider::new);
 
         EntityRendererRegistry.register(RegisterEntities.FIREFLY, FireflyRenderer::new);
         EntityRendererRegistry.register(RegisterEntities.ANCIENT_HORN_PROJECTILE_ENTITY, AncientHornProjectileRenderer::new);

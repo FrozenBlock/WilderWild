@@ -1,8 +1,11 @@
 package net.frozenblock.wilderwild.block;
 
+import net.frozenblock.wilderwild.registry.RegisterParticles;
 import net.frozenblock.wilderwild.tag.WilderEntityTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.item.context.BlockPlaceContext;
@@ -50,6 +53,14 @@ public class MesogleaBlock extends Block implements SimpleWaterloggedBlock {
             return blockState.getValue(WATERLOGGED) ? Shapes.empty() : super.getCollisionShape(blockState, blockGetter, blockPos, collisionContext);
         }
         return super.getCollisionShape(blockState, blockGetter, blockPos, collisionContext);
+    }
+
+    @Override
+    public void animateTick(BlockState blockState, Level level, BlockPos blockPos, RandomSource randomSource) {
+        super.animateTick(blockState, level, blockPos, randomSource);
+        if (randomSource.nextInt(0, 30) == 0 && blockState.getValue(WATERLOGGED) && level.getFluidState(blockPos.below()).isEmpty()) {
+            level.addParticle(RegisterParticles.HANGING_MESOGLEA_DRIP, blockPos.getX() + randomSource.nextDouble(), blockPos.getY(), blockPos.getZ() + randomSource.nextDouble(), 0.0D, 0.0D, 0.0D);
+        }
     }
 
     @Override
