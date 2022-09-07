@@ -224,7 +224,7 @@ public final class WilderConfiguredFeatures {
     public static final Holder<ConfiguredFeature<ColumnWithDiskFeatureConfig, ?>> TERMITE_CONFIGURED =
             register("termite_mound_baobab", WilderWild.COLUMN_WITH_DISK_FEATURE, new ColumnWithDiskFeatureConfig(RegisterBlocks.TERMITE_MOUND.defaultBlockState().setValue(RegisterProperties.NATURAL, true), UniformInt.of(4, 9), UniformInt.of(3, 7), UniformInt.of(1, 3), HolderSet.direct(Block::builtInRegistryHolder, Blocks.GRASS_BLOCK, Blocks.STONE, Blocks.DIORITE, Blocks.ANDESITE, Blocks.GRANITE), HolderSet.direct(Block::builtInRegistryHolder, Blocks.COARSE_DIRT, Blocks.SAND, Blocks.PACKED_MUD)));
 
-    public static final Holder<ConfiguredFeature<VegetationPatchConfiguration, ?>> BLUE_MESOGLEA = FeatureUtils.register(
+    public static final Holder<ConfiguredFeature<VegetationPatchConfiguration, ?>> BLUE_MESOGLEA = register(
             "mesoglea",
             Feature.VEGETATION_PATCH,
             new VegetationPatchConfiguration(
@@ -240,7 +240,7 @@ public final class WilderConfiguredFeatures {
                     0.7F
             )
     );
-    public static final Holder<ConfiguredFeature<VegetationPatchConfiguration, ?>> BLUE_MESOGLEA_POOL = FeatureUtils.register(
+    public static final Holder<ConfiguredFeature<VegetationPatchConfiguration, ?>> BLUE_MESOGLEA_POOL = register(
             "mesoglea_pool",
             Feature.WATERLOGGED_VEGETATION_PATCH,
             new VegetationPatchConfiguration(
@@ -256,7 +256,7 @@ public final class WilderConfiguredFeatures {
                     0.7F
             )
     );
-    public static final Holder<ConfiguredFeature<RandomBooleanFeatureConfiguration, ?>> JELLYFISH_CAVES_BLUE_MESOGLEA = FeatureUtils.register(
+    public static final Holder<ConfiguredFeature<RandomBooleanFeatureConfiguration, ?>> JELLYFISH_CAVES_BLUE_MESOGLEA = register(
             "jellyfish_caves_blue_mesoglea",
             Feature.RANDOM_BOOLEAN_SELECTOR,
             new RandomBooleanFeatureConfiguration(
@@ -264,7 +264,7 @@ public final class WilderConfiguredFeatures {
                     PlacementUtils.inlinePlaced(BLUE_MESOGLEA_POOL)
             )
     );
-    public static final Holder<ConfiguredFeature<VegetationPatchConfiguration, ?>> UPSIDE_DOWN_BLUE_MESOGLEA = FeatureUtils.register(
+    public static final Holder<ConfiguredFeature<VegetationPatchConfiguration, ?>> UPSIDE_DOWN_BLUE_MESOGLEA = register(
             "upside_down_blue_mesoglea",
             Feature.VEGETATION_PATCH,
             new VegetationPatchConfiguration(
@@ -280,7 +280,7 @@ public final class WilderConfiguredFeatures {
                     0.7F
             )
     );
-    public static final Holder<ConfiguredFeature<VegetationPatchConfiguration, ?>> PURPLE_MESOGLEA = FeatureUtils.register(
+    public static final Holder<ConfiguredFeature<VegetationPatchConfiguration, ?>> PURPLE_MESOGLEA = register(
             "mesoglea_with_dripleaves",
             Feature.VEGETATION_PATCH,
             new VegetationPatchConfiguration(
@@ -296,7 +296,7 @@ public final class WilderConfiguredFeatures {
                     0.7F
             )
     );
-    public static final Holder<ConfiguredFeature<VegetationPatchConfiguration, ?>> PURPLE_MESOGLEA_POOL = FeatureUtils.register(
+    public static final Holder<ConfiguredFeature<VegetationPatchConfiguration, ?>> PURPLE_MESOGLEA_POOL = register(
             "purple_mesoglea_pool",
             Feature.WATERLOGGED_VEGETATION_PATCH,
             new VegetationPatchConfiguration(
@@ -312,7 +312,7 @@ public final class WilderConfiguredFeatures {
                     0.7F
             )
     );
-    public static final Holder<ConfiguredFeature<RandomBooleanFeatureConfiguration, ?>> JELLYFISH_CAVES_PURPLE_MESOGLEA = FeatureUtils.register(
+    public static final Holder<ConfiguredFeature<RandomBooleanFeatureConfiguration, ?>> JELLYFISH_CAVES_PURPLE_MESOGLEA = register(
             "jellyfish_caves_purple_mesoglea",
             Feature.RANDOM_BOOLEAN_SELECTOR,
             new RandomBooleanFeatureConfiguration(
@@ -320,7 +320,7 @@ public final class WilderConfiguredFeatures {
                     PlacementUtils.inlinePlaced(PURPLE_MESOGLEA_POOL)
             )
     );
-    public static final Holder<ConfiguredFeature<VegetationPatchConfiguration, ?>> UPSIDE_DOWN_PURPLE_MESOGLEA = FeatureUtils.register(
+    public static final Holder<ConfiguredFeature<VegetationPatchConfiguration, ?>> UPSIDE_DOWN_PURPLE_MESOGLEA = register(
             "upside_down_purple_mesoglea",
             Feature.VEGETATION_PATCH,
             new VegetationPatchConfiguration(
