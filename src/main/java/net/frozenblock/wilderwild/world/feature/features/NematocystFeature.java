@@ -57,10 +57,9 @@ public class NematocystFeature extends Feature<NematocystFeatureConfig> {
         Direction direction = blockState.getValue(BlockStateProperties.FACING);
         BlockPos blockPos2 = blockPos.relative(direction.getOpposite());
         BlockState state2 = levelReader.getBlockState(blockPos2);
-        FluidState fluidState = levelReader.getFluidState(blockPos);
         BlockState replaceState = levelReader.getBlockState(blockPos);
-        if (replaceState.isAir() || (replaceState.is(Blocks.WATER) && fluidState.isSource())) {
-            boolean waterlogged = state2.is(Blocks.WATER) && fluidState.isSource();
+        if (replaceState.isAir() || (replaceState.is(Blocks.WATER))) {
+            boolean waterlogged = state2.is(Blocks.WATER);
             Direction facing = blockState.getValue(BlockStateProperties.FACING);
             if (blockState.is(RegisterBlocks.NEMATOCYST) && !state2.is(RegisterBlocks.MESOGLEA)) {
                 blockState = RegisterBlocks.NEMATOCYST.defaultBlockState().setValue(BlockStateProperties.WATERLOGGED, waterlogged).setValue(BlockStateProperties.FACING, facing);
