@@ -112,6 +112,12 @@ public final class RegisterSounds {
     public static final SoundEvent BLOCK_MUSHROOM_BLOCK_STEP = register("block.mushroom_block.step");
     public static final SoundEvent BLOCK_MUSHROOM_BLOCK_FALL = register("block.mushroom_block.fall");
 
+    public static final SoundEvent BLOCK_NEMATOCYST_PLACE = register("block.nematocyst.place");
+    public static final SoundEvent BLOCK_NEMATOCYST_HIT = register("block.nematocyst.hit");
+    public static final SoundEvent BLOCK_NEMATOCYST_BREAK = register("block.nematocyst.break");
+    public static final SoundEvent BLOCK_NEMATOCYST_STEP = register("block.nematocyst.step");
+    public static final SoundEvent BLOCK_NEMATOCYST_FALL = register("block.nematocyst.fall");
+
     public static final SoundEvent BLOCK_NULL_BLOCK_PLACE = register("block.null_block.place");
     public static final SoundEvent BLOCK_NULL_BLOCK_HIT = register("block.null_block.hit");
     public static final SoundEvent BLOCK_NULL_BLOCK_BREAK = register("block.null_block.break");

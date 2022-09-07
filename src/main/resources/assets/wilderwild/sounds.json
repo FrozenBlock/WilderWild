@@ -1024,6 +1024,55 @@
 	],
 	"subtitle": "subtitles.block.generic.footsteps"
   },
+	"block.nematocyst.break": {
+		"sounds": [
+			"wilderwild:block/nematocyst/break1",
+			"wilderwild:block/nematocyst/break2",
+			"wilderwild:block/nematocyst/break3",
+			"wilderwild:block/nematocyst/break4",
+			"wilderwild:block/nematocyst/break5"
+		],
+		"subtitle": "subtitles.block.generic.break"
+	},
+	"block.nematocyst.fall": {
+		"sounds": [
+			"wilderwild:block/nematocyst/break1",
+			"wilderwild:block/nematocyst/break2",
+			"wilderwild:block/nematocyst/break3",
+			"wilderwild:block/nematocyst/break4",
+			"wilderwild:block/nematocyst/break5"
+		]
+	},
+	"block.nematocyst.hit": {
+		"sounds": [
+			"wilderwild:block/nematocyst/break1",
+			"wilderwild:block/nematocyst/break2",
+			"wilderwild:block/nematocyst/break3",
+			"wilderwild:block/nematocyst/break4",
+			"wilderwild:block/nematocyst/break5"
+		],
+		"subtitle": "subtitles.block.generic.hit"
+	},
+	"block.nematocyst.place": {
+		"sounds": [
+			"wilderwild:block/nematocyst/break1",
+			"wilderwild:block/nematocyst/break2",
+			"wilderwild:block/nematocyst/break3",
+			"wilderwild:block/nematocyst/break4",
+			"wilderwild:block/nematocyst/break5"
+		],
+		"subtitle": "subtitles.block.generic.place"
+	},
+	"block.nematocyst.step": {
+		"sounds": [
+			"wilderwild:block/nematocyst/break1",
+			"wilderwild:block/nematocyst/break2",
+			"wilderwild:block/nematocyst/break3",
+			"wilderwild:block/nematocyst/break4",
+			"wilderwild:block/nematocyst/break5"
+		],
+		"subtitle": "subtitles.block.generic.footsteps"
+	},
   "block.osseous_sculk.break": {
 	"sounds": [
 	  "wilderwild:block/osseous_sculk/break1",
