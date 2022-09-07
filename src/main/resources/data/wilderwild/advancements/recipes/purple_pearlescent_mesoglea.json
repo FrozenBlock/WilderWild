@@ -1,12 +1,12 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-	"has_bottle": {
+	"has_nematocyst": {
 	  "conditions": {
 		"items": [
 		  {
 			"items": [
-			  "wilderwild:purple_pearlescent_nenatocyst"
+			  "wilderwild:purple_pearlescent_nematocyst"
 			]
 		  }
 		]
