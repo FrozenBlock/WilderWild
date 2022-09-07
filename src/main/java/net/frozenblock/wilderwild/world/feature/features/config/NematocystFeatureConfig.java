@@ -8,17 +8,12 @@ import net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProvi
 
 public record NematocystFeatureConfig(BlockStateProvider stateProvider, int tries, int xzSpread, int ySpread) implements FeatureConfiguration {
 
-    public static final Codec<NematocystFeatureConfig> CODEC = RecordCodecBuilder.create((instance) -> {
-        return instance.group(BlockStateProvider.CODEC.fieldOf("stateProvider").forGetter((config) -> {
-            return config.stateProvider;
-        }), ExtraCodecs.POSITIVE_INT.fieldOf("tries").orElse(256).forGetter((config) -> {
-            return config.tries;
-        }), ExtraCodecs.NON_NEGATIVE_INT.fieldOf("xz_spread").orElse(15).forGetter((config) -> {
-            return config.xzSpread;
-        }), ExtraCodecs.NON_NEGATIVE_INT.fieldOf("y_spread").orElse(3).forGetter((config) -> {
-            return config.ySpread;
-        })).apply(instance, NematocystFeatureConfig::new);
-    });
+    public static final Codec<NematocystFeatureConfig> CODEC = RecordCodecBuilder.create((instance) ->
+            instance.group(BlockStateProvider.CODEC.fieldOf("stateProvider").forGetter((config) -> config.stateProvider),
+            ExtraCodecs.POSITIVE_INT.fieldOf("tries").orElse(256).forGetter((config) -> config.tries),
+            ExtraCodecs.NON_NEGATIVE_INT.fieldOf("xz_spread").orElse(32).forGetter((config) -> config.xzSpread),
+            ExtraCodecs.NON_NEGATIVE_INT.fieldOf("y_spread").orElse(6).forGetter((config) -> config.ySpread))
+            .apply(instance, NematocystFeatureConfig::new));
 
 }
 

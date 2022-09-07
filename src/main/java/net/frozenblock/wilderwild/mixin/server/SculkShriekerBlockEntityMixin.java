@@ -51,18 +51,12 @@ public class SculkShriekerBlockEntityMixin {
         if (shrieker.getBlockState().getValue(RegisterProperties.SOULS_TAKEN) == 2) {
             info.cancel();
         } else {
-            if (shrieker.getBlockState().getValue(BlockStateProperties.WATERLOGGED)) {//TODO: fix this. for some reason this only works when stepping on the shrieker.
-                bubbles(world, Vec3.atCenterOf(shrieker.getBlockPos()), shrieker);
-                this.bubbles = 60;
+            if (shrieker.getBlockState().getValue(BlockStateProperties.WATERLOGGED)) {//TODO: fix this. i want it to emit a constant flow of bubbles but it just doesnt
+                if (this.bubbles > 0 && world != null) {
+                    --this.bubbles;
+                    EasyPacket.EasyFloatingSculkBubblePacket.createParticle(world, Vec3.atCenterOf(shrieker.getBlockPos()), Math.random() > 0.7 ? 1 : 0, 20 + WilderWild.random().nextInt(80), 0.075, world.random.nextIntBetweenInclusive(8, 14));
+                }
             }
         }
     }
-
-    public void bubbles(ServerLevel world, Vec3 pos, SculkShriekerBlockEntity shrieker) {
-        if (this.bubbles > 0 && world != null) {
-            --this.bubbles;
-            EasyPacket.EasyFloatingSculkBubblePacket.createParticle(world, pos, Math.random() > 0.7 ? 1 : 0, 20 + WilderWild.random().nextInt(80), 0.075, world.random.nextIntBetweenInclusive(8, 14));
-        }
-    }
-
 }

@@ -345,7 +345,7 @@ public final class WilderConfiguredFeatures {
                     0.3F,
                     List.of(RegisterBlocks.NEMATOCYST.defaultBlockState().setValue(BlockStateProperties.FACING, Direction.UP),
                             RegisterBlocks.PURPLE_NEMATOCYST.defaultBlockState().setValue(BlockStateProperties.FACING, Direction.UP))),
-                    32, 4, 2
+                    64, 16, 6
             )
     );
     public static final Holder<ConfiguredFeature<NematocystFeatureConfig, ?>> PATCH_NEMATOCYST_DOWN = register("patch_nematocyst_down",
@@ -356,7 +356,7 @@ public final class WilderConfiguredFeatures {
                     0.3F,
                     List.of(RegisterBlocks.NEMATOCYST.defaultBlockState().setValue(BlockStateProperties.FACING, Direction.DOWN),
                             RegisterBlocks.PURPLE_NEMATOCYST.defaultBlockState().setValue(BlockStateProperties.FACING, Direction.DOWN))),
-                    32, 4, 2
+                    32, 16, 6
             )
     );
     public static final Holder<ConfiguredFeature<NematocystFeatureConfig, ?>> PATCH_NEMATOCYST_NORTH = register("patch_nematocyst_north",
@@ -367,7 +367,7 @@ public final class WilderConfiguredFeatures {
                     0.3F,
                     List.of(RegisterBlocks.NEMATOCYST.defaultBlockState().setValue(BlockStateProperties.FACING, Direction.NORTH),
                             RegisterBlocks.PURPLE_NEMATOCYST.defaultBlockState().setValue(BlockStateProperties.FACING, Direction.NORTH))),
-                    32, 4, 2
+                    32, 8, 8
             )
     );
     public static final Holder<ConfiguredFeature<NematocystFeatureConfig, ?>> PATCH_NEMATOCYST_SOUTH = register("patch_nematocyst_south",
@@ -378,7 +378,7 @@ public final class WilderConfiguredFeatures {
                     0.3F,
                     List.of(RegisterBlocks.NEMATOCYST.defaultBlockState().setValue(BlockStateProperties.FACING, Direction.SOUTH),
                             RegisterBlocks.PURPLE_NEMATOCYST.defaultBlockState().setValue(BlockStateProperties.FACING, Direction.SOUTH))),
-                    32, 4, 2
+                    32, 8, 8
             )
     );
     public static final Holder<ConfiguredFeature<NematocystFeatureConfig, ?>> PATCH_NEMATOCYST_EAST = register("patch_nematocyst_east",
@@ -389,7 +389,7 @@ public final class WilderConfiguredFeatures {
                     0.3F,
                     List.of(RegisterBlocks.NEMATOCYST.defaultBlockState().setValue(BlockStateProperties.FACING, Direction.EAST),
                             RegisterBlocks.PURPLE_NEMATOCYST.defaultBlockState().setValue(BlockStateProperties.FACING, Direction.EAST))),
-                    32, 4, 2
+                    32, 8, 8
             )
     );
     public static final Holder<ConfiguredFeature<NematocystFeatureConfig, ?>> PATCH_NEMATOCYST_WEST = register("patch_nematocyst_west",
@@ -400,7 +400,7 @@ public final class WilderConfiguredFeatures {
                     0.3F,
                     List.of(RegisterBlocks.NEMATOCYST.defaultBlockState().setValue(BlockStateProperties.FACING, Direction.WEST),
                             RegisterBlocks.PURPLE_NEMATOCYST.defaultBlockState().setValue(BlockStateProperties.FACING, Direction.WEST))),
-                    32, 4, 2
+                    32, 8, 8
             )
     );
 

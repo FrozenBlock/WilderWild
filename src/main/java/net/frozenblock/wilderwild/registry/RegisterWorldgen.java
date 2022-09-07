@@ -107,8 +107,8 @@ public final class RegisterWorldgen {
                 .downfall(0.4F)
                 .specialEffects(
                         new BiomeSpecialEffects.Builder()
-                                .waterColor(4552818)
-                                .waterFogColor(5470865)
+                                .waterColor(6137290)
+                                .waterFogColor(2648233)
                                 .fogColor(0)
                                 .skyColor(OverworldBiomes.calculateSkyColor(0.8F))
                                 .ambientMoodSound(AmbientMoodSettings.LEGACY_CAVE_SETTINGS)
