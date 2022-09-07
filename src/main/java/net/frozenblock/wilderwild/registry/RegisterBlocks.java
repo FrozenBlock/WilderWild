@@ -233,6 +233,11 @@ public final class RegisterBlocks {
 
     public static final Block NEMATOCYST = new NematocystBlock(7, 3, FabricBlockSettings.of(Material.CLAY, MaterialColor.QUARTZ).noCollision().nonOpaque().emissiveLighting(RegisterBlocks::always).luminance((state) -> 4).sounds(SoundType.SLIME_BLOCK));
     public static final Block PURPLE_NEMATOCYST = new NematocystBlock(7, 3, FabricBlockSettings.of(Material.CLAY, MaterialColor.COLOR_PURPLE).noCollision().nonOpaque().emissiveLighting(RegisterBlocks::always).luminance((state) -> 4).sounds(SoundType.SLIME_BLOCK));
+    public static final Block YELLOW_NEMATOCYST = new NematocystBlock(7, 3, FabricBlockSettings.of(Material.CLAY, MaterialColor.COLOR_YELLOW).noCollision().nonOpaque().emissiveLighting(RegisterBlocks::always).luminance((state) -> 4).sounds(SoundType.SLIME_BLOCK));
+    public static final Block BLUE_NEMATOCYST = new NematocystBlock(7, 3, FabricBlockSettings.of(Material.CLAY, MaterialColor.COLOR_LIGHT_BLUE).noCollision().nonOpaque().emissiveLighting(RegisterBlocks::always).luminance((state) -> 4).sounds(SoundType.SLIME_BLOCK));
+    public static final Block LIME_NEMATOCYST = new NematocystBlock(7, 3, FabricBlockSettings.of(Material.CLAY, MaterialColor.COLOR_LIGHT_GREEN).noCollision().nonOpaque().emissiveLighting(RegisterBlocks::always).luminance((state) -> 4).sounds(SoundType.SLIME_BLOCK));
+    public static final Block RED_NEMATOCYST = new NematocystBlock(7, 3, FabricBlockSettings.of(Material.CLAY, MaterialColor.COLOR_RED).noCollision().nonOpaque().emissiveLighting(RegisterBlocks::always).luminance((state) -> 4).sounds(SoundType.SLIME_BLOCK));
+    public static final Block PINK_NEMATOCYST = new NematocystBlock(7, 3, FabricBlockSettings.of(Material.CLAY, MaterialColor.COLOR_PINK).noCollision().nonOpaque().emissiveLighting(RegisterBlocks::always).luminance((state) -> 4).sounds(SoundType.SLIME_BLOCK));
 
     // MISC
     private static final Material ALGAE_MATERIAL = new FabricMaterialBuilder(MaterialColor.PLANT)
@@ -330,7 +335,7 @@ public final class RegisterBlocks {
             .recipeUnlockedBy("has_planks")
             .getFamily();
 
-    public static final Block NULL_BLOCK = new Block(FabricBlockSettings.copyOf(Blocks.STONE).sounds(RegisterBlockSoundGroups.NULL_BLOCK)); // B) -merp
+    public static final Block NULL_BLOCK = new Block(FabricBlockSettings.copyOf(Blocks.STONE).sounds(RegisterBlockSoundGroups.NULL_BLOCK));
 
     public static final Block DISPLAY_LANTERN = new DisplayLanternBlock(FabricBlockSettings.of(Material.METAL).strength(3.5f).sounds(SoundType.LANTERN).noCollision().luminance((state) -> state.getValue(RegisterProperties.LIGHT)));
 
@@ -348,6 +353,11 @@ public final class RegisterBlocks {
         registerBlock("pink_mesoglea", PINK_MESOGLEA, CreativeModeTab.TAB_DECORATIONS);
         registerBlock("blue_pearlescent_nematocyst", NEMATOCYST, CreativeModeTab.TAB_DECORATIONS);
         registerBlock("purple_pearlescent_nematocyst", PURPLE_NEMATOCYST, CreativeModeTab.TAB_DECORATIONS);
+        registerBlock("blue_nematocyst", BLUE_NEMATOCYST, CreativeModeTab.TAB_DECORATIONS);
+        registerBlock("yellow_nematocyst", YELLOW_NEMATOCYST, CreativeModeTab.TAB_DECORATIONS);
+        registerBlock("lime_nematocyst", LIME_NEMATOCYST, CreativeModeTab.TAB_DECORATIONS);
+        registerBlock("red_nematocyst", RED_NEMATOCYST, CreativeModeTab.TAB_DECORATIONS);
+        registerBlock("pink_nematocyst", PINK_NEMATOCYST, CreativeModeTab.TAB_DECORATIONS);
     }
 
     public static void registerBlocks() {
