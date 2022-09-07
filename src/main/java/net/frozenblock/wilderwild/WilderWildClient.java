@@ -108,6 +108,10 @@ public final class WilderWildClient implements ClientModInitializer {
         BlockRenderLayerMap.INSTANCE.putBlock(RegisterBlocks.PINK_MESOGLEA, RenderType.translucent());
         BlockRenderLayerMap.INSTANCE.putBlock(RegisterBlocks.RED_MESOGLEA, RenderType.translucent());
         BlockRenderLayerMap.INSTANCE.putBlock(RegisterBlocks.YELLOW_MESOGLEA, RenderType.translucent());
+<<<<<<< Updated upstream
+=======
+        //NEMATOCYST
+>>>>>>> Stashed changes
         BlockRenderLayerMap.INSTANCE.putBlock(RegisterBlocks.NEMATOCYST, RenderType.translucent());
         BlockRenderLayerMap.INSTANCE.putBlock(RegisterBlocks.PURPLE_NEMATOCYST, RenderType.translucent());
         BlockRenderLayerMap.INSTANCE.putBlock(RegisterBlocks.BLUE_NEMATOCYST, RenderType.translucent());
@@ -115,7 +119,10 @@ public final class WilderWildClient implements ClientModInitializer {
         BlockRenderLayerMap.INSTANCE.putBlock(RegisterBlocks.PINK_NEMATOCYST, RenderType.translucent());
         BlockRenderLayerMap.INSTANCE.putBlock(RegisterBlocks.RED_NEMATOCYST, RenderType.translucent());
         BlockRenderLayerMap.INSTANCE.putBlock(RegisterBlocks.YELLOW_NEMATOCYST, RenderType.translucent());
+<<<<<<< Updated upstream
         //BlockRenderLayerMap.INSTANCE.putBlock(RegisterBlocks.NEMATOCYST, RenderType.cutout());
+=======
+>>>>>>> Stashed changes
 
         ClientSpriteRegistryCallback.event(InventoryMenu.BLOCK_ATLAS).register((atlasTexture, registry) -> {
             registry.register(WilderWild.id("particle/floating_sculk_bubble_0"));
