@@ -5,31 +5,31 @@
 	},
 	"elements": [
 		{
-			"from": [2, 0, 8],
-			"to": [14, 12, 8],
+			"from": [0, 0, 8],
+			"to": [16, 16, 8],
 			"rotation": {"angle": 0, "axis": "y", "origin": [8, 8, 8]},
 			"faces": {
-				"north": {"uv": [2, 4, 14, 16], "texture": "#large"},
-				"south": {"uv": [2, 4, 14, 16], "texture": "#large"}
+				"north": {"uv": [0, 0, 16, 16], "texture": "#large"},
+				"south": {"uv": [0, 0, 16, 16], "texture": "#large"}
 			}
 		},
 		{
-			"from": [2, 0, 9],
-			"to": [14, 8, 9],
+			"from": [0, 0, 9],
+			"to": [16, 16, 9],
 			"rotation": {"angle": 22.5, "axis": "x", "origin": [8, 0, 9]},
 			"faces": {
-				"north": {"uv": [14, 8, 2, 16], "texture": "#small"},
-				"south": {"uv": [2, 8, 14, 16], "texture": "#small"}
+				"north": {"uv": [16, 0, 0, 16], "texture": "#small"},
+				"south": {"uv": [0, 0, 16, 16], "texture": "#small"}
 			}
 		},
 		{
 			"name": "small_cube",
-			"from": [2, 0, 7],
-			"to": [14, 7, 7],
+			"from": [0, 0, 7],
+			"to": [16, 16, 7],
 			"rotation": {"angle": -22.5, "axis": "x", "origin": [8, 0, 7]},
 			"faces": {
-				"north": {"uv": [2, 8, 14, 16], "texture": "#small"},
-				"south": {"uv": [14, 8, 2, 16], "texture": "#small"}
+				"north": {"uv": [0, 0, 16, 16], "texture": "#small"},
+				"south": {"uv": [16, 0, 0, 16], "texture": "#small"}
 			}
 		}
 	]
