@@ -11,11 +11,6 @@ public final class WilderBiomeTags {
     public static final TagKey<Biome> FIREFLY_SPAWNABLE = bind("firefly_spawnable");
     public static final TagKey<Biome> ABANDONED_CABIN_HAS_STRUCTURE = bind("has_structure/abandoned_cabin");
     public static final TagKey<Biome> HAS_JELLYFISH = bind("has_jellyfish");
-    public static final TagKey<Biome> PINK_JELLYFISH = bind("pink_jellyfish");
-    public static final TagKey<Biome> BLUE_JELLYFISH = bind("blue_jellyfish");
-    public static final TagKey<Biome> LIME_JELLYFISH = bind("lime_jellyfish");
-    public static final TagKey<Biome> RED_JELLYFISH = bind("red_jellyfish");
-    public static final TagKey<Biome> YELLOW_JELLYFISH = bind("yellow_jellyfish");
     public static final TagKey<Biome> PEARLESCENT_JELLYFISH = bind("pearlescent_jellyfish");
 
     private WilderBiomeTags() {
