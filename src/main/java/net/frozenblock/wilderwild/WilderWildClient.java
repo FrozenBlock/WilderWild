@@ -108,6 +108,13 @@ public final class WilderWildClient implements ClientModInitializer {
         BlockRenderLayerMap.INSTANCE.putBlock(RegisterBlocks.PINK_MESOGLEA, RenderType.translucent());
         BlockRenderLayerMap.INSTANCE.putBlock(RegisterBlocks.RED_MESOGLEA, RenderType.translucent());
         BlockRenderLayerMap.INSTANCE.putBlock(RegisterBlocks.YELLOW_MESOGLEA, RenderType.translucent());
+        BlockRenderLayerMap.INSTANCE.putBlock(RegisterBlocks.NEMATOCYST, RenderType.translucent());
+        BlockRenderLayerMap.INSTANCE.putBlock(RegisterBlocks.PURPLE_NEMATOCYST, RenderType.translucent());
+        BlockRenderLayerMap.INSTANCE.putBlock(RegisterBlocks.BLUE_NEMATOCYST, RenderType.translucent());
+        BlockRenderLayerMap.INSTANCE.putBlock(RegisterBlocks.LIME_NEMATOCYST, RenderType.translucent());
+        BlockRenderLayerMap.INSTANCE.putBlock(RegisterBlocks.PINK_NEMATOCYST, RenderType.translucent());
+        BlockRenderLayerMap.INSTANCE.putBlock(RegisterBlocks.RED_NEMATOCYST, RenderType.translucent());
+        BlockRenderLayerMap.INSTANCE.putBlock(RegisterBlocks.YELLOW_NEMATOCYST, RenderType.translucent());
         //BlockRenderLayerMap.INSTANCE.putBlock(RegisterBlocks.NEMATOCYST, RenderType.cutout());
 
         ClientSpriteRegistryCallback.event(InventoryMenu.BLOCK_ATLAS).register((atlasTexture, registry) -> {
