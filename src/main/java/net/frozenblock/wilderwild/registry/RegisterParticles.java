@@ -64,7 +64,7 @@ public final class RegisterParticles {
         Registry.register(Registry.PARTICLE_TYPE, WilderWild.id("yellow_hanging_mesoglea_drip"), YELLOW_HANGING_MESOGLEA);
         Registry.register(Registry.PARTICLE_TYPE, WilderWild.id("yellow_falling_mesoglea_drip"), YELLOW_FALLING_MESOGLEA);
         Registry.register(Registry.PARTICLE_TYPE, WilderWild.id("yellow_landing_mesoglea_drip"), YELLOW_LANDING_MESOGLEA);
-        Registry.register(Registry.PARTICLE_TYPE, WilderWild.id("lime_landing_mesoglea_drip"), LIME_HANGING_MESOGLEA);
+        Registry.register(Registry.PARTICLE_TYPE, WilderWild.id("lime_hanging_mesoglea_drip"), LIME_HANGING_MESOGLEA);
         Registry.register(Registry.PARTICLE_TYPE, WilderWild.id("lime_falling_mesoglea_drip"), LIME_FALLING_MESOGLEA);
         Registry.register(Registry.PARTICLE_TYPE, WilderWild.id("lime_landing_mesoglea_drip"), LIME_LANDING_MESOGLEA);
         Registry.register(Registry.PARTICLE_TYPE, WilderWild.id("blue_hanging_mesoglea_drip"), BLUE_HANGING_MESOGLEA);
