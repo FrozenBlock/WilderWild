@@ -2,7 +2,6 @@
   "replace": false,
   "values": [
 	"wilderwild:baobab_fence",
-	"wilderwild:cypress_fence",
-    "wilderwild:palm_fence"
+	"wilderwild:cypress_fence"
   ]
 }

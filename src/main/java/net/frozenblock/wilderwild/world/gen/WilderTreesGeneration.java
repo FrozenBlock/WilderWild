@@ -69,9 +69,6 @@ public final class WilderTreesGeneration {
 
             BiomeModifications.addFeature(BiomeSelectors.includeByKey(Biomes.WINDSWEPT_SAVANNA),
                     GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.TreeOverrides.WINDSWEPT_SAVANNA_TREES.unwrapKey().orElseThrow());
-
-            BiomeModifications.addFeature(BiomeSelectors.tag(BiomeTags.IS_BADLANDS),
-                    GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.TreeOverrides.BIG_SHRUB.unwrapKey().orElseThrow());
         }
 
         BiomeModifications.addFeature(BiomeSelectors.tag(BiomeTags.IS_SAVANNA),

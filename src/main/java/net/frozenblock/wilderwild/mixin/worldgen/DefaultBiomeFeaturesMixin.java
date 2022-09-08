@@ -84,12 +84,6 @@ public class DefaultBiomeFeaturesMixin {
             info.cancel();
         }
     }
-    @Inject(method = "addBadlandsTrees", at = @At("HEAD"), cancellable = true)
-    private static void addBadlandsTrees(BiomeGenerationSettings.Builder builder, CallbackInfo info) {
-        if (ClothConfigInteractionHandler.wildTrees()) {
-            WilderWild.log("Removing " + "Badlands Trees" + " in order to properly update biomes!", WilderWild.UNSTABLE_LOGGING);
-            info.cancel();
-        }
-    }
+
 }
 
