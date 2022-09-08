@@ -15,47 +15,24 @@ import static net.frozenblock.wilderwild.misc.config.WilderWildConfig.text;
 import static net.frozenblock.wilderwild.misc.config.WilderWildConfig.tooltip;
 
 @Config(name = "worldgen")
-@Config.Gui.Background("wilderwild:textures/block/chiseled_mud_bricks.png")
 public class WorldgenConfig implements ConfigData {
     //public static final EnumConfigOption<ModMenuConfig.ModsButtonStyle> MODS_BUTTON_STYLE = new EnumConfigOption<>("mods_button_style", ModMenuConfig.ModsButtonStyle.CLASSIC);
 
     @ConfigEntry.Gui.CollapsibleObject
-    @ConfigEntry.Gui.Tooltip
     public BiomePlacement biomePlacement = new BiomePlacement();
 
-    @Config(name = "biomeplacement")
     public static class BiomePlacement {
-        @ConfigEntry.Gui.RequiresRestart
-        @ConfigEntry.Gui.Tooltip
         public boolean modifyDesertPlacement = true;
-        @ConfigEntry.Gui.RequiresRestart
-        @ConfigEntry.Gui.Tooltip
         public boolean modifyBadlandsPlacement = true;
-        @ConfigEntry.Gui.RequiresRestart
-        @ConfigEntry.Gui.Tooltip
         public boolean modifyWindsweptSavannaPlacement = true;
-        @ConfigEntry.Gui.RequiresRestart
-        @ConfigEntry.Gui.Tooltip
         public boolean modifyJunglePlacement = true;
-        @ConfigEntry.Gui.RequiresRestart
-        @ConfigEntry.Gui.Tooltip
         public boolean modifySwampPlacement = true;
-        @ConfigEntry.Gui.RequiresRestart
-        @ConfigEntry.Gui.Tooltip
         public boolean modifyMangroveSwampPlacement = true;
     }
 
-    @ConfigEntry.Gui.RequiresRestart
-    @ConfigEntry.Gui.Tooltip
     public boolean betaBeaches = true;
-    @ConfigEntry.Gui.RequiresRestart
-    @ConfigEntry.Gui.Tooltip
     public boolean fallenLogs = true;
-    @ConfigEntry.Gui.RequiresRestart
-    @ConfigEntry.Gui.Tooltip
     public boolean wilderWildTreeGen = true;
-    @ConfigEntry.Gui.RequiresRestart
-    @ConfigEntry.Gui.Tooltip
     public boolean wilderWildGrassGen = true;
 
     @Environment(EnvType.CLIENT)

@@ -3,7 +3,6 @@ package net.frozenblock.wilderwild.misc.config;
 import me.shedaniel.autoconfig.AutoConfig;
 import me.shedaniel.autoconfig.ConfigData;
 import me.shedaniel.autoconfig.annotation.Config;
-import me.shedaniel.autoconfig.annotation.ConfigEntry;
 import me.shedaniel.clothconfig2.api.ConfigCategory;
 import me.shedaniel.clothconfig2.api.ConfigEntryBuilder;
 import net.fabricmc.api.EnvType;
@@ -15,13 +14,10 @@ import static net.frozenblock.wilderwild.misc.config.WilderWildConfig.text;
 import static net.frozenblock.wilderwild.misc.config.WilderWildConfig.tooltip;
 
 @Config(name = "block")
-@Config.Gui.Background("wilderwild:textures/block/chiseled_mud_bricks.png")
 public class BlockConfig implements ConfigData {
     //public static final EnumConfigOption<ModMenuConfig.ModsButtonStyle> MODS_BUTTON_STYLE = new EnumConfigOption<>("mods_button_style", ModMenuConfig.ModsButtonStyle.CLASSIC);
 
-    @ConfigEntry.Gui.Tooltip
     public boolean mcLiveSensorTendrils = true;
-    @ConfigEntry.Gui.Tooltip
     public boolean shriekerGargling = true;
 
     @Environment(EnvType.CLIENT)
