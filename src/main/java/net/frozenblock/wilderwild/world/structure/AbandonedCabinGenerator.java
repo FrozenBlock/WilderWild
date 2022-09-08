@@ -21,8 +21,7 @@ public class AbandonedCabinGenerator {
                     new ResourceLocation("empty"),
                     ImmutableList.of(
                             Pair.of(ofProcessedSingle("abandoned_cabin/cabin/abandoned_cabin_1", WilderStructureProcessors.ABANDONED_CABIN_PROCESSOR), 1),
-                            Pair.of(ofProcessedSingle("abandoned_cabin/cabin/abandoned_cabin_2", WilderStructureProcessors.ABANDONED_CABIN_PROCESSOR), 1),
-                            Pair.of(ofProcessedSingle("abandoned_cabin/cabin/abandoned_cabin_3", WilderStructureProcessors.ABANDONED_CABIN_PROCESSOR), 1)
+                            Pair.of(ofProcessedSingle("abandoned_cabin/cabin/abandoned_cabin_2", WilderStructureProcessors.ABANDONED_CABIN_PROCESSOR), 1)
                     ),
                     StructureTemplatePool.Projection.RIGID
             )
