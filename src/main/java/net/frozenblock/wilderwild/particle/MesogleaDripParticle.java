@@ -439,6 +439,7 @@ public class MesogleaDripParticle extends TextureSheetParticle {
             this.gravity *= 0.00f;
             this.lifetime = 40;
             this.spriteSet = spriteSet;
+            this.setSpriteFromAge(this.spriteSet);
         }
 
         @Override
