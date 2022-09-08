@@ -487,7 +487,7 @@ public class MesogleaDripParticle extends TextureSheetParticle {
             //this.yd *= 0.02;
             //this.zd *= 0.02;
             if (!this.removed) {
-                this.setSprite(spriteSet.get((int)this.age / 6, (int)this.lifetime / 6));
+                this.setSprite(spriteSet.get((int)(this.age / 6), (int)(this.lifetime / 6)));
             }
         }
     }
