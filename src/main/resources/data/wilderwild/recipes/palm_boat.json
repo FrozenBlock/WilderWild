@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "boat",
+  "key": {
+	"#": {
+	  "item": "wilderwild:palm_planks"
+	}
+  },
+  "pattern": [
+	"# #",
+	"###"
+  ],
+  "result": {
+	"item": "wilderwild:palm_boat"
+  }
+}
