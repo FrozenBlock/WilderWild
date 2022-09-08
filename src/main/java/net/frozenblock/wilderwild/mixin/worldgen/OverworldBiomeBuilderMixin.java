@@ -197,7 +197,7 @@ public final class OverworldBiomeBuilderMixin {
                 consumer,
                 this.FULL_RANGE,
                 Climate.Parameter.span(this.humidities[2], this.humidities[4]),
-                Climate.Parameter.span(this.deepOceanContinentalness, this.coastContinentalness),
+                Climate.Parameter.span(this.deepOceanContinentalness, this.oceanContinentalness),
                 Climate.Parameter.span(this.erosions[3], this.erosions[6]),
                 this.FULL_RANGE,
                 0.0F,
