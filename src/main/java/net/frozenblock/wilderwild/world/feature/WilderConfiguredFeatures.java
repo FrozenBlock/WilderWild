@@ -342,7 +342,7 @@ public final class WilderConfiguredFeatures {
             new MultifaceGrowthConfiguration(
                     (MultifaceBlock) RegisterBlocks.NEMATOCYST,
                     20,
-                    true, true, true, 1.0F, HolderSet.direct(Block::builtInRegistryHolder, Blocks.CLAY, Blocks.STONE, Blocks.ANDESITE, Blocks.DIORITE, Blocks.GRANITE, Blocks.DRIPSTONE_BLOCK, Blocks.CALCITE, Blocks.TUFF, Blocks.DEEPSLATE, RegisterBlocks.MESOGLEA))
+                    true, true, true, 1.0F, HolderSet.direct(Block::builtInRegistryHolder, Blocks.CLAY, Blocks.STONE, Blocks.ANDESITE, Blocks.DIORITE, Blocks.GRANITE, Blocks.DRIPSTONE_BLOCK, Blocks.CALCITE, Blocks.TUFF, Blocks.DEEPSLATE))
     );
 
     public static final Holder<ConfiguredFeature<MultifaceGrowthConfiguration, ?>> NEMATOCYST_PURPLE = register("nematocyst_purple",
@@ -350,7 +350,7 @@ public final class WilderConfiguredFeatures {
             new MultifaceGrowthConfiguration(
                     (MultifaceBlock) RegisterBlocks.PURPLE_NEMATOCYST,
                     20,
-                    true, true, true, 1.0F, HolderSet.direct(Block::builtInRegistryHolder, Blocks.CLAY, Blocks.STONE, Blocks.ANDESITE, Blocks.DIORITE, Blocks.GRANITE, Blocks.DRIPSTONE_BLOCK, Blocks.CALCITE, Blocks.TUFF, Blocks.DEEPSLATE, RegisterBlocks.PURPLE_MESOGLEA))
+                    true, true, true, 1.0F, HolderSet.direct(Block::builtInRegistryHolder, Blocks.CLAY, Blocks.STONE, Blocks.ANDESITE, Blocks.DIORITE, Blocks.GRANITE, Blocks.DRIPSTONE_BLOCK, Blocks.CALCITE, Blocks.TUFF, Blocks.DEEPSLATE))
     );
 
     /*public static final Holder<ConfiguredFeature<NematocystFeatureConfig, ?>> PATCH_NEMATOCYST_UP = register("patch_nematocyst_up",
