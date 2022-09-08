@@ -91,7 +91,7 @@ public class MesogleaDripParticle extends TextureSheetParticle {
 
         @Override
         public Particle createParticle(SimpleParticleType simpleParticleType, ClientLevel clientLevel, double d, double e, double f, double g, double h, double i) {
-            MesogleaDripParticle.DripHangParticle dripParticle = new MesogleaDripParticle.DripHangParticle(clientLevel, d, e, f, RegisterParticles.BLUE_PEARLESCENT_FALLING_MESOGLEA);
+            MesogleaDripParticle.DripHangParticle dripParticle = new MesogleaDripParticle.DripHangParticle(clientLevel, d, e, f, RegisterParticles.BLUE_PEARLESCENT_FALLING_MESOGLEA, sprite);
             //dripParticle.setColor(0.2f, 0.3f, 1.0f);
             dripParticle.pickSprite(this.sprite);
             return dripParticle;
@@ -141,7 +141,7 @@ public class MesogleaDripParticle extends TextureSheetParticle {
 
         @Override
         public Particle createParticle(SimpleParticleType simpleParticleType, ClientLevel clientLevel, double d, double e, double f, double g, double h, double i) {
-            MesogleaDripParticle.DripHangParticle dripParticle = new MesogleaDripParticle.DripHangParticle(clientLevel, d, e, f, RegisterParticles.PURPLE_PEARLESCENT_FALLING_MESOGLEA);
+            MesogleaDripParticle.DripHangParticle dripParticle = new MesogleaDripParticle.DripHangParticle(clientLevel, d, e, f, RegisterParticles.PURPLE_PEARLESCENT_FALLING_MESOGLEA, sprite);
             //dripParticle.setColor(0.2f, 0.3f, 1.0f);
             dripParticle.pickSprite(this.sprite);
             return dripParticle;
@@ -191,7 +191,7 @@ public class MesogleaDripParticle extends TextureSheetParticle {
 
         @Override
         public Particle createParticle(SimpleParticleType simpleParticleType, ClientLevel clientLevel, double d, double e, double f, double g, double h, double i) {
-            MesogleaDripParticle.DripHangParticle dripParticle = new MesogleaDripParticle.DripHangParticle(clientLevel, d, e, f, RegisterParticles.BLUE_FALLING_MESOGLEA);
+            MesogleaDripParticle.DripHangParticle dripParticle = new MesogleaDripParticle.DripHangParticle(clientLevel, d, e, f, RegisterParticles.BLUE_FALLING_MESOGLEA, sprite);
             //dripParticle.setColor(0.2f, 0.3f, 1.0f);
             dripParticle.pickSprite(this.sprite);
             return dripParticle;
@@ -241,7 +241,7 @@ public class MesogleaDripParticle extends TextureSheetParticle {
 
         @Override
         public Particle createParticle(SimpleParticleType simpleParticleType, ClientLevel clientLevel, double d, double e, double f, double g, double h, double i) {
-            MesogleaDripParticle.DripHangParticle dripParticle = new MesogleaDripParticle.DripHangParticle(clientLevel, d, e, f, RegisterParticles.YELLOW_FALLING_MESOGLEA);
+            MesogleaDripParticle.DripHangParticle dripParticle = new MesogleaDripParticle.DripHangParticle(clientLevel, d, e, f, RegisterParticles.YELLOW_FALLING_MESOGLEA, sprite);
             //dripParticle.setColor(0.2f, 0.3f, 1.0f);
             dripParticle.pickSprite(this.sprite);
             return dripParticle;
@@ -291,7 +291,7 @@ public class MesogleaDripParticle extends TextureSheetParticle {
 
         @Override
         public Particle createParticle(SimpleParticleType simpleParticleType, ClientLevel clientLevel, double d, double e, double f, double g, double h, double i) {
-            MesogleaDripParticle.DripHangParticle dripParticle = new MesogleaDripParticle.DripHangParticle(clientLevel, d, e, f, RegisterParticles.LIME_FALLING_MESOGLEA);
+            MesogleaDripParticle.DripHangParticle dripParticle = new MesogleaDripParticle.DripHangParticle(clientLevel, d, e, f, RegisterParticles.LIME_FALLING_MESOGLEA, sprite);
             //dripParticle.setColor(0.2f, 0.3f, 1.0f);
             dripParticle.pickSprite(this.sprite);
             return dripParticle;
@@ -341,7 +341,7 @@ public class MesogleaDripParticle extends TextureSheetParticle {
 
         @Override
         public Particle createParticle(SimpleParticleType simpleParticleType, ClientLevel clientLevel, double d, double e, double f, double g, double h, double i) {
-            MesogleaDripParticle.DripHangParticle dripParticle = new MesogleaDripParticle.DripHangParticle(clientLevel, d, e, f, RegisterParticles.RED_FALLING_MESOGLEA);
+            MesogleaDripParticle.DripHangParticle dripParticle = new MesogleaDripParticle.DripHangParticle(clientLevel, d, e, f, RegisterParticles.RED_FALLING_MESOGLEA, sprite);
             //dripParticle.setColor(0.2f, 0.3f, 1.0f);
             dripParticle.pickSprite(this.sprite);
             return dripParticle;
@@ -391,7 +391,7 @@ public class MesogleaDripParticle extends TextureSheetParticle {
 
         @Override
         public Particle createParticle(SimpleParticleType simpleParticleType, ClientLevel clientLevel, double d, double e, double f, double g, double h, double i) {
-            MesogleaDripParticle.DripHangParticle dripParticle = new MesogleaDripParticle.DripHangParticle(clientLevel, d, e, f, RegisterParticles.PINK_FALLING_MESOGLEA);
+            MesogleaDripParticle.DripHangParticle dripParticle = new MesogleaDripParticle.DripHangParticle(clientLevel, d, e, f, RegisterParticles.PINK_FALLING_MESOGLEA, sprite);
             //dripParticle.setColor(0.2f, 0.3f, 1.0f);
             dripParticle.pickSprite(this.sprite);
             return dripParticle;
@@ -463,12 +463,14 @@ public class MesogleaDripParticle extends TextureSheetParticle {
     @Environment(value=EnvType.CLIENT)
     static class DripHangParticle extends MesogleaDripParticle {
         private final ParticleOptions fallingParticle;
+        private final SpriteSet spriteSet;
 
-        DripHangParticle(ClientLevel clientLevel, double d, double e, double f, ParticleOptions particleOptions) {
-            super(clientLevel, d, e, f);
+        DripHangParticle(ClientLevel clientLevel, double d, double e, double f, ParticleOptions particleOptions, SpriteSet spriteSet) {
+            super(clientLevel, d, e - 0.1, f);
             this.fallingParticle = particleOptions;
-            this.gravity *= 0.02f;
+            this.gravity *= 0.00f;
             this.lifetime = 40;
+            this.spriteSet = spriteSet;
         }
 
         @Override
@@ -481,9 +483,12 @@ public class MesogleaDripParticle extends TextureSheetParticle {
 
         @Override
         protected void postMoveUpdate() {
-            this.xd *= 0.02;
-            this.yd *= 0.02;
-            this.zd *= 0.02;
+            //this.xd *= 0.02;
+            //this.yd *= 0.02;
+            //this.zd *= 0.02;
+            if (!this.removed) {
+                this.setSprite(spriteSet.get(this.age / 6, this.lifetime / 6));
+            }
         }
     }
 
