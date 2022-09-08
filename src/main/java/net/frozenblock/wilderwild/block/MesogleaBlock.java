@@ -60,7 +60,7 @@ public class MesogleaBlock extends Block implements SimpleWaterloggedBlock {
     @Override
     public void animateTick(BlockState blockState, Level level, BlockPos blockPos, RandomSource randomSource) {
         super.animateTick(blockState, level, blockPos, randomSource);
-        if (randomSource.nextInt(0, 15) == 0 && blockState.getValue(WATERLOGGED) && level.getFluidState(blockPos.below()).isEmpty()) {
+        if (randomSource.nextInt(0, 50) == 0 && blockState.getValue(WATERLOGGED) && level.getFluidState(blockPos.below()).isEmpty()) {
             ParticleOptions particle = blockState.is(RegisterBlocks.MESOGLEA) ? RegisterParticles.BLUE_PEARLESCENT_HANGING_MESOGLEA :
                     blockState.is(RegisterBlocks.PURPLE_MESOGLEA) ? RegisterParticles.PURPLE_PEARLESCENT_HANGING_MESOGLEA :
                             blockState.is(RegisterBlocks.YELLOW_MESOGLEA) ? RegisterParticles.YELLOW_HANGING_MESOGLEA :
