@@ -388,6 +388,7 @@ public class MesogleaDripParticle extends TextureSheetParticle {
         DripLandParticle(ClientLevel clientLevel, double d, double e, double f) {
             super(clientLevel, d, e, f);
             this.lifetime = (int)(16.0 / (Math.random() * 0.8 + 0.2));
+            this.scale(0.5F);
         }
     }
 
@@ -418,7 +419,6 @@ public class MesogleaDripParticle extends TextureSheetParticle {
         FallAndLandParticle(ClientLevel clientLevel, double d, double e, double f, ParticleOptions particleOptions) {
             super(clientLevel, d, e, f);
             this.landParticle = particleOptions;
-            this.scale(0.5F);
         }
 
         @Override
