@@ -388,7 +388,7 @@ public class MesogleaDripParticle extends TextureSheetParticle {
         DripLandParticle(ClientLevel clientLevel, double d, double e, double f) {
             super(clientLevel, d, e, f);
             this.lifetime = (int)(16.0 / (Math.random() * 0.8 + 0.2));
-            this.scale(0.5F);
+            this.scale(0.7F);
         }
     }
 
@@ -396,7 +396,7 @@ public class MesogleaDripParticle extends TextureSheetParticle {
     static class FallingParticle extends MesogleaDripParticle {
         FallingParticle(ClientLevel clientLevel, double d, double e, double f) {
             this(clientLevel, d, e, f, (int)(64.0 / (Math.random() * 0.8 + 0.2)));
-            this.scale(0.5F);
+            this.scale(0.7F);
         }
 
         FallingParticle(ClientLevel clientLevel, double d, double e, double f, int i) {
@@ -442,7 +442,7 @@ public class MesogleaDripParticle extends TextureSheetParticle {
             this.lifetime = 40;
             this.spriteSet = spriteSet;
             this.setSpriteFromAge(this.spriteSet);
-            this.scale(0.5F);
+            this.scale(0.7F);
         }
 
         @Override
