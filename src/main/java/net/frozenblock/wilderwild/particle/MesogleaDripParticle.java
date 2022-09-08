@@ -16,8 +16,9 @@ public class MesogleaDripParticle extends TextureSheetParticle {
 
     MesogleaDripParticle(ClientLevel clientLevel, double d, double e, double f) {
         super(clientLevel, d, e, f);
-        this.setSize(0.01f, 0.01f);
+        this.setSize(0.5f, 0.5f);
         this.gravity = 0.06f;
+        this.quadSize = 0.5f;
     }
 
     @Override
