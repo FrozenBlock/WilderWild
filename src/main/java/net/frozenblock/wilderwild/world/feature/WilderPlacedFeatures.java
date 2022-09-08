@@ -303,7 +303,24 @@ public final class WilderPlacedFeatures {
             RandomOffsetPlacement.vertical(ConstantInt.of(1)),
             BiomeFilter.biome());
 
-    public static final Holder<PlacedFeature> PATCH_NEMATOCYST_UP = register("patch_nematocyst_up", WilderConfiguredFeatures.PATCH_NEMATOCYST_UP,
+    public static final Holder<PlacedFeature> NEMATOCYST = PlacementUtils.register(
+            "nematocyst",
+            WilderConfiguredFeatures.NEMATOCYST,
+            CountPlacement.of(ConstantInt.of(16 )),
+            InSquarePlacement.spread(),
+            PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT,
+            BiomeFilter.biome()
+    );
+
+    public static final Holder<PlacedFeature> NEMATOCYST_PURPLE = PlacementUtils.register(
+            "nematocyst_purple",
+            WilderConfiguredFeatures.NEMATOCYST_PURPLE,
+            CountPlacement.of(ConstantInt.of(16)),
+            InSquarePlacement.spread(),
+            PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT,
+            BiomeFilter.biome()
+    );
+    /*public static final Holder<PlacedFeature> PATCH_NEMATOCYST_UP = register("patch_nematocyst_up", WilderConfiguredFeatures.PATCH_NEMATOCYST_UP,
             CountPlacement.of(ConstantInt.of(9)), InSquarePlacement.spread(), PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT, BiomeFilter.biome());
     public static final Holder<PlacedFeature> PATCH_NEMATOCYST_DOWN = register("patch_nematocyst_down", WilderConfiguredFeatures.PATCH_NEMATOCYST_DOWN,
             CountPlacement.of(ConstantInt.of(9)), InSquarePlacement.spread(), PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT, BiomeFilter.biome());
@@ -314,7 +331,7 @@ public final class WilderPlacedFeatures {
     public static final Holder<PlacedFeature> PATCH_NEMATOCYST_EAST = register("patch_nematocyst_east", WilderConfiguredFeatures.PATCH_NEMATOCYST_EAST,
             CountPlacement.of(ConstantInt.of(9)), InSquarePlacement.spread(), PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT, BiomeFilter.biome());
     public static final Holder<PlacedFeature> PATCH_NEMATOCYST_WEST = register("patch_nematocyst_west", WilderConfiguredFeatures.PATCH_NEMATOCYST_WEST,
-            CountPlacement.of(ConstantInt.of(9)), InSquarePlacement.spread(), PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT, BiomeFilter.biome());
+            CountPlacement.of(ConstantInt.of(9)), InSquarePlacement.spread(), PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT, BiomeFilter.biome());*/
 
     public static Holder<PlacedFeature> register(@NotNull String id, Holder<? extends ConfiguredFeature<?, ?>> registryEntry, @NotNull List<PlacementModifier> modifiers) {
         return BuiltinRegistries.register(BuiltinRegistries.PLACED_FEATURE, WilderWild.id(id), new PlacedFeature(Holder.hackyErase(registryEntry), List.copyOf(modifiers)));
