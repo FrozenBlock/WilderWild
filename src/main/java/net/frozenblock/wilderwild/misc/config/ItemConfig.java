@@ -18,15 +18,27 @@ import static net.frozenblock.wilderwild.misc.config.WilderWildConfig.tooltip;
 public class ItemConfig implements ConfigData {
 
     public boolean ancientHornShattersGlass = false;
+    public boolean ancientHornCanSummonWarden = true;
+    public boolean projectileBreakParticles = true;
 
     @Environment(EnvType.CLIENT)
     protected static void setupEntries(ConfigCategory category, ConfigEntryBuilder entryBuilder) {
         var config = WilderWildConfig.get().item;
-        category.setBackground(WilderWild.id("textures/block/chiseled_mud_bricks.png"));
+        category.setBackground(WilderWild.id("textures/config/item.png"));
         category.addEntry(entryBuilder.startBooleanToggle(text("ancient_horn_shatters_glass"), config.ancientHornShattersGlass)
                 .setDefaultValue(false)
                 .setSaveConsumer(newValue -> config.ancientHornShattersGlass = newValue)
                 .setTooltip(tooltip("ancient_horn_shatters_glass"))
+                .build());
+        category.addEntry(entryBuilder.startBooleanToggle(text("ancient_horn_can_summon_warden"), config.ancientHornCanSummonWarden)
+                .setDefaultValue(true)
+                .setSaveConsumer(newValue -> config.ancientHornCanSummonWarden = newValue)
+                .setTooltip(tooltip("ancient_horn_can_summon_warden"))
+                .build());
+        category.addEntry(entryBuilder.startBooleanToggle(text("projectile_break_particles"), config.projectileBreakParticles)
+                .setDefaultValue(true)
+                .setSaveConsumer(newValue -> config.projectileBreakParticles = newValue)
+                .setTooltip(tooltip("projectile_break_particles"))
                 .build());
 
     }

@@ -39,6 +39,14 @@ public final class RegisterBlockSoundGroups {
             BLOCK_OSSEOUS_SCULK_FALL
     );
 
+    public static final SoundType NEMATOCYST = new SoundType(1.0F, 1.0F,
+            BLOCK_NEMATOCYST_BREAK,
+            BLOCK_NEMATOCYST_STEP,
+            BLOCK_NEMATOCYST_PLACE,
+            BLOCK_NEMATOCYST_HIT,
+            BLOCK_NEMATOCYST_FALL
+    );
+
     public static final SoundType NULL_BLOCK = new SoundType(1.0F, 1.0F,
             BLOCK_NULL_BLOCK_BREAK,
             BLOCK_NULL_BLOCK_STEP,
@@ -69,6 +77,14 @@ public final class RegisterBlockSoundGroups {
             RegisterSounds.BLOCK_ECHO_GLASS_PLACE,
             RegisterSounds.BLOCK_ECHO_GLASS_CRACK,
             RegisterSounds.BLOCK_ECHO_GLASS_FALL
+    );
+
+    public static final SoundType MESOGLEA = new SoundType(1.0F, 1.0F,
+            BLOCK_MESOGLEA_BREAK,
+            BLOCK_MESOGLEA_STEP,
+            BLOCK_MESOGLEA_PLACE,
+            BLOCK_MESOGLEA_HIT,
+            BLOCK_MESOGLEA_FALL
     );
 
     public static final SoundType MUSHROOM = new SoundType(1.0F, 1.0F,

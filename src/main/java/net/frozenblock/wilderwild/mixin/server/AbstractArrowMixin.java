@@ -1,5 +1,6 @@
 package net.frozenblock.wilderwild.mixin.server;
 
+import net.frozenblock.wilderwild.misc.config.ClothConfigInteractionHandler;
 import net.minecraft.core.particles.BlockParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
@@ -17,18 +18,19 @@ public class AbstractArrowMixin {
 
     @Inject(method = "onHitBlock", at = @At("HEAD"))
     public void onHitBlock(BlockHitResult blockHitResult, CallbackInfo info) {
-        AbstractArrow arrow = AbstractArrow.class.cast(this);
-        Vec3 speed = arrow.getDeltaMovement();
-        if (!arrow.level.isClientSide) {
-            if (arrow.level instanceof ServerLevel server) {
-                BlockState state = server.getBlockState(blockHitResult.getBlockPos());
-                double d = speed.length();
-                int decide = ((int) ((d * d) * 1.5));
-                if (decide > 1) {
-                    server.sendParticles(new BlockParticleOption(ParticleTypes.BLOCK, state), blockHitResult.getLocation().x(), blockHitResult.getLocation().y(), blockHitResult.getLocation().z(), server.random.nextIntBetweenInclusive(1, decide), 0, 0, 0, 0.05D);
+        if (ClothConfigInteractionHandler.projectileBreakParticles()) {
+            AbstractArrow arrow = AbstractArrow.class.cast(this);
+            Vec3 speed = arrow.getDeltaMovement();
+            if (!arrow.level.isClientSide) {
+                if (arrow.level instanceof ServerLevel server) {
+                    BlockState state = server.getBlockState(blockHitResult.getBlockPos());
+                    double d = speed.length();
+                    int decide = ((int) ((d * d) * 1.5));
+                    if (decide > 1) {
+                        server.sendParticles(new BlockParticleOption(ParticleTypes.BLOCK, state), blockHitResult.getLocation().x(), blockHitResult.getLocation().y(), blockHitResult.getLocation().z(), server.random.nextIntBetweenInclusive(1, decide), 0, 0, 0, 0.05D);
+                    }
                 }
             }
         }
     }
-
 }

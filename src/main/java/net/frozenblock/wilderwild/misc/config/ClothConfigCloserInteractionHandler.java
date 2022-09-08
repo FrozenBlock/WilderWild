@@ -5,7 +5,7 @@ public class ClothConfigCloserInteractionHandler {
     public static boolean betaBeaches() {
         return WilderWildConfig.get().worldgen.betaBeaches;
     }
-
+/*
     public static boolean modifyDesertPlacement() {
         return WilderWildConfig.get().worldgen.biomePlacement.modifyDesertPlacement;
     }
@@ -13,7 +13,7 @@ public class ClothConfigCloserInteractionHandler {
     public static boolean modifyBadlandsPlacement() {
         return WilderWildConfig.get().worldgen.biomePlacement.modifyBadlandsPlacement;
     }
-
+*/
     public static boolean modifyJunglePlacement() {
         return WilderWildConfig.get().worldgen.biomePlacement.modifyJunglePlacement;
     }
@@ -44,6 +44,14 @@ public class ClothConfigCloserInteractionHandler {
 
     public static boolean hornShattersGlass() {
         return WilderWildConfig.get().item.ancientHornShattersGlass;
+    }
+
+    public static boolean hornCanSummonWarden() {
+        return WilderWildConfig.get().item.ancientHornCanSummonWarden;
+    }
+
+    public static boolean projectileBreakParticles() {
+        return WilderWildConfig.get().item.projectileBreakParticles;
     }
 
     public static boolean mcLiveSensorTendrils() {

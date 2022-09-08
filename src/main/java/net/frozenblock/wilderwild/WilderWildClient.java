@@ -18,8 +18,8 @@ import net.frozenblock.lib.sound.FlyBySoundHub;
 import net.frozenblock.wilderwild.entity.AncientHornProjectile;
 import net.frozenblock.wilderwild.entity.render.*;
 import net.frozenblock.wilderwild.misc.CompetitionCounter;
-import net.frozenblock.wilderwild.particle.AncientHornParticle;
 import net.frozenblock.wilderwild.particle.FloatingSculkBubbleParticle;
+import net.frozenblock.wilderwild.particle.MesogleaDripParticle;
 import net.frozenblock.wilderwild.particle.PollenParticle;
 import net.frozenblock.wilderwild.particle.TermiteParticle;
 import net.frozenblock.wilderwild.registry.*;
@@ -109,6 +109,13 @@ public final class WilderWildClient implements ClientModInitializer {
         BlockRenderLayerMap.INSTANCE.putBlock(RegisterBlocks.PINK_MESOGLEA, RenderType.translucent());
         BlockRenderLayerMap.INSTANCE.putBlock(RegisterBlocks.RED_MESOGLEA, RenderType.translucent());
         BlockRenderLayerMap.INSTANCE.putBlock(RegisterBlocks.YELLOW_MESOGLEA, RenderType.translucent());
+        BlockRenderLayerMap.INSTANCE.putBlock(RegisterBlocks.NEMATOCYST, RenderType.translucent());
+        BlockRenderLayerMap.INSTANCE.putBlock(RegisterBlocks.PURPLE_NEMATOCYST, RenderType.translucent());
+        BlockRenderLayerMap.INSTANCE.putBlock(RegisterBlocks.BLUE_NEMATOCYST, RenderType.translucent());
+        BlockRenderLayerMap.INSTANCE.putBlock(RegisterBlocks.LIME_NEMATOCYST, RenderType.translucent());
+        BlockRenderLayerMap.INSTANCE.putBlock(RegisterBlocks.PINK_NEMATOCYST, RenderType.translucent());
+        BlockRenderLayerMap.INSTANCE.putBlock(RegisterBlocks.RED_NEMATOCYST, RenderType.translucent());
+        BlockRenderLayerMap.INSTANCE.putBlock(RegisterBlocks.YELLOW_NEMATOCYST, RenderType.translucent());
         //BlockRenderLayerMap.INSTANCE.putBlock(RegisterBlocks.NEMATOCYST, RenderType.cutout());
 
         ClientSpriteRegistryCallback.event(InventoryMenu.BLOCK_ATLAS).register((atlasTexture, registry) -> {
@@ -129,6 +136,41 @@ public final class WilderWildClient implements ClientModInitializer {
             registry.register(WilderWild.id("particle/termite_7"));
             registry.register(WilderWild.id("particle/termite_8"));
             registry.register(WilderWild.id("particle/termite_9"));
+            registry.register(WilderWild.id("particle/lime_mesoglea_drip_falling"));
+            registry.register(WilderWild.id("particle/lime_mesoglea_drip_hanging1"));
+            registry.register(WilderWild.id("particle/lime_mesoglea_drip_hanging2"));
+            registry.register(WilderWild.id("particle/lime_mesoglea_drip_hanging3"));
+            registry.register(WilderWild.id("particle/lime_mesoglea_drip_land"));
+            registry.register(WilderWild.id("particle/yellow_mesoglea_drip_falling"));
+            registry.register(WilderWild.id("particle/yellow_mesoglea_drip_hanging1"));
+            registry.register(WilderWild.id("particle/yellow_mesoglea_drip_hanging2"));
+            registry.register(WilderWild.id("particle/yellow_mesoglea_drip_hanging3"));
+            registry.register(WilderWild.id("particle/yellow_mesoglea_drip_land"));
+            registry.register(WilderWild.id("particle/red_mesoglea_drip_falling"));
+            registry.register(WilderWild.id("particle/red_mesoglea_drip_hanging1"));
+            registry.register(WilderWild.id("particle/red_mesoglea_drip_hanging2"));
+            registry.register(WilderWild.id("particle/red_mesoglea_drip_hanging3"));
+            registry.register(WilderWild.id("particle/red_mesoglea_drip_land"));
+            registry.register(WilderWild.id("particle/pearlescent_purple_mesoglea_drip_falling"));
+            registry.register(WilderWild.id("particle/pearlescent_purple_mesoglea_drip_hanging1"));
+            registry.register(WilderWild.id("particle/pearlescent_purple_mesoglea_drip_hanging2"));
+            registry.register(WilderWild.id("particle/pearlescent_purple_mesoglea_drip_hanging3"));
+            registry.register(WilderWild.id("particle/pearlescent_purple_mesoglea_drip_land"));
+            registry.register(WilderWild.id("particle/pearlescent_blue_mesoglea_drip_falling"));
+            registry.register(WilderWild.id("particle/pearlescent_blue_mesoglea_drip_hanging1"));
+            registry.register(WilderWild.id("particle/pearlescent_blue_mesoglea_drip_hanging2"));
+            registry.register(WilderWild.id("particle/pearlescent_blue_mesoglea_drip_hanging3"));
+            registry.register(WilderWild.id("particle/pearlescent_blue_mesoglea_drip_land"));
+            registry.register(WilderWild.id("particle/blue_mesoglea_drip_falling"));
+            registry.register(WilderWild.id("particle/blue_mesoglea_drip_hanging1"));
+            registry.register(WilderWild.id("particle/blue_mesoglea_drip_hanging2"));
+            registry.register(WilderWild.id("particle/blue_mesoglea_drip_hanging3"));
+            registry.register(WilderWild.id("particle/blue_mesoglea_drip_land"));
+            registry.register(WilderWild.id("particle/pink_mesoglea_drip_falling"));
+            registry.register(WilderWild.id("particle/pink_mesoglea_drip_hanging1"));
+            registry.register(WilderWild.id("particle/pink_mesoglea_drip_hanging2"));
+            registry.register(WilderWild.id("particle/pink_mesoglea_drip_hanging3"));
+            registry.register(WilderWild.id("particle/pink_mesoglea_drip_land"));
         });
 
         ClientSpriteRegistryCallback.event(Sheets.CHEST_SHEET).register((atlasTexture, registry) -> {
@@ -147,7 +189,27 @@ public final class WilderWildClient implements ClientModInitializer {
         ParticleFactoryRegistry.getInstance().register(RegisterParticles.CONTROLLED_MILKWEED_SEED, PollenParticle.ControlledMilkweedFactory::new);
         ParticleFactoryRegistry.getInstance().register(RegisterParticles.FLOATING_SCULK_BUBBLE, FloatingSculkBubbleParticle.BubbleFactory::new);
         ParticleFactoryRegistry.getInstance().register(RegisterParticles.TERMITE, TermiteParticle.Factory::new);
-        ParticleFactoryRegistry.getInstance().register(RegisterParticles.ANCIENT_HORN, AncientHornParticle.Factory::new);
+        ParticleFactoryRegistry.getInstance().register(RegisterParticles.BLUE_PEARLESCENT_HANGING_MESOGLEA, MesogleaDripParticle.BPMesogleaHangProvider::new);
+        ParticleFactoryRegistry.getInstance().register(RegisterParticles.BLUE_PEARLESCENT_FALLING_MESOGLEA, MesogleaDripParticle.BPMesogleaFallProvider::new);
+        ParticleFactoryRegistry.getInstance().register(RegisterParticles.BLUE_PEARLESCENT_LANDING_MESOGLEA, MesogleaDripParticle.BPMesogleaLandProvider::new);
+        ParticleFactoryRegistry.getInstance().register(RegisterParticles.PURPLE_PEARLESCENT_HANGING_MESOGLEA, MesogleaDripParticle.PPMesogleaHangProvider::new);
+        ParticleFactoryRegistry.getInstance().register(RegisterParticles.PURPLE_PEARLESCENT_FALLING_MESOGLEA, MesogleaDripParticle.PPMesogleaFallProvider::new);
+        ParticleFactoryRegistry.getInstance().register(RegisterParticles.PURPLE_PEARLESCENT_LANDING_MESOGLEA, MesogleaDripParticle.PPMesogleaLandProvider::new);
+        ParticleFactoryRegistry.getInstance().register(RegisterParticles.BLUE_HANGING_MESOGLEA, MesogleaDripParticle.BMesogleaHangProvider::new);
+        ParticleFactoryRegistry.getInstance().register(RegisterParticles.BLUE_FALLING_MESOGLEA, MesogleaDripParticle.BMesogleaFallProvider::new);
+        ParticleFactoryRegistry.getInstance().register(RegisterParticles.BLUE_LANDING_MESOGLEA, MesogleaDripParticle.BMesogleaLandProvider::new);
+        ParticleFactoryRegistry.getInstance().register(RegisterParticles.YELLOW_HANGING_MESOGLEA, MesogleaDripParticle.YMesogleaHangProvider::new);
+        ParticleFactoryRegistry.getInstance().register(RegisterParticles.YELLOW_FALLING_MESOGLEA, MesogleaDripParticle.YMesogleaFallProvider::new);
+        ParticleFactoryRegistry.getInstance().register(RegisterParticles.YELLOW_LANDING_MESOGLEA, MesogleaDripParticle.YMesogleaLandProvider::new);
+        ParticleFactoryRegistry.getInstance().register(RegisterParticles.LIME_HANGING_MESOGLEA, MesogleaDripParticle.LMesogleaHangProvider::new);
+        ParticleFactoryRegistry.getInstance().register(RegisterParticles.LIME_FALLING_MESOGLEA, MesogleaDripParticle.LMesogleaFallProvider::new);
+        ParticleFactoryRegistry.getInstance().register(RegisterParticles.LIME_LANDING_MESOGLEA, MesogleaDripParticle.LMesogleaLandProvider::new);
+        ParticleFactoryRegistry.getInstance().register(RegisterParticles.PINK_HANGING_MESOGLEA, MesogleaDripParticle.PMesogleaHangProvider::new);
+        ParticleFactoryRegistry.getInstance().register(RegisterParticles.PINK_FALLING_MESOGLEA, MesogleaDripParticle.PMesogleaFallProvider::new);
+        ParticleFactoryRegistry.getInstance().register(RegisterParticles.PINK_LANDING_MESOGLEA, MesogleaDripParticle.PMesogleaLandProvider::new);
+        ParticleFactoryRegistry.getInstance().register(RegisterParticles.RED_HANGING_MESOGLEA, MesogleaDripParticle.RMesogleaHangProvider::new);
+        ParticleFactoryRegistry.getInstance().register(RegisterParticles.RED_FALLING_MESOGLEA, MesogleaDripParticle.RMesogleaFallProvider::new);
+        ParticleFactoryRegistry.getInstance().register(RegisterParticles.RED_LANDING_MESOGLEA, MesogleaDripParticle.RMesogleaLandProvider::new);
 
         EntityRendererRegistry.register(RegisterEntities.FIREFLY, FireflyRenderer::new);
         EntityRendererRegistry.register(RegisterEntities.ANCIENT_HORN_PROJECTILE_ENTITY, AncientHornProjectileRenderer::new);
@@ -176,7 +238,7 @@ public final class WilderWildClient implements ClientModInitializer {
 
         receiveFireflyCaptureInfoPacket();
         receiveAncientHornKillInfoPacket();
-        FlyBySoundHub.autoEntitiesAndSounds.put(RegisterEntities.ANCIENT_HORN_PROJECTILE_ENTITY, new FlyBySoundHub.FlyBySound(1.0F, 0.5F, SoundSource.NEUTRAL, RegisterSounds.ENTITY_ANCIENT_HORN_PROJECTILE_DISSIPATE));
+        FlyBySoundHub.autoEntitiesAndSounds.put(RegisterEntities.ANCIENT_HORN_PROJECTILE_ENTITY, new FlyBySoundHub.FlyBySound(1.0F, 0.5F, SoundSource.NEUTRAL, RegisterSounds.ENTITY_ANCIENT_HORN_PROJECTILE_FLYBY));
 
         ItemProperties.register(RegisterItems.ANCIENT_HORN, new ResourceLocation("tooting"), (itemStack, clientWorld, livingEntity, seed) -> livingEntity != null && livingEntity.isUsingItem() && livingEntity.getUseItem() == itemStack ? 1.0F : 0.0F);
         ItemProperties.register(RegisterItems.COPPER_HORN, new ResourceLocation("tooting"), (itemStack, clientWorld, livingEntity, seed) -> livingEntity != null && livingEntity.isUsingItem() && livingEntity.getUseItem() == itemStack ? 1.0F : 0.0F);
@@ -352,15 +414,6 @@ public final class WilderWildClient implements ClientModInitializer {
         });
     }
 
-    public static final RenderStateShard.ShaderStateShard RENDERTYPE_TRANSLUCENT_CUTOUT_SHADER = new RenderStateShard.ShaderStateShard(
-            WilderWildClient::getRenderTypeTranslucentCutoutShader
-    );
-
-    @Nullable
-    public static ShaderInstance getRenderTypeTranslucentCutoutShader() {
-        return renderTypeTranslucentCutoutShader;
-    }
-
     public static final BiFunction<ResourceLocation, Boolean, RenderType> ENTITY_TRANSLUCENT_EMISSIVE_FIXED = Util.memoize(
             ((identifier, affectsOutline) -> {
                 RenderType.CompositeState multiPhaseParameters = RenderType.CompositeState.builder()
@@ -382,14 +435,6 @@ public final class WilderWildClient implements ClientModInitializer {
                 );
             })
     );
-
-    public static final RenderType TRANSLUCENT_CUTOUT = create(
-            "translucent_cutout_wilderwild", DefaultVertexFormat.BLOCK, VertexFormat.Mode.QUADS, 2097152, true, true, RenderType.translucentState(RENDERTYPE_TRANSLUCENT_CUTOUT_SHADER)
-    );
-
-    public static RenderType translucentCutout() {
-        return TRANSLUCENT_CUTOUT;
-    }
 
     public static RenderType.CompositeRenderType create(
             String name,

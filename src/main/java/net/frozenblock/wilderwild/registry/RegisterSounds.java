@@ -16,6 +16,9 @@ public final class RegisterSounds {
 
     public static final SoundEvent AMBIENT_GENERIC_CAVES_LOOP = register("ambient.generic_caves.loop");
 
+    public static final SoundEvent AMBIENT_JELLYFISH_CAVES_ADDITIONS = register("ambient.jellyfish_caves.additions");
+    public static final SoundEvent AMBIENT_JELLYFISH_CAVES_LOOP = register("ambient.jellyfish_caves.loop");
+
     public static final SoundEvent AMBIENT_LUSH_CAVES_ADDITIONS = register("ambient.lush_caves.additions");
     public static final SoundEvent AMBIENT_LUSH_CAVES_LOOP = register("ambient.lush_caves.loop");
 
@@ -91,6 +94,12 @@ public final class RegisterSounds {
     public static final SoundEvent BLOCK_LEAVES_STEP = register("block.leaves.step");
     public static final SoundEvent BLOCK_LEAVES_FALL = register("block.leaves.fall");
 
+    public static final SoundEvent BLOCK_MESOGLEA_PLACE = register("block.mesoglea.place");
+    public static final SoundEvent BLOCK_MESOGLEA_HIT = register("block.mesoglea.hit");
+    public static final SoundEvent BLOCK_MESOGLEA_BREAK = register("block.mesoglea.break");
+    public static final SoundEvent BLOCK_MESOGLEA_STEP = register("block.mesoglea.step");
+    public static final SoundEvent BLOCK_MESOGLEA_FALL = register("block.mesoglea.fall");
+
     public static final SoundEvent BLOCK_MUSHROOM_PLACE = register("block.mushroom.place");
     public static final SoundEvent BLOCK_MUSHROOM_HIT = register("block.mushroom.hit");
     public static final SoundEvent BLOCK_MUSHROOM_BREAK = register("block.mushroom.break");
@@ -102,6 +111,12 @@ public final class RegisterSounds {
     public static final SoundEvent BLOCK_MUSHROOM_BLOCK_BREAK = register("block.mushroom_block.break");
     public static final SoundEvent BLOCK_MUSHROOM_BLOCK_STEP = register("block.mushroom_block.step");
     public static final SoundEvent BLOCK_MUSHROOM_BLOCK_FALL = register("block.mushroom_block.fall");
+
+    public static final SoundEvent BLOCK_NEMATOCYST_PLACE = register("block.nematocyst.place");
+    public static final SoundEvent BLOCK_NEMATOCYST_HIT = register("block.nematocyst.hit");
+    public static final SoundEvent BLOCK_NEMATOCYST_BREAK = register("block.nematocyst.break");
+    public static final SoundEvent BLOCK_NEMATOCYST_STEP = register("block.nematocyst.step");
+    public static final SoundEvent BLOCK_NEMATOCYST_FALL = register("block.nematocyst.fall");
 
     public static final SoundEvent BLOCK_NULL_BLOCK_PLACE = register("block.null_block.place");
     public static final SoundEvent BLOCK_NULL_BLOCK_HIT = register("block.null_block.hit");
@@ -120,6 +135,8 @@ public final class RegisterSounds {
     public static final SoundEvent BLOCK_REINFORCED_DEEPSLATE_BREAK = register("block.reinforced_deepslate.break");
     public static final SoundEvent BLOCK_REINFORCED_DEEPSLATE_STEP = register("block.reinforced_deepslate.step");
     public static final SoundEvent BLOCK_REINFORCED_DEEPSLATE_FALL = register("block.reinforced_deepslate.fall");
+
+    public static final SoundEvent BLOCK_SOUL_FIRE_AMBIENT = register("block.soul_fire.ambient");
 
     public static final SoundEvent BLOCK_SCULK_SENSOR_HICCUP = register("block.sculk_sensor.hiccup");
 
@@ -142,6 +159,7 @@ public final class RegisterSounds {
 
     //ENTITY
 
+    public static final SoundEvent ENTITY_ANCIENT_HORN_PROJECTILE_BLAST = register("entity.ancient_horn_projectile.blast");
     public static final SoundEvent ENTITY_ANCIENT_HORN_PROJECTILE_LOOP = register("entity.ancient_horn_projectile.loop");
     public static final SoundEvent ENTITY_ANCIENT_HORN_PROJECTILE_FLYBY = register("entity.ancient_horn_projectile.flyby");
     public static final SoundEvent ENTITY_ANCIENT_HORN_PROJECTILE_DISSIPATE = register("entity.ancient_horn_projectile.dissipate");
@@ -155,7 +173,6 @@ public final class RegisterSounds {
     public static final SoundEvent ENTITY_JELLYFISH_AMBIENT = register("entity.jellyfish.ambient");
     public static final SoundEvent ENTITY_JELLYFISH_HURT = register("entity.jellyfish.hurt");
     public static final SoundEvent ENTITY_JELLYFISH_SWIM = register("entity.jellyfish.swim");
-    public static final SoundEvent ENTITY_JELLYFISH_WHINE = register("entity.jellyfish.whine");
     //TODO: UNIQUE FLOP SOUNDS
     public static final SoundEvent ENTITY_JELLYFISH_FLOP = register("entity.jellyfish.flop");
     //TODO: UNIQUE DEATH SOUNDS
@@ -174,7 +191,6 @@ public final class RegisterSounds {
     //ITEM
 
     public static final SoundEvent ITEM_ANCIENT_HORN_CALL = register("item.ancient_horn.call");
-    public static final SoundEvent ITEM_ANCIENT_HORN_BLAST = register("item.ancient_horn.blast");
 
     public static final SoundEvent ITEM_BOTTLE_CATCH_FIREFLY = register("item.bottle.catch_firefly");
     public static final SoundEvent ITEM_BOTTLE_RELEASE_FIREFLY = register("item.bottle.release_firefly");

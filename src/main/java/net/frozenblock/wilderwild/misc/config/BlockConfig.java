@@ -23,7 +23,7 @@ public class BlockConfig implements ConfigData {
     @Environment(EnvType.CLIENT)
     protected static void setupEntries(ConfigCategory category, ConfigEntryBuilder entryBuilder) {
         var config = WilderWildConfig.get().block;
-        category.setBackground(WilderWild.id("textures/block/chiseled_mud_bricks.png"));
+        category.setBackground(WilderWild.id("textures/config/block.png"));
         category.addEntry(entryBuilder.startBooleanToggle(text("mc_live_sensor_tendrils"), config.mcLiveSensorTendrils)
                 .setDefaultValue(false)
                 .setSaveConsumer(newValue -> config.mcLiveSensorTendrils = newValue)

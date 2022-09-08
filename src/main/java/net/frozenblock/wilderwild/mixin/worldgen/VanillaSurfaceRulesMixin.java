@@ -2,7 +2,7 @@ package net.frozenblock.wilderwild.mixin.worldgen;
 
 import net.frozenblock.wilderwild.misc.config.ClothConfigInteractionHandler;
 import net.frozenblock.wilderwild.registry.RegisterWorldgen;
-import net.frozenblock.wilderwild.world.gen.noise.WilderNoiseKeys;
+import net.frozenblock.wilderwild.world.gen.noise.WilderNoise;
 import net.minecraft.data.worldgen.SurfaceRuleData;
 import net.minecraft.world.level.biome.Biomes;
 import net.minecraft.world.level.levelgen.Noises;
@@ -61,7 +61,7 @@ public class VanillaSurfaceRulesMixin {
                                             SurfaceRules.yStartCheck(VerticalAnchor.absolute(58), 0),
                                             SurfaceRules.ifTrue(
                                                     SurfaceRules.not(SurfaceRules.yStartCheck(VerticalAnchor.absolute(65), 0)),
-                                                    SurfaceRules.ifTrue(SurfaceRules.noiseCondition(WilderNoiseKeys.SAND_BEACH, 0.12, 1.7976931348623157E308), GRAVEL)
+                                                    SurfaceRules.ifTrue(SurfaceRules.noiseCondition(WilderNoise.SAND_BEACH, 0.12, 1.7976931348623157E308), GRAVEL)
                                             )
                                     )
                             )
@@ -74,7 +74,7 @@ public class VanillaSurfaceRulesMixin {
                                             SurfaceRules.yStartCheck(VerticalAnchor.absolute(58), 0),
                                             SurfaceRules.ifTrue(
                                                     SurfaceRules.not(SurfaceRules.yStartCheck(VerticalAnchor.absolute(65), 0)),
-                                                    SurfaceRules.ifTrue(SurfaceRules.noiseCondition(WilderNoiseKeys.SAND_BEACH, 0.12, 1.7976931348623157E308), SAND)
+                                                    SurfaceRules.ifTrue(SurfaceRules.noiseCondition(WilderNoise.SAND_BEACH, 0.12, 1.7976931348623157E308), SAND)
                                             )
                                     )
                             )
@@ -87,7 +87,7 @@ public class VanillaSurfaceRulesMixin {
                                             SurfaceRules.yStartCheck(VerticalAnchor.absolute(58), 0),
                                             SurfaceRules.ifTrue(
                                                     SurfaceRules.not(SurfaceRules.yStartCheck(VerticalAnchor.absolute(64), 0)),
-                                                    SurfaceRules.ifTrue(SurfaceRules.noiseCondition(WilderNoiseKeys.SAND_BEACH, 0.12, 1.7976931348623157E308), SAND)
+                                                    SurfaceRules.ifTrue(SurfaceRules.noiseCondition(WilderNoise.SAND_BEACH, 0.12, 1.7976931348623157E308), SAND)
                                             )
                                     )
                             )
@@ -99,7 +99,7 @@ public class VanillaSurfaceRulesMixin {
             // SurfaceRules.ifTrue(SurfaceRules.yStartCheck(VerticalAnchor.absolute(58), 0),
             // SurfaceRules.sequence(new SurfaceRules.RuleSource[]{SurfaceRules.ifTrue(SurfaceRules.yStartCheck(VerticalAnchor.absolute(65),0),
             // SurfaceRules.ifTrue(SurfaceRules.not(SurfaceRules.steep()),
-            // SurfaceRules.sequence(new SurfaceRules.RuleSource[]{SurfaceRules.ifTrue(SurfaceRules.noiseCondition(WilderNoiseKeys.SAND_BEACH, 0.12, 1.7976931348623157E308),
+            // SurfaceRules.sequence(new SurfaceRules.RuleSource[]{SurfaceRules.ifTrue(SurfaceRules.noiseCondition(WilderNoise.SAND_BEACH, 0.12, 1.7976931348623157E308),
             // SurfaceRules.sequence(new SurfaceRules.RuleSource[]{SurfaceRules.ifTrue(SurfaceRules.UNDER_FLOOR,
             // SurfaceRules.sequence(new SurfaceRules.RuleSource[]{SurfaceRules.ifTrue(SurfaceRules.stoneDepthCheck(3, false, CaveSurface.CEILING),SANDSTONE), SAND})),
             // SurfaceRules.ifTrue(SurfaceRules.waterStartCheck(-6, -1),

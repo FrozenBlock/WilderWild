@@ -33,7 +33,7 @@ public class CaveWorldCarverMixin extends WorldCarver<CaveCarverConfiguration> {
     @Shadow
     protected void createTunnel(CarvingContext carvingContext, CaveCarverConfiguration caveCarverConfiguration, ChunkAccess chunkAccess, Function<BlockPos, Holder<Biome>> function, long l, Aquifer aquifer, double d, double e, double f, double g, double h, float i, float j, float k, int m, int n, double o, CarvingMask carvingMask, WorldCarver.CarveSkipChecker carveSkipChecker) {}
 
-    @Inject(method = "createTunnel", at = @At("HEAD"))
+    @Inject(method = "createTunnel", at = @At("TAIL"))
     private void createTunnel(CarvingContext context, CaveCarverConfiguration config, ChunkAccess chunk, Function<BlockPos, Holder<Biome>> posToBiome, long seed, Aquifer aquifer, double x, double y, double z, double horizontalScale, double verticalScale, float width, float yaw, float pitch, int branchStartIndex, int branchCount, double yawPitchRatio, CarvingMask carvingMask, WorldCarver.CarveSkipChecker skipPredicate, CallbackInfo ci) {
         RandomSource randomSource = RandomSource.create(seed);
         int i = randomSource.nextInt(branchCount / 2) + branchCount / 4;
@@ -41,13 +41,13 @@ public class CaveWorldCarverMixin extends WorldCarver<CaveCarverConfiguration> {
         float f = 0.0F;
         float g = 0.0F;
 
-        for(int j = branchStartIndex; j < branchCount; ++j) {
+        for(int j = branchStartIndex - 100; j < branchCount; ++j) {
             double d = 1.5 + (double)(Mth.sin((float) Math.PI * (float)j / (float)branchCount) * width);
             double e = d * yawPitchRatio;
             float h = Mth.cos(pitch);
-            x += (double)(Mth.cos(yaw) * h);
-            y += (double)Mth.sin(pitch);
-            z += (double)(Mth.sin(yaw) * h);
+            x += Mth.cos(yaw) * h;
+            y += Mth.sin(pitch);
+            z += Mth.sin(yaw) * h;
             pitch *= bl ? 0.92F : 0.7F;
             pitch += g * 0.1F;
             yaw += f * 0.1F;
@@ -55,50 +55,52 @@ public class CaveWorldCarverMixin extends WorldCarver<CaveCarverConfiguration> {
             f *= 0.75F;
             g += (randomSource.nextFloat() - randomSource.nextFloat()) * randomSource.nextFloat() * 2.0F;
             f += (randomSource.nextFloat() - randomSource.nextFloat()) * randomSource.nextFloat() * 4.0F;
-            if (posToBiome.equals(RegisterWorldgen.JELLYFISH_CAVES)) {
-                this.createTunnel(
-                        context,
-                        config,
-                        chunk,
-                        posToBiome,
-                        randomSource.nextLong(),
-                        aquifer,
-                        x,
-                        y,
-                        z,
-                        horizontalScale,
-                        verticalScale,
-                        randomSource.nextFloat() * 0.5F + 0.5F,
-                        yaw - (float) (Math.PI / 2),
-                        pitch / 3.0F,
-                        j,
-                        branchCount,
-                        1.0,
-                        carvingMask,
-                        skipPredicate
-                );
-                this.createTunnel(
-                        context,
-                        config,
-                        chunk,
-                        posToBiome,
-                        randomSource.nextLong(),
-                        aquifer,
-                        x,
-                        y,
-                        z,
-                        horizontalScale,
-                        verticalScale,
-                        randomSource.nextFloat() * 0.5F + 0.5F,
-                        yaw + (float) (Math.PI / 2),
-                        pitch / 3.0F,
-                        j,
-                        branchCount,
-                        1.0,
-                        carvingMask,
-                        skipPredicate
-                );
-                return;
+            for (int moreWater = -64; moreWater < 30; ++moreWater) {
+                if (chunk.getNoiseBiome(moreWater, moreWater, moreWater).is(RegisterWorldgen.JELLYFISH_CAVES)) {
+                    this.createTunnel(
+                            context,
+                            config,
+                            chunk,
+                            posToBiome,
+                            randomSource.nextLong(),
+                            aquifer,
+                            x,
+                            y,
+                            z,
+                            horizontalScale,
+                            verticalScale,
+                            randomSource.nextFloat() * 0.5F + 0.5F,
+                            yaw - (float) (Math.PI / 2),
+                            pitch / 3.0F,
+                            j,
+                            branchCount,
+                            1.0,
+                            carvingMask,
+                            skipPredicate
+                    );
+                    this.createTunnel(
+                            context,
+                            config,
+                            chunk,
+                            posToBiome,
+                            randomSource.nextLong(),
+                            aquifer,
+                            x,
+                            y,
+                            z,
+                            horizontalScale,
+                            verticalScale,
+                            randomSource.nextFloat() * 0.5F + 0.5F,
+                            yaw + (float) (Math.PI / 2),
+                            pitch / 3.0F,
+                            j,
+                            branchCount,
+                            1.0,
+                            carvingMask,
+                            skipPredicate
+                    );
+                    return;
+                }
             }
         }
     }

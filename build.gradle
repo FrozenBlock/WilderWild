@@ -65,10 +65,10 @@ repositories {
 			includeGroup "curse.maven"
 		}
 	}
-	maven {
+	/*maven {
 		name "Siphalor's Maven"
 		url "https://maven.siphalor.de"
-	}
+	}*/
 	maven {
 		url "https://maven.flashyreese.me/releases"
 	}
@@ -110,7 +110,7 @@ dependencies {
 
 	// Lunade
 	modImplementation "maven.modrinth:simple-copper-pipes:${copperpipes_version}"
-	modImplementation "maven.modrinth:fastanim:${fastanim_version}"
+	//modImplementation "maven.modrinth:fastanim:${fastanim_version}"
 
 	// Mod Menu
 	modImplementation "com.terraformersmc:modmenu:${modmenu_version}"
@@ -122,8 +122,8 @@ dependencies {
 	}
 
 	// NBT Crafting
-	modImplementation "de.siphalor:nbtcrafting-1.19:2+"
-	include "de.siphalor:nbtcrafting-1.19:2+"
+	modImplementation "maven.modrinth:nbt-crafting:${nbtcrafting_version}"
+	include "maven.modrinth:nbt-crafting:${nbtcrafting_version}"
 
 	// Mixin Extras
 	implementation("com.github.LlamaLad7:MixinExtras:0.0.12")
@@ -138,6 +138,7 @@ dependencies {
 		modRuntimeOnly "maven.modrinth:lithium:mc1.19.2-0.8.3"
 
 		// Sodium Related
+		/*
 		modRuntimeOnly "maven.modrinth:sodium:${sodium_version}"
 		modRuntimeOnly "maven.modrinth:iris:${iris_version}"
 		modRuntimeOnly "maven.modrinth:indium:${indium_version}"
@@ -149,7 +150,7 @@ dependencies {
 		modRuntimeOnly "org.joml:joml:1.10.4"
 		modRuntimeOnly "org.anarres:jcpp:1.4.14"
 		modRuntimeOnly "net.caffeinemc:mixin-config:1.0.0+1.17"
-
+*/
 		modRuntimeOnly "maven.modrinth:entityculling:${entityculling_version}"
 		//modRuntimeOnly "maven.modrinth:c2me-fabric:0.2.0+alpha.8.32+1.19.1-rc3"
 		modRuntimeOnly "maven.modrinth:ksyxis:${ksyxis_version}"
