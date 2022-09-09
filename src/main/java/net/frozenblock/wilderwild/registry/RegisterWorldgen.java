@@ -97,7 +97,6 @@ public final class RegisterWorldgen {
     public static Biome jellyfishCaves() {
         MobSpawnSettings.Builder builder = new MobSpawnSettings.Builder();
         BiomeDefaultFeatures.commonSpawns(builder);
-        //builder.addSpawn(WilderWild.JELLYFISH, new MobSpawnSettings.SpawnerData(RegisterEntities.JELLYFISH, 10, 4, 6));
         BiomeGenerationSettings.Builder builder2 = new BiomeGenerationSettings.Builder();
         addJellyfishCavesFeatures(builder2);
         Music music = Musics.createGameMusic(SoundEvents.MUSIC_BIOME_LUSH_CAVES);
@@ -131,7 +130,6 @@ public final class RegisterWorldgen {
         builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.SEEDING_DANDELION_CYPRESS);
         builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.MILKWEED_CYPRESS);
         builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.FLOWER_FOREST_FLOWERS);
-        //builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, WilderPlacedFeatures.PATCH_CYPRESS_ROOTS);
         builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.CYPRESS_WETLANDS_TREES);
         builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.CYPRESS_WETLANDS_TREES_WATER);
         if (ClothConfigInteractionHandler.fallenLogs()) {
@@ -175,8 +173,6 @@ public final class RegisterWorldgen {
         BiomeDefaultFeatures.addDefaultMushrooms(builder);
         BiomeDefaultFeatures.addDefaultExtraVegetation(builder);
         BiomeDefaultFeatures.addDefaultCarversAndLakes(builder);
-        //builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, CavePlacements.LUSH_CAVES_CLAY);
-        //builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderMiscPlaced.EXTRA_GLOW_LICHEN);
         builder.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, WilderPlacedFeatures.JELLYFISH_CAVES_BLUE_MESOGLEA);
         builder.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, WilderPlacedFeatures.JELLYFISH_CAVES_PURPLE_MESOGLEA);
         builder.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, WilderPlacedFeatures.JELLYFISH_CAVES_UPSIDE_DOWN_BLUE_MESOGLEA);
@@ -206,7 +202,6 @@ public final class RegisterWorldgen {
 
     public static void addCypressWetlandsMobs(MobSpawnSettings.Builder builder) {
         builder.addSpawn(MobCategory.WATER_AMBIENT, new MobSpawnSettings.SpawnerData(EntityType.COD, 5, 2, 6));
-        //builder.spawn(SpawnGroup.WATER_CREATURE, new SpawnSettings.SpawnEntry(EntityType.TADPOLE, 6, 2, 4));
         builder.addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(EntityType.FROG, 12, 4, 5));
         builder.addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(EntityType.PIG, 3, 2, 4));
         builder.addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(EntityType.CHICKEN, 4, 2, 4));
