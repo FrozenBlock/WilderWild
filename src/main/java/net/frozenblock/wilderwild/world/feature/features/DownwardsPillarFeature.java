@@ -1,7 +1,7 @@
 package net.frozenblock.wilderwild.world.feature.features;
 
 import com.mojang.serialization.Codec;
-import net.frozenblock.wilderwild.world.feature.features.config.UpwardsPillarConfig;
+import net.frozenblock.wilderwild.world.feature.features.config.WilderPillarConfig;
 import net.minecraft.core.BlockPos;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.WorldGenLevel;
@@ -9,12 +9,12 @@ import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
 import net.minecraft.world.level.material.Fluids;
 
-public class DownwardsPillarFeature extends Feature<UpwardsPillarConfig> {
-    public DownwardsPillarFeature(Codec<UpwardsPillarConfig> codec) {
+public class DownwardsPillarFeature extends Feature<WilderPillarConfig> {
+    public DownwardsPillarFeature(Codec<WilderPillarConfig> codec) {
         super(codec);
     }
 
-    public boolean place(FeaturePlaceContext<UpwardsPillarConfig> context) {
+    public boolean place(FeaturePlaceContext<WilderPillarConfig> context) {
         boolean bl = false;
         BlockPos blockPos = context.origin();
         WorldGenLevel world = context.level();

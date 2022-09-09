@@ -3,7 +3,6 @@ package net.frozenblock.wilderwild.tag;
 import net.frozenblock.wilderwild.WilderWild;
 import net.minecraft.core.Registry;
 import net.minecraft.tags.TagKey;
-import net.minecraft.world.item.Instrument;
 import net.minecraft.world.item.Item;
 
 public final class WilderItemTags {
