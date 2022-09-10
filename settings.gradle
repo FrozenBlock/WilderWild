@@ -19,7 +19,7 @@ rootProject.name = "Wilder Wild"
 def allowLocalFrozenLibUse = true
 def allowFrozenLibInConsoleMode = false
 def FrozenLibPath = '../FrozenLib'
-def FrozenLibPath2 = 'Frozenlib'
+def FrozenLibPath2 = '/Frozenlib'
 
 def isIDE = properties.containsKey('android.injected.invoked.from.ide')
         || (System.getenv("XPC_SERVICE_NAME") ?: "").contains("intellij")
