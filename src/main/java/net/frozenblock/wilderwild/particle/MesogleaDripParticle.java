@@ -67,12 +67,6 @@ public class MesogleaDripParticle extends TextureSheetParticle {
     }
 
     protected void postMoveUpdate() {
-        if (this.onGround) {
-            SoundEvent soundEvent = RegisterSounds.PARTICLE_MESOGLEA_DRIP_LAND;
-            float f = Mth.randomBetween(this.random, 0.3F, 1.0F);
-            this.level.playLocalSound(this.x, this.y, this.z, soundEvent, SoundSource.BLOCKS, f, 1.0F, false);
-        }
-
     }
 
     //Blue Pearlescent
@@ -436,6 +430,9 @@ public class MesogleaDripParticle extends TextureSheetParticle {
             if (this.onGround) {
                 this.remove();
                 this.level.addParticle(this.landParticle, this.x, this.y, this.z, 0.0, 0.0, 0.0);
+                SoundEvent soundEvent = RegisterSounds.PARTICLE_MESOGLEA_DRIP_LAND;
+                float f = Mth.randomBetween(this.random, 0.3F, 1.0F);
+                this.level.playLocalSound(this.x, this.y, this.z, soundEvent, SoundSource.BLOCKS, f, 1.0F, false);
             }
         }
     }
