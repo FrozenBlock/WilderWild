@@ -63,6 +63,10 @@ public class SculkSpreadManagerCursorMixin {
             } else if (state.is(RegisterBlocks.STONE_CHEST)) {
                 return new BooleanPropertySculkBehavior(RegisterProperties.HAS_SCULK, true);
             }
+        } else {
+            if (state.is(WilderBlockTags.SCULK_WALL_REPLACEABLE) || state.is(WilderBlockTags.SCULK_SLAB_REPLACEABLE) || state.is(WilderBlockTags.SCULK_STAIR_REPLACEABLE)) {
+                return new SlabWallStairSculkBehavior();
+            }
         }
         return getBlockBehaviour(state);
     }
