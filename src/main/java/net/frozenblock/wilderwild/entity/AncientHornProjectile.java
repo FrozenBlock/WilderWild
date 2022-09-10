@@ -279,19 +279,19 @@ public class AncientHornProjectile extends AbstractArrow {
                         this.setShotFromCrossbow(false);
                         this.remove(RemovalReason.DISCARDED);
                     }
-                } else if (blockState.getBlock() == Blocks.SCULK_SENSOR) {
-                    BlockPos pos = blockHitResult.getBlockPos();
-                    WilderWild.log(Blocks.SCULK_SENSOR, pos, "Horn Projectile Touched", WilderWild.UNSTABLE_LOGGING);
-                    if (blockState.getValue(RegisterProperties.HICCUPPING)) {
-                        server.setBlockAndUpdate(pos, blockState.setValue(RegisterProperties.HICCUPPING, false));
-                    } else {
-                        server.setBlockAndUpdate(pos, blockState.setValue(RegisterProperties.HICCUPPING, true));
-                    }
-                    if (SculkSensorBlock.canActivate(blockState)) {
-                        SculkSensorBlock.activate(null, level, pos, level.getBlockState(pos), WilderWild.random().nextInt(15));
-                        level.gameEvent(null, RegisterGameEvents.SCULK_SENSOR_ACTIVATE, pos);
-                        setCooldown(getCooldown(this.getOwner(), SENSOR_COOLDOWN));
-                    }
+                }
+            } else if (blockState.getBlock() == Blocks.SCULK_SENSOR) {
+                BlockPos pos = blockHitResult.getBlockPos();
+                WilderWild.log(Blocks.SCULK_SENSOR, pos, "Horn Projectile Touched", WilderWild.UNSTABLE_LOGGING);
+                if (blockState.getValue(RegisterProperties.HICCUPPING)) {
+                    server.setBlockAndUpdate(pos, blockState.setValue(RegisterProperties.HICCUPPING, false));
+                } else {
+                    server.setBlockAndUpdate(pos, blockState.setValue(RegisterProperties.HICCUPPING, true));
+                }
+                if (SculkSensorBlock.canActivate(blockState)) {
+                    SculkSensorBlock.activate(null, level, pos, level.getBlockState(pos), WilderWild.random().nextInt(15));
+                    level.gameEvent(null, RegisterGameEvents.SCULK_SENSOR_ACTIVATE, pos);
+                    setCooldown(getCooldown(this.getOwner(), SENSOR_COOLDOWN));
                 }
             }
         }
@@ -332,8 +332,7 @@ public class AncientHornProjectile extends AbstractArrow {
                     this.remove(RemovalReason.DISCARDED);
                 }
             }
-        }
-        if (insideState.is(this.NON_COLLIDE)) {
+        } else if (insideState.is(this.NON_COLLIDE)) {
             if (this.level instanceof ServerLevel server) {
                 if (insideState.getBlock() instanceof BellBlock bell) { //BELL INTERACTION
                     bell.onProjectileHit(server, insideState, this.level.clip(new ClipContext(this.position(), new Vec3(this.getBlockX(), this.getBlockY(), this.getBlockZ()), ClipContext.Block.COLLIDER, ClipContext.Fluid.NONE, this)), this);

@@ -41,7 +41,7 @@ public final class RegisterLootTables {
         LootTableEvents.MODIFY.register((resourceManager, lootManager, id, tableBuilder, source) -> {
             if (BuiltInLootTables.VILLAGE_SAVANNA_HOUSE.equals(id) && source.isBuiltin()) {
                 LootPool.Builder pool = LootPool.lootPool()
-                        .add(LootItem.lootTableItem(RegisterItems.BAOBAB_NUT.asItem()).setWeight(2).setQuality(Rarity.COMMON.ordinal() + 1)).apply(SetItemCountFunction.setCount(UniformGenerator.between(-1.0F, 1.0F)));
+                        .add(LootItem.lootTableItem(RegisterItems.BAOBAB_NUT).setWeight(2).setQuality(Rarity.COMMON.ordinal() + 1)).apply(SetItemCountFunction.setCount(UniformGenerator.between(-1.0F, 1.0F)));
 
                 tableBuilder.withPool(pool);
             }

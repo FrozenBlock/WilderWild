@@ -31,9 +31,9 @@ public final class RegisterWorldgen {
 
     public static void registerWorldGen() {
         WilderWild.logWild("Registering Biomes for", WilderWild.UNSTABLE_LOGGING);
-        BuiltinRegistries.register(BuiltinRegistries.BIOME, MIXED_FOREST, mixedForest());
-        BuiltinRegistries.register(BuiltinRegistries.BIOME, CYPRESS_WETLANDS, cypressWetlands());
-        BuiltinRegistries.register(BuiltinRegistries.BIOME, JELLYFISH_CAVES, jellyfishCaves());
+        BuiltinRegistries.register(BuiltinRegistries.BIOME, MIXED_FOREST.location(), mixedForest());
+        BuiltinRegistries.register(BuiltinRegistries.BIOME, CYPRESS_WETLANDS.location(), cypressWetlands());
+        BuiltinRegistries.register(BuiltinRegistries.BIOME, JELLYFISH_CAVES.location(), jellyfishCaves());
 
         WilderNoise.init();
     }

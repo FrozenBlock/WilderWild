@@ -1,6 +1,7 @@
 package net.frozenblock.wilderwild.mixin.worldgen;
 
 import com.mojang.datafixers.util.Pair;
+import net.frozenblock.lib.worldgen.biome.api.FrozenOverworldBiomes;
 import net.frozenblock.wilderwild.misc.config.ClothConfigInteractionHandler;
 import net.frozenblock.wilderwild.registry.RegisterWorldgen;
 import net.minecraft.resources.ResourceKey;
@@ -145,7 +146,47 @@ public final class OverworldBiomeBuilderMixin {
 
     @Inject(method = "addSurfaceBiome", at = @At("HEAD"), cancellable = true)
     private void addSurfaceBiome(Consumer<Pair<Climate.ParameterPoint, ResourceKey<Biome>>> parameters, Climate.Parameter temperature, Climate.Parameter humidity, Climate.Parameter continentalness, Climate.Parameter erosion, Climate.Parameter weirdness, float offset, ResourceKey<Biome> biome, CallbackInfo info) {
-        if (biome.equals(Biomes.MANGROVE_SWAMP) && ClothConfigInteractionHandler.modifyMangroveSwampPlacement()) {
+        /*if (biome.equals(RegisterWorldgen.MIXED_FOREST)) {
+            FrozenOverworldBiomes.addOverworldBiome(RegisterWorldgen.MIXED_FOREST, Climate.parameters(
+                    temperature,
+                    humidity,
+                    continentalness,
+                    erosion,
+                    Climate.Parameter.point(0.0F),
+                    weirdness,
+                    offset
+            ));
+            FrozenOverworldBiomes.addOverworldBiome(RegisterWorldgen.MIXED_FOREST, Climate.parameters(
+                    temperature,
+                    humidity,
+                    continentalness,
+                    erosion,
+                    Climate.Parameter.point(1.0F),
+                    weirdness,
+                    offset
+            ));
+            info.cancel();
+        } else if (biome.equals(RegisterWorldgen.CYPRESS_WETLANDS)) {
+            FrozenOverworldBiomes.addOverworldBiome(RegisterWorldgen.CYPRESS_WETLANDS, Climate.parameters(
+                    temperature,
+                    humidity,
+                    continentalness,
+                    erosion,
+                    Climate.Parameter.point(0.0F),
+                    weirdness,
+                    offset
+            ));
+            FrozenOverworldBiomes.addOverworldBiome(RegisterWorldgen.CYPRESS_WETLANDS, Climate.parameters(
+                    temperature,
+                    humidity,
+                    continentalness,
+                    erosion,
+                    Climate.Parameter.point(1.0F),
+                    weirdness,
+                    offset
+            ));
+            info.cancel();
+        } else */if (biome.equals(Biomes.MANGROVE_SWAMP) && ClothConfigInteractionHandler.modifyMangroveSwampPlacement()) {
             parameters.accept(Pair.of(Climate.parameters(
                             Climate.Parameter.span(this.temperatures[2], this.temperatures[4]), //Temperature
                             Climate.Parameter.span(this.humidities[swampHumidity], this.humidities[4]), //Humidity
@@ -166,8 +207,7 @@ public final class OverworldBiomeBuilderMixin {
                             offset),
                     biome));
             info.cancel();
-        }
-        if (biome.equals(Biomes.SWAMP) && ClothConfigInteractionHandler.modifySwampPlacement()) {
+        } else if (biome.equals(Biomes.SWAMP) && ClothConfigInteractionHandler.modifySwampPlacement()) {
             parameters.accept(Pair.of(Climate.parameters(
                             Climate.Parameter.span(this.temperatures[1], this.temperatures[3]), //Temperature
                             Climate.Parameter.span(this.humidities[swampHumidity], this.humidities[4]), //Humidity
