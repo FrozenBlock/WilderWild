@@ -23,11 +23,12 @@ jobs:
         with:
           fetch-depth: 0
           repository: FrozenBlock/FrozenLib
-          path: '../FrozenLib'
+          path: 'FrozenLib'
       - name: Checkout Repository
         uses: actions/checkout@v3
         with:
           fetch-depth: 0
+          path: 'WilderWild'
       - name: Setup JDK ${{ matrix.java }}
         uses: actions/setup-java@v3
         with:
@@ -39,7 +40,7 @@ jobs:
         if: ${{ runner.os != 'Windows' }}
         run: chmod +x ./gradlew
       - name: Build
-        run: ./gradlew build -PuseThirdPartyMods=false
+        run: ./gradlew build -PuseThirdPartyMods=false -Dorg.gradle.project.buildDir=WilderWild/
       #- name: Capture Build Artifacts
       #  uses: actions/upload-artifact@v3
       #  with:
