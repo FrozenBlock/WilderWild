@@ -23,6 +23,7 @@ jobs:
         with:
           fetch-depth: 0
           repository: FrozenBlock/FrozenLib
+          path: 'FrozenLib'
       - name: Checkout Repository
         uses: actions/checkout@v3
         with:
