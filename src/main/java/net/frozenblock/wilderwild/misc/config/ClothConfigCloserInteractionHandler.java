@@ -43,11 +43,11 @@ public class ClothConfigCloserInteractionHandler {
     }
 
     public static boolean hornShattersGlass() {
-        return WilderWildConfig.get().item.ancientHornShattersGlass;
+        return WilderWildConfig.get().item.ancientHorn.ancientHornShattersGlass;
     }
 
     public static boolean hornCanSummonWarden() {
-        return WilderWildConfig.get().item.ancientHornCanSummonWarden;
+        return WilderWildConfig.get().item.ancientHorn.ancientHornCanSummonWarden;
     }
 
     public static boolean projectileBreakParticles() {
