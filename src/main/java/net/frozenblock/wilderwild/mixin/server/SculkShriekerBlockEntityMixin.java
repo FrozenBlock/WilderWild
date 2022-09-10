@@ -5,6 +5,7 @@ import net.frozenblock.wilderwild.misc.server.EasyPacket;
 import net.frozenblock.wilderwild.registry.RegisterProperties;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.entity.SculkShriekerBlockEntity;
@@ -45,8 +46,8 @@ public class SculkShriekerBlockEntityMixin {
         }
     }
 
-    @Inject(at = @At("HEAD"), method = "shriek", cancellable = true)
-    public void shriek(ServerLevel world, @Nullable Entity entity, CallbackInfo info) {
+    @Inject(at = @At("HEAD"), method = "tryShriek", cancellable = true)
+    public void shriek(ServerLevel world, @Nullable ServerPlayer player, CallbackInfo info) {
         SculkShriekerBlockEntity shrieker = SculkShriekerBlockEntity.class.cast(this);
         if (shrieker.getBlockState().getValue(RegisterProperties.SOULS_TAKEN) == 2) {
             info.cancel();

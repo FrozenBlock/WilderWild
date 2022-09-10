@@ -124,7 +124,7 @@ public final class RegisterItems {
         Registry.register(Registry.ITEM, WilderWild.id("ancient_horn_fragment"), ANCIENT_HORN_FRAGMENT);
 
         TradeOfferHelper.registerWanderingTraderOffers(2, factories -> {
-            factories.add(new VillagerTrades.ItemsForEmeralds(RegisterItems.BAOBAB_NUT.asItem(), 5, 1, 8, 1));
+            factories.add(new VillagerTrades.ItemsForEmeralds(RegisterItems.BAOBAB_NUT, 5, 1, 8, 1));
             factories.add(new VillagerTrades.ItemsForEmeralds(RegisterBlocks.CYPRESS_SAPLING.asItem(), 5, 1, 8, 1));
         });
     }

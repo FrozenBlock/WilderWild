@@ -44,15 +44,15 @@ public abstract class SculkVeinBlockMixin extends MultifaceBlock {
                 BlockState blockState2 = world.getBlockState(blockPos);
                 if (blockState2.is(tagKey)) {
                     BlockState blockState3 = Blocks.SCULK.defaultBlockState();
-                    if (blockState2.is(WilderBlockTags.SCULK_STAIR_REPLACEABLE_WORLDGEN)) {
+                    if (blockState2.is(WilderBlockTags.SCULK_STAIR_REPLACEABLE_WORLDGEN) || blockState2.is(WilderBlockTags.SCULK_STAIR_REPLACEABLE)) {
                         blockState3 = RegisterBlocks.SCULK_STAIRS.defaultBlockState().setValue(StairBlock.FACING, blockState2.getValue(StairBlock.FACING)).setValue(StairBlock.HALF, blockState2.getValue(StairBlock.HALF)).setValue(StairBlock.SHAPE, blockState2.getValue(StairBlock.SHAPE)).setValue(StairBlock.WATERLOGGED, blockState2.getValue(StairBlock.WATERLOGGED));
                         canReturn = true;
-                    } else if (blockState2.is(WilderBlockTags.SCULK_WALL_REPLACEABLE_WORLDGEN)) {
+                    } else if (blockState2.is(WilderBlockTags.SCULK_WALL_REPLACEABLE_WORLDGEN) || blockState2.is(WilderBlockTags.SCULK_WALL_REPLACEABLE)) {
                         blockState3 = RegisterBlocks.SCULK_WALL.defaultBlockState().setValue(WallBlock.UP, blockState2.getValue(WallBlock.UP)).setValue(WallBlock.NORTH_WALL, blockState2.getValue(WallBlock.NORTH_WALL))
                                 .setValue(WallBlock.EAST_WALL, blockState2.getValue(WallBlock.EAST_WALL)).setValue(WallBlock.WEST_WALL, blockState2.getValue(WallBlock.WEST_WALL))
                                 .setValue(WallBlock.SOUTH_WALL, blockState2.getValue(WallBlock.SOUTH_WALL)).setValue(WallBlock.WATERLOGGED, blockState2.getValue(WallBlock.WATERLOGGED));
                         canReturn = true;
-                    } else if (blockState2.is(WilderBlockTags.SCULK_SLAB_REPLACEABLE_WORLDGEN)) {
+                    } else if (blockState2.is(WilderBlockTags.SCULK_SLAB_REPLACEABLE_WORLDGEN) || blockState2.is(WilderBlockTags.SCULK_SLAB_REPLACEABLE)) {
                         blockState3 = RegisterBlocks.SCULK_SLAB.defaultBlockState().setValue(SlabBlock.WATERLOGGED, blockState2.getValue(SlabBlock.WATERLOGGED)).setValue(SlabBlock.TYPE, blockState2.getValue(SlabBlock.TYPE));
                         canReturn = true;
                     }
