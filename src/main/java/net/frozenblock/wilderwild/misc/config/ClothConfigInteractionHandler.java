@@ -30,28 +30,28 @@ public class ClothConfigInteractionHandler {
         if (WilderWild.hasCloth) {
             return ClothConfigCloserInteractionHandler.modifyJunglePlacement();
         }
-        return true;
+        return !WilderWild.hasTerraBlender;
     }
 
     public static boolean modifySwampPlacement() {
         if (WilderWild.hasCloth) {
             return ClothConfigCloserInteractionHandler.modifySwampPlacement();
         }
-        return true;
+        return !WilderWild.hasTerraBlender;
     }
 
     public static boolean modifyMangroveSwampPlacement() {
         if (WilderWild.hasCloth) {
             return ClothConfigCloserInteractionHandler.modifyMangroveSwampPlacement();
         }
-        return true;
+        return !WilderWild.hasTerraBlender;
     }
 
     public static boolean modifyWindsweptSavannaPlacement() {
         if (WilderWild.hasCloth) {
             return ClothConfigCloserInteractionHandler.modifyWindsweptSavannaPlacement();
         }
-        return true;
+        return !WilderWild.hasTerraBlender;
     }
 
     public static boolean fallenLogs() {
