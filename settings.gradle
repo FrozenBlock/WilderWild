@@ -19,6 +19,7 @@ rootProject.name = "Wilder Wild"
 def allowLocalFrozenLibUse = true
 def allowFrozenLibInConsoleMode = false
 def FrozenLibPath = '../FrozenLib'
+def FrozenLibPath2 = 'Frozenlib'
 
 def isIDE = properties.containsKey('android.injected.invoked.from.ide')
         || (System.getenv("XPC_SERVICE_NAME") ?: "").contains("intellij")
@@ -26,9 +27,14 @@ def isIDE = properties.containsKey('android.injected.invoked.from.ide')
         || System.getenv("IDEA_INITIAL_DIRECTORY") != null
 
 def FrozenLibFolder = new File( FrozenLibPath )
+def FrozenLibFolder2 = new File( FrozenLibPath2 )
 if( allowLocalFrozenLibUse && (isIDE || allowFrozenLibInConsoleMode)  && FrozenLibFolder.exists() ) {
 
     include ':FrozenLib'
     project(":FrozenLib").projectDir = FrozenLibFolder
+    project(':FrozenLib').buildFileName = './build.gradle'
+} else if ( allowLocalFrozenLibUse && (isIDE || allowFrozenLibInConsoleMode)  && FrozenLibFolder2.exists() ) {
+    include ':FrozenLib'
+    project(":FrozenLib").projectDir = FrozenLibFolder2
     project(':FrozenLib').buildFileName = './build.gradle'
 }
