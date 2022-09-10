@@ -103,6 +103,13 @@ public class ClothConfigInteractionHandler {
         return false;
     }
 
+    public static boolean unpassableRail() {
+        if (WilderWild.hasCloth) {
+            return ClothConfigCloserInteractionHandler.unpassableRail();
+        }
+        return true;
+    }
+
     public static boolean wardenCustomTendrils() {
         if (WilderWild.hasCloth) {
             return ClothConfigCloserInteractionHandler.wardenCustomTendrils();

@@ -1,5 +1,6 @@
 package net.frozenblock.wilderwild.mixin.server;
 
+import net.frozenblock.wilderwild.misc.config.ClothConfigInteractionHandler;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
@@ -22,6 +23,8 @@ public abstract class MobMixin extends LivingEntity {
 
     @Inject(method = "<init>", at = @At("TAIL"))
     private void mobEntity(EntityType<? extends Mob> entityType, Level level, CallbackInfo ci) {
-        this.setPathfindingMalus(BlockPathTypes.UNPASSABLE_RAIL, 0.0F);
+        if (ClothConfigInteractionHandler.unpassableRail()) {
+            this.setPathfindingMalus(BlockPathTypes.UNPASSABLE_RAIL, 0.0F);
+        }
     }
 }
