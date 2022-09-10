@@ -39,6 +39,7 @@ public class EntityConfig implements ConfigData {
                 .setDefaultValue(true)
                 .setSaveConsumer(newValue -> config.unpassableRail = newValue)
                 .setTooltip(tooltip("unpassable_rail"))
+                .requireRestart()
                 .build());
         var dying = entryBuilder.startBooleanToggle(text("warden_dying_animation"), warden.wardenDyingAnimation)
                 .setDefaultValue(true)
