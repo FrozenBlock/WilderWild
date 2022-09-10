@@ -40,13 +40,13 @@ public class SlabWallStairSculkBehavior implements SculkBehaviour {
     public boolean attemptSpreadVein(LevelAccessor world, BlockPos pos, BlockState state, @Nullable Collection<Direction> directions, boolean markForPostProcessing) {
         BlockState placementState = null;
         BlockState currentState = world.getBlockState(pos);
-        if (currentState.is(WilderBlockTags.SCULK_STAIR_REPLACEABLE_WORLDGEN)) {
+        if (currentState.is(WilderBlockTags.SCULK_STAIR_REPLACEABLE_WORLDGEN) || currentState.is(WilderBlockTags.SCULK_STAIR_REPLACEABLE)) {
             placementState = RegisterBlocks.SCULK_STAIRS.defaultBlockState().setValue(StairBlock.FACING, currentState.getValue(StairBlock.FACING)).setValue(StairBlock.HALF, currentState.getValue(StairBlock.HALF)).setValue(StairBlock.SHAPE, currentState.getValue(StairBlock.SHAPE)).setValue(StairBlock.WATERLOGGED, currentState.getValue(StairBlock.WATERLOGGED));
-        } else if (currentState.is(WilderBlockTags.SCULK_WALL_REPLACEABLE_WORLDGEN)) {
+        } else if (currentState.is(WilderBlockTags.SCULK_WALL_REPLACEABLE_WORLDGEN) || currentState.is(WilderBlockTags.SCULK_WALL_REPLACEABLE)) {
             placementState = RegisterBlocks.SCULK_WALL.defaultBlockState().setValue(WallBlock.UP, currentState.getValue(WallBlock.UP)).setValue(WallBlock.NORTH_WALL, currentState.getValue(WallBlock.NORTH_WALL))
                     .setValue(WallBlock.EAST_WALL, currentState.getValue(WallBlock.EAST_WALL)).setValue(WallBlock.WEST_WALL, currentState.getValue(WallBlock.WEST_WALL))
                     .setValue(WallBlock.SOUTH_WALL, currentState.getValue(WallBlock.SOUTH_WALL)).setValue(WallBlock.WATERLOGGED, currentState.getValue(WallBlock.WATERLOGGED));
-        } else if (currentState.is(WilderBlockTags.SCULK_SLAB_REPLACEABLE_WORLDGEN)) {
+        } else if (currentState.is(WilderBlockTags.SCULK_SLAB_REPLACEABLE_WORLDGEN) || currentState.is(WilderBlockTags.SCULK_SLAB_REPLACEABLE)) {
             placementState = RegisterBlocks.SCULK_SLAB.defaultBlockState().setValue(SlabBlock.WATERLOGGED, currentState.getValue(SlabBlock.WATERLOGGED)).setValue(SlabBlock.TYPE, currentState.getValue(SlabBlock.TYPE));
         }
 
