@@ -1,6 +1,7 @@
 package net.frozenblock.wilderwild.mixin.worldgen;
 
 import com.mojang.datafixers.util.Pair;
+import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.misc.config.ClothConfigInteractionHandler;
 import net.frozenblock.wilderwild.registry.RegisterWorldgen;
 import net.minecraft.resources.ResourceKey;
@@ -70,67 +71,73 @@ public final class OverworldBiomeBuilderMixin {
     @Inject(method = "addLowSlice", at = @At("TAIL"))
     // also can be injectLowBiomes
     private void injectBiomesNearRivers(Consumer<Pair<Climate.ParameterPoint, ResourceKey<Biome>>> parameters, Climate.Parameter weirdness, CallbackInfo ci) {
-        this.addSurfaceBiome(
-                parameters,
-                Climate.Parameter.span(this.temperatures[1], this.temperatures[2]),
-                this.FULL_RANGE,
-                Climate.Parameter.span(this.inlandContinentalness, this.farInlandContinentalness),
-                this.erosions[2],
-                weirdness,
-                0.0F,
-                RegisterWorldgen.MIXED_FOREST
-        );
-        this.addSurfaceBiome(
-                parameters,
-                Climate.Parameter.span(this.temperatures[1], this.temperatures[3]),
-                Climate.Parameter.span(this.humidities[2], this.humidities[4]),
-                Climate.Parameter.span(-0.2F, 0.5F),
-                Climate.Parameter.span(0.50F, 1.0F),
-                weirdness,
-                0.0F,
-                RegisterWorldgen.CYPRESS_WETLANDS
-        );
+        if (!WilderWild.hasTerraBlender) {
+            this.addSurfaceBiome(
+                    parameters,
+                    Climate.Parameter.span(this.temperatures[1], this.temperatures[2]),
+                    this.FULL_RANGE,
+                    Climate.Parameter.span(this.inlandContinentalness, this.farInlandContinentalness),
+                    this.erosions[2],
+                    weirdness,
+                    0.0F,
+                    RegisterWorldgen.MIXED_FOREST
+            );
+            this.addSurfaceBiome(
+                    parameters,
+                    Climate.Parameter.span(this.temperatures[1], this.temperatures[3]),
+                    Climate.Parameter.span(this.humidities[2], this.humidities[4]),
+                    Climate.Parameter.span(-0.2F, 0.5F),
+                    Climate.Parameter.span(0.50F, 1.0F),
+                    weirdness,
+                    0.0F,
+                    RegisterWorldgen.CYPRESS_WETLANDS
+            );
+        }
     }
 
     @Inject(method = "addMidSlice", at = @At("TAIL"))
     // also can be injectMidBiomes
     private void injectMixedBiomes(Consumer<Pair<Climate.ParameterPoint, ResourceKey<Biome>>> parameters, Climate.Parameter weirdness, CallbackInfo ci) {
-        this.addSurfaceBiome(
-                parameters,
-                Climate.Parameter.span(this.temperatures[1], this.temperatures[2]),
-                this.FULL_RANGE,
-                Climate.Parameter.span(this.inlandContinentalness, this.farInlandContinentalness),
-                this.erosions[1],
-                weirdness,
-                0.0F,
-                RegisterWorldgen.MIXED_FOREST
-        );
+        if (!WilderWild.hasTerraBlender) {
+            this.addSurfaceBiome(
+                    parameters,
+                    Climate.Parameter.span(this.temperatures[1], this.temperatures[2]),
+                    this.FULL_RANGE,
+                    Climate.Parameter.span(this.inlandContinentalness, this.farInlandContinentalness),
+                    this.erosions[1],
+                    weirdness,
+                    0.0F,
+                    RegisterWorldgen.MIXED_FOREST
+            );
 
-        this.addSurfaceBiome(
-                parameters,
-                Climate.Parameter.span(this.temperatures[1], this.temperatures[3]),
-                Climate.Parameter.span(this.humidities[2], this.humidities[4]),
-                Climate.Parameter.span(-0.2F, 0.5F),
-                Climate.Parameter.span(0.50F, 1.0F),
-                weirdness,
-                0.0F,
-                RegisterWorldgen.CYPRESS_WETLANDS
-        );
+            this.addSurfaceBiome(
+                    parameters,
+                    Climate.Parameter.span(this.temperatures[1], this.temperatures[3]),
+                    Climate.Parameter.span(this.humidities[2], this.humidities[4]),
+                    Climate.Parameter.span(-0.2F, 0.5F),
+                    Climate.Parameter.span(0.50F, 1.0F),
+                    weirdness,
+                    0.0F,
+                    RegisterWorldgen.CYPRESS_WETLANDS
+            );
+        }
     }
 
     @Inject(method = "addValleys", at = @At("TAIL"))
     // can also be injectValleyBiomes
     private void injectRiverBiomes(Consumer<Pair<Climate.ParameterPoint, ResourceKey<Biome>>> parameters, Climate.Parameter weirdness, CallbackInfo ci) {
-        this.addSurfaceBiome(
-                parameters,
-                Climate.Parameter.span(this.temperatures[1], this.temperatures[3]),
-                Climate.Parameter.span(this.humidities[2], this.humidities[4]),
-                Climate.Parameter.span(-0.2F, 0.5F),
-                Climate.Parameter.span(0.50F, 1.0F),
-                weirdness,
-                0.0F,
-                RegisterWorldgen.CYPRESS_WETLANDS
-        );
+        if (!WilderWild.hasTerraBlender) {
+            this.addSurfaceBiome(
+                    parameters,
+                    Climate.Parameter.span(this.temperatures[1], this.temperatures[3]),
+                    Climate.Parameter.span(this.humidities[2], this.humidities[4]),
+                    Climate.Parameter.span(-0.2F, 0.5F),
+                    Climate.Parameter.span(0.50F, 1.0F),
+                    weirdness,
+                    0.0F,
+                    RegisterWorldgen.CYPRESS_WETLANDS
+            );
+        }
     }
 
     @Inject(method = "maybePickWindsweptSavannaBiome", at = @At("HEAD"), cancellable = true)
@@ -141,58 +148,59 @@ public final class OverworldBiomeBuilderMixin {
         }
     }
 
-    private static final int swampHumidity = 2;
-
     @Inject(method = "addSurfaceBiome", at = @At("HEAD"), cancellable = true)
     private void addSurfaceBiome(Consumer<Pair<Climate.ParameterPoint, ResourceKey<Biome>>> parameters, Climate.Parameter temperature, Climate.Parameter humidity, Climate.Parameter continentalness, Climate.Parameter erosion, Climate.Parameter weirdness, float offset, ResourceKey<Biome> biome, CallbackInfo info) {
-        if (biome.equals(Biomes.MANGROVE_SWAMP) && ClothConfigInteractionHandler.modifyMangroveSwampPlacement()) {
-            parameters.accept(Pair.of(Climate.parameters(
-                            Climate.Parameter.span(this.temperatures[2], this.temperatures[4]), //Temperature
-                            Climate.Parameter.span(this.humidities[swampHumidity], this.humidities[4]), //Humidity
-                            continentalness,
-                            erosion,
-                            Climate.Parameter.point(0.0F),
-                            weirdness,
-                            offset),
-                    biome));
+        if (!WilderWild.hasTerraBlender) {
+            if (biome.equals(Biomes.MANGROVE_SWAMP) && ClothConfigInteractionHandler.modifyMangroveSwampPlacement()) {
+                parameters.accept(Pair.of(Climate.parameters(
+                                Climate.Parameter.span(this.temperatures[2], this.temperatures[4]), //Temperature
+                                Climate.Parameter.span(this.humidities[RegisterWorldgen.SWAMP_HUMIDITY], this.humidities[4]), //Humidity
+                                continentalness,
+                                erosion,
+                                Climate.Parameter.point(0.0F),
+                                weirdness,
+                                offset),
+                        biome));
 
-            parameters.accept(Pair.of(Climate.parameters(
-                            Climate.Parameter.span(this.temperatures[2], this.temperatures[4]), //Temperature
-                            Climate.Parameter.span(this.humidities[swampHumidity], this.humidities[4]), //Humidity
-                            continentalness,
-                            erosion,
-                            Climate.Parameter.point(1.0F),
-                            weirdness,
-                            offset),
-                    biome));
-            info.cancel();
-        }
-        if (biome.equals(Biomes.SWAMP) && ClothConfigInteractionHandler.modifySwampPlacement()) {
-            parameters.accept(Pair.of(Climate.parameters(
-                            Climate.Parameter.span(this.temperatures[1], this.temperatures[3]), //Temperature
-                            Climate.Parameter.span(this.humidities[swampHumidity], this.humidities[4]), //Humidity
-                            continentalness,
-                            erosion,
-                            Climate.Parameter.point(0.0F),
-                            weirdness,
-                            offset),
-                    biome));
+                parameters.accept(Pair.of(Climate.parameters(
+                                Climate.Parameter.span(this.temperatures[2], this.temperatures[4]), //Temperature
+                                Climate.Parameter.span(this.humidities[RegisterWorldgen.SWAMP_HUMIDITY], this.humidities[4]), //Humidity
+                                continentalness,
+                                erosion,
+                                Climate.Parameter.point(1.0F),
+                                weirdness,
+                                offset),
+                        biome));
+                info.cancel();
+            }
+            if (biome.equals(Biomes.SWAMP) && ClothConfigInteractionHandler.modifySwampPlacement()) {
+                parameters.accept(Pair.of(Climate.parameters(
+                                Climate.Parameter.span(this.temperatures[1], this.temperatures[3]), //Temperature
+                                Climate.Parameter.span(this.humidities[RegisterWorldgen.SWAMP_HUMIDITY], this.humidities[4]), //Humidity
+                                continentalness,
+                                erosion,
+                                Climate.Parameter.point(0.0F),
+                                weirdness,
+                                offset),
+                        biome));
 
-            parameters.accept(Pair.of(Climate.parameters(
-                            Climate.Parameter.span(this.temperatures[1], this.temperatures[3]), //Temperature
-                            Climate.Parameter.span(this.humidities[swampHumidity], this.humidities[4]), //Humidity
-                            continentalness,
-                            erosion,
-                            Climate.Parameter.point(1.0F),
-                            weirdness,
-                            offset),
-                    biome));
-            info.cancel();
+                parameters.accept(Pair.of(Climate.parameters(
+                                Climate.Parameter.span(this.temperatures[1], this.temperatures[3]), //Temperature
+                                Climate.Parameter.span(this.humidities[RegisterWorldgen.SWAMP_HUMIDITY], this.humidities[4]), //Humidity
+                                continentalness,
+                                erosion,
+                                Climate.Parameter.point(1.0F),
+                                weirdness,
+                                offset),
+                        biome));
+                info.cancel();
+            }
         }
     }
 
     @Inject(method = "addUndergroundBiomes", at = @At("TAIL"))
     private void addUndergroundBiomes(Consumer<Pair<Climate.ParameterPoint, ResourceKey<Biome>>> consumer, CallbackInfo ci) {
+        // i dont have terrablender values for this yet
         this.addSemiDeepBiome(
                 consumer,
                 this.FULL_RANGE,

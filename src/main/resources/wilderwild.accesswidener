@@ -63,3 +63,6 @@ accessible    class    net/minecraft/client/renderer/chunk/ChunkRenderDispatcher
 accessible    field    net/minecraft/world/entity/Mob    goalSelector    Lnet/minecraft/world/entity/ai/goal/GoalSelector;
 accessible    field    net/minecraft/world/entity/Mob    targetSelector    Lnet/minecraft/world/entity/ai/goal/GoalSelector;
 transitive-accessible    method    net/minecraft/data/worldgen/NoiseData    register    (Lnet/minecraft/core/Registry;Lnet/minecraft/resources/ResourceKey;ID[D)Lnet/minecraft/core/Holder;
+
+# Surface Rules
+accessible    method    net/minecraft/world/level/levelgen/SurfaceRules$SequenceRuleSource    <init>    (Ljava/util/List;)V
