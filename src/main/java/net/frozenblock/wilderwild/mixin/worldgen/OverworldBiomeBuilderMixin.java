@@ -200,17 +200,18 @@ public final class OverworldBiomeBuilderMixin {
 
     @Inject(method = "addUndergroundBiomes", at = @At("TAIL"))
     private void addUndergroundBiomes(Consumer<Pair<Climate.ParameterPoint, ResourceKey<Biome>>> consumer, CallbackInfo ci) {
-        // i dont have terrablender values for this yet
-        this.addSemiDeepBiome(
-                consumer,
-                this.FULL_RANGE,
-                Climate.Parameter.span(this.humidities[2], this.humidities[4]),
-                Climate.Parameter.span(this.deepOceanContinentalness, this.oceanContinentalness),
-                Climate.Parameter.span(this.erosions[3], this.erosions[6]),
-                this.FULL_RANGE,
-                0.0F,
-                RegisterWorldgen.JELLYFISH_CAVES
-        );
+        if (!WilderWild.hasTerraBlender) {
+            this.addSemiDeepBiome(
+                    consumer,
+                    this.FULL_RANGE,
+                    Climate.Parameter.span(this.humidities[2], this.humidities[4]),
+                    Climate.Parameter.span(this.deepOceanContinentalness, this.oceanContinentalness),
+                    Climate.Parameter.span(this.erosions[3], this.erosions[6]),
+                    this.FULL_RANGE,
+                    0.0F,
+                    RegisterWorldgen.JELLYFISH_CAVES
+            );
+        }
     }
 
     private void addDeepBiome(

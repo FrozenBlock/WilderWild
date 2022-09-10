@@ -86,6 +86,33 @@ public class WilderOverworldRegion extends Region {
                 builder.replaceBiome(point, RegisterWorldgen.CYPRESS_WETLANDS);
             });
 
+            List<Climate.ParameterPoint> dripstoneCavesPoints = new ParameterUtils.ParameterPointListBuilder()
+                    .temperature(ParameterUtils.Temperature.FULL_RANGE)
+                    .humidity(ParameterUtils.Humidity.FULL_RANGE)
+                    .continentalness(Climate.Parameter.span(0.8F, 1.0F))
+                    .erosion(ParameterUtils.Erosion.FULL_RANGE)
+                    .depth(Climate.Parameter.span(0.2F, 0.9F))
+                    .weirdness(ParameterUtils.Weirdness.FULL_RANGE)
+                    .offset(0.0F)
+                    .build();
+
+            dripstoneCavesPoints.forEach(point -> {
+
+                builder.replaceParameter(point,
+                        new Climate.ParameterPoint(
+                                ParameterUtils.Temperature.FULL_RANGE.parameter(),
+                                ParameterUtils.Humidity.span(ParameterUtils.Humidity.NEUTRAL, ParameterUtils.Humidity.HUMID),
+                                ParameterUtils.Continentalness.span(ParameterUtils.Continentalness.DEEP_OCEAN, ParameterUtils.Continentalness.OCEAN),
+                                ParameterUtils.Erosion.span(ParameterUtils.Erosion.EROSION_3, ParameterUtils.Erosion.EROSION_6),
+                                Climate.Parameter.span(0.4F, 1.05F),
+                                ParameterUtils.Weirdness.FULL_RANGE.parameter(),
+                                Climate.quantizeCoord(0.0F)
+                        )
+                );
+
+                builder.replaceBiome(point, RegisterWorldgen.JELLYFISH_CAVES);
+            });
+
             if (ClothConfigInteractionHandler.modifyMangroveSwampPlacement()) {
                 List<Climate.ParameterPoint> mangroveSwampPoints2 = new ParameterUtils.ParameterPointListBuilder()
                         .temperature(ParameterUtils.Temperature.span(ParameterUtils.Temperature.WARM, ParameterUtils.Temperature.HOT))
