@@ -43,11 +43,11 @@ public class ClothConfigCloserInteractionHandler {
     }
 
     public static boolean hornShattersGlass() {
-        return WilderWildConfig.get().item.ancientHornShattersGlass;
+        return WilderWildConfig.get().item.ancientHorn.ancientHornShattersGlass;
     }
 
     public static boolean hornCanSummonWarden() {
-        return WilderWildConfig.get().item.ancientHornCanSummonWarden;
+        return WilderWildConfig.get().item.ancientHorn.ancientHornCanSummonWarden;
     }
 
     public static boolean projectileBreakParticles() {
@@ -58,20 +58,24 @@ public class ClothConfigCloserInteractionHandler {
         return WilderWildConfig.get().block.mcLiveSensorTendrils;
     }
 
+    public static boolean unpassableRail() {
+        return WilderWildConfig.get().entity.unpassableRail;
+    }
+
     public static boolean wardenCustomTendrils() {
-        return WilderWildConfig.get().entity.wardenCustomTendrils;
+        return WilderWildConfig.get().entity.warden.wardenCustomTendrils;
     }
 
     public static boolean wardenDyingAnimation() {
-        return WilderWildConfig.get().entity.wardenDyingAnimation;
+        return WilderWildConfig.get().entity.warden.wardenDyingAnimation;
     }
 
     public static boolean wardenEmergesFromEgg() {
-        return WilderWildConfig.get().entity.wardenEmergesFromEgg;
+        return WilderWildConfig.get().entity.warden.wardenEmergesFromEgg;
     }
 
     public static boolean wardenSwimAnimation() {
-        return WilderWildConfig.get().entity.wardenSwimAnimation;
+        return WilderWildConfig.get().entity.warden.wardenSwimAnimation;
     }
 
     public static boolean shriekerGargling() {

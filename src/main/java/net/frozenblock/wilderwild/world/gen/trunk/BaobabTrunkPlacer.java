@@ -53,8 +53,8 @@ public class BaobabTrunkPlacer extends TrunkPlacer {
         List<FoliagePlacer.FoliageAttachment> list = Lists.newArrayList();
 
         double percentage = 30;
-        double branchpercentage = 50;
-        float toppercentage = 30;
+        double branchpercentage = 40;
+        float toppercentage = 25;
 
         for(int x = 0; x < 4; x++) { // X
             for(int z = 0; z < 4; z++) { // Z

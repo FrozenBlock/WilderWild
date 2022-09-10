@@ -111,15 +111,15 @@ public class SculkBlockMixin {
                         j = -2;
                     }
 
-                    if (world.getBlockState(cursorPos).is(WilderBlockTags.SCULK_STAIR_REPLACEABLE_WORLDGEN)) {
+                    if (world.getBlockState(cursorPos).is(WilderBlockTags.SCULK_STAIR_REPLACEABLE_WORLDGEN) || world.getBlockState(cursorPos).is(WilderBlockTags.SCULK_STAIR_REPLACEABLE)) {
                         canReturn = true;
                         blockState = RegisterBlocks.SCULK_STAIRS.defaultBlockState();
                     }
-                    if (world.getBlockState(cursorPos).is(WilderBlockTags.SCULK_SLAB_REPLACEABLE_WORLDGEN)) {
+                    if (world.getBlockState(cursorPos).is(WilderBlockTags.SCULK_SLAB_REPLACEABLE_WORLDGEN) || world.getBlockState(cursorPos).is(WilderBlockTags.SCULK_SLAB_REPLACEABLE)) {
                         canReturn = true;
                         blockState = RegisterBlocks.SCULK_SLAB.defaultBlockState();
                     }
-                    if (world.getBlockState(cursorPos).is(WilderBlockTags.SCULK_WALL_REPLACEABLE_WORLDGEN)) {
+                    if (world.getBlockState(cursorPos).is(WilderBlockTags.SCULK_WALL_REPLACEABLE_WORLDGEN) ||  world.getBlockState(cursorPos).is(WilderBlockTags.SCULK_WALL_REPLACEABLE)) {
                         canReturn = true;
                         blockState = RegisterBlocks.SCULK_WALL.defaultBlockState();
                     }

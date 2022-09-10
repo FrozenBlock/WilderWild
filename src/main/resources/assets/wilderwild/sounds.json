@@ -1692,5 +1692,14 @@
 	  "wilderwild:particle/floating_sculk_bubble/pop4",
 	  "wilderwild:particle/floating_sculk_bubble/pop5"
 	]
-  }
+  },
+	"particle.mesoglea_drip.land": {
+		"sounds": [
+			"wilderwild:particle/mesoglea_drip/land1",
+			"wilderwild:particle/mesoglea_drip/land2",
+			"wilderwild:particle/mesoglea_drip/land3",
+			"wilderwild:particle/mesoglea_drip/land4",
+			"wilderwild:particle/mesoglea_drip/land5"
+		]
+	}
 }

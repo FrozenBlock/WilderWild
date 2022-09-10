@@ -91,31 +91,36 @@ public class WorldgenConfig implements ConfigData {
                 .setTooltip(tooltip("modify_windswept_savanna_placement"))
                 .requireRestart()
                 .build();
-        var fallenLogs = category.addEntry(entryBuilder.startBooleanToggle(text("fallen_logs"), config.fallenLogs)
-                .setDefaultValue(true)
-                .setSaveConsumer(newValue -> config.fallenLogs = newValue)
-                .setTooltip(tooltip("fallen_logs"))
-                .requireRestart()
-                .build());
-        var wilderWildTrees = category.addEntry(entryBuilder.startBooleanToggle(text("wilder_wild_trees"), config.wilderWildTreeGen)
-                .setDefaultValue(true)
-                .setSaveConsumer(newValue -> config.wilderWildTreeGen = newValue)
-                .setTooltip(tooltip("wilder_wild_trees"))
-                .requireRestart()
-                .build());
-        var wilderWildGrass = category.addEntry(entryBuilder.startBooleanToggle(text("wilder_wild_grass"), config.wilderWildGrassGen)
-                .setDefaultValue(true)
-                .setSaveConsumer(newValue -> config.wilderWildGrassGen = newValue)
-                .setTooltip(tooltip("wilder_wild_grass"))
-                .requireRestart()
-                .build());
 
         List<AbstractConfigListEntry> biomePlacementList = List.of(jungle, mangroveSwamp, swamp, windsweptSavanna);
 
         var biomePlacementCategory = category.addEntry(entryBuilder.startSubCategory(text("biome_placement"), biomePlacementList)
                 .setExpanded(false)
                 .setTooltip(tooltip("biome_placement"))
-                .build());
+                .build()
+        );
+
+        var fallenLogs = category.addEntry(entryBuilder.startBooleanToggle(text("fallen_logs"), config.fallenLogs)
+                .setDefaultValue(true)
+                .setSaveConsumer(newValue -> config.fallenLogs = newValue)
+                .setTooltip(tooltip("fallen_logs"))
+                .requireRestart()
+                .build()
+        );
+        var wilderWildGrass = category.addEntry(entryBuilder.startBooleanToggle(text("wilder_wild_grass"), config.wilderWildGrassGen)
+                .setDefaultValue(true)
+                .setSaveConsumer(newValue -> config.wilderWildGrassGen = newValue)
+                .setTooltip(tooltip("wilder_wild_grass"))
+                .requireRestart()
+                .build()
+        );
+        var wilderWildTrees = category.addEntry(entryBuilder.startBooleanToggle(text("wilder_wild_trees"), config.wilderWildTreeGen)
+                .setDefaultValue(true)
+                .setSaveConsumer(newValue -> config.wilderWildTreeGen = newValue)
+                .setTooltip(tooltip("wilder_wild_trees"))
+                .requireRestart()
+                .build()
+        );
     }
 
     //public static final StringSetConfigOption HIDDEN_MODS = new StringSetConfigOption("hidden_mods", new HashSet<>());
