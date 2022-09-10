@@ -33,7 +33,7 @@ public class WilderOverworldRegion extends Region {
 
 
             // DON'T CHANGE THESE PARAMETERS. THESE ARE THE PARAMETERS OF SWAMPS
-            List<Climate.ParameterPoint> swampPoints = new ParameterUtils.ParameterPointListBuilder()
+            List<Climate.ParameterPoint> swampPointsCypress = new ParameterUtils.ParameterPointListBuilder()
                     .temperature(ParameterUtils.Temperature.span(ParameterUtils.Temperature.COOL, ParameterUtils.Temperature.NEUTRAL))
                     .humidity(ParameterUtils.Humidity.FULL_RANGE)
                     .continentalness(ParameterUtils.Continentalness.span(ParameterUtils.Continentalness.NEAR_INLAND, ParameterUtils.Continentalness.FAR_INLAND))
@@ -42,7 +42,7 @@ public class WilderOverworldRegion extends Region {
                     .weirdness(ParameterUtils.Weirdness.VALLEY, ParameterUtils.Weirdness.LOW_SLICE_NORMAL_DESCENDING, ParameterUtils.Weirdness.LOW_SLICE_VARIANT_ASCENDING, ParameterUtils.Weirdness.MID_SLICE_NORMAL_ASCENDING, ParameterUtils.Weirdness.MID_SLICE_NORMAL_DESCENDING, ParameterUtils.Weirdness.MID_SLICE_VARIANT_ASCENDING, ParameterUtils.Weirdness.MID_SLICE_VARIANT_DESCENDING)
                     .build();
 
-            swampPoints.forEach(point -> {
+            swampPointsCypress.forEach(point -> {
                 // CHANGE BIOME PARAMETERS HERE
                 builder.replaceParameter(point,
                         new Climate.ParameterPoint(
@@ -60,7 +60,7 @@ public class WilderOverworldRegion extends Region {
             });
 
             // DON'T CHANGE THESE PARAMETERS. THESE ARE THE PARAMETERS OF MANGROVE SWAMPS
-            List<Climate.ParameterPoint> mangroveSwampPoints = new ParameterUtils.ParameterPointListBuilder()
+            List<Climate.ParameterPoint> mangroveSwampPointsCypress = new ParameterUtils.ParameterPointListBuilder()
                     .temperature(ParameterUtils.Temperature.span(ParameterUtils.Temperature.WARM, ParameterUtils.Temperature.HOT))
                     .humidity(ParameterUtils.Humidity.FULL_RANGE)
                     .continentalness(ParameterUtils.Continentalness.span(ParameterUtils.Continentalness.NEAR_INLAND, ParameterUtils.Continentalness.FAR_INLAND))
@@ -69,7 +69,7 @@ public class WilderOverworldRegion extends Region {
                     .weirdness(ParameterUtils.Weirdness.VALLEY, ParameterUtils.Weirdness.LOW_SLICE_NORMAL_DESCENDING, ParameterUtils.Weirdness.LOW_SLICE_VARIANT_ASCENDING, ParameterUtils.Weirdness.MID_SLICE_NORMAL_ASCENDING, ParameterUtils.Weirdness.MID_SLICE_NORMAL_DESCENDING, ParameterUtils.Weirdness.MID_SLICE_VARIANT_ASCENDING, ParameterUtils.Weirdness.MID_SLICE_VARIANT_DESCENDING)
                     .build();
 
-            mangroveSwampPoints.forEach(point -> {
+            mangroveSwampPointsCypress.forEach(point -> {
                 // REPLACE BIOME PARAMETERS HERE
                 builder.replaceParameter(point,
                         new Climate.ParameterPoint(
@@ -116,7 +116,7 @@ public class WilderOverworldRegion extends Region {
 
             if (ClothConfigInteractionHandler.modifyMangroveSwampPlacement()) {
                 // DON'T CHANGE THESE PARAMETERS. THESE ARE THE PARAMETERS OF MANGROVE SWAMPS
-                List<Climate.ParameterPoint> mangroveSwampPoints2 = new ParameterUtils.ParameterPointListBuilder()
+                List<Climate.ParameterPoint> mangroveSwampPoints = new ParameterUtils.ParameterPointListBuilder()
                         .temperature(ParameterUtils.Temperature.span(ParameterUtils.Temperature.WARM, ParameterUtils.Temperature.HOT))
                         .humidity(ParameterUtils.Humidity.FULL_RANGE)
                         .continentalness(ParameterUtils.Continentalness.span(ParameterUtils.Continentalness.NEAR_INLAND, ParameterUtils.Continentalness.FAR_INLAND))
@@ -125,7 +125,7 @@ public class WilderOverworldRegion extends Region {
                         .weirdness(ParameterUtils.Weirdness.VALLEY, ParameterUtils.Weirdness.LOW_SLICE_NORMAL_DESCENDING, ParameterUtils.Weirdness.LOW_SLICE_VARIANT_ASCENDING, ParameterUtils.Weirdness.MID_SLICE_NORMAL_ASCENDING, ParameterUtils.Weirdness.MID_SLICE_NORMAL_DESCENDING, ParameterUtils.Weirdness.MID_SLICE_VARIANT_ASCENDING, ParameterUtils.Weirdness.MID_SLICE_VARIANT_DESCENDING)
                         .build();
 
-                mangroveSwampPoints2.forEach(point -> {
+                mangroveSwampPoints.forEach(point -> {
                     // REPLACE BIOME PARAMETERS HERE
                     builder.replaceParameter(point,
                             new Climate.ParameterPoint(
@@ -143,7 +143,7 @@ public class WilderOverworldRegion extends Region {
 
             if (ClothConfigInteractionHandler.modifySwampPlacement()) {
                 // DON'T CHANGE THESE PARAMETERS. THESE ARE THE PARAMETERS OF SWAMPS
-                List<Climate.ParameterPoint> swampPoints2 = new ParameterUtils.ParameterPointListBuilder()
+                List<Climate.ParameterPoint> swampPoints = new ParameterUtils.ParameterPointListBuilder()
                         .temperature(ParameterUtils.Temperature.span(ParameterUtils.Temperature.COOL, ParameterUtils.Temperature.NEUTRAL))
                         .humidity(ParameterUtils.Humidity.FULL_RANGE)
                         .continentalness(ParameterUtils.Continentalness.span(ParameterUtils.Continentalness.NEAR_INLAND, ParameterUtils.Continentalness.FAR_INLAND))
@@ -152,7 +152,7 @@ public class WilderOverworldRegion extends Region {
                         .weirdness(ParameterUtils.Weirdness.VALLEY, ParameterUtils.Weirdness.LOW_SLICE_NORMAL_DESCENDING, ParameterUtils.Weirdness.LOW_SLICE_VARIANT_ASCENDING, ParameterUtils.Weirdness.MID_SLICE_NORMAL_ASCENDING, ParameterUtils.Weirdness.MID_SLICE_NORMAL_DESCENDING, ParameterUtils.Weirdness.MID_SLICE_VARIANT_ASCENDING, ParameterUtils.Weirdness.MID_SLICE_VARIANT_DESCENDING)
                         .build();
 
-                swampPoints2.forEach(point -> {
+                swampPoints.forEach(point -> {
                     // REPLACE BIOME PARAMETERS HERE
                     builder.replaceParameter(point,
                             new Climate.ParameterPoint(
