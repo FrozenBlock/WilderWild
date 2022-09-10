@@ -2,11 +2,15 @@ package net.frozenblock.wilderwild.misc.config;
 
 import me.shedaniel.autoconfig.ConfigData;
 import me.shedaniel.autoconfig.annotation.Config;
+import me.shedaniel.autoconfig.annotation.ConfigEntry;
+import me.shedaniel.clothconfig2.api.AbstractConfigListEntry;
 import me.shedaniel.clothconfig2.api.ConfigCategory;
 import me.shedaniel.clothconfig2.api.ConfigEntryBuilder;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.frozenblock.wilderwild.WilderWild;
+
+import java.util.List;
 
 import static net.frozenblock.wilderwild.misc.config.WilderWildConfig.text;
 import static net.frozenblock.wilderwild.misc.config.WilderWildConfig.tooltip;
@@ -14,30 +18,45 @@ import static net.frozenblock.wilderwild.misc.config.WilderWildConfig.tooltip;
 @Config(name = "item")
 public class ItemConfig implements ConfigData {
 
-    public boolean ancientHornShattersGlass = false;
-    public boolean ancientHornCanSummonWarden = true;
+    @ConfigEntry.Gui.CollapsibleObject
+    public AncientHornConfig ancientHorn = new AncientHornConfig();
+
+    public static class AncientHornConfig {
+        public boolean ancientHornShattersGlass = false;
+        public boolean ancientHornCanSummonWarden = true;
+    }
+
     public boolean projectileBreakParticles = true;
 
     @Environment(EnvType.CLIENT)
     protected static void setupEntries(ConfigCategory category, ConfigEntryBuilder entryBuilder) {
         var config = WilderWildConfig.get().item;
+        var ancientHorn = config.ancientHorn;
         category.setBackground(WilderWild.id("textures/config/item.png"));
-        category.addEntry(entryBuilder.startBooleanToggle(text("ancient_horn_shatters_glass"), config.ancientHornShattersGlass)
+        var shattersGlass = entryBuilder.startBooleanToggle(text("ancient_horn_shatters_glass"), ancientHorn.ancientHornShattersGlass)
                 .setDefaultValue(false)
-                .setSaveConsumer(newValue -> config.ancientHornShattersGlass = newValue)
+                .setSaveConsumer(newValue -> ancientHorn.ancientHornShattersGlass = newValue)
                 .setTooltip(tooltip("ancient_horn_shatters_glass"))
-                .build());
-        category.addEntry(entryBuilder.startBooleanToggle(text("ancient_horn_can_summon_warden"), config.ancientHornCanSummonWarden)
+                .build();
+        var summonsWarden = entryBuilder.startBooleanToggle(text("ancient_horn_can_summon_warden"), ancientHorn.ancientHornCanSummonWarden)
                 .setDefaultValue(true)
-                .setSaveConsumer(newValue -> config.ancientHornCanSummonWarden = newValue)
+                .setSaveConsumer(newValue -> ancientHorn.ancientHornCanSummonWarden = newValue)
                 .setTooltip(tooltip("ancient_horn_can_summon_warden"))
-                .build());
-        category.addEntry(entryBuilder.startBooleanToggle(text("projectile_break_particles"), config.projectileBreakParticles)
+                .build();
+
+        List<AbstractConfigListEntry> ancientHornList = List.of(shattersGlass, summonsWarden);
+
+        var ancientHornCategory = category.addEntry(entryBuilder.startSubCategory(text("ancient_horn"), ancientHornList)
+                .setExpanded(false)
+                .setTooltip(tooltip("ancient_horn"))
+                .build()
+        );
+
+        var breakParticles = category.addEntry(entryBuilder.startBooleanToggle(text("projectile_break_particles"), config.projectileBreakParticles)
                 .setDefaultValue(true)
                 .setSaveConsumer(newValue -> config.projectileBreakParticles = newValue)
                 .setTooltip(tooltip("projectile_break_particles"))
                 .build());
-
     }
 
 

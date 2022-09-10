@@ -160,6 +160,7 @@
   "option.wilderwild.item": "Item",
   "option.wilderwild.worldgen": "Worldgen",
 
+  "option.wilderwild.ancient_horn": "Ancient Horn",
   "option.wilderwild.ancient_horn_shatters_glass": "Ancient Horn Glass Shattering",
   "option.wilderwild.ancient_horn_can_summon_warden": "Ancient Horns Can Summon Wardens",
   "option.wilderwild.beta_beaches": "Beta Beaches",
@@ -216,6 +217,7 @@
   "subtitles.item.bottle.release_firefly": "Firefly released from Bottle",
   "subtitles.item.bucket.fill_jellyfish": "Jellyfish scooped",
   "subtitles.item.copper_horn.call": "Copper Horn plays",
+  "tooltip.wilderwild.ancient_horn": "Contains options for the Ancient Horn",
   "tooltip.wilderwild.ancient_horn_shatters_glass": "Whether or not glass blocks should break when shot with an Ancient Horn",
   "tooltip.wilderwild.ancient_horn_can_summon_warden": "Whether or not Ancient Horns should be able to summon Wardens from directly shooting shriekers.",
   "tooltip.wilderwild.beta_beaches": "Enables Beaches near water that generate independent of the biome, mirroring the beaches that existed in Minecraft Beta",
