@@ -36,7 +36,6 @@ import net.minecraft.world.level.levelgen.feature.stateproviders.NoiseProvider;
 import net.minecraft.world.level.levelgen.feature.stateproviders.NoiseThresholdProvider;
 import net.minecraft.world.level.levelgen.feature.stateproviders.WeightedStateProvider;
 import net.minecraft.world.level.levelgen.placement.CaveSurface;
-import net.minecraft.world.level.levelgen.placement.PlacementModifier;
 import net.minecraft.world.level.levelgen.synth.NormalNoise;
 import org.jetbrains.annotations.NotNull;
 
@@ -337,23 +336,7 @@ public final class WilderConfiguredFeatures {
             )
     );
 
-    public static final Holder<ConfiguredFeature<MultifaceGrowthConfiguration, ?>> NEMATOCYST = register("nematocyst",
-            Feature.MULTIFACE_GROWTH,
-            new MultifaceGrowthConfiguration(
-                    (MultifaceBlock) RegisterBlocks.NEMATOCYST,
-                    20,
-                    true, true, true, 1.0F, HolderSet.direct(Block::builtInRegistryHolder, Blocks.CLAY, Blocks.STONE, Blocks.ANDESITE, Blocks.DIORITE, Blocks.GRANITE, Blocks.DRIPSTONE_BLOCK, Blocks.CALCITE, Blocks.TUFF, Blocks.DEEPSLATE))
-    );
-
-    public static final Holder<ConfiguredFeature<MultifaceGrowthConfiguration, ?>> NEMATOCYST_PURPLE = register("nematocyst_purple",
-            Feature.MULTIFACE_GROWTH,
-            new MultifaceGrowthConfiguration(
-                    (MultifaceBlock) RegisterBlocks.PURPLE_NEMATOCYST,
-                    20,
-                    true, true, true, 1.0F, HolderSet.direct(Block::builtInRegistryHolder, Blocks.CLAY, Blocks.STONE, Blocks.ANDESITE, Blocks.DIORITE, Blocks.GRANITE, Blocks.DRIPSTONE_BLOCK, Blocks.CALCITE, Blocks.TUFF, Blocks.DEEPSLATE))
-    );
-
-    /*public static final Holder<ConfiguredFeature<NematocystFeatureConfig, ?>> PATCH_NEMATOCYST_UP = register("patch_nematocyst_up",
+    public static final Holder<ConfiguredFeature<NematocystFeatureConfig, ?>> PATCH_NEMATOCYST_UP = register("patch_nematocyst_up",
             WilderWild.NEMATOCYST_FEATURE,
             new NematocystFeatureConfig(new NoiseProvider(
                     10L,
@@ -418,7 +401,7 @@ public final class WilderConfiguredFeatures {
                             RegisterBlocks.PURPLE_NEMATOCYST.defaultBlockState().setValue(BlockStateProperties.FACING, Direction.WEST))),
                     32, 8, 8
             )
-    );*/
+    );
 
     public static void registerConfiguredFeatures() {
         WilderWild.logWild("Registering WilderConfiguredFeatures for", true);

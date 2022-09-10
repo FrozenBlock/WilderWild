@@ -2,7 +2,6 @@ package net.frozenblock.wilderwild.registry;
 
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.fabric.api.object.builder.v1.trade.TradeOfferHelper;
-import net.frozenblock.lib.item.PrickOnUseBlockItem;
 import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.item.AncientHorn;
 import net.frozenblock.wilderwild.item.CopperHorn;
@@ -13,7 +12,6 @@ import net.frozenblock.wilderwild.tag.WilderInstrumentTags;
 import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.entity.npc.VillagerTrades;
-import net.minecraft.world.food.Foods;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.material.Fluids;
 
@@ -126,7 +124,7 @@ public final class RegisterItems {
         Registry.register(Registry.ITEM, WilderWild.id("ancient_horn_fragment"), ANCIENT_HORN_FRAGMENT);
 
         TradeOfferHelper.registerWanderingTraderOffers(2, factories -> {
-            factories.add(new VillagerTrades.ItemsForEmeralds(RegisterItems.BAOBAB_NUT.asItem(), 5, 1, 8, 1));
+            factories.add(new VillagerTrades.ItemsForEmeralds(RegisterItems.BAOBAB_NUT, 5, 1, 8, 1));
             factories.add(new VillagerTrades.ItemsForEmeralds(RegisterBlocks.CYPRESS_SAPLING.asItem(), 5, 1, 8, 1));
         });
     }

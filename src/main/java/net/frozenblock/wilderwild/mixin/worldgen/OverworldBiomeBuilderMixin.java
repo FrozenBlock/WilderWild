@@ -2,6 +2,7 @@ package net.frozenblock.wilderwild.mixin.worldgen;
 
 import com.mojang.datafixers.util.Pair;
 import net.frozenblock.wilderwild.WilderWild;
+import net.frozenblock.lib.worldgen.biome.api.FrozenOverworldBiomes;
 import net.frozenblock.wilderwild.misc.config.ClothConfigInteractionHandler;
 import net.frozenblock.wilderwild.registry.RegisterWorldgen;
 import net.minecraft.resources.ResourceKey;
@@ -172,8 +173,7 @@ public final class OverworldBiomeBuilderMixin {
                                 offset),
                         biome));
                 info.cancel();
-            }
-            if (biome.equals(Biomes.SWAMP) && ClothConfigInteractionHandler.modifySwampPlacement()) {
+            } else if (biome.equals(Biomes.SWAMP) && ClothConfigInteractionHandler.modifySwampPlacement()) {
                 parameters.accept(Pair.of(Climate.parameters(
                                 Climate.Parameter.span(this.temperatures[1], this.temperatures[3]), //Temperature
                                 Climate.Parameter.span(this.humidities[RegisterWorldgen.SWAMP_HUMIDITY], this.humidities[4]), //Humidity
@@ -205,7 +205,7 @@ public final class OverworldBiomeBuilderMixin {
                 consumer,
                 this.FULL_RANGE,
                 Climate.Parameter.span(this.humidities[2], this.humidities[4]),
-                Climate.Parameter.span(this.deepOceanContinentalness, this.coastContinentalness),
+                Climate.Parameter.span(this.deepOceanContinentalness, this.oceanContinentalness),
                 Climate.Parameter.span(this.erosions[3], this.erosions[6]),
                 this.FULL_RANGE,
                 0.0F,

@@ -44,7 +44,7 @@ public final class WilderMusic {
         BiomeModifications.create(WilderWild.id("modify_jellyfish_caves_ambience")).add(ModificationPhase.REPLACEMENTS, (context) -> context.getBiomeKey().equals(RegisterWorldgen.JELLYFISH_CAVES),
                 (selectionContext, modificationContext) -> modificationContext.getEffects().setAmbientSound(RegisterSounds.AMBIENT_JELLYFISH_CAVES_LOOP));
         BiomeModifications.create(WilderWild.id("modify_jellyfish_caves_additions")).add(ModificationPhase.REPLACEMENTS, (context) -> context.getBiomeKey().equals(RegisterWorldgen.JELLYFISH_CAVES),
-                (selectionContext, modificationContext) -> modificationContext.getEffects().setAdditionsSound(new AmbientAdditionsSettings(RegisterSounds.AMBIENT_JELLYFISH_CAVES_ADDITIONS, 0.005D)));
+                (selectionContext, modificationContext) -> modificationContext.getEffects().setAdditionsSound(new AmbientAdditionsSettings(RegisterSounds.AMBIENT_JELLYFISH_CAVES_ADDITIONS, 0.0005D)));
 
         //generic caves
         /*BiomeModifications.create(WilderWild.id("modify_caves_ambience")).add(ModificationPhase.REPLACEMENTS, (context) -> context.getBiomeKey().equals(Biomes.SOMETHING),

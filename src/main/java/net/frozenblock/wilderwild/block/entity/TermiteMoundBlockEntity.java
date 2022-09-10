@@ -31,6 +31,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.phys.Vec3;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.slf4j.Logger;
 
@@ -49,7 +50,7 @@ public class TermiteMoundBlockEntity extends BlockEntity {
         super(RegisterBlockEntities.TERMITE_MOUND, pos, state);
     }
 
-    public void load(CompoundTag nbt) {
+    public void load(@NotNull CompoundTag nbt) {
         super.load(nbt);
         this.ticksToNextTermite = nbt.getInt("ticksToNextTermite");
         this.ticksToCheckLight = nbt.getInt("ticksToCheckLight");
@@ -72,7 +73,7 @@ public class TermiteMoundBlockEntity extends BlockEntity {
         }
     }
 
-    protected void saveAdditional(CompoundTag nbt) {
+    protected void saveAdditional(@NotNull CompoundTag nbt) {
         super.saveAdditional(nbt);
         nbt.putInt("ticksToNextTermite", this.ticksToNextTermite);
         nbt.putInt("ticksToCheckLight", this.ticksToCheckLight);

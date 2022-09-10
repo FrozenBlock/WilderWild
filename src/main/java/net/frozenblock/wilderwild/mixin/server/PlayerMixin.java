@@ -10,7 +10,6 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import static net.minecraft.world.damagesource.DamageSource.CACTUS;
-import static net.minecraft.world.damagesource.DamageSource.GENERIC;
 
 @Mixin(Player.class)
 public class PlayerMixin {
