@@ -165,8 +165,8 @@ public abstract class WardenEntityModelMixin<T extends Warden> implements Wilder
                 this.body.y = 0;
             }
 
-            this.rightLeg.y = Mth.lerp(swimLerp, this.rightLeg.y + 8, 8);
-            this.leftLeg.y = Mth.lerp(swimLerp, this.leftLeg.y + 8, 8);
+            this.rightLeg.y = Mth.lerp(swimLerp, this.rightLeg.y, 0);
+            this.leftLeg.y = Mth.lerp(swimLerp, this.leftLeg.y, 0);
 
         } else if (this.isSubmerged(warden) && distance <= 0) {
 
