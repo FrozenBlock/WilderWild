@@ -1662,6 +1662,20 @@
 	  }
 	]
   },
+	"music.overworld.jellyfish_caves": {
+		"sounds": [
+			{
+				"name": "music.overworld.lush_caves",
+				"type": "event"
+			},
+			{
+				"name": "wilderwild:music/ludocrypt/jellyfish_caves/dove",
+				"stream": true,
+				"volume": 0.8,
+				"weight": 5
+			}
+		]
+	},
   "music_disc.beneath": {
 	"sounds": [
 	  "wilderwild:records/beneath"

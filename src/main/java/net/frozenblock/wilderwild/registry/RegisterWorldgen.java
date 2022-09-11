@@ -99,7 +99,7 @@ public final class RegisterWorldgen {
         BiomeDefaultFeatures.commonSpawns(builder);
         BiomeGenerationSettings.Builder builder2 = new BiomeGenerationSettings.Builder();
         addJellyfishCavesFeatures(builder2);
-        Music music = Musics.createGameMusic(SoundEvents.MUSIC_BIOME_LUSH_CAVES);
+        Music music = Musics.createGameMusic(RegisterSounds.MUSIC_OVERWORLD_JELLYFISH_CAVES);
         return new Biome.BiomeBuilder()
                 .precipitation(Biome.Precipitation.RAIN)
                 .temperature(0.8F)
