@@ -85,6 +85,7 @@ public class Firefly extends PathfinderMob implements FlyingAnimal {
         this.setFlickers(world.random.nextInt(5) == 0);
         this.setFlickerAge(world.random.nextIntBetweenInclusive(0, 19));
         this.setScale(1.5F);
+        this.setColor("on");
     }
 
     public static boolean canSpawn(EntityType<Firefly> type, LevelAccessor world, MobSpawnType spawnReason, BlockPos pos, RandomSource random) {
