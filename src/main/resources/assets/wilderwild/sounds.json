@@ -1665,7 +1665,7 @@
 	"music.overworld.jellyfish_caves": {
 		"sounds": [
 			{
-				"name": "music.overworld.lush_caves",
+				"name": "music.game",
 				"type": "event"
 			},
 			{
