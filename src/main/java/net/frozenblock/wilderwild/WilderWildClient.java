@@ -74,7 +74,7 @@ public final class WilderWildClient implements ClientModInitializer {
         BlockRenderLayerMap.INSTANCE.putBlock(RegisterBlocks.ALGAE, RenderType.cutout());
         BlockRenderLayerMap.INSTANCE.putBlock(RegisterBlocks.MILKWEED, RenderType.cutout());
         BlockRenderLayerMap.INSTANCE.putBlock(RegisterBlocks.POLLEN_BLOCK, RenderType.cutout());
-        BlockRenderLayerMap.INSTANCE.putBlock(RegisterBlocks.ECHO_GLASS, translucentCutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(RegisterBlocks.ECHO_GLASS, RenderType.translucent());
         BlockRenderLayerMap.INSTANCE.putBlock(RegisterBlocks.HANGING_TENDRIL, RenderType.cutout());
         BlockRenderLayerMap.INSTANCE.putBlock(RegisterBlocks.FLOWERING_LILY_PAD, RenderType.cutout());
         BlockRenderLayerMap.INSTANCE.putBlock(RegisterBlocks.BROWN_SHELF_FUNGUS, RenderType.cutout());
