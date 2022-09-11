@@ -3,6 +3,8 @@ package net.frozenblock.wilderwild.mixin.client;
 import com.google.common.collect.Lists;
 import com.mojang.blaze3d.vertex.DefaultVertexFormat;
 import com.mojang.datafixers.util.Pair;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.frozenblock.wilderwild.WilderWildClient;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.client.renderer.ShaderInstance;
@@ -19,6 +21,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.function.Consumer;
 
+@Environment(EnvType.CLIENT)
 @Mixin(GameRenderer.class)
 public class GameRendererMixin {
 
