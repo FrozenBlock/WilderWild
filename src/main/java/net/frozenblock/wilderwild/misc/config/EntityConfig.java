@@ -2,11 +2,15 @@ package net.frozenblock.wilderwild.misc.config;
 
 import me.shedaniel.autoconfig.ConfigData;
 import me.shedaniel.autoconfig.annotation.Config;
+import me.shedaniel.autoconfig.annotation.ConfigEntry;
+import me.shedaniel.clothconfig2.api.AbstractConfigListEntry;
 import me.shedaniel.clothconfig2.api.ConfigCategory;
 import me.shedaniel.clothconfig2.api.ConfigEntryBuilder;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.frozenblock.wilderwild.WilderWild;
+
+import java.util.List;
 
 import static net.frozenblock.wilderwild.misc.config.WilderWildConfig.text;
 import static net.frozenblock.wilderwild.misc.config.WilderWildConfig.tooltip;
@@ -14,37 +18,58 @@ import static net.frozenblock.wilderwild.misc.config.WilderWildConfig.tooltip;
 @Config(name = "entity")
 public class EntityConfig implements ConfigData {
 
-    public boolean wardenCustomTendrils = true;
-    public boolean wardenDyingAnimation = true;
-    public boolean wardenEmergesFromEgg = true;
-    public boolean wardenSwimAnimation = true;
+    @ConfigEntry.Gui.CollapsibleObject
+    public WardenConfig warden = new WardenConfig();
+
+    public static class WardenConfig {
+        public boolean wardenCustomTendrils = true;
+        public boolean wardenDyingAnimation = true;
+        public boolean wardenEmergesFromEgg = true;
+        public boolean wardenSwimAnimation = true;
+    }
+
+    public boolean unpassableRail = true;
 
     @Environment(EnvType.CLIENT)
     protected static void setupEntries(ConfigCategory category, ConfigEntryBuilder entryBuilder) {
         var config = WilderWildConfig.get().entity;
+        var warden = config.warden;
         category.setBackground(WilderWild.id("textures/config/entity.png"));
-        category.addEntry(entryBuilder.startBooleanToggle(text("warden_custom_tendrils"), config.wardenCustomTendrils)
+        var unpassableRail = category.addEntry(entryBuilder.startBooleanToggle(text("unpassable_rail"), config.unpassableRail)
                 .setDefaultValue(true)
-                .setSaveConsumer(newValue -> config.wardenCustomTendrils = newValue)
+                .setSaveConsumer(newValue -> config.unpassableRail = newValue)
+                .setTooltip(tooltip("unpassable_rail"))
+                .requireRestart()
+                .build());
+        var dying = entryBuilder.startBooleanToggle(text("warden_dying_animation"), warden.wardenDyingAnimation)
+                .setDefaultValue(true)
+                .setSaveConsumer(newValue -> warden.wardenDyingAnimation = newValue)
+                .setTooltip(tooltip("warden_dying_animation"))
+                .build();
+        var emerging = entryBuilder.startBooleanToggle(text("warden_emerges_from_egg"), warden.wardenEmergesFromEgg)
+                .setDefaultValue(true)
+                .setSaveConsumer(newValue -> warden.wardenEmergesFromEgg = newValue)
+                .setTooltip(tooltip("warden_emerges_from_egg"))
+                .build();
+        var swimming = entryBuilder.startBooleanToggle(text("warden_swim_animation"), warden.wardenSwimAnimation)
+                .setDefaultValue(true)
+                .setSaveConsumer(newValue -> warden.wardenSwimAnimation = newValue)
+                .setTooltip(tooltip("warden_swim_animation"))
+                .build();
+        var tendrils = entryBuilder.startBooleanToggle(text("warden_custom_tendrils"), warden.wardenCustomTendrils)
+                .setDefaultValue(true)
+                .setSaveConsumer(newValue -> warden.wardenCustomTendrils = newValue)
                 .setYesNoTextSupplier(bool -> text("warden_custom_tendrils." + bool))
                 .setTooltip(tooltip("warden_custom_tendrils"))
-                .build());
-        category.addEntry(entryBuilder.startBooleanToggle(text("warden_dying_animation"), config.wardenDyingAnimation)
-                .setDefaultValue(true)
-                .setSaveConsumer(newValue -> config.wardenDyingAnimation = newValue)
-                .setTooltip(tooltip("warden_dying_animation"))
-                .build());
-        category.addEntry(entryBuilder.startBooleanToggle(text("warden_emerges_from_egg"), config.wardenEmergesFromEgg)
-                .setDefaultValue(true)
-                .setSaveConsumer(newValue -> config.wardenEmergesFromEgg = newValue)
-                .setTooltip(tooltip("warden_emerges_from_egg"))
-                .build());
-        category.addEntry(entryBuilder.startBooleanToggle(text("warden_swim_animation"), config.wardenSwimAnimation)
-                .setDefaultValue(true)
-                .setSaveConsumer(newValue -> config.wardenSwimAnimation = newValue)
-                .setTooltip(tooltip("warden_swim_animation"))
-                .build());
+                .build();
 
+        List<AbstractConfigListEntry> wardenList = List.of(dying, emerging, swimming, tendrils);
+
+        var wardenCategory = category.addEntry(entryBuilder.startSubCategory(text("warden"), wardenList)
+                .setExpanded(false)
+                .setTooltip(tooltip("warden"))
+                .build()
+        );
     }
 
 

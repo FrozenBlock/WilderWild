@@ -107,17 +107,17 @@ public class WorldgenConfig implements ConfigData {
                 .requireRestart()
                 .build()
         );
-        var wilderWildTrees = category.addEntry(entryBuilder.startBooleanToggle(text("wilder_wild_trees"), config.wilderWildTreeGen)
-                .setDefaultValue(true)
-                .setSaveConsumer(newValue -> config.wilderWildTreeGen = newValue)
-                .setTooltip(tooltip("wilder_wild_trees"))
-                .requireRestart()
-                .build()
-        );
         var wilderWildGrass = category.addEntry(entryBuilder.startBooleanToggle(text("wilder_wild_grass"), config.wilderWildGrassGen)
                 .setDefaultValue(true)
                 .setSaveConsumer(newValue -> config.wilderWildGrassGen = newValue)
                 .setTooltip(tooltip("wilder_wild_grass"))
+                .requireRestart()
+                .build()
+        );
+        var wilderWildTrees = category.addEntry(entryBuilder.startBooleanToggle(text("wilder_wild_trees"), config.wilderWildTreeGen)
+                .setDefaultValue(true)
+                .setSaveConsumer(newValue -> config.wilderWildTreeGen = newValue)
+                .setTooltip(tooltip("wilder_wild_trees"))
                 .requireRestart()
                 .build()
         );
