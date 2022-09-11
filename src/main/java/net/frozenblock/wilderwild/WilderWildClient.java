@@ -436,6 +436,10 @@ public final class WilderWildClient implements ClientModInitializer {
             })
     );
 
+    public static RenderType entityTranslucentEmissiveFixed(ResourceLocation resourceLocation) {
+        return ENTITY_TRANSLUCENT_EMISSIVE_FIXED.apply(resourceLocation, true);
+    }
+
     public static RenderType.CompositeRenderType create(
             String name,
             VertexFormat vertexFormat,

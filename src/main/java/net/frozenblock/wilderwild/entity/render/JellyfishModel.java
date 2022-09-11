@@ -5,6 +5,7 @@ import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.math.Vector3f;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.frozenblock.wilderwild.WilderWildClient;
 import net.frozenblock.wilderwild.entity.Jellyfish;
 import net.minecraft.client.model.HierarchicalModel;
 import net.minecraft.client.model.geom.ModelPart;
@@ -30,7 +31,7 @@ public class JellyfishModel<T extends Jellyfish> extends HierarchicalModel<T> {
     private final ModelPart tentacle8;
 
     public JellyfishModel(ModelPart root) {
-        super(RenderType::entityTranslucentEmissive);
+        super(WilderWildClient::entityTranslucentEmissiveFixed);
         this.root = root;
         ModelPart bone = root.getChild("bone");
         this.body = bone.getChild("body");
