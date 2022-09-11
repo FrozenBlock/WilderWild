@@ -101,10 +101,10 @@ public class WardenMoveControl extends MoveControl {
     }
 
     private boolean isEntityTouchingWaterOrLava(Entity entity) {
-        return entity.isInWaterOrBubble() || entity.isInLava();
+        return entity.isInWaterOrBubble() || entity.isInLava() || entity.isVisuallySwimming();
     }
 
     private boolean isEntitySubmergedInWaterOrLava(Entity entity) {
-        return entity.isEyeInFluid(FluidTags.WATER) || entity.isEyeInFluid(FluidTags.LAVA);
+        return entity.isEyeInFluid(FluidTags.WATER) || entity.isEyeInFluid(FluidTags.LAVA) || entity.isVisuallySwimming();
     }
 }

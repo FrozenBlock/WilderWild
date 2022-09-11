@@ -60,4 +60,9 @@ public class WardenNavigation extends GroundPathNavigation {
     protected boolean hasValidPathType(BlockPathTypes pathType) {
         return pathType != BlockPathTypes.OPEN;
     }
+
+    @Override
+    public boolean isInLiquid() {
+        return super.isInLiquid() || this.entity.isVisuallySwimming();
+    }
 }

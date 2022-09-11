@@ -153,11 +153,11 @@ public class WardenPathNodeMaker extends WalkNodeEvaluator {
     }
 
     private boolean isEntityTouchingWaterOrLava(Entity entity) {
-        return entity.isInWater() || entity.isInLava();
+        return entity.isInWaterOrBubble() || entity.isInLava() || entity.isVisuallySwimming();
     }
 
     private boolean isEntitySubmergedInWaterOrLava(Entity entity) {
-        return entity.isEyeInFluid(FluidTags.WATER) || entity.isEyeInFluid(FluidTags.LAVA);
+        return entity.isEyeInFluid(FluidTags.WATER) || entity.isEyeInFluid(FluidTags.LAVA) || entity.isVisuallySwimming();
     }
 }
 
