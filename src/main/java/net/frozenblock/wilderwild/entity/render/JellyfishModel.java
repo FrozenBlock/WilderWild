@@ -11,7 +11,6 @@ import net.minecraft.client.model.HierarchicalModel;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
-import net.minecraft.client.renderer.RenderType;
 import net.minecraft.util.Mth;
 import org.jetbrains.annotations.NotNull;
 
@@ -100,13 +99,10 @@ public class JellyfishModel<T extends Jellyfish> extends HierarchicalModel<T> {
         float movementDelta = Math.min(limbSwingAmount * 26.6666667F, 1.0F);
         float tentRot = Mth.rotLerp(movementDelta, (float)(-Math.sin((ageInTicks - 10) * 0.1F) * 0.2F) + eightPi, (float)(-Math.sin(animation + 5) * 20 - 7.5F) * pi180);
 
-        //CARDINAL TENTACLES
         this.tentacle1.xRot = tentRot;
         this.tentacle3.xRot = tentRot;
         this.tentacle5.xRot = tentRot;
         this.tentacle7.xRot = tentRot;
-
-        //INTERMEDIATE TENTACLES
         this.tentacle2.xRot = tentRot;
         this.tentacle4.xRot = tentRot;
         this.tentacle6.xRot = tentRot;
