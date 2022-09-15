@@ -12,29 +12,22 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Pseudo;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.ModifyVariable;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Environment(EnvType.CLIENT)
 @Pseudo
-@Mixin(value = BlockRenderPassManager.class, remap = false)
+@Mixin(BlockRenderPassManager.class)
 public class BlockRenderPassManagerMixin implements SodiumInteraction {
 
-    @Shadow(remap = false)
+    @Shadow
     private void addMapping(RenderType layer, BlockRenderPass type) {
     }
 
-    @Inject(method = "createDefaultMappings", at = @At("RETURN"), remap = false)
-    private static void createDefaultMappings(CallbackInfoReturnable<BlockRenderPassManager> cir) {
-        ((SodiumInteraction) cir.getReturnValue()).frozenAddMapping(WilderWildClient.translucentCutout(), WilderBlockRenderPass.WILDERTRANSLUCENT);
-    }
-
-    /*@ModifyVariable(method = "createDefaultMappings", at = @At(value = "LOAD", target = "Lme/jellysquid/mods/sodium/client/render/chunk/passes/BlockRenderPassManager;<init>()V", ordinal = 5), remap = false)
+    @ModifyVariable(method = "createDefaultMappings", at = @At(value = "LOAD", target = "Lme/jellysquid/mods/sodium/client/render/chunk/passes/BlockRenderPassManager;<init>()V"), remap = false)
     private static BlockRenderPassManager createDefaultMappings(BlockRenderPassManager value) {
         ((SodiumInteraction) value).frozenAddMapping(WilderWildClient.translucentCutout(), WilderBlockRenderPass.WILDERTRANSLUCENT);
         return value;
-    }*/
+    }
 
     @Override
     public void frozenAddMapping(RenderType layer, BlockRenderPass type) {
