@@ -19,6 +19,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
+import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.Redirect;
@@ -30,7 +31,7 @@ import java.util.Objects;
 import java.util.stream.Stream;
 
 @Mixin(SculkSpreader.ChargeCursor.class)
-public class SculkSpreadManagerCursorMixin {
+public class SculkSpreaderChargeCursorMixin {
 
 
     @Final
@@ -41,10 +42,8 @@ public class SculkSpreadManagerCursorMixin {
         var10000.forEach(objectArrayList::add);
     });
 
+    @Unique
     private boolean worldgen = false;
-
-    public SculkSpreadManagerCursorMixin() {
-    }
 
     @Redirect(method = "update", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/block/SculkSpreader$ChargeCursor;getBlockBehaviour(Lnet/minecraft/world/level/block/state/BlockState;)Lnet/minecraft/world/level/block/SculkBehaviour;"))
     private SculkBehaviour newSculkBehaviour(BlockState blockState) {
@@ -56,6 +55,7 @@ public class SculkSpreadManagerCursorMixin {
         this.worldgen = sculkSpreader.isWorldGeneration();
     }
 
+    @Unique
     private static SculkBehaviour getBlockBehaviourNew(BlockState state, boolean isWorldGen) {
         if (isWorldGen) {
             if (state.is(WilderBlockTags.SCULK_WALL_REPLACEABLE_WORLDGEN) || state.is(WilderBlockTags.SCULK_SLAB_REPLACEABLE_WORLDGEN) || state.is(WilderBlockTags.SCULK_STAIR_REPLACEABLE_WORLDGEN) || state.is(WilderBlockTags.SCULK_WALL_REPLACEABLE) || state.is(WilderBlockTags.SCULK_SLAB_REPLACEABLE) || state.is(WilderBlockTags.SCULK_STAIR_REPLACEABLE)) {
@@ -71,6 +71,7 @@ public class SculkSpreadManagerCursorMixin {
         return getBlockBehaviour(state);
     }
 
+    @Unique
     private static boolean isMovementUnobstructedNew(LevelAccessor world, BlockPos sourcePos, BlockPos targetPos) {
         if (sourcePos.distManhattan(targetPos) != 1) {
             BlockState cheatState = world.getBlockState(targetPos);

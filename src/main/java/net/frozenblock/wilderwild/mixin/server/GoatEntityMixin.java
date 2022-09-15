@@ -15,6 +15,7 @@ import net.minecraft.world.item.Items;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
+import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
@@ -28,6 +29,7 @@ public class GoatEntityMixin {
     @Final
     private static EntityDataAccessor<Boolean> DATA_IS_SCREAMING_GOAT;
 
+    @Unique
     private boolean isTreetrain1() {
         Goat goat = Goat.class.cast(this);
         String string = ChatFormatting.stripFormatting(goat.getName().getString());

@@ -15,7 +15,6 @@ import net.minecraft.data.worldgen.placement.VegetationPlacements;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.sounds.Music;
 import net.minecraft.sounds.Musics;
-import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.level.biome.*;
@@ -29,7 +28,7 @@ public final class RegisterWorldgen {
     public static final ResourceKey<Biome> CYPRESS_WETLANDS = register("cypress_wetlands");
     public static final ResourceKey<Biome> JELLYFISH_CAVES = register("jellyfish_caves");
 
-    public static void registerWorldGen() {
+    public static void registerWorldgen() {
         WilderWild.logWild("Registering Biomes for", WilderWild.UNSTABLE_LOGGING);
         BuiltinRegistries.register(BuiltinRegistries.BIOME, MIXED_FOREST.location(), mixedForest());
         BuiltinRegistries.register(BuiltinRegistries.BIOME, CYPRESS_WETLANDS.location(), cypressWetlands());
@@ -53,7 +52,8 @@ public final class RegisterWorldgen {
         return new Biome.BiomeBuilder()
                 .precipitation(Biome.Precipitation.RAIN)
                 .temperature(0.7F)
-                .downfall(0.7F).specialEffects(
+                .downfall(0.7F)
+                .specialEffects(
                         new BiomeSpecialEffects.Builder()
                                 .waterColor(4159204)
                                 .waterFogColor(329011)

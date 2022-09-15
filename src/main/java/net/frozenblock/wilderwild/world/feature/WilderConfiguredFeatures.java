@@ -331,7 +331,7 @@ public final class WilderConfiguredFeatures {
                     0.8F,
                     2,
                     0.08F,
-                    UniformInt.of(4, 15),
+                    UniformInt.of(4, 14),
                     0.7F
             )
     );

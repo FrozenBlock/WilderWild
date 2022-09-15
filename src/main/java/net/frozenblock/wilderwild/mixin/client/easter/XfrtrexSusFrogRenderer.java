@@ -8,6 +8,7 @@ import net.minecraft.client.renderer.entity.FrogRenderer;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.animal.frog.Frog;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
@@ -18,6 +19,7 @@ import java.util.Objects;
 @Mixin(FrogRenderer.class)
 public class XfrtrexSusFrogRenderer {
 
+    @Unique
     private static final ResourceLocation SUS_TEXTURE = WilderWild.id("textures/entity/frog/sus_frog.png");
 
 

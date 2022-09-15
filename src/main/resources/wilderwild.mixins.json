@@ -25,9 +25,9 @@
 	"server.SculkSensorBlockMixin",
 	"server.SculkShriekerBlockEntityMixin",
 	"server.SculkShriekerBlockMixin",
-	"server.SculkSpreadManagerCursorMixin",
+	"server.SculkSpreaderChargeCursorMixin",
 	"server.SculkVeinBlockMixin",
-	"server.SculkVeinGrowCheckerMixin",
+	"server.SculkVeinSpreaderConfigMixin",
 	"server.SlimeMixin",
 	"server.SonicBoomTaskMixin",
 	"server.SoulFireBlockMixin",
@@ -51,6 +51,9 @@
 	"client.GameRendererMixin",
 	"client.LevelRendererMixin",
 	"client.LiquidBlockRendererMixin",
+	"client.RebuildTaskMixin",
+	"client.RenderBuffersMixin",
+	"client.RenderTypeMixin",
 	"client.WardenAnimationOverwrites",
 	"client.WardenEntityModelMixin",
 	"client.WardenFeatureRendererMixin",
@@ -61,7 +64,10 @@
 	"client.easter.Treetrain1GoatRenderer",
 	"client.easter.UppyBalloo",
 	"client.easter.UppyBallooModel",
-	"client.easter.XfrtrexSusFrogRenderer"
+	"client.easter.XfrtrexSusFrogRenderer",
+	"client.fabric_api.BlendModeMixin",
+	"client.sodium.BlockRenderPassManagerMixin",
+	"client.sodium.BlockRenderPassMixin"
   ],
   "injectors": {
 	"defaultRequire": 1

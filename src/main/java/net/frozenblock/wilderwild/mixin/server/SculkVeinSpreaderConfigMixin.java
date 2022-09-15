@@ -12,7 +12,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(SculkVeinBlock.SculkVeinSpreaderConfig.class)
-public class SculkVeinGrowCheckerMixin {
+public class SculkVeinSpreaderConfigMixin {
 
     @Inject(at = @At("RETURN"), method = "stateCanBeReplaced", cancellable = true)
     public void newBlocks(BlockGetter world, BlockPos pos, BlockPos growPos, Direction direction, BlockState state, CallbackInfoReturnable<Boolean> info) {
