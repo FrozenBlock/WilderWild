@@ -14,6 +14,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.monster.warden.Warden;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
@@ -23,11 +24,17 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 @Mixin(WardenRenderer.class)
 public abstract class OsmioooWardenRenderer extends MobRenderer<Warden, WardenModel<Warden>> {
 
+    @Unique
     private static final ResourceLocation OSMIOOO_TEXTURE = WilderWild.id("textures/entity/warden/osmiooo_warden.png");
+    @Unique
     private static final ResourceLocation OSMIOOO_BIOLUMINESCENT_LAYER_TEXTURE = WilderWild.id("textures/entity/warden/osmiooo_warden_bioluminescent_overlay.png");
+    @Unique
     private static final ResourceLocation OSMIOOO_HEART_TEXTURE = WilderWild.id("textures/entity/warden/osmiooo_warden_heart.png");
+    @Unique
     private static final ResourceLocation OSMIOOO_TENDRILS_TEXTURE = WilderWild.id("textures/entity/warden/osmiooo_warden_tendrils.png");
+    @Unique
     private static final ResourceLocation OSMIOOO_PULSATING_SPOTS_1_TEXTURE = WilderWild.id("textures/entity/warden/osmiooo_warden_pulsating_spots_1.png");
+    @Unique
     private static final ResourceLocation OSMIOOO_PULSATING_SPOTS_2_TEXTURE = WilderWild.id("textures/entity/warden/osmiooo_warden_pulsating_spots_2.png");
 
     public OsmioooWardenRenderer(EntityRendererProvider.Context context, WardenModel<Warden> entityModel, float f) {

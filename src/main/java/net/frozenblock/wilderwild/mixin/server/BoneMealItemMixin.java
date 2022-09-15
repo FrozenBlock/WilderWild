@@ -15,11 +15,13 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.LevelEvent;
 import net.minecraft.world.level.block.state.BlockState;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 @Mixin(BoneMealItem.class)
@@ -44,15 +46,9 @@ public class BoneMealItemMixin {
         }
     }
 
-    private static final List<Direction> offsets = new ArrayList<>() {{
-        add(Direction.EAST);
-        add(Direction.NORTH);
-        add(Direction.SOUTH);
-        add(Direction.WEST);
-    }};
-
+    @Unique
     private static List<Direction> shuffleOffsets(RandomSource random) {
-        return Util.toShuffledList(offsets.stream(), random);
+        return Util.toShuffledList(Arrays.stream(Direction.values()).filter(direction -> direction.getAxis().isHorizontal()), random);
     }
 
 }

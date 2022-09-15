@@ -18,7 +18,7 @@ import java.util.Arrays;
 
 @Environment(EnvType.CLIENT)
 @Pseudo
-@Mixin(BlockRenderPass.class)
+@Mixin(value = BlockRenderPass.class, remap = false)
 public class BlockRenderPassMixin {
 
     @SuppressWarnings("InvokerTarget")
@@ -41,7 +41,7 @@ public class BlockRenderPassMixin {
         var types = new ArrayList<>(Arrays.asList($VALUES));
         var last = types.get(types.size() - 1);
 
-        var wildertranslucent = newPass("WILDERWILDTRANSLUCENT", -(last.ordinal() + 1), WilderWildClient.translucentCutout(), true, 0.01F);
+        var wildertranslucent = newPass("WILDERWILDTRANSLUCENTCUTOUT", (last.ordinal() + 1), WilderWildClient.translucentCutout(), true, 0.01F);
         WilderBlockRenderPass.WILDERTRANSLUCENT = wildertranslucent;
         types.add(wildertranslucent);
 

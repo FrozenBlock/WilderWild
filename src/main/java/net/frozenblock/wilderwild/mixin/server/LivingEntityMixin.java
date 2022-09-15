@@ -50,13 +50,13 @@ public abstract class LivingEntityMixin extends Entity {
     }
 
     @Shadow
-    public float getSoundVolume() {
+    protected float getSoundVolume() {
         return 1.0f;
     }
 
 
     @Shadow @Nullable
-    public SoundEvent getHurtSound(DamageSource damageSource) {
+    protected SoundEvent getHurtSound(DamageSource damageSource) {
         return SoundEvents.GENERIC_HURT;
     }
 

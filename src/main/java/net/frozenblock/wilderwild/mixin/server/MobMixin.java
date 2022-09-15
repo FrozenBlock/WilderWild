@@ -15,7 +15,10 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(Mob.class)
 public abstract class MobMixin extends LivingEntity {
 
-    @Shadow public abstract void setPathfindingMalus(BlockPathTypes blockPathTypes, float f);
+    @Shadow
+    public void setPathfindingMalus(BlockPathTypes blockPathTypes, float f) {
+
+    }
 
     protected MobMixin(EntityType<? extends LivingEntity> entityType, Level level) {
         super(entityType, level);
