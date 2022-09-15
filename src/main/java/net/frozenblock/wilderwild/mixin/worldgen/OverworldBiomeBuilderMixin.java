@@ -3,6 +3,7 @@ package net.frozenblock.wilderwild.mixin.worldgen;
 import com.mojang.datafixers.util.Pair;
 import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.lib.worldgen.biome.api.FrozenOverworldBiomes;
+import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.misc.config.ClothConfigInteractionHandler;
 import net.frozenblock.wilderwild.registry.RegisterWorldgen;
 import net.minecraft.resources.ResourceKey;

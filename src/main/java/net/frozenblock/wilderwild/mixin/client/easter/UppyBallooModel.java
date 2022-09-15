@@ -8,12 +8,15 @@ import net.minecraft.client.model.QuadrupedModel;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.world.entity.Entity;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Unique;
 
 @Environment(EnvType.CLIENT)
 @Mixin(PigModel.class)
 public class UppyBallooModel<T extends Entity> extends QuadrupedModel<T> {
 
+    @Unique
     private static final float radians = ((float) Math.PI / 180);
+    @Unique
     private static final float non_uppy_balloo_angle = 90 * radians;
 
     public UppyBallooModel(ModelPart root) {

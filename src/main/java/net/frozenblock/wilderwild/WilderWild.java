@@ -14,10 +14,7 @@ import net.frozenblock.wilderwild.misc.BlockSoundGroupOverwrites;
 import net.frozenblock.wilderwild.misc.FrozenLibIntegration;
 import net.frozenblock.wilderwild.misc.mod_compat.simple_copper_pipes.RegisterSaveableMoveablePipeNbt;
 import net.frozenblock.wilderwild.registry.*;
-import net.frozenblock.wilderwild.world.feature.WilderConfiguredFeatures;
-import net.frozenblock.wilderwild.world.feature.WilderMiscConfigured;
-import net.frozenblock.wilderwild.world.feature.WilderTreeConfigured;
-import net.frozenblock.wilderwild.world.feature.WilderTreePlaced;
+import net.frozenblock.wilderwild.world.feature.*;
 import net.frozenblock.wilderwild.world.feature.features.*;
 import net.frozenblock.wilderwild.world.feature.features.config.*;
 import net.frozenblock.wilderwild.world.gen.WilderWorldGen;
@@ -86,12 +83,13 @@ public final class WilderWild implements ModInitializer {
         RegisterBlocks.registerBlocks();
         RegisterItems.registerItems();
         WilderConfiguredFeatures.registerConfiguredFeatures();
+        WilderPlacedFeatures.init();
         WilderTreeConfigured.registerTreeConfigured();
         WilderTreePlaced.registerTreePlaced();
         WilderMiscConfigured.registerMiscPlaced();
         WilderWorldGen.generateWildWorldGen();
         RegisterGameEvents.registerEvents();
-        RegisterWorldgen.registerWorldGen();
+        RegisterWorldgen.registerWorldgen();
         RegisterStructures.init();
 
         RegisterSounds.init();

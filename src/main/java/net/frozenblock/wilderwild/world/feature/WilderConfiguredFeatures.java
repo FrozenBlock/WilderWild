@@ -235,7 +235,7 @@ public final class WilderConfiguredFeatures {
                     0.8F,
                     2,
                     0.04F,
-                    UniformInt.of(4, 7),
+                    UniformInt.of(4, 14),
                     0.7F
             )
     );
@@ -251,7 +251,7 @@ public final class WilderConfiguredFeatures {
                     0.8F,
                     5,
                     0.04F,
-                    UniformInt.of(4, 7),
+                    UniformInt.of(4, 14),
                     0.7F
             )
     );
@@ -275,7 +275,7 @@ public final class WilderConfiguredFeatures {
                     0.8F,
                     2,
                     0.08F,
-                    UniformInt.of(4, 7),
+                    UniformInt.of(4, 14),
                     0.7F
             )
     );
@@ -291,7 +291,7 @@ public final class WilderConfiguredFeatures {
                     0.8F,
                     2,
                     0.04F,
-                    UniformInt.of(4, 7),
+                    UniformInt.of(4, 14),
                     0.7F
             )
     );
@@ -307,7 +307,7 @@ public final class WilderConfiguredFeatures {
                     0.8F,
                     5,
                     0.04F,
-                    UniformInt.of(4, 7),
+                    UniformInt.of(4, 14),
                     0.7F
             )
     );
@@ -331,7 +331,7 @@ public final class WilderConfiguredFeatures {
                     0.8F,
                     2,
                     0.08F,
-                    UniformInt.of(4, 7),
+                    UniformInt.of(4, 14),
                     0.7F
             )
     );

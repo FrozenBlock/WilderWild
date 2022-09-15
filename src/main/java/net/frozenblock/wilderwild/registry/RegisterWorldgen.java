@@ -15,7 +15,6 @@ import net.minecraft.data.worldgen.placement.VegetationPlacements;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.sounds.Music;
 import net.minecraft.sounds.Musics;
-import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.level.biome.*;
@@ -31,7 +30,7 @@ public final class RegisterWorldgen {
 
     public static final int SWAMP_HUMIDITY = 2;
 
-    public static void registerWorldGen() {
+    public static void registerWorldgen() {
         WilderWild.logWild("Registering Biomes for", WilderWild.UNSTABLE_LOGGING);
         BuiltinRegistries.register(BuiltinRegistries.BIOME, MIXED_FOREST.location(), mixedForest());
         BuiltinRegistries.register(BuiltinRegistries.BIOME, CYPRESS_WETLANDS.location(), cypressWetlands());
@@ -55,7 +54,8 @@ public final class RegisterWorldgen {
         return new Biome.BiomeBuilder()
                 .precipitation(Biome.Precipitation.RAIN)
                 .temperature(0.7F)
-                .downfall(0.7F).specialEffects(
+                .downfall(0.7F)
+                .specialEffects(
                         new BiomeSpecialEffects.Builder()
                                 .waterColor(4159204)
                                 .waterFogColor(329011)
@@ -101,7 +101,7 @@ public final class RegisterWorldgen {
         BiomeDefaultFeatures.commonSpawns(builder);
         BiomeGenerationSettings.Builder builder2 = new BiomeGenerationSettings.Builder();
         addJellyfishCavesFeatures(builder2);
-        Music music = Musics.createGameMusic(SoundEvents.MUSIC_BIOME_LUSH_CAVES);
+        Music music = Musics.createGameMusic(RegisterSounds.MUSIC_OVERWORLD_JELLYFISH_CAVES);
         return new Biome.BiomeBuilder()
                 .precipitation(Biome.Precipitation.RAIN)
                 .temperature(0.8F)
@@ -181,6 +181,7 @@ public final class RegisterWorldgen {
         builder.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, WilderPlacedFeatures.JELLYFISH_CAVES_UPSIDE_DOWN_PURPLE_MESOGLEA);
         builder.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, WilderMiscPlaced.MESOGLEA_PILLAR);
         builder.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, WilderMiscPlaced.PURPLE_MESOGLEA_PILLAR);
+        builder.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, WilderMiscPlaced.ORE_CALCITE);
         builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.PATCH_NEMATOCYST_UP);
         builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.PATCH_NEMATOCYST_DOWN);
         builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.PATCH_NEMATOCYST_EAST);

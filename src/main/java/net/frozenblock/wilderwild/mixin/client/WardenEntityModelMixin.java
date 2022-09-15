@@ -16,6 +16,7 @@ import net.minecraft.world.entity.monster.warden.Warden;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
+import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
@@ -62,8 +63,10 @@ public abstract class WardenEntityModelMixin<T extends Warden> implements Wilder
     @Shadow
     protected ModelPart rightArm;
 
+    @Unique
     private List<ModelPart> headAndTendrils;
 
+    @Unique
     private final WardenModel model = WardenModel.class.cast(this);
 
     @Inject(method = "<init>", at = @At("TAIL"))
@@ -105,6 +108,7 @@ public abstract class WardenEntityModelMixin<T extends Warden> implements Wilder
         model.animate(((WilderWarden) wardenEntity).getKirbyDeathAnimationState(), CustomWardenAnimations.KIRBY_DEATH, anim);
     }
 
+    @Unique
     private static final float rad = (float) (Math.PI / 180);
 
     private void animateSwimming(T warden, float angle, float distance, float anim, float headYaw, float headPitch, boolean moveLimbs, boolean canSwim) {
@@ -165,8 +169,8 @@ public abstract class WardenEntityModelMixin<T extends Warden> implements Wilder
                 this.body.y = 0;
             }
 
-            this.rightLeg.y = Mth.rotLerp(swimLerp, this.rightLeg.y + 8, 8);
-            this.leftLeg.y = Mth.rotLerp(swimLerp, this.leftLeg.y + 8, 8);
+            this.rightLeg.y = Mth.lerp(swimLerp, this.rightLeg.y, 0);
+            this.leftLeg.y = Mth.lerp(swimLerp, this.leftLeg.y, 0);
 
         } else if (this.isSubmerged(warden) && distance <= 0) {
 
@@ -191,6 +195,7 @@ public abstract class WardenEntityModelMixin<T extends Warden> implements Wilder
         }
     }
 
+    @Unique
     private boolean isSubmerged(Warden warden) {
         return warden.isInWaterOrBubble() || warden.isEyeInFluid(FluidTags.LAVA);
     }

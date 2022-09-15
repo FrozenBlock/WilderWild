@@ -316,6 +316,9 @@ public final class WilderPlacedFeatures {
     public static final Holder<PlacedFeature> PATCH_NEMATOCYST_WEST = register("patch_nematocyst_west", WilderConfiguredFeatures.PATCH_NEMATOCYST_WEST,
             CountPlacement.of(ConstantInt.of(9)), InSquarePlacement.spread(), PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT, BiomeFilter.biome());
 
+    public static void init() {
+    }
+
     public static Holder<PlacedFeature> register(@NotNull String id, Holder<? extends ConfiguredFeature<?, ?>> registryEntry, @NotNull List<PlacementModifier> modifiers) {
         return BuiltinRegistries.register(BuiltinRegistries.PLACED_FEATURE, WilderWild.id(id), new PlacedFeature(Holder.hackyErase(registryEntry), List.copyOf(modifiers)));
     }

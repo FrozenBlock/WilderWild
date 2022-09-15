@@ -232,7 +232,9 @@ public final class RegisterSounds {
     public static final SoundEvent MUSIC_DISC_BENEATH = register("music_disc.beneath");
     public static final SoundEvent MUSIC_DISC_GOATHORN_SYMPHONY = register("music_disc.goathorn_symphony");
     public static final SoundEvent MUSIC_DISC_BACK = register("music_disc.back");
+
     public static final SoundEvent MUSIC_OVERWORLD_WILD_FORESTS = register("music.overworld.wild_forests");
+    public static final SoundEvent MUSIC_OVERWORLD_JELLYFISH_CAVES = register("music.overworld.jellyfish_caves");
 
     public static SoundEvent register(String path) {
         return Registry.register(Registry.SOUND_EVENT, WilderWild.id(path), new SoundEvent(WilderWild.id(path)));

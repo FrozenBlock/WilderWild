@@ -74,7 +74,7 @@ public final class WilderWildClient implements ClientModInitializer {
         BlockRenderLayerMap.INSTANCE.putBlock(RegisterBlocks.ALGAE, RenderType.cutout());
         BlockRenderLayerMap.INSTANCE.putBlock(RegisterBlocks.MILKWEED, RenderType.cutout());
         BlockRenderLayerMap.INSTANCE.putBlock(RegisterBlocks.POLLEN_BLOCK, RenderType.cutout());
-        BlockRenderLayerMap.INSTANCE.putBlock(RegisterBlocks.ECHO_GLASS, translucentCutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(RegisterBlocks.ECHO_GLASS, RenderType.translucent());
         BlockRenderLayerMap.INSTANCE.putBlock(RegisterBlocks.HANGING_TENDRIL, RenderType.cutout());
         BlockRenderLayerMap.INSTANCE.putBlock(RegisterBlocks.FLOWERING_LILY_PAD, RenderType.cutout());
         BlockRenderLayerMap.INSTANCE.putBlock(RegisterBlocks.BROWN_SHELF_FUNGUS, RenderType.cutout());
@@ -444,6 +444,10 @@ public final class WilderWildClient implements ClientModInitializer {
                 );
             })
     );
+
+    public static RenderType entityTranslucentEmissiveFixed(ResourceLocation resourceLocation) {
+        return ENTITY_TRANSLUCENT_EMISSIVE_FIXED.apply(resourceLocation, true);
+    }
 
     public static final RenderType TRANSLUCENT_CUTOUT = create(
             "translucent_cutout_wilderwild", DefaultVertexFormat.BLOCK, VertexFormat.Mode.QUADS, 2097152, true, true, RenderType.translucentState(RENDERTYPE_TRANSLUCENT_CUTOUT_SHADER)

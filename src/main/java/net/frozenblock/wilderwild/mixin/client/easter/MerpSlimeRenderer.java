@@ -8,6 +8,7 @@ import net.minecraft.client.renderer.entity.SlimeRenderer;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.monster.Slime;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
@@ -18,6 +19,7 @@ import java.util.Objects;
 @Mixin(SlimeRenderer.class)
 public class MerpSlimeRenderer {
 
+    @Unique
     private static final ResourceLocation MERP_SLIME = WilderWild.id("textures/entity/slime/merp_slime.png");
 
     @Inject(method = "getTextureLocation(Lnet/minecraft/world/entity/monster/Slime;)Lnet/minecraft/resources/ResourceLocation;", at = @At("RETURN"), cancellable = true)

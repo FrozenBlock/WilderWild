@@ -94,6 +94,7 @@ dependencies {
 		officialMojangMappings()
 	})*/
 	modImplementation "net.fabricmc:fabric-loader:${loader_version}"
+
 	// Fabric API. This is technically optional, but you probably want it anyway.
 	modImplementation "net.fabricmc.fabric-api:fabric-api:${fabric_version}"
 
@@ -137,9 +138,9 @@ dependencies {
 	include("com.github.LlamaLad7:MixinExtras:0.0.12")
 
 	// Sodium
-	modImplementation "maven.modrinth:sodium:${sodium_version}"
-	modImplementation "org.joml:joml:1.10.4"
-	modImplementation "org.anarres:jcpp:1.4.14"
+	modCompileOnly "maven.modrinth:sodium:${sodium_version}"
+	modCompileOnly "org.joml:joml:1.10.4"
+	modCompileOnly "org.anarres:jcpp:1.4.14"
 
 	// only affects runClient, does not affect gradlew build. add -PuseThirdPartyMods=false to not use these
 	if (findProperty("useThirdPartyMods") != "false") {
@@ -150,14 +151,14 @@ dependencies {
 
 		// Sodium Related
 
-		modRuntimeOnly "maven.modrinth:iris:${iris_version}"
+		/*modRuntimeOnly "maven.modrinth:iris:${iris_version}"
 		modRuntimeOnly "maven.modrinth:indium:${indium_version}"
 		modRuntimeOnly("me.flashyreese.mods:reeses-sodium-options:${reeses_sodium_options_version}") {
 			exclude group: "net.coderbot.iris_mc1_19", module: "iris"
 		}
 		modRuntimeOnly "me.flashyreese.mods:sodium-extra-fabric:${sodium_extra_version}"
 		modRuntimeOnly 'io.github.douira:glsl-transformer:0.27.0'
-		modRuntimeOnly "net.caffeinemc:mixin-config:1.0.0+1.17"
+		modRuntimeOnly "net.caffeinemc:mixin-config:1.0.0+1.17"*/
 
 		modRuntimeOnly "maven.modrinth:entityculling:${entityculling_version}"
 		//modRuntimeOnly "maven.modrinth:c2me-fabric:0.2.0+alpha.8.32+1.19.1-rc3"

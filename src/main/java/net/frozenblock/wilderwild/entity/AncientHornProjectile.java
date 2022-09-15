@@ -72,7 +72,6 @@ public class AncientHornProjectile extends AbstractArrow {
     public boolean shotByPlayer;
     public int bubbles;
     private BlockState inBlockState;
-    private int ancientHornSizeCooldown = 10;
 
     public AncientHornProjectile(@NotNull EntityType<? extends AbstractArrow> entityType, Level world) {
         super(entityType, world);
@@ -188,14 +187,6 @@ public class AncientHornProjectile extends AbstractArrow {
 
         this.setPos(x, y, z);
         this.checkInsideBlocks();
-
-        if (this.ancientHornSizeCooldown <= 0) {
-            this.getDimensions(this.getPose()).scale(0.1F);
-            this.setBoundingBox(this.getBoundingBox().inflate(0.1D));
-            this.ancientHornSizeCooldown = 10;
-        } else {
-            --this.ancientHornSizeCooldown;
-        }
     }
 
     public void setCooldown(int cooldownTicks) {
@@ -398,7 +389,6 @@ public class AncientHornProjectile extends AbstractArrow {
             nbt.putDouble("originZ", this.vecZ);
             nbt.putBoolean("shotByPlayer", this.shotByPlayer);
             nbt.putInt("bubbles", this.bubbles);
-            nbt.putInt("ancientHornSizeCooldown", this.ancientHornSizeCooldown);
         }
     }
 
@@ -416,7 +406,6 @@ public class AncientHornProjectile extends AbstractArrow {
             this.vecZ = nbt.getDouble("originZ");
             this.shotByPlayer = nbt.getBoolean("shotByPlayer");
             this.bubbles = nbt.getInt("bubbles");
-            this.ancientHornSizeCooldown = nbt.getInt("ancientHornSizeCooldown");
         }
     }
 
