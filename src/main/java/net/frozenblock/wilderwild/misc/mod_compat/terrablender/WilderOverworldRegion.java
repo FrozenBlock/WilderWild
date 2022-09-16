@@ -29,7 +29,6 @@ public class WilderOverworldRegion extends Region {
             // how do you get the exact parameters of these?
             builder.replaceBiome(Biomes.FOREST, RegisterWorldgen.MIXED_FOREST);
             builder.replaceBiome(Biomes.DARK_FOREST, RegisterWorldgen.MIXED_FOREST);
-            builder.replaceBiome(Biomes.FLOWER_FOREST, RegisterWorldgen.MIXED_FOREST);
 
 
             // DON'T CHANGE THESE PARAMETERS. THESE ARE THE PARAMETERS OF SWAMPS
@@ -40,6 +39,7 @@ public class WilderOverworldRegion extends Region {
                     .erosion(ParameterUtils.Erosion.EROSION_6)
                     .depth(ParameterUtils.Depth.SURFACE, ParameterUtils.Depth.FLOOR)
                     .weirdness(ParameterUtils.Weirdness.VALLEY, ParameterUtils.Weirdness.LOW_SLICE_NORMAL_DESCENDING, ParameterUtils.Weirdness.LOW_SLICE_VARIANT_ASCENDING, ParameterUtils.Weirdness.MID_SLICE_NORMAL_ASCENDING, ParameterUtils.Weirdness.MID_SLICE_NORMAL_DESCENDING, ParameterUtils.Weirdness.MID_SLICE_VARIANT_ASCENDING, ParameterUtils.Weirdness.MID_SLICE_VARIANT_DESCENDING)
+                    .offset(Climate.quantizeCoord(0.0F))
                     .build();
 
             swampPointsCypress.forEach(point -> {
@@ -67,6 +67,7 @@ public class WilderOverworldRegion extends Region {
                     .erosion(ParameterUtils.Erosion.EROSION_6)
                     .depth(ParameterUtils.Depth.SURFACE, ParameterUtils.Depth.FLOOR)
                     .weirdness(ParameterUtils.Weirdness.VALLEY, ParameterUtils.Weirdness.LOW_SLICE_NORMAL_DESCENDING, ParameterUtils.Weirdness.LOW_SLICE_VARIANT_ASCENDING, ParameterUtils.Weirdness.MID_SLICE_NORMAL_ASCENDING, ParameterUtils.Weirdness.MID_SLICE_NORMAL_DESCENDING, ParameterUtils.Weirdness.MID_SLICE_VARIANT_ASCENDING, ParameterUtils.Weirdness.MID_SLICE_VARIANT_DESCENDING)
+                    .offset(Climate.quantizeCoord(0.0F))
                     .build();
 
             mangroveSwampPointsCypress.forEach(point -> {
@@ -94,7 +95,7 @@ public class WilderOverworldRegion extends Region {
                     .erosion(ParameterUtils.Erosion.FULL_RANGE)
                     .depth(Climate.Parameter.span(0.2F, 0.9F))
                     .weirdness(ParameterUtils.Weirdness.FULL_RANGE)
-                    .offset(0.0F)
+                    .offset(Climate.quantizeCoord(0.0F))
                     .build();
 
             dripstoneCavesPoints.forEach(point -> {
@@ -123,6 +124,7 @@ public class WilderOverworldRegion extends Region {
                         .erosion(ParameterUtils.Erosion.EROSION_6)
                         .depth(ParameterUtils.Depth.SURFACE, ParameterUtils.Depth.FLOOR)
                         .weirdness(ParameterUtils.Weirdness.VALLEY, ParameterUtils.Weirdness.LOW_SLICE_NORMAL_DESCENDING, ParameterUtils.Weirdness.LOW_SLICE_VARIANT_ASCENDING, ParameterUtils.Weirdness.MID_SLICE_NORMAL_ASCENDING, ParameterUtils.Weirdness.MID_SLICE_NORMAL_DESCENDING, ParameterUtils.Weirdness.MID_SLICE_VARIANT_ASCENDING, ParameterUtils.Weirdness.MID_SLICE_VARIANT_DESCENDING)
+                        .offset(Climate.quantizeCoord(0.0F))
                         .build();
 
                 mangroveSwampPoints.forEach(point -> {
@@ -150,6 +152,7 @@ public class WilderOverworldRegion extends Region {
                         .erosion(ParameterUtils.Erosion.EROSION_6)
                         .depth(ParameterUtils.Depth.SURFACE, ParameterUtils.Depth.FLOOR)
                         .weirdness(ParameterUtils.Weirdness.VALLEY, ParameterUtils.Weirdness.LOW_SLICE_NORMAL_DESCENDING, ParameterUtils.Weirdness.LOW_SLICE_VARIANT_ASCENDING, ParameterUtils.Weirdness.MID_SLICE_NORMAL_ASCENDING, ParameterUtils.Weirdness.MID_SLICE_NORMAL_DESCENDING, ParameterUtils.Weirdness.MID_SLICE_VARIANT_ASCENDING, ParameterUtils.Weirdness.MID_SLICE_VARIANT_DESCENDING)
+                        .offset(Climate.quantizeCoord(0.0F))
                         .build();
 
                 swampPoints.forEach(point -> {

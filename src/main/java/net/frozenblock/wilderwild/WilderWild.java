@@ -121,11 +121,14 @@ public final class WilderWild implements ModInitializer {
 
         FrozenLibIntegration.init();
 
-        terralith();
         hasPipes = FabricLoader.getInstance().getModContainer("copper_pipe").isPresent();
         hasCloth =  FabricLoader.getInstance().getModContainer("cloth-config").isPresent();
         hasTerralith = FabricLoader.getInstance().getModContainer("terralith").isPresent();;
         hasTerraBlender = FabricLoader.getInstance().getModContainer("terrablender").isPresent();
+
+        if (hasTerralith) {
+            terralith();
+        }
 
         if (hasPipes) {
             RegisterSaveableMoveablePipeNbt.init();
@@ -170,16 +173,11 @@ public final class WilderWild implements ModInitializer {
 
     //MOD COMPATIBILITY
     public static void terralith() {
-        Optional<ModContainer> wilderwildOptional = FabricLoader.getInstance().getModContainer("wilderwild");
-        Optional<ModContainer> terralithOptional = FabricLoader.getInstance().getModContainer("terralith");
-        if (wilderwildOptional.isPresent() && terralithOptional.isPresent()) {
+        Firefly.FireflyBiomeColorRegistry.addBiomeColor(new ResourceLocation("terralith", "cave/frostfire_caves"), "blue");
+        Firefly.FireflyBiomeColorRegistry.addBiomeColor(new ResourceLocation("terralith", "cave/frostfire_caves"), "light_blue");
 
-            Firefly.FireflyBiomeColorRegistry.addBiomeColor(new ResourceLocation("terralith", "cave/frostfire_caves"), "blue");
-            Firefly.FireflyBiomeColorRegistry.addBiomeColor(new ResourceLocation("terralith", "cave/frostfire_caves"), "light_blue");
-
-            Firefly.FireflyBiomeColorRegistry.addBiomeColor(new ResourceLocation("terralith", "cave/thermal_caves"), "red");
-            Firefly.FireflyBiomeColorRegistry.addBiomeColor(new ResourceLocation("terralith", "cave/thermal_caves"), "orange");
-        }
+        Firefly.FireflyBiomeColorRegistry.addBiomeColor(new ResourceLocation("terralith", "cave/thermal_caves"), "red");
+        Firefly.FireflyBiomeColorRegistry.addBiomeColor(new ResourceLocation("terralith", "cave/thermal_caves"), "orange");
     }
 
     public static boolean hasCloth;
