@@ -35,6 +35,7 @@
 	"server.WardenAiMixin",
 	"server.WardenEntityMixin",
 	"worldgen.BirchTreeGrowerMixin",
+	"worldgen.DarkOakTreeGrowerMixin",
 	"worldgen.DefaultBiomeFeaturesMixin",
 	"worldgen.GenerationSettingsBuilderMixin",
 	"worldgen.JigsawStructureMixin",
