@@ -2,7 +2,6 @@ package net.frozenblock.wilderwild.mixin.worldgen;
 
 import net.frozenblock.wilderwild.world.feature.WilderTreeConfigured;
 import net.minecraft.core.Holder;
-import net.minecraft.data.worldgen.features.TreeFeatures;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.block.grower.MangroveTreeGrower;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
@@ -20,11 +19,9 @@ public class MangroveTreeGrowerMixin {
 
     @Inject(method = "getConfiguredFeature", at = @At("RETURN"), cancellable = true)
     public void getConfiguredFeature(RandomSource randomSource, boolean bl, CallbackInfoReturnable<Holder<? extends ConfiguredFeature<?, ?>>> cir) {
-        if (randomSource.nextFloat() < this.tallProbability) {
-            cir.setReturnValue(TreeFeatures.TALL_MANGROVE);
+        if (randomSource.nextFloat() < 0.1F) {
+            cir.setReturnValue(WilderTreeConfigured.NEW_SWAMP_TREE);
             cir.cancel();
         }
-        cir.setReturnValue(randomSource.nextFloat() > 0.3F ? TreeFeatures.MANGROVE : WilderTreeConfigured.NEW_SWAMP_TREE);
-        cir.cancel();
     }
 }

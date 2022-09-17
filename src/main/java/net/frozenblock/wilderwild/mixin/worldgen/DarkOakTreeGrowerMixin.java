@@ -2,7 +2,6 @@ package net.frozenblock.wilderwild.mixin.worldgen;
 
 import net.frozenblock.wilderwild.world.feature.WilderTreeConfigured;
 import net.minecraft.core.Holder;
-import net.minecraft.data.worldgen.features.TreeFeatures;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.block.grower.DarkOakTreeGrower;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
@@ -20,7 +19,9 @@ public class DarkOakTreeGrowerMixin {
 
     @Inject(method = "getConfiguredMegaFeature", at = @At("RETURN"), cancellable = true)
     public void getConfiguredMegaFeature(RandomSource randomSource, CallbackInfoReturnable<Holder<? extends ConfiguredFeature<?, ?>>> cir) {
-        cir.setReturnValue(randomSource.nextFloat() > 0.3F ? TreeFeatures.DARK_OAK : WilderTreeConfigured.NEW_TALL_DARK_OAK);
-        cir.cancel();
+        if (randomSource.nextFloat() < 0.2F) {
+            cir.setReturnValue(WilderTreeConfigured.NEW_TALL_DARK_OAK);
+            cir.cancel();
+        }
     }
 }
