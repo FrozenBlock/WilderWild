@@ -15,6 +15,7 @@ import net.minecraft.world.level.levelgen.carver.CarvingContext;
 import net.minecraft.world.level.levelgen.carver.CaveCarverConfiguration;
 import net.minecraft.world.level.levelgen.carver.CaveWorldCarver;
 import net.minecraft.world.level.levelgen.carver.WorldCarver;
+import org.jetbrains.annotations.NotNull;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
@@ -31,7 +32,8 @@ public class CaveWorldCarverMixin extends WorldCarver<CaveCarverConfiguration> {
     }
 
     @Shadow
-    protected void createTunnel(CarvingContext carvingContext, CaveCarverConfiguration caveCarverConfiguration, ChunkAccess chunkAccess, Function<BlockPos, Holder<Biome>> function, long l, Aquifer aquifer, double d, double e, double f, double g, double h, float i, float j, float k, int m, int n, double o, CarvingMask carvingMask, WorldCarver.CarveSkipChecker carveSkipChecker) {}
+    protected void createTunnel(CarvingContext carvingContext, CaveCarverConfiguration caveCarverConfiguration, ChunkAccess chunkAccess, Function<BlockPos, Holder<Biome>> function, long l, Aquifer aquifer, double d, double e, double f, double g, double h, float i, float j, float k, int m, int n, double o, CarvingMask carvingMask, WorldCarver.CarveSkipChecker carveSkipChecker) {
+    }
 
     @Inject(method = "createTunnel", at = @At("TAIL"))
     private void createTunnel(CarvingContext context, CaveCarverConfiguration config, ChunkAccess chunk, Function<BlockPos, Holder<Biome>> posToBiome, long seed, Aquifer aquifer, double x, double y, double z, double horizontalScale, double verticalScale, float width, float yaw, float pitch, int branchStartIndex, int branchCount, double yawPitchRatio, CarvingMask carvingMask, WorldCarver.CarveSkipChecker skipPredicate, CallbackInfo ci) {
@@ -41,8 +43,8 @@ public class CaveWorldCarverMixin extends WorldCarver<CaveCarverConfiguration> {
         float f = 0.0F;
         float g = 0.0F;
 
-        for(int j = branchStartIndex - 100; j < branchCount; ++j) {
-            double d = 1.5 + (double)(Mth.sin((float) Math.PI * (float)j / (float)branchCount) * width);
+        for (int j = branchStartIndex - 100; j < branchCount; ++j) {
+            double d = 1.5 + (double) (Mth.sin((float) Math.PI * (float) j / (float) branchCount) * width);
             double e = d * yawPitchRatio;
             float h = Mth.cos(pitch);
             x += Mth.cos(yaw) * h;
@@ -55,7 +57,7 @@ public class CaveWorldCarverMixin extends WorldCarver<CaveCarverConfiguration> {
             f *= 0.75F;
             g += (randomSource.nextFloat() - randomSource.nextFloat()) * randomSource.nextFloat() * 2.0F;
             f += (randomSource.nextFloat() - randomSource.nextFloat()) * randomSource.nextFloat() * 4.0F;
-            for (int moreWater = -64; moreWater < 30; ++moreWater) {
+            for (int moreWater = -64; moreWater < 40; moreWater += 4) {
                 if (chunk.getNoiseBiome(moreWater, moreWater, moreWater).is(RegisterWorldgen.JELLYFISH_CAVES)) {
                     this.createTunnel(
                             context,
@@ -106,12 +108,12 @@ public class CaveWorldCarverMixin extends WorldCarver<CaveCarverConfiguration> {
     }
 
     @Shadow
-    public boolean carve(CarvingContext context, CaveCarverConfiguration config, ChunkAccess chunk, Function<BlockPos, Holder<Biome>> posToBiome, RandomSource random, Aquifer aquifer, ChunkPos pos, CarvingMask carvingMask) {
+    public boolean carve(@NotNull CarvingContext context, @NotNull CaveCarverConfiguration config, @NotNull ChunkAccess chunk, @NotNull Function<BlockPos, Holder<Biome>> posToBiome, RandomSource random, Aquifer aquifer, ChunkPos pos, CarvingMask carvingMask) {
         return false;
     }
 
     @Shadow
-    public boolean isStartChunk(CaveCarverConfiguration config, RandomSource random) {
+    public boolean isStartChunk(@NotNull CaveCarverConfiguration config, @NotNull RandomSource random) {
         return false;
     }
 }

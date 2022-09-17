@@ -34,16 +34,17 @@ public class BaobabTrunkPlacer extends TrunkPlacer {
     }
 
 
-    /** Baobab Tree Generator
+    /**
+     * Baobab Tree Generator
      * Made By LiukRast (Yes im alive!)
      * Process:
      * 1- Generate the main trunk (Just a big parallelepiped)
      * 2- Add Roots (External Vertical Parts)
-     *  - Step 1: Choose how many of them should be generated (Make a list and then remove random members)
-     *  - Step 2: Generate them
+     * - Step 1: Choose how many of them should be generated (Make a list and then remove random members)
+     * - Step 2: Generate them
      * 3- Add Branches (& Foliage)
      * Easy, I guess ._.
-     * **/
+     **/
 
     @Override
     public List<FoliagePlacer.FoliageAttachment> placeTrunk(@NotNull LevelSimulatedReader world, @NotNull BiConsumer<BlockPos, BlockState> replacer, @NotNull RandomSource random, int height, @NotNull BlockPos startPos, @NotNull TreeConfiguration config) {
@@ -56,16 +57,16 @@ public class BaobabTrunkPlacer extends TrunkPlacer {
         double branchpercentage = 40;
         float toppercentage = 25;
 
-        for(int x = 0; x < 4; x++) { // X
-            for(int z = 0; z < 4; z++) { // Z
+        for (int x = 0; x < 4; x++) { // X
+            for (int z = 0; z < 4; z++) { // Z
 
                 terraformDirtBelow(world, replacer, random, new BlockPos(center.getX() + x, startPos.getY() - 1, center.getZ() + z), config);
-                for(int y = 0; y <= height; y++) {
+                for (int y = 0; y <= height; y++) {
                     setLog(world, replacer, random, mutable, config, center, x, y, z);
                 }
 
 
-                if(!AdvancedMath.squareBetween(x, z, 1, 2)) { // only sides
+                if (!AdvancedMath.squareBetween(x, z, 1, 2)) { // only sides
 
                     if (Math.random() <= percentage / 100) {
                         if (x == 0) {
@@ -121,10 +122,10 @@ public class BaobabTrunkPlacer extends TrunkPlacer {
                         dir1 = Direction.EAST;
                         dir2 = Direction.SOUTH;
                     }
-                    if(Math.random() <= toppercentage / 100) {
-                       list.add(generateBranch(dir1, dir2, 1f / 4f, height, height / 4, 4, world, replacer, random, mutable, config, center, x, z));
+                    if (Math.random() <= toppercentage / 100) {
+                        list.add(generateBranch(dir1, dir2, 1f / 4f, height, height / 4, 4, world, replacer, random, mutable, config, center, x, z));
                     }
-                    if(Math.random() <= branchpercentage / 100) {
+                    if (Math.random() <= branchpercentage / 100) {
                         float min = 1f / 3f, max = 1f;
                         float p = (((float) Math.random() * (max - min)) + min);
                         list.add(generateBranch(dir1, dir2, p, height, height, 4, world, replacer, random, mutable, config, center, x, z));
@@ -138,11 +139,11 @@ public class BaobabTrunkPlacer extends TrunkPlacer {
     private FoliagePlacer.FoliageAttachment generateBranch(Direction dir1, Direction dir2, float yequation, int h, int minh, int l, LevelSimulatedReader world, BiConsumer<BlockPos, BlockState> replacer, RandomSource random, BlockPos.MutableBlockPos mutable, TreeConfiguration config, BlockPos startPos, int x, int z) {
         FoliagePlacer.FoliageAttachment node = null;
 
-        int height = (int)( ( Math.random() * ( h - minh ) ) + minh );
+        int height = (int) ((Math.random() * (h - minh)) + minh);
 
         for (int l1 = 1; l1 <= l; l1++) {
-            int eq = (int)Math.floor(yequation * l1);
-            if(dir2 == null) {
+            int eq = (int) Math.floor(yequation * l1);
+            if (dir2 == null) {
                 BlockPos fpos = AdvancedMath.offset(startPos, dir1, l1);
                 BlockPos fpos2 = new BlockPos(fpos.getX() + x, fpos.getY() + height + eq + 1, fpos.getZ() + z);
                 setLog(world, replacer, random, mutable, config, fpos, x, height + eq, z);
@@ -150,7 +151,7 @@ public class BaobabTrunkPlacer extends TrunkPlacer {
                     node = new FoliagePlacer.FoliageAttachment(fpos2, 0, true);
                 }
             } else {
-                BlockPos fpos = AdvancedMath.offset( AdvancedMath.offset(startPos, dir1, l1), dir2, l1 );
+                BlockPos fpos = AdvancedMath.offset(AdvancedMath.offset(startPos, dir1, l1), dir2, l1);
                 BlockPos fpos2 = new BlockPos(fpos.getX() + x, fpos.getY() + height + eq + 1, fpos.getZ() + z);
                 setLog(world, replacer, random, mutable, config, fpos, x, height + eq, z);
                 if (l1 == l) {
@@ -160,24 +161,27 @@ public class BaobabTrunkPlacer extends TrunkPlacer {
         }
         return node;
     }
+
     private void setLog(LevelSimulatedReader world, BiConsumer<BlockPos, BlockState> replacer, RandomSource random, BlockPos.MutableBlockPos pos, TreeConfiguration config, BlockPos startPos, int x, int y, int z, boolean condition) {
         if (condition) {
             pos.setWithOffset(startPos, x, y, z);
             placeLogIfFree(world, replacer, random, pos, config);
         }
     }
+
     private void setLogs(LevelSimulatedReader world, BiConsumer<BlockPos, BlockState> replacer, RandomSource random, BlockPos.MutableBlockPos pos, TreeConfiguration config, BlockPos startPos, int x, int y, int z, int height) {
-        for(int h = 0; h <= height; h++) {
+        for (int h = 0; h <= height; h++) {
             setLog(world, replacer, random, pos, config, startPos, x, y + h, z);
         }
     }
+
     private void setLog(LevelSimulatedReader world, BiConsumer<BlockPos, BlockState> replacer, RandomSource random, BlockPos.MutableBlockPos pos, TreeConfiguration config, BlockPos startPos, int x, int y, int z) {
         setLog(world, replacer, random, pos, config, startPos, x, y, z, true);
     }
 
     private void terraformDirtBelow(LevelSimulatedReader world, BiConsumer<BlockPos, BlockState> replacer, RandomSource random, BlockPos startPos, TreeConfiguration config) {
-        for(int y = 0; true; y++) {
-            if((!isSolid((BlockGetter) world, startPos.below(y))) || ((BlockGetter) world).getBlockState(startPos.below(y)).getBlock() == Blocks.GRASS_BLOCK) {
+        for (int y = 0; true; y++) {
+            if ((!isSolid((BlockGetter) world, startPos.below(y))) || ((BlockGetter) world).getBlockState(startPos.below(y)).getBlock() == Blocks.GRASS_BLOCK) {
                 setDirtAt(world, replacer, random, startPos.below(y), config);
             } else {
                 break;

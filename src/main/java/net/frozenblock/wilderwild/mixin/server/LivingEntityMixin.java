@@ -19,12 +19,19 @@ import static net.minecraft.world.damagesource.DamageSource.CACTUS;
 @Mixin(LivingEntity.class)
 public abstract class LivingEntityMixin extends Entity {
 
-    @Shadow public float animationSpeed;
-    @Shadow public int hurtTime;
-    @Shadow public int hurtDuration;
-    @Shadow public float hurtDir;
-    @Shadow @Nullable private DamageSource lastDamageSource;
-    @Shadow private long lastDamageStamp;
+    @Shadow
+    public float animationSpeed;
+    @Shadow
+    public int hurtTime;
+    @Shadow
+    public int hurtDuration;
+    @Shadow
+    public float hurtDir;
+    @Shadow
+    @Nullable
+    private DamageSource lastDamageSource;
+    @Shadow
+    private long lastDamageStamp;
 
     public LivingEntityMixin(EntityType<?> entityType, Level level) {
         super(entityType, level);
@@ -32,7 +39,7 @@ public abstract class LivingEntityMixin extends Entity {
 
     @Inject(method = "handleEntityEvent", at = @At("HEAD"), cancellable = true)
     public void handleEntityEvent(byte b, CallbackInfo info) {
-        if (b == (byte)705) {
+        if (b == (byte) 705) {
             info.cancel();
             LivingEntity entity = LivingEntity.class.cast(this);
             SoundEvent soundEvent;
@@ -55,7 +62,8 @@ public abstract class LivingEntityMixin extends Entity {
     }
 
 
-    @Shadow @Nullable
+    @Shadow
+    @Nullable
     protected SoundEvent getHurtSound(DamageSource damageSource) {
         return SoundEvents.GENERIC_HURT;
     }

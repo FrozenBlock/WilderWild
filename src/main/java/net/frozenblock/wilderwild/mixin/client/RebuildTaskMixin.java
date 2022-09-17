@@ -1,18 +1,10 @@
-package net.frozenblock.wilderwild.mixin.client;
+/*package net.frozenblock.wilderwild.mixin.client;
 
-import com.mojang.blaze3d.vertex.BufferBuilder;
-import it.unimi.dsi.fastutil.objects.ReferenceArraySet;
-import net.frozenblock.wilderwild.WilderWildClient;
-import net.minecraft.client.renderer.ChunkBufferBuilderPack;
-import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.chunk.ChunkRenderDispatcher;
-import net.minecraft.core.BlockPos;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.ModifyVariable;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(ChunkRenderDispatcher.RenderChunk.RebuildTask.class)
 public class RebuildTaskMixin {
@@ -39,5 +31,6 @@ public class RebuildTaskMixin {
                 compileResults.transparencyState = bufferBuilder2.getSortState();
             }
         }
-    }*/
+    }
 }
+*/

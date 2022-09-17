@@ -2,6 +2,7 @@ package net.frozenblock.wilderwild.mixin.client;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.block.MesogleaBlock;
 import net.minecraft.client.renderer.block.LiquidBlockRenderer;
 import net.minecraft.core.BlockPos;
@@ -20,8 +21,7 @@ public class LiquidBlockRendererMixin {
 
     @Inject(method = "shouldRenderFace", at = @At(value = "HEAD"), cancellable = true)
     private static void shouldRenderFace(BlockAndTintGetter blockAndTintGetter, BlockPos blockPos, FluidState fluidState, BlockState blockState, Direction direction, FluidState fluidState2, CallbackInfoReturnable<Boolean> info) {
-        if (blockState.getBlock() instanceof MesogleaBlock && direction != Direction.UP) {
-            info.cancel();
+        if (blockState.getBlock() instanceof MesogleaBlock && direction != Direction.UP && !WilderWild.hasSodium) {
             info.setReturnValue(false);
         }
     }

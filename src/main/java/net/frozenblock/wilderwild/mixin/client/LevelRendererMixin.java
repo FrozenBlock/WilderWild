@@ -1,13 +1,8 @@
 package net.frozenblock.wilderwild.mixin.client;
 
-import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
-import com.mojang.blaze3d.shaders.Uniform;
-import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.blaze3d.vertex.VertexBuffer;
 import com.mojang.math.Matrix4f;
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
-import it.unimi.dsi.fastutil.objects.ObjectListIterator;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.frozenblock.wilderwild.misc.config.ClothConfigInteractionHandler;
@@ -39,25 +34,6 @@ public class LevelRendererMixin {
     @Shadow
     private @Nullable ClientLevel level;
 
-    @Shadow
-    private void renderChunkLayer(RenderType renderType, PoseStack poseStack, double d, double e, double f, Matrix4f matrix4f) {
-    }
-
-    @Shadow @Final private Minecraft minecraft;
-
-    @Shadow private double xTransparentOld;
-
-    @Shadow private double yTransparentOld;
-
-    @Shadow private double zTransparentOld;
-
-    @Shadow @Final private ObjectArrayList<LevelRenderer.RenderChunkInfo> renderChunksInFrustum;
-
-    @Shadow private @Nullable ChunkRenderDispatcher chunkRenderDispatcher;
-
-    @Unique
-    private RenderType renderType = null;
-
     @Inject(method = "levelEvent", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/multiplayer/ClientLevel;playLocalSound(DDDLnet/minecraft/sounds/SoundEvent;Lnet/minecraft/sounds/SoundSource;FFZ)V", ordinal = 0), cancellable = true)
     private void levelEvent(int eventId, BlockPos pos, int data, CallbackInfo ci) {
         if (ClothConfigInteractionHandler.shriekerGargling()) {
@@ -79,7 +55,34 @@ public class LevelRendererMixin {
         }
     }
 
-    /*@Inject(method = "renderLevel", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/renderer/LevelRenderer;renderChunkLayer(Lnet/minecraft/client/renderer/RenderType;Lcom/mojang/blaze3d/vertex/PoseStack;DDDLcom/mojang/math/Matrix4f;)V", ordinal = 3, shift = At.Shift.AFTER))
+    /*@Shadow
+    private void renderChunkLayer(RenderType renderType, PoseStack poseStack, double d, double e, double f, Matrix4f matrix4f) {
+    }
+
+    @Shadow
+    @Final
+    private Minecraft minecraft;
+
+    @Shadow
+    private double xTransparentOld;
+
+    @Shadow
+    private double yTransparentOld;
+
+    @Shadow
+    private double zTransparentOld;
+
+    @Shadow
+    @Final
+    private ObjectArrayList<LevelRenderer.RenderChunkInfo> renderChunksInFrustum;
+
+    @Shadow
+    private @Nullable ChunkRenderDispatcher chunkRenderDispatcher;
+
+    @Unique
+    private final RenderType renderType = null;
+
+    @Inject(method = "renderLevel", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/renderer/LevelRenderer;renderChunkLayer(Lnet/minecraft/client/renderer/RenderType;Lcom/mojang/blaze3d/vertex/PoseStack;DDDLcom/mojang/math/Matrix4f;)V", ordinal = 3, shift = At.Shift.AFTER))
     private void renderLevel(PoseStack poseStack, float f, long l, boolean bl, Camera camera, GameRenderer gameRenderer, LightTexture lightTexture, Matrix4f matrix4f, CallbackInfo ci) {
         assert this.level != null;
         ProfilerFiller profilerFiller = this.level.getProfiler();

@@ -1,4 +1,4 @@
-package net.frozenblock.wilderwild.mixin.client.fabric_api;
+/*package net.frozenblock.wilderwild.mixin.client.fabric_api;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -58,3 +58,4 @@ public class BlendModeMixin {
         }
     }
 }
+*/

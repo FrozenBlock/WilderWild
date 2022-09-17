@@ -1,4 +1,4 @@
-package net.frozenblock.wilderwild.mixin.client;
+/*package net.frozenblock.wilderwild.mixin.client;
 
 import com.google.common.collect.ImmutableList;
 import net.fabricmc.api.EnvType;
@@ -44,3 +44,4 @@ public class RenderTypeMixin {
     @Mutable
     private static final ImmutableList<RenderType> CHUNK_BUFFER_LAYERS = ImmutableList.of(solid(), cutoutMipped(), cutout(), translucent(), WilderWildClient.translucentCutout(), tripwire());
 }
+*/
