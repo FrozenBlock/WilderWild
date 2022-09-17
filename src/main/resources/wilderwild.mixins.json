@@ -38,6 +38,7 @@
 	"worldgen.DefaultBiomeFeaturesMixin",
 	"worldgen.GenerationSettingsBuilderMixin",
 	"worldgen.JigsawStructureMixin",
+	"worldgen.MangroveTreeGrowerMixin",
 	"worldgen.OakTreeGrowerMixin",
 	"worldgen.OverworldBiomeBuilderMixin",
 	"worldgen.SpruceTreeGrowerMixin",
