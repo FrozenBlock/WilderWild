@@ -6,6 +6,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.entity.ai.goal.MoveToBlockGoal;
 import net.minecraft.world.level.LevelReader;
+import org.jetbrains.annotations.NotNull;
 
 public class FireflyHidingGoal extends MoveToBlockGoal {
     public FireflyHidingGoal(Firefly mob, double speed, int range, int maxYDifference) {
@@ -36,7 +37,7 @@ public class FireflyHidingGoal extends MoveToBlockGoal {
     }
 
     @Override
-    protected boolean isValidTarget(LevelReader world, BlockPos pos) {
+    protected boolean isValidTarget(LevelReader world, @NotNull BlockPos pos) {
         return world.getBlockState(pos).is(WilderBlockTags.FIREFLY_HIDEABLE_BLOCKS);
     }
 

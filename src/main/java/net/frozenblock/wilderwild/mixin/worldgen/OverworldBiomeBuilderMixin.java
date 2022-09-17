@@ -2,8 +2,6 @@ package net.frozenblock.wilderwild.mixin.worldgen;
 
 import com.mojang.datafixers.util.Pair;
 import net.frozenblock.wilderwild.WilderWild;
-import net.frozenblock.lib.worldgen.biome.api.FrozenOverworldBiomes;
-import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.misc.config.ClothConfigInteractionHandler;
 import net.frozenblock.wilderwild.registry.RegisterWorldgen;
 import net.minecraft.resources.ResourceKey;
@@ -61,6 +59,8 @@ public final class OverworldBiomeBuilderMixin {
     private void addSurfaceBiome(Consumer<Pair<Climate.ParameterPoint, ResourceKey<Biome>>> parameters, Climate.Parameter temperature, Climate.Parameter humidity, Climate.Parameter continentalness, Climate.Parameter erosion, Climate.Parameter weirdness, final float offset, ResourceKey<Biome> biome) {
         parameters.accept(Pair.of(Climate.parameters(temperature, humidity, continentalness, erosion, Climate.Parameter.span(0.0F, 1.0F), weirdness, offset), biome));
     }
+
+    @Shadow @Final private Climate.Parameter mushroomFieldsContinentalness;
 
     @Inject(method = "<init>", at = @At("TAIL"))
     private void injectBiomes(CallbackInfo ci) {
@@ -205,9 +205,9 @@ public final class OverworldBiomeBuilderMixin {
             this.addSemiDeepBiome(
                     consumer,
                     this.FULL_RANGE,
-                    Climate.Parameter.span(this.humidities[2], this.humidities[4]),
-                    Climate.Parameter.span(this.deepOceanContinentalness, this.oceanContinentalness),
-                    Climate.Parameter.span(this.erosions[3], this.erosions[6]),
+                    Climate.Parameter.span(this.humidities[3], this.humidities[4]),
+                    this.mushroomFieldsContinentalness,
+                    Climate.Parameter.span(this.erosions[4], this.erosions[6]),
                     this.FULL_RANGE,
                     0.0F,
                     RegisterWorldgen.JELLYFISH_CAVES
@@ -225,8 +225,7 @@ public final class OverworldBiomeBuilderMixin {
             float offset,
             ResourceKey<Biome> biome
     ) {
-        parameters.accept(Pair.of(Climate.parameters(temperature, humidity, continentalness, erosion, Climate.Parameter.point(0.65F), weirdness, offset), biome));
-        parameters.accept(Pair.of(Climate.parameters(temperature, humidity, continentalness, erosion, Climate.Parameter.point(1.1F), weirdness, offset), biome));
+        parameters.accept(Pair.of(Climate.parameters(temperature, humidity, continentalness, erosion, Climate.Parameter.span(0.65F, 1.1F), weirdness, offset), biome));
     }
 
     private void addSemiDeepBiome(
@@ -239,8 +238,7 @@ public final class OverworldBiomeBuilderMixin {
             float offset,
             ResourceKey<Biome> biome
     ) {
-        parameters.accept(Pair.of(Climate.parameters(temperature, humidity, continentalness, erosion, Climate.Parameter.point(0.4F), weirdness, offset), biome));
-        parameters.accept(Pair.of(Climate.parameters(temperature, humidity, continentalness, erosion, Climate.Parameter.point(1.05F), weirdness, offset), biome));
+        parameters.accept(Pair.of(Climate.parameters(temperature, humidity, continentalness, erosion, Climate.Parameter.span(0.4F, 1.05F), weirdness, offset), biome));
     }
 
     /*

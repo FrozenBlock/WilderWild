@@ -78,6 +78,7 @@ public class RegisterStructures {
     );
 
     public static void init() {
+        WilderWild.logWild("Registering Structures for", WilderWild.UNSTABLE_LOGGING);
         WilderStructureProcessors.init();
         AbandonedCabinGenerator.init();
     }

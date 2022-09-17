@@ -1,4 +1,4 @@
-package net.frozenblock.wilderwild.mixin.client.sodium;
+/*package net.frozenblock.wilderwild.mixin.client.sodium;
 
 import me.jellysquid.mods.sodium.client.render.chunk.passes.BlockRenderPass;
 import me.jellysquid.mods.sodium.client.render.chunk.passes.BlockRenderPassManager;
@@ -13,7 +13,6 @@ import org.spongepowered.asm.mixin.Pseudo;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.ModifyVariable;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Environment(EnvType.CLIENT)
@@ -34,10 +33,11 @@ public class BlockRenderPassManagerMixin implements SodiumInteraction {
     private static BlockRenderPassManager createDefaultMappings(BlockRenderPassManager value) {
         ((SodiumInteraction) value).frozenAddMapping(WilderWildClient.translucentCutout(), WilderBlockRenderPass.WILDERTRANSLUCENT);
         return value;
-    }*/
+    }
 
     @Override
     public void frozenAddMapping(RenderType layer, BlockRenderPass type) {
         this.addMapping(layer, type);
     }
 }
+*/

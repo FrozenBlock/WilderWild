@@ -1,4 +1,4 @@
-package net.frozenblock.wilderwild.mixin.client.sodium;
+/*package net.frozenblock.wilderwild.mixin.client.sodium;
 
 import me.jellysquid.mods.sodium.client.render.chunk.passes.BlockRenderPass;
 import net.fabricmc.api.EnvType;
@@ -18,7 +18,7 @@ import java.util.Arrays;
 
 @Environment(EnvType.CLIENT)
 @Pseudo
-@Mixin(value = BlockRenderPass.class, remap = false)
+@Mixin(BlockRenderPass.class)
 public class BlockRenderPassMixin {
 
     @SuppressWarnings("InvokerTarget")
@@ -34,17 +34,18 @@ public class BlockRenderPassMixin {
     private static BlockRenderPass[] $VALUES;
 
     @Inject(method = "<clinit>", at = @At(value = "FIELD",
-        opcode = Opcodes.PUTSTATIC,
-        target = "Lme/jellysquid/mods/sodium/client/render/chunk/passes/BlockRenderPass;$VALUES:[Lme/jellysquid/mods/sodium/client/render/chunk/passes/BlockRenderPass;",
-        shift = At.Shift.AFTER), remap = false)
+            opcode = Opcodes.PUTSTATIC,
+            target = "Lme/jellysquid/mods/sodium/client/render/chunk/passes/BlockRenderPass;$VALUES:[Lme/jellysquid/mods/sodium/client/render/chunk/passes/BlockRenderPass;",
+            shift = At.Shift.AFTER), remap = false)
     private static void addCustomBlockRenderPass(CallbackInfo ci) {
         var types = new ArrayList<>(Arrays.asList($VALUES));
         var last = types.get(types.size() - 1);
 
-        var wildertranslucent = newPass("WILDERWILDTRANSLUCENTCUTOUT", (last.ordinal() + 1), WilderWildClient.translucentCutout(), true, 0.01F);
+        var wildertranslucent = newPass("WILDERWILDTRANSLUCENT", -(last.ordinal() + 1), WilderWildClient.translucentCutout(), true, 0.01F);
         WilderBlockRenderPass.WILDERTRANSLUCENT = wildertranslucent;
         types.add(wildertranslucent);
 
         $VALUES = types.toArray(new BlockRenderPass[0]);
     }
 }
+*/

@@ -17,7 +17,7 @@ public class SculkVeinSpreaderConfigMixin {
     @Inject(at = @At("RETURN"), method = "stateCanBeReplaced", cancellable = true)
     public void newBlocks(BlockGetter world, BlockPos pos, BlockPos growPos, Direction direction, BlockState state, CallbackInfoReturnable<Boolean> info) {
         BlockState blockState = world.getBlockState(growPos.relative(direction));
-        if (blockState.is(RegisterBlocks.OSSEOUS_SCULK)) {
+        if (blockState.is(RegisterBlocks.OSSEOUS_SCULK) || blockState.is(RegisterBlocks.SCULK_SLAB) || blockState.is(RegisterBlocks.SCULK_STAIRS) || blockState.is(RegisterBlocks.SCULK_WALL)) {
             info.setReturnValue(false);
             info.cancel();
         }

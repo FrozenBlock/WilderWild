@@ -121,10 +121,11 @@ public final class WilderWild implements ModInitializer {
 
         FrozenLibIntegration.init();
 
+        hasCloth = FabricLoader.getInstance().getModContainer("cloth-config").isPresent();
         hasPipes = FabricLoader.getInstance().getModContainer("copper_pipe").isPresent();
-        hasCloth =  FabricLoader.getInstance().getModContainer("cloth-config").isPresent();
-        hasTerralith = FabricLoader.getInstance().getModContainer("terralith").isPresent();;
+        hasSodium = FabricLoader.getInstance().getModContainer("sodium").isPresent();
         hasTerraBlender = FabricLoader.getInstance().getModContainer("terrablender").isPresent();
+        hasTerralith = FabricLoader.getInstance().getModContainer("terralith").isPresent();
 
         if (hasTerralith) {
             terralith();
@@ -182,8 +183,9 @@ public final class WilderWild implements ModInitializer {
 
     public static boolean hasCloth;
     public static boolean hasPipes;
-    public static boolean hasTerralith;
+    public static boolean hasSodium;
     public static boolean hasTerraBlender;
+    public static boolean hasTerralith;
 
     public static boolean isCopperPipe(BlockState state) {
         if (hasPipes) {

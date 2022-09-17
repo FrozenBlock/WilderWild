@@ -5,15 +5,16 @@ public class ClothConfigCloserInteractionHandler {
     public static boolean betaBeaches() {
         return WilderWildConfig.get().worldgen.betaBeaches;
     }
-/*
-    public static boolean modifyDesertPlacement() {
-        return WilderWildConfig.get().worldgen.biomePlacement.modifyDesertPlacement;
-    }
 
-    public static boolean modifyBadlandsPlacement() {
-        return WilderWildConfig.get().worldgen.biomePlacement.modifyBadlandsPlacement;
-    }
-*/
+    /*
+        public static boolean modifyDesertPlacement() {
+            return WilderWildConfig.get().worldgen.biomePlacement.modifyDesertPlacement;
+        }
+
+        public static boolean modifyBadlandsPlacement() {
+            return WilderWildConfig.get().worldgen.biomePlacement.modifyBadlandsPlacement;
+        }
+    */
     public static boolean modifyJunglePlacement() {
         return WilderWildConfig.get().worldgen.biomePlacement.modifyJunglePlacement;
     }

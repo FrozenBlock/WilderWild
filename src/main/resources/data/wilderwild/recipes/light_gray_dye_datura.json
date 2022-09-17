@@ -1,5 +1,6 @@
 {
   "type": "minecraft:crafting_shapeless",
+  "group": "light_gray_dye",
   "ingredients": [
 	{
 	  "item": "wilderwild:datura"

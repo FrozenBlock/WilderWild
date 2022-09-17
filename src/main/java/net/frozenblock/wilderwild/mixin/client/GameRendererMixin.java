@@ -1,4 +1,4 @@
-package net.frozenblock.wilderwild.mixin.client;
+/*package net.frozenblock.wilderwild.mixin.client;
 
 import com.google.common.collect.Lists;
 import com.mojang.blaze3d.vertex.DefaultVertexFormat;
@@ -27,7 +27,9 @@ import java.util.function.Consumer;
 public class GameRendererMixin {
 
 
-    @Shadow @Final private Map<String, ShaderInstance> shaders;
+    @Shadow
+    @Final
+    private Map<String, ShaderInstance> shaders;
 
     @Unique
     private List<Pair<ShaderInstance, Consumer<ShaderInstance>>> shaderList;
@@ -56,3 +58,4 @@ public class GameRendererMixin {
         });
     }
 }
+*/

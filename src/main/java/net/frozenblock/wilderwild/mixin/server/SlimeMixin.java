@@ -29,7 +29,6 @@ public abstract class SlimeMixin extends Mob {
     @Inject(method = "checkSlimeSpawnRules", at = @At("HEAD"), cancellable = true)
     private static void checkSlimeSpawnRules(EntityType<Slime> type, LevelAccessor world, MobSpawnType spawnReason, BlockPos pos, RandomSource random, CallbackInfoReturnable<Boolean> info) {
         if (world.getDifficulty() != Difficulty.PEACEFUL) {
-            //if (world.getBiome(pos).isIn(WilderBiomeTags.SLIMES_SPAWN_ON_FLOATING_MOSS)) {
             if (world.getBrightness(LightLayer.BLOCK, pos) < random.nextInt(8)) {
                 boolean test = spawnReason == MobSpawnType.SPAWNER || random.nextInt(5) == 0;
                 if (test && isAlgaeNearby(world, pos, 1)) {

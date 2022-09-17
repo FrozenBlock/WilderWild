@@ -23,9 +23,10 @@ import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.Redirect;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
+import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 
+import java.util.Iterator;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Stream;
@@ -34,7 +35,6 @@ import java.util.stream.Stream;
 public class SculkSpreaderChargeCursorMixin {
 
 
-    @Final
     @Shadow
     private static final ObjectArrayList<Vec3i> NON_CORNER_NEIGHBOURS = Util.make(new ObjectArrayList<>(18), (objectArrayList) -> {
         Stream<BlockPos> var10000 = BlockPos.betweenClosedStream(new BlockPos(-1, -1, -1), new BlockPos(1, 1, 1)).filter((pos) -> (pos.getX() == 0 || pos.getY() == 0 || pos.getZ() == 0) && !pos.equals(BlockPos.ZERO)).map(BlockPos::immutable);
@@ -42,17 +42,9 @@ public class SculkSpreaderChargeCursorMixin {
         var10000.forEach(objectArrayList::add);
     });
 
-    @Unique
-    private boolean worldgen = false;
-
     @Redirect(method = "update", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/block/SculkSpreader$ChargeCursor;getBlockBehaviour(Lnet/minecraft/world/level/block/state/BlockState;)Lnet/minecraft/world/level/block/SculkBehaviour;"))
-    private SculkBehaviour newSculkBehaviour(BlockState blockState) {
-        return getBlockBehaviourNew(blockState, this.worldgen);
-    }
-
-    @Inject(method = "update", at = @At("HEAD"))
-    public void setValues(LevelAccessor world, BlockPos pos, RandomSource random, SculkSpreader sculkSpreader, boolean shouldConvertToBlock, CallbackInfo info) {
-        this.worldgen = sculkSpreader.isWorldGeneration();
+    private SculkBehaviour newSculkBehaviour(BlockState blockState, LevelAccessor world, BlockPos pos, RandomSource random, SculkSpreader behavior, boolean spread) {
+        return getBlockBehaviourNew(blockState, behavior.isWorldGeneration());
     }
 
     @Unique
@@ -71,15 +63,12 @@ public class SculkSpreaderChargeCursorMixin {
         return getBlockBehaviour(state);
     }
 
-    @Unique
-    private static boolean isMovementUnobstructedNew(LevelAccessor world, BlockPos sourcePos, BlockPos targetPos) {
-        if (sourcePos.distManhattan(targetPos) != 1) {
-            BlockState cheatState = world.getBlockState(targetPos);
-            if (cheatState.is(WilderBlockTags.SCULK_STAIR_REPLACEABLE_WORLDGEN) || cheatState.is(WilderBlockTags.SCULK_WALL_REPLACEABLE_WORLDGEN) || cheatState.is(WilderBlockTags.SCULK_SLAB_REPLACEABLE_WORLDGEN) || cheatState.is(WilderBlockTags.SCULK_STAIR_REPLACEABLE) || cheatState.is(WilderBlockTags.SCULK_WALL_REPLACEABLE) || cheatState.is(WilderBlockTags.SCULK_SLAB_REPLACEABLE) || (cheatState.is(RegisterBlocks.STONE_CHEST) && !cheatState.getValue(RegisterProperties.HAS_SCULK))) {
-                return true;
-            }
+    @Inject(method = "isMovementUnobstructed", at = @At(value = "INVOKE", target = "Lnet/minecraft/core/BlockPos;subtract(Lnet/minecraft/core/Vec3i;)Lnet/minecraft/core/BlockPos;", shift = At.Shift.BEFORE), cancellable = true)
+    private static void isMovementUnobstructed(LevelAccessor world, BlockPos startPos, BlockPos spreadPos, CallbackInfoReturnable<Boolean> cir) {
+        BlockState cheatState = world.getBlockState(spreadPos);
+        if (cheatState.is(WilderBlockTags.SCULK_STAIR_REPLACEABLE_WORLDGEN) || cheatState.is(WilderBlockTags.SCULK_WALL_REPLACEABLE_WORLDGEN) || cheatState.is(WilderBlockTags.SCULK_SLAB_REPLACEABLE_WORLDGEN) || cheatState.is(WilderBlockTags.SCULK_STAIR_REPLACEABLE) || cheatState.is(WilderBlockTags.SCULK_WALL_REPLACEABLE) || cheatState.is(WilderBlockTags.SCULK_SLAB_REPLACEABLE) || (cheatState.is(RegisterBlocks.STONE_CHEST) && !cheatState.getValue(RegisterProperties.HAS_SCULK))) {
+            cir.setReturnValue(true);
         }
-        return isMovementUnobstructed(world, sourcePos, targetPos);
     }
 
     @Shadow
@@ -105,28 +94,21 @@ public class SculkSpreaderChargeCursorMixin {
         return false;
     }
 
-    @Inject(method = "getValidMovementPos", at = @At("HEAD"), cancellable = true)
-    private static void getValidMovementPos(LevelAccessor world, BlockPos pos, RandomSource random, CallbackInfoReturnable<BlockPos> cir) {
-        BlockPos.MutableBlockPos mutable = pos.mutable();
-        BlockPos.MutableBlockPos mutable2 = pos.mutable();
-
+    @Inject(method = "getValidMovementPos", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/LevelAccessor;getBlockState(Lnet/minecraft/core/BlockPos;)Lnet/minecraft/world/level/block/state/BlockState;", shift = At.Shift.AFTER), locals = LocalCapture.CAPTURE_FAILHARD, cancellable = true)
+    private static void getValidMovementPos(LevelAccessor world, BlockPos pos, RandomSource random, CallbackInfoReturnable<BlockPos> cir, BlockPos.MutableBlockPos mutable, BlockPos.MutableBlockPos mutable2, Iterator<Vec3i> var5, Vec3i vec3i) {
         boolean canReturn = false;
-        for (Vec3i vec3i : getRandomizedNonCornerNeighbourOffsets(random)) {
-            mutable2.setWithOffset(pos, vec3i);
-            BlockState blockState = world.getBlockState(mutable2);
-            boolean isInTags = blockState.is(WilderBlockTags.SCULK_SLAB_REPLACEABLE_WORLDGEN) || blockState.is(WilderBlockTags.SCULK_WALL_REPLACEABLE_WORLDGEN) || blockState.is(WilderBlockTags.SCULK_STAIR_REPLACEABLE_WORLDGEN) || blockState.is(WilderBlockTags.SCULK_SLAB_REPLACEABLE) || blockState.is(WilderBlockTags.SCULK_WALL_REPLACEABLE) || blockState.is(WilderBlockTags.SCULK_STAIR_REPLACEABLE) || (blockState.is(RegisterBlocks.STONE_CHEST) && !blockState.getValue(RegisterProperties.HAS_SCULK));
-            if (isInTags && isMovementUnobstructedNew(world, pos, mutable2)) {
-                mutable.set(mutable2);
-                canReturn = true;
-                if (SculkVeinBlock.hasSubstrateAccess(world, blockState, mutable2)) {
-                    break;
-                }
+        BlockState blockState = world.getBlockState(mutable2);
+        boolean isInTags = blockState.is(WilderBlockTags.SCULK_SLAB_REPLACEABLE_WORLDGEN) || blockState.is(WilderBlockTags.SCULK_WALL_REPLACEABLE_WORLDGEN) || blockState.is(WilderBlockTags.SCULK_STAIR_REPLACEABLE_WORLDGEN) || blockState.is(WilderBlockTags.SCULK_SLAB_REPLACEABLE) || blockState.is(WilderBlockTags.SCULK_WALL_REPLACEABLE) || blockState.is(WilderBlockTags.SCULK_STAIR_REPLACEABLE) || (blockState.is(RegisterBlocks.STONE_CHEST) && !blockState.getValue(RegisterProperties.HAS_SCULK));
+        if (isInTags && isMovementUnobstructed(world, pos, mutable2)) {
+            mutable.set(mutable2);
+            canReturn = true;
+            if (SculkVeinBlock.hasSubstrateAccess(world, blockState, mutable2)) {
+                cir.cancel();
             }
         }
 
         if (canReturn) {
             cir.setReturnValue(mutable.equals(pos) ? null : mutable);
-            cir.cancel();
         }
     }
 }
