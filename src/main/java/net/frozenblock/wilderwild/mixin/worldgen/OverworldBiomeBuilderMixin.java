@@ -187,7 +187,8 @@ public final class OverworldBiomeBuilderMixin {
                     offset
             ));
             info.cancel();
-        } else */if (biome.equals(Biomes.MANGROVE_SWAMP) && ClothConfigInteractionHandler.modifyMangroveSwampPlacement()) {
+        } else */
+        if (biome.equals(Biomes.MANGROVE_SWAMP) && ClothConfigInteractionHandler.modifyMangroveSwampPlacement()) {
             parameters.accept(Pair.of(Climate.parameters(
                             Climate.Parameter.span(this.temperatures[2], this.temperatures[4]), //Temperature
                             Climate.Parameter.span(this.humidities[swampHumidity], this.humidities[4]), //Humidity
@@ -237,9 +238,9 @@ public final class OverworldBiomeBuilderMixin {
         this.addSemiDeepBiome(
                 consumer,
                 this.FULL_RANGE,
-                Climate.Parameter.span(this.humidities[2], this.humidities[4]),
+                Climate.Parameter.span(this.humidities[3], this.humidities[4]),
                 Climate.Parameter.span(this.deepOceanContinentalness, this.oceanContinentalness),
-                Climate.Parameter.span(this.erosions[3], this.erosions[6]),
+                Climate.Parameter.span(this.erosions[4], this.erosions[6]),
                 this.FULL_RANGE,
                 0.0F,
                 RegisterWorldgen.JELLYFISH_CAVES
