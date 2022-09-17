@@ -12,7 +12,6 @@
 	"server.BoatTypeMixin",
 	"server.BoneMealItemMixin",
 	"server.ChestBoatDropsMixin",
-	"server.CreeperMixin",
 	"server.ExperienceOrbEntityMixin",
 	"server.FrogEntityMixin",
 	"server.GoatEntityMixin",
