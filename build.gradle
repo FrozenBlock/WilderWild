@@ -78,6 +78,9 @@ repositories {
 	maven {
 		url = "https://maven.oroarmor.com"
 	}
+	maven {
+		url = 'https://maven.parchmentmc.org'
+	}
 
 	flatDir {
 		dirs 'libs'
@@ -89,9 +92,12 @@ dependencies {
 	minecraft "com.mojang:minecraft:${minecraft_version}"
 	//mappings loom.officialMojangMappings()
 	mappings(loom.layered {
-		// idk this might be broken who knows
-		mappings "org.quiltmc:quilt-mappings:1.19.2+build.intermediary-test.1:intermediary-v2"
-		officialMojangMappings()
+		// please annoy treetrain if this doesnt work
+		it.mappings("org.quiltmc:quilt-mappings:1.19.2+build.intermediary-test.1:intermediary-v2")
+		it.parchment("org.parchmentmc.data:parchment-1.19.2:${parchment_mappings}@zip")
+		it.officialMojangMappings {
+			setNameSyntheticMembers(false)
+		}
 	})
 	/*mappings(loom.layered {
 		addLayer(quiltMappings.mappings("org.quiltmc:quilt-mappings:${minecraft_version}+build.${quilt_mappings}:v2"))
