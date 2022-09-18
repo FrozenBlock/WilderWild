@@ -59,7 +59,9 @@ public final class OverworldBiomeBuilderMixin {
         parameters.accept(Pair.of(Climate.parameters(temperature, humidity, continentalness, erosion, Climate.Parameter.span(0.0F, 1.0F), weirdness, offset), biome));
     }
 
-    @Shadow @Final private Climate.Parameter mushroomFieldsContinentalness;
+    @Shadow
+    @Final
+    private Climate.Parameter mushroomFieldsContinentalness;
 
     @Inject(method = "<init>", at = @At("TAIL"))
     private void injectBiomes(CallbackInfo ci) {

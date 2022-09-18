@@ -28,18 +28,18 @@ public class BoneMealItemMixin {
 
     @Inject(method = "useOn", at = @At("HEAD"), cancellable = true)
     public void useOn(UseOnContext context, CallbackInfoReturnable<InteractionResult> info) {
-        Level world = context.getLevel();
+        Level level = context.getLevel();
         BlockPos blockPos = context.getClickedPos();
-        BlockState state = world.getBlockState(blockPos);
+        BlockState state = level.getBlockState(blockPos);
         if (state.getBlock() instanceof GloryOfTheSnowBlock glory) {
             if (state.getValue(RegisterProperties.FLOWER_COLOR) == FlowerColors.NONE) {
                 WilderWild.log("Glory Of The Snow Bonemealed @ " + blockPos, WilderWild.DEV_LOGGING);
-                if (!world.isClientSide) {
-                    world.levelEvent(LevelEvent.PARTICLES_AND_SOUND_PLANT_GROWTH, blockPos, 0);
-                    world.setBlockAndUpdate(blockPos, state.setValue(RegisterProperties.FLOWER_COLOR, glory.COLOR_LIST.get(WilderWild.random().nextInt(glory.COLOR_LIST.size()))));
+                if (!level.isClientSide) {
+                    level.levelEvent(LevelEvent.PARTICLES_AND_SOUND_PLANT_GROWTH, blockPos, 0);
+                    level.setBlockAndUpdate(blockPos, state.setValue(RegisterProperties.FLOWER_COLOR, glory.COLOR_LIST.get(WilderWild.random().nextInt(glory.COLOR_LIST.size()))));
                     context.getItemInHand().shrink(1);
                 }
-                info.setReturnValue(InteractionResult.sidedSuccess(world.isClientSide));
+                info.setReturnValue(InteractionResult.sidedSuccess(level.isClientSide));
                 info.cancel();
             }
         }

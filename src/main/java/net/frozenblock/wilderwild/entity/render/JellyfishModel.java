@@ -1,5 +1,6 @@
 package net.frozenblock.wilderwild.entity.render;
 
+import com.google.common.collect.ImmutableList;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.math.Vector3f;
@@ -13,6 +14,8 @@ import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
 import net.minecraft.util.Mth;
 import org.jetbrains.annotations.NotNull;
+
+import java.util.List;
 
 @Environment(EnvType.CLIENT)
 public class JellyfishModel<T extends Jellyfish> extends HierarchicalModel<T> {
@@ -28,6 +31,7 @@ public class JellyfishModel<T extends Jellyfish> extends HierarchicalModel<T> {
     private final ModelPart tentacle6;
     private final ModelPart tentacle7;
     private final ModelPart tentacle8;
+    private final List<ModelPart> tentacles;
 
     public JellyfishModel(ModelPart root) {
         super(WilderWildClient::entityTranslucentEmissiveFixed);
@@ -43,6 +47,7 @@ public class JellyfishModel<T extends Jellyfish> extends HierarchicalModel<T> {
         this.tentacle6 = this.tentacleBase.getChild("tentacle6");
         this.tentacle7 = this.tentacleBase.getChild("tentacle7");
         this.tentacle8 = this.tentacleBase.getChild("tentacle8");
+        this.tentacles = ImmutableList.of(this.tentacle1, this.tentacle2, this.tentacle3, this.tentacle4, this.tentacle5, this.tentacle6, this.tentacle7, this.tentacle8);
     }
 
     public static LayerDefinition getTexturedModelData() {
@@ -68,17 +73,18 @@ public class JellyfishModel<T extends Jellyfish> extends HierarchicalModel<T> {
     public float tentXRot;
     public float tentZRot;
 
-    public void renderToBuffer(PoseStack poseStack, @NotNull VertexConsumer vertexConsumer, int i, int j, float var5, float var6, float var7, float var8) {
+    @Override
+    public void renderToBuffer(PoseStack poseStack, @NotNull VertexConsumer buffer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
         poseStack.pushPose();
         poseStack.mulPose(Vector3f.XP.rotationDegrees(this.xRot));
         poseStack.mulPose(Vector3f.YP.rotationDegrees(this.zRot));
-        this.body.render(poseStack, vertexConsumer, i, j, 1.0F, 1.0F, 1.0F, 1.0F);
+        this.body.render(poseStack, buffer, packedLight, packedOverlay, 1.0F, 1.0F, 1.0F, 1.0F);
         poseStack.popPose();
 
         poseStack.pushPose();
         poseStack.mulPose(Vector3f.XP.rotationDegrees(this.tentXRot));
         poseStack.mulPose(Vector3f.YP.rotationDegrees(this.tentZRot));
-        this.tentacleBase.render(poseStack, vertexConsumer, i, j, 1.0F, 1.0F, 1.0F, 1.0F);
+        this.tentacleBase.render(poseStack, buffer, packedLight, packedOverlay, 1.0F, 1.0F, 1.0F, 1.0F);
         poseStack.popPose();
     }
 
@@ -86,11 +92,11 @@ public class JellyfishModel<T extends Jellyfish> extends HierarchicalModel<T> {
     private static final float eightPi = -8 * pi180;
 
     @Override
-    public void prepareMobModel(T jelly, float f, float g, float h) {
-        this.xRot = -(jelly.xRot1 + h * (jelly.xBodyRot - jelly.xRot1));
-        this.zRot = -(jelly.zRot1 + h * (jelly.zBodyRot - jelly.zRot1));
-        this.tentXRot = -(jelly.xRot6 + h * (jelly.xRot5 - jelly.xRot6));
-        this.tentZRot = -(jelly.zRot6 + h * (jelly.zRot5 - jelly.zRot6));
+    public void prepareMobModel(T jelly, float limbSwing, float limbSwimgAmount, float partialTick) {
+        this.xRot = -(jelly.xRot1 + partialTick * (jelly.xBodyRot - jelly.xRot1));
+        this.zRot = -(jelly.zRot1 + partialTick * (jelly.zBodyRot - jelly.zRot1));
+        this.tentXRot = -(jelly.xRot6 + partialTick * (jelly.xRot5 - jelly.xRot6));
+        this.tentZRot = -(jelly.zRot6 + partialTick * (jelly.zRot5 - jelly.zRot6));
     }
 
     @Override
@@ -125,5 +131,9 @@ public class JellyfishModel<T extends Jellyfish> extends HierarchicalModel<T> {
     @Override
     public ModelPart root() {
         return this.root;
+    }
+
+    public List<ModelPart> getTentacles() {
+        return this.tentacles;
     }
 }

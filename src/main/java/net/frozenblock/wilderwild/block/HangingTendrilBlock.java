@@ -26,6 +26,7 @@ import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
@@ -39,6 +40,7 @@ import net.minecraft.world.level.pathfinder.PathComputationType;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public class HangingTendrilBlock extends BaseEntityBlock implements SimpleWaterloggedBlock, SculkBehaviour {
@@ -60,33 +62,33 @@ public class HangingTendrilBlock extends BaseEntityBlock implements SimpleWaterl
     }
 
     @Override
-    public boolean canSurvive(net.minecraft.world.level.block.state.BlockState state, LevelReader world, BlockPos pos) {
+    public boolean canSurvive(@NotNull BlockState state, LevelReader level, BlockPos pos) {
         BlockPos blockPos = pos.above();
-        net.minecraft.world.level.block.state.BlockState blockState = world.getBlockState(blockPos);
-        return blockState.isFaceSturdy(world, blockPos, Direction.DOWN);
+        BlockState blockState = level.getBlockState(blockPos);
+        return blockState.isFaceSturdy(level, blockPos, Direction.DOWN);
     }
 
     @Override
-    public net.minecraft.world.level.block.state.BlockState getStateForPlacement(BlockPlaceContext ctx) {
+    public BlockState getStateForPlacement(BlockPlaceContext ctx) {
         BlockPos blockPos = ctx.getClickedPos();
         FluidState fluidState = ctx.getLevel().getFluidState(blockPos);
         return this.defaultBlockState().setValue(WATERLOGGED, fluidState.getType() == Fluids.WATER);
     }
 
     @Override
-    public boolean isRandomlyTicking(net.minecraft.world.level.block.state.BlockState state) {
+    public boolean isRandomlyTicking(@NotNull BlockState state) {
         return true;
     }
 
     @Override
-    public void randomTick(net.minecraft.world.level.block.state.BlockState state, ServerLevel world, BlockPos pos, RandomSource random) {
-        if (!state.canSurvive(world, pos)) {
-            world.destroyBlock(pos, true);
+    public void randomTick(BlockState state, @NotNull ServerLevel level, @NotNull BlockPos pos, @NotNull RandomSource random) {
+        if (!state.canSurvive(level, pos)) {
+            level.destroyBlock(pos, true);
         } else if (getPhase(state) == SculkSensorPhase.INACTIVE) {
-            BlockEntity entity = world.getBlockEntity(pos);
+            BlockEntity entity = level.getBlockEntity(pos);
             if (entity != null) {
                 if (entity instanceof HangingTendrilBlockEntity wigglyTendril) {
-                    world.setBlockAndUpdate(pos, state.setValue(TWITCHING, true));
+                    level.setBlockAndUpdate(pos, state.setValue(TWITCHING, true));
                     wigglyTendril.ticksToStopTwitching = random.nextIntBetweenInclusive(5, 12);
                 }
             }
@@ -94,113 +96,113 @@ public class HangingTendrilBlock extends BaseEntityBlock implements SimpleWaterl
     }
 
     @Override
-    public net.minecraft.world.level.block.state.BlockState updateShape(net.minecraft.world.level.block.state.BlockState state, Direction direction, net.minecraft.world.level.block.state.BlockState neighborState, LevelAccessor world, BlockPos pos, BlockPos neighborPos) {
-        if (direction == Direction.UP && !canSurvive(state, world, pos)) {
-            world.destroyBlock(pos, true);
+    public BlockState updateShape(@NotNull BlockState state, @NotNull Direction direction, @NotNull BlockState neighborState, @NotNull LevelAccessor level, @NotNull BlockPos currentPos, @NotNull BlockPos neighborPos) {
+        if (direction == Direction.UP && !canSurvive(state, level, currentPos)) {
+            level.destroyBlock(currentPos, true);
         }
         if (state.getValue(WATERLOGGED)) {
-            world.scheduleTick(pos, Fluids.WATER, Fluids.WATER.getTickDelay(world));
+            level.scheduleTick(currentPos, Fluids.WATER, Fluids.WATER.getTickDelay(level));
         }
-        return super.updateShape(state, direction, neighborState, world, pos, neighborPos);
+        return super.updateShape(state, direction, neighborState, level, currentPos, neighborPos);
     }
 
     @Override
-    public FluidState getFluidState(net.minecraft.world.level.block.state.BlockState state) {
+    public FluidState getFluidState(BlockState state) {
         return state.getValue(WATERLOGGED) ? Fluids.WATER.getSource(false) : super.getFluidState(state);
     }
 
     @Override
-    public void tick(net.minecraft.world.level.block.state.BlockState state, ServerLevel world, BlockPos pos, RandomSource random) {
+    public void tick(@NotNull BlockState state, @NotNull ServerLevel level, @NotNull BlockPos pos, @NotNull RandomSource random) {
         if (getPhase(state) != SculkSensorPhase.ACTIVE) {
             if (getPhase(state) == SculkSensorPhase.COOLDOWN) {
-                world.setBlock(pos, state.setValue(HANGING_TENDRIL_PHASE, SculkSensorPhase.INACTIVE), 3);
+                level.setBlock(pos, state.setValue(HANGING_TENDRIL_PHASE, SculkSensorPhase.INACTIVE), 3);
             }
         } else if (!isInactive(state)) {
-            setCooldown(world, pos, state);
+            setCooldown(level, pos, state);
         }
     }
 
     @Override
-    public void onPlace(net.minecraft.world.level.block.state.BlockState state, Level world, BlockPos pos, net.minecraft.world.level.block.state.BlockState oldState, boolean notify) {
-        if (!world.isClientSide() && !state.is(oldState.getBlock())) {
-            world.scheduleTick(new BlockPos(pos), state.getBlock(), 1);
+    public void onPlace(@NotNull BlockState state, Level level, @NotNull BlockPos pos, @NotNull BlockState oldState, boolean isMoving) {
+        if (!level.isClientSide() && !state.is(oldState.getBlock())) {
+            level.scheduleTick(new BlockPos(pos), state.getBlock(), 1);
         }
     }
 
     @Override
-    public void onRemove(net.minecraft.world.level.block.state.BlockState state, Level world, BlockPos pos, net.minecraft.world.level.block.state.BlockState newState, boolean moved) {
+    public void onRemove(BlockState state, @NotNull Level level, @NotNull BlockPos pos, BlockState newState, boolean isMoving) {
         if (!state.is(newState.getBlock())) {
             if (getPhase(state) == SculkSensorPhase.ACTIVE) {
-                updateNeighbors(world, pos);
+                updateNeighbors(level, pos);
             }
-            super.onRemove(state, world, pos, newState, moved);
+            super.onRemove(state, level, pos, newState, isMoving);
         }
     }
 
-    private static void updateNeighbors(Level world, BlockPos pos) {
-        world.updateNeighborsAt(pos, RegisterBlocks.HANGING_TENDRIL);
-        world.updateNeighborsAt(pos.relative(Direction.UP.getOpposite()), RegisterBlocks.HANGING_TENDRIL);
+    private static void updateNeighbors(Level level, BlockPos pos) {
+        level.updateNeighborsAt(pos, RegisterBlocks.HANGING_TENDRIL);
+        level.updateNeighborsAt(pos.relative(Direction.UP.getOpposite()), RegisterBlocks.HANGING_TENDRIL);
     }
 
     @Override
     @Nullable
-    public BlockEntity newBlockEntity(BlockPos pos, net.minecraft.world.level.block.state.BlockState state) {
+    public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
         return new HangingTendrilBlockEntity(pos, state);
     }
 
     @Override
     @Nullable
-    public <T extends BlockEntity> GameEventListener getListener(ServerLevel world, T blockEntity) {
+    public <T extends BlockEntity> GameEventListener getListener(ServerLevel level, T blockEntity) {
         return blockEntity instanceof HangingTendrilBlockEntity tendril ? tendril.getEventListener() : null;
     }
 
     @Override
     @Nullable
-    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level world, net.minecraft.world.level.block.state.BlockState state, BlockEntityType<T> type) {
-        return !world.isClientSide ? createTickerHelper(type, RegisterBlockEntities.HANGING_TENDRIL, (worldx, pos, statex, blockEntity) -> {
+    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
+        return !level.isClientSide ? createTickerHelper(type, RegisterBlockEntities.HANGING_TENDRIL, (worldx, pos, statex, blockEntity) -> {
             blockEntity.serverTick(worldx, pos, statex);
         }) : null;
     }
 
     @Override
-    public RenderShape getRenderShape(net.minecraft.world.level.block.state.BlockState state) {
+    public RenderShape getRenderShape(BlockState state) {
         return RenderShape.MODEL;
     }
 
     @Override
-    public VoxelShape getOcclusionShape(net.minecraft.world.level.block.state.BlockState state, BlockGetter world, BlockPos pos) {
+    public VoxelShape getOcclusionShape(BlockState state, BlockGetter level, BlockPos pos) {
         return OUTLINE_SHAPE;
     }
 
     @Override
-    public VoxelShape getShape(net.minecraft.world.level.block.state.BlockState state, BlockGetter world, BlockPos pos, CollisionContext context) {
+    public VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
         return OUTLINE_SHAPE;
     }
 
-    public static SculkSensorPhase getPhase(net.minecraft.world.level.block.state.BlockState state) {
+    public static SculkSensorPhase getPhase(BlockState state) {
         return state.getValue(HANGING_TENDRIL_PHASE);
     }
 
-    public static boolean isInactive(net.minecraft.world.level.block.state.BlockState state) {
+    public static boolean isInactive(BlockState state) {
         return getPhase(state) == SculkSensorPhase.INACTIVE;
     }
 
-    public static void setCooldown(Level world, BlockPos pos, net.minecraft.world.level.block.state.BlockState state) {
-        world.setBlock(pos, state.setValue(HANGING_TENDRIL_PHASE, SculkSensorPhase.COOLDOWN), 3);
-        world.scheduleTick(pos, state.getBlock(), 1);
+    public static void setCooldown(Level level, BlockPos pos, BlockState state) {
+        level.setBlock(pos, state.setValue(HANGING_TENDRIL_PHASE, SculkSensorPhase.COOLDOWN), 3);
+        level.scheduleTick(pos, state.getBlock(), 1);
         if (!(Boolean) state.getValue(WATERLOGGED)) {
-            world.playSound(null, pos, SoundEvents.SCULK_CLICKING_STOP, SoundSource.BLOCKS, 1.0F, world.random.nextFloat() * 0.2F + 1.0F);
+            level.playSound(null, pos, SoundEvents.SCULK_CLICKING_STOP, SoundSource.BLOCKS, 1.0F, level.random.nextFloat() * 0.2F + 1.0F);
         }
-        updateNeighbors(world, pos);
+        updateNeighbors(level, pos);
     }
 
-    public static void setActive(@Nullable Entity entity, Level world, BlockPos pos, net.minecraft.world.level.block.state.BlockState state, GameEvent event, int power) {
-        world.setBlock(pos, state.setValue(HANGING_TENDRIL_PHASE, SculkSensorPhase.ACTIVE), 3);
-        world.scheduleTick(pos, state.getBlock(), 60);
-        updateNeighbors(world, pos);
-        world.gameEvent(entity, event, pos);
+    public static void setActive(@Nullable Entity entity, Level level, BlockPos pos, BlockState state, GameEvent event, int power) {
+        level.setBlock(pos, state.setValue(HANGING_TENDRIL_PHASE, SculkSensorPhase.ACTIVE), 3);
+        level.scheduleTick(pos, state.getBlock(), 60);
+        updateNeighbors(level, pos);
+        level.gameEvent(entity, event, pos);
         if (!state.getValue(WATERLOGGED)) {
-            world.playSound(null, (double) pos.getX() + 0.5D, (double) pos.getY() + 0.5D, (double) pos.getZ() + 0.5D, SoundEvents.SCULK_CLICKING, SoundSource.BLOCKS, 1.0F, world.random.nextFloat() * 0.2F + 1.0F);
+            level.playSound(null, (double) pos.getX() + 0.5D, (double) pos.getY() + 0.5D, (double) pos.getZ() + 0.5D, SoundEvents.SCULK_CLICKING, SoundSource.BLOCKS, 1.0F, level.random.nextFloat() * 0.2F + 1.0F);
         }
     }
 
@@ -210,13 +212,13 @@ public class HangingTendrilBlock extends BaseEntityBlock implements SimpleWaterl
     }
 
     @Override
-    public boolean hasAnalogOutputSignal(net.minecraft.world.level.block.state.BlockState state) {
+    public boolean hasAnalogOutputSignal(BlockState state) {
         return true;
     }
 
     @Override
-    public int getAnalogOutputSignal(net.minecraft.world.level.block.state.BlockState state, Level world, BlockPos pos) {
-        BlockEntity blockEntity = world.getBlockEntity(pos);
+    public int getAnalogOutputSignal(BlockState state, Level level, BlockPos pos) {
+        BlockEntity blockEntity = level.getBlockEntity(pos);
         if (blockEntity instanceof HangingTendrilBlockEntity hangingEntity) {
             return getPhase(state) == SculkSensorPhase.ACTIVE ? hangingEntity.getLastVibrationFrequency() : 0;
         } else {
@@ -225,27 +227,27 @@ public class HangingTendrilBlock extends BaseEntityBlock implements SimpleWaterl
     }
 
     @Override
-    public boolean isPathfindable(net.minecraft.world.level.block.state.BlockState state, BlockGetter world, BlockPos pos, PathComputationType type) {
+    public boolean isPathfindable(BlockState state, BlockGetter level, BlockPos pos, PathComputationType type) {
         return true;
     }
 
     @Override
-    public boolean useShapeForLightOcclusion(net.minecraft.world.level.block.state.BlockState state) {
+    public boolean useShapeForLightOcclusion(BlockState state) {
         return true;
     }
 
     @Override
-    public void spawnAfterBreak(net.minecraft.world.level.block.state.BlockState state, ServerLevel world, BlockPos pos, ItemStack stack, boolean bl) {
-        super.spawnAfterBreak(state, world, pos, stack, bl);
-        this.tryDropExperience(world, pos, stack, ConstantInt.of(1));
+    public void spawnAfterBreak(BlockState state, ServerLevel level, BlockPos pos, ItemStack stack, boolean bl) {
+        super.spawnAfterBreak(state, level, pos, stack, bl);
+        this.tryDropExperience(level, pos, stack, ConstantInt.of(1));
     }
 
-    public static boolean shouldHavePogLighting(net.minecraft.world.level.block.state.BlockState state) {
+    public static boolean shouldHavePogLighting(BlockState state) {
         return getPhase(state) == SculkSensorPhase.ACTIVE || state.getValue(WRINGING_OUT);
     }
 
-    public static HangingTendrilBlockEntity getEntity(Level world, BlockPos pos) {
-        BlockEntity entity = world.getBlockEntity(pos);
+    public static HangingTendrilBlockEntity getEntity(Level level, BlockPos pos) {
+        BlockEntity entity = level.getBlockEntity(pos);
         if (entity != null) {
             if (entity instanceof HangingTendrilBlockEntity wigglyTendril) {
                 return wigglyTendril;
@@ -254,8 +256,8 @@ public class HangingTendrilBlock extends BaseEntityBlock implements SimpleWaterl
         return null;
     }
 
-    public static HangingTendrilBlockEntity getEntity(LevelAccessor world, BlockPos pos) {
-        BlockEntity entity = world.getBlockEntity(pos);
+    public static HangingTendrilBlockEntity getEntity(LevelAccessor level, BlockPos pos) {
+        BlockEntity entity = level.getBlockEntity(pos);
         if (entity != null) {
             if (entity instanceof HangingTendrilBlockEntity wigglyTendril) {
                 return wigglyTendril;
@@ -265,22 +267,22 @@ public class HangingTendrilBlock extends BaseEntityBlock implements SimpleWaterl
     }
 
     @Override
-    public InteractionResult use(net.minecraft.world.level.block.state.BlockState state, Level world, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
+    public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
         if (isInactive(state) && !state.getValue(WRINGING_OUT)) {
-            if (world.isClientSide) {
+            if (level.isClientSide) {
                 return InteractionResult.SUCCESS;
             } else {
-                HangingTendrilBlockEntity tendrilEntity = getEntity(world, pos);
+                HangingTendrilBlockEntity tendrilEntity = getEntity(level, pos);
                 if (tendrilEntity != null) {
                     if (tendrilEntity.storedXP > 0) {
-                        world.setBlockAndUpdate(pos, state.setValue(WRINGING_OUT, true));
-                        world.playSound(
+                        level.setBlockAndUpdate(pos, state.setValue(WRINGING_OUT, true));
+                        level.playSound(
                                 null,
                                 pos,
                                 RegisterSounds.BLOCK_HANGING_TENDRIL_WRING,
                                 SoundSource.BLOCKS,
                                 1f,
-                                world.random.nextFloat() * 0.1F + 0.9F
+                                level.random.nextFloat() * 0.1F + 0.9F
                         );
                         tendrilEntity.ringOutTicksLeft = 5;
                         return InteractionResult.SUCCESS;
@@ -292,8 +294,8 @@ public class HangingTendrilBlock extends BaseEntityBlock implements SimpleWaterl
     }
 
     @Override
-    public int attemptUseCharge(SculkSpreader.ChargeCursor cursor, LevelAccessor world, BlockPos catalystPos, RandomSource random, SculkSpreader spreadManager, boolean shouldConvertToBlock) {
-        HangingTendrilBlockEntity tendrilEntity = getEntity(world, cursor.getPos());
+    public int attemptUseCharge(SculkSpreader.ChargeCursor cursor, LevelAccessor level, BlockPos catalystPos, RandomSource random, SculkSpreader spreadManager, boolean shouldConvertToBlock) {
+        HangingTendrilBlockEntity tendrilEntity = getEntity(level, cursor.getPos());
         if (tendrilEntity != null) {
             if (tendrilEntity.storedXP < 900) {
                 if (cursor.getCharge() > 1) {

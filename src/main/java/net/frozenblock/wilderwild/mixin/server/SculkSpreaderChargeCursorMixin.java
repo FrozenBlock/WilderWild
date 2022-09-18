@@ -16,7 +16,6 @@ import net.minecraft.world.level.block.SculkBehaviour;
 import net.minecraft.world.level.block.SculkSpreader;
 import net.minecraft.world.level.block.SculkVeinBlock;
 import net.minecraft.world.level.block.state.BlockState;
-import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
@@ -43,7 +42,7 @@ public class SculkSpreaderChargeCursorMixin {
     });
 
     @Redirect(method = "update", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/block/SculkSpreader$ChargeCursor;getBlockBehaviour(Lnet/minecraft/world/level/block/state/BlockState;)Lnet/minecraft/world/level/block/SculkBehaviour;"))
-    private SculkBehaviour newSculkBehaviour(BlockState blockState, LevelAccessor world, BlockPos pos, RandomSource random, SculkSpreader behavior, boolean spread) {
+    private SculkBehaviour newSculkBehaviour(BlockState blockState, LevelAccessor level, BlockPos pos, RandomSource random, SculkSpreader behavior, boolean spread) {
         return getBlockBehaviourNew(blockState, behavior.isWorldGeneration());
     }
 
@@ -64,8 +63,8 @@ public class SculkSpreaderChargeCursorMixin {
     }
 
     @Inject(method = "isMovementUnobstructed", at = @At(value = "INVOKE", target = "Lnet/minecraft/core/BlockPos;subtract(Lnet/minecraft/core/Vec3i;)Lnet/minecraft/core/BlockPos;", shift = At.Shift.BEFORE), cancellable = true)
-    private static void isMovementUnobstructed(LevelAccessor world, BlockPos startPos, BlockPos spreadPos, CallbackInfoReturnable<Boolean> cir) {
-        BlockState cheatState = world.getBlockState(spreadPos);
+    private static void isMovementUnobstructed(LevelAccessor level, BlockPos startPos, BlockPos spreadPos, CallbackInfoReturnable<Boolean> cir) {
+        BlockState cheatState = level.getBlockState(spreadPos);
         if (cheatState.is(WilderBlockTags.SCULK_STAIR_REPLACEABLE_WORLDGEN) || cheatState.is(WilderBlockTags.SCULK_WALL_REPLACEABLE_WORLDGEN) || cheatState.is(WilderBlockTags.SCULK_SLAB_REPLACEABLE_WORLDGEN) || cheatState.is(WilderBlockTags.SCULK_STAIR_REPLACEABLE) || cheatState.is(WilderBlockTags.SCULK_WALL_REPLACEABLE) || cheatState.is(WilderBlockTags.SCULK_SLAB_REPLACEABLE) || (cheatState.is(RegisterBlocks.STONE_CHEST) && !cheatState.getValue(RegisterProperties.HAS_SCULK))) {
             cir.setReturnValue(true);
         }
@@ -90,19 +89,19 @@ public class SculkSpreaderChargeCursorMixin {
     }
 
     @Shadow
-    private static boolean isMovementUnobstructed(LevelAccessor world, BlockPos sourcePos, BlockPos targetPos) {
+    private static boolean isMovementUnobstructed(LevelAccessor level, BlockPos sourcePos, BlockPos targetPos) {
         return false;
     }
 
     @Inject(method = "getValidMovementPos", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/LevelAccessor;getBlockState(Lnet/minecraft/core/BlockPos;)Lnet/minecraft/world/level/block/state/BlockState;", shift = At.Shift.AFTER), locals = LocalCapture.CAPTURE_FAILHARD, cancellable = true)
-    private static void getValidMovementPos(LevelAccessor world, BlockPos pos, RandomSource random, CallbackInfoReturnable<BlockPos> cir, BlockPos.MutableBlockPos mutable, BlockPos.MutableBlockPos mutable2, Iterator<Vec3i> var5, Vec3i vec3i) {
+    private static void getValidMovementPos(LevelAccessor level, BlockPos pos, RandomSource random, CallbackInfoReturnable<BlockPos> cir, BlockPos.MutableBlockPos mutable, BlockPos.MutableBlockPos mutable2, Iterator<Vec3i> var5, Vec3i vec3i) {
         boolean canReturn = false;
-        BlockState blockState = world.getBlockState(mutable2);
+        BlockState blockState = level.getBlockState(mutable2);
         boolean isInTags = blockState.is(WilderBlockTags.SCULK_SLAB_REPLACEABLE_WORLDGEN) || blockState.is(WilderBlockTags.SCULK_WALL_REPLACEABLE_WORLDGEN) || blockState.is(WilderBlockTags.SCULK_STAIR_REPLACEABLE_WORLDGEN) || blockState.is(WilderBlockTags.SCULK_SLAB_REPLACEABLE) || blockState.is(WilderBlockTags.SCULK_WALL_REPLACEABLE) || blockState.is(WilderBlockTags.SCULK_STAIR_REPLACEABLE) || (blockState.is(RegisterBlocks.STONE_CHEST) && !blockState.getValue(RegisterProperties.HAS_SCULK));
-        if (isInTags && isMovementUnobstructed(world, pos, mutable2)) {
+        if (isInTags && isMovementUnobstructed(level, pos, mutable2)) {
             mutable.set(mutable2);
             canReturn = true;
-            if (SculkVeinBlock.hasSubstrateAccess(world, blockState, mutable2)) {
+            if (SculkVeinBlock.hasSubstrateAccess(level, blockState, mutable2)) {
                 cir.cancel();
             }
         }

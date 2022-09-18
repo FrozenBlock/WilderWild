@@ -29,44 +29,44 @@ public class AlgaeBlock extends Block {
     }
 
     @Override
-    public VoxelShape getShape(@NotNull BlockState state, @NotNull BlockGetter world, @NotNull BlockPos pos, @NotNull CollisionContext context) {
+    public VoxelShape getShape(@NotNull BlockState state, @NotNull BlockGetter level, @NotNull BlockPos pos, @NotNull CollisionContext context) {
         return SHAPE;
     }
 
     @Override
-    public boolean canSurvive(@NotNull BlockState state, @NotNull LevelReader world, BlockPos pos) {
-        return canLayAt(world, pos.below());
+    public boolean canSurvive(@NotNull BlockState state, @NotNull LevelReader level, BlockPos pos) {
+        return canLayAt(level, pos.below());
     }
 
     @Override
     public BlockState updateShape(
-            @NotNull BlockState state, @NotNull Direction direction, @NotNull BlockState neighborState, @NotNull LevelAccessor world, @NotNull BlockPos pos, @NotNull BlockPos neighborPos
+            @NotNull BlockState state, @NotNull Direction direction, @NotNull BlockState neighborState, @NotNull LevelAccessor level, @NotNull BlockPos pos, @NotNull BlockPos neighborPos
     ) {
-        return !this.canSurvive(state, world, pos)
+        return !this.canSurvive(state, level, pos)
                 ? Blocks.AIR.defaultBlockState()
-                : super.updateShape(state, direction, neighborState, world, pos, neighborPos);
+                : super.updateShape(state, direction, neighborState, level, pos, neighborPos);
     }
 
     @Override
-    public void tick(@NotNull BlockState state, @NotNull ServerLevel world, @NotNull BlockPos pos, @NotNull RandomSource random) {
-        if (!this.canSurvive(state, world, pos)) {
-            world.destroyBlock(pos, false);
+    public void tick(@NotNull BlockState state, @NotNull ServerLevel level, @NotNull BlockPos pos, @NotNull RandomSource random) {
+        if (!this.canSurvive(state, level, pos)) {
+            level.destroyBlock(pos, false);
         }
     }
 
     @Override
-    public void entityInside(@NotNull BlockState state, @NotNull Level world, @NotNull BlockPos pos, Entity entity) {
+    public void entityInside(@NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos, Entity entity) {
         if (entity.getType().equals(EntityType.FALLING_BLOCK)) {
-            world.destroyBlock(pos, false);
+            level.destroyBlock(pos, false);
         }
         if (!entity.getType().is(WilderEntityTags.CAN_SWIM_IN_ALGAE)) {
             entity.setDeltaMovement(entity.getDeltaMovement().multiply(0.8, 0.8, 0.8));
         }
     }
 
-    private static boolean canLayAt(BlockGetter world, BlockPos pos) {
-        FluidState fluidState = world.getFluidState(pos);
-        FluidState fluidState2 = world.getFluidState(pos.above());
+    private static boolean canLayAt(BlockGetter level, BlockPos pos) {
+        FluidState fluidState = level.getFluidState(pos);
+        FluidState fluidState2 = level.getFluidState(pos.above());
         return fluidState.getType() == Fluids.WATER && fluidState2.getType() == Fluids.EMPTY;
     }
 

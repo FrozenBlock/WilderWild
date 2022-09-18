@@ -37,16 +37,16 @@ public class MilkweedBlock extends TallFlowerBlock {
     }
 
     @Override
-    public void randomTick(BlockState state, ServerLevel world, BlockPos pos, RandomSource random) {
+    public void randomTick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
         if (random.nextFloat() > 0.8F) {
             if (state.is(RegisterBlocks.MILKWEED)) {
                 if (state.getValue(BlockStateProperties.DOUBLE_BLOCK_HALF) == DoubleBlockHalf.LOWER) {
                     if (state.getValue(BlockStateProperties.AGE_3) < 3) {
-                        if (world.getBlockState(pos).is(RegisterBlocks.MILKWEED)) {
-                            world.setBlockAndUpdate(pos, state.setValue(BlockStateProperties.AGE_3, state.getValue(BlockStateProperties.AGE_3) + 1));
+                        if (level.getBlockState(pos).is(RegisterBlocks.MILKWEED)) {
+                            level.setBlockAndUpdate(pos, state.setValue(BlockStateProperties.AGE_3, state.getValue(BlockStateProperties.AGE_3) + 1));
                         }
-                        if (world.getBlockState(pos.above()).is(RegisterBlocks.MILKWEED)) {
-                            world.setBlockAndUpdate(pos.above(), world.getBlockState(pos.above()).setValue(BlockStateProperties.AGE_3, state.getValue(BlockStateProperties.AGE_3) + 1));
+                        if (level.getBlockState(pos.above()).is(RegisterBlocks.MILKWEED)) {
+                            level.setBlockAndUpdate(pos.above(), level.getBlockState(pos.above()).setValue(BlockStateProperties.AGE_3, state.getValue(BlockStateProperties.AGE_3) + 1));
                         }
                     }
                 }
@@ -55,38 +55,38 @@ public class MilkweedBlock extends TallFlowerBlock {
     }
 
     @Override
-    public InteractionResult use(BlockState state, Level world, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
-        if (world instanceof ServerLevel server) {
+    public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
+        if (level instanceof ServerLevel server) {
             if (state.getValue(BlockStateProperties.AGE_3) == 3) {
                 ItemStack itemStack = player.getItemInHand(hand);
                 if (itemStack.is(Items.SHEARS)) {
                     ItemStack stack = new ItemStack(RegisterItems.MILKWEED_POD);
-                    stack.setCount(world.random.nextIntBetweenInclusive(2, 7));
-                    popResource(world, pos, stack);
-                    world.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.GROWING_PLANT_CROP, SoundSource.BLOCKS, 1.0F, 1.0F);
+                    stack.setCount(level.random.nextIntBetweenInclusive(2, 7));
+                    popResource(level, pos, stack);
+                    level.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.GROWING_PLANT_CROP, SoundSource.BLOCKS, 1.0F, 1.0F);
                     itemStack.hurtAndBreak(1, player, (playerx) -> playerx.broadcastBreakEvent(hand));
-                    world.gameEvent(player, GameEvent.SHEAR, pos);
+                    level.gameEvent(player, GameEvent.SHEAR, pos);
                     if (state.getValue(BlockStateProperties.DOUBLE_BLOCK_HALF) == DoubleBlockHalf.LOWER) {
-                        world.setBlockAndUpdate(pos, state.setValue(BlockStateProperties.AGE_3, 0));
-                        world.setBlockAndUpdate(pos.above(), world.getBlockState(pos.above()).setValue(BlockStateProperties.AGE_3, 0));
+                        level.setBlockAndUpdate(pos, state.setValue(BlockStateProperties.AGE_3, 0));
+                        level.setBlockAndUpdate(pos.above(), level.getBlockState(pos.above()).setValue(BlockStateProperties.AGE_3, 0));
                     } else if (state.getValue(BlockStateProperties.DOUBLE_BLOCK_HALF) == DoubleBlockHalf.UPPER) {
-                        world.setBlockAndUpdate(pos, state.setValue(BlockStateProperties.AGE_3, 0));
-                        world.setBlockAndUpdate(pos.below(), world.getBlockState(pos.below()).setValue(BlockStateProperties.AGE_3, 0));
+                        level.setBlockAndUpdate(pos, state.setValue(BlockStateProperties.AGE_3, 0));
+                        level.setBlockAndUpdate(pos.below(), level.getBlockState(pos.below()).setValue(BlockStateProperties.AGE_3, 0));
                     }
                 } else {
-                    EasyPacket.EasySeedPacket.createParticle(world, Vec3.atCenterOf(pos).add(0, 0.3, 0), server.random.nextIntBetweenInclusive(14, 28), true, 48);
+                    EasyPacket.EasySeedPacket.createParticle(level, Vec3.atCenterOf(pos).add(0, 0.3, 0), server.random.nextIntBetweenInclusive(14, 28), true, 48);
                     if (state.getValue(BlockStateProperties.DOUBLE_BLOCK_HALF) == DoubleBlockHalf.LOWER) {
-                        world.setBlockAndUpdate(pos, state.setValue(BlockStateProperties.AGE_3, 1));
-                        world.setBlockAndUpdate(pos.above(), world.getBlockState(pos.above()).setValue(BlockStateProperties.AGE_3, 1));
+                        level.setBlockAndUpdate(pos, state.setValue(BlockStateProperties.AGE_3, 1));
+                        level.setBlockAndUpdate(pos.above(), level.getBlockState(pos.above()).setValue(BlockStateProperties.AGE_3, 1));
                     } else if (state.getValue(BlockStateProperties.DOUBLE_BLOCK_HALF) == DoubleBlockHalf.UPPER) {
-                        world.setBlockAndUpdate(pos, state.setValue(BlockStateProperties.AGE_3, 1));
-                        world.setBlockAndUpdate(pos.below(), world.getBlockState(pos.below()).setValue(BlockStateProperties.AGE_3, 1));
+                        level.setBlockAndUpdate(pos, state.setValue(BlockStateProperties.AGE_3, 1));
+                        level.setBlockAndUpdate(pos.below(), level.getBlockState(pos.below()).setValue(BlockStateProperties.AGE_3, 1));
                     }
                 }
                 return InteractionResult.SUCCESS;
             }
         }
-        return super.use(state, world, pos, player, hand, hit);
+        return super.use(state, level, pos, player, hand, hit);
 
     }
 

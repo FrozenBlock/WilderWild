@@ -17,6 +17,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.gameevent.GameEvent;
+import org.jetbrains.annotations.NotNull;
 
 public class FireflyBottle extends Item {
 
@@ -28,7 +29,7 @@ public class FireflyBottle extends Item {
     }
 
     @Override
-    public ItemStack finishUsingItem(ItemStack stack, Level world, LivingEntity user) {
+    public ItemStack finishUsingItem(@NotNull ItemStack stack, @NotNull Level level, @NotNull LivingEntity user) {
         Player playerEntity = user instanceof Player ? (Player) user : null;
         if (playerEntity instanceof ServerPlayer) {
             CriteriaTriggers.CONSUME_ITEM.trigger((ServerPlayer) playerEntity, stack);
@@ -55,25 +56,26 @@ public class FireflyBottle extends Item {
         return stack;
     }
 
-    public InteractionResultHolder<ItemStack> use(Level world, Player user, InteractionHand hand) {
-        WilderWild.log(user, "Used Firefly Bottle", WilderWild.DEV_LOGGING);
-        if (world instanceof ServerLevel server) {
-            float pitch = user.getXRot();
-            float yaw = user.getYRot();
+    @Override
+    public InteractionResultHolder<ItemStack> use(@NotNull Level level, Player player, @NotNull InteractionHand usedHand) {
+        WilderWild.log(player, "Used Firefly Bottle", WilderWild.DEV_LOGGING);
+        if (level instanceof ServerLevel server) {
+            float pitch = player.getXRot();
+            float yaw = player.getYRot();
             float roll = 0.0F;
             float f = -Mth.sin(yaw * 0.017453292F) * Mth.cos(pitch * 0.017453292F);
             float g = -Mth.sin((pitch + roll) * 0.017453292F);
             float h = Mth.cos(yaw * 0.017453292F) * Mth.cos(pitch * 0.017453292F);
-            ItemStack stack = user.getItemInHand(hand);
-            if (user.getAbilities().mayBuild) {
+            ItemStack stack = player.getItemInHand(usedHand);
+            if (player.getAbilities().mayBuild) {
                 Firefly entity = RegisterEntities.FIREFLY.create(server);
                 if (entity != null) {
                     entity.setDeltaMovement(f * 0.7, g * 0.7, h * 0.7);
-                    entity.moveTo(user.getX(), user.getEyeY(), user.getZ(), user.getXRot(), user.getYRot());
+                    entity.moveTo(player.getX(), player.getEyeY(), player.getZ(), player.getXRot(), player.getYRot());
                     entity.setFromBottle(true);
                     boolean spawned = server.addFreshEntity(entity);
                     if (spawned) {
-                        entity.playSound(RegisterSounds.ITEM_BOTTLE_RELEASE_FIREFLY, 1.0F, world.random.nextFloat() * 0.2f + 0.9f);
+                        entity.playSound(RegisterSounds.ITEM_BOTTLE_RELEASE_FIREFLY, 1.0F, level.random.nextFloat() * 0.2f + 0.9f);
                         entity.hasHome = true;
                         FireflyBrain.rememberHome(entity, entity.blockPosition());
                         entity.setColor(this.color);
@@ -81,21 +83,22 @@ public class FireflyBottle extends Item {
                             entity.setCustomName(stack.getHoverName());
                         }
                     } else {
-                        WilderWild.log("Couldn't spawn Firefly from bottle @ " + user.blockPosition().toShortString(), WilderWild.UNSTABLE_LOGGING);
+                        WilderWild.log("Couldn't spawn Firefly from bottle @ " + player.blockPosition().toShortString(), WilderWild.UNSTABLE_LOGGING);
                     }
                 }
             }
         }
-        user.gameEvent(GameEvent.ITEM_INTERACT_FINISH);
-        return ItemUtils.startUsingInstantly(world, user, hand);
+        player.gameEvent(GameEvent.ITEM_INTERACT_FINISH);
+        return ItemUtils.startUsingInstantly(level, player, usedHand);
     }
 
-    public UseAnim getUseAnimation(ItemStack stack) {
+    @Override
+    public UseAnim getUseAnimation(@NotNull ItemStack stack) {
         return UseAnim.NONE; //sus funny funny funny among us sus funny all
     }
 
     @Override
-    public int getUseDuration(ItemStack stack) {
+    public int getUseDuration(@NotNull ItemStack stack) {
         return 1;
     }
 }

@@ -21,15 +21,15 @@ public class SculkSlabBlock extends SlabBlock implements SculkBehaviour {
         super(settings);
     }
 
-    public void spawnAfterBreak(BlockState state, ServerLevel world, BlockPos pos, ItemStack stack, boolean dropExperience) {
-        super.spawnAfterBreak(state, world, pos, stack, dropExperience);
+    public void spawnAfterBreak(BlockState state, ServerLevel level, BlockPos pos, ItemStack stack, boolean dropExperience) {
+        super.spawnAfterBreak(state, level, pos, stack, dropExperience);
         if (dropExperience) {
-            this.tryDropExperience(world, pos, stack, this.experience);
+            this.tryDropExperience(level, pos, stack, this.experience);
         }
     }
 
     @Override
-    public int attemptUseCharge(SculkSpreader.ChargeCursor cursor, LevelAccessor world, BlockPos catalystPos, RandomSource random, SculkSpreader spreadManager, boolean shouldConvertToBlock) {
+    public int attemptUseCharge(SculkSpreader.ChargeCursor cursor, LevelAccessor level, BlockPos catalystPos, RandomSource random, SculkSpreader spreadManager, boolean shouldConvertToBlock) {
         return random.nextInt(spreadManager.chargeDecayRate()) == 0 ? Mth.floor((float) cursor.getCharge() * 0.5F) : cursor.getCharge();
     }
 }

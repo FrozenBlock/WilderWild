@@ -71,15 +71,15 @@ public class CopperHorn extends InstrumentItem {
     }
 
     @Override
-    public InteractionResultHolder<ItemStack> use(@NotNull Level world, @NotNull Player user, @NotNull InteractionHand hand) {
+    public InteractionResultHolder<ItemStack> use(@NotNull Level level, @NotNull Player user, @NotNull InteractionHand usedHand) {
         WilderWild.log(user, "Used Copper Horn", WilderWild.DEV_LOGGING);
-        ItemStack itemStack = user.getItemInHand(hand);
+        ItemStack itemStack = user.getItemInHand(usedHand);
         Optional<Holder<Instrument>> optional = this.getInstrument(itemStack);
         if (optional.isPresent()) {
             Instrument instrument = optional.get().value();
-            user.startUsingItem(hand);
+            user.startUsingItem(usedHand);
 
-            playSound(instrument, user, world);
+            playSound(instrument, user, level);
 
             return InteractionResultHolder.consume(itemStack);
         } else {
@@ -87,18 +87,18 @@ public class CopperHorn extends InstrumentItem {
         }
     }
 
-    private void playSound(Instrument instrument, Player user, Level world) {
+    private void playSound(Instrument instrument, Player user, Level level) {
         SoundEvent soundEvent = instrument.soundEvent();
         float range = instrument.range() / 16.0F;
         int note = (int) ((-user.getXRot() + 90) / 15);
 
-        if (!world.isClientSide) {
+        if (!level.isClientSide) {
             float soundPitch = !user.isShiftKeyDown() ?
                     (float) Math.pow(2.0D, (note - 12.0F) / 12.0D) + 1F :
                     (float) Math.pow(2.0D, (note - 12.0F) / 12.0D);
-            FrozenSoundPackets.createMovingRestrictionLoopingSound(world, user, soundEvent, SoundSource.RECORDS, range, soundPitch, WilderWild.id("instrument"));
+            FrozenSoundPackets.createMovingRestrictionLoopingSound(level, user, soundEvent, SoundSource.RECORDS, range, soundPitch, WilderWild.id("instrument"));
         }
-        world.gameEvent(GameEvent.INSTRUMENT_PLAY, user.position(), GameEvent.Context.of(user));
+        level.gameEvent(GameEvent.INSTRUMENT_PLAY, user.position(), GameEvent.Context.of(user));
     }
 
     @Override

@@ -17,6 +17,7 @@ import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.FaceAttachedHorizontalDirectionalBlock;
 import net.minecraft.world.level.block.SimpleWaterloggedBlock;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.AttachFace;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
@@ -28,6 +29,7 @@ import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public class ShelfFungusBlock extends FaceAttachedHorizontalDirectionalBlock implements SimpleWaterloggedBlock {
@@ -45,48 +47,51 @@ public class ShelfFungusBlock extends FaceAttachedHorizontalDirectionalBlock imp
         this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH).setValue(WATERLOGGED, false).setValue(FACE, AttachFace.WALL).setValue(STAGE, 1));
     }
 
-    public InteractionResult use(net.minecraft.world.level.block.state.BlockState state, Level world, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
+    @Override
+    public InteractionResult use(BlockState state, @NotNull Level level, BlockPos pos, Player player, @NotNull InteractionHand hand, @NotNull BlockHitResult hit) {
         ItemStack itemStack = player.getItemInHand(hand);
         int i = state.getValue(STAGE);
         if (i > 1 && itemStack.is(Items.SHEARS)) {
-            popResource(world, pos, new ItemStack(state.getBlock().asItem()));
-            world.setBlockAndUpdate(pos, state.setValue(STAGE, i - 1));
-            world.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.GROWING_PLANT_CROP, SoundSource.BLOCKS, 1.0F, 1.0F);
+            popResource(level, pos, new ItemStack(state.getBlock().asItem()));
+            level.setBlockAndUpdate(pos, state.setValue(STAGE, i - 1));
+            level.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.GROWING_PLANT_CROP, SoundSource.BLOCKS, 1.0F, 1.0F);
             itemStack.hurtAndBreak(1, player, (playerx) -> playerx.broadcastBreakEvent(hand));
-            world.gameEvent(player, GameEvent.SHEAR, pos);
-            return InteractionResult.sidedSuccess(world.isClientSide);
+            level.gameEvent(player, GameEvent.SHEAR, pos);
+            return InteractionResult.sidedSuccess(level.isClientSide);
         } else {
-            return super.use(state, world, pos, player, hand, hit);
+            return super.use(state, level, pos, player, hand, hit);
         }
     }
 
     @Override
-    protected void createBlockStateDefinition(StateDefinition.Builder<Block, net.minecraft.world.level.block.state.BlockState> builder) {
+    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
         builder.add(FACE, FACING, STAGE, WATERLOGGED);
     }
 
-    public boolean canBeReplaced(net.minecraft.world.level.block.state.BlockState state, BlockPlaceContext context) {
+    @Override
+    public boolean canBeReplaced(@NotNull BlockState state, BlockPlaceContext context) {
         return !context.isSecondaryUseActive() && context.getItemInHand().is(this.asItem()) && state.getValue(STAGE) < 4 || super.canBeReplaced(state, context);
     }
 
+    @Override
     @Nullable
-    public net.minecraft.world.level.block.state.BlockState getStateForPlacement(BlockPlaceContext ctx) {
-        net.minecraft.world.level.block.state.BlockState insideState = ctx.getLevel().getBlockState(ctx.getClickedPos());
+    public BlockState getStateForPlacement(BlockPlaceContext context) {
+        BlockState insideState = context.getLevel().getBlockState(context.getClickedPos());
         if (insideState.is(this)) {
             return insideState.setValue(STAGE, Math.min(4, insideState.getValue(STAGE) + 1));
         }
         boolean waterlogged = insideState.hasProperty(BlockStateProperties.WATERLOGGED) ? insideState.getValue(BlockStateProperties.WATERLOGGED) : false;
         if (!waterlogged) {
-            waterlogged = ctx.getLevel().getFluidState(ctx.getClickedPos()).getType() == Fluids.WATER;
+            waterlogged = context.getLevel().getFluidState(context.getClickedPos()).getType() == Fluids.WATER;
         }
-        for (Direction direction : ctx.getNearestLookingDirections()) {
-            net.minecraft.world.level.block.state.BlockState blockState;
+        for (Direction direction : context.getNearestLookingDirections()) {
+            BlockState blockState;
             if (direction.getAxis() == Direction.Axis.Y) {
-                blockState = this.defaultBlockState().setValue(FACE, direction == Direction.UP ? AttachFace.CEILING : AttachFace.FLOOR).setValue(FACING, ctx.getHorizontalDirection()).setValue(WATERLOGGED, waterlogged);
+                blockState = this.defaultBlockState().setValue(FACE, direction == Direction.UP ? AttachFace.CEILING : AttachFace.FLOOR).setValue(FACING, context.getHorizontalDirection()).setValue(WATERLOGGED, waterlogged);
             } else {
                 blockState = this.defaultBlockState().setValue(FACE, AttachFace.WALL).setValue(FACING, direction.getOpposite()).setValue(WATERLOGGED, waterlogged);
             }
-            if (blockState.canSurvive(ctx.getLevel(), ctx.getClickedPos())) {
+            if (blockState.canSurvive(context.getLevel(), context.getClickedPos())) {
                 return blockState;
             }
         }
@@ -100,18 +105,21 @@ public class ShelfFungusBlock extends FaceAttachedHorizontalDirectionalBlock imp
         return AttachFace.WALL;
     }
 
-    public net.minecraft.world.level.block.state.BlockState updateShape(net.minecraft.world.level.block.state.BlockState state, Direction direction, net.minecraft.world.level.block.state.BlockState neighborState, LevelAccessor world, BlockPos pos, BlockPos neighborPos) {
+    @Override
+    public BlockState updateShape(BlockState state, @NotNull Direction direction, @NotNull BlockState neighborState, @NotNull LevelAccessor level, @NotNull BlockPos currentPos, @NotNull BlockPos neighborPos) {
         if (state.getValue(WATERLOGGED)) {
-            world.scheduleTick(pos, Fluids.WATER, Fluids.WATER.getTickDelay(world));
+            level.scheduleTick(currentPos, Fluids.WATER, Fluids.WATER.getTickDelay(level));
         }
-        return super.updateShape(state, direction, neighborState, world, pos, neighborPos);
+        return super.updateShape(state, direction, neighborState, level, currentPos, neighborPos);
     }
 
-    public FluidState getFluidState(net.minecraft.world.level.block.state.BlockState state) {
+    @Override
+    public FluidState getFluidState(BlockState state) {
         return state.getValue(WATERLOGGED) ? Fluids.WATER.getSource(false) : super.getFluidState(state);
     }
 
-    public VoxelShape getShape(net.minecraft.world.level.block.state.BlockState state, BlockGetter world, BlockPos pos, CollisionContext context) {
+    @Override
+    public VoxelShape getShape(BlockState state, @NotNull BlockGetter level, @NotNull BlockPos pos, @NotNull CollisionContext context) {
         return switch (state.getValue(FACE)) {
             case FLOOR -> FLOOR_SHAPE;
             case WALL -> switch (state.getValue(FACING)) {

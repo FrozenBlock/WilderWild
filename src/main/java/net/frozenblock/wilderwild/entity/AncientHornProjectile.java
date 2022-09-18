@@ -3,7 +3,6 @@ package net.frozenblock.wilderwild.entity;
 import io.netty.buffer.Unpooled;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.frozenblock.lib.damagesource.FrozenProjectileDamageSource;
-import net.frozenblock.lib.sound.FlyBySoundPacket;
 import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.block.entity.HangingTendrilBlockEntity;
 import net.frozenblock.wilderwild.misc.config.ClothConfigInteractionHandler;
@@ -19,7 +18,6 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.NbtUtils;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.protocol.Packet;
-import net.minecraft.network.protocol.game.ClientboundGameEventPacket;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
@@ -73,13 +71,13 @@ public class AncientHornProjectile extends AbstractArrow {
     public int bubbles;
     private BlockState inBlockState;
 
-    public AncientHornProjectile(@NotNull EntityType<? extends AbstractArrow> entityType, Level world) {
-        super(entityType, world);
+    public AncientHornProjectile(@NotNull EntityType<? extends AbstractArrow> entityType, Level level) {
+        super(entityType, level);
         this.setSoundEvent(RegisterSounds.ENTITY_ANCIENT_HORN_PROJECTILE_DISSIPATE);
     }
 
-    public AncientHornProjectile(Level world, double x, double y, double z) {
-        super(RegisterEntities.ANCIENT_HORN_PROJECTILE_ENTITY, x, y, z, world);
+    public AncientHornProjectile(Level level, double x, double y, double z) {
+        super(RegisterEntities.ANCIENT_HORN_PROJECTILE_ENTITY, x, y, z, level);
         this.setSoundEvent(RegisterSounds.ENTITY_ANCIENT_HORN_PROJECTILE_DISSIPATE);
     }
 
@@ -87,10 +85,12 @@ public class AncientHornProjectile extends AbstractArrow {
         return level.getEntities(this, this.getBoundingBox().expandTowards(this.getDeltaMovement()).inflate(1.0D), this::canHitEntity);
     }
 
+    @Override
     public boolean shouldRender(double cameraX, double cameraY, double cameraZ) {
         return true;
     }
 
+    @Override
     public void tick() {
         this.baseTick();
         if (this.bubbles > 0 && this.level instanceof ServerLevel server) {
@@ -217,6 +217,7 @@ public class AncientHornProjectile extends AbstractArrow {
         }
     }
 
+    @Override
     public boolean canHitEntity(Entity entity) {
         if (!entity.isSpectator() && entity.isAlive() && entity.isPickable() && !(entity instanceof Projectile)) {
             Entity owner = this.getOwner();
@@ -226,22 +227,24 @@ public class AncientHornProjectile extends AbstractArrow {
         }
     }
 
+    @Override
     public void playerTouch(@NotNull Player player) {
     }
 
-    protected void onHitBlock(BlockHitResult blockHitResult) { //BLOCK INTERACTIONS
-        this.inBlockState = this.level.getBlockState(blockHitResult.getBlockPos());
-        BlockState blockState = this.level.getBlockState(blockHitResult.getBlockPos());
+    @Override
+    protected void onHitBlock(BlockHitResult result) { //BLOCK INTERACTIONS
+        this.inBlockState = this.level.getBlockState(result.getBlockPos());
+        BlockState blockState = this.level.getBlockState(result.getBlockPos());
         Entity owner = this.getOwner();
         if (WilderWild.isCopperPipe(blockState) && owner != null) {
-            if (blockHitResult.getDirection() == blockState.getValue(BlockStateProperties.FACING).getOpposite() && this.level instanceof ServerLevel server) {
-                if (InteractionHandler.addHornNbtToBlock(server, blockHitResult.getBlockPos(), owner)) {
+            if (result.getDirection() == blockState.getValue(BlockStateProperties.FACING).getOpposite() && this.level instanceof ServerLevel server) {
+                if (InteractionHandler.addHornNbtToBlock(server, result.getBlockPos(), owner)) {
                     this.discard();
                 }
             }
         }
-        blockState.onProjectileHit(this.level, blockState, blockHitResult, this);
-        Vec3 hitVec = blockHitResult.getLocation().subtract(this.getX(), this.getY(), this.getZ());
+        blockState.onProjectileHit(this.level, blockState, result, this);
+        Vec3 hitVec = result.getLocation().subtract(this.getX(), this.getY(), this.getZ());
         this.setDeltaMovement(hitVec);
         Vec3 hitNormal = hitVec.normalize().scale(0.05000000074505806D);
         this.setPosRaw(this.getX() - hitNormal.x, this.getY() - hitNormal.y, this.getZ() - hitNormal.z);
@@ -252,7 +255,7 @@ public class AncientHornProjectile extends AbstractArrow {
         if (this.level instanceof ServerLevel server && canInteract()) {
             if (blockState.getBlock() == Blocks.SCULK_SHRIEKER) { //SCULK SHRIEKER
                 if (ClothConfigInteractionHandler.hornCanSummonWarden()) {
-                    BlockPos pos = blockHitResult.getBlockPos();
+                    BlockPos pos = result.getBlockPos();
                     WilderWild.log(Blocks.SCULK_SHRIEKER, pos, "Horn Projectile Touched", WilderWild.UNSTABLE_LOGGING);
                     if (blockState.getValue(RegisterProperties.SOULS_TAKEN) < 2 && !blockState.getValue(SculkShriekerBlock.SHRIEKING)) {
                         if (!blockState.getValue(SculkShriekerBlock.CAN_SUMMON)) {
@@ -272,7 +275,7 @@ public class AncientHornProjectile extends AbstractArrow {
                     }
                 }
             } else if (blockState.getBlock() == Blocks.SCULK_SENSOR) {
-                BlockPos pos = blockHitResult.getBlockPos();
+                BlockPos pos = result.getBlockPos();
                 WilderWild.log(Blocks.SCULK_SENSOR, pos, "Horn Projectile Touched", WilderWild.UNSTABLE_LOGGING);
                 if (blockState.getValue(RegisterProperties.HICCUPPING)) {
                     server.setBlockAndUpdate(pos, blockState.setValue(RegisterProperties.HICCUPPING, false));
@@ -291,17 +294,19 @@ public class AncientHornProjectile extends AbstractArrow {
         this.remove(RemovalReason.DISCARDED);
     }
 
-    private static void trySpawnWarden(ServerLevel world, BlockPos pos) {
-        if (world.getGameRules().getBoolean(GameRules.RULE_DO_WARDEN_SPAWNING)) {
-            Optional<Warden> warden = SpawnUtil.trySpawnMob(EntityType.WARDEN, MobSpawnType.TRIGGERED, world, pos, 20, 5, 6, SpawnUtil.Strategy.ON_TOP_OF_COLLIDER);
+    private static void trySpawnWarden(ServerLevel level, BlockPos pos) {
+        if (level.getGameRules().getBoolean(GameRules.RULE_DO_WARDEN_SPAWNING)) {
+            Optional<Warden> warden = SpawnUtil.trySpawnMob(EntityType.WARDEN, MobSpawnType.TRIGGERED, level, pos, 20, 5, 6, SpawnUtil.Strategy.ON_TOP_OF_COLLIDER);
             warden.ifPresent(wardenEntity -> wardenEntity.playSound(SoundEvents.WARDEN_AGITATED, 5.0F, 1.0F));
         }
     }
 
+    @Override
     protected SoundEvent getDefaultHitGroundSoundEvent() {
         return RegisterSounds.ENTITY_ANCIENT_HORN_PROJECTILE_DISSIPATE;
     }
 
+    @Override
     public boolean isNoPhysics() {
         BlockState insideState = level.getBlockState(this.blockPosition());
         if (insideState.is(RegisterBlocks.HANGING_TENDRIL) && level instanceof ServerLevel server && canInteract()) { //HANGING TENDRIL
@@ -374,41 +379,42 @@ public class AncientHornProjectile extends AbstractArrow {
     }
 
     @Override
-    public void addAdditionalSaveData(@NotNull CompoundTag nbt) {
+    public void addAdditionalSaveData(@NotNull CompoundTag compound) {
         if (!this.isRemoved()) {
             if (this.inBlockState != null) {
-                nbt.put("inBlockState", NbtUtils.writeBlockState(this.inBlockState));
+                compound.put("inBlockState", NbtUtils.writeBlockState(this.inBlockState));
             }
-            nbt.putInt("aliveTicks", this.aliveTicks);
+            compound.putInt("aliveTicks", this.aliveTicks);
             if (this.leftOwner) {
-                nbt.putBoolean("LeftOwner", true);
+                compound.putBoolean("LeftOwner", true);
             }
-            nbt.putBoolean("HasBeenShot", this.shot);
-            nbt.putDouble("originX", this.vecX);
-            nbt.putDouble("originY", this.vecY);
-            nbt.putDouble("originZ", this.vecZ);
-            nbt.putBoolean("shotByPlayer", this.shotByPlayer);
-            nbt.putInt("bubbles", this.bubbles);
+            compound.putBoolean("HasBeenShot", this.shot);
+            compound.putDouble("originX", this.vecX);
+            compound.putDouble("originY", this.vecY);
+            compound.putDouble("originZ", this.vecZ);
+            compound.putBoolean("shotByPlayer", this.shotByPlayer);
+            compound.putInt("bubbles", this.bubbles);
         }
     }
 
     @Override
-    public void readAdditionalSaveData(@NotNull CompoundTag nbt) {
+    public void readAdditionalSaveData(@NotNull CompoundTag compound) {
         if (!this.isRemoved()) {
-            if (nbt.contains("inBlockState", 10)) {
-                this.inBlockState = NbtUtils.readBlockState(nbt.getCompound("inBlockState"));
+            if (compound.contains("inBlockState", 10)) {
+                this.inBlockState = NbtUtils.readBlockState(compound.getCompound("inBlockState"));
             }
-            this.aliveTicks = nbt.getInt("aliveTicks");
-            this.leftOwner = nbt.getBoolean("LeftOwner");
-            this.shot = nbt.getBoolean("HasBeenShot");
-            this.vecX = nbt.getDouble("originX");
-            this.vecY = nbt.getDouble("originY");
-            this.vecZ = nbt.getDouble("originZ");
-            this.shotByPlayer = nbt.getBoolean("shotByPlayer");
-            this.bubbles = nbt.getInt("bubbles");
+            this.aliveTicks = compound.getInt("aliveTicks");
+            this.leftOwner = compound.getBoolean("LeftOwner");
+            this.shot = compound.getBoolean("HasBeenShot");
+            this.vecX = compound.getDouble("originX");
+            this.vecY = compound.getDouble("originY");
+            this.vecZ = compound.getDouble("originZ");
+            this.shotByPlayer = compound.getBoolean("shotByPlayer");
+            this.bubbles = compound.getInt("bubbles");
         }
     }
 
+    @Override
     public void shootFromRotation(Entity shooter, float pitch, float yaw, float roll, float speed, float divergence) {
         float xRot = -Mth.sin(yaw * 0.017453292F) * Mth.cos(pitch * 0.017453292F);
         float yRot = -Mth.sin((pitch + roll) * 0.017453292F);
@@ -420,10 +426,11 @@ public class AncientHornProjectile extends AbstractArrow {
         this.setOwner(shooter);
     }
 
-    protected void onHit(HitResult hitResult) {
-        HitResult.Type type = hitResult.getType();
+    @Override
+    protected void onHit(HitResult result) {
+        HitResult.Type type = result.getType();
         if (type == HitResult.Type.BLOCK) {
-            BlockHitResult blockHitResult = (BlockHitResult) hitResult;
+            BlockHitResult blockHitResult = (BlockHitResult) result;
             if (!level.getBlockState(blockHitResult.getBlockPos()).is(this.NON_COLLIDE)) {
                 this.onHitBlock(blockHitResult);
                 this.remove(RemovalReason.DISCARDED);
@@ -440,10 +447,12 @@ public class AncientHornProjectile extends AbstractArrow {
         return 15;
     }
 
+    @Override
     protected float getWaterInertia() {
         return 1.0F;
     }
 
+    @Override
     public boolean isNoGravity() {
         return true;
     }
@@ -473,7 +482,7 @@ public class AncientHornProjectile extends AbstractArrow {
             } else if (!entity.getType().is(WilderEntityTags.ANCIENT_HORN_IMMUNE)) {
                 if (entity.hurt(damageSource, (float) damage)) {
                     if (entity instanceof LivingEntity livingEntity) {
-                        Level world = this.getLevel();
+                        Level level = this.getLevel();
                         WilderWild.log(livingEntity, "Horn Projectile Touched", WilderWild.DEV_LOGGING);
                         if (!this.level.isClientSide && owner instanceof LivingEntity) {
                             EnchantmentHelper.doPostHurtEffects(livingEntity, owner);
@@ -482,7 +491,7 @@ public class AncientHornProjectile extends AbstractArrow {
                         this.doPostHurtEffects(livingEntity);
                         /*if (livingEntity instanceof Player && owner instanceof ServerPlayer && !this.isSilent()) {
                             ((ServerPlayer) owner).connection.send(new ClientboundGameEventPacket(ClientboundGameEventPacket.ARROW_HIT_PLAYER, 0.0F));
-                            FlyBySoundPacket.createFlybySound(world, this, RegisterSounds.ENTITY_ANCIENT_HORN_PROJECTILE_FLYBY, SoundSource.PLAYERS, 1.0F, 0.7F);
+                            FlyBySoundPacket.createFlybySound(level, this, RegisterSounds.ENTITY_ANCIENT_HORN_PROJECTILE_FLYBY, SoundSource.PLAYERS, 1.0F, 0.7F);
                         }*/
                         if (livingEntity.isDeadOrDying() && level instanceof ServerLevel server) {
                             server.sendParticles(ParticleTypes.SCULK_SOUL, livingEntity.getX(), livingEntity.getEyeY(), livingEntity.getZ(), 1, 0.2D, 0.0D, 0.2D, 0.0D);
@@ -510,23 +519,30 @@ public class AncientHornProjectile extends AbstractArrow {
         }
     }
 
+    @Override
+    public boolean dampensVibrations() {
+        return true;
+    }
+
+    @Override
     public void gameEvent(@NotNull GameEvent event) {
     }
 
+    @Override
     public void gameEvent(@NotNull GameEvent event, @Nullable Entity entity) {
     }
 
     public static class EntitySpawnPacket { //When the Fabric tutorial WORKS!!!!! BOM BOM BOM BOM BOM BOM BOM, BOBOBOM! DUNDUN!
-        public static Packet<?> create(Entity e, ResourceLocation packetID) {
-            if (e.level.isClientSide)
+        public static Packet<?> create(Entity entity, ResourceLocation packetID) {
+            if (entity.level.isClientSide)
                 throw new IllegalStateException("SpawnPacketUtil.create called on the logical client!");
             FriendlyByteBuf byteBuf = new FriendlyByteBuf(Unpooled.buffer());
-            byteBuf.writeVarInt(Registry.ENTITY_TYPE.getId(e.getType()));
-            byteBuf.writeUUID(e.getUUID());
-            byteBuf.writeVarInt(e.getId());
-            PacketBufUtil.writeVec3d(byteBuf, e.position());
-            PacketBufUtil.writeAngle(byteBuf, e.getXRot());
-            PacketBufUtil.writeAngle(byteBuf, e.getYRot());
+            byteBuf.writeVarInt(Registry.ENTITY_TYPE.getId(entity.getType()));
+            byteBuf.writeUUID(entity.getUUID());
+            byteBuf.writeVarInt(entity.getId());
+            PacketBufUtil.writeVec3d(byteBuf, entity.position());
+            PacketBufUtil.writeAngle(byteBuf, entity.getXRot());
+            PacketBufUtil.writeAngle(byteBuf, entity.getYRot());
             return ServerPlayNetworking.createS2CPacket(packetID, byteBuf);
         }
 

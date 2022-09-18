@@ -14,7 +14,8 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(value = MangroveTreeGrower.class, priority = 69420)
 public class MangroveTreeGrowerMixin {
-    @Shadow @Final
+    @Shadow
+    @Final
     private float tallProbability;
 
     @Inject(method = "getConfiguredFeature", at = @At("RETURN"), cancellable = true)

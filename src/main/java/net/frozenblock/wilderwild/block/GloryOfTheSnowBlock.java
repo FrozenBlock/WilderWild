@@ -27,6 +27,7 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
@@ -47,15 +48,15 @@ public class GloryOfTheSnowBlock extends BushBlock {
     }
 
     @Override
-    public void randomTick(BlockState state, ServerLevel world, BlockPos pos, RandomSource random) {
+    public void randomTick(@NotNull BlockState state, @NotNull ServerLevel level, @NotNull BlockPos pos, RandomSource random) {
         if (random.nextFloat() > 0.9F && state.getValue(COLORS) == FlowerColors.NONE) {
-            world.setBlockAndUpdate(pos, state.setValue(COLORS, COLOR_LIST.get(WilderWild.random().nextInt(COLOR_LIST.size()))));
+            level.setBlockAndUpdate(pos, state.setValue(COLORS, COLOR_LIST.get(WilderWild.random().nextInt(COLOR_LIST.size()))));
         }
     }
 
     @Override
-    public InteractionResult use(BlockState state, Level world, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
-        if (world instanceof ServerLevel) {
+    public InteractionResult use(@NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos, @NotNull Player player, @NotNull InteractionHand hand, @NotNull BlockHitResult hit) {
+        if (level instanceof ServerLevel) {
             FlowerColors color = state.getValue(COLORS);
             if (color != FlowerColors.NONE) {
                 ItemStack itemStack = player.getItemInHand(hand);
@@ -63,22 +64,22 @@ public class GloryOfTheSnowBlock extends BushBlock {
                     Item item = color == FlowerColors.BLUE ? RegisterBlocks.BLUE_GLORY_OF_THE_SNOW.asItem() : color == FlowerColors.PINK ? RegisterBlocks.PINK_GLORY_OF_THE_SNOW.asItem() :
                             color == FlowerColors.PURPLE ? RegisterBlocks.PURPLE_GLORY_OF_THE_SNOW.asItem() : RegisterBlocks.WHITE_GLORY_OF_THE_SNOW.asItem();
                     ItemStack stack = new ItemStack(item);
-                    stack.setCount(world.random.nextIntBetweenInclusive(1, 2));
-                    popResource(world, pos, stack);
-                    world.setBlockAndUpdate(pos, state.getBlock().defaultBlockState());
-                    world.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.GROWING_PLANT_CROP, SoundSource.BLOCKS, 1.0F, 1.0F);
+                    stack.setCount(level.random.nextIntBetweenInclusive(1, 2));
+                    popResource(level, pos, stack);
+                    level.setBlockAndUpdate(pos, state.getBlock().defaultBlockState());
+                    level.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.GROWING_PLANT_CROP, SoundSource.BLOCKS, 1.0F, 1.0F);
                     itemStack.hurtAndBreak(1, player, (playerx) -> playerx.broadcastBreakEvent(hand));
-                    world.gameEvent(player, GameEvent.SHEAR, pos);
+                    level.gameEvent(player, GameEvent.SHEAR, pos);
                     return InteractionResult.SUCCESS;
                 }
             }
         }
-        return super.use(state, world, pos, player, hand, hit);
+        return super.use(state, level, pos, player, hand, hit);
 
     }
 
-    public VoxelShape getShape(BlockState state, BlockGetter world, BlockPos pos, CollisionContext context) {
-        Vec3 vec3d = state.getOffset(world, pos);
+    public VoxelShape getShape(BlockState state, @NotNull BlockGetter level, @NotNull BlockPos pos, @NotNull CollisionContext context) {
+        Vec3 vec3d = state.getOffset(level, pos);
         return SHAPE.move(vec3d.x, vec3d.y, vec3d.z);
     }
 }

@@ -52,6 +52,7 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Collections;
@@ -73,11 +74,11 @@ public class DisplayLanternBlock extends BaseEntityBlock implements SimpleWaterl
     }
 
     @Override
-    public InteractionResult use(BlockState state, Level world, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
-        if (world.isClientSide) {
+    public InteractionResult use(@NotNull BlockState state, Level level, @NotNull BlockPos pos, @NotNull Player player, @NotNull InteractionHand hand, @NotNull BlockHitResult hit) {
+        if (level.isClientSide) {
             return InteractionResult.SUCCESS;
         }
-        BlockEntity entity = world.getBlockEntity(pos);
+        BlockEntity entity = level.getBlockEntity(pos);
         if (entity instanceof DisplayLanternBlockEntity lantern) {
             ItemStack stack = player.getItemInHand(hand);
             if (lantern.invEmpty()) {
@@ -92,8 +93,8 @@ public class DisplayLanternBlock extends BaseEntityBlock implements SimpleWaterl
                             player.getItemInHand(hand).shrink(1);
                         }
                         player.getInventory().placeItemBackInInventory(new ItemStack(Items.GLASS_BOTTLE));
-                        world.setBlockAndUpdate(pos, state.setValue(LIGHT, Mth.clamp(lantern.getFireflies().size() * 3, 0, 15)));
-                        world.playSound(null, pos, RegisterSounds.ITEM_BOTTLE_PUT_IN_LANTERN_FIREFLY, SoundSource.BLOCKS, 1.0F, world.random.nextFloat() * 0.2f + 0.9f);
+                        level.setBlockAndUpdate(pos, state.setValue(LIGHT, Mth.clamp(lantern.getFireflies().size() * 3, 0, 15)));
+                        level.playSound(null, pos, RegisterSounds.ITEM_BOTTLE_PUT_IN_LANTERN_FIREFLY, SoundSource.BLOCKS, 1.0F, level.random.nextFloat() * 0.2f + 0.9f);
                         lantern.updateSync();
                         return InteractionResult.SUCCESS;
                     }
@@ -106,7 +107,7 @@ public class DisplayLanternBlock extends BaseEntityBlock implements SimpleWaterl
                         if (optionalItem.isPresent()) {
                             item = optionalItem.get();
                         }
-                        world.playSound(null, pos, RegisterSounds.ITEM_BOTTLE_CATCH_FIREFLY, SoundSource.BLOCKS, 1.0F, world.random.nextFloat() * 0.2f + 0.9f);
+                        level.playSound(null, pos, RegisterSounds.ITEM_BOTTLE_CATCH_FIREFLY, SoundSource.BLOCKS, 1.0F, level.random.nextFloat() * 0.2f + 0.9f);
                         if (!player.isCreative()) {
                             player.getItemInHand(hand).shrink(1);
                         }
@@ -116,7 +117,7 @@ public class DisplayLanternBlock extends BaseEntityBlock implements SimpleWaterl
                         }
                         player.getInventory().placeItemBackInInventory(bottleStack);
                         ((DisplayLanternBlockEntity) entity).removeFirefly(fireflyInLantern);
-                        world.setBlockAndUpdate(pos, state.setValue(LIGHT, Mth.clamp(lantern.getFireflies().size() * 3, 0, 15)));
+                        level.setBlockAndUpdate(pos, state.setValue(LIGHT, Mth.clamp(lantern.getFireflies().size() * 3, 0, 15)));
                         lantern.updateSync();
                         return InteractionResult.SUCCESS;
                     }
@@ -128,7 +129,7 @@ public class DisplayLanternBlock extends BaseEntityBlock implements SimpleWaterl
                     } else if (stack.isEnchanted()) {
                         light = (int) Math.round(stack.getEnchantmentTags().size() * 0.5);
                     }
-                    world.setBlockAndUpdate(pos, state.setValue(LIGHT, Mth.clamp(light, 0, 15)));
+                    level.setBlockAndUpdate(pos, state.setValue(LIGHT, Mth.clamp(light, 0, 15)));
                     lantern.inventory.set(0, stack.split(1));
                     lantern.updateSync();
                     return InteractionResult.SUCCESS;
@@ -136,10 +137,10 @@ public class DisplayLanternBlock extends BaseEntityBlock implements SimpleWaterl
             } else if (lantern.noFireflies()) {
                 Optional<ItemStack> stack1 = lantern.inventory.stream().findFirst();
                 if (stack1.isPresent()) {
-                    popResource(world, pos, stack1.get());
+                    popResource(level, pos, stack1.get());
                     lantern.inventory.clear();
                     lantern.updateSync();
-                    world.setBlockAndUpdate(pos, state.setValue(LIGHT, 0));
+                    level.setBlockAndUpdate(pos, state.setValue(LIGHT, 0));
                     return InteractionResult.SUCCESS;
                 }
             }
@@ -166,63 +167,63 @@ public class DisplayLanternBlock extends BaseEntityBlock implements SimpleWaterl
     }
 
     @Override
-    public VoxelShape getShape(BlockState state, BlockGetter world, BlockPos pos, CollisionContext context) {
+    public VoxelShape getShape(BlockState state, @NotNull BlockGetter level, @NotNull BlockPos pos, @NotNull CollisionContext context) {
         return state.getValue(HANGING) ? HANGING_SHAPE : STANDING_SHAPE;
     }
 
     @Override
-    protected void createBlockStateDefinition(StateDefinition.Builder<Block, net.minecraft.world.level.block.state.BlockState> builder) {
+    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
         builder.add(HANGING, WATERLOGGED, LIGHT);
     }
 
     @Override
-    public boolean canSurvive(net.minecraft.world.level.block.state.BlockState state, LevelReader world, BlockPos pos) {
+    public boolean canSurvive(@NotNull BlockState state, @NotNull LevelReader level, BlockPos pos) {
         Direction direction = attachedDirection(state).getOpposite();
-        return Block.canSupportCenter(world, pos.relative(direction), direction.getOpposite());
+        return Block.canSupportCenter(level, pos.relative(direction), direction.getOpposite());
     }
 
-    private static Direction attachedDirection(net.minecraft.world.level.block.state.BlockState state) {
+    private static Direction attachedDirection(BlockState state) {
         return state.getValue(HANGING) ? Direction.DOWN : Direction.UP;
     }
 
     @Override
-    public PushReaction getPistonPushReaction(net.minecraft.world.level.block.state.BlockState state) {
+    public PushReaction getPistonPushReaction(BlockState state) {
         return PushReaction.DESTROY;
     }
 
     @Override
-    public RenderShape getRenderShape(net.minecraft.world.level.block.state.BlockState blockState) {
+    public RenderShape getRenderShape(BlockState blockState) {
         return RenderShape.MODEL;
     }
 
     @Override
-    public net.minecraft.world.level.block.state.BlockState updateShape(net.minecraft.world.level.block.state.BlockState state, Direction direction, net.minecraft.world.level.block.state.BlockState neighborState, LevelAccessor world, BlockPos pos, BlockPos neighborPos) {
+    public BlockState updateShape(BlockState state, Direction direction, BlockState neighborState, LevelAccessor level, BlockPos currentPos, BlockPos neighborPos) {
         if (state.getValue(WATERLOGGED)) {
-            world.scheduleTick(pos, Fluids.WATER, Fluids.WATER.getTickDelay(world));
+            level.scheduleTick(currentPos, Fluids.WATER, Fluids.WATER.getTickDelay(level));
         }
 
-        if (attachedDirection(state).getOpposite() == direction && !state.canSurvive(world, pos)) {
-            BlockEntity entity = world.getBlockEntity(pos);
+        if (attachedDirection(state).getOpposite() == direction && !state.canSurvive(level, currentPos)) {
+            BlockEntity entity = level.getBlockEntity(currentPos);
             if (entity instanceof DisplayLanternBlockEntity lanternEntity) {
                 lanternEntity.spawnFireflies();
             }
             return Blocks.AIR.defaultBlockState();
         }
-        return super.updateShape(state, direction, neighborState, world, pos, neighborPos);
+        return super.updateShape(state, direction, neighborState, level, currentPos, neighborPos);
     }
 
     @Override
-    public void onRemove(BlockState state, Level world, BlockPos pos, BlockState newState, boolean moved) {
+    public void onRemove(BlockState state, @NotNull Level level, @NotNull BlockPos pos, BlockState newState, boolean isMoving) {
         if (!state.is(newState.getBlock())) {
-            BlockEntity entity = world.getBlockEntity(pos);
+            BlockEntity entity = level.getBlockEntity(pos);
             if (entity instanceof DisplayLanternBlockEntity lantern) {
                 for (ItemStack item : lantern.inventory) {
-                    popResource(world, pos, item);
+                    popResource(level, pos, item);
                 }
                 lantern.inventory.clear();
             }
         }
-        super.onRemove(state, world, pos, newState, moved);
+        super.onRemove(state, level, pos, newState, isMoving);
     }
 
     @Override
@@ -231,7 +232,7 @@ public class DisplayLanternBlock extends BaseEntityBlock implements SimpleWaterl
     }
 
     @Override
-    public boolean isPathfindable(BlockState state, BlockGetter world, BlockPos pos, PathComputationType type) {
+    public boolean isPathfindable(BlockState state, BlockGetter level, BlockPos pos, PathComputationType type) {
         return false;
     }
 
@@ -243,20 +244,20 @@ public class DisplayLanternBlock extends BaseEntityBlock implements SimpleWaterl
 
     @Override
     @Nullable
-    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level world, BlockState state, BlockEntityType<T> type) {
-        return !world.isClientSide ? createTickerHelper(type, RegisterBlockEntities.DISPLAY_LANTERN, (worldx, pos, statex, blockEntity) -> blockEntity.serverTick(world, pos)) : createTickerHelper(type, RegisterBlockEntities.DISPLAY_LANTERN, (worldx, pos, statex, blockEntity) -> blockEntity.clientTick(world, pos));
+    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
+        return !level.isClientSide ? createTickerHelper(type, RegisterBlockEntities.DISPLAY_LANTERN, (worldx, pos, statex, blockEntity) -> blockEntity.serverTick(level, pos)) : createTickerHelper(type, RegisterBlockEntities.DISPLAY_LANTERN, (worldx, pos, statex, blockEntity) -> blockEntity.clientTick(level, pos));
     }
 
-    public void playerDestroy(Level world, Player player, BlockPos pos, BlockState state, @Nullable BlockEntity blockEntity, ItemStack stack) {
+    public void playerDestroy(Level level, Player player, BlockPos pos, BlockState state, @Nullable BlockEntity blockEntity, ItemStack stack) {
         player.causeFoodExhaustion(0.005F);
-        if (!world.isClientSide && blockEntity instanceof DisplayLanternBlockEntity lanternEntity) {
+        if (!level.isClientSide && blockEntity instanceof DisplayLanternBlockEntity lanternEntity) {
             boolean silk = EnchantmentHelper.getItemEnchantmentLevel(Enchantments.SILK_TOUCH, stack) == 0 || player.isCreative();
             if (silk && !lanternEntity.getFireflies().isEmpty()) {
-                lanternEntity.spawnFireflies(world);
+                lanternEntity.spawnFireflies(level);
             }
         }
         player.awardStat(Stats.BLOCK_MINED.get(this));
-        dropResources(state, world, pos, blockEntity, player, stack);
+        dropResources(state, level, pos, blockEntity, player, stack);
     }
 
     @Deprecated
@@ -279,8 +280,8 @@ public class DisplayLanternBlock extends BaseEntityBlock implements SimpleWaterl
             return Collections.emptyList();
         } else {
             LootContext lootContext = builder.withParameter(LootContextParams.BLOCK_STATE, state).create(LootContextParamSets.BLOCK);
-            ServerLevel serverWorld = lootContext.getLevel();
-            LootTable lootTable = serverWorld.getServer().getLootTables().get(identifier);
+            ServerLevel serverLevel = lootContext.getLevel();
+            LootTable lootTable = serverLevel.getServer().getLootTables().get(identifier);
             return lootTable.getRandomItems(lootContext);
         }
     }

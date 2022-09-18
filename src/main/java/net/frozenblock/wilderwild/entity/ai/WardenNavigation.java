@@ -16,8 +16,8 @@ public class WardenNavigation extends GroundPathNavigation {
 
     private final Warden entity;
 
-    public WardenNavigation(@NotNull Warden warden, Level world) {
-        super(warden, world);
+    public WardenNavigation(@NotNull Warden warden, Level level) {
+        super(warden, level);
         this.entity = warden;
     }
 
