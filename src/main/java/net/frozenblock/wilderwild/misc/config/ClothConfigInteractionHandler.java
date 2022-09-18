@@ -11,21 +11,21 @@ public class ClothConfigInteractionHandler {
         return true;
     }
 
-/*
-    public static boolean modifyDesertPlacement() {
-        if (WilderWild.hasCloth) {
-            return ClothConfigCloserInteractionHandler.modifyDesertPlacement();
+    /*
+        public static boolean modifyDesertPlacement() {
+            if (WilderWild.hasCloth) {
+                return ClothConfigCloserInteractionHandler.modifyDesertPlacement();
+            }
+            return true;
         }
-        return true;
-    }
 
-    public static boolean modifyBadlandsPlacement() {
-        if (WilderWild.hasCloth) {
-            return ClothConfigCloserInteractionHandler.modifyBadlandsPlacement();
+        public static boolean modifyBadlandsPlacement() {
+            if (WilderWild.hasCloth) {
+                return ClothConfigCloserInteractionHandler.modifyBadlandsPlacement();
+            }
+            return true;
         }
-        return true;
-    }
-*/
+    */
     public static boolean modifyJunglePlacement() {
         if (WilderWild.hasCloth) {
             return ClothConfigCloserInteractionHandler.modifyJunglePlacement();

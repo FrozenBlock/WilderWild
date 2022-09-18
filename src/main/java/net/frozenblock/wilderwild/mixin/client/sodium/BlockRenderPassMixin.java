@@ -1,4 +1,4 @@
-package net.frozenblock.wilderwild.mixin.client.sodium;
+/*package net.frozenblock.wilderwild.mixin.client.sodium;
 
 import me.jellysquid.mods.sodium.client.render.chunk.passes.BlockRenderPass;
 import net.fabricmc.api.EnvType;
@@ -34,9 +34,9 @@ public class BlockRenderPassMixin {
     private static BlockRenderPass[] $VALUES;
 
     @Inject(method = "<clinit>", at = @At(value = "FIELD",
-        opcode = Opcodes.PUTSTATIC,
-        target = "Lme/jellysquid/mods/sodium/client/render/chunk/passes/BlockRenderPass;$VALUES:[Lme/jellysquid/mods/sodium/client/render/chunk/passes/BlockRenderPass;",
-        shift = At.Shift.AFTER), remap = false)
+            opcode = Opcodes.PUTSTATIC,
+            target = "Lme/jellysquid/mods/sodium/client/render/chunk/passes/BlockRenderPass;$VALUES:[Lme/jellysquid/mods/sodium/client/render/chunk/passes/BlockRenderPass;",
+            shift = At.Shift.AFTER), remap = false)
     private static void addCustomBlockRenderPass(CallbackInfo ci) {
         var types = new ArrayList<>(Arrays.asList($VALUES));
         var last = types.get(types.size() - 1);
@@ -48,3 +48,4 @@ public class BlockRenderPassMixin {
         $VALUES = types.toArray(new BlockRenderPass[0]);
     }
 }
+*/

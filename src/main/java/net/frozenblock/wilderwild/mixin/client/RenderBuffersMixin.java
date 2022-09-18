@@ -1,4 +1,4 @@
-package net.frozenblock.wilderwild.mixin.client;
+/*package net.frozenblock.wilderwild.mixin.client;
 
 import com.mojang.blaze3d.vertex.BufferBuilder;
 import it.unimi.dsi.fastutil.objects.Object2ObjectLinkedOpenHashMap;
@@ -26,7 +26,9 @@ public class RenderBuffersMixin {
     private static void put(Object2ObjectLinkedOpenHashMap<RenderType, BufferBuilder> object2ObjectLinkedOpenHashMap, RenderType renderType) {
     }
 
-    @Shadow @Final private ChunkBufferBuilderPack fixedBufferPack;
+    @Shadow
+    @Final
+    private ChunkBufferBuilderPack fixedBufferPack;
     @Shadow
     @Final
     @Mutable
@@ -53,3 +55,4 @@ public class RenderBuffersMixin {
         ModelBakery.DESTROY_TYPES.forEach(renderType -> put(object2ObjectLinkedOpenHashMap, renderType));
     });
 }
+*/

@@ -123,8 +123,9 @@ public final class WilderWild implements ModInitializer {
 
         terralith();
         hasPipes = FabricLoader.getInstance().getModContainer("copper_pipe").isPresent();
-        hasCloth =  FabricLoader.getInstance().getModContainer("cloth-config").isPresent();
-        hasTerralith = FabricLoader.getInstance().getModContainer("terralith").isPresent();;
+        hasCloth = FabricLoader.getInstance().getModContainer("cloth-config").isPresent();
+        hasTerralith = FabricLoader.getInstance().getModContainer("terralith").isPresent();
+        hasSodium = FabricLoader.getInstance().getModContainer("sodium").isPresent();
 
         if (hasPipes) {
             RegisterSaveableMoveablePipeNbt.init();
@@ -186,6 +187,8 @@ public final class WilderWild implements ModInitializer {
     public static boolean hasPipes;
 
     public static boolean hasCloth;
+
+    public static boolean hasSodium;
 
     public static boolean isCopperPipe(BlockState state) {
         if (hasPipes) {

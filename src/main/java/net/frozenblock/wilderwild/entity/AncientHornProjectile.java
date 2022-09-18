@@ -480,10 +480,10 @@ public class AncientHornProjectile extends AbstractArrow {
                             EnchantmentHelper.doPostDamageEffects((LivingEntity) owner, livingEntity);
                         }
                         this.doPostHurtEffects(livingEntity);
-                        if (livingEntity instanceof Player && owner instanceof ServerPlayer && !this.isSilent()) {
+                        /*if (livingEntity instanceof Player && owner instanceof ServerPlayer && !this.isSilent()) {
                             ((ServerPlayer) owner).connection.send(new ClientboundGameEventPacket(ClientboundGameEventPacket.ARROW_HIT_PLAYER, 0.0F));
                             FlyBySoundPacket.createFlybySound(world, this, RegisterSounds.ENTITY_ANCIENT_HORN_PROJECTILE_FLYBY, SoundSource.PLAYERS, 1.0F, 0.7F);
-                        }
+                        }*/
                         if (livingEntity.isDeadOrDying() && level instanceof ServerLevel server) {
                             server.sendParticles(ParticleTypes.SCULK_SOUL, livingEntity.getX(), livingEntity.getEyeY(), livingEntity.getZ(), 1, 0.2D, 0.0D, 0.2D, 0.0D);
                             if (this.getOwner() != null) {

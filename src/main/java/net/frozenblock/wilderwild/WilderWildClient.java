@@ -55,9 +55,6 @@ public final class WilderWildClient implements ClientModInitializer {
     public static final ModelLayerLocation DOUBLE_STONE_CHEST_RIGHT = new ModelLayerLocation(WilderWild.id("double_stone_chest_right"), "main");
     public static final ModelLayerLocation JELLYFISH = new ModelLayerLocation(WilderWild.id("jellyfish"), "main");
 
-    @Nullable
-    public static ShaderInstance renderTypeTranslucentCutoutShader;
-
     @Override
     public void onInitializeClient() {
         BlockRenderLayerMap.INSTANCE.putBlock(RegisterBlocks.CARNATION, RenderType.cutout());
@@ -238,7 +235,7 @@ public final class WilderWildClient implements ClientModInitializer {
 
         receiveFireflyCaptureInfoPacket();
         receiveAncientHornKillInfoPacket();
-        FlyBySoundHub.autoEntitiesAndSounds.put(RegisterEntities.ANCIENT_HORN_PROJECTILE_ENTITY, new FlyBySoundHub.FlyBySound(1.0F, 0.5F, SoundSource.NEUTRAL, RegisterSounds.ENTITY_ANCIENT_HORN_PROJECTILE_FLYBY));
+        FlyBySoundHub.autoEntitiesAndSounds.put(RegisterEntities.ANCIENT_HORN_PROJECTILE_ENTITY, new FlyBySoundHub.FlyBySound(1.0F, 0.5F, SoundSource.PLAYERS, RegisterSounds.ENTITY_ANCIENT_HORN_PROJECTILE_FLYBY));
 
         ItemProperties.register(RegisterItems.ANCIENT_HORN, new ResourceLocation("tooting"), (itemStack, clientWorld, livingEntity, seed) -> livingEntity != null && livingEntity.isUsingItem() && livingEntity.getUseItem() == itemStack ? 1.0F : 0.0F);
         ItemProperties.register(RegisterItems.COPPER_HORN, new ResourceLocation("tooting"), (itemStack, clientWorld, livingEntity, seed) -> livingEntity != null && livingEntity.isUsingItem() && livingEntity.getUseItem() == itemStack ? 1.0F : 0.0F);
@@ -414,15 +411,6 @@ public final class WilderWildClient implements ClientModInitializer {
         });
     }
 
-    public static final RenderStateShard.ShaderStateShard RENDERTYPE_TRANSLUCENT_CUTOUT_SHADER = new RenderStateShard.ShaderStateShard(
-            WilderWildClient::getRenderTypeTranslucentCutoutShader
-    );
-
-    @Nullable
-    public static ShaderInstance getRenderTypeTranslucentCutoutShader() {
-        return renderTypeTranslucentCutoutShader;
-    }
-
     public static final BiFunction<ResourceLocation, Boolean, RenderType> ENTITY_TRANSLUCENT_EMISSIVE_FIXED = Util.memoize(
             ((identifier, affectsOutline) -> {
                 RenderType.CompositeState multiPhaseParameters = RenderType.CompositeState.builder()
@@ -449,13 +437,25 @@ public final class WilderWildClient implements ClientModInitializer {
         return ENTITY_TRANSLUCENT_EMISSIVE_FIXED.apply(resourceLocation, true);
     }
 
+    /*@Nullable
+    public static ShaderInstance renderTypeTranslucentCutoutShader;
+
+    public static final RenderStateShard.ShaderStateShard RENDERTYPE_TRANSLUCENT_CUTOUT_SHADER = new RenderStateShard.ShaderStateShard(
+            WilderWildClient::getRenderTypeTranslucentCutoutShader
+    );
+
+    @Nullable
+    public static ShaderInstance getRenderTypeTranslucentCutoutShader() {
+        return renderTypeTranslucentCutoutShader;
+    }
+
     public static final RenderType TRANSLUCENT_CUTOUT = create(
             "translucent_cutout_wilderwild", DefaultVertexFormat.BLOCK, VertexFormat.Mode.QUADS, 2097152, true, true, RenderType.translucentState(RENDERTYPE_TRANSLUCENT_CUTOUT_SHADER)
     );
 
     public static RenderType translucentCutout() {
         return TRANSLUCENT_CUTOUT;
-    }
+    }*/
 
     public static RenderType.CompositeRenderType create(
             String name,

@@ -1,13 +1,13 @@
 {
   "type": "minecraft:crafting_shapeless",
-  "group": "white_dye",
+  "group": "magenta_dye",
   "ingredients": [
 	{
-	  "item": "wilderwild:alba_glory_of_the_snow"
+	  "item": "wilderwild:milkweed"
 	}
   ],
   "result": {
-	"item": "minecraft:white_dye",
+	"item": "minecraft:magenta_dye",
 	"count": 2
   }
 }

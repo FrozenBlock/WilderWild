@@ -49,7 +49,7 @@ public class TurtleNearestAttackableGoal<T extends LivingEntity> extends TargetG
             return false;
         }
         this.findTarget();
-        return this.target != null && ((TurtleCooldownInterface)this.mob).getAttackCooldown() <= 0;
+        return this.target != null && ((TurtleCooldownInterface) this.mob).getAttackCooldown() <= 0;
     }
 
     protected AABB getTargetSearchArea(double d) {
@@ -62,7 +62,7 @@ public class TurtleNearestAttackableGoal<T extends LivingEntity> extends TargetG
 
     @Override
     public void start() {
-        ((TurtleCooldownInterface)this.mob).setAttackCooldown(2400);
+        ((TurtleCooldownInterface) this.mob).setAttackCooldown(2400);
         this.mob.setTarget(this.target);
         super.start();
     }

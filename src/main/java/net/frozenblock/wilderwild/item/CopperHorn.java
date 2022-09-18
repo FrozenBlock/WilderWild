@@ -94,7 +94,7 @@ public class CopperHorn extends InstrumentItem {
 
         if (!world.isClientSide) {
             float soundPitch = !user.isShiftKeyDown() ?
-                    (float) Math.pow(2.0D, (note - 12.0F) / 12.0D) + 1F:
+                    (float) Math.pow(2.0D, (note - 12.0F) / 12.0D) + 1F :
                     (float) Math.pow(2.0D, (note - 12.0F) / 12.0D);
             FrozenSoundPackets.createMovingRestrictionLoopingSound(world, user, soundEvent, SoundSource.RECORDS, range, soundPitch, WilderWild.id("instrument"));
         }
