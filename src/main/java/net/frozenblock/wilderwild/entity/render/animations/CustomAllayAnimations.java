@@ -8,7 +8,7 @@ import net.minecraft.client.animation.Keyframe;
 import net.minecraft.client.animation.KeyframeAnimations;
 
 /**
- * put custom warden animations in here. for example, dancing, swimming. not for overrides
+ * put custom allay animations in here. for example, dancing, swimming. not for overrides
  */
 @Environment(EnvType.CLIENT)
 public final class CustomAllayAnimations {
