@@ -79,7 +79,10 @@ public final class WilderConfiguredFeatures {
     public static final Holder<ConfiguredFeature<RandomFeatureConfiguration, ?>> NEW_TREES_BIRCH_AND_OAK =
             register("new_trees_birch_and_oak", Feature.RANDOM_SELECTOR,
                     new RandomFeatureConfiguration(List.of(new WeightedPlacedFeature(WilderTreePlaced.NEW_SHORT_BIRCH_BEES_0004, 0.2F),
+                            new WeightedPlacedFeature(WilderTreePlaced.DYING_SHORT_BIRCH, 0.08F),
                             new WeightedPlacedFeature(WilderTreePlaced.NEW_FANCY_OAK_BEES_0004, 0.27F),
+                            new WeightedPlacedFeature(WilderTreePlaced.DYING_FANCY_OAK_BEES_0004, 0.07F),
+                            new WeightedPlacedFeature(WilderTreePlaced.DYING_OAK_CHECKED, 0.06F),
                             new WeightedPlacedFeature(WilderTreePlaced.SHORT_OAK_CHECKED, 0.155F)), WilderTreePlaced.NEW_OAK_BEES_0004));
 
     public static final Holder<ConfiguredFeature<RandomFeatureConfiguration, ?>> NEW_TREES_FLOWER_FOREST =
