@@ -25,10 +25,10 @@ public class OsseousSculkBlock extends RotatedPillarBlock implements SculkBehavi
         this.registerDefaultState(this.stateDefinition.any().setValue(HEIGHT_LEFT, 0).setValue(AXIS, Direction.Axis.Y).setValue(UPSIDEDOWN, false).setValue(TOTAL_HEIGHT, 0));
     }
 
-    public void spawnAfterBreak(BlockState state, ServerLevel world, BlockPos pos, ItemStack stack, boolean dropExperience) {
-        super.spawnAfterBreak(state, world, pos, stack, dropExperience);
+    public void spawnAfterBreak(BlockState state, ServerLevel level, BlockPos pos, ItemStack stack, boolean dropExperience) {
+        super.spawnAfterBreak(state, level, pos, stack, dropExperience);
         if (dropExperience) {
-            this.tryDropExperience(world, pos, stack, ConstantInt.of(3));
+            this.tryDropExperience(level, pos, stack, ConstantInt.of(3));
         }
     }
 
@@ -50,15 +50,15 @@ public class OsseousSculkBlock extends RotatedPillarBlock implements SculkBehavi
         return EasyNoiseSampler.sample(EasyNoiseSampler.perlinSimple, pos, 0.7, false, false) > 0 ? Direction.Axis.X : Direction.Axis.Z;
     }
 
-    public static void convertToSculk(LevelAccessor world, BlockPos pos) {
-        BlockState state = world.getBlockState(pos);
+    public static void convertToSculk(LevelAccessor level, BlockPos pos) {
+        BlockState state = level.getBlockState(pos);
         if (state.is(RegisterBlocks.OSSEOUS_SCULK)) {
             Direction.Axis axis = state.getValue(AXIS);
             Direction dir = getDir(axis, state.getValue(UPSIDEDOWN));
-            if (world.getBlockState(pos.relative(dir)).is(RegisterBlocks.OSSEOUS_SCULK)) {
+            if (level.getBlockState(pos.relative(dir)).is(RegisterBlocks.OSSEOUS_SCULK)) {
                 BlockPos newPos = pos.relative(dir);
                 for (Direction direction : UPDATE_SHAPE_ORDER) {
-                    BlockState stateReplace = world.getBlockState(newPos.relative(direction));
+                    BlockState stateReplace = level.getBlockState(newPos.relative(direction));
                     BlockState stateSetTo = null;
                     if (stateReplace.is(Blocks.SCULK_VEIN)) {
                         stateSetTo = stateReplace.setValue(MultifaceBlock.getFaceProperty(direction.getOpposite()), true);
@@ -70,10 +70,10 @@ public class OsseousSculkBlock extends RotatedPillarBlock implements SculkBehavi
                         stateSetTo = Blocks.SCULK_VEIN.defaultBlockState().setValue(MultifaceBlock.getFaceProperty(direction.getOpposite()), true).setValue(BlockStateProperties.WATERLOGGED, true);
                     }
                     if (stateSetTo != null) {
-                        world.setBlock(newPos.relative(direction), stateSetTo, 3);
+                        level.setBlock(newPos.relative(direction), stateSetTo, 3);
                     }
                 }
-                world.setBlock(pos, Blocks.SCULK.defaultBlockState(), 3);
+                level.setBlock(pos, Blocks.SCULK.defaultBlockState(), 3);
             }
         }
     }
@@ -83,9 +83,9 @@ public class OsseousSculkBlock extends RotatedPillarBlock implements SculkBehavi
     public static final IntegerProperty TOTAL_HEIGHT = RegisterProperties.TOTAL_HEIGHT;
 
     @Override
-    public int attemptUseCharge(SculkSpreader.ChargeCursor cursor, LevelAccessor world, BlockPos catalystPos, RandomSource random, SculkSpreader spreadManager, boolean shouldConvertToBlock) {
+    public int attemptUseCharge(SculkSpreader.ChargeCursor cursor, LevelAccessor level, BlockPos catalystPos, RandomSource random, SculkSpreader spreadManager, boolean shouldConvertToBlock) {
         if (spreadManager.isWorldGeneration()) {
-            worldGenSpread(cursor.getPos(), world, random);
+            worldGenSpread(cursor.getPos(), level, random);
             return cursor.getCharge();
         }
         int i = cursor.getCharge();
@@ -94,13 +94,13 @@ public class OsseousSculkBlock extends RotatedPillarBlock implements SculkBehavi
             BlockPos blockPos = cursor.getPos();
             boolean bl = blockPos.closerThan(catalystPos, spreadManager.noGrowthRadius());
             if (!bl) {
-                int pillarHeight = world.getBlockState(blockPos).getValue(OsseousSculkBlock.HEIGHT_LEFT);
-                BlockPos topPos = getTop(world, blockPos, pillarHeight);
+                int pillarHeight = level.getBlockState(blockPos).getValue(OsseousSculkBlock.HEIGHT_LEFT);
+                BlockPos topPos = getTop(level, blockPos, pillarHeight);
                 if (topPos != null) {
-                    BlockState state = world.getBlockState(topPos);
+                    BlockState state = level.getBlockState(topPos);
                     pillarHeight = state.getValue(OsseousSculkBlock.HEIGHT_LEFT);
                     Direction direction = getDir(state.getValue(AXIS), state.getValue(UPSIDEDOWN));
-                    if (world.getBlockState(topPos.relative(direction)).isAir() || world.getBlockState(topPos.relative(direction)).getBlock() == Blocks.SCULK_VEIN) {
+                    if (level.getBlockState(topPos.relative(direction)).isAir() || level.getBlockState(topPos.relative(direction)).getBlock() == Blocks.SCULK_VEIN) {
                         BlockState blockState = RegisterBlocks.OSSEOUS_SCULK.defaultBlockState().setValue(HEIGHT_LEFT, Math.max(0, pillarHeight - 1));
 
                         if (pillarHeight == 1 && !state.getValue(UPSIDEDOWN) && state.getValue(TOTAL_HEIGHT) > 0) {
@@ -121,30 +121,30 @@ public class OsseousSculkBlock extends RotatedPillarBlock implements SculkBehavi
                                 blockState = blockState.setValue(UPSIDEDOWN, true);
                                 if (direction == Direction.DOWN && Math.random() > 0.8) {
                                     Direction ribCage = getDir(getAxis(topPos), false);
-                                    if (ISITSAFE(world.getBlockState(topPos.relative(ribCage)))) {
-                                        world.setBlock(topPos.relative(ribCage), RegisterBlocks.OSSEOUS_SCULK.defaultBlockState().setValue(AXIS, getAxis(topPos)).setValue(TOTAL_HEIGHT, state.getValue(TOTAL_HEIGHT)).setValue(HEIGHT_LEFT, 0), 3);
-                                        if (ISITSAFE(world.getBlockState(topPos.relative(ribCage).below()))) {
+                                    if (ISITSAFE(level.getBlockState(topPos.relative(ribCage)))) {
+                                        level.setBlock(topPos.relative(ribCage), RegisterBlocks.OSSEOUS_SCULK.defaultBlockState().setValue(AXIS, getAxis(topPos)).setValue(TOTAL_HEIGHT, state.getValue(TOTAL_HEIGHT)).setValue(HEIGHT_LEFT, 0), 3);
+                                        if (ISITSAFE(level.getBlockState(topPos.relative(ribCage).below()))) {
                                             if (Math.random() > 0.7) {
-                                                world.setBlock(topPos.relative(ribCage).below(), RegisterBlocks.HANGING_TENDRIL.defaultBlockState(), 3);
+                                                level.setBlock(topPos.relative(ribCage).below(), RegisterBlocks.HANGING_TENDRIL.defaultBlockState(), 3);
                                             }
                                         }
                                     }
                                 }
                             }
                         }
-                        world.setBlock(topPos.relative(direction), blockState, 3);
-                        world.playSound(null, blockPos, blockState.getSoundType().getPlaceSound(), SoundSource.BLOCKS, 1.0F, 1.0F);
+                        level.setBlock(topPos.relative(direction), blockState, 3);
+                        level.playSound(null, blockPos, blockState.getSoundType().getPlaceSound(), SoundSource.BLOCKS, 1.0F, 1.0F);
                         if (spreadManager.isWorldGeneration() && Math.random() > 0.2) {
                             j = 0;
                         }
-                        BlockPos bottom = getBottom(world, topPos.relative(direction), state.getValue(TOTAL_HEIGHT));
+                        BlockPos bottom = getBottom(level, topPos.relative(direction), state.getValue(TOTAL_HEIGHT));
                         if (bottom != null) {
-                            BlockState bottomState = world.getBlockState(bottom);
+                            BlockState bottomState = level.getBlockState(bottom);
                             if (bottomState.is(RegisterBlocks.OSSEOUS_SCULK)) {
                                 int piece = bottomState.getValue(HEIGHT_LEFT);
                                 int total = bottomState.getValue(TOTAL_HEIGHT);
                                 if ((total) - piece <= total / 3) {
-                                    convertToSculk(world, bottom);
+                                    convertToSculk(level, bottom);
                                 }
                             }
                         }
@@ -160,15 +160,15 @@ public class OsseousSculkBlock extends RotatedPillarBlock implements SculkBehavi
         return state.is(Blocks.SCULK_VEIN) || state.isAir() || state.is(Blocks.WATER);
     }
 
-    public static void worldGenSpread(BlockPos blockPos, LevelAccessor world, RandomSource random) {
-        if (world.getBlockState(blockPos).is(RegisterBlocks.OSSEOUS_SCULK)) {
-            int pillarHeight = world.getBlockState(blockPos).getValue(HEIGHT_LEFT);
-            BlockPos topPos = getTop(world, blockPos, pillarHeight);
+    public static void worldGenSpread(BlockPos blockPos, LevelAccessor level, RandomSource random) {
+        if (level.getBlockState(blockPos).is(RegisterBlocks.OSSEOUS_SCULK)) {
+            int pillarHeight = level.getBlockState(blockPos).getValue(HEIGHT_LEFT);
+            BlockPos topPos = getTop(level, blockPos, pillarHeight);
             if (topPos != null) {
-                BlockState state = world.getBlockState(topPos);
+                BlockState state = level.getBlockState(topPos);
                 pillarHeight = state.getValue(HEIGHT_LEFT);
                 Direction direction = getDir(state.getValue(AXIS), state.getValue(UPSIDEDOWN));
-                if (world.getBlockState(topPos.relative(direction)).isAir() || world.getBlockState(topPos.relative(direction)).getBlock() == Blocks.SCULK_VEIN) {
+                if (level.getBlockState(topPos.relative(direction)).isAir() || level.getBlockState(topPos.relative(direction)).getBlock() == Blocks.SCULK_VEIN) {
                     BlockState blockState = RegisterBlocks.OSSEOUS_SCULK.defaultBlockState().setValue(HEIGHT_LEFT, Math.max(0, pillarHeight - 1));
 
                     if (pillarHeight == 1 && !state.getValue(UPSIDEDOWN) && state.getValue(TOTAL_HEIGHT) > 0) {
@@ -190,30 +190,30 @@ public class OsseousSculkBlock extends RotatedPillarBlock implements SculkBehavi
                             blockState = blockState.setValue(UPSIDEDOWN, true);
                             if (direction == Direction.DOWN && Math.random() > 0.9) {
                                 Direction ribCage = getDir(getAxis(topPos), false);
-                                if (ISITSAFE(world.getBlockState(topPos.relative(ribCage)))) {
-                                    world.setBlock(topPos.relative(ribCage), RegisterBlocks.OSSEOUS_SCULK.defaultBlockState().setValue(AXIS, getAxis(topPos)).setValue(TOTAL_HEIGHT, state.getValue(TOTAL_HEIGHT)).setValue(HEIGHT_LEFT, 0), 3);
-                                    if (ISITSAFE(world.getBlockState(topPos.relative(ribCage).below()))) {
+                                if (ISITSAFE(level.getBlockState(topPos.relative(ribCage)))) {
+                                    level.setBlock(topPos.relative(ribCage), RegisterBlocks.OSSEOUS_SCULK.defaultBlockState().setValue(AXIS, getAxis(topPos)).setValue(TOTAL_HEIGHT, state.getValue(TOTAL_HEIGHT)).setValue(HEIGHT_LEFT, 0), 3);
+                                    if (ISITSAFE(level.getBlockState(topPos.relative(ribCage).below()))) {
                                         if (Math.random() > 0.66) {
-                                            world.setBlock(topPos.relative(ribCage).below(), RegisterBlocks.HANGING_TENDRIL.defaultBlockState(), 3);
+                                            level.setBlock(topPos.relative(ribCage).below(), RegisterBlocks.HANGING_TENDRIL.defaultBlockState(), 3);
                                         }
                                     }
                                 }
                             }
                         }
                     }
-                    world.setBlock(topPos.relative(direction), blockState, 3);
-                    world.playSound(null, blockPos, blockState.getSoundType().getPlaceSound(), SoundSource.BLOCKS, 1.0F, 1.0F);
+                    level.setBlock(topPos.relative(direction), blockState, 3);
+                    level.playSound(null, blockPos, blockState.getSoundType().getPlaceSound(), SoundSource.BLOCKS, 1.0F, 1.0F);
 
                     if (blockState.getBlock() == Blocks.SCULK_CATALYST || (blockState.getBlock() == RegisterBlocks.OSSEOUS_SCULK && blockState.getValue(HEIGHT_LEFT) == 0)) {
                         for (int i = 0; i < 4; i++) {
-                            BlockPos bottom = getBottom(world, topPos, state.getValue(TOTAL_HEIGHT));
+                            BlockPos bottom = getBottom(level, topPos, state.getValue(TOTAL_HEIGHT));
                             if (bottom != null) {
-                                BlockState bottomState = world.getBlockState(bottom);
+                                BlockState bottomState = level.getBlockState(bottom);
                                 if (bottomState.is(RegisterBlocks.OSSEOUS_SCULK)) {
                                     int piece = bottomState.getValue(HEIGHT_LEFT);
                                     int total = bottomState.getValue(TOTAL_HEIGHT);
                                     if ((total) - piece <= total / 3) {
-                                        convertToSculk(world, bottom);
+                                        convertToSculk(level, bottom);
                                     }
                                 }
                             }
@@ -224,14 +224,14 @@ public class OsseousSculkBlock extends RotatedPillarBlock implements SculkBehavi
         }
     }
 
-    public static BlockPos getTop(LevelAccessor world, BlockPos pos, int max) {
+    public static BlockPos getTop(LevelAccessor level, BlockPos pos, int max) {
         for (int i = 0; i < max; i++) {
-            Block block = world.getBlockState(pos).getBlock();
+            Block block = level.getBlockState(pos).getBlock();
             if (block != RegisterBlocks.OSSEOUS_SCULK) {
                 return null;
             }
-            Direction direction = getDir(world.getBlockState(pos).getValue(AXIS), world.getBlockState(pos).getValue(UPSIDEDOWN));
-            if (world.getBlockState(pos.relative(direction)).isAir() || world.getBlockState(pos.relative(direction)).getBlock() == Blocks.SCULK_VEIN) {
+            Direction direction = getDir(level.getBlockState(pos).getValue(AXIS), level.getBlockState(pos).getValue(UPSIDEDOWN));
+            if (level.getBlockState(pos.relative(direction)).isAir() || level.getBlockState(pos.relative(direction)).getBlock() == Blocks.SCULK_VEIN) {
                 return pos;
             }
             pos = pos.relative(direction);
@@ -239,14 +239,14 @@ public class OsseousSculkBlock extends RotatedPillarBlock implements SculkBehavi
         return null;
     }
 
-    public static BlockPos getBottom(LevelAccessor world, BlockPos pos, int max) {
+    public static BlockPos getBottom(LevelAccessor level, BlockPos pos, int max) {
         for (int i = 0; i < max; i++) {
-            Block block = world.getBlockState(pos).getBlock();
+            Block block = level.getBlockState(pos).getBlock();
             if (block != RegisterBlocks.OSSEOUS_SCULK) {
                 return null;
             }
-            Direction direction = getDir(null, world.getBlockState(pos).getValue(UPSIDEDOWN)).getOpposite();
-            if (world.getBlockState(pos.relative(direction)).is(Blocks.SCULK)) {
+            Direction direction = getDir(null, level.getBlockState(pos).getValue(UPSIDEDOWN)).getOpposite();
+            if (level.getBlockState(pos.relative(direction)).is(Blocks.SCULK)) {
                 return pos;
             }
             pos = pos.relative(direction);

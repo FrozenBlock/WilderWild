@@ -91,8 +91,8 @@ public class StoneChestBlockEntityRenderer<T extends StoneChestBlockEntity & Lid
 
     @Override
     public void render(T entity, float tickDelta, @NotNull PoseStack matrices, @NotNull MultiBufferSource vertexConsumers, int light, int overlay) {
-        Level world = entity.getLevel();
-        boolean bl = world != null;
+        Level level = entity.getLevel();
+        boolean bl = level != null;
         BlockState blockState = bl ? entity.getBlockState() : Blocks.CHEST.defaultBlockState().setValue(StoneChestBlock.FACING, Direction.SOUTH);
         ChestType chestType = blockState.hasProperty(StoneChestBlock.TYPE) ? blockState.getValue(StoneChestBlock.TYPE) : ChestType.SINGLE;
         Block block = blockState.getBlock();
@@ -105,7 +105,7 @@ public class StoneChestBlockEntityRenderer<T extends StoneChestBlockEntity & Lid
             matrices.translate(-0.5, -0.5, -0.5);
             DoubleBlockCombiner.NeighborCombineResult<? extends ChestBlockEntity> propertySource;
             if (bl) {
-                propertySource = abstractStoneChestBlock.combine(blockState, world, entity.getBlockPos(), true);
+                propertySource = abstractStoneChestBlock.combine(blockState, level, entity.getBlockPos(), true);
             } else {
                 propertySource = DoubleBlockCombiner.Combiner::acceptNone;
             }

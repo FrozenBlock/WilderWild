@@ -14,7 +14,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 public class ItemStackMixin {
 
     @Inject(at = @At("TAIL"), method = "inventoryTick")
-    public void inventoryTick(Level world, Entity entity, int slot, boolean selected, CallbackInfo info) {
+    public void inventoryTick(Level level, Entity entity, int slot, boolean selected, CallbackInfo info) {
         ItemStack stack = ItemStack.class.cast(this);
         CompoundTag nbt = stack.getTag();
         if (nbt != null) {

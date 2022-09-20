@@ -18,7 +18,7 @@ import java.util.Optional;
 
 public class FireflyBrain {
 
-    public FireflyBrain() {
+    private FireflyBrain() {
     }
 
     public static Brain<?> create(Brain<Firefly> brain) {
@@ -59,8 +59,8 @@ public class FireflyBrain {
     }
 
     private static boolean shouldGoTowardsHome(LivingEntity firefly, GlobalPos pos) {
-        Level world = firefly.getLevel();
-        return ((Firefly) firefly).hasHome && world.dimension() == pos.dimension() && !((Firefly) firefly).shouldHide();
+        Level level = firefly.getLevel();
+        return ((Firefly) firefly).hasHome && level.dimension() == pos.dimension() && !((Firefly) firefly).shouldHide();
     }
 
     private static Optional<PositionTracker> getLookTarget(LivingEntity firefly) {
@@ -76,7 +76,7 @@ public class FireflyBrain {
         return Optional.empty();
     }
 
-    private static BlockPos randomPosAround(BlockPos pos, Level world) {
-        return pos.offset(world.random.nextIntBetweenInclusive(-7, 7), world.random.nextIntBetweenInclusive(-7, 7), world.random.nextIntBetweenInclusive(-7, 7));
+    private static BlockPos randomPosAround(BlockPos pos, Level level) {
+        return pos.offset(level.random.nextIntBetweenInclusive(-7, 7), level.random.nextIntBetweenInclusive(-7, 7), level.random.nextIntBetweenInclusive(-7, 7));
     }
 }

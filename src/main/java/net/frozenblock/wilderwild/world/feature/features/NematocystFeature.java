@@ -22,18 +22,18 @@ public class NematocystFeature extends Feature<NematocystFeatureConfig> {
     }
 
     @Override
-    public boolean place(FeaturePlaceContext<NematocystFeatureConfig> featurePlaceContext) {
-        NematocystFeatureConfig config = featurePlaceContext.config();
-        RandomSource randomSource = featurePlaceContext.random();
-        BlockPos blockPos = featurePlaceContext.origin();
-        WorldGenLevel worldGenLevel = featurePlaceContext.level();
+    public boolean place(FeaturePlaceContext<NematocystFeatureConfig> context) {
+        NematocystFeatureConfig config = context.config();
+        RandomSource randomSource = context.random();
+        BlockPos blockPos = context.origin();
+        WorldGenLevel level = context.level();
         int i = 0;
         BlockPos.MutableBlockPos mutableBlockPos = new BlockPos.MutableBlockPos();
         int j = config.xzSpread() + 1;
         int k = config.ySpread() + 1;
         for (int l = 0; l < config.tries(); ++l) {
             mutableBlockPos.setWithOffset(blockPos, randomSource.nextInt(j) - randomSource.nextInt(j), randomSource.nextInt(k) - randomSource.nextInt(k), randomSource.nextInt(j) - randomSource.nextInt(j));
-            if (!this.place(worldGenLevel, randomSource, mutableBlockPos, config)) continue;
+            if (!this.place(level, randomSource, mutableBlockPos, config)) continue;
             ++i;
         }
         return i > 0;
@@ -48,12 +48,12 @@ public class NematocystFeature extends Feature<NematocystFeatureConfig> {
         return true;
     }
 
-    public BlockState getSurvivalState(BlockState blockState, LevelReader levelReader, BlockPos blockPos) {
+    public BlockState getSurvivalState(BlockState blockState, LevelReader level, BlockPos pos) {
         Direction direction = blockState.getValue(BlockStateProperties.FACING);
-        BlockPos blockPos2 = blockPos.relative(direction.getOpposite());
-        BlockState placedOnState = levelReader.getBlockState(blockPos2);
-        FluidState fluidState = levelReader.getFluidState(blockPos);
-        BlockState replaceState = levelReader.getBlockState(blockPos);
+        BlockPos blockPos2 = pos.relative(direction.getOpposite());
+        BlockState placedOnState = level.getBlockState(blockPos2);
+        FluidState fluidState = level.getFluidState(pos);
+        BlockState replaceState = level.getBlockState(pos);
         boolean waterlogged = !fluidState.isEmpty() && placedOnState.is(Blocks.WATER);
         if ((replaceState.isAir() && fluidState.isEmpty()) || waterlogged) {
             Direction facing = blockState.getValue(BlockStateProperties.FACING);
@@ -62,7 +62,7 @@ public class NematocystFeature extends Feature<NematocystFeatureConfig> {
             } else if (placedOnState.is(RegisterBlocks.PURPLE_MESOGLEA)) {
                 blockState = RegisterBlocks.PURPLE_NEMATOCYST.defaultBlockState().setValue(BlockStateProperties.WATERLOGGED, waterlogged).setValue(BlockStateProperties.FACING, facing);
             }
-            return placedOnState.isFaceSturdy(levelReader, blockPos2, direction) ? blockState : null;
+            return placedOnState.isFaceSturdy(level, blockPos2, direction) ? blockState : null;
         }
         return null;
     }

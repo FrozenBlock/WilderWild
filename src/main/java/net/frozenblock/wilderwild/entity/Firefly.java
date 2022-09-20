@@ -74,46 +74,47 @@ public class Firefly extends PathfinderMob implements FlyingAnimal {
     public boolean wasNamedNectar;
     public boolean shouldCheckSpawn = true;
 
-    public Firefly(EntityType<? extends Firefly> entityType, Level world) {
-        super(entityType, world);
+    public Firefly(EntityType<? extends Firefly> entityType, Level level) {
+        super(entityType, level);
         this.setPathfindingMalus(BlockPathTypes.LAVA, -1.0F);
         this.setPathfindingMalus(BlockPathTypes.DANGER_FIRE, -1.0F);
         this.setPathfindingMalus(BlockPathTypes.WATER, -1.0F);
         this.setPathfindingMalus(BlockPathTypes.WATER_BORDER, 16.0F);
         this.setPathfindingMalus(BlockPathTypes.UNPASSABLE_RAIL, 0.0F);
         this.moveControl = new FlyingMoveControl(this, 20, true);
-        this.setFlickers(world.random.nextInt(5) == 0);
-        this.setFlickerAge(world.random.nextIntBetweenInclusive(0, 19));
+        this.setFlickers(level.random.nextInt(5) == 0);
+        this.setFlickerAge(level.random.nextIntBetweenInclusive(0, 19));
         this.setScale(1.5F);
         this.setColor("on");
     }
 
-    public static boolean canSpawn(EntityType<Firefly> type, LevelAccessor world, MobSpawnType spawnReason, BlockPos pos, RandomSource random) {
-        if (world.getBiome(pos).is(WilderBiomeTags.FIREFLY_SPAWNABLE_DURING_DAY)) {
-            return world.getBrightness(LightLayer.SKY, pos) >= 6;
+    public static boolean canSpawn(EntityType<Firefly> type, LevelAccessor level, MobSpawnType reason, BlockPos pos, RandomSource random) {
+        if (level.getBiome(pos).is(WilderBiomeTags.FIREFLY_SPAWNABLE_DURING_DAY)) {
+            return level.getBrightness(LightLayer.SKY, pos) >= 6;
         }
-        if (world.getBiome(pos).is(WilderBiomeTags.FIREFLY_SPAWNABLE_CAVE)) {
-            return world.getBrightness(LightLayer.SKY, pos) <= 6;
+        if (level.getBiome(pos).is(WilderBiomeTags.FIREFLY_SPAWNABLE_CAVE)) {
+            return level.getBrightness(LightLayer.SKY, pos) <= 6;
         }
-        return random.nextFloat() > 0.6F && (!world.dimensionType().hasFixedTime() && world.getSkyDarken() > 4) && world.canSeeSky(pos);
+        return random.nextFloat() > 0.6F && (!level.dimensionType().hasFixedTime() && level.getSkyDarken() > 4) && level.canSeeSky(pos);
     }
 
     @Nullable
     @Override
-    public SpawnGroupData finalizeSpawn(ServerLevelAccessor world, DifficultyInstance difficulty, MobSpawnType spawnReason, @Nullable SpawnGroupData entityData, @Nullable CompoundTag nbt) {
-        this.natural = spawnReason == MobSpawnType.NATURAL || spawnReason == MobSpawnType.CHUNK_GENERATION;
+    public SpawnGroupData finalizeSpawn(@NotNull ServerLevelAccessor level, @NotNull DifficultyInstance difficulty, MobSpawnType reason, @Nullable SpawnGroupData spawnData, @Nullable CompoundTag dataTag) {
+        this.natural = reason == MobSpawnType.NATURAL || reason == MobSpawnType.CHUNK_GENERATION;
         this.hasHome = true;
         FireflyBrain.rememberHome(this, this.blockPosition());
 
-        if (spawnReason == MobSpawnType.COMMAND) {
+        if (reason == MobSpawnType.COMMAND) {
             this.setScale(1.5F);
             this.setPrevScale(1.5F);
             this.setColor("on");
         }
 
-        return super.finalizeSpawn(world, difficulty, spawnReason, entityData, nbt);
+        return super.finalizeSpawn(level, difficulty, reason, spawnData, dataTag);
     }
 
+    @Override
     protected void defineSynchedData() {
         super.defineSynchedData();
         this.entityData.define(FROM_BOTTLE, false);
@@ -124,62 +125,65 @@ public class Firefly extends PathfinderMob implements FlyingAnimal {
         this.entityData.define(COLOR, "on");
     }
 
+    @Override
     public boolean dampensVibrations() {
         return true;
     }
 
-    protected InteractionResult mobInteract(Player player, InteractionHand hand) {
+    @Override
+    protected InteractionResult mobInteract(@NotNull Player player, @NotNull InteractionHand hand) {
         if (!this.despawning) {
-            return tryCapture(player, hand, this).orElse(super.mobInteract(player, hand));
+            return tryCapture(player, hand).orElse(super.mobInteract(player, hand));
         }
         return InteractionResult.PASS;
     }
 
-
-    public static Optional<InteractionResult> tryCapture(Player player, InteractionHand hand, @NotNull Firefly entity) {
+    public Optional<InteractionResult> tryCapture(Player player, InteractionHand hand) {
         ItemStack itemStack = player.getItemInHand(hand);
-        if (itemStack.getItem() == Items.GLASS_BOTTLE && entity.isAlive()) {
-            WilderWild.log("Firefly capture attempt starting @ " + entity.blockPosition().toShortString() + " by " + player.getDisplayName().getString(), WilderWild.UNSTABLE_LOGGING);
-            String color = entity.getColor();
+        if (itemStack.getItem() == Items.GLASS_BOTTLE && this.isAlive()) {
+            WilderWild.log("Firefly capture attempt starting @ " + this.blockPosition().toShortString() + " by " + player.getDisplayName().getString(), WilderWild.UNSTABLE_LOGGING);
+            String color = this.getColor();
             Optional<Item> optionalItem = Registry.ITEM.getOptional(WilderWild.id(Objects.equals(color, "on") ? "firefly_bottle" : color + "_firefly_bottle"));
             Item item = RegisterItems.FIREFLY_BOTTLE;
             if (optionalItem.isPresent()) {
                 item = optionalItem.get();
             }
-            entity.playSound(RegisterSounds.ITEM_BOTTLE_CATCH_FIREFLY, 1.0F, entity.random.nextFloat() * 0.2f + 0.8f);
+            this.playSound(RegisterSounds.ITEM_BOTTLE_CATCH_FIREFLY, 1.0F, this.random.nextFloat() * 0.2f + 0.8f);
             if (!player.isCreative()) {
                 player.getItemInHand(hand).shrink(1);
             }
             ItemStack bottleStack = new ItemStack(item);
-            if (entity.hasCustomName()) {
-                bottleStack.setHoverName(entity.getCustomName());
+            if (this.hasCustomName()) {
+                bottleStack.setHoverName(this.getCustomName());
             }
             player.getInventory().placeItemBackInInventory(bottleStack);
-            Level world = entity.level;
-            if (!world.isClientSide) {
-                EasyPacket.EasyCompetitionPacket.sendFireflyCaptureInfo(world, player, entity);
+            Level level = this.level;
+            if (!level.isClientSide) {
+                EasyPacket.EasyCompetitionPacket.sendFireflyCaptureInfo(level, player, this);
             }
-            entity.discard();
-            return Optional.of(InteractionResult.sidedSuccess(world.isClientSide));
+            this.discard();
+            return Optional.of(InteractionResult.sidedSuccess(level.isClientSide));
         } else {
             return Optional.empty();
         }
     }
 
-    public boolean shouldRender(double cameraX, double cameraY, double cameraZ) {
+    @Override
+    public boolean shouldRender(double x, double y, double z) {
         return true;
     }
 
     @Override
-    public boolean canBeLeashed(Player player) {
+    public boolean canBeLeashed(@NotNull Player player) {
         return false;
     }
 
+    @Override
     protected Brain.Provider<Firefly> brainProvider() {
         return Brain.provider(MEMORY_MODULES, SENSORS);
     }
 
-    protected Brain<?> makeBrain(Dynamic<?> dynamic) {
+    protected Brain<?> makeBrain(@NotNull Dynamic<?> dynamic) {
         return FireflyBrain.create(this.brainProvider().makeBrain(dynamic));
     }
 
@@ -207,6 +211,7 @@ public class Firefly extends PathfinderMob implements FlyingAnimal {
         this.entityData.set(AGE, value);
     }
 
+    @Override
     public float getScale() {
         return this.entityData.get(SCALE);
     }
@@ -231,14 +236,17 @@ public class Firefly extends PathfinderMob implements FlyingAnimal {
         this.entityData.set(COLOR, value);
     }
 
+    @Override
     public boolean requiresCustomPersistence() {
         return super.requiresCustomPersistence() || this.isFromBottle();
     }
 
-    public float getWalkTargetValue(BlockPos pos, LevelReader world) {
+    @Override
+    public float getWalkTargetValue(@NotNull BlockPos pos, LevelReader level) {
         return 0.0F;
     }
 
+    @Override
     public Brain<Firefly> getBrain() {
         return (Brain<Firefly>) super.getBrain();
     }
@@ -265,26 +273,28 @@ public class Firefly extends PathfinderMob implements FlyingAnimal {
         return Mob.createMobAttributes().add(Attributes.MAX_HEALTH, 1.0D).add(Attributes.MOVEMENT_SPEED, 0.08F).add(Attributes.FLYING_SPEED, 0.08F).add(Attributes.FOLLOW_RANGE, 32);
     }
 
-    protected PathNavigation createNavigation(Level world) {
-        FlyingPathNavigation birdNavigation = new FlyingPathNavigation(this, world);
+    @Override
+    protected PathNavigation createNavigation(@NotNull Level level) {
+        FlyingPathNavigation birdNavigation = new FlyingPathNavigation(this, level);
         birdNavigation.setCanOpenDoors(false);
         birdNavigation.setCanFloat(true);
         birdNavigation.setCanPassDoors(true);
         return birdNavigation;
     }
 
-    public void travel(Vec3 movementInput) {
+    @Override
+    public void travel(Vec3 travelVector) {
         if (this.isEffectiveAi() || this.isControlledByLocalInstance()) {
             if (this.isInWater()) {
-                this.moveRelative(0.01F, movementInput);
+                this.moveRelative(0.01F, travelVector);
                 this.move(MoverType.SELF, this.getDeltaMovement());
                 this.setDeltaMovement(this.getDeltaMovement().scale(0.800000011920929));
             } else if (this.isInLava()) {
-                this.moveRelative(0.01F, movementInput);
+                this.moveRelative(0.01F, travelVector);
                 this.move(MoverType.SELF, this.getDeltaMovement());
                 this.setDeltaMovement(this.getDeltaMovement().scale(0.5));
             } else {
-                this.moveRelative(this.getSpeed(), movementInput);
+                this.moveRelative(this.getSpeed(), travelVector);
                 this.move(MoverType.SELF, this.getDeltaMovement());
                 this.setDeltaMovement(this.getDeltaMovement().scale(0.9100000262260437));
             }
@@ -293,20 +303,25 @@ public class Firefly extends PathfinderMob implements FlyingAnimal {
         this.calculateEntityAnimation(this, false);
     }
 
-    protected void playStepSound(BlockPos pos, BlockState state) {
+    @Override
+    protected void playStepSound(@NotNull BlockPos pos, @NotNull BlockState state) {
     }
 
-    protected void checkFallDamage(double heightDifference, boolean onGround, BlockState state, BlockPos landedPosition) {
+    @Override
+    protected void checkFallDamage(double heightDifference, boolean onGround, @NotNull BlockState state, @NotNull BlockPos landedPosition) {
     }
 
+    @Override
     protected SoundEvent getAmbientSound() {
         return null;
     }
 
-    protected SoundEvent getHurtSound(DamageSource source) {
+    @Override
+    protected SoundEvent getHurtSound(@NotNull DamageSource source) {
         return RegisterSounds.ENTITY_FIREFLY_HURT;
     }
 
+    @Override
     protected SoundEvent getDeathSound() {
         return RegisterSounds.ENTITY_FIREFLY_HURT;
     }
@@ -371,17 +386,18 @@ public class Firefly extends PathfinderMob implements FlyingAnimal {
         }
     }
 
-    public static boolean isValidHomePos(Level world, BlockPos pos) {
-        BlockState state = world.getBlockState(pos);
+    public static boolean isValidHomePos(Level level, BlockPos pos) {
+        BlockState state = level.getBlockState(pos);
         if (!state.getFluidState().isEmpty()) {
             return false;
         }
-        if (state.isRedstoneConductor(world, pos)) {
+        if (state.isRedstoneConductor(level, pos)) {
             return false;
         }
         return state.isAir() || (!state.getMaterial().blocksMotion() && !state.getMaterial().isSolid());
     }
 
+    @Override
     protected void customServerAiStep() {
         this.level.getProfiler().push("fireflyBrain");
         this.getBrain().tick((ServerLevel) this.level, this);
@@ -392,15 +408,18 @@ public class Firefly extends PathfinderMob implements FlyingAnimal {
         super.customServerAiStep();
     }
 
-    public boolean canTakeItem(ItemStack stack) {
+    @Override
+    public boolean canTakeItem(@NotNull ItemStack stack) {
         return false;
     }
 
+    @Override
     public boolean isFlapping() {
         return true;
     }
 
-    public boolean removeWhenFarAway(double distanceSquared) {
+    @Override
+    public boolean removeWhenFarAway(double distanceToClosestPlayer) {
         return !this.isFromBottle() && !this.hasCustomName();
     }
 
@@ -442,63 +461,71 @@ public class Firefly extends PathfinderMob implements FlyingAnimal {
         }
     }
 
-    public void addAdditionalSaveData(CompoundTag nbt) {
-        super.addAdditionalSaveData(nbt);
-        nbt.putBoolean("fromBottle", this.isFromBottle());
-        nbt.putBoolean("natural", this.natural);
-        nbt.putBoolean("flickers", this.flickers());
-        nbt.putInt("flickerAge", this.getFlickerAge());
-        nbt.putBoolean("hasHome", this.hasHome);
-        nbt.putFloat("scale", this.getScale());
-        nbt.putFloat("prevScale", this.getPrevScale());
-        nbt.putBoolean("despawning", this.despawning);
-        nbt.putString("color", this.getColor());
-        nbt.putInt("homeCheckCooldown", this.homeCheckCooldown);
-        nbt.putBoolean("wasNamedNectar", this.wasNamedNectar);
-        nbt.putBoolean("shouldCheckSpawn", this.shouldCheckSpawn);
+    @Override
+    public void addAdditionalSaveData(@NotNull CompoundTag compound) {
+        super.addAdditionalSaveData(compound);
+        compound.putBoolean("fromBottle", this.isFromBottle());
+        compound.putBoolean("natural", this.natural);
+        compound.putBoolean("flickers", this.flickers());
+        compound.putInt("flickerAge", this.getFlickerAge());
+        compound.putBoolean("hasHome", this.hasHome);
+        compound.putFloat("scale", this.getScale());
+        compound.putFloat("prevScale", this.getPrevScale());
+        compound.putBoolean("despawning", this.despawning);
+        compound.putString("color", this.getColor());
+        compound.putInt("homeCheckCooldown", this.homeCheckCooldown);
+        compound.putBoolean("wasNamedNectar", this.wasNamedNectar);
+        compound.putBoolean("shouldCheckSpawn", this.shouldCheckSpawn);
     }
 
-    public void readAdditionalSaveData(CompoundTag nbt) {
-        super.readAdditionalSaveData(nbt);
-        this.setFromBottle(nbt.getBoolean("fromBottle"));
-        this.natural = nbt.getBoolean("natural");
-        this.setFlickers(nbt.getBoolean("flickers"));
-        this.setFlickerAge(nbt.getInt("flickerAge"));
-        this.hasHome = nbt.getBoolean("hasHome");
-        this.setScale(nbt.getFloat("scale"));
-        this.setPrevScale(nbt.getFloat("prevScale"));
-        this.despawning = nbt.getBoolean("despawning");
-        this.setColor(nbt.getString("color"));
-        this.homeCheckCooldown = nbt.getInt("homeCheckCooldown");
-        this.wasNamedNectar = nbt.getBoolean("wasNamedNectar");
-        this.shouldCheckSpawn = nbt.getBoolean("shouldCheckSpawn");
+    @Override
+    public void readAdditionalSaveData(@NotNull CompoundTag compound) {
+        super.readAdditionalSaveData(compound);
+        this.setFromBottle(compound.getBoolean("fromBottle"));
+        this.natural = compound.getBoolean("natural");
+        this.setFlickers(compound.getBoolean("flickers"));
+        this.setFlickerAge(compound.getInt("flickerAge"));
+        this.hasHome = compound.getBoolean("hasHome");
+        this.setScale(compound.getFloat("scale"));
+        this.setPrevScale(compound.getFloat("prevScale"));
+        this.despawning = compound.getBoolean("despawning");
+        this.setColor(compound.getString("color"));
+        this.homeCheckCooldown = compound.getInt("homeCheckCooldown");
+        this.wasNamedNectar = compound.getBoolean("wasNamedNectar");
+        this.shouldCheckSpawn = compound.getBoolean("shouldCheckSpawn");
     }
 
+    @Override
     protected boolean shouldStayCloseToLeashHolder() {
         return false;
     }
 
-    protected boolean canRide(Entity entity) {
+    @Override
+    protected boolean canRide(@NotNull Entity vehicle) {
         return false;
     }
 
+    @Override
     public boolean canDisableShield() {
         return false;
     }
 
+    @Override
     protected void sendDebugPackets() {
         super.sendDebugPackets();
         DebugPackets.sendEntityBrain(this);
     }
 
     @Override
-    public boolean causeFallDamage(float fallDistance, float damageMultiplier, DamageSource damageSource) {
+    public boolean causeFallDamage(float fallDistance, float damageMultiplier, @NotNull DamageSource source) {
         return false;
     }
 
-    protected void doPush(Entity entity) {
+    @Override
+    protected void doPush(@NotNull Entity entity) {
     }
 
+    @Override
     protected void pushEntities() {
     }
 

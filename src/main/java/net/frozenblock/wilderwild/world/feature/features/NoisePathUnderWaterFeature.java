@@ -22,15 +22,15 @@ public class NoisePathUnderWaterFeature extends Feature<PathFeatureConfig> {
         boolean generated = false;
         PathFeatureConfig config = context.config();
         BlockPos blockPos = context.origin();
-        WorldGenLevel world = context.level();
-        EasyNoiseSampler.setSeed(world.getSeed());
+        WorldGenLevel level = context.level();
+        EasyNoiseSampler.setSeed(level.getSeed());
         ImprovedNoise sampler = config.noise == 1 ? EasyNoiseSampler.perlinSimple : config.noise == 2 ? EasyNoiseSampler.perlinAtomic : config.noise == 3 ? EasyNoiseSampler.perlinBlocking : EasyNoiseSampler.perlinXoro;
         BlockPos.MutableBlockPos mutable = blockPos.mutable();
         int bx = mutable.getX();
         int bz = mutable.getZ();
         int by = mutable.getY();
         int radiusSquared = config.radius * config.radius;
-        RandomSource random = world.getRandom();
+        RandomSource random = level.getRandom();
 
         for (int x = bx - config.radius; x <= bx + config.radius; x++) {
             for (int z = bz - config.radius; z <= bz + config.radius; z++) {
@@ -40,9 +40,9 @@ public class NoisePathUnderWaterFeature extends Feature<PathFeatureConfig> {
                         mutable.set(x, y, z);
                         double sample1 = EasyNoiseSampler.sample(sampler, mutable, config.multiplier, config.multiplyY, config.useY);
                         //double sample2 = EasyNoiseSampler.samplePerlinSimplePositive(mutable, config.multiplier, config.multiplyY, config.useY);
-                        if (sample1 > config.minThresh && sample1 < config.maxThresh && world.getBlockState(mutable).is(config.replaceable) && isWaterNearby(world, mutable, 2)) {
+                        if (sample1 > config.minThresh && sample1 < config.maxThresh && level.getBlockState(mutable).is(config.replaceable) && isWaterNearby(level, mutable, 2)) {
                             generated = true;
-                            world.setBlock(mutable, config.pathBlock.getState(random, mutable), 3);
+                            level.setBlock(mutable, config.pathBlock.getState(random, mutable), 3);
                         }
                     }
                 }
@@ -51,7 +51,7 @@ public class NoisePathUnderWaterFeature extends Feature<PathFeatureConfig> {
         return generated;
     }
 
-    public static boolean isWaterNearby(WorldGenLevel world, BlockPos blockPos, int x) {
+    public static boolean isWaterNearby(WorldGenLevel level, BlockPos blockPos, int x) {
         Iterator<BlockPos> var2 = BlockPos.betweenClosed(blockPos.offset(-x, -x, -x), blockPos.offset(x, x, x)).iterator();
         BlockPos blockPos2;
         do {
@@ -59,7 +59,7 @@ public class NoisePathUnderWaterFeature extends Feature<PathFeatureConfig> {
                 return false;
             }
             blockPos2 = var2.next();
-        } while (!world.getBlockState(blockPos2).is(Blocks.WATER));
+        } while (!level.getBlockState(blockPos2).is(Blocks.WATER));
         return true;
     }
 

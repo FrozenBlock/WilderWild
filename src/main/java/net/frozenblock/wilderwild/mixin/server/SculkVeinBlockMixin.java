@@ -32,7 +32,7 @@ public abstract class SculkVeinBlockMixin extends MultifaceBlock implements Scul
     }
 
     @Inject(method = "attemptPlaceSculk", at = @At(value = "INVOKE", target = "Lnet/minecraft/core/Direction;getOpposite()Lnet/minecraft/core/Direction;", opcode = 0, shift = At.Shift.AFTER), locals = LocalCapture.CAPTURE_FAILHARD)
-    private void attemptPlaceSculk(SculkSpreader sculkBehavior, LevelAccessor world, BlockPos pos, RandomSource random, CallbackInfoReturnable<Boolean> cir, BlockState blockState, TagKey<Block> replaceableBlocks, Iterator<Direction> var7, Direction direction, BlockPos blockPos, BlockState blockState2, BlockState blockState3) {
+    private void attemptPlaceSculk(SculkSpreader sculkBehavior, LevelAccessor level, BlockPos pos, RandomSource random, CallbackInfoReturnable<Boolean> cir, BlockState blockState, TagKey<Block> replaceableBlocks, Iterator<Direction> var7, Direction direction, BlockPos blockPos, BlockState blockState2, BlockState blockState3) {
         boolean canReturn = false;
         if (blockState2.is(WilderBlockTags.SCULK_STAIR_REPLACEABLE_WORLDGEN) || blockState2.is(WilderBlockTags.SCULK_STAIR_REPLACEABLE)) {
             blockState3 = RegisterBlocks.SCULK_STAIRS.defaultBlockState().setValue(StairBlock.FACING, blockState2.getValue(StairBlock.FACING)).setValue(StairBlock.HALF, blockState2.getValue(StairBlock.HALF)).setValue(StairBlock.SHAPE, blockState2.getValue(StairBlock.SHAPE)).setValue(StairBlock.WATERLOGGED, blockState2.getValue(StairBlock.WATERLOGGED));
@@ -48,9 +48,9 @@ public abstract class SculkVeinBlockMixin extends MultifaceBlock implements Scul
         }
 
         if (canReturn) {
-            world.setBlock(blockPos, blockState3, 3);
-            Block.pushEntitiesUp(blockState2, blockState3, world, blockPos);
-            this.veinSpreader.spreadAll(blockState3, world, blockPos, sculkBehavior.isWorldGeneration());
+            level.setBlock(blockPos, blockState3, 3);
+            Block.pushEntitiesUp(blockState2, blockState3, level, blockPos);
+            this.veinSpreader.spreadAll(blockState3, level, blockPos, sculkBehavior.isWorldGeneration());
         }
     }
 
@@ -60,25 +60,25 @@ public abstract class SculkVeinBlockMixin extends MultifaceBlock implements Scul
     }
 
     /*@Inject(method = "onDischarged", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/LevelAccessor;setBlock(Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/BlockState;I)Z"), locals = LocalCapture.CAPTURE_FAILHARD, cancellable = true)
-    public void onDischarged(LevelAccessor world, BlockState state, BlockPos pos, RandomSource random, CallbackInfo ci) {
+    public void onDischarged(LevelAccessor level, BlockState state, BlockPos pos, RandomSource random, CallbackInfo ci) {
         boolean canReturn = false;
         if (state.is(SculkVeinBlock.class.cast(this))) {
             for(Direction direction : DIRECTIONS) {
                 BooleanProperty booleanProperty = getFaceProperty(direction);
-                if (state.getValue(booleanProperty) && world.getBlockState(pos.relative(direction)).is(WilderBlockTags.SCULK_VEIN_REMOVE)) {
+                if (state.getValue(booleanProperty) && level.getBlockState(pos.relative(direction)).is(WilderBlockTags.SCULK_VEIN_REMOVE)) {
                     state = state.setValue(booleanProperty, false);
                     canReturn = true;
                 }
             }
 
             if (!hasAnyFace(state)) {
-                FluidState fluidState = world.getFluidState(pos);
+                FluidState fluidState = level.getFluidState(pos);
                 state = (fluidState.isEmpty() ? Blocks.AIR : Blocks.WATER).defaultBlockState();
             }
 
             if (canReturn) {
-                world.setBlock(pos, state, 3);
-                SculkBehaviour.super.onDischarged(world, state, pos, random);
+                level.setBlock(pos, state, 3);
+                SculkBehaviour.super.onDischarged(level, state, pos, random);
                 ci.cancel();
             }
         }

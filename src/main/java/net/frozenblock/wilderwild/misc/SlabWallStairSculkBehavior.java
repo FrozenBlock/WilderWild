@@ -15,10 +15,10 @@ import java.util.Collection;
 
 public class SlabWallStairSculkBehavior implements SculkBehaviour {
     @Override
-    public int attemptUseCharge(SculkSpreader.ChargeCursor cursor, LevelAccessor world, BlockPos catalystPos, RandomSource random, SculkSpreader spreadManager, boolean shouldConvertToBlock) {
+    public int attemptUseCharge(SculkSpreader.ChargeCursor cursor, LevelAccessor level, BlockPos catalystPos, RandomSource random, SculkSpreader spreadManager, boolean shouldConvertToBlock) {
         BlockState placementState = null;
         BlockPos cursorPos = cursor.getPos();
-        BlockState currentState = world.getBlockState(cursorPos);
+        BlockState currentState = level.getBlockState(cursorPos);
         if (currentState.is(WilderBlockTags.SCULK_STAIR_REPLACEABLE_WORLDGEN) || currentState.is(WilderBlockTags.SCULK_STAIR_REPLACEABLE)) {
             placementState = RegisterBlocks.SCULK_STAIRS.defaultBlockState().setValue(StairBlock.FACING, currentState.getValue(StairBlock.FACING)).setValue(StairBlock.HALF, currentState.getValue(StairBlock.HALF)).setValue(StairBlock.SHAPE, currentState.getValue(StairBlock.SHAPE)).setValue(StairBlock.WATERLOGGED, currentState.getValue(StairBlock.WATERLOGGED));
         } else if (currentState.is(WilderBlockTags.SCULK_WALL_REPLACEABLE_WORLDGEN) || currentState.is(WilderBlockTags.SCULK_WALL_REPLACEABLE)) {
@@ -30,16 +30,16 @@ public class SlabWallStairSculkBehavior implements SculkBehaviour {
         }
 
         if (placementState != null) {
-            world.setBlock(cursorPos, placementState, 3);
+            level.setBlock(cursorPos, placementState, 3);
             return cursor.getCharge() - 1;
         }
         return random.nextInt(spreadManager.chargeDecayRate()) == 0 ? Mth.floor((float) cursor.getCharge() * 0.5F) : cursor.getCharge();
     }
 
     @Override
-    public boolean attemptSpreadVein(LevelAccessor world, BlockPos pos, BlockState state, @Nullable Collection<Direction> directions, boolean markForPostProcessing) {
+    public boolean attemptSpreadVein(LevelAccessor level, BlockPos pos, BlockState state, @Nullable Collection<Direction> directions, boolean markForPostProcessing) {
         BlockState placementState = null;
-        BlockState currentState = world.getBlockState(pos);
+        BlockState currentState = level.getBlockState(pos);
         if (currentState.is(WilderBlockTags.SCULK_STAIR_REPLACEABLE_WORLDGEN) || currentState.is(WilderBlockTags.SCULK_STAIR_REPLACEABLE)) {
             placementState = RegisterBlocks.SCULK_STAIRS.defaultBlockState().setValue(StairBlock.FACING, currentState.getValue(StairBlock.FACING)).setValue(StairBlock.HALF, currentState.getValue(StairBlock.HALF)).setValue(StairBlock.SHAPE, currentState.getValue(StairBlock.SHAPE)).setValue(StairBlock.WATERLOGGED, currentState.getValue(StairBlock.WATERLOGGED));
         } else if (currentState.is(WilderBlockTags.SCULK_WALL_REPLACEABLE_WORLDGEN) || currentState.is(WilderBlockTags.SCULK_WALL_REPLACEABLE)) {
@@ -51,7 +51,7 @@ public class SlabWallStairSculkBehavior implements SculkBehaviour {
         }
 
         if (placementState != null) {
-            world.setBlock(pos, placementState, 3);
+            level.setBlock(pos, placementState, 3);
             return true;
         }
         return false;
