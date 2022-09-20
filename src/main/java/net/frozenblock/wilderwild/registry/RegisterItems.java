@@ -7,6 +7,7 @@ import net.frozenblock.wilderwild.item.AncientHorn;
 import net.frozenblock.wilderwild.item.CopperHorn;
 import net.frozenblock.wilderwild.item.FireflyBottle;
 import net.frozenblock.wilderwild.item.MilkweedPod;
+import net.frozenblock.wilderwild.misc.InstrumentStartingSounds;
 import net.frozenblock.wilderwild.misc.WilderBoats;
 import net.frozenblock.wilderwild.tag.WilderInstrumentTags;
 import net.minecraft.core.Registry;
@@ -88,14 +89,30 @@ public final class RegisterItems {
         Registry.register(Registry.ITEM, WilderWild.id("jellyfish_spawn_egg"), JELLYFISH_SPAWN_EGG);
         Registry.register(Registry.ITEM, WilderWild.id("jellyfish_bucket"), JELLYFISH_BUCKET);
 
-        Registry.register(Registry.INSTRUMENT, ANCIENT_HORN_INSTRUMENT, new Instrument(RegisterSounds.ITEM_ANCIENT_HORN_CALL, 300, 256.0F));
-        Registry.register(Registry.INSTRUMENT, SAX_COPPER_HORN, new Instrument(RegisterSounds.ITEM_COPPER_HORN_SAX_LOOP, 32767, 64.0F));
-        Registry.register(Registry.INSTRUMENT, TUBA_COPPER_HORN, new Instrument(RegisterSounds.ITEM_COPPER_HORN_TUBA_LOOP, 32767, 64.0F));
-        Registry.register(Registry.INSTRUMENT, FLUTE_COPPER_HORN, new Instrument(RegisterSounds.ITEM_COPPER_HORN_FLUTE_LOOP, 32767, 64.0F));
-        Registry.register(Registry.INSTRUMENT, OBOE_COPPER_HORN, new Instrument(RegisterSounds.ITEM_COPPER_HORN_OBOE_LOOP, 32767, 64.0F));
-        Registry.register(Registry.INSTRUMENT, CLARINET_COPPER_HORN, new Instrument(RegisterSounds.ITEM_COPPER_HORN_CLARINET_LOOP, 32767, 64.0F));
-        Registry.register(Registry.INSTRUMENT, TRUMPET_COPPER_HORN, new Instrument(RegisterSounds.ITEM_COPPER_HORN_TRUMPET_LOOP, 32767, 64.0F));
-        Registry.register(Registry.INSTRUMENT, TROMBONE_COPPER_HORN, new Instrument(RegisterSounds.ITEM_COPPER_HORN_TROMBONE_LOOP, 32767, 64.0F));
+        var ancientHorn = new Instrument(RegisterSounds.ITEM_ANCIENT_HORN_CALL, 300, 256.0F);
+
+        var saxCopperHorn = new Instrument(RegisterSounds.ITEM_COPPER_HORN_SAX_LOOP, 32767, 64.0F);
+        var tubaCopperHorn = new Instrument(RegisterSounds.ITEM_COPPER_HORN_TUBA_LOOP, 32767, 64.0F);
+        var fluteCopperHorn = new Instrument(RegisterSounds.ITEM_COPPER_HORN_FLUTE_LOOP, 32767, 64.0F);
+        var oboeCopperHorn = new Instrument(RegisterSounds.ITEM_COPPER_HORN_OBOE_LOOP, 32767, 64.0F);
+        var clarinetCopperHorn = new Instrument(RegisterSounds.ITEM_COPPER_HORN_CLARINET_LOOP, 32767, 64.0F);
+        var trumpetCopperHorn = new Instrument(RegisterSounds.ITEM_COPPER_HORN_TRUMPET_LOOP, 32767, 64.0F);
+        var tromboneCopperHorn = new Instrument(RegisterSounds.ITEM_COPPER_HORN_TROMBONE_LOOP, 32767, 64.0F);
+        Registry.register(Registry.INSTRUMENT, ANCIENT_HORN_INSTRUMENT, ancientHorn);
+        Registry.register(Registry.INSTRUMENT, SAX_COPPER_HORN, saxCopperHorn);
+        Registry.register(Registry.INSTRUMENT, TUBA_COPPER_HORN, tubaCopperHorn);
+        Registry.register(Registry.INSTRUMENT, FLUTE_COPPER_HORN, fluteCopperHorn);
+        Registry.register(Registry.INSTRUMENT, OBOE_COPPER_HORN, oboeCopperHorn);
+        Registry.register(Registry.INSTRUMENT, CLARINET_COPPER_HORN, clarinetCopperHorn);
+        Registry.register(Registry.INSTRUMENT, TRUMPET_COPPER_HORN, trumpetCopperHorn);
+        Registry.register(Registry.INSTRUMENT, TROMBONE_COPPER_HORN, tromboneCopperHorn);
+        InstrumentStartingSounds.startingSounds.put(saxCopperHorn, RegisterSounds.ITEM_COPPER_HORN_SAX_START);
+        InstrumentStartingSounds.startingSounds.put(tubaCopperHorn, RegisterSounds.ITEM_COPPER_HORN_TUBA_START);
+        InstrumentStartingSounds.startingSounds.put(fluteCopperHorn, RegisterSounds.ITEM_COPPER_HORN_FLUTE_START);
+        InstrumentStartingSounds.startingSounds.put(oboeCopperHorn, RegisterSounds.ITEM_COPPER_HORN_OBOE_START);
+        InstrumentStartingSounds.startingSounds.put(clarinetCopperHorn, RegisterSounds.ITEM_COPPER_HORN_CLARINET_START);
+        InstrumentStartingSounds.startingSounds.put(trumpetCopperHorn, RegisterSounds.ITEM_COPPER_HORN_TRUMPET_START);
+        InstrumentStartingSounds.startingSounds.put(tromboneCopperHorn, RegisterSounds.ITEM_COPPER_HORN_TROMBONE_START);
 
         Registry.register(Registry.ITEM, WilderWild.id("baobab_nut"), BAOBAB_NUT);
         //Registry.register(Registry.ITEM, WilderWild.id("prickly_pear"), PRICKLY_PEAR);

@@ -5,6 +5,7 @@
   "compatibilityLevel": "JAVA_17",
   "mixins": [
 	"server.AbstractArrowMixin",
+	"server.AllayMixin",
 	"server.BlockEntityTypeMixin",
 	"server.BlockMixin",
 	"server.BlocksMixin",
@@ -49,6 +50,7 @@
 	"worldgen.VegetationPlacementsMixin"
   ],
   "client": [
+	"client.AllayModelMixin",
 	"client.LevelRendererMixin",
 	"client.LiquidBlockRendererMixin",
 	"client.WardenAnimationOverwrites",
@@ -61,7 +63,7 @@
 	"client.easter.Treetrain1GoatRenderer",
 	"client.easter.UppyBalloo",
 	"client.easter.UppyBallooModel",
-	"client.easter.XfrtrexSusFrogRenderer",
+	"client.easter.XfrtrexSusFrogRenderer"
   ],
   "injectors": {
 	"defaultRequire": 1

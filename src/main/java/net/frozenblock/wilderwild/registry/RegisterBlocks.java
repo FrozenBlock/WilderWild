@@ -528,65 +528,6 @@ public final class RegisterBlocks {
             }
             return false;
         });
-        BonemealBehaviors.bonemeals.put(BROWN_SHELF_FUNGUS, (context, level, pos, state, face, horizontal) -> {
-            if (state.getValue(RegisterProperties.FUNGUS_STAGE) < 4) {
-                WilderWild.log("Shelf Fungus Bonemealed @ " + pos + " with FungusStage of " + state.getValue(RegisterProperties.FUNGUS_STAGE), WilderWild.DEV_LOGGING);
-                if (!level.isClientSide) {
-                    level.levelEvent(LevelEvent.PARTICLES_AND_SOUND_PLANT_GROWTH, pos, 0);
-                    level.setBlockAndUpdate(pos, state.setValue(RegisterProperties.FUNGUS_STAGE, state.getValue(RegisterProperties.FUNGUS_STAGE) + 1));
-                    return true;
-                }
-            }
-            return false;
-        });
-        BonemealBehaviors.bonemeals.put(RED_SHELF_FUNGUS, (context, level, pos, state, face, horizontal) -> {
-            if (state.getValue(RegisterProperties.FUNGUS_STAGE) < 4) {
-                WilderWild.log("Shelf Fungus Bonemealed @ " + pos + " with FungusStage of " + state.getValue(RegisterProperties.FUNGUS_STAGE), WilderWild.DEV_LOGGING);
-                if (!level.isClientSide) {
-                    level.levelEvent(LevelEvent.PARTICLES_AND_SOUND_PLANT_GROWTH, pos, 0);
-                    level.setBlockAndUpdate(pos, state.setValue(RegisterProperties.FUNGUS_STAGE, state.getValue(RegisterProperties.FUNGUS_STAGE) + 1));
-                    return true;
-                }
-            }
-            return false;
-        });
-        BonemealBehaviors.bonemeals.put(ALGAE, (context, level, pos, state, face, horizontal) -> {
-            WilderWild.log("Algae Bonemealed @ " + pos, WilderWild.DEV_LOGGING);
-            if (!level.isClientSide) {
-                for (Direction offset : shuffleOffsets(level.getRandom())) {
-                    BlockPos blockPos = pos.relative(offset);
-                    if (level.getBlockState(blockPos).isAir() && state.getBlock().canSurvive(state, level, blockPos)) {
-                        level.levelEvent(LevelEvent.PARTICLES_AND_SOUND_PLANT_GROWTH, blockPos, 0);
-                        level.levelEvent(LevelEvent.PARTICLES_AND_SOUND_PLANT_GROWTH, blockPos, 0);
-                        level.setBlockAndUpdate(blockPos, state);
-                        return true;
-                    }
-                }
-            }
-            return false;
-        });
-        BonemealBehaviors.bonemeals.put(RegisterBlocks.GLORY_OF_THE_SNOW, (context, level, pos, state, face, horizontal) -> {
-            if (state.getValue(RegisterProperties.FLOWER_COLOR) == FlowerColors.NONE) {
-                WilderWild.log("Glory Of The Snow Bonemealed @ " + pos, WilderWild.DEV_LOGGING);
-                if (!level.isClientSide && state.getBlock() instanceof GloryOfTheSnowBlock glory) {
-                    level.levelEvent(LevelEvent.PARTICLES_AND_SOUND_PLANT_GROWTH, pos, 0);
-                    level.setBlockAndUpdate(pos, state.setValue(RegisterProperties.FLOWER_COLOR, glory.COLOR_LIST.get(WilderWild.random().nextInt(glory.COLOR_LIST.size()))));
-                    return true;
-                }
-            }
-            return false;
-        });
-    }
-
-    private static final List<Direction> offsets = new ArrayList<>() {{
-        add(Direction.EAST);
-        add(Direction.NORTH);
-        add(Direction.SOUTH);
-        add(Direction.WEST);
-    }};
-
-    private static List<Direction> shuffleOffsets(RandomSource random) {
-        return Util.toShuffledList(offsets.stream(), random);
     }
 
 }
