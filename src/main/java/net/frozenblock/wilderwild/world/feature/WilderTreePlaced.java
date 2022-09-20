@@ -28,6 +28,7 @@ public final class WilderTreePlaced {
     public static final Holder<PlacedFeature> NEW_OAK_BEES_0004 = PlacementUtils.register("new_oak_bees_00004", WilderTreeConfigured.NEW_OAK_BEES_0004, PlacementUtils.filteredByBlockSurvival(Blocks.OAK_SAPLING));
     public static final Holder<PlacedFeature> SHORT_OAK_CHECKED = PlacementUtils.register("short_oak_checked", WilderTreeConfigured.SHORT_OAK, PlacementUtils.filteredByBlockSurvival(Blocks.OAK_SAPLING));
     public static final Holder<PlacedFeature> NEW_FANCY_OAK_CHECKED = PlacementUtils.register("new_fancy_oak_checked", WilderTreeConfigured.NEW_FANCY_OAK, PlacementUtils.filteredByBlockSurvival(Blocks.OAK_SAPLING));
+    public static final Holder<PlacedFeature> DYING_FANCY_OAK_CHECKED = PlacementUtils.register("dying_fancy_oak_checked", WilderTreeConfigured.FANCY_DYING_OAK, PlacementUtils.filteredByBlockSurvival(Blocks.OAK_SAPLING));
     public static final Holder<PlacedFeature> DYING_FANCY_OAK_BEES_0004 = PlacementUtils.register("dying_fancy_oak_bees_0004", WilderTreeConfigured.FANCY_DYING_OAK_BEES_0004, PlacementUtils.filteredByBlockSurvival(Blocks.OAK_SAPLING));
     public static final Holder<PlacedFeature> NEW_FANCY_OAK_BEES_0004 = PlacementUtils.register("new_fancy_oak_bees_0004", WilderTreeConfigured.NEW_FANCY_OAK_BEES_0004, PlacementUtils.filteredByBlockSurvival(Blocks.OAK_SAPLING));
     public static final Holder<PlacedFeature> NEW_FANCY_OAK_BEES = PlacementUtils.register("new_fancy_oak_bees", WilderTreeConfigured.NEW_FANCY_OAK_BEES, PlacementUtils.filteredByBlockSurvival(Blocks.OAK_SAPLING));
