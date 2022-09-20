@@ -18,7 +18,9 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.BonemealableBlock;
 import net.minecraft.world.level.block.BushBlock;
+import net.minecraft.world.level.block.LevelEvent;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.EnumProperty;
@@ -31,7 +33,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
-public class GloryOfTheSnowBlock extends BushBlock {
+public class GloryOfTheSnowBlock extends BushBlock implements BonemealableBlock {
     private static final VoxelShape SHAPE = Block.box(2.0D, 0.0D, 2.0D, 14.0D, 10.0D, 14.0D);
     public static final EnumProperty<FlowerColors> COLORS = RegisterProperties.FLOWER_COLOR;
 
@@ -81,5 +83,22 @@ public class GloryOfTheSnowBlock extends BushBlock {
     public VoxelShape getShape(BlockState state, @NotNull BlockGetter level, @NotNull BlockPos pos, @NotNull CollisionContext context) {
         Vec3 vec3d = state.getOffset(level, pos);
         return SHAPE.move(vec3d.x, vec3d.y, vec3d.z);
+    }
+
+    @Override
+    public boolean isValidBonemealTarget(@NotNull BlockGetter level, @NotNull BlockPos pos, @NotNull BlockState state, boolean isClient) {
+        return !isClient && state.getValue(COLORS) == FlowerColors.NONE;
+    }
+
+    @Override
+    public boolean isBonemealSuccess(@NotNull Level level, @NotNull RandomSource random, @NotNull BlockPos pos, @NotNull BlockState state) {
+        return true;
+    }
+
+    @Override
+    public void performBonemeal(@NotNull ServerLevel level, @NotNull RandomSource random, @NotNull BlockPos pos, @NotNull BlockState state) {
+        WilderWild.log("Glory Of The Snow Bonemealed @ " + pos, WilderWild.DEV_LOGGING);
+        level.levelEvent(LevelEvent.PARTICLES_AND_SOUND_PLANT_GROWTH, pos, 0);
+        level.setBlockAndUpdate(pos, state.setValue(RegisterProperties.FLOWER_COLOR, this.COLOR_LIST.get(WilderWild.random().nextInt(this.COLOR_LIST.size()))));
     }
 }

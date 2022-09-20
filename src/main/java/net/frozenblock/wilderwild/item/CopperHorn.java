@@ -2,6 +2,7 @@ package net.frozenblock.wilderwild.item;
 
 import net.frozenblock.lib.sound.FrozenSoundPackets;
 import net.frozenblock.wilderwild.WilderWild;
+import net.frozenblock.wilderwild.misc.InstrumentStartingSounds;
 import net.frozenblock.wilderwild.registry.RegisterItems;
 import net.minecraft.core.Holder;
 import net.minecraft.core.NonNullList;
@@ -57,6 +58,7 @@ public class CopperHorn extends InstrumentItem {
 
     }
 
+    @Override
     public Optional<Holder<Instrument>> getInstrument(ItemStack stack) {
         CompoundTag nbtCompound = stack.getTag();
         if (nbtCompound != null) {
@@ -87,7 +89,7 @@ public class CopperHorn extends InstrumentItem {
         }
     }
 
-    private void playSound(Instrument instrument, Player user, Level level) {
+    private static void playSound(Instrument instrument, Player user, Level level) {
         SoundEvent soundEvent = instrument.soundEvent();
         float range = instrument.range() / 16.0F;
         int note = (int) ((-user.getXRot() + 90) / 15);
@@ -96,6 +98,10 @@ public class CopperHorn extends InstrumentItem {
             float soundPitch = !user.isShiftKeyDown() ?
                     (float) Math.pow(2.0D, (note - 12.0F) / 12.0D) + 1F :
                     (float) Math.pow(2.0D, (note - 12.0F) / 12.0D);
+            var startingSound = InstrumentStartingSounds.startingSounds.get(instrument);
+            if (startingSound != null) {
+                level.playSound(user, user, startingSound, SoundSource.RECORDS, range, soundPitch);
+            }
             FrozenSoundPackets.createMovingRestrictionLoopingSound(level, user, soundEvent, SoundSource.RECORDS, range, soundPitch, WilderWild.id("instrument"));
         }
         level.gameEvent(GameEvent.INSTRUMENT_PLAY, user.position(), GameEvent.Context.of(user));

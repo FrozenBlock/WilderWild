@@ -27,6 +27,7 @@ public abstract class AllayModelMixin extends HierarchicalModel<Allay> implement
     @Shadow @Final private ModelPart head;
 
     @Shadow @Final private ModelPart root;
+
     private static final float pi180 = Mth.PI / 180;
 
     @Inject(method = "setupAnim(Lnet/minecraft/world/entity/animal/allay/Allay;FFFFF)V", at = @At(value = "INVOKE", target = "Lnet/minecraft/util/Mth;lerp(FFF)F"), cancellable = true)
