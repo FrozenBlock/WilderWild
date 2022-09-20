@@ -77,8 +77,8 @@ repositories {
 	}
 	maven {
 		url = 'https://maven.minecraftforge.net/'
-  }
-  maven {
+	}
+	maven {
 		url = "https://maven.oroarmor.com"
 	}
 	maven {
