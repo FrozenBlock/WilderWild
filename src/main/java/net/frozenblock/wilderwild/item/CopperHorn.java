@@ -78,10 +78,11 @@ public class CopperHorn extends InstrumentItem {
         ItemStack itemStack = user.getItemInHand(usedHand);
         Optional<Holder<Instrument>> optional = this.getInstrument(itemStack);
         if (optional.isPresent()) {
-            Instrument instrument = optional.get().value();
+            var instrumentHolder = optional.get();
+            var instrument = instrumentHolder.value();
             user.startUsingItem(usedHand);
 
-            playSound(instrument, user, level);
+            playSound(instrument, user, level, instrumentHolder);
 
             return InteractionResultHolder.consume(itemStack);
         } else {
@@ -89,7 +90,7 @@ public class CopperHorn extends InstrumentItem {
         }
     }
 
-    private static void playSound(Instrument instrument, Player user, Level level) {
+    private static void playSound(Instrument instrument, Player user, Level level, Holder<Instrument> instrumentHolder) {
         SoundEvent soundEvent = instrument.soundEvent();
         float range = instrument.range() / 16.0F;
         int note = (int) ((-user.getXRot() + 90) / 15);
@@ -98,9 +99,9 @@ public class CopperHorn extends InstrumentItem {
             float soundPitch = !user.isShiftKeyDown() ?
                     (float) Math.pow(2.0D, (note - 12.0F) / 12.0D) + 1F :
                     (float) Math.pow(2.0D, (note - 12.0F) / 12.0D);
-            var startingSound = InstrumentStartingSounds.startingSounds.get(instrument);
+            var startingSound = InstrumentStartingSounds.startingSounds.get(instrumentHolder);
             if (startingSound != null) {
-                level.playSound(user, user, startingSound, SoundSource.RECORDS, range, soundPitch);
+                level.playSound(null, user, startingSound, SoundSource.RECORDS, range, soundPitch);
             }
             FrozenSoundPackets.createMovingRestrictionLoopingSound(level, user, soundEvent, SoundSource.RECORDS, range, soundPitch, WilderWild.id("instrument"));
         }
