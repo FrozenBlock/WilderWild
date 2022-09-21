@@ -93,14 +93,14 @@ public class CopperHorn extends InstrumentItem {
     private static void playSound(Instrument instrument, Player user, Level level, Holder<Instrument> instrumentHolder) {
         SoundEvent soundEvent = instrument.soundEvent();
         float range = instrument.range() / 16.0F;
-        int note = (int) ((-user.getXRot() + 90) / 15);
+        int note = (int) ((-user.getXRot() + 90) / 7.5);
 
         if (!level.isClientSide) {
             float soundPitch = !user.isShiftKeyDown() ?
-                    (float) Math.pow(2.0D, (note - 12.0F) / 12.0D) + 1F :
-                    (float) Math.pow(2.0D, (note - 12.0F) / 12.0D);
+                    (float) Math.pow(2.0D, (note - 12.0F) / 12.0D) :
+                    (float) Math.pow(2.0D, 0.01111F * -user.getXRot());
             var startingSound = StartingSound.startingSounds.get(instrumentHolder);
-            FrozenSoundPackets.createStartingMovingRestrictionLoopingSound(level, user, startingSound, soundEvent, SoundSource.RECORDS, range, soundPitch, WilderWild.id("instrument"));
+            FrozenSoundPackets.createMovingRestrictionLoopingSound(world, user, startingSound, soundEvent, SoundSource.RECORDS, range, soundPitch, WilderWild.id("instrument"));
         }
         level.gameEvent(GameEvent.INSTRUMENT_PLAY, user.position(), GameEvent.Context.of(user));
     }
