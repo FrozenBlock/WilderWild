@@ -97,14 +97,13 @@ public final class RegisterItems {
         Registry.register(Registry.INSTRUMENT, CLARINET_COPPER_HORN, new Instrument(RegisterSounds.ITEM_COPPER_HORN_CLARINET_LOOP, 32767, 64.0F));
         Registry.register(Registry.INSTRUMENT, TRUMPET_COPPER_HORN, new Instrument(RegisterSounds.ITEM_COPPER_HORN_TRUMPET_LOOP, 32767, 64.0F));
         Registry.register(Registry.INSTRUMENT, TROMBONE_COPPER_HORN, new Instrument(RegisterSounds.ITEM_COPPER_HORN_TROMBONE_LOOP, 32767, 64.0F));
-        var registry = Registry.INSTRUMENT;
-        StartingSound.startingSounds.put(registry.getHolder(SAX_COPPER_HORN).orElseThrow(), RegisterSounds.ITEM_COPPER_HORN_SAX_START);
-        StartingSound.startingSounds.put(registry.getHolder(TUBA_COPPER_HORN).orElseThrow(), RegisterSounds.ITEM_COPPER_HORN_TUBA_START);
-        StartingSound.startingSounds.put(registry.getHolder(FLUTE_COPPER_HORN).orElseThrow(), RegisterSounds.ITEM_COPPER_HORN_FLUTE_START);
-        StartingSound.startingSounds.put(registry.getHolder(OBOE_COPPER_HORN).orElseThrow(), RegisterSounds.ITEM_COPPER_HORN_OBOE_START);
-        StartingSound.startingSounds.put(registry.getHolder(CLARINET_COPPER_HORN).orElseThrow(), RegisterSounds.ITEM_COPPER_HORN_CLARINET_START);
-        StartingSound.startingSounds.put(registry.getHolder(TRUMPET_COPPER_HORN).orElseThrow(), RegisterSounds.ITEM_COPPER_HORN_TRUMPET_START);
-        StartingSound.startingSounds.put(registry.getHolder(TROMBONE_COPPER_HORN).orElseThrow(), RegisterSounds.ITEM_COPPER_HORN_TROMBONE_START);
+        StartingSound.startingSounds.put(SAX_COPPER_HORN, RegisterSounds.ITEM_COPPER_HORN_SAX_START);
+        StartingSound.startingSounds.put(TUBA_COPPER_HORN, RegisterSounds.ITEM_COPPER_HORN_TUBA_START);
+        StartingSound.startingSounds.put(FLUTE_COPPER_HORN, RegisterSounds.ITEM_COPPER_HORN_FLUTE_START);
+        StartingSound.startingSounds.put(OBOE_COPPER_HORN, RegisterSounds.ITEM_COPPER_HORN_OBOE_START);
+        StartingSound.startingSounds.put(CLARINET_COPPER_HORN, RegisterSounds.ITEM_COPPER_HORN_CLARINET_START);
+        StartingSound.startingSounds.put(TRUMPET_COPPER_HORN, RegisterSounds.ITEM_COPPER_HORN_TRUMPET_START);
+        StartingSound.startingSounds.put(TROMBONE_COPPER_HORN, RegisterSounds.ITEM_COPPER_HORN_TROMBONE_START);
 
         Registry.register(Registry.ITEM, WilderWild.id("baobab_nut"), BAOBAB_NUT);
         //Registry.register(Registry.ITEM, WilderWild.id("prickly_pear"), PRICKLY_PEAR);
