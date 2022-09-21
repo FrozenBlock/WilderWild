@@ -100,7 +100,7 @@ public class CopperHorn extends InstrumentItem {
                     (float) Math.pow(2.0D, (note - 12.0F) / 12.0D) :
                     (float) Math.pow(2.0D, 0.01111F * -user.getXRot());
             var startingSound = StartingSound.startingSounds.get(instrumentHolder);
-            FrozenSoundPackets.createMovingRestrictionLoopingSound(level, user, startingSound, soundEvent, SoundSource.RECORDS, range, soundPitch, WilderWild.id("instrument"));
+            FrozenSoundPackets.createMovingRestrictionLoopingSound(level, user, soundEvent, SoundSource.RECORDS, range, soundPitch, WilderWild.id("instrument"));
         }
         level.gameEvent(GameEvent.INSTRUMENT_PLAY, user.position(), GameEvent.Context.of(user));
     }
