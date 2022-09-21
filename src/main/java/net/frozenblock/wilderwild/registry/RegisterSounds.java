@@ -1,7 +1,7 @@
 package net.frozenblock.wilderwild.registry;
 
 import net.frozenblock.lib.registry.FrozenRegistry;
-import net.frozenblock.lib.sound.StartingSound;
+import net.frozenblock.lib.sound.StartingSounds;
 import net.frozenblock.wilderwild.WilderWild;
 import net.minecraft.core.Registry;
 import net.minecraft.sounds.SoundEvent;
@@ -201,25 +201,25 @@ public final class RegisterSounds {
     public static final SoundEvent ITEM_BUCKET_FILL_JELLYFISH = register("item.bucket.fill_jellyfish");
     public static final SoundEvent ITEM_BUCKET_EMPTY_JELLYFISH = register("item.bucket.empty_jellyfish");
 
-    public static final StartingSound ITEM_COPPER_HORN_SAX_START = registerStarting("item.copper_horn.sax.start");
+    public static final SoundEvent ITEM_COPPER_HORN_SAX_START = registerStarting("item.copper_horn.sax.start");
     public static final SoundEvent ITEM_COPPER_HORN_SAX_LOOP = register("item.copper_horn.sax.loop");
 
-    public static final StartingSound ITEM_COPPER_HORN_TUBA_START = registerStarting("item.copper_horn.tuba.start");
+    public static final SoundEvent ITEM_COPPER_HORN_TUBA_START = registerStarting("item.copper_horn.tuba.start");
     public static final SoundEvent ITEM_COPPER_HORN_TUBA_LOOP = register("item.copper_horn.tuba.loop");
 
-    public static final StartingSound ITEM_COPPER_HORN_FLUTE_START = registerStarting("item.copper_horn.flute.start");
+    public static final SoundEvent ITEM_COPPER_HORN_FLUTE_START = registerStarting("item.copper_horn.flute.start");
     public static final SoundEvent ITEM_COPPER_HORN_FLUTE_LOOP = register("item.copper_horn.flute.loop");
 
-    public static final StartingSound ITEM_COPPER_HORN_OBOE_START = registerStarting("item.copper_horn.oboe.start");
+    public static final SoundEvent ITEM_COPPER_HORN_OBOE_START = registerStarting("item.copper_horn.oboe.start");
     public static final SoundEvent ITEM_COPPER_HORN_OBOE_LOOP = register("item.copper_horn.oboe.loop");
 
-    public static final StartingSound ITEM_COPPER_HORN_CLARINET_START = registerStarting("item.copper_horn.clarinet.start");
+    public static final SoundEvent ITEM_COPPER_HORN_CLARINET_START = registerStarting("item.copper_horn.clarinet.start");
     public static final SoundEvent ITEM_COPPER_HORN_CLARINET_LOOP = register("item.copper_horn.clarinet.loop");
 
-    public static final StartingSound ITEM_COPPER_HORN_TRUMPET_START = registerStarting("item.copper_horn.trumpet.start");
+    public static final SoundEvent ITEM_COPPER_HORN_TRUMPET_START = registerStarting("item.copper_horn.trumpet.start");
     public static final SoundEvent ITEM_COPPER_HORN_TRUMPET_LOOP = register("item.copper_horn.trumpet.loop");
 
-    public static final StartingSound ITEM_COPPER_HORN_TROMBONE_START = registerStarting("item.copper_horn.trombone.start");
+    public static final SoundEvent ITEM_COPPER_HORN_TROMBONE_START = registerStarting("item.copper_horn.trombone.start");
     public static final SoundEvent ITEM_COPPER_HORN_TROMBONE_LOOP = register("item.copper_horn.trombone.loop");
 
     //MISC
@@ -242,9 +242,10 @@ public final class RegisterSounds {
         return Registry.register(Registry.SOUND_EVENT, WilderWild.id(path), new SoundEvent(WilderWild.id(path)));
     }
 
-    public static StartingSound registerStarting(String path) {
-        register(path);
-        return Registry.register(FrozenRegistry.STARTING_SOUND, WilderWild.id(path), new StartingSound(WilderWild.id(path)));
+    public static SoundEvent registerStarting(String path) {
+        var sound = register(path);
+        Registry.register(FrozenRegistry.STARTING_SOUND, WilderWild.id(path), sound);
+        return sound;
     }
 
     public static void init() {
