@@ -37,8 +37,8 @@ public class FireflyHidingGoal extends MoveToBlockGoal {
     }
 
     @Override
-    protected boolean isValidTarget(LevelReader world, @NotNull BlockPos pos) {
-        return world.getBlockState(pos).is(WilderBlockTags.FIREFLY_HIDEABLE_BLOCKS);
+    protected boolean isValidTarget(LevelReader level, @NotNull BlockPos pos) {
+        return level.getBlockState(pos).is(WilderBlockTags.FIREFLY_HIDEABLE_BLOCKS);
     }
 
     @Override

@@ -45,6 +45,7 @@ import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.BlockHitResult;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
@@ -64,25 +65,25 @@ public class StoneChestBlock extends ChestBlock {
     }
 
     @Override
-    public InteractionResult use(BlockState state, Level world, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
-        if (world.isClientSide) {
+    public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
+        if (level.isClientSide) {
             return InteractionResult.SUCCESS;
         }
-        BlockEntity entity = world.getBlockEntity(pos);
+        BlockEntity entity = level.getBlockEntity(pos);
         if (entity instanceof StoneChestBlockEntity stoneChest) {
             if (stoneChest.closing) {
                 return InteractionResult.FAIL;
             }
             boolean ancient = state.getValue(ANCIENT);
-            StoneChestBlockEntity stoneEntity = StoneChestBlockEntity.getLeftEntity(world, pos, state, stoneChest);
-            if (canInteract(world, pos)) {
-                MenuProvider namedScreenHandlerFactory = this.getMenuProvider(state, world, pos);
-                if (!hasLid(world, pos) && (!player.isShiftKeyDown() || stoneEntity.openProgress >= 0.5F) && namedScreenHandlerFactory != null) {
+            StoneChestBlockEntity stoneEntity = StoneChestBlockEntity.getLeftEntity(level, pos, state, stoneChest);
+            if (canInteract(level, pos)) {
+                MenuProvider namedScreenHandlerFactory = this.getMenuProvider(state, level, pos);
+                if (!hasLid(level, pos) && (!player.isShiftKeyDown() || stoneEntity.openProgress >= 0.5F) && namedScreenHandlerFactory != null) {
                     player.openMenu(namedScreenHandlerFactory);
                     player.awardStat(this.getOpenChestStat());
                     PiglinAi.angerNearbyPiglins(player, true);
                 } else if (stoneEntity.openProgress < 0.5F) {
-                    MenuProvider lidCheck = this.getBlockEntitySourceIgnoreLid(state, world, pos, false).apply(STONE_NAME_RETRIEVER).orElse(null);
+                    MenuProvider lidCheck = this.getBlockEntitySourceIgnoreLid(state, level, pos, false).apply(STONE_NAME_RETRIEVER).orElse(null);
                     boolean first = stoneEntity.openProgress == 0F;
                     if (lidCheck == null) {
                         if (stoneEntity.openProgress < 0.05F) {
@@ -93,8 +94,8 @@ public class StoneChestBlock extends ChestBlock {
                     } else {
                         stoneEntity.liftLid(0.025F, ancient);
                     }
-                    StoneChestBlockEntity.playSound(world, pos, state, first ? RegisterSounds.BLOCK_STONE_CHEST_OPEN : RegisterSounds.BLOCK_STONE_CHEST_LIFT, 0.35F);
-                    world.gameEvent(player, GameEvent.CONTAINER_OPEN, pos);
+                    StoneChestBlockEntity.playSound(level, pos, state, first ? RegisterSounds.BLOCK_STONE_CHEST_OPEN : RegisterSounds.BLOCK_STONE_CHEST_LIFT, 0.35F);
+                    level.gameEvent(player, GameEvent.CONTAINER_OPEN, pos);
                     stoneEntity.updateSync();
                 }
             }
@@ -102,24 +103,24 @@ public class StoneChestBlock extends ChestBlock {
         return InteractionResult.CONSUME;
     }
 
-    public static boolean hasLid(Level world, BlockPos pos) {
-        BlockEntity entity = world.getBlockEntity(pos);
+    public static boolean hasLid(Level level, BlockPos pos) {
+        BlockEntity entity = level.getBlockEntity(pos);
         if (entity instanceof StoneChestBlockEntity stoneChest) {
             return stoneChest.openProgress < 0.3F;
         }
         return false;
     }
 
-    public static boolean canInteract(LevelAccessor world, BlockPos pos) {
-        BlockEntity entity = world.getBlockEntity(pos);
+    public static boolean canInteract(LevelAccessor level, BlockPos pos) {
+        BlockEntity entity = level.getBlockEntity(pos);
         if (entity instanceof StoneChestBlockEntity stoneChest) {
             return !(stoneChest.closing || stoneChest.cooldownTicks > 0);
         }
         return true;
     }
 
-    public static boolean hasLid(LevelAccessor world, BlockPos pos) {
-        BlockEntity entity = world.getBlockEntity(pos);
+    public static boolean hasLid(LevelAccessor level, BlockPos pos) {
+        BlockEntity entity = level.getBlockEntity(pos);
         if (entity instanceof StoneChestBlockEntity stoneChest) {
             return stoneChest.openProgress < 0.3F;
         }
@@ -133,24 +134,24 @@ public class StoneChestBlock extends ChestBlock {
 
     @Override
     @Nullable
-    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level world, BlockState state, BlockEntityType<T> type) {
-        return world.isClientSide ? BaseEntityBlock.createTickerHelper(type, RegisterBlockEntities.STONE_CHEST, StoneChestBlockEntity::clientStoneTick) : BaseEntityBlock.createTickerHelper(type, RegisterBlockEntities.STONE_CHEST, StoneChestBlockEntity::serverStoneTick);
+    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
+        return level.isClientSide ? BaseEntityBlock.createTickerHelper(type, RegisterBlockEntities.STONE_CHEST, StoneChestBlockEntity::clientStoneTick) : BaseEntityBlock.createTickerHelper(type, RegisterBlockEntities.STONE_CHEST, StoneChestBlockEntity::serverStoneTick);
     }
 
     @Nullable
-    public MenuProvider getMenuProvider(BlockState state, Level world, BlockPos pos) {
-        return this.combine(state, world, pos, false).apply(STONE_NAME_RETRIEVER).orElse(null);
+    public MenuProvider getMenuProvider(BlockState state, Level level, BlockPos pos) {
+        return this.combine(state, level, pos, false).apply(STONE_NAME_RETRIEVER).orElse(null);
     }
 
     @Override
-    public DoubleBlockCombiner.NeighborCombineResult<? extends ChestBlockEntity> combine(BlockState state, Level world2, BlockPos pos2, boolean ignoreBlocked) {
-        BiPredicate<LevelAccessor, BlockPos> biPredicate = ignoreBlocked ? (world, pos) -> false : StoneChestBlock::isStoneChestBlocked;
-        return DoubleBlockCombiner.combineWithNeigbour(this.blockEntityType.get(), ChestBlock::getBlockType, ChestBlock::getConnectedDirection, FACING, state, world2, pos2, biPredicate);
+    public DoubleBlockCombiner.NeighborCombineResult<? extends ChestBlockEntity> combine(BlockState state, Level level2, BlockPos pos2, boolean ignoreBlocked) {
+        BiPredicate<LevelAccessor, BlockPos> biPredicate = ignoreBlocked ? (level, pos) -> false : StoneChestBlock::isStoneChestBlocked;
+        return DoubleBlockCombiner.combineWithNeigbour(this.blockEntityType.get(), ChestBlock::getBlockType, ChestBlock::getConnectedDirection, FACING, state, level2, pos2, biPredicate);
     }
 
-    public DoubleBlockCombiner.NeighborCombineResult<? extends ChestBlockEntity> getBlockEntitySourceIgnoreLid(BlockState state, Level world2, BlockPos pos2, boolean ignoreBlocked) {
-        BiPredicate<LevelAccessor, BlockPos> biPredicate = ignoreBlocked ? (world, pos) -> false : StoneChestBlock::isStoneChestBlockedNoLid;
-        return DoubleBlockCombiner.combineWithNeigbour(this.blockEntityType.get(), ChestBlock::getBlockType, ChestBlock::getConnectedDirection, FACING, state, world2, pos2, biPredicate);
+    public DoubleBlockCombiner.NeighborCombineResult<? extends ChestBlockEntity> getBlockEntitySourceIgnoreLid(BlockState state, Level level2, BlockPos pos2, boolean ignoreBlocked) {
+        BiPredicate<LevelAccessor, BlockPos> biPredicate = ignoreBlocked ? (level, pos) -> false : StoneChestBlock::isStoneChestBlockedNoLid;
+        return DoubleBlockCombiner.combineWithNeigbour(this.blockEntityType.get(), ChestBlock::getBlockType, ChestBlock::getConnectedDirection, FACING, state, level2, pos2, biPredicate);
     }
 
     public static final DoubleBlockCombiner.Combiner<ChestBlockEntity, Optional<MenuProvider>> STONE_NAME_RETRIEVER = new DoubleBlockCombiner.Combiner<>() {
@@ -197,24 +198,24 @@ public class StoneChestBlock extends ChestBlock {
     };
 
 
-    public static boolean isStoneChestBlocked(LevelAccessor world, BlockPos pos) {
-        if (hasLid(world, pos)) {
+    public static boolean isStoneChestBlocked(LevelAccessor level, BlockPos pos) {
+        if (hasLid(level, pos)) {
             return true;
         }
-        return isBlockedChestByBlock(world, pos) || isCatSittingOnChest(world, pos) || !canInteract(world, pos);
+        return isBlockedChestByBlock(level, pos) || isCatSittingOnChest(level, pos) || !canInteract(level, pos);
     }
 
-    public static boolean isStoneChestBlockedNoLid(LevelAccessor world, BlockPos pos) {
-        return isBlockedChestByBlock(world, pos) || isCatSittingOnChest(world, pos) || !canInteract(world, pos);
+    public static boolean isStoneChestBlockedNoLid(LevelAccessor level, BlockPos pos) {
+        return isBlockedChestByBlock(level, pos) || isCatSittingOnChest(level, pos) || !canInteract(level, pos);
     }
 
-    private static boolean isBlockedChestByBlock(BlockGetter world, BlockPos pos) {
+    private static boolean isBlockedChestByBlock(BlockGetter level, BlockPos pos) {
         BlockPos blockPos = pos.above();
-        return world.getBlockState(blockPos).isRedstoneConductor(world, blockPos);
+        return level.getBlockState(blockPos).isRedstoneConductor(level, blockPos);
     }
 
-    private static boolean isCatSittingOnChest(LevelAccessor world, BlockPos pos) {
-        List<Cat> list = world.getEntitiesOfClass(Cat.class, new AABB(pos.getX(), pos.getY() + 1, pos.getZ(), pos.getX() + 1, pos.getY() + 2, pos.getZ() + 1));
+    private static boolean isCatSittingOnChest(LevelAccessor level, BlockPos pos) {
+        List<Cat> list = level.getEntitiesOfClass(Cat.class, new AABB(pos.getX(), pos.getY() + 1, pos.getZ(), pos.getX() + 1, pos.getY() + 2, pos.getZ() + 1));
         if (!list.isEmpty()) {
             for (Cat catEntity : list) {
                 if (!catEntity.isInSittingPose()) continue;
@@ -225,9 +226,9 @@ public class StoneChestBlock extends ChestBlock {
     }
 
     @Override
-    public BlockState updateShape(BlockState state, Direction direction, BlockState neighborState, LevelAccessor world, BlockPos pos, BlockPos neighborPos) {
+    public BlockState updateShape(BlockState state, @NotNull Direction direction, @NotNull BlockState neighborState, @NotNull LevelAccessor level, @NotNull BlockPos currentPos, @NotNull BlockPos neighborPos) {
         if (state.getValue(WATERLOGGED)) {
-            world.scheduleTick(pos, Fluids.WATER, Fluids.WATER.getTickDelay(world));
+            level.scheduleTick(currentPos, Fluids.WATER, Fluids.WATER.getTickDelay(level));
         }
         if (neighborState.is(this) && direction.getAxis().isHorizontal()) {
             //if (neighborState.get(ANCIENT) == state.get(ANCIENT)) {
@@ -239,7 +240,7 @@ public class StoneChestBlock extends ChestBlock {
         } else if (ChestBlock.getConnectedDirection(state) == direction) {
             return state.setValue(TYPE, ChestType.SINGLE);
         }
-        return super.updateShape(state, direction, neighborState, world, pos, neighborPos);
+        return super.updateShape(state, direction, neighborState, level, currentPos, neighborPos);
     }
 
     @Override
@@ -271,20 +272,20 @@ public class StoneChestBlock extends ChestBlock {
     }
 
     @Override
-    public void onRemove(BlockState state, Level world, BlockPos pos, BlockState newState, boolean moved) {
+    public void onRemove(BlockState state, Level level, BlockPos pos, BlockState newState, boolean moved) {
         if (state.is(newState.getBlock())) {
             return;
         }
-        if (!world.isClientSide) {
-            BlockEntity blockEntity = world.getBlockEntity(pos);
+        if (!level.isClientSide) {
+            BlockEntity blockEntity = level.getBlockEntity(pos);
             if (blockEntity instanceof StoneChestBlockEntity stoneChestBlock) {
                 stoneChestBlock.unpackLootTable(null);
                 ArrayList<ItemStack> ancientItems = stoneChestBlock.ancientItems();
                 if (!ancientItems.isEmpty()) {
-                    world.playSound(null, pos, RegisterSounds.BLOCK_STONE_CHEST_ITEM_CRUMBLE, SoundSource.BLOCKS, 0.4F, 0.9F + (world.random.nextFloat() / 10F));
+                    level.playSound(null, pos, RegisterSounds.BLOCK_STONE_CHEST_ITEM_CRUMBLE, SoundSource.BLOCKS, 0.4F, 0.9F + (level.random.nextFloat() / 10F));
                     for (ItemStack taunt : ancientItems) {
                         for (int taunts = 0; taunts < taunt.getCount(); taunts += 1) {
-                            spawnBreakParticles(world, taunt, pos);
+                            spawnBreakParticles(level, taunt, pos);
                         }
                     }
                 }
@@ -292,26 +293,26 @@ public class StoneChestBlock extends ChestBlock {
                     double d = EntityType.ITEM.getWidth();
                     double e = 1.0 - d;
                     double f = d / 2.0;
-                    double g = Math.floor(pos.getX()) + world.random.nextDouble() * e + f;
-                    double h = Math.floor(pos.getY()) + world.random.nextDouble() * e;
-                    double i = Math.floor(pos.getZ()) + world.random.nextDouble() * e + f;
+                    double g = Math.floor(pos.getX()) + level.random.nextDouble() * e + f;
+                    double h = Math.floor(pos.getY()) + level.random.nextDouble() * e;
+                    double i = Math.floor(pos.getZ()) + level.random.nextDouble() * e + f;
                     while (!item.isEmpty()) {
-                        ItemEntity itemEntity = new ItemEntity(world, g, h, i, item.split(world.random.nextInt(21) + 10));
-                        itemEntity.setDeltaMovement(world.random.triangle(0.0, 0.11485000171139836), world.random.triangle(0.2, 0.11485000171139836), world.random.triangle(0.0, 0.11485000171139836));
-                        world.addFreshEntity(itemEntity);
+                        ItemEntity itemEntity = new ItemEntity(level, g, h, i, item.split(level.random.nextInt(21) + 10));
+                        itemEntity.setDeltaMovement(level.random.triangle(0.0, 0.11485000171139836), level.random.triangle(0.2, 0.11485000171139836), level.random.triangle(0.0, 0.11485000171139836));
+                        level.addFreshEntity(itemEntity);
                     }
                 }
-                world.updateNeighbourForOutputSignal(pos, this);
+                level.updateNeighbourForOutputSignal(pos, this);
             }
         }
         if (state.hasBlockEntity() && !state.is(newState.getBlock())) {
-            world.removeBlockEntity(pos);
+            level.removeBlockEntity(pos);
         }
     }
 
-    public static void spawnBreakParticles(Level world, ItemStack stack, BlockPos pos) {
-        if (world instanceof ServerLevel server) {
-            server.sendParticles(new ItemParticleOption(ParticleTypes.ITEM, stack), pos.getX() + 0.5, pos.getY() + 0.3, pos.getZ() + 0.5, world.random.nextIntBetweenInclusive(1, 3), 0.21875F, 0.21875F, 0.21875F, 0.05D);
+    public static void spawnBreakParticles(Level level, ItemStack stack, BlockPos pos) {
+        if (level instanceof ServerLevel server) {
+            server.sendParticles(new ItemParticleOption(ParticleTypes.ITEM, stack), pos.getX() + 0.5, pos.getY() + 0.3, pos.getZ() + 0.5, level.random.nextIntBetweenInclusive(1, 3), 0.21875F, 0.21875F, 0.21875F, 0.05D);
         }
     }
 

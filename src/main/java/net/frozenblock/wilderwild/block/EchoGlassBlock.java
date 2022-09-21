@@ -32,6 +32,7 @@ import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
 import net.minecraft.world.phys.BlockHitResult;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Collections;
@@ -50,73 +51,73 @@ public class EchoGlassBlock extends TintedGlassBlock {
     }
 
     @Override
-    public void randomTick(BlockState state, ServerLevel world, BlockPos pos, RandomSource random) {
-        int light = getLightLevel(world, pos);
+    public void randomTick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
+        int light = getLightLevel(level, pos);
         if (light <= 7) {
             if (random.nextBoolean()) {
-                heal(world, pos);
+                heal(level, pos);
             }
         } else {
-            damage(world, pos);
+            damage(level, pos);
         }
     }
 
-    public static void damage(Level world, BlockPos pos) {
-        BlockState state = world.getBlockState(pos);
+    public static void damage(Level level, BlockPos pos) {
+        BlockState state = level.getBlockState(pos);
         WilderWild.log("Echo Glass Damaged @ " + pos, WilderWild.UNSTABLE_LOGGING);
         if (state.getValue(DAMAGE) < 3) {
-            world.setBlockAndUpdate(pos, state.setValue(DAMAGE, state.getValue(DAMAGE) + 1));
-            world.playSound(null, pos, RegisterSounds.BLOCK_ECHO_GLASS_CRACK, SoundSource.BLOCKS, 1.0F, 1.0F);
-            world.levelEvent(null, LevelEvent.PARTICLES_DESTROY_BLOCK, pos, getId(state));
+            level.setBlockAndUpdate(pos, state.setValue(DAMAGE, state.getValue(DAMAGE) + 1));
+            level.playSound(null, pos, RegisterSounds.BLOCK_ECHO_GLASS_CRACK, SoundSource.BLOCKS, 1.0F, 1.0F);
+            level.levelEvent(null, LevelEvent.PARTICLES_DESTROY_BLOCK, pos, getId(state));
         } else {
-            world.destroyBlock(pos, false);
+            level.destroyBlock(pos, false);
         }
     }
 
-    public static void heal(Level world, BlockPos pos) {
-        BlockState state = world.getBlockState(pos);
+    public static void heal(Level level, BlockPos pos) {
+        BlockState state = level.getBlockState(pos);
         if (state.getValue(DAMAGE) > 0) {
             WilderWild.log("Echo Glass Healed @ " + pos, WilderWild.UNSTABLE_LOGGING);
-            world.setBlockAndUpdate(pos, state.setValue(DAMAGE, state.getValue(DAMAGE) - 1));
-            world.playSound(
+            level.setBlockAndUpdate(pos, state.setValue(DAMAGE, state.getValue(DAMAGE) - 1));
+            level.playSound(
                     null,
                     pos,
                     RegisterSounds.BLOCK_ECHO_GLASS_REPAIR,
                     SoundSource.BLOCKS,
                     1.0F,
-                    world.random.nextFloat() * 0.1F + 0.9F
+                    level.random.nextFloat() * 0.1F + 0.9F
             );
         }
     }
 
-    public static int getLightLevel(Level world, BlockPos blockPos) {
+    public static int getLightLevel(Level level, BlockPos blockPos) {
         int finalLight = 0;
         for (Direction direction : UPDATE_SHAPE_ORDER) {
             BlockPos pos = blockPos.relative(direction);
             int skyLight = 0;
-            int blockLight = world.getBrightness(LightLayer.BLOCK, pos);
-            if (world.isDay() && !world.isRaining()) {
-                skyLight = world.getBrightness(LightLayer.SKY, pos);
+            int blockLight = level.getBrightness(LightLayer.BLOCK, pos);
+            if (level.isDay() && !level.isRaining()) {
+                skyLight = level.getBrightness(LightLayer.SKY, pos);
             }
             finalLight = Math.max(finalLight, Math.max(skyLight, blockLight));
         }
         return finalLight;
     }
 
-    public void playerDestroy(Level world, Player player, BlockPos pos, BlockState state, @Nullable BlockEntity blockEntity, ItemStack stack) {
+    public void playerDestroy(Level level, Player player, BlockPos pos, BlockState state, @Nullable BlockEntity blockEntity, ItemStack stack) {
         player.causeFoodExhaustion(0.005F);
         if (state.getValue(DAMAGE) < 3 && EnchantmentHelper.getItemEnchantmentLevel(Enchantments.SILK_TOUCH, player.getMainHandItem()) < 1 && !player.isCreative()) {
-            world.setBlockAndUpdate(pos, state.setValue(DAMAGE, state.getValue(DAMAGE) + 1));
+            level.setBlockAndUpdate(pos, state.setValue(DAMAGE, state.getValue(DAMAGE) + 1));
         } else {
             player.awardStat(Stats.BLOCK_MINED.get(this));
-            dropResources(state, world, pos, blockEntity, player, stack);
-            world.playSound(
+            dropResources(state, level, pos, blockEntity, player, stack);
+            level.playSound(
                     null,
                     pos,
                     SoundEvents.GLASS_BREAK,
                     SoundSource.BLOCKS,
                     1.3F,
-                    world.random.nextFloat() * 0.1F + 0.8F
+                    level.random.nextFloat() * 0.1F + 0.8F
             );
         }
     }
@@ -136,18 +137,18 @@ public class EchoGlassBlock extends TintedGlassBlock {
             return Collections.emptyList();
         } else {
             LootContext lootContext = builder.withParameter(LootContextParams.BLOCK_STATE, state).create(LootContextParamSets.BLOCK);
-            ServerLevel serverWorld = lootContext.getLevel();
-            LootTable lootTable = serverWorld.getServer().getLootTables().get(identifier);
+            ServerLevel serverLevel = lootContext.getLevel();
+            LootTable lootTable = serverLevel.getServer().getLootTables().get(identifier);
             return lootTable.getRandomItems(lootContext);
         }
     }
 
     @Override
-    public void onProjectileHit(Level world, BlockState state, BlockHitResult hit, Projectile projectile) {
+    public void onProjectileHit(@NotNull Level level, BlockState state, BlockHitResult hit, Projectile projectile) {
         if (projectile instanceof AncientHornProjectile) {
-            damage(world, hit.getBlockPos());
+            damage(level, hit.getBlockPos());
         }
-        super.onProjectileHit(world, state, hit, projectile);
+        super.onProjectileHit(level, state, hit, projectile);
     }
 
     @Override

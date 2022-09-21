@@ -87,8 +87,8 @@ public class WardenEntityMixin extends Monster implements WilderWarden {
         return false;
     }
 
-    protected WardenEntityMixin(EntityType<? extends Monster> entityType, Level world) {
-        super(entityType, world);
+    protected WardenEntityMixin(EntityType<? extends Monster> entityType, Level level) {
+        super(entityType, level);
     }
 
     private final AnimationState dyingAnimationState = new AnimationState();
@@ -118,7 +118,7 @@ public class WardenEntityMixin extends Monster implements WilderWarden {
     private boolean pogSwimming;
 
     @Inject(at = @At("RETURN"), method = "finalizeSpawn")
-    public void finalizeSpawn(ServerLevelAccessor serverWorldAccess, DifficultyInstance localDifficulty, MobSpawnType spawnReason, @Nullable SpawnGroupData entityData, @Nullable CompoundTag nbtCompound, CallbackInfoReturnable<SpawnGroupData> info) {
+    public void finalizeSpawn(ServerLevelAccessor serverLevelAccess, DifficultyInstance localDifficulty, MobSpawnType spawnReason, @Nullable SpawnGroupData entityData, @Nullable CompoundTag nbtCompound, CallbackInfoReturnable<SpawnGroupData> info) {
         Warden warden = Warden.class.cast(this);
         if (ClothConfigInteractionHandler.wardenEmergesFromEgg()) {
             if (spawnReason == MobSpawnType.SPAWN_EGG) {
@@ -154,12 +154,12 @@ public class WardenEntityMixin extends Monster implements WilderWarden {
     }
 
     @Inject(method = "onSignalReceive", at = @At("HEAD"))
-    private void accept(ServerLevel world, GameEventListener listener, BlockPos pos, GameEvent event, Entity entity, Entity sourceEntity, float distance, CallbackInfo ci) {
+    private void accept(ServerLevel level, GameEventListener listener, BlockPos pos, GameEvent event, Entity entity, Entity sourceEntity, float distance, CallbackInfo ci) {
         Warden warden = Warden.class.cast(this);
         if (!warden.isDeadOrDying()) {
             int additionalAnger = 0;
-            if (world.getBlockState(pos).is(Blocks.SCULK_SENSOR)) {
-                if (world.getBlockState(pos).getValue(RegisterProperties.HICCUPPING)) {
+            if (level.getBlockState(pos).is(Blocks.SCULK_SENSOR)) {
+                if (level.getBlockState(pos).getValue(RegisterProperties.HICCUPPING)) {
                     additionalAnger = 65;
                 }
             }
@@ -303,8 +303,8 @@ public class WardenEntityMixin extends Monster implements WilderWarden {
     }
 
     @Inject(at = @At("RETURN"), method = "createNavigation", cancellable = true)
-    public void createNavigation(Level world, CallbackInfoReturnable<PathNavigation> info) {
-        info.setReturnValue(new WardenNavigation(Warden.class.cast(this), world));
+    public void createNavigation(Level level, CallbackInfoReturnable<PathNavigation> info) {
+        info.setReturnValue(new WardenNavigation(Warden.class.cast(this), level));
     }
 
     @Override
@@ -331,7 +331,7 @@ public class WardenEntityMixin extends Monster implements WilderWarden {
     }
 
     @Inject(method = "<init>", at = @At("TAIL"))
-    private void WardenEntity(EntityType<? extends Monster> entityType, Level world, CallbackInfo ci) {
+    private void WardenEntity(EntityType<? extends Monster> entityType, Level level, CallbackInfo ci) {
         Warden wardenEntity = Warden.class.cast(this);
         wardenEntity.setPathfindingMalus(BlockPathTypes.WATER, 0.0F);
         wardenEntity.setPathfindingMalus(BlockPathTypes.POWDER_SNOW, -1.0F);

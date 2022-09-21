@@ -28,7 +28,10 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.player.LocalPlayer;
-import net.minecraft.client.renderer.*;
+import net.minecraft.client.renderer.BiomeColors;
+import net.minecraft.client.renderer.RenderStateShard;
+import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.Sheets;
 import net.minecraft.client.renderer.item.ItemProperties;
 import net.minecraft.core.Registry;
 import net.minecraft.core.particles.ParticleOptions;
@@ -40,7 +43,6 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.inventory.InventoryMenu;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.phys.Vec3;
-import org.jetbrains.annotations.Nullable;
 
 import java.util.UUID;
 import java.util.function.BiFunction;
@@ -237,11 +239,11 @@ public final class WilderWildClient implements ClientModInitializer {
         receiveAncientHornKillInfoPacket();
         FlyBySoundHub.autoEntitiesAndSounds.put(RegisterEntities.ANCIENT_HORN_PROJECTILE_ENTITY, new FlyBySoundHub.FlyBySound(1.0F, 0.5F, SoundSource.PLAYERS, RegisterSounds.ENTITY_ANCIENT_HORN_PROJECTILE_FLYBY));
 
-        ItemProperties.register(RegisterItems.ANCIENT_HORN, new ResourceLocation("tooting"), (itemStack, clientWorld, livingEntity, seed) -> livingEntity != null && livingEntity.isUsingItem() && livingEntity.getUseItem() == itemStack ? 1.0F : 0.0F);
-        ItemProperties.register(RegisterItems.COPPER_HORN, new ResourceLocation("tooting"), (itemStack, clientWorld, livingEntity, seed) -> livingEntity != null && livingEntity.isUsingItem() && livingEntity.getUseItem() == itemStack ? 1.0F : 0.0F);
+        ItemProperties.register(RegisterItems.ANCIENT_HORN, new ResourceLocation("tooting"), (itemStack, clientLevel, livingEntity, seed) -> livingEntity != null && livingEntity.isUsingItem() && livingEntity.getUseItem() == itemStack ? 1.0F : 0.0F);
+        ItemProperties.register(RegisterItems.COPPER_HORN, new ResourceLocation("tooting"), (itemStack, clientLevel, livingEntity, seed) -> livingEntity != null && livingEntity.isUsingItem() && livingEntity.getUseItem() == itemStack ? 1.0F : 0.0F);
 
-        ColorProviderRegistry.BLOCK.register(((state, world, pos, tintIndex) -> {
-            if (world == null || pos == null) {
+        ColorProviderRegistry.BLOCK.register(((state, level, pos, tintIndex) -> {
+            if (level == null || pos == null) {
                 return 7455580;
             }
             return 2129968;
@@ -250,17 +252,17 @@ public final class WilderWildClient implements ClientModInitializer {
         ColorProviderRegistry.ITEM.register(((state, tintIndex) -> 5877296), RegisterBlocks.BAOBAB_LEAVES);
         ColorProviderRegistry.ITEM.register(((state, tintIndex) -> 5877296), RegisterBlocks.CYPRESS_LEAVES);
 
-        ColorProviderRegistry.BLOCK.register(((state, world, pos, tintIndex) -> {
-            assert world != null;
-            return BiomeColors.getAverageFoliageColor(world, pos);
+        ColorProviderRegistry.BLOCK.register(((state, level, pos, tintIndex) -> {
+            assert level != null;
+            return BiomeColors.getAverageFoliageColor(level, pos);
         }), RegisterBlocks.BAOBAB_LEAVES);
-        ColorProviderRegistry.BLOCK.register(((state, world, pos, tintIndex) -> {
-            assert world != null;
-            return BiomeColors.getAverageFoliageColor(world, pos);
+        ColorProviderRegistry.BLOCK.register(((state, level, pos, tintIndex) -> {
+            assert level != null;
+            return BiomeColors.getAverageFoliageColor(level, pos);
         }), RegisterBlocks.CYPRESS_LEAVES);
-        ColorProviderRegistry.BLOCK.register(((state, world, pos, tintIndex) -> {
-            assert world != null;
-            return BiomeColors.getAverageFoliageColor(world, pos);
+        ColorProviderRegistry.BLOCK.register(((state, level, pos, tintIndex) -> {
+            assert level != null;
+            return BiomeColors.getAverageFoliageColor(level, pos);
         }), RegisterBlocks.POTTED_GRASS);
     }
 
@@ -361,14 +363,14 @@ public final class WilderWildClient implements ClientModInitializer {
             ctx.execute(() -> {
                 if (Minecraft.getInstance().level == null)
                     throw new IllegalStateException("why is your world null");
-                ClientLevel world = Minecraft.getInstance().level;
+                ClientLevel level = Minecraft.getInstance().level;
                 int i = 5578058;
-                boolean bl2 = world.random.nextBoolean();
+                boolean bl2 = level.random.nextBoolean();
                 if (bl2) {
                     double d = (double) (i >> 16 & 255) / 255.0D;
                     double e = (double) (i >> 8 & 255) / 255.0D;
                     double f = (double) (i & 255) / 255.0D;
-                    world.addParticle(ParticleTypes.ENTITY_EFFECT, pos.x, pos.y, pos.z, d, e, f);
+                    level.addParticle(ParticleTypes.ENTITY_EFFECT, pos.x, pos.y, pos.z, d, e, f);
                 }
             });
         });

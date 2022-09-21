@@ -22,16 +22,16 @@ import java.util.Iterator;
 @Mixin(Slime.class)
 public abstract class SlimeMixin extends Mob {
 
-    protected SlimeMixin(EntityType<? extends Mob> entityType, Level world) {
-        super(entityType, world);
+    protected SlimeMixin(EntityType<? extends Mob> entityType, Level level) {
+        super(entityType, level);
     }
 
     @Inject(method = "checkSlimeSpawnRules", at = @At("HEAD"), cancellable = true)
-    private static void checkSlimeSpawnRules(EntityType<Slime> type, LevelAccessor world, MobSpawnType spawnReason, BlockPos pos, RandomSource random, CallbackInfoReturnable<Boolean> info) {
-        if (world.getDifficulty() != Difficulty.PEACEFUL) {
-            if (world.getBrightness(LightLayer.BLOCK, pos) < random.nextInt(8)) {
+    private static void checkSlimeSpawnRules(EntityType<Slime> type, LevelAccessor level, MobSpawnType spawnReason, BlockPos pos, RandomSource random, CallbackInfoReturnable<Boolean> info) {
+        if (level.getDifficulty() != Difficulty.PEACEFUL) {
+            if (level.getBrightness(LightLayer.BLOCK, pos) < random.nextInt(8)) {
                 boolean test = spawnReason == MobSpawnType.SPAWNER || random.nextInt(5) == 0;
-                if (test && isAlgaeNearby(world, pos, 1)) {
+                if (test && isAlgaeNearby(level, pos, 1)) {
                     info.setReturnValue(true);
                     info.cancel();
                 }
@@ -39,7 +39,7 @@ public abstract class SlimeMixin extends Mob {
         }
     }
 
-    private static boolean isAlgaeNearby(LevelAccessor world, BlockPos blockPos, int x) {
+    private static boolean isAlgaeNearby(LevelAccessor level, BlockPos blockPos, int x) {
         Iterator<BlockPos> iterator = BlockPos.betweenClosed(blockPos.offset(-x, -x, -x), blockPos.offset(x, x, x)).iterator();
         int count = 0;
         BlockPos pos;
@@ -48,7 +48,7 @@ public abstract class SlimeMixin extends Mob {
                 return false;
             }
             pos = iterator.next();
-            if (world.getBlockState(pos).is(RegisterBlocks.ALGAE)) {
+            if (level.getBlockState(pos).is(RegisterBlocks.ALGAE)) {
                 count = count + 1;
             }
         } while (count < 3);
@@ -56,8 +56,8 @@ public abstract class SlimeMixin extends Mob {
     }
 
     @Override
-    public boolean checkSpawnObstruction(LevelReader world) {
-        return (!world.containsAnyLiquid(this.getBoundingBox()) || isAlgaeNearby(this.getLevel(), this.blockPosition(), 1)) && world.isUnobstructed(this);
+    public boolean checkSpawnObstruction(LevelReader level) {
+        return (!level.containsAnyLiquid(this.getBoundingBox()) || isAlgaeNearby(this.getLevel(), this.blockPosition(), 1)) && level.isUnobstructed(this);
     }
 
 }

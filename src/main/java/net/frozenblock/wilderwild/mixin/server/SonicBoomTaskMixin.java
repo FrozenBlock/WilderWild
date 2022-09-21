@@ -39,7 +39,7 @@ public class SonicBoomTaskMixin {
     private static int DURATION;
 
     @Inject(at = @At("HEAD"), method = "tick(Lnet/minecraft/server/level/ServerLevel;Lnet/minecraft/world/entity/monster/warden/Warden;J)V", cancellable = true)
-    public void tick(ServerLevel serverWorld, Warden wardenEntity, long l, CallbackInfo info) {
+    public void tick(ServerLevel serverLevel, Warden wardenEntity, long l, CallbackInfo info) {
         if (FabricLoader.getInstance().getModContainer("customsculk").isEmpty()) {
             if (!wardenEntity.getBrain().hasMemoryValue(MemoryModuleType.SONIC_BOOM_SOUND_DELAY) && !wardenEntity.getBrain().hasMemoryValue(MemoryModuleType.SONIC_BOOM_SOUND_COOLDOWN)) {
                 wardenEntity.getBrain().setMemoryWithExpiry(MemoryModuleType.SONIC_BOOM_SOUND_COOLDOWN, Unit.INSTANCE, DURATION - 34);
@@ -53,14 +53,14 @@ public class SonicBoomTaskMixin {
                     boolean blocked = false;
                     for (int i = 1; i < Mth.floor(vec3d2.length()) + 7; ++i) {
                         Vec3 vec3d4 = vec3d.add(vec3d3.scale(i));
-                        serverWorld.sendParticles(ParticleTypes.SONIC_BOOM, vec3d4.x, vec3d4.y, vec3d4.z, 1, 0.0D, 0.0D, 0.0D, 0.0D);
-                        BlockPos hitPos = isOccluded(serverWorld, vec3d, vec3d4);
+                        serverLevel.sendParticles(ParticleTypes.SONIC_BOOM, vec3d4.x, vec3d4.y, vec3d4.z, 1, 0.0D, 0.0D, 0.0D, 0.0D);
+                        BlockPos hitPos = isOccluded(serverLevel, vec3d, vec3d4);
                         if (hitPos != null) {
-                            BlockState state = serverWorld.getBlockState(hitPos);
+                            BlockState state = serverLevel.getBlockState(hitPos);
                             if (state.is(RegisterBlocks.ECHO_GLASS)) {
                                 i = Mth.floor(vec3d2.length()) + 10;
                                 blocked = true;
-                                EchoGlassBlock.damage(serverWorld, hitPos);
+                                EchoGlassBlock.damage(serverLevel, hitPos);
                             }
                         }
                     }
@@ -83,14 +83,14 @@ public class SonicBoomTaskMixin {
         }
     }
 
-    private static BlockPos isOccluded(Level world, Vec3 start, Vec3 end) {
+    private static BlockPos isOccluded(Level level, Vec3 start, Vec3 end) {
         Vec3 vec3d = new Vec3((double) Mth.floor(start.x) + 0.5D, (double) Mth.floor(start.y) + 0.5D, (double) Mth.floor(start.z) + 0.5D);
         Vec3 vec3d2 = new Vec3((double) Mth.floor(end.x) + 0.5D, (double) Mth.floor(end.y) + 0.5D, (double) Mth.floor(end.z) + 0.5D);
         BlockPos hitPos = null;
         boolean blocked = true;
         for (Direction direction : Direction.values()) {
             Vec3 vec3d3 = vec3d.relative(direction, 9.999999747378752E-6D);
-            BlockHitResult hit = world.isBlockInLine(new ClipBlockStateContext(vec3d3, vec3d2, (state) -> state.is(RegisterBlocks.ECHO_GLASS)));
+            BlockHitResult hit = level.isBlockInLine(new ClipBlockStateContext(vec3d3, vec3d2, (state) -> state.is(RegisterBlocks.ECHO_GLASS)));
             if (hit.getType() != HitResult.Type.BLOCK) {
                 blocked = false;
             } else {

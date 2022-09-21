@@ -17,17 +17,17 @@ public class UpwardsPillarFeature extends Feature<WilderPillarConfig> {
     public boolean place(FeaturePlaceContext<WilderPillarConfig> context) {
         boolean bl = false;
         BlockPos blockPos = context.origin();
-        WorldGenLevel world = context.level();
-        RandomSource random = world.getRandom();
+        WorldGenLevel level = context.level();
+        RandomSource random = level.getRandom();
         BlockPos.MutableBlockPos mutable = blockPos.mutable();
         int bx = blockPos.getX();
         int bz = blockPos.getZ();
         int by = blockPos.getY();
         int height = context.config().height.sample(random);
         for (int y = 0; y < height; y++) {
-            if (context.config().replaceable.contains(world.getBlockState(mutable).getBlockHolder()) || world.getBlockState(mutable).isAir() || world.getBlockState(mutable).getFluidState() != Fluids.EMPTY.defaultFluidState()) {
+            if (context.config().replaceable.contains(level.getBlockState(mutable).getBlockHolder()) || level.getBlockState(mutable).isAir() || level.getBlockState(mutable).getFluidState() != Fluids.EMPTY.defaultFluidState()) {
                 bl = true;
-                world.setBlock(mutable, context.config().columnBlock, 3);
+                level.setBlock(mutable, context.config().columnBlock, 3);
                 mutable.set(bx, by + y, bz);
             } else {
                 mutable.set(bx, by + y, bz);

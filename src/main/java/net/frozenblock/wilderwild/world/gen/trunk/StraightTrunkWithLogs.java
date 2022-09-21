@@ -40,8 +40,8 @@ public class StraightTrunkWithLogs extends TrunkPlacer {
         return WilderWild.STRAIGHT_TRUNK_WITH_LOGS_PLACER_TYPE;
     }
 
-    public List<FoliagePlacer.FoliageAttachment> placeTrunk(LevelSimulatedReader world, BiConsumer<BlockPos, BlockState> replacer, RandomSource random, int height, BlockPos startPos, TreeConfiguration config) {
-        setDirtAt(world, replacer, random, startPos.below(), config);
+    public List<FoliagePlacer.FoliageAttachment> placeTrunk(LevelSimulatedReader level, BiConsumer<BlockPos, BlockState> replacer, RandomSource random, int height, BlockPos startPos, TreeConfiguration config) {
+        setDirtAt(level, replacer, random, startPos.below(), config);
         List<FoliagePlacer.FoliageAttachment> list = Lists.newArrayList();
         BlockPos.MutableBlockPos mutable = new BlockPos.MutableBlockPos();
         int maxLogs = this.maxLogs.sample(random);
@@ -49,10 +49,10 @@ public class StraightTrunkWithLogs extends TrunkPlacer {
         int placedLogs = 0;
         for (int i = 0; i < height; ++i) {
             int j = startPos.getY() + i;
-            if (this.placeLog(world, replacer, random, mutable.set(startPos.getX(), j, startPos.getZ()), config)
+            if (this.placeLog(level, replacer, random, mutable.set(startPos.getX(), j, startPos.getZ()), config)
                     && i < height - 1 && random.nextFloat() < this.logChance && placedLogs < maxLogs && (height - 4) - i <= logHeightFromTop) {
                 Direction direction = Direction.Plane.HORIZONTAL.getRandomDirection(random);
-                this.generateExtraBranch(world, replacer, random, config, mutable, j, direction, this.extraBranchLength.sample(random));
+                this.generateExtraBranch(level, replacer, random, config, mutable, j, direction, this.extraBranchLength.sample(random));
                 ++placedLogs;
             }
             if (i == height - 1) {
@@ -63,18 +63,18 @@ public class StraightTrunkWithLogs extends TrunkPlacer {
         return list;
     }
 
-    private void generateExtraBranch(LevelSimulatedReader world, BiConsumer<BlockPos, BlockState> replacer, RandomSource random, TreeConfiguration config, BlockPos.MutableBlockPos pos, int yOffset, Direction direction, int length) {
+    private void generateExtraBranch(LevelSimulatedReader level, BiConsumer<BlockPos, BlockState> replacer, RandomSource random, TreeConfiguration config, BlockPos.MutableBlockPos pos, int yOffset, Direction direction, int length) {
         int j = pos.getX();
         int k = pos.getZ();
         for (int l = 0; l < length; ++l) {
             j += direction.getStepX();
             k += direction.getStepZ();
-            if (TreeFeature.validTreePos(world, pos.set(j, yOffset, k))) {
+            if (TreeFeature.validTreePos(level, pos.set(j, yOffset, k))) {
                 if (config.trunkProvider.getState(random, pos.set(j, yOffset, k)).hasProperty(BlockStateProperties.AXIS)) {
                     Direction.Axis axis = direction.getStepX() != 0 ? Direction.Axis.X : Direction.Axis.Z;
                     replacer.accept(pos.set(j, yOffset, k), config.trunkProvider.getState(random, pos.set(j, yOffset, k)).setValue(BlockStateProperties.AXIS, axis));
                 } else {
-                    this.placeLog(world, replacer, random, pos.set(j, yOffset, k), config);
+                    this.placeLog(level, replacer, random, pos.set(j, yOffset, k), config);
                 }
             }
         }

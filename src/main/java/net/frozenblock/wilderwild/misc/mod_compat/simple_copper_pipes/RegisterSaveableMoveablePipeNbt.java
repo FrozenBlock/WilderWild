@@ -26,41 +26,41 @@ public class RegisterSaveableMoveablePipeNbt {
 
     public static void init() {
         WilderWild.log("WILDERWILD AND COPPER PIPES SECRET LOG MESSAGE UNLOCKED!!!", true);
-        RegisterPipeNbtMethods.register(horn, (nbt, world, pos, blockState, copperPipeEntity) -> {
+        RegisterPipeNbtMethods.register(horn, (nbt, level, pos, blockState, copperPipeEntity) -> {
             if (!nbt.getCanOnlyBeUsedOnce() || nbt.getUseCount() < 1) {
-                BlockState state = world.getBlockState(pos);
+                BlockState state = level.getBlockState(pos);
                 if (state.getBlock() instanceof CopperPipe pipe) {
                     Direction direction = state.getValue(BlockStateProperties.FACING);
-                    if (nbt.getEntity(world) != null) {
+                    if (nbt.getEntity(level) != null) {
                         nbt.withUseCount(nbt.getUseCount() + 1);
-                        AncientHornProjectile projectileEntity = new AncientHornProjectile(world, pos.getX() + pipe.getDripX(direction), pos.getY() + pipe.getDripY(direction), pos.getZ() + pipe.getDripZ(direction));
+                        AncientHornProjectile projectileEntity = new AncientHornProjectile(level, pos.getX() + pipe.getDripX(direction), pos.getY() + pipe.getDripY(direction), pos.getZ() + pipe.getDripZ(direction));
                         projectileEntity.shoot(direction.getStepX(), direction.getStepY(), direction.getStepZ(), 1.0F, 0.0F);
                         projectileEntity.setOwner(nbt.foundEntity);
                         projectileEntity.shotByPlayer = true;
-                        world.addFreshEntity(projectileEntity);
-                        FrozenSoundPackets.createMovingRestrictionLoopingSound(world, projectileEntity, RegisterSounds.ENTITY_ANCIENT_HORN_PROJECTILE_LOOP, SoundSource.NEUTRAL, 1.0F, 1.0F, WilderWild.id("default"));
+                        level.addFreshEntity(projectileEntity);
+                        FrozenSoundPackets.createMovingRestrictionLoopingSound(level, projectileEntity, RegisterSounds.ENTITY_ANCIENT_HORN_PROJECTILE_LOOP, SoundSource.NEUTRAL, 1.0F, 1.0F, WilderWild.id("default"));
                     }
                 }
             }
-        }, (nbt, world, pos, blockState, blockEntity) -> {
+        }, (nbt, level, pos, blockState, blockEntity) -> {
 
-        }, (nbt, world, pos, blockState, blockEntity) -> {
+        }, (nbt, level, pos, blockState, blockEntity) -> {
             if (nbt.foundEntity != null) {
                 nbt.vec3d2 = nbt.foundEntity.position();
             }
             if (blockState.getBlock() instanceof CopperPipe pipe) {
                 Direction direction = blockState.getValue(BlockStateProperties.FACING);
-                for (int i = 0; i < world.getRandom().nextIntBetweenInclusive(10, 20); i++) {
-                    world.sendParticles(new DustColorTransitionOptions(DustColorTransitionOptions.SCULK_PARTICLE_COLOR, DustColorTransitionOptions.SCULK_PARTICLE_COLOR, 1.0f), pos.getX() + pipe.getDripX(direction, world.getRandom()), pos.getY() + pipe.getDripY(direction, world.getRandom()), pos.getZ() + pipe.getDripZ(direction, world.getRandom()), 1, 0.0, 0.0, 0.0, 0.7);
+                for (int i = 0; i < level.getRandom().nextIntBetweenInclusive(10, 20); i++) {
+                    level.sendParticles(new DustColorTransitionOptions(DustColorTransitionOptions.SCULK_PARTICLE_COLOR, DustColorTransitionOptions.SCULK_PARTICLE_COLOR, 1.0f), pos.getX() + pipe.getDripX(direction, level.getRandom()), pos.getY() + pipe.getDripY(direction, level.getRandom()), pos.getZ() + pipe.getDripZ(direction, level.getRandom()), 1, 0.0, 0.0, 0.0, 0.7);
                 }
             }
-        }, (nbt, world, pos, blockState, blockEntity) -> true);
+        }, (nbt, level, pos, blockState, blockEntity) -> true);
 
-        FittingPipeDispenses.register(RegisterItems.MILKWEED_POD, (world, stack, i, direction, position, state, corroded, pos, pipe) -> {
+        FittingPipeDispenses.register(RegisterItems.MILKWEED_POD, (level, stack, i, direction, position, state, corroded, pos, pipe) -> {
             double d = position.x();
             double e = position.y();
             double f = position.z();
-            RandomSource random = world.random;
+            RandomSource random = level.random;
             double random1 = random.nextDouble() * 7.0D - 3.5D;
             double random2 = random.nextDouble() * 7.0D - 3.5D;
             Direction.Axis axis = direction.getAxis();
@@ -80,15 +80,15 @@ public class RegisterSaveableMoveablePipeNbt {
             UniformInt ran2 = UniformInt.of(-1, 1);
             UniformInt ran3 = UniformInt.of(-3, 3);
             for (int o = 0; o < random.nextIntBetweenInclusive(10, 30); ++o) {
-                EasyPacket.EasySeedPacket.createControlledParticle(world, new Vec3(d + (double) ran1.sample(world.random) * 0.1D, e + (double) ran2.sample(world.random) * 0.1D, f + (double) ran3.sample(world.random) * 0.1D), velX, velY, velZ, 1, true, 64);
+                EasyPacket.EasySeedPacket.createControlledParticle(level, new Vec3(d + (double) ran1.sample(level.random) * 0.1D, e + (double) ran2.sample(level.random) * 0.1D, f + (double) ran3.sample(level.random) * 0.1D), velX, velY, velZ, 1, true, 64);
             }
         });
 
-        FittingPipeDispenses.register(RegisterBlocks.SEEDING_DANDELION.asItem(), (world, stack, i, direction, position, state, corroded, pos, pipe) -> {
+        FittingPipeDispenses.register(RegisterBlocks.SEEDING_DANDELION.asItem(), (level, stack, i, direction, position, state, corroded, pos, pipe) -> {
             double d = position.x();
             double e = position.y();
             double f = position.z();
-            RandomSource random = world.random;
+            RandomSource random = level.random;
             double random1 = random.nextDouble() * 7.0D - 3.5D;
             double random2 = random.nextDouble() * 7.0D - 3.5D;
             Direction.Axis axis = direction.getAxis();
@@ -108,16 +108,16 @@ public class RegisterSaveableMoveablePipeNbt {
             UniformInt ran2 = UniformInt.of(-1, 1);
             UniformInt ran3 = UniformInt.of(-3, 3);
             for (int o = 0; o < random.nextIntBetweenInclusive(1, 10); ++o) {
-                EasyPacket.EasySeedPacket.createControlledParticle(world, new Vec3(d + (double) ran1.sample(world.random) * 0.1D, e + (double) ran2.sample(world.random) * 0.1D, f + (double) ran3.sample(world.random) * 0.1D), velX, velY, velZ, 1, false, 64);
+                EasyPacket.EasySeedPacket.createControlledParticle(level, new Vec3(d + (double) ran1.sample(level.random) * 0.1D, e + (double) ran2.sample(level.random) * 0.1D, f + (double) ran3.sample(level.random) * 0.1D), velX, velY, velZ, 1, false, 64);
             }
         });
 
-        FittingPipeDispenses.register(RegisterItems.ANCIENT_HORN, (world, stack, i, direction, position, state, corroded, pos, pipe) -> {
-            if (!world.isClientSide) {
+        FittingPipeDispenses.register(RegisterItems.ANCIENT_HORN, (level, stack, i, direction, position, state, corroded, pos, pipe) -> {
+            if (!level.isClientSide) {
                 double d = position.x();
                 double e = position.y();
                 double f = position.z();
-                RandomSource random = world.random;
+                RandomSource random = level.random;
                 double random1 = random.nextDouble() * 7.0D - 3.5D;
                 Direction.Axis axis = direction.getAxis();
                 if (axis == Direction.Axis.Y) {
@@ -132,7 +132,7 @@ public class RegisterSaveableMoveablePipeNbt {
                 UniformInt ran2 = UniformInt.of(-1, 1);
                 UniformInt ran3 = UniformInt.of(-3, 3);
                 for (int o = 0; o < random.nextIntBetweenInclusive(1, 4); ++o) {
-                    EasyPacket.EasyFloatingSculkBubblePacket.createParticle(world, new Vec3(d + (double) ran1.sample(world.random) * 0.1D, e + (double) ran2.sample(world.random) * 0.1D, f + (double) ran3.sample(world.random) * 0.1D), Math.random() > 0.7 ? 1 : 0, random.nextIntBetweenInclusive(60, 80), velY * 0.05, 1);
+                    EasyPacket.EasyFloatingSculkBubblePacket.createParticle(level, new Vec3(d + (double) ran1.sample(level.random) * 0.1D, e + (double) ran2.sample(level.random) * 0.1D, f + (double) ran3.sample(level.random) * 0.1D), Math.random() > 0.7 ? 1 : 0, random.nextIntBetweenInclusive(60, 80), velY * 0.05, 1);
                 }
             }
         });

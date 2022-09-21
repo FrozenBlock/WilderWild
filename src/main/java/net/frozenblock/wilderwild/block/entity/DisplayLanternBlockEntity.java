@@ -28,6 +28,7 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.phys.Vec3;
+import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 
 import java.util.ArrayList;
@@ -42,31 +43,31 @@ public class DisplayLanternBlockEntity extends BlockEntity {
     public int age;
     public boolean hasUpdated = false;
 
-    public DisplayLanternBlockEntity(BlockPos pos, BlockState state) {
-        super(RegisterBlockEntities.DISPLAY_LANTERN, pos, state);
+    public DisplayLanternBlockEntity(BlockPos pos, BlockState blockState) {
+        super(RegisterBlockEntities.DISPLAY_LANTERN, pos, blockState);
         this.inventory = NonNullList.withSize(1, ItemStack.EMPTY);
     }
 
-    public void serverTick(Level world, BlockPos pos) {
+    public void serverTick(Level level, BlockPos pos) {
         if (!this.fireflies.isEmpty()) {
             for (FireflyInLantern firefly : this.fireflies) {
-                firefly.tick(world, pos);
+                firefly.tick(level, pos);
             }
         }
     }
 
-    public void clientTick(Level world, BlockPos pos) {
+    public void clientTick(Level level, BlockPos pos) {
         this.age += 1;
         if (!this.fireflies.isEmpty()) {
             for (FireflyInLantern firefly : this.fireflies) {
-                firefly.tick(world, pos);
+                firefly.tick(level, pos);
             }
         }
     }
 
     public void updateSync() {
         for (ServerPlayer player : PlayerLookup.tracking(this)) {
-            player.connection.send(this.getUpdatePacket());
+            player.connection.send(Objects.requireNonNull(this.getUpdatePacket()));
         }
     }
 
@@ -81,8 +82,8 @@ public class DisplayLanternBlockEntity extends BlockEntity {
     }
 
     public boolean invEmpty() {
-        Optional<ItemStack> stack1 = this.inventory.stream().findFirst();
-        return stack1.map(itemStack -> itemStack == ItemStack.EMPTY).orElse(true);
+        Optional<ItemStack> stack = this.inventory.stream().findFirst();
+        return stack.map(itemStack -> itemStack == ItemStack.EMPTY).orElse(true);
     }
 
     public Optional<ItemStack> getItem() {
@@ -93,36 +94,34 @@ public class DisplayLanternBlockEntity extends BlockEntity {
         return this.getFireflies().isEmpty();
     }
 
-    public void load(CompoundTag nbt) {
-        super.load(nbt);
-        if (nbt.contains("Fireflies", 9)) {
+    public void load(@NotNull CompoundTag tag) {
+        super.load(tag);
+        if (tag.contains("Fireflies", 9)) {
             this.fireflies.clear();
-            DataResult<List<FireflyInLantern>> var10000 = FireflyInLantern.CODEC.listOf().parse(new Dynamic<>(NbtOps.INSTANCE, nbt.getList("Fireflies", 10)));
+            DataResult<List<FireflyInLantern>> var10000 = FireflyInLantern.CODEC.listOf().parse(new Dynamic<>(NbtOps.INSTANCE, tag.getList("Fireflies", 10)));
             Logger var10001 = WilderWild.LOGGER;
             Objects.requireNonNull(var10001);
             Optional<List<FireflyInLantern>> list = var10000.resultOrPartial(var10001::error);
             if (list.isPresent()) {
                 List<FireflyInLantern> fireflyList = list.get();
-                for (Object o : fireflyList) {
-                    this.fireflies.add((FireflyInLantern) o);
-                }
+                this.fireflies.addAll(fireflyList);
             }
         }
         this.inventory = NonNullList.withSize(1, ItemStack.EMPTY);
-        ContainerHelper.loadAllItems(nbt, this.inventory);
-        this.age = nbt.getInt("age");
+        ContainerHelper.loadAllItems(tag, this.inventory);
+        this.age = tag.getInt("age");
     }
 
-    protected void saveAdditional(CompoundTag nbt) {
-        super.saveAdditional(nbt);
+    protected void saveAdditional(@NotNull CompoundTag tag) {
+        super.saveAdditional(tag);
         DataResult<Tag> var10000 = FireflyInLantern.CODEC.listOf().encodeStart(NbtOps.INSTANCE, this.fireflies);
         Logger var10001 = WilderWild.LOGGER;
         Objects.requireNonNull(var10001);
         var10000.resultOrPartial(var10001::error).ifPresent((cursorsNbt) -> {
-            nbt.put("Fireflies", cursorsNbt);
+            tag.put("Fireflies", cursorsNbt);
         });
-        ContainerHelper.saveAllItems(nbt, this.inventory);
-        nbt.putInt("age", this.age);
+        ContainerHelper.saveAllItems(tag, this.inventory);
+        tag.putInt("age", this.age);
     }
 
     public ArrayList<FireflyInLantern> getFireflies() {
@@ -165,14 +164,14 @@ public class DisplayLanternBlockEntity extends BlockEntity {
         }
     }
 
-    public void spawnFireflies(Level world) {
+    public void spawnFireflies(Level level) {
         double extraHeight = this.getBlockState().getValue(BlockStateProperties.HANGING) ? 0.155 : 0;
         for (DisplayLanternBlockEntity.FireflyInLantern firefly : this.getFireflies()) {
-            Firefly entity = RegisterEntities.FIREFLY.create(world);
+            Firefly entity = RegisterEntities.FIREFLY.create(level);
             if (entity != null) {
                 entity.moveTo(worldPosition.getX() + firefly.pos.x, worldPosition.getY() + firefly.y + extraHeight + 0.07, worldPosition.getZ() + firefly.pos.z, 0, 0);
                 entity.setFromBottle(true);
-                boolean spawned = world.addFreshEntity(entity);
+                boolean spawned = level.addFreshEntity(entity);
                 if (spawned) {
                     entity.hasHome = true;
                     FireflyBrain.rememberHome(entity, entity.blockPosition());
@@ -215,17 +214,17 @@ public class DisplayLanternBlockEntity extends BlockEntity {
             this.y = y;
         }
 
-        private boolean nectar = false;
+        private boolean isNectar = false;
 
-        public void tick(Level world, BlockPos pos) {
+        public void tick(Level level, BlockPos pos) {
             this.age += 1;
             this.y = Math.sin(this.age * 0.03) * 0.15;
-            this.nectar = this.getCustomName().toLowerCase().contains("nectar");
+            this.isNectar = this.getCustomName().toLowerCase().contains("nectar");
 
-            if (nectar != wasNamedNectar) {
-                if (nectar) {
-                    if (world.getGameTime() % 70L == 0L) {
-                        world.playSound(null, pos, RegisterSounds.BLOCK_DISPLAY_LANTERN_NECTAR_LOOP, SoundSource.AMBIENT, 0.5F, 1.0F);
+            if (isNectar != wasNamedNectar) {
+                if (isNectar) {
+                    if (level.getGameTime() % 70L == 0L) {
+                        level.playSound(null, pos, RegisterSounds.BLOCK_DISPLAY_LANTERN_NECTAR_LOOP, SoundSource.AMBIENT, 0.5F, 1.0F);
                     }
                     this.wasNamedNectar = true;
                 } else {

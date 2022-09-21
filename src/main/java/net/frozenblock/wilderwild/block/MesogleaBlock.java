@@ -37,7 +37,7 @@ public class MesogleaBlock extends Block implements SimpleWaterloggedBlock {
     }
 
     @Override
-    public void entityInside(net.minecraft.world.level.block.state.BlockState state, Level world, BlockPos pos, Entity entity) {
+    public void entityInside(BlockState state, Level level, BlockPos pos, Entity entity) {
         if (state.getValue(WATERLOGGED)) {
             if (entity instanceof ItemEntity item) {
                 item.makeStuckInBlock(state, new Vec3(0.999D, 0.999D, 0.999D));

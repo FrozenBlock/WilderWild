@@ -41,9 +41,9 @@ public abstract class SculkSensorBlockMixin extends BaseEntityBlock implements S
     }
 
     @Inject(at = @At("HEAD"), method = "getTicker", cancellable = true)
-    public <T extends BlockEntity> void getTicker(Level world, BlockState state, BlockEntityType<T> type, CallbackInfoReturnable<BlockEntityTicker<T>> info) {
+    public <T extends BlockEntity> void getTicker(Level level, BlockState state, BlockEntityType<T> type, CallbackInfoReturnable<BlockEntityTicker<T>> info) {
         info.cancel();
-        if (world.isClientSide) {
+        if (level.isClientSide) {
             info.setReturnValue(createTickerHelper(type, BlockEntityType.SCULK_SENSOR, (worldx, pos, statex, blockEntity) -> {
                 ((SculkSensorTickInterface) blockEntity).tickClient(worldx, pos, statex);
             }));
@@ -55,8 +55,8 @@ public abstract class SculkSensorBlockMixin extends BaseEntityBlock implements S
     }
 
     @Inject(at = @At("HEAD"), method = "activate")
-    private static void activate(@Nullable Entity entity, Level world, BlockPos pos, BlockState state, int power, CallbackInfo info) {
-        if (world.getBlockEntity(pos) instanceof SculkSensorBlockEntity blockEntity) {
+    private static void activate(@Nullable Entity entity, Level level, BlockPos pos, BlockState state, int power, CallbackInfo info) {
+        if (level.getBlockEntity(pos) instanceof SculkSensorBlockEntity blockEntity) {
             ((SculkSensorTickInterface) blockEntity).setActive(true);
             ((SculkSensorTickInterface) blockEntity).setAnimTicks(10);
         }
