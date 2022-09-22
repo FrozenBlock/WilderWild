@@ -2,7 +2,7 @@ package net.frozenblock.wilderwild.item;
 
 import net.frozenblock.lib.sound.FrozenSoundPackets;
 import net.frozenblock.wilderwild.WilderWild;
-import net.frozenblock.wilderwild.misc.InstrumentStartingSounds;
+import net.frozenblock.lib.sound.StartingSounds;
 import net.frozenblock.wilderwild.registry.RegisterItems;
 import net.minecraft.core.Holder;
 import net.minecraft.core.NonNullList;
@@ -78,10 +78,11 @@ public class CopperHorn extends InstrumentItem {
         ItemStack itemStack = user.getItemInHand(usedHand);
         Optional<Holder<Instrument>> optional = this.getInstrument(itemStack);
         if (optional.isPresent()) {
-            Instrument instrument = optional.get().value();
+            var instrumentHolder = optional.get();
+            var instrument = instrumentHolder.value();
             user.startUsingItem(usedHand);
 
-            playSound(instrument, user, level);
+            playSound(instrument, user, level, instrumentHolder);
 
             return InteractionResultHolder.consume(itemStack);
         } else {
@@ -89,19 +90,16 @@ public class CopperHorn extends InstrumentItem {
         }
     }
 
-    private static void playSound(Instrument instrument, Player user, Level level) {
+    private static void playSound(Instrument instrument, Player user, Level level, Holder<Instrument> instrumentHolder) {
         SoundEvent soundEvent = instrument.soundEvent();
         float range = instrument.range() / 16.0F;
-        int note = (int) ((-user.getXRot() + 90) / 15);
+        int note = (int) ((-user.getXRot() + 90) / 7.5);
 
         if (!level.isClientSide) {
             float soundPitch = !user.isShiftKeyDown() ?
-                    (float) Math.pow(2.0D, (note - 12.0F) / 12.0D) + 1F :
-                    (float) Math.pow(2.0D, (note - 12.0F) / 12.0D);
-            var startingSound = InstrumentStartingSounds.startingSounds.get(instrument);
-            if (startingSound != null) {
-                level.playSound(user, user, startingSound, SoundSource.RECORDS, range, soundPitch);
-            }
+                    (float) Math.pow(2.0D, (note - 12.0F) / 12.0D) :
+                    (float) Math.pow(2.0D, 0.01111F * -user.getXRot());
+            var startingSound = StartingSounds.startingSounds.get(instrumentHolder.unwrapKey().orElseThrow());
             FrozenSoundPackets.createMovingRestrictionLoopingSound(level, user, soundEvent, SoundSource.RECORDS, range, soundPitch, WilderWild.id("instrument"));
         }
         level.gameEvent(GameEvent.INSTRUMENT_PLAY, user.position(), GameEvent.Context.of(user));
