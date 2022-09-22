@@ -25,10 +25,10 @@ public class WorldgenConfig implements ConfigData {
     public static class BiomePlacement {
         //public boolean modifyDesertPlacement = true;
         //public boolean modifyBadlandsPlacement = true;
-        public boolean modifyWindsweptSavannaPlacement = !WilderWild.hasTerraBlender;
-        public boolean modifyJunglePlacement = !WilderWild.hasTerraBlender;
-        public boolean modifySwampPlacement = !WilderWild.hasTerraBlender;
-        public boolean modifyMangroveSwampPlacement = !WilderWild.hasTerraBlender;
+        public boolean modifyWindsweptSavannaPlacement = true;
+        public boolean modifyJunglePlacement = true;
+        public boolean modifySwampPlacement = true;
+        public boolean modifyMangroveSwampPlacement = true;
     }
 
     public boolean betaBeaches = true;
@@ -64,28 +64,28 @@ public class WorldgenConfig implements ConfigData {
                 .build());
          */
         var jungle = entryBuilder.startBooleanToggle(text("modify_jungle_placement"), biomePlacement.modifyJunglePlacement)
-                .setDefaultValue(!WilderWild.hasTerraBlender)
+                .setDefaultValue(true)
                 .setSaveConsumer(newValue -> biomePlacement.modifyJunglePlacement = newValue)
                 .setYesNoTextSupplier(bool -> text("biome_placement." + bool))
                 .setTooltip(tooltip("modify_jungle_placement"))
                 .requireRestart()
                 .build();
         var mangroveSwamp = entryBuilder.startBooleanToggle(text("modify_mangrove_swamp_placement"), biomePlacement.modifyMangroveSwampPlacement)
-                .setDefaultValue(!WilderWild.hasTerraBlender)
+                .setDefaultValue(true)
                 .setSaveConsumer(newValue -> biomePlacement.modifyMangroveSwampPlacement = newValue)
                 .setYesNoTextSupplier(bool -> text("biome_placement." + bool))
                 .setTooltip(tooltip("modify_mangrove_swamp_placement"))
                 .requireRestart()
                 .build();
         var swamp = entryBuilder.startBooleanToggle(text("modify_swamp_placement"), biomePlacement.modifySwampPlacement)
-                .setDefaultValue(!WilderWild.hasTerraBlender)
+                .setDefaultValue(true)
                 .setSaveConsumer(newValue -> biomePlacement.modifySwampPlacement = newValue)
                 .setYesNoTextSupplier(bool -> text("biome_placement." + bool))
                 .setTooltip(tooltip("modify_swamp_placement"))
                 .requireRestart()
                 .build();
         var windsweptSavanna = entryBuilder.startBooleanToggle(text("modify_windswept_savanna_placement"), biomePlacement.modifyWindsweptSavannaPlacement)
-                .setDefaultValue(!WilderWild.hasTerraBlender)
+                .setDefaultValue(true)
                 .setSaveConsumer(newValue -> biomePlacement.modifyWindsweptSavannaPlacement = newValue)
                 .setYesNoTextSupplier(bool -> text("biome_placement." + bool))
                 .setTooltip(tooltip("modify_windswept_savanna_placement"))

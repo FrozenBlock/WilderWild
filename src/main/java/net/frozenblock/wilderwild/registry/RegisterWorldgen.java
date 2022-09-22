@@ -28,8 +28,6 @@ public final class RegisterWorldgen {
     public static final ResourceKey<Biome> CYPRESS_WETLANDS = register("cypress_wetlands");
     public static final ResourceKey<Biome> JELLYFISH_CAVES = register("jellyfish_caves");
 
-    public static final int SWAMP_HUMIDITY = 2;
-
     public static void registerWorldgen() {
         WilderWild.logWild("Registering Biomes for", WilderWild.UNSTABLE_LOGGING);
         BuiltinRegistries.register(BuiltinRegistries.BIOME, MIXED_FOREST.location(), mixedForest());

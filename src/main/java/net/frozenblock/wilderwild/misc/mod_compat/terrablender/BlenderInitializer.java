@@ -16,7 +16,7 @@ import terrablender.api.TerraBlenderApi;
 
 import java.util.ArrayList;
 
-public final class TerraBlenderIntegration implements TerraBlenderApi {
+public final class BlenderInitializer implements TerraBlenderApi {
 
     @Override
     public void onTerraBlenderInitialized() {

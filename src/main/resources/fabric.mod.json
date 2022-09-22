@@ -29,7 +29,7 @@
 	  "net.frozenblock.wilderwild.misc.config.ModMenuIntegration"
 	],
 	"terrablender": [
-	  "net.frozenblock.wilderwild.misc.mod_compat.terrablender.TerraBlenderIntegration"
+	  "net.frozenblock.wilderwild.misc.mod_compat.terrablender.BlenderInitializer"
 	],
 	"preLaunch": [
 	  "net.frozenblock.wilderwild.WilderWildPreLaunch"

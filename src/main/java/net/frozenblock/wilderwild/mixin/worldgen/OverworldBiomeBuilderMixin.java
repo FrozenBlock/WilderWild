@@ -4,6 +4,7 @@ import com.mojang.datafixers.util.Pair;
 import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.misc.config.ClothConfigInteractionHandler;
 import net.frozenblock.wilderwild.registry.RegisterWorldgen;
+import net.frozenblock.wilderwild.world.gen.SharedWorldgen;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.biome.Biomes;
@@ -78,22 +79,22 @@ public final class OverworldBiomeBuilderMixin {
         if (!WilderWild.hasTerraBlender) {
             this.addSurfaceBiome(
                     parameters,
-                    Climate.Parameter.span(this.temperatures[1], this.temperatures[2]),
-                    this.FULL_RANGE,
-                    Climate.Parameter.span(this.inlandContinentalness, this.farInlandContinentalness),
-                    this.erosions[2],
+                    SharedWorldgen.MixedForest.TEMPERATURE,
+                    SharedWorldgen.MixedForest.HUMIDITY,
+                    SharedWorldgen.MixedForest.CONTINENTALNESS,
+                    SharedWorldgen.MixedForest.LOW_EROSION,
                     weirdness,
-                    0.0F,
+                    SharedWorldgen.MixedForest.OFFSET,
                     RegisterWorldgen.MIXED_FOREST
             );
             this.addSurfaceBiome(
                     parameters,
-                    Climate.Parameter.span(this.temperatures[1], this.temperatures[3]),
-                    Climate.Parameter.span(this.humidities[2], this.humidities[4]),
-                    Climate.Parameter.span(-0.2F, 0.5F),
-                    Climate.Parameter.span(0.50F, 1.0F),
+                    SharedWorldgen.CypressWetlands.TEMPERATURE,
+                    SharedWorldgen.CypressWetlands.HUMIDITY,
+                    SharedWorldgen.CypressWetlands.CONTINENTALNESS,
+                    SharedWorldgen.CypressWetlands.EROSION,
                     weirdness,
-                    0.0F,
+                    SharedWorldgen.CypressWetlands.OFFSET,
                     RegisterWorldgen.CYPRESS_WETLANDS
             );
         }
@@ -105,23 +106,23 @@ public final class OverworldBiomeBuilderMixin {
         if (!WilderWild.hasTerraBlender) {
             this.addSurfaceBiome(
                     parameters,
-                    Climate.Parameter.span(this.temperatures[1], this.temperatures[2]),
-                    this.FULL_RANGE,
-                    Climate.Parameter.span(this.inlandContinentalness, this.farInlandContinentalness),
-                    this.erosions[1],
+                    SharedWorldgen.MixedForest.TEMPERATURE,
+                    SharedWorldgen.MixedForest.HUMIDITY,
+                    SharedWorldgen.MixedForest.CONTINENTALNESS,
+                    SharedWorldgen.MixedForest.MID_EROSION,
                     weirdness,
-                    0.0F,
+                    SharedWorldgen.MixedForest.OFFSET,
                     RegisterWorldgen.MIXED_FOREST
             );
 
             this.addSurfaceBiome(
                     parameters,
-                    Climate.Parameter.span(this.temperatures[1], this.temperatures[3]),
-                    Climate.Parameter.span(this.humidities[2], this.humidities[4]),
-                    Climate.Parameter.span(-0.2F, 0.5F),
-                    Climate.Parameter.span(0.50F, 1.0F),
+                    SharedWorldgen.CypressWetlands.TEMPERATURE,
+                    SharedWorldgen.CypressWetlands.HUMIDITY,
+                    SharedWorldgen.CypressWetlands.CONTINENTALNESS,
+                    SharedWorldgen.CypressWetlands.EROSION,
                     weirdness,
-                    0.0F,
+                    SharedWorldgen.CypressWetlands.OFFSET,
                     RegisterWorldgen.CYPRESS_WETLANDS
             );
         }
@@ -133,12 +134,12 @@ public final class OverworldBiomeBuilderMixin {
         if (!WilderWild.hasTerraBlender) {
             this.addSurfaceBiome(
                     parameters,
-                    Climate.Parameter.span(this.temperatures[1], this.temperatures[3]),
-                    Climate.Parameter.span(this.humidities[2], this.humidities[4]),
-                    Climate.Parameter.span(-0.2F, 0.5F),
-                    Climate.Parameter.span(0.50F, 1.0F),
+                    SharedWorldgen.CypressWetlands.TEMPERATURE,
+                    SharedWorldgen.CypressWetlands.HUMIDITY,
+                    SharedWorldgen.CypressWetlands.CONTINENTALNESS,
+                    SharedWorldgen.CypressWetlands.EROSION,
                     weirdness,
-                    0.0F,
+                    SharedWorldgen.CypressWetlands.OFFSET,
                     RegisterWorldgen.CYPRESS_WETLANDS
             );
         }
@@ -157,8 +158,8 @@ public final class OverworldBiomeBuilderMixin {
         if (!WilderWild.hasTerraBlender) {
             if (biome.equals(Biomes.MANGROVE_SWAMP) && ClothConfigInteractionHandler.modifyMangroveSwampPlacement()) {
                 parameters.accept(Pair.of(Climate.parameters(
-                                Climate.Parameter.span(this.temperatures[2], this.temperatures[4]), //Temperature
-                                Climate.Parameter.span(this.humidities[RegisterWorldgen.SWAMP_HUMIDITY], this.humidities[4]), //Humidity
+                                SharedWorldgen.Swamp.MangroveSwamp.TEMPERATURE, //Temperature
+                                SharedWorldgen.Swamp.SWAMP_HUMIDITY, //Humidity
                                 continentalness,
                                 erosion,
                                 Climate.Parameter.point(0.0F),
@@ -167,8 +168,8 @@ public final class OverworldBiomeBuilderMixin {
                         biome));
 
                 parameters.accept(Pair.of(Climate.parameters(
-                                Climate.Parameter.span(this.temperatures[2], this.temperatures[4]), //Temperature
-                                Climate.Parameter.span(this.humidities[RegisterWorldgen.SWAMP_HUMIDITY], this.humidities[4]), //Humidity
+                                SharedWorldgen.Swamp.MangroveSwamp.TEMPERATURE, //Temperature
+                                SharedWorldgen.Swamp.SWAMP_HUMIDITY, //Humidity
                                 continentalness,
                                 erosion,
                                 Climate.Parameter.point(1.0F),
@@ -178,8 +179,8 @@ public final class OverworldBiomeBuilderMixin {
                 info.cancel();
             } else if (biome.equals(Biomes.SWAMP) && ClothConfigInteractionHandler.modifySwampPlacement()) {
                 parameters.accept(Pair.of(Climate.parameters(
-                                Climate.Parameter.span(this.temperatures[1], this.temperatures[3]), //Temperature
-                                Climate.Parameter.span(this.humidities[RegisterWorldgen.SWAMP_HUMIDITY], this.humidities[4]), //Humidity
+                                SharedWorldgen.Swamp.TEMPERATURE, //Temperature
+                                SharedWorldgen.Swamp.SWAMP_HUMIDITY, //Humidity
                                 continentalness,
                                 erosion,
                                 Climate.Parameter.point(0.0F),
@@ -188,8 +189,8 @@ public final class OverworldBiomeBuilderMixin {
                         biome));
 
                 parameters.accept(Pair.of(Climate.parameters(
-                                Climate.Parameter.span(this.temperatures[1], this.temperatures[3]), //Temperature
-                                Climate.Parameter.span(this.humidities[RegisterWorldgen.SWAMP_HUMIDITY], this.humidities[4]), //Humidity
+                                SharedWorldgen.Swamp.TEMPERATURE, //Temperature
+                                SharedWorldgen.Swamp.SWAMP_HUMIDITY, //Humidity
                                 continentalness,
                                 erosion,
                                 Climate.Parameter.point(1.0F),
@@ -204,20 +205,20 @@ public final class OverworldBiomeBuilderMixin {
     @Inject(method = "addUndergroundBiomes", at = @At("TAIL"))
     private void addUndergroundBiomes(Consumer<Pair<Climate.ParameterPoint, ResourceKey<Biome>>> consumer, CallbackInfo ci) {
         if (!WilderWild.hasTerraBlender) {
-            this.addSemiDeepBiome(
+            addSemiDeepBiome(
                     consumer,
-                    this.FULL_RANGE,
-                    Climate.Parameter.span(this.humidities[3], this.humidities[4]),
-                    this.mushroomFieldsContinentalness,
-                    Climate.Parameter.span(this.erosions[4], this.erosions[6]),
-                    this.FULL_RANGE,
-                    0.0F,
+                    SharedWorldgen.JellyfishCaves.TEMPERATURE,
+                    SharedWorldgen.JellyfishCaves.HUMIDITY,
+                    SharedWorldgen.JellyfishCaves.CONTINENTALNESS,
+                    SharedWorldgen.JellyfishCaves.EROSION,
+                    SharedWorldgen.JellyfishCaves.WEIRDNESS,
+                    SharedWorldgen.JellyfishCaves.OFFSET,
                     RegisterWorldgen.JELLYFISH_CAVES
             );
         }
     }
 
-    private void addDeepBiome(
+    private static void addDeepBiome(
             Consumer<Pair<Climate.ParameterPoint, ResourceKey<Biome>>> parameters,
             Climate.Parameter temperature,
             Climate.Parameter humidity,
@@ -227,10 +228,10 @@ public final class OverworldBiomeBuilderMixin {
             float offset,
             ResourceKey<Biome> biome
     ) {
-        parameters.accept(Pair.of(Climate.parameters(temperature, humidity, continentalness, erosion, Climate.Parameter.span(0.65F, 1.1F), weirdness, offset), biome));
+        parameters.accept(Pair.of(SharedWorldgen.deepParameters(temperature, humidity, continentalness, erosion, weirdness, offset), biome));
     }
 
-    private void addSemiDeepBiome(
+    private static void addSemiDeepBiome(
             Consumer<Pair<Climate.ParameterPoint, ResourceKey<Biome>>> parameters,
             Climate.Parameter temperature,
             Climate.Parameter humidity,
@@ -240,7 +241,7 @@ public final class OverworldBiomeBuilderMixin {
             float offset,
             ResourceKey<Biome> biome
     ) {
-        parameters.accept(Pair.of(Climate.parameters(temperature, humidity, continentalness, erosion, Climate.Parameter.span(0.4F, 1.05F), weirdness, offset), biome));
+        parameters.accept(Pair.of(SharedWorldgen.semiDeepParameters(temperature, humidity, continentalness, erosion, weirdness, offset), biome));
     }
 
     /*
