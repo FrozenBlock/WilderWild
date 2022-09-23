@@ -18,6 +18,10 @@ public class NematocystBlock extends AmethystClusterBlock implements SimpleWater
         super(height, xzOffset, properties);
     }
 
+    public NematocystBlock(Properties properties) {
+        this(7, 3, properties);
+    }
+
     @Override
     public void onProjectileHit(@NotNull Level level, @NotNull BlockState blockState, @NotNull BlockHitResult blockHitResult, @NotNull Projectile projectile) {
     }
