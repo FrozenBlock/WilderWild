@@ -18,13 +18,11 @@ import net.frozenblock.wilderwild.item.AlgaeItem;
 import net.frozenblock.wilderwild.item.FloweredLilyPadItem;
 import net.frozenblock.wilderwild.misc.FlowerColors;
 import net.frozenblock.wilderwild.world.gen.sapling.CypressSaplingGenerator;
-import net.minecraft.Util;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Registry;
 import net.minecraft.data.BlockFamilies;
 import net.minecraft.data.BlockFamily;
-import net.minecraft.util.RandomSource;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.BlockItem;
@@ -37,7 +35,6 @@ import net.minecraft.world.level.block.state.properties.WoodType;
 import net.minecraft.world.level.material.Material;
 import net.minecraft.world.level.material.MaterialColor;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import static net.frozenblock.wilderwild.registry.RegisterItems.BAOBAB_SIGN;
@@ -222,22 +219,35 @@ public final class RegisterBlocks {
         return true;
     }
 
-    // Mesoglea
-    public static final Block MESOGLEA = new MesogleaBlock(FabricBlockSettings.of(Material.CLAY, MaterialColor.QUARTZ).nonOpaque().slipperiness(0.8F).emissiveLighting(RegisterBlocks::always).luminance((state) -> 7).sounds(RegisterBlockSoundGroups.MESOGLEA).nonOpaque().suffocates(RegisterBlocks::never).blockVision(RegisterBlocks::never));
-    public static final Block PURPLE_MESOGLEA = new MesogleaBlock(FabricBlockSettings.of(Material.CLAY, MaterialColor.COLOR_PURPLE).nonOpaque().slipperiness(0.8F).emissiveLighting(RegisterBlocks::always).luminance((state) -> 7).sounds(RegisterBlockSoundGroups.MESOGLEA).nonOpaque().suffocates(RegisterBlocks::never).blockVision(RegisterBlocks::never));
-    public static final Block YELLOW_MESOGLEA = new MesogleaBlock(FabricBlockSettings.of(Material.CLAY, MaterialColor.COLOR_YELLOW).nonOpaque().slipperiness(0.8F).emissiveLighting(RegisterBlocks::always).luminance((state) -> 7).sounds(RegisterBlockSoundGroups.MESOGLEA).nonOpaque().suffocates(RegisterBlocks::never).blockVision(RegisterBlocks::never));
-    public static final Block BLUE_MESOGLEA = new MesogleaBlock(FabricBlockSettings.of(Material.CLAY, MaterialColor.COLOR_LIGHT_BLUE).nonOpaque().slipperiness(0.8F).emissiveLighting(RegisterBlocks::always).luminance((state) -> 7).sounds(RegisterBlockSoundGroups.MESOGLEA).nonOpaque().suffocates(RegisterBlocks::never).blockVision(RegisterBlocks::never));
-    public static final Block LIME_MESOGLEA = new MesogleaBlock(FabricBlockSettings.of(Material.CLAY, MaterialColor.COLOR_LIGHT_GREEN).nonOpaque().slipperiness(0.8F).emissiveLighting(RegisterBlocks::always).luminance((state) -> 7).sounds(RegisterBlockSoundGroups.MESOGLEA).nonOpaque().suffocates(RegisterBlocks::never).blockVision(RegisterBlocks::never));
-    public static final Block RED_MESOGLEA = new MesogleaBlock(FabricBlockSettings.of(Material.CLAY, MaterialColor.COLOR_RED).nonOpaque().slipperiness(0.8F).emissiveLighting(RegisterBlocks::always).luminance((state) -> 7).sounds(RegisterBlockSoundGroups.MESOGLEA).nonOpaque().suffocates(RegisterBlocks::never).blockVision(RegisterBlocks::never));
-    public static final Block PINK_MESOGLEA = new MesogleaBlock(FabricBlockSettings.of(Material.CLAY, MaterialColor.COLOR_PINK).nonOpaque().slipperiness(0.8F).emissiveLighting(RegisterBlocks::always).luminance((state) -> 7).sounds(RegisterBlockSoundGroups.MESOGLEA).nonOpaque().suffocates(RegisterBlocks::never).blockVision(RegisterBlocks::never));
+    public static final Material MESOGLEA_MATERIAL = new FabricMaterialBuilder(MaterialColor.CLAY)
+            .lightPassesThrough()
+            .notSolid()
+            .destroyedByPiston()
+            .build();
 
-    public static final Block NEMATOCYST = new NematocystBlock(7, 3, FabricBlockSettings.of(Material.CLAY, MaterialColor.QUARTZ).noCollision().nonOpaque().emissiveLighting(RegisterBlocks::always).luminance((state) -> 4).sounds(RegisterBlockSoundGroups.NEMATOCYST));
-    public static final Block PURPLE_NEMATOCYST = new NematocystBlock(7, 3, FabricBlockSettings.of(Material.CLAY, MaterialColor.COLOR_PURPLE).noCollision().nonOpaque().emissiveLighting(RegisterBlocks::always).luminance((state) -> 4).sounds(RegisterBlockSoundGroups.NEMATOCYST));
-    public static final Block YELLOW_NEMATOCYST = new NematocystBlock(7, 3, FabricBlockSettings.of(Material.CLAY, MaterialColor.COLOR_YELLOW).noCollision().nonOpaque().emissiveLighting(RegisterBlocks::always).luminance((state) -> 4).sounds(RegisterBlockSoundGroups.NEMATOCYST));
-    public static final Block BLUE_NEMATOCYST = new NematocystBlock(7, 3, FabricBlockSettings.of(Material.CLAY, MaterialColor.COLOR_LIGHT_BLUE).noCollision().nonOpaque().emissiveLighting(RegisterBlocks::always).luminance((state) -> 4).sounds(RegisterBlockSoundGroups.NEMATOCYST));
-    public static final Block LIME_NEMATOCYST = new NematocystBlock(7, 3, FabricBlockSettings.of(Material.CLAY, MaterialColor.COLOR_LIGHT_GREEN).noCollision().nonOpaque().emissiveLighting(RegisterBlocks::always).luminance((state) -> 4).sounds(RegisterBlockSoundGroups.NEMATOCYST));
-    public static final Block RED_NEMATOCYST = new NematocystBlock(7, 3, FabricBlockSettings.of(Material.CLAY, MaterialColor.COLOR_RED).noCollision().nonOpaque().emissiveLighting(RegisterBlocks::always).luminance((state) -> 4).sounds(RegisterBlockSoundGroups.NEMATOCYST));
-    public static final Block PINK_NEMATOCYST = new NematocystBlock(7, 3, FabricBlockSettings.of(Material.CLAY, MaterialColor.COLOR_PINK).noCollision().nonOpaque().emissiveLighting(RegisterBlocks::always).luminance((state) -> 4).sounds(RegisterBlockSoundGroups.NEMATOCYST));
+    public static final Material NEMATOCYST_MATERIAL = new FabricMaterialBuilder(MaterialColor.CLAY)
+            .allowsMovement()
+            .lightPassesThrough()
+            .notSolid()
+            .destroyedByPiston()
+            .build();
+
+    // Mesoglea
+    public static final Block MESOGLEA = new MesogleaBlock(FabricBlockSettings.of(MESOGLEA_MATERIAL, MaterialColor.QUARTZ).nonOpaque().slipperiness(0.8F).emissiveLighting(RegisterBlocks::always).luminance((state) -> 7).sounds(RegisterBlockSoundGroups.MESOGLEA).suffocates(RegisterBlocks::never).blockVision(RegisterBlocks::never));
+    public static final Block PURPLE_MESOGLEA = new MesogleaBlock(FabricBlockSettings.of(MESOGLEA_MATERIAL, MaterialColor.COLOR_PURPLE).nonOpaque().slipperiness(0.8F).emissiveLighting(RegisterBlocks::always).luminance((state) -> 7).sounds(RegisterBlockSoundGroups.MESOGLEA).suffocates(RegisterBlocks::never).blockVision(RegisterBlocks::never));
+    public static final Block YELLOW_MESOGLEA = new MesogleaBlock(FabricBlockSettings.of(MESOGLEA_MATERIAL, MaterialColor.COLOR_YELLOW).nonOpaque().slipperiness(0.8F).emissiveLighting(RegisterBlocks::always).luminance((state) -> 7).sounds(RegisterBlockSoundGroups.MESOGLEA).suffocates(RegisterBlocks::never).blockVision(RegisterBlocks::never));
+    public static final Block BLUE_MESOGLEA = new MesogleaBlock(FabricBlockSettings.of(MESOGLEA_MATERIAL, MaterialColor.COLOR_LIGHT_BLUE).nonOpaque().slipperiness(0.8F).emissiveLighting(RegisterBlocks::always).luminance((state) -> 7).sounds(RegisterBlockSoundGroups.MESOGLEA).suffocates(RegisterBlocks::never).blockVision(RegisterBlocks::never));
+    public static final Block LIME_MESOGLEA = new MesogleaBlock(FabricBlockSettings.of(MESOGLEA_MATERIAL, MaterialColor.COLOR_LIGHT_GREEN).nonOpaque().slipperiness(0.8F).emissiveLighting(RegisterBlocks::always).luminance((state) -> 7).sounds(RegisterBlockSoundGroups.MESOGLEA).suffocates(RegisterBlocks::never).blockVision(RegisterBlocks::never));
+    public static final Block RED_MESOGLEA = new MesogleaBlock(FabricBlockSettings.of(MESOGLEA_MATERIAL, MaterialColor.COLOR_RED).nonOpaque().slipperiness(0.8F).emissiveLighting(RegisterBlocks::always).luminance((state) -> 7).sounds(RegisterBlockSoundGroups.MESOGLEA).suffocates(RegisterBlocks::never).blockVision(RegisterBlocks::never));
+    public static final Block PINK_MESOGLEA = new MesogleaBlock(FabricBlockSettings.of(MESOGLEA_MATERIAL, MaterialColor.COLOR_PINK).nonOpaque().slipperiness(0.8F).emissiveLighting(RegisterBlocks::always).luminance((state) -> 7).sounds(RegisterBlockSoundGroups.MESOGLEA).suffocates(RegisterBlocks::never).blockVision(RegisterBlocks::never));
+
+    public static final Block BLUE_PEARLESCENT_NEMATOCYST = new NematocystBlock(FabricBlockSettings.of(NEMATOCYST_MATERIAL, MaterialColor.QUARTZ).noCollision().nonOpaque().emissiveLighting(RegisterBlocks::always).luminance((state) -> 4).sounds(RegisterBlockSoundGroups.NEMATOCYST));
+    public static final Block PURPLE_PEARLESCENT_NEMATOCYST = new NematocystBlock(FabricBlockSettings.of(NEMATOCYST_MATERIAL, MaterialColor.COLOR_PURPLE).noCollision().nonOpaque().emissiveLighting(RegisterBlocks::always).luminance((state) -> 4).sounds(RegisterBlockSoundGroups.NEMATOCYST));
+    public static final Block YELLOW_NEMATOCYST = new NematocystBlock(FabricBlockSettings.of(NEMATOCYST_MATERIAL, MaterialColor.COLOR_YELLOW).noCollision().nonOpaque().emissiveLighting(RegisterBlocks::always).luminance((state) -> 4).sounds(RegisterBlockSoundGroups.NEMATOCYST));
+    public static final Block BLUE_NEMATOCYST = new NematocystBlock(FabricBlockSettings.of(NEMATOCYST_MATERIAL, MaterialColor.COLOR_LIGHT_BLUE).noCollision().nonOpaque().emissiveLighting(RegisterBlocks::always).luminance((state) -> 4).sounds(RegisterBlockSoundGroups.NEMATOCYST));
+    public static final Block LIME_NEMATOCYST = new NematocystBlock(FabricBlockSettings.of(NEMATOCYST_MATERIAL, MaterialColor.COLOR_LIGHT_GREEN).noCollision().nonOpaque().emissiveLighting(RegisterBlocks::always).luminance((state) -> 4).sounds(RegisterBlockSoundGroups.NEMATOCYST));
+    public static final Block RED_NEMATOCYST = new NematocystBlock(FabricBlockSettings.of(NEMATOCYST_MATERIAL, MaterialColor.COLOR_RED).noCollision().nonOpaque().emissiveLighting(RegisterBlocks::always).luminance((state) -> 4).sounds(RegisterBlockSoundGroups.NEMATOCYST));
+    public static final Block PINK_NEMATOCYST = new NematocystBlock(FabricBlockSettings.of(NEMATOCYST_MATERIAL, MaterialColor.COLOR_PINK).noCollision().nonOpaque().emissiveLighting(RegisterBlocks::always).luminance((state) -> 4).sounds(RegisterBlockSoundGroups.NEMATOCYST));
 
     // MISC
     private static final Material ALGAE_MATERIAL = new FabricMaterialBuilder(MaterialColor.PLANT)
@@ -351,8 +361,8 @@ public final class RegisterBlocks {
         registerBlock("lime_mesoglea", LIME_MESOGLEA, CreativeModeTab.TAB_DECORATIONS);
         registerBlock("red_mesoglea", RED_MESOGLEA, CreativeModeTab.TAB_DECORATIONS);
         registerBlock("pink_mesoglea", PINK_MESOGLEA, CreativeModeTab.TAB_DECORATIONS);
-        registerBlock("blue_pearlescent_nematocyst", NEMATOCYST, CreativeModeTab.TAB_DECORATIONS);
-        registerBlock("purple_pearlescent_nematocyst", PURPLE_NEMATOCYST, CreativeModeTab.TAB_DECORATIONS);
+        registerBlock("blue_pearlescent_nematocyst", BLUE_PEARLESCENT_NEMATOCYST, CreativeModeTab.TAB_DECORATIONS);
+        registerBlock("purple_pearlescent_nematocyst", PURPLE_PEARLESCENT_NEMATOCYST, CreativeModeTab.TAB_DECORATIONS);
         registerBlock("blue_nematocyst", BLUE_NEMATOCYST, CreativeModeTab.TAB_DECORATIONS);
         registerBlock("yellow_nematocyst", YELLOW_NEMATOCYST, CreativeModeTab.TAB_DECORATIONS);
         registerBlock("lime_nematocyst", LIME_NEMATOCYST, CreativeModeTab.TAB_DECORATIONS);

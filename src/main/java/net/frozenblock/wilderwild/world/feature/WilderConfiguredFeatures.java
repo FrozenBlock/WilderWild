@@ -36,7 +36,6 @@ import net.minecraft.world.level.levelgen.feature.stateproviders.NoiseProvider;
 import net.minecraft.world.level.levelgen.feature.stateproviders.NoiseThresholdProvider;
 import net.minecraft.world.level.levelgen.feature.stateproviders.WeightedStateProvider;
 import net.minecraft.world.level.levelgen.placement.CaveSurface;
-import net.minecraft.world.level.levelgen.placement.PlacedFeature;
 import net.minecraft.world.level.levelgen.synth.NormalNoise;
 import org.jetbrains.annotations.NotNull;
 
@@ -379,8 +378,8 @@ public final class WilderConfiguredFeatures {
                     10L,
                     new NormalNoise.NoiseParameters(0, 1.0),
                     0.3F,
-                    List.of(RegisterBlocks.NEMATOCYST.defaultBlockState().setValue(BlockStateProperties.FACING, Direction.UP),
-                            RegisterBlocks.PURPLE_NEMATOCYST.defaultBlockState().setValue(BlockStateProperties.FACING, Direction.UP))),
+                    List.of(RegisterBlocks.BLUE_PEARLESCENT_NEMATOCYST.defaultBlockState().setValue(BlockStateProperties.FACING, Direction.UP),
+                            RegisterBlocks.PURPLE_PEARLESCENT_NEMATOCYST.defaultBlockState().setValue(BlockStateProperties.FACING, Direction.UP))),
                     128, 16, 6
             )
     );
@@ -390,8 +389,8 @@ public final class WilderConfiguredFeatures {
                     10L,
                     new NormalNoise.NoiseParameters(0, 1.0),
                     0.3F,
-                    List.of(RegisterBlocks.NEMATOCYST.defaultBlockState().setValue(BlockStateProperties.FACING, Direction.DOWN),
-                            RegisterBlocks.PURPLE_NEMATOCYST.defaultBlockState().setValue(BlockStateProperties.FACING, Direction.DOWN))),
+                    List.of(RegisterBlocks.BLUE_PEARLESCENT_NEMATOCYST.defaultBlockState().setValue(BlockStateProperties.FACING, Direction.DOWN),
+                            RegisterBlocks.PURPLE_PEARLESCENT_NEMATOCYST.defaultBlockState().setValue(BlockStateProperties.FACING, Direction.DOWN))),
                     64, 16, 6
             )
     );
@@ -401,8 +400,8 @@ public final class WilderConfiguredFeatures {
                     10L,
                     new NormalNoise.NoiseParameters(0, 1.0),
                     0.3F,
-                    List.of(RegisterBlocks.NEMATOCYST.defaultBlockState().setValue(BlockStateProperties.FACING, Direction.NORTH),
-                            RegisterBlocks.PURPLE_NEMATOCYST.defaultBlockState().setValue(BlockStateProperties.FACING, Direction.NORTH))),
+                    List.of(RegisterBlocks.BLUE_PEARLESCENT_NEMATOCYST.defaultBlockState().setValue(BlockStateProperties.FACING, Direction.NORTH),
+                            RegisterBlocks.PURPLE_PEARLESCENT_NEMATOCYST.defaultBlockState().setValue(BlockStateProperties.FACING, Direction.NORTH))),
                     32, 8, 8
             )
     );
@@ -412,8 +411,8 @@ public final class WilderConfiguredFeatures {
                     10L,
                     new NormalNoise.NoiseParameters(0, 1.0),
                     0.3F,
-                    List.of(RegisterBlocks.NEMATOCYST.defaultBlockState().setValue(BlockStateProperties.FACING, Direction.SOUTH),
-                            RegisterBlocks.PURPLE_NEMATOCYST.defaultBlockState().setValue(BlockStateProperties.FACING, Direction.SOUTH))),
+                    List.of(RegisterBlocks.BLUE_PEARLESCENT_NEMATOCYST.defaultBlockState().setValue(BlockStateProperties.FACING, Direction.SOUTH),
+                            RegisterBlocks.PURPLE_PEARLESCENT_NEMATOCYST.defaultBlockState().setValue(BlockStateProperties.FACING, Direction.SOUTH))),
                     32, 8, 8
             )
     );
@@ -423,8 +422,8 @@ public final class WilderConfiguredFeatures {
                     10L,
                     new NormalNoise.NoiseParameters(0, 1.0),
                     0.3F,
-                    List.of(RegisterBlocks.NEMATOCYST.defaultBlockState().setValue(BlockStateProperties.FACING, Direction.EAST),
-                            RegisterBlocks.PURPLE_NEMATOCYST.defaultBlockState().setValue(BlockStateProperties.FACING, Direction.EAST))),
+                    List.of(RegisterBlocks.BLUE_PEARLESCENT_NEMATOCYST.defaultBlockState().setValue(BlockStateProperties.FACING, Direction.EAST),
+                            RegisterBlocks.PURPLE_PEARLESCENT_NEMATOCYST.defaultBlockState().setValue(BlockStateProperties.FACING, Direction.EAST))),
                     32, 8, 8
             )
     );
@@ -434,8 +433,8 @@ public final class WilderConfiguredFeatures {
                     10L,
                     new NormalNoise.NoiseParameters(0, 1.0),
                     0.3F,
-                    List.of(RegisterBlocks.NEMATOCYST.defaultBlockState().setValue(BlockStateProperties.FACING, Direction.WEST),
-                            RegisterBlocks.PURPLE_NEMATOCYST.defaultBlockState().setValue(BlockStateProperties.FACING, Direction.WEST))),
+                    List.of(RegisterBlocks.BLUE_PEARLESCENT_NEMATOCYST.defaultBlockState().setValue(BlockStateProperties.FACING, Direction.WEST),
+                            RegisterBlocks.PURPLE_PEARLESCENT_NEMATOCYST.defaultBlockState().setValue(BlockStateProperties.FACING, Direction.WEST))),
                     32, 8, 8
             )
     );
