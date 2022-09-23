@@ -65,7 +65,7 @@ public final class OverworldBiomeBuilderMixin {
 
     //this.mushroomFieldsContinentalness = Climate.Parameter.span(-1.2F, -1.05F);
     //this.deepOceanContinentalness = Climate.Parameter.span(-1.05F, -0.455F);
-    private static final Climate.Parameter jellyfishCavesContinentalness = Climate.Parameter.span(-1.2F, -0.76F);
+    private static final Climate.Parameter jellyfishCavesContinentalness = Climate.Parameter.span(-1.2F, -0.7475F);
 
     @Inject(method = "<init>", at = @At("TAIL"))
     private void injectBiomes(CallbackInfo ci) {
