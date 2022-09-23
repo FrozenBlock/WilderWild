@@ -8,7 +8,7 @@ import net.frozenblock.wilderwild.WilderWild;
 import net.minecraft.client.gui.screens.Screen;
 
 @Environment(EnvType.CLIENT)
-public class ModMenuIntegration implements ModMenuApi {
+public final class ModMenuIntegration implements ModMenuApi {
 
     @Override
     public ConfigScreenFactory<Screen> getModConfigScreenFactory() {

@@ -12,14 +12,14 @@ import static net.frozenblock.wilderwild.misc.config.WilderWildConfig.text;
 import static net.frozenblock.wilderwild.misc.config.WilderWildConfig.tooltip;
 
 @Config(name = "block")
-public class BlockConfig implements ConfigData {
+public final class BlockConfig implements ConfigData {
     //public static final EnumConfigOption<ModMenuConfig.ModsButtonStyle> MODS_BUTTON_STYLE = new EnumConfigOption<>("mods_button_style", ModMenuConfig.ModsButtonStyle.CLASSIC);
 
     public boolean mcLiveSensorTendrils = true;
     public boolean shriekerGargling = true;
 
     @Environment(EnvType.CLIENT)
-    protected static void setupEntries(ConfigCategory category, ConfigEntryBuilder entryBuilder) {
+    static void setupEntries(ConfigCategory category, ConfigEntryBuilder entryBuilder) {
         var config = WilderWildConfig.get().block;
         category.setBackground(WilderWild.id("textures/config/block.png"));
         category.addEntry(entryBuilder.startBooleanToggle(text("mc_live_sensor_tendrils"), config.mcLiveSensorTendrils)

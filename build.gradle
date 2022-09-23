@@ -3,6 +3,9 @@ plugins {
 	id 'io.github.juuxel.loom-quiltflower' version '1.7.+'
 	//id 'org.quiltmc.quilt-mappings-on-loom' version '4.2.1'
 	id 'maven-publish'
+	id 'eclipse'
+	id 'idea'
+	id 'java-library'
 }
 
 archivesBaseName = project.archives_base_name
@@ -25,12 +28,15 @@ loom {
 configurations {
 	includeModImplementation
 	includeImplementation
+	includeModApi
 
 	include.extendsFrom includeImplementation
 	include.extendsFrom includeModImplementation
+	include.extendsFrom includeModApi
 
 	implementation.extendsFrom includeImplementation
 	modImplementation.extendsFrom includeModImplementation
+	modApi.extendsFrom includeModApi
 }
 
 repositories {
@@ -115,16 +121,13 @@ dependencies {
 	// FrozenLib
 	println "Using local FrozenLib: ${local_frozenlib}"
 	if (local_frozenlib) {
-		implementation(project(path: ":FrozenLib", configuration: 'dev'))
-		include(project(path: ":FrozenLib", configuration: 'dev'))
+		includeImplementation(project(path: ":FrozenLib", configuration: 'dev'))
 	} else {
-		modImplementation "maven.modrinth:frozenlib:${frozenlib_version}"
-		include "maven.modrinth:frozenlib:${frozenlib_version}"
+		includeModImplementation "maven.modrinth:frozenlib:${frozenlib_version}"
 	}
 
 	// Fabric-ASM
-	modImplementation "com.github.Chocohead:Fabric-ASM:${fabric_asm_version}"
-	include "com.github.Chocohead:Fabric-ASM:${fabric_asm_version}"
+	includeModImplementation "com.github.Chocohead:Fabric-ASM:${fabric_asm_version}"
 
 	// Lunade
 	modImplementation "maven.modrinth:simple-copper-pipes:${copperpipes_version}"
@@ -140,16 +143,14 @@ dependencies {
 	}
 
 	// NBT Crafting
-	modImplementation "maven.modrinth:nbt-crafting:${nbtcrafting_version}"
-	include "maven.modrinth:nbt-crafting:${nbtcrafting_version}"
+	includeModImplementation "maven.modrinth:nbt-crafting:${nbtcrafting_version}"
 
 	// TerraBlender
 	modImplementation "com.github.glitchfiend:TerraBlender-fabric:${minecraft_version}-${terrablender_version}"
 
 	// Mixin Extras
-	implementation("com.github.LlamaLad7:MixinExtras:0.0.12")
+	includeImplementation("com.github.LlamaLad7:MixinExtras:0.0.12")
 	annotationProcessor("com.github.LlamaLad7:MixinExtras:0.0.12")
-	include("com.github.LlamaLad7:MixinExtras:0.0.12")
 
 	// Sodium
 	modCompileOnly "maven.modrinth:sodium:${sodium_version}"
@@ -206,6 +207,7 @@ task sourcesJar(type: Jar, dependsOn: classes) {
 }
 
 tasks.withType(JavaCompile).configureEach {
+	it.options.encoding = "UTF-8"
 	// Minecraft 1.18 (1.18-pre2) upwards uses Java 17.
 	it.options.release = 17
 	options.fork = true
@@ -223,13 +225,18 @@ java {
 	// Loom will automatically attach sourcesJar to a RemapSourcesJar task and to the "build" task
 	// if it is present.
 	// If you remove this line, sources will not be generated.
-	//withSourcesJar()
+	withSourcesJar()
 }
 
 jar {
 	from("LICENSE") {
 		rename { "${it}_${project.archivesBaseName}"}
 	}
+}
+
+artifacts {
+	archives sourcesJar
+	archives javadocJar
 }
 
 String getVersion() {

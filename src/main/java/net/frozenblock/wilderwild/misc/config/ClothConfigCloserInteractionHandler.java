@@ -1,6 +1,6 @@
 package net.frozenblock.wilderwild.misc.config;
 
-public class ClothConfigCloserInteractionHandler {
+public final class ClothConfigCloserInteractionHandler {
 
     public static boolean betaBeaches() {
         return WilderWildConfig.get().worldgen.betaBeaches;

@@ -8,6 +8,7 @@ import me.shedaniel.clothconfig2.api.ConfigCategory;
 import me.shedaniel.clothconfig2.api.ConfigEntryBuilder;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.frozenblock.lib.config.FrozenConfig;
 import net.frozenblock.wilderwild.WilderWild;
 
 import java.util.List;
@@ -16,7 +17,7 @@ import static net.frozenblock.wilderwild.misc.config.WilderWildConfig.text;
 import static net.frozenblock.wilderwild.misc.config.WilderWildConfig.tooltip;
 
 @Config(name = "entity")
-public class EntityConfig implements ConfigData {
+public final class EntityConfig implements ConfigData {
 
     @ConfigEntry.Gui.CollapsibleObject
     public WardenConfig warden = new WardenConfig();
@@ -31,7 +32,7 @@ public class EntityConfig implements ConfigData {
     public boolean unpassableRail = true;
 
     @Environment(EnvType.CLIENT)
-    protected static void setupEntries(ConfigCategory category, ConfigEntryBuilder entryBuilder) {
+    static void setupEntries(ConfigCategory category, ConfigEntryBuilder entryBuilder) {
         var config = WilderWildConfig.get().entity;
         var warden = config.warden;
         category.setBackground(WilderWild.id("textures/config/entity.png"));
@@ -63,12 +64,10 @@ public class EntityConfig implements ConfigData {
                 .setTooltip(tooltip("warden_custom_tendrils"))
                 .build();
 
-        List<AbstractConfigListEntry> wardenList = List.of(dying, emerging, swimming, tendrils);
-
-        var wardenCategory = category.addEntry(entryBuilder.startSubCategory(text("warden"), wardenList)
-                .setExpanded(false)
-                .setTooltip(tooltip("warden"))
-                .build()
+        var wardenCategory = FrozenConfig.createSubCategory(entryBuilder, category, text("warden"),
+                false,
+                tooltip("warden"),
+                dying, emerging, swimming, tendrils
         );
     }
 
