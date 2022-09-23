@@ -55,7 +55,7 @@ public final class SharedWorldgen {
     public static final class JellyfishCaves {
         public static final Climate.Parameter TEMPERATURE = Temperature.FULL_RANGE;
         public static final Climate.Parameter HUMIDITY = Climate.Parameter.span(Humidity.WET, Humidity.HUMID);
-        public static final Climate.Parameter CONTINENTALNESS = Continentalness.MUSHROOM_FIELDS;
+        public static final Climate.Parameter CONTINENTALNESS = Climate.Parameter.span(-1.2F, -0.7475F);;
         public static final Climate.Parameter EROSION = Climate.Parameter.span(Erosion.EROSION_4, Erosion.EROSION_6);
         public static final Climate.Parameter WEIRDNESS = Weirdness.FULL_RANGE;
         public static final float OFFSET = 0.0F;

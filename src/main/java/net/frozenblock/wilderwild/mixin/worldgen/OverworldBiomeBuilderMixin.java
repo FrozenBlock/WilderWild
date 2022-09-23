@@ -24,33 +24,6 @@ import java.util.function.Consumer;
 public final class OverworldBiomeBuilderMixin {
     @Shadow
     @Final
-    private Climate.Parameter inlandContinentalness;
-    @Shadow
-    @Final
-    private Climate.Parameter farInlandContinentalness;
-    @Shadow
-    @Final
-    private Climate.Parameter deepOceanContinentalness;
-    @Shadow
-    @Final
-    private Climate.Parameter oceanContinentalness;
-    @Shadow
-    @Final
-    private Climate.Parameter coastContinentalness;
-    @Shadow
-    @Final
-    private Climate.Parameter[] erosions;
-    @Shadow
-    @Final
-    private Climate.Parameter[] humidities;
-    @Shadow
-    @Final
-    private Climate.Parameter[] temperatures;
-    @Shadow
-    @Final
-    private Climate.Parameter FULL_RANGE;
-    @Shadow
-    @Final
     private ResourceKey<Biome>[][] MIDDLE_BIOMES;
     @Shadow
     @Final
@@ -60,14 +33,6 @@ public final class OverworldBiomeBuilderMixin {
     private void addSurfaceBiome(Consumer<Pair<Climate.ParameterPoint, ResourceKey<Biome>>> parameters, Climate.Parameter temperature, Climate.Parameter humidity, Climate.Parameter continentalness, Climate.Parameter erosion, Climate.Parameter weirdness, final float offset, ResourceKey<Biome> biome) {
         parameters.accept(Pair.of(Climate.parameters(temperature, humidity, continentalness, erosion, Climate.Parameter.span(0.0F, 1.0F), weirdness, offset), biome));
     }
-
-    @Shadow
-    @Final
-    private Climate.Parameter mushroomFieldsContinentalness;
-
-    //this.mushroomFieldsContinentalness = Climate.Parameter.span(-1.2F, -1.05F);
-    //this.deepOceanContinentalness = Climate.Parameter.span(-1.05F, -0.455F);
-    private static final Climate.Parameter jellyfishCavesContinentalness = Climate.Parameter.span(-1.2F, -0.7475F);
 
     @Inject(method = "<init>", at = @At("TAIL"))
     private void injectBiomes(CallbackInfo ci) {
