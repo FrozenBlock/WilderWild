@@ -34,6 +34,7 @@ if( allowLocalFrozenLibUse && (isIDE || allowFrozenLibInConsoleMode)  && FrozenL
     project(":FrozenLib").projectDir = FrozenLibFolder
     project(':FrozenLib').buildFileName = './build.gradle'
 } else if( allowLocalFrozenLibUse && (isIDE || allowFrozenLibInConsoleMode)  && FrozenLibFolderGitHub.exists() ) {
+
     include ':FrozenLib'
     project(":FrozenLib").projectDir = FrozenLibFolderGitHub
     project(':FrozenLib').buildFileName = './build.gradle'
