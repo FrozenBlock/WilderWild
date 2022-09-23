@@ -63,6 +63,10 @@ public final class OverworldBiomeBuilderMixin {
     @Final
     private Climate.Parameter mushroomFieldsContinentalness;
 
+    //this.mushroomFieldsContinentalness = Climate.Parameter.span(-1.2F, -1.05F);
+    //this.deepOceanContinentalness = Climate.Parameter.span(-1.05F, -0.455F);
+    private static final Climate.Parameter jellyfishCavesContinentalness = Climate.Parameter.span(-1.2F, -0.7525F);
+
     @Inject(method = "<init>", at = @At("TAIL"))
     private void injectBiomes(CallbackInfo ci) {
         if (ClothConfigInteractionHandler.modifyJunglePlacement()) {
@@ -241,25 +245,12 @@ public final class OverworldBiomeBuilderMixin {
                 consumer,
                 this.FULL_RANGE,
                 Climate.Parameter.span(this.humidities[3], this.humidities[4]),
-                this.mushroomFieldsContinentalness,
+                jellyfishCavesContinentalness,
                 Climate.Parameter.span(this.erosions[4], this.erosions[6]),
                 this.FULL_RANGE,
                 0.0F,
                 RegisterWorldgen.JELLYFISH_CAVES
         );
-    }
-
-    private void addDeepBiome(
-            Consumer<Pair<Climate.ParameterPoint, ResourceKey<Biome>>> parameters,
-            Climate.Parameter temperature,
-            Climate.Parameter humidity,
-            Climate.Parameter continentalness,
-            Climate.Parameter erosion,
-            Climate.Parameter weirdness,
-            float offset,
-            ResourceKey<Biome> biome
-    ) {
-        parameters.accept(Pair.of(Climate.parameters(temperature, humidity, continentalness, erosion, Climate.Parameter.span(0.65F, 1.1F), weirdness, offset), biome));
     }
 
     private void addSemiDeepBiome(
