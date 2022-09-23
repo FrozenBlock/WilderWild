@@ -8,6 +8,7 @@ import me.shedaniel.clothconfig2.api.ConfigCategory;
 import me.shedaniel.clothconfig2.api.ConfigEntryBuilder;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.frozenblock.lib.config.FrozenConfig;
 import net.frozenblock.wilderwild.WilderWild;
 
 import java.util.List;
@@ -16,7 +17,7 @@ import static net.frozenblock.wilderwild.misc.config.WilderWildConfig.text;
 import static net.frozenblock.wilderwild.misc.config.WilderWildConfig.tooltip;
 
 @Config(name = "item")
-public class ItemConfig implements ConfigData {
+public final class ItemConfig implements ConfigData {
 
     @ConfigEntry.Gui.CollapsibleObject
     public AncientHornConfig ancientHorn = new AncientHornConfig();
@@ -29,7 +30,7 @@ public class ItemConfig implements ConfigData {
     public boolean projectileBreakParticles = true;
 
     @Environment(EnvType.CLIENT)
-    protected static void setupEntries(ConfigCategory category, ConfigEntryBuilder entryBuilder) {
+    static void setupEntries(ConfigCategory category, ConfigEntryBuilder entryBuilder) {
         var config = WilderWildConfig.get().item;
         var ancientHorn = config.ancientHorn;
         category.setBackground(WilderWild.id("textures/config/item.png"));
@@ -44,12 +45,10 @@ public class ItemConfig implements ConfigData {
                 .setTooltip(tooltip("ancient_horn_can_summon_warden"))
                 .build();
 
-        List<AbstractConfigListEntry> ancientHornList = List.of(shattersGlass, summonsWarden);
-
-        var ancientHornCategory = category.addEntry(entryBuilder.startSubCategory(text("ancient_horn"), ancientHornList)
-                .setExpanded(false)
-                .setTooltip(tooltip("ancient_horn"))
-                .build()
+        var ancientHornCategory = FrozenConfig.createSubCategory(entryBuilder, category, text("ancient_horn"),
+                false,
+                tooltip("ancient_horn"),
+                shattersGlass, summonsWarden
         );
 
         var breakParticles = category.addEntry(entryBuilder.startBooleanToggle(text("projectile_break_particles"), config.projectileBreakParticles)
