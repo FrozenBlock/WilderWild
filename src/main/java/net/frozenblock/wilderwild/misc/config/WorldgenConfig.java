@@ -8,6 +8,7 @@ import me.shedaniel.clothconfig2.api.ConfigCategory;
 import me.shedaniel.clothconfig2.api.ConfigEntryBuilder;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.frozenblock.lib.config.FrozenConfig;
 import net.frozenblock.wilderwild.WilderWild;
 
 import java.util.List;
@@ -16,7 +17,7 @@ import static net.frozenblock.wilderwild.misc.config.WilderWildConfig.text;
 import static net.frozenblock.wilderwild.misc.config.WilderWildConfig.tooltip;
 
 @Config(name = "worldgen")
-public class WorldgenConfig implements ConfigData {
+public final class WorldgenConfig implements ConfigData {
     //public static final EnumConfigOption<ModMenuConfig.ModsButtonStyle> MODS_BUTTON_STYLE = new EnumConfigOption<>("mods_button_style", ModMenuConfig.ModsButtonStyle.CLASSIC);
 
     @ConfigEntry.Gui.CollapsibleObject
@@ -37,7 +38,7 @@ public class WorldgenConfig implements ConfigData {
     public boolean wilderWildGrassGen = true;
 
     @Environment(EnvType.CLIENT)
-    protected static void setupEntries(ConfigCategory category, ConfigEntryBuilder entryBuilder) {
+    static void setupEntries(ConfigCategory category, ConfigEntryBuilder entryBuilder) {
         var config = WilderWildConfig.get().worldgen;
         var biomePlacement = config.biomePlacement;
         category.setBackground(WilderWild.id("textures/config/worldgen.png"));
@@ -92,12 +93,10 @@ public class WorldgenConfig implements ConfigData {
                 .requireRestart()
                 .build();
 
-        List<AbstractConfigListEntry> biomePlacementList = List.of(jungle, mangroveSwamp, swamp, windsweptSavanna);
-
-        var biomePlacementCategory = category.addEntry(entryBuilder.startSubCategory(text("biome_placement"), biomePlacementList)
-                .setExpanded(false)
-                .setTooltip(tooltip("biome_placement"))
-                .build()
+        var biomePlacementCategory = FrozenConfig.createSubCategory(entryBuilder, category, text("biome_placement"),
+                false,
+                tooltip("biome_placement"),
+                jungle, mangroveSwamp, swamp, windsweptSavanna
         );
 
         var fallenLogs = category.addEntry(entryBuilder.startBooleanToggle(text("fallen_logs"), config.fallenLogs)

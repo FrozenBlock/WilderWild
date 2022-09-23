@@ -2,7 +2,7 @@ package net.frozenblock.wilderwild.misc.config;
 
 import net.frozenblock.wilderwild.WilderWild;
 
-public class ClothConfigInteractionHandler {
+public final class ClothConfigInteractionHandler {
 
     public static boolean betaBeaches() {
         if (WilderWild.hasCloth) {
