@@ -23,6 +23,7 @@ import org.jetbrains.annotations.Nullable;
 public class JellyfishRenderer extends MobRenderer<Jellyfish, JellyfishModel<Jellyfish>> {
 
     private static final String BASE_TEXTURE = "textures/entity/jellyfish/";
+    private static final String WHITE_TEXTURE = "textures/entity/jellyfish/white.png";
 
     public JellyfishRenderer(Context context) {
         super(context, new JellyfishModel<>(context.bakeLayer(WilderWildClient.JELLYFISH)), 0.3F);
@@ -58,7 +59,7 @@ public class JellyfishRenderer extends MobRenderer<Jellyfish, JellyfishModel<Jel
     @Nullable
     protected RenderType getRenderType(@NotNull Jellyfish jellyfish, boolean bl, boolean bl2, boolean bl3) {
         if (jellyfish.hasCustomName() && "I_am_Merp".equals(jellyfish.getName().getString())) {
-            return WilderWildClient.ENTITY_TRANSLUCENT_EMISSIVE_FIXED.apply(WilderWild.id(BASE_TEXTURE + "white" + ".png"), false);
+            return WilderWildClient.ENTITY_TRANSLUCENT_EMISSIVE_FIXED.apply(WilderWild.id(WHITE_TEXTURE), false);
         }
         return WilderWildClient.ENTITY_TRANSLUCENT_EMISSIVE_FIXED.apply(WilderWild.id(BASE_TEXTURE + jellyfish.getVariant() + ".png"), false);
     }

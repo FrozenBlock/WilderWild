@@ -88,16 +88,16 @@ public final class WilderConfiguredFeatures {
 
     public static final Holder<ConfiguredFeature<RandomFeatureConfiguration, ?>> NEW_TREES_BIRCH =
             register("new_trees_birch", Feature.RANDOM_SELECTOR,
-                    new RandomFeatureConfiguration(List.of(new WeightedPlacedFeature(WilderTreePlaced.NEW_SHORT_BIRCH_BEES_0004, 0.035F),
+                    new RandomFeatureConfiguration(List.of(new WeightedPlacedFeature(WilderTreePlaced.NEW_SHORT_BIRCH_BEES_0004, 0.065F),
                             new WeightedPlacedFeature(WilderTreePlaced.DYING_SHORT_BIRCH, 0.012F),
-                            new WeightedPlacedFeature(WilderTreePlaced.DYING_BIRCH, 0.065F)), WilderTreePlaced.NEW_BIRCH_BEES_0004));
+                            new WeightedPlacedFeature(WilderTreePlaced.DYING_BIRCH, 0.035F)), WilderTreePlaced.NEW_BIRCH_BEES_0004));
 
     public static final Holder<ConfiguredFeature<RandomFeatureConfiguration, ?>> NEW_TREES_BIRCH_TALL =
             register("new_trees_birch_tall", Feature.RANDOM_SELECTOR,
                     new RandomFeatureConfiguration(List.of(new WeightedPlacedFeature(WilderTreePlaced.NEW_SHORT_BIRCH_BEES_0004, 0.002F),
                             new WeightedPlacedFeature(WilderTreePlaced.DYING_SHORT_BIRCH, 0.0001F),
-                            new WeightedPlacedFeature(WilderTreePlaced.DYING_SUPER_BIRCH, 0.06F),
-                            new WeightedPlacedFeature(WilderTreePlaced.NEW_BIRCH_BEES_0004, 0.012F),
+                            new WeightedPlacedFeature(WilderTreePlaced.DYING_SUPER_BIRCH, 0.032F),
+                            new WeightedPlacedFeature(WilderTreePlaced.NEW_BIRCH_BEES_0004, 0.02F),
                             new WeightedPlacedFeature(WilderTreePlaced.DYING_BIRCH, 0.017F)), WilderTreePlaced.NEW_SUPER_BIRCH_BEES_0004));
 
     public static final Holder<ConfiguredFeature<RandomFeatureConfiguration, ?>> NEW_TREES_FLOWER_FOREST =
@@ -105,8 +105,8 @@ public final class WilderConfiguredFeatures {
                     new RandomFeatureConfiguration(List.of(new WeightedPlacedFeature(WilderTreePlaced.NEW_SHORT_BIRCH_BEES_0004, 0.2F),
                             new WeightedPlacedFeature(WilderTreePlaced.DYING_SHORT_BIRCH, 0.035F),
                             new WeightedPlacedFeature(WilderTreePlaced.DYING_OAK_CHECKED, 0.05F),
-                            new WeightedPlacedFeature(WilderTreePlaced.DYING_FANCY_OAK_BEES_0004, 0.07F),
-                            new WeightedPlacedFeature(WilderTreePlaced.NEW_FANCY_OAK_BEES_0004, 0.195F),
+                            new WeightedPlacedFeature(WilderTreePlaced.DYING_FANCY_OAK_BEES_0004, 0.06F),
+                            new WeightedPlacedFeature(WilderTreePlaced.NEW_FANCY_OAK_BEES_0004, 0.205F),
                             new WeightedPlacedFeature(WilderTreePlaced.SHORT_OAK_CHECKED, 0.095F)), WilderTreePlaced.NEW_OAK_BEES_0004));
 
     public static final Holder<ConfiguredFeature<RandomFeatureConfiguration, ?>> MIXED_TREES =
@@ -115,12 +115,12 @@ public final class WilderConfiguredFeatures {
                             new WeightedPlacedFeature(WilderTreePlaced.FUNGUS_PINE_CHECKED, 0.086F),
                             new WeightedPlacedFeature(WilderTreePlaced.DYING_FUNGUS_PINE_CHECKED, 0.02F),
                             new WeightedPlacedFeature(WilderTreePlaced.NEW_SPRUCE_SHORT_CHECKED, 0.13F),
-                            new WeightedPlacedFeature(WilderTreePlaced.NEW_FANCY_OAK_BEES_0004, 0.27F),
-                            new WeightedPlacedFeature(WilderTreePlaced.DYING_FANCY_OAK_BEES_0004, 0.035F),
-                            new WeightedPlacedFeature(WilderTreePlaced.DYING_OAK_CHECKED, 0.02F),
-                            new WeightedPlacedFeature(WilderTreePlaced.DYING_SHORT_BIRCH, 0.015F),
-                            new WeightedPlacedFeature(WilderTreePlaced.SHORT_OAK_CHECKED, 0.12F),
-                            new WeightedPlacedFeature(WilderTreePlaced.SHORT_BIRCH, 0.32F)), WilderTreePlaced.NEW_OAK_CHECKED));
+                            new WeightedPlacedFeature(WilderTreePlaced.NEW_FANCY_OAK_BEES_0004, 0.37F),
+                            new WeightedPlacedFeature(WilderTreePlaced.DYING_FANCY_OAK_BEES_0004, 0.025F),
+                            new WeightedPlacedFeature(WilderTreePlaced.DYING_OAK_CHECKED, 0.01F),
+                            new WeightedPlacedFeature(WilderTreePlaced.DYING_SHORT_BIRCH, 0.01F),
+                            new WeightedPlacedFeature(WilderTreePlaced.SHORT_OAK_CHECKED, 0.13F),
+                            new WeightedPlacedFeature(WilderTreePlaced.SHORT_BIRCH, 0.325F)), WilderTreePlaced.NEW_OAK_CHECKED));
 
     public static final Holder<ConfiguredFeature<RandomFeatureConfiguration, ?>> NEW_DARK_FOREST_VEGETATION =
             register("new_dark_forest_vegetation", Feature.RANDOM_SELECTOR,

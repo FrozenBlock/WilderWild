@@ -21,7 +21,7 @@ public final class WilderSpawns {
 
     public static void addJellyfish() {
         BiomeModifications.addSpawn(BiomeSelectors.tag(WilderBiomeTags.HAS_JELLYFISH),
-                WilderWild.JELLYFISH, RegisterEntities.JELLYFISH, 1, 1, 1);
+                WilderWild.JELLYFISH, RegisterEntities.JELLYFISH, 2, 1, 1);
     }
 
 }

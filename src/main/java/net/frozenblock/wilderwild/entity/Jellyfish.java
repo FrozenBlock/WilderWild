@@ -1,7 +1,5 @@
 package net.frozenblock.wilderwild.entity;
 
-import com.google.common.collect.Maps;
-import com.mojang.math.Vector3f;
 import com.mojang.serialization.Dynamic;
 import net.frozenblock.wilderwild.entity.ai.JellyfishAi;
 import net.frozenblock.wilderwild.misc.server.EasyPacket;
@@ -56,7 +54,6 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.Objects;
 
 public class Jellyfish extends AbstractFish {
@@ -113,13 +110,12 @@ public class Jellyfish extends AbstractFish {
         Holder<Biome> holder = level.getBiome(pos);
 
         if (holder.is(WilderBiomeTags.PEARLESCENT_JELLYFISH)) {
-            if (reason != MobSpawnType.SPAWNER ? random.nextInt(1, 10) == 3 && pos.getY() <= level.getSeaLevel() - 33 && level.getRawBrightness(pos, 0) <= 7 && level.getBlockState(pos).is(Blocks.WATER)
-                    : level.getBlockState(pos).is(Blocks.WATER)) {
+            if (reason == MobSpawnType.SPAWNER || pos.getY() <= level.getSeaLevel() - 33 && level.getRawBrightness(pos, 0) <= 7
+                    && random.nextInt(0, level.getRawBrightness(pos, 0) + 3) >= 1) {
                 return true;
             }
         }
-        return reason != MobSpawnType.SPAWNER ? random.nextInt(1, 10) == 3 && pos.getY() <= level.getSeaLevel() - 3 && pos.getY() >= level.getSeaLevel() - 26 && level.getBlockState(pos).is(Blocks.WATER)
-                : level.getBlockState(pos).is(Blocks.WATER);
+        return reason == MobSpawnType.SPAWNER || random.nextInt(1, 10) == 3 && pos.getY() <= level.getSeaLevel() - 3 && pos.getY() >= level.getSeaLevel() - 26;
     }
 
     @Override

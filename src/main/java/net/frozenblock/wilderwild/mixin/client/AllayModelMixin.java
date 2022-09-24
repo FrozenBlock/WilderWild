@@ -1,6 +1,5 @@
 package net.frozenblock.wilderwild.mixin.client;
 
-import com.mojang.blaze3d.vertex.PoseStack;
 import net.frozenblock.wilderwild.entity.render.animations.CustomAllayAnimations;
 import net.frozenblock.wilderwild.entity.render.animations.WilderAllay;
 import net.minecraft.client.model.AllayModel;
@@ -8,7 +7,6 @@ import net.minecraft.client.model.ArmedModel;
 import net.minecraft.client.model.HierarchicalModel;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.util.Mth;
-import net.minecraft.world.entity.HumanoidArm;
 import net.minecraft.world.entity.animal.allay.Allay;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
