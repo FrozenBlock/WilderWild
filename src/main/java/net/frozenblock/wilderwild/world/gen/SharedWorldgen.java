@@ -109,7 +109,7 @@ public final class SharedWorldgen {
                                             SurfaceRules.yStartCheck(VerticalAnchor.absolute(58), 0),
                                             SurfaceRules.ifTrue(
                                                     SurfaceRules.not(SurfaceRules.yStartCheck(VerticalAnchor.absolute(65), 0)),
-                                                    SurfaceRules.ifTrue(SurfaceRules.noiseCondition(WilderNoise.SAND_BEACH, 0.12, 1.7976931348623157E308), GRAVEL)
+                                                    SurfaceRules.ifTrue(SurfaceRules.noiseCondition(WilderNoise.SAND_BEACH_KEY, 0.12, 1.7976931348623157E308), GRAVEL)
                                             )
                                     )
                             )
@@ -122,7 +122,7 @@ public final class SharedWorldgen {
                                             SurfaceRules.yStartCheck(VerticalAnchor.absolute(58), 0),
                                             SurfaceRules.ifTrue(
                                                     SurfaceRules.not(SurfaceRules.yStartCheck(VerticalAnchor.absolute(65), 0)),
-                                                    SurfaceRules.ifTrue(SurfaceRules.noiseCondition(WilderNoise.SAND_BEACH, 0.12, 1.7976931348623157E308), SAND)
+                                                    SurfaceRules.ifTrue(SurfaceRules.noiseCondition(WilderNoise.SAND_BEACH_KEY, 0.12, 1.7976931348623157E308), SAND)
                                             )
                                     )
                             )
@@ -135,7 +135,7 @@ public final class SharedWorldgen {
                                             SurfaceRules.yStartCheck(VerticalAnchor.absolute(58), 0),
                                             SurfaceRules.ifTrue(
                                                     SurfaceRules.not(SurfaceRules.yStartCheck(VerticalAnchor.absolute(64), 0)),
-                                                    SurfaceRules.ifTrue(SurfaceRules.noiseCondition(WilderNoise.SAND_BEACH, 0.12, 1.7976931348623157E308), SAND)
+                                                    SurfaceRules.ifTrue(SurfaceRules.noiseCondition(WilderNoise.SAND_BEACH_KEY, 0.12, 1.7976931348623157E308), SAND)
                                             )
                                     )
                             )
