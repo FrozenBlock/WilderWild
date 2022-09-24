@@ -36,25 +36,22 @@ import java.util.function.Predicate;
 public class PointedDripstoneBlockMixin {
 
     //TODO: WORK
-    /*
     private static BlockPos savedBlockPos;
 
-    @Inject(at = @At(value = "INVOKE_ASSIGN", target = "Lnet/minecraft/world/level/Level;getBlockState(Lnet/minecraft/core/BlockPos;)Lnet/minecraft/world/level/block/state/BlockState;"),
-            method = "getFluidAboveStalactite", locals = LocalCapture.CAPTURE_FAILHARD, cancellable = true)
-    private static void getFluidAboveStalactite(Level level, BlockPos pos, BlockState state, CallbackInfoReturnable<Optional<PointedDripstoneBlock.FluidInfo>> info, BlockState blockState) {
+    @Inject(method = "m_ulptarvl(Lnet/minecraft/world/level/Level;Lnet/minecraft/core/BlockPos;)Lnet/minecraft/world/level/block/PointedDripstoneBlock$FluidInfo;", at = @At("RETURN"), locals = LocalCapture.CAPTURE_FAILHARD, cancellable = true)
+    private static void getFluidAboveStalactite(Level level, BlockPos pos, CallbackInfoReturnable<PointedDripstoneBlock.FluidInfo> cir, BlockPos blockPos, BlockState blockState) {
         if (blockState.is(Blocks.WET_SPONGE) && !level.dimensionType().ultraWarm() && savedBlockPos != null) {
-            info.setReturnValue(Optional.of(new PointedDripstoneBlock.FluidInfo(savedBlockPos, Fluids.WATER, blockState)));
-            info.cancel();
+            //cir.setReturnValue(new PointedDripstoneBlock.FluidInfo(savedBlockPos, Fluids.WATER, blockState));
             savedBlockPos = null;
         }
     }
 
-    @Inject(at = @At(value = "INVOKE_ASSIGN", target = "Lnet/minecraft/core/BlockPos;above()Lnet/minecraft/core/BlockPos;"),
-            method = "getFluidAboveStalactite", locals = LocalCapture.CAPTURE_FAILHARD, cancellable = true)
-    private static void getFluidAboveStalactite(Level level, BlockPos pos, BlockState state, CallbackInfoReturnable<Optional<PointedDripstoneBlock.FluidInfo>> info, BlockPos blockPos) {
+    /*@Inject(at = @At(value = "INVOKE", target = "Lnet/minecraft/core/BlockPos;above()Lnet/minecraft/core/BlockPos;"),
+            method = "m_ulptarvl(Lnet/minecraft/world/level/Level;Lnet/minecraft/core/BlockPos;)Lnet/minecraft/world/level/block/PointedDripstoneBlock$FluidInfo;", locals = LocalCapture.CAPTURE_FAILHARD)
+    private static void getFluidAboveStalactite1(Level level, BlockPos pos, CallbackInfoReturnable<PointedDripstoneBlock.FluidInfo> cir, BlockPos blockPos) {
         savedBlockPos = blockPos;
-    }
-     */
+    }*/
+
 
     @Inject(method = "maybeTransferFluid", at = @At("HEAD"), cancellable = true)
     private static void maybeTransferFluid(BlockState state, ServerLevel level, BlockPos pos, float randChance, CallbackInfo info) {
