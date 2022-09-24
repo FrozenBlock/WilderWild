@@ -41,7 +41,7 @@ public class PointedDripstoneBlockMixin {
     @Inject(method = "m_ulptarvl(Lnet/minecraft/world/level/Level;Lnet/minecraft/core/BlockPos;)Lnet/minecraft/world/level/block/PointedDripstoneBlock$FluidInfo;", at = @At(value = "INVOKE_ASSIGN", target = "Lnet/minecraft/world/level/Level;getBlockState(Lnet/minecraft/core/BlockPos;)Lnet/minecraft/world/level/block/state/BlockState;"), locals = LocalCapture.CAPTURE_FAILHARD, cancellable = true)
     private static void getFluidAboveStalactite(Level level, BlockPos pos, CallbackInfoReturnable<PointedDripstoneBlock.FluidInfo> cir, BlockPos blockPos, BlockState blockState) {
         if (blockState.is(Blocks.WET_SPONGE) && !level.dimensionType().ultraWarm() && savedBlockPos != null) {
-            //cir.setReturnValue(new PointedDripstoneBlock.FluidInfo(savedBlockPos, Fluids.WATER, blockState));
+            cir.setReturnValue(new PointedDripstoneBlock.FluidInfo(savedBlockPos, Fluids.WATER, blockState));
             savedBlockPos = null;
         }
     }
