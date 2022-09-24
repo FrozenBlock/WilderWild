@@ -15,6 +15,7 @@
 	"server.BoatTypeMixin",
 	"server.BoneMealItemMixin",
 	"server.ChestBoatDropsMixin",
+	"server.EnderManMixin",
 	"server.ExperienceOrbEntityMixin",
 	"server.FrogEntityMixin",
 	"server.GoatEntityMixin",
