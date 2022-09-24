@@ -52,52 +52,18 @@ public class PointedDripstoneBlockMixin {
     }
 
 
-    @Inject(method = "maybeTransferFluid", at = @At("HEAD"), cancellable = true)
-    private static void maybeTransferFluid(BlockState state, ServerLevel level, BlockPos pos, float randChance, CallbackInfo info) {
-        /*
-        if (!(randChance > 0.17578125F) || !(randChance > 0.05859375F)) {
-            if (isStalactiteStartPos(state, level, pos)) {
-                Optional<PointedDripstoneBlock.FluidInfo> optional = getFluidAboveStalactite(level, pos, state);
-                if (!optional.isEmpty()) {
-                    Fluid fluid = ((PointedDripstoneBlock.FluidInfo)optional.get()).fluid;
-                    float f;
-                    if (fluid == Fluids.WATER) {
-                        f = 0.17578125F;
-                    } else {
-                        if (fluid != Fluids.LAVA) {
-                            return;
-                        }
-
-                        f = 0.05859375F;
-                    }
-
-                    if (!(randChance >= f)) {
-                        BlockPos blockPos = findTip(state, level, pos, 11, false);
-                        if (blockPos != null) {
-                        //TODO: Also add a check here for wet sponges.
-
-                            if (((PointedDripstoneBlock.FluidInfo)optional.get()).sourceState.is(Blocks.MUD) && fluid == Fluids.WATER) {
-                                BlockState blockState = Blocks.CLAY.defaultBlockState();
-                                level.setBlockAndUpdate(((PointedDripstoneBlock.FluidInfo)optional.get()).pos, blockState);
-                                Block.pushEntitiesUp(((PointedDripstoneBlock.FluidInfo)optional.get()).sourceState, blockState, level, ((PointedDripstoneBlock.FluidInfo)optional.get()).pos);
-                                level.gameEvent(GameEvent.BLOCK_CHANGE, ((PointedDripstoneBlock.FluidInfo)optional.get()).pos, GameEvent.Context.of(blockState));
-                                level.levelEvent(1504, blockPos, 0);
-                            } else {
-                                BlockPos blockPos2 = findFillableCauldronBelowStalactiteTip(level, blockPos, fluid);
-                                if (blockPos2 != null) {
-                                    level.levelEvent(1504, blockPos, 0);
-                                    int i = blockPos.getY() - blockPos2.getY();
-                                    int j = 50 + i;
-                                    BlockState blockState2 = level.getBlockState(blockPos2);
-                                    level.scheduleTick(blockPos2, blockState2.getBlock(), j);
-                                }
-                            }
-                        }
-                    }
-                }
-            }
+    @Inject(method = "maybeTransferFluid", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/block/state/BlockState;is(Lnet/minecraft/world/level/block/Block;)Z", shift = At.Shift.BEFORE), locals = LocalCapture.CAPTURE_FAILHARD, cancellable = true)
+    private static void maybeTransferFluid(BlockState state, ServerLevel level, BlockPos pos, float randChance, CallbackInfo ci, Optional<PointedDripstoneBlock.FluidInfo> optional, Fluid fluid, float f, BlockPos blockPos) {
+        if (optional.get().sourceState().is(Blocks.WET_SPONGE) && fluid == Fluids.WATER) {
+            BlockState blockState = Blocks.SPONGE.defaultBlockState();
+            level.setBlockAndUpdate(optional.get().pos(), blockState);
+            Block.pushEntitiesUp(
+                    optional.get().sourceState(), blockState, level, optional.get().pos()
+            );
+            level.gameEvent(GameEvent.BLOCK_CHANGE, optional.get().pos(), GameEvent.Context.of(blockState));
+            level.levelEvent(1504, blockPos, 0);
+            ci.cancel();
         }
-        */
     }
 
     @Shadow
