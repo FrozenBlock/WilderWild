@@ -30,18 +30,18 @@ public class JellyfishRenderer extends MobRenderer<Jellyfish, JellyfishModel<Jel
     }
 
     @Override
-    public void setupRotations(@NotNull Jellyfish jelly, PoseStack poseStack, float f, float g, float h) {
-        poseStack.mulPose(Vector3f.YP.rotationDegrees(180.0f - g));
+    public void setupRotations(@NotNull Jellyfish jelly, PoseStack poseStack, float ageInTicks, float rotationYaw, float partialTicks) {
+        poseStack.mulPose(Vector3f.YP.rotationDegrees(180.0f - rotationYaw));
         poseStack.translate(0, -1, 0);
         poseStack.scale(0.8F, 0.8F, 0.8F);
         JellyfishModel<Jellyfish> model = this.getModel();
         if (jelly.hasCustomName() && "I_am_Merp".equals(jelly.getName().getString())) {
 
-            float t = f / 20F;
+            float time = ageInTicks / 20F;
 
-            model.red = Mth.clamp(Math.abs((t % 6) - 3) - 1,0,1);
-            model.green = Mth.clamp(Math.abs(((t - 2) % 6) - 3) - 1,0,1);
-            model.blue = Mth.clamp(Math.abs(((t - 4) % 6) - 3) - 1,0,1);
+            model.red = Mth.clamp(Math.abs((time % 6) - 3) - 1,0,1);
+            model.green = Mth.clamp(Math.abs(((time - 2) % 6) - 3) - 1,0,1);
+            model.blue = Mth.clamp(Math.abs(((time - 4) % 6) - 3) - 1,0,1);
 
         } else {
             model.red = 1;
