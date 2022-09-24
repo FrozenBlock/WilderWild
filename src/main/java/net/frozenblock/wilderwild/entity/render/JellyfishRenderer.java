@@ -36,12 +36,11 @@ public class JellyfishRenderer extends MobRenderer<Jellyfish, JellyfishModel<Jel
         poseStack.scale(0.8F, 0.8F, 0.8F);
         JellyfishModel<Jellyfish> model = this.getModel();
         if (jelly.hasCustomName() && "I_am_Merp".equals(jelly.getName().getString())) {
-            float time = f / 20F;
-            float twoThirdsPI = (2F / 3F) * Mth.PI;
+            float t = f / 20F;
 
-            model.red = Math.max(Mth.cos(time), 0);
-            model.green = Math.max(Mth.cos(time - twoThirdsPI), 0);
-            model.blue = Math.max(Mth.cos(time - (twoThirdsPI * 2F)), 0);
+            model.red = Mth.clamp(Math.abs((t % 6) - 3) - 1,0,1);
+            model.green = Mth.clamp(Math.abs(((t - 2) % 6) - 3) - 1,0,1);
+            model.blue = Mth.clamp(Math.abs(((t - 4) % 6) - 3) - 1,0,1);
 
         } else {
             model.red = 1;
