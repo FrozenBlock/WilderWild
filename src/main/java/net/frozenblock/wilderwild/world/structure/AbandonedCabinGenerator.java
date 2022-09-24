@@ -13,6 +13,9 @@ import net.minecraft.world.level.levelgen.structure.templatesystem.StructureProc
 
 import java.util.function.Function;
 
+/**
+ * Contains the StructureTemplatePool for Abandoned Cabins
+ */
 public class AbandonedCabinGenerator {
 
     public static final Holder<StructureTemplatePool> CABIN = Pools.register(
@@ -28,10 +31,19 @@ public class AbandonedCabinGenerator {
             )
     );
 
+    /**
+     *
+     * @param id The id for the {@link SinglePoolElement}'s {@link ResourceLocation}
+     * @param processorListEntry The processor list for the {@link SinglePoolElement}
+     * @return A {@link SinglePoolElement} of the parameters given.
+     */
     public static Function<StructureTemplatePool.Projection, SinglePoolElement> ofProcessedSingle(String id, Holder<StructureProcessorList> processorListEntry) {
         return projection -> new SinglePoolElement(Either.left(WilderWild.id(id)), processorListEntry, projection);
     }
 
+    /**
+     * Initializes this class to register the {@link StructureTemplatePool}s
+     */
     public static void init() {
     }
 }
