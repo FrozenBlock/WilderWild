@@ -6,6 +6,8 @@
   "mixins": [
 	"server.AbstractArrowMixin",
 	"server.AllayMixin",
+	"server.BigDripleafBlockMixin",
+	"server.BigDripleafStemBlockMixin",
 	"server.BlockEntityTypeMixin",
 	"server.BlockMixin",
 	"server.BlocksMixin",
@@ -43,6 +45,7 @@
 	"worldgen.MangroveTreeGrowerMixin",
 	"worldgen.OakTreeGrowerMixin",
 	"worldgen.OverworldBiomeBuilderMixin",
+	"worldgen.OverworldBiomesMixin",
 	"worldgen.SpruceTreeGrowerMixin",
 	"worldgen.StructuresMixin",
 	"worldgen.SwampHutMixin",

@@ -79,6 +79,11 @@ public final class WilderWild implements ModInitializer {
     public void onInitialize() {
         startMeasuring(this);
         var dataFixer = applyDataFixes(FabricLoader.getInstance().getModContainer(MOD_ID).orElseThrow());
+        hasCloth = FabricLoader.getInstance().isModLoaded("cloth-config");
+        hasPipes = FabricLoader.getInstance().isModLoaded("copper_pipe");
+        hasSodium = FabricLoader.getInstance().isModLoaded("sodium");
+        hasTerraBlender = FabricLoader.getInstance().getModContainer("terrablender").isPresent();
+        hasTerralith = FabricLoader.getInstance().isModLoaded("terralith");
 
         RegisterBlocks.registerBlocks();
         RegisterItems.registerItems();
@@ -120,12 +125,6 @@ public final class WilderWild implements ModInitializer {
         TermiteMoundBlockEntity.Termite.addNaturalDegradableBlocks();
 
         FrozenLibIntegration.init();
-
-        hasCloth = FabricLoader.getInstance().getModContainer("cloth-config").isPresent();
-        hasPipes = FabricLoader.getInstance().getModContainer("copper_pipe").isPresent();
-        hasSodium = FabricLoader.getInstance().getModContainer("sodium").isPresent();
-        hasTerraBlender = FabricLoader.getInstance().getModContainer("terrablender").isPresent();
-        hasTerralith = FabricLoader.getInstance().getModContainer("terralith").isPresent();
 
         if (hasTerralith) {
             terralith();
