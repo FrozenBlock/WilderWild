@@ -38,7 +38,7 @@ public class PointedDripstoneBlockMixin {
     //TODO: WORK
     private static BlockPos savedBlockPos;
 
-    @Inject(method = "m_ulptarvl(Lnet/minecraft/world/level/Level;Lnet/minecraft/core/BlockPos;)Lnet/minecraft/world/level/block/PointedDripstoneBlock$FluidInfo;", at = @At("RETURN"), locals = LocalCapture.CAPTURE_FAILHARD, cancellable = true)
+    @Inject(method = "m_ulptarvl(Lnet/minecraft/world/level/Level;Lnet/minecraft/core/BlockPos;)Lnet/minecraft/world/level/block/PointedDripstoneBlock$FluidInfo;", at = @At(value = "INVOKE_ASSIGN", target = "Lnet/minecraft/world/level/Level;getBlockState(Lnet/minecraft/core/BlockPos;)Lnet/minecraft/world/level/block/state/BlockState;"), locals = LocalCapture.CAPTURE_FAILHARD, cancellable = true)
     private static void getFluidAboveStalactite(Level level, BlockPos pos, CallbackInfoReturnable<PointedDripstoneBlock.FluidInfo> cir, BlockPos blockPos, BlockState blockState) {
         if (blockState.is(Blocks.WET_SPONGE) && !level.dimensionType().ultraWarm() && savedBlockPos != null) {
             //cir.setReturnValue(new PointedDripstoneBlock.FluidInfo(savedBlockPos, Fluids.WATER, blockState));
@@ -46,11 +46,10 @@ public class PointedDripstoneBlockMixin {
         }
     }
 
-    /*@Inject(at = @At(value = "INVOKE", target = "Lnet/minecraft/core/BlockPos;above()Lnet/minecraft/core/BlockPos;"),
-            method = "m_ulptarvl(Lnet/minecraft/world/level/Level;Lnet/minecraft/core/BlockPos;)Lnet/minecraft/world/level/block/PointedDripstoneBlock$FluidInfo;", locals = LocalCapture.CAPTURE_FAILHARD)
+    @Inject(method = "m_ulptarvl(Lnet/minecraft/world/level/Level;Lnet/minecraft/core/BlockPos;)Lnet/minecraft/world/level/block/PointedDripstoneBlock$FluidInfo;", at = @At(value = "INVOKE_ASSIGN", target = "Lnet/minecraft/core/BlockPos;above()Lnet/minecraft/core/BlockPos;"), locals = LocalCapture.CAPTURE_FAILHARD)
     private static void getFluidAboveStalactite1(Level level, BlockPos pos, CallbackInfoReturnable<PointedDripstoneBlock.FluidInfo> cir, BlockPos blockPos) {
         savedBlockPos = blockPos;
-    }*/
+    }
 
 
     @Inject(method = "maybeTransferFluid", at = @At("HEAD"), cancellable = true)
