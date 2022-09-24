@@ -3,6 +3,7 @@ package net.frozenblock.wilderwild.mixin.server;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.BigDripleafBlock;
 import net.minecraft.world.level.block.Block;
@@ -33,6 +34,16 @@ public abstract class BigDripleafBlockMixin {
             BlockState downState = level.getBlockState(pos.below());
             if (downState.is(Blocks.BIG_DRIPLEAF_STEM) && downState.getValue(BlockStateProperties.POWERED)) {
                 resetTilt(state, level, pos);
+                info.cancel();
+            }
+        }
+    }
+
+    @Inject(method = "entityInside", at = @At("HEAD"), cancellable = true)
+    public void entityInside(BlockState state, Level level, BlockPos pos, Entity entity, CallbackInfo info) {
+        if (!level.isClientSide) {
+            BlockState downState = level.getBlockState(pos.below());
+            if (downState.is(Blocks.BIG_DRIPLEAF_STEM) && downState.getValue(BlockStateProperties.POWERED)) {
                 info.cancel();
             }
         }
