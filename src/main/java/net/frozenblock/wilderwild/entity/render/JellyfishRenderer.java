@@ -36,6 +36,7 @@ public class JellyfishRenderer extends MobRenderer<Jellyfish, JellyfishModel<Jel
         poseStack.scale(0.8F, 0.8F, 0.8F);
         JellyfishModel<Jellyfish> model = this.getModel();
         if (jelly.hasCustomName() && "I_am_Merp".equals(jelly.getName().getString())) {
+
             float t = f / 20F;
 
             model.red = Mth.clamp(Math.abs((t % 6) - 3) - 1,0,1);
