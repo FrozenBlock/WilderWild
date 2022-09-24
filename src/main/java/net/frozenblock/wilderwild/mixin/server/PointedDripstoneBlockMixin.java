@@ -26,6 +26,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
+import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 
 import java.util.Optional;
 import java.util.function.BiPredicate;
@@ -34,24 +35,26 @@ import java.util.function.Predicate;
 @Mixin(PointedDripstoneBlock.class)
 public class PointedDripstoneBlockMixin {
 
-    @Inject(method = "getFluidAboveStalactite", at = @At("HEAD"), cancellable = true)
-    private static void getFluidAboveStalactite(Level level, BlockPos pos, BlockState state, CallbackInfoReturnable<Optional<PointedDripstoneBlock.FluidInfo>> info) {
-        /*
-        return !isStalactite(state) ? Optional.empty() : findRootBlock(level, pos, state, 11).map((posx) -> {
-            BlockPos blockPos = posx.above();
-            BlockState blockState = level.getBlockState(blockPos);
-            Object fluid;
-            //TODO: Inject at this spot and add a check for wet sponges.
-            if (blockState.is(Blocks.MUD) && !level.dimensionType().ultraWarm()) {
-                fluid = Fluids.WATER;
-            } else {
-                fluid = level.getFluidState(blockPos).getType();
-            }
+    //TODO: WORK
+    /*
+    private static BlockPos savedBlockPos;
 
-            return new PointedDripstoneBlock.FluidInfo(blockPos, (Fluid)fluid, blockState);
-        });
-        */
+    @Inject(at = @At(value = "INVOKE_ASSIGN", target = "Lnet/minecraft/world/level/Level;getBlockState(Lnet/minecraft/core/BlockPos;)Lnet/minecraft/world/level/block/state/BlockState;"),
+            method = "getFluidAboveStalactite", locals = LocalCapture.CAPTURE_FAILHARD, cancellable = true)
+    private static void getFluidAboveStalactite(Level level, BlockPos pos, BlockState state, CallbackInfoReturnable<Optional<PointedDripstoneBlock.FluidInfo>> info, BlockState blockState) {
+        if (blockState.is(Blocks.WET_SPONGE) && !level.dimensionType().ultraWarm() && savedBlockPos != null) {
+            info.setReturnValue(Optional.of(new PointedDripstoneBlock.FluidInfo(savedBlockPos, Fluids.WATER, blockState)));
+            info.cancel();
+            savedBlockPos = null;
+        }
     }
+
+    @Inject(at = @At(value = "INVOKE_ASSIGN", target = "Lnet/minecraft/core/BlockPos;above()Lnet/minecraft/core/BlockPos;"),
+            method = "getFluidAboveStalactite", locals = LocalCapture.CAPTURE_FAILHARD, cancellable = true)
+    private static void getFluidAboveStalactite(Level level, BlockPos pos, BlockState state, CallbackInfoReturnable<Optional<PointedDripstoneBlock.FluidInfo>> info, BlockPos blockPos) {
+        savedBlockPos = blockPos;
+    }
+     */
 
     @Inject(method = "maybeTransferFluid", at = @At("HEAD"), cancellable = true)
     private static void maybeTransferFluid(BlockState state, ServerLevel level, BlockPos pos, float randChance, CallbackInfo info) {
