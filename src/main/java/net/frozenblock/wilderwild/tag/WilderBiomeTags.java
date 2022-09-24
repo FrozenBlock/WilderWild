@@ -12,6 +12,7 @@ public final class WilderBiomeTags {
     public static final TagKey<Biome> ABANDONED_CABIN_HAS_STRUCTURE = bind("has_structure/abandoned_cabin");
     public static final TagKey<Biome> HAS_JELLYFISH = bind("has_jellyfish");
     public static final TagKey<Biome> PEARLESCENT_JELLYFISH = bind("pearlescent_jellyfish");
+    public static final TagKey<Biome> NO_POOLS = bind("no_pools");
 
     private WilderBiomeTags() {
     }
