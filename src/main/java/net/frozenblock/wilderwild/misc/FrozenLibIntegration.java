@@ -43,13 +43,13 @@ public class FrozenLibIntegration {
         HopperUntouchableList.blackListedTypes.add(RegisterBlockEntities.STONE_CHEST);
         //StructurePoolElementIdReplacements.resourceLocationReplacements.put(new ResourceLocation("ancient_city/city_center/city_center_1"), WilderWild.id("ancient_city/city_center/city_center_1"));
         //StructurePoolElementIdReplacements.resourceLocationReplacements.put(new ResourceLocation("ancient_city/city_center/city_center_2"), WilderWild.id("ancient_city/city_center/city_center_2"));
-        /*DripstoneDripWaterFrom.map.put(Blocks.WET_SPONGE, (level, fluidInfo, blockPos) -> {
+        DripstoneDripWaterFrom.map.put(Blocks.WET_SPONGE, (level, fluidInfo, blockPos) -> {
                 BlockState blockState = Blocks.SPONGE.defaultBlockState();
         level.setBlockAndUpdate(fluidInfo.pos(), blockState);
         Block.pushEntitiesUp(fluidInfo.sourceState(), blockState, level, fluidInfo.pos());
         level.gameEvent(GameEvent.BLOCK_CHANGE, fluidInfo.pos(), GameEvent.Context.of(blockState));
         level.levelEvent(1504, blockPos, 0);
-        });*/
+        });
 
         StructurePoolElementIdReplacements.resourceLocationReplacements.put(new ResourceLocation("ancient_city/structures/barracks"), WilderWild.id("ancient_city/structures/barracks"));
         StructurePoolElementIdReplacements.resourceLocationReplacements.put(new ResourceLocation("ancient_city/structures/chamber_1"), WilderWild.id("ancient_city/structures/chamber_1"));
