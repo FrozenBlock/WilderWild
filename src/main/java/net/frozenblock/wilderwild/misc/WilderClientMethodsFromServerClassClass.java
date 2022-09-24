@@ -12,7 +12,7 @@ public class WilderClientMethodsFromServerClassClass {
     public static void playClientEnderManSound(EnderMan enderMan) {
         Minecraft client = Minecraft.getInstance();
         if (client.level != null && enderMan.isAlive()) {
-            client.getSoundManager().play(new MovingSoundWithRestriction(enderMan, SoundEvents.ENDERMAN_STARE, SoundSource.HOSTILE, 2f, 1f, FrozenSoundPredicates.NOT_SILENT_AND_ALIVE));
+            client.getSoundManager().play(new MovingSoundWithRestriction(enderMan, SoundEvents.ENDERMAN_STARE, SoundSource.HOSTILE, 2.5f, 1f, FrozenSoundPredicates.NOT_SILENT_AND_ALIVE));
         }
     }
 
