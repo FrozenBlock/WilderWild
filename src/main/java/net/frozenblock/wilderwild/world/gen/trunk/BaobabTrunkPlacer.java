@@ -42,7 +42,7 @@ public class BaobabTrunkPlacer extends TrunkPlacer {
      * 2- Add Roots (External Vertical Parts)
      * - Step 1: Choose how many of them should be generated (Make a list and then remove random members)
      * - Step 2: Generate them
-     * 3- Add Branches (& Foliage)
+     * 3- Add Branches and Foliage
      * Easy, I guess ._.
      **/
 
