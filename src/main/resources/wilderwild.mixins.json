@@ -22,6 +22,7 @@
 	"server.ItemStackMixin",
 	"server.MobMixin",
 	"server.PlayerMixin",
+	"server.PointedDripstoneBlockMixin",
 	"server.SculkBlockMixin",
 	"server.SculkSensorBlockEntityMixin",
 	"server.SculkSensorBlockMixin",
