@@ -6,6 +6,8 @@
   "mixins": [
 	"server.AbstractArrowMixin",
 	"server.AllayMixin",
+	"server.BigDripleafBlockMixin",
+	"server.BigDripleafStemBlockMixin",
 	"server.BlockEntityTypeMixin",
 	"server.BlockMixin",
 	"server.BlocksMixin",
