@@ -13,6 +13,7 @@ import net.minecraft.client.renderer.entity.EntityRendererProvider.Context;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.Mth;
 import net.minecraft.world.entity.animal.Sheep;
 import net.minecraft.world.item.DyeColor;
 import org.jetbrains.annotations.NotNull;
@@ -34,16 +35,13 @@ public class JellyfishRenderer extends MobRenderer<Jellyfish, JellyfishModel<Jel
         poseStack.scale(0.8F, 0.8F, 0.8F);
         JellyfishModel<Jellyfish> model = this.getModel();
         if (jelly.hasCustomName() && "I_am_Merp".equals(jelly.getName().getString())) {
-            int j = jelly.tickCount / 25 + jelly.getId();
-            int k = DyeColor.values().length;
-            int l = j % k;
-            int m = (j + 1) % k;
-            float f1 = ((float)(jelly.tickCount % 25) + h) / 25.0F;
-            float[] fs = Sheep.getColorArray(DyeColor.byId(l));
-            float[] gs = Sheep.getColorArray(DyeColor.byId(m));
-            model.red = fs[0] * (1.0F - f1) + gs[0] * f1;
-            model.green = fs[1] * (1.0F - f1) + gs[1] * f1;
-            model.blue = fs[2] * (1.0F - f1) + gs[2] * f1;
+            float time = f / 20F;
+            float twoThirdsPI = (2F / 3F) * Mth.PI;
+
+            model.red = Math.max(Mth.cos(time), 0);
+            model.green = Math.max(Mth.cos(time - twoThirdsPI), 0);
+            model.blue = Math.max(Mth.cos(time - (twoThirdsPI * 2F)), 0);
+
         } else {
             model.red = 1;
             model.green = 1;
