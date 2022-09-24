@@ -27,9 +27,8 @@ public class WilderOverworldRegion extends Region {
     public void addBiomes(Registry<Biome> registry, Consumer<Pair<Climate.ParameterPoint, ResourceKey<Biome>>> mapper) {
         this.addModifiedVanillaOverworldBiomes(mapper, builder -> {
 
-            // how do you get the exact parameters of these?
-            builder.replaceBiome(Biomes.FOREST, RegisterWorldgen.MIXED_FOREST);
-            builder.replaceBiome(Biomes.DARK_FOREST, RegisterWorldgen.MIXED_FOREST);
+            // This will not grant the exact parameters as defined in SharedWorldgen. Instead, it will replace a part of dark forests with mixed forests.
+            builder.replaceBiome(Biomes.OLD_GROWTH_BIRCH_FOREST, RegisterWorldgen.MIXED_FOREST);
 
 
             // DON'T CHANGE THESE PARAMETERS. THESE ARE THE PARAMETERS OF SWAMPS
