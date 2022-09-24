@@ -54,7 +54,7 @@ public class PointedDripstoneBlockMixin {
     }
 
     @Inject(method = "maybeTransferFluid", at = @At("HEAD"), cancellable = true)
-    private static void maybeTransferFluid(BlockState state, ServerLevel level, BlockPos pos, float randChance, CallbackInfo) {
+    private static void maybeTransferFluid(BlockState state, ServerLevel level, BlockPos pos, float randChance, CallbackInfo info) {
         /*
         if (!(randChance > 0.17578125F) || !(randChance > 0.05859375F)) {
             if (isStalactiteStartPos(state, level, pos)) {
