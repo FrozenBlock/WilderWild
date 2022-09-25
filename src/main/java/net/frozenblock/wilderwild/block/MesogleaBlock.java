@@ -9,6 +9,7 @@ import net.minecraft.tags.FluidTags;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.item.ItemEntity;
+import net.minecraft.world.entity.vehicle.Boat;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
@@ -45,6 +46,14 @@ public class MesogleaBlock extends Block implements SimpleWaterloggedBlock {
             } //else if (!entity.getType().is(WilderEntityTags.CAN_SWIM_IN_MESOGLEA)) {
             //entity.setDeltaMovement(entity.getDeltaMovement().multiply(0.9, 0.9, 0.9));
             //}
+            if (entity instanceof Boat boat) {
+                Vec3 deltaMove = boat.getDeltaMovement();
+                if (boat.isUnderWater()) {
+                    boat.setDeltaMovement(deltaMove.x, 0.05, deltaMove.z);
+                } else {
+                    boat.setDeltaMovement(deltaMove.x, 0, deltaMove.z);
+                }
+            }
         }
     }
 
