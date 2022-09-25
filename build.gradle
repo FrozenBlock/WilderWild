@@ -28,15 +28,12 @@ loom {
 configurations {
 	includeModImplementation
 	includeImplementation
-	includeModApi
 
 	include.extendsFrom includeImplementation
 	include.extendsFrom includeModImplementation
-	include.extendsFrom includeModApi
 
 	implementation.extendsFrom includeImplementation
 	modImplementation.extendsFrom includeModImplementation
-	modApi.extendsFrom includeModApi
 }
 
 repositories {
@@ -121,13 +118,16 @@ dependencies {
 	// FrozenLib
 	println "Using local FrozenLib: ${local_frozenlib}"
 	if (local_frozenlib) {
-		includeImplementation(project(path: ":FrozenLib", configuration: 'dev'))
+		implementation(project(path: ":FrozenLib", configuration: 'dev'))
+		include(project(path: ":FrozenLib", configuration: 'dev'))
 	} else {
-		includeModImplementation "maven.modrinth:frozenlib:${frozenlib_version}"
+		modImplementation "maven.modrinth:frozenlib:${frozenlib_version}"
+		include "maven.modrinth:frozenlib:${frozenlib_version}"
 	}
 
 	// Fabric-ASM
-	includeModImplementation "com.github.Chocohead:Fabric-ASM:${fabric_asm_version}"
+	modImplementation "com.github.Chocohead:Fabric-ASM:${fabric_asm_version}"
+	include "com.github.Chocohead:Fabric-ASM:${fabric_asm_version}"
 
 	// Lunade
 	modImplementation "maven.modrinth:simple-copper-pipes:${copperpipes_version}"
@@ -143,7 +143,8 @@ dependencies {
 	}
 
 	// NBT Crafting
-	includeModImplementation "maven.modrinth:nbt-crafting:${nbtcrafting_version}"
+	modImplementation "maven.modrinth:nbt-crafting:${nbtcrafting_version}"
+	include "maven.modrinth:nbt-crafting:${nbtcrafting_version}"
 
 	// TerraBlender
 	modImplementation "com.github.glitchfiend:TerraBlender-fabric:${minecraft_version}-${terrablender_version}"

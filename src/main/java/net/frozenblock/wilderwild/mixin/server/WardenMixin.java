@@ -47,7 +47,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(value = Warden.class, priority = 69420)
-public class WardenEntityMixin extends Monster implements WilderWarden {
+public class WardenMixin extends Monster implements WilderWarden {
 
 
     @Override
@@ -87,7 +87,7 @@ public class WardenEntityMixin extends Monster implements WilderWarden {
         return false;
     }
 
-    protected WardenEntityMixin(EntityType<? extends Monster> entityType, Level level) {
+    protected WardenMixin(EntityType<? extends Monster> entityType, Level level) {
         super(entityType, level);
     }
 

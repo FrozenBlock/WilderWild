@@ -12,7 +12,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(value = BiomeDefaultFeatures.class, priority = 69420)
-public class DefaultBiomeFeaturesMixin {
+public class BiomeDefaultFeaturesMixin {
 
     @Inject(method = "addForestGrass", at = @At("HEAD"), cancellable = true)
     private static void addForestGrass(BiomeGenerationSettings.Builder builder, CallbackInfo info) {

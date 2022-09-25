@@ -25,7 +25,7 @@ import java.util.List;
 
 @Environment(EnvType.CLIENT)
 @Mixin(WardenModel.class)
-public abstract class WardenEntityModelMixin<T extends Warden> implements WilderWardenModel {
+public abstract class WardenModelMixin<T extends Warden> implements WilderWardenModel {
 
     @Final
     @Shadow

@@ -4,12 +4,13 @@ import net.frozenblock.lib.replacements_and_lists.BlockScheduledTicks;
 import net.frozenblock.lib.replacements_and_lists.DripstoneDripWaterFrom;
 import net.frozenblock.lib.replacements_and_lists.HopperUntouchableList;
 import net.frozenblock.lib.replacements_and_lists.StructurePoolElementIdReplacements;
-import net.frozenblock.lib.sound.RegisterMovingSoundRestrictions;
+import net.frozenblock.lib.sound.FrozenSoundPredicates;
 import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.entity.Firefly;
 import net.frozenblock.wilderwild.registry.RegisterBlockEntities;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.monster.EnderMan;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.InstrumentItem;
 import net.minecraft.world.level.block.Block;
@@ -20,13 +21,13 @@ import net.minecraft.world.level.gameevent.GameEvent;
 public class FrozenLibIntegration {
 
     public static void init() {
-        RegisterMovingSoundRestrictions.register(WilderWild.id("instrument"), (RegisterMovingSoundRestrictions.LoopPredicate<Player>) entity -> {
+        FrozenSoundPredicates.register(WilderWild.id("instrument"), (FrozenSoundPredicates.LoopPredicate<Player>) entity -> {
             if (entity instanceof Player player) {
                 return (player.getUseItem().getItem() instanceof InstrumentItem);
             }
             return false;
         });
-        RegisterMovingSoundRestrictions.register(WilderWild.id("nectar"), (RegisterMovingSoundRestrictions.LoopPredicate<Firefly>) entity -> {
+        FrozenSoundPredicates.register(WilderWild.id("nectar"), (FrozenSoundPredicates.LoopPredicate<Firefly>) entity -> {
             if (entity.isSilent()) {
                 return false;
             }
@@ -37,6 +38,12 @@ public class FrozenLibIntegration {
                 }
             }
             return false;
+        });
+        FrozenSoundPredicates.register(WilderWild.id("enderman_anger"), (FrozenSoundPredicates.LoopPredicate<EnderMan>) entity -> {
+            if (entity.isSilent() || !entity.isAlive()) {
+                return false;
+            }
+            return ((EnderMan)entity).isCreepy();
         });
 
         BlockScheduledTicks.ticks.put(Blocks.DIRT, (blockState, serverLevel, blockPos, randomSource) -> serverLevel.setBlock(blockPos, Blocks.MUD.defaultBlockState(), 3));

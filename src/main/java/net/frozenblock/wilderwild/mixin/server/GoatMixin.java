@@ -23,7 +23,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import java.util.Objects;
 
 @Mixin(Goat.class)
-public class GoatEntityMixin {
+public class GoatMixin {
 
     @Shadow
     @Final
