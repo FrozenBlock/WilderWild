@@ -85,6 +85,7 @@ public final class WilderWild implements ModInitializer {
         hasCloth = FabricLoader.getInstance().isModLoaded("cloth-config");
         hasPipes = FabricLoader.getInstance().isModLoaded("copper_pipe");
         hasSodium = FabricLoader.getInstance().isModLoaded("sodium");
+        hasTerraBlender = FabricLoader.getInstance().getModContainer("terrablender").isPresent();
         hasTerralith = FabricLoader.getInstance().isModLoaded("terralith");
 
         RegisterBlocks.registerBlocks();
@@ -185,13 +186,11 @@ public final class WilderWild implements ModInitializer {
                 WilderWild.FIREFLIES, RegisterEntities.FIREFLY, 12, 2, 4);
     }
 
-    public static boolean hasTerralith;
-
-    public static boolean hasPipes;
-
     public static boolean hasCloth;
-
+    public static boolean hasPipes;
     public static boolean hasSodium;
+    public static boolean hasTerraBlender;
+    public static boolean hasTerralith;
 
     public static boolean isCopperPipe(BlockState state) {
         if (hasPipes) {

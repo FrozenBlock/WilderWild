@@ -541,4 +541,3 @@ public final class RegisterBlocks {
     }
 
 }
-
