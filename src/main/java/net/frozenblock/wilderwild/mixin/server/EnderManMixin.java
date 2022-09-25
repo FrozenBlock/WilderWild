@@ -38,7 +38,7 @@ public abstract class EnderManMixin extends Monster {
     }
 
     @Inject(method = "setBeingStaredAt", at = @At("TAIL"), cancellable = true)
-    public void setBeingStaredAt() {
+    public void setBeingStaredAt(CallbackInfo info) {
         EnderMan enderMan = EnderMan.class.cast(this);
         if (!enderMan.level.isClientSide) {
             FrozenSoundPackets.createMovingRestrictionLoopingSound(enderMan.level, enderMan, RegisterSounds.ENTITY_ENDERMAN_ANGER_LOOP, SoundSource.HOSTILE, 0.5F, 1.0F, WilderWild.id("enderman_anger"));
