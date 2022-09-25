@@ -83,7 +83,7 @@ public final class WilderWild implements ModInitializer {
         hasCloth = FabricLoader.getInstance().isModLoaded("cloth-config");
         hasPipes = FabricLoader.getInstance().isModLoaded("copper_pipe");
         hasSodium = FabricLoader.getInstance().isModLoaded("sodium");
-        hasTerraBlender = FabricLoader.getInstance().getModContainer("terrablender").isPresent();
+        hasTerraBlender = FabricLoader.getInstance().isModLoaded("terrablender");
         hasTerralith = FabricLoader.getInstance().isModLoaded("terralith");
 
         RegisterBlocks.registerBlocks();

@@ -40,7 +40,7 @@ public class SonicBoomMixin {
 
     @Inject(at = @At("HEAD"), method = "tick(Lnet/minecraft/server/level/ServerLevel;Lnet/minecraft/world/entity/monster/warden/Warden;J)V", cancellable = true)
     public void tick(ServerLevel serverLevel, Warden wardenEntity, long l, CallbackInfo info) {
-        if (FabricLoader.getInstance().getModContainer("customsculk").isEmpty()) {
+        if (!FabricLoader.getInstance().isModLoaded("customsculk")) {
             if (!wardenEntity.getBrain().hasMemoryValue(MemoryModuleType.SONIC_BOOM_SOUND_DELAY) && !wardenEntity.getBrain().hasMemoryValue(MemoryModuleType.SONIC_BOOM_SOUND_COOLDOWN)) {
                 wardenEntity.getBrain().setMemoryWithExpiry(MemoryModuleType.SONIC_BOOM_SOUND_COOLDOWN, Unit.INSTANCE, DURATION - 34);
                 wardenEntity.getBrain().getMemory(MemoryModuleType.ATTACK_TARGET).filter((target) -> {
