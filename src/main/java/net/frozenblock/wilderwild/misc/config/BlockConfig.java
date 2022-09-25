@@ -17,6 +17,7 @@ public final class BlockConfig implements ConfigData {
 
     public boolean mcLiveSensorTendrils = true;
     public boolean shriekerGargling = true;
+    public boolean soulFireSounds = true;
 
     @Environment(EnvType.CLIENT)
     static void setupEntries(ConfigCategory category, ConfigEntryBuilder entryBuilder) {
@@ -32,6 +33,11 @@ public final class BlockConfig implements ConfigData {
                 .setDefaultValue(true)
                 .setSaveConsumer(newValue -> config.shriekerGargling = newValue)
                 .setTooltip(tooltip("shrieker_gargling"))
+                .build());
+        category.addEntry(entryBuilder.startBooleanToggle(text("soul_fire_sounds"), config.soulFireSounds)
+                .setDefaultValue(true)
+                .setSaveConsumer(newValue -> config.soulFireSounds = newValue)
+                .setTooltip(tooltip("soul_fire_sounds"))
                 .build());
 
     }
