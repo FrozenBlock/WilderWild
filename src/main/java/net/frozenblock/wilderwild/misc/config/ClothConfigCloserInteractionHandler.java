@@ -83,4 +83,8 @@ public final class ClothConfigCloserInteractionHandler {
         return WilderWildConfig.get().block.shriekerGargling;
     }
 
+    public static boolean soulFireSounds() {
+        return WilderWildConfig.get().block.soulFireSounds;
+    }
+
 }

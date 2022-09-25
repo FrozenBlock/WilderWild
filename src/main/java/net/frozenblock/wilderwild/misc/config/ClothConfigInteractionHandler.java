@@ -145,4 +145,11 @@ public final class ClothConfigInteractionHandler {
         return false;
     }
 
+    public static boolean soulFireSounds() {
+        if (WilderWild.hasCloth) {
+            return ClothConfigCloserInteractionHandler.soulFireSounds();
+        }
+        return true;
+    }
+
 }
