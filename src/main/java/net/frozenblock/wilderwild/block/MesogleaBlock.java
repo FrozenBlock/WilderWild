@@ -49,7 +49,7 @@ public class MesogleaBlock extends Block implements SimpleWaterloggedBlock {
             if (entity instanceof Boat boat) {
                 Vec3 deltaMove = boat.getDeltaMovement();
                 if (boat.isUnderWater()) {
-                    boat.setDeltaMovement(deltaMove.x, 0.05, deltaMove.z);
+                    boat.setDeltaMovement(deltaMove.x, 0.125, deltaMove.z);
                 } else {
                     boat.setDeltaMovement(deltaMove.x, 0, deltaMove.z);
                 }
