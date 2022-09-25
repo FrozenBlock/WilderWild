@@ -6,9 +6,11 @@ import net.frozenblock.wilderwild.misc.WilderClientMethodsFromServerClassClass;
 import net.frozenblock.wilderwild.registry.RegisterSounds;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.monster.EnderMan;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.level.Level;
+import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
@@ -37,11 +39,13 @@ public abstract class EnderManMixin extends Monster {
         }
     }
 
-    @Inject(method = "setBeingStaredAt", at = @At("TAIL"), cancellable = true)
-    public void setBeingStaredAt(CallbackInfo info) {
-        EnderMan enderMan = EnderMan.class.cast(this);
-        if (!enderMan.level.isClientSide) {
-            FrozenSoundPackets.createMovingRestrictionLoopingSound(enderMan.level, enderMan, RegisterSounds.ENTITY_ENDERMAN_ANGER_LOOP, SoundSource.HOSTILE, 0.5F, 1.0F, WilderWild.id("enderman_anger"));
+    @Inject(method = "setTarget", at = @At("TAIL"), cancellable = true)
+    public void setTarget(@Nullable LivingEntity target, CallbackInfo info) {
+        if (target != null) {
+            EnderMan enderMan = EnderMan.class.cast(this);
+            if (!enderMan.level.isClientSide) {
+                FrozenSoundPackets.createMovingRestrictionLoopingSound(enderMan.level, enderMan, RegisterSounds.ENTITY_ENDERMAN_ANGER_LOOP, SoundSource.HOSTILE, 0.5F, 1.0F, WilderWild.id("enderman_anger"));
+            }
         }
     }
 
