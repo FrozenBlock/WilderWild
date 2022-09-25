@@ -39,7 +39,7 @@ public abstract class EnderManMixin extends Monster {
         }
     }
 
-    @Inject(method = "setTarget", at = @At("TAIL"), cancellable = true)
+    @Inject(method = "setTarget", at = @At("TAIL"))
     public void setTarget(@Nullable LivingEntity target, CallbackInfo info) {
         if (target != null) {
             EnderMan enderMan = EnderMan.class.cast(this);
