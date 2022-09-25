@@ -10,6 +10,7 @@ import net.frozenblock.wilderwild.entity.Firefly;
 import net.frozenblock.wilderwild.registry.RegisterBlockEntities;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.monster.EnderMan;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.InstrumentItem;
 import net.minecraft.world.level.block.Block;
@@ -37,6 +38,12 @@ public class FrozenLibIntegration {
                 }
             }
             return false;
+        });
+        FrozenSoundPredicates.register(WilderWild.id("enderman_anger"), (FrozenSoundPredicates.LoopPredicate<EnderMan>) entity -> {
+            if (entity.isSilent() || !entity.isAlive()) {
+                return false;
+            }
+            return ((EnderMan)entity).isCreepy();
         });
 
         BlockScheduledTicks.ticks.put(Blocks.DIRT, (blockState, serverLevel, blockPos, randomSource) -> serverLevel.setBlock(blockPos, Blocks.MUD.defaultBlockState(), 3));

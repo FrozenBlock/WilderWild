@@ -1383,6 +1383,14 @@
 	],
 	"subtitle": "subtitles.entity.firefly.nectar"
   },
+  "entity.enderman.anger_loop": {
+	"sounds": [
+		{
+		  "attenuation_distance": 8,
+		  "name": "wilderwild:mob/enderman/stare_loop"
+		}
+	]
+  },
   "entity.jellyfish.ambient_water": {
 	"sounds": [
 	  "wilderwild:mob/jellyfish/ambient_water1",

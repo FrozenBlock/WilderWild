@@ -1,6 +1,10 @@
 package net.frozenblock.wilderwild.mixin.server;
 
+import net.frozenblock.lib.sound.FrozenSoundPackets;
+import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.misc.WilderClientMethodsFromServerClassClass;
+import net.frozenblock.wilderwild.registry.RegisterSounds;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.monster.EnderMan;
 import net.minecraft.world.entity.monster.Monster;
@@ -30,6 +34,14 @@ public abstract class EnderManMixin extends Monster {
             if (!this.isSilent()) {
                 WilderClientMethodsFromServerClassClass.playClientEnderManSound(EnderMan.class.cast(this));
             }
+        }
+    }
+
+    @Inject(method = "setBeingStaredAt", at = @At("TAIL"), cancellable = true)
+    public void setBeingStaredAt() {
+        EnderMan enderMan = EnderMan.class.cast(this);
+        if (!enderMan.level.isClientSide) {
+            FrozenSoundPackets.createMovingRestrictionLoopingSound(enderMan.level, enderMan, RegisterSounds.ENTITY_ENDERMAN_ANGER_LOOP, SoundSource.HOSTILE, 0.5F, 1.0F, WilderWild.id("enderman_anger"));
         }
     }
 
