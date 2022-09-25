@@ -44,7 +44,7 @@ public abstract class EnderManMixin extends Monster {
         if (target != null) {
             EnderMan enderMan = EnderMan.class.cast(this);
             if (!enderMan.level.isClientSide) {
-                FrozenSoundPackets.createMovingRestrictionLoopingSound(enderMan.level, enderMan, RegisterSounds.ENTITY_ENDERMAN_ANGER_LOOP, SoundSource.HOSTILE, 0.3F, 0.9F, WilderWild.id("enderman_anger"));
+                FrozenSoundPackets.createMovingRestrictionLoopingSound(enderMan.level, enderMan, RegisterSounds.ENTITY_ENDERMAN_ANGER_LOOP, SoundSource.HOSTILE, 0.1F, 0.9F, WilderWild.id("enderman_anger"));
             }
         }
     }
