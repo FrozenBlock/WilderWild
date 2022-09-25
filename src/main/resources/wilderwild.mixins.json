@@ -49,7 +49,7 @@
 	"worldgen.SpruceTreeGrowerMixin",
 	"worldgen.StructuresMixin",
 	"worldgen.SwampHutMixin",
-	"worldgen.SurfaceDataRuleMixin",
+	"worldgen.VanillaSurfaceRulesMixin",
 	"worldgen.VegetationPlacementsMixin"
   ],
   "client": [
