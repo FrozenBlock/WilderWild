@@ -17,7 +17,7 @@ import org.spongepowered.asm.mixin.injection.ModifyVariable;
 
 @Pseudo
 @Mixin(value = SurfaceRuleData.class, priority = 69420)
-public class VanillaSurfaceRulesMixin {
+public class SurfaceRuleDataMixin {
 
     @Shadow
     @Final

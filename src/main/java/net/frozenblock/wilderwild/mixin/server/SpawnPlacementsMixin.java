@@ -14,7 +14,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import java.util.Map;
 
 @Mixin(SpawnPlacements.class)
-public class SpawnRestrictionMixin {
+public class SpawnPlacementsMixin {
 
     @Final
     @Shadow

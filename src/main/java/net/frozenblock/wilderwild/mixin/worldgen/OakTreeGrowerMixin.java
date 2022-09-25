@@ -17,10 +17,8 @@ public class OakTreeGrowerMixin {
     public void getConfiguredFeature(RandomSource random, boolean bees, CallbackInfoReturnable<Holder<? extends ConfiguredFeature<?, ?>>> cir) {
         if (random.nextInt(10) == 0) {
             cir.setReturnValue(bees ? WilderTreeConfigured.NEW_FANCY_OAK_BEES_0004 : WilderTreeConfigured.NEW_FANCY_OAK);
-            cir.cancel();
         } else {
             cir.setReturnValue(bees ? WilderTreeConfigured.NEW_OAK_BEES_0004 : WilderTreeConfigured.NEW_OAK);
-            cir.cancel();
         }
     }
 }

@@ -20,9 +20,9 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Environment(EnvType.CLIENT)
 @Mixin(WardenEmissiveLayer.class)
-public abstract class WardenFeatureRendererMixin<T extends Warden, M extends WardenModel<T>> extends RenderLayer<T, M> {
+public abstract class WardenEmissiveLayerMixin<T extends Warden, M extends WardenModel<T>> extends RenderLayer<T, M> {
 
-    public WardenFeatureRendererMixin(RenderLayerParent<T, M> context) {
+    public WardenEmissiveLayerMixin(RenderLayerParent<T, M> context) {
         super(context);
     }
 

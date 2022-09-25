@@ -12,10 +12,10 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import java.util.Objects;
 
 @Mixin(Frog.class)
-public class FrogEntityMixin {
+public class FrogMixin {
     @Inject(at = @At("RETURN"), method = "getDeathSound", cancellable = true)
     public void newDeath(CallbackInfoReturnable<SoundEvent> cir) {
-        String string = ChatFormatting.stripFormatting(((Frog) (Object) this).getName().getString());
+        String string = ChatFormatting.stripFormatting(Frog.class.cast(this).getName().getString());
         if (Objects.equals(string, "Xfrtrex")) {
             cir.setReturnValue(RegisterSounds.ENTITY_FROG_SUS_DEATH);
         }
