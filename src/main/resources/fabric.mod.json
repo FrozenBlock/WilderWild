@@ -25,6 +25,9 @@
 	"mm:early_risers": [
 	  "net.frozenblock.wilderwild.EarlyRiser"
 	],
+	"frozenlib_main": [
+	  "net.frozenblock.wilderwild.FrozenLibIntegration"
+	],
 	"modmenu": [
 	  "net.frozenblock.wilderwild.misc.config.ModMenuIntegration"
 	],
