@@ -98,7 +98,7 @@ public class Jellyfish extends AbstractFish {
     @Override
     public SpawnGroupData finalizeSpawn(ServerLevelAccessor level, @NotNull DifficultyInstance difficulty, @NotNull MobSpawnType reason, @Nullable SpawnGroupData spawnData, @Nullable CompoundTag dataTag) {
         Holder<Biome> holder = level.getBiome(this.blockPosition());
-        if (holder.is(WilderBiomeTags.PEARLESCENT_JELLYFISH) && this.blockPosition().getY() <= this.level.getSeaLevel() - 33) {
+        if (holder.is(WilderBiomeTags.PEARLESCENT_JELLYFISH)) {
             this.setVariant(PEARLESCENT_VARIANTS.get((int) (Math.random() * PEARLESCENT_VARIANTS.size())));
         } else {
             this.setVariant(COLORED_VARIANTS.get((int) (Math.random() * COLORED_VARIANTS.size())));
