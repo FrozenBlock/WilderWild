@@ -1385,10 +1385,7 @@
   },
   "entity.enderman.anger_loop": {
 	"sounds": [
-		{
-		  "attenuation_distance": 8,
-		  "name": "wilderwild:mob/enderman/stare_loop"
-		}
+		"wilderwild:mob/enderman/stare_loop"
 	]
   },
   "entity.jellyfish.ambient_water": {
