@@ -22,7 +22,7 @@ public final class EntityConfig implements ConfigData {
     public static class WardenConfig {
         public boolean wardenCustomTendrils = true;
         public boolean wardenDyingAnimation = true;
-        public boolean wardenEmergesFromEgg = true;
+        public boolean wardenEmergesFromEgg = false;
         public boolean wardenSwimAnimation = true;
     }
 
@@ -45,7 +45,7 @@ public final class EntityConfig implements ConfigData {
                 .setTooltip(tooltip("warden_dying_animation"))
                 .build();
         var emerging = entryBuilder.startBooleanToggle(text("warden_emerges_from_egg"), warden.wardenEmergesFromEgg)
-                .setDefaultValue(true)
+                .setDefaultValue(false)
                 .setSaveConsumer(newValue -> warden.wardenEmergesFromEgg = newValue)
                 .setTooltip(tooltip("warden_emerges_from_egg"))
                 .build();

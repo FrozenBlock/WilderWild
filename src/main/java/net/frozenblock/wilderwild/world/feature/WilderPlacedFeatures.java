@@ -189,6 +189,14 @@ public final class WilderPlacedFeatures {
     public static final Holder<PlacedFeature> SEAGRASS_CYPRESS = register("seagrass_cypress",
             AquaticFeatures.SEAGRASS_MID, seagrassPlacement(56));
 
+    public static final Holder<PlacedFeature> LARGE_FERN_AND_GRASS = register("large_fern_and_grass",
+            WilderConfiguredFeatures.LARGE_FERN_AND_GRASS, RarityFilter.onAverageOnceEvery(2), InSquarePlacement.spread(),
+            PlacementUtils.HEIGHTMAP, BiomeFilter.biome());
+    public static final Holder<PlacedFeature> LARGE_FERN_AND_GRASS_RARE = register("large_fern_and_grass_rare",
+            WilderConfiguredFeatures.LARGE_FERN_AND_GRASS, RarityFilter.onAverageOnceEvery(4), InSquarePlacement.spread(),
+            PlacementUtils.HEIGHTMAP, BiomeFilter.biome());
+
+
     //FLOWERS
     public static final Holder<PlacedFeature> SEEDING_DANDELION = register("seeding_dandelion",
             WilderConfiguredFeatures.SEEDING_DANDELION, RarityFilter.onAverageOnceEvery(9), InSquarePlacement.spread(),

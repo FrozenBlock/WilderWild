@@ -23,14 +23,14 @@ public class SoulFireBlockMixin extends BaseFireBlock {
     @Override
     public void animateTick(@NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos, @NotNull RandomSource random) {
         if (ClothConfigInteractionHandler.soulFireSounds()) {
-            if (random.nextInt(24) == 0) {
+            if (random.nextInt(48) == 0) {
                 level.playLocalSound(
                         (double)pos.getX() + 0.5,
                         (double)pos.getY() + 0.5,
                         (double)pos.getZ() + 0.5,
                         RegisterSounds.BLOCK_SOUL_FIRE_AMBIENT,
                         SoundSource.BLOCKS,
-                        1.0F + random.nextFloat(),
+                        0.6F + random.nextFloat(),
                         random.nextFloat() * 0.7F + 0.3F,
                         false
                 );
