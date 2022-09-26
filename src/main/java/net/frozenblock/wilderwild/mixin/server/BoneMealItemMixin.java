@@ -40,7 +40,6 @@ public class BoneMealItemMixin {
                     context.getItemInHand().shrink(1);
                 }
                 info.setReturnValue(InteractionResult.sidedSuccess(level.isClientSide));
-                info.cancel();
             }
         }
     }

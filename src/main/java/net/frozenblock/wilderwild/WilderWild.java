@@ -13,6 +13,7 @@ import net.fabricmc.loader.api.ModContainer;
 import net.frozenblock.wilderwild.block.entity.TermiteMoundBlockEntity;
 import net.frozenblock.wilderwild.entity.Firefly;
 import net.frozenblock.wilderwild.misc.BlockSoundGroupOverwrites;
+import net.frozenblock.wilderwild.misc.config.ClothConfigInteractionHandler;
 import net.frozenblock.wilderwild.misc.mod_compat.simple_copper_pipes.RegisterSaveableMoveablePipeNbt;
 import net.frozenblock.wilderwild.registry.*;
 import net.frozenblock.wilderwild.world.feature.*;
@@ -54,6 +55,12 @@ public final class WilderWild implements ModInitializer {
 
     public static boolean areConfigsInit = false;
 
+    public static boolean hasCloth = FabricLoader.getInstance().isModLoaded("cloth-config");
+    public static boolean hasPipes = FabricLoader.getInstance().isModLoaded("copper_pipe");
+    public static boolean hasSodium = FabricLoader.getInstance().isModLoaded("sodium");
+    public static boolean hasTerraBlender = FabricLoader.getInstance().isModLoaded("terrablender");
+    public static boolean hasTerralith = FabricLoader.getInstance().isModLoaded("terralith");
+
     public static final TrunkPlacerType<StraightTrunkWithLogs> STRAIGHT_TRUNK_WITH_LOGS_PLACER_TYPE = registerTrunk("straight_trunk_logs_placer", StraightTrunkWithLogs.CODEC);
     public static final TrunkPlacerType<FallenTrunkWithLogs> FALLEN_TRUNK_WITH_LOGS_PLACER_TYPE = registerTrunk("fallen_trunk_logs_placer", FallenTrunkWithLogs.CODEC);
     public static final TrunkPlacerType<BaobabTrunkPlacer> BAOBAB_TRUNK_PLACER = registerTrunk("baobab_trunk_placer", BaobabTrunkPlacer.CODEC);
@@ -80,11 +87,6 @@ public final class WilderWild implements ModInitializer {
     public void onInitialize() {
         startMeasuring(this);
         var dataFixer = applyDataFixes(FabricLoader.getInstance().getModContainer(MOD_ID).orElseThrow());
-        hasCloth = FabricLoader.getInstance().isModLoaded("cloth-config");
-        hasPipes = FabricLoader.getInstance().isModLoaded("copper_pipe");
-        hasSodium = FabricLoader.getInstance().isModLoaded("sodium");
-        hasTerraBlender = FabricLoader.getInstance().isModLoaded("terrablender");
-        hasTerralith = FabricLoader.getInstance().isModLoaded("terralith");
 
         RegisterBlocks.registerBlocks();
         RegisterItems.registerItems();
@@ -181,12 +183,6 @@ public final class WilderWild implements ModInitializer {
         BiomeModifications.addSpawn(BiomeSelectors.includeByKey(ResourceKey.create(Registry.BIOME_REGISTRY, new ResourceLocation("terralith", "cave/underground_jungle"))),
                 WilderWild.FIREFLIES, RegisterEntities.FIREFLY, 12, 2, 4);
     }
-
-    public static boolean hasCloth;
-    public static boolean hasPipes;
-    public static boolean hasSodium;
-    public static boolean hasTerraBlender;
-    public static boolean hasTerralith;
 
     public static boolean isCopperPipe(BlockState state) {
         if (hasPipes) {

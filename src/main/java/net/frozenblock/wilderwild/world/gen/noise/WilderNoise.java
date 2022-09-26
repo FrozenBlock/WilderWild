@@ -46,6 +46,38 @@ public class WilderNoise {
             10.0
     );
 
+    public static final Holder<NormalNoise.NoiseParameters> GRAVEL_BEACH = NoiseData.register(BuiltinRegistries.NOISE, GRAVEL_BEACH_KEY, -9,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            40.0,
+            20.0,
+            10.0,
+            10.0,
+            10.0,
+            10.0,
+            10.0,
+            10.0,
+            10.0,
+            10.0,
+            10.0,
+            10.0,
+            10.0,
+            10.0,
+            10.0,
+            10.0,
+            10.0,
+            10.0,
+            10.0
+    );
+
     public static void init() {
 
     }

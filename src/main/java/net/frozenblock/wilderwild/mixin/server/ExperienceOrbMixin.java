@@ -16,7 +16,6 @@ public class ExperienceOrbMixin {
         int hornCooldown = AncientHorn.decreaseCooldown(player, amount * 8);
         if (hornCooldown != -1) {
             info.setReturnValue(0);
-            info.cancel();
         }
     }
 

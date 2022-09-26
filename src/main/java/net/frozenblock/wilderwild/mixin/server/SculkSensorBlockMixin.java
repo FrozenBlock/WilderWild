@@ -42,7 +42,6 @@ public abstract class SculkSensorBlockMixin extends BaseEntityBlock implements S
 
     @Inject(at = @At("HEAD"), method = "getTicker", cancellable = true)
     public <T extends BlockEntity> void getTicker(Level level, BlockState state, BlockEntityType<T> type, CallbackInfoReturnable<BlockEntityTicker<T>> info) {
-        info.cancel();
         if (level.isClientSide) {
             info.setReturnValue(createTickerHelper(type, BlockEntityType.SCULK_SENSOR, (worldx, pos, statex, blockEntity) -> {
                 ((SculkSensorTickInterface) blockEntity).tickClient(worldx, pos, statex);
@@ -65,6 +64,5 @@ public abstract class SculkSensorBlockMixin extends BaseEntityBlock implements S
     @Inject(at = @At("HEAD"), method = "getRenderShape", cancellable = true)
     public void getRenderShape(BlockState state, CallbackInfoReturnable<RenderShape> info) {
         info.setReturnValue(ClothConfigInteractionHandler.mcLiveSensorTendrils() ? RenderShape.INVISIBLE : RenderShape.MODEL);
-        info.cancel();
     }
 }

@@ -63,7 +63,7 @@ public class SculkBlockMixin {
     }
 
     @Inject(method = "attemptUseCharge", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/block/SculkBlock;getRandomGrowthState(Lnet/minecraft/world/level/LevelAccessor;Lnet/minecraft/core/BlockPos;Lnet/minecraft/util/RandomSource;Z)Lnet/minecraft/world/level/block/state/BlockState;", shift = At.Shift.BEFORE), locals = LocalCapture.CAPTURE_FAILHARD, cancellable = true)
-    private void newSculkSpread(SculkSpreader.ChargeCursor charge, LevelAccessor level, BlockPos catalystPos, RandomSource random, SculkSpreader sculkChargeHandler, boolean spread, CallbackInfoReturnable<Integer> info, int chargeAmount, BlockPos chargePos, boolean bl, int growthSpawnCost, BlockPos aboveChargePos) {
+    private void newSculkSpread(SculkSpreader.ChargeCursor charge, LevelAccessor level, BlockPos catalystPos, RandomSource random, SculkSpreader sculkChargeHandler, boolean spread, CallbackInfoReturnable<Integer> cir, int chargeAmount, BlockPos chargePos, boolean bl, int growthSpawnCost, BlockPos aboveChargePos) {
         BlockState growthState = null;
         boolean isWorldGen = sculkChargeHandler.isWorldGeneration();
         boolean canReturn = false;
@@ -106,7 +106,6 @@ public class SculkBlockMixin {
         }
 
         if (canReturn && growthState != null) {
-            info.cancel();
             level.setBlock(aboveChargePos, growthState, 3);
 
             if (isWorldGen && level.getBlockState(aboveChargePos).getBlock() == RegisterBlocks.OSSEOUS_SCULK) {
@@ -115,7 +114,7 @@ public class SculkBlockMixin {
                     OsseousSculkBlock.worldGenSpread(aboveChargePos, level, random);
                 }
             }
-            info.setReturnValue(Math.max(0, chargeAmount - growthSpawnCost));
+            cir.setReturnValue(Math.max(0, chargeAmount - growthSpawnCost));
             level.playSound(null, aboveChargePos, growthState.getSoundType().getPlaceSound(), SoundSource.BLOCKS, 1.0f, 1.0f);
         }
     }
