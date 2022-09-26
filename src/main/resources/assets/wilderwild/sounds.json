@@ -1197,7 +1197,8 @@
 		"sounds": [
 			"wilderwild:block/soul_fire/ambient1",
 			"wilderwild:block/soul_fire/ambient2",
-			"wilderwild:block/soul_fire/ambient3"
+			"wilderwild:block/soul_fire/ambient3",
+			"wilderwild:block/soul_fire/ambient4"
 		],
 		"subtitle": "subtitles.block.fire.ambient"
 	},
