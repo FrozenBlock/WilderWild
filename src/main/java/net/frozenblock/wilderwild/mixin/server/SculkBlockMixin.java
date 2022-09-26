@@ -77,15 +77,12 @@ public class SculkBlockMixin {
                 growthState = RegisterBlocks.OSSEOUS_SCULK.defaultBlockState().setValue(OsseousSculkBlock.HEIGHT_LEFT, pillarHeight).setValue(OsseousSculkBlock.TOTAL_HEIGHT, pillarHeight + 1).setValue(OsseousSculkBlock.UPSIDEDOWN, true);
             } else {
                 if (level.getBlockState(chargePos.below().below()).getBlock() == Blocks.AIR && level.getBlockState(chargePos.below().below().below()).getBlock() == Blocks.AIR) {
-                    info.cancel();
                     canReturn = true;
                     growthState = RegisterBlocks.HANGING_TENDRIL.defaultBlockState();
                     WilderWild.log("Chose Hanging Tendril", WilderWild.DEV_LOGGING);
                     if (isWorldGen && Math.random() > 0.6) {
                         growthSpawnCost = 0;
                     }
-                } else {
-                    growthState = stateDown;
                 }
             }
             aboveChargePos = chargePos.below();
