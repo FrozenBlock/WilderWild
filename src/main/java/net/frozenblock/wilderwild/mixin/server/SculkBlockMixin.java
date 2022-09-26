@@ -115,6 +115,7 @@ public class SculkBlockMixin {
                 }
             }
             info.setReturnValue(Math.max(0, chargeAmount - growthSpawnCost));
+            info.cancel();
         }
     }
 
