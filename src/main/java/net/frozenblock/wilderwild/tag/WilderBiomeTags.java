@@ -13,7 +13,7 @@ public final class WilderBiomeTags {
     public static final TagKey<Biome> HAS_GRAVEL_BEACH = bind("has_gravel_beach");
     public static final TagKey<Biome> HAS_JELLYFISH = bind("has_jellyfish");
     public static final TagKey<Biome> HAS_SAND_BEACH = bind("has_sand_beach");
-    public static final TagKey<Biome> HAS_SAND_BEACH_OTHER = bind("has_sand_beach");
+    public static final TagKey<Biome> HAS_SAND_BEACH_OTHER = bind("has_sand_beach_other");
     public static final TagKey<Biome> PEARLESCENT_JELLYFISH = bind("pearlescent_jellyfish");
     public static final TagKey<Biome> NO_POOLS = bind("no_pools");
 
