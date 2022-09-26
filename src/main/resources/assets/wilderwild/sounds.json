@@ -122,6 +122,7 @@
 	"sounds": [
 	  {
 		"name": "wilderwild:ambient/cave/deep_dark/ambience",
+		"preload": true,
 		"stream": true,
 		"volume": 1.0
 	  }
@@ -160,6 +161,7 @@
 	"sounds": [
 	  {
 		"name": "wilderwild:ambient/cave/dripstone_caves/ambience",
+		"preload": true,
 		"stream": true,
 		"volume": 1.0
 	  }
@@ -256,6 +258,7 @@
 	"sounds": [
 	  {
 		"name": "wilderwild:ambient/cave/lush_caves/ambience",
+		"preload": true,
 		"stream": true,
 		"volume": 1.0
 	  }
@@ -1195,10 +1198,26 @@
   },
 	"block.soul_fire.ambient": {
 		"sounds": [
-			"wilderwild:block/soul_fire/ambient1",
-			"wilderwild:block/soul_fire/ambient2",
-			"wilderwild:block/soul_fire/ambient3",
-			"wilderwild:block/soul_fire/ambient4"
+			{
+				"attenuation_distance": 8,
+				"volume": 0.7,
+				"name": "wilderwild:block/soul_fire/ambient1"
+			},
+			{
+				"attenuation_distance": 8,
+				"volume": 0.7,
+				"name": "wilderwild:block/soul_fire/ambient2"
+			},
+			{
+				"attenuation_distance": 8,
+				"volume": 0.7,
+				"name": "wilderwild:block/soul_fire/ambient3"
+			},
+			{
+				"attenuation_distance": 8,
+				"volume": 0.7,
+				"name": "wilderwild:block/soul_fire/ambient4"
+			}
 		],
 		"subtitle": "subtitles.block.fire.ambient"
 	},
