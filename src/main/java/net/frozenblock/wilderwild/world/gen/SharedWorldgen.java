@@ -83,7 +83,6 @@ public final class SharedWorldgen {
     private static final SurfaceRules.RuleSource WATER = makeStateRule(Blocks.WATER);
 
     public static SurfaceRules.RuleSource surfaceRules() {
-        ArrayList<SurfaceRules.RuleSource> surfaceRuleList = new ArrayList<>();
 
         var cypressWetlands = SurfaceRules.ifTrue(
                 SurfaceRules.ON_FLOOR, SurfaceRules.sequence(
@@ -100,7 +99,7 @@ public final class SharedWorldgen {
                 )
         );
 
-        surfaceRuleList.add(cypressWetlands);
+        SurfaceRules.RuleSource rule = SurfaceRules.sequence(cypressWetlands);
 
         if (ClothConfigInteractionHandler.betaBeaches()) {
             var betaBeaches = SurfaceRules.sequence(SurfaceRules.ifTrue(
@@ -144,8 +143,6 @@ public final class SharedWorldgen {
                     )
             ))));
 
-            surfaceRuleList.add(betaBeaches);
-
             //SurfaceRules.sequence(new SurfaceRules.RuleSource[]{SurfaceRules.ifTrue(SurfaceRules.isBiome(Biomes.FOREST, Biomes.FLOWER_FOREST, Biomes.JUNGLE),
             // SurfaceRules.ifTrue(SurfaceRules.yStartCheck(VerticalAnchor.absolute(58), 0),
             // SurfaceRules.sequence(new SurfaceRules.RuleSource[]{SurfaceRules.ifTrue(SurfaceRules.yStartCheck(VerticalAnchor.absolute(65),0),
@@ -157,8 +154,9 @@ public final class SharedWorldgen {
             // SurfaceRules.sequence(new SurfaceRules.RuleSource[]{SurfaceRules.ifTrue(SurfaceRules.UNDER_FLOOR,
             // SurfaceRules.sequence(new SurfaceRules.RuleSource[]{SurfaceRules.ifTrue(SurfaceRules.ON_CEILING,
             //SANDSTONE), SAND})), SurfaceRules.ifTrue(SurfaceRules.DEEP_UNDER_FLOOR, SANDSTONE)}))}))})))})))}));
+            rule = SurfaceRules.sequence(cypressWetlands, betaBeaches);
         }
-        return new SurfaceRules.SequenceRuleSource(surfaceRuleList);
+        return rule;
     }
 
     public static SurfaceRules.RuleSource makeStateRule(Block block) {
