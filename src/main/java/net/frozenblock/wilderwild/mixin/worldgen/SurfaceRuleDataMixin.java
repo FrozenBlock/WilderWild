@@ -16,7 +16,7 @@ public class SurfaceRuleDataMixin {
     @ModifyVariable(method = "overworldLike", at = @At("STORE"), ordinal = 8)
     private static SurfaceRules.RuleSource injected(SurfaceRules.RuleSource ruleSource) {
         if (!WilderWild.hasTerraBlender) {
-            return SurfaceRules.sequence(ruleSource, SharedWorldgen.surfaceRules());
+            return SurfaceRules.sequence(SharedWorldgen.surfaceRules(), ruleSource);
         } else {
             return ruleSource;
         }
