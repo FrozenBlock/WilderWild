@@ -1,7 +1,6 @@
 package net.frozenblock.wilderwild.world.gen.noise;
 
 import net.frozenblock.wilderwild.WilderWild;
-import net.frozenblock.wilderwild.misc.config.ClothConfigInteractionHandler;
 import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
 import net.minecraft.data.BuiltinRegistries;

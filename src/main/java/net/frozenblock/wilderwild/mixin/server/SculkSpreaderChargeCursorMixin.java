@@ -1,12 +1,10 @@
 package net.frozenblock.wilderwild.mixin.server;
 
-import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import net.frozenblock.wilderwild.misc.BooleanPropertySculkBehavior;
 import net.frozenblock.wilderwild.misc.SlabWallStairSculkBehavior;
 import net.frozenblock.wilderwild.registry.RegisterBlocks;
 import net.frozenblock.wilderwild.registry.RegisterProperties;
 import net.frozenblock.wilderwild.tag.WilderBlockTags;
-import net.minecraft.Util;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Vec3i;
 import net.minecraft.util.RandomSource;
