@@ -106,12 +106,12 @@ public final class SharedWorldgen {
             var betaBeaches = SurfaceRules.sequence(SurfaceRules.ifTrue(
                     SurfaceRules.UNDER_FLOOR, SurfaceRules.sequence(
                             SurfaceRules.ifTrue(
-                                    FrozenSurfaceRules.isBiome(WilderBiomeTags.HAS_GRAVEL_BEACH),
+                                    SurfaceRules.isBiome(Biomes.BIRCH_FOREST, Biomes.TAIGA, Biomes.FROZEN_RIVER, Biomes.OLD_GROWTH_BIRCH_FOREST, Biomes.OLD_GROWTH_PINE_TAIGA, Biomes.OLD_GROWTH_SPRUCE_TAIGA, Biomes.SNOWY_TAIGA, RegisterWorldgen.MIXED_FOREST),
                                     SurfaceRules.ifTrue(
                                             SurfaceRules.yStartCheck(VerticalAnchor.absolute(58), 0),
                                             SurfaceRules.ifTrue(
                                                     SurfaceRules.not(SurfaceRules.yStartCheck(VerticalAnchor.absolute(65), 0)),
-                                                    SurfaceRules.ifTrue(SurfaceRules.noiseCondition(WilderNoise.GRAVEL_BEACH_KEY, 0.12D, 1.7976931348623157E308D), GRAVEL)
+                                                    SurfaceRules.ifTrue(SurfaceRules.noiseCondition(WilderNoise.SAND_BEACH_KEY, 0.12, 1.7976931348623157E308), GRAVEL)
                                             )
                                     )
                             )
@@ -119,12 +119,12 @@ public final class SharedWorldgen {
             ), SurfaceRules.sequence(SurfaceRules.ifTrue(
                     SurfaceRules.DEEP_UNDER_FLOOR, SurfaceRules.sequence(
                             SurfaceRules.ifTrue(
-                                    FrozenSurfaceRules.isBiome(WilderBiomeTags.HAS_SAND_BEACH_OTHER),
+                                    SurfaceRules.isBiome(Biomes.FLOWER_FOREST, Biomes.FOREST, Biomes.DARK_FOREST),
                                     SurfaceRules.ifTrue(
                                             SurfaceRules.yStartCheck(VerticalAnchor.absolute(58), 0),
                                             SurfaceRules.ifTrue(
                                                     SurfaceRules.not(SurfaceRules.yStartCheck(VerticalAnchor.absolute(65), 0)),
-                                                    SurfaceRules.ifTrue(SurfaceRules.noiseCondition(WilderNoise.SAND_BEACH_KEY, 0.12D, 1.7976931348623157E308D), SAND)
+                                                    SurfaceRules.ifTrue(SurfaceRules.noiseCondition(WilderNoise.SAND_BEACH_KEY, 0.12, 1.7976931348623157E308), SAND)
                                             )
                                     )
                             )
@@ -132,12 +132,12 @@ public final class SharedWorldgen {
             ), SurfaceRules.sequence(SurfaceRules.ifTrue(
                     SurfaceRules.DEEP_UNDER_FLOOR, SurfaceRules.sequence(
                             SurfaceRules.ifTrue(
-                                    FrozenSurfaceRules.isBiome(WilderBiomeTags.HAS_SAND_BEACH),
+                                    SurfaceRules.isBiome(Biomes.JUNGLE, Biomes.SPARSE_JUNGLE, Biomes.BAMBOO_JUNGLE, Biomes.SAVANNA),
                                     SurfaceRules.ifTrue(
                                             SurfaceRules.yStartCheck(VerticalAnchor.absolute(58), 0),
                                             SurfaceRules.ifTrue(
                                                     SurfaceRules.not(SurfaceRules.yStartCheck(VerticalAnchor.absolute(64), 0)),
-                                                    SurfaceRules.ifTrue(SurfaceRules.noiseCondition(WilderNoise.SAND_BEACH_KEY, 0.12D, 1.7976931348623157E308D), SAND)
+                                                    SurfaceRules.ifTrue(SurfaceRules.noiseCondition(WilderNoise.SAND_BEACH_KEY, 0.12, 1.7976931348623157E308), SAND)
                                             )
                                     )
                             )
