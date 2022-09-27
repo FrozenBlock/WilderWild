@@ -110,7 +110,7 @@ public final class SharedWorldgen {
                                             SurfaceRules.yStartCheck(VerticalAnchor.absolute(58), 0),
                                             SurfaceRules.ifTrue(
                                                     SurfaceRules.not(SurfaceRules.yStartCheck(VerticalAnchor.absolute(65), 0)),
-                                                    SurfaceRules.ifTrue(SurfaceRules.noiseCondition(WilderNoise.SAND_BEACH_KEY, 0.12, 1.7976931348623157E308), GRAVEL)
+                                                    SurfaceRules.ifTrue(SurfaceRules.noiseCondition(WilderNoise.GRAVEL_BEACH_KEY, 0.12, 1.7976931348623157E308), GRAVEL)
                                             )
                                     )
                             )
@@ -154,7 +154,7 @@ public final class SharedWorldgen {
             // SurfaceRules.sequence(new SurfaceRules.RuleSource[]{SurfaceRules.ifTrue(SurfaceRules.UNDER_FLOOR,
             // SurfaceRules.sequence(new SurfaceRules.RuleSource[]{SurfaceRules.ifTrue(SurfaceRules.ON_CEILING,
             //SANDSTONE), SAND})), SurfaceRules.ifTrue(SurfaceRules.DEEP_UNDER_FLOOR, SANDSTONE)}))}))})))})))}));
-            rule = SurfaceRules.sequence(cypressWetlands, betaBeaches);
+            rule = SurfaceRules.sequence(rule, betaBeaches);
         }
         return rule;
     }

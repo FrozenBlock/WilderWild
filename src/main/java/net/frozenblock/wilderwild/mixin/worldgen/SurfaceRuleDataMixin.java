@@ -22,5 +22,3 @@ public class SurfaceRuleDataMixin {
         }
     }
 }
-
-//6217428885497005581
