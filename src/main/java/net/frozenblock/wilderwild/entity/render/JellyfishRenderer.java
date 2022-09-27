@@ -37,7 +37,7 @@ public class JellyfishRenderer extends MobRenderer<Jellyfish, JellyfishModel<Jel
         JellyfishModel<Jellyfish> model = this.getModel();
         if (jelly.hasCustomName() && "I_am_Merp".equals(jelly.getName().getString())) {
 
-            float time = jelly.level.getGameTime() * 0.05F;
+            float time = (jelly.level.getGameTime() + partialTicks) * 0.05F;
 
             model.red = Mth.clamp(Math.abs((time % 6) - 3) - 1,0,1);
             model.green = Mth.clamp(Math.abs(((time - 2) % 6) - 3) - 1,0,1);
