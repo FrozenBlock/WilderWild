@@ -131,7 +131,6 @@ dependencies {
 
 	// Lunade
 	modImplementation "maven.modrinth:simple-copper-pipes:${copperpipes_version}"
-	//modImplementation "maven.modrinth:fastanim:${fastanim_version}"
 
 	// Mod Menu
 	modImplementation "com.terraformersmc:modmenu:${modmenu_version}"
@@ -164,6 +163,7 @@ dependencies {
 		modRuntimeOnly "maven.modrinth:lazydfu:${lazydfu_version}"
 		modRuntimeOnly "maven.modrinth:starlight:${starlight_version}"
 		modRuntimeOnly "maven.modrinth:lithium:mc1.19.2-0.8.3"
+		modRuntimeOnly "maven.modrinth:fastanim:${fastanim_version}"
 
 		// Sodium Related
 
