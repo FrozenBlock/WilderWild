@@ -77,6 +77,7 @@ public abstract class WardenModelMixin<T extends Warden> implements WilderWarden
 
     @Inject(at = @At("TAIL"), method = "animateTendrils")
     private void animateTendrils(T warden, float animationProgress, float tickDelta, CallbackInfo info) { //CUSTOM TENDRIL ANIMATION
+
         float cos = warden.getTendrilAnimation(tickDelta) * (float) (Math.cos((double) animationProgress * 2.25D) * 3.141592653589793D * 0.10000000149011612D);
         float sin = warden.getTendrilAnimation(tickDelta) * (float) (-Math.sin((double) animationProgress * 2.25D) * 3.141592653589793D * 0.12500000149011612D);
 
@@ -84,13 +85,11 @@ public abstract class WardenModelMixin<T extends Warden> implements WilderWarden
             this.leftTendril.xRot = cos;
             this.rightTendril.xRot = cos;
 
-            float yRot = sin * 0.5F;
-            this.leftTendril.yRot = yRot;
-            this.rightTendril.yRot = -yRot;
+            this.leftTendril.yRot = sin / 2f;
+            this.rightTendril.yRot = -sin / 2f;
 
-            float zRot = cos * 0.5F;
-            this.leftTendril.zRot = zRot;
-            this.rightTendril.zRot = -zRot;
+            this.leftTendril.zRot = cos / 2f;
+            this.rightTendril.zRot = -cos / 2f;
         } else {
             this.leftTendril.xRot = cos;
             this.rightTendril.xRot = -cos;
@@ -109,6 +108,9 @@ public abstract class WardenModelMixin<T extends Warden> implements WilderWarden
         model.animate(((WilderWarden) wardenEntity).getKirbyDeathAnimationState(), CustomWardenAnimations.KIRBY_DEATH, anim);
     }
 
+    @Unique
+    private static final float rad = (float) (Math.PI / 180);
+
     private void animateSwimming(T warden, float angle, float distance, float anim, float headYaw, float headPitch, boolean moveLimbs, boolean canSwim) {
 
         float swimming = (warden.isVisuallySwimming() && distance > 0) ? 1 : 0;
@@ -120,13 +122,13 @@ public abstract class WardenModelMixin<T extends Warden> implements WilderWarden
         float lerpTime = anim - (float) warden.tickCount;
 
         float submergedLerp = Mth.rotLerp(warden.getSwimAmount(lerpTime), notSubmerged, submerged);
-        float speedDelta = Math.min(distance * 3.333333333333333F, 1.0F) * submergedLerp;
+        float speedDelta = Math.min(distance / 0.3F, 1.0F) * submergedLerp;
         float swimLerp = Mth.rotLerp(warden.getSwimAmount(lerpTime), notSwimming, swimming) * speedDelta;
 
         if (((warden.isVisuallySwimming() && canSwim) || (swimLerp > 0)) && distance > 0) {
 
             //TODO: make swim animation last until lerp is done when exiting water. how.
-            float angles = (angle * (0.62831854F));
+            float angles = (float) (angle * (Math.PI * 0.2));
 
             float cos = (float) Math.cos(angles);
             float sin = (float) Math.sin(angles);
@@ -138,29 +140,29 @@ public abstract class WardenModelMixin<T extends Warden> implements WilderWarden
             this.bone.yRot = Mth.rotLerp(swimLerp, this.bone.yRot, (headYaw * 0.017453292F));
             this.bone.y = Mth.lerp(swimLerp, this.bone.z, 21) + 3;
 
-            this.leftLeg.xRot = Mth.rotLerp(swimLerp, this.leftLeg.xRot, ((-cos * 35 - 5) * 0.017453292F));
-            this.rightLeg.xRot = Mth.rotLerp(swimLerp, this.rightLeg.xRot, ((cos * 35 - 5) * 0.017453292F));
+            this.leftLeg.xRot = Mth.rotLerp(swimLerp, this.leftLeg.xRot, ((-cos * 35 - 5) * rad));
+            this.rightLeg.xRot = Mth.rotLerp(swimLerp, this.rightLeg.xRot, ((cos * 35 - 5) * rad));
 
             if (moveLimbs) {
-                this.head.xRot = Mth.rotLerp(swimLerp, this.head.xRot, ((sin * -10 - 60) * 0.017453292F));
+                this.head.xRot = Mth.rotLerp(swimLerp, this.head.xRot, ((sin * -10 - 60) * rad));
                 this.head.zRot = Mth.rotLerp(swimLerp, this.head.zRot, 0);
                 this.head.yRot = Mth.rotLerp(swimLerp, this.head.yRot, 0);
 
-                this.body.xRot = Mth.rotLerp(swimLerp, this.body.xRot, ((sin * 15 - 10) * 0.017453292F));
-                this.body.yRot = Mth.rotLerp(swimLerp, this.body.yRot, ((sin0 * 5) * 0.017453292F));
+                this.body.xRot = Mth.rotLerp(swimLerp, this.body.xRot, ((sin * 15 - 10) * rad));
+                this.body.yRot = Mth.rotLerp(swimLerp, this.body.yRot, ((sin0 * 5) * rad));
 
                 this.body.y = Mth.lerp(swimLerp, this.body.y + 21, 0);
                 this.body.z = Mth.lerp(swimLerp, this.body.z, (cos * 2));
 
                 this.rightArm.xRot = Mth.rotLerp(swimLerp, this.rightArm.xRot, 0f);
-                this.rightArm.yRot = Mth.rotLerp(swimLerp, this.rightArm.yRot, ((-cos * 25) * 0.017453292F));
-                this.rightArm.zRot = Mth.rotLerp(swimLerp, this.rightArm.zRot, ((sin * -90 + 90) * 0.017453292F));
+                this.rightArm.yRot = Mth.rotLerp(swimLerp, this.rightArm.yRot, ((-cos * 25) * rad));
+                this.rightArm.zRot = Mth.rotLerp(swimLerp, this.rightArm.zRot, ((sin * -90 + 90) * rad));
 
                 this.rightArm.x = Mth.lerp(swimLerp, this.rightArm.x, ((cos0 * 2 + 2) - 13));
 
                 this.leftArm.xRot = Mth.rotLerp(swimLerp, this.leftArm.xRot, 0f);
-                this.leftArm.yRot = Mth.rotLerp(swimLerp, this.leftArm.yRot, ((cos * 25) * 0.017453292F));
-                this.leftArm.zRot = Mth.rotLerp(swimLerp, this.leftArm.zRot, ((sin * 90 - 90) * 0.017453292F));
+                this.leftArm.yRot = Mth.rotLerp(swimLerp, this.leftArm.yRot, ((cos * 25) * rad));
+                this.leftArm.zRot = Mth.rotLerp(swimLerp, this.leftArm.zRot, ((sin * 90 - 90) * rad));
 
                 this.leftArm.x = Mth.lerp(swimLerp, this.leftArm.x, ((cos0 * -2 - 2) + 13));
             } else {
@@ -181,15 +183,15 @@ public abstract class WardenModelMixin<T extends Warden> implements WilderWarden
 
             this.bone.y += Math.cos(time);
 
-            this.head.xRot += (Math.sin(time) * -5) * 0.017453292F;
+            this.head.xRot += (Math.sin(time) * -5) * rad;
 
-            this.body.xRot += ((Math.cos(time) * -5) * 0.017453292F);
+            this.body.xRot += ((Math.cos(time) * -5) * rad);
 
-            this.leftArm.zRot += ((-Math.sin(time) * -5 - 5) * 0.017453292F);
-            this.rightArm.zRot += (-Math.sin(time) * 5 + 5) * 0.017453292F;
+            this.leftArm.zRot += ((-Math.sin(time) * -5 - 5) * rad);
+            this.rightArm.zRot += (-Math.sin(time) * 5 + 5) * rad;
 
-            this.leftLeg.xRot += (Math.sin(time) * 15 + 15) * 0.017453292F;
-            this.rightLeg.xRot += (Math.sin(time) * -15 + 15) * 0.017453292F;
+            this.leftLeg.xRot += (Math.sin(time) * 15 + 15) * rad;
+            this.rightLeg.xRot += (Math.sin(time) * -15 + 15) * rad;
         }
     }
 
