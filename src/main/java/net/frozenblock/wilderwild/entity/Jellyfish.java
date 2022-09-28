@@ -109,8 +109,7 @@ public class Jellyfish extends AbstractFish {
         Holder<Biome> holder = level.getBiome(pos);
 
         if (holder.is(WilderBiomeTags.PEARLESCENT_JELLYFISH)) {
-            if (reason == MobSpawnType.SPAWNER || pos.getY() <= level.getSeaLevel() - 33 && level.getRawBrightness(pos, 0) <= 7
-                    && random.nextInt(0, level.getRawBrightness(pos, 0) + 3) >= 1) {
+            if (reason == MobSpawnType.SPAWNER || level.getRawBrightness(pos, 0) <= 7 && random.nextInt(0, level.getRawBrightness(pos, 0) + 3) >= 1) {
                 return true;
             }
         }
