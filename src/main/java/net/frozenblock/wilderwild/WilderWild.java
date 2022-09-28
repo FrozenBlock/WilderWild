@@ -37,9 +37,9 @@ import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.configurations.ProbabilityFeatureConfiguration;
 import net.minecraft.world.level.levelgen.feature.trunkplacers.TrunkPlacer;
 import net.minecraft.world.level.levelgen.feature.trunkplacers.TrunkPlacerType;
-import org.quiltmc.qsl.frozenblock.datafixerupper.api.QuiltDataFixerBuilder;
-import org.quiltmc.qsl.frozenblock.datafixerupper.api.QuiltDataFixes;
-import org.quiltmc.qsl.frozenblock.datafixerupper.api.SimpleFixes;
+import org.quiltmc.qsl.frozenblock.misc.datafixerupper.api.QuiltDataFixerBuilder;
+import org.quiltmc.qsl.frozenblock.misc.datafixerupper.api.QuiltDataFixes;
+import org.quiltmc.qsl.frozenblock.misc.datafixerupper.api.SimpleFixes;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -50,7 +50,7 @@ public final class WilderWild implements ModInitializer {
     public static final String MOD_ID = "wilderwild";
     public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
     public static final boolean DEV_LOGGING = false;
-    public static boolean UNSTABLE_LOGGING = false; //Used for features that may possibly be unstable and crash in public builds - it's smart to use this for at least registries.
+    public static boolean UNSTABLE_LOGGING = FabricLoader.getInstance().isDevelopmentEnvironment(); //Used for features that may possibly be unstable and crash in public builds - it's smart to use this for at least registries.
 
     public static boolean areConfigsInit = false;
 
@@ -117,10 +117,6 @@ public final class WilderWild implements ModInitializer {
         Registry.register(Registry.FEATURE, id("upwards_pillar"), UPWARDS_PILLAR_FEATURE);
         Registry.register(Registry.FEATURE, id("downwards_pillar"), DOWNWARDS_PILLAR_FEATURE);
         Registry.register(Registry.FEATURE, id("nematocyst_feature"), NEMATOCYST_FEATURE);
-
-        if (FabricLoader.getInstance().isDevelopmentEnvironment()) { /* DEV-ONLY */
-            UNSTABLE_LOGGING = true;
-        }
 
 
         TermiteMoundBlockEntity.Termite.addDegradableBlocks();

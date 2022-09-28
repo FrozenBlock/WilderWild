@@ -9,7 +9,7 @@ import net.fabricmc.fabric.api.registry.FuelRegistry;
 import net.fabricmc.fabric.api.registry.StrippableBlockRegistry;
 import net.frozenblock.lib.blocks.FrozenSignBlock;
 import net.frozenblock.lib.blocks.FrozenWallSignBlock;
-import net.frozenblock.lib.mixin.server.WoodTypeAccessor;
+import net.frozenblock.lib.blocks.FrozenWoodTypes;
 import net.frozenblock.lib.replacements_and_lists.BonemealBehaviors;
 import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.block.*;
@@ -36,9 +36,6 @@ import net.minecraft.world.level.material.Material;
 import net.minecraft.world.level.material.MaterialColor;
 
 import java.util.List;
-
-import static net.frozenblock.wilderwild.registry.RegisterItems.BAOBAB_SIGN;
-import static net.frozenblock.wilderwild.registry.RegisterItems.CYPRESS_SIGN;
 
 public final class RegisterBlocks {
     private static final MaterialColor BAOBAB_PLANKS_COLOR = MaterialColor.COLOR_ORANGE;
@@ -103,20 +100,20 @@ public final class RegisterBlocks {
     public static final Block BAOBAB_FENCE = new FenceBlock(FabricBlockSettings.of(Material.WOOD, BAOBAB_PLANKS_COLOR).strength(2.0F, 3.0F).sounds(SoundType.WOOD));
     public static final Block CYPRESS_FENCE = new FenceBlock(FabricBlockSettings.of(Material.WOOD, CYPRESS_PLANKS_COLOR).strength(2.0F, 3.0F).sounds(SoundType.WOOD));
 
-    public static final WoodType BAOBAB_SIGN_TYPE = WoodTypeAccessor.newSignType("wilderwildbaobab");
-    public static final Block BAOBAB_SIGN_BLOCK = new FrozenSignBlock(FabricBlockSettings.of(Material.WOOD, BAOBAB_LOG.defaultMaterialColor()).noCollision().strength(1.0F).sounds(SoundType.WOOD), BAOBAB_SIGN_TYPE, WilderWild.id("blocks/baobab_sign"));
-    public static final Block BAOBAB_WALL_SIGN = new FrozenWallSignBlock(FabricBlockSettings.of(Material.WOOD, BAOBAB_LOG.defaultMaterialColor()).noCollision().strength(1.0F).sounds(SoundType.WOOD).dropsLike(BAOBAB_SIGN_BLOCK), BAOBAB_SIGN_TYPE, WilderWild.id("blocks/baobab_sign"));
+    public static final WoodType BAOBAB_WOOD_TYPE = FrozenWoodTypes.newType("wilderwildbaobab");
+    public static final Block BAOBAB_SIGN_BLOCK = new FrozenSignBlock(FabricBlockSettings.of(Material.WOOD, BAOBAB_LOG.defaultMaterialColor()).noCollision().strength(1.0F).sounds(SoundType.WOOD), BAOBAB_WOOD_TYPE, WilderWild.id("blocks/baobab_sign"));
+    public static final Block BAOBAB_WALL_SIGN = new FrozenWallSignBlock(FabricBlockSettings.of(Material.WOOD, BAOBAB_LOG.defaultMaterialColor()).noCollision().strength(1.0F).sounds(SoundType.WOOD).dropsLike(BAOBAB_SIGN_BLOCK), BAOBAB_WOOD_TYPE, WilderWild.id("blocks/baobab_sign"));
 
-    public static final WoodType CYPRESS_SIGN_TYPE = WoodTypeAccessor.newSignType("wilderwildcypress");
-    public static final Block CYPRESS_SIGN_BLOCK = new FrozenSignBlock(FabricBlockSettings.of(Material.WOOD, CYPRESS_LOG.defaultMaterialColor()).noCollision().strength(1.0F).sounds(SoundType.WOOD), CYPRESS_SIGN_TYPE, WilderWild.id("blocks/cypress_sign"));
-    public static final Block CYPRESS_WALL_SIGN = new FrozenWallSignBlock(FabricBlockSettings.of(Material.WOOD, CYPRESS_LOG.defaultMaterialColor()).noCollision().strength(1.0F).sounds(SoundType.WOOD).dropsLike(CYPRESS_SIGN_BLOCK), CYPRESS_SIGN_TYPE, WilderWild.id("blocks/cypress_sign"));
+    public static final WoodType CYPRESS_WOOD_TYPE = FrozenWoodTypes.newType("wilderwildcypress");
+    public static final Block CYPRESS_SIGN_BLOCK = new FrozenSignBlock(FabricBlockSettings.of(Material.WOOD, CYPRESS_LOG.defaultMaterialColor()).noCollision().strength(1.0F).sounds(SoundType.WOOD), CYPRESS_WOOD_TYPE, WilderWild.id("blocks/cypress_sign"));
+    public static final Block CYPRESS_WALL_SIGN = new FrozenWallSignBlock(FabricBlockSettings.of(Material.WOOD, CYPRESS_LOG.defaultMaterialColor()).noCollision().strength(1.0F).sounds(SoundType.WOOD).dropsLike(CYPRESS_SIGN_BLOCK), CYPRESS_WOOD_TYPE, WilderWild.id("blocks/cypress_sign"));
 
     public static void registerWoods() {
         String baobab = "baobab";
         String cypress = "cypress";
 
-        WoodTypeAccessor.registerNew(BAOBAB_SIGN_TYPE);
-        WoodTypeAccessor.registerNew(CYPRESS_SIGN_TYPE);
+        FrozenWoodTypes.register(BAOBAB_WOOD_TYPE);
+        FrozenWoodTypes.register(CYPRESS_WOOD_TYPE);
 
         registerBlock(baobab + "_planks", BAOBAB_PLANKS, CreativeModeTab.TAB_BUILDING_BLOCKS);
         registerBlock(cypress + "_planks", CYPRESS_PLANKS, CreativeModeTab.TAB_BUILDING_BLOCKS);
@@ -166,10 +163,8 @@ public final class RegisterBlocks {
         registerBlock(baobab + "_fence", BAOBAB_FENCE, CreativeModeTab.TAB_DECORATIONS);
         registerBlock(cypress + "_fence", CYPRESS_FENCE, CreativeModeTab.TAB_DECORATIONS);
 
-        Registry.register(Registry.ITEM, WilderWild.id("baobab_sign"), BAOBAB_SIGN);
         registerBlockWithoutBlockItem(baobab + "_sign", BAOBAB_SIGN_BLOCK);
         registerBlockWithoutBlockItem(baobab + "_wall_sign", BAOBAB_WALL_SIGN);
-        Registry.register(Registry.ITEM, WilderWild.id("cypress_sign"), CYPRESS_SIGN);
         registerBlockWithoutBlockItem(cypress + "_sign", CYPRESS_SIGN_BLOCK);
         registerBlockWithoutBlockItem(cypress + "_wall_sign", CYPRESS_WALL_SIGN);
     }

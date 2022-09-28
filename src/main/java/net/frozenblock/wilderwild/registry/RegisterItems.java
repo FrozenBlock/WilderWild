@@ -77,8 +77,10 @@ public final class RegisterItems {
         WilderWild.logWild("Registering Items for", WilderWild.UNSTABLE_LOGGING);
         Registry.register(Registry.ITEM, WilderWild.id("baobab_boat"), BAOBAB_BOAT_ITEM);
         Registry.register(Registry.ITEM, WilderWild.id("baobab_chest_boat"), BAOBAB_CHEST_BOAT_ITEM);
+        Registry.register(Registry.ITEM, WilderWild.id("baobab_sign"), BAOBAB_SIGN);
         Registry.register(Registry.ITEM, WilderWild.id("cypress_boat"), CYPRESS_BOAT_ITEM);
         Registry.register(Registry.ITEM, WilderWild.id("cypress_chest_boat"), CYPRESS_CHEST_BOAT_ITEM);
+        Registry.register(Registry.ITEM, WilderWild.id("cypress_sign"), CYPRESS_SIGN);
         Registry.register(Registry.ITEM, WilderWild.id("ancient_horn"), ANCIENT_HORN);
         Registry.register(Registry.ITEM, WilderWild.id("copper_horn"), COPPER_HORN);
         Registry.register(Registry.ITEM, WilderWild.id("milkweed_pod"), MILKWEED_POD);

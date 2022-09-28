@@ -58,12 +58,12 @@ public final class RegisterLootTables {
             }
         });
         //GOAT
-        LootTableEvents.MODIFY.register(((resourceManager, lootManager, id, tableBuilder, source) -> {
+        LootTableEvents.MODIFY.register((resourceManager, lootManager, id, tableBuilder, source) -> {
             if (EntityType.GOAT.getDefaultLootTable().equals(id) && source.isBuiltin()) {
                 var pool = LootPool.lootPool().add(TagEntry.expandTag(WilderItemTags.GOAT_DROP_MUSIC_DISCS)).when(LootItemEntityPropertyCondition.hasProperties(LootContext.EntityTarget.KILLER, EntityPredicate.Builder.entity().of(EntityTypeTags.SKELETONS)));
 
                 tableBuilder.withPool(pool);
             }
-        }));
+        });
     }
 }

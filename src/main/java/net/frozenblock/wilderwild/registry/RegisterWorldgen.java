@@ -4,6 +4,7 @@ import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.misc.config.ClothConfigInteractionHandler;
 import net.frozenblock.wilderwild.world.feature.WilderMiscPlaced;
 import net.frozenblock.wilderwild.world.feature.WilderPlacedFeatures;
+import net.frozenblock.wilderwild.world.gen.SharedWorldgen;
 import net.frozenblock.wilderwild.world.gen.noise.WilderNoise;
 import net.minecraft.core.Registry;
 import net.minecraft.data.BuiltinRegistries;
@@ -19,11 +20,14 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.level.biome.*;
 import net.minecraft.world.level.levelgen.GenerationStep;
+import org.jetbrains.annotations.NotNull;
+import org.quiltmc.qsl.frozenblock.worldgen.surface_rule.api.SurfaceRuleContext;
+import org.quiltmc.qsl.frozenblock.worldgen.surface_rule.api.SurfaceRuleEvents;
 
 import static net.minecraft.data.worldgen.biome.OverworldBiomes.jungle;
 import static net.minecraft.data.worldgen.biome.OverworldBiomes.swamp;
 
-public final class RegisterWorldgen {
+public final class RegisterWorldgen implements SurfaceRuleEvents.OverworldModifierCallback {
     public static final ResourceKey<Biome> MIXED_FOREST = register("mixed_forest");
     public static final ResourceKey<Biome> CYPRESS_WETLANDS = register("cypress_wetlands");
     public static final ResourceKey<Biome> JELLYFISH_CAVES = register("jellyfish_caves");
@@ -35,6 +39,12 @@ public final class RegisterWorldgen {
         BuiltinRegistries.register(BuiltinRegistries.BIOME, JELLYFISH_CAVES.location(), jellyfishCaves());
 
         WilderNoise.init();
+    }
+
+    @Override
+    public void modifyOverworldRules(SurfaceRuleContext.@NotNull Overworld overworld) {
+        overworld.ruleSources().add(0, SharedWorldgen.surfaceRules());
+        WilderWild.log("Wilder Wild's Overworld Surface Rules have been added!", WilderWild.UNSTABLE_LOGGING);
     }
 
     private static ResourceKey<Biome> register(String name) {

@@ -8,13 +8,14 @@ import net.frozenblock.wilderwild.world.gen.noise.WilderNoise;
 import net.minecraft.world.level.biome.Biomes;
 import net.minecraft.world.level.biome.Climate;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.levelgen.Noises;
 import net.minecraft.world.level.levelgen.SurfaceRules;
 import net.minecraft.world.level.levelgen.VerticalAnchor;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static net.frozenblock.lib.worldgen.surface.FrozenSurfaceRules.*;
 
 public final class SharedWorldgen {
 
@@ -74,13 +75,9 @@ public final class SharedWorldgen {
     }
 
     // SURFACE RULES
-    private static final SurfaceRules.RuleSource DIRT = makeStateRule(Blocks.DIRT);
-    private static final SurfaceRules.RuleSource GRASS_BLOCK = makeStateRule(Blocks.GRASS_BLOCK);
-    private static final SurfaceRules.RuleSource GRAVEL = makeStateRule(Blocks.GRAVEL);
-    private static final SurfaceRules.RuleSource SAND = makeStateRule(Blocks.SAND);
-    private static final SurfaceRules.RuleSource WATER = makeStateRule(Blocks.WATER);
 
     public static SurfaceRules.RuleSource surfaceRules() {
+        ArrayList<SurfaceRules.RuleSource> surfaceRules = new ArrayList<>();
 
         var cypressWetlands = SurfaceRules.ifTrue(
                 SurfaceRules.ON_FLOOR, SurfaceRules.sequence(
@@ -97,7 +94,7 @@ public final class SharedWorldgen {
                 )
         );
 
-        SurfaceRules.RuleSource rule = SurfaceRules.sequence(cypressWetlands);
+        surfaceRules.add(cypressWetlands);
 
         if (ClothConfigInteractionHandler.betaBeaches()) {
             var betaBeaches = SurfaceRules.sequence(SurfaceRules.ifTrue(
@@ -152,9 +149,9 @@ public final class SharedWorldgen {
             // SurfaceRules.sequence(new SurfaceRules.RuleSource[]{SurfaceRules.ifTrue(SurfaceRules.UNDER_FLOOR,
             // SurfaceRules.sequence(new SurfaceRules.RuleSource[]{SurfaceRules.ifTrue(SurfaceRules.ON_CEILING,
             //SANDSTONE), SAND})), SurfaceRules.ifTrue(SurfaceRules.DEEP_UNDER_FLOOR, SANDSTONE)}))}))})))})))}));
-            rule = SurfaceRules.sequence(rule, betaBeaches);
+            surfaceRules.add(betaBeaches);
         }
-        return rule;
+        return sequence(surfaceRules);
     }
 
     public static SurfaceRules.RuleSource makeStateRule(Block block) {
