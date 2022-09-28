@@ -31,6 +31,7 @@ public class JellyfishModel<T extends Jellyfish> extends HierarchicalModel<T> {
     private final ModelPart tentacle6;
     private final ModelPart tentacle7;
     private final ModelPart tentacle8;
+    private final List<ModelPart> tentacles;
 
     public JellyfishModel(ModelPart root) {
         super(WilderWildClient::entityTranslucentEmissiveFixed);
@@ -46,6 +47,7 @@ public class JellyfishModel<T extends Jellyfish> extends HierarchicalModel<T> {
         this.tentacle6 = this.tentacleBase.getChild("tentacle6");
         this.tentacle7 = this.tentacleBase.getChild("tentacle7");
         this.tentacle8 = this.tentacleBase.getChild("tentacle8");
+        this.tentacles = ImmutableList.of(this.tentacle1, this.tentacle2, this.tentacle3, this.tentacle4, this.tentacle5, this.tentacle6, this.tentacle7, this.tentacle8);
     }
 
     public static LayerDefinition getTexturedModelData() {
@@ -90,6 +92,9 @@ public class JellyfishModel<T extends Jellyfish> extends HierarchicalModel<T> {
         poseStack.popPose();
     }
 
+    private static final float pi180 = Mth.PI / 180;
+    private static final float eightPi = -8 * pi180;
+
     @Override
     public void prepareMobModel(T jelly, float limbSwing, float limbSwimgAmount, float partialTick) {
         this.xRot = -(jelly.xRot1 + partialTick * (jelly.xBodyRot - jelly.xRot1));
@@ -102,7 +107,7 @@ public class JellyfishModel<T extends Jellyfish> extends HierarchicalModel<T> {
     public void setupAnim(@NotNull T jellyfish, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
         float animation = limbSwing * 2;
         float movementDelta = Math.min(limbSwingAmount * 26.6666667F, 1.0F);
-        float tentRot = Mth.rotLerp(movementDelta, (float) (-Math.sin((ageInTicks - 10) * 0.1F) * 0.2F) -0.139626336F, (float) (-Math.sin(animation + 5) * 20 - 7.5F) * 0.017453292F);
+        float tentRot = Mth.rotLerp(movementDelta, (float) (-Math.sin((ageInTicks - 10) * 0.1F) * 0.2F) + eightPi, (float) (-Math.sin(animation + 5) * 20 - 7.5F) * pi180);
 
         this.tentacle1.xRot = tentRot;
         this.tentacle3.xRot = tentRot;
@@ -130,5 +135,9 @@ public class JellyfishModel<T extends Jellyfish> extends HierarchicalModel<T> {
     @Override
     public ModelPart root() {
         return this.root;
+    }
+
+    public List<ModelPart> getTentacles() {
+        return this.tentacles;
     }
 }
