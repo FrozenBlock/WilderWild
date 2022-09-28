@@ -25,7 +25,7 @@ public class AncientHornProjectileModel extends Model {
         this.middle = bone.getChild("middle");
         this.back = bone.getChild("back");
     }
-    
+
     private static final float bonePitchYaw = 1.57079632f;
 
     public static LayerDefinition getTexturedModelData() {
