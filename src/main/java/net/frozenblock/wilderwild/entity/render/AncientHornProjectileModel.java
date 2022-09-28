@@ -25,11 +25,8 @@ public class AncientHornProjectileModel extends Model {
         this.middle = bone.getChild("middle");
         this.back = bone.getChild("back");
     }
-
-    private static final float pi = (float) Math.PI;
+    
     private static final float bonePitchYaw = 1.57079632f;
-    private static final float pulse2Extra = 8.0F / 1.5F;
-    private static final float pulse3Extra = 8.0F / 3.0F;
 
     public static LayerDefinition getTexturedModelData() {
         MeshDefinition modelData = new MeshDefinition();
@@ -45,9 +42,9 @@ public class AncientHornProjectileModel extends Model {
         matrices.scale(1.0F, 1.0F, 1.0F);
         float aliveDelta = entity.aliveTicks + tickDelta;
 
-        float pulse = (((float) Math.sin((aliveDelta * pi) * 0.2f) * 0.16666667f) + 1);
-        float pulse2 = (((float) Math.sin(((aliveDelta + pulse2Extra) * pi) * 0.2f) * 0.16666667f) + 1);
-        float pulse3 = (((float) Math.sin(((aliveDelta + pulse3Extra) * pi) * 0.2f) * 0.16666667f) + 1);
+        float pulse = (((float) Math.sin((aliveDelta * 3.1415927F) * 0.2f) * 0.16666667f) + 1);
+        float pulse2 = (((float) Math.sin(((aliveDelta + 5.333333333333333F) * 3.1415927F) * 0.2f) * 0.16666667f) + 1);
+        float pulse3 = (((float) Math.sin(((aliveDelta + 2.666666666666667F) * 3.1415927F) * 0.2f) * 0.16666667f) + 1);
 
         this.front.xScale = pulse;
         this.front.yScale = pulse;
