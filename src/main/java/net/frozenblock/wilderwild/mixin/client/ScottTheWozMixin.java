@@ -13,7 +13,6 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import java.util.List;
-import java.util.Locale;
 
 @Environment(EnvType.CLIENT)
 @Mixin(SplashManager.class)
@@ -29,7 +28,7 @@ public class ScottTheWozMixin {
     @Inject(method = "getSplash", at = @At("TAIL"), cancellable = true)
     public void getSplash(CallbackInfoReturnable<String> info) {
         if (this.user != null && RANDOM.nextInt(this.splashes.size()) == 42) {
-            info.setReturnValue("Hey all, " + this.user.getName().toUpperCase(Locale.ROOT) + " here.");
+            info.setReturnValue("Hey all, " + this.user.getName() + " here.");
         }
     }
 }
