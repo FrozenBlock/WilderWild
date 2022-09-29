@@ -99,7 +99,7 @@ dependencies {
 	//mappings loom.officialMojangMappings()
 	mappings(loom.layered {
 		// please annoy treetrain if this doesnt work
-		it.mappings("org.quiltmc:quilt-mappings:1.19.2+build.intermediary-test.1:intermediary-v2")
+		//it.mappings("org.quiltmc:quilt-mappings:1.19.2+build.intermediary-test.1:intermediary-v2")
 		it.parchment("org.parchmentmc.data:parchment-1.19.2:${parchment_mappings}@zip")
 		it.officialMojangMappings {
 			setNameSyntheticMembers(false)

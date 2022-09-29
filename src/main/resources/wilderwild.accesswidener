@@ -64,6 +64,7 @@ accessible    field    net/minecraft/world/entity/Mob    targetSelector    Lnet/
 accessible    method    net/minecraft/data/worldgen/NoiseData    register    (Lnet/minecraft/core/Registry;Lnet/minecraft/resources/ResourceKey;ID[D)Lnet/minecraft/core/Holder;
 accessible    field    net/minecraft/client/renderer/LevelRenderer$RenderChunkInfo    chunk    Lnet/minecraft/client/renderer/chunk/ChunkRenderDispatcher$RenderChunk;
 accessible    method    net/minecraft/world/level/block/PointedDripstoneBlock$FluidInfo    <init>    (Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/material/Fluid;Lnet/minecraft/world/level/block/state/BlockState;)V
+accessible    method    net/minecraft/world/item/RecordItem    <init>    (ILnet/minecraft/sounds/SoundEvent;Lnet/minecraft/world/item/Item$Properties;)V
 
 # Surface Rules
 accessible    method    net/minecraft/world/level/levelgen/SurfaceRules$SequenceRuleSource    <init>    (Ljava/util/List;)V

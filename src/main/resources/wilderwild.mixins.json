@@ -5,7 +5,6 @@
   "compatibilityLevel": "JAVA_17",
   "mixins": [
 	"server.AbstractArrowMixin",
-	"server.AllayMixin",
 	"server.BigDripleafBlockMixin",
 	"server.BigDripleafStemBlockMixin",
 	"server.BlockEntityTypeMixin",
@@ -53,7 +52,6 @@
 	"worldgen.VegetationPlacementsMixin"
   ],
   "client": [
-	"client.AllayModelMixin",
 	"client.LevelRendererMixin",
 	"client.LiquidBlockRendererMixin",
 	"client.ScottTheWozMixin",
