@@ -22,9 +22,13 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(CodRenderer.class)
-public class CodRendererMixin {
+public abstract class CodRendererMixin extends MobRenderer<Cod, CodModel<Cod>> {
 
-    @Inject(method = "setupRotations", at = @At("INVOKE"), cancellable = true)
+    public CodRendererMixin(EntityRendererProvider.Context context, CodModel<Cod> entityModel, float f) {
+        super(context, entityModel, f);
+    }
+
+    @Inject(method = "setupRotations", at = @At("HEAD"), cancellable = true)
     public void setupRotations(Cod entityLiving, PoseStack poseStack, float ageInTicks, float rotationYaw, float partialTicks, CallbackInfo info) {
         info.cancel();
         poseStack.mulPose(Vector3f.YP.rotationDegrees(180.0f - rotationYaw));
