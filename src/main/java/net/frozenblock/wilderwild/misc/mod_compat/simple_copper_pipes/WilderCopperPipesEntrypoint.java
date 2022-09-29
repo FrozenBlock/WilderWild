@@ -7,6 +7,7 @@ import net.frozenblock.wilderwild.misc.server.EasyPacket;
 import net.frozenblock.wilderwild.registry.RegisterBlocks;
 import net.frozenblock.wilderwild.registry.RegisterItems;
 import net.frozenblock.wilderwild.registry.RegisterSounds;
+import net.lunade.copper.CopperPipeEntrypoint;
 import net.lunade.copper.FittingPipeDispenses;
 import net.lunade.copper.PipeMovementRestrictions;
 import net.lunade.copper.RegisterPipeNbtMethods;
@@ -21,10 +22,11 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.phys.Vec3;
 
-public class RegisterSaveableMoveablePipeNbt {
+public class WilderCopperPipesEntrypoint implements CopperPipeEntrypoint {
     public static final ResourceLocation horn = new ResourceLocation(WilderWild.MOD_ID, "ancient_horn");
 
-    public static void init() {
+    @Override
+    public void init() {
         WilderWild.log("WILDERWILD AND COPPER PIPES SECRET LOG MESSAGE UNLOCKED!!!", true);
         RegisterPipeNbtMethods.register(horn, (nbt, level, pos, blockState, copperPipeEntity) -> {
             if (!nbt.getCanOnlyBeUsedOnce() || nbt.getUseCount() < 1) {
@@ -140,6 +142,11 @@ public class RegisterSaveableMoveablePipeNbt {
         PipeMovementRestrictions.register(WilderWild.id("stone_chest"),
                 ((serverLevel, blockPos, blockState, copperPipeEntity, blockEntity) -> false),
                 ((serverLevel, blockPos, blockState, copperPipeEntity, blockEntity) -> false));
+
+    }
+
+    @Override
+    public void initDevOnly() {
 
     }
 

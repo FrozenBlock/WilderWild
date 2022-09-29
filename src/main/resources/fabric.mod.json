@@ -37,6 +37,9 @@
 	"terrablender": [
 	  "net.frozenblock.wilderwild.misc.mod_compat.terrablender.BlenderInitializer"
 	],
+	"simplecopperpipes": [
+	  "net.frozenblock.wilderwild.misc.mod_compat.simple_copper_pipes.WilderCopperPipesEntryPoint"
+	],
 	"preLaunch": [
 	  "net.frozenblock.wilderwild.WilderWildPreLaunch"
 	]
@@ -55,8 +58,7 @@
 	"java": ">=17"
   },
   "breaks": {
-	"quilted_fabric_api": "4.0.0-beta.8",
-	"copper_pipe": "<1.11-b5"
+	"quilted_fabric_api": "4.0.0-beta.8"
   },
   "suggests": {
 	"cloth-config": "*",
