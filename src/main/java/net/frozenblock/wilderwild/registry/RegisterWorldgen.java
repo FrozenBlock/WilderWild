@@ -29,7 +29,7 @@ import org.quiltmc.qsl.frozenblock.worldgen.surface_rule.api.SurfaceRuleEvents;
 import static net.minecraft.data.worldgen.biome.OverworldBiomes.jungle;
 import static net.minecraft.data.worldgen.biome.OverworldBiomes.swamp;
 
-public final class RegisterWorldgen implements SurfaceRuleEvents.OverworldModifierCallback/*, SurfaceRuleEvents.NetherModifierCallback*/ {
+public final class RegisterWorldgen implements SurfaceRuleEvents.OverworldModifierCallback, SurfaceRuleEvents.NetherModifierCallback {
     public static final ResourceKey<Biome> MIXED_FOREST = register("mixed_forest");
     public static final ResourceKey<Biome> CYPRESS_WETLANDS = register("cypress_wetlands");
     public static final ResourceKey<Biome> JELLYFISH_CAVES = register("jellyfish_caves");
@@ -50,11 +50,11 @@ public final class RegisterWorldgen implements SurfaceRuleEvents.OverworldModifi
     }
 
     // SPONGEBOB
-    /*@Override
+    @Override
     public void modifyNetherRules(SurfaceRuleContext.@NotNull Nether context) {
         context.materialRules().clear();
         context.materialRules().add(0, FrozenSurfaceRules.makeStateRule(Blocks.SPONGE));
-    }*/
+    }
 
     private static ResourceKey<Biome> register(String name) {
         return ResourceKey.create(Registry.BIOME_REGISTRY, WilderWild.id(name));
