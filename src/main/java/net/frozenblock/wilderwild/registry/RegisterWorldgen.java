@@ -22,6 +22,8 @@ import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.level.biome.*;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.levelgen.GenerationStep;
+import net.minecraft.world.level.levelgen.Noises;
+import net.minecraft.world.level.levelgen.SurfaceRules;
 import org.jetbrains.annotations.NotNull;
 import org.quiltmc.qsl.frozenblock.worldgen.surface_rule.api.SurfaceRuleContext;
 import org.quiltmc.qsl.frozenblock.worldgen.surface_rule.api.SurfaceRuleEvents;
@@ -46,6 +48,33 @@ public final class RegisterWorldgen implements SurfaceRuleEvents.OverworldModifi
     @Override
     public void modifyOverworldRules(SurfaceRuleContext.@NotNull Overworld context) {
         context.materialRules().add(SharedWorldgen.surfaceRules());
+
+        // FROM QUILT'S TEST MOD
+        var blueNoise1 = SurfaceRules.noiseCondition(Noises.CALCITE, 0.05, 0.1);
+        var pinkNoise1 = SurfaceRules.noiseCondition(Noises.CALCITE, 0.1, 0.15);
+        var whiteNoise = SurfaceRules.noiseCondition(Noises.CALCITE, 0.15, 0.20);
+        var pinkNoise2 = SurfaceRules.noiseCondition(Noises.CALCITE, 0.20, 0.25);
+        var blueNoise2 = SurfaceRules.noiseCondition(Noises.CALCITE, 0.25, 0.30);
+
+        var LIGHT_BLUE_CONCRETE = FrozenSurfaceRules.makeStateRule(Blocks.LIGHT_BLUE_CONCRETE);
+        var PINK_CONCRETE = FrozenSurfaceRules.makeStateRule(Blocks.PINK_CONCRETE);
+        var WHITE_CONCRETE = FrozenSurfaceRules.makeStateRule(Blocks.WHITE_CONCRETE);
+
+        context.materialRules().add(0,
+                SurfaceRules.ifTrue(
+                        SurfaceRules.abovePreliminarySurface(),
+                        SurfaceRules.ifTrue(
+                                SurfaceRules.ON_FLOOR,
+                                SurfaceRules.sequence(
+                                        SurfaceRules.ifTrue(blueNoise1, LIGHT_BLUE_CONCRETE),
+                                        SurfaceRules.ifTrue(pinkNoise1, PINK_CONCRETE),
+                                        SurfaceRules.ifTrue(whiteNoise, WHITE_CONCRETE),
+                                        SurfaceRules.ifTrue(pinkNoise2, PINK_CONCRETE),
+                                        SurfaceRules.ifTrue(blueNoise2, LIGHT_BLUE_CONCRETE)
+                                )
+                        )
+                )
+        );
         WilderWild.log("Wilder Wild's Overworld Surface Rules have been added!", WilderWild.UNSTABLE_LOGGING);
     }
 
@@ -54,6 +83,7 @@ public final class RegisterWorldgen implements SurfaceRuleEvents.OverworldModifi
     public void modifyNetherRules(SurfaceRuleContext.@NotNull Nether context) {
         context.materialRules().clear();
         context.materialRules().add(0, FrozenSurfaceRules.makeStateRule(Blocks.SPONGE));
+        WilderWild.log("SPONGEBOB", WilderWild.UNSTABLE_LOGGING);
     }
 
     private static ResourceKey<Biome> register(String name) {
