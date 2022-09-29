@@ -45,7 +45,7 @@ public final class RegisterWorldgen implements SurfaceRuleEvents.OverworldModifi
 
     @Override
     public void modifyOverworldRules(SurfaceRuleContext.@NotNull Overworld context) {
-        context.materialRules().add(0, SharedWorldgen.surfaceRules());
+        context.materialRules().add(SharedWorldgen.surfaceRules());
         WilderWild.log("Wilder Wild's Overworld Surface Rules have been added!", WilderWild.UNSTABLE_LOGGING);
     }
 
