@@ -1,5 +1,6 @@
 {
   "type": "minecraft:crafting_shaped",
+  "group": "wilderwild_copper_horn",
   "pattern": [
 	"CGC",
 	" C "
