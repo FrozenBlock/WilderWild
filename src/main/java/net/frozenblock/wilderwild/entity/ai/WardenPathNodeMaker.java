@@ -14,6 +14,7 @@ import net.minecraft.world.level.pathfinder.BlockPathTypes;
 import net.minecraft.world.level.pathfinder.Node;
 import net.minecraft.world.level.pathfinder.Target;
 import net.minecraft.world.level.pathfinder.WalkNodeEvaluator;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public class WardenPathNodeMaker extends WalkNodeEvaluator {
@@ -26,13 +27,13 @@ public class WardenPathNodeMaker extends WalkNodeEvaluator {
     }
 
     @Override
-    public void prepare(PathNavigationRegion cachedWorld, Mob entity) {
-        super.prepare(cachedWorld, entity);
-        entity.setPathfindingMalus(BlockPathTypes.WATER, 0.0F);
-        this.oldWalkablePenalty = entity.getPathfindingMalus(BlockPathTypes.WALKABLE);
-        entity.setPathfindingMalus(BlockPathTypes.WALKABLE, 0.0F);
-        this.oldWaterBorderPenalty = entity.getPathfindingMalus(BlockPathTypes.WATER_BORDER);
-        entity.setPathfindingMalus(BlockPathTypes.WATER_BORDER, 4.0F);
+    public void prepare(@NotNull PathNavigationRegion level, @NotNull Mob mob) {
+        super.prepare(level, mob);
+        mob.setPathfindingMalus(BlockPathTypes.WATER, 0.0F);
+        this.oldWalkablePenalty = mob.getPathfindingMalus(BlockPathTypes.WALKABLE);
+        mob.setPathfindingMalus(BlockPathTypes.WALKABLE, 0.0F);
+        this.oldWaterBorderPenalty = mob.getPathfindingMalus(BlockPathTypes.WATER_BORDER);
+        mob.setPathfindingMalus(BlockPathTypes.WATER_BORDER, 4.0F);
     }
 
     @Override
@@ -62,7 +63,8 @@ public class WardenPathNodeMaker extends WalkNodeEvaluator {
         return this.getCachedBlockType(entity, pos.getX(), pos.getY(), pos.getZ());
     }
 
-    protected BlockPathTypes getCachedBlockType(Mob entity, int x, int y, int z) {
+    @Override
+    protected BlockPathTypes getCachedBlockType(@NotNull Mob entity, int x, int y, int z) {
         return this.nodeTypes
                 .computeIfAbsent(
                         BlockPos.asLong(x, y, z),
@@ -79,7 +81,7 @@ public class WardenPathNodeMaker extends WalkNodeEvaluator {
     }
 
     @Override
-    public int getNeighbors(Node[] successors, Node node) {
+    public int getNeighbors(Node @NotNull [] successors, @NotNull Node node) {
         if (isEntityTouchingWaterOrLava(this.mob)) {
             int i = super.getNeighbors(successors, node);
             BlockPathTypes pathNodeType = this.getCachedBlockType(this.mob, node.x, node.y + 1, node.z);
@@ -108,20 +110,12 @@ public class WardenPathNodeMaker extends WalkNodeEvaluator {
         }
     }
 
-    protected boolean hasNotVisited(@Nullable Node pathNode) {
-        return pathNode != null && !pathNode.closed;
-    }
-
-    protected boolean method_38488(@Nullable Node pathNode, @Nullable Node pathNode2, @Nullable Node pathNode3) {
-        return this.hasNotVisited(pathNode) && pathNode2 != null && pathNode2.costMalus >= 0.0F && pathNode3 != null && pathNode3.costMalus >= 0.0F;
-    }
-
     private boolean isValidAquaticAdjacentSuccessor(@Nullable Node node, Node successor) {
         return this.isNeighborValid(node, successor) && node.type == BlockPathTypes.WATER;
     }
 
     @Override
-    protected double getFloorLevel(BlockPos pos) {
+    protected double getFloorLevel(@NotNull BlockPos pos) {
         return this.isEntityTouchingWaterOrLava(this.mob) ? (double) pos.getY() + 0.5 : super.getFloorLevel(pos);
     }
 
@@ -131,12 +125,12 @@ public class WardenPathNodeMaker extends WalkNodeEvaluator {
     }
 
     @Override
-    public BlockPathTypes getBlockPathType(BlockGetter world, int x, int y, int z) {
+    public BlockPathTypes getBlockPathType(BlockGetter level, int x, int y, int z) {
         BlockPos.MutableBlockPos mutable = new BlockPos.MutableBlockPos();
-        BlockPathTypes pathNodeType = getBlockPathTypeRaw(world, mutable.set(x, y, z));
+        BlockPathTypes pathNodeType = getBlockPathTypeRaw(level, mutable.set(x, y, z));
         if (pathNodeType == BlockPathTypes.WATER || pathNodeType == BlockPathTypes.LAVA) {
             for (Direction direction : Direction.values()) {
-                BlockPathTypes pathNodeType2 = getBlockPathTypeRaw(world, mutable.set(x, y, z).move(direction));
+                BlockPathTypes pathNodeType2 = getBlockPathTypeRaw(level, mutable.set(x, y, z).move(direction));
                 if (pathNodeType2 == BlockPathTypes.BLOCKED) {
                     return BlockPathTypes.WATER_BORDER;
                 }
@@ -148,16 +142,16 @@ public class WardenPathNodeMaker extends WalkNodeEvaluator {
                 return BlockPathTypes.LAVA;
             }
         } else {
-            return super.getBlockPathType(world, x, y, z);
+            return super.getBlockPathType(level, x, y, z);
         }
     }
 
     private boolean isEntityTouchingWaterOrLava(Entity entity) {
-        return entity.isInWater() || entity.isInLava();
+        return entity.isInWaterOrBubble() || entity.isInLava() || entity.isVisuallySwimming();
     }
 
     private boolean isEntitySubmergedInWaterOrLava(Entity entity) {
-        return entity.isEyeInFluid(FluidTags.WATER) || entity.isEyeInFluid(FluidTags.LAVA);
+        return entity.isEyeInFluid(FluidTags.WATER) || entity.isEyeInFluid(FluidTags.LAVA) || entity.isVisuallySwimming();
     }
 }
 

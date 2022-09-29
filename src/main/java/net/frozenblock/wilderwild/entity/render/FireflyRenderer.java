@@ -115,10 +115,14 @@ public class FireflyRenderer extends EntityRenderer<Firefly> {
                 .normal(matrix3f, 0.0F, 1.0F, 0.0F)
                 .endVertex();
 
-        if (!nectar) {
-            vertexConsumer = vertexConsumers.getBuffer(layers.get(entity.getColor()));
+        if (entity.getColor() != null && layers.get(entity.getColor()) != null) {
+            if (!nectar) {
+                vertexConsumer = vertexConsumers.getBuffer(layers.get(entity.getColor()));
+            } else {
+                vertexConsumer = vertexConsumers.getBuffer(NECTAR_OVERLAY);
+            }
         } else {
-            vertexConsumer = vertexConsumers.getBuffer(NECTAR_OVERLAY);
+            vertexConsumer = vertexConsumers.getBuffer(layers.get("on"));
         }
 
         int color = flickers ? (int) ((255 * (Math.cos(((age + tickDelta) * pi) * 0.025))) + 127.5) : (int) Math.max((255 * (Math.cos(((age + tickDelta) * pi) * 0.05))), 0);

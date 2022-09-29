@@ -16,8 +16,8 @@ public class WardenNavigation extends GroundPathNavigation {
 
     private final Warden entity;
 
-    public WardenNavigation(@NotNull Warden warden, Level world) {
-        super(warden, world);
+    public WardenNavigation(@NotNull Warden warden, Level level) {
+        super(warden, level);
         this.entity = warden;
     }
 
@@ -59,5 +59,10 @@ public class WardenNavigation extends GroundPathNavigation {
     @Override
     protected boolean hasValidPathType(BlockPathTypes pathType) {
         return pathType != BlockPathTypes.OPEN;
+    }
+
+    @Override
+    public boolean isInLiquid() {
+        return super.isInLiquid() || this.entity.isVisuallySwimming();
     }
 }

@@ -61,7 +61,7 @@ public class CattailFeature extends Feature<ProbabilityFeatureConfiguration> {
         return bl;
     }
 
-    public static boolean isWaterNearby(WorldGenLevel world, BlockPos blockPos, int x) {
+    public static boolean isWaterNearby(WorldGenLevel level, BlockPos blockPos, int x) {
         Iterator<BlockPos> var2 = BlockPos.betweenClosed(blockPos.offset(-x, -x, -x), blockPos.offset(x, x, x)).iterator();
         BlockPos blockPos2;
         do {
@@ -69,7 +69,7 @@ public class CattailFeature extends Feature<ProbabilityFeatureConfiguration> {
                 return false;
             }
             blockPos2 = var2.next();
-        } while (!world.getBlockState(blockPos2).is(Blocks.WATER));
+        } while (!level.getBlockState(blockPos2).is(Blocks.WATER));
         return true;
     }
 }

@@ -7,9 +7,9 @@ import net.minecraft.world.level.block.state.BlockState;
 
 public interface SculkSensorTickInterface {
 
-    void tickServer(ServerLevel world, BlockPos pos, BlockState state);
+    void tickServer(ServerLevel level, BlockPos pos, BlockState state);
 
-    void tickClient(Level world, BlockPos pos, BlockState state);
+    void tickClient(Level level, BlockPos pos, BlockState state);
 
     int getAge();
 
