@@ -5,7 +5,6 @@
   "compatibilityLevel": "JAVA_17",
   "mixins": [
 	"server.AbstractArrowMixin",
-	"server.AbstractFishMixin",
 	"server.AllayMixin",
 	"server.BigDripleafBlockMixin",
 	"server.BigDripleafStemBlockMixin",
@@ -55,8 +54,6 @@
   ],
   "client": [
 	"client.AllayModelMixin",
-	"client.CodModelMixin",
-	"client.CodRendererMixin",
 	"client.LevelRendererMixin",
 	"client.LiquidBlockRendererMixin",
 	"client.ScottTheWozMixin",
