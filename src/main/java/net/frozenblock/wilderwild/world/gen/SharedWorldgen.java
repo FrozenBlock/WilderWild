@@ -77,8 +77,6 @@ public final class SharedWorldgen {
     // SURFACE RULES
 
     public static SurfaceRules.RuleSource surfaceRules() {
-        ArrayList<SurfaceRules.RuleSource> surfaceRules = new ArrayList<>();
-
         var cypressWetlands = SurfaceRules.ifTrue(
                 SurfaceRules.ON_FLOOR, SurfaceRules.sequence(
                         SurfaceRules.ifTrue(
@@ -94,7 +92,7 @@ public final class SharedWorldgen {
                 )
         );
 
-        surfaceRules.add(cypressWetlands);
+        SurfaceRules.RuleSource ruleSource = SurfaceRules.sequence(cypressWetlands);
 
         if (ClothConfigInteractionHandler.betaBeaches()) {
             var betaBeaches = SurfaceRules.sequence(SurfaceRules.ifTrue(
@@ -149,9 +147,9 @@ public final class SharedWorldgen {
             // SurfaceRules.sequence(new SurfaceRules.RuleSource[]{SurfaceRules.ifTrue(SurfaceRules.UNDER_FLOOR,
             // SurfaceRules.sequence(new SurfaceRules.RuleSource[]{SurfaceRules.ifTrue(SurfaceRules.ON_CEILING,
             //SANDSTONE), SAND})), SurfaceRules.ifTrue(SurfaceRules.DEEP_UNDER_FLOOR, SANDSTONE)}))}))})))})))}));
-            surfaceRules.add(betaBeaches);
+            ruleSource = SurfaceRules.sequence(ruleSource, betaBeaches);
         }
-        return sequence(surfaceRules);
+        return ruleSource;
     }
 
     public static SurfaceRules.RuleSource makeStateRule(Block block) {

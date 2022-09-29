@@ -60,7 +60,7 @@ public final class RegisterWorldgen implements SurfaceRuleEvents.OverworldModifi
         var PINK_CONCRETE = FrozenSurfaceRules.makeStateRule(Blocks.PINK_CONCRETE);
         var WHITE_CONCRETE = FrozenSurfaceRules.makeStateRule(Blocks.WHITE_CONCRETE);
 
-        context.materialRules().add(0,
+        context.materialRules().add(
                 SurfaceRules.ifTrue(
                         SurfaceRules.abovePreliminarySurface(),
                         SurfaceRules.ifTrue(
