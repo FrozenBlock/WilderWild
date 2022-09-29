@@ -32,7 +32,7 @@ public abstract class CodModelMixin<T extends Entity> extends HierarchicalModel<
     @Override
     public void prepareMobModel(T entity, float limbSwing, float limbSwimgAmount, float partialTick) {
         FishRotationInterface rotationInterface = ((FishRotationInterface)entity);
-        this.xRot = -(rotationInterface.getPrevZRot() + partialTick * (rotationInterface.getPrevXRot() - rotationInterface.getPrevXRot()));
+        this.xRot = -(rotationInterface.getPrevXRot() + partialTick * (rotationInterface.getPrevXRot() - rotationInterface.getPrevXRot()));
         this.zRot = -(rotationInterface.getPrevZRot() + partialTick * (rotationInterface.getZRot() - rotationInterface.getPrevZRot()));
     }
 
@@ -41,7 +41,7 @@ public abstract class CodModelMixin<T extends Entity> extends HierarchicalModel<
         poseStack.pushPose();
         poseStack.mulPose(Vector3f.XP.rotationDegrees(this.xRot));
         poseStack.mulPose(Vector3f.YP.rotationDegrees(this.zRot));
-        this.root.render(poseStack, buffer, packedLight, packedOverlay, green, red, blue, alpha);
+        this.root().render(poseStack, buffer, packedLight, packedOverlay, green, red, blue, alpha);
         poseStack.popPose();
     }
 
