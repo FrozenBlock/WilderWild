@@ -32,7 +32,7 @@ public abstract class CodModelMixin<T extends Entity> extends HierarchicalModel<
     @Override
     public void prepareMobModel(T entity, float limbSwing, float limbSwimgAmount, float partialTick) {
         FishRotationInterface rotationInterface = ((FishRotationInterface)entity);
-        this.xRot = -(rotationInterface.getPrevXRot() + partialTick * (rotationInterface.getXRot() - rotationInterface.getPrevXRot()));
+        this.xRot = -(rotationInterface.getPrevXRot() + partialTick * (rotationInterface.getPrevXRot() - rotationInterface.getPrevXRot()));
         this.zRot = -(rotationInterface.getPrevZRot() + partialTick * (rotationInterface.getZRot() - rotationInterface.getPrevZRot()));
     }
 
