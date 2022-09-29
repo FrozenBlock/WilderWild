@@ -30,7 +30,7 @@ public class GenerationSettingsBuilderMixin {
 
     @Inject(at = @At("HEAD"), method = "addFeature(Lnet/minecraft/world/level/levelgen/GenerationStep$Decoration;Lnet/minecraft/core/Holder;)Lnet/minecraft/world/level/biome/BiomeGenerationSettings$Builder;", cancellable = true)
     public void addFeature(GenerationStep.Decoration featureStep, Holder<PlacedFeature> feature, CallbackInfoReturnable<BiomeGenerationSettings.Builder> info) {
-        if (!WilderWild.hasTerralith()) {
+        if (!WilderWild.hasTerralith) {
             BiomeGenerationSettings.Builder builder = BiomeGenerationSettings.Builder.class.cast(this);
             if (removedFeatures.contains(feature)) {
                 WilderWild.log("Removing feature " + feature.unwrapKey().toString() + " in order to properly update biomes!", WilderWild.UNSTABLE_LOGGING);

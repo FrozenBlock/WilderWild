@@ -1,0 +1,26 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "wilderwild_copper_horn",
+  "pattern": [
+	"CGC",
+	" C "
+  ],
+  "key": {
+	"C": {
+	  "item": "minecraft:copper_ingot"
+	},
+	"G": {
+	  "item": "minecraft:goat_horn",
+	  "data": {
+		"instrument": "minecraft:ponder_goat_horn"
+	  }
+	}
+  },
+  "result": {
+	"item": "wilderwild:copper_horn",
+	"data": {
+	  "instrument": "wilderwild:sax_copper_horn"
+	},
+	"count": 1
+  }
+}

@@ -11,6 +11,7 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.MultifaceSpreader;
 import net.minecraft.world.level.block.state.BlockState;
+import org.jetbrains.annotations.NotNull;
 
 public class PollenBlock extends FlowerLichenBlock {
     private final MultifaceSpreader grower = new MultifaceSpreader(this);
@@ -19,21 +20,22 @@ public class PollenBlock extends FlowerLichenBlock {
         super(settings);
     }
 
-    public void animateTick(BlockState state, Level world, BlockPos pos, RandomSource random) {
+    @Override
+    public void animateTick(@NotNull BlockState state, @NotNull Level level, BlockPos pos, @NotNull RandomSource random) {
         int i = pos.getX();
         int j = pos.getY();
         int k = pos.getZ();
         BlockPos.MutableBlockPos mutable = new BlockPos.MutableBlockPos();
         for (int l = 0; l < 7; ++l) {
             mutable.set(i + Mth.nextInt(random, -10, 10), j - random.nextInt(10), k + Mth.nextInt(random, -10, 10));
-            BlockState blockState = world.getBlockState(mutable);
-            if (!blockState.isCollisionShapeFullBlock(world, mutable)) {
-                world.addParticle(RegisterParticles.POLLEN, (double) mutable.getX() + random.nextDouble(), (double) mutable.getY() + random.nextDouble(), (double) mutable.getZ() + random.nextDouble(), 0.0D, 0.0D, 0.0D);
+            BlockState blockState = level.getBlockState(mutable);
+            if (!blockState.isCollisionShapeFullBlock(level, mutable)) {
+                level.addParticle(RegisterParticles.POLLEN, (double) mutable.getX() + random.nextDouble(), (double) mutable.getY() + random.nextDouble(), (double) mutable.getZ() + random.nextDouble(), 0.0D, 0.0D, 0.0D);
             }
         }
     }
 
-    public static boolean canAttachTo(BlockGetter world, Direction direction, BlockPos pos, BlockState state) {
-        return Block.isFaceFull(state.getBlockSupportShape(world, pos), direction.getOpposite()) || Block.isFaceFull(state.getCollisionShape(world, pos), direction.getOpposite()) && !world.getBlockState(pos).is(Blocks.WATER);
+    public static boolean canAttachTo(BlockGetter level, Direction direction, BlockPos pos, BlockState state) {
+        return Block.isFaceFull(state.getBlockSupportShape(level, pos), direction.getOpposite()) || Block.isFaceFull(state.getCollisionShape(level, pos), direction.getOpposite()) && !level.getBlockState(pos).is(Blocks.WATER);
     }
 }

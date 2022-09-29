@@ -27,15 +27,15 @@ public class FlowerLichenBlock extends MultifaceBlock {
         }
     }
 
-    public boolean canSurvive(BlockState state, LevelReader world, BlockPos pos) {
+    public boolean canSurvive(BlockState state, LevelReader level, BlockPos pos) {
         boolean bl = false;
-        if (world.getBlockState(pos).is(Blocks.WATER)) {
+        if (level.getBlockState(pos).is(Blocks.WATER)) {
             return false;
         }
         for (Direction direction : DIRECTIONS) {
             if (hasFace(state, direction)) {
                 BlockPos blockPos = pos.relative(direction);
-                if (!canAttachTo(world, direction, blockPos, world.getBlockState(blockPos))) {
+                if (!canAttachTo(level, direction, blockPos, level.getBlockState(blockPos))) {
                     return false;
                 }
                 bl = true;
@@ -44,8 +44,8 @@ public class FlowerLichenBlock extends MultifaceBlock {
         return bl;
     }
 
-    public static boolean canAttachTo(BlockGetter world, Direction direction, BlockPos pos, BlockState state) {
-        return Block.isFaceFull(state.getBlockSupportShape(world, pos), direction.getOpposite()) || Block.isFaceFull(state.getCollisionShape(world, pos), direction.getOpposite()) && !world.getBlockState(pos).is(Blocks.WATER);
+    public static boolean canAttachTo(BlockGetter level, Direction direction, BlockPos pos, BlockState state) {
+        return Block.isFaceFull(state.getBlockSupportShape(level, pos), direction.getOpposite()) || Block.isFaceFull(state.getCollisionShape(level, pos), direction.getOpposite()) && !level.getBlockState(pos).is(Blocks.WATER);
     }
 
     public boolean canBeReplaced(BlockState state, BlockPlaceContext context) {

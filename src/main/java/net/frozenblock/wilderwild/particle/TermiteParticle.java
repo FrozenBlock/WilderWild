@@ -10,8 +10,8 @@ import net.minecraft.core.particles.SimpleParticleType;
 public class TermiteParticle extends TextureSheetParticle {
     private final SpriteSet spriteProvider;
 
-    TermiteParticle(ClientLevel world, double x, double y, double z, double velocityX, double velocityY, double velocityZ, SpriteSet spriteProvider) {
-        super(world, x, y, z, velocityX, velocityY, velocityZ);
+    TermiteParticle(ClientLevel level, double x, double y, double z, double velocityX, double velocityY, double velocityZ, SpriteSet spriteProvider) {
+        super(level, x, y, z, velocityX, velocityY, velocityZ);
         this.friction = 0.96F;
         this.spriteProvider = spriteProvider;
         this.hasPhysics = false;
@@ -35,11 +35,11 @@ public class TermiteParticle extends TextureSheetParticle {
             this.spriteProvider = spriteProvider;
         }
 
-        public Particle createParticle(SimpleParticleType defaultParticleType, ClientLevel clientWorld, double x, double y, double z, double g, double h, double i) {
-            TermiteParticle termite = new TermiteParticle(clientWorld, x, y, z, g, h, i, this.spriteProvider);
+        public Particle createParticle(SimpleParticleType defaultParticleType, ClientLevel clientLevel, double x, double y, double z, double g, double h, double i) {
+            TermiteParticle termite = new TermiteParticle(clientLevel, x, y, z, g, h, i, this.spriteProvider);
             termite.setAlpha(1.0F);
             termite.setParticleSpeed(g, h, i);
-            termite.setLifetime(clientWorld.random.nextInt(4) + 6);
+            termite.setLifetime(clientLevel.random.nextInt(4) + 6);
             termite.scale(2.0F);
             return termite;
         }

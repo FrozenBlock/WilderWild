@@ -18,11 +18,9 @@ public class BoatDropsMixin {
     public void getDropItem(CallbackInfoReturnable<Item> ci) {
         if (((Boat) (Object) this).getBoatType() == WilderBoats.BAOBAB) {
             ci.setReturnValue(RegisterItems.BAOBAB_BOAT_ITEM);
-            ci.cancel();
         }
         if (((Boat) (Object) this).getBoatType() == WilderBoats.CYPRESS) {
             ci.setReturnValue(RegisterItems.CYPRESS_BOAT_ITEM);
-            ci.cancel();
         }
     }
 

@@ -42,28 +42,16 @@ public class WardenMoveControl extends MoveControl {
                         LivingEntity target = ATTACK_TARGET.get();
                         if ((!this.isEntityTouchingWaterOrLava(target) || !this.isEntitySubmergedInWaterOrLava(this.entity)) && target.getY() > this.entity.getY()) {
                             this.entity.setDeltaMovement(this.entity.getDeltaMovement().add(0.0D, 0.01D, 0.0D));
-                        } else {
-                            if (target.getY() > this.entity.getY()) {
-                                this.entity.setDeltaMovement(this.entity.getDeltaMovement().add(0.0D, 0.003D, 0.0D));
-                            } else {
-                                this.entity.setDeltaMovement(this.entity.getDeltaMovement().add(0.0D, -0.003D, 0.0D));
-                            }
                         }
                     } else if (ROAR_TARGET.isPresent()) {
                         LivingEntity target = ROAR_TARGET.get();
                         if ((!this.isEntityTouchingWaterOrLava(target) || !this.isEntitySubmergedInWaterOrLava(this.entity)) && target.getY() > this.entity.getY()) {
                             this.entity.setDeltaMovement(this.entity.getDeltaMovement().add(0.0D, 0.01D, 0.0D));
-                        } else {
-                            if (target.getY() > this.entity.getY()) {
-                                this.entity.setDeltaMovement(this.entity.getDeltaMovement().add(0.0D, 0.003D, 0.0D));
-                            } else {
-                                this.entity.setDeltaMovement(this.entity.getDeltaMovement().add(0.0D, -0.003D, 0.0D));
-                            }
                         }
                     }
                 } else {
                     if (!this.isEntitySubmergedInWaterOrLava(this.entity)) {
-                        this.entity.setDeltaMovement(this.entity.getDeltaMovement().add(0.0D, 0.01D, 0.0D));
+                        this.entity.setDeltaMovement(this.entity.getDeltaMovement().add(0.0D, 0.006D, 0.0D));
                     } else {
                         this.entity.setDeltaMovement(this.entity.getDeltaMovement().add(0.0D, 0.006D, 0.0D));
                     }
@@ -113,10 +101,10 @@ public class WardenMoveControl extends MoveControl {
     }
 
     private boolean isEntityTouchingWaterOrLava(Entity entity) {
-        return entity.isInWaterOrBubble() || entity.isInLava();
+        return entity.isInWaterOrBubble() || entity.isInLava() || entity.isVisuallySwimming();
     }
 
     private boolean isEntitySubmergedInWaterOrLava(Entity entity) {
-        return entity.isEyeInFluid(FluidTags.WATER) || entity.isEyeInFluid(FluidTags.LAVA);
+        return entity.isEyeInFluid(FluidTags.WATER) || entity.isEyeInFluid(FluidTags.LAVA) || entity.isVisuallySwimming();
     }
 }

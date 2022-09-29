@@ -4,56 +4,60 @@ import com.chocohead.mm.api.ClassTinkerers;
 import com.mojang.datafixers.schemas.Schema;
 import com.mojang.serialization.Codec;
 import net.fabricmc.api.ModInitializer;
+import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
+import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
+import net.fabricmc.fabric.api.gamerule.v1.GameRuleFactory;
+import net.fabricmc.fabric.api.gamerule.v1.GameRuleRegistry;
 import net.fabricmc.loader.api.FabricLoader;
 import net.fabricmc.loader.api.ModContainer;
 import net.frozenblock.wilderwild.block.entity.TermiteMoundBlockEntity;
 import net.frozenblock.wilderwild.entity.Firefly;
 import net.frozenblock.wilderwild.misc.BlockSoundGroupOverwrites;
-import net.frozenblock.wilderwild.misc.mod_compat.simple_copper_pipes.RegisterSaveableMoveablePipeNbt;
 import net.frozenblock.wilderwild.registry.*;
-import net.frozenblock.wilderwild.world.feature.WilderConfiguredFeatures;
-import net.frozenblock.wilderwild.world.feature.WilderMiscConfigured;
-import net.frozenblock.wilderwild.world.feature.WilderTreeConfigured;
-import net.frozenblock.wilderwild.world.feature.WilderTreePlaced;
+import net.frozenblock.wilderwild.world.feature.*;
 import net.frozenblock.wilderwild.world.feature.features.*;
-import net.frozenblock.wilderwild.world.feature.features.config.ColumnWithDiskFeatureConfig;
-import net.frozenblock.wilderwild.world.feature.features.config.PathFeatureConfig;
-import net.frozenblock.wilderwild.world.feature.features.config.ShelfFungusFeatureConfig;
+import net.frozenblock.wilderwild.world.feature.features.config.*;
 import net.frozenblock.wilderwild.world.gen.WilderWorldGen;
 import net.frozenblock.wilderwild.world.gen.trunk.BaobabTrunkPlacer;
 import net.frozenblock.wilderwild.world.gen.trunk.FallenTrunkWithLogs;
 import net.frozenblock.wilderwild.world.gen.trunk.StraightTrunkWithLogs;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Registry;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.tags.TagKey;
 import net.minecraft.util.RandomSource;
 import net.minecraft.util.datafix.schemas.NamespacedSchema;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.MobCategory;
-import net.minecraft.world.item.Instrument;
+import net.minecraft.world.level.GameRules;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.configurations.ProbabilityFeatureConfiguration;
 import net.minecraft.world.level.levelgen.feature.trunkplacers.TrunkPlacer;
 import net.minecraft.world.level.levelgen.feature.trunkplacers.TrunkPlacerType;
-import org.quiltmc.qsl.frozenblock.datafixerupper.api.QuiltDataFixerBuilder;
-import org.quiltmc.qsl.frozenblock.datafixerupper.api.QuiltDataFixes;
-import org.quiltmc.qsl.frozenblock.datafixerupper.api.SimpleFixes;
+import org.quiltmc.qsl.frozenblock.misc.datafixerupper.api.QuiltDataFixerBuilder;
+import org.quiltmc.qsl.frozenblock.misc.datafixerupper.api.QuiltDataFixes;
+import org.quiltmc.qsl.frozenblock.misc.datafixerupper.api.SimpleFixes;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Optional;
 
 public final class WilderWild implements ModInitializer {
     public static final String MOD_ID = "wilderwild";
     public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
     public static final boolean DEV_LOGGING = false;
-    public static boolean UNSTABLE_LOGGING = false; //Used for features that may possibly be unstable and crash in public builds - it's smart to use this for at least registries.
-    public static boolean RENDER_TENDRILS = false;
+    public static boolean UNSTABLE_LOGGING = FabricLoader.getInstance().isDevelopmentEnvironment(); //Used for features that may possibly be unstable and crash in public builds - it's smart to use this for at least registries.
+
+    public static boolean areConfigsInit = false;
+
+    public static boolean hasCloth = FabricLoader.getInstance().isModLoaded("cloth-config");
+    public static boolean hasPipes = FabricLoader.getInstance().isModLoaded("copper_pipe");
+    public static boolean hasSodium = FabricLoader.getInstance().isModLoaded("sodium");
+    public static boolean hasTerraBlender = FabricLoader.getInstance().isModLoaded("terrablender");
+    public static boolean hasTerralith = FabricLoader.getInstance().isModLoaded("terralith");
 
     public static final TrunkPlacerType<StraightTrunkWithLogs> STRAIGHT_TRUNK_WITH_LOGS_PLACER_TYPE = registerTrunk("straight_trunk_logs_placer", StraightTrunkWithLogs.CODEC);
     public static final TrunkPlacerType<FallenTrunkWithLogs> FALLEN_TRUNK_WITH_LOGS_PLACER_TYPE = registerTrunk("fallen_trunk_logs_placer", FallenTrunkWithLogs.CODEC);
@@ -65,11 +69,13 @@ public final class WilderWild implements ModInitializer {
     public static final NoisePlantFeature NOISE_PLANT_FEATURE = new NoisePlantFeature(PathFeatureConfig.CODEC);
     public static final NoisePathUnderWaterFeature NOISE_PATH_UNDER_WATER_FEATURE = new NoisePathUnderWaterFeature(PathFeatureConfig.CODEC);
     public static final ColumnWithDiskFeature COLUMN_WITH_DISK_FEATURE = new ColumnWithDiskFeature(ColumnWithDiskFeatureConfig.CODEC);
+    public static final UpwardsPillarFeature UPWARDS_PILLAR_FEATURE = new UpwardsPillarFeature(WilderPillarConfig.CODEC);
+    public static final DownwardsPillarFeature DOWNWARDS_PILLAR_FEATURE = new DownwardsPillarFeature(WilderPillarConfig.CODEC);
+    public static final NematocystFeature NEMATOCYST_FEATURE = new NematocystFeature(NematocystFeatureConfig.CODEC);
 
-    public static final TagKey<Instrument> WILD_HORNS = TagKey.create(Registry.INSTRUMENT_REGISTRY, id("wild_horns"));
-
-    //ClassTinkerers
+    //Fabric ASM
     public static final MobCategory FIREFLIES = ClassTinkerers.getEnum(MobCategory.class, "WILDERWILDFIREFLIES");
+    public static final MobCategory JELLYFISH = ClassTinkerers.getEnum(MobCategory.class, "WILDERWILDJELLYFISH");
 
     public static RandomSource random() {
         return RandomSource.create();
@@ -83,12 +89,14 @@ public final class WilderWild implements ModInitializer {
         RegisterBlocks.registerBlocks();
         RegisterItems.registerItems();
         WilderConfiguredFeatures.registerConfiguredFeatures();
+        WilderPlacedFeatures.init();
         WilderTreeConfigured.registerTreeConfigured();
         WilderTreePlaced.registerTreePlaced();
         WilderMiscConfigured.registerMiscPlaced();
         WilderWorldGen.generateWildWorldGen();
         RegisterGameEvents.registerEvents();
-        RegisterWorldgen.registerWorldGen();
+        RegisterWorldgen.registerWorldgen();
+        RegisterStructures.init();
 
         RegisterSounds.init();
         RegisterBlockSoundGroups.init();
@@ -98,8 +106,6 @@ public final class WilderWild implements ModInitializer {
         RegisterLootTables.init();
         RegisterParticles.registerParticles();
 
-        RegisterLoopingSoundRestrictions.init();
-
         Registry.register(Registry.FEATURE, id("shelf_fungus_feature"), SHELF_FUNGUS_FEATURE);
         Registry.register(Registry.FEATURE, id("cattail_feature"), CATTAIL_FEATURE);
         Registry.register(Registry.FEATURE, id("algae_feature"), ALGAE_FEATURE);
@@ -107,28 +113,25 @@ public final class WilderWild implements ModInitializer {
         Registry.register(Registry.FEATURE, id("noise_plant_feature"), NOISE_PLANT_FEATURE);
         Registry.register(Registry.FEATURE, id("noise_path_under_water_feature"), NOISE_PATH_UNDER_WATER_FEATURE);
         Registry.register(Registry.FEATURE, id("column_with_disk_feature"), COLUMN_WITH_DISK_FEATURE);
+        Registry.register(Registry.FEATURE, id("upwards_pillar"), UPWARDS_PILLAR_FEATURE);
+        Registry.register(Registry.FEATURE, id("downwards_pillar"), DOWNWARDS_PILLAR_FEATURE);
+        Registry.register(Registry.FEATURE, id("nematocyst_feature"), NEMATOCYST_FEATURE);
 
-        if (FabricLoader.getInstance().isDevelopmentEnvironment()) { /* DEV-ONLY */
-            UNSTABLE_LOGGING = true;
-            RegisterDevelopment.init();
-        }
 
         TermiteMoundBlockEntity.Termite.addDegradableBlocks();
         TermiteMoundBlockEntity.Termite.addNaturalDegradableBlocks();
 
-        terralith();
-
-        if (hasSimpleCopperPipes()) {
-            RegisterSaveableMoveablePipeNbt.init();
+        if (hasTerralith) {
+            terralith();
         }
 
         stopMeasuring(this);
     }
 
-    private static final int DATA_VERSION = 5;
+    private static final int DATA_VERSION = 7;
 
     private static QuiltDataFixerBuilder applyDataFixes(ModContainer mod) {
-        logWild("Applying DataFixes for", true);
+        log("Applying DataFixes for Wilder Wild", true);
         var builder = new QuiltDataFixerBuilder(DATA_VERSION);
         builder.addSchema(0, QuiltDataFixes.BASE_SCHEMA);
         Schema schemaV1 = builder.addSchema(1, NamespacedSchema::new);
@@ -145,6 +148,14 @@ public final class WilderWild implements ModInitializer {
         Schema schemaV5 = builder.addSchema(5, NamespacedSchema::new);
         SimpleFixes.addBlockRenameFix(builder, "Rename sculk_echoer to null_block", id("sculk_echoer"), id("null_block"), schemaV5);
         SimpleFixes.addBlockRenameFix(builder, "Rename sculk_jaw to null_block", id("sculk_jaw"), id("null_block"), schemaV5);
+        Schema schemaV6 = builder.addSchema(6, NamespacedSchema::new);
+        SimpleFixes.addBlockRenameFix(builder, "Rename baobab_sapling to baobab_nut", id("baobab_sapling"), id("baobab_nut"), schemaV6);
+        SimpleFixes.addBlockRenameFix(builder, "Rename baobab_nut_sapling to baobab_nut", id("baobab_nut_sapling"), id("baobab_nut"), schemaV6);
+        SimpleFixes.addBlockRenameFix(builder, "Rename potted_baobab_sapling to potted_baobab_nut", id("potted_baobab_sapling"), id("potted_baobab_nut"), schemaV6);
+        Schema schemaV7 = builder.addSchema(7, NamespacedSchema::new);
+        SimpleFixes.addBlockRenameFix(builder, "Rename firefly_lantern to display_lantern", id("firefly_lantern"), id("display_lantern"), schemaV7);
+        SimpleFixes.addBlockRenameFix(builder, "Rename mesoglea to blue_pearlescent_mesoglea", id("mesoglea"), id("blue_pearlescent_mesoglea"), schemaV7);
+        SimpleFixes.addItemRenameFix(builder, "Rename mesoglea to blue_pearlescent_mesoglea", id("mesoglea"), id("blue_pearlescent_mesoglea"), schemaV7);
 
         QuiltDataFixes.buildAndRegisterFixer(mod, builder);
         log("DataFixes for Wilder Wild have been applied", true);
@@ -153,32 +164,18 @@ public final class WilderWild implements ModInitializer {
 
     //MOD COMPATIBILITY
     public static void terralith() {
-        Optional<ModContainer> wilderwildOptional = FabricLoader.getInstance().getModContainer("wilderwild");
-        Optional<ModContainer> terralithOptional = FabricLoader.getInstance().getModContainer("terralith");
-        if (wilderwildOptional.isPresent() && terralithOptional.isPresent()) {
+        Firefly.FireflyBiomeColorRegistry.addBiomeColor(new ResourceLocation("terralith", "cave/frostfire_caves"), "blue");
+        Firefly.FireflyBiomeColorRegistry.addBiomeColor(new ResourceLocation("terralith", "cave/frostfire_caves"), "light_blue");
 
-            Firefly.FireflyBiomeColorRegistry.addBiomeColor(new ResourceLocation("terralith", "cave/frostfire_caves"), "blue");
-            Firefly.FireflyBiomeColorRegistry.addBiomeColor(new ResourceLocation("terralith", "cave/frostfire_caves"), "light_blue");
+        Firefly.FireflyBiomeColorRegistry.addBiomeColor(new ResourceLocation("terralith", "cave/thermal_caves"), "red");
+        Firefly.FireflyBiomeColorRegistry.addBiomeColor(new ResourceLocation("terralith", "cave/thermal_caves"), "orange");
 
-            Firefly.FireflyBiomeColorRegistry.addBiomeColor(new ResourceLocation("terralith", "cave/thermal_caves"), "red");
-            Firefly.FireflyBiomeColorRegistry.addBiomeColor(new ResourceLocation("terralith", "cave/thermal_caves"), "orange");
-        }
-    }
-
-    public static boolean hasTerralith() {
-        return FabricLoader.getInstance().getModContainer("terralith").isPresent();
-    }
-
-    public static boolean hasSimpleCopperPipes() {
-        return FabricLoader.getInstance().getModContainer("copper_pipe").isPresent();
-    }
-
-    public static boolean hasModMenu() {
-        return FabricLoader.getInstance().getModContainer("modmenu").isPresent();
+        BiomeModifications.addSpawn(BiomeSelectors.includeByKey(ResourceKey.create(Registry.BIOME_REGISTRY, new ResourceLocation("terralith", "cave/underground_jungle"))),
+                WilderWild.FIREFLIES, RegisterEntities.FIREFLY, 12, 2, 4);
     }
 
     public static boolean isCopperPipe(BlockState state) {
-        if (hasSimpleCopperPipes()) {
+        if (hasPipes) {
             ResourceLocation id = Registry.BLOCK.getKey(state.getBlock());
             return id.getNamespace().equals("lunade") && id.getPath().contains("pipe");
         }
@@ -253,6 +250,10 @@ public final class WilderWild implements ModInitializer {
         }
     }
 
+    //GAMERULES
+    public static final GameRules.Key<GameRules.BooleanValue> STONE_CHEST_CLOSES =
+            GameRuleRegistry.register("stoneChestCloses", GameRules.Category.MISC, GameRuleFactory.createBooleanRule(true));
+
     //IDENTIFIERS
     public static final ResourceLocation SEED_PACKET = id("seed_particle_packet");
     public static final ResourceLocation CONTROLLED_SEED_PACKET = id("controlled_seed_particle_packet");
@@ -260,11 +261,10 @@ public final class WilderWild implements ModInitializer {
     public static final ResourceLocation TERMITE_PARTICLE_PACKET = id("termite_particle_packet");
     public static final ResourceLocation HORN_PROJECTILE_PACKET_ID = id("ancient_horn_projectile_packet");
     public static final ResourceLocation SENSOR_HICCUP_PACKET = id("sensor_hiccup_packet");
+    public static final ResourceLocation JELLY_STING_PACKET = id("jelly_sting_packet");
 
     public static final ResourceLocation CAPTURE_FIREFLY_NOTIFY_PACKET = id("capture_firefly_notify_packet");
     public static final ResourceLocation ANCIENT_HORN_KILL_NOTIFY_PACKET = id("ancient_horn_kill_notify_packet");
-    public static final ResourceLocation FLYBY_SOUND_PACKET = id("flyby_sound_packet");
-    public static final ResourceLocation MOVING_LOOPING_SOUND_PACKET = id("moving_looping_sound_packet");
 
     public static ResourceLocation id(String path) {
         return new ResourceLocation(MOD_ID, path);

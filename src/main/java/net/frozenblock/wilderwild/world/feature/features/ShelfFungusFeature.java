@@ -57,7 +57,7 @@ public class ShelfFungusFeature extends Feature<ShelfFungusFeatureConfig> {
         }
     }
 
-    public static boolean generate(WorldGenLevel world, BlockPos pos, BlockState state, ShelfFungusFeatureConfig config, RandomSource random, List<Direction> directions) {
+    public static boolean generate(WorldGenLevel level, BlockPos pos, BlockState state, ShelfFungusFeatureConfig config, RandomSource random, List<Direction> directions) {
         MutableBlockPos mutable = pos.mutable();
         Iterator<Direction> var7 = directions.iterator();
 
@@ -70,7 +70,7 @@ public class ShelfFungusFeature extends Feature<ShelfFungusFeatureConfig> {
             }
 
             direction = var7.next();
-            blockState = world.getBlockState(mutable.setWithOffset(pos, direction));
+            blockState = level.getBlockState(mutable.setWithOffset(pos, direction));
             placementDirection = direction;
             if (placementDirection.getAxis() == Direction.Axis.Y) {
                 placementDirection = Direction.Plane.HORIZONTAL.getRandomDirection(random);
@@ -83,8 +83,8 @@ public class ShelfFungusFeature extends Feature<ShelfFungusFeatureConfig> {
         if (blockState2 == null) {
             return false;
         } else {
-            world.setBlock(pos, blockState2, 3);
-            world.getChunk(pos).markPosForPostprocessing(pos);
+            level.setBlock(pos, blockState2, 3);
+            level.getChunk(pos).markPosForPostprocessing(pos);
 
             return true;
         }

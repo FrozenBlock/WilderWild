@@ -7,6 +7,7 @@ import net.fabricmc.api.Environment;
 import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.WilderWildClient;
 import net.frozenblock.wilderwild.misc.SculkSensorTickInterface;
+import net.frozenblock.wilderwild.misc.config.ClothConfigInteractionHandler;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.CubeListBuilder;
 import net.minecraft.client.model.geom.builders.LayerDefinition;
@@ -17,6 +18,7 @@ import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider.Context;
 import net.minecraft.world.level.block.entity.SculkSensorBlockEntity;
+import org.jetbrains.annotations.NotNull;
 
 @Environment(EnvType.CLIENT)
 public class SculkSensorBlockEntityRenderer<T extends SculkSensorBlockEntity> implements BlockEntityRenderer<T> {
@@ -46,35 +48,29 @@ public class SculkSensorBlockEntityRenderer<T extends SculkSensorBlockEntity> im
         return LayerDefinition.create(modelData, 64, 64);
     }
 
-    public void render(T entity, float tickDelta, PoseStack matrices, MultiBufferSource vertexConsumers, int light, int overlay) {
-        if (WilderWild.RENDER_TENDRILS) {
+    public void render(@NotNull T entity, float tickDelta, @NotNull PoseStack matrices, @NotNull MultiBufferSource vertexConsumers, int light, int overlay) {
+        if (ClothConfigInteractionHandler.mcLiveSensorTendrils()) {
             SculkSensorTickInterface tickInterface = ((SculkSensorTickInterface) entity);
+            VertexConsumer vertexConsumer = vertexConsumers.getBuffer(SENSOR_LAYER);
             if (tickInterface.isActive()) {
                 int prevTicks = tickInterface.getPrevAnimTicks();
                 float pitch = (prevTicks + tickDelta * (tickInterface.getAnimTicks() - prevTicks)) * 0.1F;
                 float animProg = (tickInterface.getAge() + tickDelta) * 2.25F;
                 this.ne.xRot = pitch * ((float) Math.cos(animProg) * merp25);
                 this.se.xRot = pitch * (-(float) Math.sin(animProg) * merp25);
-                VertexConsumer vertexConsumer = vertexConsumers.getBuffer(ACTIVE_SENSOR_LAYER);
-                this.base.render(matrices, vertexConsumer, light, overlay, 1.0F, 1.0F, 1.0F, 1.0F);
-                this.ne.render(matrices, vertexConsumer, light, overlay, 1.0F, 1.0F, 1.0F, 1.0F);
-                this.se.render(matrices, vertexConsumer, light, overlay, 1.0F, 1.0F, 1.0F, 1.0F);
-                matrices.translate(0.625, 0, 0.625);
-                this.ne.render(matrices, vertexConsumer, light, overlay, 1.0F, 1.0F, 1.0F, 1.0F);
-                matrices.translate(0, 0, -1.25);
-                this.se.render(matrices, vertexConsumer, light, overlay, 1.0F, 1.0F, 1.0F, 1.0F);
+                vertexConsumer = vertexConsumers.getBuffer(ACTIVE_SENSOR_LAYER);
             } else {
                 this.ne.xRot = 0;
                 this.se.xRot = 0;
-                VertexConsumer vertexConsumer = vertexConsumers.getBuffer(SENSOR_LAYER);
-                this.base.render(matrices, vertexConsumer, light, overlay, 1.0F, 1.0F, 1.0F, 1.0F);
-                this.ne.render(matrices, vertexConsumer, light, overlay, 1.0F, 1.0F, 1.0F, 1.0F);
-                this.se.render(matrices, vertexConsumer, light, overlay, 1.0F, 1.0F, 1.0F, 1.0F);
-                matrices.translate(0.625, 0, 0.625);
-                this.ne.render(matrices, vertexConsumer, light, overlay, 1.0F, 1.0F, 1.0F, 1.0F);
-                matrices.translate(0, 0, -1.25);
-                this.se.render(matrices, vertexConsumer, light, overlay, 1.0F, 1.0F, 1.0F, 1.0F);
             }
+
+            this.base.render(matrices, vertexConsumer, light, overlay, 1.0F, 1.0F, 1.0F, 1.0F);
+            this.ne.render(matrices, vertexConsumer, light, overlay, 1.0F, 1.0F, 1.0F, 1.0F);
+            this.se.render(matrices, vertexConsumer, light, overlay, 1.0F, 1.0F, 1.0F, 1.0F);
+            matrices.translate(0.625, 0, 0.625);
+            this.ne.render(matrices, vertexConsumer, light, overlay, 1.0F, 1.0F, 1.0F, 1.0F);
+            matrices.translate(0, 0, -1.25);
+            this.se.render(matrices, vertexConsumer, light, overlay, 1.0F, 1.0F, 1.0F, 1.0F);
         }
     }
 

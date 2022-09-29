@@ -2,6 +2,6 @@
   "parent": "minecraft:block/cube_column",
   "textures": {
 	"end": "wilderwild:block/osseous_sculk_top",
-	"side": "wilderwild:block/osseous_sculk_side"
+	"side": "wilderwild:block/osseous_sculk"
   }
 }

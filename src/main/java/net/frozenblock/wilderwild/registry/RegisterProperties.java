@@ -22,8 +22,11 @@ public final class RegisterProperties {
     public static final BooleanProperty NATURAL = BooleanProperty.create("natural");
     //Glory of The Snow
     public static final EnumProperty<FlowerColors> FLOWER_COLOR = EnumProperty.create("flower_color", FlowerColors.class);
-    //Cypress Roots
-    public static final IntegerProperty ROOTS = IntegerProperty.create("roots", 1, 4);
+    //Firefly Lantern
+    public static final IntegerProperty LIGHT = IntegerProperty.create("light", 0, 15);
+    //Stone Chest
+    public static final BooleanProperty ANCIENT = BooleanProperty.create("ancient");
+    public static final BooleanProperty HAS_SCULK = BooleanProperty.create("has_sculk");
 
     //Vanilla Blocks
     public static final IntegerProperty SOULS_TAKEN = IntegerProperty.create("souls_taken", 0, 2); //Sculk Shrieker

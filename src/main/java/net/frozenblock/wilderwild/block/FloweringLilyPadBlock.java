@@ -22,20 +22,20 @@ public class FloweringLilyPadBlock extends WaterlilyBlock {
         super(settings);
     }
 
-    public void entityInside(BlockState state, Level world, BlockPos pos, Entity entity) {
-        super.entityInside(state, world, pos, entity);
-        if (world instanceof ServerLevel && entity instanceof Boat) {
-            world.destroyBlock(new BlockPos(pos), true, entity);
+    public void entityInside(BlockState state, Level level, BlockPos pos, Entity entity) {
+        super.entityInside(state, level, pos, entity);
+        if (level instanceof ServerLevel && entity instanceof Boat) {
+            level.destroyBlock(new BlockPos(pos), true, entity);
         }
     }
 
-    public VoxelShape getShape(BlockState state, BlockGetter world, BlockPos pos, CollisionContext context) {
+    public VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
         return AABB;
     }
 
-    protected boolean mayPlaceOn(BlockState floor, BlockGetter world, BlockPos pos) {
-        FluidState fluidState = world.getFluidState(pos);
-        FluidState fluidState2 = world.getFluidState(pos.above());
+    protected boolean mayPlaceOn(BlockState floor, BlockGetter level, BlockPos pos) {
+        FluidState fluidState = level.getFluidState(pos);
+        FluidState fluidState2 = level.getFluidState(pos.above());
         return (fluidState.getType() == Fluids.WATER || floor.getMaterial() == Material.ICE) && fluidState2.getType() == Fluids.EMPTY;
     }
 }

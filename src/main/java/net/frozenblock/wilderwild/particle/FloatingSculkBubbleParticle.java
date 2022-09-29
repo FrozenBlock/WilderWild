@@ -23,14 +23,14 @@ public class FloatingSculkBubbleParticle extends RisingParticle {
         return 240;
     }
 
-    protected FloatingSculkBubbleParticle(ClientLevel clientWorld, double x, double y, double z, double size, double maxAge, double yVel, SpriteSet spriteProvider) {
-        super(clientWorld, x, y, z, 0, 0, 0);
+    protected FloatingSculkBubbleParticle(ClientLevel clientLevel, double x, double y, double z, double size, double maxAge, double yVel, SpriteSet spriteProvider) {
+        super(clientLevel, x, y, z, 0, 0, 0);
         this.xd = (Math.random() - 0.5) / 9.5;
         this.zd = (Math.random() - 0.5) / 9.5;
         this.spriteProvider = spriteProvider;
         this.setSpriteFromAge(spriteProvider);
         this.yd = yVel;
-        this.sound = size <= 0 ? RegisterSounds.FLOATING_SCULK_BUBBLE_POP : RegisterSounds.FLOATING_SCULK_BUBBLE_BIG_POP;
+        this.sound = size <= 0 ? RegisterSounds.PARTICLE_FLOATING_SCULK_BUBBLE_POP : RegisterSounds.PARTICLE_FLOATING_SCULK_BUBBLE_BIG_POP;
         if (size >= 1) {
             this.scale((float) (1.4F + size));
             this.xd = (Math.random() - 0.5) / 10.5;
@@ -150,8 +150,8 @@ public class FloatingSculkBubbleParticle extends RisingParticle {
         }
 
         @Override
-        public Particle createParticle(SimpleParticleType defaultParticleType, ClientLevel clientWorld, double x, double y, double z, double size, double maxAge, double yVel) {
-            FloatingSculkBubbleParticle bubble = new FloatingSculkBubbleParticle(clientWorld, x, y, z, size, maxAge, yVel, this.spriteProvider);
+        public Particle createParticle(SimpleParticleType defaultParticleType, ClientLevel clientLevel, double x, double y, double z, double size, double maxAge, double yVel) {
+            FloatingSculkBubbleParticle bubble = new FloatingSculkBubbleParticle(clientLevel, x, y, z, size, maxAge, yVel, this.spriteProvider);
             bubble.setAlpha(1.0F);
             return bubble;
         }

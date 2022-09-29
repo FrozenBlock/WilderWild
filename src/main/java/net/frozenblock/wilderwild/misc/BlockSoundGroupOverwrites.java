@@ -33,19 +33,21 @@ public class BlockSoundGroupOverwrites {
         addBlocks(new Block[]{RED_MUSHROOM_BLOCK, BROWN_MUSHROOM_BLOCK, MUSHROOM_STEM}, MUSHROOM_BLOCK);
         addBlocks(new Block[]{FROSTED_ICE}, ICE_BLOCKS);
         addBlock(COBWEB, WEB);
+        addBlock(CLAY, CLAY_BLOCK);
         addBlock(REINFORCED_DEEPSLATE, REINFORCEDDEEPSLATE);
         addBlock(LILY_PAD, LILYPAD);
         addBlock(SUGAR_CANE, SUGARCANE);
         addBlock(COARSE_DIRT, COARSEDIRT);
+        addBlock(GRAVEL, GRAVELSOUNDS);
 
-        if (FabricLoader.getInstance().getModContainer("betternether").isPresent()) {
+        if (FabricLoader.getInstance().isModLoaded("betternether")) {
             addBlock("betternether", "willow_leaves", LEAVES);
             addBlock("betternether", "rubeous_leaves", LEAVES);
             addBlock("betternether", "anchor_tree_leaves", LEAVES);
             addBlock("betternether", "nether_sakura_leaves", LEAVES);
         }
 
-        if (FabricLoader.getInstance().getModContainer("betterend").isPresent()) {
+        if (FabricLoader.getInstance().isModLoaded("betterend")) {
             addBlock("betterend", "pythadendron_leaves", LEAVES);
             addBlock("betterend", "lacugrove_leaves", LEAVES);
             addBlock("betterend", "dragon_tree_leaves", LEAVES);
@@ -54,16 +56,16 @@ public class BlockSoundGroupOverwrites {
             addBlock("betterend", "lucernia_leaves", LEAVES);
         }
 
-        if (FabricLoader.getInstance().getModContainer("blockus").isPresent()) {
+        if (FabricLoader.getInstance().isModLoaded("blockus")) {
             addBlock("blockus", "white_oak_leaves", LEAVES);
             addBlock("blockus", "legacy_leaves", LEAVES);
         }
 
-        if (FabricLoader.getInstance().getModContainer("edenring").isPresent()) {
+        if (FabricLoader.getInstance().isModLoaded("edenring")) {
             addBlock("edenring", "auritis_leaves", LEAVES);
         }
 
-        if (FabricLoader.getInstance().getModContainer("techreborn").isPresent()) {
+        if (FabricLoader.getInstance().isModLoaded("techreborn")) {
             addBlock("techreborn", "rubber_leaves", LEAVES);
         }
     }
@@ -99,7 +101,7 @@ public class BlockSoundGroupOverwrites {
 
     public static void addBlockTag(TagKey<Block> tag, SoundType sounds) {
         for (Holder<Block> block : Registry.BLOCK.getTagOrEmpty(tag)) {
-            ids.add(Registry.BLOCK.getKey(block.value()));
+            ids.add(block.unwrapKey().orElseThrow().location());
             soundGroups.add(sounds);
         }
     }

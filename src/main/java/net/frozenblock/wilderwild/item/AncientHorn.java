@@ -1,8 +1,9 @@
 package net.frozenblock.wilderwild.item;
 
+import net.frozenblock.lib.interfaces.CooldownInterface;
+import net.frozenblock.lib.sound.FrozenSoundPackets;
 import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.entity.AncientHornProjectile;
-import net.frozenblock.wilderwild.misc.server.EasyPacket;
 import net.frozenblock.wilderwild.registry.RegisterItems;
 import net.frozenblock.wilderwild.registry.RegisterSounds;
 import net.minecraft.core.Holder;
@@ -51,25 +52,25 @@ public class AncientHorn extends InstrumentItem {
     }
 
     @Override
-    public InteractionResultHolder<ItemStack> use(@NotNull Level world, @NotNull Player user, @NotNull InteractionHand hand) {
+    public InteractionResultHolder<ItemStack> use(@NotNull Level level, @NotNull Player user, @NotNull InteractionHand hand) {
         WilderWild.log(user, "Used Ancient Horn", WilderWild.DEV_LOGGING);
         ItemStack itemStack = user.getItemInHand(hand);
         Optional<Holder<Instrument>> optional = this.getInstrument(itemStack);
         if (optional.isPresent()) {
             Instrument instrument = optional.get().value();
             user.startUsingItem(hand);
-            play(world, user, instrument);
-            user.getCooldowns().addCooldown(RegisterItems.ANCIENT_HORN, getCooldown(user, 300, 0));
-            if (world instanceof ServerLevel server) {
-                AncientHornProjectile projectileEntity = new AncientHornProjectile(world, user.getX(), user.getEyeY(), user.getZ());
+            play(level, user, instrument);
+            user.getCooldowns().addCooldown(RegisterItems.ANCIENT_HORN, getCooldown(user, 300));
+            if (level instanceof ServerLevel server) {
+                AncientHornProjectile projectileEntity = new AncientHornProjectile(level, user.getX(), user.getEyeY(), user.getZ());
                 projectileEntity.shootFromRotation(user, user.getXRot(), user.getYRot(), 0.0F, 1.0F, 0.0F);
                 projectileEntity.shotByPlayer = true;
                 server.addFreshEntity(projectileEntity);
-                EasyPacket.createMovingLoopingSound(server, projectileEntity, RegisterSounds.ANCIENT_HORN_PROJECTILE_LOOP, SoundSource.NEUTRAL, 1.0F, 1.0F, WilderWild.id("default"));
+                FrozenSoundPackets.createMovingRestrictionLoopingSound(server, projectileEntity, RegisterSounds.ENTITY_ANCIENT_HORN_PROJECTILE_LOOP, SoundSource.NEUTRAL, 1.0F, 1.0F, WilderWild.id("default"));
                 ItemStack mainHand = user.getItemInHand(InteractionHand.MAIN_HAND);
                 ItemStack offHand = user.getItemInHand(InteractionHand.OFF_HAND);
                 if (mainHand.is(Items.WATER_BUCKET) || mainHand.is(Items.POTION) || offHand.is(Items.WATER_BUCKET) || offHand.is(Items.POTION)) {
-                    projectileEntity.bubbles = world.random.nextIntBetweenInclusive(10, 25);
+                    projectileEntity.bubbles = level.random.nextIntBetweenInclusive(10, 25);
                     /*float yawNew = user.getYaw() * 0.017453292F;
                     float pitchNew = MathHelper.cos(user.getPitch() * 0.017453292F);
                     float f = -MathHelper.sin(yawNew) * pitchNew;
@@ -78,7 +79,7 @@ public class AncientHorn extends InstrumentItem {
                         EasyPacket.EasyFloatingSculkBubblePacket.createParticle(server, user.getEyePos(), Math.random() > 0.7 ? 1 : 0, 20 + (int)(Math.random()*40), 0.05, 1);
                     }*/
                 }
-                //FlyBySoundPacket.createFlybySound(world, projectileEntity, RegisterSounds.ANCIENT_HORN_VIBRATION_DISSIPATE, SoundCategory.PLAYERS, 1.0F, 0.7F);
+                //FlyBySoundPacket.createFlybySound(level, projectileEntity, RegisterSounds.ANCIENT_HORN_VIBRATION_DISSIPATE, SoundCategory.PLAYERS, 1.0F, 0.7F);
             }
             return InteractionResultHolder.consume(itemStack);
         } else {
@@ -107,10 +108,10 @@ public class AncientHorn extends InstrumentItem {
         return iterator.hasNext() ? Optional.of(iterator.next()) : Optional.empty();
     }
 
-    public static int getCooldown(@Nullable Entity entity, int cooldown, int additionalCooldown) {
+    public static int getCooldown(@Nullable Entity entity, int cooldown) {
         if (entity != null) {
             if (entity instanceof Player player) {
-                cooldown = player.isCreative() ? 5 : cooldown + additionalCooldown;
+                cooldown = player.isCreative() ? 5 : cooldown;
             }
         }
         return cooldown;
@@ -123,9 +124,7 @@ public class AncientHorn extends InstrumentItem {
             if (entry != null) {
                 int between = entry.endTime - entry.startTime;
                 if (between > 140 & between >= time) {
-                    int cooldown = Math.max(between - time, 1);
-                    manager.removeCooldown(RegisterItems.ANCIENT_HORN);
-                    manager.addCooldown(RegisterItems.ANCIENT_HORN, cooldown);
+                    ((CooldownInterface) user.getCooldowns()).changeCooldown(RegisterItems.ANCIENT_HORN, -time);
                     return time;
                 }
             }

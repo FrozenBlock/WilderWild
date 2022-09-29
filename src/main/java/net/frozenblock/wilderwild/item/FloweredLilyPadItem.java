@@ -21,8 +21,8 @@ public class FloweredLilyPadItem extends BlockItem {
         return InteractionResult.PASS;
     }
 
-    public InteractionResultHolder<ItemStack> use(Level world, Player user, InteractionHand hand) {
-        BlockHitResult blockHitResult = getPlayerPOVHitResult(world, user, Fluid.SOURCE_ONLY);
+    public InteractionResultHolder<ItemStack> use(Level level, Player user, InteractionHand hand) {
+        BlockHitResult blockHitResult = getPlayerPOVHitResult(level, user, Fluid.SOURCE_ONLY);
         BlockHitResult blockHitResult2 = blockHitResult.withPosition(blockHitResult.getBlockPos().above());
         InteractionResult actionResult = super.useOn(new UseOnContext(user, hand, blockHitResult2));
         return new InteractionResultHolder<>(actionResult, user.getItemInHand(hand));

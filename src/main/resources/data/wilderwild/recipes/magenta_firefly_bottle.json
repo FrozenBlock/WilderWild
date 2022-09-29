@@ -6,17 +6,11 @@
 	  "item": "wilderwild:firefly_bottle"
 	},
 	{
-	  "item": "wilderwild:firefly_bottle"
-	},
-	{
-	  "item": "wilderwild:firefly_bottle"
-	},
-	{
 	  "item": "minecraft:magenta_dye"
 	}
   ],
   "result": {
 	"item": "wilderwild:magenta_firefly_bottle",
-	"count": 3
+	"count": 1
   }
 }
