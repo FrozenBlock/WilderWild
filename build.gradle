@@ -116,15 +116,14 @@ dependencies {
 	modImplementation "net.fabricmc.fabric-api:fabric-api:${fabric_version}"
 
 	// FrozenLib
-	println "Using local FrozenLib: false"
-	/*println "Using local FrozenLib: ${local_frozenlib}"
+	println "Using local FrozenLib: ${local_frozenlib}"
 	if (local_frozenlib) {
 		implementation(project(path: ":FrozenLib", configuration: 'dev'))
 		include(project(path: ":FrozenLib", configuration: 'dev'))
-	} else {*/
+	} else {
 		modImplementation "maven.modrinth:frozenlib:${frozenlib_version}"
 		include "maven.modrinth:frozenlib:${frozenlib_version}"
-	//}
+	}
 
 	// Fabric-ASM
 	modImplementation "com.github.Chocohead:Fabric-ASM:${fabric_asm_version}"
