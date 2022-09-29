@@ -27,7 +27,8 @@
 	]
   ],
   "rewards": {
-	"recipes": "flute_copper_horn"
+	"recipes": [
+	  "wilderwild:flute_copper_horn"
 	]
   }
 }
