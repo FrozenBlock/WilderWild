@@ -2,7 +2,7 @@ package net.frozenblock.wilderwild.mixin.server;
 
 import net.frozenblock.lib.sound.FrozenSoundPackets;
 import net.frozenblock.wilderwild.WilderWild;
-import net.frozenblock.wilderwild.misc.ClientMethods;
+import net.frozenblock.wilderwild.misc.ClientMethodInteractionHandler;
 import net.frozenblock.wilderwild.registry.RegisterSounds;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.EntityType;
@@ -31,10 +31,10 @@ public abstract class EnderManMixin extends Monster {
     public void playStareSound(CallbackInfo info) {
         //NOTE: This only runs on the client.
         info.cancel();
-        if (this.tickCount >= this.lastStareSound + 400) {
+        if (this.tickCount >= this.lastStareSound + 400 && this.level.isClientSide) {
             this.lastStareSound = this.tickCount;
             if (!this.isSilent()) {
-                ClientMethods.playClientEnderManSound(EnderMan.class.cast(this));
+                ClientMethodInteractionHandler.playClientEnderManSound(EnderMan.class.cast(this));
             }
         }
     }
