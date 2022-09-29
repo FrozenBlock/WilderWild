@@ -13,6 +13,7 @@ import net.lunade.copper.PipeMovementRestrictions;
 import net.lunade.copper.RegisterPipeNbtMethods;
 import net.lunade.copper.blocks.CopperPipe;
 import net.minecraft.core.Direction;
+import net.minecraft.core.Registry;
 import net.minecraft.core.particles.DustColorTransitionOptions;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundSource;
@@ -86,7 +87,7 @@ public class WilderCopperPipesEntrypoint implements CopperPipeEntrypoint {
             }
         });
 
-        FittingPipeDispenses.register(RegisterBlocks.SEEDING_DANDELION.asItem(), (level, stack, i, direction, position, state, corroded, pos, pipe) -> {
+        FittingPipeDispenses.register(Registry.ITEM.get(WilderWild.id("seeding_dandelion")), (level, stack, i, direction, position, state, corroded, pos, pipe) -> {
             double d = position.x();
             double e = position.y();
             double f = position.z();
