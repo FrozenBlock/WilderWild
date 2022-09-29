@@ -1,10 +1,15 @@
 {
-  "parent": "minecraft:item/handheld",
+  "parent": "minecraft:item/generated",
   "textures": {
 	"layer0": "wilderwild:item/copper_horn"
   },
   "display": {
 	"thirdperson_righthand": {
+	  "rotation": [
+		0,
+		180,
+		0
+	  ],
 	  "translation": [
 		0,
 		3,
@@ -17,6 +22,11 @@
 	  ]
 	},
 	"thirdperson_lefthand": {
+	  "rotation": [
+		0,
+		0,
+		0
+	  ],
 	  "translation": [
 		0,
 		3,
@@ -61,37 +71,14 @@
 		0.68,
 		0.68
 	  ]
-	},
-	"ground": {
-	  "translation": [
-		0,
-		2,
-		0
-	  ],
-	  "scale": [
-		0.5,
-		0.5,
-		0.5
-	  ]
-	},
-	"head": {
-	  "rotation": [
-		25,
-		-90,
-		0
-	  ],
-	  "translation": [
-		0,
-		-1.25,
-		-12.25
-	  ]
-	},
-	"fixed": {
-	  "rotation": [
-		0,
-		180,
-		0
-	  ]
 	}
-  }
+  },
+  "overrides": [
+	{
+	  "predicate": {
+		"tooting": 1
+	  },
+	  "model": "wilderwild:item/tooting_copper_horn"
+	}
+  ]
 }

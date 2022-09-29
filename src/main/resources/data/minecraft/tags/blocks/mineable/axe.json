@@ -1,6 +1,7 @@
 {
   "replace": false,
   "values": [
+	"minecraft:cactus",
 	"wilderwild:hollowed_acacia_log",
 	"wilderwild:hollowed_birch_log",
 	"wilderwild:hollowed_dark_oak_log",

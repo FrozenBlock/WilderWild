@@ -3,7 +3,7 @@ package net.frozenblock.wilderwild.world.gen.trunk;
 import com.google.common.collect.Lists;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import net.frozenblock.api.mathematics.AdvancedMath;
+import net.frozenblock.lib.mathematics.AdvancedMath;
 import net.frozenblock.wilderwild.WilderWild;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;

@@ -1,0 +1,25 @@
+{
+  "variants": {
+	"age=0,hanging=false": {
+	  "model": "wilderwild:block/baobab_nut_stage_0"
+	},
+	"age=1,hanging=false": {
+	  "model": "wilderwild:block/baobab_nut_stage_0"
+	},
+	"age=2,hanging=false,stage=0": {
+	  "model": "wilderwild:block/baobab_nut_stage_0"
+	},
+	"age=2,hanging=false,stage=1": {
+	  "model": "wilderwild:block/baobab_nut_stage_1"
+	},
+	"age=0,hanging=true": {
+	  "model": "wilderwild:block/baobab_nut_hanging_stage_1"
+	},
+	"age=1,hanging=true": {
+	  "model": "wilderwild:block/baobab_nut_hanging_stage_2"
+	},
+	"age=2,hanging=true": {
+	  "model": "wilderwild:block/baobab_nut_hanging_stage_3"
+	}
+  }
+}

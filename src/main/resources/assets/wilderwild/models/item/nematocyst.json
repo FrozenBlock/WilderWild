@@ -1,10 +1,6 @@
 {
   "parent": "item/generated",
   "textures": {
-<<<<<<<< HEAD:src/main/resources/assets/wilderwild/models/item/camera.json
-	"layer0": "wilderwild:item/dev_camera"
-========
 	"layer0": "wilderwild:block/nematocyst_1"
->>>>>>>> 1.1:src/main/resources/assets/wilderwild/models/item/nematocyst.json
   }
 }
