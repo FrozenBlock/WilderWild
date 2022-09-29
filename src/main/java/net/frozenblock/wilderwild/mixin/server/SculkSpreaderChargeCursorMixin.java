@@ -79,7 +79,7 @@ public class SculkSpreaderChargeCursorMixin {
     @Unique
     private static SculkBehaviour getBlockBehaviourNew(BlockState state, boolean isWorldGen) {
         if (isWorldGen) {
-            if (state.is(WilderBlockTags.SCULK_WALL_REPLACEABLE_WORLDGEN) || state.is(WilderBlockTags.SCULK_SLAB_REPLACEABLE_WORLDGEN) || state.is(WilderBlockTags.SCULK_STAIR_REPLACEABLE_WORLDGEN) || state.is(WilderBlockTags.SCULK_WALL_REPLACEABLE) || state.is(WilderBlockTags.SCULK_SLAB_REPLACEABLE) || state.is(WilderBlockTags.SCULK_STAIR_REPLACEABLE)) {
+            if (state.is(WilderBlockTags.SCULK_WALL_REPLACEABLE_WORLDGEN) || state.is(WilderBlockTags.SCULK_SLAB_REPLACEABLE_WORLDGEN) || state.is(WilderBlockTags.SCULK_STAIR_REPLACEABLE_WORLDGEN)) {
                 return new SlabWallStairSculkBehavior();
             } else if (state.is(RegisterBlocks.STONE_CHEST)) {
                 return new BooleanPropertySculkBehavior(RegisterProperties.HAS_SCULK, true);
@@ -98,7 +98,7 @@ public class SculkSpreaderChargeCursorMixin {
             return true;
         }
         BlockState cheatState = level.getBlockState(toPos);
-        if (cheatState.is(WilderBlockTags.SCULK_STAIR_REPLACEABLE_WORLDGEN) || cheatState.is(WilderBlockTags.SCULK_WALL_REPLACEABLE_WORLDGEN) || cheatState.is(WilderBlockTags.SCULK_SLAB_REPLACEABLE_WORLDGEN) || cheatState.is(WilderBlockTags.SCULK_STAIR_REPLACEABLE) || cheatState.is(WilderBlockTags.SCULK_WALL_REPLACEABLE) || cheatState.is(WilderBlockTags.SCULK_SLAB_REPLACEABLE) || (cheatState.is(RegisterBlocks.STONE_CHEST) && !cheatState.getValue(RegisterProperties.HAS_SCULK))) {
+        if (cheatState.is(WilderBlockTags.SCULK_STAIR_REPLACEABLE_WORLDGEN) || cheatState.is(WilderBlockTags.SCULK_WALL_REPLACEABLE_WORLDGEN) || cheatState.is(WilderBlockTags.SCULK_SLAB_REPLACEABLE_WORLDGEN) || (cheatState.is(RegisterBlocks.STONE_CHEST) && !cheatState.getValue(RegisterProperties.HAS_SCULK))) {
             return true;
         }
         BlockPos blockPos = toPos.subtract(fromPos);
@@ -131,7 +131,7 @@ public class SculkSpreaderChargeCursorMixin {
             BlockState blockState = level.getBlockState(mutableBlockPos2);
             boolean canReturn = false;
             BlockState state = level.getBlockState(mutableBlockPos2);
-            boolean isInTags = state.is(WilderBlockTags.SCULK_SLAB_REPLACEABLE_WORLDGEN) || state.is(WilderBlockTags.SCULK_WALL_REPLACEABLE_WORLDGEN) || state.is(WilderBlockTags.SCULK_STAIR_REPLACEABLE_WORLDGEN) || state.is(WilderBlockTags.SCULK_SLAB_REPLACEABLE) || state.is(WilderBlockTags.SCULK_WALL_REPLACEABLE) || state.is(WilderBlockTags.SCULK_STAIR_REPLACEABLE) || (state.is(RegisterBlocks.STONE_CHEST) && !state.getValue(RegisterProperties.HAS_SCULK));
+            boolean isInTags = state.is(WilderBlockTags.SCULK_SLAB_REPLACEABLE_WORLDGEN) || state.is(WilderBlockTags.SCULK_WALL_REPLACEABLE_WORLDGEN) || state.is(WilderBlockTags.SCULK_STAIR_REPLACEABLE_WORLDGEN) || (state.is(RegisterBlocks.STONE_CHEST) && !state.getValue(RegisterProperties.HAS_SCULK));
             if (isInTags && isMovementUnobstructedWorldgen(level, pos, mutableBlockPos2)) {
                 mutableBlockPos.set(mutableBlockPos2);
                 canReturn = true;
