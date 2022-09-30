@@ -47,7 +47,7 @@ public final class RegisterWorldgen implements SurfaceRuleEvents.OverworldModifi
 
     @Override
     public void modifyOverworldRules(SurfaceRuleContext.@NotNull Overworld context) {
-        context.materialRules().add(SharedWorldgen.surfaceRules());
+        context.materialRules().add(0, SharedWorldgen.surfaceRules());
 
         // FROM QUILT'S TEST MOD
         var blueNoise1 = SurfaceRules.noiseCondition(Noises.CALCITE, 0.05, 0.1);
@@ -60,7 +60,7 @@ public final class RegisterWorldgen implements SurfaceRuleEvents.OverworldModifi
         var PINK_CONCRETE = FrozenSurfaceRules.makeStateRule(Blocks.PINK_CONCRETE);
         var WHITE_CONCRETE = FrozenSurfaceRules.makeStateRule(Blocks.WHITE_CONCRETE);
 
-        context.materialRules().add(
+        context.materialRules().add(0,
                 SurfaceRules.ifTrue(
                         SurfaceRules.abovePreliminarySurface(),
                         SurfaceRules.ifTrue(
