@@ -47,7 +47,7 @@ public final class RegisterWorldgen implements SurfaceRuleEvents.OverworldModifi
 
     @Override
     public void modifyOverworldRules(SurfaceRuleContext.@NotNull Overworld context) {
-        context.materialRules().add(0, SharedWorldgen.surfaceRules());
+        context.materialRules().add(context.materialRules().size(), SharedWorldgen.surfaceRules());
         context.materialRules().add(SharedWorldgen.surfaceRules());
 
         // FROM QUILT'S TEST MOD
