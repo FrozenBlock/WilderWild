@@ -47,11 +47,10 @@ public final class RegisterWorldgen implements SurfaceRuleEvents.OverworldModifi
 
     @Override
     public void modifyOverworldRules(SurfaceRuleContext.@NotNull Overworld context) {
-        context.materialRules().add(0, SharedWorldgen.surfaceRules());
-        context.materialRules().add(SharedWorldgen.surfaceRules());
+        context.addMaterialRule(SharedWorldgen.surfaceRules());
 
         // FROM QUILT'S TEST MOD
-        /*var blueNoise1 = SurfaceRules.noiseCondition(Noises.CALCITE, 0.05, 0.1);
+        var blueNoise1 = SurfaceRules.noiseCondition(Noises.CALCITE, 0.05, 0.1);
         var pinkNoise1 = SurfaceRules.noiseCondition(Noises.CALCITE, 0.1, 0.15);
         var whiteNoise = SurfaceRules.noiseCondition(Noises.CALCITE, 0.15, 0.20);
         var pinkNoise2 = SurfaceRules.noiseCondition(Noises.CALCITE, 0.20, 0.25);
@@ -61,7 +60,8 @@ public final class RegisterWorldgen implements SurfaceRuleEvents.OverworldModifi
         var PINK_CONCRETE = FrozenSurfaceRules.makeStateRule(Blocks.PINK_CONCRETE);
         var WHITE_CONCRETE = FrozenSurfaceRules.makeStateRule(Blocks.WHITE_CONCRETE);
 
-        context.materialRules().add(0,
+        context.addMaterialRule(
+                (
                 SurfaceRules.ifTrue(
                         SurfaceRules.abovePreliminarySurface(),
                         SurfaceRules.ifTrue(
@@ -75,7 +75,8 @@ public final class RegisterWorldgen implements SurfaceRuleEvents.OverworldModifi
                                 )
                         )
                 )
-        );*/
+        )
+        );
         WilderWild.log("Wilder Wild's Overworld Surface Rules have been added!", WilderWild.UNSTABLE_LOGGING);
     }
 
