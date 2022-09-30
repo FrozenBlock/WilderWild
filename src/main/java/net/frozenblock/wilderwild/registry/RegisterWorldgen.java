@@ -50,7 +50,7 @@ public final class RegisterWorldgen implements SurfaceRuleEvents.OverworldModifi
         context.materialRules().add(0, SharedWorldgen.surfaceRules());
 
         // FROM QUILT'S TEST MOD
-        var blueNoise1 = SurfaceRules.noiseCondition(Noises.CALCITE, 0.05, 0.1);
+        /*var blueNoise1 = SurfaceRules.noiseCondition(Noises.CALCITE, 0.05, 0.1);
         var pinkNoise1 = SurfaceRules.noiseCondition(Noises.CALCITE, 0.1, 0.15);
         var whiteNoise = SurfaceRules.noiseCondition(Noises.CALCITE, 0.15, 0.20);
         var pinkNoise2 = SurfaceRules.noiseCondition(Noises.CALCITE, 0.20, 0.25);
@@ -74,15 +74,15 @@ public final class RegisterWorldgen implements SurfaceRuleEvents.OverworldModifi
                                 )
                         )
                 )
-        );
+        );*/
         WilderWild.log("Wilder Wild's Overworld Surface Rules have been added!", WilderWild.UNSTABLE_LOGGING);
     }
 
     // SPONGEBOB
     @Override
     public void modifyNetherRules(SurfaceRuleContext.@NotNull Nether context) {
-        context.materialRules().clear();
-        context.materialRules().add(0, FrozenSurfaceRules.makeStateRule(Blocks.SPONGE));
+        /*context.materialRules().clear();
+        context.materialRules().add(0, FrozenSurfaceRules.makeStateRule(Blocks.SPONGE));*/
         WilderWild.log("SPONGEBOB", WilderWild.UNSTABLE_LOGGING);
     }
 
