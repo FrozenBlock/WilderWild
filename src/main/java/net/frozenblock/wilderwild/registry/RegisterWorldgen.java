@@ -47,7 +47,10 @@ public final class RegisterWorldgen implements SurfaceRuleEvents.OverworldModifi
 
     @Override
     public void modifyOverworldRules(SurfaceRuleContext.@NotNull Overworld context) {
-        //context.addMaterialRule(SharedWorldgen.surfaceRules());
+        context.materialRules().add(0, SharedWorldgen.cypressSurfaceRules());
+        if (ClothConfigInteractionHandler.betaBeaches()) {
+            context.materialRules().add(0, SharedWorldgen.betaBeachSurfaceRules());
+        }
 
         // FROM QUILT'S TEST MOD
         var blueNoise1 = SurfaceRules.noiseCondition(Noises.CALCITE, 0.05, 0.1);
