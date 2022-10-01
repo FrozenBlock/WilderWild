@@ -5,7 +5,7 @@ jobs:
     strategy:
       matrix:
         java: [17, 18]
-        os: [ubuntu-latest]
+        os: [ubuntu-latest, windows-latest]
     runs-on: ${{ matrix.os }}
     steps:
       - name: Cache Dependencies

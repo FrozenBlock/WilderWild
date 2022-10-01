@@ -26,12 +26,11 @@ public class TurtleMixin implements TurtleCooldownInterface {
         turtle.targetSelector.addGoal(10, new TurtleNearestAttackableGoal<>(turtle, Jellyfish.class, false));
     }
 
-    @Inject(method = "createAttributes", at = @At("TAIL"), cancellable = true)
-    private static void createAttributes(CallbackInfoReturnable<AttributeSupplier.Builder> info) {
-        AttributeSupplier.Builder builder = info.getReturnValue();
+    @Inject(method = "createAttributes", at = @At("RETURN"), cancellable = true)
+    private static void createAttributes(CallbackInfoReturnable<AttributeSupplier.Builder> ci) {
+        AttributeSupplier.Builder builder = ci.getReturnValue();
         builder.add(Attributes.ATTACK_DAMAGE, 3.0);
-        info.cancel();
-        info.setReturnValue(builder);
+        ci.setReturnValue(builder);
     }
 
     @Inject(method = "addAdditionalSaveData", at = @At("TAIL"))
