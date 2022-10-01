@@ -18,6 +18,12 @@ jobs:
           key: ${{ runner.os }}-gradle-${{ hashFiles('**/gradle-wrapper.properties') }}
           restore-keys: |
             ${{ runner.os }}-gradle-
+      - name: Checkout FrozenLib
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+          repository: FrozenBlock/FrozenLib
+          path: 'FrozenLib'
       - name: Checkout Repository
         uses: actions/checkout@v3
         with:

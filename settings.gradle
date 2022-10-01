@@ -16,8 +16,8 @@ pluginManagement {
 rootProject.name = "Wilder Wild"
 
 
-def allowLocalFrozenLibUse = false
-def allowFrozenLibInConsoleMode = false
+def allowLocalFrozenLibUse = true
+def allowFrozenLibInConsoleMode = true
 def FrozenLibPath = '../FrozenLib'
 def FrozenLibPathGitHub = '/WilderWild/Frozenlib'
 
@@ -28,12 +28,12 @@ def isIDE = properties.containsKey('android.injected.invoked.from.ide')
 
 def FrozenLibFolder = new File( FrozenLibPath )
 def FrozenLibFolderGitHub = new File( FrozenLibPathGitHub )
-if( allowLocalFrozenLibUse && (isIDE || allowFrozenLibInConsoleMode)  && FrozenLibFolder.exists() ) {
+if (allowLocalFrozenLibUse && (isIDE || allowFrozenLibInConsoleMode) && FrozenLibFolder.exists()) {
 
     include ':FrozenLib'
     project(":FrozenLib").projectDir = FrozenLibFolder
     project(':FrozenLib').buildFileName = './build.gradle'
-} else if( allowLocalFrozenLibUse && (isIDE || allowFrozenLibInConsoleMode)  && FrozenLibFolderGitHub.exists() ) {
+} else if (allowLocalFrozenLibUse && (isIDE || allowFrozenLibInConsoleMode) && FrozenLibFolderGitHub.exists()) {
 
     include ':FrozenLib'
     project(":FrozenLib").projectDir = FrozenLibFolderGitHub
