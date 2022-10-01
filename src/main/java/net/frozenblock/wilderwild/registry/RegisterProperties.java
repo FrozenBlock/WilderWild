@@ -23,7 +23,7 @@ public final class RegisterProperties {
     //Glory of The Snow
     public static final EnumProperty<FlowerColors> FLOWER_COLOR = EnumProperty.create("flower_color", FlowerColors.class);
     //Firefly Lantern
-    public static final IntegerProperty FIREFLY_LIGHT = IntegerProperty.create("firefly_light", 0, 15);
+    public static final IntegerProperty DISPLAY_LIGHT = IntegerProperty.create("display_light", 0, 15);
     //Stone Chest
     public static final BooleanProperty ANCIENT = BooleanProperty.create("ancient");
     public static final BooleanProperty HAS_SCULK = BooleanProperty.create("has_sculk");
