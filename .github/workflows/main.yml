@@ -34,6 +34,11 @@ jobs:
         run: chmod +x ./gradlew
       - name: Build
         run: ./gradlew build -PuseThirdPartyMods=false
+      - name: Extract current branch name
+        shell: bash
+        # bash pattern expansion to grab branch name without slashes
+        run: ref="${GITHUB_REF#refs/heads/}" && echo "::set-output name=branch::${ref////-}"
+        id: ref
       - name: Capture Build Artifacts
         uses: actions/upload-artifact@v3
         with:
