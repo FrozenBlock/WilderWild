@@ -27,7 +27,7 @@ def isIDE = properties.containsKey('android.injected.invoked.from.ide')
         || System.getenv("IDEA_INITIAL_DIRECTORY") != null
 
 def FrozenLibFolder = new File(FrozenLibPath)
-def FrozenLibFolderGitHub = file('FrozenLib')
+def FrozenLibFolderGitHub = files('FrozenLib')
 if (allowLocalFrozenLibUse && (isIDE || allowFrozenLibInConsoleMode) && FrozenLibFolder.exists()) {
 
     include ':FrozenLib'
