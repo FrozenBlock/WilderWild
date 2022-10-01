@@ -48,8 +48,8 @@ import java.util.Map;
 public final class WilderWild implements ModInitializer {
     public static final String MOD_ID = "wilderwild";
     public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
-    public static final boolean DEV_LOGGING = false;
-    public static boolean UNSTABLE_LOGGING = FabricLoader.getInstance().isDevelopmentEnvironment(); //Used for features that may possibly be unstable and crash in public builds - it's smart to use this for at least registries.
+    public static boolean DEV_LOGGING = false;
+    public static boolean UNSTABLE_LOGGING = FabricLoader.getInstance().isDevelopmentEnvironment(); //Used for features that may be unstable and crash in public builds - it's smart to use this for at least registries.
 
     public static boolean areConfigsInit = false;
 

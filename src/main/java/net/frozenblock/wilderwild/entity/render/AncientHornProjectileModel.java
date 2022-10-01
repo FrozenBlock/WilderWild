@@ -4,6 +4,7 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.frozenblock.lib.entity.render.FrozenRenderType;
 import net.frozenblock.wilderwild.WilderWildClient;
 import net.frozenblock.wilderwild.entity.AncientHornProjectile;
 import net.minecraft.client.model.Model;
@@ -20,7 +21,7 @@ public class AncientHornProjectileModel extends Model {
     private final ModelPart back;
 
     public AncientHornProjectileModel(ModelPart root) {
-        super(WilderWildClient::entityTranslucentEmissiveFixed);
+        super(FrozenRenderType::entityTranslucentEmissiveFixed);
         this.bone = root.getChild("bone");
         this.front = bone.getChild("front");
         this.middle = bone.getChild("middle");

@@ -19,7 +19,7 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gameevent.GameEvent;
 
-public class FrozenLibIntegration implements FrozenMainEntrypoint {
+public final class FrozenLibIntegration implements FrozenMainEntrypoint {
 
     @Override
     public void init() {
