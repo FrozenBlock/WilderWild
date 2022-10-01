@@ -11,6 +11,9 @@ import net.minecraft.world.level.levelgen.GenerationStep;
 public final class WilderTreesGeneration {
     public static void generateTrees() {
 
+        if (ClothConfigInteractionHandler.dyingTrees()) {
+
+        }
         if (ClothConfigInteractionHandler.fallenLogs()) {
             BiomeModifications.addFeature(BiomeSelectors.includeByKey(Biomes.BIRCH_FOREST, Biomes.OLD_GROWTH_BIRCH_FOREST),
                     GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.FallenKingdom.NEW_FALLEN_BIRCH_PLACED.unwrapKey().orElseThrow());

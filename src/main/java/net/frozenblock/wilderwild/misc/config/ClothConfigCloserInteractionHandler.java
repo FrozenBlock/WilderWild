@@ -31,6 +31,9 @@ public final class ClothConfigCloserInteractionHandler {
         return WilderWildConfig.get().worldgen.biomePlacement.modifyWindsweptSavannaPlacement;
     }
 
+    public static boolean dyingTrees() {
+        return WilderWildConfig.get().worldgen.dyingTrees;
+    }
     public static boolean fallenLogs() {
         return WilderWildConfig.get().worldgen.fallenLogs;
     }

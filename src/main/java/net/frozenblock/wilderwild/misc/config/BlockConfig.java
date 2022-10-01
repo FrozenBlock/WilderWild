@@ -6,6 +6,7 @@ import me.shedaniel.clothconfig2.api.ConfigCategory;
 import me.shedaniel.clothconfig2.api.ConfigEntryBuilder;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.frozenblock.lib.config.FrozenConfig;
 import net.frozenblock.wilderwild.WilderWild;
 
 import static net.frozenblock.wilderwild.misc.config.WilderWildConfig.text;
@@ -23,23 +24,43 @@ public final class BlockConfig implements ConfigData {
     static void setupEntries(ConfigCategory category, ConfigEntryBuilder entryBuilder) {
         var config = WilderWildConfig.get().block;
         category.setBackground(WilderWild.id("textures/config/block.png"));
-        category.addEntry(entryBuilder.startBooleanToggle(text("mc_live_sensor_tendrils"), config.mcLiveSensorTendrils)
+        var mcLiveSensorTendrils = category.addEntry(entryBuilder.startBooleanToggle(text("mc_live_sensor_tendrils"), config.mcLiveSensorTendrils)
                 .setDefaultValue(false)
                 .setSaveConsumer(newValue -> config.mcLiveSensorTendrils = newValue)
                 .setYesNoTextSupplier(bool -> text("mc_live_sensor_tendrils." + bool))
                 .setTooltip(tooltip("mc_live_sensor_tendrils"))
-                .build());
-        category.addEntry(entryBuilder.startBooleanToggle(text("shrieker_gargling"), config.shriekerGargling)
+                .build()
+        );
+        var shriekerGargling = category.addEntry(entryBuilder.startBooleanToggle(text("shrieker_gargling"), config.shriekerGargling)
                 .setDefaultValue(true)
                 .setSaveConsumer(newValue -> config.shriekerGargling = newValue)
                 .setTooltip(tooltip("shrieker_gargling"))
-                .build());
-        category.addEntry(entryBuilder.startBooleanToggle(text("soul_fire_sounds"), config.soulFireSounds)
+                .build()
+        );
+        var soulFireSounds = category.addEntry(entryBuilder.startBooleanToggle(text("soul_fire_sounds"), config.soulFireSounds)
                 .setDefaultValue(true)
                 .setSaveConsumer(newValue -> config.soulFireSounds = newValue)
                 .setTooltip(tooltip("soul_fire_sounds"))
-                .build());
+                .build()
+        );
 
+        var displayLanternCategory = FrozenConfig.createSubCategory(entryBuilder, category, text("display_lantern"),
+                false,
+                tooltip("display_lantern")
+
+        );
+
+        var stoneChestCategory = FrozenConfig.createSubCategory(entryBuilder, category, text("stone_chest"),
+                false,
+                tooltip("stone_chest")
+
+        );
+
+        var termiteCategory = FrozenConfig.createSubCategory(entryBuilder, category, text("termite"),
+                false,
+                tooltip("termite")
+
+        );
     }
 
     //public static final StringSetConfigOption HIDDEN_MODS = new StringSetConfigOption("hidden_mods", new HashSet<>());

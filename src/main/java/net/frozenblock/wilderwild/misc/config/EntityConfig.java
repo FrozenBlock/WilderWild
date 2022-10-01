@@ -39,6 +39,25 @@ public final class EntityConfig implements ConfigData {
                 .setTooltip(tooltip("unpassable_rail"))
                 .requireRestart()
                 .build());
+
+        var allayCategory = FrozenConfig.createSubCategory(entryBuilder, category, text("allay"),
+                false,
+                tooltip("allay")
+
+        );
+
+        var fireflyCategory = FrozenConfig.createSubCategory(entryBuilder, category, text("firefly"),
+                false,
+                tooltip("firefly")
+
+        );
+
+        var jellyfishCategory = FrozenConfig.createSubCategory(entryBuilder, category, text("jellyfish"),
+                false,
+                tooltip("jellyfish")
+
+        );
+
         var dying = entryBuilder.startBooleanToggle(text("warden_dying_animation"), warden.wardenDyingAnimation)
                 .setDefaultValue(true)
                 .setSaveConsumer(newValue -> warden.wardenDyingAnimation = newValue)

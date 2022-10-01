@@ -30,6 +30,7 @@ public final class WorldgenConfig implements ConfigData {
     }
 
     public boolean betaBeaches = true;
+    public boolean dyingTrees = true;
     public boolean fallenLogs = true;
     public boolean wilderWildTreeGen = true;
     public boolean wilderWildGrassGen = true;
@@ -96,6 +97,13 @@ public final class WorldgenConfig implements ConfigData {
                 jungle, mangroveSwamp, swamp, windsweptSavanna
         );
 
+        var dyingTrees = category.addEntry(entryBuilder.startBooleanToggle(text("dying_trees"), config.dyingTrees)
+                .setDefaultValue(true)
+                .setSaveConsumer(newValue -> config.dyingTrees = newValue)
+                .setTooltip(tooltip("dying_trees"))
+                .requireRestart()
+                .build()
+        );
         var fallenLogs = category.addEntry(entryBuilder.startBooleanToggle(text("fallen_logs"), config.fallenLogs)
                 .setDefaultValue(true)
                 .setSaveConsumer(newValue -> config.fallenLogs = newValue)
