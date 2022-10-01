@@ -107,7 +107,7 @@ public class JellyfishModel<T extends Jellyfish> extends HierarchicalModel<T> {
     public void setupAnim(@NotNull T jellyfish, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
         float animation = limbSwing * 2;
         float movementDelta = Math.min(limbSwingAmount * 26.6666667F, 1.0F);
-        float tentRot = Mth.rotLerp(movementDelta, (float) (-Math.sin((ageInTicks - 10) * 0.1F) * 0.2F) + eightPi, (float) (-Math.sin(animation + 5) * 20 - 7.5F) * pi180);
+        float tentRot = fasterRotLerp(movementDelta, (float) (-Math.sin((ageInTicks - 10) * 0.1F) * 0.2F) + eightPi, (float) (-Math.sin(animation + 5) * 20 - 7.5F) * pi180);
 
         this.tentacle1.xRot = tentRot;
         this.tentacle3.xRot = tentRot;
@@ -126,10 +126,15 @@ public class JellyfishModel<T extends Jellyfish> extends HierarchicalModel<T> {
 
         this.body.xScale = squash;
         this.body.zScale = squash;
-        this.body.yScale = Mth.lerp(movementDelta, -sinIdle + 1, 1.25F + (sin * 0.75F));
+        float yScaleSin = -sinIdle + 1;
+        //this.body.yScale = MathHelper.lerp(movementDelta, -sinIdle + 1, 1.25F + (sin * 0.75F));
+        this.body.yScale = yScaleSin + movementDelta * ((1.25F + (sin * 0.75F)) - yScaleSin);
 
-        this.body.y = Mth.lerp(movementDelta, 0, 3.5F - (squashStretch * 3.5F));
-        this.tentacleBase.y = Mth.lerp(movementDelta, (-sinIdle * 2.0F) + 1.8F, (6F - (squashStretch * 5F)) * 2);
+        this.body.y = movementDelta * (3.5F - (squashStretch * 3.5F));
+        //this.body.y = MathHelper.lerp(movementDelta, 0, 3.5F - (squashStretch * 3.5F));
+        float sinPivotY = (-sinIdle * 2.0F) + 1.8F;
+        this.tentacleBase.y = sinPivotY + movementDelta * (((6F - (squashStretch * 5F)) * 2) - sinPivotY);
+        //this.tentacleBase.y = MathHelper.lerp(movementDelta, (-sinIdle * 2.0F) + 1.8F, (6F - (squashStretch * 5F)) * 2);
     }
 
     @Override
@@ -139,5 +144,18 @@ public class JellyfishModel<T extends Jellyfish> extends HierarchicalModel<T> {
 
     public List<ModelPart> getTentacles() {
         return this.tentacles;
+    }
+
+    private static float fasterRotLerp(float f, float g, float h) {
+        float angleCalc = (h - g) % 360F;
+        if (angleCalc >= 180.0F) {
+            angleCalc -= 360.0F;
+        }
+
+        if (angleCalc < -180.0F) {
+            angleCalc += 360.0F;
+        }
+
+        return g + f * angleCalc;
     }
 }
