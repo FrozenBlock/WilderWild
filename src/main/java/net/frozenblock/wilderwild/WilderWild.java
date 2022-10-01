@@ -13,6 +13,7 @@ import net.fabricmc.loader.api.ModContainer;
 import net.frozenblock.wilderwild.block.entity.TermiteMoundBlockEntity;
 import net.frozenblock.wilderwild.entity.Firefly;
 import net.frozenblock.wilderwild.misc.BlockSoundGroupOverwrites;
+import net.frozenblock.wilderwild.misc.datafixer.DisplayLanternRenameFix;
 import net.frozenblock.wilderwild.registry.*;
 import net.frozenblock.wilderwild.world.feature.*;
 import net.frozenblock.wilderwild.world.feature.features.*;
@@ -128,7 +129,7 @@ public final class WilderWild implements ModInitializer {
         stopMeasuring(this);
     }
 
-    private static final int DATA_VERSION = 7;
+    private static final int DATA_VERSION = 8;
 
     private static QuiltDataFixerBuilder applyDataFixes(ModContainer mod) {
         log("Applying DataFixes for Wilder Wild", true);
@@ -156,6 +157,8 @@ public final class WilderWild implements ModInitializer {
         SimpleFixes.addBlockRenameFix(builder, "Rename firefly_lantern to display_lantern", id("firefly_lantern"), id("display_lantern"), schemaV7);
         SimpleFixes.addBlockRenameFix(builder, "Rename mesoglea to blue_pearlescent_mesoglea", id("mesoglea"), id("blue_pearlescent_mesoglea"), schemaV7);
         SimpleFixes.addItemRenameFix(builder, "Rename mesoglea to blue_pearlescent_mesoglea", id("mesoglea"), id("blue_pearlescent_mesoglea"), schemaV7);
+        Schema schemaV8 = builder.addSchema(8, NamespacedSchema::new);
+        builder.addFixer(new DisplayLanternRenameFix(schemaV8, false));
 
         QuiltDataFixes.buildAndRegisterFixer(mod, builder);
         log("DataFixes for Wilder Wild have been applied", true);
