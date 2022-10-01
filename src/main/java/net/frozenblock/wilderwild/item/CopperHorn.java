@@ -1,7 +1,6 @@
 package net.frozenblock.wilderwild.item;
 
 import net.frozenblock.lib.sound.FrozenSoundPackets;
-import net.frozenblock.lib.sound.StartingSounds;
 import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.registry.RegisterItems;
 import net.minecraft.core.Holder;

@@ -2,7 +2,6 @@ package net.frozenblock.wilderwild.world.gen;
 
 import com.google.common.collect.ImmutableList;
 import net.frozenblock.lib.worldgen.biome.api.parameters.*;
-import net.frozenblock.wilderwild.misc.config.ClothConfigInteractionHandler;
 import net.frozenblock.wilderwild.registry.RegisterWorldgen;
 import net.frozenblock.wilderwild.world.gen.noise.WilderNoise;
 import net.minecraft.world.level.biome.Biomes;
