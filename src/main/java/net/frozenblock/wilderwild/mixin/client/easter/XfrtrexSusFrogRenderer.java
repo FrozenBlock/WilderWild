@@ -26,7 +26,7 @@ public class XfrtrexSusFrogRenderer {
     @Inject(method = "getTextureLocation(Lnet/minecraft/world/entity/animal/frog/Frog;)Lnet/minecraft/resources/ResourceLocation;", at = @At("RETURN"), cancellable = true)
     public void getTextureLocation(Frog frogEntity, CallbackInfoReturnable<ResourceLocation> cir) {
         String string = ChatFormatting.stripFormatting(frogEntity.getName().getString());
-        if (Objects.equals(string, "Xfrtrex")) {
+        if (string != null && string.equalsIgnoreCase("Xfrtrex")) {
             cir.setReturnValue(SUS_TEXTURE);
         }
     }
