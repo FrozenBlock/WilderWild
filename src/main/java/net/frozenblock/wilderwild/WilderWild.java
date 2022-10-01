@@ -128,7 +128,7 @@ public final class WilderWild implements ModInitializer {
         stopMeasuring(this);
     }
 
-    private static final int DATA_VERSION = 8;
+    public static final int DATA_VERSION = 8;
 
     private static QuiltDataFixerBuilder applyDataFixes(ModContainer mod) {
         log("Applying DataFixes for Wilder Wild", true);

@@ -4,12 +4,13 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.frozenblock.wilderwild.WilderWildClient;
 import net.frozenblock.wilderwild.entity.AncientHornProjectile;
 import net.minecraft.client.model.Model;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
-import net.minecraft.client.renderer.RenderType;
+import org.jetbrains.annotations.NotNull;
 
 @Environment(EnvType.CLIENT)
 public class AncientHornProjectileModel extends Model {
@@ -19,7 +20,7 @@ public class AncientHornProjectileModel extends Model {
     private final ModelPart back;
 
     public AncientHornProjectileModel(ModelPart root) {
-        super(RenderType::entityTranslucentEmissive);
+        super(WilderWildClient::entityTranslucentEmissiveFixed);
         this.bone = root.getChild("bone");
         this.front = bone.getChild("front");
         this.middle = bone.getChild("middle");
@@ -31,7 +32,7 @@ public class AncientHornProjectileModel extends Model {
     private static final float pulse2Extra = 8.0F / 1.5F;
     private static final float pulse3Extra = 8.0F / 3.0F;
 
-    public static LayerDefinition getTexturedModelData() {
+    public static LayerDefinition createBodyLayer() {
         MeshDefinition modelData = new MeshDefinition();
         PartDefinition modelPartData = modelData.getRoot();
         PartDefinition bone = modelPartData.addOrReplaceChild("bone", CubeListBuilder.create(), PartPose.offsetAndRotation(4.0F, 0.0F, 0.0F, bonePitchYaw, bonePitchYaw, 0));
@@ -65,7 +66,7 @@ public class AncientHornProjectileModel extends Model {
     }
 
     @Override
-    public void renderToBuffer(PoseStack matrices, VertexConsumer vertices, int light, int overlay, float red, float green, float blue, float alpha) {
+    public void renderToBuffer(@NotNull PoseStack poseStack, @NotNull VertexConsumer buffer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
 
     }
 }

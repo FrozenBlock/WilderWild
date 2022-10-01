@@ -50,7 +50,7 @@ public class JellyfishModel<T extends Jellyfish> extends HierarchicalModel<T> {
         this.tentacles = ImmutableList.of(this.tentacle1, this.tentacle2, this.tentacle3, this.tentacle4, this.tentacle5, this.tentacle6, this.tentacle7, this.tentacle8);
     }
 
-    public static LayerDefinition getTexturedModelData() {
+    public static LayerDefinition createBodyLayer() {
         MeshDefinition meshDefinition = new MeshDefinition();
         PartDefinition partDefinition = meshDefinition.getRoot();
         PartDefinition bone = partDefinition.addOrReplaceChild("bone", CubeListBuilder.create(), PartPose.offset(0.0F, 14.0F, 0.0F));
