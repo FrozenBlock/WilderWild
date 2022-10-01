@@ -64,13 +64,13 @@ public class DisplayLanternBlock extends BaseEntityBlock implements SimpleWaterl
 
     public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
     public static final BooleanProperty HANGING = BlockStateProperties.HANGING;
-    public static final IntegerProperty LIGHT = RegisterProperties.LIGHT;
+    public static final IntegerProperty FIREFLY_LIGHT = RegisterProperties.FIREFLY_LIGHT;
     protected static final VoxelShape STANDING_SHAPE = Shapes.or(Block.box(5.0D, 0.0D, 5.0D, 11.0D, 7.0D, 11.0D), Block.box(6.0D, 7.0D, 6.0D, 10.0D, 8.0D, 10.0D));
     protected static final VoxelShape HANGING_SHAPE = Shapes.or(Block.box(5.0D, 2.0D, 5.0D, 11.0D, 9.0D, 11.0D), Block.box(6.0D, 9.0D, 6.0D, 10.0D, 10.0D, 10.0D));
 
     public DisplayLanternBlock(Properties settings) {
         super(settings);
-        this.registerDefaultState(this.stateDefinition.any().setValue(HANGING, false).setValue(WATERLOGGED, false).setValue(LIGHT, 0));
+        this.registerDefaultState(this.stateDefinition.any().setValue(HANGING, false).setValue(WATERLOGGED, false).setValue(FIREFLY_LIGHT, 0));
     }
 
     @Override
@@ -93,7 +93,7 @@ public class DisplayLanternBlock extends BaseEntityBlock implements SimpleWaterl
                             player.getItemInHand(hand).shrink(1);
                         }
                         player.getInventory().placeItemBackInInventory(new ItemStack(Items.GLASS_BOTTLE));
-                        level.setBlockAndUpdate(pos, state.setValue(LIGHT, Mth.clamp(lantern.getFireflies().size() * 3, 0, 15)));
+                        level.setBlockAndUpdate(pos, state.setValue(FIREFLY_LIGHT, Mth.clamp(lantern.getFireflies().size() * 3, 0, 15)));
                         level.playSound(null, pos, RegisterSounds.ITEM_BOTTLE_PUT_IN_LANTERN_FIREFLY, SoundSource.BLOCKS, 1.0F, level.random.nextFloat() * 0.2f + 0.9f);
                         lantern.updateSync();
                         return InteractionResult.SUCCESS;
@@ -117,7 +117,7 @@ public class DisplayLanternBlock extends BaseEntityBlock implements SimpleWaterl
                         }
                         player.getInventory().placeItemBackInInventory(bottleStack);
                         ((DisplayLanternBlockEntity) entity).removeFirefly(fireflyInLantern);
-                        level.setBlockAndUpdate(pos, state.setValue(LIGHT, Mth.clamp(lantern.getFireflies().size() * 3, 0, 15)));
+                        level.setBlockAndUpdate(pos, state.setValue(FIREFLY_LIGHT, Mth.clamp(lantern.getFireflies().size() * 3, 0, 15)));
                         lantern.updateSync();
                         return InteractionResult.SUCCESS;
                     }
@@ -129,7 +129,7 @@ public class DisplayLanternBlock extends BaseEntityBlock implements SimpleWaterl
                     } else if (stack.isEnchanted()) {
                         light = (int) Math.round(stack.getEnchantmentTags().size() * 0.5);
                     }
-                    level.setBlockAndUpdate(pos, state.setValue(LIGHT, Mth.clamp(light, 0, 15)));
+                    level.setBlockAndUpdate(pos, state.setValue(FIREFLY_LIGHT, Mth.clamp(light, 0, 15)));
                     lantern.inventory.set(0, stack.split(1));
                     lantern.updateSync();
                     return InteractionResult.SUCCESS;
@@ -140,7 +140,7 @@ public class DisplayLanternBlock extends BaseEntityBlock implements SimpleWaterl
                     popResource(level, pos, stack1.get());
                     lantern.inventory.clear();
                     lantern.updateSync();
-                    level.setBlockAndUpdate(pos, state.setValue(LIGHT, 0));
+                    level.setBlockAndUpdate(pos, state.setValue(FIREFLY_LIGHT, 0));
                     return InteractionResult.SUCCESS;
                 }
             }
@@ -173,7 +173,7 @@ public class DisplayLanternBlock extends BaseEntityBlock implements SimpleWaterl
 
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
-        builder.add(HANGING, WATERLOGGED, LIGHT);
+        builder.add(HANGING, WATERLOGGED, FIREFLY_LIGHT);
     }
 
     @Override
