@@ -26,8 +26,8 @@ def isIDE = properties.containsKey('android.injected.invoked.from.ide')
         || (System.getenv("XPC_SERVICE_NAME") ?: "").contains(".idea")
         || System.getenv("IDEA_INITIAL_DIRECTORY") != null
 
-def FrozenLibFolder = new File( FrozenLibPath )
-def FrozenLibFolderGitHub = new File( FrozenLibPathGitHub )
+def FrozenLibFolder = new File(FrozenLibPath)
+def FrozenLibFolderGitHub = file('FrozenLib')
 if (allowLocalFrozenLibUse && (isIDE || allowFrozenLibInConsoleMode) && FrozenLibFolder.exists()) {
 
     include ':FrozenLib'
