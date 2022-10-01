@@ -31,7 +31,7 @@ public class JellyfishRenderer extends MobRenderer<Jellyfish, JellyfishModel<Jel
         poseStack.translate(0, -1, 0);
         poseStack.scale(0.8F, 0.8F, 0.8F);
         JellyfishModel<Jellyfish> model = this.getModel();
-        if (jelly.hasCustomName() && "I_am_Merp".equals(jelly.getName().getString())) {
+        if (jelly.isRGB()) {
 
             float time = (jelly.level.getGameTime() + partialTicks) * 0.05F;
 
@@ -53,7 +53,7 @@ public class JellyfishRenderer extends MobRenderer<Jellyfish, JellyfishModel<Jel
 
     @Override
     public ResourceLocation getTextureLocation(@NotNull Jellyfish jellyfish) {
-        if (jellyfish.hasCustomName() && "I_am_Merp".equals(jellyfish.getName().getString())) {
+        if (jellyfish.isRGB()) {
             return WilderWild.id(WHITE_TEXTURE);
         }
         return WilderWild.id(BASE_TEXTURE + jellyfish.getVariant() + ".png");
