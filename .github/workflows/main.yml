@@ -18,12 +18,6 @@ jobs:
           key: ${{ runner.os }}-gradle-${{ hashFiles('**/gradle-wrapper.properties') }}
           restore-keys: |
             ${{ runner.os }}-gradle-
-      - name: Checkout FrozenLib
-        uses: actions/checkout@v3
-        with:
-          fetch-depth: 0
-          repository: FrozenBlock/FrozenLib
-          path: 'FrozenLib'
       - name: Checkout Repository
         uses: actions/checkout@v3
         with:
@@ -40,8 +34,13 @@ jobs:
         run: chmod +x ./gradlew
       - name: Build
         run: ./gradlew build -PuseThirdPartyMods=false
-      #- name: Capture Build Artifacts
-      #  uses: actions/upload-artifact@v3
-      #  with:
-      #    name: WilderWild-Artifacts-${{ steps.ref.outputs.branch }}
-      #    path: build/libs/
+      - name: Extract current branch name
+        shell: bash
+        # bash pattern expansion to grab branch name without slashes
+        run: ref="${GITHUB_REF#refs/heads/}" && echo "::set-output name=branch::${ref////-}"
+        id: ref
+      - name: Capture Build Artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: WilderWild-Artifacts-${{ steps.ref.outputs.branch }}
+          path: build/libs/

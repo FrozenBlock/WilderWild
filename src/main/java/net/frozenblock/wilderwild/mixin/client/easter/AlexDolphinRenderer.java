@@ -25,7 +25,7 @@ public class AlexDolphinRenderer {
     @Inject(method = "getTextureLocation(Lnet/minecraft/world/entity/animal/Dolphin;)Lnet/minecraft/resources/ResourceLocation;", at = @At("RETURN"), cancellable = true)
     public void getTextureLocation(Dolphin dolphinEntity, CallbackInfoReturnable<ResourceLocation> cir) {
         String string = ChatFormatting.stripFormatting(dolphinEntity.getName().getString());
-        if (Objects.equals(string, "AlexTheDolphin0")) {
+        if (string != null && string.equalsIgnoreCase("AlexTheDolphin0")) {
             cir.setReturnValue(ALEX_DOLPHIN);
         }
     }
