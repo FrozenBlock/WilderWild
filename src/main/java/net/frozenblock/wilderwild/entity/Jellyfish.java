@@ -354,6 +354,11 @@ public class Jellyfish extends AbstractFish {
         return !Objects.equals(variant, "") ? variant : "pink";
     }
 
+    public boolean isRGB() {
+        var name = this.getName().getString();
+        return this.hasCustomName() && (name.equalsIgnoreCase("I_am_Merp") || name.equals("AroundTheWorld"));
+    }
+
     @Override
     protected void defineSynchedData() {
         super.defineSynchedData();

@@ -54,6 +54,13 @@ public final class ClothConfigInteractionHandler {
         return true;
     }
 
+    public static boolean dyingTrees() {
+        if (WilderWild.hasCloth) {
+            return ClothConfigCloserInteractionHandler.dyingTrees();
+        }
+        return true;
+    }
+
     public static boolean fallenLogs() {
         if (WilderWild.hasCloth) {
             return ClothConfigCloserInteractionHandler.fallenLogs();

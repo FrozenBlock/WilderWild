@@ -48,6 +48,12 @@ public final class ItemConfig implements ConfigData {
                 shattersGlass, summonsWarden
         );
 
+        var copperHornCategory = FrozenConfig.createSubCategory(entryBuilder, category, text("copper_horn"),
+                false,
+                tooltip("copper_horn")
+
+        );
+
         var breakParticles = category.addEntry(entryBuilder.startBooleanToggle(text("projectile_break_particles"), config.projectileBreakParticles)
                 .setDefaultValue(true)
                 .setSaveConsumer(newValue -> config.projectileBreakParticles = newValue)
