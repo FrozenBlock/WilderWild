@@ -87,6 +87,7 @@ public final class WilderWild implements ModInitializer {
         var dataFixer = applyDataFixes(FabricLoader.getInstance().getModContainer(MOD_ID).orElseThrow());
 
         RegisterBlocks.registerBlocks();
+        RegisterItems.registerBlockItems();
         RegisterItems.registerItems();
         WilderConfiguredFeatures.registerConfiguredFeatures();
         WilderPlacedFeatures.init();

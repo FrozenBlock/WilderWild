@@ -17,7 +17,19 @@ import net.minecraft.world.item.*;
 import net.minecraft.world.level.material.Fluids;
 
 public final class RegisterItems {
+    // BLOCK ITEMS
+    public static final Item BAOBAB_NUT = new BlockItem(RegisterBlocks.BAOBAB_NUT, new FabricItemSettings().group(CreativeModeTab.TAB_DECORATIONS).food(RegisterFood.BAOBAB_NUT));
 
+    public static final Item BAOBAB_SIGN = new SignItem(new FabricItemSettings().group(CreativeModeTab.TAB_DECORATIONS).maxCount(16),
+            RegisterBlocks.BAOBAB_SIGN_BLOCK, RegisterBlocks.BAOBAB_WALL_SIGN);
+    public static final Item CYPRESS_SIGN = new SignItem(new FabricItemSettings().group(CreativeModeTab.TAB_DECORATIONS).maxCount(16),
+            RegisterBlocks.CYPRESS_SIGN_BLOCK, RegisterBlocks.CYPRESS_WALL_SIGN);
+    public static final Item PALM_SIGN = new SignItem(new FabricItemSettings().group(CreativeModeTab.TAB_DECORATIONS).maxCount(16),
+            RegisterBlocks.PALM_SIGN_BLOCK, RegisterBlocks.PALM_WALL_SIGN);
+
+    public static final Item POLLEN = new BlockItem(RegisterBlocks.POLLEN_BLOCK, new FabricItemSettings().group(CreativeModeTab.TAB_DECORATIONS));
+
+    // ITEMS
     public static final MilkweedPod MILKWEED_POD = new MilkweedPod(new FabricItemSettings().group(CreativeModeTab.TAB_MISC).maxCount(64));
     public static final RecordItem MUSIC_DISC_BENEATH = new RecordItem(15, RegisterSounds.MUSIC_DISC_BENEATH, new FabricItemSettings().maxCount(1).rarity(Rarity.RARE), 169);
     public static final RecordItem MUSIC_DISC_GOAT_HORN_SYMPHONY = new RecordItem(15, RegisterSounds.MUSIC_DISC_GOATHORN_SYMPHONY, new FabricItemSettings().group(CreativeModeTab.TAB_MISC).maxCount(1).rarity(Rarity.RARE), 144);
@@ -29,16 +41,12 @@ public final class RegisterItems {
 
     public static final Item BAOBAB_BOAT_ITEM = new BoatItem(false, WilderBoats.BAOBAB, new FabricItemSettings().maxCount(1).group(CreativeModeTab.TAB_TRANSPORTATION));
     public static final Item BAOBAB_CHEST_BOAT_ITEM = new BoatItem(true, WilderBoats.BAOBAB, new FabricItemSettings().maxCount(1).group(CreativeModeTab.TAB_TRANSPORTATION));
-    public static final Item BAOBAB_SIGN = new SignItem(new FabricItemSettings().group(CreativeModeTab.TAB_DECORATIONS).maxCount(16),
-            RegisterBlocks.BAOBAB_SIGN_BLOCK, RegisterBlocks.BAOBAB_WALL_SIGN);
     public static final Item CYPRESS_BOAT_ITEM = new BoatItem(false, WilderBoats.CYPRESS, new FabricItemSettings().maxCount(1).group(CreativeModeTab.TAB_TRANSPORTATION));
     public static final Item CYPRESS_CHEST_BOAT_ITEM = new BoatItem(true, WilderBoats.CYPRESS, new FabricItemSettings().maxCount(1).group(CreativeModeTab.TAB_TRANSPORTATION));
-    public static final Item CYPRESS_SIGN = new SignItem(new FabricItemSettings().group(CreativeModeTab.TAB_DECORATIONS).maxCount(16),
-            RegisterBlocks.CYPRESS_SIGN_BLOCK, RegisterBlocks.CYPRESS_WALL_SIGN);
+    public static final Item PALM_BOAT_ITEM = new BoatItem(false, WilderBoats.PALM, new FabricItemSettings().maxCount(1).group(CreativeModeTab.TAB_TRANSPORTATION));
+    public static final Item PALM_CHEST_BOAT_ITEM = new BoatItem(true, WilderBoats.PALM, new FabricItemSettings().maxCount(1).group(CreativeModeTab.TAB_TRANSPORTATION));
 
-    public static final Item POLLEN = new BlockItem(RegisterBlocks.POLLEN_BLOCK, new FabricItemSettings().group(CreativeModeTab.TAB_DECORATIONS));
 
-    public static final Item BAOBAB_NUT = new BlockItem(RegisterBlocks.BAOBAB_NUT, new FabricItemSettings().group(CreativeModeTab.TAB_DECORATIONS).food(RegisterFood.BAOBAB_NUT));
     //public static final Item PRICKLY_PEAR = new PrickOnUseBlockItem(RegisterBlocks.PRICKLY_PEAR_CACTUS, new FabricItemSettings().group(CreativeModeTab.TAB_FOOD).food(RegisterFood.PRICKLY_PEAR), 2F, RegisterSounds.PLAYER_HURT_CACTUS, "prickly_pear");
     //public static final Item PEELED_PRICKLY_PEAR = new Item(new FabricItemSettings().group(CreativeModeTab.TAB_FOOD).food(Foods.APPLE));
 
@@ -61,7 +69,7 @@ public final class RegisterItems {
     public static final Item WHITE_FIREFLY_BOTTLE = new FireflyBottle(new FabricItemSettings().group(CreativeModeTab.TAB_MISC).maxCount(32), "white");
 
     public static final Item ANCIENT_HORN_FRAGMENT = new Item(new FabricItemSettings().group(CreativeModeTab.TAB_MISC).maxCount(64));
-
+    // INSTRUMENT
     public static final AncientHorn ANCIENT_HORN = new AncientHorn(new FabricItemSettings().group(CreativeModeTab.TAB_MISC).maxCount(1).rarity(Rarity.EPIC), WilderInstrumentTags.ANCIENT_HORNS);
     public static final ResourceKey<Instrument> ANCIENT_HORN_INSTRUMENT = ResourceKey.create(Registry.INSTRUMENT_REGISTRY, WilderWild.id("ancient_horn"));
     public static final CopperHorn COPPER_HORN = new CopperHorn(new FabricItemSettings().group(CreativeModeTab.TAB_MISC).maxCount(1), WilderInstrumentTags.COPPER_HORNS, 0);
@@ -73,14 +81,24 @@ public final class RegisterItems {
     public static final ResourceKey<Instrument> TRUMPET_COPPER_HORN = ResourceKey.create(Registry.INSTRUMENT_REGISTRY, WilderWild.id("trumpet_copper_horn"));
     public static final ResourceKey<Instrument> TROMBONE_COPPER_HORN = ResourceKey.create(Registry.INSTRUMENT_REGISTRY, WilderWild.id("trombone_copper_horn"));
 
+    public static void registerBlockItems() {
+        WilderWild.logWild("Registering Block Items for", WilderWild.UNSTABLE_LOGGING);
+        Registry.register(Registry.ITEM, WilderWild.id("baobab_nut"), BAOBAB_NUT);
+
+        Registry.register(Registry.ITEM, WilderWild.id("baobab_sign"), BAOBAB_SIGN);
+        Registry.register(Registry.ITEM, WilderWild.id("cypress_sign"), CYPRESS_SIGN);
+        Registry.register(Registry.ITEM, WilderWild.id("palm_sign"), PALM_SIGN);
+
+        Registry.register(Registry.ITEM, WilderWild.id("pollen"), POLLEN);
+    }
     public static void registerItems() {
         WilderWild.logWild("Registering Items for", WilderWild.UNSTABLE_LOGGING);
         Registry.register(Registry.ITEM, WilderWild.id("baobab_boat"), BAOBAB_BOAT_ITEM);
         Registry.register(Registry.ITEM, WilderWild.id("baobab_chest_boat"), BAOBAB_CHEST_BOAT_ITEM);
-        Registry.register(Registry.ITEM, WilderWild.id("baobab_sign"), BAOBAB_SIGN);
         Registry.register(Registry.ITEM, WilderWild.id("cypress_boat"), CYPRESS_BOAT_ITEM);
         Registry.register(Registry.ITEM, WilderWild.id("cypress_chest_boat"), CYPRESS_CHEST_BOAT_ITEM);
-        Registry.register(Registry.ITEM, WilderWild.id("cypress_sign"), CYPRESS_SIGN);
+        Registry.register(Registry.ITEM, WilderWild.id("palm_boat"), PALM_BOAT_ITEM);
+        Registry.register(Registry.ITEM, WilderWild.id("palm_chest_boat"), PALM_CHEST_BOAT_ITEM);
         Registry.register(Registry.ITEM, WilderWild.id("ancient_horn"), ANCIENT_HORN);
         Registry.register(Registry.ITEM, WilderWild.id("copper_horn"), COPPER_HORN);
         Registry.register(Registry.ITEM, WilderWild.id("milkweed_pod"), MILKWEED_POD);
@@ -107,7 +125,7 @@ public final class RegisterItems {
         StartingSounds.startingSounds.put(TRUMPET_COPPER_HORN, RegisterSounds.ITEM_COPPER_HORN_TRUMPET_START);
         StartingSounds.startingSounds.put(TROMBONE_COPPER_HORN, RegisterSounds.ITEM_COPPER_HORN_TROMBONE_START);
 
-        Registry.register(Registry.ITEM, WilderWild.id("baobab_nut"), BAOBAB_NUT);
+
         //Registry.register(Registry.ITEM, WilderWild.id("prickly_pear"), PRICKLY_PEAR);
         //Registry.register(Registry.ITEM, WilderWild.id("peeled_prickly_pear"), PEELED_PRICKLY_PEAR);
 
@@ -129,7 +147,7 @@ public final class RegisterItems {
         Registry.register(Registry.ITEM, WilderWild.id("orange_firefly_bottle"), ORANGE_FIREFLY_BOTTLE);
         Registry.register(Registry.ITEM, WilderWild.id("white_firefly_bottle"), WHITE_FIREFLY_BOTTLE);
 
-        Registry.register(Registry.ITEM, WilderWild.id("pollen"), POLLEN);
+
 
         Registry.register(Registry.ITEM, WilderWild.id("ancient_horn_fragment"), ANCIENT_HORN_FRAGMENT);
 
