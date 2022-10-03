@@ -271,7 +271,7 @@ public final class WilderPlacedFeatures {
     public static final Holder<PlacedFeature> TERMITE_PLACED = register("termite_placed",
             WilderConfiguredFeatures.TERMITE_CONFIGURED, RarityFilter.onAverageOnceEvery(45), CountPlacement.of(1), PlacementUtils.HEIGHTMAP_WORLD_SURFACE, InSquarePlacement.spread(), SurfaceRelativeThresholdFilter.of(Heightmap.Types.WORLD_SURFACE_WG, 0, 128), BiomeFilter.biome());
 
-    public static final Holder<PlacedFeature> JELLYFISH_CAVES_BLUE_MESOGLEA = PlacementUtils.register(
+    public static final Holder<PlacedFeature> JELLYFISH_CAVES_BLUE_MESOGLEA = register(
             "blue_mesoglea",
             WilderConfiguredFeatures.JELLYFISH_CAVES_BLUE_MESOGLEA,
             CountPlacement.of(9),
@@ -281,7 +281,7 @@ public final class WilderPlacedFeatures {
             RandomOffsetPlacement.vertical(ConstantInt.of(1)),
             BiomeFilter.biome());
 
-    public static final Holder<PlacedFeature> JELLYFISH_CAVES_UPSIDE_DOWN_BLUE_MESOGLEA = PlacementUtils.register(
+    public static final Holder<PlacedFeature> JELLYFISH_CAVES_UPSIDE_DOWN_BLUE_MESOGLEA = register(
             "upside_down_blue_mesoglea",
             WilderConfiguredFeatures.UPSIDE_DOWN_BLUE_MESOGLEA,
             CountPlacement.of(9),
@@ -291,7 +291,7 @@ public final class WilderPlacedFeatures {
             RandomOffsetPlacement.vertical(ConstantInt.of(1)),
             BiomeFilter.biome());
 
-    public static final Holder<PlacedFeature> JELLYFISH_CAVES_PURPLE_MESOGLEA = PlacementUtils.register(
+    public static final Holder<PlacedFeature> JELLYFISH_CAVES_PURPLE_MESOGLEA = register(
             "purple_mesoglea",
             WilderConfiguredFeatures.JELLYFISH_CAVES_PURPLE_MESOGLEA,
             CountPlacement.of(9),
@@ -301,7 +301,7 @@ public final class WilderPlacedFeatures {
             RandomOffsetPlacement.vertical(ConstantInt.of(1)),
             BiomeFilter.biome());
 
-    public static final Holder<PlacedFeature> JELLYFISH_CAVES_UPSIDE_DOWN_PURPLE_MESOGLEA = PlacementUtils.register(
+    public static final Holder<PlacedFeature> JELLYFISH_CAVES_UPSIDE_DOWN_PURPLE_MESOGLEA = register(
             "upside_down_purple_mesoglea",
             WilderConfiguredFeatures.UPSIDE_DOWN_PURPLE_MESOGLEA,
             CountPlacement.of(9),

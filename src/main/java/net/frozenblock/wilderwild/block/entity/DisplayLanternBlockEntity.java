@@ -7,7 +7,7 @@ import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.fabricmc.fabric.api.networking.v1.PlayerLookup;
 import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.entity.Firefly;
-import net.frozenblock.wilderwild.entity.ai.FireflyBrain;
+import net.frozenblock.wilderwild.entity.ai.FireflyAi;
 import net.frozenblock.wilderwild.item.FireflyBottle;
 import net.frozenblock.wilderwild.registry.RegisterBlockEntities;
 import net.frozenblock.wilderwild.registry.RegisterEntities;
@@ -149,7 +149,7 @@ public class DisplayLanternBlockEntity extends BlockEntity {
                         boolean spawned = level.addFreshEntity(entity);
                         if (spawned) {
                             entity.hasHome = true;
-                            FireflyBrain.rememberHome(entity, entity.blockPosition());
+                            FireflyAi.rememberHome(entity, entity.blockPosition());
                             entity.setColor(firefly.color);
                             entity.setScale(1.0F);
                             if (!Objects.equals(firefly.customName, "")) {
@@ -174,7 +174,7 @@ public class DisplayLanternBlockEntity extends BlockEntity {
                 boolean spawned = level.addFreshEntity(entity);
                 if (spawned) {
                     entity.hasHome = true;
-                    FireflyBrain.rememberHome(entity, entity.blockPosition());
+                    FireflyAi.rememberHome(entity, entity.blockPosition());
                     entity.setColor(firefly.color);
                     entity.setScale(1.0F);
                     if (!Objects.equals(firefly.customName, "")) {

@@ -4,7 +4,7 @@ import com.google.common.collect.ImmutableList;
 import com.mojang.serialization.Dynamic;
 import net.frozenblock.lib.sound.FrozenSoundPackets;
 import net.frozenblock.wilderwild.WilderWild;
-import net.frozenblock.wilderwild.entity.ai.FireflyBrain;
+import net.frozenblock.wilderwild.entity.ai.FireflyAi;
 import net.frozenblock.wilderwild.entity.ai.FireflyHidingGoal;
 import net.frozenblock.wilderwild.misc.server.EasyPacket;
 import net.frozenblock.wilderwild.registry.RegisterItems;
@@ -103,7 +103,7 @@ public class Firefly extends PathfinderMob implements FlyingAnimal {
     public SpawnGroupData finalizeSpawn(@NotNull ServerLevelAccessor level, @NotNull DifficultyInstance difficulty, MobSpawnType reason, @Nullable SpawnGroupData spawnData, @Nullable CompoundTag dataTag) {
         this.natural = reason == MobSpawnType.NATURAL || reason == MobSpawnType.CHUNK_GENERATION;
         this.hasHome = true;
-        FireflyBrain.rememberHome(this, this.blockPosition());
+        FireflyAi.rememberHome(this, this.blockPosition());
 
         if (reason == MobSpawnType.COMMAND) {
             this.setScale(1.5F);
@@ -184,7 +184,7 @@ public class Firefly extends PathfinderMob implements FlyingAnimal {
     }
 
     protected Brain<?> makeBrain(@NotNull Dynamic<?> dynamic) {
-        return FireflyBrain.create(this.brainProvider().makeBrain(dynamic));
+        return FireflyAi.create(this.brainProvider().makeBrain(dynamic));
     }
 
     public boolean isFromBottle() {
@@ -365,10 +365,10 @@ public class Firefly extends PathfinderMob implements FlyingAnimal {
                 --this.homeCheckCooldown;
             } else {
                 this.homeCheckCooldown = 200;
-                BlockPos home = FireflyBrain.getHome(this);
-                if (home != null && FireflyBrain.isInHomeDimension(this)) {
+                BlockPos home = FireflyAi.getHome(this);
+                if (home != null && FireflyAi.isInHomeDimension(this)) {
                     if (!isValidHomePos(level, home)) {
-                        FireflyBrain.rememberHome(this, this.blockPosition());
+                        FireflyAi.rememberHome(this, this.blockPosition());
                     }
                 }
             }
@@ -403,7 +403,7 @@ public class Firefly extends PathfinderMob implements FlyingAnimal {
         this.getBrain().tick((ServerLevel) this.level, this);
         this.level.getProfiler().pop();
         this.level.getProfiler().push("fireflyActivityUpdate");
-        FireflyBrain.updateActivities(this);
+        FireflyAi.updateActivities(this);
         this.level.getProfiler().pop();
         super.customServerAiStep();
     }
