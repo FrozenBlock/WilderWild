@@ -1,7 +1,7 @@
 package net.frozenblock.wilderwild.block;
 
 import net.frozenblock.wilderwild.WilderWild;
-import net.frozenblock.wilderwild.misc.FlowerColors;
+import net.frozenblock.wilderwild.misc.FlowerColor;
 import net.frozenblock.wilderwild.registry.RegisterBlocks;
 import net.frozenblock.wilderwild.registry.RegisterProperties;
 import net.minecraft.core.BlockPos;
@@ -35,11 +35,11 @@ import java.util.List;
 
 public class GloryOfTheSnowBlock extends BushBlock implements BonemealableBlock {
     private static final VoxelShape SHAPE = Block.box(2.0D, 0.0D, 2.0D, 14.0D, 10.0D, 14.0D);
-    public static final EnumProperty<FlowerColors> COLORS = RegisterProperties.FLOWER_COLOR;
+    public static final EnumProperty<FlowerColor> COLORS = RegisterProperties.FLOWER_COLOR;
 
-    public final List<FlowerColors> COLOR_LIST;
+    public final List<FlowerColor> COLOR_LIST;
 
-    public GloryOfTheSnowBlock(Properties settings, List<FlowerColors> list) {
+    public GloryOfTheSnowBlock(Properties settings, List<FlowerColor> list) {
         super(settings);
         this.COLOR_LIST = list;
     }
@@ -51,7 +51,7 @@ public class GloryOfTheSnowBlock extends BushBlock implements BonemealableBlock 
 
     @Override
     public void randomTick(@NotNull BlockState state, @NotNull ServerLevel level, @NotNull BlockPos pos, RandomSource random) {
-        if (random.nextFloat() > 0.9F && state.getValue(COLORS) == FlowerColors.NONE) {
+        if (random.nextFloat() > 0.9F && state.getValue(COLORS) == FlowerColor.NONE) {
             level.setBlockAndUpdate(pos, state.setValue(COLORS, COLOR_LIST.get(WilderWild.random().nextInt(COLOR_LIST.size()))));
         }
     }
@@ -59,12 +59,12 @@ public class GloryOfTheSnowBlock extends BushBlock implements BonemealableBlock 
     @Override
     public InteractionResult use(@NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos, @NotNull Player player, @NotNull InteractionHand hand, @NotNull BlockHitResult hit) {
         if (level instanceof ServerLevel) {
-            FlowerColors color = state.getValue(COLORS);
-            if (color != FlowerColors.NONE) {
+            FlowerColor color = state.getValue(COLORS);
+            if (color != FlowerColor.NONE) {
                 ItemStack itemStack = player.getItemInHand(hand);
                 if (itemStack.is(Items.SHEARS)) {
-                    Item item = color == FlowerColors.BLUE ? RegisterBlocks.BLUE_GLORY_OF_THE_SNOW.asItem() : color == FlowerColors.PINK ? RegisterBlocks.PINK_GLORY_OF_THE_SNOW.asItem() :
-                            color == FlowerColors.PURPLE ? RegisterBlocks.PURPLE_GLORY_OF_THE_SNOW.asItem() : RegisterBlocks.WHITE_GLORY_OF_THE_SNOW.asItem();
+                    Item item = color == FlowerColor.BLUE ? RegisterBlocks.BLUE_GLORY_OF_THE_SNOW.asItem() : color == FlowerColor.PINK ? RegisterBlocks.PINK_GLORY_OF_THE_SNOW.asItem() :
+                            color == FlowerColor.PURPLE ? RegisterBlocks.PURPLE_GLORY_OF_THE_SNOW.asItem() : RegisterBlocks.WHITE_GLORY_OF_THE_SNOW.asItem();
                     ItemStack stack = new ItemStack(item);
                     stack.setCount(level.random.nextIntBetweenInclusive(1, 2));
                     popResource(level, pos, stack);
@@ -87,7 +87,7 @@ public class GloryOfTheSnowBlock extends BushBlock implements BonemealableBlock 
 
     @Override
     public boolean isValidBonemealTarget(@NotNull BlockGetter level, @NotNull BlockPos pos, @NotNull BlockState state, boolean isClient) {
-        return !isClient && state.getValue(COLORS) == FlowerColors.NONE;
+        return !isClient && state.getValue(COLORS) == FlowerColor.NONE;
     }
 
     @Override

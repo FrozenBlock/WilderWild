@@ -13,7 +13,6 @@
 	"server.BlocksMixin",
 	"server.BoatDropsMixin",
 	"server.BoatTypeMixin",
-	"server.BoneMealItemMixin",
 	"server.ChestBoatDropsMixin",
 	"server.EnderManMixin",
 	"server.ExperienceOrbMixin",

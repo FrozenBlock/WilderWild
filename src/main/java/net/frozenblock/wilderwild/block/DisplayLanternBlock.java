@@ -3,6 +3,7 @@ package net.frozenblock.wilderwild.block;
 import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.block.entity.DisplayLanternBlockEntity;
 import net.frozenblock.wilderwild.item.FireflyBottle;
+import net.frozenblock.wilderwild.misc.FireflyColor;
 import net.frozenblock.wilderwild.registry.RegisterBlockEntities;
 import net.frozenblock.wilderwild.registry.RegisterItems;
 import net.frozenblock.wilderwild.registry.RegisterProperties;
@@ -102,7 +103,7 @@ public class DisplayLanternBlock extends BaseEntityBlock implements SimpleWaterl
                 if (stack.is(Items.GLASS_BOTTLE)) {
                     if (!lantern.getFireflies().isEmpty()) {
                         DisplayLanternBlockEntity.FireflyInLantern fireflyInLantern = lantern.getFireflies().get((int) (lantern.getFireflies().size() * Math.random()));
-                        Optional<Item> optionalItem = Registry.ITEM.getOptional(WilderWild.id(Objects.equals(fireflyInLantern.color, "on") ? "firefly_bottle" : fireflyInLantern.color + "_firefly_bottle"));
+                        Optional<Item> optionalItem = Registry.ITEM.getOptional(new ResourceLocation(fireflyInLantern.color.getKey().getNamespace(), Objects.equals(fireflyInLantern.color, FireflyColor.ON) ? "firefly_bottle" : fireflyInLantern.color.getKey().getPath() + "_firefly_bottle"));
                         Item item = RegisterItems.FIREFLY_BOTTLE;
                         if (optionalItem.isPresent()) {
                             item = optionalItem.get();

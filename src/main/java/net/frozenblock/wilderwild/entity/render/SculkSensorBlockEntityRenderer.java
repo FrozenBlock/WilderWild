@@ -8,6 +8,7 @@ import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.WilderWildClient;
 import net.frozenblock.wilderwild.misc.SculkSensorTickInterface;
 import net.frozenblock.wilderwild.misc.config.ClothConfigInteractionHandler;
+import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.CubeListBuilder;
 import net.minecraft.client.model.geom.builders.LayerDefinition;
@@ -22,9 +23,9 @@ import org.jetbrains.annotations.NotNull;
 
 @Environment(EnvType.CLIENT)
 public class SculkSensorBlockEntityRenderer<T extends SculkSensorBlockEntity> implements BlockEntityRenderer<T> {
-    private final net.minecraft.client.model.geom.ModelPart base;
-    private final net.minecraft.client.model.geom.ModelPart ne;
-    private final net.minecraft.client.model.geom.ModelPart se;
+    private final ModelPart base;
+    private final ModelPart ne;
+    private final ModelPart se;
 
     private static final float pi = (float) Math.PI;
     private static final float merp25 = 25 * (pi / 180);
@@ -33,7 +34,7 @@ public class SculkSensorBlockEntityRenderer<T extends SculkSensorBlockEntity> im
     private static final RenderType ACTIVE_SENSOR_LAYER = RenderType.entityCutout(WilderWild.id("textures/entity/sculk_sensor/active.png"));
 
     public SculkSensorBlockEntityRenderer(Context ctx) {
-        net.minecraft.client.model.geom.ModelPart root = ctx.bakeLayer(WilderWildClient.SCULK_SENSOR);
+        ModelPart root = ctx.bakeLayer(WilderWildClient.SCULK_SENSOR);
         this.base = root.getChild("base");
         this.se = root.getChild("se");
         this.ne = root.getChild("ne");
