@@ -18,6 +18,7 @@ import net.frozenblock.wilderwild.world.feature.*;
 import net.frozenblock.wilderwild.world.feature.features.*;
 import net.frozenblock.wilderwild.world.feature.features.config.*;
 import net.frozenblock.wilderwild.world.gen.WilderWorldGen;
+import net.frozenblock.wilderwild.world.gen.foliage.PalmFoliagePlacer;
 import net.frozenblock.wilderwild.world.gen.trunk.BaobabTrunkPlacer;
 import net.frozenblock.wilderwild.world.gen.trunk.FallenTrunkWithLogs;
 import net.frozenblock.wilderwild.world.gen.trunk.StraightTrunkWithLogs;
@@ -34,6 +35,8 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.configurations.ProbabilityFeatureConfiguration;
+import net.minecraft.world.level.levelgen.feature.foliageplacers.FoliagePlacer;
+import net.minecraft.world.level.levelgen.feature.foliageplacers.FoliagePlacerType;
 import net.minecraft.world.level.levelgen.feature.trunkplacers.TrunkPlacer;
 import net.minecraft.world.level.levelgen.feature.trunkplacers.TrunkPlacerType;
 import org.quiltmc.qsl.frozenblock.misc.datafixerupper.api.QuiltDataFixerBuilder;
@@ -72,6 +75,8 @@ public final class WilderWild implements ModInitializer {
     public static final UpwardsPillarFeature UPWARDS_PILLAR_FEATURE = new UpwardsPillarFeature(WilderPillarConfig.CODEC);
     public static final DownwardsPillarFeature DOWNWARDS_PILLAR_FEATURE = new DownwardsPillarFeature(WilderPillarConfig.CODEC);
     public static final NematocystFeature NEMATOCYST_FEATURE = new NematocystFeature(NematocystFeatureConfig.CODEC);
+
+    public static final FoliagePlacerType<PalmFoliagePlacer> PALM_FOLIAGE_PLACER =  registerFoliage("palm_foliage_placer", PalmFoliagePlacer.CODEC);
 
     //Fabric ASM
     public static final MobCategory FIREFLIES = ClassTinkerers.getEnum(MobCategory.class, "WILDERWILDFIREFLIES");
@@ -233,6 +238,9 @@ public final class WilderWild implements ModInitializer {
 
     private static <P extends TrunkPlacer> TrunkPlacerType<P> registerTrunk(String id, Codec<P> codec) {
         return Registry.register(Registry.TRUNK_PLACER_TYPES, id(id), new TrunkPlacerType<>(codec));
+    }
+    private static <P extends FoliagePlacer> FoliagePlacerType<P> registerFoliage(String id, Codec<P> codec) {
+        return Registry.register(Registry.FOLIAGE_PLACER_TYPES, id(id), new FoliagePlacerType<>(codec));
     }
 
     //MEASURING
