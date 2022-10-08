@@ -45,7 +45,6 @@
 	"worldgen.MangroveTreeGrowerMixin",
 	"worldgen.OakTreeGrowerMixin",
 	"worldgen.OverworldBiomeBuilderMixin",
-	"worldgen.OverworldBiomesMixin",
 	"worldgen.SpruceTreeGrowerMixin",
 	"worldgen.StructuresMixin",
 	"worldgen.SwampHutPieceMixin",

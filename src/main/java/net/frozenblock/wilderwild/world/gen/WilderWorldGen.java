@@ -22,9 +22,7 @@ public final class WilderWorldGen {
         WilderTreesGeneration.generateTrees();
         WilderMushroomGeneration.generateMushroom();
 
-        WilderMusic.playMusic();
-        WilderSpawns.addFireflies();
-        WilderSpawns.addJellyfish();
+        WilderBiomeSettings.init();
 
         generatePollen();
     }
