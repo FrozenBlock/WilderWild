@@ -12,18 +12,6 @@ public final class WilderGrassGeneration {
 
     public static void init() {
         if (ClothConfigInteractionHandler.wildGrass()) {
-            // Forest
-            BiomeModifications.addFeature(BiomeSelectors.tag(BiomeTags.IS_FOREST),
-                    GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.NEW_GRASS_PLACED.unwrapKey().orElseThrow());
-
-            BiomeModifications.addFeature(BiomeSelectors.tag(BiomeTags.IS_FOREST),
-                    GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.NEW_TALL_GRASS.unwrapKey().orElseThrow());
-
-            // Taiga
-            BiomeModifications.addFeature(BiomeSelectors.includeByKey(Biomes.TAIGA),
-                    GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.NEW_GRASS_PLACED.unwrapKey().orElseThrow());
-            BiomeModifications.addFeature(BiomeSelectors.includeByKey(Biomes.TAIGA),
-                    GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.NEW_TALL_GRASS.unwrapKey().orElseThrow());
 
             BiomeModifications.addFeature(BiomeSelectors.includeByKey(Biomes.WINDSWEPT_FOREST, Biomes.WINDSWEPT_HILLS),
                     GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.NEW_RARE_GRASS_PLACED.unwrapKey().orElseThrow());

@@ -7,7 +7,7 @@ import org.spongepowered.asm.mixin.injection.Constant;
 import org.spongepowered.asm.mixin.injection.ModifyConstant;
 import org.spongepowered.asm.mixin.injection.Slice;
 
-@Mixin(JigsawStructure.class)
+@Mixin(value = JigsawStructure.class, priority = 999)
 public class JigsawStructureMixin {
 
     @ModifyConstant(method = "method_41662(Lcom/mojang/serialization/codecs/RecordCodecBuilder$Instance;)Lcom/mojang/datafixers/kinds/App;",
