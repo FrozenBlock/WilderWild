@@ -24,47 +24,25 @@ import net.minecraft.world.level.levelgen.structure.structures.JigsawStructure;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.ModifyArgs;
 import org.spongepowered.asm.mixin.injection.Redirect;
+import org.spongepowered.asm.mixin.injection.invoke.arg.Args;
 
 import java.util.Arrays;
 import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-@Mixin(value = Structures.class, priority = 69420)
+@Mixin(Structures.class)
 public class StructuresMixin {
 
-    @Redirect(method = "<clinit>", at = @At(value = "INVOKE", target = "Lnet/minecraft/data/worldgen/Structures;register(Lnet/minecraft/resources/ResourceKey;Lnet/minecraft/world/level/levelgen/structure/Structure;)Lnet/minecraft/core/Holder;", ordinal = 31))
-    private static Holder<Structure> newAncientCity(ResourceKey<Structure> resourceKey, Structure structure) {
-        return BuiltinRegistries.register(BuiltinRegistries.STRUCTURES, BuiltinStructures.ANCIENT_CITY, new JigsawStructure(
-                structure(
-                        BiomeTags.HAS_ANCIENT_CITY,
-                        Arrays.stream(MobCategory.values())
-                                .collect(
-                                        Collectors.toMap(
-                                                mobCategory -> mobCategory, mobCategory -> new StructureSpawnOverride(StructureSpawnOverride.BoundingBoxType.STRUCTURE, WeightedRandomList.create())
-                                        )
-                                ),
-                        GenerationStep.Decoration.UNDERGROUND_DECORATION,
-                        TerrainAdjustment.BEARD_BOX
-                ),
-                AncientCityStructurePieces.START,
-                Optional.of(new ResourceLocation("city_anchor")),
-                20,
-                ConstantHeight.of(VerticalAnchor.absolute(-27)),
-                false,
-                Optional.empty(),
-                RegisterStructures.MAX_DISTANCE_FROM_JIGSAW_CENTER - 12
-        ));
-    }
-
-    @Shadow
-    private static Structure.StructureSettings structure(TagKey<Biome> tagKey, Map<MobCategory, StructureSpawnOverride> map, GenerationStep.Decoration decoration, TerrainAdjustment terrainAdjustment) {
-        return new Structure.StructureSettings(biomes(tagKey), map, decoration, terrainAdjustment);
-    }
-
-    @Shadow
-    private static HolderSet<Biome> biomes(TagKey<Biome> tagKey) {
-        return BuiltinRegistries.BIOME.getOrCreateTag(tagKey);
+    @ModifyArgs(
+            method = "<clinit>",
+            at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/levelgen/structure/structures/JigsawStructure;<init>(Lnet/minecraft/world/level/levelgen/structure/Structure$StructureSettings;Lnet/minecraft/core/Holder;Ljava/util/Optional;ILnet/minecraft/world/level/levelgen/heightproviders/HeightProvider;ZLjava/util/Optional;I)V", ordinal = 0),
+            require = 0
+    )
+    private static void wilderWild_increaseAncientCitySize(Args args) {
+        int structureSize = 20;
+        args.set(3, structureSize);
     }
 }
