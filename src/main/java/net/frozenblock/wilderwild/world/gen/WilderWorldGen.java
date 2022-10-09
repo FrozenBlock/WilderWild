@@ -4,6 +4,7 @@ import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
 import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
 import net.fabricmc.fabric.api.biome.v1.ModificationPhase;
 import net.frozenblock.wilderwild.WilderWild;
+import net.frozenblock.wilderwild.misc.config.ClothConfigInteractionHandler;
 import net.frozenblock.wilderwild.world.feature.WilderPlacedFeatures;
 import net.frozenblock.wilderwild.world.gen.treedecorators.WilderTreeDecorators;
 import net.minecraft.data.worldgen.placement.VegetationPlacements;
@@ -32,9 +33,35 @@ public final class WilderWorldGen {
                 .add(ModificationPhase.REPLACEMENTS,
                         BiomeSelectors.tag(BiomeTags.IS_FOREST),
                         (context) -> {
-                            context.getGenerationSettings().removeBuiltInFeature(VegetationPlacements.PATCH_GRASS_FOREST.value());
-                            context.getGenerationSettings().addBuiltInFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.NEW_GRASS_PLACED.value());
-                            context.getGenerationSettings().addBuiltInFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.NEW_TALL_GRASS.value());
+                            if (ClothConfigInteractionHandler.wildGrass()) {
+                                context.getGenerationSettings().removeBuiltInFeature(VegetationPlacements.PATCH_GRASS_FOREST.value());
+                                context.getGenerationSettings().addBuiltInFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.NEW_GRASS_PLACED.value());
+                                context.getGenerationSettings().addBuiltInFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.NEW_TALL_GRASS.value());
+                            }
+                        });
+
+        BiomeModifications.create(WilderWild.id("replace_birch_trees"))
+                .add(ModificationPhase.REPLACEMENTS,
+                        BiomeSelectors.includeByKey(Biomes.BIRCH_FOREST, Biomes.OLD_GROWTH_BIRCH_FOREST),
+                        context -> {
+                            if (ClothConfigInteractionHandler.wildTrees()) {
+                                context.getGenerationSettings().removeBuiltInFeature(VegetationPlacements.TREES_BIRCH.value());
+                                context.getGenerationSettings().addBuiltInFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.NEW_BIRCH_PLACED.value());
+                            }
+                        })
+                .add(ModificationPhase.REPLACEMENTS,
+                        BiomeSelectors.includeByKey(Biomes.OLD_GROWTH_BIRCH_FOREST),
+                        context -> {
+                            context.getGenerationSettings().removeBuiltInFeature(VegetationPlacements.BIRCH_TALL.value());
+                            context.getGenerationSettings().addBuiltInFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.NEW_TALL_BIRCH_PLACED.value());
+                        })
+                .add(ModificationPhase.REPLACEMENTS,
+                        BiomeSelectors.includeByKey(Biomes.FLOWER_FOREST),
+                        context -> {
+                            if (ClothConfigInteractionHandler.wildTrees()) {
+                                context.getGenerationSettings().removeBuiltInFeature(VegetationPlacements.TREES_BIRCH_AND_OAK.value());
+                                context.getGenerationSettings().addBuiltInFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.NEW_TREES_FLOWER_FOREST.value());
+                            }
                         });
     }
 

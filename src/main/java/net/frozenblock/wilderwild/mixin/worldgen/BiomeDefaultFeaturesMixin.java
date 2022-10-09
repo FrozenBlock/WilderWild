@@ -14,14 +14,6 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(value = BiomeDefaultFeatures.class, priority = 69420)
 public class BiomeDefaultFeaturesMixin {
 
-    @Inject(method = "addOtherBirchTrees", at = @At("HEAD"), cancellable = true)
-    private static void addOtherBirchTrees(BiomeGenerationSettings.Builder builder, CallbackInfo info) {
-        if (ClothConfigInteractionHandler.wildTrees()) {
-            WilderWild.log("Removing " + "Forest Trees" + " in order to properly update biomes!", WilderWild.UNSTABLE_LOGGING);
-            info.cancel();
-        }
-    }
-
     @Inject(method = "addPlainVegetation", at = @At("HEAD"), cancellable = true)
     private static void addPlainsVegetation(BiomeGenerationSettings.Builder builder, CallbackInfo info) {
         if (ClothConfigInteractionHandler.wildTrees()) {
