@@ -14,15 +14,6 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(value = BiomeDefaultFeatures.class, priority = 69420)
 public class BiomeDefaultFeaturesMixin {
 
-    @Inject(method = "addPlainVegetation", at = @At("HEAD"), cancellable = true)
-    private static void addPlainsVegetation(BiomeGenerationSettings.Builder builder, CallbackInfo info) {
-        if (ClothConfigInteractionHandler.wildTrees()) {
-            WilderWild.log("Overriding " + "Plains Features" + " in order to properly update biomes!", WilderWild.UNSTABLE_LOGGING);
-            builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, VegetationPlacements.PATCH_GRASS_PLAIN);
-            info.cancel();
-        }
-    }
-
     @Inject(method = "addSwampVegetation", at = @At("HEAD"), cancellable = true)
     private static void addSwampVegetation(BiomeGenerationSettings.Builder builder, CallbackInfo info) {
         if (ClothConfigInteractionHandler.wildTrees()) {

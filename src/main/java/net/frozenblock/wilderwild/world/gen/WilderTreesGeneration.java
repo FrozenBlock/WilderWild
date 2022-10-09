@@ -28,12 +28,6 @@ public final class WilderTreesGeneration {
             BiomeModifications.addFeature(BiomeSelectors.includeByKey(Biomes.FOREST),
                     GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.NEW_TREES_BIRCH_AND_OAK.unwrapKey().orElseThrow());
 
-            BiomeModifications.addFeature(BiomeSelectors.includeByKey(Biomes.SWAMP),
-                    GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.NEW_TREES_SWAMP.unwrapKey().orElseThrow());
-
-            BiomeModifications.addFeature(BiomeSelectors.includeByKey(Biomes.PLAINS),
-                    GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.NEW_TREES_PLAINS.unwrapKey().orElseThrow());
-
             BiomeModifications.addFeature(BiomeSelectors.includeByKey(Biomes.TAIGA, Biomes.SNOWY_TAIGA),
                     GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.NEW_SPRUCE_PLACED.unwrapKey().orElseThrow());
 

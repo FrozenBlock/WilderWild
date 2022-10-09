@@ -5,6 +5,7 @@ import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
 import net.fabricmc.fabric.api.biome.v1.ModificationPhase;
 import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.misc.config.ClothConfigInteractionHandler;
+import net.frozenblock.wilderwild.tag.WilderBiomeTags;
 import net.frozenblock.wilderwild.world.feature.WilderPlacedFeatures;
 import net.frozenblock.wilderwild.world.gen.treedecorators.WilderTreeDecorators;
 import net.minecraft.data.worldgen.placement.VegetationPlacements;
@@ -63,6 +64,26 @@ public final class WilderWorldGen {
                             if (ClothConfigInteractionHandler.wildTrees()) {
                                 context.getGenerationSettings().removeBuiltInFeature(VegetationPlacements.TREES_BIRCH_AND_OAK.value());
                                 context.getGenerationSettings().addBuiltInFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.NEW_TREES_FLOWER_FOREST.value());
+                            }
+                        });
+
+        BiomeModifications.create(WilderWild.id("replace_plains_trees"))
+                .add(ModificationPhase.REPLACEMENTS,
+                        BiomeSelectors.tag(WilderBiomeTags.NON_FROZEN_PLAINS),
+                        context -> {
+                            if (ClothConfigInteractionHandler.wildTrees()) {
+                                context.getGenerationSettings().removeBuiltInFeature(VegetationPlacements.TREES_PLAINS.value());
+                                context.getGenerationSettings().addBuiltInFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.NEW_TREES_PLAINS.value());
+                            }
+                        });
+
+        BiomeModifications.create(WilderWild.id("replace_swamp_trees"))
+                .add(ModificationPhase.REPLACEMENTS,
+                        BiomeSelectors.tag(WilderBiomeTags.SWAMP_TREES),
+                        context -> {
+                            if (ClothConfigInteractionHandler.wildTrees()) {
+                                context.getGenerationSettings().removeBuiltInFeature(VegetationPlacements.TREES_SWAMP.value());
+                                context.getGenerationSettings().addBuiltInFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.NEW_TREES_SWAMP.value());
                             }
                         });
     }
