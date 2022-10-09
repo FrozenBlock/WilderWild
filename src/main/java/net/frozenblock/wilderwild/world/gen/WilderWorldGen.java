@@ -52,8 +52,10 @@ public final class WilderWorldGen {
                 .add(ModificationPhase.REPLACEMENTS,
                         BiomeSelectors.includeByKey(Biomes.OLD_GROWTH_BIRCH_FOREST),
                         context -> {
-                            context.getGenerationSettings().removeBuiltInFeature(VegetationPlacements.BIRCH_TALL.value());
-                            context.getGenerationSettings().addBuiltInFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.NEW_TALL_BIRCH_PLACED.value());
+                            if (ClothConfigInteractionHandler.wildTrees()) {
+                                context.getGenerationSettings().removeBuiltInFeature(VegetationPlacements.BIRCH_TALL.value());
+                                context.getGenerationSettings().addBuiltInFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.NEW_TALL_BIRCH_PLACED.value());
+                            }
                         })
                 .add(ModificationPhase.REPLACEMENTS,
                         BiomeSelectors.includeByKey(Biomes.FLOWER_FOREST),
