@@ -19,8 +19,6 @@ public class GenerationSettingsBuilderMixin {
 
     private final ArrayList<Holder<PlacedFeature>> removedFeatures = new ArrayList<>() {{
         add(VegetationPlacements.TREES_FLOWER_FOREST);
-        add(VegetationPlacements.TREES_OLD_GROWTH_SPRUCE_TAIGA);
-        add(VegetationPlacements.TREES_OLD_GROWTH_PINE_TAIGA);
         add(VegetationPlacements.TREES_SNOWY);
         add(VegetationPlacements.TREES_WINDSWEPT_HILLS);
         add(VegetationPlacements.TREES_WINDSWEPT_FOREST);

@@ -37,7 +37,6 @@
 	"server.TurtleMixin",
 	"server.WardenAiMixin",
 	"server.WardenMixin",
-	"worldgen.BiomeDefaultFeaturesMixin",
 	"worldgen.BirchTreeGrowerMixin",
 	"worldgen.DarkOakTreeGrowerMixin",
 	"worldgen.GenerationSettingsBuilderMixin",

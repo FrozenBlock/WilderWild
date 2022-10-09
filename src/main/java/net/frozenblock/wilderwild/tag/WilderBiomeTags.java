@@ -18,6 +18,12 @@ public final class WilderBiomeTags {
     public static final TagKey<Biome> NO_POOLS = bind("no_pools");
     public static final TagKey<Biome> NON_FROZEN_PLAINS = bind("non_frozen_plains");
     public static final TagKey<Biome> SWAMP_TREES = bind("swamp_trees");
+    public static final TagKey<Biome> SHORT_TAIGA = bind("short_taiga");
+    public static final TagKey<Biome> TALL_PINE_TAIGA = bind("tall_pine_taiga");
+    public static final TagKey<Biome> TALL_SPRUCE_TAIGA = bind("tall_spruce_taiga");
+    public static final TagKey<Biome> GROVE = bind("grove");
+    public static final TagKey<Biome> NORMAL_SAVANNA = bind("normal_savanna");
+    public static final TagKey<Biome> WINDSWEPT_SAVANNA = bind("windswept_savanna");
 
     private WilderBiomeTags() {
     }
