@@ -39,7 +39,6 @@
 	"server.WardenMixin",
 	"worldgen.BirchTreeGrowerMixin",
 	"worldgen.DarkOakTreeGrowerMixin",
-	"worldgen.GenerationSettingsBuilderMixin",
 	"worldgen.JigsawStructureMixin",
 	"worldgen.MangroveTreeGrowerMixin",
 	"worldgen.OakTreeGrowerMixin",

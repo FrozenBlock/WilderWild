@@ -24,6 +24,12 @@ public final class WilderBiomeTags {
     public static final TagKey<Biome> GROVE = bind("grove");
     public static final TagKey<Biome> NORMAL_SAVANNA = bind("normal_savanna");
     public static final TagKey<Biome> WINDSWEPT_SAVANNA = bind("windswept_savanna");
+    public static final TagKey<Biome> SNOWY_PLAINS = bind("snowy_plains");
+    public static final TagKey<Biome> WINDSWEPT_HILLS = bind("windswept_hills");
+    public static final TagKey<Biome> WINDSWEPT_FOREST = bind("windswept_forest");
+    public static final TagKey<Biome> BIRCH_FOREST = bind("birch_forest");
+    public static final TagKey<Biome> DARK_FOREST = bind("dark_forest");
+    public static final TagKey<Biome> MEADOW = bind("meadow");
 
     private WilderBiomeTags() {
     }

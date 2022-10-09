@@ -63,6 +63,7 @@ public final class WilderWorldGen {
                         context -> {
                             if (ClothConfigInteractionHandler.wildTrees()) {
                                 context.getGenerationSettings().removeBuiltInFeature(VegetationPlacements.TREES_BIRCH_AND_OAK.value());
+                                context.getGenerationSettings().removeBuiltInFeature(VegetationPlacements.TREES_FLOWER_FOREST.value());
                                 context.getGenerationSettings().addBuiltInFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.NEW_TREES_FLOWER_FOREST.value());
                             }
                         });
@@ -138,6 +139,54 @@ public final class WilderWorldGen {
                             if (ClothConfigInteractionHandler.wildTrees()) {
                                 context.getGenerationSettings().removeBuiltInFeature(VegetationPlacements.TREES_WINDSWEPT_SAVANNA.value());
                                 context.getGenerationSettings().addBuiltInFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.WINDSWEPT_SAVANNA_TREES.value());
+                            }
+                        });
+
+        BiomeModifications.create(WilderWild.id("replace_snowy_plains_trees"))
+                .add(ModificationPhase.REPLACEMENTS,
+                        BiomeSelectors.tag(WilderBiomeTags.SNOWY_PLAINS),
+                        context -> {
+                            if (ClothConfigInteractionHandler.wildTrees()) {
+                                context.getGenerationSettings().removeBuiltInFeature(VegetationPlacements.TREES_SNOWY.value());
+                                context.getGenerationSettings().addBuiltInFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.NEW_TREES_SNOWY.value());
+                            }
+                        });
+
+        BiomeModifications.create(WilderWild.id("replace_windswept_hills_trees"))
+                .add(ModificationPhase.REPLACEMENTS,
+                        BiomeSelectors.tag(WilderBiomeTags.WINDSWEPT_HILLS),
+                        context -> {
+                            if (ClothConfigInteractionHandler.wildTrees()) {
+                                context.getGenerationSettings().removeBuiltInFeature(VegetationPlacements.TREES_WINDSWEPT_HILLS.value());
+                                context.getGenerationSettings().addBuiltInFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.NEW_TREES_WINDSWEPT_HILLS.value());
+                            }
+                        })
+                .add(ModificationPhase.REPLACEMENTS,
+                        BiomeSelectors.tag(WilderBiomeTags.WINDSWEPT_FOREST),
+                        context -> {
+                            if (ClothConfigInteractionHandler.wildTrees()) {
+                                context.getGenerationSettings().removeBuiltInFeature(VegetationPlacements.TREES_WINDSWEPT_FOREST.value());
+                                context.getGenerationSettings().addBuiltInFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.NEW_TREES_WINDSWEPT_FOREST.value());
+                            }
+                        });
+
+        BiomeModifications.create(WilderWild.id("replace_dark_forest_vegetation"))
+                .add(ModificationPhase.REPLACEMENTS,
+                        BiomeSelectors.tag(WilderBiomeTags.DARK_FOREST),
+                        context -> {
+                            if (ClothConfigInteractionHandler.wildTrees()) {
+                                context.getGenerationSettings().removeBuiltInFeature(VegetationPlacements.DARK_FOREST_VEGETATION.value());
+                                context.getGenerationSettings().addBuiltInFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.NEW_DARK_FOREST_VEGETATION.value());
+                            }
+                        });
+
+        BiomeModifications.create(WilderWild.id("replace_meadow_trees"))
+                .add(ModificationPhase.REPLACEMENTS,
+                        BiomeSelectors.tag(WilderBiomeTags.MEADOW),
+                        context -> {
+                            if (ClothConfigInteractionHandler.wildTrees()) {
+                                context.getGenerationSettings().removeBuiltInFeature(VegetationPlacements.TREES_MEADOW.value());
+                                context.getGenerationSettings().addBuiltInFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.NEW_TREES_MEADOW.value());
                             }
                         });
 
