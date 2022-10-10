@@ -35,9 +35,9 @@ public class JellyfishRenderer extends MobRenderer<Jellyfish, JellyfishModel<Jel
 
             float time = (jelly.level.getGameTime() + partialTicks) * 0.05F;
 
-            model.red = Mth.clamp(Math.abs((time % 6) - 3) - 1,0,1);
-            model.green = Mth.clamp(Math.abs(((time - 2) % 6) - 3) - 1,0,1);
-            model.blue = Mth.clamp(Math.abs(((time - 4) % 6) - 3) - 1,0,1);
+            model.red = Mth.clamp(Math.abs((time % 6) - 3) - 1, 0, 1);
+            model.green = Mth.clamp(Math.abs(((time - 2) % 6) - 3) - 1, 0, 1);
+            model.blue = Mth.clamp(Math.abs(((time - 4) % 6) - 3) - 1, 0, 1);
 
         } else {
             model.red = 1;

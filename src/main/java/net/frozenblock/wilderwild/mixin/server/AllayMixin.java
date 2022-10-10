@@ -13,7 +13,8 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(Allay.class)
 public class AllayMixin implements WilderAllay {
 
-    @Shadow private float dancingAnimationTicks;
+    @Shadow
+    private float dancingAnimationTicks;
     @Unique
     private final Allay allay = Allay.class.cast(this);
 

@@ -32,8 +32,7 @@ public class AbandonedCabinGenerator {
     );
 
     /**
-     *
-     * @param id The id for the {@link SinglePoolElement}'s {@link ResourceLocation}
+     * @param id                 The id for the {@link SinglePoolElement}'s {@link ResourceLocation}
      * @param processorListEntry The processor list for the {@link SinglePoolElement}
      * @return A {@link SinglePoolElement} of the parameters given.
      */

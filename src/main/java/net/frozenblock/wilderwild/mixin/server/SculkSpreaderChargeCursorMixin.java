@@ -141,7 +141,8 @@ public class SculkSpreaderChargeCursorMixin {
             if (canReturn) {
                 return mutableBlockPos.equals(pos) ? null : mutableBlockPos;
             }
-            if (!(blockState.getBlock() instanceof SculkBehaviour) || !isMovementUnobstructed(level, pos, mutableBlockPos2)) continue;
+            if (!(blockState.getBlock() instanceof SculkBehaviour) || !isMovementUnobstructed(level, pos, mutableBlockPos2))
+                continue;
             mutableBlockPos.set(mutableBlockPos2);
             if (!SculkVeinBlock.hasSubstrateAccess(level, blockState, mutableBlockPos2)) continue;
             break;
