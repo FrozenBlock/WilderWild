@@ -21,7 +21,7 @@ public class EasterEggs {
         //EasterEgg.register(WilderWild.id("merp_slime"), EntityType.SLIME, WilderWild.id("textures/entity/slime/merp_slime.png"), true, "Merp");
         EasterEgg.register(WilderWild.id("xfrtrex_frog"), EntityType.FROG, WilderWild.id("textures/entity/frog/sus_frog.png"), "Xfrtrex");
         EasterEgg.register(WilderWild.id("saisho_axolotl"), EntityType.AXOLOTL, WilderWild.id("textures/entity/axolotl/saisho_axolotl.png"), true, "Saisho");
-        EasterEgg.register(WilderWild.id("uppy_balloo"), EntityType.PIG, WilderWild.id("textures/entity/pig/uppy_balloo.png"), "a view from the top");
+        //EasterEgg.register(WilderWild.id("uppy_balloo"), EntityType.PIG, WilderWild.id("textures/entity/pig/uppy_balloo.png"), "a view from the top");
         EasterEgg.register(WilderWild.id("alex_dolphin"), EntityType.DOLPHIN, WilderWild.id("textures/entity/dolphin/alex_dolphin.png"), "AlexTheDolphin0");
     }
 }

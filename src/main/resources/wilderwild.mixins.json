@@ -57,6 +57,7 @@
 	"client.WardenModelMixin",
 	"client.easter.MerpSlimeRenderer",
 	"client.easter.OsmioooWardenRenderer",
+	"client.easter.UppyBalloo",
 	"client.easter.UppyBallooModel"
   ],
   "injectors": {
