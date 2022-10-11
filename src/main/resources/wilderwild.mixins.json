@@ -55,14 +55,9 @@
 	"client.WardenAnimationOverwrites",
 	"client.WardenEmissiveLayerMixin",
 	"client.WardenModelMixin",
-	"client.easter.AlexDolphinRenderer",
 	"client.easter.MerpSlimeRenderer",
 	"client.easter.OsmioooWardenRenderer",
-	"client.easter.SaishoAxolotlRenderer",
-	"client.easter.Treetrain1GoatRenderer",
-	"client.easter.UppyBalloo",
-	"client.easter.UppyBallooModel",
-	"client.easter.XfrtrexSusFrogRenderer"
+	"client.easter.UppyBallooModel"
   ],
   "injectors": {
 	"defaultRequire": 1

@@ -73,11 +73,4 @@ public abstract class OsmioooWardenRenderer extends MobRenderer<Warden, WardenMo
                 )
         );
     }
-
-    @Inject(method = "getTextureLocation(Lnet/minecraft/world/entity/monster/warden/Warden;)Lnet/minecraft/resources/ResourceLocation;", at = @At("RETURN"), cancellable = true)
-    public void getTextureLocation(Warden wardenEntity, CallbackInfoReturnable<ResourceLocation> cir) {
-        if (((WilderWarden) wardenEntity).isOsmiooo()) {
-            cir.setReturnValue(OSMIOOO_TEXTURE);
-        }
-    }
 }
