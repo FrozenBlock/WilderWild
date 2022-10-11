@@ -1424,14 +1424,6 @@
 	],
 	"subtitle": "subtitles.entity.jellyfish.hurt"
   },
-  "entity.jellyfish.ambient": {
-	"sounds": [
-	  "wilderwild:mob/jellyfish/ambient1",
-	  "wilderwild:mob/jellyfish/ambient2",
-	  "wilderwild:mob/jellyfish/ambient3"
-	],
-	"subtitle": "subtitles.entity.jellyfish.ambient"
-  },
   "entity.jellyfish.hurt": {
 	"sounds": [
 	  "wilderwild:mob/jellyfish/hurt1",
