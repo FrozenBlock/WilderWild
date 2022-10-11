@@ -13,7 +13,6 @@
 	"server.BlocksMixin",
 	"server.BoatDropsMixin",
 	"server.BoatTypeMixin",
-	"server.BoneMealItemMixin",
 	"server.ChestBoatDropsMixin",
 	"server.EnderManMixin",
 	"server.ExperienceOrbMixin",
@@ -40,17 +39,13 @@
 	"server.WardenMixin",
 	"worldgen.BirchTreeGrowerMixin",
 	"worldgen.DarkOakTreeGrowerMixin",
-	"worldgen.BiomeDefaultFeaturesMixin",
-	"worldgen.GenerationSettingsBuilderMixin",
 	"worldgen.JigsawStructureMixin",
 	"worldgen.MangroveTreeGrowerMixin",
 	"worldgen.OakTreeGrowerMixin",
 	"worldgen.OverworldBiomeBuilderMixin",
-	"worldgen.OverworldBiomesMixin",
 	"worldgen.SpruceTreeGrowerMixin",
 	"worldgen.StructuresMixin",
-	"worldgen.SwampHutPieceMixin",
-	"worldgen.VegetationPlacementsMixin"
+	"worldgen.SwampHutPieceMixin"
   ],
   "client": [
 	"client.AllayModelMixin",
@@ -58,16 +53,12 @@
 	"client.LiquidBlockRendererMixin",
 	"client.ScottTheWozMixin",
 	"client.WardenAnimationOverwrites",
-	"client.WardenModelMixin",
 	"client.WardenEmissiveLayerMixin",
-	"client.easter.AlexDolphinRenderer",
+	"client.WardenModelMixin",
 	"client.easter.MerpSlimeRenderer",
 	"client.easter.OsmioooWardenRenderer",
-	"client.easter.SaishoAxolotlRenderer",
-	"client.easter.Treetrain1GoatRenderer",
 	"client.easter.UppyBalloo",
-	"client.easter.UppyBallooModel",
-	"client.easter.XfrtrexSusFrogRenderer"
+	"client.easter.UppyBallooModel"
   ],
   "injectors": {
 	"defaultRequire": 1

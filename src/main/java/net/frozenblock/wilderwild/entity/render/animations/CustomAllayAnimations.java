@@ -28,7 +28,7 @@ public final class CustomAllayAnimations {
             )
             .addAnimation(
                     "body", new AnimationChannel(
-                    AnimationChannel.Targets.ROTATION,
+                            AnimationChannel.Targets.ROTATION,
                             new Keyframe(0f, KeyframeAnimations.degreeVec(0f, 0f, 0f), AnimationChannel.Interpolations.CATMULLROM),
                             new Keyframe(0.4167f, KeyframeAnimations.degreeVec(10f, -16f, -16f), AnimationChannel.Interpolations.CATMULLROM),
                             new Keyframe(1.5833f, KeyframeAnimations.degreeVec(-10f, 16f, 16f), AnimationChannel.Interpolations.CATMULLROM),

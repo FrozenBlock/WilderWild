@@ -2,9 +2,10 @@ package net.frozenblock.wilderwild.world.gen;
 
 import com.google.common.collect.ImmutableList;
 import net.frozenblock.lib.worldgen.biome.api.parameters.*;
+import net.frozenblock.lib.worldgen.surface.FrozenSurfaceRules;
 import net.frozenblock.wilderwild.registry.RegisterWorldgen;
+import net.frozenblock.wilderwild.registry.WilderRegistry;
 import net.frozenblock.wilderwild.world.gen.noise.WilderNoise;
-import net.minecraft.world.level.biome.Biomes;
 import net.minecraft.world.level.biome.Climate;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.levelgen.Noises;
@@ -63,7 +64,7 @@ public final class SharedWorldgen {
 
     public static final class Swamp {
 
-        public static final Climate.Parameter SWAMP_HUMIDITY = Climate.Parameter.span(Humidity.NEUTRAL, Humidity.HUMID);
+        public static final Climate.Parameter SWAMP_HUMIDITY = Climate.Parameter.span(Climate.Parameter.span(-0.2F, 0.1F), Humidity.HUMID);
 
         public static final Climate.Parameter TEMPERATURE = Climate.Parameter.span(Temperature.COOL, Temperature.WARM);
 
@@ -91,11 +92,12 @@ public final class SharedWorldgen {
                 )
         );
     }
+
     public static SurfaceRules.RuleSource betaBeachSurfaceRules() {
         var gravel = SurfaceRules.ifTrue(
                 SurfaceRules.UNDER_FLOOR, SurfaceRules.sequence(
                         SurfaceRules.ifTrue(
-                                SurfaceRules.isBiome(Biomes.BIRCH_FOREST, Biomes.TAIGA, Biomes.FROZEN_RIVER, Biomes.OLD_GROWTH_BIRCH_FOREST, Biomes.OLD_GROWTH_PINE_TAIGA, Biomes.OLD_GROWTH_SPRUCE_TAIGA, Biomes.SNOWY_TAIGA, RegisterWorldgen.MIXED_FOREST),
+                                FrozenSurfaceRules.isBiome(WilderRegistry.GRAVEL_BEACH_BIOMES),
                                 SurfaceRules.ifTrue(
                                         SurfaceRules.yStartCheck(VerticalAnchor.absolute(58), 0),
                                         SurfaceRules.ifTrue(
@@ -110,7 +112,7 @@ public final class SharedWorldgen {
         var sand = SurfaceRules.sequence(SurfaceRules.ifTrue(
                 SurfaceRules.DEEP_UNDER_FLOOR, SurfaceRules.sequence(
                         SurfaceRules.ifTrue(
-                                SurfaceRules.isBiome(Biomes.FLOWER_FOREST, Biomes.FOREST, Biomes.DARK_FOREST),
+                                FrozenSurfaceRules.isBiome(WilderRegistry.SAND_BEACH_BIOMES),
                                 SurfaceRules.ifTrue(
                                         SurfaceRules.yStartCheck(VerticalAnchor.absolute(58), 0),
                                         SurfaceRules.ifTrue(
@@ -123,7 +125,7 @@ public final class SharedWorldgen {
         ), SurfaceRules.sequence(SurfaceRules.ifTrue(
                 SurfaceRules.DEEP_UNDER_FLOOR, SurfaceRules.sequence(
                         SurfaceRules.ifTrue(
-                                SurfaceRules.isBiome(Biomes.JUNGLE, Biomes.SPARSE_JUNGLE, Biomes.BAMBOO_JUNGLE, Biomes.SAVANNA),
+                                FrozenSurfaceRules.isBiome(WilderRegistry.OTHER_SAND_BEACH_BIOMES),
                                 SurfaceRules.ifTrue(
                                         SurfaceRules.yStartCheck(VerticalAnchor.absolute(58), 0),
                                         SurfaceRules.ifTrue(

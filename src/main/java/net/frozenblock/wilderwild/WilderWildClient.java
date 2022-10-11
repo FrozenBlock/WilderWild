@@ -1,7 +1,5 @@
 package net.frozenblock.wilderwild;
 
-import com.mojang.blaze3d.vertex.DefaultVertexFormat;
-import com.mojang.blaze3d.vertex.VertexFormat;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -23,13 +21,11 @@ import net.frozenblock.wilderwild.particle.MesogleaDripParticle;
 import net.frozenblock.wilderwild.particle.PollenParticle;
 import net.frozenblock.wilderwild.particle.TermiteParticle;
 import net.frozenblock.wilderwild.registry.*;
-import net.minecraft.Util;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.client.renderer.BiomeColors;
-import net.minecraft.client.renderer.RenderStateShard;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.Sheets;
 import net.minecraft.client.renderer.item.ItemProperties;
@@ -45,7 +41,6 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.phys.Vec3;
 
 import java.util.UUID;
-import java.util.function.BiFunction;
 
 @Environment(EnvType.CLIENT)
 public final class WilderWildClient implements ClientModInitializer {
@@ -135,41 +130,6 @@ public final class WilderWildClient implements ClientModInitializer {
             registry.register(WilderWild.id("particle/termite_7"));
             registry.register(WilderWild.id("particle/termite_8"));
             registry.register(WilderWild.id("particle/termite_9"));
-            registry.register(WilderWild.id("particle/lime_mesoglea_drip_falling"));
-            registry.register(WilderWild.id("particle/lime_mesoglea_drip_hanging1"));
-            registry.register(WilderWild.id("particle/lime_mesoglea_drip_hanging2"));
-            registry.register(WilderWild.id("particle/lime_mesoglea_drip_hanging3"));
-            registry.register(WilderWild.id("particle/lime_mesoglea_drip_land"));
-            registry.register(WilderWild.id("particle/yellow_mesoglea_drip_falling"));
-            registry.register(WilderWild.id("particle/yellow_mesoglea_drip_hanging1"));
-            registry.register(WilderWild.id("particle/yellow_mesoglea_drip_hanging2"));
-            registry.register(WilderWild.id("particle/yellow_mesoglea_drip_hanging3"));
-            registry.register(WilderWild.id("particle/yellow_mesoglea_drip_land"));
-            registry.register(WilderWild.id("particle/red_mesoglea_drip_falling"));
-            registry.register(WilderWild.id("particle/red_mesoglea_drip_hanging1"));
-            registry.register(WilderWild.id("particle/red_mesoglea_drip_hanging2"));
-            registry.register(WilderWild.id("particle/red_mesoglea_drip_hanging3"));
-            registry.register(WilderWild.id("particle/red_mesoglea_drip_land"));
-            registry.register(WilderWild.id("particle/pearlescent_purple_mesoglea_drip_falling"));
-            registry.register(WilderWild.id("particle/pearlescent_purple_mesoglea_drip_hanging1"));
-            registry.register(WilderWild.id("particle/pearlescent_purple_mesoglea_drip_hanging2"));
-            registry.register(WilderWild.id("particle/pearlescent_purple_mesoglea_drip_hanging3"));
-            registry.register(WilderWild.id("particle/pearlescent_purple_mesoglea_drip_land"));
-            registry.register(WilderWild.id("particle/pearlescent_blue_mesoglea_drip_falling"));
-            registry.register(WilderWild.id("particle/pearlescent_blue_mesoglea_drip_hanging1"));
-            registry.register(WilderWild.id("particle/pearlescent_blue_mesoglea_drip_hanging2"));
-            registry.register(WilderWild.id("particle/pearlescent_blue_mesoglea_drip_hanging3"));
-            registry.register(WilderWild.id("particle/pearlescent_blue_mesoglea_drip_land"));
-            registry.register(WilderWild.id("particle/blue_mesoglea_drip_falling"));
-            registry.register(WilderWild.id("particle/blue_mesoglea_drip_hanging1"));
-            registry.register(WilderWild.id("particle/blue_mesoglea_drip_hanging2"));
-            registry.register(WilderWild.id("particle/blue_mesoglea_drip_hanging3"));
-            registry.register(WilderWild.id("particle/blue_mesoglea_drip_land"));
-            registry.register(WilderWild.id("particle/pink_mesoglea_drip_falling"));
-            registry.register(WilderWild.id("particle/pink_mesoglea_drip_hanging1"));
-            registry.register(WilderWild.id("particle/pink_mesoglea_drip_hanging2"));
-            registry.register(WilderWild.id("particle/pink_mesoglea_drip_hanging3"));
-            registry.register(WilderWild.id("particle/pink_mesoglea_drip_land"));
         });
 
         ClientSpriteRegistryCallback.event(Sheets.CHEST_SHEET).register((atlasTexture, registry) -> {

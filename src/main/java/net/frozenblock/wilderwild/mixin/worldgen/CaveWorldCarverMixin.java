@@ -1,4 +1,4 @@
-package net.frozenblock.wilderwild.mixin.worldgen;
+/*package net.frozenblock.wilderwild.mixin.worldgen;
 
 import com.mojang.serialization.Codec;
 import net.frozenblock.wilderwild.registry.RegisterWorldgen;
@@ -117,3 +117,4 @@ public class CaveWorldCarverMixin extends WorldCarver<CaveCarverConfiguration> {
         return false;
     }
 }
+*/

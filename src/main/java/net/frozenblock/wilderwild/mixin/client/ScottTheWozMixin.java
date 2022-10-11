@@ -18,11 +18,14 @@ import java.util.List;
 @Mixin(SplashManager.class)
 public class ScottTheWozMixin {
 
-    @Shadow @Final
+    @Shadow
+    @Final
     private static RandomSource RANDOM;
-    @Shadow @Final
+    @Shadow
+    @Final
     private List<String> splashes;
-    @Shadow @Final
+    @Shadow
+    @Final
     private User user;
 
     @Inject(method = "getSplash", at = @At("TAIL"), cancellable = true)

@@ -138,13 +138,11 @@
   "item.wilderwild.red_firefly_bottle": "Lucciola rossa in ampolla",
   "item.wilderwild.white_firefly_bottle": "Lucciola bianca in ampolla",
   "item.wilderwild.yellow_firefly_bottle": "Lucciola gialla in ampolla",
- 
   "option.wilderwild.component.title": "Opzioni di Wilder Wild",
   "option.wilderwild.block": "Blocco",
   "option.wilderwild.entity": "Entità",
   "option.wilderwild.item": "Oggetto",
   "option.wilderwild.worldgen": "Generazione",
-
   "option.wilderwild.ancient_horn_shatters_glass": "Distruzione del Vetro del Corno Antico",
   "option.wilderwild.beta_beaches": "Spiaggie Beta",
   "option.wilderwild.fallen_logs": "Tronchi Caduti",
@@ -207,7 +205,6 @@
   "tooltip.wilderwild.warden_swim_animation": "Se il sorvegliante deve §onuotare §rVisivamente\n§c(ATTENZIONE: Disabilitarlo fara apparire il sorvegliante ad \nphase attraverso i blocchi quando attraversa spazi di un blocco di altezza. \nDisabilitarlo solo in caso di incompatibilità)",
   "tooltip.wilderwild.wilder_wild_trees": "Se la generazione deve usare gli alberi personalizzati o quelli vanilla.",
   "tooltip.wilderwild.wilder_wild_grass": "Se la generazione deve usare l'erba personalizzata o quella vanilla.",
-
   "wilderwild.ancient_horn.advancement.use": "Rombo dell’antico",
   "wilderwild.ancient_horn.advancement.use.description": "Trova e usa un Corno Antico.",
   "wilderwild.null_block.advancement.obtain": "Modalità hacker = §aON",

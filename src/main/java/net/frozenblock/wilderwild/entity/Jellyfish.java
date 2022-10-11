@@ -2,10 +2,12 @@ package net.frozenblock.wilderwild.entity;
 
 import com.mojang.serialization.Dynamic;
 import net.frozenblock.wilderwild.entity.ai.JellyfishAi;
+import net.frozenblock.wilderwild.misc.JellyfishVariant;
 import net.frozenblock.wilderwild.misc.server.EasyPacket;
 import net.frozenblock.wilderwild.registry.RegisterEntities;
 import net.frozenblock.wilderwild.registry.RegisterItems;
 import net.frozenblock.wilderwild.registry.RegisterSounds;
+import net.frozenblock.wilderwild.registry.WilderRegistry;
 import net.frozenblock.wilderwild.tag.WilderBiomeTags;
 import net.frozenblock.wilderwild.tag.WilderEntityTags;
 import net.minecraft.core.BlockPos;
@@ -14,7 +16,6 @@ import net.minecraft.core.Registry;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.protocol.game.DebugPackets;
 import net.minecraft.network.syncher.EntityDataAccessor;
-import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
@@ -32,7 +33,6 @@ import net.minecraft.world.entity.ai.Brain;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.behavior.StartAttacking;
-import net.minecraft.world.entity.ai.goal.PanicGoal;
 import net.minecraft.world.entity.ai.goal.RandomSwimmingGoal;
 import net.minecraft.world.entity.ai.memory.MemoryModuleType;
 import net.minecraft.world.entity.ai.targeting.TargetingConditions;
@@ -54,6 +54,7 @@ import org.jetbrains.annotations.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 public class Jellyfish extends AbstractFish {
     public float xBodyRot;
@@ -76,22 +77,20 @@ public class Jellyfish extends AbstractFish {
 
     public Jellyfish(EntityType<? extends Jellyfish> entityType, Level level) {
         super(entityType, level);
-        this.setVariant("pink");
+        this.setVariant(JellyfishVariant.PINK);
     }
 
-    private static final EntityDataAccessor<String> VARIANT = SynchedEntityData.defineId(Jellyfish.class, EntityDataSerializers.STRING);
-    public static ArrayList<String> COLORED_VARIANTS = new ArrayList<>() {{
-        add("red");
-        add("pink");
-        add("blue");
-        add("lime");
-        add("yellow");
-    }};
+    private static final EntityDataAccessor<JellyfishVariant> VARIANT = SynchedEntityData.defineId(Jellyfish.class, JellyfishVariant.SERIALIZER);
 
-    public static ArrayList<String> PEARLESCENT_VARIANTS = new ArrayList<>() {{
-        add("pearlescent_blue");
-        add("pearlescent_purple");
-    }};
+    public static final ArrayList<JellyfishVariant> COLORED_VARIANTS = new ArrayList<>(WilderRegistry.JELLYFISH_VARIANT.stream()
+            .filter(JellyfishVariant::isNormal)
+            .collect(Collectors.toList())
+    );
+
+    public static final ArrayList<JellyfishVariant> PEARLESCENT_VARIANTS = new ArrayList<>(WilderRegistry.JELLYFISH_VARIANT.stream()
+            .filter(JellyfishVariant::isPearlescent)
+            .collect(Collectors.toList())
+    );
 
     @Nullable
     @Override
@@ -120,14 +119,17 @@ public class Jellyfish extends AbstractFish {
     public void saveToBucketTag(@NotNull ItemStack stack) {
         Bucketable.saveDefaultDataToBucketTag(this, stack);
         CompoundTag compoundTag = stack.getOrCreateTag();
-        compoundTag.putString("variant", this.getVariant());
+        compoundTag.putString("variant", Objects.requireNonNull(WilderRegistry.JELLYFISH_VARIANT.getKey(this.getVariant())).toString());
     }
 
     @Override
     public void loadFromBucketTag(@NotNull CompoundTag tag) {
         Bucketable.loadDefaultDataFromBucketTag(this, tag);
         if (tag.contains("variant")) {
-            this.setVariant(tag.getString("variant"));
+            JellyfishVariant variant = WilderRegistry.JELLYFISH_VARIANT.get(ResourceLocation.tryParse(tag.getString("variant")));
+            if (variant != null) {
+                this.setVariant(variant);
+            }
         }
     }
 
@@ -329,7 +331,7 @@ public class Jellyfish extends AbstractFish {
 
     public ResourceLocation getJellyLootTable() {
         ResourceLocation resourceLocation = Registry.ENTITY_TYPE.getKey(RegisterEntities.JELLYFISH);
-        return new ResourceLocation(resourceLocation.getNamespace(), "entities/" + resourceLocation.getPath() + "_" + this.getVariant());
+        return new ResourceLocation(this.getVariant().getKey().getNamespace(), "entities/" + resourceLocation.getPath() + "_" + this.getVariant().getKey().getPath());
     }
 
     @Override
@@ -345,13 +347,13 @@ public class Jellyfish extends AbstractFish {
         return new ItemStack(RegisterItems.JELLYFISH_BUCKET);
     }
 
-    public void setVariant(String s) {
-        this.entityData.set(VARIANT, s);
+    public void setVariant(JellyfishVariant variant) {
+        this.entityData.set(VARIANT, variant);
     }
 
-    public String getVariant() {
-        String variant = this.entityData.get(VARIANT);
-        return !Objects.equals(variant, "") ? variant : "pink";
+    public JellyfishVariant getVariant() {
+        JellyfishVariant variant = this.entityData.get(VARIANT);
+        return variant != null ? variant : JellyfishVariant.PINK;
     }
 
     public boolean isRGB() {
@@ -362,27 +364,30 @@ public class Jellyfish extends AbstractFish {
     @Override
     protected void defineSynchedData() {
         super.defineSynchedData();
-        this.entityData.define(VARIANT, "pink");
+        this.entityData.define(VARIANT, JellyfishVariant.PINK);
     }
 
     @Override
     public void addAdditionalSaveData(@NotNull CompoundTag compound) {
         super.addAdditionalSaveData(compound);
         compound.putInt("ticksSinceCantReach", this.ticksSinceCantReach);
-        compound.putString("variant", this.getVariant());
+        compound.putString("variant", Objects.requireNonNull(WilderRegistry.JELLYFISH_VARIANT.getKey(this.getVariant())).toString());
     }
 
     @Override
     public void readAdditionalSaveData(@NotNull CompoundTag compound) {
         super.readAdditionalSaveData(compound);
         this.ticksSinceCantReach = compound.getInt("ticksSinceCantReach");
-        this.setVariant(compound.getString("variant"));
+        JellyfishVariant variant = WilderRegistry.JELLYFISH_VARIANT.get(ResourceLocation.tryParse(compound.getString("variant")));
+        if (variant != null) {
+            this.setVariant(variant);
+        }
     }
 
     @Override
     protected void registerGoals() {
         //super.registerGoals();
-        this.goalSelector.addGoal(0, new PanicGoal(this, 1.9));
+        //this.goalSelector.addGoal(0, new PanicGoal(this, 1.9));
         //this.goalSelector.addGoal(2, new AvoidEntityGoal<>(this, Player.class, 2f, 1.0, 1.4, EntitySelector.NO_SPECTATORS::test));
         this.goalSelector.addGoal(4, new JellySwimGoal(this));
     }

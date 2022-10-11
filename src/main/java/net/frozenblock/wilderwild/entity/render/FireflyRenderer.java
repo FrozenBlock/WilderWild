@@ -10,6 +10,8 @@ import it.unimi.dsi.fastutil.objects.Object2ObjectLinkedOpenHashMap;
 import it.unimi.dsi.fastutil.objects.Object2ObjectMap;
 import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.entity.Firefly;
+import net.frozenblock.wilderwild.misc.FireflyColor;
+import net.frozenblock.wilderwild.registry.WilderRegistry;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.EntityRenderer;
@@ -32,24 +34,14 @@ public class FireflyRenderer extends EntityRenderer<Firefly> {
     private static final RenderType NECTAR_FLAP_LAYER = RenderType.entityCutout(WilderWild.id("textures/entity/firefly/nectar_wings_down.png"));
     private static final RenderType NECTAR_OVERLAY = RenderType.entityTranslucentEmissive(WilderWild.id("textures/entity/firefly/nectar_overlay.png"), true);
 
-    public static Object2ObjectMap<String, RenderType> layers = new Object2ObjectLinkedOpenHashMap<>() {{
-        put("on", RenderType.entityTranslucentEmissive(WilderWild.id("textures/entity/firefly/firefly_on.png"), true));
-        put("red", RenderType.entityTranslucentEmissive(WilderWild.id("textures/entity/firefly/firefly_red.png"), true));
-        put("orange", RenderType.entityTranslucentEmissive(WilderWild.id("textures/entity/firefly/firefly_orange.png"), true));
-        put("yellow", RenderType.entityTranslucentEmissive(WilderWild.id("textures/entity/firefly/firefly_yellow.png"), true));
-        put("lime", RenderType.entityTranslucentEmissive(WilderWild.id("textures/entity/firefly/firefly_lime.png"), true));
-        put("green", RenderType.entityTranslucentEmissive(WilderWild.id("textures/entity/firefly/firefly_green.png"), true));
-        put("cyan", RenderType.entityTranslucentEmissive(WilderWild.id("textures/entity/firefly/firefly_cyan.png"), true));
-        put("light_blue", RenderType.entityTranslucentEmissive(WilderWild.id("textures/entity/firefly/firefly_light_blue.png"), true));
-        put("blue", RenderType.entityTranslucentEmissive(WilderWild.id("textures/entity/firefly/firefly_blue.png"), true));
-        put("pink", RenderType.entityTranslucentEmissive(WilderWild.id("textures/entity/firefly/firefly_pink.png"), true));
-        put("magenta", RenderType.entityTranslucentEmissive(WilderWild.id("textures/entity/firefly/firefly_magenta.png"), true));
-        put("purple", RenderType.entityTranslucentEmissive(WilderWild.id("textures/entity/firefly/firefly_purple.png"), true));
-        put("black", RenderType.entityTranslucentEmissive(WilderWild.id("textures/entity/firefly/firefly_black.png"), true));
-        put("gray", RenderType.entityTranslucentEmissive(WilderWild.id("textures/entity/firefly/firefly_gray.png"), true));
-        put("light_gray", RenderType.entityTranslucentEmissive(WilderWild.id("textures/entity/firefly/firefly_light_gray.png"), true));
-        put("white", RenderType.entityTranslucentEmissive(WilderWild.id("textures/entity/firefly/firefly_white.png"), true));
-        put("brown", RenderType.entityTranslucentEmissive(WilderWild.id("textures/entity/firefly/firefly_brown.png"), true));
+    public static Object2ObjectMap<ResourceLocation, RenderType> layers = new Object2ObjectLinkedOpenHashMap<>() {{
+        Object2ObjectMap<ResourceLocation, ResourceLocation> colors = new Object2ObjectLinkedOpenHashMap<>();
+        WilderRegistry.FIREFLY_COLOR.forEach(color -> {
+            colors.put(color.getKey(), color.getTexture());
+        });
+        colors.forEach((colorKey, texture) -> {
+            put(colorKey, RenderType.entityTranslucentEmissive(texture));
+        });
     }};
 
     private static final double yOffset = 0.155F;
@@ -115,14 +107,14 @@ public class FireflyRenderer extends EntityRenderer<Firefly> {
                 .normal(matrix3f, 0.0F, 1.0F, 0.0F)
                 .endVertex();
 
-        if (entity.getColor() != null && layers.get(entity.getColor()) != null) {
+        if (entity.getColor() != null && layers.get(entity.getColor().getKey()) != null) {
             if (!nectar) {
-                vertexConsumer = vertexConsumers.getBuffer(layers.get(entity.getColor()));
+                vertexConsumer = vertexConsumers.getBuffer(layers.get(entity.getColor().getKey()));
             } else {
                 vertexConsumer = vertexConsumers.getBuffer(NECTAR_OVERLAY);
             }
         } else {
-            vertexConsumer = vertexConsumers.getBuffer(layers.get("on"));
+            vertexConsumer = vertexConsumers.getBuffer(layers.get(FireflyColor.ON.getKey()));
         }
 
         int color = flickers ? (int) ((255 * (Math.cos(((age + tickDelta) * pi) * 0.025))) + 127.5) : (int) Math.max((255 * (Math.cos(((age + tickDelta) * pi) * 0.05))), 0);

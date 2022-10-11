@@ -46,7 +46,7 @@ public final class FrozenLibIntegration implements FrozenMainEntrypoint {
             if (entity.isSilent() || !entity.isAlive()) {
                 return false;
             }
-            return ((EnderMan)entity).isCreepy();
+            return ((EnderMan) entity).isCreepy();
         });
 
         BlockScheduledTicks.ticks.put(Blocks.DIRT, (blockState, serverLevel, blockPos, randomSource) -> serverLevel.setBlock(blockPos, Blocks.MUD.defaultBlockState(), 3));

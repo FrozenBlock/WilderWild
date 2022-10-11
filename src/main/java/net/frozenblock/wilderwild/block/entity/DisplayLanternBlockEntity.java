@@ -7,8 +7,9 @@ import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.fabricmc.fabric.api.networking.v1.PlayerLookup;
 import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.entity.Firefly;
-import net.frozenblock.wilderwild.entity.ai.FireflyBrain;
+import net.frozenblock.wilderwild.entity.ai.FireflyAi;
 import net.frozenblock.wilderwild.item.FireflyBottle;
+import net.frozenblock.wilderwild.misc.FireflyColor;
 import net.frozenblock.wilderwild.registry.RegisterBlockEntities;
 import net.frozenblock.wilderwild.registry.RegisterEntities;
 import net.frozenblock.wilderwild.registry.RegisterSounds;
@@ -149,7 +150,7 @@ public class DisplayLanternBlockEntity extends BlockEntity {
                         boolean spawned = level.addFreshEntity(entity);
                         if (spawned) {
                             entity.hasHome = true;
-                            FireflyBrain.rememberHome(entity, entity.blockPosition());
+                            FireflyAi.rememberHome(entity, entity.blockPosition());
                             entity.setColor(firefly.color);
                             entity.setScale(1.0F);
                             if (!Objects.equals(firefly.customName, "")) {
@@ -174,7 +175,7 @@ public class DisplayLanternBlockEntity extends BlockEntity {
                 boolean spawned = level.addFreshEntity(entity);
                 if (spawned) {
                     entity.hasHome = true;
-                    FireflyBrain.rememberHome(entity, entity.blockPosition());
+                    FireflyAi.rememberHome(entity, entity.blockPosition());
                     entity.setColor(firefly.color);
                     entity.setScale(1.0F);
                     if (!Objects.equals(firefly.customName, "")) {
@@ -189,7 +190,7 @@ public class DisplayLanternBlockEntity extends BlockEntity {
 
     public static class FireflyInLantern {
         public Vec3 pos;
-        public String color;
+        public FireflyColor color;
         public String customName;
         public boolean flickers;
         public int age;
@@ -198,14 +199,14 @@ public class DisplayLanternBlockEntity extends BlockEntity {
 
         public static final Codec<FireflyInLantern> CODEC = RecordCodecBuilder.create((instance) -> instance.group(
                 Vec3.CODEC.fieldOf("pos").forGetter(FireflyInLantern::getPos),
-                Codec.STRING.fieldOf("color").forGetter(FireflyInLantern::getColor),
+                FireflyColor.CODEC.fieldOf("color").forGetter(FireflyInLantern::getColor),
                 Codec.STRING.fieldOf("customName").orElse("").forGetter(FireflyInLantern::getCustomName),
                 Codec.BOOL.fieldOf("flickers").orElse(false).forGetter(FireflyInLantern::getFlickers),
                 Codec.INT.fieldOf("age").forGetter(FireflyInLantern::getAge),
                 Codec.DOUBLE.fieldOf("y").forGetter(FireflyInLantern::getY)
         ).apply(instance, FireflyInLantern::new));
 
-        public FireflyInLantern(Vec3 pos, String color, String customName, boolean flickers, int age, double y) {
+        public FireflyInLantern(Vec3 pos, FireflyColor color, String customName, boolean flickers, int age, double y) {
             this.pos = pos;
             this.color = color;
             this.customName = customName;
@@ -239,7 +240,7 @@ public class DisplayLanternBlockEntity extends BlockEntity {
             return this.pos;
         }
 
-        public String getColor() {
+        public FireflyColor getColor() {
             return this.color;
         }
 

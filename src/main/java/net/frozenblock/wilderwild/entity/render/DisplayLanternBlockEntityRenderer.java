@@ -6,7 +6,6 @@ import com.mojang.math.Matrix3f;
 import com.mojang.math.Matrix4f;
 import com.mojang.math.Quaternion;
 import com.mojang.math.Vector3f;
-import it.unimi.dsi.fastutil.objects.Object2ObjectLinkedOpenHashMap;
 import it.unimi.dsi.fastutil.objects.Object2ObjectMap;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -118,7 +117,7 @@ public class DisplayLanternBlockEntityRenderer<T extends DisplayLanternBlockEnti
                         .endVertex();
 
                 if (!nectar) {
-                    vertexConsumer = vertexConsumers.getBuffer(layers.get(entity.getColor()));
+                    vertexConsumer = vertexConsumers.getBuffer(layers.get(entity.getColor().getKey()));
                 } else {
                     vertexConsumer = vertexConsumers.getBuffer(NECTAR_OVERLAY);
                 }
@@ -163,24 +162,6 @@ public class DisplayLanternBlockEntityRenderer<T extends DisplayLanternBlockEnti
         }
     }
 
-    public static Object2ObjectMap<String, RenderType> layers = new Object2ObjectLinkedOpenHashMap<>() {{
-        put("on", RenderType.entityTranslucentEmissive(WilderWild.id("textures/entity/firefly/firefly_on.png"), true));
-        put("red", RenderType.entityTranslucentEmissive(WilderWild.id("textures/entity/firefly/firefly_red.png"), true));
-        put("orange", RenderType.entityTranslucentEmissive(WilderWild.id("textures/entity/firefly/firefly_orange.png"), true));
-        put("yellow", RenderType.entityTranslucentEmissive(WilderWild.id("textures/entity/firefly/firefly_yellow.png"), true));
-        put("lime", RenderType.entityTranslucentEmissive(WilderWild.id("textures/entity/firefly/firefly_lime.png"), true));
-        put("green", RenderType.entityTranslucentEmissive(WilderWild.id("textures/entity/firefly/firefly_green.png"), true));
-        put("cyan", RenderType.entityTranslucentEmissive(WilderWild.id("textures/entity/firefly/firefly_cyan.png"), true));
-        put("light_blue", RenderType.entityTranslucentEmissive(WilderWild.id("textures/entity/firefly/firefly_light_blue.png"), true));
-        put("blue", RenderType.entityTranslucentEmissive(WilderWild.id("textures/entity/firefly/firefly_blue.png"), true));
-        put("pink", RenderType.entityTranslucentEmissive(WilderWild.id("textures/entity/firefly/firefly_pink.png"), true));
-        put("magenta", RenderType.entityTranslucentEmissive(WilderWild.id("textures/entity/firefly/firefly_magenta.png"), true));
-        put("purple", RenderType.entityTranslucentEmissive(WilderWild.id("textures/entity/firefly/firefly_purple.png"), true));
-        put("black", RenderType.entityTranslucentEmissive(WilderWild.id("textures/entity/firefly/firefly_black.png"), true));
-        put("gray", RenderType.entityTranslucentEmissive(WilderWild.id("textures/entity/firefly/firefly_gray.png"), true));
-        put("light_gray", RenderType.entityTranslucentEmissive(WilderWild.id("textures/entity/firefly/firefly_light_gray.png"), true));
-        put("white", RenderType.entityTranslucentEmissive(WilderWild.id("textures/entity/firefly/firefly_white.png"), true));
-        put("brown", RenderType.entityTranslucentEmissive(WilderWild.id("textures/entity/firefly/firefly_brown.png"), true));
-    }};
+    public static Object2ObjectMap<ResourceLocation, RenderType> layers = FireflyRenderer.layers;
 
 }

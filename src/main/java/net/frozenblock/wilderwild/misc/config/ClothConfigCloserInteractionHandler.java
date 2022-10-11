@@ -34,6 +34,7 @@ public final class ClothConfigCloserInteractionHandler {
     public static boolean dyingTrees() {
         return WilderWildConfig.get().worldgen.dyingTrees;
     }
+
     public static boolean fallenLogs() {
         return WilderWildConfig.get().worldgen.fallenLogs;
     }

@@ -22,9 +22,13 @@ public abstract class AllayModelMixin extends HierarchicalModel<Allay> implement
     @Unique
     private final AllayModel model = AllayModel.class.cast(this);
 
-    @Shadow @Final private ModelPart head;
+    @Shadow
+    @Final
+    private ModelPart head;
 
-    @Shadow @Final private ModelPart root;
+    @Shadow
+    @Final
+    private ModelPart root;
 
     private static final float pi180 = Mth.PI / 180;
 

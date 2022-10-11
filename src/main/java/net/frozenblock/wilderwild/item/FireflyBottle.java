@@ -2,7 +2,8 @@ package net.frozenblock.wilderwild.item;
 
 import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.entity.Firefly;
-import net.frozenblock.wilderwild.entity.ai.FireflyBrain;
+import net.frozenblock.wilderwild.entity.ai.FireflyAi;
+import net.frozenblock.wilderwild.misc.FireflyColor;
 import net.frozenblock.wilderwild.registry.RegisterEntities;
 import net.frozenblock.wilderwild.registry.RegisterSounds;
 import net.minecraft.advancements.CriteriaTriggers;
@@ -21,9 +22,9 @@ import org.jetbrains.annotations.NotNull;
 
 public class FireflyBottle extends Item {
 
-    public final String color;
+    public final FireflyColor color;
 
-    public FireflyBottle(Properties settings, String color) {
+    public FireflyBottle(Properties settings, FireflyColor color) {
         super(settings);
         this.color = color;
     }
@@ -77,7 +78,7 @@ public class FireflyBottle extends Item {
                     if (spawned) {
                         entity.playSound(RegisterSounds.ITEM_BOTTLE_RELEASE_FIREFLY, 1.0F, level.random.nextFloat() * 0.2f + 0.9f);
                         entity.hasHome = true;
-                        FireflyBrain.rememberHome(entity, entity.blockPosition());
+                        FireflyAi.rememberHome(entity, entity.blockPosition());
                         entity.setColor(this.color);
                         if (stack.hasCustomHoverName()) {
                             entity.setCustomName(stack.getHoverName());

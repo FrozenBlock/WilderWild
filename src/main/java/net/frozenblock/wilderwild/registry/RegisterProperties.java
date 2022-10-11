@@ -1,6 +1,6 @@
 package net.frozenblock.wilderwild.registry;
 
-import net.frozenblock.wilderwild.misc.FlowerColors;
+import net.frozenblock.wilderwild.misc.FlowerColor;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.EnumProperty;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
@@ -21,7 +21,7 @@ public final class RegisterProperties {
     //Termite Mound
     public static final BooleanProperty NATURAL = BooleanProperty.create("natural");
     //Glory of The Snow
-    public static final EnumProperty<FlowerColors> FLOWER_COLOR = EnumProperty.create("flower_color", FlowerColors.class);
+    public static final EnumProperty<FlowerColor> FLOWER_COLOR = EnumProperty.create("flower_color", FlowerColor.class);
     //Firefly Lantern
     public static final IntegerProperty DISPLAY_LIGHT = IntegerProperty.create("display_light", 0, 15);
     //Stone Chest

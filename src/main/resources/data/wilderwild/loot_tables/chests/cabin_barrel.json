@@ -148,22 +148,22 @@
 		  "name": "minecraft:iron_leggings",
 		  "weight": 2
 		},
-		  {
-			  "type": "minecraft:item",
-			  "functions": [
-				  {
-					  "function": "minecraft:enchant_with_levels",
-					  "levels": {
-						  "type": "minecraft:uniform",
-						  "max": 20.0,
-						  "min": 10.0
-					  },
-					  "treasure": true
-				  }
-			  ],
-			  "name": "minecraft:iron_pickaxe",
-			  "weight": 2
-		  },
+		{
+		  "type": "minecraft:item",
+		  "functions": [
+			{
+			  "function": "minecraft:enchant_with_levels",
+			  "levels": {
+				"type": "minecraft:uniform",
+				"max": 20.0,
+				"min": 10.0
+			  },
+			  "treasure": true
+			}
+		  ],
+		  "name": "minecraft:iron_pickaxe",
+		  "weight": 2
+		},
 		{
 		  "type": "minecraft:item",
 		  "functions": [
@@ -415,37 +415,37 @@
 		  "weight": 9
 		},
 		{
-			"type": "minecraft:item",
-			"functions": [
-			  {
-				"add": false,
-				"count": {
-				  "type": "minecraft:uniform",
-				  "max": 4.0,
-				  "min": 0.0
-				},
-				"function": "minecraft:set_count"
-			  }
-			],
-			"name": "minecraft:cobweb",
-			"weight": 15
-		  },
-		  {
-			"type": "minecraft:item",
-			"functions": [
-			  {
-				"add": false,
-				"count": {
-				  "type": "minecraft:uniform",
-				  "max": 3.0,
-				  "min": 1.0
-				},
-				"function": "minecraft:set_count"
-			  }
-			],
-			"name": "minecraft:spider_eye",
-			"weight": 3
-		  }
+		  "type": "minecraft:item",
+		  "functions": [
+			{
+			  "add": false,
+			  "count": {
+				"type": "minecraft:uniform",
+				"max": 4.0,
+				"min": 0.0
+			  },
+			  "function": "minecraft:set_count"
+			}
+		  ],
+		  "name": "minecraft:cobweb",
+		  "weight": 15
+		},
+		{
+		  "type": "minecraft:item",
+		  "functions": [
+			{
+			  "add": false,
+			  "count": {
+				"type": "minecraft:uniform",
+				"max": 3.0,
+				"min": 1.0
+			  },
+			  "function": "minecraft:set_count"
+			}
+		  ],
+		  "name": "minecraft:spider_eye",
+		  "weight": 3
+		}
 	  ],
 	  "rolls": {
 		"type": "minecraft:uniform",

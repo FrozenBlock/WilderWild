@@ -49,12 +49,22 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 @Mixin(value = Warden.class, priority = 69420)
 public class WardenMixin extends Monster implements WilderWarden {
 
+    private boolean isOsmiooo = false;
+
 
     @Override
     public boolean isOsmiooo() {
+        if (this.isOsmiooo) {
+            return true;
+        }
         Warden warden = Warden.class.cast(this);
         String name = ChatFormatting.stripFormatting(warden.getName().getString());
         return name != null && (name.equalsIgnoreCase("Osmiooo") || name.equalsIgnoreCase("Mossmio") || name.equalsIgnoreCase("Osmio"));
+    }
+
+    @Override
+    public void setOsmiooo(boolean value) {
+        this.isOsmiooo = value;
     }
 
     @Inject(at = @At("RETURN"), method = "getDeathSound")
