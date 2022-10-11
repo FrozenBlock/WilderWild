@@ -10,7 +10,8 @@ import net.minecraft.world.phys.BlockHitResult;
 import org.jetbrains.annotations.NotNull;
 
 // TODO: make this a multiface cluster block
-public class NematocystBlock extends AmethystClusterBlock implements SimpleWaterloggedBlock {
+public class NematocystBlock extends AmethystClusterBlock
+        implements SimpleWaterloggedBlock {
 
     //private final MultifaceSpreader spreader = new MultifaceSpreader(this);
 
@@ -23,12 +24,18 @@ public class NematocystBlock extends AmethystClusterBlock implements SimpleWater
     }
 
     @Override
-    public void onProjectileHit(@NotNull Level level, @NotNull BlockState blockState, @NotNull BlockHitResult blockHitResult, @NotNull Projectile projectile) {
+    public void onProjectileHit(@NotNull Level level,
+                                @NotNull BlockState blockState,
+                                @NotNull BlockHitResult blockHitResult,
+                                @NotNull Projectile projectile) {
     }
 
     @Override
-    public boolean skipRendering(@NotNull BlockState blockState, BlockState blockState2, @NotNull Direction direction) {
-        return blockState2.is(this) || super.skipRendering(blockState, blockState2, direction);
+    public boolean skipRendering(@NotNull BlockState blockState,
+                                 BlockState blockState2,
+                                 @NotNull Direction direction) {
+        return blockState2.is(this) ||
+                super.skipRendering(blockState, blockState2, direction);
     }
 
     /*@Override

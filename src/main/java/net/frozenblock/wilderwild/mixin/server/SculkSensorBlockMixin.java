@@ -7,7 +7,11 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.*;
+import net.minecraft.world.level.block.BaseEntityBlock;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.RenderShape;
+import net.minecraft.world.level.block.SculkSensorBlock;
+import net.minecraft.world.level.block.SimpleWaterloggedBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
@@ -23,46 +27,65 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(SculkSensorBlock.class)
-public abstract class SculkSensorBlockMixin extends BaseEntityBlock implements SimpleWaterloggedBlock {
+public abstract class SculkSensorBlockMixin extends BaseEntityBlock
+        implements SimpleWaterloggedBlock {
 
     protected SculkSensorBlockMixin(Properties properties) {
         super(properties);
     }
 
     @Inject(at = @At("TAIL"), method = "createBlockStateDefinition")
-    public void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder, CallbackInfo info) {
+    public void createBlockStateDefinition(
+            StateDefinition.Builder<Block, BlockState> builder,
+            CallbackInfo info) {
         builder.add(RegisterProperties.HICCUPPING);
     }
 
     @Inject(method = "<init>", at = @At("TAIL"))
-    private void SculkSensorBlock(BlockBehaviour.Properties settings, int range, CallbackInfo ci) {
+    private void SculkSensorBlock(BlockBehaviour.Properties settings, int range,
+                                  CallbackInfo ci) {
         SculkSensorBlock sculkSensor = SculkSensorBlock.class.cast(this);
-        sculkSensor.registerDefaultState(sculkSensor.defaultBlockState().setValue(RegisterProperties.HICCUPPING, false));
+        sculkSensor.registerDefaultState(sculkSensor.defaultBlockState()
+                .setValue(RegisterProperties.HICCUPPING, false));
     }
 
     @Inject(at = @At("HEAD"), method = "getTicker", cancellable = true)
-    public <T extends BlockEntity> void getTicker(Level level, BlockState state, BlockEntityType<T> type, CallbackInfoReturnable<BlockEntityTicker<T>> info) {
+    public <T extends BlockEntity> void getTicker(Level level, BlockState state,
+                                                  BlockEntityType<T> type,
+                                                  CallbackInfoReturnable<BlockEntityTicker<T>> info) {
         if (level.isClientSide) {
-            info.setReturnValue(createTickerHelper(type, BlockEntityType.SCULK_SENSOR, (worldx, pos, statex, blockEntity) -> {
-                ((SculkSensorTickInterface) blockEntity).tickClient(worldx, pos, statex);
-            }));
+            info.setReturnValue(
+                    createTickerHelper(type, BlockEntityType.SCULK_SENSOR,
+                            (worldx, pos, statex, blockEntity) -> {
+                                ((SculkSensorTickInterface) blockEntity).tickClient(
+                                        worldx, pos, statex);
+                            }));
         } else {
-            info.setReturnValue(createTickerHelper(type, BlockEntityType.SCULK_SENSOR, (worldx, pos, statex, blockEntity) -> {
-                ((SculkSensorTickInterface) blockEntity).tickServer((ServerLevel) worldx, pos, statex);
-            }));
+            info.setReturnValue(
+                    createTickerHelper(type, BlockEntityType.SCULK_SENSOR,
+                            (worldx, pos, statex, blockEntity) -> {
+                                ((SculkSensorTickInterface) blockEntity).tickServer(
+                                        (ServerLevel) worldx, pos, statex);
+                            }));
         }
     }
 
     @Inject(at = @At("HEAD"), method = "activate")
-    private static void activate(@Nullable Entity entity, Level level, BlockPos pos, BlockState state, int power, CallbackInfo info) {
-        if (level.getBlockEntity(pos) instanceof SculkSensorBlockEntity blockEntity) {
+    private static void activate(@Nullable Entity entity, Level level,
+                                 BlockPos pos, BlockState state, int power,
+                                 CallbackInfo info) {
+        if (level.getBlockEntity(
+                pos) instanceof SculkSensorBlockEntity blockEntity) {
             ((SculkSensorTickInterface) blockEntity).setActive(true);
             ((SculkSensorTickInterface) blockEntity).setAnimTicks(10);
         }
     }
 
     @Inject(at = @At("HEAD"), method = "getRenderShape", cancellable = true)
-    public void getRenderShape(BlockState state, CallbackInfoReturnable<RenderShape> info) {
-        info.setReturnValue(ClothConfigInteractionHandler.mcLiveSensorTendrils() ? RenderShape.INVISIBLE : RenderShape.MODEL);
+    public void getRenderShape(BlockState state,
+                               CallbackInfoReturnable<RenderShape> info) {
+        info.setReturnValue(
+                ClothConfigInteractionHandler.mcLiveSensorTendrils() ?
+                        RenderShape.INVISIBLE : RenderShape.MODEL);
     }
 }

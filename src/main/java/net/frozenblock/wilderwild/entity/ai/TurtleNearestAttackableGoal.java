@@ -15,7 +15,8 @@ import org.jetbrains.annotations.Nullable;
 import java.util.EnumSet;
 import java.util.function.Predicate;
 
-public class TurtleNearestAttackableGoal<T extends LivingEntity> extends TargetGoal {
+public class TurtleNearestAttackableGoal<T extends LivingEntity>
+        extends TargetGoal {
     private static final int DEFAULT_RANDOM_INTERVAL = 10;
     protected final Class<T> targetType;
     protected final int randomInterval;
@@ -27,37 +28,55 @@ public class TurtleNearestAttackableGoal<T extends LivingEntity> extends TargetG
         this(mob, class_, 10, bl, false, null);
     }
 
-    public TurtleNearestAttackableGoal(Mob mob, Class<T> class_, boolean bl, Predicate<LivingEntity> predicate) {
+    public TurtleNearestAttackableGoal(Mob mob, Class<T> class_, boolean bl,
+                                       Predicate<LivingEntity> predicate) {
         this(mob, class_, 10, bl, false, predicate);
     }
 
-    public TurtleNearestAttackableGoal(Mob mob, Class<T> class_, boolean bl, boolean bl2) {
+    public TurtleNearestAttackableGoal(Mob mob, Class<T> class_, boolean bl,
+                                       boolean bl2) {
         this(mob, class_, 10, bl, bl2, null);
     }
 
-    public TurtleNearestAttackableGoal(Mob mob, Class<T> class_, int i, boolean bl, boolean bl2, @Nullable Predicate<LivingEntity> predicate) {
+    public TurtleNearestAttackableGoal(Mob mob, Class<T> class_, int i,
+                                       boolean bl, boolean bl2,
+                                       @Nullable Predicate<LivingEntity> predicate) {
         super(mob, bl, bl2);
         this.targetType = class_;
         this.randomInterval = NearestAttackableTargetGoal.reducedTickDelay(i);
         this.setFlags(EnumSet.of(Goal.Flag.TARGET));
-        this.targetConditions = TargetingConditions.forCombat().range(this.getFollowDistance()).selector(predicate);
+        this.targetConditions =
+                TargetingConditions.forCombat().range(this.getFollowDistance())
+                        .selector(predicate);
     }
 
     @Override
     public boolean canUse() {
-        if (this.randomInterval > 0 && this.mob.getRandom().nextInt(this.randomInterval) != 0) {
+        if (this.randomInterval > 0 &&
+                this.mob.getRandom().nextInt(this.randomInterval) != 0) {
             return false;
         }
         this.findTarget();
-        return this.target != null && ((TurtleCooldownInterface) this.mob).getAttackCooldown() <= 0;
+        return this.target != null &&
+                ((TurtleCooldownInterface) this.mob).getAttackCooldown() <= 0;
     }
 
     protected AABB getTargetSearchArea(double d) {
-        return this.mob.getBoundingBox().inflate(d, 4.0, d);
+        return this.mob.getBoundingBox().inflate(d, 4, d);
     }
 
     protected void findTarget() {
-        this.target = this.targetType == Player.class || this.targetType == ServerPlayer.class ? this.mob.level.getNearestPlayer(this.targetConditions, this.mob, this.mob.getX(), this.mob.getEyeY(), this.mob.getZ()) : this.mob.level.getNearestEntity(this.mob.level.getEntitiesOfClass(this.targetType, this.getTargetSearchArea(this.getFollowDistance()), livingEntity -> true), this.targetConditions, this.mob, this.mob.getX(), this.mob.getEyeY(), this.mob.getZ());
+        this.target = this.targetType == Player.class ||
+                this.targetType == ServerPlayer.class ?
+                this.mob.level.getNearestPlayer(this.targetConditions, this.mob,
+                        this.mob.getX(), this.mob.getEyeY(), this.mob.getZ()) :
+                this.mob.level.getNearestEntity(
+                        this.mob.level.getEntitiesOfClass(this.targetType,
+                                this.getTargetSearchArea(
+                                        this.getFollowDistance()),
+                                livingEntity -> true), this.targetConditions,
+                        this.mob, this.mob.getX(), this.mob.getEyeY(),
+                        this.mob.getZ());
     }
 
     @Override

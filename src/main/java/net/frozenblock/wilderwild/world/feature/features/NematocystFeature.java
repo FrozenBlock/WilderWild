@@ -28,19 +28,27 @@ public class NematocystFeature extends Feature<NematocystFeatureConfig> {
         BlockPos blockPos = context.origin();
         WorldGenLevel level = context.level();
         int i = 0;
-        BlockPos.MutableBlockPos mutableBlockPos = new BlockPos.MutableBlockPos();
+        BlockPos.MutableBlockPos mutableBlockPos =
+                new BlockPos.MutableBlockPos();
         int j = config.xzSpread() + 1;
         int k = config.ySpread() + 1;
         for (int l = 0; l < config.tries(); ++l) {
-            mutableBlockPos.setWithOffset(blockPos, randomSource.nextInt(j) - randomSource.nextInt(j), randomSource.nextInt(k) - randomSource.nextInt(k), randomSource.nextInt(j) - randomSource.nextInt(j));
-            if (!this.place(level, randomSource, mutableBlockPos, config)) continue;
+            mutableBlockPos.setWithOffset(blockPos,
+                    randomSource.nextInt(j) - randomSource.nextInt(j),
+                    randomSource.nextInt(k) - randomSource.nextInt(k),
+                    randomSource.nextInt(j) - randomSource.nextInt(j));
+            if (!this.place(level, randomSource, mutableBlockPos, config)) {
+                continue;
+            }
             ++i;
         }
         return i > 0;
     }
 
-    public boolean place(WorldGenLevel level, RandomSource randomSource, BlockPos pos, NematocystFeatureConfig config) {
-        BlockState placeState = getSurvivalState(config.stateProvider().getState(randomSource, pos), level, pos);
+    public boolean place(WorldGenLevel level, RandomSource randomSource,
+                         BlockPos pos, NematocystFeatureConfig config) {
+        BlockState placeState = getSurvivalState(
+                config.stateProvider().getState(randomSource, pos), level, pos);
         if (placeState == null) {
             return false;
         }
@@ -48,21 +56,32 @@ public class NematocystFeature extends Feature<NematocystFeatureConfig> {
         return true;
     }
 
-    public BlockState getSurvivalState(BlockState blockState, LevelReader level, BlockPos pos) {
+    public BlockState getSurvivalState(BlockState blockState, LevelReader level,
+                                       BlockPos pos) {
         Direction direction = blockState.getValue(BlockStateProperties.FACING);
         BlockPos blockPos2 = pos.relative(direction.getOpposite());
         BlockState placedOnState = level.getBlockState(blockPos2);
         FluidState fluidState = level.getFluidState(pos);
         BlockState replaceState = level.getBlockState(pos);
-        boolean waterlogged = !fluidState.isEmpty() && placedOnState.is(Blocks.WATER);
+        boolean waterlogged =
+                !fluidState.isEmpty() && placedOnState.is(Blocks.WATER);
         if ((replaceState.isAir() && fluidState.isEmpty()) || waterlogged) {
             Direction facing = blockState.getValue(BlockStateProperties.FACING);
             if (placedOnState.is(RegisterBlocks.MESOGLEA)) {
-                blockState = RegisterBlocks.BLUE_PEARLESCENT_NEMATOCYST.defaultBlockState().setValue(BlockStateProperties.WATERLOGGED, waterlogged).setValue(BlockStateProperties.FACING, facing);
+                blockState =
+                        RegisterBlocks.BLUE_PEARLESCENT_NEMATOCYST.defaultBlockState()
+                                .setValue(BlockStateProperties.WATERLOGGED,
+                                        waterlogged)
+                                .setValue(BlockStateProperties.FACING, facing);
             } else if (placedOnState.is(RegisterBlocks.PURPLE_MESOGLEA)) {
-                blockState = RegisterBlocks.PURPLE_PEARLESCENT_NEMATOCYST.defaultBlockState().setValue(BlockStateProperties.WATERLOGGED, waterlogged).setValue(BlockStateProperties.FACING, facing);
+                blockState =
+                        RegisterBlocks.PURPLE_PEARLESCENT_NEMATOCYST.defaultBlockState()
+                                .setValue(BlockStateProperties.WATERLOGGED,
+                                        waterlogged)
+                                .setValue(BlockStateProperties.FACING, facing);
             }
-            return placedOnState.isFaceSturdy(level, blockPos2, direction) ? blockState : null;
+            return placedOnState.isFaceSturdy(level, blockPos2, direction) ?
+                    blockState : null;
         }
         return null;
     }

@@ -33,39 +33,55 @@ import java.util.Objects;
 public class BaobabNutBlock extends SaplingBlock {
     public static final IntegerProperty AGE = BlockStateProperties.AGE_2;
     public static final int MAX_AGE = 2;
-    private static final VoxelShape[] SHAPES = new VoxelShape[]{
-            Shapes.or(Block.box(7.0, 13.0, 7.0, 9.0, 16.0, 9.0), Block.box(5.0, 6.0, 5.0, 11.0, 13.0, 11.0)),
-            Shapes.or(Block.box(7.0, 12.0, 7.0, 9.0, 16.0, 9.0), Block.box(4.0, 3.0, 4.0, 12.0, 12.0, 12.0)),
-            Shapes.or(Block.box(7.0, 10.0, 7.0, 9.0, 16.0, 9.0), Block.box(4.0, 0.0, 4.0, 12.0, 10.0, 12.0)),
-            Block.box(7.0, 3.0, 7.0, 9.0, 16.0, 9.0), Block.box(2.0D, 0.0D, 2.0D, 14.0D, 12.0D, 14.0D)
+    private static final VoxelShape[] SHAPES = new VoxelShape[] {
+            Shapes.or(
+                    Block.box(7, 13, 7, 9, 16, 9),
+                    Block.box(5, 6, 5, 11, 13, 11)),
+            Shapes.or(
+                    Block.box(7, 12, 7, 9, 16, 9),
+                    Block.box(4, 3, 4, 12, 12, 12)),
+            Shapes.or(
+                    Block.box(7, 10, 7, 9, 16, 9),
+                    Block.box(4, 0, 4, 12, 10, 12)),
+            Block.box(7, 3, 7, 9, 16, 9),
+            Block.box(2, 0, 2, 14, 12, 14)
     };
     public static final BooleanProperty HANGING = BlockStateProperties.HANGING;
 
     public BaobabNutBlock(BlockBehaviour.Properties settings) {
         super(new BaobabSaplingGenerator(), settings);
-        this.registerDefaultState(this.stateDefinition.any().setValue(STAGE, 0).setValue(AGE, 0).setValue(HANGING, false));
+        this.registerDefaultState(
+                this.stateDefinition.any().setValue(STAGE, 0).setValue(AGE, 0)
+                        .setValue(HANGING, false));
     }
 
     @Override
-    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
+    protected void createBlockStateDefinition(
+            StateDefinition.Builder<Block, BlockState> builder) {
         builder.add(STAGE, AGE, HANGING);
     }
 
     @Override
-    protected boolean mayPlaceOn(@NotNull BlockState floor, @NotNull BlockGetter level, @NotNull BlockPos pos) {
+    protected boolean mayPlaceOn(@NotNull BlockState floor,
+                                 @NotNull BlockGetter level,
+                                 @NotNull BlockPos pos) {
         return super.mayPlaceOn(floor, level, pos) || floor.is(Blocks.CLAY);
     }
 
     @Override
     @Nullable
     public BlockState getStateForPlacement(BlockPlaceContext ctx) {
-        FluidState fluidState = ctx.getLevel().getFluidState(ctx.getClickedPos());
+        FluidState fluidState =
+                ctx.getLevel().getFluidState(ctx.getClickedPos());
         boolean bl = fluidState.getType() == Fluids.WATER;
-        return Objects.requireNonNull(super.getStateForPlacement(ctx)).setValue(AGE, 2);
+        return Objects.requireNonNull(super.getStateForPlacement(ctx))
+                .setValue(AGE, 2);
     }
 
     @Override
-    public VoxelShape getShape(BlockState state, @NotNull BlockGetter level, @NotNull BlockPos pos, @NotNull CollisionContext context) {
+    public VoxelShape getShape(BlockState state, @NotNull BlockGetter level,
+                               @NotNull BlockPos pos,
+                               @NotNull CollisionContext context) {
         Vec3 vec3d = state.getOffset(level, pos);
         VoxelShape voxelShape;
         if (!state.getValue(HANGING)) {
@@ -78,12 +94,16 @@ public class BaobabNutBlock extends SaplingBlock {
     }
 
     @Override
-    public boolean canSurvive(BlockState state, LevelReader level, BlockPos pos) {
-        return isHanging(state) ? level.getBlockState(pos.above()).is(RegisterBlocks.BAOBAB_LEAVES) : super.canSurvive(state, level, pos);
+    public boolean canSurvive(BlockState state, LevelReader level,
+                              BlockPos pos) {
+        return isHanging(state) ? level.getBlockState(pos.above())
+                .is(RegisterBlocks.BAOBAB_LEAVES) :
+                super.canSurvive(state, level, pos);
     }
 
     @Override
-    public void randomTick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
+    public void randomTick(BlockState state, ServerLevel level, BlockPos pos,
+                           RandomSource random) {
         if (!isHanging(state)) {
             if (random.nextInt(7) == 0) {
                 this.advanceTree(level, pos, state, random);
@@ -97,15 +117,19 @@ public class BaobabNutBlock extends SaplingBlock {
         }
     }
 
-    public boolean isValidBonemealTarget(BlockGetter level, BlockPos pos, BlockState state, boolean isClient) {
+    public boolean isValidBonemealTarget(BlockGetter level, BlockPos pos,
+                                         BlockState state, boolean isClient) {
         return !isHanging(state) || !isFullyGrown(state);
     }
 
-    public boolean isBonemealSuccess(Level level, RandomSource random, BlockPos pos, BlockState state) {
-        return isHanging(state) ? !isFullyGrown(state) : super.isBonemealSuccess(level, random, pos, state);
+    public boolean isBonemealSuccess(Level level, RandomSource random,
+                                     BlockPos pos, BlockState state) {
+        return isHanging(state) ? !isFullyGrown(state) :
+                super.isBonemealSuccess(level, random, pos, state);
     }
 
-    public void performBonemeal(ServerLevel level, RandomSource random, BlockPos pos, BlockState state) {
+    public void performBonemeal(ServerLevel level, RandomSource random,
+                                BlockPos pos, BlockState state) {
         if (isHanging(state) && !isFullyGrown(state)) {
             level.setBlock(pos, state.cycle(AGE), 2);
         } else {
@@ -127,6 +151,7 @@ public class BaobabNutBlock extends SaplingBlock {
     }
 
     public static BlockState getHangingState(int age) {
-        return RegisterBlocks.BAOBAB_NUT.defaultBlockState().setValue(HANGING, true).setValue(AGE, age);
+        return RegisterBlocks.BAOBAB_NUT.defaultBlockState()
+                .setValue(HANGING, true).setValue(AGE, age);
     }
 }

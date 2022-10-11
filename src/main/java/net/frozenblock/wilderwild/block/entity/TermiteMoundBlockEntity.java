@@ -68,10 +68,15 @@ public class TermiteMoundBlockEntity extends BlockEntity {
         if (tag.contains("termites", 9)) {
             this.termites.clear();
             Logger logger = WilderWild.LOGGER;
-            Termite.CODEC.listOf().parse(new Dynamic<>(NbtOps.INSTANCE, tag.getList("termites", 10)))
+            Termite.CODEC.listOf().parse(new Dynamic<>(NbtOps.INSTANCE,
+                            tag.getList("termites", 10)))
                     .resultOrPartial(logger::error)
                     .ifPresent(termitesAllAllAll -> {
-                        int max = this.level != null ? maxTermites(this.level, this.lastLight, this.getBlockState().getValue(RegisterProperties.NATURAL)) : 5;
+                        int max = this.level != null ?
+                                maxTermites(this.level, this.lastLight,
+                                        this.getBlockState().getValue(
+                                                RegisterProperties.NATURAL)) :
+                                5;
                         int i = Math.min(termitesAllAllAll.size(), max);
 
                         for (int j = 0; j < i; ++j) {
@@ -82,7 +87,8 @@ public class TermiteMoundBlockEntity extends BlockEntity {
     }
 
     public void addTermite(BlockPos pos) {
-        Termite termite = new Termite(pos, pos, 0, 0, 0, this.getBlockState().getValue(RegisterProperties.NATURAL));
+        Termite termite = new Termite(pos, pos, 0, 0, 0,
+                this.getBlockState().getValue(RegisterProperties.NATURAL));
         this.termites.add(termite);
     }
 
@@ -94,18 +100,22 @@ public class TermiteMoundBlockEntity extends BlockEntity {
             this.ticksToCheckLight = 100;
         }
 
-        int maxTermites = maxTermites(level, this.lastLight, this.getBlockState().getValue(RegisterProperties.NATURAL));
+        int maxTermites = maxTermites(level, this.lastLight,
+                this.getBlockState().getValue(RegisterProperties.NATURAL));
         ArrayList<Termite> termitesToRemove = new ArrayList<>();
         for (Termite termite : this.termites) {
             if (termite.tick(level)) {
-                EasyPacket.EasyTermitePacket.createParticle(level, Vec3.atCenterOf(termite.pos), termite.eating ? 5 : 9);
+                EasyPacket.EasyTermitePacket.createParticle(level,
+                        Vec3.atCenterOf(termite.pos), termite.eating ? 5 : 9);
             } else {
-                level.playSound(null, termite.pos, SoundEvents.BEEHIVE_ENTER, SoundSource.NEUTRAL, 1.0F, 1.0F);
+                level.playSound(null, termite.pos, SoundEvents.BEEHIVE_ENTER,
+                        SoundSource.NEUTRAL, 1, 1);
                 termitesToRemove.add(termite);
             }
         }
         for (Termite termite : termitesToRemove) {
-            level.gameEvent(null, GameEvent.ENTITY_DIE, Vec3.atCenterOf(termite.pos));
+            level.gameEvent(null, GameEvent.ENTITY_DIE,
+                    Vec3.atCenterOf(termite.pos));
             this.termites.remove(termite);
             level.gameEvent(null, GameEvent.BLOCK_CHANGE, Vec3.atCenterOf(pos));
         }
@@ -114,15 +124,23 @@ public class TermiteMoundBlockEntity extends BlockEntity {
                 --this.ticksToNextTermite;
             } else {
                 this.addTermite(pos);
-                level.gameEvent(null, GameEvent.BLOCK_CHANGE, Vec3.atCenterOf(pos));
-                level.playSound(null, this.worldPosition, RegisterSounds.BLOCK_TERMITE_MOUND_EXIT, SoundSource.NEUTRAL, 1.0F, 1.0F);
-                this.ticksToNextTermite = this.getBlockState().getValue(RegisterProperties.NATURAL) ? 320 : 200;
+                level.gameEvent(null, GameEvent.BLOCK_CHANGE,
+                        Vec3.atCenterOf(pos));
+                level.playSound(null, this.worldPosition,
+                        RegisterSounds.BLOCK_TERMITE_MOUND_EXIT,
+                        SoundSource.NEUTRAL, 1, 1);
+                this.ticksToNextTermite = this.getBlockState()
+                        .getValue(RegisterProperties.NATURAL) ? 320 : 200;
             }
         }
         while (this.termites.size() > maxTermites) {
-            Termite termite = this.termites.get(WilderWild.random().nextInt(this.termites.size()));
-            level.playSound(null, termite.pos, RegisterSounds.BLOCK_TERMITE_MOUND_ENTER, SoundSource.NEUTRAL, 1.0F, 1.0F);
-            level.gameEvent(null, GameEvent.TELEPORT, Vec3.atCenterOf(termite.pos));
+            Termite termite = this.termites.get(
+                    WilderWild.random().nextInt(this.termites.size()));
+            level.playSound(null, termite.pos,
+                    RegisterSounds.BLOCK_TERMITE_MOUND_ENTER,
+                    SoundSource.NEUTRAL, 1, 1);
+            level.gameEvent(null, GameEvent.TELEPORT,
+                    Vec3.atCenterOf(termite.pos));
             this.termites.remove(termite);
             level.gameEvent(null, GameEvent.BLOCK_CHANGE, Vec3.atCenterOf(pos));
         }
@@ -158,16 +176,24 @@ public class TermiteMoundBlockEntity extends BlockEntity {
         public boolean natural;
         public boolean eating;
 
-        public static final Codec<Termite> CODEC = RecordCodecBuilder.create((instance) -> instance.group(
-                BlockPos.CODEC.fieldOf("mound").forGetter(Termite::getMoundPos),
-                BlockPos.CODEC.fieldOf("pos").forGetter(Termite::getPos),
-                Codec.intRange(0, 10000).fieldOf("blockDestroyPower").orElse(0).forGetter(Termite::getPower),
-                Codec.intRange(0, 2002).fieldOf("aliveTicks").orElse(0).forGetter(Termite::getAliveTicks),
-                Codec.intRange(0, 5).fieldOf("update").orElse(0).forGetter(Termite::getUpdateTicks),
-                Codec.BOOL.fieldOf("natural").orElse(true).forGetter(Termite::getNatural)
-        ).apply(instance, Termite::new));
+        public static final Codec<Termite> CODEC =
+                RecordCodecBuilder.create((instance) -> instance.group(
+                        BlockPos.CODEC.fieldOf("mound")
+                                .forGetter(Termite::getMoundPos),
+                        BlockPos.CODEC.fieldOf("pos")
+                                .forGetter(Termite::getPos),
+                        Codec.intRange(0, 10000).fieldOf("blockDestroyPower")
+                                .orElse(0).forGetter(Termite::getPower),
+                        Codec.intRange(0, 2002).fieldOf("aliveTicks").orElse(0)
+                                .forGetter(Termite::getAliveTicks),
+                        Codec.intRange(0, 5).fieldOf("update").orElse(0)
+                                .forGetter(Termite::getUpdateTicks),
+                        Codec.BOOL.fieldOf("natural").orElse(true)
+                                .forGetter(Termite::getNatural)
+                ).apply(instance, Termite::new));
 
-        public Termite(BlockPos mound, BlockPos pos, int blockDestroyPower, int aliveTicks, int update, boolean natural) {
+        public Termite(BlockPos mound, BlockPos pos, int blockDestroyPower,
+                       int aliveTicks, int update, boolean natural) {
             this.mound = mound;
             this.pos = pos;
             this.blockDestroyPower = blockDestroyPower;
@@ -179,14 +205,18 @@ public class TermiteMoundBlockEntity extends BlockEntity {
         public boolean tick(Level level) {
             boolean exit = false;
             ++this.aliveTicks;
-            if (this.aliveTicks > (this.natural ? 1200 : 2000) || isTooFar(this.natural, this.mound, this.pos)) {
+            if (this.aliveTicks > (this.natural ? 1200 : 2000) ||
+                    isTooFar(this.natural, this.mound, this.pos)) {
                 return false;
             }
             if (canMove(level, this.pos)) {
                 BlockState blockState = level.getBlockState(this.pos);
                 Block block = blockState.getBlock();
-                boolean degradable = !this.natural ? degradableBlocks.contains(block) : naturalDegradableBlocks.contains(block);
-                boolean breakable = blockState.is(WilderBlockTags.TERMITE_BREAKABLE);
+                boolean degradable =
+                        !this.natural ? degradableBlocks.contains(block) :
+                                naturalDegradableBlocks.contains(block);
+                boolean breakable =
+                        blockState.is(WilderBlockTags.TERMITE_BREAKABLE);
                 boolean leaves = blockState.is(BlockTags.LEAVES);
                 if (degradable || breakable) {
                     this.eating = true;
@@ -195,15 +225,28 @@ public class TermiteMoundBlockEntity extends BlockEntity {
                     this.blockDestroyPower += additionalPower;
                     if (this.blockDestroyPower > 200) {
                         this.blockDestroyPower = 0;
-                        this.aliveTicks = this.natural ? Math.max(0, this.aliveTicks - (200 / additionalPower)) : 0;
+                        this.aliveTicks = this.natural ? Math.max(0,
+                                this.aliveTicks - (200 / additionalPower)) : 0;
                         if (blockState.is(WilderBlockTags.TERMITE_BREAKABLE)) {
                             level.destroyBlock(this.pos, true);
                         } else {
-                            Direction.Axis axis = blockState.hasProperty(BlockStateProperties.AXIS) ? blockState.getValue(BlockStateProperties.AXIS) : Direction.Axis.X;
+                            Direction.Axis axis = blockState.hasProperty(
+                                    BlockStateProperties.AXIS) ?
+                                    blockState.getValue(
+                                            BlockStateProperties.AXIS) :
+                                    Direction.Axis.X;
                             level.addDestroyBlockEffect(this.pos, blockState);
-                            BlockState setState = !this.natural ? degradableBlockResults.get(degradableBlocks.indexOf(block)).defaultBlockState() : naturalDegradableBlockResults.get(naturalDegradableBlocks.indexOf(block)).defaultBlockState();
-                            if (setState.hasProperty(BlockStateProperties.AXIS)) {
-                                setState = setState.setValue(BlockStateProperties.AXIS, axis);
+                            BlockState setState = !this.natural ?
+                                    degradableBlockResults.get(
+                                                    degradableBlocks.indexOf(block))
+                                            .defaultBlockState() :
+                                    naturalDegradableBlockResults.get(
+                                            naturalDegradableBlocks.indexOf(
+                                                    block)).defaultBlockState();
+                            if (setState.hasProperty(
+                                    BlockStateProperties.AXIS)) {
+                                setState = setState.setValue(
+                                        BlockStateProperties.AXIS, axis);
                             }
                             level.setBlockAndUpdate(this.pos, setState);
                         }
@@ -211,13 +254,15 @@ public class TermiteMoundBlockEntity extends BlockEntity {
                 } else {
                     this.eating = false;
                     this.blockDestroyPower = 0;
-                    Direction direction = Direction.getRandom(level.getRandom());
+                    Direction direction =
+                            Direction.getRandom(level.getRandom());
                     if (blockState.isAir()) {
                         direction = Direction.DOWN;
                     }
                     BlockPos offest = this.pos.relative(direction);
                     BlockState state = level.getBlockState(offest);
-                    if (state.is(WilderBlockTags.KILLS_TERMITE) || state.is(Blocks.WATER) || state.is(Blocks.LAVA)) {
+                    if (state.is(WilderBlockTags.KILLS_TERMITE) ||
+                            state.is(Blocks.WATER) || state.is(Blocks.LAVA)) {
                         return false;
                     }
 
@@ -226,24 +271,35 @@ public class TermiteMoundBlockEntity extends BlockEntity {
                         return true;
                     } else {
                         this.update = 1;
-                        BlockPos priority = degradableBreakablePos(level, this.pos, this.natural);
+                        BlockPos priority =
+                                degradableBreakablePos(level, this.pos,
+                                        this.natural);
                         if (priority != null) {
                             this.pos = priority;
                             exit = true;
                         } else {
-                            BlockPos ledge = ledgePos(level, offest, this.natural);
+                            BlockPos ledge =
+                                    ledgePos(level, offest, this.natural);
                             BlockPos posUp = this.pos.above();
                             BlockState stateUp = level.getBlockState(posUp);
-                            if (exposedToAir(level, offest, this.natural) && isBlockMovable(state, direction) && !(direction != Direction.DOWN && state.isAir() && (!this.mound.closerThan(this.pos, 1.5)) && ledge == null)) {
+                            if (exposedToAir(level, offest, this.natural) &&
+                                    isBlockMovable(state, direction) &&
+                                    !(direction != Direction.DOWN &&
+                                            state.isAir() &&
+                                            (!this.mound.closerThan(this.pos,
+                                                    1.5)) && ledge == null)) {
                                 this.pos = offest;
                                 if (ledge != null) {
                                     this.pos = ledge;
                                 }
                                 exit = true;
-                            } else if (ledge != null && exposedToAir(level, ledge, this.natural)) {
+                            } else if (ledge != null &&
+                                    exposedToAir(level, ledge, this.natural)) {
                                 this.pos = ledge;
                                 exit = true;
-                            } else if (!stateUp.isAir() && isBlockMovable(stateUp, Direction.UP) && exposedToAir(level, posUp, this.natural)) {
+                            } else if (!stateUp.isAir() &&
+                                    isBlockMovable(stateUp, Direction.UP) &&
+                                    exposedToAir(level, posUp, this.natural)) {
                                 this.pos = posUp;
                                 exit = true;
                             }
@@ -255,44 +311,63 @@ public class TermiteMoundBlockEntity extends BlockEntity {
         }
 
         @Nullable
-        public static BlockPos ledgePos(Level level, BlockPos pos, boolean natural) {
+        public static BlockPos ledgePos(Level level, BlockPos pos,
+                                        boolean natural) {
             BlockState state = level.getBlockState(pos);
-            if (degradableBlocks.contains(state.getBlock()) || state.is(WilderBlockTags.TERMITE_BREAKABLE)) {
+            if (degradableBlocks.contains(state.getBlock()) ||
+                    state.is(WilderBlockTags.TERMITE_BREAKABLE)) {
                 return pos;
             }
             pos = pos.below();
             state = level.getBlockState(pos);
-            if (!state.isAir() && isBlockMovable(state, Direction.DOWN) && exposedToAir(level, pos, natural)) {
+            if (!state.isAir() && isBlockMovable(state, Direction.DOWN) &&
+                    exposedToAir(level, pos, natural)) {
                 return pos;
             }
             pos = pos.above().above();
             state = level.getBlockState(pos);
-            if (!state.isAir() && isBlockMovable(state, Direction.UP) && exposedToAir(level, pos, natural)) {
+            if (!state.isAir() && isBlockMovable(state, Direction.UP) &&
+                    exposedToAir(level, pos, natural)) {
                 return pos;
             }
             return null;
         }
 
         @Nullable
-        public static BlockPos degradableBreakablePos(Level level, BlockPos pos, boolean natural) {
-            List<Direction> directions = Util.shuffledCopy(Direction.values(), level.random);
-            BlockState upState = level.getBlockState(pos.relative(Direction.UP));
-            if ((!natural ? degradableBlocks.contains(upState.getBlock()) : naturalDegradableBlocks.contains(upState.getBlock())) || upState.is(WilderBlockTags.TERMITE_BREAKABLE)) {
+        public static BlockPos degradableBreakablePos(Level level, BlockPos pos,
+                                                      boolean natural) {
+            List<Direction> directions =
+                    Util.shuffledCopy(Direction.values(), level.random);
+            BlockState upState =
+                    level.getBlockState(pos.relative(Direction.UP));
+            if ((!natural ? degradableBlocks.contains(upState.getBlock()) :
+                    naturalDegradableBlocks.contains(upState.getBlock())) ||
+                    upState.is(WilderBlockTags.TERMITE_BREAKABLE)) {
                 return pos.relative(Direction.UP);
             }
             for (Direction direction : directions) {
                 BlockState state = level.getBlockState(pos.relative(direction));
-                if ((!natural ? degradableBlocks.contains(state.getBlock()) : naturalDegradableBlocks.contains(state.getBlock())) || state.is(WilderBlockTags.TERMITE_BREAKABLE)) {
+                if ((!natural ? degradableBlocks.contains(state.getBlock()) :
+                        naturalDegradableBlocks.contains(state.getBlock())) ||
+                        state.is(WilderBlockTags.TERMITE_BREAKABLE)) {
                     return pos.relative(direction);
                 }
             }
             return null;
         }
 
-        public static boolean exposedToAir(Level level, BlockPos pos, boolean natural) {
+        public static boolean exposedToAir(Level level, BlockPos pos,
+                                           boolean natural) {
             for (Direction direction : Direction.values()) {
                 BlockState state = level.getBlockState(pos.relative(direction));
-                if (state.isAir() || (!state.isRedstoneConductor(level, pos.relative(direction)) && !state.is(WilderBlockTags.BLOCKS_TERMITE)) || (!natural && degradableBlocks.contains(state.getBlock())) || (natural && naturalDegradableBlocks.contains(state.getBlock())) || state.is(WilderBlockTags.TERMITE_BREAKABLE)) {
+                if (state.isAir() || (!state.isRedstoneConductor(level,
+                        pos.relative(direction)) &&
+                        !state.is(WilderBlockTags.BLOCKS_TERMITE)) ||
+                        (!natural &&
+                                degradableBlocks.contains(state.getBlock())) ||
+                        (natural && naturalDegradableBlocks.contains(
+                                state.getBlock())) ||
+                        state.is(WilderBlockTags.TERMITE_BREAKABLE)) {
                     return true;
                 }
             }
@@ -306,16 +381,22 @@ public class TermiteMoundBlockEntity extends BlockEntity {
             return false;
         }
 
-        public static boolean isBlockMovable(BlockState state, Direction direction) {
+        public static boolean isBlockMovable(BlockState state,
+                                             Direction direction) {
             if (state.is(WilderBlockTags.BLOCKS_TERMITE)) {
                 return false;
             }
-            boolean moveableUp = !(direction == Direction.UP && (state.is(BlockTags.INSIDE_STEP_SOUND_BLOCKS) || state.is(BlockTags.REPLACEABLE_PLANTS) || state.is(BlockTags.FLOWERS)));
-            boolean moveableDown = !(direction == Direction.DOWN && (state.is(Blocks.WATER) || state.is(Blocks.LAVA)));
+            boolean moveableUp = !(direction == Direction.UP &&
+                    (state.is(BlockTags.INSIDE_STEP_SOUND_BLOCKS) ||
+                            state.is(BlockTags.REPLACEABLE_PLANTS) ||
+                            state.is(BlockTags.FLOWERS)));
+            boolean moveableDown = !(direction == Direction.DOWN &&
+                    (state.is(Blocks.WATER) || state.is(Blocks.LAVA)));
             return moveableUp && moveableDown;
         }
 
-        public static boolean isTooFar(boolean natural, BlockPos mound, BlockPos pos) {
+        public static boolean isTooFar(boolean natural, BlockPos mound,
+                                       BlockPos pos) {
             return !mound.closerThan(pos, natural ? 10 : 32);
         }
 
@@ -343,19 +424,28 @@ public class TermiteMoundBlockEntity extends BlockEntity {
             return this.natural;
         }
 
-        public static final ArrayList<Block> degradableBlocks = new ArrayList<>();
-        public static final ArrayList<Block> degradableBlockResults = new ArrayList<>();
-        public static final ArrayList<Block> naturalDegradableBlocks = new ArrayList<>();
-        public static final ArrayList<Block> naturalDegradableBlockResults = new ArrayList<>();
+        public static final ArrayList<Block> degradableBlocks =
+                new ArrayList<>();
+        public static final ArrayList<Block> degradableBlockResults =
+                new ArrayList<>();
+        public static final ArrayList<Block> naturalDegradableBlocks =
+                new ArrayList<>();
+        public static final ArrayList<Block> naturalDegradableBlockResults =
+                new ArrayList<>();
 
         public static void addDegradableBlocks() {
-            addDegradable(Blocks.ACACIA_LOG, RegisterBlocks.HOLLOWED_ACACIA_LOG);
+            addDegradable(Blocks.ACACIA_LOG,
+                    RegisterBlocks.HOLLOWED_ACACIA_LOG);
             addDegradable(Blocks.OAK_LOG, RegisterBlocks.HOLLOWED_OAK_LOG);
             addDegradable(Blocks.BIRCH_LOG, RegisterBlocks.HOLLOWED_BIRCH_LOG);
-            addDegradable(Blocks.DARK_OAK_LOG, RegisterBlocks.HOLLOWED_DARK_OAK_LOG);
-            addDegradable(Blocks.JUNGLE_LOG, RegisterBlocks.HOLLOWED_JUNGLE_LOG);
-            addDegradable(Blocks.MANGROVE_LOG, RegisterBlocks.HOLLOWED_MANGROVE_LOG);
-            addDegradable(Blocks.SPRUCE_LOG, RegisterBlocks.HOLLOWED_SPRUCE_LOG);
+            addDegradable(Blocks.DARK_OAK_LOG,
+                    RegisterBlocks.HOLLOWED_DARK_OAK_LOG);
+            addDegradable(Blocks.JUNGLE_LOG,
+                    RegisterBlocks.HOLLOWED_JUNGLE_LOG);
+            addDegradable(Blocks.MANGROVE_LOG,
+                    RegisterBlocks.HOLLOWED_MANGROVE_LOG);
+            addDegradable(Blocks.SPRUCE_LOG,
+                    RegisterBlocks.HOLLOWED_SPRUCE_LOG);
             addDegradable(Blocks.STRIPPED_ACACIA_LOG, Blocks.AIR);
             addDegradable(Blocks.STRIPPED_OAK_LOG, Blocks.AIR);
             addDegradable(Blocks.STRIPPED_BIRCH_LOG, Blocks.AIR);
@@ -388,20 +478,28 @@ public class TermiteMoundBlockEntity extends BlockEntity {
             addNaturalDegradable(Blocks.ACACIA_LOG, Blocks.STRIPPED_ACACIA_LOG);
             addNaturalDegradable(Blocks.OAK_LOG, Blocks.STRIPPED_OAK_LOG);
             addNaturalDegradable(Blocks.BIRCH_LOG, Blocks.STRIPPED_BIRCH_LOG);
-            addNaturalDegradable(Blocks.DARK_OAK_LOG, Blocks.STRIPPED_DARK_OAK_LOG);
+            addNaturalDegradable(Blocks.DARK_OAK_LOG,
+                    Blocks.STRIPPED_DARK_OAK_LOG);
             addNaturalDegradable(Blocks.JUNGLE_LOG, Blocks.STRIPPED_JUNGLE_LOG);
-            addNaturalDegradable(Blocks.MANGROVE_LOG, Blocks.STRIPPED_MANGROVE_LOG);
+            addNaturalDegradable(Blocks.MANGROVE_LOG,
+                    Blocks.STRIPPED_MANGROVE_LOG);
             addNaturalDegradable(Blocks.SPRUCE_LOG, Blocks.STRIPPED_SPRUCE_LOG);
-            addNaturalDegradable(Blocks.ACACIA_WOOD, Blocks.STRIPPED_ACACIA_WOOD);
+            addNaturalDegradable(Blocks.ACACIA_WOOD,
+                    Blocks.STRIPPED_ACACIA_WOOD);
             addNaturalDegradable(Blocks.OAK_WOOD, Blocks.STRIPPED_OAK_WOOD);
             addNaturalDegradable(Blocks.BIRCH_WOOD, Blocks.STRIPPED_BIRCH_WOOD);
-            addNaturalDegradable(Blocks.DARK_OAK_WOOD, Blocks.STRIPPED_DARK_OAK_WOOD);
-            addNaturalDegradable(Blocks.JUNGLE_WOOD, Blocks.STRIPPED_JUNGLE_WOOD);
-            addNaturalDegradable(Blocks.MANGROVE_WOOD, Blocks.STRIPPED_MANGROVE_WOOD);
-            addNaturalDegradable(Blocks.SPRUCE_WOOD, Blocks.STRIPPED_SPRUCE_WOOD);
+            addNaturalDegradable(Blocks.DARK_OAK_WOOD,
+                    Blocks.STRIPPED_DARK_OAK_WOOD);
+            addNaturalDegradable(Blocks.JUNGLE_WOOD,
+                    Blocks.STRIPPED_JUNGLE_WOOD);
+            addNaturalDegradable(Blocks.MANGROVE_WOOD,
+                    Blocks.STRIPPED_MANGROVE_WOOD);
+            addNaturalDegradable(Blocks.SPRUCE_WOOD,
+                    Blocks.STRIPPED_SPRUCE_WOOD);
         }
 
-        public static void addNaturalDegradable(Block degradable, Block result) {
+        public static void addNaturalDegradable(Block degradable,
+                                                Block result) {
             naturalDegradableBlocks.add(degradable);
             naturalDegradableBlockResults.add(result);
         }

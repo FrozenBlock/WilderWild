@@ -32,7 +32,8 @@ public class GoatMixin {
     @Unique
     private boolean isTreetrain1() {
         Goat goat = Goat.class.cast(this);
-        String string = ChatFormatting.stripFormatting(goat.getName().getString());
+        String string =
+                ChatFormatting.stripFormatting(goat.getName().getString());
         return Objects.equals(string, "Treetrain1");
     }
 
@@ -47,10 +48,16 @@ public class GoatMixin {
     public void createHorn(CallbackInfoReturnable<ItemStack> cir) {
         if (this.isTreetrain1()) {
             Goat goat = Goat.class.cast(this);
-            RandomSource random = RandomSource.create(goat.getUUID().hashCode());
-            TagKey<Instrument> tagKey = goat.getEntityData().get(DATA_IS_SCREAMING_GOAT) ? InstrumentTags.SCREAMING_GOAT_HORNS : InstrumentTags.REGULAR_GOAT_HORNS;
-            HolderSet<Instrument> registryEntryList = Registry.INSTRUMENT.getOrCreateTag(tagKey);
-            cir.setReturnValue(InstrumentItem.create(Items.GOAT_HORN, registryEntryList.getRandomElement(random).get()));
+            RandomSource random =
+                    RandomSource.create(goat.getUUID().hashCode());
+            TagKey<Instrument> tagKey =
+                    goat.getEntityData().get(DATA_IS_SCREAMING_GOAT) ?
+                            InstrumentTags.SCREAMING_GOAT_HORNS :
+                            InstrumentTags.REGULAR_GOAT_HORNS;
+            HolderSet<Instrument> registryEntryList =
+                    Registry.INSTRUMENT.getOrCreateTag(tagKey);
+            cir.setReturnValue(InstrumentItem.create(Items.GOAT_HORN,
+                    registryEntryList.getRandomElement(random).get()));
         }
     }
 }

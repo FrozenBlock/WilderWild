@@ -29,14 +29,16 @@ public class TermiteMound extends BaseEntityBlock {
     }
 
     @Override
-    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
+    protected void createBlockStateDefinition(
+            StateDefinition.Builder<Block, BlockState> builder) {
         builder.add(RegisterProperties.NATURAL);
     }
 
     @Nullable
     @Override
     public BlockState getStateForPlacement(BlockPlaceContext ctx) {
-        return this.defaultBlockState().setValue(RegisterProperties.NATURAL, false);
+        return this.defaultBlockState()
+                .setValue(RegisterProperties.NATURAL, false);
     }
 
     @Override
@@ -45,7 +47,12 @@ public class TermiteMound extends BaseEntityBlock {
     }
 
     @Nullable
-    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
-        return !level.isClientSide ? createTickerHelper(type, RegisterBlockEntities.TERMITE_MOUND, (worldx, pos, statex, blockEntity) -> blockEntity.tick(worldx, pos)) : null;
+    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level,
+                                                                  BlockState state,
+                                                                  BlockEntityType<T> type) {
+        return !level.isClientSide ?
+                createTickerHelper(type, RegisterBlockEntities.TERMITE_MOUND,
+                        (worldx, pos, statex, blockEntity) -> blockEntity.tick(
+                                worldx, pos)) : null;
     }
 }

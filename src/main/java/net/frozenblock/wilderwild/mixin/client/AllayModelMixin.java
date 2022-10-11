@@ -17,7 +17,8 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(AllayModel.class)
-public abstract class AllayModelMixin extends HierarchicalModel<Allay> implements ArmedModel {
+public abstract class AllayModelMixin extends HierarchicalModel<Allay>
+        implements ArmedModel {
 
     @Unique
     private final AllayModel model = AllayModel.class.cast(this);
@@ -30,14 +31,25 @@ public abstract class AllayModelMixin extends HierarchicalModel<Allay> implement
     @Final
     private ModelPart root;
 
-    private static final float pi180 = Mth.PI / 180;
+    private static final float PI180 = Mth.PI / 180;
 
-    @Inject(method = "setupAnim(Lnet/minecraft/world/entity/animal/allay/Allay;FFFFF)V", at = @At(value = "INVOKE", target = "Lnet/minecraft/util/Mth;lerp(FFF)F"), cancellable = true)
-    private void setupAnim(Allay allay, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, CallbackInfo ci) {
-        this.root.yRot = 0.0F;
-        this.root.zRot = 0.0F;
-        this.head.xRot = headPitch * pi180;
-        this.head.yRot = netHeadYaw * pi180;
-        model.animate(((WilderAllay) allay).getDancingAnimationState(), CustomAllayAnimations.DANCING, ageInTicks);
+    @Inject(method = "setupAnim(Lnet/minecraft/world/entity/animal/allay/Allay;FFFFF)V",
+            at = @At(value = "INVOKE", target = "Lnet/minecraft/util/Mth;lerp(FFF)F")
+    )
+    private void setupAnim(
+            final Allay allay,
+            final float limbSwing,
+            final float limbSwingAmount,
+            final float ageInTicks,
+            final float netHeadYaw,
+            final float headPitch,
+            final CallbackInfo ci
+    ) {
+        this.root.yRot = 0;
+        this.root.zRot = 0;
+        this.head.xRot = headPitch * PI180;
+        this.head.yRot = netHeadYaw * PI180;
+        model.animate(((WilderAllay) allay).getDancingAnimationState(),
+                CustomAllayAnimations.DANCING, ageInTicks);
     }
 }

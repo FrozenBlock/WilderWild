@@ -11,21 +11,30 @@ import net.minecraft.world.level.ClipContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.phys.BlockHitResult;
+import org.jetbrains.annotations.NotNull;
 
-public class AlgaeItem extends BlockItem {
+public final class AlgaeItem extends BlockItem {
 
-    public AlgaeItem(Block block, Properties settings) {
+    public AlgaeItem(final Block block, final Properties settings) {
         super(block, settings);
     }
 
-    public InteractionResult useOn(UseOnContext context) {
+    @Override
+    public InteractionResult useOn(final @NotNull UseOnContext context) {
         return InteractionResult.PASS;
     }
 
-    public InteractionResultHolder<ItemStack> use(Level level, Player user, InteractionHand hand) {
-        BlockHitResult blockHitResult = getPlayerPOVHitResult(level, user, ClipContext.Fluid.SOURCE_ONLY);
-        BlockHitResult blockHitResult2 = blockHitResult.withPosition(blockHitResult.getBlockPos().above());
-        InteractionResult actionResult = super.useOn(new UseOnContext(user, hand, blockHitResult2));
-        return new InteractionResultHolder<>(actionResult, user.getItemInHand(hand));
+    @Override
+    public InteractionResultHolder<ItemStack> use(final @NotNull Level level,
+                                                  final @NotNull Player user,
+                                                  final @NotNull InteractionHand hand) {
+        BlockHitResult blockHitResult = getPlayerPOVHitResult(level, user,
+                ClipContext.Fluid.SOURCE_ONLY);
+        BlockHitResult blockHitResult2 = blockHitResult.withPosition(
+                blockHitResult.getBlockPos().above());
+        InteractionResult actionResult =
+                super.useOn(new UseOnContext(user, hand, blockHitResult2));
+        return new InteractionResultHolder<>(actionResult,
+                user.getItemInHand(hand));
     }
 }

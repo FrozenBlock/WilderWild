@@ -20,22 +20,25 @@ public class UppyBallooModel<T extends Entity> extends QuadrupedModel<T> {
     private static final float non_uppy_balloo_angle = 90 * radians;
 
     public UppyBallooModel(ModelPart root) {
-        super(root, false, 4.0f, 4.0f, 2.0f, 2.0f, 24);
+        super(root, false, 4, 4, 2, 2, 24);
     }
 
     @Override
-    public void setupAnim(Entity entity, float limbAngle, float limbDistance, float h, float i, float j) {
+    public void setupAnim(Entity entity, float limbAngle, float limbDistance,
+                          float h, float i, float j) {
         this.head.xRot = j * 0.017453292F;
         this.head.yRot = i * 0.017453292F;
         float fastLimbAngle = limbAngle * 0.6662F;
         float fastLimbDistance = 1.4F * limbDistance;
         float firstAngle = (float) Math.cos(fastLimbAngle) * fastLimbDistance;
-        float secondAngle = (float) Math.cos(fastLimbAngle + 3.1415927F) * fastLimbDistance;
+        float secondAngle =
+                (float) Math.cos(fastLimbAngle + 3.1415927F) * fastLimbDistance;
         this.rightHindLeg.xRot = firstAngle;
         this.leftHindLeg.xRot = secondAngle;
         this.rightFrontLeg.xRot = secondAngle;
         this.leftFrontLeg.xRot = firstAngle;
-        String string = ChatFormatting.stripFormatting(entity.getName().getString());
+        String string =
+                ChatFormatting.stripFormatting(entity.getName().getString());
         assert string != null;
         if (string.equalsIgnoreCase("a view from the top")) {
             this.body.xRot = 0;

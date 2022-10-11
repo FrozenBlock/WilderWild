@@ -20,19 +20,24 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public abstract class BigDripleafBlockMixin {
 
     @Inject(method = "tick", at = @At("HEAD"), cancellable = true)
-    public void tick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random, CallbackInfo info) {
+    public void tick(BlockState state, ServerLevel level, BlockPos pos,
+                     RandomSource random, CallbackInfo info) {
         BlockState downState = level.getBlockState(pos.below());
-        if (downState.is(Blocks.BIG_DRIPLEAF_STEM) && downState.getValue(BlockStateProperties.POWERED)) {
+        if (downState.is(Blocks.BIG_DRIPLEAF_STEM) &&
+                downState.getValue(BlockStateProperties.POWERED)) {
             resetTilt(state, level, pos);
             info.cancel();
         }
     }
 
     @Inject(method = "neighborChanged", at = @At("HEAD"), cancellable = true)
-    public void neighborChanged(BlockState state, Level level, BlockPos pos, Block block, BlockPos fromPos, boolean isMoving, CallbackInfo info) {
+    public void neighborChanged(BlockState state, Level level, BlockPos pos,
+                                Block block, BlockPos fromPos, boolean isMoving,
+                                CallbackInfo info) {
         if (fromPos == pos.below()) {
             BlockState downState = level.getBlockState(pos.below());
-            if (downState.is(Blocks.BIG_DRIPLEAF_STEM) && downState.getValue(BlockStateProperties.POWERED)) {
+            if (downState.is(Blocks.BIG_DRIPLEAF_STEM) &&
+                    downState.getValue(BlockStateProperties.POWERED)) {
                 resetTilt(state, level, pos);
                 info.cancel();
             }
@@ -40,10 +45,12 @@ public abstract class BigDripleafBlockMixin {
     }
 
     @Inject(method = "entityInside", at = @At("HEAD"), cancellable = true)
-    public void entityInside(BlockState state, Level level, BlockPos pos, Entity entity, CallbackInfo info) {
+    public void entityInside(BlockState state, Level level, BlockPos pos,
+                             Entity entity, CallbackInfo info) {
         if (!level.isClientSide) {
             BlockState downState = level.getBlockState(pos.below());
-            if (downState.is(Blocks.BIG_DRIPLEAF_STEM) && downState.getValue(BlockStateProperties.POWERED)) {
+            if (downState.is(Blocks.BIG_DRIPLEAF_STEM) &&
+                    downState.getValue(BlockStateProperties.POWERED)) {
                 info.cancel();
             }
         }

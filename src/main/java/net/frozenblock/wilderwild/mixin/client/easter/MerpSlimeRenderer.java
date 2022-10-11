@@ -20,11 +20,14 @@ import java.util.Objects;
 public class MerpSlimeRenderer {
 
     @Unique
-    private static final ResourceLocation MERP_SLIME = WilderWild.id("textures/entity/slime/merp_slime.png");
+    private static final ResourceLocation MERP_SLIME =
+            WilderWild.id("textures/entity/slime/merp_slime.png");
 
     @Inject(method = "getTextureLocation(Lnet/minecraft/world/entity/monster/Slime;)Lnet/minecraft/resources/ResourceLocation;", at = @At("RETURN"), cancellable = true)
-    public void getTextureLocation(Slime slimeEntity, CallbackInfoReturnable<ResourceLocation> cir) {
-        String string = ChatFormatting.stripFormatting(slimeEntity.getName().getString());
+    public void getTextureLocation(Slime slimeEntity,
+                                   CallbackInfoReturnable<ResourceLocation> cir) {
+        String string = ChatFormatting.stripFormatting(
+                slimeEntity.getName().getString());
         if (Objects.equals(string, "Merp")) {
             cir.setReturnValue(MERP_SLIME);
         }

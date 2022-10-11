@@ -24,7 +24,8 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public class WardenAiMixin {
 
     @Inject(method = "initIdleActivity", at = @At("HEAD"), cancellable = true)
-    private static void initIdleActivity(Brain<Warden> brain, CallbackInfo info) {
+    private static void initIdleActivity(Brain<Warden> brain,
+                                         CallbackInfo info) {
         info.cancel();
         brain.addActivity(
                 Activity.IDLE,
@@ -33,8 +34,12 @@ public class WardenAiMixin {
                         new SetRoarTarget<>(Warden::getEntityAngryAt),
                         new TryToSniff(),
                         new RunOne<>(
-                                ImmutableMap.of(MemoryModuleType.IS_SNIFFING, MemoryStatus.VALUE_ABSENT),
-                                ImmutableList.of(Pair.of(new RandomSwim(0.5F), 2), Pair.of(new RandomStroll(0.5F), 2), Pair.of(new DoNothing(30, 60), 1))
+                                ImmutableMap.of(MemoryModuleType.IS_SNIFFING,
+                                        MemoryStatus.VALUE_ABSENT),
+                                ImmutableList.of(
+                                        Pair.of(new RandomSwim(0.5F), 2),
+                                        Pair.of(new RandomStroll(0.5F), 2),
+                                        Pair.of(new DoNothing(30, 60), 1))
                         )
                 )
         );

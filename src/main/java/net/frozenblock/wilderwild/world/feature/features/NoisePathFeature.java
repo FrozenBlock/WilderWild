@@ -24,7 +24,12 @@ public class NoisePathFeature extends Feature<PathFeatureConfig> {
         int radiusSquared = config.radius * config.radius;
         EasyNoiseSampler.setSeed(level.getSeed());
         RandomSource random = level.getRandom();
-        ImprovedNoise sampler = config.noise == 1 ? EasyNoiseSampler.perlinSimple : config.noise == 2 ? EasyNoiseSampler.perlinAtomic : config.noise == 3 ? EasyNoiseSampler.perlinBlocking : EasyNoiseSampler.perlinXoro;
+        ImprovedNoise sampler =
+                config.noise == 1 ? EasyNoiseSampler.perlinSimple :
+                        config.noise == 2 ? EasyNoiseSampler.perlinAtomic :
+                                config.noise == 3 ?
+                                        EasyNoiseSampler.perlinBlocking :
+                                        EasyNoiseSampler.perlinXoro;
         int bx = blockPos.getX();
         int bz = blockPos.getZ();
         BlockPos.MutableBlockPos mutable = blockPos.mutable();
@@ -33,11 +38,17 @@ public class NoisePathFeature extends Feature<PathFeatureConfig> {
             for (int z = bz - config.radius; z <= bz + config.radius; z++) {
                 double distance = ((bx - x) * (bx - x) + ((bz - z) * (bz - z)));
                 if (distance < radiusSquared) {
-                    mutable.set(x, level.getHeight(Types.OCEAN_FLOOR, x, z) - 1, z);
-                    double sample = EasyNoiseSampler.sample(sampler, mutable, config.multiplier, config.multiplyY, config.useY);
-                    if (sample > config.minThresh && sample < config.maxThresh && level.getBlockState(mutable).is(config.replaceable)) {
+                    mutable.set(x, level.getHeight(Types.OCEAN_FLOOR, x, z) - 1,
+                            z);
+                    double sample = EasyNoiseSampler.sample(sampler, mutable,
+                            config.multiplier, config.multiplyY, config.useY);
+                    if (sample > config.minThresh &&
+                            sample < config.maxThresh &&
+                            level.getBlockState(mutable)
+                                    .is(config.replaceable)) {
                         generated = true;
-                        level.setBlock(mutable, config.pathBlock.getState(random, mutable), 3);
+                        level.setBlock(mutable,
+                                config.pathBlock.getState(random, mutable), 3);
                     }
                 }
             }

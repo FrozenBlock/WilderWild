@@ -40,8 +40,8 @@ public class CaveWorldCarverMixin extends WorldCarver<CaveCarverConfiguration> {
         RandomSource randomSource = RandomSource.create(seed);
         int i = randomSource.nextInt(branchCount / 2) + branchCount / 4;
         boolean bl = randomSource.nextInt(6) == 0;
-        float f = 0.0F;
-        float g = 0.0F;
+        float f = 0;
+        float g = 0;
 
         for (int j = branchStartIndex - 100; j < branchCount; ++j) {
             double d = 1.5 + (double) (Mth.sin((float) Math.PI * (float) j / (float) branchCount) * width);
@@ -55,8 +55,8 @@ public class CaveWorldCarverMixin extends WorldCarver<CaveCarverConfiguration> {
             yaw += f * 0.1F;
             g *= 0.9F;
             f *= 0.75F;
-            g += (randomSource.nextFloat() - randomSource.nextFloat()) * randomSource.nextFloat() * 2.0F;
-            f += (randomSource.nextFloat() - randomSource.nextFloat()) * randomSource.nextFloat() * 4.0F;
+            g += (randomSource.nextFloat() - randomSource.nextFloat()) * randomSource.nextFloat() * 2;
+            f += (randomSource.nextFloat() - randomSource.nextFloat()) * randomSource.nextFloat() * 4;
             for (int moreWater = -64; moreWater < 40; moreWater += 4) {
                 if (chunk.getNoiseBiome(moreWater, moreWater, moreWater).is(RegisterWorldgen.JELLYFISH_CAVES)) {
                     this.createTunnel(
@@ -73,10 +73,10 @@ public class CaveWorldCarverMixin extends WorldCarver<CaveCarverConfiguration> {
                             verticalScale,
                             randomSource.nextFloat() * 0.5F + 0.5F,
                             yaw - (float) (Math.PI / 2),
-                            pitch / 3.0F,
+                            pitch / 3,
                             j,
                             branchCount,
-                            1.0,
+                            1,
                             carvingMask,
                             skipPredicate
                     );
@@ -94,10 +94,10 @@ public class CaveWorldCarverMixin extends WorldCarver<CaveCarverConfiguration> {
                             verticalScale,
                             randomSource.nextFloat() * 0.5F + 0.5F,
                             yaw + (float) (Math.PI / 2),
-                            pitch / 3.0F,
+                            pitch / 3,
                             j,
                             branchCount,
-                            1.0,
+                            1,
                             carvingMask,
                             skipPredicate
                     );

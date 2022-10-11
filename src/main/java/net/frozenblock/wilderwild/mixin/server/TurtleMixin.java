@@ -22,24 +22,29 @@ public class TurtleMixin implements TurtleCooldownInterface {
     @Inject(method = "registerGoals", at = @At("TAIL"))
     public void registerGoals(CallbackInfo info) {
         Turtle turtle = Turtle.class.cast(this);
-        turtle.goalSelector.addGoal(3, new MeleeAttackGoal(turtle, 1.0, true));
-        turtle.targetSelector.addGoal(10, new TurtleNearestAttackableGoal<>(turtle, Jellyfish.class, false));
+        turtle.goalSelector.addGoal(3, new MeleeAttackGoal(turtle, 1, true));
+        turtle.targetSelector.addGoal(10,
+                new TurtleNearestAttackableGoal<>(turtle, Jellyfish.class,
+                        false));
     }
 
     @Inject(method = "createAttributes", at = @At("RETURN"), cancellable = true)
-    private static void createAttributes(CallbackInfoReturnable<AttributeSupplier.Builder> ci) {
+    private static void createAttributes(
+            CallbackInfoReturnable<AttributeSupplier.Builder> ci) {
         AttributeSupplier.Builder builder = ci.getReturnValue();
-        builder.add(Attributes.ATTACK_DAMAGE, 3.0);
+        builder.add(Attributes.ATTACK_DAMAGE, 3);
         ci.setReturnValue(builder);
     }
 
     @Inject(method = "addAdditionalSaveData", at = @At("TAIL"))
-    public void addAdditionalSaveData(CompoundTag compoundTag, CallbackInfo info) {
+    public void addAdditionalSaveData(CompoundTag compoundTag,
+                                      CallbackInfo info) {
         compoundTag.putInt("AttackCooldown", this.attackCooldown);
     }
 
     @Inject(method = "readAdditionalSaveData", at = @At("TAIL"))
-    public void readAdditionalSaveData(CompoundTag compoundTag, CallbackInfo info) {
+    public void readAdditionalSaveData(CompoundTag compoundTag,
+                                       CallbackInfo info) {
         this.attackCooldown = compoundTag.getInt("AttackCooldown");
     }
 

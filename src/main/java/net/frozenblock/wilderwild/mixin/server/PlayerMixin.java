@@ -13,8 +13,10 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 public class PlayerMixin {
 
     @Inject(method = "getHurtSound", at = @At("HEAD"), cancellable = true)
-    public void getHurtSound(DamageSource damageSource, CallbackInfoReturnable<SoundEvent> info) {
-        if (damageSource == DamageSource.CACTUS) { //this only works for other players, so we have to find the class that controls the damage sound for the current player
+    public void getHurtSound(DamageSource damageSource,
+                             CallbackInfoReturnable<SoundEvent> info) {
+        if (damageSource ==
+                DamageSource.CACTUS) { //this only works for other players, so we have to find the class that controls the damage sound for the current player
             info.setReturnValue(RegisterSounds.PLAYER_HURT_CACTUS);
             info.cancel();
         }

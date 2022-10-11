@@ -36,16 +36,20 @@ public final class WorldgenConfig implements ConfigData {
     public boolean wilderWildGrassGen = true;
 
     @Environment(EnvType.CLIENT)
-    static void setupEntries(ConfigCategory category, ConfigEntryBuilder entryBuilder) {
+    static void setupEntries(ConfigCategory category,
+                             ConfigEntryBuilder entryBuilder) {
         var config = WilderWildConfig.get().worldgen;
         var biomePlacement = config.biomePlacement;
         category.setBackground(WilderWild.id("textures/config/worldgen.png"));
-        var betaBeaches = category.addEntry(entryBuilder.startBooleanToggle(text("beta_beaches"), config.betaBeaches)
-                .setDefaultValue(true)
-                .setSaveConsumer(newValue -> config.betaBeaches = newValue)
-                .setTooltip(tooltip("beta_beaches"))
-                .requireRestart()
-                .build());
+        var betaBeaches = category.addEntry(
+                entryBuilder.startBooleanToggle(text("beta_beaches"),
+                                config.betaBeaches)
+                        .setDefaultValue(true)
+                        .setSaveConsumer(
+                                newValue -> config.betaBeaches = newValue)
+                        .setTooltip(tooltip("beta_beaches"))
+                        .requireRestart()
+                        .build());
         /*
         var badlands = category.addEntry(entryBuilder.startBooleanToggle(text("modify_badlands_placement"), biomePlacement.modifyBadlandsPlacement)
                 .setDefaultValue(true)
@@ -62,68 +66,97 @@ public final class WorldgenConfig implements ConfigData {
                 .requireRestart()
                 .build());
          */
-        var jungle = entryBuilder.startBooleanToggle(text("modify_jungle_placement"), biomePlacement.modifyJunglePlacement)
+        var jungle =
+                entryBuilder.startBooleanToggle(text("modify_jungle_placement"),
+                                biomePlacement.modifyJunglePlacement)
+                        .setDefaultValue(true)
+                        .setSaveConsumer(newValue ->
+                                biomePlacement.modifyJunglePlacement = newValue)
+                        .setYesNoTextSupplier(
+                                bool -> text("biome_placement." + bool))
+                        .setTooltip(tooltip("modify_jungle_placement"))
+                        .requireRestart()
+                        .build();
+        var mangroveSwamp = entryBuilder.startBooleanToggle(
+                        text("modify_mangrove_swamp_placement"),
+                        biomePlacement.modifyMangroveSwampPlacement)
                 .setDefaultValue(true)
-                .setSaveConsumer(newValue -> biomePlacement.modifyJunglePlacement = newValue)
-                .setYesNoTextSupplier(bool -> text("biome_placement." + bool))
-                .setTooltip(tooltip("modify_jungle_placement"))
-                .requireRestart()
-                .build();
-        var mangroveSwamp = entryBuilder.startBooleanToggle(text("modify_mangrove_swamp_placement"), biomePlacement.modifyMangroveSwampPlacement)
-                .setDefaultValue(true)
-                .setSaveConsumer(newValue -> biomePlacement.modifyMangroveSwampPlacement = newValue)
+                .setSaveConsumer(newValue ->
+                        biomePlacement.modifyMangroveSwampPlacement = newValue)
                 .setYesNoTextSupplier(bool -> text("biome_placement." + bool))
                 .setTooltip(tooltip("modify_mangrove_swamp_placement"))
                 .requireRestart()
                 .build();
-        var swamp = entryBuilder.startBooleanToggle(text("modify_swamp_placement"), biomePlacement.modifySwampPlacement)
+        var swamp =
+                entryBuilder.startBooleanToggle(text("modify_swamp_placement"),
+                                biomePlacement.modifySwampPlacement)
+                        .setDefaultValue(true)
+                        .setSaveConsumer(newValue ->
+                                biomePlacement.modifySwampPlacement = newValue)
+                        .setYesNoTextSupplier(
+                                bool -> text("biome_placement." + bool))
+                        .setTooltip(tooltip("modify_swamp_placement"))
+                        .requireRestart()
+                        .build();
+        var windsweptSavanna = entryBuilder.startBooleanToggle(
+                        text("modify_windswept_savanna_placement"),
+                        biomePlacement.modifyWindsweptSavannaPlacement)
                 .setDefaultValue(true)
-                .setSaveConsumer(newValue -> biomePlacement.modifySwampPlacement = newValue)
-                .setYesNoTextSupplier(bool -> text("biome_placement." + bool))
-                .setTooltip(tooltip("modify_swamp_placement"))
-                .requireRestart()
-                .build();
-        var windsweptSavanna = entryBuilder.startBooleanToggle(text("modify_windswept_savanna_placement"), biomePlacement.modifyWindsweptSavannaPlacement)
-                .setDefaultValue(true)
-                .setSaveConsumer(newValue -> biomePlacement.modifyWindsweptSavannaPlacement = newValue)
+                .setSaveConsumer(newValue ->
+                        biomePlacement.modifyWindsweptSavannaPlacement =
+                                newValue)
                 .setYesNoTextSupplier(bool -> text("biome_placement." + bool))
                 .setTooltip(tooltip("modify_windswept_savanna_placement"))
                 .requireRestart()
                 .build();
 
-        var biomePlacementCategory = FrozenConfig.createSubCategory(entryBuilder, category, text("biome_placement"),
-                false,
-                tooltip("biome_placement"),
-                jungle, mangroveSwamp, swamp, windsweptSavanna
-        );
+        var biomePlacementCategory =
+                FrozenConfig.createSubCategory(entryBuilder, category,
+                        text("biome_placement"),
+                        false,
+                        tooltip("biome_placement"),
+                        jungle, mangroveSwamp, swamp, windsweptSavanna
+                );
 
-        var dyingTrees = category.addEntry(entryBuilder.startBooleanToggle(text("dying_trees"), config.dyingTrees)
-                .setDefaultValue(true)
-                .setSaveConsumer(newValue -> config.dyingTrees = newValue)
-                .setTooltip(tooltip("dying_trees"))
-                .requireRestart()
-                .build()
+        var dyingTrees = category.addEntry(
+                entryBuilder.startBooleanToggle(text("dying_trees"),
+                                config.dyingTrees)
+                        .setDefaultValue(true)
+                        .setSaveConsumer(
+                                newValue -> config.dyingTrees = newValue)
+                        .setTooltip(tooltip("dying_trees"))
+                        .requireRestart()
+                        .build()
         );
-        var fallenLogs = category.addEntry(entryBuilder.startBooleanToggle(text("fallen_logs"), config.fallenLogs)
-                .setDefaultValue(true)
-                .setSaveConsumer(newValue -> config.fallenLogs = newValue)
-                .setTooltip(tooltip("fallen_logs"))
-                .requireRestart()
-                .build()
+        var fallenLogs = category.addEntry(
+                entryBuilder.startBooleanToggle(text("fallen_logs"),
+                                config.fallenLogs)
+                        .setDefaultValue(true)
+                        .setSaveConsumer(
+                                newValue -> config.fallenLogs = newValue)
+                        .setTooltip(tooltip("fallen_logs"))
+                        .requireRestart()
+                        .build()
         );
-        var wilderWildGrass = category.addEntry(entryBuilder.startBooleanToggle(text("wilder_wild_grass"), config.wilderWildGrassGen)
-                .setDefaultValue(true)
-                .setSaveConsumer(newValue -> config.wilderWildGrassGen = newValue)
-                .setTooltip(tooltip("wilder_wild_grass"))
-                .requireRestart()
-                .build()
+        var wilderWildGrass = category.addEntry(
+                entryBuilder.startBooleanToggle(text("wilder_wild_grass"),
+                                config.wilderWildGrassGen)
+                        .setDefaultValue(true)
+                        .setSaveConsumer(newValue -> config.wilderWildGrassGen =
+                                newValue)
+                        .setTooltip(tooltip("wilder_wild_grass"))
+                        .requireRestart()
+                        .build()
         );
-        var wilderWildTrees = category.addEntry(entryBuilder.startBooleanToggle(text("wilder_wild_trees"), config.wilderWildTreeGen)
-                .setDefaultValue(true)
-                .setSaveConsumer(newValue -> config.wilderWildTreeGen = newValue)
-                .setTooltip(tooltip("wilder_wild_trees"))
-                .requireRestart()
-                .build()
+        var wilderWildTrees = category.addEntry(
+                entryBuilder.startBooleanToggle(text("wilder_wild_trees"),
+                                config.wilderWildTreeGen)
+                        .setDefaultValue(true)
+                        .setSaveConsumer(
+                                newValue -> config.wilderWildTreeGen = newValue)
+                        .setTooltip(tooltip("wilder_wild_trees"))
+                        .requireRestart()
+                        .build()
         );
     }
 

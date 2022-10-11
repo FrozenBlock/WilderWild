@@ -21,7 +21,9 @@ public class SculkWallBlock extends WallBlock implements SculkBehaviour {
         super(settings);
     }
 
-    public void spawnAfterBreak(BlockState state, ServerLevel level, BlockPos pos, ItemStack stack, boolean dropExperience) {
+    public void spawnAfterBreak(BlockState state, ServerLevel level,
+                                BlockPos pos, ItemStack stack,
+                                boolean dropExperience) {
         super.spawnAfterBreak(state, level, pos, stack, dropExperience);
         if (dropExperience) {
             this.tryDropExperience(level, pos, stack, this.experience);
@@ -29,7 +31,13 @@ public class SculkWallBlock extends WallBlock implements SculkBehaviour {
     }
 
     @Override
-    public int attemptUseCharge(SculkSpreader.ChargeCursor cursor, LevelAccessor level, BlockPos catalystPos, RandomSource random, SculkSpreader spreadManager, boolean shouldConvertToBlock) {
-        return random.nextInt(spreadManager.chargeDecayRate()) == 0 ? Mth.floor((float) cursor.getCharge() * 0.5F) : cursor.getCharge();
+    public int attemptUseCharge(SculkSpreader.ChargeCursor cursor,
+                                LevelAccessor level, BlockPos catalystPos,
+                                RandomSource random,
+                                SculkSpreader spreadManager,
+                                boolean shouldConvertToBlock) {
+        return random.nextInt(spreadManager.chargeDecayRate()) == 0 ?
+                Mth.floor((float) cursor.getCharge() * 0.5F) :
+                cursor.getCharge();
     }
 }

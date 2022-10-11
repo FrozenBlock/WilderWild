@@ -13,15 +13,19 @@ import net.minecraft.world.level.chunk.ChunkGenerator;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import org.jetbrains.annotations.Nullable;
 
-public abstract class BaobabTreeSaplingGenerator extends AbstractMegaTreeGrower {
+public abstract class BaobabTreeSaplingGenerator
+        extends AbstractMegaTreeGrower {
     public BaobabTreeSaplingGenerator() {
     }
 
-    public boolean growTree(ServerLevel level, ChunkGenerator chunkGenerator, BlockPos pos, BlockState state, RandomSource random) {
+    public boolean growTree(ServerLevel level, ChunkGenerator chunkGenerator,
+                            BlockPos pos, BlockState state,
+                            RandomSource random) {
         for (int i = 0; i >= -4; --i) {
             for (int j = 0; j >= -4; --j) {
                 if (canGenerateBaobabTree(state, level, pos, i, j)) {
-                    return this.generateBaobabTree(level, chunkGenerator, pos, state, random, i, j);
+                    return this.generateBaobabTree(level, chunkGenerator, pos,
+                            state, random, i, j);
                 }
             }
         }
@@ -30,15 +34,21 @@ public abstract class BaobabTreeSaplingGenerator extends AbstractMegaTreeGrower 
     }
 
     @Nullable
-    protected abstract Holder<? extends ConfiguredFeature<?, ?>> getBaobabTreeFeature(RandomSource random);
+    protected abstract Holder<? extends ConfiguredFeature<?, ?>> getBaobabTreeFeature(
+            RandomSource random);
 
     @Override
-    protected Holder<? extends ConfiguredFeature<?, ?>> getConfiguredMegaFeature(RandomSource random) {
+    protected Holder<? extends ConfiguredFeature<?, ?>> getConfiguredMegaFeature(
+            RandomSource random) {
         return null;
     }
 
-    public boolean generateBaobabTree(ServerLevel level, ChunkGenerator chunkGenerator, BlockPos pos, BlockState state, RandomSource random, int x, int z) {
-        Holder<? extends ConfiguredFeature<?, ?>> registryEntry = this.getBaobabTreeFeature(random);
+    public boolean generateBaobabTree(ServerLevel level,
+                                      ChunkGenerator chunkGenerator,
+                                      BlockPos pos, BlockState state,
+                                      RandomSource random, int x, int z) {
+        Holder<? extends ConfiguredFeature<?, ?>> registryEntry =
+                this.getBaobabTreeFeature(random);
         if (registryEntry == null) {
             return false;
         } else {
@@ -76,7 +86,8 @@ public abstract class BaobabTreeSaplingGenerator extends AbstractMegaTreeGrower 
             level.getChunkSource().blockChanged(pos.offset(x + 3, 0, z + 3));
             level.getChunkSource().blockChanged(pos.offset(x + 3, 0, z + 2));
             level.getChunkSource().blockChanged(pos.offset(x + 2, 0, z + 3));
-            if (configuredFeature.place(level, chunkGenerator, random, pos.offset(x, 0, z))) {
+            if (configuredFeature.place(level, chunkGenerator, random,
+                    pos.offset(x, 0, z))) {
                 return true;
             } else {
                 level.setBlock(pos.offset(x, 0, z), state, 16);
@@ -102,21 +113,32 @@ public abstract class BaobabTreeSaplingGenerator extends AbstractMegaTreeGrower 
                 level.getChunkSource().blockChanged(pos.offset(x, 0, z + 1));
                 level.getChunkSource().blockChanged(pos.offset(x, 0, z + 2));
                 level.getChunkSource().blockChanged(pos.offset(x, 0, z + 3));
-                level.getChunkSource().blockChanged(pos.offset(x + 1, 0, z + 1));
-                level.getChunkSource().blockChanged(pos.offset(x + 2, 0, z + 1));
-                level.getChunkSource().blockChanged(pos.offset(x + 3, 0, z + 1));
-                level.getChunkSource().blockChanged(pos.offset(x + 1, 0, z + 2));
-                level.getChunkSource().blockChanged(pos.offset(x + 1, 0, z + 3));
-                level.getChunkSource().blockChanged(pos.offset(x + 2, 0, z + 2));
-                level.getChunkSource().blockChanged(pos.offset(x + 3, 0, z + 3));
-                level.getChunkSource().blockChanged(pos.offset(x + 3, 0, z + 2));
-                level.getChunkSource().blockChanged(pos.offset(x + 2, 0, z + 3));
+                level.getChunkSource()
+                        .blockChanged(pos.offset(x + 1, 0, z + 1));
+                level.getChunkSource()
+                        .blockChanged(pos.offset(x + 2, 0, z + 1));
+                level.getChunkSource()
+                        .blockChanged(pos.offset(x + 3, 0, z + 1));
+                level.getChunkSource()
+                        .blockChanged(pos.offset(x + 1, 0, z + 2));
+                level.getChunkSource()
+                        .blockChanged(pos.offset(x + 1, 0, z + 3));
+                level.getChunkSource()
+                        .blockChanged(pos.offset(x + 2, 0, z + 2));
+                level.getChunkSource()
+                        .blockChanged(pos.offset(x + 3, 0, z + 3));
+                level.getChunkSource()
+                        .blockChanged(pos.offset(x + 3, 0, z + 2));
+                level.getChunkSource()
+                        .blockChanged(pos.offset(x + 2, 0, z + 3));
                 return false;
             }
         }
     }
 
-    public static boolean canGenerateBaobabTree(BlockState state, BlockGetter level, BlockPos pos, int x, int z) {
+    public static boolean canGenerateBaobabTree(BlockState state,
+                                                BlockGetter level, BlockPos pos,
+                                                int x, int z) {
         Block block = state.getBlock();
         return level.getBlockState(pos.offset(x, 0, z)).is(block)
                 && level.getBlockState(pos.offset(x + 1, 0, z)).is(block)

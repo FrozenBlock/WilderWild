@@ -21,7 +21,9 @@ public class WardenMoveControl extends MoveControl {
     private final float speedInAir;
     private final boolean buoyant;
 
-    public WardenMoveControl(@NotNull Warden warden, float pitchChange, float yawChange, float speedInWater, float speedInAir, boolean buoyant) {
+    public WardenMoveControl(@NotNull Warden warden, float pitchChange,
+                             float yawChange, float speedInWater,
+                             float speedInAir, boolean buoyant) {
         super(warden);
         this.entity = warden;
         this.pitchChange = pitchChange;
@@ -35,53 +37,84 @@ public class WardenMoveControl extends MoveControl {
     public void tick() {
         if (this.isEntityTouchingWaterOrLava(this.entity)) {
             if (this.buoyant) {
-                if (this.entity.getBrain().hasMemoryValue(MemoryModuleType.ROAR_TARGET) || this.entity.getBrain().hasMemoryValue(MemoryModuleType.ATTACK_TARGET)) {
-                    Optional<LivingEntity> ATTACK_TARGET = this.entity.getBrain().getMemory(MemoryModuleType.ATTACK_TARGET);
-                    Optional<LivingEntity> ROAR_TARGET = this.entity.getBrain().getMemory(MemoryModuleType.ROAR_TARGET);
+                if (this.entity.getBrain()
+                        .hasMemoryValue(MemoryModuleType.ROAR_TARGET) ||
+                        this.entity.getBrain().hasMemoryValue(
+                                MemoryModuleType.ATTACK_TARGET)) {
+                    Optional<LivingEntity> ATTACK_TARGET =
+                            this.entity.getBrain()
+                                    .getMemory(MemoryModuleType.ATTACK_TARGET);
+                    Optional<LivingEntity> ROAR_TARGET = this.entity.getBrain()
+                            .getMemory(MemoryModuleType.ROAR_TARGET);
                     if (ATTACK_TARGET.isPresent()) {
                         LivingEntity target = ATTACK_TARGET.get();
-                        if ((!this.isEntityTouchingWaterOrLava(target) || !this.isEntitySubmergedInWaterOrLava(this.entity)) && target.getY() > this.entity.getY()) {
-                            this.entity.setDeltaMovement(this.entity.getDeltaMovement().add(0.0D, 0.01D, 0.0D));
+                        if ((!this.isEntityTouchingWaterOrLava(target) ||
+                                !this.isEntitySubmergedInWaterOrLava(
+                                        this.entity)) &&
+                                target.getY() > this.entity.getY()) {
+                            this.entity.setDeltaMovement(
+                                    this.entity.getDeltaMovement()
+                                            .add(0, 0.01D, 0));
                         }
                     } else if (ROAR_TARGET.isPresent()) {
                         LivingEntity target = ROAR_TARGET.get();
-                        if ((!this.isEntityTouchingWaterOrLava(target) || !this.isEntitySubmergedInWaterOrLava(this.entity)) && target.getY() > this.entity.getY()) {
-                            this.entity.setDeltaMovement(this.entity.getDeltaMovement().add(0.0D, 0.01D, 0.0D));
+                        if ((!this.isEntityTouchingWaterOrLava(target) ||
+                                !this.isEntitySubmergedInWaterOrLava(
+                                        this.entity)) &&
+                                target.getY() > this.entity.getY()) {
+                            this.entity.setDeltaMovement(
+                                    this.entity.getDeltaMovement()
+                                            .add(0, 0.01D, 0));
                         }
                     }
                 } else {
                     if (!this.isEntitySubmergedInWaterOrLava(this.entity)) {
-                        this.entity.setDeltaMovement(this.entity.getDeltaMovement().add(0.0D, 0.006D, 0.0D));
+                        this.entity.setDeltaMovement(
+                                this.entity.getDeltaMovement()
+                                        .add(0, 0.006D, 0));
                     } else {
-                        this.entity.setDeltaMovement(this.entity.getDeltaMovement().add(0.0D, 0.006D, 0.0D));
+                        this.entity.setDeltaMovement(
+                                this.entity.getDeltaMovement()
+                                        .add(0, 0.006D, 0));
                     }
                 }
             }
 
-            if (this.operation == MoveControl.Operation.MOVE_TO && !this.entity.getNavigation().isDone()) {
+            if (this.operation == MoveControl.Operation.MOVE_TO &&
+                    !this.entity.getNavigation().isDone()) {
                 double d = this.wantedX - this.entity.getX();
                 double e = this.wantedY - this.entity.getY();
                 double f = this.wantedZ - this.entity.getZ();
                 double g = d * d + e * e + f * f;
                 if (g < 2.5000003E-7F) {
-                    this.entity.setZza(0.0F);
+                    this.entity.setZza(0);
                 } else {
-                    float h = (float) (Mth.atan2(f, d) * 180.0F / (float) Math.PI) - 90.0F;
-                    this.entity.setYRot(this.rotlerp(this.entity.getYRot(), h, this.yawChange));
+                    float h =
+                            (float) (Mth.atan2(f, d) * 180 / (float) Math.PI) -
+                                    90;
+                    this.entity.setYRot(this.rotlerp(this.entity.getYRot(), h,
+                            this.yawChange));
                     this.entity.yBodyRot = this.entity.getYRot();
                     this.entity.yHeadRot = this.entity.getYRot();
-                    float i = (float) (this.speedModifier * this.entity.getAttributeValue(Attributes.MOVEMENT_SPEED));
+                    float i = (float) (this.speedModifier *
+                            this.entity.getAttributeValue(
+                                    Attributes.MOVEMENT_SPEED));
                     if (this.isEntityTouchingWaterOrLava(entity)) {
                         this.entity.setSpeed(i * this.speedInWater);
                         double j = Math.sqrt(d * d + f * f);
                         if (Math.abs(e) > 1.0E-5F || Math.abs(j) > 1.0E-5F) {
-                            float k = -((float) (Mth.atan2(e, j) * 180.0F / (float) Math.PI));
-                            k = Mth.clamp(Mth.wrapDegrees(k), -this.pitchChange, this.pitchChange);
-                            this.entity.setXRot(this.rotlerp(this.entity.getXRot(), k, 5.0F));
+                            float k = -((float) (Mth.atan2(e, j) * 180 /
+                                    (float) Math.PI));
+                            k = Mth.clamp(Mth.wrapDegrees(k), -this.pitchChange,
+                                    this.pitchChange);
+                            this.entity.setXRot(
+                                    this.rotlerp(this.entity.getXRot(), k, 5));
                         }
 
-                        float k = Mth.cos(this.entity.getXRot() * (float) (Math.PI / 180.0));
-                        float l = Mth.sin(this.entity.getXRot() * (float) (Math.PI / 180.0));
+                        float k = Mth.cos(this.entity.getXRot() *
+                                (float) (Math.PI / 180));
+                        float l = Mth.sin(this.entity.getXRot() *
+                                (float) (Math.PI / 180));
                         this.entity.zza = k * i;
                         this.entity.yya = -l * i;
                     } else {
@@ -90,10 +123,10 @@ public class WardenMoveControl extends MoveControl {
 
                 }
             } else {
-                this.entity.setSpeed(0.0F);
-                this.entity.setXxa(0.0F);
-                this.entity.setYya(0.0F);
-                this.entity.setZza(0.0F);
+                this.entity.setSpeed(0);
+                this.entity.setXxa(0);
+                this.entity.setYya(0);
+                this.entity.setZza(0);
             }
         } else {
             super.tick();
@@ -101,10 +134,13 @@ public class WardenMoveControl extends MoveControl {
     }
 
     private boolean isEntityTouchingWaterOrLava(Entity entity) {
-        return entity.isInWaterOrBubble() || entity.isInLava() || entity.isVisuallySwimming();
+        return entity.isInWaterOrBubble() || entity.isInLava() ||
+                entity.isVisuallySwimming();
     }
 
     private boolean isEntitySubmergedInWaterOrLava(Entity entity) {
-        return entity.isEyeInFluid(FluidTags.WATER) || entity.isEyeInFluid(FluidTags.LAVA) || entity.isVisuallySwimming();
+        return entity.isEyeInFluid(FluidTags.WATER) ||
+                entity.isEyeInFluid(FluidTags.LAVA) ||
+                entity.isVisuallySwimming();
     }
 }

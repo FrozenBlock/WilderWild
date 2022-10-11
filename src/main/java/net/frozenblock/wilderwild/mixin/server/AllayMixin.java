@@ -11,7 +11,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(Allay.class)
-public class AllayMixin implements WilderAllay {
+public final class AllayMixin implements WilderAllay {
 
     @Shadow
     private float dancingAnimationTicks;
@@ -26,10 +26,11 @@ public class AllayMixin implements WilderAllay {
     }
 
     @Inject(method = "tick", at = @At(value = "TAIL"))
-    private void tick(CallbackInfo ci) {
+    private void tick(final CallbackInfo ci) {
         if (allay.level.isClientSide) {
             if (allay.isDancing()) {
-                this.getDancingAnimationState().startIfStopped((int) this.dancingAnimationTicks);
+                this.getDancingAnimationState()
+                        .startIfStopped((int) this.dancingAnimationTicks);
             } else {
                 this.getDancingAnimationState().stop();
             }

@@ -14,13 +14,19 @@ import net.minecraft.world.level.levelgen.feature.treedecorators.TreeDecoratorTy
 import java.util.List;
 
 public class ShelfFungusTreeDecorator extends TreeDecorator {
-    public static final Codec<ShelfFungusTreeDecorator> CODEC = RecordCodecBuilder.create((instance) -> {
-        return instance.group(Codec.floatRange(0.0F, 1.0F).fieldOf("probability").forGetter((treeDecorator) -> {
-            return treeDecorator.probability;
-        }), Codec.floatRange(0.0F, 1.0F).fieldOf("red_shelf_fungus_chance").forGetter((treeDecorator) -> {
-            return treeDecorator.redChance;
-        })).apply(instance, ShelfFungusTreeDecorator::new);
-    });
+    public static final Codec<ShelfFungusTreeDecorator> CODEC =
+            RecordCodecBuilder.create((instance) -> {
+                return instance.group(
+                                Codec.floatRange(0, 1).fieldOf("probability")
+                                        .forGetter((treeDecorator) -> {
+                                            return treeDecorator.probability;
+                                        }), Codec.floatRange(0, 1)
+                                        .fieldOf("red_shelf_fungus_chance")
+                                        .forGetter((treeDecorator) -> {
+                                            return treeDecorator.redChance;
+                                        }))
+                        .apply(instance, ShelfFungusTreeDecorator::new);
+            });
     private final float probability;
     private final float redChance;
 
@@ -40,12 +46,33 @@ public class ShelfFungusTreeDecorator extends TreeDecorator {
             list.forEach((pos) -> {
                 for (Direction direction : Direction.Plane.HORIZONTAL) {
                     if (abstractRandom.nextFloat() <= 0.25F) {
-                        BlockPos blockPos = pos.offset(direction.getStepX(), 0, direction.getStepZ());
+                        BlockPos blockPos = pos.offset(direction.getStepX(), 0,
+                                direction.getStepZ());
                         if (generator.isAir(blockPos)) {
                             if (generator.random().nextFloat() < redChance) {
-                                generator.setBlock(blockPos, RegisterBlocks.RED_SHELF_FUNGUS.defaultBlockState().setValue(ShelfFungusBlock.STAGE, abstractRandom.nextInt(3) + 1).setValue(ShelfFungusBlock.FACE, AttachFace.WALL).setValue(ShelfFungusBlock.FACING, direction));
+                                generator.setBlock(blockPos,
+                                        RegisterBlocks.RED_SHELF_FUNGUS.defaultBlockState()
+                                                .setValue(
+                                                        ShelfFungusBlock.STAGE,
+                                                        abstractRandom.nextInt(
+                                                                3) + 1)
+                                                .setValue(ShelfFungusBlock.FACE,
+                                                        AttachFace.WALL)
+                                                .setValue(
+                                                        ShelfFungusBlock.FACING,
+                                                        direction));
                             } else {
-                                generator.setBlock(blockPos, RegisterBlocks.BROWN_SHELF_FUNGUS.defaultBlockState().setValue(ShelfFungusBlock.STAGE, abstractRandom.nextInt(3) + 1).setValue(ShelfFungusBlock.FACE, AttachFace.WALL).setValue(ShelfFungusBlock.FACING, direction));
+                                generator.setBlock(blockPos,
+                                        RegisterBlocks.BROWN_SHELF_FUNGUS.defaultBlockState()
+                                                .setValue(
+                                                        ShelfFungusBlock.STAGE,
+                                                        abstractRandom.nextInt(
+                                                                3) + 1)
+                                                .setValue(ShelfFungusBlock.FACE,
+                                                        AttachFace.WALL)
+                                                .setValue(
+                                                        ShelfFungusBlock.FACING,
+                                                        direction));
                             }
                         }
                     }

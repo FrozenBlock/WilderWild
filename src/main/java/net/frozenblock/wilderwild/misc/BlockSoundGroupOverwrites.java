@@ -12,10 +12,56 @@ import net.minecraft.world.level.block.SoundType;
 import java.util.ArrayList;
 import java.util.List;
 
-import static net.frozenblock.wilderwild.registry.RegisterBlockSoundGroups.*;
+import static net.frozenblock.wilderwild.registry.RegisterBlockSoundGroups.CLAY_BLOCK;
+import static net.frozenblock.wilderwild.registry.RegisterBlockSoundGroups.COARSEDIRT;
+import static net.frozenblock.wilderwild.registry.RegisterBlockSoundGroups.FLOWER;
+import static net.frozenblock.wilderwild.registry.RegisterBlockSoundGroups.GRAVELSOUNDS;
+import static net.frozenblock.wilderwild.registry.RegisterBlockSoundGroups.ICE_BLOCKS;
+import static net.frozenblock.wilderwild.registry.RegisterBlockSoundGroups.LEAVES;
+import static net.frozenblock.wilderwild.registry.RegisterBlockSoundGroups.LILYPAD;
+import static net.frozenblock.wilderwild.registry.RegisterBlockSoundGroups.MUSHROOM;
+import static net.frozenblock.wilderwild.registry.RegisterBlockSoundGroups.MUSHROOM_BLOCK;
+import static net.frozenblock.wilderwild.registry.RegisterBlockSoundGroups.REINFORCEDDEEPSLATE;
+import static net.frozenblock.wilderwild.registry.RegisterBlockSoundGroups.SUGARCANE;
+import static net.frozenblock.wilderwild.registry.RegisterBlockSoundGroups.WEB;
 import static net.frozenblock.wilderwild.registry.RegisterBlocks.BAOBAB_LEAVES;
 import static net.frozenblock.wilderwild.registry.RegisterBlocks.CYPRESS_LEAVES;
-import static net.minecraft.world.level.block.Blocks.*;
+import static net.minecraft.world.level.block.Blocks.ACACIA_LEAVES;
+import static net.minecraft.world.level.block.Blocks.ALLIUM;
+import static net.minecraft.world.level.block.Blocks.AZURE_BLUET;
+import static net.minecraft.world.level.block.Blocks.BIRCH_LEAVES;
+import static net.minecraft.world.level.block.Blocks.BLUE_ORCHID;
+import static net.minecraft.world.level.block.Blocks.BROWN_MUSHROOM;
+import static net.minecraft.world.level.block.Blocks.BROWN_MUSHROOM_BLOCK;
+import static net.minecraft.world.level.block.Blocks.CACTUS;
+import static net.minecraft.world.level.block.Blocks.CLAY;
+import static net.minecraft.world.level.block.Blocks.COARSE_DIRT;
+import static net.minecraft.world.level.block.Blocks.COBWEB;
+import static net.minecraft.world.level.block.Blocks.CORNFLOWER;
+import static net.minecraft.world.level.block.Blocks.DANDELION;
+import static net.minecraft.world.level.block.Blocks.DARK_OAK_LEAVES;
+import static net.minecraft.world.level.block.Blocks.DEAD_BUSH;
+import static net.minecraft.world.level.block.Blocks.FROSTED_ICE;
+import static net.minecraft.world.level.block.Blocks.GRAVEL;
+import static net.minecraft.world.level.block.Blocks.JUNGLE_LEAVES;
+import static net.minecraft.world.level.block.Blocks.LILY_OF_THE_VALLEY;
+import static net.minecraft.world.level.block.Blocks.LILY_PAD;
+import static net.minecraft.world.level.block.Blocks.MANGROVE_LEAVES;
+import static net.minecraft.world.level.block.Blocks.MUSHROOM_STEM;
+import static net.minecraft.world.level.block.Blocks.OAK_LEAVES;
+import static net.minecraft.world.level.block.Blocks.ORANGE_TULIP;
+import static net.minecraft.world.level.block.Blocks.OXEYE_DAISY;
+import static net.minecraft.world.level.block.Blocks.PINK_TULIP;
+import static net.minecraft.world.level.block.Blocks.PODZOL;
+import static net.minecraft.world.level.block.Blocks.POPPY;
+import static net.minecraft.world.level.block.Blocks.RED_MUSHROOM;
+import static net.minecraft.world.level.block.Blocks.RED_MUSHROOM_BLOCK;
+import static net.minecraft.world.level.block.Blocks.RED_TULIP;
+import static net.minecraft.world.level.block.Blocks.REINFORCED_DEEPSLATE;
+import static net.minecraft.world.level.block.Blocks.SPRUCE_LEAVES;
+import static net.minecraft.world.level.block.Blocks.SUGAR_CANE;
+import static net.minecraft.world.level.block.Blocks.WHITE_TULIP;
+import static net.minecraft.world.level.block.Blocks.WITHER_ROSE;
 
 
 public class BlockSoundGroupOverwrites {
@@ -27,11 +73,17 @@ public class BlockSoundGroupOverwrites {
         addBlock(PODZOL, SoundType.ROOTED_DIRT);
 
         addBlockTag(BlockTags.LEAVES, LEAVES);
-        addBlocks(new Block[]{ACACIA_LEAVES, BIRCH_LEAVES, DARK_OAK_LEAVES, JUNGLE_LEAVES, MANGROVE_LEAVES, OAK_LEAVES, SPRUCE_LEAVES, BAOBAB_LEAVES, CYPRESS_LEAVES}, LEAVES);
-        addBlocks(new Block[]{DANDELION, POPPY, BLUE_ORCHID, ALLIUM, AZURE_BLUET, RED_TULIP, ORANGE_TULIP, WHITE_TULIP, PINK_TULIP, OXEYE_DAISY, CORNFLOWER, LILY_OF_THE_VALLEY}, FLOWER);
-        addBlocks(new Block[]{RED_MUSHROOM, BROWN_MUSHROOM}, MUSHROOM);
-        addBlocks(new Block[]{RED_MUSHROOM_BLOCK, BROWN_MUSHROOM_BLOCK, MUSHROOM_STEM}, MUSHROOM_BLOCK);
-        addBlocks(new Block[]{FROSTED_ICE}, ICE_BLOCKS);
+        addBlocks(new Block[] {ACACIA_LEAVES, BIRCH_LEAVES, DARK_OAK_LEAVES,
+                JUNGLE_LEAVES, MANGROVE_LEAVES, OAK_LEAVES, SPRUCE_LEAVES,
+                BAOBAB_LEAVES, CYPRESS_LEAVES}, LEAVES);
+        addBlocks(
+                new Block[] {DANDELION, POPPY, BLUE_ORCHID, ALLIUM, AZURE_BLUET,
+                        RED_TULIP, ORANGE_TULIP, WHITE_TULIP, PINK_TULIP,
+                        OXEYE_DAISY, CORNFLOWER, LILY_OF_THE_VALLEY}, FLOWER);
+        addBlocks(new Block[] {RED_MUSHROOM, BROWN_MUSHROOM}, MUSHROOM);
+        addBlocks(new Block[] {RED_MUSHROOM_BLOCK, BROWN_MUSHROOM_BLOCK,
+                MUSHROOM_STEM}, MUSHROOM_BLOCK);
+        addBlocks(new Block[] {FROSTED_ICE}, ICE_BLOCKS);
         addBlock(COBWEB, WEB);
         addBlock(CLAY, CLAY_BLOCK);
         addBlock(REINFORCED_DEEPSLATE, REINFORCEDDEEPSLATE);
@@ -114,5 +166,6 @@ public class BlockSoundGroupOverwrites {
     public static final List<ResourceLocation> ids = new ArrayList<>();
     public static final List<SoundType> soundGroups = new ArrayList<>();
     public static final List<String> namespaces = new ArrayList<>();
-    public static final List<SoundType> namespaceSoundGroups = new ArrayList<>();
+    public static final List<SoundType> namespaceSoundGroups =
+            new ArrayList<>();
 }

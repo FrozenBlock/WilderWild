@@ -24,7 +24,8 @@ public class BoatTypeMixin {
 
     @SuppressWarnings("InvokerTarget")
     @Invoker("<init>")
-    private static Boat.Type newType(String internalName, int internalId, Block baseBlock, String name) {
+    private static Boat.Type newType(String internalName, int internalId,
+                                     Block baseBlock, String name) {
         throw new AssertionError();
     }
 
@@ -42,11 +43,13 @@ public class BoatTypeMixin {
         var types = new ArrayList<>(Arrays.asList($VALUES));
         var last = types.get(types.size() - 1);
 
-        var baobab = newType("WILDERWILDBAOBAB", last.ordinal() + 1, RegisterBlocks.BAOBAB_PLANKS, "wilderwildbaobab");
+        var baobab = newType("WILDERWILDBAOBAB", last.ordinal() + 1,
+                RegisterBlocks.BAOBAB_PLANKS, "wilderwildbaobab");
         WilderBoats.BAOBAB = baobab;
         types.add(baobab);
 
-        var cypress = newType("WILDERWILDCYPRESS", last.ordinal() + 2, RegisterBlocks.CYPRESS_PLANKS, "wilderwildcypress");
+        var cypress = newType("WILDERWILDCYPRESS", last.ordinal() + 2,
+                RegisterBlocks.CYPRESS_PLANKS, "wilderwildcypress");
         WilderBoats.CYPRESS = cypress;
         types.add(cypress);
         $VALUES = types.toArray(new Boat.Type[0]);

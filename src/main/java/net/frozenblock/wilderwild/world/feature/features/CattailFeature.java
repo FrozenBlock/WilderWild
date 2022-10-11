@@ -22,7 +22,8 @@ public class CattailFeature extends Feature<ProbabilityFeatureConfiguration> {
         super(codec);
     }
 
-    public boolean place(FeaturePlaceContext<ProbabilityFeatureConfiguration> context) {
+    public boolean place(
+            FeaturePlaceContext<ProbabilityFeatureConfiguration> context) {
         boolean bl = false;
         RandomSource abstractRandom = context.random();
         WorldGenLevel structureWorldAccess = context.level();
@@ -31,14 +32,23 @@ public class CattailFeature extends Feature<ProbabilityFeatureConfiguration> {
         for (int l = 0; l < loopFor; l++) {
             int i = abstractRandom.nextIntBetweenInclusive(-7, 7);
             int j = abstractRandom.nextIntBetweenInclusive(-7, 7);
-            int k = structureWorldAccess.getHeight(Types.OCEAN_FLOOR, blockPos.getX() + i, blockPos.getZ() + j);
-            BlockPos randomPos = new BlockPos(blockPos.getX() + i, k, blockPos.getZ() + j);
-            if (structureWorldAccess.getBlockState(randomPos).is(Blocks.WATER)) {
-                BlockState bottom = RegisterBlocks.CATTAIL.defaultBlockState().setValue(BlockStateProperties.WATERLOGGED, true);
+            int k = structureWorldAccess.getHeight(Types.OCEAN_FLOOR,
+                    blockPos.getX() + i, blockPos.getZ() + j);
+            BlockPos randomPos =
+                    new BlockPos(blockPos.getX() + i, k, blockPos.getZ() + j);
+            if (structureWorldAccess.getBlockState(randomPos)
+                    .is(Blocks.WATER)) {
+                BlockState bottom = RegisterBlocks.CATTAIL.defaultBlockState()
+                        .setValue(BlockStateProperties.WATERLOGGED, true);
                 if (bottom.canSurvive(structureWorldAccess, randomPos)) {
-                    BlockState top = bottom.setValue(WaterloggableTallFlowerBlock.HALF, DoubleBlockHalf.UPPER).setValue(BlockStateProperties.WATERLOGGED, false);
+                    BlockState top =
+                            bottom.setValue(WaterloggableTallFlowerBlock.HALF,
+                                            DoubleBlockHalf.UPPER)
+                                    .setValue(BlockStateProperties.WATERLOGGED,
+                                            false);
                     BlockPos upPos = randomPos.above();
-                    if (structureWorldAccess.getBlockState(upPos).is(Blocks.AIR)) {
+                    if (structureWorldAccess.getBlockState(upPos)
+                            .is(Blocks.AIR)) {
                         structureWorldAccess.setBlock(randomPos, bottom, 2);
                         structureWorldAccess.setBlock(upPos, top, 2);
                         bl = true;
@@ -47,9 +57,13 @@ public class CattailFeature extends Feature<ProbabilityFeatureConfiguration> {
             } else {
                 BlockState bottom = RegisterBlocks.CATTAIL.defaultBlockState();
                 if (bottom.canSurvive(structureWorldAccess, randomPos)) {
-                    BlockState top = bottom.setValue(WaterloggableTallFlowerBlock.HALF, DoubleBlockHalf.UPPER);
+                    BlockState top =
+                            bottom.setValue(WaterloggableTallFlowerBlock.HALF,
+                                    DoubleBlockHalf.UPPER);
                     BlockPos upPos = randomPos.above();
-                    if (structureWorldAccess.getBlockState(upPos).is(Blocks.AIR) && isWaterNearby(structureWorldAccess, randomPos, 2)) {
+                    if (structureWorldAccess.getBlockState(upPos)
+                            .is(Blocks.AIR) &&
+                            isWaterNearby(structureWorldAccess, randomPos, 2)) {
                         structureWorldAccess.setBlock(randomPos, bottom, 2);
                         structureWorldAccess.setBlock(upPos, top, 2);
                         bl = true;
@@ -61,8 +75,11 @@ public class CattailFeature extends Feature<ProbabilityFeatureConfiguration> {
         return bl;
     }
 
-    public static boolean isWaterNearby(WorldGenLevel level, BlockPos blockPos, int x) {
-        Iterator<BlockPos> var2 = BlockPos.betweenClosed(blockPos.offset(-x, -x, -x), blockPos.offset(x, x, x)).iterator();
+    public static boolean isWaterNearby(WorldGenLevel level, BlockPos blockPos,
+                                        int x) {
+        Iterator<BlockPos> var2 =
+                BlockPos.betweenClosed(blockPos.offset(-x, -x, -x),
+                        blockPos.offset(x, x, x)).iterator();
         BlockPos blockPos2;
         do {
             if (!var2.hasNext()) {

@@ -12,12 +12,18 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.feature.configurations.FeatureConfiguration;
 
 public class WilderPillarConfig implements FeatureConfiguration {
-    public static final Codec<WilderPillarConfig> CODEC = RecordCodecBuilder.create((instance) ->
-            instance.group(
-                    BlockState.CODEC.fieldOf("columnBlock").forGetter((config) -> config.columnBlock),
-                    IntProvider.NON_NEGATIVE_CODEC.fieldOf("height").forGetter((config) -> config.height),
-                    RegistryCodecs.homogeneousList(Registry.BLOCK_REGISTRY).fieldOf("replaceable").forGetter((config) -> config.replaceable)
-            ).apply(instance, WilderPillarConfig::new));
+    public static final Codec<WilderPillarConfig> CODEC =
+            RecordCodecBuilder.create((instance) ->
+                    instance.group(
+                            BlockState.CODEC.fieldOf("columnBlock")
+                                    .forGetter((config) -> config.columnBlock),
+                            IntProvider.NON_NEGATIVE_CODEC.fieldOf("height")
+                                    .forGetter((config) -> config.height),
+                            RegistryCodecs.homogeneousList(
+                                            Registry.BLOCK_REGISTRY)
+                                    .fieldOf("replaceable")
+                                    .forGetter((config) -> config.replaceable)
+                    ).apply(instance, WilderPillarConfig::new));
 
     public final BlockState columnBlock;
     public final IntProvider height;
@@ -27,7 +33,8 @@ public class WilderPillarConfig implements FeatureConfiguration {
         return DataResult.success(block);
     }
 
-    public WilderPillarConfig(BlockState columnBlock, IntProvider height, HolderSet<Block> replaceable) {
+    public WilderPillarConfig(BlockState columnBlock, IntProvider height,
+                              HolderSet<Block> replaceable) {
         this.columnBlock = columnBlock;
         this.height = height;
         this.replaceable = replaceable;

@@ -15,25 +15,35 @@ import net.minecraft.world.entity.monster.warden.Warden;
 
 import java.util.List;
 
-public class OsmioooWardenFeatureRenderer<T extends Warden, M extends WardenModel<T>> extends WardenEmissiveLayer<T, M> {
-    public OsmioooWardenFeatureRenderer(RenderLayerParent<T, M> context, ResourceLocation texture, AlphaFunction<T> animationAngleAdjuster, DrawSelector<T, M> modelPartVisibility) {
+public class OsmioooWardenFeatureRenderer<T extends Warden, M extends WardenModel<T>>
+        extends WardenEmissiveLayer<T, M> {
+    public OsmioooWardenFeatureRenderer(RenderLayerParent<T, M> context,
+                                        ResourceLocation texture,
+                                        AlphaFunction<T> animationAngleAdjuster,
+                                        DrawSelector<T, M> modelPartVisibility) {
         super(context, texture, animationAngleAdjuster, modelPartVisibility);
     }
 
     @Override
-    public void render(PoseStack matrixStack, MultiBufferSource vertexConsumerProvider, int i, T wardenEntity, float f, float g, float h, float j, float k, float l) {
-        if (!wardenEntity.isInvisible() && ((WilderWarden) wardenEntity).isOsmiooo()) {
+    public void render(PoseStack matrixStack,
+                       MultiBufferSource vertexConsumerProvider, int i,
+                       T wardenEntity, float f, float g, float h, float j,
+                       float k, float l) {
+        if (!wardenEntity.isInvisible() &&
+                ((WilderWarden) wardenEntity).isOsmiooo()) {
             this.onlyDrawSelectedParts();
-            VertexConsumer vertexConsumer = vertexConsumerProvider.getBuffer(RenderType.entityTranslucentEmissive(this.texture));
+            VertexConsumer vertexConsumer = vertexConsumerProvider.getBuffer(
+                    RenderType.entityTranslucentEmissive(this.texture));
             this.getParentModel()
                     .renderToBuffer(
                             matrixStack,
                             vertexConsumer,
                             i,
-                            LivingEntityRenderer.getOverlayCoords(wardenEntity, 0.0F),
-                            1.0F,
-                            1.0F,
-                            1.0F,
+                            LivingEntityRenderer.getOverlayCoords(wardenEntity,
+                                    0),
+                            1,
+                            1,
+                            1,
                             this.alphaFunction.apply(wardenEntity, h, j)
                     );
             this.resetDrawForAllParts();
@@ -41,12 +51,15 @@ public class OsmioooWardenFeatureRenderer<T extends Warden, M extends WardenMode
     }
 
     private void onlyDrawSelectedParts() {
-        List<ModelPart> list = this.drawSelector.getPartsToDraw(this.getParentModel());
-        this.getParentModel().root().getAllParts().forEach(part -> part.skipDraw = true);
+        List<ModelPart> list =
+                this.drawSelector.getPartsToDraw(this.getParentModel());
+        this.getParentModel().root().getAllParts()
+                .forEach(part -> part.skipDraw = true);
         list.forEach(part -> part.skipDraw = false);
     }
 
     private void resetDrawForAllParts() {
-        this.getParentModel().root().getAllParts().forEach(part -> part.skipDraw = false);
+        this.getParentModel().root().getAllParts()
+                .forEach(part -> part.skipDraw = false);
     }
 }

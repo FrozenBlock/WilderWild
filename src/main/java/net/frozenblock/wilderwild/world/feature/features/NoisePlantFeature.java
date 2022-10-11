@@ -25,7 +25,12 @@ public class NoisePlantFeature extends Feature<PathFeatureConfig> {
         int radiusSquared = config.radius * config.radius;
         EasyNoiseSampler.setSeed(level.getSeed());
         RandomSource random = level.getRandom();
-        ImprovedNoise sampler = config.noise == 1 ? EasyNoiseSampler.perlinSimple : config.noise == 2 ? EasyNoiseSampler.perlinAtomic : config.noise == 3 ? EasyNoiseSampler.perlinBlocking : EasyNoiseSampler.perlinXoro;
+        ImprovedNoise sampler =
+                config.noise == 1 ? EasyNoiseSampler.perlinSimple :
+                        config.noise == 2 ? EasyNoiseSampler.perlinAtomic :
+                                config.noise == 3 ?
+                                        EasyNoiseSampler.perlinBlocking :
+                                        EasyNoiseSampler.perlinXoro;
         int bx = blockPos.getX();
         int bz = blockPos.getZ();
         BlockPos.MutableBlockPos mutable = blockPos.mutable();
@@ -35,10 +40,17 @@ public class NoisePlantFeature extends Feature<PathFeatureConfig> {
                 double distance = ((bx - x) * (bx - x) + ((bz - z) * (bz - z)));
                 if (distance < radiusSquared) {
                     mutable.set(x, level.getHeight(Types.OCEAN_FLOOR, x, z), z);
-                    double sample = EasyNoiseSampler.sample(sampler, mutable, config.multiplier, config.multiplyY, config.useY);
-                    if (sample > config.minThresh && sample < config.maxThresh && level.getBlockState(mutable).is(config.replaceable) && level.getBlockState(mutable.below()).is(BlockTags.DIRT)) {
+                    double sample = EasyNoiseSampler.sample(sampler, mutable,
+                            config.multiplier, config.multiplyY, config.useY);
+                    if (sample > config.minThresh &&
+                            sample < config.maxThresh &&
+                            level.getBlockState(mutable)
+                                    .is(config.replaceable) &&
+                            level.getBlockState(mutable.below())
+                                    .is(BlockTags.DIRT)) {
                         generated = true;
-                        level.setBlock(mutable, config.pathBlock.getState(random, mutable), 3);
+                        level.setBlock(mutable,
+                                config.pathBlock.getState(random, mutable), 3);
                     }
                 }
             }
