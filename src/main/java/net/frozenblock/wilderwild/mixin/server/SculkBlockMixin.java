@@ -42,19 +42,50 @@ public class SculkBlockMixin {
         return null;
     }
 
+    /**
+     * The height multiplier of the Osseous Sculk pillars.
+     * <p>
+     * At higher values, most Osseous Sculk pillars will be taller.
+     */
     private static final int HEIGHT_MULTIPLIER = 20;
-            //The higher, the less short pillars you'll see.
-    private static final int MAX_HEIGHT = 15;
-            //The rarest and absolute tallest height of pillars
-    private static final double RANDOMNESS = 0.9;
-            //The higher, the more random. The lower, the more gradual the heights change.
 
+    /**
+     * The maximum height of an Osseous Sculk pillar.
+     * <p>
+     * An Osseous Sculk pillar cannot grow further than this height.
+     */
+    private static final int MAX_HEIGHT = 15;
+
+    /**
+     * The randomness that the Osseous Sculk pillars will grow.
+     * <p>
+     * At lower values, the heights of the Osseous Sculk pillars will grow more gradually.
+     */
+    private static final double RANDOMNESS = 0.9;
+
+    /**
+     * The radius that the Osseous Sculk pillars can grow in.
+     * <p>
+     * At larger values, the area the pillars can grow in will increase,
+     * but the distance between the pillars will also increase.
+     */
     private static final double OSSEOUS_SCULK_AREA_SIZE = 0.09;
-            //The smaller, the larger the area pillars can grow, but the larger the gaps between them.
+
+    /**
+     * Decides how commonly Osseous Sculk pillars will grow.
+     * <p>
+     * If set to 1 or higher, the pillars will never grow.
+     */
     private static final double OSSEOUS_SCULK_THRESHOLD = 0.15;
-            //The higher, the harder it is for pillars to appear. If set to 1 or higher, they'll never grow.
+
+    /**
+     * Decides how commonly Osseous Sculk pillars will grow during worldgen.
+     * <p>
+     * If set to 1 or higher, the pillars will never grow.
+     * <p>
+     * <STRONG>CEILINGS IN WORLDGEN ONLY</STRONG>
+     */
     private static final double OSSEOUS_SCULK_WORLD_GEN_THRESHOLD = 0.16;
-            //The higher, the harder it is for pillars to appear. If set to 1 or higher, they'll never grow. (CEILINGS IN WORLDGEN ONLY)
 
     @Inject(at = @At("HEAD"), method = "attemptUseCharge")
     public void setSeed(SculkSpreader.ChargeCursor charge, LevelAccessor level,

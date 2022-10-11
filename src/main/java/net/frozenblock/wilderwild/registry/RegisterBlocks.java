@@ -91,8 +91,10 @@ public final class RegisterBlocks {
                     .strength(1.5F).requiresTool()
                     .sounds(SoundType.MUD_BRICKS));
 
+    /**
+     * Building Blocks
+     */
     public static void registerOtherBB() {
-        // BB = Building Blocks
         registerBlock("chiseled_mud_bricks", CHISELED_MUD_BRICKS,
                 CreativeModeTab.TAB_BUILDING_BLOCKS);
     }
