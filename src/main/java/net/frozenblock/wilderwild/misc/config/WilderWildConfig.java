@@ -34,30 +34,24 @@ public class WilderWildConfig extends PartitioningSerializer.GlobalData {
 
     public static WilderWildConfig get() {
         if (!WilderWild.areConfigsInit) {
-            AutoConfig.register(WilderWildConfig.class,
-                    PartitioningSerializer.wrap(GsonConfigSerializer::new));
+            AutoConfig.register(WilderWildConfig.class, PartitioningSerializer.wrap(GsonConfigSerializer::new));
             WilderWild.areConfigsInit = true;
         }
         return AutoConfig.getConfigHolder(WilderWildConfig.class).getConfig();
     }
 
     public static Component text(String key) {
-        return Component.translatable(
-                "option." + WilderWild.MOD_ID + "." + key);
+        return Component.translatable("option." + WilderWild.MOD_ID + "." + key);
     }
 
     public static Component tooltip(String key) {
-        return Component.translatable(
-                "tooltip." + WilderWild.MOD_ID + "." + key);
+        return Component.translatable("tooltip." + WilderWild.MOD_ID + "." + key);
     }
 
     @Environment(EnvType.CLIENT)
     public static Screen buildScreen(Screen parent) {
-        var configBuilder = ConfigBuilder.create().setParentScreen(parent)
-                .setTitle(text("component.title"));
-        configBuilder.setSavingRunnable(
-                () -> AutoConfig.getConfigHolder(WilderWildConfig.class)
-                        .save());
+        var configBuilder = ConfigBuilder.create().setParentScreen(parent).setTitle(text("component.title"));
+        configBuilder.setSavingRunnable(() -> AutoConfig.getConfigHolder(WilderWildConfig.class).save());
         //ConfigCategory general = configBuilder.getOrCreateCategory(text("general"));
         var block = configBuilder.getOrCreateCategory(text("block"));
         var entity = configBuilder.getOrCreateCategory(text("entity"));

@@ -20,16 +20,14 @@ public abstract class MobMixin extends LivingEntity {
 
     }
 
-    protected MobMixin(EntityType<? extends LivingEntity> entityType,
-                       Level level) {
+    protected MobMixin(EntityType<? extends LivingEntity> entityType, Level level) {
         super(entityType, level);
     }
 
     @Inject(method = "<init>", at = @At("TAIL"))
-    private void mobEntity(EntityType<? extends Mob> entityType, Level level,
-                           CallbackInfo ci) {
+    private void mobEntity(EntityType<? extends Mob> entityType, Level level, CallbackInfo ci) {
         if (ClothConfigInteractionHandler.unpassableRail()) {
-            this.setPathfindingMalus(BlockPathTypes.UNPASSABLE_RAIL, 0);
+            this.setPathfindingMalus(BlockPathTypes.UNPASSABLE_RAIL, 0.0F);
         }
     }
 }

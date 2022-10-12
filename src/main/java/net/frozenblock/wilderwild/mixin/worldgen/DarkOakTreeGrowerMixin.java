@@ -14,8 +14,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 public class DarkOakTreeGrowerMixin {
 
     @Inject(method = "getConfiguredMegaFeature", at = @At("RETURN"), cancellable = true)
-    public void getConfiguredMegaFeature(RandomSource randomSource,
-                                         CallbackInfoReturnable<Holder<? extends ConfiguredFeature<?, ?>>> cir) {
+    public void getConfiguredMegaFeature(RandomSource randomSource, CallbackInfoReturnable<Holder<? extends ConfiguredFeature<?, ?>>> cir) {
         if (randomSource.nextFloat() < 0.2F) {
             cir.setReturnValue(WilderTreeConfigured.NEW_TALL_DARK_OAK);
             cir.cancel();

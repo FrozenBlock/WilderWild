@@ -15,20 +15,15 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 public class BlockMixin {
 
     @Inject(method = "getSoundType", at = @At("RETURN"), cancellable = true)
-    private void getSoundType(BlockState state,
-                              CallbackInfoReturnable<SoundType> info) {
+    private void getSoundType(BlockState state, CallbackInfoReturnable<SoundType> info) {
         Block block = state.getBlock();
         ResourceLocation id = Registry.BLOCK.getKey(block);
         if (BlockSoundGroupOverwrites.ids.contains(id)) {
             int index = BlockSoundGroupOverwrites.ids.indexOf(id);
-            info.setReturnValue(
-                    BlockSoundGroupOverwrites.soundGroups.get(index));
-        } else if (BlockSoundGroupOverwrites.namespaces.contains(
-                id.getNamespace())) {
-            int index = BlockSoundGroupOverwrites.namespaces.indexOf(
-                    id.getNamespace());
-            info.setReturnValue(
-                    BlockSoundGroupOverwrites.namespaceSoundGroups.get(index));
+            info.setReturnValue(BlockSoundGroupOverwrites.soundGroups.get(index));
+        } else if (BlockSoundGroupOverwrites.namespaces.contains(id.getNamespace())) {
+            int index = BlockSoundGroupOverwrites.namespaces.indexOf(id.getNamespace());
+            info.setReturnValue(BlockSoundGroupOverwrites.namespaceSoundGroups.get(index));
         }
     }
 }

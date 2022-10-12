@@ -28,15 +28,7 @@ import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
-import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.EntityDimensions;
-import net.minecraft.world.entity.EntitySelector;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.Mob;
-import net.minecraft.world.entity.MobSpawnType;
-import net.minecraft.world.entity.Pose;
-import net.minecraft.world.entity.SpawnGroupData;
+import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.Brain;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
@@ -88,74 +80,53 @@ public class Jellyfish extends AbstractFish {
         this.setVariant(JellyfishVariant.PINK);
     }
 
-    private static final EntityDataAccessor<JellyfishVariant> VARIANT =
-            SynchedEntityData.defineId(Jellyfish.class,
-                    JellyfishVariant.SERIALIZER);
+    private static final EntityDataAccessor<JellyfishVariant> VARIANT = SynchedEntityData.defineId(Jellyfish.class, JellyfishVariant.SERIALIZER);
 
-    public static final ArrayList<JellyfishVariant> COLORED_VARIANTS =
-            new ArrayList<>(WilderRegistry.JELLYFISH_VARIANT.stream()
-                    .filter(JellyfishVariant::isNormal)
-                    .collect(Collectors.toList())
-            );
+    public static final ArrayList<JellyfishVariant> COLORED_VARIANTS = new ArrayList<>(WilderRegistry.JELLYFISH_VARIANT.stream()
+            .filter(JellyfishVariant::isNormal)
+            .collect(Collectors.toList())
+    );
 
-    public static final ArrayList<JellyfishVariant> PEARLESCENT_VARIANTS =
-            new ArrayList<>(WilderRegistry.JELLYFISH_VARIANT.stream()
-                    .filter(JellyfishVariant::isPearlescent)
-                    .collect(Collectors.toList())
-            );
+    public static final ArrayList<JellyfishVariant> PEARLESCENT_VARIANTS = new ArrayList<>(WilderRegistry.JELLYFISH_VARIANT.stream()
+            .filter(JellyfishVariant::isPearlescent)
+            .collect(Collectors.toList())
+    );
 
     @Nullable
     @Override
-    public SpawnGroupData finalizeSpawn(ServerLevelAccessor level,
-                                        @NotNull DifficultyInstance difficulty,
-                                        @NotNull MobSpawnType reason,
-                                        @Nullable SpawnGroupData spawnData,
-                                        @Nullable CompoundTag dataTag) {
+    public SpawnGroupData finalizeSpawn(ServerLevelAccessor level, @NotNull DifficultyInstance difficulty, @NotNull MobSpawnType reason, @Nullable SpawnGroupData spawnData, @Nullable CompoundTag dataTag) {
         Holder<Biome> holder = level.getBiome(this.blockPosition());
         if (holder.is(WilderBiomeTags.PEARLESCENT_JELLYFISH)) {
-            this.setVariant(PEARLESCENT_VARIANTS.get(
-                    (int) (Math.random() * PEARLESCENT_VARIANTS.size())));
+            this.setVariant(PEARLESCENT_VARIANTS.get((int) (Math.random() * PEARLESCENT_VARIANTS.size())));
         } else {
-            this.setVariant(COLORED_VARIANTS.get(
-                    (int) (Math.random() * COLORED_VARIANTS.size())));
+            this.setVariant(COLORED_VARIANTS.get((int) (Math.random() * COLORED_VARIANTS.size())));
         }
-        return super.finalizeSpawn(level, difficulty, reason, spawnData,
-                dataTag);
+        return super.finalizeSpawn(level, difficulty, reason, spawnData, dataTag);
     }
 
-    public static boolean canSpawn(EntityType<Jellyfish> type,
-                                   ServerLevelAccessor level,
-                                   MobSpawnType reason, BlockPos pos,
-                                   RandomSource random) {
+    public static boolean canSpawn(EntityType<Jellyfish> type, ServerLevelAccessor level, MobSpawnType reason, BlockPos pos, RandomSource random) {
         Holder<Biome> holder = level.getBiome(pos);
 
         if (holder.is(WilderBiomeTags.PEARLESCENT_JELLYFISH)) {
-            if (reason == MobSpawnType.SPAWNER ||
-                    level.getRawBrightness(pos, 0) <= 7 && random.nextInt(0,
-                            level.getRawBrightness(pos, 0) + 3) >= 1) {
+            if (reason == MobSpawnType.SPAWNER || level.getRawBrightness(pos, 0) <= 7 && random.nextInt(0, level.getRawBrightness(pos, 0) + 3) >= 1) {
                 return true;
             }
         }
-        return reason == MobSpawnType.SPAWNER || random.nextInt(1, 10) == 3 &&
-                pos.getY() <= level.getSeaLevel() - 3 &&
-                pos.getY() >= level.getSeaLevel() - 26;
+        return reason == MobSpawnType.SPAWNER || random.nextInt(1, 10) == 3 && pos.getY() <= level.getSeaLevel() - 3 && pos.getY() >= level.getSeaLevel() - 26;
     }
 
     @Override
     public void saveToBucketTag(@NotNull ItemStack stack) {
         Bucketable.saveDefaultDataToBucketTag(this, stack);
         CompoundTag compoundTag = stack.getOrCreateTag();
-        compoundTag.putString("variant", Objects.requireNonNull(
-                        WilderRegistry.JELLYFISH_VARIANT.getKey(this.getVariant()))
-                .toString());
+        compoundTag.putString("variant", Objects.requireNonNull(WilderRegistry.JELLYFISH_VARIANT.getKey(this.getVariant())).toString());
     }
 
     @Override
     public void loadFromBucketTag(@NotNull CompoundTag tag) {
         Bucketable.loadDefaultDataFromBucketTag(this, tag);
         if (tag.contains("variant")) {
-            JellyfishVariant variant = WilderRegistry.JELLYFISH_VARIANT.get(
-                    ResourceLocation.tryParse(tag.getString("variant")));
+            JellyfishVariant variant = WilderRegistry.JELLYFISH_VARIANT.get(ResourceLocation.tryParse(tag.getString("variant")));
             if (variant != null) {
                 this.setVariant(variant);
             }
@@ -163,21 +134,17 @@ public class Jellyfish extends AbstractFish {
     }
 
     public static AttributeSupplier.Builder addAttributes() {
-        return Mob.createMobAttributes().add(Attributes.MAX_HEALTH, 8)
-                .add(Attributes.MOVEMENT_SPEED, 0.5f);
+        return Mob.createMobAttributes().add(Attributes.MAX_HEALTH, 8.0D).add(Attributes.MOVEMENT_SPEED, 0.5f);
     }
 
     @Override
-    protected float getStandingEyeHeight(@NotNull Pose pose,
-                                         EntityDimensions dimensions) {
+    protected float getStandingEyeHeight(@NotNull Pose pose, EntityDimensions dimensions) {
         return dimensions.height * 0.5f;
     }
 
     @Override
     protected SoundEvent getAmbientSound() {
-        return this.isInWaterOrBubble() ?
-                RegisterSounds.ENTITY_JELLYFISH_AMBIENT_WATER :
-                RegisterSounds.ENTITY_JELLYFISH_AMBIENT;
+        return this.isInWaterOrBubble() ? RegisterSounds.ENTITY_JELLYFISH_AMBIENT_WATER : RegisterSounds.ENTITY_JELLYFISH_AMBIENT;
     }
 
     @Override
@@ -187,16 +154,12 @@ public class Jellyfish extends AbstractFish {
 
     @Override
     protected SoundEvent getHurtSound(@NotNull DamageSource damageSource) {
-        return this.isInWaterOrBubble() ?
-                RegisterSounds.ENTITY_JELLYFISH_HURT_WATER :
-                RegisterSounds.ENTITY_JELLYFISH_HURT;
+        return this.isInWaterOrBubble() ? RegisterSounds.ENTITY_JELLYFISH_HURT_WATER : RegisterSounds.ENTITY_JELLYFISH_HURT;
     }
 
     @Override
     protected SoundEvent getDeathSound() {
-        return this.isInWaterOrBubble() ?
-                RegisterSounds.ENTITY_JELLYFISH_DEATH_WATER :
-                RegisterSounds.ENTITY_JELLYFISH_DEATH;
+        return this.isInWaterOrBubble() ? RegisterSounds.ENTITY_JELLYFISH_DEATH_WATER : RegisterSounds.ENTITY_JELLYFISH_DEATH;
     }
 
     @Override
@@ -228,8 +191,7 @@ public class Jellyfish extends AbstractFish {
     @Override
     @Nullable
     public LivingEntity getTarget() {
-        return this.getBrain().getMemory(MemoryModuleType.ATTACK_TARGET)
-                .orElse(null);
+        return this.getBrain().getMemory(MemoryModuleType.ATTACK_TARGET).orElse(null);
     }
 
     public void setAttackTarget(LivingEntity livingEntity) {
@@ -257,14 +219,12 @@ public class Jellyfish extends AbstractFish {
         if (inWater) {
             this.rotateSpeed *= 0.8f;
             Vec3 vec3 = this.getDeltaMovement();
-            this.yBodyRot += (-(Mth.atan2(vec3.x, vec3.z)) * 57.295776f -
-                    this.yBodyRot) * 0.1f;
+            this.yBodyRot += (-(Mth.atan2(vec3.x, vec3.z)) * 57.295776f - this.yBodyRot) * 0.1f;
             this.setYRot(this.yBodyRot);
             this.zBodyRot += (float) Math.PI * this.rotateSpeed * 1.5f;
-            this.xBodyRot += (-(Mth.atan2(vec3.horizontalDistance(), vec3.y)) *
-                    57.295776f - this.xBodyRot) * 0.1f;
+            this.xBodyRot += (-(Mth.atan2(vec3.horizontalDistance(), vec3.y)) * 57.295776f - this.xBodyRot) * 0.1f;
         } else {
-            this.xBodyRot += (-90 - this.xBodyRot) * 0.02f;
+            this.xBodyRot += (-90.0f - this.xBodyRot) * 0.02f;
         }
 
         if (inWater) {
@@ -276,20 +236,15 @@ public class Jellyfish extends AbstractFish {
         LivingEntity target = this.getTarget();
         if (target != null) {
             ++this.ticksSinceCantReach;
-            boolean creative =
-                    target instanceof Player player && player.isCreative();
-            if (this.ticksSinceCantReach > 300 || target.isDeadOrDying() ||
-                    target.isRemoved() || target.distanceTo(this) > 20 ||
-                    this.level.getDifficulty() == Difficulty.PEACEFUL ||
-                    target.isSpectator() || creative) {
+            boolean creative = target instanceof Player player && player.isCreative();
+            if (this.ticksSinceCantReach > 300 || target.isDeadOrDying() || target.isRemoved() || target.distanceTo(this) > 20 || this.level.getDifficulty() == Difficulty.PEACEFUL || target.isSpectator() || creative) {
                 this.getBrain().eraseMemory(MemoryModuleType.ATTACK_TARGET);
                 this.ticksSinceCantReach = 0;
             } else {
                 this.getNavigation().stop();
                 this.getNavigation().moveTo(this.getTarget(), 2);
                 if (target.distanceTo(this) < 5) {
-                    this.ticksSinceCantReach =
-                            Math.max(this.ticksSinceCantReach - 2, 0);
+                    this.ticksSinceCantReach = Math.max(this.ticksSinceCantReach - 2, 0);
                 }
             }
         } else {
@@ -299,27 +254,18 @@ public class Jellyfish extends AbstractFish {
 
     public void stingEntities() {
         if (this.isAlive()) {
-            List<LivingEntity> list =
-                    this.level.getEntitiesOfClass(LivingEntity.class,
-                            this.getBoundingBox().inflate(0.08));
+            List<LivingEntity> list = this.level.getEntitiesOfClass(LivingEntity.class, this.getBoundingBox().inflate(0.08));
             for (LivingEntity entity : list) {
                 if (this.targetingConditions.test(this, entity)) {
                     if (entity instanceof ServerPlayer player) {
                         if (player.hurt(DamageSource.mobAttack(this), 3)) {
-                            player.addEffect(
-                                    new MobEffectInstance(MobEffects.POISON,
-                                            200, 0, false, false), this);
+                            player.addEffect(new MobEffectInstance(MobEffects.POISON, 200, 0, false, false), this);
                             EasyPacket.sendJellySting(player);
                         }
                     } else if (entity instanceof Mob mob) {
-                        if (mob.hurt(DamageSource.mobAttack(this),
-                                (float) (3))) {
-                            mob.addEffect(
-                                    new MobEffectInstance(MobEffects.POISON,
-                                            200, 0), this);
-                            this.playSound(
-                                    RegisterSounds.ENTITY_JELLYFISH_STING, 0.4F,
-                                    this.random.nextFloat() * 0.2f + 0.9f);
+                        if (mob.hurt(DamageSource.mobAttack(this), (float) (3))) {
+                            mob.addEffect(new MobEffectInstance(MobEffects.POISON, 200, 0), this);
+                            this.playSound(RegisterSounds.ENTITY_JELLYFISH_STING, 0.4F, this.random.nextFloat() * 0.2f + 0.9f);
                         }
                     }
                 }
@@ -337,15 +283,11 @@ public class Jellyfish extends AbstractFish {
                 && livingEntity.getType() != RegisterEntities.JELLYFISH
                 && !livingEntity.isInvulnerable()
                 && !livingEntity.isDeadOrDying()
-                && !livingEntity.getType()
-                .is(WilderEntityTags.JELLYFISH_CANT_STING)
-                && this.level.getWorldBorder()
-                .isWithinBounds(livingEntity.getBoundingBox());
+                && !livingEntity.getType().is(WilderEntityTags.JELLYFISH_CANT_STING)
+                && this.level.getWorldBorder().isWithinBounds(livingEntity.getBoundingBox());
     }
 
-    public final TargetingConditions targetingConditions =
-            TargetingConditions.forNonCombat().ignoreInvisibilityTesting()
-                    .ignoreLineOfSight().selector(this::canTargetEntity);
+    public final TargetingConditions targetingConditions = TargetingConditions.forNonCombat().ignoreInvisibilityTesting().ignoreLineOfSight().selector(this::canTargetEntity);
 
     @Override
     protected void customServerAiStep() {
@@ -372,8 +314,7 @@ public class Jellyfish extends AbstractFish {
     @Override
     public boolean hurt(@NotNull DamageSource source, float amount) {
         if (super.hurt(source, amount)) {
-            if (!this.level.isClientSide &&
-                    this.level.getDifficulty() != Difficulty.PEACEFUL) {
+            if (!this.level.isClientSide && this.level.getDifficulty() != Difficulty.PEACEFUL) {
                 LivingEntity target = this.getLastHurtByMob();
                 if (target instanceof Player player) {
                     if (!player.isCreative() && !player.isSpectator()) {
@@ -389,23 +330,16 @@ public class Jellyfish extends AbstractFish {
     }
 
     public ResourceLocation getJellyLootTable() {
-        ResourceLocation resourceLocation =
-                Registry.ENTITY_TYPE.getKey(RegisterEntities.JELLYFISH);
-        return new ResourceLocation(this.getVariant().getKey().getNamespace(),
-                "entities/" + resourceLocation.getPath() + "_" +
-                        this.getVariant().getKey().getPath());
+        ResourceLocation resourceLocation = Registry.ENTITY_TYPE.getKey(RegisterEntities.JELLYFISH);
+        return new ResourceLocation(this.getVariant().getKey().getNamespace(), "entities/" + resourceLocation.getPath() + "_" + this.getVariant().getKey().getPath());
     }
 
     @Override
-    protected void dropFromLootTable(@NotNull DamageSource damageSource,
-                                     boolean bl) {
+    protected void dropFromLootTable(@NotNull DamageSource damageSource, boolean bl) {
         ResourceLocation resourceLocation = this.getJellyLootTable();
-        LootTable lootTable =
-                Objects.requireNonNull(this.level.getServer()).getLootTables()
-                        .get(resourceLocation);
+        LootTable lootTable = Objects.requireNonNull(this.level.getServer()).getLootTables().get(resourceLocation);
         LootContext.Builder builder = this.createLootContext(bl, damageSource);
-        lootTable.getRandomItems(builder.create(LootContextParamSets.ENTITY),
-                this::spawnAtLocation);
+        lootTable.getRandomItems(builder.create(LootContextParamSets.ENTITY), this::spawnAtLocation);
     }
 
     @Override
@@ -424,8 +358,7 @@ public class Jellyfish extends AbstractFish {
 
     public boolean isRGB() {
         var name = this.getName().getString();
-        return this.hasCustomName() && (name.equalsIgnoreCase("I_am_Merp") ||
-                name.equals("AroundTheWorld"));
+        return this.hasCustomName() && (name.equalsIgnoreCase("I_am_Merp") || name.equals("AroundTheWorld"));
     }
 
     @Override
@@ -438,17 +371,14 @@ public class Jellyfish extends AbstractFish {
     public void addAdditionalSaveData(@NotNull CompoundTag compound) {
         super.addAdditionalSaveData(compound);
         compound.putInt("ticksSinceCantReach", this.ticksSinceCantReach);
-        compound.putString("variant", Objects.requireNonNull(
-                        WilderRegistry.JELLYFISH_VARIANT.getKey(this.getVariant()))
-                .toString());
+        compound.putString("variant", Objects.requireNonNull(WilderRegistry.JELLYFISH_VARIANT.getKey(this.getVariant())).toString());
     }
 
     @Override
     public void readAdditionalSaveData(@NotNull CompoundTag compound) {
         super.readAdditionalSaveData(compound);
         this.ticksSinceCantReach = compound.getInt("ticksSinceCantReach");
-        JellyfishVariant variant = WilderRegistry.JELLYFISH_VARIANT.get(
-                ResourceLocation.tryParse(compound.getString("variant")));
+        JellyfishVariant variant = WilderRegistry.JELLYFISH_VARIANT.get(ResourceLocation.tryParse(compound.getString("variant")));
         if (variant != null) {
             this.setVariant(variant);
         }
@@ -458,7 +388,7 @@ public class Jellyfish extends AbstractFish {
     protected void registerGoals() {
         //super.registerGoals();
         //this.goalSelector.addGoal(0, new PanicGoal(this, 1.9));
-        //this.goalSelector.addGoal(2, new AvoidEntityGoal<>(this, Player.class, 2f, 1, 1.4, EntitySelector.NO_SPECTATORS::test));
+        //this.goalSelector.addGoal(2, new AvoidEntityGoal<>(this, Player.class, 2f, 1.0, 1.4, EntitySelector.NO_SPECTATORS::test));
         this.goalSelector.addGoal(4, new JellySwimGoal(this));
     }
 
@@ -466,20 +396,18 @@ public class Jellyfish extends AbstractFish {
         private final Jellyfish jelly;
 
         public JellySwimGoal(Jellyfish jelly) {
-            super(jelly, 1, 40);
+            super(jelly, 1.0, 40);
             this.jelly = jelly;
         }
 
         @Override
         public boolean canUse() {
-            return this.jelly.getTarget() == null &&
-                    this.jelly.canRandomSwim() && super.canUse();
+            return this.jelly.getTarget() == null && this.jelly.canRandomSwim() && super.canUse();
         }
 
         @Override
         public boolean canContinueToUse() {
-            return this.jelly.getTarget() == null &&
-                    !this.mob.getNavigation().isDone() && !this.mob.isVehicle();
+            return this.jelly.getTarget() == null && !this.mob.getNavigation().isDone() && !this.mob.isVehicle();
         }
     }
 

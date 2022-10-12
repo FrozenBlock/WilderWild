@@ -11,39 +11,21 @@ import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.NotNull;
 
-public final class BaobabLeaves extends LeavesBlock
-        implements BonemealableBlock {
-    public BaobabLeaves(final BlockBehaviour.Properties settings) {
+public class BaobabLeaves extends LeavesBlock implements BonemealableBlock {
+    public BaobabLeaves(BlockBehaviour.Properties settings) {
         super(settings);
     }
 
-    @Override
-    public boolean isValidBonemealTarget(
-            final BlockGetter level,
-            final BlockPos pos,
-            final @NotNull BlockState state,
-            final boolean isClient
-    ) {
+    public boolean isValidBonemealTarget(BlockGetter level, BlockPos pos, @NotNull BlockState state, boolean isClient) {
         return level.getBlockState(pos.below()).isAir();
     }
 
-    @Override
-    public boolean isBonemealSuccess(
-            final @NotNull Level level,
-            final @NotNull RandomSource random,
-            final @NotNull BlockPos pos,
-            final @NotNull BlockState state
-    ) {
+    public boolean isBonemealSuccess(@NotNull Level level, @NotNull RandomSource random, @NotNull BlockPos pos, @NotNull BlockState state) {
         return true;
     }
 
-    @Override
-    public void performBonemeal(
-            final ServerLevel level,
-            final @NotNull RandomSource random,
-            final BlockPos pos,
-            final @NotNull BlockState state
-    ) {
+
+    public void performBonemeal(ServerLevel level, @NotNull RandomSource random, BlockPos pos, @NotNull BlockState state) {
         level.setBlock(pos.below(), BaobabNutBlock.getDefaultHangingState(), 2);
     }
 }

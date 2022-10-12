@@ -30,24 +30,17 @@ public class SculkShriekerBlockMixin extends BaseEntityBlock {
     }
 
     @Override
-    public VoxelShape getShape(@NotNull BlockState state,
-                               @NotNull BlockGetter level,
-                               @NotNull BlockPos pos,
-                               @NotNull CollisionContext context) {
-        return Shapes.or(Block.box(0, 0, 0, 16, 8, 16),
-                Block.box(1, 8, 1, 15, 15, 15));
+    public VoxelShape getShape(@NotNull BlockState state, @NotNull BlockGetter level, @NotNull BlockPos pos, @NotNull CollisionContext context) {
+        return Shapes.or(Block.box(0.0D, 0.0D, 0.0D, 16.0D, 8.0D, 16.0D), Block.box(1.0D, 8.0D, 1.0D, 15.0D, 15.0D, 15.0D));
     }
 
     @Inject(at = @At("TAIL"), method = "createBlockStateDefinition")
-    public void createBlockStateDefinition(
-            StateDefinition.Builder<Block, BlockState> builder,
-            CallbackInfo info) {
+    public void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder, CallbackInfo info) {
         builder.add(RegisterProperties.SOULS_TAKEN);
     }
 
     @Inject(at = @At("HEAD"), method = "stepOn", cancellable = true)
-    public void stepOn(Level level, BlockPos pos, BlockState state,
-                       Entity entity, CallbackInfo info) {
+    public void stepOn(Level level, BlockPos pos, BlockState state, Entity entity, CallbackInfo info) {
         if (state.getValue(RegisterProperties.SOULS_TAKEN) == 2) {
             info.cancel();
         }

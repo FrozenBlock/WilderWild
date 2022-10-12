@@ -25,11 +25,7 @@ public class UpwardsPillarFeature extends Feature<WilderPillarConfig> {
         int by = blockPos.getY();
         int height = context.config().height.sample(random);
         for (int y = 0; y < height; y++) {
-            if (context.config().replaceable.contains(
-                    level.getBlockState(mutable).getBlockHolder()) ||
-                    level.getBlockState(mutable).isAir() ||
-                    level.getBlockState(mutable).getFluidState() !=
-                            Fluids.EMPTY.defaultFluidState()) {
+            if (context.config().replaceable.contains(level.getBlockState(mutable).getBlockHolder()) || level.getBlockState(mutable).isAir() || level.getBlockState(mutable).getFluidState() != Fluids.EMPTY.defaultFluidState()) {
                 bl = true;
                 level.setBlock(mutable, context.config().columnBlock, 3);
                 mutable.set(bx, by + y, bz);

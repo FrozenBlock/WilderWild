@@ -15,8 +15,7 @@ import java.util.Objects;
 public class FrogMixin {
     @Inject(at = @At("RETURN"), method = "getDeathSound", cancellable = true)
     public void newDeath(CallbackInfoReturnable<SoundEvent> cir) {
-        String string = ChatFormatting.stripFormatting(
-                Frog.class.cast(this).getName().getString());
+        String string = ChatFormatting.stripFormatting(Frog.class.cast(this).getName().getString());
         if (Objects.equals(string, "Xfrtrex")) {
             cir.setReturnValue(RegisterSounds.ENTITY_FROG_SUS_DEATH);
         }

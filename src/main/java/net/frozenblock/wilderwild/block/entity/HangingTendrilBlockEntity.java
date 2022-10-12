@@ -24,8 +24,7 @@ import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-public class HangingTendrilBlockEntity extends BlockEntity
-        implements VibrationListener.VibrationListenerConfig {
+public class HangingTendrilBlockEntity extends BlockEntity implements VibrationListener.VibrationListenerConfig {
     private VibrationListener listener;
     private int lastVibrationFrequency;
     public int ticksToStopTwitching;
@@ -34,30 +33,23 @@ public class HangingTendrilBlockEntity extends BlockEntity
 
     public HangingTendrilBlockEntity(BlockPos pos, BlockState state) {
         super(RegisterBlockEntities.HANGING_TENDRIL, pos, state);
-        this.listener = new VibrationListener(
-                new BlockPositionSource(this.worldPosition),
-                ((HangingTendrilBlock) state.getBlock()).getRange(), this, null,
-                0, 0);
+        this.listener = new VibrationListener(new BlockPositionSource(this.worldPosition), ((HangingTendrilBlock) state.getBlock()).getRange(), this, null, 0.0F, 0);
     }
 
     public void serverTick(Level level, BlockPos pos, BlockState state) {
         if (this.ticksToStopTwitching == 0) {
-            level.setBlockAndUpdate(pos,
-                    state.setValue(HangingTendrilBlock.TWITCHING, false));
+            level.setBlockAndUpdate(pos, state.setValue(HangingTendrilBlock.TWITCHING, false));
         }
         --this.ticksToStopTwitching;
         if (this.ringOutTicksLeft >= 0) {
             --this.ringOutTicksLeft;
         } else if (state.getValue(HangingTendrilBlock.WRINGING_OUT)) {
-            level.setBlockAndUpdate(pos,
-                    state.setValue(HangingTendrilBlock.WRINGING_OUT, false));
+            level.setBlockAndUpdate(pos, state.setValue(HangingTendrilBlock.WRINGING_OUT, false));
             if (this.storedXP > 0) {
                 int droppedXP = this.storedXP > 1 ? this.storedXP / 2 : 1;
-                ExperienceOrb.award((ServerLevel) level,
-                        Vec3.atCenterOf(pos).add(0, -0.5, 0), droppedXP);
+                ExperienceOrb.award((ServerLevel) level, Vec3.atCenterOf(pos).add(0, -0.5, 0), droppedXP);
                 this.storedXP = this.storedXP - droppedXP;
-                level.gameEvent(null, RegisterGameEvents.TENDRIL_EXTRACT_XP,
-                        pos);
+                level.gameEvent(null, RegisterGameEvents.TENDRIL_EXTRACT_XP, pos);
             }
         }
         this.listener.tick(level);
@@ -71,8 +63,7 @@ public class HangingTendrilBlockEntity extends BlockEntity
         this.ringOutTicksLeft = tag.getInt("ringOutTicksLeft");
         if (tag.contains("listener", 10)) {
             VibrationListener.codec(this)
-                    .parse(new Dynamic<>(NbtOps.INSTANCE,
-                            tag.getCompound("listener")))
+                    .parse(new Dynamic<>(NbtOps.INSTANCE, tag.getCompound("listener")))
                     .resultOrPartial(WilderWild.LOGGER::error)
                     .ifPresent(listener -> this.listener = listener);
         }
@@ -104,35 +95,16 @@ public class HangingTendrilBlockEntity extends BlockEntity
     }
 
     @Override
-    public boolean shouldListen(@NotNull ServerLevel level,
-                                @NotNull GameEventListener listener,
-                                @NotNull BlockPos pos,
-                                @NotNull GameEvent gameEvent,
-                                @Nullable GameEvent.Context context) {
-        return !this.isRemoved() && (!pos.equals(this.getBlockPos()) ||
-                gameEvent != GameEvent.BLOCK_DESTROY &&
-                        gameEvent != GameEvent.BLOCK_PLACE) &&
-                HangingTendrilBlock.isInactive(this.getBlockState()) &&
-                !this.getBlockState()
-                        .getValue(HangingTendrilBlock.WRINGING_OUT);
+    public boolean shouldListen(@NotNull ServerLevel level, @NotNull GameEventListener listener, @NotNull BlockPos pos, @NotNull GameEvent gameEvent, @Nullable GameEvent.Context context) {
+        return !this.isRemoved() && (!pos.equals(this.getBlockPos()) || gameEvent != GameEvent.BLOCK_DESTROY && gameEvent != GameEvent.BLOCK_PLACE) && HangingTendrilBlock.isInactive(this.getBlockState()) && !this.getBlockState().getValue(HangingTendrilBlock.WRINGING_OUT);
     }
 
     @Override
-    public void onSignalReceive(@NotNull ServerLevel level,
-                                @NotNull GameEventListener listener,
-                                @NotNull BlockPos sourcePos,
-                                @NotNull GameEvent gameEvent,
-                                @Nullable Entity sourceEntity,
-                                @Nullable Entity projectileOwner,
-                                float distance) {
+    public void onSignalReceive(@NotNull ServerLevel level, @NotNull GameEventListener listener, @NotNull BlockPos sourcePos, @NotNull GameEvent gameEvent, @Nullable Entity sourceEntity, @Nullable Entity projectileOwner, float distance) {
         BlockState blockState = this.getBlockState();
         if (HangingTendrilBlock.isInactive(blockState)) {
-            this.lastVibrationFrequency =
-                    SculkSensorBlock.VIBRATION_FREQUENCY_FOR_EVENT.getInt(
-                            gameEvent);
-            HangingTendrilBlock.setActive(sourceEntity, level,
-                    this.worldPosition, blockState, gameEvent,
-                    getPower(distance, listener.getListenerRadius()));
+            this.lastVibrationFrequency = SculkSensorBlock.VIBRATION_FREQUENCY_FOR_EVENT.getInt(gameEvent);
+            HangingTendrilBlock.setActive(sourceEntity, level, this.worldPosition, blockState, gameEvent, getPower(distance, listener.getListenerRadius()));
         }
     }
 
@@ -143,6 +115,6 @@ public class HangingTendrilBlockEntity extends BlockEntity
 
     public static int getPower(float distance, int range) {
         double d = (double) distance / (double) range;
-        return Math.max(1, 15 - Mth.floor(d * 15));
+        return Math.max(1, 15 - Mth.floor(d * 15.0D));
     }
 }

@@ -16,23 +16,18 @@ import net.minecraft.util.Mth;
 import org.jetbrains.annotations.NotNull;
 
 @Environment(EnvType.CLIENT)
-public class JellyfishRenderer
-        extends MobRenderer<Jellyfish, JellyfishModel<Jellyfish>> {
+public class JellyfishRenderer extends MobRenderer<Jellyfish, JellyfishModel<Jellyfish>> {
 
     private static final String BASE_TEXTURE = "textures/entity/jellyfish/";
-    private static final String WHITE_TEXTURE =
-            "textures/entity/jellyfish/white.png";
+    private static final String WHITE_TEXTURE = "textures/entity/jellyfish/white.png";
 
     public JellyfishRenderer(Context context) {
-        super(context, new JellyfishModel<>(
-                context.bakeLayer(WilderWildClient.JELLYFISH)), 0.3F);
+        super(context, new JellyfishModel<>(context.bakeLayer(WilderWildClient.JELLYFISH)), 0.3F);
     }
 
     @Override
-    public void setupRotations(@NotNull Jellyfish jelly, PoseStack poseStack,
-                               float ageInTicks, float rotationYaw,
-                               float partialTicks) {
-        poseStack.mulPose(Vector3f.YP.rotationDegrees(180 - rotationYaw));
+    public void setupRotations(@NotNull Jellyfish jelly, PoseStack poseStack, float ageInTicks, float rotationYaw, float partialTicks) {
+        poseStack.mulPose(Vector3f.YP.rotationDegrees(180.0f - rotationYaw));
         poseStack.translate(0, -1, 0);
         poseStack.scale(0.8F, 0.8F, 0.8F);
         JellyfishModel<Jellyfish> model = this.getModel();
@@ -52,8 +47,7 @@ public class JellyfishRenderer
     }
 
     @Override
-    protected int getBlockLightLevel(@NotNull Jellyfish jellyfish,
-                                     @NotNull BlockPos blockPos) {
+    protected int getBlockLightLevel(@NotNull Jellyfish jellyfish, @NotNull BlockPos blockPos) {
         return 15;
     }
 
@@ -66,10 +60,7 @@ public class JellyfishRenderer
     }
 
     @Override
-    public void render(Jellyfish entity, float entityYaw, float partialTicks,
-                       PoseStack matrixStack, MultiBufferSource buffer,
-                       int packedLight) {
-        super.render(entity, entityYaw, partialTicks, matrixStack, buffer,
-                packedLight);
+    public void render(Jellyfish entity, float entityYaw, float partialTicks, PoseStack matrixStack, MultiBufferSource buffer, int packedLight) {
+        super.render(entity, entityYaw, partialTicks, matrixStack, buffer, packedLight);
     }
 }

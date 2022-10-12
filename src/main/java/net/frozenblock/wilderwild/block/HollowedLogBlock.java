@@ -19,25 +19,11 @@ import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
-public class HollowedLogBlock extends RotatedPillarBlock
-        implements SimpleWaterloggedBlock {
-    public static final BooleanProperty WATERLOGGED =
-            BlockStateProperties.WATERLOGGED;
-    protected static final VoxelShape X_SHAPE =
-            Shapes.or(Block.box(0, 0, 0, 16, 16, 3),
-                    Block.box(0, 13, 0, 16, 16, 16),
-                    Block.box(0, 0, 13, 16, 16, 16),
-                    Block.box(0, 0, 0, 16, 3, 16));
-    protected static final VoxelShape Y_SHAPE =
-            Shapes.or(Block.box(0, 0, 0, 16, 16, 3),
-                    Block.box(0, 0, 0, 3, 16, 16),
-                    Block.box(0, 0, 13, 16, 16, 16),
-                    Block.box(13, 0, 0, 16, 16, 16));
-    protected static final VoxelShape Z_SHAPE =
-            Shapes.or(Block.box(13, 0, 0, 16, 16, 16),
-                    Block.box(0, 0, 0, 3, 16, 16),
-                    Block.box(0, 13, 0, 16, 16, 16),
-                    Block.box(0, 0, 0, 16, 3, 16));
+public class HollowedLogBlock extends RotatedPillarBlock implements SimpleWaterloggedBlock {
+    public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
+    protected static final VoxelShape X_SHAPE = Shapes.or(Block.box(0, 0, 0, 16, 16, 3), Block.box(0, 13, 0, 16, 16, 16), Block.box(0, 0, 13, 16, 16, 16), Block.box(0, 0, 0, 16, 3, 16));
+    protected static final VoxelShape Y_SHAPE = Shapes.or(Block.box(0, 0, 0, 16, 16, 3), Block.box(0, 0, 0, 3, 16, 16), Block.box(0, 0, 13, 16, 16, 16), Block.box(13, 0, 0, 16, 16, 16));
+    protected static final VoxelShape Z_SHAPE = Shapes.or(Block.box(13, 0, 0, 16, 16, 16), Block.box(0, 0, 0, 3, 16, 16), Block.box(0, 13, 0, 16, 16, 16), Block.box(0, 0, 0, 16, 3, 16));
     protected static final VoxelShape RAYCAST_SHAPE = Shapes.block();
     //public static final IntProperty LEVEL = IntProperty.of("level", 0, 9);
     //public static final DirectionProperty FACING = Properties.FACING;
@@ -45,14 +31,11 @@ public class HollowedLogBlock extends RotatedPillarBlock
     // CLASS's BASE METHODS
     public HollowedLogBlock(Properties settings) {
         super(settings);
-        this.registerDefaultState(
-                this.defaultBlockState().setValue(WATERLOGGED, false)
-                        .setValue(AXIS, Direction.Axis.Y));
+        this.registerDefaultState(this.defaultBlockState().setValue(WATERLOGGED, false).setValue(AXIS, Direction.Axis.Y));
     }
 
     @Override
-    public VoxelShape getShape(BlockState state, BlockGetter level,
-                               BlockPos pos, CollisionContext context) {
+    public VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
         return switch (state.getValue(AXIS)) {
             default -> X_SHAPE;
             case Y -> Y_SHAPE;
@@ -60,8 +43,7 @@ public class HollowedLogBlock extends RotatedPillarBlock
         };
     }
 
-    public VoxelShape getInteractionShape(BlockState state, BlockGetter level,
-                                          BlockPos pos) {
+    public VoxelShape getInteractionShape(BlockState state, BlockGetter level, BlockPos pos) {
         return RAYCAST_SHAPE;
     }
 
@@ -74,24 +56,16 @@ public class HollowedLogBlock extends RotatedPillarBlock
 
     @Override
     public BlockState getStateForPlacement(BlockPlaceContext ctx) {
-        return this.defaultBlockState()
-                .setValue(AXIS, ctx.getClickedFace().getAxis())
-                .setValue(WATERLOGGED,
-                        ctx.getLevel().getFluidState(ctx.getClickedPos())
-                                .is(Fluids.WATER));
+        return this.defaultBlockState().setValue(AXIS, ctx.getClickedFace().getAxis()).setValue(WATERLOGGED, ctx.getLevel().getFluidState(ctx.getClickedPos()).is(Fluids.WATER));
     }
 
     @Override
-    public BlockState updateShape(BlockState state, Direction direction,
-                                  BlockState neighborState, LevelAccessor level,
-                                  BlockPos currentPos, BlockPos neighborPos) {
+    public BlockState updateShape(BlockState state, Direction direction, BlockState neighborState, LevelAccessor level, BlockPos currentPos, BlockPos neighborPos) {
         if (state.getValue(WATERLOGGED)) {
-            level.scheduleTick(currentPos, Fluids.WATER,
-                    Fluids.WATER.getTickDelay(level));
+            level.scheduleTick(currentPos, Fluids.WATER, Fluids.WATER.getTickDelay(level));
         }
         level.scheduleTick(currentPos, this, 1);
-        return super.updateShape(state, direction, neighborState, level,
-                currentPos, neighborPos);
+        return super.updateShape(state, direction, neighborState, level, currentPos, neighborPos);
     }
 
 
@@ -177,13 +151,11 @@ public class HollowedLogBlock extends RotatedPillarBlock
 
     @Override
     public FluidState getFluidState(BlockState state) {
-        return state.getValue(WATERLOGGED) ? Fluids.WATER.getSource(false) :
-                super.getFluidState(state);
+        return state.getValue(WATERLOGGED) ? Fluids.WATER.getSource(false) : super.getFluidState(state);
     }
 
     @Override
-    protected void createBlockStateDefinition(
-            StateDefinition.Builder<Block, BlockState> builder) {
+    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
         super.createBlockStateDefinition(builder);
         builder.add(WATERLOGGED);
     }
@@ -195,8 +167,7 @@ public class HollowedLogBlock extends RotatedPillarBlock
     }
 
     @Override
-    public boolean propagatesSkylightDown(BlockState state, BlockGetter level,
-                                          BlockPos pos) {
+    public boolean propagatesSkylightDown(BlockState state, BlockGetter level, BlockPos pos) {
         return !(Boolean) state.getValue(WATERLOGGED);
     }
 

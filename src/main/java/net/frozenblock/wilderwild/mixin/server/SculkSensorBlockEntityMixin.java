@@ -32,8 +32,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(SculkSensorBlockEntity.class)
-public class SculkSensorBlockEntityMixin extends BlockEntity
-        implements SculkSensorTickInterface {
+public class SculkSensorBlockEntityMixin extends BlockEntity implements SculkSensorTickInterface {
 
     public int animTicks;
     public int prevAnimTicks;
@@ -41,27 +40,18 @@ public class SculkSensorBlockEntityMixin extends BlockEntity
     public boolean active;
     public boolean prevActive;
 
-    public SculkSensorBlockEntityMixin(BlockEntityType<?> type, BlockPos pos,
-                                       BlockState state) {
+    public SculkSensorBlockEntityMixin(BlockEntityType<?> type, BlockPos pos, BlockState state) {
         super(type, pos, state);
     }
 
     @Inject(at = @At("HEAD"), method = "onSignalReceive")
-    public void onSignalReceive(ServerLevel level, GameEventListener listener,
-                                BlockPos pos, GameEvent event,
-                                @Nullable Entity entity,
-                                @Nullable Entity sourceEntity, float f,
-                                CallbackInfo info) {
-        SculkSensorBlockEntity sculkSensorBlockEntity =
-                SculkSensorBlockEntity.class.cast(this);
+    public void onSignalReceive(ServerLevel level, GameEventListener listener, BlockPos pos, GameEvent event, @Nullable Entity entity, @Nullable Entity sourceEntity, float f, CallbackInfo info) {
+        SculkSensorBlockEntity sculkSensorBlockEntity = SculkSensorBlockEntity.class.cast(this);
         BlockState blockState = sculkSensorBlockEntity.getBlockState();
         if (SculkSensorBlock.canActivate(blockState)) {
-            level.gameEvent(entity, RegisterGameEvents.SCULK_SENSOR_ACTIVATE,
-                    sculkSensorBlockEntity.getBlockPos());
-            BlockState state =
-                    level.getBlockState(sculkSensorBlockEntity.getBlockPos());
-            level.setBlockAndUpdate(sculkSensorBlockEntity.getBlockPos(),
-                    state.setValue(RegisterProperties.HICCUPPING, false));
+            level.gameEvent(entity, RegisterGameEvents.SCULK_SENSOR_ACTIVATE, sculkSensorBlockEntity.getBlockPos());
+            BlockState state = level.getBlockState(sculkSensorBlockEntity.getBlockPos());
+            level.setBlockAndUpdate(sculkSensorBlockEntity.getBlockPos(), state.setValue(RegisterProperties.HICCUPPING, false));
         }
     }
 
@@ -72,27 +62,17 @@ public class SculkSensorBlockEntityMixin extends BlockEntity
         boolean bl2 = level.random.nextBoolean();
         if (state.getValue(RegisterProperties.HICCUPPING)) {
             if (bl2) {
-                double x =
-                        (pos.getX() - 0.1) + (level.random.nextFloat() * 1.2);
+                double x = (pos.getX() - 0.1) + (level.random.nextFloat() * 1.2);
                 double y = pos.getY() + level.random.nextFloat();
-                double z =
-                        (pos.getZ() - 0.1) + (level.random.nextFloat() * 1.2);
-                EasyPacket.EasySensorHiccupPacket.createParticle(level,
-                        new Vec3(x, y, z));
+                double z = (pos.getZ() - 0.1) + (level.random.nextFloat() * 1.2);
+                EasyPacket.EasySensorHiccupPacket.createParticle(level, new Vec3(x, y, z));
             }
-            if (SculkSensorBlock.canActivate(state) &&
-                    level.random.nextInt(320) <= 1) {
+            if (SculkSensorBlock.canActivate(state) && level.random.nextInt(320) <= 1) {
                 WilderWild.log("Sensor Hiccups " + pos, WilderWild.DEV_LOGGING);
-                SculkSensorBlock.activate(null, level, pos, state,
-                        (int) (Math.random() * 15));
-                level.gameEvent(null, GameEvent.SCULK_SENSOR_TENDRILS_CLICKING,
-                        pos);
-                level.gameEvent(null, RegisterGameEvents.SCULK_SENSOR_ACTIVATE,
-                        pos);
-                level.playSound(null, pos,
-                        RegisterSounds.BLOCK_SCULK_SENSOR_HICCUP,
-                        SoundSource.BLOCKS, 1,
-                        level.random.nextFloat() * 0.1F + 0.7F);
+                SculkSensorBlock.activate(null, level, pos, state, (int) (Math.random() * 15));
+                level.gameEvent(null, GameEvent.SCULK_SENSOR_TENDRILS_CLICKING, pos);
+                level.gameEvent(null, RegisterGameEvents.SCULK_SENSOR_ACTIVATE, pos);
+                level.playSound(null, pos, RegisterSounds.BLOCK_SCULK_SENSOR_HICCUP, SoundSource.BLOCKS, 1.0F, level.random.nextFloat() * 0.1F + 0.7F);
             }
         }
         this.prevAnimTicks = this.animTicks;
@@ -100,8 +80,7 @@ public class SculkSensorBlockEntityMixin extends BlockEntity
             --this.animTicks;
         }
         ++this.age;
-        this.active = state.getValue(BlockStateProperties.SCULK_SENSOR_PHASE) ==
-                SculkSensorPhase.ACTIVE;
+        this.active = state.getValue(BlockStateProperties.SCULK_SENSOR_PHASE) == SculkSensorPhase.ACTIVE;
         if (this.active != this.prevActive || this.animTicks == 10) {
             for (ServerPlayer player : PlayerLookup.tracking(level, pos)) {
                 player.connection.send(sensor.getUpdatePacket());
@@ -122,8 +101,7 @@ public class SculkSensorBlockEntityMixin extends BlockEntity
 
     @Override
     public ClientboundBlockEntityDataPacket getUpdatePacket() {
-        return ClientboundBlockEntityDataPacket.create(
-                SculkSensorBlockEntity.class.cast(this));
+        return ClientboundBlockEntityDataPacket.create(SculkSensorBlockEntity.class.cast(this));
     }
 
     @Override

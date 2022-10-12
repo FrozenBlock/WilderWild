@@ -9,16 +9,13 @@ import net.minecraft.world.level.LevelReader;
 import org.jetbrains.annotations.NotNull;
 
 public class FireflyHidingGoal extends MoveToBlockGoal {
-    public FireflyHidingGoal(Firefly mob, double speed, int range,
-                             int maxYDifference) {
+    public FireflyHidingGoal(Firefly mob, double speed, int range, int maxYDifference) {
         super(mob, speed, range, maxYDifference);
     }
 
     @Override
     public boolean canUse() {
-        if (!((Firefly) this.mob).shouldHide()) {
-            return false;
-        }
+        if (!((Firefly) this.mob).shouldHide()) return false;
 
         return super.canUse();
     }
@@ -32,7 +29,7 @@ public class FireflyHidingGoal extends MoveToBlockGoal {
     @Override
     public void tick() {
         if (this.isReachedTarget()) {
-            this.mob.playSound(SoundEvents.BEEHIVE_ENTER, 1, 1.3F);
+            this.mob.playSound(SoundEvents.BEEHIVE_ENTER, 1.0F, 1.3F);
             this.mob.discard();
         }
 
@@ -41,8 +38,7 @@ public class FireflyHidingGoal extends MoveToBlockGoal {
 
     @Override
     protected boolean isValidTarget(LevelReader level, @NotNull BlockPos pos) {
-        return level.getBlockState(pos)
-                .is(WilderBlockTags.FIREFLY_HIDEABLE_BLOCKS);
+        return level.getBlockState(pos).is(WilderBlockTags.FIREFLY_HIDEABLE_BLOCKS);
     }
 
     @Override

@@ -30,18 +30,15 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.Nullable;
 
 public class MesogleaBlock extends Block implements SimpleWaterloggedBlock {
-    public static final BooleanProperty WATERLOGGED =
-            BlockStateProperties.WATERLOGGED;
+    public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
 
     public MesogleaBlock(Properties properties) {
         super(properties);
-        this.registerDefaultState(
-                this.stateDefinition.any().setValue(WATERLOGGED, false));
+        this.registerDefaultState(this.stateDefinition.any().setValue(WATERLOGGED, false));
     }
 
     @Override
-    public void entityInside(BlockState state, Level level, BlockPos pos,
-                             Entity entity) {
+    public void entityInside(BlockState state, Level level, BlockPos pos, Entity entity) {
         if (state.getValue(WATERLOGGED)) {
             if (entity instanceof ItemEntity item) {
                 item.makeStuckInBlock(state, new Vec3(0.999D, 0.999D, 0.999D));
@@ -52,93 +49,56 @@ public class MesogleaBlock extends Block implements SimpleWaterloggedBlock {
             if (entity instanceof Boat boat) {
                 Vec3 deltaMove = boat.getDeltaMovement();
                 if (boat.isUnderWater()) {
-                    boat.setDeltaMovement(deltaMove.x,
-                            Math.min(0.175, deltaMove.y + 0.05), deltaMove.z);
+                    boat.setDeltaMovement(deltaMove.x, Math.min(0.175, deltaMove.y + 0.05), deltaMove.z);
                 } else if (deltaMove.y < 0) {
-                    boat.setDeltaMovement(deltaMove.x, deltaMove.y * 0.5,
-                            deltaMove.z);
+                    boat.setDeltaMovement(deltaMove.x, deltaMove.y * 0.5, deltaMove.z);
                 }
             }
         }
     }
 
     @Override
-    public VoxelShape getCollisionShape(BlockState blockState,
-                                        BlockGetter blockGetter,
-                                        BlockPos blockPos,
-                                        CollisionContext collisionContext) {
-        if (collisionContext instanceof EntityCollisionContext &&
-                ((EntityCollisionContext) collisionContext).getEntity() !=
-                        null) {
-            return blockState.getValue(WATERLOGGED) ? Shapes.empty() :
-                    super.getCollisionShape(blockState, blockGetter, blockPos,
-                            collisionContext);
+    public VoxelShape getCollisionShape(BlockState blockState, BlockGetter blockGetter, BlockPos blockPos, CollisionContext collisionContext) {
+        if (collisionContext instanceof EntityCollisionContext && ((EntityCollisionContext) collisionContext).getEntity() != null) {
+            return blockState.getValue(WATERLOGGED) ? Shapes.empty() : super.getCollisionShape(blockState, blockGetter, blockPos, collisionContext);
         }
-        return super.getCollisionShape(blockState, blockGetter, blockPos,
-                collisionContext);
+        return super.getCollisionShape(blockState, blockGetter, blockPos, collisionContext);
     }
 
     @Override
-    public void animateTick(BlockState blockState, Level level,
-                            BlockPos blockPos, RandomSource randomSource) {
+    public void animateTick(BlockState blockState, Level level, BlockPos blockPos, RandomSource randomSource) {
         super.animateTick(blockState, level, blockPos, randomSource);
-        if (randomSource.nextInt(0, 50) == 0 &&
-                (blockState.getValue(WATERLOGGED) ||
-                        level.getFluidState(blockPos.above())
-                                .is(FluidTags.WATER)) &&
-                level.getFluidState(blockPos.below()).isEmpty() &&
-                level.getBlockState(blockPos.below()).isAir()) {
-            ParticleOptions particle = blockState.is(RegisterBlocks.MESOGLEA) ?
-                    RegisterParticles.BLUE_PEARLESCENT_HANGING_MESOGLEA :
-                    blockState.is(RegisterBlocks.PURPLE_MESOGLEA) ?
-                            RegisterParticles.PURPLE_PEARLESCENT_HANGING_MESOGLEA :
-                            blockState.is(RegisterBlocks.YELLOW_MESOGLEA) ?
-                                    RegisterParticles.YELLOW_HANGING_MESOGLEA :
-                                    blockState.is(
-                                            RegisterBlocks.BLUE_MESOGLEA) ?
-                                            RegisterParticles.BLUE_HANGING_MESOGLEA :
-                                            blockState.is(
-                                                    RegisterBlocks.LIME_MESOGLEA) ?
-                                                    RegisterParticles.LIME_HANGING_MESOGLEA :
-                                                    blockState.is(
-                                                            RegisterBlocks.PINK_MESOGLEA) ?
-                                                            RegisterParticles.PINK_HANGING_MESOGLEA :
+        if (randomSource.nextInt(0, 50) == 0 && (blockState.getValue(WATERLOGGED) || level.getFluidState(blockPos.above()).is(FluidTags.WATER)) && level.getFluidState(blockPos.below()).isEmpty() && level.getBlockState(blockPos.below()).isAir()) {
+            ParticleOptions particle = blockState.is(RegisterBlocks.MESOGLEA) ? RegisterParticles.BLUE_PEARLESCENT_HANGING_MESOGLEA :
+                    blockState.is(RegisterBlocks.PURPLE_MESOGLEA) ? RegisterParticles.PURPLE_PEARLESCENT_HANGING_MESOGLEA :
+                            blockState.is(RegisterBlocks.YELLOW_MESOGLEA) ? RegisterParticles.YELLOW_HANGING_MESOGLEA :
+                                    blockState.is(RegisterBlocks.BLUE_MESOGLEA) ? RegisterParticles.BLUE_HANGING_MESOGLEA :
+                                            blockState.is(RegisterBlocks.LIME_MESOGLEA) ? RegisterParticles.LIME_HANGING_MESOGLEA :
+                                                    blockState.is(RegisterBlocks.PINK_MESOGLEA) ? RegisterParticles.PINK_HANGING_MESOGLEA :
                                                             RegisterParticles.RED_HANGING_MESOGLEA;
-            level.addParticle(particle,
-                    blockPos.getX() + randomSource.nextDouble(),
-                    blockPos.getY(),
-                    blockPos.getZ() + randomSource.nextDouble(), 0, 0, 0);
+            level.addParticle(particle, blockPos.getX() + randomSource.nextDouble(), blockPos.getY(), blockPos.getZ() + randomSource.nextDouble(), 0.0D, 0.0D, 0.0D);
         }
     }
 
     @Override
-    public int getLightBlock(BlockState blockState, BlockGetter blockGetter,
-                             BlockPos blockPos) {
+    public int getLightBlock(BlockState blockState, BlockGetter blockGetter, BlockPos blockPos) {
         return blockState.getValue(WATERLOGGED) ? 2 : 5;
     }
 
     @Override
     @Nullable
-    public BlockState getStateForPlacement(
-            BlockPlaceContext blockPlaceContext) {
-        FluidState fluidState = blockPlaceContext.getLevel()
-                .getFluidState(blockPlaceContext.getClickedPos());
+    public BlockState getStateForPlacement(BlockPlaceContext blockPlaceContext) {
+        FluidState fluidState = blockPlaceContext.getLevel().getFluidState(blockPlaceContext.getClickedPos());
         boolean bl = fluidState.getType() == Fluids.WATER;
-        return super.getStateForPlacement(blockPlaceContext)
-                .setValue(WATERLOGGED, bl);
+        return super.getStateForPlacement(blockPlaceContext).setValue(WATERLOGGED, bl);
     }
 
     @Override
-    public BlockState updateShape(BlockState blockState, Direction direction,
-                                  BlockState blockState2,
-                                  LevelAccessor levelAccessor,
-                                  BlockPos blockPos, BlockPos blockPos2) {
+    public BlockState updateShape(BlockState blockState, Direction direction, BlockState blockState2, LevelAccessor levelAccessor, BlockPos blockPos, BlockPos blockPos2) {
         if (blockState.getValue(WATERLOGGED)) {
-            levelAccessor.scheduleTick(blockPos, Fluids.WATER,
-                    Fluids.WATER.getTickDelay(levelAccessor));
+            levelAccessor.scheduleTick(blockPos, Fluids.WATER, Fluids.WATER.getTickDelay(levelAccessor));
         }
-        return super.updateShape(blockState, direction, blockState2,
-                levelAccessor, blockPos, blockPos2);
+        return super.updateShape(blockState, direction, blockState2, levelAccessor, blockPos, blockPos2);
     }
 
     @Override
@@ -150,14 +110,12 @@ public class MesogleaBlock extends Block implements SimpleWaterloggedBlock {
     }
 
     @Override
-    protected void createBlockStateDefinition(
-            StateDefinition.Builder<Block, BlockState> builder) {
+    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
         builder.add(WATERLOGGED);
     }
 
     @Override
-    public boolean skipRendering(BlockState blockState, BlockState blockState2,
-                                 Direction direction) {
+    public boolean skipRendering(BlockState blockState, BlockState blockState2, Direction direction) {
         if (blockState2.is(this)) {
             return true;
         }

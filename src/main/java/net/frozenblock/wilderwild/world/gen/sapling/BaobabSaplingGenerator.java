@@ -14,16 +14,13 @@ public class BaobabSaplingGenerator extends BaobabTreeSaplingGenerator {
 
     @Nullable
     @Override
-    protected Holder<? extends ConfiguredFeature<?, ?>> getBaobabTreeFeature(
-            RandomSource random) {
-        return random.nextFloat() < 0.856F ? WilderTreeConfigured.BAOBAB :
-                WilderTreeConfigured.BAOBAB_TALL;
+    protected Holder<? extends ConfiguredFeature<?, ?>> getBaobabTreeFeature(RandomSource random) {
+        return random.nextFloat() < 0.856F ? WilderTreeConfigured.BAOBAB : WilderTreeConfigured.BAOBAB_TALL;
     }
 
     @Nullable
     @Override
-    protected Holder<? extends ConfiguredFeature<?, ?>> getConfiguredFeature(
-            RandomSource random, boolean bees) {
+    protected Holder<? extends ConfiguredFeature<?, ?>> getConfiguredFeature(RandomSource random, boolean bees) {
         return null;
     }
 }

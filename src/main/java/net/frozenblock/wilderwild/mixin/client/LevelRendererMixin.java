@@ -27,15 +27,10 @@ public class LevelRendererMixin {
     private @Nullable ClientLevel level;
 
     @Inject(method = "levelEvent", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/multiplayer/ClientLevel;playLocalSound(DDDLnet/minecraft/sounds/SoundEvent;Lnet/minecraft/sounds/SoundSource;FFZ)V", ordinal = 0), cancellable = true)
-    private void levelEvent(int eventId, BlockPos pos, int data,
-                            CallbackInfo ci) {
+    private void levelEvent(int eventId, BlockPos pos, int data, CallbackInfo ci) {
         if (ClothConfigInteractionHandler.shriekerGargling()) {
             assert this.level != null;
-            if (this.level.getBlockState(pos)
-                    .getValue(BlockStateProperties.WATERLOGGED) ||
-                    this.level.getBlockState(pos.above()).getBlock() ==
-                            Blocks.WATER ||
-                    this.level.getFluidState(pos.above()).is(FluidTags.WATER)) {
+            if (this.level.getBlockState(pos).getValue(BlockStateProperties.WATERLOGGED) || this.level.getBlockState(pos.above()).getBlock() == Blocks.WATER || this.level.getFluidState(pos.above()).is(FluidTags.WATER)) {
                 this.level
                         .playLocalSound(
                                 (double) pos.getX() + 0.5D,
@@ -43,7 +38,7 @@ public class LevelRendererMixin {
                                 (double) pos.getZ() + 0.5D,
                                 RegisterSounds.BLOCK_SCULK_SHRIEKER_GARGLE,
                                 SoundSource.BLOCKS,
-                                2,
+                                2.0F,
                                 0.6F + this.level.random.nextFloat() * 0.4F,
                                 false
                         );
@@ -111,7 +106,7 @@ public class LevelRendererMixin {
             double g = d - this.xTransparentOld;
             double h = e - this.yTransparentOld;
             double i = f - this.zTransparentOld;
-            if (g * g + h * h + i * i > 1) {
+            if (g * g + h * h + i * i > 1.0) {
                 this.xTransparentOld = d;
                 this.yTransparentOld = e;
                 this.zTransparentOld = f;

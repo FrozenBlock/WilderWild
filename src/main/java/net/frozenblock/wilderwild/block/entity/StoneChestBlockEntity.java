@@ -89,59 +89,48 @@ public class StoneChestBlockEntity extends ChestBlockEntity {
         return Mth.lerp(delta, this.prevOpenProgress, this.openProgress);
     }
 
-    public static void serverStoneTick(Level level, BlockPos pos,
-                                       BlockState state,
-                                       StoneChestBlockEntity blockEntity) {
+    public static void serverStoneTick(Level level, BlockPos pos, BlockState state, StoneChestBlockEntity blockEntity) {
         ServerLevel serverLevel = (ServerLevel) level;
-        StoneChestBlockEntity stoneChest =
-                getOtherEntity(serverLevel, pos, state);
+        StoneChestBlockEntity stoneChest = getOtherEntity(serverLevel, pos, state);
         if (!blockEntity.shouldSkip) {
             if (blockEntity.cooldownTicks > 0) {
                 --blockEntity.cooldownTicks;
             }
-            boolean canClose = level.getGameRules()
-                    .getBoolean(WilderWild.STONE_CHEST_CLOSES);
+            boolean canClose = level.getGameRules().getBoolean(WilderWild.STONE_CHEST_CLOSES);
             blockEntity.prevOpenProgress = blockEntity.openProgress;
             if (blockEntity.stillLidTicks > 0) {
                 blockEntity.stillLidTicks -= 1;
             } else if (blockEntity.openProgress > 0F && canClose) {
                 serverLevel.gameEvent(null, GameEvent.CONTAINER_CLOSE, pos);
-                blockEntity.openProgress =
-                        Math.max(0F, blockEntity.openProgress - 0.0425F);
+                blockEntity.openProgress = Math.max(0F, blockEntity.openProgress - 0.0425F);
                 if (!blockEntity.closing) {
                     blockEntity.closing = true;
-                    playSound(serverLevel, pos, state,
-                            RegisterSounds.BLOCK_STONE_CHEST_CLOSE_START, 0.3F);
+                    playSound(serverLevel, pos, state, RegisterSounds.BLOCK_STONE_CHEST_CLOSE_START, 0.3F);
                 }
                 if (blockEntity.openProgress <= 0F) {
                     blockEntity.onLidSlam(serverLevel, pos, state, stoneChest);
                 }
             }
             if (isLeft(state)) {
-                blockEntity.syncLidValuesWith(serverLevel, pos, state,
-                        stoneChest);
+                blockEntity.syncLidValuesWith(serverLevel, pos, state, stoneChest);
             }
         }
         blockEntity.shouldSkip = false;
     }
 
-    public static void clientStoneTick(Level level, BlockPos pos,
-                                       BlockState state,
-                                       StoneChestBlockEntity blockEntity) {
+    public static void clientStoneTick(Level level, BlockPos pos, BlockState state, StoneChestBlockEntity blockEntity) {
         StoneChestBlockEntity stoneChest = getOtherEntity(level, pos, state);
         if (!blockEntity.shouldSkip) {
             if (blockEntity.cooldownTicks > 0) {
                 --blockEntity.cooldownTicks;
             }
-            boolean canClose = level.getGameRules()
-                    .getBoolean(WilderWild.STONE_CHEST_CLOSES);
+            boolean canClose = level.getGameRules().getBoolean(WilderWild.STONE_CHEST_CLOSES);
             blockEntity.prevOpenProgress = blockEntity.openProgress;
             if (blockEntity.stillLidTicks > 0) {
                 blockEntity.stillLidTicks -= 1;
             } else if (blockEntity.openProgress > 0F && canClose) {
                 blockEntity.closing = true;
-                blockEntity.openProgress =
-                        Math.max(0F, blockEntity.openProgress - 0.0425F);
+                blockEntity.openProgress = Math.max(0F, blockEntity.openProgress - 0.0425F);
                 if (blockEntity.openProgress <= 0F) {
                     blockEntity.onLidSlam(level, pos, state, stoneChest);
                 }
@@ -154,46 +143,27 @@ public class StoneChestBlockEntity extends ChestBlockEntity {
     }
 
     public void liftLid(float liftAmount, boolean ancient) {
-        this.openProgress = Mth.clamp(
-                this.openProgress + (!ancient ? liftAmount * 2 : liftAmount), 0,
-                0.5F);
+        this.openProgress = Mth.clamp(this.openProgress + (!ancient ? liftAmount * 2 : liftAmount), 0.0F, 0.5F);
         this.highestLidPoint = this.openProgress;
-        this.stillLidTicks = (int) (Math.max((this.openProgress), 0.2) *
-                (!ancient ? 220 : 160));
+        this.stillLidTicks = (int) (Math.max((this.openProgress), 0.2) * (!ancient ? 220 : 160));
     }
 
     public void setLid(float liftAmount) {
-        this.openProgress = Mth.clamp(liftAmount, 0, 0.5F);
+        this.openProgress = Mth.clamp(liftAmount, 0.0F, 0.5F);
         this.highestLidPoint = this.openProgress;
         this.stillLidTicks = (int) (Math.max((this.openProgress), 0.2) * 180);
     }
 
-    public void onLidSlam(Level level, BlockPos pos, BlockState state,
-                          StoneChestBlockEntity otherStoneChest) {
+    public void onLidSlam(Level level, BlockPos pos, BlockState state, StoneChestBlockEntity otherStoneChest) {
         if (!level.isClientSide && level instanceof ServerLevel server) {
             if (this.highestLidPoint > 0.2F) {
-                server.sendParticles(
-                        new BlockParticleOption(ParticleTypes.BLOCK, state),
-                        pos.getX() + 0.5, pos.getY() + 0.625, pos.getZ() + 0.5,
-                        level.random.nextIntBetweenInclusive(3,
-                                (int) (this.highestLidPoint * 10) + 2),
-                        0.21875F, 0, 0.21875F, 0.05D);
+                server.sendParticles(new BlockParticleOption(ParticleTypes.BLOCK, state), pos.getX() + 0.5, pos.getY() + 0.625, pos.getZ() + 0.5, level.random.nextIntBetweenInclusive(3, (int) (this.highestLidPoint * 10) + 2), 0.21875F, 0, 0.21875F, 0.05D);
                 if (otherStoneChest != null) {
                     BlockPos otherPos = otherStoneChest.worldPosition;
-                    server.sendParticles(
-                            new BlockParticleOption(ParticleTypes.BLOCK, state),
-                            otherPos.getX() + 0.5, otherPos.getY() + 0.625,
-                            otherPos.getZ() + 0.5,
-                            level.random.nextIntBetweenInclusive(3,
-                                    (int) (this.highestLidPoint * 10) +
-                                            (state.getValue(
-                                                    RegisterProperties.ANCIENT) ?
-                                                    4 : 2)), 0.21875F, 0,
-                            0.21875F, 0.05D);
+                    server.sendParticles(new BlockParticleOption(ParticleTypes.BLOCK, state), otherPos.getX() + 0.5, otherPos.getY() + 0.625, otherPos.getZ() + 0.5, level.random.nextIntBetweenInclusive(3, (int) (this.highestLidPoint * 10) + (state.getValue(RegisterProperties.ANCIENT) ? 4 : 2)), 0.21875F, 0, 0.21875F, 0.05D);
                 }
             }
-            playSound(level, pos, state, RegisterSounds.BLOCK_STONE_CHEST_SLAM,
-                    0.5F + (this.highestLidPoint / 5F));
+            playSound(level, pos, state, RegisterSounds.BLOCK_STONE_CHEST_SLAM, 0.5F + (this.highestLidPoint / 5F));
         }
         this.closing = false;
         this.cooldownTicks = 15;
@@ -206,14 +176,10 @@ public class StoneChestBlockEntity extends ChestBlockEntity {
         if (this.level.getBlockEntity(this.worldPosition) != this) {
             return false;
         }
-        return !(player.distanceToSqr((double) this.worldPosition.getX() + 0.5,
-                (double) this.worldPosition.getY() + 0.5,
-                (double) this.worldPosition.getZ() + 0.5) > 64) &&
-                ((!this.closing && this.openProgress >= 0.3));
+        return !(player.distanceToSqr((double) this.worldPosition.getX() + 0.5, (double) this.worldPosition.getY() + 0.5, (double) this.worldPosition.getZ() + 0.5) > 64.0) && ((!this.closing && this.openProgress >= 0.3));
     }
 
-    public void syncLidValuesWith(Level level, BlockPos pos, BlockState state,
-                                  StoneChestBlockEntity otherStoneChest) {
+    public void syncLidValuesWith(Level level, BlockPos pos, BlockState state, StoneChestBlockEntity otherStoneChest) {
         if (otherStoneChest != null) {
             otherStoneChest.openProgress = this.openProgress;
             otherStoneChest.prevOpenProgress = this.prevOpenProgress;
@@ -226,8 +192,7 @@ public class StoneChestBlockEntity extends ChestBlockEntity {
     }
 
     public void updateSync() {
-        StoneChestBlockEntity stoneChest =
-                getOtherEntity(level, worldPosition, this.getBlockState());
+        StoneChestBlockEntity stoneChest = getOtherEntity(level, worldPosition, this.getBlockState());
         if (stoneChest != null) {
             stoneChest.openProgress = this.openProgress;
             stoneChest.prevOpenProgress = this.prevOpenProgress;
@@ -237,41 +202,30 @@ public class StoneChestBlockEntity extends ChestBlockEntity {
             stoneChest.shouldSkip = true;
             stoneChest.closing = this.closing;
             for (ServerPlayer player : PlayerLookup.tracking(stoneChest)) {
-                player.connection.send(
-                        Objects.requireNonNull(stoneChest.getUpdatePacket()));
+                player.connection.send(Objects.requireNonNull(stoneChest.getUpdatePacket()));
             }
         }
         for (ServerPlayer player : PlayerLookup.tracking(this)) {
-            player.connection.send(
-                    Objects.requireNonNull(this.getUpdatePacket()));
+            player.connection.send(Objects.requireNonNull(this.getUpdatePacket()));
         }
     }
 
     @Override
     public void unpackLootTable(@Nullable Player player) {
-        if (this.lootTable != null && this.level != null &&
-                this.level.getServer() != null) {
+        if (this.lootTable != null && this.level != null && this.level.getServer() != null) {
             this.lootGenerated = false;
-            LootTable lootTable =
-                    this.level.getServer().getLootTables().get(this.lootTable);
+            LootTable lootTable = this.level.getServer().getLootTables().get(this.lootTable);
             if (player instanceof ServerPlayer) {
-                CriteriaTriggers.GENERATE_LOOT.trigger((ServerPlayer) player,
-                        this.lootTable);
+                CriteriaTriggers.GENERATE_LOOT.trigger((ServerPlayer) player, this.lootTable);
             }
             this.lootTable = null;
-            LootContext.Builder builder = new LootContext.Builder(
-                    (ServerLevel) this.level).withParameter(
-                            LootContextParams.ORIGIN,
-                            Vec3.atCenterOf(this.worldPosition))
-                    .withOptionalRandomSeed(this.lootTableSeed);
+            LootContext.Builder builder = new LootContext.Builder((ServerLevel) this.level).withParameter(LootContextParams.ORIGIN, Vec3.atCenterOf(this.worldPosition)).withOptionalRandomSeed(this.lootTableSeed);
             if (player != null) {
-                builder.withLuck(player.getLuck())
-                        .withParameter(LootContextParams.THIS_ENTITY, player);
+                builder.withLuck(player.getLuck()).withParameter(LootContextParams.THIS_ENTITY, player);
             }
             lootTable.fill(this, builder.create(LootContextParamSets.CHEST));
             for (ItemStack stack : this.getItems()) {
-                stack.addTagElement("wilderwild_is_ancient",
-                        ByteTag.valueOf(true));
+                stack.addTagElement("wilderwild_is_ancient", ByteTag.valueOf(true));
             }
         }
         this.lootGenerated = true;
@@ -297,9 +251,7 @@ public class StoneChestBlockEntity extends ChestBlockEntity {
         return this.saveWithoutMetadata();
     }
 
-    public static StoneChestBlockEntity getOtherEntity(Level level,
-                                                       BlockPos pos,
-                                                       BlockState state) {
+    public static StoneChestBlockEntity getOtherEntity(Level level, BlockPos pos, BlockState state) {
         ChestType chestType = state.getValue(ChestBlock.TYPE);
         double x = pos.getX();
         double y = pos.getY();
@@ -324,9 +276,7 @@ public class StoneChestBlockEntity extends ChestBlockEntity {
         return entity;
     }
 
-    public static StoneChestBlockEntity getLeftEntity(Level level, BlockPos pos,
-                                                      BlockState state,
-                                                      StoneChestBlockEntity source) {
+    public static StoneChestBlockEntity getLeftEntity(Level level, BlockPos pos, BlockState state, StoneChestBlockEntity source) {
         ChestType chestType = state.getValue(ChestBlock.TYPE);
         if (chestType == ChestType.SINGLE) {
             return source;
@@ -367,17 +317,14 @@ public class StoneChestBlockEntity extends ChestBlockEntity {
     @Override
     public void stopOpen(@NotNull Player player) {
         if (!this.remove && !player.isSpectator()) {
-            this.stoneStateManager.decrementOpeners(player,
-                    Objects.requireNonNull(this.getLevel()), this.getBlockPos(),
-                    this.getBlockState());
+            this.stoneStateManager.decrementOpeners(player, Objects.requireNonNull(this.getLevel()), this.getBlockPos(), this.getBlockState());
         }
     }
 
     public ArrayList<ItemStack> nonAncientItems() {
         ArrayList<ItemStack> items = new ArrayList<>();
         for (ItemStack item : this.getItems()) {
-            if (item.getOrCreateTag().get("wilderwild_is_ancient") == null &&
-                    !item.isEmpty()) {
+            if (item.getOrCreateTag().get("wilderwild_is_ancient") == null && !item.isEmpty()) {
                 items.add(item);
             }
         }
@@ -387,55 +334,40 @@ public class StoneChestBlockEntity extends ChestBlockEntity {
     public ArrayList<ItemStack> ancientItems() {
         ArrayList<ItemStack> items = new ArrayList<>();
         for (ItemStack item : this.getItems()) {
-            if (item.getOrCreateTag().get("wilderwild_is_ancient") != null &&
-                    !item.isEmpty()) {
+            if (item.getOrCreateTag().get("wilderwild_is_ancient") != null && !item.isEmpty()) {
                 items.add(item);
             }
         }
         return items;
     }
 
-    private final ContainerOpenersCounter stoneStateManager =
-            new ContainerOpenersCounter() {
+    private final ContainerOpenersCounter stoneStateManager = new ContainerOpenersCounter() {
 
-                @Override
-                protected void onOpen(@NotNull Level level,
-                                      @NotNull BlockPos pos,
-                                      @NotNull BlockState state) {
-                    //StoneChestBlockEntity.playSound(level, pos, state, RegisterSounds.BLOCK_STONE_CHEST_SEARCH);
-                }
+        @Override
+        protected void onOpen(@NotNull Level level, @NotNull BlockPos pos, @NotNull BlockState state) {
+            //StoneChestBlockEntity.playSound(level, pos, state, RegisterSounds.BLOCK_STONE_CHEST_SEARCH);
+        }
 
-                @Override
-                protected void onClose(@NotNull Level level,
-                                       @NotNull BlockPos pos,
-                                       @NotNull BlockState state) {
-                }
+        @Override
+        protected void onClose(@NotNull Level level, @NotNull BlockPos pos, @NotNull BlockState state) {
+        }
 
-                @Override
-                protected void openerCountChanged(@NotNull Level level,
-                                                  @NotNull BlockPos pos,
-                                                  @NotNull BlockState state,
-                                                  int count, int openCount) {
-                    StoneChestBlockEntity.this.signalOpenCount(level, pos,
-                            state, count, openCount);
-                }
+        @Override
+        protected void openerCountChanged(@NotNull Level level, @NotNull BlockPos pos, @NotNull BlockState state, int count, int openCount) {
+            StoneChestBlockEntity.this.signalOpenCount(level, pos, state, count, openCount);
+        }
 
-                @Override
-                protected boolean isOwnContainer(Player player) {
-                    if (player.containerMenu instanceof ChestMenu) {
-                        Container inventory =
-                                ((ChestMenu) player.containerMenu).getContainer();
-                        return inventory == StoneChestBlockEntity.this ||
-                                inventory instanceof CompoundContainer &&
-                                        ((CompoundContainer) inventory).contains(
-                                                StoneChestBlockEntity.this);
-                    }
-                    return false;
-                }
-            };
+        @Override
+        protected boolean isOwnContainer(Player player) {
+            if (player.containerMenu instanceof ChestMenu) {
+                Container inventory = ((ChestMenu) player.containerMenu).getContainer();
+                return inventory == StoneChestBlockEntity.this || inventory instanceof CompoundContainer && ((CompoundContainer) inventory).contains(StoneChestBlockEntity.this);
+            }
+            return false;
+        }
+    };
 
-    public static void playSound(Level level, BlockPos pos, BlockState state,
-                                 SoundEvent soundEvent, float volume) {
+    public static void playSound(Level level, BlockPos pos, BlockState state, SoundEvent soundEvent, float volume) {
         ChestType chestType = state.getValue(ChestBlock.TYPE);
         double x = (double) pos.getX() + 0.5;
         double y = (double) pos.getY() + 0.5;
@@ -449,8 +381,7 @@ public class StoneChestBlockEntity extends ChestBlockEntity {
             x -= (double) direction.getStepX() * 0.5;
             z -= (double) direction.getStepZ() * 0.5;
         }
-        level.playSound(null, x, y, z, soundEvent, SoundSource.BLOCKS, volume,
-                level.random.nextFloat() * 0.18f + 0.9f);
+        level.playSound(null, x, y, z, soundEvent, SoundSource.BLOCKS, volume, level.random.nextFloat() * 0.18f + 0.9f);
     }
 
 }

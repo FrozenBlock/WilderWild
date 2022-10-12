@@ -39,82 +39,58 @@ public class SonicBoomMixin {
     private static int DURATION;
 
     @Inject(at = @At("HEAD"), method = "tick(Lnet/minecraft/server/level/ServerLevel;Lnet/minecraft/world/entity/monster/warden/Warden;J)V", cancellable = true)
-    public void tick(ServerLevel serverLevel, Warden wardenEntity, long l,
-                     CallbackInfo info) {
+    public void tick(ServerLevel serverLevel, Warden wardenEntity, long l, CallbackInfo info) {
         if (!FabricLoader.getInstance().isModLoaded("customsculk")) {
-            if (!wardenEntity.getBrain()
-                    .hasMemoryValue(MemoryModuleType.SONIC_BOOM_SOUND_DELAY) &&
-                    !wardenEntity.getBrain().hasMemoryValue(
-                            MemoryModuleType.SONIC_BOOM_SOUND_COOLDOWN)) {
-                wardenEntity.getBrain().setMemoryWithExpiry(
-                        MemoryModuleType.SONIC_BOOM_SOUND_COOLDOWN,
-                        Unit.INSTANCE, DURATION - 34);
-                wardenEntity.getBrain()
-                        .getMemory(MemoryModuleType.ATTACK_TARGET)
-                        .filter((target) -> {
-                            return wardenEntity.closerThan(target, 15, 20);
-                        }).ifPresent((target) -> {
-                            Vec3 vec3d = wardenEntity.position()
-                                    .add(0, 1.600000023841858D, 0);
-                            Vec3 vec3d2 = target.getEyePosition().subtract(vec3d);
-                            Vec3 vec3d3 = vec3d2.normalize();
+            if (!wardenEntity.getBrain().hasMemoryValue(MemoryModuleType.SONIC_BOOM_SOUND_DELAY) && !wardenEntity.getBrain().hasMemoryValue(MemoryModuleType.SONIC_BOOM_SOUND_COOLDOWN)) {
+                wardenEntity.getBrain().setMemoryWithExpiry(MemoryModuleType.SONIC_BOOM_SOUND_COOLDOWN, Unit.INSTANCE, DURATION - 34);
+                wardenEntity.getBrain().getMemory(MemoryModuleType.ATTACK_TARGET).filter((target) -> {
+                    return wardenEntity.closerThan(target, 15.0D, 20.0D);
+                }).ifPresent((target) -> {
+                    Vec3 vec3d = wardenEntity.position().add(0.0D, 1.600000023841858D, 0.0D);
+                    Vec3 vec3d2 = target.getEyePosition().subtract(vec3d);
+                    Vec3 vec3d3 = vec3d2.normalize();
 
-                            boolean blocked = false;
-                            for (int i = 1; i < Mth.floor(vec3d2.length()) + 7; ++i) {
-                                Vec3 vec3d4 = vec3d.add(vec3d3.scale(i));
-                                serverLevel.sendParticles(ParticleTypes.SONIC_BOOM,
-                                        vec3d4.x, vec3d4.y, vec3d4.z, 1, 0, 0, 0, 0);
-                                BlockPos hitPos =
-                                        isOccluded(serverLevel, vec3d, vec3d4);
-                                if (hitPos != null) {
-                                    BlockState state =
-                                            serverLevel.getBlockState(hitPos);
-                                    if (state.is(RegisterBlocks.ECHO_GLASS)) {
-                                        i = Mth.floor(vec3d2.length()) + 10;
-                                        blocked = true;
-                                        EchoGlassBlock.damage(serverLevel, hitPos);
-                                    }
-                                }
+                    boolean blocked = false;
+                    for (int i = 1; i < Mth.floor(vec3d2.length()) + 7; ++i) {
+                        Vec3 vec3d4 = vec3d.add(vec3d3.scale(i));
+                        serverLevel.sendParticles(ParticleTypes.SONIC_BOOM, vec3d4.x, vec3d4.y, vec3d4.z, 1, 0.0D, 0.0D, 0.0D, 0.0D);
+                        BlockPos hitPos = isOccluded(serverLevel, vec3d, vec3d4);
+                        if (hitPos != null) {
+                            BlockState state = serverLevel.getBlockState(hitPos);
+                            if (state.is(RegisterBlocks.ECHO_GLASS)) {
+                                i = Mth.floor(vec3d2.length()) + 10;
+                                blocked = true;
+                                EchoGlassBlock.damage(serverLevel, hitPos);
                             }
+                        }
+                    }
 
-                            String string = ChatFormatting.stripFormatting(
-                                    wardenEntity.getName().getString());
-                            if (((WilderWarden) wardenEntity).isOsmiooo()) {
-                                wardenEntity.playSound(
-                                        RegisterSounds.ENTITY_WARDEN_BRAP, 3, 1);
-                            } else {
-                                wardenEntity.playSound(SoundEvents.WARDEN_SONIC_BOOM, 3,
-                                        1);
-                            }
-                            if (!blocked) {
-                                target.hurt(DamageSource.sonicBoom(wardenEntity), 10);
-                                double d = 0.5D * (1 - target.getAttributeValue(
-                                        Attributes.KNOCKBACK_RESISTANCE));
-                                double e = 2.5D * (1 - target.getAttributeValue(
-                                        Attributes.KNOCKBACK_RESISTANCE));
-                                target.push(vec3d3.x() * e, vec3d3.y() * d,
-                                        vec3d3.z() * e);
-                            }
-                        });
+                    String string = ChatFormatting.stripFormatting(wardenEntity.getName().getString());
+                    if (((WilderWarden) wardenEntity).isOsmiooo()) {
+                        wardenEntity.playSound(RegisterSounds.ENTITY_WARDEN_BRAP, 3.0F, 1.0F);
+                    } else {
+                        wardenEntity.playSound(SoundEvents.WARDEN_SONIC_BOOM, 3.0F, 1.0F);
+                    }
+                    if (!blocked) {
+                        target.hurt(DamageSource.sonicBoom(wardenEntity), 10.0F);
+                        double d = 0.5D * (1.0D - target.getAttributeValue(Attributes.KNOCKBACK_RESISTANCE));
+                        double e = 2.5D * (1.0D - target.getAttributeValue(Attributes.KNOCKBACK_RESISTANCE));
+                        target.push(vec3d3.x() * e, vec3d3.y() * d, vec3d3.z() * e);
+                    }
+                });
             }
             info.cancel();
         }
     }
 
     private static BlockPos isOccluded(Level level, Vec3 start, Vec3 end) {
-        Vec3 vec3d = new Vec3((double) Mth.floor(start.x) + 0.5D,
-                (double) Mth.floor(start.y) + 0.5D,
-                (double) Mth.floor(start.z) + 0.5D);
-        Vec3 vec3d2 = new Vec3((double) Mth.floor(end.x) + 0.5D,
-                (double) Mth.floor(end.y) + 0.5D,
-                (double) Mth.floor(end.z) + 0.5D);
+        Vec3 vec3d = new Vec3((double) Mth.floor(start.x) + 0.5D, (double) Mth.floor(start.y) + 0.5D, (double) Mth.floor(start.z) + 0.5D);
+        Vec3 vec3d2 = new Vec3((double) Mth.floor(end.x) + 0.5D, (double) Mth.floor(end.y) + 0.5D, (double) Mth.floor(end.z) + 0.5D);
         BlockPos hitPos = null;
         boolean blocked = true;
         for (Direction direction : Direction.values()) {
             Vec3 vec3d3 = vec3d.relative(direction, 9.999999747378752E-6D);
-            BlockHitResult hit = level.isBlockInLine(
-                    new ClipBlockStateContext(vec3d3, vec3d2,
-                            (state) -> state.is(RegisterBlocks.ECHO_GLASS)));
+            BlockHitResult hit = level.isBlockInLine(new ClipBlockStateContext(vec3d3, vec3d2, (state) -> state.is(RegisterBlocks.ECHO_GLASS)));
             if (hit.getType() != HitResult.Type.BLOCK) {
                 blocked = false;
             } else {
@@ -122,8 +98,7 @@ public class SonicBoomMixin {
             }
         }
         if (blocked) {
-            WilderWild.log("Warden Sonic Boom Blocked @ " + hitPos,
-                    WilderWild.UNSTABLE_LOGGING);
+            WilderWild.log("Warden Sonic Boom Blocked @ " + hitPos, WilderWild.UNSTABLE_LOGGING);
             return hitPos;
         } else {
             return null;

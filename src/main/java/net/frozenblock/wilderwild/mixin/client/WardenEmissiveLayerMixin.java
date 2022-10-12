@@ -20,8 +20,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Environment(EnvType.CLIENT)
 @Mixin(WardenEmissiveLayer.class)
-public abstract class WardenEmissiveLayerMixin<T extends Warden, M extends WardenModel<T>>
-        extends RenderLayer<T, M> {
+public abstract class WardenEmissiveLayerMixin<T extends Warden, M extends WardenModel<T>> extends RenderLayer<T, M> {
 
     public WardenEmissiveLayerMixin(RenderLayerParent<T, M> context) {
         super(context);
@@ -32,10 +31,7 @@ public abstract class WardenEmissiveLayerMixin<T extends Warden, M extends Warde
     public ResourceLocation texture;
 
     @Inject(at = @At("HEAD"), method = "render(Lcom/mojang/blaze3d/vertex/PoseStack;Lnet/minecraft/client/renderer/MultiBufferSource;ILnet/minecraft/world/entity/monster/warden/Warden;FFFFFF)V", cancellable = true)
-    public void render(PoseStack matrixStack,
-                       MultiBufferSource vertexConsumerProvider, int i,
-                       T wardenEntity, float f, float g, float h, float j,
-                       float k, float l, CallbackInfo ci) {
+    public void render(PoseStack matrixStack, MultiBufferSource vertexConsumerProvider, int i, T wardenEntity, float f, float g, float h, float j, float k, float l, CallbackInfo ci) {
         if (((WilderWarden) wardenEntity).isOsmiooo()) {
             ci.cancel();
         }

@@ -27,16 +27,10 @@ public abstract class SlimeMixin extends Mob {
     }
 
     @Inject(method = "checkSlimeSpawnRules", at = @At("HEAD"), cancellable = true)
-    private static void checkSlimeSpawnRules(EntityType<Slime> type,
-                                             LevelAccessor level,
-                                             MobSpawnType spawnReason,
-                                             BlockPos pos, RandomSource random,
-                                             CallbackInfoReturnable<Boolean> info) {
+    private static void checkSlimeSpawnRules(EntityType<Slime> type, LevelAccessor level, MobSpawnType spawnReason, BlockPos pos, RandomSource random, CallbackInfoReturnable<Boolean> info) {
         if (level.getDifficulty() != Difficulty.PEACEFUL) {
-            if (level.getBrightness(LightLayer.BLOCK, pos) <
-                    random.nextInt(8)) {
-                boolean test = spawnReason == MobSpawnType.SPAWNER ||
-                        random.nextInt(5) == 0;
+            if (level.getBrightness(LightLayer.BLOCK, pos) < random.nextInt(8)) {
+                boolean test = spawnReason == MobSpawnType.SPAWNER || random.nextInt(5) == 0;
                 if (test && isAlgaeNearby(level, pos, 1)) {
                     info.setReturnValue(true);
                     info.cancel();
@@ -45,11 +39,8 @@ public abstract class SlimeMixin extends Mob {
         }
     }
 
-    private static boolean isAlgaeNearby(LevelAccessor level, BlockPos blockPos,
-                                         int x) {
-        Iterator<BlockPos> iterator =
-                BlockPos.betweenClosed(blockPos.offset(-x, -x, -x),
-                        blockPos.offset(x, x, x)).iterator();
+    private static boolean isAlgaeNearby(LevelAccessor level, BlockPos blockPos, int x) {
+        Iterator<BlockPos> iterator = BlockPos.betweenClosed(blockPos.offset(-x, -x, -x), blockPos.offset(x, x, x)).iterator();
         int count = 0;
         BlockPos pos;
         do {
@@ -66,9 +57,7 @@ public abstract class SlimeMixin extends Mob {
 
     @Override
     public boolean checkSpawnObstruction(LevelReader level) {
-        return (!level.containsAnyLiquid(this.getBoundingBox()) ||
-                isAlgaeNearby(this.getLevel(), this.blockPosition(), 1)) &&
-                level.isUnobstructed(this);
+        return (!level.containsAnyLiquid(this.getBoundingBox()) || isAlgaeNearby(this.getLevel(), this.blockPosition(), 1)) && level.isUnobstructed(this);
     }
 
 }

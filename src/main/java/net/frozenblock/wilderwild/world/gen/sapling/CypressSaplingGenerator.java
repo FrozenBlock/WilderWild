@@ -12,11 +12,9 @@ public class CypressSaplingGenerator extends AbstractTreeGrower {
     public CypressSaplingGenerator() {
     }
 
-    protected Holder<? extends ConfiguredFeature<?, ?>> getConfiguredFeature(
-            RandomSource random, boolean bees) {
+    protected Holder<? extends ConfiguredFeature<?, ?>> getConfiguredFeature(RandomSource random, boolean bees) {
         if (random.nextFloat() > 0.4F) {
-            return random.nextFloat() > 0.7F ? WilderTreeConfigured.CYPRESS :
-                    WilderTreeConfigured.FUNGUS_CYPRESS;
+            return random.nextFloat() > 0.7F ? WilderTreeConfigured.CYPRESS : WilderTreeConfigured.FUNGUS_CYPRESS;
         }
         return WilderConfiguredFeatures.CYPRESS_WETLANDS_TREES_SAPLING;
     }

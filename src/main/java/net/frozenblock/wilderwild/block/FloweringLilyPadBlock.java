@@ -16,31 +16,26 @@ import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
 public class FloweringLilyPadBlock extends WaterlilyBlock {
-    protected static final VoxelShape SHAPE = Block.box(1, 0, 1, 15, 1.5D, 15);
+    protected static final VoxelShape SHAPE = Block.box(1.0D, 0.0D, 1.0D, 15.0D, 1.5D, 15.0D);
 
     public FloweringLilyPadBlock(Properties settings) {
         super(settings);
     }
 
-    public void entityInside(BlockState state, Level level, BlockPos pos,
-                             Entity entity) {
+    public void entityInside(BlockState state, Level level, BlockPos pos, Entity entity) {
         super.entityInside(state, level, pos, entity);
         if (level instanceof ServerLevel && entity instanceof Boat) {
             level.destroyBlock(new BlockPos(pos), true, entity);
         }
     }
 
-    public VoxelShape getShape(BlockState state, BlockGetter level,
-                               BlockPos pos, CollisionContext context) {
+    public VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
         return AABB;
     }
 
-    protected boolean mayPlaceOn(BlockState floor, BlockGetter level,
-                                 BlockPos pos) {
+    protected boolean mayPlaceOn(BlockState floor, BlockGetter level, BlockPos pos) {
         FluidState fluidState = level.getFluidState(pos);
         FluidState fluidState2 = level.getFluidState(pos.above());
-        return (fluidState.getType() == Fluids.WATER ||
-                floor.getMaterial() == Material.ICE) &&
-                fluidState2.getType() == Fluids.EMPTY;
+        return (fluidState.getType() == Fluids.WATER || floor.getMaterial() == Material.ICE) && fluidState2.getType() == Fluids.EMPTY;
     }
 }

@@ -23,8 +23,7 @@ public abstract class EnderManMixin extends Monster {
     @Shadow
     private int lastStareSound;
 
-    protected EnderManMixin(EntityType<? extends Monster> entityType,
-                            Level level) {
+    protected EnderManMixin(EntityType<? extends Monster> entityType, Level level) {
         super(entityType, level);
     }
 
@@ -32,12 +31,10 @@ public abstract class EnderManMixin extends Monster {
     public void playStareSound(CallbackInfo info) {
         //NOTE: This only runs on the client.
         info.cancel();
-        if (this.tickCount >= this.lastStareSound + 400 &&
-                this.level.isClientSide) {
+        if (this.tickCount >= this.lastStareSound + 400 && this.level.isClientSide) {
             this.lastStareSound = this.tickCount;
             if (!this.isSilent()) {
-                ClientMethodInteractionHandler.playClientEnderManSound(
-                        EnderMan.class.cast(this));
+                ClientMethodInteractionHandler.playClientEnderManSound(EnderMan.class.cast(this));
             }
         }
     }
@@ -47,11 +44,7 @@ public abstract class EnderManMixin extends Monster {
         if (target != null) {
             EnderMan enderMan = EnderMan.class.cast(this);
             if (!enderMan.level.isClientSide) {
-                FrozenSoundPackets.createMovingRestrictionLoopingSound(
-                        enderMan.level, enderMan,
-                        RegisterSounds.ENTITY_ENDERMAN_ANGER_LOOP,
-                        SoundSource.HOSTILE, 0.1F, 0.9F,
-                        WilderWild.id("enderman_anger"));
+                FrozenSoundPackets.createMovingRestrictionLoopingSound(enderMan.level, enderMan, RegisterSounds.ENTITY_ENDERMAN_ANGER_LOOP, SoundSource.HOSTILE, 0.1F, 0.9F, WilderWild.id("enderman_anger"));
             }
         }
     }

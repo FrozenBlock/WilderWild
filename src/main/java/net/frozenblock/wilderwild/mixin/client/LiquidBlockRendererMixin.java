@@ -20,15 +20,8 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 public class LiquidBlockRendererMixin {
 
     @Inject(method = "shouldRenderFace", at = @At(value = "HEAD"), cancellable = true)
-    private static void shouldRenderFace(BlockAndTintGetter blockAndTintGetter,
-                                         BlockPos blockPos,
-                                         FluidState fluidState,
-                                         BlockState blockState,
-                                         Direction direction,
-                                         FluidState fluidState2,
-                                         CallbackInfoReturnable<Boolean> info) {
-        if (blockState.getBlock() instanceof MesogleaBlock &&
-                direction != Direction.UP && !WilderWild.hasSodium) {
+    private static void shouldRenderFace(BlockAndTintGetter blockAndTintGetter, BlockPos blockPos, FluidState fluidState, BlockState blockState, Direction direction, FluidState fluidState2, CallbackInfoReturnable<Boolean> info) {
+        if (blockState.getBlock() instanceof MesogleaBlock && direction != Direction.UP && !WilderWild.hasSodium) {
             info.setReturnValue(false);
         }
     }
