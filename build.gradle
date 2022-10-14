@@ -156,7 +156,7 @@ dependencies {
 		modRuntimeOnly "maven.modrinth:ferrite-core:${ferritecore_version}"
 		modRuntimeOnly "maven.modrinth:lazydfu:${lazydfu_version}"
 		modRuntimeOnly "maven.modrinth:starlight:${starlight_version}"
-		modRuntimeOnly "maven.modrinth:lithium:mc1.19.2-0.8.3"
+		modRuntimeOnly "maven.modrinth:lithium:${lithium_version}"
 		modRuntimeOnly "maven.modrinth:fastanim:${fastanim_version}"
 
 		// Sodium Related
