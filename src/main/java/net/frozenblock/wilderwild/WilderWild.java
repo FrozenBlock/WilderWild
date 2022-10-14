@@ -58,8 +58,7 @@ public final class WilderWild implements ModInitializer {
      * <p>
      * It's smart to use this for at least registries.
      */
-    public static boolean UNSTABLE_LOGGING =
-            FabricLoader.getInstance().isDevelopmentEnvironment();
+    public static boolean UNSTABLE_LOGGING = FabricLoader.getInstance().isDevelopmentEnvironment();
 
     public static boolean areConfigsInit = false;
 
