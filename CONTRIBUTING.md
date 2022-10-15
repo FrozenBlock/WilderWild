@@ -64,6 +64,10 @@ Wilder Wild is licensed under [LGPL 3.0][LICENSE], and it has a [Developer Certi
 Specifying the commit author may be sufficient, but a [sign-off can be also added](https://git-scm.com/docs/git-commit#Documentation/git-commit.txt--s).
 Legal names are not required.
 
+---
+
+**Note: This document is currently incomplete.**
+
 [LICENSE]: ./LICENSE "Wilder Wild license file"
 
 [DCO]: ./DEVELOPER_CERTIFICATE_OF_ORIGIN.md "Developer Certificate of Origin file"
