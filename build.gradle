@@ -62,7 +62,7 @@ repositories {
 	}
 	maven {
 		url 'https://cursemaven.com'
-		
+
 		content {
 			includeGroup "curse.maven"
 		}
@@ -83,6 +83,10 @@ repositories {
 	maven {
 		url = 'https://maven.parchmentmc.org'
 	}
+	maven {
+		name = 'Quilt'
+		url = 'https://maven.quiltmc.org/repository/release'
+	}
 
 	flatDir {
 		dirs 'libs'
@@ -94,7 +98,7 @@ dependencies {
 	minecraft "com.mojang:minecraft:${minecraft_version}"
 	mappings(loom.layered {
 		// please annoy treetrain if this doesnt work
-		"org.quiltmc:quilt-mappings:${minecraft_version}+build.${quilt_mappings}:v2"
+		it.mappings("org.quiltmc:quilt-mappings:${minecraft_version}+build.${quilt_mappings}:intermediary-v2")
 		it.parchment("org.parchmentmc.data:parchment-1.19.2:${parchment_mappings}@zip")
 		it.officialMojangMappings {
 			setNameSyntheticMembers(false)
@@ -147,31 +151,33 @@ dependencies {
 	modCompileOnly "org.joml:joml:1.10.4"
 	modCompileOnly "org.anarres:jcpp:1.4.14"
 
-	// only affects runClient, does not affect gradlew build. add -PuseThirdPartyMods=false to not use these
+	// only affects runClient, does not affect gradlew build.
+	// add -PuseThirdPartyMods=false to not use these
 	if (findProperty("useThirdPartyMods") != "false") {
 		modRuntimeOnly "maven.modrinth:ferrite-core:${ferritecore_version}"
 		modRuntimeOnly "maven.modrinth:lazydfu:${lazydfu_version}"
 		modRuntimeOnly "maven.modrinth:starlight:${starlight_version}"
-		modRuntimeOnly "maven.modrinth:lithium:mc1.19.2-0.8.3"
+		modRuntimeOnly "maven.modrinth:lithium:${lithium_version}"
 		modRuntimeOnly "maven.modrinth:fastanim:${fastanim_version}"
 
-		// Sodium Related
+		modRuntimeOnly "maven.modrinth:entityculling:${entityculling_version}"
+		modRuntimeOnly "maven.modrinth:ksyxis:${ksyxis_version}"
+		modRuntimeOnly "maven.modrinth:memoryleakfix:${memoryleakfix_version}"
+		modRuntimeOnly "maven.modrinth:no-unused-chunks:${no_unused_chunks_version}"
+	}
 
-		/*modRuntimeOnly "maven.modrinth:iris:${iris_version}"
+	// only affects runClient, does not affect gradlew build.
+	// add -PuseExperimentalThirdParty=true to the gradle runClient
+	// command to use these
+	if (findProperty("useExperimentalThirdParty") == "true") {
+		//modRuntimeOnly "maven.modrinth:iris:${iris_version}"
 		modRuntimeOnly "maven.modrinth:indium:${indium_version}"
 		modRuntimeOnly("me.flashyreese.mods:reeses-sodium-options:${reeses_sodium_options_version}") {
 			exclude group: "net.coderbot.iris_mc1_19", module: "iris"
 		}
 		modRuntimeOnly "me.flashyreese.mods:sodium-extra-fabric:${sodium_extra_version}"
 		modRuntimeOnly 'io.github.douira:glsl-transformer:0.27.0'
-		modRuntimeOnly "net.caffeinemc:mixin-config:1.0.0+1.17"*/
-
-		modRuntimeOnly "maven.modrinth:entityculling:${entityculling_version}"
-		//modRuntimeOnly "maven.modrinth:c2me-fabric:0.2.0+alpha.8.32+1.19.1-rc3"
-		modRuntimeOnly "maven.modrinth:ksyxis:${ksyxis_version}"
-		//modRuntimeOnly "maven.modrinth:iris:1.19.x-v1.2.5"
-		modRuntimeOnly "maven.modrinth:memoryleakfix:${memoryleakfix_version}"
-		modRuntimeOnly "maven.modrinth:no-unused-chunks:${no_unused_chunks_version}"
+		modRuntimeOnly "net.caffeinemc:mixin-config:1.0.0+1.17"
 	}
 }
 

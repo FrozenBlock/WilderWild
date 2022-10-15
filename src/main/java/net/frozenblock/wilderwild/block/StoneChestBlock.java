@@ -1,5 +1,7 @@
 package net.frozenblock.wilderwild.block;
 
+import net.fabricmc.fabric.api.transfer.v1.item.ItemVariant;
+import net.frozenblock.lib.storage.NoInteractionStorage;
 import net.frozenblock.wilderwild.block.entity.StoneChestBlockEntity;
 import net.frozenblock.wilderwild.registry.RegisterBlockEntities;
 import net.frozenblock.wilderwild.registry.RegisterProperties;
@@ -54,7 +56,7 @@ import java.util.Optional;
 import java.util.function.BiPredicate;
 import java.util.function.Supplier;
 
-public class StoneChestBlock extends ChestBlock {
+public class StoneChestBlock extends ChestBlock implements NoInteractionStorage<ItemVariant> {
     public static final BooleanProperty ANCIENT = RegisterProperties.ANCIENT;
     public static final BooleanProperty SCULK = RegisterProperties.HAS_SCULK;
 
@@ -320,6 +322,4 @@ public class StoneChestBlock extends ChestBlock {
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
         builder.add(FACING, TYPE, WATERLOGGED, ANCIENT, SCULK);
     }
-
-
 }

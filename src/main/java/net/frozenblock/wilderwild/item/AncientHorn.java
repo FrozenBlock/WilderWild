@@ -6,6 +6,7 @@ import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.entity.AncientHornProjectile;
 import net.frozenblock.wilderwild.registry.RegisterItems;
 import net.frozenblock.wilderwild.registry.RegisterSounds;
+import net.minecraft.client.renderer.LevelRenderer;
 import net.minecraft.core.Holder;
 import net.minecraft.core.NonNullList;
 import net.minecraft.core.Registry;
@@ -29,16 +30,21 @@ import java.util.Iterator;
 import java.util.Optional;
 
 public class AncientHorn extends InstrumentItem {
+
     private static final String TAG_INSTRUMENT = "instrument";
     private final TagKey<Instrument> instrumentTag;
 
+    public static final int DEFAULT_COOLDOWN = 300;
+    public static final int CREATIVE_COOLDOWN = 5;
     public static final int SHRIEKER_COOLDOWN = 900;
     public static final int SENSOR_COOLDOWN = 400;
     public static final int TENDRIL_COOLDOWN = 380;
+    public static final int MIN_BUBBLES = 10;
+    public static final int MAX_BUBBLES = 25;
 
-    public AncientHorn(Properties settings, TagKey<Instrument> instrumentTag) {
-        super(settings, instrumentTag);
-        this.instrumentTag = instrumentTag;
+    public AncientHorn(Properties settings, TagKey<Instrument> tag) {
+        super(settings, tag);
+        this.instrumentTag = tag;
     }
 
     @Override
@@ -60,17 +66,17 @@ public class AncientHorn extends InstrumentItem {
             Instrument instrument = optional.get().value();
             user.startUsingItem(hand);
             play(level, user, instrument);
-            user.getCooldowns().addCooldown(RegisterItems.ANCIENT_HORN, getCooldown(user, 300));
+            user.getCooldowns().addCooldown(RegisterItems.ANCIENT_HORN, getCooldown(user, DEFAULT_COOLDOWN));
             if (level instanceof ServerLevel server) {
                 AncientHornProjectile projectileEntity = new AncientHornProjectile(level, user.getX(), user.getEyeY(), user.getZ());
                 projectileEntity.shootFromRotation(user, user.getXRot(), user.getYRot(), 0.0F, 1.0F, 0.0F);
-                projectileEntity.shotByPlayer = true;
+                projectileEntity.setShotByPlayer(true);
                 server.addFreshEntity(projectileEntity);
                 FrozenSoundPackets.createMovingRestrictionLoopingSound(server, projectileEntity, RegisterSounds.ENTITY_ANCIENT_HORN_PROJECTILE_LOOP, SoundSource.NEUTRAL, 1.0F, 1.0F, WilderWild.id("default"));
                 ItemStack mainHand = user.getItemInHand(InteractionHand.MAIN_HAND);
                 ItemStack offHand = user.getItemInHand(InteractionHand.OFF_HAND);
                 if (mainHand.is(Items.WATER_BUCKET) || mainHand.is(Items.POTION) || offHand.is(Items.WATER_BUCKET) || offHand.is(Items.POTION)) {
-                    projectileEntity.bubbles = level.random.nextIntBetweenInclusive(10, 25);
+                    projectileEntity.setBubbles(level.random.nextIntBetweenInclusive(MIN_BUBBLES, MAX_BUBBLES));
                     /*float yawNew = user.getYaw() * 0.017453292F;
                     float pitchNew = MathHelper.cos(user.getPitch() * 0.017453292F);
                     float f = -MathHelper.sin(yawNew) * pitchNew;
@@ -109,10 +115,8 @@ public class AncientHorn extends InstrumentItem {
     }
 
     public static int getCooldown(@Nullable Entity entity, int cooldown) {
-        if (entity != null) {
-            if (entity instanceof Player player) {
-                cooldown = player.isCreative() ? 5 : cooldown;
-            }
+        if (entity instanceof Player player && player.isCreative()) {
+            return CREATIVE_COOLDOWN;
         }
         return cooldown;
     }
@@ -123,7 +127,7 @@ public class AncientHorn extends InstrumentItem {
             ItemCooldowns.CooldownInstance entry = manager.cooldowns.get(RegisterItems.ANCIENT_HORN);
             if (entry != null) {
                 int between = entry.endTime - entry.startTime;
-                if (between > 140 & between >= time) {
+                if (between > 140 && between >= time) {
                     ((CooldownInterface) user.getCooldowns()).changeCooldown(RegisterItems.ANCIENT_HORN, -time);
                     return time;
                 }
@@ -139,7 +143,7 @@ public class AncientHorn extends InstrumentItem {
 
     private static void play(Level level, Player player, Instrument instrument) {
         SoundEvent soundEvent = instrument.soundEvent();
-        float range = instrument.range() / 16.0F;
+        float range = instrument.range() / LevelRenderer.CHUNK_SIZE;
         level.playSound(player, player, soundEvent, SoundSource.RECORDS, range, 1.0F);
     }
 

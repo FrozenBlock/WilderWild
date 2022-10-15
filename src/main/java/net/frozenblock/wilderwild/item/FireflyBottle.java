@@ -95,7 +95,7 @@ public class FireflyBottle extends Item {
 
     @Override
     public UseAnim getUseAnimation(@NotNull ItemStack stack) {
-        return UseAnim.NONE; //sus funny funny funny among us sus funny all
+        return UseAnim.NONE;
     }
 
     @Override

@@ -38,7 +38,7 @@ public class WilderCopperPipesEntrypoint implements CopperPipeEntrypoint {
                         AncientHornProjectile projectileEntity = new AncientHornProjectile(level, pos.getX() + pipe.getDripX(direction), pos.getY() + pipe.getDripY(direction), pos.getZ() + pipe.getDripZ(direction));
                         projectileEntity.shoot(direction.getStepX(), direction.getStepY(), direction.getStepZ(), 1.0F, 0.0F);
                         projectileEntity.setOwner(nbt.foundEntity);
-                        projectileEntity.shotByPlayer = true;
+                        projectileEntity.setShotByPlayer(true);
                         level.addFreshEntity(projectileEntity);
                         FrozenSoundPackets.createMovingRestrictionLoopingSound(level, projectileEntity, RegisterSounds.ENTITY_ANCIENT_HORN_PROJECTILE_LOOP, SoundSource.NEUTRAL, 1.0F, 1.0F, WilderWild.id("default"));
                     }

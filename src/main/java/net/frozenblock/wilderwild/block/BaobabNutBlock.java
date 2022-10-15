@@ -29,7 +29,6 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.Objects;
 
-// DEEZ NUTS HAHAHHA GOTTEM
 public class BaobabNutBlock extends SaplingBlock {
     public static final IntegerProperty AGE = BlockStateProperties.AGE_2;
     public static final int MAX_AGE = 2;

@@ -60,18 +60,20 @@ import static net.frozenblock.wilderwild.item.AncientHorn.*;
 //TODO: Fix rendering (Renders too bright or too dark depending on direction; renders under other translucents like water, doesn't render further than 8 block away)
 
 public class AncientHornProjectile extends AbstractArrow {
-    private final TagKey<Block> NON_COLLIDE = WilderBlockTags.ANCIENT_HORN_NON_COLLIDE;
+    private static final TagKey<Block> NON_COLLIDE =
+            WilderBlockTags.ANCIENT_HORN_NON_COLLIDE;
+    private static final int MAX_ALIVE_TICKS = 300;
     private boolean shot;
     private boolean leftOwner;
-    public int aliveTicks;
-    public double vecX;
-    public double vecY;
-    public double vecZ;
-    public boolean shotByPlayer;
-    public int bubbles;
+    private int aliveTicks;
+    private double vecX;
+    private double vecY;
+    private double vecZ;
+    private boolean shotByPlayer;
+    private int bubbles;
     private BlockState inBlockState;
 
-    public AncientHornProjectile(@NotNull EntityType<? extends AbstractArrow> entityType, Level level) {
+    public AncientHornProjectile(@NotNull EntityType<? extends AncientHornProjectile> entityType, Level level) {
         super(entityType, level);
         this.setSoundEvent(RegisterSounds.ENTITY_ANCIENT_HORN_PROJECTILE_DISSIPATE);
     }
@@ -90,6 +92,26 @@ public class AncientHornProjectile extends AbstractArrow {
         return true;
     }
 
+    public int getAliveTicks() {
+        return this.aliveTicks;
+    }
+
+    public boolean isShotByPlayer() {
+        return this.shotByPlayer;
+    }
+
+    public void setShotByPlayer(final boolean bl) {
+        this.shotByPlayer = bl;
+    }
+
+    public int getBubbles() {
+        return this.bubbles;
+    }
+
+    public void setBubbles(final int amount) {
+        this.bubbles = amount;
+    }
+
     @Override
     public void tick() {
         this.baseTick();
@@ -97,7 +119,7 @@ public class AncientHornProjectile extends AbstractArrow {
             --this.bubbles;
             EasyPacket.EasyFloatingSculkBubblePacket.createParticle(server, this.position(), Math.random() > 0.7 ? 1 : 0, 20 + WilderWild.random().nextInt(40), 0.05, server.random.nextIntBetweenInclusive(1, 3));
         }
-        if (this.aliveTicks > 300) {
+        if (this.aliveTicks > MAX_ALIVE_TICKS) {
             this.remove(RemovalReason.DISCARDED);
         }
         ++this.aliveTicks;
@@ -328,7 +350,7 @@ public class AncientHornProjectile extends AbstractArrow {
                     this.remove(RemovalReason.DISCARDED);
                 }
             }
-        } else if (insideState.is(this.NON_COLLIDE)) {
+        } else if (insideState.is(NON_COLLIDE)) {
             if (this.level instanceof ServerLevel server) {
                 if (insideState.getBlock() instanceof BellBlock bell) { //BELL INTERACTION
                     bell.onProjectileHit(server, insideState, this.level.clip(new ClipContext(this.position(), new Vec3(this.getBlockX(), this.getBlockY(), this.getBlockZ()), ClipContext.Block.COLLIDER, ClipContext.Fluid.NONE, this)), this);
@@ -347,7 +369,7 @@ public class AncientHornProjectile extends AbstractArrow {
         BlockHitResult hitResult = this.level.clip(new ClipContext(pos, scaledDelta, ClipContext.Block.COLLIDER, ClipContext.Fluid.NONE, this));
         if (hitResult.getType() == HitResult.Type.BLOCK) {
             BlockState state = level.getBlockState(hitResult.getBlockPos());
-            return state.is(this.NON_COLLIDE);
+            return state.is(NON_COLLIDE);
         }
         return false;
     }
@@ -431,7 +453,7 @@ public class AncientHornProjectile extends AbstractArrow {
         HitResult.Type type = result.getType();
         if (type == HitResult.Type.BLOCK) {
             BlockHitResult blockHitResult = (BlockHitResult) result;
-            if (!level.getBlockState(blockHitResult.getBlockPos()).is(this.NON_COLLIDE)) {
+            if (!level.getBlockState(blockHitResult.getBlockPos()).is(NON_COLLIDE)) {
                 this.onHitBlock(blockHitResult);
                 this.remove(RemovalReason.DISCARDED);
             }

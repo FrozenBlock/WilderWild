@@ -10,8 +10,6 @@ import net.fabricmc.fabric.api.gamerule.v1.GameRuleFactory;
 import net.fabricmc.fabric.api.gamerule.v1.GameRuleRegistry;
 import net.fabricmc.loader.api.FabricLoader;
 import net.fabricmc.loader.api.ModContainer;
-import net.frozenblock.lib.entity.render.EasterEgg;
-import net.frozenblock.lib.registry.FrozenRegistry;
 import net.frozenblock.wilderwild.block.entity.TermiteMoundBlockEntity;
 import net.frozenblock.wilderwild.entity.Firefly;
 import net.frozenblock.wilderwild.misc.BlockSoundGroupOverwrites;
@@ -32,7 +30,6 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.RandomSource;
 import net.minecraft.util.datafix.schemas.NamespacedSchema;
 import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.level.GameRules;
 import net.minecraft.world.level.block.Block;
@@ -56,7 +53,12 @@ public final class WilderWild implements ModInitializer {
     public static final String MOD_ID = "wilderwild";
     public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
     public static boolean DEV_LOGGING = false;
-    public static boolean UNSTABLE_LOGGING = FabricLoader.getInstance().isDevelopmentEnvironment(); //Used for features that may be unstable and crash in public builds - it's smart to use this for at least registries.
+    /**
+     * Used for features that may be unstable and crash in public builds.
+     * <p>
+     * It's smart to use this for at least registries.
+     */
+    public static boolean UNSTABLE_LOGGING = FabricLoader.getInstance().isDevelopmentEnvironment();
 
     public static boolean areConfigsInit = false;
 
@@ -93,7 +95,7 @@ public final class WilderWild implements ModInitializer {
     @Override
     public void onInitialize() {
         startMeasuring(this);
-        var dataFixer = applyDataFixes(FabricLoader.getInstance().getModContainer(MOD_ID).orElseThrow());
+        applyDataFixes(FabricLoader.getInstance().getModContainer(MOD_ID).orElseThrow());
 
         WilderRegistry.initRegistry();
         RegisterBlocks.registerBlocks();
@@ -141,7 +143,7 @@ public final class WilderWild implements ModInitializer {
 
     public static final int DATA_VERSION = 8;
 
-    private static QuiltDataFixerBuilder applyDataFixes(ModContainer mod) {
+    private static void applyDataFixes(ModContainer mod) {
         log("Applying DataFixes for Wilder Wild", true);
         var builder = new QuiltDataFixerBuilder(DATA_VERSION);
         builder.addSchema(0, QuiltDataFixes.BASE_SCHEMA);
@@ -172,7 +174,7 @@ public final class WilderWild implements ModInitializer {
 
         QuiltDataFixes.buildAndRegisterFixer(mod, builder);
         log("DataFixes for Wilder Wild have been applied", true);
-        return builder;
+        //return builder;
     }
 
     //MOD COMPATIBILITY

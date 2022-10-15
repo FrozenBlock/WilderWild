@@ -50,8 +50,10 @@ public final class RegisterBlocks {
     // OTHER (BUILDING BLOCKS)
     public static final Block CHISELED_MUD_BRICKS = new Block(FabricBlockSettings.copyOf(Blocks.CHISELED_STONE_BRICKS).strength(1.5F).requiresTool().sounds(SoundType.MUD_BRICKS));
 
+    /**
+     * Building Blocks
+     */
     public static void registerOtherBB() {
-        // BB = Building Blocks
         registerBlock("chiseled_mud_bricks", CHISELED_MUD_BRICKS, CreativeModeTab.TAB_BUILDING_BLOCKS);
     }
 
