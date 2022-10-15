@@ -4,7 +4,7 @@ By contributing to Wilder Wild, you agree with the [Developer Certificate of Ori
 
 ## Conventions
 
-### General
+### Naming
 
 `UpperCamelCase` should be used for class names.
 `lowerCamelCase` should be used for method names, variable names, and variables that aren't both static and final.
