@@ -16,6 +16,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.InstrumentItem;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.LevelEvent;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gameevent.GameEvent;
 
@@ -59,14 +60,14 @@ public final class FrozenLibIntegration implements FrozenMainEntrypoint {
             level.setBlockAndUpdate(fluidInfo.pos(), blockState);
             Block.pushEntitiesUp(fluidInfo.sourceState(), blockState, level, fluidInfo.pos());
             level.gameEvent(GameEvent.BLOCK_CHANGE, fluidInfo.pos(), GameEvent.Context.of(blockState));
-            level.levelEvent(1504, blockPos, 0);
+            level.levelEvent(LevelEvent.DRIPSTONE_DRIP, blockPos, 0);
         });
         DripstoneDripWaterFrom.map.put(Blocks.MUD, (level, fluidInfo, blockPos) -> {
             BlockState blockState = Blocks.CLAY.defaultBlockState();
             level.setBlockAndUpdate(fluidInfo.pos(), blockState);
             Block.pushEntitiesUp(fluidInfo.sourceState(), blockState, level, fluidInfo.pos());
             level.gameEvent(GameEvent.BLOCK_CHANGE, fluidInfo.pos(), GameEvent.Context.of(blockState));
-            level.levelEvent(1504, blockPos, 0);
+            level.levelEvent(LevelEvent.DRIPSTONE_DRIP, blockPos, 0);
         });
 
         StructurePoolElementIdReplacements.resourceLocationReplacements.put(new ResourceLocation("ancient_city/structures/barracks"), WilderWild.id("ancient_city/structures/barracks"));
