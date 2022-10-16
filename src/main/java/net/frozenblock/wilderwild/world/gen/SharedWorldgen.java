@@ -64,7 +64,7 @@ public final class SharedWorldgen {
 
     public static final class Swamp {
 
-        public static final Climate.Parameter SWAMP_HUMIDITY = Climate.Parameter.span(Climate.Parameter.span(-0.2F, 0.1F), Humidity.HUMID);
+        public static final Climate.Parameter SWAMP_HUMIDITY = Climate.Parameter.span(Climate.Parameter.span(-0.175F, 0.1F), Humidity.HUMID);
 
         public static final Climate.Parameter TEMPERATURE = Climate.Parameter.span(Temperature.COOL, Temperature.WARM);
 
@@ -157,6 +157,8 @@ public final class SharedWorldgen {
     public static SurfaceRules.RuleSource makeStateRule(Block block) {
         return SurfaceRules.state(block.defaultBlockState());
     }
+
+	// PARAMETER POINTS
 
     public static Climate.ParameterPoint bottomParameters(
             Climate.Parameter temperature,
