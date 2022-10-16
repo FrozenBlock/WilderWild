@@ -13,6 +13,7 @@ import net.minecraft.world.level.biome.OverworldBiomeBuilder;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
+import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
@@ -187,6 +188,7 @@ public final class OverworldBiomeBuilderMixin {
         }
     }
 
+	@Unique
     private static void addDeepBiome(
             Consumer<Pair<Climate.ParameterPoint, ResourceKey<Biome>>> parameters,
             Climate.Parameter temperature,
@@ -200,6 +202,7 @@ public final class OverworldBiomeBuilderMixin {
         parameters.accept(Pair.of(SharedWorldgen.deepParameters(temperature, humidity, continentalness, erosion, weirdness, offset), biome));
     }
 
+	@Unique
     private static void addSemiDeepBiome(
             Consumer<Pair<Climate.ParameterPoint, ResourceKey<Biome>>> parameters,
             Climate.Parameter temperature,

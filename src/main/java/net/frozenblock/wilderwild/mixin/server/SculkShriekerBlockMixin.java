@@ -25,7 +25,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(SculkShriekerBlock.class)
 public class SculkShriekerBlockMixin extends BaseEntityBlock {
 
-    public SculkShriekerBlockMixin(Properties settings) {
+    private SculkShriekerBlockMixin(Properties settings) {
         super(settings);
     }
 
@@ -48,6 +48,6 @@ public class SculkShriekerBlockMixin extends BaseEntityBlock {
 
     @Shadow
     public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
-        return new SculkShriekerBlockEntity(pos, state);
+        throw new AssertionError("Mixin injection failed.");
     }
 }

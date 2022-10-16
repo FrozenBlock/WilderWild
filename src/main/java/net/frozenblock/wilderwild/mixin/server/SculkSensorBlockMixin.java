@@ -25,23 +25,23 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 @Mixin(SculkSensorBlock.class)
 public abstract class SculkSensorBlockMixin extends BaseEntityBlock implements SimpleWaterloggedBlock {
 
-    protected SculkSensorBlockMixin(Properties properties) {
+    private SculkSensorBlockMixin(Properties properties) {
         super(properties);
     }
 
     @Inject(at = @At("TAIL"), method = "createBlockStateDefinition")
-    public void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder, CallbackInfo info) {
+    private void addHiccuppingState(StateDefinition.Builder<Block, BlockState> builder, CallbackInfo info) {
         builder.add(RegisterProperties.HICCUPPING);
     }
 
     @Inject(method = "<init>", at = @At("TAIL"))
-    private void SculkSensorBlock(BlockBehaviour.Properties settings, int range, CallbackInfo ci) {
+    private void registerDefaultHiccupping(BlockBehaviour.Properties settings, int range, CallbackInfo ci) {
         SculkSensorBlock sculkSensor = SculkSensorBlock.class.cast(this);
         sculkSensor.registerDefaultState(sculkSensor.defaultBlockState().setValue(RegisterProperties.HICCUPPING, false));
     }
 
     @Inject(at = @At("HEAD"), method = "getTicker", cancellable = true)
-    public <T extends BlockEntity> void getTicker(Level level, BlockState state, BlockEntityType<T> type, CallbackInfoReturnable<BlockEntityTicker<T>> info) {
+    public <T extends BlockEntity> void overrideTicker(Level level, BlockState state, BlockEntityType<T> type, CallbackInfoReturnable<BlockEntityTicker<T>> info) {
         if (level.isClientSide) {
             info.setReturnValue(createTickerHelper(type, BlockEntityType.SCULK_SENSOR, (worldx, pos, statex, blockEntity) -> {
                 ((SculkSensorTickInterface) blockEntity).tickClient(worldx, pos, statex);

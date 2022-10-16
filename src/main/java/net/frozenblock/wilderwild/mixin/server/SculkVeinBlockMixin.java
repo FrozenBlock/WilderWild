@@ -27,7 +27,7 @@ public abstract class SculkVeinBlockMixin extends MultifaceBlock implements Scul
     @Shadow
     private MultifaceSpreader veinSpreader;
 
-    public SculkVeinBlockMixin(Properties properties) {
+    private SculkVeinBlockMixin(Properties properties) {
         super(properties);
     }
 

@@ -12,12 +12,12 @@ import org.spongepowered.asm.mixin.Unique;
 
 @Environment(EnvType.CLIENT)
 @Mixin(PigModel.class)
-public class UppyBallooModel<T extends Entity> extends QuadrupedModel<T> {
+public final class UppyBallooModel<T extends Entity> extends QuadrupedModel<T> {
 
     @Unique
-    private static final float radians = ((float) Math.PI / 180);
+    private static final float WILDERWILD$RADIANS = ((float) Math.PI / 180);
     @Unique
-    private static final float non_uppy_balloo_angle = 90 * radians;
+    private static final float WILDERWILD$NON_UPPY_BALLOO_ANGLE = 90 * WILDERWILD$RADIANS;
 
     public UppyBallooModel(ModelPart root) {
         super(root, false, 4.0f, 4.0f, 2.0f, 2.0f, 24);
@@ -40,7 +40,7 @@ public class UppyBallooModel<T extends Entity> extends QuadrupedModel<T> {
         if (string.equalsIgnoreCase("a view from the top")) {
             this.body.xRot = 0;
         } else {
-            this.body.xRot = non_uppy_balloo_angle;
+            this.body.xRot = WILDERWILD$NON_UPPY_BALLOO_ANGLE;
         }
     }
 

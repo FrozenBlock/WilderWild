@@ -93,65 +93,66 @@ public final class SharedWorldgen {
         );
     }
 
-    public static SurfaceRules.RuleSource betaBeachSurfaceRules() {
-        var gravel = SurfaceRules.ifTrue(
-                SurfaceRules.UNDER_FLOOR, SurfaceRules.sequence(
-                        SurfaceRules.ifTrue(
-                                FrozenSurfaceRules.isBiome(WilderRegistry.GRAVEL_BEACH_BIOMES),
-                                SurfaceRules.ifTrue(
-                                        SurfaceRules.yStartCheck(VerticalAnchor.absolute(58), 0),
-                                        SurfaceRules.ifTrue(
-                                                SurfaceRules.not(SurfaceRules.yStartCheck(VerticalAnchor.absolute(65), 0)),
-                                                SurfaceRules.ifTrue(SurfaceRules.noiseCondition(WilderNoise.GRAVEL_BEACH_KEY, 0.12, 1.7976931348623157E308), GRAVEL)
-                                        )
-                                )
-                        )
-                )
-        );
+	public static SurfaceRules.RuleSource gravelBetaBeaches() {
+		return SurfaceRules.ifTrue(
+				SurfaceRules.UNDER_FLOOR, SurfaceRules.sequence(
+						SurfaceRules.ifTrue(
+								FrozenSurfaceRules.isBiome(WilderRegistry.GRAVEL_BEACH_BIOMES),
+								SurfaceRules.ifTrue(
+										SurfaceRules.yStartCheck(VerticalAnchor.absolute(58), 0),
+										SurfaceRules.ifTrue(
+												SurfaceRules.not(SurfaceRules.yStartCheck(VerticalAnchor.absolute(65), 0)),
+												SurfaceRules.ifTrue(SurfaceRules.noiseCondition(WilderNoise.GRAVEL_BEACH_KEY, 0.12, 1.7976931348623157E308), GRAVEL)
+										)
+								)
+						)
+				)
+		);
+	}
 
-        var sand = SurfaceRules.sequence(SurfaceRules.ifTrue(
-                SurfaceRules.DEEP_UNDER_FLOOR, SurfaceRules.sequence(
-                        SurfaceRules.ifTrue(
-                                FrozenSurfaceRules.isBiome(WilderRegistry.SAND_BEACH_BIOMES),
-                                SurfaceRules.ifTrue(
-                                        SurfaceRules.yStartCheck(VerticalAnchor.absolute(58), 0),
-                                        SurfaceRules.ifTrue(
-                                                SurfaceRules.not(SurfaceRules.yStartCheck(VerticalAnchor.absolute(65), 0)),
-                                                SurfaceRules.ifTrue(SurfaceRules.noiseCondition(WilderNoise.SAND_BEACH_KEY, 0.12, 1.7976931348623157E308), SAND)
-                                        )
-                                )
-                        )
-                )
-        ), SurfaceRules.sequence(SurfaceRules.ifTrue(
-                SurfaceRules.DEEP_UNDER_FLOOR, SurfaceRules.sequence(
-                        SurfaceRules.ifTrue(
-                                FrozenSurfaceRules.isBiome(WilderRegistry.OTHER_SAND_BEACH_BIOMES),
-                                SurfaceRules.ifTrue(
-                                        SurfaceRules.yStartCheck(VerticalAnchor.absolute(58), 0),
-                                        SurfaceRules.ifTrue(
-                                                SurfaceRules.not(SurfaceRules.yStartCheck(VerticalAnchor.absolute(64), 0)),
-                                                SurfaceRules.ifTrue(SurfaceRules.noiseCondition(WilderNoise.SAND_BEACH_KEY, 0.12, 1.7976931348623157E308), SAND)
-                                        )
-                                )
-                        )
-                )
-        )));
+	public static SurfaceRules.RuleSource sandBetaBeaches() {
+		return SurfaceRules.ifTrue(
+				SurfaceRules.DEEP_UNDER_FLOOR,
+				SurfaceRules.ifTrue(
+						FrozenSurfaceRules.isBiome(WilderRegistry.SAND_BEACH_BIOMES),
+						SurfaceRules.ifTrue(
+								SurfaceRules.yStartCheck(VerticalAnchor.absolute(58), 0),
+								SurfaceRules.ifTrue(
+										SurfaceRules.not(SurfaceRules.yStartCheck(VerticalAnchor.absolute(65), 0)),
+										SurfaceRules.ifTrue(SurfaceRules.noiseCondition(WilderNoise.SAND_BEACH_KEY, 0.12, 1.7976931348623157E308), SAND)
+								)
+						)
+				)
+		);
+	}
 
-        var betaBeaches = SurfaceRules.sequence(gravel, sand);
+	public static SurfaceRules.RuleSource otherSandBetaBeaches() {
+		return SurfaceRules.ifTrue(
+				SurfaceRules.DEEP_UNDER_FLOOR,
+				SurfaceRules.ifTrue(
+						FrozenSurfaceRules.isBiome(WilderRegistry.OTHER_SAND_BEACH_BIOMES),
+						SurfaceRules.ifTrue(
+								SurfaceRules.yStartCheck(VerticalAnchor.absolute(58), 0),
+								SurfaceRules.ifTrue(
+										SurfaceRules.not(SurfaceRules.yStartCheck(VerticalAnchor.absolute(64), 0)),
+										SurfaceRules.ifTrue(SurfaceRules.noiseCondition(WilderNoise.SAND_BEACH_KEY, 0.12, 1.7976931348623157E308), SAND)
+								)
+						)
+				)
+		);
+	}
 
-        //SurfaceRules.sequence(new SurfaceRules.RuleSource[]{SurfaceRules.ifTrue(SurfaceRules.isBiome(Biomes.FOREST, Biomes.FLOWER_FOREST, Biomes.JUNGLE),
-        // SurfaceRules.ifTrue(SurfaceRules.yStartCheck(VerticalAnchor.absolute(58), 0),
-        // SurfaceRules.sequence(new SurfaceRules.RuleSource[]{SurfaceRules.ifTrue(SurfaceRules.yStartCheck(VerticalAnchor.absolute(65),0),
-        // SurfaceRules.ifTrue(SurfaceRules.not(SurfaceRules.steep()),
-        // SurfaceRules.sequence(new SurfaceRules.RuleSource[]{SurfaceRules.ifTrue(SurfaceRules.noiseCondition(WilderNoise.SAND_BEACH, 0.12, 1.7976931348623157E308),
-        // SurfaceRules.sequence(new SurfaceRules.RuleSource[]{SurfaceRules.ifTrue(SurfaceRules.UNDER_FLOOR,
-        // SurfaceRules.sequence(new SurfaceRules.RuleSource[]{SurfaceRules.ifTrue(SurfaceRules.stoneDepthCheck(3, false, CaveSurface.CEILING),SANDSTONE), SAND})),
-        // SurfaceRules.ifTrue(SurfaceRules.waterStartCheck(-6, -1),
-        // SurfaceRules.sequence(new SurfaceRules.RuleSource[]{SurfaceRules.ifTrue(SurfaceRules.UNDER_FLOOR,
-        // SurfaceRules.sequence(new SurfaceRules.RuleSource[]{SurfaceRules.ifTrue(SurfaceRules.ON_CEILING,
-        // SANDSTONE), SAND})), SurfaceRules.ifTrue(SurfaceRules.DEEP_UNDER_FLOOR, SANDSTONE)}))}))})))})))}));
-        return betaBeaches;
-    }
+	//SurfaceRules.sequence(new SurfaceRules.RuleSource[]{SurfaceRules.ifTrue(SurfaceRules.isBiome(Biomes.FOREST, Biomes.FLOWER_FOREST, Biomes.JUNGLE),
+	// SurfaceRules.ifTrue(SurfaceRules.yStartCheck(VerticalAnchor.absolute(58), 0),
+	// SurfaceRules.sequence(new SurfaceRules.RuleSource[]{SurfaceRules.ifTrue(SurfaceRules.yStartCheck(VerticalAnchor.absolute(65),0),
+	// SurfaceRules.ifTrue(SurfaceRules.not(SurfaceRules.steep()),
+	// SurfaceRules.sequence(new SurfaceRules.RuleSource[]{SurfaceRules.ifTrue(SurfaceRules.noiseCondition(WilderNoise.SAND_BEACH, 0.12, 1.7976931348623157E308),
+	// SurfaceRules.sequence(new SurfaceRules.RuleSource[]{SurfaceRules.ifTrue(SurfaceRules.UNDER_FLOOR,
+	// SurfaceRules.sequence(new SurfaceRules.RuleSource[]{SurfaceRules.ifTrue(SurfaceRules.stoneDepthCheck(3, false, CaveSurface.CEILING),SANDSTONE), SAND})),
+	// SurfaceRules.ifTrue(SurfaceRules.waterStartCheck(-6, -1),
+	// SurfaceRules.sequence(new SurfaceRules.RuleSource[]{SurfaceRules.ifTrue(SurfaceRules.UNDER_FLOOR,
+	// SurfaceRules.sequence(new SurfaceRules.RuleSource[]{SurfaceRules.ifTrue(SurfaceRules.ON_CEILING,
+	// SANDSTONE), SAND})), SurfaceRules.ifTrue(SurfaceRules.DEEP_UNDER_FLOOR, SANDSTONE)}))}))})))})))}));
 
     public static SurfaceRules.RuleSource makeStateRule(Block block) {
         return SurfaceRules.state(block.defaultBlockState());

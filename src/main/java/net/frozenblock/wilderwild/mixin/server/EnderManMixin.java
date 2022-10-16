@@ -23,7 +23,7 @@ public abstract class EnderManMixin extends Monster {
     @Shadow
     private int lastStareSound;
 
-    protected EnderManMixin(EntityType<? extends Monster> entityType, Level level) {
+    private EnderManMixin(EntityType<? extends Monster> entityType, Level level) {
         super(entityType, level);
     }
 

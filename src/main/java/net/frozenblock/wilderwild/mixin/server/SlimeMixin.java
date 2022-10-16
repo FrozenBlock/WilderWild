@@ -22,12 +22,12 @@ import java.util.Iterator;
 @Mixin(Slime.class)
 public abstract class SlimeMixin extends Mob {
 
-    protected SlimeMixin(EntityType<? extends Mob> entityType, Level level) {
+    private SlimeMixin(EntityType<? extends Mob> entityType, Level level) {
         super(entityType, level);
     }
 
     @Inject(method = "checkSlimeSpawnRules", at = @At("HEAD"), cancellable = true)
-    private static void checkSlimeSpawnRules(EntityType<Slime> type, LevelAccessor level, MobSpawnType spawnReason, BlockPos pos, RandomSource random, CallbackInfoReturnable<Boolean> info) {
+    private static void spawnInAlgae(EntityType<Slime> type, LevelAccessor level, MobSpawnType spawnReason, BlockPos pos, RandomSource random, CallbackInfoReturnable<Boolean> info) {
         if (level.getDifficulty() != Difficulty.PEACEFUL) {
             if (level.getBrightness(LightLayer.BLOCK, pos) < random.nextInt(8)) {
                 boolean test = spawnReason == MobSpawnType.SPAWNER || random.nextInt(5) == 0;

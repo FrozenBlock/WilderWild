@@ -15,16 +15,16 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Environment(EnvType.CLIENT)
 @Mixin(PigRenderer.class)
-public class UppyBalloo {
+public final class UppyBalloo {
 
     @Unique
-    private static final ResourceLocation UPPY_BALLOO = WilderWild.id("textures/entity/pig/uppy_balloo.png");
+    private static final ResourceLocation WILDERWILD$UPPY_BALLOO = WilderWild.id("textures/entity/pig/uppy_balloo.png");
 
     @Inject(method = "getTextureLocation(Lnet/minecraft/world/entity/animal/Pig;)Lnet/minecraft/resources/ResourceLocation;", at = @At("RETURN"), cancellable = true)
     public void getTextureLocation(Pig pig, CallbackInfoReturnable<ResourceLocation> cir) {
         String string = ChatFormatting.stripFormatting(pig.getName().getString());
         if (string != null && string.equalsIgnoreCase("a view from the top")) {
-            cir.setReturnValue(UPPY_BALLOO);
+            cir.setReturnValue(WILDERWILD$UPPY_BALLOO);
         }
     }
 }

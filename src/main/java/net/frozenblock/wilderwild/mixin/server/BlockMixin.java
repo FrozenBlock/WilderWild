@@ -12,10 +12,10 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(Block.class)
-public class BlockMixin {
+public final class BlockMixin {
 
     @Inject(method = "getSoundType", at = @At("RETURN"), cancellable = true)
-    private void getSoundType(BlockState state, CallbackInfoReturnable<SoundType> info) {
+    private void getSoundGroupOverride(BlockState state, CallbackInfoReturnable<SoundType> info) {
         Block block = state.getBlock();
         ResourceLocation id = Registry.BLOCK.getKey(block);
         if (BlockSoundGroupOverwrites.ids.contains(id)) {

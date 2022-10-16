@@ -27,12 +27,13 @@ import net.minecraft.world.level.gameevent.GameEventListener;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(SculkSensorBlockEntity.class)
-public class SculkSensorBlockEntityMixin extends BlockEntity implements SculkSensorTickInterface {
+public final class SculkSensorBlockEntityMixin extends BlockEntity implements SculkSensorTickInterface {
 
     public int animTicks;
     public int prevAnimTicks;
@@ -40,12 +41,12 @@ public class SculkSensorBlockEntityMixin extends BlockEntity implements SculkSen
     public boolean active;
     public boolean prevActive;
 
-    public SculkSensorBlockEntityMixin(BlockEntityType<?> type, BlockPos pos, BlockState state) {
+    private SculkSensorBlockEntityMixin(BlockEntityType<?> type, BlockPos pos, BlockState state) {
         super(type, pos, state);
     }
 
     @Inject(at = @At("HEAD"), method = "onSignalReceive")
-    public void onSignalReceive(ServerLevel level, GameEventListener listener, BlockPos pos, GameEvent event, @Nullable Entity entity, @Nullable Entity sourceEntity, float f, CallbackInfo info) {
+    private void onSignalReceive(ServerLevel level, GameEventListener listener, BlockPos pos, GameEvent event, @Nullable Entity entity, @Nullable Entity sourceEntity, float f, CallbackInfo info) {
         SculkSensorBlockEntity sculkSensorBlockEntity = SculkSensorBlockEntity.class.cast(this);
         BlockState blockState = sculkSensorBlockEntity.getBlockState();
         if (SculkSensorBlock.canActivate(blockState)) {
@@ -55,6 +56,7 @@ public class SculkSensorBlockEntityMixin extends BlockEntity implements SculkSen
         }
     }
 
+	@Unique
     @Override
     public void tickServer(ServerLevel level, BlockPos pos, BlockState state) {
         SculkSensorBlockEntity sensor = SculkSensorBlockEntity.class.cast(this);
@@ -89,21 +91,23 @@ public class SculkSensorBlockEntityMixin extends BlockEntity implements SculkSen
         this.prevActive = this.active;
     }
 
+	@Unique
     @Override
     public void tickClient(Level level, BlockPos pos, BlockState state) {
-        SculkSensorBlockEntity sensor = SculkSensorBlockEntity.class.cast(this);
-        this.prevAnimTicks = this.animTicks;
+		this.prevAnimTicks = this.animTicks;
         if (this.animTicks > 0) {
             --this.animTicks;
         }
         ++this.age;
     }
 
+	@Unique
     @Override
     public ClientboundBlockEntityDataPacket getUpdatePacket() {
         return ClientboundBlockEntityDataPacket.create(SculkSensorBlockEntity.class.cast(this));
     }
 
+	@Unique
     @Override
     public CompoundTag getUpdateTag() {
         return this.saveWithoutMetadata();
@@ -115,38 +119,44 @@ public class SculkSensorBlockEntityMixin extends BlockEntity implements SculkSen
         return true;
     }*/
 
+	@Unique
     @Override
     public int getAge() {
         return this.age;
     }
 
+	@Unique
     @Override
     public int getAnimTicks() {
         return this.animTicks;
     }
 
+	@Unique
     @Override
     public int getPrevAnimTicks() {
         return this.prevAnimTicks;
     }
 
+	@Unique
     @Override
     public boolean isActive() {
         return this.active;
     }
 
+	@Unique
     @Override
     public void setActive(boolean active) {
         this.active = active;
     }
 
+	@Unique
     @Override
     public void setAnimTicks(int i) {
         this.animTicks = i;
     }
 
     @Inject(at = @At("TAIL"), method = "load")
-    public void load(CompoundTag nbt, CallbackInfo info) {
+    private void load(CompoundTag nbt, CallbackInfo info) {
         this.age = nbt.getInt("age");
         this.animTicks = nbt.getInt("animTicks");
         this.prevAnimTicks = nbt.getInt("prevAnimTicks");
@@ -155,7 +165,7 @@ public class SculkSensorBlockEntityMixin extends BlockEntity implements SculkSen
     }
 
     @Inject(at = @At("TAIL"), method = "saveAdditional")
-    protected void saveAdditional(CompoundTag nbt, CallbackInfo info) {
+	private void saveAdditional(CompoundTag nbt, CallbackInfo info) {
         nbt.putInt("age", this.age);
         nbt.putInt("animTicks", this.animTicks);
         nbt.putInt("prevAnimTicks", this.prevAnimTicks);

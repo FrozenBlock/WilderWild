@@ -49,7 +49,9 @@ public final class RegisterWorldgen implements SurfaceRuleEvents.OverworldModifi
     public void modifyOverworldRules(SurfaceRuleContext.@NotNull Overworld context) {
         context.materialRules().add(0, SharedWorldgen.cypressSurfaceRules());
         if (ClothConfigInteractionHandler.betaBeaches()) {
-            context.materialRules().add(0, SharedWorldgen.betaBeachSurfaceRules());
+            context.materialRules().add(0, SharedWorldgen.gravelBetaBeaches());
+			context.materialRules().add(0, SharedWorldgen.sandBetaBeaches());
+			context.materialRules().add(0, SharedWorldgen.otherSandBetaBeaches());
         }
 
         // FROM QUILT'S TEST MOD

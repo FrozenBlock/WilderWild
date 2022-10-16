@@ -12,10 +12,10 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(SculkVeinBlock.SculkVeinSpreaderConfig.class)
-public class SculkVeinSpreaderConfigMixin {
+public final class SculkVeinSpreaderConfigMixin {
 
     @Inject(at = @At("RETURN"), method = "stateCanBeReplaced", cancellable = true)
-    public void newBlocks(BlockGetter level, BlockPos pos, BlockPos growPos, Direction direction, BlockState state, CallbackInfoReturnable<Boolean> info) {
+    private void newBlocks(BlockGetter level, BlockPos pos, BlockPos growPos, Direction direction, BlockState state, CallbackInfoReturnable<Boolean> info) {
         BlockState blockState = level.getBlockState(growPos.relative(direction));
         if (blockState.is(RegisterBlocks.OSSEOUS_SCULK) || blockState.is(RegisterBlocks.SCULK_SLAB) || blockState.is(RegisterBlocks.SCULK_STAIRS) || blockState.is(RegisterBlocks.SCULK_WALL)) {
             info.setReturnValue(false);

@@ -116,7 +116,7 @@ public class SculkSpreaderChargeCursorMixin {
 
     @Shadow
     private static boolean isMovementUnobstructed(LevelAccessor level, BlockPos sourcePos, BlockPos targetPos) {
-        return false;
+        throw new AssertionError("Mixin injection failed");
     }
 
     @Nullable
@@ -152,21 +152,21 @@ public class SculkSpreaderChargeCursorMixin {
 
     @Shadow
     private static SculkBehaviour getBlockBehaviour(BlockState state) {
-        return null;
+        throw new AssertionError("Mixin injection failed.");
     }
 
     @Shadow
     private static List<Vec3i> getRandomizedNonCornerNeighbourOffsets(RandomSource random) {
-        return null;
+        throw new AssertionError("Mixin injection failed.");
     }
 
     @Shadow
     private static boolean isUnobstructed(LevelAccessor level, BlockPos pos, Direction direction) {
-        return false;
+        throw new AssertionError("Mixin injection failed.");
     }
 
     @Shadow
     private static BlockPos getValidMovementPos(LevelAccessor level, BlockPos pos, RandomSource random) {
-        return null;
+		throw new AssertionError("Mixin injection failed.");
     }
 }
