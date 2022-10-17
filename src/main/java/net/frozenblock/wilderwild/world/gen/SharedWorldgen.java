@@ -1,8 +1,15 @@
 package net.frozenblock.wilderwild.world.gen;
 
 import com.google.common.collect.ImmutableList;
-import net.frozenblock.lib.worldgen.biome.api.parameters.*;
+import java.util.ArrayList;
+import java.util.List;
+import net.frozenblock.lib.worldgen.biome.api.parameters.Continentalness;
+import net.frozenblock.lib.worldgen.biome.api.parameters.Erosion;
+import net.frozenblock.lib.worldgen.biome.api.parameters.Humidity;
+import net.frozenblock.lib.worldgen.biome.api.parameters.Temperature;
+import net.frozenblock.lib.worldgen.biome.api.parameters.Weirdness;
 import net.frozenblock.lib.worldgen.surface.FrozenSurfaceRules;
+import static net.frozenblock.lib.worldgen.surface.FrozenSurfaceRules.*;
 import net.frozenblock.wilderwild.registry.RegisterWorldgen;
 import net.frozenblock.wilderwild.registry.WilderRegistry;
 import net.frozenblock.wilderwild.world.gen.noise.WilderNoise;
@@ -11,11 +18,6 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.levelgen.Noises;
 import net.minecraft.world.level.levelgen.SurfaceRules;
 import net.minecraft.world.level.levelgen.VerticalAnchor;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import static net.frozenblock.lib.worldgen.surface.FrozenSurfaceRules.*;
 
 public final class SharedWorldgen {
 
