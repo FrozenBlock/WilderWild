@@ -6,7 +6,6 @@ import net.frozenblock.wilderwild.block.EchoGlassBlock;
 import net.frozenblock.wilderwild.entity.render.animations.WilderWarden;
 import net.frozenblock.wilderwild.registry.RegisterBlocks;
 import net.frozenblock.wilderwild.registry.RegisterSounds;
-import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleTypes;

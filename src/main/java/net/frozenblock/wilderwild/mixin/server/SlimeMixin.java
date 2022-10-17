@@ -1,5 +1,6 @@
 package net.frozenblock.wilderwild.mixin.server;
 
+import java.util.Iterator;
 import net.frozenblock.wilderwild.registry.RegisterBlocks;
 import net.minecraft.core.BlockPos;
 import net.minecraft.util.RandomSource;
@@ -16,8 +17,6 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
-
-import java.util.Iterator;
 
 @Mixin(Slime.class)
 public abstract class SlimeMixin extends Mob {

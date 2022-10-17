@@ -1,6 +1,7 @@
 package net.frozenblock.wilderwild.misc;
 
 import com.mojang.serialization.Codec;
+import java.util.List;
 import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.registry.WilderRegistry;
 import net.minecraft.Util;
@@ -8,8 +9,6 @@ import net.minecraft.core.Registry;
 import net.minecraft.network.syncher.EntityDataSerializer;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.resources.ResourceLocation;
-
-import java.util.List;
 
 public class FireflyColor {
 

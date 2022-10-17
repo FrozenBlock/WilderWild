@@ -1,5 +1,7 @@
 package net.frozenblock.wilderwild.block;
 
+import java.util.Collections;
+import java.util.List;
 import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.entity.AncientHornProjectile;
 import net.frozenblock.wilderwild.registry.RegisterProperties;
@@ -34,9 +36,6 @@ import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
 import net.minecraft.world.phys.BlockHitResult;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-
-import java.util.Collections;
-import java.util.List;
 
 public class EchoGlassBlock extends TintedGlassBlock {
     public static final IntegerProperty DAMAGE = RegisterProperties.DAMAGE;

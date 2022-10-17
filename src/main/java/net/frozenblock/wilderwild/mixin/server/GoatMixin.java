@@ -1,5 +1,6 @@
 package net.frozenblock.wilderwild.mixin.server;
 
+import java.util.Objects;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.HolderSet;
 import net.minecraft.core.Registry;
@@ -19,8 +20,6 @@ import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
-
-import java.util.Objects;
 
 @Mixin(Goat.class)
 public class GoatMixin {

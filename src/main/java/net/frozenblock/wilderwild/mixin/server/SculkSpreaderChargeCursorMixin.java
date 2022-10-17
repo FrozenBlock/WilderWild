@@ -1,5 +1,7 @@
 package net.frozenblock.wilderwild.mixin.server;
 
+import java.util.Iterator;
+import java.util.List;
 import net.frozenblock.wilderwild.misc.BooleanPropertySculkBehavior;
 import net.frozenblock.wilderwild.misc.SlabWallStairSculkBehavior;
 import net.frozenblock.wilderwild.registry.RegisterBlocks;
@@ -23,9 +25,6 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
-
-import java.util.Iterator;
-import java.util.List;
 
 @Mixin(SculkSpreader.ChargeCursor.class)
 public class SculkSpreaderChargeCursorMixin {

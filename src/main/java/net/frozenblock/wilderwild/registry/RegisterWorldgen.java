@@ -11,6 +11,8 @@ import net.minecraft.core.Registry;
 import net.minecraft.data.BuiltinRegistries;
 import net.minecraft.data.worldgen.BiomeDefaultFeatures;
 import net.minecraft.data.worldgen.biome.OverworldBiomes;
+import static net.minecraft.data.worldgen.biome.OverworldBiomes.jungle;
+import static net.minecraft.data.worldgen.biome.OverworldBiomes.swamp;
 import net.minecraft.data.worldgen.placement.CavePlacements;
 import net.minecraft.data.worldgen.placement.MiscOverworldPlacements;
 import net.minecraft.data.worldgen.placement.VegetationPlacements;
@@ -19,7 +21,11 @@ import net.minecraft.sounds.Music;
 import net.minecraft.sounds.Musics;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
-import net.minecraft.world.level.biome.*;
+import net.minecraft.world.level.biome.AmbientMoodSettings;
+import net.minecraft.world.level.biome.Biome;
+import net.minecraft.world.level.biome.BiomeGenerationSettings;
+import net.minecraft.world.level.biome.BiomeSpecialEffects;
+import net.minecraft.world.level.biome.MobSpawnSettings;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.levelgen.GenerationStep;
 import net.minecraft.world.level.levelgen.Noises;
@@ -27,9 +33,6 @@ import net.minecraft.world.level.levelgen.SurfaceRules;
 import org.jetbrains.annotations.NotNull;
 import org.quiltmc.qsl.frozenblock.worldgen.surface_rule.api.SurfaceRuleContext;
 import org.quiltmc.qsl.frozenblock.worldgen.surface_rule.api.SurfaceRuleEvents;
-
-import static net.minecraft.data.worldgen.biome.OverworldBiomes.jungle;
-import static net.minecraft.data.worldgen.biome.OverworldBiomes.swamp;
 
 public final class RegisterWorldgen implements SurfaceRuleEvents.OverworldModifierCallback, SurfaceRuleEvents.NetherModifierCallback {
     public static final ResourceKey<Biome> MIXED_FOREST = register("mixed_forest");

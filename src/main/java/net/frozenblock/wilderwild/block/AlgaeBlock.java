@@ -1,5 +1,7 @@
 package net.frozenblock.wilderwild.block;
 
+import java.util.ArrayList;
+import java.util.List;
 import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.tag.WilderEntityTags;
 import net.minecraft.Util;
@@ -24,9 +26,6 @@ import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.NotNull;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class AlgaeBlock extends Block implements BonemealableBlock {
     protected static final VoxelShape SHAPE = Block.box(0.0, 0.0, 0.0, 16, 1.0, 16);

@@ -1,5 +1,7 @@
 package net.frozenblock.wilderwild.entity.ai;
 
+import java.util.EnumSet;
+import java.util.function.Predicate;
 import net.frozenblock.wilderwild.misc.TurtleCooldownInterface;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.LivingEntity;
@@ -11,9 +13,6 @@ import net.minecraft.world.entity.ai.targeting.TargetingConditions;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.phys.AABB;
 import org.jetbrains.annotations.Nullable;
-
-import java.util.EnumSet;
-import java.util.function.Predicate;
 
 public class TurtleNearestAttackableGoal<T extends LivingEntity> extends TargetGoal {
     private static final int DEFAULT_RANDOM_INTERVAL = 10;

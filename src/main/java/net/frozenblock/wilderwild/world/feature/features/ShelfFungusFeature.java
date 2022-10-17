@@ -1,6 +1,8 @@
 package net.frozenblock.wilderwild.world.feature.features;
 
 import com.mojang.serialization.Codec;
+import java.util.Iterator;
+import java.util.List;
 import net.frozenblock.wilderwild.block.ShelfFungusBlock;
 import net.frozenblock.wilderwild.world.feature.features.config.ShelfFungusFeatureConfig;
 import net.minecraft.core.BlockPos;
@@ -12,9 +14,6 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
-
-import java.util.Iterator;
-import java.util.List;
 
 public class ShelfFungusFeature extends Feature<ShelfFungusFeatureConfig> {
     public ShelfFungusFeature(Codec<ShelfFungusFeatureConfig> codec) {

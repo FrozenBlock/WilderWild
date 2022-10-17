@@ -1,5 +1,6 @@
 package net.frozenblock.wilderwild;
 
+import java.util.UUID;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -14,13 +15,25 @@ import net.fabricmc.fabric.api.event.client.ClientSpriteRegistryCallback;
 import net.frozenblock.lib.mathematics.AdvancedMath;
 import net.frozenblock.lib.sound.FlyBySoundHub;
 import net.frozenblock.wilderwild.entity.AncientHornProjectile;
-import net.frozenblock.wilderwild.entity.render.*;
+import net.frozenblock.wilderwild.entity.render.AncientHornProjectileModel;
+import net.frozenblock.wilderwild.entity.render.AncientHornProjectileRenderer;
+import net.frozenblock.wilderwild.entity.render.DisplayLanternBlockEntityRenderer;
+import net.frozenblock.wilderwild.entity.render.FireflyRenderer;
+import net.frozenblock.wilderwild.entity.render.JellyfishModel;
+import net.frozenblock.wilderwild.entity.render.JellyfishRenderer;
+import net.frozenblock.wilderwild.entity.render.SculkSensorBlockEntityRenderer;
+import net.frozenblock.wilderwild.entity.render.StoneChestBlockEntityRenderer;
 import net.frozenblock.wilderwild.misc.CompetitionCounter;
 import net.frozenblock.wilderwild.particle.FloatingSculkBubbleParticle;
 import net.frozenblock.wilderwild.particle.MesogleaDripParticle;
 import net.frozenblock.wilderwild.particle.PollenParticle;
 import net.frozenblock.wilderwild.particle.TermiteParticle;
-import net.frozenblock.wilderwild.registry.*;
+import net.frozenblock.wilderwild.registry.RegisterBlockEntities;
+import net.frozenblock.wilderwild.registry.RegisterBlocks;
+import net.frozenblock.wilderwild.registry.RegisterEntities;
+import net.frozenblock.wilderwild.registry.RegisterItems;
+import net.frozenblock.wilderwild.registry.RegisterParticles;
+import net.frozenblock.wilderwild.registry.RegisterSounds;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.multiplayer.ClientLevel;
@@ -39,8 +52,6 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.inventory.InventoryMenu;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.phys.Vec3;
-
-import java.util.UUID;
 
 @Environment(EnvType.CLIENT)
 public final class WilderWildClient implements ClientModInitializer {

@@ -1,5 +1,6 @@
 package net.frozenblock.wilderwild.mixin.client.easter;
 
+import java.util.Objects;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.frozenblock.wilderwild.WilderWild;
@@ -12,8 +13,6 @@ import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
-
-import java.util.Objects;
 
 @Environment(EnvType.CLIENT)
 @Mixin(SlimeRenderer.class)

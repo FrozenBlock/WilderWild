@@ -1,6 +1,7 @@
 package net.frozenblock.wilderwild.mixin.client;
 
 import com.google.common.collect.ImmutableList;
+import java.util.List;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.frozenblock.wilderwild.entity.render.WilderWardenModel;
@@ -21,8 +22,6 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
-
-import java.util.List;
 
 @Environment(EnvType.CLIENT)
 @Mixin(WardenModel.class)

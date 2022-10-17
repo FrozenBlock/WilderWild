@@ -3,6 +3,8 @@ package net.frozenblock.wilderwild.block.entity;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.Dynamic;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import java.util.ArrayList;
+import java.util.List;
 import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.misc.server.EasyPacket;
 import net.frozenblock.wilderwild.registry.RegisterBlockEntities;
@@ -32,9 +34,6 @@ import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.slf4j.Logger;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class TermiteMoundBlockEntity extends BlockEntity {
     ArrayList<Termite> termites = new ArrayList<>();

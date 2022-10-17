@@ -1,5 +1,6 @@
 package net.frozenblock.wilderwild.registry;
 
+import java.util.Map;
 import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.tag.WilderBiomeTags;
 import net.frozenblock.wilderwild.world.structure.AbandonedCabinGenerator;
@@ -23,8 +24,6 @@ import net.minecraft.world.level.levelgen.structure.placement.RandomSpreadStruct
 import net.minecraft.world.level.levelgen.structure.placement.RandomSpreadType;
 import net.minecraft.world.level.levelgen.structure.placement.StructurePlacement;
 import net.minecraft.world.level.levelgen.structure.structures.JigsawStructure;
-
-import java.util.Map;
 
 public class RegisterStructures {
 

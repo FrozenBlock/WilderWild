@@ -1,7 +1,6 @@
 package net.frozenblock.wilderwild.misc.config;
 
 import net.frozenblock.wilderwild.WilderWild;
-import net.frozenblock.wilderwild.block.entity.StoneChestBlockEntity;
 
 public final class ClothConfigInteractionHandler {
 

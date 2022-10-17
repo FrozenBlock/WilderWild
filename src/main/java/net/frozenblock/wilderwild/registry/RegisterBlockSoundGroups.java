@@ -1,9 +1,8 @@
 package net.frozenblock.wilderwild.registry;
 
+import static net.frozenblock.wilderwild.registry.RegisterSounds.*;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.level.block.SoundType;
-
-import static net.frozenblock.wilderwild.registry.RegisterSounds.*;
 
 public final class RegisterBlockSoundGroups {
 

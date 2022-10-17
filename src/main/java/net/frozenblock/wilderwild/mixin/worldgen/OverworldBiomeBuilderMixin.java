@@ -1,6 +1,7 @@
 package net.frozenblock.wilderwild.mixin.worldgen;
 
 import com.mojang.datafixers.util.Pair;
+import java.util.function.Consumer;
 import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.misc.config.ClothConfigInteractionHandler;
 import net.frozenblock.wilderwild.registry.RegisterWorldgen;
@@ -18,8 +19,6 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
-
-import java.util.function.Consumer;
 
 @Mixin(value = OverworldBiomeBuilder.class, priority = 69420)
 public final class OverworldBiomeBuilderMixin {

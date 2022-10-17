@@ -3,6 +3,7 @@ package net.frozenblock.wilderwild.mixin.server;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.damagesource.DamageSource;
+import static net.minecraft.world.damagesource.DamageSource.CACTUS;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
@@ -13,8 +14,6 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-
-import static net.minecraft.world.damagesource.DamageSource.CACTUS;
 
 @Mixin(LivingEntity.class)
 public abstract class LivingEntityMixin extends Entity {

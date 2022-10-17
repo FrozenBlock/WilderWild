@@ -1,14 +1,22 @@
 package net.frozenblock.wilderwild.entity;
 
 import io.netty.buffer.Unpooled;
+import java.util.List;
+import java.util.Optional;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.frozenblock.lib.damagesource.FrozenProjectileDamageSource;
 import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.block.entity.HangingTendrilBlockEntity;
+import static net.frozenblock.wilderwild.item.AncientHorn.*;
 import net.frozenblock.wilderwild.misc.config.ClothConfigInteractionHandler;
 import net.frozenblock.wilderwild.misc.mod_compat.simple_copper_pipes.InteractionHandler;
 import net.frozenblock.wilderwild.misc.server.EasyPacket;
-import net.frozenblock.wilderwild.registry.*;
+import net.frozenblock.wilderwild.registry.RegisterBlocks;
+import net.frozenblock.wilderwild.registry.RegisterEntities;
+import net.frozenblock.wilderwild.registry.RegisterGameEvents;
+import net.frozenblock.wilderwild.registry.RegisterItems;
+import net.frozenblock.wilderwild.registry.RegisterProperties;
+import net.frozenblock.wilderwild.registry.RegisterSounds;
 import net.frozenblock.wilderwild.tag.WilderBlockTags;
 import net.frozenblock.wilderwild.tag.WilderEntityTags;
 import net.minecraft.core.BlockPos;
@@ -28,7 +36,11 @@ import net.minecraft.tags.TagKey;
 import net.minecraft.util.Mth;
 import net.minecraft.util.SpawnUtil;
 import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.ExperienceOrb;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.monster.warden.AngerLevel;
 import net.minecraft.world.entity.monster.warden.Warden;
 import net.minecraft.world.entity.player.Player;
@@ -41,7 +53,13 @@ import net.minecraft.world.level.ClipContext;
 import net.minecraft.world.level.Explosion;
 import net.minecraft.world.level.GameRules;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.*;
+import net.minecraft.world.level.block.AbstractGlassBlock;
+import net.minecraft.world.level.block.BellBlock;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.LevelEvent;
+import net.minecraft.world.level.block.SculkSensorBlock;
+import net.minecraft.world.level.block.SculkShriekerBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
@@ -51,11 +69,6 @@ import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-
-import java.util.List;
-import java.util.Optional;
-
-import static net.frozenblock.wilderwild.item.AncientHorn.*;
 
 //TODO: Fix rendering (Renders too bright or too dark depending on direction; renders under other translucents like water, doesn't render further than 8 block away)
 

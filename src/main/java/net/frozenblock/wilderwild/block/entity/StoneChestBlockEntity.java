@@ -1,5 +1,7 @@
 package net.frozenblock.wilderwild.block.entity;
 
+import java.util.ArrayList;
+import java.util.Objects;
 import net.fabricmc.fabric.api.networking.v1.PlayerLookup;
 import net.fabricmc.fabric.api.transfer.v1.item.ItemVariant;
 import net.frozenblock.lib.storage.NoInteractionStorage;
@@ -42,9 +44,6 @@ import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-
-import java.util.ArrayList;
-import java.util.Objects;
 
 public class StoneChestBlockEntity extends ChestBlockEntity implements NoInteractionStorage<ItemVariant> {
     public float openProgress;

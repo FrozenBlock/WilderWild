@@ -1,5 +1,6 @@
 package net.frozenblock.wilderwild.world.feature;
 
+import java.util.List;
 import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.registry.RegisterBlocks;
 import net.minecraft.core.BlockPos;
@@ -9,7 +10,9 @@ import net.minecraft.data.BuiltinRegistries;
 import net.minecraft.data.worldgen.features.AquaticFeatures;
 import net.minecraft.data.worldgen.features.TreeFeatures;
 import net.minecraft.data.worldgen.features.VegetationFeatures;
+import static net.minecraft.data.worldgen.placement.AquaticPlacements.seagrassPlacement;
 import net.minecraft.data.worldgen.placement.PlacementUtils;
+import static net.minecraft.data.worldgen.placement.VegetationPlacements.*;
 import net.minecraft.util.valueproviders.ClampedInt;
 import net.minecraft.util.valueproviders.ConstantInt;
 import net.minecraft.util.valueproviders.UniformInt;
@@ -17,13 +20,19 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraft.world.level.levelgen.blockpredicates.BlockPredicate;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
-import net.minecraft.world.level.levelgen.placement.*;
+import net.minecraft.world.level.levelgen.placement.BiomeFilter;
+import net.minecraft.world.level.levelgen.placement.BlockPredicateFilter;
+import net.minecraft.world.level.levelgen.placement.CountPlacement;
+import net.minecraft.world.level.levelgen.placement.EnvironmentScanPlacement;
+import net.minecraft.world.level.levelgen.placement.InSquarePlacement;
+import net.minecraft.world.level.levelgen.placement.NoiseThresholdCountPlacement;
+import net.minecraft.world.level.levelgen.placement.PlacedFeature;
+import net.minecraft.world.level.levelgen.placement.PlacementModifier;
+import net.minecraft.world.level.levelgen.placement.RandomOffsetPlacement;
+import net.minecraft.world.level.levelgen.placement.RarityFilter;
+import net.minecraft.world.level.levelgen.placement.SurfaceRelativeThresholdFilter;
+import net.minecraft.world.level.levelgen.placement.SurfaceWaterDepthFilter;
 import org.jetbrains.annotations.NotNull;
-
-import java.util.List;
-
-import static net.minecraft.data.worldgen.placement.AquaticPlacements.seagrassPlacement;
-import static net.minecraft.data.worldgen.placement.VegetationPlacements.*;
 
 public final class WilderPlacedFeatures {
 

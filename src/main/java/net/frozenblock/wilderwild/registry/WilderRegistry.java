@@ -1,5 +1,7 @@
 package net.frozenblock.wilderwild.registry;
 
+import java.util.ArrayList;
+import java.util.List;
 import net.fabricmc.fabric.api.event.registry.FabricRegistryBuilder;
 import net.fabricmc.fabric.api.event.registry.RegistryAttribute;
 import net.frozenblock.wilderwild.WilderWild;
@@ -9,9 +11,6 @@ import net.minecraft.core.MappedRegistry;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.biome.Biomes;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class WilderRegistry {
 

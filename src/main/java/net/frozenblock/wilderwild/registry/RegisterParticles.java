@@ -1,14 +1,13 @@
 package net.frozenblock.wilderwild.registry;
 
 import com.mojang.serialization.Codec;
+import java.util.function.Function;
 import net.fabricmc.fabric.api.particle.v1.FabricParticleTypes;
 import net.frozenblock.wilderwild.WilderWild;
 import net.minecraft.core.Registry;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleType;
 import net.minecraft.core.particles.SimpleParticleType;
-
-import java.util.function.Function;
 
 public final class RegisterParticles {
     public static final SimpleParticleType POLLEN = FabricParticleTypes.simple();
