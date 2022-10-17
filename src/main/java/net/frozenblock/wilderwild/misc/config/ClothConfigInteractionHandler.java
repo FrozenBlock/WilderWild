@@ -1,6 +1,7 @@
 package net.frozenblock.wilderwild.misc.config;
 
 import net.frozenblock.wilderwild.WilderWild;
+import net.frozenblock.wilderwild.block.entity.StoneChestBlockEntity;
 
 public final class ClothConfigInteractionHandler {
 
@@ -109,6 +110,13 @@ public final class ClothConfigInteractionHandler {
         }
         return false;
     }
+
+	public static int stoneChestTimer() {
+		if (WilderWild.hasCloth) {
+			return ClothConfigCloserInteractionHandler.stoneChestTimer();
+		}
+		return 100;
+	}
 
     public static boolean unpassableRail() {
         if (WilderWild.hasCloth) {

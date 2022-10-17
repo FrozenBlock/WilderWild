@@ -390,8 +390,7 @@ public final class RegisterBlocks {
     }
 
     private static void registerBlockItem(String name, Block block, CreativeModeTab tab) {
-        Registry.register(Registry.ITEM, WilderWild.id(name),
-                new BlockItem(block, new FabricItemSettings().tab(tab)));
+        Registry.register(Registry.ITEM, WilderWild.id(name), new BlockItem(block, new FabricItemSettings().tab(tab)));
     }
 
     private static HollowedLogBlock createHollowedLogBlock(MaterialColor topMapColor, MaterialColor sideMapColor) {

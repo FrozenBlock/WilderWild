@@ -63,6 +63,10 @@ public final class ClothConfigCloserInteractionHandler {
         return WilderWildConfig.get().block.mcLiveSensorTendrils;
     }
 
+	public static int stoneChestTimer() {
+		return WilderWildConfig.get().block.stoneChest.stoneChestTimer;
+	}
+
     public static boolean unpassableRail() {
         return WilderWildConfig.get().entity.unpassableRail;
     }
