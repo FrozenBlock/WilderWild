@@ -43,6 +43,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.biome.Biome;
+import net.minecraft.world.level.pathfinder.Path;
 import net.minecraft.world.level.storage.loot.LootContext;
 import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
@@ -57,6 +58,7 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 
 public class Jellyfish extends AbstractFish {
+	//Animations
     public float xBodyRot;
     public float xRot1;
     public float xRot2;
@@ -72,8 +74,10 @@ public class Jellyfish extends AbstractFish {
     public float zRot5;
     public float zRot6;
     private float rotateSpeed;
-
+	//Targeting
     public int ticksSinceCantReach;
+
+	private static final float maxTargetDistance = 20F;
 
     public Jellyfish(EntityType<? extends Jellyfish> entityType, Level level) {
         super(entityType, level);
@@ -236,13 +240,13 @@ public class Jellyfish extends AbstractFish {
         LivingEntity target = this.getTarget();
         if (target != null) {
             ++this.ticksSinceCantReach;
-            boolean creative = target instanceof Player player && player.isCreative();
-            if (this.ticksSinceCantReach > 300 || target.isDeadOrDying() || target.isRemoved() || target.distanceTo(this) > 20 || this.level.getDifficulty() == Difficulty.PEACEFUL || target.isSpectator() || creative) {
+            if (this.ticksSinceCantReach > 300 || this.level.getDifficulty() == Difficulty.PEACEFUL || !this.canTargetEntity(target)) {
                 this.getBrain().eraseMemory(MemoryModuleType.ATTACK_TARGET);
                 this.ticksSinceCantReach = 0;
             } else {
                 this.getNavigation().stop();
-                this.getNavigation().moveTo(this.getTarget(), 2);
+                //this.getNavigation().moveTo(this.getTarget(), 2);
+				this.moveToAccurate(this.getTarget(), 2);
                 if (target.distanceTo(this) < 5) {
                     this.ticksSinceCantReach = Math.max(this.ticksSinceCantReach - 2, 0);
                 }
@@ -273,6 +277,11 @@ public class Jellyfish extends AbstractFish {
         }
     }
 
+	public boolean moveToAccurate(@NotNull Entity entity, double speed) {
+		Path path = this.getNavigation().createPath(entity, 0);
+		return path != null && this.getNavigation().moveTo(path, speed);
+	}
+
     @Contract("null->false")
     public boolean canTargetEntity(@Nullable Entity entity) {
         return entity instanceof LivingEntity livingEntity
@@ -283,6 +292,8 @@ public class Jellyfish extends AbstractFish {
                 && livingEntity.getType() != RegisterEntities.JELLYFISH
                 && !livingEntity.isInvulnerable()
                 && !livingEntity.isDeadOrDying()
+				&& !livingEntity.isRemoved()
+				&& livingEntity.distanceTo(this) < maxTargetDistance
                 && !livingEntity.getType().is(WilderEntityTags.JELLYFISH_CANT_STING)
                 && this.level.getWorldBorder().isWithinBounds(livingEntity.getBoundingBox());
     }
@@ -316,13 +327,9 @@ public class Jellyfish extends AbstractFish {
         if (super.hurt(source, amount)) {
             if (!this.level.isClientSide && this.level.getDifficulty() != Difficulty.PEACEFUL) {
                 LivingEntity target = this.getLastHurtByMob();
-                if (target instanceof Player player) {
-                    if (!player.isCreative() && !player.isSpectator()) {
-                        this.setAttackTarget(target);
-                    }
-                } else {
-                    this.setAttackTarget(target);
-                }
+				if (this.canTargetEntity(target)) {
+					this.setAttackTarget(target);
+				}
             }
             return true;
         }
