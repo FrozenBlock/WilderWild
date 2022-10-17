@@ -37,4 +37,5 @@ public class AllayMixin implements WilderAllay {
             }
         }
     }
+
 }

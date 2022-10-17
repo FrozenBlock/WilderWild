@@ -30,6 +30,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(value = SwampHutPiece.class, priority = 999)
 public class SwampHutPieceMixin {
+
     @Shadow
     private boolean spawnedWitch;
 	@Shadow
@@ -94,7 +95,6 @@ public class SwampHutPieceMixin {
                     level.addFreshEntityWithPassengers(witchEntity);
                 }
             }
-
             this.spawnCat(level, chunkBox);
         }
     }
@@ -113,7 +113,6 @@ public class SwampHutPieceMixin {
                 level.addFreshEntityWithPassengers(catEntity);
             }
         }
-
     }
 
 }

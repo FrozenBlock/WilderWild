@@ -32,7 +32,7 @@ public final class SculkBlockMixin {
 
     @Shadow
     private static boolean canPlaceGrowth(LevelAccessor level, BlockPos pos) {
-        throw new AssertionError("Mixin injection failed.");
+		throw new AssertionError("Mixin injection failed - WilderWild SculkBlockMixin.");
     }
 
 	/**
@@ -225,4 +225,5 @@ public final class SculkBlockMixin {
             return canPlaceGrowth(level, pos);
         }
     }
+
 }

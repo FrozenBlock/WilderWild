@@ -16,4 +16,5 @@ public final class BlocksMixin {
     private static Block newReinforced(BlockBehaviour.Properties properties) {
         return new RotatedPillarBlock(properties);
     }
+
 }

@@ -17,7 +17,7 @@ public abstract class MobMixin extends LivingEntity {
 
     @Shadow
     public void setPathfindingMalus(BlockPathTypes blockPathTypes, float f) {
-		throw new AssertionError("Mixin injection failed.");
+		throw new AssertionError("Mixin injection failed - WilderWild MobMixin.");
     }
 
     private MobMixin(EntityType<? extends LivingEntity> entityType, Level level) {
@@ -30,4 +30,5 @@ public abstract class MobMixin extends LivingEntity {
             this.setPathfindingMalus(BlockPathTypes.UNPASSABLE_RAIL, 0.0F);
         }
     }
+
 }

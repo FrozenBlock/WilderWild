@@ -19,7 +19,6 @@ public final class SculkVeinSpreaderConfigMixin {
         BlockState blockState = level.getBlockState(growPos.relative(direction));
         if (blockState.is(RegisterBlocks.OSSEOUS_SCULK) || blockState.is(RegisterBlocks.SCULK_SLAB) || blockState.is(RegisterBlocks.SCULK_STAIRS) || blockState.is(RegisterBlocks.SCULK_WALL)) {
             info.setReturnValue(false);
-            info.cancel();
         }
     }
 

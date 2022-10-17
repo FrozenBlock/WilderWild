@@ -51,7 +51,7 @@ public final class BigDripleafBlockMixin {
 
     @Shadow
     private static void resetTilt(BlockState state, Level level, BlockPos pos) {
-		throw new AssertionError("Mixin injection failed.");
+		throw new AssertionError("Mixin injection failed - WilderWild BigDripleafBlockMixin.");
     }
 
 }

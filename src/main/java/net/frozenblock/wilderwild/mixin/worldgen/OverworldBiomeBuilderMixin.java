@@ -22,6 +22,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(value = OverworldBiomeBuilder.class, priority = 69420)
 public final class OverworldBiomeBuilderMixin {
+
     @Shadow
     @Final
     private ResourceKey<Biome>[][] MIDDLE_BIOMES;
@@ -42,8 +43,7 @@ public final class OverworldBiomeBuilderMixin {
         }
     }
 
-    @Inject(method = "addLowSlice", at = @At("TAIL"))
-    // also can be injectLowBiomes
+    @Inject(method = "addLowSlice", at = @At("TAIL")) // also can be injectLowBiomes
     private void injectBiomesNearRivers(Consumer<Pair<Climate.ParameterPoint, ResourceKey<Biome>>> parameters, Climate.Parameter weirdness, CallbackInfo ci) {
         if (!WilderWild.hasTerraBlender) {
             this.addSurfaceBiome(
@@ -69,8 +69,7 @@ public final class OverworldBiomeBuilderMixin {
         }
     }
 
-    @Inject(method = "addMidSlice", at = @At("TAIL"))
-    // also can be injectMidBiomes
+    @Inject(method = "addMidSlice", at = @At("TAIL")) // also can be injectMidBiomes
     private void injectMixedBiomes(Consumer<Pair<Climate.ParameterPoint, ResourceKey<Biome>>> parameters, Climate.Parameter weirdness, CallbackInfo ci) {
         if (!WilderWild.hasTerraBlender) {
             this.addSurfaceBiome(
@@ -97,8 +96,7 @@ public final class OverworldBiomeBuilderMixin {
         }
     }
 
-    @Inject(method = "addValleys", at = @At("TAIL"))
-    // can also be injectValleyBiomes
+    @Inject(method = "addValleys", at = @At("TAIL")) // can also be injectValleyBiomes
     private void injectRiverBiomes(Consumer<Pair<Climate.ParameterPoint, ResourceKey<Biome>>> parameters, Climate.Parameter weirdness, CallbackInfo ci) {
         if (!WilderWild.hasTerraBlender) {
             this.addSurfaceBiome(
@@ -127,8 +125,8 @@ public final class OverworldBiomeBuilderMixin {
         if (!WilderWild.hasTerraBlender) {
             if (biome.equals(Biomes.MANGROVE_SWAMP) && ClothConfigInteractionHandler.modifyMangroveSwampPlacement()) {
                 parameters.accept(Pair.of(Climate.parameters(
-                                SharedWorldgen.Swamp.MangroveSwamp.TEMPERATURE, //Temperature
-                                SharedWorldgen.Swamp.SWAMP_HUMIDITY, //Humidity
+                                SharedWorldgen.Swamp.MangroveSwamp.TEMPERATURE,
+                                SharedWorldgen.Swamp.SWAMP_HUMIDITY,
                                 continentalness,
                                 erosion,
                                 Climate.Parameter.point(0.0F),
@@ -137,8 +135,8 @@ public final class OverworldBiomeBuilderMixin {
                         biome));
 
                 parameters.accept(Pair.of(Climate.parameters(
-                                SharedWorldgen.Swamp.MangroveSwamp.TEMPERATURE, //Temperature
-                                SharedWorldgen.Swamp.SWAMP_HUMIDITY, //Humidity
+                                SharedWorldgen.Swamp.MangroveSwamp.TEMPERATURE,
+                                SharedWorldgen.Swamp.SWAMP_HUMIDITY,
                                 continentalness,
                                 erosion,
                                 Climate.Parameter.point(1.0F),
@@ -148,8 +146,8 @@ public final class OverworldBiomeBuilderMixin {
                 info.cancel();
             } else if (biome.equals(Biomes.SWAMP) && ClothConfigInteractionHandler.modifySwampPlacement()) {
                 parameters.accept(Pair.of(Climate.parameters(
-                                SharedWorldgen.Swamp.TEMPERATURE, //Temperature
-                                SharedWorldgen.Swamp.SWAMP_HUMIDITY, //Humidity
+                                SharedWorldgen.Swamp.TEMPERATURE,
+                                SharedWorldgen.Swamp.SWAMP_HUMIDITY,
                                 continentalness,
                                 erosion,
                                 Climate.Parameter.point(0.0F),
@@ -158,8 +156,8 @@ public final class OverworldBiomeBuilderMixin {
                         biome));
 
                 parameters.accept(Pair.of(Climate.parameters(
-                                SharedWorldgen.Swamp.TEMPERATURE, //Temperature
-                                SharedWorldgen.Swamp.SWAMP_HUMIDITY, //Humidity
+                                SharedWorldgen.Swamp.TEMPERATURE,
+                                SharedWorldgen.Swamp.SWAMP_HUMIDITY,
                                 continentalness,
                                 erosion,
                                 Climate.Parameter.point(1.0F),

@@ -30,7 +30,6 @@ import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 public class SculkSpreaderChargeCursorMixin {
 
     //EDITS
-
     @Redirect(method = "update", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/block/SculkSpreader$ChargeCursor;getBlockBehaviour(Lnet/minecraft/world/level/block/state/BlockState;)Lnet/minecraft/world/level/block/SculkBehaviour;"))
     private SculkBehaviour newSculkBehaviour(BlockState par1, LevelAccessor level, BlockPos pos, RandomSource random, SculkSpreader spreader, boolean spread) {
         return getBlockBehaviourNew(par1, spreader.isWorldGeneration());
@@ -72,7 +71,6 @@ public class SculkSpreaderChargeCursorMixin {
     }
 
     //NEW METHODS
-
     @Unique
     private static SculkBehaviour getBlockBehaviourNew(BlockState state, boolean isWorldGen) {
         if (isWorldGen) {
@@ -112,10 +110,9 @@ public class SculkSpreaderChargeCursorMixin {
     }
 
     //SHADOWS
-
     @Shadow
     private static boolean isMovementUnobstructed(LevelAccessor level, BlockPos sourcePos, BlockPos targetPos) {
-        throw new AssertionError("Mixin injection failed");
+		throw new AssertionError("Mixin injection failed - WilderWild SculkSpreaderChargeCursorMixin.");
     }
 
     @Nullable
@@ -151,21 +148,21 @@ public class SculkSpreaderChargeCursorMixin {
 
     @Shadow
     private static SculkBehaviour getBlockBehaviour(BlockState state) {
-        throw new AssertionError("Mixin injection failed.");
+		throw new AssertionError("Mixin injection failed - WilderWild SculkSpreaderChargeCursorMixin.");
     }
 
     @Shadow
     private static List<Vec3i> getRandomizedNonCornerNeighbourOffsets(RandomSource random) {
-        throw new AssertionError("Mixin injection failed.");
+		throw new AssertionError("Mixin injection failed - WilderWild SculkSpreaderChargeCursorMixin.");
     }
 
     @Shadow
     private static boolean isUnobstructed(LevelAccessor level, BlockPos pos, Direction direction) {
-        throw new AssertionError("Mixin injection failed.");
+		throw new AssertionError("Mixin injection failed - WilderWild SculkSpreaderChargeCursorMixin.");
     }
 
     @Shadow
     private static BlockPos getValidMovementPos(LevelAccessor level, BlockPos pos, RandomSource random) {
-		throw new AssertionError("Mixin injection failed.");
+		throw new AssertionError("Mixin injection failed - WilderWild SculkSpreaderChargeCursorMixin.");
     }
 }

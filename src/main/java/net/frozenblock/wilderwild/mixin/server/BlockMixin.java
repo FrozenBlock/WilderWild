@@ -26,4 +26,5 @@ public final class BlockMixin {
             info.setReturnValue(BlockSoundGroupOverwrites.namespaceSoundGroups.get(index));
         }
     }
+
 }

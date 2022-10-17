@@ -63,4 +63,5 @@ public class TurtleMixin implements TurtleCooldownInterface {
     public void setAttackCooldown(int i) {
         this.wilderWild$attackCooldown = i;
     }
+
 }

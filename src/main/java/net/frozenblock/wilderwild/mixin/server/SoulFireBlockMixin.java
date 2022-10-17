@@ -42,6 +42,7 @@ public class SoulFireBlockMixin extends BaseFireBlock {
 
     @Shadow
     protected boolean canBurn(@NotNull BlockState state) {
-        throw new AssertionError("Mixin injection failed.");
+		throw new AssertionError("Mixin injection failed - WilderWild SoulFireBlockMixin.");
     }
+
 }

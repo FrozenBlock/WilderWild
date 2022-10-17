@@ -69,4 +69,5 @@ public abstract class SculkSensorBlockMixin extends BaseEntityBlock implements S
     public void getRenderShape(BlockState state, CallbackInfoReturnable<RenderShape> info) {
         info.setReturnValue(ClothConfigInteractionHandler.mcLiveSensorTendrils() ? RenderShape.INVISIBLE : RenderShape.MODEL);
     }
+
 }

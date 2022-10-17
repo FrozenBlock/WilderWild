@@ -47,6 +47,7 @@ public class SculkShriekerBlockMixin extends BaseEntityBlock {
 
     @Shadow
     public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
-        throw new AssertionError("Mixin injection failed.");
+		throw new AssertionError("Mixin injection failed - WilderWild SculkShriekerBlockMixin.");
     }
+
 }

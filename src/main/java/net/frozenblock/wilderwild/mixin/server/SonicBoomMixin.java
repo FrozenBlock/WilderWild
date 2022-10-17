@@ -34,6 +34,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(value = SonicBoom.class, priority = 1001)
 public class SonicBoomMixin {
+
     @Final
     @Shadow
     private static int DURATION;
@@ -41,8 +42,6 @@ public class SonicBoomMixin {
 	@Shadow
 	@Final
 	private static int TICKS_BEFORE_PLAYING_SOUND;
-
-
 
 	@Inject(at = @At("HEAD"), method = "tick(Lnet/minecraft/server/level/ServerLevel;Lnet/minecraft/world/entity/monster/warden/Warden;J)V", cancellable = true)
     public void tick(ServerLevel level, Warden owner, long gameTime, CallbackInfo info) {

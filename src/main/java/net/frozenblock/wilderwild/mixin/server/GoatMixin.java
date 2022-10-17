@@ -52,4 +52,5 @@ public class GoatMixin {
             cir.setReturnValue(InstrumentItem.create(Items.GOAT_HORN, registryEntryList.getRandomElement(random).get()));
         }
     }
+
 }

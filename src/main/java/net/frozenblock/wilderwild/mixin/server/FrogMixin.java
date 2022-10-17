@@ -20,4 +20,5 @@ public final class FrogMixin {
             cir.setReturnValue(RegisterSounds.ENTITY_FROG_SUS_DEATH);
         }
     }
+
 }

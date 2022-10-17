@@ -97,16 +97,17 @@ public final class WardenMixin extends Monster implements WilderWarden {
 
     @Shadow
     public Brain<Warden> getBrain() {
-        throw new AssertionError("Mixin injection failed.");
+		throw new AssertionError("Mixin injection failed - WilderWild WardenMixin.");
     }
 
     @Shadow
     private void clientDiggingParticles(AnimationState animationState) {
+		throw new AssertionError("Mixin injection failed - WilderWild WardenMixin.");
     }
 
     @Shadow
     private boolean isDiggingOrEmerging() {
-        return false;
+		throw new AssertionError("Mixin injection failed - WilderWild WardenMixin.");
     }
 
     private WardenMixin(EntityType<? extends Monster> entityType, Level level) {
@@ -430,4 +431,5 @@ public final class WardenMixin extends Monster implements WilderWarden {
             }
         }
     }
+	
 }
