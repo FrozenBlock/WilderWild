@@ -47,6 +47,10 @@ public final class ClothConfigCloserInteractionHandler {
         return WilderWildConfig.get().worldgen.wilderWildGrassGen;
     }
 
+	public static boolean taigaPaths() {
+		return WilderWildConfig.get().worldgen.taigaPaths;
+	}
+
     public static boolean hornShattersGlass() {
         return WilderWildConfig.get().item.ancientHorn.ancientHornShattersGlass;
     }

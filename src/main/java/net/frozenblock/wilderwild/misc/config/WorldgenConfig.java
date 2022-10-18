@@ -33,6 +33,7 @@ public final class WorldgenConfig implements ConfigData {
     public boolean fallenLogs = true;
     public boolean wilderWildTreeGen = true;
     public boolean wilderWildGrassGen = true;
+	public boolean taigaPaths = true;
 
     @Environment(EnvType.CLIENT)
     static void setupEntries(ConfigCategory category, ConfigEntryBuilder entryBuilder) {
@@ -124,6 +125,13 @@ public final class WorldgenConfig implements ConfigData {
                 .requireRestart()
                 .build()
         );
+		var taigaPaths = category.addEntry(entryBuilder.startBooleanToggle(text("taiga_paths"), config.taigaPaths)
+				.setDefaultValue(true)
+				.setSaveConsumer(newValue -> config.taigaPaths = newValue)
+				.setYesNoTextSupplier(bool -> text("taiga_paths." + bool))
+				.setTooltip(tooltip("taiga_paths"))
+				.requireRestart()
+				.build());
     }
 
     //public static final StringSetConfigOption HIDDEN_MODS = new StringSetConfigOption("hidden_mods", new HashSet<>());

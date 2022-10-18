@@ -82,6 +82,13 @@ public final class ClothConfigInteractionHandler {
         return true;
     }
 
+	public static boolean taigaPaths() {
+		if (WilderWild.hasCloth) {
+			return ClothConfigCloserInteractionHandler.taigaPaths();
+		}
+		return true;
+	}
+
     public static boolean hornShattersGlass() {
         if (WilderWild.hasCloth) {
             return ClothConfigCloserInteractionHandler.hornShattersGlass();
