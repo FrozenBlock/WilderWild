@@ -246,26 +246,14 @@ public class Jellyfish extends NoFlopAbstractFish {
             this.heal(0.02F);
         }
 
-		this.stingTarget();
         this.stingEntities();
 
-        /*LivingEntity target = this.getTarget();
+        LivingEntity target = this.getTarget();
         if (target != null) {
-            ++this.ticksSinceCantReach;
-            if (this.ticksSinceCantReach > 300 || this.level.getDifficulty() == Difficulty.PEACEFUL || !this.canTargetEntity(target)) {
-                this.getBrain().eraseMemory(MemoryModuleType.ATTACK_TARGET);
-                this.ticksSinceCantReach = 0;
-            } else {
-                this.getNavigation().stop();
-                //this.getNavigation().moveTo(this.getTarget(), 2);
-				this.moveToAccurate(this.getTarget(), 2);
-                if (target.distanceTo(this) < 5) {
-                    this.ticksSinceCantReach = Math.max(this.ticksSinceCantReach - 2, 0);
-                }
-            }
-        } else {
-            this.ticksSinceCantReach = 0;
-        }*/
+			this.getNavigation().stop();
+			this.moveToAccurate(this.getTarget(), 2);
+		}
+		
     }
 
 	@Override
@@ -293,28 +281,6 @@ public class Jellyfish extends NoFlopAbstractFish {
             }
         }
     }
-
-	public void stingTarget() {
-		if (this.isAlive()) {
-			List<LivingEntity> list = this.level.getEntitiesOfClass(LivingEntity.class, this.getBoundingBox().inflate(0.1));
-			for (LivingEntity entity : list) {
-				if (this.getTarget() == entity) {
-					if (entity instanceof ServerPlayer player) {
-						if (player.hurt(DamageSource.mobAttack(this), 3)) {
-							player.addEffect(new MobEffectInstance(MobEffects.POISON, 200, 0, false, false), this);
-							EasyPacket.sendJellySting(player);
-						}
-					} else if (entity instanceof Mob mob) {
-						if (mob.hurt(DamageSource.mobAttack(this), (float) (3))) {
-							mob.addEffect(new MobEffectInstance(MobEffects.POISON, 200, 0), this);
-							this.playSound(RegisterSounds.ENTITY_JELLYFISH_STING, 0.4F, this.random.nextFloat() * 0.2f + 0.9f);
-						}
-					}
-					return;
-				}
-			}
-		}
-	}
 
 	public boolean moveToAccurate(@NotNull Entity entity, double speed) {
 		Path path = this.getNavigation().createPath(entity, 0);
