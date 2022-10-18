@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
+import net.frozenblock.lib.entities.NoFlopAbstractFish;
 import net.frozenblock.wilderwild.entity.ai.JellyfishAi;
 import net.frozenblock.wilderwild.misc.JellyfishVariant;
 import net.frozenblock.wilderwild.misc.server.EasyPacket;
@@ -29,6 +30,7 @@ import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.Difficulty;
 import net.minecraft.world.DifficultyInstance;
+import net.minecraft.world.InteractionHand;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
@@ -45,10 +47,8 @@ import net.minecraft.world.entity.ai.Brain;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.behavior.StartAttacking;
-import net.minecraft.world.entity.ai.goal.RandomSwimmingGoal;
 import net.minecraft.world.entity.ai.memory.MemoryModuleType;
 import net.minecraft.world.entity.ai.targeting.TargetingConditions;
-import net.minecraft.world.entity.animal.AbstractFish;
 import net.minecraft.world.entity.animal.Bucketable;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -64,7 +64,7 @@ import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-public class Jellyfish extends AbstractFish {
+public class Jellyfish extends NoFlopAbstractFish {
 	//Animations
     public float xBodyRot;
     public float xRot1;
@@ -81,14 +81,13 @@ public class Jellyfish extends AbstractFish {
     public float zRot5;
     public float zRot6;
     private float rotateSpeed;
-	//Targeting
-    public int ticksSinceCantReach;
 
-	private static final float maxTargetDistance = 20F;
+	private static final float MAX_TARGET_DISTANCE = 20F;
 
     public Jellyfish(EntityType<? extends Jellyfish> entityType, Level level) {
         super(entityType, level);
         this.setVariant(JellyfishVariant.PINK);
+		this.getNavigation().setCanFloat(false);
     }
 
     private static final EntityDataAccessor<JellyfishVariant> VARIANT = SynchedEntityData.defineId(Jellyfish.class, JellyfishVariant.SERIALIZER);
@@ -106,8 +105,8 @@ public class Jellyfish extends AbstractFish {
     @Nullable
     @Override
     public SpawnGroupData finalizeSpawn(ServerLevelAccessor level, @NotNull DifficultyInstance difficulty, @NotNull MobSpawnType reason, @Nullable SpawnGroupData spawnData, @Nullable CompoundTag dataTag) {
-        Holder<Biome> holder = level.getBiome(this.blockPosition());
-        if (holder.is(WilderBiomeTags.PEARLESCENT_JELLYFISH)) {
+        Holder<Biome> biome = level.getBiome(this.blockPosition());
+        if (biome.is(WilderBiomeTags.PEARLESCENT_JELLYFISH)) {
             this.setVariant(PEARLESCENT_VARIANTS.get((int) (Math.random() * PEARLESCENT_VARIANTS.size())));
         } else {
             this.setVariant(COLORED_VARIANTS.get((int) (Math.random() * COLORED_VARIANTS.size())));
@@ -116,9 +115,9 @@ public class Jellyfish extends AbstractFish {
     }
 
     public static boolean canSpawn(EntityType<Jellyfish> type, ServerLevelAccessor level, MobSpawnType reason, BlockPos pos, RandomSource random) {
-        Holder<Biome> holder = level.getBiome(pos);
+        Holder<Biome> biome = level.getBiome(pos);
 
-        if (holder.is(WilderBiomeTags.PEARLESCENT_JELLYFISH)) {
+        if (biome.is(WilderBiomeTags.PEARLESCENT_JELLYFISH)) {
             if (reason == MobSpawnType.SPAWNER || level.getRawBrightness(pos, 0) <= 7 && random.nextInt(0, level.getRawBrightness(pos, 0) + 3) >= 1) {
                 return true;
             }
@@ -145,12 +144,12 @@ public class Jellyfish extends AbstractFish {
     }
 
     public static AttributeSupplier.Builder addAttributes() {
-        return Mob.createMobAttributes().add(Attributes.MAX_HEALTH, 8.0D).add(Attributes.MOVEMENT_SPEED, 0.5f);
+        return Mob.createMobAttributes().add(Attributes.MAX_HEALTH, 8.0D).add(Attributes.MOVEMENT_SPEED, 0.5F);
     }
 
     @Override
     protected float getStandingEyeHeight(@NotNull Pose pose, EntityDimensions dimensions) {
-        return dimensions.height * 0.5f;
+        return dimensions.height * 0.5F;
     }
 
     @Override
@@ -183,9 +182,14 @@ public class Jellyfish extends AbstractFish {
         return 0.4F;
     }
 
+	@Override
+	public Brain.Provider<Jellyfish> brainProvider() {
+		return Brain.provider(JellyfishAi.MEMORY_TYPES, JellyfishAi.SENSOR_TYPES);
+	}
+
     @Override
     protected Brain<Jellyfish> makeBrain(@NotNull Dynamic<?> dynamic) {
-        return JellyfishAi.makeBrain(this, dynamic);
+		return JellyfishAi.makeBrain(this, this.brainProvider().makeBrain(dynamic));
     }
 
     @Override
@@ -244,7 +248,7 @@ public class Jellyfish extends AbstractFish {
 
         this.stingEntities();
 
-        LivingEntity target = this.getTarget();
+        /*LivingEntity target = this.getTarget();
         if (target != null) {
             ++this.ticksSinceCantReach;
             if (this.ticksSinceCantReach > 300 || this.level.getDifficulty() == Difficulty.PEACEFUL || !this.canTargetEntity(target)) {
@@ -260,8 +264,13 @@ public class Jellyfish extends AbstractFish {
             }
         } else {
             this.ticksSinceCantReach = 0;
-        }
+        }*/
     }
+
+	@Override
+	public void swing(InteractionHand hand) {
+		this.stingEntities();
+	}
 
     public void stingEntities() {
         if (this.isAlive()) {
@@ -300,7 +309,7 @@ public class Jellyfish extends AbstractFish {
                 && !livingEntity.isInvulnerable()
                 && !livingEntity.isDeadOrDying()
 				&& !livingEntity.isRemoved()
-				&& livingEntity.distanceTo(this) < maxTargetDistance
+				&& livingEntity.distanceTo(this) < MAX_TARGET_DISTANCE
                 && !livingEntity.getType().is(WilderEntityTags.JELLYFISH_CANT_STING)
                 && this.level.getWorldBorder().isWithinBounds(livingEntity.getBoundingBox());
     }
@@ -319,10 +328,10 @@ public class Jellyfish extends AbstractFish {
         super.customServerAiStep();
     }
 
-    @Override
+    /*@Override
     protected SoundEvent getFlopSound() {
         return RegisterSounds.ENTITY_JELLYFISH_FLOP;
-    }
+    }*/
 
     @Override
     public SoundEvent getPickupSound() {
@@ -384,45 +393,15 @@ public class Jellyfish extends AbstractFish {
     @Override
     public void addAdditionalSaveData(@NotNull CompoundTag compound) {
         super.addAdditionalSaveData(compound);
-        compound.putInt("ticksSinceCantReach", this.ticksSinceCantReach);
         compound.putString("variant", Objects.requireNonNull(WilderRegistry.JELLYFISH_VARIANT.getKey(this.getVariant())).toString());
     }
 
     @Override
     public void readAdditionalSaveData(@NotNull CompoundTag compound) {
         super.readAdditionalSaveData(compound);
-        this.ticksSinceCantReach = compound.getInt("ticksSinceCantReach");
         JellyfishVariant variant = WilderRegistry.JELLYFISH_VARIANT.get(ResourceLocation.tryParse(compound.getString("variant")));
         if (variant != null) {
             this.setVariant(variant);
         }
     }
-
-    @Override
-    protected void registerGoals() {
-        //super.registerGoals();
-        //this.goalSelector.addGoal(0, new PanicGoal(this, 1.9));
-        //this.goalSelector.addGoal(2, new AvoidEntityGoal<>(this, Player.class, 2f, 1.0, 1.4, EntitySelector.NO_SPECTATORS::test));
-        this.goalSelector.addGoal(4, new JellySwimGoal(this));
-    }
-
-    private static class JellySwimGoal extends RandomSwimmingGoal {
-        private final Jellyfish jelly;
-
-        public JellySwimGoal(Jellyfish jelly) {
-            super(jelly, 1.0, 40);
-            this.jelly = jelly;
-        }
-
-        @Override
-        public boolean canUse() {
-            return this.jelly.getTarget() == null && this.jelly.canRandomSwim() && super.canUse();
-        }
-
-        @Override
-        public boolean canContinueToUse() {
-            return this.jelly.getTarget() == null && !this.mob.getNavigation().isDone() && !this.mob.isVehicle();
-        }
-    }
-
 }

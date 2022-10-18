@@ -42,11 +42,34 @@ public class FireflyAi {
     }
 
     private static void addCoreActivities(Brain<Firefly> brain) {
-        brain.addActivity(Activity.CORE, 0, ImmutableList.of(new Swim(0.8F), new AnimalPanic(2.5F), new LookAtTargetSink(45, 90), new MoveToTargetSink()));
+        brain.addActivity(
+				Activity.CORE,
+				0,
+				ImmutableList.of(
+						new Swim(0.8F),
+						new AnimalPanic(2.5F),
+						new LookAtTargetSink(45, 90),
+						new MoveToTargetSink()
+				)
+		);
     }
 
     private static void addIdleActivities(Brain<Firefly> brain) {
-        brain.addActivityWithConditions(Activity.IDLE, ImmutableList.of(Pair.of(2, new StayCloseToTarget<>(FireflyAi::getLookTarget, 7, 16, 1.0F)), Pair.of(3, new RunSometimes<>(new SetEntityLookTarget((firefly) -> true, 6.0F), UniformInt.of(30, 60))), Pair.of(4, new RunOne<>(ImmutableList.of(Pair.of(new FlyingRandomStroll(1.0F), 2), Pair.of(new SetWalkTargetFromLookTarget(1.0F, 3), 2), Pair.of(new DoNothing(30, 60), 1))))), ImmutableSet.of());
+        brain.addActivityWithConditions(
+				Activity.IDLE,
+				ImmutableList.of(
+						Pair.of(2, new StayCloseToTarget<>(FireflyAi::getLookTarget, 7, 16, 1.0F)),
+						Pair.of(3, new RunSometimes<>(new SetEntityLookTarget((firefly) -> true, 6.0F), UniformInt.of(30, 60))),
+						Pair.of(4, new RunOne<>(
+								ImmutableList.of(
+										Pair.of(new FlyingRandomStroll(1.0F), 2),
+										Pair.of(new SetWalkTargetFromLookTarget(1.0F, 3), 2),
+										Pair.of(new DoNothing(30, 60), 1)
+								)
+						))
+				),
+				ImmutableSet.of()
+		);
     }
 
     public static void updateActivities(Firefly firefly) {
