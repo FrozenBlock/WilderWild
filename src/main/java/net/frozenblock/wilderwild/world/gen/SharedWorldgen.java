@@ -146,23 +146,20 @@ public final class SharedWorldgen {
 	}
 
 	public static SurfaceRules.RuleSource taigaPaths() {
-		var NOISE1 = SurfaceRules.noiseCondition(Noises.CALCITE, 0.05, 0.07);
-		var NOISE2 = SurfaceRules.noiseCondition(Noises.CALCITE, 0.8, 0.82);
-		var NOISE3 = SurfaceRules.noiseCondition(Noises.CALCITE, 0.45, 0.47);
+		var NOISE1 = SurfaceRules.noiseCondition(Noises.CALCITE, 0.05, 0.06);
+		var NOISE2 = SurfaceRules.noiseCondition(Noises.CALCITE, 0.8, 0.81);
+		var NOISE3 = SurfaceRules.noiseCondition(Noises.CALCITE, 0.47, 0.47);
 		var COARSE_DIRT = FrozenSurfaceRules.makeStateRule(Blocks.COARSE_DIRT);
 
         return SurfaceRules.ifTrue(
                         SurfaceRules.abovePreliminarySurface(),
                         SurfaceRules.ifTrue(
                                 SurfaceRules.ON_FLOOR,
-								SurfaceRules.ifTrue(
-									FrozenSurfaceRules.isBiome(WilderRegistry.TAIGA_PATH_BIOMES),
-										SurfaceRules.sequence(
-											SurfaceRules.ifTrue(NOISE1, COARSE_DIRT),
-											SurfaceRules.ifTrue(NOISE2, COARSE_DIRT),
-											SurfaceRules.ifTrue(NOISE3, COARSE_DIRT)
-                                		)
-								)
+                                SurfaceRules.sequence(
+                                        SurfaceRules.ifTrue(NOISE1, COARSE_DIRT),
+										SurfaceRules.ifTrue(NOISE2, COARSE_DIRT),
+										SurfaceRules.ifTrue(NOISE3, COARSE_DIRT)
+                                )
                         )
                 );
 	}
