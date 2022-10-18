@@ -246,6 +246,7 @@ public class Jellyfish extends NoFlopAbstractFish {
             this.heal(0.02F);
         }
 
+		this.stingTarget();
         this.stingEntities();
 
         /*LivingEntity target = this.getTarget();
@@ -292,6 +293,28 @@ public class Jellyfish extends NoFlopAbstractFish {
             }
         }
     }
+
+	public void stingTarget() {
+		if (this.isAlive()) {
+			List<LivingEntity> list = this.level.getEntitiesOfClass(LivingEntity.class, this.getBoundingBox().inflate(0.12));
+			for (LivingEntity entity : list) {
+				if (this.getTarget() == entity) {
+					if (entity instanceof ServerPlayer player) {
+						if (player.hurt(DamageSource.mobAttack(this), 3)) {
+							player.addEffect(new MobEffectInstance(MobEffects.POISON, 200, 0, false, false), this);
+							EasyPacket.sendJellySting(player);
+						}
+					} else if (entity instanceof Mob mob) {
+						if (mob.hurt(DamageSource.mobAttack(this), (float) (3))) {
+							mob.addEffect(new MobEffectInstance(MobEffects.POISON, 200, 0), this);
+							this.playSound(RegisterSounds.ENTITY_JELLYFISH_STING, 0.4F, this.random.nextFloat() * 0.2f + 0.9f);
+						}
+					}
+					return;
+				}
+			}
+		}
+	}
 
 	public boolean moveToAccurate(@NotNull Entity entity, double speed) {
 		Path path = this.getNavigation().createPath(entity, 0);
