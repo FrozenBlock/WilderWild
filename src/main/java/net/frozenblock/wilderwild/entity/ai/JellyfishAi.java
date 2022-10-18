@@ -17,6 +17,7 @@ import net.minecraft.world.entity.ai.behavior.LookAtTargetSink;
 import net.minecraft.world.entity.ai.behavior.MoveToTargetSink;
 import net.minecraft.world.entity.ai.behavior.RandomStroll;
 import net.minecraft.world.entity.ai.behavior.RunIf;
+import net.minecraft.world.entity.ai.behavior.RunOne;
 import net.minecraft.world.entity.ai.behavior.SetEntityLookTarget;
 import net.minecraft.world.entity.ai.behavior.SetWalkTargetFromAttackTargetIfTargetOutOfReach;
 import net.minecraft.world.entity.ai.behavior.StartAttacking;
@@ -79,11 +80,8 @@ public class JellyfishAi {
                 ImmutableList.of(
 						new StartAttacking<>(JellyfishAi::findNearestValidAttackTarget),
 						new TryFindWater(6, 0.15F),
-						new GateBehavior<>(
+						new RunOne<>(
 								ImmutableMap.of(MemoryModuleType.WALK_TARGET, MemoryStatus.VALUE_ABSENT),
-								ImmutableSet.of(),
-								GateBehavior.OrderPolicy.ORDERED,
-								GateBehavior.RunningPolicy.TRY_ALL,
 								ImmutableList.of(
 										Pair.of(new JellyfishRandomSwim(1.0F), 2),
 										Pair.of(new RunIf<>(Entity::isInWaterOrBubble, new DoNothing(30, 60)), 5),
