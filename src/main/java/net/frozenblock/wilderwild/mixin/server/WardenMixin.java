@@ -48,11 +48,15 @@ import net.minecraft.world.level.pathfinder.BlockPathTypes;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import org.objectweb.asm.Opcodes;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Constant;
 import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.ModifyConstant;
+import org.spongepowered.asm.mixin.injection.ModifyVariable;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
@@ -110,7 +114,25 @@ public final class WardenMixin extends Monster implements WilderWarden {
 		throw new AssertionError("Mixin injection failed - WilderWild WardenMixin.");
     }
 
-    private WardenMixin(EntityType<? extends Monster> entityType, Level level) {
+	@Shadow
+	private int tendrilAnimationO;
+
+	@Shadow
+	private int tendrilAnimation;
+
+	@Shadow
+	private int heartAnimationO;
+
+	@Shadow
+	private int heartAnimation;
+
+	@Shadow
+	public AnimationState emergeAnimationState;
+
+	@Shadow
+	public AnimationState diggingAnimationState;
+
+	private WardenMixin(EntityType<? extends Monster> entityType, Level level) {
         super(entityType, level);
     }
 
@@ -278,13 +300,28 @@ public final class WardenMixin extends Monster implements WilderWarden {
         } else super.tickDeath();
     }
 
-    @Inject(method = "tick", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/Level;playLocalSound(DDDLnet/minecraft/sounds/SoundEvent;Lnet/minecraft/sounds/SoundSource;FFZ)V", shift = At.Shift.BEFORE), cancellable = true)
+    @Inject(method = "tick", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/Level;playLocalSound(DDDLnet/minecraft/sounds/SoundEvent;Lnet/minecraft/sounds/SoundSource;FFZ)V"), cancellable = true)
     private void osmioHeartbeat(CallbackInfo ci) {
         if (this.isOsmiooo()) {
             this.level
                     .playLocalSound(
                             this.getX(), this.getY(), this.getZ(), RegisterSounds.ENTITY_WARDEN_OSMIOOO_HEARTBEAT, this.getSoundSource(), 5.0F, this.getVoicePitch(), false
                     );
+
+			this.tendrilAnimationO = this.tendrilAnimation;
+			if (this.tendrilAnimation > 0) {
+				--this.tendrilAnimation;
+			}
+
+			this.heartAnimationO = this.heartAnimation;
+			if (this.heartAnimation > 0) {
+				--this.heartAnimation;
+			}
+
+			switch (this.getPose()) {
+				case EMERGING -> this.clientDiggingParticles(this.emergeAnimationState);
+				case DIGGING -> this.clientDiggingParticles(this.diggingAnimationState);
+			}
             ci.cancel();
         }
     }
@@ -431,5 +468,5 @@ public final class WardenMixin extends Monster implements WilderWarden {
             }
         }
     }
-	
+
 }

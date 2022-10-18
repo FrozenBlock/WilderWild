@@ -15,8 +15,15 @@ import static net.frozenblock.wilderwild.misc.config.WilderWildConfig.tooltip;
 @Config(name = "entity")
 public final class EntityConfig implements ConfigData {
 
+	@ConfigEntry.Gui.CollapsibleObject
+	public AllayConfig allay = new AllayConfig();
+
     @ConfigEntry.Gui.CollapsibleObject
     public WardenConfig warden = new WardenConfig();
+
+	public static class AllayConfig {
+		public boolean keyframeAllayDance = true;
+	}
 
     public static class WardenConfig {
         public boolean wardenCustomTendrils = true;
@@ -30,6 +37,7 @@ public final class EntityConfig implements ConfigData {
     @Environment(EnvType.CLIENT)
     static void setupEntries(ConfigCategory category, ConfigEntryBuilder entryBuilder) {
         var config = WilderWildConfig.get().entity;
+		var allay = config.allay;
         var warden = config.warden;
         category.setBackground(WilderWild.id("textures/config/entity.png"));
         var unpassableRail = category.addEntry(entryBuilder.startBooleanToggle(text("unpassable_rail"), config.unpassableRail)
@@ -39,10 +47,17 @@ public final class EntityConfig implements ConfigData {
                 .requireRestart()
                 .build());
 
+		var keyframeAllayDance = entryBuilder.startBooleanToggle(text("keyframe_allay_dance"), allay.keyframeAllayDance)
+				.setDefaultValue(true)
+				.setSaveConsumer(newValue -> allay.keyframeAllayDance = newValue)
+				.setTooltip(tooltip("keyframe_allay_dance"))
+				.requireRestart()
+				.build();
+
         var allayCategory = FrozenConfig.createSubCategory(entryBuilder, category, text("allay"),
                 false,
-                tooltip("allay")
-
+                tooltip("allay"),
+				keyframeAllayDance
         );
 
         var fireflyCategory = FrozenConfig.createSubCategory(entryBuilder, category, text("firefly"),

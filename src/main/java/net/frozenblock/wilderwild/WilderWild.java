@@ -12,6 +12,7 @@ import net.fabricmc.fabric.api.gamerule.v1.GameRuleFactory;
 import net.fabricmc.fabric.api.gamerule.v1.GameRuleRegistry;
 import net.fabricmc.loader.api.FabricLoader;
 import net.fabricmc.loader.api.ModContainer;
+import net.frozenblock.lib.FrozenBools;
 import net.frozenblock.wilderwild.block.entity.TermiteMoundBlockEntity;
 import net.frozenblock.wilderwild.entity.Firefly;
 import net.frozenblock.wilderwild.misc.BlockSoundGroupOverwrites;
@@ -86,11 +87,16 @@ public final class WilderWild implements ModInitializer {
 
     public static boolean areConfigsInit = false;
 
-    public static boolean hasCloth = FabricLoader.getInstance().isModLoaded("cloth-config");
-    public static boolean hasPipes = FabricLoader.getInstance().isModLoaded("copper_pipe");
-    public static boolean hasSodium = FabricLoader.getInstance().isModLoaded("sodium");
-    public static boolean hasTerraBlender = FabricLoader.getInstance().isModLoaded("terrablender");
-    public static boolean hasTerralith = FabricLoader.getInstance().isModLoaded("terralith");
+	@Deprecated(forRemoval = true)
+    public static boolean hasCloth = FrozenBools.hasCloth;
+	@Deprecated(forRemoval = true)
+    public static boolean hasPipes = FrozenBools.hasPipes;
+	@Deprecated(forRemoval = true)
+    public static boolean hasSodium = FrozenBools.hasSodium;
+    @Deprecated(forRemoval = true)
+	public static boolean hasTerraBlender = FrozenBools.hasTerraBlender;
+    @Deprecated(forRemoval = true)
+	public static boolean hasTerralith = FrozenBools.hasTerralith;
 
     public static final TrunkPlacerType<StraightTrunkWithLogs> STRAIGHT_TRUNK_WITH_LOGS_PLACER_TYPE = registerTrunk("straight_trunk_logs_placer", StraightTrunkWithLogs.CODEC);
     public static final TrunkPlacerType<FallenTrunkWithLogs> FALLEN_TRUNK_WITH_LOGS_PLACER_TYPE = registerTrunk("fallen_trunk_logs_placer", FallenTrunkWithLogs.CODEC);

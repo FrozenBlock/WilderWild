@@ -71,6 +71,10 @@ public final class ClothConfigCloserInteractionHandler {
         return WilderWildConfig.get().entity.unpassableRail;
     }
 
+	public static boolean keyframeAllayDance() {
+		return WilderWildConfig.get().entity.allay.keyframeAllayDance;
+	}
+
     public static boolean wardenCustomTendrils() {
         return WilderWildConfig.get().entity.warden.wardenCustomTendrils;
     }

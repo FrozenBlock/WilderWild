@@ -124,6 +124,13 @@ public final class ClothConfigInteractionHandler {
         return true;
     }
 
+	public static boolean keyframeAllayDance() {
+		if (WilderWild.hasCloth) {
+			return ClothConfigCloserInteractionHandler.keyframeAllayDance();
+		}
+		return true;
+	}
+
     public static boolean wardenCustomTendrils() {
         if (WilderWild.hasCloth) {
             return ClothConfigCloserInteractionHandler.wardenCustomTendrils();

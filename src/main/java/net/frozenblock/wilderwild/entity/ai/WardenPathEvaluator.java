@@ -17,13 +17,13 @@ import net.minecraft.world.level.pathfinder.WalkNodeEvaluator;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-public class WardenPathNodeMaker extends WalkNodeEvaluator {
+public class WardenPathEvaluator extends WalkNodeEvaluator {
     private float oldWalkablePenalty;
     private float oldWaterBorderPenalty;
 
     private final Long2ObjectMap<BlockPathTypes> nodeTypes = new Long2ObjectOpenHashMap<>();
 
-    public WardenPathNodeMaker() {
+    public WardenPathEvaluator() {
     }
 
     @Override
