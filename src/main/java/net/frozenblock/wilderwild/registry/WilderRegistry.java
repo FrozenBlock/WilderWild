@@ -45,13 +45,6 @@ public class WilderRegistry {
         add(Biomes.SAVANNA);
     }};
 
-	public static final List<ResourceKey<Biome>> TAIGA_PATH_BIOMES = new ArrayList<>() {{
-		add(Biomes.TAIGA);
-		add(Biomes.OLD_GROWTH_PINE_TAIGA);
-		add(Biomes.OLD_GROWTH_SPRUCE_TAIGA);
-		add(Biomes.WINDSWEPT_FOREST);
-	}};
-
     public static void initRegistry() {
 
     }

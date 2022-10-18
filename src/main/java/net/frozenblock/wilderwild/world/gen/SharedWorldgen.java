@@ -15,7 +15,6 @@ import net.frozenblock.wilderwild.registry.WilderRegistry;
 import net.frozenblock.wilderwild.world.gen.noise.WilderNoise;
 import net.minecraft.world.level.biome.Climate;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.levelgen.Noises;
 import net.minecraft.world.level.levelgen.SurfaceRules;
 import net.minecraft.world.level.levelgen.VerticalAnchor;
@@ -143,25 +142,6 @@ public final class SharedWorldgen {
 						)
 				)
 		);
-	}
-
-	public static SurfaceRules.RuleSource taigaPaths() {
-		var NOISE1 = SurfaceRules.noiseCondition(Noises.CALCITE, 0.05, 0.06);
-		var NOISE2 = SurfaceRules.noiseCondition(Noises.CALCITE, 0.8, 0.81);
-		var NOISE3 = SurfaceRules.noiseCondition(Noises.CALCITE, 0.47, 0.47);
-		var COARSE_DIRT = FrozenSurfaceRules.makeStateRule(Blocks.COARSE_DIRT);
-
-        return SurfaceRules.ifTrue(
-                        SurfaceRules.abovePreliminarySurface(),
-                        SurfaceRules.ifTrue(
-                                SurfaceRules.ON_FLOOR,
-                                SurfaceRules.sequence(
-                                        SurfaceRules.ifTrue(NOISE1, COARSE_DIRT),
-										SurfaceRules.ifTrue(NOISE2, COARSE_DIRT),
-										SurfaceRules.ifTrue(NOISE3, COARSE_DIRT)
-                                )
-                        )
-                );
 	}
 
 	//SurfaceRules.sequence(new SurfaceRules.RuleSource[]{SurfaceRules.ifTrue(SurfaceRules.isBiome(Biomes.FOREST, Biomes.FLOWER_FOREST, Biomes.JUNGLE),

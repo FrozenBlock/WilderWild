@@ -57,10 +57,6 @@ public final class RegisterWorldgen implements SurfaceRuleEvents.OverworldModifi
 			context.materialRules().add(0, SharedWorldgen.otherSandBetaBeaches());
         }
 
-		if (!ClothConfigInteractionHandler.taigaPaths()) {
-			context.materialRules().add(0, SharedWorldgen.taigaPaths());
-		}
-
         // FROM QUILT'S TEST MOD
         var blueNoise1 = SurfaceRules.noiseCondition(Noises.CALCITE, 0.05, 0.1);
         var pinkNoise1 = SurfaceRules.noiseCondition(Noises.CALCITE, 0.1, 0.15);
