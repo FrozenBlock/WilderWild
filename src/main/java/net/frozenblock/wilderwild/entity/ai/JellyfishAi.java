@@ -85,10 +85,9 @@ public class JellyfishAi {
 								GateBehavior.OrderPolicy.ORDERED,
 								GateBehavior.RunningPolicy.TRY_ALL,
 								ImmutableList.of(
-										Pair.of(new JellyfishRandomSwim(1.0F), 2)
-										//Pair.of(new RandomStroll(0.15F), 2),
-										//Pair.of(new RunIf<>(Entity::isInWaterOrBubble, new DoNothing(30, 60)), 5),
-										//Pair.of(new RunIf<>(Entity::isOnGround, new DoNothing(200, 400)), 5)
+										Pair.of(new JellyfishRandomSwim(1.0F), 2),
+										Pair.of(new RunIf<>(Entity::isInWaterOrBubble, new DoNothing(30, 60)), 5),
+										Pair.of(new RunIf<>(Entity::isOnGround, new DoNothing(200, 400)), 5)
 								)
 						)
 				)
