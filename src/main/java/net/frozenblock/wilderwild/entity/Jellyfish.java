@@ -296,7 +296,7 @@ public class Jellyfish extends NoFlopAbstractFish {
 
 	public void stingTarget() {
 		if (this.isAlive()) {
-			List<LivingEntity> list = this.level.getEntitiesOfClass(LivingEntity.class, this.getBoundingBox().inflate(0.12));
+			List<LivingEntity> list = this.level.getEntitiesOfClass(LivingEntity.class, this.getBoundingBox().inflate(0.1));
 			for (LivingEntity entity : list) {
 				if (this.getTarget() == entity) {
 					if (entity instanceof ServerPlayer player) {
