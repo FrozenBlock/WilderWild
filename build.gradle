@@ -116,6 +116,8 @@ dependencies {
 	if (local_frozenlib) {
 		implementation(project(path: ":FrozenLib", configuration: 'dev'))
 		include(project(path: ":FrozenLib", configuration: 'dev'))
+	} else if (findProperty("isGithub") == "true") {
+		modImplementation "com.github.FrozenBlock:FrozenLib:master-SNAPSHOT"
 	} else {
 		modImplementation "maven.modrinth:frozenlib:${frozenlib_version}"
 		include "maven.modrinth:frozenlib:${frozenlib_version}"
