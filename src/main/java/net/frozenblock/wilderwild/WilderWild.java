@@ -87,17 +87,6 @@ public final class WilderWild implements ModInitializer {
 
     public static boolean areConfigsInit = false;
 
-	@Deprecated(forRemoval = true)
-    public static boolean hasCloth = FrozenBools.hasCloth;
-	@Deprecated(forRemoval = true)
-    public static boolean hasPipes = FrozenBools.hasPipes;
-	@Deprecated(forRemoval = true)
-    public static boolean hasSodium = FrozenBools.hasSodium;
-    @Deprecated(forRemoval = true)
-	public static boolean hasTerraBlender = FrozenBools.hasTerraBlender;
-    @Deprecated(forRemoval = true)
-	public static boolean hasTerralith = FrozenBools.hasTerralith;
-
     public static final TrunkPlacerType<StraightTrunkWithLogs> STRAIGHT_TRUNK_WITH_LOGS_PLACER_TYPE = registerTrunk("straight_trunk_logs_placer", StraightTrunkWithLogs.CODEC);
     public static final TrunkPlacerType<FallenTrunkWithLogs> FALLEN_TRUNK_WITH_LOGS_PLACER_TYPE = registerTrunk("fallen_trunk_logs_placer", FallenTrunkWithLogs.CODEC);
     public static final TrunkPlacerType<BaobabTrunkPlacer> BAOBAB_TRUNK_PLACER = registerTrunk("baobab_trunk_placer", BaobabTrunkPlacer.CODEC);
@@ -161,7 +150,7 @@ public final class WilderWild implements ModInitializer {
         TermiteMoundBlockEntity.Termite.addDegradableBlocks();
         TermiteMoundBlockEntity.Termite.addNaturalDegradableBlocks();
 
-        if (hasTerralith) {
+        if (FrozenBools.hasTerralith) {
             terralith();
         }
 
@@ -217,7 +206,7 @@ public final class WilderWild implements ModInitializer {
     }
 
     public static boolean isCopperPipe(BlockState state) {
-        if (hasPipes) {
+        if (FrozenBools.hasPipes) {
             ResourceLocation id = Registry.BLOCK.getKey(state.getBlock());
             return id.getNamespace().equals("lunade") && id.getPath().contains("pipe");
         }

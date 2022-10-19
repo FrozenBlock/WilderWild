@@ -12,10 +12,8 @@ import net.minecraft.world.entity.ai.Brain;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.behavior.AnimalPanic;
 import net.minecraft.world.entity.ai.behavior.DoNothing;
-import net.minecraft.world.entity.ai.behavior.GateBehavior;
 import net.minecraft.world.entity.ai.behavior.LookAtTargetSink;
 import net.minecraft.world.entity.ai.behavior.MoveToTargetSink;
-import net.minecraft.world.entity.ai.behavior.RandomStroll;
 import net.minecraft.world.entity.ai.behavior.RunIf;
 import net.minecraft.world.entity.ai.behavior.RunOne;
 import net.minecraft.world.entity.ai.behavior.SetEntityLookTarget;
@@ -39,6 +37,7 @@ public class JellyfishAi {
             MemoryModuleType.NEAREST_VISIBLE_LIVING_ENTITIES,
             MemoryModuleType.NEAREST_VISIBLE_PLAYER,
             MemoryModuleType.NEAREST_VISIBLE_ATTACKABLE_PLAYER,
+			MemoryModuleType.NEAREST_VISIBLE_NEMESIS,
             MemoryModuleType.LOOK_TARGET,
             MemoryModuleType.WALK_TARGET,
             MemoryModuleType.CANT_REACH_WALK_TARGET_SINCE,
@@ -84,8 +83,8 @@ public class JellyfishAi {
 								ImmutableMap.of(MemoryModuleType.WALK_TARGET, MemoryStatus.VALUE_ABSENT),
 								ImmutableList.of(
 										Pair.of(new JellyfishRandomSwim(1.0F), 2),
-										Pair.of(new RunIf<>(Entity::isInWaterOrBubble, new DoNothing(30, 60)), 5),
-										Pair.of(new RunIf<>(Entity::isOnGround, new DoNothing(200, 400)), 5)
+										Pair.of(new RunIf<>(Entity::isInWaterOrBubble, new DoNothing(30, 60)), 1),
+										Pair.of(new RunIf<>(Entity::isOnGround, new DoNothing(200, 400)), 1)
 								)
 						)
 				)
@@ -113,12 +112,7 @@ public class JellyfishAi {
 
     public static void updateActivity(Jellyfish jellyfish) {
         Brain<Jellyfish> brain = jellyfish.getBrain();
-        Activity activity = brain.getActiveNonCoreActivity().orElse(null);
         brain.setActiveActivityToFirstValid(ImmutableList.of(Activity.FIGHT, Activity.IDLE));
-        if (activity == Activity.FIGHT && brain.getActiveNonCoreActivity().orElse(null) != Activity.FIGHT) {
-            brain.setMemoryWithExpiry(MemoryModuleType.HAS_HUNTING_COOLDOWN, true, 2400L);
-        }
-
     }
 
     private static float getSpeedModifierChasing(LivingEntity livingEntity) {

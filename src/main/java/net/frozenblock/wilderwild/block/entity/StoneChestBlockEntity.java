@@ -385,7 +385,7 @@ public class StoneChestBlockEntity extends ChestBlockEntity implements NoInterac
             x -= (double) direction.getStepX() * 0.5;
             z -= (double) direction.getStepZ() * 0.5;
         }
-        level.playSound(null, x, y, z, soundEvent, SoundSource.BLOCKS, volume, level.random.nextFloat() * 0.18f + 0.9f);
+        level.playSound(null, x, y, z, soundEvent, SoundSource.BLOCKS, volume, level.random.nextFloat() * 0.18F + 0.9F);
     }
 
 }

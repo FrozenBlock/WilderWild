@@ -1,11 +1,12 @@
 package net.frozenblock.wilderwild.misc.config;
 
+import net.frozenblock.lib.FrozenBools;
 import net.frozenblock.wilderwild.WilderWild;
 
 public final class ClothConfigInteractionHandler {
 
     public static boolean betaBeaches() {
-        if (WilderWild.hasCloth) {
+        if (FrozenBools.hasCloth) {
             return ClothConfigCloserInteractionHandler.betaBeaches();
         }
         return true;
@@ -13,161 +14,161 @@ public final class ClothConfigInteractionHandler {
 
     /*
         public static boolean modifyDesertPlacement() {
-            if (WilderWild.hasCloth) {
+            if (FrozenBools.hasCloth) {
                 return ClothConfigCloserInteractionHandler.modifyDesertPlacement();
             }
             return true;
         }
 
         public static boolean modifyBadlandsPlacement() {
-            if (WilderWild.hasCloth) {
+            if (FrozenBools.hasCloth) {
                 return ClothConfigCloserInteractionHandler.modifyBadlandsPlacement();
             }
             return true;
         }
     */
     public static boolean modifyJunglePlacement() {
-        if (WilderWild.hasCloth) {
+        if (FrozenBools.hasCloth) {
             return ClothConfigCloserInteractionHandler.modifyJunglePlacement();
         }
         return true;
     }
 
     public static boolean modifySwampPlacement() {
-        if (WilderWild.hasCloth) {
+        if (FrozenBools.hasCloth) {
             return ClothConfigCloserInteractionHandler.modifySwampPlacement();
         }
         return true;
     }
 
     public static boolean modifyMangroveSwampPlacement() {
-        if (WilderWild.hasCloth) {
+        if (FrozenBools.hasCloth) {
             return ClothConfigCloserInteractionHandler.modifyMangroveSwampPlacement();
         }
         return true;
     }
 
     public static boolean modifyWindsweptSavannaPlacement() {
-        if (WilderWild.hasCloth) {
+        if (FrozenBools.hasCloth) {
             return ClothConfigCloserInteractionHandler.modifyWindsweptSavannaPlacement();
         }
         return true;
     }
 
     public static boolean dyingTrees() {
-        if (WilderWild.hasCloth) {
+        if (FrozenBools.hasCloth) {
             return ClothConfigCloserInteractionHandler.dyingTrees();
         }
         return true;
     }
 
     public static boolean fallenLogs() {
-        if (WilderWild.hasCloth) {
+        if (FrozenBools.hasCloth) {
             return ClothConfigCloserInteractionHandler.fallenLogs();
         }
         return true;
     }
 
     public static boolean wildTrees() {
-        if (WilderWild.hasCloth) {
+        if (FrozenBools.hasCloth) {
             return ClothConfigCloserInteractionHandler.wildTrees();
         }
         return true;
     }
 
     public static boolean wildGrass() {
-        if (WilderWild.hasCloth) {
+        if (FrozenBools.hasCloth) {
             return ClothConfigCloserInteractionHandler.wildGrass();
         }
         return true;
     }
 
     public static boolean hornShattersGlass() {
-        if (WilderWild.hasCloth) {
+        if (FrozenBools.hasCloth) {
             return ClothConfigCloserInteractionHandler.hornShattersGlass();
         }
         return false;
     }
 
     public static boolean projectileBreakParticles() {
-        if (WilderWild.hasCloth) {
+        if (FrozenBools.hasCloth) {
             return ClothConfigCloserInteractionHandler.projectileBreakParticles();
         }
         return false;
     }
 
     public static boolean hornCanSummonWarden() {
-        if (WilderWild.hasCloth) {
+        if (FrozenBools.hasCloth) {
             return ClothConfigCloserInteractionHandler.hornCanSummonWarden();
         }
         return false;
     }
 
     public static boolean mcLiveSensorTendrils() {
-        if (WilderWild.hasCloth) {
+        if (FrozenBools.hasCloth) {
             return ClothConfigCloserInteractionHandler.mcLiveSensorTendrils();
         }
         return false;
     }
 
 	public static int stoneChestTimer() {
-		if (WilderWild.hasCloth) {
+		if (FrozenBools.hasCloth) {
 			return ClothConfigCloserInteractionHandler.stoneChestTimer();
 		}
 		return 100;
 	}
 
     public static boolean unpassableRail() {
-        if (WilderWild.hasCloth) {
+        if (FrozenBools.hasCloth) {
             return ClothConfigCloserInteractionHandler.unpassableRail();
         }
         return true;
     }
 
 	public static boolean keyframeAllayDance() {
-		if (WilderWild.hasCloth) {
+		if (FrozenBools.hasCloth) {
 			return ClothConfigCloserInteractionHandler.keyframeAllayDance();
 		}
 		return true;
 	}
 
     public static boolean wardenCustomTendrils() {
-        if (WilderWild.hasCloth) {
+        if (FrozenBools.hasCloth) {
             return ClothConfigCloserInteractionHandler.wardenCustomTendrils();
         }
         return true;
     }
 
     public static boolean wardenDyingAnimation() {
-        if (WilderWild.hasCloth) {
+        if (FrozenBools.hasCloth) {
             return ClothConfigCloserInteractionHandler.wardenDyingAnimation();
         }
         return true;
     }
 
     public static boolean wardenEmergesFromEgg() {
-        if (WilderWild.hasCloth) {
+        if (FrozenBools.hasCloth) {
             return ClothConfigCloserInteractionHandler.wardenEmergesFromEgg();
         }
         return true;
     }
 
     public static boolean wardenSwimAnimation() {
-        if (WilderWild.hasCloth) {
+        if (FrozenBools.hasCloth) {
             return ClothConfigCloserInteractionHandler.wardenSwimAnimation();
         }
         return true;
     }
 
     public static boolean shriekerGargling() {
-        if (WilderWild.hasCloth) {
+        if (FrozenBools.hasCloth) {
             return ClothConfigCloserInteractionHandler.shriekerGargling();
         }
         return false;
     }
 
     public static boolean soulFireSounds() {
-        if (WilderWild.hasCloth) {
+        if (FrozenBools.hasCloth) {
             return ClothConfigCloserInteractionHandler.soulFireSounds();
         }
         return true;

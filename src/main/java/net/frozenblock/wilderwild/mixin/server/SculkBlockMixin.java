@@ -151,7 +151,7 @@ public final class SculkBlockMixin {
                 }
             }
             cir.setReturnValue(Math.max(0, chargeAmount - growthSpawnCost));
-            level.playSound(null, aboveChargePos, growthState.getSoundType().getPlaceSound(), SoundSource.BLOCKS, 1.0f, 1.0f);
+            level.playSound(null, aboveChargePos, growthState.getSoundType().getPlaceSound(), SoundSource.BLOCKS, 1.0F, 1.0F);
         }
     }
 

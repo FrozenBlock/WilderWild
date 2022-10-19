@@ -84,11 +84,11 @@ public abstract class WardenModelMixin<T extends Warden> implements WilderWarden
             this.leftTendril.xRot = cos;
             this.rightTendril.xRot = cos;
 
-            this.leftTendril.yRot = sin / 2f;
-            this.rightTendril.yRot = -sin / 2f;
+            this.leftTendril.yRot = sin / 2F;
+            this.rightTendril.yRot = -sin / 2F;
 
-            this.leftTendril.zRot = cos / 2f;
-            this.rightTendril.zRot = -cos / 2f;
+            this.leftTendril.zRot = cos / 2F;
+            this.rightTendril.zRot = -cos / 2F;
         }
     }
 
@@ -151,13 +151,13 @@ public abstract class WardenModelMixin<T extends Warden> implements WilderWarden
                 this.body.y = Mth.lerp(swimLerp, this.body.y + 21, 0);
                 this.body.z = Mth.lerp(swimLerp, this.body.z, (cos * 2));
 
-                this.rightArm.xRot = Mth.rotLerp(swimLerp, this.rightArm.xRot, 0f);
+                this.rightArm.xRot = Mth.rotLerp(swimLerp, this.rightArm.xRot, 0F);
                 this.rightArm.yRot = Mth.rotLerp(swimLerp, this.rightArm.yRot, ((-cos * 25) * WILDERWILD$RAD));
                 this.rightArm.zRot = Mth.rotLerp(swimLerp, this.rightArm.zRot, ((sin * -90 + 90) * WILDERWILD$RAD));
 
                 this.rightArm.x = Mth.lerp(swimLerp, this.rightArm.x, ((cos0 * 2 + 2) - 13));
 
-                this.leftArm.xRot = Mth.rotLerp(swimLerp, this.leftArm.xRot, 0f);
+                this.leftArm.xRot = Mth.rotLerp(swimLerp, this.leftArm.xRot, 0F);
                 this.leftArm.yRot = Mth.rotLerp(swimLerp, this.leftArm.yRot, ((cos * 25) * WILDERWILD$RAD));
                 this.leftArm.zRot = Mth.rotLerp(swimLerp, this.leftArm.zRot, ((sin * 90 - 90) * WILDERWILD$RAD));
 

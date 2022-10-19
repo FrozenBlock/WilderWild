@@ -377,7 +377,7 @@ public final class WilderWildClient implements ClientModInitializer {
                 if (Minecraft.getInstance().level != null) {
                     LocalPlayer player = ctx.player;
                     if (player != null) {
-                        Minecraft.getInstance().level.playSound(player, player.getX(), player.getY(), player.getZ(), RegisterSounds.ENTITY_JELLYFISH_STING, SoundSource.NEUTRAL, 1.0f, Minecraft.getInstance().level.random.nextFloat() * 0.2f + 0.9f);
+                        Minecraft.getInstance().level.playSound(player, player.getX(), player.getY(), player.getZ(), RegisterSounds.ENTITY_JELLYFISH_STING, SoundSource.NEUTRAL, 1.0F, Minecraft.getInstance().level.random.nextFloat() * 0.2F + 0.9F);
                     }
                 }
             });

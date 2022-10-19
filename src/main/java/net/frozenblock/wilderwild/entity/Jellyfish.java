@@ -30,7 +30,6 @@ import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.Difficulty;
 import net.minecraft.world.DifficultyInstance;
-import net.minecraft.world.InteractionHand;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
@@ -144,7 +143,7 @@ public class Jellyfish extends NoFlopAbstractFish {
     }
 
     public static AttributeSupplier.Builder addAttributes() {
-        return Mob.createMobAttributes().add(Attributes.MAX_HEALTH, 8.0D).add(Attributes.MOVEMENT_SPEED, 0.5F);
+        return Mob.createMobAttributes().add(Attributes.MAX_HEALTH, 8.0D).add(Attributes.MOVEMENT_SPEED, 0.5F).add(Attributes.FOLLOW_RANGE, 32F);
     }
 
     @Override
@@ -232,14 +231,14 @@ public class Jellyfish extends NoFlopAbstractFish {
 
         boolean inWater = this.isInWaterOrBubble();
         if (inWater) {
-            this.rotateSpeed *= 0.8f;
+            this.rotateSpeed *= 0.8F;
             Vec3 vec3 = this.getDeltaMovement();
-            this.yBodyRot += (-(Mth.atan2(vec3.x, vec3.z)) * 57.295776f - this.yBodyRot) * 0.1f;
+            this.yBodyRot += (-(Mth.atan2(vec3.x, vec3.z)) * 57.295776F - this.yBodyRot) * 0.1F;
             this.setYRot(this.yBodyRot);
-            this.zBodyRot += (float) Math.PI * this.rotateSpeed * 1.5f;
-            this.xBodyRot += (-(Mth.atan2(vec3.horizontalDistance(), vec3.y)) * 57.295776f - this.xBodyRot) * 0.1f;
+            this.zBodyRot += (float) Math.PI * this.rotateSpeed * 1.5F;
+            this.xBodyRot += (-(Mth.atan2(vec3.horizontalDistance(), vec3.y)) * 57.295776F - this.xBodyRot) * 0.1F;
         } else {
-            this.xBodyRot += (-90.0f - this.xBodyRot) * 0.02f;
+            this.xBodyRot += (-90.0F - this.xBodyRot) * 0.02F;
         }
 
         if (inWater) {
@@ -253,12 +252,13 @@ public class Jellyfish extends NoFlopAbstractFish {
 			this.getNavigation().stop();
 			this.moveToAccurate(this.getTarget(), 2);
 		}
-		
+
     }
 
 	@Override
-	public void swing(InteractionHand hand) {
-		this.stingEntities();
+	public boolean doHurtTarget(Entity target) {
+		this.level.broadcastEntityEvent(this, (byte) 4);
+		return super.doHurtTarget(target);
 	}
 
     public void stingEntities() {
@@ -274,7 +274,7 @@ public class Jellyfish extends NoFlopAbstractFish {
                     } else if (entity instanceof Mob mob) {
                         if (mob.hurt(DamageSource.mobAttack(this), (float) (3))) {
                             mob.addEffect(new MobEffectInstance(MobEffects.POISON, 200, 0), this);
-                            this.playSound(RegisterSounds.ENTITY_JELLYFISH_STING, 0.4F, this.random.nextFloat() * 0.2f + 0.9f);
+                            this.playSound(RegisterSounds.ENTITY_JELLYFISH_STING, 0.4F, this.random.nextFloat() * 0.2F + 0.9F);
                         }
                     }
                 }
@@ -330,7 +330,7 @@ public class Jellyfish extends NoFlopAbstractFish {
     @Override
     public boolean hurt(@NotNull DamageSource source, float amount) {
         if (super.hurt(source, amount)) {
-            if (!this.level.isClientSide && this.level.getDifficulty() != Difficulty.PEACEFUL) {
+            if (!this.level.isClientSide && this.level.getDifficulty() != Difficulty.PEACEFUL && !this.isNoAi() && this.brain.getMemory(MemoryModuleType.ATTACK_TARGET).isEmpty()) {
                 LivingEntity target = this.getLastHurtByMob();
 				if (this.canTargetEntity(target)) {
 					this.setAttackTarget(target);

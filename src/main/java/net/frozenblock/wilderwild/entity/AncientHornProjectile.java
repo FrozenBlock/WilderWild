@@ -588,7 +588,7 @@ public class AncientHornProjectile extends AbstractArrow {
             }
 
             public static float unpackAngle(byte angleByte) {
-                return (angleByte * 360) / 256f;
+                return (angleByte * 360) / 256F;
             }
 
             public static void writeAngle(FriendlyByteBuf byteBuf, float angle) {

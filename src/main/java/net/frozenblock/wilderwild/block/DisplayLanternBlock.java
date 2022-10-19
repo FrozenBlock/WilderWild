@@ -98,7 +98,7 @@ public class DisplayLanternBlock extends BaseEntityBlock implements SimpleWaterl
                         }
                         player.getInventory().placeItemBackInInventory(new ItemStack(Items.GLASS_BOTTLE));
                         level.setBlockAndUpdate(pos, state.setValue(DISPLAY_LIGHT, Mth.clamp(lantern.getFireflies().size() * 3, 0, 15)));
-                        level.playSound(null, pos, RegisterSounds.ITEM_BOTTLE_PUT_IN_LANTERN_FIREFLY, SoundSource.BLOCKS, 1.0F, level.random.nextFloat() * 0.2f + 0.9f);
+                        level.playSound(null, pos, RegisterSounds.ITEM_BOTTLE_PUT_IN_LANTERN_FIREFLY, SoundSource.BLOCKS, 1.0F, level.random.nextFloat() * 0.2F + 0.9F);
                         lantern.updateSync();
                         return InteractionResult.SUCCESS;
                     }
@@ -111,7 +111,7 @@ public class DisplayLanternBlock extends BaseEntityBlock implements SimpleWaterl
                         if (optionalItem.isPresent()) {
                             item = optionalItem.get();
                         }
-                        level.playSound(null, pos, RegisterSounds.ITEM_BOTTLE_CATCH_FIREFLY, SoundSource.BLOCKS, 1.0F, level.random.nextFloat() * 0.2f + 0.9f);
+                        level.playSound(null, pos, RegisterSounds.ITEM_BOTTLE_CATCH_FIREFLY, SoundSource.BLOCKS, 1.0F, level.random.nextFloat() * 0.2F + 0.9F);
                         if (!player.isCreative()) {
                             player.getItemInHand(hand).shrink(1);
                         }

@@ -20,7 +20,7 @@ public final class UppyBallooModel<T extends Entity> extends QuadrupedModel<T> {
     private static final float WILDERWILD$NON_UPPY_BALLOO_ANGLE = 90 * WILDERWILD$RADIANS;
 
     public UppyBallooModel(ModelPart root) {
-        super(root, false, 4.0f, 4.0f, 2.0f, 2.0f, 24);
+        super(root, false, 4.0F, 4.0F, 2.0F, 2.0F, 24);
     }
 
     @Override

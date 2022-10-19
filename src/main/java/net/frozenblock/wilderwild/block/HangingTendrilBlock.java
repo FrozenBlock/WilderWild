@@ -286,7 +286,7 @@ public class HangingTendrilBlock extends BaseEntityBlock implements SimpleWaterl
                                 pos,
                                 RegisterSounds.BLOCK_HANGING_TENDRIL_WRING,
                                 SoundSource.BLOCKS,
-                                1f,
+                                1F,
                                 level.random.nextFloat() * 0.1F + 0.9F
                         );
                         tendrilEntity.ringOutTicksLeft = 5;

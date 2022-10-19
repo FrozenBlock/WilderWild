@@ -23,9 +23,9 @@ public class MesogleaDripParticle extends TextureSheetParticle {
 
     MesogleaDripParticle(ClientLevel clientLevel, double d, double e, double f) {
         super(clientLevel, d, e, f);
-        this.setSize(0.5f, 0.5f);
-        this.gravity = 0.06f;
-        this.quadSize = 0.5f;
+        this.setSize(0.5F, 0.5F);
+        this.gravity = 0.06F;
+        this.quadSize = 0.5F;
     }
 
     @Override
@@ -53,9 +53,9 @@ public class MesogleaDripParticle extends TextureSheetParticle {
         if (this.removed) {
             return;
         }
-        this.xd *= 0.98f;
-        this.yd *= 0.98f;
-        this.zd *= 0.98f;
+        this.xd *= 0.98F;
+        this.yd *= 0.98F;
+        this.zd *= 0.98F;
         BlockPos blockPos = new BlockPos(this.x, this.y, this.z);
         FluidState fluidState = this.level.getFluidState(blockPos);
         if (fluidState.getType() == Fluids.WATER && this.y < (double) ((float) blockPos.getY() + fluidState.getHeight(this.level, blockPos))) {
@@ -462,7 +462,7 @@ public class MesogleaDripParticle extends TextureSheetParticle {
         DripHangParticle(ClientLevel clientLevel, double d, double e, double f, ParticleOptions particleOptions, SpriteSet spriteSet) {
             super(clientLevel, d, e - 0.1, f);
             this.fallingParticle = particleOptions;
-            this.gravity *= 0.00f;
+            this.gravity *= 0.00F;
             this.lifetime = 40;
             this.spriteSet = spriteSet;
             this.setSpriteFromAge(this.spriteSet);

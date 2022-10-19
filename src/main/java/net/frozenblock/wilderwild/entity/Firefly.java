@@ -150,7 +150,7 @@ public class Firefly extends PathfinderMob implements FlyingAnimal {
             if (optionalItem.isPresent()) {
                 item = optionalItem.get();
             }
-            this.playSound(RegisterSounds.ITEM_BOTTLE_CATCH_FIREFLY, 1.0F, this.random.nextFloat() * 0.2f + 0.8f);
+            this.playSound(RegisterSounds.ITEM_BOTTLE_CATCH_FIREFLY, 1.0F, this.random.nextFloat() * 0.2F + 0.8F);
             if (!player.isCreative()) {
                 player.getItemInHand(hand).shrink(1);
             }

@@ -42,14 +42,14 @@ public abstract class LivingEntityMixin extends Entity {
             info.cancel();
             LivingEntity entity = LivingEntity.class.cast(this);
             SoundEvent soundEvent;
-            this.animationSpeed = 1.5f;
+            this.animationSpeed = 1.5F;
             this.invulnerableTime = 20;
             this.hurtTime = this.hurtDuration = 10;
-            this.hurtDir = 0.0f;
+            this.hurtDir = 0.0F;
             if ((soundEvent = this.getHurtSound(CACTUS)) != null) {
-                this.playSound(soundEvent, this.getSoundVolume(), (this.random.nextFloat() - this.random.nextFloat()) * 0.2f + 1.0f);
+                this.playSound(soundEvent, this.getSoundVolume(), (this.random.nextFloat() - this.random.nextFloat()) * 0.2F + 1.0F);
             }
-            this.hurt(DamageSource.GENERIC, 0.0f);
+            this.hurt(DamageSource.GENERIC, 0.0F);
             this.lastDamageSource = CACTUS;
             this.lastDamageStamp = this.level.getGameTime();
         }
@@ -57,7 +57,7 @@ public abstract class LivingEntityMixin extends Entity {
 
     @Shadow
     protected float getSoundVolume() {
-        return 1.0f;
+        return 1.0F;
     }
 
 

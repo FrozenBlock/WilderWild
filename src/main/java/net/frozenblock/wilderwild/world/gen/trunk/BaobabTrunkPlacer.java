@@ -122,10 +122,10 @@ public class BaobabTrunkPlacer extends TrunkPlacer {
                         dir2 = Direction.SOUTH;
                     }
                     if (Math.random() <= toppercentage / 100) {
-                        list.add(generateBranch(dir1, dir2, 1f / 4f, height, height / 4, 4, level, replacer, random, mutable, config, center, x, z));
+                        list.add(generateBranch(dir1, dir2, 1F / 4F, height, height / 4, 4, level, replacer, random, mutable, config, center, x, z));
                     }
                     if (Math.random() <= branchpercentage / 100) {
-                        float min = 1f / 3f, max = 1f;
+                        float min = 1F / 3F, max = 1F;
                         float p = (((float) Math.random() * (max - min)) + min);
                         list.add(generateBranch(dir1, dir2, p, height, height, 4, level, replacer, random, mutable, config, center, x, z));
                     }
