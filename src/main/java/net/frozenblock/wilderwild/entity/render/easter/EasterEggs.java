@@ -9,7 +9,7 @@ import net.minecraft.world.entity.EntityType;
 public class EasterEggs {
 
     public static void registerEaster() {
-        EasterEgg.register(WilderWild.id("osmiooo_warden"), EntityType.WARDEN, WilderWild.id("textures/entity/warden/osmiooo_warden.png"), ((entity, renderer, model) -> {
+        EasterEgg.register(WilderWild.id("osmiooo_warden"), EntityType.WARDEN, WilderWild.id("textures/entity/warden/osmiooo_warden.png"), ((entity, renderer) -> {
             String name = ChatFormatting.stripFormatting(entity.getName().getString());
             if (name != null && (name.equalsIgnoreCase("Osmiooo") || name.equalsIgnoreCase("Mossmio") || name.equalsIgnoreCase("Osmio"))) {
                 ((WilderWarden) entity).setOsmiooo(true);

@@ -5,6 +5,7 @@ import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.entity.AncientHornProjectile;
 import net.frozenblock.wilderwild.entity.Firefly;
 import net.frozenblock.wilderwild.entity.Jellyfish;
+import net.frozenblock.wilderwild.entity.render.easter.EasterEggs;
 import net.minecraft.core.Registry;
 import net.minecraft.world.entity.EntityDimensions;
 import net.minecraft.world.entity.EntityType;
@@ -22,5 +23,6 @@ public final class RegisterEntities {
         WilderWild.logWild("Registering Entities for", WilderWild.UNSTABLE_LOGGING);
         SpawnPlacements.register(FIREFLY, SpawnPlacements.Type.NO_RESTRICTIONS, Heightmap.Types.MOTION_BLOCKING, Firefly::canSpawn);
         SpawnPlacements.register(JELLYFISH, SpawnPlacements.Type.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Jellyfish::canSpawn);
+		EasterEggs.registerEaster();
     }
 }
