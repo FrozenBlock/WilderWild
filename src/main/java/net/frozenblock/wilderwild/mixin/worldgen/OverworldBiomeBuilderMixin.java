@@ -113,63 +113,6 @@ public final class OverworldBiomeBuilderMixin {
         }
     }
 
-    @Inject(method = "maybePickWindsweptSavannaBiome", at = @At("HEAD"), cancellable = true)
-    private void getBiomeOrWindsweptSavanna(int temperature, int humidity, Climate.Parameter weirdness, ResourceKey<Biome> biomeKey, CallbackInfoReturnable<ResourceKey<Biome>> info) {
-        if (ClothConfigInteractionHandler.modifyWindsweptSavannaPlacement()) {
-            info.setReturnValue(temperature > 2 && humidity < 2 && weirdness.max() >= 0L ? Biomes.WINDSWEPT_SAVANNA : biomeKey);
-            info.cancel();
-        }
-    }
-
-    @Inject(method = "addSurfaceBiome", at = @At("HEAD"), cancellable = true)
-    private void addSurfaceBiome(Consumer<Pair<Climate.ParameterPoint, ResourceKey<Biome>>> parameters, Climate.Parameter temperature, Climate.Parameter humidity, Climate.Parameter continentalness, Climate.Parameter erosion, Climate.Parameter weirdness, float offset, ResourceKey<Biome> biome, CallbackInfo info) {
-        if (!FrozenBools.hasTerraBlender) {
-            if (biome.equals(Biomes.MANGROVE_SWAMP) && ClothConfigInteractionHandler.modifyMangroveSwampPlacement()) {
-                parameters.accept(Pair.of(Climate.parameters(
-                                SharedWorldgen.Swamp.MangroveSwamp.TEMPERATURE,
-                                SharedWorldgen.Swamp.SWAMP_HUMIDITY,
-                                continentalness,
-                                erosion,
-                                Climate.Parameter.point(0.0F),
-                                weirdness,
-                                offset),
-                        biome));
-
-                parameters.accept(Pair.of(Climate.parameters(
-                                SharedWorldgen.Swamp.MangroveSwamp.TEMPERATURE,
-                                SharedWorldgen.Swamp.SWAMP_HUMIDITY,
-                                continentalness,
-                                erosion,
-                                Climate.Parameter.point(1.0F),
-                                weirdness,
-                                offset),
-                        biome));
-                info.cancel();
-            } else if (biome.equals(Biomes.SWAMP) && ClothConfigInteractionHandler.modifySwampPlacement()) {
-                parameters.accept(Pair.of(Climate.parameters(
-                                SharedWorldgen.Swamp.TEMPERATURE,
-                                SharedWorldgen.Swamp.SWAMP_HUMIDITY,
-                                continentalness,
-                                erosion,
-                                Climate.Parameter.point(0.0F),
-                                weirdness,
-                                offset),
-                        biome));
-
-                parameters.accept(Pair.of(Climate.parameters(
-                                SharedWorldgen.Swamp.TEMPERATURE,
-                                SharedWorldgen.Swamp.SWAMP_HUMIDITY,
-                                continentalness,
-                                erosion,
-                                Climate.Parameter.point(1.0F),
-                                weirdness,
-                                offset),
-                        biome));
-                info.cancel();
-            }
-        }
-    }
-
     @Inject(method = "addUndergroundBiomes", at = @At("TAIL"))
     private void addUndergroundBiomes(Consumer<Pair<Climate.ParameterPoint, ResourceKey<Biome>>> consumer, CallbackInfo ci) {
         if (!FrozenBools.hasTerraBlender) {
@@ -185,6 +128,78 @@ public final class OverworldBiomeBuilderMixin {
             );
         }
     }
+
+    @Inject(method = "maybePickWindsweptSavannaBiome", at = @At("HEAD"), cancellable = true)
+    private void getBiomeOrWindsweptSavanna(int temperature, int humidity, Climate.Parameter weirdness, ResourceKey<Biome> biomeKey, CallbackInfoReturnable<ResourceKey<Biome>> info) {
+        if (ClothConfigInteractionHandler.modifyWindsweptSavannaPlacement()) {
+            info.setReturnValue(temperature > 2 && humidity < 2 && weirdness.max() >= 0L ? Biomes.WINDSWEPT_SAVANNA : biomeKey);
+            info.cancel();
+        }
+    }
+
+    @Inject(method = "addSurfaceBiome", at = @At("HEAD"), cancellable = true)
+    private void addSurfaceBiome(Consumer<Pair<Climate.ParameterPoint, ResourceKey<Biome>>> parameters, Climate.Parameter temperature, Climate.Parameter humidity, Climate.Parameter continentalness, Climate.Parameter erosion, Climate.Parameter weirdness, float offset, ResourceKey<Biome> biome, CallbackInfo info) {
+        if (!FrozenBools.hasTerraBlender) {
+            if (biome.equals(Biomes.MANGROVE_SWAMP) && ClothConfigInteractionHandler.modifyMangroveSwampPlacement()) {
+				replaceParameters(
+						parameters,
+						biome,
+						SharedWorldgen.MangroveSwamp.TEMPERATURE,
+						SharedWorldgen.MangroveSwamp.HUMIDITY,
+						continentalness,
+						erosion,
+						weirdness,
+						offset
+				);
+                info.cancel();
+            } else if (biome.equals(Biomes.SWAMP) && ClothConfigInteractionHandler.modifySwampPlacement()) {
+				replaceParameters(
+						parameters,
+						biome,
+						SharedWorldgen.Swamp.TEMPERATURE,
+						SharedWorldgen.Swamp.HUMIDITY,
+						continentalness,
+						erosion,
+						weirdness,
+						offset
+				);
+                info.cancel();
+            }
+        }
+    }
+
+	private static void replaceParameters(
+			Consumer<Pair<Climate.ParameterPoint, ResourceKey<Biome>>> parameters,
+			ResourceKey<Biome> biome,
+			Climate.Parameter temperature,
+			Climate.Parameter humidity,
+			Climate.Parameter continentalness,
+			Climate.Parameter erosion,
+			Climate.Parameter weirdness,
+			float offset
+	) {
+		parameters.accept(Pair.of(Climate.parameters(
+						temperature,
+						humidity,
+						continentalness,
+						erosion,
+						Climate.Parameter.point(0.0F),
+						weirdness,
+						offset),
+				biome
+		));
+
+		parameters.accept(Pair.of(Climate.parameters(
+						temperature,
+						humidity,
+						continentalness,
+						erosion,
+						Climate.Parameter.point(1.0F),
+						weirdness,
+						offset),
+				biome
+		));
+	}
 
 	@Unique
     private static void addDeepBiome(

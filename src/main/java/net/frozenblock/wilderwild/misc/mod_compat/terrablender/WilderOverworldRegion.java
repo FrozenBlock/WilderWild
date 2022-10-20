@@ -134,8 +134,8 @@ public class WilderOverworldRegion extends Region {
                     // REPLACE BIOME PARAMETERS HERE
                     builder.replaceParameter(point,
                             new Climate.ParameterPoint(
-                                    SharedWorldgen.Swamp.MangroveSwamp.TEMPERATURE,
-                                    SharedWorldgen.Swamp.SWAMP_HUMIDITY,
+                                    SharedWorldgen.MangroveSwamp.TEMPERATURE,
+                                    SharedWorldgen.MangroveSwamp.HUMIDITY,
                                     point.continentalness(),
                                     point.erosion(),
                                     point.depth(),
@@ -163,7 +163,7 @@ public class WilderOverworldRegion extends Region {
                     builder.replaceParameter(point,
                             new Climate.ParameterPoint(
                                     SharedWorldgen.Swamp.TEMPERATURE,
-                                    SharedWorldgen.Swamp.SWAMP_HUMIDITY,
+                                    SharedWorldgen.Swamp.HUMIDITY,
                                     point.continentalness(),
                                     point.erosion(),
                                     point.depth(),

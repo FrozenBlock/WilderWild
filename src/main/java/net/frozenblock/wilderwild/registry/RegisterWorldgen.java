@@ -31,9 +31,9 @@ import org.quiltmc.qsl.frozenblock.worldgen.surface_rule.api.SurfaceRuleContext;
 import org.quiltmc.qsl.frozenblock.worldgen.surface_rule.api.SurfaceRuleEvents;
 
 public final class RegisterWorldgen implements SurfaceRuleEvents.OverworldModifierCallback {
+	public static final ResourceKey<Biome> CYPRESS_WETLANDS = register("cypress_wetlands");
+	public static final ResourceKey<Biome> JELLYFISH_CAVES = register("jellyfish_caves");
     public static final ResourceKey<Biome> MIXED_FOREST = register("mixed_forest");
-    public static final ResourceKey<Biome> CYPRESS_WETLANDS = register("cypress_wetlands");
-    public static final ResourceKey<Biome> JELLYFISH_CAVES = register("jellyfish_caves");
 
     public static void registerWorldgen() {
         WilderWild.logWild("Registering Biomes for", WilderWild.UNSTABLE_LOGGING);

@@ -1,8 +1,6 @@
 package net.frozenblock.wilderwild.world.gen;
 
-import com.google.common.collect.ImmutableList;
 import java.util.ArrayList;
-import java.util.List;
 import net.frozenblock.lib.worldgen.biome.api.parameters.Continentalness;
 import net.frozenblock.lib.worldgen.biome.api.parameters.Erosion;
 import net.frozenblock.lib.worldgen.biome.api.parameters.Humidity;
@@ -19,31 +17,34 @@ import net.minecraft.world.level.levelgen.Noises;
 import net.minecraft.world.level.levelgen.SurfaceRules;
 import net.minecraft.world.level.levelgen.VerticalAnchor;
 
+/**
+ * Contains Wilder Wild's worldgen data.
+ */
 public final class SharedWorldgen {
+
+	// DEPTHS
+	public static final Climate.Parameter BOTTOM_DEPTH = Climate.Parameter.point(1.1F);
+	public static final Climate.Parameter DEEP_DEPTH = Climate.Parameter.span(0.65F, 1.1F);
+	public static final Climate.Parameter SEMI_DEEP_DEPTH = Climate.Parameter.span(0.4F, 1.0F);
+	public static final Climate.Parameter SURFACE_DEPTH = Climate.Parameter.span(0.0F, 1.0F);
+
+	// MODDED BIOME PARAMETERS
 
     public static final class CypressWetlands {
         public static final Climate.Parameter TEMPERATURE = Climate.Parameter.span(Temperature.COOL, Temperature.WARM);
         public static final Climate.Parameter HUMIDITY = Climate.Parameter.span(Humidity.NEUTRAL, Humidity.HUMID);
         public static final Climate.Parameter CONTINENTALNESS = Climate.Parameter.span(-0.2F, 0.5F);
         public static final Climate.Parameter EROSION = Climate.Parameter.span(0.50F, 1.0F);
+		public static final ArrayList<Climate.Parameter> WEIRDNESS = new ArrayList<>() {{
+			add(Weirdness.MID_SLICE_NORMAL_ASCENDING);
+			add(Weirdness.MID_SLICE_NORMAL_DESCENDING);
+			add(Weirdness.LOW_SLICE_NORMAL_DESCENDING);
+			add(Weirdness.VALLEY);
+			add(Weirdness.LOW_SLICE_VARIANT_ASCENDING);
+			add(Weirdness.MID_SLICE_VARIANT_ASCENDING);
+			add(Weirdness.MID_SLICE_VARIANT_DESCENDING);
+		}};
         public static final float OFFSET = 0.0F;
-        public static final ArrayList<Climate.Parameter> WEIRDNESS = new ArrayList<>() {{
-            add(Weirdness.MID_SLICE_NORMAL_ASCENDING);
-            add(Weirdness.MID_SLICE_NORMAL_DESCENDING);
-            add(Weirdness.LOW_SLICE_NORMAL_DESCENDING);
-            add(Weirdness.VALLEY);
-            add(Weirdness.LOW_SLICE_VARIANT_ASCENDING);
-            add(Weirdness.MID_SLICE_VARIANT_ASCENDING);
-            add(Weirdness.MID_SLICE_VARIANT_DESCENDING);
-        }};
-
-        public static List<Climate.ParameterPoint> parameters() {
-            ImmutableList.Builder<Climate.ParameterPoint> builder = new ImmutableList.Builder<>();
-            WEIRDNESS.forEach(weirdness -> {
-                builder.add(surfaceParameters(TEMPERATURE, HUMIDITY, CONTINENTALNESS, EROSION, weirdness, OFFSET));
-            });
-            return builder.build();
-        }
     }
 
     public static final class MixedForest {
@@ -52,6 +53,20 @@ public final class SharedWorldgen {
         public static final Climate.Parameter CONTINENTALNESS = Climate.Parameter.span(Continentalness.INLAND, Continentalness.FAR_INLAND);
         public static final Climate.Parameter LOW_EROSION = Erosion.EROSION_2;
         public static final Climate.Parameter MID_EROSION = Erosion.EROSION_1;
+		public static final ArrayList<Climate.Parameter> LOW_WEIRDNESS = new ArrayList<>() {{
+			add(Weirdness.LOW_SLICE_NORMAL_DESCENDING);
+			add(Weirdness.LOW_SLICE_VARIANT_ASCENDING);
+		}};
+		public static final ArrayList<Climate.Parameter> MID_WEIRDNESS = new ArrayList<>() {{
+			add(Weirdness.MID_SLICE_NORMAL_ASCENDING);
+			add(Weirdness.MID_SLICE_NORMAL_DESCENDING);
+			add(Weirdness.MID_SLICE_VARIANT_ASCENDING);
+			add(Weirdness.MID_SLICE_VARIANT_DESCENDING);
+		}};
+		public static final ArrayList<Climate.Parameter> WEIRDNESS = new ArrayList<>() {{
+			addAll(LOW_WEIRDNESS);
+			addAll(MID_WEIRDNESS);
+		}};
         public static final float OFFSET = 0.0F;
     }
 
@@ -60,21 +75,24 @@ public final class SharedWorldgen {
         public static final Climate.Parameter HUMIDITY = Climate.Parameter.span(Humidity.DRY, Humidity.HUMID);
         public static final Climate.Parameter CONTINENTALNESS = Climate.Parameter.span(-1.2F, -0.749F);
         public static final Climate.Parameter EROSION = Climate.Parameter.span(Erosion.EROSION_4, Erosion.EROSION_6);
+		public static final Climate.Parameter DEPTH = SEMI_DEEP_DEPTH;
         public static final Climate.Parameter WEIRDNESS = Weirdness.FULL_RANGE;
         public static final float OFFSET = 0.0F;
     }
 
     public static final class Swamp {
 
-        public static final Climate.Parameter SWAMP_HUMIDITY = Climate.Parameter.span(Climate.Parameter.span(-0.175F, 0.1F), Humidity.HUMID);
+        public static final Climate.Parameter HUMIDITY = Climate.Parameter.span(Climate.Parameter.span(-0.2F, 0.1F), Humidity.WET);
 
         public static final Climate.Parameter TEMPERATURE = Climate.Parameter.span(Temperature.COOL, Temperature.WARM);
 
-        public static final class MangroveSwamp {
+	}
 
-            public static final Climate.Parameter TEMPERATURE = Climate.Parameter.span(Temperature.NEUTRAL, Temperature.HOT);
-        }
-    }
+	public static final class MangroveSwamp {
+
+		public static final Climate.Parameter TEMPERATURE = Climate.Parameter.span(Temperature.NEUTRAL, Temperature.HOT);
+		public static final Climate.Parameter HUMIDITY = Climate.Parameter.span(Climate.Parameter.span(0.05F, 0.1F), Humidity.HUMID);
+	}
 
     // SURFACE RULES
 
@@ -170,7 +188,7 @@ public final class SharedWorldgen {
             Climate.Parameter weirdness,
             float offset
     ) {
-        return Climate.parameters(temperature, humidity, continentalness, erosion, Climate.Parameter.point(1.1F), weirdness, offset);
+        return Climate.parameters(temperature, humidity, continentalness, erosion, BOTTOM_DEPTH, weirdness, offset);
     }
 
     public static Climate.ParameterPoint deepParameters(
@@ -181,7 +199,7 @@ public final class SharedWorldgen {
             Climate.Parameter weirdness,
             float offset
     ) {
-        return Climate.parameters(temperature, humidity, continentalness, erosion, Climate.Parameter.span(0.65F, 1.1F), weirdness, offset);
+        return Climate.parameters(temperature, humidity, continentalness, erosion, DEEP_DEPTH, weirdness, offset);
     }
 
     public static Climate.ParameterPoint semiDeepParameters(
@@ -192,7 +210,7 @@ public final class SharedWorldgen {
             Climate.Parameter weirdness,
             float offset
     ) {
-        return Climate.parameters(temperature, humidity, continentalness, erosion, Climate.Parameter.span(0.4F, 1.0F), weirdness, offset);
+        return Climate.parameters(temperature, humidity, continentalness, erosion, SEMI_DEEP_DEPTH, weirdness, offset);
     }
 
     public static Climate.ParameterPoint surfaceParameters(
@@ -203,6 +221,6 @@ public final class SharedWorldgen {
             Climate.Parameter weirdness,
             float offset
     ) {
-        return Climate.parameters(temperature, humidity, continentalness, erosion, Climate.Parameter.span(0.0F, 1.0F), weirdness, offset);
+        return Climate.parameters(temperature, humidity, continentalness, erosion, SURFACE_DEPTH, weirdness, offset);
     }
 }
