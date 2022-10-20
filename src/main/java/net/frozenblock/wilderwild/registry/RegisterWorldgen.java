@@ -1,6 +1,5 @@
 package net.frozenblock.wilderwild.registry;
 
-import net.frozenblock.lib.worldgen.surface.FrozenSurfaceRules;
 import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.misc.config.ClothConfigInteractionHandler;
 import net.frozenblock.wilderwild.world.feature.WilderMiscPlaced;
@@ -26,10 +25,7 @@ import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.biome.BiomeGenerationSettings;
 import net.minecraft.world.level.biome.BiomeSpecialEffects;
 import net.minecraft.world.level.biome.MobSpawnSettings;
-import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.levelgen.GenerationStep;
-import net.minecraft.world.level.levelgen.Noises;
-import net.minecraft.world.level.levelgen.SurfaceRules;
 import org.jetbrains.annotations.NotNull;
 import org.quiltmc.qsl.frozenblock.worldgen.surface_rule.api.SurfaceRuleContext;
 import org.quiltmc.qsl.frozenblock.worldgen.surface_rule.api.SurfaceRuleEvents;
@@ -54,7 +50,7 @@ public final class RegisterWorldgen implements SurfaceRuleEvents.OverworldModifi
         if (ClothConfigInteractionHandler.betaBeaches()) {
             context.materialRules().add(0, SharedWorldgen.gravelBetaBeaches());
 			context.materialRules().add(0, SharedWorldgen.sandBetaBeaches());
-			context.materialRules().add(0, SharedWorldgen.otherSandBetaBeaches());
+			context.materialRules().add(0, SharedWorldgen.multilayerSandBetaBeaches());
         }
         WilderWild.log("Wilder Wild's Overworld Surface Rules have been added!", WilderWild.UNSTABLE_LOGGING);
     }

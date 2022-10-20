@@ -128,11 +128,11 @@ public final class SharedWorldgen {
 		);
 	}
 
-	public static SurfaceRules.RuleSource otherSandBetaBeaches() {
+	public static SurfaceRules.RuleSource multilayerSandBetaBeaches() {
 		return SurfaceRules.ifTrue(
 				SurfaceRules.DEEP_UNDER_FLOOR,
 				SurfaceRules.ifTrue(
-						FrozenSurfaceRules.isBiome(WilderRegistry.OTHER_SAND_BEACH_BIOMES),
+						FrozenSurfaceRules.isBiome(WilderRegistry.MULTILAYER_SAND_BEACH_BIOMES),
 						SurfaceRules.ifTrue(
 								SurfaceRules.yStartCheck(VerticalAnchor.absolute(58), 0),
 								SurfaceRules.ifTrue(
