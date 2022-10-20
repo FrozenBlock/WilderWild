@@ -1,6 +1,7 @@
 package net.frozenblock.wilderwild.world.gen;
 
 import java.util.ArrayList;
+import java.util.List;
 import net.frozenblock.lib.worldgen.biome.api.parameters.Continentalness;
 import net.frozenblock.lib.worldgen.biome.api.parameters.Erosion;
 import net.frozenblock.lib.worldgen.biome.api.parameters.Humidity;
@@ -35,7 +36,7 @@ public final class SharedWorldgen {
         public static final Climate.Parameter HUMIDITY = Climate.Parameter.span(Humidity.NEUTRAL, Humidity.HUMID);
         public static final Climate.Parameter CONTINENTALNESS = Climate.Parameter.span(-0.2F, 0.5F);
         public static final Climate.Parameter EROSION = Climate.Parameter.span(0.50F, 1.0F);
-		public static final ArrayList<Climate.Parameter> WEIRDNESS = new ArrayList<>() {{
+		public static final List<Climate.Parameter> WEIRDNESS = new ArrayList<>() {{
 			add(Weirdness.MID_SLICE_NORMAL_ASCENDING);
 			add(Weirdness.MID_SLICE_NORMAL_DESCENDING);
 			add(Weirdness.LOW_SLICE_NORMAL_DESCENDING);
@@ -53,17 +54,17 @@ public final class SharedWorldgen {
         public static final Climate.Parameter CONTINENTALNESS = Climate.Parameter.span(Continentalness.INLAND, Continentalness.FAR_INLAND);
         public static final Climate.Parameter LOW_EROSION = Erosion.EROSION_2;
         public static final Climate.Parameter MID_EROSION = Erosion.EROSION_1;
-		public static final ArrayList<Climate.Parameter> LOW_WEIRDNESS = new ArrayList<>() {{
+		public static final List<Climate.Parameter> LOW_WEIRDNESS = new ArrayList<>() {{
 			add(Weirdness.LOW_SLICE_NORMAL_DESCENDING);
 			add(Weirdness.LOW_SLICE_VARIANT_ASCENDING);
 		}};
-		public static final ArrayList<Climate.Parameter> MID_WEIRDNESS = new ArrayList<>() {{
+		public static final List<Climate.Parameter> MID_WEIRDNESS = new ArrayList<>() {{
 			add(Weirdness.MID_SLICE_NORMAL_ASCENDING);
 			add(Weirdness.MID_SLICE_NORMAL_DESCENDING);
 			add(Weirdness.MID_SLICE_VARIANT_ASCENDING);
 			add(Weirdness.MID_SLICE_VARIANT_DESCENDING);
 		}};
-		public static final ArrayList<Climate.Parameter> WEIRDNESS = new ArrayList<>() {{
+		public static final List<Climate.Parameter> WEIRDNESS = new ArrayList<>() {{
 			addAll(LOW_WEIRDNESS);
 			addAll(MID_WEIRDNESS);
 		}};
@@ -76,7 +77,8 @@ public final class SharedWorldgen {
         public static final Climate.Parameter CONTINENTALNESS = Climate.Parameter.span(-1.2F, -0.749F);
         public static final Climate.Parameter EROSION = Climate.Parameter.span(Erosion.EROSION_4, Erosion.EROSION_6);
 		public static final Climate.Parameter DEPTH = SEMI_DEEP_DEPTH;
-        public static final Climate.Parameter WEIRDNESS = Weirdness.FULL_RANGE;
+		public static final Climate.Parameter WEIRDNESS = Weirdness.FULL_RANGE;
+        public static final List<Climate.Parameter> WEIRDNESS_LIST = List.of(WEIRDNESS);
         public static final float OFFSET = 0.0F;
     }
 
