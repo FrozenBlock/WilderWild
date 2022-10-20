@@ -56,37 +56,6 @@ public final class RegisterWorldgen implements SurfaceRuleEvents.OverworldModifi
 			context.materialRules().add(0, SharedWorldgen.sandBetaBeaches());
 			context.materialRules().add(0, SharedWorldgen.otherSandBetaBeaches());
         }
-
-        // FROM QUILT'S TEST MOD
-        var blueNoise1 = SurfaceRules.noiseCondition(Noises.CALCITE, 0.05, 0.1);
-        var pinkNoise1 = SurfaceRules.noiseCondition(Noises.CALCITE, 0.1, 0.15);
-        var whiteNoise = SurfaceRules.noiseCondition(Noises.CALCITE, 0.15, 0.20);
-        var pinkNoise2 = SurfaceRules.noiseCondition(Noises.CALCITE, 0.20, 0.25);
-        var blueNoise2 = SurfaceRules.noiseCondition(Noises.CALCITE, 0.25, 0.30);
-
-        var LIGHT_BLUE_CONCRETE = FrozenSurfaceRules.makeStateRule(Blocks.LIGHT_BLUE_CONCRETE);
-        var PINK_CONCRETE = FrozenSurfaceRules.makeStateRule(Blocks.PINK_CONCRETE);
-        var WHITE_CONCRETE = FrozenSurfaceRules.makeStateRule(Blocks.WHITE_CONCRETE);
-/*
-        context.addMaterialRule(
-                (
-                SurfaceRules.ifTrue(
-                        SurfaceRules.abovePreliminarySurface(),
-                        SurfaceRules.ifTrue(
-                                SurfaceRules.ON_FLOOR,
-                                SurfaceRules.sequence(
-                                        SurfaceRules.ifTrue(blueNoise1, LIGHT_BLUE_CONCRETE),
-                                        SurfaceRules.ifTrue(pinkNoise1, PINK_CONCRETE),
-                                        SurfaceRules.ifTrue(whiteNoise, WHITE_CONCRETE),
-                                        SurfaceRules.ifTrue(pinkNoise2, PINK_CONCRETE),
-                                        SurfaceRules.ifTrue(blueNoise2, LIGHT_BLUE_CONCRETE)
-                                )
-                        )
-                )
-        )
-        );
-
- */
         WilderWild.log("Wilder Wild's Overworld Surface Rules have been added!", WilderWild.UNSTABLE_LOGGING);
     }
 
