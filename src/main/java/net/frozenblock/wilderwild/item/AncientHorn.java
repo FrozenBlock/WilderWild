@@ -53,20 +53,10 @@ public class AncientHorn extends InstrumentItem {
     }
 
     @Override
-    public void fillItemCategory(@NotNull CreativeModeTab creativeModeTab, @NotNull NonNullList<ItemStack> nonNullList) {
-        if (this.allowedIn(creativeModeTab)) {
-            for (Holder<Instrument> holder : Registry.INSTRUMENT.getTagOrEmpty(this.instrumentTag)) {
-                nonNullList.add(create(RegisterItems.ANCIENT_HORN, holder));
-            }
-        }
-
-    }
-
-    @Override
     public InteractionResultHolder<ItemStack> use(@NotNull Level level, @NotNull Player user, @NotNull InteractionHand hand) {
         WilderWild.log(user, "Used Ancient Horn", WilderWild.DEV_LOGGING);
         ItemStack itemStack = user.getItemInHand(hand);
-        Optional<Holder<Instrument>> optional = this.getInstrument(itemStack);
+        Optional<? extends Holder<Instrument>> optional = this.getInstrument(itemStack);
         if (optional.isPresent()) {
             Instrument instrument = optional.get().value();
             user.startUsingItem(hand);
@@ -101,12 +91,12 @@ public class AncientHorn extends InstrumentItem {
 
     @Override
     public int getUseDuration(@NotNull ItemStack stack) {
-        Optional<Holder<Instrument>> optional = this.getInstrument(stack);
+        Optional<? extends Holder<Instrument>> optional = this.getInstrument(stack);
         return optional.map(instrumentRegistryEntry -> instrumentRegistryEntry.value().useDuration()).orElse(0);
     }
 
     @Override
-    public Optional<Holder<Instrument>> getInstrument(ItemStack stack) {
+    public Optional<? extends Holder<Instrument>> getInstrument(ItemStack stack) {
         CompoundTag nbtCompound = stack.getTag();
         if (nbtCompound != null) {
             ResourceLocation resourceLocation = ResourceLocation.tryParse(nbtCompound.getString(TAG_INSTRUMENT));

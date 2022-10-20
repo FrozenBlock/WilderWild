@@ -33,7 +33,7 @@ public class HangingTendrilBlockEntity extends BlockEntity implements VibrationL
 
     public HangingTendrilBlockEntity(BlockPos pos, BlockState state) {
         super(RegisterBlockEntities.HANGING_TENDRIL, pos, state);
-        this.listener = new VibrationListener(new BlockPositionSource(this.worldPosition), ((HangingTendrilBlock) state.getBlock()).getRange(), this, null, 0.0F, 0);
+        this.listener = new VibrationListener(new BlockPositionSource(this.worldPosition), ((HangingTendrilBlock) state.getBlock()).getRange(), this);
     }
 
     public void serverTick(Level level, BlockPos pos, BlockState state) {
@@ -103,7 +103,7 @@ public class HangingTendrilBlockEntity extends BlockEntity implements VibrationL
     public void onSignalReceive(@NotNull ServerLevel level, @NotNull GameEventListener listener, @NotNull BlockPos sourcePos, @NotNull GameEvent gameEvent, @Nullable Entity sourceEntity, @Nullable Entity projectileOwner, float distance) {
         BlockState blockState = this.getBlockState();
         if (HangingTendrilBlock.isInactive(blockState)) {
-            this.lastVibrationFrequency = SculkSensorBlock.VIBRATION_FREQUENCY_FOR_EVENT.getInt(gameEvent);
+            this.lastVibrationFrequency = VibrationListener.getGameEventFrequency(gameEvent);
             HangingTendrilBlock.setActive(sourceEntity, level, this.worldPosition, blockState, gameEvent, getPower(distance, listener.getListenerRadius()));
         }
     }

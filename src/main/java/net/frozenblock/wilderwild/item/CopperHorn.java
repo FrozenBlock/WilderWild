@@ -52,17 +52,7 @@ public class CopperHorn extends InstrumentItem {
     }
 
     @Override
-    public void fillItemCategory(@NotNull CreativeModeTab group, @NotNull NonNullList<ItemStack> stacks) {
-        if (this.allowedIn(group)) {
-            for (Holder<Instrument> registryEntry : Registry.INSTRUMENT.getTagOrEmpty(this.instrumentTag)) {
-                stacks.add(getStackForInstrument(RegisterItems.COPPER_HORN, registryEntry));
-            }
-        }
-
-    }
-
-    @Override
-    public Optional<Holder<Instrument>> getInstrument(ItemStack stack) {
+    public Optional<? extends Holder<Instrument>> getInstrument(ItemStack stack) {
         CompoundTag nbtCompound = stack.getTag();
         if (nbtCompound != null) {
             ResourceLocation identifier = ResourceLocation.tryParse(nbtCompound.getString(INSTRUMENT_KEY));
@@ -79,7 +69,7 @@ public class CopperHorn extends InstrumentItem {
     public InteractionResultHolder<ItemStack> use(@NotNull Level level, @NotNull Player user, @NotNull InteractionHand usedHand) {
         WilderWild.log(user, "Used Copper Horn", WilderWild.DEV_LOGGING);
         ItemStack itemStack = user.getItemInHand(usedHand);
-        Optional<Holder<Instrument>> optional = this.getInstrument(itemStack);
+        Optional<? extends Holder<Instrument>> optional = this.getInstrument(itemStack);
         if (optional.isPresent()) {
             var instrumentHolder = optional.get();
             var instrument = instrumentHolder.value();
@@ -111,7 +101,7 @@ public class CopperHorn extends InstrumentItem {
 
     @Override
     public int getUseDuration(@NotNull ItemStack stack) {
-        Optional<Holder<Instrument>> optional = this.getInstrument(stack);
+        Optional<? extends Holder<Instrument>> optional = this.getInstrument(stack);
         return optional.map(instrumentRegistryEntry -> instrumentRegistryEntry.value().useDuration()).orElse(0);
     }
 

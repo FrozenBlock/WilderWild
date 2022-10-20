@@ -26,6 +26,7 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.NbtUtils;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.protocol.Packet;
+import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
@@ -400,7 +401,7 @@ public class AncientHornProjectile extends AbstractArrow {
     }
 
     @Override
-    public Packet<?> getAddEntityPacket() {
+    public Packet<ClientGamePacketListener> getAddEntityPacket() {
         return EntitySpawnPacket.create(this, WilderWild.HORN_PROJECTILE_PACKET_ID);
     }
 
@@ -436,7 +437,7 @@ public class AncientHornProjectile extends AbstractArrow {
     public void readAdditionalSaveData(@NotNull CompoundTag compound) {
         if (!this.isRemoved()) {
             if (compound.contains("inBlockState", 10)) {
-                this.inBlockState = NbtUtils.readBlockState(compound.getCompound("inBlockState"));
+                this.inBlockState = NbtUtils.readBlockState(this.level.holderLookup(Registry.BLOCK_REGISTRY), compound.getCompound("inBlockState"));
             }
             this.aliveTicks = compound.getInt("aliveTicks");
             this.leftOwner = compound.getBoolean("LeftOwner");
@@ -568,7 +569,8 @@ public class AncientHornProjectile extends AbstractArrow {
     }
 
     public static class EntitySpawnPacket { //When the Fabric tutorial WORKS!!!!! BOM BOM BOM BOM BOM BOM BOM, BOBOBOM! DUNDUN!
-        public static Packet<?> create(Entity entity, ResourceLocation packetID) {
+		@SuppressWarnings("unchecked")
+        public static Packet<ClientGamePacketListener> create(Entity entity, ResourceLocation packetID) {
             if (entity.level.isClientSide)
                 throw new IllegalStateException("SpawnPacketUtil.create called on the logical client!");
             FriendlyByteBuf byteBuf = new FriendlyByteBuf(Unpooled.buffer());
@@ -578,7 +580,7 @@ public class AncientHornProjectile extends AbstractArrow {
             PacketBufUtil.writeVec3d(byteBuf, entity.position());
             PacketBufUtil.writeAngle(byteBuf, entity.getXRot());
             PacketBufUtil.writeAngle(byteBuf, entity.getYRot());
-            return ServerPlayNetworking.createS2CPacket(packetID, byteBuf);
+            return (Packet<ClientGamePacketListener>) ServerPlayNetworking.createS2CPacket(packetID, byteBuf);
         }
 
         public static final class PacketBufUtil {

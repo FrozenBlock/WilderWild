@@ -100,8 +100,8 @@ dependencies {
 	minecraft "com.mojang:minecraft:${minecraft_version}"
 	mappings(loom.layered {
 		// please annoy treetrain if this doesnt work
-		it.mappings("org.quiltmc:quilt-mappings:${minecraft_version}+build.${quilt_mappings}:intermediary-v2")
-		it.parchment("org.parchmentmc.data:parchment-1.19.2:${parchment_mappings}@zip")
+		//it.mappings("org.quiltmc:quilt-mappings:${minecraft_version}+build.${quilt_mappings}:intermediary-v2")
+		//it.parchment("org.parchmentmc.data:parchment-1.19.2:${parchment_mappings}@zip")
 		it.officialMojangMappings {
 			setNameSyntheticMembers(false)
 		}
@@ -144,7 +144,7 @@ dependencies {
 	include "maven.modrinth:nbt-crafting:${nbtcrafting_version}"
 
 	// TerraBlender
-	modCompileOnly "com.github.glitchfiend:TerraBlender-fabric:${minecraft_version}-${terrablender_version}"
+	modCompileOnly "com.github.glitchfiend:TerraBlender-fabric:${terrablender_version}"
 
 	// Mixin Extras
 	includeImplementation("com.github.LlamaLad7:MixinExtras:0.0.12")
@@ -157,13 +157,12 @@ dependencies {
 
 	// only affects runClient, does not affect gradlew build.
 	// add -PuseThirdPartyMods=false to not use these
-	if (findProperty("useThirdPartyMods") != "false") {
+	/*if (findProperty("useThirdPartyMods") != "false") {
 		modRuntimeOnly "maven.modrinth:ferrite-core:${ferritecore_version}"
 		modRuntimeOnly "maven.modrinth:lazydfu:${lazydfu_version}"
 		modRuntimeOnly "maven.modrinth:starlight:${starlight_version}"
 		modRuntimeOnly "maven.modrinth:lithium:${lithium_version}"
 		modRuntimeOnly "maven.modrinth:fastanim:${fastanim_version}"
-
 		modRuntimeOnly "maven.modrinth:entityculling:${entityculling_version}"
 		modRuntimeOnly "maven.modrinth:ksyxis:${ksyxis_version}"
 		modRuntimeOnly "maven.modrinth:memoryleakfix:${memoryleakfix_version}"
@@ -182,7 +181,7 @@ dependencies {
 		modRuntimeOnly "me.flashyreese.mods:sodium-extra-fabric:${sodium_extra_version}"
 		modRuntimeOnly 'io.github.douira:glsl-transformer:0.27.0'
 		modRuntimeOnly "net.caffeinemc:mixin-config:1.0.0+1.17"
-	}
+	}*/
 }
 
 processResources {

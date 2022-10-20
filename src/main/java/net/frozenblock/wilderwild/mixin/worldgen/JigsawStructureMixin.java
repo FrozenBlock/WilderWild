@@ -8,7 +8,7 @@ import org.spongepowered.asm.mixin.injection.ModifyConstant;
 @Mixin(value = JigsawStructure.class, priority = 999)
 public class JigsawStructureMixin {
 
-    @ModifyConstant(method = "m_ywxdqoox(Lcom/mojang/serialization/codecs/RecordCodecBuilder$Instance;)Lcom/mojang/datafixers/kinds/App;", constant = @Constant(intValue = 7))
+    @ModifyConstant(method = {"method_41662(Lcom/mojang/serialization/codecs/RecordCodecBuilder$Instance;)Lcom/mojang/datafixers/kinds/App;", "m_ywxdqoox(Lcom/mojang/serialization/codecs/RecordCodecBuilder$Instance;)Lcom/mojang/datafixers/kinds/App;"}, require = 1, constant = @Constant(intValue = 7))
     private static int frozenLib_expandSize(int constant) {
         return 20;
     }
