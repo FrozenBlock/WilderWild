@@ -14,7 +14,16 @@ import net.frozenblock.wilderwild.tag.WilderInstrumentTags;
 import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.entity.npc.VillagerTrades;
-import net.minecraft.world.item.*;
+import net.minecraft.world.item.BlockItem;
+import net.minecraft.world.item.BoatItem;
+import net.minecraft.world.item.CreativeModeTab;
+import net.minecraft.world.item.Instrument;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.MobBucketItem;
+import net.minecraft.world.item.Rarity;
+import net.minecraft.world.item.RecordItem;
+import net.minecraft.world.item.SignItem;
+import net.minecraft.world.item.SpawnEggItem;
 import net.minecraft.world.level.material.Fluids;
 
 public final class RegisterItems {

@@ -1,6 +1,7 @@
 package net.frozenblock.wilderwild.world.feature.features;
 
 import com.mojang.serialization.Codec;
+import java.util.Iterator;
 import net.frozenblock.wilderwild.block.WaterloggableTallFlowerBlock;
 import net.frozenblock.wilderwild.registry.RegisterBlocks;
 import net.minecraft.core.BlockPos;
@@ -14,8 +15,6 @@ import net.minecraft.world.level.levelgen.Heightmap.Types;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
 import net.minecraft.world.level.levelgen.feature.configurations.ProbabilityFeatureConfiguration;
-
-import java.util.Iterator;
 
 public class CattailFeature extends Feature<ProbabilityFeatureConfiguration> {
     public CattailFeature(Codec<ProbabilityFeatureConfiguration> codec) {

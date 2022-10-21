@@ -1,5 +1,6 @@
 package net.frozenblock.wilderwild.mixin.server;
 
+import java.util.Iterator;
 import net.frozenblock.wilderwild.registry.RegisterBlocks;
 import net.minecraft.core.BlockPos;
 import net.minecraft.util.RandomSource;
@@ -13,21 +14,20 @@ import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.LightLayer;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-import java.util.Iterator;
-
 @Mixin(Slime.class)
 public abstract class SlimeMixin extends Mob {
 
-    protected SlimeMixin(EntityType<? extends Mob> entityType, Level level) {
+    private SlimeMixin(EntityType<? extends Mob> entityType, Level level) {
         super(entityType, level);
     }
 
     @Inject(method = "checkSlimeSpawnRules", at = @At("HEAD"), cancellable = true)
-    private static void checkSlimeSpawnRules(EntityType<Slime> type, LevelAccessor level, MobSpawnType spawnReason, BlockPos pos, RandomSource random, CallbackInfoReturnable<Boolean> info) {
+    private static void spawnInAlgae(EntityType<Slime> type, LevelAccessor level, MobSpawnType spawnReason, BlockPos pos, RandomSource random, CallbackInfoReturnable<Boolean> info) {
         if (level.getDifficulty() != Difficulty.PEACEFUL) {
             if (level.getBrightness(LightLayer.BLOCK, pos) < random.nextInt(8)) {
                 boolean test = spawnReason == MobSpawnType.SPAWNER || random.nextInt(5) == 0;
@@ -39,6 +39,7 @@ public abstract class SlimeMixin extends Mob {
         }
     }
 
+	@Unique
     private static boolean isAlgaeNearby(LevelAccessor level, BlockPos blockPos, int x) {
         Iterator<BlockPos> iterator = BlockPos.betweenClosed(blockPos.offset(-x, -x, -x), blockPos.offset(x, x, x)).iterator();
         int count = 0;

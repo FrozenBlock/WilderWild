@@ -11,10 +11,10 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(ItemStack.class)
-public class ItemStackMixin {
+public final class ItemStackMixin {
 
     @Inject(at = @At("TAIL"), method = "inventoryTick")
-    public void inventoryTick(Level level, Entity entity, int slot, boolean selected, CallbackInfo info) {
+    public void removeAncientTag(Level level, Entity entity, int slot, boolean selected, CallbackInfo info) {
         ItemStack stack = ItemStack.class.cast(this);
         CompoundTag nbt = stack.getTag();
         if (nbt != null) {
@@ -25,7 +25,7 @@ public class ItemStackMixin {
     }
 
     @Inject(at = @At("HEAD"), method = "tagMatches")
-    private static void tagMatches(ItemStack left, ItemStack right, CallbackInfoReturnable<Boolean> info) {
+    private static void removeAncientTag(ItemStack left, ItemStack right, CallbackInfoReturnable<Boolean> info) {
         CompoundTag lTag = left.getTag();
         if (lTag != null) {
             if (lTag.get("wilderwild_is_ancient") != null) {

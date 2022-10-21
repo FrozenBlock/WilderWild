@@ -111,8 +111,8 @@ public class StoneChestBlockEntityRenderer<T extends StoneChestBlockEntity & Lid
             }
 
             float openProg = entity.getOpenProgress(tickDelta);
-            openProg = 1.0f - openProg;
-            openProg = 1.0f - openProg * openProg * openProg;
+            openProg = 1.0F - openProg;
+            openProg = 1.0F - openProg * openProg * openProg;
             int i = propertySource.apply(new BrightnessCombiner<>()).applyAsInt(light);
             Material spriteIdentifier = getChestTexture(chestType, entity.getBlockState().getValue(RegisterProperties.HAS_SCULK));
             VertexConsumer vertexConsumer = spriteIdentifier.buffer(vertexConsumers, RenderType::entityCutout);
@@ -131,7 +131,7 @@ public class StoneChestBlockEntityRenderer<T extends StoneChestBlockEntity & Lid
     }
 
     private void render(PoseStack matrices, VertexConsumer vertices, ModelPart lid, ModelPart base, float openFactor, int light, int overlay) {
-        lid.xRot = -(openFactor * 1.5707964f);
+        lid.xRot = -(openFactor * 1.5707964F);
         lid.render(matrices, vertices, light, overlay);
         base.render(matrices, vertices, light, overlay);
     }

@@ -16,7 +16,7 @@ import org.spongepowered.asm.mixin.Shadow;
 @Mixin(SoulFireBlock.class)
 public class SoulFireBlockMixin extends BaseFireBlock {
 
-    public SoulFireBlockMixin(Properties properties, float fireDamage) {
+    private SoulFireBlockMixin(Properties properties, float fireDamage) {
         super(properties, fireDamage);
     }
 
@@ -42,6 +42,7 @@ public class SoulFireBlockMixin extends BaseFireBlock {
 
     @Shadow
     protected boolean canBurn(@NotNull BlockState state) {
-        return false;
+		throw new AssertionError("Mixin injection failed - WilderWild SoulFireBlockMixin.");
     }
+
 }

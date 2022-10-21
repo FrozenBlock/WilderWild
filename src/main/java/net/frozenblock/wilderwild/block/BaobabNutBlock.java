@@ -1,5 +1,6 @@
 package net.frozenblock.wilderwild.block;
 
+import java.util.Objects;
 import net.frozenblock.wilderwild.registry.RegisterBlocks;
 import net.frozenblock.wilderwild.world.gen.sapling.BaobabSaplingGenerator;
 import net.minecraft.core.BlockPos;
@@ -26,8 +27,6 @@ import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-
-import java.util.Objects;
 
 public class BaobabNutBlock extends SaplingBlock {
     public static final IntegerProperty AGE = BlockStateProperties.AGE_2;

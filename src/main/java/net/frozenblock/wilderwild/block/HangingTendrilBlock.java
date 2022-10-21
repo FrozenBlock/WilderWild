@@ -22,7 +22,12 @@ import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.LevelReader;
-import net.minecraft.world.level.block.*;
+import net.minecraft.world.level.block.BaseEntityBlock;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.RenderShape;
+import net.minecraft.world.level.block.SculkBehaviour;
+import net.minecraft.world.level.block.SculkSpreader;
+import net.minecraft.world.level.block.SimpleWaterloggedBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
@@ -281,7 +286,7 @@ public class HangingTendrilBlock extends BaseEntityBlock implements SimpleWaterl
                                 pos,
                                 RegisterSounds.BLOCK_HANGING_TENDRIL_WRING,
                                 SoundSource.BLOCKS,
-                                1f,
+                                1F,
                                 level.random.nextFloat() * 0.1F + 0.9F
                         );
                         tendrilEntity.ringOutTicksLeft = 5;

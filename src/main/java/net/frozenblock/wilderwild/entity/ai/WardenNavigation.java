@@ -23,9 +23,10 @@ public class WardenNavigation extends GroundPathNavigation {
 
     @Override
     public PathFinder createPathFinder(int range) {
-        this.nodeEvaluator = new WardenPathNodeMaker();
+        this.nodeEvaluator = new WardenPathEvaluator();
         this.nodeEvaluator.setCanPassDoors(true);
         return new PathFinder(this.nodeEvaluator, range) {
+			@Override
             public float distance(Node a, Node b) {
                 return this.isEntitySubmergedInWaterOrLava(entity) ? a.distanceTo(b) : a.distanceToXZ(b);
             }
@@ -44,7 +45,7 @@ public class WardenNavigation extends GroundPathNavigation {
     @Override
     protected double getGroundY(Vec3 pos) {
         BlockPos blockPos = new BlockPos(pos);
-        return this.isInLiquid() || this.level.getBlockState(blockPos.below()).isAir() ? pos.y : WardenPathNodeMaker.getFloorLevel(this.level, blockPos);
+        return this.isInLiquid() || this.level.getBlockState(blockPos.below()).isAir() ? pos.y : WardenPathEvaluator.getFloorLevel(this.level, blockPos);
     }
 
     @Override

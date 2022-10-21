@@ -10,12 +10,12 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(Boat.class)
-public class BoatDropsMixin {
+public final class BoatDropsMixin {
 
     //CREDIT TO nyuppo/fabric-boat-example ON GITHUB
 
     @Inject(method = "getDropItem", at = @At("RETURN"), cancellable = true)
-    public void getDropItem(CallbackInfoReturnable<Item> ci) {
+    public void getModdedBoats(CallbackInfoReturnable<Item> ci) {
         if (((Boat) (Object) this).getBoatType() == WilderBoats.BAOBAB) {
             ci.setReturnValue(RegisterItems.BAOBAB_BOAT_ITEM);
         }

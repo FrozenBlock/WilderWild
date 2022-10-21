@@ -3,6 +3,8 @@ package net.frozenblock.wilderwild;
 import com.chocohead.mm.api.ClassTinkerers;
 import com.mojang.datafixers.schemas.Schema;
 import com.mojang.serialization.Codec;
+import java.util.HashMap;
+import java.util.Map;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
 import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
@@ -10,14 +12,43 @@ import net.fabricmc.fabric.api.gamerule.v1.GameRuleFactory;
 import net.fabricmc.fabric.api.gamerule.v1.GameRuleRegistry;
 import net.fabricmc.loader.api.FabricLoader;
 import net.fabricmc.loader.api.ModContainer;
+import net.frozenblock.lib.FrozenBools;
 import net.frozenblock.wilderwild.block.entity.TermiteMoundBlockEntity;
 import net.frozenblock.wilderwild.entity.Firefly;
 import net.frozenblock.wilderwild.misc.BlockSoundGroupOverwrites;
 import net.frozenblock.wilderwild.misc.FireflyColor;
-import net.frozenblock.wilderwild.registry.*;
-import net.frozenblock.wilderwild.world.feature.*;
-import net.frozenblock.wilderwild.world.feature.features.*;
-import net.frozenblock.wilderwild.world.feature.features.config.*;
+import net.frozenblock.wilderwild.registry.RegisterBlockEntities;
+import net.frozenblock.wilderwild.registry.RegisterBlockSoundGroups;
+import net.frozenblock.wilderwild.registry.RegisterBlocks;
+import net.frozenblock.wilderwild.registry.RegisterEntities;
+import net.frozenblock.wilderwild.registry.RegisterGameEvents;
+import net.frozenblock.wilderwild.registry.RegisterItems;
+import net.frozenblock.wilderwild.registry.RegisterLootTables;
+import net.frozenblock.wilderwild.registry.RegisterParticles;
+import net.frozenblock.wilderwild.registry.RegisterSounds;
+import net.frozenblock.wilderwild.registry.RegisterStructures;
+import net.frozenblock.wilderwild.registry.RegisterWorldgen;
+import net.frozenblock.wilderwild.registry.WilderRegistry;
+import net.frozenblock.wilderwild.world.feature.WilderConfiguredFeatures;
+import net.frozenblock.wilderwild.world.feature.WilderMiscConfigured;
+import net.frozenblock.wilderwild.world.feature.WilderPlacedFeatures;
+import net.frozenblock.wilderwild.world.feature.WilderTreeConfigured;
+import net.frozenblock.wilderwild.world.feature.WilderTreePlaced;
+import net.frozenblock.wilderwild.world.feature.features.AlgaeFeature;
+import net.frozenblock.wilderwild.world.feature.features.CattailFeature;
+import net.frozenblock.wilderwild.world.feature.features.ColumnWithDiskFeature;
+import net.frozenblock.wilderwild.world.feature.features.DownwardsPillarFeature;
+import net.frozenblock.wilderwild.world.feature.features.NematocystFeature;
+import net.frozenblock.wilderwild.world.feature.features.NoisePathFeature;
+import net.frozenblock.wilderwild.world.feature.features.NoisePathUnderWaterFeature;
+import net.frozenblock.wilderwild.world.feature.features.NoisePlantFeature;
+import net.frozenblock.wilderwild.world.feature.features.ShelfFungusFeature;
+import net.frozenblock.wilderwild.world.feature.features.UpwardsPillarFeature;
+import net.frozenblock.wilderwild.world.feature.features.config.ColumnWithDiskFeatureConfig;
+import net.frozenblock.wilderwild.world.feature.features.config.NematocystFeatureConfig;
+import net.frozenblock.wilderwild.world.feature.features.config.PathFeatureConfig;
+import net.frozenblock.wilderwild.world.feature.features.config.ShelfFungusFeatureConfig;
+import net.frozenblock.wilderwild.world.feature.features.config.WilderPillarConfig;
 import net.frozenblock.wilderwild.world.gen.WilderWorldGen;
 import net.frozenblock.wilderwild.world.gen.foliage.PalmFoliagePlacer;
 import net.frozenblock.wilderwild.world.gen.trunk.BaobabTrunkPlacer;
@@ -46,9 +77,6 @@ import org.quiltmc.qsl.frozenblock.misc.datafixerupper.api.SimpleFixes;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.HashMap;
-import java.util.Map;
-
 public final class WilderWild implements ModInitializer {
     public static final String MOD_ID = "wilderwild";
     public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
@@ -61,12 +89,6 @@ public final class WilderWild implements ModInitializer {
     public static boolean UNSTABLE_LOGGING = FabricLoader.getInstance().isDevelopmentEnvironment();
 
     public static boolean areConfigsInit = false;
-
-    public static boolean hasCloth = FabricLoader.getInstance().isModLoaded("cloth-config");
-    public static boolean hasPipes = FabricLoader.getInstance().isModLoaded("copper_pipe");
-    public static boolean hasSodium = FabricLoader.getInstance().isModLoaded("sodium");
-    public static boolean hasTerraBlender = FabricLoader.getInstance().isModLoaded("terrablender");
-    public static boolean hasTerralith = FabricLoader.getInstance().isModLoaded("terralith");
 
     public static final TrunkPlacerType<StraightTrunkWithLogs> STRAIGHT_TRUNK_WITH_LOGS_PLACER_TYPE = registerTrunk("straight_trunk_logs_placer", StraightTrunkWithLogs.CODEC);
     public static final TrunkPlacerType<FallenTrunkWithLogs> FALLEN_TRUNK_WITH_LOGS_PLACER_TYPE = registerTrunk("fallen_trunk_logs_placer", FallenTrunkWithLogs.CODEC);
@@ -134,7 +156,7 @@ public final class WilderWild implements ModInitializer {
         TermiteMoundBlockEntity.Termite.addDegradableBlocks();
         TermiteMoundBlockEntity.Termite.addNaturalDegradableBlocks();
 
-        if (hasTerralith) {
+        if (FrozenBools.hasTerralith) {
             terralith();
         }
 
@@ -190,7 +212,7 @@ public final class WilderWild implements ModInitializer {
     }
 
     public static boolean isCopperPipe(BlockState state) {
-        if (hasPipes) {
+        if (FrozenBools.hasPipes) {
             ResourceLocation id = Registry.BLOCK.getKey(state.getBlock());
             return id.getNamespace().equals("lunade") && id.getPath().contains("pipe");
         }

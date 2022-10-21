@@ -12,7 +12,7 @@ indent_style = tab
 
 [*.java]
 indent_style = tab
-ij_java_imports_layout = $*,|,java.**,|,javax.**,|,*,|,net.minecraft.**,|,net.frozenblock.**
+ij_java_imports_layout = java,javax,*,com.mojang.blaze3d,net.minecraft,net.frozenblock,org.quiltmc
 ij_java_class_count_to_use_import_on_demand = 999
 
 [*.json]

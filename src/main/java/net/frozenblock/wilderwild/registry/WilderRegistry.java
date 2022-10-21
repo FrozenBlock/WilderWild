@@ -1,5 +1,7 @@
 package net.frozenblock.wilderwild.registry;
 
+import java.util.ArrayList;
+import java.util.List;
 import net.fabricmc.fabric.api.event.registry.FabricRegistryBuilder;
 import net.fabricmc.fabric.api.event.registry.RegistryAttribute;
 import net.frozenblock.wilderwild.WilderWild;
@@ -9,9 +11,6 @@ import net.minecraft.core.MappedRegistry;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.biome.Biomes;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class WilderRegistry {
 
@@ -24,26 +23,26 @@ public class WilderRegistry {
 
     public static final List<ResourceKey<Biome>> GRAVEL_BEACH_BIOMES = new ArrayList<>() {{
         add(Biomes.BIRCH_FOREST);
+		add(Biomes.FROZEN_RIVER);
+		add(RegisterWorldgen.MIXED_FOREST);
+		add(Biomes.OLD_GROWTH_BIRCH_FOREST);
+		add(Biomes.OLD_GROWTH_PINE_TAIGA);
+		add(Biomes.OLD_GROWTH_SPRUCE_TAIGA);
         add(Biomes.TAIGA);
-        add(Biomes.FROZEN_RIVER);
-        add(Biomes.OLD_GROWTH_BIRCH_FOREST);
-        add(Biomes.OLD_GROWTH_PINE_TAIGA);
-        add(Biomes.OLD_GROWTH_SPRUCE_TAIGA);
         add(Biomes.SNOWY_TAIGA);
-        add(RegisterWorldgen.MIXED_FOREST);
     }};
 
     public static final List<ResourceKey<Biome>> SAND_BEACH_BIOMES = new ArrayList<>() {{
-        add(Biomes.FLOWER_FOREST);
-        add(Biomes.FOREST);
-        add(Biomes.DARK_FOREST);
+		add(Biomes.DARK_FOREST);
+		add(Biomes.FLOWER_FOREST);
+		add(Biomes.FOREST);
     }};
 
-    public static final List<ResourceKey<Biome>> OTHER_SAND_BEACH_BIOMES = new ArrayList<>() {{
+    public static final List<ResourceKey<Biome>> MULTILAYER_SAND_BEACH_BIOMES = new ArrayList<>() {{
+		add(Biomes.BAMBOO_JUNGLE);
         add(Biomes.JUNGLE);
+		add(Biomes.SAVANNA);
         add(Biomes.SPARSE_JUNGLE);
-        add(Biomes.BAMBOO_JUNGLE);
-        add(Biomes.SAVANNA);
     }};
 
     public static void initRegistry() {

@@ -4,10 +4,9 @@ import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.registry.RegisterBlocks;
 import net.minecraft.core.Holder;
 import net.minecraft.data.worldgen.placement.PlacementUtils;
+import static net.minecraft.data.worldgen.placement.TreePlacements.SNOW_TREE_FILTER_DECORATOR;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.levelgen.placement.PlacedFeature;
-
-import static net.minecraft.data.worldgen.placement.TreePlacements.SNOW_TREE_FILTER_DECORATOR;
 
 public final class WilderTreePlaced {
     //BIRCH

@@ -23,6 +23,6 @@ public final class RegisterEntities {
         WilderWild.logWild("Registering Entities for", WilderWild.UNSTABLE_LOGGING);
         SpawnPlacements.register(FIREFLY, SpawnPlacements.Type.NO_RESTRICTIONS, Heightmap.Types.MOTION_BLOCKING, Firefly::canSpawn);
         SpawnPlacements.register(JELLYFISH, SpawnPlacements.Type.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Jellyfish::canSpawn);
-        EasterEggs.registerEaster();
+		EasterEggs.registerEaster();
     }
 }

@@ -4,6 +4,8 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.DataResult;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
+import java.util.List;
+import java.util.Objects;
 import net.frozenblock.wilderwild.block.ShelfFungusBlock;
 import net.frozenblock.wilderwild.registry.RegisterBlocks;
 import net.minecraft.Util;
@@ -14,9 +16,6 @@ import net.minecraft.core.RegistryCodecs;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.levelgen.feature.configurations.FeatureConfiguration;
-
-import java.util.List;
-import java.util.Objects;
 
 public class ShelfFungusFeatureConfig implements FeatureConfiguration {
     public static final Codec<ShelfFungusFeatureConfig> CODEC = RecordCodecBuilder.create(

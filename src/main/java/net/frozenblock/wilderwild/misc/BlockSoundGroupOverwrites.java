@@ -1,21 +1,19 @@
 package net.frozenblock.wilderwild.misc;
 
+import java.util.ArrayList;
+import java.util.List;
 import net.fabricmc.loader.api.FabricLoader;
+import static net.frozenblock.wilderwild.registry.RegisterBlockSoundGroups.*;
+import static net.frozenblock.wilderwild.registry.RegisterBlocks.BAOBAB_LEAVES;
+import static net.frozenblock.wilderwild.registry.RegisterBlocks.CYPRESS_LEAVES;
 import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.SoundType;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import static net.frozenblock.wilderwild.registry.RegisterBlockSoundGroups.*;
-import static net.frozenblock.wilderwild.registry.RegisterBlocks.BAOBAB_LEAVES;
-import static net.frozenblock.wilderwild.registry.RegisterBlocks.CYPRESS_LEAVES;
 import static net.minecraft.world.level.block.Blocks.*;
+import net.minecraft.world.level.block.SoundType;
 
 
 public class BlockSoundGroupOverwrites {

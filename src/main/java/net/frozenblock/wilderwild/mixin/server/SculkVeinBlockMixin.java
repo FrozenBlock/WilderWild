@@ -1,5 +1,6 @@
 package net.frozenblock.wilderwild.mixin.server;
 
+import java.util.Iterator;
 import net.frozenblock.wilderwild.registry.RegisterBlocks;
 import net.frozenblock.wilderwild.tag.WilderBlockTags;
 import net.minecraft.core.BlockPos;
@@ -7,7 +8,16 @@ import net.minecraft.core.Direction;
 import net.minecraft.tags.TagKey;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.LevelAccessor;
-import net.minecraft.world.level.block.*;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.MultifaceBlock;
+import net.minecraft.world.level.block.MultifaceSpreader;
+import net.minecraft.world.level.block.SculkBehaviour;
+import net.minecraft.world.level.block.SculkSpreader;
+import net.minecraft.world.level.block.SculkVeinBlock;
+import net.minecraft.world.level.block.SimpleWaterloggedBlock;
+import net.minecraft.world.level.block.SlabBlock;
+import net.minecraft.world.level.block.StairBlock;
+import net.minecraft.world.level.block.WallBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
@@ -18,8 +28,6 @@ import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 
-import java.util.Iterator;
-
 @Mixin(SculkVeinBlock.class)
 public abstract class SculkVeinBlockMixin extends MultifaceBlock implements SculkBehaviour, SimpleWaterloggedBlock {
 
@@ -27,7 +35,7 @@ public abstract class SculkVeinBlockMixin extends MultifaceBlock implements Scul
     @Shadow
     private MultifaceSpreader veinSpreader;
 
-    public SculkVeinBlockMixin(Properties properties) {
+    private SculkVeinBlockMixin(Properties properties) {
         super(properties);
     }
 

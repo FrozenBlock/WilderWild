@@ -9,6 +9,7 @@ import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.MeleeAttackGoal;
 import net.minecraft.world.entity.animal.Turtle;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
@@ -17,7 +18,8 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 @Mixin(Turtle.class)
 public class TurtleMixin implements TurtleCooldownInterface {
 
-    private int attackCooldown;
+	@Unique
+    private int wilderWild$attackCooldown;
 
     @Inject(method = "registerGoals", at = @At("TAIL"))
     public void registerGoals(CallbackInfo info) {
@@ -35,28 +37,31 @@ public class TurtleMixin implements TurtleCooldownInterface {
 
     @Inject(method = "addAdditionalSaveData", at = @At("TAIL"))
     public void addAdditionalSaveData(CompoundTag compoundTag, CallbackInfo info) {
-        compoundTag.putInt("AttackCooldown", this.attackCooldown);
+        compoundTag.putInt("AttackCooldown", this.wilderWild$attackCooldown);
     }
 
     @Inject(method = "readAdditionalSaveData", at = @At("TAIL"))
     public void readAdditionalSaveData(CompoundTag compoundTag, CallbackInfo info) {
-        this.attackCooldown = compoundTag.getInt("AttackCooldown");
+        this.wilderWild$attackCooldown = compoundTag.getInt("AttackCooldown");
     }
 
     @Inject(method = "aiStep", at = @At("TAIL"))
     public void aiStep(CallbackInfo info) {
-        if (this.attackCooldown > 0) {
-            this.attackCooldown = this.attackCooldown - 1;
+        if (this.wilderWild$attackCooldown > 0) {
+            this.wilderWild$attackCooldown = this.wilderWild$attackCooldown - 1;
         }
     }
 
+	@Unique
     @Override
     public int getAttackCooldown() {
-        return this.attackCooldown;
+        return this.wilderWild$attackCooldown;
     }
 
+	@Unique
     @Override
     public void setAttackCooldown(int i) {
-        this.attackCooldown = i;
+        this.wilderWild$attackCooldown = i;
     }
+
 }

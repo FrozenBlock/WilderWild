@@ -9,7 +9,6 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.frozenblock.lib.config.FrozenConfig;
 import net.frozenblock.wilderwild.WilderWild;
-
 import static net.frozenblock.wilderwild.misc.config.WilderWildConfig.text;
 import static net.frozenblock.wilderwild.misc.config.WilderWildConfig.tooltip;
 
@@ -48,11 +47,11 @@ public final class ItemConfig implements ConfigData {
                 shattersGlass, summonsWarden
         );
 
-        var copperHornCategory = FrozenConfig.createSubCategory(entryBuilder, category, text("copper_horn"),
+        /*var copperHornCategory = FrozenConfig.createSubCategory(entryBuilder, category, text("copper_horn"),
                 false,
                 tooltip("copper_horn")
 
-        );
+        );*/
 
         var breakParticles = category.addEntry(entryBuilder.startBooleanToggle(text("projectile_break_particles"), config.projectileBreakParticles)
                 .setDefaultValue(true)

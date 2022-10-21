@@ -1,5 +1,10 @@
 package net.frozenblock.wilderwild.block;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+import java.util.function.BiPredicate;
+import java.util.function.Supplier;
 import net.fabricmc.fabric.api.transfer.v1.item.ItemVariant;
 import net.frozenblock.lib.storage.NoInteractionStorage;
 import net.frozenblock.wilderwild.block.entity.StoneChestBlockEntity;
@@ -49,12 +54,6 @@ import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.BlockHitResult;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-import java.util.function.BiPredicate;
-import java.util.function.Supplier;
 
 public class StoneChestBlock extends ChestBlock implements NoInteractionStorage<ItemVariant> {
     public static final BooleanProperty ANCIENT = RegisterProperties.ANCIENT;

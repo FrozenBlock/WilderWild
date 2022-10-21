@@ -9,7 +9,6 @@ import net.minecraft.world.level.block.BaseEntityBlock;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.SculkShriekerBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraft.world.level.block.entity.SculkShriekerBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.phys.shapes.CollisionContext;
@@ -25,7 +24,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(SculkShriekerBlock.class)
 public class SculkShriekerBlockMixin extends BaseEntityBlock {
 
-    public SculkShriekerBlockMixin(Properties settings) {
+    private SculkShriekerBlockMixin(Properties settings) {
         super(settings);
     }
 
@@ -48,6 +47,7 @@ public class SculkShriekerBlockMixin extends BaseEntityBlock {
 
     @Shadow
     public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
-        return new SculkShriekerBlockEntity(pos, state);
+		throw new AssertionError("Mixin injection failed - WilderWild SculkShriekerBlockMixin.");
     }
+
 }

@@ -1,5 +1,7 @@
 package net.frozenblock.wilderwild.item;
 
+import java.util.Iterator;
+import java.util.Optional;
 import net.frozenblock.lib.interfaces.CooldownInterface;
 import net.frozenblock.lib.sound.FrozenSoundPackets;
 import net.frozenblock.wilderwild.WilderWild;
@@ -21,13 +23,16 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.*;
+import net.minecraft.world.item.CreativeModeTab;
+import net.minecraft.world.item.Instrument;
+import net.minecraft.world.item.InstrumentItem;
+import net.minecraft.world.item.ItemCooldowns;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.item.UseAnim;
 import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-
-import java.util.Iterator;
-import java.util.Optional;
 
 public class AncientHorn extends InstrumentItem {
 

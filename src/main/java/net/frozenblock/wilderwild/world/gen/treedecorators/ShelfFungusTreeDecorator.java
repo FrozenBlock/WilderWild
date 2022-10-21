@@ -2,6 +2,7 @@ package net.frozenblock.wilderwild.world.gen.treedecorators;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import java.util.List;
 import net.frozenblock.wilderwild.block.ShelfFungusBlock;
 import net.frozenblock.wilderwild.registry.RegisterBlocks;
 import net.minecraft.core.BlockPos;
@@ -10,8 +11,6 @@ import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.block.state.properties.AttachFace;
 import net.minecraft.world.level.levelgen.feature.treedecorators.TreeDecorator;
 import net.minecraft.world.level.levelgen.feature.treedecorators.TreeDecoratorType;
-
-import java.util.List;
 
 public class ShelfFungusTreeDecorator extends TreeDecorator {
     public static final Codec<ShelfFungusTreeDecorator> CODEC = RecordCodecBuilder.create((instance) -> {

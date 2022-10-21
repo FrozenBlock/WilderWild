@@ -1,7 +1,8 @@
 package net.frozenblock.wilderwild.mixin.worldgen;
 
 import com.mojang.datafixers.util.Pair;
-import net.frozenblock.wilderwild.WilderWild;
+import java.util.function.Consumer;
+import net.frozenblock.lib.FrozenBools;
 import net.frozenblock.wilderwild.misc.config.ClothConfigInteractionHandler;
 import net.frozenblock.wilderwild.registry.RegisterWorldgen;
 import net.frozenblock.wilderwild.world.gen.SharedWorldgen;
@@ -13,15 +14,15 @@ import net.minecraft.world.level.biome.OverworldBiomeBuilder;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
+import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-import java.util.function.Consumer;
-
 @Mixin(value = OverworldBiomeBuilder.class, priority = 69420)
 public final class OverworldBiomeBuilderMixin {
+
     @Shadow
     @Final
     private ResourceKey<Biome>[][] MIDDLE_BIOMES;
@@ -42,10 +43,9 @@ public final class OverworldBiomeBuilderMixin {
         }
     }
 
-    @Inject(method = "addLowSlice", at = @At("TAIL"))
-    // also can be injectLowBiomes
+    @Inject(method = "addLowSlice", at = @At("TAIL")) // also can be injectLowBiomes
     private void injectBiomesNearRivers(Consumer<Pair<Climate.ParameterPoint, ResourceKey<Biome>>> parameters, Climate.Parameter weirdness, CallbackInfo ci) {
-        if (!WilderWild.hasTerraBlender) {
+        if (!FrozenBools.hasTerraBlender) {
             this.addSurfaceBiome(
                     parameters,
                     SharedWorldgen.MixedForest.TEMPERATURE,
@@ -69,10 +69,9 @@ public final class OverworldBiomeBuilderMixin {
         }
     }
 
-    @Inject(method = "addMidSlice", at = @At("TAIL"))
-    // also can be injectMidBiomes
+    @Inject(method = "addMidSlice", at = @At("TAIL")) // also can be injectMidBiomes
     private void injectMixedBiomes(Consumer<Pair<Climate.ParameterPoint, ResourceKey<Biome>>> parameters, Climate.Parameter weirdness, CallbackInfo ci) {
-        if (!WilderWild.hasTerraBlender) {
+        if (!FrozenBools.hasTerraBlender) {
             this.addSurfaceBiome(
                     parameters,
                     SharedWorldgen.MixedForest.TEMPERATURE,
@@ -97,10 +96,9 @@ public final class OverworldBiomeBuilderMixin {
         }
     }
 
-    @Inject(method = "addValleys", at = @At("TAIL"))
-    // can also be injectValleyBiomes
+    @Inject(method = "addValleys", at = @At("TAIL")) // can also be injectValleyBiomes
     private void injectRiverBiomes(Consumer<Pair<Climate.ParameterPoint, ResourceKey<Biome>>> parameters, Climate.Parameter weirdness, CallbackInfo ci) {
-        if (!WilderWild.hasTerraBlender) {
+        if (!FrozenBools.hasTerraBlender) {
             this.addSurfaceBiome(
                     parameters,
                     SharedWorldgen.CypressWetlands.TEMPERATURE,
@@ -110,6 +108,22 @@ public final class OverworldBiomeBuilderMixin {
                     weirdness,
                     SharedWorldgen.CypressWetlands.OFFSET,
                     RegisterWorldgen.CYPRESS_WETLANDS
+            );
+        }
+    }
+
+    @Inject(method = "addUndergroundBiomes", at = @At("TAIL"))
+    private void addUndergroundBiomes(Consumer<Pair<Climate.ParameterPoint, ResourceKey<Biome>>> consumer, CallbackInfo ci) {
+        if (!FrozenBools.hasTerraBlender) {
+            addSemiDeepBiome(
+                    consumer,
+                    SharedWorldgen.JellyfishCaves.TEMPERATURE,
+                    SharedWorldgen.JellyfishCaves.HUMIDITY,
+                    SharedWorldgen.JellyfishCaves.CONTINENTALNESS,
+                    SharedWorldgen.JellyfishCaves.EROSION,
+                    SharedWorldgen.JellyfishCaves.WEIRDNESS,
+                    SharedWorldgen.JellyfishCaves.OFFSET,
+                    RegisterWorldgen.JELLYFISH_CAVES
             );
         }
     }
@@ -124,69 +138,69 @@ public final class OverworldBiomeBuilderMixin {
 
     @Inject(method = "addSurfaceBiome", at = @At("HEAD"), cancellable = true)
     private void addSurfaceBiome(Consumer<Pair<Climate.ParameterPoint, ResourceKey<Biome>>> parameters, Climate.Parameter temperature, Climate.Parameter humidity, Climate.Parameter continentalness, Climate.Parameter erosion, Climate.Parameter weirdness, float offset, ResourceKey<Biome> biome, CallbackInfo info) {
-        if (!WilderWild.hasTerraBlender) {
+        if (!FrozenBools.hasTerraBlender) {
             if (biome.equals(Biomes.MANGROVE_SWAMP) && ClothConfigInteractionHandler.modifyMangroveSwampPlacement()) {
-                parameters.accept(Pair.of(Climate.parameters(
-                                SharedWorldgen.Swamp.MangroveSwamp.TEMPERATURE, //Temperature
-                                SharedWorldgen.Swamp.SWAMP_HUMIDITY, //Humidity
-                                continentalness,
-                                erosion,
-                                Climate.Parameter.point(0.0F),
-                                weirdness,
-                                offset),
-                        biome));
-
-                parameters.accept(Pair.of(Climate.parameters(
-                                SharedWorldgen.Swamp.MangroveSwamp.TEMPERATURE, //Temperature
-                                SharedWorldgen.Swamp.SWAMP_HUMIDITY, //Humidity
-                                continentalness,
-                                erosion,
-                                Climate.Parameter.point(1.0F),
-                                weirdness,
-                                offset),
-                        biome));
+				replaceParameters(
+						parameters,
+						biome,
+						SharedWorldgen.MangroveSwamp.TEMPERATURE,
+						SharedWorldgen.MangroveSwamp.HUMIDITY,
+						continentalness,
+						erosion,
+						weirdness,
+						offset
+				);
                 info.cancel();
             } else if (biome.equals(Biomes.SWAMP) && ClothConfigInteractionHandler.modifySwampPlacement()) {
-                parameters.accept(Pair.of(Climate.parameters(
-                                SharedWorldgen.Swamp.TEMPERATURE, //Temperature
-                                SharedWorldgen.Swamp.SWAMP_HUMIDITY, //Humidity
-                                continentalness,
-                                erosion,
-                                Climate.Parameter.point(0.0F),
-                                weirdness,
-                                offset),
-                        biome));
-
-                parameters.accept(Pair.of(Climate.parameters(
-                                SharedWorldgen.Swamp.TEMPERATURE, //Temperature
-                                SharedWorldgen.Swamp.SWAMP_HUMIDITY, //Humidity
-                                continentalness,
-                                erosion,
-                                Climate.Parameter.point(1.0F),
-                                weirdness,
-                                offset),
-                        biome));
+				replaceParameters(
+						parameters,
+						biome,
+						SharedWorldgen.Swamp.TEMPERATURE,
+						SharedWorldgen.Swamp.HUMIDITY,
+						continentalness,
+						erosion,
+						weirdness,
+						offset
+				);
                 info.cancel();
             }
         }
     }
 
-    @Inject(method = "addUndergroundBiomes", at = @At("TAIL"))
-    private void addUndergroundBiomes(Consumer<Pair<Climate.ParameterPoint, ResourceKey<Biome>>> consumer, CallbackInfo ci) {
-        if (!WilderWild.hasTerraBlender) {
-            addSemiDeepBiome(
-                    consumer,
-                    SharedWorldgen.JellyfishCaves.TEMPERATURE,
-                    SharedWorldgen.JellyfishCaves.HUMIDITY,
-                    SharedWorldgen.JellyfishCaves.CONTINENTALNESS,
-                    SharedWorldgen.JellyfishCaves.EROSION,
-                    SharedWorldgen.JellyfishCaves.WEIRDNESS,
-                    SharedWorldgen.JellyfishCaves.OFFSET,
-                    RegisterWorldgen.JELLYFISH_CAVES
-            );
-        }
-    }
+	private static void replaceParameters(
+			Consumer<Pair<Climate.ParameterPoint, ResourceKey<Biome>>> parameters,
+			ResourceKey<Biome> biome,
+			Climate.Parameter temperature,
+			Climate.Parameter humidity,
+			Climate.Parameter continentalness,
+			Climate.Parameter erosion,
+			Climate.Parameter weirdness,
+			float offset
+	) {
+		parameters.accept(Pair.of(Climate.parameters(
+						temperature,
+						humidity,
+						continentalness,
+						erosion,
+						Climate.Parameter.point(0.0F),
+						weirdness,
+						offset),
+				biome
+		));
 
+		parameters.accept(Pair.of(Climate.parameters(
+						temperature,
+						humidity,
+						continentalness,
+						erosion,
+						Climate.Parameter.point(1.0F),
+						weirdness,
+						offset),
+				biome
+		));
+	}
+
+	@Unique
     private static void addDeepBiome(
             Consumer<Pair<Climate.ParameterPoint, ResourceKey<Biome>>> parameters,
             Climate.Parameter temperature,
@@ -200,6 +214,7 @@ public final class OverworldBiomeBuilderMixin {
         parameters.accept(Pair.of(SharedWorldgen.deepParameters(temperature, humidity, continentalness, erosion, weirdness, offset), biome));
     }
 
+	@Unique
     private static void addSemiDeepBiome(
             Consumer<Pair<Climate.ParameterPoint, ResourceKey<Biome>>> parameters,
             Climate.Parameter temperature,

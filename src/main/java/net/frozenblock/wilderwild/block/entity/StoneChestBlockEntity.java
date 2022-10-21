@@ -1,7 +1,12 @@
 package net.frozenblock.wilderwild.block.entity;
 
+import java.util.ArrayList;
+import java.util.Objects;
 import net.fabricmc.fabric.api.networking.v1.PlayerLookup;
+import net.fabricmc.fabric.api.transfer.v1.item.ItemVariant;
+import net.frozenblock.lib.storage.NoInteractionStorage;
 import net.frozenblock.wilderwild.WilderWild;
+import net.frozenblock.wilderwild.misc.config.ClothConfigInteractionHandler;
 import net.frozenblock.wilderwild.registry.RegisterBlockEntities;
 import net.frozenblock.wilderwild.registry.RegisterProperties;
 import net.frozenblock.wilderwild.registry.RegisterSounds;
@@ -40,10 +45,7 @@ import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.ArrayList;
-import java.util.Objects;
-
-public class StoneChestBlockEntity extends ChestBlockEntity {
+public class StoneChestBlockEntity extends ChestBlockEntity implements NoInteractionStorage<ItemVariant> {
     public float openProgress;
     public float prevOpenProgress;
     public float highestLidPoint;
@@ -145,13 +147,15 @@ public class StoneChestBlockEntity extends ChestBlockEntity {
     public void liftLid(float liftAmount, boolean ancient) {
         this.openProgress = Mth.clamp(this.openProgress + (!ancient ? liftAmount * 2 : liftAmount), 0.0F, 0.5F);
         this.highestLidPoint = this.openProgress;
-        this.stillLidTicks = (int) (Math.max((this.openProgress), 0.2) * (!ancient ? 220 : 160));
+		float multiplier = ClothConfigInteractionHandler.stoneChestTimer() / 100F;
+        this.stillLidTicks = (int) (Math.max((this.openProgress), 0.2) * (!ancient ? 220 : 160) * multiplier);
     }
 
     public void setLid(float liftAmount) {
         this.openProgress = Mth.clamp(liftAmount, 0.0F, 0.5F);
         this.highestLidPoint = this.openProgress;
-        this.stillLidTicks = (int) (Math.max((this.openProgress), 0.2) * 180);
+		float multiplier = ClothConfigInteractionHandler.stoneChestTimer() / 100F;
+        this.stillLidTicks = (int) (Math.max((this.openProgress), 0.2) * 180 * multiplier);
     }
 
     public void onLidSlam(Level level, BlockPos pos, BlockState state, StoneChestBlockEntity otherStoneChest) {
@@ -381,7 +385,7 @@ public class StoneChestBlockEntity extends ChestBlockEntity {
             x -= (double) direction.getStepX() * 0.5;
             z -= (double) direction.getStepZ() * 0.5;
         }
-        level.playSound(null, x, y, z, soundEvent, SoundSource.BLOCKS, volume, level.random.nextFloat() * 0.18f + 0.9f);
+        level.playSound(null, x, y, z, soundEvent, SoundSource.BLOCKS, volume, level.random.nextFloat() * 0.18F + 0.9F);
     }
 
 }

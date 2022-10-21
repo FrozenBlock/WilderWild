@@ -9,7 +9,11 @@ import net.frozenblock.wilderwild.entity.AncientHornProjectile;
 import net.minecraft.client.model.Model;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
-import net.minecraft.client.model.geom.builders.*;
+import net.minecraft.client.model.geom.builders.CubeDeformation;
+import net.minecraft.client.model.geom.builders.CubeListBuilder;
+import net.minecraft.client.model.geom.builders.LayerDefinition;
+import net.minecraft.client.model.geom.builders.MeshDefinition;
+import net.minecraft.client.model.geom.builders.PartDefinition;
 import org.jetbrains.annotations.NotNull;
 
 @Environment(EnvType.CLIENT)
@@ -28,7 +32,7 @@ public class AncientHornProjectileModel extends Model {
     }
 
     private static final float pi = (float) Math.PI;
-    private static final float bonePitchYaw = 1.57079632f;
+    private static final float bonePitchYaw = 1.57079632F;
     private static final float pulse2Extra = 8.0F / 1.5F;
     private static final float pulse3Extra = 8.0F / 3.0F;
 
@@ -46,9 +50,9 @@ public class AncientHornProjectileModel extends Model {
         matrices.scale(1.0F, 1.0F, 1.0F);
         float aliveDelta = entity.getAliveTicks() + tickDelta;
 
-        float pulse = (((float) Math.sin((aliveDelta * pi) * 0.2f) * 0.16666667f) + 1);
-        float pulse2 = (((float) Math.sin(((aliveDelta + pulse2Extra) * pi) * 0.2f) * 0.16666667f) + 1);
-        float pulse3 = (((float) Math.sin(((aliveDelta + pulse3Extra) * pi) * 0.2f) * 0.16666667f) + 1);
+        float pulse = (((float) Math.sin((aliveDelta * pi) * 0.2F) * 0.16666667F) + 1);
+        float pulse2 = (((float) Math.sin(((aliveDelta + pulse2Extra) * pi) * 0.2F) * 0.16666667F) + 1);
+        float pulse3 = (((float) Math.sin(((aliveDelta + pulse3Extra) * pi) * 0.2F) * 0.16666667F) + 1);
 
         this.front.xScale = pulse;
         this.front.yScale = pulse;

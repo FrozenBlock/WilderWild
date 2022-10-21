@@ -3,18 +3,29 @@ package net.frozenblock.wilderwild.entity.ai;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableSet;
 import com.mojang.datafixers.util.Pair;
+import java.util.Optional;
 import net.frozenblock.wilderwild.entity.Firefly;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.GlobalPos;
 import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.Brain;
-import net.minecraft.world.entity.ai.behavior.*;
+import net.minecraft.world.entity.ai.behavior.AnimalPanic;
+import net.minecraft.world.entity.ai.behavior.BlockPosTracker;
+import net.minecraft.world.entity.ai.behavior.DoNothing;
+import net.minecraft.world.entity.ai.behavior.FlyingRandomStroll;
+import net.minecraft.world.entity.ai.behavior.LookAtTargetSink;
+import net.minecraft.world.entity.ai.behavior.MoveToTargetSink;
+import net.minecraft.world.entity.ai.behavior.PositionTracker;
+import net.minecraft.world.entity.ai.behavior.RunOne;
+import net.minecraft.world.entity.ai.behavior.RunSometimes;
+import net.minecraft.world.entity.ai.behavior.SetEntityLookTarget;
+import net.minecraft.world.entity.ai.behavior.SetWalkTargetFromLookTarget;
+import net.minecraft.world.entity.ai.behavior.StayCloseToTarget;
+import net.minecraft.world.entity.ai.behavior.Swim;
 import net.minecraft.world.entity.ai.memory.MemoryModuleType;
 import net.minecraft.world.entity.schedule.Activity;
 import net.minecraft.world.level.Level;
-
-import java.util.Optional;
 
 public class FireflyAi {
 
@@ -31,11 +42,34 @@ public class FireflyAi {
     }
 
     private static void addCoreActivities(Brain<Firefly> brain) {
-        brain.addActivity(Activity.CORE, 0, ImmutableList.of(new Swim(0.8F), new AnimalPanic(2.5F), new LookAtTargetSink(45, 90), new MoveToTargetSink()));
+        brain.addActivity(
+				Activity.CORE,
+				0,
+				ImmutableList.of(
+						new Swim(0.8F),
+						new AnimalPanic(2.5F),
+						new LookAtTargetSink(45, 90),
+						new MoveToTargetSink()
+				)
+		);
     }
 
     private static void addIdleActivities(Brain<Firefly> brain) {
-        brain.addActivityWithConditions(Activity.IDLE, ImmutableList.of(Pair.of(2, new StayCloseToTarget<>(FireflyAi::getLookTarget, 7, 16, 1.0F)), Pair.of(3, new RunSometimes<>(new SetEntityLookTarget((firefly) -> true, 6.0F), UniformInt.of(30, 60))), Pair.of(4, new RunOne<>(ImmutableList.of(Pair.of(new FlyingRandomStroll(1.0F), 2), Pair.of(new SetWalkTargetFromLookTarget(1.0F, 3), 2), Pair.of(new DoNothing(30, 60), 1))))), ImmutableSet.of());
+        brain.addActivityWithConditions(
+				Activity.IDLE,
+				ImmutableList.of(
+						Pair.of(2, new StayCloseToTarget<>(FireflyAi::getLookTarget, 7, 16, 1.0F)),
+						Pair.of(3, new RunSometimes<>(new SetEntityLookTarget((firefly) -> true, 6.0F), UniformInt.of(30, 60))),
+						Pair.of(4, new RunOne<>(
+								ImmutableList.of(
+										Pair.of(new FlyingRandomStroll(1.0F), 2),
+										Pair.of(new SetWalkTargetFromLookTarget(1.0F, 3), 2),
+										Pair.of(new DoNothing(30, 60), 1)
+								)
+						))
+				),
+				ImmutableSet.of()
+		);
     }
 
     public static void updateActivities(Firefly firefly) {

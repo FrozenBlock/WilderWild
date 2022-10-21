@@ -1,6 +1,7 @@
 package net.frozenblock.wilderwild.world.feature.features;
 
 import com.mojang.serialization.Codec;
+import java.util.Optional;
 import net.frozenblock.wilderwild.world.feature.features.config.ColumnWithDiskFeatureConfig;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
@@ -14,8 +15,6 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.Heightmap.Types;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
-
-import java.util.Optional;
 
 public class ColumnWithDiskFeature extends Feature<ColumnWithDiskFeatureConfig> {
     public ColumnWithDiskFeature(Codec<ColumnWithDiskFeatureConfig> codec) {

@@ -1,5 +1,7 @@
 package net.frozenblock.wilderwild.mixin.server;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import net.frozenblock.wilderwild.misc.WilderBoats;
 import net.frozenblock.wilderwild.registry.RegisterBlocks;
 import net.minecraft.world.entity.vehicle.Boat;
@@ -14,9 +16,6 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-
 @Mixin(Boat.Type.class)
 public class BoatTypeMixin {
 
@@ -25,7 +24,7 @@ public class BoatTypeMixin {
     @SuppressWarnings("InvokerTarget")
     @Invoker("<init>")
     private static Boat.Type newType(String internalName, int internalId, Block baseBlock, String name) {
-        throw new AssertionError();
+		throw new AssertionError("Mixin injection failed - WilderWild BoatTypeMixin.");
     }
 
     @SuppressWarnings("ShadowTarget")
@@ -51,4 +50,5 @@ public class BoatTypeMixin {
         types.add(cypress);
         $VALUES = types.toArray(new Boat.Type[0]);
     }
+
 }

@@ -3,6 +3,7 @@ package net.frozenblock.wilderwild.world.structure;
 import com.google.common.collect.ImmutableList;
 import com.mojang.datafixers.util.Either;
 import com.mojang.datafixers.util.Pair;
+import java.util.function.Function;
 import net.frozenblock.wilderwild.WilderWild;
 import net.minecraft.core.Holder;
 import net.minecraft.data.worldgen.Pools;
@@ -10,8 +11,6 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.levelgen.structure.pools.SinglePoolElement;
 import net.minecraft.world.level.levelgen.structure.pools.StructureTemplatePool;
 import net.minecraft.world.level.levelgen.structure.templatesystem.StructureProcessorList;
-
-import java.util.function.Function;
 
 /**
  * Contains the StructureTemplatePool for Abandoned Cabins

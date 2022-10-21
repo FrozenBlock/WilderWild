@@ -1,5 +1,7 @@
 package net.frozenblock.wilderwild.item;
 
+import java.util.Iterator;
+import java.util.Optional;
 import net.frozenblock.lib.sound.FrozenSoundPackets;
 import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.registry.RegisterItems;
@@ -15,13 +17,15 @@ import net.minecraft.tags.TagKey;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.*;
+import net.minecraft.world.item.CreativeModeTab;
+import net.minecraft.world.item.Instrument;
+import net.minecraft.world.item.InstrumentItem;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.UseAnim;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.gameevent.GameEvent;
 import org.jetbrains.annotations.NotNull;
-
-import java.util.Iterator;
-import java.util.Optional;
 
 public class CopperHorn extends InstrumentItem {
     private static final String INSTRUMENT_KEY = "instrument";

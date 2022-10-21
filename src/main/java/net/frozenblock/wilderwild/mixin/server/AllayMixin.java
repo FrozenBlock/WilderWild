@@ -1,6 +1,7 @@
 package net.frozenblock.wilderwild.mixin.server;
 
 import net.frozenblock.wilderwild.entity.render.animations.WilderAllay;
+import net.frozenblock.wilderwild.misc.config.ClothConfigInteractionHandler;
 import net.minecraft.world.entity.AnimationState;
 import net.minecraft.world.entity.animal.allay.Allay;
 import org.spongepowered.asm.mixin.Mixin;
@@ -16,23 +17,26 @@ public class AllayMixin implements WilderAllay {
     @Shadow
     private float dancingAnimationTicks;
     @Unique
-    private final Allay allay = Allay.class.cast(this);
+    private final Allay wilderWild$allay = Allay.class.cast(this);
 
-    private final AnimationState dancingAnimationState = new AnimationState();
+	@Unique
+    private final AnimationState wilderWild$dancingAnimationState = new AnimationState();
 
+	@Unique
     @Override
     public AnimationState getDancingAnimationState() {
-        return this.dancingAnimationState;
+        return this.wilderWild$dancingAnimationState;
     }
 
     @Inject(method = "tick", at = @At(value = "TAIL"))
-    private void tick(CallbackInfo ci) {
-        if (allay.level.isClientSide) {
-            if (allay.isDancing()) {
+    private void tickDancing(CallbackInfo ci) {
+        if (wilderWild$allay.level.isClientSide && ClothConfigInteractionHandler.keyframeAllayDance()) {
+            if (wilderWild$allay.isDancing()) {
                 this.getDancingAnimationState().startIfStopped((int) this.dancingAnimationTicks);
             } else {
                 this.getDancingAnimationState().stop();
             }
         }
     }
+
 }

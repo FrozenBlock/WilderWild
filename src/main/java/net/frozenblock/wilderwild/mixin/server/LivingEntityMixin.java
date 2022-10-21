@@ -3,6 +3,7 @@ package net.frozenblock.wilderwild.mixin.server;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.damagesource.DamageSource;
+import static net.minecraft.world.damagesource.DamageSource.CACTUS;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
@@ -13,8 +14,6 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-
-import static net.minecraft.world.damagesource.DamageSource.CACTUS;
 
 @Mixin(LivingEntity.class)
 public abstract class LivingEntityMixin extends Entity {
@@ -43,14 +42,14 @@ public abstract class LivingEntityMixin extends Entity {
             info.cancel();
             LivingEntity entity = LivingEntity.class.cast(this);
             SoundEvent soundEvent;
-            this.animationSpeed = 1.5f;
+            this.animationSpeed = 1.5F;
             this.invulnerableTime = 20;
             this.hurtTime = this.hurtDuration = 10;
-            this.hurtDir = 0.0f;
+            this.hurtDir = 0.0F;
             if ((soundEvent = this.getHurtSound(CACTUS)) != null) {
-                this.playSound(soundEvent, this.getSoundVolume(), (this.random.nextFloat() - this.random.nextFloat()) * 0.2f + 1.0f);
+                this.playSound(soundEvent, this.getSoundVolume(), (this.random.nextFloat() - this.random.nextFloat()) * 0.2F + 1.0F);
             }
-            this.hurt(DamageSource.GENERIC, 0.0f);
+            this.hurt(DamageSource.GENERIC, 0.0F);
             this.lastDamageSource = CACTUS;
             this.lastDamageStamp = this.level.getGameTime();
         }
@@ -58,7 +57,7 @@ public abstract class LivingEntityMixin extends Entity {
 
     @Shadow
     protected float getSoundVolume() {
-        return 1.0f;
+        return 1.0F;
     }
 
 

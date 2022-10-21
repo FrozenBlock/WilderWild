@@ -2,7 +2,6 @@ package net.frozenblock.wilderwild.world.gen;
 
 import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
 import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
-import net.fabricmc.fabric.api.biome.v1.ModificationPhase;
 import net.frozenblock.wilderwild.misc.config.ClothConfigInteractionHandler;
 import net.frozenblock.wilderwild.world.feature.WilderPlacedFeatures;
 import net.minecraft.world.level.biome.Biomes;

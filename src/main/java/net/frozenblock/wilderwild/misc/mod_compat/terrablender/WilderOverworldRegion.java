@@ -1,7 +1,14 @@
 package net.frozenblock.wilderwild.misc.mod_compat.terrablender;
 
 import com.mojang.datafixers.util.Pair;
-import net.frozenblock.lib.worldgen.biome.api.parameters.*;
+import java.util.List;
+import java.util.function.Consumer;
+import net.frozenblock.lib.worldgen.biome.api.parameters.Continentalness;
+import net.frozenblock.lib.worldgen.biome.api.parameters.Depth;
+import net.frozenblock.lib.worldgen.biome.api.parameters.Erosion;
+import net.frozenblock.lib.worldgen.biome.api.parameters.Humidity;
+import net.frozenblock.lib.worldgen.biome.api.parameters.Temperature;
+import net.frozenblock.lib.worldgen.biome.api.parameters.Weirdness;
 import net.frozenblock.wilderwild.misc.config.ClothConfigInteractionHandler;
 import net.frozenblock.wilderwild.registry.RegisterWorldgen;
 import net.frozenblock.wilderwild.world.gen.SharedWorldgen;
@@ -14,9 +21,6 @@ import net.minecraft.world.level.biome.Climate;
 import terrablender.api.ParameterUtils;
 import terrablender.api.Region;
 import terrablender.api.RegionType;
-
-import java.util.List;
-import java.util.function.Consumer;
 
 public class WilderOverworldRegion extends Region {
     public WilderOverworldRegion(ResourceLocation name, int weight) {
@@ -130,8 +134,8 @@ public class WilderOverworldRegion extends Region {
                     // REPLACE BIOME PARAMETERS HERE
                     builder.replaceParameter(point,
                             new Climate.ParameterPoint(
-                                    SharedWorldgen.Swamp.MangroveSwamp.TEMPERATURE,
-                                    SharedWorldgen.Swamp.SWAMP_HUMIDITY,
+                                    SharedWorldgen.MangroveSwamp.TEMPERATURE,
+                                    SharedWorldgen.MangroveSwamp.HUMIDITY,
                                     point.continentalness(),
                                     point.erosion(),
                                     point.depth(),
@@ -159,7 +163,7 @@ public class WilderOverworldRegion extends Region {
                     builder.replaceParameter(point,
                             new Climate.ParameterPoint(
                                     SharedWorldgen.Swamp.TEMPERATURE,
-                                    SharedWorldgen.Swamp.SWAMP_HUMIDITY,
+                                    SharedWorldgen.Swamp.HUMIDITY,
                                     point.continentalness(),
                                     point.erosion(),
                                     point.depth(),

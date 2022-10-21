@@ -17,7 +17,7 @@ public class MangroveTreeGrowerMixin {
     public void getConfiguredFeature(RandomSource randomSource, boolean bl, CallbackInfoReturnable<Holder<? extends ConfiguredFeature<?, ?>>> cir) {
         if (randomSource.nextFloat() < 0.1F) {
             cir.setReturnValue(WilderTreeConfigured.NEW_SWAMP_TREE);
-            cir.cancel();
         }
     }
+
 }

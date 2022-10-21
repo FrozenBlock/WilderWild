@@ -1,15 +1,18 @@
 package net.frozenblock.wilderwild.misc;
 
-import com.google.gson.*;
-import net.frozenblock.wilderwild.WilderWild;
-import net.minecraft.client.Minecraft;
-
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Reader;
 import java.nio.file.Files;
 import java.util.Objects;
+import net.frozenblock.wilderwild.WilderWild;
+import net.minecraft.client.Minecraft;
 
 public class CompetitionCounter {
     private static final boolean FIREFLY_CAPTURE_COMPETITION = true;

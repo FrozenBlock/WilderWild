@@ -9,7 +9,6 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.frozenblock.lib.config.FrozenConfig;
 import net.frozenblock.wilderwild.WilderWild;
-
 import static net.frozenblock.wilderwild.misc.config.WilderWildConfig.text;
 import static net.frozenblock.wilderwild.misc.config.WilderWildConfig.tooltip;
 
@@ -97,13 +96,13 @@ public final class WorldgenConfig implements ConfigData {
                 jungle, mangroveSwamp, swamp, windsweptSavanna
         );
 
-        var dyingTrees = category.addEntry(entryBuilder.startBooleanToggle(text("dying_trees"), config.dyingTrees)
+        /*var dyingTrees = category.addEntry(entryBuilder.startBooleanToggle(text("dying_trees"), config.dyingTrees)
                 .setDefaultValue(true)
                 .setSaveConsumer(newValue -> config.dyingTrees = newValue)
                 .setTooltip(tooltip("dying_trees"))
                 .requireRestart()
                 .build()
-        );
+        );*/
         var fallenLogs = category.addEntry(entryBuilder.startBooleanToggle(text("fallen_logs"), config.fallenLogs)
                 .setDefaultValue(true)
                 .setSaveConsumer(newValue -> config.fallenLogs = newValue)

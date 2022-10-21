@@ -21,4 +21,5 @@ public class OakTreeGrowerMixin {
             cir.setReturnValue(bees ? WilderTreeConfigured.NEW_OAK_BEES_0004 : WilderTreeConfigured.NEW_OAK);
         }
     }
+
 }

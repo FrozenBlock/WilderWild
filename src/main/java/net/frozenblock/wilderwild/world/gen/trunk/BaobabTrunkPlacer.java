@@ -3,6 +3,8 @@ package net.frozenblock.wilderwild.world.gen.trunk;
 import com.google.common.collect.Lists;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import java.util.List;
+import java.util.function.BiConsumer;
 import net.frozenblock.lib.mathematics.AdvancedMath;
 import net.frozenblock.wilderwild.WilderWild;
 import net.minecraft.core.BlockPos;
@@ -17,9 +19,6 @@ import net.minecraft.world.level.levelgen.feature.foliageplacers.FoliagePlacer;
 import net.minecraft.world.level.levelgen.feature.trunkplacers.TrunkPlacer;
 import net.minecraft.world.level.levelgen.feature.trunkplacers.TrunkPlacerType;
 import org.jetbrains.annotations.NotNull;
-
-import java.util.List;
-import java.util.function.BiConsumer;
 
 public class BaobabTrunkPlacer extends TrunkPlacer {
     public static final Codec<BaobabTrunkPlacer> CODEC = RecordCodecBuilder.create((instance) ->
@@ -123,10 +122,10 @@ public class BaobabTrunkPlacer extends TrunkPlacer {
                         dir2 = Direction.SOUTH;
                     }
                     if (Math.random() <= toppercentage / 100) {
-                        list.add(generateBranch(dir1, dir2, 1f / 4f, height, height / 4, 4, level, replacer, random, mutable, config, center, x, z));
+                        list.add(generateBranch(dir1, dir2, 1F / 4F, height, height / 4, 4, level, replacer, random, mutable, config, center, x, z));
                     }
                     if (Math.random() <= branchpercentage / 100) {
-                        float min = 1f / 3f, max = 1f;
+                        float min = 1F / 3F, max = 1F;
                         float p = (((float) Math.random() * (max - min)) + min);
                         list.add(generateBranch(dir1, dir2, p, height, height, 4, level, replacer, random, mutable, config, center, x, z));
                     }

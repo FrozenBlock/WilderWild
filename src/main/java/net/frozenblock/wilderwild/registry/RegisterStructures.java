@@ -1,5 +1,6 @@
 package net.frozenblock.wilderwild.registry;
 
+import java.util.Map;
 import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.tag.WilderBiomeTags;
 import net.frozenblock.wilderwild.world.structure.AbandonedCabinGenerator;
@@ -23,8 +24,6 @@ import net.minecraft.world.level.levelgen.structure.placement.RandomSpreadStruct
 import net.minecraft.world.level.levelgen.structure.placement.RandomSpreadType;
 import net.minecraft.world.level.levelgen.structure.placement.StructurePlacement;
 import net.minecraft.world.level.levelgen.structure.structures.JigsawStructure;
-
-import java.util.Map;
 
 public class RegisterStructures {
 
@@ -71,7 +70,7 @@ public class RegisterStructures {
 
     // ancient city salt is 20083232
     public static final Holder<StructureSet> ABANDONED_CABINS = register(
-            ABANDONED_CABINS_KEY, ABANDONED_CABIN, new RandomSpreadStructurePlacement(11, 3, RandomSpreadType.LINEAR, 20388232)
+            ABANDONED_CABINS_KEY, ABANDONED_CABIN, new RandomSpreadStructurePlacement(13, 5, RandomSpreadType.LINEAR, 20388232)
     );
 
     public static void init() {

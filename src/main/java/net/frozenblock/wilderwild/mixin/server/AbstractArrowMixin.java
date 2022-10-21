@@ -17,20 +17,21 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public class AbstractArrowMixin {
 
     @Inject(method = "onHitBlock", at = @At("HEAD"))
-    public void onHitBlock(BlockHitResult blockHitResult, CallbackInfo info) {
+    public void sendProjectileBreakParticlles(BlockHitResult blockHitResult, CallbackInfo info) {
         if (ClothConfigInteractionHandler.projectileBreakParticles()) {
             AbstractArrow arrow = AbstractArrow.class.cast(this);
             Vec3 speed = arrow.getDeltaMovement();
             if (!arrow.level.isClientSide) {
                 if (arrow.level instanceof ServerLevel server) {
                     BlockState state = server.getBlockState(blockHitResult.getBlockPos());
-                    double d = speed.length();
-                    int decide = ((int) ((d * d) * 1.5));
-                    if (decide > 1) {
-                        server.sendParticles(new BlockParticleOption(ParticleTypes.BLOCK, state), blockHitResult.getLocation().x(), blockHitResult.getLocation().y(), blockHitResult.getLocation().z(), server.random.nextIntBetweenInclusive(1, decide), 0, 0, 0, 0.05D);
+                    double d = speed.length(); //The distance the arrow travels on this given tick.
+                    int particleCalc = ((int) ((d * d) * 1.5));
+                    if (particleCalc > 1) {
+                        server.sendParticles(new BlockParticleOption(ParticleTypes.BLOCK, state), blockHitResult.getLocation().x(), blockHitResult.getLocation().y(), blockHitResult.getLocation().z(), server.random.nextIntBetweenInclusive(1, particleCalc), 0, 0, 0, 0.05D);
                     }
                 }
             }
         }
     }
+
 }
