@@ -29,7 +29,7 @@ public class ScottTheWozMixin {
 
     @Inject(method = "getSplash", at = @At("TAIL"), cancellable = true)
     public void getSplash(CallbackInfoReturnable<String> info) {
-        if (this.user != null && RANDOM.nextInt(this.splashes.size()) == 42) {
+        if (this.user != null && (RANDOM.nextInt(this.splashes.size()) == 42 || this.user.getName().toLowerCase().equals("scott"))) {
             info.setReturnValue("Hey all, " + this.user.getName() + " here.");
         }
     }
