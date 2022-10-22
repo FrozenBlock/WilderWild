@@ -604,7 +604,7 @@ public final class RegisterBlocks {
 				for (Direction offset : AlgaeBlock.shuffleOffsets(world.getRandom())) {
 					BlockPos blockPos = pos.relative(offset);
 					if (world.getBlockState(blockPos).isAir() && state.getBlock().canSurvive(state, world, blockPos)) {
-						world.levelEvent(LevelEvent.PARTICLES_AND_SOUND_PLANT_GROWTH, blockPos, 0);
+						world.levelEvent(LevelEvent.PARTICLES_AND_SOUND_PLANT_GROWTH, pos, 0);
 						world.levelEvent(LevelEvent.PARTICLES_AND_SOUND_PLANT_GROWTH, blockPos, 0);
 						world.setBlockAndUpdate(blockPos, state);
 						return true;
