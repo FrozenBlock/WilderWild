@@ -6,7 +6,7 @@ import net.frozenblock.lib.replacements_and_lists.BlockScheduledTicks;
 import net.frozenblock.lib.replacements_and_lists.DripstoneDripWaterFrom;
 import net.frozenblock.lib.replacements_and_lists.HopperUntouchableList;
 import net.frozenblock.lib.replacements_and_lists.StructurePoolElementIdReplacements;
-import net.frozenblock.lib.sound.SoundPredicate.FrozenSoundPredicate;
+import net.frozenblock.lib.sound.SoundPredicate.SoundPredicate;
 import net.frozenblock.wilderwild.entity.Firefly;
 import net.frozenblock.wilderwild.registry.RegisterBlockEntities;
 import net.minecraft.network.chat.Component;
@@ -25,13 +25,13 @@ public final class FrozenLibIntegration implements FrozenMainEntrypoint {
     @Override
     public void init() {
         WilderWild.log("FrozenLib Main Entrypoint for WilderWild loaded.", WilderWild.UNSTABLE_LOGGING);
-		FrozenSoundPredicate.register(WilderWild.id("instrument"), (FrozenSoundPredicate.LoopPredicate<Player>) entity -> {
+		SoundPredicate.register(WilderWild.id("instrument"), (SoundPredicate.LoopPredicate<Player>) entity -> {
             if (entity instanceof Player player) {
                 return (player.getUseItem().getItem() instanceof InstrumentItem);
             }
             return false;
         });
-        FrozenSoundPredicate.register(WilderWild.id("nectar"), (FrozenSoundPredicate.LoopPredicate<Firefly>) entity -> {
+        SoundPredicate.register(WilderWild.id("nectar"), (SoundPredicate.LoopPredicate<Firefly>) entity -> {
             if (entity.isSilent()) {
                 return false;
             }
@@ -43,7 +43,7 @@ public final class FrozenLibIntegration implements FrozenMainEntrypoint {
             }
             return false;
         });
-		FrozenSoundPredicate.register(WilderWild.id("enderman_anger"), (FrozenSoundPredicate.LoopPredicate<EnderMan>) entity -> {
+		SoundPredicate.register(WilderWild.id("enderman_anger"), (SoundPredicate.LoopPredicate<EnderMan>) entity -> {
             if (entity.isSilent() || !entity.isAlive()) {
                 return false;
             }
