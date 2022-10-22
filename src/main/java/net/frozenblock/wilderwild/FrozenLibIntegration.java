@@ -6,7 +6,7 @@ import net.frozenblock.lib.replacements_and_lists.BlockScheduledTicks;
 import net.frozenblock.lib.replacements_and_lists.DripstoneDripWaterFrom;
 import net.frozenblock.lib.replacements_and_lists.HopperUntouchableList;
 import net.frozenblock.lib.replacements_and_lists.StructurePoolElementIdReplacements;
-import net.frozenblock.lib.sound.FrozenSoundPredicates;
+import net.frozenblock.lib.sound.SoundPredicate.FrozenSoundPredicate;
 import net.frozenblock.wilderwild.entity.Firefly;
 import net.frozenblock.wilderwild.registry.RegisterBlockEntities;
 import net.minecraft.network.chat.Component;
@@ -25,13 +25,13 @@ public final class FrozenLibIntegration implements FrozenMainEntrypoint {
     @Override
     public void init() {
         WilderWild.log("FrozenLib Main Entrypoint for WilderWild loaded.", WilderWild.UNSTABLE_LOGGING);
-        FrozenSoundPredicates.register(WilderWild.id("instrument"), (FrozenSoundPredicates.LoopPredicate<Player>) entity -> {
+		FrozenSoundPredicate.register(WilderWild.id("instrument"), (FrozenSoundPredicate.LoopPredicate<Player>) entity -> {
             if (entity instanceof Player player) {
                 return (player.getUseItem().getItem() instanceof InstrumentItem);
             }
             return false;
         });
-        FrozenSoundPredicates.register(WilderWild.id("nectar"), (FrozenSoundPredicates.LoopPredicate<Firefly>) entity -> {
+        FrozenSoundPredicate.register(WilderWild.id("nectar"), (FrozenSoundPredicate.LoopPredicate<Firefly>) entity -> {
             if (entity.isSilent()) {
                 return false;
             }
@@ -43,7 +43,7 @@ public final class FrozenLibIntegration implements FrozenMainEntrypoint {
             }
             return false;
         });
-        FrozenSoundPredicates.register(WilderWild.id("enderman_anger"), (FrozenSoundPredicates.LoopPredicate<EnderMan>) entity -> {
+		FrozenSoundPredicate.register(WilderWild.id("enderman_anger"), (FrozenSoundPredicate.LoopPredicate<EnderMan>) entity -> {
             if (entity.isSilent() || !entity.isAlive()) {
                 return false;
             }
