@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:random_selector",
+  "config": {
+    "default": "minecraft:new_fallen_oak_checked",
+    "features": [
+      {
+        "chance": 0.4,
+        "feature": "minecraft:fallen_spruce_checked"
+      },
+      {
+        "chance": 0.3,
+        "feature": "minecraft:new_fallen_birch_checked"
+      }
+    ]
+  }
+}

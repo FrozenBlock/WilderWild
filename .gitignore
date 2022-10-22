@@ -32,3 +32,4 @@ bin/
 
 run/
 /remappedSrc/
+/src/main/generated/.cache

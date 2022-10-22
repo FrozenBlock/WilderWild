@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:random_selector",
+  "config": {
+    "default": "minecraft:new_spruce_short_checked",
+    "features": [
+      {
+        "chance": 0.33333334,
+        "feature": "minecraft:new_spruce_short_checked"
+      }
+    ]
+  }
+}

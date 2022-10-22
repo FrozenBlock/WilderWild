@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:random_selector",
+  "config": {
+    "default": "minecraft:new_spruce_on_snow",
+    "features": [
+      {
+        "chance": 0.33333334,
+        "feature": "minecraft:fungus_pine_on_snow"
+      }
+    ]
+  }
+}

@@ -61,8 +61,6 @@ import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.ButtonBlock;
-import net.minecraft.world.level.block.DoorBlock;
 import net.minecraft.world.level.block.FenceBlock;
 import net.minecraft.world.level.block.FenceGateBlock;
 import net.minecraft.world.level.block.FlowerBlock;
@@ -75,7 +73,6 @@ import net.minecraft.world.level.block.SlabBlock;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.StairBlock;
 import net.minecraft.world.level.block.TallFlowerBlock;
-import net.minecraft.world.level.block.TrapDoorBlock;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.WoodType;
@@ -403,8 +400,8 @@ public final class RegisterBlocks {
         Registry.register(Registry.ITEM, WilderWild.id("flowering_lily_pad"), new FloweredLilyPadItem(FLOWERING_LILY_PAD, new FabricItemSettings()));
         Registry.register(Registry.BLOCK, WilderWild.id("algae"), ALGAE);
         Registry.register(Registry.ITEM, WilderWild.id("algae"), new AlgaeItem(ALGAE, new FabricItemSettings()));
-		FrozenCreativeTabs.register(ALGAE, CreativeModeTabs.TAB_NATURE);
-		FrozenCreativeTabs.register(FLOWERING_LILY_PAD, CreativeModeTabs.TAB_NATURE);
+		FrozenCreativeTabs.add(ALGAE, CreativeModeTabs.TAB_NATURE);
+		FrozenCreativeTabs.add(FLOWERING_LILY_PAD, CreativeModeTabs.TAB_NATURE);
     }
 
     // BLOCK FAMILIES
@@ -486,7 +483,7 @@ public final class RegisterBlocks {
 
     private static void registerBlockItem(String name, Block block, CreativeModeTab... tabs) {
         Registry.register(Registry.ITEM, WilderWild.id(name), new BlockItem(block, new FabricItemSettings()));
-		FrozenCreativeTabs.register(block, tabs);
+		FrozenCreativeTabs.add(block, tabs);
     }
 
     private static HollowedLogBlock createHollowedLogBlock(MaterialColor topMapColor, MaterialColor sideMapColor) {

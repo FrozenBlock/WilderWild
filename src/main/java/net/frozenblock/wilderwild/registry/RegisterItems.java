@@ -158,12 +158,12 @@ public final class RegisterItems {
 
 	private static void registerInstrument(Item instrument, String path, TagKey<Instrument> tagKey, CreativeModeTab.TabVisibility tabVisibility, CreativeModeTab... tabs) {
 		actualRegister(instrument, path);
-		FrozenCreativeTabs.registerInstrument(instrument, tagKey, tabVisibility, tabs);
+		FrozenCreativeTabs.addInstrument(instrument, tagKey, tabVisibility, tabs);
 	}
 
 	private static void registerItem(Item item, String path, CreativeModeTab... tabs) {
 		actualRegister(item, path);
-		FrozenCreativeTabs.register(item, tabs);
+		FrozenCreativeTabs.add(item, tabs);
 	}
 
 	private static void actualRegister(Item item, String path) {

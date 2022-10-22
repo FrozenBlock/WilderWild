@@ -22,6 +22,9 @@
 	"client": [
 	  "net.frozenblock.wilderwild.WilderWildClient"
 	],
+    "fabric-datagen": [
+      "net.frozenblock.wilderwild.misc.WilderWildDataGenerator"
+    ],
 	"mm:early_risers": [
 	  "net.frozenblock.wilderwild.EarlyRiser"
 	],
@@ -51,10 +54,9 @@
   "depends": {
 	"frozenblocklib": ">=1.1.1-",
 	"mm": ">=2.3",
-	"nbtcrafting": ">=2.1.4",
 	"fabricloader": ">=0.14.8",
 	"fabric-api": ">=0.60.0",
-	"minecraft": ">=1.19.1",
+	"minecraft": "~1.19.3-alpha",
 	"java": ">=17"
   },
   "breaks": {
@@ -62,6 +64,7 @@
   },
   "suggests": {
 	"cloth-config": "*",
+    "nbtcrafting": ">=2.1.4",
 	"terrablender": "*"
   },
   "custom": {

@@ -57,7 +57,7 @@ public final class SculkBlockMixin {
      * At lower values, the heights of the Osseous Sculk pillars will grow more gradually.
      */
 	@Unique
-    private static final double WILDERWILD$RANDOMNESS = 0.9;
+    private static final float WILDERWILD$RANDOMNESS = 0.9F;
 
     /**
      * The radius that the Osseous Sculk pillars can grow in.
@@ -66,7 +66,7 @@ public final class SculkBlockMixin {
      * but the distance between the pillars will also increase.
      */
 	@Unique
-    private static final double WILDERWILD$OSSEOUS_SCULK_AREA_SIZE = 0.09;
+    private static final float WILDERWILD$OSSEOUS_SCULK_AREA_SIZE = 0.09F;
 
     /**
      * Decides how commonly Osseous Sculk pillars will grow.
@@ -74,7 +74,7 @@ public final class SculkBlockMixin {
      * If set to 1 or higher, the pillars will never grow.
      */
 	@Unique
-    private static final double WILDERWILD$OSSEOUS_SCULK_THRESHOLD = 0.15;
+    private static final float WILDERWILD$OSSEOUS_SCULK_THRESHOLD = 0.15F;
 
     /**
      * Decides how commonly Osseous Sculk pillars will grow during worldgen.
@@ -84,14 +84,7 @@ public final class SculkBlockMixin {
      * <STRONG>CEILINGS IN WORLDGEN ONLY</STRONG>
      */
 	@Unique
-    private static final double WILDERWILD$OSSEOUS_SCULK_WORLD_GEN_THRESHOLD = 0.16;
-
-    @Inject(at = @At("HEAD"), method = "attemptUseCharge")
-    public void setSeed(SculkSpreader.ChargeCursor charge, LevelAccessor level, BlockPos catalystPos, RandomSource random, SculkSpreader sculkChargeHandler, boolean spread, CallbackInfoReturnable<Integer> info) {
-        if (level.getServer() != null && level.getServer().overworld().getSeed() != EasyNoiseSampler.seed) {
-			EasyNoiseSampler.setSeed(level.getServer().overworld().getSeed());
-		}
-    }
+    private static final float WILDERWILD$OSSEOUS_SCULK_WORLD_GEN_THRESHOLD = 0.16F;
 
     @Redirect(method = "attemptUseCharge", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/block/SculkBlock;canPlaceGrowth(Lnet/minecraft/world/level/LevelAccessor;Lnet/minecraft/core/BlockPos;)Z"))
     private boolean newWorldgenCharge(LevelAccessor levelAccessor, BlockPos blockPos, SculkSpreader.ChargeCursor charge, LevelAccessor level, BlockPos pos, RandomSource random, SculkSpreader sculkChargeHandler, boolean spread) {

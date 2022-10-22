@@ -1,0 +1,204 @@
+{
+  "carvers": {
+    "air": [
+      "minecraft:cave",
+      "minecraft:cave_extra_underground",
+      "minecraft:canyon"
+    ]
+  },
+  "downfall": 0.7,
+  "effects": {
+    "fog_color": 12638463,
+    "foliage_color": 5877296,
+    "grass_color": 7979098,
+    "mood_sound": {
+      "block_search_extent": 8,
+      "offset": 2.0,
+      "sound": "minecraft:ambient.cave",
+      "tick_delay": 6000
+    },
+    "music": {
+      "max_delay": 24000,
+      "min_delay": 12000,
+      "replace_current_music": false,
+      "sound": "wilderwild:music.overworld.wild_forests"
+    },
+    "sky_color": 7907327,
+    "water_color": 4552818,
+    "water_fog_color": 4552818
+  },
+  "features": [
+    [],
+    [
+      "minecraft:lake_lava_underground",
+      "minecraft:lake_lava_surface"
+    ],
+    [
+      "minecraft:amethyst_geode"
+    ],
+    [
+      "minecraft:monster_room",
+      "minecraft:monster_room_deep"
+    ],
+    [],
+    [],
+    [
+      "wilderwild:under_water_sand_path",
+      "wilderwild:under_water_gravel_path",
+      "wilderwild:under_water_clay_path",
+      "minecraft:ore_dirt",
+      "minecraft:ore_gravel",
+      "minecraft:ore_granite_upper",
+      "minecraft:ore_granite_lower",
+      "minecraft:ore_diorite_upper",
+      "minecraft:ore_diorite_lower",
+      "minecraft:ore_andesite_upper",
+      "minecraft:ore_andesite_lower",
+      "minecraft:ore_tuff"
+    ],
+    [],
+    [
+      "minecraft:spring_water"
+    ],
+    [
+      "wilderwild:dense_fern_placed",
+      "wilderwild:dense_tall_grass_placed",
+      "wilderwild:seagrass_cypress",
+      "wilderwild:seeding_dandelion_cypress",
+      "wilderwild:milkweed_cypress",
+      "wilderwild:flower_forest_flowers",
+      "wilderwild:cypress_wetlands_trees",
+      "wilderwild:cypress_wetlands_trees_water",
+      "wilderwild:fallen_oak_and_cypress_placed",
+      "minecraft:glow_lichen",
+      "minecraft:patch_sugar_cane_swamp",
+      "minecraft:patch_pumpkin"
+    ],
+    [
+      "minecraft:freeze_top_layer"
+    ]
+  ],
+  "precipitation": "rain",
+  "spawn_costs": {},
+  "spawners": {
+    "ambient": [
+      {
+        "type": "minecraft:bat",
+        "maxCount": 8,
+        "minCount": 8,
+        "weight": 10
+      }
+    ],
+    "axolotls": [],
+    "creature": [
+      {
+        "type": "minecraft:frog",
+        "maxCount": 5,
+        "minCount": 4,
+        "weight": 12
+      },
+      {
+        "type": "minecraft:pig",
+        "maxCount": 4,
+        "minCount": 2,
+        "weight": 3
+      },
+      {
+        "type": "minecraft:chicken",
+        "maxCount": 4,
+        "minCount": 2,
+        "weight": 4
+      },
+      {
+        "type": "minecraft:cow",
+        "maxCount": 4,
+        "minCount": 4,
+        "weight": 6
+      },
+      {
+        "type": "minecraft:rabbit",
+        "maxCount": 4,
+        "minCount": 4,
+        "weight": 10
+      }
+    ],
+    "misc": [],
+    "monster": [
+      {
+        "type": "minecraft:spider",
+        "maxCount": 4,
+        "minCount": 4,
+        "weight": 100
+      },
+      {
+        "type": "minecraft:zombie",
+        "maxCount": 4,
+        "minCount": 4,
+        "weight": 95
+      },
+      {
+        "type": "minecraft:zombie_villager",
+        "maxCount": 1,
+        "minCount": 1,
+        "weight": 5
+      },
+      {
+        "type": "minecraft:skeleton",
+        "maxCount": 4,
+        "minCount": 4,
+        "weight": 100
+      },
+      {
+        "type": "minecraft:creeper",
+        "maxCount": 4,
+        "minCount": 4,
+        "weight": 100
+      },
+      {
+        "type": "minecraft:slime",
+        "maxCount": 4,
+        "minCount": 4,
+        "weight": 100
+      },
+      {
+        "type": "minecraft:enderman",
+        "maxCount": 4,
+        "minCount": 1,
+        "weight": 10
+      },
+      {
+        "type": "minecraft:witch",
+        "maxCount": 1,
+        "minCount": 1,
+        "weight": 5
+      }
+    ],
+    "underground_water_creature": [
+      {
+        "type": "minecraft:glow_squid",
+        "maxCount": 6,
+        "minCount": 4,
+        "weight": 10
+      }
+    ],
+    "water_ambient": [
+      {
+        "type": "minecraft:cod",
+        "maxCount": 6,
+        "minCount": 2,
+        "weight": 5
+      }
+    ],
+    "water_creature": [],
+    "wilderwildfireflies": [
+      {
+        "type": "wilderwild:firefly",
+        "maxCount": 6,
+        "minCount": 2,
+        "weight": 1
+      }
+    ],
+    "wilderwildjellyfish": []
+  },
+  "temperature": 0.6
+}

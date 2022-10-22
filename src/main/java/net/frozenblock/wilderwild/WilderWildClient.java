@@ -1,5 +1,6 @@
 package net.frozenblock.wilderwild;
 
+import java.io.FileNotFoundException;
 import java.util.UUID;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.api.EnvType;
@@ -42,6 +43,7 @@ import net.minecraft.client.renderer.BiomeColors;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.Sheets;
 import net.minecraft.client.renderer.item.ItemProperties;
+import net.minecraft.client.renderer.texture.SpriteLoader;
 import net.minecraft.core.Registry;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
@@ -123,33 +125,34 @@ public final class WilderWildClient implements ClientModInitializer {
         BlockRenderLayerMap.INSTANCE.putBlock(RegisterBlocks.YELLOW_NEMATOCYST, RenderType.translucent());
         //BlockRenderLayerMap.INSTANCE.putBlock(RegisterBlocks.NEMATOCYST, RenderType.cutout());
 
-        ClientSpriteRegistryCallback.event(InventoryMenu.BLOCK_ATLAS).register((atlasTexture, registry) -> {
-            registry.register(WilderWild.id("particle/floating_sculk_bubble_0"));
-            registry.register(WilderWild.id("particle/floating_sculk_bubble_1"));
-            registry.register(WilderWild.id("particle/floating_sculk_bubble_2"));
-            registry.register(WilderWild.id("particle/floating_sculk_bubble_3"));
-            registry.register(WilderWild.id("particle/floating_sculk_bubble_4"));
-            registry.register(WilderWild.id("particle/floating_sculk_bubble_5"));
-            registry.register(WilderWild.id("particle/floating_sculk_bubble_6"));
-            registry.register(WilderWild.id("particle/termite_0"));
-            registry.register(WilderWild.id("particle/termite_1"));
-            registry.register(WilderWild.id("particle/termite_2"));
-            registry.register(WilderWild.id("particle/termite_3"));
-            registry.register(WilderWild.id("particle/termite_4"));
-            registry.register(WilderWild.id("particle/termite_5"));
-            registry.register(WilderWild.id("particle/termite_6"));
-            registry.register(WilderWild.id("particle/termite_7"));
-            registry.register(WilderWild.id("particle/termite_8"));
-            registry.register(WilderWild.id("particle/termite_9"));
+        ClientSpriteRegistryCallback.event(InventoryMenu.BLOCK_ATLAS).register((resourceManager, sprites) -> {
+			SpriteLoader.addSprite(resourceManager, WilderWild.id("particle/floating_sculk_bubble_0"), sprites::put);
+            SpriteLoader.addSprite(resourceManager, WilderWild.id("particle/floating_sculk_bubble_1"), sprites::put);
+            SpriteLoader.addSprite(resourceManager, WilderWild.id("particle/floating_sculk_bubble_2"), sprites::put);
+            SpriteLoader.addSprite(resourceManager, WilderWild.id("particle/floating_sculk_bubble_3"), sprites::put);
+            SpriteLoader.addSprite(resourceManager, WilderWild.id("particle/floating_sculk_bubble_4"), sprites::put);
+            SpriteLoader.addSprite(resourceManager, WilderWild.id("particle/floating_sculk_bubble_5"), sprites::put);
+            SpriteLoader.addSprite(resourceManager, WilderWild.id("particle/floating_sculk_bubble_6"), sprites::put);
+            SpriteLoader.addSprite(resourceManager, WilderWild.id("particle/termite_0"), sprites::put);
+            SpriteLoader.addSprite(resourceManager, WilderWild.id("particle/termite_1"), sprites::put);
+            SpriteLoader.addSprite(resourceManager, WilderWild.id("particle/termite_2"), sprites::put);
+            SpriteLoader.addSprite(resourceManager, WilderWild.id("particle/termite_3"), sprites::put);
+            SpriteLoader.addSprite(resourceManager, WilderWild.id("particle/termite_4"), sprites::put);
+            SpriteLoader.addSprite(resourceManager, WilderWild.id("particle/termite_5"), sprites::put);
+            SpriteLoader.addSprite(resourceManager, WilderWild.id("particle/termite_6"), sprites::put);
+            SpriteLoader.addSprite(resourceManager, WilderWild.id("particle/termite_7"), sprites::put);
+            SpriteLoader.addSprite(resourceManager, WilderWild.id("particle/termite_8"), sprites::put);
+            SpriteLoader.addSprite(resourceManager, WilderWild.id("particle/termite_9"), sprites::put);
         });
 
-        ClientSpriteRegistryCallback.event(Sheets.CHEST_SHEET).register((atlasTexture, registry) -> {
-            registry.register(WilderWild.id("entity/stone_chest/stone"));
-            registry.register(WilderWild.id("entity/stone_chest/stone_left"));
-            registry.register(WilderWild.id("entity/stone_chest/stone_right"));
-            registry.register(WilderWild.id("entity/stone_chest/ancient"));
-            registry.register(WilderWild.id("entity/stone_chest/ancient_left"));
-            registry.register(WilderWild.id("entity/stone_chest/ancient_right"));
+        ClientSpriteRegistryCallback.event(Sheets.CHEST_SHEET).register((resourceManager, sprites) -> {
+			SpriteLoader.listSprites(resourceManager, "entity/stone_chest", sprites::put);
+            //SpriteLoader.addSprite(resourceManager, WilderWild.id("entity/stone_chest/stone"), sprites::put);
+            //SpriteLoader.addSprite(resourceManager, WilderWild.id("entity/stone_chest/stone_left"), sprites::put);
+            //SpriteLoader.addSprite(resourceManager, WilderWild.id("entity/stone_chest/stone_right"), sprites::put);
+            //SpriteLoader.addSprite(resourceManager, WilderWild.id("entity/stone_chest/ancient"), sprites::put);
+            //SpriteLoader.addSprite(resourceManager, WilderWild.id("entity/stone_chest/ancient_left"), sprites::put);
+            //SpriteLoader.addSprite(resourceManager, WilderWild.id("entity/stone_chest/ancient_right"), sprites::put);
         });
 
         ParticleFactoryRegistry.getInstance().register(RegisterParticles.POLLEN, PollenParticle.PollenFactory::new);
