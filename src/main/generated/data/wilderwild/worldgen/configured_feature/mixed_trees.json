@@ -1,47 +1,47 @@
 {
   "type": "minecraft:random_selector",
   "config": {
-    "default": "minecraft:new_oak_checked",
+    "default": "wilderwild:new_oak_checked",
     "features": [
       {
         "chance": 0.39,
-        "feature": "minecraft:new_spruce_checked"
+        "feature": "wilderwild:new_spruce_checked"
       },
       {
         "chance": 0.086,
-        "feature": "minecraft:fungus_pine_checked"
+        "feature": "wilderwild:fungus_pine_checked"
       },
       {
         "chance": 0.02,
-        "feature": "minecraft:dying_fungus_pine_checked"
+        "feature": "wilderwild:dying_fungus_pine_checked"
       },
       {
         "chance": 0.13,
-        "feature": "minecraft:new_spruce_short_checked"
+        "feature": "wilderwild:new_spruce_short_checked"
       },
       {
         "chance": 0.37,
-        "feature": "minecraft:new_fancy_oak_bees_0004"
+        "feature": "wilderwild:new_fancy_oak_bees_0004"
       },
       {
         "chance": 0.025,
-        "feature": "minecraft:dying_fancy_oak_bees_0004"
+        "feature": "wilderwild:dying_fancy_oak_bees_0004"
       },
       {
         "chance": 0.01,
-        "feature": "minecraft:dying_oak_checked"
+        "feature": "wilderwild:dying_oak_checked"
       },
       {
         "chance": 0.01,
-        "feature": "minecraft:dying_short_birch"
+        "feature": "wilderwild:dying_short_birch"
       },
       {
         "chance": 0.13,
-        "feature": "minecraft:short_oak_checked"
+        "feature": "wilderwild:short_oak_checked"
       },
       {
         "chance": 0.325,
-        "feature": "minecraft:short_birch"
+        "feature": "wilderwild:short_birch"
       }
     ]
   }

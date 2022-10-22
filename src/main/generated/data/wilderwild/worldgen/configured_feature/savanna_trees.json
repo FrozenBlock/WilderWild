@@ -1,7 +1,7 @@
 {
   "type": "minecraft:random_selector",
   "config": {
-    "default": "minecraft:new_oak_checked",
+    "default": "wilderwild:new_oak_checked",
     "features": [
       {
         "chance": 0.8,
@@ -9,11 +9,11 @@
       },
       {
         "chance": 0.062,
-        "feature": "minecraft:baobab"
+        "feature": "wilderwild:baobab"
       },
       {
         "chance": 0.035,
-        "feature": "minecraft:baobab_tall"
+        "feature": "wilderwild:baobab_tall"
       }
     ]
   }

@@ -1,7 +1,7 @@
 {
   "type": "minecraft:random_selector",
   "config": {
-    "default": "minecraft:new_oak_checked",
+    "default": "wilderwild:new_oak_checked",
     "features": [
       {
         "chance": 0.8,

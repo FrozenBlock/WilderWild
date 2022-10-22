@@ -119,12 +119,12 @@ public final class WilderWild implements ModInitializer {
         WilderRegistry.initRegistry();
         RegisterBlocks.registerBlocks();
         RegisterItems.registerItems();
+		WilderTreeConfigured.registerTreeConfigured();
+		WilderTreePlaced.registerTreePlaced();
+		WilderMiscConfigured.registerMiscConfigured();
+		WilderMiscPlaced.registerMiscPlaced();
         WilderConfiguredFeatures.registerConfiguredFeatures();
         WilderPlacedFeatures.registerPlacedFeatures();
-        WilderTreeConfigured.registerTreeConfigured();
-        WilderTreePlaced.registerTreePlaced();
-        WilderMiscConfigured.registerMiscConfigured();
-		WilderMiscPlaced.registerMiscPlaced();
         WilderWorldGen.generateWildWorldGen();
         RegisterGameEvents.registerEvents();
         RegisterWorldgen.registerWorldgen();

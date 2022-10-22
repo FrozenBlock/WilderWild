@@ -1,11 +1,11 @@
 {
   "type": "minecraft:random_selector",
   "config": {
-    "default": "minecraft:new_fallen_oak_checked",
+    "default": "wilderwild:new_fallen_oak_checked",
     "features": [
       {
         "chance": 0.55,
-        "feature": "minecraft:fallen_spruce_checked"
+        "feature": "wilderwild:fallen_spruce_checked"
       }
     ]
   }
