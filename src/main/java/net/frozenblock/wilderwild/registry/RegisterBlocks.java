@@ -630,6 +630,43 @@ public final class RegisterBlocks {
             }
             return false;
         });
+		BonemealBehaviors.bonemeals.put(BROWN_SHELF_FUNGUS, (context, world, pos, state, face, horizontal) -> {
+			if (state.getValue(RegisterProperties.FUNGUS_STAGE) < 4) {
+				WilderWild.log("Shelf Fungus Bonemealed @ " + pos + " with FungusStage of " + state.getValue(RegisterProperties.FUNGUS_STAGE), WilderWild.DEV_LOGGING);
+				if (!world.isClientSide) {
+					world.levelEvent(LevelEvent.PARTICLES_AND_SOUND_PLANT_GROWTH, pos, 0);
+					world.setBlockAndUpdate(pos, state.setValue(RegisterProperties.FUNGUS_STAGE, state.getValue(RegisterProperties.FUNGUS_STAGE) + 1));
+					return true;
+				}
+			}
+			return false;
+		});
+		BonemealBehaviors.bonemeals.put(RED_SHELF_FUNGUS, (context, world, pos, state, face, horizontal) -> {
+			if (state.getValue(RegisterProperties.FUNGUS_STAGE) < 4) {
+				WilderWild.log("Shelf Fungus Bonemealed @ " + pos + " with FungusStage of " + state.getValue(RegisterProperties.FUNGUS_STAGE), WilderWild.DEV_LOGGING);
+				if (!world.isClientSide) {
+					world.levelEvent(LevelEvent.PARTICLES_AND_SOUND_PLANT_GROWTH, pos, 0);
+					world.setBlockAndUpdate(pos, state.setValue(RegisterProperties.FUNGUS_STAGE, state.getValue(RegisterProperties.FUNGUS_STAGE) + 1));
+					return true;
+				}
+			}
+			return false;
+		});
+		BonemealBehaviors.bonemeals.put(ALGAE, (context, world, pos, state, face, horizontal) -> {
+			WilderWild.log("Algae Bonemealed @ " + pos, WilderWild.DEV_LOGGING);
+			if (!world.isClientSide) {
+				for (Direction offset : AlgaeBlock.shuffleOffsets(world.getRandom())) {
+					BlockPos blockPos = pos.relative(offset);
+					if (world.getBlockState(blockPos).isAir() && state.getBlock().canSurvive(state, world, blockPos)) {
+						world.levelEvent(LevelEvent.PARTICLES_AND_SOUND_PLANT_GROWTH, pos, 0);
+						world.levelEvent(LevelEvent.PARTICLES_AND_SOUND_PLANT_GROWTH, blockPos, 0);
+						world.setBlockAndUpdate(blockPos, state);
+						return true;
+					}
+				}
+			}
+			return false;
+		});
     }
 
 }
