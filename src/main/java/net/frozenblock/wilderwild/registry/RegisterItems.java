@@ -30,6 +30,9 @@ import net.minecraft.world.item.SpawnEggItem;
 import net.minecraft.world.level.material.Fluids;
 
 public final class RegisterItems {
+	private RegisterItems() {
+		throw new UnsupportedOperationException("RegisterItems contains only static declarations.");
+	}
 
     public static final MilkweedPod MILKWEED_POD = new MilkweedPod(new FabricItemSettings().maxCount(64));
     public static final RecordItem MUSIC_DISC_BENEATH = new RecordItem(15, RegisterSounds.MUSIC_DISC_BENEATH, new FabricItemSettings().maxCount(1).rarity(Rarity.RARE), 169);

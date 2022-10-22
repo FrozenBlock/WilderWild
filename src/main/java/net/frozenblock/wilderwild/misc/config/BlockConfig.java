@@ -52,11 +52,11 @@ public final class BlockConfig implements ConfigData {
                 .build()
         );
 
-        var displayLanternCategory = FrozenConfig.createSubCategory(entryBuilder, category, text("display_lantern"),
+        /*var displayLanternCategory = FrozenConfig.createSubCategory(entryBuilder, category, text("display_lantern"),
                 false,
                 tooltip("display_lantern")
 
-        );
+        );*/
 
 		var stoneChestTimer = entryBuilder.startIntSlider(text("stone_chest_timer"), stoneChest.stoneChestTimer, 50, 200)
 				.setDefaultValue(100)
@@ -70,11 +70,11 @@ public final class BlockConfig implements ConfigData {
 				stoneChestTimer
         );
 
-        var termiteCategory = FrozenConfig.createSubCategory(entryBuilder, category, text("termite"),
+        /*var termiteCategory = FrozenConfig.createSubCategory(entryBuilder, category, text("termite"),
                 false,
                 tooltip("termite")
 
-        );
+        );*/
     }
 
     //public static final StringSetConfigOption HIDDEN_MODS = new StringSetConfigOption("hidden_mods", new HashSet<>());

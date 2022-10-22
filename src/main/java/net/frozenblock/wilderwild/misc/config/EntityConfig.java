@@ -60,7 +60,7 @@ public final class EntityConfig implements ConfigData {
 				keyframeAllayDance
         );
 
-        var fireflyCategory = FrozenConfig.createSubCategory(entryBuilder, category, text("firefly"),
+        /*var fireflyCategory = FrozenConfig.createSubCategory(entryBuilder, category, text("firefly"),
                 false,
                 tooltip("firefly")
 
@@ -70,7 +70,7 @@ public final class EntityConfig implements ConfigData {
                 false,
                 tooltip("jellyfish")
 
-        );
+        );*/
 
         var dying = entryBuilder.startBooleanToggle(text("warden_dying_animation"), warden.wardenDyingAnimation)
                 .setDefaultValue(true)

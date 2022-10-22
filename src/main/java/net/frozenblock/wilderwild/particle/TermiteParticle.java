@@ -14,7 +14,7 @@ import net.minecraft.core.particles.SimpleParticleType;
 public class TermiteParticle extends TextureSheetParticle {
     private final SpriteSet spriteProvider;
 
-    TermiteParticle(ClientLevel level, double x, double y, double z, double velocityX, double velocityY, double velocityZ, SpriteSet spriteProvider) {
+    public TermiteParticle(ClientLevel level, double x, double y, double z, double velocityX, double velocityY, double velocityZ, SpriteSet spriteProvider) {
         super(level, x, y, z, velocityX, velocityY, velocityZ);
         this.friction = 0.96F;
         this.spriteProvider = spriteProvider;

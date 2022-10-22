@@ -5,6 +5,9 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.level.block.SoundType;
 
 public final class RegisterBlockSoundGroups {
+	private RegisterBlockSoundGroups() {
+		throw new UnsupportedOperationException("RegisterBlockEntities contains only static declarations.");
+	}
 
     public static final SoundType BAOBAB_NUT = new SoundType(1.0F, 1.0F,
             BLOCK_BAOBAB_NUT_BREAK,

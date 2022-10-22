@@ -83,6 +83,10 @@ import net.minecraft.world.level.material.Material;
 import net.minecraft.world.level.material.MaterialColor;
 
 public final class RegisterBlocks {
+	private RegisterBlocks() {
+		throw new UnsupportedOperationException("RegisterBlockEntities contains only static declarations.");
+	}
+
     private static final MaterialColor BAOBAB_PLANKS_COLOR = MaterialColor.COLOR_ORANGE;
     private static final MaterialColor BAOBAB_BARK_COLOR = MaterialColor.COLOR_BROWN;
     private static final MaterialColor CYPRESS_PLANKS_COLOR = MaterialColor.COLOR_LIGHT_GRAY;

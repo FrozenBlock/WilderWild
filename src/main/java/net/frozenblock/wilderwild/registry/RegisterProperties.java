@@ -6,6 +6,9 @@ import net.minecraft.world.level.block.state.properties.EnumProperty;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
 
 public final class RegisterProperties {
+	private RegisterProperties() {
+		throw new UnsupportedOperationException("RegisterProperties contains only static declarations.");
+	}
 
     //Osseous Sculk
     public static final IntegerProperty PILLAR_HEIGHT_LEFT = IntegerProperty.create("pillar_height_left", 0, 15);

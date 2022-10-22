@@ -1,6 +1,5 @@
 package net.frozenblock.wilderwild.registry;
 
-import net.frozenblock.lib.worldgen.surface.FrozenSurfaceRules;
 import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.misc.config.ClothConfigInteractionHandler;
 import net.frozenblock.wilderwild.world.feature.WilderMiscPlaced;
@@ -26,18 +25,16 @@ import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.biome.BiomeGenerationSettings;
 import net.minecraft.world.level.biome.BiomeSpecialEffects;
 import net.minecraft.world.level.biome.MobSpawnSettings;
-import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.levelgen.GenerationStep;
-import net.minecraft.world.level.levelgen.Noises;
-import net.minecraft.world.level.levelgen.SurfaceRules;
 import org.jetbrains.annotations.NotNull;
 import org.quiltmc.qsl.frozenblock.worldgen.surface_rule.api.SurfaceRuleContext;
 import org.quiltmc.qsl.frozenblock.worldgen.surface_rule.api.SurfaceRuleEvents;
 
-public final class RegisterWorldgen implements SurfaceRuleEvents.OverworldModifierCallback, SurfaceRuleEvents.NetherModifierCallback {
+public final class RegisterWorldgen implements SurfaceRuleEvents.OverworldModifierCallback {
+
+	public static final ResourceKey<Biome> CYPRESS_WETLANDS = register("cypress_wetlands");
+	public static final ResourceKey<Biome> JELLYFISH_CAVES = register("jellyfish_caves");
     public static final ResourceKey<Biome> MIXED_FOREST = register("mixed_forest");
-    public static final ResourceKey<Biome> CYPRESS_WETLANDS = register("cypress_wetlands");
-    public static final ResourceKey<Biome> JELLYFISH_CAVES = register("jellyfish_caves");
 
     public static void registerWorldgen() {
         WilderWild.logWild("Registering Biomes for", WilderWild.UNSTABLE_LOGGING);
@@ -54,49 +51,18 @@ public final class RegisterWorldgen implements SurfaceRuleEvents.OverworldModifi
         if (ClothConfigInteractionHandler.betaBeaches()) {
             context.materialRules().add(0, SharedWorldgen.gravelBetaBeaches());
 			context.materialRules().add(0, SharedWorldgen.sandBetaBeaches());
-			context.materialRules().add(0, SharedWorldgen.otherSandBetaBeaches());
+			context.materialRules().add(0, SharedWorldgen.multilayerSandBetaBeaches());
         }
-
-        // FROM QUILT'S TEST MOD
-        var blueNoise1 = SurfaceRules.noiseCondition(Noises.CALCITE, 0.05, 0.1);
-        var pinkNoise1 = SurfaceRules.noiseCondition(Noises.CALCITE, 0.1, 0.15);
-        var whiteNoise = SurfaceRules.noiseCondition(Noises.CALCITE, 0.15, 0.20);
-        var pinkNoise2 = SurfaceRules.noiseCondition(Noises.CALCITE, 0.20, 0.25);
-        var blueNoise2 = SurfaceRules.noiseCondition(Noises.CALCITE, 0.25, 0.30);
-
-        var LIGHT_BLUE_CONCRETE = FrozenSurfaceRules.makeStateRule(Blocks.LIGHT_BLUE_CONCRETE);
-        var PINK_CONCRETE = FrozenSurfaceRules.makeStateRule(Blocks.PINK_CONCRETE);
-        var WHITE_CONCRETE = FrozenSurfaceRules.makeStateRule(Blocks.WHITE_CONCRETE);
-/*
-        context.addMaterialRule(
-                (
-                SurfaceRules.ifTrue(
-                        SurfaceRules.abovePreliminarySurface(),
-                        SurfaceRules.ifTrue(
-                                SurfaceRules.ON_FLOOR,
-                                SurfaceRules.sequence(
-                                        SurfaceRules.ifTrue(blueNoise1, LIGHT_BLUE_CONCRETE),
-                                        SurfaceRules.ifTrue(pinkNoise1, PINK_CONCRETE),
-                                        SurfaceRules.ifTrue(whiteNoise, WHITE_CONCRETE),
-                                        SurfaceRules.ifTrue(pinkNoise2, PINK_CONCRETE),
-                                        SurfaceRules.ifTrue(blueNoise2, LIGHT_BLUE_CONCRETE)
-                                )
-                        )
-                )
-        )
-        );
-
- */
         WilderWild.log("Wilder Wild's Overworld Surface Rules have been added!", WilderWild.UNSTABLE_LOGGING);
     }
 
     // SPONGEBOB
-    @Override
+    /*@Override
     public void modifyNetherRules(SurfaceRuleContext.@NotNull Nether context) {
         /*context.materialRules().clear();
-        context.materialRules().add(0, FrozenSurfaceRules.makeStateRule(Blocks.SPONGE));*/
+        context.materialRules().add(0, FrozenSurfaceRules.makeStateRule(Blocks.SPONGE));
         WilderWild.log("SPONGEBOB", WilderWild.UNSTABLE_LOGGING);
-    }
+    }*/
 
     private static ResourceKey<Biome> register(String name) {
         return ResourceKey.create(Registry.BIOME_REGISTRY, WilderWild.id(name));
