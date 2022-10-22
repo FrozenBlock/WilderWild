@@ -35,8 +35,9 @@ import net.minecraft.world.level.levelgen.placement.SurfaceWaterDepthFilter;
 import org.jetbrains.annotations.NotNull;
 
 public final class WilderPlacedFeatures {
-
-    // the sub classes are there so they dont register unless config tells them to register
+	private WilderPlacedFeatures() {
+		throw new UnsupportedOperationException("WilderPlacedFeatures contains only static declarations.");
+	}
 
     //FALLEN TREES
     public static final Holder<PlacedFeature> FALLEN_TREES_MIXED_PLACED = register("fallen_trees_mixed_placed",

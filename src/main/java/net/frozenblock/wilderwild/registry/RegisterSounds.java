@@ -6,6 +6,9 @@ import net.minecraft.core.Registry;
 import net.minecraft.sounds.SoundEvent;
 
 public final class RegisterSounds {
+	private RegisterSounds() {
+		throw new UnsupportedOperationException("RegisterSounds contains only static declarations.");
+	}
 
     //AMBIENT
 

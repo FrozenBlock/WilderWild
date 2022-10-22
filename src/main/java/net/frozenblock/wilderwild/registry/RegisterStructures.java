@@ -25,7 +25,10 @@ import net.minecraft.world.level.levelgen.structure.placement.RandomSpreadType;
 import net.minecraft.world.level.levelgen.structure.placement.StructurePlacement;
 import net.minecraft.world.level.levelgen.structure.structures.JigsawStructure;
 
-public class RegisterStructures {
+public final class RegisterStructures {
+	private RegisterStructures() {
+		throw new UnsupportedOperationException("RegisterStructures contains only static declarations.");
+	}
 
     public static final int MAX_JIGSAW_SIZE = 24;
 

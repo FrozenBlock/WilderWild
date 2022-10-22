@@ -50,6 +50,10 @@ import org.jetbrains.annotations.NotNull;
 
 
 public final class WilderConfiguredFeatures {
+	private WilderConfiguredFeatures() {
+		throw new UnsupportedOperationException("WilderConfiguredFeatures contains only static declarations.");
+	}
+
     //FALLEN TREES
     public static final Holder<ConfiguredFeature<RandomFeatureConfiguration, ?>> FALLEN_TREES_MIXED =
             register("fallen_trees_mixed", Feature.RANDOM_SELECTOR,
