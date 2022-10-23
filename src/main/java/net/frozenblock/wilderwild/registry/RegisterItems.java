@@ -151,7 +151,7 @@ public final class RegisterItems {
 
 		registerItem(POLLEN, "pollen", CreativeModeTabs.TAB_NATURE);
 
-		registerItem(ANCIENT_HORN_FRAGMENT, "ancient_horn_fragment", CreativeModeTabs.TAB_CRAFTING);
+		registerItemAfter(Items.ECHO_SHARD, ANCIENT_HORN_FRAGMENT, "ancient_horn_fragment", CreativeModeTabs.TAB_CRAFTING);
 
         TradeOfferHelper.registerWanderingTraderOffers(2, factories -> {
             factories.add(new VillagerTrades.ItemsForEmeralds(RegisterItems.BAOBAB_NUT, 5, 1, 8, 1));
