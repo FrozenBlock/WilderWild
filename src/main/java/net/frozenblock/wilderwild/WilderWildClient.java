@@ -147,12 +147,12 @@ public final class WilderWildClient implements ClientModInitializer {
 
         ClientSpriteRegistryCallback.event(Sheets.CHEST_SHEET).register((resourceManager, sprites) -> {
 			SpriteLoader.listSprites(resourceManager, "entity/stone_chest", sprites::put);
-            //SpriteLoader.addSprite(resourceManager, WilderWild.id("entity/stone_chest/stone"), sprites::put);
-            //SpriteLoader.addSprite(resourceManager, WilderWild.id("entity/stone_chest/stone_left"), sprites::put);
-            //SpriteLoader.addSprite(resourceManager, WilderWild.id("entity/stone_chest/stone_right"), sprites::put);
-            //SpriteLoader.addSprite(resourceManager, WilderWild.id("entity/stone_chest/ancient"), sprites::put);
-            //SpriteLoader.addSprite(resourceManager, WilderWild.id("entity/stone_chest/ancient_left"), sprites::put);
-            //SpriteLoader.addSprite(resourceManager, WilderWild.id("entity/stone_chest/ancient_right"), sprites::put);
+            SpriteLoader.addSprite(resourceManager, WilderWild.id("entity/stone_chest/stone"), sprites::put);
+            SpriteLoader.addSprite(resourceManager, WilderWild.id("entity/stone_chest/stone_left"), sprites::put);
+            SpriteLoader.addSprite(resourceManager, WilderWild.id("entity/stone_chest/stone_right"), sprites::put);
+            SpriteLoader.addSprite(resourceManager, WilderWild.id("entity/stone_chest/ancient"), sprites::put);
+            SpriteLoader.addSprite(resourceManager, WilderWild.id("entity/stone_chest/ancient_left"), sprites::put);
+            SpriteLoader.addSprite(resourceManager, WilderWild.id("entity/stone_chest/ancient_right"), sprites::put);
         });
 
         ParticleFactoryRegistry.getInstance().register(RegisterParticles.POLLEN, PollenParticle.PollenFactory::new);
