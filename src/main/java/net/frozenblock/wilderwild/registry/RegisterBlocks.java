@@ -211,60 +211,60 @@ public final class RegisterBlocks {
 
 		String wood = "baobab";
 		//BAOBAB IN BUILDING BLOCKS
-		registerBlockBefore(Items.BAMBOO_PLANKS,wood + "_log", BAOBAB_LOG, CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS, CreativeModeTabs.TAB_BUILDING_BLOCKS);
-		registerBlockBefore(Items.BAMBOO_PLANKS,"hollowed_" + wood + "_log", HOLLOWED_BAOBAB_LOG, CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS, CreativeModeTabs.TAB_BUILDING_BLOCKS);
-		registerBlockBefore(Items.BAMBOO_PLANKS,wood + "_wood", BAOBAB_WOOD, CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS, CreativeModeTabs.TAB_BUILDING_BLOCKS);
-		registerBlockBefore(Items.BAMBOO_PLANKS,"stripped_" + wood + "_log", STRIPPED_BAOBAB_LOG, CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS, CreativeModeTabs.TAB_BUILDING_BLOCKS);
-		registerBlockBefore(Items.BAMBOO_PLANKS,"stripped_" + wood + "_wood", STRIPPED_BAOBAB_WOOD, CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS, CreativeModeTabs.TAB_BUILDING_BLOCKS);
-		registerBlockBefore(Items.BAMBOO_PLANKS, wood + "_planks", BAOBAB_PLANKS, CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS, CreativeModeTabs.TAB_BUILDING_BLOCKS);
-		registerBlockBefore(Items.BAMBOO_PLANKS,wood + "_stairs", BAOBAB_STAIRS, CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS, CreativeModeTabs.TAB_BUILDING_BLOCKS);
-		registerBlockBefore(Items.BAMBOO_PLANKS,wood + "_slab", BAOBAB_SLAB, CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS, CreativeModeTabs.TAB_BUILDING_BLOCKS);
-		registerBlockBefore(Items.BAMBOO_PLANKS,wood + "_fence", BAOBAB_FENCE, CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS, CreativeModeTabs.TAB_BUILDING_BLOCKS);
-		registerBlockBefore(Items.BAMBOO_PLANKS,wood + "_fence_gate", BAOBAB_FENCE_GATE, CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS, CreativeModeTabs.TAB_BUILDING_BLOCKS);
-		registerBlockBefore(Items.BAMBOO_PLANKS,wood + "_door", BAOBAB_DOOR, CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS, CreativeModeTabs.TAB_BUILDING_BLOCKS);
-		registerBlockBefore(Items.BAMBOO_PLANKS,wood + "_trapdoor", BAOBAB_TRAPDOOR, CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS, CreativeModeTabs.TAB_BUILDING_BLOCKS);
+		registerBlockBefore(Items.BAMBOO_PLANKS,wood + "_log", BAOBAB_LOG, CreativeModeTabs.TAB_BUILDING_BLOCKS);
+		registerBlockBefore(Items.BAMBOO_PLANKS,"hollowed_" + wood + "_log", HOLLOWED_BAOBAB_LOG, CreativeModeTabs.TAB_BUILDING_BLOCKS);
+		registerBlockBefore(Items.BAMBOO_PLANKS,wood + "_wood", BAOBAB_WOOD, CreativeModeTabs.TAB_BUILDING_BLOCKS);
+		registerBlockBefore(Items.BAMBOO_PLANKS,"stripped_" + wood + "_log", STRIPPED_BAOBAB_LOG, CreativeModeTabs.TAB_BUILDING_BLOCKS);
+		registerBlockBefore(Items.BAMBOO_PLANKS,"stripped_" + wood + "_wood", STRIPPED_BAOBAB_WOOD, CreativeModeTabs.TAB_BUILDING_BLOCKS);
+		registerBlockBefore(Items.BAMBOO_PLANKS, wood + "_planks", BAOBAB_PLANKS, CreativeModeTabs.TAB_BUILDING_BLOCKS);
+		registerBlockBefore(Items.BAMBOO_PLANKS,wood + "_stairs", BAOBAB_STAIRS, CreativeModeTabs.TAB_BUILDING_BLOCKS);
+		registerBlockBefore(Items.BAMBOO_PLANKS,wood + "_slab", BAOBAB_SLAB, CreativeModeTabs.TAB_BUILDING_BLOCKS);
+		registerBlockBefore(Items.BAMBOO_PLANKS,wood + "_fence", BAOBAB_FENCE, CreativeModeTabs.TAB_BUILDING_BLOCKS);
+		registerBlockBefore(Items.BAMBOO_PLANKS,wood + "_fence_gate", BAOBAB_FENCE_GATE, CreativeModeTabs.TAB_BUILDING_BLOCKS);
+		registerBlockBefore(Items.BAMBOO_PLANKS,wood + "_door", BAOBAB_DOOR, CreativeModeTabs.TAB_BUILDING_BLOCKS);
+		registerBlockBefore(Items.BAMBOO_PLANKS,wood + "_trapdoor", BAOBAB_TRAPDOOR, CreativeModeTabs.TAB_BUILDING_BLOCKS);
 		//BAOBAB IN NATURE
-		registerBlockBefore(Items.CRIMSON_STEM,wood + "_log", BAOBAB_LOG, CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS, CreativeModeTabs.TAB_NATURE);
-		registerBlockBefore(Items.CRIMSON_STEM,"hollowed_" + wood + "_log", HOLLOWED_BAOBAB_LOG, CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS, CreativeModeTabs.TAB_NATURE);
-		registerBlockBefore(Items.AZALEA_LEAVES,wood + "_leaves", BAOBAB_LEAVES, CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS, CreativeModeTabs.TAB_NATURE);
+		registerBlockBefore(Items.CRIMSON_STEM,wood + "_log", BAOBAB_LOG, CreativeModeTabs.TAB_NATURE);
+		registerBlockBefore(Items.CRIMSON_STEM,"hollowed_" + wood + "_log", HOLLOWED_BAOBAB_LOG, CreativeModeTabs.TAB_NATURE);
+		registerBlockBefore(Items.AZALEA_LEAVES,wood + "_leaves", BAOBAB_LEAVES, CreativeModeTabs.TAB_NATURE);
 		//BAOBAB IN REDSTONE
-		registerBlockBefore(Items.BAMBOO_BUTTON,wood + "_button", BAOBAB_BUTTON, CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS, CreativeModeTabs.TAB_REDSTONE);
-		registerBlockBefore(Items.BAMBOO_PRESSURE_PLATE,wood + "_pressure_plate", BAOBAB_PRESSURE_PLATE, CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS, CreativeModeTabs.TAB_REDSTONE);
-		registerBlockBefore(Items.BAMBOO_DOOR,wood + "_door", BAOBAB_DOOR, CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS, CreativeModeTabs.TAB_REDSTONE);
-		registerBlockBefore(Items.BAMBOO_TRAPDOOR,wood + "_trapdoor", BAOBAB_TRAPDOOR, CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS, CreativeModeTabs.TAB_REDSTONE);
-		registerBlockBefore(Items.BAMBOO_FENCE_GATE,wood + "_fence_gate", BAOBAB_FENCE_GATE, CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS, CreativeModeTabs.TAB_REDSTONE);
+		registerBlockBefore(Items.BAMBOO_BUTTON,wood + "_button", BAOBAB_BUTTON, CreativeModeTabs.TAB_REDSTONE);
+		registerBlockBefore(Items.BAMBOO_PRESSURE_PLATE,wood + "_pressure_plate", BAOBAB_PRESSURE_PLATE, CreativeModeTabs.TAB_REDSTONE);
+		registerBlockBefore(Items.BAMBOO_DOOR,wood + "_door", BAOBAB_DOOR, CreativeModeTabs.TAB_REDSTONE);
+		registerBlockBefore(Items.BAMBOO_TRAPDOOR,wood + "_trapdoor", BAOBAB_TRAPDOOR, CreativeModeTabs.TAB_REDSTONE);
+		registerBlockBefore(Items.BAMBOO_FENCE_GATE,wood + "_fence_gate", BAOBAB_FENCE_GATE, CreativeModeTabs.TAB_REDSTONE);
 
 		wood = "cypress";
 		//CYPRESS IN BUILDING BLOCKS
-		registerBlockBefore(Items.BAMBOO_PLANKS,wood + "_log", CYPRESS_LOG, CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS, CreativeModeTabs.TAB_BUILDING_BLOCKS);
-		registerBlockBefore(Items.BAMBOO_PLANKS,"hollowed_" + wood + "_log", HOLLOWED_CYPRESS_LOG, CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS, CreativeModeTabs.TAB_BUILDING_BLOCKS);
-		registerBlockBefore(Items.BAMBOO_PLANKS,wood + "_wood", CYPRESS_WOOD, CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS, CreativeModeTabs.TAB_BUILDING_BLOCKS);
-		registerBlockBefore(Items.BAMBOO_PLANKS,"stripped_" + wood + "_log", STRIPPED_CYPRESS_LOG, CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS, CreativeModeTabs.TAB_BUILDING_BLOCKS);
-		registerBlockBefore(Items.BAMBOO_PLANKS,"stripped_" + wood + "_wood", STRIPPED_CYPRESS_WOOD, CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS, CreativeModeTabs.TAB_BUILDING_BLOCKS);
-		registerBlockBefore(Items.BAMBOO_PLANKS, wood + "_planks", CYPRESS_PLANKS, CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS, CreativeModeTabs.TAB_BUILDING_BLOCKS);
-		registerBlockBefore(Items.BAMBOO_PLANKS,wood + "_stairs", CYPRESS_STAIRS, CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS, CreativeModeTabs.TAB_BUILDING_BLOCKS);
-		registerBlockBefore(Items.BAMBOO_PLANKS,wood + "_slab", CYPRESS_SLAB, CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS, CreativeModeTabs.TAB_BUILDING_BLOCKS);
-		registerBlockBefore(Items.BAMBOO_PLANKS,wood + "_fence", CYPRESS_FENCE, CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS, CreativeModeTabs.TAB_BUILDING_BLOCKS);
-		registerBlockBefore(Items.BAMBOO_PLANKS,wood + "_fence_gate", CYPRESS_FENCE_GATE, CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS, CreativeModeTabs.TAB_BUILDING_BLOCKS);
-		registerBlockBefore(Items.BAMBOO_PLANKS,wood + "_door", CYPRESS_DOOR, CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS, CreativeModeTabs.TAB_BUILDING_BLOCKS);
-		registerBlockBefore(Items.BAMBOO_PLANKS,wood + "_trapdoor", CYPRESS_TRAPDOOR, CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS, CreativeModeTabs.TAB_BUILDING_BLOCKS);
+		registerBlockBefore(Items.BAMBOO_PLANKS,wood + "_log", CYPRESS_LOG, CreativeModeTabs.TAB_BUILDING_BLOCKS);
+		registerBlockBefore(Items.BAMBOO_PLANKS,"hollowed_" + wood + "_log", HOLLOWED_CYPRESS_LOG, CreativeModeTabs.TAB_BUILDING_BLOCKS);
+		registerBlockBefore(Items.BAMBOO_PLANKS,wood + "_wood", CYPRESS_WOOD, CreativeModeTabs.TAB_BUILDING_BLOCKS);
+		registerBlockBefore(Items.BAMBOO_PLANKS,"stripped_" + wood + "_log", STRIPPED_CYPRESS_LOG, CreativeModeTabs.TAB_BUILDING_BLOCKS);
+		registerBlockBefore(Items.BAMBOO_PLANKS,"stripped_" + wood + "_wood", STRIPPED_CYPRESS_WOOD, CreativeModeTabs.TAB_BUILDING_BLOCKS);
+		registerBlockBefore(Items.BAMBOO_PLANKS, wood + "_planks", CYPRESS_PLANKS, CreativeModeTabs.TAB_BUILDING_BLOCKS);
+		registerBlockBefore(Items.BAMBOO_PLANKS,wood + "_stairs", CYPRESS_STAIRS, CreativeModeTabs.TAB_BUILDING_BLOCKS);
+		registerBlockBefore(Items.BAMBOO_PLANKS,wood + "_slab", CYPRESS_SLAB, CreativeModeTabs.TAB_BUILDING_BLOCKS);
+		registerBlockBefore(Items.BAMBOO_PLANKS,wood + "_fence", CYPRESS_FENCE, CreativeModeTabs.TAB_BUILDING_BLOCKS);
+		registerBlockBefore(Items.BAMBOO_PLANKS,wood + "_fence_gate", CYPRESS_FENCE_GATE, CreativeModeTabs.TAB_BUILDING_BLOCKS);
+		registerBlockBefore(Items.BAMBOO_PLANKS,wood + "_door", CYPRESS_DOOR, CreativeModeTabs.TAB_BUILDING_BLOCKS);
+		registerBlockBefore(Items.BAMBOO_PLANKS,wood + "_trapdoor", CYPRESS_TRAPDOOR, CreativeModeTabs.TAB_BUILDING_BLOCKS);
 		//CYPRESS IN NATURE
-		registerBlockBefore(Items.CRIMSON_STEM,wood + "_log", CYPRESS_LOG, CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS, CreativeModeTabs.TAB_NATURE);
-		registerBlockBefore(Items.CRIMSON_STEM,"hollowed_" + wood + "_log", HOLLOWED_CYPRESS_LOG, CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS, CreativeModeTabs.TAB_NATURE);
-		registerBlockBefore(Items.AZALEA_LEAVES,wood + "_leaves", CYPRESS_LEAVES, CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS, CreativeModeTabs.TAB_NATURE);
+		registerBlockBefore(Items.CRIMSON_STEM,wood + "_log", CYPRESS_LOG, CreativeModeTabs.TAB_NATURE);
+		registerBlockBefore(Items.CRIMSON_STEM,"hollowed_" + wood + "_log", HOLLOWED_CYPRESS_LOG, CreativeModeTabs.TAB_NATURE);
+		registerBlockBefore(Items.AZALEA_LEAVES,wood + "_leaves", CYPRESS_LEAVES, CreativeModeTabs.TAB_NATURE);
 		//CYPRESS IN REDSTONE
-		registerBlockBefore(Items.BAMBOO_BUTTON,wood + "_button", CYPRESS_BUTTON, CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS, CreativeModeTabs.TAB_REDSTONE);
-		registerBlockBefore(Items.BAMBOO_PRESSURE_PLATE,wood + "_pressure_plate", CYPRESS_PRESSURE_PLATE, CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS, CreativeModeTabs.TAB_REDSTONE);
-		registerBlockBefore(Items.BAMBOO_DOOR,wood + "_door", CYPRESS_DOOR, CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS, CreativeModeTabs.TAB_REDSTONE);
-		registerBlockBefore(Items.BAMBOO_TRAPDOOR,wood + "_trapdoor", CYPRESS_TRAPDOOR, CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS, CreativeModeTabs.TAB_REDSTONE);
-		registerBlockBefore(Items.BAMBOO_FENCE_GATE,wood + "_fence_gate", CYPRESS_FENCE_GATE, CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS, CreativeModeTabs.TAB_REDSTONE);
+		registerBlockBefore(Items.BAMBOO_BUTTON,wood + "_button", CYPRESS_BUTTON, CreativeModeTabs.TAB_REDSTONE);
+		registerBlockBefore(Items.BAMBOO_PRESSURE_PLATE,wood + "_pressure_plate", CYPRESS_PRESSURE_PLATE, CreativeModeTabs.TAB_REDSTONE);
+		registerBlockBefore(Items.BAMBOO_DOOR,wood + "_door", CYPRESS_DOOR, CreativeModeTabs.TAB_REDSTONE);
+		registerBlockBefore(Items.BAMBOO_TRAPDOOR,wood + "_trapdoor", CYPRESS_TRAPDOOR, CreativeModeTabs.TAB_REDSTONE);
+		registerBlockBefore(Items.BAMBOO_FENCE_GATE,wood + "_fence_gate", CYPRESS_FENCE_GATE, CreativeModeTabs.TAB_REDSTONE);
 
         registerBlockWithoutBlockItem(baobab + "_nut", BAOBAB_NUT);
         registerBlockWithoutBlockItem("potted_" + baobab + "_nut", POTTED_BAOBAB_NUT);
 
 		registerBlockAfter(Items.MANGROVE_PROPAGULE,cypress + "_sapling", CYPRESS_SAPLING, CreativeModeTabs.TAB_NATURE);
         registerBlockWithoutBlockItem("potted_" + cypress + "_sapling", POTTED_CYPRESS_SAPLING);
-		
+
         registerBlockWithoutBlockItem(baobab + "_sign", BAOBAB_SIGN_BLOCK);
         registerBlockWithoutBlockItem(baobab + "_wall_sign", BAOBAB_WALL_SIGN);
         registerBlockWithoutBlockItem(cypress + "_sign", CYPRESS_SIGN_BLOCK);
@@ -304,11 +304,9 @@ public final class RegisterBlocks {
 
     public static void registerDeepDark() {
 		registerBlockAfter(Items.DEEPSLATE_TILE_WALL,"sculk_wall", SCULK_WALL, CreativeModeTabs.TAB_BUILDING_BLOCKS);
-		registerBlockAfter(Items.DEEPSLATE_TILE_WALL,"sculk_stairs", SCULK_STAIRS, CreativeModeTabs.TAB_BUILDING_BLOCKS);
 		registerBlockAfter(Items.DEEPSLATE_TILE_WALL,"sculk_slab", SCULK_SLAB, CreativeModeTabs.TAB_BUILDING_BLOCKS);
+		registerBlockAfter(Items.DEEPSLATE_TILE_WALL,"sculk_stairs", SCULK_STAIRS, CreativeModeTabs.TAB_BUILDING_BLOCKS);
 		registerBlockAfter(Items.DEEPSLATE_TILE_WALL,"osseous_sculk", OSSEOUS_SCULK, CreativeModeTabs.TAB_BUILDING_BLOCKS);
-
-
 		registerBlockAfter(Items.SCULK,"osseous_sculk", OSSEOUS_SCULK, CreativeModeTabs.TAB_NATURE);
         registerBlockAfter(Items.SCULK_SENSOR,"hanging_tendril", HANGING_TENDRIL, CreativeModeTabs.TAB_NATURE);
         registerBlockAfter(Items.TINTED_GLASS, "echo_glass", ECHO_GLASS, CreativeModeTabs.TAB_BUILDING_BLOCKS);
@@ -451,24 +449,25 @@ public final class RegisterBlocks {
     public static final Block DISPLAY_LANTERN = new DisplayLanternBlock(FabricBlockSettings.of(Material.METAL).strength(3.5F).sounds(SoundType.LANTERN).luminance((state) -> state.getValue(RegisterProperties.DISPLAY_LIGHT)));
 
     public static void registerMisc() {
-        registerBlock("termite_mound", TERMITE_MOUND, CreativeModeTabs.TAB_NATURE, CreativeModeTabs.TAB_FUNCTIONAL);
+        registerBlockBefore(Items.BEE_NEST, "termite_mound", TERMITE_MOUND, CreativeModeTabs.TAB_NATURE);
         registerBlock("null_block", NULL_BLOCK, CreativeModeTabs.TAB_BUILDING_BLOCKS);
-        registerBlock("stone_chest", STONE_CHEST, CreativeModeTabs.TAB_FUNCTIONAL);
-        registerBlock("display_lantern", DISPLAY_LANTERN, CreativeModeTabs.TAB_FUNCTIONAL);
-        registerBlock("blue_pearlescent_mesoglea", MESOGLEA, CreativeModeTabs.TAB_NATURE);
-        registerBlock("purple_pearlescent_mesoglea", PURPLE_MESOGLEA, CreativeModeTabs.TAB_NATURE);
-        registerBlock("blue_mesoglea", BLUE_MESOGLEA, CreativeModeTabs.TAB_NATURE);
-        registerBlock("yellow_mesoglea", YELLOW_MESOGLEA, CreativeModeTabs.TAB_NATURE);
-        registerBlock("lime_mesoglea", LIME_MESOGLEA, CreativeModeTabs.TAB_NATURE);
-        registerBlock("red_mesoglea", RED_MESOGLEA, CreativeModeTabs.TAB_NATURE);
-        registerBlock("pink_mesoglea", PINK_MESOGLEA, CreativeModeTabs.TAB_NATURE);
-        registerBlock("blue_pearlescent_nematocyst", BLUE_PEARLESCENT_NEMATOCYST, CreativeModeTabs.TAB_NATURE);
-        registerBlock("purple_pearlescent_nematocyst", PURPLE_PEARLESCENT_NEMATOCYST, CreativeModeTabs.TAB_NATURE);
-        registerBlock("blue_nematocyst", BLUE_NEMATOCYST, CreativeModeTabs.TAB_NATURE);
-        registerBlock("yellow_nematocyst", YELLOW_NEMATOCYST, CreativeModeTabs.TAB_NATURE);
-        registerBlock("lime_nematocyst", LIME_NEMATOCYST, CreativeModeTabs.TAB_NATURE);
-        registerBlock("red_nematocyst", RED_NEMATOCYST, CreativeModeTabs.TAB_NATURE);
-        registerBlock("pink_nematocyst", PINK_NEMATOCYST, CreativeModeTabs.TAB_NATURE);
+        registerBlockAfter(Items.CHEST, "stone_chest", STONE_CHEST, CreativeModeTabs.TAB_FUNCTIONAL);
+        registerBlockAfter(Items.SOUL_LANTERN, "display_lantern", DISPLAY_LANTERN, CreativeModeTabs.TAB_FUNCTIONAL);
+
+        registerBlockBefore(Items.SPONGE, "blue_pearlescent_mesoglea", MESOGLEA, CreativeModeTabs.TAB_NATURE);
+		registerBlockBefore(Items.SPONGE, "blue_pearlescent_nematocyst", BLUE_PEARLESCENT_NEMATOCYST, CreativeModeTabs.TAB_NATURE);
+		registerBlockBefore(Items.SPONGE, "purple_pearlescent_mesoglea", PURPLE_MESOGLEA, CreativeModeTabs.TAB_NATURE);
+		registerBlockBefore(Items.SPONGE, "purple_pearlescent_nematocyst", PURPLE_PEARLESCENT_NEMATOCYST, CreativeModeTabs.TAB_NATURE);
+		registerBlockBefore(Items.SPONGE, "blue_mesoglea", BLUE_MESOGLEA, CreativeModeTabs.TAB_NATURE);
+		registerBlockBefore(Items.SPONGE, "blue_nematocyst", BLUE_NEMATOCYST, CreativeModeTabs.TAB_NATURE);
+		registerBlockBefore(Items.SPONGE, "yellow_mesoglea", YELLOW_MESOGLEA, CreativeModeTabs.TAB_NATURE);
+		registerBlockBefore(Items.SPONGE, "yellow_nematocyst", YELLOW_NEMATOCYST, CreativeModeTabs.TAB_NATURE);
+		registerBlockBefore(Items.SPONGE, "lime_mesoglea", LIME_MESOGLEA, CreativeModeTabs.TAB_NATURE);
+		registerBlockBefore(Items.SPONGE, "lime_nematocyst", LIME_NEMATOCYST, CreativeModeTabs.TAB_NATURE);
+		registerBlockBefore(Items.SPONGE, "red_mesoglea", RED_MESOGLEA, CreativeModeTabs.TAB_NATURE);
+		registerBlockBefore(Items.SPONGE, "red_nematocyst", RED_NEMATOCYST, CreativeModeTabs.TAB_NATURE);
+		registerBlockBefore(Items.SPONGE, "pink_mesoglea", PINK_MESOGLEA, CreativeModeTabs.TAB_NATURE);
+		registerBlockBefore(Items.SPONGE, "pink_nematocyst", PINK_NEMATOCYST, CreativeModeTabs.TAB_NATURE);
     }
 
     public static void registerBlocks() {
@@ -493,8 +492,8 @@ public final class RegisterBlocks {
         actualRegisterBlock(path, block);
     }
 
-	private static void registerBlockBefore(ItemLike comparedItem, String path, Block block, CreativeModeTab.TabVisibility tabVisibility, CreativeModeTab... tabs) {
-		registerBlockItemBefore(comparedItem, path, block, tabVisibility, tabs);
+	private static void registerBlockBefore(ItemLike comparedItem, String path, Block block, CreativeModeTab... tabs) {
+		registerBlockItemBefore(comparedItem, path, block, CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS, tabs);
 		actualRegisterBlock(path, block);
 	}
 
