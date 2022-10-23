@@ -525,8 +525,7 @@ public final class RegisterBlocks {
 	}
 
 	private static void actualRegisterBlockItem(String path, Block block) {
-		var blockItem = new BlockItem(block, new FabricItemSettings());
-		if (Registry.ITEM.getResourceKey(blockItem).isEmpty()) {
+		if (Registry.ITEM.getOptional(WilderWild.id(path)).isEmpty()) {
 			Registry.register(Registry.ITEM, WilderWild.id(path), new BlockItem(block, new FabricItemSettings()));
 		}
 	}
