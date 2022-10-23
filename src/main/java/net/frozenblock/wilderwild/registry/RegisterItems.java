@@ -106,7 +106,7 @@ public final class RegisterItems {
 		registerItemAfter(Items.MUSIC_DISC_5, MUSIC_DISC_BACK, "music_disc_back", CreativeModeTabs.TAB_TOOLS);
 		registerItemAfter(Items.EVOKER_SPAWN_EGG, FIREFLY_SPAWN_EGG, "firefly_spawn_egg", CreativeModeTabs.TAB_SPAWN_EGGS);
 		registerItemAfter(Items.HUSK_SPAWN_EGG, JELLYFISH_SPAWN_EGG, "jellyfish_spawn_egg", CreativeModeTabs.TAB_SPAWN_EGGS);
-		registerItem(JELLYFISH_BUCKET, "jellyfish_bucket", CreativeModeTabs.TAB_TOOLS);
+		registerItemAfter(Items.AXOLOTL_BUCKET, JELLYFISH_BUCKET, "jellyfish_bucket", CreativeModeTabs.TAB_TOOLS);
 
         Registry.register(Registry.INSTRUMENT, ANCIENT_HORN_INSTRUMENT, new Instrument(RegisterSounds.ITEM_ANCIENT_HORN_CALL, 300, 256.0F));
         Registry.register(Registry.INSTRUMENT, SAX_COPPER_HORN, new Instrument(RegisterSounds.ITEM_COPPER_HORN_SAX_LOOP, 32767, 64.0F));
@@ -127,7 +127,7 @@ public final class RegisterItems {
 		registerInstrumentBefore(Items.MUSIC_DISC_13, COPPER_HORN, "copper_horn", WilderInstrumentTags.COPPER_HORNS, CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS, CreativeModeTabs.TAB_TOOLS);
 		registerInstrumentBefore(Items.MUSIC_DISC_13, ANCIENT_HORN, "ancient_horn", WilderInstrumentTags.ANCIENT_HORNS, CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS, CreativeModeTabs.TAB_TOOLS);
 
-		registerItem(BAOBAB_NUT, "baobab_nut", CreativeModeTabs.TAB_NATURE, CreativeModeTabs.TAB_CONSUMABLES);
+		registerItemAfter(Items.MANGROVE_PROPAGULE, BAOBAB_NUT, "baobab_nut", CreativeModeTabs.TAB_NATURE, CreativeModeTabs.TAB_CONSUMABLES);
 		//registerItem(PRICKLY_PEAR, "prickly_pear", CreativeModeTabs.TAB_NATURE, CreativeModeTabs.TAB_CONSUMABLES);
 		//registerItem(PEELED_PRICKLY_PEAR, "peeled_prickly_pear", CreativeModeTabs.TAB_NATURE, CreativeModeTabs.TAB_CONSUMABLES);
 
