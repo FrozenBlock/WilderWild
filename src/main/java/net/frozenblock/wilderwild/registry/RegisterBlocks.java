@@ -227,7 +227,7 @@ public final class RegisterBlocks {
 		registerBlockBefore(Items.CRIMSON_STEM,wood + "_log", BAOBAB_LOG, CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS, CreativeModeTabs.TAB_NATURE);
 		registerBlockBefore(Items.CRIMSON_STEM,"hollowed_" + wood + "_log", HOLLOWED_BAOBAB_LOG, CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS, CreativeModeTabs.TAB_NATURE);
 		registerBlockBefore(Items.AZALEA_LEAVES,wood + "_leaves", BAOBAB_LEAVES, CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS, CreativeModeTabs.TAB_NATURE);
-
+		//BAOBAB IN FUNCTIONAL
 
 		registerBlockBefore(Items.BAMBOO_PLANKS,cypress + "_planks", CYPRESS_PLANKS, CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS, CreativeModeTabs.TAB_BUILDING_BLOCKS);
 

@@ -94,18 +94,18 @@ public final class RegisterItems {
 
     public static void registerItems() {
         WilderWild.logWild("Registering Items for", WilderWild.UNSTABLE_LOGGING);
-		registerItem(BAOBAB_BOAT_ITEM, "baobab_boat", CreativeModeTabs.TAB_TOOLS);
-		registerItem(BAOBAB_CHEST_BOAT_ITEM, "baobab_chest_boat", CreativeModeTabs.TAB_TOOLS);
-		registerItem(BAOBAB_SIGN, "baobab_sign", CreativeModeTabs.TAB_FUNCTIONAL);
-		registerItem(CYPRESS_BOAT_ITEM, "cypress_boat", CreativeModeTabs.TAB_TOOLS);
-		registerItem(CYPRESS_CHEST_BOAT_ITEM, "cypress_chest_boat", CreativeModeTabs.TAB_TOOLS);
-		registerItem(CYPRESS_SIGN, "cypress_sign", CreativeModeTabs.TAB_FUNCTIONAL);
-		registerItem(MILKWEED_POD, "milkweed_pod", CreativeModeTabs.TAB_NATURE);
-		registerItem(MUSIC_DISC_BENEATH, "music_disc_beneath", CreativeModeTabs.TAB_TOOLS);
-		registerItem(MUSIC_DISC_GOAT_HORN_SYMPHONY, "music_disc_goathorn_symphony", CreativeModeTabs.TAB_TOOLS);
-		registerItem(MUSIC_DISC_BACK, "music_disc_back", CreativeModeTabs.TAB_TOOLS);
-		registerItem(FIREFLY_SPAWN_EGG, "firefly_spawn_egg", CreativeModeTabs.TAB_SPAWN_EGGS);
-		registerItem(JELLYFISH_SPAWN_EGG, "jellyfish_spawn_egg", CreativeModeTabs.TAB_SPAWN_EGGS);
+		registerItemBefore(Items.BAMBOO_RAFT, BAOBAB_BOAT_ITEM, "baobab_boat", CreativeModeTabs.TAB_TOOLS);
+		registerItemBefore(Items.BAMBOO_RAFT, BAOBAB_CHEST_BOAT_ITEM, "baobab_chest_boat", CreativeModeTabs.TAB_TOOLS);
+		registerItemBefore(Items.BAMBOO_SIGN, BAOBAB_SIGN, "baobab_sign", CreativeModeTabs.TAB_FUNCTIONAL);
+		registerItemBefore(Items.BAMBOO_RAFT, CYPRESS_BOAT_ITEM, "cypress_boat", CreativeModeTabs.TAB_TOOLS);
+		registerItemBefore(Items.BAMBOO_RAFT, CYPRESS_CHEST_BOAT_ITEM, "cypress_chest_boat", CreativeModeTabs.TAB_TOOLS);
+		registerItemBefore(Items.BAMBOO_SIGN, CYPRESS_SIGN, "cypress_sign", CreativeModeTabs.TAB_FUNCTIONAL);
+		registerItemAfter(Items.BEETROOT_SEEDS, MILKWEED_POD, "milkweed_pod", CreativeModeTabs.TAB_NATURE);
+		registerItemBefore(Items.MUSIC_DISC_5, MUSIC_DISC_BENEATH, "music_disc_beneath", CreativeModeTabs.TAB_TOOLS);
+		registerItemBefore(Items.MUSIC_DISC_OTHERSIDE, MUSIC_DISC_GOAT_HORN_SYMPHONY, "music_disc_goathorn_symphony", CreativeModeTabs.TAB_TOOLS);
+		registerItemAfter(Items.MUSIC_DISC_5, MUSIC_DISC_BACK, "music_disc_back", CreativeModeTabs.TAB_TOOLS);
+		registerItemAfter(Items.EVOKER_SPAWN_EGG, FIREFLY_SPAWN_EGG, "firefly_spawn_egg", CreativeModeTabs.TAB_SPAWN_EGGS);
+		registerItemAfter(Items.HUSK_SPAWN_EGG, JELLYFISH_SPAWN_EGG, "jellyfish_spawn_egg", CreativeModeTabs.TAB_SPAWN_EGGS);
 		registerItem(JELLYFISH_BUCKET, "jellyfish_bucket", CreativeModeTabs.TAB_TOOLS);
 
         Registry.register(Registry.INSTRUMENT, ANCIENT_HORN_INSTRUMENT, new Instrument(RegisterSounds.ITEM_ANCIENT_HORN_CALL, 300, 256.0F));
@@ -124,8 +124,8 @@ public final class RegisterItems {
         StartingSounds.startingSounds.put(TRUMPET_COPPER_HORN, RegisterSounds.ITEM_COPPER_HORN_TRUMPET_START);
         StartingSounds.startingSounds.put(TROMBONE_COPPER_HORN, RegisterSounds.ITEM_COPPER_HORN_TROMBONE_START);
 
-		registerInstrument(ANCIENT_HORN, "ancient_horn", WilderInstrumentTags.ANCIENT_HORNS, CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS, CreativeModeTabs.TAB_TOOLS);
-		registerInstrument(COPPER_HORN, "copper_horn", WilderInstrumentTags.COPPER_HORNS, CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS, CreativeModeTabs.TAB_TOOLS);
+		registerInstrumentBefore(Items.MUSIC_DISC_13, COPPER_HORN, "copper_horn", WilderInstrumentTags.COPPER_HORNS, CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS, CreativeModeTabs.TAB_TOOLS);
+		registerInstrumentBefore(Items.MUSIC_DISC_13, ANCIENT_HORN, "ancient_horn", WilderInstrumentTags.ANCIENT_HORNS, CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS, CreativeModeTabs.TAB_TOOLS);
 
 		registerItem(BAOBAB_NUT, "baobab_nut", CreativeModeTabs.TAB_NATURE, CreativeModeTabs.TAB_CONSUMABLES);
 		//registerItem(PRICKLY_PEAR, "prickly_pear", CreativeModeTabs.TAB_NATURE, CreativeModeTabs.TAB_CONSUMABLES);
@@ -162,6 +162,11 @@ public final class RegisterItems {
 	private static void registerInstrument(Item instrument, String path, TagKey<Instrument> tagKey, CreativeModeTab.TabVisibility tabVisibility, CreativeModeTab... tabs) {
 		actualRegister(instrument, path);
 		FrozenCreativeTabs.addInstrument(instrument, tagKey, tabVisibility, tabs);
+	}
+
+	private static void registerInstrumentBefore(Item comparedItem, Item instrument, String path, TagKey<Instrument> tagKey, CreativeModeTab.TabVisibility tabVisibility, CreativeModeTab... tabs) {
+		actualRegister(instrument, path);
+		FrozenCreativeTabs.addInstrumentBefore(comparedItem, instrument, tagKey, tabVisibility, tabs);
 	}
 
 	private static void registerItem(Item item, String path, CreativeModeTab... tabs) {
