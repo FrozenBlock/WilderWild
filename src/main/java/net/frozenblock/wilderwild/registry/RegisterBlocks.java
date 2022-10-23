@@ -275,13 +275,22 @@ public final class RegisterBlocks {
     public static final Block HOLLOWED_CYPRESS_LOG = createHollowedLogBlock(MaterialColor.COLOR_LIGHT_GRAY, MaterialColor.STONE);
 
     public static void registerHollowedLogs() {
-        registerBlockAfter(Items.OAK_WOOD, "hollowed_oak_log", HOLLOWED_OAK_LOG, CreativeModeTabs.TAB_NATURE, CreativeModeTabs.TAB_BUILDING_BLOCKS);
-		registerBlockAfter(Items.SPRUCE_WOOD, "hollowed_spruce_log", HOLLOWED_OAK_LOG, CreativeModeTabs.TAB_NATURE, CreativeModeTabs.TAB_BUILDING_BLOCKS);
-		registerBlockAfter(Items.BIRCH_WOOD, "hollowed_birch_log", HOLLOWED_OAK_LOG, CreativeModeTabs.TAB_NATURE, CreativeModeTabs.TAB_BUILDING_BLOCKS);
-		registerBlockAfter(Items.JUNGLE_WOOD, "hollowed_jungle_log", HOLLOWED_OAK_LOG, CreativeModeTabs.TAB_NATURE, CreativeModeTabs.TAB_BUILDING_BLOCKS);
-		registerBlockAfter(Items.ACACIA_WOOD, "hollowed_acacia_log", HOLLOWED_OAK_LOG, CreativeModeTabs.TAB_NATURE, CreativeModeTabs.TAB_BUILDING_BLOCKS);
-		registerBlockAfter(Items.DARK_OAK_WOOD, "hollowed_dark_oak_log", HOLLOWED_OAK_LOG, CreativeModeTabs.TAB_NATURE, CreativeModeTabs.TAB_BUILDING_BLOCKS);
-		registerBlockAfter(Items.MANGROVE_WOOD, "hollowed_mangrove_log", HOLLOWED_OAK_LOG, CreativeModeTabs.TAB_NATURE, CreativeModeTabs.TAB_BUILDING_BLOCKS);
+        registerBlockAfter(Items.OAK_WOOD, "hollowed_oak_log", HOLLOWED_OAK_LOG, CreativeModeTabs.TAB_BUILDING_BLOCKS);
+		registerBlockAfter(Items.SPRUCE_WOOD, "hollowed_spruce_log", HOLLOWED_OAK_LOG, CreativeModeTabs.TAB_BUILDING_BLOCKS);
+		registerBlockAfter(Items.BIRCH_WOOD, "hollowed_birch_log", HOLLOWED_OAK_LOG, CreativeModeTabs.TAB_BUILDING_BLOCKS);
+		registerBlockAfter(Items.JUNGLE_WOOD, "hollowed_jungle_log", HOLLOWED_OAK_LOG, CreativeModeTabs.TAB_BUILDING_BLOCKS);
+		registerBlockAfter(Items.ACACIA_WOOD, "hollowed_acacia_log", HOLLOWED_OAK_LOG, CreativeModeTabs.TAB_BUILDING_BLOCKS);
+		registerBlockAfter(Items.DARK_OAK_WOOD, "hollowed_dark_oak_log", HOLLOWED_OAK_LOG, CreativeModeTabs.TAB_BUILDING_BLOCKS);
+		registerBlockAfter(Items.MANGROVE_WOOD, "hollowed_mangrove_log", HOLLOWED_OAK_LOG, CreativeModeTabs.TAB_BUILDING_BLOCKS);
+
+		registerBlockAfter(Items.OAK_LOG, "hollowed_oak_log", HOLLOWED_OAK_LOG, CreativeModeTabs.TAB_NATURE);
+		registerBlockAfter(Items.SPRUCE_LOG, "hollowed_spruce_log", HOLLOWED_OAK_LOG, CreativeModeTabs.TAB_NATURE);
+		registerBlockAfter(Items.BIRCH_LOG, "hollowed_birch_log", HOLLOWED_OAK_LOG, CreativeModeTabs.TAB_NATURE);
+		registerBlockAfter(Items.JUNGLE_LOG, "hollowed_jungle_log", HOLLOWED_OAK_LOG, CreativeModeTabs.TAB_NATURE);
+		registerBlockAfter(Items.ACACIA_LOG, "hollowed_acacia_log", HOLLOWED_OAK_LOG, CreativeModeTabs.TAB_NATURE);
+		registerBlockAfter(Items.DARK_OAK_LOG, "hollowed_dark_oak_log", HOLLOWED_OAK_LOG, CreativeModeTabs.TAB_NATURE);
+		registerBlockAfter(Items.MANGROVE_LOG, "hollowed_mangrove_log", HOLLOWED_OAK_LOG, CreativeModeTabs.TAB_NATURE);
+
         registerBlock("hollowed_baobab_log", HOLLOWED_BAOBAB_LOG, CreativeModeTabs.TAB_NATURE, CreativeModeTabs.TAB_BUILDING_BLOCKS);
         registerBlock("hollowed_cypress_log", HOLLOWED_CYPRESS_LOG, CreativeModeTabs.TAB_NATURE, CreativeModeTabs.TAB_BUILDING_BLOCKS);
     }
