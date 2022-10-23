@@ -59,6 +59,7 @@ import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.FenceBlock;
@@ -481,10 +482,38 @@ public final class RegisterBlocks {
         Registry.register(Registry.BLOCK, WilderWild.id(name), block);
     }
 
+	private static void registerBlockBefore(ItemLike comparedItem, String name, Block block, CreativeModeTab.TabVisibility tabVisibility, CreativeModeTab... tabs) {
+		registerBlockItemBefore(comparedItem, name, block, tabVisibility, tabs);
+		Registry.register(Registry.BLOCK, WilderWild.id(name), block);
+	}
+
+	private static void registerBlockAfter(String name, Block block, CreativeModeTab... tabs) {
+		registerBlockItem(name, block, tabs);
+		Registry.register(Registry.BLOCK, WilderWild.id(name), block);
+	}
+
     private static void registerBlockItem(String name, Block block, CreativeModeTab... tabs) {
         Registry.register(Registry.ITEM, WilderWild.id(name), new BlockItem(block, new FabricItemSettings()));
 		FrozenCreativeTabs.add(block, tabs);
     }
+
+	private static void registerBlockItemBefore(ItemLike comparedItem, String name, Block block, CreativeModeTab... tabs) {
+		registerBlockItemBefore(comparedItem, name, block, CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS, tabs);
+	}
+
+	private static void registerBlockItemBefore(ItemLike comparedItem, String name, Block block, CreativeModeTab.TabVisibility tabVisibility, CreativeModeTab... tabs) {
+		Registry.register(Registry.ITEM, WilderWild.id(name), new BlockItem(block, new FabricItemSettings()));
+		FrozenCreativeTabs.addBefore(comparedItem, block, tabVisibility, tabs);
+	}
+
+	private static void registerBlockItemAfter(ItemLike comparedItem, String name, Block block, CreativeModeTab... tabs) {
+		registerBlockItemAfter(comparedItem, name, block, CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS, tabs);
+	}
+
+	private static void registerBlockItemAfter(ItemLike comparedItem, String name, Block block, CreativeModeTab.TabVisibility tabVisibility, CreativeModeTab... tabs) {
+		Registry.register(Registry.ITEM, WilderWild.id(name), new BlockItem(block, new FabricItemSettings()));
+		FrozenCreativeTabs.addAfter(comparedItem, block, tabVisibility, tabs);
+	}
 
     private static HollowedLogBlock createHollowedLogBlock(MaterialColor topMapColor, MaterialColor sideMapColor) {
         return new HollowedLogBlock(FabricBlockSettings.of(Material.WOOD,
