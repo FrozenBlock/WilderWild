@@ -521,7 +521,7 @@ public final class RegisterBlocks {
 	}
 
 	private static void actualRegisterBlock(String path, Block block) {
-		if (Registry.BLOCK.getResourceKey(block).isEmpty()) {
+		if (Registry.BLOCK.getOptional(WilderWild.id(path)).isEmpty()) {
 			Registry.register(Registry.BLOCK, WilderWild.id(path), block);
 		}
 	}
