@@ -297,10 +297,12 @@ public final class RegisterBlocks {
     public static final Block ECHO_GLASS = new EchoGlassBlock(FabricBlockSettings.of(Material.GLASS, MaterialColor.COLOR_CYAN).strength(0.3F).nonOpaque().sounds(RegisterBlockSoundGroups.ECHO_GLASS));
 
     public static void registerDeepDark() {
-		registerBlockAfter(Items.DEEPSLATE_TILE_WALL,"osseous_sculk", OSSEOUS_SCULK, CreativeModeTabs.TAB_BUILDING_BLOCKS);
-        registerBlockAfter(Items.DEEPSLATE_TILE_WALL,"sculk_stairs", SCULK_STAIRS, CreativeModeTabs.TAB_BUILDING_BLOCKS);
-		registerBlockAfter(Items.DEEPSLATE_TILE_WALL,"sculk_slab", SCULK_SLAB, CreativeModeTabs.TAB_BUILDING_BLOCKS);
 		registerBlockAfter(Items.DEEPSLATE_TILE_WALL,"sculk_wall", SCULK_WALL, CreativeModeTabs.TAB_BUILDING_BLOCKS);
+		registerBlockAfter(Items.DEEPSLATE_TILE_WALL,"sculk_stairs", SCULK_STAIRS, CreativeModeTabs.TAB_BUILDING_BLOCKS);
+		registerBlockAfter(Items.DEEPSLATE_TILE_WALL,"sculk_slab", SCULK_SLAB, CreativeModeTabs.TAB_BUILDING_BLOCKS);
+		registerBlockAfter(Items.DEEPSLATE_TILE_WALL,"osseous_sculk", OSSEOUS_SCULK, CreativeModeTabs.TAB_BUILDING_BLOCKS);
+
+
 		registerBlockAfter(Items.SCULK,"osseous_sculk", OSSEOUS_SCULK, CreativeModeTabs.TAB_NATURE);
         registerBlockAfter(Items.SCULK_SENSOR,"hanging_tendril", HANGING_TENDRIL, CreativeModeTabs.TAB_NATURE);
         registerBlockAfter(Items.TINTED_GLASS, "echo_glass", ECHO_GLASS, CreativeModeTabs.TAB_BUILDING_BLOCKS);
