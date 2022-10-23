@@ -393,9 +393,9 @@ public final class RegisterBlocks {
 		registerBlockBefore(Items.WITHER_ROSE,"pink_giant_glory_of_the_snow", PINK_GLORY_OF_THE_SNOW, CreativeModeTabs.TAB_NATURE);
 		registerBlockBefore(Items.WITHER_ROSE,"violet_beauty_glory_of_the_snow", PURPLE_GLORY_OF_THE_SNOW, CreativeModeTabs.TAB_NATURE);
 		registerBlockBefore(Items.WITHER_ROSE,"alba_glory_of_the_snow", WHITE_GLORY_OF_THE_SNOW, CreativeModeTabs.TAB_NATURE);
+		registerBlockAfter(Items.PEONY, "cattail", CATTAIL, CreativeModeTabs.TAB_NATURE);
 		registerBlockAfter(Items.PEONY, "milkweed", MILKWEED, CreativeModeTabs.TAB_NATURE);
         registerBlockAfter(Items.PEONY, "datura", DATURA, CreativeModeTabs.TAB_NATURE);
-        registerBlockBefore(Items.LILY_PAD, "cattail", CATTAIL, CreativeModeTabs.TAB_NATURE);
     }
 
     public static final Block BROWN_SHELF_FUNGUS = new ShelfFungusBlock(FabricBlockSettings.copyOf(Blocks.BROWN_MUSHROOM_BLOCK).luminance(1).collidable(false).nonOpaque().sounds(RegisterBlockSoundGroups.MUSHROOM));
@@ -448,7 +448,7 @@ public final class RegisterBlocks {
 
     public static void registerMisc() {
         registerBlockBefore(Items.BEE_NEST, "termite_mound", TERMITE_MOUND, CreativeModeTabs.TAB_NATURE);
-        registerBlock("null_block", NULL_BLOCK, CreativeModeTabs.TAB_BUILDING_BLOCKS);
+        registerBlockBefore(Items.GLASS, "null_block", NULL_BLOCK, CreativeModeTabs.TAB_BUILDING_BLOCKS);
         registerBlockAfter(Items.CHEST, "stone_chest", STONE_CHEST, CreativeModeTabs.TAB_FUNCTIONAL);
         registerBlockAfter(Items.SOUL_LANTERN, "display_lantern", DISPLAY_LANTERN, CreativeModeTabs.TAB_FUNCTIONAL);
 
