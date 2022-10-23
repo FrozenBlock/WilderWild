@@ -5,9 +5,11 @@ import net.fabricmc.fabric.api.object.builder.v1.trade.TradeOfferHelper;
 import net.frozenblock.lib.item.api.FrozenCreativeTabs;
 import net.frozenblock.lib.sound.StartingSounds;
 import net.frozenblock.wilderwild.WilderWild;
+import net.frozenblock.wilderwild.item.AlgaeItem;
 import net.frozenblock.wilderwild.item.AncientHorn;
 import net.frozenblock.wilderwild.item.CopperHorn;
 import net.frozenblock.wilderwild.item.FireflyBottle;
+import net.frozenblock.wilderwild.item.FloweredLilyPadItem;
 import net.frozenblock.wilderwild.item.MilkweedPod;
 import net.frozenblock.wilderwild.misc.FireflyColor;
 import net.frozenblock.wilderwild.misc.WilderBoats;
@@ -151,7 +153,9 @@ public final class RegisterItems {
 		registerItem(ORANGE_FIREFLY_BOTTLE, "orange_firefly_bottle", CreativeModeTabs.TAB_TOOLS);
 		registerItem(WHITE_FIREFLY_BOTTLE, "white_firefly_bottle", CreativeModeTabs.TAB_TOOLS);
 
-		registerItem(POLLEN, "pollen", CreativeModeTabs.TAB_NATURE);
+		registerItemAfter(Items.GLOW_LICHEN, POLLEN, "pollen", CreativeModeTabs.TAB_NATURE);
+		registerItemBefore(Items.LILY_PAD, new AlgaeItem(RegisterBlocks.ALGAE, new FabricItemSettings()), "algae", CreativeModeTabs.TAB_NATURE);
+		registerItemAfter(Items.LILY_PAD, new FloweredLilyPadItem(RegisterBlocks.FLOWERING_LILY_PAD, new FabricItemSettings()), "flowering_lily_pad", CreativeModeTabs.TAB_NATURE);
 
 		registerItemAfter(Items.ECHO_SHARD, ANCIENT_HORN_FRAGMENT, "ancient_horn_fragment", CreativeModeTabs.TAB_CRAFTING);
 

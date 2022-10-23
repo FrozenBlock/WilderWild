@@ -384,18 +384,18 @@ public final class RegisterBlocks {
         registerBlockWithoutBlockItem("potted_big_dripleaf", POTTED_BIG_DRIPLEAF);
         registerBlockWithoutBlockItem("potted_small_dripleaf", POTTED_SMALL_DRIPLEAF);
         registerBlockWithoutBlockItem("potted_grass", POTTED_GRASS);
-        registerBlock("seeding_dandelion", SEEDING_DANDELION, CreativeModeTabs.TAB_NATURE);
+        registerBlockAfter(Items.DANDELION,"seeding_dandelion", SEEDING_DANDELION, CreativeModeTabs.TAB_NATURE);
         registerBlockWithoutBlockItem("potted_seeding_dandelion", POTTED_SEEDING_DANDELION);
-        registerBlock("carnation", CARNATION, CreativeModeTabs.TAB_NATURE);
+        registerBlockAfter(Items.CORNFLOWER, "carnation", CARNATION, CreativeModeTabs.TAB_NATURE);
         registerBlockWithoutBlockItem("potted_carnation", POTTED_CARNATION);
-        registerBlock("glory_of_the_snow", GLORY_OF_THE_SNOW, CreativeModeTabs.TAB_NATURE);
-        registerBlock("blue_giant_glory_of_the_snow", BLUE_GLORY_OF_THE_SNOW, CreativeModeTabs.TAB_NATURE);
-        registerBlock("pink_giant_glory_of_the_snow", PINK_GLORY_OF_THE_SNOW, CreativeModeTabs.TAB_NATURE);
-        registerBlock("violet_beauty_glory_of_the_snow", PURPLE_GLORY_OF_THE_SNOW, CreativeModeTabs.TAB_NATURE);
-        registerBlock("alba_glory_of_the_snow", WHITE_GLORY_OF_THE_SNOW, CreativeModeTabs.TAB_NATURE);
-        registerBlock("datura", DATURA, CreativeModeTabs.TAB_NATURE);
-        registerBlock("milkweed", MILKWEED, CreativeModeTabs.TAB_NATURE);
-        registerBlock("cattail", CATTAIL, CreativeModeTabs.TAB_NATURE);
+        registerBlockBefore(Items.WITHER_ROSE, "glory_of_the_snow", GLORY_OF_THE_SNOW, CreativeModeTabs.TAB_NATURE);
+		registerBlockBefore(Items.WITHER_ROSE,"blue_giant_glory_of_the_snow", BLUE_GLORY_OF_THE_SNOW, CreativeModeTabs.TAB_NATURE);
+		registerBlockBefore(Items.WITHER_ROSE,"pink_giant_glory_of_the_snow", PINK_GLORY_OF_THE_SNOW, CreativeModeTabs.TAB_NATURE);
+		registerBlockBefore(Items.WITHER_ROSE,"violet_beauty_glory_of_the_snow", PURPLE_GLORY_OF_THE_SNOW, CreativeModeTabs.TAB_NATURE);
+		registerBlockBefore(Items.WITHER_ROSE,"alba_glory_of_the_snow", WHITE_GLORY_OF_THE_SNOW, CreativeModeTabs.TAB_NATURE);
+		registerBlockAfter(Items.PEONY, "milkweed", MILKWEED, CreativeModeTabs.TAB_NATURE);
+        registerBlockAfter(Items.PEONY, "datura", DATURA, CreativeModeTabs.TAB_NATURE);
+        registerBlockBefore(Items.LILY_PAD, "cattail", CATTAIL, CreativeModeTabs.TAB_NATURE);
     }
 
     public static final Block BROWN_SHELF_FUNGUS = new ShelfFungusBlock(FabricBlockSettings.copyOf(Blocks.BROWN_MUSHROOM_BLOCK).luminance(1).collidable(false).nonOpaque().sounds(RegisterBlockSoundGroups.MUSHROOM));
@@ -404,12 +404,10 @@ public final class RegisterBlocks {
 
     public static void registerNotSoPlants() {
         registerBlockWithoutBlockItem("pollen", POLLEN_BLOCK);
-        registerBlock("brown_shelf_fungus", BROWN_SHELF_FUNGUS, CreativeModeTabs.TAB_NATURE);
-        registerBlock("red_shelf_fungus", RED_SHELF_FUNGUS, CreativeModeTabs.TAB_NATURE);
+		registerBlockAfter(Items.RED_MUSHROOM, "red_shelf_fungus", RED_SHELF_FUNGUS, CreativeModeTabs.TAB_NATURE);
+		registerBlockAfter(Items.RED_MUSHROOM, "brown_shelf_fungus", BROWN_SHELF_FUNGUS, CreativeModeTabs.TAB_NATURE);
         Registry.register(Registry.BLOCK, WilderWild.id("flowering_lily_pad"), FLOWERING_LILY_PAD);
-        Registry.register(Registry.ITEM, WilderWild.id("flowering_lily_pad"), new FloweredLilyPadItem(FLOWERING_LILY_PAD, new FabricItemSettings()));
         Registry.register(Registry.BLOCK, WilderWild.id("algae"), ALGAE);
-        Registry.register(Registry.ITEM, WilderWild.id("algae"), new AlgaeItem(ALGAE, new FabricItemSettings()));
 		FrozenCreativeTabs.add(ALGAE, CreativeModeTabs.TAB_NATURE);
 		FrozenCreativeTabs.add(FLOWERING_LILY_PAD, CreativeModeTabs.TAB_NATURE);
     }
@@ -455,18 +453,19 @@ public final class RegisterBlocks {
         registerBlockAfter(Items.SOUL_LANTERN, "display_lantern", DISPLAY_LANTERN, CreativeModeTabs.TAB_FUNCTIONAL);
 
         registerBlockBefore(Items.SPONGE, "blue_pearlescent_mesoglea", MESOGLEA, CreativeModeTabs.TAB_NATURE);
-		registerBlockBefore(Items.SPONGE, "blue_pearlescent_nematocyst", BLUE_PEARLESCENT_NEMATOCYST, CreativeModeTabs.TAB_NATURE);
 		registerBlockBefore(Items.SPONGE, "purple_pearlescent_mesoglea", PURPLE_MESOGLEA, CreativeModeTabs.TAB_NATURE);
-		registerBlockBefore(Items.SPONGE, "purple_pearlescent_nematocyst", PURPLE_PEARLESCENT_NEMATOCYST, CreativeModeTabs.TAB_NATURE);
 		registerBlockBefore(Items.SPONGE, "blue_mesoglea", BLUE_MESOGLEA, CreativeModeTabs.TAB_NATURE);
-		registerBlockBefore(Items.SPONGE, "blue_nematocyst", BLUE_NEMATOCYST, CreativeModeTabs.TAB_NATURE);
 		registerBlockBefore(Items.SPONGE, "yellow_mesoglea", YELLOW_MESOGLEA, CreativeModeTabs.TAB_NATURE);
-		registerBlockBefore(Items.SPONGE, "yellow_nematocyst", YELLOW_NEMATOCYST, CreativeModeTabs.TAB_NATURE);
 		registerBlockBefore(Items.SPONGE, "lime_mesoglea", LIME_MESOGLEA, CreativeModeTabs.TAB_NATURE);
-		registerBlockBefore(Items.SPONGE, "lime_nematocyst", LIME_NEMATOCYST, CreativeModeTabs.TAB_NATURE);
 		registerBlockBefore(Items.SPONGE, "red_mesoglea", RED_MESOGLEA, CreativeModeTabs.TAB_NATURE);
-		registerBlockBefore(Items.SPONGE, "red_nematocyst", RED_NEMATOCYST, CreativeModeTabs.TAB_NATURE);
 		registerBlockBefore(Items.SPONGE, "pink_mesoglea", PINK_MESOGLEA, CreativeModeTabs.TAB_NATURE);
+
+		registerBlockBefore(Items.SPONGE, "blue_pearlescent_nematocyst", BLUE_PEARLESCENT_NEMATOCYST, CreativeModeTabs.TAB_NATURE);
+		registerBlockBefore(Items.SPONGE, "purple_pearlescent_nematocyst", PURPLE_PEARLESCENT_NEMATOCYST, CreativeModeTabs.TAB_NATURE);
+		registerBlockBefore(Items.SPONGE, "blue_nematocyst", BLUE_NEMATOCYST, CreativeModeTabs.TAB_NATURE);
+		registerBlockBefore(Items.SPONGE, "yellow_nematocyst", YELLOW_NEMATOCYST, CreativeModeTabs.TAB_NATURE);
+		registerBlockBefore(Items.SPONGE, "lime_nematocyst", LIME_NEMATOCYST, CreativeModeTabs.TAB_NATURE);
+		registerBlockBefore(Items.SPONGE, "red_nematocyst", RED_NEMATOCYST, CreativeModeTabs.TAB_NATURE);
 		registerBlockBefore(Items.SPONGE, "pink_nematocyst", PINK_NEMATOCYST, CreativeModeTabs.TAB_NATURE);
     }
 
