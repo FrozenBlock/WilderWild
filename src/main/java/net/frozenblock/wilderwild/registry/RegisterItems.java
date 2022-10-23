@@ -27,6 +27,8 @@ import net.minecraft.world.item.Rarity;
 import net.minecraft.world.item.RecordItem;
 import net.minecraft.world.item.SignItem;
 import net.minecraft.world.item.SpawnEggItem;
+import net.minecraft.world.level.ItemLike;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.material.Fluids;
 
 public final class RegisterItems {
@@ -164,6 +166,24 @@ public final class RegisterItems {
 	private static void registerItem(Item item, String path, CreativeModeTab... tabs) {
 		actualRegister(item, path);
 		FrozenCreativeTabs.add(item, tabs);
+	}
+
+	private static void registerItemBefore(ItemLike comparedItem, String path, Item item, CreativeModeTab... tabs) {
+		registerItemBefore(comparedItem, path, item, CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS, tabs);
+	}
+
+	private static void registerItemBefore(ItemLike comparedItem, String path, Item item, CreativeModeTab.TabVisibility tabVisibility, CreativeModeTab... tabs) {
+		actualRegister(item, path);
+		FrozenCreativeTabs.addBefore(comparedItem, item, tabVisibility, tabs);
+	}
+
+	private static void registerItemAfter(ItemLike comparedItem, String path, Item item, CreativeModeTab... tabs) {
+		registerItemAfter(comparedItem, path, item, CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS, tabs);
+	}
+
+	private static void registerItemAfter(ItemLike comparedItem, String path, Item item, CreativeModeTab.TabVisibility tabVisibility, CreativeModeTab... tabs) {
+		actualRegister(item, path);
+		FrozenCreativeTabs.addAfter(comparedItem, item, tabVisibility, tabs);
 	}
 
 	private static void actualRegister(Item item, String path) {
