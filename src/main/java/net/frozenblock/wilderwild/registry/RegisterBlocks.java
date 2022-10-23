@@ -475,27 +475,27 @@ public final class RegisterBlocks {
         registerBlockProperties();
     }
 
-    private static void registerBlockWithoutBlockItem(String name, Block block) {
-        Registry.register(Registry.BLOCK, WilderWild.id(name), block);
+    private static void registerBlockWithoutBlockItem(String path, Block block) {
+        actualRegisterBlock(path, block);
     }
 
-    private static void registerBlock(String name, Block block, CreativeModeTab... tabs) {
-        registerBlockItem(name, block, tabs);
-        Registry.register(Registry.BLOCK, WilderWild.id(name), block);
+    private static void registerBlock(String path, Block block, CreativeModeTab... tabs) {
+        registerBlockItem(path, block, tabs);
+        actualRegisterBlock(path, block);
     }
 
-	private static void registerBlockBefore(ItemLike comparedItem, String name, Block block, CreativeModeTab.TabVisibility tabVisibility, CreativeModeTab... tabs) {
-		registerBlockItemBefore(comparedItem, name, block, tabVisibility, tabs);
-		Registry.register(Registry.BLOCK, WilderWild.id(name), block);
+	private static void registerBlockBefore(ItemLike comparedItem, String path, Block block, CreativeModeTab.TabVisibility tabVisibility, CreativeModeTab... tabs) {
+		registerBlockItemBefore(comparedItem, path, block, tabVisibility, tabs);
+		actualRegisterBlock(path, block);
 	}
 
-	private static void registerBlockAfter(ItemLike comparedItem, String name, Block block, CreativeModeTab... tabs) {
-		registerBlockItemAfter(comparedItem, name, block, tabs);
-		Registry.register(Registry.BLOCK, WilderWild.id(name), block);
+	private static void registerBlockAfter(ItemLike comparedItem, String path, Block block, CreativeModeTab... tabs) {
+		registerBlockItemAfter(comparedItem, path, block, tabs);
+		actualRegisterBlock(path, block);
 	}
 
-    private static void registerBlockItem(String name, Block block, CreativeModeTab... tabs) {
-        Registry.register(Registry.ITEM, WilderWild.id(name), new BlockItem(block, new FabricItemSettings()));
+    private static void registerBlockItem(String path, Block block, CreativeModeTab... tabs) {
+		actualRegisterBlockItem(path, block);
 		FrozenCreativeTabs.add(block, tabs);
     }
 
@@ -503,8 +503,8 @@ public final class RegisterBlocks {
 		registerBlockItemBefore(comparedItem, name, block, CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS, tabs);
 	}
 
-	private static void registerBlockItemBefore(ItemLike comparedItem, String name, Block block, CreativeModeTab.TabVisibility tabVisibility, CreativeModeTab... tabs) {
-		Registry.register(Registry.ITEM, WilderWild.id(name), new BlockItem(block, new FabricItemSettings()));
+	private static void registerBlockItemBefore(ItemLike comparedItem, String path, Block block, CreativeModeTab.TabVisibility tabVisibility, CreativeModeTab... tabs) {
+		actualRegisterBlockItem(path, block);
 		FrozenCreativeTabs.addBefore(comparedItem, block, tabVisibility, tabs);
 	}
 
@@ -512,9 +512,22 @@ public final class RegisterBlocks {
 		registerBlockItemAfter(comparedItem, name, block, CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS, tabs);
 	}
 
-	private static void registerBlockItemAfter(ItemLike comparedItem, String name, Block block, CreativeModeTab.TabVisibility tabVisibility, CreativeModeTab... tabs) {
-		Registry.register(Registry.ITEM, WilderWild.id(name), new BlockItem(block, new FabricItemSettings()));
+	private static void registerBlockItemAfter(ItemLike comparedItem, String path, Block block, CreativeModeTab.TabVisibility tabVisibility, CreativeModeTab... tabs) {
+		actualRegisterBlockItem(path, block);
 		FrozenCreativeTabs.addAfter(comparedItem, block, tabVisibility, tabs);
+	}
+
+	private static void actualRegisterBlock(String path, Block block) {
+		if (Registry.BLOCK.getResourceKey(block).isEmpty()) {
+			Registry.register(Registry.BLOCK, WilderWild.id(path), block);
+		}
+	}
+
+	private static void actualRegisterBlockItem(String path, Block block) {
+		var blockItem = new BlockItem(block, new FabricItemSettings());
+		if (Registry.ITEM.getResourceKey(blockItem).isEmpty()) {
+			Registry.register(Registry.ITEM, WilderWild.id(path), new BlockItem(block, new FabricItemSettings()));
+		}
 	}
 
     private static HollowedLogBlock createHollowedLogBlock(MaterialColor topMapColor, MaterialColor sideMapColor) {
