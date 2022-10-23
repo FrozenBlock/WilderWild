@@ -58,6 +58,7 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.CreativeModeTabs;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Block;
@@ -274,13 +275,13 @@ public final class RegisterBlocks {
     public static final Block HOLLOWED_CYPRESS_LOG = createHollowedLogBlock(MaterialColor.COLOR_LIGHT_GRAY, MaterialColor.STONE);
 
     public static void registerHollowedLogs() {
-        registerBlock("hollowed_oak_log", HOLLOWED_OAK_LOG, CreativeModeTabs.TAB_NATURE, CreativeModeTabs.TAB_BUILDING_BLOCKS);
-        registerBlock("hollowed_spruce_log", HOLLOWED_SPRUCE_LOG, CreativeModeTabs.TAB_NATURE, CreativeModeTabs.TAB_BUILDING_BLOCKS);
-        registerBlock("hollowed_birch_log", HOLLOWED_BIRCH_LOG, CreativeModeTabs.TAB_NATURE, CreativeModeTabs.TAB_BUILDING_BLOCKS);
-        registerBlock("hollowed_jungle_log", HOLLOWED_JUNGLE_LOG, CreativeModeTabs.TAB_NATURE, CreativeModeTabs.TAB_BUILDING_BLOCKS);
-        registerBlock("hollowed_acacia_log", HOLLOWED_ACACIA_LOG, CreativeModeTabs.TAB_NATURE, CreativeModeTabs.TAB_BUILDING_BLOCKS);
-        registerBlock("hollowed_dark_oak_log", HOLLOWED_DARK_OAK_LOG, CreativeModeTabs.TAB_NATURE, CreativeModeTabs.TAB_BUILDING_BLOCKS);
-        registerBlock("hollowed_mangrove_log", HOLLOWED_MANGROVE_LOG, CreativeModeTabs.TAB_NATURE, CreativeModeTabs.TAB_BUILDING_BLOCKS);
+        registerBlockAfter(Items.OAK_WOOD, "hollowed_oak_log", HOLLOWED_OAK_LOG, CreativeModeTabs.TAB_NATURE, CreativeModeTabs.TAB_BUILDING_BLOCKS);
+		registerBlockAfter(Items.SPRUCE_WOOD, "hollowed_spruce_log", HOLLOWED_OAK_LOG, CreativeModeTabs.TAB_NATURE, CreativeModeTabs.TAB_BUILDING_BLOCKS);
+		registerBlockAfter(Items.BIRCH_WOOD, "hollowed_birch_log", HOLLOWED_OAK_LOG, CreativeModeTabs.TAB_NATURE, CreativeModeTabs.TAB_BUILDING_BLOCKS);
+		registerBlockAfter(Items.JUNGLE_WOOD, "hollowed_jungle_log", HOLLOWED_OAK_LOG, CreativeModeTabs.TAB_NATURE, CreativeModeTabs.TAB_BUILDING_BLOCKS);
+		registerBlockAfter(Items.ACACIA_WOOD, "hollowed_acacia_log", HOLLOWED_OAK_LOG, CreativeModeTabs.TAB_NATURE, CreativeModeTabs.TAB_BUILDING_BLOCKS);
+		registerBlockAfter(Items.DARK_OAK_WOOD, "hollowed_dark_oak_log", HOLLOWED_OAK_LOG, CreativeModeTabs.TAB_NATURE, CreativeModeTabs.TAB_BUILDING_BLOCKS);
+		registerBlockAfter(Items.MANGROVE_WOOD, "hollowed_mangrove_log", HOLLOWED_OAK_LOG, CreativeModeTabs.TAB_NATURE, CreativeModeTabs.TAB_BUILDING_BLOCKS);
         registerBlock("hollowed_baobab_log", HOLLOWED_BAOBAB_LOG, CreativeModeTabs.TAB_NATURE, CreativeModeTabs.TAB_BUILDING_BLOCKS);
         registerBlock("hollowed_cypress_log", HOLLOWED_CYPRESS_LOG, CreativeModeTabs.TAB_NATURE, CreativeModeTabs.TAB_BUILDING_BLOCKS);
     }
@@ -487,8 +488,8 @@ public final class RegisterBlocks {
 		Registry.register(Registry.BLOCK, WilderWild.id(name), block);
 	}
 
-	private static void registerBlockAfter(String name, Block block, CreativeModeTab... tabs) {
-		registerBlockItem(name, block, tabs);
+	private static void registerBlockAfter(ItemLike comparedItem, String name, Block block, CreativeModeTab... tabs) {
+		registerBlockItemAfter(comparedItem, name, block, tabs);
 		Registry.register(Registry.BLOCK, WilderWild.id(name), block);
 	}
 
