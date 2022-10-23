@@ -188,6 +188,8 @@ public final class RegisterItems {
 	}
 
 	private static void actualRegister(Item item, String path) {
-		Registry.register(Registry.ITEM, WilderWild.id(path), item);
+		if (Registry.ITEM.getResourceKey(item).isEmpty()) {
+			Registry.register(Registry.ITEM, WilderWild.id(path), item);
+		}
 	}
 }
