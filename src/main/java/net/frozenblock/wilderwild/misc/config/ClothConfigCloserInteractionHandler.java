@@ -2,6 +2,8 @@ package net.frozenblock.wilderwild.misc.config;
 
 public final class ClothConfigCloserInteractionHandler {
 
+	private static final BlockConfig.BlockSoundsConfig BLOCK_SOUNDS = WilderWildConfig.get().block.blockSounds;
+
     public static boolean betaBeaches() {
         return WilderWildConfig.get().worldgen.betaBeaches;
     }
@@ -62,6 +64,66 @@ public final class ClothConfigCloserInteractionHandler {
     public static boolean mcLiveSensorTendrils() {
         return WilderWildConfig.get().block.mcLiveSensorTendrils;
     }
+
+	public static boolean cactusSounds() {
+		return BLOCK_SOUNDS.cactusSounds;
+	}
+
+	public static boolean claySounds() {
+		return BLOCK_SOUNDS.claySounds;
+	}
+
+	public static boolean coarseDirtSounds() {
+		return BLOCK_SOUNDS.coarseDirtSounds;
+	}
+
+	public static boolean cobwebSounds() {
+		return BLOCK_SOUNDS.cobwebSounds;
+	}
+
+	public static boolean deadBushSounds() {
+		return BLOCK_SOUNDS.deadBushSounds;
+	}
+
+	public static boolean flowerSounds() {
+		return BLOCK_SOUNDS.flowerSounds;
+	}
+
+	public static boolean gravelSounds() {
+		return BLOCK_SOUNDS.gravelSounds;
+	}
+
+	public static boolean frostedIceSounds() {
+		return BLOCK_SOUNDS.frostedIceSounds;
+	}
+
+	public static boolean leafSounds() {
+		return BLOCK_SOUNDS.leafSounds;
+	}
+
+	public static boolean lilyPadSounds() {
+		return BLOCK_SOUNDS.lilyPadSounds;
+	}
+
+	public static boolean mushroomBlockSounds() {
+		return BLOCK_SOUNDS.mushroomBlockSounds;
+	}
+
+	public static boolean podzolSounds() {
+		return BLOCK_SOUNDS.podzolSounds;
+	}
+
+	public static boolean reinforcedDeepslateSounds() {
+		return BLOCK_SOUNDS.reinforcedDeepslateSounds;
+	}
+
+	public static boolean sugarCaneSounds() {
+		return BLOCK_SOUNDS.sugarCaneSounds;
+	}
+
+	public static boolean witherRoseSounds() {
+		return BLOCK_SOUNDS.witherRoseSounds;
+	}
 
 	public static int stoneChestTimer() {
 		return WilderWildConfig.get().block.stoneChest.stoneChestTimer;

@@ -44,6 +44,7 @@
 	"worldgen.OverworldBiomeBuilderMixin",
 	"worldgen.SpruceTreeGrowerMixin",
 	"worldgen.StructuresMixin",
+	"worldgen.SurfaceRuleDataMixin",
 	"worldgen.SwampHutPieceMixin"
   ],
   "client": [

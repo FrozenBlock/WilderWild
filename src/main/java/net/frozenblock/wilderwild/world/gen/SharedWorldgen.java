@@ -100,32 +100,34 @@ public final class SharedWorldgen {
 
     public static SurfaceRules.RuleSource cypressSurfaceRules() {
         return SurfaceRules.ifTrue(
-                SurfaceRules.ON_FLOOR, SurfaceRules.sequence(
-                        SurfaceRules.ifTrue(
-                                SurfaceRules.isBiome(RegisterWorldgen.CYPRESS_WETLANDS),
-                                SurfaceRules.ifTrue(
-                                        SurfaceRules.yBlockCheck(VerticalAnchor.absolute(60), 0),
-                                        SurfaceRules.ifTrue(
-                                                SurfaceRules.not(SurfaceRules.yBlockCheck(VerticalAnchor.absolute(63), 0)),
-                                                SurfaceRules.ifTrue(SurfaceRules.noiseCondition(Noises.SWAMP, 0.0), WATER)
-                                        )
-                                )
-                        )
-                )
+                SurfaceRules.ON_FLOOR,
+				SurfaceRules.ifTrue(
+						SurfaceRules.isBiome(RegisterWorldgen.CYPRESS_WETLANDS),
+						SurfaceRules.ifTrue(
+								SurfaceRules.yBlockCheck(VerticalAnchor.absolute(60), 0),
+								SurfaceRules.ifTrue(
+										SurfaceRules.not(SurfaceRules.yBlockCheck(VerticalAnchor.absolute(63), 0)),
+										SurfaceRules.ifTrue(SurfaceRules.noiseCondition(Noises.SWAMP, 0.0), WATER)
+								)
+						)
+				)
         );
     }
 
+	public static SurfaceRules.SequenceRuleSource betaBeaches() {
+		return (SurfaceRules.SequenceRuleSource) SurfaceRules.sequence(gravelBetaBeaches(), sandBetaBeaches(), multilayerSandBetaBeaches());
+	}
+
 	public static SurfaceRules.RuleSource gravelBetaBeaches() {
 		return SurfaceRules.ifTrue(
-				SurfaceRules.UNDER_FLOOR, SurfaceRules.sequence(
+				SurfaceRules.UNDER_FLOOR,
+				SurfaceRules.ifTrue(
+						FrozenSurfaceRules.isBiome(WilderRegistry.GRAVEL_BEACH_BIOMES),
 						SurfaceRules.ifTrue(
-								FrozenSurfaceRules.isBiome(WilderRegistry.GRAVEL_BEACH_BIOMES),
+								SurfaceRules.yStartCheck(VerticalAnchor.absolute(58), 0),
 								SurfaceRules.ifTrue(
-										SurfaceRules.yStartCheck(VerticalAnchor.absolute(58), 0),
-										SurfaceRules.ifTrue(
-												SurfaceRules.not(SurfaceRules.yStartCheck(VerticalAnchor.absolute(65), 0)),
-												SurfaceRules.ifTrue(SurfaceRules.noiseCondition(WilderNoise.GRAVEL_BEACH_KEY, 0.12, 1.7976931348623157E308), GRAVEL)
-										)
+										SurfaceRules.not(SurfaceRules.yStartCheck(VerticalAnchor.absolute(65), 0)),
+										SurfaceRules.ifTrue(SurfaceRules.noiseCondition(WilderNoise.GRAVEL_BEACH_KEY, 0.12, 1.7976931348623157E308), GRAVEL)
 								)
 						)
 				)
