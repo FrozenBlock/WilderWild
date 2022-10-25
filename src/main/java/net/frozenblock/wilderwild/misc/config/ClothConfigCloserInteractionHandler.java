@@ -2,7 +2,16 @@ package net.frozenblock.wilderwild.misc.config;
 
 public final class ClothConfigCloserInteractionHandler {
 
+	private static final EntityConfig.AllayConfig ALLAY = WilderWildConfig.get().entity.allay;
+	private static final ItemConfig.AncientHornConfig ANCIENT_HORN = WilderWildConfig.get().item.ancientHorn;
+	private static final WorldgenConfig.BiomePlacement BIOME_PLACEMENT = WilderWildConfig.get().worldgen.biomePlacement;
+	private static final BlockConfig BLOCK = WilderWildConfig.get().block;
 	private static final BlockConfig.BlockSoundsConfig BLOCK_SOUNDS = WilderWildConfig.get().block.blockSounds;
+	private static final EntityConfig ENTITY = WilderWildConfig.get().entity;
+	private static final ItemConfig ITEM = WilderWildConfig.get().item;
+	private static final BlockConfig.StoneChestConfig STONE_CHEST = WilderWildConfig.get().block.stoneChest;
+	private static final EntityConfig.WardenConfig WARDEN = WilderWildConfig.get().entity.warden;
+	private static final WorldgenConfig WORLDGEN = WilderWildConfig.get().worldgen;
 
     public static boolean betaBeaches() {
         return WilderWildConfig.get().worldgen.betaBeaches;
@@ -10,59 +19,59 @@ public final class ClothConfigCloserInteractionHandler {
 
     /*
         public static boolean modifyDesertPlacement() {
-            return WilderWildConfig.get().worldgen.biomePlacement.modifyDesertPlacement;
+            return BIOME_PLACEMENT.modifyDesertPlacement;
         }
 
         public static boolean modifyBadlandsPlacement() {
-            return WilderWildConfig.get().worldgen.biomePlacement.modifyBadlandsPlacement;
+            return BIOME_PLACEMENT.modifyBadlandsPlacement;
         }
     */
     public static boolean modifyJunglePlacement() {
-        return WilderWildConfig.get().worldgen.biomePlacement.modifyJunglePlacement;
+        return BIOME_PLACEMENT.modifyJunglePlacement;
     }
 
     public static boolean modifySwampPlacement() {
-        return WilderWildConfig.get().worldgen.biomePlacement.modifySwampPlacement;
+        return BIOME_PLACEMENT.modifySwampPlacement;
     }
 
     public static boolean modifyMangroveSwampPlacement() {
-        return WilderWildConfig.get().worldgen.biomePlacement.modifyMangroveSwampPlacement;
+        return BIOME_PLACEMENT.modifyMangroveSwampPlacement;
     }
 
     public static boolean modifyWindsweptSavannaPlacement() {
-        return WilderWildConfig.get().worldgen.biomePlacement.modifyWindsweptSavannaPlacement;
+        return BIOME_PLACEMENT.modifyWindsweptSavannaPlacement;
     }
 
     public static boolean dyingTrees() {
-        return WilderWildConfig.get().worldgen.dyingTrees;
+        return WORLDGEN.dyingTrees;
     }
 
     public static boolean fallenLogs() {
-        return WilderWildConfig.get().worldgen.fallenLogs;
+        return WORLDGEN.fallenLogs;
     }
 
     public static boolean wildTrees() {
-        return WilderWildConfig.get().worldgen.wilderWildTreeGen;
+        return WORLDGEN.wilderWildTreeGen;
     }
 
     public static boolean wildGrass() {
-        return WilderWildConfig.get().worldgen.wilderWildGrassGen;
+        return WORLDGEN.wilderWildGrassGen;
     }
 
     public static boolean hornShattersGlass() {
-        return WilderWildConfig.get().item.ancientHorn.ancientHornShattersGlass;
+        return ANCIENT_HORN.ancientHornShattersGlass;
     }
 
     public static boolean hornCanSummonWarden() {
-        return WilderWildConfig.get().item.ancientHorn.ancientHornCanSummonWarden;
+        return ANCIENT_HORN.ancientHornCanSummonWarden;
     }
 
     public static boolean projectileBreakParticles() {
-        return WilderWildConfig.get().item.projectileBreakParticles;
+        return ITEM.projectileBreakParticles;
     }
 
     public static boolean mcLiveSensorTendrils() {
-        return WilderWildConfig.get().block.mcLiveSensorTendrils;
+        return BLOCK.mcLiveSensorTendrils;
     }
 
 	public static boolean cactusSounds() {
@@ -126,39 +135,39 @@ public final class ClothConfigCloserInteractionHandler {
 	}
 
 	public static int stoneChestTimer() {
-		return WilderWildConfig.get().block.stoneChest.stoneChestTimer;
+		return STONE_CHEST.stoneChestTimer;
 	}
 
     public static boolean unpassableRail() {
-        return WilderWildConfig.get().entity.unpassableRail;
+        return ENTITY.unpassableRail;
     }
 
 	public static boolean keyframeAllayDance() {
-		return WilderWildConfig.get().entity.allay.keyframeAllayDance;
+		return ALLAY.keyframeAllayDance;
 	}
 
     public static boolean wardenCustomTendrils() {
-        return WilderWildConfig.get().entity.warden.wardenCustomTendrils;
+        return WARDEN.wardenCustomTendrils;
     }
 
     public static boolean wardenDyingAnimation() {
-        return WilderWildConfig.get().entity.warden.wardenDyingAnimation;
+        return WARDEN.wardenDyingAnimation;
     }
 
     public static boolean wardenEmergesFromEgg() {
-        return WilderWildConfig.get().entity.warden.wardenEmergesFromEgg;
+        return WARDEN.wardenEmergesFromEgg;
     }
 
     public static boolean wardenSwimAnimation() {
-        return WilderWildConfig.get().entity.warden.wardenSwimAnimation;
+        return WARDEN.wardenSwimAnimation;
     }
 
     public static boolean shriekerGargling() {
-        return WilderWildConfig.get().block.shriekerGargling;
+        return BLOCK.shriekerGargling;
     }
 
     public static boolean soulFireSounds() {
-        return WilderWildConfig.get().block.soulFireSounds;
+        return BLOCK.soulFireSounds;
     }
 
 }
