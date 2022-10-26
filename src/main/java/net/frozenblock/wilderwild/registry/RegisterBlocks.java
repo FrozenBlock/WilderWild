@@ -11,11 +11,11 @@ import net.fabricmc.fabric.api.registry.StrippableBlockRegistry;
 import net.frozenblock.lib.blocks.FrozenButtonBlock;
 import net.frozenblock.lib.blocks.FrozenDoorBlock;
 import net.frozenblock.lib.blocks.FrozenPressurePlateBlock;
-import net.frozenblock.lib.blocks.FrozenTrapDoorBlock;
-import net.frozenblock.lib.item.api.FrozenCreativeTabs;
 import net.frozenblock.lib.blocks.FrozenSignBlock;
+import net.frozenblock.lib.blocks.FrozenTrapDoorBlock;
 import net.frozenblock.lib.blocks.FrozenWallSignBlock;
 import net.frozenblock.lib.blocks.FrozenWoodTypes;
+import net.frozenblock.lib.item.api.FrozenCreativeTabs;
 import net.frozenblock.lib.replacements_and_lists.BonemealBehaviors;
 import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.block.AlgaeBlock;
@@ -43,15 +43,11 @@ import net.frozenblock.wilderwild.block.TermiteMound;
 import net.frozenblock.wilderwild.block.WaterloggableSaplingBlock;
 import net.frozenblock.wilderwild.block.WaterloggableTallFlowerBlock;
 import net.frozenblock.wilderwild.block.entity.TermiteMoundBlockEntity;
-import net.frozenblock.wilderwild.item.AlgaeItem;
-import net.frozenblock.wilderwild.item.FloweredLilyPadItem;
 import net.frozenblock.wilderwild.misc.FlowerColor;
 import net.frozenblock.wilderwild.world.gen.sapling.CypressSaplingGenerator;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Registry;
-import net.minecraft.data.BlockFamilies;
-import net.minecraft.data.BlockFamily;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.EntityType;
@@ -413,6 +409,8 @@ public final class RegisterBlocks {
     }
 
     // BLOCK FAMILIES
+	//TODO: Wait for accesswideners to work again so we can use BlockFamilies.familyBuilder
+	/*
     public static final BlockFamily BAOBAB = BlockFamilies.familyBuilder(BAOBAB_PLANKS)
             .button(BAOBAB_BUTTON)
             .slab(BAOBAB_SLAB)
@@ -441,6 +439,7 @@ public final class RegisterBlocks {
             .recipeGroupPrefix("wooden")
             .recipeUnlockedBy("has_planks")
             .getFamily();
+	 */
 
     public static final Block NULL_BLOCK = new Block(FabricBlockSettings.copyOf(Blocks.STONE).sounds(RegisterBlockSoundGroups.NULL_BLOCK));
 
