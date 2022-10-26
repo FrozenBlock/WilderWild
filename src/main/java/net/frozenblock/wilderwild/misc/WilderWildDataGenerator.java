@@ -7,6 +7,7 @@ import net.fabricmc.fabric.api.datagen.v1.provider.FabricBuiltinRegistriesProvid
 public class WilderWildDataGenerator implements DataGeneratorEntrypoint {
 	@Override
 	public void onInitializeDataGenerator(FabricDataGenerator dataGenerator) {
-		dataGenerator.addProvider(FabricBuiltinRegistriesProvider.forCurrentMod());
+		final FabricDataGenerator.Pack menuPack = dataGenerator.create();
+		menuPack.addProvider(FabricBuiltinRegistriesProvider.forCurrentMod());
 	}
 }
