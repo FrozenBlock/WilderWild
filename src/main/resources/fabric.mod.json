@@ -55,7 +55,7 @@
 	"frozenblocklib": ">=1.1.1-",
 	"mm": ">=2.3",
 	"fabricloader": ">=0.14.8",
-	"fabric-api": ">=0.60.0",
+	"fabric-api": ">=0.65.1",
 	"minecraft": "~1.19.3-alpha",
 	"java": ">=17"
   },
