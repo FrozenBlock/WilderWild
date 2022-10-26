@@ -2,10 +2,7 @@ package net.frozenblock.wilderwild.entity.render;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
-import com.mojang.math.Matrix3f;
-import com.mojang.math.Matrix4f;
-import com.mojang.math.Quaternion;
-import com.mojang.math.Vector3f;
+import com.mojang.math.Axis;
 import it.unimi.dsi.fastutil.objects.Object2ObjectLinkedOpenHashMap;
 import it.unimi.dsi.fastutil.objects.Object2ObjectMap;
 import net.frozenblock.wilderwild.WilderWild;
@@ -18,6 +15,9 @@ import net.minecraft.client.renderer.entity.EntityRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.resources.ResourceLocation;
+import org.joml.Matrix3f;
+import org.joml.Matrix4f;
+import org.joml.Quaternionf;
 
 public class FireflyRenderer extends EntityRenderer<Firefly> {
 
@@ -45,7 +45,7 @@ public class FireflyRenderer extends EntityRenderer<Firefly> {
     }};
 
     private static final double yOffset = 0.155F;
-    private static final Quaternion one80Quat = Vector3f.YP.rotationDegrees(180.0F);
+    private static final Quaternionf one80Quat = Axis.YP.rotationDegrees(180.0F);
     private static final float pi = (float) Math.PI;
 
     @Override

@@ -3,7 +3,8 @@ package net.frozenblock.wilderwild.entity.render;
 import com.google.common.collect.ImmutableList;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
-import com.mojang.math.Vector3f;
+import com.mojang.math.Axis;
+import org.joml.Vector3f;
 import java.util.List;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -83,14 +84,14 @@ public class JellyfishModel<T extends Jellyfish> extends HierarchicalModel<T> {
     @Override
     public void renderToBuffer(PoseStack poseStack, @NotNull VertexConsumer buffer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
         poseStack.pushPose();
-        poseStack.mulPose(Vector3f.XP.rotationDegrees(this.xRot));
-        poseStack.mulPose(Vector3f.YP.rotationDegrees(this.zRot));
+        poseStack.mulPose(Axis.XP.rotationDegrees(this.xRot));
+        poseStack.mulPose(Axis.YP.rotationDegrees(this.zRot));
         this.body.render(poseStack, buffer, packedLight, packedOverlay, this.red, this.green, this.blue, alpha);
         poseStack.popPose();
 
         poseStack.pushPose();
-        poseStack.mulPose(Vector3f.XP.rotationDegrees(this.tentXRot));
-        poseStack.mulPose(Vector3f.YP.rotationDegrees(this.tentZRot));
+        poseStack.mulPose(Axis.XP.rotationDegrees(this.tentXRot));
+        poseStack.mulPose(Axis.YP.rotationDegrees(this.tentZRot));
         this.tentacleBase.render(poseStack, buffer, packedLight, packedOverlay, this.red, this.green, this.blue, alpha);
         poseStack.popPose();
     }

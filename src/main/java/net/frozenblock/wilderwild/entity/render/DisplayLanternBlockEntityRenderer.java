@@ -2,10 +2,7 @@ package net.frozenblock.wilderwild.entity.render;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
-import com.mojang.math.Matrix3f;
-import com.mojang.math.Matrix4f;
-import com.mojang.math.Quaternion;
-import com.mojang.math.Vector3f;
+import com.mojang.math.Axis;
 import it.unimi.dsi.fastutil.objects.Object2ObjectMap;
 import java.util.Optional;
 import net.fabricmc.api.EnvType;
@@ -27,12 +24,15 @@ import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import org.joml.Matrix3f;
+import org.joml.Matrix4f;
+import org.joml.Quaternionf;
 
 @Environment(EnvType.CLIENT)
 public class DisplayLanternBlockEntityRenderer<T extends DisplayLanternBlockEntity> implements BlockEntityRenderer<T> {
 
     private static final float pi = (float) Math.PI;
-    private static final Quaternion one80Quat = Vector3f.YP.rotationDegrees(180.0F);
+    private static final Quaternionf one80Quat = Axis.YP.rotationDegrees(180.0F);
     private final ItemRenderer itemRenderer;
 
     private static final ResourceLocation TEXTURE = WilderWild.id("textures/entity/firefly/firefly_off.png");
@@ -53,7 +53,7 @@ public class DisplayLanternBlockEntityRenderer<T extends DisplayLanternBlockEnti
     }
 
     public void render(T lantern, float tickDelta, PoseStack matrices, MultiBufferSource vertexConsumers, int light, int overlay) {
-        Quaternion cam = Minecraft.getInstance().gameRenderer.getMainCamera().rotation();
+		Quaternionf cam = Minecraft.getInstance().gameRenderer.getMainCamera().rotation();
         Optional<ItemStack> stack = lantern.getItem();
         if (!lantern.invEmpty() && stack.isPresent()) {
             matrices.pushPose();
@@ -61,7 +61,7 @@ public class DisplayLanternBlockEntityRenderer<T extends DisplayLanternBlockEnti
             matrices.translate(0.5, extraHeight, 0.5);
             matrices.scale(0.7F, 0.7F, 0.7F);
             float n = (lantern.age + tickDelta) / 20;
-            matrices.mulPose(Vector3f.YP.rotation(n));
+            matrices.mulPose(Axis.YP.rotation(n));
             this.itemRenderer.renderStatic(stack.get(), ItemTransforms.TransformType.GROUND, light, OverlayTexture.NO_OVERLAY, matrices, vertexConsumers, 1);
             matrices.popPose();
         } else if (cam != null) {

@@ -1,7 +1,7 @@
 package net.frozenblock.wilderwild.entity.render;
 
 import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.math.Vector3f;
+import com.mojang.math.Axis;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.frozenblock.wilderwild.WilderWild;
@@ -27,7 +27,7 @@ public class JellyfishRenderer extends MobRenderer<Jellyfish, JellyfishModel<Jel
 
     @Override
     public void setupRotations(@NotNull Jellyfish jelly, PoseStack poseStack, float ageInTicks, float rotationYaw, float partialTicks) {
-        poseStack.mulPose(Vector3f.YP.rotationDegrees(180.0F - rotationYaw));
+        poseStack.mulPose(Axis.YP.rotationDegrees(180.0F - rotationYaw));
         poseStack.translate(0, -1, 0);
         poseStack.scale(0.8F, 0.8F, 0.8F);
         JellyfishModel<Jellyfish> model = this.getModel();

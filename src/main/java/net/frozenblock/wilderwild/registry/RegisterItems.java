@@ -102,7 +102,7 @@ public final class RegisterItems {
 		registerItemBefore(Items.BAMBOO_RAFT, CYPRESS_BOAT_ITEM, "cypress_boat", CreativeModeTabs.TAB_TOOLS);
 		registerItemBefore(Items.BAMBOO_RAFT, CYPRESS_CHEST_BOAT_ITEM, "cypress_chest_boat", CreativeModeTabs.TAB_TOOLS);
 		registerItemBefore(Items.BAMBOO_SIGN, CYPRESS_SIGN, "cypress_sign", CreativeModeTabs.TAB_FUNCTIONAL);
-		registerItemAfter(Items.BEETROOT_SEEDS, MILKWEED_POD, "milkweed_pod", CreativeModeTabs.TAB_NATURE);
+		registerItemAfter(Items.BEETROOT_SEEDS, MILKWEED_POD, "milkweed_pod", CreativeModeTabs.TAB_NATURAL);
 		registerItemBefore(Items.MUSIC_DISC_5, MUSIC_DISC_BENEATH, "music_disc_beneath", CreativeModeTabs.TAB_TOOLS);
 		registerItemBefore(Items.MUSIC_DISC_OTHERSIDE, MUSIC_DISC_GOAT_HORN_SYMPHONY, "music_disc_goathorn_symphony", CreativeModeTabs.TAB_TOOLS);
 		registerItemAfter(Items.MUSIC_DISC_5, MUSIC_DISC_BACK, "music_disc_back", CreativeModeTabs.TAB_TOOLS);
@@ -130,10 +130,10 @@ public final class RegisterItems {
 		registerInstrumentBefore(Items.MUSIC_DISC_13, ANCIENT_HORN, "ancient_horn", WilderInstrumentTags.ANCIENT_HORNS, CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS, CreativeModeTabs.TAB_TOOLS);
 		registerInstrumentBefore(Items.BOW, ANCIENT_HORN, "ancient_horn", WilderInstrumentTags.ANCIENT_HORNS, CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS, CreativeModeTabs.TAB_COMBAT);
 
-		registerItemAfter(Items.MANGROVE_PROPAGULE, BAOBAB_NUT, "baobab_nut", CreativeModeTabs.TAB_NATURE);
+		registerItemAfter(Items.MANGROVE_PROPAGULE, BAOBAB_NUT, "baobab_nut", CreativeModeTabs.TAB_NATURAL);
 		registerItemAfter(Items.GLOW_BERRIES, BAOBAB_NUT, "baobab_nut", CreativeModeTabs.TAB_CONSUMABLES);
-		//registerItem(PRICKLY_PEAR, "prickly_pear", CreativeModeTabs.TAB_NATURE, CreativeModeTabs.TAB_CONSUMABLES);
-		//registerItem(PEELED_PRICKLY_PEAR, "peeled_prickly_pear", CreativeModeTabs.TAB_NATURE, CreativeModeTabs.TAB_CONSUMABLES);
+		//registerItem(PRICKLY_PEAR, "prickly_pear", CreativeModeTabs.TAB_NATURAL, CreativeModeTabs.TAB_CONSUMABLES);
+		//registerItem(PEELED_PRICKLY_PEAR, "peeled_prickly_pear", CreativeModeTabs.TAB_NATURAL, CreativeModeTabs.TAB_CONSUMABLES);
 
 		registerItem(FIREFLY_BOTTLE, "firefly_bottle", CreativeModeTabs.TAB_TOOLS);
 		registerItem(WHITE_FIREFLY_BOTTLE, "white_firefly_bottle", CreativeModeTabs.TAB_TOOLS);
@@ -153,9 +153,9 @@ public final class RegisterItems {
 		registerItem(RED_FIREFLY_BOTTLE, "red_firefly_bottle", CreativeModeTabs.TAB_TOOLS);
 		registerItem(BLACK_FIREFLY_BOTTLE, "black_firefly_bottle", CreativeModeTabs.TAB_TOOLS);
 
-		registerItemAfter(Items.GLOW_LICHEN, POLLEN, "pollen", CreativeModeTabs.TAB_NATURE);
-		registerItemBefore(Items.LILY_PAD, new AlgaeItem(RegisterBlocks.ALGAE, new FabricItemSettings()), "algae", CreativeModeTabs.TAB_NATURE);
-		registerItemAfter(Items.LILY_PAD, new FloweredLilyPadItem(RegisterBlocks.FLOWERING_LILY_PAD, new FabricItemSettings()), "flowering_lily_pad", CreativeModeTabs.TAB_NATURE);
+		registerItemAfter(Items.GLOW_LICHEN, POLLEN, "pollen", CreativeModeTabs.TAB_NATURAL);
+		registerItemBefore(Items.LILY_PAD, new AlgaeItem(RegisterBlocks.ALGAE, new FabricItemSettings()), "algae", CreativeModeTabs.TAB_NATURAL);
+		registerItemAfter(Items.LILY_PAD, new FloweredLilyPadItem(RegisterBlocks.FLOWERING_LILY_PAD, new FabricItemSettings()), "flowering_lily_pad", CreativeModeTabs.TAB_NATURAL);
 
 		registerItemAfter(Items.ECHO_SHARD, ANCIENT_HORN_FRAGMENT, "ancient_horn_fragment", CreativeModeTabs.TAB_CRAFTING);
 

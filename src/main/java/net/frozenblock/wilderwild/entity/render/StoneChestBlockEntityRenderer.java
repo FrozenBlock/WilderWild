@@ -2,7 +2,7 @@ package net.frozenblock.wilderwild.entity.render;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
-import com.mojang.math.Vector3f;
+import com.mojang.math.Axis;
 import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.WilderWildClient;
 import net.frozenblock.wilderwild.block.StoneChestBlock;
@@ -101,7 +101,7 @@ public class StoneChestBlockEntityRenderer<T extends StoneChestBlockEntity & Lid
             matrices.pushPose();
             float f = blockState.getValue(StoneChestBlock.FACING).toYRot();
             matrices.translate(0.5, 0.5, 0.5);
-            matrices.mulPose(Vector3f.YP.rotationDegrees(-f));
+            matrices.mulPose(Axis.YP.rotationDegrees(-f));
             matrices.translate(-0.5, -0.5, -0.5);
             DoubleBlockCombiner.NeighborCombineResult<? extends ChestBlockEntity> propertySource;
             if (bl) {
