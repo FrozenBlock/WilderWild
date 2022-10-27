@@ -137,21 +137,21 @@ public final class RegisterItems {
 
 		registerItem(FIREFLY_BOTTLE, "firefly_bottle", CreativeModeTabs.TAB_TOOLS);
 		registerItem(WHITE_FIREFLY_BOTTLE, "white_firefly_bottle", CreativeModeTabs.TAB_TOOLS);
+		registerItem(LIGHT_GRAY_FIREFLY_BOTTLE, "light_gray_firefly_bottle", CreativeModeTabs.TAB_TOOLS);
+		registerItem(GRAY_FIREFLY_BOTTLE, "gray_firefly_bottle", CreativeModeTabs.TAB_TOOLS);
+		registerItem(BLACK_FIREFLY_BOTTLE, "black_firefly_bottle", CreativeModeTabs.TAB_TOOLS);
+		registerItem(BROWN_FIREFLY_BOTTLE, "brown_firefly_bottle", CreativeModeTabs.TAB_TOOLS);
+		registerItem(RED_FIREFLY_BOTTLE, "red_firefly_bottle", CreativeModeTabs.TAB_TOOLS);
 		registerItem(ORANGE_FIREFLY_BOTTLE, "orange_firefly_bottle", CreativeModeTabs.TAB_TOOLS);
-		registerItem(MAGENTA_FIREFLY_BOTTLE, "magenta_firefly_bottle", CreativeModeTabs.TAB_TOOLS);
-		registerItem(LIGHT_BLUE_FIREFLY_BOTTLE, "light_blue_firefly_bottle", CreativeModeTabs.TAB_TOOLS);
 		registerItem(YELLOW_FIREFLY_BOTTLE, "yellow_firefly_bottle", CreativeModeTabs.TAB_TOOLS);
 		registerItem(LIME_FIREFLY_BOTTLE, "lime_firefly_bottle", CreativeModeTabs.TAB_TOOLS);
-		registerItem(PINK_FIREFLY_BOTTLE, "pink_firefly_bottle", CreativeModeTabs.TAB_TOOLS);
-		registerItem(GRAY_FIREFLY_BOTTLE, "gray_firefly_bottle", CreativeModeTabs.TAB_TOOLS);
-		registerItem(LIGHT_GRAY_FIREFLY_BOTTLE, "light_gray_firefly_bottle", CreativeModeTabs.TAB_TOOLS);
-		registerItem(CYAN_FIREFLY_BOTTLE, "cyan_firefly_bottle", CreativeModeTabs.TAB_TOOLS);
-		registerItem(PURPLE_FIREFLY_BOTTLE, "purple_firefly_bottle", CreativeModeTabs.TAB_TOOLS);
-		registerItem(BLUE_FIREFLY_BOTTLE, "blue_firefly_bottle", CreativeModeTabs.TAB_TOOLS);
-		registerItem(BROWN_FIREFLY_BOTTLE, "brown_firefly_bottle", CreativeModeTabs.TAB_TOOLS);
 		registerItem(GREEN_FIREFLY_BOTTLE, "green_firefly_bottle", CreativeModeTabs.TAB_TOOLS);
-		registerItem(RED_FIREFLY_BOTTLE, "red_firefly_bottle", CreativeModeTabs.TAB_TOOLS);
-		registerItem(BLACK_FIREFLY_BOTTLE, "black_firefly_bottle", CreativeModeTabs.TAB_TOOLS);
+		registerItem(CYAN_FIREFLY_BOTTLE, "cyan_firefly_bottle", CreativeModeTabs.TAB_TOOLS);
+		registerItem(LIGHT_BLUE_FIREFLY_BOTTLE, "light_blue_firefly_bottle", CreativeModeTabs.TAB_TOOLS);
+		registerItem(BLUE_FIREFLY_BOTTLE, "blue_firefly_bottle", CreativeModeTabs.TAB_TOOLS);
+		registerItem(PURPLE_FIREFLY_BOTTLE, "purple_firefly_bottle", CreativeModeTabs.TAB_TOOLS);
+		registerItem(MAGENTA_FIREFLY_BOTTLE, "magenta_firefly_bottle", CreativeModeTabs.TAB_TOOLS);
+		registerItem(PINK_FIREFLY_BOTTLE, "pink_firefly_bottle", CreativeModeTabs.TAB_TOOLS);
 
 		registerItemAfter(Items.GLOW_LICHEN, POLLEN, "pollen", CreativeModeTabs.TAB_NATURAL);
 		registerItemBefore(Items.LILY_PAD, new AlgaeItem(RegisterBlocks.ALGAE, new FabricItemSettings()), "algae", CreativeModeTabs.TAB_NATURAL);

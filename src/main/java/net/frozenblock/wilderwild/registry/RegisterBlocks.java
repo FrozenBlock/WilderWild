@@ -453,18 +453,18 @@ public final class RegisterBlocks {
         registerBlockBefore(Items.SPONGE, "blue_pearlescent_mesoglea", MESOGLEA, CreativeModeTabs.TAB_NATURAL);
 		registerBlockBefore(Items.SPONGE, "purple_pearlescent_mesoglea", PURPLE_MESOGLEA, CreativeModeTabs.TAB_NATURAL);
 		registerBlockBefore(Items.SPONGE, "blue_mesoglea", BLUE_MESOGLEA, CreativeModeTabs.TAB_NATURAL);
+		registerBlockBefore(Items.SPONGE, "pink_mesoglea", PINK_MESOGLEA, CreativeModeTabs.TAB_NATURAL);
+		registerBlockBefore(Items.SPONGE, "red_mesoglea", RED_MESOGLEA, CreativeModeTabs.TAB_NATURAL);
 		registerBlockBefore(Items.SPONGE, "yellow_mesoglea", YELLOW_MESOGLEA, CreativeModeTabs.TAB_NATURAL);
 		registerBlockBefore(Items.SPONGE, "lime_mesoglea", LIME_MESOGLEA, CreativeModeTabs.TAB_NATURAL);
-		registerBlockBefore(Items.SPONGE, "red_mesoglea", RED_MESOGLEA, CreativeModeTabs.TAB_NATURAL);
-		registerBlockBefore(Items.SPONGE, "pink_mesoglea", PINK_MESOGLEA, CreativeModeTabs.TAB_NATURAL);
 
 		registerBlockBefore(Items.SPONGE, "blue_pearlescent_nematocyst", BLUE_PEARLESCENT_NEMATOCYST, CreativeModeTabs.TAB_NATURAL);
 		registerBlockBefore(Items.SPONGE, "purple_pearlescent_nematocyst", PURPLE_PEARLESCENT_NEMATOCYST, CreativeModeTabs.TAB_NATURAL);
 		registerBlockBefore(Items.SPONGE, "blue_nematocyst", BLUE_NEMATOCYST, CreativeModeTabs.TAB_NATURAL);
+		registerBlockBefore(Items.SPONGE, "pink_nematocyst", PINK_NEMATOCYST, CreativeModeTabs.TAB_NATURAL);
+		registerBlockBefore(Items.SPONGE, "red_nematocyst", RED_NEMATOCYST, CreativeModeTabs.TAB_NATURAL);
 		registerBlockBefore(Items.SPONGE, "yellow_nematocyst", YELLOW_NEMATOCYST, CreativeModeTabs.TAB_NATURAL);
 		registerBlockBefore(Items.SPONGE, "lime_nematocyst", LIME_NEMATOCYST, CreativeModeTabs.TAB_NATURAL);
-		registerBlockBefore(Items.SPONGE, "red_nematocyst", RED_NEMATOCYST, CreativeModeTabs.TAB_NATURAL);
-		registerBlockBefore(Items.SPONGE, "pink_nematocyst", PINK_NEMATOCYST, CreativeModeTabs.TAB_NATURAL);
     }
 
     public static void registerBlocks() {
