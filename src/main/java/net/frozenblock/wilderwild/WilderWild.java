@@ -17,6 +17,7 @@ import net.frozenblock.wilderwild.block.entity.TermiteMoundBlockEntity;
 import net.frozenblock.wilderwild.entity.Firefly;
 import net.frozenblock.wilderwild.misc.BlockSoundGroupOverwrites;
 import net.frozenblock.wilderwild.misc.FireflyColor;
+import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.frozenblock.wilderwild.registry.RegisterBlockEntities;
 import net.frozenblock.wilderwild.registry.RegisterBlockSoundGroups;
 import net.frozenblock.wilderwild.registry.RegisterBlocks;
@@ -77,6 +78,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public final class WilderWild implements ModInitializer {
+	/**
+	 * @deprecated Use {@link WilderSharedConstants#MOD_ID} instead.
+	 */
+	@Deprecated(forRemoval = true)
     public static final String MOD_ID = "wilderwild";
     public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
     public static boolean DEV_LOGGING = false;
@@ -207,6 +212,8 @@ public final class WilderWild implements ModInitializer {
 
         BiomeModifications.addSpawn(BiomeSelectors.includeByKey(ResourceKey.create(Registry.BIOME_REGISTRY, new ResourceLocation("terralith", "cave/underground_jungle"))),
                 WilderWild.FIREFLIES, RegisterEntities.FIREFLY, 12, 2, 4);
+
+		WilderRegistry.MULTILAYER_SAND_BEACH_BIOMES.add(ResourceKey.create(Registry.BIOME_REGISTRY, new ResourceLocation("terralith", "arid_highlands")));
     }
 
     public static boolean isCopperPipe(BlockState state) {

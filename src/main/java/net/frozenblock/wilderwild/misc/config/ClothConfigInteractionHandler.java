@@ -1,7 +1,6 @@
 package net.frozenblock.wilderwild.misc.config;
 
 import net.frozenblock.lib.FrozenBools;
-import net.frozenblock.wilderwild.WilderWild;
 
 public final class ClothConfigInteractionHandler {
 
@@ -110,6 +109,111 @@ public final class ClothConfigInteractionHandler {
         }
         return false;
     }
+
+	public static boolean cactusSounds() {
+		if (FrozenBools.hasCloth) {
+			return ClothConfigCloserInteractionHandler.cactusSounds();
+		}
+		return true;
+	}
+
+	public static boolean claySounds() {
+		if (FrozenBools.hasCloth) {
+			return ClothConfigCloserInteractionHandler.claySounds();
+		}
+		return true;
+	}
+
+	public static boolean coarseDirtSounds() {
+		if (FrozenBools.hasCloth) {
+			return ClothConfigCloserInteractionHandler.coarseDirtSounds();
+		}
+		return true;
+	}
+
+	public static boolean cobwebSounds() {
+		if (FrozenBools.hasCloth) {
+			return ClothConfigCloserInteractionHandler.cobwebSounds();
+		}
+		return true;
+	}
+
+	public static boolean deadBushSounds() {
+		if (FrozenBools.hasCloth) {
+			return ClothConfigCloserInteractionHandler.deadBushSounds();
+		}
+		return true;
+	}
+
+	public static boolean flowerSounds() {
+		if (FrozenBools.hasCloth) {
+			return ClothConfigCloserInteractionHandler.flowerSounds();
+		}
+		return true;
+	}
+
+	public static boolean gravelSounds() {
+		if (FrozenBools.hasCloth) {
+			return ClothConfigCloserInteractionHandler.gravelSounds();
+		}
+		return true;
+	}
+
+	public static boolean frostedIceSounds() {
+		if (FrozenBools.hasCloth) {
+			return ClothConfigCloserInteractionHandler.frostedIceSounds();
+		}
+		return true;
+	}
+
+	public static boolean leafSounds() {
+		if (FrozenBools.hasCloth) {
+			return ClothConfigCloserInteractionHandler.leafSounds();
+		}
+		return true;
+	}
+
+	public static boolean lilyPadSounds() {
+		if (FrozenBools.hasCloth) {
+			return ClothConfigCloserInteractionHandler.lilyPadSounds();
+		}
+		return true;
+	}
+
+	public static boolean mushroomBlockSounds() {
+		if (FrozenBools.hasCloth) {
+			return ClothConfigCloserInteractionHandler.mushroomBlockSounds();
+		}
+		return true;
+	}
+
+	public static boolean podzolSounds() {
+		if (FrozenBools.hasCloth) {
+			return ClothConfigCloserInteractionHandler.podzolSounds();
+		}
+		return true;
+	}
+
+	public static boolean reinforcedDeepslateSounds() {
+		if (FrozenBools.hasCloth) {
+			return ClothConfigCloserInteractionHandler.reinforcedDeepslateSounds();
+		}
+		return true;
+	}
+
+	public static boolean sugarCaneSounds() {
+		if (FrozenBools.hasCloth) {
+			return ClothConfigCloserInteractionHandler.sugarCaneSounds();
+		}
+		return true;
+	}
+
+	public static boolean witherRoseSounds() {
+		if (FrozenBools.hasCloth) {
+			return ClothConfigCloserInteractionHandler.witherRoseSounds();
+		}
+		return true;
+	}
 
 	public static int stoneChestTimer() {
 		if (FrozenBools.hasCloth) {

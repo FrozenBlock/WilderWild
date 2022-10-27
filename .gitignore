@@ -28,6 +28,10 @@ bin/
 
 *.DS_Store
 
+# maven
+
+target/
+
 # fabric
 
 run/
