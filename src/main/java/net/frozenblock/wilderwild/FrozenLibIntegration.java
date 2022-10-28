@@ -8,9 +8,11 @@ import net.frozenblock.lib.replacements_and_lists.HopperUntouchableList;
 import net.frozenblock.lib.replacements_and_lists.StructurePoolElementIdReplacements;
 import net.frozenblock.lib.sound.SoundPredicate.SoundPredicate;
 import net.frozenblock.wilderwild.entity.Firefly;
+import net.frozenblock.wilderwild.misc.WilderEnderman;
 import net.frozenblock.wilderwild.registry.RegisterBlockEntities;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.monster.EnderMan;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.InstrumentItem;
@@ -25,11 +27,8 @@ public final class FrozenLibIntegration implements FrozenMainEntrypoint {
     @Override
     public void init() {
         WilderWild.log("FrozenLib Main Entrypoint for WilderWild loaded.", WilderWild.UNSTABLE_LOGGING);
-		SoundPredicate.register(WilderWild.id("instrument"), (SoundPredicate.LoopPredicate<Player>) entity -> {
-            if (entity instanceof Player player) {
-                return (player.getUseItem().getItem() instanceof InstrumentItem);
-            }
-            return false;
+		SoundPredicate.register(WilderWild.id("instrument"),(SoundPredicate.LoopPredicate<Player>) player -> {
+			return (player.getUseItem().getItem() instanceof InstrumentItem);
         });
         SoundPredicate.register(WilderWild.id("nectar"), (SoundPredicate.LoopPredicate<Firefly>) entity -> {
             if (entity.isSilent()) {
@@ -43,12 +42,31 @@ public final class FrozenLibIntegration implements FrozenMainEntrypoint {
             }
             return false;
         });
-		SoundPredicate.register(WilderWild.id("enderman_anger"), (SoundPredicate.LoopPredicate<EnderMan>) entity -> {
-            if (entity.isSilent() || !entity.isAlive()) {
-                return false;
-            }
-            return ((EnderMan) entity).isCreepy();
-        });
+		new SoundPredicate.LoopPredicate<EnderMan>() {
+			@Override
+			public boolean test(EnderMan entity) {
+				return false;
+			}
+
+			@Override
+			public void onStop(EnderMan entity) {
+
+			}
+		};
+		SoundPredicate.register(WilderWild.id("enderman_anger"), new SoundPredicate.LoopPredicate<EnderMan>() {
+			@Override
+			public boolean test(EnderMan entity) {
+				if (entity.isSilent() || !entity.isAlive() || entity.isRemoved()) {
+					return false;
+				}
+				return entity.isCreepy();
+			}
+
+			/*@Override
+			public void onStop(EnderMan entity) {
+				((WilderEnderman) entity).setCanPlayLoopingSound();
+			}*/
+		});
 
         BlockScheduledTicks.ticks.put(Blocks.DIRT, (blockState, serverLevel, blockPos, randomSource) -> serverLevel.setBlock(blockPos, Blocks.MUD.defaultBlockState(), 3));
         HopperUntouchableList.blackListedTypes.add(RegisterBlockEntities.STONE_CHEST);

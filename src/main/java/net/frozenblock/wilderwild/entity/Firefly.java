@@ -342,10 +342,7 @@ public class Firefly extends PathfinderMob implements FlyingAnimal {
             this.shouldCheckSpawn = false;
         }
 
-        boolean nectar = false;
-        if (this.hasCustomName()) {
-            nectar = this.getCustomName().getString().toLowerCase().contains("nectar");
-        }
+        boolean nectar = this.hasCustomName() && this.getCustomName().getString().toLowerCase().contains("nectar");
         if (level instanceof ServerLevel server) {
             if (nectar != wasNamedNectar) {
                 if (nectar) {
