@@ -3,13 +3,13 @@
   "id": "wilderwild",
   "version": "${version}",
   "name": "Wilder Wild",
-  "description": "Wilder Wild overhauls the Wild Update, adding features and improving existing ones.",
+  "description": "Overhauls the Wild Update, adding features and improving existing ones.",
   "authors": [
 	"FrozenBlock"
   ],
   "contact": {
 	"homepage": "https://www.curseforge.com/minecraft/mc-mods/wilder-wild",
-	"sources": "https://github.com/FrozenBlock/WilderWild/",
+	"sources": "https://github.com/FrozenBlock/WilderWild",
 	"issues": "https://github.com/FrozenBlock/WilderWild/issues"
   },
   "license": "LGPL-3.0",
