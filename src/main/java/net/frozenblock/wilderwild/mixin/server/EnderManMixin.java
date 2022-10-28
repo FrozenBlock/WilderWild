@@ -5,6 +5,7 @@ import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.misc.ClientMethodInteractionHandler;
 import net.frozenblock.wilderwild.misc.WilderEnderman;
 import net.frozenblock.wilderwild.registry.RegisterSounds;
+import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
@@ -25,6 +26,9 @@ public final class EnderManMixin extends Monster implements WilderEnderman {
 	@Unique
 	private boolean wilderWild$canPlayLoopingSound = true;
 
+	@Shadow
+	private int lastStareSound;
+
     private EnderManMixin(EntityType<? extends Monster> entityType, Level level) {
         super(entityType, level);
     }
@@ -35,13 +39,17 @@ public final class EnderManMixin extends Monster implements WilderEnderman {
 		this.wilderWild$canPlayLoopingSound = true;
 	}
 
-    @Inject(method = "playStareSound", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/Level;playLocalSound(DDDLnet/minecraft/sounds/SoundEvent;Lnet/minecraft/sounds/SoundSource;FFZ)V"), cancellable = true)
+    @Inject(method = "playStareSound", at = @At(value = "HEAD"), cancellable = true)
     public void playStareSound(CallbackInfo info) {
         //NOTE: This only runs on the client.
         info.cancel();
-        if (this.level.isClientSide) {
-			ClientMethodInteractionHandler.playClientEnderManSound(EnderMan.class.cast(this));
-        }
+		if (this.tickCount >= this.lastStareSound + 400) {
+			this.lastStareSound = this.tickCount;
+			if (!this.isSilent()) {
+				ClientMethodInteractionHandler.playClientEnderManSound(EnderMan.class.cast(this));
+				this.level.playLocalSound(this.getX(), this.getEyeY(), this.getZ(), SoundEvents.ENDERMAN_STARE, this.getSoundSource(), 2.5F, 1.0F, false);
+			}
+		}
     }
 
     @Inject(method = "setTarget", at = @At(value = "INVOKE", target = "Lnet/minecraft/network/syncher/SynchedEntityData;set(Lnet/minecraft/network/syncher/EntityDataAccessor;Ljava/lang/Object;)V", ordinal = 2, shift = At.Shift.AFTER))
