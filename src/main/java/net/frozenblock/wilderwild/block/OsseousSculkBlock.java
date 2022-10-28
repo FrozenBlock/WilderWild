@@ -1,6 +1,6 @@
 package net.frozenblock.wilderwild.block;
 
-import net.frozenblock.lib.mathematics.EasyNoiseSampler;
+import net.frozenblock.lib.math.EasyNoiseSampler;
 import net.frozenblock.wilderwild.registry.RegisterBlocks;
 import net.frozenblock.wilderwild.registry.RegisterProperties;
 import net.minecraft.core.BlockPos;
@@ -52,7 +52,7 @@ public class OsseousSculkBlock extends RotatedPillarBlock implements SculkBehavi
     }
 
     public static Direction.Axis getAxis(BlockPos pos) {
-        return EasyNoiseSampler.sample(EasyNoiseSampler.perlinSimple, pos, 0.7, false, false) > 0 ? Direction.Axis.X : Direction.Axis.Z;
+        return EasyNoiseSampler.sample(EasyNoiseSampler.perlinLocal, pos, 0.7, false, false) > 0 ? Direction.Axis.X : Direction.Axis.Z;
     }
 
     public static void convertToSculk(LevelAccessor level, BlockPos pos) {

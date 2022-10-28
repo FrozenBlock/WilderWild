@@ -152,7 +152,7 @@ public final class WilderWild implements ModInitializer {
         TermiteMoundBlockEntity.Termite.addDegradableBlocks();
         TermiteMoundBlockEntity.Termite.addNaturalDegradableBlocks();
 
-        if (FrozenBools.hasTerralith) {
+        if (FrozenBools.HAS_TERRALITH) {
             terralith();
         }
 
@@ -210,7 +210,7 @@ public final class WilderWild implements ModInitializer {
     }
 
     public static boolean isCopperPipe(BlockState state) {
-        if (FrozenBools.hasPipes) {
+        if (FrozenBools.HAS_SIMPLE_COPPER_PIPES) {
             ResourceLocation id = Registry.BLOCK.getKey(state.getBlock());
             return id.getNamespace().equals("lunade") && id.getPath().contains("pipe");
         }

@@ -36,7 +36,7 @@ import org.jetbrains.annotations.Nullable;
 import org.slf4j.Logger;
 
 public class TermiteMoundBlockEntity extends BlockEntity {
-    ArrayList<Termite> termites = new ArrayList<>();
+    private final ArrayList<Termite> termites = new ArrayList<>();
     public int ticksToNextTermite;
     public int ticksToCheckLight;
     public int lastLight;
@@ -184,7 +184,7 @@ public class TermiteMoundBlockEntity extends BlockEntity {
             if (canMove(level, this.pos)) {
                 BlockState blockState = level.getBlockState(this.pos);
                 Block block = blockState.getBlock();
-                boolean degradable = !this.natural ? degradableBlocks.contains(block) : naturalDegradableBlocks.contains(block);
+                boolean degradable = !this.natural ? DEGRADABLE_BLOCKS.contains(block) : NATURAL_DEGRADABLE_BLOCKS.contains(block);
                 boolean breakable = blockState.is(WilderBlockTags.TERMITE_BREAKABLE);
                 boolean leaves = blockState.is(BlockTags.LEAVES);
                 if (degradable || breakable) {
@@ -200,7 +200,7 @@ public class TermiteMoundBlockEntity extends BlockEntity {
                         } else {
                             Direction.Axis axis = blockState.hasProperty(BlockStateProperties.AXIS) ? blockState.getValue(BlockStateProperties.AXIS) : Direction.Axis.X;
                             level.addDestroyBlockEffect(this.pos, blockState);
-                            BlockState setState = !this.natural ? degradableBlockResults.get(degradableBlocks.indexOf(block)).defaultBlockState() : naturalDegradableBlockResults.get(naturalDegradableBlocks.indexOf(block)).defaultBlockState();
+                            BlockState setState = !this.natural ? DEGRADABLE_BLOCK_RESULTS.get(DEGRADABLE_BLOCKS.indexOf(block)).defaultBlockState() : NATURAL_DEGRADABLE_BLOCK_RESULTS.get(NATURAL_DEGRADABLE_BLOCKS.indexOf(block)).defaultBlockState();
                             if (setState.hasProperty(BlockStateProperties.AXIS)) {
                                 setState = setState.setValue(BlockStateProperties.AXIS, axis);
                             }
@@ -256,7 +256,7 @@ public class TermiteMoundBlockEntity extends BlockEntity {
         @Nullable
         public static BlockPos ledgePos(Level level, BlockPos pos, boolean natural) {
             BlockState state = level.getBlockState(pos);
-            if (degradableBlocks.contains(state.getBlock()) || state.is(WilderBlockTags.TERMITE_BREAKABLE)) {
+            if (DEGRADABLE_BLOCKS.contains(state.getBlock()) || state.is(WilderBlockTags.TERMITE_BREAKABLE)) {
                 return pos;
             }
             pos = pos.below();
@@ -276,12 +276,12 @@ public class TermiteMoundBlockEntity extends BlockEntity {
         public static BlockPos degradableBreakablePos(Level level, BlockPos pos, boolean natural) {
             List<Direction> directions = Util.shuffledCopy(Direction.values(), level.random);
             BlockState upState = level.getBlockState(pos.relative(Direction.UP));
-            if ((!natural ? degradableBlocks.contains(upState.getBlock()) : naturalDegradableBlocks.contains(upState.getBlock())) || upState.is(WilderBlockTags.TERMITE_BREAKABLE)) {
+            if ((!natural ? DEGRADABLE_BLOCKS.contains(upState.getBlock()) : NATURAL_DEGRADABLE_BLOCKS.contains(upState.getBlock())) || upState.is(WilderBlockTags.TERMITE_BREAKABLE)) {
                 return pos.relative(Direction.UP);
             }
             for (Direction direction : directions) {
                 BlockState state = level.getBlockState(pos.relative(direction));
-                if ((!natural ? degradableBlocks.contains(state.getBlock()) : naturalDegradableBlocks.contains(state.getBlock())) || state.is(WilderBlockTags.TERMITE_BREAKABLE)) {
+                if ((!natural ? DEGRADABLE_BLOCKS.contains(state.getBlock()) : NATURAL_DEGRADABLE_BLOCKS.contains(state.getBlock())) || state.is(WilderBlockTags.TERMITE_BREAKABLE)) {
                     return pos.relative(direction);
                 }
             }
@@ -291,7 +291,7 @@ public class TermiteMoundBlockEntity extends BlockEntity {
         public static boolean exposedToAir(Level level, BlockPos pos, boolean natural) {
             for (Direction direction : Direction.values()) {
                 BlockState state = level.getBlockState(pos.relative(direction));
-                if (state.isAir() || (!state.isRedstoneConductor(level, pos.relative(direction)) && !state.is(WilderBlockTags.BLOCKS_TERMITE)) || (!natural && degradableBlocks.contains(state.getBlock())) || (natural && naturalDegradableBlocks.contains(state.getBlock())) || state.is(WilderBlockTags.TERMITE_BREAKABLE)) {
+                if (state.isAir() || (!state.isRedstoneConductor(level, pos.relative(direction)) && !state.is(WilderBlockTags.BLOCKS_TERMITE)) || (!natural && DEGRADABLE_BLOCKS.contains(state.getBlock())) || (natural && NATURAL_DEGRADABLE_BLOCKS.contains(state.getBlock())) || state.is(WilderBlockTags.TERMITE_BREAKABLE)) {
                     return true;
                 }
             }
@@ -342,10 +342,10 @@ public class TermiteMoundBlockEntity extends BlockEntity {
             return this.natural;
         }
 
-        public static final ArrayList<Block> degradableBlocks = new ArrayList<>();
-        public static final ArrayList<Block> degradableBlockResults = new ArrayList<>();
-        public static final ArrayList<Block> naturalDegradableBlocks = new ArrayList<>();
-        public static final ArrayList<Block> naturalDegradableBlockResults = new ArrayList<>();
+        public static final ArrayList<Block> DEGRADABLE_BLOCKS = new ArrayList<>();
+        public static final ArrayList<Block> DEGRADABLE_BLOCK_RESULTS = new ArrayList<>();
+        public static final ArrayList<Block> NATURAL_DEGRADABLE_BLOCKS = new ArrayList<>();
+        public static final ArrayList<Block> NATURAL_DEGRADABLE_BLOCK_RESULTS = new ArrayList<>();
 
         public static void addDegradableBlocks() {
             addDegradable(Blocks.ACACIA_LOG, RegisterBlocks.HOLLOWED_ACACIA_LOG);
@@ -379,8 +379,8 @@ public class TermiteMoundBlockEntity extends BlockEntity {
         }
 
         public static void addDegradable(Block degradable, Block result) {
-            degradableBlocks.add(degradable);
-            degradableBlockResults.add(result);
+            DEGRADABLE_BLOCKS.add(degradable);
+            DEGRADABLE_BLOCK_RESULTS.add(result);
         }
 
         public static void addNaturalDegradableBlocks() {
@@ -401,8 +401,8 @@ public class TermiteMoundBlockEntity extends BlockEntity {
         }
 
         public static void addNaturalDegradable(Block degradable, Block result) {
-            naturalDegradableBlocks.add(degradable);
-            naturalDegradableBlockResults.add(result);
+            NATURAL_DEGRADABLE_BLOCKS.add(degradable);
+            NATURAL_DEGRADABLE_BLOCK_RESULTS.add(result);
         }
     }
 }

@@ -1,7 +1,7 @@
 package net.frozenblock.wilderwild.world.feature.features;
 
 import com.mojang.serialization.Codec;
-import net.frozenblock.lib.mathematics.EasyNoiseSampler;
+import net.frozenblock.lib.math.EasyNoiseSampler;
 import net.frozenblock.wilderwild.world.feature.features.config.PathFeatureConfig;
 import net.minecraft.core.BlockPos;
 import net.minecraft.util.RandomSource;
@@ -24,7 +24,7 @@ public class NoisePathFeature extends Feature<PathFeatureConfig> {
         int radiusSquared = config.radius * config.radius;
         EasyNoiseSampler.setSeed(level.getSeed());
         RandomSource random = level.getRandom();
-        ImprovedNoise sampler = config.noise == 1 ? EasyNoiseSampler.perlinSimple : config.noise == 2 ? EasyNoiseSampler.perlinAtomic : config.noise == 3 ? EasyNoiseSampler.perlinBlocking : EasyNoiseSampler.perlinXoro;
+        ImprovedNoise sampler = config.noise == 1 ? EasyNoiseSampler.perlinLocal : config.noise == 2 ? EasyNoiseSampler.perlinChecked : config.noise == 3 ? EasyNoiseSampler.perlinThreadSafe : EasyNoiseSampler.perlinXoro;
         int bx = blockPos.getX();
         int bz = blockPos.getZ();
         BlockPos.MutableBlockPos mutable = blockPos.mutable();

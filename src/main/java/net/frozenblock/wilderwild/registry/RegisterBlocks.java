@@ -1,6 +1,8 @@
 package net.frozenblock.wilderwild.registry;
 
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricMaterialBuilder;
@@ -11,7 +13,7 @@ import net.fabricmc.fabric.api.registry.StrippableBlockRegistry;
 import net.frozenblock.lib.blocks.FrozenSignBlock;
 import net.frozenblock.lib.blocks.FrozenWallSignBlock;
 import net.frozenblock.lib.blocks.FrozenWoodTypes;
-import net.frozenblock.lib.replacements_and_lists.BonemealBehaviors;
+import net.frozenblock.lib.impl.BonemealBehaviors;
 import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.block.AlgaeBlock;
 import net.frozenblock.wilderwild.block.BaobabLeaves;
@@ -214,6 +216,9 @@ public final class RegisterBlocks {
     }
 
     // HOLLOWED LOGS
+
+	public static final Map<Block, Block> HOLLOWED_LOGS = new LinkedHashMap<>();
+
     public static final Block HOLLOWED_OAK_LOG = createHollowedLogBlock(MaterialColor.WOOD, MaterialColor.PODZOL);
     public static final Block HOLLOWED_SPRUCE_LOG = createHollowedLogBlock(MaterialColor.PODZOL, MaterialColor.COLOR_BROWN);
     public static final Block HOLLOWED_BIRCH_LOG = createHollowedLogBlock(MaterialColor.SAND, MaterialColor.QUARTZ);
@@ -567,7 +572,7 @@ public final class RegisterBlocks {
     }
 
     private static void registerBonemeal() {
-        BonemealBehaviors.bonemeals.put(Blocks.LILY_PAD, (context, level, pos, state, face, horizontal) -> {
+        BonemealBehaviors.BONEMEAL_BEHAVIORS.put(Blocks.LILY_PAD, (context, level, pos, state, face, horizontal) -> {
             WilderWild.log(Blocks.LILY_PAD, pos, "Bonemeal", WilderWild.DEV_LOGGING);
             if (!level.isClientSide) {
                 level.levelEvent(LevelEvent.PARTICLES_AND_SOUND_PLANT_GROWTH, pos, 0);
@@ -576,7 +581,7 @@ public final class RegisterBlocks {
             }
             return false;
         });
-		BonemealBehaviors.bonemeals.put(BROWN_SHELF_FUNGUS, (context, world, pos, state, face, horizontal) -> {
+		BonemealBehaviors.BONEMEAL_BEHAVIORS.put(BROWN_SHELF_FUNGUS, (context, world, pos, state, face, horizontal) -> {
 			if (state.getValue(RegisterProperties.FUNGUS_STAGE) < 4) {
 				WilderWild.log("Shelf Fungus Bonemealed @ " + pos + " with FungusStage of " + state.getValue(RegisterProperties.FUNGUS_STAGE), WilderWild.DEV_LOGGING);
 				if (!world.isClientSide) {
@@ -587,7 +592,7 @@ public final class RegisterBlocks {
 			}
 			return false;
 		});
-		BonemealBehaviors.bonemeals.put(RED_SHELF_FUNGUS, (context, world, pos, state, face, horizontal) -> {
+		BonemealBehaviors.BONEMEAL_BEHAVIORS.put(RED_SHELF_FUNGUS, (context, world, pos, state, face, horizontal) -> {
 			if (state.getValue(RegisterProperties.FUNGUS_STAGE) < 4) {
 				WilderWild.log("Shelf Fungus Bonemealed @ " + pos + " with FungusStage of " + state.getValue(RegisterProperties.FUNGUS_STAGE), WilderWild.DEV_LOGGING);
 				if (!world.isClientSide) {
@@ -598,7 +603,7 @@ public final class RegisterBlocks {
 			}
 			return false;
 		});
-		BonemealBehaviors.bonemeals.put(ALGAE, (context, world, pos, state, face, horizontal) -> {
+		BonemealBehaviors.BONEMEAL_BEHAVIORS.put(ALGAE, (context, world, pos, state, face, horizontal) -> {
 			WilderWild.log("Algae Bonemealed @ " + pos, WilderWild.DEV_LOGGING);
 			if (!world.isClientSide) {
 				for (Direction offset : AlgaeBlock.shuffleOffsets(world.getRandom())) {
