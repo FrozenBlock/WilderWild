@@ -5,7 +5,6 @@ import com.terraformersmc.modmenu.api.ModMenuApi;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.frozenblock.lib.FrozenBools;
-import net.frozenblock.wilderwild.WilderWild;
 import net.minecraft.client.gui.screens.Screen;
 
 @Environment(EnvType.CLIENT)

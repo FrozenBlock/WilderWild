@@ -31,7 +31,6 @@ import net.minecraft.world.item.RecordItem;
 import net.minecraft.world.item.SignItem;
 import net.minecraft.world.item.SpawnEggItem;
 import net.minecraft.world.level.ItemLike;
-import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.material.Fluids;
 
 public final class RegisterItems {

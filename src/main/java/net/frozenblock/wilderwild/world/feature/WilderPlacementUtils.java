@@ -1,5 +1,6 @@
 package net.frozenblock.wilderwild.world.feature;
 
+import java.util.List;
 import net.frozenblock.wilderwild.WilderWild;
 import net.minecraft.core.Holder;
 import net.minecraft.data.BuiltinRegistries;
@@ -7,7 +8,6 @@ import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.world.level.levelgen.placement.PlacedFeature;
 import net.minecraft.world.level.levelgen.placement.PlacementModifier;
 import org.jetbrains.annotations.NotNull;
-import java.util.List;
 
 class WilderPlacementUtils {
 

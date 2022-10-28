@@ -3,7 +3,6 @@ package net.frozenblock.wilderwild.mixin.client;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.frozenblock.lib.FrozenBools;
-import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.block.MesogleaBlock;
 import net.minecraft.client.renderer.block.LiquidBlockRenderer;
 import net.minecraft.core.BlockPos;

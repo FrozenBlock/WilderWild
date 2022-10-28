@@ -1,6 +1,5 @@
 package net.frozenblock.wilderwild;
 
-import java.io.FileNotFoundException;
 import java.util.UUID;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.api.EnvType;

@@ -1,6 +1,5 @@
 package net.frozenblock.wilderwild.registry;
 
-import net.fabricmc.fabric.api.datagen.v1.provider.FabricBuiltinRegistriesProvider;
 import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.misc.config.ClothConfigInteractionHandler;
 import net.frozenblock.wilderwild.world.feature.WilderMiscPlaced;
