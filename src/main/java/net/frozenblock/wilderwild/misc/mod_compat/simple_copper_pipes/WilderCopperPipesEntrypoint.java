@@ -3,6 +3,7 @@ package net.frozenblock.wilderwild.misc.mod_compat.simple_copper_pipes;
 import net.frozenblock.lib.sound.FrozenSoundPackets;
 import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.entity.AncientHornProjectile;
+import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.frozenblock.wilderwild.misc.server.EasyPacket;
 import net.frozenblock.wilderwild.registry.RegisterItems;
 import net.frozenblock.wilderwild.registry.RegisterSounds;
@@ -23,7 +24,7 @@ import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.phys.Vec3;
 
 public class WilderCopperPipesEntrypoint implements CopperPipeEntrypoint {
-    public static final ResourceLocation horn = new ResourceLocation(WilderWild.MOD_ID, "ancient_horn");
+    public static final ResourceLocation horn = new ResourceLocation(WilderSharedConstants.MOD_ID, "ancient_horn");
 
     @Override
     public void init() {
@@ -40,7 +41,7 @@ public class WilderCopperPipesEntrypoint implements CopperPipeEntrypoint {
                         projectileEntity.setOwner(nbt.foundEntity);
                         projectileEntity.setShotByPlayer(true);
                         level.addFreshEntity(projectileEntity);
-                        FrozenSoundPackets.createMovingRestrictionLoopingSound(level, projectileEntity, RegisterSounds.ENTITY_ANCIENT_HORN_PROJECTILE_LOOP, SoundSource.NEUTRAL, 1.0F, 1.0F, WilderWild.id("default"));
+                        FrozenSoundPackets.createMovingRestrictionLoopingSound(level, projectileEntity, RegisterSounds.ENTITY_ANCIENT_HORN_PROJECTILE_LOOP, SoundSource.NEUTRAL, 1.0F, 1.0F, WilderSharedConstants.id("default"));
                     }
                 }
             }
@@ -86,7 +87,7 @@ public class WilderCopperPipesEntrypoint implements CopperPipeEntrypoint {
             }
         });
 
-        FittingPipeDispenses.register(Registry.ITEM.get(WilderWild.id("seeding_dandelion")), (level, stack, i, direction, position, state, corroded, pos, pipe) -> {
+        FittingPipeDispenses.register(Registry.ITEM.get(WilderSharedConstants.id("seeding_dandelion")), (level, stack, i, direction, position, state, corroded, pos, pipe) -> {
             double d = position.x();
             double e = position.y();
             double f = position.z();
@@ -139,7 +140,7 @@ public class WilderCopperPipesEntrypoint implements CopperPipeEntrypoint {
             }
         });
 
-        PipeMovementRestrictions.register(WilderWild.id("stone_chest"),
+        PipeMovementRestrictions.register(WilderSharedConstants.id("stone_chest"),
                 ((serverLevel, blockPos, blockState, copperPipeEntity, blockEntity) -> false),
                 ((serverLevel, blockPos, blockState, copperPipeEntity, blockEntity) -> false));
 

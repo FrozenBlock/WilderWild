@@ -2,7 +2,7 @@ package net.frozenblock.wilderwild.mixin.client.easter;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.frozenblock.wilderwild.WilderWild;
+import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.renderer.entity.PigRenderer;
 import net.minecraft.resources.ResourceLocation;
@@ -18,7 +18,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 public final class UppyBalloo {
 
     @Unique
-    private static final ResourceLocation WILDERWILD$UPPY_BALLOO = WilderWild.id("textures/entity/pig/uppy_balloo.png");
+    private static final ResourceLocation WILDERWILD$UPPY_BALLOO = WilderSharedConstants.id("textures/entity/pig/uppy_balloo.png");
 
     @Inject(method = "getTextureLocation(Lnet/minecraft/world/entity/animal/Pig;)Lnet/minecraft/resources/ResourceLocation;", at = @At("RETURN"), cancellable = true)
     public void getTextureLocation(Pig pig, CallbackInfoReturnable<ResourceLocation> cir) {

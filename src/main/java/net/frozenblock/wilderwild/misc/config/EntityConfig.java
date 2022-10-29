@@ -8,7 +8,8 @@ import me.shedaniel.clothconfig2.api.ConfigEntryBuilder;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.frozenblock.lib.config.FrozenConfig;
-import net.frozenblock.wilderwild.WilderWild;
+import net.frozenblock.wilderwild.misc.WilderSharedConstants;
+
 import static net.frozenblock.wilderwild.misc.config.WilderWildConfig.text;
 import static net.frozenblock.wilderwild.misc.config.WilderWildConfig.tooltip;
 
@@ -48,7 +49,7 @@ public final class EntityConfig implements ConfigData {
 		var allay = config.allay;
 		var enderMan = config.enderMan;
         var warden = config.warden;
-        category.setBackground(WilderWild.id("textures/config/entity.png"));
+        category.setBackground(WilderSharedConstants.id("textures/config/entity.png"));
         var unpassableRail = category.addEntry(entryBuilder.startBooleanToggle(text("unpassable_rail"), config.unpassableRail)
                 .setDefaultValue(true)
                 .setSaveConsumer(newValue -> config.unpassableRail = newValue)

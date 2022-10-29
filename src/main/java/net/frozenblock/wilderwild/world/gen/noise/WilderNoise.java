@@ -1,6 +1,6 @@
 package net.frozenblock.wilderwild.world.gen.noise;
 
-import net.frozenblock.wilderwild.WilderWild;
+import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
 import net.minecraft.data.BuiltinRegistries;
@@ -82,7 +82,7 @@ public class WilderNoise {
     }
 
     private static ResourceKey<NormalNoise.NoiseParameters> register(String id) {
-        return ResourceKey.create(Registry.NOISE_REGISTRY, WilderWild.id(id));
+        return ResourceKey.create(Registry.NOISE_REGISTRY, WilderSharedConstants.id(id));
     }
 }
 

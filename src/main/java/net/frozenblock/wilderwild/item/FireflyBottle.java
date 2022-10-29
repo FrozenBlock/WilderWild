@@ -4,6 +4,7 @@ import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.entity.Firefly;
 import net.frozenblock.wilderwild.entity.ai.FireflyAi;
 import net.frozenblock.wilderwild.misc.FireflyColor;
+import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.frozenblock.wilderwild.registry.RegisterEntities;
 import net.frozenblock.wilderwild.registry.RegisterSounds;
 import net.minecraft.advancements.CriteriaTriggers;
@@ -63,7 +64,7 @@ public class FireflyBottle extends Item {
 
     @Override
     public InteractionResultHolder<ItemStack> use(@NotNull Level level, Player player, @NotNull InteractionHand usedHand) {
-        WilderWild.log(player, "Used Firefly Bottle", WilderWild.DEV_LOGGING);
+        WilderWild.log(player, "Used Firefly Bottle", WilderSharedConstants.DEV_LOGGING);
         if (level instanceof ServerLevel server) {
             float pitch = player.getXRot();
             float yaw = player.getYRot();
@@ -88,7 +89,7 @@ public class FireflyBottle extends Item {
                             entity.setCustomName(stack.getHoverName());
                         }
                     } else {
-                        WilderWild.log("Couldn't spawn Firefly from bottle @ " + player.blockPosition().toShortString(), WilderWild.UNSTABLE_LOGGING);
+                        WilderWild.log("Couldn't spawn Firefly from bottle @ " + player.blockPosition().toShortString(), WilderSharedConstants.UNSTABLE_LOGGING);
                     }
                 }
             }

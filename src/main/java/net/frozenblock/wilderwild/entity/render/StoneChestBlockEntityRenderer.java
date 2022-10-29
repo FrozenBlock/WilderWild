@@ -3,10 +3,10 @@ package net.frozenblock.wilderwild.entity.render;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.math.Axis;
-import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.WilderWildClient;
 import net.frozenblock.wilderwild.block.StoneChestBlock;
 import net.frozenblock.wilderwild.block.entity.StoneChestBlockEntity;
+import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.frozenblock.wilderwild.registry.RegisterProperties;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
@@ -153,6 +153,6 @@ public class StoneChestBlockEntityRenderer<T extends StoneChestBlockEntity & Lid
     }
 
     public static Material getChestTextureId(String variant) {
-        return new Material(Sheets.CHEST_SHEET, WilderWild.id("entity/stone_chest/" + variant));
+        return new Material(Sheets.CHEST_SHEET, WilderSharedConstants.id("entity/stone_chest/" + variant));
     }
 }

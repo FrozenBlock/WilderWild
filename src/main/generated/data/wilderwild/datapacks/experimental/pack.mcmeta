@@ -1,6 +1,8 @@
 {
   "features": {
-    "enabled": []
+    "enabled": [
+      "wilderwild:experimental"
+    ]
   },
   "pack": {
     "description": {

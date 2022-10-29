@@ -32,7 +32,8 @@
 	  "net.frozenblock.wilderwild.FrozenLibIntegration"
 	],
 	"frozenlib:events": [
-	  "net.frozenblock.wilderwild.registry.RegisterWorldgen"
+	  "net.frozenblock.wilderwild.registry.RegisterWorldgen",
+      "net.frozenblock.wilderwild.misc.WilderFeatureFlags"
 	],
 	"modmenu": [
 	  "net.frozenblock.wilderwild.misc.config.ModMenuIntegration"

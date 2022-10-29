@@ -6,6 +6,7 @@ import net.frozenblock.lib.item.impl.CooldownInterface;
 import net.frozenblock.lib.sound.FrozenSoundPackets;
 import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.entity.AncientHornProjectile;
+import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.frozenblock.wilderwild.registry.RegisterItems;
 import net.frozenblock.wilderwild.registry.RegisterSounds;
 import net.minecraft.client.renderer.LevelRenderer;
@@ -52,7 +53,7 @@ public class AncientHorn extends InstrumentItem {
 
     @Override
     public InteractionResultHolder<ItemStack> use(@NotNull Level level, @NotNull Player user, @NotNull InteractionHand hand) {
-        WilderWild.log(user, "Used Ancient Horn", WilderWild.DEV_LOGGING);
+        WilderWild.log(user, "Used Ancient Horn", WilderSharedConstants.DEV_LOGGING);
         ItemStack itemStack = user.getItemInHand(hand);
         Optional<? extends Holder<Instrument>> optional = this.getInstrument(itemStack);
         if (optional.isPresent()) {
@@ -65,7 +66,7 @@ public class AncientHorn extends InstrumentItem {
                 projectileEntity.shootFromRotation(user, user.getXRot(), user.getYRot(), 0.0F, 1.0F, 0.0F);
                 projectileEntity.setShotByPlayer(true);
                 server.addFreshEntity(projectileEntity);
-                FrozenSoundPackets.createMovingRestrictionLoopingSound(server, projectileEntity, RegisterSounds.ENTITY_ANCIENT_HORN_PROJECTILE_LOOP, SoundSource.NEUTRAL, 1.0F, 1.0F, WilderWild.id("default"));
+                FrozenSoundPackets.createMovingRestrictionLoopingSound(server, projectileEntity, RegisterSounds.ENTITY_ANCIENT_HORN_PROJECTILE_LOOP, SoundSource.NEUTRAL, 1.0F, 1.0F, WilderSharedConstants.id("default"));
                 ItemStack mainHand = user.getItemInHand(InteractionHand.MAIN_HAND);
                 ItemStack offHand = user.getItemInHand(InteractionHand.OFF_HAND);
                 if (mainHand.is(Items.WATER_BUCKET) || mainHand.is(Items.POTION) || offHand.is(Items.WATER_BUCKET) || offHand.is(Items.POTION)) {
@@ -82,7 +83,7 @@ public class AncientHorn extends InstrumentItem {
             }
             return InteractionResultHolder.consume(itemStack);
         } else {
-            WilderWild.LOGGER.error("Ancient Horn use failed");
+            WilderSharedConstants.LOGGER.error("Ancient Horn use failed");
             return InteractionResultHolder.fail(itemStack);
         }
     }

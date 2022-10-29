@@ -46,6 +46,8 @@ import net.frozenblock.wilderwild.block.WaterloggableSaplingBlock;
 import net.frozenblock.wilderwild.block.WaterloggableTallFlowerBlock;
 import net.frozenblock.wilderwild.block.entity.TermiteMoundBlockEntity;
 import net.frozenblock.wilderwild.misc.FlowerColor;
+import net.frozenblock.wilderwild.misc.WilderFeatureFlags;
+import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.frozenblock.wilderwild.world.gen.sapling.CypressSaplingGenerator;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -195,12 +197,12 @@ public final class RegisterBlocks {
     public static final Block CYPRESS_FENCE = new FenceBlock(FabricBlockSettings.of(Material.WOOD, CYPRESS_PLANKS_COLOR).strength(2.0F, 3.0F).sounds(SoundType.WOOD));
 
     public static final WoodType BAOBAB_WOOD_TYPE = FrozenWoodTypes.newType("wilderwildbaobab");
-    public static final Block BAOBAB_SIGN_BLOCK = new FrozenSignBlock(FabricBlockSettings.of(Material.WOOD, BAOBAB_LOG.defaultMaterialColor()).noCollision().strength(1.0F).sounds(SoundType.WOOD), BAOBAB_WOOD_TYPE, WilderWild.id("blocks/baobab_sign"));
-    public static final Block BAOBAB_WALL_SIGN = new FrozenWallSignBlock(FabricBlockSettings.of(Material.WOOD, BAOBAB_LOG.defaultMaterialColor()).noCollision().strength(1.0F).sounds(SoundType.WOOD).dropsLike(BAOBAB_SIGN_BLOCK), BAOBAB_WOOD_TYPE, WilderWild.id("blocks/baobab_sign"));
+    public static final Block BAOBAB_SIGN_BLOCK = new FrozenSignBlock(FabricBlockSettings.of(Material.WOOD, BAOBAB_LOG.defaultMaterialColor()).noCollision().strength(1.0F).sounds(SoundType.WOOD), BAOBAB_WOOD_TYPE, WilderSharedConstants.id("blocks/baobab_sign"));
+    public static final Block BAOBAB_WALL_SIGN = new FrozenWallSignBlock(FabricBlockSettings.of(Material.WOOD, BAOBAB_LOG.defaultMaterialColor()).noCollision().strength(1.0F).sounds(SoundType.WOOD).dropsLike(BAOBAB_SIGN_BLOCK), BAOBAB_WOOD_TYPE, WilderSharedConstants.id("blocks/baobab_sign"));
 
     public static final WoodType CYPRESS_WOOD_TYPE = FrozenWoodTypes.newType("wilderwildcypress");
-    public static final Block CYPRESS_SIGN_BLOCK = new FrozenSignBlock(FabricBlockSettings.of(Material.WOOD, CYPRESS_LOG.defaultMaterialColor()).noCollision().strength(1.0F).sounds(SoundType.WOOD), CYPRESS_WOOD_TYPE, WilderWild.id("blocks/cypress_sign"));
-    public static final Block CYPRESS_WALL_SIGN = new FrozenWallSignBlock(FabricBlockSettings.of(Material.WOOD, CYPRESS_LOG.defaultMaterialColor()).noCollision().strength(1.0F).sounds(SoundType.WOOD).dropsLike(CYPRESS_SIGN_BLOCK), CYPRESS_WOOD_TYPE, WilderWild.id("blocks/cypress_sign"));
+    public static final Block CYPRESS_SIGN_BLOCK = new FrozenSignBlock(FabricBlockSettings.of(Material.WOOD, CYPRESS_LOG.defaultMaterialColor()).noCollision().strength(1.0F).sounds(SoundType.WOOD), CYPRESS_WOOD_TYPE, WilderSharedConstants.id("blocks/cypress_sign"));
+    public static final Block CYPRESS_WALL_SIGN = new FrozenWallSignBlock(FabricBlockSettings.of(Material.WOOD, CYPRESS_LOG.defaultMaterialColor()).noCollision().strength(1.0F).sounds(SoundType.WOOD).dropsLike(CYPRESS_SIGN_BLOCK), CYPRESS_WOOD_TYPE, WilderSharedConstants.id("blocks/cypress_sign"));
 
     public static void registerWoods() {
         String baobab = "baobab";
@@ -409,8 +411,8 @@ public final class RegisterBlocks {
         registerBlockWithoutBlockItem("pollen", POLLEN_BLOCK);
 		registerBlockAfter(Items.RED_MUSHROOM, "red_shelf_fungus", RED_SHELF_FUNGUS, CreativeModeTabs.TAB_NATURAL);
 		registerBlockAfter(Items.RED_MUSHROOM, "brown_shelf_fungus", BROWN_SHELF_FUNGUS, CreativeModeTabs.TAB_NATURAL);
-        Registry.register(Registry.BLOCK, WilderWild.id("flowering_lily_pad"), FLOWERING_LILY_PAD);
-        Registry.register(Registry.BLOCK, WilderWild.id("algae"), ALGAE);
+        Registry.register(Registry.BLOCK, WilderSharedConstants.id("flowering_lily_pad"), FLOWERING_LILY_PAD);
+        Registry.register(Registry.BLOCK, WilderSharedConstants.id("algae"), ALGAE);
 		FrozenCreativeTabs.add(ALGAE, CreativeModeTabs.TAB_NATURAL);
 		FrozenCreativeTabs.add(FLOWERING_LILY_PAD, CreativeModeTabs.TAB_NATURAL);
     }
@@ -445,7 +447,7 @@ public final class RegisterBlocks {
             .recipeUnlockedBy("has_planks")
             .getFamily();
 
-    public static final Block NULL_BLOCK = new Block(FabricBlockSettings.copyOf(Blocks.STONE).sounds(RegisterBlockSoundGroups.NULL_BLOCK));
+    public static final Block NULL_BLOCK = new Block(FabricBlockSettings.copyOf(Blocks.STONE).sounds(RegisterBlockSoundGroups.NULL_BLOCK).requiredFeatures(WilderFeatureFlags.EXPERIMENTAL));
 
     public static final Block DISPLAY_LANTERN = new DisplayLanternBlock(FabricBlockSettings.of(Material.METAL).strength(3.5F).sounds(SoundType.LANTERN).luminance((state) -> state.getValue(RegisterProperties.DISPLAY_LIGHT)));
 
@@ -473,7 +475,7 @@ public final class RegisterBlocks {
     }
 
     public static void registerBlocks() {
-        WilderWild.logWild("Registering Blocks for", WilderWild.UNSTABLE_LOGGING);
+        WilderWild.logWild("Registering Blocks for", WilderSharedConstants.UNSTABLE_LOGGING);
 
         registerOtherBB();
         registerWoods();
@@ -528,14 +530,14 @@ public final class RegisterBlocks {
 	}
 
 	private static void actualRegisterBlock(String path, Block block) {
-		if (Registry.BLOCK.getOptional(WilderWild.id(path)).isEmpty()) {
-			Registry.register(Registry.BLOCK, WilderWild.id(path), block);
+		if (Registry.BLOCK.getOptional(WilderSharedConstants.id(path)).isEmpty()) {
+			Registry.register(Registry.BLOCK, WilderSharedConstants.id(path), block);
 		}
 	}
 
 	private static void actualRegisterBlockItem(String path, Block block) {
-		if (Registry.ITEM.getOptional(WilderWild.id(path)).isEmpty()) {
-			Registry.register(Registry.ITEM, WilderWild.id(path), new BlockItem(block, new FabricItemSettings()));
+		if (Registry.ITEM.getOptional(WilderSharedConstants.id(path)).isEmpty()) {
+			Registry.register(Registry.ITEM, WilderSharedConstants.id(path), new BlockItem(block, new FabricItemSettings()));
 		}
 	}
 
@@ -608,7 +610,7 @@ public final class RegisterBlocks {
     }
 
     private static void registerFlammability() {
-        WilderWild.logWild("Registering Flammability for", WilderWild.UNSTABLE_LOGGING);
+        WilderWild.logWild("Registering Flammability for", WilderSharedConstants.UNSTABLE_LOGGING);
         FlammableBlockRegistry.getDefaultInstance().add(RegisterBlocks.POLLEN_BLOCK, 100, 60);
         FlammableBlockRegistry.getDefaultInstance().add(RegisterBlocks.SEEDING_DANDELION, 100, 60);
         FlammableBlockRegistry.getDefaultInstance().add(RegisterBlocks.CARNATION, 100, 60);
@@ -661,7 +663,7 @@ public final class RegisterBlocks {
     }
 
     private static void registerFuels() {
-        WilderWild.logWild("Registering Fuels for", WilderWild.UNSTABLE_LOGGING);
+        WilderWild.logWild("Registering Fuels for", WilderSharedConstants.UNSTABLE_LOGGING);
         FuelRegistry registry = FuelRegistry.INSTANCE;
 
         registry.add(BAOBAB_FENCE.asItem(), 300);
@@ -672,7 +674,7 @@ public final class RegisterBlocks {
 
     private static void registerBonemeal() {
         BonemealBehaviors.BONEMEAL_BEHAVIORS.put(Blocks.LILY_PAD, (context, level, pos, state, face, horizontal) -> {
-            WilderWild.log(Blocks.LILY_PAD, pos, "Bonemeal", WilderWild.DEV_LOGGING);
+            WilderWild.log(Blocks.LILY_PAD, pos, "Bonemeal", WilderSharedConstants.DEV_LOGGING);
             if (!level.isClientSide) {
                 level.levelEvent(LevelEvent.PARTICLES_AND_SOUND_PLANT_GROWTH, pos, 0);
                 level.setBlockAndUpdate(pos, RegisterBlocks.FLOWERING_LILY_PAD.defaultBlockState());
@@ -682,7 +684,7 @@ public final class RegisterBlocks {
         });
 		BonemealBehaviors.BONEMEAL_BEHAVIORS.put(BROWN_SHELF_FUNGUS, (context, world, pos, state, face, horizontal) -> {
 			if (state.getValue(RegisterProperties.FUNGUS_STAGE) < 4) {
-				WilderWild.log("Shelf Fungus Bonemealed @ " + pos + " with FungusStage of " + state.getValue(RegisterProperties.FUNGUS_STAGE), WilderWild.DEV_LOGGING);
+				WilderWild.log("Shelf Fungus Bonemealed @ " + pos + " with FungusStage of " + state.getValue(RegisterProperties.FUNGUS_STAGE), WilderSharedConstants.DEV_LOGGING);
 				if (!world.isClientSide) {
 					world.levelEvent(LevelEvent.PARTICLES_AND_SOUND_PLANT_GROWTH, pos, 0);
 					world.setBlockAndUpdate(pos, state.setValue(RegisterProperties.FUNGUS_STAGE, state.getValue(RegisterProperties.FUNGUS_STAGE) + 1));
@@ -693,7 +695,7 @@ public final class RegisterBlocks {
 		});
 		BonemealBehaviors.BONEMEAL_BEHAVIORS.put(RED_SHELF_FUNGUS, (context, world, pos, state, face, horizontal) -> {
 			if (state.getValue(RegisterProperties.FUNGUS_STAGE) < 4) {
-				WilderWild.log("Shelf Fungus Bonemealed @ " + pos + " with FungusStage of " + state.getValue(RegisterProperties.FUNGUS_STAGE), WilderWild.DEV_LOGGING);
+				WilderWild.log("Shelf Fungus Bonemealed @ " + pos + " with FungusStage of " + state.getValue(RegisterProperties.FUNGUS_STAGE), WilderSharedConstants.DEV_LOGGING);
 				if (!world.isClientSide) {
 					world.levelEvent(LevelEvent.PARTICLES_AND_SOUND_PLANT_GROWTH, pos, 0);
 					world.setBlockAndUpdate(pos, state.setValue(RegisterProperties.FUNGUS_STAGE, state.getValue(RegisterProperties.FUNGUS_STAGE) + 1));
@@ -703,7 +705,7 @@ public final class RegisterBlocks {
 			return false;
 		});
 		BonemealBehaviors.BONEMEAL_BEHAVIORS.put(ALGAE, (context, world, pos, state, face, horizontal) -> {
-			WilderWild.log("Algae Bonemealed @ " + pos, WilderWild.DEV_LOGGING);
+			WilderWild.log("Algae Bonemealed @ " + pos, WilderSharedConstants.DEV_LOGGING);
 			if (!world.isClientSide) {
 				for (Direction offset : AlgaeBlock.shuffleOffsets(world.getRandom())) {
 					BlockPos blockPos = pos.relative(offset);

@@ -8,7 +8,8 @@ import me.shedaniel.clothconfig2.api.ConfigEntryBuilder;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.frozenblock.lib.config.FrozenConfig;
-import net.frozenblock.wilderwild.WilderWild;
+import net.frozenblock.wilderwild.misc.WilderSharedConstants;
+
 import static net.frozenblock.wilderwild.misc.config.WilderWildConfig.text;
 import static net.frozenblock.wilderwild.misc.config.WilderWildConfig.tooltip;
 
@@ -29,7 +30,7 @@ public final class ItemConfig implements ConfigData {
     static void setupEntries(ConfigCategory category, ConfigEntryBuilder entryBuilder) {
         var config = WilderWildConfig.get().item;
         var ancientHorn = config.ancientHorn;
-        category.setBackground(WilderWild.id("textures/config/item.png"));
+        category.setBackground(WilderSharedConstants.id("textures/config/item.png"));
         var shattersGlass = entryBuilder.startBooleanToggle(text("ancient_horn_shatters_glass"), ancientHorn.ancientHornShattersGlass)
                 .setDefaultValue(false)
                 .setSaveConsumer(newValue -> ancientHorn.ancientHornShattersGlass = newValue)

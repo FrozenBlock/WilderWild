@@ -6,6 +6,7 @@ import com.mojang.serialization.codecs.RecordCodecBuilder;
 import java.util.ArrayList;
 import java.util.List;
 import net.frozenblock.wilderwild.WilderWild;
+import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.frozenblock.wilderwild.misc.server.EasyPacket;
 import net.frozenblock.wilderwild.registry.RegisterBlockEntities;
 import net.frozenblock.wilderwild.registry.RegisterBlocks;
@@ -51,7 +52,7 @@ public class TermiteMoundBlockEntity extends BlockEntity {
         tag.putInt("ticksToNextTermite", this.ticksToNextTermite);
         tag.putInt("ticksToCheckLight", this.ticksToCheckLight);
         tag.putInt("lastLight", this.lastLight);
-        Logger logger = WilderWild.LOGGER;
+        Logger logger = WilderSharedConstants.LOGGER;
         Termite.CODEC.listOf()
                 .encodeStart(NbtOps.INSTANCE, this.termites)
                 .resultOrPartial(logger::error)
@@ -66,7 +67,7 @@ public class TermiteMoundBlockEntity extends BlockEntity {
         this.lastLight = tag.getInt("lastLight");
         if (tag.contains("termites", 9)) {
             this.termites.clear();
-            Logger logger = WilderWild.LOGGER;
+            Logger logger = WilderSharedConstants.LOGGER;
             Termite.CODEC.listOf().parse(new Dynamic<>(NbtOps.INSTANCE, tag.getList("termites", 10)))
                     .resultOrPartial(logger::error)
                     .ifPresent(termitesAllAllAll -> {

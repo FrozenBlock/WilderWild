@@ -23,7 +23,7 @@ public class WilderWildDataGenerator implements DataGeneratorEntrypoint {
 		experimentalPack.addProvider((FabricDataGenerator.Pack.Factory<ExperimentRecipeProvider>) ExperimentRecipeProvider::new);
 		experimentalPack.addProvider(
 				(FabricDataGenerator.Pack.Factory<PackMetadataGenerator>) packOutput -> PackMetadataGenerator.forFeaturePack(
-						packOutput, Component.translatable("dataPack.wilderwild.experiment.description"), FeatureFlagSet.of(RegisterResources.EXPERIMENTAL)
+						packOutput, Component.translatable("dataPack.wilderwild.experiment.description"), FeatureFlagSet.of(WilderFeatureFlags.EXPERIMENTAL)
 				)
 		);
 	}

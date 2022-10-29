@@ -4,6 +4,7 @@ import java.util.Iterator;
 import java.util.Optional;
 import net.frozenblock.lib.sound.FrozenSoundPackets;
 import net.frozenblock.wilderwild.WilderWild;
+import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
 import net.minecraft.nbt.CompoundTag;
@@ -64,7 +65,7 @@ public class CopperHorn extends InstrumentItem {
 
     @Override
     public InteractionResultHolder<ItemStack> use(@NotNull Level level, @NotNull Player user, @NotNull InteractionHand usedHand) {
-        WilderWild.log(user, "Used Copper Horn", WilderWild.DEV_LOGGING);
+        WilderWild.log(user, "Used Copper Horn", WilderSharedConstants.DEV_LOGGING);
         ItemStack itemStack = user.getItemInHand(usedHand);
         Optional<? extends Holder<Instrument>> optional = this.getInstrument(itemStack);
         if (optional.isPresent()) {
@@ -91,7 +92,7 @@ public class CopperHorn extends InstrumentItem {
                     (float) Math.pow(2.0D, 0.01111F * -user.getXRot());
             //var startingSound = StartingSounds.startingSounds.get(instrumentHolder.unwrapKey().orElseThrow());
             //FrozenSoundPackets.createStartingMovingRestrictionLoopingSound(level, user, startingSound, soundEvent, SoundSource.RECORDS, range, soundPitch, WilderWild.id("instrument"));
-            FrozenSoundPackets.createMovingRestrictionLoopingSound(level, user, soundEvent, SoundSource.RECORDS, range, soundPitch, WilderWild.id("instrument"));
+            FrozenSoundPackets.createMovingRestrictionLoopingSound(level, user, soundEvent, SoundSource.RECORDS, range, soundPitch, WilderSharedConstants.id("instrument"));
         }
         level.gameEvent(GameEvent.INSTRUMENT_PLAY, user.position(), GameEvent.Context.of(user));
     }

@@ -83,13 +83,23 @@ public final class WilderWild implements ModInitializer {
 	 */
 	@Deprecated(forRemoval = true)
     public static final String MOD_ID = "wilderwild";
+	/**
+	 * @deprecated Use {@link WilderSharedConstants#LOGGER} instead.
+	 */
+	@Deprecated(forRemoval = true)
     public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
+	/**
+	 * @deprecated Use {@link WilderSharedConstants#DEV_LOGGING} instead.
+	 */
+	@Deprecated(forRemoval = true)
     public static boolean DEV_LOGGING = false;
     /**
      * Used for features that may be unstable and crash in public builds.
      * <p>
      * It's smart to use this for at least registries.
+	 * @deprecated Use {@link WilderSharedConstants#UNSTABLE_LOGGING} instead.
      */
+	@Deprecated(forRemoval = true)
     public static boolean UNSTABLE_LOGGING = FabricLoader.getInstance().isDevelopmentEnvironment();
 
     public static boolean areConfigsInit = false;
@@ -119,7 +129,7 @@ public final class WilderWild implements ModInitializer {
     @Override
     public void onInitialize() {
         startMeasuring(this);
-        applyDataFixes(FabricLoader.getInstance().getModContainer(MOD_ID).orElseThrow());
+        applyDataFixes(FabricLoader.getInstance().getModContainer(WilderSharedConstants.MOD_ID).orElseThrow());
 
         WilderRegistry.initRegistry();
         RegisterBlocks.registerBlocks();
@@ -144,16 +154,16 @@ public final class WilderWild implements ModInitializer {
         RegisterParticles.registerParticles();
 		RegisterResources.register();
 
-        Registry.register(Registry.FEATURE, id("shelf_fungus_feature"), SHELF_FUNGUS_FEATURE);
-        Registry.register(Registry.FEATURE, id("cattail_feature"), CATTAIL_FEATURE);
-        Registry.register(Registry.FEATURE, id("algae_feature"), ALGAE_FEATURE);
-        Registry.register(Registry.FEATURE, id("noise_path_feature"), NOISE_PATH_FEATURE);
-        Registry.register(Registry.FEATURE, id("noise_plant_feature"), NOISE_PLANT_FEATURE);
-        Registry.register(Registry.FEATURE, id("noise_path_under_water_feature"), NOISE_PATH_UNDER_WATER_FEATURE);
-        Registry.register(Registry.FEATURE, id("column_with_disk_feature"), COLUMN_WITH_DISK_FEATURE);
-        Registry.register(Registry.FEATURE, id("upwards_pillar"), UPWARDS_PILLAR_FEATURE);
-        Registry.register(Registry.FEATURE, id("downwards_pillar"), DOWNWARDS_PILLAR_FEATURE);
-        Registry.register(Registry.FEATURE, id("nematocyst_feature"), NEMATOCYST_FEATURE);
+        Registry.register(Registry.FEATURE, WilderSharedConstants.id("shelf_fungus_feature"), SHELF_FUNGUS_FEATURE);
+        Registry.register(Registry.FEATURE, WilderSharedConstants.id("cattail_feature"), CATTAIL_FEATURE);
+        Registry.register(Registry.FEATURE, WilderSharedConstants.id("algae_feature"), ALGAE_FEATURE);
+        Registry.register(Registry.FEATURE, WilderSharedConstants.id("noise_path_feature"), NOISE_PATH_FEATURE);
+        Registry.register(Registry.FEATURE, WilderSharedConstants.id("noise_plant_feature"), NOISE_PLANT_FEATURE);
+        Registry.register(Registry.FEATURE, WilderSharedConstants.id("noise_path_under_water_feature"), NOISE_PATH_UNDER_WATER_FEATURE);
+        Registry.register(Registry.FEATURE, WilderSharedConstants.id("column_with_disk_feature"), COLUMN_WITH_DISK_FEATURE);
+        Registry.register(Registry.FEATURE, WilderSharedConstants.id("upwards_pillar"), UPWARDS_PILLAR_FEATURE);
+        Registry.register(Registry.FEATURE, WilderSharedConstants.id("downwards_pillar"), DOWNWARDS_PILLAR_FEATURE);
+        Registry.register(Registry.FEATURE, WilderSharedConstants.id("nematocyst_feature"), NEMATOCYST_FEATURE);
 
 
         TermiteMoundBlockEntity.Termite.addDegradableBlocks();
@@ -173,29 +183,29 @@ public final class WilderWild implements ModInitializer {
         var builder = new QuiltDataFixerBuilder(DATA_VERSION);
         builder.addSchema(0, QuiltDataFixes.BASE_SCHEMA);
         Schema schemaV1 = builder.addSchema(1, NamespacedSchema::new);
-        SimpleFixes.addBlockRenameFix(builder, "Rename white_dandelion to blooming_dandelion", id("white_dandelion"), id("blooming_dandelion"), schemaV1);
-        SimpleFixes.addBlockRenameFix(builder, "Rename potted_white_dandelion to potted_blooming_dandelion", id("potted_white_dandelion"), id("potted_blooming_dandelion"), schemaV1);
+        SimpleFixes.addBlockRenameFix(builder, "Rename white_dandelion to blooming_dandelion", WilderSharedConstants.id("white_dandelion"), WilderSharedConstants.id("blooming_dandelion"), schemaV1);
+        SimpleFixes.addBlockRenameFix(builder, "Rename potted_white_dandelion to potted_blooming_dandelion", WilderSharedConstants.id("potted_white_dandelion"), WilderSharedConstants.id("potted_blooming_dandelion"), schemaV1);
         Schema schemaV2 = builder.addSchema(2, NamespacedSchema::new);
-        SimpleFixes.addBlockRenameFix(builder, "Rename blooming_dandelion to seeding_dandelion", id("blooming_dandelion"), id("seeding_dandelion"), schemaV2);
-        SimpleFixes.addBlockRenameFix(builder, "Rename potted_blooming_dandelion to potted_seeding_dandelion", id("potted_blooming_dandelion"), id("potted_seeding_dandelion"), schemaV2);
+        SimpleFixes.addBlockRenameFix(builder, "Rename blooming_dandelion to seeding_dandelion", WilderSharedConstants.id("blooming_dandelion"), WilderSharedConstants.id("seeding_dandelion"), schemaV2);
+        SimpleFixes.addBlockRenameFix(builder, "Rename potted_blooming_dandelion to potted_seeding_dandelion", WilderSharedConstants.id("potted_blooming_dandelion"), WilderSharedConstants.id("potted_seeding_dandelion"), schemaV2);
         Schema schemaV3 = builder.addSchema(3, NamespacedSchema::new);
-        SimpleFixes.addBlockRenameFix(builder, "Rename floating_moss to algae", id("floating_moss"), id("algae"), schemaV3);
-        SimpleFixes.addItemRenameFix(builder, "Rename floating_moss to algae", id("floating_moss"), id("algae"), schemaV3);
+        SimpleFixes.addBlockRenameFix(builder, "Rename floating_moss to algae", WilderSharedConstants.id("floating_moss"), WilderSharedConstants.id("algae"), schemaV3);
+        SimpleFixes.addItemRenameFix(builder, "Rename floating_moss to algae", WilderSharedConstants.id("floating_moss"), WilderSharedConstants.id("algae"), schemaV3);
         Schema schemaV4 = builder.addSchema(4, NamespacedSchema::new);
-        SimpleFixes.addBlockRenameFix(builder, "Rename test_1 to null_block", id("test_1"), id("null_block"), schemaV4);
+        SimpleFixes.addBlockRenameFix(builder, "Rename test_1 to null_block", WilderSharedConstants.id("test_1"), WilderSharedConstants.id("null_block"), schemaV4);
         Schema schemaV5 = builder.addSchema(5, NamespacedSchema::new);
-        SimpleFixes.addBlockRenameFix(builder, "Rename sculk_echoer to null_block", id("sculk_echoer"), id("null_block"), schemaV5);
-        SimpleFixes.addBlockRenameFix(builder, "Rename sculk_jaw to null_block", id("sculk_jaw"), id("null_block"), schemaV5);
+        SimpleFixes.addBlockRenameFix(builder, "Rename sculk_echoer to null_block", WilderSharedConstants.id("sculk_echoer"), WilderSharedConstants.id("null_block"), schemaV5);
+        SimpleFixes.addBlockRenameFix(builder, "Rename sculk_jaw to null_block", WilderSharedConstants.id("sculk_jaw"), WilderSharedConstants.id("null_block"), schemaV5);
         Schema schemaV6 = builder.addSchema(6, NamespacedSchema::new);
-        SimpleFixes.addBlockRenameFix(builder, "Rename baobab_sapling to baobab_nut", id("baobab_sapling"), id("baobab_nut"), schemaV6);
-        SimpleFixes.addBlockRenameFix(builder, "Rename baobab_nut_sapling to baobab_nut", id("baobab_nut_sapling"), id("baobab_nut"), schemaV6);
-        SimpleFixes.addBlockRenameFix(builder, "Rename potted_baobab_sapling to potted_baobab_nut", id("potted_baobab_sapling"), id("potted_baobab_nut"), schemaV6);
+        SimpleFixes.addBlockRenameFix(builder, "Rename baobab_sapling to baobab_nut", WilderSharedConstants.id("baobab_sapling"), WilderSharedConstants.id("baobab_nut"), schemaV6);
+        SimpleFixes.addBlockRenameFix(builder, "Rename baobab_nut_sapling to baobab_nut", WilderSharedConstants.id("baobab_nut_sapling"), WilderSharedConstants.id("baobab_nut"), schemaV6);
+        SimpleFixes.addBlockRenameFix(builder, "Rename potted_baobab_sapling to potted_baobab_nut", WilderSharedConstants.id("potted_baobab_sapling"), WilderSharedConstants.id("potted_baobab_nut"), schemaV6);
         Schema schemaV7 = builder.addSchema(7, NamespacedSchema::new);
-        SimpleFixes.addBlockRenameFix(builder, "Rename firefly_lantern to display_lantern", id("firefly_lantern"), id("display_lantern"), schemaV7);
-        SimpleFixes.addBlockRenameFix(builder, "Rename mesoglea to blue_pearlescent_mesoglea", id("mesoglea"), id("blue_pearlescent_mesoglea"), schemaV7);
-        SimpleFixes.addItemRenameFix(builder, "Rename mesoglea to blue_pearlescent_mesoglea", id("mesoglea"), id("blue_pearlescent_mesoglea"), schemaV7);
+        SimpleFixes.addBlockRenameFix(builder, "Rename firefly_lantern to display_lantern", WilderSharedConstants.id("firefly_lantern"), WilderSharedConstants.id("display_lantern"), schemaV7);
+        SimpleFixes.addBlockRenameFix(builder, "Rename mesoglea to blue_pearlescent_mesoglea", WilderSharedConstants.id("mesoglea"), WilderSharedConstants.id("blue_pearlescent_mesoglea"), schemaV7);
+        SimpleFixes.addItemRenameFix(builder, "Rename mesoglea to blue_pearlescent_mesoglea", WilderSharedConstants.id("mesoglea"), WilderSharedConstants.id("blue_pearlescent_mesoglea"), schemaV7);
         Schema schemaV8 = builder.addSchema(8, NamespacedSchema::new);
-        SimpleFixes.addBlockStateRenameFix(builder, "display_lantern_rename_fix", id("display_lantern"), "light", "0", "display_light", schemaV8);
+        SimpleFixes.addBlockStateRenameFix(builder, "display_lantern_rename_fix", WilderSharedConstants.id("display_lantern"), "light", "0", "display_light", schemaV8);
 
         QuiltDataFixes.buildAndRegisterFixer(mod, builder);
         log("DataFixes for Wilder Wild have been applied", true);
@@ -227,68 +237,68 @@ public final class WilderWild implements ModInitializer {
     //LOGGING
     public static void log(String string, boolean shouldLog) {
         if (shouldLog) {
-            LOGGER.info(string);
+            WilderSharedConstants.LOGGER.info(string);
         }
     }
 
     public static void logInsane(String string, boolean shouldLog) {
         if (shouldLog) {
             for (int i = 0; i < Math.random() * 5; i++) {
-                LOGGER.warn(string);
-                LOGGER.error(string);
-                LOGGER.warn(string);
-                LOGGER.error(string);
-                LOGGER.warn(string);
-                LOGGER.error(string);
-                LOGGER.warn(string);
-                LOGGER.error(string);
+                WilderSharedConstants.LOGGER.warn(string);
+                WilderSharedConstants.LOGGER.error(string);
+                WilderSharedConstants.LOGGER.warn(string);
+                WilderSharedConstants.LOGGER.error(string);
+                WilderSharedConstants.LOGGER.warn(string);
+                WilderSharedConstants.LOGGER.error(string);
+                WilderSharedConstants.LOGGER.warn(string);
+                WilderSharedConstants.LOGGER.error(string);
             }
         }
     }
 
     public static void log(Entity entity, String string, boolean shouldLog) {
         if (shouldLog) {
-            LOGGER.info(entity.toString() + " : " + string + " : " + entity.position());
+            WilderSharedConstants.LOGGER.info(entity.toString() + " : " + string + " : " + entity.position());
         }
     }
 
     public static void log(Block block, String string, boolean shouldLog) {
         if (shouldLog) {
-            LOGGER.info(block.toString() + " : " + string + " : ");
+            WilderSharedConstants.LOGGER.info(block.toString() + " : " + string + " : ");
         }
     }
 
     public static void log(Block block, BlockPos pos, String string, boolean shouldLog) {
         if (shouldLog) {
-            LOGGER.info(block.toString() + " : " + string + " : " + pos);
+            WilderSharedConstants.LOGGER.info(block.toString() + " : " + string + " : " + pos);
         }
     }
 
     public static void logWild(String string, boolean shouldLog) {
         if (shouldLog) {
-            LOGGER.info(string + " " + MOD_ID);
+            WilderSharedConstants.LOGGER.info(string + " " + WilderSharedConstants.MOD_ID);
         }
     }
 
     private static <P extends TrunkPlacer> TrunkPlacerType<P> registerTrunk(String id, Codec<P> codec) {
-        return Registry.register(Registry.TRUNK_PLACER_TYPES, id(id), new TrunkPlacerType<>(codec));
+        return Registry.register(Registry.TRUNK_PLACER_TYPES, WilderSharedConstants.id(id), new TrunkPlacerType<>(codec));
     }
 
     //MEASURING
-    public static Map<Object, Long> instantMap = new HashMap<>();
+    public static final Map<Object, Long> INSTANT_MAP = new HashMap<>();
 
     public static void startMeasuring(Object object) {
         long started = System.nanoTime();
         String name = object.getClass().getName();
-        LOGGER.error("Started measuring {}", name.substring(name.lastIndexOf(".") + 1));
-        instantMap.put(object, started);
+        WilderSharedConstants.LOGGER.error("Started measuring {}", name.substring(name.lastIndexOf(".") + 1));
+        INSTANT_MAP.put(object, started);
     }
 
     public static void stopMeasuring(Object object) {
-        if (instantMap.containsKey(object)) {
+        if (INSTANT_MAP.containsKey(object)) {
             String name = object.getClass().getName();
-            LOGGER.error("{} took {} nanoseconds", name.substring(name.lastIndexOf(".") + 1), System.nanoTime() - instantMap.get(object));
-            instantMap.remove(object);
+            WilderSharedConstants.LOGGER.error("{} took {} nanoseconds", name.substring(name.lastIndexOf(".") + 1), System.nanoTime() - INSTANT_MAP.get(object));
+            INSTANT_MAP.remove(object);
         }
     }
 
@@ -297,27 +307,19 @@ public final class WilderWild implements ModInitializer {
             GameRuleRegistry.register("stoneChestCloses", GameRules.Category.MISC, GameRuleFactory.createBooleanRule(true));
 
     //IDENTIFIERS
-    public static final ResourceLocation SEED_PACKET = id("seed_particle_packet");
-    public static final ResourceLocation CONTROLLED_SEED_PACKET = id("controlled_seed_particle_packet");
-    public static final ResourceLocation FLOATING_SCULK_BUBBLE_PACKET = id("floating_sculk_bubble_easy_packet");
-    public static final ResourceLocation TERMITE_PARTICLE_PACKET = id("termite_particle_packet");
-    public static final ResourceLocation HORN_PROJECTILE_PACKET_ID = id("ancient_horn_projectile_packet");
-    public static final ResourceLocation SENSOR_HICCUP_PACKET = id("sensor_hiccup_packet");
-    public static final ResourceLocation JELLY_STING_PACKET = id("jelly_sting_packet");
+    public static final ResourceLocation SEED_PACKET = WilderSharedConstants.id("seed_particle_packet");
+    public static final ResourceLocation CONTROLLED_SEED_PACKET = WilderSharedConstants.id("controlled_seed_particle_packet");
+    public static final ResourceLocation FLOATING_SCULK_BUBBLE_PACKET = WilderSharedConstants.id("floating_sculk_bubble_easy_packet");
+    public static final ResourceLocation TERMITE_PARTICLE_PACKET = WilderSharedConstants.id("termite_particle_packet");
+    public static final ResourceLocation HORN_PROJECTILE_PACKET_ID = WilderSharedConstants.id("ancient_horn_projectile_packet");
+    public static final ResourceLocation SENSOR_HICCUP_PACKET = WilderSharedConstants.id("sensor_hiccup_packet");
+    public static final ResourceLocation JELLY_STING_PACKET = WilderSharedConstants.id("jelly_sting_packet");
 
-    public static final ResourceLocation CAPTURE_FIREFLY_NOTIFY_PACKET = id("capture_firefly_notify_packet");
-    public static final ResourceLocation ANCIENT_HORN_KILL_NOTIFY_PACKET = id("ancient_horn_kill_notify_packet");
+    public static final ResourceLocation CAPTURE_FIREFLY_NOTIFY_PACKET = WilderSharedConstants.id("capture_firefly_notify_packet");
+    public static final ResourceLocation ANCIENT_HORN_KILL_NOTIFY_PACKET = WilderSharedConstants.id("ancient_horn_kill_notify_packet");
 
-    public static ResourceLocation id(String path) {
-        return new ResourceLocation(MOD_ID, path);
-    }
-
-	public static ResourceLocation vanillaId(String path) {
-		return new ResourceLocation("minecraft", path);
-	}
-
-    public static String string(String path) {
-        return id(path).toString();
+	public static String string(String path) {
+        return WilderSharedConstants.id(path).toString();
     }
 
 }

@@ -3,6 +3,7 @@ package net.frozenblock.wilderwild.block.entity;
 import com.mojang.serialization.Dynamic;
 import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.block.HangingTendrilBlock;
+import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.frozenblock.wilderwild.registry.RegisterBlockEntities;
 import net.frozenblock.wilderwild.registry.RegisterGameEvents;
 import net.minecraft.core.BlockPos;
@@ -63,7 +64,7 @@ public class HangingTendrilBlockEntity extends BlockEntity implements VibrationL
         if (tag.contains("listener", 10)) {
             VibrationListener.codec(this)
                     .parse(new Dynamic<>(NbtOps.INSTANCE, tag.getCompound("listener")))
-                    .resultOrPartial(WilderWild.LOGGER::error)
+                    .resultOrPartial(WilderSharedConstants.LOGGER::error)
                     .ifPresent(listener -> this.listener = listener);
         }
     }
@@ -76,7 +77,7 @@ public class HangingTendrilBlockEntity extends BlockEntity implements VibrationL
         tag.putInt("ringOutTicksLeft", this.ringOutTicksLeft);
         VibrationListener.codec(this)
                 .encodeStart(NbtOps.INSTANCE, this.listener)
-                .resultOrPartial(WilderWild.LOGGER::error)
+                .resultOrPartial(WilderSharedConstants.LOGGER::error)
                 .ifPresent(listenerNbt -> tag.put("listener", listenerNbt));
     }
 

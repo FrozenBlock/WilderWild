@@ -1,6 +1,6 @@
 package net.frozenblock.wilderwild.world.feature;
 
-import net.frozenblock.wilderwild.WilderWild;
+import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
 import net.minecraft.data.BuiltinRegistries;
@@ -22,6 +22,6 @@ class WilderFeatureUtils {
 	}
 
 	static <V extends T, T> Holder<V> registerExact(Registry<T> registry, String id, V value) {
-		return (Holder<V>) BuiltinRegistries.register(registry, WilderWild.id(id), value);
+		return (Holder<V>) BuiltinRegistries.register(registry, WilderSharedConstants.id(id), value);
 	}
 }

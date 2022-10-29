@@ -2,6 +2,7 @@ package net.frozenblock.wilderwild.registry;
 
 import net.fabricmc.fabric.api.loot.v2.LootTableEvents;
 import net.frozenblock.wilderwild.WilderWild;
+import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.frozenblock.wilderwild.tag.WilderItemTags;
 import net.minecraft.advancements.critereon.EntityPredicate;
 import net.minecraft.tags.EntityTypeTags;
@@ -22,7 +23,7 @@ public final class RegisterLootTables {
 	}
 
     public static void init() {
-        WilderWild.logWild("Registering Loot Table Modifications for", WilderWild.UNSTABLE_LOGGING);
+        WilderWild.logWild("Registering Loot Table Modifications for", WilderSharedConstants.UNSTABLE_LOGGING);
         //ANCIENT HORN FRAGMENT
         LootTableEvents.MODIFY.register((resourceManager, lootManager, id, tableBuilder, source) -> {
             if (BuiltInLootTables.ANCIENT_CITY.equals(id) && source.isBuiltin()) {

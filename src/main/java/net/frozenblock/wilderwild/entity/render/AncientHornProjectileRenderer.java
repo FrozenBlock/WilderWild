@@ -6,9 +6,9 @@ import com.mojang.math.Axis;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.frozenblock.lib.entity.render.FrozenRenderType;
-import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.WilderWildClient;
 import net.frozenblock.wilderwild.entity.AncientHornProjectile;
+import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.entity.EntityRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
@@ -18,7 +18,7 @@ import net.minecraft.resources.ResourceLocation;
 
 @Environment(EnvType.CLIENT)
 public class AncientHornProjectileRenderer<T extends AncientHornProjectile> extends EntityRenderer<T> {
-    public static final ResourceLocation TEXTURE = WilderWild.id("textures/entity/ancient_horn_projectile.png");
+    public static final ResourceLocation TEXTURE = WilderSharedConstants.id("textures/entity/ancient_horn_projectile.png");
     private final AncientHornProjectileModel model;
 
     public AncientHornProjectileRenderer(EntityRendererProvider.Context context) {

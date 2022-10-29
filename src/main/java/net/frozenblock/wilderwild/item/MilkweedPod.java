@@ -1,6 +1,7 @@
 package net.frozenblock.wilderwild.item;
 
 import net.frozenblock.wilderwild.WilderWild;
+import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.frozenblock.wilderwild.misc.server.EasyPacket;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.Mth;
@@ -19,7 +20,7 @@ public class MilkweedPod extends Item {
     }
 
     public InteractionResultHolder<ItemStack> use(Level level, Player user, InteractionHand hand) {
-        WilderWild.log(user, "Used Milkweed Pod", WilderWild.DEV_LOGGING);
+        WilderWild.log(user, "Used Milkweed Pod", WilderSharedConstants.DEV_LOGGING);
         ItemStack itemStack = user.getItemInHand(hand);
         itemStack.shrink(1);
         if (level instanceof ServerLevel server) {

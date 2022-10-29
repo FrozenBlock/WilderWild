@@ -11,10 +11,11 @@ import me.shedaniel.clothconfig2.api.ConfigEntryBuilder;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.frozenblock.wilderwild.WilderWild;
+import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
 
-@Config(name = WilderWild.MOD_ID)
+@Config(name = WilderSharedConstants.MOD_ID)
 public class WilderWildConfig extends PartitioningSerializer.GlobalData {
     @Category("block")
     @TransitiveObject
@@ -41,11 +42,11 @@ public class WilderWildConfig extends PartitioningSerializer.GlobalData {
     }
 
     public static Component text(String key) {
-        return Component.translatable("option." + WilderWild.MOD_ID + "." + key);
+        return Component.translatable("option." + WilderSharedConstants.MOD_ID + "." + key);
     }
 
     public static Component tooltip(String key) {
-        return Component.translatable("tooltip." + WilderWild.MOD_ID + "." + key);
+        return Component.translatable("tooltip." + WilderSharedConstants.MOD_ID + "." + key);
     }
 
     @Environment(EnvType.CLIENT)

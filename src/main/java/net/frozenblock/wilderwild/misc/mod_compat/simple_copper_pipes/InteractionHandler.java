@@ -1,6 +1,7 @@
 package net.frozenblock.wilderwild.misc.mod_compat.simple_copper_pipes;
 
 import net.frozenblock.wilderwild.WilderWild;
+import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.lunade.copper.block_entity.CopperPipeEntity;
 import net.lunade.copper.pipe_nbt.MoveablePipeDataHandler;
 import net.minecraft.core.BlockPos;
@@ -12,7 +13,7 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.level.block.entity.BlockEntity;
 
 public class InteractionHandler {
-    public static final ResourceLocation horn = new ResourceLocation(WilderWild.MOD_ID, "ancient_horn");
+    public static final ResourceLocation horn = new ResourceLocation(WilderSharedConstants.MOD_ID, "ancient_horn");
 
     public static boolean addHornNbtToBlock(ServerLevel level, BlockPos pos, Entity owner) {
         BlockEntity entity = level.getBlockEntity(pos);

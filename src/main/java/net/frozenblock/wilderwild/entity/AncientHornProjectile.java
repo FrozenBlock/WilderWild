@@ -8,6 +8,7 @@ import net.frozenblock.lib.damagesource.FrozenProjectileDamageSource;
 import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.block.entity.HangingTendrilBlockEntity;
 import static net.frozenblock.wilderwild.item.AncientHorn.*;
+import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.frozenblock.wilderwild.misc.config.ClothConfigInteractionHandler;
 import net.frozenblock.wilderwild.misc.mod_compat.simple_copper_pipes.InteractionHandler;
 import net.frozenblock.wilderwild.misc.server.EasyPacket;
@@ -292,7 +293,7 @@ public class AncientHornProjectile extends AbstractArrow {
             if (blockState.getBlock() == Blocks.SCULK_SHRIEKER) { //SCULK SHRIEKER
                 if (ClothConfigInteractionHandler.hornCanSummonWarden()) {
                     BlockPos pos = result.getBlockPos();
-                    WilderWild.log(Blocks.SCULK_SHRIEKER, pos, "Horn Projectile Touched", WilderWild.UNSTABLE_LOGGING);
+                    WilderWild.log(Blocks.SCULK_SHRIEKER, pos, "Horn Projectile Touched", WilderSharedConstants.UNSTABLE_LOGGING);
                     if (blockState.getValue(RegisterProperties.SOULS_TAKEN) < 2 && !blockState.getValue(SculkShriekerBlock.SHRIEKING)) {
                         if (!blockState.getValue(SculkShriekerBlock.CAN_SUMMON)) {
                             server.setBlockAndUpdate(pos, blockState.setValue(RegisterProperties.SOULS_TAKEN, blockState.getValue(RegisterProperties.SOULS_TAKEN) + 1));
@@ -312,7 +313,7 @@ public class AncientHornProjectile extends AbstractArrow {
                 }
             } else if (blockState.getBlock() == Blocks.SCULK_SENSOR) {
                 BlockPos pos = result.getBlockPos();
-                WilderWild.log(Blocks.SCULK_SENSOR, pos, "Horn Projectile Touched", WilderWild.UNSTABLE_LOGGING);
+                WilderWild.log(Blocks.SCULK_SENSOR, pos, "Horn Projectile Touched", WilderSharedConstants.UNSTABLE_LOGGING);
                 if (blockState.getValue(RegisterProperties.HICCUPPING)) {
                     server.setBlockAndUpdate(pos, blockState.setValue(RegisterProperties.HICCUPPING, false));
                 } else {
@@ -348,9 +349,9 @@ public class AncientHornProjectile extends AbstractArrow {
         if (insideState.is(RegisterBlocks.HANGING_TENDRIL) && level instanceof ServerLevel server && canInteract()) { //HANGING TENDRIL
             BlockPos pos = this.blockPosition();
             BlockEntity entity = level.getBlockEntity(pos);
-            WilderWild.log(RegisterBlocks.HANGING_TENDRIL, pos, "Horn Projectile Touched", WilderWild.DEV_LOGGING);
+            WilderWild.log(RegisterBlocks.HANGING_TENDRIL, pos, "Horn Projectile Touched", WilderSharedConstants.DEV_LOGGING);
             if (entity instanceof HangingTendrilBlockEntity tendril) {
-                WilderWild.log("Horn Projectile Found Hanging Tendril Entity", WilderWild.UNSTABLE_LOGGING);
+                WilderWild.log("Horn Projectile Found Hanging Tendril Entity", WilderSharedConstants.UNSTABLE_LOGGING);
                 this.playSound(this.getHitGroundSoundEvent(), 1.0F, 1.2F / (this.random.nextFloat() * 0.2F + 0.9F));
                 int XP = tendril.storedXP;
                 if (XP > 0) {
@@ -511,7 +512,7 @@ public class AncientHornProjectile extends AbstractArrow {
                 entity.setSecondsOnFire(5);
             }
             if (entity instanceof Warden warden && owner != null && canInteract()) {
-                WilderWild.log(warden, "Horn Projectile Touched", WilderWild.DEV_LOGGING);
+                WilderWild.log(warden, "Horn Projectile Touched", WilderSharedConstants.DEV_LOGGING);
                 warden.increaseAngerAt(owner, AngerLevel.ANGRY.getMinimumAnger() + 20, true);
                 warden.playSound(SoundEvents.WARDEN_TENDRIL_CLICKS, 5.0F, warden.getVoicePitch());
                 this.discard();
@@ -519,7 +520,7 @@ public class AncientHornProjectile extends AbstractArrow {
                 if (entity.hurt(damageSource, (float) damage)) {
                     if (entity instanceof LivingEntity livingEntity) {
                         Level level = this.getLevel();
-                        WilderWild.log(livingEntity, "Horn Projectile Touched", WilderWild.DEV_LOGGING);
+                        WilderWild.log(livingEntity, "Horn Projectile Touched", WilderSharedConstants.DEV_LOGGING);
                         if (!this.level.isClientSide && owner instanceof LivingEntity) {
                             EnchantmentHelper.doPostHurtEffects(livingEntity, owner);
                             EnchantmentHelper.doPostDamageEffects((LivingEntity) owner, livingEntity);

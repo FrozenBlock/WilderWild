@@ -2,9 +2,9 @@ package net.frozenblock.wilderwild.mixin.client.easter;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.entity.render.WilderWardenModel;
 import net.frozenblock.wilderwild.entity.render.feature.OsmioooWardenFeatureRenderer;
+import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.minecraft.client.model.WardenModel;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.MobRenderer;
@@ -23,17 +23,17 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public abstract class OsmioooWardenRenderer extends MobRenderer<Warden, WardenModel<Warden>> {
 
     @Unique
-    private static final ResourceLocation WILDERWILD$OSMIOOO_TEXTURE = WilderWild.id("textures/entity/warden/osmiooo_warden.png");
+    private static final ResourceLocation WILDERWILD$OSMIOOO_TEXTURE = WilderSharedConstants.id("textures/entity/warden/osmiooo_warden.png");
     @Unique
-    private static final ResourceLocation WILDERWILD$OSMIOOO_BIOLUMINESCENT_LAYER_TEXTURE = WilderWild.id("textures/entity/warden/osmiooo_warden_bioluminescent_overlay.png");
+    private static final ResourceLocation WILDERWILD$OSMIOOO_BIOLUMINESCENT_LAYER_TEXTURE = WilderSharedConstants.id("textures/entity/warden/osmiooo_warden_bioluminescent_overlay.png");
     @Unique
-    private static final ResourceLocation WILDERWILD$OSMIOOO_HEART_TEXTURE = WilderWild.id("textures/entity/warden/osmiooo_warden_heart.png");
+    private static final ResourceLocation WILDERWILD$OSMIOOO_HEART_TEXTURE = WilderSharedConstants.id("textures/entity/warden/osmiooo_warden_heart.png");
     @Unique
-    private static final ResourceLocation WILDERWILD$OSMIOOO_TENDRILS_TEXTURE = WilderWild.id("textures/entity/warden/osmiooo_warden_tendrils.png");
+    private static final ResourceLocation WILDERWILD$OSMIOOO_TENDRILS_TEXTURE = WilderSharedConstants.id("textures/entity/warden/osmiooo_warden_tendrils.png");
     @Unique
-    private static final ResourceLocation WILDERWILD$OSMIOOO_PULSATING_SPOTS_1_TEXTURE = WilderWild.id("textures/entity/warden/osmiooo_warden_pulsating_spots_1.png");
+    private static final ResourceLocation WILDERWILD$OSMIOOO_PULSATING_SPOTS_1_TEXTURE = WilderSharedConstants.id("textures/entity/warden/osmiooo_warden_pulsating_spots_1.png");
     @Unique
-    private static final ResourceLocation WILDERWILD$OSMIOOO_PULSATING_SPOTS_2_TEXTURE = WilderWild.id("textures/entity/warden/osmiooo_warden_pulsating_spots_2.png");
+    private static final ResourceLocation WILDERWILD$OSMIOOO_PULSATING_SPOTS_2_TEXTURE = WilderSharedConstants.id("textures/entity/warden/osmiooo_warden_pulsating_spots_2.png");
 
     public OsmioooWardenRenderer(EntityRendererProvider.Context context, WardenModel<Warden> entityModel, float f) {
         super(context, entityModel, f);
