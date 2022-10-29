@@ -43,7 +43,7 @@ public final class EnderManMixin extends Monster implements WilderEnderman {
     @Inject(method = "playStareSound", at = @At(value = "HEAD"), cancellable = true)
     public void playStareSound(CallbackInfo info) {
         //NOTE: This only runs on the client.
-		if (ClothConfigInteractionHandler.movingStareSound()) {
+		if (this.level.isClientSide && ClothConfigInteractionHandler.movingStareSound()) {
 			info.cancel();
 			if (this.tickCount >= this.lastStareSound + 400) {
 				this.lastStareSound = this.tickCount;

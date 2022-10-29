@@ -13,14 +13,12 @@ import net.minecraft.world.entity.monster.EnderMan;
 @Environment(EnvType.CLIENT)
 public class ClientMethods {
 
-    public static MovingSoundWithRestriction<EnderMan> playClientEnderManSound(EnderMan enderMan) {
+    public static void playClientEnderManSound(EnderMan enderMan) {
         Minecraft client = Minecraft.getInstance();
         if (client.level != null && enderMan.isAlive()) {
 			var sound = new MovingSoundWithRestriction<>(enderMan, SoundEvents.ENDERMAN_STARE, SoundSource.HOSTILE, 2.5F, 1F, SoundPredicate.notSilentAndAlive());
             client.getSoundManager().play(sound);
-			return sound;
         }
-		return null;
     }
 
 }

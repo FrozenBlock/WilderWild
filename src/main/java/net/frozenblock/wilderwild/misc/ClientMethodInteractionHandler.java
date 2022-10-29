@@ -5,8 +5,8 @@ import net.minecraft.world.entity.monster.EnderMan;
 
 public class ClientMethodInteractionHandler {
 
-    public static MovingSoundWithRestriction<EnderMan> playClientEnderManSound(EnderMan enderMan) {
-        return ClientMethods.playClientEnderManSound(enderMan);
+    public static void playClientEnderManSound(EnderMan enderMan) {
+        ClientMethods.playClientEnderManSound(enderMan);
     }
 
 }
