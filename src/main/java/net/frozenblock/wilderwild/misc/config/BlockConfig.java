@@ -14,7 +14,6 @@ import static net.frozenblock.wilderwild.misc.config.WilderWildConfig.tooltip;
 
 @Config(name = "block")
 public final class BlockConfig implements ConfigData {
-    //public static final EnumConfigOption<ModMenuConfig.ModsButtonStyle> MODS_BUTTON_STYLE = new EnumConfigOption<>("mods_button_style", ModMenuConfig.ModsButtonStyle.CLASSIC);
 
 	@ConfigEntry.Gui.CollapsibleObject
 	public BlockSoundsConfig blockSounds = new BlockSoundsConfig();

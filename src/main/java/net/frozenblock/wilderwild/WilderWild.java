@@ -305,6 +305,10 @@ public final class WilderWild implements ModInitializer {
         return new ResourceLocation(MOD_ID, path);
     }
 
+	public static ResourceLocation vanillaId(String path) {
+		return new ResourceLocation("minecraft", path);
+	}
+
     public static String string(String path) {
         return id(path).toString();
     }

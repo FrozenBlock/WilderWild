@@ -18,11 +18,19 @@ public final class EntityConfig implements ConfigData {
 	@ConfigEntry.Gui.CollapsibleObject
 	public AllayConfig allay = new AllayConfig();
 
+	@ConfigEntry.Gui.CollapsibleObject
+	public EnderManConfig enderMan = new EnderManConfig();
+
     @ConfigEntry.Gui.CollapsibleObject
     public WardenConfig warden = new WardenConfig();
 
 	public static class AllayConfig {
 		public boolean keyframeAllayDance = true;
+	}
+
+	public static class EnderManConfig {
+		public boolean angerLoopSound = true;
+		public boolean movingStareSound = true;
 	}
 
     public static class WardenConfig {
@@ -38,6 +46,7 @@ public final class EntityConfig implements ConfigData {
     static void setupEntries(ConfigCategory category, ConfigEntryBuilder entryBuilder) {
         var config = WilderWildConfig.get().entity;
 		var allay = config.allay;
+		var enderMan = config.enderMan;
         var warden = config.warden;
         category.setBackground(WilderWild.id("textures/config/entity.png"));
         var unpassableRail = category.addEntry(entryBuilder.startBooleanToggle(text("unpassable_rail"), config.unpassableRail)
@@ -59,6 +68,24 @@ public final class EntityConfig implements ConfigData {
                 tooltip("allay"),
 				keyframeAllayDance
         );
+
+		var angerLoopSound = entryBuilder.startBooleanToggle(text("anger_loop_sound"), enderMan.angerLoopSound)
+				.setDefaultValue(true)
+				.setSaveConsumer(newValue -> enderMan.angerLoopSound = newValue)
+				.setTooltip(tooltip("anger_loop_sound"))
+				.build();
+
+		var movingStareSound = entryBuilder.startBooleanToggle(text("moving_stare_sound"), enderMan.movingStareSound)
+				.setDefaultValue(true)
+				.setSaveConsumer(newValue -> enderMan.movingStareSound = newValue)
+				.setTooltip(tooltip("moving_stare_sound"))
+				.build();
+
+		var enderManCategory = FrozenConfig.createSubCategory(entryBuilder, category, text("enderman"),
+				false,
+				tooltip("enderman"),
+				angerLoopSound, movingStareSound
+		);
 
         /*var fireflyCategory = FrozenConfig.createSubCategory(entryBuilder, category, text("firefly"),
                 false,

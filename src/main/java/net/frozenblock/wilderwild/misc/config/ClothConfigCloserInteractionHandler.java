@@ -7,6 +7,7 @@ public final class ClothConfigCloserInteractionHandler {
 	private static final WorldgenConfig.BiomePlacement BIOME_PLACEMENT = WilderWildConfig.get().worldgen.biomePlacement;
 	private static final BlockConfig BLOCK = WilderWildConfig.get().block;
 	private static final BlockConfig.BlockSoundsConfig BLOCK_SOUNDS = WilderWildConfig.get().block.blockSounds;
+	private static final EntityConfig.EnderManConfig ENDER_MAN = WilderWildConfig.get().entity.enderMan;
 	private static final EntityConfig ENTITY = WilderWildConfig.get().entity;
 	private static final ItemConfig ITEM = WilderWildConfig.get().item;
 	private static final BlockConfig.StoneChestConfig STONE_CHEST = WilderWildConfig.get().block.stoneChest;
@@ -144,6 +145,14 @@ public final class ClothConfigCloserInteractionHandler {
 
 	public static boolean keyframeAllayDance() {
 		return ALLAY.keyframeAllayDance;
+	}
+
+	public static boolean angerLoopSound() {
+		return ENDER_MAN.angerLoopSound;
+	}
+
+	public static boolean movingStareSound() {
+		return ENDER_MAN.movingStareSound;
 	}
 
     public static boolean wardenCustomTendrils() {

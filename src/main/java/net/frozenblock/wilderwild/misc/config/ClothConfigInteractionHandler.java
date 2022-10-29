@@ -236,6 +236,20 @@ public final class ClothConfigInteractionHandler {
 		return true;
 	}
 
+	public static boolean angerLoopSound() {
+		if (FrozenBools.HAS_CLOTH_CONFIG) {
+			return ClothConfigCloserInteractionHandler.angerLoopSound();
+		}
+		return true;
+	}
+
+	public static boolean movingStareSound() {
+		if (FrozenBools.HAS_CLOTH_CONFIG) {
+			return ClothConfigCloserInteractionHandler.movingStareSound();
+		}
+		return true;
+	}
+
     public static boolean wardenCustomTendrils() {
         if (FrozenBools.HAS_CLOTH_CONFIG) {
             return ClothConfigCloserInteractionHandler.wardenCustomTendrils();

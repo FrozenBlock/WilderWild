@@ -20,7 +20,7 @@ public class AbandonedCabinGenerator {
     public static final Holder<StructureTemplatePool> CABIN = Pools.register(
             new StructureTemplatePool(
                     WilderWild.id("abandoned_cabin/cabin"),
-                    new ResourceLocation("empty"),
+                    WilderWild.vanillaId("empty"),
                     ImmutableList.of(
                             Pair.of(ofProcessedSingle("abandoned_cabin/cabin/abandoned_cabin_1", WilderStructureProcessors.ABANDONED_CABIN_PROCESSOR), 1),
                             Pair.of(ofProcessedSingle("abandoned_cabin/cabin/abandoned_cabin_2", WilderStructureProcessors.ABANDONED_CABIN_PROCESSOR), 1),
