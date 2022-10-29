@@ -38,7 +38,7 @@ import org.slf4j.Logger;
 
 public class DisplayLanternBlockEntity extends BlockEntity {
     public NonNullList<ItemStack> inventory;
-    ArrayList<FireflyInLantern> fireflies = new ArrayList<>();
+    private final ArrayList<FireflyInLantern> fireflies = new ArrayList<>();
 
     public int age;
     public boolean hasUpdated = false;

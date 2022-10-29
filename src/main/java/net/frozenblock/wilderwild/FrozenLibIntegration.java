@@ -2,10 +2,10 @@ package net.frozenblock.wilderwild;
 
 import net.frozenblock.lib.FrozenBools;
 import net.frozenblock.lib.entrypoints.FrozenMainEntrypoint;
-import net.frozenblock.lib.replacements_and_lists.BlockScheduledTicks;
-import net.frozenblock.lib.replacements_and_lists.DripstoneDripWaterFrom;
-import net.frozenblock.lib.replacements_and_lists.HopperUntouchableList;
-import net.frozenblock.lib.replacements_and_lists.StructurePoolElementIdReplacements;
+import net.frozenblock.lib.impl.BlockScheduledTicks;
+import net.frozenblock.lib.impl.DripstoneDripWaterFrom;
+import net.frozenblock.lib.impl.HopperUntouchableList;
+import net.frozenblock.lib.impl.StructurePoolElementIdReplacements;
 import net.frozenblock.lib.sound.SoundPredicate.SoundPredicate;
 import net.frozenblock.wilderwild.entity.Firefly;
 import net.frozenblock.wilderwild.registry.RegisterBlockEntities;
@@ -25,11 +25,8 @@ public final class FrozenLibIntegration implements FrozenMainEntrypoint {
     @Override
     public void init() {
         WilderWild.log("FrozenLib Main Entrypoint for WilderWild loaded.", WilderWild.UNSTABLE_LOGGING);
-		SoundPredicate.register(WilderWild.id("instrument"), (SoundPredicate.LoopPredicate<Player>) entity -> {
-            if (entity instanceof Player player) {
-                return (player.getUseItem().getItem() instanceof InstrumentItem);
-            }
-            return false;
+		SoundPredicate.register(WilderWild.id("instrument"),(SoundPredicate.LoopPredicate<Player>) player -> {
+			return (player.getUseItem().getItem() instanceof InstrumentItem);
         });
         SoundPredicate.register(WilderWild.id("nectar"), (SoundPredicate.LoopPredicate<Firefly>) entity -> {
             if (entity.isSilent()) {
@@ -43,26 +40,45 @@ public final class FrozenLibIntegration implements FrozenMainEntrypoint {
             }
             return false;
         });
-		SoundPredicate.register(WilderWild.id("enderman_anger"), (SoundPredicate.LoopPredicate<EnderMan>) entity -> {
-            if (entity.isSilent() || !entity.isAlive()) {
-                return false;
-            }
-            return ((EnderMan) entity).isCreepy();
-        });
+		new SoundPredicate.LoopPredicate<EnderMan>() {
+			@Override
+			public boolean test(EnderMan entity) {
+				return false;
+			}
 
-        BlockScheduledTicks.ticks.put(Blocks.DIRT, (blockState, serverLevel, blockPos, randomSource) -> serverLevel.setBlock(blockPos, Blocks.MUD.defaultBlockState(), 3));
-        HopperUntouchableList.blackListedTypes.add(RegisterBlockEntities.STONE_CHEST);
-        //StructurePoolElementIdReplacements.resourceLocationReplacements.put(new ResourceLocation("ancient_city/city_center/city_center_1"), WilderWild.id("ancient_city/city_center/city_center_1"));
-        //StructurePoolElementIdReplacements.resourceLocationReplacements.put(new ResourceLocation("ancient_city/city_center/city_center_2"), WilderWild.id("ancient_city/city_center/city_center_2"));
+			@Override
+			public void onStop(EnderMan entity) {
+
+			}
+		};
+		SoundPredicate.register(WilderWild.id("enderman_anger"), new SoundPredicate.LoopPredicate<EnderMan>() {
+			@Override
+			public boolean test(EnderMan entity) {
+				if (entity.isSilent() || !entity.isAlive() || entity.isRemoved()) {
+					return false;
+				}
+				return entity.isCreepy();
+			}
+
+			/*@Override
+			public void onStop(EnderMan entity) {
+				((WilderEnderman) entity).setCanPlayLoopingSound();
+			}*/
+		});
+
+        BlockScheduledTicks.TICKS.put(Blocks.DIRT, (blockState, serverLevel, blockPos, randomSource) -> serverLevel.setBlock(blockPos, Blocks.MUD.defaultBlockState(), 3));
+        HopperUntouchableList.BLACKLISTED_TYPES.add(RegisterBlockEntities.STONE_CHEST);
+        //StructurePoolElementIdReplacements.resourceLocationReplacements.put(WilderWild.vanillaId("ancient_city/city_center/city_center_1"), WilderWild.id("ancient_city/city_center/city_center_1"));
+        //StructurePoolElementIdReplacements.resourceLocationReplacements.put(WilderWild.vanillaId("ancient_city/city_center/city_center_2"), WilderWild.id("ancient_city/city_center/city_center_2"));
         FrozenBools.useNewDripstoneLiquid = true;
-        DripstoneDripWaterFrom.map.put(Blocks.WET_SPONGE, (level, fluidInfo, blockPos) -> {
+        DripstoneDripWaterFrom.ON_DRIP_BLOCK.put(Blocks.WET_SPONGE, (level, fluidInfo, blockPos) -> {
             BlockState blockState = Blocks.SPONGE.defaultBlockState();
             level.setBlockAndUpdate(fluidInfo.pos(), blockState);
             Block.pushEntitiesUp(fluidInfo.sourceState(), blockState, level, fluidInfo.pos());
             level.gameEvent(GameEvent.BLOCK_CHANGE, fluidInfo.pos(), GameEvent.Context.of(blockState));
             level.levelEvent(LevelEvent.DRIPSTONE_DRIP, blockPos, 0);
         });
-        DripstoneDripWaterFrom.map.put(Blocks.MUD, (level, fluidInfo, blockPos) -> {
+        DripstoneDripWaterFrom.ON_DRIP_BLOCK.put(Blocks.MUD, (level, fluidInfo, blockPos) -> {
             BlockState blockState = Blocks.CLAY.defaultBlockState();
             level.setBlockAndUpdate(fluidInfo.pos(), blockState);
             Block.pushEntitiesUp(fluidInfo.sourceState(), blockState, level, fluidInfo.pos());
@@ -70,16 +86,16 @@ public final class FrozenLibIntegration implements FrozenMainEntrypoint {
             level.levelEvent(LevelEvent.DRIPSTONE_DRIP, blockPos, 0);
         });
 
-        StructurePoolElementIdReplacements.resourceLocationReplacements.put(new ResourceLocation("ancient_city/structures/barracks"), WilderWild.id("ancient_city/structures/barracks"));
-        StructurePoolElementIdReplacements.resourceLocationReplacements.put(new ResourceLocation("ancient_city/structures/chamber_1"), WilderWild.id("ancient_city/structures/chamber_1"));
-        StructurePoolElementIdReplacements.resourceLocationReplacements.put(new ResourceLocation("ancient_city/structures/chamber_2"), WilderWild.id("ancient_city/structures/chamber_2"));
-        StructurePoolElementIdReplacements.resourceLocationReplacements.put(new ResourceLocation("ancient_city/structures/chamber_3"), WilderWild.id("ancient_city/structures/chamber_3"));
-        StructurePoolElementIdReplacements.resourceLocationReplacements.put(new ResourceLocation("ancient_city/structures/sauna_1"), WilderWild.id("ancient_city/structures/sauna_1"));
-        StructurePoolElementIdReplacements.resourceLocationReplacements.put(new ResourceLocation("ancient_city/structures/tall_ruin_1"), WilderWild.id("ancient_city/structures/tall_ruin_1"));
-        StructurePoolElementIdReplacements.resourceLocationReplacements.put(new ResourceLocation("ancient_city/structures/tall_ruin_2"), WilderWild.id("ancient_city/structures/tall_ruin_2"));
-        StructurePoolElementIdReplacements.resourceLocationReplacements.put(new ResourceLocation("ancient_city/structures/tall_ruin_3"), WilderWild.id("ancient_city/structures/tall_ruin_3"));
-        StructurePoolElementIdReplacements.resourceLocationReplacements.put(new ResourceLocation("ancient_city/structures/tall_ruin_4"), WilderWild.id("ancient_city/structures/tall_ruin_4"));
-        StructurePoolElementIdReplacements.resourceLocationReplacements.put(new ResourceLocation("ancient_city/structures/ice_box_1"), WilderWild.id("ancient_city/structures/ice_box_1"));
+        StructurePoolElementIdReplacements.RESOURCE_LOCATION_REPLACEMENTS.put(WilderWild.vanillaId("ancient_city/structures/barracks"), WilderWild.id("ancient_city/structures/barracks"));
+        StructurePoolElementIdReplacements.RESOURCE_LOCATION_REPLACEMENTS.put(WilderWild.vanillaId("ancient_city/structures/chamber_1"), WilderWild.id("ancient_city/structures/chamber_1"));
+        StructurePoolElementIdReplacements.RESOURCE_LOCATION_REPLACEMENTS.put(WilderWild.vanillaId("ancient_city/structures/chamber_2"), WilderWild.id("ancient_city/structures/chamber_2"));
+        StructurePoolElementIdReplacements.RESOURCE_LOCATION_REPLACEMENTS.put(WilderWild.vanillaId("ancient_city/structures/chamber_3"), WilderWild.id("ancient_city/structures/chamber_3"));
+        StructurePoolElementIdReplacements.RESOURCE_LOCATION_REPLACEMENTS.put(WilderWild.vanillaId("ancient_city/structures/sauna_1"), WilderWild.id("ancient_city/structures/sauna_1"));
+        StructurePoolElementIdReplacements.RESOURCE_LOCATION_REPLACEMENTS.put(WilderWild.vanillaId("ancient_city/structures/tall_ruin_1"), WilderWild.id("ancient_city/structures/tall_ruin_1"));
+        StructurePoolElementIdReplacements.RESOURCE_LOCATION_REPLACEMENTS.put(WilderWild.vanillaId("ancient_city/structures/tall_ruin_2"), WilderWild.id("ancient_city/structures/tall_ruin_2"));
+        StructurePoolElementIdReplacements.RESOURCE_LOCATION_REPLACEMENTS.put(WilderWild.vanillaId("ancient_city/structures/tall_ruin_3"), WilderWild.id("ancient_city/structures/tall_ruin_3"));
+        StructurePoolElementIdReplacements.RESOURCE_LOCATION_REPLACEMENTS.put(WilderWild.vanillaId("ancient_city/structures/tall_ruin_4"), WilderWild.id("ancient_city/structures/tall_ruin_4"));
+        StructurePoolElementIdReplacements.RESOURCE_LOCATION_REPLACEMENTS.put(WilderWild.vanillaId("ancient_city/structures/ice_box_1"), WilderWild.id("ancient_city/structures/ice_box_1"));
     }
 
     @Override

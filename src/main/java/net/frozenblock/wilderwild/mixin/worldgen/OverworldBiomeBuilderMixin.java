@@ -45,7 +45,7 @@ public final class OverworldBiomeBuilderMixin {
 
     @Inject(method = "addLowSlice", at = @At("TAIL")) // also can be injectLowBiomes
     private void injectBiomesNearRivers(Consumer<Pair<Climate.ParameterPoint, ResourceKey<Biome>>> parameters, Climate.Parameter weirdness, CallbackInfo ci) {
-        if (!FrozenBools.hasTerraBlender) {
+        if (!FrozenBools.HAS_TERRABLENDER) {
             this.addSurfaceBiome(
                     parameters,
                     SharedWorldgen.MixedForest.TEMPERATURE,
@@ -71,7 +71,7 @@ public final class OverworldBiomeBuilderMixin {
 
     @Inject(method = "addMidSlice", at = @At("TAIL")) // also can be injectMidBiomes
     private void injectMixedBiomes(Consumer<Pair<Climate.ParameterPoint, ResourceKey<Biome>>> parameters, Climate.Parameter weirdness, CallbackInfo ci) {
-        if (!FrozenBools.hasTerraBlender) {
+        if (!FrozenBools.HAS_TERRABLENDER) {
             this.addSurfaceBiome(
                     parameters,
                     SharedWorldgen.MixedForest.TEMPERATURE,
@@ -98,7 +98,7 @@ public final class OverworldBiomeBuilderMixin {
 
     @Inject(method = "addValleys", at = @At("TAIL")) // can also be injectValleyBiomes
     private void injectRiverBiomes(Consumer<Pair<Climate.ParameterPoint, ResourceKey<Biome>>> parameters, Climate.Parameter weirdness, CallbackInfo ci) {
-        if (!FrozenBools.hasTerraBlender) {
+        if (!FrozenBools.HAS_TERRABLENDER) {
             this.addSurfaceBiome(
                     parameters,
                     SharedWorldgen.CypressWetlands.TEMPERATURE,
@@ -114,7 +114,7 @@ public final class OverworldBiomeBuilderMixin {
 
     @Inject(method = "addUndergroundBiomes", at = @At("TAIL"))
     private void addUndergroundBiomes(Consumer<Pair<Climate.ParameterPoint, ResourceKey<Biome>>> consumer, CallbackInfo ci) {
-        if (!FrozenBools.hasTerraBlender) {
+        if (!FrozenBools.HAS_TERRABLENDER) {
             addSemiDeepBiome(
                     consumer,
                     SharedWorldgen.JellyfishCaves.TEMPERATURE,
@@ -138,7 +138,7 @@ public final class OverworldBiomeBuilderMixin {
 
     @Inject(method = "addSurfaceBiome", at = @At("HEAD"), cancellable = true)
     private void addSurfaceBiome(Consumer<Pair<Climate.ParameterPoint, ResourceKey<Biome>>> parameters, Climate.Parameter temperature, Climate.Parameter humidity, Climate.Parameter continentalness, Climate.Parameter erosion, Climate.Parameter weirdness, float offset, ResourceKey<Biome> biome, CallbackInfo info) {
-        if (!FrozenBools.hasTerraBlender) {
+        if (!FrozenBools.HAS_TERRABLENDER) {
             if (biome.equals(Biomes.MANGROVE_SWAMP) && ClothConfigInteractionHandler.modifyMangroveSwampPlacement()) {
 				replaceParameters(
 						parameters,

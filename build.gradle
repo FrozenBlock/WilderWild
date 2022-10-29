@@ -218,6 +218,10 @@ processResources {
 	}
 }
 
+quiltflower {
+	quiltflowerVersion.set("1.9.0")
+}
+
 javadoc {
 	options.tags = ["reason"]
 }

@@ -2,7 +2,7 @@ package net.frozenblock.wilderwild.world.feature.features;
 
 import com.mojang.serialization.Codec;
 import java.util.Iterator;
-import net.frozenblock.lib.mathematics.EasyNoiseSampler;
+import net.frozenblock.lib.math.EasyNoiseSampler;
 import net.frozenblock.wilderwild.world.feature.features.config.PathFeatureConfig;
 import net.minecraft.core.BlockPos;
 import net.minecraft.util.RandomSource;
@@ -23,7 +23,7 @@ public class NoisePathUnderWaterFeature extends Feature<PathFeatureConfig> {
         BlockPos blockPos = context.origin();
         WorldGenLevel level = context.level();
         EasyNoiseSampler.setSeed(level.getSeed());
-        ImprovedNoise sampler = config.noise == 1 ? EasyNoiseSampler.perlinSimple : config.noise == 2 ? EasyNoiseSampler.perlinAtomic : config.noise == 3 ? EasyNoiseSampler.perlinBlocking : EasyNoiseSampler.perlinXoro;
+        ImprovedNoise sampler = config.noise == 1 ? EasyNoiseSampler.perlinLocal : config.noise == 2 ? EasyNoiseSampler.perlinChecked : config.noise == 3 ? EasyNoiseSampler.perlinThreadSafe : EasyNoiseSampler.perlinXoro;
         BlockPos.MutableBlockPos mutable = blockPos.mutable();
         int bx = mutable.getX();
         int bz = mutable.getZ();

@@ -12,7 +12,7 @@ public final class ModMenuIntegration implements ModMenuApi {
 
     @Override
     public ConfigScreenFactory<Screen> getModConfigScreenFactory() {
-        if (FrozenBools.hasCloth) {
+        if (FrozenBools.HAS_CLOTH_CONFIG) {
             return ClientOnlyConfigInteractionHandler.buildScreen();
         }
         return (screen -> null);
