@@ -41,17 +41,6 @@ public final class FrozenLibIntegration implements FrozenMainEntrypoint {
             }
             return false;
         });
-		new SoundPredicate.LoopPredicate<EnderMan>() {
-			@Override
-			public boolean test(EnderMan entity) {
-				return false;
-			}
-
-			@Override
-			public void onStop(EnderMan entity) {
-
-			}
-		};
 		SoundPredicate.register(WilderWild.id("enderman_anger"), new SoundPredicate.LoopPredicate<EnderMan>() {
 			@Override
 			public boolean test(EnderMan entity) {
