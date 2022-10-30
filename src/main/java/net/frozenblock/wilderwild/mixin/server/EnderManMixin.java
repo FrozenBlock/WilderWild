@@ -53,6 +53,13 @@ public final class EnderManMixin extends Monster implements WilderEnderman {
 				}
 			}
 		}
+		if (ClothConfigInteractionHandler.angerLoopSound()) {
+			EnderMan enderMan = EnderMan.class.cast(this);
+			if (!enderMan.level.isClientSide && this.wilderWild$canPlayLoopingSound) {
+				FrozenSoundPackets.createMovingRestrictionLoopingSound(enderMan.level, enderMan, RegisterSounds.ENTITY_ENDERMAN_ANGER_LOOP, SoundSource.HOSTILE, 1.0F, 0.9F, WilderWild.id("enderman_anger"));
+				this.wilderWild$canPlayLoopingSound = false;
+			}
+		}
     }
 
     @Inject(method = "setTarget", at = @At(value = "INVOKE", target = "Lnet/minecraft/network/syncher/SynchedEntityData;set(Lnet/minecraft/network/syncher/EntityDataAccessor;Ljava/lang/Object;)V", ordinal = 2, shift = At.Shift.AFTER))
