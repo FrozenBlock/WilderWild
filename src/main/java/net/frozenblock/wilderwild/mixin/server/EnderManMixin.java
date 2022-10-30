@@ -59,7 +59,7 @@ public final class EnderManMixin extends Monster implements WilderEnderman {
     public void setTarget(@Nullable LivingEntity target, CallbackInfo info) {
 		if (ClothConfigInteractionHandler.angerLoopSound()) {
 			EnderMan enderMan = EnderMan.class.cast(this);
-			if (!enderMan.level.isClientSide/* && this.wilderWild$canPlayLoopingSound*/) {
+			if (!enderMan.level.isClientSide && this.wilderWild$canPlayLoopingSound) {
 				FrozenSoundPackets.createMovingRestrictionLoopingSound(enderMan.level, enderMan, RegisterSounds.ENTITY_ENDERMAN_ANGER_LOOP, SoundSource.HOSTILE, 1.0F, 0.9F, WilderWild.id("enderman_anger"));
 				this.wilderWild$canPlayLoopingSound = false;
 			}

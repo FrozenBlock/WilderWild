@@ -8,6 +8,7 @@ import net.frozenblock.lib.impl.HopperUntouchableList;
 import net.frozenblock.lib.impl.StructurePoolElementIdReplacements;
 import net.frozenblock.lib.sound.SoundPredicate.SoundPredicate;
 import net.frozenblock.wilderwild.entity.Firefly;
+import net.frozenblock.wilderwild.misc.WilderEnderman;
 import net.frozenblock.wilderwild.registry.RegisterBlockEntities;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
@@ -60,10 +61,10 @@ public final class FrozenLibIntegration implements FrozenMainEntrypoint {
 				return entity.isCreepy();
 			}
 
-			/*@Override
+			@Override
 			public void onStop(EnderMan entity) {
 				((WilderEnderman) entity).setCanPlayLoopingSound();
-			}*/
+			}
 		});
 
         BlockScheduledTicks.TICKS.put(Blocks.DIRT, (blockState, serverLevel, blockPos, randomSource) -> serverLevel.setBlock(blockPos, Blocks.MUD.defaultBlockState(), 3));
