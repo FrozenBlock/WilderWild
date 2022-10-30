@@ -48,15 +48,15 @@ public final class RegisterWorldgen implements SurfaceRuleEvents.OverworldModifi
 
     @Override
     public void modifyOverworldRules(SurfaceRuleContext.@NotNull Overworld context) {
-        context.materialRules().add(0, SharedWorldgen.cypressSurfaceRules());
-		context.materialRules().add(SharedWorldgen.cypressSurfaceRules());
+        context.ruleSources().add(0, SharedWorldgen.cypressSurfaceRules());
+		context.ruleSources().add(SharedWorldgen.cypressSurfaceRules());
         if (ClothConfigInteractionHandler.betaBeaches()) {
-            context.materialRules().add(0, SharedWorldgen.gravelBetaBeaches());
-			context.materialRules().add(0, SharedWorldgen.sandBetaBeaches());
-			context.materialRules().add(0, SharedWorldgen.multilayerSandBetaBeaches());
-			context.materialRules().add(SharedWorldgen.gravelBetaBeaches());
-			context.materialRules().add(SharedWorldgen.sandBetaBeaches());
-			context.materialRules().add(SharedWorldgen.multilayerSandBetaBeaches());
+            context.ruleSources().add(0, SharedWorldgen.gravelBetaBeaches());
+			context.ruleSources().add(0, SharedWorldgen.sandBetaBeaches());
+			context.ruleSources().add(0, SharedWorldgen.multilayerSandBetaBeaches());
+			context.ruleSources().add(SharedWorldgen.gravelBetaBeaches());
+			context.ruleSources().add(SharedWorldgen.sandBetaBeaches());
+			context.ruleSources().add(SharedWorldgen.multilayerSandBetaBeaches());
         }
         WilderWild.log("Wilder Wild's Overworld Surface Rules have been added!", WilderSharedConstants.UNSTABLE_LOGGING);
     }
