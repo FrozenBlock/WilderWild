@@ -4,7 +4,6 @@ import net.fabricmc.fabric.api.datagen.v1.DataGeneratorEntrypoint;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricBuiltinRegistriesProvider;
 import net.frozenblock.wilderwild.registry.RegisterItems;
-import net.frozenblock.wilderwild.registry.RegisterResources;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.metadata.PackMetadataGenerator;
 import net.minecraft.data.recipes.FinishedRecipe;

@@ -89,3 +89,7 @@ accessible    method    net/minecraft/data/worldgen/NoiseData    register    (Ln
 
 # Surface Rules
 accessible    method    net/minecraft/world/level/levelgen/SurfaceRules$SequenceRuleSource    <init>    (Ljava/util/List;)V
+
+# Data Generation
+accessible    field    net/minecraft/data/DataGenerator    vanillaPackOutput    Lnet/minecraft/data/PackOutput;
+accessible    method    net/minecraft/data/DataGenerator$PackGenerator    <init>    (Lnet/minecraft/data/DataGenerator;ZLjava/lang/String;Lnet/minecraft/data/PackOutput;)V
