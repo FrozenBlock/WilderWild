@@ -1,13 +1,18 @@
 package net.frozenblock.wilderwild.mixin.server;
 
-import net.frozenblock.lib.sound.FrozenSoundPackets;
+import net.frozenblock.lib.sound.api.instances.RestrictedMovingSoundLoop;
+import net.frozenblock.lib.sound.api.predicate.SoundPredicate;
+import net.frozenblock.lib.sound.impl.EntityLoopingSoundInterface;
 import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.misc.ClientMethodInteractionHandler;
 import net.frozenblock.wilderwild.misc.WilderEnderman;
 import net.frozenblock.wilderwild.misc.config.ClothConfigInteractionHandler;
 import net.frozenblock.wilderwild.registry.RegisterSounds;
+import net.minecraft.client.Minecraft;
+import net.minecraft.core.Registry;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.monster.EnderMan;
@@ -20,6 +25,7 @@ import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(EnderMan.class)
 public final class EnderManMixin extends Monster implements WilderEnderman {
@@ -40,7 +46,7 @@ public final class EnderManMixin extends Monster implements WilderEnderman {
 		this.wilderWild$canPlayLoopingSound = true;
 	}
 
-    @Inject(method = "playStareSound", at = @At(value = "HEAD"), cancellable = true)
+	@Inject(method = "playStareSound", at = @At(value = "HEAD"), cancellable = true)
     public void playStareSound(CallbackInfo info) {
         //NOTE: This only runs on the client.
 		if (ClothConfigInteractionHandler.movingStareSound()) {
@@ -53,24 +59,29 @@ public final class EnderManMixin extends Monster implements WilderEnderman {
 				}
 			}
 		}
-		if (ClothConfigInteractionHandler.angerLoopSound()) {
-			EnderMan enderMan = EnderMan.class.cast(this);
-			if (!enderMan.level.isClientSide && this.wilderWild$canPlayLoopingSound) {
-				FrozenSoundPackets.createMovingRestrictionLoopingSound(enderMan.level, enderMan, RegisterSounds.ENTITY_ENDERMAN_ANGER_LOOP, SoundSource.HOSTILE, 1.0F, 0.9F, WilderWild.id("enderman_anger"));
-				this.wilderWild$canPlayLoopingSound = false;
-			}
-		}
+		createAngerLoop();
     }
 
     @Inject(method = "setTarget", at = @At(value = "INVOKE", target = "Lnet/minecraft/network/syncher/SynchedEntityData;set(Lnet/minecraft/network/syncher/EntityDataAccessor;Ljava/lang/Object;)V", ordinal = 2, shift = At.Shift.AFTER))
     public void setTarget(@Nullable LivingEntity target, CallbackInfo info) {
+		createAngerLoop();
+    }
+
+	@Inject(method = "hurt", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/monster/Monster;hurt(Lnet/minecraft/world/damagesource/DamageSource;F)Z", shift = At.Shift.AFTER))
+	private void hurt(DamageSource source, float amount, CallbackInfoReturnable<Boolean> cir) {
+		createAngerLoop();
+	}
+
+	@Unique
+	@Override
+	public void createAngerLoop() {
 		if (ClothConfigInteractionHandler.angerLoopSound()) {
 			EnderMan enderMan = EnderMan.class.cast(this);
-			if (!enderMan.level.isClientSide && this.wilderWild$canPlayLoopingSound) {
-				FrozenSoundPackets.createMovingRestrictionLoopingSound(enderMan.level, enderMan, RegisterSounds.ENTITY_ENDERMAN_ANGER_LOOP, SoundSource.HOSTILE, 1.0F, 0.9F, WilderWild.id("enderman_anger"));
+			if (enderMan.level.isClientSide && this.wilderWild$canPlayLoopingSound) {
+				((EntityLoopingSoundInterface) enderMan).addSound(Registry.SOUND_EVENT.getKey(RegisterSounds.ENTITY_ENDERMAN_ANGER_LOOP), SoundSource.HOSTILE, 1.0F, 0.9F, WilderWild.id("enderman_anger"));
+				Minecraft.getInstance().getSoundManager().play(new RestrictedMovingSoundLoop<>(enderMan, RegisterSounds.ENTITY_ENDERMAN_ANGER_LOOP, SoundSource.HOSTILE, 1.0F, 0.9F, SoundPredicate.getPredicate(WilderWild.id("enderman_anger"))));
 				this.wilderWild$canPlayLoopingSound = false;
 			}
 		}
-    }
-
+	}
 }

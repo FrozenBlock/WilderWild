@@ -64,7 +64,7 @@ public abstract class LivingEntityMixin extends Entity {
     @Shadow
     @Nullable
     protected SoundEvent getHurtSound(DamageSource damageSource) {
-        return SoundEvents.GENERIC_HURT;
+		throw new AssertionError("Mixin injection failed. - WilderWild LivingEntityMixin");
     }
 
     //LivingEntity line 1030
