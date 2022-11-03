@@ -38,7 +38,7 @@ public abstract class MobMixin extends LivingEntity {
 	private void startAngerLoop(DamageSource source, CallbackInfo ci) {
 		final Mob mob = Mob.class.cast(this);
 		if (mob instanceof EnderMan) {
-			((WilderEnderman) mob).createAngerLoop();
+			((WilderEnderman) mob).createAngerLoopSound();
 		}
 	}
 }

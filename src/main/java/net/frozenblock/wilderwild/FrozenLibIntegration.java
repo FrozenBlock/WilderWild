@@ -54,7 +54,7 @@ public final class FrozenLibIntegration implements FrozenMainEntrypoint {
 			@Override
 			public void onStop(@Nullable EnderMan entity) {
 				if (entity != null) {
-					((WilderEnderman) entity).setCanPlayLoopingSound();
+					((WilderEnderman) entity).setCanPlayLoopingSound(true);
 				}
 			}
 		});

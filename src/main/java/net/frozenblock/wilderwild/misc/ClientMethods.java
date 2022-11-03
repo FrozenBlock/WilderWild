@@ -3,7 +3,9 @@ package net.frozenblock.wilderwild.misc;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.frozenblock.lib.sound.api.instances.RestrictedMovingSound;
+import net.frozenblock.lib.sound.api.instances.RestrictedMovingSoundLoop;
 import net.frozenblock.lib.sound.api.predicate.SoundPredicate;
+import net.frozenblock.wilderwild.registry.RegisterSounds;
 import net.minecraft.client.Minecraft;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
@@ -19,4 +21,11 @@ public class ClientMethods {
         }
     }
 
+	public static void playClientEnderManAngerLoop(EnderMan enderMan) {
+		Minecraft client = Minecraft.getInstance();
+		if (client.level != null && enderMan.isAlive() && ((WilderEnderman) enderMan).canPlayLoopingSound()) {
+			client.getSoundManager().play(new RestrictedMovingSoundLoop<>(enderMan, RegisterSounds.ENTITY_ENDERMAN_ANGER_LOOP, SoundSource.HOSTILE, 1.0F, 0.9F, SoundPredicate.getPredicate(WilderSharedConstants.id("enderman_anger"))));
+			((WilderEnderman) enderMan).setCanPlayLoopingSound(false);
+		}
+	}
 }

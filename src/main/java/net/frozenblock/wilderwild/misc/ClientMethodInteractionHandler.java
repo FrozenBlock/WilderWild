@@ -1,6 +1,5 @@
 package net.frozenblock.wilderwild.misc;
 
-import net.frozenblock.lib.sound.api.instances.RestrictedMovingSound;
 import net.minecraft.world.entity.monster.EnderMan;
 
 public class ClientMethodInteractionHandler {
@@ -9,4 +8,7 @@ public class ClientMethodInteractionHandler {
         ClientMethods.playClientEnderManSound(enderMan);
     }
 
+	public static void playEnderManAngerLoop(EnderMan enderMan) {
+		ClientMethods.playClientEnderManAngerLoop(enderMan);
+	}
 }

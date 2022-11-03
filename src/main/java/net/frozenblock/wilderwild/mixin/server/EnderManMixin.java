@@ -1,9 +1,10 @@
 package net.frozenblock.wilderwild.mixin.server;
 
+import net.fabricmc.api.EnvType;
+import net.fabricmc.loader.api.FabricLoader;
 import net.frozenblock.lib.sound.api.instances.RestrictedMovingSoundLoop;
 import net.frozenblock.lib.sound.api.predicate.SoundPredicate;
 import net.frozenblock.lib.sound.impl.EntityLoopingSoundInterface;
-import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.misc.ClientMethodInteractionHandler;
 import net.frozenblock.wilderwild.misc.WilderEnderman;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
@@ -21,6 +22,7 @@ import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Pseudo;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
@@ -28,6 +30,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
+@Pseudo
 @Mixin(EnderMan.class)
 public final class EnderManMixin extends Monster implements WilderEnderman {
 
@@ -43,7 +46,13 @@ public final class EnderManMixin extends Monster implements WilderEnderman {
 
 	@Unique
 	@Override
-	public void setCanPlayLoopingSound() {
+	public boolean canPlayLoopingSound() {
+		return this.wilderWild$canPlayLoopingSound;
+	}
+
+	@Unique
+	@Override
+	public void setCanPlayLoopingSound(boolean bl) {
 		this.wilderWild$canPlayLoopingSound = true;
 	}
 
@@ -60,29 +69,26 @@ public final class EnderManMixin extends Monster implements WilderEnderman {
 				}
 			}
 		}
-		createAngerLoop();
+		createAngerLoopSound();
     }
 
     @Inject(method = "setTarget", at = @At(value = "INVOKE", target = "Lnet/minecraft/network/syncher/SynchedEntityData;set(Lnet/minecraft/network/syncher/EntityDataAccessor;Ljava/lang/Object;)V", ordinal = 2, shift = At.Shift.AFTER))
     public void setTarget(@Nullable LivingEntity target, CallbackInfo info) {
-		createAngerLoop();
+		createAngerLoopSound();
     }
 
 	@Inject(method = "hurt", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/monster/Monster;hurt(Lnet/minecraft/world/damagesource/DamageSource;F)Z", shift = At.Shift.AFTER))
 	private void hurt(DamageSource source, float amount, CallbackInfoReturnable<Boolean> cir) {
-		createAngerLoop();
+		if (source.getEntity() instanceof LivingEntity) {
+			createAngerLoopSound();
+		}
 	}
 
 	@Unique
 	@Override
-	public void createAngerLoop() {
+	public void createAngerLoopSound() {
 		if (ClothConfigInteractionHandler.angerLoopSound()) {
-			EnderMan enderMan = EnderMan.class.cast(this);
-			if (enderMan.level.isClientSide && this.wilderWild$canPlayLoopingSound) {
-				((EntityLoopingSoundInterface) enderMan).addSound(Registry.SOUND_EVENT.getKey(RegisterSounds.ENTITY_ENDERMAN_ANGER_LOOP), SoundSource.HOSTILE, 1.0F, 0.9F, WilderSharedConstants.id("enderman_anger"));
-				Minecraft.getInstance().getSoundManager().play(new RestrictedMovingSoundLoop<>(enderMan, RegisterSounds.ENTITY_ENDERMAN_ANGER_LOOP, SoundSource.HOSTILE, 1.0F, 0.9F, SoundPredicate.getPredicate(WilderSharedConstants.id("enderman_anger"))));
-				this.wilderWild$canPlayLoopingSound = false;
-			}
+			ClientMethodInteractionHandler.playEnderManAngerLoop(EnderMan.class.cast(this));
 		}
 	}
 }
