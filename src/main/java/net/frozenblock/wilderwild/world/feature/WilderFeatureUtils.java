@@ -5,6 +5,7 @@ import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
 import net.minecraft.data.BuiltinRegistries;
+import net.minecraft.data.registries.VanillaRegistries;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.configurations.FeatureConfiguration;
@@ -32,6 +33,7 @@ public class WilderFeatureUtils {
 	}
 
 	public static <FC extends FeatureConfiguration, F extends Feature<FC>> Holder<ConfiguredFeature<FC, ?>> register(@NotNull String id, F feature, @NotNull FC config) {
+		VanillaRegistries.createLookup()
 		return registerExact(BuiltinRegistries.CONFIGURED_FEATURE, id, new ConfiguredFeature<>(feature, config));
 	}
 
@@ -39,14 +41,14 @@ public class WilderFeatureUtils {
 		return (Holder<V>) BuiltinRegistries.register(registry, WilderSharedConstants.id(id), value);
 	}
 
-	public static <FC extends FeatureConfiguration, V extends T, T extends ConfiguredFeature<FC, ?>> Holder<V> getExact(DynamicRegistryManagerSetupContext.RegistryMap registries, V value) {
+	public static <FC extends FeatureConfiguration, V extends T, T extends ConfiguredFeature<FC, ?>> Holder.Reference<V> getExact(DynamicRegistryManagerSetupContext.RegistryMap registries, V value) {
 		var configuredRegistry = registries.get(Registry.CONFIGURED_FEATURE_REGISTRY);
-		var dataResult = configuredRegistry.getOrCreateHolder(configuredRegistry.getResourceKey(value).orElseThrow());
-		var exactData = getExactDataResult(dataResult);
-		return (Holder<V>) exactData.getOrThrow(false, WilderSharedConstants.LOGGER::error);
+		var holder = configuredRegistry.getHolderOrThrow(configuredRegistry.getResourceKey(value).orElseThrow());
+		var exactHolder = getExactReference(holder);
+		return exactHolder;
 	}
 
-	public static <FC extends FeatureConfiguration, F extends Feature<FC>, V extends DataResult<Holder<ConfiguredFeature<FC, ?>>>> DataResult<V> getExactDataResult(DataResult<?> dataResult) {
-		return (DataResult<V>) dataResult;
+	public static <FC extends FeatureConfiguration, F extends Feature<FC>, V extends ConfiguredFeature<FC, ?>> Holder.Reference<V> getExactReference(Holder.Reference<?> reference) {
+		return (Holder.Reference<V>) reference;
 	}
 }
