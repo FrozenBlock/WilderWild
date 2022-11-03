@@ -21,7 +21,6 @@
 	"server.InstrumentItemMixin",
 	"server.ItemStackMixin",
 	"server.MobMixin",
-	"server.PlayerMixin",
 	"server.SculkBlockMixin",
 	"server.SculkSensorBlockEntityMixin",
 	"server.SculkSensorBlockMixin",
