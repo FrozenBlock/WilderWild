@@ -83,28 +83,28 @@ public class Jellyfish extends NoFlopAbstractFish {
 
 	private static final float MAX_TARGET_DISTANCE = 20F;
 
+	private static final EntityDataAccessor<JellyfishVariant> VARIANT = SynchedEntityData.defineId(Jellyfish.class, JellyfishVariant.SERIALIZER);
+
+	public static final ArrayList<JellyfishVariant> COLORED_VARIANTS = new ArrayList<>(WilderRegistry.JELLYFISH_VARIANT.stream()
+			.filter(JellyfishVariant::isNormal)
+			.collect(Collectors.toList())
+	);
+
+	public static final ArrayList<JellyfishVariant> PEARLESCENT_VARIANTS = new ArrayList<>(WilderRegistry.JELLYFISH_VARIANT.stream()
+			.filter(JellyfishVariant::isPearlescent)
+			.collect(Collectors.toList())
+	);
+
     public Jellyfish(EntityType<? extends Jellyfish> entityType, Level level) {
         super(entityType, level);
-        this.setVariant(JellyfishVariant.PINK);
 		this.getNavigation().setCanFloat(false);
     }
-
-    private static final EntityDataAccessor<JellyfishVariant> VARIANT = SynchedEntityData.defineId(Jellyfish.class, JellyfishVariant.SERIALIZER);
-
-    public static final ArrayList<JellyfishVariant> COLORED_VARIANTS = new ArrayList<>(WilderRegistry.JELLYFISH_VARIANT.stream()
-            .filter(JellyfishVariant::isNormal)
-            .collect(Collectors.toList())
-    );
-
-    public static final ArrayList<JellyfishVariant> PEARLESCENT_VARIANTS = new ArrayList<>(WilderRegistry.JELLYFISH_VARIANT.stream()
-            .filter(JellyfishVariant::isPearlescent)
-            .collect(Collectors.toList())
-    );
 
     @Nullable
     @Override
     public SpawnGroupData finalizeSpawn(ServerLevelAccessor level, @NotNull DifficultyInstance difficulty, @NotNull MobSpawnType reason, @Nullable SpawnGroupData spawnData, @Nullable CompoundTag dataTag) {
         Holder<Biome> biome = level.getBiome(this.blockPosition());
+		this.setVariant(JellyfishVariant.PINK);
         if (biome.is(WilderBiomeTags.PEARLESCENT_JELLYFISH)) {
             this.setVariant(PEARLESCENT_VARIANTS.get((int) (Math.random() * PEARLESCENT_VARIANTS.size())));
         } else {

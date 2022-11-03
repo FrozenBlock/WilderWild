@@ -21,8 +21,8 @@ loom {
 
 	accessWidenerPath = file("src/main/resources/wilderwild.accesswidener")
 	interfaceInjection {
-		// When enabled, injected interfaces from dependecies will be applied.
-		enableDependencyInterfaceInjection = false
+		// When enabled injected interfaces from dependecies will be applied.
+		enableDependencyInterfaceInjection = true
 	}
 }
 
@@ -216,6 +216,10 @@ processResources {
 	filesMatching("fabric.mod.json") {
 		expand "version": project.version
 	}
+}
+
+quiltflower {
+	quiltflowerVersion.set("1.8.0")
 }
 
 javadoc {

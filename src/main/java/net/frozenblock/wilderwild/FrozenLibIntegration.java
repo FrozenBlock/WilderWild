@@ -6,9 +6,10 @@ import net.frozenblock.lib.impl.BlockScheduledTicks;
 import net.frozenblock.lib.impl.DripstoneDripWaterFrom;
 import net.frozenblock.lib.impl.HopperUntouchableList;
 import net.frozenblock.lib.impl.StructurePoolElementIdReplacements;
-import net.frozenblock.lib.sound.SoundPredicate.SoundPredicate;
+import net.frozenblock.lib.sound.api.predicate.SoundPredicate;
 import net.frozenblock.wilderwild.entity.Firefly;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
+import net.frozenblock.wilderwild.misc.WilderEnderman;
 import net.frozenblock.wilderwild.registry.RegisterBlockEntities;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.monster.EnderMan;
@@ -19,6 +20,7 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.LevelEvent;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gameevent.GameEvent;
+import org.jetbrains.annotations.Nullable;
 
 public final class FrozenLibIntegration implements FrozenMainEntrypoint {
 
@@ -40,17 +42,6 @@ public final class FrozenLibIntegration implements FrozenMainEntrypoint {
             }
             return false;
         });
-		new SoundPredicate.LoopPredicate<EnderMan>() {
-			@Override
-			public boolean test(EnderMan entity) {
-				return false;
-			}
-
-			@Override
-			public void onStop(EnderMan entity) {
-
-			}
-		};
 		SoundPredicate.register(WilderSharedConstants.id("enderman_anger"), new SoundPredicate.LoopPredicate<EnderMan>() {
 			@Override
 			public boolean test(EnderMan entity) {
@@ -60,10 +51,12 @@ public final class FrozenLibIntegration implements FrozenMainEntrypoint {
 				return entity.isCreepy();
 			}
 
-			/*@Override
-			public void onStop(EnderMan entity) {
-				((WilderEnderman) entity).setCanPlayLoopingSound();
-			}*/
+			@Override
+			public void onStop(@Nullable EnderMan entity) {
+				if (entity != null) {
+					((WilderEnderman) entity).setCanPlayLoopingSound();
+				}
+			}
 		});
 
         BlockScheduledTicks.TICKS.put(Blocks.DIRT, (blockState, serverLevel, blockPos, randomSource) -> serverLevel.setBlock(blockPos, Blocks.MUD.defaultBlockState(), 3));

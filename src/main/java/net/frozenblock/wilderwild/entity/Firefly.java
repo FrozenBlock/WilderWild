@@ -5,7 +5,7 @@ import com.mojang.serialization.Dynamic;
 import java.util.ArrayList;
 import java.util.Objects;
 import java.util.Optional;
-import net.frozenblock.lib.sound.FrozenSoundPackets;
+import net.frozenblock.lib.sound.api.FrozenSoundPackets;
 import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.entity.ai.FireflyAi;
 import net.frozenblock.wilderwild.entity.ai.FireflyHidingGoal;

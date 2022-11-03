@@ -14,6 +14,7 @@ import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.util.Mth;
@@ -53,6 +54,9 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.ModifyConstant;
+import org.spongepowered.asm.mixin.injection.ModifyVariable;
+import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
@@ -296,31 +300,14 @@ public final class WardenMixin extends Monster implements WilderWarden {
         } else super.tickDeath();
     }
 
-    @Inject(method = "tick", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/Level;playLocalSound(DDDLnet/minecraft/sounds/SoundEvent;Lnet/minecraft/sounds/SoundSource;FFZ)V"), cancellable = true)
-    private void osmioHeartbeat(CallbackInfo ci) {
-        if (this.isOsmiooo()) {
-            this.level
-                    .playLocalSound(
-                            this.getX(), this.getY(), this.getZ(), RegisterSounds.ENTITY_WARDEN_OSMIOOO_HEARTBEAT, this.getSoundSource(), 5.0F, this.getVoicePitch(), false
-                    );
-
-			this.tendrilAnimationO = this.tendrilAnimation;
-			if (this.tendrilAnimation > 0) {
-				--this.tendrilAnimation;
-			}
-
-			this.heartAnimationO = this.heartAnimation;
-			if (this.heartAnimation > 0) {
-				--this.heartAnimation;
-			}
-
-			switch (this.getPose()) {
-				case EMERGING -> this.clientDiggingParticles(this.emergeAnimationState);
-				case DIGGING -> this.clientDiggingParticles(this.diggingAnimationState);
-			}
-            ci.cancel();
-        }
-    }
+	@Redirect(method = "tick", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/Level;playLocalSound(DDDLnet/minecraft/sounds/SoundEvent;Lnet/minecraft/sounds/SoundSource;FFZ)V"))
+	private void osmioHeartbeat(Level level, double x, double y, double z, SoundEvent sound, SoundSource category, float volume, float pitch, boolean distanceDelay) {
+		if (this.isOsmiooo()) {
+			level.playLocalSound(x, y, z, RegisterSounds.ENTITY_WARDEN_OSMIOOO_HEARTBEAT, category, volume, pitch, distanceDelay);
+		} else {
+			level.playLocalSound(x, y, z, sound, category, volume, pitch, distanceDelay);
+		}
+	}
 
     @Inject(method = "tick", at = @At("TAIL"))
     private void tick(CallbackInfo ci) {
