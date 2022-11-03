@@ -142,7 +142,6 @@ public final class WilderWild implements ModInitializer {
         WilderPlacedFeatures.registerPlacedFeatures();
         WilderWorldGen.generateWildWorldGen();
         RegisterGameEvents.registerEvents();
-        RegisterWorldgen.registerWorldgen();
         RegisterStructures.init();
 
         RegisterSounds.init();

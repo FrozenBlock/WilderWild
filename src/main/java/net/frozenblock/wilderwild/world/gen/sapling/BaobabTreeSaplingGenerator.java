@@ -1,7 +1,11 @@
 package net.frozenblock.wilderwild.world.gen.sapling;
 
+import net.frozenblock.wilderwild.registry.WilderRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
+import net.minecraft.core.Registry;
+import net.minecraft.data.registries.VanillaRegistries;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.BlockGetter;
@@ -30,19 +34,19 @@ public abstract class BaobabTreeSaplingGenerator extends AbstractMegaTreeGrower 
     }
 
     @Nullable
-    protected abstract Holder<? extends ConfiguredFeature<?, ?>> getBaobabTreeFeature(RandomSource random);
+    protected abstract ResourceKey<ConfiguredFeature<?, ?>> getBaobabTreeFeature(RandomSource random);
 
     @Override
-    protected Holder<? extends ConfiguredFeature<?, ?>> getConfiguredMegaFeature(RandomSource random) {
+    protected ResourceKey<ConfiguredFeature<?, ?>> getConfiguredMegaFeature(RandomSource random) {
         return null;
     }
 
     public boolean generateBaobabTree(ServerLevel level, ChunkGenerator chunkGenerator, BlockPos pos, BlockState state, RandomSource random, int x, int z) {
-        Holder<? extends ConfiguredFeature<?, ?>> registryEntry = this.getBaobabTreeFeature(random);
+        ResourceKey<ConfiguredFeature<?, ?>> registryEntry = this.getBaobabTreeFeature(random);
         if (registryEntry == null) {
             return false;
         } else {
-            ConfiguredFeature<?, ?> configuredFeature = registryEntry.value();
+            ConfiguredFeature<?, ?> configuredFeature = VanillaRegistries.createLookup().lookupOrThrow(Registry.CONFIGURED_FEATURE_REGISTRY).get(registryEntry).orElseThrow().value();
             BlockState blockState = Blocks.AIR.defaultBlockState();
             level.setBlock(pos.offset(x, 0, z), blockState, 16);
             level.setBlock(pos.offset(x + 1, 0, z), blockState, 16);

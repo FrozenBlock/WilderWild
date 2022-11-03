@@ -7,7 +7,14 @@ import net.fabricmc.fabric.api.event.registry.RegistryAttribute;
 import net.frozenblock.wilderwild.misc.FireflyColor;
 import net.frozenblock.wilderwild.misc.JellyfishVariant;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
+import net.frozenblock.wilderwild.world.feature.WilderFeatureUtils;
+import net.frozenblock.wilderwild.world.feature.WilderPlacementUtils;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.core.MappedRegistry;
+import net.minecraft.core.Registry;
+import net.minecraft.core.RegistryAccess;
+import net.minecraft.core.RegistrySetBuilder;
+import net.minecraft.data.registries.VanillaRegistries;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.biome.Biomes;
@@ -49,6 +56,10 @@ public final class WilderRegistry {
     }};
 
     public static void initRegistry() {
-
+		createLookup();
     }
+
+	public static HolderLookup.Provider createLookup() {
+		return VanillaRegistries.createLookup();
+	}
 }

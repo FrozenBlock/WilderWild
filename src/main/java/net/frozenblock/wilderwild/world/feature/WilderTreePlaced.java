@@ -3,9 +3,14 @@ package net.frozenblock.wilderwild.world.feature;
 import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.registry.RegisterBlocks;
 import net.minecraft.core.Holder;
+import net.minecraft.core.HolderGetter;
+import net.minecraft.core.Registry;
+import net.minecraft.data.worldgen.BootstapContext;
 import net.minecraft.data.worldgen.placement.PlacementUtils;
 import static net.minecraft.data.worldgen.placement.TreePlacements.SNOW_TREE_FILTER_DECORATOR;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.world.level.levelgen.placement.PlacedFeature;
 
 public final class WilderTreePlaced {
@@ -14,8 +19,8 @@ public final class WilderTreePlaced {
 	}
 
     //BIRCH
-    public static final Holder<PlacedFeature> NEW_BIRCH_CHECKED = WilderPlacementUtils.register("new_birch_checked", WilderTreeConfigured.NEW_BIRCH_TREE, PlacementUtils.filteredByBlockSurvival(Blocks.BIRCH_SAPLING));
-    public static final Holder<PlacedFeature> NEW_BIRCH_BEES_0004 = WilderPlacementUtils.register("new_birch_bees_0004", WilderTreeConfigured.NEW_BIRCH_BEES_0004, PlacementUtils.filteredByBlockSurvival(Blocks.BIRCH_SAPLING));
+    public static final ResourceKey<PlacedFeature> NEW_BIRCH_CHECKED = WilderPlacementUtils.createKey("new_birch_checked");
+    public static final ResourceKey<PlacedFeature> NEW_BIRCH_BEES_0004 = WilderPlacementUtils.createKey("new_birch_bees_0004");
     public static final Holder<PlacedFeature> DYING_BIRCH = WilderPlacementUtils.register("dying_birch", WilderTreeConfigured.DYING_BIRCH, PlacementUtils.filteredByBlockSurvival(Blocks.BIRCH_SAPLING));
     public static final Holder<PlacedFeature> SHORT_BIRCH = WilderPlacementUtils.register("short_birch", WilderTreeConfigured.SHORT_BIRCH, PlacementUtils.filteredByBlockSurvival(Blocks.BIRCH_SAPLING));
     public static final Holder<PlacedFeature> DYING_SHORT_BIRCH = WilderPlacementUtils.register("dying_short_birch", WilderTreeConfigured.SHORT_DYING_BIRCH, PlacementUtils.filteredByBlockSurvival(Blocks.BIRCH_SAPLING));
@@ -68,6 +73,12 @@ public final class WilderTreePlaced {
     public static final Holder<PlacedFeature> SHORT_FUNGUS_CYPRESS = WilderPlacementUtils.register("short_fungus_cypress", WilderTreeConfigured.SHORT_FUNGUS_CYPRESS, PlacementUtils.filteredByBlockSurvival(RegisterBlocks.CYPRESS_SAPLING));
     public static final Holder<PlacedFeature> SWAMP_CYPRESS = WilderPlacementUtils.register("swamp_cypress", WilderTreeConfigured.SWAMP_CYPRESS, PlacementUtils.filteredByBlockSurvival(RegisterBlocks.CYPRESS_SAPLING));
     public static final Holder<PlacedFeature> NEW_FALLEN_CYPRESS_CHECKED = WilderPlacementUtils.register("new_fallen_cypress_checked", WilderTreeConfigured.NEW_FALLEN_CYPRESS_TREE, PlacementUtils.filteredByBlockSurvival(RegisterBlocks.CYPRESS_SAPLING));
+
+	public static void bootstrap(BootstapContext<PlacedFeature> bootstrapContext) {
+		HolderGetter<ConfiguredFeature<?, ?>> holderGetter = bootstrapContext.lookup(Registry.CONFIGURED_FEATURE_REGISTRY);
+		WilderPlacementUtils.register(bootstrapContext, NEW_BIRCH_CHECKED, holderGetter.getOrThrow(WilderTreeConfigured.NEW_BIRCH_TREE), PlacementUtils.filteredByBlockSurvival(Blocks.BIRCH_SAPLING));
+		WilderPlacementUtils.register(bootstrapContext, NEW_BIRCH_BEES_0004, holderGetter.getOrThrow(WilderTreeConfigured.NEW_BIRCH_BEES_0004), PlacementUtils.filteredByBlockSurvival(Blocks.BIRCH_SAPLING));
+	}
 
     public static void registerTreePlaced() {
         WilderWild.logWild("Registering WilderTreePlaced for", true);

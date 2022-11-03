@@ -10,6 +10,7 @@ import net.frozenblock.wilderwild.world.gen.noise.WilderNoise;
 import net.minecraft.core.Registry;
 import net.minecraft.data.BuiltinRegistries;
 import net.minecraft.data.worldgen.BiomeDefaultFeatures;
+import net.minecraft.data.worldgen.BootstapContext;
 import net.minecraft.data.worldgen.biome.OverworldBiomes;
 import static net.minecraft.data.worldgen.biome.OverworldBiomes.jungle;
 import static net.minecraft.data.worldgen.biome.OverworldBiomes.swamp;
@@ -37,11 +38,11 @@ public final class RegisterWorldgen implements SurfaceRuleEvents.OverworldModifi
 	public static final ResourceKey<Biome> JELLYFISH_CAVES = register("jellyfish_caves");
     public static final ResourceKey<Biome> MIXED_FOREST = register("mixed_forest");
 
-    public static void registerWorldgen() {
+    public static void registerWorldgen(BootstapContext<Biome> bootstrapContext) {
         WilderWild.logWild("Registering Biomes for", WilderSharedConstants.UNSTABLE_LOGGING);
-        BuiltinRegistries.register(BuiltinRegistries.BIOME, MIXED_FOREST.location(), mixedForest());
-        BuiltinRegistries.register(BuiltinRegistries.BIOME, CYPRESS_WETLANDS.location(), cypressWetlands());
-        BuiltinRegistries.register(BuiltinRegistries.BIOME, JELLYFISH_CAVES.location(), jellyfishCaves());
+		bootstrapContext.register(CYPRESS_WETLANDS, cypressWetlands());
+		bootstrapContext.register(JELLYFISH_CAVES, jellyfishCaves());
+		bootstrapContext.register(MIXED_FOREST, mixedForest());
 
         WilderNoise.init();
     }

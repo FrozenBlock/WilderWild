@@ -3,19 +3,37 @@ package net.frozenblock.wilderwild.world.feature;
 import java.util.List;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.minecraft.core.Holder;
+import net.minecraft.core.Registry;
 import net.minecraft.data.BuiltinRegistries;
+import net.minecraft.data.worldgen.BootstapContext;
+import net.minecraft.data.worldgen.placement.PlacementUtils;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.world.level.levelgen.placement.PlacedFeature;
 import net.minecraft.world.level.levelgen.placement.PlacementModifier;
-import org.jetbrains.annotations.NotNull;
 
-class WilderPlacementUtils {
+public class WilderPlacementUtils {
 
-	static Holder<PlacedFeature> register(@NotNull String id, Holder<? extends ConfiguredFeature<?, ?>> registryEntry, @NotNull List<PlacementModifier> modifiers) {
-		return BuiltinRegistries.register(BuiltinRegistries.PLACED_FEATURE, WilderSharedConstants.id(id), new PlacedFeature(Holder.hackyErase(registryEntry), List.copyOf(modifiers)));
+	public static void bootstrap(BootstapContext<PlacedFeature> bootstrapContext) {
+		WilderTreePlaced.bootstrap(bootstrapContext);
 	}
 
-	static Holder<PlacedFeature> register(@NotNull String id, Holder<? extends ConfiguredFeature<?, ?>> registryEntry, @NotNull PlacementModifier... modifiers) {
-		return register(id, registryEntry, List.of(modifiers));
+	public static ResourceKey<PlacedFeature> createKey(String string) {
+		return ResourceKey.create(Registry.PLACED_FEATURE_REGISTRY, WilderSharedConstants.id(string));
+	}
+
+	public static void register(
+			BootstapContext<PlacedFeature> bootstapContext, ResourceKey<PlacedFeature> registryKey, Holder<ConfiguredFeature<?, ?>> holder, List<PlacementModifier> list
+	) {
+		PlacementUtils.register(bootstapContext, registryKey, holder, list);
+	}
+
+	public static void register(
+			BootstapContext<PlacedFeature> bootstapContext,
+			ResourceKey<PlacedFeature> registryKey,
+			Holder<ConfiguredFeature<?, ?>> holder,
+			PlacementModifier... placementModifiers
+	) {
+		PlacementUtils.register(bootstapContext, registryKey, holder, placementModifiers);
 	}
 }

@@ -95,4 +95,5 @@ accessible    field    net/minecraft/data/DataGenerator    vanillaPackOutput    
 accessible    method    net/minecraft/data/DataGenerator$PackGenerator    <init>    (Lnet/minecraft/data/DataGenerator;ZLjava/lang/String;Lnet/minecraft/data/PackOutput;)V
 
 # Registry
-accessible    field    net/minecraft/data/registries/VanillaRegistries    BUILDER    Lnet/minecraft/core/RegistrySetBuilder;
+accessible    method    net/minecraft/data/registries/VanillaRegistries    validateThatAllBiomeFeaturesHaveBiomeFilter    (Lnet/minecraft/core/HolderLookup$Provider;)V
+accessible    method    net/minecraft/data/Main    bindRegistries    (Ljava/util/function/BiFunction;Ljava/util/concurrent/CompletableFuture;)Lnet/minecraft/data/DataProvider$Factory;

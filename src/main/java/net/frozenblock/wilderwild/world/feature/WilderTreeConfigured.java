@@ -16,6 +16,8 @@ import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderSet;
 import net.minecraft.core.Registry;
+import net.minecraft.data.worldgen.BootstapContext;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.util.valueproviders.ConstantInt;
 import net.minecraft.util.valueproviders.IntProvider;
@@ -69,8 +71,8 @@ public final class WilderTreeConfigured {
     private static final BeehiveDecorator NEW_BEES_0004 = new BeehiveDecorator(0.004F);
     private static final BeehiveDecorator NEW_BEES = new BeehiveDecorator(1.0F);
     //BIRCH
-    public static final Holder<ConfiguredFeature<TreeConfiguration, ?>> NEW_BIRCH_TREE = WilderFeatureUtils.register("new_birch_tree", Feature.TREE, new_birch().dirt(BlockStateProvider.simple(Blocks.DIRT)).decorators(ImmutableList.of(SHELF_FUNGUS_007)).build());
-    public static final Holder<ConfiguredFeature<TreeConfiguration, ?>> NEW_BIRCH_BEES_0004 = WilderFeatureUtils.register("new_birch_bees_0004", Feature.TREE, new_birch().decorators(ImmutableList.of(NEW_BEES_0004, SHELF_FUNGUS_007)).ignoreVines().build());
+    public static final ResourceKey<ConfiguredFeature<?, ?>> NEW_BIRCH_TREE = WilderFeatureUtils.createKey("new_birch_tree");
+    public static final ResourceKey<ConfiguredFeature<?, ?>> NEW_BIRCH_BEES_0004 = WilderFeatureUtils.createKey("new_birch_bees_0004");
     public static final Holder<ConfiguredFeature<TreeConfiguration, ?>> DYING_BIRCH = WilderFeatureUtils.register("dying_birch", Feature.TREE, new_birch().decorators(ImmutableList.of(NEW_BEES_0004, SHELF_FUNGUS_007)).ignoreVines().build());
     public static final Holder<ConfiguredFeature<TreeConfiguration, ?>> NEW_SHORT_BIRCH_BEES_0004 = WilderFeatureUtils.register("new_short_birch_bees_0004", Feature.TREE, new_short_birch().decorators(ImmutableList.of(NEW_BEES_0004, SHELF_FUNGUS_006)).ignoreVines().build());
     public static final Holder<ConfiguredFeature<TreeConfiguration, ?>> NEW_SUPER_BIRCH_BEES_0004 = WilderFeatureUtils.register("new_super_birch_bees_0004", Feature.TREE, new_superBirch().decorators(ImmutableList.of(NEW_BEES_0004, SHELF_FUNGUS_007)).build());
@@ -188,6 +190,11 @@ public final class WilderTreeConfigured {
     private static TreeConfiguration.TreeConfigurationBuilder fallen_spruce() {
         return fallenTrunkBuilder(RegisterBlocks.HOLLOWED_SPRUCE_LOG, Blocks.SPRUCE_LEAVES, 5, 1, 2, 0.0F, 0.5F, UniformInt.of(1, 2), UniformInt.of(1, 2), 1).ignoreVines();
     }
+
+	public static void boostrap(BootstapContext<ConfiguredFeature<?, ?>> bootstrapContext) {
+		WilderFeatureUtils.register(bootstrapContext, NEW_BIRCH_TREE, Feature.TREE, new_birch().dirt(BlockStateProvider.simple(Blocks.DIRT)).decorators(ImmutableList.of(SHELF_FUNGUS_007)).build());
+		WilderFeatureUtils.register(bootstrapContext, NEW_BIRCH_BEES_0004, Feature.TREE, new_birch().decorators(ImmutableList.of(NEW_BEES_0004, SHELF_FUNGUS_007)).ignoreVines().build());
+	}
 
     public static void registerTreeConfigured() {
         WilderWild.logWild("Registering WilderTreeConfigured for", true);

@@ -6,6 +6,8 @@ import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricWorldgenProvider;
 import net.frozenblock.wilderwild.registry.RegisterItems;
 import net.frozenblock.wilderwild.registry.RegisterWorldgen;
+import net.frozenblock.wilderwild.registry.WilderRegistry;
+import net.minecraft.Util;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.metadata.PackMetadataGenerator;
@@ -22,6 +24,7 @@ public class WilderWildDataGenerator implements DataGeneratorEntrypoint {
 	public void onInitializeDataGenerator(FabricDataGenerator dataGenerator) {
 		final FabricDataGenerator.Pack menuPack = dataGenerator.createPack();
 		menuPack.addProvider(WilderWorldgenProvider::new);
+		CompletableFuture<HolderLookup.Provider> completableFuture = CompletableFuture.supplyAsync(WilderRegistry::createLookup, Util.backgroundExecutor());
 		final FabricDataGenerator.Pack experimentalPack = dataGenerator.createSubPack("experimental");
 		experimentalPack.addProvider((FabricDataGenerator.Pack.Factory<ExperimentRecipeProvider>) ExperimentRecipeProvider::new);
 		experimentalPack.addProvider(
@@ -39,9 +42,9 @@ public class WilderWildDataGenerator implements DataGeneratorEntrypoint {
 
 		@Override
 		protected void configure(HolderLookup.Provider registries, Entries entries) {
-			entries.add(RegisterWorldgen.CYPRESS_WETLANDS, RegisterWorldgen.cypressWetlands());
-			entries.add(RegisterWorldgen.JELLYFISH_CAVES, RegisterWorldgen.jellyfishCaves());
-			entries.add(RegisterWorldgen.MIXED_FOREST, RegisterWorldgen.mixedForest());
+			//entries.add(RegisterWorldgen.CYPRESS_WETLANDS, RegisterWorldgen.cypressWetlands());
+			//entries.add(RegisterWorldgen.JELLYFISH_CAVES, RegisterWorldgen.jellyfishCaves());
+			//entries.add(RegisterWorldgen.MIXED_FOREST, RegisterWorldgen.mixedForest());
 		}
 
 		@Override
