@@ -10,22 +10,20 @@ import net.frozenblock.wilderwild.misc.config.ClothConfigInteractionHandler;
 import net.frozenblock.wilderwild.registry.RegisterSounds;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.Registry;
+import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
-import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.monster.EnderMan;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.level.Level;
-import org.jetbrains.annotations.Nullable;
+import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(EnderMan.class)
 public final class EnderManMixin extends Monster implements WilderEnderman {
@@ -35,6 +33,8 @@ public final class EnderManMixin extends Monster implements WilderEnderman {
 
 	@Shadow
 	private int lastStareSound;
+	@Shadow @Final
+	private static EntityDataAccessor<Boolean> DATA_CREEPY;
 
     private EnderManMixin(EntityType<? extends Monster> entityType, Level level) {
         super(entityType, level);
@@ -42,8 +42,14 @@ public final class EnderManMixin extends Monster implements WilderEnderman {
 
 	@Unique
 	@Override
-	public void setCanPlayLoopingSound() {
-		this.wilderWild$canPlayLoopingSound = true;
+	public void setCanPlayLoopingSound(boolean b) {
+		this.wilderWild$canPlayLoopingSound = b;
+	}
+
+	@Unique
+	@Override
+	public boolean getCanPlayLoopingSound() {
+		return this.wilderWild$canPlayLoopingSound;
 	}
 
 	@Inject(method = "playStareSound", at = @At(value = "HEAD"), cancellable = true)
@@ -59,17 +65,13 @@ public final class EnderManMixin extends Monster implements WilderEnderman {
 				}
 			}
 		}
-		createAngerLoop();
     }
 
-    @Inject(method = "setTarget", at = @At(value = "INVOKE", target = "Lnet/minecraft/network/syncher/SynchedEntityData;set(Lnet/minecraft/network/syncher/EntityDataAccessor;Ljava/lang/Object;)V", ordinal = 2, shift = At.Shift.AFTER))
-    public void setTarget(@Nullable LivingEntity target, CallbackInfo info) {
-		createAngerLoop();
-    }
-
-	@Inject(method = "hurt", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/monster/Monster;hurt(Lnet/minecraft/world/damagesource/DamageSource;F)Z", shift = At.Shift.AFTER))
-	private void hurt(DamageSource source, float amount, CallbackInfoReturnable<Boolean> cir) {
-		createAngerLoop();
+	@Inject(method = "onSyncedDataUpdated", at = @At("HEAD"))
+	public void onSyncedDataUpdated(EntityDataAccessor<?> key, CallbackInfo info) {
+		if (DATA_CREEPY.equals(key)) {
+			createAngerLoop();
+		}
 	}
 
 	@Unique
