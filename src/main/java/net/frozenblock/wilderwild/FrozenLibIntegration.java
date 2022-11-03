@@ -5,12 +5,15 @@ import net.frozenblock.lib.entrypoints.FrozenMainEntrypoint;
 import net.frozenblock.lib.impl.BlockScheduledTicks;
 import net.frozenblock.lib.impl.DripstoneDripWaterFrom;
 import net.frozenblock.lib.impl.HopperUntouchableList;
+import net.frozenblock.lib.impl.PlayerDamageSourceSounds;
 import net.frozenblock.lib.impl.StructurePoolElementIdReplacements;
 import net.frozenblock.lib.sound.api.predicate.SoundPredicate;
 import net.frozenblock.wilderwild.entity.Firefly;
 import net.frozenblock.wilderwild.misc.WilderEnderman;
 import net.frozenblock.wilderwild.registry.RegisterBlockEntities;
+import net.frozenblock.wilderwild.registry.RegisterSounds;
 import net.minecraft.network.chat.Component;
+import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.monster.EnderMan;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.InstrumentItem;
@@ -58,6 +61,7 @@ public final class FrozenLibIntegration implements FrozenMainEntrypoint {
 			}
 		});
 
+		PlayerDamageSourceSounds.addDamageSound(DamageSource.CACTUS, RegisterSounds.PLAYER_HURT_CACTUS, WilderWild.id("cactus"));
         BlockScheduledTicks.TICKS.put(Blocks.DIRT, (blockState, serverLevel, blockPos, randomSource) -> serverLevel.setBlock(blockPos, Blocks.MUD.defaultBlockState(), 3));
         HopperUntouchableList.BLACKLISTED_TYPES.add(RegisterBlockEntities.STONE_CHEST);
         //StructurePoolElementIdReplacements.resourceLocationReplacements.put(WilderWild.vanillaId("ancient_city/city_center/city_center_1"), WilderWild.id("ancient_city/city_center/city_center_1"));
