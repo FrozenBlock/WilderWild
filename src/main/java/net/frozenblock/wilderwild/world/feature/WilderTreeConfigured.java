@@ -201,14 +201,8 @@ public final class WilderTreeConfigured {
         return fallenTrunkBuilder(RegisterBlocks.HOLLOWED_SPRUCE_LOG, Blocks.SPRUCE_LEAVES, 5, 1, 2, 0.0F, 0.5F, UniformInt.of(1, 2), UniformInt.of(1, 2), 1).ignoreVines();
     }
 
-	public static void bootstap(BootstapContext<ConfiguredFeature<?, ?>> bootstapContext) throws IllegalAccessException {
-		HolderGetter<ConfiguredFeature<?, ?>> holderGetter = bootstapContext.lookup(Registry.CONFIGURED_FEATURE_REGISTRY);
-		for (Field field : Arrays.stream(WilderTreeConfigured.class.getDeclaredFields()).sorted().toList()) {
-			Object whatIsThis = field.get(WilderTreeConfigured.class);
-			if (whatIsThis instanceof FrozenConfiguredFeature feature) {
-				FrozenConfiguredFeatureUtils.register(bootstapContext, feature.getResourceKey(), feature.getFeature(), feature.getFeatureConfiguration());
-			}
-		}
+	public static void bootstrap(BootstapContext<ConfiguredFeature<?, ?>> bootstapContext) {
+
 	}
 
     public static void registerTreeConfigured() {
@@ -216,6 +210,8 @@ public final class WilderTreeConfigured {
     }
 
 	private static FrozenConfiguredFeature feature(String id, Feature feature, FeatureConfiguration featureConfiguration) {
-		return FrozenConfiguredFeatureUtils.feature(WilderSharedConstants.MOD_ID, id, feature, featureConfiguration);
+		var frozenFeature = FrozenConfiguredFeatureUtils.feature(WilderSharedConstants.MOD_ID, id, feature, featureConfiguration);
+		WilderConfiguredFeatureBootstrap.FROZEN_CONFIGURED_FEATURES.add(frozenFeature);
+		return frozenFeature;
 	}
 }
