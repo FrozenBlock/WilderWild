@@ -51,33 +51,13 @@ import net.minecraft.world.level.levelgen.feature.stateproviders.NoiseProvider;
 import net.minecraft.world.level.levelgen.feature.stateproviders.NoiseThresholdProvider;
 import net.minecraft.world.level.levelgen.feature.stateproviders.WeightedStateProvider;
 import net.minecraft.world.level.levelgen.placement.CaveSurface;
+import net.minecraft.world.level.levelgen.placement.PlacedFeature;
 import net.minecraft.world.level.levelgen.synth.NormalNoise;
 
 public final class WilderConfiguredFeatures  {
 	private WilderConfiguredFeatures() {
 		throw new UnsupportedOperationException("WilderConfiguredFeatures contains only static declarations.");
 	}
-
-    //FALLEN TREES
-	public static final FrozenConfiguredFeature FALLEN_TREES_MIXED = feature("fallen_trees_mixed", Feature.RANDOM_SELECTOR,
-			new RandomFeatureConfiguration(List.of((new WeightedPlacedFeature(WilderTreePlaced.FALLEN_SPRUCE_CHECKED, 0.4F)),
-					new WeightedPlacedFeature(WilderTreePlaced.NEW_FALLEN_BIRCH_CHECKED, 0.3F)), WilderTreePlaced.NEW_FALLEN_OAK_CHECKED));
-	public static final FrozenConfiguredFeature FALLEN_BIRCH = feature("fallen_birch", Feature.RANDOM_SELECTOR,
-			new RandomFeatureConfiguration(List.of(new WeightedPlacedFeature(WilderTreePlaced.NEW_FALLEN_BIRCH_CHECKED, 1.0F)), WilderTreePlaced.NEW_FALLEN_BIRCH_CHECKED));
-	public static final FrozenConfiguredFeature FALLEN_SPRUCE = feature("fallen_spruce", Feature.RANDOM_SELECTOR,
-			new RandomFeatureConfiguration(List.of(new WeightedPlacedFeature(WilderTreePlaced.FALLEN_SPRUCE_CHECKED, 1.0F)), WilderTreePlaced.FALLEN_SPRUCE_CHECKED));
-
-    public static final FrozenConfiguredFeature FALLEN_SPRUCE_AND_OAK =
-            feature("fallen_spruce_and_oak", Feature.RANDOM_SELECTOR,
-                    new RandomFeatureConfiguration(List.of(new WeightedPlacedFeature(WilderTreePlaced.FALLEN_SPRUCE_CHECKED, 0.55F)), WilderTreePlaced.NEW_FALLEN_OAK_CHECKED));
-
-    public static final FrozenConfiguredFeature NEW_FALLEN_BIRCH_AND_OAK =
-            feature("fallen_birch_and_oak", Feature.RANDOM_SELECTOR,
-                    new RandomFeatureConfiguration(List.of(new WeightedPlacedFeature(WilderTreePlaced.NEW_FALLEN_BIRCH_CHECKED, 0.35F)), WilderTreePlaced.NEW_FALLEN_OAK_CHECKED));
-
-    public static final FrozenConfiguredFeature NEW_FALLEN_CYPRESS_AND_OAK =
-            feature("fallen_cypress_and_oak", Feature.RANDOM_SELECTOR,
-                    new RandomFeatureConfiguration(List.of(new WeightedPlacedFeature(WilderTreePlaced.NEW_FALLEN_OAK_CHECKED, 0.35F)), WilderTreePlaced.NEW_FALLEN_CYPRESS_CHECKED));
 
     //TREES
     public static final FrozenConfiguredFeature NEW_TREES_PLAINS =
@@ -461,13 +441,35 @@ public final class WilderConfiguredFeatures  {
 
 	public static void bootstap(BootstapContext<ConfiguredFeature<?, ?>> bootstapContext) throws IllegalAccessException {
 		HolderGetter<ConfiguredFeature<?, ?>> holderGetter = bootstapContext.lookup(Registry.CONFIGURED_FEATURE_REGISTRY);
+		HolderGetter<PlacedFeature> placedHolder = bootstapContext.lookup(Registry.PLACED_FEATURE_REGISTRY);
 		for (Field field : Arrays.stream(WilderConfiguredFeatures.class.getDeclaredFields()).sorted().toList()) {
 			Object whatIsThis = field.get(WilderConfiguredFeatures.class);
 			if (whatIsThis instanceof FrozenConfiguredFeature feature) {
 				FrozenConfiguredFeatureUtils.register(bootstapContext, feature.resourceKey, feature.feature, feature.featureConfiguration);
 			}
 		}
+		FrozenConfiguredFeatureUtils.register(bootstapContext, FALLEN_TREES_MIXED, Feature.RANDOM_SELECTOR,
+				new RandomFeatureConfiguration(List.of((new WeightedPlacedFeature(placedHolder.getOrThrow(WilderTreePlaced.FALLEN_SPRUCE_CHECKED.resourceKey), 0.4F)),
+						new WeightedPlacedFeature(placedHolder.getOrThrow(WilderTreePlaced.NEW_FALLEN_BIRCH_CHECKED.resourceKey), 0.3F)), placedHolder.getOrThrow(WilderTreePlaced.NEW_FALLEN_OAK_CHECKED.resourceKey)));
+		FrozenConfiguredFeatureUtils.register(bootstapContext, FALLEN_BIRCH, Feature.RANDOM_SELECTOR,
+				new RandomFeatureConfiguration(List.of(new WeightedPlacedFeature(placedHolder.getOrThrow(WilderTreePlaced.NEW_FALLEN_BIRCH_CHECKED.resourceKey), 1.0F)), placedHolder.getOrThrow(WilderTreePlaced.NEW_FALLEN_BIRCH_CHECKED.resourceKey)));
+		FrozenConfiguredFeatureUtils.register(bootstapContext, FALLEN_SPRUCE, Feature.RANDOM_SELECTOR,
+				new RandomFeatureConfiguration(List.of(new WeightedPlacedFeature(placedHolder.getOrThrow(WilderTreePlaced.FALLEN_SPRUCE_CHECKED.resourceKey), 1.0F)), placedHolder.getOrThrow(WilderTreePlaced.FALLEN_SPRUCE_CHECKED.resourceKey)));
+		FrozenConfiguredFeatureUtils.register(bootstapContext, FALLEN_SPRUCE_AND_OAK, Feature.RANDOM_SELECTOR,
+				new RandomFeatureConfiguration(List.of(new WeightedPlacedFeature(placedHolder.getOrThrow(WilderTreePlaced.FALLEN_SPRUCE_CHECKED.resourceKey), 0.55F)), placedHolder.getOrThrow(WilderTreePlaced.NEW_FALLEN_OAK_CHECKED.resourceKey)));
+		FrozenConfiguredFeatureUtils.register(bootstapContext, NEW_FALLEN_BIRCH_AND_OAK, Feature.RANDOM_SELECTOR,
+				new RandomFeatureConfiguration(List.of(new WeightedPlacedFeature(placedHolder.getOrThrow(WilderTreePlaced.NEW_FALLEN_BIRCH_CHECKED.resourceKey), 0.35F)), placedHolder.getOrThrow(WilderTreePlaced.NEW_FALLEN_OAK_CHECKED.resourceKey)));
+		FrozenConfiguredFeatureUtils.register(bootstapContext, NEW_FALLEN_CYPRESS_AND_OAK, Feature.RANDOM_SELECTOR,
+				new RandomFeatureConfiguration(List.of(new WeightedPlacedFeature(placedHolder.getOrThrow(WilderTreePlaced.NEW_FALLEN_OAK_CHECKED.resourceKey), 0.35F)), placedHolder.getOrThrow(WilderTreePlaced.NEW_FALLEN_CYPRESS_CHECKED.resourceKey)));
 	}
+
+	//FALLEN TREES
+	public static final ResourceKey<ConfiguredFeature<?, ?>> FALLEN_TREES_MIXED = FrozenConfiguredFeatureUtils.createKey(WilderSharedConstants.MOD_ID, "fallen_trees_mixed");
+	public static final ResourceKey<ConfiguredFeature<?, ?>> FALLEN_BIRCH = FrozenConfiguredFeatureUtils.createKey(WilderSharedConstants.MOD_ID, "fallen_birch");
+	public static final ResourceKey<ConfiguredFeature<?, ?>> FALLEN_SPRUCE = FrozenConfiguredFeatureUtils.createKey(WilderSharedConstants.MOD_ID, "fallen_spruce");
+	public static final ResourceKey<ConfiguredFeature<?, ?>> FALLEN_SPRUCE_AND_OAK = FrozenConfiguredFeatureUtils.createKey(WilderSharedConstants.MOD_ID, "fallen_spruce_and_oak");
+	public static final ResourceKey<ConfiguredFeature<?, ?>> NEW_FALLEN_BIRCH_AND_OAK = FrozenConfiguredFeatureUtils.createKey(WilderSharedConstants.MOD_ID, "fallen_birch_and_oak");
+	public static final ResourceKey<ConfiguredFeature<?, ?>> NEW_FALLEN_CYPRESS_AND_OAK = FrozenConfiguredFeatureUtils.createKey(WilderSharedConstants.MOD_ID, "fallen_cypress_and_oak");
 
     private static RandomPatchConfiguration createRandomPatchFeatureConfig(BlockStateProvider block, int tries) {
         return FeatureUtils.simpleRandomPatchConfiguration(tries, PlacementUtils.onlyWhenEmpty(Feature.SIMPLE_BLOCK, new SimpleBlockConfiguration(block)));
