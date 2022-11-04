@@ -72,7 +72,7 @@ public final class WilderMiscPlaced {
 	public static final ResourceKey<PlacedFeature> JELLYFISH_DEEPSLATE_POOL = FrozenPlacementUtils.createKey(WilderSharedConstants.MOD_ID, "jellyfish_deepslate_pool");
 	public static final ResourceKey<PlacedFeature> JELLYFISH_STONE_POOL = FrozenPlacementUtils.createKey(WilderSharedConstants.MOD_ID, "jellyfish_stone_pool");
 
-	public static void FrozenPlacedFeatureMiscPlaced() {
+	public static void registerMiscPlaced() {
 		WilderWild.logWild("FrozenPlacedFeatureing WilderMiscPlaced for", true);
 	}
 
