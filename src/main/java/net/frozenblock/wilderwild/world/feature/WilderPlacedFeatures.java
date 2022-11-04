@@ -4,7 +4,7 @@ import net.frozenblock.lib.worldgen.feature.FrozenConfiguredFeature;
 import net.frozenblock.lib.worldgen.feature.FrozenPlacedFeature;
 import net.frozenblock.lib.worldgen.feature.util.FrozenPlacementUtils;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
-import net.frozenblock.wilderwild.registry.FrozenPlacedFeatureBlocks;
+import net.frozenblock.wilderwild.registry.RegisterBlocks;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.HolderGetter;
@@ -128,10 +128,10 @@ public final class WilderPlacedFeatures {
             WilderConfiguredFeatures.MIXED_TREES, treePlacement(PlacementUtils.countExtra(10, 0.1F, 1)));
 
     public static final FrozenPlacedFeature CYPRESS_WETLANDS_TREES = placedFeature("cypress_wetlands_trees",
-            WilderConfiguredFeatures.CYPRESS_WETLANDS_TREES, CountPlacement.of(28), InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP_WORLD_SURFACE, BiomeFilter.biome(), BlockPredicateFilter.forPredicate(BlockPredicate.wouldSurvive(FrozenPlacedFeatureBlocks.CYPRESS_SAPLING.defaultBlockState(), BlockPos.ZERO)));
+            WilderConfiguredFeatures.CYPRESS_WETLANDS_TREES, CountPlacement.of(28), InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP_WORLD_SURFACE, BiomeFilter.biome(), BlockPredicateFilter.forPredicate(BlockPredicate.wouldSurvive(RegisterBlocks.CYPRESS_SAPLING.defaultBlockState(), BlockPos.ZERO)));
 
     public static final FrozenPlacedFeature CYPRESS_WETLANDS_TREES_WATER = placedFeature("cypress_wetlands_trees_water",
-            WilderConfiguredFeatures.CYPRESS_WETLANDS_TREES_WATER, CountPlacement.of(20), SurfaceWaterDepthFilter.forMaxDepth(5), PlacementUtils.HEIGHTMAP_OCEAN_FLOOR, BiomeFilter.biome(), BlockPredicateFilter.forPredicate(BlockPredicate.wouldSurvive(FrozenPlacedFeatureBlocks.CYPRESS_SAPLING.defaultBlockState(), BlockPos.ZERO)));
+            WilderConfiguredFeatures.CYPRESS_WETLANDS_TREES_WATER, CountPlacement.of(20), SurfaceWaterDepthFilter.forMaxDepth(5), PlacementUtils.HEIGHTMAP_OCEAN_FLOOR, BiomeFilter.biome(), BlockPredicateFilter.forPredicate(BlockPredicate.wouldSurvive(RegisterBlocks.CYPRESS_SAPLING.defaultBlockState(), BlockPos.ZERO)));
 
     //MUSHROOMS
     public static final FrozenPlacedFeature BROWN_SHELF_FUNGUS_PLACED = placedFeature("brown_shelf_fungus_placed",
@@ -314,22 +314,26 @@ public final class WilderPlacedFeatures {
     public static final FrozenPlacedFeature PATCH_NEMATOCYST_WEST = placedFeature("patch_nematocyst_west", WilderConfiguredFeatures.PATCH_NEMATOCYST_WEST,
             CountPlacement.of(ConstantInt.of(9)), InSquarePlacement.spread(), PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT, BiomeFilter.biome());
 
+	public static void bootstrap(BootstapContext<PlacedFeature> bootstrapContext) {
+
+	}
+
     public static void init() {
     }
 
 	private static FrozenPlacedFeature placedFeature(String id, FrozenConfiguredFeature feature, PlacementModifier... placementModifiers) {
-		return new FrozenPlacedFeature(FrozenPlacementUtils.createKey(WilderSharedConstants.MOD_ID, id), feature.getResourceKey(), placementModifiers);
+		return placedFeature(id, feature, Arrays.asList(placementModifiers));
 	}
 
 	private static FrozenPlacedFeature placedFeature(String id, FrozenConfiguredFeature feature, List<PlacementModifier> modifiers) {
-		return new FrozenPlacedFeature(FrozenPlacementUtils.createKey(WilderSharedConstants.MOD_ID, id), feature.getResourceKey(), (PlacementModifier[]) modifiers.toArray());
+		return new FrozenPlacedFeature(FrozenPlacementUtils.createKey(WilderSharedConstants.MOD_ID, id), feature.getResourceKey(), modifiers);
 	}
 
 	private static FrozenPlacedFeature placedFeature(String id, ResourceKey<ConfiguredFeature<?, ?>> featureKey, PlacementModifier... placementModifiers) {
-		return new FrozenPlacedFeature(FrozenPlacementUtils.createKey(WilderSharedConstants.MOD_ID, id), featureKey, placementModifiers);
+		return placedFeature(id, featureKey, Arrays.asList(placementModifiers));
 	}
 
 	private static FrozenPlacedFeature placedFeature(String id, ResourceKey<ConfiguredFeature<?, ?>> featureKey, List<PlacementModifier> modifiers) {
-		return new FrozenPlacedFeature(FrozenPlacementUtils.createKey(WilderSharedConstants.MOD_ID, id), featureKey, (PlacementModifier[]) modifiers.toArray());
+		return new FrozenPlacedFeature(FrozenPlacementUtils.createKey(WilderSharedConstants.MOD_ID, id), featureKey, modifiers);
 	}
 }

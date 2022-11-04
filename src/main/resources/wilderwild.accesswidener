@@ -84,6 +84,9 @@ accessible    method    net/minecraft/world/entity/SpawnPlacements   register   
 accessible    method    net/minecraft/data/worldgen/biome/OverworldBiomes    calculateSkyColor    (F)I
 accessible    method    net/minecraft/world/level/levelgen/feature/stateproviders/SimpleStateProvider    <init>    (Lnet/minecraft/world/level/block/state/BlockState;)V
 
+# Features
+accessible    field    net/minecraft/data/worldgen/placement/VegetationPlacements    TREE_THRESHOLD    Lnet/minecraft/world/level/levelgen/placement/PlacementModifier;
+
 # Noise
 accessible    method    net/minecraft/data/worldgen/NoiseData    register    (Lnet/minecraft/data/worldgen/BootstapContext;Lnet/minecraft/resources/ResourceKey;ID[D)V
 

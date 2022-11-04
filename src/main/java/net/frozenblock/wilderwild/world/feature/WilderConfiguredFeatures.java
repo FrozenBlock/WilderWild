@@ -16,7 +16,6 @@ import net.frozenblock.wilderwild.world.feature.features.config.ColumnWithDiskFe
 import net.frozenblock.wilderwild.world.feature.features.config.NematocystFeatureConfig;
 import net.frozenblock.wilderwild.world.feature.features.config.ShelfFungusFeatureConfig;
 import net.minecraft.core.Direction;
-import net.minecraft.core.Holder;
 import net.minecraft.core.HolderGetter;
 import net.minecraft.core.HolderSet;
 import net.minecraft.core.Registry;
@@ -26,7 +25,6 @@ import net.minecraft.data.worldgen.features.FeatureUtils;
 import net.minecraft.data.worldgen.features.TreeFeatures;
 import net.minecraft.data.worldgen.placement.PlacementUtils;
 import net.minecraft.data.worldgen.placement.TreePlacements;
-import net.minecraft.resources.ResourceKey;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.util.random.SimpleWeightedRandomList;
 import net.minecraft.util.valueproviders.ConstantInt;
@@ -460,14 +458,8 @@ public final class WilderConfiguredFeatures  {
         WilderWild.logWild("Registering WilderConfiguredFeatures for", true);
     }
 
-	public static void bootstap(BootstapContext<ConfiguredFeature<?, ?>> bootstapContext) throws IllegalAccessException {
-		HolderGetter<ConfiguredFeature<?, ?>> holderGetter = bootstapContext.lookup(Registry.CONFIGURED_FEATURE_REGISTRY);
-		for (Field field : Arrays.stream(WilderConfiguredFeatures.class.getDeclaredFields()).sorted().toList()) {
-			Object whatIsThis = field.get(WilderConfiguredFeatures.class);
-			if (whatIsThis instanceof FrozenConfiguredFeature feature) {
-				FrozenConfiguredFeatureUtils.register(bootstapContext, feature.getResourceKey(), feature.getFeature(), feature.getFeatureConfiguration());
-			}
-		}
+	public static void bootstrap(BootstapContext<ConfiguredFeature<?, ?>> bootstrapContext) {
+
 	}
 
     private static RandomPatchConfiguration createRandomPatchFeatureConfig(BlockStateProvider block, int tries) {

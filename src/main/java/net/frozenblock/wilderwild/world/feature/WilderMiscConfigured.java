@@ -4,7 +4,9 @@ import java.lang.reflect.Field;
 import java.util.Arrays;
 import java.util.List;
 import net.frozenblock.lib.worldgen.feature.FrozenConfiguredFeature;
+import net.frozenblock.lib.worldgen.feature.util.FrozenConfiguredFeatureUtils;
 import net.frozenblock.wilderwild.WilderWild;
+import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.frozenblock.wilderwild.registry.RegisterBlocks;
 import net.frozenblock.wilderwild.tag.WilderBlockTags;
 import net.frozenblock.wilderwild.world.feature.features.config.PathFeatureConfig;
@@ -22,6 +24,7 @@ import net.minecraft.world.level.levelgen.blockpredicates.BlockPredicate;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.configurations.DiskConfiguration;
+import net.minecraft.world.level.levelgen.feature.configurations.FeatureConfiguration;
 import net.minecraft.world.level.levelgen.feature.configurations.OreConfiguration;
 import net.minecraft.world.level.levelgen.feature.configurations.SimpleBlockConfiguration;
 import net.minecraft.world.level.levelgen.feature.configurations.SimpleRandomFeatureConfiguration;
@@ -383,4 +386,8 @@ public final class WilderMiscConfigured {
     public static void init() {
         WilderWild.logWild("Registering WilderMiscConfigured for", true);
     }
+
+	private static FrozenConfiguredFeature feature(String id, Feature feature, FeatureConfiguration featureConfiguration) {
+		return FrozenConfiguredFeatureUtils.feature(WilderSharedConstants.MOD_ID, id, feature, featureConfiguration);
+	}
 }

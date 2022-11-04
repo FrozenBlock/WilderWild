@@ -22,6 +22,7 @@ import net.minecraft.util.valueproviders.ConstantInt;
 import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.levelgen.Heightmap;
+import net.minecraft.world.level.levelgen.SurfaceRules;
 import net.minecraft.world.level.levelgen.VerticalAnchor;
 import net.minecraft.world.level.levelgen.blockpredicates.BlockPredicate;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
@@ -64,13 +65,13 @@ public final class WilderMiscPlaced {
     public static final FrozenPlacedFeature PURPLE_MESOGLEA_PILLAR = feature("purple_mesoglea_pillar", WilderMiscConfigured.PURPLE_MESOGLEA_PILLAR, CountPlacement.of(7), InSquarePlacement.spread(), HeightRangePlacement.uniform(VerticalAnchor.bottom(), VerticalAnchor.top()), EnvironmentScanPlacement.scanningFor(Direction.DOWN, BlockPredicate.solid(), ONLY_IN_WATER_PREDICATE, 12), RandomOffsetPlacement.vertical(ConstantInt.of(1)), BiomeFilter.biome());
 
     //IDS
-	public static final ResourceKey<PlacedFeature> FOREST_ROCK_TAIGA = FrozenPlacementUtils.createKey(WilderSharedConstants.MOD_ID, "forest_rock_taiga");
-	public static final ResourceKey<PlacedFeature> EXTRA_GLOW_LICHEN = FrozenPlacementUtils.createKey(WilderSharedConstants.MOD_ID, "extra_glow_lichen");
-	public static final ResourceKey<PlacedFeature> DEEPSLATE_POOL = FrozenPlacementUtils.createKey(WilderSharedConstants.MOD_ID, "deepslate_pool");
-	public static final ResourceKey<PlacedFeature> STONE_POOL = FrozenPlacementUtils.createKey(WilderSharedConstants.MOD_ID, "stone_pool");
+	public static final FrozenPlacedFeature FOREST_ROCK_TAIGA = feature("forest_rock_taiga", MiscOverworldFeatures.FOREST_ROCK, RarityFilter.onAverageOnceEvery(7), InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP, BiomeFilter.biome());
+	public static final FrozenPlacedFeature EXTRA_GLOW_LICHEN = feature("extra_glow_lichen", CaveFeatures.GLOW_LICHEN, CountPlacement.of(UniformInt.of(104, 157)), PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT, InSquarePlacement.spread(), SurfaceRelativeThresholdFilter.of(Heightmap.Types.OCEAN_FLOOR_WG, Integer.MIN_VALUE, -13), BiomeFilter.biome());
+	public static final FrozenPlacedFeature DEEPSLATE_POOL = feature("deepslate_pool", WilderMiscConfigured.DEEPSLATE_POOL, RarityFilter.onAverageOnceEvery(13), InSquarePlacement.spread(), HeightRangePlacement.uniform(VerticalAnchor.aboveBottom(6), VerticalAnchor.absolute(5)), EnvironmentScanPlacement.scanningFor(Direction.DOWN, BlockPredicate.solid(), BlockPredicate.ONLY_IN_AIR_PREDICATE, 12), RandomOffsetPlacement.vertical(ConstantInt.of(1)), BiomeFilter.biome());
+	public static final FrozenPlacedFeature STONE_POOL = feature("stone_pool", WilderMiscConfigured.STONE_POOL, RarityFilter.onAverageOnceEvery(13), InSquarePlacement.spread(), HeightRangePlacement.uniform(VerticalAnchor.absolute(5), VerticalAnchor.aboveBottom(108)), EnvironmentScanPlacement.scanningFor(Direction.DOWN, BlockPredicate.solid(), BlockPredicate.ONLY_IN_AIR_PREDICATE, 12), RandomOffsetPlacement.vertical(ConstantInt.of(1)), BiomeFilter.biome());
 
-	public static final ResourceKey<PlacedFeature> JELLYFISH_DEEPSLATE_POOL = FrozenPlacementUtils.createKey(WilderSharedConstants.MOD_ID, "jellyfish_deepslate_pool");
-	public static final ResourceKey<PlacedFeature> JELLYFISH_STONE_POOL = FrozenPlacementUtils.createKey(WilderSharedConstants.MOD_ID, "jellyfish_stone_pool");
+	public static final FrozenPlacedFeature JELLYFISH_DEEPSLATE_POOL = feature("jellyfish_deepslate_pool", WilderMiscConfigured.DEEPSLATE_POOL, CountPlacement.of(30), InSquarePlacement.spread(), HeightRangePlacement.uniform(VerticalAnchor.bottom(), VerticalAnchor.aboveBottom(67)), EnvironmentScanPlacement.scanningFor(Direction.DOWN, BlockPredicate.solid(), BlockPredicate.ONLY_IN_AIR_PREDICATE, 12), RandomOffsetPlacement.vertical(ConstantInt.of(1)), BiomeFilter.biome());
+	public static final FrozenPlacedFeature JELLYFISH_STONE_POOL = feature("jellyfish_stone_pool", WilderMiscConfigured.STONE_POOL, CountPlacement.of(30), InSquarePlacement.spread(), HeightRangePlacement.uniform(VerticalAnchor.aboveBottom(68), VerticalAnchor.top()), EnvironmentScanPlacement.scanningFor(Direction.DOWN, BlockPredicate.solid(), BlockPredicate.ONLY_IN_AIR_PREDICATE, 12), RandomOffsetPlacement.vertical(ConstantInt.of(1)), BiomeFilter.biome());
 
 	public static void registerMiscPlaced() {
 		WilderWild.logWild("FrozenPlacedFeatureing WilderMiscPlaced for", true);
@@ -81,16 +82,9 @@ public final class WilderMiscPlaced {
 		for (Field field : Arrays.stream(WilderMiscPlaced.class.getDeclaredFields()).sorted().toList()) {
 			Object whatIsThis = field.get(WilderMiscPlaced.class);
 			if (whatIsThis instanceof FrozenPlacedFeature feature) {
-				FrozenPlacementUtils.register(bootstapContext, feature.resourceKey, holderGetter.getOrThrow(feature.featureKey), feature.placementModifiers);
+				FrozenPlacementUtils.register(bootstapContext, feature.getResourceKey(), holderGetter.getOrThrow(feature.getFeatureKey()), feature.getPlacementModifiers());
 			}
 		}
-		FrozenPlacementUtils.register(bootstapContext, EXTRA_GLOW_LICHEN, holderGetter.getOrThrow(CaveFeatures.GLOW_LICHEN), CountPlacement.of(UniformInt.of(104, 157)), PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT, InSquarePlacement.spread(), SurfaceRelativeThresholdFilter.of(Heightmap.Types.OCEAN_FLOOR_WG, Integer.MIN_VALUE, -13), BiomeFilter.biome());
-		FrozenPlacementUtils.register(bootstapContext, FOREST_ROCK_TAIGA, holderGetter.getOrThrow(MiscOverworldFeatures.FOREST_ROCK), RarityFilter.onAverageOnceEvery(7), InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP, BiomeFilter.biome());
-
-		FrozenPlacementUtils.register(bootstapContext, DEEPSLATE_POOL, holderGetter.getOrThrow(WilderMiscConfigured.DEEPSLATE_POOL), RarityFilter.onAverageOnceEvery(13), InSquarePlacement.spread(), HeightRangePlacement.uniform(VerticalAnchor.aboveBottom(6), VerticalAnchor.absolute(5)), EnvironmentScanPlacement.scanningFor(Direction.DOWN, BlockPredicate.solid(), BlockPredicate.ONLY_IN_AIR_PREDICATE, 12), RandomOffsetPlacement.vertical(ConstantInt.of(1)), BiomeFilter.biome());
-		FrozenPlacementUtils.register(bootstapContext, STONE_POOL, holderGetter.getOrThrow(WilderMiscConfigured.STONE_POOL), RarityFilter.onAverageOnceEvery(13), InSquarePlacement.spread(), HeightRangePlacement.uniform(VerticalAnchor.absolute(5), VerticalAnchor.aboveBottom(108)), EnvironmentScanPlacement.scanningFor(Direction.DOWN, BlockPredicate.solid(), BlockPredicate.ONLY_IN_AIR_PREDICATE, 12), RandomOffsetPlacement.vertical(ConstantInt.of(1)), BiomeFilter.biome());
-		FrozenPlacementUtils.register(bootstapContext, JELLYFISH_DEEPSLATE_POOL, holderGetter.getOrThrow(WilderMiscConfigured.DEEPSLATE_POOL), CountPlacement.of(30), InSquarePlacement.spread(), HeightRangePlacement.uniform(VerticalAnchor.bottom(), VerticalAnchor.aboveBottom(67)), EnvironmentScanPlacement.scanningFor(Direction.DOWN, BlockPredicate.solid(), BlockPredicate.ONLY_IN_AIR_PREDICATE, 12), RandomOffsetPlacement.vertical(ConstantInt.of(1)), BiomeFilter.biome());
-		FrozenPlacementUtils.register(bootstapContext, JELLYFISH_STONE_POOL, holderGetter.getOrThrow(WilderMiscConfigured.STONE_POOL), CountPlacement.of(30), InSquarePlacement.spread(), HeightRangePlacement.uniform(VerticalAnchor.aboveBottom(68), VerticalAnchor.top()), EnvironmentScanPlacement.scanningFor(Direction.DOWN, BlockPredicate.solid(), BlockPredicate.ONLY_IN_AIR_PREDICATE, 12), RandomOffsetPlacement.vertical(ConstantInt.of(1)), BiomeFilter.biome());
 	}
 
     private static List<PlacementModifier> modifiers(PlacementModifier countModifier, PlacementModifier heightModifier) {
@@ -101,12 +95,19 @@ public final class WilderMiscPlaced {
         return modifiers(CountPlacement.of(count), heightModifier);
     }
 
-	public static FrozenPlacedFeature feature(String id, FrozenConfiguredFeature feature, PlacementModifier... placementModifiers) {
-		return new FrozenPlacedFeature(FrozenPlacementUtils.createKey(WilderSharedConstants.MOD_ID, id), feature.resourceKey, placementModifiers);
+	public static FrozenPlacedFeature feature(String id, FrozenConfiguredFeature feature, PlacementModifier... modifiers) {
+		return feature(id, feature, Arrays.asList(modifiers));
 	}
 
 	public static FrozenPlacedFeature feature(String id, FrozenConfiguredFeature feature, List<PlacementModifier> modifiers) {
-		return new FrozenPlacedFeature(FrozenPlacementUtils.createKey(WilderSharedConstants.MOD_ID, id), feature.resourceKey, (PlacementModifier[]) modifiers.toArray());
+		return new FrozenPlacedFeature(FrozenPlacementUtils.createKey(WilderSharedConstants.MOD_ID, id), feature.getResourceKey(), modifiers);
 	}
 
+	public static FrozenPlacedFeature feature(String id, ResourceKey<ConfiguredFeature<?, ?>> resourceKey, PlacementModifier... modifiers) {
+		return feature(id, resourceKey, Arrays.asList(modifiers));
+	}
+
+	public static FrozenPlacedFeature feature(String id, ResourceKey<ConfiguredFeature<?, ?>> resourceKey, List<PlacementModifier> modifiers) {
+		return new FrozenPlacedFeature(FrozenPlacementUtils.createKey(WilderSharedConstants.MOD_ID, id), resourceKey, modifiers);
+	}
 }
