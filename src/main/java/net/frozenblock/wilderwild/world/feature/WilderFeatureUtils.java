@@ -6,7 +6,6 @@ import net.minecraft.core.Registry;
 import net.minecraft.data.worldgen.BootstapContext;
 import net.minecraft.data.worldgen.features.FeatureUtils;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.configurations.FeatureConfiguration;
@@ -58,5 +57,9 @@ public class WilderFeatureUtils {
 
 	public static <FC extends FeatureConfiguration, F extends Feature<FC>, V extends ConfiguredFeature<FC, ?>> Holder.Reference<V> getExactReference(Holder.Reference<?> reference) {
 		return (Holder.Reference<V>) reference;
+	}
+
+	public static WilderFeature wilderFeature(String id, Feature<? extends FeatureConfiguration> feature, FeatureConfiguration featureConfiguration) {
+		return new WilderFeature(WilderFeatureUtils.createKey(id), feature, featureConfiguration);
 	}
 }
