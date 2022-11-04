@@ -9,7 +9,6 @@ import net.frozenblock.wilderwild.world.feature.features.config.WilderPillarConf
 import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderSet;
-import static net.minecraft.data.worldgen.features.OreFeatures.NATURAL_STONE;
 import net.minecraft.data.worldgen.BootstapContext;
 import net.minecraft.data.worldgen.placement.PlacementUtils;
 import net.minecraft.tags.BlockTags;

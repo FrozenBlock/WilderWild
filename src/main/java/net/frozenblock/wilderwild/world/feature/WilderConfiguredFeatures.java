@@ -11,12 +11,16 @@ import net.frozenblock.wilderwild.world.feature.features.config.NematocystFeatur
 import net.frozenblock.wilderwild.world.feature.features.config.ShelfFungusFeatureConfig;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;
+import net.minecraft.core.HolderGetter;
 import net.minecraft.core.HolderSet;
+import net.minecraft.core.Registry;
+import net.minecraft.data.worldgen.BootstapContext;
 import net.minecraft.data.worldgen.features.CaveFeatures;
 import net.minecraft.data.worldgen.features.FeatureUtils;
 import net.minecraft.data.worldgen.features.TreeFeatures;
 import net.minecraft.data.worldgen.placement.PlacementUtils;
 import net.minecraft.data.worldgen.placement.TreePlacements;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.util.random.SimpleWeightedRandomList;
 import net.minecraft.util.valueproviders.ConstantInt;
@@ -50,10 +54,7 @@ public final class WilderConfiguredFeatures {
 	}
 
     //FALLEN TREES
-    public static final Holder<ConfiguredFeature<RandomFeatureConfiguration, ?>> FALLEN_TREES_MIXED =
-            WilderFeatureUtils.register("fallen_trees_mixed", Feature.RANDOM_SELECTOR,
-                    new RandomFeatureConfiguration(List.of((new WeightedPlacedFeature(WilderTreePlaced.FALLEN_SPRUCE_CHECKED, 0.4F)),
-                            new WeightedPlacedFeature(WilderTreePlaced.NEW_FALLEN_BIRCH_CHECKED, 0.3F)), WilderTreePlaced.NEW_FALLEN_OAK_CHECKED));
+	public static final ResourceKey<ConfiguredFeature<?, ?>> FALLEN_TREES_MIXED = WilderFeatureUtils.createKey("fallen_trees_mixed");
 
     public static final Holder<ConfiguredFeature<RandomFeatureConfiguration, ?>> FALLEN_BIRCH =
             WilderFeatureUtils.register("fallen_birch", Feature.RANDOM_SELECTOR,
@@ -454,6 +455,13 @@ public final class WilderConfiguredFeatures {
     public static void registerConfiguredFeatures() {
         WilderWild.logWild("Registering WilderConfiguredFeatures for", true);
     }
+
+	public static void bootstrap(BootstapContext<ConfiguredFeature<?, ?>> bootstapContext) {
+		HolderGetter<ConfiguredFeature<?, ?>> holderGetter = bootstapContext.lookup(Registry.CONFIGURED_FEATURE_REGISTRY);
+		WilderFeatureUtils.register(bootstapContext, FALLEN_TREES_MIXED, Feature.RANDOM_SELECTOR,
+				new RandomFeatureConfiguration(List.of((new WeightedPlacedFeature(WilderTreePlaced.FALLEN_SPRUCE_CHECKED, 0.4F)),
+						new WeightedPlacedFeature(WilderTreePlaced.NEW_FALLEN_BIRCH_CHECKED, 0.3F)), WilderTreePlaced.NEW_FALLEN_OAK_CHECKED));
+	}
 
     private static RandomPatchConfiguration createRandomPatchFeatureConfig(BlockStateProvider block, int tries) {
         return FeatureUtils.simpleRandomPatchConfiguration(tries, PlacementUtils.onlyWhenEmpty(Feature.SIMPLE_BLOCK, new SimpleBlockConfiguration(block)));
