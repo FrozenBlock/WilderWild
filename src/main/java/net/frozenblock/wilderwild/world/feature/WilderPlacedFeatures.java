@@ -45,8 +45,8 @@ import java.lang.reflect.Field;
 import java.util.Arrays;
 import java.util.List;
 
-public final class FrozenPlacedFeatures {
-	private FrozenPlacedFeatures() {
+public final class WilderPlacedFeatures {
+	private WilderPlacedFeatures() {
 		throw new UnsupportedOperationException("FrozenPlacedFeatures contains only static declarations.");
 	}
 
