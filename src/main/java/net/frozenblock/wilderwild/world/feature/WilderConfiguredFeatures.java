@@ -453,7 +453,7 @@ public final class WilderConfiguredFeatures {
         WilderWild.logWild("Registering WilderConfiguredFeatures for", true);
     }
 
-	public static void bootstrap(BootstapContext<ConfiguredFeature<?, ?>> bootstapContext) throws IllegalAccessException {
+	public static void bootstap(BootstapContext<ConfiguredFeature<?, ?>> bootstapContext) throws IllegalAccessException {
 		HolderGetter<ConfiguredFeature<?, ?>> holderGetter = bootstapContext.lookup(Registry.CONFIGURED_FEATURE_REGISTRY);
 		WilderFeatureUtils.register(bootstapContext, FALLEN_TREES_MIXED, Feature.RANDOM_SELECTOR,
 				new RandomFeatureConfiguration(List.of((new WeightedPlacedFeature(WilderTreePlaced.FALLEN_SPRUCE_CHECKED, 0.4F)),
