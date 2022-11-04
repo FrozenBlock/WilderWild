@@ -5,6 +5,7 @@ import java.util.Arrays;
 import java.util.List;
 import net.frozenblock.lib.worldgen.feature.FrozenConfiguredFeature;
 import net.frozenblock.lib.worldgen.feature.util.FrozenConfiguredFeatureUtils;
+import net.frozenblock.lib.worldgen.feature.util.FrozenPlacementUtils;
 import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.block.ShelfFungusBlock;
 import net.frozenblock.wilderwild.misc.FlowerColor;
@@ -51,7 +52,6 @@ import net.minecraft.world.level.levelgen.feature.stateproviders.NoiseProvider;
 import net.minecraft.world.level.levelgen.feature.stateproviders.NoiseThresholdProvider;
 import net.minecraft.world.level.levelgen.feature.stateproviders.WeightedStateProvider;
 import net.minecraft.world.level.levelgen.placement.CaveSurface;
-import net.minecraft.world.level.levelgen.placement.PlacedFeature;
 import net.minecraft.world.level.levelgen.synth.NormalNoise;
 
 public final class WilderConfiguredFeatures  {
@@ -59,140 +59,161 @@ public final class WilderConfiguredFeatures  {
 		throw new UnsupportedOperationException("WilderConfiguredFeatures contains only static declarations.");
 	}
 
+    //FALLEN TREES
+	public static final FrozenConfiguredFeature FALLEN_TREES_MIXED = feature("fallen_trees_mixed", Feature.RANDOM_SELECTOR,
+			new RandomFeatureConfiguration(List.of((new WeightedPlacedFeature(WilderTreePlaced.FALLEN_SPRUCE_CHECKED.getHolder(), 0.4F)),
+					new WeightedPlacedFeature(WilderTreePlaced.NEW_FALLEN_BIRCH_CHECKED.getHolder(), 0.3F)), WilderTreePlaced.NEW_FALLEN_OAK_CHECKED.getHolder()));
+	public static final FrozenConfiguredFeature FALLEN_BIRCH = feature("fallen_birch", Feature.RANDOM_SELECTOR,
+			new RandomFeatureConfiguration(List.of(new WeightedPlacedFeature(WilderTreePlaced.NEW_FALLEN_BIRCH_CHECKED.getHolder(), 1.0F)), WilderTreePlaced.NEW_FALLEN_BIRCH_CHECKED.getHolder()));
+	public static final FrozenConfiguredFeature FALLEN_SPRUCE = feature("fallen_spruce", Feature.RANDOM_SELECTOR,
+			new RandomFeatureConfiguration(List.of(new WeightedPlacedFeature(WilderTreePlaced.FALLEN_SPRUCE_CHECKED.getHolder(), 1.0F)), WilderTreePlaced.FALLEN_SPRUCE_CHECKED.getHolder()));
+
+    public static final FrozenConfiguredFeature FALLEN_SPRUCE_AND_OAK =
+            feature("fallen_spruce_and_oak", Feature.RANDOM_SELECTOR,
+                    new RandomFeatureConfiguration(List.of(new WeightedPlacedFeature(WilderTreePlaced.FALLEN_SPRUCE_CHECKED.getHolder(), 0.55F)), WilderTreePlaced.NEW_FALLEN_OAK_CHECKED.getHolder()));
+
+    public static final FrozenConfiguredFeature NEW_FALLEN_BIRCH_AND_OAK =
+            feature("fallen_birch_and_oak", Feature.RANDOM_SELECTOR,
+                    new RandomFeatureConfiguration(List.of(new WeightedPlacedFeature(WilderTreePlaced.NEW_FALLEN_BIRCH_CHECKED.getHolder(), 0.35F)), WilderTreePlaced.NEW_FALLEN_OAK_CHECKED.getHolder()));
+
+    public static final FrozenConfiguredFeature NEW_FALLEN_CYPRESS_AND_OAK =
+            feature("fallen_cypress_and_oak", Feature.RANDOM_SELECTOR,
+                    new RandomFeatureConfiguration(List.of(new WeightedPlacedFeature(WilderTreePlaced.NEW_FALLEN_OAK_CHECKED.getHolder(), 0.35F)), WilderTreePlaced.NEW_FALLEN_CYPRESS_CHECKED.getHolder()));
+
     //TREES
     public static final FrozenConfiguredFeature NEW_TREES_PLAINS =
             feature("trees_plains", Feature.RANDOM_SELECTOR,
-                    new RandomFeatureConfiguration(List.of(new WeightedPlacedFeature(PlacementUtils.inlinePlaced(WilderTreeConfigured.NEW_FANCY_OAK_BEES_0004), 0.33333334F),
-                            new WeightedPlacedFeature(PlacementUtils.inlinePlaced(WilderTreeConfigured.FANCY_DYING_OAK_BEES_0004), 0.035F),
-                            new WeightedPlacedFeature(PlacementUtils.inlinePlaced(WilderTreeConfigured.SHORT_OAK), 0.169F)),
-                            PlacementUtils.inlinePlaced(WilderTreeConfigured.NEW_OAK_BEES_0004)));
+                    new RandomFeatureConfiguration(List.of(new WeightedPlacedFeature(PlacementUtils.inlinePlaced(WilderTreeConfigured.NEW_FANCY_OAK_BEES_0004.getHolder()), 0.33333334F),
+                            new WeightedPlacedFeature(PlacementUtils.inlinePlaced(WilderTreeConfigured.FANCY_DYING_OAK_BEES_0004.getHolder()), 0.035F),
+                            new WeightedPlacedFeature(PlacementUtils.inlinePlaced(WilderTreeConfigured.SHORT_OAK.getHolder()), 0.169F)),
+                            PlacementUtils.inlinePlaced(WilderTreeConfigured.NEW_OAK_BEES_0004.getHolder())));
 
     public static final FrozenConfiguredFeature NEW_TREES_BIRCH_AND_OAK =
             feature("trees_birch_and_oak", Feature.RANDOM_SELECTOR,
-                    new RandomFeatureConfiguration(List.of(new WeightedPlacedFeature(WilderTreePlaced.NEW_SHORT_BIRCH_BEES_0004, 0.2F),
-                            new WeightedPlacedFeature(WilderTreePlaced.DYING_SHORT_BIRCH, 0.04F),
-                            new WeightedPlacedFeature(WilderTreePlaced.NEW_FANCY_OAK_BEES_0004, 0.26F),
-                            new WeightedPlacedFeature(WilderTreePlaced.DYING_FANCY_OAK_BEES_0004, 0.055F),
-                            new WeightedPlacedFeature(WilderTreePlaced.DYING_OAK_CHECKED, 0.04F),
-                            new WeightedPlacedFeature(WilderTreePlaced.SHORT_OAK_CHECKED, 0.155F)), WilderTreePlaced.NEW_OAK_BEES_0004));
+                    new RandomFeatureConfiguration(List.of(new WeightedPlacedFeature(WilderTreePlaced.NEW_SHORT_BIRCH_BEES_0004.getHolder(), 0.2F),
+                            new WeightedPlacedFeature(WilderTreePlaced.DYING_SHORT_BIRCH.getHolder(), 0.04F),
+                            new WeightedPlacedFeature(WilderTreePlaced.NEW_FANCY_OAK_BEES_0004.getHolder(), 0.26F),
+                            new WeightedPlacedFeature(WilderTreePlaced.DYING_FANCY_OAK_BEES_0004.getHolder(), 0.055F),
+                            new WeightedPlacedFeature(WilderTreePlaced.DYING_OAK_CHECKED.getHolder(), 0.04F),
+                            new WeightedPlacedFeature(WilderTreePlaced.SHORT_OAK_CHECKED.getHolder(), 0.155F)), WilderTreePlaced.NEW_OAK_BEES_0004.getHolder()));
 
     public static final FrozenConfiguredFeature NEW_TREES_BIRCH =
             feature("trees_birch", Feature.RANDOM_SELECTOR,
-                    new RandomFeatureConfiguration(List.of(new WeightedPlacedFeature(WilderTreePlaced.NEW_SHORT_BIRCH_BEES_0004, 0.065F),
-                            new WeightedPlacedFeature(WilderTreePlaced.DYING_SHORT_BIRCH, 0.012F),
-                            new WeightedPlacedFeature(WilderTreePlaced.DYING_BIRCH, 0.035F)), WilderTreePlaced.NEW_BIRCH_BEES_0004));
+                    new RandomFeatureConfiguration(List.of(new WeightedPlacedFeature(WilderTreePlaced.NEW_SHORT_BIRCH_BEES_0004.getHolder(), 0.065F),
+                            new WeightedPlacedFeature(WilderTreePlaced.DYING_SHORT_BIRCH.getHolder(), 0.012F),
+                            new WeightedPlacedFeature(WilderTreePlaced.DYING_BIRCH.getHolder(), 0.035F)), WilderTreePlaced.NEW_BIRCH_BEES_0004.getHolder()));
 
     public static final FrozenConfiguredFeature NEW_TREES_BIRCH_TALL =
             feature("trees_birch_tall", Feature.RANDOM_SELECTOR,
-                    new RandomFeatureConfiguration(List.of(new WeightedPlacedFeature(WilderTreePlaced.NEW_SHORT_BIRCH_BEES_0004, 0.002F),
-                            new WeightedPlacedFeature(WilderTreePlaced.DYING_SHORT_BIRCH, 0.0001F),
-                            new WeightedPlacedFeature(WilderTreePlaced.DYING_SUPER_BIRCH, 0.032F),
-                            new WeightedPlacedFeature(WilderTreePlaced.NEW_BIRCH_BEES_0004, 0.02F),
-                            new WeightedPlacedFeature(WilderTreePlaced.DYING_BIRCH, 0.017F)), WilderTreePlaced.NEW_SUPER_BIRCH_BEES_0004));
+                    new RandomFeatureConfiguration(List.of(new WeightedPlacedFeature(WilderTreePlaced.NEW_SHORT_BIRCH_BEES_0004.getHolder(), 0.002F),
+                            new WeightedPlacedFeature(WilderTreePlaced.DYING_SHORT_BIRCH.getHolder(), 0.0001F),
+                            new WeightedPlacedFeature(WilderTreePlaced.DYING_SUPER_BIRCH.getHolder(), 0.032F),
+                            new WeightedPlacedFeature(WilderTreePlaced.NEW_BIRCH_BEES_0004.getHolder(), 0.02F),
+                            new WeightedPlacedFeature(WilderTreePlaced.DYING_BIRCH.getHolder(), 0.017F)), WilderTreePlaced.NEW_SUPER_BIRCH_BEES_0004.getHolder()));
 
     public static final FrozenConfiguredFeature NEW_TREES_FLOWER_FOREST =
             feature("trees_flower_forest", Feature.RANDOM_SELECTOR,
-                    new RandomFeatureConfiguration(List.of(new WeightedPlacedFeature(WilderTreePlaced.NEW_SHORT_BIRCH_BEES_0004, 0.2F),
-                            new WeightedPlacedFeature(WilderTreePlaced.DYING_SHORT_BIRCH, 0.035F),
-                            new WeightedPlacedFeature(WilderTreePlaced.DYING_OAK_CHECKED, 0.05F),
-                            new WeightedPlacedFeature(WilderTreePlaced.DYING_FANCY_OAK_BEES_0004, 0.063F),
-                            new WeightedPlacedFeature(WilderTreePlaced.NEW_FANCY_OAK_BEES_0004, 0.205F),
-                            new WeightedPlacedFeature(WilderTreePlaced.SHORT_OAK_CHECKED, 0.095F)), WilderTreePlaced.NEW_OAK_BEES_0004));
+                    new RandomFeatureConfiguration(List.of(new WeightedPlacedFeature(WilderTreePlaced.NEW_SHORT_BIRCH_BEES_0004.getHolder(), 0.2F),
+                            new WeightedPlacedFeature(WilderTreePlaced.DYING_SHORT_BIRCH.getHolder(), 0.035F),
+                            new WeightedPlacedFeature(WilderTreePlaced.DYING_OAK_CHECKED.getHolder(), 0.05F),
+                            new WeightedPlacedFeature(WilderTreePlaced.DYING_FANCY_OAK_BEES_0004.getHolder(), 0.063F),
+                            new WeightedPlacedFeature(WilderTreePlaced.NEW_FANCY_OAK_BEES_0004.getHolder(), 0.205F),
+                            new WeightedPlacedFeature(WilderTreePlaced.SHORT_OAK_CHECKED.getHolder(), 0.095F)), WilderTreePlaced.NEW_OAK_BEES_0004.getHolder()));
 
     public static final FrozenConfiguredFeature MIXED_TREES =
             feature("mixed_trees", Feature.RANDOM_SELECTOR,
-                    new RandomFeatureConfiguration(List.of(new WeightedPlacedFeature(WilderTreePlaced.NEW_SPRUCE_CHECKED, 0.39F),
-                            new WeightedPlacedFeature(WilderTreePlaced.FUNGUS_PINE_CHECKED, 0.086F),
-                            new WeightedPlacedFeature(WilderTreePlaced.DYING_FUNGUS_PINE_CHECKED, 0.02F),
-                            new WeightedPlacedFeature(WilderTreePlaced.NEW_SPRUCE_SHORT_CHECKED, 0.13F),
-                            new WeightedPlacedFeature(WilderTreePlaced.NEW_FANCY_OAK_BEES_0004, 0.37F),
-                            new WeightedPlacedFeature(WilderTreePlaced.DYING_FANCY_OAK_BEES_0004, 0.025F),
-                            new WeightedPlacedFeature(WilderTreePlaced.DYING_OAK_CHECKED, 0.01F),
-                            new WeightedPlacedFeature(WilderTreePlaced.DYING_SHORT_BIRCH, 0.01F),
-                            new WeightedPlacedFeature(WilderTreePlaced.SHORT_OAK_CHECKED, 0.13F),
-                            new WeightedPlacedFeature(WilderTreePlaced.SHORT_BIRCH, 0.325F)), WilderTreePlaced.NEW_OAK_CHECKED));
+                    new RandomFeatureConfiguration(List.of(new WeightedPlacedFeature(WilderTreePlaced.NEW_SPRUCE_CHECKED.getHolder(), 0.39F),
+                            new WeightedPlacedFeature(WilderTreePlaced.FUNGUS_PINE_CHECKED.getHolder(), 0.086F),
+                            new WeightedPlacedFeature(WilderTreePlaced.DYING_FUNGUS_PINE_CHECKED.getHolder(), 0.02F),
+                            new WeightedPlacedFeature(WilderTreePlaced.NEW_SPRUCE_SHORT_CHECKED.getHolder(), 0.13F),
+                            new WeightedPlacedFeature(WilderTreePlaced.NEW_FANCY_OAK_BEES_0004.getHolder(), 0.37F),
+                            new WeightedPlacedFeature(WilderTreePlaced.DYING_FANCY_OAK_BEES_0004.getHolder(), 0.025F),
+                            new WeightedPlacedFeature(WilderTreePlaced.DYING_OAK_CHECKED.getHolder(), 0.01F),
+                            new WeightedPlacedFeature(WilderTreePlaced.DYING_SHORT_BIRCH.getHolder(), 0.01F),
+                            new WeightedPlacedFeature(WilderTreePlaced.SHORT_OAK_CHECKED.getHolder(), 0.13F),
+                            new WeightedPlacedFeature(WilderTreePlaced.SHORT_BIRCH.getHolder(), 0.325F)), WilderTreePlaced.NEW_OAK_CHECKED.getHolder()));
 
     public static final FrozenConfiguredFeature NEW_DARK_FOREST_VEGETATION =
             feature("dark_forest_vegetation", Feature.RANDOM_SELECTOR,
-                    new RandomFeatureConfiguration(List.of(new WeightedPlacedFeature(PlacementUtils.inlinePlaced(TreeFeatures.HUGE_BROWN_MUSHROOM), 0.025F),
-                            new WeightedPlacedFeature(PlacementUtils.inlinePlaced(TreeFeatures.HUGE_RED_MUSHROOM), 0.05F),
-                            new WeightedPlacedFeature(TreePlacements.DARK_OAK_CHECKED, 0.55F),
-                            new WeightedPlacedFeature(WilderTreePlaced.DYING_DARK_OAK_CHECKED, 0.075F),
-                            new WeightedPlacedFeature(WilderTreePlaced.SHORT_BIRCH, 0.2F),
-                            new WeightedPlacedFeature(WilderTreePlaced.DYING_SHORT_BIRCH, 0.015F),
-                            new WeightedPlacedFeature(WilderTreePlaced.NEW_TALL_DARK_OAK_CHECKED, 0.35F),
-                            new WeightedPlacedFeature(WilderTreePlaced.DYING_TALL_DARK_OAK_CHECKED, 0.048F),
-                            new WeightedPlacedFeature(WilderTreePlaced.DYING_FANCY_OAK_CHECKED, 0.02F),
-                            new WeightedPlacedFeature(WilderTreePlaced.DYING_OAK_CHECKED, 0.012F),
-                            new WeightedPlacedFeature(WilderTreePlaced.NEW_FANCY_OAK_CHECKED, 0.185F)), WilderTreePlaced.NEW_OAK_CHECKED));
+                    new RandomFeatureConfiguration(List.of(new WeightedPlacedFeature(PlacementUtils.inlinePlaced(FrozenConfiguredFeatureUtils.getHolder(TreeFeatures.HUGE_BROWN_MUSHROOM)), 0.025F),
+                            new WeightedPlacedFeature(PlacementUtils.inlinePlaced(FrozenConfiguredFeatureUtils.getHolder(TreeFeatures.HUGE_RED_MUSHROOM)), 0.05F),
+                            new WeightedPlacedFeature(FrozenPlacementUtils.getHolder(TreePlacements.DARK_OAK_CHECKED), 0.55F),
+                            new WeightedPlacedFeature(WilderTreePlaced.DYING_DARK_OAK_CHECKED.getHolder(), 0.075F),
+                            new WeightedPlacedFeature(WilderTreePlaced.SHORT_BIRCH.getHolder(), 0.2F),
+                            new WeightedPlacedFeature(WilderTreePlaced.DYING_SHORT_BIRCH.getHolder(), 0.015F),
+                            new WeightedPlacedFeature(WilderTreePlaced.NEW_TALL_DARK_OAK_CHECKED.getHolder(), 0.35F),
+                            new WeightedPlacedFeature(WilderTreePlaced.DYING_TALL_DARK_OAK_CHECKED.getHolder(), 0.048F),
+                            new WeightedPlacedFeature(WilderTreePlaced.DYING_FANCY_OAK_CHECKED.getHolder(), 0.02F),
+                            new WeightedPlacedFeature(WilderTreePlaced.DYING_OAK_CHECKED.getHolder(), 0.012F),
+                            new WeightedPlacedFeature(WilderTreePlaced.NEW_FANCY_OAK_CHECKED.getHolder(), 0.185F)), WilderTreePlaced.NEW_OAK_CHECKED.getHolder()));
 
     public static final FrozenConfiguredFeature NEW_TREES_TAIGA =
             feature("trees_taiga", Feature.RANDOM_SELECTOR,
-                    new RandomFeatureConfiguration(List.of(new WeightedPlacedFeature(WilderTreePlaced.FUNGUS_PINE_CHECKED, 0.33333334F),
-                            new WeightedPlacedFeature(WilderTreePlaced.DYING_FUNGUS_PINE_CHECKED, 0.075F)), WilderTreePlaced.NEW_SPRUCE_CHECKED));
+                    new RandomFeatureConfiguration(List.of(new WeightedPlacedFeature(WilderTreePlaced.FUNGUS_PINE_CHECKED.getHolder(), 0.33333334F),
+                            new WeightedPlacedFeature(WilderTreePlaced.DYING_FUNGUS_PINE_CHECKED.getHolder(), 0.075F)), WilderTreePlaced.NEW_SPRUCE_CHECKED.getHolder()));
 
     public static final FrozenConfiguredFeature NEW_SHORT_TREES_TAIGA =
             feature("short_trees_taiga", Feature.RANDOM_SELECTOR,
-                    new RandomFeatureConfiguration(List.of(new WeightedPlacedFeature(WilderTreePlaced.NEW_SPRUCE_SHORT_CHECKED, 0.33333334F)), WilderTreePlaced.NEW_SPRUCE_SHORT_CHECKED));
+                    new RandomFeatureConfiguration(List.of(new WeightedPlacedFeature(WilderTreePlaced.NEW_SPRUCE_SHORT_CHECKED.getHolder(), 0.33333334F)), WilderTreePlaced.NEW_SPRUCE_SHORT_CHECKED.getHolder()));
 
     public static final FrozenConfiguredFeature NEW_TREES_OLD_GROWTH_PINE_TAIGA =
             feature("trees_old_growth_pine_taiga", Feature.RANDOM_SELECTOR,
-                    new RandomFeatureConfiguration(List.of(new WeightedPlacedFeature(WilderTreePlaced.MEGA_FUNGUS_SPRUCE_CHECKED, 0.025641026F),
-                            new WeightedPlacedFeature(WilderTreePlaced.DYING_MEGA_FUNGUS_PINE_CHECKED, 0.028F),
-                            new WeightedPlacedFeature(WilderTreePlaced.MEGA_FUNGUS_PINE_CHECKED, 0.30769232F),
-                            new WeightedPlacedFeature(WilderTreePlaced.DYING_FUNGUS_PINE_CHECKED, 0.045F),
-                            new WeightedPlacedFeature(WilderTreePlaced.FUNGUS_PINE_CHECKED, 0.33333334F)), WilderTreePlaced.NEW_SPRUCE_CHECKED));
+                    new RandomFeatureConfiguration(List.of(new WeightedPlacedFeature(WilderTreePlaced.MEGA_FUNGUS_SPRUCE_CHECKED.getHolder(), 0.025641026F),
+                            new WeightedPlacedFeature(WilderTreePlaced.DYING_MEGA_FUNGUS_PINE_CHECKED.getHolder(), 0.028F),
+                            new WeightedPlacedFeature(WilderTreePlaced.MEGA_FUNGUS_PINE_CHECKED.getHolder(), 0.30769232F),
+                            new WeightedPlacedFeature(WilderTreePlaced.DYING_FUNGUS_PINE_CHECKED.getHolder(), 0.045F),
+                            new WeightedPlacedFeature(WilderTreePlaced.FUNGUS_PINE_CHECKED.getHolder(), 0.33333334F)), WilderTreePlaced.NEW_SPRUCE_CHECKED.getHolder()));
 
     public static final FrozenConfiguredFeature NEW_TREES_OLD_GROWTH_SPRUCE_TAIGA =
             feature("trees_old_growth_spruce_taiga", Feature.RANDOM_SELECTOR,
-                    new RandomFeatureConfiguration(List.of(new WeightedPlacedFeature(WilderTreePlaced.MEGA_FUNGUS_SPRUCE_CHECKED, 0.33333334F),
-                            new WeightedPlacedFeature(WilderTreePlaced.DYING_FUNGUS_PINE_CHECKED, 0.075F),
-                            new WeightedPlacedFeature(WilderTreePlaced.FUNGUS_PINE_CHECKED, 0.33333334F)), WilderTreePlaced.NEW_SPRUCE_CHECKED));
+                    new RandomFeatureConfiguration(List.of(new WeightedPlacedFeature(WilderTreePlaced.MEGA_FUNGUS_SPRUCE_CHECKED.getHolder(), 0.33333334F),
+                            new WeightedPlacedFeature(WilderTreePlaced.DYING_FUNGUS_PINE_CHECKED.getHolder(), 0.075F),
+                            new WeightedPlacedFeature(WilderTreePlaced.FUNGUS_PINE_CHECKED.getHolder(), 0.33333334F)), WilderTreePlaced.NEW_SPRUCE_CHECKED.getHolder()));
 
     public static final FrozenConfiguredFeature NEW_TREES_GROVE =
             feature("trees_grove", Feature.RANDOM_SELECTOR,
-                    new RandomFeatureConfiguration(List.of(new WeightedPlacedFeature(WilderTreePlaced.FUNGUS_PINE_ON_SNOW, 0.33333334F)), WilderTreePlaced.NEW_SPRUCE_ON_SNOW));
+                    new RandomFeatureConfiguration(List.of(new WeightedPlacedFeature(WilderTreePlaced.FUNGUS_PINE_ON_SNOW.getHolder(), 0.33333334F)), WilderTreePlaced.NEW_SPRUCE_ON_SNOW.getHolder()));
 
     public static final FrozenConfiguredFeature NEW_TREES_WINDSWEPT_HILLS =
             feature("trees_windswept_hills", Feature.RANDOM_SELECTOR,
-                    new RandomFeatureConfiguration(List.of(new WeightedPlacedFeature(WilderTreePlaced.NEW_SPRUCE_CHECKED, 0.666F),
-                            new WeightedPlacedFeature(WilderTreePlaced.DYING_FANCY_OAK_CHECKED, 0.01F),
-                            new WeightedPlacedFeature(WilderTreePlaced.DYING_OAK_CHECKED, 0.02F),
-                            new WeightedPlacedFeature(WilderTreePlaced.NEW_FANCY_OAK_CHECKED, 0.1F)), WilderTreePlaced.NEW_OAK_CHECKED));
+                    new RandomFeatureConfiguration(List.of(new WeightedPlacedFeature(WilderTreePlaced.NEW_SPRUCE_CHECKED.getHolder(), 0.666F),
+                            new WeightedPlacedFeature(WilderTreePlaced.DYING_FANCY_OAK_CHECKED.getHolder(), 0.01F),
+                            new WeightedPlacedFeature(WilderTreePlaced.DYING_OAK_CHECKED.getHolder(), 0.02F),
+                            new WeightedPlacedFeature(WilderTreePlaced.NEW_FANCY_OAK_CHECKED.getHolder(), 0.1F)), WilderTreePlaced.NEW_OAK_CHECKED.getHolder()));
 
     public static final FrozenConfiguredFeature NEW_MEADOW_TREES =
             feature("meadow_trees", Feature.RANDOM_SELECTOR,
-                    new RandomFeatureConfiguration(List.of(new WeightedPlacedFeature(WilderTreePlaced.NEW_FANCY_OAK_BEES, 0.5F)), WilderTreePlaced.NEW_SUPER_BIRCH_BEES));
+                    new RandomFeatureConfiguration(List.of(new WeightedPlacedFeature(WilderTreePlaced.NEW_FANCY_OAK_BEES.getHolder(), 0.5F)), WilderTreePlaced.NEW_SUPER_BIRCH_BEES.getHolder()));
 
     public static final FrozenConfiguredFeature SAVANNA_TREES =
             feature("savanna_trees", Feature.RANDOM_SELECTOR,
-                    new RandomFeatureConfiguration(List.of(new WeightedPlacedFeature(TreePlacements.ACACIA_CHECKED, 0.8F),
-                            new WeightedPlacedFeature(WilderTreePlaced.BAOBAB, 0.062F),
-                            new WeightedPlacedFeature(WilderTreePlaced.BAOBAB_TALL, 0.035F)), WilderTreePlaced.NEW_OAK_CHECKED));
+                    new RandomFeatureConfiguration(List.of(new WeightedPlacedFeature(FrozenPlacementUtils.getHolder(TreePlacements.ACACIA_CHECKED), 0.8F),
+                            new WeightedPlacedFeature(WilderTreePlaced.BAOBAB.getHolder(), 0.062F),
+                            new WeightedPlacedFeature(WilderTreePlaced.BAOBAB_TALL.getHolder(), 0.035F)), WilderTreePlaced.NEW_OAK_CHECKED.getHolder()));
 
     public static final FrozenConfiguredFeature WINDSWEPT_SAVANNA_TREES =
             feature("windswept_savanna_trees", Feature.RANDOM_SELECTOR,
-                    new RandomFeatureConfiguration(List.of(new WeightedPlacedFeature(TreePlacements.ACACIA_CHECKED, 0.8F)), WilderTreePlaced.NEW_OAK_CHECKED));
+                    new RandomFeatureConfiguration(List.of(new WeightedPlacedFeature(FrozenPlacementUtils.getHolder(TreePlacements.ACACIA_CHECKED), 0.8F)), WilderTreePlaced.NEW_OAK_CHECKED.getHolder()));
 
     public static final FrozenConfiguredFeature CYPRESS_WETLANDS_TREES =
             feature("cypress_wetlands_trees", Feature.RANDOM_SELECTOR,
-                    new RandomFeatureConfiguration(List.of(new WeightedPlacedFeature(WilderTreePlaced.CYPRESS, 0.37F),
-                            new WeightedPlacedFeature(WilderTreePlaced.SHORT_CYPRESS, 0.25F),
-                            new WeightedPlacedFeature(WilderTreePlaced.SWAMP_CYPRESS, 0.81F),
-                            new WeightedPlacedFeature(WilderTreePlaced.NEW_OAK_CHECKED, 0.1F)), WilderTreePlaced.FUNGUS_CYPRESS));
+                    new RandomFeatureConfiguration(List.of(new WeightedPlacedFeature(WilderTreePlaced.CYPRESS.getHolder(), 0.37F),
+                            new WeightedPlacedFeature(WilderTreePlaced.SHORT_CYPRESS.getHolder(), 0.25F),
+                            new WeightedPlacedFeature(WilderTreePlaced.SWAMP_CYPRESS.getHolder(), 0.81F),
+                            new WeightedPlacedFeature(WilderTreePlaced.NEW_OAK_CHECKED.getHolder(), 0.1F)), WilderTreePlaced.FUNGUS_CYPRESS.getHolder()));
 
     public static final FrozenConfiguredFeature CYPRESS_WETLANDS_TREES_SAPLING =
             feature("cypress_wetlands_trees_sapling", Feature.RANDOM_SELECTOR,
-                    new RandomFeatureConfiguration(List.of(new WeightedPlacedFeature(WilderTreePlaced.CYPRESS, 0.4F),
-                            new WeightedPlacedFeature(WilderTreePlaced.SHORT_CYPRESS, 0.15F),
-                            new WeightedPlacedFeature(WilderTreePlaced.SWAMP_CYPRESS, 0.81F)),
-                            WilderTreePlaced.FUNGUS_CYPRESS));
+                    new RandomFeatureConfiguration(List.of(new WeightedPlacedFeature(WilderTreePlaced.CYPRESS.getHolder(), 0.4F),
+                            new WeightedPlacedFeature(WilderTreePlaced.SHORT_CYPRESS.getHolder(), 0.15F),
+                            new WeightedPlacedFeature(WilderTreePlaced.SWAMP_CYPRESS.getHolder(), 0.81F)),
+                            WilderTreePlaced.FUNGUS_CYPRESS.getHolder()));
 
     public static final FrozenConfiguredFeature CYPRESS_WETLANDS_TREES_WATER =
             feature("cypress_wetlands_trees_water", Feature.RANDOM_SELECTOR,
-                    new RandomFeatureConfiguration(List.of(new WeightedPlacedFeature(WilderTreePlaced.CYPRESS, 0.2F),
-                            new WeightedPlacedFeature(WilderTreePlaced.SHORT_CYPRESS, 0.1F),
-                            new WeightedPlacedFeature(WilderTreePlaced.SWAMP_CYPRESS, 0.85F)), WilderTreePlaced.FUNGUS_CYPRESS));
+                    new RandomFeatureConfiguration(List.of(new WeightedPlacedFeature(WilderTreePlaced.CYPRESS.getHolder(), 0.2F),
+                            new WeightedPlacedFeature(WilderTreePlaced.SHORT_CYPRESS.getHolder(), 0.1F),
+                            new WeightedPlacedFeature(WilderTreePlaced.SWAMP_CYPRESS.getHolder(), 0.85F)), WilderTreePlaced.FUNGUS_CYPRESS.getHolder()));
 
     //FLOWERS
     public static final FrozenConfiguredFeature SEEDING_DANDELION =
@@ -261,7 +282,7 @@ public final class WilderConfiguredFeatures  {
             new VegetationPatchConfiguration(
                     BlockTags.LUSH_GROUND_REPLACEABLE,
                     BlockStateProvider.simple(RegisterBlocks.MESOGLEA.defaultBlockState().setValue(BlockStateProperties.WATERLOGGED, true)),
-                    PlacementUtils.inlinePlaced(CaveFeatures.DRIPLEAF),
+                    PlacementUtils.inlinePlaced(FrozenConfiguredFeatureUtils.getHolder(CaveFeatures.DRIPLEAF)),
                     CaveSurface.FLOOR,
                     ConstantInt.of(3),
                     0.8F,
@@ -271,13 +292,13 @@ public final class WilderConfiguredFeatures  {
                     0.7F
             )
     );
-    public static final FrozenConfiguredFeature BLUE_MESOGLEA_POOL = feature(
+    public static final FrozenConfiguredFeature<VegetationPatchConfiguration, ?> BLUE_MESOGLEA_POOL = feature(
             "mesoglea_pool",
             Feature.WATERLOGGED_VEGETATION_PATCH,
             new VegetationPatchConfiguration(
                     BlockTags.LUSH_GROUND_REPLACEABLE,
                     BlockStateProvider.simple(RegisterBlocks.MESOGLEA.defaultBlockState().setValue(BlockStateProperties.WATERLOGGED, true)),
-                    PlacementUtils.inlinePlaced(CaveFeatures.DRIPLEAF),
+                    PlacementUtils.inlinePlaced(FrozenConfiguredFeatureUtils.getHolder(CaveFeatures.DRIPLEAF)),
                     CaveSurface.FLOOR,
                     ConstantInt.of(3),
                     0.8F,
@@ -291,8 +312,8 @@ public final class WilderConfiguredFeatures  {
             "jellyfish_caves_blue_mesoglea",
             Feature.RANDOM_BOOLEAN_SELECTOR,
             new RandomBooleanFeatureConfiguration(
-                    PlacementUtils.inlinePlaced(BLUE_MESOGLEA.feature, BLUE_MESOGLEA.featureConfiguration),
-                    PlacementUtils.inlinePlaced(BLUE_MESOGLEA_POOL.feature, BLUE_MESOGLEA_POOL.featureConfiguration)
+                    PlacementUtils.inlinePlaced(BLUE_MESOGLEA.getHolder()),
+                    PlacementUtils.inlinePlaced(BLUE_MESOGLEA_POOL.getHolder())
             )
     );
     public static final FrozenConfiguredFeature UPSIDE_DOWN_BLUE_MESOGLEA = feature(
@@ -301,7 +322,7 @@ public final class WilderConfiguredFeatures  {
             new VegetationPatchConfiguration(
                     BlockTags.LUSH_GROUND_REPLACEABLE,
                     BlockStateProvider.simple(RegisterBlocks.MESOGLEA.defaultBlockState().setValue(BlockStateProperties.WATERLOGGED, true)),
-                    PlacementUtils.inlinePlaced(WilderMiscConfigured.DOWNWARDS_MESOGLEA_PILLAR.feature, WilderMiscConfigured.DOWNWARDS_MESOGLEA_PILLAR.featureConfiguration),
+                    PlacementUtils.inlinePlaced(WilderMiscConfigured.DOWNWARDS_MESOGLEA_PILLAR.getFeature(), WilderMiscConfigured.DOWNWARDS_MESOGLEA_PILLAR.getFeatureConfiguration()),
                     CaveSurface.CEILING,
                     ConstantInt.of(3),
                     0.8F,
@@ -317,7 +338,7 @@ public final class WilderConfiguredFeatures  {
             new VegetationPatchConfiguration(
                     BlockTags.LUSH_GROUND_REPLACEABLE,
                     BlockStateProvider.simple(RegisterBlocks.PURPLE_MESOGLEA.defaultBlockState().setValue(BlockStateProperties.WATERLOGGED, true)),
-                    PlacementUtils.inlinePlaced(CaveFeatures.DRIPLEAF),
+                    PlacementUtils.inlinePlaced(FrozenConfiguredFeatureUtils.getHolder(CaveFeatures.DRIPLEAF)),
                     CaveSurface.FLOOR,
                     ConstantInt.of(3),
                     0.8F,
@@ -333,7 +354,7 @@ public final class WilderConfiguredFeatures  {
             new VegetationPatchConfiguration(
                     BlockTags.LUSH_GROUND_REPLACEABLE,
                     BlockStateProvider.simple(RegisterBlocks.PURPLE_MESOGLEA.defaultBlockState().setValue(BlockStateProperties.WATERLOGGED, true)),
-                    PlacementUtils.inlinePlaced(CaveFeatures.DRIPLEAF),
+                    PlacementUtils.inlinePlaced(FrozenConfiguredFeatureUtils.getHolder(CaveFeatures.DRIPLEAF)),
                     CaveSurface.FLOOR,
                     ConstantInt.of(3),
                     0.8F,
@@ -343,12 +364,12 @@ public final class WilderConfiguredFeatures  {
                     0.7F
             )
     );
-    public static final FrozenConfiguredFeature JELLYFISH_CAVES_PURPLE_MESOGLEA = feature(
+    public static final FrozenConfiguredFeature<RandomBooleanFeatureConfiguration, ?> JELLYFISH_CAVES_PURPLE_MESOGLEA = feature(
             "jellyfish_caves_purple_mesoglea",
             Feature.RANDOM_BOOLEAN_SELECTOR,
             new RandomBooleanFeatureConfiguration(
-                    PlacementUtils.inlinePlaced(PURPLE_MESOGLEA.feature, PURPLE_MESOGLEA.featureConfiguration),
-                    PlacementUtils.inlinePlaced(PURPLE_MESOGLEA_POOL.feature, PURPLE_MESOGLEA_POOL.featureConfiguration)
+                    PlacementUtils.inlinePlaced(PURPLE_MESOGLEA.getHolder()),
+                    PlacementUtils.inlinePlaced(PURPLE_MESOGLEA_POOL.getHolder())
             )
     );
     public static final FrozenConfiguredFeature UPSIDE_DOWN_PURPLE_MESOGLEA = feature(
@@ -357,7 +378,7 @@ public final class WilderConfiguredFeatures  {
             new VegetationPatchConfiguration(
                     BlockTags.LUSH_GROUND_REPLACEABLE,
                     BlockStateProvider.simple(RegisterBlocks.PURPLE_MESOGLEA.defaultBlockState().setValue(BlockStateProperties.WATERLOGGED, true)),
-                    PlacementUtils.inlinePlaced(WilderMiscConfigured.DOWNWARDS_PURPLE_MESOGLEA_PILLAR.feature, WilderMiscConfigured.DOWNWARDS_PURPLE_MESOGLEA_PILLAR.featureConfiguration),
+                    PlacementUtils.inlinePlaced(WilderMiscConfigured.DOWNWARDS_PURPLE_MESOGLEA_PILLAR.getFeature(), WilderMiscConfigured.DOWNWARDS_PURPLE_MESOGLEA_PILLAR.getFeatureConfiguration()),
                     CaveSurface.CEILING,
                     ConstantInt.of(3),
                     0.8F,
@@ -441,35 +462,13 @@ public final class WilderConfiguredFeatures  {
 
 	public static void bootstap(BootstapContext<ConfiguredFeature<?, ?>> bootstapContext) throws IllegalAccessException {
 		HolderGetter<ConfiguredFeature<?, ?>> holderGetter = bootstapContext.lookup(Registry.CONFIGURED_FEATURE_REGISTRY);
-		HolderGetter<PlacedFeature> placedHolder = bootstapContext.lookup(Registry.PLACED_FEATURE_REGISTRY);
 		for (Field field : Arrays.stream(WilderConfiguredFeatures.class.getDeclaredFields()).sorted().toList()) {
 			Object whatIsThis = field.get(WilderConfiguredFeatures.class);
 			if (whatIsThis instanceof FrozenConfiguredFeature feature) {
-				FrozenConfiguredFeatureUtils.register(bootstapContext, feature.resourceKey, feature.feature, feature.featureConfiguration);
+				FrozenConfiguredFeatureUtils.register(bootstapContext, feature.getResourceKey(), feature.getFeature(), feature.getFeatureConfiguration());
 			}
 		}
-		FrozenConfiguredFeatureUtils.register(bootstapContext, FALLEN_TREES_MIXED, Feature.RANDOM_SELECTOR,
-				new RandomFeatureConfiguration(List.of((new WeightedPlacedFeature(placedHolder.getOrThrow(WilderTreePlaced.FALLEN_SPRUCE_CHECKED.resourceKey), 0.4F)),
-						new WeightedPlacedFeature(placedHolder.getOrThrow(WilderTreePlaced.NEW_FALLEN_BIRCH_CHECKED.resourceKey), 0.3F)), placedHolder.getOrThrow(WilderTreePlaced.NEW_FALLEN_OAK_CHECKED.resourceKey)));
-		FrozenConfiguredFeatureUtils.register(bootstapContext, FALLEN_BIRCH, Feature.RANDOM_SELECTOR,
-				new RandomFeatureConfiguration(List.of(new WeightedPlacedFeature(placedHolder.getOrThrow(WilderTreePlaced.NEW_FALLEN_BIRCH_CHECKED.resourceKey), 1.0F)), placedHolder.getOrThrow(WilderTreePlaced.NEW_FALLEN_BIRCH_CHECKED.resourceKey)));
-		FrozenConfiguredFeatureUtils.register(bootstapContext, FALLEN_SPRUCE, Feature.RANDOM_SELECTOR,
-				new RandomFeatureConfiguration(List.of(new WeightedPlacedFeature(placedHolder.getOrThrow(WilderTreePlaced.FALLEN_SPRUCE_CHECKED.resourceKey), 1.0F)), placedHolder.getOrThrow(WilderTreePlaced.FALLEN_SPRUCE_CHECKED.resourceKey)));
-		FrozenConfiguredFeatureUtils.register(bootstapContext, FALLEN_SPRUCE_AND_OAK, Feature.RANDOM_SELECTOR,
-				new RandomFeatureConfiguration(List.of(new WeightedPlacedFeature(placedHolder.getOrThrow(WilderTreePlaced.FALLEN_SPRUCE_CHECKED.resourceKey), 0.55F)), placedHolder.getOrThrow(WilderTreePlaced.NEW_FALLEN_OAK_CHECKED.resourceKey)));
-		FrozenConfiguredFeatureUtils.register(bootstapContext, NEW_FALLEN_BIRCH_AND_OAK, Feature.RANDOM_SELECTOR,
-				new RandomFeatureConfiguration(List.of(new WeightedPlacedFeature(placedHolder.getOrThrow(WilderTreePlaced.NEW_FALLEN_BIRCH_CHECKED.resourceKey), 0.35F)), placedHolder.getOrThrow(WilderTreePlaced.NEW_FALLEN_OAK_CHECKED.resourceKey)));
-		FrozenConfiguredFeatureUtils.register(bootstapContext, NEW_FALLEN_CYPRESS_AND_OAK, Feature.RANDOM_SELECTOR,
-				new RandomFeatureConfiguration(List.of(new WeightedPlacedFeature(placedHolder.getOrThrow(WilderTreePlaced.NEW_FALLEN_OAK_CHECKED.resourceKey), 0.35F)), placedHolder.getOrThrow(WilderTreePlaced.NEW_FALLEN_CYPRESS_CHECKED.resourceKey)));
 	}
-
-	//FALLEN TREES
-	public static final ResourceKey<ConfiguredFeature<?, ?>> FALLEN_TREES_MIXED = FrozenConfiguredFeatureUtils.createKey(WilderSharedConstants.MOD_ID, "fallen_trees_mixed");
-	public static final ResourceKey<ConfiguredFeature<?, ?>> FALLEN_BIRCH = FrozenConfiguredFeatureUtils.createKey(WilderSharedConstants.MOD_ID, "fallen_birch");
-	public static final ResourceKey<ConfiguredFeature<?, ?>> FALLEN_SPRUCE = FrozenConfiguredFeatureUtils.createKey(WilderSharedConstants.MOD_ID, "fallen_spruce");
-	public static final ResourceKey<ConfiguredFeature<?, ?>> FALLEN_SPRUCE_AND_OAK = FrozenConfiguredFeatureUtils.createKey(WilderSharedConstants.MOD_ID, "fallen_spruce_and_oak");
-	public static final ResourceKey<ConfiguredFeature<?, ?>> NEW_FALLEN_BIRCH_AND_OAK = FrozenConfiguredFeatureUtils.createKey(WilderSharedConstants.MOD_ID, "fallen_birch_and_oak");
-	public static final ResourceKey<ConfiguredFeature<?, ?>> NEW_FALLEN_CYPRESS_AND_OAK = FrozenConfiguredFeatureUtils.createKey(WilderSharedConstants.MOD_ID, "fallen_cypress_and_oak");
 
     private static RandomPatchConfiguration createRandomPatchFeatureConfig(BlockStateProvider block, int tries) {
         return FeatureUtils.simpleRandomPatchConfiguration(tries, PlacementUtils.onlyWhenEmpty(Feature.SIMPLE_BLOCK, new SimpleBlockConfiguration(block)));

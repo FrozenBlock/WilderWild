@@ -206,7 +206,7 @@ public final class WilderTreeConfigured {
 		for (Field field : Arrays.stream(WilderTreeConfigured.class.getDeclaredFields()).sorted().toList()) {
 			Object whatIsThis = field.get(WilderTreeConfigured.class);
 			if (whatIsThis instanceof FrozenConfiguredFeature feature) {
-				FrozenConfiguredFeatureUtils.register(bootstapContext, feature.resourceKey, feature.feature, feature.featureConfiguration);
+				FrozenConfiguredFeatureUtils.register(bootstapContext, feature.getResourceKey(), feature.getFeature(), feature.getFeatureConfiguration());
 			}
 		}
 	}

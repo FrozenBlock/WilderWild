@@ -1,25 +1,18 @@
 package net.frozenblock.wilderwild.world.feature;
 
-import java.lang.reflect.Field;
-import java.util.Arrays;
-import java.util.List;
 import net.frozenblock.lib.worldgen.feature.FrozenConfiguredFeature;
 import net.frozenblock.lib.worldgen.feature.FrozenPlacedFeature;
 import net.frozenblock.lib.worldgen.feature.util.FrozenPlacementUtils;
 import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.frozenblock.wilderwild.registry.RegisterBlocks;
-import net.minecraft.core.Direction;
 import net.minecraft.core.HolderGetter;
 import net.minecraft.core.Registry;
 import net.minecraft.data.worldgen.BootstapContext;
 import net.minecraft.data.worldgen.placement.PlacementUtils;
-import net.minecraft.resources.ResourceKey;
+import static net.minecraft.data.worldgen.placement.TreePlacements.SNOW_TREE_FILTER_DECORATOR;
 import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.levelgen.blockpredicates.BlockPredicate;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
-import net.minecraft.world.level.levelgen.placement.BlockPredicateFilter;
-import net.minecraft.world.level.levelgen.placement.EnvironmentScanPlacement;
 import net.minecraft.world.level.levelgen.placement.PlacedFeature;
 import net.minecraft.world.level.levelgen.placement.PlacementModifier;
 
@@ -27,8 +20,6 @@ public final class WilderTreePlaced {
 	private WilderTreePlaced() {
 		throw new UnsupportedOperationException("WilderTreePlaced contains only static declarations.");
 	}
-
-	private static final List<PlacementModifier> ON_SNOW = List.of(EnvironmentScanPlacement.scanningFor(Direction.UP, BlockPredicate.not(BlockPredicate.matchesBlocks(Blocks.POWDER_SNOW)), 8), BlockPredicateFilter.forPredicate(BlockPredicate.matchesBlocks(Direction.DOWN.getNormal(), Blocks.SNOW_BLOCK, Blocks.POWDER_SNOW)));
 
     //BIRCH
     public static final FrozenPlacedFeature NEW_BIRCH_CHECKED = placedFeature("new_birch_checked", WilderTreeConfigured.NEW_BIRCH_TREE, PlacementUtils.filteredByBlockSurvival(Blocks.BIRCH_SAPLING));
@@ -68,7 +59,7 @@ public final class WilderTreePlaced {
     public static final FrozenPlacedFeature NEW_SPRUCE_SHORT_CHECKED = placedFeature("new_spruce_short_checked", WilderTreeConfigured.NEW_SPRUCE_SHORT, PlacementUtils.filteredByBlockSurvival(Blocks.SPRUCE_SAPLING));
     public static final FrozenPlacedFeature FUNGUS_PINE_CHECKED = placedFeature("fungus_pine_checked", WilderTreeConfigured.FUNGUS_PINE, PlacementUtils.filteredByBlockSurvival(Blocks.SPRUCE_SAPLING));
     public static final FrozenPlacedFeature DYING_FUNGUS_PINE_CHECKED = placedFeature("dying_fungus_pine_checked", WilderTreeConfigured.DYING_FUNGUS_PINE, PlacementUtils.filteredByBlockSurvival(Blocks.SPRUCE_SAPLING));
-    public static final FrozenPlacedFeature FUNGUS_PINE_ON_SNOW = placedFeature("fungus_pine_on_snow", WilderTreeConfigured.FUNGUS_PINE, ON_SNOW);
+    public static final FrozenPlacedFeature FUNGUS_PINE_ON_SNOW = placedFeature("fungus_pine_on_snow", WilderTreeConfigured.FUNGUS_PINE, SNOW_TREE_FILTER_DECORATOR);
     public static final FrozenPlacedFeature MEGA_FUNGUS_SPRUCE_CHECKED = placedFeature("mega_fungus_spruce_checked", WilderTreeConfigured.MEGA_FUNGUS_SPRUCE, PlacementUtils.filteredByBlockSurvival(Blocks.SPRUCE_SAPLING));
     public static final FrozenPlacedFeature MEGA_FUNGUS_PINE_CHECKED = placedFeature("mega_fungus_pine_checked", WilderTreeConfigured.MEGA_FUNGUS_PINE, PlacementUtils.filteredByBlockSurvival(Blocks.SPRUCE_SAPLING));
     public static final FrozenPlacedFeature DYING_MEGA_FUNGUS_PINE_CHECKED = placedFeature("dying_mega_fungus_pine_checked", WilderTreeConfigured.DYING_MEGA_FUNGUS_PINE, PlacementUtils.filteredByBlockSurvival(Blocks.SPRUCE_SAPLING));
@@ -86,34 +77,11 @@ public final class WilderTreePlaced {
     public static final FrozenPlacedFeature SWAMP_CYPRESS = placedFeature("swamp_cypress", WilderTreeConfigured.SWAMP_CYPRESS, PlacementUtils.filteredByBlockSurvival(RegisterBlocks.CYPRESS_SAPLING));
     public static final FrozenPlacedFeature NEW_FALLEN_CYPRESS_CHECKED = placedFeature("new_fallen_cypress_checked", WilderTreeConfigured.NEW_FALLEN_CYPRESS_TREE, PlacementUtils.filteredByBlockSurvival(RegisterBlocks.CYPRESS_SAPLING));
 
-
-	public static void bootstap(BootstapContext<PlacedFeature> bootstapContext) throws IllegalAccessException {
-		HolderGetter<ConfiguredFeature<?, ?>> holderGetter = bootstapContext.lookup(Registry.CONFIGURED_FEATURE_REGISTRY);
-		for (Field field : Arrays.stream(WilderTreePlaced.class.getDeclaredFields()).sorted().toList()) {
-			Object whatIsThis = field.get(WilderTreePlaced.class);
-			if (whatIsThis instanceof FrozenPlacedFeature feature) {
-				FrozenPlacementUtils.register(bootstapContext, feature.resourceKey, holderGetter.getOrThrow(feature.featureKey), feature.placementModifiers);
-			}
-		}
-	}
-
     public static void registerTreePlaced() {
         WilderWild.logWild("Registering WilderTreePlaced for", true);
     }
 
 	private static FrozenPlacedFeature placedFeature(String id, FrozenConfiguredFeature feature, PlacementModifier... placementModifiers) {
-		return new FrozenPlacedFeature(FrozenPlacementUtils.createKey(WilderSharedConstants.MOD_ID, id), feature.resourceKey, placementModifiers);
-	}
-
-	private static FrozenPlacedFeature placedFeature(String id, FrozenConfiguredFeature feature, List<PlacementModifier> modifiers) {
-		return new FrozenPlacedFeature(FrozenPlacementUtils.createKey(WilderSharedConstants.MOD_ID, id), feature.resourceKey, (PlacementModifier[]) modifiers.toArray());
-	}
-
-	private static FrozenPlacedFeature placedFeature(String id, ResourceKey<ConfiguredFeature<?, ?>> featureKey, PlacementModifier... placementModifiers) {
-		return new FrozenPlacedFeature(FrozenPlacementUtils.createKey(WilderSharedConstants.MOD_ID, id), featureKey, placementModifiers);
-	}
-
-	private static FrozenPlacedFeature placedFeature(String id, ResourceKey<ConfiguredFeature<?, ?>> featureKey, List<PlacementModifier> modifiers) {
-		return new FrozenPlacedFeature(FrozenPlacementUtils.createKey(WilderSharedConstants.MOD_ID, id), featureKey, (PlacementModifier[]) modifiers.toArray());
+		return FrozenPlacementUtils.placedFeature(WilderSharedConstants.MOD_ID, id, feature, placementModifiers);
 	}
 }
