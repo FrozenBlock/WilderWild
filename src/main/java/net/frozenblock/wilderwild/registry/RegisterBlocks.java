@@ -317,6 +317,7 @@ public final class RegisterBlocks {
     public static final Block CATTAIL = new WaterloggableTallFlowerBlock(FabricBlockSettings.copyOf(Blocks.ROSE_BUSH).sounds(SoundType.WET_GRASS).strength(0.0F).nonOpaque());
     public static final Block FLOWERING_LILY_PAD = new FloweringLilyPadBlock(FabricBlockSettings.copyOf(Blocks.LILY_PAD).sounds(RegisterBlockSoundGroups.LILYPAD));
     public static final Block ALGAE = new AlgaeBlock(FabricBlockSettings.of(ALGAE_MATERIAL).breakInstantly().nonOpaque().noCollision().sounds(SoundType.SLIME_BLOCK));
+	public static final Block SHRUB = new ShrubBlock(FabricBlockSettings.of(Material.PLANT).breakInstantly().sounds(SoundType.AZALEA));
 
     public static final Block POTTED_BIG_DRIPLEAF = new FlowerPotBlock(Blocks.BIG_DRIPLEAF, FabricBlockSettings.of(Material.DECORATION).breakInstantly().nonOpaque());
     public static final Block POTTED_SMALL_DRIPLEAF = new FlowerPotBlock(Blocks.SMALL_DRIPLEAF, FabricBlockSettings.of(Material.DECORATION).breakInstantly().nonOpaque());
@@ -338,6 +339,7 @@ public final class RegisterBlocks {
         registerBlock("datura", DATURA, CreativeModeTab.TAB_DECORATIONS);
         registerBlock("milkweed", MILKWEED, CreativeModeTab.TAB_DECORATIONS);
         registerBlock("cattail", CATTAIL, CreativeModeTab.TAB_DECORATIONS);
+		registerBlock("shrub", SHRUB, CreativeModeTab.TAB_DECORATIONS);
     }
 
     public static final Block BROWN_SHELF_FUNGUS = new ShelfFungusBlock(FabricBlockSettings.copyOf(Blocks.BROWN_MUSHROOM_BLOCK).luminance(1).collidable(false).nonOpaque().sounds(RegisterBlockSoundGroups.MUSHROOM));
