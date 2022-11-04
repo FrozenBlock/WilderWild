@@ -76,7 +76,7 @@ public final class WilderMiscConfigured {
 	public static final ResourceKey<ConfiguredFeature<?, ?>> DEEPSLATE_POOL = FrozenConfiguredFeatureUtils.createKey(WilderSharedConstants.MOD_ID, "deepslate_pool");
 	public static final ResourceKey<ConfiguredFeature<?, ?>> STONE_POOL = FrozenConfiguredFeatureUtils.createKey(WilderSharedConstants.MOD_ID, "stone_pool");
 
-    public static void FrozenConfiguredFeatureMiscConfigured() {
+    public static void registerMiscConfigured() {
         WilderWild.logWild("Registering WilderMiscConfigured for", true);
     }
 
