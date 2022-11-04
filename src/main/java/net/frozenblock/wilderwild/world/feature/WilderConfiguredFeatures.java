@@ -311,8 +311,8 @@ public final class WilderConfiguredFeatures  {
             "jellyfish_caves_blue_mesoglea",
             Feature.RANDOM_BOOLEAN_SELECTOR,
             new RandomBooleanFeatureConfiguration(
-                    PlacementUtils.inlinePlaced(BLUE_MESOGLEA),
-                    PlacementUtils.inlinePlaced(BLUE_MESOGLEA_POOL)
+                    PlacementUtils.inlinePlaced(BLUE_MESOGLEA.feature, BLUE_MESOGLEA.featureConfiguration),
+                    PlacementUtils.inlinePlaced(BLUE_MESOGLEA_POOL.feature, BLUE_MESOGLEA_POOL.featureConfiguration)
             )
     );
     public static final FrozenConfiguredFeature UPSIDE_DOWN_BLUE_MESOGLEA = feature(
@@ -321,7 +321,7 @@ public final class WilderConfiguredFeatures  {
             new VegetationPatchConfiguration(
                     BlockTags.LUSH_GROUND_REPLACEABLE,
                     BlockStateProvider.simple(RegisterBlocks.MESOGLEA.defaultBlockState().setValue(BlockStateProperties.WATERLOGGED, true)),
-                    PlacementUtils.inlinePlaced(WilderMiscConfigured.DOWNWARDS_MESOGLEA_PILLAR),
+                    PlacementUtils.inlinePlaced(WilderMiscConfigured.DOWNWARDS_MESOGLEA_PILLAR.feature, WilderMiscConfigured.DOWNWARDS_MESOGLEA_PILLAR.featureConfiguration),
                     CaveSurface.CEILING,
                     ConstantInt.of(3),
                     0.8F,
@@ -367,8 +367,8 @@ public final class WilderConfiguredFeatures  {
             "jellyfish_caves_purple_mesoglea",
             Feature.RANDOM_BOOLEAN_SELECTOR,
             new RandomBooleanFeatureConfiguration(
-                    PlacementUtils.inlinePlaced(PURPLE_MESOGLEA),
-                    PlacementUtils.inlinePlaced(PURPLE_MESOGLEA_POOL)
+                    PlacementUtils.inlinePlaced(PURPLE_MESOGLEA.feature, PURPLE_MESOGLEA.featureConfiguration),
+                    PlacementUtils.inlinePlaced(PURPLE_MESOGLEA_POOL.feature, PURPLE_MESOGLEA_POOL.featureConfiguration)
             )
     );
     public static final FrozenConfiguredFeature UPSIDE_DOWN_PURPLE_MESOGLEA = feature(
@@ -377,7 +377,7 @@ public final class WilderConfiguredFeatures  {
             new VegetationPatchConfiguration(
                     BlockTags.LUSH_GROUND_REPLACEABLE,
                     BlockStateProvider.simple(RegisterBlocks.PURPLE_MESOGLEA.defaultBlockState().setValue(BlockStateProperties.WATERLOGGED, true)),
-                    PlacementUtils.inlinePlaced(WilderMiscConfigured.DOWNWARDS_PURPLE_MESOGLEA_PILLAR),
+                    PlacementUtils.inlinePlaced(WilderMiscConfigured.DOWNWARDS_PURPLE_MESOGLEA_PILLAR.feature, WilderMiscConfigured.DOWNWARDS_PURPLE_MESOGLEA_PILLAR.featureConfiguration),
                     CaveSurface.CEILING,
                     ConstantInt.of(3),
                     0.8F,
