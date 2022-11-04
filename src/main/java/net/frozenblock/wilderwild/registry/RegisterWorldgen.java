@@ -7,8 +7,8 @@ import net.frozenblock.wilderwild.world.feature.WilderMiscPlaced;
 import net.frozenblock.wilderwild.world.feature.WilderPlacedFeatures;
 import net.frozenblock.wilderwild.world.gen.SharedWorldgen;
 import net.frozenblock.wilderwild.world.gen.noise.WilderNoise;
+import net.minecraft.core.HolderGetter;
 import net.minecraft.core.Registry;
-import net.minecraft.data.BuiltinRegistries;
 import net.minecraft.data.worldgen.BiomeDefaultFeatures;
 import net.minecraft.data.worldgen.BootstapContext;
 import net.minecraft.data.worldgen.biome.OverworldBiomes;
@@ -28,6 +28,8 @@ import net.minecraft.world.level.biome.BiomeGenerationSettings;
 import net.minecraft.world.level.biome.BiomeSpecialEffects;
 import net.minecraft.world.level.biome.MobSpawnSettings;
 import net.minecraft.world.level.levelgen.GenerationStep;
+import net.minecraft.world.level.levelgen.carver.ConfiguredWorldCarver;
+import net.minecraft.world.level.levelgen.placement.PlacedFeature;
 import org.jetbrains.annotations.NotNull;
 import org.quiltmc.qsl.frozenblock.worldgen.surface_rule.api.SurfaceRuleContext;
 import org.quiltmc.qsl.frozenblock.worldgen.surface_rule.api.SurfaceRuleEvents;
@@ -40,9 +42,11 @@ public final class RegisterWorldgen implements SurfaceRuleEvents.OverworldModifi
 
     public static void registerWorldgen(BootstapContext<Biome> bootstrapContext) {
         WilderWild.logWild("Registering Biomes for", WilderSharedConstants.UNSTABLE_LOGGING);
-		bootstrapContext.register(CYPRESS_WETLANDS, cypressWetlands());
-		bootstrapContext.register(JELLYFISH_CAVES, jellyfishCaves());
-		bootstrapContext.register(MIXED_FOREST, mixedForest());
+		HolderGetter<PlacedFeature> placedFeatures = bootstrapContext.lookup(Registry.PLACED_FEATURE_REGISTRY);
+		HolderGetter<ConfiguredWorldCarver<?>> worldCarvers = bootstrapContext.lookup(Registry.CONFIGURED_CARVER_REGISTRY);
+		bootstrapContext.register(CYPRESS_WETLANDS, cypressWetlands(placedFeatures, worldCarvers));
+		bootstrapContext.register(JELLYFISH_CAVES, jellyfishCaves(placedFeatures, worldCarvers));
+		bootstrapContext.register(MIXED_FOREST, mixedForest(placedFeatures, worldCarvers));
 
         WilderNoise.init();
     }
@@ -74,12 +78,12 @@ public final class RegisterWorldgen implements SurfaceRuleEvents.OverworldModifi
         return ResourceKey.create(Registry.BIOME_REGISTRY, WilderSharedConstants.id(name));
     }
 
-    public static Biome mixedForest() {
+    public static Biome mixedForest(HolderGetter<PlacedFeature> placedFeatures, HolderGetter<ConfiguredWorldCarver<?>> worldCarvers) {
         MobSpawnSettings.Builder builder = new MobSpawnSettings.Builder();
         BiomeDefaultFeatures.commonSpawns(builder);
         BiomeDefaultFeatures.plainsSpawns(builder);
         builder.addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(EntityType.WOLF, 5, 4, 4));
-        BiomeGenerationSettings.Builder builder2 = new BiomeGenerationSettings.Builder();
+        BiomeGenerationSettings.Builder builder2 = new BiomeGenerationSettings.Builder(placedFeatures, worldCarvers);
         addMixedForestFeatures(builder2);
         Music musicSound = Musics.createGameMusic(RegisterSounds.MUSIC_OVERWORLD_WILD_FORESTS);
         return new Biome.BiomeBuilder()
@@ -91,7 +95,7 @@ public final class RegisterWorldgen implements SurfaceRuleEvents.OverworldModifi
                                 .waterColor(4159204)
                                 .waterFogColor(329011)
                                 .fogColor(12638463)
-                                .skyColor(jungle().getSkyColor())
+                                .skyColor(jungle(placedFeatures, worldCarvers).getSkyColor())
                                 .foliageColorOverride(5879634)
                                 .grassColorOverride(8437607)
                                 .ambientMoodSound(AmbientMoodSettings.LEGACY_CAVE_SETTINGS)
@@ -101,11 +105,11 @@ public final class RegisterWorldgen implements SurfaceRuleEvents.OverworldModifi
                 .build();
     }
 
-    public static Biome cypressWetlands() {
+    public static Biome cypressWetlands(HolderGetter<PlacedFeature> placedFeatures, HolderGetter<ConfiguredWorldCarver<?>> worldCarvers) {
         MobSpawnSettings.Builder builder = new MobSpawnSettings.Builder();
         BiomeDefaultFeatures.commonSpawns(builder);
         addCypressWetlandsMobs(builder);
-        BiomeGenerationSettings.Builder builder2 = new BiomeGenerationSettings.Builder();
+        BiomeGenerationSettings.Builder builder2 = new BiomeGenerationSettings.Builder(placedFeatures, worldCarvers);
         addCypressWetlandsFeatures(builder2);
         Music musicSound = Musics.createGameMusic(RegisterSounds.MUSIC_OVERWORLD_WILD_FORESTS);
         return new Biome.BiomeBuilder()
@@ -117,7 +121,7 @@ public final class RegisterWorldgen implements SurfaceRuleEvents.OverworldModifi
                                 .waterColor(4552818)
                                 .waterFogColor(4552818)
                                 .fogColor(12638463)
-                                .skyColor(swamp().getSkyColor())
+                                .skyColor(swamp(placedFeatures, worldCarvers).getSkyColor())
                                 .foliageColorOverride(5877296)
                                 .grassColorOverride(7979098)
                                 .ambientMoodSound(AmbientMoodSettings.LEGACY_CAVE_SETTINGS)
@@ -127,10 +131,10 @@ public final class RegisterWorldgen implements SurfaceRuleEvents.OverworldModifi
                 .build();
     }
 
-    public static Biome jellyfishCaves() {
+    public static Biome jellyfishCaves(HolderGetter<PlacedFeature> placedFeatures, HolderGetter<ConfiguredWorldCarver<?>> worldCarvers) {
         MobSpawnSettings.Builder builder = new MobSpawnSettings.Builder();
         BiomeDefaultFeatures.commonSpawns(builder);
-        BiomeGenerationSettings.Builder builder2 = new BiomeGenerationSettings.Builder();
+        BiomeGenerationSettings.Builder builder2 = new BiomeGenerationSettings.Builder(placedFeatures, worldCarvers);
         addJellyfishCavesFeatures(builder2);
         Music music = Musics.createGameMusic(RegisterSounds.MUSIC_OVERWORLD_JELLYFISH_CAVES);
         return new Biome.BiomeBuilder()
