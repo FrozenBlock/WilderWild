@@ -3,14 +3,11 @@ package net.frozenblock.wilderwild.world.feature;
 import java.lang.reflect.Field;
 import java.util.Arrays;
 import java.util.List;
-import net.frozenblock.lib.FrozenModIDAnnotation;
 import net.frozenblock.lib.worldgen.feature.FrozenConfiguredFeature;
-import net.frozenblock.lib.worldgen.feature.FrozenPlacedFeature;
 import net.frozenblock.lib.worldgen.feature.util.FrozenConfiguredFeatureUtils;
-import net.frozenblock.lib.worldgen.feature.util.FrozenPlacementUtils;
 import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
-import net.frozenblock.wilderwild.registry.FrozenConfiguredFeatureBlocks;
+import net.frozenblock.wilderwild.registry.RegisterBlocks;
 import net.frozenblock.wilderwild.tag.WilderBlockTags;
 import net.frozenblock.wilderwild.world.feature.features.config.PathFeatureConfig;
 import net.frozenblock.wilderwild.world.feature.features.config.WilderPillarConfig;
@@ -20,6 +17,7 @@ import net.minecraft.core.HolderSet;
 import net.minecraft.core.Registry;
 import net.minecraft.data.worldgen.BootstapContext;
 import net.minecraft.data.worldgen.placement.PlacementUtils;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.util.valueproviders.ConstantInt;
 import net.minecraft.util.valueproviders.UniformInt;
@@ -38,7 +36,7 @@ import net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProvi
 import net.minecraft.world.level.levelgen.feature.stateproviders.RuleBasedBlockStateProvider;
 import net.minecraft.world.level.levelgen.feature.stateproviders.SimpleStateProvider;
 import net.minecraft.world.level.levelgen.placement.CaveSurface;
-import net.minecraft.world.level.levelgen.placement.PlacedFeature;
+import net.minecraft.world.level.levelgen.structure.templatesystem.BlockMatchTest;
 import net.minecraft.world.level.levelgen.structure.templatesystem.RuleTest;
 import net.minecraft.world.level.levelgen.structure.templatesystem.TagMatchTest;
 import net.minecraft.world.level.material.Fluids;
@@ -65,17 +63,18 @@ public final class WilderMiscConfigured {
     public static final RuleTest PACKED_MUD_REPLACEABLE = new TagMatchTest(WilderBlockTags.PACKED_MUD_REPLACEABLE);
     public static final FrozenConfiguredFeature ORE_PACKED_MUD = feature("ore_packed_mud", Feature.ORE, new OreConfiguration(PACKED_MUD_REPLACEABLE, Blocks.PACKED_MUD.defaultBlockState(), 40));
 
-    public static final FrozenConfiguredFeature ORE_CALCITE = feature("ore_calcite", Feature.ORE, new OreConfiguration(NATURAL_STONE, Blocks.CALCITE.defaultBlockState(), 64));
+    public static final FrozenConfiguredFeature ORE_CALCITE = feature("ore_calcite", Feature.ORE, new OreConfiguration(new BlockMatchTest(Blocks.STONE), Blocks.CALCITE.defaultBlockState(), 64));
     public static final FrozenConfiguredFeature BLANK_SHUT_UP = feature("blank_shut_up", Feature.SIMPLE_RANDOM_SELECTOR, new SimpleRandomFeatureConfiguration(HolderSet.direct(
             PlacementUtils.inlinePlaced(Feature.SIMPLE_BLOCK, new SimpleBlockConfiguration(new SimpleStateProvider(Blocks.WATER.defaultBlockState())))))
     );
-    public static final FrozenConfiguredFeature DEEPSLATE_POOL = feature("deepslate_pool", Feature.WATERLOGGED_VEGETATION_PATCH, new VegetationPatchConfiguration(BlockTags.LUSH_GROUND_REPLACEABLE, BlockStateProvider.simple(Blocks.DEEPSLATE), PlacementUtils.inlinePlaced(BLANK_SHUT_UP), CaveSurface.FLOOR, ConstantInt.of(4), 0.8F, 2, 0.000F, UniformInt.of(12, 15), 0.7F));
-    public static final FrozenConfiguredFeature STONE_POOL = feature("stone_pool", Feature.WATERLOGGED_VEGETATION_PATCH, new VegetationPatchConfiguration(BlockTags.LUSH_GROUND_REPLACEABLE, BlockStateProvider.simple(Blocks.STONE), PlacementUtils.inlinePlaced(BLANK_SHUT_UP), CaveSurface.FLOOR, ConstantInt.of(4), 0.8F, 2, 0.000F, UniformInt.of(12, 15), 0.7F));
-    public static final FrozenConfiguredFeature UPWARDS_MESOGLEA_PILLAR = feature("blue_mesoglea_pillar", WilderWild.UPWARDS_PILLAR_FEATURE, new WilderPillarConfig(FrozenConfiguredFeatureBlocks.MESOGLEA.defaultBlockState().setValue(BlockStateProperties.WATERLOGGED, true), UniformInt.of(4, 12), HolderSet.direct(FrozenConfiguredFeatureBlocks.MESOGLEA.builtInRegistryHolder(), FrozenConfiguredFeatureBlocks.PURPLE_MESOGLEA.builtInRegistryHolder(), Blocks.WATER.builtInRegistryHolder())));
-    public static final FrozenConfiguredFeature PURPLE_MESOGLEA_PILLAR = feature("purple_mesoglea_pillar", WilderWild.UPWARDS_PILLAR_FEATURE, new WilderPillarConfig(FrozenConfiguredFeatureBlocks.PURPLE_MESOGLEA.defaultBlockState().setValue(BlockStateProperties.WATERLOGGED, true), UniformInt.of(4, 12), HolderSet.direct(FrozenConfiguredFeatureBlocks.MESOGLEA.builtInRegistryHolder(), FrozenConfiguredFeatureBlocks.PURPLE_MESOGLEA.builtInRegistryHolder(), Blocks.WATER.builtInRegistryHolder())));
-    public static final FrozenConfiguredFeature DOWNWARDS_MESOGLEA_PILLAR = feature("downwards_blue_mesoglea_pillar", WilderWild.DOWNWARDS_PILLAR_FEATURE, new WilderPillarConfig(FrozenConfiguredFeatureBlocks.MESOGLEA.defaultBlockState().setValue(BlockStateProperties.WATERLOGGED, true), UniformInt.of(3, 10), HolderSet.direct(FrozenConfiguredFeatureBlocks.MESOGLEA.builtInRegistryHolder(), FrozenConfiguredFeatureBlocks.PURPLE_MESOGLEA.builtInRegistryHolder(), Blocks.WATER.builtInRegistryHolder())));
-    public static final FrozenConfiguredFeature DOWNWARDS_PURPLE_MESOGLEA_PILLAR = feature("downwards_purple_mesoglea_pillar", WilderWild.DOWNWARDS_PILLAR_FEATURE, new WilderPillarConfig(FrozenConfiguredFeatureBlocks.PURPLE_MESOGLEA.defaultBlockState().setValue(BlockStateProperties.WATERLOGGED, true), UniformInt.of(3, 10), HolderSet.direct(FrozenConfiguredFeatureBlocks.MESOGLEA.builtInRegistryHolder(), FrozenConfiguredFeatureBlocks.PURPLE_MESOGLEA.builtInRegistryHolder(), Blocks.WATER.builtInRegistryHolder())));
 
+    public static final FrozenConfiguredFeature UPWARDS_MESOGLEA_PILLAR = feature("blue_mesoglea_pillar", WilderWild.UPWARDS_PILLAR_FEATURE, new WilderPillarConfig(RegisterBlocks.MESOGLEA.defaultBlockState().setValue(BlockStateProperties.WATERLOGGED, true), UniformInt.of(4, 12), HolderSet.direct(RegisterBlocks.MESOGLEA.builtInRegistryHolder(), RegisterBlocks.PURPLE_MESOGLEA.builtInRegistryHolder(), Blocks.WATER.builtInRegistryHolder())));
+    public static final FrozenConfiguredFeature PURPLE_MESOGLEA_PILLAR = feature("purple_mesoglea_pillar", WilderWild.UPWARDS_PILLAR_FEATURE, new WilderPillarConfig(RegisterBlocks.PURPLE_MESOGLEA.defaultBlockState().setValue(BlockStateProperties.WATERLOGGED, true), UniformInt.of(4, 12), HolderSet.direct(RegisterBlocks.MESOGLEA.builtInRegistryHolder(), RegisterBlocks.PURPLE_MESOGLEA.builtInRegistryHolder(), Blocks.WATER.builtInRegistryHolder())));
+    public static final FrozenConfiguredFeature DOWNWARDS_MESOGLEA_PILLAR = feature("downwards_blue_mesoglea_pillar", WilderWild.DOWNWARDS_PILLAR_FEATURE, new WilderPillarConfig(RegisterBlocks.MESOGLEA.defaultBlockState().setValue(BlockStateProperties.WATERLOGGED, true), UniformInt.of(3, 10), HolderSet.direct(RegisterBlocks.MESOGLEA.builtInRegistryHolder(), RegisterBlocks.PURPLE_MESOGLEA.builtInRegistryHolder(), Blocks.WATER.builtInRegistryHolder())));
+    public static final FrozenConfiguredFeature DOWNWARDS_PURPLE_MESOGLEA_PILLAR = feature("downwards_purple_mesoglea_pillar", WilderWild.DOWNWARDS_PILLAR_FEATURE, new WilderPillarConfig(RegisterBlocks.PURPLE_MESOGLEA.defaultBlockState().setValue(BlockStateProperties.WATERLOGGED, true), UniformInt.of(3, 10), HolderSet.direct(RegisterBlocks.MESOGLEA.builtInRegistryHolder(), RegisterBlocks.PURPLE_MESOGLEA.builtInRegistryHolder(), Blocks.WATER.builtInRegistryHolder())));
+
+	public static final ResourceKey<ConfiguredFeature<?, ?>> DEEPSLATE_POOL = FrozenConfiguredFeatureUtils.createKey(WilderSharedConstants.MOD_ID, "deepslate_pool");
+	public static final ResourceKey<ConfiguredFeature<?, ?>> STONE_POOL = FrozenConfiguredFeatureUtils.createKey(WilderSharedConstants.MOD_ID, "stone_pool");
 
     public static void FrozenConfiguredFeatureMiscConfigured() {
         WilderWild.logWild("Registering WilderMiscConfigured for", true);
@@ -89,6 +88,8 @@ public final class WilderMiscConfigured {
 				FrozenConfiguredFeatureUtils.register(bootstapContext, feature.resourceKey, feature.feature, feature.featureConfiguration);
 			}
 		}
+		FrozenConfiguredFeatureUtils.register(bootstapContext, DEEPSLATE_POOL, Feature.WATERLOGGED_VEGETATION_PATCH, new VegetationPatchConfiguration(BlockTags.LUSH_GROUND_REPLACEABLE, BlockStateProvider.simple(Blocks.DEEPSLATE), PlacementUtils.inlinePlaced(holderGetter.getOrThrow(BLANK_SHUT_UP.resourceKey)), CaveSurface.FLOOR, ConstantInt.of(4), 0.8F, 2, 0.000F, UniformInt.of(12, 15), 0.7F));
+		FrozenConfiguredFeatureUtils.register(bootstapContext, STONE_POOL, Feature.WATERLOGGED_VEGETATION_PATCH, new VegetationPatchConfiguration(BlockTags.LUSH_GROUND_REPLACEABLE, BlockStateProvider.simple(Blocks.STONE), PlacementUtils.inlinePlaced(holderGetter.getOrThrow(BLANK_SHUT_UP.resourceKey)), CaveSurface.FLOOR, ConstantInt.of(4), 0.8F, 2, 0.000F, UniformInt.of(12, 15), 0.7F));
 	}
 
 	private static FrozenConfiguredFeature feature(String id, Feature feature, FeatureConfiguration featureConfiguration) {
