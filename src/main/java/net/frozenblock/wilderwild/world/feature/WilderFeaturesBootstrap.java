@@ -31,14 +31,14 @@ public final class WilderFeaturesBootstrap {
 		addEntries(entries);
 		WilderPlacedFeatures.init();
 		addEntries(entries);
-		FROZEN_CONFIGURED_FEATURES.clear();
-		REGISTERED_CONFIGURED_FEATURES.clear();
-		FROZEN_PLACED_FEATURES.clear();
-		REGISTERED_PLACED_FEATURES.clear();
+		//FROZEN_CONFIGURED_FEATURES.clear();
+		//REGISTERED_CONFIGURED_FEATURES.clear();
+		//FROZEN_PLACED_FEATURES.clear();
+		//REGISTERED_PLACED_FEATURES.clear();
 	}
 
 	private static synchronized void addEntries(FabricWorldgenProvider.Entries entries) {
-		for (FrozenConfiguredFeature feature : FROZEN_CONFIGURED_FEATURES) {
+		for (FrozenConfiguredFeature<?, ?> feature : FROZEN_CONFIGURED_FEATURES) {
 			if (!REGISTERED_CONFIGURED_FEATURES.contains(feature)) {
 				REGISTERED_CONFIGURED_FEATURES.add(feature);
 				entries.add(feature.getResourceKey(), feature.getConfiguredFeature());

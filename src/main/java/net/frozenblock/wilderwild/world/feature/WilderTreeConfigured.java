@@ -4,6 +4,7 @@ import com.google.common.collect.ImmutableList;
 import java.util.List;
 import java.util.Optional;
 import java.util.OptionalInt;
+import net.fabricmc.fabric.api.datagen.v1.provider.FabricWorldgenProvider;
 import net.frozenblock.lib.worldgen.feature.FrozenConfiguredFeature;
 import net.frozenblock.lib.worldgen.feature.util.FrozenConfiguredFeatureUtils;
 import net.frozenblock.wilderwild.WilderWild;
@@ -193,8 +194,9 @@ public final class WilderTreeConfigured {
         return fallenTrunkBuilder(RegisterBlocks.HOLLOWED_SPRUCE_LOG, Blocks.SPRUCE_LEAVES, 5, 1, 2, 0.0F, 0.5F, UniformInt.of(1, 2), UniformInt.of(1, 2), 1).ignoreVines();
     }
 
-	public static void registerTreeConfigured() {
+	public static void registerTreeConfigured(/*FabricWorldgenProvider.Entries entries*/) {
         WilderWild.logWild("Registering WilderTreeConfigured for", true);
+
     }
 
 	private static FrozenConfiguredFeature feature(String id, Feature feature, FeatureConfiguration featureConfiguration) {
