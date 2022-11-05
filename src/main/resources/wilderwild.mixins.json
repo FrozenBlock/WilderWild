@@ -35,7 +35,6 @@
     "server.SoulFireBlockMixin",
     "server.SpawnPlacementsMixin",
     "server.TurtleMixin",
-    "server.VanillaRegistriesMixin",
     "server.WardenMixin",
     "worldgen.BirchTreeGrowerMixin",
     "worldgen.DarkOakTreeGrowerMixin",

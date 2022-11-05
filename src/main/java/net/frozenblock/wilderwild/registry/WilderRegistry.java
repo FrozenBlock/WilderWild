@@ -51,10 +51,5 @@ public final class WilderRegistry {
     }};
 
     public static void initRegistry() {
-		createLookup();
     }
-
-	public static HolderLookup.Provider createLookup() {
-		return VanillaRegistries.createLookup();
-	}
 }

@@ -4,6 +4,7 @@ import com.google.common.collect.ImmutableList;
 import com.mojang.datafixers.util.Either;
 import com.mojang.datafixers.util.Pair;
 import java.util.function.Function;
+import net.fabricmc.fabric.api.datagen.v1.provider.FabricWorldgenProvider;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderGetter;
@@ -25,10 +26,10 @@ public class AbandonedCabinGenerator {
 
 	public static final ResourceKey<StructureTemplatePool> CABIN = createKey("abandoned_cabin/cabin");
 
-	public static void bootstrap(BootstapContext<StructureTemplatePool> bootstrapContext) {
-		HolderGetter<StructureTemplatePool> holderGetter2 = bootstrapContext.lookup(Registry.TEMPLATE_POOL_REGISTRY);
+	public static void bootstrap(FabricWorldgenProvider.Entries entries) {
+		HolderGetter<StructureTemplatePool> holderGetter2 = entries.getLookup(Registry.TEMPLATE_POOL_REGISTRY);
 		Holder<StructureTemplatePool> holder2 = holderGetter2.getOrThrow(Pools.EMPTY);
-		bootstrapContext.register(
+		entries.add(
 				CABIN,
 				new StructureTemplatePool(
 						holder2,

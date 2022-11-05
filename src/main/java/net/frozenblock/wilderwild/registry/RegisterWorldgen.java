@@ -1,5 +1,6 @@
 package net.frozenblock.wilderwild.registry;
 
+import net.fabricmc.fabric.api.datagen.v1.provider.FabricWorldgenProvider;
 import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.frozenblock.wilderwild.misc.config.ClothConfigInteractionHandler;
@@ -40,13 +41,13 @@ public final class RegisterWorldgen implements SurfaceRuleEvents.OverworldModifi
 	public static final ResourceKey<Biome> JELLYFISH_CAVES = register("jellyfish_caves");
     public static final ResourceKey<Biome> MIXED_FOREST = register("mixed_forest");
 
-    public static void registerWorldgen(BootstapContext<Biome> bootstrapContext) {
+    public static void registerWorldgen(FabricWorldgenProvider.Entries entries) {
         WilderWild.logWild("Registering Biomes for", WilderSharedConstants.UNSTABLE_LOGGING);
-		HolderGetter<PlacedFeature> placedFeatures = bootstrapContext.lookup(Registry.PLACED_FEATURE_REGISTRY);
-		HolderGetter<ConfiguredWorldCarver<?>> worldCarvers = bootstrapContext.lookup(Registry.CONFIGURED_CARVER_REGISTRY);
-		bootstrapContext.register(CYPRESS_WETLANDS, cypressWetlands(placedFeatures, worldCarvers));
-		bootstrapContext.register(JELLYFISH_CAVES, jellyfishCaves(placedFeatures, worldCarvers));
-		bootstrapContext.register(MIXED_FOREST, mixedForest(placedFeatures, worldCarvers));
+		HolderGetter<PlacedFeature> placedFeatures = entries.getLookup(Registry.PLACED_FEATURE_REGISTRY);
+		HolderGetter<ConfiguredWorldCarver<?>> worldCarvers = entries.getLookup(Registry.CONFIGURED_CARVER_REGISTRY);
+		entries.add(CYPRESS_WETLANDS, cypressWetlands(placedFeatures, worldCarvers));
+		entries.add(JELLYFISH_CAVES, jellyfishCaves(placedFeatures, worldCarvers));
+		entries.add(MIXED_FOREST, mixedForest(placedFeatures, worldCarvers));
 
         WilderNoise.init();
     }

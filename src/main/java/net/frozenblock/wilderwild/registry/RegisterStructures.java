@@ -1,6 +1,7 @@
 package net.frozenblock.wilderwild.registry;
 
 import java.util.Map;
+import net.fabricmc.fabric.api.datagen.v1.provider.FabricWorldgenProvider;
 import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.frozenblock.wilderwild.tag.WilderBiomeTags;
@@ -72,9 +73,9 @@ public final class RegisterStructures {
         return createConfig(biomeTag, Map.of(), GenerationStep.Decoration.SURFACE_STRUCTURES, terrainAdaptation);
     }
 
-	public static void bootstrap(BootstapContext<Structure> bootstrapContext) {
-		var holderGetter = bootstrapContext.lookup(Registry.TEMPLATE_POOL_REGISTRY);
-		bootstrapContext.register(
+	public static void bootstrap(FabricWorldgenProvider.Entries entries) {
+		var holderGetter = entries.getLookup(Registry.TEMPLATE_POOL_REGISTRY);
+		entries.add(
 				ABANDONED_CABIN_KEY,
 				new JigsawStructure(
 						createConfig(
@@ -92,11 +93,11 @@ public final class RegisterStructures {
 		);
 	}
 
-	public static void bootstrapSet(BootstapContext<StructureSet> bootstrapContext) {
-		bootstrapContext.register(
+	public static void bootstrapSet(FabricWorldgenProvider.Entries entries) {
+		entries.add(
 				ABANDONED_CABINS_KEY,
 				new StructureSet(
-						bootstrapContext.lookup(Registry.STRUCTURE_REGISTRY).getOrThrow(ABANDONED_CABIN_KEY),
+						entries.getLookup(Registry.STRUCTURE_REGISTRY).getOrThrow(ABANDONED_CABIN_KEY),
 						new RandomSpreadStructurePlacement(13, 5, RandomSpreadType.LINEAR, 20388232) // ancient city salt is 20083232
 				)
 		);

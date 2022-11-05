@@ -2,6 +2,7 @@ package net.frozenblock.wilderwild.world.structure;
 
 import com.google.common.collect.ImmutableList;
 import java.util.List;
+import net.fabricmc.fabric.api.datagen.v1.provider.FabricWorldgenProvider;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
@@ -21,9 +22,9 @@ public class WilderStructureProcessors {
 
 	public static final ResourceKey<StructureProcessorList> ABANDONED_CABIN = createKey("abandoned_cabin");
 
-    public static void bootstrap(BootstapContext<StructureProcessorList> bootstrapContext) {
+    public static void bootstrap(FabricWorldgenProvider.Entries entries) {
 		register(
-				bootstrapContext,
+				entries,
 				ABANDONED_CABIN,
 				ImmutableList.of(
 						new RuleProcessor(
@@ -50,8 +51,8 @@ public class WilderStructureProcessors {
 	}
 
 	private static void register(
-			BootstapContext<StructureProcessorList> bootstapContext, ResourceKey<StructureProcessorList> registryKey, List<StructureProcessor> list
+			FabricWorldgenProvider.Entries entries, ResourceKey<StructureProcessorList> registryKey, List<StructureProcessor> list
 	) {
-		bootstapContext.register(registryKey, new StructureProcessorList(list));
+		entries.add(registryKey, new StructureProcessorList(list));
 	}
 }
