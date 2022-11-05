@@ -3,6 +3,7 @@ package net.frozenblock.wilderwild.world.feature;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricWorldgenProvider;
 import net.frozenblock.lib.worldgen.feature.FrozenConfiguredFeature;
 import net.frozenblock.lib.worldgen.feature.FrozenPlacedFeature;
+import net.frozenblock.wilderwild.WilderWild;
 import java.util.ArrayList;
 
 public final class WilderFeaturesBootstrap {
@@ -41,6 +42,7 @@ public final class WilderFeaturesBootstrap {
 		for (FrozenConfiguredFeature<?, ?> feature : FROZEN_CONFIGURED_FEATURES) {
 			if (!REGISTERED_CONFIGURED_FEATURES.contains(feature)) {
 				REGISTERED_CONFIGURED_FEATURES.add(feature);
+				WilderWild.log(feature.getResourceKey().toString(), true);
 				entries.add(feature.getResourceKey(), feature.getConfiguredFeature());
 			}
 		}
