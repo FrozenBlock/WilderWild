@@ -69,9 +69,14 @@ public final class EnderManMixin extends Monster implements WilderEnderman {
 
 	@Inject(method = "onSyncedDataUpdated", at = @At("HEAD"))
 	public void onSyncedDataUpdated(EntityDataAccessor<?> key, CallbackInfo info) {
-		if (DATA_CREEPY.equals(key)) {
+		if (DATA_CREEPY.equals(key) && isCreepy()) {
 			createAngerLoop();
 		}
+	}
+
+	@Unique
+	public boolean isCreepy() {
+		return this.entityData.get(DATA_CREEPY);
 	}
 
 	@Unique
