@@ -65,7 +65,7 @@ public final class WilderTreePlaced {
 
     //SPRUCE
     public static final FrozenPlacedFeature NEW_SPRUCE_CHECKED = placedFeature("new_spruce_checked", WilderTreeConfigured.NEW_SPRUCE, PlacementUtils.filteredByBlockSurvival(Blocks.SPRUCE_SAPLING));
-    public static final FrozenPlacedFeature NEW_SPRUCE_ON_SNOW = placedFeature("new_spruce_on_snow", WilderTreeConfigured.NEW_SPRUCE, ON_SNOW);
+    public static final FrozenPlacedFeature NEW_SPRUCE_ON_SNOW = placedFeature("new_spruce_on_snow", WilderTreeConfigured.NEW_SPRUCE, SNOW_TREE_FILTER_DECORATOR);
     public static final FrozenPlacedFeature NEW_SPRUCE_SHORT_CHECKED = placedFeature("new_spruce_short_checked", WilderTreeConfigured.NEW_SPRUCE_SHORT, PlacementUtils.filteredByBlockSurvival(Blocks.SPRUCE_SAPLING));
     public static final FrozenPlacedFeature FUNGUS_PINE_CHECKED = placedFeature("fungus_pine_checked", WilderTreeConfigured.FUNGUS_PINE, PlacementUtils.filteredByBlockSurvival(Blocks.SPRUCE_SAPLING));
     public static final FrozenPlacedFeature DYING_FUNGUS_PINE_CHECKED = placedFeature("dying_fungus_pine_checked", WilderTreeConfigured.DYING_FUNGUS_PINE, PlacementUtils.filteredByBlockSurvival(Blocks.SPRUCE_SAPLING));

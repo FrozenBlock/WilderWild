@@ -1,10 +1,14 @@
 package net.frozenblock.wilderwild.mixin.server;
 
+import net.frozenblock.wilderwild.registry.RegisterStructures;
 import net.frozenblock.wilderwild.registry.RegisterWorldgen;
 import net.frozenblock.wilderwild.world.feature.WilderConfiguredFeatureBootstrap;
 import net.frozenblock.wilderwild.world.feature.WilderConfiguredFeatures;
 import net.frozenblock.wilderwild.world.feature.WilderPlacedFeatureBootstrap;
 import net.frozenblock.wilderwild.world.feature.WilderPlacedFeatures;
+import net.frozenblock.wilderwild.world.gen.noise.WilderNoise;
+import net.frozenblock.wilderwild.world.structure.AbandonedCabinGenerator;
+import net.frozenblock.wilderwild.world.structure.WilderStructureProcessors;
 import net.minecraft.core.Registry;
 import net.minecraft.core.RegistrySetBuilder;
 import net.minecraft.data.registries.VanillaRegistries;
@@ -24,10 +28,15 @@ public class VanillaRegistriesMixin {
 	@Mutable
 	private static RegistrySetBuilder BUILDER;
 
-	@Inject(method = "<clinit>", at = @At(value = "INVOKE", target = "Lnet/minecraft/core/RegistrySetBuilder;add(Lnet/minecraft/resources/ResourceKey;Lnet/minecraft/core/RegistrySetBuilder$RegistryBootstrap;)Lnet/minecraft/core/RegistrySetBuilder;", ordinal = 14))
+	@Inject(method = "<clinit>", at = @At("TAIL"))
 	private static void addWilderRegistries(CallbackInfo ci) {
 		BUILDER = BUILDER.add(Registry.BIOME_REGISTRY, RegisterWorldgen::registerWorldgen)
 				.add(Registry.CONFIGURED_FEATURE_REGISTRY, WilderConfiguredFeatureBootstrap::bootstrap)
-				.add(Registry.PLACED_FEATURE_REGISTRY, WilderPlacedFeatureBootstrap::bootstrap);
+				.add(Registry.PLACED_FEATURE_REGISTRY, WilderPlacedFeatureBootstrap::bootstrap)
+				.add(Registry.NOISE_REGISTRY, WilderNoise::bootstrap)
+				.add(Registry.STRUCTURE_REGISTRY, RegisterStructures::bootstrap)
+				.add(Registry.STRUCTURE_SET_REGISTRY, RegisterStructures::bootstrapSet)
+				.add(Registry.TEMPLATE_POOL_REGISTRY, AbandonedCabinGenerator::bootstrap)
+				.add(Registry.PROCESSOR_LIST_REGISTRY, WilderStructureProcessors::bootstrap);
 	}
 }

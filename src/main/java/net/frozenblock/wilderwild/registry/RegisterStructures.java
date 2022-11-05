@@ -9,6 +9,8 @@ import net.frozenblock.wilderwild.world.structure.WilderStructureProcessors;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderSet;
 import net.minecraft.core.Registry;
+import net.minecraft.data.registries.VanillaRegistries;
+import net.minecraft.data.worldgen.BootstapContext;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.entity.MobCategory;
@@ -44,37 +46,7 @@ public final class RegisterStructures {
         return registry.holders().iterator().next();
     }
 
-    private static Holder<StructureSet> register(ResourceKey<StructureSet> key, StructureSet structureSet) {
-        return BuiltinRegistries.register(BuiltinRegistries.STRUCTURE_SETS, key, structureSet);
-    }
-
-    private static Holder<StructureSet> register(ResourceKey<StructureSet> key, Holder<Structure> structure, StructurePlacement placement) {
-        return register(key, new StructureSet(structure, placement));
-    }
-
-    private static final ResourceKey<Structure> ABANDONED_CABIN_KEY = of("abandoned_cabin");
-
-    public static final Holder<Structure> ABANDONED_CABIN = register(
-            ABANDONED_CABIN_KEY,
-            new JigsawStructure(
-                    createConfig(
-                            WilderBiomeTags.ABANDONED_CABIN_HAS_STRUCTURE,
-                            //Arrays.stream(MobCategory.values())
-                            //        .collect(Collectors.toMap(spawnGroup -> spawnGroup, spawnGroup -> new StructureSpawnOverride(StructureSpawnOverride.BoundingBoxType.STRUCTURE, WeightedRandomList.create()))),
-                            GenerationStep.Decoration.UNDERGROUND_DECORATION,
-                            TerrainAdjustment.BURY
-                    ),
-                    AbandonedCabinGenerator.CABIN,
-                    5,
-                    UniformHeight.of(VerticalAnchor.absolute(-40), VerticalAnchor.absolute(0)),
-                    false
-            )
-    );
-
-    // ancient city salt is 20083232
-    public static final Holder<StructureSet> ABANDONED_CABINS = register(
-            ABANDONED_CABINS_KEY, ABANDONED_CABIN, new RandomSpreadStructurePlacement(13, 5, RandomSpreadType.LINEAR, 20388232)
-    );
+    private static final ResourceKey<Structure> ABANDONED_CABIN_KEY = createKey("abandoned_cabin");
 
     public static void init() {
         WilderWild.logWild("Registering Structures for", WilderSharedConstants.UNSTABLE_LOGGING);
@@ -82,14 +54,14 @@ public final class RegisterStructures {
         AbandonedCabinGenerator.init();
     }
 
-    private static ResourceKey<Structure> of(String id) {
+    private static ResourceKey<Structure> createKey(String id) {
         return ResourceKey.create(Registry.STRUCTURE_REGISTRY, WilderSharedConstants.id(id));
     }
 
     private static Structure.StructureSettings createConfig(
             TagKey<Biome> biomeTag, Map<MobCategory, StructureSpawnOverride> spawns, GenerationStep.Decoration featureStep, TerrainAdjustment terrainAdaptation
     ) {
-        return new Structure.StructureSettings(getOrCreateBiomeTag(biomeTag), spawns, featureStep, terrainAdaptation);
+        return new Structure.StructureSettings(VanillaRegistries.createLookup().lookupOrThrow(Registry.BIOME_REGISTRY).getOrThrow(biomeTag), spawns, featureStep, terrainAdaptation);
     }
 
     private static Structure.StructureSettings createConfig(TagKey<Biome> biomeTag, GenerationStep.Decoration featureStep, TerrainAdjustment terrainAdaptation) {
@@ -100,11 +72,33 @@ public final class RegisterStructures {
         return createConfig(biomeTag, Map.of(), GenerationStep.Decoration.SURFACE_STRUCTURES, terrainAdaptation);
     }
 
-    private static Holder<Structure> register(ResourceKey<Structure> key, Structure structure) {
-        return BuiltinRegistries.register(BuiltinRegistries.STRUCTURES, key, structure);
-    }
+	public static void bootstrap(BootstapContext<Structure> bootstrapContext) {
+		var holderGetter = bootstrapContext.lookup(Registry.TEMPLATE_POOL_REGISTRY);
+		bootstrapContext.register(
+				ABANDONED_CABIN_KEY,
+				new JigsawStructure(
+						createConfig(
+								WilderBiomeTags.ABANDONED_CABIN_HAS_STRUCTURE,
+								//Arrays.stream(MobCategory.values())
+								//        .collect(Collectors.toMap(spawnGroup -> spawnGroup, spawnGroup -> new StructureSpawnOverride(StructureSpawnOverride.BoundingBoxType.STRUCTURE, WeightedRandomList.create()))),
+								GenerationStep.Decoration.UNDERGROUND_DECORATION,
+								TerrainAdjustment.BURY
+						),
+						holderGetter.getOrThrow(AbandonedCabinGenerator.CABIN),
+						5,
+						UniformHeight.of(VerticalAnchor.absolute(-40), VerticalAnchor.absolute(0)),
+						false
+				)
+		);
+	}
 
-    private static HolderSet<Biome> getOrCreateBiomeTag(TagKey<Biome> key) {
-        return BuiltinRegistries.BIOME.getOrCreateTag(key);
-    }
+	public static void bootstrapSet(BootstapContext<StructureSet> bootstrapContext) {
+		bootstrapContext.register(
+				ABANDONED_CABINS_KEY,
+				new StructureSet(
+						bootstrapContext.lookup(Registry.STRUCTURE_REGISTRY).getOrThrow(ABANDONED_CABIN_KEY),
+						new RandomSpreadStructurePlacement(13, 5, RandomSpreadType.LINEAR, 20388232) // ancient city salt is 20083232
+				)
+		);
+	}
 }

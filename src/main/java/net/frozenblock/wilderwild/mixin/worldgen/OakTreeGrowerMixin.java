@@ -17,9 +17,9 @@ public class OakTreeGrowerMixin {
     @Inject(method = "getConfiguredFeature", at = @At("RETURN"), cancellable = true)
     public void getConfiguredFeature(RandomSource random, boolean bees, CallbackInfoReturnable<ResourceKey<ConfiguredFeature<?, ?>>> cir) {
         if (random.nextInt(10) == 0) {
-            cir.setReturnValue(bees ? WilderTreeConfigured.NEW_FANCY_OAK_BEES_0004 : WilderTreeConfigured.NEW_FANCY_OAK);
+            cir.setReturnValue(bees ? WilderTreeConfigured.NEW_FANCY_OAK_BEES_0004.getResourceKey() : WilderTreeConfigured.NEW_FANCY_OAK.getResourceKey());
         } else {
-            cir.setReturnValue(bees ? WilderTreeConfigured.NEW_OAK_BEES_0004 : WilderTreeConfigured.NEW_OAK);
+            cir.setReturnValue(bees ? WilderTreeConfigured.NEW_OAK_BEES_0004.getResourceKey() : WilderTreeConfigured.NEW_OAK.getResourceKey());
         }
     }
 

@@ -14,9 +14,9 @@ public class CypressSaplingGenerator extends AbstractTreeGrower {
 
     protected ResourceKey<ConfiguredFeature<?, ?>> getConfiguredFeature(RandomSource random, boolean bees) {
         if (random.nextFloat() > 0.4F) {
-            return random.nextFloat() > 0.7F ? WilderTreeConfigured.CYPRESS : WilderTreeConfigured.FUNGUS_CYPRESS;
+            return random.nextFloat() > 0.7F ? WilderTreeConfigured.CYPRESS.getResourceKey() : WilderTreeConfigured.FUNGUS_CYPRESS.getResourceKey();
         }
-        return WilderConfiguredFeatures.CYPRESS_WETLANDS_TREES_SAPLING;
+        return WilderConfiguredFeatures.CYPRESS_WETLANDS_TREES_SAPLING.getResourceKey();
     }
 
 }
