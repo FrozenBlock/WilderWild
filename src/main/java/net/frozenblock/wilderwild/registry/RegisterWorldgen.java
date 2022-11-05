@@ -13,8 +13,6 @@ import net.minecraft.core.Registry;
 import net.minecraft.data.worldgen.BiomeDefaultFeatures;
 import net.minecraft.data.worldgen.BootstapContext;
 import net.minecraft.data.worldgen.biome.OverworldBiomes;
-import static net.minecraft.data.worldgen.biome.OverworldBiomes.jungle;
-import static net.minecraft.data.worldgen.biome.OverworldBiomes.swamp;
 import net.minecraft.data.worldgen.placement.CavePlacements;
 import net.minecraft.data.worldgen.placement.MiscOverworldPlacements;
 import net.minecraft.data.worldgen.placement.VegetationPlacements;
@@ -34,6 +32,7 @@ import net.minecraft.world.level.levelgen.placement.PlacedFeature;
 import org.jetbrains.annotations.NotNull;
 import org.quiltmc.qsl.frozenblock.worldgen.surface_rule.api.SurfaceRuleContext;
 import org.quiltmc.qsl.frozenblock.worldgen.surface_rule.api.SurfaceRuleEvents;
+import static net.minecraft.data.worldgen.biome.OverworldBiomes.*;
 
 public final class RegisterWorldgen implements SurfaceRuleEvents.OverworldModifierCallback {
 
@@ -96,7 +95,7 @@ public final class RegisterWorldgen implements SurfaceRuleEvents.OverworldModifi
                                 .waterColor(4159204)
                                 .waterFogColor(329011)
                                 .fogColor(12638463)
-                                .skyColor(jungle(placedFeatures, worldCarvers).getSkyColor())
+                                .skyColor(calculateSkyColor(0.7F))
                                 .foliageColorOverride(5879634)
                                 .grassColorOverride(8437607)
                                 .ambientMoodSound(AmbientMoodSettings.LEGACY_CAVE_SETTINGS)
@@ -122,7 +121,7 @@ public final class RegisterWorldgen implements SurfaceRuleEvents.OverworldModifi
                                 .waterColor(4552818)
                                 .waterFogColor(4552818)
                                 .fogColor(12638463)
-                                .skyColor(swamp(placedFeatures, worldCarvers).getSkyColor())
+								.skyColor(calculateSkyColor(0.8F))
                                 .foliageColorOverride(5877296)
                                 .grassColorOverride(7979098)
                                 .ambientMoodSound(AmbientMoodSettings.LEGACY_CAVE_SETTINGS)
