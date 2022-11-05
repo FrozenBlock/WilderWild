@@ -17,7 +17,7 @@ public final class WilderFeaturesBootstrap {
 	private static final ArrayList<FrozenPlacedFeature> REGISTERED_PLACED_FEATURES = new ArrayList<>();
 
 	public static synchronized void bootstrap(FabricWorldgenProvider.Entries entries) {
-		WilderTreeConfigured.registerTreeConfigured();
+		WilderTreeConfigured.registerTreeConfigured(entries);
 		addEntries(entries);
 		WilderMiscConfigured.Pre.init();
 		addEntries(entries);
