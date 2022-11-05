@@ -16,7 +16,7 @@ public final class WilderFeaturesBootstrap {
 	public static final ArrayList<FrozenPlacedFeature> FROZEN_PLACED_FEATURES = new ArrayList<>();
 	private static final ArrayList<FrozenPlacedFeature> REGISTERED_PLACED_FEATURES = new ArrayList<>();
 
-	public static void bootstrap(FabricWorldgenProvider.Entries entries) {
+	public static synchronized void bootstrap(FabricWorldgenProvider.Entries entries) {
 		WilderTreeConfigured.registerTreeConfigured();
 		addEntries(entries);
 		WilderMiscConfigured.Pre.init();
@@ -31,15 +31,13 @@ public final class WilderFeaturesBootstrap {
 		addEntries(entries);
 		WilderPlacedFeatures.init();
 		addEntries(entries);
-		/*
 		FROZEN_CONFIGURED_FEATURES.clear();
 		REGISTERED_CONFIGURED_FEATURES.clear();
 		FROZEN_PLACED_FEATURES.clear();
 		REGISTERED_PLACED_FEATURES.clear();
-		 */
 	}
 
-	private static void addEntries(FabricWorldgenProvider.Entries entries) {
+	private static synchronized void addEntries(FabricWorldgenProvider.Entries entries) {
 		for (FrozenConfiguredFeature feature : FROZEN_CONFIGURED_FEATURES) {
 			if (!REGISTERED_CONFIGURED_FEATURES.contains(feature)) {
 				REGISTERED_CONFIGURED_FEATURES.add(feature);

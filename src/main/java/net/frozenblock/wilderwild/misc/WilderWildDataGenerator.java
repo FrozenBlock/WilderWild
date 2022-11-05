@@ -7,6 +7,7 @@ import net.fabricmc.fabric.api.datagen.v1.provider.FabricWorldgenProvider;
 import net.frozenblock.wilderwild.registry.RegisterItems;
 import net.frozenblock.wilderwild.registry.RegisterWorldgen;
 import net.frozenblock.wilderwild.world.feature.WilderFeaturesBootstrap;
+import net.frozenblock.wilderwild.world.gen.WilderWorldGen;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.metadata.PackMetadataGenerator;
@@ -42,6 +43,7 @@ public class WilderWildDataGenerator implements DataGeneratorEntrypoint {
 		protected void configure(HolderLookup.Provider registries, Entries entries) {
 			RegisterWorldgen.registerWorldgen(entries);
 			WilderFeaturesBootstrap.bootstrap(entries);
+			WilderWorldGen.generateWildWorldGen();
 		}
 
 		@Override
