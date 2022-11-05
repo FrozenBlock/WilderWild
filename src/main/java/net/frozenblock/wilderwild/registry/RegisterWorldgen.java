@@ -42,8 +42,8 @@ public final class RegisterWorldgen implements SurfaceRuleEvents.OverworldModifi
 
     public static void registerWorldgen(FabricWorldgenProvider.Entries entries) {
         WilderWild.logWild("Registering Biomes for", WilderSharedConstants.UNSTABLE_LOGGING);
-		HolderGetter<PlacedFeature> placedFeatures = entries.getLookup(Registry.PLACED_FEATURE_REGISTRY);
-		HolderGetter<ConfiguredWorldCarver<?>> worldCarvers = entries.getLookup(Registry.CONFIGURED_CARVER_REGISTRY);
+		HolderGetter<PlacedFeature> placedFeatures = entries.placedFeatures();
+		HolderGetter<ConfiguredWorldCarver<?>> worldCarvers = entries.configuredCarvers();
 		entries.add(CYPRESS_WETLANDS, cypressWetlands(placedFeatures, worldCarvers));
 		entries.add(JELLYFISH_CAVES, jellyfishCaves(placedFeatures, worldCarvers));
 		entries.add(MIXED_FOREST, mixedForest(placedFeatures, worldCarvers));
