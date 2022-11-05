@@ -16,7 +16,7 @@ public class CypressSaplingGenerator extends AbstractTreeGrower {
         if (random.nextFloat() > 0.4F) {
             return random.nextFloat() > 0.7F ? WilderTreeConfigured.CYPRESS.getResourceKey() : WilderTreeConfigured.FUNGUS_CYPRESS.getResourceKey();
         }
-        return WilderConfiguredFeatures.CYPRESS_WETLANDS_TREES_SAPLING.getResourceKey();
+        return WilderConfiguredFeatures.CYPRESS_WETLANDS_TREES_SAPLING;
     }
 
 }
