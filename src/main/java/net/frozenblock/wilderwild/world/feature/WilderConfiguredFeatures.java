@@ -459,11 +459,7 @@ public final class WilderConfiguredFeatures  {
         WilderWild.logWild("Registering WilderConfiguredFeatures for", true);
     }
 
-	public static void bootstrap(BootstapContext<ConfiguredFeature<?, ?>> bootstrapContext) {
-
-	}
-
-    private static RandomPatchConfiguration createRandomPatchFeatureConfig(BlockStateProvider block, int tries) {
+	private static RandomPatchConfiguration createRandomPatchFeatureConfig(BlockStateProvider block, int tries) {
         return FeatureUtils.simpleRandomPatchConfiguration(tries, PlacementUtils.onlyWhenEmpty(Feature.SIMPLE_BLOCK, new SimpleBlockConfiguration(block)));
     }
 

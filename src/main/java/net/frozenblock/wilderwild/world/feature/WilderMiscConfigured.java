@@ -1,7 +1,5 @@
 package net.frozenblock.wilderwild.world.feature;
 
-import java.lang.reflect.Field;
-import java.util.Arrays;
 import java.util.List;
 import net.frozenblock.lib.worldgen.feature.FrozenConfiguredFeature;
 import net.frozenblock.lib.worldgen.feature.util.FrozenConfiguredFeatureUtils;
@@ -13,7 +11,6 @@ import net.frozenblock.wilderwild.world.feature.features.config.PathFeatureConfi
 import net.frozenblock.wilderwild.world.feature.features.config.WilderPillarConfig;
 import net.minecraft.core.Direction;
 import net.minecraft.core.HolderSet;
-import net.minecraft.data.worldgen.BootstapContext;
 import net.minecraft.data.worldgen.placement.PlacementUtils;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.util.valueproviders.ConstantInt;
@@ -21,7 +18,6 @@ import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.levelgen.blockpredicates.BlockPredicate;
-import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.configurations.DiskConfiguration;
 import net.minecraft.world.level.levelgen.feature.configurations.FeatureConfiguration;
@@ -40,6 +36,29 @@ import net.minecraft.world.level.material.Fluids;
 public final class WilderMiscConfigured {
 	private WilderMiscConfigured() {
 		throw new UnsupportedOperationException("WilderMiscConfigured contains only static declarations.");
+	}
+
+	public static class Pre {
+		public static final FrozenConfiguredFeature<SimpleRandomFeatureConfiguration, ?> BLANK_SHUT_UP =
+				feature(
+						"blank_shut_up",
+						Feature.SIMPLE_RANDOM_SELECTOR,
+						new SimpleRandomFeatureConfiguration(
+								HolderSet.direct(
+										PlacementUtils.inlinePlaced(
+												Feature.SIMPLE_BLOCK,
+												new SimpleBlockConfiguration(
+														new SimpleStateProvider(
+																Blocks.WATER.defaultBlockState()
+														)
+												)
+										)
+								)
+						)
+				);
+
+		public static void init() {
+		}
 	}
 
     public static final FrozenConfiguredFeature<DiskConfiguration, ?> DISK_COARSE_DIRT =
@@ -275,23 +294,6 @@ public final class WilderMiscConfigured {
 							64
 					)
 			);
-    public static final FrozenConfiguredFeature<SimpleRandomFeatureConfiguration, ?> BLANK_SHUT_UP =
-			feature(
-					"blank_shut_up",
-					Feature.SIMPLE_RANDOM_SELECTOR,
-					new SimpleRandomFeatureConfiguration(
-							HolderSet.direct(
-									PlacementUtils.inlinePlaced(
-											Feature.SIMPLE_BLOCK,
-											new SimpleBlockConfiguration(
-													new SimpleStateProvider(
-															Blocks.WATER.defaultBlockState()
-													)
-											)
-									)
-							)
-					)
-			);
     public static final FrozenConfiguredFeature<VegetationPatchConfiguration, ?> DEEPSLATE_POOL =
 			feature(
 					"deepslate_pool",
@@ -299,7 +301,7 @@ public final class WilderMiscConfigured {
 					new VegetationPatchConfiguration(
 							BlockTags.LUSH_GROUND_REPLACEABLE,
 							BlockStateProvider.simple(Blocks.DEEPSLATE),
-							PlacementUtils.inlinePlaced(BLANK_SHUT_UP.getHolder()),
+							PlacementUtils.inlinePlaced(Pre.BLANK_SHUT_UP.getHolder()),
 							CaveSurface.FLOOR,
 							ConstantInt.of(4),
 							0.8F,
@@ -316,7 +318,7 @@ public final class WilderMiscConfigured {
 					new VegetationPatchConfiguration(
 							BlockTags.LUSH_GROUND_REPLACEABLE,
 							BlockStateProvider.simple(Blocks.STONE),
-							PlacementUtils.inlinePlaced(BLANK_SHUT_UP.getHolder()),
+							PlacementUtils.inlinePlaced(Pre.BLANK_SHUT_UP.getHolder()),
 							CaveSurface.FLOOR,
 							ConstantInt.of(4),
 							0.8F,
@@ -388,6 +390,8 @@ public final class WilderMiscConfigured {
     }
 
 	private static FrozenConfiguredFeature feature(String id, Feature feature, FeatureConfiguration featureConfiguration) {
-		return FrozenConfiguredFeatureUtils.feature(WilderSharedConstants.MOD_ID, id, feature, featureConfiguration);
+		var frozenFeature = FrozenConfiguredFeatureUtils.feature(WilderSharedConstants.MOD_ID, id, feature, featureConfiguration);
+		WilderFeaturesBootstrap.FROZEN_CONFIGURED_FEATURES.add(frozenFeature);
+		return frozenFeature;
 	}
 }

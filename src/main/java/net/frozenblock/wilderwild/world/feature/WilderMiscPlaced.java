@@ -77,17 +77,7 @@ public final class WilderMiscPlaced {
 		WilderWild.logWild("FrozenPlacedFeatureing WilderMiscPlaced for", true);
 	}
 
-	public static void bootstap(BootstapContext<PlacedFeature> bootstapContext) throws IllegalAccessException {
-		HolderGetter<ConfiguredFeature<?, ?>> holderGetter = bootstapContext.lookup(Registry.CONFIGURED_FEATURE_REGISTRY);
-		for (Field field : Arrays.stream(WilderMiscPlaced.class.getDeclaredFields()).sorted().toList()) {
-			Object whatIsThis = field.get(WilderMiscPlaced.class);
-			if (whatIsThis instanceof FrozenPlacedFeature feature) {
-				FrozenPlacementUtils.register(bootstapContext, feature.getResourceKey(), holderGetter.getOrThrow(feature.getFeatureKey()), feature.getPlacementModifiers());
-			}
-		}
-	}
-
-    private static List<PlacementModifier> modifiers(PlacementModifier countModifier, PlacementModifier heightModifier) {
+	private static List<PlacementModifier> modifiers(PlacementModifier countModifier, PlacementModifier heightModifier) {
         return List.of(countModifier, InSquarePlacement.spread(), heightModifier, BiomeFilter.biome());
     }
 

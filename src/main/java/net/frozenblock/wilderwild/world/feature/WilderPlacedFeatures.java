@@ -314,11 +314,7 @@ public final class WilderPlacedFeatures {
     public static final FrozenPlacedFeature PATCH_NEMATOCYST_WEST = placedFeature("patch_nematocyst_west", WilderConfiguredFeatures.PATCH_NEMATOCYST_WEST,
             CountPlacement.of(ConstantInt.of(9)), InSquarePlacement.spread(), PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT, BiomeFilter.biome());
 
-	public static void bootstrap(BootstapContext<PlacedFeature> bootstrapContext) {
-
-	}
-
-    public static void init() {
+	public static void init() {
     }
 
 	private static FrozenPlacedFeature placedFeature(String id, FrozenConfiguredFeature feature, PlacementModifier... placementModifiers) {

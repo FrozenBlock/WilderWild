@@ -6,10 +6,7 @@ import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricWorldgenProvider;
 import net.frozenblock.wilderwild.registry.RegisterItems;
 import net.frozenblock.wilderwild.registry.RegisterWorldgen;
-import net.frozenblock.wilderwild.registry.WilderRegistry;
-import net.frozenblock.wilderwild.world.feature.WilderConfiguredFeatureBootstrap;
-import net.frozenblock.wilderwild.world.feature.WilderPlacedFeatureBootstrap;
-import net.minecraft.Util;
+import net.frozenblock.wilderwild.world.feature.WilderFeaturesBootstrap;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.metadata.PackMetadataGenerator;
@@ -43,12 +40,8 @@ public class WilderWildDataGenerator implements DataGeneratorEntrypoint {
 
 		@Override
 		protected void configure(HolderLookup.Provider registries, Entries entries) {
-			//entries.add(RegisterWorldgen.CYPRESS_WETLANDS, RegisterWorldgen.cypressWetlands());
-			//entries.add(RegisterWorldgen.JELLYFISH_CAVES, RegisterWorldgen.jellyfishCaves());
-			//entries.add(RegisterWorldgen.MIXED_FOREST, RegisterWorldgen.mixedForest());
 			RegisterWorldgen.registerWorldgen(entries);
-			WilderConfiguredFeatureBootstrap.bootstrap(entries);
-			WilderPlacedFeatureBootstrap.bootstrap(entries);
+			WilderFeaturesBootstrap.bootstrap(entries);
 		}
 
 		@Override
