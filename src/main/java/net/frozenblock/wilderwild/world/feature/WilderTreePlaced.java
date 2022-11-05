@@ -1,5 +1,7 @@
 package net.frozenblock.wilderwild.world.feature;
 
+import java.util.Arrays;
+import java.util.List;
 import net.frozenblock.lib.worldgen.feature.FrozenConfiguredFeature;
 import net.frozenblock.lib.worldgen.feature.FrozenPlacedFeature;
 import net.frozenblock.lib.worldgen.feature.util.FrozenPlacementUtils;
@@ -7,19 +9,12 @@ import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.frozenblock.wilderwild.registry.RegisterBlocks;
 import net.minecraft.core.Direction;
-import net.minecraft.core.HolderGetter;
-import net.minecraft.core.Registry;
-import net.minecraft.data.worldgen.BootstapContext;
 import net.minecraft.data.worldgen.placement.PlacementUtils;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.levelgen.blockpredicates.BlockPredicate;
-import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.world.level.levelgen.placement.BlockPredicateFilter;
 import net.minecraft.world.level.levelgen.placement.EnvironmentScanPlacement;
-import net.minecraft.world.level.levelgen.placement.PlacedFeature;
 import net.minecraft.world.level.levelgen.placement.PlacementModifier;
-import java.util.Arrays;
-import java.util.List;
 
 public final class WilderTreePlaced {
 	private WilderTreePlaced() {

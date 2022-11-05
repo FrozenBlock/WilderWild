@@ -31,10 +31,12 @@ public final class WilderFeaturesBootstrap {
 		addEntries(entries);
 		WilderPlacedFeatures.init();
 		addEntries(entries);
+		/*
 		FROZEN_CONFIGURED_FEATURES.clear();
 		REGISTERED_CONFIGURED_FEATURES.clear();
 		FROZEN_PLACED_FEATURES.clear();
 		REGISTERED_PLACED_FEATURES.clear();
+		 */
 	}
 
 	private static void addEntries(FabricWorldgenProvider.Entries entries) {
