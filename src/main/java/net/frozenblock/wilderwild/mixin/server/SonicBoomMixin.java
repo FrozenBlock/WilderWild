@@ -63,7 +63,7 @@ public class SonicBoomMixin implements WilderSonicBoom {
 		return original;
 	}*/
 
-	@ModifyVariable(method = "m_ehrxwrfs", at = @At(value = "CONSTANT", args = "intValue=1", shift = At.Shift.BY, by = 3))
+	@ModifyVariable(method = {"m_ehrxwrfs","method_43265","lambda$tick$2"}, at = @At(value = "CONSTANT", args = "intValue=1", shift = At.Shift.BY, by = 3), require = 1)
 	private static int modifyInt(int original) {
 		var vec32 = ((WilderSonicBoom) wilderWild$currentBoom).vec32();
 		if (((WilderSonicBoom) wilderWild$currentBoom).particlesEnded()) {
@@ -72,7 +72,7 @@ public class SonicBoomMixin implements WilderSonicBoom {
 		return original;
 	}
 
-	@ModifyVariable(method = "m_ehrxwrfs", at = @At(value = "INVOKE_ASSIGN", target = "Lnet/minecraft/world/phys/Vec3;add(Lnet/minecraft/world/phys/Vec3;)Lnet/minecraft/world/phys/Vec3;"), ordinal = 0)
+	@ModifyVariable(method = {"m_ehrxwrfs","method_43265","lambda$tick$2"}, at = @At(value = "INVOKE_ASSIGN", target = "Lnet/minecraft/world/phys/Vec3;add(Lnet/minecraft/world/phys/Vec3;)Lnet/minecraft/world/phys/Vec3;"), ordinal = 0, require = 1)
 	private static Vec3 modifyVec(Vec3 value) {
 		((WilderSonicBoom) wilderWild$currentBoom).setVec32(value);
 		return value;
@@ -84,7 +84,7 @@ public class SonicBoomMixin implements WilderSonicBoom {
 		this.wilderwild$particlePos = null;
 	}
 
-	@Inject(method = "m_ehrxwrfs", at = @At(value = "INVOKE", target = "Lnet/minecraft/server/level/ServerLevel;sendParticles(Lnet/minecraft/core/particles/ParticleOptions;DDDIDDDD)I", shift = At.Shift.BEFORE), locals = LocalCapture.CAPTURE_FAILHARD)
+	@Inject(method = {"m_ehrxwrfs","method_43265","lambda$tick$2"}, at = @At(value = "INVOKE", target = "Lnet/minecraft/server/level/ServerLevel;sendParticles(Lnet/minecraft/core/particles/ParticleOptions;DDDIDDDD)I", shift = At.Shift.BEFORE), locals = LocalCapture.CAPTURE_FAILHARD, require = 1)
 	private static void stopParticles(Warden warden, ServerLevel level, LivingEntity livingEntity, CallbackInfo ci, Vec3 vec3, Vec3 vec32, Vec3 vec33, int i, Vec3 vec34) {
 		BlockPos hitPos = isOccluded(level, vec3, vec34);
 		if (hitPos != null) {
@@ -96,7 +96,7 @@ public class SonicBoomMixin implements WilderSonicBoom {
 	}
 
 
-	@Inject(method = "m_ehrxwrfs", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/LivingEntity;hurt(Lnet/minecraft/world/damagesource/DamageSource;F)Z"), locals = LocalCapture.CAPTURE_FAILHARD, cancellable = true)
+	@Inject(method = {"m_ehrxwrfs","method_43265","lambda$tick$2"}, at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/LivingEntity;hurt(Lnet/minecraft/world/damagesource/DamageSource;F)Z"), locals = LocalCapture.CAPTURE_FAILHARD, cancellable = true, require = 1)
 	private static void tick(Warden warden, ServerLevel level, LivingEntity livingEntity, CallbackInfo ci, Vec3 vec3, Vec3 vec32, Vec3 vec33) {
 		boolean blocked = false;
 		for (int i = 1; i < Mth.floor(vec32.length()) + 7; ++i) {
@@ -117,7 +117,7 @@ public class SonicBoomMixin implements WilderSonicBoom {
 		}
 	}
 
-	@Redirect(method = "m_ehrxwrfs", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/monster/warden/Warden;playSound(Lnet/minecraft/sounds/SoundEvent;FF)V"))
+	@Redirect(method = {"m_ehrxwrfs","method_43265","lambda$tick$2"}, at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/monster/warden/Warden;playSound(Lnet/minecraft/sounds/SoundEvent;FF)V"), require = 1)
 	private static void modifySound(Warden warden, SoundEvent soundEvent, float volume, float pitch) {
 		if (((WilderWarden) warden).isOsmiooo()) {
 			warden.playSound(RegisterSounds.ENTITY_WARDEN_BRAP, volume, pitch);
@@ -149,31 +149,37 @@ public class SonicBoomMixin implements WilderSonicBoom {
         }
     }
 
+	@Unique
 	@Override
 	public Vec3 particlePos() {
 		return this.wilderwild$particlePos;
 	}
 
+	@Unique
 	@Override
 	public void setParticlePos(Vec3 pos) {
 		this.wilderwild$particlePos = pos;
 	}
 
+	@Unique
 	@Override
 	public Vec3 vec32() {
 		return this.wilderWild$vec32;
 	}
 
+	@Unique
 	@Override
 	public void setVec32(Vec3 vec32) {
 		this.wilderWild$vec32 = vec32;
 	}
 
+	@Unique
 	@Override
 	public boolean particlesEnded() {
 		return this.wilderWild$particlesEnded;
 	}
 
+	@Unique
 	@Override
 	public void endParticles() {
 		this.wilderWild$particlesEnded = true;
