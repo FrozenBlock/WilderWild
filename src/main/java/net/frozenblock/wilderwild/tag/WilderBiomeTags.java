@@ -31,6 +31,7 @@ public final class WilderBiomeTags {
     public static final TagKey<Biome> BIRCH_FOREST = bind("birch_forest");
     public static final TagKey<Biome> DARK_FOREST = bind("dark_forest");
     public static final TagKey<Biome> MEADOW = bind("meadow");
+	public static final TagKey<Biome> FOREST_GRASS = bind("forest_grass");
 
     private static TagKey<Biome> bind(String path) {
         return TagKey.create(Registry.BIOME_REGISTRY, WilderWild.id(path));
