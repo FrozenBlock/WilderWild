@@ -67,7 +67,7 @@ public final class WilderWildClient implements ClientModInitializer {
     @Override
     public void onInitializeClient() {
 		NewSplahes.addNewSplashLocation(WilderWild.id("texts/splashes.txt"));
-		NewPanoramas.addNewPanorama(WilderWild.id("textures/gui/title/first"));
+		NewPanoramas.addNewPanorama(WilderWild.id("textures/gui/title/first/panorama"));
         BlockRenderLayerMap.INSTANCE.putBlock(RegisterBlocks.CARNATION, RenderType.cutout());
         BlockRenderLayerMap.INSTANCE.putBlock(RegisterBlocks.SEEDING_DANDELION, RenderType.cutout());
         BlockRenderLayerMap.INSTANCE.putBlock(RegisterBlocks.POTTED_CARNATION, RenderType.cutout());
