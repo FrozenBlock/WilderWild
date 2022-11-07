@@ -1,5 +1,6 @@
 package net.frozenblock.wilderwild.registry;
 
+import net.frozenblock.lib.FrozenBools;
 import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.misc.config.ClothConfigInteractionHandler;
 import net.frozenblock.wilderwild.world.feature.WilderMiscPlaced;
@@ -48,17 +49,15 @@ public final class RegisterWorldgen implements SurfaceRuleEvents.OverworldModifi
 
     @Override
     public void modifyOverworldRules(SurfaceRuleContext.@NotNull Overworld context) {
-        context.materialRules().add(0, SharedWorldgen.cypressSurfaceRules());
-		context.materialRules().add(SharedWorldgen.cypressSurfaceRules());
-        if (ClothConfigInteractionHandler.betaBeaches()) {
-            context.materialRules().add(0, SharedWorldgen.gravelBetaBeaches());
-			context.materialRules().add(0, SharedWorldgen.sandBetaBeaches());
-			context.materialRules().add(0, SharedWorldgen.multilayerSandBetaBeaches());
-			context.materialRules().add(SharedWorldgen.gravelBetaBeaches());
-			context.materialRules().add(SharedWorldgen.sandBetaBeaches());
-			context.materialRules().add(SharedWorldgen.multilayerSandBetaBeaches());
-        }
-        WilderWild.log("Wilder Wild's Overworld Surface Rules have been added!", WilderWild.UNSTABLE_LOGGING);
+		if (!FrozenBools.HAS_TERRABLENDER) {
+			context.materialRules().add(0, SharedWorldgen.cypressSurfaceRules());
+			context.materialRules().add(SharedWorldgen.cypressSurfaceRules());
+			if (ClothConfigInteractionHandler.betaBeaches()) {
+				context.materialRules().add(0, SharedWorldgen.betaBeaches());
+				context.materialRules().add(SharedWorldgen.betaBeaches());
+			}
+			WilderWild.log("Wilder Wild's Overworld Surface Rules have been added!", true);
+		}
     }
 
     // SPONGEBOB
