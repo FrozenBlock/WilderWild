@@ -12,6 +12,7 @@ import net.minecraft.data.worldgen.BiomeDefaultFeatures;
 import net.minecraft.data.worldgen.biome.OverworldBiomes;
 import static net.minecraft.data.worldgen.biome.OverworldBiomes.jungle;
 import static net.minecraft.data.worldgen.biome.OverworldBiomes.swamp;
+import net.minecraft.data.worldgen.placement.AquaticPlacements;
 import net.minecraft.data.worldgen.placement.CavePlacements;
 import net.minecraft.data.worldgen.placement.MiscOverworldPlacements;
 import net.minecraft.data.worldgen.placement.VegetationPlacements;
@@ -36,13 +37,14 @@ public final class RegisterWorldgen implements SurfaceRuleEvents.OverworldModifi
 	public static final ResourceKey<Biome> CYPRESS_WETLANDS = register("cypress_wetlands");
 	public static final ResourceKey<Biome> JELLYFISH_CAVES = register("jellyfish_caves");
     public static final ResourceKey<Biome> MIXED_FOREST = register("mixed_forest");
+	public static final ResourceKey<Biome> WARM_RIVER = register("warm_river");
 
     public static void registerWorldgen() {
         WilderWild.logWild("Registering Biomes for", WilderWild.UNSTABLE_LOGGING);
         BuiltinRegistries.register(BuiltinRegistries.BIOME, MIXED_FOREST.location(), mixedForest());
         BuiltinRegistries.register(BuiltinRegistries.BIOME, CYPRESS_WETLANDS.location(), cypressWetlands());
         BuiltinRegistries.register(BuiltinRegistries.BIOME, JELLYFISH_CAVES.location(), jellyfishCaves());
-
+		BuiltinRegistries.register(BuiltinRegistries.BIOME, WARM_RIVER.location(), warmRiver());
         WilderNoise.init();
     }
 
@@ -150,6 +152,41 @@ public final class RegisterWorldgen implements SurfaceRuleEvents.OverworldModifi
                 .generationSettings(builder2.build())
                 .build();
     }
+
+	public static Biome warmRiver() {
+		MobSpawnSettings.Builder builder = (new MobSpawnSettings.Builder()).addSpawn(MobCategory.WATER_CREATURE, new MobSpawnSettings.SpawnerData(EntityType.SQUID, 2, 1, 4)).addSpawn(MobCategory.WATER_AMBIENT, new MobSpawnSettings.SpawnerData(EntityType.SALMON, 5, 1, 5));
+		BiomeDefaultFeatures.commonSpawns(builder);
+		builder.addSpawn(MobCategory.MONSTER, new MobSpawnSettings.SpawnerData(EntityType.DROWNED, 100, 1, 1));
+		net.minecraft.world.level.biome.BiomeGenerationSettings.Builder builder2 = new net.minecraft.world.level.biome.BiomeGenerationSettings.Builder();
+		BiomeDefaultFeatures.addDefaultCarversAndLakes(builder2);
+		BiomeDefaultFeatures.addDefaultCrystalFormations(builder2);
+		BiomeDefaultFeatures.addDefaultMonsterRoom(builder2);
+		BiomeDefaultFeatures.addDefaultUndergroundVariety(builder2);
+		BiomeDefaultFeatures.addDefaultSprings(builder2);
+		BiomeDefaultFeatures.addSurfaceFreezing(builder2);
+		BiomeDefaultFeatures.addDefaultOres(builder2);
+		BiomeDefaultFeatures.addDefaultSoftDisks(builder2);
+		BiomeDefaultFeatures.addWaterTrees(builder2);
+		BiomeDefaultFeatures.addDefaultFlowers(builder2);
+		BiomeDefaultFeatures.addDefaultGrass(builder2);
+		BiomeDefaultFeatures.addDefaultMushrooms(builder2);
+		BiomeDefaultFeatures.addDefaultExtraVegetation(builder2);
+		builder2.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, AquaticPlacements.SEAGRASS_RIVER);
+
+		return new Biome.BiomeBuilder()
+				.precipitation(Biome.Precipitation.RAIN)
+				.temperature(0.5F)
+				.downfall(0.4F)
+				.specialEffects(
+						new BiomeSpecialEffects.Builder()
+								.waterColor(4445678)
+								.waterFogColor(270131)
+								.skyColor(OverworldBiomes.calculateSkyColor(0.5F))
+								.build())
+				.mobSpawnSettings(builder.build())
+				.generationSettings(builder2.build())
+				.build();
+	}
 
     public static void addCypressPaths(BiomeGenerationSettings.Builder builder) {
         builder.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, WilderMiscPlaced.UNDER_WATER_SAND_PATH);
