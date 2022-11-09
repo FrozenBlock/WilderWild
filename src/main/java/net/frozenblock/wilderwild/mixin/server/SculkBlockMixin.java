@@ -28,7 +28,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 
 @Mixin(value = SculkBlock.class, priority = 69420)
-public final class SculkBlockMixin {
+public abstract class SculkBlockMixin {
 
     @Shadow
     private static boolean canPlaceGrowth(LevelAccessor level, BlockPos pos) {

@@ -4,6 +4,8 @@ import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableSet;
 import com.mojang.datafixers.util.Pair;
 import java.util.Optional;
+import net.frozenblock.lib.entities.behavior.api.FrozenActivities;
+import net.frozenblock.lib.entities.behavior.api.FrozenMemoryTypes;
 import net.frozenblock.wilderwild.entity.Firefly;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.GlobalPos;
@@ -24,6 +26,7 @@ import net.minecraft.world.entity.ai.behavior.SetWalkTargetFromLookTarget;
 import net.minecraft.world.entity.ai.behavior.StayCloseToTarget;
 import net.minecraft.world.entity.ai.behavior.Swim;
 import net.minecraft.world.entity.ai.memory.MemoryModuleType;
+import net.minecraft.world.entity.ai.memory.MemoryStatus;
 import net.minecraft.world.entity.schedule.Activity;
 import net.minecraft.world.level.Level;
 
@@ -32,9 +35,10 @@ public class FireflyAi {
     private FireflyAi() {
     }
 
-    public static Brain<?> create(Brain<Firefly> brain) {
+    public static Brain<?> makeBrain(Firefly firefly, Brain<Firefly> brain) {
         addCoreActivities(brain);
-        addIdleActivities(brain);
+        addIdleActivities(firefly, brain);
+		addTargetBlockActivities(firefly, brain);
         brain.setCoreActivities(ImmutableSet.of(Activity.CORE));
         brain.setDefaultActivity(Activity.IDLE);
         brain.useDefaultActivity();
@@ -54,12 +58,20 @@ public class FireflyAi {
 		);
     }
 
-    private static void addIdleActivities(Brain<Firefly> brain) {
+    private static void addIdleActivities(Firefly firefly, Brain<Firefly> brain) {
+		brain.addActivityAndRemoveMemoryWhenStopped(
+				Activity.IDLE,
+				1,
+				ImmutableList.of(
+						new FireflyHide(firefly, 2.0D, 40, 32)
+				),
+				FrozenMemoryTypes.BLOCK_TARGET
+		);
         brain.addActivityWithConditions(
 				Activity.IDLE,
 				ImmutableList.of(
 						Pair.of(2, new StayCloseToTarget<>(FireflyAi::getLookTarget, 7, 16, 1.0F)),
-						Pair.of(3, new RunSometimes<>(new SetEntityLookTarget((firefly) -> true, 6.0F), UniformInt.of(30, 60))),
+						Pair.of(3, new RunSometimes<>(new SetEntityLookTarget((firefly1) -> true, 6.0F), UniformInt.of(30, 60))),
 						Pair.of(4, new RunOne<>(
 								ImmutableList.of(
 										Pair.of(new FlyingRandomStroll(1.0F), 2),
@@ -68,12 +80,15 @@ public class FireflyAi {
 								)
 						))
 				),
-				ImmutableSet.of()
+				ImmutableSet.of(Pair.of(FrozenMemoryTypes.BLOCK_TARGET, MemoryStatus.VALUE_ABSENT))
 		);
     }
 
+	private static void addTargetBlockActivities(Firefly firefly, Brain<Firefly> brain) {
+	}
+
     public static void updateActivities(Firefly firefly) {
-        firefly.getBrain().setActiveActivityToFirstValid(ImmutableList.of(Activity.IDLE));
+        firefly.getBrain().setActiveActivityToFirstValid(ImmutableList.of(FrozenActivities.TARGET_BLOCK, Activity.IDLE));
     }
 
     public static BlockPos getHome(Firefly firefly) {

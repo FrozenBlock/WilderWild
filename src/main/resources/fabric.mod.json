@@ -49,7 +49,7 @@
   ],
   "accessWidener": "wilderwild.accesswidener",
   "depends": {
-	"frozenlib": ">=1.1.3-",
+	"frozenlib": ">=1.1.4-",
 	"mm": ">=2.3",
 	"nbtcrafting": ">=2.1.4",
 	"fabricloader": ">=0.14.8",

@@ -2,6 +2,7 @@ package net.frozenblock.wilderwild.entity;
 
 import com.google.common.collect.ImmutableList;
 import com.mojang.serialization.Dynamic;
+import net.frozenblock.lib.entities.behavior.api.FrozenMemoryTypes;
 import net.frozenblock.lib.sound.api.FrozenSoundPackets;
 import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.entity.ai.FireflyAi;
@@ -60,7 +61,7 @@ import java.util.Optional;
 public class Firefly extends PathfinderMob implements FlyingAnimal {
 
     protected static final ImmutableList<SensorType<? extends Sensor<? super Firefly>>> SENSORS = ImmutableList.of(SensorType.NEAREST_LIVING_ENTITIES, SensorType.HURT_BY);
-    protected static final ImmutableList<MemoryModuleType<?>> MEMORY_MODULES = ImmutableList.of(MemoryModuleType.PATH, MemoryModuleType.NEAREST_VISIBLE_LIVING_ENTITIES, MemoryModuleType.WALK_TARGET, MemoryModuleType.CANT_REACH_WALK_TARGET_SINCE, MemoryModuleType.LOOK_TARGET, MemoryModuleType.HOME);
+    protected static final ImmutableList<MemoryModuleType<?>> MEMORY_MODULES = ImmutableList.of(MemoryModuleType.PATH, MemoryModuleType.NEAREST_VISIBLE_LIVING_ENTITIES, MemoryModuleType.WALK_TARGET, MemoryModuleType.CANT_REACH_WALK_TARGET_SINCE, MemoryModuleType.LOOK_TARGET, MemoryModuleType.HOME, FrozenMemoryTypes.BLOCK_TARGET);
     private static final EntityDataAccessor<Boolean> FROM_BOTTLE = SynchedEntityData.defineId(Firefly.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Boolean> FLICKERS = SynchedEntityData.defineId(Firefly.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Integer> AGE = SynchedEntityData.defineId(Firefly.class, EntityDataSerializers.INT);
@@ -185,8 +186,9 @@ public class Firefly extends PathfinderMob implements FlyingAnimal {
         return Brain.provider(MEMORY_MODULES, SENSORS);
     }
 
+	@Override
     protected Brain<?> makeBrain(@NotNull Dynamic<?> dynamic) {
-        return FireflyAi.create(this.brainProvider().makeBrain(dynamic));
+        return FireflyAi.makeBrain(this, this.brainProvider().makeBrain(dynamic));
     }
 
     public boolean isFromBottle() {
@@ -268,7 +270,7 @@ public class Firefly extends PathfinderMob implements FlyingAnimal {
 
     @Override
     protected void registerGoals() {
-        this.goalSelector.addGoal(1, new FireflyHidingGoal(this, 2.0D, 40, 32));
+        //this.goalSelector.addGoal(1, new FireflyHidingGoal(this, 2.0D, 40, 32));
     }
 
     public static AttributeSupplier.Builder addAttributes() {
@@ -285,7 +287,7 @@ public class Firefly extends PathfinderMob implements FlyingAnimal {
     }
 
     @Override
-    public void travel(Vec3 travelVector) {
+    public void travel(@NotNull Vec3 travelVector) {
         if (this.isEffectiveAi() || this.isControlledByLocalInstance()) {
             if (this.isInWater()) {
                 this.moveRelative(0.01F, travelVector);

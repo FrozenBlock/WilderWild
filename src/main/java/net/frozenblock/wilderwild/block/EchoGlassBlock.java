@@ -103,7 +103,8 @@ public class EchoGlassBlock extends TintedGlassBlock {
         return finalLight;
     }
 
-    public void playerDestroy(Level level, Player player, BlockPos pos, BlockState state, @Nullable BlockEntity blockEntity, ItemStack stack) {
+	@Override
+    public void playerDestroy(@NotNull Level level, Player player, @NotNull BlockPos pos, BlockState state, @Nullable BlockEntity blockEntity, @NotNull ItemStack stack) {
         player.causeFoodExhaustion(0.005F);
         if (state.getValue(DAMAGE) < 3 && EnchantmentHelper.getItemEnchantmentLevel(Enchantments.SILK_TOUCH, player.getMainHandItem()) < 1 && !player.isCreative()) {
             level.setBlockAndUpdate(pos, state.setValue(DAMAGE, state.getValue(DAMAGE) + 1));
@@ -121,8 +122,8 @@ public class EchoGlassBlock extends TintedGlassBlock {
         }
     }
 
-    @Deprecated
-    public List<ItemStack> getDrops(BlockState state, LootContext.Builder builder) {
+    @Override
+    public List<ItemStack> getDrops(@NotNull BlockState state, LootContext.Builder builder) {
         ResourceLocation identifier = this.getLootTable();
         if (builder.getOptionalParameter(LootContextParams.TOOL) != null) {
             ItemStack stack = builder.getParameter(LootContextParams.TOOL);
@@ -143,7 +144,7 @@ public class EchoGlassBlock extends TintedGlassBlock {
     }
 
     @Override
-    public void onProjectileHit(@NotNull Level level, BlockState state, BlockHitResult hit, Projectile projectile) {
+    public void onProjectileHit(@NotNull Level level, @NotNull BlockState state, @NotNull BlockHitResult hit, @NotNull Projectile projectile) {
         if (projectile instanceof AncientHornProjectile) {
             damage(level, hit.getBlockPos());
         }
@@ -151,7 +152,7 @@ public class EchoGlassBlock extends TintedGlassBlock {
     }
 
     @Override
-    public boolean isRandomlyTicking(BlockState state) {
+    public boolean isRandomlyTicking(@NotNull BlockState state) {
         return true;
     }
 }
