@@ -178,8 +178,8 @@ public final class RegisterWorldgen implements SurfaceRuleEvents.OverworldModifi
 				.downfall(0.4F)
 				.specialEffects(
 						new BiomeSpecialEffects.Builder()
-								.waterColor(4445678)
-								.waterFogColor(270131)
+								.waterColor(4566514)
+								.waterFogColor(267827)
 								.skyColor(OverworldBiomes.calculateSkyColor(0.5F))
 								.fogColor(12638463)
 								.build())
