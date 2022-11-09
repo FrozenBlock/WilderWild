@@ -81,7 +81,21 @@ public final class SharedWorldgen {
         public static final List<Climate.Parameter> WEIRDNESS_LIST = List.of(WEIRDNESS);
         public static final float OFFSET = 0.0F;
     }
+	public static final class WarmRiver {
+		public static final Climate.Parameter TEMPERATURE = Climate.Parameter.span(Temperature.WARM, Temperature.HOT);
+		public static final Climate.Parameter FULL_RANGE = Climate.Parameter.span(-1.0F, 1.0F);
+		public static final Climate.Parameter coastContinentalness = Climate.Parameter.span(-0.19F, -0.11F);
+		public static final Climate.Parameter nearInlandContinentalness = Climate.Parameter.span(-0.11F, 0.03F);
+		public static final Climate.Parameter farInlandContinentalness = Climate.Parameter.span(0.3F, 1.0F);
 
+		public static final Climate.Parameter EROSION_0 = Climate.Parameter.span(-1.0F, -0.78F);
+		public static final Climate.Parameter EROSION_1 = Climate.Parameter.span(-0.78F, -0.375F);
+		public static final Climate.Parameter EROSION_2 = Climate.Parameter.span(-0.375F, -0.2225F);
+		public static final Climate.Parameter EROSION_5 = Climate.Parameter.span(0.45F, 0.55F);
+		public static final Climate.Parameter EROSION_6 = Climate.Parameter.span(0.55F, 1.0F);
+		public static final Climate.Parameter WEIRDNESS = Climate.Parameter.span(0.0F, 0.0F);
+		public static final float OFFSET = 0.0F;
+	}
     public static final class Swamp {
 
         public static final Climate.Parameter HUMIDITY = Climate.Parameter.span(Climate.Parameter.span(-0.2F, 0.1F), Humidity.WET);
@@ -161,6 +175,10 @@ public final class SharedWorldgen {
 								)
 						)
 				)
+		);
+	}
+	public static SurfaceRules.RuleSource warmRiverRules() {
+		return SurfaceRules.ifTrue(SurfaceRules.isBiome(RegisterWorldgen.WARM_RIVER), SurfaceRules.sequence(SurfaceRules.ifTrue(SurfaceRules.ON_CEILING, SANDSTONE), SAND)
 		);
 	}
 

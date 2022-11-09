@@ -35,7 +35,11 @@ public final class OverworldBiomeBuilderMixin {
         parameters.accept(Pair.of(Climate.parameters(temperature, humidity, continentalness, erosion, Climate.Parameter.span(0.0F, 1.0F), weirdness, offset), biome));
     }
 
-    @Inject(method = "<init>", at = @At("TAIL"))
+	@Shadow
+	@Final
+	private ResourceKey<Biome>[][] SHATTERED_BIOMES;
+
+	@Inject(method = "<init>", at = @At("TAIL"))
     private void injectBiomes(CallbackInfo ci) {
         if (ClothConfigInteractionHandler.modifyJunglePlacement()) {
             MIDDLE_BIOMES_VARIANT[4][3] = Biomes.JUNGLE;
@@ -109,6 +113,46 @@ public final class OverworldBiomeBuilderMixin {
                     SharedWorldgen.CypressWetlands.OFFSET,
                     RegisterWorldgen.CYPRESS_WETLANDS
             );
+			this.addSurfaceBiome(
+					parameters,
+					SharedWorldgen.WarmRiver.TEMPERATURE,
+					SharedWorldgen.WarmRiver.FULL_RANGE,
+					SharedWorldgen.WarmRiver.coastContinentalness,
+					Climate.Parameter.span(SharedWorldgen.WarmRiver.EROSION_0, SharedWorldgen.WarmRiver.EROSION_1),
+					SharedWorldgen.WarmRiver.WEIRDNESS,
+					SharedWorldgen.WarmRiver.OFFSET,
+					RegisterWorldgen.WARM_RIVER
+			);
+			this.addSurfaceBiome(
+					parameters,
+					SharedWorldgen.WarmRiver.TEMPERATURE,
+					SharedWorldgen.WarmRiver.FULL_RANGE,
+					SharedWorldgen.WarmRiver.nearInlandContinentalness,
+					Climate.Parameter.span(SharedWorldgen.WarmRiver.EROSION_0, SharedWorldgen.WarmRiver.EROSION_1),
+					SharedWorldgen.WarmRiver.WEIRDNESS,
+					SharedWorldgen.WarmRiver.OFFSET,
+					RegisterWorldgen.WARM_RIVER
+			);
+			this.addSurfaceBiome(
+					parameters,
+					SharedWorldgen.WarmRiver.TEMPERATURE,
+					SharedWorldgen.WarmRiver.FULL_RANGE,
+					Climate.Parameter.span(SharedWorldgen.WarmRiver.coastContinentalness, SharedWorldgen.WarmRiver.farInlandContinentalness),
+					Climate.Parameter.span(SharedWorldgen.WarmRiver.EROSION_2, SharedWorldgen.WarmRiver.EROSION_5),
+					SharedWorldgen.WarmRiver.WEIRDNESS,
+					SharedWorldgen.WarmRiver.OFFSET,
+					RegisterWorldgen.WARM_RIVER
+			);
+			this.addSurfaceBiome(
+					parameters,
+					SharedWorldgen.WarmRiver.TEMPERATURE,
+					SharedWorldgen.WarmRiver.FULL_RANGE,
+					SharedWorldgen.WarmRiver.coastContinentalness,
+					SharedWorldgen.WarmRiver.EROSION_6,
+					SharedWorldgen.WarmRiver.WEIRDNESS,
+					SharedWorldgen.WarmRiver.OFFSET,
+					RegisterWorldgen.WARM_RIVER
+			);
         }
     }
 
