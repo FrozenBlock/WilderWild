@@ -17,8 +17,10 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.ModifyArgs;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
+import org.spongepowered.asm.mixin.injection.invoke.arg.Args;
 
 @Mixin(value = OverworldBiomeBuilder.class, priority = 69420)
 public final class OverworldBiomeBuilderMixin {
@@ -168,6 +170,38 @@ public final class OverworldBiomeBuilderMixin {
 		this.addSurfaceBiome(consumer, WARM_RANGE, Climate.Parameter.span(-1, 1), this.coastContinentalness, this.erosions[6], param, 0.0F, RegisterWorldgen.WARM_RIVER);
 	}
 
+	@ModifyArgs(method = "addValleys", at = @At(value = "INVOKE",
+			target = "Lnet/minecraft/world/level/biome/OverworldBiomeBuilder;addSurfaceBiome(Ljava/util/function/Consumer;Lnet/minecraft/world/level/biome/Climate$Parameter;Lnet/minecraft/world/level/biome/Climate$Parameter;Lnet/minecraft/world/level/biome/Climate$Parameter;Lnet/minecraft/world/level/biome/Climate$Parameter;Lnet/minecraft/world/level/biome/Climate$Parameter;FLnet/minecraft/resources/ResourceKey;)V",
+			ordinal = 1
+	))
+	private void fixPar1(Args args) {
+		args.set(1, UNFROZEN_NOT_WARM_RANGE);
+	}
+
+	@ModifyArgs(method = "addValleys", at = @At(value = "INVOKE",
+			target = "Lnet/minecraft/world/level/biome/OverworldBiomeBuilder;addSurfaceBiome(Ljava/util/function/Consumer;Lnet/minecraft/world/level/biome/Climate$Parameter;Lnet/minecraft/world/level/biome/Climate$Parameter;Lnet/minecraft/world/level/biome/Climate$Parameter;Lnet/minecraft/world/level/biome/Climate$Parameter;Lnet/minecraft/world/level/biome/Climate$Parameter;FLnet/minecraft/resources/ResourceKey;)V",
+			ordinal = 3
+	))
+	private void fixPar2(Args args) {
+		args.set(1, UNFROZEN_NOT_WARM_RANGE);
+	}
+
+	@ModifyArgs(method = "addValleys", at = @At(value = "INVOKE",
+			target = "Lnet/minecraft/world/level/biome/OverworldBiomeBuilder;addSurfaceBiome(Ljava/util/function/Consumer;Lnet/minecraft/world/level/biome/Climate$Parameter;Lnet/minecraft/world/level/biome/Climate$Parameter;Lnet/minecraft/world/level/biome/Climate$Parameter;Lnet/minecraft/world/level/biome/Climate$Parameter;Lnet/minecraft/world/level/biome/Climate$Parameter;FLnet/minecraft/resources/ResourceKey;)V",
+			ordinal = 5
+	))
+	private void fixPar3(Args args) {
+		args.set(1, UNFROZEN_NOT_WARM_RANGE);
+	}
+
+	@ModifyArgs(method = "addValleys", at = @At(value = "INVOKE",
+			target = "Lnet/minecraft/world/level/biome/OverworldBiomeBuilder;addSurfaceBiome(Ljava/util/function/Consumer;Lnet/minecraft/world/level/biome/Climate$Parameter;Lnet/minecraft/world/level/biome/Climate$Parameter;Lnet/minecraft/world/level/biome/Climate$Parameter;Lnet/minecraft/world/level/biome/Climate$Parameter;Lnet/minecraft/world/level/biome/Climate$Parameter;FLnet/minecraft/resources/ResourceKey;)V",
+			ordinal = 7
+	))
+	private void fixPar4(Args args) {
+		args.set(1, UNFROZEN_NOT_WARM_RANGE);
+	}
+
 	private static void replaceParameters(
 			Consumer<Pair<Climate.ParameterPoint, ResourceKey<Biome>>> parameters,
 			ResourceKey<Biome> biome,
@@ -231,6 +265,8 @@ public final class OverworldBiomeBuilderMixin {
 
 	@Unique
 	private static final Climate.Parameter WARM_RANGE = Climate.Parameter.span(0.2F, 1.0F);
+	@Unique
+	private static final Climate.Parameter UNFROZEN_NOT_WARM_RANGE = Climate.Parameter.span(0.0F, 0.2F);
 
 	@Shadow @Final private static float VALLEY_SIZE;
 	@Shadow @Final private static float LOW_START;
