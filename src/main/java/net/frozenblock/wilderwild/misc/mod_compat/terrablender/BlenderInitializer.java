@@ -15,6 +15,6 @@ public final class BlenderInitializer implements TerraBlenderApi {
         Regions.register(new WilderOverworldRegion(WilderWild.id("overworld"), 3));
 
         // Register our surface rules
-        SurfaceRuleManager.addSurfaceRules(SurfaceRuleManager.RuleCategory.OVERWORLD, WilderWild.MOD_ID, SharedWorldgen.surfaceRules());
+        SurfaceRuleManager.addSurfaceRules(SurfaceRuleManager.RuleCategory.OVERWORLD, WilderWild.MOD_ID, SharedWorldgen.rawSurfaceRules());
     }
 }
