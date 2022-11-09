@@ -181,6 +181,7 @@ public final class RegisterWorldgen implements SurfaceRuleEvents.OverworldModifi
 								.waterColor(4445678)
 								.waterFogColor(270131)
 								.skyColor(OverworldBiomes.calculateSkyColor(0.5F))
+								.fogColor(12638463)
 								.build())
 				.mobSpawnSettings(builder.build())
 				.generationSettings(builder2.build())
