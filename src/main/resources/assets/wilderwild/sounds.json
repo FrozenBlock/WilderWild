@@ -1509,8 +1509,7 @@
 	"sounds": [
 	  "wilderwild:mob/warden/dying_1",
 	  "wilderwild:mob/warden/dying_2"
-	],
-    "subtitle": "subtitles.entity.warden.dying"
+	]
   },
   "entity.warden.dying_underwater": {
 	"sounds": [
@@ -1523,8 +1522,7 @@
   "entity.warden.kirby_death": {
 	"sounds": [
 	  "wilderwild:mob/warden/kirbydeath"
-	],
-    "subtitle": "subtitles.entity.warden.kirby_death"
+	]
   },
   "entity.warden.swim": {
 	"sounds": [
