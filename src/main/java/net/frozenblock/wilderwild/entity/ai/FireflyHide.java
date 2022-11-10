@@ -7,12 +7,8 @@ import net.frozenblock.wilderwild.tag.WilderBlockTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
-import net.minecraft.world.entity.ai.behavior.Behavior;
-import net.minecraft.world.entity.schedule.Activity;
 import net.minecraft.world.level.LevelReader;
 import org.jetbrains.annotations.NotNull;
-import java.util.Map;
-import java.util.Set;
 
 @Experimental
 public class FireflyHide extends MoveToBlockBehavior<Firefly> {
@@ -27,9 +23,8 @@ public class FireflyHide extends MoveToBlockBehavior<Firefly> {
 	}
 
 	@Override
-	public void start(@NotNull ServerLevel level, @NotNull Firefly entity, long gameTime) {
-		super.start(level, entity, gameTime);
-		//stopOtherBehaviors(level, entity, gameTime);
+	public boolean canStillUse(@NotNull ServerLevel level, @NotNull Firefly entity, long gameTime) {
+		return entity.shouldHide() && super.canStillUse(level, entity, gameTime);
 	}
 
 	@Override
@@ -38,7 +33,6 @@ public class FireflyHide extends MoveToBlockBehavior<Firefly> {
 			owner.playSound(SoundEvents.BEEHIVE_ENTER, 1.0F, 1.3F);
 			owner.discard();
 		}
-		//stopOtherBehaviors(level, owner, gameTime);
 
 		super.tick(level, owner, gameTime);
 	}
@@ -51,19 +45,5 @@ public class FireflyHide extends MoveToBlockBehavior<Firefly> {
 	@Override
 	protected BlockPos getMoveToTarget() {
 		return this.blockPos;
-	}
-
-	private static void stopOtherBehaviors(@NotNull ServerLevel level, @NotNull Firefly owner, long gameTime) {
-		for(Map<Activity, Set<Behavior<? super Firefly>>> map : owner.getBrain().availableBehaviorsByPriority.values()) {
-			for(Set<Behavior<? super Firefly>> set : map.values()) {
-				for(Behavior<? super Firefly> behavior : set) {
-					if (!(behavior instanceof MoveToBlockBehavior)) {
-						if (behavior.getStatus() == Status.RUNNING) {
-							behavior.doStop(level, owner, gameTime);
-						}
-					}
-				}
-			}
-		}
 	}
 }

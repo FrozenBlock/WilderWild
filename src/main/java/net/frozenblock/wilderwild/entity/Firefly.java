@@ -2,11 +2,9 @@ package net.frozenblock.wilderwild.entity;
 
 import com.google.common.collect.ImmutableList;
 import com.mojang.serialization.Dynamic;
-import net.frozenblock.lib.entities.behavior.api.FrozenMemoryTypes;
 import net.frozenblock.lib.sound.api.FrozenSoundPackets;
 import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.entity.ai.FireflyAi;
-import net.frozenblock.wilderwild.entity.ai.FireflyHidingGoal;
 import net.frozenblock.wilderwild.misc.FireflyColor;
 import net.frozenblock.wilderwild.misc.server.EasyPacket;
 import net.frozenblock.wilderwild.registry.RegisterItems;
@@ -61,7 +59,7 @@ import java.util.Optional;
 public class Firefly extends PathfinderMob implements FlyingAnimal {
 
     protected static final ImmutableList<SensorType<? extends Sensor<? super Firefly>>> SENSORS = ImmutableList.of(SensorType.NEAREST_LIVING_ENTITIES, SensorType.HURT_BY);
-    protected static final ImmutableList<MemoryModuleType<?>> MEMORY_MODULES = ImmutableList.of(MemoryModuleType.PATH, MemoryModuleType.NEAREST_VISIBLE_LIVING_ENTITIES, MemoryModuleType.WALK_TARGET, MemoryModuleType.CANT_REACH_WALK_TARGET_SINCE, MemoryModuleType.LOOK_TARGET, MemoryModuleType.HOME, FrozenMemoryTypes.BLOCK_TARGET);
+    protected static final ImmutableList<MemoryModuleType<?>> MEMORY_MODULES = ImmutableList.of(MemoryModuleType.PATH, MemoryModuleType.NEAREST_VISIBLE_LIVING_ENTITIES, MemoryModuleType.WALK_TARGET, MemoryModuleType.CANT_REACH_WALK_TARGET_SINCE, MemoryModuleType.LOOK_TARGET, MemoryModuleType.HOME);
     private static final EntityDataAccessor<Boolean> FROM_BOTTLE = SynchedEntityData.defineId(Firefly.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Boolean> FLICKERS = SynchedEntityData.defineId(Firefly.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Integer> AGE = SynchedEntityData.defineId(Firefly.class, EntityDataSerializers.INT);
@@ -72,6 +70,7 @@ public class Firefly extends PathfinderMob implements FlyingAnimal {
 
     public boolean natural;
     public boolean hasHome;
+	public boolean hiding = false;
     public boolean despawning;
     public int homeCheckCooldown;
     public boolean wasNamedNectar;
@@ -188,7 +187,7 @@ public class Firefly extends PathfinderMob implements FlyingAnimal {
 
 	@Override
     protected Brain<?> makeBrain(@NotNull Dynamic<?> dynamic) {
-        return FireflyAi.makeBrain(this, this.brainProvider().makeBrain(dynamic));
+        return FireflyAi.makeBrain(this.brainProvider().makeBrain(dynamic));
     }
 
     public boolean isFromBottle() {
@@ -261,11 +260,10 @@ public class Firefly extends PathfinderMob implements FlyingAnimal {
     }
 
     public boolean shouldHide() {
-        if (!this.natural || this.level.getBiome(this.blockPosition()).is(WilderBiomeTags.FIREFLY_SPAWNABLE_DURING_DAY)) {
-            return false;
-        }
-
-        return this.getLevel().isDay() && this.getLevel().getBrightness(LightLayer.SKY, this.blockPosition()) >= 6;
+		return this.natural
+				&& !this.level.getBiome(this.blockPosition()).is(WilderBiomeTags.FIREFLY_SPAWNABLE_DURING_DAY)
+				&& this.getLevel().isDay()
+				&& this.getLevel().getBrightness(LightLayer.SKY, this.blockPosition()) >= 6;
     }
 
     @Override
@@ -344,7 +342,7 @@ public class Firefly extends PathfinderMob implements FlyingAnimal {
             this.shouldCheckSpawn = false;
         }
 
-        boolean nectar = this.hasCustomName() && this.getCustomName().getString().toLowerCase().contains("nectar");
+        boolean nectar = this.hasCustomName() && Objects.requireNonNull(this.getCustomName()).getString().toLowerCase().contains("nectar");
         if (level instanceof ServerLevel server) {
             if (nectar != wasNamedNectar) {
                 if (nectar) {
@@ -374,6 +372,12 @@ public class Firefly extends PathfinderMob implements FlyingAnimal {
                 }
             }
         }
+
+		if (!this.hiding && this.shouldHide()) {
+			this.getBrain().removeAllBehaviors();
+			FireflyAi.startHiding(this, this.getBrain());
+			this.hiding = true;
+		}
 
         this.setPrevScale(this.getScale());
 
