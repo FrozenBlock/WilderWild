@@ -70,7 +70,6 @@ public class Firefly extends PathfinderMob implements FlyingAnimal {
 
     public boolean natural;
     public boolean hasHome;
-	public boolean hiding = false;
     public boolean despawning;
     public int homeCheckCooldown;
     public boolean wasNamedNectar;
@@ -187,7 +186,7 @@ public class Firefly extends PathfinderMob implements FlyingAnimal {
 
 	@Override
     protected Brain<?> makeBrain(@NotNull Dynamic<?> dynamic) {
-        return FireflyAi.makeBrain(this.brainProvider().makeBrain(dynamic));
+        return FireflyAi.makeBrain(this, this.brainProvider().makeBrain(dynamic));
     }
 
     public boolean isFromBottle() {
@@ -372,12 +371,6 @@ public class Firefly extends PathfinderMob implements FlyingAnimal {
                 }
             }
         }
-
-		if (!this.hiding && this.shouldHide()) {
-			this.getBrain().removeAllBehaviors();
-			FireflyAi.startHiding(this, this.getBrain());
-			this.hiding = true;
-		}
 
         this.setPrevScale(this.getScale());
 

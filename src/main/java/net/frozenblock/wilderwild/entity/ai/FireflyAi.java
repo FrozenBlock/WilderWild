@@ -4,7 +4,6 @@ import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableSet;
 import com.mojang.datafixers.util.Pair;
 import java.util.Optional;
-import net.frozenblock.lib.entities.behavior.api.FrozenActivities;
 import net.frozenblock.wilderwild.entity.Firefly;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.GlobalPos;
@@ -33,9 +32,9 @@ public class FireflyAi {
     private FireflyAi() {
     }
 
-    public static Brain<?> makeBrain(Brain<Firefly> brain) {
+    public static Brain<?> makeBrain(Firefly firefly, Brain<Firefly> brain) {
         addCoreActivities(brain);
-        addIdleActivities(brain);
+        addIdleActivities(firefly, brain);
         brain.setCoreActivities(ImmutableSet.of(Activity.CORE));
         brain.setDefaultActivity(Activity.IDLE);
         brain.useDefaultActivity();
@@ -55,10 +54,11 @@ public class FireflyAi {
 		);
     }
 
-    private static void addIdleActivities(Brain<Firefly> brain) {
+    private static void addIdleActivities(Firefly firefly, Brain<Firefly> brain) {
         brain.addActivity(
 				Activity.IDLE,
 				ImmutableList.of(
+						Pair.of(1, new FireflyHide(firefly, 2.0D, 40, 32)),
 						Pair.of(2, new StayCloseToTarget<>(FireflyAi::getLookTarget, 7, 16, 1.0F)),
 						Pair.of(3, new RunSometimes<>(new SetEntityLookTarget((firefly1) -> true, 6.0F), UniformInt.of(30, 60))),
 						Pair.of(4, new RunOne<>(
@@ -73,7 +73,7 @@ public class FireflyAi {
     }
 
     public static void updateActivities(Firefly firefly) {
-        firefly.getBrain().setActiveActivityToFirstValid(ImmutableList.of(FrozenActivities.TARGET_BLOCK, Activity.IDLE));
+        firefly.getBrain().setActiveActivityToFirstValid(ImmutableList.of(Activity.IDLE));
     }
 
     public static BlockPos getHome(Firefly firefly) {
@@ -113,14 +113,4 @@ public class FireflyAi {
     private static BlockPos randomPosAround(BlockPos pos, Level level) {
         return pos.offset(level.random.nextIntBetweenInclusive(-7, 7), level.random.nextIntBetweenInclusive(-7, 7), level.random.nextIntBetweenInclusive(-7, 7));
     }
-
-	public static void startHiding(Firefly firefly, Brain<Firefly> brain) {
-		brain.addActivity(
-				Activity.IDLE,
-				1,
-				ImmutableList.of(
-						new FireflyHide(firefly, 2.0D, 40, 32)
-				)
-		);
-	}
 }
