@@ -133,7 +133,7 @@ public final class SharedWorldgen {
 				SurfaceRules.sequence(SurfaceRules.ifTrue(
 						SurfaceRules.isBiome(RegisterWorldgen.WARM_RIVER),
 						SurfaceRules.ifTrue(
-								SurfaceRules.yBlockCheck(VerticalAnchor.absolute(32), 0), SurfaceRules.sequence(SurfaceRules.ifTrue(SurfaceRules.ON_CEILING, SANDSTONE), SAND))
+								SurfaceRules.yBlockCheck(VerticalAnchor.absolute(32), 0), SurfaceRules.sequence(SurfaceRules.ifTrue(SurfaceRules.DEEP_UNDER_FLOOR, SAND), SANDSTONE))
 						)
 				)
 		);
@@ -212,7 +212,7 @@ public final class SharedWorldgen {
 		return SurfaceRules.sequence(
 				SurfaceRules.ifTrue(
 						SurfaceRules.isBiome(RegisterWorldgen.WARM_RIVER), SurfaceRules.ifTrue(
-								SurfaceRules.yBlockCheck(VerticalAnchor.absolute(32), 0), SurfaceRules.sequence(SurfaceRules.ifTrue(SurfaceRules.ON_CEILING, SANDSTONE), SAND))
+								SurfaceRules.yBlockCheck(VerticalAnchor.absolute(32), 0), SurfaceRules.sequence(SurfaceRules.ifTrue(SurfaceRules.DEEP_UNDER_FLOOR, SAND), SANDSTONE))
 				));
 	}
 	public static SurfaceRules.SequenceRuleSource betaBeaches() {
