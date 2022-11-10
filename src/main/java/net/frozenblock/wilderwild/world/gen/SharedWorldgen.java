@@ -18,6 +18,7 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.levelgen.Noises;
 import net.minecraft.world.level.levelgen.SurfaceRules;
 import net.minecraft.world.level.levelgen.VerticalAnchor;
+import org.apache.tools.ant.taskdefs.condition.IsTrue;
 
 /**
  * Contains Wilder Wild's worldgen data.
@@ -102,6 +103,7 @@ public final class SharedWorldgen {
 	public static SurfaceRules.SequenceRuleSource surfaceRules() {
 		List<SurfaceRules.RuleSource> list = new ArrayList<>();
 		list.add(cypressSurfaceRules());
+		list.add(warmRiverRules());
 		if (ClothConfigInteractionHandler.betaBeaches()) {
 			list.add(gravelBetaBeaches());
 			list.add(sandBetaBeaches());
@@ -124,6 +126,14 @@ public final class SharedWorldgen {
 												SurfaceRules.ifTrue(SurfaceRules.noiseCondition(Noises.SWAMP, 0.0), WATER)
 										)
 								)
+						)
+				)
+		);
+		list.add(
+				SurfaceRules.sequence(SurfaceRules.ifTrue(
+						SurfaceRules.isBiome(RegisterWorldgen.WARM_RIVER),
+						SurfaceRules.ifTrue(
+								SurfaceRules.yBlockCheck(VerticalAnchor.absolute(32), 0), SurfaceRules.sequence(SurfaceRules.ifTrue(SurfaceRules.ON_CEILING, SANDSTONE), SAND))
 						)
 				)
 		);
@@ -198,7 +208,13 @@ public final class SharedWorldgen {
 				)
         );
     }
-
+	public static SurfaceRules.RuleSource warmRiverRules() {
+		return SurfaceRules.sequence(
+				SurfaceRules.ifTrue(
+						SurfaceRules.isBiome(RegisterWorldgen.WARM_RIVER), SurfaceRules.ifTrue(
+								SurfaceRules.yBlockCheck(VerticalAnchor.absolute(32), 0), SurfaceRules.sequence(SurfaceRules.ifTrue(SurfaceRules.ON_CEILING, SANDSTONE), SAND))
+				));
+	}
 	public static SurfaceRules.SequenceRuleSource betaBeaches() {
 		return (SurfaceRules.SequenceRuleSource) SurfaceRules.sequence(gravelBetaBeaches(), sandBetaBeaches(), multilayerSandBetaBeaches());
 	}
@@ -256,6 +272,7 @@ public final class SharedWorldgen {
 				)
 		);
 	}
+
 
 	//SurfaceRules.sequence(new SurfaceRules.RuleSource[]{SurfaceRules.ifTrue(SurfaceRules.isBiome(Biomes.FOREST, Biomes.FLOWER_FOREST, Biomes.JUNGLE),
 	// SurfaceRules.ifTrue(SurfaceRules.yStartCheck(VerticalAnchor.absolute(58), 0),

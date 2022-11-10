@@ -264,7 +264,7 @@ public final class OverworldBiomeBuilderMixin {
     }
 
 	@Unique
-	private static final Climate.Parameter WARM_RANGE = Climate.Parameter.span(0.2F, 1.0F);
+	private static final Climate.Parameter WARM_RANGE = Climate.Parameter.span(0.55F, 1.0F);
 	@Unique
 	private static final Climate.Parameter UNFROZEN_NOT_WARM_RANGE = Climate.Parameter.span(0.0F, 0.2F);
 

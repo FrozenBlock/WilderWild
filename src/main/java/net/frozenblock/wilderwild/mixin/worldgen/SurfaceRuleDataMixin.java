@@ -18,11 +18,13 @@ public class SurfaceRuleDataMixin {
 		if (FrozenBools.IS_QUILT && !FrozenBools.HAS_TERRABLENDER) {
 			return SurfaceRules.sequence(
 					SharedWorldgen.cypressSurfaceRules(),
+					SharedWorldgen.warmRiverRules(),
 					SharedWorldgen.gravelBetaBeaches(),
 					SharedWorldgen.sandBetaBeaches(),
 					SharedWorldgen.multilayerSandBetaBeaches(),
 					rule,
 					SharedWorldgen.cypressSurfaceRules(),
+					SharedWorldgen.warmRiverRules(),
 					SharedWorldgen.gravelBetaBeaches(),
 					SharedWorldgen.sandBetaBeaches(),
 					SharedWorldgen.multilayerSandBetaBeaches()
