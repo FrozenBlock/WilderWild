@@ -31,7 +31,7 @@ public class FireflyHide extends MoveToBlockBehavior<Firefly> {
 	@Override
 	protected void tick(@NotNull ServerLevel level, @NotNull Firefly owner, long gameTime) {
 		if (this.isReachedTarget()) {
-			owner.playSound(RegisterSounds.ENTITY_FIREFLY_HIDE, 1.0F, 1.3F);
+			owner.playSound(RegisterSounds.ENTITY_FIREFLY_HIDE, 1.0F, 1.2F);
 			owner.discard();
 		}
 
