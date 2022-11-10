@@ -1347,7 +1347,8 @@
 	"sounds": [
 	  "wilderwild:entity/ancient_horn_projectile/blast1",
 	  "wilderwild:entity/ancient_horn_projectile/blast2"
-	]
+	],
+    "subtitle": "subtitles.entity.ancient_horn_projectile.blast"
   },
   "entity.ancient_horn_projectile.dissipate": {
 	"sounds": [
@@ -1369,19 +1370,27 @@
 		"attenuation_distance": 32,
 		"name": "wilderwild:entity/ancient_horn_projectile/flyby3"
 	  }
-	]
+	],
+    "subtitle": "subtitles.entity.ancient_horn_projectile.flyby"
   },
   "entity.ancient_horn_projectile.loop": {
 	"sounds": [
 	  "wilderwild:entity/ancient_horn_projectile/loop"
 	]
   },
+  "entity.firefly.hide": {
+    "sounds": [
+      "block/beehive/enter"
+    ],
+    "subtitle": "subtitles.entity.firefly.hide"
+  },
   "entity.firefly.hurt": {
 	"sounds": [
 	  "wilderwild:mob/firefly/hurt_1",
 	  "wilderwild:mob/firefly/hurt_2",
 	  "wilderwild:mob/firefly/hurt_3"
-	]
+	],
+    "subtitle": "subtitles.entity.firefly.hurt"
   },
   "entity.firefly.nectar": {
 	"sounds": [
@@ -1484,7 +1493,8 @@
   "entity.warden.brap": {
 	"sounds": [
 	  "wilderwild:mob/warden/brap"
-	]
+	],
+    "subtitle": "subtitles.entity.warden.brap"
   },
   "entity.warden.osmiooo_heartbeat": {
 	"sounds": [
@@ -1492,37 +1502,43 @@
 	  "wilderwild:mob/warden/osmiooo_heartbeat_2",
 	  "wilderwild:mob/warden/osmiooo_heartbeat_3",
 	  "wilderwild:mob/warden/osmiooo_heartbeat_4"
-	]
+	],
+    "subtitle": "subtitles.entity.warden.osmiooo_heartbeat"
   },
   "entity.warden.dying": {
 	"sounds": [
 	  "wilderwild:mob/warden/dying_1",
 	  "wilderwild:mob/warden/dying_2"
-	]
+	],
+    "subtitle": "subtitles.entity.warden.dying"
   },
   "entity.warden.dying_underwater": {
 	"sounds": [
 	  "wilderwild:mob/warden/dying_underwater_1",
 	  "wilderwild:mob/warden/dying_underwater_2",
 	  "wilderwild:mob/warden/dying_underwater_3"
-	]
+	],
+    "subtitle": "subtitles.entity.warden.dying_underwater"
   },
   "entity.warden.kirby_death": {
 	"sounds": [
 	  "wilderwild:mob/warden/kirbydeath"
-	]
+	],
+    "subtitle": "subtitles.entity.warden.kirby_death"
   },
   "entity.warden.swim": {
 	"sounds": [
 	  "wilderwild:mob/warden/swim_1",
 	  "wilderwild:mob/warden/swim_2",
 	  "wilderwild:mob/warden/swim_3"
-	]
+	],
+    "subtitle": "subtitles.entity.warden.swim"
   },
   "entity.frog.sus_death": {
 	"sounds": [
 	  "wilderwild:mob/frog/sus_death"
-	]
+	],
+    "subtitle": "subtitles.entity.frog.sus_death"
   },
   "item.ancient_horn.call": {
 	"sounds": [
@@ -1713,7 +1729,8 @@
 	  "wilderwild:particle/floating_sculk_bubble/big_pop1",
 	  "wilderwild:particle/floating_sculk_bubble/big_pop2",
 	  "wilderwild:particle/floating_sculk_bubble/big_pop3"
-	]
+	],
+    "subtitle": "subtitles.particle.floating_sculk_bubble.big_pop"
   },
   "particle.floating_sculk_bubble.pop": {
 	"sounds": [
@@ -1722,7 +1739,8 @@
 	  "wilderwild:particle/floating_sculk_bubble/pop3",
 	  "wilderwild:particle/floating_sculk_bubble/pop4",
 	  "wilderwild:particle/floating_sculk_bubble/pop5"
-	]
+	],
+    "subtitle": "subtitles.particle.floating_sculk_bubble.pop"
   },
   "particle.mesoglea_drip.land": {
 	"sounds": [
@@ -1731,6 +1749,7 @@
 	  "wilderwild:particle/mesoglea_drip/land3",
 	  "wilderwild:particle/mesoglea_drip/land4",
 	  "wilderwild:particle/mesoglea_drip/land5"
-	]
+	],
+    "subtitle": "subtitles.particle.mesoglea_drip.land"
   }
 }
