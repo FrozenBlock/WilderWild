@@ -41,8 +41,8 @@ public class WilderWildDataGenerator implements DataGeneratorEntrypoint {
 
 		@Override
 		protected void configure(HolderLookup.Provider registries, Entries entries) {
-			RegisterWorldgen.registerWorldgen(entries);
 			WilderFeaturesBootstrap.bootstrap(entries);
+			RegisterWorldgen.registerWorldgen(entries);
 			WilderWorldGen.generateWildWorldGen();
 		}
 

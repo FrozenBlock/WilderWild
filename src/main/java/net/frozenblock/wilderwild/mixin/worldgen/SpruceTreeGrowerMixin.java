@@ -16,7 +16,7 @@ public class SpruceTreeGrowerMixin {
 
     @Inject(method = "getConfiguredFeature", at = @At("RETURN"), cancellable = true)
     public void getConfiguredFeature(RandomSource random, boolean bees, CallbackInfoReturnable<ResourceKey<ConfiguredFeature<?, ?>>> cir) {
-        cir.setReturnValue(WilderTreeConfigured.NEW_SPRUCE.getResourceKey());
+        cir.setReturnValue(WilderTreeConfigured.SPRUCE);
     }
 
 }
