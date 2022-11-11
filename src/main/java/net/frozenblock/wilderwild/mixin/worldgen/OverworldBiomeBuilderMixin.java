@@ -283,7 +283,7 @@ public final class OverworldBiomeBuilderMixin {
 	@Unique
 	private static final Climate.Parameter UNFROZEN_NOT_WARM_RANGE = Climate.Parameter.span(0.0F, 0.2F);
 	@Unique
-	private static final Climate.Parameter HUMIDITY_TO_TWO = Climate.Parameter.span(0F, -0.1F);
+	private static final Climate.Parameter HUMIDITY_TO_TWO = Climate.Parameter.span(-0.1F, 0.0F);
 	@Unique
 	private static final Climate.Parameter HUMIDITY_TO_THREE = Climate.Parameter.span(0F, 0.1F);
 
