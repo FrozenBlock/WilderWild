@@ -164,10 +164,25 @@ public final class OverworldBiomeBuilderMixin {
 
 	@Inject(method = "addValleys", at = @At("HEAD"))
 	private void addValleys(Consumer<Pair<Climate.ParameterPoint, ResourceKey<Biome>>> consumer, Climate.Parameter param, CallbackInfo info) {
-		this.addSurfaceBiome(consumer, WARM_RANGE, Climate.Parameter.span(-1, 1), this.coastContinentalness, Climate.Parameter.span(this.erosions[0], this.erosions[1]), param, 0.0F, param.max() < 0L ? Biomes.STONY_SHORE : RegisterWorldgen.WARM_RIVER);
-		this.addSurfaceBiome(consumer, WARM_RANGE, Climate.Parameter.span(-1, 1), this.nearInlandContinentalness, Climate.Parameter.span(this.erosions[0], this.erosions[1]), param, 0.0F, RegisterWorldgen.WARM_RIVER);
-		this.addSurfaceBiome(consumer, WARM_RANGE, Climate.Parameter.span(-1, 1), Climate.Parameter.span(this.coastContinentalness, this.farInlandContinentalness), Climate.Parameter.span(this.erosions[2], this.erosions[5]), param, 0.0F, RegisterWorldgen.WARM_RIVER);
-		this.addSurfaceBiome(consumer, WARM_RANGE, Climate.Parameter.span(-1, 1), this.coastContinentalness, this.erosions[6], param, 0.0F, RegisterWorldgen.WARM_RIVER);
+		if (ClothConfigInteractionHandler.modifyJunglePlacement()) {
+			this.addSurfaceBiome(consumer, this.temperatures[3], HUMIDITY_TO_TWO, this.coastContinentalness, Climate.Parameter.span(this.erosions[0], this.erosions[1]), param, 0.0F, param.max() < 0L ? Biomes.STONY_SHORE : RegisterWorldgen.WARM_RIVER);
+			this.addSurfaceBiome(consumer, this.temperatures[3], HUMIDITY_TO_TWO, this.nearInlandContinentalness, Climate.Parameter.span(this.erosions[0], this.erosions[1]), param, 0.0F, RegisterWorldgen.WARM_RIVER);
+			this.addSurfaceBiome(consumer, this.temperatures[3], HUMIDITY_TO_TWO, Climate.Parameter.span(this.coastContinentalness, this.farInlandContinentalness), Climate.Parameter.span(this.erosions[2], this.erosions[5]), param, 0.0F, RegisterWorldgen.WARM_RIVER);
+			this.addSurfaceBiome(consumer, this.temperatures[3], HUMIDITY_TO_TWO, this.coastContinentalness, this.erosions[6], param, 0.0F, RegisterWorldgen.WARM_RIVER);
+			this.addSurfaceBiome(consumer, this.temperatures[4], HUMIDITY_TO_THREE, this.coastContinentalness, Climate.Parameter.span(this.erosions[0], this.erosions[1]), param, 0.0F, param.max() < 0L ? Biomes.STONY_SHORE : RegisterWorldgen.WARM_RIVER);
+			this.addSurfaceBiome(consumer, this.temperatures[4], HUMIDITY_TO_THREE, this.nearInlandContinentalness, Climate.Parameter.span(this.erosions[0], this.erosions[1]), param, 0.0F, RegisterWorldgen.WARM_RIVER);
+			this.addSurfaceBiome(consumer, this.temperatures[4], HUMIDITY_TO_THREE, Climate.Parameter.span(this.coastContinentalness, this.farInlandContinentalness), Climate.Parameter.span(this.erosions[2], this.erosions[5]), param, 0.0F, RegisterWorldgen.WARM_RIVER);
+			this.addSurfaceBiome(consumer, this.temperatures[4], HUMIDITY_TO_THREE, this.coastContinentalness, this.erosions[6], param, 0.0F, RegisterWorldgen.WARM_RIVER);
+		} else {
+			this.addSurfaceBiome(consumer, this.temperatures[3], HUMIDITY_TO_TWO, this.coastContinentalness, Climate.Parameter.span(this.erosions[0], this.erosions[1]), param, 0.0F, param.max() < 0L ? Biomes.STONY_SHORE : RegisterWorldgen.WARM_RIVER);
+			this.addSurfaceBiome(consumer, this.temperatures[3], HUMIDITY_TO_TWO, this.nearInlandContinentalness, Climate.Parameter.span(this.erosions[0], this.erosions[1]), param, 0.0F, RegisterWorldgen.WARM_RIVER);
+			this.addSurfaceBiome(consumer, this.temperatures[3], HUMIDITY_TO_TWO, Climate.Parameter.span(this.coastContinentalness, this.farInlandContinentalness), Climate.Parameter.span(this.erosions[2], this.erosions[5]), param, 0.0F, RegisterWorldgen.WARM_RIVER);
+			this.addSurfaceBiome(consumer, this.temperatures[3], HUMIDITY_TO_TWO, this.coastContinentalness, this.erosions[6], param, 0.0F, RegisterWorldgen.WARM_RIVER);
+			this.addSurfaceBiome(consumer, this.temperatures[4], Climate.Parameter.span(-1F, 1F), this.coastContinentalness, Climate.Parameter.span(this.erosions[0], this.erosions[1]), param, 0.0F, param.max() < 0L ? Biomes.STONY_SHORE : RegisterWorldgen.WARM_RIVER);
+			this.addSurfaceBiome(consumer, this.temperatures[4], Climate.Parameter.span(-1F, 1F), this.nearInlandContinentalness, Climate.Parameter.span(this.erosions[0], this.erosions[1]), param, 0.0F, RegisterWorldgen.WARM_RIVER);
+			this.addSurfaceBiome(consumer, this.temperatures[4], Climate.Parameter.span(-1F, 1F), Climate.Parameter.span(this.coastContinentalness, this.farInlandContinentalness), Climate.Parameter.span(this.erosions[2], this.erosions[5]), param, 0.0F, RegisterWorldgen.WARM_RIVER);
+			this.addSurfaceBiome(consumer, this.temperatures[4], Climate.Parameter.span(-1F, 1F), this.coastContinentalness, this.erosions[6], param, 0.0F, RegisterWorldgen.WARM_RIVER);
+		}
 	}
 
 	@ModifyArgs(method = "addValleys", at = @At(value = "INVOKE",
@@ -267,6 +282,10 @@ public final class OverworldBiomeBuilderMixin {
 	private static final Climate.Parameter WARM_RANGE = Climate.Parameter.span(0.55F, 1.0F);
 	@Unique
 	private static final Climate.Parameter UNFROZEN_NOT_WARM_RANGE = Climate.Parameter.span(0.0F, 0.2F);
+	@Unique
+	private static final Climate.Parameter HUMIDITY_TO_TWO = Climate.Parameter.span(0F, -0.1F);
+	@Unique
+	private static final Climate.Parameter HUMIDITY_TO_THREE = Climate.Parameter.span(0F, 0.1F);
 
 	@Shadow @Final private static float VALLEY_SIZE;
 	@Shadow @Final private static float LOW_START;
