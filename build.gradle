@@ -21,7 +21,7 @@ loom {
 
 	accessWidenerPath = file("src/main/resources/wilderwild.accesswidener")
 	interfaceInjection {
-		// When enabled injected interfaces from dependecies will be applied.
+		// When enabled, injected interfaces from dependecies will be applied.
 		enableDependencyInterfaceInjection = true
 	}
 }

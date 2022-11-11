@@ -10,12 +10,7 @@ public class EasterEggs {
 
     public static void registerEaster() {
         EntityTextureOverride.register(WilderSharedConstants.id("osmiooo_warden"), EntityType.WARDEN, WilderSharedConstants.id("textures/entity/warden/osmiooo_warden.png"), ((entity) -> {
-            String name = ChatFormatting.stripFormatting(entity.getName().getString());
-            if (name != null && (name.equalsIgnoreCase("Osmiooo") || name.equalsIgnoreCase("Mossmio") || name.equalsIgnoreCase("Osmio"))) {
-                ((WilderWarden) entity).setOsmiooo(true);
-                return true;
-            }
-            return false;
+            return ((WilderWarden) entity).isOsmiooo();
         }));
         EntityTextureOverride.register(WilderSharedConstants.id("treetrain1_goat"), EntityType.GOAT, WilderSharedConstants.id("textures/entity/goat/treetrain1_goat.png"), true, "Treetrain1", "Treetrain");
         //EasterEgg.register(WilderWild.id("merp_slime"), EntityType.SLIME, WilderWild.id("textures/entity/slime/merp_slime.png"), true, "Merp");

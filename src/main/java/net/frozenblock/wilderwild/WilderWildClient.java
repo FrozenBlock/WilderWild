@@ -12,6 +12,7 @@ import net.fabricmc.fabric.api.client.rendering.v1.ColorProviderRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityModelLayerRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
 import net.fabricmc.fabric.api.event.client.ClientSpriteRegistryCallback;
+import net.frozenblock.lib.impl.NewPanoramas;
 import net.frozenblock.lib.impl.NewSplahes;
 import net.frozenblock.lib.math.AdvancedMath;
 import net.frozenblock.lib.sound.api.FlyBySoundHub;
@@ -68,6 +69,7 @@ public final class WilderWildClient implements ClientModInitializer {
     @Override
     public void onInitializeClient() {
 		NewSplahes.addNewSplashLocation(WilderSharedConstants.id("texts/splashes.txt"));
+		NewPanoramas.addNewPanorama(WilderSharedConstants.id("textures/gui/title/first/panorama"));
         BlockRenderLayerMap.INSTANCE.putBlock(RegisterBlocks.CARNATION, RenderType.cutout());
         BlockRenderLayerMap.INSTANCE.putBlock(RegisterBlocks.SEEDING_DANDELION, RenderType.cutout());
         BlockRenderLayerMap.INSTANCE.putBlock(RegisterBlocks.POTTED_CARNATION, RenderType.cutout());

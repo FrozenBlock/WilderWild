@@ -34,6 +34,7 @@ public abstract class MobMixin extends LivingEntity {
         }
     }
 
+	//TODO: Test and see if this means water will also cause this to happen.
 	@Inject(method = "playHurtSound", at = @At("HEAD"))
 	private void startAngerLoop(DamageSource source, CallbackInfo ci) {
 		final Mob mob = Mob.class.cast(this);

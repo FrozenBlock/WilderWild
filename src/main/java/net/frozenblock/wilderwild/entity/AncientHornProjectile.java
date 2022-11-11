@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Optional;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.frozenblock.lib.damagesource.FrozenProjectileDamageSource;
+import net.frozenblock.lib.sound.api.FrozenSoundPackets;
 import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.block.entity.HangingTendrilBlockEntity;
 import static net.frozenblock.wilderwild.item.AncientHorn.*;
@@ -99,7 +100,7 @@ public class AncientHornProjectile extends AbstractArrow {
     }
 
     public List<Entity> collidingEntities() {
-        return level.getEntities(this, this.getBoundingBox().expandTowards(this.getDeltaMovement()).inflate(1.0D), this::canHitEntity);
+        return this.level.getEntities(this, this.getBoundingBox().expandTowards(this.getDeltaMovement()).inflate(1.0D), this::canHitEntity);
     }
 
     @Override
@@ -320,8 +321,8 @@ public class AncientHornProjectile extends AbstractArrow {
                     server.setBlockAndUpdate(pos, blockState.setValue(RegisterProperties.HICCUPPING, true));
                 }
                 if (SculkSensorBlock.canActivate(blockState)) {
-                    SculkSensorBlock.activate(null, level, pos, level.getBlockState(pos), WilderWild.random().nextInt(15));
-                    level.gameEvent(null, RegisterGameEvents.SCULK_SENSOR_ACTIVATE, pos);
+                    SculkSensorBlock.activate(null, level, pos, this.level.getBlockState(pos), WilderWild.random().nextInt(15));
+                    this.level.gameEvent(null, RegisterGameEvents.SCULK_SENSOR_ACTIVATE, pos);
                     setCooldown(getCooldown(this.getOwner(), SENSOR_COOLDOWN));
                 }
             }
@@ -345,10 +346,10 @@ public class AncientHornProjectile extends AbstractArrow {
 
     @Override
     public boolean isNoPhysics() {
-        BlockState insideState = level.getBlockState(this.blockPosition());
-        if (insideState.is(RegisterBlocks.HANGING_TENDRIL) && level instanceof ServerLevel server && canInteract()) { //HANGING TENDRIL
+        BlockState insideState = this.level.getBlockState(this.blockPosition());
+        if (insideState.is(RegisterBlocks.HANGING_TENDRIL) && this.level instanceof ServerLevel server && canInteract()) { //HANGING TENDRIL
             BlockPos pos = this.blockPosition();
-            BlockEntity entity = level.getBlockEntity(pos);
+            BlockEntity entity = this.level.getBlockEntity(pos);
             WilderWild.log(RegisterBlocks.HANGING_TENDRIL, pos, "Horn Projectile Touched", WilderSharedConstants.DEV_LOGGING);
             if (entity instanceof HangingTendrilBlockEntity tendril) {
                 WilderWild.log("Horn Projectile Found Hanging Tendril Entity", WilderSharedConstants.UNSTABLE_LOGGING);
@@ -356,13 +357,13 @@ public class AncientHornProjectile extends AbstractArrow {
                 int XP = tendril.storedXP;
                 if (XP > 0) {
                     tendril.storedXP = 0;
-                    level.explode(this, this.getX(), this.getY(), this.getZ(), 0, Level.ExplosionInteraction.NONE);
-                    level.playLocalSound(this.getX(), this.getY(), this.getZ(), RegisterSounds.ENTITY_ANCIENT_HORN_PROJECTILE_BLAST, SoundSource.NEUTRAL, 1.0F, 1.0F, true);
-                    level.destroyBlock(this.blockPosition(), false);
-                    ExperienceOrb.award(server, Vec3.atCenterOf(pos).add(0, 0, 0), XP);
-                    setCooldown(getCooldown(this.getOwner(), TENDRIL_COOLDOWN));
-                    this.setShotFromCrossbow(false);
-                    this.remove(RemovalReason.DISCARDED);
+					this.level.explode(this, this.getX(), this.getY(), this.getZ(), 0, Level.ExplosionInteraction.NONE);
+					FrozenSoundPackets.createLocalSound(this.level, pos, RegisterSounds.ENTITY_ANCIENT_HORN_PROJECTILE_BLAST, SoundSource.NEUTRAL, 1.5F, 1.0F, true);
+					this.level.destroyBlock(this.blockPosition(), false);
+					ExperienceOrb.award(server, Vec3.atCenterOf(pos).add(0, 0, 0), XP);
+					setCooldown(getCooldown(this.getOwner(), TENDRIL_COOLDOWN));
+					this.setShotFromCrossbow(false);
+					this.remove(RemovalReason.DISCARDED);
                 }
             }
         } else if (insideState.is(NON_COLLIDE)) {
@@ -383,7 +384,7 @@ public class AncientHornProjectile extends AbstractArrow {
         Vec3 scaledDelta = pos.add(deltaMovement.scale(0.08));
         BlockHitResult hitResult = this.level.clip(new ClipContext(pos, scaledDelta, ClipContext.Block.COLLIDER, ClipContext.Fluid.NONE, this));
         if (hitResult.getType() == HitResult.Type.BLOCK) {
-            BlockState state = level.getBlockState(hitResult.getBlockPos());
+            BlockState state = this.level.getBlockState(hitResult.getBlockPos());
             return state.is(NON_COLLIDE);
         }
         return false;

@@ -11,6 +11,10 @@ import net.minecraft.world.level.biome.AmbientAdditionsSettings;
 import net.minecraft.world.level.biome.Biomes;
 
 public final class WilderMusic {
+	private WilderMusic() {
+		throw new UnsupportedOperationException("WilderMusic contains only static declarations.");
+	}
+
     public static void playMusic() {
         WilderWild.logWild("Adding Music And Ambience To Biomes for", true);
 
@@ -41,14 +45,8 @@ public final class WilderMusic {
         BiomeModifications.create(WilderSharedConstants.id("modify_lush_caves_additions")).add(ModificationPhase.REPLACEMENTS, (context) -> context.getBiomeKey().equals(Biomes.LUSH_CAVES),
                 (selectionContext, modificationContext) -> modificationContext.getEffects().setAdditionsSound(new AmbientAdditionsSettings(RegisterSounds.AMBIENT_LUSH_CAVES_ADDITIONS, 0.01D)));
 
-        // Jellyfish Caves
-        BiomeModifications.create(WilderSharedConstants.id("modify_jellyfish_caves_ambience")).add(ModificationPhase.REPLACEMENTS, (context) -> context.getBiomeKey().equals(RegisterWorldgen.JELLYFISH_CAVES),
-                (selectionContext, modificationContext) -> modificationContext.getEffects().setAmbientSound(RegisterSounds.AMBIENT_JELLYFISH_CAVES_LOOP));
-        BiomeModifications.create(WilderSharedConstants.id("modify_jellyfish_caves_additions")).add(ModificationPhase.REPLACEMENTS, (context) -> context.getBiomeKey().equals(RegisterWorldgen.JELLYFISH_CAVES),
-                (selectionContext, modificationContext) -> modificationContext.getEffects().setAdditionsSound(new AmbientAdditionsSettings(RegisterSounds.AMBIENT_JELLYFISH_CAVES_ADDITIONS, 0.0005D)));
-
         // Generic Caves
-        /*BiomeModifications.create(WilderWild.id("modify_caves_ambience")).add(ModificationPhase.REPLACEMENTS, (context) -> context.getBiomeKey().equals(Biomes.SOMETHING),
+        /*BiomeModifications.create(WilderSharedConstants.id("modify_caves_ambience")).add(ModificationPhase.REPLACEMENTS, (context) -> context.getBiomeKey().equals(Biomes.SOMETHING),
                 (selectionContext, modificationContext) -> modificationContext.getEffects().setAmbientSound(RegisterSounds.AMBIENT_GENERIC_CAVES_LOOP));*/
     }
 }

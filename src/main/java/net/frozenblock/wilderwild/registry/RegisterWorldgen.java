@@ -1,6 +1,7 @@
 package net.frozenblock.wilderwild.registry;
 
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricWorldgenProvider;
+import net.frozenblock.lib.FrozenBools;
 import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.frozenblock.wilderwild.misc.config.ClothConfigInteractionHandler;
@@ -13,6 +14,9 @@ import net.minecraft.core.Registry;
 import net.minecraft.data.worldgen.BiomeDefaultFeatures;
 import net.minecraft.data.worldgen.BootstapContext;
 import net.minecraft.data.worldgen.biome.OverworldBiomes;
+import static net.minecraft.data.worldgen.biome.OverworldBiomes.jungle;
+import static net.minecraft.data.worldgen.biome.OverworldBiomes.swamp;
+import net.minecraft.data.worldgen.placement.AquaticPlacements;
 import net.minecraft.data.worldgen.placement.CavePlacements;
 import net.minecraft.data.worldgen.placement.MiscOverworldPlacements;
 import net.minecraft.data.worldgen.placement.VegetationPlacements;
@@ -21,6 +25,7 @@ import net.minecraft.sounds.Music;
 import net.minecraft.sounds.Musics;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
+import net.minecraft.world.level.biome.AmbientAdditionsSettings;
 import net.minecraft.world.level.biome.AmbientMoodSettings;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.biome.BiomeGenerationSettings;
@@ -39,6 +44,7 @@ public final class RegisterWorldgen implements SurfaceRuleEvents.OverworldModifi
 	public static final ResourceKey<Biome> CYPRESS_WETLANDS = register("cypress_wetlands");
 	public static final ResourceKey<Biome> JELLYFISH_CAVES = register("jellyfish_caves");
     public static final ResourceKey<Biome> MIXED_FOREST = register("mixed_forest");
+	public static final ResourceKey<Biome> WARM_RIVER = register("warm_river");
 
     public static void registerWorldgen(FabricWorldgenProvider.Entries entries) {
         WilderWild.logWild("Registering Biomes for", WilderSharedConstants.UNSTABLE_LOGGING);
@@ -47,23 +53,22 @@ public final class RegisterWorldgen implements SurfaceRuleEvents.OverworldModifi
 		entries.add(CYPRESS_WETLANDS, cypressWetlands(placedFeatures, worldCarvers));
 		entries.add(JELLYFISH_CAVES, jellyfishCaves(placedFeatures, worldCarvers));
 		entries.add(MIXED_FOREST, mixedForest(placedFeatures, worldCarvers));
+		entries.add(WARM_RIVER, warmRiver());
 
         WilderNoise.init();
     }
 
     @Override
     public void modifyOverworldRules(SurfaceRuleContext.@NotNull Overworld context) {
-        context.ruleSources().add(0, SharedWorldgen.cypressSurfaceRules());
-		context.ruleSources().add(SharedWorldgen.cypressSurfaceRules());
-        if (ClothConfigInteractionHandler.betaBeaches()) {
-            context.ruleSources().add(0, SharedWorldgen.gravelBetaBeaches());
-			context.ruleSources().add(0, SharedWorldgen.sandBetaBeaches());
-			context.ruleSources().add(0, SharedWorldgen.multilayerSandBetaBeaches());
-			context.ruleSources().add(SharedWorldgen.gravelBetaBeaches());
-			context.ruleSources().add(SharedWorldgen.sandBetaBeaches());
-			context.ruleSources().add(SharedWorldgen.multilayerSandBetaBeaches());
-        }
-        WilderWild.log("Wilder Wild's Overworld Surface Rules have been added!", WilderSharedConstants.UNSTABLE_LOGGING);
+        if (!FrozenBools.HAS_TERRABLENDER) {
+			context.ruleSources().add(0, SharedWorldgen.cypressSurfaceRules());
+			context.ruleSources().add(SharedWorldgen.cypressSurfaceRules());
+			if (ClothConfigInteractionHandler.betaBeaches()) {
+				context.ruleSources().add(0, SharedWorldgen.betaBeaches());
+				context.ruleSources().add(SharedWorldgen.betaBeaches());
+			}
+			WilderWild.log("Wilder Wild's Overworld Surface Rules have been added!", WilderSharedConstants.UNSTABLE_LOGGING);
+		}
     }
 
     // SPONGEBOB
@@ -147,12 +152,50 @@ public final class RegisterWorldgen implements SurfaceRuleEvents.OverworldModifi
                                 .waterFogColor(6069471)
                                 .fogColor(0)
                                 .skyColor(OverworldBiomes.calculateSkyColor(0.8F))
+								.ambientLoopSound(RegisterSounds.AMBIENT_JELLYFISH_CAVES_LOOP)
+								.ambientAdditionsSound(new AmbientAdditionsSettings(RegisterSounds.AMBIENT_JELLYFISH_CAVES_ADDITIONS, 0.0005D))
                                 .ambientMoodSound(AmbientMoodSettings.LEGACY_CAVE_SETTINGS)
                                 .backgroundMusic(music).build())
                 .mobSpawnSettings(builder.build())
                 .generationSettings(builder2.build())
                 .build();
     }
+
+	public static Biome warmRiver() {
+		MobSpawnSettings.Builder builder = (new MobSpawnSettings.Builder()).addSpawn(MobCategory.WATER_CREATURE, new MobSpawnSettings.SpawnerData(EntityType.SQUID, 2, 1, 4)).addSpawn(MobCategory.WATER_AMBIENT, new MobSpawnSettings.SpawnerData(EntityType.SALMON, 5, 1, 5));
+		BiomeDefaultFeatures.commonSpawns(builder);
+		builder.addSpawn(MobCategory.MONSTER, new MobSpawnSettings.SpawnerData(EntityType.DROWNED, 100, 1, 1));
+		net.minecraft.world.level.biome.BiomeGenerationSettings.Builder builder2 = new net.minecraft.world.level.biome.BiomeGenerationSettings.Builder();
+		BiomeDefaultFeatures.addDefaultCarversAndLakes(builder2);
+		BiomeDefaultFeatures.addDefaultCrystalFormations(builder2);
+		BiomeDefaultFeatures.addDefaultMonsterRoom(builder2);
+		BiomeDefaultFeatures.addDefaultUndergroundVariety(builder2);
+		BiomeDefaultFeatures.addDefaultSprings(builder2);
+		BiomeDefaultFeatures.addSurfaceFreezing(builder2);
+		BiomeDefaultFeatures.addDefaultOres(builder2);
+		BiomeDefaultFeatures.addDefaultSoftDisks(builder2);
+		BiomeDefaultFeatures.addWaterTrees(builder2);
+		BiomeDefaultFeatures.addDefaultFlowers(builder2);
+		BiomeDefaultFeatures.addDefaultGrass(builder2);
+		BiomeDefaultFeatures.addDefaultMushrooms(builder2);
+		BiomeDefaultFeatures.addDefaultExtraVegetation(builder2);
+		builder2.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, AquaticPlacements.SEAGRASS_RIVER);
+
+		return new Biome.BiomeBuilder()
+				.precipitation(Biome.Precipitation.RAIN)
+				.temperature(0.5F)
+				.downfall(0.4F)
+				.specialEffects(
+						new BiomeSpecialEffects.Builder()
+								.waterColor(4566514)
+								.waterFogColor(267827)
+								.skyColor(OverworldBiomes.calculateSkyColor(0.5F))
+								.fogColor(12638463)
+								.build())
+				.mobSpawnSettings(builder.build())
+				.generationSettings(builder2.build())
+				.build();
+	}
 
     public static void addCypressPaths(BiomeGenerationSettings.Builder builder) {
         builder.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, WilderMiscPlaced.UNDER_WATER_SAND_PATH.getResourceKey());

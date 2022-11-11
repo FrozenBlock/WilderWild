@@ -17,18 +17,13 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.ModifyArgs;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
+import org.spongepowered.asm.mixin.injection.invoke.arg.Args;
 
 @Mixin(value = OverworldBiomeBuilder.class, priority = 69420)
 public final class OverworldBiomeBuilderMixin {
-
-    @Shadow
-    @Final
-    private ResourceKey<Biome>[][] MIDDLE_BIOMES;
-    @Shadow
-    @Final
-    private ResourceKey<Biome>[][] MIDDLE_BIOMES_VARIANT;
 
     @Shadow
     private void addSurfaceBiome(Consumer<Pair<Climate.ParameterPoint, ResourceKey<Biome>>> parameters, Climate.Parameter temperature, Climate.Parameter humidity, Climate.Parameter continentalness, Climate.Parameter erosion, Climate.Parameter weirdness, final float offset, ResourceKey<Biome> biome) {
@@ -167,6 +162,46 @@ public final class OverworldBiomeBuilderMixin {
         }
     }
 
+	@Inject(method = "addValleys", at = @At("HEAD"))
+	private void addValleys(Consumer<Pair<Climate.ParameterPoint, ResourceKey<Biome>>> consumer, Climate.Parameter param, CallbackInfo info) {
+		this.addSurfaceBiome(consumer, WARM_RANGE, Climate.Parameter.span(-1, 1), this.coastContinentalness, Climate.Parameter.span(this.erosions[0], this.erosions[1]), param, 0.0F, param.max() < 0L ? Biomes.STONY_SHORE : RegisterWorldgen.WARM_RIVER);
+		this.addSurfaceBiome(consumer, WARM_RANGE, Climate.Parameter.span(-1, 1), this.nearInlandContinentalness, Climate.Parameter.span(this.erosions[0], this.erosions[1]), param, 0.0F, RegisterWorldgen.WARM_RIVER);
+		this.addSurfaceBiome(consumer, WARM_RANGE, Climate.Parameter.span(-1, 1), Climate.Parameter.span(this.coastContinentalness, this.farInlandContinentalness), Climate.Parameter.span(this.erosions[2], this.erosions[5]), param, 0.0F, RegisterWorldgen.WARM_RIVER);
+		this.addSurfaceBiome(consumer, WARM_RANGE, Climate.Parameter.span(-1, 1), this.coastContinentalness, this.erosions[6], param, 0.0F, RegisterWorldgen.WARM_RIVER);
+	}
+
+	@ModifyArgs(method = "addValleys", at = @At(value = "INVOKE",
+			target = "Lnet/minecraft/world/level/biome/OverworldBiomeBuilder;addSurfaceBiome(Ljava/util/function/Consumer;Lnet/minecraft/world/level/biome/Climate$Parameter;Lnet/minecraft/world/level/biome/Climate$Parameter;Lnet/minecraft/world/level/biome/Climate$Parameter;Lnet/minecraft/world/level/biome/Climate$Parameter;Lnet/minecraft/world/level/biome/Climate$Parameter;FLnet/minecraft/resources/ResourceKey;)V",
+			ordinal = 1
+	))
+	private void fixPar1(Args args) {
+		args.set(1, UNFROZEN_NOT_WARM_RANGE);
+	}
+
+	@ModifyArgs(method = "addValleys", at = @At(value = "INVOKE",
+			target = "Lnet/minecraft/world/level/biome/OverworldBiomeBuilder;addSurfaceBiome(Ljava/util/function/Consumer;Lnet/minecraft/world/level/biome/Climate$Parameter;Lnet/minecraft/world/level/biome/Climate$Parameter;Lnet/minecraft/world/level/biome/Climate$Parameter;Lnet/minecraft/world/level/biome/Climate$Parameter;Lnet/minecraft/world/level/biome/Climate$Parameter;FLnet/minecraft/resources/ResourceKey;)V",
+			ordinal = 3
+	))
+	private void fixPar2(Args args) {
+		args.set(1, UNFROZEN_NOT_WARM_RANGE);
+	}
+
+	@ModifyArgs(method = "addValleys", at = @At(value = "INVOKE",
+			target = "Lnet/minecraft/world/level/biome/OverworldBiomeBuilder;addSurfaceBiome(Ljava/util/function/Consumer;Lnet/minecraft/world/level/biome/Climate$Parameter;Lnet/minecraft/world/level/biome/Climate$Parameter;Lnet/minecraft/world/level/biome/Climate$Parameter;Lnet/minecraft/world/level/biome/Climate$Parameter;Lnet/minecraft/world/level/biome/Climate$Parameter;FLnet/minecraft/resources/ResourceKey;)V",
+			ordinal = 5
+	))
+	private void fixPar3(Args args) {
+		args.set(1, UNFROZEN_NOT_WARM_RANGE);
+	}
+
+	@ModifyArgs(method = "addValleys", at = @At(value = "INVOKE",
+			target = "Lnet/minecraft/world/level/biome/OverworldBiomeBuilder;addSurfaceBiome(Ljava/util/function/Consumer;Lnet/minecraft/world/level/biome/Climate$Parameter;Lnet/minecraft/world/level/biome/Climate$Parameter;Lnet/minecraft/world/level/biome/Climate$Parameter;Lnet/minecraft/world/level/biome/Climate$Parameter;Lnet/minecraft/world/level/biome/Climate$Parameter;FLnet/minecraft/resources/ResourceKey;)V",
+			ordinal = 7
+	))
+	private void fixPar4(Args args) {
+		args.set(1, UNFROZEN_NOT_WARM_RANGE);
+	}
+
 	private static void replaceParameters(
 			Consumer<Pair<Climate.ParameterPoint, ResourceKey<Biome>>> parameters,
 			ResourceKey<Biome> biome,
@@ -228,29 +263,43 @@ public final class OverworldBiomeBuilderMixin {
         parameters.accept(Pair.of(SharedWorldgen.semiDeepParameters(temperature, humidity, continentalness, erosion, weirdness, offset), biome));
     }
 
-    /*
-    This is the list of common biomes. Each separate "list" is one increment in temperature, and each value of each list is one increment in humidity. What a flawed system. Or is it?
-    this.commonBiomes = new RegistryKey[][]{
-        {BiomeKeys.SNOWY_PLAINS, BiomeKeys.SNOWY_PLAINS, BiomeKeys.SNOWY_PLAINS, BiomeKeys.SNOWY_TAIGA, BiomeKeys.TAIGA}, //0
-        {BiomeKeys.PLAINS, BiomeKeys.PLAINS, BiomeKeys.FOREST, BiomeKeys.TAIGA, BiomeKeys.OLD_GROWTH_SPRUCE_TAIGA}, //1
-        {BiomeKeys.FLOWER_FOREST, BiomeKeys.PLAINS, BiomeKeys.FOREST, BiomeKeys.BIRCH_FOREST, BiomeKeys.DARK_FOREST}, //2
-        {BiomeKeys.SAVANNA, BiomeKeys.SAVANNA, BiomeKeys.FOREST, BiomeKeys.JUNGLE, BiomeKeys.JUNGLE}, //3
-        {BiomeKeys.DESERT, BiomeKeys.DESERT, BiomeKeys.DESERT, BiomeKeys.DESERT, BiomeKeys.DESERT} //4
-    };
-    For instance, let's get the biome with the highest temperature and humidity. So, we go to 4, and it's filled with Deserts.
-    Then, starting from 0, we count to the right. So, it's a desert at [4][4]. Not even a Jungle..?
+	@Unique
+	private static final Climate.Parameter WARM_RANGE = Climate.Parameter.span(0.55F, 1.0F);
+	@Unique
+	private static final Climate.Parameter UNFROZEN_NOT_WARM_RANGE = Climate.Parameter.span(0.0F, 0.2F);
 
-    ..And same goes for Uncommon Biomes. Just this time, if the Weirdness' max is below 0, this list never gets used.
-    However, if weirdness is above 0, then it'll pick from the list. If a null value is chosen, however, then it'll use the Common Biome list instead.
-    this.uncommonBiomes = new RegistryKey[][]{
-        {BiomeKeys.ICE_SPIKES, null, BiomeKeys.SNOWY_TAIGA, null, null}, //0
-        {null, null, null, null, BiomeKeys.OLD_GROWTH_PINE_TAIGA}, //1
-        {BiomeKeys.SUNFLOWER_PLAINS, null, null, BiomeKeys.OLD_GROWTH_BIRCH_FOREST, null}, //2
-        {null, null, BiomeKeys.PLAINS, BiomeKeys.SPARSE_JUNGLE, BiomeKeys.BAMBOO_JUNGLE}, //3
-        {null, null, null, null, null} //4
-    };
-    Note how there's absolutely NOTHING that can be chosen instead of Deserts.
-
-    Do also note that these biomes COMPLETELY ignore other parameters like Erosion- only Temperature and Humidity seem to have effect here, as well as weirdness for choosing uncommon biomes.
-     */
+	@Shadow @Final private static float VALLEY_SIZE;
+	@Shadow @Final private static float LOW_START;
+	@Shadow @Final public static float HIGH_START;
+	@Shadow @Final private static float HIGH_END;
+	@Shadow @Final private static float PEAK_SIZE;
+	@Shadow @Final public static float PEAK_START;
+	@Shadow @Final private static float PEAK_END;
+	@Shadow @Final public static float NEAR_INLAND_START;
+	@Shadow @Final public static float MID_INLAND_START;
+	@Shadow @Final public static float FAR_INLAND_START;
+	@Shadow @Final public static float EROSION_INDEX_1_START;
+	@Shadow @Final public static float EROSION_INDEX_2_START;
+	@Shadow @Final private static float EROSION_DEEP_DARK_DRYNESS_THRESHOLD;
+	@Shadow @Final private static float DEPTH_DEEP_DARK_DRYNESS_THRESHOLD;
+	@Shadow @Final private Climate.Parameter FULL_RANGE;
+	@Shadow @Final private Climate.Parameter[] temperatures;
+	@Shadow @Final private Climate.Parameter[] humidities;
+	@Shadow @Final private Climate.Parameter[] erosions;
+	@Shadow @Final private Climate.Parameter FROZEN_RANGE;
+	@Shadow @Final private Climate.Parameter UNFROZEN_RANGE;
+	@Shadow @Final private Climate.Parameter mushroomFieldsContinentalness;
+	@Shadow @Final private Climate.Parameter deepOceanContinentalness;
+	@Shadow @Final private Climate.Parameter oceanContinentalness;
+	@Shadow @Final private Climate.Parameter coastContinentalness;
+	@Shadow @Final private Climate.Parameter inlandContinentalness;
+	@Shadow @Final private Climate.Parameter nearInlandContinentalness;
+	@Shadow @Final private Climate.Parameter midInlandContinentalness;
+	@Shadow @Final private Climate.Parameter farInlandContinentalness;
+	@Shadow @Final private ResourceKey<Biome>[][] OCEANS;
+	@Shadow @Final private ResourceKey<Biome>[][] MIDDLE_BIOMES;
+	@Shadow @Final private ResourceKey<Biome>[][] MIDDLE_BIOMES_VARIANT;
+	@Shadow @Final private ResourceKey<Biome>[][] PLATEAU_BIOMES;
+	@Shadow @Final private ResourceKey<Biome>[][] PLATEAU_BIOMES_VARIANT;
+	@Shadow @Final private ResourceKey<Biome>[][] SHATTERED_BIOMES;
 }

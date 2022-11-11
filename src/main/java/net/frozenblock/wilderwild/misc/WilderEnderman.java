@@ -2,9 +2,9 @@ package net.frozenblock.wilderwild.misc;
 
 public interface WilderEnderman {
 
-	boolean canPlayLoopingSound();
+	void setCanPlayLoopingSound(boolean b);
 
-	void setCanPlayLoopingSound(boolean bl);
+	boolean getCanPlayLoopingSound();
 
-	void createAngerLoopSound();
+	void createAngerLoop();
 }

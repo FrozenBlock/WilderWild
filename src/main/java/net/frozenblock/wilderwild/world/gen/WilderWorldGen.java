@@ -32,7 +32,7 @@ public final class WilderWorldGen {
     private static void replaceFeatures() {
         BiomeModifications.create(WilderSharedConstants.id("replace_forest_grass"))
                 .add(ModificationPhase.REPLACEMENTS,
-                        BiomeSelectors.tag(BiomeTags.IS_FOREST),
+                        BiomeSelectors.tag(WilderBiomeTags.FOREST_GRASS),
                         (context) -> {
                             if (ClothConfigInteractionHandler.wildGrass()) {
                                 context.getGenerationSettings().removeFeature(VegetationPlacements.PATCH_GRASS_FOREST);

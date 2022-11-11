@@ -98,7 +98,7 @@ public final class RegisterStructures {
 				ABANDONED_CABINS_KEY,
 				new StructureSet(
 						entries.getLookup(Registry.STRUCTURE_REGISTRY).getOrThrow(ABANDONED_CABIN_KEY),
-						new RandomSpreadStructurePlacement(13, 5, RandomSpreadType.LINEAR, 20388232) // ancient city salt is 20083232
+						new RandomSpreadStructurePlacement(13, 5, RandomSpreadType.LINEAR, 25388232) // ancient city salt is 20083232
 				)
 		);
 	}

@@ -225,7 +225,7 @@ public final class WilderWild implements ModInitializer {
         return false;
     }
 
-    //LOGGING
+    // LOGGING
     public static void log(String string, boolean shouldLog) {
         if (shouldLog) {
             WilderSharedConstants.LOGGER.info(string);
@@ -275,7 +275,7 @@ public final class WilderWild implements ModInitializer {
         return Registry.register(Registry.TRUNK_PLACER_TYPES, WilderSharedConstants.id(id), new TrunkPlacerType<>(codec));
     }
 
-    //MEASURING
+    // MEASURING
     public static final Map<Object, Long> INSTANT_MAP = new HashMap<>();
 
     public static void startMeasuring(Object object) {
@@ -293,11 +293,11 @@ public final class WilderWild implements ModInitializer {
         }
     }
 
-    //GAMERULES
+    // GAME RULES
     public static final GameRules.Key<GameRules.BooleanValue> STONE_CHEST_CLOSES =
             GameRuleRegistry.register("stoneChestCloses", GameRules.Category.MISC, GameRuleFactory.createBooleanRule(true));
 
-    //IDENTIFIERS
+    // PACKETS
     public static final ResourceLocation SEED_PACKET = WilderSharedConstants.id("seed_particle_packet");
     public static final ResourceLocation CONTROLLED_SEED_PACKET = WilderSharedConstants.id("controlled_seed_particle_packet");
     public static final ResourceLocation FLOATING_SCULK_BUBBLE_PACKET = WilderSharedConstants.id("floating_sculk_bubble_easy_packet");

@@ -169,6 +169,7 @@ public final class RegisterSounds {
     public static final SoundEvent ENTITY_ANCIENT_HORN_PROJECTILE_FLYBY = register("entity.ancient_horn_projectile.flyby");
     public static final SoundEvent ENTITY_ANCIENT_HORN_PROJECTILE_DISSIPATE = register("entity.ancient_horn_projectile.dissipate");
 
+	public static final SoundEvent ENTITY_FIREFLY_HIDE = register("entity.firefly.hide");
     public static final SoundEvent ENTITY_FIREFLY_HURT = register("entity.firefly.hurt");
     public static final SoundEvent ENTITY_FIREFLY_NECTAR = register("entity.firefly.nectar");
 
