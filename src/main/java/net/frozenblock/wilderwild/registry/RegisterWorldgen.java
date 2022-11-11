@@ -11,8 +11,6 @@ import net.minecraft.core.Registry;
 import net.minecraft.data.BuiltinRegistries;
 import net.minecraft.data.worldgen.BiomeDefaultFeatures;
 import net.minecraft.data.worldgen.biome.OverworldBiomes;
-import static net.minecraft.data.worldgen.biome.OverworldBiomes.jungle;
-import static net.minecraft.data.worldgen.biome.OverworldBiomes.swamp;
 import net.minecraft.data.worldgen.placement.AquaticPlacements;
 import net.minecraft.data.worldgen.placement.CavePlacements;
 import net.minecraft.data.worldgen.placement.MiscOverworldPlacements;
@@ -32,6 +30,7 @@ import net.minecraft.world.level.levelgen.GenerationStep;
 import org.jetbrains.annotations.NotNull;
 import org.quiltmc.qsl.frozenblock.worldgen.surface_rule.api.SurfaceRuleContext;
 import org.quiltmc.qsl.frozenblock.worldgen.surface_rule.api.SurfaceRuleEvents;
+import static net.minecraft.data.worldgen.biome.OverworldBiomes.*;
 
 public final class RegisterWorldgen implements SurfaceRuleEvents.OverworldModifierCallback {
 
@@ -171,16 +170,19 @@ public final class RegisterWorldgen implements SurfaceRuleEvents.OverworldModifi
 		BiomeDefaultFeatures.addDefaultMushrooms(builder2);
 		BiomeDefaultFeatures.addDefaultExtraVegetation(builder2);
 		builder2.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, AquaticPlacements.SEAGRASS_RIVER);
+		builder2.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, WilderMiscPlaced.UNDER_WATER_CLAY_PATH_BEACH);
 
 		return new Biome.BiomeBuilder()
-				.precipitation(Biome.Precipitation.RAIN)
-				.temperature(0.5F)
-				.downfall(0.4F)
+				.precipitation(Biome.Precipitation.NONE)
+				.temperature(1.5F)
+				.downfall(0.0F)
 				.specialEffects(
 						new BiomeSpecialEffects.Builder()
+								.grassColorOverride(12564309)
+								.foliageColorOverride(11445290)
 								.waterColor(4566514)
 								.waterFogColor(267827)
-								.skyColor(OverworldBiomes.calculateSkyColor(0.5F))
+								.skyColor(OverworldBiomes.calculateSkyColor(1.5F))
 								.fogColor(12638463)
 								.build())
 				.mobSpawnSettings(builder.build())
