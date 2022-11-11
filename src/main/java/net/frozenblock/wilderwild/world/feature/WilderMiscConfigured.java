@@ -2,7 +2,7 @@ package net.frozenblock.wilderwild.world.feature;
 
 import java.util.List;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricWorldgenProvider;
-import net.frozenblock.lib.worldgen.feature.util.FrozenConfiguredFeatureUtils;
+import net.frozenblock.lib.worldgen.feature.api.FrozenConfiguredFeatureUtils;
 import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.frozenblock.wilderwild.registry.RegisterBlocks;

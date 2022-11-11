@@ -1,7 +1,7 @@
 package net.frozenblock.wilderwild.world.feature;
 
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricWorldgenProvider;
-import net.frozenblock.lib.worldgen.feature.util.FrozenPlacementUtils;
+import net.frozenblock.lib.worldgen.feature.api.FrozenPlacementUtils;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.frozenblock.wilderwild.registry.RegisterBlocks;
 import net.minecraft.core.BlockPos;

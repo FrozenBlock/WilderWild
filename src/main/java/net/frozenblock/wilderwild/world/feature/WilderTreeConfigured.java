@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.OptionalInt;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricWorldgenProvider;
-import net.frozenblock.lib.worldgen.feature.util.FrozenConfiguredFeatureUtils;
+import net.frozenblock.lib.worldgen.feature.api.FrozenConfiguredFeatureUtils;
 import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.block.BaobabNutBlock;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;

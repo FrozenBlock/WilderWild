@@ -2,8 +2,8 @@ package net.frozenblock.wilderwild.world.feature;
 
 import java.util.List;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricWorldgenProvider;
-import net.frozenblock.lib.worldgen.feature.util.FrozenConfiguredFeatureUtils;
-import net.frozenblock.lib.worldgen.feature.util.FrozenPlacementUtils;
+import net.frozenblock.lib.worldgen.feature.api.FrozenConfiguredFeatureUtils;
+import net.frozenblock.lib.worldgen.feature.api.FrozenPlacementUtils;
 import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.block.ShelfFungusBlock;
 import net.frozenblock.wilderwild.misc.FlowerColor;
