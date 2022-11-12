@@ -78,10 +78,6 @@ public class WilderNoise {
 		);
 	}
 
-    public static void init() {
-
-    }
-
     private static ResourceKey<NormalNoise.NoiseParameters> createKey(String id) {
         return ResourceKey.create(Registry.NOISE_REGISTRY, WilderSharedConstants.id(id));
     }

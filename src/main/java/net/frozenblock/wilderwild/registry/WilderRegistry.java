@@ -29,7 +29,7 @@ public final class WilderRegistry {
     public static final List<ResourceKey<Biome>> GRAVEL_BEACH_BIOMES = new ArrayList<>() {{
         add(Biomes.BIRCH_FOREST);
 		add(Biomes.FROZEN_RIVER);
-		add(RegisterWorldgen.MIXED_FOREST);
+		//add(RegisterWorldgen.MIXED_FOREST);
 		add(Biomes.OLD_GROWTH_BIRCH_FOREST);
 		add(Biomes.OLD_GROWTH_PINE_TAIGA);
 		add(Biomes.OLD_GROWTH_SPRUCE_TAIGA);

@@ -4,12 +4,10 @@ import java.util.Arrays;
 import java.util.List;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricWorldgenProvider;
 import net.frozenblock.lib.worldgen.feature.api.FrozenPlacementUtils;
-import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
-import net.frozenblock.wilderwild.registry.RegisterBlocks;
 import net.minecraft.core.Direction;
+import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
-import net.minecraft.data.worldgen.placement.PlacementUtils;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.levelgen.blockpredicates.BlockPredicate;
@@ -85,61 +83,7 @@ public final class WilderTreePlaced {
     public static final ResourceKey<PlacedFeature> SWAMP_CYPRESS = key("swamp_cypress");
     public static final ResourceKey<PlacedFeature> FALLEN_CYPRESS_CHECKED = key("fallen_cypress_checked");
 
-	public static void bootstrap(FabricWorldgenProvider.Entries entries) {
-		WilderWild.logWild("Registering WilderTreePlaced for", true);
-		register(entries, BIRCH_CHECKED, WilderTreeConfigured.BIRCH, PlacementUtils.filteredByBlockSurvival(Blocks.BIRCH_SAPLING));
-		register(entries, BIRCH_BEES_0004, WilderTreeConfigured.BIRCH_BEES_0004, PlacementUtils.filteredByBlockSurvival(Blocks.BIRCH_SAPLING));
-		register(entries, DYING_BIRCH, WilderTreeConfigured.DYING_BIRCH, PlacementUtils.filteredByBlockSurvival(Blocks.BIRCH_SAPLING));
-		register(entries, SHORT_BIRCH, WilderTreeConfigured.SHORT_BIRCH, PlacementUtils.filteredByBlockSurvival(Blocks.BIRCH_SAPLING));
-		register(entries, DYING_SHORT_BIRCH, WilderTreeConfigured.SHORT_DYING_BIRCH, PlacementUtils.filteredByBlockSurvival(Blocks.BIRCH_SAPLING));
-		register(entries, SHORT_BIRCH_BEES_0004, WilderTreeConfigured.SHORT_BIRCH_BEES_0004, PlacementUtils.filteredByBlockSurvival(Blocks.BIRCH_SAPLING));
-		register(entries, DYING_SUPER_BIRCH, WilderTreeConfigured.DYING_SUPER_BIRCH, PlacementUtils.filteredByBlockSurvival(Blocks.BIRCH_SAPLING));
-		register(entries, SUPER_BIRCH_BEES_0004, WilderTreeConfigured.SUPER_BIRCH_BEES_0004, PlacementUtils.filteredByBlockSurvival(Blocks.BIRCH_SAPLING));
-		register(entries, SUPER_BIRCH_BEES, WilderTreeConfigured.SUPER_BIRCH_BEES, PlacementUtils.filteredByBlockSurvival(Blocks.BIRCH_SAPLING));
-		register(entries, FALLEN_BIRCH_CHECKED, WilderTreeConfigured.FALLEN_BIRCH_TREE, PlacementUtils.filteredByBlockSurvival(Blocks.BIRCH_SAPLING));
-		register(entries, OAK_CHECKED, WilderTreeConfigured.OAK, PlacementUtils.filteredByBlockSurvival(Blocks.OAK_SAPLING));
-		register(entries, DYING_OAK_CHECKED, WilderTreeConfigured.DYING_OAK, PlacementUtils.filteredByBlockSurvival(Blocks.OAK_SAPLING));
-		register(entries, OAK_BEES_0004, WilderTreeConfigured.OAK_BEES_0004, PlacementUtils.filteredByBlockSurvival(Blocks.OAK_SAPLING));
-		register(entries, SHORT_OAK_CHECKED, WilderTreeConfigured.SHORT_OAK, PlacementUtils.filteredByBlockSurvival(Blocks.OAK_SAPLING));
-		register(entries, FANCY_OAK_CHECKED, WilderTreeConfigured.FANCY_OAK, PlacementUtils.filteredByBlockSurvival(Blocks.OAK_SAPLING));
-		register(entries, DYING_FANCY_OAK_CHECKED, WilderTreeConfigured.FANCY_DYING_OAK, PlacementUtils.filteredByBlockSurvival(Blocks.OAK_SAPLING));
-		register(entries, DYING_FANCY_OAK_BEES_0004, WilderTreeConfigured.FANCY_DYING_OAK_BEES_0004, PlacementUtils.filteredByBlockSurvival(Blocks.OAK_SAPLING));
-		register(entries, FANCY_OAK_BEES_0004, WilderTreeConfigured.FANCY_OAK_BEES_0004, PlacementUtils.filteredByBlockSurvival(Blocks.OAK_SAPLING));
-		register(entries, FANCY_OAK_BEES, WilderTreeConfigured.FANCY_OAK_BEES, PlacementUtils.filteredByBlockSurvival(Blocks.OAK_SAPLING));
-		register(entries, FALLEN_OAK_CHECKED, WilderTreeConfigured.FALLEN_OAK_TREE, PlacementUtils.filteredByBlockSurvival(Blocks.OAK_SAPLING));
-		register(entries, TALL_DARK_OAK_CHECKED, WilderTreeConfigured.TALL_DARK_OAK, PlacementUtils.filteredByBlockSurvival(Blocks.DARK_OAK_SAPLING));
-		register(entries, DYING_TALL_DARK_OAK_CHECKED, WilderTreeConfigured.DYING_TALL_DARK_OAK, PlacementUtils.filteredByBlockSurvival(Blocks.DARK_OAK_SAPLING));
-		register(entries, DYING_DARK_OAK_CHECKED, WilderTreeConfigured.DYING_DARK_OAK, PlacementUtils.filteredByBlockSurvival(Blocks.DARK_OAK_SAPLING));
-		register(entries, SWAMP_TREE_CHECKED, WilderTreeConfigured.SWAMP_TREE, PlacementUtils.filteredByBlockSurvival(Blocks.MANGROVE_PROPAGULE));
-		register(entries, SPRUCE_CHECKED, WilderTreeConfigured.SPRUCE, PlacementUtils.filteredByBlockSurvival(Blocks.SPRUCE_SAPLING));
-		register(entries, SPRUCE_ON_SNOW, WilderTreeConfigured.SPRUCE, SNOW_TREE_FILTER_DECORATOR);
-		register(entries, SPRUCE_SHORT_CHECKED, WilderTreeConfigured.SPRUCE_SHORT, PlacementUtils.filteredByBlockSurvival(Blocks.SPRUCE_SAPLING));
-		register(entries, FUNGUS_PINE_CHECKED, WilderTreeConfigured.FUNGUS_PINE, PlacementUtils.filteredByBlockSurvival(Blocks.SPRUCE_SAPLING));
-		register(entries, DYING_FUNGUS_PINE_CHECKED, WilderTreeConfigured.DYING_FUNGUS_PINE, PlacementUtils.filteredByBlockSurvival(Blocks.SPRUCE_SAPLING));
-		register(entries, FUNGUS_PINE_ON_SNOW, WilderTreeConfigured.FUNGUS_PINE, SNOW_TREE_FILTER_DECORATOR);
-		register(entries, MEGA_FUNGUS_SPRUCE_CHECKED, WilderTreeConfigured.MEGA_FUNGUS_SPRUCE, PlacementUtils.filteredByBlockSurvival(Blocks.SPRUCE_SAPLING));
-		register(entries, MEGA_FUNGUS_PINE_CHECKED, WilderTreeConfigured.MEGA_FUNGUS_PINE, PlacementUtils.filteredByBlockSurvival(Blocks.SPRUCE_SAPLING));
-		register(entries, DYING_MEGA_FUNGUS_PINE_CHECKED, WilderTreeConfigured.DYING_MEGA_FUNGUS_PINE, PlacementUtils.filteredByBlockSurvival(Blocks.SPRUCE_SAPLING));
-		register(entries, FALLEN_SPRUCE_CHECKED, WilderTreeConfigured.FALLEN_SPRUCE_TREE, PlacementUtils.filteredByBlockSurvival(Blocks.SPRUCE_SAPLING));
-		register(entries, BAOBAB, WilderTreeConfigured.BAOBAB, PlacementUtils.filteredByBlockSurvival(RegisterBlocks.BAOBAB_NUT));
-		register(entries, BAOBAB_TALL, WilderTreeConfigured.BAOBAB_TALL, PlacementUtils.filteredByBlockSurvival(RegisterBlocks.BAOBAB_NUT));
-		register(entries, CYPRESS, WilderTreeConfigured.CYPRESS, PlacementUtils.filteredByBlockSurvival(RegisterBlocks.CYPRESS_SAPLING));
-		register(entries, FUNGUS_CYPRESS, WilderTreeConfigured.FUNGUS_CYPRESS, PlacementUtils.filteredByBlockSurvival(RegisterBlocks.CYPRESS_SAPLING));
-		register(entries, SHORT_CYPRESS, WilderTreeConfigured.SHORT_CYPRESS, PlacementUtils.filteredByBlockSurvival(RegisterBlocks.CYPRESS_SAPLING));
-		register(entries, SHORT_FUNGUS_CYPRESS, WilderTreeConfigured.SHORT_FUNGUS_CYPRESS, PlacementUtils.filteredByBlockSurvival(RegisterBlocks.CYPRESS_SAPLING));
-		register(entries, SWAMP_CYPRESS, WilderTreeConfigured.SWAMP_CYPRESS, PlacementUtils.filteredByBlockSurvival(RegisterBlocks.CYPRESS_SAPLING));
-		register(entries, FALLEN_CYPRESS_CHECKED, WilderTreeConfigured.FALLEN_CYPRESS_TREE, PlacementUtils.filteredByBlockSurvival(RegisterBlocks.CYPRESS_SAPLING));
-	}
-
 	public static ResourceKey<PlacedFeature> key(String path) {
 		return ResourceKey.create(Registry.PLACED_FEATURE_REGISTRY, WilderSharedConstants.id(path));
-	}
-
-	private static void register(FabricWorldgenProvider.Entries entries, ResourceKey<PlacedFeature> resourceKey, ResourceKey<ConfiguredFeature<?, ?>> configuredResourceKey, PlacementModifier... modifiers) {
-		register(entries, resourceKey, configuredResourceKey, Arrays.asList(modifiers));
-	}
-
-	private static void register(FabricWorldgenProvider.Entries entries, ResourceKey<PlacedFeature> resourceKey, ResourceKey<ConfiguredFeature<?, ?>> configuredResourceKey, List<PlacementModifier> modifiers) {
-		FrozenPlacementUtils.register(entries, resourceKey, entries.getLookup(Registry.CONFIGURED_FEATURE_REGISTRY).getOrThrow(configuredResourceKey), modifiers);
 	}
 }

@@ -22,37 +22,10 @@ public class WilderStructureProcessors {
 
 	public static final ResourceKey<StructureProcessorList> ABANDONED_CABIN = createKey("abandoned_cabin");
 
-    public static void bootstrap(FabricWorldgenProvider.Entries entries) {
-		register(
-				entries,
-				ABANDONED_CABIN,
-				ImmutableList.of(
-						new RuleProcessor(
-								ImmutableList.of(
-										new ProcessorRule(
-												new RandomBlockMatchTest(Blocks.DEEPSLATE_BRICKS, 0.3F), AlwaysTrueTest.INSTANCE, Blocks.CRACKED_DEEPSLATE_BRICKS.defaultBlockState()
-										),
-										new ProcessorRule(
-												new RandomBlockMatchTest(Blocks.DEEPSLATE_TILES, 0.3F), AlwaysTrueTest.INSTANCE, Blocks.CRACKED_DEEPSLATE_TILES.defaultBlockState()
-										),
-										new ProcessorRule(new RandomBlockMatchTest(Blocks.SOUL_LANTERN, 0.05F), AlwaysTrueTest.INSTANCE, Blocks.AIR.defaultBlockState())
-								)
-						),
-						new ProtectedBlockProcessor(BlockTags.FEATURES_CANNOT_REPLACE)
-				)
-		);
-	}
-
     public static void init() {
     }
 
 	private static ResourceKey<StructureProcessorList> createKey(String string) {
 		return ResourceKey.create(Registry.PROCESSOR_LIST_REGISTRY, WilderSharedConstants.id(string));
-	}
-
-	private static void register(
-			FabricWorldgenProvider.Entries entries, ResourceKey<StructureProcessorList> registryKey, List<StructureProcessor> list
-	) {
-		entries.add(registryKey, new StructureProcessorList(list));
 	}
 }

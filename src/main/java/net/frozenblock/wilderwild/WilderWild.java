@@ -30,6 +30,7 @@ import net.frozenblock.wilderwild.registry.RegisterResources;
 import net.frozenblock.wilderwild.registry.RegisterSounds;
 import net.frozenblock.wilderwild.registry.RegisterStructures;
 import net.frozenblock.wilderwild.registry.WilderRegistry;
+import net.frozenblock.wilderwild.tag.WilderBiomeTags;
 import net.frozenblock.wilderwild.world.feature.WilderConfiguredFeatures;
 import net.frozenblock.wilderwild.world.feature.WilderMiscConfigured;
 import net.frozenblock.wilderwild.world.feature.WilderMiscPlaced;
@@ -134,7 +135,7 @@ public final class WilderWild implements ModInitializer {
         RegisterBlocks.registerBlocks();
         RegisterItems.registerItems();
         RegisterGameEvents.registerEvents();
-        RegisterStructures.init();
+		WilderWorldGen.generateWildWorldGen();
 
         RegisterSounds.init();
         RegisterBlockSoundGroups.init();

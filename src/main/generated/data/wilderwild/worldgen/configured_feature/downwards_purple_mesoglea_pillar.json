@@ -1,0 +1,23 @@
+{
+  "type": "wilderwild:downwards_pillar",
+  "config": {
+    "columnBlock": {
+      "Name": "wilderwild:purple_pearlescent_mesoglea",
+      "Properties": {
+        "waterlogged": "true"
+      }
+    },
+    "height": {
+      "type": "minecraft:uniform",
+      "value": {
+        "max_inclusive": 10,
+        "min_inclusive": 3
+      }
+    },
+    "replaceable": [
+      "wilderwild:blue_pearlescent_mesoglea",
+      "wilderwild:purple_pearlescent_mesoglea",
+      "minecraft:water"
+    ]
+  }
+}

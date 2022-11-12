@@ -26,31 +26,13 @@ public class AbandonedCabinGenerator {
 
 	public static final ResourceKey<StructureTemplatePool> CABIN = createKey("abandoned_cabin/cabin");
 
-	public static void bootstrap(FabricWorldgenProvider.Entries entries) {
-		HolderGetter<StructureTemplatePool> holderGetter2 = entries.getLookup(Registry.TEMPLATE_POOL_REGISTRY);
-		Holder<StructureTemplatePool> holder2 = holderGetter2.getOrThrow(Pools.EMPTY);
-		entries.add(
-				CABIN,
-				new StructureTemplatePool(
-						holder2,
-						ImmutableList.of(
-								Pair.of(ofProcessedSingle("abandoned_cabin/cabin/abandoned_cabin_1", WilderStructureProcessors.ABANDONED_CABIN), 1),
-								Pair.of(ofProcessedSingle("abandoned_cabin/cabin/abandoned_cabin_2", WilderStructureProcessors.ABANDONED_CABIN), 1),
-								Pair.of(ofProcessedSingle("abandoned_cabin/cabin/abandoned_cabin_3", WilderStructureProcessors.ABANDONED_CABIN), 1)
-						),
-						StructureTemplatePool.Projection.RIGID
-				)
-		);
-	}
-
     /**
      * @param id                 The id for the {@link SinglePoolElement}'s {@link ResourceLocation}
      * @param processorListEntry The processor list for the {@link SinglePoolElement}
      * @return A {@link SinglePoolElement} of the parameters given.
      */
-    public static Function<StructureTemplatePool.Projection, SinglePoolElement> ofProcessedSingle(String id, ResourceKey<StructureProcessorList> processorListEntry) {
-		final var registry = VanillaRegistries.createLookup().lookupOrThrow(Registry.PROCESSOR_LIST_REGISTRY);
-        return projection -> new SinglePoolElement(Either.left(WilderSharedConstants.id(id)), registry.getOrThrow(processorListEntry), projection);
+    public static Function<StructureTemplatePool.Projection, SinglePoolElement> ofProcessedSingle(String id, Holder<StructureProcessorList> processorListEntry) {
+        return projection -> new SinglePoolElement(Either.left(WilderSharedConstants.id(id)), processorListEntry, projection);
     }
 
     /**

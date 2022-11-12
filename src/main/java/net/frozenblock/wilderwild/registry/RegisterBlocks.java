@@ -46,7 +46,6 @@ import net.frozenblock.wilderwild.block.WaterloggableSaplingBlock;
 import net.frozenblock.wilderwild.block.WaterloggableTallFlowerBlock;
 import net.frozenblock.wilderwild.block.entity.TermiteMoundBlockEntity;
 import net.frozenblock.wilderwild.misc.FlowerColor;
-import net.frozenblock.wilderwild.misc.WilderFeatureFlags;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.frozenblock.wilderwild.world.gen.sapling.CypressSaplingGenerator;
 import net.minecraft.core.BlockPos;
