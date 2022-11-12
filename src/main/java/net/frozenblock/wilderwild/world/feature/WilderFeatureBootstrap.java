@@ -707,6 +707,7 @@ public class WilderFeatureBootstrap {
 		entries.add(RegisterWorldgen.WARM_RIVER, RegisterWorldgen.warmRiver(entries));
 
 		WilderNoise.bootstrap(entries);
+		// TODO: fix structure registry
 		//RegisterStructures.bootstrap(entries);
 	}
 
