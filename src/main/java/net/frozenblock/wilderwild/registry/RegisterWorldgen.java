@@ -171,6 +171,7 @@ public final class RegisterWorldgen implements SurfaceRuleEvents.OverworldModifi
 		BiomeDefaultFeatures.addDefaultExtraVegetation(builder2);
 		builder2.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, AquaticPlacements.SEAGRASS_RIVER);
 		builder2.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, WilderMiscPlaced.UNDER_WATER_CLAY_PATH_BEACH);
+		builder2.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, WilderMiscPlaced.UNDER_WATER_GRAVEL_PATH_RIVER);
 
 		return new Biome.BiomeBuilder()
 				.precipitation(Biome.Precipitation.NONE)
