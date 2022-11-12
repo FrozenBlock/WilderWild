@@ -3,6 +3,7 @@ package net.frozenblock.wilderwild.world.gen;
 import java.util.ArrayList;
 import java.util.List;
 import net.frozenblock.lib.worldgen.biome.api.parameters.Continentalness;
+import net.frozenblock.lib.worldgen.biome.api.parameters.Depth;
 import net.frozenblock.lib.worldgen.biome.api.parameters.Erosion;
 import net.frozenblock.lib.worldgen.biome.api.parameters.Humidity;
 import net.frozenblock.lib.worldgen.biome.api.parameters.Temperature;
@@ -18,7 +19,6 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.levelgen.Noises;
 import net.minecraft.world.level.levelgen.SurfaceRules;
 import net.minecraft.world.level.levelgen.VerticalAnchor;
-import org.apache.tools.ant.taskdefs.condition.IsTrue;
 
 /**
  * Contains Wilder Wild's worldgen data.
@@ -38,6 +38,7 @@ public final class SharedWorldgen {
         public static final Climate.Parameter HUMIDITY = Climate.Parameter.span(Humidity.NEUTRAL, Humidity.HUMID);
         public static final Climate.Parameter CONTINENTALNESS = Climate.Parameter.span(-0.2F, 0.5F);
         public static final Climate.Parameter EROSION = Climate.Parameter.span(0.50F, 1.0F);
+		public static final Climate.Parameter DEPTH = Depth.SURFACE;
 		public static final List<Climate.Parameter> WEIRDNESS = new ArrayList<>() {{
 			add(Weirdness.MID_SLICE_NORMAL_ASCENDING);
 			add(Weirdness.MID_SLICE_NORMAL_DESCENDING);
@@ -70,6 +71,7 @@ public final class SharedWorldgen {
 			addAll(LOW_WEIRDNESS);
 			addAll(MID_WEIRDNESS);
 		}};
+		public static final Climate.Parameter DEPTH = Depth.SURFACE;
         public static final float OFFSET = 0.0F;
     }
 
@@ -83,6 +85,14 @@ public final class SharedWorldgen {
         public static final List<Climate.Parameter> WEIRDNESS_LIST = List.of(WEIRDNESS);
         public static final float OFFSET = 0.0F;
     }
+
+	public static final class WarmRiver {
+		public static final Climate.Parameter WARM_RANGE = Climate.Parameter.span(0.55F, 1.0F);
+		public static final Climate.Parameter UNFROZEN_NOT_WARM_RANGE = Climate.Parameter.span(0.0F, 0.2F);
+		public static final Climate.Parameter HUMIDITY_TO_TWO = Climate.Parameter.span(-0.1F, 0.0F);
+		public static final Climate.Parameter HUMIDITY_TO_THREE = Climate.Parameter.span(0F, 0.1F);
+		public static final Climate.Parameter WEIRDNESS = Weirdness.VALLEY;
+	}
 
     public static final class Swamp {
 
