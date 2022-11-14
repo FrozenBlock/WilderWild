@@ -132,6 +132,7 @@ public final class RegisterWorldgen {
 	public static Biome warmRiver(FabricWorldgenProvider.Entries entries) {
 		var placedFeatures = entries.placedFeatures();
 		var worldCarvers = entries.configuredCarvers();
+		var wilderPlacedFeatures = WilderFeatureBootstrap.PLACED_FEATURES;
 		MobSpawnSettings.Builder builder = (new MobSpawnSettings.Builder()).addSpawn(MobCategory.WATER_CREATURE, new MobSpawnSettings.SpawnerData(EntityType.SQUID, 2, 1, 4)).addSpawn(MobCategory.WATER_AMBIENT, new MobSpawnSettings.SpawnerData(EntityType.SALMON, 5, 1, 5));
 		BiomeDefaultFeatures.commonSpawns(builder);
 		builder.addSpawn(MobCategory.MONSTER, new MobSpawnSettings.SpawnerData(EntityType.DROWNED, 100, 1, 1));
@@ -150,16 +151,20 @@ public final class RegisterWorldgen {
 		BiomeDefaultFeatures.addDefaultMushrooms(builder2);
 		BiomeDefaultFeatures.addDefaultExtraVegetation(builder2);
 		builder2.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, AquaticPlacements.SEAGRASS_RIVER);
+		builder2.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, wilderPlacedFeatures.get(WilderMiscPlaced.UNDER_WATER_CLAY_PATH_BEACH));
+		builder2.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, wilderPlacedFeatures.get(WilderMiscPlaced.UNDER_WATER_GRAVEL_PATH_RIVER));
 
 		return new Biome.BiomeBuilder()
-				.precipitation(Biome.Precipitation.RAIN)
-				.temperature(0.5F)
-				.downfall(0.4F)
+				.precipitation(Biome.Precipitation.NONE)
+				.temperature(1.5F)
+				.downfall(0.0F)
 				.specialEffects(
 						new BiomeSpecialEffects.Builder()
+								.grassColorOverride(12564309)
+								.foliageColorOverride(11445290)
 								.waterColor(4566514)
 								.waterFogColor(267827)
-								.skyColor(OverworldBiomes.calculateSkyColor(0.5F))
+								.skyColor(OverworldBiomes.calculateSkyColor(1.5F))
 								.fogColor(12638463)
 								.build())
 				.mobSpawnSettings(builder.build())
