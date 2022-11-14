@@ -6,10 +6,12 @@
       "minecraft:canyon"
     ]
   },
-  "downfall": 0.4,
+  "downfall": 0.0,
   "effects": {
     "fog_color": 12638463,
-    "sky_color": 8103167,
+    "foliage_color": 11445290,
+    "grass_color": 12564309,
+    "sky_color": 7515647,
     "water_color": 4566514,
     "water_fog_color": 267827
   },
@@ -56,7 +58,9 @@
       "minecraft:underwater_magma",
       "minecraft:disk_sand",
       "minecraft:disk_clay",
-      "minecraft:disk_gravel"
+      "minecraft:disk_gravel",
+      "wilderwild:under_water_clay_path_beach",
+      "wilderwild:under_water_gravel_path_river"
     ],
     [],
     [
@@ -78,7 +82,7 @@
       "minecraft:freeze_top_layer"
     ]
   ],
-  "precipitation": "rain",
+  "precipitation": "none",
   "spawn_costs": {},
   "spawners": {
     "ambient": [
@@ -175,5 +179,5 @@
     "wilderwildfireflies": [],
     "wilderwildjellyfish": []
   },
-  "temperature": 0.5
+  "temperature": 1.5
 }

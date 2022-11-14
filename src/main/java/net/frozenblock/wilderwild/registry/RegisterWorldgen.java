@@ -3,11 +3,9 @@ package net.frozenblock.wilderwild.registry;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricWorldgenProvider;
 import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
-import net.frozenblock.wilderwild.misc.config.ClothConfigInteractionHandler;
 import net.frozenblock.wilderwild.world.feature.WilderFeatureBootstrap;
 import net.frozenblock.wilderwild.world.feature.WilderMiscPlaced;
 import net.frozenblock.wilderwild.world.feature.WilderPlacedFeatures;
-import net.minecraft.core.HolderGetter;
 import net.minecraft.core.Registry;
 import net.minecraft.data.worldgen.BiomeDefaultFeatures;
 import net.minecraft.data.worldgen.biome.OverworldBiomes;
@@ -28,8 +26,6 @@ import net.minecraft.world.level.biome.BiomeGenerationSettings;
 import net.minecraft.world.level.biome.BiomeSpecialEffects;
 import net.minecraft.world.level.biome.MobSpawnSettings;
 import net.minecraft.world.level.levelgen.GenerationStep;
-import net.minecraft.world.level.levelgen.carver.ConfiguredWorldCarver;
-import net.minecraft.world.level.levelgen.placement.PlacedFeature;
 
 public final class RegisterWorldgen {
 	private RegisterWorldgen() {
@@ -189,9 +185,7 @@ public final class RegisterWorldgen {
         builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, placedFeatures.get(WilderPlacedFeatures.FLOWER_FOREST_FLOWERS));
         builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, placedFeatures.get(WilderPlacedFeatures.CYPRESS_WETLANDS_TREES));
         builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, placedFeatures.get(WilderPlacedFeatures.CYPRESS_WETLANDS_TREES_WATER));
-        if (ClothConfigInteractionHandler.fallenLogs()) {
-            builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, placedFeatures.get(WilderPlacedFeatures.FALLEN_OAK_AND_CYPRESS_PLACED));
-        }
+		builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, placedFeatures.get(WilderPlacedFeatures.FALLEN_OAK_AND_CYPRESS_PLACED));
         addCypressPaths(builder);
         addBasicFeatures(builder, CYPRESS_WETLANDS);
         addCypressVegetation(builder);
@@ -208,9 +202,7 @@ public final class RegisterWorldgen {
         builder.addFeature(GenerationStep.Decoration.TOP_LAYER_MODIFICATION, placedFeatures.get(WilderMiscPlaced.COARSE_PATH_5));
         builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, placedFeatures.get(WilderPlacedFeatures.MIXED_MUSHROOMS_PLACED));
         builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, placedFeatures.get(WilderPlacedFeatures.MIXED_TREES));
-        if (ClothConfigInteractionHandler.fallenLogs()) {
-            builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, placedFeatures.get(WilderPlacedFeatures.FALLEN_TREES_MIXED_PLACED));
-        }
+        builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, placedFeatures.get(WilderPlacedFeatures.FALLEN_TREES_MIXED_PLACED));
         addBasicFeatures(builder, MIXED_FOREST);
         BiomeDefaultFeatures.addForestFlowers(builder);
         BiomeDefaultFeatures.addDefaultOres(builder);

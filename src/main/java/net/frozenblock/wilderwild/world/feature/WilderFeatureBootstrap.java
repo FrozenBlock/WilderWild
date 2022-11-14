@@ -122,6 +122,7 @@ public class WilderFeatureBootstrap {
 	public static void bootstrap(FabricWorldgenProvider.Entries entries) {
 		final var placedFeatures = entries.placedFeatures();
 		final var configuredFeatures = entries.getLookup(Registry.CONFIGURED_FEATURE_REGISTRY);
+
 		WilderWild.logWild("Registering WilderTreeConfigured for", true);
 
 		var birch = register(entries, WilderTreeConfigured.BIRCH, Feature.TREE, WilderTreeConfigured.new_birch().dirt(BlockStateProvider.simple(Blocks.DIRT)).decorators(ImmutableList.of(WilderTreeConfigured.SHELF_FUNGUS_007)).build());
@@ -179,6 +180,7 @@ public class WilderFeatureBootstrap {
 		var underWaterGravelPath = register(entries, WilderMiscConfigured.UNDER_WATER_GRAVEL_PATH, WilderWild.NOISE_PATH_UNDER_WATER_FEATURE, new PathFeatureConfig(BlockStateProvider.simple(Blocks.GRAVEL), 16, 1, 0.07, -0.7, -0.3, true, true, HolderSet.direct(Blocks.DIRT.builtInRegistryHolder(), Blocks.GRASS_BLOCK.builtInRegistryHolder(), Blocks.STONE.builtInRegistryHolder())));
 		var underWaterClayPath = register(entries, WilderMiscConfigured.UNDER_WATER_CLAY_PATH, WilderWild.NOISE_PATH_UNDER_WATER_FEATURE, new PathFeatureConfig(BlockStateProvider.simple(Blocks.CLAY), 16, 3, 0.07, 0.5, 0.85, true, true, HolderSet.direct(Blocks.DIRT.builtInRegistryHolder(), Blocks.GRAVEL.builtInRegistryHolder(), Blocks.GRASS_BLOCK.builtInRegistryHolder(), Blocks.STONE.builtInRegistryHolder())));
 		var underWaterClayPathBeach = register(entries, WilderMiscConfigured.UNDER_WATER_CLAY_PATH_BEACH, WilderWild.NOISE_PATH_UNDER_WATER_FEATURE, new PathFeatureConfig(BlockStateProvider.simple(Blocks.CLAY), 14, 2, 0.10, 0.5, 0.85, true, true, HolderSet.direct(Blocks.SAND.builtInRegistryHolder())));
+		var underWaterGravelPathRiver = register(entries, WilderMiscConfigured.UNDER_WATER_GRAVEL_PATH_RIVER, WilderWild.NOISE_PATH_UNDER_WATER_FEATURE, new PathFeatureConfig(BlockStateProvider.simple(Blocks.GRAVEL), 14, 2, 0.10, 0.5, 0.85, true, true, HolderSet.direct(Blocks.SAND.builtInRegistryHolder())));
 		var orePackedMud = register(entries, WilderMiscConfigured.ORE_PACKED_MUD, Feature.ORE, new OreConfiguration(WilderMiscConfigured.PACKED_MUD_REPLACEABLE, Blocks.PACKED_MUD.defaultBlockState(), 40));
 		var oreCalcite = register(entries, WilderMiscConfigured.ORE_CALCITE, Feature.ORE, new OreConfiguration(WilderMiscConfigured.NATURAL_STONE, Blocks.CALCITE.defaultBlockState(), 64));
 		var deepslatePool = register(entries, WilderMiscConfigured.DEEPSLATE_POOL, Feature.WATERLOGGED_VEGETATION_PATCH, new VegetationPatchConfiguration(BlockTags.LUSH_GROUND_REPLACEABLE, BlockStateProvider.simple(Blocks.DEEPSLATE), PlacementUtils.inlinePlaced(blankShutUp), CaveSurface.FLOOR, ConstantInt.of(4), 0.8F, 2, 0.000F, UniformInt.of(12, 15), 0.7F));
@@ -246,6 +248,7 @@ public class WilderFeatureBootstrap {
 		var placedUnderWaterGravelPath = register(entries, WilderMiscPlaced.UNDER_WATER_GRAVEL_PATH, underWaterGravelPath, InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP_TOP_SOLID, BiomeFilter.biome());
 		var placedUnderWaterClayPath = register(entries, WilderMiscPlaced.UNDER_WATER_CLAY_PATH, underWaterClayPath, InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP_TOP_SOLID, BiomeFilter.biome());
 		var placedUnderWaterClayPathBeach = register(entries, WilderMiscPlaced.UNDER_WATER_CLAY_PATH_BEACH, underWaterClayPathBeach, RarityFilter.onAverageOnceEvery(3), InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP_WORLD_SURFACE, BiomeFilter.biome());
+		var placedUnderWaterGravelPathRiver = register(entries, WilderMiscPlaced.UNDER_WATER_GRAVEL_PATH_RIVER, underWaterGravelPathRiver, RarityFilter.onAverageOnceEvery(5), InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP_WORLD_SURFACE, BiomeFilter.biome());
 		var placedOrePackedMud = register(entries, WilderMiscPlaced.ORE_PACKED_MUD, orePackedMud, WilderMiscPlaced.modifiersWithCount(5, HeightRangePlacement.uniform(VerticalAnchor.absolute(42), VerticalAnchor.absolute(250))));
 		var placedOreCalcite = register(entries, WilderMiscPlaced.ORE_CALCITE, oreCalcite, WilderMiscPlaced.modifiersWithCount(2, HeightRangePlacement.uniform(VerticalAnchor.absolute(-54), VerticalAnchor.absolute(64))));
 		var placedMesogleaPillar = register(entries, WilderMiscPlaced.MESOGLEA_PILLAR, mesogleaPillar, CountPlacement.of(7), InSquarePlacement.spread(), HeightRangePlacement.uniform(VerticalAnchor.bottom(), VerticalAnchor.top()), EnvironmentScanPlacement.scanningFor(Direction.DOWN, BlockPredicate.solid(), WilderMiscPlaced.ONLY_IN_WATER_PREDICATE, 12), RandomOffsetPlacement.vertical(ConstantInt.of(1)), BiomeFilter.biome());
@@ -709,6 +712,13 @@ public class WilderFeatureBootstrap {
 		WilderNoise.bootstrap(entries);
 		// TODO: fix structure registry
 		//RegisterStructures.bootstrap(entries);
+
+		finalizeDatagen();
+	}
+
+	private static void finalizeDatagen() {
+		CONFIGURED_FEATURES.clear();
+		PLACED_FEATURES.clear();
 	}
 
 	/**

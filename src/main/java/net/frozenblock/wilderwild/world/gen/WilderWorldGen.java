@@ -5,6 +5,7 @@ import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
 import net.fabricmc.fabric.api.biome.v1.ModificationPhase;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.frozenblock.wilderwild.misc.config.ClothConfigInteractionHandler;
+import net.frozenblock.wilderwild.registry.RegisterWorldgen;
 import net.frozenblock.wilderwild.tag.WilderBiomeTags;
 import net.frozenblock.wilderwild.world.feature.WilderPlacedFeatures;
 import net.frozenblock.wilderwild.world.gen.treedecorators.WilderTreeDecorators;
@@ -14,6 +15,7 @@ import net.minecraft.world.level.levelgen.GenerationStep;
 
 public final class WilderWorldGen {
     public static void generateWildWorldGen() {
+		configureBuiltInBiomes();
         replaceFeatures();
         WilderFlowersGeneration.generateFlower();
         WilderGrassGeneration.init();
@@ -27,6 +29,26 @@ public final class WilderWorldGen {
 
         generatePollen();
     }
+
+	private static void configureBuiltInBiomes() {
+		BiomeModifications.create(WilderSharedConstants.id("remove_fallen_trees"))
+				.add(ModificationPhase.REMOVALS,
+						BiomeSelectors.includeByKey(RegisterWorldgen.CYPRESS_WETLANDS),
+						(context) -> {
+							if (!ClothConfigInteractionHandler.fallenLogs()) {
+								context.getGenerationSettings().removeFeature(WilderPlacedFeatures.FALLEN_OAK_AND_CYPRESS_PLACED);
+							}
+						}
+				)
+				.add(ModificationPhase.REMOVALS,
+						BiomeSelectors.includeByKey(RegisterWorldgen.MIXED_FOREST),
+						(context) -> {
+							if (!ClothConfigInteractionHandler.fallenLogs()) {
+								context.getGenerationSettings().removeFeature(WilderPlacedFeatures.FALLEN_TREES_MIXED_PLACED);
+							}
+						}
+				);
+	}
 
     private static void replaceFeatures() {
         BiomeModifications.create(WilderSharedConstants.id("replace_forest_grass"))
