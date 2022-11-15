@@ -7,6 +7,7 @@ import net.frozenblock.wilderwild.world.feature.features.config.PathFeatureConfi
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderSet;
 import net.minecraft.core.Registry;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.BlockTags;
@@ -51,6 +52,6 @@ public final class WilderMiscConfigured {
 	public static final ResourceKey<ConfiguredFeature<?, ?>> DOWNWARDS_PURPLE_MESOGLEA_PILLAR = key("downwards_purple_mesoglea_pillar");
 
 	public static ResourceKey<ConfiguredFeature<?, ?>> key(String path) {
-		return ResourceKey.create(Registry.CONFIGURED_FEATURE_REGISTRY, new ResourceLocation(WilderSharedConstants.MOD_ID, path));
+		return ResourceKey.create(Registries.CONFIGURED_FEATURE, new ResourceLocation(WilderSharedConstants.MOD_ID, path));
 	}
 }

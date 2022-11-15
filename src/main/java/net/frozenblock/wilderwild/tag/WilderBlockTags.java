@@ -2,6 +2,7 @@ package net.frozenblock.wilderwild.tag;
 
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.minecraft.core.Registry;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.level.block.Block;
@@ -26,10 +27,10 @@ public final class WilderBlockTags {
     public static final TagKey<Block> FIREFLY_HIDEABLE_BLOCKS = bind("firefly_hideable_blocks");
     public static final TagKey<Block> PACKED_MUD_REPLACEABLE = bind("packed_mud_replaceable");
 
-    public static final TagKey<Block> GLASS_BLOCKS = TagKey.create(Registry.BLOCK_REGISTRY, new ResourceLocation("c", "glass_blocks"));
-    public static final TagKey<Block> GLASS_PANES = TagKey.create(Registry.BLOCK_REGISTRY, new ResourceLocation("c", "glass_panes"));
+    public static final TagKey<Block> GLASS_BLOCKS = TagKey.create(Registries.BLOCK, new ResourceLocation("c", "glass_blocks"));
+    public static final TagKey<Block> GLASS_PANES = TagKey.create(Registries.BLOCK, new ResourceLocation("c", "glass_panes"));
 
     private static TagKey<Block> bind(String path) {
-        return TagKey.create(Registry.BLOCK_REGISTRY, WilderSharedConstants.id(path));
+        return TagKey.create(Registries.BLOCK, WilderSharedConstants.id(path));
     }
 }

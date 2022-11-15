@@ -8,6 +8,7 @@ import net.frozenblock.wilderwild.world.gen.treedecorators.ShelfFungusTreeDecora
 import net.frozenblock.wilderwild.world.gen.trunk.FallenTrunkWithLogs;
 import net.frozenblock.wilderwild.world.gen.trunk.StraightTrunkWithLogs;
 import net.minecraft.core.Registry;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.valueproviders.ConstantInt;
@@ -87,7 +88,7 @@ public final class WilderTreeConfigured {
 	public static final ResourceKey<ConfiguredFeature<?, ?>> SWAMP_CYPRESS = key("swamp_cypress");
 
 	public static ResourceKey<ConfiguredFeature<?, ?>> key(String path) {
-		return ResourceKey.create(Registry.CONFIGURED_FEATURE_REGISTRY, new ResourceLocation(WilderSharedConstants.MOD_ID, path));
+		return ResourceKey.create(Registries.CONFIGURED_FEATURE, new ResourceLocation(WilderSharedConstants.MOD_ID, path));
 	}
 
 	public static TreeConfiguration.TreeConfigurationBuilder builder(Block log, Block leaves, int baseHeight, int firstRandomHeight, int secondRandomHeight, float logChance, IntProvider maxLogs, IntProvider logHeightFromTop, IntProvider extraBranchLength, int radius) {

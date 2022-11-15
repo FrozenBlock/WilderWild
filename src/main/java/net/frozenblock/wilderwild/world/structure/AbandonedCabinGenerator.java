@@ -4,11 +4,12 @@ import com.google.common.collect.ImmutableList;
 import com.mojang.datafixers.util.Either;
 import com.mojang.datafixers.util.Pair;
 import java.util.function.Function;
-import net.fabricmc.fabric.api.datagen.v1.provider.FabricWorldgenProvider;
+import net.fabricmc.fabric.api.datagen.v1.provider.FabricDynamicRegistryProvider;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderGetter;
 import net.minecraft.core.Registry;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.data.registries.VanillaRegistries;
 import net.minecraft.data.worldgen.AncientCityStructurePools;
 import net.minecraft.data.worldgen.BootstapContext;
@@ -42,6 +43,6 @@ public class AbandonedCabinGenerator {
     }
 
 	public static ResourceKey<StructureTemplatePool> createKey(String string) {
-		return ResourceKey.create(Registry.TEMPLATE_POOL_REGISTRY, WilderSharedConstants.id(string));
+		return ResourceKey.create(Registries.TEMPLATE_POOL, WilderSharedConstants.id(string));
 	}
 }

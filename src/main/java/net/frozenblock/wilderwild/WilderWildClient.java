@@ -49,6 +49,7 @@ import net.minecraft.client.renderer.texture.SpriteLoader;
 import net.minecraft.core.Registry;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
@@ -239,7 +240,7 @@ public final class WilderWildClient implements ClientModInitializer {
 
     private static void receiveAncientHornProjectilePacket() {
         ClientPlayNetworking.registerGlobalReceiver(WilderWild.HORN_PROJECTILE_PACKET_ID, (ctx, handler, byteBuf, responseSender) -> {
-            EntityType<?> et = Registry.ENTITY_TYPE.byId(byteBuf.readVarInt());
+            EntityType<?> et = BuiltInRegistries.ENTITY_TYPE.byId(byteBuf.readVarInt());
             UUID uuid = byteBuf.readUUID();
             int entityId = byteBuf.readVarInt();
             Vec3 pos = AncientHornProjectile.EntitySpawnPacket.PacketBufUtil.readVec3d(byteBuf);
@@ -251,7 +252,7 @@ public final class WilderWildClient implements ClientModInitializer {
                     throw new IllegalStateException("Tried to spawn entity in a null world!");
                 Entity e = et.create(Minecraft.getInstance().level);
                 if (e == null)
-                    throw new IllegalStateException("Failed to create instance of entity \"" + Registry.ENTITY_TYPE.getKey(et) + "\"!");
+                    throw new IllegalStateException("Failed to create instance of entity \"" + BuiltInRegistries.ENTITY_TYPE.getKey(et) + "\"!");
                 e.syncPacketPositionCodec(pos.x, pos.y, pos.z);
                 e.setPosRaw(pos.x, pos.y, pos.z);
                 e.setXRot(pitch);

@@ -3,7 +3,7 @@ package net.frozenblock.wilderwild.misc;
 import net.fabricmc.fabric.api.datagen.v1.DataGeneratorEntrypoint;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
-import net.fabricmc.fabric.api.datagen.v1.provider.FabricWorldgenProvider;
+import net.fabricmc.fabric.api.datagen.v1.provider.FabricDynamicRegistryProvider;
 import net.frozenblock.lib.datagen.api.FrozenBiomeTagProvider;
 import net.frozenblock.wilderwild.registry.RegisterItems;
 import net.frozenblock.wilderwild.registry.RegisterWorldgen;
@@ -151,7 +151,7 @@ public class WilderWildDataGenerator implements DataGeneratorEntrypoint {
 		}
 	}
 
-	private static class WilderWorldgenProvider extends FabricWorldgenProvider {
+	private static class WilderWorldgenProvider extends FabricDynamicRegistryProvider {
 
 		public WilderWorldgenProvider(FabricDataOutput output, CompletableFuture<HolderLookup.Provider> registriesFuture) {
 			super(output, registriesFuture);

@@ -18,6 +18,7 @@ import net.frozenblock.wilderwild.tag.WilderEntityTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.protocol.game.DebugPackets;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -49,6 +50,7 @@ import net.minecraft.world.entity.ai.behavior.StartAttacking;
 import net.minecraft.world.entity.ai.memory.MemoryModuleType;
 import net.minecraft.world.entity.ai.targeting.TargetingConditions;
 import net.minecraft.world.entity.animal.Bucketable;
+import net.minecraft.world.entity.monster.warden.Warden;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
@@ -208,8 +210,8 @@ public class Jellyfish extends NoFlopAbstractFish {
         return this.getBrain().getMemory(MemoryModuleType.ATTACK_TARGET).orElse(null);
     }
 
-    public void setAttackTarget(LivingEntity livingEntity) {
-        StartAttacking.setAttackTarget(this, livingEntity);
+    public void setAttackTarget(LivingEntity entity) {
+        this.getBrain().setMemory(MemoryModuleType.ATTACK_TARGET, entity);
     }
 
     @Override
@@ -342,7 +344,7 @@ public class Jellyfish extends NoFlopAbstractFish {
     }
 
     public ResourceLocation getJellyLootTable() {
-        ResourceLocation resourceLocation = Registry.ENTITY_TYPE.getKey(RegisterEntities.JELLYFISH);
+        ResourceLocation resourceLocation = BuiltInRegistries.ENTITY_TYPE.getKey(RegisterEntities.JELLYFISH);
         return new ResourceLocation(this.getVariant().getKey().getNamespace(), "entities/" + resourceLocation.getPath() + "_" + this.getVariant().getKey().getPath());
     }
 

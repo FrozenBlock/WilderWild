@@ -4,6 +4,7 @@ import net.frozenblock.lib.registry.FrozenRegistry;
 import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.minecraft.core.Registry;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.sounds.SoundEvent;
 
 public final class RegisterSounds {
@@ -245,7 +246,7 @@ public final class RegisterSounds {
     public static final SoundEvent MUSIC_OVERWORLD_JELLYFISH_CAVES = register("music.overworld.jellyfish_caves");
 
     public static SoundEvent register(String path) {
-        return Registry.register(Registry.SOUND_EVENT, WilderSharedConstants.id(path), new SoundEvent(WilderSharedConstants.id(path)));
+        return Registry.register(BuiltInRegistries.SOUND_EVENT, WilderSharedConstants.id(path), new SoundEvent(WilderSharedConstants.id(path)));
     }
 
     public static void init() {

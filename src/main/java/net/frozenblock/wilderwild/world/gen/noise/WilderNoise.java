@@ -1,8 +1,9 @@
 package net.frozenblock.wilderwild.world.gen.noise;
 
-import net.fabricmc.fabric.api.datagen.v1.provider.FabricWorldgenProvider;
+import net.fabricmc.fabric.api.datagen.v1.provider.FabricDynamicRegistryProvider;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.minecraft.core.Registry;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstapContext;
 import net.minecraft.data.worldgen.NoiseData;
 import net.minecraft.resources.ResourceKey;
@@ -13,7 +14,7 @@ public class WilderNoise {
     public static final ResourceKey<NormalNoise.NoiseParameters> SAND_BEACH_KEY = createKey("sand_beach");
     public static final ResourceKey<NormalNoise.NoiseParameters> GRAVEL_BEACH_KEY = createKey("gravel_beach");
 
-	public static void bootstrap(FabricWorldgenProvider.Entries entries) {
+	public static void bootstrap(FabricDynamicRegistryProvider.Entries entries) {
 		register(entries, SAND_BEACH_KEY, -9,
 				1.0,
 				1.0,
@@ -79,11 +80,11 @@ public class WilderNoise {
 	}
 
     private static ResourceKey<NormalNoise.NoiseParameters> createKey(String id) {
-        return ResourceKey.create(Registry.NOISE_REGISTRY, WilderSharedConstants.id(id));
+        return ResourceKey.create(Registries.NOISE, WilderSharedConstants.id(id));
     }
 
 	public static void register(
-			FabricWorldgenProvider.Entries entries,
+			FabricDynamicRegistryProvider.Entries entries,
 			ResourceKey<NormalNoise.NoiseParameters> key,
 			int firstOctave,
 			double firstAmplitude,

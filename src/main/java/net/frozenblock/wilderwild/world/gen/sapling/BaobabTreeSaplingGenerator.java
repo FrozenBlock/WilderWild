@@ -4,6 +4,7 @@ import net.frozenblock.wilderwild.registry.WilderRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.data.registries.VanillaRegistries;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.level.ServerLevel;
@@ -46,7 +47,7 @@ public abstract class BaobabTreeSaplingGenerator extends AbstractMegaTreeGrower 
         if (registryEntry == null) {
             return false;
         } else {
-            ConfiguredFeature<?, ?> configuredFeature = VanillaRegistries.createLookup().lookupOrThrow(Registry.CONFIGURED_FEATURE_REGISTRY).get(registryEntry).orElseThrow().value();
+            ConfiguredFeature<?, ?> configuredFeature = VanillaRegistries.createLookup().lookupOrThrow(Registries.CONFIGURED_FEATURE).get(registryEntry).orElseThrow().value();
             BlockState blockState = Blocks.AIR.defaultBlockState();
             level.setBlock(pos.offset(x, 0, z), blockState, 16);
             level.setBlock(pos.offset(x + 1, 0, z), blockState, 16);

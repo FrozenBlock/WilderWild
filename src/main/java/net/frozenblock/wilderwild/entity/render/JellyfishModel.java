@@ -7,7 +7,7 @@ import com.mojang.math.Axis;
 import java.util.List;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.frozenblock.lib.entity.render.FrozenRenderType;
+import net.frozenblock.lib.entity.render.api.FrozenRenderType;
 import net.frozenblock.wilderwild.entity.Jellyfish;
 import net.minecraft.client.model.HierarchicalModel;
 import net.minecraft.client.model.geom.ModelPart;

@@ -2,10 +2,11 @@ package net.frozenblock.wilderwild.world.structure;
 
 import com.google.common.collect.ImmutableList;
 import java.util.List;
-import net.fabricmc.fabric.api.datagen.v1.provider.FabricWorldgenProvider;
+import net.fabricmc.fabric.api.datagen.v1.provider.FabricDynamicRegistryProvider;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstapContext;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.tags.BlockTags;
@@ -26,6 +27,6 @@ public class WilderStructureProcessors {
     }
 
 	private static ResourceKey<StructureProcessorList> createKey(String string) {
-		return ResourceKey.create(Registry.PROCESSOR_LIST_REGISTRY, WilderSharedConstants.id(string));
+		return ResourceKey.create(Registries.PROCESSOR_LIST, WilderSharedConstants.id(string));
 	}
 }

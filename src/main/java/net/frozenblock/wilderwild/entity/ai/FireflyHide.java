@@ -1,13 +1,12 @@
 package net.frozenblock.wilderwild.entity.ai;
 
 import jdk.jfr.Experimental;
-import net.frozenblock.lib.entities.behavior.MoveToBlockBehavior;
+import net.frozenblock.lib.entity.behavior.MoveToBlockBehavior;
 import net.frozenblock.wilderwild.entity.Firefly;
 import net.frozenblock.wilderwild.registry.RegisterSounds;
 import net.frozenblock.wilderwild.tag.WilderBlockTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.level.LevelReader;
 import org.jetbrains.annotations.NotNull;
 

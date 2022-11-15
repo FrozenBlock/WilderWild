@@ -24,6 +24,8 @@ import net.frozenblock.wilderwild.tag.WilderEntityTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Registry;
 import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.NbtUtils;
 import net.minecraft.network.FriendlyByteBuf;
@@ -439,7 +441,7 @@ public class AncientHornProjectile extends AbstractArrow {
     public void readAdditionalSaveData(@NotNull CompoundTag compound) {
         if (!this.isRemoved()) {
             if (compound.contains("inBlockState", 10)) {
-                this.inBlockState = NbtUtils.readBlockState(this.level.holderLookup(Registry.BLOCK_REGISTRY), compound.getCompound("inBlockState"));
+                this.inBlockState = NbtUtils.readBlockState(this.level.holderLookup(Registries.BLOCK), compound.getCompound("inBlockState"));
             }
             this.aliveTicks = compound.getInt("aliveTicks");
             this.leftOwner = compound.getBoolean("LeftOwner");
@@ -576,7 +578,7 @@ public class AncientHornProjectile extends AbstractArrow {
             if (entity.level.isClientSide)
                 throw new IllegalStateException("SpawnPacketUtil.create called on the logical client!");
             FriendlyByteBuf byteBuf = new FriendlyByteBuf(Unpooled.buffer());
-            byteBuf.writeVarInt(Registry.ENTITY_TYPE.getId(entity.getType()));
+            byteBuf.writeVarInt(BuiltInRegistries.ENTITY_TYPE.getId(entity.getType()));
             byteBuf.writeUUID(entity.getUUID());
             byteBuf.writeVarInt(entity.getId());
             PacketBufUtil.writeVec3d(byteBuf, entity.position());

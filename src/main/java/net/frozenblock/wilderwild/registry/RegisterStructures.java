@@ -4,24 +4,19 @@ import com.google.common.collect.ImmutableList;
 import com.mojang.datafixers.util.Pair;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.CompletableFuture;
-import net.fabricmc.fabric.api.datagen.v1.provider.FabricWorldgenProvider;
+import net.fabricmc.fabric.api.datagen.v1.provider.FabricDynamicRegistryProvider;
 import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.frozenblock.wilderwild.tag.WilderBiomeTags;
 import net.frozenblock.wilderwild.world.structure.AbandonedCabinGenerator;
 import net.frozenblock.wilderwild.world.structure.WilderStructureProcessors;
-import net.minecraft.Util;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderGetter;
-import net.minecraft.core.HolderLookup;
 import net.minecraft.core.HolderSet;
 import net.minecraft.core.Registry;
-import net.minecraft.data.Main;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.Pools;
-import net.minecraft.network.protocol.game.ClientboundUpdateEnabledFeaturesPacket;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.tags.BiomeTags;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.level.biome.Biome;
@@ -57,7 +52,7 @@ public final class RegisterStructures {
     public static final ResourceKey<StructureSet> ABANDONED_CABINS_KEY = ofSet("abandoned_cabins");
 
     private static ResourceKey<StructureSet> ofSet(String id) {
-        return ResourceKey.create(Registry.STRUCTURE_SET_REGISTRY, WilderSharedConstants.id(id));
+        return ResourceKey.create(Registries.STRUCTURE_SET, WilderSharedConstants.id(id));
     }
 
     public static Holder<StructureSet> initAndGetDefault(Registry<StructureSet> registry) {
@@ -73,24 +68,24 @@ public final class RegisterStructures {
     }
 
     private static ResourceKey<Structure> createKey(String id) {
-        return ResourceKey.create(Registry.STRUCTURE_REGISTRY, WilderSharedConstants.id(id));
+        return ResourceKey.create(Registries.STRUCTURE, WilderSharedConstants.id(id));
     }
 
-    private static Structure.StructureSettings createConfig(
+    private static Structure.StructureSettings structure(
 			HolderSet<Biome> holderSet, Map<MobCategory, StructureSpawnOverride> spawns, GenerationStep.Decoration featureStep, TerrainAdjustment terrainAdaptation
     ) {
         return new Structure.StructureSettings(holderSet, spawns, featureStep, terrainAdaptation);
     }
 
-    private static Structure.StructureSettings createConfig(HolderSet<Biome> holderSet, GenerationStep.Decoration featureStep, TerrainAdjustment terrainAdaptation) {
-        return createConfig(holderSet, Map.of(), featureStep, terrainAdaptation);
+    private static Structure.StructureSettings structure(HolderSet<Biome> holderSet, GenerationStep.Decoration featureStep, TerrainAdjustment terrainAdaptation) {
+        return structure(holderSet, Map.of(), featureStep, terrainAdaptation);
     }
 
-    private static Structure.StructureSettings createConfig(HolderSet<Biome> holderSet, TerrainAdjustment terrainAdaptation) {
-        return createConfig(holderSet, GenerationStep.Decoration.SURFACE_STRUCTURES, terrainAdaptation);
+    private static Structure.StructureSettings structure(HolderSet<Biome> holderSet, TerrainAdjustment terrainAdaptation) {
+        return structure(holderSet, GenerationStep.Decoration.SURFACE_STRUCTURES, terrainAdaptation);
     }
 
-	public static void bootstrap(FabricWorldgenProvider.Entries entries) {
+	public static void bootstrap(FabricDynamicRegistryProvider.Entries entries) {
 		var abandonedCabinProcessor = register(
 				entries,
 				WilderStructureProcessors.ABANDONED_CABIN,
@@ -110,7 +105,8 @@ public final class RegisterStructures {
 				)
 		);
 
-		HolderGetter<StructureTemplatePool> holderGetter2 = entries.getLookup(Registry.TEMPLATE_POOL_REGISTRY);
+		/*HolderGetter<Biome> holderGetter = entries.getLookup(Registries.BIOME);
+		HolderGetter<StructureTemplatePool> holderGetter2 = entries.getLookup(Registries.TEMPLATE_POOL);
 		Holder<StructureTemplatePool> holder2 = holderGetter2.getOrThrow(Pools.EMPTY);
 
 		var cabinTemplatePool = entries.add(
@@ -129,8 +125,8 @@ public final class RegisterStructures {
 		var abandonedCabin = entries.add(
 				ABANDONED_CABIN_KEY,
 				new JigsawStructure(
-						createConfig(
-								entries.getLookup(Registry.BIOME_REGISTRY).getOrThrow(WilderBiomeTags.ABANDONED_CABIN_HAS_STRUCTURE),
+						structure(
+								holderGetter.getOrThrow(WilderBiomeTags.ABANDONED_CABIN_HAS_STRUCTURE),
 								//Arrays.stream(MobCategory.values())
 								//        .collect(Collectors.toMap(spawnGroup -> spawnGroup, spawnGroup -> new StructureSpawnOverride(StructureSpawnOverride.BoundingBoxType.STRUCTURE, WeightedRandomList.create()))),
 								GenerationStep.Decoration.UNDERGROUND_DECORATION,
@@ -148,11 +144,11 @@ public final class RegisterStructures {
 						abandonedCabin,
 						new RandomSpreadStructurePlacement(13, 5, RandomSpreadType.LINEAR, 25388232) // ancient city salt is 20083232
 				)
-		);
+		);*/
 	}
 
 	private static Holder<StructureProcessorList> register(
-			FabricWorldgenProvider.Entries entries, ResourceKey<StructureProcessorList> registryKey, List<StructureProcessor> list
+			FabricDynamicRegistryProvider.Entries entries, ResourceKey<StructureProcessorList> registryKey, List<StructureProcessor> list
 	) {
 		return entries.add(registryKey, new StructureProcessorList(list));
 	}

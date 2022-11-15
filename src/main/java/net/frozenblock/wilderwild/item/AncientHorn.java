@@ -13,6 +13,8 @@ import net.frozenblock.wilderwild.registry.RegisterSounds;
 import net.minecraft.client.renderer.LevelRenderer;
 import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
@@ -101,11 +103,11 @@ public class AncientHorn extends InstrumentItem {
         if (nbtCompound != null) {
             ResourceLocation resourceLocation = ResourceLocation.tryParse(nbtCompound.getString(TAG_INSTRUMENT));
             if (resourceLocation != null) {
-                return Registry.INSTRUMENT.getHolder(ResourceKey.create(Registry.INSTRUMENT_REGISTRY, resourceLocation));
+                return BuiltInRegistries.INSTRUMENT.getHolder(ResourceKey.create(Registries.INSTRUMENT, resourceLocation));
             }
         }
 
-        Iterator<Holder<Instrument>> iterator = Registry.INSTRUMENT.getTagOrEmpty(this.instrumentTag).iterator();
+        Iterator<Holder<Instrument>> iterator = BuiltInRegistries.INSTRUMENT.getTagOrEmpty(this.instrumentTag).iterator();
         return iterator.hasNext() ? Optional.of(iterator.next()) : Optional.empty();
     }
 

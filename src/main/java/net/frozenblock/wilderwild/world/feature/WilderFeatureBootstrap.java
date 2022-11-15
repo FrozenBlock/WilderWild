@@ -1,7 +1,7 @@
 package net.frozenblock.wilderwild.world.feature;
 
 import com.google.common.collect.ImmutableList;
-import net.fabricmc.fabric.api.datagen.v1.provider.FabricWorldgenProvider;
+import net.fabricmc.fabric.api.datagen.v1.provider.FabricDynamicRegistryProvider;
 import net.frozenblock.lib.worldgen.feature.api.FrozenConfiguredFeatureUtils;
 import net.frozenblock.lib.worldgen.feature.api.FrozenPlacementUtils;
 import net.frozenblock.wilderwild.WilderWild;
@@ -27,6 +27,8 @@ import net.minecraft.core.Holder;
 import net.minecraft.core.HolderGetter;
 import net.minecraft.core.HolderSet;
 import net.minecraft.core.Registry;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.features.AquaticFeatures;
 import net.minecraft.data.worldgen.features.CaveFeatures;
 import net.minecraft.data.worldgen.features.FeatureUtils;
@@ -119,9 +121,9 @@ public class WilderFeatureBootstrap {
 	public static final Map<ResourceKey<ConfiguredFeature<?, ?>>, Holder<ConfiguredFeature<?, ?>>> CONFIGURED_FEATURES = new HashMap<>();
 	public static final Map<ResourceKey<PlacedFeature>, Holder<PlacedFeature>> PLACED_FEATURES = new HashMap<>();
 
-	public static void bootstrap(FabricWorldgenProvider.Entries entries) {
+	public static void bootstrap(FabricDynamicRegistryProvider.Entries entries) {
 		final var placedFeatures = entries.placedFeatures();
-		final var configuredFeatures = entries.getLookup(Registry.CONFIGURED_FEATURE_REGISTRY);
+		final var configuredFeatures = entries.getLookup(Registries.CONFIGURED_FEATURE);
 
 		WilderWild.logWild("Registering WilderTreeConfigured for", true);
 
@@ -148,7 +150,7 @@ public class WilderFeatureBootstrap {
 		var dyingDarkOak = register(entries, WilderTreeConfigured.DYING_DARK_OAK, Feature.TREE, (new TreeConfiguration.TreeConfigurationBuilder(BlockStateProvider.simple(Blocks.DARK_OAK_LOG), new DarkOakTrunkPlacer(6, 2, 1), BlockStateProvider.simple(Blocks.DARK_OAK_LEAVES), new DarkOakFoliagePlacer(ConstantInt.of(0), ConstantInt.of(0)), new ThreeLayersFeatureSize(1, 1, 0, 1, 2, OptionalInt.empty()))).decorators(List.of(WilderTreeConfigured.VINES_1_UNDER_260_05)).ignoreVines().build());
 		var tallDarkOak = register(entries, WilderTreeConfigured.TALL_DARK_OAK, Feature.TREE, WilderTreeConfigured.new_tall_dark_oak().ignoreVines().build());
 		var dyingTallDarkOak = register(entries, WilderTreeConfigured.DYING_TALL_DARK_OAK, Feature.TREE, WilderTreeConfigured.new_tall_dark_oak().decorators(List.of(WilderTreeConfigured.VINES_1_UNDER_260_05)).ignoreVines().build());
-		var swampTree = register(entries, WilderTreeConfigured.SWAMP_TREE, Feature.TREE, (new TreeConfiguration.TreeConfigurationBuilder(BlockStateProvider.simple(Blocks.MANGROVE_LOG), new StraightTrunkPlacer(5, 2, 1), BlockStateProvider.simple(Blocks.MANGROVE_LEAVES), new BlobFoliagePlacer(ConstantInt.of(3), ConstantInt.of(0), 3), Optional.of(new MangroveRootPlacer(UniformInt.of(1, 1), BlockStateProvider.simple(Blocks.MANGROVE_ROOTS), Optional.of(new AboveRootPlacement(BlockStateProvider.simple(Blocks.MOSS_CARPET), 0.45F)), new MangroveRootPlacement(Registry.BLOCK.getOrCreateTag(BlockTags.MANGROVE_ROOTS_CAN_GROW_THROUGH), HolderSet.direct(Block::builtInRegistryHolder, Blocks.MUD, Blocks.MUDDY_MANGROVE_ROOTS), BlockStateProvider.simple(Blocks.MUDDY_MANGROVE_ROOTS), 8, 15, 0.2F))), new TwoLayersFeatureSize(2, 0, 2))).decorators(List.of(new LeaveVineDecorator(0.125F), new AttachedToLeavesDecorator(0.12F, 1, 0, new RandomizedIntStateProvider(BlockStateProvider.simple(Blocks.MANGROVE_PROPAGULE.defaultBlockState().setValue(MangrovePropaguleBlock.HANGING, true)), MangrovePropaguleBlock.AGE, UniformInt.of(0, 4)), 2, List.of(Direction.DOWN)))).ignoreVines().dirt(BlockStateProvider.simple(Blocks.MANGROVE_ROOTS)).build());
+		var swampTree = register(entries, WilderTreeConfigured.SWAMP_TREE, Feature.TREE, (new TreeConfiguration.TreeConfigurationBuilder(BlockStateProvider.simple(Blocks.MANGROVE_LOG), new StraightTrunkPlacer(5, 2, 1), BlockStateProvider.simple(Blocks.MANGROVE_LEAVES), new BlobFoliagePlacer(ConstantInt.of(3), ConstantInt.of(0), 3), Optional.of(new MangroveRootPlacer(UniformInt.of(1, 1), BlockStateProvider.simple(Blocks.MANGROVE_ROOTS), Optional.of(new AboveRootPlacement(BlockStateProvider.simple(Blocks.MOSS_CARPET), 0.45F)), new MangroveRootPlacement(BuiltInRegistries.BLOCK.getOrCreateTag(BlockTags.MANGROVE_ROOTS_CAN_GROW_THROUGH), HolderSet.direct(Block::builtInRegistryHolder, Blocks.MUD, Blocks.MUDDY_MANGROVE_ROOTS), BlockStateProvider.simple(Blocks.MUDDY_MANGROVE_ROOTS), 8, 15, 0.2F))), new TwoLayersFeatureSize(2, 0, 2))).decorators(List.of(new LeaveVineDecorator(0.125F), new AttachedToLeavesDecorator(0.12F, 1, 0, new RandomizedIntStateProvider(BlockStateProvider.simple(Blocks.MANGROVE_PROPAGULE.defaultBlockState().setValue(MangrovePropaguleBlock.HANGING, true)), MangrovePropaguleBlock.AGE, UniformInt.of(0, 4)), 2, List.of(Direction.DOWN)))).ignoreVines().dirt(BlockStateProvider.simple(Blocks.MANGROVE_ROOTS)).build());
 		var spruce = register(entries, WilderTreeConfigured.SPRUCE, Feature.TREE, new TreeConfiguration.TreeConfigurationBuilder(BlockStateProvider.simple(Blocks.SPRUCE_LOG), new StraightTrunkPlacer(8, 4, 2), BlockStateProvider.simple(Blocks.SPRUCE_LEAVES), new SpruceFoliagePlacer(UniformInt.of(2, 3), UniformInt.of(0, 2), UniformInt.of(2, 3)), new TwoLayersFeatureSize(2, 0, 2)).decorators(ImmutableList.of(WilderTreeConfigured.SHELF_FUNGUS_006_ONLY_BROWN)).ignoreVines().build());
 		var spruceShort = register(entries, WilderTreeConfigured.SPRUCE_SHORT, Feature.TREE, new TreeConfiguration.TreeConfigurationBuilder(BlockStateProvider.simple(Blocks.SPRUCE_LOG), new StraightTrunkPlacer(3, 1, 2), BlockStateProvider.simple(Blocks.SPRUCE_LEAVES), new SpruceFoliagePlacer(UniformInt.of(1, 2), UniformInt.of(0, 2), UniformInt.of(2, 3)), new TwoLayersFeatureSize(2, 0, 2)).ignoreVines().build());
 		var fungusPine = register(entries, WilderTreeConfigured.FUNGUS_PINE, Feature.TREE, new TreeConfiguration.TreeConfigurationBuilder(BlockStateProvider.simple(Blocks.SPRUCE_LOG), new StraightTrunkPlacer(6, 4, 2), BlockStateProvider.simple(Blocks.SPRUCE_LEAVES), new PineFoliagePlacer(ConstantInt.of(1), ConstantInt.of(1), UniformInt.of(3, 4)), new TwoLayersFeatureSize(2, 0, 2)).decorators(ImmutableList.of(WilderTreeConfigured.SHELF_FUNGUS_006_ONLY_BROWN)).ignoreVines().build());
@@ -164,7 +166,7 @@ public class WilderFeatureBootstrap {
 		var fungusCypress = register(entries, WilderTreeConfigured.FUNGUS_CYPRESS, Feature.TREE, new TreeConfiguration.TreeConfigurationBuilder(BlockStateProvider.simple(RegisterBlocks.CYPRESS_LOG), new StraightTrunkPlacer(8, 4, 3), BlockStateProvider.simple(RegisterBlocks.CYPRESS_LEAVES), new SpruceFoliagePlacer(ConstantInt.of(1), UniformInt.of(1, 3), UniformInt.of(6, 8)), new TwoLayersFeatureSize(2, 1, 2)).decorators(ImmutableList.of(WilderTreeConfigured.SHELF_FUNGUS_006_ONLY_BROWN, WilderTreeConfigured.VINES_008_UNDER_82)).ignoreVines().build());
 		var shortCypress = register(entries, WilderTreeConfigured.SHORT_CYPRESS, Feature.TREE, new TreeConfiguration.TreeConfigurationBuilder(BlockStateProvider.simple(RegisterBlocks.CYPRESS_LOG), new StraightTrunkPlacer(3, 2, 3), BlockStateProvider.simple(RegisterBlocks.CYPRESS_LEAVES), new SpruceFoliagePlacer(ConstantInt.of(1), UniformInt.of(1, 3), UniformInt.of(4, 6)), new TwoLayersFeatureSize(2, 1, 2)).decorators(ImmutableList.of(WilderTreeConfigured.VINES_012_UNDER_76)).ignoreVines().build());
 		var shortFungusCypress = register(entries, WilderTreeConfigured.SHORT_FUNGUS_CYPRESS, Feature.TREE, new TreeConfiguration.TreeConfigurationBuilder(BlockStateProvider.simple(RegisterBlocks.CYPRESS_LOG), new StraightTrunkPlacer(4, 3, 1), BlockStateProvider.simple(RegisterBlocks.CYPRESS_LEAVES), new SpruceFoliagePlacer(ConstantInt.of(1), UniformInt.of(1, 3), UniformInt.of(6, 8)), new TwoLayersFeatureSize(2, 1, 2)).decorators(ImmutableList.of(WilderTreeConfigured.SHELF_FUNGUS_006_ONLY_BROWN, WilderTreeConfigured.VINES_008_UNDER_82)).ignoreVines().build());
-		var swampCypress = register(entries, WilderTreeConfigured.SWAMP_CYPRESS, Feature.TREE, (new TreeConfiguration.TreeConfigurationBuilder(BlockStateProvider.simple(RegisterBlocks.CYPRESS_LOG), new UpwardsBranchingTrunkPlacer(15, 5, 2, UniformInt.of(4, 5), 0.2F, UniformInt.of(1, 3), Registry.BLOCK.getOrCreateTag(BlockTags.MANGROVE_LOGS_CAN_GROW_THROUGH)), BlockStateProvider.simple(RegisterBlocks.CYPRESS_LEAVES), new RandomSpreadFoliagePlacer(ConstantInt.of(2), ConstantInt.of(1), ConstantInt.of(2), 14), new TwoLayersFeatureSize(1, 0, 1))).decorators(ImmutableList.of(new LeaveVineDecorator(0.1F), WilderTreeConfigured.SHELF_FUNGUS_006_ONLY_BROWN, WilderTreeConfigured.VINES_008_UNDER_82)).build());
+		var swampCypress = register(entries, WilderTreeConfigured.SWAMP_CYPRESS, Feature.TREE, (new TreeConfiguration.TreeConfigurationBuilder(BlockStateProvider.simple(RegisterBlocks.CYPRESS_LOG), new UpwardsBranchingTrunkPlacer(15, 5, 2, UniformInt.of(4, 5), 0.2F, UniformInt.of(1, 3), BuiltInRegistries.BLOCK.getOrCreateTag(BlockTags.MANGROVE_LOGS_CAN_GROW_THROUGH)), BlockStateProvider.simple(RegisterBlocks.CYPRESS_LEAVES), new RandomSpreadFoliagePlacer(ConstantInt.of(2), ConstantInt.of(1), ConstantInt.of(2), 14), new TwoLayersFeatureSize(1, 0, 1))).decorators(ImmutableList.of(new LeaveVineDecorator(0.1F), WilderTreeConfigured.SHELF_FUNGUS_006_ONLY_BROWN, WilderTreeConfigured.VINES_008_UNDER_82)).build());
 
 		WilderWild.logWild("Registering WilderMiscConfigured for", true);
 
@@ -711,7 +713,7 @@ public class WilderFeatureBootstrap {
 
 		WilderNoise.bootstrap(entries);
 		// TODO: fix structure registry
-		//RegisterStructures.bootstrap(entries);
+		RegisterStructures.bootstrap(entries);
 
 		finalizeDatagen();
 	}
@@ -724,31 +726,31 @@ public class WilderFeatureBootstrap {
 	/**
 	 * @param configuredResourceKey	MUST BE A VANILLA CONFIGURED FEATURE
 	 */
-	public static Holder<PlacedFeature> register(FabricWorldgenProvider.Entries entries, ResourceKey<PlacedFeature> resourceKey, ResourceKey<ConfiguredFeature<?, ?>> configuredResourceKey, PlacementModifier... modifiers) {
+	public static Holder<PlacedFeature> register(FabricDynamicRegistryProvider.Entries entries, ResourceKey<PlacedFeature> resourceKey, ResourceKey<ConfiguredFeature<?, ?>> configuredResourceKey, PlacementModifier... modifiers) {
 		return register(entries, resourceKey, configuredResourceKey, Arrays.asList(modifiers));
 	}
 
 	/**
 	 * @param configuredResourceKey	MUST BE A VANILLA CONFIGURED FEATURE
 	 */
-	public static Holder<PlacedFeature> register(FabricWorldgenProvider.Entries entries, ResourceKey<PlacedFeature> resourceKey, ResourceKey<ConfiguredFeature<?, ?>> configuredResourceKey, List<PlacementModifier> modifiers) {
-		var holder = FrozenPlacementUtils.register(entries, resourceKey, entries.getLookup(Registry.CONFIGURED_FEATURE_REGISTRY).getOrThrow(configuredResourceKey), modifiers);
+	public static Holder<PlacedFeature> register(FabricDynamicRegistryProvider.Entries entries, ResourceKey<PlacedFeature> resourceKey, ResourceKey<ConfiguredFeature<?, ?>> configuredResourceKey, List<PlacementModifier> modifiers) {
+		var holder = FrozenPlacementUtils.register(entries, resourceKey, entries.getLookup(Registries.CONFIGURED_FEATURE).getOrThrow(configuredResourceKey), modifiers);
 		PLACED_FEATURES.put(resourceKey, holder);
 		return holder;
 	}
 
 
-	public static Holder<PlacedFeature> register(FabricWorldgenProvider.Entries entries, ResourceKey<PlacedFeature> resourceKey, Holder<ConfiguredFeature<?, ?>> configuredHolder, PlacementModifier... modifiers) {
+	public static Holder<PlacedFeature> register(FabricDynamicRegistryProvider.Entries entries, ResourceKey<PlacedFeature> resourceKey, Holder<ConfiguredFeature<?, ?>> configuredHolder, PlacementModifier... modifiers) {
 		return register(entries, resourceKey, configuredHolder, Arrays.asList(modifiers));
 	}
 
-	private static Holder<PlacedFeature> register(FabricWorldgenProvider.Entries entries, ResourceKey<PlacedFeature> resourceKey, Holder<ConfiguredFeature<?, ?>> configuredHolder, List<PlacementModifier> modifiers) {
+	private static Holder<PlacedFeature> register(FabricDynamicRegistryProvider.Entries entries, ResourceKey<PlacedFeature> resourceKey, Holder<ConfiguredFeature<?, ?>> configuredHolder, List<PlacementModifier> modifiers) {
 		var holder = FrozenPlacementUtils.register(entries, resourceKey, configuredHolder, modifiers);
 		PLACED_FEATURES.put(resourceKey, holder);
 		return holder;
 	}
 
-	private static <FC extends FeatureConfiguration, F extends Feature<FC>> Holder<ConfiguredFeature<?, ?>> register(FabricWorldgenProvider.Entries entries, ResourceKey<ConfiguredFeature<?, ?>> resourceKey, F feature, FC featureConfiguration) {
+	private static <FC extends FeatureConfiguration, F extends Feature<FC>> Holder<ConfiguredFeature<?, ?>> register(FabricDynamicRegistryProvider.Entries entries, ResourceKey<ConfiguredFeature<?, ?>> resourceKey, F feature, FC featureConfiguration) {
 		var holder = FrozenConfiguredFeatureUtils.register(entries, resourceKey, feature, featureConfiguration);
 		CONFIGURED_FEATURES.put(resourceKey, holder);
 		return holder;

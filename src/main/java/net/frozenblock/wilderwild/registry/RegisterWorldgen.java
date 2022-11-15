@@ -1,12 +1,13 @@
 package net.frozenblock.wilderwild.registry;
 
-import net.fabricmc.fabric.api.datagen.v1.provider.FabricWorldgenProvider;
+import net.fabricmc.fabric.api.datagen.v1.provider.FabricDynamicRegistryProvider;
 import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.frozenblock.wilderwild.world.feature.WilderFeatureBootstrap;
 import net.frozenblock.wilderwild.world.feature.WilderMiscPlaced;
 import net.frozenblock.wilderwild.world.feature.WilderPlacedFeatures;
 import net.minecraft.core.Registry;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BiomeDefaultFeatures;
 import net.minecraft.data.worldgen.biome.OverworldBiomes;
 import static net.minecraft.data.worldgen.biome.OverworldBiomes.calculateSkyColor;
@@ -38,10 +39,10 @@ public final class RegisterWorldgen {
 	public static final ResourceKey<Biome> WARM_RIVER = register("warm_river");
 
     private static ResourceKey<Biome> register(String name) {
-        return ResourceKey.create(Registry.BIOME_REGISTRY, WilderSharedConstants.id(name));
+        return ResourceKey.create(Registries.BIOME, WilderSharedConstants.id(name));
     }
 
-    public static Biome mixedForest(FabricWorldgenProvider.Entries entries) {
+    public static Biome mixedForest(FabricDynamicRegistryProvider.Entries entries) {
 		var placedFeatures = entries.placedFeatures();
 		var worldCarvers = entries.configuredCarvers();
         MobSpawnSettings.Builder builder = new MobSpawnSettings.Builder();
@@ -70,7 +71,7 @@ public final class RegisterWorldgen {
                 .build();
     }
 
-    public static Biome cypressWetlands(FabricWorldgenProvider.Entries entries) {
+    public static Biome cypressWetlands(FabricDynamicRegistryProvider.Entries entries) {
 		var placedFeatures = entries.placedFeatures();
 		var worldCarvers = entries.configuredCarvers();
         MobSpawnSettings.Builder builder = new MobSpawnSettings.Builder();
@@ -98,7 +99,7 @@ public final class RegisterWorldgen {
                 .build();
     }
 
-    public static Biome jellyfishCaves(FabricWorldgenProvider.Entries entries) {
+    public static Biome jellyfishCaves(FabricDynamicRegistryProvider.Entries entries) {
 		var placedFeatures = entries.placedFeatures();
 		var worldCarvers = entries.configuredCarvers();
         MobSpawnSettings.Builder builder = new MobSpawnSettings.Builder();
@@ -125,7 +126,7 @@ public final class RegisterWorldgen {
                 .build();
     }
 
-	public static Biome warmRiver(FabricWorldgenProvider.Entries entries) {
+	public static Biome warmRiver(FabricDynamicRegistryProvider.Entries entries) {
 		var placedFeatures = entries.placedFeatures();
 		var worldCarvers = entries.configuredCarvers();
 		var wilderPlacedFeatures = WilderFeatureBootstrap.PLACED_FEATURES;

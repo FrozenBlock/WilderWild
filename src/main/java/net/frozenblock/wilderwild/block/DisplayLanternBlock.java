@@ -15,6 +15,7 @@ import net.frozenblock.wilderwild.registry.RegisterSounds;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Registry;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
@@ -106,7 +107,7 @@ public class DisplayLanternBlock extends BaseEntityBlock implements SimpleWaterl
                 if (stack.is(Items.GLASS_BOTTLE)) {
                     if (!lantern.getFireflies().isEmpty()) {
                         DisplayLanternBlockEntity.FireflyInLantern fireflyInLantern = lantern.getFireflies().get((int) (lantern.getFireflies().size() * Math.random()));
-                        Optional<Item> optionalItem = Registry.ITEM.getOptional(new ResourceLocation(fireflyInLantern.color.getKey().getNamespace(), Objects.equals(fireflyInLantern.color, FireflyColor.ON) ? "firefly_bottle" : fireflyInLantern.color.getKey().getPath() + "_firefly_bottle"));
+                        Optional<Item> optionalItem = BuiltInRegistries.ITEM.getOptional(new ResourceLocation(fireflyInLantern.color.getKey().getNamespace(), Objects.equals(fireflyInLantern.color, FireflyColor.ON) ? "firefly_bottle" : fireflyInLantern.color.getKey().getPath() + "_firefly_bottle"));
                         Item item = RegisterItems.FIREFLY_BOTTLE;
                         if (optionalItem.isPresent()) {
                             item = optionalItem.get();

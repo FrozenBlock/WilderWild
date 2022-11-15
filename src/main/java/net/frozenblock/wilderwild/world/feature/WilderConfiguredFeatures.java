@@ -5,6 +5,7 @@ import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.frozenblock.wilderwild.registry.RegisterBlocks;
 import net.frozenblock.wilderwild.registry.RegisterProperties;
 import net.minecraft.core.Registry;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.random.SimpleWeightedRandomList;
@@ -75,7 +76,7 @@ public final class WilderConfiguredFeatures  {
 	public static final ResourceKey<ConfiguredFeature<?, ?>> PATCH_NEMATOCYST_WEST = key("patch_nematocyst_west");
 
 	public static ResourceKey<ConfiguredFeature<?, ?>> key(String path) {
-		return ResourceKey.create(Registry.CONFIGURED_FEATURE_REGISTRY, new ResourceLocation(WilderSharedConstants.MOD_ID, path));
+		return ResourceKey.create(Registries.CONFIGURED_FEATURE, new ResourceLocation(WilderSharedConstants.MOD_ID, path));
 	}
 
 }

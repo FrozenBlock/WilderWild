@@ -2,6 +2,7 @@ package net.frozenblock.wilderwild.tag;
 
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.minecraft.core.Registry;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.level.biome.Biome;
 
@@ -34,6 +35,6 @@ public final class WilderBiomeTags {
 	public static final TagKey<Biome> FOREST_GRASS = bind("forest_grass");
 
     private static TagKey<Biome> bind(String path) {
-        return TagKey.create(Registry.BIOME_REGISTRY, WilderSharedConstants.id(path));
+        return TagKey.create(Registries.BIOME, WilderSharedConstants.id(path));
     }
 }

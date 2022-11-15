@@ -58,6 +58,8 @@ import net.frozenblock.wilderwild.world.gen.trunk.FallenTrunkWithLogs;
 import net.frozenblock.wilderwild.world.gen.trunk.StraightTrunkWithLogs;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Registry;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.RandomSource;
@@ -146,16 +148,16 @@ public final class WilderWild implements ModInitializer {
         RegisterParticles.registerParticles();
 		RegisterResources.register();
 
-        Registry.register(Registry.FEATURE, WilderSharedConstants.id("shelf_fungus_feature"), SHELF_FUNGUS_FEATURE);
-        Registry.register(Registry.FEATURE, WilderSharedConstants.id("cattail_feature"), CATTAIL_FEATURE);
-        Registry.register(Registry.FEATURE, WilderSharedConstants.id("algae_feature"), ALGAE_FEATURE);
-        Registry.register(Registry.FEATURE, WilderSharedConstants.id("noise_path_feature"), NOISE_PATH_FEATURE);
-        Registry.register(Registry.FEATURE, WilderSharedConstants.id("noise_plant_feature"), NOISE_PLANT_FEATURE);
-        Registry.register(Registry.FEATURE, WilderSharedConstants.id("noise_path_under_water_feature"), NOISE_PATH_UNDER_WATER_FEATURE);
-        Registry.register(Registry.FEATURE, WilderSharedConstants.id("column_with_disk_feature"), COLUMN_WITH_DISK_FEATURE);
-        Registry.register(Registry.FEATURE, WilderSharedConstants.id("upwards_pillar"), UPWARDS_PILLAR_FEATURE);
-        Registry.register(Registry.FEATURE, WilderSharedConstants.id("downwards_pillar"), DOWNWARDS_PILLAR_FEATURE);
-        Registry.register(Registry.FEATURE, WilderSharedConstants.id("nematocyst_feature"), NEMATOCYST_FEATURE);
+        Registry.register(BuiltInRegistries.FEATURE, WilderSharedConstants.id("shelf_fungus_feature"), SHELF_FUNGUS_FEATURE);
+        Registry.register(BuiltInRegistries.FEATURE, WilderSharedConstants.id("cattail_feature"), CATTAIL_FEATURE);
+        Registry.register(BuiltInRegistries.FEATURE, WilderSharedConstants.id("algae_feature"), ALGAE_FEATURE);
+        Registry.register(BuiltInRegistries.FEATURE, WilderSharedConstants.id("noise_path_feature"), NOISE_PATH_FEATURE);
+        Registry.register(BuiltInRegistries.FEATURE, WilderSharedConstants.id("noise_plant_feature"), NOISE_PLANT_FEATURE);
+        Registry.register(BuiltInRegistries.FEATURE, WilderSharedConstants.id("noise_path_under_water_feature"), NOISE_PATH_UNDER_WATER_FEATURE);
+        Registry.register(BuiltInRegistries.FEATURE, WilderSharedConstants.id("column_with_disk_feature"), COLUMN_WITH_DISK_FEATURE);
+        Registry.register(BuiltInRegistries.FEATURE, WilderSharedConstants.id("upwards_pillar"), UPWARDS_PILLAR_FEATURE);
+        Registry.register(BuiltInRegistries.FEATURE, WilderSharedConstants.id("downwards_pillar"), DOWNWARDS_PILLAR_FEATURE);
+        Registry.register(BuiltInRegistries.FEATURE, WilderSharedConstants.id("nematocyst_feature"), NEMATOCYST_FEATURE);
 
 
         TermiteMoundBlockEntity.Termite.addDegradableBlocks();
@@ -212,15 +214,15 @@ public final class WilderWild implements ModInitializer {
         Firefly.FireflyBiomeColorRegistry.addBiomeColor(new ResourceLocation("terralith", "cave/thermal_caves"), FireflyColor.RED);
         Firefly.FireflyBiomeColorRegistry.addBiomeColor(new ResourceLocation("terralith", "cave/thermal_caves"), FireflyColor.ORANGE);
 
-        BiomeModifications.addSpawn(BiomeSelectors.includeByKey(ResourceKey.create(Registry.BIOME_REGISTRY, new ResourceLocation("terralith", "cave/underground_jungle"))),
+        BiomeModifications.addSpawn(BiomeSelectors.includeByKey(ResourceKey.create(Registries.BIOME, new ResourceLocation("terralith", "cave/underground_jungle"))),
                 WilderWild.FIREFLIES, RegisterEntities.FIREFLY, 12, 2, 4);
 
-		WilderRegistry.MULTILAYER_SAND_BEACH_BIOMES.add(ResourceKey.create(Registry.BIOME_REGISTRY, new ResourceLocation("terralith", "arid_highlands")));
+		WilderRegistry.MULTILAYER_SAND_BEACH_BIOMES.add(ResourceKey.create(Registries.BIOME, new ResourceLocation("terralith", "arid_highlands")));
     }
 
     public static boolean isCopperPipe(BlockState state) {
         if (FrozenBools.HAS_SIMPLE_COPPER_PIPES) {
-            ResourceLocation id = Registry.BLOCK.getKey(state.getBlock());
+            ResourceLocation id = BuiltInRegistries.BLOCK.getKey(state.getBlock());
             return id.getNamespace().equals("lunade") && id.getPath().contains("pipe");
         }
         return false;
@@ -273,7 +275,7 @@ public final class WilderWild implements ModInitializer {
     }
 
     private static <P extends TrunkPlacer> TrunkPlacerType<P> registerTrunk(String id, Codec<P> codec) {
-        return Registry.register(Registry.TRUNK_PLACER_TYPES, WilderSharedConstants.id(id), new TrunkPlacerType<>(codec));
+        return Registry.register(BuiltInRegistries.TRUNK_PLACER_TYPE, WilderSharedConstants.id(id), new TrunkPlacerType<>(codec));
     }
 
     // MEASURING

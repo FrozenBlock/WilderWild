@@ -4,6 +4,7 @@ import java.util.Objects;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.HolderSet;
 import net.minecraft.core.Registry;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.tags.InstrumentTags;
 import net.minecraft.tags.TagKey;
@@ -48,7 +49,7 @@ public class GoatMixin {
             Goat goat = Goat.class.cast(this);
             RandomSource random = RandomSource.create(goat.getUUID().hashCode());
             TagKey<Instrument> tagKey = goat.getEntityData().get(DATA_IS_SCREAMING_GOAT) ? InstrumentTags.SCREAMING_GOAT_HORNS : InstrumentTags.REGULAR_GOAT_HORNS;
-            HolderSet<Instrument> registryEntryList = Registry.INSTRUMENT.getOrCreateTag(tagKey);
+            HolderSet<Instrument> registryEntryList = BuiltInRegistries.INSTRUMENT.getOrCreateTag(tagKey);
             cir.setReturnValue(InstrumentItem.create(Items.GOAT_HORN, registryEntryList.getRandomElement(random).get()));
         }
     }

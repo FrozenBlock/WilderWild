@@ -5,22 +5,23 @@ import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.ImmutableSet;
 import com.mojang.datafixers.util.Pair;
 import java.util.Optional;
+import net.frozenblock.lib.entity.behavior.api.FrozenBehaviorUtils;
 import net.frozenblock.wilderwild.entity.Jellyfish;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.Brain;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.behavior.AnimalPanic;
-import net.minecraft.world.entity.ai.behavior.DoNothing;
 import net.minecraft.world.entity.ai.behavior.LookAtTargetSink;
 import net.minecraft.world.entity.ai.behavior.MoveToTargetSink;
-import net.minecraft.world.entity.ai.behavior.RunIf;
+import net.minecraft.world.entity.ai.behavior.RandomStroll;
 import net.minecraft.world.entity.ai.behavior.RunOne;
 import net.minecraft.world.entity.ai.behavior.SetEntityLookTarget;
 import net.minecraft.world.entity.ai.behavior.SetWalkTargetFromAttackTargetIfTargetOutOfReach;
 import net.minecraft.world.entity.ai.behavior.StartAttacking;
 import net.minecraft.world.entity.ai.behavior.StopAttackingIfTargetInvalid;
 import net.minecraft.world.entity.ai.behavior.TryFindWater;
+import net.minecraft.world.entity.ai.behavior.declarative.BehaviorBuilder;
 import net.minecraft.world.entity.ai.memory.MemoryModuleType;
 import net.minecraft.world.entity.ai.memory.MemoryStatus;
 import net.minecraft.world.entity.ai.sensing.Sensor;
@@ -77,14 +78,14 @@ public class JellyfishAi {
                 Activity.IDLE,
 				10,
                 ImmutableList.of(
-						new StartAttacking<>(JellyfishAi::findNearestValidAttackTarget),
-						new TryFindWater(6, 0.15F),
+						StartAttacking.create(JellyfishAi::findNearestValidAttackTarget),
+						TryFindWater.create(6, 0.15F),
 						new RunOne<>(
 								ImmutableMap.of(MemoryModuleType.WALK_TARGET, MemoryStatus.VALUE_ABSENT),
 								ImmutableList.of(
-										Pair.of(new JellyfishRandomSwim(1.0F), 2),
-										Pair.of(new RunIf<>(Entity::isInWaterOrBubble, new DoNothing(30, 60)), 1),
-										Pair.of(new RunIf<>(Entity::isOnGround, new DoNothing(200, 400)), 1)
+										Pair.of(BehaviorBuilder.triggerIf(jellyfish -> jellyfish.getTarget() == null && jellyfish.canRandomSwim(), FrozenBehaviorUtils.getOneShot(RandomStroll.swim(1.0F))), 2),
+										Pair.of(BehaviorBuilder.triggerIf(Entity::isInWaterOrBubble), 1),
+										Pair.of(BehaviorBuilder.triggerIf(Entity::isOnGround), 1)
 								)
 						)
 				)
@@ -96,11 +97,11 @@ public class JellyfishAi {
                 Activity.FIGHT,
                 10,
                 ImmutableList.of(
-                        new StopAttackingIfTargetInvalid<>(
+                        StopAttackingIfTargetInvalid.create(
                                 livingEntity -> !jellyfish.canTargetEntity(livingEntity), JellyfishAi::onTargetInvalid, false
                         ),
-                        new SetEntityLookTarget(livingEntity -> isTarget(jellyfish, livingEntity), (float) jellyfish.getAttributeValue(Attributes.FOLLOW_RANGE)),
-                        new SetWalkTargetFromAttackTargetIfTargetOutOfReach(JellyfishAi::getSpeedModifierChasing)
+                        SetEntityLookTarget.create(livingEntity -> isTarget(jellyfish, livingEntity), (float) jellyfish.getAttributeValue(Attributes.FOLLOW_RANGE)),
+                        SetWalkTargetFromAttackTargetIfTargetOutOfReach.create(JellyfishAi::getSpeedModifierChasing)
                 ),
                 MemoryModuleType.ATTACK_TARGET
         );

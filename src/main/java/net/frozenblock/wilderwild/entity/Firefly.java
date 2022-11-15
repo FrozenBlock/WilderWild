@@ -18,6 +18,7 @@ import net.frozenblock.wilderwild.tag.WilderBiomeTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.protocol.game.DebugPackets;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -154,7 +155,7 @@ public class Firefly extends PathfinderMob implements FlyingAnimal {
         if (itemStack.getItem() == Items.GLASS_BOTTLE && this.isAlive()) {
             WilderWild.log("Firefly capture attempt starting @ " + this.blockPosition().toShortString() + " by " + player.getDisplayName().getString(), WilderSharedConstants.UNSTABLE_LOGGING);
             FireflyColor color = this.getColor();
-            Optional<Item> optionalItem = Registry.ITEM.getOptional(new ResourceLocation(color.getKey().getNamespace(), Objects.equals(color, FireflyColor.ON) ? "firefly_bottle" : color.getKey().getPath() + "_firefly_bottle"));
+            Optional<Item> optionalItem = BuiltInRegistries.ITEM.getOptional(new ResourceLocation(color.getKey().getNamespace(), Objects.equals(color, FireflyColor.ON) ? "firefly_bottle" : color.getKey().getPath() + "_firefly_bottle"));
             Item item = RegisterItems.FIREFLY_BOTTLE;
             if (optionalItem.isPresent()) {
                 item = optionalItem.get();

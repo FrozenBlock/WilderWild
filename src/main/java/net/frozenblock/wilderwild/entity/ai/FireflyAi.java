@@ -8,18 +8,18 @@ import net.frozenblock.wilderwild.entity.Firefly;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.GlobalPos;
 import net.minecraft.util.valueproviders.UniformInt;
+import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.Brain;
 import net.minecraft.world.entity.ai.behavior.AnimalPanic;
 import net.minecraft.world.entity.ai.behavior.BlockPosTracker;
 import net.minecraft.world.entity.ai.behavior.DoNothing;
-import net.minecraft.world.entity.ai.behavior.FlyingRandomStroll;
 import net.minecraft.world.entity.ai.behavior.LookAtTargetSink;
 import net.minecraft.world.entity.ai.behavior.MoveToTargetSink;
 import net.minecraft.world.entity.ai.behavior.PositionTracker;
+import net.minecraft.world.entity.ai.behavior.RandomStroll;
 import net.minecraft.world.entity.ai.behavior.RunOne;
-import net.minecraft.world.entity.ai.behavior.RunSometimes;
-import net.minecraft.world.entity.ai.behavior.SetEntityLookTarget;
+import net.minecraft.world.entity.ai.behavior.SetEntityLookTargetSometimes;
 import net.minecraft.world.entity.ai.behavior.SetWalkTargetFromLookTarget;
 import net.minecraft.world.entity.ai.behavior.StayCloseToTarget;
 import net.minecraft.world.entity.ai.behavior.Swim;
@@ -59,12 +59,12 @@ public class FireflyAi {
 				Activity.IDLE,
 				ImmutableList.of(
 						Pair.of(1, new FireflyHide(firefly, 2.0D, 40, 32)),
-						Pair.of(2, new StayCloseToTarget<>(FireflyAi::getLookTarget, 7, 16, 1.0F)),
-						Pair.of(3, new RunSometimes<>(new SetEntityLookTarget((firefly1) -> true, 6.0F), UniformInt.of(30, 60))),
+						Pair.of(2, StayCloseToTarget.create(FireflyAi::getLookTarget, 7, 16, 1.0F)),
+						Pair.of(3, SetEntityLookTargetSometimes.create(EntityType.PLAYER, 6.0F, UniformInt.of(30, 60))),
 						Pair.of(4, new RunOne<>(
 								ImmutableList.of(
-										Pair.of(new FlyingRandomStroll(1.0F), 2),
-										Pair.of(new SetWalkTargetFromLookTarget(1.0F, 3), 2),
+										Pair.of(RandomStroll.fly(1.0F), 2),
+										Pair.of(SetWalkTargetFromLookTarget.create(1.0F, 3), 2),
 										Pair.of(new DoNothing(30, 60), 1)
 								)
 						))

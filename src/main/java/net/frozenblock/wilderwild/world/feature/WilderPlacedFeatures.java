@@ -1,9 +1,10 @@
 package net.frozenblock.wilderwild.world.feature;
 
-import net.fabricmc.fabric.api.datagen.v1.provider.FabricWorldgenProvider;
+import net.fabricmc.fabric.api.datagen.v1.provider.FabricDynamicRegistryProvider;
 import net.frozenblock.lib.worldgen.feature.api.FrozenPlacementUtils;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.minecraft.core.Registry;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.world.level.levelgen.placement.PlacedFeature;
@@ -161,6 +162,6 @@ public final class WilderPlacedFeatures {
     public static final ResourceKey<PlacedFeature> PATCH_NEMATOCYST_WEST = key("patch_nematocyst_west");
 
 	public static ResourceKey<PlacedFeature> key(String path) {
-		return ResourceKey.create(Registry.PLACED_FEATURE_REGISTRY, WilderSharedConstants.id(path));
+		return ResourceKey.create(Registries.PLACED_FEATURE, WilderSharedConstants.id(path));
 	}
 }

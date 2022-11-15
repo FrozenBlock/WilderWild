@@ -9,6 +9,7 @@ import static net.frozenblock.wilderwild.registry.RegisterBlocks.BAOBAB_LEAVES;
 import static net.frozenblock.wilderwild.registry.RegisterBlocks.CYPRESS_LEAVES;
 import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.TagKey;
@@ -120,19 +121,19 @@ public class BlockSoundGroupOverwrites {
     }
 
     public static void addBlock(Block block, SoundType sounds) {
-        IDS.add(Registry.BLOCK.getKey(block));
+        IDS.add(BuiltInRegistries.BLOCK.getKey(block));
         SOUND_GROUPS.add(sounds);
     }
 
     public static void addBlocks(Block[] blocks, SoundType sounds) {
         for (Block block : blocks) {
-            IDS.add(Registry.BLOCK.getKey(block));
+            IDS.add(BuiltInRegistries.BLOCK.getKey(block));
             SOUND_GROUPS.add(sounds);
         }
     }
 
     public static void addBlockTag(TagKey<Block> tag, SoundType sounds) {
-        for (Holder<Block> block : Registry.BLOCK.getTagOrEmpty(tag)) {
+        for (Holder<Block> block : BuiltInRegistries.BLOCK.getTagOrEmpty(tag)) {
             IDS.add(block.unwrapKey().orElseThrow().location());
             SOUND_GROUPS.add(sounds);
         }

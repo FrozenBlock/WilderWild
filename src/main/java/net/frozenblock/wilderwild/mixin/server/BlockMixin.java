@@ -2,6 +2,7 @@ package net.frozenblock.wilderwild.mixin.server;
 
 import net.frozenblock.wilderwild.misc.BlockSoundGroupOverwrites;
 import net.minecraft.core.Registry;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.SoundType;
@@ -17,7 +18,7 @@ public final class BlockMixin {
     @Inject(method = "getSoundType", at = @At("RETURN"), cancellable = true)
     private void getSoundGroupOverride(BlockState state, CallbackInfoReturnable<SoundType> info) {
         Block block = state.getBlock();
-        ResourceLocation id = Registry.BLOCK.getKey(block);
+        ResourceLocation id = BuiltInRegistries.BLOCK.getKey(block);
         if (BlockSoundGroupOverwrites.IDS.contains(id)) {
             int index = BlockSoundGroupOverwrites.IDS.indexOf(id);
             info.setReturnValue(BlockSoundGroupOverwrites.SOUND_GROUPS.get(index));

@@ -3,6 +3,7 @@ package net.frozenblock.wilderwild.registry;
 import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.minecraft.core.Registry;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.level.gameevent.GameEvent;
 
 public final class RegisterGameEvents {
@@ -16,7 +17,7 @@ public final class RegisterGameEvents {
 
     public static void registerEvents() {
         WilderWild.logWild("Registering GameEvents for", WilderSharedConstants.UNSTABLE_LOGGING);
-        Registry.register(Registry.GAME_EVENT, WilderSharedConstants.id("sculk_sensor_activate"), SCULK_SENSOR_ACTIVATE);
-        Registry.register(Registry.GAME_EVENT, WilderSharedConstants.id("hanging_tendril_extract_xp"), TENDRIL_EXTRACT_XP);
+        Registry.register(BuiltInRegistries.GAME_EVENT, WilderSharedConstants.id("sculk_sensor_activate"), SCULK_SENSOR_ACTIVATE);
+        Registry.register(BuiltInRegistries.GAME_EVENT, WilderSharedConstants.id("hanging_tendril_extract_xp"), TENDRIL_EXTRACT_XP);
     }
 }

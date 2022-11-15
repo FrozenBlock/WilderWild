@@ -2,12 +2,13 @@ package net.frozenblock.wilderwild.world.feature;
 
 import java.util.Arrays;
 import java.util.List;
-import net.fabricmc.fabric.api.datagen.v1.provider.FabricWorldgenProvider;
+import net.fabricmc.fabric.api.datagen.v1.provider.FabricDynamicRegistryProvider;
 import net.frozenblock.lib.worldgen.feature.api.FrozenPlacementUtils;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.levelgen.blockpredicates.BlockPredicate;
@@ -84,6 +85,6 @@ public final class WilderTreePlaced {
     public static final ResourceKey<PlacedFeature> FALLEN_CYPRESS_CHECKED = key("fallen_cypress_checked");
 
 	public static ResourceKey<PlacedFeature> key(String path) {
-		return ResourceKey.create(Registry.PLACED_FEATURE_REGISTRY, WilderSharedConstants.id(path));
+		return ResourceKey.create(Registries.PLACED_FEATURE, WilderSharedConstants.id(path));
 	}
 }

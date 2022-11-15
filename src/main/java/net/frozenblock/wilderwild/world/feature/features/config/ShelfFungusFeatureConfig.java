@@ -13,18 +13,20 @@ import net.minecraft.core.Direction;
 import net.minecraft.core.HolderSet;
 import net.minecraft.core.Registry;
 import net.minecraft.core.RegistryCodecs;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.levelgen.feature.configurations.FeatureConfiguration;
 
 public class ShelfFungusFeatureConfig implements FeatureConfiguration {
     public static final Codec<ShelfFungusFeatureConfig> CODEC = RecordCodecBuilder.create(
-            (instance) -> instance.group(Registry.BLOCK.byNameCodec().fieldOf("block").flatXmap(ShelfFungusFeatureConfig::validateBlock, DataResult::success).orElse((ShelfFungusBlock) RegisterBlocks.BROWN_SHELF_FUNGUS).forGetter(
+            (instance) -> instance.group(BuiltInRegistries.BLOCK.byNameCodec().fieldOf("block").flatXmap(ShelfFungusFeatureConfig::validateBlock, DataResult::success).orElse((ShelfFungusBlock) RegisterBlocks.BROWN_SHELF_FUNGUS).forGetter(
                     (config) -> config.fungus), Codec.intRange(1, 64).fieldOf("search_range").orElse(10).forGetter(
                     (config) -> config.searchRange), Codec.BOOL.fieldOf("can_place_on_floor").orElse(false).forGetter(
                     (config) -> config.placeOnFloor), Codec.BOOL.fieldOf("can_place_on_ceiling").orElse(false).forGetter(
                     (config) -> config.placeOnCeiling), Codec.BOOL.fieldOf("can_place_on_wall").orElse(false).forGetter(
-                    (config) -> config.placeOnWalls), RegistryCodecs.homogeneousList(Registry.BLOCK_REGISTRY).fieldOf("can_be_placed_on").forGetter(
+                    (config) -> config.placeOnWalls), RegistryCodecs.homogeneousList(Registries.BLOCK).fieldOf("can_be_placed_on").forGetter(
                     (config) -> config.canPlaceOn)).apply(instance, ShelfFungusFeatureConfig::new)
     );
     public final ShelfFungusBlock fungus;

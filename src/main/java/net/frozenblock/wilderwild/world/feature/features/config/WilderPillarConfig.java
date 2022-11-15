@@ -6,6 +6,7 @@ import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.core.HolderSet;
 import net.minecraft.core.Registry;
 import net.minecraft.core.RegistryCodecs;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.util.valueproviders.IntProvider;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
@@ -16,7 +17,7 @@ public class WilderPillarConfig implements FeatureConfiguration {
             instance.group(
                     BlockState.CODEC.fieldOf("columnBlock").forGetter((config) -> config.columnBlock),
                     IntProvider.NON_NEGATIVE_CODEC.fieldOf("height").forGetter((config) -> config.height),
-                    RegistryCodecs.homogeneousList(Registry.BLOCK_REGISTRY).fieldOf("replaceable").forGetter((config) -> config.replaceable)
+                    RegistryCodecs.homogeneousList(Registries.BLOCK).fieldOf("replaceable").forGetter((config) -> config.replaceable)
             ).apply(instance, WilderPillarConfig::new));
 
     public final BlockState columnBlock;
