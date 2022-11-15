@@ -105,7 +105,7 @@ public final class RegisterStructures {
 				)
 		);
 
-		/*HolderGetter<Biome> holderGetter = entries.getLookup(Registries.BIOME);
+		HolderGetter<Biome> holderGetter = entries.getLookup(Registries.BIOME);
 		HolderGetter<StructureTemplatePool> holderGetter2 = entries.getLookup(Registries.TEMPLATE_POOL);
 		Holder<StructureTemplatePool> holder2 = holderGetter2.getOrThrow(Pools.EMPTY);
 
@@ -120,7 +120,7 @@ public final class RegisterStructures {
 						),
 						StructureTemplatePool.Projection.RIGID
 				)
-		);
+		);/*
 
 		var abandonedCabin = entries.add(
 				ABANDONED_CABIN_KEY,
