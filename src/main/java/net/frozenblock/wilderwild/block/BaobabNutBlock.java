@@ -54,14 +54,12 @@ public class BaobabNutBlock extends SaplingBlock {
 
     @Override
     protected boolean mayPlaceOn(@NotNull BlockState floor, @NotNull BlockGetter level, @NotNull BlockPos pos) {
-        return super.mayPlaceOn(floor, level, pos) || floor.is(Blocks.CLAY);
+        return super.mayPlaceOn(floor, level, pos);
     }
 
     @Override
     @Nullable
     public BlockState getStateForPlacement(BlockPlaceContext ctx) {
-        FluidState fluidState = ctx.getLevel().getFluidState(ctx.getClickedPos());
-        boolean bl = fluidState.getType() == Fluids.WATER;
         return Objects.requireNonNull(super.getStateForPlacement(ctx)).setValue(AGE, 2);
     }
 
@@ -98,9 +96,9 @@ public class BaobabNutBlock extends SaplingBlock {
         }
     }
 
-    public boolean isValidBonemealTarget(BlockGetter level, BlockPos pos, BlockState state, boolean isClient) {
-        return !isHanging(state) || !isFullyGrown(state);
-    }
+	public boolean isValidBonemealTarget(LevelReader world, BlockPos pos, BlockState state, boolean isClient) {
+		return !isHanging(state) || !isFullyGrown(state);
+	}
 
     public boolean isBonemealSuccess(Level level, RandomSource random, BlockPos pos, BlockState state) {
         return isHanging(state) ? !isFullyGrown(state) : super.isBonemealSuccess(level, random, pos, state);
@@ -120,7 +118,7 @@ public class BaobabNutBlock extends SaplingBlock {
 		world.destroyBlock(hit.getBlockPos(), true, projectile);
 	}
 
-	@Override
+	@Override //Only collision with projectiles so you can shoot them down
 	public VoxelShape getCollisionShape(BlockState blockState, BlockGetter blockGetter, BlockPos blockPos, CollisionContext collisionContext) {
 		if (collisionContext instanceof EntityCollisionContext entityCollision) {
 			if (entityCollision.getEntity() != null) {
