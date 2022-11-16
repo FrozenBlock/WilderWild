@@ -6,6 +6,7 @@ import net.frozenblock.wilderwild.world.gen.sapling.BaobabSaplingGenerator;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
+import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
@@ -21,8 +22,10 @@ import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
+import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.CollisionContext;
+import net.minecraft.world.phys.shapes.EntityCollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.NotNull;
@@ -112,7 +115,22 @@ public class BaobabNutBlock extends SaplingBlock {
 
     }
 
-    private static boolean isHanging(BlockState state) {
+	@Override
+	public void onProjectileHit(Level world, BlockState state, BlockHitResult hit, Projectile projectile) {
+		world.destroyBlock(hit.getBlockPos(), true, projectile);
+	}
+
+	@Override
+	public VoxelShape getCollisionShape(BlockState blockState, BlockGetter blockGetter, BlockPos blockPos, CollisionContext collisionContext) {
+		if (collisionContext instanceof EntityCollisionContext entityCollision) {
+			if (entityCollision.getEntity() != null) {
+				return !(entityCollision.getEntity() instanceof Projectile) ? Shapes.empty() : super.getCollisionShape(blockState, blockGetter, blockPos, collisionContext);
+			}
+		}
+		return Shapes.empty();
+	}
+
+	private static boolean isHanging(BlockState state) {
         return state.getValue(HANGING);
     }
 
