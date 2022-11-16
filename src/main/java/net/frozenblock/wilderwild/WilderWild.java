@@ -66,6 +66,8 @@ import net.minecraft.util.RandomSource;
 import net.minecraft.util.datafix.schemas.NamespacedSchema;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.MobCategory;
+import net.minecraft.world.flag.FeatureFlag;
+import net.minecraft.world.flag.FeatureFlagRegistry;
 import net.minecraft.world.level.GameRules;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
@@ -105,6 +107,7 @@ public final class WilderWild implements ModInitializer {
     public static boolean UNSTABLE_LOGGING = FabricLoader.getInstance().isDevelopmentEnvironment();
 
     public static boolean areConfigsInit = false;
+	public static FeatureFlag WILDER_WILD_TEST_UPDATE;
 
     public static final TrunkPlacerType<StraightTrunkWithLogs> STRAIGHT_TRUNK_WITH_LOGS_PLACER_TYPE = registerTrunk("straight_trunk_logs_placer", StraightTrunkWithLogs.CODEC);
     public static final TrunkPlacerType<FallenTrunkWithLogs> FALLEN_TRUNK_WITH_LOGS_PLACER_TYPE = registerTrunk("fallen_trunk_logs_placer", FallenTrunkWithLogs.CODEC);
@@ -132,6 +135,8 @@ public final class WilderWild implements ModInitializer {
     public void onInitialize() {
         startMeasuring(this);
         applyDataFixes(FabricLoader.getInstance().getModContainer(WilderSharedConstants.MOD_ID).orElseThrow());
+		FeatureFlagRegistry.Builder wilderFlag = new FeatureFlagRegistry.Builder("wilderwild");
+		WILDER_WILD_TEST_UPDATE = wilderFlag.create(WilderSharedConstants.id("test_update"));
 
         WilderRegistry.initRegistry();
         RegisterBlocks.registerBlocks();
