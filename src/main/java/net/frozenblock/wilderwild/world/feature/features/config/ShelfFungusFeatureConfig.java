@@ -11,7 +11,6 @@ import net.frozenblock.wilderwild.registry.RegisterBlocks;
 import net.minecraft.Util;
 import net.minecraft.core.Direction;
 import net.minecraft.core.HolderSet;
-import net.minecraft.core.Registry;
 import net.minecraft.core.RegistryCodecs;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;

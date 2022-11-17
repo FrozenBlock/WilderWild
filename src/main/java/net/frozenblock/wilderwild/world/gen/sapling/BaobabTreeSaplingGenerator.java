@@ -1,9 +1,6 @@
 package net.frozenblock.wilderwild.world.gen.sapling;
 
-import net.frozenblock.wilderwild.registry.WilderRegistry;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Holder;
-import net.minecraft.core.Registry;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.registries.VanillaRegistries;
 import net.minecraft.resources.ResourceKey;

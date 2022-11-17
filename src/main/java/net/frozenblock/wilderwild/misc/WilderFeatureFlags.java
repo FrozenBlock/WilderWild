@@ -1,6 +1,5 @@
 package net.frozenblock.wilderwild.misc;
 
-import net.minecraft.data.registries.RegistriesDatapackGenerator;
 import net.minecraft.world.flag.FeatureFlag;
 import net.minecraft.world.flag.FeatureFlagRegistry;
 

@@ -1,6 +1,12 @@
 package net.frozenblock.wilderwild.world.feature;
 
 import com.google.common.collect.ImmutableList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
+import java.util.OptionalInt;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricDynamicRegistryProvider;
 import net.frozenblock.lib.worldgen.feature.api.FrozenConfiguredFeatureUtils;
 import net.frozenblock.lib.worldgen.feature.api.FrozenPlacementUtils;
@@ -19,14 +25,10 @@ import net.frozenblock.wilderwild.world.feature.features.config.ShelfFungusFeatu
 import net.frozenblock.wilderwild.world.feature.features.config.WilderPillarConfig;
 import net.frozenblock.wilderwild.world.gen.noise.WilderNoise;
 import net.frozenblock.wilderwild.world.gen.trunk.BaobabTrunkPlacer;
-import net.frozenblock.wilderwild.world.structure.AbandonedCabinGenerator;
-import net.frozenblock.wilderwild.world.structure.WilderStructureProcessors;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;
-import net.minecraft.core.HolderGetter;
 import net.minecraft.core.HolderSet;
-import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.features.AquaticFeatures;
@@ -37,6 +39,7 @@ import net.minecraft.data.worldgen.features.TreeFeatures;
 import net.minecraft.data.worldgen.features.VegetationFeatures;
 import net.minecraft.data.worldgen.placement.PlacementUtils;
 import net.minecraft.data.worldgen.placement.TreePlacements;
+import static net.minecraft.data.worldgen.placement.VegetationPlacements.*;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.util.valueproviders.ClampedInt;
@@ -50,7 +53,6 @@ import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraft.world.level.levelgen.VerticalAnchor;
 import net.minecraft.world.level.levelgen.blockpredicates.BlockPredicate;
-import net.minecraft.world.level.levelgen.carver.ConfiguredWorldCarver;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.WeightedPlacedFeature;
@@ -108,13 +110,6 @@ import net.minecraft.world.level.levelgen.placement.SurfaceRelativeThresholdFilt
 import net.minecraft.world.level.levelgen.placement.SurfaceWaterDepthFilter;
 import net.minecraft.world.level.levelgen.synth.NormalNoise;
 import net.minecraft.world.level.material.Fluids;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
-import java.util.OptionalInt;
-import static net.minecraft.data.worldgen.placement.VegetationPlacements.*;
 
 public class WilderFeatureBootstrap {
 

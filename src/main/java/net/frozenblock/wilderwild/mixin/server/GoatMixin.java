@@ -3,7 +3,6 @@ package net.frozenblock.wilderwild.mixin.server;
 import java.util.Objects;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.HolderSet;
-import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.tags.InstrumentTags;

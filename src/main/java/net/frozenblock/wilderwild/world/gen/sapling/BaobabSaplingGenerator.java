@@ -1,7 +1,6 @@
 package net.frozenblock.wilderwild.world.gen.sapling;
 
 import net.frozenblock.wilderwild.world.feature.WilderTreeConfigured;
-import net.minecraft.core.Holder;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;

@@ -18,7 +18,6 @@ import org.jetbrains.annotations.NotNull;
 @Environment(EnvType.CLIENT)
 public class JellyfishRenderer extends MobRenderer<Jellyfish, JellyfishModel<Jellyfish>> {
 
-    private static final String BASE_TEXTURE = "textures/entity/jellyfish/";
     private static final String WHITE_TEXTURE = "textures/entity/jellyfish/white.png";
 
     public JellyfishRenderer(Context context) {
@@ -31,14 +30,21 @@ public class JellyfishRenderer extends MobRenderer<Jellyfish, JellyfishModel<Jel
         poseStack.translate(0, -1, 0);
         poseStack.scale(0.8F, 0.8F, 0.8F);
         JellyfishModel<Jellyfish> model = this.getModel();
+
+		if (this.isShaking(jelly)) {
+			poseStack.mulPose(Axis.YP.rotationDegrees((float)(Math.cos((double)jelly.tickCount * 3.25D) * 3.141592653589793D * 0.4000000059604645D)));
+		}
+
+		if (isEntityUpsideDown(jelly)) {
+			poseStack.translate(0.0F, jelly.getBbHeight() + 0.1F, 0.0F);
+			poseStack.mulPose(Axis.ZP.rotationDegrees(180.0F));
+		}
+
         if (jelly.isRGB()) {
-
             float time = (jelly.level.getGameTime() + partialTicks) * 0.05F;
-
             model.red = Mth.clamp(Math.abs((time % 6) - 3) - 1, 0, 1);
             model.green = Mth.clamp(Math.abs(((time - 2) % 6) - 3) - 1, 0, 1);
             model.blue = Mth.clamp(Math.abs(((time - 4) % 6) - 3) - 1, 0, 1);
-
         } else {
             model.red = 1;
             model.green = 1;
@@ -57,10 +63,5 @@ public class JellyfishRenderer extends MobRenderer<Jellyfish, JellyfishModel<Jel
             return WilderSharedConstants.id(WHITE_TEXTURE);
         }
         return jellyfish.getVariant().getTexture();
-    }
-
-    @Override
-    public void render(Jellyfish entity, float entityYaw, float partialTicks, PoseStack matrixStack, MultiBufferSource buffer, int packedLight) {
-        super.render(entity, entityYaw, partialTicks, matrixStack, buffer, packedLight);
     }
 }

@@ -1,16 +1,9 @@
 package net.frozenblock.wilderwild.world.feature;
 
-import net.fabricmc.fabric.api.datagen.v1.provider.FabricDynamicRegistryProvider;
-import net.frozenblock.lib.worldgen.feature.api.FrozenPlacementUtils;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
-import net.minecraft.core.Registry;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.world.level.levelgen.placement.PlacedFeature;
-import net.minecraft.world.level.levelgen.placement.PlacementModifier;
-import java.util.Arrays;
-import java.util.List;
 
 public final class WilderPlacedFeatures {
 	private WilderPlacedFeatures() {

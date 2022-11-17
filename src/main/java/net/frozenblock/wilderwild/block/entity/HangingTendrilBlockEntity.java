@@ -1,7 +1,6 @@
 package net.frozenblock.wilderwild.block.entity;
 
 import com.mojang.serialization.Dynamic;
-import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.block.HangingTendrilBlock;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.frozenblock.wilderwild.registry.RegisterBlockEntities;

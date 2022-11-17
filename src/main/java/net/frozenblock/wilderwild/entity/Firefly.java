@@ -17,7 +17,6 @@ import net.frozenblock.wilderwild.registry.WilderRegistry;
 import net.frozenblock.wilderwild.tag.WilderBiomeTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
-import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.protocol.game.DebugPackets;

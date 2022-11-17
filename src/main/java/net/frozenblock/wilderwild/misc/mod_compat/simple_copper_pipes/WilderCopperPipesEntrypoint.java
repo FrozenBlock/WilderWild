@@ -14,7 +14,6 @@ import net.lunade.copper.PipeMovementRestrictions;
 import net.lunade.copper.RegisterPipeNbtMethods;
 import net.lunade.copper.blocks.CopperPipe;
 import net.minecraft.core.Direction;
-import net.minecraft.core.Registry;
 import net.minecraft.core.particles.DustColorTransitionOptions;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;

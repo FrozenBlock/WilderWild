@@ -1,18 +1,16 @@
 package net.frozenblock.wilderwild.misc.mod_compat.simple_copper_pipes;
 
-import net.frozenblock.wilderwild.WilderWild;
+import java.util.Objects;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.lunade.copper.block_entity.CopperPipeEntity;
 import net.lunade.copper.pipe_nbt.MoveablePipeDataHandler;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.level.block.entity.BlockEntity;
-import java.util.Objects;
 
 public class InteractionHandler {
     public static final ResourceLocation horn = new ResourceLocation(WilderSharedConstants.MOD_ID, "ancient_horn");

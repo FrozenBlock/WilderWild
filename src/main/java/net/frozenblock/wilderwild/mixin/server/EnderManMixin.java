@@ -1,19 +1,10 @@
 package net.frozenblock.wilderwild.mixin.server;
 
-import net.frozenblock.lib.sound.api.instances.RestrictedMovingSoundLoop;
-import net.frozenblock.lib.sound.api.predicate.SoundPredicate;
-import net.frozenblock.lib.sound.impl.EntityLoopingSoundInterface;
-import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.misc.ClientMethodInteractionHandler;
 import net.frozenblock.wilderwild.misc.WilderEnderman;
-import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.frozenblock.wilderwild.misc.config.ClothConfigInteractionHandler;
-import net.frozenblock.wilderwild.registry.RegisterSounds;
-import net.minecraft.client.Minecraft;
-import net.minecraft.core.Registry;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.sounds.SoundEvents;
-import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.monster.EnderMan;
 import net.minecraft.world.entity.monster.Monster;

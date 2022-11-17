@@ -1,6 +1,5 @@
 package net.frozenblock.wilderwild.registry;
 
-import com.mojang.serialization.Codec;
 import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
 import net.fabricmc.fabric.api.resource.ResourcePackActivationType;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;

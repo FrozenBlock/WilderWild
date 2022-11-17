@@ -7,7 +7,6 @@ import net.frozenblock.wilderwild.world.gen.treedecorators.HeightBasedVineTrunkD
 import net.frozenblock.wilderwild.world.gen.treedecorators.ShelfFungusTreeDecorator;
 import net.frozenblock.wilderwild.world.gen.trunk.FallenTrunkWithLogs;
 import net.frozenblock.wilderwild.world.gen.trunk.StraightTrunkWithLogs;
-import net.minecraft.core.Registry;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
