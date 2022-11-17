@@ -45,7 +45,6 @@ import net.minecraft.world.entity.SpawnGroupData;
 import net.minecraft.world.entity.ai.Brain;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.entity.ai.behavior.StartAttacking;
 import net.minecraft.world.entity.ai.memory.MemoryModuleType;
 import net.minecraft.world.entity.ai.targeting.TargetingConditions;
 import net.minecraft.world.entity.animal.Bucketable;
@@ -229,8 +228,8 @@ public class Jellyfish extends NoFlopAbstractFish {
         this.zRot2 = this.zRot1;
         this.zRot1 = this.zBodyRot;
 
-        boolean inWater = this.isInWaterOrBubble();
-        if (inWater) {
+        if (this.isInWaterOrBubble()) {
+			this.heal(0.02F);
             this.rotateSpeed *= 0.8F;
             Vec3 vec3 = this.getDeltaMovement();
             this.yBodyRot += (-(Mth.atan2(vec3.x, vec3.z)) * 57.295776F - this.yBodyRot) * 0.1F;
@@ -239,10 +238,6 @@ public class Jellyfish extends NoFlopAbstractFish {
             this.xBodyRot += (-(Mth.atan2(vec3.horizontalDistance(), vec3.y)) * 57.295776F - this.xBodyRot) * 0.1F;
         } else {
             this.xBodyRot += (-90.0F - this.xBodyRot) * 0.02F;
-        }
-
-        if (inWater) {
-            this.heal(0.02F);
         }
 
         this.stingEntities();
