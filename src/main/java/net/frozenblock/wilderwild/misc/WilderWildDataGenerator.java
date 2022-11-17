@@ -4,6 +4,7 @@ import net.fabricmc.fabric.api.datagen.v1.DataGeneratorEntrypoint;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricDynamicRegistryProvider;
+import net.fabricmc.fabric.api.tag.convention.v1.ConventionalBiomeTags;
 import net.frozenblock.lib.datagen.api.FrozenBiomeTagProvider;
 import net.frozenblock.wilderwild.registry.RegisterItems;
 import net.frozenblock.wilderwild.registry.RegisterWorldgen;
@@ -35,13 +36,13 @@ public class WilderWildDataGenerator implements DataGeneratorEntrypoint {
 		final CompletableFuture<HolderLookup.Provider> completableFuture = CompletableFuture.supplyAsync(VanillaRegistries::createLookup, Util.backgroundExecutor());
 		pack.addProvider(bindRegistries(WilderTagsProvider::new, completableFuture));
 		pack.addProvider(WilderWorldgenProvider::new);
-		/*final FabricDataGenerator.Pack experimentalPack = dataGenerator.createSubPack("experimental");
+		final FabricDataGenerator.Pack experimentalPack = dataGenerator.createSubPack("experimental");
 		experimentalPack.addProvider((FabricDataGenerator.Pack.Factory<ExperimentRecipeProvider>) ExperimentRecipeProvider::new);
 		experimentalPack.addProvider(
 				(FabricDataGenerator.Pack.Factory<PackMetadataGenerator>) packOutput -> PackMetadataGenerator.forFeaturePack(
 						packOutput, Component.translatable("dataPack.wilderwild.experiment.description"), FeatureFlagSet.of(WilderFeatureFlags.EXPERIMENTAL)
 				)
-		);*/
+		);
 	}
 
 	private static class WilderTagsProvider extends FrozenBiomeTagProvider {
@@ -53,6 +54,7 @@ public class WilderWildDataGenerator implements DataGeneratorEntrypoint {
 		@Override
 		protected void addTags(HolderLookup.Provider arg) {
 			this.generateBiomeTags();
+			this.generateClimateAndVegetationTags();
 			this.generateUtilityTags();
 			this.generateFeatureTags();
 			this.generateStructureTags();
@@ -62,6 +64,9 @@ public class WilderWildDataGenerator implements DataGeneratorEntrypoint {
 			this.getOrCreateTagBuilder(WilderBiomeTags.BIRCH_FOREST)
 					.add(Biomes.BIRCH_FOREST)
 					.add(Biomes.OLD_GROWTH_BIRCH_FOREST);
+
+			this.getOrCreateTagBuilder(ConventionalBiomeTags.CAVES)
+					.addOptional(RegisterWorldgen.JELLYFISH_CAVES);
 
 			this.getOrCreateTagBuilder(WilderBiomeTags.DARK_FOREST)
 					.add(Biomes.DARK_FOREST);
@@ -86,6 +91,27 @@ public class WilderWildDataGenerator implements DataGeneratorEntrypoint {
 
 			this.getOrCreateTagBuilder(WilderBiomeTags.SNOWY_PLAINS)
 					.add(Biomes.SNOWY_PLAINS);
+		}
+
+		private void generateClimateAndVegetationTags() {
+			this.getOrCreateTagBuilder(ConventionalBiomeTags.CLIMATE_HOT)
+					.addOptional(RegisterWorldgen.WARM_RIVER);
+
+			this.getOrCreateTagBuilder(ConventionalBiomeTags.CLIMATE_TEMPERATE)
+					.addOptional(RegisterWorldgen.CYPRESS_WETLANDS)
+					.addOptional(RegisterWorldgen.MIXED_FOREST);
+
+			this.getOrCreateTagBuilder(ConventionalBiomeTags.CLIMATE_WET)
+					.addOptional(RegisterWorldgen.CYPRESS_WETLANDS);
+
+			this.getOrCreateTagBuilder(ConventionalBiomeTags.RIVER)
+					.addOptional(RegisterWorldgen.WARM_RIVER);
+
+			this.getOrCreateTagBuilder(ConventionalBiomeTags.TREE_CONIFEROUS)
+					.addOptional(RegisterWorldgen.MIXED_FOREST);
+
+			this.getOrCreateTagBuilder(ConventionalBiomeTags.TREE_DECIDUOUS)
+					.addOptional(RegisterWorldgen.MIXED_FOREST);
 		}
 
 		private void generateUtilityTags() {
@@ -164,7 +190,7 @@ public class WilderWildDataGenerator implements DataGeneratorEntrypoint {
 
 		@Override
 		public String getName() {
-			return "Wilder Wild";
+			return "Wilder Wild Dynamic Registries";
 		}
 	}
 

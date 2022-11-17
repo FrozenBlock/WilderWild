@@ -129,30 +129,6 @@ public final class WilderWildClient implements ClientModInitializer {
         BlockRenderLayerMap.INSTANCE.putBlock(RegisterBlocks.YELLOW_NEMATOCYST, RenderType.translucent());
         //BlockRenderLayerMap.INSTANCE.putBlock(RegisterBlocks.NEMATOCYST, RenderType.cutout());
 
-        ClientSpriteRegistryCallback.event(InventoryMenu.BLOCK_ATLAS).register((resourceManager, sprites) -> {
-			SpriteLoader.addSprite(resourceManager, WilderSharedConstants.id("particle/floating_sculk_bubble_0"), sprites::put);
-            SpriteLoader.addSprite(resourceManager, WilderSharedConstants.id("particle/floating_sculk_bubble_1"), sprites::put);
-            SpriteLoader.addSprite(resourceManager, WilderSharedConstants.id("particle/floating_sculk_bubble_2"), sprites::put);
-            SpriteLoader.addSprite(resourceManager, WilderSharedConstants.id("particle/floating_sculk_bubble_3"), sprites::put);
-            SpriteLoader.addSprite(resourceManager, WilderSharedConstants.id("particle/floating_sculk_bubble_4"), sprites::put);
-            SpriteLoader.addSprite(resourceManager, WilderSharedConstants.id("particle/floating_sculk_bubble_5"), sprites::put);
-            SpriteLoader.addSprite(resourceManager, WilderSharedConstants.id("particle/floating_sculk_bubble_6"), sprites::put);
-            SpriteLoader.addSprite(resourceManager, WilderSharedConstants.id("particle/termite_0"), sprites::put);
-            SpriteLoader.addSprite(resourceManager, WilderSharedConstants.id("particle/termite_1"), sprites::put);
-            SpriteLoader.addSprite(resourceManager, WilderSharedConstants.id("particle/termite_2"), sprites::put);
-            SpriteLoader.addSprite(resourceManager, WilderSharedConstants.id("particle/termite_3"), sprites::put);
-            SpriteLoader.addSprite(resourceManager, WilderSharedConstants.id("particle/termite_4"), sprites::put);
-            SpriteLoader.addSprite(resourceManager, WilderSharedConstants.id("particle/termite_5"), sprites::put);
-            SpriteLoader.addSprite(resourceManager, WilderSharedConstants.id("particle/termite_6"), sprites::put);
-            SpriteLoader.addSprite(resourceManager, WilderSharedConstants.id("particle/termite_7"), sprites::put);
-            SpriteLoader.addSprite(resourceManager, WilderSharedConstants.id("particle/termite_8"), sprites::put);
-            SpriteLoader.addSprite(resourceManager, WilderSharedConstants.id("particle/termite_9"), sprites::put);
-        });
-
-        ClientSpriteRegistryCallback.event(Sheets.CHEST_SHEET).register((resourceManager, sprites) -> {
-			SpriteLoader.listSprites(resourceManager, "entity/stone_chest", sprites::put);
-        });
-
         ParticleFactoryRegistry.getInstance().register(RegisterParticles.POLLEN, PollenParticle.PollenFactory::new);
         ParticleFactoryRegistry.getInstance().register(RegisterParticles.DANDELION_SEED, PollenParticle.DandelionFactory::new);
         ParticleFactoryRegistry.getInstance().register(RegisterParticles.CONTROLLED_DANDELION_SEED, PollenParticle.ControlledDandelionFactory::new);

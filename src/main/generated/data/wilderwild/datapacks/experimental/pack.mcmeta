@@ -1,0 +1,11 @@
+{
+  "features": {
+    "enabled": []
+  },
+  "pack": {
+    "description": {
+      "translate": "dataPack.wilderwild.experiment.description"
+    },
+    "pack_format": 10
+  }
+}

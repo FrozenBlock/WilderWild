@@ -1,0 +1,13 @@
+{
+  "replace": false,
+  "values": [
+    {
+      "id": "wilderwild:cypress_wetlands",
+      "required": false
+    },
+    {
+      "id": "wilderwild:mixed_forest",
+      "required": false
+    }
+  ]
+}

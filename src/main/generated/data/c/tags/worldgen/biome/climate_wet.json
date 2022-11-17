@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+    {
+      "id": "wilderwild:cypress_wetlands",
+      "required": false
+    }
+  ]
+}

@@ -32,8 +32,7 @@
 	  "net.frozenblock.wilderwild.FrozenLibIntegration"
 	],
 	"frozenlib:events": [
-	  "net.frozenblock.wilderwild.registry.RegisterSurfaceRules",
-      "net.frozenblock.wilderwild.misc.WilderFeatureFlags"
+	  "net.frozenblock.wilderwild.registry.RegisterSurfaceRules"
 	],
 	"modmenu": [
 	  "net.frozenblock.wilderwild.misc.config.ModMenuIntegration"

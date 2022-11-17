@@ -17,6 +17,7 @@ public class WilderSharedConstants {
 	 */
 	public static boolean UNSTABLE_LOGGING = FabricLoader.getInstance().isDevelopmentEnvironment();
 	public static final ModContainer MOD_CONTAINER = FabricLoader.getInstance().getModContainer(MOD_ID).orElseThrow();
+    public static boolean areConfigsInit = false;
 
     public static ResourceLocation id(String path) {
         return new ResourceLocation(MOD_ID, path);

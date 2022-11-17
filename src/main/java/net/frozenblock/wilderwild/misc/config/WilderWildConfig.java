@@ -10,7 +10,6 @@ import me.shedaniel.clothconfig2.api.ConfigBuilder;
 import me.shedaniel.clothconfig2.api.ConfigEntryBuilder;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
@@ -38,9 +37,9 @@ public class WilderWildConfig extends PartitioningSerializer.GlobalData {
 	//public MiscConfig misc = new MiscConfig();
 
     public static WilderWildConfig get() {
-        if (!WilderWild.areConfigsInit) {
+        if (!WilderSharedConstants.areConfigsInit) {
             AutoConfig.register(WilderWildConfig.class, PartitioningSerializer.wrap(GsonConfigSerializer::new));
-            WilderWild.areConfigsInit = true;
+            WilderSharedConstants.areConfigsInit = true;
         }
         return AutoConfig.getConfigHolder(WilderWildConfig.class).getConfig();
     }
