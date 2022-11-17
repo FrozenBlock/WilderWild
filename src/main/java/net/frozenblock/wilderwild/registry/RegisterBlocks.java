@@ -418,10 +418,8 @@ public final class RegisterBlocks {
         registerBlock(false, "pollen", POLLEN_BLOCK);
 		registerBlockAfter(true, Items.RED_MUSHROOM, "red_shelf_fungus", RED_SHELF_FUNGUS, CreativeModeTabs.NATURAL_BLOCKS);
 		registerBlockAfter(true, Items.RED_MUSHROOM, "brown_shelf_fungus", BROWN_SHELF_FUNGUS, CreativeModeTabs.NATURAL_BLOCKS);
-        Registry.register(BuiltInRegistries.BLOCK, WilderSharedConstants.id("flowering_lily_pad"), FLOWERING_LILY_PAD);
-        Registry.register(BuiltInRegistries.BLOCK, WilderSharedConstants.id("algae"), ALGAE);
-		FrozenCreativeTabs.add(ALGAE, CreativeModeTabs.NATURAL_BLOCKS);
-		FrozenCreativeTabs.add(FLOWERING_LILY_PAD, CreativeModeTabs.NATURAL_BLOCKS);
+		Registry.register(BuiltInRegistries.BLOCK, WilderSharedConstants.id("algae"), ALGAE);
+		Registry.register(BuiltInRegistries.BLOCK, WilderSharedConstants.id("flowering_lily_pad"), FLOWERING_LILY_PAD);
     }
 
     // BLOCK FAMILIES
