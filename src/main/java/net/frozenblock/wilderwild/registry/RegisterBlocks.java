@@ -235,7 +235,6 @@ public final class RegisterBlocks {
 		registerBlockBefore(true, Items.CRIMSON_STEM,"hollowed_" + wood + "_log", HOLLOWED_BAOBAB_LOG, CreativeModeTabs.NATURAL_BLOCKS);
 		registerBlockBefore(true, Items.AZALEA_LEAVES,wood + "_leaves", BAOBAB_LEAVES, CreativeModeTabs.NATURAL_BLOCKS);
 
-
 		wood = "cypress";
 		//CYPRESS IN BUILDING BLOCKS
 		registerBlockBefore(true, Items.BAMBOO_PLANKS,wood + "_log", CYPRESS_LOG, CreativeModeTabs.BUILDING_BLOCKS);
