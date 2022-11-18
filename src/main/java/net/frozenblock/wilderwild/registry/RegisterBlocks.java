@@ -216,20 +216,20 @@ public final class RegisterBlocks {
 
 		String wood = "baobab";
 		//BAOBAB IN BUILDING BLOCKS
-		registerBlockBefore(true, Items.BAMBOO_PLANKS,wood + "_log", BAOBAB_LOG, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockBefore(true, Items.BAMBOO_PLANKS,"hollowed_" + wood + "_log", HOLLOWED_BAOBAB_LOG, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockBefore(true, Items.BAMBOO_PLANKS,wood + "_wood", BAOBAB_WOOD, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockBefore(true, Items.BAMBOO_PLANKS,"stripped_" + wood + "_log", STRIPPED_BAOBAB_LOG, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockBefore(true, Items.BAMBOO_PLANKS,"stripped_" + wood + "_wood", STRIPPED_BAOBAB_WOOD, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockBefore(true, Items.BAMBOO_PLANKS, wood + "_planks", BAOBAB_PLANKS, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockBefore(true, Items.BAMBOO_PLANKS,wood + "_stairs", BAOBAB_STAIRS, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockBefore(true, Items.BAMBOO_PLANKS,wood + "_slab", BAOBAB_SLAB, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockBefore(true, Items.BAMBOO_PLANKS,wood + "_fence", BAOBAB_FENCE, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockBefore(true, Items.BAMBOO_PLANKS,wood + "_fence_gate", BAOBAB_FENCE_GATE, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockBefore(true, Items.BAMBOO_PLANKS,wood + "_door", BAOBAB_DOOR, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockBefore(true, Items.BAMBOO_PLANKS,wood + "_trapdoor", BAOBAB_TRAPDOOR, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockBefore(true, Items.BAMBOO_PLANKS,wood + "_pressure_plate", BAOBAB_PRESSURE_PLATE, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockBefore(true, Items.BAMBOO_PLANKS,wood + "_button", BAOBAB_BUTTON, CreativeModeTabs.BUILDING_BLOCKS);
+		registerBlockBefore(true, Items.BAMBOO_BLOCK,wood + "_log", BAOBAB_LOG, CreativeModeTabs.BUILDING_BLOCKS);
+		registerBlockBefore(true, Items.BAMBOO_BLOCK,"hollowed_" + wood + "_log", HOLLOWED_BAOBAB_LOG, CreativeModeTabs.BUILDING_BLOCKS);
+		registerBlockBefore(true, Items.BAMBOO_BLOCK,wood + "_wood", BAOBAB_WOOD, CreativeModeTabs.BUILDING_BLOCKS);
+		registerBlockBefore(true, Items.BAMBOO_BLOCK,"stripped_" + wood + "_log", STRIPPED_BAOBAB_LOG, CreativeModeTabs.BUILDING_BLOCKS);
+		registerBlockBefore(true, Items.BAMBOO_BLOCK,"stripped_" + wood + "_wood", STRIPPED_BAOBAB_WOOD, CreativeModeTabs.BUILDING_BLOCKS);
+		registerBlockBefore(true, Items.BAMBOO_BLOCK, wood + "_planks", BAOBAB_PLANKS, CreativeModeTabs.BUILDING_BLOCKS);
+		registerBlockBefore(true, Items.BAMBOO_BLOCK,wood + "_stairs", BAOBAB_STAIRS, CreativeModeTabs.BUILDING_BLOCKS);
+		registerBlockBefore(true, Items.BAMBOO_BLOCK,wood + "_slab", BAOBAB_SLAB, CreativeModeTabs.BUILDING_BLOCKS);
+		registerBlockBefore(true, Items.BAMBOO_BLOCK,wood + "_fence", BAOBAB_FENCE, CreativeModeTabs.BUILDING_BLOCKS);
+		registerBlockBefore(true, Items.BAMBOO_BLOCK,wood + "_fence_gate", BAOBAB_FENCE_GATE, CreativeModeTabs.BUILDING_BLOCKS);
+		registerBlockBefore(true, Items.BAMBOO_BLOCK,wood + "_door", BAOBAB_DOOR, CreativeModeTabs.BUILDING_BLOCKS);
+		registerBlockBefore(true, Items.BAMBOO_BLOCK,wood + "_trapdoor", BAOBAB_TRAPDOOR, CreativeModeTabs.BUILDING_BLOCKS);
+		registerBlockBefore(true, Items.BAMBOO_BLOCK,wood + "_pressure_plate", BAOBAB_PRESSURE_PLATE, CreativeModeTabs.BUILDING_BLOCKS);
+		registerBlockBefore(true, Items.BAMBOO_BLOCK,wood + "_button", BAOBAB_BUTTON, CreativeModeTabs.BUILDING_BLOCKS);
 		//BAOBAB IN NATURE
 		registerBlockBefore(true, Items.CRIMSON_STEM,wood + "_log", BAOBAB_LOG, CreativeModeTabs.NATURAL_BLOCKS);
 		registerBlockBefore(true, Items.CRIMSON_STEM,"hollowed_" + wood + "_log", HOLLOWED_BAOBAB_LOG, CreativeModeTabs.NATURAL_BLOCKS);
@@ -237,20 +237,20 @@ public final class RegisterBlocks {
 
 		wood = "cypress";
 		//CYPRESS IN BUILDING BLOCKS
-		registerBlockBefore(true, Items.BAMBOO_PLANKS,wood + "_log", CYPRESS_LOG, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockBefore(true, Items.BAMBOO_PLANKS,"hollowed_" + wood + "_log", HOLLOWED_CYPRESS_LOG, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockBefore(true, Items.BAMBOO_PLANKS,wood + "_wood", CYPRESS_WOOD, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockBefore(true, Items.BAMBOO_PLANKS,"stripped_" + wood + "_log", STRIPPED_CYPRESS_LOG, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockBefore(true, Items.BAMBOO_PLANKS,"stripped_" + wood + "_wood", STRIPPED_CYPRESS_WOOD, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockBefore(true, Items.BAMBOO_PLANKS, wood + "_planks", CYPRESS_PLANKS, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockBefore(true, Items.BAMBOO_PLANKS,wood + "_stairs", CYPRESS_STAIRS, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockBefore(true, Items.BAMBOO_PLANKS,wood + "_slab", CYPRESS_SLAB, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockBefore(true, Items.BAMBOO_PLANKS,wood + "_fence", CYPRESS_FENCE, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockBefore(true, Items.BAMBOO_PLANKS,wood + "_fence_gate", CYPRESS_FENCE_GATE, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockBefore(true, Items.BAMBOO_PLANKS,wood + "_door", CYPRESS_DOOR, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockBefore(true, Items.BAMBOO_PLANKS,wood + "_trapdoor", CYPRESS_TRAPDOOR, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockBefore(true, Items.BAMBOO_PLANKS,wood + "_pressure_plate", CYPRESS_PRESSURE_PLATE, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockBefore(true, Items.BAMBOO_PLANKS,wood + "_button", CYPRESS_BUTTON, CreativeModeTabs.BUILDING_BLOCKS);
+		registerBlockBefore(true, Items.BAMBOO_BLOCK,wood + "_log", CYPRESS_LOG, CreativeModeTabs.BUILDING_BLOCKS);
+		registerBlockBefore(true, Items.BAMBOO_BLOCK,"hollowed_" + wood + "_log", HOLLOWED_CYPRESS_LOG, CreativeModeTabs.BUILDING_BLOCKS);
+		registerBlockBefore(true, Items.BAMBOO_BLOCK,wood + "_wood", CYPRESS_WOOD, CreativeModeTabs.BUILDING_BLOCKS);
+		registerBlockBefore(true, Items.BAMBOO_BLOCK,"stripped_" + wood + "_log", STRIPPED_CYPRESS_LOG, CreativeModeTabs.BUILDING_BLOCKS);
+		registerBlockBefore(true, Items.BAMBOO_BLOCK,"stripped_" + wood + "_wood", STRIPPED_CYPRESS_WOOD, CreativeModeTabs.BUILDING_BLOCKS);
+		registerBlockBefore(true, Items.BAMBOO_BLOCK, wood + "_planks", CYPRESS_PLANKS, CreativeModeTabs.BUILDING_BLOCKS);
+		registerBlockBefore(true, Items.BAMBOO_BLOCK,wood + "_stairs", CYPRESS_STAIRS, CreativeModeTabs.BUILDING_BLOCKS);
+		registerBlockBefore(true, Items.BAMBOO_BLOCK,wood + "_slab", CYPRESS_SLAB, CreativeModeTabs.BUILDING_BLOCKS);
+		registerBlockBefore(true, Items.BAMBOO_BLOCK,wood + "_fence", CYPRESS_FENCE, CreativeModeTabs.BUILDING_BLOCKS);
+		registerBlockBefore(true, Items.BAMBOO_BLOCK,wood + "_fence_gate", CYPRESS_FENCE_GATE, CreativeModeTabs.BUILDING_BLOCKS);
+		registerBlockBefore(true, Items.BAMBOO_BLOCK,wood + "_door", CYPRESS_DOOR, CreativeModeTabs.BUILDING_BLOCKS);
+		registerBlockBefore(true, Items.BAMBOO_BLOCK,wood + "_trapdoor", CYPRESS_TRAPDOOR, CreativeModeTabs.BUILDING_BLOCKS);
+		registerBlockBefore(true, Items.BAMBOO_BLOCK,wood + "_pressure_plate", CYPRESS_PRESSURE_PLATE, CreativeModeTabs.BUILDING_BLOCKS);
+		registerBlockBefore(true, Items.BAMBOO_BLOCK,wood + "_button", CYPRESS_BUTTON, CreativeModeTabs.BUILDING_BLOCKS);
 		//CYPRESS IN NATURE
 		registerBlockBefore(true, Items.CRIMSON_STEM,wood + "_log", CYPRESS_LOG, CreativeModeTabs.NATURAL_BLOCKS);
 		registerBlockBefore(true, Items.CRIMSON_STEM,"hollowed_" + wood + "_log", HOLLOWED_CYPRESS_LOG, CreativeModeTabs.NATURAL_BLOCKS);
