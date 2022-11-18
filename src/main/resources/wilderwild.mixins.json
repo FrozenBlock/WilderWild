@@ -19,7 +19,7 @@
 	"server.FrogMixin",
 	"server.GoatMixin",
 	"server.InstrumentItemMixin",
-`	"server.ItemStackMixin",
+	"server.ItemStackMixin",
 	"server.MobMixin",
 	"server.SculkBlockMixin",
 	"server.SculkSensorBlockEntityMixin",
