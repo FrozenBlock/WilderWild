@@ -232,12 +232,6 @@ public final class RegisterBlocks {
 		registerBlockBefore(true, Items.CRIMSON_STEM,wood + "_log", BAOBAB_LOG, CreativeModeTabs.NATURAL_BLOCKS);
 		registerBlockBefore(true, Items.CRIMSON_STEM,"hollowed_" + wood + "_log", HOLLOWED_BAOBAB_LOG, CreativeModeTabs.NATURAL_BLOCKS);
 		registerBlockBefore(true, Items.AZALEA_LEAVES,wood + "_leaves", BAOBAB_LEAVES, CreativeModeTabs.NATURAL_BLOCKS);
-		//BAOBAB IN REDSTONE
-		registerBlockBefore(true, Items.BAMBOO_BUTTON,wood + "_button", BAOBAB_BUTTON, CreativeModeTabs.REDSTONE_BLOCKS);
-		registerBlockBefore(true, Items.BAMBOO_PRESSURE_PLATE,wood + "_pressure_plate", BAOBAB_PRESSURE_PLATE, CreativeModeTabs.REDSTONE_BLOCKS);
-		registerBlockBefore(true, Items.BAMBOO_DOOR,wood + "_door", BAOBAB_DOOR, CreativeModeTabs.REDSTONE_BLOCKS);
-		registerBlockBefore(true, Items.BAMBOO_TRAPDOOR,wood + "_trapdoor", BAOBAB_TRAPDOOR, CreativeModeTabs.REDSTONE_BLOCKS);
-		registerBlockBefore(true, Items.BAMBOO_FENCE_GATE,wood + "_fence_gate", BAOBAB_FENCE_GATE, CreativeModeTabs.REDSTONE_BLOCKS);
 
 		wood = "cypress";
 		//CYPRESS IN BUILDING BLOCKS
@@ -257,12 +251,6 @@ public final class RegisterBlocks {
 		registerBlockBefore(true, Items.CRIMSON_STEM,wood + "_log", CYPRESS_LOG, CreativeModeTabs.NATURAL_BLOCKS);
 		registerBlockBefore(true, Items.CRIMSON_STEM,"hollowed_" + wood + "_log", HOLLOWED_CYPRESS_LOG, CreativeModeTabs.NATURAL_BLOCKS);
 		registerBlockBefore(true, Items.AZALEA_LEAVES,wood + "_leaves", CYPRESS_LEAVES, CreativeModeTabs.NATURAL_BLOCKS);
-		//CYPRESS IN REDSTONE
-		registerBlockBefore(true, Items.BAMBOO_BUTTON,wood + "_button", CYPRESS_BUTTON, CreativeModeTabs.REDSTONE_BLOCKS);
-		registerBlockBefore(true, Items.BAMBOO_PRESSURE_PLATE,wood + "_pressure_plate", CYPRESS_PRESSURE_PLATE, CreativeModeTabs.REDSTONE_BLOCKS);
-		registerBlockBefore(true, Items.BAMBOO_DOOR,wood + "_door", CYPRESS_DOOR, CreativeModeTabs.REDSTONE_BLOCKS);
-		registerBlockBefore(true, Items.BAMBOO_TRAPDOOR,wood + "_trapdoor", CYPRESS_TRAPDOOR, CreativeModeTabs.REDSTONE_BLOCKS);
-		registerBlockBefore(true, Items.BAMBOO_FENCE_GATE,wood + "_fence_gate", CYPRESS_FENCE_GATE, CreativeModeTabs.REDSTONE_BLOCKS);
 
         registerBlock(false, baobab + "_nut", BAOBAB_NUT);
         registerBlock(false, "potted_" + baobab + "_nut", POTTED_BAOBAB_NUT);
@@ -321,7 +309,7 @@ public final class RegisterBlocks {
 		registerBlockAfter(true, Items.DEEPSLATE_TILE_WALL,"osseous_sculk", OSSEOUS_SCULK, CreativeModeTabs.BUILDING_BLOCKS);
 		registerBlockAfter(true, Items.SCULK,"osseous_sculk", OSSEOUS_SCULK, CreativeModeTabs.NATURAL_BLOCKS);
         registerBlockAfter(true, Items.SCULK_SENSOR,"hanging_tendril", HANGING_TENDRIL, CreativeModeTabs.NATURAL_BLOCKS);
-        registerBlockAfter(true, Items.TINTED_GLASS, "echo_glass", ECHO_GLASS, CreativeModeTabs.BUILDING_BLOCKS);
+        registerBlockAfter(true, Items.TINTED_GLASS, "echo_glass", ECHO_GLASS, CreativeModeTabs.FUNCTIONAL_BLOCKS);
     }
 
     private static boolean always(BlockState blockState, BlockGetter blockGetter, BlockPos blockPos) {
