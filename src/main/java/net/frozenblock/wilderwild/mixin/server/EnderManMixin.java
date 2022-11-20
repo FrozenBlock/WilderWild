@@ -1,14 +1,11 @@
 package net.frozenblock.wilderwild.mixin.server;
 
-import net.frozenblock.lib.sound.api.instances.RestrictedMovingSoundLoop;
-import net.frozenblock.lib.sound.api.predicate.SoundPredicate;
 import net.frozenblock.lib.sound.impl.EntityLoopingSoundInterface;
 import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.misc.ClientMethodInteractionHandler;
 import net.frozenblock.wilderwild.misc.WilderEnderman;
 import net.frozenblock.wilderwild.misc.config.ClothConfigInteractionHandler;
 import net.frozenblock.wilderwild.registry.RegisterSounds;
-import net.minecraft.client.Minecraft;
 import net.minecraft.core.Registry;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.sounds.SoundEvents;
@@ -86,7 +83,6 @@ public final class EnderManMixin extends Monster implements WilderEnderman {
 			EnderMan enderMan = EnderMan.class.cast(this);
 			if (enderMan.level.isClientSide && this.wilderWild$canPlayLoopingSound) {
 				((EntityLoopingSoundInterface) enderMan).addSound(Registry.SOUND_EVENT.getKey(RegisterSounds.ENTITY_ENDERMAN_ANGER_LOOP), SoundSource.HOSTILE, 1.0F, 0.9F, WilderWild.id("enderman_anger"));
-				Minecraft.getInstance().getSoundManager().play(new RestrictedMovingSoundLoop<>(enderMan, RegisterSounds.ENTITY_ENDERMAN_ANGER_LOOP, SoundSource.HOSTILE, 1.0F, 0.9F, SoundPredicate.getPredicate(WilderWild.id("enderman_anger"))));
 				this.wilderWild$canPlayLoopingSound = false;
 			}
 		}
