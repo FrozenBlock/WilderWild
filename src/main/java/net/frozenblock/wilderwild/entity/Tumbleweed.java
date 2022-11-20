@@ -1,14 +1,22 @@
 package net.frozenblock.wilderwild.entity;
 
+import io.netty.buffer.Unpooled;
+import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
+import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.registry.RegisterEntities;
+import net.minecraft.core.Registry;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientboundAddEntityPacket;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.Mth;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
 
 public class Tumbleweed extends Entity {
@@ -45,6 +53,53 @@ public class Tumbleweed extends Entity {
 
 	@Override
 	public Packet<?> getAddEntityPacket() {
-		return new ClientboundAddEntityPacket(this);
+		return EntitySpawnPacket.create(this, WilderWild.TUMBLEWEED_PACKET_ID);
+	}
+
+	public static class EntitySpawnPacket { //When the Fabric tutorial WORKS!!!!! BOM BOM BOM BOM BOM BOM BOM, BOBOBOM! DUNDUN!
+		public static Packet<?> create(Entity entity, ResourceLocation packetID) {
+			if (entity.level.isClientSide)
+				throw new IllegalStateException("SpawnPacketUtil.create called on the logical client!");
+			FriendlyByteBuf byteBuf = new FriendlyByteBuf(Unpooled.buffer());
+			byteBuf.writeVarInt(Registry.ENTITY_TYPE.getId(entity.getType()));
+			byteBuf.writeUUID(entity.getUUID());
+			byteBuf.writeVarInt(entity.getId());
+			EntitySpawnPacket.PacketBufUtil.writeVec3d(byteBuf, entity.position());
+			EntitySpawnPacket.PacketBufUtil.writeAngle(byteBuf, entity.getXRot());
+			EntitySpawnPacket.PacketBufUtil.writeAngle(byteBuf, entity.getYRot());
+			return ServerPlayNetworking.createS2CPacket(packetID, byteBuf);
+		}
+
+		public static final class PacketBufUtil {
+
+			public static byte packAngle(float angle) {
+				return (byte) Mth.floor(angle * 256 / 360);
+			}
+
+			public static float unpackAngle(byte angleByte) {
+				return (angleByte * 360) / 256F;
+			}
+
+			public static void writeAngle(FriendlyByteBuf byteBuf, float angle) {
+				byteBuf.writeByte(packAngle(angle));
+			}
+
+			public static float readAngle(FriendlyByteBuf byteBuf) {
+				return unpackAngle(byteBuf.readByte());
+			}
+
+			public static void writeVec3d(FriendlyByteBuf byteBuf, Vec3 vec3d) {
+				byteBuf.writeDouble(vec3d.x);
+				byteBuf.writeDouble(vec3d.y);
+				byteBuf.writeDouble(vec3d.z);
+			}
+
+			public static Vec3 readVec3d(FriendlyByteBuf byteBuf) {
+				double x = byteBuf.readDouble();
+				double y = byteBuf.readDouble();
+				double z = byteBuf.readDouble();
+				return new Vec3(x, y, z);
+			}
+		}
 	}
 }

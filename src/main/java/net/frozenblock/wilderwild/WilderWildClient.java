@@ -15,6 +15,7 @@ import net.fabricmc.fabric.api.event.client.ClientSpriteRegistryCallback;
 import net.frozenblock.lib.mathematics.AdvancedMath;
 import net.frozenblock.lib.sound.FlyBySoundHub;
 import net.frozenblock.wilderwild.entity.AncientHornProjectile;
+import net.frozenblock.wilderwild.entity.Tumbleweed;
 import net.frozenblock.wilderwild.entity.render.AncientHornProjectileModel;
 import net.frozenblock.wilderwild.entity.render.AncientHornProjectileRenderer;
 import net.frozenblock.wilderwild.entity.render.DisplayLanternBlockEntityRenderer;
@@ -203,6 +204,7 @@ public final class WilderWildClient implements ClientModInitializer {
         EntityModelLayerRegistry.registerModelLayer(DOUBLE_STONE_CHEST_RIGHT, StoneChestBlockEntityRenderer::createDoubleBodyRightLayer);
 
         receiveAncientHornProjectilePacket();
+		receiveTumbleweedPacket();
         receiveEasyEchoerBubblePacket();
         receiveSeedPacket();
         receiveControlledSeedPacket();
@@ -271,6 +273,33 @@ public final class WilderWildClient implements ClientModInitializer {
             });
         });
     }
+
+	private static void receiveTumbleweedPacket() {
+		ClientPlayNetworking.registerGlobalReceiver(WilderWild.TUMBLEWEED_PACKET_ID, (ctx, handler, byteBuf, responseSender) -> {
+			EntityType<?> et = Registry.ENTITY_TYPE.byId(byteBuf.readVarInt());
+			UUID uuid = byteBuf.readUUID();
+			int entityId = byteBuf.readVarInt();
+			Vec3 pos = Tumbleweed.EntitySpawnPacket.PacketBufUtil.readVec3d(byteBuf);
+			float pitch = Tumbleweed.EntitySpawnPacket.PacketBufUtil.readAngle(byteBuf);
+			float yaw = Tumbleweed.EntitySpawnPacket.PacketBufUtil.readAngle(byteBuf);
+			WilderWild.log("Receiving Tumblweed Packet At " + pos, WilderWild.DEV_LOGGING);
+			ctx.execute(() -> {
+				if (Minecraft.getInstance().level == null)
+					throw new IllegalStateException("Tried to spawn entity in a null world!");
+				Entity e = et.create(Minecraft.getInstance().level);
+				if (e == null)
+					throw new IllegalStateException("Failed to create instance of entity \"" + Registry.ENTITY_TYPE.getKey(et) + "\"!");
+				e.syncPacketPositionCodec(pos.x, pos.y, pos.z);
+				e.setPosRaw(pos.x, pos.y, pos.z);
+				e.setXRot(pitch);
+				e.setYRot(yaw);
+				e.setId(entityId);
+				e.setUUID(uuid);
+				Minecraft.getInstance().level.putNonPlayerEntity(entityId, e);
+				WilderWild.log("Spawned Tumblweed", WilderWild.UNSTABLE_LOGGING);
+			});
+		});
+	}
 
     private static void receiveEasyEchoerBubblePacket() {
         ClientPlayNetworking.registerGlobalReceiver(WilderWild.FLOATING_SCULK_BUBBLE_PACKET, (ctx, handler, byteBuf, responseSender) -> {

@@ -300,6 +300,7 @@ public final class WilderWild implements ModInitializer {
     public static final ResourceLocation FLOATING_SCULK_BUBBLE_PACKET = id("floating_sculk_bubble_easy_packet");
     public static final ResourceLocation TERMITE_PARTICLE_PACKET = id("termite_particle_packet");
     public static final ResourceLocation HORN_PROJECTILE_PACKET_ID = id("ancient_horn_projectile_packet");
+	public static final ResourceLocation TUMBLEWEED_PACKET_ID = id("tumbleweed_packet");
     public static final ResourceLocation SENSOR_HICCUP_PACKET = id("sensor_hiccup_packet");
     public static final ResourceLocation JELLY_STING_PACKET = id("jelly_sting_packet");
 
