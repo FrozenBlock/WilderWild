@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "half=lower": {
+      "model": "wilderwild:block/unknown_bottom"
+    },
+    "half=upper": {
+      "model": "wilderwild:block/unknown_top"
+    }
+  }
+}

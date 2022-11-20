@@ -96,6 +96,8 @@ public final class WilderWildClient implements ClientModInitializer {
         BlockRenderLayerMap.INSTANCE.putBlock(RegisterBlocks.BLUE_GLORY_OF_THE_SNOW, RenderType.cutout());
         BlockRenderLayerMap.INSTANCE.putBlock(RegisterBlocks.PINK_GLORY_OF_THE_SNOW, RenderType.cutout());
         BlockRenderLayerMap.INSTANCE.putBlock(RegisterBlocks.PURPLE_GLORY_OF_THE_SNOW, RenderType.cutout());
+		BlockRenderLayerMap.INSTANCE.putBlock(RegisterBlocks.SHRUB, RenderType.cutout());
+		BlockRenderLayerMap.INSTANCE.putBlock(RegisterBlocks.UNKNOWN_BUSH, RenderType.cutout());
         //BlockRenderLayerMap.INSTANCE.putBlock(RegisterBlocks.CYPRESS_ROOTS, RenderLayer.getCutout());
         BlockRenderLayerMap.INSTANCE.putBlock(RegisterBlocks.TERMITE_MOUND, RenderType.solid());
         BlockRenderLayerMap.INSTANCE.putBlock(RegisterBlocks.DISPLAY_LANTERN, RenderType.cutout());
@@ -236,6 +238,10 @@ public final class WilderWildClient implements ClientModInitializer {
             assert level != null;
             return BiomeColors.getAverageFoliageColor(level, pos);
         }), RegisterBlocks.POTTED_GRASS);
+		ColorProviderRegistry.BLOCK.register(((state, level, pos, tintIndex) -> {
+			assert level != null;
+			return BiomeColors.getAverageFoliageColor(level, pos);
+		}), RegisterBlocks.SHRUB);
     }
 
     private static void receiveAncientHornProjectilePacket() {
