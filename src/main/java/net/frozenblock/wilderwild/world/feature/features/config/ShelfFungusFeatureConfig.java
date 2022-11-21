@@ -18,64 +18,64 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.levelgen.feature.configurations.FeatureConfiguration;
 
 public class ShelfFungusFeatureConfig implements FeatureConfiguration {
-    public static final Codec<ShelfFungusFeatureConfig> CODEC = RecordCodecBuilder.create(
-            (instance) -> instance.group(Registry.BLOCK.byNameCodec().fieldOf("block").flatXmap(ShelfFungusFeatureConfig::validateBlock, DataResult::success).orElse((ShelfFungusBlock) RegisterBlocks.BROWN_SHELF_FUNGUS).forGetter(
-                    (config) -> config.fungus), Codec.intRange(1, 64).fieldOf("search_range").orElse(10).forGetter(
-                    (config) -> config.searchRange), Codec.BOOL.fieldOf("can_place_on_floor").orElse(false).forGetter(
-                    (config) -> config.placeOnFloor), Codec.BOOL.fieldOf("can_place_on_ceiling").orElse(false).forGetter(
-                    (config) -> config.placeOnCeiling), Codec.BOOL.fieldOf("can_place_on_wall").orElse(false).forGetter(
-                    (config) -> config.placeOnWalls), RegistryCodecs.homogeneousList(Registry.BLOCK_REGISTRY).fieldOf("can_be_placed_on").forGetter(
-                    (config) -> config.canPlaceOn)).apply(instance, ShelfFungusFeatureConfig::new)
-    );
-    public final ShelfFungusBlock fungus;
-    public final int searchRange;
-    public final boolean placeOnFloor;
-    public final boolean placeOnCeiling;
-    public final boolean placeOnWalls;
-    public final HolderSet<Block> canPlaceOn;
-    private final ObjectArrayList<Direction> directions;
+	public static final Codec<ShelfFungusFeatureConfig> CODEC = RecordCodecBuilder.create(
+			(instance) -> instance.group(Registry.BLOCK.byNameCodec().fieldOf("block").flatXmap(ShelfFungusFeatureConfig::validateBlock, DataResult::success).orElse((ShelfFungusBlock) RegisterBlocks.BROWN_SHELF_FUNGUS).forGetter(
+					(config) -> config.fungus), Codec.intRange(1, 64).fieldOf("search_range").orElse(10).forGetter(
+					(config) -> config.searchRange), Codec.BOOL.fieldOf("can_place_on_floor").orElse(false).forGetter(
+					(config) -> config.placeOnFloor), Codec.BOOL.fieldOf("can_place_on_ceiling").orElse(false).forGetter(
+					(config) -> config.placeOnCeiling), Codec.BOOL.fieldOf("can_place_on_wall").orElse(false).forGetter(
+					(config) -> config.placeOnWalls), RegistryCodecs.homogeneousList(Registry.BLOCK_REGISTRY).fieldOf("can_be_placed_on").forGetter(
+					(config) -> config.canPlaceOn)).apply(instance, ShelfFungusFeatureConfig::new)
+	);
+	public final ShelfFungusBlock fungus;
+	public final int searchRange;
+	public final boolean placeOnFloor;
+	public final boolean placeOnCeiling;
+	public final boolean placeOnWalls;
+	public final HolderSet<Block> canPlaceOn;
+	private final ObjectArrayList<Direction> directions;
 
-    private static DataResult<ShelfFungusBlock> validateBlock(Block block) {
-        DataResult<ShelfFungusBlock> var10000;
-        if (block instanceof ShelfFungusBlock shelfFungusBlock) {
-            var10000 = DataResult.success(shelfFungusBlock);
-        } else {
-            var10000 = DataResult.error("Growth block should be a shelf fungus block bruh bruh bruh bruh bruh");
-        }
+	private static DataResult<ShelfFungusBlock> validateBlock(Block block) {
+		DataResult<ShelfFungusBlock> var10000;
+		if (block instanceof ShelfFungusBlock shelfFungusBlock) {
+			var10000 = DataResult.success(shelfFungusBlock);
+		} else {
+			var10000 = DataResult.error("Growth block should be a shelf fungus block bruh bruh bruh bruh bruh");
+		}
 
-        return var10000;
-    }
+		return var10000;
+	}
 
-    public ShelfFungusFeatureConfig(ShelfFungusBlock fungus, int searchRange, boolean placeOnFloor, boolean placeOnCeiling, boolean placeOnWalls, HolderSet<Block> canPlaceOn) {
-        this.fungus = fungus;
-        this.searchRange = searchRange;
-        this.placeOnFloor = placeOnFloor;
-        this.placeOnCeiling = placeOnCeiling;
-        this.placeOnWalls = placeOnWalls;
-        this.canPlaceOn = canPlaceOn;
-        this.directions = new ObjectArrayList<>(6);
-        if (placeOnCeiling) {
-            this.directions.add(Direction.UP);
-        }
+	public ShelfFungusFeatureConfig(ShelfFungusBlock fungus, int searchRange, boolean placeOnFloor, boolean placeOnCeiling, boolean placeOnWalls, HolderSet<Block> canPlaceOn) {
+		this.fungus = fungus;
+		this.searchRange = searchRange;
+		this.placeOnFloor = placeOnFloor;
+		this.placeOnCeiling = placeOnCeiling;
+		this.placeOnWalls = placeOnWalls;
+		this.canPlaceOn = canPlaceOn;
+		this.directions = new ObjectArrayList<>(6);
+		if (placeOnCeiling) {
+			this.directions.add(Direction.UP);
+		}
 
-        if (placeOnFloor) {
-            this.directions.add(Direction.DOWN);
-        }
+		if (placeOnFloor) {
+			this.directions.add(Direction.DOWN);
+		}
 
-        if (placeOnWalls) {
-            Direction.Plane var10000 = Direction.Plane.HORIZONTAL;
-            ObjectArrayList<Direction> var10001 = this.directions;
-            Objects.requireNonNull(var10001);
-            var10000.forEach(var10001::add);
-        }
+		if (placeOnWalls) {
+			Direction.Plane var10000 = Direction.Plane.HORIZONTAL;
+			ObjectArrayList<Direction> var10001 = this.directions;
+			Objects.requireNonNull(var10001);
+			var10000.forEach(var10001::add);
+		}
 
-    }
+	}
 
-    public List<Direction> shuffleDirections(RandomSource random, Direction excluded) {
-        return Util.toShuffledList(this.directions.stream().filter((direction) -> direction != excluded), random);
-    }
+	public List<Direction> shuffleDirections(RandomSource random, Direction excluded) {
+		return Util.toShuffledList(this.directions.stream().filter((direction) -> direction != excluded), random);
+	}
 
-    public List<Direction> shuffleDirections(RandomSource random) {
-        return Util.shuffledCopy(this.directions, random);
-    }
+	public List<Direction> shuffleDirections(RandomSource random) {
+		return Util.shuffledCopy(this.directions, random);
+	}
 }

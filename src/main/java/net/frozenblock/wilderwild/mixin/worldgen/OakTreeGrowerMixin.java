@@ -13,13 +13,13 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 @Mixin(value = OakTreeGrower.class, priority = 69420)
 public class OakTreeGrowerMixin {
 
-    @Inject(method = "getConfiguredFeature", at = @At("RETURN"), cancellable = true)
-    public void getConfiguredFeature(RandomSource random, boolean bees, CallbackInfoReturnable<Holder<? extends ConfiguredFeature<?, ?>>> cir) {
-        if (random.nextInt(10) == 0) {
-            cir.setReturnValue(bees ? WilderTreeConfigured.NEW_FANCY_OAK_BEES_0004 : WilderTreeConfigured.NEW_FANCY_OAK);
-        } else {
-            cir.setReturnValue(bees ? WilderTreeConfigured.NEW_OAK_BEES_0004 : WilderTreeConfigured.NEW_OAK);
-        }
-    }
+	@Inject(method = "getConfiguredFeature", at = @At("RETURN"), cancellable = true)
+	public void getConfiguredFeature(RandomSource random, boolean bees, CallbackInfoReturnable<Holder<? extends ConfiguredFeature<?, ?>>> cir) {
+		if (random.nextInt(10) == 0) {
+			cir.setReturnValue(bees ? WilderTreeConfigured.NEW_FANCY_OAK_BEES_0004 : WilderTreeConfigured.NEW_FANCY_OAK);
+		} else {
+			cir.setReturnValue(bees ? WilderTreeConfigured.NEW_OAK_BEES_0004 : WilderTreeConfigured.NEW_OAK);
+		}
+	}
 
 }

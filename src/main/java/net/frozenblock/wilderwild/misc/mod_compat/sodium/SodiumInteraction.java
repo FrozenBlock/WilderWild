@@ -5,5 +5,5 @@ import net.minecraft.client.renderer.RenderType;
 
 public interface SodiumInteraction {
 
-    void frozenAddMapping(RenderType layer, BlockRenderPass type);
+	void frozenAddMapping(RenderType layer, BlockRenderPass type);
 }

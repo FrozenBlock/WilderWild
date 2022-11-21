@@ -20,22 +20,22 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(AllayModel.class)
 public abstract class AllayModelMixin extends HierarchicalModel<Allay> implements ArmedModel {
 
-    @Unique
-    private final AllayModel wilderWild$model = AllayModel.class.cast(this);
+	@Unique
+	private final AllayModel wilderWild$model = AllayModel.class.cast(this);
 
-    @Shadow
-    @Final
-    private ModelPart head;
+	@Shadow
+	@Final
+	private ModelPart head;
 
-    @Shadow
-    @Final
-    private ModelPart root;
+	@Shadow
+	@Final
+	private ModelPart root;
 
 	@Unique
-    private static final float WILDERWILD$PI180 = Mth.PI / 180;
+	private static final float WILDERWILD$PI180 = Mth.PI / 180;
 
-    @Inject(method = "setupAnim(Lnet/minecraft/world/entity/animal/allay/Allay;FFFFF)V", at = @At(value = "INVOKE", target = "Lnet/minecraft/util/Mth;lerp(FFF)F"))
-    private void setupAnim(Allay allay, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, CallbackInfo ci) {
+	@Inject(method = "setupAnim(Lnet/minecraft/world/entity/animal/allay/Allay;FFFFF)V", at = @At(value = "INVOKE", target = "Lnet/minecraft/util/Mth;lerp(FFF)F"))
+	private void setupAnim(Allay allay, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, CallbackInfo ci) {
 		if (ClothConfigInteractionHandler.keyframeAllayDance()) {
 			this.root.yRot = 0.0F;
 			this.root.zRot = 0.0F;

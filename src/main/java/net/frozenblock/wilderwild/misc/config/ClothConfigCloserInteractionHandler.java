@@ -14,66 +14,66 @@ public final class ClothConfigCloserInteractionHandler {
 	private static final EntityConfig.WardenConfig WARDEN = WilderWildConfig.get().entity.warden;
 	private static final WorldgenConfig WORLDGEN = WilderWildConfig.get().worldgen;
 
-    public static boolean betaBeaches() {
-        return WilderWildConfig.get().worldgen.betaBeaches;
-    }
+	public static boolean betaBeaches() {
+		return WilderWildConfig.get().worldgen.betaBeaches;
+	}
 
-    /*
-        public static boolean modifyDesertPlacement() {
-            return BIOME_PLACEMENT.modifyDesertPlacement;
-        }
+	/*
+		public static boolean modifyDesertPlacement() {
+			return BIOME_PLACEMENT.modifyDesertPlacement;
+		}
 
-        public static boolean modifyBadlandsPlacement() {
-            return BIOME_PLACEMENT.modifyBadlandsPlacement;
-        }
-    */
-    public static boolean modifyJunglePlacement() {
-        return BIOME_PLACEMENT.modifyJunglePlacement;
-    }
+		public static boolean modifyBadlandsPlacement() {
+			return BIOME_PLACEMENT.modifyBadlandsPlacement;
+		}
+	*/
+	public static boolean modifyJunglePlacement() {
+		return BIOME_PLACEMENT.modifyJunglePlacement;
+	}
 
-    public static boolean modifySwampPlacement() {
-        return BIOME_PLACEMENT.modifySwampPlacement;
-    }
+	public static boolean modifySwampPlacement() {
+		return BIOME_PLACEMENT.modifySwampPlacement;
+	}
 
-    public static boolean modifyMangroveSwampPlacement() {
-        return BIOME_PLACEMENT.modifyMangroveSwampPlacement;
-    }
+	public static boolean modifyMangroveSwampPlacement() {
+		return BIOME_PLACEMENT.modifyMangroveSwampPlacement;
+	}
 
-    public static boolean modifyWindsweptSavannaPlacement() {
-        return BIOME_PLACEMENT.modifyWindsweptSavannaPlacement;
-    }
+	public static boolean modifyWindsweptSavannaPlacement() {
+		return BIOME_PLACEMENT.modifyWindsweptSavannaPlacement;
+	}
 
-    public static boolean dyingTrees() {
-        return WORLDGEN.dyingTrees;
-    }
+	public static boolean dyingTrees() {
+		return WORLDGEN.dyingTrees;
+	}
 
-    public static boolean fallenLogs() {
-        return WORLDGEN.fallenLogs;
-    }
+	public static boolean fallenLogs() {
+		return WORLDGEN.fallenLogs;
+	}
 
-    public static boolean wildTrees() {
-        return WORLDGEN.wilderWildTreeGen;
-    }
+	public static boolean wildTrees() {
+		return WORLDGEN.wilderWildTreeGen;
+	}
 
-    public static boolean wildGrass() {
-        return WORLDGEN.wilderWildGrassGen;
-    }
+	public static boolean wildGrass() {
+		return WORLDGEN.wilderWildGrassGen;
+	}
 
-    public static boolean hornShattersGlass() {
-        return ANCIENT_HORN.ancientHornShattersGlass;
-    }
+	public static boolean hornShattersGlass() {
+		return ANCIENT_HORN.ancientHornShattersGlass;
+	}
 
-    public static boolean hornCanSummonWarden() {
-        return ANCIENT_HORN.ancientHornCanSummonWarden;
-    }
+	public static boolean hornCanSummonWarden() {
+		return ANCIENT_HORN.ancientHornCanSummonWarden;
+	}
 
-    public static boolean projectileBreakParticles() {
-        return ITEM.projectileBreakParticles;
-    }
+	public static boolean projectileBreakParticles() {
+		return ITEM.projectileBreakParticles;
+	}
 
-    public static boolean mcLiveSensorTendrils() {
-        return BLOCK.mcLiveSensorTendrils;
-    }
+	public static boolean mcLiveSensorTendrils() {
+		return BLOCK.mcLiveSensorTendrils;
+	}
 
 	public static boolean cactusSounds() {
 		return BLOCK_SOUNDS.cactusSounds;
@@ -139,9 +139,9 @@ public final class ClothConfigCloserInteractionHandler {
 		return STONE_CHEST.stoneChestTimer;
 	}
 
-    public static boolean unpassableRail() {
-        return ENTITY.unpassableRail;
-    }
+	public static boolean unpassableRail() {
+		return ENTITY.unpassableRail;
+	}
 
 	public static boolean keyframeAllayDance() {
 		return ALLAY.keyframeAllayDance;
@@ -155,28 +155,28 @@ public final class ClothConfigCloserInteractionHandler {
 		return ENDER_MAN.movingStareSound;
 	}
 
-    public static boolean wardenCustomTendrils() {
-        return WARDEN.wardenCustomTendrils;
-    }
+	public static boolean wardenCustomTendrils() {
+		return WARDEN.wardenCustomTendrils;
+	}
 
-    public static boolean wardenDyingAnimation() {
-        return WARDEN.wardenDyingAnimation;
-    }
+	public static boolean wardenDyingAnimation() {
+		return WARDEN.wardenDyingAnimation;
+	}
 
-    public static boolean wardenEmergesFromEgg() {
-        return WARDEN.wardenEmergesFromEgg;
-    }
+	public static boolean wardenEmergesFromEgg() {
+		return WARDEN.wardenEmergesFromEgg;
+	}
 
-    public static boolean wardenSwimAnimation() {
-        return WARDEN.wardenSwimAnimation;
-    }
+	public static boolean wardenSwimAnimation() {
+		return WARDEN.wardenSwimAnimation;
+	}
 
-    public static boolean shriekerGargling() {
-        return BLOCK.shriekerGargling;
-    }
+	public static boolean shriekerGargling() {
+		return BLOCK.shriekerGargling;
+	}
 
-    public static boolean soulFireSounds() {
-        return BLOCK.soulFireSounds;
-    }
+	public static boolean soulFireSounds() {
+		return BLOCK.soulFireSounds;
+	}
 
 }

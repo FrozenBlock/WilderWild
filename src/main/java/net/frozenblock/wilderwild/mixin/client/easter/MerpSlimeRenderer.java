@@ -18,14 +18,14 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 @Mixin(SlimeRenderer.class)
 public final class MerpSlimeRenderer {
 
-    @Unique
-    private static final ResourceLocation WILDERWILD$MERP_SLIME = WilderWild.id("textures/entity/slime/merp_slime.png");
+	@Unique
+	private static final ResourceLocation WILDERWILD$MERP_SLIME = WilderWild.id("textures/entity/slime/merp_slime.png");
 
-    @Inject(method = "getTextureLocation(Lnet/minecraft/world/entity/monster/Slime;)Lnet/minecraft/resources/ResourceLocation;", at = @At("RETURN"), cancellable = true)
-    public void getTextureLocation(Slime slimeEntity, CallbackInfoReturnable<ResourceLocation> cir) {
-        String string = ChatFormatting.stripFormatting(slimeEntity.getName().getString());
-        if (Objects.equals(string, "Merp")) {
-            cir.setReturnValue(WILDERWILD$MERP_SLIME);
-        }
-    }
+	@Inject(method = "getTextureLocation(Lnet/minecraft/world/entity/monster/Slime;)Lnet/minecraft/resources/ResourceLocation;", at = @At("RETURN"), cancellable = true)
+	public void getTextureLocation(Slime slimeEntity, CallbackInfoReturnable<ResourceLocation> cir) {
+		String string = ChatFormatting.stripFormatting(slimeEntity.getName().getString());
+		if (Objects.equals(string, "Merp")) {
+			cir.setReturnValue(WILDERWILD$MERP_SLIME);
+		}
+	}
 }

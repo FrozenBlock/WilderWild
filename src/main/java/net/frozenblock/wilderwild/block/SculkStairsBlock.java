@@ -15,22 +15,22 @@ import net.minecraft.world.level.block.state.BlockState;
 
 public class SculkStairsBlock extends StairBlock implements SculkBehaviour {
 
-    private final IntProvider experienceDropped = ConstantInt.of(1);
+	private final IntProvider experienceDropped = ConstantInt.of(1);
 
-    public SculkStairsBlock(BlockState baseBlockState, Properties settings) {
-        super(baseBlockState, settings);
-    }
+	public SculkStairsBlock(BlockState baseBlockState, Properties settings) {
+		super(baseBlockState, settings);
+	}
 
-    @Override
-    public void spawnAfterBreak(BlockState state, ServerLevel level, BlockPos pos, ItemStack stack, boolean dropExperience) {
-        super.spawnAfterBreak(state, level, pos, stack, dropExperience);
-        if (dropExperience) {
-            this.tryDropExperience(level, pos, stack, this.experienceDropped);
-        }
-    }
+	@Override
+	public void spawnAfterBreak(BlockState state, ServerLevel level, BlockPos pos, ItemStack stack, boolean dropExperience) {
+		super.spawnAfterBreak(state, level, pos, stack, dropExperience);
+		if (dropExperience) {
+			this.tryDropExperience(level, pos, stack, this.experienceDropped);
+		}
+	}
 
-    @Override
-    public int attemptUseCharge(SculkSpreader.ChargeCursor cursor, LevelAccessor level, BlockPos catalystPos, RandomSource random, SculkSpreader spreadManager, boolean shouldConvertToBlock) {
-        return random.nextInt(spreadManager.chargeDecayRate()) == 0 ? Mth.floor((float) cursor.getCharge() * 0.5F) : cursor.getCharge();
-    }
+	@Override
+	public int attemptUseCharge(SculkSpreader.ChargeCursor cursor, LevelAccessor level, BlockPos catalystPos, RandomSource random, SculkSpreader spreadManager, boolean shouldConvertToBlock) {
+		return random.nextInt(spreadManager.chargeDecayRate()) == 0 ? Mth.floor((float) cursor.getCharge() * 0.5F) : cursor.getCharge();
+	}
 }

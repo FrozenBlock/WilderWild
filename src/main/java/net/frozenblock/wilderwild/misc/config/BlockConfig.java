@@ -42,35 +42,35 @@ public final class BlockConfig implements ConfigData {
 		public int stoneChestTimer = 100;
 	}
 
-    public boolean mcLiveSensorTendrils = true;
-    public boolean shriekerGargling = true;
-    public boolean soulFireSounds = true;
+	public boolean mcLiveSensorTendrils = true;
+	public boolean shriekerGargling = true;
+	public boolean soulFireSounds = true;
 
-    @Environment(EnvType.CLIENT)
-    static void setupEntries(ConfigCategory category, ConfigEntryBuilder entryBuilder) {
-        var config = WilderWildConfig.get().block;
+	@Environment(EnvType.CLIENT)
+	static void setupEntries(ConfigCategory category, ConfigEntryBuilder entryBuilder) {
+		var config = WilderWildConfig.get().block;
 		var blockSounds = config.blockSounds;
 		var stoneChest = config.stoneChest;
-        category.setBackground(WilderWild.id("textures/config/block.png"));
-        var mcLiveSensorTendrils = category.addEntry(entryBuilder.startBooleanToggle(text("mc_live_sensor_tendrils"), config.mcLiveSensorTendrils)
-                .setDefaultValue(false)
-                .setSaveConsumer(newValue -> config.mcLiveSensorTendrils = newValue)
-                .setYesNoTextSupplier(bool -> text("mc_live_sensor_tendrils." + bool))
-                .setTooltip(tooltip("mc_live_sensor_tendrils"))
-                .build()
-        );
-        var shriekerGargling = category.addEntry(entryBuilder.startBooleanToggle(text("shrieker_gargling"), config.shriekerGargling)
-                .setDefaultValue(true)
-                .setSaveConsumer(newValue -> config.shriekerGargling = newValue)
-                .setTooltip(tooltip("shrieker_gargling"))
-                .build()
-        );
-        var soulFireSounds = category.addEntry(entryBuilder.startBooleanToggle(text("soul_fire_sounds"), config.soulFireSounds)
-                .setDefaultValue(true)
-                .setSaveConsumer(newValue -> config.soulFireSounds = newValue)
-                .setTooltip(tooltip("soul_fire_sounds"))
-                .build()
-        );
+		category.setBackground(WilderWild.id("textures/config/block.png"));
+		var mcLiveSensorTendrils = category.addEntry(entryBuilder.startBooleanToggle(text("mc_live_sensor_tendrils"), config.mcLiveSensorTendrils)
+				.setDefaultValue(false)
+				.setSaveConsumer(newValue -> config.mcLiveSensorTendrils = newValue)
+				.setYesNoTextSupplier(bool -> text("mc_live_sensor_tendrils." + bool))
+				.setTooltip(tooltip("mc_live_sensor_tendrils"))
+				.build()
+		);
+		var shriekerGargling = category.addEntry(entryBuilder.startBooleanToggle(text("shrieker_gargling"), config.shriekerGargling)
+				.setDefaultValue(true)
+				.setSaveConsumer(newValue -> config.shriekerGargling = newValue)
+				.setTooltip(tooltip("shrieker_gargling"))
+				.build()
+		);
+		var soulFireSounds = category.addEntry(entryBuilder.startBooleanToggle(text("soul_fire_sounds"), config.soulFireSounds)
+				.setDefaultValue(true)
+				.setSaveConsumer(newValue -> config.soulFireSounds = newValue)
+				.setTooltip(tooltip("soul_fire_sounds"))
+				.build()
+		);
 
         /*var displayLanternCategory = FrozenConfig.createSubCategory(entryBuilder, category, text("display_lantern"),
                 false,
@@ -197,20 +197,20 @@ public final class BlockConfig implements ConfigData {
 				.setTooltip(tooltip("stone_chest_timer"))
 				.build();
 
-        var stoneChestCategory = FrozenConfig.createSubCategory(entryBuilder, category, text("stone_chest"),
-                false,
-                tooltip("stone_chest"),
+		var stoneChestCategory = FrozenConfig.createSubCategory(entryBuilder, category, text("stone_chest"),
+				false,
+				tooltip("stone_chest"),
 				stoneChestTimer
-        );
+		);
 
         /*var termiteCategory = FrozenConfig.createSubCategory(entryBuilder, category, text("termite"),
                 false,
                 tooltip("termite")
 
         );*/
-    }
+	}
 
-    //public static final StringSetConfigOption HIDDEN_MODS = new StringSetConfigOption("hidden_mods", new HashSet<>());
+	//public static final StringSetConfigOption HIDDEN_MODS = new StringSetConfigOption("hidden_mods", new HashSet<>());
     /*public static BlockConfig get() {
         AutoConfig.register(BlockConfig.class, GsonConfigSerializer::new);
         return AutoConfig.getConfigHolder(BlockConfig.class).getConfig();

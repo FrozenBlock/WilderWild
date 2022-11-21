@@ -15,16 +15,16 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(SpawnPlacements.class)
 public class SpawnPlacementsMixin {
 
-    @Final
-    @Shadow
-    private static Map<EntityType<?>, SpawnPlacements.Data> DATA_BY_TYPE;
+	@Final
+	@Shadow
+	private static Map<EntityType<?>, SpawnPlacements.Data> DATA_BY_TYPE;
 
-    @Inject(method = "register", at = @At("HEAD"), cancellable = true)
-    private static <T extends Mob> void register(EntityType<T> type, SpawnPlacements.Type location, Heightmap.Types heightmapType, SpawnPlacements.SpawnPredicate<T> predicate, CallbackInfo info) {
-        if (type == EntityType.SLIME) {
-            info.cancel();
-            SpawnPlacements.Data entry = DATA_BY_TYPE.put(type, new SpawnPlacements.Data(heightmapType, SpawnPlacements.Type.NO_RESTRICTIONS, predicate));
-        }
-    }
+	@Inject(method = "register", at = @At("HEAD"), cancellable = true)
+	private static <T extends Mob> void register(EntityType<T> type, SpawnPlacements.Type location, Heightmap.Types heightmapType, SpawnPlacements.SpawnPredicate<T> predicate, CallbackInfo info) {
+		if (type == EntityType.SLIME) {
+			info.cancel();
+			SpawnPlacements.Data entry = DATA_BY_TYPE.put(type, new SpawnPlacements.Data(heightmapType, SpawnPlacements.Type.NO_RESTRICTIONS, predicate));
+		}
+	}
 
 }

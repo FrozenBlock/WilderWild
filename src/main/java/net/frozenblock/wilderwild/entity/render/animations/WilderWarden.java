@@ -4,12 +4,12 @@ import net.minecraft.world.entity.AnimationState;
 
 public interface WilderWarden {
 
-    AnimationState getDyingAnimationState();
+	AnimationState getDyingAnimationState();
 
-    AnimationState getSwimmingDyingAnimationState();
+	AnimationState getSwimmingDyingAnimationState();
 
-    AnimationState getKirbyDeathAnimationState();
+	AnimationState getKirbyDeathAnimationState();
 
-    boolean isOsmiooo();
+	boolean isOsmiooo();
 
 }

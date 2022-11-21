@@ -13,18 +13,18 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.phys.BlockHitResult;
 
 public class FloweredLilyPadItem extends BlockItem {
-    public FloweredLilyPadItem(Block block, Properties settings) {
-        super(block, settings);
-    }
+	public FloweredLilyPadItem(Block block, Properties settings) {
+		super(block, settings);
+	}
 
-    public InteractionResult useOn(UseOnContext context) {
-        return InteractionResult.PASS;
-    }
+	public InteractionResult useOn(UseOnContext context) {
+		return InteractionResult.PASS;
+	}
 
-    public InteractionResultHolder<ItemStack> use(Level level, Player user, InteractionHand hand) {
-        BlockHitResult blockHitResult = getPlayerPOVHitResult(level, user, Fluid.SOURCE_ONLY);
-        BlockHitResult blockHitResult2 = blockHitResult.withPosition(blockHitResult.getBlockPos().above());
-        InteractionResult actionResult = super.useOn(new UseOnContext(user, hand, blockHitResult2));
-        return new InteractionResultHolder<>(actionResult, user.getItemInHand(hand));
-    }
+	public InteractionResultHolder<ItemStack> use(Level level, Player user, InteractionHand hand) {
+		BlockHitResult blockHitResult = getPlayerPOVHitResult(level, user, Fluid.SOURCE_ONLY);
+		BlockHitResult blockHitResult2 = blockHitResult.withPosition(blockHitResult.getBlockPos().above());
+		InteractionResult actionResult = super.useOn(new UseOnContext(user, hand, blockHitResult2));
+		return new InteractionResultHolder<>(actionResult, user.getItemInHand(hand));
+	}
 }

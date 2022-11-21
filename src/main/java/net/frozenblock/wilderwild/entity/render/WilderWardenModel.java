@@ -5,5 +5,5 @@ import net.minecraft.client.model.geom.ModelPart;
 
 public interface WilderWardenModel {
 
-    List<ModelPart> getHeadAndTendrils();
+	List<ModelPart> getHeadAndTendrils();
 }

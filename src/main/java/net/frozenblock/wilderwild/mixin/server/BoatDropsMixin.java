@@ -12,16 +12,16 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 @Mixin(Boat.class)
 public final class BoatDropsMixin {
 
-    //CREDIT TO nyuppo/fabric-boat-example ON GITHUB
+	//CREDIT TO nyuppo/fabric-boat-example ON GITHUB
 
-    @Inject(method = "getDropItem", at = @At("RETURN"), cancellable = true)
-    public void getModdedBoats(CallbackInfoReturnable<Item> ci) {
-        if (((Boat) (Object) this).getBoatType() == WilderBoats.BAOBAB) {
-            ci.setReturnValue(RegisterItems.BAOBAB_BOAT_ITEM);
-        }
-        if (((Boat) (Object) this).getBoatType() == WilderBoats.CYPRESS) {
-            ci.setReturnValue(RegisterItems.CYPRESS_BOAT_ITEM);
-        }
-    }
+	@Inject(method = "getDropItem", at = @At("RETURN"), cancellable = true)
+	public void getModdedBoats(CallbackInfoReturnable<Item> ci) {
+		if (((Boat) (Object) this).getBoatType() == WilderBoats.BAOBAB) {
+			ci.setReturnValue(RegisterItems.BAOBAB_BOAT_ITEM);
+		}
+		if (((Boat) (Object) this).getBoatType() == WilderBoats.CYPRESS) {
+			ci.setReturnValue(RegisterItems.CYPRESS_BOAT_ITEM);
+		}
+	}
 
 }

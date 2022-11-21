@@ -13,9 +13,9 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 @Mixin(value = BirchTreeGrower.class, priority = 69420)
 public class BirchTreeGrowerMixin {
 
-    @Inject(method = "getConfiguredFeature", at = @At("RETURN"), cancellable = true)
-    public void getConfiguredFeature(RandomSource random, boolean bees, CallbackInfoReturnable<Holder<? extends ConfiguredFeature<?, ?>>> cir) {
-        cir.setReturnValue(WilderTreeConfigured.NEW_BIRCH_BEES_0004);
-    }
+	@Inject(method = "getConfiguredFeature", at = @At("RETURN"), cancellable = true)
+	public void getConfiguredFeature(RandomSource random, boolean bees, CallbackInfoReturnable<Holder<? extends ConfiguredFeature<?, ?>>> cir) {
+		cir.setReturnValue(WilderTreeConfigured.NEW_BIRCH_BEES_0004);
+	}
 
 }
