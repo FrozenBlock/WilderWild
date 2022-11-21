@@ -58,7 +58,8 @@
 	"java": ">=17"
   },
   "breaks": {
-	"quilted_fabric_api": "4.0.0-beta.8"
+	"quilted_fabric_api": "4.0.0-beta.8",
+    "fabric-api": "0.67.0"
   },
   "suggests": {
 	"cloth-config": "*",

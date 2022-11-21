@@ -86,15 +86,7 @@ public final class SharedWorldgen {
         public static final float OFFSET = 0.0F;
     }
 
-	public static final class WarmRiver {
-		public static final Climate.Parameter WARM_RANGE = Climate.Parameter.span(0.55F, 1.0F);
-		public static final Climate.Parameter UNFROZEN_NOT_WARM_RANGE = Climate.Parameter.span(0.0F, 0.2F);
-		public static final Climate.Parameter HUMIDITY_TO_TWO = Climate.Parameter.span(-0.1F, 0.0F);
-		public static final Climate.Parameter HUMIDITY_TO_THREE = Climate.Parameter.span(0F, 0.1F);
-		public static final Climate.Parameter WEIRDNESS = Weirdness.VALLEY;
-	}
-
-    public static final class Swamp {
+	public static final class Swamp {
 
         public static final Climate.Parameter HUMIDITY = Climate.Parameter.span(Climate.Parameter.span(-0.2F, 0.1F), Humidity.WET);
 
