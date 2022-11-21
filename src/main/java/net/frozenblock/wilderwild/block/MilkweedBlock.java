@@ -87,11 +87,5 @@ public class MilkweedBlock extends TallFlowerBlock {
             }
         }
         return super.use(state, level, pos, player, hand, hit);
-
-    }
-
-    @Override
-    public boolean isRandomlyTicking(BlockState state) {
-        return true;
     }
 }

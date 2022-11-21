@@ -34,7 +34,6 @@ import net.minecraft.world.level.block.state.properties.ChestType;
 import org.jetbrains.annotations.NotNull;
 
 public class StoneChestBlockEntityRenderer<T extends StoneChestBlockEntity & LidBlockEntity> extends ChestRenderer<T> {
-
     private static final String BASE = "bottom";
     private static final String LID = "lid";
     private final ModelPart singleChestLid;

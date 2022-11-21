@@ -54,8 +54,7 @@ public class StoneChestBlockEntity extends ChestBlockEntity implements NoInterac
     public boolean closing;
     public boolean lootGenerated;
 
-    public boolean hasUpdated = false;
-    public boolean shouldSkip = false;
+	public boolean shouldSkip = false;
 
     public StoneChestBlockEntity(BlockPos blockPos, BlockState blockState) {
         super(RegisterBlockEntities.STONE_CHEST, blockPos, blockState);
@@ -114,7 +113,7 @@ public class StoneChestBlockEntity extends ChestBlockEntity implements NoInterac
                 }
             }
             if (isLeft(state)) {
-                blockEntity.syncLidValuesWith(serverLevel, pos, state, stoneChest);
+                blockEntity.syncLidValuesWith(stoneChest);
             }
         }
         blockEntity.shouldSkip = false;
@@ -140,7 +139,7 @@ public class StoneChestBlockEntity extends ChestBlockEntity implements NoInterac
         }
         blockEntity.shouldSkip = false;
         if (isLeft(state)) {
-            blockEntity.syncLidValuesWith(level, pos, state, stoneChest);
+            blockEntity.syncLidValuesWith(stoneChest);
         }
     }
 
@@ -183,7 +182,7 @@ public class StoneChestBlockEntity extends ChestBlockEntity implements NoInterac
         return !(player.distanceToSqr((double) this.worldPosition.getX() + 0.5, (double) this.worldPosition.getY() + 0.5, (double) this.worldPosition.getZ() + 0.5) > 64.0) && ((!this.closing && this.openProgress >= 0.3));
     }
 
-    public void syncLidValuesWith(Level level, BlockPos pos, BlockState state, StoneChestBlockEntity otherStoneChest) {
+    public void syncLidValuesWith(StoneChestBlockEntity otherStoneChest) {
         if (otherStoneChest != null) {
             otherStoneChest.openProgress = this.openProgress;
             otherStoneChest.prevOpenProgress = this.prevOpenProgress;

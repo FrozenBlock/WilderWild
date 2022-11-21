@@ -16,7 +16,6 @@ import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
 public class ShrubBlock extends BushBlock implements BonemealableBlock {
-	protected static final float AABB_OFFSET = 6.0F;
 	protected static final VoxelShape SHAPE = Block.box(2.0, 0.0, 2.0, 14.0, 13.0, 14.0);
 	private static final ShrubBushGrower TREE_GROWER = new ShrubBushGrower();
 
@@ -24,21 +23,27 @@ public class ShrubBlock extends BushBlock implements BonemealableBlock {
 		super(properties);
 	}
 
+	@Override
 	public VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
 		return SHAPE;
 	}
 
+	@Override
 	protected boolean mayPlaceOn(BlockState state, BlockGetter level, BlockPos pos) {
 		return state.is(BlockTags.DEAD_BUSH_MAY_PLACE_ON);
 	}
+
+	@Override
 	public boolean isValidBonemealTarget(BlockGetter level, BlockPos pos, BlockState state, boolean isClient) {
 		return level.getFluidState(pos.above()).isEmpty();
 	}
 
+	@Override
 	public boolean isBonemealSuccess(Level level, RandomSource random, BlockPos pos, BlockState state) {
 		return (double)level.random.nextFloat() < 0.45;
 	}
 
+	@Override
 	public void performBonemeal(ServerLevel level, RandomSource random, BlockPos pos, BlockState state) {
 		TREE_GROWER.growTree(level, level.getChunkSource().getGenerator(), pos, state, random);
 	}

@@ -67,7 +67,6 @@ public class Firefly extends PathfinderMob implements FlyingAnimal {
     private static final EntityDataAccessor<Float> PREV_SCALE = SynchedEntityData.defineId(Firefly.class, EntityDataSerializers.FLOAT);
     private static final EntityDataAccessor<FireflyColor> COLOR = SynchedEntityData.defineId(Firefly.class, FireflyColor.SERIALIZER);
 
-
     public boolean natural;
     public boolean hasHome;
     public boolean despawning;
@@ -300,8 +299,7 @@ public class Firefly extends PathfinderMob implements FlyingAnimal {
                 this.setDeltaMovement(this.getDeltaMovement().scale(0.9100000262260437));
             }
         }
-
-        this.calculateEntityAnimation(this, false);
+        //this.calculateEntityAnimation(this, false);
     }
 
     @Override

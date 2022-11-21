@@ -24,7 +24,6 @@ public class BaobabLeaves extends LeavesBlock implements BonemealableBlock {
         return true;
     }
 
-
     public void performBonemeal(ServerLevel level, @NotNull RandomSource random, BlockPos pos, @NotNull BlockState state) {
         level.setBlock(pos.below(), BaobabNutBlock.getDefaultHangingState(), 2);
     }

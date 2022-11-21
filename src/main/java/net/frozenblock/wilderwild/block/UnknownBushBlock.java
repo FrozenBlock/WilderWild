@@ -11,6 +11,8 @@ public class UnknownBushBlock extends DoublePlantBlock {
 	public UnknownBushBlock(BlockBehaviour.Properties properties) {
 		super(properties);
 	}
+
+	@Override
 	protected boolean mayPlaceOn(BlockState state, BlockGetter level, BlockPos pos) {
 		return state.is(WilderBlockTags.BUSH_MAY_PLACE_ON);
 	}

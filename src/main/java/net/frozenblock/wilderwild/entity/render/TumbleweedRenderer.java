@@ -5,24 +5,12 @@ import com.mojang.math.Vector3f;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.frozenblock.wilderwild.entity.Tumbleweed;
-import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.block.BlockRenderDispatcher;
 import net.minecraft.client.renderer.entity.EntityRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
-import net.minecraft.client.renderer.entity.TntMinecartRenderer;
-import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.client.renderer.texture.TextureAtlas;
-import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.util.Mth;
-import net.minecraft.util.RandomSource;
-import net.minecraft.world.entity.item.FallingBlockEntity;
-import net.minecraft.world.entity.item.PrimedTnt;
-import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.RenderShape;
-import net.minecraft.world.level.block.state.BlockState;
 
 @Environment(EnvType.CLIENT)
 public class TumbleweedRenderer extends EntityRenderer<Tumbleweed> {
@@ -34,6 +22,7 @@ public class TumbleweedRenderer extends EntityRenderer<Tumbleweed> {
 		this.blockRenderer = context.getBlockRenderDispatcher();
 	}
 
+	@Override
 	public void render(Tumbleweed entity, float entityYaw, float partialTicks, PoseStack matrixStack, MultiBufferSource buffer, int packedLight) {
 		matrixStack.pushPose();
 		matrixStack.translate(0.0D, 0.5D, 0.0D);
@@ -45,6 +34,7 @@ public class TumbleweedRenderer extends EntityRenderer<Tumbleweed> {
 		super.render(entity, entityYaw, partialTicks, matrixStack, buffer, packedLight);
 	}
 
+	@Override
 	public ResourceLocation getTextureLocation(Tumbleweed entity) {
 		return TextureAtlas.LOCATION_BLOCKS;
 	}

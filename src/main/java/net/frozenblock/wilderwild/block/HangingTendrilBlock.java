@@ -81,11 +81,6 @@ public class HangingTendrilBlock extends BaseEntityBlock implements SimpleWaterl
     }
 
     @Override
-    public boolean isRandomlyTicking(@NotNull BlockState state) {
-        return true;
-    }
-
-    @Override
     public void randomTick(BlockState state, @NotNull ServerLevel level, @NotNull BlockPos pos, @NotNull RandomSource random) {
         if (!state.canSurvive(level, pos)) {
             level.destroyBlock(pos, true);

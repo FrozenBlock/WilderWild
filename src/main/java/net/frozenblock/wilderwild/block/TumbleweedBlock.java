@@ -17,13 +17,14 @@ import net.minecraft.world.level.material.Fluids;
 import org.jetbrains.annotations.Nullable;
 
 public class TumbleweedBlock extends Block implements SimpleWaterloggedBlock {
-	public static final BooleanProperty WATERLOGGED;
+	public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;;
 
 	public TumbleweedBlock(Properties properties) {
 		super(properties);
 		this.registerDefaultState(this.stateDefinition.any().setValue(WATERLOGGED, false));
 	}
 
+	@Override
 	public boolean skipRendering(BlockState state, BlockState adjacentBlockState, Direction direction) {
 		return adjacentBlockState.is(RegisterBlocks.TUMBLEWEED) && direction.getAxis() == Direction.Axis.Y;
 	}
@@ -32,26 +33,25 @@ public class TumbleweedBlock extends Block implements SimpleWaterloggedBlock {
 	public BlockState getStateForPlacement(BlockPlaceContext context) {
 		FluidState fluidState = context.getLevel().getFluidState(context.getClickedPos());
 		boolean bl = fluidState.getType() == Fluids.WATER;
-		return (BlockState) super.getStateForPlacement(context).setValue(WATERLOGGED, bl);
+		return super.getStateForPlacement(context).setValue(WATERLOGGED, bl);
 	}
 
+	@Override
 	public BlockState updateShape(BlockState state, Direction direction, BlockState neighborState, LevelAccessor level, BlockPos currentPos, BlockPos neighborPos) {
-		if ((Boolean) state.getValue(WATERLOGGED)) {
+		if (state.getValue(WATERLOGGED)) {
 			level.scheduleTick(currentPos, Fluids.WATER, Fluids.WATER.getTickDelay(level));
 		}
 
 		return super.updateShape(state, direction, neighborState, level, currentPos, neighborPos);
 	}
 
+	@Override
 	public FluidState getFluidState(BlockState state) {
-		return (Boolean) state.getValue(WATERLOGGED) ? Fluids.WATER.getSource(false) : super.getFluidState(state);
+		return state.getValue(WATERLOGGED) ? Fluids.WATER.getSource(false) : super.getFluidState(state);
 	}
 
+	@Override
 	protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
 		builder.add(new Property[]{WATERLOGGED});
-	}
-
-	static {
-		WATERLOGGED = BlockStateProperties.WATERLOGGED;
 	}
 }

@@ -41,9 +41,8 @@ public class DisplayLanternBlockEntity extends BlockEntity {
     private final ArrayList<FireflyInLantern> fireflies = new ArrayList<>();
 
     public int age;
-    public boolean hasUpdated = false;
 
-    public DisplayLanternBlockEntity(BlockPos pos, BlockState blockState) {
+	public DisplayLanternBlockEntity(BlockPos pos, BlockState blockState) {
         super(RegisterBlockEntities.DISPLAY_LANTERN, pos, blockState);
         this.inventory = NonNullList.withSize(1, ItemStack.EMPTY);
     }
@@ -94,6 +93,7 @@ public class DisplayLanternBlockEntity extends BlockEntity {
         return this.getFireflies().isEmpty();
     }
 
+	@Override
     public void load(@NotNull CompoundTag tag) {
         super.load(tag);
         if (tag.contains("Fireflies", 9)) {
@@ -112,6 +112,7 @@ public class DisplayLanternBlockEntity extends BlockEntity {
         this.age = tag.getInt("age");
     }
 
+	@Override
     protected void saveAdditional(@NotNull CompoundTag tag) {
         super.saveAdditional(tag);
         DataResult<Tag> var10000 = FireflyInLantern.CODEC.listOf().encodeStart(NbtOps.INSTANCE, this.fireflies);
@@ -194,6 +195,7 @@ public class DisplayLanternBlockEntity extends BlockEntity {
         public boolean flickers;
         public int age;
         public double y;
+
         public boolean wasNamedNectar;
 
         public static final Codec<FireflyInLantern> CODEC = RecordCodecBuilder.create((instance) -> instance.group(
@@ -214,12 +216,10 @@ public class DisplayLanternBlockEntity extends BlockEntity {
             this.y = y;
         }
 
-        private boolean isNectar = false;
-
-        public void tick(Level level, BlockPos pos) {
+		public void tick(Level level, BlockPos pos) {
             this.age += 1;
             this.y = Math.sin(this.age * 0.03) * 0.15;
-            this.isNectar = this.getCustomName().toLowerCase().contains("nectar");
+			boolean isNectar = this.getCustomName().toLowerCase().contains("nectar");
 
             if (isNectar != wasNamedNectar) {
                 if (isNectar) {

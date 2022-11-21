@@ -22,7 +22,6 @@ import org.jetbrains.annotations.NotNull;
 
 @Environment(EnvType.CLIENT)
 public class JellyfishModel<T extends Jellyfish> extends HierarchicalModel<T> {
-
     private final ModelPart root;
     private final ModelPart body;
     private final ModelPart tentacleBase;

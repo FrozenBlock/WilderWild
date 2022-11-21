@@ -18,6 +18,7 @@ public class MilkweedPod extends Item {
         super(settings);
     }
 
+	@Override
     public InteractionResultHolder<ItemStack> use(Level level, Player user, InteractionHand hand) {
         WilderWild.log(user, "Used Milkweed Pod", WilderWild.DEV_LOGGING);
         ItemStack itemStack = user.getItemInHand(hand);
@@ -35,8 +36,8 @@ public class MilkweedPod extends Item {
         return InteractionResultHolder.consume(itemStack);
     }
 
+	@Override
     public UseAnim getUseAnimation(ItemStack stack) {
         return UseAnim.TOOT_HORN;
     }
-
 }

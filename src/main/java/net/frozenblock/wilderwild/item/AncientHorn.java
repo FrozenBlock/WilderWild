@@ -36,7 +36,6 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public class AncientHorn extends InstrumentItem {
-
     private static final String TAG_INSTRUMENT = "instrument";
     private final TagKey<Instrument> instrumentTag;
 

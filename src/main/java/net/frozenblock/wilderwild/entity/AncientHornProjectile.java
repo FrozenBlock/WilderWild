@@ -74,8 +74,7 @@ import org.jetbrains.annotations.Nullable;
 //TODO: Fix rendering (Renders too bright or too dark depending on direction; renders under other translucents like water, doesn't render further than 8 block away)
 
 public class AncientHornProjectile extends AbstractArrow {
-    private static final TagKey<Block> NON_COLLIDE =
-            WilderBlockTags.ANCIENT_HORN_NON_COLLIDE;
+    private static final TagKey<Block> NON_COLLIDE = WilderBlockTags.ANCIENT_HORN_NON_COLLIDE;
     private static final int MAX_ALIVE_TICKS = 300;
     private boolean shot;
     private boolean leftOwner;
@@ -110,16 +109,8 @@ public class AncientHornProjectile extends AbstractArrow {
         return this.aliveTicks;
     }
 
-    public boolean isShotByPlayer() {
-        return this.shotByPlayer;
-    }
-
     public void setShotByPlayer(final boolean bl) {
         this.shotByPlayer = bl;
-    }
-
-    public int getBubbles() {
-        return this.bubbles;
     }
 
     public void setBubbles(final int amount) {
@@ -289,7 +280,7 @@ public class AncientHornProjectile extends AbstractArrow {
         this.shakeTime = 7;
         this.setCritArrow(false);
         if (this.level instanceof ServerLevel server && canInteract()) {
-            if (blockState.getBlock() == Blocks.SCULK_SHRIEKER) { //SCULK SHRIEKER
+            if (blockState.getBlock() == Blocks.SCULK_SHRIEKER) {
                 if (ClothConfigInteractionHandler.hornCanSummonWarden()) {
                     BlockPos pos = result.getBlockPos();
                     WilderWild.log(Blocks.SCULK_SHRIEKER, pos, "Horn Projectile Touched", WilderWild.UNSTABLE_LOGGING);
@@ -475,12 +466,7 @@ public class AncientHornProjectile extends AbstractArrow {
     }
 
     public double getDamage(@Nullable Entity entity) {
-        if (entity != null) {
-            if (!(entity instanceof Player)) {
-                return 22;
-            }
-        }
-        return 15;
+        return entity instanceof Player ? 15 : 22;
     }
 
     @Override
@@ -525,10 +511,6 @@ public class AncientHornProjectile extends AbstractArrow {
                             EnchantmentHelper.doPostDamageEffects((LivingEntity) owner, livingEntity);
                         }
                         this.doPostHurtEffects(livingEntity);
-                        /*if (livingEntity instanceof Player && owner instanceof ServerPlayer && !this.isSilent()) {
-                            ((ServerPlayer) owner).connection.send(new ClientboundGameEventPacket(ClientboundGameEventPacket.ARROW_HIT_PLAYER, 0.0F));
-                            FlyBySoundPacket.createFlybySound(level, this, RegisterSounds.ENTITY_ANCIENT_HORN_PROJECTILE_FLYBY, SoundSource.PLAYERS, 1.0F, 0.7F);
-                        }*/
                         if (livingEntity.isDeadOrDying() && level instanceof ServerLevel server) {
                             server.sendParticles(ParticleTypes.SCULK_SOUL, livingEntity.getX(), livingEntity.getEyeY(), livingEntity.getZ(), 1, 0.2D, 0.0D, 0.2D, 0.0D);
                             if (this.getOwner() != null) {

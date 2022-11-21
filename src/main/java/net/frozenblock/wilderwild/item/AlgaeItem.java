@@ -18,10 +18,12 @@ public class AlgaeItem extends BlockItem {
         super(block, settings);
     }
 
+	@Override
     public InteractionResult useOn(UseOnContext context) {
         return InteractionResult.PASS;
     }
 
+	@Override
     public InteractionResultHolder<ItemStack> use(Level level, Player user, InteractionHand hand) {
         BlockHitResult blockHitResult = getPlayerPOVHitResult(level, user, ClipContext.Fluid.SOURCE_ONLY);
         BlockHitResult blockHitResult2 = blockHitResult.withPosition(blockHitResult.getBlockPos().above());

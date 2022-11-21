@@ -50,11 +50,6 @@ public class BaobabNutBlock extends SaplingBlock {
     }
 
     @Override
-    protected boolean mayPlaceOn(@NotNull BlockState floor, @NotNull BlockGetter level, @NotNull BlockPos pos) {
-        return super.mayPlaceOn(floor, level, pos);
-    }
-
-    @Override
     @Nullable
     public BlockState getStateForPlacement(BlockPlaceContext ctx) {
         return Objects.requireNonNull(super.getStateForPlacement(ctx)).setValue(AGE, 2);

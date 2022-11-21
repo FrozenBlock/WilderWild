@@ -24,16 +24,18 @@ import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
 
 public class OsseousSculkBlock extends RotatedPillarBlock implements SculkBehaviour {
+	private static final ConstantInt EXPERIENCE = ConstantInt.of(3);
 
     public OsseousSculkBlock(Properties settings) {
         super(settings);
         this.registerDefaultState(this.stateDefinition.any().setValue(HEIGHT_LEFT, 0).setValue(AXIS, Direction.Axis.Y).setValue(UPSIDEDOWN, false).setValue(TOTAL_HEIGHT, 0));
     }
 
+	@Override
     public void spawnAfterBreak(BlockState state, ServerLevel level, BlockPos pos, ItemStack stack, boolean dropExperience) {
         super.spawnAfterBreak(state, level, pos, stack, dropExperience);
         if (dropExperience) {
-            this.tryDropExperience(level, pos, stack, ConstantInt.of(3));
+            this.tryDropExperience(level, pos, stack, EXPERIENCE);
         }
     }
 
@@ -259,10 +261,12 @@ public class OsseousSculkBlock extends RotatedPillarBlock implements SculkBehavi
         return null;
     }
 
+	@Override
     public int updateDecayDelay(int oldDecay) {
         return 1;
     }
 
+	@Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
         builder.add(HEIGHT_LEFT).add(BlockStateProperties.AXIS).add(UPSIDEDOWN).add(TOTAL_HEIGHT);
     }

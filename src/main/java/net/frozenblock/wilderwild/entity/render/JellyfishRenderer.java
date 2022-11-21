@@ -17,7 +17,6 @@ import org.jetbrains.annotations.NotNull;
 
 @Environment(EnvType.CLIENT)
 public class JellyfishRenderer extends MobRenderer<Jellyfish, JellyfishModel<Jellyfish>> {
-
     private static final String WHITE_TEXTURE = "textures/entity/jellyfish/white.png";
 
     public JellyfishRenderer(Context context) {

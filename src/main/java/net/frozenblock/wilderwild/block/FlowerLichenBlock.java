@@ -19,6 +19,7 @@ public class FlowerLichenBlock extends MultifaceBlock {
         super(settings);
     }
 
+	@Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
         for (Direction direction : DIRECTIONS) {
             if (this.isFaceSupported(direction)) {
@@ -27,6 +28,7 @@ public class FlowerLichenBlock extends MultifaceBlock {
         }
     }
 
+	@Override
     public boolean canSurvive(BlockState state, LevelReader level, BlockPos pos) {
         boolean bl = false;
         if (level.getBlockState(pos).is(Blocks.WATER)) {
@@ -35,7 +37,7 @@ public class FlowerLichenBlock extends MultifaceBlock {
         for (Direction direction : DIRECTIONS) {
             if (hasFace(state, direction)) {
                 BlockPos blockPos = pos.relative(direction);
-                if (!canAttachTo(level, direction, blockPos, level.getBlockState(blockPos))) {
+                if (!canAttachToNoWater(level, direction, blockPos, level.getBlockState(blockPos))) {
                     return false;
                 }
                 bl = true;
@@ -44,10 +46,11 @@ public class FlowerLichenBlock extends MultifaceBlock {
         return bl;
     }
 
-    public static boolean canAttachTo(BlockGetter level, Direction direction, BlockPos pos, BlockState state) {
+    public static boolean canAttachToNoWater(BlockGetter level, Direction direction, BlockPos pos, BlockState state) {
         return Block.isFaceFull(state.getBlockSupportShape(level, pos), direction.getOpposite()) || Block.isFaceFull(state.getCollisionShape(level, pos), direction.getOpposite()) && !level.getBlockState(pos).is(Blocks.WATER);
     }
 
+	@Override
     public boolean canBeReplaced(BlockState state, BlockPlaceContext context) {
         return !context.getItemInHand().is(state.getBlock().asItem()) || super.canBeReplaced(state, context);
     }
@@ -56,4 +59,5 @@ public class FlowerLichenBlock extends MultifaceBlock {
     public MultifaceSpreader getSpreader() {
         return grower;
     }
+
 }
