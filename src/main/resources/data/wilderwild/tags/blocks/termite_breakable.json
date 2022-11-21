@@ -2,6 +2,7 @@
   "replace": false,
   "values": [
 	"#minecraft:leaves",
+    "minecraft:bamboo",
 	"wilderwild:hollowed_acacia_log",
 	"wilderwild:hollowed_birch_log",
 	"wilderwild:hollowed_dark_oak_log",
@@ -11,6 +12,6 @@
 	"wilderwild:hollowed_spruce_log",
 	"wilderwild:hollowed_cypress_log",
 	"wilderwild:hollowed_baobab_log",
-	"minecraft:bamboo"
+    "#immersive_weathering:leaf_piles"
   ]
 }
