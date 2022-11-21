@@ -1,5 +1,8 @@
 package net.frozenblock.wilderwild.registry;
 
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricMaterialBuilder;
@@ -10,7 +13,7 @@ import net.fabricmc.fabric.api.registry.StrippableBlockRegistry;
 import net.frozenblock.lib.blocks.FrozenSignBlock;
 import net.frozenblock.lib.blocks.FrozenWallSignBlock;
 import net.frozenblock.lib.blocks.FrozenWoodTypes;
-import net.frozenblock.lib.replacements_and_lists.BonemealBehaviors;
+import net.frozenblock.lib.impl.BonemealBehaviors;
 import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.block.*;
 import net.frozenblock.wilderwild.block.entity.TermiteMoundBlockEntity;
@@ -40,6 +43,10 @@ import net.minecraft.world.level.material.MaterialColor;
 import java.util.List;
 
 public final class RegisterBlocks {
+	private RegisterBlocks() {
+		throw new UnsupportedOperationException("RegisterBlockEntities contains only static declarations.");
+	}
+
     private static final MaterialColor BAOBAB_PLANKS_COLOR = MaterialColor.COLOR_ORANGE;
     private static final MaterialColor BAOBAB_BARK_COLOR = MaterialColor.COLOR_BROWN;
     private static final MaterialColor CYPRESS_PLANKS_COLOR = MaterialColor.COLOR_LIGHT_GRAY;
@@ -106,9 +113,10 @@ public final class RegisterBlocks {
     public static final Block CYPRESS_FENCE_GATE = new FenceGateBlock(FabricBlockSettings.of(Material.WOOD, CYPRESS_PLANKS.defaultMaterialColor()).strength(2.0F, 3.0F).sounds(SoundType.WOOD));
     public static final Block PALM_FENCE_GATE = new FenceGateBlock(FabricBlockSettings.of(Material.WOOD, CYPRESS_PLANKS.defaultMaterialColor()).strength(2.0F, 3.0F).sounds(SoundType.WOOD));
 
-    public static final Block BAOBAB_NUT = new BaobabNutBlock(FabricBlockSettings.of(Material.PLANT).noCollision().ticksRandomly().breakInstantly().sounds(RegisterBlockSoundGroups.BAOBAB_NUT).offsetType(BlockBehaviour.OffsetType.XZ));
+    public static final Block BAOBAB_NUT = new BaobabNutBlock(FabricBlockSettings.of(Material.PLANT).ticksRandomly().breakInstantly().sounds(RegisterBlockSoundGroups.BAOBAB_NUT).offsetType(BlockBehaviour.OffsetType.XZ));
     public static final Block POTTED_BAOBAB_NUT = new FlowerPotBlock(RegisterBlocks.BAOBAB_NUT, FabricBlockSettings.of(Material.DECORATION).breakInstantly().nonOpaque());
-    public static final Block CYPRESS_SAPLING = new WaterloggableSaplingBlock(new CypressSaplingGenerator(), FabricBlockSettings.copyOf(Blocks.BIRCH_SAPLING));
+	//public static final Block PRICKLY_PEAR_CACTUS = new PricklyPearCactusBlock(FabricBlockSettings.of(Material.CACTUS).ticksRandomly().strength(0.4F).sounds(SoundType.SWEET_BERRY_BUSH).nonOpaque());
+	public static final Block CYPRESS_SAPLING = new WaterloggableSaplingBlock(new CypressSaplingGenerator(), FabricBlockSettings.copyOf(Blocks.BIRCH_SAPLING));
     public static final Block POTTED_CYPRESS_SAPLING = new FlowerPotBlock(RegisterBlocks.CYPRESS_SAPLING, FabricBlockSettings.of(Material.DECORATION).breakInstantly().nonOpaque());
     public static final Block PALM_SAPLING = new SaplingBlock(new AcaciaTreeGrower(), FabricBlockSettings.copyOf(Blocks.BIRCH_SAPLING));
     public static final Block POTTED_PALM_SAPLING = new FlowerPotBlock(RegisterBlocks.PALM_SAPLING, FabricBlockSettings.of(Material.DECORATION).breakInstantly().nonOpaque());
@@ -134,76 +142,76 @@ public final class RegisterBlocks {
     public static final Block PALM_WALL_SIGN = new FrozenWallSignBlock(FabricBlockSettings.of(Material.WOOD, PALM_LOG.defaultMaterialColor()).noCollision().strength(1.0F).sounds(SoundType.WOOD).dropsLike(PALM_SIGN_BLOCK), PALM_WOOD_TYPE, WilderWild.id("blocks/palm_sign"));
 
     public static void registerWoods() {
-    String baobab = "baobab";
-    String cypress = "cypress";
-    String palm = "palm";
+    	String baobab = "baobab";
+    	String cypress = "cypress";
+    	String palm = "palm";
 
         FrozenWoodTypes.register(BAOBAB_WOOD_TYPE);
         FrozenWoodTypes.register(CYPRESS_WOOD_TYPE);
         FrozenWoodTypes.register(PALM_WOOD_TYPE);
 
-    registerBlock(baobab + "_planks", BAOBAB_PLANKS, CreativeModeTab.TAB_BUILDING_BLOCKS);
-    registerBlock(cypress + "_planks", CYPRESS_PLANKS, CreativeModeTab.TAB_BUILDING_BLOCKS);
-    registerBlock(palm + "_planks", PALM_PLANKS, CreativeModeTab.TAB_BUILDING_BLOCKS);
+    	registerBlock(baobab + "_planks", BAOBAB_PLANKS, CreativeModeTab.TAB_BUILDING_BLOCKS);
+    	registerBlock(cypress + "_planks", CYPRESS_PLANKS, CreativeModeTab.TAB_BUILDING_BLOCKS);
+    	registerBlock(palm + "_planks", PALM_PLANKS, CreativeModeTab.TAB_BUILDING_BLOCKS);
 
-    registerBlock(baobab + "_log", BAOBAB_LOG, CreativeModeTab.TAB_BUILDING_BLOCKS);
-    registerBlock(cypress + "_log", CYPRESS_LOG, CreativeModeTab.TAB_BUILDING_BLOCKS);
-    registerBlock(palm + "_log", PALM_LOG, CreativeModeTab.TAB_BUILDING_BLOCKS);
+    	registerBlock(baobab + "_log", BAOBAB_LOG, CreativeModeTab.TAB_BUILDING_BLOCKS);
+    	registerBlock(cypress + "_log", CYPRESS_LOG, CreativeModeTab.TAB_BUILDING_BLOCKS);
+    	registerBlock(palm + "_log", PALM_LOG, CreativeModeTab.TAB_BUILDING_BLOCKS);
 
-    registerBlock("stripped_" + baobab + "_log", STRIPPED_BAOBAB_LOG, CreativeModeTab.TAB_BUILDING_BLOCKS);
-    registerBlock("stripped_" + cypress + "_log", STRIPPED_CYPRESS_LOG, CreativeModeTab.TAB_BUILDING_BLOCKS);
-    registerBlock("stripped_" + palm + "_log", STRIPPED_PALM_LOG, CreativeModeTab.TAB_BUILDING_BLOCKS);
+    	registerBlock("stripped_" + baobab + "_log", STRIPPED_BAOBAB_LOG, CreativeModeTab.TAB_BUILDING_BLOCKS);
+    	registerBlock("stripped_" + cypress + "_log", STRIPPED_CYPRESS_LOG, CreativeModeTab.TAB_BUILDING_BLOCKS);
+    	registerBlock("stripped_" + palm + "_log", STRIPPED_PALM_LOG, CreativeModeTab.TAB_BUILDING_BLOCKS);
 
-    registerBlock("stripped_" + baobab + "_wood", STRIPPED_BAOBAB_WOOD, CreativeModeTab.TAB_BUILDING_BLOCKS);
-    registerBlock("stripped_" + cypress + "_wood", STRIPPED_CYPRESS_WOOD, CreativeModeTab.TAB_BUILDING_BLOCKS);
-    registerBlock("stripped_" + palm + "_wood", STRIPPED_PALM_WOOD, CreativeModeTab.TAB_BUILDING_BLOCKS);
+    	registerBlock("stripped_" + baobab + "_wood", STRIPPED_BAOBAB_WOOD, CreativeModeTab.TAB_BUILDING_BLOCKS);
+    	registerBlock("stripped_" + cypress + "_wood", STRIPPED_CYPRESS_WOOD, CreativeModeTab.TAB_BUILDING_BLOCKS);
+    	registerBlock("stripped_" + palm + "_wood", STRIPPED_PALM_WOOD, CreativeModeTab.TAB_BUILDING_BLOCKS);
 
-    registerBlock(baobab + "_wood", BAOBAB_WOOD, CreativeModeTab.TAB_BUILDING_BLOCKS);
-    registerBlock(cypress + "_wood", CYPRESS_WOOD, CreativeModeTab.TAB_BUILDING_BLOCKS);
-    registerBlock(palm + "_wood", PALM_WOOD, CreativeModeTab.TAB_BUILDING_BLOCKS);
+    	registerBlock(baobab + "_wood", BAOBAB_WOOD, CreativeModeTab.TAB_BUILDING_BLOCKS);
+    	registerBlock(cypress + "_wood", CYPRESS_WOOD, CreativeModeTab.TAB_BUILDING_BLOCKS);
+    	registerBlock(palm + "_wood", PALM_WOOD, CreativeModeTab.TAB_BUILDING_BLOCKS);
 
-    registerBlock(baobab + "_slab", BAOBAB_SLAB, CreativeModeTab.TAB_BUILDING_BLOCKS);
-    registerBlock(cypress + "_slab", CYPRESS_SLAB, CreativeModeTab.TAB_BUILDING_BLOCKS);
-    registerBlock(palm + "_slab", PALM_SLAB, CreativeModeTab.TAB_BUILDING_BLOCKS);
+    	registerBlock(baobab + "_slab", BAOBAB_SLAB, CreativeModeTab.TAB_BUILDING_BLOCKS);
+    	registerBlock(cypress + "_slab", CYPRESS_SLAB, CreativeModeTab.TAB_BUILDING_BLOCKS);
+    	registerBlock(palm + "_slab", PALM_SLAB, CreativeModeTab.TAB_BUILDING_BLOCKS);
 
-    registerBlock(baobab + "_stairs", BAOBAB_STAIRS, CreativeModeTab.TAB_BUILDING_BLOCKS);
-    registerBlock(cypress + "_stairs", CYPRESS_STAIRS, CreativeModeTab.TAB_BUILDING_BLOCKS);
-    registerBlock(palm + "_stairs", PALM_STAIRS, CreativeModeTab.TAB_BUILDING_BLOCKS);
+    	registerBlock(baobab + "_stairs", BAOBAB_STAIRS, CreativeModeTab.TAB_BUILDING_BLOCKS);
+    	registerBlock(cypress + "_stairs", CYPRESS_STAIRS, CreativeModeTab.TAB_BUILDING_BLOCKS);
+    	registerBlock(palm + "_stairs", PALM_STAIRS, CreativeModeTab.TAB_BUILDING_BLOCKS);
 
-    registerBlock(baobab + "_button", BAOBAB_BUTTON, CreativeModeTab.TAB_REDSTONE);
-    registerBlock(cypress + "_button", CYPRESS_BUTTON, CreativeModeTab.TAB_REDSTONE);
-    registerBlock(palm + "_button", PALM_BUTTON, CreativeModeTab.TAB_REDSTONE);
+    	registerBlock(baobab + "_button", BAOBAB_BUTTON, CreativeModeTab.TAB_REDSTONE);
+    	registerBlock(cypress + "_button", CYPRESS_BUTTON, CreativeModeTab.TAB_REDSTONE);
+    	registerBlock(palm + "_button", PALM_BUTTON, CreativeModeTab.TAB_REDSTONE);
 
-    registerBlock(baobab + "_pressure_plate", BAOBAB_PRESSURE_PLATE, CreativeModeTab.TAB_REDSTONE);
-    registerBlock(cypress + "_pressure_plate", CYPRESS_PRESSURE_PLATE, CreativeModeTab.TAB_REDSTONE);
-    registerBlock(palm + "_pressure_plate", PALM_PRESSURE_PLATE, CreativeModeTab.TAB_REDSTONE);
+    	registerBlock(baobab + "_pressure_plate", BAOBAB_PRESSURE_PLATE, CreativeModeTab.TAB_REDSTONE);
+    	registerBlock(cypress + "_pressure_plate", CYPRESS_PRESSURE_PLATE, CreativeModeTab.TAB_REDSTONE);
+    	registerBlock(palm + "_pressure_plate", PALM_PRESSURE_PLATE, CreativeModeTab.TAB_REDSTONE);
 
-    registerBlock(baobab + "_door", BAOBAB_DOOR, CreativeModeTab.TAB_REDSTONE);
-    registerBlock(cypress + "_door", CYPRESS_DOOR, CreativeModeTab.TAB_REDSTONE);
-    registerBlock(palm + "_door", PALM_DOOR, CreativeModeTab.TAB_REDSTONE);
+    	registerBlock(baobab + "_door", BAOBAB_DOOR, CreativeModeTab.TAB_REDSTONE);
+    	registerBlock(cypress + "_door", CYPRESS_DOOR, CreativeModeTab.TAB_REDSTONE);
+    	registerBlock(palm + "_door", PALM_DOOR, CreativeModeTab.TAB_REDSTONE);
 
-    registerBlock(baobab + "_trapdoor", BAOBAB_TRAPDOOR, CreativeModeTab.TAB_REDSTONE);
-    registerBlock(cypress + "_trapdoor", CYPRESS_TRAPDOOR, CreativeModeTab.TAB_REDSTONE);
-    registerBlock(palm + "_trapdoor", PALM_TRAPDOOR, CreativeModeTab.TAB_REDSTONE);
+    	registerBlock(baobab + "_trapdoor", BAOBAB_TRAPDOOR, CreativeModeTab.TAB_REDSTONE);
+    	registerBlock(cypress + "_trapdoor", CYPRESS_TRAPDOOR, CreativeModeTab.TAB_REDSTONE);
+    	registerBlock(palm + "_trapdoor", PALM_TRAPDOOR, CreativeModeTab.TAB_REDSTONE);
 
-    registerBlock(baobab + "_fence_gate", BAOBAB_FENCE_GATE, CreativeModeTab.TAB_REDSTONE);
-    registerBlock(cypress + "_fence_gate", CYPRESS_FENCE_GATE, CreativeModeTab.TAB_REDSTONE);
-    registerBlock(palm + "_fence_gate", PALM_FENCE_GATE, CreativeModeTab.TAB_REDSTONE);
+    	registerBlock(baobab + "_fence_gate", BAOBAB_FENCE_GATE, CreativeModeTab.TAB_REDSTONE);
+    	registerBlock(cypress + "_fence_gate", CYPRESS_FENCE_GATE, CreativeModeTab.TAB_REDSTONE);
+    	registerBlock(palm + "_fence_gate", PALM_FENCE_GATE, CreativeModeTab.TAB_REDSTONE);
 
-    registerBlockWithoutBlockItem(baobab + "_nut", BAOBAB_NUT);
-    registerBlockWithoutBlockItem("potted_" + baobab + "_nut", POTTED_BAOBAB_NUT);
-    registerBlock(cypress + "_sapling", CYPRESS_SAPLING, CreativeModeTab.TAB_DECORATIONS);
-    registerBlockWithoutBlockItem("potted_" + cypress + "_sapling", POTTED_CYPRESS_SAPLING);
-    registerBlock(palm + "_sapling", PALM_SAPLING, CreativeModeTab.TAB_DECORATIONS);
-    registerBlockWithoutBlockItem("potted_" + palm + "_sapling", POTTED_PALM_SAPLING);
+    	registerBlockWithoutBlockItem(baobab + "_nut", BAOBAB_NUT);
+    	registerBlockWithoutBlockItem("potted_" + baobab + "_nut", POTTED_BAOBAB_NUT);
+    	registerBlock(cypress + "_sapling", CYPRESS_SAPLING, CreativeModeTab.TAB_DECORATIONS);
+    	registerBlockWithoutBlockItem("potted_" + cypress + "_sapling", POTTED_CYPRESS_SAPLING);
+    	registerBlock(palm + "_sapling", PALM_SAPLING, CreativeModeTab.TAB_DECORATIONS);
+    	registerBlockWithoutBlockItem("potted_" + palm + "_sapling", POTTED_PALM_SAPLING);
 
-    registerBlock(baobab + "_leaves", BAOBAB_LEAVES, CreativeModeTab.TAB_DECORATIONS);
-    registerBlock(cypress + "_leaves", CYPRESS_LEAVES, CreativeModeTab.TAB_DECORATIONS);
-    registerBlock(palm + "_leaves", PALM_LEAVES, CreativeModeTab.TAB_DECORATIONS);
+    	registerBlock(baobab + "_leaves", BAOBAB_LEAVES, CreativeModeTab.TAB_DECORATIONS);
+    	registerBlock(cypress + "_leaves", CYPRESS_LEAVES, CreativeModeTab.TAB_DECORATIONS);
+    	registerBlock(palm + "_leaves", PALM_LEAVES, CreativeModeTab.TAB_DECORATIONS);
 
-    registerBlock(baobab + "_fence", BAOBAB_FENCE, CreativeModeTab.TAB_DECORATIONS);
-    registerBlock(cypress + "_fence", CYPRESS_FENCE, CreativeModeTab.TAB_DECORATIONS);
-    registerBlock(palm + "_fence", PALM_FENCE, CreativeModeTab.TAB_DECORATIONS);
+    	registerBlock(baobab + "_fence", BAOBAB_FENCE, CreativeModeTab.TAB_DECORATIONS);
+    	registerBlock(cypress + "_fence", CYPRESS_FENCE, CreativeModeTab.TAB_DECORATIONS);
+    	registerBlock(palm + "_fence", PALM_FENCE, CreativeModeTab.TAB_DECORATIONS);
 
         registerBlockWithoutBlockItem(baobab + "_sign", BAOBAB_SIGN_BLOCK);
         registerBlockWithoutBlockItem(baobab + "_wall_sign", BAOBAB_WALL_SIGN);
@@ -214,6 +222,9 @@ public final class RegisterBlocks {
     }
 
     // HOLLOWED LOGS
+
+	public static final Map<Block, Block> HOLLOWED_LOGS = new LinkedHashMap<>();
+
     public static final Block HOLLOWED_OAK_LOG = createHollowedLogBlock(MaterialColor.WOOD, MaterialColor.PODZOL);
     public static final Block HOLLOWED_SPRUCE_LOG = createHollowedLogBlock(MaterialColor.PODZOL, MaterialColor.COLOR_BROWN);
     public static final Block HOLLOWED_BIRCH_LOG = createHollowedLogBlock(MaterialColor.SAND, MaterialColor.QUARTZ);
@@ -297,7 +308,7 @@ public final class RegisterBlocks {
             .build();
 
     public static final Block TERMITE_MOUND = new TermiteMound(FabricBlockSettings.of(Material.WOOD, MaterialColor.COLOR_BROWN).strength(0.3F).sounds(RegisterBlockSoundGroups.COARSEDIRT));
-    public static final Block STONE_CHEST = new StoneChestBlock(FabricBlockSettings.copyOf(Blocks.CHEST).sounds(SoundType.DEEPSLATE).strength(35.0f, 12.0f), () -> RegisterBlockEntities.STONE_CHEST);
+    public static final Block STONE_CHEST = new StoneChestBlock(FabricBlockSettings.copyOf(Blocks.CHEST).sounds(SoundType.DEEPSLATE).strength(35.0F, 12.0F), () -> RegisterBlockEntities.STONE_CHEST);
 
     // PLANTS
     public static final Block SEEDING_DANDELION = new SeedingDandelionBlock(MobEffects.SLOW_FALLING, 12, FabricBlockSettings.copyOf(Blocks.DANDELION).sounds(RegisterBlockSoundGroups.FLOWER).strength(0.0F).nonOpaque());
@@ -574,7 +585,7 @@ public final class RegisterBlocks {
     }
 
     private static void registerBonemeal() {
-        BonemealBehaviors.bonemeals.put(Blocks.LILY_PAD, (context, level, pos, state, face, horizontal) -> {
+        BonemealBehaviors.BONEMEAL_BEHAVIORS.put(Blocks.LILY_PAD, (context, level, pos, state, face, horizontal) -> {
             WilderWild.log(Blocks.LILY_PAD, pos, "Bonemeal", WilderWild.DEV_LOGGING);
             if (!level.isClientSide) {
                 level.levelEvent(LevelEvent.PARTICLES_AND_SOUND_PLANT_GROWTH, pos, 0);
@@ -583,6 +594,43 @@ public final class RegisterBlocks {
             }
             return false;
         });
+		BonemealBehaviors.BONEMEAL_BEHAVIORS.put(BROWN_SHELF_FUNGUS, (context, world, pos, state, face, horizontal) -> {
+			if (state.getValue(RegisterProperties.FUNGUS_STAGE) < 4) {
+				WilderWild.log("Shelf Fungus Bonemealed @ " + pos + " with FungusStage of " + state.getValue(RegisterProperties.FUNGUS_STAGE), WilderWild.DEV_LOGGING);
+				if (!world.isClientSide) {
+					world.levelEvent(LevelEvent.PARTICLES_AND_SOUND_PLANT_GROWTH, pos, 0);
+					world.setBlockAndUpdate(pos, state.setValue(RegisterProperties.FUNGUS_STAGE, state.getValue(RegisterProperties.FUNGUS_STAGE) + 1));
+					return true;
+				}
+			}
+			return false;
+		});
+		BonemealBehaviors.BONEMEAL_BEHAVIORS.put(RED_SHELF_FUNGUS, (context, world, pos, state, face, horizontal) -> {
+			if (state.getValue(RegisterProperties.FUNGUS_STAGE) < 4) {
+				WilderWild.log("Shelf Fungus Bonemealed @ " + pos + " with FungusStage of " + state.getValue(RegisterProperties.FUNGUS_STAGE), WilderWild.DEV_LOGGING);
+				if (!world.isClientSide) {
+					world.levelEvent(LevelEvent.PARTICLES_AND_SOUND_PLANT_GROWTH, pos, 0);
+					world.setBlockAndUpdate(pos, state.setValue(RegisterProperties.FUNGUS_STAGE, state.getValue(RegisterProperties.FUNGUS_STAGE) + 1));
+					return true;
+				}
+			}
+			return false;
+		});
+		BonemealBehaviors.BONEMEAL_BEHAVIORS.put(ALGAE, (context, world, pos, state, face, horizontal) -> {
+			WilderWild.log("Algae Bonemealed @ " + pos, WilderWild.DEV_LOGGING);
+			if (!world.isClientSide) {
+				for (Direction offset : AlgaeBlock.shuffleOffsets(world.getRandom())) {
+					BlockPos blockPos = pos.relative(offset);
+					if (world.getBlockState(blockPos).isAir() && state.getBlock().canSurvive(state, world, blockPos)) {
+						world.levelEvent(LevelEvent.PARTICLES_AND_SOUND_PLANT_GROWTH, pos, 0);
+						world.levelEvent(LevelEvent.PARTICLES_AND_SOUND_PLANT_GROWTH, blockPos, 0);
+						world.setBlockAndUpdate(blockPos, state);
+						return true;
+					}
+				}
+			}
+			return false;
+		});
     }
 
 }

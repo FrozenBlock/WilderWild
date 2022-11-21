@@ -29,94 +29,158 @@ public class WilderOverworldRegion extends Region {
 
     @Override
     public void addBiomes(Registry<Biome> registry, Consumer<Pair<Climate.ParameterPoint, ResourceKey<Biome>>> mapper) {
+		/*List<Climate.ParameterPoint> cypressWetlands = new ParameterUtils.ParameterPointListBuilder()
+				.temperature(SharedWorldgen.CypressWetlands.TEMPERATURE)
+				.humidity(SharedWorldgen.CypressWetlands.HUMIDITY)
+				.continentalness(SharedWorldgen.CypressWetlands.CONTINENTALNESS)
+				.erosion(SharedWorldgen.CypressWetlands.EROSION)
+				.depth(SharedWorldgen.CypressWetlands.DEPTH)
+				.weirdness(SharedWorldgen.CypressWetlands.WEIRDNESS.toArray(new Climate.Parameter[0]))
+				.offset(0.0F)
+				.build();
+
+		cypressWetlands.forEach(point -> {
+			this.addBiome(
+					mapper,
+					point,
+					RegisterWorldgen.CYPRESS_WETLANDS
+			);
+		});
+
+		this.addBiome(
+				mapper,
+				SharedWorldgen.JellyfishCaves.TEMPERATURE,
+				SharedWorldgen.JellyfishCaves.DEPTH,
+				SharedWorldgen.JellyfishCaves.CONTINENTALNESS,
+				SharedWorldgen.JellyfishCaves.EROSION,
+				SharedWorldgen.JellyfishCaves.WEIRDNESS,
+				SharedWorldgen.JellyfishCaves.DEPTH,
+				0F,
+				RegisterWorldgen.JELLYFISH_CAVES
+		);
+
+		List<Climate.ParameterPoint> lowMixedForest = new ParameterUtils.ParameterPointListBuilder()
+				.temperature(SharedWorldgen.MixedForest.TEMPERATURE)
+				.humidity(SharedWorldgen.MixedForest.HUMIDITY)
+				.continentalness(SharedWorldgen.MixedForest.CONTINENTALNESS)
+				.erosion(SharedWorldgen.MixedForest.LOW_EROSION)
+				.weirdness(SharedWorldgen.MixedForest.LOW_WEIRDNESS.toArray(new Climate.Parameter[0]))
+				.depth(SharedWorldgen.MixedForest.DEPTH)
+				.offset(0.0F)
+				.build();
+
+		List<Climate.ParameterPoint> midMixedForest = new ParameterUtils.ParameterPointListBuilder()
+				.temperature(SharedWorldgen.MixedForest.TEMPERATURE)
+				.humidity(SharedWorldgen.MixedForest.HUMIDITY)
+				.continentalness(SharedWorldgen.MixedForest.CONTINENTALNESS)
+				.erosion(SharedWorldgen.MixedForest.MID_EROSION)
+				.weirdness(SharedWorldgen.MixedForest.MID_WEIRDNESS.toArray(new Climate.Parameter[0]))
+				.depth(SharedWorldgen.MixedForest.DEPTH)
+				.offset(0.0F)
+				.build();
+
+		lowMixedForest.forEach(point -> {
+			this.addBiome(
+					mapper,
+					point,
+					RegisterWorldgen.MIXED_FOREST
+			);
+		});
+		midMixedForest.forEach(point -> {
+			this.addBiome(
+					mapper,
+					point,
+					RegisterWorldgen.MIXED_FOREST
+			);
+		});*/
         this.addModifiedVanillaOverworldBiomes(mapper, builder -> {
 
-            // This will not grant the exact parameters as defined in SharedWorldgen. Instead, it will replace a part of old growth birch forests with mixed forests.
-            builder.replaceBiome(Biomes.OLD_GROWTH_BIRCH_FOREST, RegisterWorldgen.MIXED_FOREST);
+			// This will not grant the exact parameters as defined in SharedWorldgen. Instead, it will replace a part of old growth birch forests with mixed forests.
+			builder.replaceBiome(Biomes.OLD_GROWTH_BIRCH_FOREST, RegisterWorldgen.MIXED_FOREST);
 
 
-            // DON'T CHANGE THESE PARAMETERS. THESE ARE THE PARAMETERS OF SWAMPS
-            List<Climate.ParameterPoint> swampPointsCypress = new ParameterUtils.ParameterPointListBuilder()
-                    .temperature(Climate.Parameter.span(Temperature.COOL, Temperature.NEUTRAL))
-                    .humidity(Humidity.FULL_RANGE)
-                    .continentalness(Climate.Parameter.span(Continentalness.NEAR_INLAND, Continentalness.FAR_INLAND))
-                    .erosion(Erosion.EROSION_6)
-                    .depth(Depth.SURFACE, Depth.FLOOR)
-                    .weirdness(Weirdness.VALLEY, Weirdness.LOW_SLICE_NORMAL_DESCENDING, Weirdness.LOW_SLICE_VARIANT_ASCENDING, Weirdness.MID_SLICE_NORMAL_ASCENDING, Weirdness.MID_SLICE_NORMAL_DESCENDING, Weirdness.MID_SLICE_VARIANT_ASCENDING, Weirdness.MID_SLICE_VARIANT_DESCENDING)
-                    .offset(0.0F)
-                    .build();
+			// DON'T CHANGE THESE PARAMETERS. THESE ARE THE PARAMETERS OF SWAMPS
+			List<Climate.ParameterPoint> swampPointsCypress = new ParameterUtils.ParameterPointListBuilder()
+					.temperature(Climate.Parameter.span(Temperature.COOL, Temperature.NEUTRAL))
+					.humidity(Humidity.FULL_RANGE)
+					.continentalness(Climate.Parameter.span(Continentalness.NEAR_INLAND, Continentalness.FAR_INLAND))
+					.erosion(Erosion.EROSION_6)
+					.depth(Depth.SURFACE, Depth.FLOOR)
+					.weirdness(Weirdness.VALLEY, Weirdness.LOW_SLICE_NORMAL_DESCENDING, Weirdness.LOW_SLICE_VARIANT_ASCENDING, Weirdness.MID_SLICE_NORMAL_ASCENDING, Weirdness.MID_SLICE_NORMAL_DESCENDING, Weirdness.MID_SLICE_VARIANT_ASCENDING, Weirdness.MID_SLICE_VARIANT_DESCENDING)
+					.offset(0.0F)
+					.build();
 
-            swampPointsCypress.forEach(point -> {
-                // CHANGE BIOME PARAMETERS HERE
-                builder.replaceParameter(point,
-                        Climate.parameters(
-                                SharedWorldgen.CypressWetlands.TEMPERATURE,
-                                SharedWorldgen.CypressWetlands.HUMIDITY,
-                                SharedWorldgen.CypressWetlands.CONTINENTALNESS,
-                                SharedWorldgen.CypressWetlands.EROSION,
-                                point.depth(),
-                                point.weirdness(),
-                                SharedWorldgen.CypressWetlands.OFFSET
-                        )
-                );
+			swampPointsCypress.forEach(point -> {
+				// CHANGE BIOME PARAMETERS HERE
+				builder.replaceParameter(point,
+						Climate.parameters(
+								SharedWorldgen.CypressWetlands.TEMPERATURE,
+								SharedWorldgen.CypressWetlands.HUMIDITY,
+								SharedWorldgen.CypressWetlands.CONTINENTALNESS,
+								SharedWorldgen.CypressWetlands.EROSION,
+								point.depth(),
+								point.weirdness(),
+								SharedWorldgen.CypressWetlands.OFFSET
+						)
+				);
 
-                builder.replaceBiome(point, RegisterWorldgen.CYPRESS_WETLANDS);
-            });
+				builder.replaceBiome(point, RegisterWorldgen.CYPRESS_WETLANDS);
+			});
 
-            // DON'T CHANGE THESE PARAMETERS. THESE ARE THE PARAMETERS OF MANGROVE SWAMPS
-            List<Climate.ParameterPoint> mangroveSwampPointsCypress = new ParameterUtils.ParameterPointListBuilder()
-                    .temperature(Climate.Parameter.span(Temperature.WARM, Temperature.HOT))
-                    .humidity(Humidity.FULL_RANGE)
-                    .continentalness(Climate.Parameter.span(Continentalness.NEAR_INLAND, Continentalness.FAR_INLAND))
-                    .erosion(Erosion.EROSION_6)
-                    .depth(Depth.SURFACE, Depth.FLOOR)
-                    .weirdness(Weirdness.VALLEY, Weirdness.LOW_SLICE_NORMAL_DESCENDING, Weirdness.LOW_SLICE_VARIANT_ASCENDING, Weirdness.MID_SLICE_NORMAL_ASCENDING, Weirdness.MID_SLICE_NORMAL_DESCENDING, Weirdness.MID_SLICE_VARIANT_ASCENDING, Weirdness.MID_SLICE_VARIANT_DESCENDING)
-                    .offset(0.0F)
-                    .build();
+			// DON'T CHANGE THESE PARAMETERS. THESE ARE THE PARAMETERS OF MANGROVE SWAMPS
+			List<Climate.ParameterPoint> mangroveSwampPointsCypress = new ParameterUtils.ParameterPointListBuilder()
+					.temperature(Climate.Parameter.span(Temperature.WARM, Temperature.HOT))
+					.humidity(Humidity.FULL_RANGE)
+					.continentalness(Climate.Parameter.span(Continentalness.NEAR_INLAND, Continentalness.FAR_INLAND))
+					.erosion(Erosion.EROSION_6)
+					.depth(Depth.SURFACE, Depth.FLOOR)
+					.weirdness(Weirdness.VALLEY, Weirdness.LOW_SLICE_NORMAL_DESCENDING, Weirdness.LOW_SLICE_VARIANT_ASCENDING, Weirdness.MID_SLICE_NORMAL_ASCENDING, Weirdness.MID_SLICE_NORMAL_DESCENDING, Weirdness.MID_SLICE_VARIANT_ASCENDING, Weirdness.MID_SLICE_VARIANT_DESCENDING)
+					.offset(0.0F)
+					.build();
 
-            mangroveSwampPointsCypress.forEach(point -> {
-                // REPLACE BIOME PARAMETERS HERE
-                builder.replaceParameter(point,
-                        Climate.parameters(
-                                SharedWorldgen.CypressWetlands.TEMPERATURE,
-                                SharedWorldgen.CypressWetlands.HUMIDITY,
-                                SharedWorldgen.CypressWetlands.CONTINENTALNESS,
-                                SharedWorldgen.CypressWetlands.EROSION,
-                                point.depth(),
-                                point.weirdness(),
-                                SharedWorldgen.CypressWetlands.OFFSET
-                        )
-                );
+			mangroveSwampPointsCypress.forEach(point -> {
+				// REPLACE BIOME PARAMETERS HERE
+				builder.replaceParameter(point,
+						Climate.parameters(
+								SharedWorldgen.CypressWetlands.TEMPERATURE,
+								SharedWorldgen.CypressWetlands.HUMIDITY,
+								SharedWorldgen.CypressWetlands.CONTINENTALNESS,
+								SharedWorldgen.CypressWetlands.EROSION,
+								point.depth(),
+								point.weirdness(),
+								SharedWorldgen.CypressWetlands.OFFSET
+						)
+				);
 
-                builder.replaceBiome(point, RegisterWorldgen.CYPRESS_WETLANDS);
-            });
+				builder.replaceBiome(point, RegisterWorldgen.CYPRESS_WETLANDS);
+			});
 
-            // DON'T CHANGE THESE PARAMETERS. THESE ARE THE PARAMETERS OF DRIPSTONE CAVES
-            List<Climate.ParameterPoint> dripstoneCavesPoints = new ParameterUtils.ParameterPointListBuilder()
-                    .temperature(Temperature.FULL_RANGE)
-                    .humidity(Humidity.FULL_RANGE)
-                    .continentalness(Climate.Parameter.span(0.8F, 1.0F))
-                    .erosion(Erosion.FULL_RANGE)
-                    .depth(Climate.Parameter.span(0.2F, 0.9F))
-                    .weirdness(Weirdness.FULL_RANGE)
-                    .offset(0.0F)
-                    .build();
+			// DON'T CHANGE THESE PARAMETERS. THESE ARE THE PARAMETERS OF DRIPSTONE CAVES
+			List<Climate.ParameterPoint> dripstoneCavesPoints = new ParameterUtils.ParameterPointListBuilder()
+					.temperature(Temperature.FULL_RANGE)
+					.humidity(Humidity.FULL_RANGE)
+					.continentalness(Climate.Parameter.span(0.8F, 1.0F))
+					.erosion(Erosion.FULL_RANGE)
+					.depth(Climate.Parameter.span(0.2F, 0.9F))
+					.weirdness(Weirdness.FULL_RANGE)
+					.offset(0.0F)
+					.build();
 
-            dripstoneCavesPoints.forEach(point -> {
-                // REPLACE BIOME PARAMETERS HERE
-                builder.replaceParameter(point,
-                        SharedWorldgen.semiDeepParameters(
-                                SharedWorldgen.JellyfishCaves.TEMPERATURE,
-                                SharedWorldgen.JellyfishCaves.HUMIDITY,
-                                SharedWorldgen.JellyfishCaves.CONTINENTALNESS,
-                                SharedWorldgen.JellyfishCaves.EROSION,
-                                SharedWorldgen.JellyfishCaves.WEIRDNESS,
-                                SharedWorldgen.JellyfishCaves.OFFSET
-                        )
-                );
+			dripstoneCavesPoints.forEach(point -> {
+				// REPLACE BIOME PARAMETERS HERE
+				builder.replaceParameter(point,
+						SharedWorldgen.semiDeepParameters(
+								SharedWorldgen.JellyfishCaves.TEMPERATURE,
+								SharedWorldgen.JellyfishCaves.HUMIDITY,
+								SharedWorldgen.JellyfishCaves.CONTINENTALNESS,
+								SharedWorldgen.JellyfishCaves.EROSION,
+								SharedWorldgen.JellyfishCaves.WEIRDNESS,
+								SharedWorldgen.JellyfishCaves.OFFSET
+						)
+				);
 
-                builder.replaceBiome(point, RegisterWorldgen.JELLYFISH_CAVES);
-            });
+				builder.replaceBiome(point, RegisterWorldgen.JELLYFISH_CAVES);
+			});
 
             if (ClothConfigInteractionHandler.modifyMangroveSwampPlacement()) {
                 // DON'T CHANGE THESE PARAMETERS. THESE ARE THE PARAMETERS OF MANGROVE SWAMPS

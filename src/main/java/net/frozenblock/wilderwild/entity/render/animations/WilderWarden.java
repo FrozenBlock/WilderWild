@@ -12,6 +12,4 @@ public interface WilderWarden {
 
     boolean isOsmiooo();
 
-    void setOsmiooo(boolean value);
-
 }

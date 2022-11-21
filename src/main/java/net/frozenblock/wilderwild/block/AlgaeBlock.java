@@ -2,7 +2,6 @@ package net.frozenblock.wilderwild.block;
 
 import java.util.ArrayList;
 import java.util.List;
-import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.tag.WilderEntityTags;
 import net.minecraft.Util;
 import net.minecraft.core.BlockPos;
@@ -17,8 +16,6 @@ import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.BonemealableBlock;
-import net.minecraft.world.level.block.LevelEvent;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.FluidState;
@@ -27,7 +24,7 @@ import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.NotNull;
 
-public class AlgaeBlock extends Block implements BonemealableBlock {
+public class AlgaeBlock extends Block {
     protected static final VoxelShape SHAPE = Block.box(0.0, 0.0, 0.0, 16, 1.0, 16);
 
     public AlgaeBlock(BlockBehaviour.Properties settings) {
@@ -76,45 +73,14 @@ public class AlgaeBlock extends Block implements BonemealableBlock {
         return fluidState.getType() == Fluids.WATER && fluidState2.getType() == Fluids.EMPTY;
     }
 
-    @Override
-    public boolean isValidBonemealTarget(@NotNull BlockGetter level, @NotNull BlockPos pos, @NotNull BlockState state, boolean isClient) {
-        if (!isClient) {
-            for (Direction offset : shuffleOffsets(((LevelAccessor) level).getRandom())) {
-                BlockPos blockPos = pos.relative(offset);
-                if (level.getBlockState(blockPos).isAir() && state.getBlock().canSurvive(state, (LevelReader) level, blockPos)) {
-                    return true;
-                }
-            }
-        }
-        return false;
-    }
-
-    @Override
-    public boolean isBonemealSuccess(@NotNull Level level, @NotNull RandomSource random, @NotNull BlockPos pos, @NotNull BlockState state) {
-        return true;
-    }
-
-    @Override
-    public void performBonemeal(@NotNull ServerLevel level, @NotNull RandomSource random, @NotNull BlockPos pos, @NotNull BlockState state) {
-        WilderWild.log("Algae Bonemealed @ " + pos, WilderWild.DEV_LOGGING);
-        for (Direction offset : shuffleOffsets(level.getRandom())) {
-            BlockPos blockPos = pos.relative(offset);
-            BlockPos below = blockPos.below();
-            if (level.getBlockState(below).getFluidState().isSourceOfType(Fluids.WATER)) {
-                level.levelEvent(LevelEvent.PARTICLES_AND_SOUND_PLANT_GROWTH, blockPos, 0);
-                level.setBlockAndUpdate(blockPos, state);
-            }
-        }
-    }
-
-    private static final List<Direction> offsets = new ArrayList<>() {{
+    private static final List<Direction> algaeOffset = new ArrayList<>() {{
         add(Direction.EAST);
         add(Direction.NORTH);
         add(Direction.SOUTH);
         add(Direction.WEST);
     }};
 
-    private static List<Direction> shuffleOffsets(RandomSource random) {
-        return Util.toShuffledList(offsets.stream(), random);
+	public static List<Direction> shuffleOffsets(RandomSource random) {
+        return Util.toShuffledList(algaeOffset.stream(), random);
     }
 }

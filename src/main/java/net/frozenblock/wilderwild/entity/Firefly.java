@@ -2,10 +2,9 @@ package net.frozenblock.wilderwild.entity;
 
 import com.google.common.collect.ImmutableList;
 import com.mojang.serialization.Dynamic;
-import net.frozenblock.lib.sound.FrozenSoundPackets;
+import net.frozenblock.lib.sound.api.FrozenSoundPackets;
 import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.entity.ai.FireflyAi;
-import net.frozenblock.wilderwild.entity.ai.FireflyHidingGoal;
 import net.frozenblock.wilderwild.misc.FireflyColor;
 import net.frozenblock.wilderwild.misc.server.EasyPacket;
 import net.frozenblock.wilderwild.registry.RegisterItems;
@@ -185,8 +184,9 @@ public class Firefly extends PathfinderMob implements FlyingAnimal {
         return Brain.provider(MEMORY_MODULES, SENSORS);
     }
 
+	@Override
     protected Brain<?> makeBrain(@NotNull Dynamic<?> dynamic) {
-        return FireflyAi.create(this.brainProvider().makeBrain(dynamic));
+        return FireflyAi.makeBrain(this, this.brainProvider().makeBrain(dynamic));
     }
 
     public boolean isFromBottle() {
@@ -259,16 +259,15 @@ public class Firefly extends PathfinderMob implements FlyingAnimal {
     }
 
     public boolean shouldHide() {
-        if (!this.natural || this.level.getBiome(this.blockPosition()).is(WilderBiomeTags.FIREFLY_SPAWNABLE_DURING_DAY)) {
-            return false;
-        }
-
-        return this.getLevel().isDay() && this.getLevel().getBrightness(LightLayer.SKY, this.blockPosition()) >= 6;
+		return this.natural
+				&& !this.level.getBiome(this.blockPosition()).is(WilderBiomeTags.FIREFLY_SPAWNABLE_DURING_DAY)
+				&& this.getLevel().isDay()
+				&& this.getLevel().getBrightness(LightLayer.SKY, this.blockPosition()) >= 6;
     }
 
     @Override
     protected void registerGoals() {
-        this.goalSelector.addGoal(1, new FireflyHidingGoal(this, 2.0D, 40, 32));
+        //this.goalSelector.addGoal(1, new FireflyHidingGoal(this, 2.0D, 40, 32));
     }
 
     public static AttributeSupplier.Builder addAttributes() {
@@ -285,7 +284,7 @@ public class Firefly extends PathfinderMob implements FlyingAnimal {
     }
 
     @Override
-    public void travel(Vec3 travelVector) {
+    public void travel(@NotNull Vec3 travelVector) {
         if (this.isEffectiveAi() || this.isControlledByLocalInstance()) {
             if (this.isInWater()) {
                 this.moveRelative(0.01F, travelVector);
@@ -342,10 +341,7 @@ public class Firefly extends PathfinderMob implements FlyingAnimal {
             this.shouldCheckSpawn = false;
         }
 
-        boolean nectar = false;
-        if (this.hasCustomName()) {
-            nectar = this.getCustomName().getString().toLowerCase().contains("nectar");
-        }
+        boolean nectar = this.hasCustomName() && Objects.requireNonNull(this.getCustomName()).getString().toLowerCase().contains("nectar");
         if (level instanceof ServerLevel server) {
             if (nectar != wasNamedNectar) {
                 if (nectar) {

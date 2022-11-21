@@ -34,7 +34,7 @@ public abstract class AllayModelMixin extends HierarchicalModel<Allay> implement
 	@Unique
     private static final float WILDERWILD$PI180 = Mth.PI / 180;
 
-    @Inject(method = "setupAnim(Lnet/minecraft/world/entity/animal/allay/Allay;FFFFF)V", at = @At(value = "INVOKE", target = "Lnet/minecraft/util/Mth;lerp(FFF)F"), cancellable = true)
+    @Inject(method = "setupAnim(Lnet/minecraft/world/entity/animal/allay/Allay;FFFFF)V", at = @At(value = "INVOKE", target = "Lnet/minecraft/util/Mth;lerp(FFF)F"))
     private void setupAnim(Allay allay, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, CallbackInfo ci) {
 		if (ClothConfigInteractionHandler.keyframeAllayDance()) {
 			this.root.yRot = 0.0F;

@@ -5,6 +5,9 @@ import net.minecraft.core.Registry;
 import net.minecraft.world.level.gameevent.GameEvent;
 
 public final class RegisterGameEvents {
+	private RegisterGameEvents() {
+		throw new UnsupportedOperationException("RegisterGameEvents contains only static declarations.");
+	}
 
     public static final GameEvent SCULK_SENSOR_ACTIVATE = new GameEvent("sculk_sensor_activate", 16);
     public static final GameEvent TENDRIL_EXTRACT_XP = new GameEvent("hanging_tendril_extract_xp", 16);

@@ -40,6 +40,9 @@ accessible    field    net/minecraft/world/entity/LivingEntity    dead    Z
 accessible    method    net/minecraft/world/entity/Entity    updateInWaterStateAndDoWaterCurrentPushing    ()V
 accessible    field    net/minecraft/world/entity/ai/behavior/SetEntityLookTarget    nearestEntityMatchingTest    Ljava/util/Optional;
 
+# Entity Behaviors
+accessible    field    net/minecraft/world/entity/ai/Brain    availableBehaviorsByPriority    Ljava/util/Map;
+
 # Entity Spawns
 accessible    class    net/minecraft/world/entity/SpawnPlacements$Data
 

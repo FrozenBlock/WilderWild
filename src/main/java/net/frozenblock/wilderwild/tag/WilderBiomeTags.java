@@ -6,6 +6,10 @@ import net.minecraft.tags.TagKey;
 import net.minecraft.world.level.biome.Biome;
 
 public final class WilderBiomeTags {
+	private WilderBiomeTags() {
+		throw new UnsupportedOperationException("WilderBiomeTags contains only static declarations.");
+	}
+
     public static final TagKey<Biome> FIREFLY_SPAWNABLE_DURING_DAY = bind("firefly_spawnable_during_day");
     public static final TagKey<Biome> FIREFLY_SPAWNABLE_CAVE = bind("firefly_spawnable_cave");
     public static final TagKey<Biome> FIREFLY_SPAWNABLE = bind("firefly_spawnable");
@@ -27,9 +31,7 @@ public final class WilderBiomeTags {
     public static final TagKey<Biome> BIRCH_FOREST = bind("birch_forest");
     public static final TagKey<Biome> DARK_FOREST = bind("dark_forest");
     public static final TagKey<Biome> MEADOW = bind("meadow");
-
-    private WilderBiomeTags() {
-    }
+	public static final TagKey<Biome> FOREST_GRASS = bind("forest_grass");
 
     private static TagKey<Biome> bind(String path) {
         return TagKey.create(Registry.BIOME_REGISTRY, WilderWild.id(path));

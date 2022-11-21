@@ -1,6 +1,7 @@
 package net.frozenblock.wilderwild.misc.mod_compat.simple_copper_pipes;
 
-import net.frozenblock.lib.sound.FrozenSoundPackets;
+import net.frozenblock.lib.FrozenMain;
+import net.frozenblock.lib.sound.api.FrozenSoundPackets;
 import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.entity.AncientHornProjectile;
 import net.frozenblock.wilderwild.misc.server.EasyPacket;
@@ -40,7 +41,7 @@ public class WilderCopperPipesEntrypoint implements CopperPipeEntrypoint {
                         projectileEntity.setOwner(nbt.foundEntity);
                         projectileEntity.setShotByPlayer(true);
                         level.addFreshEntity(projectileEntity);
-                        FrozenSoundPackets.createMovingRestrictionLoopingSound(level, projectileEntity, RegisterSounds.ENTITY_ANCIENT_HORN_PROJECTILE_LOOP, SoundSource.NEUTRAL, 1.0F, 1.0F, WilderWild.id("default"));
+                        FrozenSoundPackets.createMovingRestrictionLoopingSound(level, projectileEntity, RegisterSounds.ENTITY_ANCIENT_HORN_PROJECTILE_LOOP, SoundSource.NEUTRAL, 1.0F, 1.0F, FrozenMain.id("default"));
                     }
                 }
             }

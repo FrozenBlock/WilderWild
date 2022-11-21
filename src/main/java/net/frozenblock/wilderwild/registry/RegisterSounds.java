@@ -6,6 +6,9 @@ import net.minecraft.core.Registry;
 import net.minecraft.sounds.SoundEvent;
 
 public final class RegisterSounds {
+	private RegisterSounds() {
+		throw new UnsupportedOperationException("RegisterSounds contains only static declarations.");
+	}
 
     //AMBIENT
 
@@ -165,6 +168,7 @@ public final class RegisterSounds {
     public static final SoundEvent ENTITY_ANCIENT_HORN_PROJECTILE_FLYBY = register("entity.ancient_horn_projectile.flyby");
     public static final SoundEvent ENTITY_ANCIENT_HORN_PROJECTILE_DISSIPATE = register("entity.ancient_horn_projectile.dissipate");
 
+	public static final SoundEvent ENTITY_FIREFLY_HIDE = register("entity.firefly.hide");
     public static final SoundEvent ENTITY_FIREFLY_HURT = register("entity.firefly.hurt");
     public static final SoundEvent ENTITY_FIREFLY_NECTAR = register("entity.firefly.nectar");
 
@@ -202,25 +206,25 @@ public final class RegisterSounds {
     public static final SoundEvent ITEM_BUCKET_FILL_JELLYFISH = register("item.bucket.fill_jellyfish");
     public static final SoundEvent ITEM_BUCKET_EMPTY_JELLYFISH = register("item.bucket.empty_jellyfish");
 
-    public static final SoundEvent ITEM_COPPER_HORN_SAX_START = registerStarting("item.copper_horn.sax.start");
+    public static final SoundEvent ITEM_COPPER_HORN_SAX_START = register("item.copper_horn.sax.start");
     public static final SoundEvent ITEM_COPPER_HORN_SAX_LOOP = register("item.copper_horn.sax.loop");
 
-    public static final SoundEvent ITEM_COPPER_HORN_TUBA_START = registerStarting("item.copper_horn.tuba.start");
+    public static final SoundEvent ITEM_COPPER_HORN_TUBA_START = register("item.copper_horn.tuba.start");
     public static final SoundEvent ITEM_COPPER_HORN_TUBA_LOOP = register("item.copper_horn.tuba.loop");
 
-    public static final SoundEvent ITEM_COPPER_HORN_FLUTE_START = registerStarting("item.copper_horn.flute.start");
+    public static final SoundEvent ITEM_COPPER_HORN_FLUTE_START = register("item.copper_horn.flute.start");
     public static final SoundEvent ITEM_COPPER_HORN_FLUTE_LOOP = register("item.copper_horn.flute.loop");
 
-    public static final SoundEvent ITEM_COPPER_HORN_OBOE_START = registerStarting("item.copper_horn.oboe.start");
+    public static final SoundEvent ITEM_COPPER_HORN_OBOE_START = register("item.copper_horn.oboe.start");
     public static final SoundEvent ITEM_COPPER_HORN_OBOE_LOOP = register("item.copper_horn.oboe.loop");
 
-    public static final SoundEvent ITEM_COPPER_HORN_CLARINET_START = registerStarting("item.copper_horn.clarinet.start");
+    public static final SoundEvent ITEM_COPPER_HORN_CLARINET_START = register("item.copper_horn.clarinet.start");
     public static final SoundEvent ITEM_COPPER_HORN_CLARINET_LOOP = register("item.copper_horn.clarinet.loop");
 
-    public static final SoundEvent ITEM_COPPER_HORN_TRUMPET_START = registerStarting("item.copper_horn.trumpet.start");
+    public static final SoundEvent ITEM_COPPER_HORN_TRUMPET_START = register("item.copper_horn.trumpet.start");
     public static final SoundEvent ITEM_COPPER_HORN_TRUMPET_LOOP = register("item.copper_horn.trumpet.loop");
 
-    public static final SoundEvent ITEM_COPPER_HORN_TROMBONE_START = registerStarting("item.copper_horn.trombone.start");
+    public static final SoundEvent ITEM_COPPER_HORN_TROMBONE_START = register("item.copper_horn.trombone.start");
     public static final SoundEvent ITEM_COPPER_HORN_TROMBONE_LOOP = register("item.copper_horn.trombone.loop");
 
     //MISC
@@ -241,12 +245,6 @@ public final class RegisterSounds {
 
     public static SoundEvent register(String path) {
         return Registry.register(Registry.SOUND_EVENT, WilderWild.id(path), new SoundEvent(WilderWild.id(path)));
-    }
-
-    public static SoundEvent registerStarting(String path) {
-        var sound = register(path);
-        Registry.register(FrozenRegistry.STARTING_SOUND, WilderWild.id(path), sound);
-        return sound;
     }
 
     public static void init() {

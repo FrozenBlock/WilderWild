@@ -7,6 +7,10 @@ import net.minecraft.tags.TagKey;
 import net.minecraft.world.level.block.Block;
 
 public final class WilderBlockTags {
+	private WilderBlockTags() {
+		throw new UnsupportedOperationException("WilderBlockTags contains only static declarations.");
+	}
+
     public static final TagKey<Block> ANCIENT_CITY_BLOCKS = bind("ancient_city_blocks");
     public static final TagKey<Block> SCULK_SLAB_REPLACEABLE_WORLDGEN = bind("sculk_slab_replaceable_worldgen");
     public static final TagKey<Block> SCULK_STAIR_REPLACEABLE_WORLDGEN = bind("sculk_stair_replaceable_worldgen");
@@ -25,9 +29,6 @@ public final class WilderBlockTags {
 
     public static final TagKey<Block> GLASS_BLOCKS = TagKey.create(Registry.BLOCK_REGISTRY, new ResourceLocation("c", "glass_blocks"));
     public static final TagKey<Block> GLASS_PANES = TagKey.create(Registry.BLOCK_REGISTRY, new ResourceLocation("c", "glass_panes"));
-
-    private WilderBlockTags() {
-    }
 
     private static TagKey<Block> bind(String path) {
         return TagKey.create(Registry.BLOCK_REGISTRY, WilderWild.id(path));

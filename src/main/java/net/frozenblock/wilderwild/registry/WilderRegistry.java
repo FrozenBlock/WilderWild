@@ -12,7 +12,10 @@ import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.biome.Biomes;
 
-public class WilderRegistry {
+public final class WilderRegistry {
+	private WilderRegistry() {
+		throw new UnsupportedOperationException("WilderRegistry contains only static declarations.");
+	}
 
     public static final MappedRegistry<FireflyColor> FIREFLY_COLOR = FabricRegistryBuilder.createSimple(FireflyColor.class, WilderWild.id("firefly_color"))
             .attribute(RegistryAttribute.SYNCED)

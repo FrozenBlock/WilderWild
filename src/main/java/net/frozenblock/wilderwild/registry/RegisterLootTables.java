@@ -17,6 +17,9 @@ import net.minecraft.world.level.storage.loot.predicates.LootItemEntityPropertyC
 import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
 
 public final class RegisterLootTables {
+	private RegisterLootTables() {
+		throw new UnsupportedOperationException("RegisterLootTables only supports static declarations.");
+	}
 
     public static void init() {
         WilderWild.logWild("Registering Loot Table Modifications for", WilderWild.UNSTABLE_LOGGING);

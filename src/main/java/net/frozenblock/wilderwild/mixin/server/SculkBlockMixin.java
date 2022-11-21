@@ -1,7 +1,7 @@
 package net.frozenblock.wilderwild.mixin.server;
 
 import java.util.Iterator;
-import net.frozenblock.lib.mathematics.EasyNoiseSampler;
+import net.frozenblock.lib.math.EasyNoiseSampler;
 import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.block.OsseousSculkBlock;
 import net.frozenblock.wilderwild.registry.RegisterBlocks;
@@ -28,7 +28,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 
 @Mixin(value = SculkBlock.class, priority = 69420)
-public final class SculkBlockMixin {
+public abstract class SculkBlockMixin {
 
     @Shadow
     private static boolean canPlaceGrowth(LevelAccessor level, BlockPos pos) {

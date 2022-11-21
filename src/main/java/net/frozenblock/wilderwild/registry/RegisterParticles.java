@@ -10,6 +10,10 @@ import net.minecraft.core.particles.ParticleType;
 import net.minecraft.core.particles.SimpleParticleType;
 
 public final class RegisterParticles {
+	private RegisterParticles() {
+		throw new UnsupportedOperationException("RegisterParticles contains only static declarations.");
+	}
+
     public static final SimpleParticleType POLLEN = FabricParticleTypes.simple();
     public static final SimpleParticleType DANDELION_SEED = FabricParticleTypes.simple();
     public static final SimpleParticleType CONTROLLED_DANDELION_SEED = FabricParticleTypes.simple();

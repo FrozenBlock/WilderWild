@@ -18,7 +18,7 @@ public class WardenMoveControl extends MoveControl {
     private final float yawChange;
     private final float speedInWater;
     private final float speedInAir;
-    private final boolean buoyant;
+    private boolean buoyant;
 
     public WardenMoveControl(@NotNull Warden warden, float pitchChange, float yawChange, float speedInWater, float speedInAir, boolean buoyant) {
         super(warden);
@@ -32,24 +32,24 @@ public class WardenMoveControl extends MoveControl {
 
     @Override
     public void tick() {
-        if (this.isEntityTouchingWaterOrLava(this.entity)) {
+        if (this.touchingWaterOrLava(this.entity)) {
             if (this.buoyant) {
                 if (this.entity.getBrain().hasMemoryValue(MemoryModuleType.ROAR_TARGET) || this.entity.getBrain().hasMemoryValue(MemoryModuleType.ATTACK_TARGET)) {
                     Optional<LivingEntity> ATTACK_TARGET = this.entity.getBrain().getMemory(MemoryModuleType.ATTACK_TARGET);
                     Optional<LivingEntity> ROAR_TARGET = this.entity.getBrain().getMemory(MemoryModuleType.ROAR_TARGET);
                     if (ATTACK_TARGET.isPresent()) {
                         LivingEntity target = ATTACK_TARGET.get();
-                        if ((!this.isEntityTouchingWaterOrLava(target) || !this.isEntitySubmergedInWaterOrLava(this.entity)) && target.getY() > this.entity.getY()) {
+                        if ((!this.touchingWaterOrLava(target) || !this.submergedInWaterOrLava(this.entity)) && target.getY() > this.entity.getY()) {
                             this.entity.setDeltaMovement(this.entity.getDeltaMovement().add(0.0D, 0.01D, 0.0D));
                         }
                     } else if (ROAR_TARGET.isPresent()) {
                         LivingEntity target = ROAR_TARGET.get();
-                        if ((!this.isEntityTouchingWaterOrLava(target) || !this.isEntitySubmergedInWaterOrLava(this.entity)) && target.getY() > this.entity.getY()) {
+                        if ((!this.touchingWaterOrLava(target) || !this.submergedInWaterOrLava(this.entity)) && target.getY() > this.entity.getY()) {
                             this.entity.setDeltaMovement(this.entity.getDeltaMovement().add(0.0D, 0.01D, 0.0D));
                         }
                     }
                 } else {
-                    if (!this.isEntitySubmergedInWaterOrLava(this.entity)) {
+                    if (!this.submergedInWaterOrLava(this.entity)) {
                         this.entity.setDeltaMovement(this.entity.getDeltaMovement().add(0.0D, 0.006D, 0.0D));
                     } else {
                         this.entity.setDeltaMovement(this.entity.getDeltaMovement().add(0.0D, 0.006D, 0.0D));
@@ -70,7 +70,7 @@ public class WardenMoveControl extends MoveControl {
                     this.entity.yBodyRot = this.entity.getYRot();
                     this.entity.yHeadRot = this.entity.getYRot();
                     float i = (float) (this.speedModifier * this.entity.getAttributeValue(Attributes.MOVEMENT_SPEED));
-                    if (this.isEntityTouchingWaterOrLava(entity)) {
+                    if (this.touchingWaterOrLava(entity)) {
                         this.entity.setSpeed(i * this.speedInWater);
                         double j = Math.sqrt(d * d + f * f);
                         if (Math.abs(e) > 1.0E-5F || Math.abs(j) > 1.0E-5F) {
@@ -99,11 +99,19 @@ public class WardenMoveControl extends MoveControl {
         }
     }
 
-    private boolean isEntityTouchingWaterOrLava(Entity entity) {
+	public boolean buoyant() {
+		return this.buoyant;
+	}
+
+	public void setBuoyant(boolean value) {
+		this.buoyant = value;
+	}
+
+    private boolean touchingWaterOrLava(Entity entity) {
         return entity.isInWaterOrBubble() || entity.isInLava() || entity.isVisuallySwimming();
     }
 
-    private boolean isEntitySubmergedInWaterOrLava(Entity entity) {
+    private boolean submergedInWaterOrLava(Entity entity) {
         return entity.isEyeInFluid(FluidTags.WATER) || entity.isEyeInFluid(FluidTags.LAVA) || entity.isVisuallySwimming();
     }
 }

@@ -25,6 +25,7 @@ import net.frozenblock.wilderwild.registry.RegisterGameEvents;
 import net.frozenblock.wilderwild.registry.RegisterItems;
 import net.frozenblock.wilderwild.registry.RegisterLootTables;
 import net.frozenblock.wilderwild.registry.RegisterParticles;
+import net.frozenblock.wilderwild.registry.RegisterResources;
 import net.frozenblock.wilderwild.registry.RegisterSounds;
 import net.frozenblock.wilderwild.registry.RegisterStructures;
 import net.frozenblock.wilderwild.registry.RegisterWorldgen;
@@ -140,6 +141,7 @@ public final class WilderWild implements ModInitializer {
         BlockSoundGroupOverwrites.init();
         RegisterLootTables.init();
         RegisterParticles.registerParticles();
+		RegisterResources.register();
 
         Registry.register(Registry.FEATURE, id("shelf_fungus_feature"), SHELF_FUNGUS_FEATURE);
         Registry.register(Registry.FEATURE, id("cattail_feature"), CATTAIL_FEATURE);
@@ -156,7 +158,7 @@ public final class WilderWild implements ModInitializer {
         TermiteMoundBlockEntity.Termite.addDegradableBlocks();
         TermiteMoundBlockEntity.Termite.addNaturalDegradableBlocks();
 
-        if (FrozenBools.hasTerralith) {
+        if (FrozenBools.HAS_TERRALITH) {
             terralith();
         }
 
@@ -209,17 +211,19 @@ public final class WilderWild implements ModInitializer {
 
         BiomeModifications.addSpawn(BiomeSelectors.includeByKey(ResourceKey.create(Registry.BIOME_REGISTRY, new ResourceLocation("terralith", "cave/underground_jungle"))),
                 WilderWild.FIREFLIES, RegisterEntities.FIREFLY, 12, 2, 4);
+
+		WilderRegistry.MULTILAYER_SAND_BEACH_BIOMES.add(ResourceKey.create(Registry.BIOME_REGISTRY, new ResourceLocation("terralith", "arid_highlands")));
     }
 
     public static boolean isCopperPipe(BlockState state) {
-        if (FrozenBools.hasPipes) {
+        if (FrozenBools.HAS_SIMPLE_COPPER_PIPES) {
             ResourceLocation id = Registry.BLOCK.getKey(state.getBlock());
             return id.getNamespace().equals("lunade") && id.getPath().contains("pipe");
         }
         return false;
     }
 
-    //LOGGING
+    // LOGGING
     public static void log(String string, boolean shouldLog) {
         if (shouldLog) {
             LOGGER.info(string);
@@ -272,7 +276,7 @@ public final class WilderWild implements ModInitializer {
         return Registry.register(Registry.FOLIAGE_PLACER_TYPES, id(id), new FoliagePlacerType<>(codec));
     }
 
-    //MEASURING
+    // MEASURING
     public static Map<Object, Long> instantMap = new HashMap<>();
 
     public static void startMeasuring(Object object) {
@@ -290,11 +294,11 @@ public final class WilderWild implements ModInitializer {
         }
     }
 
-    //GAMERULES
+    // GAME RULES
     public static final GameRules.Key<GameRules.BooleanValue> STONE_CHEST_CLOSES =
             GameRuleRegistry.register("stoneChestCloses", GameRules.Category.MISC, GameRuleFactory.createBooleanRule(true));
 
-    //IDENTIFIERS
+    // PACKETS
     public static final ResourceLocation SEED_PACKET = id("seed_particle_packet");
     public static final ResourceLocation CONTROLLED_SEED_PACKET = id("controlled_seed_particle_packet");
     public static final ResourceLocation FLOATING_SCULK_BUBBLE_PACKET = id("floating_sculk_bubble_easy_packet");
@@ -310,6 +314,10 @@ public final class WilderWild implements ModInitializer {
     public static ResourceLocation id(String path) {
         return new ResourceLocation(MOD_ID, path);
     }
+
+	public static ResourceLocation vanillaId(String path) {
+		return new ResourceLocation("minecraft", path);
+	}
 
     public static String string(String path) {
         return id(path).toString();
