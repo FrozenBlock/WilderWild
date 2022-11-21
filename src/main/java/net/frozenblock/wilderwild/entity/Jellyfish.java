@@ -235,10 +235,7 @@ public class Jellyfish extends NoFlopAbstractFish {
             this.yBodyRot += (-(Mth.atan2(vec3.x, vec3.z)) * 57.295776F - this.yBodyRot) * 0.1F;
             this.setYRot(this.yBodyRot);
             this.zBodyRot += (float) Math.PI * this.rotateSpeed * 1.5F;
-			double horizontalDistance = vec3.horizontalDistance();
-			if (horizontalDistance > 0.05 && (vec3.y > 0.01 || vec3.y < 0.01)) {
-				this.xBodyRot += (-(Mth.atan2(horizontalDistance, vec3.y)) * 57.295776F - this.xBodyRot) * 0.1F;
-			}
+			this.xBodyRot += (-(Mth.atan2(vec3.horizontalDistance(), vec3.y)) * 57.295776F - this.xBodyRot) * 0.1F;
         } else {
             this.xBodyRot += (-90.0F - this.xBodyRot) * 0.02F;
         }
