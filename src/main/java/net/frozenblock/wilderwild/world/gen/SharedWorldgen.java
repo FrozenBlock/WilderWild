@@ -282,11 +282,6 @@ public final class SharedWorldgen {
 				)
 		);
 	}
-	public static SurfaceRules.RuleSource warmRiverRules() {
-		return SurfaceRules.ifTrue(SurfaceRules.isBiome(RegisterWorldgen.WARM_RIVER), SurfaceRules.sequence(SurfaceRules.ifTrue(SurfaceRules.ON_CEILING, SANDSTONE), SAND)
-		);
-	}
-
 
 	//SurfaceRules.sequence(new SurfaceRules.RuleSource[]{SurfaceRules.ifTrue(SurfaceRules.isBiome(Biomes.FOREST, Biomes.FLOWER_FOREST, Biomes.JUNGLE),
 	// SurfaceRules.ifTrue(SurfaceRules.yStartCheck(VerticalAnchor.absolute(58), 0),

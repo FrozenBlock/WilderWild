@@ -251,22 +251,22 @@ public final class RegisterWorldgen implements SurfaceRuleEvents.OverworldModifi
         builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.PATCH_NEMATOCYST_SOUTH);
     }
 	public static void addWarmRiverFeatures(BiomeGenerationSettings.Builder builder) {
-		BiomeDefaultFeatures.addDefaultCarversAndLakes(builder2);
-		BiomeDefaultFeatures.addDefaultCrystalFormations(builder2);
-		BiomeDefaultFeatures.addDefaultMonsterRoom(builder2);
-		BiomeDefaultFeatures.addDefaultUndergroundVariety(builder2);
-		BiomeDefaultFeatures.addDefaultSprings(builder2);
-		BiomeDefaultFeatures.addSurfaceFreezing(builder2);
-		BiomeDefaultFeatures.addDefaultOres(builder2);
-		BiomeDefaultFeatures.addDefaultSoftDisks(builder2);
-		BiomeDefaultFeatures.addWaterTrees(builder2);
-		BiomeDefaultFeatures.addDefaultFlowers(builder2);
-		BiomeDefaultFeatures.addDefaultGrass(builder2);
-		BiomeDefaultFeatures.addDefaultMushrooms(builder2);
-		BiomeDefaultFeatures.addDefaultExtraVegetation(builder2);
-		builder2.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, AquaticPlacements.SEAGRASS_RIVER);
-		builder2.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, WilderMiscPlaced.UNDER_WATER_CLAY_PATH_BEACH);
-		builder2.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, WilderMiscPlaced.UNDER_WATER_GRAVEL_PATH_RIVER);
+		BiomeDefaultFeatures.addDefaultCarversAndLakes(builder);
+		BiomeDefaultFeatures.addDefaultCrystalFormations(builder);
+		BiomeDefaultFeatures.addDefaultMonsterRoom(builder);
+		BiomeDefaultFeatures.addDefaultUndergroundVariety(builder);
+		BiomeDefaultFeatures.addDefaultSprings(builder);
+		BiomeDefaultFeatures.addSurfaceFreezing(builder);
+		BiomeDefaultFeatures.addDefaultOres(builder);
+		BiomeDefaultFeatures.addDefaultSoftDisks(builder);
+		BiomeDefaultFeatures.addWaterTrees(builder);
+		BiomeDefaultFeatures.addDefaultFlowers(builder);
+		BiomeDefaultFeatures.addDefaultGrass(builder);
+		BiomeDefaultFeatures.addDefaultMushrooms(builder);
+		BiomeDefaultFeatures.addDefaultExtraVegetation(builder);
+		builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, AquaticPlacements.SEAGRASS_RIVER);
+		builder.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, WilderMiscPlaced.UNDER_WATER_CLAY_PATH_BEACH);
+		builder.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, WilderMiscPlaced.UNDER_WATER_GRAVEL_PATH_RIVER);
 	}
 
     private static void addBasicFeatures(BiomeGenerationSettings.Builder builder, ResourceKey<Biome> biome) {
