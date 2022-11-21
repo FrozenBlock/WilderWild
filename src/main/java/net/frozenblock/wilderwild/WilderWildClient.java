@@ -90,10 +90,13 @@ public final class WilderWildClient implements ClientModInitializer {
         BlockRenderLayerMap.INSTANCE.putBlock(RegisterBlocks.RED_SHELF_FUNGUS, RenderType.cutout());
         BlockRenderLayerMap.INSTANCE.putBlock(RegisterBlocks.BAOBAB_DOOR, RenderType.cutout());
         BlockRenderLayerMap.INSTANCE.putBlock(RegisterBlocks.CYPRESS_DOOR, RenderType.cutout());
+		BlockRenderLayerMap.INSTANCE.putBlock(RegisterBlocks.PALM_DOOR, RenderType.cutout());
         BlockRenderLayerMap.INSTANCE.putBlock(RegisterBlocks.BAOBAB_TRAPDOOR, RenderType.cutout());
         BlockRenderLayerMap.INSTANCE.putBlock(RegisterBlocks.CYPRESS_TRAPDOOR, RenderType.cutout());
+		BlockRenderLayerMap.INSTANCE.putBlock(RegisterBlocks.PALM_TRAPDOOR, RenderType.cutout());
         BlockRenderLayerMap.INSTANCE.putBlock(RegisterBlocks.BAOBAB_NUT, RenderType.cutout());
         BlockRenderLayerMap.INSTANCE.putBlock(RegisterBlocks.CYPRESS_SAPLING, RenderType.cutout());
+		BlockRenderLayerMap.INSTANCE.putBlock(RegisterBlocks.PALM_SAPLING, RenderType.cutout());
         BlockRenderLayerMap.INSTANCE.putBlock(RegisterBlocks.GLORY_OF_THE_SNOW, RenderType.cutout());
         BlockRenderLayerMap.INSTANCE.putBlock(RegisterBlocks.WHITE_GLORY_OF_THE_SNOW, RenderType.cutout());
         BlockRenderLayerMap.INSTANCE.putBlock(RegisterBlocks.BLUE_GLORY_OF_THE_SNOW, RenderType.cutout());
@@ -230,6 +233,7 @@ public final class WilderWildClient implements ClientModInitializer {
 
         ColorProviderRegistry.ITEM.register(((state, tintIndex) -> 5877296), RegisterBlocks.BAOBAB_LEAVES);
         ColorProviderRegistry.ITEM.register(((state, tintIndex) -> 5877296), RegisterBlocks.CYPRESS_LEAVES);
+		ColorProviderRegistry.ITEM.register(((state, tintIndex) -> 5877296), RegisterBlocks.PALM_LEAVES);
 
         ColorProviderRegistry.BLOCK.register(((state, level, pos, tintIndex) -> {
             assert level != null;
@@ -239,6 +243,10 @@ public final class WilderWildClient implements ClientModInitializer {
             assert level != null;
             return BiomeColors.getAverageFoliageColor(level, pos);
         }), RegisterBlocks.CYPRESS_LEAVES);
+		ColorProviderRegistry.BLOCK.register(((state, level, pos, tintIndex) -> {
+			assert level != null;
+			return BiomeColors.getAverageFoliageColor(level, pos);
+		}), RegisterBlocks.PALM_LEAVES);
         ColorProviderRegistry.BLOCK.register(((state, level, pos, tintIndex) -> {
             assert level != null;
             return BiomeColors.getAverageFoliageColor(level, pos);
