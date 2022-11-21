@@ -5,15 +5,10 @@
       "id": "#minecraft:leaves",
       "required": false
     },
-    "wilderwild:hollowed_acacia_log",
-    "wilderwild:hollowed_birch_log",
-    "wilderwild:hollowed_dark_oak_log",
-    "wilderwild:hollowed_oak_log",
-    "wilderwild:hollowed_jungle_log",
-    "wilderwild:hollowed_mangrove_log",
-    "wilderwild:hollowed_spruce_log",
-    "wilderwild:hollowed_cypress_log",
-    "wilderwild:hollowed_baobab_log",
+    {
+      "id": "#wilderwild:hollowed_logs",
+      "required": false
+    },
     "minecraft:bamboo",
     {
       "id": "immersive_weathering:leaf_piles",

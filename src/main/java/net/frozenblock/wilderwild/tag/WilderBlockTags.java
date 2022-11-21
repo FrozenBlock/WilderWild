@@ -25,9 +25,7 @@ public final class WilderBlockTags {
 	public static final TagKey<Block> BLOCKS_TERMITE = bind("blocks_termite");
 	public static final TagKey<Block> FIREFLY_HIDEABLE_BLOCKS = bind("firefly_hideable_blocks");
 	public static final TagKey<Block> PACKED_MUD_REPLACEABLE = bind("packed_mud_replaceable");
-
-	public static final TagKey<Block> GLASS_BLOCKS = TagKey.create(Registry.BLOCK_REGISTRY, new ResourceLocation("c", "glass_blocks"));
-	public static final TagKey<Block> GLASS_PANES = TagKey.create(Registry.BLOCK_REGISTRY, new ResourceLocation("c", "glass_panes"));
+	public static final TagKey<Block> HOLLOWED_LOGS = bind("hollowed_logs");
 
 	private static TagKey<Block> bind(String path) {
 		return TagKey.create(Registry.BLOCK_REGISTRY, WilderWild.id(path));
