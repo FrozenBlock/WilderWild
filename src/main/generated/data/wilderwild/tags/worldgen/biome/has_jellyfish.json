@@ -1,0 +1,10 @@
+{
+  "replace": false,
+  "values": [
+    "minecraft:warm_ocean",
+    {
+      "id": "wilderwild:jellyfish_caves",
+      "required": false
+    }
+  ]
+}

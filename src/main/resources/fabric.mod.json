@@ -22,6 +22,9 @@
 	"client": [
 	  "net.frozenblock.wilderwild.WilderWildClient"
 	],
+    "fabric-datagen": [
+      "net.frozenblock.wilderwild.misc.WilderWildDataGenerator"
+    ],
 	"mm:early_risers": [
 	  "net.frozenblock.wilderwild.EarlyRiser"
 	],
