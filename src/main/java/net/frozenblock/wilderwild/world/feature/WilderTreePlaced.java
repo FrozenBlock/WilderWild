@@ -79,8 +79,10 @@ public final class WilderTreePlaced {
 	public static final List<PlacementModifier> SAND_TREE_FILTER_DECORATOR = List.of(EnvironmentScanPlacement.scanningFor(Direction.UP, BlockPredicate.not(BlockPredicate.matchesBlocks(Blocks.SANDSTONE)), 8), BlockPredicateFilter.forPredicate(SAND_TREE_PREDICATE));
 	//SHRUB
 	public static final Holder<PlacedFeature> BIG_SHRUB_CHECKED = PlacementUtils.register("big_shrub_checked", WilderTreeConfigured.BIG_SHRUB, SAND_TREE_FILTER_DECORATOR);
+	//PALM
+	public static final Holder<PlacedFeature> PALM = PlacementUtils.register("palm", WilderTreeConfigured.PALM, PlacementUtils.filteredByBlockSurvival(RegisterBlocks.PALM_SAPLING));
 
-    public static void registerTreePlaced() {
+	public static void registerTreePlaced() {
         WilderWild.logWild("Registering WilderTreePlaced for", true);
     }
 }
