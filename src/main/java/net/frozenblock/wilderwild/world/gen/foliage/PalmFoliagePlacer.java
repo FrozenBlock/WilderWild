@@ -5,6 +5,7 @@ import com.mojang.serialization.codecs.RecordCodecBuilder;
 
 import net.frozenblock.wilderwild.WilderWild;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.util.RandomSource;
 import net.minecraft.util.valueproviders.IntProvider;
 import net.minecraft.world.level.LevelSimulatedReader;
@@ -28,12 +29,34 @@ public class PalmFoliagePlacer extends FoliagePlacer {
         return WilderWild.PALM_FOLIAGE_PLACER;
     }
 
-    protected void createFoliage(LevelSimulatedReader levelSimulatedReader, BiConsumer<BlockPos, BlockState> biConsumer, RandomSource randomSource, TreeConfiguration treeConfiguration, int i, FoliagePlacer.FoliageAttachment foliageAttachment, int j, int k, int l) {
-        boolean bl = foliageAttachment.doubleTrunk();
-        BlockPos blockPos = foliageAttachment.pos().above(l);
+    protected void createFoliage(LevelSimulatedReader level, BiConsumer<BlockPos, BlockState> blockSetter, RandomSource random, TreeConfiguration config, int i, FoliagePlacer.FoliageAttachment foliageAttachment, int j, int k, int l) {
+		BlockPos blockPos = foliageAttachment.pos().above(l);
+		int radius = this.radius.sample(random);
+		for (Direction direction1 : Direction.values()) {
+			if (direction1 != Direction.DOWN && direction1 != Direction.UP) {
+				int dirX = direction1.getStepX();
+				int dirZ = direction1.getStepZ();
+				for (int r = 0; r < radius; r++) {
+					double liftBy = Math.sin((Math.PI * r) / radius);
+					tryPlaceLeaf(level, blockSetter, random, config, blockPos.offset(dirX * r, liftBy, dirZ * r));
+				}
+				for (Direction direction2 : Direction.values()) {
+					int dirX2 = direction1.getStepX();
+					int dirZ2 = direction1.getStepZ();
+					if (direction2 != Direction.DOWN && direction2 != Direction.UP) {
+						for (int r = 0; r < radius; r++) {
+							double liftBy = Math.sin((Math.PI * r) / radius);
+							tryPlaceLeaf(level, blockSetter, random, config, blockPos.offset((dirX * r) + (dirX2 * r), liftBy, (dirZ * r) + (dirZ2 * r)));
+						}
+					}
+				}
+			}
+		}
+		/*
         this.placeLeavesRow(levelSimulatedReader, biConsumer, randomSource, treeConfiguration, blockPos, k + foliageAttachment.radiusOffset(), -1 - j, bl);
         this.placeLeavesRow(levelSimulatedReader, biConsumer, randomSource, treeConfiguration, blockPos, k - 1, -j, bl);
         this.placeLeavesRow(levelSimulatedReader, biConsumer, randomSource, treeConfiguration, blockPos, k + foliageAttachment.radiusOffset() - 1, 0, bl);
+		 */
     }
 
     public int foliageHeight(RandomSource randomSource, int i, TreeConfiguration treeConfiguration) {
