@@ -52,7 +52,7 @@ public class PalmLeavesBlock extends LeavesBlock implements BonemealableBlock {
 			BlockState state = level.getBlockState(blockPos);
 			checkedPoses.add(blockPos);
 			if (state.is(BlockTags.LEAVES)) {
-				updateDistance(level.getBlockState(blockPos), level, pos);
+				updateDistance(level.getBlockState(blockPos), level, blockPos);
 				updateSurroundingLeavesWithList(level, blockPos, checkedPoses);
 			}
 		}
@@ -64,7 +64,7 @@ public class PalmLeavesBlock extends LeavesBlock implements BonemealableBlock {
 				checkedPoses.add(blockPos);
 				BlockState state = level.getBlockState(blockPos);
 				if (state.is(BlockTags.LEAVES)) {
-					updateDistance(level.getBlockState(blockPos), level, pos);
+					updateDistance(level.getBlockState(blockPos), level, blockPos);
 					updateSurroundingLeavesWithList(level, blockPos, checkedPoses);
 				}
 			}
