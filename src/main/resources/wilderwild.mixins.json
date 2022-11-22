@@ -45,8 +45,7 @@
 	"worldgen.SpruceTreeGrowerMixin",
 	"worldgen.StructuresMixin",
 	"worldgen.SurfaceRuleDataMixin",
-	"worldgen.SwampHutPieceMixin",
-    "worldgen.TreeFeatureMixin"
+	"worldgen.SwampHutPieceMixin"
   ],
   "client": [
 	"client.AllayModelMixin",
