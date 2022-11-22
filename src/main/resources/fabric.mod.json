@@ -54,15 +54,14 @@
   "depends": {
 	"frozenlib": ">=1.1.4-",
 	"mm": ">=2.3",
-	"nbtcrafting": ">=2.1.4",
+	"nbtcrafting": ">=2.2.3",
 	"fabricloader": ">=0.14.8",
 	"fabric-api": ">=0.66.0",
 	"minecraft": ">=1.19.2",
 	"java": ">=17"
   },
   "breaks": {
-	"quilted_fabric_api": "4.0.0-beta.8",
-    "fabric-api": "0.67.0-"
+	"quilted_fabric_api": "4.0.0-beta.8"
   },
   "suggests": {
 	"cloth-config": "*",
