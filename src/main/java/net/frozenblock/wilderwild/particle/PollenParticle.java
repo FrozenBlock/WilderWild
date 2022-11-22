@@ -31,7 +31,7 @@ public class PollenParticle extends TextureSheetParticle {
     @Override
     public void tick() {
         super.tick();
-		this.windIntensity *= 0.97F;
+		this.windIntensity *= 0.94F;
 		boolean onGround = this.onGround;
 		double multXZ = (onGround ? 0.0005 : 0.007) * this.windIntensity;
 		double multY = (onGround ? 0.0005 : 0.0035) * this.windIntensity;
