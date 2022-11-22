@@ -22,7 +22,7 @@ public class PalmLeavesBlock extends LeavesBlock implements BonemealableBlock {
     }
 
     public boolean isValidBonemealTarget(BlockGetter level, BlockPos pos, @NotNull BlockState state, boolean isClient) {
-        return level.getBlockState(pos.below()).isAir() && state.getValue(BlockStateProperties.DISTANCE) < 3;
+        return level.getBlockState(pos.below()).isAir() && state.getValue(BlockStateProperties.DISTANCE) < 2;
     }
 
     public boolean isBonemealSuccess(@NotNull Level level, @NotNull RandomSource random, @NotNull BlockPos pos, @NotNull BlockState state) {

@@ -74,7 +74,7 @@ public class CoconutBlock extends SaplingBlock {
     @Override
     public boolean canSurvive(BlockState state, LevelReader level, BlockPos pos) {
 		BlockState stateAbove = level.getBlockState(pos.above());
-        return isHanging(state) ? (stateAbove.is(RegisterBlocks.PALM_LEAVES) && stateAbove.getValue(BlockStateProperties.DISTANCE) < 3) : super.canSurvive(state, level, pos);
+        return isHanging(state) ? (stateAbove.is(RegisterBlocks.PALM_LEAVES) && stateAbove.getValue(BlockStateProperties.DISTANCE) < 2) : super.canSurvive(state, level, pos);
     }
 
     @Override
