@@ -12,6 +12,7 @@ import net.frozenblock.wilderwild.world.gen.treedecorators.HeightBasedVineTrunkD
 import net.frozenblock.wilderwild.world.gen.treedecorators.ShelfFungusTreeDecorator;
 import net.frozenblock.wilderwild.world.gen.trunk.BaobabTrunkPlacer;
 import net.frozenblock.wilderwild.world.gen.trunk.FallenTrunkWithLogs;
+import net.frozenblock.wilderwild.world.gen.trunk.PalmTrunkPlacer;
 import net.frozenblock.wilderwild.world.gen.trunk.StraightTrunkWithLogs;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;
@@ -132,7 +133,7 @@ public final class WilderTreeConfigured {
 	//BIG SHRUB
 	public static final Holder<ConfiguredFeature<TreeConfiguration, ?>> BIG_SHRUB = WilderConfiguredFeatures.register("big_shrub", Feature.TREE, (new TreeConfiguration.TreeConfigurationBuilder(BlockStateProvider.simple(Blocks.OAK_LOG), new StraightTrunkPlacer(1, 0, 0), BlockStateProvider.simple(Blocks.OAK_LEAVES), new BushFoliagePlacer(ConstantInt.of(2), ConstantInt.of(1), 2), new TwoLayersFeatureSize(0, 0, 0))).dirt(BlockStateProvider.simple(Blocks.COARSE_DIRT)).build());
 	//PALM
-	public static final Holder<ConfiguredFeature<TreeConfiguration, ?>> PALM = WilderConfiguredFeatures.register("palm", Feature.TREE, palmBuilder(RegisterBlocks.PALM_LOG, RegisterBlocks.PALM_LEAVES, 5, 2, 1, 3).build());
+	public static final Holder<ConfiguredFeature<TreeConfiguration, ?>> PALM = WilderConfiguredFeatures.register("palm", Feature.TREE, palmBuilder(RegisterBlocks.PALM_LOG, RegisterBlocks.PALM_LEAVES, 7, 2, 1, 3).build());
 
     private static TreeConfiguration.TreeConfigurationBuilder builder(Block log, Block leaves, int baseHeight, int firstRandomHeight, int secondRandomHeight, float logChance, IntProvider maxLogs, IntProvider logHeightFromTop, IntProvider extraBranchLength, int radius) {
         return new TreeConfiguration.TreeConfigurationBuilder(BlockStateProvider.simple(log), new StraightTrunkWithLogs(baseHeight, firstRandomHeight, secondRandomHeight, logChance, maxLogs, logHeightFromTop, extraBranchLength),
@@ -153,9 +154,9 @@ public final class WilderTreeConfigured {
     }
 
 	private static TreeConfiguration.TreeConfigurationBuilder palmBuilder(Block log, Block leaves, int baseHeight, int firstRandomHeight, int secondRandomHeight, int radius) {
-		return new TreeConfiguration.TreeConfigurationBuilder(BlockStateProvider.simple(log), new ForkingTrunkPlacer(baseHeight, firstRandomHeight, secondRandomHeight),
+		return new TreeConfiguration.TreeConfigurationBuilder(BlockStateProvider.simple(log), new PalmTrunkPlacer(baseHeight, firstRandomHeight, secondRandomHeight),
 				BlockStateProvider.simple(leaves), new PalmFoliagePlacer(ConstantInt.of(radius), ConstantInt.of(0)),
-				new TwoLayersFeatureSize(1, 0, 2));
+				new TwoLayersFeatureSize(1, 0, 1));
 	}
 
     private static TreeConfiguration.TreeConfigurationBuilder new_birch() {
