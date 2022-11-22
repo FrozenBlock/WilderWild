@@ -15,6 +15,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.material.Fluids;
 import org.jetbrains.annotations.NotNull;
+import java.util.ArrayList;
 
 public class PalmLeavesBlock extends LeavesBlock implements BonemealableBlock {
 
@@ -33,6 +34,42 @@ public class PalmLeavesBlock extends LeavesBlock implements BonemealableBlock {
     public void performBonemeal(ServerLevel level, @NotNull RandomSource random, BlockPos pos, @NotNull BlockState state) {
         level.setBlock(pos.below(), CoconutBlock.getDefaultHangingState(), 2);
     }
+
+	@Override
+	public void randomTick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
+		//if (random.nextBoolean() && random.nextBoolean()) {
+			updateSurroundingLeaves(level, pos);
+			if (this.decaying(state)) {
+				LeavesBlock.dropResources(state, level, pos);
+				level.removeBlock(pos, false);
+			}
+		//}
+	}
+
+	public static void updateSurroundingLeaves(ServerLevel level, BlockPos pos) {
+		ArrayList<BlockPos> checkedPoses = new ArrayList<>();
+		for (BlockPos blockPos : BlockPos.betweenClosed(pos.offset(-1, -1, -1), pos.offset(1, 1, 1))) {
+			BlockState state = level.getBlockState(blockPos);
+			checkedPoses.add(blockPos);
+			if (state.is(BlockTags.LEAVES)) {
+				updateDistance(level.getBlockState(blockPos), level, pos);
+				updateSurroundingLeavesWithList(level, blockPos, checkedPoses);
+			}
+		}
+	}
+
+	public static void updateSurroundingLeavesWithList(ServerLevel level, BlockPos pos, ArrayList<BlockPos> checkedPoses) {
+		for (BlockPos blockPos : BlockPos.betweenClosed(pos.offset(-1, -1, -1), pos.offset(1, 1, 1))) {
+			if (!checkedPoses.contains(blockPos)) {
+				checkedPoses.add(blockPos);
+				BlockState state = level.getBlockState(blockPos);
+				if (state.is(BlockTags.LEAVES)) {
+					updateDistance(level.getBlockState(blockPos), level, pos);
+					updateSurroundingLeavesWithList(level, blockPos, checkedPoses);
+				}
+			}
+		}
+	}
 
 	@Override
 	public void tick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
