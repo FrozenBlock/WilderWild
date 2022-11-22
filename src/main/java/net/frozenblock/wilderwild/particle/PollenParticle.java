@@ -2,6 +2,7 @@ package net.frozenblock.wilderwild.particle;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.frozenblock.lib.wind.ClientWindManager;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.particle.Particle;
 import net.minecraft.client.particle.ParticleProvider;
@@ -32,6 +33,13 @@ public class PollenParticle extends TextureSheetParticle {
     @Override
     public void tick() {
         super.tick();
+		boolean onGround = this.onGround;
+		double multXZ = onGround ? 0.05 : 0.15;
+		double multY = onGround ? 0.01 : 0.06;
+		this.xd += ClientWindManager.getWindX(1F) * multXZ;
+		this.yd += ClientWindManager.getWindY(1F) * multY;
+		this.zd += ClientWindManager.getWindZ(1F) * multXZ;
+		/*
         if (!this.alreadyBoosted && this.age > this.lifetime / 5 && !this.onGround && this.hasCarryingWind) {
             if (random.nextFloat() > 0.98) {
                 if (random.nextFloat() > 0.55) {
@@ -48,6 +56,7 @@ public class PollenParticle extends TextureSheetParticle {
                 this.zd += this.zd * (0.15 / (this.boostTicksLeft + 1));
             }
         }
+		 */
     }
 
     public ParticleRenderType getRenderType() {
@@ -82,8 +91,8 @@ public class PollenParticle extends TextureSheetParticle {
 
         @Override
         public Particle createParticle(@NotNull SimpleParticleType type, ClientLevel level, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed) {
-            double windex = Math.cos((level.getDayTime() * Math.PI) / 12000) * 1.1;
-            double windZ = -Math.sin((level.getDayTime() * Math.PI) / 12000) * 1.1;
+            double windex = ClientWindManager.getWindX(1) * 1.1;
+            double windZ = ClientWindManager.getWindZ(1) * 1.1;
             PollenParticle pollenParticle = new PollenParticle(level, this.spriteProvider, x, y, z, windex, -0.800000011920929D, windZ);
             pollenParticle.lifetime = Mth.randomBetweenInclusive(level.random, 500, 1000);
             pollenParticle.gravity = 0.01F;
@@ -105,8 +114,8 @@ public class PollenParticle extends TextureSheetParticle {
 
         @Override
         public Particle createParticle(@NotNull SimpleParticleType type, ClientLevel level, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed) {
-            double windex = Math.cos((level.getDayTime() * Math.PI) / 12000) * 1.1;
-            double windZ = -Math.sin((level.getDayTime() * Math.PI) / 12000) * 1.1;
+			double windex = ClientWindManager.getWindX(1) * 1.1;
+			double windZ = ClientWindManager.getWindZ(1) * 1.1;
             PollenParticle pollenParticle = new PollenParticle(level, this.spriteProvider, x, y, z, windex, -0.800000011920929D, windZ);
             pollenParticle.lifetime = Mth.randomBetweenInclusive(level.random, 500, 1000);
             pollenParticle.gravity = 0.016F;
