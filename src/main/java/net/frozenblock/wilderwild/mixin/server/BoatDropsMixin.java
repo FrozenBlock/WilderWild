@@ -16,10 +16,11 @@ public final class BoatDropsMixin {
 
     @Inject(method = "getDropItem", at = @At("RETURN"), cancellable = true)
     public void getModdedBoats(CallbackInfoReturnable<Item> ci) {
-        if (((Boat) (Object) this).getBoatType() == WilderBoats.BAOBAB) {
+		Boat boat = Boat.class.cast(this);
+        if (boat.getVariant() == WilderBoats.BAOBAB) {
             ci.setReturnValue(RegisterItems.BAOBAB_BOAT_ITEM);
         }
-        if (((Boat) (Object) this).getBoatType() == WilderBoats.CYPRESS) {
+        if (boat.getVariant() == WilderBoats.CYPRESS) {
             ci.setReturnValue(RegisterItems.CYPRESS_BOAT_ITEM);
         }
     }

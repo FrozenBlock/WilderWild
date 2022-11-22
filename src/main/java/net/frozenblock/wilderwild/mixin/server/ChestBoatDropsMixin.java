@@ -16,10 +16,11 @@ public final class ChestBoatDropsMixin {
 
     @Inject(method = "getDropItem", at = @At("RETURN"), cancellable = true)
     public void getModdedChestBoats(CallbackInfoReturnable<Item> ci) {
-        if (((ChestBoat) (Object) this).getBoatType() == WilderBoats.BAOBAB) {
+		ChestBoat chestBoat = ChestBoat.class.cast(this);
+        if (chestBoat.getVariant() == WilderBoats.BAOBAB) {
             ci.setReturnValue(RegisterItems.BAOBAB_CHEST_BOAT_ITEM);
         }
-        if (((ChestBoat) (Object) this).getBoatType() == WilderBoats.CYPRESS) {
+        if (chestBoat.getVariant() == WilderBoats.CYPRESS) {
             ci.setReturnValue(RegisterItems.CYPRESS_CHEST_BOAT_ITEM);
         }
     }

@@ -59,7 +59,8 @@ public class WardenPathEvaluator extends WalkNodeEvaluator {
         }
     }
 
-    private BlockPathTypes getBlockPathType(Mob entity, BlockPos pos) {
+	@Override
+    protected BlockPathTypes getBlockPathType(@NotNull Mob entity, BlockPos pos) {
         return this.getCachedBlockType(entity, pos.getX(), pos.getY(), pos.getZ());
     }
 

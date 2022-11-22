@@ -43,14 +43,14 @@ public class WardenNavigation extends GroundPathNavigation {
     }
 
     @Override
-    protected double getGroundY(Vec3 pos) {
+    protected double getGroundY(@NotNull Vec3 pos) {
         BlockPos blockPos = new BlockPos(pos);
         return this.isInLiquid() || this.level.getBlockState(blockPos.below()).isAir() ? pos.y : WardenPathEvaluator.getFloorLevel(this.level, blockPos);
     }
 
     @Override
-    protected boolean canMoveDirectly(Vec3 origin, Vec3 target) {
-        return this.isInLiquid() ? isClearForMovementBetween(this.entity, origin, target) : super.canMoveDirectly(origin, target);
+    protected boolean canMoveDirectly(@NotNull Vec3 origin, @NotNull Vec3 target) {
+        return this.isInLiquid() ? isClearForMovementBetween(this.entity, origin, target, false) : super.canMoveDirectly(origin, target);
     }
 
     @Override
@@ -58,7 +58,7 @@ public class WardenNavigation extends GroundPathNavigation {
     }
 
     @Override
-    protected boolean hasValidPathType(BlockPathTypes pathType) {
+    protected boolean hasValidPathType(@NotNull BlockPathTypes pathType) {
         return pathType != BlockPathTypes.OPEN;
     }
 
