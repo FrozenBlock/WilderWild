@@ -83,11 +83,11 @@ public class PalmFoliagePlacer extends FoliagePlacer {
 	}
 
 	public static boolean shouldPlaceAbove(double d) {
-		return d > 0.5 && d < 0.6;
+		return d > 0.6;
 	}
 
 	public static boolean shouldPlaceBelow(double d) {
-		return d < 0.5 && d > 0.4;
+		return d < 0.4;
 	}
 
     public int foliageHeight(RandomSource randomSource, int i, TreeConfiguration treeConfiguration) {
