@@ -37,7 +37,7 @@ public class PollenParticle extends TextureSheetParticle {
 		double multXZ = onGround ? 0.05 * 0.05 : 0.15 * 0.05;
 		double multY = onGround ? 0.01 * 0.05 : 0.06 * 0.05;
 		this.xd += ClientWindManager.getWindX(1F) * multXZ;
-		this.yd += ClientWindManager.getWindY(1F) * multY;
+		this.yd += (ClientWindManager.getWindY(1F) + 0.5) * multY;
 		this.zd += ClientWindManager.getWindZ(1F) * multXZ;
 		/*
         if (!this.alreadyBoosted && this.age > this.lifetime / 5 && !this.onGround && this.hasCarryingWind) {
