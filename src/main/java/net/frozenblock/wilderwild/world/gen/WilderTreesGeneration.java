@@ -28,7 +28,7 @@ public final class WilderTreesGeneration {
         }
         if (ClothConfigInteractionHandler.wildTrees()) {
 			BiomeModifications.addFeature(BiomeSelectors.includeByKey(Biomes.DESERT, Biomes.BEACH, Biomes.SPARSE_JUNGLE),
-					GenerationStep.Decoration.VEGETAL_DECORATION, WilderTreePlaced.PALM.unwrapKey().orElseThrow());
+					GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.PALM.unwrapKey().orElseThrow());
 
             BiomeModifications.addFeature(BiomeSelectors.includeByKey(Biomes.FOREST),
                     GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.NEW_TREES_BIRCH_AND_OAK.unwrapKey().orElseThrow());

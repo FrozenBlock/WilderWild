@@ -80,7 +80,7 @@ public final class WilderTreePlaced {
 	//SHRUB
 	public static final Holder<PlacedFeature> BIG_SHRUB_CHECKED = PlacementUtils.register("big_shrub_checked", WilderTreeConfigured.BIG_SHRUB, SAND_TREE_FILTER_DECORATOR);
 	//PALM
-	public static final Holder<PlacedFeature> PALM = PlacementUtils.register("palm", WilderTreeConfigured.PALM, PlacementUtils.filteredByBlockSurvival(RegisterBlocks.PALM_SAPLING));
+	public static final Holder<PlacedFeature> PALM_CHECKED = PlacementUtils.register("palm_checked", WilderTreeConfigured.PALM, PlacementUtils.filteredByBlockSurvival(RegisterBlocks.PALM_SAPLING));
 
 	public static void registerTreePlaced() {
         WilderWild.logWild("Registering WilderTreePlaced for", true);
