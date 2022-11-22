@@ -8,6 +8,7 @@ import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.LevelSimulatedReader;
 import net.minecraft.world.level.block.BonemealableBlock;
 import net.minecraft.world.level.block.LeavesBlock;
 import net.minecraft.world.level.block.state.BlockState;
@@ -59,7 +60,7 @@ public class PalmLeavesBlock extends LeavesBlock implements BonemealableBlock {
 		return state.setValue(DISTANCE, i);
 	}
 
-	private static int getDistanceAt(BlockState neighbor) {
+	public static int getDistanceAt(BlockState neighbor) {
 		if (neighbor.is(BlockTags.LOGS)) {
 			return 0;
 		}

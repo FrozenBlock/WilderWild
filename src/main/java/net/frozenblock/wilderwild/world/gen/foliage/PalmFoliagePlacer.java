@@ -54,11 +54,6 @@ public class PalmFoliagePlacer extends FoliagePlacer {
 				}
 			}
 		}
-		/*
-        this.placeLeavesRow(levelSimulatedReader, biConsumer, randomSource, treeConfiguration, blockPos, k + foliageAttachment.radiusOffset(), -1 - j, bl);
-        this.placeLeavesRow(levelSimulatedReader, biConsumer, randomSource, treeConfiguration, blockPos, k - 1, -j, bl);
-        this.placeLeavesRow(levelSimulatedReader, biConsumer, randomSource, treeConfiguration, blockPos, k + foliageAttachment.radiusOffset() - 1, 0, bl);
-		 */
     }
 
     public int foliageHeight(RandomSource randomSource, int i, TreeConfiguration treeConfiguration) {

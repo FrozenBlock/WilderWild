@@ -20,6 +20,7 @@
 	"server.GoatMixin",
 	"server.InstrumentItemMixin",
 	"server.ItemStackMixin",
+    "server.LeavesBlockMixin",
 	"server.MobMixin",
 	"server.SculkBlockMixin",
 	"server.SculkSensorBlockEntityMixin",
