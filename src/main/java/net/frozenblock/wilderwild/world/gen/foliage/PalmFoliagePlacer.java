@@ -59,7 +59,7 @@ public class PalmFoliagePlacer extends FoliagePlacer {
     }
 
 	public static void placeLeavesAtPos(LevelSimulatedReader level, BiConsumer<BlockPos, BlockState> blockSetter, RandomSource random, TreeConfiguration config, BlockPos pos, double offX, double offY, double offZ) {
-		BlockPos placePos = pos.offset(offX, offY, offX);
+		BlockPos placePos = pos.offset(offX, offY, offZ);
 		tryPlaceLeaf(level, blockSetter, random, config, placePos);
 		if (shouldPlaceAbove(offY)) {
 			tryPlaceLeaf(level, blockSetter, random, config, placePos.above());
