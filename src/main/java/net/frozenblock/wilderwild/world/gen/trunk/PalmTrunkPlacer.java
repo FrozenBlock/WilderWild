@@ -37,7 +37,7 @@ public class PalmTrunkPlacer extends TrunkPlacer {
 		ArrayList<FoliagePlacer.FoliageAttachment> list = Lists.newArrayList();
 		Direction direction = Direction.Plane.HORIZONTAL.getRandomDirection(random);
 		int i = freeTreeHeight - random.nextInt(4) - 1;
-		int j = 3 - random.nextInt(3);
+		int j = 4 - random.nextInt(3);
 		BlockPos.MutableBlockPos mutableBlockPos = new BlockPos.MutableBlockPos();
 		int k = pos.getX();
 		int l = pos.getZ();
@@ -55,8 +55,6 @@ public class PalmTrunkPlacer extends TrunkPlacer {
 		if (optionalInt.isPresent()) {
 			list.add(new FoliagePlacer.FoliageAttachment(new BlockPos(k, optionalInt.getAsInt(), l), 1, false));
 		}
-		k = pos.getX();
-		l = pos.getZ();
 		return list;
 	}
 }
