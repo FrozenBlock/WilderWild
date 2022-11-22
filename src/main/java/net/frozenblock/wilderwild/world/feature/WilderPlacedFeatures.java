@@ -132,7 +132,7 @@ public final class WilderPlacedFeatures {
 			WilderConfiguredFeatures.BIG_SHRUBS, treePlacement(RarityFilter.onAverageOnceEvery(5)));
 
 	public static final Holder<PlacedFeature> PALM = PlacementUtils.register("palm_placed",
-			WilderConfiguredFeatures.PALM, treePlacement(RarityFilter.onAverageOnceEvery(3)));
+			WilderConfiguredFeatures.PALMS, treePlacement(RarityFilter.onAverageOnceEvery(3)));
     //MUSHROOMS
     public static final Holder<PlacedFeature> BROWN_SHELF_FUNGUS_PLACED = register("brown_shelf_fungus_placed",
             WilderConfiguredFeatures.BROWN_SHELF_FUNGUS_CONFIGURED, RarityFilter.onAverageOnceEvery(1), CountPlacement.of(11), PlacementUtils.HEIGHTMAP_WORLD_SURFACE, InSquarePlacement.spread(), SurfaceRelativeThresholdFilter.of(Heightmap.Types.WORLD_SURFACE_WG, 0, 128), BiomeFilter.biome());

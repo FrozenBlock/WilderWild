@@ -219,8 +219,8 @@ public final class WilderConfiguredFeatures {
 			register("big_shrubs", Feature.RANDOM_SELECTOR,
 					new RandomFeatureConfiguration(List.of(new WeightedPlacedFeature(WilderTreePlaced.BIG_SHRUB_CHECKED, 1.0F)), WilderTreePlaced.BIG_SHRUB_CHECKED));
 
-	public static final Holder<ConfiguredFeature<RandomFeatureConfiguration, ?>> PALM =
-			register("palm", Feature.RANDOM_SELECTOR,
+	public static final Holder<ConfiguredFeature<RandomFeatureConfiguration, ?>> PALMS =
+			register("palms", Feature.RANDOM_SELECTOR,
 					new RandomFeatureConfiguration(List.of(new WeightedPlacedFeature(WilderTreePlaced.PALM_CHECKED, 1.0F)), WilderTreePlaced.PALM_CHECKED));
 	//FLOWERS
     public static final Holder<ConfiguredFeature<RandomPatchConfiguration, ?>> SEEDING_DANDELION =
