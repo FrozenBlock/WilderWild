@@ -21,6 +21,7 @@ import net.frozenblock.wilderwild.item.AlgaeItem;
 import net.frozenblock.wilderwild.item.FloweredLilyPadItem;
 import net.frozenblock.wilderwild.misc.FlowerColor;
 import net.frozenblock.wilderwild.world.gen.sapling.CypressSaplingGenerator;
+import net.frozenblock.wilderwild.world.gen.sapling.PalmSaplingGenerator;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Registry;
@@ -118,8 +119,8 @@ public final class RegisterBlocks {
 	//public static final Block PRICKLY_PEAR_CACTUS = new PricklyPearCactusBlock(FabricBlockSettings.of(Material.CACTUS).ticksRandomly().strength(0.4F).sounds(SoundType.SWEET_BERRY_BUSH).nonOpaque());
 	public static final Block CYPRESS_SAPLING = new WaterloggableSaplingBlock(new CypressSaplingGenerator(), FabricBlockSettings.copyOf(Blocks.BIRCH_SAPLING));
     public static final Block POTTED_CYPRESS_SAPLING = new FlowerPotBlock(RegisterBlocks.CYPRESS_SAPLING, FabricBlockSettings.of(Material.DECORATION).breakInstantly().nonOpaque());
-    public static final Block PALM_SAPLING = new SaplingBlock(new AcaciaTreeGrower(), FabricBlockSettings.copyOf(Blocks.BIRCH_SAPLING));
-    public static final Block POTTED_PALM_SAPLING = new FlowerPotBlock(RegisterBlocks.PALM_SAPLING, FabricBlockSettings.of(Material.DECORATION).breakInstantly().nonOpaque());
+    public static final Block COCONUT = new CoconutBlock(FabricBlockSettings.of(Material.PLANT).ticksRandomly().breakInstantly().sounds(RegisterBlockSoundGroups.BAOBAB_NUT).offsetType(BlockBehaviour.OffsetType.XZ));
+    public static final Block POTTED_COCONUT = new FlowerPotBlock(RegisterBlocks.COCONUT, FabricBlockSettings.of(Material.DECORATION).breakInstantly().nonOpaque());
 
     public static final Block BAOBAB_LEAVES = new BaobabLeaves(FabricBlockSettings.of(Material.LEAVES, MaterialColor.COLOR_GREEN).strength(0.2F).ticksRandomly().sounds(SoundType.GRASS).nonOpaque().allowsSpawning(RegisterBlocks::canSpawnOnLeaves).suffocates(RegisterBlocks::never).blockVision(RegisterBlocks::never));
     public static final Block CYPRESS_LEAVES = new LeavesBlock(FabricBlockSettings.of(Material.LEAVES, MaterialColor.COLOR_GREEN).strength(0.2F).ticksRandomly().sounds(SoundType.GRASS).nonOpaque().allowsSpawning(RegisterBlocks::canSpawnOnLeaves).suffocates(RegisterBlocks::never).blockVision(RegisterBlocks::never));
@@ -202,8 +203,8 @@ public final class RegisterBlocks {
     	registerBlockWithoutBlockItem("potted_" + baobab + "_nut", POTTED_BAOBAB_NUT);
     	registerBlock(cypress + "_sapling", CYPRESS_SAPLING, CreativeModeTab.TAB_DECORATIONS);
     	registerBlockWithoutBlockItem("potted_" + cypress + "_sapling", POTTED_CYPRESS_SAPLING);
-    	registerBlock(palm + "_sapling", PALM_SAPLING, CreativeModeTab.TAB_DECORATIONS);
-    	registerBlockWithoutBlockItem("potted_" + palm + "_sapling", POTTED_PALM_SAPLING);
+    	registerBlock("coconut", COCONUT, CreativeModeTab.TAB_DECORATIONS);
+    	registerBlockWithoutBlockItem("potted_coconut", POTTED_COCONUT);
 
     	registerBlock(baobab + "_leaves", BAOBAB_LEAVES, CreativeModeTab.TAB_DECORATIONS);
     	registerBlock(cypress + "_leaves", CYPRESS_LEAVES, CreativeModeTab.TAB_DECORATIONS);

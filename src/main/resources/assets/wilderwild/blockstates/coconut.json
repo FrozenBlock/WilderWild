@@ -1,0 +1,25 @@
+{
+  "variants": {
+	"age=0,hanging=false": {
+	  "model": "wilderwild:block/palm_sapling"
+	},
+	"age=1,hanging=false": {
+	  "model": "wilderwild:block/palm_sapling"
+	},
+	"age=2,hanging=false,stage=0": {
+	  "model": "wilderwild:block/palm_sapling"
+	},
+	"age=2,hanging=false,stage=1": {
+	  "model": "wilderwild:block/palm_sapling"
+	},
+	"age=0,hanging=true": {
+	  "model": "wilderwild:block/coconut_hanging_stage_1"
+	},
+	"age=1,hanging=true": {
+	  "model": "wilderwild:block/coconut_hanging_stage_2"
+	},
+	"age=2,hanging=true": {
+	  "model": "wilderwild:block/coconut_hanging_stage_3"
+	}
+  }
+}

@@ -1,9 +1,11 @@
 package net.frozenblock.wilderwild.block;
 
+import java.util.Objects;
 import net.frozenblock.wilderwild.registry.RegisterBlocks;
-import net.frozenblock.wilderwild.world.gen.sapling.BaobabSaplingGenerator;
+import net.frozenblock.wilderwild.world.gen.sapling.PalmSaplingGenerator;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.tags.BlockTags;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.item.context.BlockPlaceContext;
@@ -20,12 +22,10 @@ import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.CollisionContext;
-import net.minecraft.world.phys.shapes.EntityCollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import java.util.Objects;
 
 public class CoconutBlock extends SaplingBlock {
     public static final IntegerProperty AGE = BlockStateProperties.AGE_2;
@@ -39,9 +39,13 @@ public class CoconutBlock extends SaplingBlock {
     public static final BooleanProperty HANGING = BlockStateProperties.HANGING;
 
     public CoconutBlock(Properties settings) {
-        super(new BaobabSaplingGenerator(), settings);
+        super(new PalmSaplingGenerator(), settings);
         this.registerDefaultState(this.stateDefinition.any().setValue(STAGE, 0).setValue(AGE, 0).setValue(HANGING, false));
     }
+
+	protected boolean mayPlaceOn(BlockState state, BlockGetter level, BlockPos pos) {
+		return super.mayPlaceOn(state, level, pos) || state.is(BlockTags.SAND);
+	}
 
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
@@ -69,7 +73,8 @@ public class CoconutBlock extends SaplingBlock {
 
     @Override
     public boolean canSurvive(BlockState state, LevelReader level, BlockPos pos) {
-        return isHanging(state) ? level.getBlockState(pos.above()).is(RegisterBlocks.BAOBAB_LEAVES) : super.canSurvive(state, level, pos);
+		BlockState stateAbove = level.getBlockState(pos.above());
+        return isHanging(state) ? (stateAbove.is(RegisterBlocks.PALM_LEAVES) && stateAbove.getValue(BlockStateProperties.DISTANCE) < 3) : super.canSurvive(state, level, pos);
     }
 
     @Override
@@ -78,12 +83,10 @@ public class CoconutBlock extends SaplingBlock {
             if (random.nextInt(7) == 0) {
                 this.advanceTree(level, pos, state, random);
             }
-
         } else {
             if (!isFullyGrown(state)) {
                 level.setBlock(pos, state.cycle(AGE), 2);
             }
-
         }
     }
 
@@ -109,17 +112,8 @@ public class CoconutBlock extends SaplingBlock {
 
 	@Override
 	public void onProjectileHit(Level world, BlockState state, BlockHitResult hit, Projectile projectile) {
+		//TODO: Decide on behaviour - would it fall? Break and *not* drop? No change?
 		world.destroyBlock(hit.getBlockPos(), true, projectile);
-	}
-
-	@Override //Only collision with projectiles so you can shoot them down
-	public VoxelShape getCollisionShape(BlockState blockState, BlockGetter blockGetter, BlockPos blockPos, CollisionContext collisionContext) {
-		if (collisionContext instanceof EntityCollisionContext entityCollision) {
-			if (entityCollision.getEntity() != null) {
-				return !(entityCollision.getEntity() instanceof Projectile) ? Shapes.empty() : super.getCollisionShape(blockState, blockGetter, blockPos, collisionContext);
-			}
-		}
-		return Shapes.empty();
 	}
 
     private static boolean isHanging(BlockState state) {
@@ -135,6 +129,6 @@ public class CoconutBlock extends SaplingBlock {
     }
 
     public static BlockState getHangingState(int age) {
-        return RegisterBlocks.BAOBAB_NUT.defaultBlockState().setValue(HANGING, true).setValue(AGE, age);
+        return RegisterBlocks.COCONUT.defaultBlockState().setValue(HANGING, true).setValue(AGE, age);
     }
 }
