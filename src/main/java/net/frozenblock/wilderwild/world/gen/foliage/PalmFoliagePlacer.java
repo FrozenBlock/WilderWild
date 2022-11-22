@@ -34,14 +34,14 @@ public class PalmFoliagePlacer extends FoliagePlacer {
 		int radius = this.radius.sample(random);
 		double divRad = radius / 1.3;
 		double minus = (Math.PI * radius) / (radius * radius);
-		double rot = (random.nextDouble() * 0.2) * (random.nextBoolean() ? 1 : -1);
+		double rot = (random.nextDouble() * 0.15) * (random.nextBoolean() ? 1 : -1);
 
 		for (Direction direction1 : Direction.values()) {
 			if (direction1 != Direction.DOWN && direction1 != Direction.UP) {
 				double dirX = direction1.getStepX() < 0 ? direction1.getStepX() + rot : direction1.getStepX() - rot;
 				double dirZ = direction1.getStepZ() < 0 ? direction1.getStepZ() + rot : direction1.getStepZ() - rot;
 				for (int r = 0; r < radius; r++) {
-					double yOffset = (2 * (Math.sin(((Math.PI * r) / divRad) - minus))) - 1.2;
+					double yOffset = (2 * (Math.sin(((Math.PI * r) / divRad) - minus))) - 1.3;
 					placeLeavesAtPos(level, blockSetter, random, config, blockPos, (dirX * r), yOffset, (dirZ * r));
 				}
 
@@ -50,7 +50,7 @@ public class PalmFoliagePlacer extends FoliagePlacer {
 						double dirX2 = direction2.getStepX() < 0 ? direction2.getStepX() + rot : direction2.getStepX() - rot;
 						double dirZ2 = direction2.getStepZ() < 0 ? direction2.getStepZ() + rot : direction2.getStepZ() - rot;
 						for (int r = 0; r < radius; r++) {
-							double yOffset = (2 * (Math.sin(((Math.PI * r) / divRad) - minus))) - 1.2;
+							double yOffset = (2 * (Math.sin(((Math.PI * r) / divRad) - minus))) - 1.3;
 							placeLeavesAtPos(level, blockSetter, random, config, blockPos, (dirX * r) + (dirX2 * r), yOffset, (dirZ * r) + (dirZ2 * r));
 						}
 					}
