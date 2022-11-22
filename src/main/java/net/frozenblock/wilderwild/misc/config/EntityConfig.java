@@ -40,7 +40,7 @@ public final class EntityConfig implements ConfigData {
 		public boolean wardenSwimAnimation = true;
 	}
 
-	public boolean unpassableRail = true;
+	public boolean unpassableRail = false;
 
 	@Environment(EnvType.CLIENT)
 	static void setupEntries(ConfigCategory category, ConfigEntryBuilder entryBuilder) {
@@ -50,7 +50,7 @@ public final class EntityConfig implements ConfigData {
 		var warden = config.warden;
 		category.setBackground(WilderWild.id("textures/config/entity.png"));
 		var unpassableRail = category.addEntry(entryBuilder.startBooleanToggle(text("unpassable_rail"), config.unpassableRail)
-				.setDefaultValue(true)
+				.setDefaultValue(false)
 				.setSaveConsumer(newValue -> config.unpassableRail = newValue)
 				.setTooltip(tooltip("unpassable_rail"))
 				.requireRestart()

@@ -226,7 +226,7 @@ public final class ClothConfigInteractionHandler {
 		if (FrozenBools.HAS_CLOTH_CONFIG) {
 			return ClothConfigCloserInteractionHandler.unpassableRail();
 		}
-		return true;
+		return false;
 	}
 
 	public static boolean keyframeAllayDance() {
