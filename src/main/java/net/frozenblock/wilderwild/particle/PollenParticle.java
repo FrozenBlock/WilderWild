@@ -31,31 +31,13 @@ public class PollenParticle extends TextureSheetParticle {
     @Override
     public void tick() {
         super.tick();
-		this.windIntensity *= 0.99F;
+		this.windIntensity *= 0.98F;
 		boolean onGround = this.onGround;
 		double multXZ = (onGround ? 0.0005 : 0.007) * this.windIntensity;
 		double multY = (onGround ? 0.0005 : 0.0035) * this.windIntensity;
 		this.xd += ClientWindManager.getWindX(1F) * multXZ;
 		this.yd += (ClientWindManager.getWindY(1F) + 0.1) * multY;
 		this.zd += ClientWindManager.getWindZ(1F) * multXZ;
-		/*
-        if (!this.alreadyBoosted && this.age > this.lifetime / 5 && !this.onGround && this.hasCarryingWind) {
-            if (random.nextFloat() > 0.98) {
-                if (random.nextFloat() > 0.55) {
-                    this.boostTicksLeft = 5;
-                }
-                this.alreadyBoosted = true;
-            }
-        }
-        if (this.boostTicksLeft > 0) {
-            --this.boostTicksLeft;
-            if (!this.onGround) {
-                this.yd += (0.034 / (this.boostTicksLeft + 1));
-                this.xd += this.xd * (0.15 / (this.boostTicksLeft + 1));
-                this.zd += this.zd * (0.15 / (this.boostTicksLeft + 1));
-            }
-        }
-		 */
     }
 
     public ParticleRenderType getRenderType() {
