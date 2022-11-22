@@ -37,7 +37,7 @@ public class PalmFoliagePlacer extends FoliagePlacer {
 				int dirX = direction1.getStepX();
 				int dirZ = direction1.getStepZ();
 				for (int r = 0; r < radius; r++) {
-					double liftBy = Math.sin((Math.PI * r) / radius) - r;
+					double liftBy = (Math.sin((Math.PI * r) / radius) - r) * 1.5;
 					tryPlaceLeaf(level, blockSetter, random, config, blockPos.offset(dirX * r, liftBy, dirZ * r));
 				}
 				for (Direction direction2 : Direction.values()) {
@@ -45,7 +45,7 @@ public class PalmFoliagePlacer extends FoliagePlacer {
 						int dirX2 = direction2.getStepX();
 						int dirZ2 = direction2.getStepZ();
 						for (int r = 0; r < radius; r++) {
-							double liftBy = Math.sin((Math.PI * r) / radius) - r;
+							double liftBy = (Math.sin((Math.PI * r) / radius) - r) * 1.5;
 							tryPlaceLeaf(level, blockSetter, random, config, blockPos.offset((dirX * r) + (dirX2 * r), liftBy, (dirZ * r) + (dirZ2 * r)));
 						}
 					}
