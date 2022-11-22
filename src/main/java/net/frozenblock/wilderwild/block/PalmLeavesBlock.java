@@ -30,7 +30,7 @@ public class PalmLeavesBlock extends LeavesBlock implements BonemealableBlock {
 
     public void performBonemeal(ServerLevel level, @NotNull RandomSource random, BlockPos pos, @NotNull BlockState state) {
 		//TODO: Coconuts
-        level.setBlock(pos.below(), BaobabNutBlock.getDefaultHangingState(), 2);
+        level.setBlock(pos.below(), CoconutBlock.getDefaultHangingState(), 2);
     }
 
 	@Override
