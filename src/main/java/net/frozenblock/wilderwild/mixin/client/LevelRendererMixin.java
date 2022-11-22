@@ -102,7 +102,7 @@ public class LevelRendererMixin {
 			RenderSystem.depthMask(true);
 
 			double cloudX = (camX / 12.0D) - ClientWindManager.getCloudX(partialTick);
-			double cloudY = (double)(f - (float)camY + 0.33F) + ClientWindManager.getCloudY(partialTick);
+			double cloudY = (double)(f - (float)camY + 0.33F) + Mth.clamp(ClientWindManager.getCloudY(partialTick), -10, 10);
 			double cloudZ = (camZ / 12.0D + 0.33000001311302185D) - ClientWindManager.getCloudZ(partialTick);
 
 			cloudX -= Mth.floor(cloudX / 2048.0D) * 2048;
