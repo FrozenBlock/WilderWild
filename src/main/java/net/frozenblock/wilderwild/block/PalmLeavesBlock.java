@@ -11,6 +11,7 @@ import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.BonemealableBlock;
 import net.minecraft.world.level.block.LeavesBlock;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.material.Fluids;
 import org.jetbrains.annotations.NotNull;
 
@@ -21,7 +22,7 @@ public class PalmLeavesBlock extends LeavesBlock implements BonemealableBlock {
     }
 
     public boolean isValidBonemealTarget(BlockGetter level, BlockPos pos, @NotNull BlockState state, boolean isClient) {
-        return level.getBlockState(pos.below()).isAir();
+        return level.getBlockState(pos.below()).isAir() && state.getValue(BlockStateProperties.DISTANCE) < 3;
     }
 
     public boolean isBonemealSuccess(@NotNull Level level, @NotNull RandomSource random, @NotNull BlockPos pos, @NotNull BlockState state) {
@@ -29,7 +30,6 @@ public class PalmLeavesBlock extends LeavesBlock implements BonemealableBlock {
     }
 
     public void performBonemeal(ServerLevel level, @NotNull RandomSource random, BlockPos pos, @NotNull BlockState state) {
-		//TODO: Coconuts
         level.setBlock(pos.below(), CoconutBlock.getDefaultHangingState(), 2);
     }
 

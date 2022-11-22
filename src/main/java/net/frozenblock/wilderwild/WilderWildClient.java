@@ -75,6 +75,7 @@ public final class WilderWildClient implements ClientModInitializer {
         BlockRenderLayerMap.INSTANCE.putBlock(RegisterBlocks.POTTED_SEEDING_DANDELION, RenderType.cutout());
         BlockRenderLayerMap.INSTANCE.putBlock(RegisterBlocks.POTTED_BAOBAB_NUT, RenderType.cutout());
         BlockRenderLayerMap.INSTANCE.putBlock(RegisterBlocks.POTTED_CYPRESS_SAPLING, RenderType.cutout());
+		BlockRenderLayerMap.INSTANCE.putBlock(RegisterBlocks.POTTED_COCONUT, RenderType.cutout());
         BlockRenderLayerMap.INSTANCE.putBlock(RegisterBlocks.POTTED_BIG_DRIPLEAF, RenderType.cutout());
         BlockRenderLayerMap.INSTANCE.putBlock(RegisterBlocks.POTTED_SMALL_DRIPLEAF, RenderType.cutout());
         BlockRenderLayerMap.INSTANCE.putBlock(RegisterBlocks.POTTED_GRASS, RenderType.cutout());
@@ -96,7 +97,7 @@ public final class WilderWildClient implements ClientModInitializer {
 		BlockRenderLayerMap.INSTANCE.putBlock(RegisterBlocks.PALM_TRAPDOOR, RenderType.cutout());
         BlockRenderLayerMap.INSTANCE.putBlock(RegisterBlocks.BAOBAB_NUT, RenderType.cutout());
         BlockRenderLayerMap.INSTANCE.putBlock(RegisterBlocks.CYPRESS_SAPLING, RenderType.cutout());
-		BlockRenderLayerMap.INSTANCE.putBlock(RegisterBlocks.PALM_SAPLING, RenderType.cutout());
+		BlockRenderLayerMap.INSTANCE.putBlock(RegisterBlocks.COCONUT, RenderType.cutout());
         BlockRenderLayerMap.INSTANCE.putBlock(RegisterBlocks.GLORY_OF_THE_SNOW, RenderType.cutout());
         BlockRenderLayerMap.INSTANCE.putBlock(RegisterBlocks.WHITE_GLORY_OF_THE_SNOW, RenderType.cutout());
         BlockRenderLayerMap.INSTANCE.putBlock(RegisterBlocks.BLUE_GLORY_OF_THE_SNOW, RenderType.cutout());
