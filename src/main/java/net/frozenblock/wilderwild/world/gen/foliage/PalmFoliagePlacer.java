@@ -41,9 +41,9 @@ public class PalmFoliagePlacer extends FoliagePlacer {
 					tryPlaceLeaf(level, blockSetter, random, config, blockPos.offset(dirX * r, liftBy, dirZ * r));
 				}
 				for (Direction direction2 : Direction.values()) {
-					int dirX2 = direction1.getStepX();
-					int dirZ2 = direction1.getStepZ();
-					if (direction2 != Direction.DOWN && direction2 != Direction.UP) {
+					if (direction2 != Direction.DOWN && direction2 != Direction.UP && direction2 != direction1) {
+						int dirX2 = direction2.getStepX();
+						int dirZ2 = direction2.getStepZ();
 						for (int r = 0; r < radius; r++) {
 							double liftBy = Math.sin((Math.PI * r) / radius);
 							tryPlaceLeaf(level, blockSetter, random, config, blockPos.offset((dirX * r) + (dirX2 * r), liftBy, (dirZ * r) + (dirZ2 * r)));
