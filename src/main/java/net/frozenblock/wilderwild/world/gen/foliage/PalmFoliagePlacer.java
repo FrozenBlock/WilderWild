@@ -32,29 +32,50 @@ public class PalmFoliagePlacer extends FoliagePlacer {
     protected void createFoliage(LevelSimulatedReader level, BiConsumer<BlockPos, BlockState> blockSetter, RandomSource random, TreeConfiguration config, int i, FoliagePlacer.FoliageAttachment foliageAttachment, int j, int k, int l) {
 		BlockPos blockPos = foliageAttachment.pos().above(l);
 		int radius = this.radius.sample(random);
+		double divRad = radius / 1.3;
+		double minus = (Math.PI * radius) / (radius * radius);
+
 		for (Direction direction1 : Direction.values()) {
 			if (direction1 != Direction.DOWN && direction1 != Direction.UP) {
 				int dirX = direction1.getStepX();
 				int dirZ = direction1.getStepZ();
 				for (int r = 0; r < radius; r++) {
-					double yOffset = (2 * (Math.sin(((Math.PI * r) / (radius / 1.3)) - ((Math.PI * radius) / (radius * radius))))) - 1;
-					double liftBy = (Math.sin((Math.PI * r) / radius) - r) * 1.5;
-					tryPlaceLeaf(level, blockSetter, random, config, blockPos.offset(dirX * r, yOffset, dirZ * r));
+					double yOffset = (2 * (Math.sin(((Math.PI * r) / divRad) - minus))) - 1.2;
+					placeLeavesAtPos(level, blockSetter, random, config, blockPos, (dirX * r), yOffset, (dirZ * r));
 				}
+
 				for (Direction direction2 : Direction.values()) {
 					if (direction2 != Direction.DOWN && direction2 != Direction.UP && direction2 != direction1) {
 						int dirX2 = direction2.getStepX();
 						int dirZ2 = direction2.getStepZ();
 						for (int r = 0; r < radius; r++) {
-							double yOffset = (2 * (Math.sin(((Math.PI * r) / (radius / 1.3)) - ((Math.PI * radius) / (radius * radius))))) - 1;
-							double liftBy = (Math.sin((Math.PI * r) / radius) - r) * 1.5;
-							tryPlaceLeaf(level, blockSetter, random, config, blockPos.offset((dirX * r) + (dirX2 * r), yOffset, (dirZ * r) + (dirZ2 * r)));
+							double yOffset = (2 * (Math.sin(((Math.PI * r) / divRad) - minus))) - 1.2;
+							placeLeavesAtPos(level, blockSetter, random, config, blockPos, (dirX * r) + (dirX2 * r), yOffset, (dirZ * r) + (dirZ2 * r));
 						}
 					}
 				}
 			}
 		}
     }
+
+	public static void placeLeavesAtPos(LevelSimulatedReader level, BiConsumer<BlockPos, BlockState> blockSetter, RandomSource random, TreeConfiguration config, BlockPos pos, double offX, double offY, double offZ) {
+		BlockPos placePos = pos.offset(offX, offY, offX);
+		tryPlaceLeaf(level, blockSetter, random, config, placePos);
+		if (shouldPlaceAbove(offY)) {
+			tryPlaceLeaf(level, blockSetter, random, config, placePos.above());
+		}
+		if (shouldPlaceBelow(offY)) {
+			tryPlaceLeaf(level, blockSetter, random, config, placePos.below());
+		}
+	}
+
+	public static boolean shouldPlaceAbove(double d) {
+		return d > 0.5 && d < 0.6;
+	}
+
+	public static boolean shouldPlaceBelow(double d) {
+		return d < 0.5 && d > 0.4;
+	}
 
     public int foliageHeight(RandomSource randomSource, int i, TreeConfiguration treeConfiguration) {
         return 0;
