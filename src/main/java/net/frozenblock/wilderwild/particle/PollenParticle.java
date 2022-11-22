@@ -15,9 +15,7 @@ import org.jetbrains.annotations.NotNull;
 
 @Environment(EnvType.CLIENT)
 public class PollenParticle extends TextureSheetParticle {
-    public boolean hasCarryingWind;
-    public int boostTicksLeft;
-    public boolean alreadyBoosted;
+    public double windIntensity;
 
     PollenParticle(ClientLevel level, SpriteSet spriteProvider, double x, double y, double z, double velocityX, double velocityY, double velocityZ) {
         super(level, x, y - 0.125D, z, velocityX, velocityY, velocityZ);
@@ -34,10 +32,10 @@ public class PollenParticle extends TextureSheetParticle {
     public void tick() {
         super.tick();
 		boolean onGround = this.onGround;
-		double multXZ = onGround ? 0.05 * 0.05 : 0.15 * 0.05;
-		double multY = onGround ? 0.01 * 0.05 : 0.06 * 0.05;
+		double multXZ = (onGround ? 0.05 * 0.05 : 0.15 * 0.05) * this.windIntensity;
+		double multY = (onGround ? 0.01 * 0.05 : 0.06 * 0.05) * this.windIntensity;
 		this.xd += ClientWindManager.getWindX(1F) * multXZ;
-		this.yd += (ClientWindManager.getWindY(1F) + 0.5) * multY;
+		this.yd += (ClientWindManager.getWindY(1F) + 0.1) * multY;
 		this.zd += ClientWindManager.getWindZ(1F) * multXZ;
 		/*
         if (!this.alreadyBoosted && this.age > this.lifetime / 5 && !this.onGround && this.hasCarryingWind) {
@@ -77,6 +75,7 @@ public class PollenParticle extends TextureSheetParticle {
             pollenParticle.lifetime = Mth.randomBetweenInclusive(clientLevel.random, 500, 1000);
             pollenParticle.gravity = 0.01F;
             pollenParticle.setColor(250F / 255F, 171F / 255F, 28F / 255F);
+			pollenParticle.windIntensity = 0.05;
             return pollenParticle;
         }
     }
@@ -99,7 +98,7 @@ public class PollenParticle extends TextureSheetParticle {
             pollenParticle.xd = (windex + level.random.triangle(0, 0.8)) / 17;
             pollenParticle.zd = (windZ + level.random.triangle(0, 0.8)) / 17;
             pollenParticle.setColor(250F / 255F, 250F / 255F, 250F / 255F);
-            pollenParticle.hasCarryingWind = true;
+            pollenParticle.windIntensity = 1;
             return pollenParticle;
         }
     }
@@ -122,7 +121,7 @@ public class PollenParticle extends TextureSheetParticle {
             pollenParticle.xd = (windex + level.random.triangle(0, 0.8)) / 20;
             pollenParticle.zd = (windZ + level.random.triangle(0, 0.8)) / 20;
             pollenParticle.setColor(250F / 255F, 250F / 255F, 250F / 255F);
-            pollenParticle.hasCarryingWind = true;
+            pollenParticle.windIntensity = 1;
             return pollenParticle;
         }
     }
@@ -144,7 +143,7 @@ public class PollenParticle extends TextureSheetParticle {
             pollenParticle.xd = (windex + clientLevel.random.triangle(0, 0.8)) / 17;
             pollenParticle.zd = (windZ + clientLevel.random.triangle(0, 0.8)) / 17;
             pollenParticle.setColor(250F / 255F, 250F / 255F, 250F / 255F);
-            pollenParticle.hasCarryingWind = true;
+            pollenParticle.windIntensity = 0.5;
             return pollenParticle;
         }
     }
@@ -166,7 +165,7 @@ public class PollenParticle extends TextureSheetParticle {
             pollenParticle.xd = (windex + clientLevel.random.triangle(0, 0.8)) / 20;
             pollenParticle.zd = (windZ + clientLevel.random.triangle(0, 0.8)) / 20;
             pollenParticle.setColor(250F / 255F, 250F / 255F, 250F / 255F);
-            pollenParticle.hasCarryingWind = true;
+            pollenParticle.windIntensity = 0.5;
             return pollenParticle;
         }
     }
