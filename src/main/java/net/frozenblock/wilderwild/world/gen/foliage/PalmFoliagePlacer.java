@@ -34,7 +34,7 @@ public class PalmFoliagePlacer extends FoliagePlacer {
 		int radius = this.radius.sample(random);
 		double divRad = radius / 1.3;
 		double minus = (Math.PI * radius) / (radius * radius);
-		double rot = (random.nextDouble() * 0.5) * (random.nextBoolean() ? 1 : -1);
+		double rot = (random.nextDouble() * 0.25) * (random.nextBoolean() ? 1 : -1);
 
 		for (Direction direction1 : Direction.values()) {
 			if (direction1 != Direction.DOWN && direction1 != Direction.UP) {
