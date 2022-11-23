@@ -163,6 +163,10 @@ public final class ClothConfigCloserInteractionHandler {
 		return WARDEN.wardenDyingAnimation;
 	}
 
+	public static boolean wardenEmergesFromCommand() {
+		return WARDEN.wardenEmergesFromCommand;
+	}
+
 	public static boolean wardenEmergesFromEgg() {
 		return WARDEN.wardenEmergesFromEgg;
 	}

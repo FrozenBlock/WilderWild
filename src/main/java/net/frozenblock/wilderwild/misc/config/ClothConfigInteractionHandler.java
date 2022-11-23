@@ -264,11 +264,18 @@ public final class ClothConfigInteractionHandler {
 		return true;
 	}
 
+	public static boolean wardenEmergesFromCommand() {
+		if (FrozenBools.HAS_CLOTH_CONFIG) {
+			return ClothConfigCloserInteractionHandler.wardenEmergesFromCommand();
+		}
+		return false;
+	}
+
 	public static boolean wardenEmergesFromEgg() {
 		if (FrozenBools.HAS_CLOTH_CONFIG) {
 			return ClothConfigCloserInteractionHandler.wardenEmergesFromEgg();
 		}
-		return true;
+		return false;
 	}
 
 	public static boolean wardenSwimAnimation() {

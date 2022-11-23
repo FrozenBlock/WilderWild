@@ -100,24 +100,6 @@ public final class WardenMixin extends Monster implements WilderWarden {
 		throw new AssertionError("Mixin injection failed - WilderWild WardenMixin.");
 	}
 
-	@Shadow
-	private int tendrilAnimationO;
-
-	@Shadow
-	private int tendrilAnimation;
-
-	@Shadow
-	private int heartAnimationO;
-
-	@Shadow
-	private int heartAnimation;
-
-	@Shadow
-	public AnimationState emergeAnimationState;
-
-	@Shadow
-	public AnimationState diggingAnimationState;
-
 	private WardenMixin(EntityType<? extends Monster> entityType, Level level) {
 		super(entityType, level);
 	}
@@ -160,12 +142,10 @@ public final class WardenMixin extends Monster implements WilderWarden {
 	@Inject(at = @At("RETURN"), method = "finalizeSpawn")
 	public void finalizeSpawn(ServerLevelAccessor serverLevelAccess, DifficultyInstance localDifficulty, MobSpawnType spawnReason, @Nullable SpawnGroupData entityData, @Nullable CompoundTag nbtCompound, CallbackInfoReturnable<SpawnGroupData> info) {
 		Warden warden = Warden.class.cast(this);
-		if (ClothConfigInteractionHandler.wardenEmergesFromEgg()) {
-			if (spawnReason == MobSpawnType.SPAWN_EGG) {
-				warden.setPose(Pose.EMERGING);
-				warden.getBrain().setMemoryWithExpiry(MemoryModuleType.IS_EMERGING, Unit.INSTANCE, WardenAi.EMERGE_DURATION);
-				this.playSound(SoundEvents.WARDEN_AGITATED, 5.0F, 1.0F);
-			}
+		if ((ClothConfigInteractionHandler.wardenEmergesFromEgg() && spawnReason == MobSpawnType.SPAWN_EGG) || (ClothConfigInteractionHandler.wardenEmergesFromCommand() && spawnReason == MobSpawnType.COMMAND)) {
+			warden.setPose(Pose.EMERGING);
+			warden.getBrain().setMemoryWithExpiry(MemoryModuleType.IS_EMERGING, Unit.INSTANCE, WardenAi.EMERGE_DURATION);
+			this.playSound(SoundEvents.WARDEN_AGITATED, 5.0F, 1.0F);
 		}
 	}
 
