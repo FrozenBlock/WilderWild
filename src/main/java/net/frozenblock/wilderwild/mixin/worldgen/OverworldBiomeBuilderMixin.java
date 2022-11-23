@@ -5,7 +5,7 @@ import java.util.function.Consumer;
 import net.frozenblock.lib.FrozenBools;
 import net.frozenblock.wilderwild.misc.config.ClothConfigInteractionHandler;
 import net.frozenblock.wilderwild.registry.RegisterWorldgen;
-import net.frozenblock.wilderwild.world.gen.SharedWorldgen;
+import net.frozenblock.wilderwild.world.generation.SharedWorldgen;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.biome.Biomes;

@@ -20,8 +20,7 @@ import net.frozenblock.wilderwild.block.entity.TermiteMoundBlockEntity;
 import net.frozenblock.wilderwild.item.AlgaeItem;
 import net.frozenblock.wilderwild.item.FloweredLilyPadItem;
 import net.frozenblock.wilderwild.misc.FlowerColor;
-import net.frozenblock.wilderwild.world.gen.sapling.CypressSaplingGenerator;
-import net.frozenblock.wilderwild.world.gen.sapling.PalmSaplingGenerator;
+import net.frozenblock.wilderwild.world.generation.sapling.CypressSaplingGenerator;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Registry;
@@ -33,15 +32,11 @@ import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.block.*;
-import net.minecraft.world.level.block.grower.AcaciaTreeGrower;
-import net.minecraft.world.level.block.grower.BirchTreeGrower;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.WoodType;
 import net.minecraft.world.level.material.Material;
 import net.minecraft.world.level.material.MaterialColor;
-
-import java.util.List;
 
 public final class RegisterBlocks {
 	private RegisterBlocks() {

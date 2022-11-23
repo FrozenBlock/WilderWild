@@ -2,7 +2,7 @@ package net.frozenblock.wilderwild.block;
 
 import java.util.Objects;
 import net.frozenblock.wilderwild.registry.RegisterBlocks;
-import net.frozenblock.wilderwild.world.gen.sapling.PalmSaplingGenerator;
+import net.frozenblock.wilderwild.world.generation.sapling.PalmSaplingGenerator;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.BlockTags;

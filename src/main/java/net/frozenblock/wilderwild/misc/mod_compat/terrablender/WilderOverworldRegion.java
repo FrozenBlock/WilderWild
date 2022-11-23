@@ -11,7 +11,7 @@ import net.frozenblock.lib.worldgen.biome.api.parameters.Temperature;
 import net.frozenblock.lib.worldgen.biome.api.parameters.Weirdness;
 import net.frozenblock.wilderwild.misc.config.ClothConfigInteractionHandler;
 import net.frozenblock.wilderwild.registry.RegisterWorldgen;
-import net.frozenblock.wilderwild.world.gen.SharedWorldgen;
+import net.frozenblock.wilderwild.world.generation.SharedWorldgen;
 import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;

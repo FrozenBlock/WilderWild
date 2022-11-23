@@ -1,6 +1,6 @@
 package net.frozenblock.wilderwild.block;
 
-import net.frozenblock.wilderwild.world.gen.sapling.ShrubBushGrower;
+import net.frozenblock.wilderwild.world.generation.sapling.ShrubBushGrower;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.BlockTags;
