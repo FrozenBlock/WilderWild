@@ -37,12 +37,12 @@ public class PalmFoliagePlacer extends FoliagePlacer {
 		int radius = this.radius.sample(random);
 		double divRad = radius / 1.3;
 		double minus = (Math.PI * radius) / (radius * radius);
-		int fronds = random.nextInt(3, 9);
+		int fronds = random.nextInt(3, 7);
 		double rotAngle = 360 / (double) fronds;
 		double angle = random.nextDouble() * 360;
 
 		for (int a = 0; a < fronds; a++) {
-			Vec3 offsetPos = AdvancedMath.rotateAboutXZ(origin, 1, angle + (random.nextDouble() * 10));
+			Vec3 offsetPos = AdvancedMath.rotateAboutXZ(origin, 1, angle + (random.nextDouble() * 20));
 			double dirX = offsetPos.x - origin.x;
 			double dirZ = offsetPos.z - origin.z;
 			for (int r = 0; r < radius; r++) {
