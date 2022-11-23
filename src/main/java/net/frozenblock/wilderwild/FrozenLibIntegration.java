@@ -7,11 +7,14 @@ import net.frozenblock.lib.impl.DripstoneDripWaterFrom;
 import net.frozenblock.lib.impl.HopperUntouchableList;
 import net.frozenblock.lib.impl.PlayerDamageSourceSounds;
 import net.frozenblock.lib.impl.StructurePoolElementIdReplacements;
+import net.frozenblock.lib.item.api.HeavyItemDamageRegistry;
 import net.frozenblock.lib.sound.api.predicate.SoundPredicate;
 import net.frozenblock.wilderwild.entity.Firefly;
 import net.frozenblock.wilderwild.misc.WilderEnderman;
 import net.frozenblock.wilderwild.registry.RegisterBlockEntities;
+import net.frozenblock.wilderwild.registry.RegisterItems;
 import net.frozenblock.wilderwild.registry.RegisterSounds;
+import net.minecraft.core.Registry;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.monster.EnderMan;
@@ -88,6 +91,8 @@ public final class FrozenLibIntegration implements FrozenMainEntrypoint {
             level.gameEvent(GameEvent.BLOCK_CHANGE, fluidInfo.pos(), GameEvent.Context.of(blockState));
             level.levelEvent(LevelEvent.DRIPSTONE_DRIP, blockPos, 0);
         });
+
+		HeavyItemDamageRegistry.register(Registry.ITEM.get(WilderWild.id("coconut")), 0.1F, 6);
 
         StructurePoolElementIdReplacements.RESOURCE_LOCATION_REPLACEMENTS.put(WilderWild.vanillaId("ancient_city/structures/barracks"), WilderWild.id("ancient_city/structures/barracks"));
         StructurePoolElementIdReplacements.RESOURCE_LOCATION_REPLACEMENTS.put(WilderWild.vanillaId("ancient_city/structures/chamber_1"), WilderWild.id("ancient_city/structures/chamber_1"));
