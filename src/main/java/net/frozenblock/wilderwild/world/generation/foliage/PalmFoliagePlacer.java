@@ -46,7 +46,7 @@ public class PalmFoliagePlacer extends FoliagePlacer {
 			double dirX = offsetPos.x - origin.x;
 			double dirZ = offsetPos.z - origin.z;
 			for (int r = 0; r < radius; r++) {
-				double yOffset = (2 * (Math.sin(((Math.PI * r) / divRad) - minus))) + (1.3 * minus);
+				double yOffset = (2 * (Math.sin(((Math.PI * r) / divRad) - minus))) + (1.3 * (minus * 0.4));
 				placeLeavesAtPos(level, blockSetter, random, config, blockPos, (dirX * r), yOffset, (dirZ * r));
 			}
 			angle += rotAngle;
@@ -77,11 +77,11 @@ public class PalmFoliagePlacer extends FoliagePlacer {
 	}
 
 	public static boolean shouldPlaceAbove(double d) {
-		return d > 0.5;
+		return d > 0.4;
 	}
 
 	public static boolean shouldPlaceBelow(double d) {
-		return d < 0.45;
+		return d < 0.6;
 	}
 
     public int foliageHeight(RandomSource randomSource, int i, TreeConfiguration treeConfiguration) {
