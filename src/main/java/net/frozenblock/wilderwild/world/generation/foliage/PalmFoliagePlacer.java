@@ -3,6 +3,7 @@ package net.frozenblock.wilderwild.world.generation.foliage;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 
+import net.frozenblock.lib.math.api.AdvancedMath;
 import net.frozenblock.wilderwild.WilderWild;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -13,6 +14,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.feature.configurations.TreeConfiguration;
 import net.minecraft.world.level.levelgen.feature.foliageplacers.FoliagePlacer;
 import net.minecraft.world.level.levelgen.feature.foliageplacers.FoliagePlacerType;
+import net.minecraft.world.phys.Vec3;
 
 import java.util.function.BiConsumer;
 
@@ -31,31 +33,23 @@ public class PalmFoliagePlacer extends FoliagePlacer {
 
     protected void createFoliage(LevelSimulatedReader level, BiConsumer<BlockPos, BlockState> blockSetter, RandomSource random, TreeConfiguration config, int i, FoliagePlacer.FoliageAttachment foliageAttachment, int j, int k, int l) {
 		BlockPos blockPos = foliageAttachment.pos().above(l);
+		Vec3 origin = new Vec3(blockPos.getX(), blockPos.getY(), blockPos.getZ());
 		int radius = this.radius.sample(random);
 		double divRad = radius / 1.3;
 		double minus = (Math.PI * radius) / (radius * radius);
-		double rot = (random.nextDouble() * 0.15) * (random.nextBoolean() ? 1 : -1);
+		int fronds = random.nextInt(3, 9);
+		double rotAngle = 360 / (double) fronds;
+		double angle = random.nextDouble() * 360;
 
-		for (Direction direction1 : Direction.values()) {
-			if (direction1 != Direction.DOWN && direction1 != Direction.UP) {
-				double dirX = direction1.getStepX() < 0 ? direction1.getStepX() + rot : direction1.getStepX() - rot;
-				double dirZ = direction1.getStepZ() < 0 ? direction1.getStepZ() + rot : direction1.getStepZ() - rot;
-				for (int r = 0; r < radius; r++) {
-					double yOffset = (2 * (Math.sin(((Math.PI * r) / divRad) - minus))) - 1.3;
-					placeLeavesAtPos(level, blockSetter, random, config, blockPos, (dirX * r), yOffset, (dirZ * r));
-				}
-
-				for (Direction direction2 : Direction.values()) {
-					if (direction2 != Direction.DOWN && direction2 != Direction.UP && direction2 != direction1) {
-						double dirX2 = direction2.getStepX() < 0 ? direction2.getStepX() + rot : direction2.getStepX() - rot;
-						double dirZ2 = direction2.getStepZ() < 0 ? direction2.getStepZ() + rot : direction2.getStepZ() - rot;
-						for (int r = 0; r < radius; r++) {
-							double yOffset = (2 * (Math.sin(((Math.PI * r) / divRad) - minus))) - 1.3;
-							placeLeavesAtPos(level, blockSetter, random, config, blockPos, (dirX * r) + (dirX2 * r), yOffset, (dirZ * r) + (dirZ2 * r));
-						}
-					}
-				}
+		for (int a = 0; a < fronds; a++) {
+			Vec3 offsetPos = AdvancedMath.rotateAboutXZ(origin, 1, angle + (random.nextDouble() * 10));
+			double dirX = offsetPos.x - origin.x;
+			double dirZ = offsetPos.z - origin.z;
+			for (int r = 0; r < radius; r++) {
+				double yOffset = (2 * (Math.sin(((Math.PI * r) / divRad) - minus))) - 1.3;
+				placeLeavesAtPos(level, blockSetter, random, config, blockPos, (dirX * r), yOffset, (dirZ * r));
 			}
+			angle += rotAngle;
 		}
     }
 
@@ -83,11 +77,11 @@ public class PalmFoliagePlacer extends FoliagePlacer {
 	}
 
 	public static boolean shouldPlaceAbove(double d) {
-		return d > 0.55 && d < 0.85;
+		return d > 0.5;
 	}
 
 	public static boolean shouldPlaceBelow(double d) {
-		return d < 0.45 && d > 0.15;
+		return d < 0.2;
 	}
 
     public int foliageHeight(RandomSource randomSource, int i, TreeConfiguration treeConfiguration) {
