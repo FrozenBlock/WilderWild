@@ -245,7 +245,8 @@ public final class RegisterSounds {
     public static final SoundEvent MUSIC_OVERWORLD_JELLYFISH_CAVES = register("music.overworld.jellyfish_caves");
 
     public static SoundEvent register(String path) {
-        return Registry.register(BuiltInRegistries.SOUND_EVENT, WilderSharedConstants.id(path), new SoundEvent(WilderSharedConstants.id(path)));
+		var id = WilderSharedConstants.id(path);
+        return Registry.register(BuiltInRegistries.SOUND_EVENT, id, new SoundEvent(id, 16.0F, false));
     }
 
     public static void init() {

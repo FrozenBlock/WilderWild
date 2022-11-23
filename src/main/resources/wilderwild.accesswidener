@@ -102,3 +102,6 @@ accessible    method    net/minecraft/data/DataGenerator$PackGenerator    <init>
 # Registry
 accessible    method    net/minecraft/data/registries/VanillaRegistries    validateThatAllBiomeFeaturesHaveBiomeFilter    (Lnet/minecraft/core/HolderLookup$Provider;)V
 accessible    method    net/minecraft/data/Main    bindRegistries    (Ljava/util/function/BiFunction;Ljava/util/concurrent/CompletableFuture;)Lnet/minecraft/data/DataProvider$Factory;
+
+# Sounds
+accessible    method    net/minecraft/sounds/SoundEvent    <init>    (Lnet/minecraft/resources/ResourceLocation;FZ)V
