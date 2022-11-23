@@ -338,7 +338,7 @@
   "tooltip.wilderwild.wilder_wild_grass": "Whether worldgen should use our custom grass or the vanilla grass.",
   "tooltip.wilderwild.wither_rose_sounds": "Whether or not Wither Rose sounds should be overridden.",
   "wilderwild.ancient_horn.advancement.use": "Whirs of the Ancient",
-  "wilderwild.ancient_horn.advancement.use.description": "Find and use an Ancient Horn.",
+  "wilderwild.ancient_horn.advancement.use.description": "Craft and use an Ancient Horn",
   "wilderwild.null_block.advancement.obtain": "Hackermode = §aON",
   "wilderwild.null_block.advancement.obtain.description": "Obtain a Null Block."
 }
