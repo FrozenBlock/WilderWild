@@ -25,41 +25,41 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 public class SculkShriekerBlockEntityMixin {
 
 	@Unique
-	public int wilderWild$bubbles;
+    public int wilderWild$bubbles;
 
-	@Inject(at = @At("HEAD"), method = "canRespond", cancellable = true)
-	private void canRespond(ServerLevel level, CallbackInfoReturnable<Boolean> info) {
-		SculkShriekerBlockEntity entity = SculkShriekerBlockEntity.class.cast(this);
-		BlockState blockState = entity.getBlockState();
-		if (blockState.getValue(RegisterProperties.SOULS_TAKEN) == 2) {
-			WilderWild.log(Blocks.SCULK_SHRIEKER, entity.getBlockPos(), "All Souls Have Already Been Taken, Cannot Warn", WilderWild.DEV_LOGGING);
-			info.setReturnValue(false);
-			info.cancel();
-		}
-	}
+    @Inject(at = @At("HEAD"), method = "canRespond", cancellable = true)
+    private void canRespond(ServerLevel level, CallbackInfoReturnable<Boolean> info) {
+        SculkShriekerBlockEntity entity = SculkShriekerBlockEntity.class.cast(this);
+        BlockState blockState = entity.getBlockState();
+        if (blockState.getValue(RegisterProperties.SOULS_TAKEN) == 2) {
+            WilderWild.log(Blocks.SCULK_SHRIEKER, entity.getBlockPos(), "All Souls Have Already Been Taken, Cannot Warn", WilderWild.DEV_LOGGING);
+            info.setReturnValue(false);
+            info.cancel();
+        }
+    }
 
-	@Inject(at = @At("HEAD"), method = "shouldListen", cancellable = true)
-	public void shouldListen(ServerLevel level, GameEventListener listener, BlockPos pos, GameEvent event, GameEvent.Context emitter, CallbackInfoReturnable<Boolean> info) {
-		SculkShriekerBlockEntity entity = SculkShriekerBlockEntity.class.cast(this);
-		if (entity.getBlockState().getValue(RegisterProperties.SOULS_TAKEN) == 2) {
-			info.setReturnValue(false);
-			info.cancel();
-		}
-	}
+    @Inject(at = @At("HEAD"), method = "shouldListen", cancellable = true)
+    public void shouldListen(ServerLevel level, GameEventListener listener, BlockPos pos, GameEvent event, GameEvent.Context emitter, CallbackInfoReturnable<Boolean> info) {
+        SculkShriekerBlockEntity entity = SculkShriekerBlockEntity.class.cast(this);
+        if (entity.getBlockState().getValue(RegisterProperties.SOULS_TAKEN) == 2) {
+            info.setReturnValue(false);
+            info.cancel();
+        }
+    }
 
-	@Inject(at = @At("HEAD"), method = "tryShriek", cancellable = true)
-	public void shriek(ServerLevel level, @Nullable ServerPlayer player, CallbackInfo info) {
-		SculkShriekerBlockEntity shrieker = SculkShriekerBlockEntity.class.cast(this);
-		if (shrieker.getBlockState().getValue(RegisterProperties.SOULS_TAKEN) == 2) {
-			info.cancel();
-		} else {
-			if (shrieker.getBlockState().getValue(BlockStateProperties.WATERLOGGED)) {//TODO: fix this. i want it to emit a constant flow of bubbles but it just doesnt
-				if (this.wilderWild$bubbles > 0 && level != null) {
-					--this.wilderWild$bubbles;
-					EasyPacket.EasyFloatingSculkBubblePacket.createParticle(level, Vec3.atCenterOf(shrieker.getBlockPos()), Math.random() > 0.7 ? 1 : 0, 20 + WilderWild.random().nextInt(80), 0.075, level.random.nextIntBetweenInclusive(8, 14));
-				}
-			}
-		}
-	}
+    @Inject(at = @At("HEAD"), method = "tryShriek", cancellable = true)
+    public void shriek(ServerLevel level, @Nullable ServerPlayer player, CallbackInfo info) {
+        SculkShriekerBlockEntity shrieker = SculkShriekerBlockEntity.class.cast(this);
+        if (shrieker.getBlockState().getValue(RegisterProperties.SOULS_TAKEN) == 2) {
+            info.cancel();
+        } else {
+            if (shrieker.getBlockState().getValue(BlockStateProperties.WATERLOGGED)) {//TODO: fix this. i want it to emit a constant flow of bubbles but it just doesnt
+                if (this.wilderWild$bubbles > 0 && level != null) {
+                    --this.wilderWild$bubbles;
+                    EasyPacket.EasyFloatingSculkBubblePacket.createParticle(level, Vec3.atCenterOf(shrieker.getBlockPos()), Math.random() > 0.7 ? 1 : 0, 20 + WilderWild.random().nextInt(80), 0.075, level.random.nextIntBetweenInclusive(8, 14));
+                }
+            }
+        }
+    }
 
 }

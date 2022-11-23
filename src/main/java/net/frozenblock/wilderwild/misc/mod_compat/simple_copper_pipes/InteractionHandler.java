@@ -12,18 +12,18 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.level.block.entity.BlockEntity;
 
 public class InteractionHandler {
-	public static final ResourceLocation horn = new ResourceLocation(WilderWild.MOD_ID, "ancient_horn");
+    public static final ResourceLocation horn = new ResourceLocation(WilderWild.MOD_ID, "ancient_horn");
 
-	public static boolean addHornNbtToBlock(ServerLevel level, BlockPos pos, Entity owner) {
-		BlockEntity entity = level.getBlockEntity(pos);
-		if (entity != null) {
-			if (entity instanceof CopperPipeEntity pipe) {
-				level.playSound(null, pos, Registry.SOUND_EVENT.get(new ResourceLocation("lunade", "block.copper_pipe.item_in")), SoundSource.BLOCKS, 0.2F, (level.random.nextFloat() * 0.25F) + 0.8F);
-				pipe.moveablePipeDataHandler.addSaveableMoveablePipeNbt(new MoveablePipeDataHandler.SaveableMovablePipeNbt().withVec3d(owner.position()).withVec3d2(owner.position()).withString(owner.getStringUUID()).withOnlyThroughOnePipe(true).withOnlyUseableOnce(true).withNBTID(horn));
-				return true;
-			}
-		}
-		return false;
-	}
+    public static boolean addHornNbtToBlock(ServerLevel level, BlockPos pos, Entity owner) {
+        BlockEntity entity = level.getBlockEntity(pos);
+        if (entity != null) {
+            if (entity instanceof CopperPipeEntity pipe) {
+                level.playSound(null, pos, Registry.SOUND_EVENT.get(new ResourceLocation("lunade", "block.copper_pipe.item_in")), SoundSource.BLOCKS, 0.2F, (level.random.nextFloat() * 0.25F) + 0.8F);
+                pipe.moveablePipeDataHandler.addSaveableMoveablePipeNbt(new MoveablePipeDataHandler.SaveableMovablePipeNbt().withVec3d(owner.position()).withVec3d2(owner.position()).withString(owner.getStringUUID()).withOnlyThroughOnePipe(true).withOnlyUseableOnce(true).withNBTID(horn));
+                return true;
+            }
+        }
+        return false;
+    }
 
 }

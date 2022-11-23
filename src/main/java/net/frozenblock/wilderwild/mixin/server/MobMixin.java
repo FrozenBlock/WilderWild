@@ -18,21 +18,21 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(Mob.class)
 public abstract class MobMixin extends LivingEntity {
 
-	@Shadow
-	public void setPathfindingMalus(BlockPathTypes blockPathTypes, float f) {
+    @Shadow
+    public void setPathfindingMalus(BlockPathTypes blockPathTypes, float f) {
 		throw new AssertionError("Mixin injection failed - WilderWild MobMixin.");
-	}
+    }
 
-	private MobMixin(EntityType<? extends LivingEntity> entityType, Level level) {
-		super(entityType, level);
-	}
+    private MobMixin(EntityType<? extends LivingEntity> entityType, Level level) {
+        super(entityType, level);
+    }
 
-	@Inject(method = "<init>", at = @At("TAIL"))
-	private void addUnpassableRail(EntityType<? extends Mob> entityType, Level level, CallbackInfo ci) {
-		if (ClothConfigInteractionHandler.unpassableRail()) {
-			this.setPathfindingMalus(BlockPathTypes.UNPASSABLE_RAIL, 0.0F);
-		}
-	}
+    @Inject(method = "<init>", at = @At("TAIL"))
+    private void addUnpassableRail(EntityType<? extends Mob> entityType, Level level, CallbackInfo ci) {
+        if (ClothConfigInteractionHandler.unpassableRail()) {
+            this.setPathfindingMalus(BlockPathTypes.UNPASSABLE_RAIL, 0.0F);
+        }
+    }
 
 	//TODO: Test and see if this means water will also cause this to happen.
 	@Inject(method = "playHurtSound", at = @At("HEAD"))

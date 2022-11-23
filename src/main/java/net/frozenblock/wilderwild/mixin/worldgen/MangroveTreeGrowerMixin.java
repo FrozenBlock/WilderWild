@@ -13,11 +13,11 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 @Mixin(value = MangroveTreeGrower.class, priority = 69420)
 public class MangroveTreeGrowerMixin {
 
-	@Inject(method = "getConfiguredFeature", at = @At("RETURN"), cancellable = true)
-	public void getConfiguredFeature(RandomSource randomSource, boolean bl, CallbackInfoReturnable<Holder<? extends ConfiguredFeature<?, ?>>> cir) {
-		if (randomSource.nextFloat() < 0.1F) {
-			cir.setReturnValue(WilderTreeConfigured.NEW_SWAMP_TREE);
-		}
-	}
+    @Inject(method = "getConfiguredFeature", at = @At("RETURN"), cancellable = true)
+    public void getConfiguredFeature(RandomSource randomSource, boolean bl, CallbackInfoReturnable<Holder<? extends ConfiguredFeature<?, ?>>> cir) {
+        if (randomSource.nextFloat() < 0.1F) {
+            cir.setReturnValue(WilderTreeConfigured.NEW_SWAMP_TREE);
+        }
+    }
 
 }

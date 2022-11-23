@@ -8,19 +8,19 @@ import org.jetbrains.annotations.Nullable;
 
 public class BaobabSaplingGenerator extends BaobabTreeSaplingGenerator {
 
-	public BaobabSaplingGenerator() {
-	}
+    public BaobabSaplingGenerator() {
+    }
 
 
-	@Nullable
-	@Override
-	protected Holder<? extends ConfiguredFeature<?, ?>> getBaobabTreeFeature(RandomSource random) {
-		return random.nextFloat() < 0.856F ? WilderTreeConfigured.BAOBAB : WilderTreeConfigured.BAOBAB_TALL;
-	}
+    @Nullable
+    @Override
+    protected Holder<? extends ConfiguredFeature<?, ?>> getBaobabTreeFeature(RandomSource random) {
+        return random.nextFloat() < 0.856F ? WilderTreeConfigured.BAOBAB : WilderTreeConfigured.BAOBAB_TALL;
+    }
 
-	@Nullable
-	@Override
-	protected Holder<? extends ConfiguredFeature<?, ?>> getConfiguredFeature(RandomSource random, boolean bees) {
-		return null;
-	}
+    @Nullable
+    @Override
+    protected Holder<? extends ConfiguredFeature<?, ?>> getConfiguredFeature(RandomSource random, boolean bees) {
+        return null;
+    }
 }

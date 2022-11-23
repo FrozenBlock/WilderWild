@@ -22,43 +22,43 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 @Mixin(Slime.class)
 public abstract class SlimeMixin extends Mob {
 
-	private SlimeMixin(EntityType<? extends Mob> entityType, Level level) {
-		super(entityType, level);
-	}
+    private SlimeMixin(EntityType<? extends Mob> entityType, Level level) {
+        super(entityType, level);
+    }
 
-	@Inject(method = "checkSlimeSpawnRules", at = @At("HEAD"), cancellable = true)
-	private static void spawnInAlgae(EntityType<Slime> type, LevelAccessor level, MobSpawnType spawnReason, BlockPos pos, RandomSource random, CallbackInfoReturnable<Boolean> info) {
-		if (level.getDifficulty() != Difficulty.PEACEFUL) {
-			if (level.getBrightness(LightLayer.BLOCK, pos) < random.nextInt(8)) {
-				boolean test = spawnReason == MobSpawnType.SPAWNER || random.nextInt(5) == 0;
-				if (test && isAlgaeNearby(level, pos, 1)) {
-					info.setReturnValue(true);
-					info.cancel();
-				}
-			}
-		}
-	}
+    @Inject(method = "checkSlimeSpawnRules", at = @At("HEAD"), cancellable = true)
+    private static void spawnInAlgae(EntityType<Slime> type, LevelAccessor level, MobSpawnType spawnReason, BlockPos pos, RandomSource random, CallbackInfoReturnable<Boolean> info) {
+        if (level.getDifficulty() != Difficulty.PEACEFUL) {
+            if (level.getBrightness(LightLayer.BLOCK, pos) < random.nextInt(8)) {
+                boolean test = spawnReason == MobSpawnType.SPAWNER || random.nextInt(5) == 0;
+                if (test && isAlgaeNearby(level, pos, 1)) {
+                    info.setReturnValue(true);
+                    info.cancel();
+                }
+            }
+        }
+    }
 
 	@Unique
-	private static boolean isAlgaeNearby(LevelAccessor level, BlockPos blockPos, int x) {
-		Iterator<BlockPos> iterator = BlockPos.betweenClosed(blockPos.offset(-x, -x, -x), blockPos.offset(x, x, x)).iterator();
-		int count = 0;
-		BlockPos pos;
-		do {
-			if (!iterator.hasNext()) {
-				return false;
-			}
-			pos = iterator.next();
-			if (level.getBlockState(pos).is(RegisterBlocks.ALGAE)) {
-				count = count + 1;
-			}
-		} while (count < 3);
-		return true;
-	}
+    private static boolean isAlgaeNearby(LevelAccessor level, BlockPos blockPos, int x) {
+        Iterator<BlockPos> iterator = BlockPos.betweenClosed(blockPos.offset(-x, -x, -x), blockPos.offset(x, x, x)).iterator();
+        int count = 0;
+        BlockPos pos;
+        do {
+            if (!iterator.hasNext()) {
+                return false;
+            }
+            pos = iterator.next();
+            if (level.getBlockState(pos).is(RegisterBlocks.ALGAE)) {
+                count = count + 1;
+            }
+        } while (count < 3);
+        return true;
+    }
 
-	@Override
-	public boolean checkSpawnObstruction(LevelReader level) {
-		return (!level.containsAnyLiquid(this.getBoundingBox()) || isAlgaeNearby(this.getLevel(), this.blockPosition(), 1)) && level.isUnobstructed(this);
-	}
+    @Override
+    public boolean checkSpawnObstruction(LevelReader level) {
+        return (!level.containsAnyLiquid(this.getBoundingBox()) || isAlgaeNearby(this.getLevel(), this.blockPosition(), 1)) && level.isUnobstructed(this);
+    }
 
 }

@@ -7,20 +7,20 @@ import net.minecraft.world.level.block.state.BlockState;
 
 public interface SculkSensorTickInterface {
 
-	void tickServer(ServerLevel level, BlockPos pos, BlockState state);
+    void tickServer(ServerLevel level, BlockPos pos, BlockState state);
 
-	void tickClient(Level level, BlockPos pos, BlockState state);
+    void tickClient(Level level, BlockPos pos, BlockState state);
 
-	int getAge();
+    int getAge();
 
-	int getAnimTicks();
+    int getAnimTicks();
 
-	int getPrevAnimTicks();
+    int getPrevAnimTicks();
 
-	boolean isActive();
+    boolean isActive();
 
-	void setActive(boolean active);
+    void setActive(boolean active);
 
-	void setAnimTicks(int i);
+    void setAnimTicks(int i);
 
 }

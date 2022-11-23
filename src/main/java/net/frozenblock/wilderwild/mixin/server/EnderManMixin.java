@@ -30,13 +30,12 @@ public final class EnderManMixin extends Monster implements WilderEnderman {
 
 	@Shadow
 	private int lastStareSound;
-	@Shadow
-	@Final
+	@Shadow @Final
 	private static EntityDataAccessor<Boolean> DATA_CREEPY;
 
-	private EnderManMixin(EntityType<? extends Monster> entityType, Level level) {
-		super(entityType, level);
-	}
+    private EnderManMixin(EntityType<? extends Monster> entityType, Level level) {
+        super(entityType, level);
+    }
 
 	@Unique
 	@Override
@@ -51,8 +50,8 @@ public final class EnderManMixin extends Monster implements WilderEnderman {
 	}
 
 	@Inject(method = "playStareSound", at = @At(value = "HEAD"), cancellable = true)
-	public void playStareSound(CallbackInfo info) {
-		//NOTE: This only runs on the client.
+    public void playStareSound(CallbackInfo info) {
+        //NOTE: This only runs on the client.
 		if (ClothConfigInteractionHandler.movingStareSound()) {
 			info.cancel();
 			if (this.tickCount >= this.lastStareSound + 400) {
@@ -63,7 +62,7 @@ public final class EnderManMixin extends Monster implements WilderEnderman {
 				}
 			}
 		}
-	}
+    }
 
 	@Inject(method = "onSyncedDataUpdated", at = @At("HEAD"))
 	public void onSyncedDataUpdated(EntityDataAccessor<?> key, CallbackInfo info) {
