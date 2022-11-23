@@ -71,14 +71,6 @@ public class Jellyfish extends NoFlopAbstractFish {
     public float xRot4;
     public float xRot5;
     public float xRot6;
-    public float zBodyRot;
-    public float zRot1;
-    public float zRot2;
-    public float zRot3;
-    public float zRot4;
-    public float zRot5;
-    public float zRot6;
-    private float rotateSpeed;
 
 	private static final float MAX_TARGET_DISTANCE = 20F;
 
@@ -221,20 +213,13 @@ public class Jellyfish extends NoFlopAbstractFish {
         this.xRot2 = this.xRot1;
         this.xRot1 = this.xBodyRot;
 
-        this.zRot6 = this.zRot5;
-        this.zRot5 = this.zRot4;
-        this.zRot4 = this.zRot3;
-        this.zRot3 = this.zRot2;
-        this.zRot2 = this.zRot1;
-        this.zRot1 = this.zBodyRot;
-
         if (this.isInWaterOrBubble()) {
 			this.heal(0.02F);
-            this.rotateSpeed *= 0.8F;
             Vec3 vec3 = this.getDeltaMovement();
-            this.yBodyRot += (-(Mth.atan2(vec3.x, vec3.z)) * 57.295776F - this.yBodyRot) * 0.1F;
-            this.setYRot(this.yBodyRot);
-            this.zBodyRot += (float) Math.PI * this.rotateSpeed * 1.5F;
+			if (vec3.horizontalDistance() > 0.005) {
+				this.yBodyRot += (-(Mth.atan2(vec3.x, vec3.z)) * 57.295776F - this.yBodyRot) * 0.1F;
+				this.setYRot(this.yBodyRot);
+			}
 			this.xBodyRot += (-(Mth.atan2(vec3.horizontalDistance(), vec3.y)) * 57.295776F - this.xBodyRot) * 0.1F;
         } else {
             this.xBodyRot += (-90.0F - this.xBodyRot) * 0.02F;

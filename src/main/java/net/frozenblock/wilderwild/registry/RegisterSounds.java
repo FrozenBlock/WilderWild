@@ -1,6 +1,5 @@
 package net.frozenblock.wilderwild.registry;
 
-import net.frozenblock.lib.registry.FrozenRegistry;
 import net.frozenblock.wilderwild.WilderWild;
 import net.minecraft.core.Registry;
 import net.minecraft.sounds.SoundEvent;

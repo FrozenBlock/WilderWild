@@ -1,7 +1,7 @@
 package net.frozenblock.wilderwild.entity.ai;
 
 import jdk.jfr.Experimental;
-import net.frozenblock.lib.entity.api.MoveToBlockBehavior;
+import net.frozenblock.lib.entity.api.behavior.MoveToBlockBehavior;
 import net.frozenblock.wilderwild.entity.Firefly;
 import net.frozenblock.wilderwild.registry.RegisterSounds;
 import net.frozenblock.wilderwild.tag.WilderBlockTags;

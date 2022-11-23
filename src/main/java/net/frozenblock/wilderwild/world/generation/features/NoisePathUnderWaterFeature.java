@@ -2,7 +2,7 @@ package net.frozenblock.wilderwild.world.generation.features;
 
 import com.mojang.serialization.Codec;
 import java.util.Iterator;
-import net.frozenblock.lib.math.EasyNoiseSampler;
+import net.frozenblock.lib.math.api.EasyNoiseSampler;
 import net.frozenblock.wilderwild.world.generation.features.config.PathFeatureConfig;
 import net.minecraft.core.BlockPos;
 import net.minecraft.util.RandomSource;

@@ -71,9 +71,7 @@ public class JellyfishModel<T extends Jellyfish> extends HierarchicalModel<T> {
     }
 
     public float xRot;
-    public float zRot;
     public float tentXRot;
-    public float tentZRot;
 
     public float red;
     public float green;
@@ -83,13 +81,11 @@ public class JellyfishModel<T extends Jellyfish> extends HierarchicalModel<T> {
     public void renderToBuffer(PoseStack poseStack, @NotNull VertexConsumer buffer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
         poseStack.pushPose();
         poseStack.mulPose(Vector3f.XP.rotationDegrees(this.xRot));
-        poseStack.mulPose(Vector3f.YP.rotationDegrees(this.zRot));
         this.body.render(poseStack, buffer, packedLight, packedOverlay, this.red, this.green, this.blue, alpha);
         poseStack.popPose();
 
         poseStack.pushPose();
         poseStack.mulPose(Vector3f.XP.rotationDegrees(this.tentXRot));
-        poseStack.mulPose(Vector3f.YP.rotationDegrees(this.tentZRot));
         this.tentacleBase.render(poseStack, buffer, packedLight, packedOverlay, this.red, this.green, this.blue, alpha);
         poseStack.popPose();
     }
@@ -100,9 +96,7 @@ public class JellyfishModel<T extends Jellyfish> extends HierarchicalModel<T> {
     @Override
     public void prepareMobModel(T jelly, float limbSwing, float limbSwimgAmount, float partialTick) {
         this.xRot = -(jelly.xRot1 + partialTick * (jelly.xBodyRot - jelly.xRot1));
-        this.zRot = -(jelly.zRot1 + partialTick * (jelly.zBodyRot - jelly.zRot1));
         this.tentXRot = -(jelly.xRot6 + partialTick * (jelly.xRot5 - jelly.xRot6));
-        this.tentZRot = -(jelly.zRot6 + partialTick * (jelly.zRot5 - jelly.zRot6));
     }
 
     @Override
