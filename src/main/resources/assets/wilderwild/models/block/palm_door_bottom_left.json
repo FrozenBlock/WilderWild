@@ -2,8 +2,8 @@
 	"parent": "minecraft:block/door_bottom_left",
 	"textures": {
 		"2": "wilderwild:block/palm_door_sides",
-		"bottom": "wilderwild:block/palm_door_bottom",
-		"particle": "wilderwild:block/palm_door_sides"
+		"particle": "wilderwild:block/palm_door_bottom",
+		"bottom": "wilderwild:block/palm_door_bottom"
 	},
 	"elements": [
 		{

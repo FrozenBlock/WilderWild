@@ -2,8 +2,8 @@
 	"parent": "minecraft:block/door_top_left_open",
 	"textures": {
 		"2": "wilderwild:block/palm_door_sides",
-		"top": "wilderwild:block/palm_door_top",
-		"particle": "wilderwild:block/palm_door_sides"
+		"particle": "wilderwild:block/palm_door_top",
+		"top": "wilderwild:block/palm_door_top"
 	},
 	"elements": [
 		{

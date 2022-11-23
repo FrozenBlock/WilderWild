@@ -2,8 +2,8 @@
 	"parent": "minecraft:block/template_orientable_trapdoor_bottom",
 	"textures": {
 		"1": "wilderwild:block/palm_door_sides",
-		"texture": "wilderwild:block/palm_trapdoor",
-		"particle": "wilderwild:block/palm_door_sides"
+		"particle": "wilderwild:block/palm_trapdoor",
+		"texture": "wilderwild:block/palm_trapdoor"
 	},
 	"elements": [
 		{
@@ -14,7 +14,7 @@
 				"east": {"uv": [3, 0, 0, 16], "rotation": 270, "texture": "#1", "cullface": "north"},
 				"south": {"uv": [3, 0, 0, 16], "rotation": 270, "texture": "#1", "cullface": "north"},
 				"west": {"uv": [3, 0, 0, 16], "rotation": 270, "texture": "#1", "cullface": "north"},
-				"up": {"uv": [0, 0, 16, 16], "texture": "#texture"},
+				"up": {"uv": [0, 0, 16, 16], "rotation": 180, "texture": "#texture"},
 				"down": {"uv": [0, 0, 16, 16], "texture": "#texture", "cullface": "down"}
 			}
 		}
