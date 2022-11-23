@@ -55,6 +55,7 @@ public class HangingTendrilBlockEntity extends BlockEntity implements VibrationL
 		this.listener.tick(level);
 	}
 
+	@Override
 	public void load(@NotNull CompoundTag tag) {
 		super.load(tag);
 		this.lastVibrationFrequency = tag.getInt("last_vibration_frequency");
@@ -69,6 +70,7 @@ public class HangingTendrilBlockEntity extends BlockEntity implements VibrationL
 		}
 	}
 
+	@Override
 	protected void saveAdditional(@NotNull CompoundTag tag) {
 		super.saveAdditional(tag);
 		tag.putInt("last_vibration_frequency", this.lastVibrationFrequency);

@@ -94,6 +94,7 @@ public class DisplayLanternBlockEntity extends BlockEntity {
 		return this.getFireflies().isEmpty();
 	}
 
+	@Override
 	public void load(@NotNull CompoundTag tag) {
 		super.load(tag);
 		if (tag.contains("Fireflies", 9)) {
@@ -112,6 +113,7 @@ public class DisplayLanternBlockEntity extends BlockEntity {
 		this.age = tag.getInt("age");
 	}
 
+	@Override
 	protected void saveAdditional(@NotNull CompoundTag tag) {
 		super.saveAdditional(tag);
 		DataResult<Tag> var10000 = FireflyInLantern.CODEC.listOf().encodeStart(NbtOps.INSTANCE, this.fireflies);

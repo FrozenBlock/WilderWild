@@ -73,14 +73,7 @@ public class AlgaeBlock extends Block {
 		return fluidState.getType() == Fluids.WATER && fluidState2.getType() == Fluids.EMPTY;
 	}
 
-	private static final List<Direction> algaeOffset = new ArrayList<>() {{
-		add(Direction.EAST);
-		add(Direction.NORTH);
-		add(Direction.SOUTH);
-		add(Direction.WEST);
-	}};
-
 	public static List<Direction> shuffleOffsets(RandomSource random) {
-		return Util.toShuffledList(algaeOffset.stream(), random);
+		return Util.toShuffledList(Direction.Plane.HORIZONTAL.stream(), random);
 	}
 }

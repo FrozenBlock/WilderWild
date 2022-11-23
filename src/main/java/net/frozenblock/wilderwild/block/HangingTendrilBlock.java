@@ -151,36 +151,36 @@ public class HangingTendrilBlock extends BaseEntityBlock implements SimpleWaterl
 
 	@Override
 	@Nullable
-	public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
+	public BlockEntity newBlockEntity(@NotNull BlockPos pos, @NotNull BlockState state) {
 		return new HangingTendrilBlockEntity(pos, state);
 	}
 
 	@Override
 	@Nullable
-	public <T extends BlockEntity> GameEventListener getListener(ServerLevel level, T blockEntity) {
+	public <T extends BlockEntity> GameEventListener getListener(@NotNull ServerLevel level, @NotNull T blockEntity) {
 		return blockEntity instanceof HangingTendrilBlockEntity tendril ? tendril.getEventListener() : null;
 	}
 
 	@Override
 	@Nullable
-	public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
+	public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, @NotNull BlockState state, @NotNull BlockEntityType<T> type) {
 		return !level.isClientSide ? createTickerHelper(type, RegisterBlockEntities.HANGING_TENDRIL, (worldx, pos, statex, blockEntity) -> {
 			blockEntity.serverTick(worldx, pos, statex);
 		}) : null;
 	}
 
 	@Override
-	public RenderShape getRenderShape(BlockState state) {
+	public RenderShape getRenderShape(@NotNull BlockState state) {
 		return RenderShape.MODEL;
 	}
 
 	@Override
-	public VoxelShape getOcclusionShape(BlockState state, BlockGetter level, BlockPos pos) {
+	public VoxelShape getOcclusionShape(@NotNull BlockState state, @NotNull BlockGetter level, @NotNull BlockPos pos) {
 		return OUTLINE_SHAPE;
 	}
 
 	@Override
-	public VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
+	public VoxelShape getShape(@NotNull BlockState state, @NotNull BlockGetter level, @NotNull BlockPos pos, @NotNull CollisionContext context) {
 		return OUTLINE_SHAPE;
 	}
 
@@ -217,12 +217,12 @@ public class HangingTendrilBlock extends BaseEntityBlock implements SimpleWaterl
 	}
 
 	@Override
-	public boolean hasAnalogOutputSignal(BlockState state) {
+	public boolean hasAnalogOutputSignal(@NotNull BlockState state) {
 		return true;
 	}
 
 	@Override
-	public int getAnalogOutputSignal(BlockState state, Level level, BlockPos pos) {
+	public int getAnalogOutputSignal(@NotNull BlockState state, Level level, @NotNull BlockPos pos) {
 		BlockEntity blockEntity = level.getBlockEntity(pos);
 		if (blockEntity instanceof HangingTendrilBlockEntity hangingEntity) {
 			return getPhase(state) == SculkSensorPhase.ACTIVE ? hangingEntity.getLastVibrationFrequency() : 0;
@@ -232,17 +232,17 @@ public class HangingTendrilBlock extends BaseEntityBlock implements SimpleWaterl
 	}
 
 	@Override
-	public boolean isPathfindable(BlockState state, BlockGetter level, BlockPos pos, PathComputationType type) {
+	public boolean isPathfindable(@NotNull BlockState state, @NotNull BlockGetter level, @NotNull BlockPos pos, @NotNull PathComputationType type) {
 		return true;
 	}
 
 	@Override
-	public boolean useShapeForLightOcclusion(BlockState state) {
+	public boolean useShapeForLightOcclusion(@NotNull BlockState state) {
 		return true;
 	}
 
 	@Override
-	public void spawnAfterBreak(BlockState state, ServerLevel level, BlockPos pos, ItemStack stack, boolean bl) {
+	public void spawnAfterBreak(@NotNull BlockState state, @NotNull ServerLevel level, @NotNull BlockPos pos, @NotNull ItemStack stack, boolean bl) {
 		super.spawnAfterBreak(state, level, pos, stack, bl);
 		this.tryDropExperience(level, pos, stack, ConstantInt.of(1));
 	}
@@ -272,7 +272,7 @@ public class HangingTendrilBlock extends BaseEntityBlock implements SimpleWaterl
 	}
 
 	@Override
-	public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
+	public InteractionResult use(@NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos, @NotNull Player player, @NotNull InteractionHand hand, @NotNull BlockHitResult hit) {
 		if (isInactive(state) && !state.getValue(WRINGING_OUT)) {
 			if (level.isClientSide) {
 				return InteractionResult.SUCCESS;
@@ -299,7 +299,7 @@ public class HangingTendrilBlock extends BaseEntityBlock implements SimpleWaterl
 	}
 
 	@Override
-	public int attemptUseCharge(SculkSpreader.ChargeCursor cursor, LevelAccessor level, BlockPos catalystPos, RandomSource random, SculkSpreader spreadManager, boolean shouldConvertToBlock) {
+	public int attemptUseCharge(SculkSpreader.ChargeCursor cursor, @NotNull LevelAccessor level, @NotNull BlockPos catalystPos, @NotNull RandomSource random, @NotNull SculkSpreader spreadManager, boolean shouldConvertToBlock) {
 		HangingTendrilBlockEntity tendrilEntity = getEntity(level, cursor.getPos());
 		if (tendrilEntity != null) {
 			if (tendrilEntity.storedXP < 900) {
