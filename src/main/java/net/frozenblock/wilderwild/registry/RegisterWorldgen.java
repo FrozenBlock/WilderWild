@@ -48,15 +48,13 @@ public final class RegisterWorldgen implements SurfaceRuleEvents.OverworldModifi
 
 	@Override
 	public void modifyOverworldRules(SurfaceRuleContext.@NotNull Overworld context) {
-		if (!FrozenBools.HAS_TERRABLENDER) {
-			context.materialRules().add(0, SharedWorldgen.cypressSurfaceRules());
-			context.materialRules().add(SharedWorldgen.cypressSurfaceRules());
-			if (ClothConfigInteractionHandler.betaBeaches()) {
-				context.materialRules().add(0, SharedWorldgen.betaBeaches());
-				context.materialRules().add(SharedWorldgen.betaBeaches());
-			}
-			WilderWild.log("Wilder Wild's Overworld Surface Rules have been added!", true);
+		context.materialRules().add(0, SharedWorldgen.cypressSurfaceRules());
+		context.materialRules().add(SharedWorldgen.cypressSurfaceRules());
+		if (ClothConfigInteractionHandler.betaBeaches()) {
+			context.materialRules().add(0, SharedWorldgen.betaBeaches());
+			context.materialRules().add(SharedWorldgen.betaBeaches());
 		}
+		WilderWild.log("Wilder Wild's Overworld Surface Rules have been added!", true);
 	}
 
 	// SPONGEBOB
