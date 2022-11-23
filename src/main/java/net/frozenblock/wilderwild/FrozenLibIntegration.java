@@ -88,9 +88,7 @@ public final class FrozenLibIntegration implements FrozenMainEntrypoint {
             level.gameEvent(GameEvent.BLOCK_CHANGE, fluidInfo.pos(), GameEvent.Context.of(blockState));
             level.levelEvent(LevelEvent.DRIPSTONE_DRIP, blockPos, 0);
         });
-
-		HeavyItemDamageRegistry.register(Registry.ITEM.get(WilderWild.id("coconut")), 0.1F, 6);
-
+		
         StructurePoolElementIdReplacements.RESOURCE_LOCATION_REPLACEMENTS.put(WilderWild.vanillaId("ancient_city/structures/barracks"), WilderWild.id("ancient_city/structures/barracks"));
         StructurePoolElementIdReplacements.RESOURCE_LOCATION_REPLACEMENTS.put(WilderWild.vanillaId("ancient_city/structures/chamber_1"), WilderWild.id("ancient_city/structures/chamber_1"));
         StructurePoolElementIdReplacements.RESOURCE_LOCATION_REPLACEMENTS.put(WilderWild.vanillaId("ancient_city/structures/chamber_2"), WilderWild.id("ancient_city/structures/chamber_2"));
