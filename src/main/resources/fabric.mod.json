@@ -42,9 +42,6 @@
 	],
 	"simplecopperpipes": [
 	  "net.frozenblock.wilderwild.misc.mod_compat.simple_copper_pipes.WilderCopperPipesEntrypoint"
-	],
-	"preLaunch": [
-	  "net.frozenblock.wilderwild.WilderWildPreLaunch"
 	]
   },
   "mixins": [
