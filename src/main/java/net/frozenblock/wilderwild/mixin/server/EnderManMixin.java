@@ -2,8 +2,8 @@ package net.frozenblock.wilderwild.mixin.server;
 
 import net.frozenblock.lib.sound.impl.EntityLoopingSoundInterface;
 import net.frozenblock.wilderwild.WilderWild;
-import net.frozenblock.wilderwild.misc.ClientMethodInteractionHandler;
-import net.frozenblock.wilderwild.misc.WilderEnderman;
+import net.frozenblock.wilderwild.misc.client.ClientMethodInteractionHandler;
+import net.frozenblock.wilderwild.misc.interfaces.WilderEnderman;
 import net.frozenblock.wilderwild.misc.config.ClothConfigInteractionHandler;
 import net.frozenblock.wilderwild.registry.RegisterSounds;
 import net.minecraft.core.Registry;

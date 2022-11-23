@@ -34,7 +34,7 @@ public class WaterloggableSaplingBlock extends SaplingBlock implements SimpleWat
     }
 
     @Override
-    protected boolean mayPlaceOn(@NotNull BlockState floor, BlockGetter level, BlockPos pos) {
+    protected boolean mayPlaceOn(@NotNull BlockState floor, @NotNull BlockGetter level, @NotNull BlockPos pos) {
         return super.mayPlaceOn(floor, level, pos) || floor.is(Blocks.CLAY) || floor.is(Blocks.MUD) || floor.is(Blocks.SAND);
     }
 

@@ -43,7 +43,7 @@ public class DisplayLanternBlockEntityRenderer<T extends DisplayLanternBlockEnti
     private static final RenderType NECTAR_OVERLAY = RenderType.entityTranslucentEmissive(WilderWild.id("textures/entity/firefly/nectar_overlay.png"), true);
 
     public DisplayLanternBlockEntityRenderer(Context ctx) {
-        ModelPart root = ctx.bakeLayer(WilderWildClient.DISPLAY_LANTERN);
+        ctx.bakeLayer(WilderWildClient.DISPLAY_LANTERN);
         this.itemRenderer = ctx.getItemRenderer();
     }
 

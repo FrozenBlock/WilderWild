@@ -118,9 +118,7 @@ public class DisplayLanternBlockEntity extends BlockEntity {
         DataResult<Tag> var10000 = FireflyInLantern.CODEC.listOf().encodeStart(NbtOps.INSTANCE, this.fireflies);
         Logger var10001 = WilderWild.LOGGER;
         Objects.requireNonNull(var10001);
-        var10000.resultOrPartial(var10001::error).ifPresent((cursorsNbt) -> {
-            tag.put("Fireflies", cursorsNbt);
-        });
+        var10000.resultOrPartial(var10001::error).ifPresent((cursorsNbt) -> tag.put("Fireflies", cursorsNbt));
         ContainerHelper.saveAllItems(tag, this.inventory);
         tag.putInt("age", this.age);
     }

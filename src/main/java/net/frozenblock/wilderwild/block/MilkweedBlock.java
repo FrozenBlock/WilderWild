@@ -23,6 +23,7 @@ import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.Vec3;
+import org.jetbrains.annotations.NotNull;
 
 public class MilkweedBlock extends TallFlowerBlock {
 
@@ -31,13 +32,13 @@ public class MilkweedBlock extends TallFlowerBlock {
     }
 
     @Override
-    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
+    protected void createBlockStateDefinition(StateDefinition.@NotNull Builder<Block, BlockState> builder) {
         super.createBlockStateDefinition(builder);
         builder.add(BlockStateProperties.AGE_3);
     }
 
     @Override
-    public void randomTick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
+    public void randomTick(@NotNull BlockState state, @NotNull ServerLevel level, @NotNull BlockPos pos, RandomSource random) {
         if (random.nextFloat() > 0.8F) {
             if (state.is(RegisterBlocks.MILKWEED)) {
                 if (state.getValue(BlockStateProperties.DOUBLE_BLOCK_HALF) == DoubleBlockHalf.LOWER) {
@@ -55,8 +56,8 @@ public class MilkweedBlock extends TallFlowerBlock {
     }
 
     @Override
-    public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
-        if (level instanceof ServerLevel server) {
+    public InteractionResult use(@NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos, @NotNull Player player, @NotNull InteractionHand hand, @NotNull BlockHitResult hit) {
+        if (!level.isClientSide) {
             if (state.getValue(BlockStateProperties.AGE_3) == 3) {
                 ItemStack itemStack = player.getItemInHand(hand);
                 if (itemStack.is(Items.SHEARS)) {
@@ -74,7 +75,7 @@ public class MilkweedBlock extends TallFlowerBlock {
                         level.setBlockAndUpdate(pos.below(), level.getBlockState(pos.below()).setValue(BlockStateProperties.AGE_3, 0));
                     }
                 } else {
-                    EasyPacket.EasySeedPacket.createParticle(level, Vec3.atCenterOf(pos).add(0, 0.3, 0), server.random.nextIntBetweenInclusive(14, 28), true, 48);
+                    EasyPacket.EasySeedPacket.createParticle(level, Vec3.atCenterOf(pos).add(0, 0.3, 0), level.random.nextIntBetweenInclusive(14, 28), true);
                     if (state.getValue(BlockStateProperties.DOUBLE_BLOCK_HALF) == DoubleBlockHalf.LOWER) {
                         level.setBlockAndUpdate(pos, state.setValue(BlockStateProperties.AGE_3, 1));
                         level.setBlockAndUpdate(pos.above(), level.getBlockState(pos.above()).setValue(BlockStateProperties.AGE_3, 1));

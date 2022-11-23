@@ -14,6 +14,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.NotNull;
 
 public class PollenBlock extends FlowerLichenBlock {
+
     public PollenBlock(Properties settings) {
         super(settings);
     }

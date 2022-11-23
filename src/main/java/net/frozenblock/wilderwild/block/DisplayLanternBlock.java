@@ -65,7 +65,6 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public class DisplayLanternBlock extends BaseEntityBlock implements SimpleWaterloggedBlock {
-
     public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
     public static final BooleanProperty HANGING = BlockStateProperties.HANGING;
     public static final IntegerProperty DISPLAY_LIGHT = RegisterProperties.DISPLAY_LIGHT;
@@ -191,17 +190,17 @@ public class DisplayLanternBlock extends BaseEntityBlock implements SimpleWaterl
     }
 
     @Override
-    public PushReaction getPistonPushReaction(BlockState state) {
+    public PushReaction getPistonPushReaction(@NotNull BlockState state) {
         return PushReaction.DESTROY;
     }
 
     @Override
-    public RenderShape getRenderShape(BlockState blockState) {
+    public RenderShape getRenderShape(@NotNull BlockState blockState) {
         return RenderShape.MODEL;
     }
 
     @Override
-    public BlockState updateShape(BlockState state, Direction direction, BlockState neighborState, LevelAccessor level, BlockPos currentPos, BlockPos neighborPos) {
+    public BlockState updateShape(BlockState state, @NotNull Direction direction, @NotNull BlockState neighborState, @NotNull LevelAccessor level, @NotNull BlockPos currentPos, @NotNull BlockPos neighborPos) {
         if (state.getValue(WATERLOGGED)) {
             level.scheduleTick(currentPos, Fluids.WATER, Fluids.WATER.getTickDelay(level));
         }
@@ -236,23 +235,24 @@ public class DisplayLanternBlock extends BaseEntityBlock implements SimpleWaterl
     }
 
     @Override
-    public boolean isPathfindable(BlockState state, BlockGetter level, BlockPos pos, PathComputationType type) {
+    public boolean isPathfindable(@NotNull BlockState state, @NotNull BlockGetter level, @NotNull BlockPos pos, @NotNull PathComputationType type) {
         return false;
     }
 
     @Nullable
     @Override
-    public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
+    public BlockEntity newBlockEntity(@NotNull BlockPos pos, @NotNull BlockState state) {
         return new DisplayLanternBlockEntity(pos, state);
     }
 
     @Override
     @Nullable
-    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
+    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, @NotNull BlockState state, @NotNull BlockEntityType<T> type) {
         return !level.isClientSide ? createTickerHelper(type, RegisterBlockEntities.DISPLAY_LANTERN, (worldx, pos, statex, blockEntity) -> blockEntity.serverTick(level, pos)) : createTickerHelper(type, RegisterBlockEntities.DISPLAY_LANTERN, (worldx, pos, statex, blockEntity) -> blockEntity.clientTick(level, pos));
     }
 
-    public void playerDestroy(Level level, Player player, BlockPos pos, BlockState state, @Nullable BlockEntity blockEntity, ItemStack stack) {
+	@Override
+    public void playerDestroy(Level level, Player player, @NotNull BlockPos pos, @NotNull BlockState state, @Nullable BlockEntity blockEntity, @NotNull ItemStack stack) {
         player.causeFoodExhaustion(0.005F);
         if (!level.isClientSide && blockEntity instanceof DisplayLanternBlockEntity lanternEntity) {
             boolean silk = EnchantmentHelper.getItemEnchantmentLevel(Enchantments.SILK_TOUCH, stack) == 0 || player.isCreative();
@@ -265,7 +265,8 @@ public class DisplayLanternBlock extends BaseEntityBlock implements SimpleWaterl
     }
 
     @Deprecated
-    public List<ItemStack> getDrops(BlockState state, LootContext.Builder builder) {
+	@Override
+    public List<ItemStack> getDrops(@NotNull BlockState state, LootContext.Builder builder) {
         ResourceLocation identifier = this.getLootTable();
         if (builder.getOptionalParameter(LootContextParams.TOOL) != null) {
             ItemStack stack = builder.getParameter(LootContextParams.TOOL);

@@ -79,6 +79,7 @@ public class GloryOfTheSnowBlock extends BushBlock implements BonemealableBlock 
 
     }
 
+	@Override
     public VoxelShape getShape(BlockState state, @NotNull BlockGetter level, @NotNull BlockPos pos, @NotNull CollisionContext context) {
         Vec3 vec3d = state.getOffset(level, pos);
         return SHAPE.move(vec3d.x, vec3d.y, vec3d.z);

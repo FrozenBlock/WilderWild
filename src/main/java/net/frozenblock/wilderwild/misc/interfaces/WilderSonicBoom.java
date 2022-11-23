@@ -1,4 +1,4 @@
-package net.frozenblock.wilderwild.misc;
+package net.frozenblock.wilderwild.misc.interfaces;
 
 import net.minecraft.world.phys.Vec3;
 

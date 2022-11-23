@@ -1,6 +1,6 @@
 package net.frozenblock.wilderwild.mixin.server;
 
-import net.frozenblock.wilderwild.misc.SculkSensorTickInterface;
+import net.frozenblock.wilderwild.misc.interfaces.SculkSensorTickInterface;
 import net.frozenblock.wilderwild.misc.config.ClothConfigInteractionHandler;
 import net.frozenblock.wilderwild.registry.RegisterProperties;
 import net.minecraft.core.BlockPos;

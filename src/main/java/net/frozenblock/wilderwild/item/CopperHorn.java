@@ -30,13 +30,11 @@ import org.jetbrains.annotations.NotNull;
 public class CopperHorn extends InstrumentItem {
     private static final String INSTRUMENT_KEY = "instrument";
     private final TagKey<Instrument> instrumentTag;
-    private final int shift;
 
-    public CopperHorn(Properties settings, TagKey<Instrument> instrumentTag, int shift) {
+	public CopperHorn(Properties settings, TagKey<Instrument> instrumentTag) {
         super(settings, instrumentTag);
         this.instrumentTag = instrumentTag;
-        this.shift = shift;
-    }
+	}
 
     public static ItemStack getStackForInstrument(Item item, Holder<Instrument> instrument) {
         ItemStack itemStack = new ItemStack(item);
@@ -84,16 +82,14 @@ public class CopperHorn extends InstrumentItem {
             var instrumentHolder = optional.get();
             var instrument = instrumentHolder.value();
             user.startUsingItem(usedHand);
-
-            playSound(instrument, user, level, instrumentHolder);
-
+            playSound(instrument, user, level);
             return InteractionResultHolder.consume(itemStack);
         } else {
             return InteractionResultHolder.fail(itemStack);
         }
     }
 
-    private static void playSound(Instrument instrument, Player user, Level level, Holder<Instrument> instrumentHolder) {
+    private static void playSound(Instrument instrument, Player user, Level level) {
         SoundEvent soundEvent = instrument.soundEvent();
         float range = instrument.range() / 16.0F;
         int note = (int) ((-user.getXRot() + 90) / 7.5);

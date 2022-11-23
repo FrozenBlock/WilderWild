@@ -4,7 +4,7 @@ import io.netty.buffer.Unpooled;
 import java.util.List;
 import java.util.Optional;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
-import net.frozenblock.lib.damagesource.FrozenProjectileDamageSource;
+import net.frozenblock.lib.damagesource.api.FrozenProjectileDamageSource;
 import net.frozenblock.lib.sound.api.FrozenSoundPackets;
 import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.block.entity.HangingTendrilBlockEntity;

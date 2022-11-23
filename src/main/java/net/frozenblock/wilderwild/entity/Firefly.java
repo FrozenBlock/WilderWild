@@ -243,7 +243,7 @@ public class Firefly extends PathfinderMob implements FlyingAnimal {
     }
 
     @Override
-    public float getWalkTargetValue(@NotNull BlockPos pos, LevelReader level) {
+    public float getWalkTargetValue(@NotNull BlockPos pos, @NotNull LevelReader level) {
         return 0.0F;
     }
 
@@ -299,7 +299,6 @@ public class Firefly extends PathfinderMob implements FlyingAnimal {
                 this.setDeltaMovement(this.getDeltaMovement().scale(0.9100000262260437));
             }
         }
-        //this.calculateEntityAnimation(this, false);
     }
 
     @Override

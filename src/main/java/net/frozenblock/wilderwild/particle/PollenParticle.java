@@ -2,7 +2,7 @@ package net.frozenblock.wilderwild.particle;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.frozenblock.lib.wind.ClientWindManager;
+import net.frozenblock.lib.wind.api.ClientWindManager;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.particle.Particle;
 import net.minecraft.client.particle.ParticleProvider;
@@ -52,7 +52,7 @@ public class PollenParticle extends TextureSheetParticle {
             this.spriteProvider = spriteProvider;
         }
 
-        public Particle createParticle(SimpleParticleType defaultParticleType, ClientLevel clientLevel, double x, double y, double z, double g, double h, double i) {
+        public Particle createParticle(@NotNull SimpleParticleType defaultParticleType, @NotNull ClientLevel clientLevel, double x, double y, double z, double g, double h, double i) {
             PollenParticle pollenParticle = new PollenParticle(clientLevel, this.spriteProvider, x, y, z, 0.0D, -0.800000011920929D, 0.0D) {
             };
             pollenParticle.lifetime = Mth.randomBetweenInclusive(clientLevel.random, 500, 1000);
@@ -72,7 +72,7 @@ public class PollenParticle extends TextureSheetParticle {
         }
 
         @Override
-        public Particle createParticle(@NotNull SimpleParticleType type, ClientLevel level, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed) {
+        public Particle createParticle(@NotNull SimpleParticleType type, @NotNull ClientLevel level, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed) {
             double windex = ClientWindManager.getWindX(1) * 1.1;
             double windZ = ClientWindManager.getWindZ(1) * 1.1;
             PollenParticle pollenParticle = new PollenParticle(level, this.spriteProvider, x, y, z, windex, -0.800000011920929D, windZ);
@@ -95,7 +95,7 @@ public class PollenParticle extends TextureSheetParticle {
         }
 
         @Override
-        public Particle createParticle(@NotNull SimpleParticleType type, ClientLevel level, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed) {
+        public Particle createParticle(@NotNull SimpleParticleType type, @NotNull ClientLevel level, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed) {
 			double windex = ClientWindManager.getWindX(1) * 1.1;
 			double windZ = ClientWindManager.getWindZ(1) * 1.1;
             PollenParticle pollenParticle = new PollenParticle(level, this.spriteProvider, x, y, z, windex, -0.800000011920929D, windZ);
@@ -117,7 +117,7 @@ public class PollenParticle extends TextureSheetParticle {
             this.spriteProvider = spriteProvider;
         }
 
-        public Particle createParticle(SimpleParticleType defaultParticleType, ClientLevel clientLevel, double d, double e, double f, double g, double h, double i) {
+        public Particle createParticle(@NotNull SimpleParticleType defaultParticleType, @NotNull ClientLevel clientLevel, double d, double e, double f, double g, double h, double i) {
             double windex = g * 1.1;
             double windZ = i * 1.1;
             PollenParticle pollenParticle = new PollenParticle(clientLevel, this.spriteProvider, d, e, f, windex, (h / 2) - 0.800000011920929D, windZ);
@@ -139,7 +139,7 @@ public class PollenParticle extends TextureSheetParticle {
             this.spriteProvider = spriteProvider;
         }
 
-        public Particle createParticle(SimpleParticleType defaultParticleType, ClientLevel clientLevel, double d, double e, double f, double g, double h, double i) {
+        public Particle createParticle(@NotNull SimpleParticleType defaultParticleType, @NotNull ClientLevel clientLevel, double d, double e, double f, double g, double h, double i) {
             double windex = g * 1.1;
             double windZ = i * 1.1;
             PollenParticle pollenParticle = new PollenParticle(clientLevel, this.spriteProvider, d, e, f, windex, (h / 2) - 0.800000011920929D, windZ);
@@ -152,5 +152,4 @@ public class PollenParticle extends TextureSheetParticle {
             return pollenParticle;
         }
     }
-
 }

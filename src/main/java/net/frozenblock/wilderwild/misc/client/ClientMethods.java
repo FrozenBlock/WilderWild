@@ -1,4 +1,4 @@
-package net.frozenblock.wilderwild.misc;
+package net.frozenblock.wilderwild.misc.client;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;

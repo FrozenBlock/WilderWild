@@ -18,6 +18,7 @@ import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
+import org.jetbrains.annotations.NotNull;
 
 public class HollowedLogBlock extends RotatedPillarBlock implements SimpleWaterloggedBlock {
     public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
@@ -32,7 +33,7 @@ public class HollowedLogBlock extends RotatedPillarBlock implements SimpleWaterl
     }
 
     @Override
-    public VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
+    public VoxelShape getShape(BlockState state, @NotNull BlockGetter level, @NotNull BlockPos pos, @NotNull CollisionContext context) {
         return switch (state.getValue(AXIS)) {
             default -> X_SHAPE;
             case Y -> Y_SHAPE;
@@ -41,7 +42,7 @@ public class HollowedLogBlock extends RotatedPillarBlock implements SimpleWaterl
     }
 
 	@Override
-    public VoxelShape getInteractionShape(BlockState state, BlockGetter level, BlockPos pos) {
+    public VoxelShape getInteractionShape(@NotNull BlockState state, @NotNull BlockGetter level, @NotNull BlockPos pos) {
         return RAYCAST_SHAPE;
     }
 
@@ -51,7 +52,7 @@ public class HollowedLogBlock extends RotatedPillarBlock implements SimpleWaterl
     }
 
     @Override
-    public BlockState updateShape(BlockState state, Direction direction, BlockState neighborState, LevelAccessor level, BlockPos currentPos, BlockPos neighborPos) {
+    public BlockState updateShape(BlockState state, @NotNull Direction direction, @NotNull BlockState neighborState, @NotNull LevelAccessor level, @NotNull BlockPos currentPos, @NotNull BlockPos neighborPos) {
         if (state.getValue(WATERLOGGED)) {
             level.scheduleTick(currentPos, Fluids.WATER, Fluids.WATER.getTickDelay(level));
         }
@@ -65,23 +66,23 @@ public class HollowedLogBlock extends RotatedPillarBlock implements SimpleWaterl
     }
 
     @Override
-    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
+    protected void createBlockStateDefinition(StateDefinition.@NotNull Builder<Block, BlockState> builder) {
         super.createBlockStateDefinition(builder);
         builder.add(WATERLOGGED);
     }
 
     @Override
-    public RenderShape getRenderShape(BlockState blockState) {
+    public RenderShape getRenderShape(@NotNull BlockState blockState) {
         return RenderShape.MODEL;
     }
 
     @Override
-    public boolean propagatesSkylightDown(BlockState state, BlockGetter level, BlockPos pos) {
+    public boolean propagatesSkylightDown(BlockState state, @NotNull BlockGetter level, @NotNull BlockPos pos) {
         return !(Boolean) state.getValue(WATERLOGGED);
     }
 
 	@Override
-    public boolean useShapeForLightOcclusion(BlockState state) {
+    public boolean useShapeForLightOcclusion(@NotNull BlockState state) {
         return true;
     }
 }

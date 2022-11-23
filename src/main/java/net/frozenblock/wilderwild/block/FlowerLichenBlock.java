@@ -11,6 +11,7 @@ import net.minecraft.world.level.block.MultifaceBlock;
 import net.minecraft.world.level.block.MultifaceSpreader;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
+import org.jetbrains.annotations.NotNull;
 
 public class FlowerLichenBlock extends MultifaceBlock {
     private final MultifaceSpreader grower = new MultifaceSpreader(this);
@@ -20,7 +21,7 @@ public class FlowerLichenBlock extends MultifaceBlock {
     }
 
 	@Override
-    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
+    protected void createBlockStateDefinition(StateDefinition.@NotNull Builder<Block, BlockState> builder) {
         for (Direction direction : DIRECTIONS) {
             if (this.isFaceSupported(direction)) {
                 builder.add(getFaceProperty(direction));
@@ -29,7 +30,7 @@ public class FlowerLichenBlock extends MultifaceBlock {
     }
 
 	@Override
-    public boolean canSurvive(BlockState state, LevelReader level, BlockPos pos) {
+    public boolean canSurvive(@NotNull BlockState state, LevelReader level, @NotNull BlockPos pos) {
         boolean bl = false;
         if (level.getBlockState(pos).is(Blocks.WATER)) {
             return false;
@@ -59,5 +60,4 @@ public class FlowerLichenBlock extends MultifaceBlock {
     public MultifaceSpreader getSpreader() {
         return grower;
     }
-
 }

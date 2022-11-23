@@ -36,7 +36,7 @@ public class PalmLeavesBlock extends LeavesBlock implements BonemealableBlock {
 
 	@Override
 	//TODO: make leaves have proper decay values when grown naturally
-	public void randomTick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
+	public void randomTick(@NotNull BlockState state, @NotNull ServerLevel level, @NotNull BlockPos pos, @NotNull RandomSource random) {
 		/*
 		if (this.decaying(state)) {
 			LeavesBlock.dropResources(state, level, pos);
@@ -46,7 +46,7 @@ public class PalmLeavesBlock extends LeavesBlock implements BonemealableBlock {
 	}
 
 	@Override
-	public void tick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
+	public void tick(@NotNull BlockState state, ServerLevel level, @NotNull BlockPos pos, @NotNull RandomSource random) {
 		level.setBlock(pos, updateDistance(state, level, pos), 3);
 	}
 

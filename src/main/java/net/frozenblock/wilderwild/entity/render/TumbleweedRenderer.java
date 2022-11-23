@@ -11,6 +11,7 @@ import net.minecraft.client.renderer.entity.EntityRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.texture.TextureAtlas;
 import net.minecraft.resources.ResourceLocation;
+import org.jetbrains.annotations.NotNull;
 
 @Environment(EnvType.CLIENT)
 public class TumbleweedRenderer extends EntityRenderer<Tumbleweed> {
@@ -23,7 +24,7 @@ public class TumbleweedRenderer extends EntityRenderer<Tumbleweed> {
 	}
 
 	@Override
-	public void render(Tumbleweed entity, float entityYaw, float partialTicks, PoseStack matrixStack, MultiBufferSource buffer, int packedLight) {
+	public void render(@NotNull Tumbleweed entity, float entityYaw, float partialTicks, PoseStack matrixStack, @NotNull MultiBufferSource buffer, int packedLight) {
 		matrixStack.pushPose();
 		matrixStack.translate(0.0D, 0.5D, 0.0D);
 
@@ -35,7 +36,7 @@ public class TumbleweedRenderer extends EntityRenderer<Tumbleweed> {
 	}
 
 	@Override
-	public ResourceLocation getTextureLocation(Tumbleweed entity) {
+	public ResourceLocation getTextureLocation(@NotNull Tumbleweed entity) {
 		return TextureAtlas.LOCATION_BLOCKS;
 	}
 }

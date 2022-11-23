@@ -1,7 +1,7 @@
 package net.frozenblock.wilderwild;
 
 import net.frozenblock.lib.FrozenBools;
-import net.frozenblock.lib.entrypoints.FrozenMainEntrypoint;
+import net.frozenblock.lib.entrypoint.api.FrozenMainEntrypoint;
 import net.frozenblock.lib.impl.BlockScheduledTicks;
 import net.frozenblock.lib.impl.DripstoneDripWaterFrom;
 import net.frozenblock.lib.impl.HopperUntouchableList;
@@ -10,9 +10,8 @@ import net.frozenblock.lib.impl.StructurePoolElementIdReplacements;
 import net.frozenblock.lib.item.api.HeavyItemDamageRegistry;
 import net.frozenblock.lib.sound.api.predicate.SoundPredicate;
 import net.frozenblock.wilderwild.entity.Firefly;
-import net.frozenblock.wilderwild.misc.WilderEnderman;
+import net.frozenblock.wilderwild.misc.interfaces.WilderEnderman;
 import net.frozenblock.wilderwild.registry.RegisterBlockEntities;
-import net.frozenblock.wilderwild.registry.RegisterItems;
 import net.frozenblock.wilderwild.registry.RegisterSounds;
 import net.minecraft.core.Registry;
 import net.minecraft.network.chat.Component;
@@ -32,9 +31,7 @@ public final class FrozenLibIntegration implements FrozenMainEntrypoint {
     @Override
     public void init() {
         WilderWild.log("FrozenLib Main Entrypoint for WilderWild loaded.", WilderWild.UNSTABLE_LOGGING);
-		SoundPredicate.register(WilderWild.id("instrument"),(SoundPredicate.LoopPredicate<Player>) player -> {
-			return (player.getUseItem().getItem() instanceof InstrumentItem);
-        });
+		SoundPredicate.register(WilderWild.id("instrument"),(SoundPredicate.LoopPredicate<Player>) player -> (player.getUseItem().getItem() instanceof InstrumentItem));
         SoundPredicate.register(WilderWild.id("nectar"), (SoundPredicate.LoopPredicate<Firefly>) entity -> {
             if (entity.isSilent()) {
                 return false;

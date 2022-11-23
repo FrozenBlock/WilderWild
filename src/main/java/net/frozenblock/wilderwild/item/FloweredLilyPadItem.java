@@ -11,6 +11,7 @@ import net.minecraft.world.level.ClipContext.Fluid;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.phys.BlockHitResult;
+import org.jetbrains.annotations.NotNull;
 
 public class FloweredLilyPadItem extends BlockItem {
 
@@ -19,12 +20,12 @@ public class FloweredLilyPadItem extends BlockItem {
     }
 
 	@Override
-    public InteractionResult useOn(UseOnContext context) {
+    public InteractionResult useOn(@NotNull UseOnContext context) {
         return InteractionResult.PASS;
     }
 
 	@Override
-    public InteractionResultHolder<ItemStack> use(Level level, Player user, InteractionHand hand) {
+    public InteractionResultHolder<ItemStack> use(@NotNull Level level, @NotNull Player user, @NotNull InteractionHand hand) {
         BlockHitResult blockHitResult = getPlayerPOVHitResult(level, user, Fluid.SOURCE_ONLY);
         BlockHitResult blockHitResult2 = blockHitResult.withPosition(blockHitResult.getBlockPos().above());
         InteractionResult actionResult = super.useOn(new UseOnContext(user, hand, blockHitResult2));

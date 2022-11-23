@@ -14,7 +14,9 @@ import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.Property;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import java.util.Objects;
 
 public class TumbleweedBlock extends Block implements SimpleWaterloggedBlock {
 	public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;;
@@ -25,7 +27,7 @@ public class TumbleweedBlock extends Block implements SimpleWaterloggedBlock {
 	}
 
 	@Override
-	public boolean skipRendering(BlockState state, BlockState adjacentBlockState, Direction direction) {
+	public boolean skipRendering(@NotNull BlockState state, BlockState adjacentBlockState, @NotNull Direction direction) {
 		return adjacentBlockState.is(RegisterBlocks.TUMBLEWEED) && direction.getAxis() == Direction.Axis.Y;
 	}
 
@@ -33,11 +35,11 @@ public class TumbleweedBlock extends Block implements SimpleWaterloggedBlock {
 	public BlockState getStateForPlacement(BlockPlaceContext context) {
 		FluidState fluidState = context.getLevel().getFluidState(context.getClickedPos());
 		boolean bl = fluidState.getType() == Fluids.WATER;
-		return super.getStateForPlacement(context).setValue(WATERLOGGED, bl);
+		return Objects.requireNonNull(super.getStateForPlacement(context)).setValue(WATERLOGGED, bl);
 	}
 
 	@Override
-	public BlockState updateShape(BlockState state, Direction direction, BlockState neighborState, LevelAccessor level, BlockPos currentPos, BlockPos neighborPos) {
+	public BlockState updateShape(BlockState state, @NotNull Direction direction, @NotNull BlockState neighborState, @NotNull LevelAccessor level, @NotNull BlockPos currentPos, @NotNull BlockPos neighborPos) {
 		if (state.getValue(WATERLOGGED)) {
 			level.scheduleTick(currentPos, Fluids.WATER, Fluids.WATER.getTickDelay(level));
 		}
@@ -52,6 +54,6 @@ public class TumbleweedBlock extends Block implements SimpleWaterloggedBlock {
 
 	@Override
 	protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
-		builder.add(new Property[]{WATERLOGGED});
+		builder.add(WATERLOGGED);
 	}
 }

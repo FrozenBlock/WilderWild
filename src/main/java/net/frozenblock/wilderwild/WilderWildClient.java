@@ -12,9 +12,9 @@ import net.fabricmc.fabric.api.client.rendering.v1.ColorProviderRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityModelLayerRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
 import net.fabricmc.fabric.api.event.client.ClientSpriteRegistryCallback;
+import net.frozenblock.lib.math.api.AdvancedMath;
 import net.frozenblock.lib.menu.api.Panoramas;
 import net.frozenblock.lib.menu.api.Splashes;
-import net.frozenblock.lib.math.AdvancedMath;
 import net.frozenblock.lib.sound.api.FlyBySoundHub;
 import net.frozenblock.wilderwild.entity.AncientHornProjectile;
 import net.frozenblock.wilderwild.entity.Tumbleweed;
@@ -420,15 +420,13 @@ public final class WilderWildClient implements ClientModInitializer {
     }
 
     private static void receiveJellyStingPacket() {
-        ClientPlayNetworking.registerGlobalReceiver(WilderWild.JELLY_STING_PACKET, (ctx, handler, byteBuf, responseSender) -> {
-            ctx.execute(() -> {
-                if (Minecraft.getInstance().level != null) {
-                    LocalPlayer player = ctx.player;
-                    if (player != null) {
-                        Minecraft.getInstance().level.playSound(player, player.getX(), player.getY(), player.getZ(), RegisterSounds.ENTITY_JELLYFISH_STING, SoundSource.NEUTRAL, 1.0F, Minecraft.getInstance().level.random.nextFloat() * 0.2F + 0.9F);
-                    }
-                }
-            });
-        });
+        ClientPlayNetworking.registerGlobalReceiver(WilderWild.JELLY_STING_PACKET, (ctx, handler, byteBuf, responseSender) -> ctx.execute(() -> {
+			if (Minecraft.getInstance().level != null) {
+				LocalPlayer player = ctx.player;
+				if (player != null) {
+					Minecraft.getInstance().level.playSound(player, player.getX(), player.getY(), player.getZ(), RegisterSounds.ENTITY_JELLYFISH_STING, SoundSource.NEUTRAL, 1.0F, Minecraft.getInstance().level.random.nextFloat() * 0.2F + 0.9F);
+				}
+			}
+		}));
     }
 }

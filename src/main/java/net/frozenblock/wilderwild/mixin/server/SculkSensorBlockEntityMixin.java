@@ -2,7 +2,7 @@ package net.frozenblock.wilderwild.mixin.server;
 
 import net.fabricmc.fabric.api.networking.v1.PlayerLookup;
 import net.frozenblock.wilderwild.WilderWild;
-import net.frozenblock.wilderwild.misc.SculkSensorTickInterface;
+import net.frozenblock.wilderwild.misc.interfaces.SculkSensorTickInterface;
 import net.frozenblock.wilderwild.misc.server.EasyPacket;
 import net.frozenblock.wilderwild.registry.RegisterGameEvents;
 import net.frozenblock.wilderwild.registry.RegisterProperties;

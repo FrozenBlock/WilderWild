@@ -1,6 +1,6 @@
 package net.frozenblock.wilderwild.block;
 
-import net.frozenblock.lib.math.EasyNoiseSampler;
+import net.frozenblock.lib.math.api.EasyNoiseSampler;
 import net.frozenblock.wilderwild.registry.RegisterBlocks;
 import net.frozenblock.wilderwild.registry.RegisterProperties;
 import net.minecraft.core.BlockPos;
@@ -22,6 +22,7 @@ import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
+import org.jetbrains.annotations.NotNull;
 
 public class OsseousSculkBlock extends RotatedPillarBlock implements SculkBehaviour {
 	private static final ConstantInt EXPERIENCE = ConstantInt.of(3);
@@ -32,7 +33,7 @@ public class OsseousSculkBlock extends RotatedPillarBlock implements SculkBehavi
     }
 
 	@Override
-    public void spawnAfterBreak(BlockState state, ServerLevel level, BlockPos pos, ItemStack stack, boolean dropExperience) {
+    public void spawnAfterBreak(@NotNull BlockState state, @NotNull ServerLevel level, @NotNull BlockPos pos, @NotNull ItemStack stack, boolean dropExperience) {
         super.spawnAfterBreak(state, level, pos, stack, dropExperience);
         if (dropExperience) {
             this.tryDropExperience(level, pos, stack, EXPERIENCE);
@@ -90,7 +91,7 @@ public class OsseousSculkBlock extends RotatedPillarBlock implements SculkBehavi
     public static final IntegerProperty TOTAL_HEIGHT = RegisterProperties.TOTAL_HEIGHT;
 
     @Override
-    public int attemptUseCharge(SculkSpreader.ChargeCursor cursor, LevelAccessor level, BlockPos catalystPos, RandomSource random, SculkSpreader spreadManager, boolean shouldConvertToBlock) {
+    public int attemptUseCharge(SculkSpreader.@NotNull ChargeCursor cursor, @NotNull LevelAccessor level, @NotNull BlockPos catalystPos, @NotNull RandomSource random, SculkSpreader spreadManager, boolean shouldConvertToBlock) {
         if (spreadManager.isWorldGeneration()) {
             worldGenSpread(cursor.getPos(), level, random);
             return cursor.getCharge();
@@ -270,5 +271,4 @@ public class OsseousSculkBlock extends RotatedPillarBlock implements SculkBehavi
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
         builder.add(HEIGHT_LEFT).add(BlockStateProperties.AXIS).add(UPSIDEDOWN).add(TOTAL_HEIGHT);
     }
-
 }

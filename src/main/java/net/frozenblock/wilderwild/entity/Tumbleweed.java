@@ -17,6 +17,7 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public class Tumbleweed extends Entity {
@@ -42,12 +43,12 @@ public class Tumbleweed extends Entity {
 	}
 
 	@Override
-	protected void readAdditionalSaveData(CompoundTag compound) {
+	protected void readAdditionalSaveData(@NotNull CompoundTag compound) {
 
 	}
 
 	@Override
-	protected void addAdditionalSaveData(CompoundTag compound) {
+	protected void addAdditionalSaveData(@NotNull CompoundTag compound) {
 
 	}
 

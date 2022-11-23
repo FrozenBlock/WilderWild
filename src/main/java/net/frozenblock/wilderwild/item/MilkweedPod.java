@@ -11,6 +11,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.UseAnim;
 import net.minecraft.world.level.Level;
+import org.jetbrains.annotations.NotNull;
 
 public class MilkweedPod extends Item {
 
@@ -19,7 +20,7 @@ public class MilkweedPod extends Item {
     }
 
 	@Override
-    public InteractionResultHolder<ItemStack> use(Level level, Player user, InteractionHand hand) {
+    public InteractionResultHolder<ItemStack> use(@NotNull Level level, @NotNull Player user, @NotNull InteractionHand hand) {
         WilderWild.log(user, "Used Milkweed Pod", WilderWild.DEV_LOGGING);
         ItemStack itemStack = user.getItemInHand(hand);
         itemStack.shrink(1);
@@ -37,7 +38,7 @@ public class MilkweedPod extends Item {
     }
 
 	@Override
-    public UseAnim getUseAnimation(ItemStack stack) {
+    public UseAnim getUseAnimation(@NotNull ItemStack stack) {
         return UseAnim.TOOT_HORN;
     }
 }

@@ -17,7 +17,7 @@ import net.minecraft.world.phys.Vec3;
 public class EasyPacket {
 
     public static class EasySeedPacket {
-        public static void createParticle(Level level, Vec3 pos, int count, boolean isMilkweed, int radius) {
+        public static void createParticle(Level level, Vec3 pos, int count, boolean isMilkweed) {
             if (level.isClientSide)
                 throw new IllegalStateException("Particle attempting spawning on THE CLIENT JESUS CHRIST WHAT THE HECK SPAWN ON SERVER NEXT TIME PLS");
             FriendlyByteBuf byteBuf = new FriendlyByteBuf(Unpooled.buffer());

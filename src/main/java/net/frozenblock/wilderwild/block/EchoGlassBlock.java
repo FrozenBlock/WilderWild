@@ -45,12 +45,13 @@ public class EchoGlassBlock extends TintedGlassBlock {
         this.registerDefaultState(this.defaultBlockState().setValue(DAMAGE, 0));
     }
 
+	@Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
         builder.add(DAMAGE);
     }
 
     @Override
-    public void randomTick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
+    public void randomTick(@NotNull BlockState state, @NotNull ServerLevel level, @NotNull BlockPos pos, @NotNull RandomSource random) {
         int light = getLightLevel(level, pos);
         if (light <= 7) {
             if (random.nextBoolean()) {
@@ -122,6 +123,7 @@ public class EchoGlassBlock extends TintedGlassBlock {
         }
     }
 
+	@Deprecated
     @Override
     public List<ItemStack> getDrops(@NotNull BlockState state, LootContext.Builder builder) {
         ResourceLocation identifier = this.getLootTable();
