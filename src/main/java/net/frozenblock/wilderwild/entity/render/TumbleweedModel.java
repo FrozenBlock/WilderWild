@@ -43,8 +43,8 @@ public class TumbleweedModel<T extends Tumbleweed> extends HierarchicalModel<T> 
 
 	@Override
 	public void setupAnim(@NotNull T entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
-		this.bone.xRot = limbSwing * pi180;
-		this.bone.yRot = netHeadYaw * pi180;
+		this.bone.xRot = entity.pitch * pi180;
+		this.bone.zRot = entity.roll * pi180;
 	}
 
 	@Override

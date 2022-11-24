@@ -1,11 +1,13 @@
 package net.frozenblock.wilderwild.entity;
 
+import net.frozenblock.lib.wind.api.WindManager;
 import net.frozenblock.wilderwild.registry.RegisterBlocks;
 import net.minecraft.core.NonNullList;
 import net.minecraft.core.particles.ItemParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.util.Mth;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.EquipmentSlot;
@@ -15,9 +17,16 @@ import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 
 public class Tumbleweed extends Mob {
+	public float pitch;
+	public float prevPitch;
+	public float yaw;
+	public float prevYaw;
+	public float roll;
+	public float prevRoll;
 
 	public Tumbleweed(EntityType<Tumbleweed> entityType, Level level) {
 		super(entityType, level);
@@ -30,7 +39,13 @@ public class Tumbleweed extends Mob {
 
 	@Override
 	public void tick() {
+		this.setDeltaMovement(this.getDeltaMovement().add(WindManager.windX * 0.5, 0, WindManager.windZ * 0.5));
+		this.prevPitch = this.pitch;
+		this.prevRoll = this.roll;
 		super.tick();
+		Vec3 vec3 = this.getDeltaMovement();
+		this.pitch += vec3.x;
+		this.roll += vec3.z;
 		if (this.wasTouchingWater || this.wasOnFire) {
 			this.spawnBreakParticles();
 			this.remove(RemovalReason.KILLED);
