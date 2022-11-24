@@ -46,7 +46,6 @@ import net.frozenblock.wilderwild.world.feature.features.NoisePlantFeature;
 import net.frozenblock.wilderwild.world.feature.features.ShelfFungusFeature;
 import net.frozenblock.wilderwild.world.feature.features.UpwardsPillarFeature;
 import net.frozenblock.wilderwild.world.feature.features.config.ColumnWithDiskFeatureConfig;
-import net.frozenblock.wilderwild.world.feature.features.config.NematocystFeatureConfig;
 import net.frozenblock.wilderwild.world.feature.features.config.PathFeatureConfig;
 import net.frozenblock.wilderwild.world.feature.features.config.ShelfFungusFeatureConfig;
 import net.frozenblock.wilderwild.world.feature.features.config.WilderPillarConfig;
@@ -66,6 +65,7 @@ import net.minecraft.world.level.GameRules;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.feature.Feature;
+import net.minecraft.world.level.levelgen.feature.configurations.MultifaceGrowthConfiguration;
 import net.minecraft.world.level.levelgen.feature.configurations.ProbabilityFeatureConfiguration;
 import net.minecraft.world.level.levelgen.feature.trunkplacers.TrunkPlacer;
 import net.minecraft.world.level.levelgen.feature.trunkplacers.TrunkPlacerType;
@@ -100,7 +100,7 @@ public final class WilderWild implements ModInitializer {
     public static final ColumnWithDiskFeature COLUMN_WITH_DISK_FEATURE = new ColumnWithDiskFeature(ColumnWithDiskFeatureConfig.CODEC);
     public static final UpwardsPillarFeature UPWARDS_PILLAR_FEATURE = new UpwardsPillarFeature(WilderPillarConfig.CODEC);
     public static final DownwardsPillarFeature DOWNWARDS_PILLAR_FEATURE = new DownwardsPillarFeature(WilderPillarConfig.CODEC);
-    public static final NematocystFeature NEMATOCYST_FEATURE = new NematocystFeature(NematocystFeatureConfig.CODEC);
+    public static final NematocystFeature NEMATOCYST_FEATURE = new NematocystFeature(MultifaceGrowthConfiguration.CODEC);
 
     //Fabric ASM
     public static final MobCategory FIREFLIES = ClassTinkerers.getEnum(MobCategory.class, "WILDERWILDFIREFLIES");

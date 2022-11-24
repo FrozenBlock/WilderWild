@@ -387,7 +387,7 @@ public final class WilderConfiguredFeatures {
     );
 
 	public static final Holder<ConfiguredFeature<MultifaceGrowthConfiguration, ?>> NEMATOCYST = register("nematocyst",
-			Feature.MULTIFACE_GROWTH,
+			WilderWild.NEMATOCYST_FEATURE,
 			new MultifaceGrowthConfiguration(
 					(MultifaceBlock) RegisterBlocks.BLUE_PEARLESCENT_NEMATOCYST,
 					20,
@@ -409,7 +409,7 @@ public final class WilderConfiguredFeatures {
 	);
 
 	public static final Holder<ConfiguredFeature<MultifaceGrowthConfiguration, ?>> NEMATOCYST_PURPLE = register("nematocyst_purple",
-			Feature.MULTIFACE_GROWTH,
+			WilderWild.NEMATOCYST_FEATURE,
 			new MultifaceGrowthConfiguration(
 					(MultifaceBlock) RegisterBlocks.PURPLE_PEARLESCENT_NEMATOCYST,
 					20,
