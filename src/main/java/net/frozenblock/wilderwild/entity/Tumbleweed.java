@@ -38,8 +38,8 @@ public class Tumbleweed extends Mob {
 	}
 
 	@Override
-	protected int calculateFallDamage(float fallDistance, float damageMultiplier) {
-		return super.calculateFallDamage(fallDistance, damageMultiplier) - 7;
+	public boolean causeFallDamage(float fallDistance, float multiplier, DamageSource source) {
+		return false;
 	}
 
 	@Override
