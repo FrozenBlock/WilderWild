@@ -6,6 +6,8 @@ import net.minecraft.core.particles.ItemParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.EquipmentSlot;
@@ -35,6 +37,16 @@ public class Tumbleweed extends Mob {
 			this.spawnBreakParticles();
 			this.remove(RemovalReason.KILLED);
 		}
+	}
+
+	@Override
+	protected SoundEvent getHurtSound(DamageSource damageSource) {
+		return SoundEvents.MANGROVE_ROOTS_BREAK;
+	}
+
+	@Override
+	protected SoundEvent getDeathSound() {
+		return SoundEvents.MANGROVE_ROOTS_BREAK;
 	}
 
 	@Override
