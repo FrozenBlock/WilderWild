@@ -40,13 +40,17 @@ public class Tumbleweed extends Mob {
 
 	@Override
 	public void tick() {
+		Vec3 prevPose = this.getPosition(0);
 		this.setDeltaMovement(this.getDeltaMovement().add(WindManager.windX * 0.1, 0, WindManager.windZ * 0.1));
 		this.prevPitch = this.pitch;
 		this.prevRoll = this.roll;
+		Vec3 deltaPos = this.getPosition(1).subtract(prevPose);
 		super.tick();
-		Vec3 vec3 = this.getDeltaMovement();
-		this.pitch += vec3.x * 3;
-		this.roll += vec3.z * 3;
+		this.pitch += deltaPos.x * 5;
+		this.roll += deltaPos.z * 5;
+		if (deltaPos.horizontalDistance() > 0.3 && this.isOnGround()) {
+			this.setDeltaMovement(this.getDeltaMovement().add(0, deltaPos.horizontalDistance() * 0.3, 0));
+		}
 		if (this.wasTouchingWater || this.wasOnFire) {
 			this.spawnBreakParticles();
 			this.remove(RemovalReason.KILLED);
