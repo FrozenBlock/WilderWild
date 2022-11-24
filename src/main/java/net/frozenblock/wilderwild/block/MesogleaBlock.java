@@ -70,8 +70,8 @@ public class MesogleaBlock extends HalfTransparentBlock implements SimpleWaterlo
     public void animateTick(BlockState blockState, Level level, BlockPos blockPos, RandomSource randomSource) {
         super.animateTick(blockState, level, blockPos, randomSource);
         if (randomSource.nextInt(0, 50) == 0 && (blockState.getValue(WATERLOGGED) || level.getFluidState(blockPos.above()).is(FluidTags.WATER)) && level.getFluidState(blockPos.below()).isEmpty() && level.getBlockState(blockPos.below()).isAir()) {
-            ParticleOptions particle = blockState.is(RegisterBlocks.MESOGLEA) ? RegisterParticles.BLUE_PEARLESCENT_HANGING_MESOGLEA :
-                    blockState.is(RegisterBlocks.PURPLE_MESOGLEA) ? RegisterParticles.PURPLE_PEARLESCENT_HANGING_MESOGLEA :
+            ParticleOptions particle = blockState.is(RegisterBlocks.BLUE_PEARLESCENT_MESOGLEA) ? RegisterParticles.BLUE_PEARLESCENT_HANGING_MESOGLEA :
+                    blockState.is(RegisterBlocks.PURPLE_PEARLESCENT_MESOGLEA) ? RegisterParticles.PURPLE_PEARLESCENT_HANGING_MESOGLEA :
                             blockState.is(RegisterBlocks.YELLOW_MESOGLEA) ? RegisterParticles.YELLOW_HANGING_MESOGLEA :
                                     blockState.is(RegisterBlocks.BLUE_MESOGLEA) ? RegisterParticles.BLUE_HANGING_MESOGLEA :
                                             blockState.is(RegisterBlocks.LIME_MESOGLEA) ? RegisterParticles.LIME_HANGING_MESOGLEA :
