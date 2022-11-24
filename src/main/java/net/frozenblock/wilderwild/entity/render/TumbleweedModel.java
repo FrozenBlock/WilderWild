@@ -1,16 +1,11 @@
-package net.frozenblock.wilderwild.entity.render;// Made with Blockbench 4.5.2
-// Exported for Minecraft version 1.17 - 1.18 with Mojang mappings
-// Paste this class into your mod and generate all required imports
-
+package net.frozenblock.wilderwild.entity.render;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.frozenblock.lib.entity.api.rendering.FrozenRenderType;
-import net.frozenblock.wilderwild.entity.Jellyfish;
 import net.frozenblock.wilderwild.entity.Tumbleweed;
-import net.frozenblock.wilderwild.entity.render.TumbleweedRenderer;
 import net.minecraft.client.model.HierarchicalModel;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
@@ -21,6 +16,7 @@ import net.minecraft.client.model.geom.builders.MeshDefinition;
 import net.minecraft.client.model.geom.builders.PartDefinition;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.util.Mth;
+import org.jetbrains.annotations.NotNull;
 
 @Environment(EnvType.CLIENT)
 public class TumbleweedModel<T extends Tumbleweed> extends HierarchicalModel<T> {
@@ -29,7 +25,7 @@ public class TumbleweedModel<T extends Tumbleweed> extends HierarchicalModel<T> 
 	private static final float pi180 = Mth.PI / 180;
 
 	public TumbleweedModel(ModelPart root) {
-		super(FrozenRenderType::entityTranslucentEmissiveFixed);
+		super(RenderType::entityCutoutNoCull);
 		this.bone = root.getChild("bone");
 	}
 
@@ -46,13 +42,13 @@ public class TumbleweedModel<T extends Tumbleweed> extends HierarchicalModel<T> 
 	}
 
 	@Override
-	public void setupAnim(T entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
-			this.bone.xRot = limbSwing * pi180;
-			this.bone.yRot = netHeadYaw * pi180;
+	public void setupAnim(@NotNull T entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
+		this.bone.xRot = limbSwing * pi180;
+		this.bone.yRot = netHeadYaw * pi180;
 	}
 
 	@Override
-	public void renderToBuffer(PoseStack poseStack, VertexConsumer vertexConsumer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
+	public void renderToBuffer(@NotNull PoseStack poseStack, @NotNull VertexConsumer vertexConsumer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
 		bone.render(poseStack, vertexConsumer, packedLight, packedOverlay, red, green, blue, alpha);
 	}
 

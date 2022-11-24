@@ -26,6 +26,7 @@ import net.frozenblock.wilderwild.entity.render.JellyfishModel;
 import net.frozenblock.wilderwild.entity.render.JellyfishRenderer;
 import net.frozenblock.wilderwild.entity.render.SculkSensorBlockEntityRenderer;
 import net.frozenblock.wilderwild.entity.render.StoneChestBlockEntityRenderer;
+import net.frozenblock.wilderwild.entity.render.TumbleweedModel;
 import net.frozenblock.wilderwild.entity.render.TumbleweedRenderer;
 import net.frozenblock.wilderwild.misc.CompetitionCounter;
 import net.frozenblock.wilderwild.particle.FloatingSculkBubbleParticle;
@@ -200,6 +201,7 @@ public final class WilderWildClient implements ClientModInitializer {
         EntityRendererRegistry.register(RegisterEntities.JELLYFISH, JellyfishRenderer::new);
         EntityModelLayerRegistry.registerModelLayer(JELLYFISH, JellyfishModel::createBodyLayer);
 		EntityRendererRegistry.register(RegisterEntities.TUMBLEWEED, TumbleweedRenderer::new);
+		EntityModelLayerRegistry.registerModelLayer(TUMBLEWEED, TumbleweedModel::createBodyLayer);
 
         BlockEntityRendererRegistry.register(BlockEntityType.SCULK_SENSOR, SculkSensorBlockEntityRenderer::new);
         EntityModelLayerRegistry.registerModelLayer(SCULK_SENSOR, SculkSensorBlockEntityRenderer::getTexturedModelData);
