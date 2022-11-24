@@ -18,6 +18,7 @@ import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LightLayer;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 
@@ -41,14 +42,15 @@ public class Tumbleweed extends Mob {
 	@Override
 	public void tick() {
 		super.tick();
-		this.setDeltaMovement(this.getDeltaMovement().add(WindManager.windX * 0.15, 0, WindManager.windZ * 0.15));
+		double multiplier = this.level.getBrightness(LightLayer.SKY, this.blockPosition()) * 0.0667;
+		this.setDeltaMovement(this.getDeltaMovement().add((WindManager.windX * 0.2) * multiplier, 0, (WindManager.windZ * 0.2) * multiplier));
 		Vec3 deltaPos = this.getPosition(1).subtract(this.getPosition(0));
 		this.prevPitch = this.pitch;
 		this.prevRoll = this.roll;
-		this.pitch += deltaPos.x * 30;
-		this.roll += deltaPos.z * 30;
-		if (deltaPos.horizontalDistance() > 0.05 && this.isOnGround()) {
-			this.setDeltaMovement(this.getDeltaMovement().add(0, deltaPos.horizontalDistance() * 0.3 + 0.05, 0));
+		this.roll += deltaPos.x * 30;
+		this.pitch += deltaPos.z * 30;
+		if (deltaPos.horizontalDistance() > 0.01 && deltaPos.y == 0) {
+			this.setDeltaMovement(this.getDeltaMovement().add(0, (deltaPos.horizontalDistance() * 0.3 + 0.05) * multiplier, 0));
 		}
 		if (this.wasTouchingWater || this.wasOnFire) {
 			this.spawnBreakParticles();
