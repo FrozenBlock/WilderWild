@@ -40,7 +40,7 @@ public class Tumbleweed extends Mob {
 
 	@Override
 	public void tick() {
-		this.setDeltaMovement(this.getDeltaMovement().add(WindManager.windX * 0.5, 0, WindManager.windZ * 0.5));
+		this.setDeltaMovement(this.getDeltaMovement().add(WindManager.windX * 0.05, 0, WindManager.windZ * 0.05));
 		this.prevPitch = this.pitch;
 		this.prevRoll = this.roll;
 		super.tick();
