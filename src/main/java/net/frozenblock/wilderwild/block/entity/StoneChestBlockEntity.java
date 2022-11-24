@@ -123,7 +123,7 @@ public class StoneChestBlockEntity extends ChestBlockEntity implements NoInterac
                 blockEntity.openProgress = Math.max(0F, blockEntity.openProgress - 0.0425F);
                 if (!blockEntity.closing) {
                     blockEntity.closing = true;
-                    playSound(serverLevel, pos, state, RegisterSounds.BLOCK_STONE_CHEST_CLOSE_START, RegisterSounds.BLOCK_STONE_CHEST_CLOSE_START, 0.3F);
+                    playSound(serverLevel, pos, state, RegisterSounds.BLOCK_STONE_CHEST_CLOSE_START, RegisterSounds.BLOCK_STONE_CHEST_CLOSE_START_UNDERWATER, 0.3F);
                 }
                 if (blockEntity.openProgress <= 0F) {
                     blockEntity.onLidSlam(serverLevel, pos, state, stoneChest);
