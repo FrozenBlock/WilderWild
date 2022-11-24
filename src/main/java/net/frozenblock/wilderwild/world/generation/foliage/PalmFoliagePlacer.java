@@ -19,9 +19,7 @@ import net.minecraft.world.phys.Vec3;
 import java.util.function.BiConsumer;
 
 public class PalmFoliagePlacer extends FoliagePlacer {
-    public static final Codec<PalmFoliagePlacer> CODEC = RecordCodecBuilder.create((instance) -> {
-        return foliagePlacerParts(instance).apply(instance, PalmFoliagePlacer::new);
-    });
+    public static final Codec<PalmFoliagePlacer> CODEC = RecordCodecBuilder.create((instance) -> foliagePlacerParts(instance).apply(instance, PalmFoliagePlacer::new));
 
     public PalmFoliagePlacer(IntProvider intProvider, IntProvider intProvider2) {
         super(intProvider, intProvider2);
@@ -42,7 +40,7 @@ public class PalmFoliagePlacer extends FoliagePlacer {
 		double angle = random.nextDouble() * 360;
 
 		for (int a = 0; a < fronds; a++) {
-			Vec3 offsetPos = AdvancedMath.rotateAboutXZ(origin, 1, angle + (random.nextDouble() * 20));
+			Vec3 offsetPos = AdvancedMath.rotateAboutXZ(origin, 1, angle + ((random.nextDouble() * 20) * (random.nextBoolean() ? 1 : -1)));
 			double dirX = offsetPos.x - origin.x;
 			double dirZ = offsetPos.z - origin.z;
 			for (int r = 0; r < radius; r++) {
