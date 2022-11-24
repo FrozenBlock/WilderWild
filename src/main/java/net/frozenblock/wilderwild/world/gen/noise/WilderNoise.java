@@ -1,7 +1,7 @@
 package net.frozenblock.wilderwild.world.gen.noise;
 
-import net.fabricmc.fabric.api.datagen.v1.provider.FabricDynamicRegistryProvider;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
+import net.frozenblock.wilderwild.world.feature.WilderFeatureBootstrap;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstapContext;
 import net.minecraft.resources.ResourceKey;
@@ -75,6 +75,7 @@ public class WilderNoise {
 				10.0,
 				10.0
 		);
+
 	}
 
     private static ResourceKey<NormalNoise.NoiseParameters> createKey(String id) {
@@ -88,6 +89,7 @@ public class WilderNoise {
 			double firstAmplitude,
 			double... amplitudes
 	) {
+		WilderFeatureBootstrap.NOISES.add(key);
 		entries.register(key, new NormalNoise.NoiseParameters(firstOctave, firstAmplitude, amplitudes));
 	}
 }

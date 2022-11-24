@@ -2,6 +2,8 @@ package net.frozenblock.wilderwild.registry;
 
 import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
+import net.frozenblock.wilderwild.misc.WilderWildDataGenerator;
+import net.frozenblock.wilderwild.world.feature.WilderFeatureBootstrap;
 import net.frozenblock.wilderwild.world.feature.WilderMiscPlaced;
 import net.frozenblock.wilderwild.world.feature.WilderPlacedFeatures;
 import net.minecraft.core.registries.Registries;
@@ -41,6 +43,11 @@ public final class RegisterWorldgen {
 		context.register(RegisterWorldgen.JELLYFISH_CAVES, RegisterWorldgen.jellyfishCaves(context));
 		context.register(RegisterWorldgen.MIXED_FOREST, RegisterWorldgen.mixedForest(context));
 		context.register(RegisterWorldgen.WARM_RIVER, RegisterWorldgen.warmRiver(context));
+
+		WilderFeatureBootstrap.BIOMES.add(RegisterWorldgen.CYPRESS_WETLANDS);
+		WilderFeatureBootstrap.BIOMES.add(RegisterWorldgen.JELLYFISH_CAVES);
+		WilderFeatureBootstrap.BIOMES.add(RegisterWorldgen.MIXED_FOREST);
+		WilderFeatureBootstrap.BIOMES.add(RegisterWorldgen.WARM_RIVER);
 	}
 
     private static ResourceKey<Biome> register(String name) {

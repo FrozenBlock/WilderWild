@@ -1,6 +1,7 @@
 package net.frozenblock.wilderwild.world.feature;
 
 import com.google.common.collect.ImmutableList;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -42,6 +43,7 @@ import net.minecraft.tags.BlockTags;
 import net.minecraft.util.valueproviders.ClampedInt;
 import net.minecraft.util.valueproviders.ConstantInt;
 import net.minecraft.util.valueproviders.UniformInt;
+import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.MangrovePropaguleBlock;
@@ -105,13 +107,23 @@ import net.minecraft.world.level.levelgen.placement.RandomOffsetPlacement;
 import net.minecraft.world.level.levelgen.placement.RarityFilter;
 import net.minecraft.world.level.levelgen.placement.SurfaceRelativeThresholdFilter;
 import net.minecraft.world.level.levelgen.placement.SurfaceWaterDepthFilter;
+import net.minecraft.world.level.levelgen.structure.Structure;
+import net.minecraft.world.level.levelgen.structure.StructureSet;
+import net.minecraft.world.level.levelgen.structure.pools.StructureTemplatePool;
+import net.minecraft.world.level.levelgen.structure.templatesystem.StructureProcessorList;
 import net.minecraft.world.level.levelgen.synth.NormalNoise;
 import net.minecraft.world.level.material.Fluids;
 
 public class WilderFeatureBootstrap {
 
-	public static final Map<ResourceKey<ConfiguredFeature<?, ?>>, Holder<ConfiguredFeature<?, ?>>> CONFIGURED_FEATURES = new HashMap<>();
-	public static final Map<ResourceKey<PlacedFeature>, Holder<PlacedFeature>> PLACED_FEATURES = new HashMap<>();
+	public static final List<ResourceKey<Biome>> BIOMES = new ArrayList<>();
+	public static final List<ResourceKey<ConfiguredFeature<?, ?>>> CONFIGURED_FEATURES = new ArrayList<>();
+	public static final List<ResourceKey<NormalNoise.NoiseParameters>> NOISES = new ArrayList<>();
+	public static final List<ResourceKey<PlacedFeature>> PLACED_FEATURES = new ArrayList<>();
+	public static final List<ResourceKey<StructureProcessorList>> PROCESSOR_LISTS = new ArrayList<>();
+	public static final List<ResourceKey<StructureTemplatePool>> TEMPLATE_POOLS = new ArrayList<>();
+	public static final List<ResourceKey<Structure>> STRUCTURES = new ArrayList<>();
+	public static final List<ResourceKey<StructureSet>> STRUCTURE_SETS = new ArrayList<>();
 
 	public static void bootstrapConfigured(BootstapContext<ConfiguredFeature<?, ?>> entries) {
 		final var configuredFeatures = entries.lookup(Registries.CONFIGURED_FEATURE);
@@ -851,6 +863,37 @@ public class WilderFeatureBootstrap {
 	public static void bootstrap(FabricDynamicRegistryProvider.Entries entries) {
 		final var placedFeatures = entries.placedFeatures();
 		final var configuredFeatures = entries.getLookup(Registries.CONFIGURED_FEATURE);
+		final var biomes = entries.getLookup(Registries.BIOME);
+		final var noises = entries.getLookup(Registries.NOISE);
+		final var processorLists = entries.getLookup(Registries.PROCESSOR_LIST);
+		final var templatePools = entries.getLookup(Registries.TEMPLATE_POOL);
+		final var structures = entries.getLookup(Registries.STRUCTURE);
+		final var structureSets = entries.getLookup(Registries.STRUCTURE_SET);
+
+		for (ResourceKey<ConfiguredFeature<?, ?>> key : CONFIGURED_FEATURES) {
+			entries.add(key, configuredFeatures.getOrThrow(key).value());
+		}
+		for (ResourceKey<PlacedFeature> key : PLACED_FEATURES) {
+			entries.add(key, placedFeatures.getOrThrow(key).value());
+		}
+		for (ResourceKey<Biome> key : BIOMES) {
+			entries.add(key, biomes.getOrThrow(key).value());
+		}
+		for (ResourceKey<NormalNoise.NoiseParameters> key : NOISES) {
+			entries.add(key, noises.getOrThrow(key).value());
+		}
+		for (ResourceKey<StructureProcessorList> key : PROCESSOR_LISTS) {
+			entries.add(key, processorLists.getOrThrow(key).value());
+		}
+		for (ResourceKey<StructureTemplatePool> key : TEMPLATE_POOLS) {
+			entries.add(key, templatePools.getOrThrow(key).value());
+		}
+		for (ResourceKey<Structure> key : STRUCTURES) {
+			entries.add(key, structures.getOrThrow(key).value());
+		}
+		for (ResourceKey<StructureSet> key : STRUCTURE_SETS) {
+			entries.add(key, structureSets.getOrThrow(key).value());
+		}
 
 		finalizeDatagen();
 	}
@@ -858,6 +901,8 @@ public class WilderFeatureBootstrap {
 	private static void finalizeDatagen() {
 		CONFIGURED_FEATURES.clear();
 		PLACED_FEATURES.clear();
+		BIOMES.clear();
+		NOISES.clear();
 	}
 
 	/**
@@ -872,7 +917,7 @@ public class WilderFeatureBootstrap {
 	 */
 	public static Holder<PlacedFeature> register(BootstapContext<PlacedFeature> entries, ResourceKey<PlacedFeature> resourceKey, ResourceKey<ConfiguredFeature<?, ?>> configuredResourceKey, List<PlacementModifier> modifiers) {
 		var holder = FrozenPlacementUtils.register(entries, resourceKey, entries.lookup(Registries.CONFIGURED_FEATURE).getOrThrow(configuredResourceKey), modifiers);
-		PLACED_FEATURES.put(resourceKey, holder);
+		PLACED_FEATURES.add(resourceKey);
 		return holder;
 	}
 
@@ -883,13 +928,13 @@ public class WilderFeatureBootstrap {
 
 	private static Holder<PlacedFeature> register(BootstapContext<PlacedFeature> entries, ResourceKey<PlacedFeature> resourceKey, Holder<ConfiguredFeature<?, ?>> configuredHolder, List<PlacementModifier> modifiers) {
 		var holder = FrozenPlacementUtils.register(entries, resourceKey, configuredHolder, modifiers);
-		PLACED_FEATURES.put(resourceKey, holder);
+		PLACED_FEATURES.add(resourceKey);
 		return holder;
 	}
 
 	private static <FC extends FeatureConfiguration, F extends Feature<FC>> Holder<ConfiguredFeature<?, ?>> register(BootstapContext<ConfiguredFeature<?, ?>> entries, ResourceKey<ConfiguredFeature<?, ?>> resourceKey, F feature, FC featureConfiguration) {
 		var holder = FrozenConfiguredFeatureUtils.register(entries, resourceKey, feature, featureConfiguration);
-		CONFIGURED_FEATURES.put(resourceKey, holder);
+		CONFIGURED_FEATURES.add(resourceKey);
 		return holder;
 	}
 }

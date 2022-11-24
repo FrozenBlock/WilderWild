@@ -8,6 +8,7 @@ import net.fabricmc.fabric.api.datagen.v1.provider.FabricDynamicRegistryProvider
 import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.frozenblock.wilderwild.tag.WilderBiomeTags;
+import net.frozenblock.wilderwild.world.feature.WilderFeatureBootstrap;
 import net.frozenblock.wilderwild.world.structure.AbandonedCabinGenerator;
 import net.frozenblock.wilderwild.world.structure.WilderStructureProcessors;
 import net.minecraft.core.Holder;
@@ -122,6 +123,7 @@ public final class RegisterStructures {
 						StructureTemplatePool.Projection.RIGID
 				)
 		);
+		WilderFeatureBootstrap.TEMPLATE_POOLS.add(AbandonedCabinGenerator.CABIN);
 	}
 
 	public static void bootstrap(BootstapContext<Structure> context) {
@@ -143,6 +145,7 @@ public final class RegisterStructures {
 						false
 				)
 		);
+		WilderFeatureBootstrap.STRUCTURES.add(ABANDONED_CABIN_KEY);
 	}
 
 	public static void bootstrapStructureSet(BootstapContext<StructureSet> context) {
@@ -154,11 +157,13 @@ public final class RegisterStructures {
 						new RandomSpreadStructurePlacement(13, 5, RandomSpreadType.LINEAR, 25388232) // ancient city salt is 20083232
 				)
 		);
+		WilderFeatureBootstrap.STRUCTURE_SETS.add(ABANDONED_CABINS_KEY);
 	}
 
 	private static Holder<StructureProcessorList> register(
-			BootstapContext<StructureProcessorList> entries, ResourceKey<StructureProcessorList> registryKey, List<StructureProcessor> list
+			BootstapContext<StructureProcessorList> entries, ResourceKey<StructureProcessorList> key, List<StructureProcessor> list
 	) {
-		return entries.register(registryKey, new StructureProcessorList(list));
+		WilderFeatureBootstrap.PROCESSOR_LISTS.add(key);
+		return entries.register(key, new StructureProcessorList(list));
 	}
 }
