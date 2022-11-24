@@ -6,17 +6,15 @@ import com.mojang.datafixers.TypeRewriteRule;
 import com.mojang.datafixers.schemas.Schema;
 import com.mojang.serialization.Dynamic;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.util.datafix.fixes.EntityBlockStateFix;
 import net.minecraft.util.datafix.fixes.References;
-import java.util.Objects;
 import java.util.Optional;
 
 public class NematocystStateFix extends DataFix {
 
 	private final String name;
 	private final String blockId;
-	private final String oldState;
-	private final String defaultValue;
+	private static final String OLD_STATE = "facing";
+	private static final String DEFAULT_VALUE = "up";
 
 	public NematocystStateFix(Schema outputSchema, String name, ResourceLocation blockId) {
 		this(outputSchema, name, blockId.toString());
@@ -26,15 +24,13 @@ public class NematocystStateFix extends DataFix {
 		super(outputSchema, false);
 		this.name = name;
 		this.blockId = blockId;
-		this.oldState = "facing";
-		this.defaultValue = "up";
 	}
 
 	private Dynamic<?> fix(Dynamic<?> dynamic) {
 		Optional<String> optional = dynamic.get("Name").asString().result();
 		return optional.equals(Optional.of(this.blockId)) ? dynamic.update("Properties", dynamicx -> {
-			String string = dynamicx.get(this.oldState).asString(this.defaultValue);
-			return dynamicx.remove(this.oldState).set(string, dynamicx.createString("true"));
+			String string = dynamicx.get(OLD_STATE).asString(DEFAULT_VALUE);
+			return dynamicx.remove(OLD_STATE).set(string, dynamicx.createString("true"));
 		}) : dynamic;
 	}
 
