@@ -342,6 +342,20 @@
 	],
 	"subtitle": "subtitles.block.generic.footsteps"
   },
+  "block.chest.close_underwater": {
+    "sounds": [
+      "wilderwild:block/chest/close_underwater_1",
+      "wilderwild:block/chest/close_underwater_2",
+      "wilderwild:block/chest/close_underwater_3"
+    ],
+    "subtitle": "subtitles.block.chest.close"
+  },
+  "block.chest.open_underwater": {
+    "sounds": [
+      "wilderwild:block/chest/open_underwater"
+    ],
+    "subtitle": "subtitles.block.chest.open"
+  },
   "block.clay.break": {
 	"sounds": [
 	  "wilderwild:block/clay/break1",
@@ -1252,11 +1266,23 @@
 	],
 	"subtitle": "subtitles.block.stone_chest.close_start"
   },
+  "block.stone_chest.close_start_underwater": {
+    "sounds": [
+      "wilderwild:block/stone_chest/close_start_underwater"
+    ],
+    "subtitle": "subtitles.block.stone_chest.close_start"
+  },
   "block.stone_chest.slam": {
 	"sounds": [
 	  "wilderwild:block/stone_chest/slam"
 	],
 	"subtitle": "subtitles.block.stone_chest.slam"
+  },
+  "block.stone_chest.slam_underwater": {
+    "sounds": [
+      "wilderwild:block/stone_chest/slam_underwater"
+    ],
+    "subtitle": "subtitles.block.stone_chest.slam"
   },
   "block.stone_chest.open": {
 	"sounds": [
@@ -1264,12 +1290,25 @@
 	],
 	"subtitle": "subtitles.block.stone_chest.open"
   },
+  "block.stone_chest.open_underwater": {
+    "sounds": [
+      "wilderwild:block/stone_chest/open_underwater"
+    ],
+    "subtitle": "subtitles.block.stone_chest.open"
+  },
   "block.stone_chest.lift": {
 	"sounds": [
-	  "wilderwild:block/stone_chest/lift",
+	  "wilderwild:block/stone_chest/lift1",
 	  "wilderwild:block/stone_chest/lift2"
 	],
 	"subtitle": "subtitles.block.stone_chest.lift"
+  },
+  "block.stone_chest.lift_underwater": {
+    "sounds": [
+      "wilderwild:block/stone_chest/lift_underwater_1",
+      "wilderwild:block/stone_chest/lift_underwater_2"
+    ],
+    "subtitle": "subtitles.block.stone_chest.lift"
   },
   "block.stone_chest.item_crumble": {
 	"sounds": [

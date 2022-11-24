@@ -33,6 +33,9 @@ public final class RegisterSounds {
     public static final SoundEvent BLOCK_BAOBAB_NUT_STEP = register("block.baobab_nut.step");
     public static final SoundEvent BLOCK_BAOBAB_NUT_FALL = register("block.baobab_nut.fall");
 
+	public static final SoundEvent BLOCK_CHEST_CLOSE_UNDERWATER = register("block.chest.close_underwater");
+	public static final SoundEvent BLOCK_CHEST_OPEN_UNDERWATER = register("block.chest.open_underwater");
+
     public static final SoundEvent BLOCK_CLAY_PLACE = register("block.clay.place");
     public static final SoundEvent BLOCK_CLAY_HIT = register("block.clay.hit");
     public static final SoundEvent BLOCK_CLAY_BREAK = register("block.clay.break");
@@ -146,9 +149,13 @@ public final class RegisterSounds {
     public static final SoundEvent BLOCK_SCULK_SHRIEKER_GARGLE = register("block.sculk_shrieker.gargle");
 
     public static final SoundEvent BLOCK_STONE_CHEST_CLOSE_START = register("block.stone_chest.close_start");
+	public static final SoundEvent BLOCK_STONE_CHEST_CLOSE_START_UNDERWATER = register("block.stone_chest.close_start_underwater");
     public static final SoundEvent BLOCK_STONE_CHEST_SLAM = register("block.stone_chest.slam");
+	public static final SoundEvent BLOCK_STONE_CHEST_SLAM_UNDERWATER = register("block.stone_chest.slam_underwater");
     public static final SoundEvent BLOCK_STONE_CHEST_OPEN = register("block.stone_chest.open");
+	public static final SoundEvent BLOCK_STONE_CHEST_OPEN_UNDERWATER = register("block.stone_chest.open_underwater");
     public static final SoundEvent BLOCK_STONE_CHEST_LIFT = register("block.stone_chest.lift");
+	public static final SoundEvent BLOCK_STONE_CHEST_LIFT_UNDERWATER = register("block.stone_chest.lift_underwater");
     public static final SoundEvent BLOCK_STONE_CHEST_ITEM_CRUMBLE = register("block.stone_chest.item_crumble");
 
     public static final SoundEvent BLOCK_SUGAR_CANE_PLACE = register("block.sugar_cane.place");
