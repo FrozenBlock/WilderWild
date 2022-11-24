@@ -7,7 +7,6 @@ import net.fabricmc.fabric.api.transfer.v1.item.ItemVariant;
 import net.frozenblock.lib.storage.api.NoInteractionStorage;
 import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.misc.config.ClothConfigInteractionHandler;
-import net.frozenblock.wilderwild.misc.interfaces.ChestBlockEntityInterface;
 import net.frozenblock.wilderwild.registry.RegisterBlockEntities;
 import net.frozenblock.wilderwild.registry.RegisterProperties;
 import net.frozenblock.wilderwild.registry.RegisterSounds;
@@ -275,9 +274,9 @@ public class StoneChestBlockEntity extends ChestBlockEntity implements NoInterac
 	public void bubble() {
 		if (this.canStoneBubble && this.stoneBubbleTicks <= 0 && this.getBlockState().getValue(BlockStateProperties.WATERLOGGED)) {
 			this.stoneBubbleTicks = 5;
-			ChestBlockEntity otherChest = getOtherEntity(this.getLevel(), this.getBlockPos(), this.getBlockState());
+			StoneChestBlockEntity otherChest = getOtherEntity(this.getLevel(), this.getBlockPos(), this.getBlockState());
 			if (otherChest != null) {
-				((ChestBlockEntityInterface)otherChest).setBubbleTicks(5);
+				otherChest.stoneBubbleTicks = 5;
 			}
 		}
 	}
