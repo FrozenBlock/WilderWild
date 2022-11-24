@@ -64,7 +64,7 @@ public class ChestBlockMixin {
 	}
 
 	@Unique
-	public static ChestBlockEntity getLeftEntity(Level level, BlockPos pos, BlockState state, ChestBlockEntity source) {
+	private static ChestBlockEntity getLeftEntity(Level level, BlockPos pos, BlockState state, ChestBlockEntity source) {
 		ChestType chestType = state.getValue(ChestBlock.TYPE);
 		if (chestType == ChestType.SINGLE) {
 			return source;
@@ -88,7 +88,7 @@ public class ChestBlockMixin {
 	}
 
 	@Unique
-	public static ChestBlockEntity getOtherChest(LevelAccessor level, BlockPos pos, BlockState state) {
+	private static ChestBlockEntity getOtherChest(LevelAccessor level, BlockPos pos, BlockState state) {
 		ChestType chestType = state.getValue(ChestBlock.TYPE);
 		double x = pos.getX();
 		double y = pos.getY();
