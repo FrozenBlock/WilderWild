@@ -6,5 +6,9 @@ public interface ChestBlockEntityInterface {
 
 	void setCanBubble(boolean b);
 
+	void setBubbleTicks(int i);
+
+	int getBubbleTick();
+
 	void bubble();
 }

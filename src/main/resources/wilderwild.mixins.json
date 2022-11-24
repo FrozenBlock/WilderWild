@@ -13,6 +13,8 @@
 	"server.BlocksMixin",
 	"server.BoatDropsMixin",
 	"server.BoatTypeMixin",
+    "server.ChestBlockEntityMixin",
+    "server.ChestBlockMixin",
 	"server.ChestBoatDropsMixin",
 	"server.EnderManMixin",
 	"server.ExperienceOrbMixin",

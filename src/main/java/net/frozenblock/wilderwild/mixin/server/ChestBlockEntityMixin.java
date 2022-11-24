@@ -1,43 +1,54 @@
 package net.frozenblock.wilderwild.mixin.server;
 
-import net.frozenblock.wilderwild.block.entity.StoneChestBlockEntity;
 import net.frozenblock.wilderwild.misc.interfaces.ChestBlockEntityInterface;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.core.NonNullList;
+import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.world.ContainerHelper;
-import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResult;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.ItemStack;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.ChestBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.ChestBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.ChestType;
-import net.minecraft.world.phys.BlockHitResult;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 //TODO: Move to FrozenBlock eventually
 @Mixin(ChestBlockEntity.class)
 public class ChestBlockEntityMixin implements ChestBlockEntityInterface {
 
 	@Unique int bubbleTicks;
-	@Unique boolean canBubble;
+	@Unique boolean canBubble = true;
 
 	@Override
 	public void bubble() {
-		ChestBlockEntity chest = ChestBlockEntity.class.cast(this);
+		if (this.canBubble) {
+			this.bubbleTicks = 5;
+			ChestBlockEntity chest = ChestBlockEntity.class.cast(this);
+			ChestBlockEntity otherChest = getOtherEntity(chest.getLevel(), chest.getBlockPos(), chest.getBlockState());
+			if (otherChest != null) {
+				((ChestBlockEntityInterface)otherChest).setBubbleTicks(5);
+			}
+		}
+	}
 
+	@Inject(at = @At(value = "TAIL"), method = "lidAnimateTick")
+	private static void tick(Level level, BlockPos pos, BlockState state, ChestBlockEntity blockEntity, CallbackInfo info) {
+		ChestBlockEntityInterface chest = ((ChestBlockEntityInterface)blockEntity);
+		if (!chest.getCanBubble()) {
+			chest.setBubbleTicks(0);
+		} else if (chest.getBubbleTick() > 0) {
+			chest.setBubbleTicks(chest.getBubbleTick() - 1);
+			if (level instanceof ServerLevel server) {
+				int random = level.random.nextInt(2, 5);
+				server.sendParticles(ParticleTypes.BUBBLE, pos.getX() + 0.5, pos.getY() + 0.625, pos.getZ() + 0.5, random, 0.21875F, 0, 0.21875F, 0.05D);
+			}
+		}
 	}
 
 	@Inject(at = @At(value = "TAIL"), method = "load")
@@ -60,6 +71,16 @@ public class ChestBlockEntityMixin implements ChestBlockEntityInterface {
 	@Override
 	public void setCanBubble(boolean b) {
 		canBubble = false;
+	}
+
+	@Override
+	public void setBubbleTicks(int i) {
+		this.bubbleTicks = i;
+	}
+
+	@Override
+	public int getBubbleTick() {
+		return this.bubbleTicks;
 	}
 
 	@Unique

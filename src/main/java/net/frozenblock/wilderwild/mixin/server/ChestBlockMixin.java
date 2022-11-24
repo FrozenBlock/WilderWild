@@ -1,6 +1,5 @@
 package net.frozenblock.wilderwild.mixin.server;
 
-import net.frozenblock.wilderwild.block.entity.StoneChestBlockEntity;
 import net.frozenblock.wilderwild.misc.interfaces.ChestBlockEntityInterface;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -52,6 +51,13 @@ public class ChestBlockMixin {
 						((ChestBlockEntityInterface) chest).setCanBubble(false);
 						((ChestBlockEntityInterface) otherChest).setCanBubble(false);
 					}
+				}
+			}
+		} else {
+			boolean wasLogged = blockStateUnneeded.getValue(BlockStateProperties.WATERLOGGED);
+			if (level.getBlockEntity(currentPos) instanceof ChestBlockEntity chest) {
+				if (wasLogged != state.getValue(BlockStateProperties.WATERLOGGED) && wasLogged) {
+					((ChestBlockEntityInterface) chest).setCanBubble(true);
 				}
 			}
 		}
