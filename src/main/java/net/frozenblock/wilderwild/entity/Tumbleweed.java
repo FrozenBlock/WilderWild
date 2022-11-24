@@ -9,6 +9,7 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.util.Mth;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.EquipmentSlot;
@@ -43,7 +44,9 @@ public class Tumbleweed extends Mob {
 	public void tick() {
 		super.tick();
 		double multiplier = this.level.getBrightness(LightLayer.SKY, this.blockPosition()) * 0.0667;
-		this.setDeltaMovement(this.getDeltaMovement().add((WindManager.windX * 0.2) * multiplier, 0, (WindManager.windZ * 0.2) * multiplier));
+		double windX = Mth.clamp(WindManager.windX * 1.3, -1, 1);
+		double windZ = Mth.clamp(WindManager.windZ * 1.3, -1, 1);
+		this.setDeltaMovement(this.getDeltaMovement().add((windX * 0.2) * multiplier, 0, (windZ * 0.2) * multiplier));
 		Vec3 deltaPos = this.getPosition(1).subtract(this.getPosition(0));
 		this.prevPitch = this.pitch;
 		this.prevRoll = this.roll;
