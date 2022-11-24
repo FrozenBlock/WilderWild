@@ -46,14 +46,16 @@ public class Tumbleweed extends Mob {
 		double multiplier = this.level.getBrightness(LightLayer.SKY, this.blockPosition()) * 0.0667;
 		double windX = Mth.clamp(WindManager.windX * 1.15, -1, 1);
 		double windZ = Mth.clamp(WindManager.windZ * 1.15, -1, 1);
-		this.setDeltaMovement(this.getDeltaMovement().add((windX * 0.2) * multiplier, 0, (windZ * 0.2) * multiplier));
+		Vec3 deltaMovement = this.getDeltaMovement();
+		deltaMovement = deltaMovement.add((windX * 0.2) * multiplier, deltaMovement.y < 0 ? deltaMovement.y * 0.7 : deltaMovement.y, (windZ * 0.2) * multiplier);
+		this.setDeltaMovement(deltaMovement);
 		Vec3 deltaPos = this.getPosition(1).subtract(this.getPosition(0));
 		this.prevPitch = this.pitch;
 		this.prevRoll = this.roll;
 		this.roll += deltaPos.x * 35;
 		this.pitch += deltaPos.z * 35;
 		if (deltaPos.y <= 0 && this.isOnGround()) {
-			this.setDeltaMovement(this.getDeltaMovement().add(0, Math.min(0.5, ((deltaPos.horizontalDistance() * 1.25) + 0.05)) * multiplier, 0));
+			this.setDeltaMovement(deltaMovement.add(0, Math.min(0.5, ((deltaPos.horizontalDistance() * 1.1))) * multiplier, 0));
 		}
 		if (this.wasTouchingWater || this.wasOnFire) {
 			this.spawnBreakParticles();
