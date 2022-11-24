@@ -14,7 +14,7 @@ import org.jetbrains.annotations.NotNull;
 public class TumbleweedRenderer extends MobRenderer<Tumbleweed, TumbleweedModel<Tumbleweed>> {
 
 	public TumbleweedRenderer(Context context) {
-		super(context, new TumbleweedModel<>(context.bakeLayer(WilderWildClient.TUMBLEWEED)), 0.8F);
+		super(context, new TumbleweedModel<>(context.bakeLayer(WilderWildClient.TUMBLEWEED)), 0.6F);
 	}
 
 	@Override
