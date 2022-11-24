@@ -8,7 +8,6 @@ import java.util.function.Supplier;
 import net.fabricmc.fabric.api.transfer.v1.item.ItemVariant;
 import net.frozenblock.lib.storage.api.NoInteractionStorage;
 import net.frozenblock.wilderwild.block.entity.StoneChestBlockEntity;
-import net.frozenblock.wilderwild.misc.interfaces.ChestBlockEntityInterface;
 import net.frozenblock.wilderwild.registry.RegisterBlockEntities;
 import net.frozenblock.wilderwild.registry.RegisterProperties;
 import net.frozenblock.wilderwild.registry.RegisterSounds;
@@ -251,28 +250,28 @@ public class StoneChestBlock extends ChestBlock implements NoInteractionStorage<
     }
 
 	public void updateBubbles(BlockState oldState, BlockState state, LevelAccessor level, BlockPos currentPos) {
-		ChestBlockEntity otherChest = getOtherChest(level, currentPos, state);
+		StoneChestBlockEntity otherChest = getOtherChest(level, currentPos, state);
 		if (otherChest != null) {
 			BlockState otherState = otherChest.getBlockState();
 			boolean wasLogged = oldState.getValue(BlockStateProperties.WATERLOGGED);
 			if (wasLogged != state.getValue(BlockStateProperties.WATERLOGGED) && wasLogged) {
 				if (!otherState.getValue(BlockStateProperties.WATERLOGGED)) {
-					if (level.getBlockEntity(currentPos) instanceof ChestBlockEntity chest) {
-						((ChestBlockEntityInterface) chest).setCanBubble(true);
-						((ChestBlockEntityInterface) otherChest).setCanBubble(true);
+					if (level.getBlockEntity(currentPos) instanceof StoneChestBlockEntity chest) {
+						chest.canStoneBubble = true;
+						otherChest.canStoneBubble = true;
 					}
-				} else if (!((ChestBlockEntityInterface) otherChest).getCanBubble()) {
-					if (level.getBlockEntity(currentPos) instanceof ChestBlockEntity chest) {
-						((ChestBlockEntityInterface) chest).setCanBubble(false);
-						((ChestBlockEntityInterface) otherChest).setCanBubble(false);
+				} else if (!otherChest.canStoneBubble) {
+					if (level.getBlockEntity(currentPos) instanceof StoneChestBlockEntity chest) {
+						chest.canStoneBubble = false;
+						otherChest.canStoneBubble = false;
 					}
 				}
 			}
 		} else {
 			boolean wasLogged = oldState.getValue(BlockStateProperties.WATERLOGGED);
-			if (level.getBlockEntity(currentPos) instanceof ChestBlockEntity chest) {
+			if (level.getBlockEntity(currentPos) instanceof StoneChestBlockEntity chest) {
 				if (wasLogged != state.getValue(BlockStateProperties.WATERLOGGED) && wasLogged) {
-					((ChestBlockEntityInterface) chest).setCanBubble(true);
+					chest.canStoneBubble = true;
 				}
 			}
 		}
