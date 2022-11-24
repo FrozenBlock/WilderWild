@@ -1,7 +1,7 @@
 package net.frozenblock.wilderwild.mixin.server;
 
-import net.frozenblock.wilderwild.misc.interfaces.WilderEnderman;
 import net.frozenblock.wilderwild.misc.config.ClothConfigInteractionHandler;
+import net.frozenblock.wilderwild.misc.interfaces.WilderEnderman;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;

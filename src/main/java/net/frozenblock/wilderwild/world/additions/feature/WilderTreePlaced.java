@@ -1,5 +1,6 @@
 package net.frozenblock.wilderwild.world.additions.feature;
 
+import java.util.List;
 import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.registry.RegisterBlocks;
 import net.minecraft.core.Direction;
@@ -12,7 +13,6 @@ import net.minecraft.world.level.levelgen.placement.BlockPredicateFilter;
 import net.minecraft.world.level.levelgen.placement.EnvironmentScanPlacement;
 import net.minecraft.world.level.levelgen.placement.PlacedFeature;
 import net.minecraft.world.level.levelgen.placement.PlacementModifier;
-import java.util.List;
 
 public final class WilderTreePlaced {
 	private WilderTreePlaced() {

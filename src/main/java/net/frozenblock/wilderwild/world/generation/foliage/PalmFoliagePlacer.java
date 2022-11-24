@@ -2,11 +2,10 @@ package net.frozenblock.wilderwild.world.generation.foliage;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-
+import java.util.function.BiConsumer;
 import net.frozenblock.lib.math.api.AdvancedMath;
 import net.frozenblock.wilderwild.WilderWild;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Direction;
 import net.minecraft.util.RandomSource;
 import net.minecraft.util.valueproviders.IntProvider;
 import net.minecraft.world.level.LevelSimulatedReader;
@@ -15,8 +14,6 @@ import net.minecraft.world.level.levelgen.feature.configurations.TreeConfigurati
 import net.minecraft.world.level.levelgen.feature.foliageplacers.FoliagePlacer;
 import net.minecraft.world.level.levelgen.feature.foliageplacers.FoliagePlacerType;
 import net.minecraft.world.phys.Vec3;
-
-import java.util.function.BiConsumer;
 
 public class PalmFoliagePlacer extends FoliagePlacer {
     public static final Codec<PalmFoliagePlacer> CODEC = RecordCodecBuilder.create((instance) -> foliagePlacerParts(instance).apply(instance, PalmFoliagePlacer::new));

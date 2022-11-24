@@ -35,6 +35,7 @@ import net.frozenblock.wilderwild.world.additions.feature.WilderMiscConfigured;
 import net.frozenblock.wilderwild.world.additions.feature.WilderPlacedFeatures;
 import net.frozenblock.wilderwild.world.additions.feature.WilderTreeConfigured;
 import net.frozenblock.wilderwild.world.additions.feature.WilderTreePlaced;
+import net.frozenblock.wilderwild.world.additions.gen.WilderWorldGen;
 import net.frozenblock.wilderwild.world.generation.features.AlgaeFeature;
 import net.frozenblock.wilderwild.world.generation.features.CattailFeature;
 import net.frozenblock.wilderwild.world.generation.features.ColumnWithDiskFeature;
@@ -50,7 +51,6 @@ import net.frozenblock.wilderwild.world.generation.features.config.NematocystFea
 import net.frozenblock.wilderwild.world.generation.features.config.PathFeatureConfig;
 import net.frozenblock.wilderwild.world.generation.features.config.ShelfFungusFeatureConfig;
 import net.frozenblock.wilderwild.world.generation.features.config.WilderPillarConfig;
-import net.frozenblock.wilderwild.world.additions.gen.WilderWorldGen;
 import net.frozenblock.wilderwild.world.generation.foliage.PalmFoliagePlacer;
 import net.frozenblock.wilderwild.world.generation.trunk.BaobabTrunkPlacer;
 import net.frozenblock.wilderwild.world.generation.trunk.FallenTrunkWithLogs;

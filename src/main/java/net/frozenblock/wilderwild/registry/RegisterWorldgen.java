@@ -11,6 +11,8 @@ import net.minecraft.core.Registry;
 import net.minecraft.data.BuiltinRegistries;
 import net.minecraft.data.worldgen.BiomeDefaultFeatures;
 import net.minecraft.data.worldgen.biome.OverworldBiomes;
+import static net.minecraft.data.worldgen.biome.OverworldBiomes.jungle;
+import static net.minecraft.data.worldgen.biome.OverworldBiomes.swamp;
 import net.minecraft.data.worldgen.placement.AquaticPlacements;
 import net.minecraft.data.worldgen.placement.CavePlacements;
 import net.minecraft.data.worldgen.placement.MiscOverworldPlacements;
@@ -30,7 +32,6 @@ import net.minecraft.world.level.levelgen.GenerationStep;
 import org.jetbrains.annotations.NotNull;
 import org.quiltmc.qsl.frozenblock.worldgen.surface_rule.api.SurfaceRuleContext;
 import org.quiltmc.qsl.frozenblock.worldgen.surface_rule.api.SurfaceRuleEvents;
-import static net.minecraft.data.worldgen.biome.OverworldBiomes.*;
 
 public final class RegisterWorldgen implements SurfaceRuleEvents.OverworldModifierCallback {
 

@@ -7,7 +7,6 @@ import net.frozenblock.wilderwild.registry.RegisterEntities;
 import net.frozenblock.wilderwild.tag.WilderBiomeTags;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
-import net.minecraft.world.entity.animal.Rabbit;
 import net.minecraft.world.level.biome.Biomes;
 
 public final class WilderSpawns {
