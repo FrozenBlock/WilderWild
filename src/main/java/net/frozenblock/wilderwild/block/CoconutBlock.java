@@ -153,8 +153,10 @@ public class CoconutBlock extends FallingBlock implements BonemealableBlock {
 
 	@Override
 	public void onProjectileHit(@NotNull Level level, @NotNull BlockState state, @NotNull BlockHitResult hit, @NotNull Projectile projectile) {
-		FallingBlockEntity fallingBlockEntity = FallingBlockEntity.fall(level, hit.getBlockPos(), state);
-		this.falling(fallingBlockEntity);
+		if (isHanging(state)) {
+			FallingBlockEntity fallingBlockEntity = FallingBlockEntity.fall(level, hit.getBlockPos(), state);
+			this.falling(fallingBlockEntity);
+		}
 	}
 
 	@Override
@@ -164,7 +166,7 @@ public class CoconutBlock extends FallingBlock implements BonemealableBlock {
 
 	@Override
 	public void tick(@NotNull BlockState state, ServerLevel level, BlockPos pos, @NotNull RandomSource random) {
-		if (!FallingBlock.isFree(level.getBlockState(pos.below())) || pos.getY() < level.getMinBuildHeight() || isHanging(state)) {
+		if (pos.getY() < level.getMinBuildHeight() || !isHanging(state)) {
 			return;
 		}
 		FallingBlockEntity fallingBlockEntity = FallingBlockEntity.fall(level, pos, state);
@@ -174,6 +176,7 @@ public class CoconutBlock extends FallingBlock implements BonemealableBlock {
 	@Override
 	public void onLand(@NotNull Level level, @NotNull BlockPos pos, @NotNull BlockState state, @NotNull BlockState replaceableState, @NotNull FallingBlockEntity fallingBlock) {
 		level.destroyBlock(pos, true);
+		level.setBlock(pos, replaceableState, 3);
 	}
 
 	@Override
