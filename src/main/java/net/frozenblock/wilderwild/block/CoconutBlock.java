@@ -6,6 +6,8 @@ import net.frozenblock.wilderwild.world.generation.sapling.PalmSaplingGenerator;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.item.FallingBlockEntity;
@@ -169,13 +171,16 @@ public class CoconutBlock extends FallingBlock implements BonemealableBlock {
 		if (pos.getY() < level.getMinBuildHeight() || !isHanging(state)) {
 			return;
 		}
-		FallingBlockEntity fallingBlockEntity = FallingBlockEntity.fall(level, pos, state);
-		this.falling(fallingBlockEntity);
+		if (isHanging(state) && !state.canSurvive(level, pos)) {
+			FallingBlockEntity fallingBlockEntity = FallingBlockEntity.fall(level, pos, state);
+			this.falling(fallingBlockEntity);
+		}
 	}
 
 	@Override
 	public void onLand(@NotNull Level level, @NotNull BlockPos pos, @NotNull BlockState state, @NotNull BlockState replaceableState, @NotNull FallingBlockEntity fallingBlock) {
 		level.destroyBlock(pos, true);
+		level.playSound(null, pos, SoundEvents.WOOD_BREAK, SoundSource.BLOCKS, 1.0F, 1.0F);
 		level.setBlock(pos, replaceableState, 3);
 	}
 
