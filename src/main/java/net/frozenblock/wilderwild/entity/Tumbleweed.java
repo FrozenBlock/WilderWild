@@ -48,7 +48,7 @@ public class Tumbleweed extends Mob {
 		double windZ = Mth.clamp(WindManager.windZ * 1.15, -1, 1);
 		Vec3 deltaMovement = this.getDeltaMovement();
 		deltaMovement = deltaMovement.add((windX * 0.2) * multiplier, 0, (windZ * 0.2) * multiplier);
-		double newY = deltaMovement.y < 0 ? deltaMovement.y * 0.7 : deltaMovement.y;
+		double newY = deltaMovement.y < 0 ? deltaMovement.y * 0.9 : deltaMovement.y;
 		deltaMovement = new Vec3(deltaMovement.x, newY, deltaMovement.z);
 		this.setDeltaMovement(deltaMovement);
 		Vec3 deltaPos = this.getPosition(1).subtract(this.getPosition(0));
