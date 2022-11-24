@@ -70,7 +70,7 @@ public class ChestBlockMixin {
 		}
 	}
 
-	@Inject(at = @At(value = "HEAD"), method = "getTicker")
+	@Inject(at = @At(value = "HEAD"), method = "getTicker", cancellable = true)
 	public <T extends BlockEntity> void getTicker(Level level, BlockState state, BlockEntityType<T> blockEntityType, CallbackInfoReturnable<BlockEntityTicker<T>> info) {
 		if (!level.isClientSide) {
 			info.setReturnValue(createTickerHelper(blockEntityType, this.blockEntityType(), ChestBlockEntity::lidAnimateTick));
