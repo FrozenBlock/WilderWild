@@ -198,7 +198,32 @@
 		"name": "wilderwild:ambient/cave/jellyfish_caves/sludge3",
 		"volume": 0.6,
 		"weight": 1
-	  }
+	  },
+      {
+        "name": "wilderwild:ambient/cave/jellyfish_caves/drip1",
+        "volume": 0.9,
+        "weight": 1
+      },
+      {
+        "name": "wilderwild:ambient/cave/jellyfish_caves/drip2",
+        "volume": 0.9,
+        "weight": 1
+      },
+      {
+        "name": "wilderwild:ambient/cave/jellyfish_caves/drip3",
+        "volume": 0.9,
+        "weight": 1
+      },
+      {
+        "name": "wilderwild:ambient/cave/jellyfish_caves/jelly1",
+        "volume": 0.7,
+        "weight": 1
+      },
+      {
+        "name": "wilderwild:ambient/cave/jellyfish_caves/jelly2",
+        "volume": 0.7,
+        "weight": 1
+      }
 	]
   },
   "ambient.jellyfish_caves.loop": {
