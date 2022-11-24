@@ -8,14 +8,24 @@ import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.world.CompoundContainer;
+import net.minecraft.world.Container;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.inventory.ChestMenu;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.ChestBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.ChestBlockEntity;
+import net.minecraft.world.level.block.entity.ContainerOpenersCounter;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.ChestType;
+import org.jetbrains.annotations.NotNull;
+import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Mutable;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
@@ -29,20 +39,37 @@ public class ChestBlockEntityMixin implements ChestBlockEntityInterface {
 	@Unique int bubbleTicks;
 	@Unique boolean canBubble = true;
 
-	@Inject(at = @At(value = "HEAD"), method = {"f_jgbaykqs", "onOpen"}, cancellable = true)
-	public void onOpen(Level level, BlockPos pos, BlockState state, CallbackInfo info) {
-		if (state.getValue(BlockStateProperties.WATERLOGGED)) {
-			info.cancel();
-			playSound(level, pos, state, RegisterSounds.BLOCK_CHEST_OPEN_UNDERWATER);
-		}
-	}
+	@Shadow @Final @Mutable
+	private ContainerOpenersCounter openersCounter;
 
-	@Inject(at = @At(value = "HEAD"), method = {"f_jgbaykqs", "onClose"}, cancellable = true)
-	public void onClose(Level level, BlockPos pos, BlockState state, CallbackInfo info) {
-		if (state.getValue(BlockStateProperties.WATERLOGGED)) {
-			info.cancel();
-			playSound(level, pos, state, RegisterSounds.BLOCK_CHEST_CLOSE_UNDERWATER);
-		}
+	@Inject(at = @At(value = "TAIL"), method = "<clinit>")
+	public void newSounds(CallbackInfo info) {
+		this.openersCounter = new ContainerOpenersCounter(){
+
+			@Override
+			protected void onOpen(@NotNull Level level, @NotNull BlockPos pos, @NotNull BlockState state) {
+				playSound(level, pos, state, state.getValue(BlockStateProperties.WATERLOGGED) ? RegisterSounds.BLOCK_CHEST_OPEN_UNDERWATER : SoundEvents.CHEST_OPEN);
+			}
+
+			@Override
+			protected void onClose(@NotNull Level level, @NotNull BlockPos pos, @NotNull BlockState state) {
+				playSound(level, pos, state, state.getValue(BlockStateProperties.WATERLOGGED) ? RegisterSounds.BLOCK_CHEST_CLOSE_UNDERWATER : SoundEvents.CHEST_CLOSE);
+			}
+
+			@Override
+			protected void openerCountChanged(@NotNull Level level, @NotNull BlockPos pos, @NotNull BlockState state, int count, int openCount) {
+				signalOpenCount(level, pos, state, count, openCount);
+			}
+
+			@Override
+			protected boolean isOwnContainer(@NotNull Player player) {
+				if (player.containerMenu instanceof ChestMenu) {
+					Container container = ((ChestMenu)player.containerMenu).getContainer();
+					return container == (Container) ChestBlockEntityMixin.this || container instanceof CompoundContainer && ((CompoundContainer)container).contains((Container) ChestBlockEntityMixin.this);
+				}
+				return false;
+			}
+		};
 	}
 
 	@Override
@@ -109,6 +136,11 @@ public class ChestBlockEntityMixin implements ChestBlockEntityInterface {
 
 	@Shadow
 	static void playSound(Level level, BlockPos pos, BlockState state, SoundEvent sound) {
+
+	}
+
+	@Shadow
+	public void signalOpenCount(Level level, BlockPos pos, BlockState state, int eventId, int eventParam) {
 
 	}
 
