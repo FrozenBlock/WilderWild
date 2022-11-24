@@ -39,12 +39,12 @@ public class ChestBlockEntityMixin implements ChestBlockEntityInterface {
 
 	@Inject(at = @At(value = "TAIL"), method = "lidAnimateTick")
 	private static void tick(Level level, BlockPos pos, BlockState state, ChestBlockEntity blockEntity, CallbackInfo info) {
-		ChestBlockEntityInterface chest = ((ChestBlockEntityInterface)blockEntity);
-		if (!chest.getCanBubble()) {
-			chest.setBubbleTicks(0);
-		} else if (chest.getBubbleTick() > 0) {
-			chest.setBubbleTicks(chest.getBubbleTick() - 1);
-			if (level instanceof ServerLevel server) {
+		if (level instanceof ServerLevel server) {
+			ChestBlockEntityInterface chest = ((ChestBlockEntityInterface) blockEntity);
+			if (!chest.getCanBubble()) {
+				chest.setBubbleTicks(0);
+			} else if (chest.getBubbleTick() > 0) {
+				chest.setBubbleTicks(chest.getBubbleTick() - 1);
 				int random = level.random.nextInt(2, 5);
 				server.sendParticles(ParticleTypes.BUBBLE, pos.getX() + 0.5, pos.getY() + 0.625, pos.getZ() + 0.5, random, 0.21875F, 0, 0.21875F, 0.05D);
 			}

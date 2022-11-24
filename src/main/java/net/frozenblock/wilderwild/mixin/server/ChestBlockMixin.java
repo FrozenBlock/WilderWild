@@ -1,6 +1,8 @@
 package net.frozenblock.wilderwild.mixin.server;
 
+import net.frozenblock.wilderwild.block.entity.StoneChestBlockEntity;
 import net.frozenblock.wilderwild.misc.interfaces.ChestBlockEntityInterface;
+import net.frozenblock.wilderwild.registry.RegisterBlockEntities;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.InteractionHand;
@@ -8,14 +10,19 @@ import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.block.BaseEntityBlock;
 import net.minecraft.world.level.block.ChestBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntityTicker;
+import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.entity.ChestBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.ChestType;
 import net.minecraft.world.phys.BlockHitResult;
+import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -61,6 +68,24 @@ public class ChestBlockMixin {
 				}
 			}
 		}
+	}
+
+	@Inject(at = @At(value = "HEAD"), method = "getTicker")
+	public <T extends BlockEntity> void getTicker(Level level, BlockState state, BlockEntityType<T> blockEntityType, CallbackInfoReturnable<BlockEntityTicker<T>> info) {
+		if (!level.isClientSide) {
+			info.setReturnValue(createTickerHelper(blockEntityType, this.blockEntityType(), ChestBlockEntity::lidAnimateTick));
+		}
+	}
+
+	@Unique
+	@Nullable
+	private static <T extends BlockEntity, E extends BlockEntity> BlockEntityTicker<T> createTickerHelper(BlockEntityType<T> serverType, BlockEntityType<? extends ChestBlockEntity> clientType, BlockEntityTicker<E> ticker) {
+		return clientType == serverType ? (BlockEntityTicker<T>) ticker : null;
+	}
+
+	@Shadow
+	public BlockEntityType<? extends ChestBlockEntity> blockEntityType() {
+		throw new AssertionError("Mixin injection failed - WilderWild ChestBlockMixin");
 	}
 
 	@Unique
