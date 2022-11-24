@@ -8,6 +8,7 @@ import java.util.function.Supplier;
 import net.fabricmc.fabric.api.transfer.v1.item.ItemVariant;
 import net.frozenblock.lib.storage.api.NoInteractionStorage;
 import net.frozenblock.wilderwild.block.entity.StoneChestBlockEntity;
+import net.frozenblock.wilderwild.misc.interfaces.ChestBlockEntityInterface;
 import net.frozenblock.wilderwild.registry.RegisterBlockEntities;
 import net.frozenblock.wilderwild.registry.RegisterProperties;
 import net.frozenblock.wilderwild.registry.RegisterSounds;
@@ -45,6 +46,7 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.entity.ChestBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.ChestType;
 import net.minecraft.world.level.gameevent.GameEvent;
@@ -62,7 +64,6 @@ public class StoneChestBlock extends ChestBlock implements NoInteractionStorage<
     public StoneChestBlock(Properties settings, Supplier<BlockEntityType<? extends ChestBlockEntity>> supplier) {
         super(settings, supplier);
         this.registerDefaultState(this.defaultBlockState().setValue(ANCIENT, false).setValue(SCULK, false));
-
     }
 
     @Override
@@ -95,7 +96,10 @@ public class StoneChestBlock extends ChestBlock implements NoInteractionStorage<
                     } else {
                         stoneEntity.liftLid(0.025F, ancient);
                     }
-                    StoneChestBlockEntity.playSound(level, pos, state, first ? RegisterSounds.BLOCK_STONE_CHEST_OPEN : RegisterSounds.BLOCK_STONE_CHEST_LIFT, 0.35F);
+					if (first) {
+						stoneEntity.bubble();
+					}
+                    StoneChestBlockEntity.playSound(level, pos, state, first ? RegisterSounds.BLOCK_STONE_CHEST_OPEN : RegisterSounds.BLOCK_STONE_CHEST_LIFT, first ? RegisterSounds.BLOCK_STONE_CHEST_OPEN_UNDERWATER : RegisterSounds.BLOCK_STONE_CHEST_LIFT_UNDERWATER, 0.35F);
                     level.gameEvent(player, GameEvent.CONTAINER_OPEN, pos);
                     stoneEntity.updateSync();
                 }
@@ -231,21 +235,57 @@ public class StoneChestBlock extends ChestBlock implements NoInteractionStorage<
             //if (neighborState.get(ANCIENT) == state.get(ANCIENT)) {
             ChestType chestType = neighborState.getValue(TYPE);
             if (state.getValue(TYPE) == ChestType.SINGLE && chestType != ChestType.SINGLE && state.getValue(FACING) == neighborState.getValue(FACING) && state.getValue(ANCIENT) == neighborState.getValue(ANCIENT) && ChestBlock.getConnectedDirection(neighborState) == direction.getOpposite()) {
-                return state.setValue(TYPE, chestType.getOpposite());
+                BlockState retState = state.setValue(TYPE, chestType.getOpposite());
+				updateBubbles(retState, level, currentPos);
+				return retState;
             }
             //}
         } else if (ChestBlock.getConnectedDirection(state) == direction) {
-            return state.setValue(TYPE, ChestType.SINGLE);
+			BlockState retState = state.setValue(TYPE, ChestType.SINGLE);
+			updateBubbles(retState, level, currentPos);
+            return retState;
         }
-        return super.updateShape(state, direction, neighborState, level, currentPos, neighborPos);
+		BlockState retState = super.updateShape(state, direction, neighborState, level, currentPos, neighborPos);;
+		updateBubbles(retState, level, currentPos);
+        return retState;
     }
+
+	public void updateBubbles(BlockState state, LevelAccessor level, BlockPos currentPos) {
+		ChestBlockEntity otherChest = getOtherChest(level, currentPos, state);
+		if (otherChest != null) {
+			BlockState otherState = otherChest.getBlockState();
+			boolean wasLogged = state.getValue(BlockStateProperties.WATERLOGGED);
+			if (wasLogged != state.getValue(BlockStateProperties.WATERLOGGED) && wasLogged) {
+				if (!otherState.getValue(BlockStateProperties.WATERLOGGED)) {
+					if (level.getBlockEntity(currentPos) instanceof ChestBlockEntity chest) {
+						((ChestBlockEntityInterface) chest).setCanBubble(true);
+						((ChestBlockEntityInterface) otherChest).setCanBubble(true);
+					}
+				} else if (!((ChestBlockEntityInterface) otherChest).getCanBubble()) {
+					if (level.getBlockEntity(currentPos) instanceof ChestBlockEntity chest) {
+						((ChestBlockEntityInterface) chest).setCanBubble(false);
+						((ChestBlockEntityInterface) otherChest).setCanBubble(false);
+					}
+				}
+			}
+		} else {
+			boolean wasLogged = state.getValue(BlockStateProperties.WATERLOGGED);
+			if (level.getBlockEntity(currentPos) instanceof ChestBlockEntity chest) {
+				if (wasLogged != state.getValue(BlockStateProperties.WATERLOGGED) && wasLogged) {
+					((ChestBlockEntityInterface) chest).setCanBubble(true);
+				}
+			}
+		}
+	}
 
     @Override
     public BlockState getStateForPlacement(BlockPlaceContext ctx) {
         Direction direction3;
         ChestType chestType = ChestType.SINGLE;
+		Level level = ctx.getLevel();
+		BlockPos pos = ctx.getClickedPos();
         Direction direction = ctx.getHorizontalDirection().getOpposite();
-        FluidState fluidState = ctx.getLevel().getFluidState(ctx.getClickedPos());
+        FluidState fluidState = ctx.getLevel().getFluidState(pos);
         boolean bl = ctx.isSecondaryUseActive();
         Direction direction2 = ctx.getClickedFace();
         if (direction2.getAxis().isHorizontal() && bl && (direction3 = this.candidatePartnerFacing(ctx, direction2.getOpposite())) != null && direction3.getAxis() != direction2.getAxis()) {
@@ -259,7 +299,14 @@ public class StoneChestBlock extends ChestBlock implements NoInteractionStorage<
                 chestType = ChestType.RIGHT;
             }
         }
-        return this.defaultBlockState().setValue(FACING, direction).setValue(TYPE, chestType).setValue(WATERLOGGED, fluidState.getType() == Fluids.WATER);
+		BlockState retState = this.defaultBlockState().setValue(FACING, direction).setValue(TYPE, chestType).setValue(WATERLOGGED, fluidState.getType() == Fluids.WATER);
+		StoneChestBlockEntity otherChest = getOtherChest(level, pos, retState);
+		if (otherChest != null) {
+			if (level.getBlockEntity(pos) instanceof StoneChestBlockEntity chest) {
+				chest.canStoneBubble = otherChest.canStoneBubble;
+			}
+		}
+		return retState;
     }
 
     @Nullable
@@ -317,4 +364,30 @@ public class StoneChestBlock extends ChestBlock implements NoInteractionStorage<
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
         builder.add(FACING, TYPE, WATERLOGGED, ANCIENT, SCULK);
     }
+
+	private static StoneChestBlockEntity getOtherChest(LevelAccessor level, BlockPos pos, BlockState state) {
+		ChestType chestType = state.getValue(ChestBlock.TYPE);
+		double x = pos.getX();
+		double y = pos.getY();
+		double z = pos.getZ();
+		if (chestType == ChestType.RIGHT) {
+			Direction direction = ChestBlock.getConnectedDirection(state);
+			x += direction.getStepX();
+			z += direction.getStepZ();
+		} else if (chestType == ChestType.LEFT) {
+			Direction direction = ChestBlock.getConnectedDirection(state);
+			x += direction.getStepX();
+			z += direction.getStepZ();
+		} else {
+			return null;
+		}
+		BlockPos newPos = new BlockPos(x, y, z);
+		BlockEntity be = level.getBlockEntity(newPos);
+		StoneChestBlockEntity entity = null;
+		if (be instanceof StoneChestBlockEntity chest) {
+			entity = chest;
+		}
+		return entity;
+	}
+
 }
