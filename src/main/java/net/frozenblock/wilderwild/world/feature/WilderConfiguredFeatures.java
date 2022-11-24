@@ -389,72 +389,21 @@ public final class WilderConfiguredFeatures {
             )
     );
 
-    public static final Holder<ConfiguredFeature<NematocystFeatureConfig, ?>> PATCH_NEMATOCYST_UP = register("patch_nematocyst_up",
-            WilderWild.NEMATOCYST_FEATURE,
-            new NematocystFeatureConfig(new NoiseProvider(
-                    10L,
-                    new NormalNoise.NoiseParameters(0, 1.0),
-                    0.3F,
-                    List.of(RegisterBlocks.BLUE_PEARLESCENT_NEMATOCYST.defaultBlockState().setValue(BlockStateProperties.FACING, Direction.UP),
-                            RegisterBlocks.PURPLE_PEARLESCENT_NEMATOCYST.defaultBlockState().setValue(BlockStateProperties.FACING, Direction.UP))),
-                    128, 16, 6
-            )
-    );
-    public static final Holder<ConfiguredFeature<NematocystFeatureConfig, ?>> PATCH_NEMATOCYST_DOWN = register("patch_nematocyst_down",
-            WilderWild.NEMATOCYST_FEATURE,
-            new NematocystFeatureConfig(new NoiseProvider(
-                    10L,
-                    new NormalNoise.NoiseParameters(0, 1.0),
-                    0.3F,
-                    List.of(RegisterBlocks.BLUE_PEARLESCENT_NEMATOCYST.defaultBlockState().setValue(BlockStateProperties.FACING, Direction.DOWN),
-                            RegisterBlocks.PURPLE_PEARLESCENT_NEMATOCYST.defaultBlockState().setValue(BlockStateProperties.FACING, Direction.DOWN))),
-                    64, 16, 6
-            )
-    );
-    public static final Holder<ConfiguredFeature<NematocystFeatureConfig, ?>> PATCH_NEMATOCYST_NORTH = register("patch_nematocyst_north",
-            WilderWild.NEMATOCYST_FEATURE,
-            new NematocystFeatureConfig(new NoiseProvider(
-                    10L,
-                    new NormalNoise.NoiseParameters(0, 1.0),
-                    0.3F,
-                    List.of(RegisterBlocks.BLUE_PEARLESCENT_NEMATOCYST.defaultBlockState().setValue(BlockStateProperties.FACING, Direction.NORTH),
-                            RegisterBlocks.PURPLE_PEARLESCENT_NEMATOCYST.defaultBlockState().setValue(BlockStateProperties.FACING, Direction.NORTH))),
-                    32, 8, 8
-            )
-    );
-    public static final Holder<ConfiguredFeature<NematocystFeatureConfig, ?>> PATCH_NEMATOCYST_SOUTH = register("patch_nematocyst_south",
-            WilderWild.NEMATOCYST_FEATURE,
-            new NematocystFeatureConfig(new NoiseProvider(
-                    10L,
-                    new NormalNoise.NoiseParameters(0, 1.0),
-                    0.3F,
-                    List.of(RegisterBlocks.BLUE_PEARLESCENT_NEMATOCYST.defaultBlockState().setValue(BlockStateProperties.FACING, Direction.SOUTH),
-                            RegisterBlocks.PURPLE_PEARLESCENT_NEMATOCYST.defaultBlockState().setValue(BlockStateProperties.FACING, Direction.SOUTH))),
-                    32, 8, 8
-            )
-    );
-    public static final Holder<ConfiguredFeature<NematocystFeatureConfig, ?>> PATCH_NEMATOCYST_EAST = register("patch_nematocyst_east",
-            WilderWild.NEMATOCYST_FEATURE,
-            new NematocystFeatureConfig(new NoiseProvider(
-                    10L,
-                    new NormalNoise.NoiseParameters(0, 1.0),
-                    0.3F,
-                    List.of(RegisterBlocks.BLUE_PEARLESCENT_NEMATOCYST.defaultBlockState().setValue(BlockStateProperties.FACING, Direction.EAST),
-                            RegisterBlocks.PURPLE_PEARLESCENT_NEMATOCYST.defaultBlockState().setValue(BlockStateProperties.FACING, Direction.EAST))),
-                    32, 8, 8
-            )
-    );
-    public static final Holder<ConfiguredFeature<NematocystFeatureConfig, ?>> PATCH_NEMATOCYST_WEST = register("patch_nematocyst_west",
-            WilderWild.NEMATOCYST_FEATURE,
-            new NematocystFeatureConfig(new NoiseProvider(
-                    10L,
-                    new NormalNoise.NoiseParameters(0, 1.0),
-                    0.3F,
-                    List.of(RegisterBlocks.BLUE_PEARLESCENT_NEMATOCYST.defaultBlockState().setValue(BlockStateProperties.FACING, Direction.WEST),
-                            RegisterBlocks.PURPLE_PEARLESCENT_NEMATOCYST.defaultBlockState().setValue(BlockStateProperties.FACING, Direction.WEST))),
-                    32, 8, 8
-            )
-    );
+	public static final Holder<ConfiguredFeature<MultifaceGrowthConfiguration, ?>> NEMATOCYST = register("nematocyst",
+			Feature.MULTIFACE_GROWTH,
+			new MultifaceGrowthConfiguration(
+					(MultifaceBlock) RegisterBlocks.BLUE_PEARLESCENT_NEMATOCYST,
+					20,
+					true, true, true, 1.0F, HolderSet.direct(Block::builtInRegistryHolder, Blocks.CLAY, Blocks.STONE, Blocks.ANDESITE, Blocks.DIORITE, Blocks.GRANITE, Blocks.DRIPSTONE_BLOCK, Blocks.CALCITE, Blocks.TUFF, Blocks.DEEPSLATE))
+	);
+
+	public static final Holder<ConfiguredFeature<MultifaceGrowthConfiguration, ?>> NEMATOCYST_PURPLE = register("nematocyst_purple",
+			Feature.MULTIFACE_GROWTH,
+			new MultifaceGrowthConfiguration(
+					(MultifaceBlock) RegisterBlocks.PURPLE_PEARLESCENT_NEMATOCYST,
+					20,
+					true, true, true, 1.0F, HolderSet.direct(Block::builtInRegistryHolder, Blocks.CLAY, Blocks.STONE, Blocks.ANDESITE, Blocks.DIORITE, Blocks.GRANITE, Blocks.DRIPSTONE_BLOCK, Blocks.CALCITE, Blocks.TUFF, Blocks.DEEPSLATE))
+	);
 
     public static void registerConfiguredFeatures() {
         WilderWild.logWild("Registering WilderConfiguredFeatures for", true);
