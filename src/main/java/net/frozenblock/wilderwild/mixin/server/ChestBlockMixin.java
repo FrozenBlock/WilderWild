@@ -67,7 +67,7 @@ public abstract class ChestBlockMixin extends AbstractChestBlock<ChestBlockEntit
 						((ChestBlockEntityInterface) chest).setCanBubble(true);
 						((ChestBlockEntityInterface) otherChest).setCanBubble(true);
 					}
-				} else {
+				} else if (!((ChestBlockEntityInterface) otherChest).getCanBubble()) {
 					if (level.getBlockEntity(currentPos) instanceof ChestBlockEntity chest) {
 						((ChestBlockEntityInterface) chest).setCanBubble(false);
 						((ChestBlockEntityInterface) otherChest).setCanBubble(false);
