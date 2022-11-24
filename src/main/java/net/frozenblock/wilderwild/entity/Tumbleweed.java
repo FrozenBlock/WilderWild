@@ -44,8 +44,8 @@ public class Tumbleweed extends Mob {
 	public void tick() {
 		super.tick();
 		double multiplier = this.level.getBrightness(LightLayer.SKY, this.blockPosition()) * 0.0667;
-		double windX = Mth.clamp(WindManager.windX * 1.1, -0.75, 0.75);
-		double windZ = Mth.clamp(WindManager.windZ * 1.1, -0.57, 0.75);
+		double windX = Mth.clamp(WindManager.windX * 1.1, -0.7, 0.7);
+		double windZ = Mth.clamp(WindManager.windZ * 1.1, -0.7, 0.7);
 		Vec3 deltaMovement = this.getDeltaMovement();
 		deltaMovement = deltaMovement.add((windX * 0.2) * multiplier, 0, (windZ * 0.2) * multiplier);
 		double newY = deltaMovement.y < 0 ? deltaMovement.y * 0.9 : deltaMovement.y;
