@@ -212,6 +212,19 @@ public class WilderFeatureBootstrap {
 		var placedDyingTallDarkOakChecked = placedFeatures.getOrThrow(WilderTreePlaced.DYING_TALL_DARK_OAK_CHECKED);
 		var placedDyingFancyOakChecked = placedFeatures.getOrThrow(WilderTreePlaced.DYING_FANCY_OAK_CHECKED);
 		var placedFancyOakChecked = placedFeatures.getOrThrow(WilderTreePlaced.FANCY_OAK_CHECKED);
+		var placedMegaFungusSpruceChecked = placedFeatures.getOrThrow(WilderTreePlaced.MEGA_FUNGUS_SPRUCE_CHECKED);
+		var placedDyingMegaFungusPineChecked = placedFeatures.getOrThrow(WilderTreePlaced.DYING_MEGA_FUNGUS_PINE_CHECKED);
+		var placedMegaFungusPineChecked = placedFeatures.getOrThrow(WilderTreePlaced.MEGA_FUNGUS_PINE_CHECKED);
+		var placedFungusPineOnSnow = placedFeatures.getOrThrow(WilderTreePlaced.FUNGUS_PINE_ON_SNOW);
+		var placedSpruceOnSnow = placedFeatures.getOrThrow(WilderTreePlaced.SPRUCE_ON_SNOW);
+		var placedFancyOakBees = placedFeatures.getOrThrow(WilderTreePlaced.FANCY_OAK_BEES);
+		var placedSuperBirchBees = placedFeatures.getOrThrow(WilderTreePlaced.SUPER_BIRCH_BEES);
+		var placedBaobab = placedFeatures.getOrThrow(WilderTreePlaced.BAOBAB);
+		var placedBaobabTall = placedFeatures.getOrThrow(WilderTreePlaced.BAOBAB_TALL);
+		var placedCypress = placedFeatures.getOrThrow(WilderTreePlaced.CYPRESS);
+		var placedShortCypress = placedFeatures.getOrThrow(WilderTreePlaced.SHORT_CYPRESS);
+		var placedSwampCypress = placedFeatures.getOrThrow(WilderTreePlaced.SWAMP_CYPRESS);
+		var placedFungusCypress = placedFeatures.getOrThrow(WilderTreePlaced.FUNGUS_CYPRESS);
 
 		var fallenTreesMixed = register(entries, WilderConfiguredFeatures.FALLEN_TREES_MIXED, Feature.RANDOM_SELECTOR, new RandomFeatureConfiguration(List.of((new WeightedPlacedFeature(placedFallenSpruceChecked, 0.4F)), new WeightedPlacedFeature(placedFallenBirchChecked, 0.3F)), placedFallenOakChecked));
 		var fallenBirch = register(entries, WilderConfiguredFeatures.FALLEN_BIRCH, Feature.RANDOM_SELECTOR, new RandomFeatureConfiguration(List.of(new WeightedPlacedFeature(placedFallenBirchChecked, 1.0F)), placedFallenBirchChecked));
