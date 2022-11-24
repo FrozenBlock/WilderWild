@@ -70,12 +70,12 @@ public class ChestBlockEntityMixin implements ChestBlockEntityInterface {
 
 	@Override
 	public boolean getCanBubble() {
-		return canBubble;
+		return this.canBubble;
 	}
 
 	@Override
 	public void setCanBubble(boolean b) {
-		canBubble = false;
+		this.canBubble = false;
 	}
 
 	@Override

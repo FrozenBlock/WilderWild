@@ -7,6 +7,7 @@ import net.minecraft.core.Direction;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.AbstractChestBlock;
@@ -19,7 +20,6 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.ChestType;
 import net.minecraft.world.phys.BlockHitResult;
-import org.jetbrains.annotations.NotNull;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
@@ -35,10 +35,11 @@ public abstract class ChestBlockMixin extends AbstractChestBlock<ChestBlockEntit
 		super(properties, blockEntityType);
 	}
 
-	@Override
-	public void onPlace(@NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos, @NotNull BlockState oldState, boolean isMoving) {
-		super.onPlace(state, level, pos, oldState, isMoving);
-		ChestBlockEntity otherChest = getOtherChest(level, pos, state);
+	@Inject(at = @At(value = "RETURN"), method = "getStateForPlacement")
+	public void getStateForPlacement(BlockPlaceContext context, CallbackInfoReturnable<BlockState> info) {
+		Level level = context.getLevel();
+		BlockPos pos = context.getClickedPos();
+		ChestBlockEntity otherChest = getOtherChest(level, pos, info.getReturnValue());
 		if (otherChest != null) {
 			if (level.getBlockEntity(pos) instanceof ChestBlockEntity chest) {
 				((ChestBlockEntityInterface) chest).setCanBubble(((ChestBlockEntityInterface) otherChest).getCanBubble());
