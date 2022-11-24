@@ -27,7 +27,7 @@ public class ChestBlockEntityMixin implements ChestBlockEntityInterface {
 
 	@Override
 	public void bubble() {
-		if (this.canBubble) {
+		if (this.canBubble  && this.bubbleTicks <= 0) {
 			this.bubbleTicks = 5;
 			ChestBlockEntity chest = ChestBlockEntity.class.cast(this);
 			ChestBlockEntity otherChest = getOtherEntity(chest.getLevel(), chest.getBlockPos(), chest.getBlockState());
@@ -47,7 +47,10 @@ public class ChestBlockEntityMixin implements ChestBlockEntityInterface {
 			} else if (chest.getBubbleTick() > 0) {
 				chest.setBubbleTicks(chest.getBubbleTick() - 1);
 				int random = level.random.nextInt(2, 5);
-				server.sendParticles(ParticleTypes.BUBBLE, pos.getX() + 0.5, pos.getY() + 0.625, pos.getZ() + 0.5, random, 0.21875F, 0, 0.21875F, 0.05D);
+				server.sendParticles(ParticleTypes.BUBBLE, pos.getX() + 0.5, pos.getY() + 0.625, pos.getZ() + 0.5, random, 0.21875F, 0, 0.21875F, 0.15D);
+				if (chest.getBubbleTick() <= 0) {
+					chest.setCanBubble(false);
+				}
 			}
 		}
 	}
