@@ -37,9 +37,10 @@ public class ChestBlockEntityMixin implements ChestBlockEntityInterface {
 		}
 	}
 
-	@Inject(at = @At(value = "TAIL"), method = "lidAnimateTick")
+	@Inject(at = @At(value = "TAIL"), method = "lidAnimateTick", cancellable = true)
 	private static void tick(Level level, BlockPos pos, BlockState state, ChestBlockEntity blockEntity, CallbackInfo info) {
 		if (level instanceof ServerLevel server) {
+			info.cancel();
 			ChestBlockEntityInterface chest = ((ChestBlockEntityInterface) blockEntity);
 			if (!chest.getCanBubble()) {
 				chest.setBubbleTicks(0);
