@@ -9,12 +9,17 @@ import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricDynamicRegistryProvider;
 import net.fabricmc.fabric.api.tag.convention.v1.ConventionalBiomeTags;
 import net.frozenblock.lib.datagen.api.FrozenBiomeTagProvider;
+import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.registry.RegisterItems;
+import net.frozenblock.wilderwild.registry.RegisterStructures;
 import net.frozenblock.wilderwild.registry.RegisterWorldgen;
 import net.frozenblock.wilderwild.tag.WilderBiomeTags;
 import net.frozenblock.wilderwild.world.feature.WilderFeatureBootstrap;
+import net.frozenblock.wilderwild.world.gen.noise.WilderNoise;
 import net.minecraft.Util;
 import net.minecraft.core.HolderLookup;
+import net.minecraft.core.RegistrySetBuilder;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.data.DataProvider;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.metadata.PackMetadataGenerator;
@@ -41,6 +46,35 @@ public class WilderWildDataGenerator implements DataGeneratorEntrypoint {
 						packOutput, Component.translatable("dataPack.wilderwild.experiment.description"), FeatureFlagSet.of(WilderFeatureFlags.EXPERIMENTAL)
 				)
 		);
+	}
+
+	@Override
+	public void buildRegistry(RegistrySetBuilder registryBuilder) {
+		WilderWild.logWild("Registering Biomes for", WilderSharedConstants.UNSTABLE_LOGGING);
+
+		registryBuilder.add(Registries.BIOME, RegisterWorldgen::bootstrap);
+		registryBuilder.add(Registries.NOISE, WilderNoise::bootstrap);
+		registryBuilder.add(Registries.PROCESSOR_LIST, RegisterStructures::bootstrapProcessor);
+		registryBuilder.add(Registries.TEMPLATE_POOL, RegisterStructures::bootstrapTemplatePool);
+		registryBuilder.add(Registries.STRUCTURE, RegisterStructures::bootstrap);
+		registryBuilder.add(Registries.STRUCTURE_SET, RegisterStructures::bootstrapStructureSet);
+	}
+
+	private static class WilderWorldgenProvider extends FabricDynamicRegistryProvider {
+
+		public WilderWorldgenProvider(FabricDataOutput output, CompletableFuture<HolderLookup.Provider> registriesFuture) {
+			super(output, registriesFuture);
+		}
+
+		@Override
+		protected void configure(HolderLookup.Provider registries, Entries entries) {
+			WilderFeatureBootstrap.bootstrap(entries);
+		}
+
+		@Override
+		public String getName() {
+			return "Wilder Wild Dynamic Registries";
+		}
 	}
 
 	private static class WilderTagsProvider extends FrozenBiomeTagProvider {
@@ -172,23 +206,6 @@ public class WilderWildDataGenerator implements DataGeneratorEntrypoint {
 					.add(Biomes.DRIPSTONE_CAVES)
 					.add(Biomes.DEEP_DARK)
 					.addOptional(RegisterWorldgen.JELLYFISH_CAVES);
-		}
-	}
-
-	private static class WilderWorldgenProvider extends FabricDynamicRegistryProvider {
-
-		public WilderWorldgenProvider(FabricDataOutput output, CompletableFuture<HolderLookup.Provider> registriesFuture) {
-			super(output, registriesFuture);
-		}
-
-		@Override
-		protected void configure(HolderLookup.Provider registries, Entries entries) {
-			WilderFeatureBootstrap.bootstrap(entries);
-		}
-
-		@Override
-		public String getName() {
-			return "Wilder Wild Dynamic Registries";
 		}
 	}
 

@@ -1,7 +1,9 @@
 package net.frozenblock.wilderwild.tag;
 
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
+import net.minecraft.core.RegistrySetBuilder;
 import net.minecraft.core.registries.Registries;
+import net.minecraft.data.worldgen.BootstapContext;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.level.biome.Biome;
 

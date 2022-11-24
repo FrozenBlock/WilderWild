@@ -1,13 +1,12 @@
 package net.frozenblock.wilderwild.registry;
 
-import net.fabricmc.fabric.api.datagen.v1.provider.FabricDynamicRegistryProvider;
 import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
-import net.frozenblock.wilderwild.world.feature.WilderFeatureBootstrap;
 import net.frozenblock.wilderwild.world.feature.WilderMiscPlaced;
 import net.frozenblock.wilderwild.world.feature.WilderPlacedFeatures;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BiomeDefaultFeatures;
+import net.minecraft.data.worldgen.BootstapContext;
 import net.minecraft.data.worldgen.biome.OverworldBiomes;
 import static net.minecraft.data.worldgen.biome.OverworldBiomes.calculateSkyColor;
 import net.minecraft.data.worldgen.placement.AquaticPlacements;
@@ -37,13 +36,20 @@ public final class RegisterWorldgen {
     public static final ResourceKey<Biome> MIXED_FOREST = register("mixed_forest");
 	public static final ResourceKey<Biome> WARM_RIVER = register("warm_river");
 
+	public static void bootstrap(BootstapContext<Biome> context) {
+		context.register(RegisterWorldgen.CYPRESS_WETLANDS, RegisterWorldgen.cypressWetlands(context));
+		context.register(RegisterWorldgen.JELLYFISH_CAVES, RegisterWorldgen.jellyfishCaves(context));
+		context.register(RegisterWorldgen.MIXED_FOREST, RegisterWorldgen.mixedForest(context));
+		context.register(RegisterWorldgen.WARM_RIVER, RegisterWorldgen.warmRiver(context));
+	}
+
     private static ResourceKey<Biome> register(String name) {
         return ResourceKey.create(Registries.BIOME, WilderSharedConstants.id(name));
     }
 
-    public static Biome mixedForest(FabricDynamicRegistryProvider.Entries entries) {
-		var placedFeatures = entries.placedFeatures();
-		var worldCarvers = entries.configuredCarvers();
+    public static Biome mixedForest(BootstapContext<Biome> entries) {
+		var placedFeatures = entries.lookup(Registries.PLACED_FEATURE);
+		var worldCarvers = entries.lookup(Registries.CONFIGURED_CARVER);
         MobSpawnSettings.Builder builder = new MobSpawnSettings.Builder();
         BiomeDefaultFeatures.commonSpawns(builder);
         BiomeDefaultFeatures.plainsSpawns(builder);
@@ -70,9 +76,9 @@ public final class RegisterWorldgen {
                 .build();
     }
 
-    public static Biome cypressWetlands(FabricDynamicRegistryProvider.Entries entries) {
-		var placedFeatures = entries.placedFeatures();
-		var worldCarvers = entries.configuredCarvers();
+    public static Biome cypressWetlands(BootstapContext<Biome> entries) {
+		var placedFeatures = entries.lookup(Registries.PLACED_FEATURE);
+		var worldCarvers = entries.lookup(Registries.CONFIGURED_CARVER);
         MobSpawnSettings.Builder builder = new MobSpawnSettings.Builder();
         BiomeDefaultFeatures.commonSpawns(builder);
         addCypressWetlandsMobs(builder);
@@ -98,9 +104,9 @@ public final class RegisterWorldgen {
                 .build();
     }
 
-    public static Biome jellyfishCaves(FabricDynamicRegistryProvider.Entries entries) {
-		var placedFeatures = entries.placedFeatures();
-		var worldCarvers = entries.configuredCarvers();
+    public static Biome jellyfishCaves(BootstapContext<Biome> entries) {
+		var placedFeatures = entries.lookup(Registries.PLACED_FEATURE);
+		var worldCarvers = entries.lookup(Registries.CONFIGURED_CARVER);
         MobSpawnSettings.Builder builder = new MobSpawnSettings.Builder();
         BiomeDefaultFeatures.commonSpawns(builder);
         BiomeGenerationSettings.Builder builder2 = new BiomeGenerationSettings.Builder(placedFeatures, worldCarvers);
@@ -125,10 +131,9 @@ public final class RegisterWorldgen {
                 .build();
     }
 
-	public static Biome warmRiver(FabricDynamicRegistryProvider.Entries entries) {
-		var placedFeatures = entries.placedFeatures();
-		var worldCarvers = entries.configuredCarvers();
-		var wilderPlacedFeatures = WilderFeatureBootstrap.PLACED_FEATURES;
+	public static Biome warmRiver(BootstapContext<Biome> entries) {
+		var placedFeatures = entries.lookup(Registries.PLACED_FEATURE);
+		var worldCarvers = entries.lookup(Registries.CONFIGURED_CARVER);
 		MobSpawnSettings.Builder builder = (new MobSpawnSettings.Builder()).addSpawn(MobCategory.WATER_CREATURE, new MobSpawnSettings.SpawnerData(EntityType.SQUID, 2, 1, 4)).addSpawn(MobCategory.WATER_AMBIENT, new MobSpawnSettings.SpawnerData(EntityType.SALMON, 5, 1, 5));
 		BiomeDefaultFeatures.commonSpawns(builder);
 		builder.addSpawn(MobCategory.MONSTER, new MobSpawnSettings.SpawnerData(EntityType.DROWNED, 100, 1, 1));
@@ -147,8 +152,8 @@ public final class RegisterWorldgen {
 		BiomeDefaultFeatures.addDefaultMushrooms(builder2);
 		BiomeDefaultFeatures.addDefaultExtraVegetation(builder2);
 		builder2.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, AquaticPlacements.SEAGRASS_RIVER);
-		builder2.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, wilderPlacedFeatures.get(WilderMiscPlaced.UNDER_WATER_CLAY_PATH_BEACH));
-		builder2.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, wilderPlacedFeatures.get(WilderMiscPlaced.UNDER_WATER_GRAVEL_PATH_RIVER));
+		builder2.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, WilderMiscPlaced.UNDER_WATER_CLAY_PATH_BEACH);
+		builder2.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, WilderMiscPlaced.UNDER_WATER_GRAVEL_PATH_RIVER);
 
 		return new Biome.BiomeBuilder()
 				.precipitation(Biome.Precipitation.NONE)
@@ -169,23 +174,21 @@ public final class RegisterWorldgen {
 	}
 
     public static void addCypressPaths(BiomeGenerationSettings.Builder builder) {
-		final var placedFeatures = WilderFeatureBootstrap.PLACED_FEATURES;
-        builder.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, placedFeatures.get(WilderMiscPlaced.UNDER_WATER_SAND_PATH));
-        builder.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, placedFeatures.get(WilderMiscPlaced.UNDER_WATER_GRAVEL_PATH));
-        builder.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, placedFeatures.get(WilderMiscPlaced.UNDER_WATER_CLAY_PATH));
+        builder.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, WilderMiscPlaced.UNDER_WATER_SAND_PATH);
+        builder.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, WilderMiscPlaced.UNDER_WATER_GRAVEL_PATH);
+        builder.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, WilderMiscPlaced.UNDER_WATER_CLAY_PATH);
     }
 
     public static void addCypressWetlandsFeatures(BiomeGenerationSettings.Builder builder) {
-		final var placedFeatures = WilderFeatureBootstrap.PLACED_FEATURES;
-        builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, placedFeatures.get(WilderPlacedFeatures.DENSE_FERN_PLACED));
-        builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, placedFeatures.get(WilderPlacedFeatures.DENSE_TALL_GRASS_PLACED));
-        builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, placedFeatures.get(WilderPlacedFeatures.SEAGRASS_CYPRESS));
-        builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, placedFeatures.get(WilderPlacedFeatures.SEEDING_DANDELION_CYPRESS));
-        builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, placedFeatures.get(WilderPlacedFeatures.MILKWEED_CYPRESS));
-        builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, placedFeatures.get(WilderPlacedFeatures.FLOWER_FOREST_FLOWERS));
-        builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, placedFeatures.get(WilderPlacedFeatures.CYPRESS_WETLANDS_TREES));
-        builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, placedFeatures.get(WilderPlacedFeatures.CYPRESS_WETLANDS_TREES_WATER));
-		builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, placedFeatures.get(WilderPlacedFeatures.FALLEN_OAK_AND_CYPRESS_PLACED));
+        builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.DENSE_FERN_PLACED);
+        builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.DENSE_TALL_GRASS_PLACED);
+        builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.SEAGRASS_CYPRESS);
+        builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.SEEDING_DANDELION_CYPRESS);
+        builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.MILKWEED_CYPRESS);
+        builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.FLOWER_FOREST_FLOWERS);
+        builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.CYPRESS_WETLANDS_TREES);
+        builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.CYPRESS_WETLANDS_TREES_WATER);
+		builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.FALLEN_OAK_AND_CYPRESS_PLACED);
         addCypressPaths(builder);
         addBasicFeatures(builder, CYPRESS_WETLANDS);
         addCypressVegetation(builder);
@@ -197,12 +200,11 @@ public final class RegisterWorldgen {
     }
 
     public static void addMixedForestFeatures(BiomeGenerationSettings.Builder builder) {
-		final var placedFeatures = WilderFeatureBootstrap.PLACED_FEATURES;
-        builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, placedFeatures.get(WilderPlacedFeatures.SEEDING_DANDELION_MIXED));
-        builder.addFeature(GenerationStep.Decoration.TOP_LAYER_MODIFICATION, placedFeatures.get(WilderMiscPlaced.COARSE_PATH_5));
-        builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, placedFeatures.get(WilderPlacedFeatures.MIXED_MUSHROOMS_PLACED));
-        builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, placedFeatures.get(WilderPlacedFeatures.MIXED_TREES));
-        builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, placedFeatures.get(WilderPlacedFeatures.FALLEN_TREES_MIXED_PLACED));
+        builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.SEEDING_DANDELION_MIXED);
+        builder.addFeature(GenerationStep.Decoration.TOP_LAYER_MODIFICATION, WilderMiscPlaced.COARSE_PATH_5);
+        builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.MIXED_MUSHROOMS_PLACED);
+        builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.MIXED_TREES);
+        builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.FALLEN_TREES_MIXED_PLACED);
         addBasicFeatures(builder, MIXED_FOREST);
         BiomeDefaultFeatures.addForestFlowers(builder);
         BiomeDefaultFeatures.addDefaultOres(builder);
@@ -210,11 +212,10 @@ public final class RegisterWorldgen {
     }
 
     public static void addJellyfishCavesFeatures(BiomeGenerationSettings.Builder builder) {
-		final var placedFeatures = WilderFeatureBootstrap.PLACED_FEATURES;
         BiomeDefaultFeatures.addDefaultCrystalFormations(builder);
         builder.addFeature(GenerationStep.Decoration.UNDERGROUND_STRUCTURES, CavePlacements.MONSTER_ROOM_DEEP);
-        builder.addFeature(GenerationStep.Decoration.UNDERGROUND_STRUCTURES, placedFeatures.get(WilderMiscPlaced.JELLYFISH_DEEPSLATE_POOL));
-        builder.addFeature(GenerationStep.Decoration.UNDERGROUND_STRUCTURES, placedFeatures.get(WilderMiscPlaced.JELLYFISH_STONE_POOL));
+        builder.addFeature(GenerationStep.Decoration.UNDERGROUND_STRUCTURES, WilderMiscPlaced.JELLYFISH_DEEPSLATE_POOL);
+        builder.addFeature(GenerationStep.Decoration.UNDERGROUND_STRUCTURES, WilderMiscPlaced.JELLYFISH_STONE_POOL);
         BiomeDefaultFeatures.addDefaultUndergroundVariety(builder);
         BiomeDefaultFeatures.addSurfaceFreezing(builder);
         BiomeDefaultFeatures.addPlainGrass(builder);
@@ -224,19 +225,19 @@ public final class RegisterWorldgen {
         BiomeDefaultFeatures.addDefaultMushrooms(builder);
         BiomeDefaultFeatures.addDefaultExtraVegetation(builder);
         BiomeDefaultFeatures.addDefaultCarversAndLakes(builder);
-        builder.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, placedFeatures.get(WilderPlacedFeatures.JELLYFISH_CAVES_BLUE_MESOGLEA));
-        builder.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, placedFeatures.get(WilderPlacedFeatures.JELLYFISH_CAVES_PURPLE_MESOGLEA));
-        builder.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, placedFeatures.get(WilderPlacedFeatures.JELLYFISH_CAVES_UPSIDE_DOWN_BLUE_MESOGLEA));
-        builder.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, placedFeatures.get(WilderPlacedFeatures.JELLYFISH_CAVES_UPSIDE_DOWN_PURPLE_MESOGLEA));
-        builder.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, placedFeatures.get(WilderMiscPlaced.MESOGLEA_PILLAR));
-        builder.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, placedFeatures.get(WilderMiscPlaced.PURPLE_MESOGLEA_PILLAR));
-        builder.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, placedFeatures.get(WilderMiscPlaced.ORE_CALCITE));
-        builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, placedFeatures.get(WilderPlacedFeatures.PATCH_NEMATOCYST_UP));
-        builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, placedFeatures.get(WilderPlacedFeatures.PATCH_NEMATOCYST_DOWN));
-        builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, placedFeatures.get(WilderPlacedFeatures.PATCH_NEMATOCYST_EAST));
-        builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, placedFeatures.get(WilderPlacedFeatures.PATCH_NEMATOCYST_WEST));
-        builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, placedFeatures.get(WilderPlacedFeatures.PATCH_NEMATOCYST_NORTH));
-        builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, placedFeatures.get(WilderPlacedFeatures.PATCH_NEMATOCYST_SOUTH));
+        builder.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, WilderPlacedFeatures.JELLYFISH_CAVES_BLUE_MESOGLEA);
+        builder.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, WilderPlacedFeatures.JELLYFISH_CAVES_PURPLE_MESOGLEA);
+        builder.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, WilderPlacedFeatures.JELLYFISH_CAVES_UPSIDE_DOWN_BLUE_MESOGLEA);
+        builder.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, WilderPlacedFeatures.JELLYFISH_CAVES_UPSIDE_DOWN_PURPLE_MESOGLEA);
+        builder.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, WilderMiscPlaced.MESOGLEA_PILLAR);
+        builder.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, WilderMiscPlaced.PURPLE_MESOGLEA_PILLAR);
+        builder.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, WilderMiscPlaced.ORE_CALCITE);
+        builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.PATCH_NEMATOCYST_UP);
+        builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.PATCH_NEMATOCYST_DOWN);
+        builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.PATCH_NEMATOCYST_EAST);
+        builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.PATCH_NEMATOCYST_WEST);
+        builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.PATCH_NEMATOCYST_NORTH);
+        builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.PATCH_NEMATOCYST_SOUTH);
     }
 
     private static void addBasicFeatures(BiomeGenerationSettings.Builder builder, ResourceKey<Biome> biome) {

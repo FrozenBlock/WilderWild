@@ -7,6 +7,7 @@ import java.util.Map;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricDynamicRegistryProvider;
 import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
+import net.frozenblock.wilderwild.tag.WilderBiomeTags;
 import net.frozenblock.wilderwild.world.structure.AbandonedCabinGenerator;
 import net.frozenblock.wilderwild.world.structure.WilderStructureProcessors;
 import net.minecraft.core.Holder;
@@ -14,6 +15,7 @@ import net.minecraft.core.HolderGetter;
 import net.minecraft.core.HolderSet;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.Registries;
+import net.minecraft.data.worldgen.BootstapContext;
 import net.minecraft.data.worldgen.Pools;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.tags.BlockTags;
@@ -21,11 +23,16 @@ import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.levelgen.GenerationStep;
+import net.minecraft.world.level.levelgen.VerticalAnchor;
+import net.minecraft.world.level.levelgen.heightproviders.UniformHeight;
 import net.minecraft.world.level.levelgen.structure.Structure;
 import net.minecraft.world.level.levelgen.structure.StructureSet;
 import net.minecraft.world.level.levelgen.structure.StructureSpawnOverride;
 import net.minecraft.world.level.levelgen.structure.TerrainAdjustment;
+import net.minecraft.world.level.levelgen.structure.placement.RandomSpreadStructurePlacement;
+import net.minecraft.world.level.levelgen.structure.placement.RandomSpreadType;
 import net.minecraft.world.level.levelgen.structure.pools.StructureTemplatePool;
+import net.minecraft.world.level.levelgen.structure.structures.JigsawStructure;
 import net.minecraft.world.level.levelgen.structure.templatesystem.AlwaysTrueTest;
 import net.minecraft.world.level.levelgen.structure.templatesystem.ProcessorRule;
 import net.minecraft.world.level.levelgen.structure.templatesystem.ProtectedBlockProcessor;
@@ -77,9 +84,9 @@ public final class RegisterStructures {
         return structure(holderSet, GenerationStep.Decoration.SURFACE_STRUCTURES, terrainAdaptation);
     }
 
-	public static void bootstrap(FabricDynamicRegistryProvider.Entries entries) {
-		var abandonedCabinProcessor = register(
-				entries,
+	public static void bootstrapProcessor(BootstapContext<StructureProcessorList> context) {
+		register(
+				context,
 				WilderStructureProcessors.ABANDONED_CABIN,
 				ImmutableList.of(
 						new RuleProcessor(
@@ -96,25 +103,31 @@ public final class RegisterStructures {
 						new ProtectedBlockProcessor(BlockTags.FEATURES_CANNOT_REPLACE)
 				)
 		);
+	}
 
-		HolderGetter<Biome> holderGetter = entries.getLookup(Registries.BIOME);
-		HolderGetter<StructureTemplatePool> holderGetter2 = entries.getLookup(Registries.TEMPLATE_POOL);
+	public static void bootstrapTemplatePool(BootstapContext<StructureTemplatePool> context) {
+		HolderGetter<StructureProcessorList> processor = context.lookup(Registries.PROCESSOR_LIST);
+		HolderGetter<StructureTemplatePool> holderGetter2 = context.lookup(Registries.TEMPLATE_POOL);
 		Holder<StructureTemplatePool> holder2 = holderGetter2.getOrThrow(Pools.EMPTY);
 
-		var cabinTemplatePool = entries.add(
+		context.register(
 				AbandonedCabinGenerator.CABIN,
 				new StructureTemplatePool(
 						holder2,
 						ImmutableList.of(
-								Pair.of(AbandonedCabinGenerator.ofProcessedSingle("abandoned_cabin/cabin/abandoned_cabin_1", abandonedCabinProcessor), 1),
-								Pair.of(AbandonedCabinGenerator.ofProcessedSingle("abandoned_cabin/cabin/abandoned_cabin_2", abandonedCabinProcessor), 1),
-								Pair.of(AbandonedCabinGenerator.ofProcessedSingle("abandoned_cabin/cabin/abandoned_cabin_3", abandonedCabinProcessor), 1)
+								Pair.of(AbandonedCabinGenerator.ofProcessedSingle("abandoned_cabin/cabin/abandoned_cabin_1", processor.getOrThrow(WilderStructureProcessors.ABANDONED_CABIN)), 1),
+								Pair.of(AbandonedCabinGenerator.ofProcessedSingle("abandoned_cabin/cabin/abandoned_cabin_2", processor.getOrThrow(WilderStructureProcessors.ABANDONED_CABIN)), 1),
+								Pair.of(AbandonedCabinGenerator.ofProcessedSingle("abandoned_cabin/cabin/abandoned_cabin_3", processor.getOrThrow(WilderStructureProcessors.ABANDONED_CABIN)), 1)
 						),
 						StructureTemplatePool.Projection.RIGID
 				)
-		);/*
+		);
+	}
 
-		var abandonedCabin = entries.add(
+	public static void bootstrap(BootstapContext<Structure> context) {
+		HolderGetter<Biome> holderGetter = context.lookup(Registries.BIOME);
+		HolderGetter<StructureTemplatePool> templatePool = context.lookup(Registries.TEMPLATE_POOL);
+		context.register(
 				ABANDONED_CABIN_KEY,
 				new JigsawStructure(
 						structure(
@@ -124,24 +137,28 @@ public final class RegisterStructures {
 								GenerationStep.Decoration.UNDERGROUND_DECORATION,
 								TerrainAdjustment.BURY
 						),
-						cabinTemplatePool,
+						templatePool.getOrThrow(AbandonedCabinGenerator.CABIN),
 						5,
 						UniformHeight.of(VerticalAnchor.absolute(-40), VerticalAnchor.absolute(0)),
 						false
 				)
 		);
-		entries.add(
+	}
+
+	public static void bootstrapStructureSet(BootstapContext<StructureSet> context) {
+		HolderGetter<Structure> structure = context.lookup(Registries.STRUCTURE);
+		context.register(
 				ABANDONED_CABINS_KEY,
 				new StructureSet(
-						abandonedCabin,
+						structure.getOrThrow(ABANDONED_CABIN_KEY),
 						new RandomSpreadStructurePlacement(13, 5, RandomSpreadType.LINEAR, 25388232) // ancient city salt is 20083232
 				)
-		);*/
+		);
 	}
 
 	private static Holder<StructureProcessorList> register(
-			FabricDynamicRegistryProvider.Entries entries, ResourceKey<StructureProcessorList> registryKey, List<StructureProcessor> list
+			BootstapContext<StructureProcessorList> entries, ResourceKey<StructureProcessorList> registryKey, List<StructureProcessor> list
 	) {
-		return entries.add(registryKey, new StructureProcessorList(list));
+		return entries.register(registryKey, new StructureProcessorList(list));
 	}
 }
