@@ -294,8 +294,7 @@ public class StoneChestBlockEntity extends ChestBlockEntity implements NoInterac
         } else if (chestType == ChestType.LEFT) {
             return source;
         }
-        BlockPos newPos = new BlockPos(d, e, f);
-        BlockEntity be = level.getBlockEntity(newPos);
+        BlockEntity be = level.getBlockEntity(new BlockPos(d, e, f));
         StoneChestBlockEntity entity = null;
         if (be instanceof StoneChestBlockEntity stone) {
             entity = stone;
