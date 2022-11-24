@@ -495,6 +495,8 @@ public final class RegisterBlocks {
         StrippableBlockRegistry.register(BAOBAB_WOOD, STRIPPED_BAOBAB_WOOD);
         StrippableBlockRegistry.register(CYPRESS_LOG, STRIPPED_CYPRESS_LOG);
         StrippableBlockRegistry.register(CYPRESS_WOOD, STRIPPED_CYPRESS_WOOD);
+		StrippableBlockRegistry.register(PALM_LOG, STRIPPED_PALM_LOG);
+		StrippableBlockRegistry.register(PALM_WOOD, STRIPPED_PALM_WOOD);
     }
 
     private static void registerComposting() {
@@ -511,6 +513,8 @@ public final class RegisterBlocks {
         CompostingChanceRegistry.INSTANCE.add(BAOBAB_LEAVES, 0.3F);
         CompostingChanceRegistry.INSTANCE.add(RegisterItems.BAOBAB_NUT, 0.3F);
         CompostingChanceRegistry.INSTANCE.add(CYPRESS_SAPLING, 0.3F);
+		CompostingChanceRegistry.INSTANCE.add(COCONUT, 0.3F);
+		//CompostingChanceRegistry.INSTANCE.add(SPLIT_COCONUT, 0.3F);
         CompostingChanceRegistry.INSTANCE.add(GLORY_OF_THE_SNOW, 0.65F);
         CompostingChanceRegistry.INSTANCE.add(BLUE_GLORY_OF_THE_SNOW, 0.65F);
         CompostingChanceRegistry.INSTANCE.add(WHITE_GLORY_OF_THE_SNOW, 0.65F);
