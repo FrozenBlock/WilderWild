@@ -49,8 +49,8 @@ public class Tumbleweed extends Mob {
 		this.prevRoll = this.roll;
 		this.roll += deltaPos.x * 30;
 		this.pitch += deltaPos.z * 30;
-		if (deltaPos.horizontalDistance() > 0.01 && deltaPos.y == 0) {
-			this.setDeltaMovement(this.getDeltaMovement().add(0, (deltaPos.horizontalDistance() * 0.3 + 0.05) * multiplier, 0));
+		if (deltaPos.y == 0) {
+			this.setDeltaMovement(this.getDeltaMovement().add(0, ((deltaPos.horizontalDistance() * 2) + 0.05) * multiplier, 0));
 		}
 		if (this.wasTouchingWater || this.wasOnFire) {
 			this.spawnBreakParticles();
