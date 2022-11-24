@@ -55,7 +55,7 @@ public class StoneChestBlockEntity extends ChestBlockEntity implements NoInterac
     public boolean closing;
     public boolean lootGenerated;
 	public int stoneBubbleTicks;
-	public boolean canStoneBubble;
+	public boolean canStoneBubble = true;
 
 	public boolean shouldSkip = false;
 

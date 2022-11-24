@@ -236,25 +236,25 @@ public class StoneChestBlock extends ChestBlock implements NoInteractionStorage<
             ChestType chestType = neighborState.getValue(TYPE);
             if (state.getValue(TYPE) == ChestType.SINGLE && chestType != ChestType.SINGLE && state.getValue(FACING) == neighborState.getValue(FACING) && state.getValue(ANCIENT) == neighborState.getValue(ANCIENT) && ChestBlock.getConnectedDirection(neighborState) == direction.getOpposite()) {
                 BlockState retState = state.setValue(TYPE, chestType.getOpposite());
-				updateBubbles(retState, level, currentPos);
+				updateBubbles(state, retState, level, currentPos);
 				return retState;
             }
             //}
         } else if (ChestBlock.getConnectedDirection(state) == direction) {
 			BlockState retState = state.setValue(TYPE, ChestType.SINGLE);
-			updateBubbles(retState, level, currentPos);
+			updateBubbles(state, retState, level, currentPos);
             return retState;
         }
 		BlockState retState = super.updateShape(state, direction, neighborState, level, currentPos, neighborPos);;
-		updateBubbles(retState, level, currentPos);
+		updateBubbles(state, retState, level, currentPos);
         return retState;
     }
 
-	public void updateBubbles(BlockState state, LevelAccessor level, BlockPos currentPos) {
+	public void updateBubbles(BlockState oldState, BlockState state, LevelAccessor level, BlockPos currentPos) {
 		ChestBlockEntity otherChest = getOtherChest(level, currentPos, state);
 		if (otherChest != null) {
 			BlockState otherState = otherChest.getBlockState();
-			boolean wasLogged = state.getValue(BlockStateProperties.WATERLOGGED);
+			boolean wasLogged = oldState.getValue(BlockStateProperties.WATERLOGGED);
 			if (wasLogged != state.getValue(BlockStateProperties.WATERLOGGED) && wasLogged) {
 				if (!otherState.getValue(BlockStateProperties.WATERLOGGED)) {
 					if (level.getBlockEntity(currentPos) instanceof ChestBlockEntity chest) {
@@ -269,7 +269,7 @@ public class StoneChestBlock extends ChestBlock implements NoInteractionStorage<
 				}
 			}
 		} else {
-			boolean wasLogged = state.getValue(BlockStateProperties.WATERLOGGED);
+			boolean wasLogged = oldState.getValue(BlockStateProperties.WATERLOGGED);
 			if (level.getBlockEntity(currentPos) instanceof ChestBlockEntity chest) {
 				if (wasLogged != state.getValue(BlockStateProperties.WATERLOGGED) && wasLogged) {
 					((ChestBlockEntityInterface) chest).setCanBubble(true);
