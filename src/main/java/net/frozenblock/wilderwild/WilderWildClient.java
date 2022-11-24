@@ -26,6 +26,7 @@ import net.frozenblock.wilderwild.entity.render.JellyfishModel;
 import net.frozenblock.wilderwild.entity.render.JellyfishRenderer;
 import net.frozenblock.wilderwild.entity.render.SculkSensorBlockEntityRenderer;
 import net.frozenblock.wilderwild.entity.render.StoneChestBlockEntityRenderer;
+import net.frozenblock.wilderwild.entity.render.TumbleweedRenderer;
 import net.frozenblock.wilderwild.misc.CompetitionCounter;
 import net.frozenblock.wilderwild.particle.FloatingSculkBubbleParticle;
 import net.frozenblock.wilderwild.particle.MesogleaDripParticle;
@@ -197,6 +198,7 @@ public final class WilderWildClient implements ClientModInitializer {
         EntityModelLayerRegistry.registerModelLayer(ANCIENT_HORN_PROJECTILE_LAYER, AncientHornProjectileModel::createBodyLayer);
         EntityRendererRegistry.register(RegisterEntities.JELLYFISH, JellyfishRenderer::new);
         EntityModelLayerRegistry.registerModelLayer(JELLYFISH, JellyfishModel::createBodyLayer);
+		EntityRendererRegistry.register(RegisterEntities.TUMBLEWEED, TumbleweedRenderer::new);
 
         BlockEntityRendererRegistry.register(BlockEntityType.SCULK_SENSOR, SculkSensorBlockEntityRenderer::new);
         EntityModelLayerRegistry.registerModelLayer(SCULK_SENSOR, SculkSensorBlockEntityRenderer::getTexturedModelData);
@@ -293,7 +295,7 @@ public final class WilderWildClient implements ClientModInitializer {
 			Vec3 pos = Tumbleweed.EntitySpawnPacket.PacketBufUtil.readVec3d(byteBuf);
 			float pitch = Tumbleweed.EntitySpawnPacket.PacketBufUtil.readAngle(byteBuf);
 			float yaw = Tumbleweed.EntitySpawnPacket.PacketBufUtil.readAngle(byteBuf);
-			WilderWild.log("Receiving Tumblweed Packet At " + pos, WilderWild.DEV_LOGGING);
+			WilderWild.log("Receiving Tumbleweed Packet At " + pos, WilderWild.DEV_LOGGING);
 			ctx.execute(() -> {
 				if (Minecraft.getInstance().level == null)
 					throw new IllegalStateException("Tried to spawn entity in a null world!");
@@ -307,7 +309,7 @@ public final class WilderWildClient implements ClientModInitializer {
 				e.setId(entityId);
 				e.setUUID(uuid);
 				Minecraft.getInstance().level.putNonPlayerEntity(entityId, e);
-				WilderWild.log("Spawned Tumblweed", WilderWild.UNSTABLE_LOGGING);
+				WilderWild.log("Spawned Tumbleweed", WilderWild.UNSTABLE_LOGGING);
 			});
 		});
 	}
