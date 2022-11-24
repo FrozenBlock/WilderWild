@@ -11,6 +11,7 @@ import net.minecraft.world.level.block.ChestBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.ChestBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.ChestType;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
@@ -27,9 +28,9 @@ public class ChestBlockEntityMixin implements ChestBlockEntityInterface {
 
 	@Override
 	public void bubble() {
-		if (this.canBubble  && this.bubbleTicks <= 0) {
+		ChestBlockEntity chest = ChestBlockEntity.class.cast(this);
+		if (this.canBubble && this.bubbleTicks <= 0 && chest.getBlockState().getValue(BlockStateProperties.WATERLOGGED)) {
 			this.bubbleTicks = 5;
-			ChestBlockEntity chest = ChestBlockEntity.class.cast(this);
 			ChestBlockEntity otherChest = getOtherEntity(chest.getLevel(), chest.getBlockPos(), chest.getBlockState());
 			if (otherChest != null) {
 				((ChestBlockEntityInterface)otherChest).setBubbleTicks(5);

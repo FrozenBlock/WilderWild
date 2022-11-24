@@ -1,8 +1,7 @@
 package net.frozenblock.wilderwild.mixin.server;
 
-import net.frozenblock.wilderwild.block.entity.StoneChestBlockEntity;
+import java.util.function.Supplier;
 import net.frozenblock.wilderwild.misc.interfaces.ChestBlockEntityInterface;
-import net.frozenblock.wilderwild.registry.RegisterBlockEntities;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.InteractionHand;
@@ -10,7 +9,7 @@ import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
-import net.minecraft.world.level.block.BaseEntityBlock;
+import net.minecraft.world.level.block.AbstractChestBlock;
 import net.minecraft.world.level.block.ChestBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityTicker;
@@ -20,7 +19,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.ChestType;
 import net.minecraft.world.phys.BlockHitResult;
-import org.jetbrains.annotations.Nullable;
+import org.jetbrains.annotations.NotNull;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
@@ -30,7 +29,22 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 //TODO: Move to FrozenBlock eventually
 @Mixin(ChestBlock.class)
-public class ChestBlockMixin {
+public abstract class ChestBlockMixin extends AbstractChestBlock<ChestBlockEntity> {
+
+	protected ChestBlockMixin(Properties properties, Supplier<BlockEntityType<? extends ChestBlockEntity>> blockEntityType) {
+		super(properties, blockEntityType);
+	}
+
+	@Override
+	public void onPlace(@NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos, @NotNull BlockState oldState, boolean isMoving) {
+		super.onPlace(state, level, pos, oldState, isMoving);
+		ChestBlockEntity otherChest = getOtherChest(level, pos, state);
+		if (otherChest != null) {
+			if (level.getBlockEntity(pos) instanceof ChestBlockEntity chest) {
+				((ChestBlockEntityInterface) chest).setCanBubble(((ChestBlockEntityInterface) otherChest).getCanBubble());
+			}
+		}
+	}
 
 	@Inject(at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/block/ChestBlock;getMenuProvider(Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/world/level/Level;Lnet/minecraft/core/BlockPos;)Lnet/minecraft/world/MenuProvider;", shift = At.Shift.AFTER), method = "use")
 	public void use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit, CallbackInfoReturnable<InteractionResult> info) {
@@ -75,12 +89,6 @@ public class ChestBlockMixin {
 		if (!level.isClientSide) {
 			info.setReturnValue(createTickerHelper(blockEntityType, this.blockEntityType(), ChestBlockEntity::lidAnimateTick));
 		}
-	}
-
-	@Unique
-	@Nullable
-	private static <T extends BlockEntity, E extends BlockEntity> BlockEntityTicker<T> createTickerHelper(BlockEntityType<T> serverType, BlockEntityType<? extends ChestBlockEntity> clientType, BlockEntityTicker<E> ticker) {
-		return clientType == serverType ? (BlockEntityTicker<T>) ticker : null;
 	}
 
 	@Shadow
