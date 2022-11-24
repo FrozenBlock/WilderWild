@@ -391,7 +391,21 @@ public final class WilderConfiguredFeatures {
 			new MultifaceGrowthConfiguration(
 					(MultifaceBlock) RegisterBlocks.BLUE_PEARLESCENT_NEMATOCYST,
 					20,
-					true, true, true, 0.95F, HolderSet.direct(Block::builtInRegistryHolder, Blocks.CLAY, Blocks.STONE, Blocks.ANDESITE, Blocks.DIORITE, Blocks.GRANITE, Blocks.DRIPSTONE_BLOCK, Blocks.CALCITE, Blocks.TUFF, Blocks.DEEPSLATE, RegisterBlocks.BLUE_PEARLESCENT_MESOGLEA))
+					true, true, true, 0.98F,
+					HolderSet.direct(
+							Block::builtInRegistryHolder,
+							Blocks.CLAY,
+							Blocks.STONE,
+							Blocks.ANDESITE,
+							Blocks.DIORITE,
+							Blocks.GRANITE,
+							Blocks.DRIPSTONE_BLOCK,
+							Blocks.CALCITE,
+							Blocks.TUFF,
+							Blocks.DEEPSLATE,
+							RegisterBlocks.BLUE_PEARLESCENT_MESOGLEA
+					)
+			)
 	);
 
 	public static final Holder<ConfiguredFeature<MultifaceGrowthConfiguration, ?>> NEMATOCYST_PURPLE = register("nematocyst_purple",
@@ -399,7 +413,21 @@ public final class WilderConfiguredFeatures {
 			new MultifaceGrowthConfiguration(
 					(MultifaceBlock) RegisterBlocks.PURPLE_PEARLESCENT_NEMATOCYST,
 					20,
-					true, true, true, 0.95F, HolderSet.direct(Block::builtInRegistryHolder, Blocks.CLAY, Blocks.STONE, Blocks.ANDESITE, Blocks.DIORITE, Blocks.GRANITE, Blocks.DRIPSTONE_BLOCK, Blocks.CALCITE, Blocks.TUFF, Blocks.DEEPSLATE, RegisterBlocks.PURPLE_PEARLESCENT_MESOGLEA))
+					true, true, true, 0.98F,
+					HolderSet.direct(
+							Block::builtInRegistryHolder,
+							Blocks.CLAY,
+							Blocks.STONE,
+							Blocks.ANDESITE,
+							Blocks.DIORITE,
+							Blocks.GRANITE,
+							Blocks.DRIPSTONE_BLOCK,
+							Blocks.CALCITE,
+							Blocks.TUFF,
+							Blocks.DEEPSLATE,
+							RegisterBlocks.PURPLE_PEARLESCENT_MESOGLEA
+					)
+			)
 	);
 
     public static void registerConfiguredFeatures() {
