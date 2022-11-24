@@ -1,104 +1,87 @@
 package net.frozenblock.wilderwild.entity;
 
-import io.netty.buffer.Unpooled;
-import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
-import net.frozenblock.wilderwild.WilderWild;
-import net.frozenblock.wilderwild.registry.RegisterEntities;
-import net.minecraft.core.Registry;
+import net.frozenblock.wilderwild.registry.RegisterBlocks;
+import net.minecraft.core.NonNullList;
+import net.minecraft.core.particles.ItemParticleOption;
+import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.network.protocol.Packet;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.util.Mth;
-import net.minecraft.world.entity.Entity;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.HumanoidArm;
+import net.minecraft.world.entity.Mob;
+import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
+import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
-public class Tumbleweed extends Entity {
+public class Tumbleweed extends Mob {
 
-	public Tumbleweed(EntityType<? extends Tumbleweed> entityType, Level level) {
+	public Tumbleweed(EntityType<Tumbleweed> entityType, Level level) {
 		super(entityType, level);
 		this.blocksBuilding = true;
 	}
 
-	public Tumbleweed(Level level, double x, double y, double z, @Nullable LivingEntity owner) {
-		this(RegisterEntities.TUMBLEWEED, level);
-		this.setPos(x, y, z);
-		double d = level.random.nextDouble() * 6.2831854820251465D;
-		this.setDeltaMovement(-Math.sin(d) * 0.02D, 0.20000000298023224D, -Math.cos(d) * 0.02D);
-		this.xo = x;
-		this.yo = y;
-		this.zo = z;
+	public static AttributeSupplier.Builder addAttributes() {
+		return Mob.createMobAttributes().add(Attributes.MAX_HEALTH, 1D);
 	}
 
 	@Override
-	protected void defineSynchedData() {
-
-	}
-
-	@Override
-	protected void readAdditionalSaveData(@NotNull CompoundTag compound) {
-
-	}
-
-	@Override
-	protected void addAdditionalSaveData(@NotNull CompoundTag compound) {
-
-	}
-
-	@Override
-	public Packet<?> getAddEntityPacket() {
-		return EntitySpawnPacket.create(this, WilderWild.TUMBLEWEED_PACKET_ID);
-	}
-
-	public static class EntitySpawnPacket { //When the Fabric tutorial WORKS!!!!! BOM BOM BOM BOM BOM BOM BOM, BOBOBOM! DUNDUN!
-		public static Packet<?> create(Entity entity, ResourceLocation packetID) {
-			if (entity.level.isClientSide)
-				throw new IllegalStateException("SpawnPacketUtil.create called on the logical client!");
-			FriendlyByteBuf byteBuf = new FriendlyByteBuf(Unpooled.buffer());
-			byteBuf.writeVarInt(Registry.ENTITY_TYPE.getId(entity.getType()));
-			byteBuf.writeUUID(entity.getUUID());
-			byteBuf.writeVarInt(entity.getId());
-			EntitySpawnPacket.PacketBufUtil.writeVec3d(byteBuf, entity.position());
-			EntitySpawnPacket.PacketBufUtil.writeAngle(byteBuf, entity.getXRot());
-			EntitySpawnPacket.PacketBufUtil.writeAngle(byteBuf, entity.getYRot());
-			return ServerPlayNetworking.createS2CPacket(packetID, byteBuf);
+	public void tick() {
+		super.tick();
+		if (this.wasTouchingWater || this.wasOnFire) {
+			this.spawnBreakParticles();
+			this.remove(RemovalReason.KILLED);
 		}
+	}
 
-		public static final class PacketBufUtil {
+	@Override
+	protected int calculateFallDamage(float fallDistance, float damageMultiplier) {
+		return super.calculateFallDamage(fallDistance, damageMultiplier) - 7;
+	}
 
-			public static byte packAngle(float angle) {
-				return (byte) Mth.floor(angle * 256 / 360);
-			}
+	@Override
+	public void readAdditionalSaveData(@NotNull CompoundTag compound) {
+		super.readAdditionalSaveData(compound);
+	}
 
-			public static float unpackAngle(byte angleByte) {
-				return (angleByte * 360) / 256F;
-			}
+	@Override
+	public void addAdditionalSaveData(@NotNull CompoundTag compound) {
+		super.addAdditionalSaveData(compound);
+	}
 
-			public static void writeAngle(FriendlyByteBuf byteBuf, float angle) {
-				byteBuf.writeByte(packAngle(angle));
-			}
+	@Override
+	public void die(@NotNull DamageSource damageSource) {
+		this.spawnBreakParticles();
+		this.remove(RemovalReason.KILLED);
+	}
 
-			public static float readAngle(FriendlyByteBuf byteBuf) {
-				return unpackAngle(byteBuf.readByte());
-			}
-
-			public static void writeVec3d(FriendlyByteBuf byteBuf, Vec3 vec3d) {
-				byteBuf.writeDouble(vec3d.x);
-				byteBuf.writeDouble(vec3d.y);
-				byteBuf.writeDouble(vec3d.z);
-			}
-
-			public static Vec3 readVec3d(FriendlyByteBuf byteBuf) {
-				double x = byteBuf.readDouble();
-				double y = byteBuf.readDouble();
-				double z = byteBuf.readDouble();
-				return new Vec3(x, y, z);
-			}
+	public void spawnBreakParticles() {
+		if (this.level instanceof ServerLevel level) {
+			level.sendParticles(new ItemParticleOption(ParticleTypes.ITEM, new ItemStack(RegisterBlocks.TUMBLEWEED)), this.getX(), this.getY(0.6666666666666666D), this.getZ(), 10, this.getBbWidth() / 4.0F, this.getBbHeight() / 4.0F, this.getBbWidth() / 4.0F, 0.05D);
 		}
+	}
+
+
+	@Override
+	public Iterable<ItemStack> getArmorSlots() {
+		return NonNullList.withSize(1, ItemStack.EMPTY);
+	}
+
+	@Override
+	public ItemStack getItemBySlot(@NotNull EquipmentSlot slot) {
+		return ItemStack.EMPTY;
+	}
+
+	@Override
+	public void setItemSlot(@NotNull EquipmentSlot slot, @NotNull ItemStack stack) {
+
+	}
+
+	@Override
+	public HumanoidArm getMainArm() {
+		return HumanoidArm.LEFT;
 	}
 }
