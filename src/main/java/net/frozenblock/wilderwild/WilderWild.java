@@ -16,6 +16,7 @@ import net.frozenblock.lib.FrozenBools;
 import net.frozenblock.wilderwild.block.entity.TermiteMoundBlockEntity;
 import net.frozenblock.wilderwild.entity.Firefly;
 import net.frozenblock.wilderwild.misc.FireflyColor;
+import net.frozenblock.wilderwild.misc.datafixer.NematocystStateFix;
 import net.frozenblock.wilderwild.registry.RegisterBlockEntities;
 import net.frozenblock.wilderwild.registry.RegisterBlockSoundGroups;
 import net.frozenblock.wilderwild.registry.RegisterBlocks;
@@ -157,10 +158,10 @@ public final class WilderWild implements ModInitializer {
         stopMeasuring(this);
     }
 
-    public static final int DATA_VERSION = 8;
+    public static final int DATA_VERSION = 9;
 
     private static void applyDataFixes(ModContainer mod) {
-        log("Applying DataFixes for Wilder Wild", true);
+        log("Applying DataFixes for Wilder Wild with Data Version " + DATA_VERSION, true);
         var builder = new QuiltDataFixerBuilder(DATA_VERSION);
         builder.addSchema(0, QuiltDataFixes.BASE_SCHEMA);
         Schema schemaV1 = builder.addSchema(1, NamespacedSchema::new);
@@ -187,6 +188,14 @@ public final class WilderWild implements ModInitializer {
         SimpleFixes.addItemRenameFix(builder, "Rename mesoglea to blue_pearlescent_mesoglea", id("mesoglea"), id("blue_pearlescent_mesoglea"), schemaV7);
         Schema schemaV8 = builder.addSchema(8, NamespacedSchema::new);
         SimpleFixes.addBlockStateRenameFix(builder, "display_lantern_rename_fix", id("display_lantern"), "light", "0", "display_light", schemaV8);
+		Schema schemaV9 = builder.addSchema(9, NamespacedSchema::new);
+		builder.addFixer(new NematocystStateFix(schemaV9, "blue_nematocyst_fix", id("blue_nematocyst")));
+		builder.addFixer(new NematocystStateFix(schemaV9, "blue_pearlescent_nematocyst_fix", id("blue_pearlescent_nematocyst")));
+		builder.addFixer(new NematocystStateFix(schemaV9, "lime_nematocyst_fix", id("lime_nematocyst")));
+		builder.addFixer(new NematocystStateFix(schemaV9, "pink_nematocyst_fix", id("pink_nematocyst")));
+		builder.addFixer(new NematocystStateFix(schemaV9, "purple_pearlescent_nematocyst_fix", id("purple_pearlescent_nematocyst")));
+		builder.addFixer(new NematocystStateFix(schemaV9, "red_nematocyst_fix", id("red_nematocyst")));
+		builder.addFixer(new NematocystStateFix(schemaV9, "yellow_nematocyst_fix", id("yellow_nematocyst")));
 
         QuiltDataFixes.buildAndRegisterFixer(mod, builder);
         log("DataFixes for Wilder Wild have been applied", true);
