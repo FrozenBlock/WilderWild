@@ -130,6 +130,11 @@ public class Tumbleweed extends Mob {
 	}
 
 	@Override
+	public boolean isAlive() {
+		return false;
+	}
+
+	@Override
 	public float getEyeHeight(@NotNull Pose pose) {
 		return this.getBbHeight() * 0.5F;
 	}
