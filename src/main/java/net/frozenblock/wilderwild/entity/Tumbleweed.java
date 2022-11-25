@@ -41,7 +41,7 @@ public class Tumbleweed extends Mob {
 	}
 
 	private static final double windMultiplier = 1.4;
-	private static final double windClamp = 0.4;
+	private static final double windClamp = 0.2;
 
 	@Override
 	public void tick() {
