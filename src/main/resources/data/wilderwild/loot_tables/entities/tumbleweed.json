@@ -1,34 +1,74 @@
+
 {
   "type": "minecraft:entity",
   "pools": [
-	{
-	  "bonus_rolls": 0.0,
-	  "entries": [
-		{
-		  "type": "minecraft:item",
-		  "functions": [
-			{
-			  "add": false,
-			  "count": {
-				"type": "minecraft:uniform",
-				"max": 3.0,
-				"min": 1.0
-			  },
-			  "function": "minecraft:set_count"
-			},
-			{
-			  "count": {
-				"type": "minecraft:uniform",
-				"max": 1.0,
-				"min": 0.0
-			  },
-			  "function": "minecraft:looting_enchant"
-			}
-		  ],
-		  "name": "minecraft:stick"
-		}
-	  ],
-	  "rolls": 1
-	}
+    {
+      "rolls": {
+        "type": "minecraft:uniform",
+        "min": 2,
+        "max": 4
+      },
+      "bonus_rolls": 0,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:stick"
+        }
+      ]
+    },
+    {
+      "rolls": {
+        "type": "minecraft:uniform",
+        "min": 0,
+        "max": 1
+      },
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "weight": 10,
+          "name": "minecraft:red_sand"
+        },
+        {
+          "type": "minecraft:item",
+          "weight": 10,
+          "name": "minecraft:sand"
+        },
+        {
+          "type": "minecraft:item",
+          "weight": 15,
+          "name": "minecraft:bone"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:potato"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:carrot"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:melon_seeds"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:pumpkin_seeds"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:beetroot_seeds"
+        },
+        {
+          "type": "minecraft:item",
+          "weight": 20,
+          "name": "minecraft:iron_nugget"
+        },
+        {
+          "type": "minecraft:item",
+          "weight": 20,
+          "name": "minecraft:gold_nugget"
+        }
+      ]
+    }
   ]
 }
