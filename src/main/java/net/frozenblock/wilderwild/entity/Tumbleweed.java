@@ -63,6 +63,7 @@ public class Tumbleweed extends Mob {
 		if (this.getDeltaMovement().length() > 0.3) {
 			//TODO: Tumbleweed Damagesource
 			entity.hurt(DamageSource.mobAttack(this), 2F);
+			this.destroy();
 		}
 	}
 
