@@ -50,7 +50,7 @@ public class Tumbleweed extends Mob {
 	public final Set<ServerPlayer> players = Sets.newHashSet();
 
 	public boolean spawnedFromShears;
-	public int ticksSinceSeen;
+	public int ticksSinceActive;
 	public float prevPitch;
 	public float prevYaw;
 	public float prevRoll;
@@ -140,14 +140,14 @@ public class Tumbleweed extends Mob {
 			this.setRoll((float) (this.prevPitch + deltaPos.z * 35F));
 
 			double brightness = this.level.getBrightness(LightLayer.SKY, this.blockPosition());
-
-			if (this.players.isEmpty() && (brightness <= 13 || this.wasTouchingWater) && !this.spawnedFromShears) {
-				++this.ticksSinceSeen;
-				if (this.ticksSinceSeen >= 400) {
+			Player entity = this.level.getNearestPlayer(this, -1.0);
+			if ((brightness < 7 || this.wasTouchingWater) && !this.requiresCustomPersistence() && (entity == null || entity.distanceTo(this) > 24)) {
+				++this.ticksSinceActive;
+				if (this.ticksSinceActive >= 200) {
 					this.destroy();
 				}
 			} else {
-				this.ticksSinceSeen = 0;
+				this.ticksSinceActive = 0;
 			}
 
 			double multiplier = ((brightness - (Math.max(15 - brightness, 0))) * 0.0667) * (this.wasTouchingWater ? 0.16777216 : 1);
@@ -256,7 +256,7 @@ public class Tumbleweed extends Mob {
 	public void readAdditionalSaveData(@NotNull CompoundTag compound) {
 		super.readAdditionalSaveData(compound);
 		this.spawnedFromShears = compound.getBoolean("spawned_from_shears");
-		this.ticksSinceSeen = compound.getInt("ticks_since_seen");
+		this.ticksSinceActive = compound.getInt("ticks_since_active");
 		this.setPitch(compound.getFloat("tumble_pitch"));
 		this.setYaw(compound.getFloat("tumble_yaw"));
 		this.setRoll(compound.getFloat("tumble_roll"));
@@ -268,7 +268,7 @@ public class Tumbleweed extends Mob {
 	public void addAdditionalSaveData(@NotNull CompoundTag compound) {
 		super.addAdditionalSaveData(compound);
 		compound.putBoolean("spawned_from_shears", this.spawnedFromShears);
-		compound.putInt("ticks_since_seen", this.ticksSinceSeen);
+		compound.putInt("ticks_since_active", this.ticksSinceActive);
 		compound.putFloat("tumble_pitch", this.getPitch());
 		compound.putFloat("tumble_yaw", this.getYaw());
 		compound.putFloat("tumble_roll", this.getRoll());
