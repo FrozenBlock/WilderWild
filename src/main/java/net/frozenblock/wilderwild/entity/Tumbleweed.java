@@ -65,8 +65,11 @@ public class Tumbleweed extends Mob {
 	@Override
 	protected void doPush(@NotNull Entity entity) {
 		super.doPush(entity);
-		Vec3 deltaPos = this.getPosition(1).subtract(this.getPosition(0));
-		if (deltaPos.length() > 0.4 && !(entity instanceof Tumbleweed)) {
+		Vec3 prevPos = this.getPosition(0);
+		Vec3 pos = this.getPosition(1);
+		Vec3 deltaPos = prevPos.subtract(pos);
+		boolean movingTowards = entity.getPosition(0).distanceTo(prevPos) > entity.getPosition(1).distanceTo(pos);
+		if (deltaPos.length() > 0.3 && movingTowards && !(entity instanceof Tumbleweed)) {
 			//TODO: Tumbleweed Damagesource
 			entity.hurt(DamageSource.mobAttack(this), 2F);
 			this.destroy();
