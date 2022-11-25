@@ -85,7 +85,7 @@ public class Tumbleweed extends Mob {
 		this.yaw += deltaPos.y * 35;
 		this.pitch += deltaPos.z * 35;
 
-		double multiplier = (this.level.getBrightness(LightLayer.SKY, this.blockPosition()) * 0.0667) * (this.wasTouchingWater ? 0.262144 : 1);
+		double multiplier = (this.level.getBrightness(LightLayer.SKY, this.blockPosition()) * 0.0667) * (this.wasTouchingWater ? 0.16777216 : 1);
 		double windX = Mth.clamp(WindManager.windX * windMultiplier, -windClamp, windClamp);
 		double windZ = Mth.clamp(WindManager.windZ * windMultiplier, -windClamp, windClamp);
 		Vec3 deltaMovement = this.getDeltaMovement();
@@ -95,10 +95,10 @@ public class Tumbleweed extends Mob {
 			deltaMovement = deltaMovement.add(0, Math.min(0.5, ((deltaPos.horizontalDistance() * 1.1))) * multiplier, 0);
 		}
 		if (deltaPos.x == 0) {
-			deltaMovement = deltaMovement.add(0, (deltaMovement.x * 0.05) * multiplier, 0);
+			deltaMovement = deltaMovement.add(0, (deltaMovement.x * 0.1) * multiplier, 0);
 		}
 		if (deltaPos.z == 0) {
-			deltaMovement = deltaMovement.add(0, (deltaMovement.z * 0.05) * multiplier, 0);
+			deltaMovement = deltaMovement.add(0, (deltaMovement.z * 0.1) * multiplier, 0);
 		}
 		if (this.wasEyeInWater) {
 			deltaMovement = deltaMovement.add(0, 0.01, 0);
