@@ -1,6 +1,11 @@
 {
   "sources": [
     {
+      "type": "directory",
+      "source": "entity/stone_chest",
+      "prefix": "entity/stone_chest/"
+    },
+    {
       "type": "single",
       "resource": "wilderwild:particle/floating_sculk_bubble_0"
     },

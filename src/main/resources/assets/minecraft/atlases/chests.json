@@ -3,7 +3,7 @@
     {
       "type": "directory",
       "source": "entity/stone_chest",
-      "prefix:": "entity/stone_chest/"
+      "prefix": "entity/stone_chest/"
     }
   ]
 }

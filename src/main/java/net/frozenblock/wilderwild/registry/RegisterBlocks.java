@@ -273,8 +273,6 @@ public final class RegisterBlocks {
 
     // HOLLOWED LOGS
 
-	public static final Map<Block, Block> HOLLOWED_LOGS = new LinkedHashMap<>();
-
     public static final Block HOLLOWED_OAK_LOG = createHollowedLogBlock(MaterialColor.WOOD, MaterialColor.PODZOL);
     public static final Block HOLLOWED_SPRUCE_LOG = createHollowedLogBlock(MaterialColor.PODZOL, MaterialColor.COLOR_BROWN);
     public static final Block HOLLOWED_BIRCH_LOG = createHollowedLogBlock(MaterialColor.SAND, MaterialColor.QUARTZ);
