@@ -40,15 +40,17 @@ public class TumbleweedBlock extends Block implements SimpleWaterloggedBlock {
 	}
 
 	@Override
-	public InteractionResult use(BlockState state, @NotNull Level level, @NotNull BlockPos pos, Player player, @NotNull InteractionHand hand, @NotNull BlockHitResult hit) {
+	public InteractionResult use(@NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos, Player player, @NotNull InteractionHand hand, @NotNull BlockHitResult hit) {
 		ItemStack itemStack = player.getItemInHand(hand);
 		if (itemStack.is(Items.SHEARS)) {
-			Tumbleweed weed = new Tumbleweed(RegisterEntities.TUMBLEWEED, level);
-			level.addFreshEntity(weed);
-			weed.setPos(new Vec3(pos.getX(), 0, pos.getZ()));
-			level.destroyBlock(pos, false);
-			itemStack.hurtAndBreak(1, player, (playerx) -> playerx.broadcastBreakEvent(hand));
-			level.gameEvent(player, GameEvent.SHEAR, pos);
+			if (!level.isClientSide) {
+				Tumbleweed weed = new Tumbleweed(RegisterEntities.TUMBLEWEED, level);
+				level.addFreshEntity(weed);
+				weed.setPos(new Vec3(pos.getX(), pos.getY(), pos.getZ()));
+				level.destroyBlock(pos, false);
+				itemStack.hurtAndBreak(1, player, (playerx) -> playerx.broadcastBreakEvent(hand));
+				level.gameEvent(player, GameEvent.SHEAR, pos);
+			}
 			return InteractionResult.sidedSuccess(level.isClientSide);
 		} else {
 			return super.use(state, level, pos, player, hand, hit);
