@@ -88,39 +88,41 @@ public class Tumbleweed extends Mob {
 		this.prevYaw = this.getYaw();
 		this.prevRoll = this.getRoll();
 
-		this.setPitch((float) (this.prevPitch + deltaPos.x * 35F));
-		this.setYaw((float) (this.prevYaw + deltaPos.y * 35F));
-		this.setRoll((float) (this.prevPitch + deltaPos.z * 35F));
+		if (!this.level.isClientSide) {
+			this.setPitch((float) (this.prevPitch + deltaPos.x * 35F));
+			this.setYaw((float) (this.prevYaw + deltaPos.y * 35F));
+			this.setRoll((float) (this.prevPitch + deltaPos.z * 35F));
 
-		double brightness = this.level.getBrightness(LightLayer.SKY, this.blockPosition());
-		double multiplier = ((brightness - (Math.max(15 - brightness, 0))) * 0.0667) * (this.wasTouchingWater ? 0.16777216 : 1);
-		double windX = Mth.clamp(WindManager.windX * windMultiplier, -windClamp, windClamp);
-		double windZ = Mth.clamp(WindManager.windZ * windMultiplier, -windClamp, windClamp);
-		Vec3 deltaMovement = this.getDeltaMovement();
-		deltaMovement = deltaMovement.add((windX * 0.2) * multiplier, 0, (windZ * 0.2) * multiplier);
-		deltaMovement = new Vec3(deltaMovement.x, deltaMovement.y < 0 ? deltaMovement.y * 0.88 : deltaMovement.y, deltaMovement.z);
-		if (deltaPos.y <= 0 && this.isOnGround()) {
-			deltaMovement = deltaMovement.add(0, Math.min(0.5, ((deltaPos.horizontalDistance() * 1.1))) * multiplier, 0);
-		}
-		if (deltaPos.x == 0) {
-			double nonNegX = deltaMovement.x < 0 ? -deltaMovement.x : deltaMovement.x;
-			deltaMovement = deltaMovement.add(0, (nonNegX * 1.5) * multiplier, 0);
-		}
-		if (deltaPos.z == 0) {
-			double nonNegZ = deltaMovement.z < 0 ? -deltaMovement.z : deltaMovement.z;
-			deltaMovement = deltaMovement.add(0, (nonNegZ * 1.5) * multiplier, 0);
-		}
-		if (this.wasEyeInWater) {
-			deltaMovement = deltaMovement.add(0, 0.01, 0);
-		}
-		this.setDeltaMovement(deltaMovement);
+			double brightness = this.level.getBrightness(LightLayer.SKY, this.blockPosition());
+			double multiplier = ((brightness - (Math.max(15 - brightness, 0))) * 0.0667) * (this.wasTouchingWater ? 0.16777216 : 1);
+			double windX = Mth.clamp(WindManager.windX * windMultiplier, -windClamp, windClamp);
+			double windZ = Mth.clamp(WindManager.windZ * windMultiplier, -windClamp, windClamp);
+			Vec3 deltaMovement = this.getDeltaMovement();
+			deltaMovement = deltaMovement.add((windX * 0.2) * multiplier, 0, (windZ * 0.2) * multiplier);
+			deltaMovement = new Vec3(deltaMovement.x, deltaMovement.y < 0 ? deltaMovement.y * 0.88 : deltaMovement.y, deltaMovement.z);
+			if (deltaPos.y <= 0 && this.isOnGround()) {
+				deltaMovement = deltaMovement.add(0, Math.min(0.5, ((deltaPos.horizontalDistance() * 1.1))) * multiplier, 0);
+			}
+			if (deltaPos.x == 0) {
+				double nonNegX = deltaMovement.x < 0 ? -deltaMovement.x : deltaMovement.x;
+				deltaMovement = deltaMovement.add(0, (nonNegX * 1.5) * multiplier, 0);
+			}
+			if (deltaPos.z == 0) {
+				double nonNegZ = deltaMovement.z < 0 ? -deltaMovement.z : deltaMovement.z;
+				deltaMovement = deltaMovement.add(0, (nonNegZ * 1.5) * multiplier, 0);
+			}
+			if (this.wasEyeInWater) {
+				deltaMovement = deltaMovement.add(0, 0.01, 0);
+			}
+			this.setDeltaMovement(deltaMovement);
 
-		ItemStack stack = this.inventory.get(0);
-		if (!this.level.isClientSide && stack.getCount() > 1) {
-			this.level.addFreshEntity(new ItemEntity(this.level, this.getX(), this.getY(), this.getZ(), stack.split(stack.getCount() - 1)));
+			ItemStack stack = this.inventory.get(0);
+			if (!this.level.isClientSide && stack.getCount() > 1) {
+				this.level.addFreshEntity(new ItemEntity(this.level, this.getX(), this.getY(), this.getZ(), stack.split(stack.getCount() - 1)));
+			}
+			this.pickupItem();
+			this.setVisibleItem(stack);
 		}
-		this.pickupItem();
-		this.setVisibleItem(stack);
 	}
 
 	public void pickupItem() {
