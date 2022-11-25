@@ -61,6 +61,16 @@ public final class OverworldBiomeBuilderMixin {
                     SharedWorldgen.CypressWetlands.OFFSET,
                     RegisterWorldgen.CYPRESS_WETLANDS
             );
+			this.addSurfaceBiome(
+					parameters,
+					SharedWorldgen.Oasis.WARM_RANGE,
+					SharedWorldgen.Oasis.HUMIDITY_DRY,
+					SharedWorldgen.Oasis.CONTINENTALNESS,
+					SharedWorldgen.Oasis.EROSION,
+					weirdness,
+					SharedWorldgen.Oasis.OFFSET,
+					RegisterWorldgen.OASIS
+			);
         }
     }
 
@@ -88,6 +98,16 @@ public final class OverworldBiomeBuilderMixin {
                     SharedWorldgen.CypressWetlands.OFFSET,
                     RegisterWorldgen.CYPRESS_WETLANDS
             );
+			this.addSurfaceBiome(
+					parameters,
+					SharedWorldgen.Oasis.WARM_RANGE,
+					SharedWorldgen.Oasis.HUMIDITY_DRY,
+					SharedWorldgen.Oasis.CONTINENTALNESS,
+					SharedWorldgen.Oasis.EROSION,
+					weirdness,
+					SharedWorldgen.Oasis.OFFSET,
+					RegisterWorldgen.OASIS
+			);
         }
     }
 

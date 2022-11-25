@@ -158,7 +158,7 @@ public class WilderOverworldRegion extends Region {
 			List<Climate.ParameterPoint> desertPointsOasis = new ParameterUtils.ParameterPointListBuilder()
 					.temperature(Climate.Parameter.span(0.55F, 1.0F))
 					.humidity(Humidity.DRY)
-					.continentalness(Climate.Parameter.span(Continentalness.MID_INLAND, Continentalness.FAR_INLAND))
+					.continentalness(Climate.Parameter.span(Continentalness.NEAR_INLAND, Continentalness.FAR_INLAND))
 					.erosion(Climate.Parameter.span(Erosion.EROSION_3, Erosion.EROSION_4))
 					.depth(Depth.SURFACE, Depth.FLOOR)
 					.weirdness(Weirdness.VALLEY, Weirdness.LOW_SLICE_NORMAL_DESCENDING, Weirdness.LOW_SLICE_VARIANT_ASCENDING)
