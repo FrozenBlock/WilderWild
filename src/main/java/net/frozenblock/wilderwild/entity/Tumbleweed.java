@@ -16,6 +16,7 @@ import net.minecraft.sounds.SoundEvent;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.damagesource.EntityDamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
@@ -71,8 +72,7 @@ public class Tumbleweed extends Mob {
 		Vec3 deltaPos = prevPos.subtract(pos);
 		boolean movingTowards = entity.getPosition(0).distanceTo(prevPos) > entity.getPosition(1).distanceTo(pos);
 		if (deltaPos.length() > 0.3 && movingTowards && !(entity instanceof Tumbleweed)) {
-			//TODO: Tumbleweed Damagesource
-			entity.hurt(DamageSource.mobAttack(this), 2F);
+			entity.hurt(new EntityDamageSource("tumbleweed", this).setScalesWithDifficulty().setNoAggro(), 2F);
 			this.destroy();
 		}
 	}
