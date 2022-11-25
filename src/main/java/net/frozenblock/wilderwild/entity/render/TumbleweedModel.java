@@ -47,9 +47,9 @@ public class TumbleweedModel<T extends Tumbleweed> extends HierarchicalModel<T> 
 	public void prepareMobModel(T entity, float limbSwing, float limbSwingAmount, float partialTick) {
 		float xRot = Mth.lerp(partialTick, entity.prevPitch, entity.pitch) * pi180;
 		float zRot = Mth.lerp(partialTick, entity.prevRoll, entity.roll) * pi180;
-		this.xRotation.xRot = (xRot - zRot) * (entity.tickCount + partialTick);
+		this.xRotation.xRot = (xRot - zRot);
 		//this.yRotation.yRot = Mth.lerp(partialTick, entity.prevYaw, entity.yaw) * pi180;
-		this.xRotation.zRot = (zRot - xRot) * (entity.tickCount + partialTick);
+		this.xRotation.zRot = (zRot - xRot);
 	}
 
 	@Override
