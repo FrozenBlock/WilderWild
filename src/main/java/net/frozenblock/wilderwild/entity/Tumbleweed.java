@@ -130,11 +130,11 @@ public class Tumbleweed extends Mob {
 			}
 			if (deltaPos.x == 0) {
 				double nonNegX = deltaMovement.x < 0 ? -deltaMovement.x : deltaMovement.x;
-				deltaMovement = deltaMovement.add(0, (nonNegX * 1.5) * multiplier, 0);
+				deltaMovement = deltaMovement.add(0, (nonNegX * 1.8) * multiplier, 0);
 			}
 			if (deltaPos.z == 0) {
 				double nonNegZ = deltaMovement.z < 0 ? -deltaMovement.z : deltaMovement.z;
-				deltaMovement = deltaMovement.add(0, (nonNegZ * 1.5) * multiplier, 0);
+				deltaMovement = deltaMovement.add(0, (nonNegZ * 1.8) * multiplier, 0);
 			}
 			if (this.wasEyeInWater) {
 				deltaMovement = deltaMovement.add(0, 0.01, 0);
