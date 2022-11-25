@@ -111,6 +111,7 @@ public final class WilderWild implements ModInitializer {
     //Fabric ASM
     public static final MobCategory FIREFLIES = ClassTinkerers.getEnum(MobCategory.class, "WILDERWILDFIREFLIES");
     public static final MobCategory JELLYFISH = ClassTinkerers.getEnum(MobCategory.class, "WILDERWILDJELLYFISH");
+	public static final MobCategory TUMBLEWEED = ClassTinkerers.getEnum(MobCategory.class, "WILDERWILDTUMBLEWEED");
 
     public static RandomSource random() {
         return RandomSource.create();
