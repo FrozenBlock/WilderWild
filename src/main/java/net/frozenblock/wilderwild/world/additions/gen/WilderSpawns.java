@@ -26,6 +26,12 @@ public final class WilderSpawns {
         BiomeModifications.addSpawn(BiomeSelectors.tag(WilderBiomeTags.HAS_JELLYFISH),
                 WilderWild.JELLYFISH, RegisterEntities.JELLYFISH, 2, 1, 1);
     }
+
+	public static void addTumbleweed() {
+		BiomeModifications.addSpawn(BiomeSelectors.includeByKey(Biomes.DESERT, Biomes.BADLANDS),
+				WilderWild.TUMBLEWEED, RegisterEntities.TUMBLEWEED, 2, 1, 1);
+	}
+
     public static void addRabbits() {
     BiomeModifications.addSpawn(BiomeSelectors.includeByKey(Biomes.FOREST, Biomes.FLOWER_FOREST),
                 MobCategory.AMBIENT, EntityType.RABBIT, 10, 2, 4);
