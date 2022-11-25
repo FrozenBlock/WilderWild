@@ -120,15 +120,18 @@ public class Tumbleweed extends Mob {
 				this.prevPitch = this.getPitch();
 				this.prevYaw = this.getYaw();
 				this.prevRoll = this.getRoll();
+				this.pitch = this.getPitch();
+				this.yaw = this.getYaw();
+				this.roll = this.getRoll();
 				this.hasServerRots = true;
 			} else {
 				this.prevPitch = this.pitch;
 				this.prevYaw = this.yaw;
 				this.prevRoll = this.roll;
+				this.pitch = (float) (this.prevPitch + deltaPos.x * 35F);
+				this.yaw = (float) (this.prevYaw + deltaPos.y * 35F);
+				this.roll = (float) (this.prevPitch + deltaPos.z * 35F);
 			}
-			this.pitch = (float) (this.prevPitch + deltaPos.x * 35F);
-			this.yaw = (float) (this.prevYaw + deltaPos.y * 35F);
-			this.roll = (float) (this.prevPitch + deltaPos.z * 35F);
 		}
 
 		if (!this.level.isClientSide) {
