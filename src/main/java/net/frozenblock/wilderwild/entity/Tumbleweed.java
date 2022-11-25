@@ -55,6 +55,7 @@ public class Tumbleweed extends Mob {
 	@Override
 	public void tick() {
 		super.tick();
+		this.setYRot(0F);
 		double multiplier = this.level.getBrightness(LightLayer.SKY, this.blockPosition()) * 0.0667;
 		double windX = Mth.clamp(WindManager.windX * windMultiplier, -windClamp, windClamp);
 		double windZ = Mth.clamp(WindManager.windZ * windMultiplier, -windClamp, windClamp);
