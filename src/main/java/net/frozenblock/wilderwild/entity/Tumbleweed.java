@@ -96,7 +96,7 @@ public class Tumbleweed extends Mob {
 		super.tick();
 		Vec3 deltaMovement = this.getDeltaMovement();
 		Vec3 deltaPos = this.getDeltaPos();
-		this.setYRot((float) (Mth.atan2(deltaMovement.x, deltaMovement.z) * 57.2957763671875D));
+		this.setYRot((float) (Mth.atan2(deltaMovement.x, deltaMovement.z) * 57.2957763671875D) - 1.57079633F);
 		if (this.level.isClientSide) {
 			this.prevPitch = this.pitch;
 			//this.prevYaw = this.yaw;
