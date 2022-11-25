@@ -158,7 +158,7 @@ public class Tumbleweed extends Mob {
 			this.setDeltaMovement(deltaMovement);
 
 			ItemStack stack = this.inventory.get(0);
-			if (!this.level.isClientSide && stack.getCount() > 1) {
+			if (stack.getCount() > 1) {
 				this.level.addFreshEntity(new ItemEntity(this.level, this.getX(), this.getY(), this.getZ(), stack.split(stack.getCount() - 1)));
 			}
 			this.pickupItem();
@@ -182,8 +182,7 @@ public class Tumbleweed extends Mob {
 	}
 
 	public void destroy() {
-		this.level.addFreshEntity(new ItemEntity(this.level, this.getX(), this.getY() + 0.4375, this.getZ(), this.inventory.get(0)));
-		this.inventory.set(0, ItemStack.EMPTY);
+		this.level.addFreshEntity(new ItemEntity(this.level, this.getX(), this.getY() + 0.4375, this.getZ(), this.inventory.get(0).split(1)));
 		this.spawnBreakParticles();
 		this.remove(RemovalReason.KILLED);
 	}
