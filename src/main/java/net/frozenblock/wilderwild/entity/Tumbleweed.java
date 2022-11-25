@@ -48,7 +48,7 @@ public class Tumbleweed extends Mob {
 
 	public boolean spawnedFromShears;
 	public int ticksSinceActive;
-	
+
 	public float prevPitch;
 	public float prevYaw;
 	public float prevRoll;
@@ -103,7 +103,7 @@ public class Tumbleweed extends Mob {
 			this.pitch = (float) (this.prevPitch + deltaPos.x * 35F);
 			this.yaw = (float) (this.prevYaw + deltaPos.y * 35F);
 			this.roll = (float) (this.prevPitch + deltaPos.z * 35F);
-		} else {
+		} else if (!this.isRemoved()) {
 			double brightness = this.level.getBrightness(LightLayer.SKY, this.blockPosition());
 			Player entity = this.level.getNearestPlayer(this, -1.0);
 			if ((brightness < 7 || this.wasTouchingWater) && !this.requiresCustomPersistence() && (entity == null || entity.distanceTo(this) > 24)) {
