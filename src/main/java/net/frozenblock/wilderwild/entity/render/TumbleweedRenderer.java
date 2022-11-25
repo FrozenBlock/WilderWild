@@ -34,10 +34,10 @@ public class TumbleweedRenderer extends MobRenderer<Tumbleweed, TumbleweedModel<
 		ItemStack stack = entity.getVisibleItem();
 		if (!stack.isEmpty()) {
 			matrixStack.pushPose();
-			matrixStack.translate(0.5, 7, 0.5);
-			float xRot = Mth.lerp(partialTick, entity.prevPitch, entity.getPitch()) * pi180;
-			float yRot = Mth.lerp(partialTick, entity.prevYaw, entity.getYaw()) * pi180;
-			float zRot = Mth.lerp(partialTick, entity.prevRoll, entity.getRoll()) * pi180;
+			matrixStack.translate(-0.5, -7, -0.5);
+			float xRot = Mth.lerp(partialTick, entity.prevPitch, entity.pitch) * pi180;
+			float yRot = Mth.lerp(partialTick, entity.prevYaw, entity.yaw) * pi180;
+			float zRot = Mth.lerp(partialTick, entity.prevRoll, entity.roll) * pi180;
 			matrixStack.mulPose(Vector3f.XP.rotation(xRot));
 			matrixStack.mulPose(Vector3f.YP.rotation(yRot));
 			matrixStack.mulPose(Vector3f.ZP.rotation(zRot));
