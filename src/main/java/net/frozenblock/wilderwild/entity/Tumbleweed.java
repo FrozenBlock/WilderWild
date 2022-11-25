@@ -8,6 +8,9 @@ import net.minecraft.core.NonNullList;
 import net.minecraft.core.particles.ItemParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.syncher.EntityDataAccessor;
+import net.minecraft.network.syncher.EntityDataSerializers;
+import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.util.Mth;
@@ -38,12 +41,13 @@ public class Tumbleweed extends Mob {
 	private static final double windMultiplier = 1.4;
 	private static final double windClamp = 0.17;
 
-	public float pitch;
 	public float prevPitch;
-	public float yaw;
 	public float prevYaw;
-	public float roll;
 	public float prevRoll;
+
+	private static final EntityDataAccessor<Float> PITCH = SynchedEntityData.defineId(Tumbleweed.class, EntityDataSerializers.FLOAT);
+	private static final EntityDataAccessor<Float> YAW = SynchedEntityData.defineId(Tumbleweed.class, EntityDataSerializers.FLOAT);
+	private static final EntityDataAccessor<Float> ROLL = SynchedEntityData.defineId(Tumbleweed.class, EntityDataSerializers.FLOAT);
 
 	public Tumbleweed(EntityType<Tumbleweed> entityType, Level level) {
 		super(entityType, level);
@@ -72,13 +76,13 @@ public class Tumbleweed extends Mob {
 		super.tick();
 		this.setYRot(0F);
 		Vec3 deltaPos = this.getPosition(1).subtract(this.getPosition(0));
-		this.prevPitch = this.pitch;
-		this.prevYaw = this.yaw;
-		this.prevRoll = this.roll;
+		this.prevPitch = this.getPitch();
+		this.prevYaw = this.getYaw();
+		this.prevRoll = this.getRoll();
 
-		this.roll += deltaPos.x * 35;
-		this.yaw += deltaPos.y * 35;
-		this.pitch += deltaPos.z * 35;
+		this.setPitch((float) (this.prevPitch + deltaPos.x * 35F));
+		this.setYaw((float) (this.prevYaw + deltaPos.y * 35F));
+		this.setRoll((float) (this.prevPitch + deltaPos.z * 35F));
 
 		double multiplier = (this.level.getBrightness(LightLayer.SKY, this.blockPosition()) * 0.0667) * (this.wasTouchingWater ? 0.16777216 : 1);
 		double windX = Mth.clamp(WindManager.windX * windMultiplier, -windClamp, windClamp);
@@ -91,11 +95,11 @@ public class Tumbleweed extends Mob {
 		}
 		if (deltaPos.x == 0) {
 			double nonNegX = deltaMovement.x < 0 ? -deltaMovement.x : deltaMovement.x;
-			deltaMovement = deltaMovement.add(0, (nonNegX * 2) * multiplier, 0);
+			deltaMovement = deltaMovement.add(0, (nonNegX * 1.5) * multiplier, 0);
 		}
 		if (deltaPos.z == 0) {
 			double nonNegZ = deltaMovement.z < 0 ? -deltaMovement.z : deltaMovement.z;
-			deltaMovement = deltaMovement.add(0, (nonNegZ * 2) * multiplier, 0);
+			deltaMovement = deltaMovement.add(0, (nonNegZ * 1.5) * multiplier, 0);
 		}
 		if (this.wasEyeInWater) {
 			deltaMovement = deltaMovement.add(0, 0.01, 0);
@@ -131,11 +135,17 @@ public class Tumbleweed extends Mob {
 	@Override
 	public void readAdditionalSaveData(@NotNull CompoundTag compound) {
 		super.readAdditionalSaveData(compound);
+		this.setPitch(compound.getFloat("tumble_pitch"));
+		this.setYaw(compound.getFloat("tumble_yaw"));
+		this.setRoll(compound.getFloat("tumble_roll"));
 	}
 
 	@Override
 	public void addAdditionalSaveData(@NotNull CompoundTag compound) {
 		super.addAdditionalSaveData(compound);
+		compound.putFloat("tumble_pitch", this.getPitch());
+		compound.putFloat("tumble_yaw", this.getYaw());
+		compound.putFloat("tumble_roll", this.getRoll());
 	}
 
 	@Override
@@ -162,6 +172,29 @@ public class Tumbleweed extends Mob {
 		}
 	}
 
+	public void setPitch(float f) {
+		this.getEntityData().set(PITCH, f);
+	}
+
+	public float getPitch() {
+		return this.entityData.get(PITCH);
+	}
+
+	public void setYaw(float f) {
+		this.getEntityData().set(YAW, f);
+	}
+
+	public float getYaw() {
+		return this.entityData.get(YAW);
+	}
+
+	public void setRoll(float f) {
+		this.getEntityData().set(ROLL, f);
+	}
+
+	public float getRoll() {
+		return this.entityData.get(ROLL);
+	}
 
 	@Override
 	public Iterable<ItemStack> getArmorSlots() {
