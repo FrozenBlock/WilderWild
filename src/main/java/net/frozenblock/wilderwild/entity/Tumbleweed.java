@@ -21,6 +21,7 @@ import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.damagesource.EntityDamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityDimensions;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.HumanoidArm;
@@ -201,8 +202,8 @@ public class Tumbleweed extends Mob {
 	}
 
 	@Override
-	public float getEyeHeight(@NotNull Pose pose) {
-		return this.getBbHeight() * 0.5F;
+	protected float getStandingEyeHeight(@NotNull Pose pose, EntityDimensions dimensions) {
+		return dimensions.height * 0.5F;
 	}
 
 	@Override
@@ -258,7 +259,7 @@ public class Tumbleweed extends Mob {
 				}
 			}
 		}
-		this.level.addFreshEntity(new ItemEntity(this.level, this.getX(), this.getY(), this.getZ(), this.inventory.get(0)));
+		this.level.addFreshEntity(new ItemEntity(this.level, this.getX(), this.getY() + 0.4375, this.getZ(), this.inventory.get(0)));
 		this.inventory.set(0, ItemStack.EMPTY);
 		this.destroy();
 	}
