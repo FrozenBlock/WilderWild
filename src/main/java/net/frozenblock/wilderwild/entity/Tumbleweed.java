@@ -1,6 +1,8 @@
 package net.frozenblock.wilderwild.entity;
 
 import java.util.List;
+import java.util.Set;
+import com.google.common.collect.Sets;
 import net.frozenblock.lib.wind.api.WindManager;
 import net.frozenblock.wilderwild.registry.RegisterBlocks;
 import net.frozenblock.wilderwild.registry.RegisterSounds;
@@ -13,6 +15,7 @@ import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
@@ -44,7 +47,10 @@ import org.jetbrains.annotations.NotNull;
 
 public class Tumbleweed extends Mob {
 	public NonNullList<ItemStack> inventory;
+	public final Set<ServerPlayer> players = Sets.newHashSet();
 
+	public boolean spawnedFromShears;
+	public int ticksSinceActive;
 	public float prevPitch;
 	public float prevYaw;
 	public float prevRoll;
@@ -93,6 +99,18 @@ public class Tumbleweed extends Mob {
 	}
 
 	@Override
+	public void startSeenByPlayer(@NotNull ServerPlayer serverPlayer) {
+		super.startSeenByPlayer(serverPlayer);
+		this.players.add(serverPlayer);
+	}
+
+	@Override
+	public void stopSeenByPlayer(@NotNull ServerPlayer serverPlayer) {
+		super.stopSeenByPlayer(serverPlayer);
+		this.players.remove(serverPlayer);
+	}
+
+	@Override
 	public void tick() {
 		super.tick();
 		this.setYRot(0F);
@@ -102,15 +120,18 @@ public class Tumbleweed extends Mob {
 				this.prevPitch = this.getPitch();
 				this.prevYaw = this.getYaw();
 				this.prevRoll = this.getRoll();
+				this.pitch = this.getPitch();
+				this.yaw = this.getYaw();
+				this.roll = this.getRoll();
 				this.hasServerRots = true;
 			} else {
 				this.prevPitch = this.pitch;
 				this.prevYaw = this.yaw;
 				this.prevRoll = this.roll;
+				this.pitch = (float) (this.prevPitch + deltaPos.x * 35F);
+				this.yaw = (float) (this.prevYaw + deltaPos.y * 35F);
+				this.roll = (float) (this.prevPitch + deltaPos.z * 35F);
 			}
-			this.pitch = (float) (this.prevPitch + deltaPos.x * 35F);
-			this.yaw = (float) (this.prevYaw + deltaPos.y * 35F);
-			this.roll = (float) (this.prevPitch + deltaPos.z * 35F);
 		}
 
 		if (!this.level.isClientSide) {
@@ -119,6 +140,16 @@ public class Tumbleweed extends Mob {
 			this.setRoll((float) (this.prevPitch + deltaPos.z * 35F));
 
 			double brightness = this.level.getBrightness(LightLayer.SKY, this.blockPosition());
+			Player entity = this.level.getNearestPlayer(this, -1.0);
+			if ((brightness < 7 || this.wasTouchingWater) && !this.requiresCustomPersistence() && (entity == null || entity.distanceTo(this) > 24)) {
+				++this.ticksSinceActive;
+				if (this.ticksSinceActive >= 200) {
+					this.destroy();
+				}
+			} else {
+				this.ticksSinceActive = 0;
+			}
+
 			double multiplier = ((brightness - (Math.max(15 - brightness, 0))) * 0.0667) * (this.wasTouchingWater ? 0.16777216 : 1);
 			double windX = Mth.clamp(WindManager.windX * windMultiplier, -windClamp, windClamp);
 			double windZ = Mth.clamp(WindManager.windZ * windMultiplier, -windClamp, windClamp);
@@ -166,6 +197,8 @@ public class Tumbleweed extends Mob {
 	}
 
 	public void destroy() {
+		this.level.addFreshEntity(new ItemEntity(this.level, this.getX(), this.getY() + 0.4375, this.getZ(), this.inventory.get(0)));
+		this.inventory.set(0, ItemStack.EMPTY);
 		this.spawnBreakParticles();
 		this.remove(RemovalReason.KILLED);
 	}
@@ -197,8 +230,13 @@ public class Tumbleweed extends Mob {
 	}
 
 	@Override
-	public boolean isAlive() {
+	public boolean canBeSeenAsEnemy() {
 		return false;
+	}
+
+	@Override
+	public boolean dampensVibrations() {
+		return true;
 	}
 
 	@Override
@@ -224,6 +262,8 @@ public class Tumbleweed extends Mob {
 	@Override
 	public void readAdditionalSaveData(@NotNull CompoundTag compound) {
 		super.readAdditionalSaveData(compound);
+		this.spawnedFromShears = compound.getBoolean("spawned_from_shears");
+		this.ticksSinceActive = compound.getInt("ticks_since_active");
 		this.setPitch(compound.getFloat("tumble_pitch"));
 		this.setYaw(compound.getFloat("tumble_yaw"));
 		this.setRoll(compound.getFloat("tumble_roll"));
@@ -234,6 +274,8 @@ public class Tumbleweed extends Mob {
 	@Override
 	public void addAdditionalSaveData(@NotNull CompoundTag compound) {
 		super.addAdditionalSaveData(compound);
+		compound.putBoolean("spawned_from_shears", this.spawnedFromShears);
+		compound.putInt("ticks_since_active", this.ticksSinceActive);
 		compound.putFloat("tumble_pitch", this.getPitch());
 		compound.putFloat("tumble_yaw", this.getYaw());
 		compound.putFloat("tumble_roll", this.getRoll());
@@ -259,8 +301,6 @@ public class Tumbleweed extends Mob {
 				}
 			}
 		}
-		this.level.addFreshEntity(new ItemEntity(this.level, this.getX(), this.getY() + 0.4375, this.getZ(), this.inventory.get(0)));
-		this.inventory.set(0, ItemStack.EMPTY);
 		this.destroy();
 	}
 
@@ -268,6 +308,16 @@ public class Tumbleweed extends Mob {
 		if (this.level instanceof ServerLevel level) {
 			level.sendParticles(new ItemParticleOption(ParticleTypes.ITEM, new ItemStack(RegisterBlocks.TUMBLEWEED)), this.getX(), this.getY(0.6666666666666666D), this.getZ(), 20, this.getBbWidth() / 4.0F, this.getBbHeight() / 4.0F, this.getBbWidth() / 4.0F, 0.05D);
 		}
+	}
+
+	@Override
+	public boolean requiresCustomPersistence() {
+		return super.requiresCustomPersistence() || this.spawnedFromShears;
+	}
+
+	@Override
+	public boolean removeWhenFarAway(double distanceToClosestPlayer) {
+		return !this.spawnedFromShears;
 	}
 
 	public void setPitch(float f) {

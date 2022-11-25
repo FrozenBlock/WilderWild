@@ -45,6 +45,7 @@ public class TumbleweedBlock extends Block implements SimpleWaterloggedBlock {
 				Tumbleweed weed = new Tumbleweed(RegisterEntities.TUMBLEWEED, level);
 				level.addFreshEntity(weed);
 				weed.setPos(new Vec3(pos.getX() + 0.5, pos.getY(), pos.getZ() + 0.5));
+				weed.spawnedFromShears = true;
 				level.setBlockAndUpdate(pos, Blocks.AIR.defaultBlockState());
 				itemStack.hurtAndBreak(1, player, (playerx) -> playerx.broadcastBreakEvent(hand));
 				level.gameEvent(player, GameEvent.SHEAR, pos);
