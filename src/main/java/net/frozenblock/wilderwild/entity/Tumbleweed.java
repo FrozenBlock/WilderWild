@@ -197,6 +197,8 @@ public class Tumbleweed extends Mob {
 	}
 
 	public void destroy() {
+		this.level.addFreshEntity(new ItemEntity(this.level, this.getX(), this.getY() + 0.4375, this.getZ(), this.inventory.get(0)));
+		this.inventory.set(0, ItemStack.EMPTY);
 		this.spawnBreakParticles();
 		this.remove(RemovalReason.KILLED);
 	}
@@ -299,8 +301,6 @@ public class Tumbleweed extends Mob {
 				}
 			}
 		}
-		this.level.addFreshEntity(new ItemEntity(this.level, this.getX(), this.getY() + 0.4375, this.getZ(), this.inventory.get(0)));
-		this.inventory.set(0, ItemStack.EMPTY);
 		this.destroy();
 	}
 
