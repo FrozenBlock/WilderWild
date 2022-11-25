@@ -186,11 +186,15 @@ public final class RegisterSounds {
     public static final SoundEvent ENTITY_JELLYFISH_AMBIENT = register("entity.jellyfish.ambient");
     public static final SoundEvent ENTITY_JELLYFISH_HURT = register("entity.jellyfish.hurt");
     public static final SoundEvent ENTITY_JELLYFISH_SWIM = register("entity.jellyfish.swim");
-    //TODO: UNIQUE FLOP SOUNDS
+
     public static final SoundEvent ENTITY_JELLYFISH_FLOP = register("entity.jellyfish.flop");
-    //TODO: UNIQUE DEATH SOUNDS
+
     public static final SoundEvent ENTITY_JELLYFISH_DEATH_WATER = register("entity.jellyfish.death_water");
     public static final SoundEvent ENTITY_JELLYFISH_DEATH = register("entity.jellyfish.death");
+
+	public static final SoundEvent ENTITY_TUMBLEWEED_BOUNCE = register("entity.tumbleweed.bounce");
+	public static final SoundEvent ENTITY_TUMBLEWEED_BREAK = register("entity.tumbleweed.break");
+	public static final SoundEvent ENTITY_TUMBLEWEED_DAMAGE = register("entity.tumbleweed.damage");
 
     public static final SoundEvent ENTITY_WARDEN_KIRBY_DEATH = register("entity.warden.kirby_death");
     public static final SoundEvent ENTITY_WARDEN_DYING = register("entity.warden.dying");

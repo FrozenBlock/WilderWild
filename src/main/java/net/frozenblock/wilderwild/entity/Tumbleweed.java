@@ -2,6 +2,7 @@ package net.frozenblock.wilderwild.entity;
 
 import net.frozenblock.lib.wind.api.WindManager;
 import net.frozenblock.wilderwild.registry.RegisterBlocks;
+import net.frozenblock.wilderwild.registry.RegisterSounds;
 import net.minecraft.core.NonNullList;
 import net.minecraft.core.particles.ItemParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
@@ -69,12 +70,12 @@ public class Tumbleweed extends Mob {
 
 	@Override
 	protected SoundEvent getHurtSound(DamageSource damageSource) {
-		return SoundEvents.MANGROVE_ROOTS_BREAK;
+		return RegisterSounds.ENTITY_TUMBLEWEED_DAMAGE;
 	}
 
 	@Override
 	protected SoundEvent getDeathSound() {
-		return SoundEvents.MANGROVE_ROOTS_BREAK;
+		return RegisterSounds.ENTITY_TUMBLEWEED_BREAK;
 	}
 
 	@Override
