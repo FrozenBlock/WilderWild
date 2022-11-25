@@ -14,6 +14,8 @@ import net.frozenblock.wilderwild.misc.config.ClothConfigInteractionHandler;
 import net.frozenblock.wilderwild.registry.RegisterWorldgen;
 import net.frozenblock.wilderwild.registry.WilderRegistry;
 import net.frozenblock.wilderwild.world.generation.noise.WilderNoise;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.world.level.biome.Biomes;
 import net.minecraft.world.level.biome.Climate;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.levelgen.Noises;
@@ -93,6 +95,19 @@ public final class SharedWorldgen {
 		public static final Climate.Parameter HUMIDITY_TO_THREE = Climate.Parameter.span(0F, 0.1F);
 		public static final Climate.Parameter WEIRDNESS = Weirdness.VALLEY;
 	}
+	public static final class Oasis {
+		public static final Climate.Parameter WARM_RANGE = Climate.Parameter.span(0.55F, 1.0F);
+		public static final Climate.Parameter HUMIDITY_DRY = Climate.Parameter.span(-0.35F, -0.1F);
+		public static final Climate.Parameter CONTINENTALNESS = Climate.Parameter.span(Continentalness.NEAR_INLAND, Continentalness.FAR_INLAND);
+		public static final Climate.Parameter EROSION = Climate.Parameter.span(Erosion.EROSION_3, Erosion.EROSION_4);
+		public static final Climate.Parameter DEPTH = Depth.SURFACE;
+		public static final List<Climate.Parameter> WEIRDNESS = new ArrayList<>() {{
+			add(Weirdness.LOW_SLICE_NORMAL_DESCENDING);
+			add(Weirdness.VALLEY);
+			add(Weirdness.LOW_SLICE_VARIANT_ASCENDING);
+		}};
+		public static final float OFFSET = 0.0F;
+	}
 
     public static final class Swamp {
 
@@ -147,6 +162,10 @@ public final class SharedWorldgen {
 						)
 				)
 		);
+		list.add(
+				SurfaceRules.sequence(SurfaceRules.ifTrue(SurfaceRules.isBiome(RegisterWorldgen.OASIS), SurfaceRules.sequence(SurfaceRules.ifTrue(SurfaceRules.ON_CEILING, SANDSTONE), SAND)), STONE));
+		list.add(SurfaceRules.sequence(SurfaceRules.ifTrue(SurfaceRules.ON_FLOOR, SurfaceRules.sequence(SurfaceRules.ifTrue(SurfaceRules.isBiome(RegisterWorldgen.OASIS), SurfaceRules.ifTrue(SurfaceRules.VERY_DEEP_UNDER_FLOOR, SANDSTONE)))), SurfaceRules.sequence(SurfaceRules.ifTrue(SurfaceRules.ON_CEILING, STONE), GRAVEL)));
+
 		if (ClothConfigInteractionHandler.betaBeaches()) {
 			list.add(
 					SurfaceRules.sequence(
