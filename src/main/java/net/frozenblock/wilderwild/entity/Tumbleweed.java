@@ -94,16 +94,15 @@ public class Tumbleweed extends Mob {
 	@Override
 	public void tick() {
 		super.tick();
-		Vec3 deltaMovement = this.getDeltaMovement();
+		this.setYRot(0F);
 		Vec3 deltaPos = this.getDeltaPos();
-		this.setYRot((float) (Mth.atan2(deltaMovement.x, deltaMovement.z) * 57.2957763671875D));
 		if (this.level.isClientSide) {
 			this.prevPitch = this.pitch;
-			//this.prevYaw = this.yaw;
+			this.prevYaw = this.yaw;
 			this.prevRoll = this.roll;
-			this.pitch = (float) (this.prevPitch + deltaPos.x * 60F);
-			//this.yaw = (float) (this.prevYaw + deltaPos.y * 60F);
-			this.roll = (float) (this.prevPitch + deltaPos.z * 60F);
+			this.pitch = (float) (this.prevPitch + deltaPos.x * 35F);
+			this.yaw = (float) (this.prevYaw + deltaPos.y * 35F);
+			this.roll = (float) (this.prevPitch + deltaPos.z * 35F);
 		} else if (!this.isRemoved()) {
 			double brightness = this.level.getBrightness(LightLayer.SKY, this.blockPosition());
 			Player entity = this.level.getNearestPlayer(this, -1.0);
@@ -119,7 +118,7 @@ public class Tumbleweed extends Mob {
 			double multiplier = (Math.max((brightness - (Math.max(15 - brightness, 0))), 0) * 0.0667) * (this.wasTouchingWater ? 0.16777216 : 1);
 			double windX = Mth.clamp(WindManager.windX * windMultiplier, -windClamp, windClamp);
 			double windZ = Mth.clamp(WindManager.windZ * windMultiplier, -windClamp, windClamp);
-			deltaMovement = this.getDeltaMovement();
+			Vec3 deltaMovement = this.getDeltaMovement();
 			deltaMovement = deltaMovement.add((windX * 0.2) * multiplier, 0, (windZ * 0.2) * multiplier);
 			deltaMovement = new Vec3(deltaMovement.x, deltaMovement.y < 0 ? deltaMovement.y * 0.88 : deltaMovement.y, deltaMovement.z);
 			if (deltaPos.y <= 0 && this.isOnGround()) {
