@@ -60,7 +60,7 @@ public class Tumbleweed extends Mob {
 	@Override
 	protected void doPush(@NotNull Entity entity) {
 		super.doPush(entity);
-		if (this.getDeltaMovement().length() > 0.2) {
+		if (this.getDeltaMovement().length() > 0.2 && !(entity instanceof Tumbleweed)) {
 			//TODO: Tumbleweed Damagesource
 			entity.hurt(DamageSource.mobAttack(this), 2F);
 		}
