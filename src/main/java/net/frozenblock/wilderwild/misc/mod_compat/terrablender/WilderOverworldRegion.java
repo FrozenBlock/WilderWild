@@ -155,6 +155,31 @@ public class WilderOverworldRegion extends Region {
 				builder.replaceBiome(point, RegisterWorldgen.CYPRESS_WETLANDS);
 			});
 
+			List<Climate.ParameterPoint> desertPointsOasis = new ParameterUtils.ParameterPointListBuilder()
+					.temperature(Climate.Parameter.span(0.55F, 1.0F))
+					.humidity(Humidity.DRY)
+					.continentalness(Climate.Parameter.span(Continentalness.NEAR_INLAND, Continentalness.FAR_INLAND))
+					.erosion(Climate.Parameter.span(Erosion.EROSION_3, Erosion.EROSION_4))
+					.depth(Depth.SURFACE, Depth.FLOOR)
+					.weirdness(Weirdness.VALLEY, Weirdness.LOW_SLICE_NORMAL_DESCENDING, Weirdness.LOW_SLICE_VARIANT_ASCENDING)
+					.offset(0.0F)
+					.build();
+			desertPointsOasis.forEach(point -> {
+				// REPLACE BIOME PARAMETERS HERE
+				builder.replaceParameter(point,
+						Climate.parameters(
+								SharedWorldgen.Oasis.WARM_RANGE,
+								SharedWorldgen.Oasis.HUMIDITY_DRY,
+								SharedWorldgen.Oasis.CONTINENTALNESS,
+								SharedWorldgen.Oasis.EROSION,
+								point.depth(),
+								point.weirdness(),
+								SharedWorldgen.Oasis.OFFSET
+						)
+				);
+
+				builder.replaceBiome(point, RegisterWorldgen.OASIS);
+			});
 			// DON'T CHANGE THESE PARAMETERS. THESE ARE THE PARAMETERS OF DRIPSTONE CAVES
 			List<Climate.ParameterPoint> dripstoneCavesPoints = new ParameterUtils.ParameterPointListBuilder()
 					.temperature(Temperature.FULL_RANGE)
