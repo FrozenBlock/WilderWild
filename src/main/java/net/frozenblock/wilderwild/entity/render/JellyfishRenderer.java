@@ -4,6 +4,7 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.WilderWildClient;
 import net.frozenblock.wilderwild.entity.Jellyfish;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
@@ -58,7 +59,8 @@ public class JellyfishRenderer extends MobRenderer<Jellyfish, JellyfishModel<Jel
     }
 
     @Override
-    public ResourceLocation getTextureLocation(@NotNull Jellyfish jellyfish) {
+    @NotNull
+	public ResourceLocation getTextureLocation(@NotNull Jellyfish jellyfish) {
         if (jellyfish.isRGB()) {
             return WilderSharedConstants.id(WHITE_TEXTURE);
         }

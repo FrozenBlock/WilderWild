@@ -10,13 +10,9 @@ import net.fabricmc.fabric.api.registry.CompostingChanceRegistry;
 import net.fabricmc.fabric.api.registry.FlammableBlockRegistry;
 import net.fabricmc.fabric.api.registry.FuelRegistry;
 import net.fabricmc.fabric.api.registry.StrippableBlockRegistry;
-import net.frozenblock.lib.blocks.FrozenButtonBlock;
-import net.frozenblock.lib.blocks.FrozenDoorBlock;
-import net.frozenblock.lib.blocks.FrozenPressurePlateBlock;
-import net.frozenblock.lib.blocks.FrozenSignBlock;
-import net.frozenblock.lib.blocks.FrozenTrapDoorBlock;
-import net.frozenblock.lib.blocks.FrozenWallSignBlock;
-import net.frozenblock.lib.blocks.FrozenWoodTypes;
+import net.frozenblock.lib.block.api.FrozenSignBlock;
+import net.frozenblock.lib.block.api.FrozenWallSignBlock;
+import net.frozenblock.lib.block.api.FrozenWoodTypes;
 import net.frozenblock.lib.impl.BonemealBehaviors;
 import net.frozenblock.lib.item.api.FrozenCreativeTabs;
 import net.frozenblock.wilderwild.WilderWild;
@@ -65,7 +61,9 @@ import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.ButtonBlock;
 import net.minecraft.world.level.block.CeilingHangingSignBlock;
+import net.minecraft.world.level.block.DoorBlock;
 import net.minecraft.world.level.block.FenceBlock;
 import net.minecraft.world.level.block.FenceGateBlock;
 import net.minecraft.world.level.block.FlowerBlock;
@@ -78,6 +76,7 @@ import net.minecraft.world.level.block.SlabBlock;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.StairBlock;
 import net.minecraft.world.level.block.TallFlowerBlock;
+import net.minecraft.world.level.block.TrapDoorBlock;
 import net.minecraft.world.level.block.WallHangingSignBlock;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
@@ -124,49 +123,49 @@ public final class RegisterBlocks {
     public static final Block BAOBAB_STAIRS = new StairBlock(BAOBAB_PLANKS.defaultBlockState(), FabricBlockSettings.copyOf(BAOBAB_PLANKS));
     public static final Block CYPRESS_STAIRS = new StairBlock(CYPRESS_PLANKS.defaultBlockState(), FabricBlockSettings.copyOf(CYPRESS_PLANKS));
 
-    public static final Block BAOBAB_BUTTON = new FrozenButtonBlock(
+    public static final Block BAOBAB_BUTTON = new ButtonBlock(
 			FabricBlockSettings.copyOf(Blocks.OAK_BUTTON).color(BAOBAB_PLANKS_COLOR),
 			30, true,
 			SoundEvents.WOODEN_BUTTON_CLICK_OFF,
 			SoundEvents.WOODEN_BUTTON_CLICK_ON
 	);
-    public static final Block CYPRESS_BUTTON = new FrozenButtonBlock(
+    public static final Block CYPRESS_BUTTON = new ButtonBlock(
 			FabricBlockSettings.copyOf(Blocks.OAK_BUTTON).color(CYPRESS_PLANKS_COLOR),
 			30, true,
 			SoundEvents.WOODEN_BUTTON_CLICK_OFF,
 			SoundEvents.WOODEN_BUTTON_CLICK_ON
 	);
 
-    public static final Block BAOBAB_PRESSURE_PLATE = new FrozenPressurePlateBlock(
+    public static final Block BAOBAB_PRESSURE_PLATE = new PressurePlateBlock(
 			PressurePlateBlock.Sensitivity.EVERYTHING,
 			FabricBlockSettings.of(Material.WOOD, BAOBAB_PLANKS_COLOR).noCollision().strength(0.5F).sounds(SoundType.WOOD),
 			SoundEvents.WOODEN_PRESSURE_PLATE_CLICK_OFF,
 			SoundEvents.WOODEN_PRESSURE_PLATE_CLICK_ON
 	);
-    public static final Block CYPRESS_PRESSURE_PLATE = new FrozenPressurePlateBlock(
+    public static final Block CYPRESS_PRESSURE_PLATE = new PressurePlateBlock(
 			PressurePlateBlock.Sensitivity.EVERYTHING,
 			FabricBlockSettings.of(Material.WOOD, CYPRESS_PLANKS_COLOR).noCollision().strength(0.5F).sounds(SoundType.WOOD),
 			SoundEvents.WOODEN_PRESSURE_PLATE_CLICK_OFF,
 			SoundEvents.WOODEN_PRESSURE_PLATE_CLICK_ON
 	);
 
-    public static final Block BAOBAB_DOOR = new FrozenDoorBlock(
+    public static final Block BAOBAB_DOOR = new DoorBlock(
 			FabricBlockSettings.of(Material.WOOD, BAOBAB_PLANKS_COLOR).strength(3.0F).sounds(SoundType.WOOD).nonOpaque(),
 			SoundEvents.WOODEN_DOOR_CLOSE,
 			SoundEvents.WOODEN_DOOR_OPEN
 	);
-    public static final Block CYPRESS_DOOR = new FrozenDoorBlock(
+    public static final Block CYPRESS_DOOR = new DoorBlock(
 			FabricBlockSettings.of(Material.WOOD, CYPRESS_PLANKS_COLOR).strength(3.0F).sounds(SoundType.WOOD).nonOpaque(),
 			SoundEvents.WOODEN_DOOR_CLOSE,
 			SoundEvents.WOODEN_DOOR_OPEN
 	);
 
-    public static final Block BAOBAB_TRAPDOOR = new FrozenTrapDoorBlock(
+    public static final Block BAOBAB_TRAPDOOR = new TrapDoorBlock(
 			FabricBlockSettings.of(Material.WOOD, BAOBAB_PLANKS_COLOR).strength(3.0F).sounds(SoundType.WOOD).nonOpaque().allowsSpawning(RegisterBlocks::never),
 			SoundEvents.WOODEN_TRAPDOOR_CLOSE,
 			SoundEvents.WOODEN_TRAPDOOR_OPEN
 	);
-    public static final Block CYPRESS_TRAPDOOR = new FrozenTrapDoorBlock(
+    public static final Block CYPRESS_TRAPDOOR = new TrapDoorBlock(
 			FabricBlockSettings.of(Material.WOOD, CYPRESS_PLANKS_COLOR).strength(3.0F).sounds(SoundType.WOOD).nonOpaque().allowsSpawning(RegisterBlocks::never),
 			SoundEvents.WOODEN_TRAPDOOR_CLOSE,
 			SoundEvents.WOODEN_TRAPDOOR_OPEN
