@@ -160,6 +160,9 @@ public final class WilderPlacedFeatures {
             PlacementUtils.HEIGHTMAP, BiomeFilter.biome());
 
     //GRASS AND FERNS
+	public static final Holder<PlacedFeature> OASIS_GRASS_AND_BUSH_PLACED = register("oasis_grass_and_bush_placed",
+			WilderConfiguredFeatures.OASIS_GRASS_AND_BUSH, worldSurfaceSquaredWithCount(25));
+
     public static final Holder<PlacedFeature> NEW_GRASS_PLACED = register("grass_placed",
             VegetationFeatures.PATCH_GRASS_JUNGLE, worldSurfaceSquaredWithCount(20));
 

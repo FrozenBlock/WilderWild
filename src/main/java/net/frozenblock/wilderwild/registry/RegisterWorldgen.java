@@ -3,6 +3,7 @@ package net.frozenblock.wilderwild.registry;
 import net.frozenblock.lib.FrozenBools;
 import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.misc.config.ClothConfigInteractionHandler;
+import net.frozenblock.wilderwild.world.additions.feature.WilderMiscConfigured;
 import net.frozenblock.wilderwild.world.additions.feature.WilderMiscPlaced;
 import net.frozenblock.wilderwild.world.additions.feature.WilderPlacedFeatures;
 import net.frozenblock.wilderwild.world.generation.SharedWorldgen;
@@ -39,6 +40,7 @@ public final class RegisterWorldgen implements SurfaceRuleEvents.OverworldModifi
 	public static final ResourceKey<Biome> JELLYFISH_CAVES = register("jellyfish_caves");
     public static final ResourceKey<Biome> MIXED_FOREST = register("mixed_forest");
 	public static final ResourceKey<Biome> WARM_RIVER = register("warm_river");
+	public static final ResourceKey<Biome> OASIS = register("oasis");
 
     public static void registerWorldgen() {
         WilderWild.logWild("Registering Biomes for", WilderWild.UNSTABLE_LOGGING);
@@ -46,6 +48,7 @@ public final class RegisterWorldgen implements SurfaceRuleEvents.OverworldModifi
         BuiltinRegistries.register(BuiltinRegistries.BIOME, CYPRESS_WETLANDS.location(), cypressWetlands());
         BuiltinRegistries.register(BuiltinRegistries.BIOME, JELLYFISH_CAVES.location(), jellyfishCaves());
 		BuiltinRegistries.register(BuiltinRegistries.BIOME, WARM_RIVER.location(), warmRiver());
+		BuiltinRegistries.register(BuiltinRegistries.BIOME, OASIS.location(), oasis());
 
         WilderNoise.init();
     }
@@ -180,6 +183,32 @@ public final class RegisterWorldgen implements SurfaceRuleEvents.OverworldModifi
 				.generationSettings(builder2.build())
 				.build();
 	}
+	public static Biome oasis() {
+		MobSpawnSettings.Builder builder = new MobSpawnSettings.Builder();
+		BiomeDefaultFeatures.desertSpawns(builder);
+		BiomeGenerationSettings.Builder builder2 = new BiomeGenerationSettings.Builder();
+		addOasisFeatures(builder2);
+
+		Music music = Musics.GAME;
+		return new Biome.BiomeBuilder()
+				.precipitation(Biome.Precipitation.NONE)
+				.temperature(2.0F)
+				.downfall(0.0F)
+				.specialEffects(
+						new BiomeSpecialEffects.Builder()
+								.grassColorOverride(8569413)
+								.foliageColorOverride(3193611)
+								.waterColor(4566514)
+								.waterFogColor(267827)
+								.skyColor(OverworldBiomes.calculateSkyColor(2.0F))
+								.fogColor(12638463)
+								.ambientMoodSound(AmbientMoodSettings.LEGACY_CAVE_SETTINGS)
+								.backgroundMusic(music)
+								.build())
+				.mobSpawnSettings(builder.build())
+				.generationSettings(builder2.build())
+				.build();
+	}
 
     public static void addCypressPaths(BiomeGenerationSettings.Builder builder) {
         builder.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, WilderMiscPlaced.UNDER_WATER_SAND_PATH);
@@ -268,6 +297,23 @@ public final class RegisterWorldgen implements SurfaceRuleEvents.OverworldModifi
 		builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, AquaticPlacements.SEAGRASS_RIVER);
 		builder.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, WilderMiscPlaced.UNDER_WATER_CLAY_PATH_BEACH);
 		builder.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, WilderMiscPlaced.UNDER_WATER_GRAVEL_PATH_RIVER);
+	}
+	public static void addOasisFeatures(BiomeGenerationSettings.Builder builder) {
+		BiomeDefaultFeatures.addDefaultCarversAndLakes(builder);
+		BiomeDefaultFeatures.addDefaultCrystalFormations(builder);
+		BiomeDefaultFeatures.addDefaultMonsterRoom(builder);
+		BiomeDefaultFeatures.addDefaultUndergroundVariety(builder);
+		BiomeDefaultFeatures.addDefaultSprings(builder);
+		BiomeDefaultFeatures.addSurfaceFreezing(builder);
+		BiomeDefaultFeatures.addDefaultOres(builder);
+		BiomeDefaultFeatures.addDefaultMushrooms(builder);
+		BiomeDefaultFeatures.addDesertExtraDecoration(builder);
+		builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, AquaticPlacements.SEAGRASS_RIVER);
+		builder.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, WilderMiscPlaced.UNDER_WATER_CLAY_PATH_BEACH);
+		builder.addFeature(GenerationStep.Decoration.TOP_LAYER_MODIFICATION, WilderMiscPlaced.SAND_POOL);
+		builder.addFeature(GenerationStep.Decoration.TOP_LAYER_MODIFICATION, WilderMiscPlaced.MOSS_PATH);
+		builder.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, WilderMiscPlaced.DISK_GRASS_OASIS);
+		builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.OASIS_GRASS_AND_BUSH_PLACED);
 	}
 
     private static void addBasicFeatures(BiomeGenerationSettings.Builder builder, ResourceKey<Biome> biome) {
