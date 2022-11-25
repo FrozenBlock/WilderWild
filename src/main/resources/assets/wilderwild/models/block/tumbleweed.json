@@ -4,8 +4,8 @@
 	"ambientocclusion": false,
 	"texture_size": [64, 64],
 	"textures": {
-		"top": "wilderwild:block/tumbleweed",
-		"particle": "wilderwild:block/tumbleweed_particle"
+		"particle": "wilderwild:block/tumbleweed",
+		"top": "wilderwild:block/tumbleweed"
 	},
 	"elements": [
 		{
@@ -16,6 +16,7 @@
 				"east": {"uv": [7, 7, 10.5, 3.5], "texture": "#top"},
 				"south": {"uv": [3.5, 7, 7, 3.5], "texture": "#top"},
 				"west": {"uv": [0, 7, 3.5, 3.5], "texture": "#top"},
+				"up": {"uv": [7, 0, 10.5, 3.5], "texture": "#top"},
 				"down": {"uv": [3.5, 3.5, 7, 0], "texture": "#top"}
 			}
 		},
@@ -27,7 +28,8 @@
 				"east": {"uv": [0, 3.5, 3.5, 7], "texture": "#top"},
 				"south": {"uv": [10.5, 3.5, 14, 7], "texture": "#top"},
 				"west": {"uv": [7, 3.5, 10.5, 7], "texture": "#top"},
-				"up": {"uv": [7, 3.5, 3.5, 0], "texture": "#top"}
+				"up": {"uv": [7, 3.5, 3.5, 0], "texture": "#top"},
+				"down": {"uv": [10.5, 0, 7, 3.5], "texture": "#top"}
 			}
 		},
 		{
