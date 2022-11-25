@@ -233,6 +233,11 @@ public class Tumbleweed extends Mob {
 	}
 
 	@Override
+	public boolean dampensVibrations() {
+		return true;
+	}
+
+	@Override
 	protected float getStandingEyeHeight(@NotNull Pose pose, EntityDimensions dimensions) {
 		return dimensions.height * 0.5F;
 	}
