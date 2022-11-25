@@ -68,11 +68,6 @@ public class Tumbleweed extends Mob {
 	}
 
 	@Override
-	public float getEyeHeight(@NotNull Pose pose) {
-		return this.getBbHeight() * 0.5F;
-	}
-
-	@Override
 	public void tick() {
 		super.tick();
 		this.setYRot(0F);
@@ -95,10 +90,12 @@ public class Tumbleweed extends Mob {
 			deltaMovement = deltaMovement.add(0, Math.min(0.5, ((deltaPos.horizontalDistance() * 1.1))) * multiplier, 0);
 		}
 		if (deltaPos.x == 0) {
-			deltaMovement = deltaMovement.add(0, (deltaMovement.x * 0.1) * multiplier, 0);
+			double nonNegX = deltaMovement.x < 0 ? -deltaMovement.x : deltaMovement.x;
+			deltaMovement = deltaMovement.add(0, (nonNegX * 2) * multiplier, 0);
 		}
 		if (deltaPos.z == 0) {
-			deltaMovement = deltaMovement.add(0, (deltaMovement.z * 0.1) * multiplier, 0);
+			double nonNegZ = deltaMovement.z < 0 ? -deltaMovement.z : deltaMovement.z;
+			deltaMovement = deltaMovement.add(0, (nonNegZ * 2) * multiplier, 0);
 		}
 		if (this.wasEyeInWater) {
 			deltaMovement = deltaMovement.add(0, 0.01, 0);
@@ -109,6 +106,11 @@ public class Tumbleweed extends Mob {
 	public void destroy() {
 		this.spawnBreakParticles();
 		this.remove(RemovalReason.KILLED);
+	}
+
+	@Override
+	public float getEyeHeight(@NotNull Pose pose) {
+		return this.getBbHeight() * 0.5F;
 	}
 
 	@Override
@@ -134,6 +136,11 @@ public class Tumbleweed extends Mob {
 	@Override
 	public void addAdditionalSaveData(@NotNull CompoundTag compound) {
 		super.addAdditionalSaveData(compound);
+	}
+
+	@Override
+	protected void defineSynchedData() {
+		super.defineSynchedData();
 	}
 
 	@Override
