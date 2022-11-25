@@ -1560,7 +1560,8 @@
       "wilderwild:mob/tumbleweed/bounce2",
       "wilderwild:mob/tumbleweed/bounce3",
       "wilderwild:mob/tumbleweed/bounce4"
-    ]
+    ],
+    "subtitle": "subtitles.entity.tumbleweed.move"
   },
   "entity.tumbleweed.break": {
     "sounds": [
@@ -1568,7 +1569,8 @@
       "wilderwild:mob/tumbleweed/break2",
       "wilderwild:mob/tumbleweed/break3",
       "wilderwild:mob/tumbleweed/break4"
-    ]
+    ],
+    "subtitle": "subtitles.entity.tumbleweed.break"
   },
   "entity.tumbleweed.damage": {
     "sounds": [
@@ -1576,7 +1578,8 @@
       "wilderwild:mob/tumbleweed/damage2",
       "wilderwild:mob/tumbleweed/damage3",
       "wilderwild:mob/tumbleweed/damage4"
-    ]
+    ],
+    "subtitle": "subtitles.entity.tumbleweed.damage"
   },
   "entity.warden.brap": {
 	"sounds": [

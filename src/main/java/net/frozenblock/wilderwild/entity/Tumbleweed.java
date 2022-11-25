@@ -1,8 +1,6 @@
 package net.frozenblock.wilderwild.entity;
 
 import java.util.List;
-import java.util.Set;
-import com.google.common.collect.Sets;
 import net.frozenblock.lib.wind.api.WindManager;
 import net.frozenblock.wilderwild.registry.RegisterBlocks;
 import net.frozenblock.wilderwild.registry.RegisterSounds;
@@ -15,7 +13,6 @@ import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
@@ -42,12 +39,12 @@ import net.minecraft.world.level.GameRules;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LightLayer;
 import net.minecraft.world.level.ServerLevelAccessor;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 
 public class Tumbleweed extends Mob {
 	public NonNullList<ItemStack> inventory;
-	public final Set<ServerPlayer> players = Sets.newHashSet();
 
 	public boolean spawnedFromShears;
 	public int ticksSinceActive;
@@ -96,18 +93,6 @@ public class Tumbleweed extends Mob {
 		if (!this.isSilkTouch(damageSource)) {
 			super.dropAllDeathLoot(damageSource);
 		}
-	}
-
-	@Override
-	public void startSeenByPlayer(@NotNull ServerPlayer serverPlayer) {
-		super.startSeenByPlayer(serverPlayer);
-		this.players.add(serverPlayer);
-	}
-
-	@Override
-	public void stopSeenByPlayer(@NotNull ServerPlayer serverPlayer) {
-		super.stopSeenByPlayer(serverPlayer);
-		this.players.remove(serverPlayer);
 	}
 
 	@Override
@@ -252,6 +237,11 @@ public class Tumbleweed extends Mob {
 	@Override
 	protected SoundEvent getDeathSound() {
 		return RegisterSounds.ENTITY_TUMBLEWEED_BREAK;
+	}
+
+	@Override
+	protected void playStepSound(@NotNull BlockPos pos, @NotNull BlockState state) {
+		this.playSound(RegisterSounds.ENTITY_TUMBLEWEED_BOUNCE, 0.15f, 1.0f);
 	}
 
 	@Override
