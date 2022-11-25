@@ -254,7 +254,7 @@ public final class WilderConfiguredFeatures {
                             new SimpleBlockConfiguration(new WeightedStateProvider(GLORY_OF_THE_SNOW_POOL)))));
 
     //VEGETATION
-	public static final SimpleWeightedRandomList<BlockState> OASIS_GRASS_AND_BUSH_POOL = SimpleWeightedRandomList.<BlockState>builder().add(Blocks.TALL_GRASS.defaultBlockState(), 6).add(Blocks.GRASS.defaultBlockState(), 2).add(Blocks.DEAD_BUSH.defaultBlockState(), 1).add(RegisterBlocks.UNKNOWN_BUSH.defaultBlockState(), 2).build();
+	public static final SimpleWeightedRandomList<BlockState> OASIS_GRASS_AND_BUSH_POOL = SimpleWeightedRandomList.<BlockState>builder().add(Blocks.TALL_GRASS.defaultBlockState(), 6).add(Blocks.GRASS.defaultBlockState(), 2).add(Blocks.DEAD_BUSH.defaultBlockState(), 1).add(RegisterBlocks.BUSH.defaultBlockState(), 2).build();
 	public static final Holder<ConfiguredFeature<RandomPatchConfiguration, ?>> OASIS_GRASS_AND_BUSH =
 			register("oasis_grass_and_bush", Feature.RANDOM_PATCH,
 					FeatureUtils.simpleRandomPatchConfiguration(64, PlacementUtils.onlyWhenEmpty(Feature.SIMPLE_BLOCK,
