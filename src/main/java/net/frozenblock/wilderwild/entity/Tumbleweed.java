@@ -95,7 +95,7 @@ public class Tumbleweed extends Mob {
 	public void tick() {
 		super.tick();
 		Vec3 deltaPos = this.getDeltaPos();
-		float yaw = (float) (Mth.atan2(deltaPos.x, deltaPos.z) * 57.2957763671875D) + 90;
+		float yaw = (float) (Mth.atan2(deltaPos.x, deltaPos.z) * 57.2957763671875D) - 90;
 		this.setYRot(yaw);
 		if (this.level.isClientSide) {
 			this.prevPitch = this.pitch;
