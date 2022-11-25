@@ -9,6 +9,6 @@ public class ClientMethodInteractionHandler {
     }
 
 	public static void playEnderManAngerLoop(EnderMan enderMan) {
-		ClientMethods.playClientEnderManAngerLoop(enderMan);
+		ClientMethods.playClientEnderManLoop(enderMan);
 	}
 }

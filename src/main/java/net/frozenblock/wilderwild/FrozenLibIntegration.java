@@ -1,7 +1,8 @@
 package net.frozenblock.wilderwild;
 
+import net.fabricmc.loader.api.FabricLoader;
 import net.frozenblock.lib.FrozenBools;
-import net.frozenblock.lib.entrypoints.FrozenMainEntrypoint;
+import net.frozenblock.lib.entrypoint.api.FrozenMainEntrypoint;
 import net.frozenblock.lib.impl.BlockScheduledTicks;
 import net.frozenblock.lib.impl.DripstoneDripWaterFrom;
 import net.frozenblock.lib.impl.HopperUntouchableList;
@@ -11,9 +12,11 @@ import net.frozenblock.lib.sound.api.predicate.SoundPredicate;
 import net.frozenblock.wilderwild.entity.Firefly;
 import net.frozenblock.wilderwild.misc.WilderEnderman;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
+import net.frozenblock.wilderwild.misc.config.ClothConfigInteractionHandler;
 import net.frozenblock.wilderwild.registry.RegisterBlockEntities;
 import net.frozenblock.wilderwild.registry.RegisterSounds;
 import net.minecraft.network.chat.Component;
+import net.minecraft.tags.BlockTags;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.monster.EnderMan;
 import net.minecraft.world.entity.player.Player;
@@ -21,9 +24,16 @@ import net.minecraft.world.item.InstrumentItem;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.LevelEvent;
+import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gameevent.GameEvent;
 import org.jetbrains.annotations.Nullable;
+import static net.frozenblock.lib.sound.api.block_sound_group.BlockSoundGroupOverwrites.*;
+import static net.frozenblock.wilderwild.registry.RegisterBlockSoundGroups.*;
+import static net.frozenblock.wilderwild.registry.RegisterBlocks.BAOBAB_LEAVES;
+import static net.frozenblock.wilderwild.registry.RegisterBlocks.CYPRESS_LEAVES;
+import static net.minecraft.world.level.block.Blocks.*;
+import static net.minecraft.world.level.block.Blocks.WITHER_ROSE;
 
 public final class FrozenLibIntegration implements FrozenMainEntrypoint {
 
@@ -100,6 +110,82 @@ public final class FrozenLibIntegration implements FrozenMainEntrypoint {
         StructurePoolElementIdReplacements.RESOURCE_LOCATION_REPLACEMENTS.put(WilderSharedConstants.vanillaId("ancient_city/structures/tall_ruin_3"), WilderSharedConstants.id("ancient_city/structures/tall_ruin_3"));
         StructurePoolElementIdReplacements.RESOURCE_LOCATION_REPLACEMENTS.put(WilderSharedConstants.vanillaId("ancient_city/structures/tall_ruin_4"), WilderSharedConstants.id("ancient_city/structures/tall_ruin_4"));
         StructurePoolElementIdReplacements.RESOURCE_LOCATION_REPLACEMENTS.put(WilderSharedConstants.vanillaId("ancient_city/structures/ice_box_1"), WilderSharedConstants.id("ancient_city/structures/ice_box_1"));
+
+		if (ClothConfigInteractionHandler.cactusSounds()) {
+			addBlock(CACTUS, SoundType.SWEET_BERRY_BUSH);
+		}
+		if (ClothConfigInteractionHandler.claySounds()) {
+			addBlock(CLAY, CLAY_BLOCK);
+		}
+		if (ClothConfigInteractionHandler.coarseDirtSounds()) {
+			addBlock(COARSE_DIRT, COARSEDIRT);
+		}
+		if (ClothConfigInteractionHandler.cobwebSounds()) {
+			addBlock(COBWEB, WEB);
+		}
+		if (ClothConfigInteractionHandler.deadBushSounds()) {
+			addBlock(DEAD_BUSH, SoundType.NETHER_SPROUTS);
+		}
+		if (ClothConfigInteractionHandler.flowerSounds()) {
+			addBlocks(new Block[]{DANDELION, POPPY, BLUE_ORCHID, ALLIUM, AZURE_BLUET, RED_TULIP, ORANGE_TULIP, WHITE_TULIP, PINK_TULIP, OXEYE_DAISY, CORNFLOWER, LILY_OF_THE_VALLEY}, FLOWER);
+		}
+		if (ClothConfigInteractionHandler.frostedIceSounds()) {
+			addBlocks(new Block[]{FROSTED_ICE}, ICE_BLOCKS);
+		}
+		if (ClothConfigInteractionHandler.gravelSounds()) {
+			addBlock(GRAVEL, GRAVELSOUNDS);
+		}
+		if (ClothConfigInteractionHandler.leafSounds()) {
+			addBlockTag(BlockTags.LEAVES, LEAVES);
+			addBlocks(new Block[]{ACACIA_LEAVES, BIRCH_LEAVES, DARK_OAK_LEAVES, JUNGLE_LEAVES, MANGROVE_LEAVES, OAK_LEAVES, SPRUCE_LEAVES, BAOBAB_LEAVES, CYPRESS_LEAVES}, LEAVES);
+			if (FabricLoader.getInstance().isModLoaded("betternether")) {
+				addBlock("betternether", "willow_leaves", LEAVES);
+				addBlock("betternether", "rubeous_leaves", LEAVES);
+				addBlock("betternether", "anchor_tree_leaves", LEAVES);
+				addBlock("betternether", "nether_sakura_leaves", LEAVES);
+			}
+
+			if (FabricLoader.getInstance().isModLoaded("betterend")) {
+				addBlock("betterend", "pythadendron_leaves", LEAVES);
+				addBlock("betterend", "lacugrove_leaves", LEAVES);
+				addBlock("betterend", "dragon_tree_leaves", LEAVES);
+				addBlock("betterend", "tenanea_leaves", LEAVES);
+				addBlock("betterend", "helix_tree_leaves", LEAVES);
+				addBlock("betterend", "lucernia_leaves", LEAVES);
+			}
+
+			if (FabricLoader.getInstance().isModLoaded("blockus")) {
+				addBlock("blockus", "white_oak_leaves", LEAVES);
+				addBlock("blockus", "legacy_leaves", LEAVES);
+			}
+
+			if (FabricLoader.getInstance().isModLoaded("edenring")) {
+				addBlock("edenring", "auritis_leaves", LEAVES);
+			}
+
+			if (FabricLoader.getInstance().isModLoaded("techreborn")) {
+				addBlock("techreborn", "rubber_leaves", LEAVES);
+			}
+		}
+		if (ClothConfigInteractionHandler.lilyPadSounds()) {
+			addBlock(LILY_PAD, LILYPAD);
+		}
+		if (ClothConfigInteractionHandler.mushroomBlockSounds()) {
+			addBlocks(new Block[]{RED_MUSHROOM, BROWN_MUSHROOM}, MUSHROOM);
+			addBlocks(new Block[]{RED_MUSHROOM_BLOCK, BROWN_MUSHROOM_BLOCK, MUSHROOM_STEM}, MUSHROOM_BLOCK);
+		}
+		if (ClothConfigInteractionHandler.podzolSounds()) {
+			addBlock(PODZOL, SoundType.ROOTED_DIRT);
+		}
+		if (ClothConfigInteractionHandler.reinforcedDeepslateSounds()) {
+			addBlock(REINFORCED_DEEPSLATE, REINFORCEDDEEPSLATE);
+		}
+		if (ClothConfigInteractionHandler.sugarCaneSounds()) {
+			addBlock(SUGAR_CANE, SUGARCANE);
+		}
+		if (ClothConfigInteractionHandler.witherRoseSounds()) {
+			addBlock(WITHER_ROSE, SoundType.SWEET_BERRY_BUSH);
+		}
     }
 
     @Override

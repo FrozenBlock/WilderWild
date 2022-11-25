@@ -42,9 +42,6 @@
 	],
 	"simplecopperpipes": [
 	  "net.frozenblock.wilderwild.misc.mod_compat.simple_copper_pipes.WilderCopperPipesEntrypoint"
-	],
-	"preLaunch": [
-	  "net.frozenblock.wilderwild.WilderWildPreLaunch"
 	]
   },
   "mixins": [
@@ -54,8 +51,8 @@
   "depends": {
 	"frozenlib": ">=1.1.4-",
 	"mm": ">=2.3",
-	"fabricloader": ">=0.14.8",
-	"fabric-api": ">=0.65.1",
+	"fabricloader": ">=0.14.10",
+	"fabric-api": ">=0.67.2",
 	"minecraft": "~1.19.3-alpha",
 	"java": ">=17"
   },
@@ -64,7 +61,7 @@
   },
   "suggests": {
 	"cloth-config": "*",
-    "nbtcrafting": ">=2.1.4",
+    "nbtcrafting": ">=2.2.3",
 	"terrablender": "*"
   },
   "custom": {

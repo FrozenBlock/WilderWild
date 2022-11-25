@@ -15,7 +15,6 @@ import net.fabricmc.loader.api.ModContainer;
 import net.frozenblock.lib.FrozenBools;
 import net.frozenblock.wilderwild.block.entity.TermiteMoundBlockEntity;
 import net.frozenblock.wilderwild.entity.Firefly;
-import net.frozenblock.wilderwild.misc.BlockSoundGroupOverwrites;
 import net.frozenblock.wilderwild.misc.FireflyColor;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.frozenblock.wilderwild.registry.RegisterBlockEntities;
@@ -133,7 +132,6 @@ public final class WilderWild implements ModInitializer {
         RegisterBlockSoundGroups.init();
         RegisterBlockEntities.register();
         RegisterEntities.init();
-        BlockSoundGroupOverwrites.init();
         RegisterLootTables.init();
         RegisterParticles.registerParticles();
 		RegisterResources.register();

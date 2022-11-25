@@ -5,7 +5,7 @@ import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.math.Axis;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.frozenblock.lib.entity.render.api.FrozenRenderType;
+import net.frozenblock.lib.entity.api.rendering.FrozenRenderType;
 import net.frozenblock.wilderwild.WilderWildClient;
 import net.frozenblock.wilderwild.entity.AncientHornProjectile;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;

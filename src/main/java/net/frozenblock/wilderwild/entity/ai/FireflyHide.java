@@ -1,7 +1,7 @@
 package net.frozenblock.wilderwild.entity.ai;
 
 import jdk.jfr.Experimental;
-import net.frozenblock.lib.entity.behavior.MoveToBlockBehavior;
+import net.frozenblock.lib.entity.api.behavior.MoveToBlockBehavior;
 import net.frozenblock.wilderwild.entity.Firefly;
 import net.frozenblock.wilderwild.registry.RegisterSounds;
 import net.frozenblock.wilderwild.tag.WilderBlockTags;
@@ -15,6 +15,12 @@ public class FireflyHide extends MoveToBlockBehavior<Firefly> {
 
 	public FireflyHide(Firefly mob, double speedModifier, int searchRange, int verticalSearchRange) {
 		super(mob, speedModifier, searchRange, verticalSearchRange);
+	}
+
+	@Override
+	public void start(@NotNull ServerLevel level, @NotNull Firefly entity, long gameTime) {
+		super.start(level, entity, gameTime);
+		entity.despawning = true;
 	}
 
 	@Override

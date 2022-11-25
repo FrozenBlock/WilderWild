@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Objects;
 import net.fabricmc.fabric.api.networking.v1.PlayerLookup;
 import net.fabricmc.fabric.api.transfer.v1.item.ItemVariant;
-import net.frozenblock.lib.storage.NoInteractionStorage;
+import net.frozenblock.lib.storage.api.NoInteractionStorage;
 import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.misc.config.ClothConfigInteractionHandler;
 import net.frozenblock.wilderwild.registry.RegisterBlockEntities;

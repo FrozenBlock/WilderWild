@@ -29,9 +29,8 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public class BaobabNutBlock extends SaplingBlock {
-
     public static final IntegerProperty AGE = BlockStateProperties.AGE_2;
-
+    public static final int MAX_AGE = 2;
     private static final VoxelShape[] SHAPES = new VoxelShape[]{
             Shapes.or(Block.box(7.0, 13.0, 7.0, 9.0, 16.0, 9.0), Block.box(5.0, 6.0, 5.0, 11.0, 13.0, 11.0)),
             Shapes.or(Block.box(7.0, 12.0, 7.0, 9.0, 16.0, 9.0), Block.box(4.0, 3.0, 4.0, 12.0, 12.0, 12.0)),
@@ -94,14 +93,17 @@ public class BaobabNutBlock extends SaplingBlock {
         }
     }
 
+	@Override
 	public boolean isValidBonemealTarget(LevelReader world, BlockPos pos, BlockState state, boolean isClient) {
 		return !isHanging(state) || !isFullyGrown(state);
 	}
 
+	@Override
     public boolean isBonemealSuccess(Level level, RandomSource random, BlockPos pos, BlockState state) {
         return isHanging(state) ? !isFullyGrown(state) : super.isBonemealSuccess(level, random, pos, state);
     }
 
+	@Override
     public void performBonemeal(ServerLevel level, RandomSource random, BlockPos pos, BlockState state) {
         if (isHanging(state) && !isFullyGrown(state)) {
             level.setBlock(pos, state.cycle(AGE), 2);
@@ -126,7 +128,7 @@ public class BaobabNutBlock extends SaplingBlock {
 		return Shapes.empty();
 	}
 
-	private static boolean isHanging(BlockState state) {
+    private static boolean isHanging(BlockState state) {
         return state.getValue(HANGING);
     }
 
