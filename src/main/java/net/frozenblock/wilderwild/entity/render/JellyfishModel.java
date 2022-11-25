@@ -106,13 +106,13 @@ public class JellyfishModel<T extends Jellyfish> extends HierarchicalModel<T> {
         float tentRot = fasterRotLerp(movementDelta, (float) (-Math.sin((ageInTicks - 10) * 0.1F) * 0.2F) + eightPi, (float) (-Math.sin(animation + 5) * 20 - 7.5F) * pi180);
 
         this.tentacle1.xRot = tentRot;
+		this.tentacle2.xRot = tentRot;
         this.tentacle3.xRot = tentRot;
+		this.tentacle4.xRot = tentRot;
         this.tentacle5.xRot = tentRot;
+		this.tentacle6.xRot = tentRot;
         this.tentacle7.xRot = tentRot;
-        this.tentacle2.xRot = tentRot;
-        this.tentacle4.xRot = tentRot;
-        this.tentacle6.xRot = tentRot;
-        this.tentacle8.xRot = tentRot;
+		this.tentacle8.xRot = tentRot;
 
         //SQUASH & STRETCH
         float sin = (float) -Math.sin(animation);
