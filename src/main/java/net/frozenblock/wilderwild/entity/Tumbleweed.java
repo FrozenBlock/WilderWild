@@ -90,7 +90,7 @@ public class Tumbleweed extends Mob {
 		this.setRoll((float) (this.prevPitch + deltaPos.z * 35F));
 
 		double brightness = this.level.getBrightness(LightLayer.SKY, this.blockPosition());
-		double multiplier = ((brightness - (15 - brightness)) * 0.0667) * (this.wasTouchingWater ? 0.16777216 : 1);
+		double multiplier = ((brightness - (Math.max(15 - brightness, 0))) * 0.0667) * (this.wasTouchingWater ? 0.16777216 : 1);
 		double windX = Mth.clamp(WindManager.windX * windMultiplier, -windClamp, windClamp);
 		double windZ = Mth.clamp(WindManager.windZ * windMultiplier, -windClamp, windClamp);
 		Vec3 deltaMovement = this.getDeltaMovement();
