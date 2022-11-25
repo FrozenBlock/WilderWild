@@ -16,6 +16,7 @@ import net.minecraft.sounds.SoundEvent;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.EquipmentSlot;
@@ -116,6 +117,16 @@ public class Tumbleweed extends Mob {
 	public void destroy() {
 		this.spawnBreakParticles();
 		this.remove(RemovalReason.KILLED);
+	}
+
+	@Override
+	public boolean canFreeze() {
+		return false;
+	}
+
+	@Override
+	public boolean canBeAffected(@NotNull MobEffectInstance effectInstance) {
+		return false;
 	}
 
 	@Override
