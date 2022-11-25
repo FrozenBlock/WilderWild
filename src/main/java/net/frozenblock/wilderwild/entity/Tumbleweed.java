@@ -19,6 +19,7 @@ import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.HumanoidArm;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.MobSpawnType;
+import net.minecraft.world.entity.Pose;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.item.ItemEntity;
@@ -67,6 +68,11 @@ public class Tumbleweed extends Mob {
 	}
 
 	@Override
+	public float getEyeHeight(@NotNull Pose pose) {
+		return this.getBbHeight() * 0.5F;
+	}
+
+	@Override
 	public void tick() {
 		super.tick();
 		this.setYRot(0F);
@@ -79,7 +85,7 @@ public class Tumbleweed extends Mob {
 		this.yaw += deltaPos.y * 35;
 		this.pitch += deltaPos.z * 35;
 
-		double multiplier = (this.level.getBrightness(LightLayer.SKY, this.blockPosition()) * 0.0667) * (this.wasTouchingWater ? 0.64 : 1);
+		double multiplier = (this.level.getBrightness(LightLayer.SKY, this.blockPosition()) * 0.0667) * (this.wasTouchingWater ? 0.262144 : 1);
 		double windX = Mth.clamp(WindManager.windX * windMultiplier, -windClamp, windClamp);
 		double windZ = Mth.clamp(WindManager.windZ * windMultiplier, -windClamp, windClamp);
 		Vec3 deltaMovement = this.getDeltaMovement();
@@ -88,8 +94,11 @@ public class Tumbleweed extends Mob {
 		if (deltaPos.y <= 0 && this.isOnGround()) {
 			deltaMovement = deltaMovement.add(0, Math.min(0.5, ((deltaPos.horizontalDistance() * 1.1))) * multiplier, 0);
 		}
-		if (deltaMovement.horizontalDistance() != 0 && deltaPos.horizontalDistance() == 0) {
-			deltaMovement = deltaMovement.add(0, (deltaMovement.horizontalDistance() * 0.2) * multiplier, 0);
+		if (deltaPos.x == 0) {
+			deltaMovement = deltaMovement.add(0, (deltaMovement.x * 0.05) * multiplier, 0);
+		}
+		if (deltaPos.z == 0) {
+			deltaMovement = deltaMovement.add(0, (deltaMovement.z * 0.05) * multiplier, 0);
 		}
 		if (this.wasEyeInWater) {
 			deltaMovement = deltaMovement.add(0, 0.01, 0);
