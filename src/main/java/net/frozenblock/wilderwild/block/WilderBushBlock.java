@@ -8,8 +8,8 @@ import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.NotNull;
 
-public class UnknownBushBlock extends DoublePlantBlock {
-	public UnknownBushBlock(BlockBehaviour.Properties properties) {
+public class WilderBushBlock extends DoublePlantBlock {
+	public WilderBushBlock(BlockBehaviour.Properties properties) {
 		super(properties);
 	}
 
