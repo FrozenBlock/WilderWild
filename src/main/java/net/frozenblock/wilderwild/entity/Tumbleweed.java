@@ -85,6 +85,13 @@ public class Tumbleweed extends Mob {
 	}
 
 	@Override
+	protected void dropAllDeathLoot(@NotNull DamageSource damageSource) {
+		if (!this.isSilkTouch(damageSource)) {
+			super.dropAllDeathLoot(damageSource);
+		}
+	}
+
+	@Override
 	public void tick() {
 		super.tick();
 		this.setYRot(0F);
@@ -168,6 +175,14 @@ public class Tumbleweed extends Mob {
 
 	public Vec3 getDeltaPos() {
 		return this.getPosition(0).subtract(this.getPosition(1));
+	}
+
+	public boolean isSilkTouch(DamageSource damageSource) {
+		if (damageSource.getDirectEntity() instanceof Player player) {
+			ItemStack stack = player.getMainHandItem();
+			return EnchantmentHelper.getItemEnchantmentLevel(Enchantments.SILK_TOUCH, stack) > 0;
+		}
+		return false;
 	}
 
 	@Override
