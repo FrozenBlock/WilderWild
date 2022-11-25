@@ -23,7 +23,6 @@ public class TumbleweedModel<T extends Tumbleweed> extends HierarchicalModel<T> 
 
 	private final ModelPart bone;
 	private static final float pi180 = Mth.PI / 180;
-	private float partialTicks;
 
 	public TumbleweedModel(ModelPart root) {
 		super(RenderType::entityCutoutNoCull);
@@ -42,28 +41,15 @@ public class TumbleweedModel<T extends Tumbleweed> extends HierarchicalModel<T> 
 	}
 
 	@Override
-	public void prepareMobModel(@NotNull T entity, float limbSwing, float limbSwingAmount, float partialTick) {
-		this.partialTicks = partialTick;
+	public void prepareMobModel(T entity, float limbSwing, float limbSwingAmount, float partialTick) {
+		this.bone.xRot = Mth.lerp(partialTick, entity.prevPitch, entity.pitch) * pi180;
+		//this.bone.zRot = Mth.lerp(partialTick, entity.prevRoll, entity.roll) * pi180;
 	}
 
 	@Override
 	public void setupAnim(@NotNull T entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
-		this.animateYRotation(netHeadYaw);
-		this.animateXRotation(entity);
-		//this.animateZRotation(entity);
+		this.bone.yRot = -netHeadYaw * pi180;
 	}
-
-	public void animateYRotation(float yaw) {
-		this.bone.yRot = yaw * pi180;
-	}
-
-	public void animateXRotation(@NotNull T entity) {
-		this.bone.xRot = Mth.lerp(partialTicks, entity.prevPitch, entity.pitch) * pi180;
-	}
-
-	/*public void animateZRotation(@NotNull T entity) {
-		this.bone.zRot += Mth.lerp(partialTicks, entity.prevRoll, entity.roll) * pi180;
-	}*/
 
 	@Override
 	public void renderToBuffer(@NotNull PoseStack poseStack, @NotNull VertexConsumer vertexConsumer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
