@@ -40,15 +40,17 @@ public class Tumbleweed extends Mob {
 		return Mob.createMobAttributes().add(Attributes.MAX_HEALTH, 1D);
 	}
 
+	private static final double windMultiplier = 1.4;
+	private static final double windClamp = 0.4;
+
 	@Override
 	public void tick() {
 		super.tick();
 		double multiplier = this.level.getBrightness(LightLayer.SKY, this.blockPosition()) * 0.0667;
-		double windX = Mth.clamp(WindManager.windX * 1.2, -0.6, 0.6);
-		double windZ = Mth.clamp(WindManager.windZ * 1.2, -0.6, 0.6);
-		double windY = Mth.clamp(WindManager.windY , -0.025, 0.05);
+		double windX = Mth.clamp(WindManager.windX * windMultiplier, -windClamp, windClamp);
+		double windZ = Mth.clamp(WindManager.windZ * windMultiplier, -windClamp, windClamp);
 		Vec3 deltaMovement = this.getDeltaMovement();
-		deltaMovement = deltaMovement.add((windX * 0.2) * multiplier, windY * multiplier, (windZ * 0.2) * multiplier);
+		deltaMovement = deltaMovement.add((windX * 0.2) * multiplier, 0, (windZ * 0.2) * multiplier);
 		deltaMovement = new Vec3(deltaMovement.x, deltaMovement.y * 0.9, deltaMovement.z);
 		this.setDeltaMovement(deltaMovement);
 		Vec3 deltaPos = this.getPosition(1).subtract(this.getPosition(0));
