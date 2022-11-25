@@ -66,7 +66,7 @@ public class Tumbleweed extends Mob {
 	protected void doPush(@NotNull Entity entity) {
 		super.doPush(entity);
 		Vec3 deltaPos = this.getPosition(1).subtract(this.getPosition(0));
-		if (deltaPos.length() > 0.2 && !(entity instanceof Tumbleweed)) {
+		if (deltaPos.length() > 0.4 && !(entity instanceof Tumbleweed)) {
 			//TODO: Tumbleweed Damagesource
 			entity.hurt(DamageSource.mobAttack(this), 2F);
 			this.destroy();
@@ -86,7 +86,8 @@ public class Tumbleweed extends Mob {
 		this.setYaw((float) (this.prevYaw + deltaPos.y * 35F));
 		this.setRoll((float) (this.prevPitch + deltaPos.z * 35F));
 
-		double multiplier = (this.level.getBrightness(LightLayer.SKY, this.blockPosition()) * 0.0667) * (this.wasTouchingWater ? 0.16777216 : 1);
+		double brightness = this.level.getBrightness(LightLayer.SKY, this.blockPosition());
+		double multiplier = (Mth.lerp(brightness / 15, 0, brightness) * 0.0667) * (this.wasTouchingWater ? 0.16777216 : 1);
 		double windX = Mth.clamp(WindManager.windX * windMultiplier, -windClamp, windClamp);
 		double windZ = Mth.clamp(WindManager.windZ * windMultiplier, -windClamp, windClamp);
 		Vec3 deltaMovement = this.getDeltaMovement();
