@@ -37,6 +37,8 @@ public class Tumbleweed extends Mob {
 
 	public float pitch;
 	public float prevPitch;
+	public float yaw;
+	public float prevYaw;
 	public float roll;
 	public float prevRoll;
 
@@ -66,8 +68,11 @@ public class Tumbleweed extends Mob {
 		this.setDeltaMovement(deltaMovement);
 		Vec3 deltaPos = this.getPosition(1).subtract(this.getPosition(0));
 		this.prevPitch = this.pitch;
+		this.prevYaw = this.yaw;
 		this.prevRoll = this.roll;
+
 		this.roll += deltaPos.x * 35;
+		this.yaw += deltaPos.y * 35;
 		this.pitch += deltaPos.z * 35;
 		if (deltaPos.y <= 0 && this.isOnGround()) {
 			this.setDeltaMovement(deltaMovement.add(0, Math.min(0.5, ((deltaPos.horizontalDistance() * 1.1))) * multiplier, 0));

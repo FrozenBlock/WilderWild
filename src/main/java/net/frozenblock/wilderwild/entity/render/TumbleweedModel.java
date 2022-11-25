@@ -21,29 +21,33 @@ import org.jetbrains.annotations.NotNull;
 @Environment(EnvType.CLIENT)
 public class TumbleweedModel<T extends Tumbleweed> extends HierarchicalModel<T> {
 
-	private final ModelPart bone;
+	private final ModelPart yRotation;
+	private final ModelPart xRotation;
 	private static final float pi180 = Mth.PI / 180;
 
 	public TumbleweedModel(ModelPart root) {
 		super(RenderType::entityCutoutNoCull);
-		this.bone = root.getChild("bone");
+		this.yRotation = root.getChild("yRotation");
+		this.xRotation = yRotation.getChild("xRotation");
 	}
 
 	public static LayerDefinition createBodyLayer() {
 		MeshDefinition meshdefinition = new MeshDefinition();
 		PartDefinition partdefinition = meshdefinition.getRoot();
 
-		PartDefinition bone = partdefinition.addOrReplaceChild("bone", CubeListBuilder.create()
+		PartDefinition yRotation = partdefinition.addOrReplaceChild("yRotation", CubeListBuilder.create(), PartPose.offset(0.0F, 16.0F, 0.0F));
+		PartDefinition xRotation = yRotation.addOrReplaceChild("xRotation", CubeListBuilder.create()
 				.texOffs(0, 0).addBox(-7.0F, -7.0F, -7.0F, 14.0F, 14.0F, 14.0F, new CubeDeformation(0.0F))
-				.texOffs(0, 28).addBox(-6.0F, -6.0F, -6.0F, 12.0F, 12.0F, 12.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 16.0F, 0.0F));
+				.texOffs(0, 28).addBox(-6.0F, -6.0F, -6.0F, 12.0F, 12.0F, 12.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 0.0F, 0.0F));
 
 		return LayerDefinition.create(meshdefinition, 64, 64);
 	}
 
 	@Override
 	public void prepareMobModel(T entity, float limbSwing, float limbSwingAmount, float partialTick) {
-		this.bone.xRot = Mth.lerp(partialTick, entity.prevPitch, entity.pitch) * pi180;
-		this.bone.zRot = Mth.lerp(partialTick, entity.prevRoll, entity.roll) * pi180;
+		this.xRotation.xRot = Mth.lerp(partialTick, entity.prevPitch, entity.pitch) * pi180;
+		this.yRotation.yRot = Mth.lerp(partialTick, entity.prevYaw, entity.yaw) * pi180;
+		this.xRotation.zRot = Mth.lerp(partialTick, entity.prevRoll, entity.roll) * pi180;
 	}
 
 	@Override
@@ -53,11 +57,11 @@ public class TumbleweedModel<T extends Tumbleweed> extends HierarchicalModel<T> 
 
 	@Override
 	public void renderToBuffer(@NotNull PoseStack poseStack, @NotNull VertexConsumer vertexConsumer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
-		bone.render(poseStack, vertexConsumer, packedLight, packedOverlay, red, green, blue, alpha);
+		yRotation.render(poseStack, vertexConsumer, packedLight, packedOverlay, red, green, blue, alpha);
 	}
 
 	@Override
 	public ModelPart root() {
-		return this.bone;
+		return this.yRotation;
 	}
 }
