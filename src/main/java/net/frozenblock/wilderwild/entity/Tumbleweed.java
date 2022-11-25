@@ -151,6 +151,9 @@ public class Tumbleweed extends Mob {
 	@Override
 	protected void defineSynchedData() {
 		super.defineSynchedData();
+		this.entityData.define(PITCH, 0F);
+		this.entityData.define(YAW, 0F);
+		this.entityData.define(ROLL, 0F);
 	}
 
 	@Override
