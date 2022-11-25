@@ -48,21 +48,17 @@ public class Tumbleweed extends Mob {
 
 	public boolean spawnedFromShears;
 	public int ticksSinceActive;
+	
 	public float prevPitch;
 	public float prevYaw;
 	public float prevRoll;
-	//CLIENT VARIABLES
 	public float pitch;
 	public float yaw;
 	public float roll;
-	private boolean hasServerRots;
 
 	private static final double windMultiplier = 1.4;
 	private static final double windClamp = 0.17;
 
-	private static final EntityDataAccessor<Float> PITCH = SynchedEntityData.defineId(Tumbleweed.class, EntityDataSerializers.FLOAT);
-	private static final EntityDataAccessor<Float> YAW = SynchedEntityData.defineId(Tumbleweed.class, EntityDataSerializers.FLOAT);
-	private static final EntityDataAccessor<Float> ROLL = SynchedEntityData.defineId(Tumbleweed.class, EntityDataSerializers.FLOAT);
 	private static final EntityDataAccessor<ItemStack> ITEM_STACK = SynchedEntityData.defineId(Tumbleweed.class, EntityDataSerializers.ITEM_STACK);
 
 	public Tumbleweed(EntityType<Tumbleweed> entityType, Level level) {
@@ -101,29 +97,13 @@ public class Tumbleweed extends Mob {
 		this.setYRot(0F);
 		Vec3 deltaPos = this.getDeltaPos();
 		if (this.level.isClientSide) {
-			if (!this.hasServerRots) {
-				this.prevPitch = this.getPitch();
-				this.prevYaw = this.getYaw();
-				this.prevRoll = this.getRoll();
-				this.pitch = this.getPitch();
-				this.yaw = this.getYaw();
-				this.roll = this.getRoll();
-				this.hasServerRots = true;
-			} else {
-				this.prevPitch = this.pitch;
-				this.prevYaw = this.yaw;
-				this.prevRoll = this.roll;
-				this.pitch = (float) (this.prevPitch + deltaPos.x * 35F);
-				this.yaw = (float) (this.prevYaw + deltaPos.y * 35F);
-				this.roll = (float) (this.prevPitch + deltaPos.z * 35F);
-			}
-		}
-
-		if (!this.level.isClientSide) {
-			this.setPitch((float) (this.prevPitch + deltaPos.x * 35F));
-			this.setYaw((float) (this.prevYaw + deltaPos.y * 35F));
-			this.setRoll((float) (this.prevPitch + deltaPos.z * 35F));
-
+			this.prevPitch = this.pitch;
+			this.prevYaw = this.yaw;
+			this.prevRoll = this.roll;
+			this.pitch = (float) (this.prevPitch + deltaPos.x * 35F);
+			this.yaw = (float) (this.prevYaw + deltaPos.y * 35F);
+			this.roll = (float) (this.prevPitch + deltaPos.z * 35F);
+		} else {
 			double brightness = this.level.getBrightness(LightLayer.SKY, this.blockPosition());
 			Player entity = this.level.getNearestPlayer(this, -1.0);
 			if ((brightness < 7 || this.wasTouchingWater) && !this.requiresCustomPersistence() && (entity == null || entity.distanceTo(this) > 24)) {
@@ -253,9 +233,6 @@ public class Tumbleweed extends Mob {
 		super.readAdditionalSaveData(compound);
 		this.spawnedFromShears = compound.getBoolean("spawned_from_shears");
 		this.ticksSinceActive = compound.getInt("ticks_since_active");
-		this.setPitch(compound.getFloat("tumble_pitch"));
-		this.setYaw(compound.getFloat("tumble_yaw"));
-		this.setRoll(compound.getFloat("tumble_roll"));
 		this.inventory = NonNullList.withSize(1, ItemStack.EMPTY);
 		ContainerHelper.loadAllItems(compound, this.inventory);
 	}
@@ -265,18 +242,12 @@ public class Tumbleweed extends Mob {
 		super.addAdditionalSaveData(compound);
 		compound.putBoolean("spawned_from_shears", this.spawnedFromShears);
 		compound.putInt("ticks_since_active", this.ticksSinceActive);
-		compound.putFloat("tumble_pitch", this.getPitch());
-		compound.putFloat("tumble_yaw", this.getYaw());
-		compound.putFloat("tumble_roll", this.getRoll());
 		ContainerHelper.saveAllItems(compound, this.inventory);
 	}
 
 	@Override
 	protected void defineSynchedData() {
 		super.defineSynchedData();
-		this.entityData.define(PITCH, 0F);
-		this.entityData.define(YAW, 0F);
-		this.entityData.define(ROLL, 0F);
 		this.entityData.define(ITEM_STACK, ItemStack.EMPTY);
 	}
 
@@ -307,30 +278,6 @@ public class Tumbleweed extends Mob {
 	@Override
 	public boolean removeWhenFarAway(double distanceToClosestPlayer) {
 		return !this.spawnedFromShears;
-	}
-
-	public void setPitch(float f) {
-		this.getEntityData().set(PITCH, f);
-	}
-
-	public float getPitch() {
-		return this.entityData.get(PITCH);
-	}
-
-	public void setYaw(float f) {
-		this.getEntityData().set(YAW, f);
-	}
-
-	public float getYaw() {
-		return this.entityData.get(YAW);
-	}
-
-	public void setRoll(float f) {
-		this.getEntityData().set(ROLL, f);
-	}
-
-	public float getRoll() {
-		return this.entityData.get(ROLL);
 	}
 
 	public void setVisibleItem(ItemStack itemStack) {
