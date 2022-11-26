@@ -4,6 +4,7 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.frozenblock.lib.entity.api.rendering.FrozenRenderType;
 import net.frozenblock.wilderwild.entity.Tumbleweed;
 import net.minecraft.client.model.HierarchicalModel;
 import net.minecraft.client.model.geom.ModelPart;
@@ -43,9 +44,9 @@ public class TumbleweedModel<T extends Tumbleweed> extends HierarchicalModel<T> 
 	public void prepareMobModel(T entity, float limbSwing, float limbSwingAmount, float partialTick) {
 		float xRot = Mth.lerp(partialTick, entity.prevPitch, entity.pitch) * pi180;
 		float zRot = Mth.lerp(partialTick, entity.prevRoll, entity.roll) * pi180;
-		this.bone.xRot = -xRot;
-		this.bone.yRot = (xRot + zRot) * 0.25F;
-		this.bone.zRot = -zRot;
+		this.bone.xRot = (xRot - zRot) * Mth.HALF_PI;
+		//this.yRotation.yRot = Mth.lerp(partialTick, entity.prevYaw, entity.yaw) * pi180;
+		this.bone.zRot = (zRot - xRot) * Mth.HALF_PI;
 	}
 
 	@Override

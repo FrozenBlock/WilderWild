@@ -17,6 +17,7 @@
     "server.ChestBlockMixin",
 	"server.ChestBoatDropsMixin",
 	"server.EnderManMixin",
+    "server.EntityMixin",
 	"server.ExperienceOrbMixin",
 	"server.FrogMixin",
 	"server.GoatMixin",

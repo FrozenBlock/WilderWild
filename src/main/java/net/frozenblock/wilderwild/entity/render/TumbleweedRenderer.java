@@ -16,6 +16,7 @@ import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 
 @Environment(EnvType.CLIENT)
@@ -29,19 +30,29 @@ public class TumbleweedRenderer extends MobRenderer<Tumbleweed, TumbleweedModel<
 	}
 
 	@Override
-	public void render(@NotNull Tumbleweed entity, float entityYaw, float partialTick, @NotNull PoseStack matrixStack, @NotNull MultiBufferSource buffer, int packedLight) {
-		super.render(entity, entityYaw, partialTick, matrixStack, buffer, packedLight);
+	public Vec3 getRenderOffset(@NotNull Tumbleweed entity, float partialTicks) {
+		return new Vec3(0, 0.3, 0);
+	}
+
+	@Override
+	public void render(@NotNull Tumbleweed entity, float entityYaw, float partialTick, @NotNull PoseStack poseStack, @NotNull MultiBufferSource buffer, int packedLight) {
+		super.render(entity, entityYaw, partialTick, poseStack, buffer, packedLight);
 		ItemStack stack = entity.getVisibleItem();
 		if (!stack.isEmpty()) {
-			matrixStack.pushPose();
-			matrixStack.translate(0, 0.4375, 0);
-			float xRot = -Mth.lerp(partialTick, entity.prevPitch, entity.pitch) * pi180;
-			float zRot = -Mth.lerp(partialTick, entity.prevRoll, entity.roll) * pi180;
-			matrixStack.mulPose(Vector3f.XP.rotation(xRot));
-			matrixStack.mulPose(Vector3f.ZP.rotation(zRot));
-			this.itemRenderer.renderStatic(stack, ItemTransforms.TransformType.GROUND, packedLight, OverlayTexture.NO_OVERLAY, matrixStack, buffer, 1);
-			matrixStack.popPose();
+			poseStack.pushPose();
+			poseStack.translate(0, 0.4375, 0);
+			poseStack.mulPose(Vector3f.XP.rotation(-Mth.lerp(partialTick, entity.prevPitch, entity.pitch) * pi180));
+			poseStack.pushPose();
+			poseStack.mulPose(Vector3f.ZP.rotation(-Mth.lerp(partialTick, entity.prevRoll, entity.roll) * pi180));
+			this.itemRenderer.renderStatic(stack, ItemTransforms.TransformType.GROUND, packedLight, OverlayTexture.NO_OVERLAY, poseStack, buffer, 1);
+			poseStack.popPose();
+			poseStack.popPose();
 		}
+	}
+
+	@Override
+	protected void setupRotations(@NotNull Tumbleweed entityLiving, @NotNull PoseStack matrixStack, float ageInTicks, float rotationYaw, float partialTicks) {
+
 	}
 
 	@Override

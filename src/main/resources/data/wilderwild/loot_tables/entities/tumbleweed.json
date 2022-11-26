@@ -14,60 +14,6 @@
           "name": "minecraft:stick"
         }
       ]
-    },
-    {
-      "rolls": {
-        "type": "minecraft:uniform",
-        "min": 0,
-        "max": 1
-      },
-      "entries": [
-        {
-          "type": "minecraft:item",
-          "weight": 10,
-          "name": "minecraft:red_sand"
-        },
-        {
-          "type": "minecraft:item",
-          "weight": 10,
-          "name": "minecraft:sand"
-        },
-        {
-          "type": "minecraft:item",
-          "weight": 15,
-          "name": "minecraft:bone"
-        },
-        {
-          "type": "minecraft:item",
-          "name": "minecraft:potato"
-        },
-        {
-          "type": "minecraft:item",
-          "name": "minecraft:carrot"
-        },
-        {
-          "type": "minecraft:item",
-          "name": "minecraft:melon_seeds"
-        },
-        {
-          "type": "minecraft:item",
-          "name": "minecraft:pumpkin_seeds"
-        },
-        {
-          "type": "minecraft:item",
-          "name": "minecraft:beetroot_seeds"
-        },
-        {
-          "type": "minecraft:item",
-          "weight": 20,
-          "name": "minecraft:iron_nugget"
-        },
-        {
-          "type": "minecraft:item",
-          "weight": 20,
-          "name": "minecraft:gold_nugget"
-        }
-      ]
     }
   ]
 }

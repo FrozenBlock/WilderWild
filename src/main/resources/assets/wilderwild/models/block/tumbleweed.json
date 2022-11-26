@@ -4,8 +4,8 @@
 	"ambientocclusion": false,
 	"texture_size": [64, 64],
 	"textures": {
-		"particle": "wilderwild:block/tumbleweed",
-		"top": "wilderwild:block/tumbleweed"
+		"top": "wilderwild:block/tumbleweed",
+		"particle": "wilderwild:block/tumbleweed_particle"
 	},
 	"elements": [
 		{
