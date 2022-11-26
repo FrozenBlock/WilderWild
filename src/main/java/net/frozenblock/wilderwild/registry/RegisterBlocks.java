@@ -370,7 +370,7 @@ public final class RegisterBlocks {
     public static final Block CATTAIL = new WaterloggableTallFlowerBlock(FabricBlockSettings.copyOf(Blocks.ROSE_BUSH).sounds(SoundType.WET_GRASS).strength(0.0F).nonOpaque());
     public static final Block FLOWERING_LILY_PAD = new FloweringLilyPadBlock(FabricBlockSettings.copyOf(Blocks.LILY_PAD).sounds(RegisterBlockSoundGroups.LILYPAD));
     public static final Block ALGAE = new AlgaeBlock(FabricBlockSettings.of(ALGAE_MATERIAL).breakInstantly().nonOpaque().noCollision().sounds(SoundType.SLIME_BLOCK));
-	public static final Block SHRUB = new ShrubBlock(FabricBlockSettings.of(Material.PLANT).breakInstantly().sounds(SoundType.AZALEA));
+	public static final Block SHRUB = new ShrubBlock(FabricBlockSettings.of(Material.PLANT).breakInstantly().nonOpaque().noCollision().sounds(SoundType.AZALEA));
 	public static final Block BUSH = new WilderBushBlock(FabricBlockSettings.of(Material.PLANT).breakInstantly().nonOpaque().noCollision().sounds(SoundType.GRASS));
 	public static final Block TUMBLEWEED = new TumbleweedBlock(FabricBlockSettings.of(Material.WOOD).strength(0.7F).randomTicks().sound(SoundType.MANGROVE_ROOTS).noOcclusion().isSuffocating(RegisterBlocks::never).isViewBlocking(RegisterBlocks::never).noOcclusion());
 
@@ -565,6 +565,7 @@ public final class RegisterBlocks {
         CompostingChanceRegistry.INSTANCE.add(PINK_GLORY_OF_THE_SNOW, 0.65F);
         CompostingChanceRegistry.INSTANCE.add(PURPLE_GLORY_OF_THE_SNOW, 0.65F);
         CompostingChanceRegistry.INSTANCE.add(ALGAE, 0.3F);
+		CompostingChanceRegistry.INSTANCE.add(BUSH, 0.65F);
     }
 
     private static void registerFlammability() {
@@ -575,6 +576,7 @@ public final class RegisterBlocks {
         FlammableBlockRegistry.getDefaultInstance().add(RegisterBlocks.CATTAIL, 100, 60);
         FlammableBlockRegistry.getDefaultInstance().add(RegisterBlocks.DATURA, 100, 60);
         FlammableBlockRegistry.getDefaultInstance().add(RegisterBlocks.MILKWEED, 100, 60);
+		FlammableBlockRegistry.getDefaultInstance().add(RegisterBlocks.TUMBLEWEED, 100, 20);
 
         FlammableBlockRegistry.getDefaultInstance().add(RegisterBlocks.HOLLOWED_BIRCH_LOG, 5, 5);
         FlammableBlockRegistry.getDefaultInstance().add(RegisterBlocks.HOLLOWED_OAK_LOG, 5, 5);
@@ -618,6 +620,24 @@ public final class RegisterBlocks {
         FlammableBlockRegistry.getDefaultInstance().add(RegisterBlocks.CYPRESS_BUTTON, 5, 20);
         FlammableBlockRegistry.getDefaultInstance().add(RegisterBlocks.CYPRESS_SIGN_BLOCK, 5, 20);
         FlammableBlockRegistry.getDefaultInstance().add(RegisterBlocks.CYPRESS_WALL_SIGN, 5, 20);
+
+		FlammableBlockRegistry.getDefaultInstance().add(RegisterBlocks.HOLLOWED_PALM_LOG, 5, 5);
+		FlammableBlockRegistry.getDefaultInstance().add(RegisterBlocks.PALM_LOG, 5, 5);
+		FlammableBlockRegistry.getDefaultInstance().add(RegisterBlocks.STRIPPED_PALM_LOG, 5, 5);
+		FlammableBlockRegistry.getDefaultInstance().add(RegisterBlocks.PALM_WOOD, 5, 5);
+		FlammableBlockRegistry.getDefaultInstance().add(RegisterBlocks.STRIPPED_PALM_WOOD, 5, 5);
+		FlammableBlockRegistry.getDefaultInstance().add(RegisterBlocks.PALM_PLANKS, 5, 20);
+		FlammableBlockRegistry.getDefaultInstance().add(RegisterBlocks.PALM_STAIRS, 5, 20);
+		FlammableBlockRegistry.getDefaultInstance().add(RegisterBlocks.PALM_DOOR, 5, 20);
+		FlammableBlockRegistry.getDefaultInstance().add(RegisterBlocks.PALM_FENCE, 5, 20);
+		FlammableBlockRegistry.getDefaultInstance().add(RegisterBlocks.PALM_SLAB, 5, 20);
+		FlammableBlockRegistry.getDefaultInstance().add(RegisterBlocks.PALM_FENCE_GATE, 5, 20);
+		FlammableBlockRegistry.getDefaultInstance().add(RegisterBlocks.PALM_PRESSURE_PLATE, 5, 20);
+		FlammableBlockRegistry.getDefaultInstance().add(RegisterBlocks.PALM_TRAPDOOR, 5, 20);
+		FlammableBlockRegistry.getDefaultInstance().add(RegisterBlocks.PALM_LEAVES, 100, 60);
+		FlammableBlockRegistry.getDefaultInstance().add(RegisterBlocks.PALM_BUTTON, 5, 20);
+		FlammableBlockRegistry.getDefaultInstance().add(RegisterBlocks.PALM_SIGN_BLOCK, 5, 20);
+		FlammableBlockRegistry.getDefaultInstance().add(RegisterBlocks.PALM_WALL_SIGN, 5, 20);
     }
 
     private static void registerFuels() {
@@ -628,6 +648,9 @@ public final class RegisterBlocks {
         registry.add(BAOBAB_FENCE_GATE.asItem(), 300);
         registry.add(CYPRESS_FENCE.asItem(), 300);
         registry.add(CYPRESS_FENCE_GATE.asItem(), 300);
+		registry.add(PALM_FENCE.asItem(), 300);
+		registry.add(PALM_FENCE_GATE.asItem(), 300);
+		registry.add(TUMBLEWEED.asItem(), 150);
     }
 
     private static void registerBonemeal() {
