@@ -137,6 +137,7 @@ public class Tumbleweed extends Mob {
 				this.prevRoll -=360F;
 			}
 		} else if (!this.isRemoved()) {
+			this.heal(1F);
 			double brightness = this.level.getBrightness(LightLayer.SKY, this.blockPosition());
 			Player entity = this.level.getNearestPlayer(this, -1.0);
 			if ((brightness < 7 || this.wasTouchingWater) && !this.requiresCustomPersistence() && (entity == null || entity.distanceTo(this) > 24)) {
@@ -169,6 +170,7 @@ public class Tumbleweed extends Mob {
 				deltaMovement = deltaMovement.add(0, 0.01, 0);
 			}
 			this.setDeltaMovement(deltaMovement);
+			this.tickAfterWindLeash();
 
 			ItemStack stack = this.inventory.get(0);
 			if (stack.getCount() > 1) {
@@ -176,6 +178,22 @@ public class Tumbleweed extends Mob {
 			}
 			this.pickupItem();
 			this.setVisibleItem(stack);
+		}
+	}
+
+	protected void tickAfterWindLeash() {
+		Entity entity = this.getLeashHolder();
+		if (entity != null && entity.level == this.level) {
+			this.restrictTo(entity.blockPosition(), 5);
+			float f = this.distanceTo(entity);
+			if (f > 10.0f) {
+				this.dropLeash(true, true);
+			} else if (f > 6.0f) {
+				double d = (entity.getX() - this.getX()) / (double)f;
+				double e = (entity.getY() - this.getY()) / (double)f;
+				double g = (entity.getZ() - this.getZ()) / (double)f;
+				this.setDeltaMovement(this.getDeltaMovement().add(Math.copySign(d * d * 0.4, d), Math.copySign(e * e * 0.4, e), Math.copySign(g * g * 0.4, g)));
+			}
 		}
 	}
 
