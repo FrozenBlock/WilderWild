@@ -103,8 +103,8 @@ public class Tumbleweed extends Mob {
 	protected void doPush(@NotNull Entity entity) {
 		boolean isSmall = entity.getBoundingBox().getSize() < this.getBoundingBox().getSize() * 0.9;
 		if (this.getDeltaPos().length() > (isSmall ? 0.2 : 0.3) && this.isMovingTowards(entity) && !(entity instanceof Tumbleweed)) {
-			entity.hurt(new EntityDamageSource("tumbleweed", this).setScalesWithDifficulty().setNoAggro(), 2F);
-			isSmall = isSmall || !entity.isAlive();
+			boolean hurt = entity.hurt(new EntityDamageSource("tumbleweed", this).setScalesWithDifficulty().setNoAggro(), 2F);
+			isSmall = isSmall || !entity.isAlive() || !hurt;
 			if (!isSmall) {
 				this.destroy(false);
 			}
