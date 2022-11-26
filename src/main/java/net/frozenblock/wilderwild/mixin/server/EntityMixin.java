@@ -14,9 +14,7 @@ public class EntityMixin {
 	public void discard(CallbackInfo info) {
 		Entity entity = Entity.class.cast(this);
 		if (entity instanceof Tumbleweed tumbleweed) {
-			if (!tumbleweed.isItemNatural) {
-				tumbleweed.dropItem();
-			}
+			tumbleweed.dropItem(false);
 		}
 	}
 

@@ -105,7 +105,7 @@ public class Tumbleweed extends Mob {
 			entity.hurt(new EntityDamageSource("tumbleweed", this).setScalesWithDifficulty().setNoAggro(), 2F);
 			isSmall = isSmall || !entity.isAlive();
 			if (!isSmall) {
-				this.destroy();
+				this.destroy(false);
 			}
 		}
 	}
@@ -133,7 +133,7 @@ public class Tumbleweed extends Mob {
 			if ((brightness < 7 || this.wasTouchingWater) && !this.requiresCustomPersistence() && (entity == null || entity.distanceTo(this) > 24)) {
 				++this.ticksSinceActive;
 				if (this.ticksSinceActive >= 200) {
-					this.destroy();
+					this.destroy(false);
 				}
 			} else {
 				this.ticksSinceActive = 0;
@@ -186,15 +186,17 @@ public class Tumbleweed extends Mob {
 		}
 	}
 
-	public void dropItem() {
-		this.level.addFreshEntity(new ItemEntity(this.level, this.getX(), this.getY() + 0.4375, this.getZ(), this.inventory.get(0).split(1)));
+	public void dropItem(boolean killed) {
+		if (!this.isItemNatural || killed) {
+			this.level.addFreshEntity(new ItemEntity(this.level, this.getX(), this.getY() + 0.4375, this.getZ(), this.inventory.get(0).split(1)));
+		}
 	}
 
-	public void destroy() {
+	public void destroy(boolean killed) {
 		if (this.isAlive()) {
 			this.playSound(RegisterSounds.ENTITY_TUMBLEWEED_BREAK, this.getSoundVolume(), this.getVoicePitch());
 		}
-		this.dropItem();
+		this.dropItem(killed);
 		this.spawnBreakParticles();
 		this.remove(RemovalReason.KILLED);
 	}
@@ -305,7 +307,7 @@ public class Tumbleweed extends Mob {
 				}
 			}
 		}
-		this.destroy();
+		this.destroy(true);
 	}
 
 	public void spawnBreakParticles() {
