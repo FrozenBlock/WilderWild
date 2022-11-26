@@ -30,18 +30,25 @@ public class TumbleweedRenderer extends MobRenderer<Tumbleweed, TumbleweedModel<
 
 	@Override
 	public void render(@NotNull Tumbleweed entity, float entityYaw, float partialTick, @NotNull PoseStack matrixStack, @NotNull MultiBufferSource buffer, int packedLight) {
+		matrixStack.pushPose();
+		matrixStack.mulPose(Vector3f.XP.rotation(-Mth.lerp(partialTick, entity.prevPitch, entity.pitch) * pi180));
+		matrixStack.pushPose();
+		matrixStack.mulPose(Vector3f.ZP.rotation(Mth.lerp(partialTick, entity.prevRoll, entity.roll) * pi180));
+		matrixStack.pushPose();
 		super.render(entity, entityYaw, partialTick, matrixStack, buffer, packedLight);
 		ItemStack stack = entity.getVisibleItem();
 		if (!stack.isEmpty()) {
 			matrixStack.pushPose();
 			matrixStack.translate(0, 0.4375, 0);
-			float xRot = -Mth.lerp(partialTick, entity.prevPitch, entity.pitch) * pi180;
-			float zRot = -Mth.lerp(partialTick, entity.prevRoll, entity.roll) * pi180;
-			matrixStack.mulPose(Vector3f.XP.rotation(xRot));
-			matrixStack.mulPose(Vector3f.ZP.rotation(zRot));
 			this.itemRenderer.renderStatic(stack, ItemTransforms.TransformType.GROUND, packedLight, OverlayTexture.NO_OVERLAY, matrixStack, buffer, 1);
 			matrixStack.popPose();
 		}
+		matrixStack.popPose();
+	}
+
+	@Override
+	protected void setupRotations(@NotNull Tumbleweed entityLiving, @NotNull PoseStack matrixStack, float ageInTicks, float rotationYaw, float partialTicks) {
+
 	}
 
 	@Override
