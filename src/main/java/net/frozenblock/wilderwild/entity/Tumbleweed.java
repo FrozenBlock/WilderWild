@@ -56,6 +56,7 @@ public class Tumbleweed extends Mob {
 
 	private static final double windMultiplier = 1.4;
 	private static final double windClamp = 0.17;
+	private static final float rotationAmount = 45F;
 
 	private static final EntityDataAccessor<ItemStack> ITEM_STACK = SynchedEntityData.defineId(Tumbleweed.class, EntityDataSerializers.ITEM_STACK);
 
@@ -97,8 +98,8 @@ public class Tumbleweed extends Mob {
 		if (this.level.isClientSide) {
 			this.prevPitch = this.pitch;
 			this.prevRoll = this.roll;
-			this.pitch = (float) (this.prevPitch + deltaPos.z * 40F);
-			this.roll = (float) (this.prevRoll + deltaPos.x * 40F);
+			this.pitch = (float) (this.prevPitch + deltaPos.z * rotationAmount);
+			this.roll = (float) (this.prevRoll + deltaPos.x * rotationAmount);
 		} else if (!this.isRemoved()) {
 			double brightness = this.level.getBrightness(LightLayer.SKY, this.blockPosition());
 			Player entity = this.level.getNearestPlayer(this, -1.0);
