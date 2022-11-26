@@ -50,10 +50,8 @@ public class Tumbleweed extends Mob {
 	public int ticksSinceActive;
 
 	public float prevPitch;
-	public float prevYaw;
 	public float prevRoll;
 	public float pitch;
-	public float yaw;
 	public float roll;
 
 	private static final double windMultiplier = 1.4;
@@ -98,11 +96,9 @@ public class Tumbleweed extends Mob {
 		Vec3 deltaPos = this.getDeltaPos();
 		if (this.level.isClientSide) {
 			this.prevPitch = this.pitch;
-			this.prevYaw = this.yaw;
 			this.prevRoll = this.roll;
-			this.pitch = (float) (this.prevPitch + deltaPos.z * 60F);
-			//this.yaw = (float) (this.prevYaw + deltaPos.y * 35F);
-			this.roll = (float) (this.prevPitch + deltaPos.x * 60F);
+			this.pitch = (float) (this.prevPitch + deltaPos.z * 40F);
+			this.roll = (float) (this.prevRoll + deltaPos.x * 40F);
 		} else if (!this.isRemoved()) {
 			double brightness = this.level.getBrightness(LightLayer.SKY, this.blockPosition());
 			Player entity = this.level.getNearestPlayer(this, -1.0);

@@ -4,7 +4,6 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.frozenblock.lib.entity.api.rendering.FrozenRenderType;
 import net.frozenblock.wilderwild.entity.Tumbleweed;
 import net.minecraft.client.model.HierarchicalModel;
 import net.minecraft.client.model.geom.ModelPart;
@@ -21,14 +20,11 @@ import org.jetbrains.annotations.NotNull;
 @Environment(EnvType.CLIENT)
 public class TumbleweedModel<T extends Tumbleweed> extends HierarchicalModel<T> {
 
-	private float partialTick;
 	private final ModelPart bone;
-	private final ModelPart root;
 	private static final float pi180 = Mth.PI / 180;
 
 	public TumbleweedModel(ModelPart root) {
 		super(RenderType::entityCutoutNoCull);
-		this.root = root;
 		this.bone = root.getChild("bone");
 	}
 
@@ -45,16 +41,16 @@ public class TumbleweedModel<T extends Tumbleweed> extends HierarchicalModel<T> 
 
 	@Override
 	public void prepareMobModel(T entity, float limbSwing, float limbSwingAmount, float partialTick) {
-		this.partialTick = partialTick;
-		bone.xRot = 0;
+		float xRot = Mth.lerp(partialTick, entity.prevPitch, entity.pitch) * pi180;
+		float zRot = Mth.lerp(partialTick, entity.prevRoll, entity.roll) * pi180;
+		this.bone.xRot = -xRot;
+		this.bone.yRot = (xRot + zRot) * 0.25F;
+		this.bone.zRot = -zRot;
 	}
 
 	@Override
 	public void setupAnim(@NotNull T entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
 
-		this.bone.xRot = Mth.lerp(partialTick, entity.prevPitch, entity.pitch) * pi180;
-		this.bone.yRot = Mth.lerp(partialTick, entity.prevPitch / entity.prevRoll, entity.pitch / entity.roll) * pi180;
-		this.bone.zRot = Mth.lerp(partialTick, entity.prevRoll, entity.roll) * pi180;
 	}
 
 	@Override
