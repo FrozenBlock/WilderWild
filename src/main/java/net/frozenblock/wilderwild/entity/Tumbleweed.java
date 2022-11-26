@@ -55,6 +55,7 @@ public class Tumbleweed extends Mob {
 
 	public boolean spawnedFromShears;
 	public int ticksSinceActive;
+	public boolean isItemNatural;
 
 	public float prevPitch;
 	public float prevRoll;
@@ -81,8 +82,9 @@ public class Tumbleweed extends Mob {
 			double chance = level.getRandom().nextInt(0,  diff == 0 ? 32 : (27 / difficulty.getDifficulty().getId()));
 			if (chance == 0) {
 				int tagSelector = level.getRandom().nextInt(1, 6);
-				TagKey<Item> itemTag = tagSelector <= 1 ? WilderItemTags.TUMBLEWEED_RARE : tagSelector <=3 ? WilderItemTags.TUMBLEWEED_MEDIUM : WilderItemTags.TUMBLEWEED_COMMON;
+				TagKey<Item> itemTag = tagSelector <= 1 ? WilderItemTags.TUMBLEWEED_RARE : tagSelector <= 3 ? WilderItemTags.TUMBLEWEED_MEDIUM : WilderItemTags.TUMBLEWEED_COMMON;
 				this.inventory.set(0, new ItemStack(TagUtils.getRandomEntry(level.getRandom(), itemTag)));
+				this.isItemNatural = true;
 			}
 		}
 		return super.finalizeSpawn(level, difficulty, reason, spawnData, dataTag);
@@ -169,13 +171,14 @@ public class Tumbleweed extends Mob {
 	}
 
 	public void pickupItem() {
-		if (this.inventory.get(0).isEmpty() && this.level.getGameRules().getBoolean(GameRules.RULE_MOBGRIEFING)) {
+		if (this.inventory.get(0).isEmpty() && this.level.getGameRules().getBoolean(GameRules.RULE_MOBGRIEFING) && !this.isRemoved()) {
 			List<ItemEntity> list = this.level.getEntitiesOfClass(ItemEntity.class, this.getBoundingBox().inflate(0.15));
 			for (ItemEntity item : list) {
 				if (this.isMovingTowards(item)) {
 					ItemStack stack = item.getItem();
 					if (!stack.isEmpty()) {
 						this.inventory.set(0, stack.split(1));
+						this.isItemNatural = false;
 						break;
 					}
 				}
@@ -183,11 +186,15 @@ public class Tumbleweed extends Mob {
 		}
 	}
 
+	public void dropItem() {
+		this.level.addFreshEntity(new ItemEntity(this.level, this.getX(), this.getY() + 0.4375, this.getZ(), this.inventory.get(0).split(1)));
+	}
+
 	public void destroy() {
 		if (this.isAlive()) {
 			this.playSound(RegisterSounds.ENTITY_TUMBLEWEED_BREAK, this.getSoundVolume(), this.getVoicePitch());
 		}
-		this.level.addFreshEntity(new ItemEntity(this.level, this.getX(), this.getY() + 0.4375, this.getZ(), this.inventory.get(0).split(1)));
+		this.dropItem();
 		this.spawnBreakParticles();
 		this.remove(RemovalReason.KILLED);
 	}
@@ -268,6 +275,7 @@ public class Tumbleweed extends Mob {
 		super.readAdditionalSaveData(compound);
 		this.spawnedFromShears = compound.getBoolean("spawned_from_shears");
 		this.ticksSinceActive = compound.getInt("ticks_since_active");
+		this.isItemNatural = compound.getBoolean("is_tumbleweed_item_natural");
 		this.inventory = NonNullList.withSize(1, ItemStack.EMPTY);
 		ContainerHelper.loadAllItems(compound, this.inventory);
 	}
@@ -277,6 +285,7 @@ public class Tumbleweed extends Mob {
 		super.addAdditionalSaveData(compound);
 		compound.putBoolean("spawned_from_shears", this.spawnedFromShears);
 		compound.putInt("ticks_since_active", this.ticksSinceActive);
+		compound.putBoolean("is_tumbleweed_item_natural", this.isItemNatural);
 		ContainerHelper.saveAllItems(compound, this.inventory);
 	}
 
