@@ -58,6 +58,7 @@ public class TumbleweedModel<T extends Tumbleweed> extends HierarchicalModel<T> 
 		this.pitch = entity.pitch;
 		this.prevRoll = entity.prevRoll;
 		this.roll = entity.roll;
+		this.bone.y = 1;
 	}
 
 	@Override
