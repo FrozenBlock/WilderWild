@@ -1,6 +1,9 @@
 {
   "replace": false,
   "values": [
+    "minecraft:rotten_flesh",
+    "minecraft:bonemeal",
+    "minecraft:wheat_seeds",
 	"minecraft:sand",
     "minecraft:red_sand",
     "minecraft:stick",
