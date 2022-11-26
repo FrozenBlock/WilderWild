@@ -16,6 +16,7 @@ import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
+import net.minecraft.tags.TagKey;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.ContainerHelper;
@@ -36,6 +37,7 @@ import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.item.enchantment.Enchantments;
@@ -78,7 +80,9 @@ public class Tumbleweed extends Mob {
 			int diff = difficulty.getDifficulty().getId();
 			double chance = level.getRandom().nextInt(0,  diff == 0 ? 50 : (40 / difficulty.getDifficulty().getId()));
 			if (chance == 0) {
-				this.inventory.set(0, new ItemStack(TagUtils.getRandomEntry(level.getRandom(), WilderItemTags.TUMBLEWEED_HAS)));
+				int tagSelector = level.getRandom().nextInt(1, 6);
+				TagKey<Item> itemTag = tagSelector <= 1 ? WilderItemTags.TUMBLEWEED_RARE : tagSelector <=3 ? WilderItemTags.TUMBLEWEED_MEDIUM : WilderItemTags.TUMBLEWEED_COMMON;
+				this.inventory.set(0, new ItemStack(TagUtils.getRandomEntry(level.getRandom(), itemTag)));
 			}
 		}
 		return super.finalizeSpawn(level, difficulty, reason, spawnData, dataTag);

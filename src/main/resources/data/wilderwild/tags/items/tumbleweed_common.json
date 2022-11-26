@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+	"minecraft:sand",
+    "minecraft:red_sand",
+    "minecraft:stick",
+    "minecraft:dead_bush"
+  ]
+}
