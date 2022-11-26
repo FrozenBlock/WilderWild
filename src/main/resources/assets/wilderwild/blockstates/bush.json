@@ -1,10 +1,7 @@
 {
   "variants": {
-    "half=lower": {
-      "model": "wilderwild:block/bush_bottom"
-    },
-    "half=upper": {
-      "model": "wilderwild:block/bush_top"
+    "": {
+      "model": "wilderwild:block/bush"
     }
   }
 }
