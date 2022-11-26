@@ -1,6 +1,8 @@
 {
   "replace": false,
   "values": [
+    "minecraft:bone",
+    "minecraft:gold_nugget",
     "minecraft:wheat_seeds",
     "minecraft:potato",
     "minecraft:carrot",
