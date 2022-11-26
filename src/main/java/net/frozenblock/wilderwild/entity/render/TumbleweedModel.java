@@ -21,11 +21,14 @@ import org.jetbrains.annotations.NotNull;
 @Environment(EnvType.CLIENT)
 public class TumbleweedModel<T extends Tumbleweed> extends HierarchicalModel<T> {
 
+	private float partialTick;
 	private final ModelPart bone;
+	private final ModelPart root;
 	private static final float pi180 = Mth.PI / 180;
 
 	public TumbleweedModel(ModelPart root) {
 		super(RenderType::entityCutoutNoCull);
+		this.root = root;
 		this.bone = root.getChild("bone");
 	}
 
@@ -42,16 +45,16 @@ public class TumbleweedModel<T extends Tumbleweed> extends HierarchicalModel<T> 
 
 	@Override
 	public void prepareMobModel(T entity, float limbSwing, float limbSwingAmount, float partialTick) {
-		float xRot = Mth.lerp(partialTick, entity.prevPitch, entity.pitch) * pi180;
-		float zRot = Mth.lerp(partialTick, entity.prevRoll, entity.roll) * pi180;
-		this.bone.xRot = (xRot - zRot) * Mth.HALF_PI;
-		//this.yRotation.yRot = Mth.lerp(partialTick, entity.prevYaw, entity.yaw) * pi180;
-		this.bone.zRot = (zRot - xRot) * Mth.HALF_PI;
+		this.partialTick = partialTick;
+		bone.xRot = 0;
 	}
 
 	@Override
 	public void setupAnim(@NotNull T entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
 
+		this.bone.xRot = Mth.lerp(partialTick, entity.prevPitch, entity.pitch) * pi180;
+		this.bone.yRot = Mth.lerp(partialTick, entity.prevPitch / entity.prevRoll, entity.pitch / entity.roll) * pi180;
+		this.bone.zRot = Mth.lerp(partialTick, entity.prevRoll, entity.roll) * pi180;
 	}
 
 	@Override
