@@ -79,9 +79,6 @@ public class PalmLeavesBlock extends LeavesBlock implements BonemealableBlock {
 		if (neighbor.is(BlockTags.LOGS)) {
 			return 0;
 		}
-		if (neighbor.getBlock() instanceof LeavesBlock) {
-			return neighbor.getValue(DISTANCE);
-		}
 		return 7;
 	}
 }
