@@ -200,6 +200,11 @@ public class Tumbleweed extends Mob {
 	}
 
 	@Override
+	protected boolean canRide(@NotNull Entity vehicle) {
+		return false;
+	}
+
+	@Override
 	protected float getStandingEyeHeight(@NotNull Pose pose, EntityDimensions dimensions) {
 		return dimensions.height * 0.5F;
 	}

@@ -16,6 +16,7 @@ import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 
 @Environment(EnvType.CLIENT)
@@ -29,12 +30,12 @@ public class TumbleweedRenderer extends MobRenderer<Tumbleweed, TumbleweedModel<
 	}
 
 	@Override
+	public Vec3 getRenderOffset(@NotNull Tumbleweed entity, float partialTicks) {
+		return new Vec3(0, 0.3, 0);
+	}
+
+	@Override
 	public void render(@NotNull Tumbleweed entity, float entityYaw, float partialTick, @NotNull PoseStack matrixStack, @NotNull MultiBufferSource buffer, int packedLight) {
-		matrixStack.pushPose();
-		matrixStack.mulPose(Vector3f.XP.rotation(-Mth.lerp(partialTick, entity.prevPitch, entity.pitch) * pi180));
-		matrixStack.pushPose();
-		matrixStack.mulPose(Vector3f.ZP.rotation(-Mth.lerp(partialTick, entity.prevRoll, entity.roll) * pi180));
-		matrixStack.pushPose();
 		super.render(entity, entityYaw, partialTick, matrixStack, buffer, packedLight);
 		ItemStack stack = entity.getVisibleItem();
 		if (!stack.isEmpty()) {
@@ -43,9 +44,6 @@ public class TumbleweedRenderer extends MobRenderer<Tumbleweed, TumbleweedModel<
 			this.itemRenderer.renderStatic(stack, ItemTransforms.TransformType.GROUND, packedLight, OverlayTexture.NO_OVERLAY, matrixStack, buffer, 1);
 			matrixStack.popPose();
 		}
-		matrixStack.popPose();
-		matrixStack.popPose();
-		matrixStack.popPose();
 	}
 
 	@Override
