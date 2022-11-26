@@ -66,10 +66,6 @@ public class PalmLeavesBlock extends LeavesBlock implements BonemealableBlock {
 		return state;
 	}
 
-	public boolean doesCrownCount(@NotNull BlockState state, @NotNull ServerLevel level, @NotNull BlockPos pos) {
-		int dist = Mth.clamp((int) (PalmCrownBlockEntity.PalmCrownPositions.distanceToClosestPalmCrown(level, pos, 12) * 0.57), 1, 7);
-	}
-
 	public static boolean nextToLeafOrCrown(BlockState neighbor) {
 		return neighbor.is(RegisterBlocks.PALM_LEAVES) || neighbor.is(RegisterBlocks.PALM_CROWN);
 	}
