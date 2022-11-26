@@ -40,13 +40,11 @@ public class TumbleweedRenderer extends MobRenderer<Tumbleweed, TumbleweedModel<
 		ItemStack stack = entity.getVisibleItem();
 		if (!stack.isEmpty()) {
 			poseStack.pushPose();
+			poseStack.translate(0, 0.4375, 0);
 			poseStack.mulPose(Vector3f.XP.rotation(-Mth.lerp(partialTick, entity.prevPitch, entity.pitch) * pi180));
 			poseStack.pushPose();
 			poseStack.mulPose(Vector3f.ZP.rotation(-Mth.lerp(partialTick, entity.prevRoll, entity.roll) * pi180));
-			poseStack.pushPose();
-			poseStack.translate(0, 0.4375, 0);
 			this.itemRenderer.renderStatic(stack, ItemTransforms.TransformType.GROUND, packedLight, OverlayTexture.NO_OVERLAY, poseStack, buffer, 1);
-			poseStack.popPose();
 			poseStack.popPose();
 			poseStack.popPose();
 		}
