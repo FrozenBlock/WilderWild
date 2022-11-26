@@ -33,7 +33,7 @@ public class TumbleweedRenderer extends MobRenderer<Tumbleweed, TumbleweedModel<
 		matrixStack.pushPose();
 		matrixStack.mulPose(Vector3f.XP.rotation(-Mth.lerp(partialTick, entity.prevPitch, entity.pitch) * pi180));
 		matrixStack.pushPose();
-		matrixStack.mulPose(Vector3f.ZP.rotation(Mth.lerp(partialTick, entity.prevRoll, entity.roll) * pi180));
+		matrixStack.mulPose(Vector3f.ZP.rotation(-Mth.lerp(partialTick, entity.prevRoll, entity.roll) * pi180));
 		matrixStack.pushPose();
 		super.render(entity, entityYaw, partialTick, matrixStack, buffer, packedLight);
 		ItemStack stack = entity.getVisibleItem();
@@ -43,6 +43,8 @@ public class TumbleweedRenderer extends MobRenderer<Tumbleweed, TumbleweedModel<
 			this.itemRenderer.renderStatic(stack, ItemTransforms.TransformType.GROUND, packedLight, OverlayTexture.NO_OVERLAY, matrixStack, buffer, 1);
 			matrixStack.popPose();
 		}
+		matrixStack.popPose();
+		matrixStack.popPose();
 		matrixStack.popPose();
 	}
 
