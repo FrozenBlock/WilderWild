@@ -76,10 +76,13 @@ public class Tumbleweed extends Mob {
 
 	@Override
 	protected void doPush(@NotNull Entity entity) {
-		super.doPush(entity);
-		if (this.getDeltaPos().length() > 0.3 && this.isMovingTowards(entity) && !(entity instanceof Tumbleweed)) {
+		boolean isSmall = entity.getBoundingBox().getSize() < this.getBoundingBox().getSize() * 0.9;
+		if (this.getDeltaPos().length() > (isSmall ? 0.2 : 0.3) && this.isMovingTowards(entity) && !(entity instanceof Tumbleweed)) {
 			entity.hurt(new EntityDamageSource("tumbleweed", this).setScalesWithDifficulty().setNoAggro(), 2F);
-			this.destroy();
+			isSmall = isSmall || !entity.isAlive();
+			if (!isSmall) {
+				this.destroy();
+			}
 		}
 	}
 
@@ -119,7 +122,7 @@ public class Tumbleweed extends Mob {
 			deltaMovement = deltaMovement.add((windX * 0.2) * multiplier, 0, (windZ * 0.2) * multiplier);
 			deltaMovement = new Vec3(deltaMovement.x, deltaMovement.y < 0 ? deltaMovement.y * 0.88 : deltaMovement.y, deltaMovement.z);
 			if (deltaPos.y <= 0 && this.isOnGround()) {
-				deltaMovement = deltaMovement.add(0, Math.min(0.5, ((deltaPos.horizontalDistance() * 1.1))) * multiplier, 0);
+				deltaMovement = deltaMovement.add(0, Math.max(0.3, ((deltaPos.horizontalDistance() * 1.1))) * multiplier, 0);
 			}
 			if (deltaPos.x == 0) {
 				double nonNegX = deltaMovement.x < 0 ? -deltaMovement.x : deltaMovement.x;
@@ -159,6 +162,9 @@ public class Tumbleweed extends Mob {
 	}
 
 	public void destroy() {
+		if (this.isAlive()) {
+			this.playSound(RegisterSounds.ENTITY_TUMBLEWEED_BREAK, this.getSoundVolume(), this.getVoicePitch());
+		}
 		this.level.addFreshEntity(new ItemEntity(this.level, this.getX(), this.getY() + 0.4375, this.getZ(), this.inventory.get(0).split(1)));
 		this.spawnBreakParticles();
 		this.remove(RemovalReason.KILLED);
