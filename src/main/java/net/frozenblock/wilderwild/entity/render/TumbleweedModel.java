@@ -15,6 +15,7 @@ import net.minecraft.client.model.geom.builders.LayerDefinition;
 import net.minecraft.client.model.geom.builders.MeshDefinition;
 import net.minecraft.client.model.geom.builders.PartDefinition;
 import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.util.Mth;
 import org.jetbrains.annotations.NotNull;
 
@@ -47,6 +48,8 @@ public class TumbleweedModel<T extends Tumbleweed> extends HierarchicalModel<T> 
 	private float prevRoll;
 	private float roll;
 
+	public static final int blackOverlay = OverlayTexture.pack(0, 10);
+
 	@Override
 	public void prepareMobModel(@NotNull T entity, float limbSwing, float limbSwingAmount, float partialTick) {
 		super.prepareMobModel(entity, limbSwing, limbSwingAmount, partialTick);
@@ -71,7 +74,7 @@ public class TumbleweedModel<T extends Tumbleweed> extends HierarchicalModel<T> 
 		poseStack.pushPose();
 		poseStack.mulPose(Vector3f.ZP.rotation(Mth.lerp(partialTick, this.prevRoll, this.roll) * pi180));
 		poseStack.pushPose();
-		this.bone.render(poseStack, vertexConsumer, packedLight, packedOverlay, red, green, blue, alpha);
+		this.bone.render(poseStack, vertexConsumer, packedLight, blackOverlay, red, green, blue, alpha);
 		poseStack.popPose();
 		poseStack.popPose();
 		poseStack.popPose();
