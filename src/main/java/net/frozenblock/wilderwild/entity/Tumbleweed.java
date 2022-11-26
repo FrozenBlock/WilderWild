@@ -346,7 +346,7 @@ public class Tumbleweed extends Mob {
 
 	@Override
 	public boolean requiresCustomPersistence() {
-		return super.requiresCustomPersistence() || this.spawnedFromShears;
+		return super.requiresCustomPersistence() || this.spawnedFromShears || this.isLeashed();
 	}
 
 	@Override
@@ -364,7 +364,6 @@ public class Tumbleweed extends Mob {
 
 	@Override
 	protected void createWitherRose(@Nullable LivingEntity entitySource) {
-
 	}
 
 	@Override
@@ -379,7 +378,6 @@ public class Tumbleweed extends Mob {
 
 	@Override
 	public void setItemSlot(@NotNull EquipmentSlot slot, @NotNull ItemStack stack) {
-
 	}
 
 	@Override
