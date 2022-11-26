@@ -1,6 +1,7 @@
 package net.frozenblock.wilderwild.registry;
 
 import static net.frozenblock.wilderwild.registry.RegisterSounds.*;
+import static net.frozenblock.wilderwild.registry.RegisterSounds.BLOCK_TUMBLEWEED_PLANT_PLACE;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.level.block.SoundType;
 
@@ -8,6 +9,14 @@ public final class RegisterBlockSoundGroups {
 	private RegisterBlockSoundGroups() {
 		throw new UnsupportedOperationException("RegisterBlockEntities contains only static declarations.");
 	}
+
+	public static final SoundType ALGAE = new SoundType(1.0F, 1.0F,
+			BLOCK_ALGAE_BREAK,
+			BLOCK_ALGAE_STEP,
+			BLOCK_ALGAE_PLACE,
+			BLOCK_ALGAE_HIT,
+			BLOCK_ALGAE_FALL
+	);
 
     public static final SoundType BAOBAB_NUT = new SoundType(1.0F, 1.0F,
             BLOCK_BAOBAB_NUT_BREAK,
@@ -138,11 +147,11 @@ public final class RegisterBlockSoundGroups {
     );
 
     public static final SoundType LILYPAD = new SoundType(1.0F, 1.0F,
+            SoundEvents.BIG_DRIPLEAF_BREAK,
+            SoundEvents.BIG_DRIPLEAF_STEP,
             SoundEvents.LILY_PAD_PLACE,
-            SoundEvents.LILY_PAD_PLACE,
-            SoundEvents.LILY_PAD_PLACE,
-            SoundEvents.LILY_PAD_PLACE,
-            SoundEvents.LILY_PAD_PLACE
+            SoundEvents.BIG_DRIPLEAF_HIT,
+            SoundEvents.BIG_DRIPLEAF_FALL
     );
 
     public static final SoundType SUGARCANE = new SoundType(1.0F, 1.0F,
@@ -168,6 +177,14 @@ public final class RegisterBlockSoundGroups {
             RegisterSounds.BLOCK_REINFORCED_DEEPSLATE_HIT,
             RegisterSounds.BLOCK_REINFORCED_DEEPSLATE_FALL
     );
+
+	public static final SoundType TUMBLEWEED_PLANT = new SoundType(1.0F, 1.0F,
+			BLOCK_TUMBLEWEED_PLANT_BREAK,
+			BLOCK_TUMBLEWEED_PLANT_STEP,
+			BLOCK_TUMBLEWEED_PLANT_PLACE,
+			BLOCK_TUMBLEWEED_PLANT_HIT,
+			BLOCK_TUMBLEWEED_PLANT_FALL
+	);
 
     public static final SoundType FUNNY = new SoundType(1.0F, 1.0F,
             SoundEvents.ANVIL_PLACE,

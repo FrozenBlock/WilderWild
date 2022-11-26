@@ -298,6 +298,50 @@
 	  }
 	]
   },
+  "block.algae.break": {
+    "sounds": [
+      "wilderwild:block/algae/break1",
+      "wilderwild:block/algae/break2",
+      "wilderwild:block/algae/break3",
+      "wilderwild:block/algae/break4"
+    ],
+    "subtitle": "subtitles.block.generic.break"
+  },
+  "block.algae.fall": {
+    "sounds": [
+      "wilderwild:block/algae/step1",
+      "wilderwild:block/algae/step2",
+      "wilderwild:block/algae/step3",
+      "wilderwild:block/algae/step4"
+    ]
+  },
+  "block.algae.hit": {
+    "sounds": [
+      "wilderwild:block/algae/step1",
+      "wilderwild:block/algae/step2",
+      "wilderwild:block/algae/step3",
+      "wilderwild:block/algae/step4"
+    ],
+    "subtitle": "subtitles.block.generic.hit"
+  },
+  "block.algae.place": {
+    "sounds": [
+      "wilderwild:block/algae/break1",
+      "wilderwild:block/algae/break2",
+      "wilderwild:block/algae/break3",
+      "wilderwild:block/algae/break4"
+    ],
+    "subtitle": "subtitles.block.generic.place"
+  },
+  "block.algae.step": {
+    "sounds": [
+      "wilderwild:block/algae/step1",
+      "wilderwild:block/algae/step2",
+      "wilderwild:block/algae/step3",
+      "wilderwild:block/algae/step4"
+    ],
+    "subtitle": "subtitles.block.generic.footsteps"
+  },
   "block.baobab_nut.break": {
 	"sounds": [
 	  "wilderwild:block/baobab_nut/break1",
@@ -1406,6 +1450,50 @@
 	  }
 	],
 	"subtitle": "subtitles.block.termite_mound.exit"
+  },
+  "block.tumbleweed_plant.break": {
+    "sounds": [
+      "wilderwild:block/tumbleweed_plant/break1",
+      "wilderwild:block/tumbleweed_plant/break2",
+      "wilderwild:block/tumbleweed_plant/break3",
+      "wilderwild:block/tumbleweed_plant/break4"
+    ],
+    "subtitle": "subtitles.block.generic.break"
+  },
+  "block.tumbleweed_plant.fall": {
+    "sounds": [
+      "wilderwild:block/tumbleweed_plant/step1",
+      "wilderwild:block/tumbleweed_plant/step2",
+      "wilderwild:block/tumbleweed_plant/step3",
+      "wilderwild:block/tumbleweed_plant/step4"
+    ]
+  },
+  "block.tumbleweed_plant.hit": {
+    "sounds": [
+      "wilderwild:block/tumbleweed_plant/step1",
+      "wilderwild:block/tumbleweed_plant/step2",
+      "wilderwild:block/tumbleweed_plant/step3",
+      "wilderwild:block/tumbleweed_plant/step4"
+    ],
+    "subtitle": "subtitles.block.generic.hit"
+  },
+  "block.tumbleweed_plant.place": {
+    "sounds": [
+      "wilderwild:block/tumbleweed_plant/place1",
+      "wilderwild:block/tumbleweed_plant/place2",
+      "wilderwild:block/tumbleweed_plant/place3",
+      "wilderwild:block/tumbleweed_plant/place4"
+    ],
+    "subtitle": "subtitles.block.generic.place"
+  },
+  "block.tumbleweed_plant.step": {
+    "sounds": [
+      "wilderwild:block/tumbleweed_plant/step1",
+      "wilderwild:block/tumbleweed_plant/step2",
+      "wilderwild:block/tumbleweed_plant/step3",
+      "wilderwild:block/tumbleweed_plant/step4"
+    ],
+    "subtitle": "subtitles.block.generic.footsteps"
   },
   "entity.ancient_horn_projectile.blast": {
 	"sounds": [

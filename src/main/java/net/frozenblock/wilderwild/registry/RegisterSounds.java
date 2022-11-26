@@ -27,6 +27,12 @@ public final class RegisterSounds {
 
     //BLOCK
 
+	public static final SoundEvent BLOCK_ALGAE_PLACE = register("block.algae.place");
+	public static final SoundEvent BLOCK_ALGAE_HIT = register("block.algae.hit");
+	public static final SoundEvent BLOCK_ALGAE_BREAK = register("block.algae.break");
+	public static final SoundEvent BLOCK_ALGAE_STEP = register("block.algae.step");
+	public static final SoundEvent BLOCK_ALGAE_FALL = register("block.algae.fall");
+
     public static final SoundEvent BLOCK_BAOBAB_NUT_PLACE = register("block.baobab_nut.place");
     public static final SoundEvent BLOCK_BAOBAB_NUT_HIT = register("block.baobab_nut.hit");
     public static final SoundEvent BLOCK_BAOBAB_NUT_BREAK = register("block.baobab_nut.break");
@@ -166,6 +172,12 @@ public final class RegisterSounds {
 
     public static final SoundEvent BLOCK_TERMITE_MOUND_ENTER = register("block.termite_mound.enter");
     public static final SoundEvent BLOCK_TERMITE_MOUND_EXIT = register("block.termite_mound.exit");
+
+	public static final SoundEvent BLOCK_TUMBLEWEED_PLANT_PLACE = register("block.tumbleweed_plant.place");
+	public static final SoundEvent BLOCK_TUMBLEWEED_PLANT_HIT = register("block.tumbleweed_plant.hit");
+	public static final SoundEvent BLOCK_TUMBLEWEED_PLANT_BREAK = register("block.tumbleweed_plant.break");
+	public static final SoundEvent BLOCK_TUMBLEWEED_PLANT_STEP = register("block.tumbleweed_plant.step");
+	public static final SoundEvent BLOCK_TUMBLEWEED_PLANT_FALL = register("block.tumbleweed_plant.fall");
 
     //ENTITY
 
