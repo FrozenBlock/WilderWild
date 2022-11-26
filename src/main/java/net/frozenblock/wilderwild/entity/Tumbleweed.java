@@ -128,6 +128,14 @@ public class Tumbleweed extends Mob {
 			this.prevRoll = this.roll;
 			this.pitch = (float) (this.prevPitch + deltaPos.z * rotationAmount);
 			this.roll = (float) (this.prevRoll + deltaPos.x * rotationAmount);
+			if (this.pitch > 360F) {
+				this.pitch -= 360F;
+				this.prevPitch -=360F;
+			}
+			if (this.roll > 360F) {
+				this.roll -= 360F;
+				this.prevRoll -=360F;
+			}
 		} else if (!this.isRemoved()) {
 			double brightness = this.level.getBrightness(LightLayer.SKY, this.blockPosition());
 			Player entity = this.level.getNearestPlayer(this, -1.0);
@@ -147,7 +155,7 @@ public class Tumbleweed extends Mob {
 			deltaMovement = deltaMovement.add((windX * 0.2) * multiplier, 0, (windZ * 0.2) * multiplier);
 			deltaMovement = new Vec3(deltaMovement.x, deltaMovement.y < 0 ? deltaMovement.y * 0.88 : deltaMovement.y, deltaMovement.z);
 			if (deltaPos.y <= 0 && this.isOnGround()) {
-				deltaMovement = deltaMovement.add(0, Math.max(0.3, ((deltaPos.horizontalDistance() * 1.1))) * multiplier, 0);
+				deltaMovement = deltaMovement.add(0, Math.min(0.8, ((deltaPos.horizontalDistance() * 1.3))) * multiplier, 0);
 			}
 			if (deltaPos.x == 0) {
 				double nonNegX = deltaMovement.x < 0 ? -deltaMovement.x : deltaMovement.x;
