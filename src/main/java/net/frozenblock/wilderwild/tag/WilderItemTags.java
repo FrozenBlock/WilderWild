@@ -11,6 +11,7 @@ public final class WilderItemTags {
 	}
 
     public static final TagKey<Item> GOAT_DROP_MUSIC_DISCS = bind("goat_drop_music_discs");
+	public static final TagKey<Item> TUMBLEWEED_HAS = bind("tumbleweed_spawns_with");
 
     private static TagKey<Item> bind(String path) {
         return TagKey.create(Registry.ITEM_REGISTRY, WilderWild.id(path));

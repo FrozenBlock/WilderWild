@@ -1,9 +1,11 @@
 package net.frozenblock.wilderwild.entity;
 
 import java.util.List;
+import net.frozenblock.lib.tag.api.TagUtils;
 import net.frozenblock.lib.wind.api.WindManager;
 import net.frozenblock.wilderwild.registry.RegisterBlocks;
 import net.frozenblock.wilderwild.registry.RegisterSounds;
+import net.frozenblock.wilderwild.tag.WilderItemTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.NonNullList;
 import net.minecraft.core.particles.BlockParticleOption;
@@ -17,6 +19,7 @@ import net.minecraft.sounds.SoundEvent;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.ContainerHelper;
+import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.damagesource.EntityDamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -28,6 +31,7 @@ import net.minecraft.world.entity.HumanoidArm;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.Pose;
+import net.minecraft.world.entity.SpawnGroupData;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.item.ItemEntity;
@@ -42,6 +46,7 @@ import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 public class Tumbleweed extends Mob {
 	public NonNullList<ItemStack> inventory;
@@ -64,6 +69,19 @@ public class Tumbleweed extends Mob {
 		super(entityType, level);
 		this.blocksBuilding = true;
 		this.inventory = NonNullList.withSize(1, ItemStack.EMPTY);
+	}
+
+	@Nullable
+	@Override
+	public SpawnGroupData finalizeSpawn(@NotNull ServerLevelAccessor level, @NotNull DifficultyInstance difficulty, @NotNull MobSpawnType reason, @Nullable SpawnGroupData spawnData, @Nullable CompoundTag dataTag) {
+		if (this.inventory.get(0).isEmpty() && reason == MobSpawnType.NATURAL) {
+			int diff = difficulty.getDifficulty().getId();
+			double chance = level.getRandom().nextInt(0,  diff == 0 ? 70 : (60 / difficulty.getDifficulty().getId()));
+			if (chance == 0) {
+				this.inventory.set(0, new ItemStack(TagUtils.getRandomEntry(level.getRandom(), WilderItemTags.TUMBLEWEED_HAS)));
+			}
+		}
+		return super.finalizeSpawn(level, difficulty, reason, spawnData, dataTag);
 	}
 
 	public static boolean canSpawn(EntityType<Tumbleweed> type, ServerLevelAccessor level, MobSpawnType reason, BlockPos pos, RandomSource random) {
