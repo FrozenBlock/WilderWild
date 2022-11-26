@@ -1,5 +1,6 @@
 package net.frozenblock.wilderwild.block;
 
+import net.frozenblock.wilderwild.block.entity.PalmCrownBlockEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
@@ -34,14 +35,16 @@ public class PalmLeavesBlock extends LeavesBlock implements BonemealableBlock {
     }
 
 	@Override
-	//TODO: make leaves have proper decay values when grown naturally
 	public void randomTick(@NotNull BlockState state, @NotNull ServerLevel level, @NotNull BlockPos pos, @NotNull RandomSource random) {
-		/*
+		BlockState newState = updateDistance(state, level, pos);
+		if (newState != state) {
+			level.setBlockAndUpdate(pos, newState);
+			state = newState;
+		}
 		if (this.decaying(state)) {
 			LeavesBlock.dropResources(state, level, pos);
 			level.removeBlock(pos, false);
 		}
-		 */
 	}
 
 	@Override
@@ -62,12 +65,13 @@ public class PalmLeavesBlock extends LeavesBlock implements BonemealableBlock {
 	}
 
 	private static BlockState updateDistance(BlockState state, LevelAccessor level, BlockPos pos) {
+		int dist = (int) PalmCrownBlockEntity.PalmCrownPositions.distanceToClosestPalmCrown(level, pos, 7);
 		int i = 7;
 		for (BlockPos blockPos : BlockPos.betweenClosed(pos.offset(-1, -1, -1), pos.offset(1, 1, 1))) {
 			i = Math.min(i, getDistanceAt(level.getBlockState(blockPos)) + 1);
 			if (i == 1) break;
 		}
-		return state.setValue(DISTANCE, i);
+		return state.setValue(DISTANCE, Math.min(dist, i));
 	}
 
 	public static int getDistanceAt(BlockState neighbor) {
