@@ -36,10 +36,8 @@ public class TumbleweedRenderer extends MobRenderer<Tumbleweed, TumbleweedModel<
 			matrixStack.pushPose();
 			matrixStack.translate(0, 0.4375, 0);
 			float xRot = -Mth.lerp(partialTick, entity.prevPitch, entity.pitch) * pi180;
-			float yRot = -Mth.lerp(partialTick, entity.prevYaw, entity.yaw) * pi180;
 			float zRot = -Mth.lerp(partialTick, entity.prevRoll, entity.roll) * pi180;
 			matrixStack.mulPose(Vector3f.XP.rotation(xRot));
-			matrixStack.mulPose(Vector3f.YP.rotation(yRot));
 			matrixStack.mulPose(Vector3f.ZP.rotation(zRot));
 			this.itemRenderer.renderStatic(stack, ItemTransforms.TransformType.GROUND, packedLight, OverlayTexture.NO_OVERLAY, matrixStack, buffer, 1);
 			matrixStack.popPose();
