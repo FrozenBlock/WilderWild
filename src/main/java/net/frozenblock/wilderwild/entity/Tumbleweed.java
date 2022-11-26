@@ -155,7 +155,7 @@ public class Tumbleweed extends Mob {
 			deltaMovement = deltaMovement.add((windX * 0.2) * multiplier, 0, (windZ * 0.2) * multiplier);
 			deltaMovement = new Vec3(deltaMovement.x, deltaMovement.y < 0 ? deltaMovement.y * 0.88 : deltaMovement.y, deltaMovement.z);
 			if (deltaPos.y <= 0 && this.isOnGround()) {
-				deltaMovement = deltaMovement.add(0, Math.min(0.8, ((deltaPos.horizontalDistance() * 1.3))) * multiplier, 0);
+				deltaMovement = deltaMovement.add(0, Math.min(0.65, ((deltaPos.horizontalDistance() * 1.2))) * multiplier, 0);
 			}
 			if (deltaPos.x == 0) {
 				double nonNegX = deltaMovement.x < 0 ? -deltaMovement.x : deltaMovement.x;
