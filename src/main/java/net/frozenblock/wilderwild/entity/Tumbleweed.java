@@ -187,6 +187,11 @@ public class Tumbleweed extends Mob {
 	}
 
 	@Override
+	public boolean isInvulnerableTo(@NotNull DamageSource source) {
+		return source.isMagic() || source == DamageSource.CACTUS || super.isInvulnerableTo(source);
+	}
+
+	@Override
 	public boolean canFreeze() {
 		return false;
 	}
