@@ -28,7 +28,7 @@ public final class WilderSpawns {
     }
 
 	public static void addTumbleweed() {
-		BiomeModifications.addSpawn(BiomeSelectors.includeByKey(Biomes.DESERT, Biomes.BADLANDS),
+		BiomeModifications.addSpawn(BiomeSelectors.tag(WilderBiomeTags.HAS_TUMBLEWEED_ENTITY),
 				WilderWild.TUMBLEWEED, RegisterEntities.TUMBLEWEED, 2, 1, 1);
 	}
 
