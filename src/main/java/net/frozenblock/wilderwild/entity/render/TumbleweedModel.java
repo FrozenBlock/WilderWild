@@ -21,24 +21,21 @@ import org.jetbrains.annotations.NotNull;
 @Environment(EnvType.CLIENT)
 public class TumbleweedModel<T extends Tumbleweed> extends HierarchicalModel<T> {
 
-	private final ModelPart yRotation;
-	private final ModelPart xRotation;
+	private final ModelPart bone;
 	private static final float pi180 = Mth.PI / 180;
 
 	public TumbleweedModel(ModelPart root) {
 		super(RenderType::entityCutoutNoCull);
-		this.yRotation = root.getChild("yRotation");
-		this.xRotation = yRotation.getChild("xRotation");
+		this.bone = root.getChild("bone");
 	}
 
 	public static LayerDefinition createBodyLayer() {
 		MeshDefinition meshdefinition = new MeshDefinition();
 		PartDefinition partdefinition = meshdefinition.getRoot();
 
-		PartDefinition yRotation = partdefinition.addOrReplaceChild("yRotation", CubeListBuilder.create(), PartPose.offset(0.0F, 16.0F, 0.0F));
-		PartDefinition xRotation = yRotation.addOrReplaceChild("xRotation", CubeListBuilder.create()
-				.texOffs(0, 0).addBox(-7.0F, -7.0F, -7.0F, 14.0F, 14.0F, 14.0F, new CubeDeformation(0.0F))
-				.texOffs(0, 28).addBox(-6.0F, -6.0F, -6.0F, 12.0F, 12.0F, 12.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 0.0F, 0.0F));
+		PartDefinition bone = partdefinition.addOrReplaceChild("bone", CubeListBuilder.create()
+				.texOffs(0, 28).addBox(-6.0F, -6.0F, -6.0F, 12.0F, 12.0F, 12.0F, new CubeDeformation(0.0F))
+				.texOffs(0, 0).addBox(-7.0F, -7.0F, -7.0F, 14.0F, 14.0F, 14.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 17.0F, 0.0F));
 
 		return LayerDefinition.create(meshdefinition, 64, 64);
 	}
@@ -47,9 +44,9 @@ public class TumbleweedModel<T extends Tumbleweed> extends HierarchicalModel<T> 
 	public void prepareMobModel(T entity, float limbSwing, float limbSwingAmount, float partialTick) {
 		float xRot = Mth.lerp(partialTick, entity.prevPitch, entity.pitch) * pi180;
 		float zRot = Mth.lerp(partialTick, entity.prevRoll, entity.roll) * pi180;
-		this.xRotation.xRot = (xRot - zRot);
+		this.bone.xRot = (xRot - zRot) * Mth.HALF_PI;
 		//this.yRotation.yRot = Mth.lerp(partialTick, entity.prevYaw, entity.yaw) * pi180;
-		this.xRotation.zRot = (zRot - xRot);
+		this.bone.zRot = (zRot - xRot) * Mth.HALF_PI;
 	}
 
 	@Override
@@ -59,11 +56,11 @@ public class TumbleweedModel<T extends Tumbleweed> extends HierarchicalModel<T> 
 
 	@Override
 	public void renderToBuffer(@NotNull PoseStack poseStack, @NotNull VertexConsumer vertexConsumer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
-		yRotation.render(poseStack, vertexConsumer, packedLight, packedOverlay, red, green, blue, alpha);
+		bone.render(poseStack, vertexConsumer, packedLight, packedOverlay, red, green, blue, alpha);
 	}
 
 	@Override
 	public ModelPart root() {
-		return this.yRotation;
+		return this.bone;
 	}
 }

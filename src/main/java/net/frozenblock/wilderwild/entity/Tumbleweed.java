@@ -100,9 +100,9 @@ public class Tumbleweed extends Mob {
 			this.prevPitch = this.pitch;
 			this.prevYaw = this.yaw;
 			this.prevRoll = this.roll;
-			this.pitch = (float) (this.prevPitch + deltaPos.x * 35F);
-			this.yaw = (float) (this.prevYaw + deltaPos.y * 35F);
-			this.roll = (float) (this.prevPitch + deltaPos.z * 35F);
+			this.pitch = (float) (this.prevPitch + deltaPos.z * 35F);
+			//this.yaw = (float) (this.prevYaw + deltaPos.y * 35F);
+			this.roll = (float) (this.prevPitch + deltaPos.x * 35F);
 		} else if (!this.isRemoved()) {
 			double brightness = this.level.getBrightness(LightLayer.SKY, this.blockPosition());
 			Player entity = this.level.getNearestPlayer(this, -1.0);
