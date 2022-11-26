@@ -1,149 +1,162 @@
 {
-  "textures": {
-	"particle": "wilderwild:block/baobab_nut_hanging_stage_3",
-	"nut": "wilderwild:block/baobab_nut_hanging_stage_3"
-  },
-  "elements": [
-	{
-	  "from": [
-		4,
-		0,
-		4
-	  ],
-	  "to": [
-		12,
-		10,
-		12
-	  ],
-	  "faces": {
-		"north": {
-		  "uv": [
-			8,
-			6,
-			16,
-			16
-		  ],
-		  "texture": "#nut"
-		},
-		"east": {
-		  "uv": [
-			8,
-			6,
-			16,
-			16
-		  ],
-		  "texture": "#nut"
-		},
-		"south": {
-		  "uv": [
-			8,
-			6,
-			16,
-			16
-		  ],
-		  "texture": "#nut"
-		},
-		"west": {
-		  "uv": [
-			8,
-			6,
-			16,
-			16
-		  ],
-		  "texture": "#nut"
-		},
-		"up": {
-		  "uv": [
-			0,
-			0,
-			8,
-			8
-		  ],
-		  "texture": "#nut"
-		},
-		"down": {
-		  "uv": [
-			0,
-			8,
-			8,
-			16
-		  ],
-		  "texture": "#nut"
-		}
-	  }
+	"textures": {
+		"particle": "wilderwild:block/coconut_hanging_stage_3",
+		"nut": "wilderwild:block/coconut_hanging_stage_3"
 	},
-	{
-	  "from": [
-		6,
-		10,
-		8
-	  ],
-	  "to": [
-		10,
-		16,
-		8
-	  ],
-	  "faces": {
-		"north": {
-		  "uv": [
-			10,
-			0,
-			14,
-			6
-		  ],
-		  "texture": "#nut"
+	"elements": [
+		{
+			"name": "coconut",
+			"from": [5, 6, 4],
+			"to": [11, 12, 10],
+			"faces": {
+				"north": {"uv": [9, 6, 15, 12], "texture": "#nut"},
+				"east": {"uv": [9, 6, 15, 12], "texture": "#nut"},
+				"south": {"uv": [9, 6, 15, 12], "texture": "#nut"},
+				"west": {"uv": [9, 6, 15, 12], "texture": "#nut"},
+				"up": {"uv": [1, 2, 7, 8], "texture": "#nut"},
+				"down": {"uv": [1, 9, 7, 15], "texture": "#nut"}
+			}
 		},
-		"south": {
-		  "uv": [
-			14,
-			0,
-			10,
-			6
-		  ],
-		  "texture": "#nut"
-		}
-	  }
-	},
-	{
-	  "from": [
-		8,
-		10,
-		6
-	  ],
-	  "to": [
-		8,
-		16,
-		10
-	  ],
-	  "rotation": {
-		"angle": 0,
-		"axis": "y",
-		"origin": [
-		  8,
-		  8,
-		  8
-		]
-	  },
-	  "faces": {
-		"east": {
-		  "uv": [
-			10,
-			0,
-			14,
-			6
-		  ],
-		  "texture": "#nut"
+		{
+			"name": "cross_1",
+			"from": [7, 12, 7],
+			"to": [9, 16, 7],
+			"faces": {
+				"north": {"uv": [10, 1, 12, 5], "texture": "#nut"},
+				"south": {"uv": [12, 1, 10, 5], "texture": "#nut"}
+			}
 		},
-		"west": {
-		  "uv": [
-			14,
-			0,
-			10,
-			6
-		  ],
-		  "texture": "#nut"
+		{
+			"name": "cross_2",
+			"from": [8, 12, 6],
+			"to": [8, 16, 8],
+			"rotation": {"angle": 0, "axis": "y", "origin": [8, 8, 8]},
+			"faces": {
+				"east": {"uv": [10, 1, 12, 5], "texture": "#nut"},
+				"west": {"uv": [12, 1, 10, 5], "texture": "#nut"}
+			}
+		},
+		{
+			"name": "coconut",
+			"from": [10, 8, 0],
+			"to": [16, 14, 6],
+			"faces": {
+				"north": {"uv": [9, 6, 15, 12], "texture": "#nut"},
+				"east": {"uv": [9, 6, 15, 12], "texture": "#nut"},
+				"south": {"uv": [9, 6, 15, 12], "texture": "#nut"},
+				"west": {"uv": [9, 6, 15, 12], "texture": "#nut"},
+				"up": {"uv": [1, 2, 7, 8], "texture": "#nut"},
+				"down": {"uv": [1, 9, 7, 15], "texture": "#nut"}
+			}
+		},
+		{
+			"name": "cross_2",
+			"from": [12, 12, 3],
+			"to": [14, 16, 3],
+			"faces": {
+				"north": {"uv": [10, 1, 12, 5], "texture": "#nut"},
+				"south": {"uv": [12, 1, 10, 5], "texture": "#nut"}
+			}
+		},
+		{
+			"name": "cross_3",
+			"from": [13, 12, 2],
+			"to": [13, 16, 4],
+			"rotation": {"angle": 0, "axis": "y", "origin": [8, 8, 8]},
+			"faces": {
+				"east": {"uv": [10, 1, 12, 5], "texture": "#nut"},
+				"west": {"uv": [12, 1, 10, 5], "texture": "#nut"}
+			}
+		},
+		{
+			"name": "coconut",
+			"from": [1, 8, 9],
+			"to": [7, 14, 15],
+			"faces": {
+				"north": {"uv": [9, 6, 15, 12], "texture": "#nut"},
+				"east": {"uv": [9, 6, 15, 12], "texture": "#nut"},
+				"south": {"uv": [9, 6, 15, 12], "texture": "#nut"},
+				"west": {"uv": [9, 6, 15, 12], "texture": "#nut"},
+				"up": {"uv": [1, 2, 7, 8], "texture": "#nut"},
+				"down": {"uv": [1, 9, 7, 15], "texture": "#nut"}
+			}
+		},
+		{
+			"name": "cross_3",
+			"from": [3, 12, 12],
+			"to": [5, 16, 12],
+			"faces": {
+				"north": {"uv": [10, 1, 12, 5], "texture": "#nut"},
+				"south": {"uv": [12, 1, 10, 5], "texture": "#nut"}
+			}
+		},
+		{
+			"name": "cross_4",
+			"from": [4, 12, 11],
+			"to": [4, 16, 13],
+			"rotation": {"angle": 0, "axis": "y", "origin": [8, 8, 8]},
+			"faces": {
+				"east": {"uv": [10, 1, 12, 5], "texture": "#nut"},
+				"west": {"uv": [12, 1, 10, 5], "texture": "#nut"}
+			}
+		},
+		{
+			"name": "coconut",
+			"from": [9, 5, 9],
+			"to": [15, 11, 15],
+			"faces": {
+				"north": {"uv": [9, 6, 15, 12], "texture": "#nut"},
+				"east": {"uv": [9, 6, 15, 12], "texture": "#nut"},
+				"south": {"uv": [9, 6, 15, 12], "texture": "#nut"},
+				"west": {"uv": [9, 6, 15, 12], "texture": "#nut"},
+				"up": {"uv": [1, 2, 7, 8], "texture": "#nut"},
+				"down": {"uv": [1, 9, 7, 15], "texture": "#nut"}
+			}
+		},
+		{
+			"name": "cross_4",
+			"from": [11, 11, 12],
+			"to": [13, 16, 12],
+			"faces": {
+				"north": {"uv": [10, 1, 12, 6], "texture": "#nut"},
+				"south": {"uv": [12, 1, 10, 6], "texture": "#nut"}
+			}
+		},
+		{
+			"name": "cross_5",
+			"from": [12, 11, 11],
+			"to": [12, 16, 13],
+			"rotation": {"angle": 0, "axis": "y", "origin": [8, 8, 8]},
+			"faces": {
+				"east": {"uv": [10, 1, 12, 6], "texture": "#nut"},
+				"west": {"uv": [12, 1, 10, 6], "texture": "#nut"}
+			}
 		}
-	  }
-	}
-  ]
+	],
+	"groups": [
+		{
+			"name": "coconut1",
+			"origin": [8, 8, 8],
+			"color": 0,
+			"children": [0, 1, 2]
+		},
+		{
+			"name": "coconut2",
+			"origin": [8, 8, 8],
+			"color": 0,
+			"children": [3, 4, 5]
+		},
+		{
+			"name": "coconut3",
+			"origin": [8, 8, 8],
+			"color": 0,
+			"children": [6, 7, 8]
+		},
+		{
+			"name": "coconut4",
+			"origin": [8, 8, 8],
+			"color": 0,
+			"children": [9, 10, 11]
+		}
+	]
 }
