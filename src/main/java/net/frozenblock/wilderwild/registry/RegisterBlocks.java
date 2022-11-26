@@ -518,6 +518,15 @@ public final class RegisterBlocks {
         TermiteMoundBlockEntity.Termite.addDegradable(STRIPPED_CYPRESS_WOOD, Blocks.AIR);
         TermiteMoundBlockEntity.Termite.addNaturalDegradable(CYPRESS_LOG, STRIPPED_CYPRESS_LOG);
         TermiteMoundBlockEntity.Termite.addNaturalDegradable(CYPRESS_WOOD, STRIPPED_CYPRESS_WOOD);
+
+		TermiteMoundBlockEntity.Termite.addDegradable(PALM_CROWN, PALM_LOG);
+		TermiteMoundBlockEntity.Termite.addDegradable(PALM_LOG, HOLLOWED_PALM_LOG);
+		TermiteMoundBlockEntity.Termite.addDegradable(STRIPPED_PALM_LOG, Blocks.AIR);
+		TermiteMoundBlockEntity.Termite.addDegradable(PALM_WOOD, STRIPPED_PALM_WOOD);
+		TermiteMoundBlockEntity.Termite.addDegradable(STRIPPED_PALM_WOOD, Blocks.AIR);
+		TermiteMoundBlockEntity.Termite.addNaturalDegradable(PALM_LOG, STRIPPED_PALM_LOG);
+		TermiteMoundBlockEntity.Termite.addNaturalDegradable(PALM_WOOD, STRIPPED_PALM_WOOD);
+		TermiteMoundBlockEntity.Termite.addNaturalDegradable(PALM_CROWN, PALM_LOG);
         registerStrippable();
         registerComposting();
         registerFlammability();
