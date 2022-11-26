@@ -1,6 +1,7 @@
 package net.frozenblock.wilderwild.block;
 
 import net.frozenblock.wilderwild.block.entity.PalmCrownBlockEntity;
+import net.frozenblock.wilderwild.registry.RegisterBlocks;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
@@ -65,14 +66,26 @@ public class PalmLeavesBlock extends LeavesBlock implements BonemealableBlock {
 		return state;
 	}
 
+	public boolean doesCrownCount(@NotNull BlockState state, @NotNull ServerLevel level, @NotNull BlockPos pos) {
+		int dist = Mth.clamp((int) (PalmCrownBlockEntity.PalmCrownPositions.distanceToClosestPalmCrown(level, pos, 12) * 0.57), 1, 7);
+	}
+
+	public static boolean nextToLeafOrCrown(BlockState neighbor) {
+		return neighbor.is(RegisterBlocks.PALM_LEAVES) || neighbor.is(RegisterBlocks.PALM_CROWN);
+	}
+
 	private static BlockState updateDistance(BlockState state, LevelAccessor level, BlockPos pos) {
 		int dist = Mth.clamp((int) (PalmCrownBlockEntity.PalmCrownPositions.distanceToClosestPalmCrown(level, pos, 12) * 0.57), 1, 7);
 		int i = 7;
+		boolean validCrown = false;
 		for (BlockPos blockPos : BlockPos.betweenClosed(pos.offset(-1, -1, -1), pos.offset(1, 1, 1))) {
+			if (!validCrown && nextToLeafOrCrown(level.getBlockState(blockPos))) {
+				validCrown = true;
+			}
 			i = Math.min(i, getDistanceAt(level.getBlockState(blockPos)) + 1);
 			if (i == 1) break;
 		}
-		return state.setValue(DISTANCE, Math.min(dist, i));
+		return state.setValue(DISTANCE, Math.min(validCrown ? dist : i, i));
 	}
 
 	public static int getDistanceAt(BlockState neighbor) {
