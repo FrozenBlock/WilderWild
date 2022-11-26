@@ -1,7 +1,6 @@
 package net.frozenblock.wilderwild.registry;
 
 import static net.frozenblock.wilderwild.registry.RegisterSounds.*;
-import static net.frozenblock.wilderwild.registry.RegisterSounds.BLOCK_TUMBLEWEED_PLANT_PLACE;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.level.block.SoundType;
 

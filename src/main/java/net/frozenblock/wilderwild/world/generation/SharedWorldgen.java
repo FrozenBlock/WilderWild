@@ -14,8 +14,6 @@ import net.frozenblock.wilderwild.misc.config.ClothConfigInteractionHandler;
 import net.frozenblock.wilderwild.registry.RegisterWorldgen;
 import net.frozenblock.wilderwild.registry.WilderRegistry;
 import net.frozenblock.wilderwild.world.generation.noise.WilderNoise;
-import net.minecraft.resources.ResourceKey;
-import net.minecraft.world.level.biome.Biomes;
 import net.minecraft.world.level.biome.Climate;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.levelgen.Noises;

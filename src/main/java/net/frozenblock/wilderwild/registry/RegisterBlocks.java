@@ -30,6 +30,7 @@ import net.frozenblock.wilderwild.block.MesogleaBlock;
 import net.frozenblock.wilderwild.block.MilkweedBlock;
 import net.frozenblock.wilderwild.block.NematocystBlock;
 import net.frozenblock.wilderwild.block.OsseousSculkBlock;
+import net.frozenblock.wilderwild.block.PalmCrownBlock;
 import net.frozenblock.wilderwild.block.PalmLeavesBlock;
 import net.frozenblock.wilderwild.block.PollenBlock;
 import net.frozenblock.wilderwild.block.SculkSlabBlock;
@@ -112,6 +113,7 @@ public final class RegisterBlocks {
     public static final Block BAOBAB_LOG = new RotatedPillarBlock(FabricBlockSettings.of(Material.WOOD, state -> state.getValue(RotatedPillarBlock.AXIS) == Direction.Axis.Y ? BAOBAB_PLANKS_COLOR : BAOBAB_BARK_COLOR).strength(2.0F).sound(SoundType.WOOD));
     public static final Block CYPRESS_LOG = new RotatedPillarBlock(FabricBlockSettings.of(Material.WOOD, state -> state.getValue(RotatedPillarBlock.AXIS) == Direction.Axis.Y ? CYPRESS_PLANKS_COLOR : CYPRESS_BARK_COLOR).strength(2.0F).sound(SoundType.WOOD));
     public static final Block PALM_LOG = new RotatedPillarBlock(FabricBlockSettings.of(Material.WOOD, state -> state.getValue(RotatedPillarBlock.AXIS) == Direction.Axis.Y ? PALM_PLANKS_COLOR : PALM_BARK_COLOR).strength(2.0F).sound(SoundType.WOOD));
+	public static final Block PALM_CROWN = new PalmCrownBlock(FabricBlockSettings.of(Material.WOOD, state -> state.getValue(RotatedPillarBlock.AXIS) == Direction.Axis.Y ? PALM_PLANKS_COLOR : PALM_BARK_COLOR).strength(2.0F).sound(SoundType.WOOD));
 
     public static final Block STRIPPED_BAOBAB_LOG = new RotatedPillarBlock(FabricBlockSettings.of(Material.WOOD, state -> state.getValue(RotatedPillarBlock.AXIS) == Direction.Axis.Y ? BAOBAB_PLANKS_COLOR : BAOBAB_BARK_COLOR).strength(2.0F).sound(SoundType.WOOD));
     public static final Block STRIPPED_CYPRESS_LOG = new RotatedPillarBlock(FabricBlockSettings.of(Material.WOOD, state -> state.getValue(RotatedPillarBlock.AXIS) == Direction.Axis.Y ? CYPRESS_PLANKS_COLOR : CYPRESS_BARK_COLOR).strength(2.0F).sound(SoundType.WOOD));
@@ -247,6 +249,7 @@ public final class RegisterBlocks {
 
     	registerBlock(baobab + "_leaves", BAOBAB_LEAVES, CreativeModeTab.TAB_DECORATIONS);
     	registerBlock(cypress + "_leaves", CYPRESS_LEAVES, CreativeModeTab.TAB_DECORATIONS);
+		registerBlock(palm + "_crown", PALM_CROWN, CreativeModeTab.TAB_BUILDING_BLOCKS);
     	registerBlock(palm + "_leaves", PALM_LEAVES, CreativeModeTab.TAB_DECORATIONS);
 
     	registerBlock(baobab + "_fence", BAOBAB_FENCE, CreativeModeTab.TAB_DECORATIONS);
@@ -515,6 +518,15 @@ public final class RegisterBlocks {
         TermiteMoundBlockEntity.Termite.addDegradable(STRIPPED_CYPRESS_WOOD, Blocks.AIR);
         TermiteMoundBlockEntity.Termite.addNaturalDegradable(CYPRESS_LOG, STRIPPED_CYPRESS_LOG);
         TermiteMoundBlockEntity.Termite.addNaturalDegradable(CYPRESS_WOOD, STRIPPED_CYPRESS_WOOD);
+
+		TermiteMoundBlockEntity.Termite.addDegradable(PALM_CROWN, PALM_LOG);
+		TermiteMoundBlockEntity.Termite.addDegradable(PALM_LOG, HOLLOWED_PALM_LOG);
+		TermiteMoundBlockEntity.Termite.addDegradable(STRIPPED_PALM_LOG, Blocks.AIR);
+		TermiteMoundBlockEntity.Termite.addDegradable(PALM_WOOD, STRIPPED_PALM_WOOD);
+		TermiteMoundBlockEntity.Termite.addDegradable(STRIPPED_PALM_WOOD, Blocks.AIR);
+		TermiteMoundBlockEntity.Termite.addNaturalDegradable(PALM_LOG, STRIPPED_PALM_LOG);
+		TermiteMoundBlockEntity.Termite.addNaturalDegradable(PALM_WOOD, STRIPPED_PALM_WOOD);
+		TermiteMoundBlockEntity.Termite.addNaturalDegradable(PALM_CROWN, PALM_LOG);
         registerStrippable();
         registerComposting();
         registerFlammability();

@@ -17,7 +17,6 @@ import net.frozenblock.lib.menu.api.Panoramas;
 import net.frozenblock.lib.menu.api.Splashes;
 import net.frozenblock.lib.sound.api.FlyBySoundHub;
 import net.frozenblock.wilderwild.entity.AncientHornProjectile;
-import net.frozenblock.wilderwild.entity.Tumbleweed;
 import net.frozenblock.wilderwild.entity.render.AncientHornProjectileModel;
 import net.frozenblock.wilderwild.entity.render.AncientHornProjectileRenderer;
 import net.frozenblock.wilderwild.entity.render.DisplayLanternBlockEntityRenderer;

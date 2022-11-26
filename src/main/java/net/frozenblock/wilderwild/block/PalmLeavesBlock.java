@@ -1,9 +1,12 @@
 package net.frozenblock.wilderwild.block;
 
+import net.frozenblock.wilderwild.block.entity.PalmCrownBlockEntity;
+import net.frozenblock.wilderwild.registry.RegisterBlocks;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.BlockTags;
+import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
@@ -34,14 +37,16 @@ public class PalmLeavesBlock extends LeavesBlock implements BonemealableBlock {
     }
 
 	@Override
-	//TODO: make leaves have proper decay values when grown naturally
 	public void randomTick(@NotNull BlockState state, @NotNull ServerLevel level, @NotNull BlockPos pos, @NotNull RandomSource random) {
-		/*
+		BlockState newState = updateDistance(state, level, pos);
+		if (newState != state) {
+			level.setBlockAndUpdate(pos, newState);
+			state = newState;
+		}
 		if (this.decaying(state)) {
 			LeavesBlock.dropResources(state, level, pos);
 			level.removeBlock(pos, false);
 		}
-		 */
 	}
 
 	@Override
@@ -61,21 +66,27 @@ public class PalmLeavesBlock extends LeavesBlock implements BonemealableBlock {
 		return state;
 	}
 
+	public static boolean nextToLeafOrCrown(BlockState neighbor) {
+		return neighbor.is(RegisterBlocks.PALM_LEAVES) || neighbor.is(RegisterBlocks.PALM_CROWN);
+	}
+
 	private static BlockState updateDistance(BlockState state, LevelAccessor level, BlockPos pos) {
+		int dist = Mth.clamp((int) (PalmCrownBlockEntity.PalmCrownPositions.distanceToClosestPalmCrown(level, pos, 12) * 0.57), 1, 7);
 		int i = 7;
+		boolean validCrown = false;
 		for (BlockPos blockPos : BlockPos.betweenClosed(pos.offset(-1, -1, -1), pos.offset(1, 1, 1))) {
+			if (!validCrown && nextToLeafOrCrown(level.getBlockState(blockPos))) {
+				validCrown = true;
+			}
 			i = Math.min(i, getDistanceAt(level.getBlockState(blockPos)) + 1);
 			if (i == 1) break;
 		}
-		return state.setValue(DISTANCE, i);
+		return state.setValue(DISTANCE, Math.min(validCrown ? dist : i, i));
 	}
 
 	public static int getDistanceAt(BlockState neighbor) {
 		if (neighbor.is(BlockTags.LOGS)) {
 			return 0;
-		}
-		if (neighbor.getBlock() instanceof LeavesBlock) {
-			return neighbor.getValue(DISTANCE);
 		}
 		return 7;
 	}
