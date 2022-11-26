@@ -8,6 +8,7 @@ import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.BaseEntityBlock;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.RenderShape;
 import net.minecraft.world.level.block.RotatedPillarBlock;
 import net.minecraft.world.level.block.Rotation;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -38,6 +39,11 @@ public class PalmCrownBlock extends BaseEntityBlock {
 	@Override
 	public <T extends BlockEntity> BlockEntityTicker<T> getTicker(@NotNull Level level, @NotNull BlockState state, @NotNull BlockEntityType<T> blockEntityType) {
 		return !level.isClientSide ? createTickerHelper(blockEntityType, RegisterBlockEntities.PALM_CROWN, (world1, blockPos, blockState1, palmCrownBlockEntity) -> palmCrownBlockEntity.tick()) : null;
+	}
+
+	@Override
+	public RenderShape getRenderShape(@NotNull BlockState blockState) {
+		return RenderShape.MODEL;
 	}
 
 	public BlockState rotate(@NotNull BlockState state, @NotNull Rotation rotation) {
