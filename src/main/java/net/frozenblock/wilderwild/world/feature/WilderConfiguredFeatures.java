@@ -1,16 +1,22 @@
 package net.frozenblock.wilderwild.world.feature;
 
+import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.misc.FlowerColor;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.frozenblock.wilderwild.registry.RegisterBlocks;
 import net.frozenblock.wilderwild.registry.RegisterProperties;
+import net.minecraft.core.Holder;
+import net.minecraft.core.HolderSet;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.random.SimpleWeightedRandomList;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.MultifaceBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
+import net.minecraft.world.level.levelgen.feature.configurations.MultifaceGrowthConfiguration;
 
 public final class WilderConfiguredFeatures  {
 	private WilderConfiguredFeatures() {
@@ -67,12 +73,8 @@ public final class WilderConfiguredFeatures  {
 	public static final ResourceKey<ConfiguredFeature<?, ?>> PURPLE_MESOGLEA_POOL = key("purple_mesoglea_pool");
 	public static final ResourceKey<ConfiguredFeature<?, ?>> JELLYFISH_CAVES_PURPLE_MESOGLEA = key("jellyfish_caves_purple_mesoglea");
 	public static final ResourceKey<ConfiguredFeature<?, ?>> UPSIDE_DOWN_PURPLE_MESOGLEA = key("upside_down_purple_mesoglea");
-	public static final ResourceKey<ConfiguredFeature<?, ?>> PATCH_NEMATOCYST_UP = key("patch_nematocyst_up");
-	public static final ResourceKey<ConfiguredFeature<?, ?>> PATCH_NEMATOCYST_DOWN = key("patch_nematocyst_down");
-	public static final ResourceKey<ConfiguredFeature<?, ?>> PATCH_NEMATOCYST_NORTH = key("patch_nematocyst_north");
-	public static final ResourceKey<ConfiguredFeature<?, ?>> PATCH_NEMATOCYST_SOUTH = key("patch_nematocyst_south");
-	public static final ResourceKey<ConfiguredFeature<?, ?>> PATCH_NEMATOCYST_EAST = key("patch_nematocyst_east");
-	public static final ResourceKey<ConfiguredFeature<?, ?>> PATCH_NEMATOCYST_WEST = key("patch_nematocyst_west");
+	public static final ResourceKey<ConfiguredFeature<?, ?>> NEMATOCYST = key("nematocyst");
+	public static final ResourceKey<ConfiguredFeature<?, ?>> NEMATOCYST_PURPLE = key("nematocyst_purple");
 
 	public static ResourceKey<ConfiguredFeature<?, ?>> key(String path) {
 		return ResourceKey.create(Registries.CONFIGURED_FEATURE, new ResourceLocation(WilderSharedConstants.MOD_ID, path));

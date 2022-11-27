@@ -1,8 +1,14 @@
 package net.frozenblock.wilderwild.world.feature;
 
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
+import net.minecraft.core.Holder;
 import net.minecraft.core.registries.Registries;
+import net.minecraft.data.worldgen.placement.PlacementUtils;
 import net.minecraft.resources.ResourceKey;
+import net.minecraft.util.valueproviders.ConstantInt;
+import net.minecraft.world.level.levelgen.placement.BiomeFilter;
+import net.minecraft.world.level.levelgen.placement.CountPlacement;
+import net.minecraft.world.level.levelgen.placement.InSquarePlacement;
 import net.minecraft.world.level.levelgen.placement.PlacedFeature;
 
 public final class WilderPlacedFeatures {
@@ -147,12 +153,8 @@ public final class WilderPlacedFeatures {
     public static final ResourceKey<PlacedFeature> JELLYFISH_CAVES_UPSIDE_DOWN_PURPLE_MESOGLEA = key(
             "upside_down_purple_mesoglea");
 
-    public static final ResourceKey<PlacedFeature> PATCH_NEMATOCYST_UP = key("patch_nematocyst_up");
-    public static final ResourceKey<PlacedFeature> PATCH_NEMATOCYST_DOWN = key("patch_nematocyst_down");
-    public static final ResourceKey<PlacedFeature> PATCH_NEMATOCYST_NORTH = key("patch_nematocyst_north");
-    public static final ResourceKey<PlacedFeature> PATCH_NEMATOCYST_SOUTH = key("patch_nematocyst_south");
-    public static final ResourceKey<PlacedFeature> PATCH_NEMATOCYST_EAST = key("patch_nematocyst_east");
-    public static final ResourceKey<PlacedFeature> PATCH_NEMATOCYST_WEST = key("patch_nematocyst_west");
+    public static final ResourceKey<PlacedFeature> NEMATOCYST = key("nematocyst");
+    public static final ResourceKey<PlacedFeature> NEMATOCYST_PURPLE = key("nematocyst_purple");
 
 	public static ResourceKey<PlacedFeature> key(String path) {
 		return ResourceKey.create(Registries.PLACED_FEATURE, WilderSharedConstants.id(path));

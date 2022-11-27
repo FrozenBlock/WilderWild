@@ -105,3 +105,8 @@ accessible    method    net/minecraft/data/Main    bindRegistries    (Ljava/util
 
 # Sounds
 accessible    method    net/minecraft/sounds/SoundEvent    <init>    (Lnet/minecraft/resources/ResourceLocation;FZ)V
+
+# Features
+accessible    method    net/minecraft/world/level/levelgen/feature/configurations/MultifaceGrowthConfiguration    apply    (Lnet/minecraft/world/level/block/Block;)Lcom/mojang/serialization/DataResult;
+accessible    method    net/minecraft/world/level/levelgen/feature/MultifaceGrowthFeature    isAirOrWater    (Lnet/minecraft/world/level/block/state/BlockState;)Z
+accessible    field    net/minecraft/world/level/block/MultifaceSpreader$DefaultSpreaderConfig    block    Lnet/minecraft/world/level/block/MultifaceBlock;
