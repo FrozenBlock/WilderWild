@@ -477,7 +477,6 @@ public class WilderWildDataGenerator implements DataGeneratorEntrypoint {
 		@Override
 		public void buildRecipes(final @NotNull Consumer<FinishedRecipe> consumer) {
 			generateForEnabledBlockFamilies(consumer, FeatureFlagSet.of(WilderFeatureFlags.UPDATE_1_20_ADDITIONS));
-			chestBoat(consumer, RegisterItems.ANCIENT_HORN, RegisterItems.ANCIENT_HORN_FRAGMENT);
 			hangingSign(consumer, RegisterItems.BAOBAB_HANGING_SIGN, RegisterBlocks.STRIPPED_BAOBAB_LOG);
 			hangingSign(consumer, RegisterItems.CYPRESS_HANGING_SIGN, RegisterBlocks.STRIPPED_CYPRESS_LOG);
 		}
