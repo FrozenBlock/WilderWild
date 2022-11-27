@@ -158,8 +158,12 @@ public class CoconutBlock extends FallingBlock implements BonemealableBlock {
 	@Override
 	public void onProjectileHit(@NotNull Level level, @NotNull BlockState state, @NotNull BlockHitResult hit, @NotNull Projectile projectile) {
 		if (isHanging(state)) {
-			FallingBlockEntity fallingBlockEntity = FallingBlockEntity.fall(level, hit.getBlockPos(), state);
-			this.falling(fallingBlockEntity);
+			if (isFullyGrown(state)) {
+				FallingBlockEntity fallingBlockEntity = FallingBlockEntity.fall(level, hit.getBlockPos(), state);
+				this.falling(fallingBlockEntity);
+			} else {
+				level.destroyBlock(hit.getBlockPos(), true);
+			}
 		}
 	}
 
@@ -174,8 +178,12 @@ public class CoconutBlock extends FallingBlock implements BonemealableBlock {
 			return;
 		}
 		if (isHanging(state) && !state.canSurvive(level, pos)) {
-			FallingBlockEntity fallingBlockEntity = FallingBlockEntity.fall(level, pos, state);
-			this.falling(fallingBlockEntity);
+			if (isFullyGrown(state)) {
+				FallingBlockEntity fallingBlockEntity = FallingBlockEntity.fall(level, pos, state);
+				this.falling(fallingBlockEntity);
+			} else {
+				level.destroyBlock(pos, true);
+			}
 		}
 	}
 
