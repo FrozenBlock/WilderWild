@@ -370,6 +370,11 @@ public class Tumbleweed extends Mob {
 	}
 
 	@Override
+	protected void playSwimSound(float volume) {
+	}
+
+
+	@Override
 	public Iterable<ItemStack> getArmorSlots() {
 		return NonNullList.withSize(1, ItemStack.EMPTY);
 	}
