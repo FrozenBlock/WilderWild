@@ -142,6 +142,12 @@ public final class RegisterSounds {
     public static final SoundEvent BLOCK_OSSEOUS_SCULK_STEP = register("block.osseous_sculk.step");
     public static final SoundEvent BLOCK_OSSEOUS_SCULK_FALL = register("block.osseous_sculk.fall");
 
+	public static final SoundEvent BLOCK_PALM_CROWN_PLACE = register("block.palm_crown.place");
+	public static final SoundEvent BLOCK_PALM_CROWN_HIT = register("block.palm_crown.hit");
+	public static final SoundEvent BLOCK_PALM_CROWN_BREAK = register("block.palm_crown.break");
+	public static final SoundEvent BLOCK_PALM_CROWN_STEP = register("block.palm_crown.step");
+	public static final SoundEvent BLOCK_PALM_CROWN_FALL = register("block.palm_crown.fall");
+
     public static final SoundEvent BLOCK_REINFORCED_DEEPSLATE_PLACE = register("block.reinforced_deepslate.place");
     public static final SoundEvent BLOCK_REINFORCED_DEEPSLATE_HIT = register("block.reinforced_deepslate.hit");
     public static final SoundEvent BLOCK_REINFORCED_DEEPSLATE_BREAK = register("block.reinforced_deepslate.break");

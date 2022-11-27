@@ -185,6 +185,14 @@ public final class RegisterBlockSoundGroups {
 			BLOCK_TUMBLEWEED_PLANT_FALL
 	);
 
+	public static final SoundType PALM_CROWN = new SoundType(1.0F, 1.0F,
+			BLOCK_PALM_CROWN_BREAK,
+			BLOCK_PALM_CROWN_STEP,
+			BLOCK_PALM_CROWN_PLACE,
+			BLOCK_PALM_CROWN_HIT,
+			BLOCK_PALM_CROWN_FALL
+	);
+
     public static final SoundType FUNNY = new SoundType(1.0F, 1.0F,
             SoundEvents.ANVIL_PLACE,
             SoundEvents.ANVIL_PLACE,
