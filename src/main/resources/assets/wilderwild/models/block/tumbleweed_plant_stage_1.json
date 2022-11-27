@@ -2,9 +2,9 @@
 	"parent": "block/block",
 	"ambientocclusion": false,
 	"textures": {
-		"2": "wilderwild:block/tumbleweed_fan_stage_2",
-		"particle": "wilderwild:block/tumbleweed_stage_2",
-		"top": "wilderwild:block/tumbleweed_stage_2"
+		"2": "wilderwild:block/tumbleweed_fan_stage_1",
+		"particle": "wilderwild:block/tumbleweed_stage_1",
+		"top": "wilderwild:block/tumbleweed_stage_1"
 	},
 	"elements": [
 		{
