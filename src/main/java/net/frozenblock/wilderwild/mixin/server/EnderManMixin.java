@@ -73,9 +73,9 @@ public final class EnderManMixin extends Monster implements WilderEnderman {
 		}
 	}
 
-	@Unique
+	@Shadow
 	public boolean isCreepy() {
-		return this.entityData.get(DATA_CREEPY);
+		throw new AssertionError("Mixin injection failed. - WilderWild EnderManMixin");
 	}
 
 	@Unique
