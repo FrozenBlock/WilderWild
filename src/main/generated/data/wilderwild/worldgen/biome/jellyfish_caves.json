@@ -96,12 +96,8 @@
       "minecraft:red_mushroom_normal",
       "minecraft:patch_sugar_cane",
       "minecraft:patch_pumpkin",
-      "wilderwild:patch_nematocyst_up",
-      "wilderwild:patch_nematocyst_down",
-      "wilderwild:patch_nematocyst_east",
-      "wilderwild:patch_nematocyst_west",
-      "wilderwild:patch_nematocyst_north",
-      "wilderwild:patch_nematocyst_south"
+      "wilderwild:nematocyst",
+      "wilderwild:nematocyst_purple"
     ],
     [
       "minecraft:freeze_top_layer"

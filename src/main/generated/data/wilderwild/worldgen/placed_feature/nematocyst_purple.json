@@ -1,9 +1,9 @@
 {
-  "feature": "wilderwild:patch_nematocyst_down",
+  "feature": "wilderwild:nematocyst_purple",
   "placement": [
     {
       "type": "minecraft:count",
-      "count": 9
+      "count": 64
     },
     {
       "type": "minecraft:in_square"
