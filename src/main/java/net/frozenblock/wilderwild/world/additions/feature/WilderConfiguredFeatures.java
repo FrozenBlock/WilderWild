@@ -254,15 +254,15 @@ public final class WilderConfiguredFeatures {
                             new SimpleBlockConfiguration(new WeightedStateProvider(GLORY_OF_THE_SNOW_POOL)))));
 
     //VEGETATION
-	public static final SimpleWeightedRandomList<BlockState> OASIS_GRASS_POOL = SimpleWeightedRandomList.<BlockState>builder().add(Blocks.TALL_GRASS.defaultBlockState(), 6).add(Blocks.GRASS.defaultBlockState(), 2).build();
+	public static final SimpleWeightedRandomList<BlockState> OASIS_GRASS_POOL = SimpleWeightedRandomList.<BlockState>builder().add(Blocks.TALL_GRASS.defaultBlockState(), 1).add(Blocks.GRASS.defaultBlockState(), 6).build();
 	public static final Holder<ConfiguredFeature<RandomPatchConfiguration, ?>> OASIS_GRASS =
 			register("oasis_grass", Feature.RANDOM_PATCH,
-					FeatureUtils.simpleRandomPatchConfiguration(54, PlacementUtils.onlyWhenEmpty(Feature.SIMPLE_BLOCK,
+					FeatureUtils.simpleRandomPatchConfiguration(32, PlacementUtils.onlyWhenEmpty(Feature.SIMPLE_BLOCK,
 							new SimpleBlockConfiguration(new WeightedStateProvider(OASIS_GRASS_POOL)))));
 	public static final SimpleWeightedRandomList<BlockState> OASIS_BUSH_POOL = SimpleWeightedRandomList.<BlockState>builder().add(Blocks.DEAD_BUSH.defaultBlockState(), 8).add(RegisterBlocks.BUSH.defaultBlockState().setValue(BlockStateProperties.AGE_1, 0), 1).add(RegisterBlocks.BUSH.defaultBlockState().setValue(BlockStateProperties.AGE_1, 1), 2).build();
 	public static final Holder<ConfiguredFeature<RandomPatchConfiguration, ?>> OASIS_BUSH =
 			register("oasis_bush", Feature.RANDOM_PATCH,
-					FeatureUtils.simpleRandomPatchConfiguration(25, PlacementUtils.onlyWhenEmpty(Feature.SIMPLE_BLOCK,
+					FeatureUtils.simpleRandomPatchConfiguration(23, PlacementUtils.onlyWhenEmpty(Feature.SIMPLE_BLOCK,
 							new SimpleBlockConfiguration(new WeightedStateProvider(OASIS_BUSH_POOL)))));
 
     public static final SimpleWeightedRandomList<BlockState> LARGE_FERN_AND_GRASS_POOL = SimpleWeightedRandomList.<BlockState>builder().add(Blocks.TALL_GRASS.defaultBlockState(), 3).add(Blocks.LARGE_FERN.defaultBlockState(), 3).build();
