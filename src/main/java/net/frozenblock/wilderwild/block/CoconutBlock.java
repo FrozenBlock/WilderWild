@@ -90,7 +90,7 @@ public class CoconutBlock extends FallingBlock implements BonemealableBlock {
         Vec3 vec3d = state.getOffset(level, pos);
         VoxelShape voxelShape;
         if (!state.getValue(HANGING)) {
-            voxelShape = SHAPES[4];
+            voxelShape = SHAPES[3];
         } else {
             voxelShape = SHAPES[state.getValue(AGE)];
         }
