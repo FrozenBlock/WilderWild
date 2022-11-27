@@ -1,8 +1,6 @@
 package net.frozenblock.wilderwild.entity;
 
 import java.util.List;
-import java.util.Random;
-
 import net.frozenblock.lib.tag.api.TagUtils;
 import net.frozenblock.lib.wind.api.WindManager;
 import net.frozenblock.wilderwild.registry.RegisterBlocks;
@@ -64,13 +62,16 @@ public class Tumbleweed extends Mob {
 	public float prevRoll;
 	public float pitch;
 	public float roll;
+	public float itemX;
+	public float itemZ;
 
 	private static final double windMultiplier = 1.4;
 	private static final double windClamp = 0.17;
 	private static final float rotationAmount = 55F;
 
 	private static final EntityDataAccessor<ItemStack> ITEM_STACK = SynchedEntityData.defineId(Tumbleweed.class, EntityDataSerializers.ITEM_STACK);
-    public Random random;
+	private static final EntityDataAccessor<Float> ITEM_X = SynchedEntityData.defineId(Tumbleweed.class, EntityDataSerializers.FLOAT);
+	private static final EntityDataAccessor<Float> ITEM_Z = SynchedEntityData.defineId(Tumbleweed.class, EntityDataSerializers.FLOAT);
 
     public Tumbleweed(EntityType<Tumbleweed> entityType, Level level) {
 		super(entityType, level);
@@ -89,6 +90,7 @@ public class Tumbleweed extends Mob {
 				TagKey<Item> itemTag = tagSelector <= 1 ? WilderItemTags.TUMBLEWEED_RARE : tagSelector <= 3 ? WilderItemTags.TUMBLEWEED_MEDIUM : WilderItemTags.TUMBLEWEED_COMMON;
 				this.inventory.set(0, new ItemStack(TagUtils.getRandomEntry(level.getRandom(), itemTag)));
 				this.isItemNatural = true;
+				this.randomizeItemOffsets();
 			}
 		}
 		return super.finalizeSpawn(level, difficulty, reason, spawnData, dataTag);
@@ -139,6 +141,8 @@ public class Tumbleweed extends Mob {
 				this.roll -= 360F;
 				this.prevRoll -=360F;
 			}
+			this.itemX = this.getItemX();
+			this.itemZ = this.getItemZ();
 		} else if (!this.isRemoved()) {
 			this.heal(1F);
 			double brightness = this.level.getBrightness(LightLayer.SKY, this.blockPosition());
@@ -209,6 +213,7 @@ public class Tumbleweed extends Mob {
 					if (!stack.isEmpty()) {
 						this.inventory.set(0, stack.split(1));
 						this.isItemNatural = false;
+						this.randomizeItemOffsets();
 						break;
 					}
 				}
@@ -308,6 +313,8 @@ public class Tumbleweed extends Mob {
 		this.spawnedFromShears = compound.getBoolean("spawned_from_shears");
 		this.ticksSinceActive = compound.getInt("ticks_since_active");
 		this.isItemNatural = compound.getBoolean("is_tumbleweed_item_natural");
+		this.setItemX(compound.getFloat("item_x"));
+		this.setItemZ(compound.getFloat("item_z"));
 		this.inventory = NonNullList.withSize(1, ItemStack.EMPTY);
 		ContainerHelper.loadAllItems(compound, this.inventory);
 	}
@@ -318,6 +325,8 @@ public class Tumbleweed extends Mob {
 		compound.putBoolean("spawned_from_shears", this.spawnedFromShears);
 		compound.putInt("ticks_since_active", this.ticksSinceActive);
 		compound.putBoolean("is_tumbleweed_item_natural", this.isItemNatural);
+		compound.putFloat("item_x", this.getItemX());
+		compound.putFloat("item_z", this.getItemZ());
 		ContainerHelper.saveAllItems(compound, this.inventory);
 	}
 
@@ -325,6 +334,8 @@ public class Tumbleweed extends Mob {
 	protected void defineSynchedData() {
 		super.defineSynchedData();
 		this.entityData.define(ITEM_STACK, ItemStack.EMPTY);
+		this.entityData.define(ITEM_X, 0F);
+		this.entityData.define(ITEM_Z, 0F);
 	}
 
 	@Override
@@ -363,6 +374,29 @@ public class Tumbleweed extends Mob {
 
 	public ItemStack getVisibleItem() {
 		return this.entityData.get(ITEM_STACK);
+	}
+
+	//Here you go!! <3
+	private static final float maxItemOffset = 0.5F;
+	public void randomizeItemOffsets() {
+		this.setItemX((this.random.nextFloat() * (this.random.nextBoolean() ? 1 : -1)) * maxItemOffset);
+		this.setItemZ((this.random.nextFloat() * (this.random.nextBoolean() ? 1 : -1)) * maxItemOffset);
+	}
+
+	public void setItemX(float f) {
+		this.getEntityData().set(ITEM_X, f);
+	}
+
+	public float getItemX() {
+		return this.entityData.get(ITEM_X);
+	}
+
+	public void setItemZ(float f) {
+		this.getEntityData().set(ITEM_Z, f);
+	}
+
+	public float getItemZ() {
+		return this.entityData.get(ITEM_Z);
 	}
 
 	@Override
