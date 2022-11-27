@@ -1,8 +1,6 @@
 package net.frozenblock.wilderwild.entity;
 
 import java.util.List;
-import java.util.Random;
-
 import net.frozenblock.lib.tag.api.TagUtils;
 import net.frozenblock.lib.wind.api.WindManager;
 import net.frozenblock.wilderwild.registry.RegisterBlocks;
@@ -74,7 +72,6 @@ public class Tumbleweed extends Mob {
 	private static final EntityDataAccessor<ItemStack> ITEM_STACK = SynchedEntityData.defineId(Tumbleweed.class, EntityDataSerializers.ITEM_STACK);
 	private static final EntityDataAccessor<Float> ITEM_X = SynchedEntityData.defineId(Tumbleweed.class, EntityDataSerializers.FLOAT);
 	private static final EntityDataAccessor<Float> ITEM_Z = SynchedEntityData.defineId(Tumbleweed.class, EntityDataSerializers.FLOAT);
-    public Random random;
 
     public Tumbleweed(EntityType<Tumbleweed> entityType, Level level) {
 		super(entityType, level);
@@ -380,9 +377,10 @@ public class Tumbleweed extends Mob {
 	}
 
 	//Here you go!! <3
+	private static final float maxItemOffset = 0.5F;
 	public void randomizeItemOffsets() {
-		this.setItemX(this.random.nextFloat(-0.5F, 0.5F));
-		this.setItemZ(this.random.nextFloat(-0.5F, 0.5F));
+		this.setItemX((this.random.nextFloat() * (this.random.nextBoolean() ? 1 : -1)) * maxItemOffset);
+		this.setItemZ((this.random.nextFloat() * (this.random.nextBoolean() ? 1 : -1)) * maxItemOffset);
 	}
 
 	public void setItemX(float f) {
