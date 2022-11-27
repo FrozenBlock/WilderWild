@@ -66,12 +66,8 @@ public class PalmLeavesBlock extends LeavesBlock implements BonemealableBlock {
 		return state;
 	}
 
-	public static boolean nextToLeafOrCrown(BlockState neighbor) {
-		return neighbor.is(RegisterBlocks.PALM_LEAVES) || neighbor.is(RegisterBlocks.PALM_CROWN);
-	}
-
 	private static BlockState updateDistance(BlockState state, LevelAccessor level, BlockPos pos) {
-		int dist = Mth.clamp((int) (PalmCrownBlockEntity.PalmCrownPositions.distanceToClosestPalmCrown(level, pos, 12) * 0.57), 1, 7);
+		int dist = Mth.clamp((int) (PalmCrownBlockEntity.PalmCrownPositions.distanceToClosestPalmCrown(level, pos, 10) * 0.65), 1, 7);
 		int i = 7;
 		boolean validCrown = false;
 		for (BlockPos blockPos : BlockPos.betweenClosed(pos.offset(-1, -1, -1), pos.offset(1, 1, 1))) {
@@ -89,5 +85,14 @@ public class PalmLeavesBlock extends LeavesBlock implements BonemealableBlock {
 			return 0;
 		}
 		return 7;
+	}
+
+	public static boolean nextToLeafOrCrown(BlockState neighbor) {
+		return neighbor.is(RegisterBlocks.PALM_LEAVES) || neighbor.is(RegisterBlocks.PALM_CROWN);
+	}
+
+	@Override
+	public boolean isRandomlyTicking(BlockState state) {
+		return !state.getValue(PERSISTENT);
 	}
 }
