@@ -48,7 +48,7 @@ public class TumbleweedPlantBlock extends BushBlock implements BonemealableBlock
 	public void randomTick(@NotNull BlockState state, @NotNull ServerLevel level, @NotNull BlockPos pos, @NotNull RandomSource random) {
 		if (isFullyGrown(state)) {
 			if (random.nextInt(0, 5) == 0) {
-				level.setBlockAndUpdate(pos, state.setValue(AGE, 2));
+				level.setBlockAndUpdate(pos, state.setValue(AGE, 0));
 				Tumbleweed weed = new Tumbleweed(RegisterEntities.TUMBLEWEED, level);
 				level.addFreshEntity(weed);
 				weed.setPos(new Vec3(pos.getX() + 0.5, pos.getY(), pos.getZ() + 0.5));
@@ -109,7 +109,7 @@ public class TumbleweedPlantBlock extends BushBlock implements BonemealableBlock
 				level.addFreshEntity(weed);
 				weed.setPos(new Vec3(pos.getX() + 0.5, pos.getY(), pos.getZ() + 0.5));
 				weed.spawnedFromShears = true;
-				level.setBlockAndUpdate(pos, state.setValue(AGE, 2));
+				level.setBlockAndUpdate(pos, state.setValue(AGE, 0));
 				itemStack.hurtAndBreak(1, player, (playerx) -> playerx.broadcastBreakEvent(hand));
 				level.gameEvent(player, GameEvent.SHEAR, pos);
 			}
