@@ -293,6 +293,11 @@ public class Tumbleweed extends Mob {
 	}
 
 	@Override
+	protected SoundEvent getSwimSound() {
+		return null;
+	}
+
+	@Override
 	protected void playStepSound(@NotNull BlockPos pos, @NotNull BlockState state) {
 		this.playSound(RegisterSounds.ENTITY_TUMBLEWEED_BOUNCE, 0.15f, 1.0f);
 	}
