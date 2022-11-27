@@ -1,8 +1,6 @@
 package net.frozenblock.wilderwild.registry;
 
-import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Map;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricMaterialBuilder;
@@ -42,6 +40,7 @@ import net.frozenblock.wilderwild.block.WaterloggableSaplingBlock;
 import net.frozenblock.wilderwild.block.WaterloggableTallFlowerBlock;
 import net.frozenblock.wilderwild.block.entity.TermiteMoundBlockEntity;
 import net.frozenblock.wilderwild.misc.FlowerColor;
+import net.frozenblock.wilderwild.misc.WilderFeatureFlags;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.frozenblock.wilderwild.world.gen.sapling.CypressSaplingGenerator;
 import net.minecraft.core.BlockPos;
@@ -53,6 +52,7 @@ import net.minecraft.data.BlockFamily;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.flag.FeatureFlags;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.CreativeModeTabs;
@@ -197,14 +197,14 @@ public final class RegisterBlocks {
     public static final WoodType BAOBAB_WOOD_TYPE = FrozenWoodTypes.newType("wilderwildbaobab");
     public static final Block BAOBAB_SIGN_BLOCK = new FrozenSignBlock(FabricBlockSettings.of(Material.WOOD, BAOBAB_LOG.defaultMaterialColor()).noCollision().strength(1.0F).sounds(SoundType.WOOD), BAOBAB_WOOD_TYPE, WilderSharedConstants.id("blocks/baobab_sign"));
     public static final Block BAOBAB_WALL_SIGN = new FrozenWallSignBlock(FabricBlockSettings.of(Material.WOOD, BAOBAB_LOG.defaultMaterialColor()).noCollision().strength(1.0F).sounds(SoundType.WOOD).dropsLike(BAOBAB_SIGN_BLOCK), BAOBAB_WOOD_TYPE, WilderSharedConstants.id("blocks/baobab_sign"));
-	public static final Block BAOBAB_HANGING_SIGN = new CeilingHangingSignBlock(FabricBlockSettings.copyOf(Blocks.OAK_HANGING_SIGN).color(BAOBAB_LOG.defaultMaterialColor()), BAOBAB_WOOD_TYPE);
-	public static final Block BAOBAB_WALL_HANGING_SIGN = new WallHangingSignBlock(FabricBlockSettings.copyOf(Blocks.OAK_WALL_HANGING_SIGN).color(BAOBAB_LOG.defaultMaterialColor()).dropsLike(BAOBAB_HANGING_SIGN), BAOBAB_WOOD_TYPE);
+	public static final Block BAOBAB_HANGING_SIGN = new CeilingHangingSignBlock(FabricBlockSettings.copyOf(Blocks.OAK_HANGING_SIGN).color(BAOBAB_LOG.defaultMaterialColor()).requiredFeatures(FeatureFlags.UPDATE_1_20, WilderFeatureFlags.UPDATE_1_20_ADDITIONS), BAOBAB_WOOD_TYPE);
+	public static final Block BAOBAB_WALL_HANGING_SIGN = new WallHangingSignBlock(FabricBlockSettings.copyOf(Blocks.OAK_WALL_HANGING_SIGN).color(BAOBAB_LOG.defaultMaterialColor()).requiredFeatures(FeatureFlags.UPDATE_1_20, WilderFeatureFlags.UPDATE_1_20_ADDITIONS).dropsLike(BAOBAB_HANGING_SIGN), BAOBAB_WOOD_TYPE);
 
     public static final WoodType CYPRESS_WOOD_TYPE = FrozenWoodTypes.newType("wilderwildcypress");
     public static final Block CYPRESS_SIGN_BLOCK = new FrozenSignBlock(FabricBlockSettings.of(Material.WOOD, CYPRESS_LOG.defaultMaterialColor()).noCollision().strength(1.0F).sounds(SoundType.WOOD), CYPRESS_WOOD_TYPE, WilderSharedConstants.id("blocks/cypress_sign"));
     public static final Block CYPRESS_WALL_SIGN = new FrozenWallSignBlock(FabricBlockSettings.of(Material.WOOD, CYPRESS_LOG.defaultMaterialColor()).noCollision().strength(1.0F).sounds(SoundType.WOOD).dropsLike(CYPRESS_SIGN_BLOCK), CYPRESS_WOOD_TYPE, WilderSharedConstants.id("blocks/cypress_sign"));
-	public static final Block CYPRESS_HANGING_SIGN = new CeilingHangingSignBlock(FabricBlockSettings.copyOf(Blocks.OAK_HANGING_SIGN).color(CYPRESS_LOG.defaultMaterialColor()), CYPRESS_WOOD_TYPE);
-	public static final Block CYPRESS_WALL_HANGING_SIGN = new WallHangingSignBlock(FabricBlockSettings.copyOf(Blocks.OAK_WALL_HANGING_SIGN).color(CYPRESS_LOG.defaultMaterialColor()).dropsLike(CYPRESS_HANGING_SIGN), CYPRESS_WOOD_TYPE);
+	public static final Block CYPRESS_HANGING_SIGN = new CeilingHangingSignBlock(FabricBlockSettings.copyOf(Blocks.OAK_HANGING_SIGN).color(CYPRESS_LOG.defaultMaterialColor()).requiredFeatures(FeatureFlags.UPDATE_1_20, WilderFeatureFlags.UPDATE_1_20_ADDITIONS), CYPRESS_WOOD_TYPE);
+	public static final Block CYPRESS_WALL_HANGING_SIGN = new WallHangingSignBlock(FabricBlockSettings.copyOf(Blocks.OAK_WALL_HANGING_SIGN).color(CYPRESS_LOG.defaultMaterialColor()).requiredFeatures(FeatureFlags.UPDATE_1_20, WilderFeatureFlags.UPDATE_1_20_ADDITIONS).dropsLike(CYPRESS_HANGING_SIGN), CYPRESS_WOOD_TYPE);
 
     public static void registerWoods() {
         String baobab = "baobab";

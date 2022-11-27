@@ -1,0 +1,13 @@
+{
+  "features": {
+    "enabled": [
+      "wilderwild:update_1_20_additions"
+    ]
+  },
+  "pack": {
+    "description": {
+      "translate": "dataPack.wilderwild.update_1_20_additions.description"
+    },
+    "pack_format": 10
+  }
+}

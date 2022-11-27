@@ -1,16 +1,17 @@
 package net.frozenblock.wilderwild.misc;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.concurrent.CompletableFuture;
+import java.util.function.BiConsumer;
 import java.util.function.BiFunction;
 import java.util.function.Consumer;
 import net.fabricmc.fabric.api.datagen.v1.DataGeneratorEntrypoint;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
+import net.fabricmc.fabric.api.datagen.v1.provider.FabricBlockLootTableProvider;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricDynamicRegistryProvider;
 import net.fabricmc.fabric.api.tag.convention.v1.ConventionalBiomeTags;
 import net.frozenblock.lib.datagen.api.FrozenBiomeTagProvider;
+import net.frozenblock.lib.feature_flag.api.FrozenFeatureFlags;
 import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.registry.RegisterItems;
 import net.frozenblock.wilderwild.registry.RegisterStructures;
@@ -21,6 +22,7 @@ import net.frozenblock.wilderwild.world.gen.noise.WilderNoise;
 import net.minecraft.Util;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.RegistrySetBuilder;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.DataProvider;
 import net.minecraft.data.PackOutput;
@@ -32,43 +34,35 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.tags.BiomeTags;
 import net.minecraft.world.flag.FeatureFlagSet;
-import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.biome.Biomes;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.storage.loot.LootTable;
 import org.jetbrains.annotations.NotNull;
-import net.fabricmc.fabric.api.datagen.v1.DataGeneratorEntrypoint;
-import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
-import net.fabricmc.fabric.api.datagen.v1.provider.FabricModelProvider;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
-import net.fabricmc.fabric.api.tag.convention.v1.ConventionalBiomeTags;
 import net.fabricmc.fabric.api.tag.convention.v1.ConventionalBlockTags;
-import net.frozenblock.lib.datagen.api.FrozenBiomeTagProvider;
 import net.frozenblock.wilderwild.registry.RegisterBlocks;
-import net.frozenblock.wilderwild.registry.RegisterWorldgen;
-import net.frozenblock.wilderwild.tag.WilderBiomeTags;
 import net.frozenblock.wilderwild.tag.WilderBlockTags;
-import net.minecraft.core.Registry;
-import net.minecraft.data.models.BlockModelGenerators;
-import net.minecraft.data.models.ItemModelGenerators;
-import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.tags.BiomeTags;
 import net.minecraft.tags.BlockTags;
-import net.minecraft.world.level.biome.Biomes;
 import net.minecraft.world.level.block.Blocks;
 
 public class WilderWildDataGenerator implements DataGeneratorEntrypoint {
 	@Override
 	public void onInitializeDataGenerator(FabricDataGenerator dataGenerator) {
+		WilderFeatureFlags.init();
+		FrozenFeatureFlags.rebuild();
 		final FabricDataGenerator.Pack pack = dataGenerator.createPack();
 		final CompletableFuture<HolderLookup.Provider> completableFuture = CompletableFuture.supplyAsync(VanillaRegistries::createLookup, Util.backgroundExecutor());
 		pack.addProvider(bindRegistries(WilderBiomeTagProvider::new, completableFuture));
 		pack.addProvider(bindRegistries(WilderBlockTagProvider::new, completableFuture));
 		pack.addProvider(WilderWorldgenProvider::new);
-		final FabricDataGenerator.Pack experimentalPack = dataGenerator.createSubPack("experimental");
+		final FabricDataGenerator.Pack experimentalPack = dataGenerator.createBuiltinResourcePack(WilderSharedConstants.id("update_1_20_additions"));
 		experimentalPack.addProvider((FabricDataGenerator.Pack.Factory<ExperimentRecipeProvider>) ExperimentRecipeProvider::new);
+		experimentalPack.addProvider(ExperimentBlockLootTableProvider::new);
+		experimentalPack.addProvider(ExperimentBlockTagProvider::new);
 		experimentalPack.addProvider(
 				(FabricDataGenerator.Pack.Factory<PackMetadataGenerator>) packOutput -> PackMetadataGenerator.forFeaturePack(
-						packOutput, Component.translatable("dataPack.wilderwild.experiment.description"), FeatureFlagSet.of(WilderFeatureFlags.EXPERIMENTAL)
+						packOutput, Component.translatable("dataPack.wilderwild.update_1_20_additions.description"), FeatureFlagSet.of(WilderFeatureFlags.UPDATE_1_20_ADDITIONS)
 				)
 		);
 	}
@@ -435,6 +429,45 @@ public class WilderWildDataGenerator implements DataGeneratorEntrypoint {
 		}
 	}
 
+	private static class ExperimentBlockLootTableProvider extends FabricBlockLootTableProvider {
+		protected ExperimentBlockLootTableProvider(FabricDataOutput dataOutput) {
+			super(dataOutput);
+		}
+
+		@Override
+		public void generate() {
+			this.dropSelf(RegisterBlocks.BAOBAB_HANGING_SIGN);
+			this.dropSelf(RegisterBlocks.CYPRESS_HANGING_SIGN);
+		}
+
+		@Override
+		public void accept(BiConsumer<ResourceLocation, LootTable.Builder> resourceLocationBuilderBiConsumer) {
+
+		}
+	}
+
+	private static class ExperimentBlockTagProvider extends FabricTagProvider.BlockTagProvider {
+
+		public ExperimentBlockTagProvider(FabricDataOutput output, CompletableFuture<HolderLookup.Provider> registriesFuture) {
+			super(output, registriesFuture);
+		}
+
+		@Override
+		protected void addTags(HolderLookup.Provider arg) {
+			this.tag(BlockTags.CEILING_HANGING_SIGNS)
+					.add(key(RegisterBlocks.BAOBAB_HANGING_SIGN))
+					.add(key(RegisterBlocks.CYPRESS_HANGING_SIGN));
+
+			this.tag(BlockTags.WALL_HANGING_SIGNS)
+					.add(key(RegisterBlocks.BAOBAB_WALL_HANGING_SIGN))
+					.add(key(RegisterBlocks.CYPRESS_WALL_HANGING_SIGN));
+		}
+
+		private static ResourceKey<Block> key(Block block) {
+			return BuiltInRegistries.BLOCK.getResourceKey(block).orElseThrow();
+		}
+	}
+
 	private static class ExperimentRecipeProvider extends RecipeProvider {
 
 		public ExperimentRecipeProvider(PackOutput packOutput) {
@@ -443,7 +476,10 @@ public class WilderWildDataGenerator implements DataGeneratorEntrypoint {
 
 		@Override
 		public void buildRecipes(final @NotNull Consumer<FinishedRecipe> consumer) {
+			generateForEnabledBlockFamilies(consumer, FeatureFlagSet.of(WilderFeatureFlags.UPDATE_1_20_ADDITIONS));
 			chestBoat(consumer, RegisterItems.ANCIENT_HORN, RegisterItems.ANCIENT_HORN_FRAGMENT);
+			hangingSign(consumer, RegisterItems.BAOBAB_HANGING_SIGN, RegisterBlocks.STRIPPED_BAOBAB_LOG);
+			hangingSign(consumer, RegisterItems.CYPRESS_HANGING_SIGN, RegisterBlocks.STRIPPED_CYPRESS_LOG);
 		}
 	}
 
