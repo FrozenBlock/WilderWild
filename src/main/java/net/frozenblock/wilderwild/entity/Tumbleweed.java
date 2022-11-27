@@ -1,6 +1,8 @@
 package net.frozenblock.wilderwild.entity;
 
 import java.util.List;
+import java.util.Random;
+
 import net.frozenblock.lib.tag.api.TagUtils;
 import net.frozenblock.lib.wind.api.WindManager;
 import net.frozenblock.wilderwild.registry.RegisterBlocks;
@@ -68,8 +70,9 @@ public class Tumbleweed extends Mob {
 	private static final float rotationAmount = 55F;
 
 	private static final EntityDataAccessor<ItemStack> ITEM_STACK = SynchedEntityData.defineId(Tumbleweed.class, EntityDataSerializers.ITEM_STACK);
+    public Random random;
 
-	public Tumbleweed(EntityType<Tumbleweed> entityType, Level level) {
+    public Tumbleweed(EntityType<Tumbleweed> entityType, Level level) {
 		super(entityType, level);
 		this.blocksBuilding = true;
 		this.inventory = NonNullList.withSize(1, ItemStack.EMPTY);

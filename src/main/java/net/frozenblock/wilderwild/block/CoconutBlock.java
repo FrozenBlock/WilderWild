@@ -40,10 +40,10 @@ public class CoconutBlock extends FallingBlock implements BonemealableBlock {
 	public static final IntegerProperty STAGE = BlockStateProperties.STAGE;
     public static final IntegerProperty AGE = BlockStateProperties.AGE_2;
     private static final VoxelShape[] SHAPES = new VoxelShape[]{
-            Shapes.or(Block.box(7.0, 13.0, 7.0, 9.0, 16.0, 9.0), Block.box(5.0, 6.0, 5.0, 11.0, 13.0, 11.0)),
-            Shapes.or(Block.box(7.0, 12.0, 7.0, 9.0, 16.0, 9.0), Block.box(4.0, 3.0, 4.0, 12.0, 12.0, 12.0)),
-            Shapes.or(Block.box(7.0, 10.0, 7.0, 9.0, 16.0, 9.0), Block.box(4.0, 0.0, 4.0, 12.0, 10.0, 12.0)),
-            Block.box(7.0, 3.0, 7.0, 9.0, 16.0, 9.0), Block.box(2.0D, 0.0D, 2.0D, 14.0D, 12.0D, 14.0D)
+            Shapes.or(Block.box(2, 9, 2, 14, 16, 14)),
+            Shapes.or(Block.box(2, 9, 2, 14, 16, 14)),
+            Shapes.or(Block.box(1, 8, 1, 15, 16, 15)),
+            Block.box(2, 0, 2, 14, 12, 14)
     };
 	private final AbstractTreeGrower treeGrower;
     public static final BooleanProperty HANGING = BlockStateProperties.HANGING;
