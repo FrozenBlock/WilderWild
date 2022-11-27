@@ -1,0 +1,7 @@
+{
+  "variants": {
+	"age=5": {
+	  "model": "wilderwild:block/tumbleweed_plant_5"
+	}
+  }
+}

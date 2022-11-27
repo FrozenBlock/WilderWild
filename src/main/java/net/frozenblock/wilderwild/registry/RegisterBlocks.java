@@ -38,7 +38,7 @@ import net.frozenblock.wilderwild.block.SculkStairsBlock;
 import net.frozenblock.wilderwild.block.SculkWallBlock;
 import net.frozenblock.wilderwild.block.SeedingDandelionBlock;
 import net.frozenblock.wilderwild.block.ShelfFungusBlock;
-import net.frozenblock.wilderwild.block.ShrubBlock;
+import net.frozenblock.wilderwild.block.TumbleweedPlantBlock;
 import net.frozenblock.wilderwild.block.StoneChestBlock;
 import net.frozenblock.wilderwild.block.TermiteMound;
 import net.frozenblock.wilderwild.block.TumbleweedBlock;
@@ -373,8 +373,8 @@ public final class RegisterBlocks {
     public static final Block CATTAIL = new WaterloggableTallFlowerBlock(FabricBlockSettings.copyOf(Blocks.ROSE_BUSH).sounds(SoundType.WET_GRASS).strength(0.0F).nonOpaque());
     public static final Block FLOWERING_LILY_PAD = new FloweringLilyPadBlock(FabricBlockSettings.copyOf(Blocks.LILY_PAD).sounds(RegisterBlockSoundGroups.LILYPAD));
     public static final Block ALGAE = new AlgaeBlock(FabricBlockSettings.of(ALGAE_MATERIAL).breakInstantly().nonOpaque().noCollision().sounds(RegisterBlockSoundGroups.ALGAE));
-	public static final Block SHRUB = new ShrubBlock(FabricBlockSettings.of(Material.PLANT).breakInstantly().nonOpaque().noCollision().sounds(SoundType.AZALEA));
 	public static final Block BUSH = new WilderBushBlock(FabricBlockSettings.of(Material.PLANT).breakInstantly().nonOpaque().noCollision().sounds(SoundType.GRASS));
+	public static final Block TUMBLEWEED_PLANT = new TumbleweedPlantBlock(FabricBlockSettings.of(Material.PLANT).breakInstantly().nonOpaque().noCollision().sounds(RegisterBlockSoundGroups.TUMBLEWEED_PLANT).randomTicks());
 	public static final Block TUMBLEWEED = new TumbleweedBlock(FabricBlockSettings.of(Material.PLANT).breakInstantly().nonOpaque().sounds(RegisterBlockSoundGroups.TUMBLEWEED_PLANT).randomTicks());
 
     public static final Block POTTED_BIG_DRIPLEAF = new FlowerPotBlock(Blocks.BIG_DRIPLEAF, FabricBlockSettings.of(Material.DECORATION).breakInstantly().nonOpaque());
@@ -397,8 +397,8 @@ public final class RegisterBlocks {
         registerBlock("datura", DATURA, CreativeModeTab.TAB_DECORATIONS);
         registerBlock("milkweed", MILKWEED, CreativeModeTab.TAB_DECORATIONS);
         registerBlock("cattail", CATTAIL, CreativeModeTab.TAB_DECORATIONS);
-		registerBlock("shrub", SHRUB, CreativeModeTab.TAB_DECORATIONS);
 		registerBlock("bush", BUSH, CreativeModeTab.TAB_DECORATIONS);
+		registerBlock("tumbleweed_plant", TUMBLEWEED_PLANT, CreativeModeTab.TAB_DECORATIONS);
 		registerBlock("tumbleweed", TUMBLEWEED, CreativeModeTab.TAB_DECORATIONS);
     }
 
@@ -578,6 +578,8 @@ public final class RegisterBlocks {
         CompostingChanceRegistry.INSTANCE.add(PURPLE_GLORY_OF_THE_SNOW, 0.65F);
         CompostingChanceRegistry.INSTANCE.add(ALGAE, 0.3F);
 		CompostingChanceRegistry.INSTANCE.add(BUSH, 0.65F);
+		CompostingChanceRegistry.INSTANCE.add(TUMBLEWEED_PLANT, 0.3F);
+		CompostingChanceRegistry.INSTANCE.add(TUMBLEWEED, 0.1F);
     }
 
     private static void registerFlammability() {
@@ -589,6 +591,7 @@ public final class RegisterBlocks {
         FlammableBlockRegistry.getDefaultInstance().add(RegisterBlocks.DATURA, 100, 60);
         FlammableBlockRegistry.getDefaultInstance().add(RegisterBlocks.MILKWEED, 100, 60);
 		FlammableBlockRegistry.getDefaultInstance().add(RegisterBlocks.TUMBLEWEED, 100, 20);
+		FlammableBlockRegistry.getDefaultInstance().add(RegisterBlocks.TUMBLEWEED_PLANT, 100, 20);
 
         FlammableBlockRegistry.getDefaultInstance().add(RegisterBlocks.HOLLOWED_BIRCH_LOG, 5, 5);
         FlammableBlockRegistry.getDefaultInstance().add(RegisterBlocks.HOLLOWED_OAK_LOG, 5, 5);
@@ -663,6 +666,7 @@ public final class RegisterBlocks {
 		registry.add(PALM_FENCE.asItem(), 300);
 		registry.add(PALM_FENCE_GATE.asItem(), 300);
 		registry.add(TUMBLEWEED.asItem(), 150);
+		registry.add(TUMBLEWEED_PLANT.asItem(), 150);
     }
 
     private static void registerBonemeal() {

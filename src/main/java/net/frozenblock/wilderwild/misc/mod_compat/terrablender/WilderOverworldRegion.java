@@ -97,6 +97,7 @@ public class WilderOverworldRegion extends Region {
 
 			// This will not grant the exact parameters as defined in SharedWorldgen. Instead, it will replace a part of old growth birch forests with mixed forests.
 			builder.replaceBiome(Biomes.OLD_GROWTH_BIRCH_FOREST, RegisterWorldgen.MIXED_FOREST);
+			builder.replaceBiome(Biomes.DESERT, RegisterWorldgen.OASIS);
 
 
 			// DON'T CHANGE THESE PARAMETERS. THESE ARE THE PARAMETERS OF SWAMPS

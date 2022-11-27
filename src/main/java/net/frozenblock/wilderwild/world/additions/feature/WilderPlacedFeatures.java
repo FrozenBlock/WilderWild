@@ -160,8 +160,13 @@ public final class WilderPlacedFeatures {
             PlacementUtils.HEIGHTMAP, BiomeFilter.biome());
 
     //GRASS AND FERNS
-	public static final Holder<PlacedFeature> OASIS_GRASS_AND_BUSH_PLACED = register("oasis_grass_and_bush_placed",
-			WilderConfiguredFeatures.OASIS_GRASS_AND_BUSH, worldSurfaceSquaredWithCount(25));
+	public static final Holder<PlacedFeature> OASIS_GRASS_PLACED = register("oasis_grass_placed",
+			WilderConfiguredFeatures.OASIS_GRASS, worldSurfaceSquaredWithCount(18));
+	public static final Holder<PlacedFeature> OASIS_BUSH_PLACED = register("oasis_bush_placed",
+			WilderConfiguredFeatures.OASIS_BUSH, worldSurfaceSquaredWithCount(5));
+
+	public static final Holder<PlacedFeature> OASIS_CACTUS_PLACED = register("oasis_cactus_placed",
+			VegetationFeatures.PATCH_CACTUS, worldSurfaceSquaredWithCount(3));
 
     public static final Holder<PlacedFeature> NEW_GRASS_PLACED = register("grass_placed",
             VegetationFeatures.PATCH_GRASS_JUNGLE, worldSurfaceSquaredWithCount(20));
