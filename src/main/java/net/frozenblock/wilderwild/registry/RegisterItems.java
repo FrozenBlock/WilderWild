@@ -4,6 +4,7 @@ import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.fabric.api.object.builder.v1.trade.TradeOfferHelper;
 import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.item.AncientHorn;
+import net.frozenblock.wilderwild.item.CoconutItem;
 import net.frozenblock.wilderwild.item.CopperHorn;
 import net.frozenblock.wilderwild.item.FireflyBottle;
 import net.frozenblock.wilderwild.item.MilkweedPod;
@@ -39,6 +40,8 @@ public final class RegisterItems {
             RegisterBlocks.CYPRESS_SIGN_BLOCK, RegisterBlocks.CYPRESS_WALL_SIGN);
     public static final Item PALM_SIGN = new SignItem(new FabricItemSettings().group(CreativeModeTab.TAB_DECORATIONS).maxCount(16),
             RegisterBlocks.PALM_SIGN_BLOCK, RegisterBlocks.PALM_WALL_SIGN);
+
+	public static final Item COCONUT = new CoconutItem(RegisterBlocks.COCONUT, new FabricItemSettings().group(CreativeModeTab.TAB_DECORATIONS));
 
     public static final Item POLLEN = new BlockItem(RegisterBlocks.POLLEN_BLOCK, new FabricItemSettings().group(CreativeModeTab.TAB_DECORATIONS));
 
@@ -167,6 +170,7 @@ public final class RegisterItems {
         TradeOfferHelper.registerWanderingTraderOffers(2, factories -> {
             factories.add(new VillagerTrades.ItemsForEmeralds(RegisterItems.BAOBAB_NUT, 5, 1, 8, 1));
             factories.add(new VillagerTrades.ItemsForEmeralds(RegisterBlocks.CYPRESS_SAPLING.asItem(), 5, 1, 8, 1));
+			factories.add(new VillagerTrades.ItemsForEmeralds(RegisterItems.COCONUT, 5, 1, 8, 1));
         });
     }
 }

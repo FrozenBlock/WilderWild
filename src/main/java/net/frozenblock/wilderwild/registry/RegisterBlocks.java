@@ -245,7 +245,8 @@ public final class RegisterBlocks {
     	registerBlockWithoutBlockItem("potted_" + baobab + "_nut", POTTED_BAOBAB_NUT);
     	registerBlock(cypress + "_sapling", CYPRESS_SAPLING, CreativeModeTab.TAB_DECORATIONS);
     	registerBlockWithoutBlockItem("potted_" + cypress + "_sapling", POTTED_CYPRESS_SAPLING);
-    	registerBlock("coconut", COCONUT, CreativeModeTab.TAB_DECORATIONS);
+		registerBlockWithoutBlockItem("coconut", COCONUT);
+		Registry.register(Registry.ITEM, WilderWild.id("coconut"), RegisterItems.COCONUT);
     	registerBlockWithoutBlockItem("potted_coconut", POTTED_COCONUT);
 
     	registerBlock(baobab + "_leaves", BAOBAB_LEAVES, CreativeModeTab.TAB_DECORATIONS);
