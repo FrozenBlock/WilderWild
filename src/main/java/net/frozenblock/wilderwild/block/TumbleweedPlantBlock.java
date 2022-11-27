@@ -29,7 +29,7 @@ public class TumbleweedPlantBlock extends BushBlock implements BonemealableBlock
 	//TODO: Shapes for stages 0, 1, 2, 3, and 4
 	protected static final VoxelShape SHAPE = Block.box(0.0, 0.0, 0.0, 16.0, 13.0, 16.0);
 	//Starts growing tumbleweed at 3
-	public static final IntegerProperty AGE = BlockStateProperties.AGE_5;
+	public static final IntegerProperty AGE = BlockStateProperties.AGE_7;
 
 	public TumbleweedPlantBlock(BlockBehaviour.Properties properties) {
 		super(properties);
@@ -67,7 +67,7 @@ public class TumbleweedPlantBlock extends BushBlock implements BonemealableBlock
 	}
 
 	public static boolean isFullyGrown(BlockState state) {
-		return state.getValue(AGE) == 5;
+		return state.getValue(AGE) == 7;
 	}
 
 	@Override
@@ -82,7 +82,7 @@ public class TumbleweedPlantBlock extends BushBlock implements BonemealableBlock
 
 	@Override
 	public void performBonemeal(@NotNull ServerLevel level, @NotNull RandomSource random, @NotNull BlockPos pos, @NotNull BlockState state) {
-		level.setBlockAndUpdate(pos, state.setValue(AGE, Math.min(5, state.getValue(AGE) + random.nextInt(1, 2))));
+		level.setBlockAndUpdate(pos, state.setValue(AGE, Math.min(7, state.getValue(AGE) + random.nextInt(1, 2))));
 	}
 
 	@Override
