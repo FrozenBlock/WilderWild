@@ -26,9 +26,10 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.NotNull;
 
 public class TumbleweedPlantBlock extends BushBlock implements BonemealableBlock {
-	//TODO: Shapes for stages 0, 1, 2, 3, and 4
-	protected static final VoxelShape SHAPE = Block.box(0.0, 0.0, 0.0, 16.0, 13.0, 16.0);
-	//Starts growing tumbleweed at 3
+	private static final VoxelShape FIRST_SHAPE = Block.box(4, 0, 4, 12, 8, 12);
+	private static final VoxelShape SECOND_SHAPE = Block.box(3, 0, 4, 13, 10, 13);
+	private static final VoxelShape THIRD_SHAPE = Block.box(1.0, 0.0, 1.0, 15.0, 14.0, 15.0);
+	private static final VoxelShape FOURTH_SHAPE = Block.box(1.0, 0.0, 1.0, 15.0, 14.0, 15.0);
 	public static final IntegerProperty AGE = BlockStateProperties.AGE_7;
 
 	public TumbleweedPlantBlock(BlockBehaviour.Properties properties) {
@@ -58,7 +59,12 @@ public class TumbleweedPlantBlock extends BushBlock implements BonemealableBlock
 
 	@Override
 	public VoxelShape getShape(@NotNull BlockState state, @NotNull BlockGetter level, @NotNull BlockPos pos, @NotNull CollisionContext context) {
-		return SHAPE;
+		return switch (state.getValue(AGE)) {
+			case 0, 1 -> FIRST_SHAPE;
+			case 2, 3 -> SECOND_SHAPE;
+			case 4, 5 -> THIRD_SHAPE;
+			default -> FOURTH_SHAPE;
+		};
 	}
 
 	@Override
