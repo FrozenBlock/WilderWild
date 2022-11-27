@@ -1539,6 +1539,12 @@
     ],
     "subtitle": "subtitles.block.generic.footsteps"
   },
+  "block.tumbleweed_plant.shear": {
+    "sounds": [
+      "minecraft:mob/sheep/shear"
+    ],
+    "subtitle": "subtitles.block.tumbleweed.shear"
+  },
   "entity.ancient_horn_projectile.blast": {
 	"sounds": [
 	  "wilderwild:entity/ancient_horn_projectile/blast1",

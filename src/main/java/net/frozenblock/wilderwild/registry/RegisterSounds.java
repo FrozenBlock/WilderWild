@@ -184,6 +184,7 @@ public final class RegisterSounds {
 	public static final SoundEvent BLOCK_TUMBLEWEED_PLANT_BREAK = register("block.tumbleweed_plant.break");
 	public static final SoundEvent BLOCK_TUMBLEWEED_PLANT_STEP = register("block.tumbleweed_plant.step");
 	public static final SoundEvent BLOCK_TUMBLEWEED_PLANT_FALL = register("block.tumbleweed_plant.fall");
+	public static final SoundEvent BLOCK_TUMBLEWEED_SHEAR = register("block.tumbleweed_plant.shear");
 
     //ENTITY
 

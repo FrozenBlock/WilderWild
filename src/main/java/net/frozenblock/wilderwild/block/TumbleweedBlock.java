@@ -4,8 +4,11 @@ import java.util.Objects;
 import net.frozenblock.wilderwild.entity.Tumbleweed;
 import net.frozenblock.wilderwild.registry.RegisterBlocks;
 import net.frozenblock.wilderwild.registry.RegisterEntities;
+import net.frozenblock.wilderwild.registry.RegisterSounds;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.tags.BlockTags;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
@@ -17,6 +20,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.BushBlock;
 import net.minecraft.world.level.block.SimpleWaterloggedBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
@@ -32,7 +36,7 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-public class TumbleweedBlock extends Block implements SimpleWaterloggedBlock {
+public class TumbleweedBlock extends BushBlock implements SimpleWaterloggedBlock {
 	public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
 	protected static final VoxelShape COLLISION_SHAPE = Block.box(1.0D, 0.0D, 1.0D, 15.0D, 14.0D, 15.0D);
 	protected static final VoxelShape OUTLINE_SHAPE = Block.box(1.0D, 0.0D, 1.0D, 15.0D, 14.0D, 15.0D);
@@ -46,6 +50,7 @@ public class TumbleweedBlock extends Block implements SimpleWaterloggedBlock {
 	public InteractionResult use(@NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos, Player player, @NotNull InteractionHand hand, @NotNull BlockHitResult hit) {
 		ItemStack itemStack = player.getItemInHand(hand);
 		if (itemStack.is(Items.SHEARS)) {
+			level.playSound(null, pos, RegisterSounds.BLOCK_TUMBLEWEED_SHEAR, SoundSource.BLOCKS, 1.0F, 1.0F);
 			if (!level.isClientSide) {
 				Tumbleweed weed = new Tumbleweed(RegisterEntities.TUMBLEWEED, level);
 				level.addFreshEntity(weed);
@@ -71,6 +76,11 @@ public class TumbleweedBlock extends Block implements SimpleWaterloggedBlock {
 		FluidState fluidState = context.getLevel().getFluidState(context.getClickedPos());
 		boolean bl = fluidState.getType() == Fluids.WATER;
 		return Objects.requireNonNull(super.getStateForPlacement(context)).setValue(WATERLOGGED, bl);
+	}
+
+	@Override
+	protected boolean mayPlaceOn(BlockState state, @NotNull BlockGetter level, @NotNull BlockPos pos) {
+		return state.is(BlockTags.DEAD_BUSH_MAY_PLACE_ON);
 	}
 
 	@Override
