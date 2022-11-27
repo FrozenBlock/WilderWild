@@ -31,7 +31,7 @@ import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 
-/*@Mixin(value = SonicBoom.class, priority = 1001)
+@Mixin(value = SonicBoom.class, priority = 1001)
 public class SonicBoomMixin implements WilderSonicBoom {
 
 	@Unique
@@ -54,6 +54,14 @@ public class SonicBoomMixin implements WilderSonicBoom {
 		};
 	}
 
+	/*@ModifyConstant(method = "m_ehrxwrfs", constant = @Constant(intValue = 1))
+	private static int sus(int original) {
+		var vec32 = ((WilderSonicBoom) wilderWild$currentBoom).vec32();
+		if (((WilderSonicBoom) wilderWild$currentBoom).particlesEnded()) {
+			return Mth.floor(vec32.length()) + 10;
+		}
+		return original;
+	}*/
 
 	@ModifyVariable(method = {"m_ehrxwrfs","method_43265","lambda$tick$2"}, at = @At(value = "CONSTANT", args = "intValue=1", shift = At.Shift.BY, by = 3), require = 1)
 	private static int modifyInt(int original) {
@@ -176,4 +184,4 @@ public class SonicBoomMixin implements WilderSonicBoom {
 	public void endParticles() {
 		this.wilderWild$particlesEnded = true;
 	}
-}*/
+}
