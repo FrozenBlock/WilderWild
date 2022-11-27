@@ -64,7 +64,12 @@ public class CoconutBlock extends FallingBlock implements BonemealableBlock {
 		}
 	}
 
-    @Override
+	@Override
+	public VoxelShape getCollisionShape(@NotNull BlockState state, @NotNull BlockGetter level, @NotNull BlockPos pos, @NotNull CollisionContext context) {
+		return !isHanging(state) ? Shapes.empty() : super.getCollisionShape(state, level, pos, context);
+	}
+
+	@Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
         builder.add(STAGE, AGE, HANGING);
     }
@@ -149,7 +154,7 @@ public class CoconutBlock extends FallingBlock implements BonemealableBlock {
 
 	@Override
 	public boolean isPathfindable(@NotNull BlockState state, @NotNull BlockGetter level, @NotNull BlockPos pos, @NotNull PathComputationType type) {
-		if (type == PathComputationType.AIR && !this.hasCollision) {
+		if (type == PathComputationType.AIR && !isHanging(state)) {
 			return true;
 		}
 		return super.isPathfindable(state, level, pos, type);
