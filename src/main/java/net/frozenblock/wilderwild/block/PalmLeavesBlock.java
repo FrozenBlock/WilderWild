@@ -90,4 +90,9 @@ public class PalmLeavesBlock extends LeavesBlock implements BonemealableBlock {
 		}
 		return 7;
 	}
+
+	@Override
+	public boolean isRandomlyTicking(BlockState state) {
+		return !state.getValue(PERSISTENT);
+	}
 }
