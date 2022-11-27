@@ -578,6 +578,8 @@ public final class RegisterBlocks {
         CompostingChanceRegistry.INSTANCE.add(PURPLE_GLORY_OF_THE_SNOW, 0.65F);
         CompostingChanceRegistry.INSTANCE.add(ALGAE, 0.3F);
 		CompostingChanceRegistry.INSTANCE.add(BUSH, 0.65F);
+		CompostingChanceRegistry.INSTANCE.add(TUMBLEWEED_PLANT, 0.3F);
+		CompostingChanceRegistry.INSTANCE.add(TUMBLEWEED, 0.1F);
     }
 
     private static void registerFlammability() {
@@ -589,6 +591,7 @@ public final class RegisterBlocks {
         FlammableBlockRegistry.getDefaultInstance().add(RegisterBlocks.DATURA, 100, 60);
         FlammableBlockRegistry.getDefaultInstance().add(RegisterBlocks.MILKWEED, 100, 60);
 		FlammableBlockRegistry.getDefaultInstance().add(RegisterBlocks.TUMBLEWEED, 100, 20);
+		FlammableBlockRegistry.getDefaultInstance().add(RegisterBlocks.TUMBLEWEED_PLANT, 100, 20);
 
         FlammableBlockRegistry.getDefaultInstance().add(RegisterBlocks.HOLLOWED_BIRCH_LOG, 5, 5);
         FlammableBlockRegistry.getDefaultInstance().add(RegisterBlocks.HOLLOWED_OAK_LOG, 5, 5);
@@ -663,6 +666,7 @@ public final class RegisterBlocks {
 		registry.add(PALM_FENCE.asItem(), 300);
 		registry.add(PALM_FENCE_GATE.asItem(), 300);
 		registry.add(TUMBLEWEED.asItem(), 150);
+		registry.add(TUMBLEWEED_PLANT.asItem(), 150);
     }
 
     private static void registerBonemeal() {
