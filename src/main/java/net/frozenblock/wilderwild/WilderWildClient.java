@@ -105,7 +105,6 @@ public final class WilderWildClient implements ClientModInitializer {
         BlockRenderLayerMap.INSTANCE.putBlock(RegisterBlocks.BLUE_GLORY_OF_THE_SNOW, RenderType.cutout());
         BlockRenderLayerMap.INSTANCE.putBlock(RegisterBlocks.PINK_GLORY_OF_THE_SNOW, RenderType.cutout());
         BlockRenderLayerMap.INSTANCE.putBlock(RegisterBlocks.PURPLE_GLORY_OF_THE_SNOW, RenderType.cutout());
-		BlockRenderLayerMap.INSTANCE.putBlock(RegisterBlocks.SHRUB, RenderType.cutout());
 		BlockRenderLayerMap.INSTANCE.putBlock(RegisterBlocks.BUSH, RenderType.cutout());
         //BlockRenderLayerMap.INSTANCE.putBlock(RegisterBlocks.CYPRESS_ROOTS, RenderLayer.getCutout());
         BlockRenderLayerMap.INSTANCE.putBlock(RegisterBlocks.TERMITE_MOUND, RenderType.solid());
@@ -134,6 +133,7 @@ public final class WilderWildClient implements ClientModInitializer {
         BlockRenderLayerMap.INSTANCE.putBlock(RegisterBlocks.PINK_NEMATOCYST, RenderType.translucent());
         BlockRenderLayerMap.INSTANCE.putBlock(RegisterBlocks.RED_NEMATOCYST, RenderType.translucent());
         BlockRenderLayerMap.INSTANCE.putBlock(RegisterBlocks.YELLOW_NEMATOCYST, RenderType.translucent());
+		BlockRenderLayerMap.INSTANCE.putBlock(RegisterBlocks.TUMBLEWEED_PLANT, RenderType.cutout());
 		BlockRenderLayerMap.INSTANCE.putBlock(RegisterBlocks.TUMBLEWEED, RenderType.cutout());
 		//BlockRenderLayerMap.INSTANCE.putBlock(RegisterBlocks.NEMATOCYST, RenderType.cutout());
 
@@ -256,10 +256,6 @@ public final class WilderWildClient implements ClientModInitializer {
             assert level != null;
             return BiomeColors.getAverageFoliageColor(level, pos);
         }), RegisterBlocks.POTTED_GRASS);
-		ColorProviderRegistry.BLOCK.register(((state, level, pos, tintIndex) -> {
-			assert level != null;
-			return BiomeColors.getAverageFoliageColor(level, pos);
-		}), RegisterBlocks.SHRUB);
     }
 
     private static void receiveAncientHornProjectilePacket() {
