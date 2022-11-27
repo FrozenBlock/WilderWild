@@ -96,7 +96,7 @@ public final class SharedWorldgen {
 	public static final class Oasis {
 		public static final Climate.Parameter WARM_RANGE = Climate.Parameter.span(0.55F, 1.0F);
 		public static final Climate.Parameter HUMIDITY_DRY = Climate.Parameter.span(-0.35F, -0.1F);
-		public static final Climate.Parameter CONTINENTALNESS = Climate.Parameter.span(Continentalness.NEAR_INLAND, Continentalness.FAR_INLAND);
+		public static final Climate.Parameter CONTINENTALNESS = Climate.Parameter.span(Continentalness.COAST, Continentalness.FAR_INLAND);
 		public static final Climate.Parameter EROSION = Climate.Parameter.span(Erosion.EROSION_3, Erosion.EROSION_4);
 		public static final Climate.Parameter DEPTH = Depth.SURFACE;
 		public static final List<Climate.Parameter> WEIRDNESS = new ArrayList<>() {{
@@ -160,8 +160,7 @@ public final class SharedWorldgen {
 						)
 				)
 		);
-		list.add(
-				SurfaceRules.sequence(SurfaceRules.ifTrue(SurfaceRules.isBiome(RegisterWorldgen.OASIS), SurfaceRules.sequence(SurfaceRules.ifTrue(SurfaceRules.ON_CEILING, SANDSTONE), SAND)), STONE));
+		list.add(SurfaceRules.sequence(SurfaceRules.ifTrue(SurfaceRules.isBiome(RegisterWorldgen.OASIS), SurfaceRules.sequence(SurfaceRules.ifTrue(SurfaceRules.ON_CEILING, SANDSTONE), SAND)), STONE));
 		list.add(SurfaceRules.sequence(SurfaceRules.ifTrue(SurfaceRules.ON_FLOOR, SurfaceRules.sequence(SurfaceRules.ifTrue(SurfaceRules.isBiome(RegisterWorldgen.OASIS), SurfaceRules.ifTrue(SurfaceRules.VERY_DEEP_UNDER_FLOOR, SANDSTONE)))), SurfaceRules.sequence(SurfaceRules.ifTrue(SurfaceRules.ON_CEILING, STONE), GRAVEL)));
 
 		if (ClothConfigInteractionHandler.betaBeaches()) {
