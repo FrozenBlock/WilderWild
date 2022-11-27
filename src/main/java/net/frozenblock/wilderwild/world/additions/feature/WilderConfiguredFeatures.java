@@ -259,10 +259,10 @@ public final class WilderConfiguredFeatures {
 			register("oasis_grass", Feature.RANDOM_PATCH,
 					FeatureUtils.simpleRandomPatchConfiguration(54, PlacementUtils.onlyWhenEmpty(Feature.SIMPLE_BLOCK,
 							new SimpleBlockConfiguration(new WeightedStateProvider(OASIS_GRASS_POOL)))));
-	public static final SimpleWeightedRandomList<BlockState> OASIS_BUSH_POOL = SimpleWeightedRandomList.<BlockState>builder().add(Blocks.DEAD_BUSH.defaultBlockState(), 5).add(RegisterBlocks.BUSH.defaultBlockState(), 1).build();
+	public static final SimpleWeightedRandomList<BlockState> OASIS_BUSH_POOL = SimpleWeightedRandomList.<BlockState>builder().add(Blocks.DEAD_BUSH.defaultBlockState(), 8).add(RegisterBlocks.BUSH.defaultBlockState().setValue(BlockStateProperties.AGE_1, 0), 1).add(RegisterBlocks.BUSH.defaultBlockState().setValue(BlockStateProperties.AGE_1, 1), 2).build();
 	public static final Holder<ConfiguredFeature<RandomPatchConfiguration, ?>> OASIS_BUSH =
 			register("oasis_bush", Feature.RANDOM_PATCH,
-					FeatureUtils.simpleRandomPatchConfiguration(30, PlacementUtils.onlyWhenEmpty(Feature.SIMPLE_BLOCK,
+					FeatureUtils.simpleRandomPatchConfiguration(25, PlacementUtils.onlyWhenEmpty(Feature.SIMPLE_BLOCK,
 							new SimpleBlockConfiguration(new WeightedStateProvider(OASIS_BUSH_POOL)))));
 
     public static final SimpleWeightedRandomList<BlockState> LARGE_FERN_AND_GRASS_POOL = SimpleWeightedRandomList.<BlockState>builder().add(Blocks.TALL_GRASS.defaultBlockState(), 3).add(Blocks.LARGE_FERN.defaultBlockState(), 3).build();

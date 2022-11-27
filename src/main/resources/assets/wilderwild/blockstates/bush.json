@@ -1,7 +1,10 @@
 {
   "variants": {
-    "": {
-      "model": "wilderwild:block/bush"
+    "age=0": {
+      "model": "wilderwild:block/bush_age_0"
+    },
+    "age=1": {
+      "model": "wilderwild:block/bush_age_1"
     }
   }
 }
