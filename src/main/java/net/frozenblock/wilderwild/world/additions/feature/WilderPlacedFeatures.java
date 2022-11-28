@@ -271,7 +271,7 @@ public final class WilderPlacedFeatures {
             WilderConfiguredFeatures.TERMITE_CONFIGURED, RarityFilter.onAverageOnceEvery(45), CountPlacement.of(1), PlacementUtils.HEIGHTMAP_WORLD_SURFACE, InSquarePlacement.spread(), SurfaceRelativeThresholdFilter.of(Heightmap.Types.WORLD_SURFACE_WG, 0, 128), BiomeFilter.biome());
 
 	public static final Holder<PlacedFeature> TUMBLEWEED = register("tumbleweed",
-			WilderConfiguredFeatures.TUMBLEWEED, CountPlacement.of(2), PlacementUtils.HEIGHTMAP_WORLD_SURFACE, BiomeFilter.biome());
+			WilderConfiguredFeatures.TUMBLEWEED, RarityFilter.onAverageOnceEvery(2), CountPlacement.of(1), PlacementUtils.HEIGHTMAP_WORLD_SURFACE, BiomeFilter.biome());
 
     public static final Holder<PlacedFeature> JELLYFISH_CAVES_BLUE_MESOGLEA = register(
             "blue_mesoglea",
