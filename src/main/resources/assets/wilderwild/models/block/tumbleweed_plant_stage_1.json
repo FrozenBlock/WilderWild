@@ -97,6 +97,7 @@
 			"name": "outer",
 			"origin": [0, 0, 0],
 			"color": 0,
+			"shade": false,
 			"children": [0, 1]
 		},
 		{
