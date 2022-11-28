@@ -34,10 +34,10 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.NotNull;
 
 public class TumbleweedPlantBlock extends BushBlock implements BonemealableBlock {
-	private static final VoxelShape FIRST_SHAPE = Block.box(4, 0, 4, 12, 8, 12);
-	private static final VoxelShape SECOND_SHAPE = Block.box(3, 0, 4, 13, 10, 13);
-	private static final VoxelShape THIRD_SHAPE = Block.box(1.0, 0.0, 1.0, 15.0, 14.0, 15.0);
-	private static final VoxelShape FOURTH_SHAPE = Block.box(1.0, 0.0, 1.0, 15.0, 14.0, 15.0);
+	private static final VoxelShape FIRST_SHAPE = Block.box(3, 0, 3, 12, 9, 12);
+	private static final VoxelShape SECOND_SHAPE = Block.box(2, 0, 2, 14, 12, 14);
+	private static final VoxelShape THIRD_SHAPE = Block.box(1, 0, 1, 15, 14, 15);
+	private static final VoxelShape FOURTH_SHAPE = Block.box(1, 0, 1, 15, 14, 15);
 	public static final IntegerProperty AGE = BlockStateProperties.AGE_7;
 
 	public TumbleweedPlantBlock(BlockBehaviour.Properties properties) {

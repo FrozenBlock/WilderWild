@@ -16,7 +16,7 @@
 	  "model": "wilderwild:block/tumbleweed_plant_stage_2"
 	},
 	"age=5": {
-	  "model": "wilderwild:block/tumbleweed_plant_stage_2"
+	  "model": "wilderwild:block/tumbleweed_plant_stage_3"
 	},
     "age=6": {
       "model": "wilderwild:block/tumbleweed_plant_stage_3"
