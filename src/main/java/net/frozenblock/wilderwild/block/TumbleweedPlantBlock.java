@@ -38,7 +38,7 @@ public class TumbleweedPlantBlock extends BushBlock implements BonemealableBlock
 	private static final VoxelShape SECOND_SHAPE = Block.box(2, 0, 2, 14, 12, 14);
 	private static final VoxelShape THIRD_SHAPE = Block.box(1, 0, 1, 15, 14, 15);
 	private static final VoxelShape FOURTH_SHAPE = Block.box(1, 0, 1, 15, 14, 15);
-	public static final IntegerProperty AGE = BlockStateProperties.AGE_7;
+	public static final IntegerProperty AGE = BlockStateProperties.AGE_3;
 
 	public TumbleweedPlantBlock(BlockBehaviour.Properties properties) {
 		super(properties);
@@ -47,7 +47,7 @@ public class TumbleweedPlantBlock extends BushBlock implements BonemealableBlock
 	@Override
 	public void randomTick(@NotNull BlockState state, @NotNull ServerLevel level, @NotNull BlockPos pos, @NotNull RandomSource random) {
 		if (isFullyGrown(state)) {
-			if (random.nextInt(0, 3) == 0) {
+			if (random.nextInt(0, 2) == 0) {
 				level.setBlockAndUpdate(pos, state.setValue(AGE, 0));
 				Tumbleweed weed = new Tumbleweed(RegisterEntities.TUMBLEWEED, level);
 				level.addFreshEntity(weed);
@@ -57,21 +57,21 @@ public class TumbleweedPlantBlock extends BushBlock implements BonemealableBlock
 				level.gameEvent(null, GameEvent.BLOCK_CHANGE, pos);
 			}
 		} else {
-			level.setBlockAndUpdate(pos, state.setValue(AGE, Math.min(7, state.getValue(AGE) + random.nextInt(1, 3))));
+			level.setBlockAndUpdate(pos, state.setValue(AGE, state.getValue(AGE) + 1));
 		}
 	}
 
 	@Override
 	public VoxelShape getCollisionShape(@NotNull BlockState blockState, @NotNull BlockGetter blockGetter, @NotNull BlockPos blockPos, @NotNull CollisionContext collisionContext) {
-		return blockState.getValue(AGE) < 4 ? Shapes.empty() : super.getCollisionShape(blockState, blockGetter, blockPos, collisionContext);
+		return blockState.getValue(AGE) < 2 ? Shapes.empty() : super.getCollisionShape(blockState, blockGetter, blockPos, collisionContext);
 	}
 
 	@Override
 	public VoxelShape getShape(@NotNull BlockState state, @NotNull BlockGetter level, @NotNull BlockPos pos, @NotNull CollisionContext context) {
 		return switch (state.getValue(AGE)) {
-			case 0, 1 -> FIRST_SHAPE;
-			case 2, 3 -> SECOND_SHAPE;
-			case 4, 5 -> THIRD_SHAPE;
+			case 0 -> FIRST_SHAPE;
+			case 1 -> SECOND_SHAPE;
+			case 2 -> THIRD_SHAPE;
 			default -> FOURTH_SHAPE;
 		};
 	}
@@ -82,7 +82,7 @@ public class TumbleweedPlantBlock extends BushBlock implements BonemealableBlock
 	}
 
 	public static boolean isFullyGrown(BlockState state) {
-		return state.getValue(AGE) == 7;
+		return state.getValue(AGE) == 3;
 	}
 
 	@Override
@@ -97,7 +97,7 @@ public class TumbleweedPlantBlock extends BushBlock implements BonemealableBlock
 
 	@Override
 	public void performBonemeal(@NotNull ServerLevel level, @NotNull RandomSource random, @NotNull BlockPos pos, @NotNull BlockState state) {
-		level.setBlockAndUpdate(pos, state.setValue(AGE, Math.min(7, state.getValue(AGE) + random.nextInt(1, 3))));
+		level.setBlockAndUpdate(pos, state.setValue(AGE, Math.min(3, state.getValue(AGE) + random.nextInt(1, 2))));
 	}
 
 	@Override
