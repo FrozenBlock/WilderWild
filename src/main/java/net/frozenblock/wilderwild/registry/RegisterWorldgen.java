@@ -10,6 +10,7 @@ import net.frozenblock.wilderwild.world.generation.noise.WilderNoise;
 import net.minecraft.core.Registry;
 import net.minecraft.data.BuiltinRegistries;
 import net.minecraft.data.worldgen.BiomeDefaultFeatures;
+import net.minecraft.data.worldgen.SurfaceRuleData;
 import net.minecraft.data.worldgen.biome.OverworldBiomes;
 import static net.minecraft.data.worldgen.biome.OverworldBiomes.jungle;
 import static net.minecraft.data.worldgen.biome.OverworldBiomes.swamp;
@@ -57,6 +58,7 @@ public final class RegisterWorldgen implements SurfaceRuleEvents.OverworldModifi
 		if (!FrozenBools.HAS_TERRABLENDER) {
 			context.materialRules().add(0, SharedWorldgen.cypressSurfaceRules());
 			context.materialRules().add(SharedWorldgen.cypressSurfaceRules());
+			context.materialRules().add(SharedWorldgen.oasisSurfaceRules());
 			if (ClothConfigInteractionHandler.betaBeaches()) {
 				context.materialRules().add(0, SharedWorldgen.betaBeaches());
 				context.materialRules().add(SharedWorldgen.betaBeaches());
