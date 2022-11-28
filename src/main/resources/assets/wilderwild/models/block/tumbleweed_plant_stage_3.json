@@ -4,7 +4,7 @@
 	"ambientocclusion": false,
 	"textures": {
 		"2": "wilderwild:block/tumbleweed_fan_stage_3",
-		"3": "wilderwild:block/tumbleweed_inner",
+		"3": "wilderwild:block/tumbleweed_inner_stage_3",
 		"particle": "wilderwild:block/tumbleweed_stage_3",
 		"top": "wilderwild:block/tumbleweed_stage_3"
 	},

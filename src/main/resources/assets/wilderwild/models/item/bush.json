@@ -1,6 +1,6 @@
 {
   "parent": "item/generated",
   "textures": {
-    "layer0": "wilderwild:block/bush_bottom_2"
+    "layer0": "wilderwild:block/bush_stage_0"
   }
 }

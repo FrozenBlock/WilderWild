@@ -3,10 +3,9 @@
 	"parent": "block/block",
 	"ambientocclusion": false,
 	"textures": {
-		"2": "wilderwild:block/tumbleweed_fan_stage_3",
-		"3": "wilderwild:block/tumbleweed_inner",
-		"particle": "wilderwild:block/tumbleweed_stage_3",
-		"top": "wilderwild:block/tumbleweed_stage_3"
+		"2": "wilderwild:block/tumbleweed_fan_stage_2",
+		"particle": "wilderwild:block/tumbleweed_stage_2",
+		"top": "wilderwild:block/tumbleweed_stage_2"
 	},
 	"elements": [
 		{
@@ -31,30 +30,6 @@
 				"west": {"uv": [15, 1, 1, 15], "texture": "#top"},
 				"up": {"uv": [15, 1, 1, 15], "texture": "#top"},
 				"down": {"uv": [15, 1, 1, 15], "texture": "#top"}
-			}
-		},
-		{
-			"from": [2, 1, 2],
-			"to": [14, 13, 14],
-			"faces": {
-				"north": {"uv": [2, 2, 14, 14], "texture": "#3"},
-				"east": {"uv": [2, 2, 14, 14], "texture": "#3"},
-				"south": {"uv": [2, 2, 14, 14], "texture": "#3"},
-				"west": {"uv": [2, 2, 14, 14], "texture": "#3"},
-				"up": {"uv": [2, 2, 14, 14], "texture": "#3"},
-				"down": {"uv": [2, 2, 14, 14], "texture": "#3"}
-			}
-		},
-		{
-			"from": [14, 13, 14],
-			"to": [2, 1, 2],
-			"faces": {
-				"north": {"uv": [14, 2, 2, 14], "texture": "#3"},
-				"east": {"uv": [14, 2, 2, 14], "texture": "#3"},
-				"south": {"uv": [14, 2, 2, 14], "texture": "#3"},
-				"west": {"uv": [14, 2, 2, 14], "texture": "#3"},
-				"up": {"uv": [14, 2, 2, 14], "texture": "#3"},
-				"down": {"uv": [14, 2, 2, 14], "texture": "#3"}
 			}
 		},
 		{
@@ -110,17 +85,11 @@
 			"children": [0, 1]
 		},
 		{
-			"name": "inner",
-			"origin": [0, 0, 0],
-			"color": 0,
-			"children": [2, 3]
-		},
-		{
 			"name": "fan",
 			"origin": [14, 0, 8],
 			"color": 0,
 			"shade": false,
-			"children": [4, 5, 6, 7]
+			"children": [2, 3, 4, 5]
 		}
 	]
 }

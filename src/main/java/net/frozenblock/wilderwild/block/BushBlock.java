@@ -10,7 +10,6 @@ import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.BonemealableBlock;
-import net.minecraft.world.level.block.BushBlock;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
@@ -18,10 +17,10 @@ import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import org.jetbrains.annotations.NotNull;
 
-public class WilderBushBlock extends BushBlock implements BonemealableBlock {
+public class BushBlock extends net.minecraft.world.level.block.BushBlock implements BonemealableBlock {
 	private static final ShrubBushGrower TREE_GROWER = new ShrubBushGrower();
 	public static final IntegerProperty AGE = BlockStateProperties.AGE_1;
-	public WilderBushBlock(BlockBehaviour.Properties properties) {
+	public BushBlock(BlockBehaviour.Properties properties) {
 		super(properties);
 		this.registerDefaultState(this.stateDefinition.any().setValue(AGE, 0));
 	}
