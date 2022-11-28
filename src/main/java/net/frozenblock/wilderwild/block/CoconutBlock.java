@@ -2,6 +2,7 @@ package net.frozenblock.wilderwild.block;
 
 import java.util.Objects;
 import net.frozenblock.wilderwild.registry.RegisterBlocks;
+import net.frozenblock.wilderwild.registry.RegisterSounds;
 import net.frozenblock.wilderwild.world.generation.sapling.PalmSaplingGenerator;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -43,8 +44,8 @@ public class CoconutBlock extends FallingBlock implements BonemealableBlock {
     public static final IntegerProperty AGE = BlockStateProperties.AGE_2;
     private static final VoxelShape[] SHAPES = new VoxelShape[]{
             Shapes.or(Block.box(2, 9, 2, 14, 16, 14)),
-            Shapes.or(Block.box(2, 9, 2, 14, 16, 14)),
             Shapes.or(Block.box(1, 8, 1, 15, 16, 15)),
+            Shapes.or(Block.box(0, 5, 0, 16, 16, 15)),
             Block.box(2, 0, 2, 14, 12, 14)
     };
 	private final AbstractTreeGrower treeGrower;
@@ -201,7 +202,7 @@ public class CoconutBlock extends FallingBlock implements BonemealableBlock {
 			if (isFullyGrown(fallingBlock.getBlockState())) {
 				level.addFreshEntity(new ItemEntity(level, pos.getX() + 0.5, pos.getY() + 0.25, pos.getZ() + 0.5, new ItemStack(RegisterBlocks.COCONUT)));
 			}
-			level.playSound(null, pos, SoundEvents.WOOD_BREAK, SoundSource.BLOCKS, 1.0F, 1.0F);
+			level.playSound(null, pos, RegisterSounds.BLOCK_COCONUT_CRACK, SoundSource.BLOCKS, 1.0F, 1.0F);
 			level.setBlock(pos, replaceableState, 3);
 		}
 	}

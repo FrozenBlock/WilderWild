@@ -57,7 +57,7 @@ public class TumbleweedPlantBlock extends BushBlock implements BonemealableBlock
 				level.gameEvent(null, GameEvent.BLOCK_CHANGE, pos);
 			}
 		} else {
-			level.setBlockAndUpdate(pos, state.setValue(AGE, state.getValue(AGE) + random.nextInt(1, 2)));
+			level.setBlockAndUpdate(pos, state.setValue(AGE, state.getValue(AGE) + Math.min(7,random.nextInt(1, 2))));
 		}
 	}
 

@@ -25,6 +25,14 @@ public final class RegisterBlockSoundGroups {
             BLOCK_BAOBAB_NUT_FALL
     );
 
+	public static final SoundType COCONUT = new SoundType(1.0F, 1.0F,
+			BLOCK_COCONUT_BREAK,
+			BLOCK_COCONUT_STEP,
+			BLOCK_COCONUT_PLACE,
+			BLOCK_COCONUT_HIT,
+			BLOCK_COCONUT_FALL
+	);
+
     public static final SoundType CLAY_BLOCK = new SoundType(1.0F, 1.0F,
             BLOCK_CLAY_BREAK,
             BLOCK_CLAY_STEP,
