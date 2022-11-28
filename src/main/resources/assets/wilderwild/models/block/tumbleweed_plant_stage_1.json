@@ -10,6 +10,7 @@
 		{
 			"from": [3.01, 0.01, 3.01],
 			"to": [12.99, 9.99, 12.99],
+			"shade": false,
 			"faces": {
 				"north": {"uv": [3, 3, 13, 13], "texture": "#top"},
 				"east": {"uv": [3, 3, 13, 13], "texture": "#top"},
@@ -22,6 +23,7 @@
 		{
 			"from": [13.01, 10.01, 13.01],
 			"to": [3.03, 0.03, 3.03],
+			"shade": false,
 			"faces": {
 				"north": {"uv": [13, 3, 3, 13], "texture": "#top"},
 				"east": {"uv": [13, 3, 3, 13], "texture": "#top"},
