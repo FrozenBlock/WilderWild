@@ -39,6 +39,13 @@ public final class RegisterSounds {
     public static final SoundEvent BLOCK_BAOBAB_NUT_STEP = register("block.baobab_nut.step");
     public static final SoundEvent BLOCK_BAOBAB_NUT_FALL = register("block.baobab_nut.fall");
 
+	public static final SoundEvent BLOCK_COCONUT_PLACE = register("block.coconut.place");
+	public static final SoundEvent BLOCK_COCONUT_HIT = register("block.coconut.hit");
+	public static final SoundEvent BLOCK_COCONUT_BREAK = register("block.coconut.break");
+	public static final SoundEvent BLOCK_COCONUT_STEP = register("block.coconut.step");
+	public static final SoundEvent BLOCK_COCONUT_FALL = register("block.coconut.fall");
+	public static final SoundEvent BLOCK_COCONUT_CRACK = register("block.coconut.crack");
+
 	public static final SoundEvent BLOCK_CHEST_CLOSE_UNDERWATER = register("block.chest.close_underwater");
 	public static final SoundEvent BLOCK_CHEST_OPEN_UNDERWATER = register("block.chest.open_underwater");
 

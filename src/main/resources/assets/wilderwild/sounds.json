@@ -545,6 +545,57 @@
 	],
 	"subtitle": "subtitles.block.generic.footsteps"
   },
+  "block.coconut.break": {
+    "sounds": [
+      "wilderwild:block/coconut/break1",
+      "wilderwild:block/coconut/break2",
+      "wilderwild:block/coconut/break3",
+      "wilderwild:block/coconut/break4"
+    ],
+    "subtitle": "subtitles.block.generic.break"
+  },
+  "block.coconut.crack": {
+    "sounds": [
+      "wilderwild:block/coconut/crack1",
+      "wilderwild:block/coconut/crack2"
+    ],
+    "subtitle": "subtitles.block.generic.break"
+  },
+  "block.coconut.fall": {
+    "sounds": [
+      "wilderwild:block/coconut/step1",
+      "wilderwild:block/coconut/step2",
+      "wilderwild:block/coconut/step3",
+      "wilderwild:block/coconut/step4"
+    ]
+  },
+  "block.coconut.hit": {
+    "sounds": [
+      "wilderwild:block/coconut/step1",
+      "wilderwild:block/coconut/step2",
+      "wilderwild:block/coconut/step3",
+      "wilderwild:block/coconut/step4"
+    ],
+    "subtitle": "subtitles.block.generic.hit"
+  },
+  "block.coconut.place": {
+    "sounds": [
+      "wilderwild:block/coconut/break1",
+      "wilderwild:block/coconut/break2",
+      "wilderwild:block/coconut/break3",
+      "wilderwild:block/coconut/break4"
+    ],
+    "subtitle": "subtitles.block.generic.place"
+  },
+  "block.coconut.step": {
+    "sounds": [
+      "wilderwild:block/coconut/step1",
+      "wilderwild:block/coconut/step2",
+      "wilderwild:block/coconut/step3",
+      "wilderwild:block/coconut/step4"
+    ],
+    "subtitle": "subtitles.block.generic.footsteps"
+  },
   "block.echo_glass.break": {
 	"sounds": [
 	  "wilderwild:block/echo_glass/break1",
