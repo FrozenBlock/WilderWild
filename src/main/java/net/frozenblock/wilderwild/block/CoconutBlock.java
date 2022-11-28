@@ -11,7 +11,9 @@ import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.item.FallingBlockEntity;
+import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.projectile.Projectile;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
@@ -62,7 +64,12 @@ public class CoconutBlock extends FallingBlock implements BonemealableBlock {
 		}
 	}
 
-    @Override
+	@Override
+	public VoxelShape getCollisionShape(@NotNull BlockState state, @NotNull BlockGetter level, @NotNull BlockPos pos, @NotNull CollisionContext context) {
+		return !isHanging(state) ? Shapes.empty() : super.getCollisionShape(state, level, pos, context);
+	}
+
+	@Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
         builder.add(STAGE, AGE, HANGING);
     }
@@ -110,15 +117,17 @@ public class CoconutBlock extends FallingBlock implements BonemealableBlock {
 
     @Override
     public void randomTick(@NotNull BlockState state, @NotNull ServerLevel level, @NotNull BlockPos pos, @NotNull RandomSource random) {
-        if (!isHanging(state)) {
-            if (random.nextInt(7) == 0) {
-                this.advanceTree(level, pos, state, random);
-            }
-        } else {
-            if (!isFullyGrown(state)) {
-                level.setBlock(pos, state.cycle(AGE), 2);
-            }
-        }
+		if (level.getMaxLocalRawBrightness(pos.above()) >= 9) {
+			if (!isHanging(state)) {
+				if (random.nextInt(7) == 0) {
+					this.advanceTree(level, pos, state, random);
+				}
+			} else {
+				if (!isFullyGrown(state)) {
+					level.setBlock(pos, state.cycle(AGE), 2);
+				}
+			}
+		}
     }
 
 	@Override
@@ -147,7 +156,7 @@ public class CoconutBlock extends FallingBlock implements BonemealableBlock {
 
 	@Override
 	public boolean isPathfindable(@NotNull BlockState state, @NotNull BlockGetter level, @NotNull BlockPos pos, @NotNull PathComputationType type) {
-		if (type == PathComputationType.AIR && !this.hasCollision) {
+		if (type == PathComputationType.AIR && !isHanging(state)) {
 			return true;
 		}
 		return super.isPathfindable(state, level, pos, type);
@@ -156,8 +165,12 @@ public class CoconutBlock extends FallingBlock implements BonemealableBlock {
 	@Override
 	public void onProjectileHit(@NotNull Level level, @NotNull BlockState state, @NotNull BlockHitResult hit, @NotNull Projectile projectile) {
 		if (isHanging(state)) {
-			FallingBlockEntity fallingBlockEntity = FallingBlockEntity.fall(level, hit.getBlockPos(), state);
-			this.falling(fallingBlockEntity);
+			if (isFullyGrown(state)) {
+				FallingBlockEntity fallingBlockEntity = FallingBlockEntity.fall(level, hit.getBlockPos(), state);
+				this.falling(fallingBlockEntity);
+			} else {
+				level.destroyBlock(hit.getBlockPos(), true);
+			}
 		}
 	}
 
@@ -172,16 +185,25 @@ public class CoconutBlock extends FallingBlock implements BonemealableBlock {
 			return;
 		}
 		if (isHanging(state) && !state.canSurvive(level, pos)) {
-			FallingBlockEntity fallingBlockEntity = FallingBlockEntity.fall(level, pos, state);
-			this.falling(fallingBlockEntity);
+			if (isFullyGrown(state)) {
+				FallingBlockEntity fallingBlockEntity = FallingBlockEntity.fall(level, pos, state);
+				this.falling(fallingBlockEntity);
+			} else {
+				level.destroyBlock(pos, true);
+			}
 		}
 	}
 
 	@Override
 	public void onLand(@NotNull Level level, @NotNull BlockPos pos, @NotNull BlockState state, @NotNull BlockState replaceableState, @NotNull FallingBlockEntity fallingBlock) {
-		level.destroyBlock(pos, true);
-		level.playSound(null, pos, SoundEvents.WOOD_BREAK, SoundSource.BLOCKS, 1.0F, 1.0F);
-		level.setBlock(pos, replaceableState, 3);
+		if (!level.isClientSide) {
+			level.destroyBlock(pos, false);
+			if (isFullyGrown(fallingBlock.getBlockState())) {
+				level.addFreshEntity(new ItemEntity(level, pos.getX() + 0.5, pos.getY() + 0.25, pos.getZ() + 0.5, new ItemStack(RegisterBlocks.COCONUT)));
+			}
+			level.playSound(null, pos, SoundEvents.WOOD_BREAK, SoundSource.BLOCKS, 1.0F, 1.0F);
+			level.setBlock(pos, replaceableState, 3);
+		}
 	}
 
 	@Override

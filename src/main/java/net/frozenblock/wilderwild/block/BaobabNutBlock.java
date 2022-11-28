@@ -74,17 +74,17 @@ public class BaobabNutBlock extends SaplingBlock {
 
     @Override
     public void randomTick(@NotNull BlockState state, @NotNull ServerLevel level, @NotNull BlockPos pos, @NotNull RandomSource random) {
-        if (!isHanging(state)) {
-            if (random.nextInt(7) == 0) {
-                this.advanceTree(level, pos, state, random);
-            }
-
-        } else {
-            if (!isFullyGrown(state)) {
-                level.setBlock(pos, state.cycle(AGE), 2);
-            }
-
-        }
+		if (level.getMaxLocalRawBrightness(pos.above()) >= 9) {
+			if (!isHanging(state)) {
+				if (random.nextInt(7) == 0) {
+					this.advanceTree(level, pos, state, random);
+				}
+			} else {
+				if (!isFullyGrown(state)) {
+					level.setBlock(pos, state.cycle(AGE), 2);
+				}
+			}
+		}
     }
 
 	@Override

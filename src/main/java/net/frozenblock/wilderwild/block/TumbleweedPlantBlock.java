@@ -3,14 +3,21 @@ package net.frozenblock.wilderwild.block;
 import net.frozenblock.wilderwild.entity.Tumbleweed;
 import net.frozenblock.wilderwild.registry.RegisterEntities;
 import net.frozenblock.wilderwild.registry.RegisterSounds;
+import net.frozenblock.wilderwild.tag.WilderBlockTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.util.RandomSource;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.BonemealableBlock;
 import net.minecraft.world.level.block.BushBlock;
 import net.minecraft.world.level.block.state.BlockBehaviour;
@@ -19,6 +26,7 @@ import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.level.gameevent.GameEvent;
+import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
@@ -26,10 +34,11 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.NotNull;
 
 public class TumbleweedPlantBlock extends BushBlock implements BonemealableBlock {
-	//TODO: Shapes for stages 0, 1, 2, 3, and 4
-	protected static final VoxelShape SHAPE = Block.box(0.0, 0.0, 0.0, 16.0, 13.0, 16.0);
-	//Starts growing tumbleweed at 3
-	public static final IntegerProperty AGE = BlockStateProperties.AGE_5;
+	private static final VoxelShape FIRST_SHAPE = Block.box(4, 0, 4, 12, 8, 12);
+	private static final VoxelShape SECOND_SHAPE = Block.box(3, 0, 4, 13, 10, 13);
+	private static final VoxelShape THIRD_SHAPE = Block.box(1.0, 0.0, 1.0, 15.0, 14.0, 15.0);
+	private static final VoxelShape FOURTH_SHAPE = Block.box(1.0, 0.0, 1.0, 15.0, 14.0, 15.0);
+	public static final IntegerProperty AGE = BlockStateProperties.AGE_7;
 
 	public TumbleweedPlantBlock(BlockBehaviour.Properties properties) {
 		super(properties);
@@ -39,7 +48,7 @@ public class TumbleweedPlantBlock extends BushBlock implements BonemealableBlock
 	public void randomTick(@NotNull BlockState state, @NotNull ServerLevel level, @NotNull BlockPos pos, @NotNull RandomSource random) {
 		if (isFullyGrown(state)) {
 			if (random.nextInt(0, 5) == 0) {
-				level.setBlockAndUpdate(pos, state.setValue(AGE, 2));
+				level.setBlockAndUpdate(pos, state.setValue(AGE, 0));
 				Tumbleweed weed = new Tumbleweed(RegisterEntities.TUMBLEWEED, level);
 				level.addFreshEntity(weed);
 				weed.setPos(new Vec3(pos.getX() + 0.5, pos.getY(), pos.getZ() + 0.5));
@@ -58,16 +67,21 @@ public class TumbleweedPlantBlock extends BushBlock implements BonemealableBlock
 
 	@Override
 	public VoxelShape getShape(@NotNull BlockState state, @NotNull BlockGetter level, @NotNull BlockPos pos, @NotNull CollisionContext context) {
-		return SHAPE;
+		return switch (state.getValue(AGE)) {
+			case 0, 1 -> FIRST_SHAPE;
+			case 2, 3 -> SECOND_SHAPE;
+			case 4, 5 -> THIRD_SHAPE;
+			default -> FOURTH_SHAPE;
+		};
 	}
 
 	@Override
 	protected boolean mayPlaceOn(BlockState state, @NotNull BlockGetter level, @NotNull BlockPos pos) {
-		return state.is(BlockTags.DEAD_BUSH_MAY_PLACE_ON);
+		return state.is(BlockTags.DEAD_BUSH_MAY_PLACE_ON) || state.is(BlockTags.DIRT) || state.is(Blocks.FARMLAND) || state.is(WilderBlockTags.BUSH_MAY_PLACE_ON);
 	}
 
 	public static boolean isFullyGrown(BlockState state) {
-		return state.getValue(AGE) == 5;
+		return state.getValue(AGE) == 7;
 	}
 
 	@Override
@@ -82,7 +96,27 @@ public class TumbleweedPlantBlock extends BushBlock implements BonemealableBlock
 
 	@Override
 	public void performBonemeal(@NotNull ServerLevel level, @NotNull RandomSource random, @NotNull BlockPos pos, @NotNull BlockState state) {
-		level.setBlockAndUpdate(pos, state.setValue(AGE, Math.min(5, state.getValue(AGE) + random.nextInt(1, 2))));
+		level.setBlockAndUpdate(pos, state.setValue(AGE, Math.min(7, state.getValue(AGE) + random.nextInt(1, 3))));
+	}
+
+	@Override
+	public InteractionResult use(@NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos, Player player, @NotNull InteractionHand hand, @NotNull BlockHitResult hit) {
+		ItemStack itemStack = player.getItemInHand(hand);
+		if (itemStack.is(Items.SHEARS) && isFullyGrown(state)) {
+			if (!level.isClientSide) {
+				level.playSound(null, pos, RegisterSounds.BLOCK_TUMBLEWEED_SHEAR, SoundSource.BLOCKS, 1.0F, 1.0F);
+				Tumbleweed weed = new Tumbleweed(RegisterEntities.TUMBLEWEED, level);
+				level.addFreshEntity(weed);
+				weed.setPos(new Vec3(pos.getX() + 0.5, pos.getY(), pos.getZ() + 0.5));
+				weed.spawnedFromShears = true;
+				level.setBlockAndUpdate(pos, state.setValue(AGE, 0));
+				itemStack.hurtAndBreak(1, player, (playerx) -> playerx.broadcastBreakEvent(hand));
+				level.gameEvent(player, GameEvent.SHEAR, pos);
+			}
+			return InteractionResult.sidedSuccess(level.isClientSide);
+		} else {
+			return super.use(state, level, pos, player, hand, hit);
+		}
 	}
 
 	@Override

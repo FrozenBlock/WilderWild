@@ -30,7 +30,8 @@ public class WaterloggableSaplingBlock extends SaplingBlock implements SimpleWat
 
 	@Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, net.minecraft.world.level.block.state.BlockState> builder) {
-        builder.add(STAGE).add(WATERLOGGED);
+		super.createBlockStateDefinition(builder);
+        builder.add(WATERLOGGED);
     }
 
     @Override

@@ -160,7 +160,8 @@ public final class RegisterBlocks {
 	//public static final Block PRICKLY_PEAR_CACTUS = new PricklyPearCactusBlock(FabricBlockSettings.of(Material.CACTUS).ticksRandomly().strength(0.4F).sounds(SoundType.SWEET_BERRY_BUSH).nonOpaque());
 	public static final Block CYPRESS_SAPLING = new WaterloggableSaplingBlock(new CypressSaplingGenerator(), FabricBlockSettings.copyOf(Blocks.BIRCH_SAPLING));
     public static final Block POTTED_CYPRESS_SAPLING = new FlowerPotBlock(RegisterBlocks.CYPRESS_SAPLING, FabricBlockSettings.of(Material.DECORATION).breakInstantly().nonOpaque());
-    public static final Block COCONUT = new CoconutBlock(FabricBlockSettings.of(Material.PLANT).ticksRandomly().breakInstantly().sounds(RegisterBlockSoundGroups.BAOBAB_NUT).offsetType(BlockBehaviour.OffsetType.XZ).dynamicShape());
+	//TODO: Coconut Sounds
+    public static final Block COCONUT = new CoconutBlock(FabricBlockSettings.of(Material.PLANT).breakInstantly().ticksRandomly().sounds(RegisterBlockSoundGroups.BAOBAB_NUT));
     public static final Block POTTED_COCONUT = new FlowerPotBlock(RegisterBlocks.COCONUT, FabricBlockSettings.of(Material.DECORATION).breakInstantly().nonOpaque());
 
     public static final Block BAOBAB_LEAVES = new BaobabLeaves(FabricBlockSettings.of(Material.LEAVES, MaterialColor.COLOR_GREEN).strength(0.2F).ticksRandomly().sounds(RegisterBlockSoundGroups.LEAVES).nonOpaque().allowsSpawning(RegisterBlocks::canSpawnOnLeaves).suffocates(RegisterBlocks::never).blockVision(RegisterBlocks::never));
@@ -244,7 +245,8 @@ public final class RegisterBlocks {
     	registerBlockWithoutBlockItem("potted_" + baobab + "_nut", POTTED_BAOBAB_NUT);
     	registerBlock(cypress + "_sapling", CYPRESS_SAPLING, CreativeModeTab.TAB_DECORATIONS);
     	registerBlockWithoutBlockItem("potted_" + cypress + "_sapling", POTTED_CYPRESS_SAPLING);
-    	registerBlock("coconut", COCONUT, CreativeModeTab.TAB_DECORATIONS);
+		registerBlockWithoutBlockItem("coconut", COCONUT);
+		Registry.register(Registry.ITEM, WilderWild.id("coconut"), RegisterItems.COCONUT);
     	registerBlockWithoutBlockItem("potted_coconut", POTTED_COCONUT);
 
     	registerBlock(baobab + "_leaves", BAOBAB_LEAVES, CreativeModeTab.TAB_DECORATIONS);
@@ -374,7 +376,7 @@ public final class RegisterBlocks {
     public static final Block FLOWERING_LILY_PAD = new FloweringLilyPadBlock(FabricBlockSettings.copyOf(Blocks.LILY_PAD).sounds(RegisterBlockSoundGroups.LILYPAD));
     public static final Block ALGAE = new AlgaeBlock(FabricBlockSettings.of(ALGAE_MATERIAL).breakInstantly().nonOpaque().noCollision().sounds(RegisterBlockSoundGroups.ALGAE));
 	public static final Block BUSH = new BushBlock(FabricBlockSettings.of(Material.PLANT).breakInstantly().nonOpaque().noCollision().sounds(SoundType.GRASS));
-	public static final Block TUMBLEWEED_PLANT = new TumbleweedPlantBlock(FabricBlockSettings.of(Material.PLANT).breakInstantly().nonOpaque().noCollision().sounds(RegisterBlockSoundGroups.TUMBLEWEED_PLANT).randomTicks());
+	public static final Block TUMBLEWEED_PLANT = new TumbleweedPlantBlock(FabricBlockSettings.of(Material.PLANT)nonOpaque().sounds(RegisterBlockSoundGroups.TUMBLEWEED_PLANT).randomTicks());
 	public static final Block TUMBLEWEED = new TumbleweedBlock(FabricBlockSettings.of(Material.PLANT).breakInstantly().nonOpaque().sounds(RegisterBlockSoundGroups.TUMBLEWEED_PLANT).randomTicks());
 
     public static final Block POTTED_BIG_DRIPLEAF = new FlowerPotBlock(Blocks.BIG_DRIPLEAF, FabricBlockSettings.of(Material.DECORATION).breakInstantly().nonOpaque());
