@@ -270,6 +270,9 @@ public final class WilderPlacedFeatures {
     public static final Holder<PlacedFeature> TERMITE_PLACED = register("termite_placed",
             WilderConfiguredFeatures.TERMITE_CONFIGURED, RarityFilter.onAverageOnceEvery(45), CountPlacement.of(1), PlacementUtils.HEIGHTMAP_WORLD_SURFACE, InSquarePlacement.spread(), SurfaceRelativeThresholdFilter.of(Heightmap.Types.WORLD_SURFACE_WG, 0, 128), BiomeFilter.biome());
 
+	public static final Holder<PlacedFeature> TUMBLEWEED = register("tumbleweed",
+			WilderConfiguredFeatures.TUMBLEWEED, RarityFilter.onAverageOnceEvery(1), CountPlacement.of(2));
+
     public static final Holder<PlacedFeature> JELLYFISH_CAVES_BLUE_MESOGLEA = register(
             "blue_mesoglea",
             WilderConfiguredFeatures.JELLYFISH_CAVES_BLUE_MESOGLEA,
