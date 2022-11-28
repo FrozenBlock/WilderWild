@@ -243,9 +243,10 @@ public final class SharedWorldgen {
 	}
 	public static SurfaceRules.RuleSource oasisSurfaceRules() {
 		return SurfaceRules.sequence(
-		SurfaceRules.ifTrue(SurfaceRules.isBiome(RegisterWorldgen.OASIS), SurfaceRules.sequence(SurfaceRules.ifTrue(SurfaceRules.ON_CEILING, SANDSTONE), SAND)),
-		SurfaceRules.ifTrue(SurfaceRules.isBiome(RegisterWorldgen.OASIS), SurfaceRules.ifTrue(SurfaceRules.VERY_DEEP_UNDER_FLOOR, SANDSTONE))
+				SurfaceRules.ifTrue(SurfaceRules.isBiome(RegisterWorldgen.OASIS), SurfaceRules.sequence(SurfaceRules.ifTrue(SurfaceRules.ON_CEILING, SANDSTONE), SAND)),
+				SurfaceRules.ifTrue(SurfaceRules.isBiome(RegisterWorldgen.OASIS), SurfaceRules.ifTrue(SurfaceRules.VERY_DEEP_UNDER_FLOOR, SANDSTONE))
 		);
+
 	}
 	public static SurfaceRules.SequenceRuleSource betaBeaches() {
 		return (SurfaceRules.SequenceRuleSource) SurfaceRules.sequence(gravelBetaBeaches(), sandBetaBeaches(), multilayerSandBetaBeaches());
