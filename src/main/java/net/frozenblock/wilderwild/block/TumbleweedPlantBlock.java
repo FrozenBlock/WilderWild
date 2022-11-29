@@ -53,7 +53,7 @@ public class TumbleweedPlantBlock extends BushBlock implements BonemealableBlock
 				level.addFreshEntity(weed);
 				weed.setPos(new Vec3(pos.getX() + 0.5, pos.getY(), pos.getZ() + 0.5));
 				level.playSound(null, pos, RegisterSounds.ENTITY_TUMBLEWEED_DAMAGE, SoundSource.BLOCKS, 1.0F, 1.0F);
-				level.addDestroyBlockEffect(pos, state);
+				level.levelEvent(2001, pos, Block.getId(state));
 				level.gameEvent(null, GameEvent.BLOCK_CHANGE, pos);
 			}
 		} else {
@@ -109,7 +109,7 @@ public class TumbleweedPlantBlock extends BushBlock implements BonemealableBlock
 				Tumbleweed weed = new Tumbleweed(RegisterEntities.TUMBLEWEED, level);
 				level.addFreshEntity(weed);
 				weed.setPos(new Vec3(pos.getX() + 0.5, pos.getY(), pos.getZ() + 0.5));
-				level.addDestroyBlockEffect(pos, state);
+				level.levelEvent(2001, pos, Block.getId(state));
 				weed.spawnedFromShears = true;
 				level.setBlockAndUpdate(pos, state.setValue(AGE, 0));
 				itemStack.hurtAndBreak(1, player, (playerx) -> playerx.broadcastBreakEvent(hand));
