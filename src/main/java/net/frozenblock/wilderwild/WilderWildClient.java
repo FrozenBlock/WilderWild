@@ -245,22 +245,27 @@ public final class WilderWildClient implements ClientModInitializer {
 
         ColorProviderRegistry.BLOCK.register(((state, level, pos, tintIndex) -> {
             assert level != null;
-            return BiomeColors.getAverageFoliageColor(level, pos);
+			assert pos != null;
+			return BiomeColors.getAverageFoliageColor(level, pos);
         }), RegisterBlocks.BAOBAB_LEAVES);
         ColorProviderRegistry.BLOCK.register(((state, level, pos, tintIndex) -> {
             assert level != null;
-            return BiomeColors.getAverageFoliageColor(level, pos);
+			assert pos != null;
+			return BiomeColors.getAverageFoliageColor(level, pos);
         }), RegisterBlocks.CYPRESS_LEAVES);
 		ColorProviderRegistry.BLOCK.register(((state, level, pos, tintIndex) -> {
 			assert level != null;
+			assert pos != null;
 			return BiomeColors.getAverageFoliageColor(level, pos);
 		}), RegisterBlocks.PALM_LEAVES);
         ColorProviderRegistry.BLOCK.register(((state, level, pos, tintIndex) -> {
             assert level != null;
-            return BiomeColors.getAverageFoliageColor(level, pos);
+			assert pos != null;
+			return BiomeColors.getAverageFoliageColor(level, pos);
         }), RegisterBlocks.POTTED_GRASS);
 		ColorProviderRegistry.BLOCK.register(((state, level, pos, tintIndex) -> {
 			assert level != null;
+			assert pos != null;
 			return BiomeColors.getAverageFoliageColor(level, pos);
 		}), RegisterBlocks.BUSH);
     }
