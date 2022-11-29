@@ -137,7 +137,7 @@ public final class WilderTreeConfigured {
 	public static final Holder<ConfiguredFeature<TreeConfiguration, ?>> PALM = WilderConfiguredFeatures.register("palm", Feature.TREE, palmBuilder(RegisterBlocks.PALM_LOG, RegisterBlocks.PALM_LEAVES, 6, 2, 1, 6)
 			.decorators(List.of(new LeavesAroundTopLogDecorator(0.3F, 1, 0, new RandomizedIntStateProvider(BlockStateProvider.simple(RegisterBlocks.COCONUT.defaultBlockState().setValue(BlockStateProperties.HANGING, true)), BaobabNutBlock.AGE, UniformInt.of(0, 2)), 4, List.of(Direction.DOWN)))).build());
 
-	public static final Holder<ConfiguredFeature<TreeConfiguration, ?>> SHORT_FROND_PALM = WilderConfiguredFeatures.register("short_frond_palm", Feature.TREE, palmBuilder(RegisterBlocks.PALM_LOG, RegisterBlocks.PALM_LEAVES, 6, 2, 1, 4)
+	public static final Holder<ConfiguredFeature<TreeConfiguration, ?>> SHORT_FROND_PALM = WilderConfiguredFeatures.register("short_frond_palm", Feature.TREE, palmBuilder(RegisterBlocks.PALM_LOG, RegisterBlocks.PALM_LEAVES, 6, 3, 2, 4)
 			.decorators(List.of(new LeavesAroundTopLogDecorator(0.25F, 1, 0, new RandomizedIntStateProvider(BlockStateProvider.simple(RegisterBlocks.COCONUT.defaultBlockState().setValue(BlockStateProperties.HANGING, true)), BaobabNutBlock.AGE, UniformInt.of(0, 2)), 4, List.of(Direction.DOWN)))).build());
 
 	private static TreeConfiguration.TreeConfigurationBuilder builder(Block log, Block leaves, int baseHeight, int firstRandomHeight, int secondRandomHeight, float logChance, IntProvider maxLogs, IntProvider logHeightFromTop, IntProvider extraBranchLength, int radius) {
