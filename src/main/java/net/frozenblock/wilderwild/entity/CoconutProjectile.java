@@ -2,8 +2,10 @@ package net.frozenblock.wilderwild.entity;
 
 import net.frozenblock.wilderwild.registry.RegisterEntities;
 import net.frozenblock.wilderwild.registry.RegisterItems;
+import net.frozenblock.wilderwild.registry.RegisterSounds;
 import net.minecraft.core.particles.ItemParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
@@ -61,11 +63,12 @@ public class CoconutProjectile extends ThrowableItemProjectile {
 	protected void onHit(@NotNull HitResult result) {
 		super.onHit(result);
 		if (!this.level.isClientSide) {
-			this.level.broadcastEntityEvent(this, (byte)3);
 			Vec3 move = this.getDeltaMovement();
 			if (result instanceof BlockHitResult blockHitResult) {
 				Block block = this.level.getBlockState(blockHitResult.getBlockPos()).getBlock();
-				if (block.getExplosionResistance() >= 5.0F && block.defaultDestroyTime() >= 1.25F && this.level.random.nextDouble() > 0.6) {
+				if (block.getExplosionResistance() >= 5.0F && block.defaultDestroyTime() >= 1.25F && this.level.random.nextDouble() > 0.8) {
+					this.level.broadcastEntityEvent(this, (byte)3);
+					this.level.playSound(null, this.getX(), this.getY(), this.getZ(), RegisterSounds.BLOCK_COCONUT_CRACK, SoundSource.BLOCKS, 1.0F, 0.9F + 0.2F * this.level.random.nextFloat());
 					this.level.addFreshEntity(new ItemEntity(this.level, this.getX(), this.getY(), this.getZ(), new ItemStack(RegisterItems.SPLIT_COCONUT)));
 					this.level.addFreshEntity(new ItemEntity(this.level, this.getX(), this.getY(), this.getZ(), new ItemStack(RegisterItems.SPLIT_COCONUT)));
 					this.discard();
