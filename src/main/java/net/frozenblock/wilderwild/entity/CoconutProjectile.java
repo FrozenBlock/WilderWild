@@ -31,6 +31,7 @@ public class CoconutProjectile extends ThrowableItemProjectile {
 	}
 
 	@Override
+	@NotNull
 	protected Item getDefaultItem() {
 		return RegisterItems.COCONUT;
 	}

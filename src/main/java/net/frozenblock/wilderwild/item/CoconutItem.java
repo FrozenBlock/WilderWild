@@ -20,6 +20,7 @@ public class CoconutItem extends BlockItem {
 	}
 
 	@Override
+	@NotNull
 	public InteractionResultHolder<ItemStack> use(Level level, Player player, @NotNull InteractionHand usedHand) {
 		ItemStack itemStack = player.getItemInHand(usedHand);
 		//TODO: Coconut throw sound
