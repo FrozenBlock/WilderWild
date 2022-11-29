@@ -58,8 +58,6 @@ public final class RegisterWorldgen implements SurfaceRuleEvents.OverworldModifi
 		if (!FrozenBools.HAS_TERRABLENDER) {
 			context.materialRules().add(0, SharedWorldgen.cypressSurfaceRules());
 			context.materialRules().add(SharedWorldgen.cypressSurfaceRules());
-			context.materialRules().add(0, SharedWorldgen.oasisSurfaceRules());
-			context.materialRules().add(SharedWorldgen.oasisSurfaceRules());
 			if (ClothConfigInteractionHandler.betaBeaches()) {
 				context.materialRules().add(0, SharedWorldgen.betaBeaches());
 				context.materialRules().add(SharedWorldgen.betaBeaches());
@@ -201,8 +199,8 @@ public final class RegisterWorldgen implements SurfaceRuleEvents.OverworldModifi
 						new BiomeSpecialEffects.Builder()
 								.grassColorOverride(8569413)
 								.foliageColorOverride(3193611)
-								.waterColor(4566514)
-								.waterFogColor(267827)
+								.waterColor(3319192)
+								.waterFogColor(3319192)
 								.skyColor(OverworldBiomes.calculateSkyColor(2.0F))
 								.fogColor(12638463)
 								.ambientMoodSound(AmbientMoodSettings.LEGACY_CAVE_SETTINGS)

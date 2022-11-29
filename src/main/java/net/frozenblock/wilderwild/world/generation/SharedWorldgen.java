@@ -127,7 +127,6 @@ public final class SharedWorldgen {
 		List<SurfaceRules.RuleSource> list = new ArrayList<>();
 		list.add(cypressSurfaceRules());
 		list.add(warmRiverRules());
-		list.add(oasisSurfaceRules());
 		if (ClothConfigInteractionHandler.betaBeaches()) {
 			list.add(gravelBetaBeaches());
 			list.add(sandBetaBeaches());
@@ -161,8 +160,6 @@ public final class SharedWorldgen {
 						)
 				)
 		);
-		list.add(SurfaceRules.sequence(SurfaceRules.ifTrue(SurfaceRules.isBiome(RegisterWorldgen.OASIS), SurfaceRules.sequence(SurfaceRules.ifTrue(SurfaceRules.ON_CEILING, SANDSTONE), SAND)), STONE));
-		list.add(SurfaceRules.sequence(SurfaceRules.ifTrue(SurfaceRules.ON_FLOOR, SurfaceRules.sequence(SurfaceRules.ifTrue(SurfaceRules.isBiome(RegisterWorldgen.OASIS), SurfaceRules.ifTrue(SurfaceRules.VERY_DEEP_UNDER_FLOOR, SANDSTONE)))), SurfaceRules.sequence(SurfaceRules.ifTrue(SurfaceRules.ON_CEILING, STONE), GRAVEL)));
 
 		if (ClothConfigInteractionHandler.betaBeaches()) {
 			list.add(
@@ -241,13 +238,6 @@ public final class SharedWorldgen {
 						SurfaceRules.isBiome(RegisterWorldgen.WARM_RIVER), SurfaceRules.ifTrue(
 								SurfaceRules.yBlockCheck(VerticalAnchor.absolute(32), 0), SurfaceRules.sequence(SurfaceRules.ifTrue(SurfaceRules.DEEP_UNDER_FLOOR, SAND), SANDSTONE))
 				));
-	}
-	public static SurfaceRules.RuleSource oasisSurfaceRules() {
-		return SurfaceRules.sequence(
-				SurfaceRules.sequence(SurfaceRules.ifTrue(SurfaceRules.isBiome(RegisterWorldgen.OASIS), SurfaceRules.sequence(SurfaceRules.ifTrue(SurfaceRules.ON_CEILING, SANDSTONE), SAND)), STONE),
-				SurfaceRules.sequence(SurfaceRules.ifTrue(SurfaceRules.ON_FLOOR, SurfaceRules.sequence(SurfaceRules.ifTrue(SurfaceRules.isBiome(RegisterWorldgen.OASIS), SurfaceRules.ifTrue(SurfaceRules.VERY_DEEP_UNDER_FLOOR, SANDSTONE)))), SurfaceRules.sequence(SurfaceRules.ifTrue(SurfaceRules.ON_CEILING, STONE), GRAVEL))
-		);
-
 	}
 	public static SurfaceRules.SequenceRuleSource betaBeaches() {
 		return (SurfaceRules.SequenceRuleSource) SurfaceRules.sequence(gravelBetaBeaches(), sandBetaBeaches(), multilayerSandBetaBeaches());
