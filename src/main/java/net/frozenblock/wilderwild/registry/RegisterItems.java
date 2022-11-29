@@ -14,6 +14,7 @@ import net.frozenblock.wilderwild.tag.WilderInstrumentTags;
 import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.entity.npc.VillagerTrades;
+import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.BoatItem;
 import net.minecraft.world.item.CreativeModeTab;
@@ -54,7 +55,7 @@ public final class RegisterItems {
     public static final Item JELLYFISH_SPAWN_EGG = new SpawnEggItem(RegisterEntities.JELLYFISH, Integer.parseInt("E484E4", 16), Integer.parseInt("DF71DC", 16), new FabricItemSettings().group(CreativeModeTab.TAB_MISC));
 	public static final Item TUMBLEWEED_SPAWN_EGG = new SpawnEggItem(RegisterEntities.TUMBLEWEED, Integer.parseInt("c7a065", 16), Integer.parseInt("755b44", 16), new FabricItemSettings());
     public static final Item JELLYFISH_BUCKET = new MobBucketItem(RegisterEntities.JELLYFISH, Fluids.WATER, RegisterSounds.ITEM_BUCKET_EMPTY_JELLYFISH, new FabricItemSettings().group(CreativeModeTab.TAB_MISC).maxCount(1));
-
+	public static final Item SPLIT_COCONUT = new Item(new FabricItemSettings().group(CreativeModeTab.TAB_FOOD).food(new FoodProperties.Builder().nutrition(2).saturationMod(0.4F).build()));
 
     public static final Item BAOBAB_BOAT_ITEM = new BoatItem(false, WilderBoats.BAOBAB, new FabricItemSettings().maxCount(1).group(CreativeModeTab.TAB_TRANSPORTATION));
     public static final Item BAOBAB_CHEST_BOAT_ITEM = new BoatItem(true, WilderBoats.BAOBAB, new FabricItemSettings().maxCount(1).group(CreativeModeTab.TAB_TRANSPORTATION));
@@ -126,6 +127,7 @@ public final class RegisterItems {
         Registry.register(Registry.ITEM, WilderWild.id("jellyfish_spawn_egg"), JELLYFISH_SPAWN_EGG);
 		Registry.register(Registry.ITEM, WilderWild.id("tumbleweed_spawn_egg"), TUMBLEWEED_SPAWN_EGG);
         Registry.register(Registry.ITEM, WilderWild.id("jellyfish_bucket"), JELLYFISH_BUCKET);
+		Registry.register(Registry.ITEM, WilderWild.id("split_coconut"), SPLIT_COCONUT);
 
         Registry.register(Registry.INSTRUMENT, ANCIENT_HORN_INSTRUMENT, new Instrument(RegisterSounds.ITEM_ANCIENT_HORN_CALL, 300, 256.0F));
         Registry.register(Registry.INSTRUMENT, SAX_COPPER_HORN, new Instrument(RegisterSounds.ITEM_COPPER_HORN_SAX_LOOP, 32767, 64.0F));
