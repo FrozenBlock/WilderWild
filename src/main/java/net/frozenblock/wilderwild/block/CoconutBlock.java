@@ -205,9 +205,9 @@ public class CoconutBlock extends FallingBlock implements BonemealableBlock {
 		if (!level.isClientSide) {
 			level.setBlock(pos, replaceableState, 3);
 			level.playSound(null, pos, RegisterSounds.BLOCK_COCONUT_BREAK, SoundSource.BLOCKS, 1.0F, 1.0F);
-			ItemStack coconut = new ItemStack(RegisterItems.COCONUT);
-			coconut.setCount(4);
-			level.addFreshEntity(new ItemEntity(level, pos.getX() + 0.5, pos.getY(), pos.getZ() + 0.5, coconut));
+			if (isFullyGrown(fallingBlock.getBlockState())) {
+				level.addFreshEntity(new ItemEntity(level, pos.getX() + 0.5, pos.getY(), pos.getZ() + 0.5, new ItemStack(RegisterItems.COCONUT, 4)));
+			}
 		}
 	}
 
