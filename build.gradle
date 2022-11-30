@@ -43,7 +43,7 @@ loom {
 			name "Data Generation"
 			vmArg "-Dfabric-api.datagen"
 			vmArg "-Dfabric-api.datagen.output-dir=${file("src/main/generated")}"
-			vmArg "-Dfabric-api.datagen.strict-validation"
+			//vmArg "-Dfabric-api.datagen.strict-validation"
 
 			ideConfigGenerated = true
 			runDir = "build/datagen"
@@ -214,7 +214,7 @@ processResources {
 }
 
 quiltflower {
-	quiltflowerVersion.set("1.8.0")
+	quiltflowerVersion.set("1.9.0")
 }
 
 javadoc {

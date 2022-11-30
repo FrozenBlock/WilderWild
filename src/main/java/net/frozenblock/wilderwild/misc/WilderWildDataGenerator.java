@@ -9,6 +9,7 @@ import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricBlockLootTableProvider;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricDynamicRegistryProvider;
+import net.fabricmc.fabric.api.datagen.v1.provider.FabricModelProvider;
 import net.fabricmc.fabric.api.tag.convention.v1.ConventionalBiomeTags;
 import net.frozenblock.lib.datagen.api.FrozenBiomeTagProvider;
 import net.frozenblock.lib.feature_flag.api.FrozenFeatureFlags;
@@ -27,6 +28,8 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.data.DataProvider;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.metadata.PackMetadataGenerator;
+import net.minecraft.data.models.BlockModelGenerators;
+import net.minecraft.data.models.ItemModelGenerators;
 import net.minecraft.data.recipes.FinishedRecipe;
 import net.minecraft.data.recipes.RecipeProvider;
 import net.minecraft.data.registries.VanillaRegistries;
@@ -53,6 +56,8 @@ public class WilderWildDataGenerator implements DataGeneratorEntrypoint {
 		FrozenFeatureFlags.rebuild();
 		final FabricDataGenerator.Pack pack = dataGenerator.createPack();
 		final CompletableFuture<HolderLookup.Provider> completableFuture = CompletableFuture.supplyAsync(VanillaRegistries::createLookup, Util.backgroundExecutor());
+		pack.addProvider(WilderBlockModelProvider::new);
+		pack.addProvider(WilderBlockLootProvider::new);
 		pack.addProvider(bindRegistries(WilderBiomeTagProvider::new, completableFuture));
 		pack.addProvider(bindRegistries(WilderBlockTagProvider::new, completableFuture));
 		pack.addProvider(WilderWorldgenProvider::new);
@@ -238,6 +243,40 @@ public class WilderWildDataGenerator implements DataGeneratorEntrypoint {
 					.add(Biomes.DRIPSTONE_CAVES)
 					.add(Biomes.DEEP_DARK)
 					.addOptional(RegisterWorldgen.JELLYFISH_CAVES);
+		}
+	}
+
+	private static final class WilderBlockModelProvider extends FabricModelProvider {
+		public WilderBlockModelProvider(FabricDataOutput output) {
+			super(output);
+		}
+
+		@Override
+		public void generateBlockStateModels(BlockModelGenerators blockStateModelGenerator) {
+			blockStateModelGenerator.createHangingSign(RegisterBlocks.STRIPPED_BAOBAB_LOG, RegisterBlocks.BAOBAB_HANGING_SIGN, RegisterBlocks.BAOBAB_WALL_HANGING_SIGN);
+			blockStateModelGenerator.createHangingSign(RegisterBlocks.STRIPPED_CYPRESS_LOG, RegisterBlocks.CYPRESS_HANGING_SIGN, RegisterBlocks.CYPRESS_WALL_HANGING_SIGN);
+		}
+
+		@Override
+		public void generateItemModels(ItemModelGenerators itemModelGenerator) {
+		}
+	}
+
+	private static final class WilderBlockLootProvider extends FabricBlockLootTableProvider {
+
+		private WilderBlockLootProvider(FabricDataOutput dataOutput) {
+			super(dataOutput);
+		}
+
+		@Override
+		public void generate() {
+			this.add(RegisterBlocks.BAOBAB_HANGING_SIGN, noDrop());
+			this.add(RegisterBlocks.CYPRESS_HANGING_SIGN, noDrop());
+		}
+
+		@Override
+		public void accept(BiConsumer<ResourceLocation, LootTable.Builder> resourceLocationBuilderBiConsumer) {
+
 		}
 	}
 
