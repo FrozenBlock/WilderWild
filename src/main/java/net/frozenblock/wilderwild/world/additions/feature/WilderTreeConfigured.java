@@ -135,9 +135,9 @@ public final class WilderTreeConfigured {
 	public static final Holder<ConfiguredFeature<TreeConfiguration, ?>> BIG_SHRUB = WilderConfiguredFeatures.register("big_shrub", Feature.TREE, (new TreeConfiguration.TreeConfigurationBuilder(BlockStateProvider.simple(Blocks.OAK_LOG), new StraightTrunkPlacer(1, 0, 0), BlockStateProvider.simple(Blocks.OAK_LEAVES), new BushFoliagePlacer(ConstantInt.of(2), ConstantInt.of(1), 2), new TwoLayersFeatureSize(0, 0, 0))).dirt(BlockStateProvider.simple(Blocks.COARSE_DIRT)).build());
 	//PALM
 	public static final Holder<ConfiguredFeature<TreeConfiguration, ?>> PALM = WilderConfiguredFeatures.register("palm", Feature.TREE, palmBuilder(RegisterBlocks.PALM_LOG, RegisterBlocks.PALM_LEAVES, 6, 2, 1, 6)
-			.decorators(List.of(new LeavesAroundTopLogDecorator(0.55F, 0, 0, new RandomizedIntStateProvider(BlockStateProvider.simple(RegisterBlocks.COCONUT.defaultBlockState().setValue(BlockStateProperties.HANGING, true)), BaobabNutBlock.AGE, UniformInt.of(0, 2)), 4, List.of(Direction.DOWN)))).build());
+			.decorators(List.of(new LeavesAroundTopLogDecorator(0.45F, 0, 0, new RandomizedIntStateProvider(BlockStateProvider.simple(RegisterBlocks.COCONUT.defaultBlockState().setValue(BlockStateProperties.HANGING, true)), BaobabNutBlock.AGE, UniformInt.of(0, 2)), 4, List.of(Direction.DOWN)))).build());
 
-	public static final Holder<ConfiguredFeature<TreeConfiguration, ?>> SHORT_FROND_PALM = WilderConfiguredFeatures.register("short_frond_palm", Feature.TREE, palmBuilder(RegisterBlocks.PALM_LOG, RegisterBlocks.PALM_LEAVES, 6, 3, 2, 4)
+	public static final Holder<ConfiguredFeature<TreeConfiguration, ?>> TALL_PALM = WilderConfiguredFeatures.register("tall_palm", Feature.TREE, palmBuilder(RegisterBlocks.PALM_LOG, RegisterBlocks.PALM_LEAVES, 8, 3, 2, 7)
 			.decorators(List.of(new LeavesAroundTopLogDecorator(0.45F, 0, 0, new RandomizedIntStateProvider(BlockStateProvider.simple(RegisterBlocks.COCONUT.defaultBlockState().setValue(BlockStateProperties.HANGING, true)), BaobabNutBlock.AGE, UniformInt.of(0, 2)), 4, List.of(Direction.DOWN)))).build());
 
 	private static TreeConfiguration.TreeConfigurationBuilder builder(Block log, Block leaves, int baseHeight, int firstRandomHeight, int secondRandomHeight, float logChance, IntProvider maxLogs, IntProvider logHeightFromTop, IntProvider extraBranchLength, int radius) {
