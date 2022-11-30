@@ -11,6 +11,7 @@ import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.BonemealableBlock;
 import net.minecraft.world.level.block.LeavesBlock;
 import net.minecraft.world.level.block.state.BlockState;
@@ -70,7 +71,7 @@ public class PalmLeavesBlock extends LeavesBlock implements BonemealableBlock {
 		return neighbor.is(RegisterBlocks.PALM_LEAVES) || neighbor.is(RegisterBlocks.PALM_CROWN);
 	}
 
-	private static BlockState updateDistance(BlockState state, LevelAccessor level, BlockPos pos) {
+	public static BlockState updateDistance(BlockState state, LevelReader level, BlockPos pos) {
 		int dist = Mth.clamp((int) (PalmCrownBlockEntity.PalmCrownPositions.distanceToClosestPalmCrown(level, pos, 12) * 0.57), 1, 7);
 		int i = 7;
 		boolean validCrown = false;
