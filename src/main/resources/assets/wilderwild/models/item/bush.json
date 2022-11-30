@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "wilderwild:block/bush_stage0"
+    "layer0": "wilderwild:item/bush"
   }
 }

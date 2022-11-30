@@ -241,7 +241,6 @@ public final class WilderWildClient implements ClientModInitializer {
         ColorProviderRegistry.ITEM.register(((state, tintIndex) -> 5877296), RegisterBlocks.BAOBAB_LEAVES);
         ColorProviderRegistry.ITEM.register(((state, tintIndex) -> 5877296), RegisterBlocks.CYPRESS_LEAVES);
 		ColorProviderRegistry.ITEM.register(((state, tintIndex) -> 5877296), RegisterBlocks.PALM_LEAVES);
-		ColorProviderRegistry.ITEM.register(((state, tintIndex) -> 7851077), RegisterBlocks.BUSH);
 
         ColorProviderRegistry.BLOCK.register(((state, level, pos, tintIndex) -> {
             assert level != null;
