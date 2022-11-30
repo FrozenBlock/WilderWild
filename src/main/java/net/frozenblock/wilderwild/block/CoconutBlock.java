@@ -109,12 +109,7 @@ public class CoconutBlock extends FallingBlock implements BonemealableBlock {
     @Override
     public boolean canSurvive(@NotNull BlockState state, LevelReader level, BlockPos pos) {
 		BlockState stateAbove = level.getBlockState(pos.above());
-		boolean palmLeaves = stateAbove.is(RegisterBlocks.PALM_LEAVES);
-		boolean palmOverride = false;
-		if (stateAbove.is(RegisterBlocks.PALM_LEAVES)) {
-			palmOverride = PalmLeavesBlock.updateDistance(stateAbove, level, pos).getValue(BlockStateProperties.DISTANCE) <= 1;
-		}
-        return isHanging(state) ? (palmLeaves && (stateAbove.getValue(BlockStateProperties.DISTANCE) < 2 || palmOverride || stateAbove.getValue(BlockStateProperties.PERSISTENT))) : this.mayPlaceOn(level.getBlockState(pos.below()));
+        return isHanging(state) ? (stateAbove.is(RegisterBlocks.PALM_LEAVES) && (stateAbove.getValue(BlockStateProperties.DISTANCE) < 2 || PalmLeavesBlock.updateDistance(stateAbove, level, pos).getValue(BlockStateProperties.DISTANCE) <= 1 || stateAbove.getValue(BlockStateProperties.PERSISTENT))) : this.mayPlaceOn(level.getBlockState(pos.below()));
     }
 
 	protected boolean mayPlaceOn(BlockState state) {
@@ -203,11 +198,15 @@ public class CoconutBlock extends FallingBlock implements BonemealableBlock {
 	@Override
 	public void onLand(@NotNull Level level, @NotNull BlockPos pos, @NotNull BlockState state, @NotNull BlockState replaceableState, @NotNull FallingBlockEntity fallingBlock) {
 		if (!level.isClientSide) {
-			level.playSound(null, pos, RegisterSounds.BLOCK_COCONUT_BREAK, SoundSource.BLOCKS, 1.0F, 1.0F);
-			ItemStack coconut = new ItemStack(RegisterItems.COCONUT);
-			coconut.setCount(4);
-			level.addFreshEntity(new ItemEntity(level, pos.getX() + 0.5, pos.getY(), pos.getZ() + 0.5, coconut));
 			level.setBlock(pos, replaceableState, 3);
+			level.playSound(null, pos, RegisterSounds.BLOCK_COCONUT_BREAK, SoundSource.BLOCKS, 1.0F, 1.0F);
+			if (isFullyGrown(fallingBlock.getBlockState())) {
+				//TODO: Figure out why this doesn't work
+				level.addFreshEntity(new ItemEntity(level, pos.getX() + 0.5, pos.getY(), pos.getZ() + 0.5, new ItemStack(RegisterItems.COCONUT)));
+				level.addFreshEntity(new ItemEntity(level, pos.getX() + 0.5, pos.getY(), pos.getZ() + 0.5, new ItemStack(RegisterItems.COCONUT)));
+				level.addFreshEntity(new ItemEntity(level, pos.getX() + 0.5, pos.getY(), pos.getZ() + 0.5, new ItemStack(RegisterItems.COCONUT)));
+				level.addFreshEntity(new ItemEntity(level, pos.getX() + 0.5, pos.getY(), pos.getZ() + 0.5, new ItemStack(RegisterItems.COCONUT)));
+			}
 		}
 	}
 

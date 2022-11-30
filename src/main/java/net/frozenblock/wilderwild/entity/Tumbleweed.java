@@ -87,12 +87,9 @@ public class Tumbleweed extends Mob {
 			if (level.getRandom().nextInt(0,  diff == 0 ? 32 : (27 / difficulty.getDifficulty().getId())) == 0) {
 				int tagSelector = level.getRandom().nextInt(1, 6);
 				TagKey<Item> itemTag = tagSelector <= 1 ? WilderItemTags.TUMBLEWEED_RARE : tagSelector <= 3 ? WilderItemTags.TUMBLEWEED_MEDIUM : WilderItemTags.TUMBLEWEED_COMMON;
-				this.inventory.set(0, new ItemStack(TagUtils.getRandomEntry(level.getRandom(), itemTag)));
-				this.isItemNatural = true;
-				this.randomizeItemOffsets();
+				this.setItem(new ItemStack(TagUtils.getRandomEntry(level.getRandom(), itemTag)), true);
 			} else if (level.getRandom().nextInt(0, 15) == 0) {
-				this.inventory.set(0, new ItemStack(RegisterBlocks.TUMBLEWEED_PLANT));
-				this.isItemNatural = true;
+				this.setItem(new ItemStack(RegisterBlocks.TUMBLEWEED_PLANT), true);
 			}
 		}
 		return super.finalizeSpawn(level, difficulty, reason, spawnData, dataTag);
@@ -241,6 +238,12 @@ public class Tumbleweed extends Mob {
 		this.remove(RemovalReason.KILLED);
 	}
 
+	public void setItem(ItemStack stack, boolean natural) {
+		this.inventory.set(0, stack);
+		this.isItemNatural = natural;
+		this.randomizeItemOffsets();
+	}
+
 	public boolean isMovingTowards(@NotNull Entity entity) {
 		return entity.getPosition(0).distanceTo(this.getPosition(0)) > entity.getPosition(1).distanceTo(this.getPosition(1));
 	}
@@ -381,7 +384,6 @@ public class Tumbleweed extends Mob {
 		return this.entityData.get(ITEM_STACK);
 	}
 
-	//Here you go!! <3
 	private static final float maxItemOffset = 0.5F;
 	public void randomizeItemOffsets() {
 		this.setItemX((this.random.nextFloat() * (this.random.nextBoolean() ? 1 : -1)) * maxItemOffset);

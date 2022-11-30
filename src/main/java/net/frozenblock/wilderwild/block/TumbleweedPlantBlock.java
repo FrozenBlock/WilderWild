@@ -1,6 +1,7 @@
 package net.frozenblock.wilderwild.block;
 
 import net.frozenblock.wilderwild.entity.Tumbleweed;
+import net.frozenblock.wilderwild.registry.RegisterBlocks;
 import net.frozenblock.wilderwild.registry.RegisterEntities;
 import net.frozenblock.wilderwild.registry.RegisterSounds;
 import net.frozenblock.wilderwild.tag.WilderBlockTags;
@@ -52,6 +53,9 @@ public class TumbleweedPlantBlock extends BushBlock implements BonemealableBlock
 				Tumbleweed weed = new Tumbleweed(RegisterEntities.TUMBLEWEED, level);
 				level.addFreshEntity(weed);
 				weed.setPos(new Vec3(pos.getX() + 0.5, pos.getY(), pos.getZ() + 0.5));
+				if (level.random.nextInt(0, 15) == 0) {
+					weed.setItem(new ItemStack(RegisterBlocks.TUMBLEWEED_PLANT), true);
+				}
 				level.playSound(null, pos, RegisterSounds.ENTITY_TUMBLEWEED_DAMAGE, SoundSource.BLOCKS, 1.0F, 1.0F);
 				level.levelEvent(2001, pos, Block.getId(state));
 				level.gameEvent(null, GameEvent.BLOCK_CHANGE, pos);

@@ -75,7 +75,7 @@ public class CoconutProjectile extends ThrowableItemProjectile {
 					return;
 				}
 			}
-			this.level.addFreshEntity(new ItemEntity(this.level, this.getX(), this.getY(), this.getZ(), this.getItem(), move.x, move.y, move.z));
+			this.level.addFreshEntity(new ItemEntity(this.level, this.getX(), this.getY(), this.getZ(), this.getItem()));
 			this.discard();
 		}
 	}

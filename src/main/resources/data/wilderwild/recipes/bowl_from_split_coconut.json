@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "group": "bowl",
+  "ingredients": [
+	{
+	  "item": "wilderwild:split_coconut"
+	},
+    {
+      "item": "wilderwild:split_coconut"
+    }
+  ],
+  "result": {
+	"item": "minecraft:bowl",
+	"count": 2
+  }
+}
