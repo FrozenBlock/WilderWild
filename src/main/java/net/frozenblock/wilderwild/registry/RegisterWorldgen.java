@@ -57,8 +57,6 @@ public final class RegisterWorldgen implements SurfaceRuleEvents.OverworldModifi
 		if (!FrozenBools.HAS_TERRABLENDER) {
 			context.materialRules().add(0, SharedWorldgen.cypressSurfaceRules());
 			context.materialRules().add(SharedWorldgen.cypressSurfaceRules());
-			context.materialRules().add(0, SharedWorldgen.oasisSurfaceRules());
-			context.materialRules().add(SharedWorldgen.oasisSurfaceRules());
 			if (ClothConfigInteractionHandler.betaBeaches()) {
 				context.materialRules().add(0, SharedWorldgen.betaBeaches());
 				context.materialRules().add(SharedWorldgen.betaBeaches());
