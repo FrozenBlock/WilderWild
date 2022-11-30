@@ -4,10 +4,13 @@
   "ingredients": [
 	{
 	  "item": "wilderwild:split_coconut"
-	}
+	},
+    {
+      "item": "wilderwild:split_coconut"
+    }
   ],
   "result": {
 	"item": "minecraft:bowl",
-	"count": 1
+	"count": 2
   }
 }

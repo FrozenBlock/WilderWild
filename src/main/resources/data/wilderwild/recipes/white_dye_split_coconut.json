@@ -4,13 +4,10 @@
   "ingredients": [
 	{
 	  "item": "wilderwild:split_coconut"
-	},
-    {
-      "item": "wilderwild:split_coconut"
-    }
+	}
   ],
   "result": {
 	"item": "minecraft:white_dye",
-	"count": 2
+	"count": 1
   }
 }
