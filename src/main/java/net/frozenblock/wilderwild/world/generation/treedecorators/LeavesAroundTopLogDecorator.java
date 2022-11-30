@@ -59,7 +59,7 @@ public class LeavesAroundTopLogDecorator extends TreeDecorator {
 		RandomSource randomSource = context.random();
 		Vec3 highPos = new Vec3(highestPos.getX() + 0.5, highestPos.getY() + 0.5, highestPos.getZ() + 0.5);
 		for (BlockPos blockPos : Util.shuffledCopy(context.leaves(), randomSource)) {
-			if ((Math.sqrt(blockPos.distToCenterSqr(highPos)) * 0.57) <= 1) {
+			if (((int)(Math.sqrt(blockPos.distToCenterSqr(highPos)) * 0.57)) <= 1) {
 				Direction direction;
 				BlockPos blockPos2 = blockPos.relative(direction = Util.getRandom(this.directions, randomSource));
 				if (set.contains(blockPos2) || !(randomSource.nextFloat() < this.probability) || !this.hasRequiredEmptyBlocks(context, blockPos, direction))
