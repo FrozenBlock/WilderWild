@@ -144,7 +144,7 @@ dependencies {
 	include "maven.modrinth:nbt-crafting:${nbtcrafting_version}"
 
 	// TerraBlender
-	modCompileOnly "com.github.glitchfiend:TerraBlender-fabric:${minecraft_version}-${terrablender_version}"
+	modImplementation "com.github.glitchfiend:TerraBlender-fabric:${minecraft_version}-${terrablender_version}"
 
 	// Mixin Extras
 	includeImplementation("com.github.LlamaLad7:MixinExtras:0.0.12")
