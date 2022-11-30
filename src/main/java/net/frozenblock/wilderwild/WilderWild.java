@@ -156,6 +156,7 @@ public final class WilderWild implements ModInitializer {
         Registry.register(Registry.FEATURE, id("algae_feature"), ALGAE_FEATURE);
         Registry.register(Registry.FEATURE, id("noise_path_feature"), NOISE_PATH_FEATURE);
         Registry.register(Registry.FEATURE, id("noise_plant_feature"), NOISE_PLANT_FEATURE);
+		Registry.register(Registry.FEATURE, id("noise_path_swap_under_water_feature"), NOISE_PATH_SWAP_UNDER_WATER_FEATURE);
         Registry.register(Registry.FEATURE, id("noise_path_under_water_feature"), NOISE_PATH_UNDER_WATER_FEATURE);
         Registry.register(Registry.FEATURE, id("column_with_disk_feature"), COLUMN_WITH_DISK_FEATURE);
         Registry.register(Registry.FEATURE, id("upwards_pillar"), UPWARDS_PILLAR_FEATURE);
