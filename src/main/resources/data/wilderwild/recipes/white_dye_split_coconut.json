@@ -1,6 +1,6 @@
 {
   "type": "minecraft:crafting_shapeless",
-  "group": "light_gray_dye",
+  "group": "white_dye",
   "ingredients": [
 	{
 	  "item": "wilderwild:split_coconut"
@@ -8,6 +8,6 @@
   ],
   "result": {
 	"item": "minecraft:white_dye",
-	"count": 3
+	"count": 1
   }
 }

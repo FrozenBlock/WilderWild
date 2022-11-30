@@ -1,6 +1,6 @@
 {
   "type": "minecraft:crafting_shapeless",
-  "group": "light_gray_dye",
+  "group": "bowl",
   "ingredients": [
 	{
 	  "item": "wilderwild:split_coconut"
