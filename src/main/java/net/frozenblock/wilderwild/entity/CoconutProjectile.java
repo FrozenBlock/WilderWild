@@ -66,7 +66,7 @@ public class CoconutProjectile extends ThrowableItemProjectile {
 			Vec3 move = this.getDeltaMovement();
 			if (result instanceof BlockHitResult blockHitResult) {
 				Block block = this.level.getBlockState(blockHitResult.getBlockPos()).getBlock();
-				if (block.getExplosionResistance() >= 5.0F && block.defaultDestroyTime() >= 1.25F && this.level.random.nextDouble() > 0.8) {
+				if (block.getExplosionResistance() >= 3.0F && block.defaultDestroyTime() >= 1.0F) {
 					this.level.broadcastEntityEvent(this, (byte)3);
 					this.level.playSound(null, this.getX(), this.getY(), this.getZ(), RegisterSounds.BLOCK_COCONUT_CRACK, SoundSource.BLOCKS, 1.0F, 0.9F + 0.2F * this.level.random.nextFloat());
 					this.level.addFreshEntity(new ItemEntity(this.level, this.getX(), this.getY(), this.getZ(), new ItemStack(RegisterItems.SPLIT_COCONUT)));

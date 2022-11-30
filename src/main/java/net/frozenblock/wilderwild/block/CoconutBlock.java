@@ -2,12 +2,12 @@ package net.frozenblock.wilderwild.block;
 
 import java.util.Objects;
 import net.frozenblock.wilderwild.registry.RegisterBlocks;
+import net.frozenblock.wilderwild.registry.RegisterItems;
 import net.frozenblock.wilderwild.registry.RegisterSounds;
 import net.frozenblock.wilderwild.world.generation.sapling.PalmSaplingGenerator;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.util.RandomSource;
@@ -203,9 +203,10 @@ public class CoconutBlock extends FallingBlock implements BonemealableBlock {
 	@Override
 	public void onLand(@NotNull Level level, @NotNull BlockPos pos, @NotNull BlockState state, @NotNull BlockState replaceableState, @NotNull FallingBlockEntity fallingBlock) {
 		if (!level.isClientSide) {
-			level.setBlock(pos, fallingBlock.getBlockState(), 3);
-			level.destroyBlock(pos, true);
-			level.playSound(null, pos, RegisterSounds.BLOCK_COCONUT_CRACK, SoundSource.BLOCKS, 1.0F, 1.0F);
+			level.playSound(null, pos, RegisterSounds.BLOCK_COCONUT_BREAK, SoundSource.BLOCKS, 1.0F, 1.0F);
+			ItemStack coconut = new ItemStack(RegisterItems.COCONUT);
+			coconut.setCount(4);
+			level.addFreshEntity(new ItemEntity(level, pos.getX() + 0.5, pos.getY(), pos.getZ() + 0.5, coconut));
 			level.setBlock(pos, replaceableState, 3);
 		}
 	}
