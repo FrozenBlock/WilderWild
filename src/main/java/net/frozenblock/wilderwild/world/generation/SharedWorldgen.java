@@ -127,6 +127,7 @@ public final class SharedWorldgen {
 		List<SurfaceRules.RuleSource> list = new ArrayList<>();
 		list.add(cypressSurfaceRules());
 		list.add(warmRiverRules());
+		list.add(oasisSurfaceRules());
 		if (ClothConfigInteractionHandler.betaBeaches()) {
 			list.add(gravelBetaBeaches());
 			list.add(sandBetaBeaches());
@@ -294,6 +295,13 @@ public final class SharedWorldgen {
 								)
 						)
 				)
+		);
+	}
+
+	public static SurfaceRules.RuleSource oasisSurfaceRules() {
+		return SurfaceRules.sequence(
+				SurfaceRules.sequence(SurfaceRules.ifTrue(SurfaceRules.isBiome(RegisterWorldgen.OASIS), SurfaceRules.sequence(SurfaceRules.ifTrue(SurfaceRules.ON_CEILING, SANDSTONE), SAND)), STONE),
+				SurfaceRules.sequence(SurfaceRules.ifTrue(SurfaceRules.ON_FLOOR, SurfaceRules.sequence(SurfaceRules.ifTrue(SurfaceRules.isBiome(RegisterWorldgen.OASIS), SurfaceRules.ifTrue(SurfaceRules.VERY_DEEP_UNDER_FLOOR, SANDSTONE)))), SurfaceRules.sequence(SurfaceRules.ifTrue(SurfaceRules.ON_CEILING, STONE), GRAVEL))
 		);
 	}
 
