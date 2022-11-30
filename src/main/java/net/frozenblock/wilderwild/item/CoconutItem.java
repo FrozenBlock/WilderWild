@@ -28,7 +28,7 @@ public class CoconutItem extends BlockItem {
 		if (!level.isClientSide) {
 			CoconutProjectile coconut = new CoconutProjectile(level, player);
 			coconut.setItem(itemStack);
-			coconut.shootFromRotation(player, player.getXRot(), player.getYRot(), 0.0f, 0.7f, 1.2f);
+			coconut.shootFromRotation(player, player.getXRot(), player.getYRot(), 0.0f, 0.8f, 1.4f);
 			level.addFreshEntity(coconut);
 		}
 		player.awardStat(Stats.ITEM_USED.get(this));

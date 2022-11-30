@@ -45,6 +45,7 @@ import net.frozenblock.wilderwild.world.generation.features.ColumnWithDiskFeatur
 import net.frozenblock.wilderwild.world.generation.features.DownwardsPillarFeature;
 import net.frozenblock.wilderwild.world.generation.features.NematocystFeature;
 import net.frozenblock.wilderwild.world.generation.features.NoisePathFeature;
+import net.frozenblock.wilderwild.world.generation.features.NoisePathSwapUnderWaterFeature;
 import net.frozenblock.wilderwild.world.generation.features.NoisePathUnderWaterFeature;
 import net.frozenblock.wilderwild.world.generation.features.NoisePlantFeature;
 import net.frozenblock.wilderwild.world.generation.features.ShelfFungusFeature;
@@ -52,6 +53,7 @@ import net.frozenblock.wilderwild.world.generation.features.UpwardsPillarFeature
 import net.frozenblock.wilderwild.world.generation.features.config.ColumnWithDiskFeatureConfig;
 import net.frozenblock.wilderwild.world.generation.features.config.NematocystFeatureConfig;
 import net.frozenblock.wilderwild.world.generation.features.config.PathFeatureConfig;
+import net.frozenblock.wilderwild.world.generation.features.config.PathSwapUnderWaterFeatureConfig;
 import net.frozenblock.wilderwild.world.generation.features.config.ShelfFungusFeatureConfig;
 import net.frozenblock.wilderwild.world.generation.features.config.WilderPillarConfig;
 import net.frozenblock.wilderwild.world.generation.foliage.PalmFoliagePlacer;
@@ -104,6 +106,7 @@ public final class WilderWild implements ModInitializer {
     public static final AlgaeFeature ALGAE_FEATURE = new AlgaeFeature(ProbabilityFeatureConfiguration.CODEC);
     public static final NoisePathFeature NOISE_PATH_FEATURE = new NoisePathFeature(PathFeatureConfig.CODEC);
     public static final NoisePlantFeature NOISE_PLANT_FEATURE = new NoisePlantFeature(PathFeatureConfig.CODEC);
+	public static final NoisePathSwapUnderWaterFeature NOISE_PATH_SWAP_UNDER_WATER_FEATURE = new NoisePathSwapUnderWaterFeature(PathSwapUnderWaterFeatureConfig.CODEC);
     public static final NoisePathUnderWaterFeature NOISE_PATH_UNDER_WATER_FEATURE = new NoisePathUnderWaterFeature(PathFeatureConfig.CODEC);
     public static final ColumnWithDiskFeature COLUMN_WITH_DISK_FEATURE = new ColumnWithDiskFeature(ColumnWithDiskFeatureConfig.CODEC);
     public static final UpwardsPillarFeature UPWARDS_PILLAR_FEATURE = new UpwardsPillarFeature(WilderPillarConfig.CODEC);
@@ -153,6 +156,7 @@ public final class WilderWild implements ModInitializer {
         Registry.register(Registry.FEATURE, id("algae_feature"), ALGAE_FEATURE);
         Registry.register(Registry.FEATURE, id("noise_path_feature"), NOISE_PATH_FEATURE);
         Registry.register(Registry.FEATURE, id("noise_plant_feature"), NOISE_PLANT_FEATURE);
+		Registry.register(Registry.FEATURE, id("noise_path_swap_under_water_feature"), NOISE_PATH_SWAP_UNDER_WATER_FEATURE);
         Registry.register(Registry.FEATURE, id("noise_path_under_water_feature"), NOISE_PATH_UNDER_WATER_FEATURE);
         Registry.register(Registry.FEATURE, id("column_with_disk_feature"), COLUMN_WITH_DISK_FEATURE);
         Registry.register(Registry.FEATURE, id("upwards_pillar"), UPWARDS_PILLAR_FEATURE);
