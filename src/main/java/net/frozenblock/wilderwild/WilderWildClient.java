@@ -266,7 +266,7 @@ public final class WilderWildClient implements ClientModInitializer {
 		ColorProviderRegistry.BLOCK.register(((state, level, pos, tintIndex) -> {
 			assert level != null;
 			assert pos != null;
-			return BiomeColors.getAverageFoliageColor(level, pos);
+			return BiomeColors.getAverageGrassColor(level, pos);
 		}), RegisterBlocks.BUSH);
     }
 
