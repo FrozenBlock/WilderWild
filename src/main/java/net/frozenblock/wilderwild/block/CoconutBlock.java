@@ -198,10 +198,8 @@ public class CoconutBlock extends FallingBlock implements BonemealableBlock {
 	@Override
 	public void onLand(@NotNull Level level, @NotNull BlockPos pos, @NotNull BlockState state, @NotNull BlockState replaceableState, @NotNull FallingBlockEntity fallingBlock) {
 		if (!level.isClientSide) {
-			level.destroyBlock(pos, false);
-			if (isFullyGrown(fallingBlock.getBlockState())) {
-				level.addFreshEntity(new ItemEntity(level, pos.getX() + 0.5, pos.getY() + 0.25, pos.getZ() + 0.5, new ItemStack(RegisterBlocks.COCONUT)));
-			}
+			level.setBlock(pos, fallingBlock.getBlockState(), 3);
+			level.destroyBlock(pos, true);
 			level.playSound(null, pos, RegisterSounds.BLOCK_COCONUT_CRACK, SoundSource.BLOCKS, 1.0F, 1.0F);
 			level.setBlock(pos, replaceableState, 3);
 		}
