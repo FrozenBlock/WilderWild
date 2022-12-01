@@ -1,9 +1,0 @@
-{
-  "values": [
-	"minecraft:cobbled_deepslate_wall",
-	"minecraft:polished_deepslate_wall",
-	"minecraft:deepslate_brick_wall",
-	"minecraft:deepslate_tile_wall",
-	"#wilderwild:sculk_wall_replaceable"
-  ]
-}

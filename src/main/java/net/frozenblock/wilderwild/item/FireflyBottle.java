@@ -26,84 +26,84 @@ import org.jetbrains.annotations.NotNull;
 
 public class FireflyBottle extends Item {
 
-    public final FireflyColor color;
+	public final FireflyColor color;
 
-    public FireflyBottle(Properties settings, FireflyColor color) {
-        super(settings);
-        this.color = color;
-    }
+	public FireflyBottle(Properties settings, FireflyColor color) {
+		super(settings);
+		this.color = color;
+	}
 
-    @Override
-    public ItemStack finishUsingItem(@NotNull ItemStack stack, @NotNull Level level, @NotNull LivingEntity user) {
-        Player playerEntity = user instanceof Player ? (Player) user : null;
-        if (playerEntity instanceof ServerPlayer) {
-            CriteriaTriggers.CONSUME_ITEM.trigger((ServerPlayer) playerEntity, stack);
-        }
+	@Override
+	public ItemStack finishUsingItem(@NotNull ItemStack stack, @NotNull Level level, @NotNull LivingEntity user) {
+		Player playerEntity = user instanceof Player ? (Player) user : null;
+		if (playerEntity instanceof ServerPlayer) {
+			CriteriaTriggers.CONSUME_ITEM.trigger((ServerPlayer) playerEntity, stack);
+		}
 
-        if (playerEntity != null) {
-            playerEntity.awardStat(Stats.ITEM_USED.get(this));
-            if (!playerEntity.getAbilities().instabuild) {
-                stack.shrink(1);
-            }
-        }
+		if (playerEntity != null) {
+			playerEntity.awardStat(Stats.ITEM_USED.get(this));
+			if (!playerEntity.getAbilities().instabuild) {
+				stack.shrink(1);
+			}
+		}
 
-        if (playerEntity == null || !playerEntity.getAbilities().instabuild) {
-            if (stack.isEmpty()) {
-                return new ItemStack(Items.GLASS_BOTTLE);
-            }
+		if (playerEntity == null || !playerEntity.getAbilities().instabuild) {
+			if (stack.isEmpty()) {
+				return new ItemStack(Items.GLASS_BOTTLE);
+			}
 
-            if (playerEntity != null) {
-                playerEntity.getInventory().add(new ItemStack(Items.GLASS_BOTTLE));
-            }
-        }
+			if (playerEntity != null) {
+				playerEntity.getInventory().add(new ItemStack(Items.GLASS_BOTTLE));
+			}
+		}
 
-        user.gameEvent(GameEvent.ENTITY_PLACE);
-        return stack;
-    }
+		user.gameEvent(GameEvent.ENTITY_PLACE);
+		return stack;
+	}
 
-    @Override
-    public InteractionResultHolder<ItemStack> use(@NotNull Level level, @NotNull Player player, @NotNull InteractionHand usedHand) {
-        WilderWild.log(player, "Used Firefly Bottle", WilderWild.DEV_LOGGING);
-        if (level instanceof ServerLevel server) {
-            float pitch = player.getXRot();
-            float yaw = player.getYRot();
-            float roll = 0.0F;
-            float f = -Mth.sin(yaw * 0.017453292F) * Mth.cos(pitch * 0.017453292F);
-            float g = -Mth.sin((pitch + roll) * 0.017453292F);
-            float h = Mth.cos(yaw * 0.017453292F) * Mth.cos(pitch * 0.017453292F);
-            ItemStack stack = player.getItemInHand(usedHand);
-            if (player.getAbilities().mayBuild) {
-                Firefly entity = RegisterEntities.FIREFLY.create(server);
-                if (entity != null) {
-                    entity.setDeltaMovement(f * 0.7, g * 0.7, h * 0.7);
-                    entity.moveTo(player.getX(), player.getEyeY(), player.getZ(), player.getXRot(), player.getYRot());
-                    entity.setFromBottle(true);
-                    boolean spawned = server.addFreshEntity(entity);
-                    if (spawned) {
-                        entity.playSound(RegisterSounds.ITEM_BOTTLE_RELEASE_FIREFLY, 1.0F, level.random.nextFloat() * 0.2F + 0.9F);
-                        entity.hasHome = true;
-                        FireflyAi.rememberHome(entity, entity.blockPosition());
-                        entity.setColor(this.color);
-                        if (stack.hasCustomHoverName()) {
-                            entity.setCustomName(stack.getHoverName());
-                        }
-                    } else {
-                        WilderWild.log("Couldn't spawn Firefly from bottle @ " + player.blockPosition().toShortString(), WilderWild.UNSTABLE_LOGGING);
-                    }
-                }
-            }
-        }
-        player.gameEvent(GameEvent.ITEM_INTERACT_FINISH);
-        return ItemUtils.startUsingInstantly(level, player, usedHand);
-    }
+	@Override
+	public InteractionResultHolder<ItemStack> use(@NotNull Level level, @NotNull Player player, @NotNull InteractionHand usedHand) {
+		WilderWild.log(player, "Used Firefly Bottle", WilderWild.DEV_LOGGING);
+		if (level instanceof ServerLevel server) {
+			float pitch = player.getXRot();
+			float yaw = player.getYRot();
+			float roll = 0.0F;
+			float f = -Mth.sin(yaw * 0.017453292F) * Mth.cos(pitch * 0.017453292F);
+			float g = -Mth.sin((pitch + roll) * 0.017453292F);
+			float h = Mth.cos(yaw * 0.017453292F) * Mth.cos(pitch * 0.017453292F);
+			ItemStack stack = player.getItemInHand(usedHand);
+			if (player.getAbilities().mayBuild) {
+				Firefly entity = RegisterEntities.FIREFLY.create(server);
+				if (entity != null) {
+					entity.setDeltaMovement(f * 0.7, g * 0.7, h * 0.7);
+					entity.moveTo(player.getX(), player.getEyeY(), player.getZ(), player.getXRot(), player.getYRot());
+					entity.setFromBottle(true);
+					boolean spawned = server.addFreshEntity(entity);
+					if (spawned) {
+						entity.playSound(RegisterSounds.ITEM_BOTTLE_RELEASE_FIREFLY, 1.0F, level.random.nextFloat() * 0.2F + 0.9F);
+						entity.hasHome = true;
+						FireflyAi.rememberHome(entity, entity.blockPosition());
+						entity.setColor(this.color);
+						if (stack.hasCustomHoverName()) {
+							entity.setCustomName(stack.getHoverName());
+						}
+					} else {
+						WilderWild.log("Couldn't spawn Firefly from bottle @ " + player.blockPosition().toShortString(), WilderWild.UNSTABLE_LOGGING);
+					}
+				}
+			}
+		}
+		player.gameEvent(GameEvent.ITEM_INTERACT_FINISH);
+		return ItemUtils.startUsingInstantly(level, player, usedHand);
+	}
 
-    @Override
-    public UseAnim getUseAnimation(@NotNull ItemStack stack) {
-        return UseAnim.NONE;
-    }
+	@Override
+	public UseAnim getUseAnimation(@NotNull ItemStack stack) {
+		return UseAnim.NONE;
+	}
 
-    @Override
-    public int getUseDuration(@NotNull ItemStack stack) {
-        return 1;
-    }
+	@Override
+	public int getUseDuration(@NotNull ItemStack stack) {
+		return 1;
+	}
 }

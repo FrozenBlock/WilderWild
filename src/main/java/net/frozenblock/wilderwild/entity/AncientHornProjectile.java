@@ -4,6 +4,7 @@ import io.netty.buffer.Unpooled;
 import java.util.List;
 import java.util.Optional;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
+import net.fabricmc.fabric.api.tag.convention.v1.ConventionalBlockTags;
 import net.frozenblock.lib.damagesource.api.FrozenProjectileDamageSource;
 import net.frozenblock.lib.sound.api.FrozenSoundPackets;
 import net.frozenblock.wilderwild.WilderWild;
@@ -74,40 +75,40 @@ import org.jetbrains.annotations.Nullable;
 //TODO: Fix rendering (Renders too bright or too dark depending on direction; renders under other translucents like water, doesn't render further than 8 block away)
 
 public class AncientHornProjectile extends AbstractArrow {
-    private static final TagKey<Block> NON_COLLIDE = WilderBlockTags.ANCIENT_HORN_NON_COLLIDE;
-    private static final int MAX_ALIVE_TICKS = 300;
-    private boolean shot;
-    private boolean leftOwner;
-    private int aliveTicks;
-    private double vecX;
-    private double vecY;
-    private double vecZ;
-    private boolean shotByPlayer;
-    private int bubbles;
-    private BlockState inBlockState;
+	private static final TagKey<Block> NON_COLLIDE = WilderBlockTags.ANCIENT_HORN_NON_COLLIDE;
+	private static final int MAX_ALIVE_TICKS = 300;
+	private boolean shot;
+	private boolean leftOwner;
+	private int aliveTicks;
+	private double vecX;
+	private double vecY;
+	private double vecZ;
+	private boolean shotByPlayer;
+	private int bubbles;
+	private BlockState inBlockState;
 
-    public AncientHornProjectile(@NotNull EntityType<? extends AncientHornProjectile> entityType, Level level) {
-        super(entityType, level);
-        this.setSoundEvent(RegisterSounds.ENTITY_ANCIENT_HORN_PROJECTILE_DISSIPATE);
-    }
+	public AncientHornProjectile(@NotNull EntityType<? extends AncientHornProjectile> entityType, Level level) {
+		super(entityType, level);
+		this.setSoundEvent(RegisterSounds.ENTITY_ANCIENT_HORN_PROJECTILE_DISSIPATE);
+	}
 
-    public AncientHornProjectile(Level level, double x, double y, double z) {
-        super(RegisterEntities.ANCIENT_HORN_PROJECTILE_ENTITY, x, y, z, level);
-        this.setSoundEvent(RegisterSounds.ENTITY_ANCIENT_HORN_PROJECTILE_DISSIPATE);
-    }
+	public AncientHornProjectile(Level level, double x, double y, double z) {
+		super(RegisterEntities.ANCIENT_HORN_PROJECTILE_ENTITY, x, y, z, level);
+		this.setSoundEvent(RegisterSounds.ENTITY_ANCIENT_HORN_PROJECTILE_DISSIPATE);
+	}
 
-    public List<Entity> collidingEntities() {
-        return this.level.getEntities(this, this.getBoundingBox().expandTowards(this.getDeltaMovement()).inflate(1.0D), this::canHitEntity);
-    }
+	public List<Entity> collidingEntities() {
+		return this.level.getEntities(this, this.getBoundingBox().expandTowards(this.getDeltaMovement()).inflate(1.0D), this::canHitEntity);
+	}
 
-    @Override
-    public boolean shouldRender(double cameraX, double cameraY, double cameraZ) {
-        return true;
-    }
+	@Override
+	public boolean shouldRender(double cameraX, double cameraY, double cameraZ) {
+		return true;
+	}
 
-    public int getAliveTicks() {
-        return this.aliveTicks;
-    }
+	public int getAliveTicks() {
+		return this.aliveTicks;
+	}
 
     public void setShotByPlayer(final boolean bl) {
         this.shotByPlayer = bl;
@@ -117,146 +118,146 @@ public class AncientHornProjectile extends AbstractArrow {
         this.bubbles = amount;
     }
 
-    @Override
-    public void tick() {
-        this.baseTick();
-        if (this.bubbles > 0 && this.level instanceof ServerLevel server) {
-            --this.bubbles;
-            EasyPacket.EasyFloatingSculkBubblePacket.createParticle(server, this.position(), Math.random() > 0.7 ? 1 : 0, 20 + WilderWild.random().nextInt(40), 0.05, server.random.nextIntBetweenInclusive(1, 3));
-        }
-        if (this.aliveTicks > MAX_ALIVE_TICKS) {
-            this.remove(RemovalReason.DISCARDED);
-        }
-        ++this.aliveTicks;
-        if (!this.shot) {
-            this.shot = true;
-        }
-        if (!this.leftOwner) {
-            this.leftOwner = this.checkLeftOwner();
-        }
-        boolean noPhysics = this.isNoPhysics();
-        Vec3 deltaMovement = this.getDeltaMovement();
-        if (this.xRotO == 0.0F && this.yRotO == 0.0F) {
-            double horizontalDistance = deltaMovement.horizontalDistance();
-            this.setYRot((float) (Mth.atan2(deltaMovement.x, deltaMovement.z) * 57.2957763671875D));
-            this.setXRot((float) (Mth.atan2(deltaMovement.y, horizontalDistance) * 57.2957763671875D));
-            this.yRotO = this.getYRot();
-            this.xRotO = this.getXRot();
-        }
-        BlockPos blockPos = this.blockPosition();
-        BlockState blockState = this.level.getBlockState(blockPos);
-        Vec3 deltaPosition;
+	@Override
+	public void tick() {
+		this.baseTick();
+		if (this.bubbles > 0 && this.level instanceof ServerLevel server) {
+			--this.bubbles;
+			EasyPacket.EasyFloatingSculkBubblePacket.createParticle(server, this.position(), Math.random() > 0.7 ? 1 : 0, 20 + WilderWild.random().nextInt(40), 0.05, server.random.nextIntBetweenInclusive(1, 3));
+		}
+		if (this.aliveTicks > MAX_ALIVE_TICKS) {
+			this.remove(RemovalReason.DISCARDED);
+		}
+		++this.aliveTicks;
+		if (!this.shot) {
+			this.shot = true;
+		}
+		if (!this.leftOwner) {
+			this.leftOwner = this.checkLeftOwner();
+		}
+		boolean noPhysics = this.isNoPhysics();
+		Vec3 deltaMovement = this.getDeltaMovement();
+		if (this.xRotO == 0.0F && this.yRotO == 0.0F) {
+			double horizontalDistance = deltaMovement.horizontalDistance();
+			this.setYRot((float) (Mth.atan2(deltaMovement.x, deltaMovement.z) * 57.2957763671875D));
+			this.setXRot((float) (Mth.atan2(deltaMovement.y, horizontalDistance) * 57.2957763671875D));
+			this.yRotO = this.getYRot();
+			this.xRotO = this.getXRot();
+		}
+		BlockPos blockPos = this.blockPosition();
+		BlockState blockState = this.level.getBlockState(blockPos);
+		Vec3 deltaPosition;
 
-        if (this.shakeTime > 0) {
-            --this.shakeTime;
-        }
+		if (this.shakeTime > 0) {
+			--this.shakeTime;
+		}
 
-        if (this.isInWater() && level instanceof ServerLevel server) {
-            EasyPacket.EasyFloatingSculkBubblePacket.createParticle(server, new Vec3(this.xo, this.yo, this.zo), 0, 60, 0.05, 4);
-        }
-        if (this.isInWaterOrRain() || blockState.is(Blocks.POWDER_SNOW)) {
-            this.clearFire();
-        }
-        Vec3 position = this.position();
-        deltaPosition = position.add(deltaMovement);
-        HitResult hitResult = this.level.clip(new ClipContext(position, deltaPosition, ClipContext.Block.COLLIDER, ClipContext.Fluid.NONE, this));
-        if (!this.isRemoved() && canInteract()) {
-            List<Entity> entities = this.collidingEntities();
-            Entity owner = this.getOwner();
-            for (Entity entity : entities) {
-                if (!this.isRemoved() && entity != null && entity != owner) {
-                    boolean shouldDamage = true;
-                    if (entity instanceof Player player) {
-                        if (player.isCreative()) {
-                            shouldDamage = false;
-                        }
-                        if (owner instanceof Player playerOwner && !playerOwner.canHarmPlayer(player)) {
-                            shouldDamage = false;
-                        }
-                    }
-                    if (entity.isInvulnerable()) {
-                        shouldDamage = false;
-                    }
-                    if (shouldDamage) {
-                        this.hitEntity(entity);
-                    }
-                }
-            }
-        }
-        if (!this.isRemoved() && hitResult != null && !noPhysics) {
-            this.onHit(hitResult);
-            if (this.isRemoved()) {
-                return;
-            }
-            this.hasImpulse = true;
-        }
-        deltaMovement = this.getDeltaMovement();
-        double deltaX = deltaMovement.x;
-        double deltaY = deltaMovement.y;
-        double deltaZ = deltaMovement.z;
-        if (this.isCritArrow()) {
-            for (int i = 0; i < 4; ++i) {
-                this.level.addParticle(ParticleTypes.CRIT, this.getX() + deltaX * (double) i / 4.0D, this.getY() + deltaY * (double) i / 4.0D, this.getZ() + deltaZ * (double) i / 4.0D, -deltaX, -deltaY + 0.2D, -deltaZ);
-            }
-        }
-        double x = this.getX() + deltaX;
-        double y = this.getY() + deltaY;
-        double z = this.getZ() + deltaZ;
-        double horizontalDistance = deltaMovement.horizontalDistance();
-        if (noPhysics) {
-            this.setYRot((float) (Mth.atan2(-deltaX, -deltaZ) * 57.2957763671875D));
-        } else {
-            this.setYRot((float) (Mth.atan2(deltaX, deltaZ) * 57.2957763671875D));
-        }
-        this.setXRot((float) (Mth.atan2(deltaY, horizontalDistance) * 57.2957763671875D));
-        this.setXRot(lerpRotation(this.xRotO, this.getXRot()));
-        this.setYRot(lerpRotation(this.yRotO, this.getYRot()));
+		if (this.isInWater() && level instanceof ServerLevel server) {
+			EasyPacket.EasyFloatingSculkBubblePacket.createParticle(server, new Vec3(this.xo, this.yo, this.zo), 0, 60, 0.05, 4);
+		}
+		if (this.isInWaterOrRain() || blockState.is(Blocks.POWDER_SNOW)) {
+			this.clearFire();
+		}
+		Vec3 position = this.position();
+		deltaPosition = position.add(deltaMovement);
+		HitResult hitResult = this.level.clip(new ClipContext(position, deltaPosition, ClipContext.Block.COLLIDER, ClipContext.Fluid.NONE, this));
+		if (!this.isRemoved() && canInteract()) {
+			List<Entity> entities = this.collidingEntities();
+			Entity owner = this.getOwner();
+			for (Entity entity : entities) {
+				if (!this.isRemoved() && entity != null && entity != owner) {
+					boolean shouldDamage = true;
+					if (entity instanceof Player player) {
+						if (player.isCreative()) {
+							shouldDamage = false;
+						}
+						if (owner instanceof Player playerOwner && !playerOwner.canHarmPlayer(player)) {
+							shouldDamage = false;
+						}
+					}
+					if (entity.isInvulnerable()) {
+						shouldDamage = false;
+					}
+					if (shouldDamage) {
+						this.hitEntity(entity);
+					}
+				}
+			}
+		}
+		if (!this.isRemoved() && hitResult != null && !noPhysics) {
+			this.onHit(hitResult);
+			if (this.isRemoved()) {
+				return;
+			}
+			this.hasImpulse = true;
+		}
+		deltaMovement = this.getDeltaMovement();
+		double deltaX = deltaMovement.x;
+		double deltaY = deltaMovement.y;
+		double deltaZ = deltaMovement.z;
+		if (this.isCritArrow()) {
+			for (int i = 0; i < 4; ++i) {
+				this.level.addParticle(ParticleTypes.CRIT, this.getX() + deltaX * (double) i / 4.0D, this.getY() + deltaY * (double) i / 4.0D, this.getZ() + deltaZ * (double) i / 4.0D, -deltaX, -deltaY + 0.2D, -deltaZ);
+			}
+		}
+		double x = this.getX() + deltaX;
+		double y = this.getY() + deltaY;
+		double z = this.getZ() + deltaZ;
+		double horizontalDistance = deltaMovement.horizontalDistance();
+		if (noPhysics) {
+			this.setYRot((float) (Mth.atan2(-deltaX, -deltaZ) * 57.2957763671875D));
+		} else {
+			this.setYRot((float) (Mth.atan2(deltaX, deltaZ) * 57.2957763671875D));
+		}
+		this.setXRot((float) (Mth.atan2(deltaY, horizontalDistance) * 57.2957763671875D));
+		this.setXRot(lerpRotation(this.xRotO, this.getXRot()));
+		this.setYRot(lerpRotation(this.yRotO, this.getYRot()));
 
-        this.setPos(x, y, z);
-        this.checkInsideBlocks();
-    }
+		this.setPos(x, y, z);
+		this.checkInsideBlocks();
+	}
 
-    public void setCooldown(int cooldownTicks) {
-        Entity owner = this.getOwner();
-        if (owner != null) {
-            if (owner instanceof Player user) {
-                user.getCooldowns().addCooldown(RegisterItems.ANCIENT_HORN, cooldownTicks);
-            }
-        }
-    }
+	public void setCooldown(int cooldownTicks) {
+		Entity owner = this.getOwner();
+		if (owner != null) {
+			if (owner instanceof Player user) {
+				user.getCooldowns().addCooldown(RegisterItems.ANCIENT_HORN, cooldownTicks);
+			}
+		}
+	}
 
-    public void addCooldown(int cooldownTicks) {
-        Entity owner = this.getOwner();
-        if (owner != null) {
-            if (owner instanceof Player user) {
-                if (!user.isCreative()) {
-                    ItemCooldowns manager = user.getCooldowns();
-                    ItemCooldowns.CooldownInstance entry = manager.cooldowns.get(RegisterItems.ANCIENT_HORN);
-                    if (entry != null) {
-                        int cooldown = (entry.endTime - entry.startTime) + cooldownTicks;
-                        manager.removeCooldown(RegisterItems.ANCIENT_HORN);
-                        manager.addCooldown(RegisterItems.ANCIENT_HORN, Math.min(600, cooldown));
-                    } else {
-                        manager.addCooldown(RegisterItems.ANCIENT_HORN, cooldownTicks);
-                    }
-                }
-            }
-        }
-    }
+	public void addCooldown(int cooldownTicks) {
+		Entity owner = this.getOwner();
+		if (owner != null) {
+			if (owner instanceof Player user) {
+				if (!user.isCreative()) {
+					ItemCooldowns manager = user.getCooldowns();
+					ItemCooldowns.CooldownInstance entry = manager.cooldowns.get(RegisterItems.ANCIENT_HORN);
+					if (entry != null) {
+						int cooldown = (entry.endTime - entry.startTime) + cooldownTicks;
+						manager.removeCooldown(RegisterItems.ANCIENT_HORN);
+						manager.addCooldown(RegisterItems.ANCIENT_HORN, Math.min(600, cooldown));
+					} else {
+						manager.addCooldown(RegisterItems.ANCIENT_HORN, cooldownTicks);
+					}
+				}
+			}
+		}
+	}
 
-    @Override
-    public boolean canHitEntity(Entity entity) {
-        if (!entity.isSpectator() && entity.isAlive() && entity.isPickable() && !(entity instanceof Projectile)) {
-            Entity owner = this.getOwner();
-            return owner != null && (this.leftOwner || !owner.isPassengerOfSameVehicle(entity));
-        } else {
-            return false;
-        }
-    }
+	@Override
+	public boolean canHitEntity(Entity entity) {
+		if (!entity.isSpectator() && entity.isAlive() && entity.isPickable() && !(entity instanceof Projectile)) {
+			Entity owner = this.getOwner();
+			return owner != null && (this.leftOwner || !owner.isPassengerOfSameVehicle(entity));
+		} else {
+			return false;
+		}
+	}
 
-    @Override
-    public void playerTouch(@NotNull Player player) {
-    }
+	@Override
+	public void playerTouch(@NotNull Player player) {
+	}
 
     @Override
     protected void onHitBlock(BlockHitResult result) { //BLOCK INTERACTIONS
@@ -321,31 +322,31 @@ public class AncientHornProjectile extends AbstractArrow {
         this.remove(RemovalReason.DISCARDED);
     }
 
-    private static void trySpawnWarden(ServerLevel level, BlockPos pos) {
-        if (level.getGameRules().getBoolean(GameRules.RULE_DO_WARDEN_SPAWNING)) {
-            Optional<Warden> warden = SpawnUtil.trySpawnMob(EntityType.WARDEN, MobSpawnType.TRIGGERED, level, pos, 20, 5, 6, SpawnUtil.Strategy.ON_TOP_OF_COLLIDER);
-            warden.ifPresent(wardenEntity -> wardenEntity.playSound(SoundEvents.WARDEN_AGITATED, 5.0F, 1.0F));
-        }
-    }
+	private static void trySpawnWarden(ServerLevel level, BlockPos pos) {
+		if (level.getGameRules().getBoolean(GameRules.RULE_DO_WARDEN_SPAWNING)) {
+			Optional<Warden> warden = SpawnUtil.trySpawnMob(EntityType.WARDEN, MobSpawnType.TRIGGERED, level, pos, 20, 5, 6, SpawnUtil.Strategy.ON_TOP_OF_COLLIDER);
+			warden.ifPresent(wardenEntity -> wardenEntity.playSound(SoundEvents.WARDEN_AGITATED, 5.0F, 1.0F));
+		}
+	}
 
-    @Override
-    protected SoundEvent getDefaultHitGroundSoundEvent() {
-        return RegisterSounds.ENTITY_ANCIENT_HORN_PROJECTILE_DISSIPATE;
-    }
+	@Override
+	protected SoundEvent getDefaultHitGroundSoundEvent() {
+		return RegisterSounds.ENTITY_ANCIENT_HORN_PROJECTILE_DISSIPATE;
+	}
 
-    @Override
-    public boolean isNoPhysics() {
-        BlockState insideState = this.level.getBlockState(this.blockPosition());
-        if (insideState.is(RegisterBlocks.HANGING_TENDRIL) && this.level instanceof ServerLevel server && canInteract()) { //HANGING TENDRIL
-            BlockPos pos = this.blockPosition();
-            BlockEntity entity = this.level.getBlockEntity(pos);
-            WilderWild.log(RegisterBlocks.HANGING_TENDRIL, pos, "Horn Projectile Touched", WilderWild.DEV_LOGGING);
-            if (entity instanceof HangingTendrilBlockEntity tendril) {
-                WilderWild.log("Horn Projectile Found Hanging Tendril Entity", WilderWild.UNSTABLE_LOGGING);
-                this.playSound(this.getHitGroundSoundEvent(), 1.0F, 1.2F / (this.random.nextFloat() * 0.2F + 0.9F));
-                int XP = tendril.storedXP;
-                if (XP > 0) {
-                    tendril.storedXP = 0;
+	@Override
+	public boolean isNoPhysics() {
+		BlockState insideState = this.level.getBlockState(this.blockPosition());
+		if (insideState.is(RegisterBlocks.HANGING_TENDRIL) && this.level instanceof ServerLevel server && canInteract()) { //HANGING TENDRIL
+			BlockPos pos = this.blockPosition();
+			BlockEntity entity = this.level.getBlockEntity(pos);
+			WilderWild.log(RegisterBlocks.HANGING_TENDRIL, pos, "Horn Projectile Touched", WilderWild.DEV_LOGGING);
+			if (entity instanceof HangingTendrilBlockEntity tendril) {
+				WilderWild.log("Horn Projectile Found Hanging Tendril Entity", WilderWild.UNSTABLE_LOGGING);
+				this.playSound(this.getHitGroundSoundEvent(), 1.0F, 1.2F / (this.random.nextFloat() * 0.2F + 0.9F));
+				int XP = tendril.storedXP;
+				if (XP > 0) {
+					tendril.storedXP = 0;
 					this.level.explode(this, this.getX(), this.getY(), this.getZ(), 0, Explosion.BlockInteraction.NONE);
 					FrozenSoundPackets.createLocalSound(this.level, pos, RegisterSounds.ENTITY_ANCIENT_HORN_PROJECTILE_BLAST, SoundSource.NEUTRAL, 1.5F, 1.0F, true);
 					this.level.destroyBlock(this.blockPosition(), false);
@@ -353,131 +354,131 @@ public class AncientHornProjectile extends AbstractArrow {
 					setCooldown(getCooldown(this.getOwner(), TENDRIL_COOLDOWN));
 					this.setShotFromCrossbow(false);
 					this.remove(RemovalReason.DISCARDED);
-                }
-            }
-        } else if (insideState.is(NON_COLLIDE)) {
-            if (this.level instanceof ServerLevel server) {
-                if (insideState.getBlock() instanceof BellBlock bell) { //BELL INTERACTION
-                    bell.onProjectileHit(server, insideState, this.level.clip(new ClipContext(this.position(), new Vec3(this.getBlockX(), this.getBlockY(), this.getBlockZ()), ClipContext.Block.COLLIDER, ClipContext.Fluid.NONE, this)), this);
-                } else if (insideState.getBlock() instanceof AbstractGlassBlock || insideState.is(WilderBlockTags.GLASS_BLOCKS) || insideState.is(WilderBlockTags.GLASS_PANES)) {
-                    if (ClothConfigInteractionHandler.hornShattersGlass()) { //GLASS INTERACTION
-                        insideState.onProjectileHit(this.level, insideState, this.level.clip(new ClipContext(this.position(), new Vec3(this.getBlockX(), this.getBlockY(), this.getBlockZ()), ClipContext.Block.COLLIDER, ClipContext.Fluid.NONE, this)), this);
-                        this.level.destroyBlock(this.blockPosition(), false, this);
-                    }
-                }
-            }
-            return true;
-        }
-        Vec3 pos = this.position();
-        Vec3 deltaMovement = this.getDeltaMovement();
-        Vec3 scaledDelta = pos.add(deltaMovement.scale(0.08));
-        BlockHitResult hitResult = this.level.clip(new ClipContext(pos, scaledDelta, ClipContext.Block.COLLIDER, ClipContext.Fluid.NONE, this));
-        if (hitResult.getType() == HitResult.Type.BLOCK) {
-            BlockState state = this.level.getBlockState(hitResult.getBlockPos());
-            return state.is(NON_COLLIDE);
-        }
-        return false;
-    }
+				}
+			}
+		} else if (insideState.is(NON_COLLIDE)) {
+			if (this.level instanceof ServerLevel server) {
+				if (insideState.getBlock() instanceof BellBlock bell) { //BELL INTERACTION
+					bell.onProjectileHit(server, insideState, this.level.clip(new ClipContext(this.position(), new Vec3(this.getBlockX(), this.getBlockY(), this.getBlockZ()), ClipContext.Block.COLLIDER, ClipContext.Fluid.NONE, this)), this);
+				} else if (insideState.getBlock() instanceof AbstractGlassBlock || insideState.is(ConventionalBlockTags.GLASS_BLOCKS) || insideState.is(ConventionalBlockTags.GLASS_PANES)) {
+					if (ClothConfigInteractionHandler.hornShattersGlass()) { //GLASS INTERACTION
+						insideState.onProjectileHit(this.level, insideState, this.level.clip(new ClipContext(this.position(), new Vec3(this.getBlockX(), this.getBlockY(), this.getBlockZ()), ClipContext.Block.COLLIDER, ClipContext.Fluid.NONE, this)), this);
+						this.level.destroyBlock(this.blockPosition(), false, this);
+					}
+				}
+			}
+			return true;
+		}
+		Vec3 pos = this.position();
+		Vec3 deltaMovement = this.getDeltaMovement();
+		Vec3 scaledDelta = pos.add(deltaMovement.scale(0.08));
+		BlockHitResult hitResult = this.level.clip(new ClipContext(pos, scaledDelta, ClipContext.Block.COLLIDER, ClipContext.Fluid.NONE, this));
+		if (hitResult.getType() == HitResult.Type.BLOCK) {
+			BlockState state = this.level.getBlockState(hitResult.getBlockPos());
+			return state.is(NON_COLLIDE);
+		}
+		return false;
+	}
 
-    private boolean checkLeftOwner() {
-        Entity owner = this.getOwner();
-        if (owner != null) {
-            for (Entity entity2 : this.level.getEntities(this, this.getBoundingBox().expandTowards(this.getDeltaMovement()).inflate(1.0D), (entityx) -> !entityx.isSpectator() && entityx.isPickable())) {
-                if (entity2.getRootVehicle() == owner.getRootVehicle()) {
-                    return false;
-                }
-            }
-        }
-        return true;
-    }
+	private boolean checkLeftOwner() {
+		Entity owner = this.getOwner();
+		if (owner != null) {
+			for (Entity entity2 : this.level.getEntities(this, this.getBoundingBox().expandTowards(this.getDeltaMovement()).inflate(1.0D), (entityx) -> !entityx.isSpectator() && entityx.isPickable())) {
+				if (entity2.getRootVehicle() == owner.getRootVehicle()) {
+					return false;
+				}
+			}
+		}
+		return true;
+	}
 
-    @Override
-    public Packet<?> getAddEntityPacket() {
-        return EntitySpawnPacket.create(this, WilderWild.HORN_PROJECTILE_PACKET_ID);
-    }
+	@Override
+	public Packet<?> getAddEntityPacket() {
+		return EntitySpawnPacket.create(this, WilderWild.HORN_PROJECTILE_PACKET_ID);
+	}
 
-    public boolean canInteract() {
-        return this.getOwner() != null;
-    }
+	public boolean canInteract() {
+		return this.getOwner() != null;
+	}
 
-    @Override
-    protected ItemStack getPickupItem() {
-        return ItemStack.EMPTY;
-    }
+	@Override
+	protected ItemStack getPickupItem() {
+		return ItemStack.EMPTY;
+	}
 
-    @Override
-    public void addAdditionalSaveData(@NotNull CompoundTag compound) {
-        if (!this.isRemoved()) {
-            if (this.inBlockState != null) {
-                compound.put("inBlockState", NbtUtils.writeBlockState(this.inBlockState));
-            }
-            compound.putInt("aliveTicks", this.aliveTicks);
-            if (this.leftOwner) {
-                compound.putBoolean("LeftOwner", true);
-            }
-            compound.putBoolean("HasBeenShot", this.shot);
-            compound.putDouble("originX", this.vecX);
-            compound.putDouble("originY", this.vecY);
-            compound.putDouble("originZ", this.vecZ);
-            compound.putBoolean("shotByPlayer", this.shotByPlayer);
-            compound.putInt("bubbles", this.bubbles);
-        }
-    }
+	@Override
+	public void addAdditionalSaveData(@NotNull CompoundTag compound) {
+		if (!this.isRemoved()) {
+			if (this.inBlockState != null) {
+				compound.put("inBlockState", NbtUtils.writeBlockState(this.inBlockState));
+			}
+			compound.putInt("aliveTicks", this.aliveTicks);
+			if (this.leftOwner) {
+				compound.putBoolean("LeftOwner", true);
+			}
+			compound.putBoolean("HasBeenShot", this.shot);
+			compound.putDouble("originX", this.vecX);
+			compound.putDouble("originY", this.vecY);
+			compound.putDouble("originZ", this.vecZ);
+			compound.putBoolean("shotByPlayer", this.shotByPlayer);
+			compound.putInt("bubbles", this.bubbles);
+		}
+	}
 
-    @Override
-    public void readAdditionalSaveData(@NotNull CompoundTag compound) {
-        if (!this.isRemoved()) {
-            if (compound.contains("inBlockState", 10)) {
-                this.inBlockState = NbtUtils.readBlockState(compound.getCompound("inBlockState"));
-            }
-            this.aliveTicks = compound.getInt("aliveTicks");
-            this.leftOwner = compound.getBoolean("LeftOwner");
-            this.shot = compound.getBoolean("HasBeenShot");
-            this.vecX = compound.getDouble("originX");
-            this.vecY = compound.getDouble("originY");
-            this.vecZ = compound.getDouble("originZ");
-            this.shotByPlayer = compound.getBoolean("shotByPlayer");
-            this.bubbles = compound.getInt("bubbles");
-        }
-    }
+	@Override
+	public void readAdditionalSaveData(@NotNull CompoundTag compound) {
+		if (!this.isRemoved()) {
+			if (compound.contains("inBlockState", 10)) {
+				this.inBlockState = NbtUtils.readBlockState(compound.getCompound("inBlockState"));
+			}
+			this.aliveTicks = compound.getInt("aliveTicks");
+			this.leftOwner = compound.getBoolean("LeftOwner");
+			this.shot = compound.getBoolean("HasBeenShot");
+			this.vecX = compound.getDouble("originX");
+			this.vecY = compound.getDouble("originY");
+			this.vecZ = compound.getDouble("originZ");
+			this.shotByPlayer = compound.getBoolean("shotByPlayer");
+			this.bubbles = compound.getInt("bubbles");
+		}
+	}
 
-    @Override
-    public void shootFromRotation(Entity shooter, float pitch, float yaw, float roll, float speed, float divergence) {
-        float xRot = -Mth.sin(yaw * 0.017453292F) * Mth.cos(pitch * 0.017453292F);
-        float yRot = -Mth.sin((pitch + roll) * 0.017453292F);
-        float zRot = Mth.cos(yaw * 0.017453292F) * Mth.cos(pitch * 0.017453292F);
-        this.shoot(xRot, yRot, zRot, speed, divergence);
-        this.vecX = shooter.getX();
-        this.vecY = shooter.getEyeY();
-        this.vecZ = shooter.getZ();
-        this.setOwner(shooter);
-    }
+	@Override
+	public void shootFromRotation(Entity shooter, float pitch, float yaw, float roll, float speed, float divergence) {
+		float xRot = -Mth.sin(yaw * 0.017453292F) * Mth.cos(pitch * 0.017453292F);
+		float yRot = -Mth.sin((pitch + roll) * 0.017453292F);
+		float zRot = Mth.cos(yaw * 0.017453292F) * Mth.cos(pitch * 0.017453292F);
+		this.shoot(xRot, yRot, zRot, speed, divergence);
+		this.vecX = shooter.getX();
+		this.vecY = shooter.getEyeY();
+		this.vecZ = shooter.getZ();
+		this.setOwner(shooter);
+	}
 
-    @Override
-    protected void onHit(HitResult result) {
-        HitResult.Type type = result.getType();
-        if (type == HitResult.Type.BLOCK) {
-            BlockHitResult blockHitResult = (BlockHitResult) result;
-            if (!level.getBlockState(blockHitResult.getBlockPos()).is(NON_COLLIDE)) {
-                this.onHitBlock(blockHitResult);
-                this.remove(RemovalReason.DISCARDED);
-            }
-        }
-    }
+	@Override
+	protected void onHit(HitResult result) {
+		HitResult.Type type = result.getType();
+		if (type == HitResult.Type.BLOCK) {
+			BlockHitResult blockHitResult = (BlockHitResult) result;
+			if (!level.getBlockState(blockHitResult.getBlockPos()).is(NON_COLLIDE)) {
+				this.onHitBlock(blockHitResult);
+				this.remove(RemovalReason.DISCARDED);
+			}
+		}
+	}
 
     public double getDamage(@Nullable Entity entity) {
         return entity instanceof Player ? 15 : 22;
     }
 
-    @Override
-    protected float getWaterInertia() {
-        return 1.0F;
-    }
+	@Override
+	protected float getWaterInertia() {
+		return 1.0F;
+	}
 
-    @Override
-    public boolean isNoGravity() {
-        return true;
-    }
+	@Override
+	public boolean isNoGravity() {
+		return true;
+	}
 
     private void hitEntity(Entity entity) {
         int damage = (int) this.getDamage(entity);
@@ -537,63 +538,63 @@ public class AncientHornProjectile extends AbstractArrow {
         }
     }
 
-    @Override
-    public boolean dampensVibrations() {
-        return true;
-    }
+	@Override
+	public boolean dampensVibrations() {
+		return true;
+	}
 
-    @Override
-    public void gameEvent(@NotNull GameEvent event) {
-    }
+	@Override
+	public void gameEvent(@NotNull GameEvent event) {
+	}
 
-    @Override
-    public void gameEvent(@NotNull GameEvent event, @Nullable Entity entity) {
-    }
+	@Override
+	public void gameEvent(@NotNull GameEvent event, @Nullable Entity entity) {
+	}
 
-    public static class EntitySpawnPacket { //When the Fabric tutorial WORKS!!!!! BOM BOM BOM BOM BOM BOM BOM, BOBOBOM! DUNDUN!
-        public static Packet<?> create(Entity entity, ResourceLocation packetID) {
-            if (entity.level.isClientSide)
-                throw new IllegalStateException("SpawnPacketUtil.create called on the logical client!");
-            FriendlyByteBuf byteBuf = new FriendlyByteBuf(Unpooled.buffer());
-            byteBuf.writeVarInt(Registry.ENTITY_TYPE.getId(entity.getType()));
-            byteBuf.writeUUID(entity.getUUID());
-            byteBuf.writeVarInt(entity.getId());
-            PacketBufUtil.writeVec3d(byteBuf, entity.position());
-            PacketBufUtil.writeAngle(byteBuf, entity.getXRot());
-            PacketBufUtil.writeAngle(byteBuf, entity.getYRot());
-            return ServerPlayNetworking.createS2CPacket(packetID, byteBuf);
-        }
+	public static class EntitySpawnPacket { //When the Fabric tutorial WORKS!!!!! BOM BOM BOM BOM BOM BOM BOM, BOBOBOM! DUNDUN!
+		public static Packet<?> create(Entity entity, ResourceLocation packetID) {
+			if (entity.level.isClientSide)
+				throw new IllegalStateException("SpawnPacketUtil.create called on the logical client!");
+			FriendlyByteBuf byteBuf = new FriendlyByteBuf(Unpooled.buffer());
+			byteBuf.writeVarInt(Registry.ENTITY_TYPE.getId(entity.getType()));
+			byteBuf.writeUUID(entity.getUUID());
+			byteBuf.writeVarInt(entity.getId());
+			PacketBufUtil.writeVec3d(byteBuf, entity.position());
+			PacketBufUtil.writeAngle(byteBuf, entity.getXRot());
+			PacketBufUtil.writeAngle(byteBuf, entity.getYRot());
+			return ServerPlayNetworking.createS2CPacket(packetID, byteBuf);
+		}
 
-        public static final class PacketBufUtil {
+		public static final class PacketBufUtil {
 
-            public static byte packAngle(float angle) {
-                return (byte) Mth.floor(angle * 256 / 360);
-            }
+			public static byte packAngle(float angle) {
+				return (byte) Mth.floor(angle * 256 / 360);
+			}
 
-            public static float unpackAngle(byte angleByte) {
-                return (angleByte * 360) / 256F;
-            }
+			public static float unpackAngle(byte angleByte) {
+				return (angleByte * 360) / 256F;
+			}
 
-            public static void writeAngle(FriendlyByteBuf byteBuf, float angle) {
-                byteBuf.writeByte(packAngle(angle));
-            }
+			public static void writeAngle(FriendlyByteBuf byteBuf, float angle) {
+				byteBuf.writeByte(packAngle(angle));
+			}
 
-            public static float readAngle(FriendlyByteBuf byteBuf) {
-                return unpackAngle(byteBuf.readByte());
-            }
+			public static float readAngle(FriendlyByteBuf byteBuf) {
+				return unpackAngle(byteBuf.readByte());
+			}
 
-            public static void writeVec3d(FriendlyByteBuf byteBuf, Vec3 vec3d) {
-                byteBuf.writeDouble(vec3d.x);
-                byteBuf.writeDouble(vec3d.y);
-                byteBuf.writeDouble(vec3d.z);
-            }
+			public static void writeVec3d(FriendlyByteBuf byteBuf, Vec3 vec3d) {
+				byteBuf.writeDouble(vec3d.x);
+				byteBuf.writeDouble(vec3d.y);
+				byteBuf.writeDouble(vec3d.z);
+			}
 
-            public static Vec3 readVec3d(FriendlyByteBuf byteBuf) {
-                double x = byteBuf.readDouble();
-                double y = byteBuf.readDouble();
-                double z = byteBuf.readDouble();
-                return new Vec3(x, y, z);
-            }
-        }
-    }
+			public static Vec3 readVec3d(FriendlyByteBuf byteBuf) {
+				double x = byteBuf.readDouble();
+				double y = byteBuf.readDouble();
+				double z = byteBuf.readDouble();
+				return new Vec3(x, y, z);
+			}
+		}
+	}
 }

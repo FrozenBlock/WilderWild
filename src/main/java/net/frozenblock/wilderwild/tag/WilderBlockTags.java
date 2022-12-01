@@ -25,13 +25,11 @@ public final class WilderBlockTags {
     public static final TagKey<Block> BLOCKS_TERMITE = bind("blocks_termite");
     public static final TagKey<Block> FIREFLY_HIDEABLE_BLOCKS = bind("firefly_hideable_blocks");
     public static final TagKey<Block> PACKED_MUD_REPLACEABLE = bind("packed_mud_replaceable");
+	public static final TagKey<Block> HOLLOWED_LOGS = bind("hollowed_logs");
 	public static final TagKey<Block> BUSH_MAY_PLACE_ON = bind("bush_may_place_on");
 	public static final TagKey<Block> SAND_POOL_REPLACEABLE = bind("sand_pool_replaceable");
 
-    public static final TagKey<Block> GLASS_BLOCKS = TagKey.create(Registry.BLOCK_REGISTRY, new ResourceLocation("c", "glass_blocks"));
-    public static final TagKey<Block> GLASS_PANES = TagKey.create(Registry.BLOCK_REGISTRY, new ResourceLocation("c", "glass_panes"));
-
-    private static TagKey<Block> bind(String path) {
-        return TagKey.create(Registry.BLOCK_REGISTRY, WilderWild.id(path));
-    }
+	private static TagKey<Block> bind(String path) {
+		return TagKey.create(Registry.BLOCK_REGISTRY, WilderWild.id(path));
+	}
 }

@@ -4,111 +4,111 @@ import net.frozenblock.lib.FrozenBools;
 
 public final class ClothConfigInteractionHandler {
 
-    public static boolean betaBeaches() {
-        if (FrozenBools.HAS_CLOTH_CONFIG) {
-            return ClothConfigCloserInteractionHandler.betaBeaches();
-        }
-        return true;
-    }
+	public static boolean betaBeaches() {
+		if (FrozenBools.HAS_CLOTH_CONFIG) {
+			return ClothConfigCloserInteractionHandler.betaBeaches();
+		}
+		return true;
+	}
 
-    /*
-        public static boolean modifyDesertPlacement() {
-            if (FrozenBools.hasCloth) {
-                return ClothConfigCloserInteractionHandler.modifyDesertPlacement();
-            }
-            return true;
-        }
+	/*
+		public static boolean modifyDesertPlacement() {
+			if (FrozenBools.hasCloth) {
+				return ClothConfigCloserInteractionHandler.modifyDesertPlacement();
+			}
+			return true;
+		}
 
-        public static boolean modifyBadlandsPlacement() {
-            if (FrozenBools.hasCloth) {
-                return ClothConfigCloserInteractionHandler.modifyBadlandsPlacement();
-            }
-            return true;
-        }
-    */
-    public static boolean modifyJunglePlacement() {
-        if (FrozenBools.HAS_CLOTH_CONFIG) {
-            return ClothConfigCloserInteractionHandler.modifyJunglePlacement();
-        }
-        return true;
-    }
+		public static boolean modifyBadlandsPlacement() {
+			if (FrozenBools.hasCloth) {
+				return ClothConfigCloserInteractionHandler.modifyBadlandsPlacement();
+			}
+			return true;
+		}
+	*/
+	public static boolean modifyJunglePlacement() {
+		if (FrozenBools.HAS_CLOTH_CONFIG) {
+			return ClothConfigCloserInteractionHandler.modifyJunglePlacement();
+		}
+		return true;
+	}
 
-    public static boolean modifySwampPlacement() {
-        if (FrozenBools.HAS_CLOTH_CONFIG) {
-            return ClothConfigCloserInteractionHandler.modifySwampPlacement();
-        }
-        return true;
-    }
+	public static boolean modifySwampPlacement() {
+		if (FrozenBools.HAS_CLOTH_CONFIG) {
+			return ClothConfigCloserInteractionHandler.modifySwampPlacement();
+		}
+		return true;
+	}
 
-    public static boolean modifyMangroveSwampPlacement() {
-        if (FrozenBools.HAS_CLOTH_CONFIG) {
-            return ClothConfigCloserInteractionHandler.modifyMangroveSwampPlacement();
-        }
-        return true;
-    }
+	public static boolean modifyMangroveSwampPlacement() {
+		if (FrozenBools.HAS_CLOTH_CONFIG) {
+			return ClothConfigCloserInteractionHandler.modifyMangroveSwampPlacement();
+		}
+		return true;
+	}
 
-    public static boolean modifyWindsweptSavannaPlacement() {
-        if (FrozenBools.HAS_CLOTH_CONFIG) {
-            return ClothConfigCloserInteractionHandler.modifyWindsweptSavannaPlacement();
-        }
-        return true;
-    }
+	public static boolean modifyWindsweptSavannaPlacement() {
+		if (FrozenBools.HAS_CLOTH_CONFIG) {
+			return ClothConfigCloserInteractionHandler.modifyWindsweptSavannaPlacement();
+		}
+		return true;
+	}
 
-    public static boolean dyingTrees() {
-        if (FrozenBools.HAS_CLOTH_CONFIG) {
-            return ClothConfigCloserInteractionHandler.dyingTrees();
-        }
-        return true;
-    }
+	public static boolean dyingTrees() {
+		if (FrozenBools.HAS_CLOTH_CONFIG) {
+			return ClothConfigCloserInteractionHandler.dyingTrees();
+		}
+		return true;
+	}
 
-    public static boolean fallenLogs() {
-        if (FrozenBools.HAS_CLOTH_CONFIG) {
-            return ClothConfigCloserInteractionHandler.fallenLogs();
-        }
-        return true;
-    }
+	public static boolean fallenLogs() {
+		if (FrozenBools.HAS_CLOTH_CONFIG) {
+			return ClothConfigCloserInteractionHandler.fallenLogs();
+		}
+		return true;
+	}
 
-    public static boolean wildTrees() {
-        if (FrozenBools.HAS_CLOTH_CONFIG) {
-            return ClothConfigCloserInteractionHandler.wildTrees();
-        }
-        return true;
-    }
+	public static boolean wildTrees() {
+		if (FrozenBools.HAS_CLOTH_CONFIG) {
+			return ClothConfigCloserInteractionHandler.wildTrees();
+		}
+		return true;
+	}
 
-    public static boolean wildGrass() {
-        if (FrozenBools.HAS_CLOTH_CONFIG) {
-            return ClothConfigCloserInteractionHandler.wildGrass();
-        }
-        return true;
-    }
+	public static boolean wildGrass() {
+		if (FrozenBools.HAS_CLOTH_CONFIG) {
+			return ClothConfigCloserInteractionHandler.wildGrass();
+		}
+		return true;
+	}
 
-    public static boolean hornShattersGlass() {
-        if (FrozenBools.HAS_CLOTH_CONFIG) {
-            return ClothConfigCloserInteractionHandler.hornShattersGlass();
-        }
-        return false;
-    }
+	public static boolean hornShattersGlass() {
+		if (FrozenBools.HAS_CLOTH_CONFIG) {
+			return ClothConfigCloserInteractionHandler.hornShattersGlass();
+		}
+		return false;
+	}
 
-    public static boolean projectileBreakParticles() {
-        if (FrozenBools.HAS_CLOTH_CONFIG) {
-            return ClothConfigCloserInteractionHandler.projectileBreakParticles();
-        }
-        return false;
-    }
+	public static boolean projectileBreakParticles() {
+		if (FrozenBools.HAS_CLOTH_CONFIG) {
+			return ClothConfigCloserInteractionHandler.projectileBreakParticles();
+		}
+		return false;
+	}
 
-    public static boolean hornCanSummonWarden() {
-        if (FrozenBools.HAS_CLOTH_CONFIG) {
-            return ClothConfigCloserInteractionHandler.hornCanSummonWarden();
-        }
-        return false;
-    }
+	public static boolean hornCanSummonWarden() {
+		if (FrozenBools.HAS_CLOTH_CONFIG) {
+			return ClothConfigCloserInteractionHandler.hornCanSummonWarden();
+		}
+		return false;
+	}
 
-    public static boolean mcLiveSensorTendrils() {
-        if (FrozenBools.HAS_CLOTH_CONFIG) {
-            return ClothConfigCloserInteractionHandler.mcLiveSensorTendrils();
-        }
-        return false;
-    }
+	public static boolean mcLiveSensorTendrils() {
+		if (FrozenBools.HAS_CLOTH_CONFIG) {
+			return ClothConfigCloserInteractionHandler.mcLiveSensorTendrils();
+		}
+		return false;
+	}
 
 	public static boolean cactusSounds() {
 		if (FrozenBools.HAS_CLOTH_CONFIG) {
@@ -222,12 +222,12 @@ public final class ClothConfigInteractionHandler {
 		return 100;
 	}
 
-    public static boolean unpassableRail() {
-        if (FrozenBools.HAS_CLOTH_CONFIG) {
-            return ClothConfigCloserInteractionHandler.unpassableRail();
-        }
-        return true;
-    }
+	public static boolean unpassableRail() {
+		if (FrozenBools.HAS_CLOTH_CONFIG) {
+			return ClothConfigCloserInteractionHandler.unpassableRail();
+		}
+		return false;
+	}
 
 	public static boolean keyframeAllayDance() {
 		if (FrozenBools.HAS_CLOTH_CONFIG) {
@@ -250,46 +250,53 @@ public final class ClothConfigInteractionHandler {
 		return true;
 	}
 
-    public static boolean wardenCustomTendrils() {
-        if (FrozenBools.HAS_CLOTH_CONFIG) {
-            return ClothConfigCloserInteractionHandler.wardenCustomTendrils();
-        }
-        return true;
-    }
+	public static boolean wardenCustomTendrils() {
+		if (FrozenBools.HAS_CLOTH_CONFIG) {
+			return ClothConfigCloserInteractionHandler.wardenCustomTendrils();
+		}
+		return true;
+	}
 
-    public static boolean wardenDyingAnimation() {
-        if (FrozenBools.HAS_CLOTH_CONFIG) {
-            return ClothConfigCloserInteractionHandler.wardenDyingAnimation();
-        }
-        return true;
-    }
+	public static boolean wardenDyingAnimation() {
+		if (FrozenBools.HAS_CLOTH_CONFIG) {
+			return ClothConfigCloserInteractionHandler.wardenDyingAnimation();
+		}
+		return true;
+	}
 
-    public static boolean wardenEmergesFromEgg() {
-        if (FrozenBools.HAS_CLOTH_CONFIG) {
-            return ClothConfigCloserInteractionHandler.wardenEmergesFromEgg();
-        }
-        return true;
-    }
+	public static boolean wardenEmergesFromCommand() {
+		if (FrozenBools.HAS_CLOTH_CONFIG) {
+			return ClothConfigCloserInteractionHandler.wardenEmergesFromCommand();
+		}
+		return false;
+	}
 
-    public static boolean wardenSwimAnimation() {
-        if (FrozenBools.HAS_CLOTH_CONFIG) {
-            return ClothConfigCloserInteractionHandler.wardenSwimAnimation();
-        }
-        return true;
-    }
+	public static boolean wardenEmergesFromEgg() {
+		if (FrozenBools.HAS_CLOTH_CONFIG) {
+			return ClothConfigCloserInteractionHandler.wardenEmergesFromEgg();
+		}
+		return false;
+	}
 
-    public static boolean shriekerGargling() {
-        if (FrozenBools.HAS_CLOTH_CONFIG) {
-            return ClothConfigCloserInteractionHandler.shriekerGargling();
-        }
-        return false;
-    }
+	public static boolean wardenSwimAnimation() {
+		if (FrozenBools.HAS_CLOTH_CONFIG) {
+			return ClothConfigCloserInteractionHandler.wardenSwimAnimation();
+		}
+		return true;
+	}
 
-    public static boolean soulFireSounds() {
-        if (FrozenBools.HAS_CLOTH_CONFIG) {
-            return ClothConfigCloserInteractionHandler.soulFireSounds();
-        }
-        return true;
-    }
+	public static boolean shriekerGargling() {
+		if (FrozenBools.HAS_CLOTH_CONFIG) {
+			return ClothConfigCloserInteractionHandler.shriekerGargling();
+		}
+		return false;
+	}
+
+	public static boolean soulFireSounds() {
+		if (FrozenBools.HAS_CLOTH_CONFIG) {
+			return ClothConfigCloserInteractionHandler.soulFireSounds();
+		}
+		return true;
+	}
 
 }

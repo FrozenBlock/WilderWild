@@ -1,0 +1,18 @@
+{
+  "replace": false,
+  "values": [
+    {
+      "id": "#minecraft:leaves",
+      "required": false
+    },
+    {
+      "id": "#wilderwild:hollowed_logs",
+      "required": false
+    },
+    "minecraft:bamboo",
+    {
+      "id": "immersive_weathering:leaf_piles",
+      "required": false
+    }
+  ]
+}

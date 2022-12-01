@@ -25,6 +25,7 @@ import net.minecraft.world.level.levelgen.placement.BlockPredicateFilter;
 import net.minecraft.world.level.levelgen.placement.CountPlacement;
 import net.minecraft.world.level.levelgen.placement.EnvironmentScanPlacement;
 import net.minecraft.world.level.levelgen.placement.InSquarePlacement;
+import net.minecraft.world.level.levelgen.placement.NoiseBasedCountPlacement;
 import net.minecraft.world.level.levelgen.placement.NoiseThresholdCountPlacement;
 import net.minecraft.world.level.levelgen.placement.PlacedFeature;
 import net.minecraft.world.level.levelgen.placement.PlacementModifier;
@@ -313,18 +314,23 @@ public final class WilderPlacedFeatures {
             RandomOffsetPlacement.vertical(ConstantInt.of(1)),
             BiomeFilter.biome());
 
-    public static final Holder<PlacedFeature> PATCH_NEMATOCYST_UP = register("patch_nematocyst_up", WilderConfiguredFeatures.PATCH_NEMATOCYST_UP,
-            CountPlacement.of(ConstantInt.of(9)), InSquarePlacement.spread(), PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT, BiomeFilter.biome());
-    public static final Holder<PlacedFeature> PATCH_NEMATOCYST_DOWN = register("patch_nematocyst_down", WilderConfiguredFeatures.PATCH_NEMATOCYST_DOWN,
-            CountPlacement.of(ConstantInt.of(9)), InSquarePlacement.spread(), PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT, BiomeFilter.biome());
-    public static final Holder<PlacedFeature> PATCH_NEMATOCYST_NORTH = register("patch_nematocyst_north", WilderConfiguredFeatures.PATCH_NEMATOCYST_NORTH,
-            CountPlacement.of(ConstantInt.of(9)), InSquarePlacement.spread(), PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT, BiomeFilter.biome());
-    public static final Holder<PlacedFeature> PATCH_NEMATOCYST_SOUTH = register("patch_nematocyst_south", WilderConfiguredFeatures.PATCH_NEMATOCYST_SOUTH,
-            CountPlacement.of(ConstantInt.of(9)), InSquarePlacement.spread(), PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT, BiomeFilter.biome());
-    public static final Holder<PlacedFeature> PATCH_NEMATOCYST_EAST = register("patch_nematocyst_east", WilderConfiguredFeatures.PATCH_NEMATOCYST_EAST,
-            CountPlacement.of(ConstantInt.of(9)), InSquarePlacement.spread(), PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT, BiomeFilter.biome());
-    public static final Holder<PlacedFeature> PATCH_NEMATOCYST_WEST = register("patch_nematocyst_west", WilderConfiguredFeatures.PATCH_NEMATOCYST_WEST,
-            CountPlacement.of(ConstantInt.of(9)), InSquarePlacement.spread(), PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT, BiomeFilter.biome());
+	public static final Holder<PlacedFeature> NEMATOCYST = PlacementUtils.register(
+			"nematocyst",
+			WilderConfiguredFeatures.NEMATOCYST,
+			CountPlacement.of(ConstantInt.of(64)),
+			InSquarePlacement.spread(),
+			PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT,
+			BiomeFilter.biome()
+	);
+
+	public static final Holder<PlacedFeature> NEMATOCYST_PURPLE = PlacementUtils.register(
+			"nematocyst_purple",
+			WilderConfiguredFeatures.NEMATOCYST_PURPLE,
+			CountPlacement.of(ConstantInt.of(64)),
+			InSquarePlacement.spread(),
+			PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT,
+			BiomeFilter.biome()
+	);
 
     public static void init() {
     }

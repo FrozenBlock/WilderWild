@@ -232,6 +232,7 @@ public final class SharedWorldgen {
 				)
         );
     }
+
 	public static SurfaceRules.RuleSource warmRiverRules() {
 		return SurfaceRules.sequence(
 				SurfaceRules.ifTrue(
@@ -239,6 +240,7 @@ public final class SharedWorldgen {
 								SurfaceRules.yBlockCheck(VerticalAnchor.absolute(32), 0), SurfaceRules.sequence(SurfaceRules.ifTrue(SurfaceRules.DEEP_UNDER_FLOOR, SAND), SANDSTONE))
 				));
 	}
+
 	public static SurfaceRules.SequenceRuleSource betaBeaches() {
 		return (SurfaceRules.SequenceRuleSource) SurfaceRules.sequence(gravelBetaBeaches(), sandBetaBeaches(), multilayerSandBetaBeaches());
 	}

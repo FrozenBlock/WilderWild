@@ -22,6 +22,9 @@
 	"client": [
 	  "net.frozenblock.wilderwild.WilderWildClient"
 	],
+    "fabric-datagen": [
+      "net.frozenblock.wilderwild.misc.WilderWildDataGenerator"
+    ],
 	"mm:early_risers": [
 	  "net.frozenblock.wilderwild.EarlyRiser"
 	],
@@ -39,9 +42,6 @@
 	],
 	"simplecopperpipes": [
 	  "net.frozenblock.wilderwild.misc.mod_compat.simple_copper_pipes.WilderCopperPipesEntrypoint"
-	],
-	"preLaunch": [
-	  "net.frozenblock.wilderwild.WilderWildPreLaunch"
 	]
   },
   "mixins": [
@@ -51,10 +51,10 @@
   "depends": {
 	"frozenlib": ">=1.1.4-",
 	"mm": ">=2.3",
-	"nbtcrafting": ">=2.1.4",
+	"nbtcrafting": ">=2.2.3",
 	"fabricloader": ">=0.14.8",
-	"fabric-api": ">=0.60.0",
-	"minecraft": ">=1.19.1",
+	"fabric-api": ">=0.66.0",
+	"minecraft": ">=1.19.2",
 	"java": ">=17"
   },
   "breaks": {

@@ -59,17 +59,17 @@ import net.minecraft.world.phys.Vec3;
 
 @Environment(EnvType.CLIENT)
 public final class WilderWildClient implements ClientModInitializer {
-    public static final ModelLayerLocation ANCIENT_HORN_PROJECTILE_LAYER = new ModelLayerLocation(WilderWild.id("ancient_horn_projectile"), "main");
-    public static final ModelLayerLocation SCULK_SENSOR = new ModelLayerLocation(WilderWild.id("sculk_sensor"), "main");
-    public static final ModelLayerLocation DISPLAY_LANTERN = new ModelLayerLocation(WilderWild.id("display_lantern"), "main");
-    public static final ModelLayerLocation STONE_CHEST = new ModelLayerLocation(WilderWild.id("stone_chest"), "main");
-    public static final ModelLayerLocation DOUBLE_STONE_CHEST_LEFT = new ModelLayerLocation(WilderWild.id("double_stone_chest_left"), "main");
-    public static final ModelLayerLocation DOUBLE_STONE_CHEST_RIGHT = new ModelLayerLocation(WilderWild.id("double_stone_chest_right"), "main");
-    public static final ModelLayerLocation JELLYFISH = new ModelLayerLocation(WilderWild.id("jellyfish"), "main");
+	public static final ModelLayerLocation ANCIENT_HORN_PROJECTILE_LAYER = new ModelLayerLocation(WilderWild.id("ancient_horn_projectile"), "main");
+	public static final ModelLayerLocation SCULK_SENSOR = new ModelLayerLocation(WilderWild.id("sculk_sensor"), "main");
+	public static final ModelLayerLocation DISPLAY_LANTERN = new ModelLayerLocation(WilderWild.id("display_lantern"), "main");
+	public static final ModelLayerLocation STONE_CHEST = new ModelLayerLocation(WilderWild.id("stone_chest"), "main");
+	public static final ModelLayerLocation DOUBLE_STONE_CHEST_LEFT = new ModelLayerLocation(WilderWild.id("double_stone_chest_left"), "main");
+	public static final ModelLayerLocation DOUBLE_STONE_CHEST_RIGHT = new ModelLayerLocation(WilderWild.id("double_stone_chest_right"), "main");
+	public static final ModelLayerLocation JELLYFISH = new ModelLayerLocation(WilderWild.id("jellyfish"), "main");
 	public static final ModelLayerLocation TUMBLEWEED = new ModelLayerLocation(WilderWild.id("tumbleweed"), "main");
 
-    @Override
-    public void onInitializeClient() {
+	@Override
+	public void onInitializeClient() {
 		Splashes.addSplashLocation(WilderWild.id("texts/splashes.txt"));
 		Panoramas.addPanorama(WilderWild.id("textures/gui/title/first/panorama"));
         BlockRenderLayerMap.INSTANCE.putBlock(RegisterBlocks.CARNATION, RenderType.cutout());
@@ -138,63 +138,63 @@ public final class WilderWildClient implements ClientModInitializer {
 		BlockRenderLayerMap.INSTANCE.putBlock(RegisterBlocks.TUMBLEWEED, RenderType.cutout());
 		//BlockRenderLayerMap.INSTANCE.putBlock(RegisterBlocks.NEMATOCYST, RenderType.cutout());
 
-        ClientSpriteRegistryCallback.event(InventoryMenu.BLOCK_ATLAS).register((atlasTexture, registry) -> {
-            registry.register(WilderWild.id("particle/floating_sculk_bubble_0"));
-            registry.register(WilderWild.id("particle/floating_sculk_bubble_1"));
-            registry.register(WilderWild.id("particle/floating_sculk_bubble_2"));
-            registry.register(WilderWild.id("particle/floating_sculk_bubble_3"));
-            registry.register(WilderWild.id("particle/floating_sculk_bubble_4"));
-            registry.register(WilderWild.id("particle/floating_sculk_bubble_5"));
-            registry.register(WilderWild.id("particle/floating_sculk_bubble_6"));
-            registry.register(WilderWild.id("particle/termite_0"));
-            registry.register(WilderWild.id("particle/termite_1"));
-            registry.register(WilderWild.id("particle/termite_2"));
-            registry.register(WilderWild.id("particle/termite_3"));
-            registry.register(WilderWild.id("particle/termite_4"));
-            registry.register(WilderWild.id("particle/termite_5"));
-            registry.register(WilderWild.id("particle/termite_6"));
-            registry.register(WilderWild.id("particle/termite_7"));
-            registry.register(WilderWild.id("particle/termite_8"));
-            registry.register(WilderWild.id("particle/termite_9"));
-        });
+		ClientSpriteRegistryCallback.event(InventoryMenu.BLOCK_ATLAS).register((atlasTexture, registry) -> {
+			registry.register(WilderWild.id("particle/floating_sculk_bubble_0"));
+			registry.register(WilderWild.id("particle/floating_sculk_bubble_1"));
+			registry.register(WilderWild.id("particle/floating_sculk_bubble_2"));
+			registry.register(WilderWild.id("particle/floating_sculk_bubble_3"));
+			registry.register(WilderWild.id("particle/floating_sculk_bubble_4"));
+			registry.register(WilderWild.id("particle/floating_sculk_bubble_5"));
+			registry.register(WilderWild.id("particle/floating_sculk_bubble_6"));
+			registry.register(WilderWild.id("particle/termite_0"));
+			registry.register(WilderWild.id("particle/termite_1"));
+			registry.register(WilderWild.id("particle/termite_2"));
+			registry.register(WilderWild.id("particle/termite_3"));
+			registry.register(WilderWild.id("particle/termite_4"));
+			registry.register(WilderWild.id("particle/termite_5"));
+			registry.register(WilderWild.id("particle/termite_6"));
+			registry.register(WilderWild.id("particle/termite_7"));
+			registry.register(WilderWild.id("particle/termite_8"));
+			registry.register(WilderWild.id("particle/termite_9"));
+		});
 
-        ClientSpriteRegistryCallback.event(Sheets.CHEST_SHEET).register((atlasTexture, registry) -> {
-            registry.register(WilderWild.id("entity/stone_chest/stone"));
-            registry.register(WilderWild.id("entity/stone_chest/stone_left"));
-            registry.register(WilderWild.id("entity/stone_chest/stone_right"));
-            registry.register(WilderWild.id("entity/stone_chest/ancient"));
-            registry.register(WilderWild.id("entity/stone_chest/ancient_left"));
-            registry.register(WilderWild.id("entity/stone_chest/ancient_right"));
-        });
+		ClientSpriteRegistryCallback.event(Sheets.CHEST_SHEET).register((atlasTexture, registry) -> {
+			registry.register(WilderWild.id("entity/stone_chest/stone"));
+			registry.register(WilderWild.id("entity/stone_chest/stone_left"));
+			registry.register(WilderWild.id("entity/stone_chest/stone_right"));
+			registry.register(WilderWild.id("entity/stone_chest/ancient"));
+			registry.register(WilderWild.id("entity/stone_chest/ancient_left"));
+			registry.register(WilderWild.id("entity/stone_chest/ancient_right"));
+		});
 
-        ParticleFactoryRegistry.getInstance().register(RegisterParticles.POLLEN, PollenParticle.PollenFactory::new);
-        ParticleFactoryRegistry.getInstance().register(RegisterParticles.DANDELION_SEED, PollenParticle.DandelionFactory::new);
-        ParticleFactoryRegistry.getInstance().register(RegisterParticles.CONTROLLED_DANDELION_SEED, PollenParticle.ControlledDandelionFactory::new);
-        ParticleFactoryRegistry.getInstance().register(RegisterParticles.MILKWEED_SEED, PollenParticle.MilkweedFactory::new);
-        ParticleFactoryRegistry.getInstance().register(RegisterParticles.CONTROLLED_MILKWEED_SEED, PollenParticle.ControlledMilkweedFactory::new);
-        ParticleFactoryRegistry.getInstance().register(RegisterParticles.FLOATING_SCULK_BUBBLE, FloatingSculkBubbleParticle.BubbleFactory::new);
-        ParticleFactoryRegistry.getInstance().register(RegisterParticles.TERMITE, TermiteParticle.Factory::new);
-        ParticleFactoryRegistry.getInstance().register(RegisterParticles.BLUE_PEARLESCENT_HANGING_MESOGLEA, MesogleaDripParticle.BPMesogleaHangProvider::new);
-        ParticleFactoryRegistry.getInstance().register(RegisterParticles.BLUE_PEARLESCENT_FALLING_MESOGLEA, MesogleaDripParticle.BPMesogleaFallProvider::new);
-        ParticleFactoryRegistry.getInstance().register(RegisterParticles.BLUE_PEARLESCENT_LANDING_MESOGLEA, MesogleaDripParticle.BPMesogleaLandProvider::new);
-        ParticleFactoryRegistry.getInstance().register(RegisterParticles.PURPLE_PEARLESCENT_HANGING_MESOGLEA, MesogleaDripParticle.PPMesogleaHangProvider::new);
-        ParticleFactoryRegistry.getInstance().register(RegisterParticles.PURPLE_PEARLESCENT_FALLING_MESOGLEA, MesogleaDripParticle.PPMesogleaFallProvider::new);
-        ParticleFactoryRegistry.getInstance().register(RegisterParticles.PURPLE_PEARLESCENT_LANDING_MESOGLEA, MesogleaDripParticle.PPMesogleaLandProvider::new);
-        ParticleFactoryRegistry.getInstance().register(RegisterParticles.BLUE_HANGING_MESOGLEA, MesogleaDripParticle.BMesogleaHangProvider::new);
-        ParticleFactoryRegistry.getInstance().register(RegisterParticles.BLUE_FALLING_MESOGLEA, MesogleaDripParticle.BMesogleaFallProvider::new);
-        ParticleFactoryRegistry.getInstance().register(RegisterParticles.BLUE_LANDING_MESOGLEA, MesogleaDripParticle.BMesogleaLandProvider::new);
-        ParticleFactoryRegistry.getInstance().register(RegisterParticles.YELLOW_HANGING_MESOGLEA, MesogleaDripParticle.YMesogleaHangProvider::new);
-        ParticleFactoryRegistry.getInstance().register(RegisterParticles.YELLOW_FALLING_MESOGLEA, MesogleaDripParticle.YMesogleaFallProvider::new);
-        ParticleFactoryRegistry.getInstance().register(RegisterParticles.YELLOW_LANDING_MESOGLEA, MesogleaDripParticle.YMesogleaLandProvider::new);
-        ParticleFactoryRegistry.getInstance().register(RegisterParticles.LIME_HANGING_MESOGLEA, MesogleaDripParticle.LMesogleaHangProvider::new);
-        ParticleFactoryRegistry.getInstance().register(RegisterParticles.LIME_FALLING_MESOGLEA, MesogleaDripParticle.LMesogleaFallProvider::new);
-        ParticleFactoryRegistry.getInstance().register(RegisterParticles.LIME_LANDING_MESOGLEA, MesogleaDripParticle.LMesogleaLandProvider::new);
-        ParticleFactoryRegistry.getInstance().register(RegisterParticles.PINK_HANGING_MESOGLEA, MesogleaDripParticle.PMesogleaHangProvider::new);
-        ParticleFactoryRegistry.getInstance().register(RegisterParticles.PINK_FALLING_MESOGLEA, MesogleaDripParticle.PMesogleaFallProvider::new);
-        ParticleFactoryRegistry.getInstance().register(RegisterParticles.PINK_LANDING_MESOGLEA, MesogleaDripParticle.PMesogleaLandProvider::new);
-        ParticleFactoryRegistry.getInstance().register(RegisterParticles.RED_HANGING_MESOGLEA, MesogleaDripParticle.RMesogleaHangProvider::new);
-        ParticleFactoryRegistry.getInstance().register(RegisterParticles.RED_FALLING_MESOGLEA, MesogleaDripParticle.RMesogleaFallProvider::new);
-        ParticleFactoryRegistry.getInstance().register(RegisterParticles.RED_LANDING_MESOGLEA, MesogleaDripParticle.RMesogleaLandProvider::new);
+		ParticleFactoryRegistry.getInstance().register(RegisterParticles.POLLEN, PollenParticle.PollenFactory::new);
+		ParticleFactoryRegistry.getInstance().register(RegisterParticles.DANDELION_SEED, PollenParticle.DandelionFactory::new);
+		ParticleFactoryRegistry.getInstance().register(RegisterParticles.CONTROLLED_DANDELION_SEED, PollenParticle.ControlledDandelionFactory::new);
+		ParticleFactoryRegistry.getInstance().register(RegisterParticles.MILKWEED_SEED, PollenParticle.MilkweedFactory::new);
+		ParticleFactoryRegistry.getInstance().register(RegisterParticles.CONTROLLED_MILKWEED_SEED, PollenParticle.ControlledMilkweedFactory::new);
+		ParticleFactoryRegistry.getInstance().register(RegisterParticles.FLOATING_SCULK_BUBBLE, FloatingSculkBubbleParticle.BubbleFactory::new);
+		ParticleFactoryRegistry.getInstance().register(RegisterParticles.TERMITE, TermiteParticle.Factory::new);
+		ParticleFactoryRegistry.getInstance().register(RegisterParticles.BLUE_PEARLESCENT_HANGING_MESOGLEA, MesogleaDripParticle.BPMesogleaHangProvider::new);
+		ParticleFactoryRegistry.getInstance().register(RegisterParticles.BLUE_PEARLESCENT_FALLING_MESOGLEA, MesogleaDripParticle.BPMesogleaFallProvider::new);
+		ParticleFactoryRegistry.getInstance().register(RegisterParticles.BLUE_PEARLESCENT_LANDING_MESOGLEA, MesogleaDripParticle.BPMesogleaLandProvider::new);
+		ParticleFactoryRegistry.getInstance().register(RegisterParticles.PURPLE_PEARLESCENT_HANGING_MESOGLEA, MesogleaDripParticle.PPMesogleaHangProvider::new);
+		ParticleFactoryRegistry.getInstance().register(RegisterParticles.PURPLE_PEARLESCENT_FALLING_MESOGLEA, MesogleaDripParticle.PPMesogleaFallProvider::new);
+		ParticleFactoryRegistry.getInstance().register(RegisterParticles.PURPLE_PEARLESCENT_LANDING_MESOGLEA, MesogleaDripParticle.PPMesogleaLandProvider::new);
+		ParticleFactoryRegistry.getInstance().register(RegisterParticles.BLUE_HANGING_MESOGLEA, MesogleaDripParticle.BMesogleaHangProvider::new);
+		ParticleFactoryRegistry.getInstance().register(RegisterParticles.BLUE_FALLING_MESOGLEA, MesogleaDripParticle.BMesogleaFallProvider::new);
+		ParticleFactoryRegistry.getInstance().register(RegisterParticles.BLUE_LANDING_MESOGLEA, MesogleaDripParticle.BMesogleaLandProvider::new);
+		ParticleFactoryRegistry.getInstance().register(RegisterParticles.YELLOW_HANGING_MESOGLEA, MesogleaDripParticle.YMesogleaHangProvider::new);
+		ParticleFactoryRegistry.getInstance().register(RegisterParticles.YELLOW_FALLING_MESOGLEA, MesogleaDripParticle.YMesogleaFallProvider::new);
+		ParticleFactoryRegistry.getInstance().register(RegisterParticles.YELLOW_LANDING_MESOGLEA, MesogleaDripParticle.YMesogleaLandProvider::new);
+		ParticleFactoryRegistry.getInstance().register(RegisterParticles.LIME_HANGING_MESOGLEA, MesogleaDripParticle.LMesogleaHangProvider::new);
+		ParticleFactoryRegistry.getInstance().register(RegisterParticles.LIME_FALLING_MESOGLEA, MesogleaDripParticle.LMesogleaFallProvider::new);
+		ParticleFactoryRegistry.getInstance().register(RegisterParticles.LIME_LANDING_MESOGLEA, MesogleaDripParticle.LMesogleaLandProvider::new);
+		ParticleFactoryRegistry.getInstance().register(RegisterParticles.PINK_HANGING_MESOGLEA, MesogleaDripParticle.PMesogleaHangProvider::new);
+		ParticleFactoryRegistry.getInstance().register(RegisterParticles.PINK_FALLING_MESOGLEA, MesogleaDripParticle.PMesogleaFallProvider::new);
+		ParticleFactoryRegistry.getInstance().register(RegisterParticles.PINK_LANDING_MESOGLEA, MesogleaDripParticle.PMesogleaLandProvider::new);
+		ParticleFactoryRegistry.getInstance().register(RegisterParticles.RED_HANGING_MESOGLEA, MesogleaDripParticle.RMesogleaHangProvider::new);
+		ParticleFactoryRegistry.getInstance().register(RegisterParticles.RED_FALLING_MESOGLEA, MesogleaDripParticle.RMesogleaFallProvider::new);
+		ParticleFactoryRegistry.getInstance().register(RegisterParticles.RED_LANDING_MESOGLEA, MesogleaDripParticle.RMesogleaLandProvider::new);
 
         EntityRendererRegistry.register(RegisterEntities.FIREFLY, FireflyRenderer::new);
         EntityRendererRegistry.register(RegisterEntities.ANCIENT_HORN_PROJECTILE_ENTITY, AncientHornProjectileRenderer::new);
@@ -205,38 +205,38 @@ public final class WilderWildClient implements ClientModInitializer {
 		EntityModelLayerRegistry.registerModelLayer(TUMBLEWEED, TumbleweedModel::createBodyLayer);
 		EntityRendererRegistry.register(RegisterEntities.COCONUT, ThrownItemRenderer::new);
 
-        BlockEntityRendererRegistry.register(BlockEntityType.SCULK_SENSOR, SculkSensorBlockEntityRenderer::new);
-        EntityModelLayerRegistry.registerModelLayer(SCULK_SENSOR, SculkSensorBlockEntityRenderer::getTexturedModelData);
+		BlockEntityRendererRegistry.register(BlockEntityType.SCULK_SENSOR, SculkSensorBlockEntityRenderer::new);
+		EntityModelLayerRegistry.registerModelLayer(SCULK_SENSOR, SculkSensorBlockEntityRenderer::getTexturedModelData);
 
-        BlockEntityRendererRegistry.register(RegisterBlockEntities.DISPLAY_LANTERN, DisplayLanternBlockEntityRenderer::new);
-        EntityModelLayerRegistry.registerModelLayer(DISPLAY_LANTERN, DisplayLanternBlockEntityRenderer::getTexturedModelData);
+		BlockEntityRendererRegistry.register(RegisterBlockEntities.DISPLAY_LANTERN, DisplayLanternBlockEntityRenderer::new);
+		EntityModelLayerRegistry.registerModelLayer(DISPLAY_LANTERN, DisplayLanternBlockEntityRenderer::getTexturedModelData);
 
-        BlockEntityRendererRegistry.register(RegisterBlockEntities.STONE_CHEST, StoneChestBlockEntityRenderer::new);
-        EntityModelLayerRegistry.registerModelLayer(STONE_CHEST, StoneChestBlockEntityRenderer::createSingleBodyLayer);
-        EntityModelLayerRegistry.registerModelLayer(DOUBLE_STONE_CHEST_LEFT, StoneChestBlockEntityRenderer::createDoubleBodyLeftLayer);
-        EntityModelLayerRegistry.registerModelLayer(DOUBLE_STONE_CHEST_RIGHT, StoneChestBlockEntityRenderer::createDoubleBodyRightLayer);
+		BlockEntityRendererRegistry.register(RegisterBlockEntities.STONE_CHEST, StoneChestBlockEntityRenderer::new);
+		EntityModelLayerRegistry.registerModelLayer(STONE_CHEST, StoneChestBlockEntityRenderer::createSingleBodyLayer);
+		EntityModelLayerRegistry.registerModelLayer(DOUBLE_STONE_CHEST_LEFT, StoneChestBlockEntityRenderer::createDoubleBodyLeftLayer);
+		EntityModelLayerRegistry.registerModelLayer(DOUBLE_STONE_CHEST_RIGHT, StoneChestBlockEntityRenderer::createDoubleBodyRightLayer);
 
-        receiveAncientHornProjectilePacket();
-        receiveEasyEchoerBubblePacket();
-        receiveSeedPacket();
-        receiveControlledSeedPacket();
-        receiveTermitePacket();
-        receiveSensorHiccupPacket();
-        receiveJellyStingPacket();
+		receiveAncientHornProjectilePacket();
+		receiveEasyEchoerBubblePacket();
+		receiveSeedPacket();
+		receiveControlledSeedPacket();
+		receiveTermitePacket();
+		receiveSensorHiccupPacket();
+		receiveJellyStingPacket();
 
-        receiveFireflyCaptureInfoPacket();
-        receiveAncientHornKillInfoPacket();
-        FlyBySoundHub.AUTO_ENTITIES_AND_SOUNDS.put(RegisterEntities.ANCIENT_HORN_PROJECTILE_ENTITY, new FlyBySoundHub.FlyBySound(1.0F, 0.5F, SoundSource.PLAYERS, RegisterSounds.ENTITY_ANCIENT_HORN_PROJECTILE_FLYBY));
+		receiveFireflyCaptureInfoPacket();
+		receiveAncientHornKillInfoPacket();
+		FlyBySoundHub.AUTO_ENTITIES_AND_SOUNDS.put(RegisterEntities.ANCIENT_HORN_PROJECTILE_ENTITY, new FlyBySoundHub.FlyBySound(1.0F, 0.5F, SoundSource.PLAYERS, RegisterSounds.ENTITY_ANCIENT_HORN_PROJECTILE_FLYBY));
 
-        ItemProperties.register(RegisterItems.ANCIENT_HORN, WilderWild.vanillaId("tooting"), (itemStack, clientLevel, livingEntity, seed) -> livingEntity != null && livingEntity.isUsingItem() && livingEntity.getUseItem() == itemStack ? 1.0F : 0.0F);
-        ItemProperties.register(RegisterItems.COPPER_HORN, WilderWild.vanillaId("tooting"), (itemStack, clientLevel, livingEntity, seed) -> livingEntity != null && livingEntity.isUsingItem() && livingEntity.getUseItem() == itemStack ? 1.0F : 0.0F);
+		ItemProperties.register(RegisterItems.ANCIENT_HORN, WilderWild.vanillaId("tooting"), (itemStack, clientLevel, livingEntity, seed) -> livingEntity != null && livingEntity.isUsingItem() && livingEntity.getUseItem() == itemStack ? 1.0F : 0.0F);
+		ItemProperties.register(RegisterItems.COPPER_HORN, WilderWild.vanillaId("tooting"), (itemStack, clientLevel, livingEntity, seed) -> livingEntity != null && livingEntity.isUsingItem() && livingEntity.getUseItem() == itemStack ? 1.0F : 0.0F);
 
-        ColorProviderRegistry.BLOCK.register(((state, level, pos, tintIndex) -> {
-            if (level == null || pos == null) {
-                return 7455580;
-            }
-            return 2129968;
-        }), RegisterBlocks.FLOWERING_LILY_PAD);
+		ColorProviderRegistry.BLOCK.register(((state, level, pos, tintIndex) -> {
+			if (level == null || pos == null) {
+				return 7455580;
+			}
+			return 2129968;
+		}), RegisterBlocks.FLOWERING_LILY_PAD);
 
         ColorProviderRegistry.ITEM.register(((state, tintIndex) -> 5877296), RegisterBlocks.BAOBAB_LEAVES);
         ColorProviderRegistry.ITEM.register(((state, tintIndex) -> 5877296), RegisterBlocks.CYPRESS_LEAVES);
@@ -269,139 +269,139 @@ public final class WilderWildClient implements ClientModInitializer {
 		}), RegisterBlocks.BUSH);
     }
 
-    private static void receiveAncientHornProjectilePacket() {
-        ClientPlayNetworking.registerGlobalReceiver(WilderWild.HORN_PROJECTILE_PACKET_ID, (ctx, handler, byteBuf, responseSender) -> {
-            EntityType<?> et = Registry.ENTITY_TYPE.byId(byteBuf.readVarInt());
-            UUID uuid = byteBuf.readUUID();
-            int entityId = byteBuf.readVarInt();
-            Vec3 pos = AncientHornProjectile.EntitySpawnPacket.PacketBufUtil.readVec3d(byteBuf);
-            float pitch = AncientHornProjectile.EntitySpawnPacket.PacketBufUtil.readAngle(byteBuf);
-            float yaw = AncientHornProjectile.EntitySpawnPacket.PacketBufUtil.readAngle(byteBuf);
-            WilderWild.log("Receiving Ancient Horn Projectile Packet At " + pos, WilderWild.DEV_LOGGING);
-            ctx.execute(() -> {
-                if (Minecraft.getInstance().level == null)
-                    throw new IllegalStateException("Tried to spawn entity in a null world!");
-                Entity e = et.create(Minecraft.getInstance().level);
-                if (e == null)
-                    throw new IllegalStateException("Failed to create instance of entity \"" + Registry.ENTITY_TYPE.getKey(et) + "\"!");
-                e.syncPacketPositionCodec(pos.x, pos.y, pos.z);
-                e.setPosRaw(pos.x, pos.y, pos.z);
-                e.setXRot(pitch);
-                e.setYRot(yaw);
-                e.setId(entityId);
-                e.setUUID(uuid);
-                Minecraft.getInstance().level.putNonPlayerEntity(entityId, e);
-                WilderWild.log("Spawned Ancient Horn Projectile", WilderWild.UNSTABLE_LOGGING);
-            });
-        });
-    }
+	private static void receiveAncientHornProjectilePacket() {
+		ClientPlayNetworking.registerGlobalReceiver(WilderWild.HORN_PROJECTILE_PACKET_ID, (ctx, handler, byteBuf, responseSender) -> {
+			EntityType<?> et = Registry.ENTITY_TYPE.byId(byteBuf.readVarInt());
+			UUID uuid = byteBuf.readUUID();
+			int entityId = byteBuf.readVarInt();
+			Vec3 pos = AncientHornProjectile.EntitySpawnPacket.PacketBufUtil.readVec3d(byteBuf);
+			float pitch = AncientHornProjectile.EntitySpawnPacket.PacketBufUtil.readAngle(byteBuf);
+			float yaw = AncientHornProjectile.EntitySpawnPacket.PacketBufUtil.readAngle(byteBuf);
+			WilderWild.log("Receiving Ancient Horn Projectile Packet At " + pos, WilderWild.DEV_LOGGING);
+			ctx.execute(() -> {
+				if (Minecraft.getInstance().level == null)
+					throw new IllegalStateException("Tried to spawn entity in a null world!");
+				Entity e = et.create(Minecraft.getInstance().level);
+				if (e == null)
+					throw new IllegalStateException("Failed to create instance of entity \"" + Registry.ENTITY_TYPE.getKey(et) + "\"!");
+				e.syncPacketPositionCodec(pos.x, pos.y, pos.z);
+				e.setPosRaw(pos.x, pos.y, pos.z);
+				e.setXRot(pitch);
+				e.setYRot(yaw);
+				e.setId(entityId);
+				e.setUUID(uuid);
+				Minecraft.getInstance().level.putNonPlayerEntity(entityId, e);
+				WilderWild.log("Spawned Ancient Horn Projectile", WilderWild.UNSTABLE_LOGGING);
+			});
+		});
+	}
 
-    private static void receiveEasyEchoerBubblePacket() {
-        ClientPlayNetworking.registerGlobalReceiver(WilderWild.FLOATING_SCULK_BUBBLE_PACKET, (ctx, handler, byteBuf, responseSender) -> {
-            Vec3 pos = new Vec3(byteBuf.readDouble(), byteBuf.readDouble(), byteBuf.readDouble());
-            int size = byteBuf.readVarInt();
-            int age = byteBuf.readVarInt();
-            double yVel = byteBuf.readDouble();
-            int count = byteBuf.readVarInt();
-            ctx.execute(() -> {
-                if (Minecraft.getInstance().level == null)
-                    throw new IllegalStateException("why is your world null");
-                for (int i = 0; i < count; i++) {
-                    Minecraft.getInstance().level.addParticle(RegisterParticles.FLOATING_SCULK_BUBBLE, pos.x, pos.y, pos.z, size, age, yVel);
-                }
-            });
-        });
-    }
+	private static void receiveEasyEchoerBubblePacket() {
+		ClientPlayNetworking.registerGlobalReceiver(WilderWild.FLOATING_SCULK_BUBBLE_PACKET, (ctx, handler, byteBuf, responseSender) -> {
+			Vec3 pos = new Vec3(byteBuf.readDouble(), byteBuf.readDouble(), byteBuf.readDouble());
+			int size = byteBuf.readVarInt();
+			int age = byteBuf.readVarInt();
+			double yVel = byteBuf.readDouble();
+			int count = byteBuf.readVarInt();
+			ctx.execute(() -> {
+				if (Minecraft.getInstance().level == null)
+					throw new IllegalStateException("why is your world null");
+				for (int i = 0; i < count; i++) {
+					Minecraft.getInstance().level.addParticle(RegisterParticles.FLOATING_SCULK_BUBBLE, pos.x, pos.y, pos.z, size, age, yVel);
+				}
+			});
+		});
+	}
 
-    private static void receiveSeedPacket() {
-        ClientPlayNetworking.registerGlobalReceiver(WilderWild.SEED_PACKET, (ctx, handler, byteBuf, responseSender) -> {
-            Vec3 pos = new Vec3(byteBuf.readDouble(), byteBuf.readDouble(), byteBuf.readDouble());
-            int count = byteBuf.readVarInt();
-            ParticleOptions particle = byteBuf.readBoolean() ? RegisterParticles.MILKWEED_SEED : RegisterParticles.DANDELION_SEED;
-            ctx.execute(() -> {
-                if (Minecraft.getInstance().level == null)
-                    throw new IllegalStateException("why is your world null");
-                for (int i = 0; i < count; i++) {
-                    Minecraft.getInstance().level.addParticle(particle, pos.x, pos.y, pos.z, 0, 0, 0);
-                }
-            });
-        });
-    }
+	private static void receiveSeedPacket() {
+		ClientPlayNetworking.registerGlobalReceiver(WilderWild.SEED_PACKET, (ctx, handler, byteBuf, responseSender) -> {
+			Vec3 pos = new Vec3(byteBuf.readDouble(), byteBuf.readDouble(), byteBuf.readDouble());
+			int count = byteBuf.readVarInt();
+			ParticleOptions particle = byteBuf.readBoolean() ? RegisterParticles.MILKWEED_SEED : RegisterParticles.DANDELION_SEED;
+			ctx.execute(() -> {
+				if (Minecraft.getInstance().level == null)
+					throw new IllegalStateException("why is your world null");
+				for (int i = 0; i < count; i++) {
+					Minecraft.getInstance().level.addParticle(particle, pos.x, pos.y, pos.z, 0, 0, 0);
+				}
+			});
+		});
+	}
 
-    private static void receiveControlledSeedPacket() {
-        ClientPlayNetworking.registerGlobalReceiver(WilderWild.CONTROLLED_SEED_PACKET, (ctx, handler, byteBuf, responseSender) -> {
-            Vec3 pos = new Vec3(byteBuf.readDouble(), byteBuf.readDouble(), byteBuf.readDouble());
-            double velx = byteBuf.readDouble();
-            double vely = byteBuf.readDouble();
-            double velz = byteBuf.readDouble();
-            int count = byteBuf.readVarInt();
-            ParticleOptions particle = byteBuf.readBoolean() ? RegisterParticles.CONTROLLED_MILKWEED_SEED : RegisterParticles.CONTROLLED_DANDELION_SEED;
-            ctx.execute(() -> {
-                if (Minecraft.getInstance().level == null)
-                    throw new IllegalStateException("why is your world null");
-                for (int i = 0; i < count; i++) {
-                    Minecraft.getInstance().level.addParticle(particle, pos.x, pos.y, pos.z, velx, vely, velz);
-                }
-            });
-        });
-    }
+	private static void receiveControlledSeedPacket() {
+		ClientPlayNetworking.registerGlobalReceiver(WilderWild.CONTROLLED_SEED_PACKET, (ctx, handler, byteBuf, responseSender) -> {
+			Vec3 pos = new Vec3(byteBuf.readDouble(), byteBuf.readDouble(), byteBuf.readDouble());
+			double velx = byteBuf.readDouble();
+			double vely = byteBuf.readDouble();
+			double velz = byteBuf.readDouble();
+			int count = byteBuf.readVarInt();
+			ParticleOptions particle = byteBuf.readBoolean() ? RegisterParticles.CONTROLLED_MILKWEED_SEED : RegisterParticles.CONTROLLED_DANDELION_SEED;
+			ctx.execute(() -> {
+				if (Minecraft.getInstance().level == null)
+					throw new IllegalStateException("why is your world null");
+				for (int i = 0; i < count; i++) {
+					Minecraft.getInstance().level.addParticle(particle, pos.x, pos.y, pos.z, velx, vely, velz);
+				}
+			});
+		});
+	}
 
-    private static void receiveTermitePacket() {
-        ClientPlayNetworking.registerGlobalReceiver(WilderWild.TERMITE_PARTICLE_PACKET, (ctx, handler, byteBuf, responseSender) -> {
-            Vec3 pos = new Vec3(byteBuf.readDouble(), byteBuf.readDouble(), byteBuf.readDouble());
-            int count = byteBuf.readVarInt();
-            ctx.execute(() -> {
-                if (Minecraft.getInstance().level == null)
-                    throw new IllegalStateException("why is your world null");
-                for (int i = 0; i < count; i++) {
-                    Minecraft.getInstance().level.addParticle(RegisterParticles.TERMITE, pos.x, pos.y, pos.z, AdvancedMath.randomPosNeg() / 14, AdvancedMath.randomPosNeg() / 14, AdvancedMath.randomPosNeg() / 14);
-                }
-            });
-        });
-    }
+	private static void receiveTermitePacket() {
+		ClientPlayNetworking.registerGlobalReceiver(WilderWild.TERMITE_PARTICLE_PACKET, (ctx, handler, byteBuf, responseSender) -> {
+			Vec3 pos = new Vec3(byteBuf.readDouble(), byteBuf.readDouble(), byteBuf.readDouble());
+			int count = byteBuf.readVarInt();
+			ctx.execute(() -> {
+				if (Minecraft.getInstance().level == null)
+					throw new IllegalStateException("why is your world null");
+				for (int i = 0; i < count; i++) {
+					Minecraft.getInstance().level.addParticle(RegisterParticles.TERMITE, pos.x, pos.y, pos.z, AdvancedMath.randomPosNeg() / 14, AdvancedMath.randomPosNeg() / 14, AdvancedMath.randomPosNeg() / 14);
+				}
+			});
+		});
+	}
 
-    private static void receiveSensorHiccupPacket() {
-        ClientPlayNetworking.registerGlobalReceiver(WilderWild.SENSOR_HICCUP_PACKET, (ctx, handler, byteBuf, responseSender) -> {
-            Vec3 pos = new Vec3(byteBuf.readDouble(), byteBuf.readDouble(), byteBuf.readDouble());
-            ctx.execute(() -> {
-                if (Minecraft.getInstance().level == null)
-                    throw new IllegalStateException("why is your world null");
-                ClientLevel level = Minecraft.getInstance().level;
-                int i = 5578058;
-                boolean bl2 = level.random.nextBoolean();
-                if (bl2) {
-                    double d = (double) (i >> 16 & 255) / 255.0D;
-                    double e = (double) (i >> 8 & 255) / 255.0D;
-                    double f = (double) (i & 255) / 255.0D;
-                    level.addParticle(ParticleTypes.ENTITY_EFFECT, pos.x, pos.y, pos.z, d, e, f);
-                }
-            });
-        });
-    }
+	private static void receiveSensorHiccupPacket() {
+		ClientPlayNetworking.registerGlobalReceiver(WilderWild.SENSOR_HICCUP_PACKET, (ctx, handler, byteBuf, responseSender) -> {
+			Vec3 pos = new Vec3(byteBuf.readDouble(), byteBuf.readDouble(), byteBuf.readDouble());
+			ctx.execute(() -> {
+				if (Minecraft.getInstance().level == null)
+					throw new IllegalStateException("why is your world null");
+				ClientLevel level = Minecraft.getInstance().level;
+				int i = 5578058;
+				boolean bl2 = level.random.nextBoolean();
+				if (bl2) {
+					double d = (double) (i >> 16 & 255) / 255.0D;
+					double e = (double) (i >> 8 & 255) / 255.0D;
+					double f = (double) (i & 255) / 255.0D;
+					level.addParticle(ParticleTypes.ENTITY_EFFECT, pos.x, pos.y, pos.z, d, e, f);
+				}
+			});
+		});
+	}
 
-    private static void receiveFireflyCaptureInfoPacket() {
-        ClientPlayNetworking.registerGlobalReceiver(WilderWild.CAPTURE_FIREFLY_NOTIFY_PACKET, (ctx, handler, byteBuf, responseSender) -> {
-            boolean creative = byteBuf.readBoolean();
-            boolean natural = byteBuf.readBoolean();
-            ctx.execute(() -> {
-                if (Minecraft.getInstance().level == null)
-                    throw new IllegalStateException("why is your world null");
-                CompetitionCounter.addFireflyCapture(creative, natural);
-            });
-        });
-    }
+	private static void receiveFireflyCaptureInfoPacket() {
+		ClientPlayNetworking.registerGlobalReceiver(WilderWild.CAPTURE_FIREFLY_NOTIFY_PACKET, (ctx, handler, byteBuf, responseSender) -> {
+			boolean creative = byteBuf.readBoolean();
+			boolean natural = byteBuf.readBoolean();
+			ctx.execute(() -> {
+				if (Minecraft.getInstance().level == null)
+					throw new IllegalStateException("why is your world null");
+				CompetitionCounter.addFireflyCapture(creative, natural);
+			});
+		});
+	}
 
-    private static void receiveAncientHornKillInfoPacket() {
-        ClientPlayNetworking.registerGlobalReceiver(WilderWild.ANCIENT_HORN_KILL_NOTIFY_PACKET, (ctx, handler, byteBuf, responseSender) -> {
-            boolean creative = byteBuf.readBoolean();
-            boolean natural = byteBuf.readBoolean();
-            ctx.execute(() -> {
-                if (Minecraft.getInstance().level == null)
-                    throw new IllegalStateException("why is your world null");
-                CompetitionCounter.addAncientHornKill(creative, natural);
-            });
-        });
-    }
+	private static void receiveAncientHornKillInfoPacket() {
+		ClientPlayNetworking.registerGlobalReceiver(WilderWild.ANCIENT_HORN_KILL_NOTIFY_PACKET, (ctx, handler, byteBuf, responseSender) -> {
+			boolean creative = byteBuf.readBoolean();
+			boolean natural = byteBuf.readBoolean();
+			ctx.execute(() -> {
+				if (Minecraft.getInstance().level == null)
+					throw new IllegalStateException("why is your world null");
+				CompetitionCounter.addAncientHornKill(creative, natural);
+			});
+		});
+	}
 
     private static void receiveJellyStingPacket() {
         ClientPlayNetworking.registerGlobalReceiver(WilderWild.JELLY_STING_PACKET, (ctx, handler, byteBuf, responseSender) -> ctx.execute(() -> {

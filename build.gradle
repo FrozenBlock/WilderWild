@@ -22,7 +22,32 @@ loom {
 	accessWidenerPath = file("src/main/resources/wilderwild.accesswidener")
 	interfaceInjection {
 		// When enabled, injected interfaces from dependecies will be applied.
-		enableDependencyInterfaceInjection = true
+		enableDependencyInterfaceInjection = false
+	}
+}
+
+sourceSets {
+	main {
+		resources {
+			srcDirs += [
+					'src/main/generated'
+			]
+		}
+	}
+}
+
+loom {
+	runs {
+		datagen {
+			inherit server
+			name "Data Generation"
+			vmArg "-Dfabric-api.datagen"
+			vmArg "-Dfabric-api.datagen.output-dir=${file("src/main/generated")}"
+			vmArg "-Dfabric-api.datagen.strict-validation"
+
+			ideConfigGenerated = true
+			runDir = "build/datagen"
+		}
 	}
 }
 
@@ -116,9 +141,9 @@ dependencies {
 	if (local_frozenlib) {
 		implementation(project(path: ":FrozenLib", configuration: 'dev'))
 		include(project(path: ":FrozenLib", configuration: 'dev'))
-	} else if (findProperty("isGithub") == "true") {
+	}/* else if (findProperty("isGithub") == "true") {
 		modImplementation "com.github.FrozenBlock:FrozenLib:master-SNAPSHOT"
-	} else {
+	}*/ else {
 		modImplementation "maven.modrinth:frozenlib:${frozenlib_version}"
 		include "maven.modrinth:frozenlib:${frozenlib_version}"
 	}
@@ -144,11 +169,7 @@ dependencies {
 	include "maven.modrinth:nbt-crafting:${nbtcrafting_version}"
 
 	// TerraBlender
-	modImplementation "com.github.glitchfiend:TerraBlender-fabric:${minecraft_version}-${terrablender_version}"
-
-	// Mixin Extras
-	includeImplementation("com.github.LlamaLad7:MixinExtras:0.0.12")
-	annotationProcessor("com.github.LlamaLad7:MixinExtras:0.0.12")
+	modCompileOnly "com.github.glitchfiend:TerraBlender-fabric:${minecraft_version}-${terrablender_version}"
 
 	// Sodium
 	modCompileOnly "maven.modrinth:sodium:${sodium_version}"
@@ -193,7 +214,7 @@ processResources {
 }
 
 quiltflower {
-	quiltflowerVersion.set("1.8.0")
+	quiltflowerVersion.set("1.9.0")
 }
 
 javadoc {

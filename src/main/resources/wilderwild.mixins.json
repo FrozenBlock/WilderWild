@@ -9,7 +9,6 @@
 	"server.BigDripleafBlockMixin",
 	"server.BigDripleafStemBlockMixin",
 	"server.BlockEntityTypeMixin",
-	"server.BlockMixin",
 	"server.BlocksMixin",
 	"server.BoatDropsMixin",
 	"server.BoatTypeMixin",
