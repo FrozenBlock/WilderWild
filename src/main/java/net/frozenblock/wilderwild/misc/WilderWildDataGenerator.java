@@ -124,6 +124,21 @@ public class WilderWildDataGenerator implements DataGeneratorEntrypoint {
 					.add(Biomes.WARM_OCEAN)
 					.addOptional(RegisterWorldgen.JELLYFISH_CAVES);
 
+			this.getOrCreateTagBuilder(WilderBiomeTags.HAS_TUMBLEWEED_ENTITY)
+					.add(Biomes.DESERT)
+					.add(Biomes.BADLANDS)
+					.add(Biomes.ERODED_BADLANDS)
+					.add(Biomes.WOODED_BADLANDS)
+					.add(Biomes.WINDSWEPT_SAVANNA);
+
+			this.getOrCreateTagBuilder(WilderBiomeTags.HAS_TUMBLEWEED_PLANT)
+					.add(Biomes.DESERT)
+					.add(Biomes.BADLANDS)
+					.add(Biomes.ERODED_BADLANDS)
+					.add(Biomes.WOODED_BADLANDS)
+					.add(Biomes.WINDSWEPT_SAVANNA)
+					.add(Biomes.SAVANNA_PLATEAU);
+
 			this.getOrCreateTagBuilder(WilderBiomeTags.NO_POOLS)
 					.addOptional(Biomes.DEEP_DARK);
 
@@ -287,6 +302,10 @@ public class WilderWildDataGenerator implements DataGeneratorEntrypoint {
 					.addOptionalTag(ConventionalBlockTags.GLASS_PANES)
 					.add(RegisterBlocks.ECHO_GLASS);
 
+			this.getOrCreateTagBuilder(WilderBlockTags.BUSH_MAY_PLACE_ON)
+					.addOptionalTag(BlockTags.SAND)
+					.addOptionalTag(BlockTags.DIRT);
+
 			this.getOrCreateTagBuilder(WilderBlockTags.HOLLOWED_LOGS)
 					.add(RegisterBlocks.HOLLOWED_ACACIA_LOG)
 					.add(RegisterBlocks.HOLLOWED_BIRCH_LOG)
@@ -357,6 +376,8 @@ public class WilderWildDataGenerator implements DataGeneratorEntrypoint {
 							)
 					);
 
+			this.getOrCreateTagBuilder(WilderBlockTags.SAND_POOL_REPLACEABLE)
+					.add(Blocks.SAND);
 		}
 	}
 }
