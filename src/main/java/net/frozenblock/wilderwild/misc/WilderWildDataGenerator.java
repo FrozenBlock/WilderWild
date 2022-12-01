@@ -295,8 +295,9 @@ public class WilderWildDataGenerator implements DataGeneratorEntrypoint {
 					.add(RegisterBlocks.HOLLOWED_JUNGLE_LOG)
 					.add(RegisterBlocks.HOLLOWED_MANGROVE_LOG)
 					.add(RegisterBlocks.HOLLOWED_SPRUCE_LOG)
+					.add(RegisterBlocks.HOLLOWED_BAOBAB_LOG)
 					.add(RegisterBlocks.HOLLOWED_CYPRESS_LOG)
-					.add(RegisterBlocks.HOLLOWED_BAOBAB_LOG);
+					.add(RegisterBlocks.HOLLOWED_PALM_LOG);
 
 			this.getOrCreateTagBuilder(WilderBlockTags.KILLS_TERMITE)
 					.add(Blocks.POWDER_SNOW)

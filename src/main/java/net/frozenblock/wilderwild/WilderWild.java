@@ -51,7 +51,6 @@ import net.frozenblock.wilderwild.world.generation.features.NoisePlantFeature;
 import net.frozenblock.wilderwild.world.generation.features.ShelfFungusFeature;
 import net.frozenblock.wilderwild.world.generation.features.UpwardsPillarFeature;
 import net.frozenblock.wilderwild.world.generation.features.config.ColumnWithDiskFeatureConfig;
-import net.frozenblock.wilderwild.world.generation.features.config.NematocystFeatureConfig;
 import net.frozenblock.wilderwild.world.generation.features.config.PathFeatureConfig;
 import net.frozenblock.wilderwild.world.generation.features.config.PathSwapUnderWaterFeatureConfig;
 import net.frozenblock.wilderwild.world.generation.features.config.ShelfFungusFeatureConfig;

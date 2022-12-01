@@ -1,4 +1,4 @@
-package net.frozenblock.wilderwild.world.feature.features;
+package net.frozenblock.wilderwild.world.generation.features;
 
 import com.mojang.serialization.Codec;
 import java.util.List;

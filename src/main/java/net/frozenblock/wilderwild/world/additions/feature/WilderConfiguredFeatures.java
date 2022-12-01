@@ -7,7 +7,6 @@ import net.frozenblock.wilderwild.misc.FlowerColor;
 import net.frozenblock.wilderwild.registry.RegisterBlocks;
 import net.frozenblock.wilderwild.registry.RegisterProperties;
 import net.frozenblock.wilderwild.world.generation.features.config.ColumnWithDiskFeatureConfig;
-import net.frozenblock.wilderwild.world.generation.features.config.NematocystFeatureConfig;
 import net.frozenblock.wilderwild.world.generation.features.config.ShelfFungusFeatureConfig;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;
