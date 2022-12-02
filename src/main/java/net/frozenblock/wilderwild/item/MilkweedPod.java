@@ -23,7 +23,7 @@ public class MilkweedPod extends Item {
 	@Override
 	@NotNull
 	public InteractionResultHolder<ItemStack> use(@NotNull Level level, @NotNull Player user, @NotNull InteractionHand hand) {
-		WilderWild.log(user, "Used Milkweed Pod", WilderSharedConstants.DEV_LOGGING);
+		WilderSharedConstants.log(user, "Used Milkweed Pod", WilderSharedConstants.DEV_LOGGING);
 		ItemStack itemStack = user.getItemInHand(hand);
 		itemStack.shrink(1);
 		if (level instanceof ServerLevel server) {

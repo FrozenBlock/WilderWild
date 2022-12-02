@@ -16,7 +16,7 @@ public final class RegisterGameEvents {
 
 
     public static void registerEvents() {
-        WilderWild.logWild("Registering GameEvents for", WilderSharedConstants.UNSTABLE_LOGGING);
+        WilderSharedConstants.logWild("Registering GameEvents for", WilderSharedConstants.UNSTABLE_LOGGING);
         Registry.register(BuiltInRegistries.GAME_EVENT, WilderSharedConstants.id("sculk_sensor_activate"), SCULK_SENSOR_ACTIVATE);
         Registry.register(BuiltInRegistries.GAME_EVENT, WilderSharedConstants.id("hanging_tendril_extract_xp"), TENDRIL_EXTRACT_XP);
     }

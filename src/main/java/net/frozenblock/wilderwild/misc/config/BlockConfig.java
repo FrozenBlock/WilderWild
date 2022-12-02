@@ -8,10 +8,7 @@ import me.shedaniel.clothconfig2.api.ConfigEntryBuilder;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.frozenblock.lib.config.api.FrozenConfig;
-import net.frozenblock.wilderwild.WilderWild;
-import net.frozenblock.wilderwild.misc.WilderSharedConstants;
-import static net.frozenblock.wilderwild.misc.config.WilderWildConfig.text;
-import static net.frozenblock.wilderwild.misc.config.WilderWildConfig.tooltip;
+import static net.frozenblock.wilderwild.misc.config.WilderWildConfig.*;
 
 @Config(name = "block")
 public final class BlockConfig implements ConfigData {
@@ -52,7 +49,7 @@ public final class BlockConfig implements ConfigData {
         var config = WilderWildConfig.get().block;
 		var blockSounds = config.blockSounds;
 		var stoneChest = config.stoneChest;
-        category.setBackground(WilderSharedConstants.id("textures/config/block.png"));
+        category.setBackground(BLOCK_CONFIG_BACKGROUND);
         var mcLiveSensorTendrils = category.addEntry(entryBuilder.startBooleanToggle(text("mc_live_sensor_tendrils"), config.mcLiveSensorTendrils)
                 .setDefaultValue(false)
                 .setSaveConsumer(newValue -> config.mcLiveSensorTendrils = newValue)

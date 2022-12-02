@@ -37,7 +37,7 @@ public final class MiscConfig {
 		var config = WilderWildConfig.get().misc;
 		var biomeAmbience = config.biomeAmbience;
 		var biomeMusic = config.biomeMusic;
-		category.setBackground(WilderWild.id("textures/config/misc.png"));
+		category.setBackground(WilderSharedConstants.id("textures/config/misc.png"));
 
 		var deepDarkAmbience = entryBuilder.startBooleanToggle(text("deep_dark_ambience"), biomeAmbience.deepDarkAmbience)
 				.setDefaultValue(true)

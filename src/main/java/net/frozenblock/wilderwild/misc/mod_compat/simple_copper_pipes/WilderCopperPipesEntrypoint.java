@@ -29,7 +29,7 @@ public class WilderCopperPipesEntrypoint implements CopperPipeEntrypoint {
 
     @Override
     public void init() {
-        WilderWild.log("WILDERWILD AND COPPER PIPES SECRET LOG MESSAGE UNLOCKED!!!", true);
+        WilderSharedConstants.log("WILDERWILD AND COPPER PIPES SECRET LOG MESSAGE UNLOCKED!!!", true);
         RegisterPipeNbtMethods.register(horn, (nbt, level, pos, blockState, copperPipeEntity) -> {
             if (!nbt.getCanOnlyBeUsedOnce() || nbt.getUseCount() < 1) {
                 BlockState state = level.getBlockState(pos);

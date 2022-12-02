@@ -220,7 +220,7 @@ public final class WilderWildClient implements ClientModInitializer {
 			Vec3 pos = AncientHornProjectile.EntitySpawnPacket.PacketBufUtil.readVec3d(byteBuf);
 			float pitch = AncientHornProjectile.EntitySpawnPacket.PacketBufUtil.readAngle(byteBuf);
 			float yaw = AncientHornProjectile.EntitySpawnPacket.PacketBufUtil.readAngle(byteBuf);
-			WilderWild.log("Receiving Ancient Horn Projectile Packet At " + pos, WilderSharedConstants.DEV_LOGGING);
+			WilderSharedConstants.log("Receiving Ancient Horn Projectile Packet At " + pos, WilderSharedConstants.DEV_LOGGING);
 			ctx.execute(() -> {
 				if (Minecraft.getInstance().level == null)
 					throw new IllegalStateException("Tried to spawn entity in a null world!");
@@ -234,7 +234,7 @@ public final class WilderWildClient implements ClientModInitializer {
 				e.setId(entityId);
 				e.setUUID(uuid);
 				Minecraft.getInstance().level.putNonPlayerEntity(entityId, e);
-				WilderWild.log("Spawned Ancient Horn Projectile", WilderSharedConstants.UNSTABLE_LOGGING);
+				WilderSharedConstants.log("Spawned Ancient Horn Projectile", WilderSharedConstants.UNSTABLE_LOGGING);
 			});
 		});
 	}

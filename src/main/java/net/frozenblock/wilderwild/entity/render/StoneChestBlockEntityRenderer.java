@@ -141,15 +141,11 @@ public class StoneChestBlockEntityRenderer<T extends StoneChestBlockEntity & Lid
     }
 
     private static Material getChestTexture(ChestType type, Material single, Material left, Material right) {
-        switch (type) {
-            case LEFT:
-                return left;
-            case RIGHT:
-                return right;
-            case SINGLE:
-            default:
-                return single;
-        }
+		return switch (type) {
+			case LEFT -> left;
+			case RIGHT -> right;
+			case SINGLE -> single;
+		};
     }
 
     public static Material getChestTextureId(String variant) {

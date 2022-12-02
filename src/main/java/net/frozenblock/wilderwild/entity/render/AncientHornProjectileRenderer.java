@@ -18,7 +18,7 @@ import net.minecraft.resources.ResourceLocation;
 
 @Environment(EnvType.CLIENT)
 public class AncientHornProjectileRenderer<T extends AncientHornProjectile> extends EntityRenderer<T> {
-    public static final ResourceLocation TEXTURE = WilderSharedConstants.id("textures/entity/ancient_horn_projectile.png");
+    private static final ResourceLocation TEXTURE = WilderSharedConstants.id("textures/entity/ancient_horn_projectile.png");
     private final AncientHornProjectileModel model;
 
     public AncientHornProjectileRenderer(EntityRendererProvider.Context context) {

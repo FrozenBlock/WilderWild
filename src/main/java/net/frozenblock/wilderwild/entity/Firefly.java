@@ -152,7 +152,7 @@ public class Firefly extends PathfinderMob implements FlyingAnimal {
     public Optional<InteractionResult> tryCapture(Player player, InteractionHand hand) {
         ItemStack itemStack = player.getItemInHand(hand);
         if (itemStack.getItem() == Items.GLASS_BOTTLE && this.isAlive()) {
-            WilderWild.log("Firefly capture attempt starting @ " + this.blockPosition().toShortString() + " by " + player.getDisplayName().getString(), WilderSharedConstants.UNSTABLE_LOGGING);
+            WilderSharedConstants.log("Firefly capture attempt starting @ " + this.blockPosition().toShortString() + " by " + player.getDisplayName().getString(), WilderSharedConstants.UNSTABLE_LOGGING);
             FireflyColor color = this.getColor();
             Optional<Item> optionalItem = BuiltInRegistries.ITEM.getOptional(new ResourceLocation(color.getKey().getNamespace(), Objects.equals(color, FireflyColor.ON) ? "firefly_bottle" : color.getKey().getPath() + "_firefly_bottle"));
             Item item = RegisterItems.FIREFLY_BOTTLE;
@@ -562,7 +562,7 @@ public class Firefly extends PathfinderMob implements FlyingAnimal {
             if (colors.isEmpty()) {
                 return null;
             }
-            return colors.get((int) (WilderWild.random().nextDouble() * colors.size()));
+            return colors.get((int) (WilderSharedConstants.random().nextDouble() * colors.size()));
         }
 
     }

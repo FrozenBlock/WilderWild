@@ -22,6 +22,6 @@ public final class RegisterBlockEntities {
     public static final BlockEntityType<StoneChestBlockEntity> STONE_CHEST = Registry.register(BuiltInRegistries.BLOCK_ENTITY_TYPE, WilderSharedConstants.id("stone_chest"), FabricBlockEntityTypeBuilder.create(StoneChestBlockEntity::new, RegisterBlocks.STONE_CHEST).build(null));
 
     public static void register() {
-        WilderWild.logWild("Registering BlockEntities for", WilderSharedConstants.UNSTABLE_LOGGING);
+        WilderSharedConstants.logWild("Registering BlockEntities for", WilderSharedConstants.UNSTABLE_LOGGING);
     }
 }

@@ -106,7 +106,7 @@ public final class RegisterItems {
     public static final ResourceKey<Instrument> TROMBONE_COPPER_HORN = ResourceKey.create(Registries.INSTRUMENT, WilderSharedConstants.id("trombone_copper_horn"));
 
     public static void registerItems() {
-        WilderWild.logWild("Registering Items for", WilderSharedConstants.UNSTABLE_LOGGING);
+        WilderSharedConstants.logWild("Registering Items for", WilderSharedConstants.UNSTABLE_LOGGING);
 		registerItemBefore(Items.BAMBOO_RAFT, BAOBAB_BOAT_ITEM, "baobab_boat", CreativeModeTabs.TOOLS_AND_UTILITIES);
 		registerItemBefore(Items.BAMBOO_RAFT, BAOBAB_CHEST_BOAT_ITEM, "baobab_chest_boat", CreativeModeTabs.TOOLS_AND_UTILITIES);
 		registerItemBefore(Items.BAMBOO_SIGN, BAOBAB_SIGN, "baobab_sign", CreativeModeTabs.FUNCTIONAL_BLOCKS);

@@ -160,7 +160,7 @@ public class DisplayLanternBlockEntity extends BlockEntity {
 								entity.setCustomName(Component.nullToEmpty(firefly.customName));
 							}
 						} else {
-							WilderWild.log("Couldn't spawn Firefly from lantern @ " + worldPosition, WilderSharedConstants.UNSTABLE_LOGGING);
+							WilderSharedConstants.log("Couldn't spawn Firefly from lantern @ " + worldPosition, WilderSharedConstants.UNSTABLE_LOGGING);
 						}
 					}
 				}
@@ -185,7 +185,7 @@ public class DisplayLanternBlockEntity extends BlockEntity {
 						entity.setCustomName(Component.nullToEmpty(firefly.customName));
 					}
 				} else {
-					WilderWild.log("Couldn't spawn Firefly from lantern @ " + worldPosition, WilderSharedConstants.UNSTABLE_LOGGING);
+					WilderSharedConstants.log("Couldn't spawn Firefly from lantern @ " + worldPosition, WilderSharedConstants.UNSTABLE_LOGGING);
 				}
 			}
 		}

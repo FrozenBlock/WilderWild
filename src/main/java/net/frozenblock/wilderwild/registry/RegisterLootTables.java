@@ -23,7 +23,7 @@ public final class RegisterLootTables {
 	}
 
     public static void init() {
-        WilderWild.logWild("Registering Loot Table Modifications for", WilderSharedConstants.UNSTABLE_LOGGING);
+        WilderSharedConstants.logWild("Registering Loot Table Modifications for", WilderSharedConstants.UNSTABLE_LOGGING);
         //ANCIENT HORN FRAGMENT
         LootTableEvents.MODIFY.register((resourceManager, lootManager, id, tableBuilder, source) -> {
             if (BuiltInLootTables.ANCIENT_CITY.equals(id) && source.isBuiltin()) {

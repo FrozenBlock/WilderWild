@@ -143,7 +143,7 @@ public class SonicBoomMixin implements WilderSonicBoom {
             }
         }
         if (blocked) {
-            WilderWild.log("Warden Sonic Boom Blocked @ " + hitPos, WilderSharedConstants.UNSTABLE_LOGGING);
+            WilderSharedConstants.log("Warden Sonic Boom Blocked @ " + hitPos, WilderSharedConstants.UNSTABLE_LOGGING);
             return hitPos;
         } else {
             return null;

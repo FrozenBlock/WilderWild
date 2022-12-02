@@ -65,7 +65,7 @@ public class FireflyBottle extends Item {
 	@Override
 	@NotNull
 	public InteractionResultHolder<ItemStack> use(@NotNull Level level, @NotNull Player player, @NotNull InteractionHand usedHand) {
-		WilderWild.log(player, "Used Firefly Bottle", WilderSharedConstants.DEV_LOGGING);
+		WilderSharedConstants.log(player, "Used Firefly Bottle", WilderSharedConstants.DEV_LOGGING);
 		if (level instanceof ServerLevel server) {
 			float pitch = player.getXRot();
 			float yaw = player.getYRot();
@@ -90,7 +90,7 @@ public class FireflyBottle extends Item {
 							entity.setCustomName(stack.getHoverName());
 						}
 					} else {
-						WilderWild.log("Couldn't spawn Firefly from bottle @ " + player.blockPosition().toShortString(), WilderSharedConstants.UNSTABLE_LOGGING);
+						WilderSharedConstants.log("Couldn't spawn Firefly from bottle @ " + player.blockPosition().toShortString(), WilderSharedConstants.UNSTABLE_LOGGING);
 					}
 				}
 			}

@@ -53,7 +53,7 @@ public class GloryOfTheSnowBlock extends BushBlock implements BonemealableBlock 
     @Override
     public void randomTick(@NotNull BlockState state, @NotNull ServerLevel level, @NotNull BlockPos pos, RandomSource random) {
         if (random.nextFloat() > 0.9F && state.getValue(COLORS) == FlowerColor.NONE) {
-            level.setBlockAndUpdate(pos, state.setValue(COLORS, COLOR_LIST.get(WilderWild.random().nextInt(COLOR_LIST.size()))));
+            level.setBlockAndUpdate(pos, state.setValue(COLORS, COLOR_LIST.get(WilderSharedConstants.random().nextInt(COLOR_LIST.size()))));
         }
     }
 
@@ -99,8 +99,8 @@ public class GloryOfTheSnowBlock extends BushBlock implements BonemealableBlock 
 
     @Override
     public void performBonemeal(@NotNull ServerLevel level, @NotNull RandomSource random, @NotNull BlockPos pos, @NotNull BlockState state) {
-        WilderWild.log("Glory Of The Snow Bonemealed @ " + pos, WilderSharedConstants.DEV_LOGGING);
+        WilderSharedConstants.log("Glory Of The Snow Bonemealed @ " + pos, WilderSharedConstants.DEV_LOGGING);
         level.levelEvent(LevelEvent.PARTICLES_AND_SOUND_PLANT_GROWTH, pos, 0);
-        level.setBlockAndUpdate(pos, state.setValue(RegisterProperties.FLOWER_COLOR, this.COLOR_LIST.get(WilderWild.random().nextInt(this.COLOR_LIST.size()))));
+        level.setBlockAndUpdate(pos, state.setValue(RegisterProperties.FLOWER_COLOR, this.COLOR_LIST.get(WilderSharedConstants.random().nextInt(this.COLOR_LIST.size()))));
     }
 }

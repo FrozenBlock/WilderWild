@@ -471,7 +471,7 @@ public final class RegisterBlocks {
     }
 
     public static void registerBlocks() {
-        WilderWild.logWild("Registering Blocks for", WilderSharedConstants.UNSTABLE_LOGGING);
+        WilderSharedConstants.logWild("Registering Blocks for", WilderSharedConstants.UNSTABLE_LOGGING);
 
         registerOtherBB();
         registerWoods();
@@ -608,7 +608,7 @@ public final class RegisterBlocks {
     }
 
     private static void registerFlammability() {
-        WilderWild.logWild("Registering Flammability for", WilderSharedConstants.UNSTABLE_LOGGING);
+        WilderSharedConstants.logWild("Registering Flammability for", WilderSharedConstants.UNSTABLE_LOGGING);
         FlammableBlockRegistry.getDefaultInstance().add(POLLEN_BLOCK, 100, 60);
         FlammableBlockRegistry.getDefaultInstance().add(SEEDING_DANDELION, 100, 60);
         FlammableBlockRegistry.getDefaultInstance().add(CARNATION, 100, 60);
@@ -661,7 +661,7 @@ public final class RegisterBlocks {
     }
 
     private static void registerFuels() {
-        WilderWild.logWild("Registering Fuels for", WilderSharedConstants.UNSTABLE_LOGGING);
+        WilderSharedConstants.logWild("Registering Fuels for", WilderSharedConstants.UNSTABLE_LOGGING);
         FuelRegistry registry = FuelRegistry.INSTANCE;
 
         registry.add(BAOBAB_FENCE.asItem(), 300);
@@ -672,7 +672,7 @@ public final class RegisterBlocks {
 
     private static void registerBonemeal() {
         BonemealBehaviors.BONEMEAL_BEHAVIORS.put(Blocks.LILY_PAD, (context, level, pos, state, face, horizontal) -> {
-            WilderWild.log(Blocks.LILY_PAD, pos, "Bonemeal", WilderSharedConstants.DEV_LOGGING);
+            WilderSharedConstants.log(Blocks.LILY_PAD, pos, "Bonemeal", WilderSharedConstants.DEV_LOGGING);
             if (!level.isClientSide) {
                 level.levelEvent(LevelEvent.PARTICLES_AND_SOUND_PLANT_GROWTH, pos, 0);
                 level.setBlockAndUpdate(pos, FLOWERING_LILY_PAD.defaultBlockState());
@@ -682,7 +682,7 @@ public final class RegisterBlocks {
         });
 		BonemealBehaviors.BONEMEAL_BEHAVIORS.put(BROWN_SHELF_FUNGUS, (context, world, pos, state, face, horizontal) -> {
 			if (state.getValue(RegisterProperties.FUNGUS_STAGE) < 4) {
-				WilderWild.log("Shelf Fungus Bonemealed @ " + pos + " with FungusStage of " + state.getValue(RegisterProperties.FUNGUS_STAGE), WilderSharedConstants.DEV_LOGGING);
+				WilderSharedConstants.log("Shelf Fungus Bonemealed @ " + pos + " with FungusStage of " + state.getValue(RegisterProperties.FUNGUS_STAGE), WilderSharedConstants.DEV_LOGGING);
 				if (!world.isClientSide) {
 					world.levelEvent(LevelEvent.PARTICLES_AND_SOUND_PLANT_GROWTH, pos, 0);
 					world.setBlockAndUpdate(pos, state.setValue(RegisterProperties.FUNGUS_STAGE, state.getValue(RegisterProperties.FUNGUS_STAGE) + 1));
@@ -693,7 +693,7 @@ public final class RegisterBlocks {
 		});
 		BonemealBehaviors.BONEMEAL_BEHAVIORS.put(RED_SHELF_FUNGUS, (context, world, pos, state, face, horizontal) -> {
 			if (state.getValue(RegisterProperties.FUNGUS_STAGE) < 4) {
-				WilderWild.log("Shelf Fungus Bonemealed @ " + pos + " with FungusStage of " + state.getValue(RegisterProperties.FUNGUS_STAGE), WilderSharedConstants.DEV_LOGGING);
+				WilderSharedConstants.log("Shelf Fungus Bonemealed @ " + pos + " with FungusStage of " + state.getValue(RegisterProperties.FUNGUS_STAGE), WilderSharedConstants.DEV_LOGGING);
 				if (!world.isClientSide) {
 					world.levelEvent(LevelEvent.PARTICLES_AND_SOUND_PLANT_GROWTH, pos, 0);
 					world.setBlockAndUpdate(pos, state.setValue(RegisterProperties.FUNGUS_STAGE, state.getValue(RegisterProperties.FUNGUS_STAGE) + 1));
@@ -703,7 +703,7 @@ public final class RegisterBlocks {
 			return false;
 		});
 		BonemealBehaviors.BONEMEAL_BEHAVIORS.put(ALGAE, (context, world, pos, state, face, horizontal) -> {
-			WilderWild.log("Algae Bonemealed @ " + pos, WilderSharedConstants.DEV_LOGGING);
+			WilderSharedConstants.log("Algae Bonemealed @ " + pos, WilderSharedConstants.DEV_LOGGING);
 			if (!world.isClientSide) {
 				for (Direction offset : AlgaeBlock.shuffleOffsets(world.getRandom())) {
 					BlockPos blockPos = pos.relative(offset);

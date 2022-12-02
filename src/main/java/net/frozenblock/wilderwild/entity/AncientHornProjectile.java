@@ -135,7 +135,7 @@ public class AncientHornProjectile extends AbstractArrow {
 		this.baseTick();
 		if (this.bubbles > 0 && this.level instanceof ServerLevel server) {
 			--this.bubbles;
-			EasyPacket.EasyFloatingSculkBubblePacket.createParticle(server, this.position(), Math.random() > 0.7 ? 1 : 0, 20 + WilderWild.random().nextInt(40), 0.05, server.random.nextIntBetweenInclusive(1, 3));
+			EasyPacket.EasyFloatingSculkBubblePacket.createParticle(server, this.position(), Math.random() > 0.7 ? 1 : 0, 20 + WilderSharedConstants.random().nextInt(40), 0.05, server.random.nextIntBetweenInclusive(1, 3));
 		}
 		if (this.aliveTicks > MAX_ALIVE_TICKS) {
 			this.remove(RemovalReason.DISCARDED);
@@ -296,7 +296,7 @@ public class AncientHornProjectile extends AbstractArrow {
 			if (blockState.getBlock() == Blocks.SCULK_SHRIEKER) { //SCULK SHRIEKER
 				if (ClothConfigInteractionHandler.hornCanSummonWarden()) {
 					BlockPos pos = result.getBlockPos();
-					WilderWild.log(Blocks.SCULK_SHRIEKER, pos, "Horn Projectile Touched", WilderSharedConstants.UNSTABLE_LOGGING);
+					WilderSharedConstants.log(Blocks.SCULK_SHRIEKER, pos, "Horn Projectile Touched", WilderSharedConstants.UNSTABLE_LOGGING);
 					if (blockState.getValue(RegisterProperties.SOULS_TAKEN) < 2 && !blockState.getValue(SculkShriekerBlock.SHRIEKING)) {
 						if (!blockState.getValue(SculkShriekerBlock.CAN_SUMMON)) {
 							server.setBlockAndUpdate(pos, blockState.setValue(RegisterProperties.SOULS_TAKEN, blockState.getValue(RegisterProperties.SOULS_TAKEN) + 1));
@@ -316,14 +316,14 @@ public class AncientHornProjectile extends AbstractArrow {
 				}
 			} else if (blockState.getBlock() == Blocks.SCULK_SENSOR) {
 				BlockPos pos = result.getBlockPos();
-				WilderWild.log(Blocks.SCULK_SENSOR, pos, "Horn Projectile Touched", WilderSharedConstants.UNSTABLE_LOGGING);
+				WilderSharedConstants.log(Blocks.SCULK_SENSOR, pos, "Horn Projectile Touched", WilderSharedConstants.UNSTABLE_LOGGING);
 				if (blockState.getValue(RegisterProperties.HICCUPPING)) {
 					server.setBlockAndUpdate(pos, blockState.setValue(RegisterProperties.HICCUPPING, false));
 				} else {
 					server.setBlockAndUpdate(pos, blockState.setValue(RegisterProperties.HICCUPPING, true));
 				}
 				if (SculkSensorBlock.canActivate(blockState)) {
-					SculkSensorBlock.activate(null, level, pos, this.level.getBlockState(pos), WilderWild.random().nextInt(15));
+					SculkSensorBlock.activate(null, level, pos, this.level.getBlockState(pos), WilderSharedConstants.random().nextInt(15));
 					this.level.gameEvent(null, RegisterGameEvents.SCULK_SENSOR_ACTIVATE, pos);
 					setCooldown(getCooldown(this.getOwner(), SENSOR_COOLDOWN));
 				}
@@ -353,9 +353,9 @@ public class AncientHornProjectile extends AbstractArrow {
 		if (insideState.is(RegisterBlocks.HANGING_TENDRIL) && this.level instanceof ServerLevel server && canInteract()) { //HANGING TENDRIL
 			BlockPos pos = this.blockPosition();
 			BlockEntity entity = this.level.getBlockEntity(pos);
-			WilderWild.log(RegisterBlocks.HANGING_TENDRIL, pos, "Horn Projectile Touched", WilderSharedConstants.DEV_LOGGING);
+			WilderSharedConstants.log(RegisterBlocks.HANGING_TENDRIL, pos, "Horn Projectile Touched", WilderSharedConstants.DEV_LOGGING);
 			if (entity instanceof HangingTendrilBlockEntity tendril) {
-				WilderWild.log("Horn Projectile Found Hanging Tendril Entity", WilderSharedConstants.UNSTABLE_LOGGING);
+				WilderSharedConstants.log("Horn Projectile Found Hanging Tendril Entity", WilderSharedConstants.UNSTABLE_LOGGING);
 				this.playSound(this.getHitGroundSoundEvent(), 1.0F, 1.2F / (this.random.nextFloat() * 0.2F + 0.9F));
 				int XP = tendril.storedXP;
 				if (XP > 0) {
@@ -518,7 +518,7 @@ public class AncientHornProjectile extends AbstractArrow {
 				entity.setSecondsOnFire(5);
 			}
 			if (entity instanceof Warden warden && owner != null && canInteract()) {
-				WilderWild.log(warden, "Horn Projectile Touched", WilderSharedConstants.DEV_LOGGING);
+				WilderSharedConstants.log(warden, "Horn Projectile Touched", WilderSharedConstants.DEV_LOGGING);
 				warden.increaseAngerAt(owner, AngerLevel.ANGRY.getMinimumAnger() + 20, true);
 				warden.playSound(SoundEvents.WARDEN_TENDRIL_CLICKS, 5.0F, warden.getVoicePitch());
 				this.discard();
@@ -526,7 +526,7 @@ public class AncientHornProjectile extends AbstractArrow {
 				if (entity.hurt(damageSource, (float) damage)) {
 					if (entity instanceof LivingEntity livingEntity) {
 						Level level = this.getLevel();
-						WilderWild.log(livingEntity, "Horn Projectile Touched", WilderSharedConstants.DEV_LOGGING);
+						WilderSharedConstants.log(livingEntity, "Horn Projectile Touched", WilderSharedConstants.DEV_LOGGING);
 						if (!this.level.isClientSide && owner instanceof LivingEntity) {
 							EnchantmentHelper.doPostHurtEffects(livingEntity, owner);
 							EnchantmentHelper.doPostDamageEffects((LivingEntity) owner, livingEntity);

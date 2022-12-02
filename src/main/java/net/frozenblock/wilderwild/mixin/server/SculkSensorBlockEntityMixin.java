@@ -71,7 +71,7 @@ public final class SculkSensorBlockEntityMixin extends BlockEntity implements Sc
                 EasyPacket.EasySensorHiccupPacket.createParticle(level, new Vec3(x, y, z));
             }
             if (SculkSensorBlock.canActivate(state) && level.random.nextInt(320) <= 1) {
-                WilderWild.log("Sensor Hiccups " + pos, WilderSharedConstants.DEV_LOGGING);
+                WilderSharedConstants.log("Sensor Hiccups " + pos, WilderSharedConstants.DEV_LOGGING);
                 SculkSensorBlock.activate(null, level, pos, state, (int) (Math.random() * 15));
                 level.gameEvent(null, GameEvent.SCULK_SENSOR_TENDRILS_CLICKING, pos);
                 level.gameEvent(null, RegisterGameEvents.SCULK_SENSOR_ACTIVATE, pos);

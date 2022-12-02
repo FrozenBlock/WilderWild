@@ -46,7 +46,7 @@ public final class RegisterParticles {
     public static final SimpleParticleType BLUE_LANDING_MESOGLEA = FabricParticleTypes.simple();
 
     public static void registerParticles() {
-        WilderWild.logWild("Registering Particles for", WilderSharedConstants.UNSTABLE_LOGGING);
+        WilderSharedConstants.logWild("Registering Particles for", WilderSharedConstants.UNSTABLE_LOGGING);
         Registry.register(BuiltInRegistries.PARTICLE_TYPE, WilderSharedConstants.id("pollen"), POLLEN);
         Registry.register(BuiltInRegistries.PARTICLE_TYPE, WilderSharedConstants.id("dandelion_seed"), DANDELION_SEED);
         Registry.register(BuiltInRegistries.PARTICLE_TYPE, WilderSharedConstants.id("controlled_dandelion_seed"), CONTROLLED_DANDELION_SEED);

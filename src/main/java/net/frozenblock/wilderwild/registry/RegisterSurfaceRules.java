@@ -20,7 +20,7 @@ public final class RegisterSurfaceRules implements SurfaceRuleEvents.OverworldMo
 				context.ruleSources().add(0, SharedWorldgen.betaBeaches());
 				context.ruleSources().add(SharedWorldgen.betaBeaches());
 			}
-			WilderWild.log("Wilder Wild's Overworld Surface Rules have been added!", WilderSharedConstants.UNSTABLE_LOGGING);
+			WilderSharedConstants.log("Wilder Wild's Overworld Surface Rules have been added!", WilderSharedConstants.UNSTABLE_LOGGING);
 		}
 	}
 
@@ -29,6 +29,6 @@ public final class RegisterSurfaceRules implements SurfaceRuleEvents.OverworldMo
     public void modifyNetherRules(SurfaceRuleContext.@NotNull Nether context) {
         /*context.materialRules().clear();
         context.materialRules().add(0, FrozenSurfaceRules.makeStateRule(Blocks.SPONGE));
-        WilderWild.log("SPONGEBOB", WilderSharedConstants.UNSTABLE_LOGGING);
+        WilderSharedConstants.log("SPONGEBOB", WilderSharedConstants.UNSTABLE_LOGGING);
     }*/
 }

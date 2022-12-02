@@ -12,6 +12,7 @@ import net.frozenblock.lib.worldgen.feature.api.FrozenPlacementUtils;
 import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.block.BaobabNutBlock;
 import net.frozenblock.wilderwild.block.ShelfFungusBlock;
+import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.frozenblock.wilderwild.registry.RegisterBlocks;
 import net.frozenblock.wilderwild.registry.RegisterProperties;
 import net.frozenblock.wilderwild.world.feature.features.config.ColumnWithDiskFeatureConfig;
@@ -127,7 +128,7 @@ public class WilderFeatureBootstrap {
 
 		var placedFallenSpruceChecked = placedFeatures.getOrThrow(WilderTreePlaced.FALLEN_SPRUCE_CHECKED);
 
-		WilderWild.logWild("Registering WilderTreeConfigured for", true);
+		WilderSharedConstants.logWild("Registering WilderTreeConfigured for", true);
 
 		var birch = register(entries, WilderTreeConfigured.BIRCH, Feature.TREE, WilderTreeConfigured.new_birch().dirt(BlockStateProvider.simple(Blocks.DIRT)).decorators(ImmutableList.of(WilderTreeConfigured.SHELF_FUNGUS_007)).build());
 		var birchBees0004 = register(entries, WilderTreeConfigured.BIRCH_BEES_0004, Feature.TREE, WilderTreeConfigured.new_birch().decorators(ImmutableList.of(WilderTreeConfigured.NEW_BEES_0004, WilderTreeConfigured.SHELF_FUNGUS_007)).ignoreVines().build());
@@ -170,7 +171,7 @@ public class WilderFeatureBootstrap {
 		var shortFungusCypress = register(entries, WilderTreeConfigured.SHORT_FUNGUS_CYPRESS, Feature.TREE, new TreeConfiguration.TreeConfigurationBuilder(BlockStateProvider.simple(RegisterBlocks.CYPRESS_LOG), new StraightTrunkPlacer(4, 3, 1), BlockStateProvider.simple(RegisterBlocks.CYPRESS_LEAVES), new SpruceFoliagePlacer(ConstantInt.of(1), UniformInt.of(1, 3), UniformInt.of(6, 8)), new TwoLayersFeatureSize(2, 1, 2)).decorators(ImmutableList.of(WilderTreeConfigured.SHELF_FUNGUS_006_ONLY_BROWN, WilderTreeConfigured.VINES_008_UNDER_82)).ignoreVines().build());
 		var swampCypress = register(entries, WilderTreeConfigured.SWAMP_CYPRESS, Feature.TREE, (new TreeConfiguration.TreeConfigurationBuilder(BlockStateProvider.simple(RegisterBlocks.CYPRESS_LOG), new UpwardsBranchingTrunkPlacer(15, 5, 2, UniformInt.of(4, 5), 0.2F, UniformInt.of(1, 3), BuiltInRegistries.BLOCK.getOrCreateTag(BlockTags.MANGROVE_LOGS_CAN_GROW_THROUGH)), BlockStateProvider.simple(RegisterBlocks.CYPRESS_LEAVES), new RandomSpreadFoliagePlacer(ConstantInt.of(2), ConstantInt.of(1), ConstantInt.of(2), 14), new TwoLayersFeatureSize(1, 0, 1))).decorators(ImmutableList.of(new LeaveVineDecorator(0.1F), WilderTreeConfigured.SHELF_FUNGUS_006_ONLY_BROWN, WilderTreeConfigured.VINES_008_UNDER_82)).build());
 
-		WilderWild.logWild("Registering WilderMiscConfigured for", true);
+		WilderSharedConstants.logWild("Registering WilderMiscConfigured for", true);
 
 		var blankShutUp = register(entries, WilderMiscConfigured.BLANK_SHUT_UP, Feature.SIMPLE_RANDOM_SELECTOR, new SimpleRandomFeatureConfiguration(HolderSet.direct(PlacementUtils.inlinePlaced(Feature.SIMPLE_BLOCK, new SimpleBlockConfiguration(new SimpleStateProvider(Blocks.WATER.defaultBlockState()))))));
 		var diskCoarseDirt = register(entries, WilderMiscConfigured.DISK_COARSE_DIRT, Feature.DISK, new DiskConfiguration(RuleBasedBlockStateProvider.simple(Blocks.COARSE_DIRT), BlockPredicate.matchesBlocks(List.of(Blocks.GRASS_BLOCK, Blocks.COARSE_DIRT)), UniformInt.of(6, 8), 1));
@@ -194,7 +195,7 @@ public class WilderFeatureBootstrap {
 		var downwardsMesogleaPillar = register(entries, WilderMiscConfigured.DOWNWARDS_MESOGLEA_PILLAR, WilderWild.DOWNWARDS_PILLAR_FEATURE, new WilderPillarConfig(RegisterBlocks.BLUE_PEARLESCENT_MESOGLEA.defaultBlockState().setValue(BlockStateProperties.WATERLOGGED, true), UniformInt.of(3, 10), HolderSet.direct(RegisterBlocks.BLUE_PEARLESCENT_MESOGLEA.builtInRegistryHolder(), RegisterBlocks.PURPLE_PEARLESCENT_MESOGLEA.builtInRegistryHolder(), Blocks.WATER.builtInRegistryHolder())));
 		var downwardsPurpleMesogleaPillar = register(entries, WilderMiscConfigured.DOWNWARDS_PURPLE_MESOGLEA_PILLAR, WilderWild.DOWNWARDS_PILLAR_FEATURE, new WilderPillarConfig(RegisterBlocks.PURPLE_PEARLESCENT_MESOGLEA.defaultBlockState().setValue(BlockStateProperties.WATERLOGGED, true), UniformInt.of(3, 10), HolderSet.direct(RegisterBlocks.BLUE_PEARLESCENT_MESOGLEA.builtInRegistryHolder(), RegisterBlocks.PURPLE_PEARLESCENT_MESOGLEA.builtInRegistryHolder(), Blocks.WATER.builtInRegistryHolder())));
 
-		WilderWild.logWild("Registering WilderConfiguredFeatures for", true);
+		WilderSharedConstants.logWild("Registering WilderConfiguredFeatures for", true);
 		var placedFallenBirchChecked = placedFeatures.getOrThrow(WilderTreePlaced.FALLEN_BIRCH_CHECKED);
 		var placedFallenOakChecked = placedFeatures.getOrThrow(WilderTreePlaced.FALLEN_OAK_CHECKED);
 		var placedFallenCypressChecked = placedFeatures.getOrThrow(WilderTreePlaced.FALLEN_CYPRESS_CHECKED);
@@ -329,7 +330,7 @@ public class WilderFeatureBootstrap {
 		final var placedFeatures = entries.lookup(Registries.PLACED_FEATURE);
 		final var configuredFeatures = entries.lookup(Registries.CONFIGURED_FEATURE);
 
-		WilderWild.logWild("Registering WilderTreePlaced for", true);
+		WilderSharedConstants.logWild("Registering WilderTreePlaced for", true);
 		var birch = configuredFeatures.getOrThrow(WilderTreeConfigured.BIRCH);
 		var birchBees0004 = configuredFeatures.getOrThrow(WilderTreeConfigured.BIRCH_BEES_0004);
 		var dyingBirch = configuredFeatures.getOrThrow(WilderTreeConfigured.DYING_BIRCH);
@@ -414,7 +415,7 @@ public class WilderFeatureBootstrap {
 		var placedSwampCypress = register(entries, WilderTreePlaced.SWAMP_CYPRESS, swampCypress, PlacementUtils.filteredByBlockSurvival(RegisterBlocks.CYPRESS_SAPLING));
 		var placedFallenCypressChecked = register(entries, WilderTreePlaced.FALLEN_CYPRESS_CHECKED, fallenCypressTree, PlacementUtils.filteredByBlockSurvival(RegisterBlocks.CYPRESS_SAPLING));
 
-		WilderWild.logWild("Registering WilderMiscPlaced for", true);
+		WilderSharedConstants.logWild("Registering WilderMiscPlaced for", true);
 		var diskMud = configuredFeatures.getOrThrow(WilderMiscConfigured.DISK_MUD);
 		var mudPath = configuredFeatures.getOrThrow(WilderMiscConfigured.MUD_PATH);
 		var coarsePath = configuredFeatures.getOrThrow(WilderMiscConfigured.COARSE_PATH);
@@ -456,7 +457,7 @@ public class WilderFeatureBootstrap {
 		var placedJellyfishDeepslatePool = register(entries, WilderMiscPlaced.JELLYFISH_DEEPSLATE_POOL, deepslatePool, CountPlacement.of(30), InSquarePlacement.spread(), HeightRangePlacement.uniform(VerticalAnchor.bottom(), VerticalAnchor.aboveBottom(67)), EnvironmentScanPlacement.scanningFor(Direction.DOWN, BlockPredicate.solid(), BlockPredicate.ONLY_IN_AIR_PREDICATE, 12), RandomOffsetPlacement.vertical(ConstantInt.of(1)), BiomeFilter.biome());
 		var placedJellyfishStonePool = register(entries, WilderMiscPlaced.JELLYFISH_STONE_POOL, stonePool, CountPlacement.of(30), InSquarePlacement.spread(), HeightRangePlacement.uniform(VerticalAnchor.aboveBottom(68), VerticalAnchor.top()), EnvironmentScanPlacement.scanningFor(Direction.DOWN, BlockPredicate.solid(), BlockPredicate.ONLY_IN_AIR_PREDICATE, 12), RandomOffsetPlacement.vertical(ConstantInt.of(1)), BiomeFilter.biome());
 
-		WilderWild.logWild("Registering WilderPlacedFeatures for", true);
+		WilderSharedConstants.logWild("Registering WilderPlacedFeatures for", true);
 		var fallenTreesMixed = configuredFeatures.getOrThrow(WilderConfiguredFeatures.FALLEN_TREES_MIXED);
 		var fallenSpruceAndOak = configuredFeatures.getOrThrow(WilderConfiguredFeatures.FALLEN_SPRUCE_AND_OAK);
 		var fallenBirchAndOak = configuredFeatures.getOrThrow(WilderConfiguredFeatures.FALLEN_BIRCH_AND_OAK);

@@ -65,6 +65,7 @@ import net.minecraft.world.level.levelgen.feature.configurations.MultifaceGrowth
 import net.minecraft.world.level.levelgen.feature.configurations.ProbabilityFeatureConfiguration;
 import net.minecraft.world.level.levelgen.feature.trunkplacers.TrunkPlacer;
 import net.minecraft.world.level.levelgen.feature.trunkplacers.TrunkPlacerType;
+import org.jetbrains.annotations.NotNull;
 import org.quiltmc.qsl.frozenblock.misc.datafixerupper.api.QuiltDataFixerBuilder;
 import org.quiltmc.qsl.frozenblock.misc.datafixerupper.api.QuiltDataFixes;
 import org.quiltmc.qsl.frozenblock.misc.datafixerupper.api.SimpleFixes;
@@ -114,14 +115,18 @@ public final class WilderWild implements ModInitializer {
     public static final MobCategory FIREFLIES = ClassTinkerers.getEnum(MobCategory.class, "WILDERWILDFIREFLIES");
     public static final MobCategory JELLYFISH = ClassTinkerers.getEnum(MobCategory.class, "WILDERWILDJELLYFISH");
 
+	/**
+	 * @deprecated Use {@link WilderSharedConstants#random()} instead.
+	 */
+	@Deprecated(forRemoval = true)
     public static RandomSource random() {
         return RandomSource.create();
     }
 
     @Override
     public void onInitialize() {
-        startMeasuring(this);
-        applyDataFixes(FabricLoader.getInstance().getModContainer(WilderSharedConstants.MOD_ID).orElseThrow());
+        WilderSharedConstants.startMeasuring(this);
+        applyDataFixes(WilderSharedConstants.MOD_CONTAINER);
 
         WilderRegistry.initRegistry();
         RegisterBlocks.registerBlocks();
@@ -156,14 +161,18 @@ public final class WilderWild implements ModInitializer {
             terralith();
         }
 
-        stopMeasuring(this);
+        WilderSharedConstants.stopMeasuring(this);
     }
 
+	/**
+	 * @deprecated Use {@link WilderSharedConstants#DATA_VERSION} instead.
+	 */
+	@Deprecated(forRemoval = true)
     public static final int DATA_VERSION = 9;
 
-    private static void applyDataFixes(ModContainer mod) {
-        log("Applying DataFixes for Wilder Wild with Data Version " + DATA_VERSION, true);
-        var builder = new QuiltDataFixerBuilder(DATA_VERSION);
+    private static void applyDataFixes(final @NotNull ModContainer mod) {
+        log("Applying DataFixes for Wilder Wild with Data Version " + WilderSharedConstants.DATA_VERSION, true);
+        var builder = new QuiltDataFixerBuilder(WilderSharedConstants.DATA_VERSION);
         builder.addSchema(0, QuiltDataFixes.BASE_SCHEMA);
         Schema schemaV1 = builder.addSchema(1, NamespacedSchema::new);
         SimpleFixes.addBlockRenameFix(builder, "Rename white_dandelion to blooming_dandelion", WilderSharedConstants.id("white_dandelion"), WilderSharedConstants.id("blooming_dandelion"), schemaV1);
@@ -226,49 +235,53 @@ public final class WilderWild implements ModInitializer {
     }
 
     // LOGGING
+
+	/**
+	 * @deprecated Use {@link WilderSharedConstants#log(String, boolean)} instead.
+	 */
+	@Deprecated(forRemoval = true)
     public static void log(String string, boolean shouldLog) {
-        if (shouldLog) {
-            WilderSharedConstants.LOGGER.info(string);
-        }
+        WilderSharedConstants.log(string, shouldLog);
     }
 
+	/**
+	 * @deprecated Use {@link WilderSharedConstants#logInsane(String, boolean)} instead.
+	 */
+	@Deprecated(forRemoval = true)
     public static void logInsane(String string, boolean shouldLog) {
-        if (shouldLog) {
-            for (int i = 0; i < Math.random() * 5; i++) {
-                WilderSharedConstants.LOGGER.warn(string);
-                WilderSharedConstants.LOGGER.error(string);
-                WilderSharedConstants.LOGGER.warn(string);
-                WilderSharedConstants.LOGGER.error(string);
-                WilderSharedConstants.LOGGER.warn(string);
-                WilderSharedConstants.LOGGER.error(string);
-                WilderSharedConstants.LOGGER.warn(string);
-                WilderSharedConstants.LOGGER.error(string);
-            }
-        }
+        WilderSharedConstants.logInsane(string, shouldLog);
     }
 
+	/**
+	 * @deprecated Use {@link WilderSharedConstants#log(Entity, String, boolean)} instead.
+	 */
+	@Deprecated(forRemoval = true)
     public static void log(Entity entity, String string, boolean shouldLog) {
-        if (shouldLog) {
-            WilderSharedConstants.LOGGER.info(entity.toString() + " : " + string + " : " + entity.position());
-        }
+        WilderSharedConstants.log(entity, string, shouldLog);
     }
 
+	/**
+	 * @deprecated Use {@link WilderSharedConstants#log(Block, String, boolean)} instead.
+	 */
+	@Deprecated(forRemoval = true)
     public static void log(Block block, String string, boolean shouldLog) {
-        if (shouldLog) {
-            WilderSharedConstants.LOGGER.info(block.toString() + " : " + string + " : ");
-        }
+        WilderSharedConstants.log(block, string, shouldLog);
     }
 
+	/**
+	 * @deprecated Use {@link WilderSharedConstants#log(Block, BlockPos, String, boolean)} instead.
+	 */
+	@Deprecated(forRemoval = true)
     public static void log(Block block, BlockPos pos, String string, boolean shouldLog) {
-        if (shouldLog) {
-            WilderSharedConstants.LOGGER.info(block.toString() + " : " + string + " : " + pos);
-        }
+        WilderSharedConstants.log(block, pos, string, shouldLog);
     }
 
+	/**
+	 * @deprecated Use {@link WilderSharedConstants#logWild(String, boolean)} instead.
+	 */
+	@Deprecated(forRemoval = true)
     public static void logWild(String string, boolean shouldLog) {
-        if (shouldLog) {
-            WilderSharedConstants.LOGGER.info(string + " " + WilderSharedConstants.MOD_ID);
-        }
+        WilderSharedConstants.logWild(string, shouldLog);
     }
 
     private static <P extends TrunkPlacer> TrunkPlacerType<P> registerTrunk(String id, Codec<P> codec) {
@@ -276,21 +289,26 @@ public final class WilderWild implements ModInitializer {
     }
 
     // MEASURING
-    public static final Map<Object, Long> INSTANT_MAP = new HashMap<>();
+	/**
+	 * @deprecated Use {@link WilderSharedConstants#INSTANT_MAP} instead.
+	 */
+	@Deprecated(forRemoval = true)
+    public static final Map<Object, Long> INSTANT_MAP = WilderSharedConstants.INSTANT_MAP;
 
+	/**
+	 * @deprecated Use {@link WilderSharedConstants#startMeasuring(Object)} instead.
+	 */
+	@Deprecated(forRemoval = true)
     public static void startMeasuring(Object object) {
-        long started = System.nanoTime();
-        String name = object.getClass().getName();
-        WilderSharedConstants.LOGGER.error("Started measuring {}", name.substring(name.lastIndexOf(".") + 1));
-        INSTANT_MAP.put(object, started);
+        WilderSharedConstants.startMeasuring(object);
     }
 
+	/**
+	 * @deprecated Use {@link WilderSharedConstants#stopMeasuring(Object)} instead.
+	 */
+	@Deprecated(forRemoval = true)
     public static void stopMeasuring(Object object) {
-        if (INSTANT_MAP.containsKey(object)) {
-            String name = object.getClass().getName();
-            WilderSharedConstants.LOGGER.error("{} took {} nanoseconds", name.substring(name.lastIndexOf(".") + 1), System.nanoTime() - INSTANT_MAP.get(object));
-            INSTANT_MAP.remove(object);
-        }
+        WilderSharedConstants.stopMeasuring(object);
     }
 
     // GAME RULES
@@ -306,11 +324,31 @@ public final class WilderWild implements ModInitializer {
     public static final ResourceLocation SENSOR_HICCUP_PACKET = WilderSharedConstants.id("sensor_hiccup_packet");
     public static final ResourceLocation JELLY_STING_PACKET = WilderSharedConstants.id("jelly_sting_packet");
 
-    public static final ResourceLocation CAPTURE_FIREFLY_NOTIFY_PACKET = WilderSharedConstants.id("capture_firefly_notify_packet");
-    public static final ResourceLocation ANCIENT_HORN_KILL_NOTIFY_PACKET = WilderSharedConstants.id("ancient_horn_kill_notify_packet");
+	public static final ResourceLocation ANCIENT_HORN_KILL_NOTIFY_PACKET = WilderSharedConstants.id("ancient_horn_kill_notify_packet");
+	public static final ResourceLocation CAPTURE_FIREFLY_NOTIFY_PACKET = WilderSharedConstants.id("capture_firefly_notify_packet");
 
+	/**
+	 * @deprecated Use {@link WilderSharedConstants#id(String)} instead.
+	 */
+	@Deprecated(forRemoval = true)
+    public static ResourceLocation id(String path) {
+        return WilderSharedConstants.id(path);
+    }
+
+	/**
+	 * @deprecated Use {@link WilderSharedConstants#vanillaId(String)} instead.
+	 */
+	@Deprecated(forRemoval = true)
+	public static ResourceLocation vanillaId(String path) {
+		return WilderSharedConstants.vanillaId(path);
+	}
+
+	/**
+	 * @deprecated Use {@link WilderSharedConstants#string(String)} instead.
+	 */
+	@Deprecated(forRemoval = true)
 	public static String string(String path) {
-        return WilderSharedConstants.id(path).toString();
+        return WilderSharedConstants.string(path);
     }
 
 }

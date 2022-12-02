@@ -62,7 +62,7 @@ public final class RegisterStructures {
     private static final ResourceKey<Structure> ABANDONED_CABIN_KEY = createKey("abandoned_cabin");
 
     public static void init() {
-        WilderWild.logWild("Registering Structures for", WilderSharedConstants.UNSTABLE_LOGGING);
+        WilderSharedConstants.logWild("Registering Structures for", WilderSharedConstants.UNSTABLE_LOGGING);
         WilderStructureProcessors.init();
         AbandonedCabinGenerator.init();
     }

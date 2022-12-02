@@ -120,7 +120,7 @@ public class TermiteMoundBlockEntity extends BlockEntity {
             }
         }
         while (this.termites.size() > maxTermites) {
-            Termite termite = this.termites.get(WilderWild.random().nextInt(this.termites.size()));
+            Termite termite = this.termites.get(WilderSharedConstants.random().nextInt(this.termites.size()));
             level.playSound(null, termite.pos, RegisterSounds.BLOCK_TERMITE_MOUND_ENTER, SoundSource.NEUTRAL, 1.0F, 1.0F);
             level.gameEvent(null, GameEvent.TELEPORT, Vec3.atCenterOf(termite.pos));
             this.termites.remove(termite);
