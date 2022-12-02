@@ -49,11 +49,11 @@
   ],
   "accessWidener": "wilderwild.accesswidener",
   "depends": {
-	"frozenlib": ">=1.1.4-",
+	"frozenlib": ">=1.1.5-",
 	"mm": ">=2.3",
-	"fabricloader": ">=0.14.10",
-	"fabric-api": ">=0.67.2",
-	"minecraft": "~1.19.3-alpha",
+	"fabricloader": ">=0.14.11",
+	"fabric-api": ">=0.68.1",
+	"minecraft": "~1.19.3-",
 	"java": ">=17"
   },
   "breaks": {

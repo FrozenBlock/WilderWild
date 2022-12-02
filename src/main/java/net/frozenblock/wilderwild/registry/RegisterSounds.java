@@ -2,8 +2,10 @@ package net.frozenblock.wilderwild.registry;
 
 import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
+import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
 
 public final class RegisterSounds {
@@ -13,19 +15,19 @@ public final class RegisterSounds {
 
     //AMBIENT
 
-    public static final SoundEvent AMBIENT_DEEP_DARK_ADDITIONS = register("ambient.deep_dark.additions");
-    public static final SoundEvent AMBIENT_DEEP_DARK_LOOP = register("ambient.deep_dark.loop");
+    public static final Holder.Reference<SoundEvent> AMBIENT_DEEP_DARK_ADDITIONS = registerForHolder("ambient.deep_dark.additions");
+    public static final Holder.Reference<SoundEvent> AMBIENT_DEEP_DARK_LOOP = registerForHolder("ambient.deep_dark.loop");
 
-    public static final SoundEvent AMBIENT_DRIPSTONE_CAVES_ADDITIONS = register("ambient.dripstone_caves.additions");
-    public static final SoundEvent AMBIENT_DRIPSTONE_CAVES_LOOP = register("ambient.dripstone_caves.loop");
+    public static final Holder.Reference<SoundEvent> AMBIENT_DRIPSTONE_CAVES_ADDITIONS = registerForHolder("ambient.dripstone_caves.additions");
+    public static final Holder.Reference<SoundEvent> AMBIENT_DRIPSTONE_CAVES_LOOP = registerForHolder("ambient.dripstone_caves.loop");
 
-    public static final SoundEvent AMBIENT_GENERIC_CAVES_LOOP = register("ambient.generic_caves.loop");
+    public static final Holder.Reference<SoundEvent> AMBIENT_GENERIC_CAVES_LOOP = registerForHolder("ambient.generic_caves.loop");
 
-    public static final SoundEvent AMBIENT_JELLYFISH_CAVES_ADDITIONS = register("ambient.jellyfish_caves.additions");
-    public static final SoundEvent AMBIENT_JELLYFISH_CAVES_LOOP = register("ambient.jellyfish_caves.loop");
+    public static final Holder.Reference<SoundEvent> AMBIENT_JELLYFISH_CAVES_ADDITIONS = registerForHolder("ambient.jellyfish_caves.additions");
+    public static final Holder.Reference<SoundEvent> AMBIENT_JELLYFISH_CAVES_LOOP = registerForHolder("ambient.jellyfish_caves.loop");
 
-    public static final SoundEvent AMBIENT_LUSH_CAVES_ADDITIONS = register("ambient.lush_caves.additions");
-    public static final SoundEvent AMBIENT_LUSH_CAVES_LOOP = register("ambient.lush_caves.loop");
+    public static final Holder.Reference<SoundEvent> AMBIENT_LUSH_CAVES_ADDITIONS = registerForHolder("ambient.lush_caves.additions");
+    public static final Holder.Reference<SoundEvent> AMBIENT_LUSH_CAVES_LOOP = registerForHolder("ambient.lush_caves.loop");
 
     //BLOCK
 
@@ -198,7 +200,7 @@ public final class RegisterSounds {
 
     //ITEM
 
-    public static final SoundEvent ITEM_ANCIENT_HORN_CALL = register("item.ancient_horn.call");
+    public static final Holder.Reference<SoundEvent> ITEM_ANCIENT_HORN_CALL = registerForHolder("item.ancient_horn.call");
 
     public static final SoundEvent ITEM_BOTTLE_CATCH_FIREFLY = register("item.bottle.catch_firefly");
     public static final SoundEvent ITEM_BOTTLE_RELEASE_FIREFLY = register("item.bottle.release_firefly");
@@ -207,26 +209,26 @@ public final class RegisterSounds {
     public static final SoundEvent ITEM_BUCKET_FILL_JELLYFISH = register("item.bucket.fill_jellyfish");
     public static final SoundEvent ITEM_BUCKET_EMPTY_JELLYFISH = register("item.bucket.empty_jellyfish");
 
-    public static final SoundEvent ITEM_COPPER_HORN_SAX_START = register("item.copper_horn.sax.start");
-    public static final SoundEvent ITEM_COPPER_HORN_SAX_LOOP = register("item.copper_horn.sax.loop");
+    public static final Holder.Reference<SoundEvent> ITEM_COPPER_HORN_SAX_START = registerForHolder("item.copper_horn.sax.start");
+    public static final Holder.Reference<SoundEvent> ITEM_COPPER_HORN_SAX_LOOP = registerForHolder("item.copper_horn.sax.loop");
 
-    public static final SoundEvent ITEM_COPPER_HORN_TUBA_START = register("item.copper_horn.tuba.start");
-    public static final SoundEvent ITEM_COPPER_HORN_TUBA_LOOP = register("item.copper_horn.tuba.loop");
+    public static final Holder.Reference<SoundEvent> ITEM_COPPER_HORN_TUBA_START = registerForHolder("item.copper_horn.tuba.start");
+    public static final Holder.Reference<SoundEvent> ITEM_COPPER_HORN_TUBA_LOOP = registerForHolder("item.copper_horn.tuba.loop");
 
-    public static final SoundEvent ITEM_COPPER_HORN_FLUTE_START = register("item.copper_horn.flute.start");
-    public static final SoundEvent ITEM_COPPER_HORN_FLUTE_LOOP = register("item.copper_horn.flute.loop");
+    public static final Holder.Reference<SoundEvent> ITEM_COPPER_HORN_FLUTE_START = registerForHolder("item.copper_horn.flute.start");
+    public static final Holder.Reference<SoundEvent> ITEM_COPPER_HORN_FLUTE_LOOP = registerForHolder("item.copper_horn.flute.loop");
 
-    public static final SoundEvent ITEM_COPPER_HORN_OBOE_START = register("item.copper_horn.oboe.start");
-    public static final SoundEvent ITEM_COPPER_HORN_OBOE_LOOP = register("item.copper_horn.oboe.loop");
+    public static final Holder.Reference<SoundEvent> ITEM_COPPER_HORN_OBOE_START = registerForHolder("item.copper_horn.oboe.start");
+    public static final Holder.Reference<SoundEvent> ITEM_COPPER_HORN_OBOE_LOOP = registerForHolder("item.copper_horn.oboe.loop");
 
-    public static final SoundEvent ITEM_COPPER_HORN_CLARINET_START = register("item.copper_horn.clarinet.start");
-    public static final SoundEvent ITEM_COPPER_HORN_CLARINET_LOOP = register("item.copper_horn.clarinet.loop");
+    public static final Holder.Reference<SoundEvent> ITEM_COPPER_HORN_CLARINET_START = registerForHolder("item.copper_horn.clarinet.start");
+    public static final Holder.Reference<SoundEvent> ITEM_COPPER_HORN_CLARINET_LOOP = registerForHolder("item.copper_horn.clarinet.loop");
 
-    public static final SoundEvent ITEM_COPPER_HORN_TRUMPET_START = register("item.copper_horn.trumpet.start");
-    public static final SoundEvent ITEM_COPPER_HORN_TRUMPET_LOOP = register("item.copper_horn.trumpet.loop");
+    public static final Holder.Reference<SoundEvent> ITEM_COPPER_HORN_TRUMPET_START = registerForHolder("item.copper_horn.trumpet.start");
+    public static final Holder.Reference<SoundEvent> ITEM_COPPER_HORN_TRUMPET_LOOP = registerForHolder("item.copper_horn.trumpet.loop");
 
-    public static final SoundEvent ITEM_COPPER_HORN_TROMBONE_START = register("item.copper_horn.trombone.start");
-    public static final SoundEvent ITEM_COPPER_HORN_TROMBONE_LOOP = register("item.copper_horn.trombone.loop");
+    public static final Holder.Reference<SoundEvent> ITEM_COPPER_HORN_TROMBONE_START = registerForHolder("item.copper_horn.trombone.start");
+    public static final Holder.Reference<SoundEvent> ITEM_COPPER_HORN_TROMBONE_LOOP = registerForHolder("item.copper_horn.trombone.loop");
 
     //MISC
 
@@ -241,13 +243,25 @@ public final class RegisterSounds {
     public static final SoundEvent MUSIC_DISC_GOATHORN_SYMPHONY = register("music_disc.goathorn_symphony");
     public static final SoundEvent MUSIC_DISC_BACK = register("music_disc.back");
 
-    public static final SoundEvent MUSIC_OVERWORLD_WILD_FORESTS = register("music.overworld.wild_forests");
-    public static final SoundEvent MUSIC_OVERWORLD_JELLYFISH_CAVES = register("music.overworld.jellyfish_caves");
+    public static final Holder.Reference<SoundEvent> MUSIC_OVERWORLD_WILD_FORESTS = registerForHolder("music.overworld.wild_forests");
+    public static final Holder.Reference<SoundEvent> MUSIC_OVERWORLD_JELLYFISH_CAVES = registerForHolder("music.overworld.jellyfish_caves");
+
+	private static Holder.Reference<SoundEvent> registerForHolder(String string) {
+		return registerForHolder(WilderSharedConstants.id(string));
+	}
+
+	private static Holder.Reference<SoundEvent> registerForHolder(ResourceLocation resourceLocation) {
+		return registerForHolder(resourceLocation, resourceLocation);
+	}
 
     public static SoundEvent register(String path) {
 		var id = WilderSharedConstants.id(path);
         return Registry.register(BuiltInRegistries.SOUND_EVENT, id, new SoundEvent(id, 16.0F, false));
     }
+
+	private static Holder.Reference<SoundEvent> registerForHolder(ResourceLocation resourceLocation, ResourceLocation resourceLocation2) {
+		return Registry.registerForHolder(BuiltInRegistries.SOUND_EVENT, resourceLocation, SoundEvent.createVariableRangeEvent(resourceLocation2));
+	}
 
     public static void init() {
         WilderWild.logWild("Registering SoundEvents for", WilderSharedConstants.UNSTABLE_LOGGING);

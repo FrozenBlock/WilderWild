@@ -83,7 +83,7 @@ public class CopperHorn extends InstrumentItem {
     }
 
     private static void playSound(Instrument instrument, Player user, Level level, Holder<Instrument> instrumentHolder) {
-        SoundEvent soundEvent = instrument.soundEvent();
+        SoundEvent soundEvent = instrument.soundEvent().value();
         float range = instrument.range() / 16.0F;
         int note = (int) ((-user.getXRot() + 90) / 7.5);
 

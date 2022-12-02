@@ -138,7 +138,7 @@ public class AncientHorn extends InstrumentItem {
     }
 
     private static void play(Level level, Player player, Instrument instrument) {
-        SoundEvent soundEvent = instrument.soundEvent();
+        SoundEvent soundEvent = instrument.soundEvent().value();
         float range = instrument.range() / LevelRenderer.CHUNK_SIZE;
         level.playSound(player, player, soundEvent, SoundSource.RECORDS, range, 1.0F);
     }
