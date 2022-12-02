@@ -6,6 +6,7 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.WilderWildClient;
+import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.frozenblock.wilderwild.misc.config.ClothConfigInteractionHandler;
 import net.frozenblock.wilderwild.misc.interfaces.SculkSensorTickInterface;
 import net.minecraft.client.model.geom.ModelPart;
@@ -30,8 +31,8 @@ public class SculkSensorBlockEntityRenderer<T extends SculkSensorBlockEntity> im
     private static final float pi = (float) Math.PI;
     private static final float merp25 = 25 * (pi / 180);
 
-    private static final RenderType SENSOR_LAYER = RenderType.entityCutout(WilderWild.id("textures/entity/sculk_sensor/inactive.png"));
-    private static final RenderType ACTIVE_SENSOR_LAYER = RenderType.entityCutout(WilderWild.id("textures/entity/sculk_sensor/active.png"));
+    private static final RenderType SENSOR_LAYER = RenderType.entityCutout(WilderSharedConstants.id("textures/entity/sculk_sensor/inactive.png"));
+    private static final RenderType ACTIVE_SENSOR_LAYER = RenderType.entityCutout(WilderSharedConstants.id("textures/entity/sculk_sensor/active.png"));
 
     public SculkSensorBlockEntityRenderer(Context ctx) {
         ModelPart root = ctx.bakeLayer(WilderWildClient.SCULK_SENSOR);

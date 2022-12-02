@@ -1,6 +1,7 @@
 package net.frozenblock.wilderwild.mixin.server;
 
 import net.frozenblock.wilderwild.WilderWild;
+import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.frozenblock.wilderwild.misc.server.EasyPacket;
 import net.frozenblock.wilderwild.registry.RegisterProperties;
 import net.minecraft.core.BlockPos;
@@ -32,7 +33,7 @@ public class SculkShriekerBlockEntityMixin {
         SculkShriekerBlockEntity entity = SculkShriekerBlockEntity.class.cast(this);
         BlockState blockState = entity.getBlockState();
         if (blockState.getValue(RegisterProperties.SOULS_TAKEN) == 2) {
-            WilderWild.log(Blocks.SCULK_SHRIEKER, entity.getBlockPos(), "All Souls Have Already Been Taken, Cannot Warn", WilderWild.DEV_LOGGING);
+            WilderSharedConstants.log(Blocks.SCULK_SHRIEKER, entity.getBlockPos(), "All Souls Have Already Been Taken, Cannot Warn", WilderSharedConstants.DEV_LOGGING);
             info.setReturnValue(false);
             info.cancel();
         }
@@ -56,7 +57,7 @@ public class SculkShriekerBlockEntityMixin {
             if (shrieker.getBlockState().getValue(BlockStateProperties.WATERLOGGED)) {//TODO: fix this. i want it to emit a constant flow of bubbles but it just doesnt
                 if (this.wilderWild$bubbles > 0 && level != null) {
                     --this.wilderWild$bubbles;
-                    EasyPacket.EasyFloatingSculkBubblePacket.createParticle(level, Vec3.atCenterOf(shrieker.getBlockPos()), Math.random() > 0.7 ? 1 : 0, 20 + WilderWild.random().nextInt(80), 0.075, level.random.nextIntBetweenInclusive(8, 14));
+                    EasyPacket.EasyFloatingSculkBubblePacket.createParticle(level, Vec3.atCenterOf(shrieker.getBlockPos()), Math.random() > 0.7 ? 1 : 0, 20 + WilderSharedConstants.random().nextInt(80), 0.075, level.random.nextIntBetweenInclusive(8, 14));
                 }
             }
         }

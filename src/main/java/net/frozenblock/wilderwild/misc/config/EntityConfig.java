@@ -9,8 +9,7 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.frozenblock.lib.config.api.FrozenConfig;
 import net.frozenblock.wilderwild.WilderWild;
-import static net.frozenblock.wilderwild.misc.config.WilderWildConfig.text;
-import static net.frozenblock.wilderwild.misc.config.WilderWildConfig.tooltip;
+import static net.frozenblock.wilderwild.misc.config.WilderWildConfig.*;
 
 @Config(name = "entity")
 public final class EntityConfig implements ConfigData {
@@ -49,7 +48,7 @@ public final class EntityConfig implements ConfigData {
 		var allay = config.allay;
 		var enderMan = config.enderMan;
 		var warden = config.warden;
-		category.setBackground(WilderWild.id("textures/config/entity.png"));
+		category.setBackground(ENTITY_CONFIG_BACKGROUND);
 		var unpassableRail = category.addEntry(entryBuilder.startBooleanToggle(text("unpassable_rail"), config.unpassableRail)
 				.setDefaultValue(false)
 				.setSaveConsumer(newValue -> config.unpassableRail = newValue)

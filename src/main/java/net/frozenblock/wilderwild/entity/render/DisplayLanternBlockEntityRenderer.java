@@ -13,6 +13,7 @@ import net.fabricmc.api.Environment;
 import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.WilderWildClient;
 import net.frozenblock.wilderwild.block.entity.DisplayLanternBlockEntity;
+import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.geom.builders.LayerDefinition;
 import net.minecraft.client.model.geom.builders.MeshDefinition;
@@ -34,12 +35,12 @@ public class DisplayLanternBlockEntityRenderer<T extends DisplayLanternBlockEnti
     private static final Quaternion one80Quat = Vector3f.YP.rotationDegrees(180.0F);
     private final ItemRenderer itemRenderer;
 
-    private static final ResourceLocation TEXTURE = WilderWild.id("textures/entity/firefly/firefly_off.png");
+    private static final ResourceLocation TEXTURE = WilderSharedConstants.id("textures/entity/firefly/firefly_off.png");
     private static final RenderType LAYER = RenderType.entityCutout(TEXTURE);
 
-    private static final RenderType NECTAR_LAYER = RenderType.entityCutout(WilderWild.id("textures/entity/firefly/nectar.png"));
-    private static final RenderType NECTAR_FLAP_LAYER = RenderType.entityCutout(WilderWild.id("textures/entity/firefly/nectar_wings_down.png"));
-    private static final RenderType NECTAR_OVERLAY = RenderType.entityTranslucentEmissive(WilderWild.id("textures/entity/firefly/nectar_overlay.png"), true);
+    private static final RenderType NECTAR_LAYER = RenderType.entityCutout(WilderSharedConstants.id("textures/entity/firefly/nectar.png"));
+    private static final RenderType NECTAR_FLAP_LAYER = RenderType.entityCutout(WilderSharedConstants.id("textures/entity/firefly/nectar_wings_down.png"));
+    private static final RenderType NECTAR_OVERLAY = RenderType.entityTranslucentEmissive(WilderSharedConstants.id("textures/entity/firefly/nectar_overlay.png"), true);
 
     public DisplayLanternBlockEntityRenderer(Context ctx) {
         ctx.bakeLayer(WilderWildClient.DISPLAY_LANTERN);

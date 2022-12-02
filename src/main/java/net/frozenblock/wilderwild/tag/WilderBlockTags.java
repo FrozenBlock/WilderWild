@@ -1,6 +1,7 @@
 package net.frozenblock.wilderwild.tag;
 
 import net.frozenblock.wilderwild.WilderWild;
+import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
@@ -30,6 +31,6 @@ public final class WilderBlockTags {
 	public static final TagKey<Block> SAND_POOL_REPLACEABLE = bind("sand_pool_replaceable");
 
 	private static TagKey<Block> bind(String path) {
-		return TagKey.create(Registry.BLOCK_REGISTRY, WilderWild.id(path));
+		return TagKey.create(Registry.BLOCK_REGISTRY, WilderSharedConstants.id(path));
 	}
 }

@@ -25,7 +25,7 @@ public class ClientMethods {
 	public static void playClientEnderManLoop(EnderMan enderMan) {
 		Minecraft client = Minecraft.getInstance();
 		if (client.level != null && enderMan.isAlive()) {
-			Minecraft.getInstance().getSoundManager().play(new RestrictedMovingSoundLoop<>(enderMan, RegisterSounds.ENTITY_ENDERMAN_ANGER_LOOP, SoundSource.HOSTILE, 1.0F, 0.9F, SoundPredicate.getPredicate(WilderWild.id("enderman_anger"))));
+			Minecraft.getInstance().getSoundManager().play(new RestrictedMovingSoundLoop<>(enderMan, RegisterSounds.ENTITY_ENDERMAN_ANGER_LOOP, SoundSource.HOSTILE, 1.0F, 0.9F, SoundPredicate.getPredicate(WilderSharedConstants.id("enderman_anger"))));
 		}
 	}
 

@@ -28,6 +28,7 @@ import net.frozenblock.wilderwild.entity.render.StoneChestBlockEntityRenderer;
 import net.frozenblock.wilderwild.entity.render.TumbleweedModel;
 import net.frozenblock.wilderwild.entity.render.TumbleweedRenderer;
 import net.frozenblock.wilderwild.misc.CompetitionCounter;
+import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.frozenblock.wilderwild.particle.FloatingSculkBubbleParticle;
 import net.frozenblock.wilderwild.particle.MesogleaDripParticle;
 import net.frozenblock.wilderwild.particle.PollenParticle;
@@ -59,19 +60,19 @@ import net.minecraft.world.phys.Vec3;
 
 @Environment(EnvType.CLIENT)
 public final class WilderWildClient implements ClientModInitializer {
-	public static final ModelLayerLocation ANCIENT_HORN_PROJECTILE_LAYER = new ModelLayerLocation(WilderWild.id("ancient_horn_projectile"), "main");
-	public static final ModelLayerLocation SCULK_SENSOR = new ModelLayerLocation(WilderWild.id("sculk_sensor"), "main");
-	public static final ModelLayerLocation DISPLAY_LANTERN = new ModelLayerLocation(WilderWild.id("display_lantern"), "main");
-	public static final ModelLayerLocation STONE_CHEST = new ModelLayerLocation(WilderWild.id("stone_chest"), "main");
-	public static final ModelLayerLocation DOUBLE_STONE_CHEST_LEFT = new ModelLayerLocation(WilderWild.id("double_stone_chest_left"), "main");
-	public static final ModelLayerLocation DOUBLE_STONE_CHEST_RIGHT = new ModelLayerLocation(WilderWild.id("double_stone_chest_right"), "main");
-	public static final ModelLayerLocation JELLYFISH = new ModelLayerLocation(WilderWild.id("jellyfish"), "main");
-	public static final ModelLayerLocation TUMBLEWEED = new ModelLayerLocation(WilderWild.id("tumbleweed"), "main");
+	public static final ModelLayerLocation ANCIENT_HORN_PROJECTILE_LAYER = new ModelLayerLocation(WilderSharedConstants.id("ancient_horn_projectile"), "main");
+	public static final ModelLayerLocation SCULK_SENSOR = new ModelLayerLocation(WilderSharedConstants.id("sculk_sensor"), "main");
+	public static final ModelLayerLocation DISPLAY_LANTERN = new ModelLayerLocation(WilderSharedConstants.id("display_lantern"), "main");
+	public static final ModelLayerLocation STONE_CHEST = new ModelLayerLocation(WilderSharedConstants.id("stone_chest"), "main");
+	public static final ModelLayerLocation DOUBLE_STONE_CHEST_LEFT = new ModelLayerLocation(WilderSharedConstants.id("double_stone_chest_left"), "main");
+	public static final ModelLayerLocation DOUBLE_STONE_CHEST_RIGHT = new ModelLayerLocation(WilderSharedConstants.id("double_stone_chest_right"), "main");
+	public static final ModelLayerLocation JELLYFISH = new ModelLayerLocation(WilderSharedConstants.id("jellyfish"), "main");
+	public static final ModelLayerLocation TUMBLEWEED = new ModelLayerLocation(WilderSharedConstants.id("tumbleweed"), "main");
 
 	@Override
 	public void onInitializeClient() {
-		Splashes.addSplashLocation(WilderWild.id("texts/splashes.txt"));
-		Panoramas.addPanorama(WilderWild.id("textures/gui/title/first/panorama"));
+		Splashes.addSplashLocation(WilderSharedConstants.id("texts/splashes.txt"));
+		Panoramas.addPanorama(WilderSharedConstants.id("textures/gui/title/first/panorama"));
         BlockRenderLayerMap.INSTANCE.putBlock(RegisterBlocks.CARNATION, RenderType.cutout());
         BlockRenderLayerMap.INSTANCE.putBlock(RegisterBlocks.SEEDING_DANDELION, RenderType.cutout());
         BlockRenderLayerMap.INSTANCE.putBlock(RegisterBlocks.POTTED_CARNATION, RenderType.cutout());
@@ -139,32 +140,32 @@ public final class WilderWildClient implements ClientModInitializer {
 		//BlockRenderLayerMap.INSTANCE.putBlock(RegisterBlocks.NEMATOCYST, RenderType.cutout());
 
 		ClientSpriteRegistryCallback.event(InventoryMenu.BLOCK_ATLAS).register((atlasTexture, registry) -> {
-			registry.register(WilderWild.id("particle/floating_sculk_bubble_0"));
-			registry.register(WilderWild.id("particle/floating_sculk_bubble_1"));
-			registry.register(WilderWild.id("particle/floating_sculk_bubble_2"));
-			registry.register(WilderWild.id("particle/floating_sculk_bubble_3"));
-			registry.register(WilderWild.id("particle/floating_sculk_bubble_4"));
-			registry.register(WilderWild.id("particle/floating_sculk_bubble_5"));
-			registry.register(WilderWild.id("particle/floating_sculk_bubble_6"));
-			registry.register(WilderWild.id("particle/termite_0"));
-			registry.register(WilderWild.id("particle/termite_1"));
-			registry.register(WilderWild.id("particle/termite_2"));
-			registry.register(WilderWild.id("particle/termite_3"));
-			registry.register(WilderWild.id("particle/termite_4"));
-			registry.register(WilderWild.id("particle/termite_5"));
-			registry.register(WilderWild.id("particle/termite_6"));
-			registry.register(WilderWild.id("particle/termite_7"));
-			registry.register(WilderWild.id("particle/termite_8"));
-			registry.register(WilderWild.id("particle/termite_9"));
+			registry.register(WilderSharedConstants.id("particle/floating_sculk_bubble_0"));
+			registry.register(WilderSharedConstants.id("particle/floating_sculk_bubble_1"));
+			registry.register(WilderSharedConstants.id("particle/floating_sculk_bubble_2"));
+			registry.register(WilderSharedConstants.id("particle/floating_sculk_bubble_3"));
+			registry.register(WilderSharedConstants.id("particle/floating_sculk_bubble_4"));
+			registry.register(WilderSharedConstants.id("particle/floating_sculk_bubble_5"));
+			registry.register(WilderSharedConstants.id("particle/floating_sculk_bubble_6"));
+			registry.register(WilderSharedConstants.id("particle/termite_0"));
+			registry.register(WilderSharedConstants.id("particle/termite_1"));
+			registry.register(WilderSharedConstants.id("particle/termite_2"));
+			registry.register(WilderSharedConstants.id("particle/termite_3"));
+			registry.register(WilderSharedConstants.id("particle/termite_4"));
+			registry.register(WilderSharedConstants.id("particle/termite_5"));
+			registry.register(WilderSharedConstants.id("particle/termite_6"));
+			registry.register(WilderSharedConstants.id("particle/termite_7"));
+			registry.register(WilderSharedConstants.id("particle/termite_8"));
+			registry.register(WilderSharedConstants.id("particle/termite_9"));
 		});
 
 		ClientSpriteRegistryCallback.event(Sheets.CHEST_SHEET).register((atlasTexture, registry) -> {
-			registry.register(WilderWild.id("entity/stone_chest/stone"));
-			registry.register(WilderWild.id("entity/stone_chest/stone_left"));
-			registry.register(WilderWild.id("entity/stone_chest/stone_right"));
-			registry.register(WilderWild.id("entity/stone_chest/ancient"));
-			registry.register(WilderWild.id("entity/stone_chest/ancient_left"));
-			registry.register(WilderWild.id("entity/stone_chest/ancient_right"));
+			registry.register(WilderSharedConstants.id("entity/stone_chest/stone"));
+			registry.register(WilderSharedConstants.id("entity/stone_chest/stone_left"));
+			registry.register(WilderSharedConstants.id("entity/stone_chest/stone_right"));
+			registry.register(WilderSharedConstants.id("entity/stone_chest/ancient"));
+			registry.register(WilderSharedConstants.id("entity/stone_chest/ancient_left"));
+			registry.register(WilderSharedConstants.id("entity/stone_chest/ancient_right"));
 		});
 
 		ParticleFactoryRegistry.getInstance().register(RegisterParticles.POLLEN, PollenParticle.PollenFactory::new);
@@ -228,8 +229,8 @@ public final class WilderWildClient implements ClientModInitializer {
 		receiveAncientHornKillInfoPacket();
 		FlyBySoundHub.AUTO_ENTITIES_AND_SOUNDS.put(RegisterEntities.ANCIENT_HORN_PROJECTILE_ENTITY, new FlyBySoundHub.FlyBySound(1.0F, 0.5F, SoundSource.PLAYERS, RegisterSounds.ENTITY_ANCIENT_HORN_PROJECTILE_FLYBY));
 
-		ItemProperties.register(RegisterItems.ANCIENT_HORN, WilderWild.vanillaId("tooting"), (itemStack, clientLevel, livingEntity, seed) -> livingEntity != null && livingEntity.isUsingItem() && livingEntity.getUseItem() == itemStack ? 1.0F : 0.0F);
-		ItemProperties.register(RegisterItems.COPPER_HORN, WilderWild.vanillaId("tooting"), (itemStack, clientLevel, livingEntity, seed) -> livingEntity != null && livingEntity.isUsingItem() && livingEntity.getUseItem() == itemStack ? 1.0F : 0.0F);
+		ItemProperties.register(RegisterItems.ANCIENT_HORN, WilderSharedConstants.vanillaId("tooting"), (itemStack, clientLevel, livingEntity, seed) -> livingEntity != null && livingEntity.isUsingItem() && livingEntity.getUseItem() == itemStack ? 1.0F : 0.0F);
+		ItemProperties.register(RegisterItems.COPPER_HORN, WilderSharedConstants.vanillaId("tooting"), (itemStack, clientLevel, livingEntity, seed) -> livingEntity != null && livingEntity.isUsingItem() && livingEntity.getUseItem() == itemStack ? 1.0F : 0.0F);
 
 		ColorProviderRegistry.BLOCK.register(((state, level, pos, tintIndex) -> {
 			if (level == null || pos == null) {
@@ -277,7 +278,7 @@ public final class WilderWildClient implements ClientModInitializer {
 			Vec3 pos = AncientHornProjectile.EntitySpawnPacket.PacketBufUtil.readVec3d(byteBuf);
 			float pitch = AncientHornProjectile.EntitySpawnPacket.PacketBufUtil.readAngle(byteBuf);
 			float yaw = AncientHornProjectile.EntitySpawnPacket.PacketBufUtil.readAngle(byteBuf);
-			WilderWild.log("Receiving Ancient Horn Projectile Packet At " + pos, WilderWild.DEV_LOGGING);
+			WilderSharedConstants.log("Receiving Ancient Horn Projectile Packet At " + pos, WilderSharedConstants.DEV_LOGGING);
 			ctx.execute(() -> {
 				if (Minecraft.getInstance().level == null)
 					throw new IllegalStateException("Tried to spawn entity in a null world!");
@@ -291,7 +292,7 @@ public final class WilderWildClient implements ClientModInitializer {
 				e.setId(entityId);
 				e.setUUID(uuid);
 				Minecraft.getInstance().level.putNonPlayerEntity(entityId, e);
-				WilderWild.log("Spawned Ancient Horn Projectile", WilderWild.UNSTABLE_LOGGING);
+				WilderSharedConstants.log("Spawned Ancient Horn Projectile", WilderSharedConstants.UNSTABLE_LOGGING);
 			});
 		});
 	}

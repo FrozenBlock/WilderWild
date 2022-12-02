@@ -3,6 +3,7 @@ package net.frozenblock.wilderwild.block;
 import java.util.List;
 import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.misc.FlowerColor;
+import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.frozenblock.wilderwild.registry.RegisterBlocks;
 import net.frozenblock.wilderwild.registry.RegisterProperties;
 import net.minecraft.core.BlockPos;
@@ -51,11 +52,12 @@ public class GloryOfTheSnowBlock extends BushBlock implements BonemealableBlock 
     @Override
     public void randomTick(@NotNull BlockState state, @NotNull ServerLevel level, @NotNull BlockPos pos, RandomSource random) {
         if (random.nextFloat() > 0.9F && state.getValue(COLORS) == FlowerColor.NONE) {
-            level.setBlockAndUpdate(pos, state.setValue(COLORS, COLOR_LIST.get(WilderWild.random().nextInt(COLOR_LIST.size()))));
+            level.setBlockAndUpdate(pos, state.setValue(COLORS, COLOR_LIST.get(WilderSharedConstants.random().nextInt(COLOR_LIST.size()))));
         }
     }
 
     @Override
+	@NotNull
     public InteractionResult use(@NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos, @NotNull Player player, @NotNull InteractionHand hand, @NotNull BlockHitResult hit) {
         if (level instanceof ServerLevel) {
             FlowerColor color = state.getValue(COLORS);
@@ -80,6 +82,7 @@ public class GloryOfTheSnowBlock extends BushBlock implements BonemealableBlock 
     }
 
 	@Override
+	@NotNull
     public VoxelShape getShape(BlockState state, @NotNull BlockGetter level, @NotNull BlockPos pos, @NotNull CollisionContext context) {
         Vec3 vec3d = state.getOffset(level, pos);
         return SHAPE.move(vec3d.x, vec3d.y, vec3d.z);
@@ -97,8 +100,8 @@ public class GloryOfTheSnowBlock extends BushBlock implements BonemealableBlock 
 
     @Override
     public void performBonemeal(@NotNull ServerLevel level, @NotNull RandomSource random, @NotNull BlockPos pos, @NotNull BlockState state) {
-        WilderWild.log("Glory Of The Snow Bonemealed @ " + pos, WilderWild.DEV_LOGGING);
+        WilderSharedConstants.log("Glory Of The Snow Bonemealed @ " + pos, WilderSharedConstants.DEV_LOGGING);
         level.levelEvent(LevelEvent.PARTICLES_AND_SOUND_PLANT_GROWTH, pos, 0);
-        level.setBlockAndUpdate(pos, state.setValue(RegisterProperties.FLOWER_COLOR, this.COLOR_LIST.get(WilderWild.random().nextInt(this.COLOR_LIST.size()))));
+        level.setBlockAndUpdate(pos, state.setValue(RegisterProperties.FLOWER_COLOR, this.COLOR_LIST.get(WilderSharedConstants.random().nextInt(this.COLOR_LIST.size()))));
     }
 }

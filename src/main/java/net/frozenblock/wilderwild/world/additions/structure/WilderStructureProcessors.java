@@ -2,6 +2,7 @@ package net.frozenblock.wilderwild.world.additions.structure;
 
 import com.google.common.collect.ImmutableList;
 import net.frozenblock.wilderwild.WilderWild;
+import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.minecraft.core.Holder;
 import net.minecraft.data.BuiltinRegistries;
 import net.minecraft.resources.ResourceLocation;
@@ -36,7 +37,7 @@ public class WilderStructureProcessors {
     );
 
     private static Holder<StructureProcessorList> registerProcessorList(String id, ImmutableList<StructureProcessor> processorList) {
-        ResourceLocation identifier = WilderWild.id(id);
+        ResourceLocation identifier = WilderSharedConstants.id(id);
         StructureProcessorList structureProcessorList = new StructureProcessorList(processorList);
         return BuiltinRegistries.register(BuiltinRegistries.PROCESSOR_LIST, identifier, structureProcessorList);
     }

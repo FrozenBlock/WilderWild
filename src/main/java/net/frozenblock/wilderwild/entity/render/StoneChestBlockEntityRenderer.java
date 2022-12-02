@@ -7,6 +7,7 @@ import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.WilderWildClient;
 import net.frozenblock.wilderwild.block.StoneChestBlock;
 import net.frozenblock.wilderwild.block.entity.StoneChestBlockEntity;
+import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.frozenblock.wilderwild.registry.RegisterProperties;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
@@ -140,18 +141,14 @@ public class StoneChestBlockEntityRenderer<T extends StoneChestBlockEntity & Lid
     }
 
     private static Material getChestTexture(ChestType type, Material single, Material left, Material right) {
-        switch (type) {
-            case LEFT:
-                return left;
-            case RIGHT:
-                return right;
-            case SINGLE:
-            default:
-                return single;
-        }
+		return switch (type) {
+			case LEFT -> left;
+			case RIGHT -> right;
+			case SINGLE -> single;
+		};
     }
 
     public static Material getChestTextureId(String variant) {
-        return new Material(Sheets.CHEST_SHEET, WilderWild.id("entity/stone_chest/" + variant));
+        return new Material(Sheets.CHEST_SHEET, WilderSharedConstants.id("entity/stone_chest/" + variant));
     }
 }

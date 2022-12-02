@@ -27,12 +27,12 @@ public class CompetitionCounter {
                 File destination = new File(directory1, "fireflies.wild");
                 directory1.mkdirs();
                 if (creative && destination.exists()) {
-                    WilderWild.logInsane("WHAT!?!??! YOU'RE PLAYING IN CREATIVE MODE!!!!!! YOUR FIREFLY CAPTURING DATA IS BEING DELETED, I CAN NOT TOLERATE CHEATING ON THE FIREFLY COUNTER!!!!!!", true);
+                    WilderSharedConstants.logInsane("WHAT!?!??! YOU'RE PLAYING IN CREATIVE MODE!!!!!! YOUR FIREFLY CAPTURING DATA IS BEING DELETED, I CAN NOT TOLERATE CHEATING ON THE FIREFLY COUNTER!!!!!!", true);
                     destination.delete();
                     return;
                 }
                 if (!natural) {
-                    WilderWild.logInsane("Oh no! The firefly you captured was not spawned via natural means! These will not count towards the firefly counter, you must locate a biome that spawns fireflies and capture natural ones there.", true);
+                    WilderSharedConstants.logInsane("Oh no! The firefly you captured was not spawned via natural means! These will not count towards the firefly counter, you must locate a biome that spawns fireflies and capture natural ones there.", true);
                     return;
                 }
                 Gson gson = new GsonBuilder()
@@ -53,7 +53,7 @@ public class CompetitionCounter {
                             count = obj.get("firefly_count").getAsInt();
                             String UUID = obj.get("player_uuid").getAsString();
                             if (!Objects.equals(UUID, flyCounterObj.getPlayerUUID())) {
-                                WilderWild.logInsane("Using alt accounts to capture fireflies is against the rules as it can create inaccurate firefly capture information. Please delete wilderwild/competitions/fireflies.wild or switch back to the first account you captured a firefly with to continue.", true);
+                                WilderSharedConstants.logInsane("Using alt accounts to capture fireflies is against the rules as it can create inaccurate firefly capture information. Please delete wilderwild/competitions/fireflies.wild or switch back to the first account you captured a firefly with to continue.", true);
                                 return;
                             }
                         }
@@ -87,12 +87,12 @@ public class CompetitionCounter {
                 File destination = new File(directory1, "ancient_horn_kills.wild");
                 directory1.mkdirs();
                 if (creative && destination.exists()) {
-                    WilderWild.logInsane("WHAT!?!??! YOU'RE PLAYING IN CREATIVE MODE!!!!!! YOUR ANCIENT HORN KILL DATA IS BEING DELETED, I WILL NEVER TOLERATE YOUR INSOLENCE!!!!!!", true);
+                    WilderSharedConstants.logInsane("WHAT!?!??! YOU'RE PLAYING IN CREATIVE MODE!!!!!! YOUR ANCIENT HORN KILL DATA IS BEING DELETED, I WILL NEVER TOLERATE YOUR INSOLENCE!!!!!!", true);
                     destination.delete();
                     return;
                 }
                 if (!natural) {
-                    WilderWild.logInsane("Oh no! How terrible! THE ANCIENT HORN KILL IS NOT NATURAL!!!! BE NATURAL NOW!!!!!", true);
+                    WilderSharedConstants.logInsane("Oh no! How terrible! THE ANCIENT HORN KILL IS NOT NATURAL!!!! BE NATURAL NOW!!!!!", true);
                     return;
                 }
                 Gson gson = new GsonBuilder()
@@ -113,7 +113,7 @@ public class CompetitionCounter {
                             count = obj.get("kill_count").getAsInt();
                             String UUID = obj.get("player_uuid").getAsString();
                             if (!Objects.equals(UUID, ancientKillCounter.getPlayerUUID())) {
-                                WilderWild.logInsane("Using alt accounts to kill mobs with an Ancient Horn is against the rules as it can create inaccurate Ancient Horn killing information. Please delete wilderwild/competitions/ancient_horn_kills.wild or switch back to the first account you killed a mob using the Ancient Horn with to continue.", true);
+                                WilderSharedConstants.logInsane("Using alt accounts to kill mobs with an Ancient Horn is against the rules as it can create inaccurate Ancient Horn killing information. Please delete wilderwild/competitions/ancient_horn_kills.wild or switch back to the first account you killed a mob using the Ancient Horn with to continue.", true);
                                 return;
                             }
                         }

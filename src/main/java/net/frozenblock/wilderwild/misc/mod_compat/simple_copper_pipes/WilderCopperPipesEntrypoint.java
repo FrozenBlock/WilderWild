@@ -4,6 +4,7 @@ import net.frozenblock.lib.FrozenMain;
 import net.frozenblock.lib.sound.api.FrozenSoundPackets;
 import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.entity.AncientHornProjectile;
+import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.frozenblock.wilderwild.misc.server.EasyPacket;
 import net.frozenblock.wilderwild.registry.RegisterItems;
 import net.frozenblock.wilderwild.registry.RegisterSounds;
@@ -24,12 +25,12 @@ import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.phys.Vec3;
 
 public class WilderCopperPipesEntrypoint implements CopperPipeEntrypoint {
-    public static final ResourceLocation horn = new ResourceLocation(WilderWild.MOD_ID, "ancient_horn");
+    private static final ResourceLocation HORN = InteractionHandler.HORN;
 
     @Override
     public void init() {
-        WilderWild.log("WILDERWILD AND COPPER PIPES SECRET LOG MESSAGE UNLOCKED!!!", true);
-        RegisterPipeNbtMethods.register(horn, (nbt, level, pos, blockState, copperPipeEntity) -> {
+        WilderSharedConstants.log("WILDERWILD AND COPPER PIPES SECRET LOG MESSAGE UNLOCKED!!!", true);
+        RegisterPipeNbtMethods.register(HORN, (nbt, level, pos, blockState, copperPipeEntity) -> {
             if (!nbt.getCanOnlyBeUsedOnce() || nbt.getUseCount() < 1) {
                 BlockState state = level.getBlockState(pos);
                 if (state.getBlock() instanceof CopperPipe pipe) {
@@ -87,7 +88,7 @@ public class WilderCopperPipesEntrypoint implements CopperPipeEntrypoint {
             }
         });
 
-        FittingPipeDispenses.register(Registry.ITEM.get(WilderWild.id("seeding_dandelion")), (level, stack, i, direction, position, state, corroded, pos, pipe) -> {
+        FittingPipeDispenses.register(Registry.ITEM.get(WilderSharedConstants.id("seeding_dandelion")), (level, stack, i, direction, position, state, corroded, pos, pipe) -> {
             double d = position.x();
             double e = position.y();
             double f = position.z();
@@ -140,7 +141,7 @@ public class WilderCopperPipesEntrypoint implements CopperPipeEntrypoint {
             }
         });
 
-        PipeMovementRestrictions.register(WilderWild.id("stone_chest"),
+        PipeMovementRestrictions.register(WilderSharedConstants.id("stone_chest"),
                 ((serverLevel, blockPos, blockState, copperPipeEntity, blockEntity) -> false),
                 ((serverLevel, blockPos, blockState, copperPipeEntity, blockEntity) -> false));
 

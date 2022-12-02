@@ -3,6 +3,8 @@ package net.frozenblock.wilderwild.mixin.server;
 import net.frozenblock.lib.sound.impl.EntityLoopingSoundInterface;
 import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.misc.client.ClientMethodInteractionHandler;
+import net.frozenblock.wilderwild.misc.WilderEnderman;
+import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.frozenblock.wilderwild.misc.config.ClothConfigInteractionHandler;
 import net.frozenblock.wilderwild.misc.interfaces.WilderEnderman;
 import net.frozenblock.wilderwild.registry.RegisterSounds;
@@ -66,7 +68,7 @@ public final class EnderManMixin extends Monster implements WilderEnderman {
 
 	@Inject(method = "onSyncedDataUpdated", at = @At("HEAD"))
 	public void onSyncedDataUpdated(EntityDataAccessor<?> key, CallbackInfo info) {
-		if (DATA_CREEPY.equals(key) && isCreepy()) {
+		if (isCreepy()) {
 			createAngerLoop();
 		}
 	}
@@ -82,7 +84,7 @@ public final class EnderManMixin extends Monster implements WilderEnderman {
 		if (ClothConfigInteractionHandler.angerLoopSound()) {
 			EnderMan enderMan = EnderMan.class.cast(this);
 			if (enderMan.level.isClientSide && this.wilderWild$canPlayLoopingSound) {
-				((EntityLoopingSoundInterface) enderMan).addSound(Registry.SOUND_EVENT.getKey(RegisterSounds.ENTITY_ENDERMAN_ANGER_LOOP), SoundSource.HOSTILE, 1.0F, 0.9F, WilderWild.id("enderman_anger"));
+				((EntityLoopingSoundInterface) enderMan).addSound(Registry.SOUND_EVENT.getKey(RegisterSounds.ENTITY_ENDERMAN_ANGER_LOOP), SoundSource.HOSTILE, 1.0F, 0.9F, WilderSharedConstants.id("enderman_anger"));
 				this.wilderWild$canPlayLoopingSound = false;
 			}
 		}

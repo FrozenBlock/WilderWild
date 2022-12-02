@@ -4,6 +4,7 @@ import java.util.Iterator;
 import net.frozenblock.lib.math.api.EasyNoiseSampler;
 import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.block.OsseousSculkBlock;
+import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.frozenblock.wilderwild.registry.RegisterBlocks;
 import net.frozenblock.wilderwild.tag.WilderBlockTags;
 import net.minecraft.core.BlockPos;
@@ -115,7 +116,7 @@ public abstract class SculkBlockMixin {
                 if (level.getBlockState(chargePos.below().below()).getBlock() == Blocks.AIR && level.getBlockState(chargePos.below().below().below()).getBlock() == Blocks.AIR) {
                     canReturn = true;
                     growthState = RegisterBlocks.HANGING_TENDRIL.defaultBlockState();
-                    WilderWild.log("Chose Hanging Tendril", WilderWild.DEV_LOGGING);
+                    WilderSharedConstants.log("Chose Hanging Tendril", WilderSharedConstants.DEV_LOGGING);
                     if (isWorldGen && Math.random() > 0.6) {
                         growthSpawnCost = 0;
                     }
@@ -183,7 +184,7 @@ public abstract class SculkBlockMixin {
             }
             if (i >= 3) {
                 if (!osseousIsPresent) {
-                    WilderWild.log("Ancient City Detected While Growing Osseous Sculk @ " + blockPos, WilderWild.DEV_LOGGING);
+                    WilderSharedConstants.log("Ancient City Detected While Growing Osseous Sculk @ " + blockPos, WilderSharedConstants.DEV_LOGGING);
                 }
                 return true;
             }

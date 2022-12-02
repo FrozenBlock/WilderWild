@@ -1,6 +1,7 @@
 package net.frozenblock.wilderwild.tag;
 
 import net.frozenblock.wilderwild.WilderWild;
+import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.minecraft.core.Registry;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
@@ -16,6 +17,6 @@ public final class WilderItemTags {
 	public static final TagKey<Item> TUMBLEWEED_RARE = bind("tumbleweed_rare");
 
     private static TagKey<Item> bind(String path) {
-        return TagKey.create(Registry.ITEM_REGISTRY, WilderWild.id(path));
+        return TagKey.create(Registry.ITEM_REGISTRY, WilderSharedConstants.id(path));
     }
 }

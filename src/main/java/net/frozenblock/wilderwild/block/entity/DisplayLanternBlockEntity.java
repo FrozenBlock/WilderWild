@@ -14,6 +14,7 @@ import net.frozenblock.wilderwild.entity.Firefly;
 import net.frozenblock.wilderwild.entity.ai.FireflyAi;
 import net.frozenblock.wilderwild.item.FireflyBottle;
 import net.frozenblock.wilderwild.misc.FireflyColor;
+import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.frozenblock.wilderwild.registry.RegisterBlockEntities;
 import net.frozenblock.wilderwild.registry.RegisterEntities;
 import net.frozenblock.wilderwild.registry.RegisterSounds;
@@ -99,7 +100,7 @@ public class DisplayLanternBlockEntity extends BlockEntity {
 		if (tag.contains("Fireflies", 9)) {
 			this.fireflies.clear();
 			DataResult<List<FireflyInLantern>> var10000 = FireflyInLantern.CODEC.listOf().parse(new Dynamic<>(NbtOps.INSTANCE, tag.getList("Fireflies", 10)));
-			Logger var10001 = WilderWild.LOGGER;
+			Logger var10001 = WilderSharedConstants.LOGGER;
 			Objects.requireNonNull(var10001);
 			Optional<List<FireflyInLantern>> list = var10000.resultOrPartial(var10001::error);
 			if (list.isPresent()) {
@@ -116,7 +117,7 @@ public class DisplayLanternBlockEntity extends BlockEntity {
 	protected void saveAdditional(@NotNull CompoundTag tag) {
 		super.saveAdditional(tag);
 		DataResult<Tag> var10000 = FireflyInLantern.CODEC.listOf().encodeStart(NbtOps.INSTANCE, this.fireflies);
-		Logger var10001 = WilderWild.LOGGER;
+		Logger var10001 = WilderSharedConstants.LOGGER;
 		Objects.requireNonNull(var10001);
 		var10000.resultOrPartial(var10001::error).ifPresent((cursorsNbt) -> {
 			tag.put("Fireflies", cursorsNbt);
@@ -157,7 +158,7 @@ public class DisplayLanternBlockEntity extends BlockEntity {
 								entity.setCustomName(Component.nullToEmpty(firefly.customName));
 							}
 						} else {
-							WilderWild.log("Couldn't spawn Firefly from lantern @ " + worldPosition, WilderWild.UNSTABLE_LOGGING);
+							WilderSharedConstants.log("Couldn't spawn Firefly from lantern @ " + worldPosition, WilderSharedConstants.UNSTABLE_LOGGING);
 						}
 					}
 				}
@@ -182,7 +183,7 @@ public class DisplayLanternBlockEntity extends BlockEntity {
 						entity.setCustomName(Component.nullToEmpty(firefly.customName));
 					}
 				} else {
-					WilderWild.log("Couldn't spawn Firefly from lantern @ " + worldPosition, WilderWild.UNSTABLE_LOGGING);
+					WilderSharedConstants.log("Couldn't spawn Firefly from lantern @ " + worldPosition, WilderSharedConstants.UNSTABLE_LOGGING);
 				}
 			}
 		}

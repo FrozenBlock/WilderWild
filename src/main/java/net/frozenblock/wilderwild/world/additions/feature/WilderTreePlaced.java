@@ -2,6 +2,7 @@ package net.frozenblock.wilderwild.world.additions.feature;
 
 import java.util.List;
 import net.frozenblock.wilderwild.WilderWild;
+import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.frozenblock.wilderwild.registry.RegisterBlocks;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;
@@ -83,7 +84,7 @@ public final class WilderTreePlaced {
 	public static final Holder<PlacedFeature> PALM_CHECKED = PlacementUtils.register("palm_checked", WilderTreeConfigured.PALM, PlacementUtils.filteredByBlockSurvival(RegisterBlocks.COCONUT));
 	public static final Holder<PlacedFeature> TALL_PALM_CHECKED = PlacementUtils.register("tall_palm_checked", WilderTreeConfigured.TALL_PALM, PlacementUtils.filteredByBlockSurvival(RegisterBlocks.COCONUT));
 
-	public static void registerTreePlaced() {
-        WilderWild.logWild("Registering WilderTreePlaced for", true);
+    public static void registerTreePlaced() {
+        WilderSharedConstants.logWild("Registering WilderTreePlaced for", true);
     }
 }
