@@ -19,26 +19,21 @@ import net.minecraft.resources.ResourceLocation;
 @Config(name = WilderSharedConstants.MOD_ID)
 public class WilderWildConfig extends PartitioningSerializer.GlobalData {
 
-	public static final ResourceLocation BLOCK_CONFIG_BACKGROUND = WilderSharedConstants.id("textures/config/block.png");
-	public static final ResourceLocation ENTITY_CONFIG_BACKGROUND = WilderSharedConstants.id("textures/config/entity.png");
-	public static final ResourceLocation ITEM_CONFIG_BACKGROUND = WilderSharedConstants.id("textures/config/item.png");
-	public static final ResourceLocation WORLDGEN_CONFIG_BACKGROUND = WilderSharedConstants.id("textures/config/worldgen.png");
-
     @Category("block")
     @TransitiveObject
-    public BlockConfig block = new BlockConfig();
+    public final BlockConfig block = new BlockConfig();
 
     @Category("entity")
     @TransitiveObject
-    public EntityConfig entity = new EntityConfig();
+    public final EntityConfig entity = new EntityConfig();
 
     @Category("item")
     @TransitiveObject
-    public ItemConfig item = new ItemConfig();
+    public final ItemConfig item = new ItemConfig();
 
     @Category("worldgen")
     @TransitiveObject
-    public WorldgenConfig worldgen = new WorldgenConfig();
+    public final WorldgenConfig worldgen = new WorldgenConfig();
 
 	//@Category("misc")
 	//@TransitiveObject
