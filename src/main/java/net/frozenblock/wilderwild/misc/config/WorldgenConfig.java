@@ -9,6 +9,7 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.frozenblock.lib.config.api.FrozenConfig;
 import net.frozenblock.wilderwild.WilderWild;
+import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import static net.frozenblock.wilderwild.misc.config.WilderWildConfig.*;
 
 @Config(name = "worldgen")
@@ -37,7 +38,7 @@ public final class WorldgenConfig implements ConfigData {
     static void setupEntries(ConfigCategory category, ConfigEntryBuilder entryBuilder) {
         var config = WilderWildConfig.get().worldgen;
         var biomePlacement = config.biomePlacement;
-        category.setBackground(WORLDGEN_CONFIG_BACKGROUND);
+        category.setBackground(WilderSharedConstants.id("textures/config/worldgen.png"));
         var betaBeaches = category.addEntry(entryBuilder.startBooleanToggle(text("beta_beaches"), config.betaBeaches)
                 .setDefaultValue(true)
                 .setSaveConsumer(newValue -> config.betaBeaches = newValue)
