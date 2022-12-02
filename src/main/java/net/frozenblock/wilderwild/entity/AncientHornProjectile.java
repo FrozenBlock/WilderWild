@@ -499,7 +499,7 @@ public class AncientHornProjectile extends AbstractArrow {
                 entity.setSecondsOnFire(5);
             }
             if (entity instanceof Warden warden && owner != null && canInteract()) {
-                WilderWild.log(warden, "Horn Projectile Touched", WilderWild.DEV_LOGGING);
+                WilderSharedConstants.log(warden, "Horn Projectile Touched", WilderSharedConstants.DEV_LOGGING);
                 warden.increaseAngerAt(owner, AngerLevel.ANGRY.getMinimumAnger() + 20, true);
                 warden.playSound(SoundEvents.WARDEN_TENDRIL_CLICKS, 5.0F, warden.getVoicePitch());
                 this.discard();
@@ -507,7 +507,7 @@ public class AncientHornProjectile extends AbstractArrow {
                 if (entity.hurt(damageSource, (float) damage)) {
                     if (entity instanceof LivingEntity livingEntity) {
                         Level level = this.getLevel();
-                        WilderWild.log(livingEntity, "Horn Projectile Touched", WilderWild.DEV_LOGGING);
+                        WilderSharedConstants.log(livingEntity, "Horn Projectile Touched", WilderSharedConstants.DEV_LOGGING);
                         if (!this.level.isClientSide && owner instanceof LivingEntity) {
                             EnchantmentHelper.doPostHurtEffects(livingEntity, owner);
                             EnchantmentHelper.doPostDamageEffects((LivingEntity) owner, livingEntity);

@@ -7,6 +7,7 @@ import net.fabricmc.api.Environment;
 import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.WilderWildClient;
 import net.frozenblock.wilderwild.entity.Tumbleweed;
+import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.block.model.ItemTransforms;
 import net.minecraft.client.renderer.entity.EntityRendererProvider.Context;
@@ -56,8 +57,9 @@ public class TumbleweedRenderer extends MobRenderer<Tumbleweed, TumbleweedModel<
 	}
 
 	@Override
+	@NotNull
 	public ResourceLocation getTextureLocation(@NotNull Tumbleweed entity) {
-		return WilderWild.id("textures/entity/tumbleweed/tumbleweed.png");
+		return WilderSharedConstants.id("textures/entity/tumbleweed/tumbleweed.png");
 	}
 
 }

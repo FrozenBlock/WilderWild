@@ -2,6 +2,7 @@ package net.frozenblock.wilderwild.world.additions.feature;
 
 import java.util.List;
 import net.frozenblock.wilderwild.WilderWild;
+import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.frozenblock.wilderwild.registry.RegisterBlocks;
 import net.frozenblock.wilderwild.tag.WilderBlockTags;
 import net.frozenblock.wilderwild.world.generation.features.config.PathFeatureConfig;
@@ -79,6 +80,6 @@ public final class WilderMiscConfigured {
 	public static final Holder<ConfiguredFeature<PathFeatureConfig, ?>> MOSS_PATH_OASIS = WilderConfiguredFeatures.register("moss_path_oasis", WilderWild.NOISE_PATH_FEATURE, new PathFeatureConfig(BlockStateProvider.simple(Blocks.MOSS_BLOCK), 9, 2, 0.10, 0.12, 1, true, true, HolderSet.direct(Blocks.SAND.builtInRegistryHolder())));
 
 	public static void registerMiscPlaced() {
-        WilderWild.logWild("Registering WilderMiscConfigured for", true);
+        WilderSharedConstants.logWild("Registering WilderMiscConfigured for", true);
     }
 }
