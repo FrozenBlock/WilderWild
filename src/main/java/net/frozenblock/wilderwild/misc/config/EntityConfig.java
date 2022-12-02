@@ -24,6 +24,9 @@ public final class EntityConfig implements ConfigData {
 	@ConfigEntry.Gui.CollapsibleObject
 	public WardenConfig warden = new WardenConfig();
 
+	@ConfigEntry.Gui.CollapsibleObject
+	public FireflyConfig firefly = new FireflyConfig();
+
 	public static class AllayConfig {
 		public boolean keyframeAllayDance = true;
 	}
@@ -39,6 +42,10 @@ public final class EntityConfig implements ConfigData {
 		public boolean wardenEmergesFromCommand = false;
 		public boolean wardenEmergesFromEgg = false;
 		public boolean wardenSwimAnimation = true;
+	}
+
+	public static class FireflyConfig {
+		public float fireflySpawnRate = 1.0F;
 	}
 
 	public boolean unpassableRail = false;

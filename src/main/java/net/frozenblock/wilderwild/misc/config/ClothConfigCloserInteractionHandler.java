@@ -12,6 +12,7 @@ public final class ClothConfigCloserInteractionHandler {
 	private static final ItemConfig ITEM = WilderWildConfig.get().item;
 	private static final BlockConfig.StoneChestConfig STONE_CHEST = WilderWildConfig.get().block.stoneChest;
 	private static final EntityConfig.WardenConfig WARDEN = WilderWildConfig.get().entity.warden;
+	private static final EntityConfig.FireflyConfig FIREFLY = WilderWildConfig.get().entity.firefly;
 	private static final WorldgenConfig WORLDGEN = WilderWildConfig.get().worldgen;
 
 	public static boolean betaBeaches() {
@@ -143,6 +144,10 @@ public final class ClothConfigCloserInteractionHandler {
 		return ENTITY.unpassableRail;
 	}
 
+	public static float fireflySpawnRate() {
+		return FIREFLY.fireflySpawnRate;
+	}
+
 	public static boolean keyframeAllayDance() {
 		return ALLAY.keyframeAllayDance;
 	}
@@ -165,6 +170,10 @@ public final class ClothConfigCloserInteractionHandler {
 
 	public static boolean wardenEmergesFromCommand() {
 		return WARDEN.wardenEmergesFromCommand;
+	}
+
+	public static float fireflySpawnRate() {
+		return FIREFLY.fireflySpawnRate;
 	}
 
 	public static boolean wardenEmergesFromEgg() {

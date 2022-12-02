@@ -299,4 +299,11 @@ public final class ClothConfigInteractionHandler {
 		return true;
 	}
 
+	public static float fireflySpawnRate() {
+		if (FrozenBools.HAS_CLOTH_CONFIG) {
+			return ClothConfigCloserInteractionHandler.fireflySpawnRate();
+		}
+		return 1.0F;
+	}
+
 }
