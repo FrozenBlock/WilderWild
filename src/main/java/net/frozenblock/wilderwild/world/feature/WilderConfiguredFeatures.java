@@ -4,6 +4,7 @@ import java.util.List;
 import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.block.ShelfFungusBlock;
 import net.frozenblock.wilderwild.misc.FlowerColor;
+import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.frozenblock.wilderwild.registry.RegisterBlocks;
 import net.frozenblock.wilderwild.registry.RegisterProperties;
 import net.frozenblock.wilderwild.world.feature.features.config.ColumnWithDiskFeatureConfig;
@@ -431,7 +432,7 @@ public final class WilderConfiguredFeatures {
 	);
 
     public static void registerConfiguredFeatures() {
-        WilderWild.logWild("Registering WilderConfiguredFeatures for", true);
+        WilderSharedConstants.logWild("Registering WilderConfiguredFeatures for", true);
     }
 
     private static RandomPatchConfiguration createRandomPatchFeatureConfig(BlockStateProvider block, int tries) {
@@ -447,6 +448,6 @@ public final class WilderConfiguredFeatures {
     }
 
     public static <V extends T, T> Holder<V> registerExact(Registry<T> registry, String id, V value) {
-        return (Holder<V>) BuiltinRegistries.register(registry, WilderWild.id(id), value);
+        return (Holder<V>) BuiltinRegistries.register(registry, WilderSharedConstants.id(id), value);
     }
 }

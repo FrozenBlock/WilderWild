@@ -8,6 +8,7 @@ import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.block.entity.DisplayLanternBlockEntity;
 import net.frozenblock.wilderwild.item.FireflyBottle;
 import net.frozenblock.wilderwild.misc.FireflyColor;
+import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.frozenblock.wilderwild.registry.RegisterBlockEntities;
 import net.frozenblock.wilderwild.registry.RegisterItems;
 import net.frozenblock.wilderwild.registry.RegisterProperties;
@@ -266,6 +267,7 @@ public class DisplayLanternBlock extends BaseEntityBlock implements SimpleWaterl
 	}
 
 	@Override
+	@NotNull
 	public List<ItemStack> getDrops(@NotNull BlockState state, LootContext.Builder builder) {
 		ResourceLocation identifier = this.getLootTable();
 		if (builder.getOptionalParameter(LootContextParams.TOOL) != null) {
@@ -275,7 +277,7 @@ public class DisplayLanternBlock extends BaseEntityBlock implements SimpleWaterl
 					BlockEntity blockEntity = builder.getParameter(LootContextParams.BLOCK_ENTITY);
 					if (blockEntity instanceof DisplayLanternBlockEntity lanternBlockEntity) {
 						if (!lanternBlockEntity.getFireflies().isEmpty()) {
-							identifier = WilderWild.id("blocks/display_lantern_fireflies");
+							identifier = WilderSharedConstants.id("blocks/display_lantern_fireflies");
 						}
 					}
 				}

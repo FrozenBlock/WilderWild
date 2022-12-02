@@ -1,6 +1,7 @@
 package net.frozenblock.wilderwild.tag;
 
 import net.frozenblock.wilderwild.WilderWild;
+import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.minecraft.core.Registry;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.entity.EntityType;
@@ -16,6 +17,6 @@ public final class WilderEntityTags {
     public static final TagKey<EntityType<?>> JELLYFISH_CANT_STING = bind("jellyfish_cant_sting");
 
     private static TagKey<EntityType<?>> bind(String path) {
-        return TagKey.create(Registry.ENTITY_TYPE_REGISTRY, WilderWild.id(path));
+        return TagKey.create(Registry.ENTITY_TYPE_REGISTRY, WilderSharedConstants.id(path));
     }
 }

@@ -2,6 +2,7 @@ package net.frozenblock.wilderwild.world.gen.treedecorators;
 
 import com.mojang.serialization.Codec;
 import net.frozenblock.wilderwild.WilderWild;
+import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.minecraft.core.Registry;
 import net.minecraft.world.level.levelgen.feature.treedecorators.TreeDecorator;
 import net.minecraft.world.level.levelgen.feature.treedecorators.TreeDecoratorType;
@@ -16,6 +17,6 @@ public final class WilderTreeDecorators {
     }
 
     private static <P extends TreeDecorator> TreeDecoratorType<P> register(String id, Codec<P> codec) {
-        return Registry.register(Registry.TREE_DECORATOR_TYPES, WilderWild.id(id), new TreeDecoratorType<P>(codec));
+        return Registry.register(Registry.TREE_DECORATOR_TYPES, WilderSharedConstants.id(id), new TreeDecoratorType<P>(codec));
     }
 }

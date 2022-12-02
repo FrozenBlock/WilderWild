@@ -1,6 +1,7 @@
 package net.frozenblock.wilderwild.registry;
 
 import net.frozenblock.wilderwild.WilderWild;
+import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.frozenblock.wilderwild.misc.config.ClothConfigInteractionHandler;
 import net.frozenblock.wilderwild.world.feature.WilderMiscPlaced;
 import net.frozenblock.wilderwild.world.feature.WilderPlacedFeatures;
@@ -38,7 +39,7 @@ public final class RegisterWorldgen implements SurfaceRuleEvents.OverworldModifi
 	public static final ResourceKey<Biome> MIXED_FOREST = register("mixed_forest");
 
 	public static void registerWorldgen() {
-		WilderWild.logWild("Registering Biomes for", WilderWild.UNSTABLE_LOGGING);
+		WilderSharedConstants.logWild("Registering Biomes for", WilderSharedConstants.UNSTABLE_LOGGING);
 		BuiltinRegistries.register(BuiltinRegistries.BIOME, MIXED_FOREST.location(), mixedForest());
 		BuiltinRegistries.register(BuiltinRegistries.BIOME, CYPRESS_WETLANDS.location(), cypressWetlands());
 		BuiltinRegistries.register(BuiltinRegistries.BIOME, JELLYFISH_CAVES.location(), jellyfishCaves());
@@ -53,7 +54,7 @@ public final class RegisterWorldgen implements SurfaceRuleEvents.OverworldModifi
 			context.materialRules().add(0, SharedWorldgen.betaBeaches());
 			context.materialRules().add(SharedWorldgen.betaBeaches());
 		}
-		WilderWild.log("Wilder Wild's Overworld Surface Rules have been added!", true);
+		WilderSharedConstants.log("Wilder Wild's Overworld Surface Rules have been added!", true);
 	}
 
 	// SPONGEBOB
@@ -61,11 +62,11 @@ public final class RegisterWorldgen implements SurfaceRuleEvents.OverworldModifi
     public void modifyNetherRules(SurfaceRuleContext.@NotNull Nether context) {
         /*context.materialRules().clear();
         context.materialRules().add(0, FrozenSurfaceRules.makeStateRule(Blocks.SPONGE));
-        WilderWild.log("SPONGEBOB", WilderWild.UNSTABLE_LOGGING);
+        WilderSharedConstants.log("SPONGEBOB", WilderSharedConstants.UNSTABLE_LOGGING);
     }*/
 
 	private static ResourceKey<Biome> register(String name) {
-		return ResourceKey.create(Registry.BIOME_REGISTRY, WilderWild.id(name));
+		return ResourceKey.create(Registry.BIOME_REGISTRY, WilderSharedConstants.id(name));
 	}
 
 	public static Biome mixedForest() {

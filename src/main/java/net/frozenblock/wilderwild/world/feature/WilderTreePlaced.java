@@ -1,6 +1,7 @@
 package net.frozenblock.wilderwild.world.feature;
 
 import net.frozenblock.wilderwild.WilderWild;
+import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.frozenblock.wilderwild.registry.RegisterBlocks;
 import net.minecraft.core.Holder;
 import net.minecraft.data.worldgen.placement.PlacementUtils;
@@ -70,6 +71,6 @@ public final class WilderTreePlaced {
     public static final Holder<PlacedFeature> NEW_FALLEN_CYPRESS_CHECKED = PlacementUtils.register("new_fallen_cypress_checked", WilderTreeConfigured.NEW_FALLEN_CYPRESS_TREE, PlacementUtils.filteredByBlockSurvival(RegisterBlocks.CYPRESS_SAPLING));
 
     public static void registerTreePlaced() {
-        WilderWild.logWild("Registering WilderTreePlaced for", true);
+        WilderSharedConstants.logWild("Registering WilderTreePlaced for", true);
     }
 }

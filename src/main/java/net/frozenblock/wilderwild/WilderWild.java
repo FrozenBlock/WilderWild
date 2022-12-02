@@ -130,7 +130,7 @@ public final class WilderWild implements ModInitializer {
 
     @Override
     public void onInitialize() {
-        startMeasuring(this);
+        WilderSharedConstants.startMeasuring(this);
         applyDataFixes(WilderSharedConstants.MOD_CONTAINER);
 
         WilderRegistry.initRegistry();
@@ -173,7 +173,7 @@ public final class WilderWild implements ModInitializer {
             terralith();
         }
 
-        stopMeasuring(this);
+        WilderSharedConstants.stopMeasuring(this);
     }
 
 	/**
@@ -183,8 +183,8 @@ public final class WilderWild implements ModInitializer {
     public static final int DATA_VERSION = 9;
 
     private static void applyDataFixes(final @NotNull ModContainer mod) {
-        log("Applying DataFixes for Wilder Wild with Data Version " + DATA_VERSION, true);
-        var builder = new QuiltDataFixerBuilder(DATA_VERSION);
+        log("Applying DataFixes for Wilder Wild with Data Version " + WilderSharedConstants.DATA_VERSION, true);
+        var builder = new QuiltDataFixerBuilder(WilderSharedConstants.DATA_VERSION);
         builder.addSchema(0, QuiltDataFixes.BASE_SCHEMA);
         Schema schemaV1 = builder.addSchema(1, NamespacedSchema::new);
         SimpleFixes.addBlockRenameFix(builder, "Rename white_dandelion to blooming_dandelion", WilderSharedConstants.id("white_dandelion"), WilderSharedConstants.id("blooming_dandelion"), schemaV1);

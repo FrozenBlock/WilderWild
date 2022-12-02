@@ -5,6 +5,7 @@ import com.mojang.datafixers.util.Either;
 import com.mojang.datafixers.util.Pair;
 import java.util.function.Function;
 import net.frozenblock.wilderwild.WilderWild;
+import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.minecraft.core.Holder;
 import net.minecraft.data.worldgen.Pools;
 import net.minecraft.resources.ResourceLocation;
@@ -19,8 +20,8 @@ public class AbandonedCabinGenerator {
 
     public static final Holder<StructureTemplatePool> CABIN = Pools.register(
             new StructureTemplatePool(
-                    WilderWild.id("abandoned_cabin/cabin"),
-                    WilderWild.vanillaId("empty"),
+                    WilderSharedConstants.id("abandoned_cabin/cabin"),
+                    WilderSharedConstants.vanillaId("empty"),
                     ImmutableList.of(
                             Pair.of(ofProcessedSingle("abandoned_cabin/cabin/abandoned_cabin_1", WilderStructureProcessors.ABANDONED_CABIN_PROCESSOR), 1),
                             Pair.of(ofProcessedSingle("abandoned_cabin/cabin/abandoned_cabin_2", WilderStructureProcessors.ABANDONED_CABIN_PROCESSOR), 1),
@@ -36,7 +37,7 @@ public class AbandonedCabinGenerator {
      * @return A {@link SinglePoolElement} of the parameters given.
      */
     public static Function<StructureTemplatePool.Projection, SinglePoolElement> ofProcessedSingle(String id, Holder<StructureProcessorList> processorListEntry) {
-        return projection -> new SinglePoolElement(Either.left(WilderWild.id(id)), processorListEntry, projection);
+        return projection -> new SinglePoolElement(Either.left(WilderSharedConstants.id(id)), processorListEntry, projection);
     }
 
     /**

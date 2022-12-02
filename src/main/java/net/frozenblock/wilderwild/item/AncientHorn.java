@@ -7,6 +7,7 @@ import net.frozenblock.lib.item.impl.CooldownInterface;
 import net.frozenblock.lib.sound.api.FrozenSoundPackets;
 import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.entity.AncientHornProjectile;
+import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.frozenblock.wilderwild.registry.RegisterItems;
 import net.frozenblock.wilderwild.registry.RegisterSounds;
 import net.minecraft.client.renderer.LevelRenderer;
@@ -64,8 +65,9 @@ public class AncientHorn extends InstrumentItem {
     }
 
     @Override
+	@NotNull
     public InteractionResultHolder<ItemStack> use(@NotNull Level level, @NotNull Player user, @NotNull InteractionHand hand) {
-        WilderWild.log(user, "Used Ancient Horn", WilderWild.DEV_LOGGING);
+        WilderSharedConstants.log(user, "Used Ancient Horn", WilderSharedConstants.DEV_LOGGING);
         ItemStack itemStack = user.getItemInHand(hand);
         Optional<Holder<Instrument>> optional = this.getInstrument(itemStack);
         if (optional.isPresent()) {
@@ -95,7 +97,7 @@ public class AncientHorn extends InstrumentItem {
             }
             return InteractionResultHolder.consume(itemStack);
         } else {
-            WilderWild.LOGGER.error("Ancient Horn use failed");
+            WilderSharedConstants.LOGGER.error("Ancient Horn use failed");
             return InteractionResultHolder.fail(itemStack);
         }
     }

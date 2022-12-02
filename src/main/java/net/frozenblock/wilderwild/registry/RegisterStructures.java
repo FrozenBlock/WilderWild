@@ -2,6 +2,7 @@ package net.frozenblock.wilderwild.registry;
 
 import java.util.Map;
 import net.frozenblock.wilderwild.WilderWild;
+import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.frozenblock.wilderwild.tag.WilderBiomeTags;
 import net.frozenblock.wilderwild.world.structure.AbandonedCabinGenerator;
 import net.frozenblock.wilderwild.world.structure.WilderStructureProcessors;
@@ -37,7 +38,7 @@ public final class RegisterStructures {
     public static final ResourceKey<StructureSet> ABANDONED_CABINS_KEY = ofSet("abandoned_cabins");
 
     private static ResourceKey<StructureSet> ofSet(String id) {
-        return ResourceKey.create(Registry.STRUCTURE_SET_REGISTRY, WilderWild.id(id));
+        return ResourceKey.create(Registry.STRUCTURE_SET_REGISTRY, WilderSharedConstants.id(id));
     }
 
     public static Holder<StructureSet> initAndGetDefault(Registry<StructureSet> registry) {
@@ -84,13 +85,13 @@ public final class RegisterStructures {
     );
 
     public static void init() {
-        WilderWild.logWild("Registering Structures for", WilderWild.UNSTABLE_LOGGING);
+        WilderSharedConstants.logWild("Registering Structures for", WilderSharedConstants.UNSTABLE_LOGGING);
         WilderStructureProcessors.init();
         AbandonedCabinGenerator.init();
     }
 
     private static ResourceKey<Structure> of(String id) {
-        return ResourceKey.create(Registry.STRUCTURE_REGISTRY, WilderWild.id(id));
+        return ResourceKey.create(Registry.STRUCTURE_REGISTRY, WilderSharedConstants.id(id));
     }
 
     private static Structure.StructureSettings createConfig(

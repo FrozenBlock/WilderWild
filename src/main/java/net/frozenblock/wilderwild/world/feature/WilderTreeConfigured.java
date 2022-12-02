@@ -6,6 +6,7 @@ import java.util.Optional;
 import java.util.OptionalInt;
 import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.block.BaobabNutBlock;
+import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.frozenblock.wilderwild.registry.RegisterBlocks;
 import net.frozenblock.wilderwild.world.gen.treedecorators.HeightBasedVineTrunkDecorator;
 import net.frozenblock.wilderwild.world.gen.treedecorators.ShelfFungusTreeDecorator;
@@ -190,6 +191,6 @@ public final class WilderTreeConfigured {
     }
 
     public static void registerTreeConfigured() {
-        WilderWild.logWild("Registering WilderTreeConfigured for", true);
+        WilderSharedConstants.logWild("Registering WilderTreeConfigured for", true);
     }
 }

@@ -4,6 +4,7 @@ import java.util.Collections;
 import java.util.List;
 import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.entity.AncientHornProjectile;
+import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.frozenblock.wilderwild.registry.RegisterProperties;
 import net.frozenblock.wilderwild.registry.RegisterSounds;
 import net.minecraft.core.BlockPos;
@@ -63,7 +64,7 @@ public class EchoGlassBlock extends TintedGlassBlock {
 
     public static void damage(Level level, BlockPos pos) {
         BlockState state = level.getBlockState(pos);
-        WilderWild.log("Echo Glass Damaged @ " + pos, WilderWild.UNSTABLE_LOGGING);
+        WilderSharedConstants.log("Echo Glass Damaged @ " + pos, WilderSharedConstants.UNSTABLE_LOGGING);
         if (state.getValue(DAMAGE) < 3) {
             level.setBlockAndUpdate(pos, state.setValue(DAMAGE, state.getValue(DAMAGE) + 1));
             level.playSound(null, pos, RegisterSounds.BLOCK_ECHO_GLASS_CRACK, SoundSource.BLOCKS, 1.0F, 1.0F);
@@ -76,7 +77,7 @@ public class EchoGlassBlock extends TintedGlassBlock {
     public static void heal(Level level, BlockPos pos) {
         BlockState state = level.getBlockState(pos);
         if (state.getValue(DAMAGE) > 0) {
-            WilderWild.log("Echo Glass Healed @ " + pos, WilderWild.UNSTABLE_LOGGING);
+            WilderSharedConstants.log("Echo Glass Healed @ " + pos, WilderSharedConstants.UNSTABLE_LOGGING);
             level.setBlockAndUpdate(pos, state.setValue(DAMAGE, state.getValue(DAMAGE) - 1));
             level.playSound(
                     null,
@@ -129,7 +130,7 @@ public class EchoGlassBlock extends TintedGlassBlock {
             ItemStack stack = builder.getParameter(LootContextParams.TOOL);
             if (EnchantmentHelper.getItemEnchantmentLevel(Enchantments.SILK_TOUCH, stack) != 0) {
                 if (state.getValue(DAMAGE) == 0) {
-                    identifier = WilderWild.id("blocks/echo_glass_full");
+                    identifier = WilderSharedConstants.id("blocks/echo_glass_full");
                 }
             }
         }

@@ -9,6 +9,7 @@ import net.frozenblock.wilderwild.item.FireflyBottle;
 import net.frozenblock.wilderwild.item.MilkweedPod;
 import net.frozenblock.wilderwild.misc.FireflyColor;
 import net.frozenblock.wilderwild.misc.WilderBoats;
+import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.frozenblock.wilderwild.tag.WilderInstrumentTags;
 import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceKey;
@@ -75,33 +76,33 @@ public final class RegisterItems {
     public static final Item ANCIENT_HORN_FRAGMENT = new Item(new FabricItemSettings().group(CreativeModeTab.TAB_MISC).maxCount(64));
 
     public static final AncientHorn ANCIENT_HORN = new AncientHorn(new FabricItemSettings().group(CreativeModeTab.TAB_MISC).maxCount(1).rarity(Rarity.EPIC), WilderInstrumentTags.ANCIENT_HORNS);
-    public static final ResourceKey<Instrument> ANCIENT_HORN_INSTRUMENT = ResourceKey.create(Registry.INSTRUMENT_REGISTRY, WilderWild.id("ancient_horn"));
+    public static final ResourceKey<Instrument> ANCIENT_HORN_INSTRUMENT = ResourceKey.create(Registry.INSTRUMENT_REGISTRY, WilderSharedConstants.id("ancient_horn"));
     public static final CopperHorn COPPER_HORN = new CopperHorn(new FabricItemSettings().group(CreativeModeTab.TAB_MISC).maxCount(1), WilderInstrumentTags.COPPER_HORNS, 0);
-    public static final ResourceKey<Instrument> SAX_COPPER_HORN = ResourceKey.create(Registry.INSTRUMENT_REGISTRY, WilderWild.id("sax_copper_horn"));
-    public static final ResourceKey<Instrument> TUBA_COPPER_HORN = ResourceKey.create(Registry.INSTRUMENT_REGISTRY, WilderWild.id("tuba_copper_horn"));
-    public static final ResourceKey<Instrument> FLUTE_COPPER_HORN = ResourceKey.create(Registry.INSTRUMENT_REGISTRY, WilderWild.id("flute_copper_horn"));
-    public static final ResourceKey<Instrument> OBOE_COPPER_HORN = ResourceKey.create(Registry.INSTRUMENT_REGISTRY, WilderWild.id("oboe_copper_horn"));
-    public static final ResourceKey<Instrument> CLARINET_COPPER_HORN = ResourceKey.create(Registry.INSTRUMENT_REGISTRY, WilderWild.id("clarinet_copper_horn"));
-    public static final ResourceKey<Instrument> TRUMPET_COPPER_HORN = ResourceKey.create(Registry.INSTRUMENT_REGISTRY, WilderWild.id("trumpet_copper_horn"));
-    public static final ResourceKey<Instrument> TROMBONE_COPPER_HORN = ResourceKey.create(Registry.INSTRUMENT_REGISTRY, WilderWild.id("trombone_copper_horn"));
+    public static final ResourceKey<Instrument> SAX_COPPER_HORN = ResourceKey.create(Registry.INSTRUMENT_REGISTRY, WilderSharedConstants.id("sax_copper_horn"));
+    public static final ResourceKey<Instrument> TUBA_COPPER_HORN = ResourceKey.create(Registry.INSTRUMENT_REGISTRY, WilderSharedConstants.id("tuba_copper_horn"));
+    public static final ResourceKey<Instrument> FLUTE_COPPER_HORN = ResourceKey.create(Registry.INSTRUMENT_REGISTRY, WilderSharedConstants.id("flute_copper_horn"));
+    public static final ResourceKey<Instrument> OBOE_COPPER_HORN = ResourceKey.create(Registry.INSTRUMENT_REGISTRY, WilderSharedConstants.id("oboe_copper_horn"));
+    public static final ResourceKey<Instrument> CLARINET_COPPER_HORN = ResourceKey.create(Registry.INSTRUMENT_REGISTRY, WilderSharedConstants.id("clarinet_copper_horn"));
+    public static final ResourceKey<Instrument> TRUMPET_COPPER_HORN = ResourceKey.create(Registry.INSTRUMENT_REGISTRY, WilderSharedConstants.id("trumpet_copper_horn"));
+    public static final ResourceKey<Instrument> TROMBONE_COPPER_HORN = ResourceKey.create(Registry.INSTRUMENT_REGISTRY, WilderSharedConstants.id("trombone_copper_horn"));
 
     public static void registerItems() {
-        WilderWild.logWild("Registering Items for", WilderWild.UNSTABLE_LOGGING);
-        Registry.register(Registry.ITEM, WilderWild.id("baobab_boat"), BAOBAB_BOAT_ITEM);
-        Registry.register(Registry.ITEM, WilderWild.id("baobab_chest_boat"), BAOBAB_CHEST_BOAT_ITEM);
-        Registry.register(Registry.ITEM, WilderWild.id("baobab_sign"), BAOBAB_SIGN);
-        Registry.register(Registry.ITEM, WilderWild.id("cypress_boat"), CYPRESS_BOAT_ITEM);
-        Registry.register(Registry.ITEM, WilderWild.id("cypress_chest_boat"), CYPRESS_CHEST_BOAT_ITEM);
-        Registry.register(Registry.ITEM, WilderWild.id("cypress_sign"), CYPRESS_SIGN);
-        Registry.register(Registry.ITEM, WilderWild.id("ancient_horn"), ANCIENT_HORN);
-        Registry.register(Registry.ITEM, WilderWild.id("copper_horn"), COPPER_HORN);
-        Registry.register(Registry.ITEM, WilderWild.id("milkweed_pod"), MILKWEED_POD);
-        Registry.register(Registry.ITEM, WilderWild.id("music_disc_beneath"), MUSIC_DISC_BENEATH);
-        Registry.register(Registry.ITEM, WilderWild.id("music_disc_goathorn_symphony"), MUSIC_DISC_GOAT_HORN_SYMPHONY);
-        Registry.register(Registry.ITEM, WilderWild.id("music_disc_back"), MUSIC_DISC_BACK);
-        Registry.register(Registry.ITEM, WilderWild.id("firefly_spawn_egg"), FIREFLY_SPAWN_EGG);
-        Registry.register(Registry.ITEM, WilderWild.id("jellyfish_spawn_egg"), JELLYFISH_SPAWN_EGG);
-        Registry.register(Registry.ITEM, WilderWild.id("jellyfish_bucket"), JELLYFISH_BUCKET);
+        WilderSharedConstants.logWild("Registering Items for", WilderSharedConstants.UNSTABLE_LOGGING);
+        Registry.register(Registry.ITEM, WilderSharedConstants.id("baobab_boat"), BAOBAB_BOAT_ITEM);
+        Registry.register(Registry.ITEM, WilderSharedConstants.id("baobab_chest_boat"), BAOBAB_CHEST_BOAT_ITEM);
+        Registry.register(Registry.ITEM, WilderSharedConstants.id("baobab_sign"), BAOBAB_SIGN);
+        Registry.register(Registry.ITEM, WilderSharedConstants.id("cypress_boat"), CYPRESS_BOAT_ITEM);
+        Registry.register(Registry.ITEM, WilderSharedConstants.id("cypress_chest_boat"), CYPRESS_CHEST_BOAT_ITEM);
+        Registry.register(Registry.ITEM, WilderSharedConstants.id("cypress_sign"), CYPRESS_SIGN);
+        Registry.register(Registry.ITEM, WilderSharedConstants.id("ancient_horn"), ANCIENT_HORN);
+        Registry.register(Registry.ITEM, WilderSharedConstants.id("copper_horn"), COPPER_HORN);
+        Registry.register(Registry.ITEM, WilderSharedConstants.id("milkweed_pod"), MILKWEED_POD);
+        Registry.register(Registry.ITEM, WilderSharedConstants.id("music_disc_beneath"), MUSIC_DISC_BENEATH);
+        Registry.register(Registry.ITEM, WilderSharedConstants.id("music_disc_goathorn_symphony"), MUSIC_DISC_GOAT_HORN_SYMPHONY);
+        Registry.register(Registry.ITEM, WilderSharedConstants.id("music_disc_back"), MUSIC_DISC_BACK);
+        Registry.register(Registry.ITEM, WilderSharedConstants.id("firefly_spawn_egg"), FIREFLY_SPAWN_EGG);
+        Registry.register(Registry.ITEM, WilderSharedConstants.id("jellyfish_spawn_egg"), JELLYFISH_SPAWN_EGG);
+        Registry.register(Registry.ITEM, WilderSharedConstants.id("jellyfish_bucket"), JELLYFISH_BUCKET);
 
         Registry.register(Registry.INSTRUMENT, ANCIENT_HORN_INSTRUMENT, new Instrument(RegisterSounds.ITEM_ANCIENT_HORN_CALL, 300, 256.0F));
         Registry.register(Registry.INSTRUMENT, SAX_COPPER_HORN, new Instrument(RegisterSounds.ITEM_COPPER_HORN_SAX_LOOP, 32767, 64.0F));
@@ -119,31 +120,31 @@ public final class RegisterItems {
         //StartingSounds.STARTING_SOUNDS.put(TRUMPET_COPPER_HORN, RegisterSounds.ITEM_COPPER_HORN_TRUMPET_START);
         //StartingSounds.STARTING_SOUNDS.put(TROMBONE_COPPER_HORN, RegisterSounds.ITEM_COPPER_HORN_TROMBONE_START);
 
-        Registry.register(Registry.ITEM, WilderWild.id("baobab_nut"), BAOBAB_NUT);
-        //Registry.register(Registry.ITEM, WilderWild.id("prickly_pear"), PRICKLY_PEAR);
-        //Registry.register(Registry.ITEM, WilderWild.id("peeled_prickly_pear"), PEELED_PRICKLY_PEAR);
+        Registry.register(Registry.ITEM, WilderSharedConstants.id("baobab_nut"), BAOBAB_NUT);
+        //Registry.register(Registry.ITEM, WilderSharedConstants.id("prickly_pear"), PRICKLY_PEAR);
+        //Registry.register(Registry.ITEM, WilderSharedConstants.id("peeled_prickly_pear"), PEELED_PRICKLY_PEAR);
 
-        Registry.register(Registry.ITEM, WilderWild.id("firefly_bottle"), FIREFLY_BOTTLE);
-        Registry.register(Registry.ITEM, WilderWild.id("magenta_firefly_bottle"), MAGENTA_FIREFLY_BOTTLE);
-        Registry.register(Registry.ITEM, WilderWild.id("purple_firefly_bottle"), PURPLE_FIREFLY_BOTTLE);
-        Registry.register(Registry.ITEM, WilderWild.id("blue_firefly_bottle"), BLUE_FIREFLY_BOTTLE);
-        Registry.register(Registry.ITEM, WilderWild.id("black_firefly_bottle"), BLACK_FIREFLY_BOTTLE);
-        Registry.register(Registry.ITEM, WilderWild.id("red_firefly_bottle"), RED_FIREFLY_BOTTLE);
-        Registry.register(Registry.ITEM, WilderWild.id("green_firefly_bottle"), GREEN_FIREFLY_BOTTLE);
-        Registry.register(Registry.ITEM, WilderWild.id("brown_firefly_bottle"), BROWN_FIREFLY_BOTTLE);
-        Registry.register(Registry.ITEM, WilderWild.id("cyan_firefly_bottle"), CYAN_FIREFLY_BOTTLE);
-        Registry.register(Registry.ITEM, WilderWild.id("light_gray_firefly_bottle"), LIGHT_GRAY_FIREFLY_BOTTLE);
-        Registry.register(Registry.ITEM, WilderWild.id("gray_firefly_bottle"), GRAY_FIREFLY_BOTTLE);
-        Registry.register(Registry.ITEM, WilderWild.id("pink_firefly_bottle"), PINK_FIREFLY_BOTTLE);
-        Registry.register(Registry.ITEM, WilderWild.id("lime_firefly_bottle"), LIME_FIREFLY_BOTTLE);
-        Registry.register(Registry.ITEM, WilderWild.id("yellow_firefly_bottle"), YELLOW_FIREFLY_BOTTLE);
-        Registry.register(Registry.ITEM, WilderWild.id("light_blue_firefly_bottle"), LIGHT_BLUE_FIREFLY_BOTTLE);
-        Registry.register(Registry.ITEM, WilderWild.id("orange_firefly_bottle"), ORANGE_FIREFLY_BOTTLE);
-        Registry.register(Registry.ITEM, WilderWild.id("white_firefly_bottle"), WHITE_FIREFLY_BOTTLE);
+        Registry.register(Registry.ITEM, WilderSharedConstants.id("firefly_bottle"), FIREFLY_BOTTLE);
+        Registry.register(Registry.ITEM, WilderSharedConstants.id("magenta_firefly_bottle"), MAGENTA_FIREFLY_BOTTLE);
+        Registry.register(Registry.ITEM, WilderSharedConstants.id("purple_firefly_bottle"), PURPLE_FIREFLY_BOTTLE);
+        Registry.register(Registry.ITEM, WilderSharedConstants.id("blue_firefly_bottle"), BLUE_FIREFLY_BOTTLE);
+        Registry.register(Registry.ITEM, WilderSharedConstants.id("black_firefly_bottle"), BLACK_FIREFLY_BOTTLE);
+        Registry.register(Registry.ITEM, WilderSharedConstants.id("red_firefly_bottle"), RED_FIREFLY_BOTTLE);
+        Registry.register(Registry.ITEM, WilderSharedConstants.id("green_firefly_bottle"), GREEN_FIREFLY_BOTTLE);
+        Registry.register(Registry.ITEM, WilderSharedConstants.id("brown_firefly_bottle"), BROWN_FIREFLY_BOTTLE);
+        Registry.register(Registry.ITEM, WilderSharedConstants.id("cyan_firefly_bottle"), CYAN_FIREFLY_BOTTLE);
+        Registry.register(Registry.ITEM, WilderSharedConstants.id("light_gray_firefly_bottle"), LIGHT_GRAY_FIREFLY_BOTTLE);
+        Registry.register(Registry.ITEM, WilderSharedConstants.id("gray_firefly_bottle"), GRAY_FIREFLY_BOTTLE);
+        Registry.register(Registry.ITEM, WilderSharedConstants.id("pink_firefly_bottle"), PINK_FIREFLY_BOTTLE);
+        Registry.register(Registry.ITEM, WilderSharedConstants.id("lime_firefly_bottle"), LIME_FIREFLY_BOTTLE);
+        Registry.register(Registry.ITEM, WilderSharedConstants.id("yellow_firefly_bottle"), YELLOW_FIREFLY_BOTTLE);
+        Registry.register(Registry.ITEM, WilderSharedConstants.id("light_blue_firefly_bottle"), LIGHT_BLUE_FIREFLY_BOTTLE);
+        Registry.register(Registry.ITEM, WilderSharedConstants.id("orange_firefly_bottle"), ORANGE_FIREFLY_BOTTLE);
+        Registry.register(Registry.ITEM, WilderSharedConstants.id("white_firefly_bottle"), WHITE_FIREFLY_BOTTLE);
 
-        Registry.register(Registry.ITEM, WilderWild.id("pollen"), POLLEN);
+        Registry.register(Registry.ITEM, WilderSharedConstants.id("pollen"), POLLEN);
 
-        Registry.register(Registry.ITEM, WilderWild.id("ancient_horn_fragment"), ANCIENT_HORN_FRAGMENT);
+        Registry.register(Registry.ITEM, WilderSharedConstants.id("ancient_horn_fragment"), ANCIENT_HORN_FRAGMENT);
 
         TradeOfferHelper.registerWanderingTraderOffers(2, factories -> {
             factories.add(new VillagerTrades.ItemsForEmeralds(RegisterItems.BAOBAB_NUT, 5, 1, 8, 1));
