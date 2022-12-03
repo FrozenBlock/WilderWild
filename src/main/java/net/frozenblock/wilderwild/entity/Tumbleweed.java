@@ -160,7 +160,7 @@ public class Tumbleweed extends Mob {
 			} else {
 				this.ticksSinceActive = 0;
 			}
-			
+
 			Vec3 deltaMovement = this.getDeltaMovement();
 			double multiplier = (Math.max((brightness - (Math.max(15 - brightness, 0))), 0) * 0.0667) * (this.wasTouchingWater ? 0.16777216 : 1);
 			double windX = Mth.clamp(WindManager.windX * windMultiplier, -windClamp, windClamp);
