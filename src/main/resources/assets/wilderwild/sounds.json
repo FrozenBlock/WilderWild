@@ -559,7 +559,7 @@
       "wilderwild:block/coconut/crack1",
       "wilderwild:block/coconut/crack2"
     ],
-    "subtitle": "subtitles.block.generic.break"
+    "subtitle": "subtitles.block.coconut.split"
   },
   "block.coconut.fall": {
     "sounds": [

@@ -56,27 +56,30 @@ public class CoconutProjectile extends ThrowableItemProjectile {
 	protected void onHitEntity(@NotNull EntityHitResult result) {
 		super.onHitEntity(result);
 		Entity entity = result.getEntity();
-		entity.hurt(DamageSource.thrown(this, this.getOwner()), 1);
-	}
-
-	@Override
-	protected void onHit(@NotNull HitResult result) {
-		super.onHit(result);
-		if (!this.level.isClientSide) {
-			Vec3 move = this.getDeltaMovement();
-			if (result instanceof BlockHitResult blockHitResult) {
-				Block block = this.level.getBlockState(blockHitResult.getBlockPos()).getBlock();
-				if (block.getExplosionResistance() >= 3.0F && block.defaultDestroyTime() >= 1.0F) {
-					this.level.broadcastEntityEvent(this, (byte)3);
-					this.level.playSound(null, this.getX(), this.getY(), this.getZ(), RegisterSounds.BLOCK_COCONUT_CRACK, SoundSource.BLOCKS, 1.0F, 0.9F + 0.2F * this.level.random.nextFloat());
-					this.level.addFreshEntity(new ItemEntity(this.level, this.getX(), this.getY(), this.getZ(), new ItemStack(RegisterItems.SPLIT_COCONUT)));
-					this.level.addFreshEntity(new ItemEntity(this.level, this.getX(), this.getY(), this.getZ(), new ItemStack(RegisterItems.SPLIT_COCONUT)));
-					this.discard();
-					return;
-				}
-			}
-			this.level.addFreshEntity(new ItemEntity(this.level, this.getX(), this.getY(), this.getZ(), this.getItem()));
+		entity.hurt(DamageSource.thrown(this, this.getOwner()), 2F);
+		if (entity.getBoundingBox().getSize() > this.getBoundingBox().getSize() && this.random.nextDouble() < 0.7) {
+			this.level.broadcastEntityEvent(this, (byte)3);
+			this.level.playSound(null, this.getX(), this.getY(), this.getZ(), RegisterSounds.BLOCK_COCONUT_CRACK, SoundSource.BLOCKS, 1.0F, 0.9F + 0.2F * this.level.random.nextFloat());
+			this.level.addFreshEntity(new ItemEntity(this.level, this.getX(), this.getY(), this.getZ(), new ItemStack(RegisterItems.SPLIT_COCONUT)));
+			this.level.addFreshEntity(new ItemEntity(this.level, this.getX(), this.getY(), this.getZ(), new ItemStack(RegisterItems.SPLIT_COCONUT)));
 			this.discard();
 		}
 	}
+
+	@Override
+	protected void onHitBlock(@NotNull BlockHitResult result) {
+		super.onHitBlock(result);
+		Block block = this.level.getBlockState(result.getBlockPos()).getBlock();
+		if (block.getExplosionResistance() >= 3.0F && block.defaultDestroyTime() >= 1.0F) {
+			this.level.broadcastEntityEvent(this, (byte)3);
+			this.level.playSound(null, this.getX(), this.getY(), this.getZ(), RegisterSounds.BLOCK_COCONUT_CRACK, SoundSource.BLOCKS, 1.0F, 0.9F + 0.2F * this.level.random.nextFloat());
+			this.level.addFreshEntity(new ItemEntity(this.level, this.getX(), this.getY(), this.getZ(), new ItemStack(RegisterItems.SPLIT_COCONUT)));
+			this.level.addFreshEntity(new ItemEntity(this.level, this.getX(), this.getY(), this.getZ(), new ItemStack(RegisterItems.SPLIT_COCONUT)));
+			this.discard();
+			return;
+		}
+		this.level.addFreshEntity(new ItemEntity(this.level, this.getX(), this.getY(), this.getZ(), this.getItem()));
+		this.discard();
+	}
+
 }
