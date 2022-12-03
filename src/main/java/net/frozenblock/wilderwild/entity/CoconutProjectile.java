@@ -53,10 +53,19 @@ public class CoconutProjectile extends ThrowableItemProjectile {
 	}
 
 	@Override
+	protected void onHit(@NotNull HitResult result) {
+		super.onHit(result);
+		this.level.playSound(null, this.getX(), this.getY(), this.getZ(), RegisterSounds.ITEM_COCONUT_LAND, SoundSource.BLOCKS, 0.6F, 0.9F + (this.level.random.nextFloat() * 0.2F));
+	}
+
+	@Override
 	protected void onHitEntity(@NotNull EntityHitResult result) {
 		super.onHitEntity(result);
 		Entity entity = result.getEntity();
 		entity.hurt(DamageSource.thrown(this, this.getOwner()), 2F);
+		if (this.position().y() > entity.getEyeY()) {
+			this.level.playSound(null, this.getX(), this.getY(), this.getZ(), RegisterSounds.ITEM_COCONUT_HIT_HEAD, SoundSource.BLOCKS, 0.9F, 0.9F + (this.level.random.nextFloat() * 0.2F));
+		}
 		if (entity.getBoundingBox().getSize() > this.getBoundingBox().getSize() && this.random.nextDouble() < 0.7) {
 			this.level.broadcastEntityEvent(this, (byte)3);
 			this.level.playSound(null, this.getX(), this.getY(), this.getZ(), RegisterSounds.ITEM_COCONUT_LAND_BREAK, SoundSource.BLOCKS, 1.0F, 0.9F + 0.2F * this.level.random.nextFloat());
