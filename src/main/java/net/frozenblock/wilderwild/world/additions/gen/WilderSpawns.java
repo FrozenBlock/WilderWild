@@ -29,7 +29,7 @@ public final class WilderSpawns {
 
 	public static void addTumbleweed() {
 		BiomeModifications.addSpawn(BiomeSelectors.tag(WilderBiomeTags.HAS_TUMBLEWEED_ENTITY),
-				WilderWild.TUMBLEWEED, RegisterEntities.TUMBLEWEED, 2, 1, 1);
+				WilderWild.TUMBLEWEED, RegisterEntities.TUMBLEWEED, 18, 1, 1);
 	}
 
     public static void addRabbits() {

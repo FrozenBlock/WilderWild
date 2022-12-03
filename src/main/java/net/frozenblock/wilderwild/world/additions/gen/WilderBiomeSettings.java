@@ -17,5 +17,6 @@ public final class WilderBiomeSettings {
         WilderSpawns.addFireflies();
         WilderSpawns.addJellyfish();
 		WilderSpawns.addTumbleweed();
+		WilderSpawns.addRabbits();
     }
 }
