@@ -57,6 +57,7 @@ import net.frozenblock.wilderwild.world.generation.features.config.PathSwapUnder
 import net.frozenblock.wilderwild.world.generation.features.config.ShelfFungusFeatureConfig;
 import net.frozenblock.wilderwild.world.generation.features.config.WilderPillarConfig;
 import net.frozenblock.wilderwild.world.generation.foliage.PalmFoliagePlacer;
+import net.frozenblock.wilderwild.world.generation.foliage.ShortPalmFoliagePlacer;
 import net.frozenblock.wilderwild.world.generation.trunk.BaobabTrunkPlacer;
 import net.frozenblock.wilderwild.world.generation.trunk.FallenTrunkWithLogs;
 import net.frozenblock.wilderwild.world.generation.trunk.PalmTrunkPlacer;
@@ -127,6 +128,7 @@ public final class WilderWild implements ModInitializer {
     public static final DownwardsPillarFeature DOWNWARDS_PILLAR_FEATURE = new DownwardsPillarFeature(WilderPillarConfig.CODEC);
     public static final NematocystFeature NEMATOCYST_FEATURE = new NematocystFeature(MultifaceGrowthConfiguration.CODEC);
     public static final FoliagePlacerType<PalmFoliagePlacer> PALM_FOLIAGE_PLACER =  registerFoliage("palm_foliage_placer", PalmFoliagePlacer.CODEC);
+	public static final FoliagePlacerType<ShortPalmFoliagePlacer> SHORT_PALM_FOLIAGE_PLACER =  registerFoliage("short_palm_foliage_placer", ShortPalmFoliagePlacer.CODEC);
 
     //Fabric ASM
     public static final MobCategory FIREFLIES = ClassTinkerers.getEnum(MobCategory.class, "WILDERWILDFIREFLIES");

@@ -15,6 +15,6 @@ public class PalmSaplingGenerator extends AbstractTreeGrower {
 
 	@Nullable
 	protected Holder<? extends ConfiguredFeature<?, ?>> getConfiguredFeature(RandomSource random, boolean largeHive) {
-		return random.nextDouble() > 0.4 ? WilderTreeConfigured.PALM : WilderTreeConfigured.TALL_PALM;
+		return random.nextDouble() > 0.4 ? WilderTreeConfigured.PALM : random.nextDouble() > 0.3 ? WilderTreeConfigured.TALL_PALM : WilderTreeConfigured.TALL_WINE_PALM;
 	}
 }
