@@ -60,6 +60,7 @@ Finish cooking food before giving it to your customers!
 Nobody wants raw chicken as their only source of food twice a year!
 §2YELLOW
 §eGREEN
+§4BLUE
 A View From The Top!
 Luna is cool
 Legends only die when they are forgotten. Remember Technoblade.
@@ -83,7 +84,6 @@ You're running out of time, and you're playing a video game.
 A View From The End!
 What it was, and what it's not.
 Where I was, and where I'm not.
-BLUE
 Meso-sinkable context based fluid-solids!
 Unsubscribe from this content creator!
 WHERE DID THE MARKETPLACE GO!?!??!?!?!
@@ -166,3 +166,4 @@ I H.R.T. U!
 Contains two types of fluid!
 This game was designed!
 Best viewed on OLED displays.
+Contains 200% more nuts than vanilla!
