@@ -172,10 +172,6 @@ public final class ClothConfigCloserInteractionHandler {
 		return WARDEN.wardenEmergesFromCommand;
 	}
 
-	public static float fireflySpawnRate() {
-		return FIREFLY.fireflySpawnRate;
-	}
-
 	public static boolean wardenEmergesFromEgg() {
 		return WARDEN.wardenEmergesFromEgg;
 	}
