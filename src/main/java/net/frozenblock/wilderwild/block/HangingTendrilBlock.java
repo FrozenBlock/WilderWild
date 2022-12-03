@@ -80,22 +80,21 @@ public class HangingTendrilBlock extends BaseEntityBlock implements SimpleWaterl
 		return this.defaultBlockState().setValue(WATERLOGGED, fluidState.getType() == Fluids.WATER);
 	}
 
-    @Override
-    public void randomTick(BlockState state, @NotNull ServerLevel level, @NotNull BlockPos pos, @NotNull RandomSource random) {
-        if (!state.canSurvive(level, pos)) {
-            level.destroyBlock(pos, true);
-        } else if (getPhase(state) == SculkSensorPhase.INACTIVE) {
-            BlockEntity entity = level.getBlockEntity(pos);
-            if (entity != null) {
-                if (entity instanceof HangingTendrilBlockEntity wigglyTendril) {
-                    level.setBlockAndUpdate(pos, state.setValue(TWITCHING, true));
-                    wigglyTendril.ticksToStopTwitching = random.nextIntBetweenInclusive(5, 12);
-                }
-            }
-        }
-    }
+	@Override
+	public void randomTick(BlockState state, @NotNull ServerLevel level, @NotNull BlockPos pos, @NotNull RandomSource random) {
+		if (!state.canSurvive(level, pos)) {
+			level.destroyBlock(pos, true);
+		} else if (getPhase(state) == SculkSensorPhase.INACTIVE) {
+			BlockEntity entity = level.getBlockEntity(pos);
+			if (entity instanceof HangingTendrilBlockEntity wigglyTendril) {
+				level.setBlockAndUpdate(pos, state.setValue(TWITCHING, true));
+				wigglyTendril.ticksToStopTwitching = random.nextIntBetweenInclusive(5, 12);
+			}
+		}
+	}
 
 	@Override
+	@NotNull
 	public BlockState updateShape(@NotNull BlockState state, @NotNull Direction direction, @NotNull BlockState neighborState, @NotNull LevelAccessor level, @NotNull BlockPos currentPos, @NotNull BlockPos neighborPos) {
 		if (direction == Direction.UP && !canSurvive(state, level, currentPos)) {
 			level.destroyBlock(currentPos, true);
@@ -107,6 +106,7 @@ public class HangingTendrilBlock extends BaseEntityBlock implements SimpleWaterl
 	}
 
 	@Override
+	@NotNull
 	public FluidState getFluidState(BlockState state) {
 		return state.getValue(WATERLOGGED) ? Fluids.WATER.getSource(false) : super.getFluidState(state);
 	}
@@ -163,16 +163,19 @@ public class HangingTendrilBlock extends BaseEntityBlock implements SimpleWaterl
 	}
 
 	@Override
+	@NotNull
 	public RenderShape getRenderShape(@NotNull BlockState state) {
 		return RenderShape.MODEL;
 	}
 
 	@Override
+	@NotNull
 	public VoxelShape getOcclusionShape(@NotNull BlockState state, @NotNull BlockGetter level, @NotNull BlockPos pos) {
 		return OUTLINE_SHAPE;
 	}
 
 	@Override
+	@NotNull
 	public VoxelShape getShape(@NotNull BlockState state, @NotNull BlockGetter level, @NotNull BlockPos pos, @NotNull CollisionContext context) {
 		return OUTLINE_SHAPE;
 	}
