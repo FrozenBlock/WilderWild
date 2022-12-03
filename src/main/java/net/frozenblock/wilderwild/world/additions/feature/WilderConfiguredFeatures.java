@@ -223,8 +223,8 @@ public final class WilderConfiguredFeatures {
 					new RandomFeatureConfiguration(List.of(new WeightedPlacedFeature(WilderTreePlaced.PALM_CHECKED, 0.6F), new WeightedPlacedFeature(WilderTreePlaced.TALL_PALM_CHECKED, 0.4F)), WilderTreePlaced.PALM_CHECKED));
 
 	public static final Holder<ConfiguredFeature<RandomFeatureConfiguration, ?>> TALL_WINE_PALM =
-			register("tall_wine_palm", Feature.RANDOM_SELECTOR,
-					new RandomFeatureConfiguration(List.of(new WeightedPlacedFeature(WilderTreePlaced.TALL_WINE_PALM_CHECKED, 1F)), WilderTreePlaced.TALL_WINE_PALM_CHECKED));
+			register("tall_wine_palm_checked", Feature.RANDOM_SELECTOR,
+					new RandomFeatureConfiguration(List.of(new WeightedPlacedFeature(WilderTreePlaced.TALL_WINE_PALM_CHECKED, 0.5F), new WeightedPlacedFeature(WilderTreePlaced.TALL_WINE_PALM_CHECKED, 0.5F)), WilderTreePlaced.TALL_WINE_PALM_CHECKED));
 
 	//FLOWERS
     public static final Holder<ConfiguredFeature<RandomPatchConfiguration, ?>> SEEDING_DANDELION =
