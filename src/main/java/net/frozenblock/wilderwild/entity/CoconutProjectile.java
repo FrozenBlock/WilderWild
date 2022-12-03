@@ -3,6 +3,7 @@ package net.frozenblock.wilderwild.entity;
 import net.frozenblock.wilderwild.registry.RegisterEntities;
 import net.frozenblock.wilderwild.registry.RegisterItems;
 import net.frozenblock.wilderwild.registry.RegisterSounds;
+import net.frozenblock.wilderwild.tag.WilderEntityTags;
 import net.minecraft.core.particles.ItemParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.sounds.SoundSource;
@@ -63,7 +64,7 @@ public class CoconutProjectile extends ThrowableItemProjectile {
 		super.onHitEntity(result);
 		Entity entity = result.getEntity();
 		entity.hurt(DamageSource.thrown(this, this.getOwner()), 2F);
-		if (this.position().y() > entity.getEyeY()) {
+		if (this.position().y() > entity.getEyeY() && !entity.getType().is(WilderEntityTags.CANT_BONK)) {
 			this.level.playSound(null, this.getX(), this.getY(), this.getZ(), RegisterSounds.ITEM_COCONUT_HIT_HEAD, SoundSource.BLOCKS, 1.0F, 0.9F + (this.level.random.nextFloat() * 0.2F));
 		}
 		if (entity.getBoundingBox().getSize() > this.getBoundingBox().getSize() && this.random.nextDouble() < 0.7) {
