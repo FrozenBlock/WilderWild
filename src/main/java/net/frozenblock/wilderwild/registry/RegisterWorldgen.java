@@ -183,7 +183,7 @@ public final class RegisterWorldgen implements SurfaceRuleEvents.OverworldModifi
 	}
 
 	public static Biome oasis() {
-		MobSpawnSettings.Builder builder = new MobSpawnSettings.Builder();
+		MobSpawnSettings.Builder builder = (new MobSpawnSettings.Builder()).addSpawn(MobCategory.WATER_CREATURE, new MobSpawnSettings.SpawnerData(EntityType.TROPICAL_FISH, 40, 1, 2));
 		BiomeDefaultFeatures.desertSpawns(builder);
 		BiomeGenerationSettings.Builder builder2 = new BiomeGenerationSettings.Builder();
 		addOasisFeatures(builder2);
