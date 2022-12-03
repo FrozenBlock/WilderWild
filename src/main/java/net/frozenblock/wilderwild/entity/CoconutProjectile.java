@@ -59,7 +59,7 @@ public class CoconutProjectile extends ThrowableItemProjectile {
 		entity.hurt(DamageSource.thrown(this, this.getOwner()), 2F);
 		if (entity.getBoundingBox().getSize() > this.getBoundingBox().getSize() && this.random.nextDouble() < 0.7) {
 			this.level.broadcastEntityEvent(this, (byte)3);
-			this.level.playSound(null, this.getX(), this.getY(), this.getZ(), RegisterSounds.BLOCK_COCONUT_CRACK, SoundSource.BLOCKS, 1.0F, 0.9F + 0.2F * this.level.random.nextFloat());
+			this.level.playSound(null, this.getX(), this.getY(), this.getZ(), RegisterSounds.ITEM_COCONUT_LAND_BREAK, SoundSource.BLOCKS, 1.0F, 0.9F + 0.2F * this.level.random.nextFloat());
 			this.level.addFreshEntity(new ItemEntity(this.level, this.getX(), this.getY(), this.getZ(), new ItemStack(RegisterItems.SPLIT_COCONUT)));
 			this.level.addFreshEntity(new ItemEntity(this.level, this.getX(), this.getY(), this.getZ(), new ItemStack(RegisterItems.SPLIT_COCONUT)));
 			this.discard();
@@ -72,7 +72,7 @@ public class CoconutProjectile extends ThrowableItemProjectile {
 		Block block = this.level.getBlockState(result.getBlockPos()).getBlock();
 		if (block.getExplosionResistance() >= 3.0F && block.defaultDestroyTime() >= 1.0F) {
 			this.level.broadcastEntityEvent(this, (byte)3);
-			this.level.playSound(null, this.getX(), this.getY(), this.getZ(), RegisterSounds.BLOCK_COCONUT_CRACK, SoundSource.BLOCKS, 1.0F, 0.9F + 0.2F * this.level.random.nextFloat());
+			this.level.playSound(null, this.getX(), this.getY(), this.getZ(), RegisterSounds.ITEM_COCONUT_LAND_BREAK, SoundSource.BLOCKS, 1.0F, 0.9F + 0.2F * this.level.random.nextFloat());
 			this.level.addFreshEntity(new ItemEntity(this.level, this.getX(), this.getY(), this.getZ(), new ItemStack(RegisterItems.SPLIT_COCONUT)));
 			this.level.addFreshEntity(new ItemEntity(this.level, this.getX(), this.getY(), this.getZ(), new ItemStack(RegisterItems.SPLIT_COCONUT)));
 			this.discard();
