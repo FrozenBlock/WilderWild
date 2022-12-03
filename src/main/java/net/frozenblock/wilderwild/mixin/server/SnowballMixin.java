@@ -15,6 +15,6 @@ public class SnowballMixin {
     @Inject(method = "onHit", at = @At("HEAD"))
 	public void onHit(HitResult result, CallbackInfo info) {
 		Snowball snowball = Snowball.class.cast(this);
-		snowball.level.playSound(null, snowball.getX(), snowball.getY(), snowball.getZ(), RegisterSounds.ITEM_SNOWBALL_LAND, SoundSource.BLOCKS, 0.4F, 0.85F + (snowball.level.random.nextFloat() * 0.2F));
+		snowball.level.playSound(null, snowball.getX(), snowball.getY(), snowball.getZ(), RegisterSounds.ITEM_SNOWBALL_LAND, SoundSource.BLOCKS, 0.3F, 0.85F + (snowball.level.random.nextFloat() * 0.2F));
 	}
 }
