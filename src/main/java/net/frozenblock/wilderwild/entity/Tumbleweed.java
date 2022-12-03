@@ -130,8 +130,7 @@ public class Tumbleweed extends Mob {
 		super.tick();
 		this.setYRot(0F);
 		Vec3 deltaPos = this.getDeltaPos();
-		Vec3 deltaMovement = this.getDeltaMovement();
-		if (deltaMovement.horizontalDistance() > 0.02) {
+		if (deltaPos.horizontalDistance() > 0.02) {
 			this.setYRot(-((float) (Mth.atan2(deltaPos.x * 3, deltaPos.z * 3) * 57.2957763671875D) - 90));
 		}
 		if (this.level.isClientSide) {
@@ -161,7 +160,8 @@ public class Tumbleweed extends Mob {
 			} else {
 				this.ticksSinceActive = 0;
 			}
-
+			
+			Vec3 deltaMovement = this.getDeltaMovement();
 			double multiplier = (Math.max((brightness - (Math.max(15 - brightness, 0))), 0) * 0.0667) * (this.wasTouchingWater ? 0.16777216 : 1);
 			double windX = Mth.clamp(WindManager.windX * windMultiplier, -windClamp, windClamp);
 			double windZ = Mth.clamp(WindManager.windZ * windMultiplier, -windClamp, windClamp);
