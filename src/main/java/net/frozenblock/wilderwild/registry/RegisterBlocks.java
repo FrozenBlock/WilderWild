@@ -15,7 +15,6 @@ import net.frozenblock.lib.block.api.FrozenSignBlock;
 import net.frozenblock.lib.block.api.FrozenWallSignBlock;
 import net.frozenblock.lib.block.api.FrozenWoodTypes;
 import net.frozenblock.lib.impl.BonemealBehaviors;
-import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.block.AlgaeBlock;
 import net.frozenblock.wilderwild.block.BaobabLeaves;
 import net.frozenblock.wilderwild.block.BaobabNutBlock;

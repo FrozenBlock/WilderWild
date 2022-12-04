@@ -4,7 +4,6 @@ import com.google.common.collect.ImmutableList;
 import java.util.List;
 import java.util.Optional;
 import java.util.OptionalInt;
-import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.block.BaobabNutBlock;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.frozenblock.wilderwild.registry.RegisterBlocks;

@@ -2,7 +2,6 @@ package net.frozenblock.wilderwild.misc.mod_compat.simple_copper_pipes;
 
 import net.frozenblock.lib.FrozenMain;
 import net.frozenblock.lib.sound.api.FrozenSoundPackets;
-import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.entity.AncientHornProjectile;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.frozenblock.wilderwild.misc.server.EasyPacket;

@@ -8,12 +8,16 @@ import net.frozenblock.lib.impl.DripstoneDripWaterFrom;
 import net.frozenblock.lib.impl.HopperUntouchableList;
 import net.frozenblock.lib.impl.PlayerDamageSourceSounds;
 import net.frozenblock.lib.impl.StructurePoolElementIdReplacements;
+import static net.frozenblock.lib.sound.api.block_sound_group.BlockSoundGroupOverwrites.*;
 import net.frozenblock.lib.sound.api.predicate.SoundPredicate;
 import net.frozenblock.wilderwild.entity.Firefly;
 import net.frozenblock.wilderwild.misc.WilderEnderman;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.frozenblock.wilderwild.misc.config.ClothConfigInteractionHandler;
 import net.frozenblock.wilderwild.registry.RegisterBlockEntities;
+import static net.frozenblock.wilderwild.registry.RegisterBlockSoundGroups.*;
+import static net.frozenblock.wilderwild.registry.RegisterBlocks.BAOBAB_LEAVES;
+import static net.frozenblock.wilderwild.registry.RegisterBlocks.CYPRESS_LEAVES;
 import net.frozenblock.wilderwild.registry.RegisterSounds;
 import net.minecraft.network.chat.Component;
 import net.minecraft.tags.BlockTags;
@@ -23,17 +27,12 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.InstrumentItem;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
+import static net.minecraft.world.level.block.Blocks.*;
 import net.minecraft.world.level.block.LevelEvent;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gameevent.GameEvent;
 import org.jetbrains.annotations.Nullable;
-import static net.frozenblock.lib.sound.api.block_sound_group.BlockSoundGroupOverwrites.*;
-import static net.frozenblock.wilderwild.registry.RegisterBlockSoundGroups.*;
-import static net.frozenblock.wilderwild.registry.RegisterBlocks.BAOBAB_LEAVES;
-import static net.frozenblock.wilderwild.registry.RegisterBlocks.CYPRESS_LEAVES;
-import static net.minecraft.world.level.block.Blocks.*;
-import static net.minecraft.world.level.block.Blocks.WITHER_ROSE;
 
 public final class FrozenLibIntegration implements FrozenMainEntrypoint {
 

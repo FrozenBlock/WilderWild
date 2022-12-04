@@ -2,7 +2,6 @@ package net.frozenblock.wilderwild.world.feature.features;
 
 import com.mojang.serialization.Codec;
 import java.util.List;
-import java.util.Random;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.util.RandomSource;

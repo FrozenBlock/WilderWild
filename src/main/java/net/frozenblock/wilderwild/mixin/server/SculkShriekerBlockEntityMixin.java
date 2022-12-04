@@ -1,6 +1,5 @@
 package net.frozenblock.wilderwild.mixin.server;
 
-import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.frozenblock.wilderwild.misc.server.EasyPacket;
 import net.frozenblock.wilderwild.registry.RegisterProperties;

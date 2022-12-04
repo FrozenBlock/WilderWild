@@ -1,6 +1,5 @@
 package net.frozenblock.wilderwild.block;
 
-import com.mojang.logging.LogUtils;
 import net.frozenblock.wilderwild.misc.server.EasyPacket;
 import net.frozenblock.wilderwild.registry.RegisterParticles;
 import net.minecraft.core.BlockPos;

@@ -2,7 +2,6 @@ package net.frozenblock.wilderwild.block;
 
 import java.util.Collections;
 import java.util.List;
-import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.entity.AncientHornProjectile;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.frozenblock.wilderwild.registry.RegisterProperties;

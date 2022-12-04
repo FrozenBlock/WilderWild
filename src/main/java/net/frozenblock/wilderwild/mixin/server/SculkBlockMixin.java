@@ -2,7 +2,6 @@ package net.frozenblock.wilderwild.mixin.server;
 
 import java.util.Iterator;
 import net.frozenblock.lib.math.api.EasyNoiseSampler;
-import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.block.OsseousSculkBlock;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.frozenblock.wilderwild.registry.RegisterBlocks;

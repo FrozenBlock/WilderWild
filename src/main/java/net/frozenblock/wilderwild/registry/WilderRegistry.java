@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import net.fabricmc.fabric.api.event.registry.FabricRegistryBuilder;
 import net.fabricmc.fabric.api.event.registry.RegistryAttribute;
-import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.misc.FireflyColor;
 import net.frozenblock.wilderwild.misc.JellyfishVariant;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;

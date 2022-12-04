@@ -1,6 +1,5 @@
 package net.frozenblock.wilderwild.world.gen.noise;
 
-import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
