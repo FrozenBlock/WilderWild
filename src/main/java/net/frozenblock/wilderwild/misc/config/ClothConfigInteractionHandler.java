@@ -191,4 +191,8 @@ public final class ClothConfigInteractionHandler {
 	public static int jellyfishSpawnCap() {
 		return FrozenBools.HAS_CLOTH_CONFIG ? ClothConfigCloserInteractionHandler.jellyfishSpawnCap() : 30;
 	}
+
+	public static int tumbleweedSpawnCap() {
+		return FrozenBools.HAS_CLOTH_CONFIG ? ClothConfigCloserInteractionHandler.tumbleweedSpawnCap() : 30;
+	}
 }

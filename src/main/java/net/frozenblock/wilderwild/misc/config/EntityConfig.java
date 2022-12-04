@@ -30,6 +30,9 @@ public final class EntityConfig implements ConfigData {
 	@ConfigEntry.Gui.CollapsibleObject
 	public final JellyfishConfig jellyfish = new JellyfishConfig();
 
+	@ConfigEntry.Gui.CollapsibleObject
+	public final TumbleweedConfig tumbleweed = new TumbleweedConfig();
+
 	public static class AllayConfig {
 		public boolean keyframeAllayDance = true;
 	}
@@ -55,6 +58,10 @@ public final class EntityConfig implements ConfigData {
 		public int jellyfishSpawnCap = 30;
 	}
 
+	public static class TumbleweedConfig {
+		public int tumbleweedSpawnCap = 16;
+	}
+
 	public boolean unpassableRail = false;
 
 	@Environment(EnvType.CLIENT)
@@ -64,6 +71,7 @@ public final class EntityConfig implements ConfigData {
 		var enderMan = config.enderMan;
 		var firefly = config.firefly;
 		var jellyfish = config.jellyfish;
+		var tumbleweed = config.tumbleweed;
 		var warden = config.warden;
 		category.setBackground(WilderSharedConstants.id("textures/config/entity.png"));
 		var unpassableRail = category.addEntry(entryBuilder.startBooleanToggle(text("unpassable_rail"), config.unpassableRail)
@@ -129,6 +137,19 @@ public final class EntityConfig implements ConfigData {
                 tooltip("jellyfish"),
 				jellyfishSpawnCap
         );
+
+		var tumbleweedSpawnCap = entryBuilder.startIntSlider(text("tumbleweed_spawn_cap"), tumbleweed.tumbleweedSpawnCap, 0, 100)
+				.setDefaultValue(16)
+				.setSaveConsumer(newValue -> tumbleweed.tumbleweedSpawnCap = newValue)
+				.setTooltip(tooltip("tumbleweed_spawn_cap"))
+				.requireRestart()
+				.build();
+
+		var tumbleweedCategory = FrozenConfig.createSubCategory(entryBuilder, category, text("tumbleweed"),
+				false,
+				tooltip("tumbleweed"),
+				tumbleweedSpawnCap
+		);
 
 		var dying = entryBuilder.startBooleanToggle(text("warden_dying_animation"), warden.wardenDyingAnimation)
 				.setDefaultValue(true)

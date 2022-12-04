@@ -17,6 +17,7 @@ public final class ClothConfigCloserInteractionHandler {
 	private static final EntityConfig.WardenConfig WARDEN = ENTITY.warden;
 	private static final EntityConfig.FireflyConfig FIREFLY = ENTITY.firefly;
 	private static final EntityConfig.JellyfishConfig JELLYFISH = ENTITY.jellyfish;
+	private static final EntityConfig.TumbleweedConfig TUMBLEWEED = ENTITY.tumbleweed;
 
 	public static boolean betaBeaches() {
 		return WilderWildConfig.get().worldgen.betaBeaches;
@@ -165,6 +166,10 @@ public final class ClothConfigCloserInteractionHandler {
 
 	public static int jellyfishSpawnCap() {
 		return JELLYFISH.jellyfishSpawnCap;
+	}
+
+	public static int tumbleweedSpawnCap() {
+		return TUMBLEWEED.tumbleweedSpawnCap;
 	}
 
 	public static boolean keyframeAllayDance() {
