@@ -268,6 +268,7 @@ public final class RegisterSounds {
     public static final SoundEvent ITEM_COPPER_HORN_TROMBONE_START = register("item.copper_horn.trombone.start");
     public static final SoundEvent ITEM_COPPER_HORN_TROMBONE_LOOP = register("item.copper_horn.trombone.loop");
 
+	public static final SoundEvent ITEM_ENDERPEARL_LAND = register("item.enderpearl.land");
 	public static final SoundEvent ITEM_EGG_LAND = register("item.egg.land");
 
 	public static final SoundEvent ITEM_SNOWBALL_LAND = register("item.snowball.land");

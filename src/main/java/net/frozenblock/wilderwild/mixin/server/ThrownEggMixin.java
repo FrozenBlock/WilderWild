@@ -15,6 +15,6 @@ public class ThrownEggMixin {
     @Inject(method = "onHit", at = @At("HEAD"))
 	public void onHit(HitResult result, CallbackInfo info) {
 		ThrownEgg egg = ThrownEgg.class.cast(this);
-		egg.level.playSound(null, egg.getX(), egg.getY(), egg.getZ(), RegisterSounds.ITEM_EGG_LAND, SoundSource.BLOCKS, 0.3F, 0.85F + (egg.level.random.nextFloat() * 0.2F));
+		egg.level.playSound(null, egg.getX(), egg.getY(), egg.getZ(), RegisterSounds.ITEM_EGG_LAND, SoundSource.BLOCKS, 0.5F, 0.85F + (egg.level.random.nextFloat() * 0.2F));
 	}
 }

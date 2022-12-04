@@ -1987,6 +1987,14 @@
     ],
     "subtitle": "subtitles.item.egg.land"
   },
+  "item.enderpearl.land": {
+    "sounds": [
+      "wilderwild:item/enderpearl/land1",
+      "wilderwild:item/enderpearl/land2",
+      "wilderwild:item/enderpearl/land3"
+    ],
+    "subtitle": "subtitles.item.enderpearl.land"
+  },
   "item.snowball.land": {
     "sounds": [
       "wilderwild:item/snowball/land1",
