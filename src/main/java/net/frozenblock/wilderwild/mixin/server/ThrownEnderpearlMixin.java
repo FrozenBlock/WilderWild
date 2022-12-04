@@ -3,7 +3,6 @@ package net.frozenblock.wilderwild.mixin.server;
 import net.frozenblock.wilderwild.misc.config.ClothConfigInteractionHandler;
 import net.frozenblock.wilderwild.registry.RegisterSounds;
 import net.minecraft.sounds.SoundEvents;
-import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.projectile.ThrownEnderpearl;
 import net.minecraft.world.phys.HitResult;
 import org.spongepowered.asm.mixin.Mixin;
@@ -19,7 +18,7 @@ public class ThrownEnderpearlMixin {
 		ThrownEnderpearl pearl = ThrownEnderpearl.class.cast(this);
 		if (ClothConfigInteractionHandler.enderpearlLandingSounds()) {
 			pearl.playSound(RegisterSounds.ITEM_ENDERPEARL_LAND, 0.6F, 0.85F + (pearl.level.random.nextFloat() * 0.2F));
-			//pearl.level.playSound(null, pearl.getX(), pearl.getY(), pearl.getZ(), SoundEvents.CHORUS_FRUIT_TELEPORT, SoundSource.BLOCKS, 0.4F, 1.0F);
+			pearl.playSound(SoundEvents.CHORUS_FRUIT_TELEPORT, 0.4F, 0.85F + (pearl.level.random.nextFloat() * 0.2F));
 		}
 	}
 }
