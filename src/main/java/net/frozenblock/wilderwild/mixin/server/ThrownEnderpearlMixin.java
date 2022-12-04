@@ -1,8 +1,9 @@
 package net.frozenblock.wilderwild.mixin.server;
 
-import net.frozenblock.wilderwild.misc.client.ClientMethodInteractionHandler;
+import net.frozenblock.lib.sound.api.FrozenSoundPackets;
 import net.frozenblock.wilderwild.misc.config.ClothConfigInteractionHandler;
 import net.frozenblock.wilderwild.registry.RegisterSounds;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.player.Player;
@@ -25,14 +26,19 @@ public class ThrownEnderpearlMixin {
 			boolean silent = pearl.isSilent();
 			if (!pearl.level.isClientSide) {
 				if (!silent) {
-					pearl.level.playSound(owner, pearl.getX(), pearl.getY(), pearl.getZ(), RegisterSounds.ITEM_ENDERPEARL_LAND, SoundSource.NEUTRAL, 0.6F, 0.85F + (pearl.level.random.nextFloat() * 0.2F));
+					float pitch = 0.85F + (pearl.level.random.nextFloat() * 0.2F);
+					pearl.level.playSound(owner, pearl.getX(), pearl.getY(), pearl.getZ(), RegisterSounds.ITEM_ENDERPEARL_LAND, SoundSource.NEUTRAL, 0.6F, pitch);
+					if (owner instanceof ServerPlayer player) {
+						FrozenSoundPackets.createLocalPlayerSound(player, RegisterSounds.ITEM_ENDERPEARL_LAND, SoundSource.NEUTRAL, 0.6F, pitch);
+					}
 				}
-				if (owner == null || !owner.isSilent()) {
-					pearl.level.playSound(owner, pearl.getX(), pearl.getY(), pearl.getZ(), SoundEvents.CHORUS_FRUIT_TELEPORT, SoundSource.NEUTRAL, 0.4F, 0.85F + (pearl.level.random.nextFloat() * 0.2F));
+				if (owner != null && !owner.isSilent()) {
+					float pitch = 0.85F + (pearl.level.random.nextFloat() * 0.2F);
+					pearl.level.playSound(owner, pearl.getX(), pearl.getY(), pearl.getZ(), SoundEvents.CHORUS_FRUIT_TELEPORT, SoundSource.NEUTRAL, 0.4F, pitch);
+					if (owner instanceof ServerPlayer player) {
+						FrozenSoundPackets.createLocalPlayerSound(player, SoundEvents.CHORUS_FRUIT_TELEPORT, 0.4F, pitch);
+					}
 				}
-			} else if (owner != null) {
-				ClientMethodInteractionHandler.playClientPlayerSoundIfSamePlayer(RegisterSounds.ITEM_ENDERPEARL_LAND, 0.6F, 0.85F + (pearl.level.random.nextFloat() * 0.2F), owner);
-				ClientMethodInteractionHandler.playClientPlayerSoundIfSamePlayer(SoundEvents.CHORUS_FRUIT_TELEPORT, 0.4F, 0.85F + (pearl.level.random.nextFloat() * 0.2F), owner);
 			}
 		}
 	}
