@@ -1,6 +1,5 @@
 package net.frozenblock.wilderwild.tag;
 
-import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.minecraft.core.Registry;
 import net.minecraft.tags.TagKey;
@@ -15,6 +14,8 @@ public final class WilderEntityTags {
     public static final TagKey<EntityType<?>> CAN_SWIM_IN_MESOGLEA = bind("can_swim_in_mesoglea");
     public static final TagKey<EntityType<?>> ANCIENT_HORN_IMMUNE = bind("ancient_horn_immune");
     public static final TagKey<EntityType<?>> JELLYFISH_CANT_STING = bind("jellyfish_cant_sting");
+	public static final TagKey<EntityType<?>> COCONUT_CANT_BONK = bind("coconut_cant_bonk");
+	public static final TagKey<EntityType<?>> COCONUT_CANT_SPLIT = bind("coconut_cant_split");
 
     private static TagKey<EntityType<?>> bind(String path) {
         return TagKey.create(Registry.ENTITY_TYPE_REGISTRY, WilderSharedConstants.id(path));

@@ -559,7 +559,7 @@
       "wilderwild:block/coconut/crack1",
       "wilderwild:block/coconut/crack2"
     ],
-    "subtitle": "subtitles.block.generic.break"
+    "subtitle": "subtitles.block.coconut.split"
   },
   "block.coconut.fall": {
     "sounds": [
@@ -1869,6 +1869,33 @@
 	],
 	"subtitle": "subtitles.item.bucket.empty"
   },
+  "item.coconut.land": {
+    "sounds": [
+      "wilderwild:item/coconut/land1",
+      "wilderwild:item/coconut/land2"
+    ],
+    "subtitle": "subtitles.item.coconut.knock"
+  },
+  "item.coconut.land_break": {
+    "sounds": [
+      "wilderwild:item/coconut/land_break1",
+      "wilderwild:item/coconut/land_break2"
+    ],
+    "subtitle": "subtitles.item.coconut.break"
+  },
+  "item.coconut.hit_head": {
+    "sounds": [
+      {
+        "name": "wilderwild:item/coconut/hit_head_1",
+        "weight": 32
+      },
+      {
+        "name": "wilderwild:item/coconut/hit_head_2",
+        "weight": 1
+      }
+    ],
+    "subtitle": "subtitles.item.coconut.knock"
+  },
   "item.copper_horn.flute.loop": {
 	"sounds": [
 	  "wilderwild:item/copper_horn/flute/loop"
@@ -1952,6 +1979,29 @@
 	  "wilderwild:item/copper_horn/tuba/start"
 	],
 	"subtitle": "subtitles.item.copper_horn.call"
+  },
+  "item.egg.land": {
+    "sounds": [
+      "wilderwild:item/egg/land1",
+      "wilderwild:item/egg/land2"
+    ],
+    "subtitle": "subtitles.item.egg.land"
+  },
+  "item.enderpearl.land": {
+    "sounds": [
+      "wilderwild:item/enderpearl/land1",
+      "wilderwild:item/enderpearl/land2",
+      "wilderwild:item/enderpearl/land3"
+    ],
+    "subtitle": "subtitles.item.enderpearl.land"
+  },
+  "item.snowball.land": {
+    "sounds": [
+      "wilderwild:item/snowball/land1",
+      "wilderwild:item/snowball/land2",
+      "wilderwild:item/snowball/land3"
+    ],
+    "subtitle": "subtitles.item.snowball.land"
   },
   "music.overworld.wild_forests": {
 	"sounds": [

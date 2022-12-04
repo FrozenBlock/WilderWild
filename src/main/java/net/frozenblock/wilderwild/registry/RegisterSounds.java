@@ -40,13 +40,6 @@ public final class RegisterSounds {
     public static final SoundEvent BLOCK_BAOBAB_NUT_STEP = register("block.baobab_nut.step");
     public static final SoundEvent BLOCK_BAOBAB_NUT_FALL = register("block.baobab_nut.fall");
 
-	public static final SoundEvent BLOCK_COCONUT_PLACE = register("block.coconut.place");
-	public static final SoundEvent BLOCK_COCONUT_HIT = register("block.coconut.hit");
-	public static final SoundEvent BLOCK_COCONUT_BREAK = register("block.coconut.break");
-	public static final SoundEvent BLOCK_COCONUT_STEP = register("block.coconut.step");
-	public static final SoundEvent BLOCK_COCONUT_FALL = register("block.coconut.fall");
-	public static final SoundEvent BLOCK_COCONUT_CRACK = register("block.coconut.crack");
-
 	public static final SoundEvent BLOCK_CHEST_CLOSE_UNDERWATER = register("block.chest.close_underwater");
 	public static final SoundEvent BLOCK_CHEST_OPEN_UNDERWATER = register("block.chest.open_underwater");
 
@@ -67,6 +60,13 @@ public final class RegisterSounds {
     public static final SoundEvent BLOCK_COBWEB_BREAK = register("block.cobweb.break");
     public static final SoundEvent BLOCK_COBWEB_STEP = register("block.cobweb.step");
     public static final SoundEvent BLOCK_COBWEB_FALL = register("block.cobweb.fall");
+
+	public static final SoundEvent BLOCK_COCONUT_PLACE = register("block.coconut.place");
+	public static final SoundEvent BLOCK_COCONUT_HIT = register("block.coconut.hit");
+	public static final SoundEvent BLOCK_COCONUT_BREAK = register("block.coconut.break");
+	public static final SoundEvent BLOCK_COCONUT_STEP = register("block.coconut.step");
+	public static final SoundEvent BLOCK_COCONUT_FALL = register("block.coconut.fall");
+	public static final SoundEvent BLOCK_COCONUT_CRACK = register("block.coconut.crack");
 
     public static final SoundEvent BLOCK_DISPLAY_LANTERN_NECTAR_LOOP = register("block.display_lantern.nectar_inside_loop");
 
@@ -243,6 +243,10 @@ public final class RegisterSounds {
     public static final SoundEvent ITEM_BUCKET_FILL_JELLYFISH = register("item.bucket.fill_jellyfish");
     public static final SoundEvent ITEM_BUCKET_EMPTY_JELLYFISH = register("item.bucket.empty_jellyfish");
 
+	public static final SoundEvent ITEM_COCONUT_LAND_BREAK = register("item.coconut.land_break");
+	public static final SoundEvent ITEM_COCONUT_LAND = register("item.coconut.land");
+	public static final SoundEvent ITEM_COCONUT_HIT_HEAD = register("item.coconut.hit_head");
+
     public static final SoundEvent ITEM_COPPER_HORN_SAX_START = register("item.copper_horn.sax.start");
     public static final SoundEvent ITEM_COPPER_HORN_SAX_LOOP = register("item.copper_horn.sax.loop");
 
@@ -263,6 +267,11 @@ public final class RegisterSounds {
 
     public static final SoundEvent ITEM_COPPER_HORN_TROMBONE_START = register("item.copper_horn.trombone.start");
     public static final SoundEvent ITEM_COPPER_HORN_TROMBONE_LOOP = register("item.copper_horn.trombone.loop");
+
+	public static final SoundEvent ITEM_ENDERPEARL_LAND = register("item.enderpearl.land");
+	public static final SoundEvent ITEM_EGG_LAND = register("item.egg.land");
+
+	public static final SoundEvent ITEM_SNOWBALL_LAND = register("item.snowball.land");
 
     //MISC
 

@@ -12,6 +12,7 @@ public final class ClothConfigCloserInteractionHandler {
 	private static final WorldgenConfig.BiomePlacement BIOME_PLACEMENT = WORLDGEN.biomePlacement;
 	private static final BlockConfig.BlockSoundsConfig BLOCK_SOUNDS = BLOCK.blockSounds;
 	private static final EntityConfig.EnderManConfig ENDER_MAN = ENTITY.enderMan;
+	private static final ItemConfig.ProjectileLandingSoundsConfig PROJECTILE_LANDING_SOUNDS = WilderWildConfig.get().item.projectileLandingSounds;
 	private static final BlockConfig.StoneChestConfig STONE_CHEST = BLOCK.stoneChest;
 	private static final EntityConfig.WardenConfig WARDEN = ENTITY.warden;
 	private static final EntityConfig.FireflyConfig FIREFLY = ENTITY.firefly;
@@ -136,6 +137,18 @@ public final class ClothConfigCloserInteractionHandler {
 
 	public static boolean witherRoseSounds() {
 		return BLOCK_SOUNDS.witherRoseSounds;
+	}
+
+	public static boolean snowballLandingSounds() {
+		return ITEM.projectileLandingSounds.snowballLandingSounds;
+	}
+
+	public static boolean eggLandingSounds() {
+		return ITEM.projectileLandingSounds.eggLandingSounds;
+	}
+
+	public static boolean enderpearlLandingSounds() {
+		return ITEM.projectileLandingSounds.enderpearlLandingSounds;
 	}
 
 	public static int stoneChestTimer() {
