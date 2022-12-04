@@ -1,13 +1,39 @@
 package net.frozenblock.wilderwild.registry;
 
-import net.minecraft.sound.BlockSoundGroup;
-import net.minecraft.sound.SoundEvents;
-
 import static net.frozenblock.wilderwild.registry.RegisterSounds.*;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.world.level.block.SoundType;
 
-public class RegisterBlockSoundGroups {
+public final class RegisterBlockSoundGroups {
+	private RegisterBlockSoundGroups() {
+		throw new UnsupportedOperationException("RegisterBlockEntities contains only static declarations.");
+	}
 
-    public static final BlockSoundGroup OSSEOUS_SCULK = new BlockSoundGroup(1.0F, 1.0F,
+    public static final SoundType BAOBAB_NUT = new SoundType(1.0F, 1.0F,
+            BLOCK_BAOBAB_NUT_BREAK,
+            BLOCK_BAOBAB_NUT_STEP,
+            BLOCK_BAOBAB_NUT_PLACE,
+            BLOCK_BAOBAB_NUT_HIT,
+            BLOCK_BAOBAB_NUT_FALL
+    );
+
+    public static final SoundType CLAY_BLOCK = new SoundType(1.0F, 1.0F,
+            BLOCK_CLAY_BREAK,
+            BLOCK_CLAY_STEP,
+            BLOCK_CLAY_PLACE,
+            BLOCK_CLAY_HIT,
+            BLOCK_CLAY_FALL
+    );
+
+    public static final SoundType GRAVELSOUNDS = new SoundType(1.0F, 1.0F,
+            BLOCK_GRAVEL_BREAK,
+            BLOCK_GRAVEL_STEP,
+            BLOCK_GRAVEL_PLACE,
+            BLOCK_GRAVEL_HIT,
+            BLOCK_GRAVEL_FALL
+    );
+
+    public static final SoundType OSSEOUS_SCULK = new SoundType(1.0F, 1.0F,
             BLOCK_OSSEOUS_SCULK_BREAK,
             BLOCK_OSSEOUS_SCULK_STEP,
             BLOCK_OSSEOUS_SCULK_PLACE,
@@ -15,7 +41,23 @@ public class RegisterBlockSoundGroups {
             BLOCK_OSSEOUS_SCULK_FALL
     );
 
-    public static final BlockSoundGroup HANGING_TENDRIL = new BlockSoundGroup(1.0F, 1.25F,
+    public static final SoundType NEMATOCYST = new SoundType(1.0F, 1.0F,
+            BLOCK_NEMATOCYST_BREAK,
+            BLOCK_NEMATOCYST_STEP,
+            BLOCK_NEMATOCYST_PLACE,
+            BLOCK_NEMATOCYST_HIT,
+            BLOCK_NEMATOCYST_FALL
+    );
+
+    public static final SoundType NULL_BLOCK = new SoundType(1.0F, 1.0F,
+            BLOCK_NULL_BLOCK_BREAK,
+            BLOCK_NULL_BLOCK_STEP,
+            BLOCK_NULL_BLOCK_PLACE,
+            BLOCK_NULL_BLOCK_HIT,
+            BLOCK_NULL_BLOCK_FALL
+    );
+
+    public static final SoundType HANGING_TENDRIL = new SoundType(1.0F, 1.25F,
             RegisterSounds.BLOCK_HANGING_TENDRIL_BREAK,
             RegisterSounds.BLOCK_HANGING_TENDRIL_STEP,
             RegisterSounds.BLOCK_HANGING_TENDRIL_PLACE,
@@ -23,7 +65,7 @@ public class RegisterBlockSoundGroups {
             RegisterSounds.BLOCK_HANGING_TENDRIL_FALL
     );
 
-    public static final BlockSoundGroup HOLLOWED_LOG = new BlockSoundGroup(1.0F, 1.0F,
+    public static final SoundType HOLLOWED_LOG = new SoundType(1.0F, 1.0F,
             BLOCK_HOLLOWED_LOG_BREAK,
             BLOCK_HOLLOWED_LOG_STEP,
             BLOCK_HOLLOWED_LOG_PLACE,
@@ -31,7 +73,7 @@ public class RegisterBlockSoundGroups {
             BLOCK_HOLLOWED_LOG_FALL
     );
 
-    public static final BlockSoundGroup ECHO_GLASS = new BlockSoundGroup(1.0F, 1.25F,
+    public static final SoundType ECHO_GLASS = new SoundType(1.0F, 1.25F,
             RegisterSounds.BLOCK_ECHO_GLASS_BREAK,
             RegisterSounds.BLOCK_ECHO_GLASS_STEP,
             RegisterSounds.BLOCK_ECHO_GLASS_PLACE,
@@ -39,7 +81,15 @@ public class RegisterBlockSoundGroups {
             RegisterSounds.BLOCK_ECHO_GLASS_FALL
     );
 
-    public static final BlockSoundGroup MUSHROOM = new BlockSoundGroup(1.0F, 1.0F,
+    public static final SoundType MESOGLEA = new SoundType(1.0F, 1.0F,
+            BLOCK_MESOGLEA_BREAK,
+            BLOCK_MESOGLEA_STEP,
+            BLOCK_MESOGLEA_PLACE,
+            BLOCK_MESOGLEA_HIT,
+            BLOCK_MESOGLEA_FALL
+    );
+
+    public static final SoundType MUSHROOM = new SoundType(1.0F, 1.0F,
             BLOCK_MUSHROOM_BREAK,
             BLOCK_MUSHROOM_STEP,
             BLOCK_MUSHROOM_PLACE,
@@ -47,7 +97,7 @@ public class RegisterBlockSoundGroups {
             BLOCK_MUSHROOM_FALL
     );
 
-    public static final BlockSoundGroup MUSHROOM_BLOCK = new BlockSoundGroup(1.0F, 1.0F,
+    public static final SoundType MUSHROOM_BLOCK = new SoundType(1.0F, 1.0F,
             BLOCK_MUSHROOM_BLOCK_BREAK,
             BLOCK_MUSHROOM_BLOCK_STEP,
             BLOCK_MUSHROOM_BLOCK_PLACE,
@@ -55,7 +105,7 @@ public class RegisterBlockSoundGroups {
             BLOCK_MUSHROOM_BLOCK_FALL
     );
 
-    public static final BlockSoundGroup ICE_BLOCKS = new BlockSoundGroup(1.0F, 1.25F,
+    public static final SoundType ICE_BLOCKS = new SoundType(1.0F, 1.25F,
             BLOCK_ICE_BREAK,
             BLOCK_ICE_STEP,
             BLOCK_ICE_PLACE,
@@ -63,7 +113,7 @@ public class RegisterBlockSoundGroups {
             BLOCK_ICE_FALL
     );
 
-    public static final BlockSoundGroup LEAVES = new BlockSoundGroup(1.0F, 1.0F,
+    public static final SoundType LEAVES = new SoundType(1.0F, 1.0F,
             BLOCK_LEAVES_BREAK,
             BLOCK_LEAVES_STEP,
             BLOCK_LEAVES_PLACE,
@@ -71,7 +121,7 @@ public class RegisterBlockSoundGroups {
             BLOCK_LEAVES_FALL
     );
 
-    public static final BlockSoundGroup FLOWER = new BlockSoundGroup(1.0F, 1.0F,
+    public static final SoundType FLOWER = new SoundType(1.0F, 1.0F,
             BLOCK_FLOWER_BREAK,
             BLOCK_FLOWER_STEP,
             BLOCK_FLOWER_PLACE,
@@ -79,7 +129,7 @@ public class RegisterBlockSoundGroups {
             BLOCK_FLOWER_FALL
     );
 
-    public static final BlockSoundGroup WEB = new BlockSoundGroup(1.0F, 1.5F,
+    public static final SoundType WEB = new SoundType(1.0F, 1.5F,
             BLOCK_COBWEB_BREAK,
             BLOCK_COBWEB_STEP,
             BLOCK_COBWEB_PLACE,
@@ -87,15 +137,15 @@ public class RegisterBlockSoundGroups {
             BLOCK_COBWEB_FALL
     );
 
-    public static final BlockSoundGroup LILYPAD = new BlockSoundGroup(1.0F, 1.0F,
-            SoundEvents.BLOCK_LILY_PAD_PLACE,
-            SoundEvents.BLOCK_LILY_PAD_PLACE,
-            SoundEvents.BLOCK_LILY_PAD_PLACE,
-            SoundEvents.BLOCK_LILY_PAD_PLACE,
-            SoundEvents.BLOCK_LILY_PAD_PLACE
+    public static final SoundType LILYPAD = new SoundType(1.0F, 1.0F,
+            SoundEvents.LILY_PAD_PLACE,
+            SoundEvents.LILY_PAD_PLACE,
+            SoundEvents.LILY_PAD_PLACE,
+            SoundEvents.LILY_PAD_PLACE,
+            SoundEvents.LILY_PAD_PLACE
     );
 
-    public static final BlockSoundGroup SUGARCANE = new BlockSoundGroup(1.0F, 1.0F,
+    public static final SoundType SUGARCANE = new SoundType(1.0F, 1.0F,
             BLOCK_SUGAR_CANE_BREAK,
             BLOCK_SUGAR_CANE_STEP,
             BLOCK_SUGAR_CANE_PLACE,
@@ -103,7 +153,7 @@ public class RegisterBlockSoundGroups {
             BLOCK_SUGAR_CANE_FALL
     );
 
-    public static final BlockSoundGroup COARSEDIRT = new BlockSoundGroup(0.8F, 1.0F,
+    public static final SoundType COARSEDIRT = new SoundType(0.8F, 1.0F,
             BLOCK_COARSE_DIRT_BREAK,
             BLOCK_COARSE_DIRT_STEP,
             BLOCK_COARSE_DIRT_PLACE,
@@ -111,7 +161,7 @@ public class RegisterBlockSoundGroups {
             BLOCK_COARSE_DIRT_FALL
     );
 
-    public static final BlockSoundGroup REINFORCEDDEEPSLATE = new BlockSoundGroup(1.0F, 1.0F,
+    public static final SoundType REINFORCEDDEEPSLATE = new SoundType(1.0F, 1.0F,
             RegisterSounds.BLOCK_REINFORCED_DEEPSLATE_BREAK,
             RegisterSounds.BLOCK_REINFORCED_DEEPSLATE_STEP,
             RegisterSounds.BLOCK_REINFORCED_DEEPSLATE_PLACE,
@@ -119,12 +169,12 @@ public class RegisterBlockSoundGroups {
             RegisterSounds.BLOCK_REINFORCED_DEEPSLATE_FALL
     );
 
-    public static final BlockSoundGroup FUNNY = new BlockSoundGroup(1.0F, 1.0F,
-            SoundEvents.BLOCK_ANVIL_PLACE,
-            SoundEvents.BLOCK_ANVIL_PLACE,
-            SoundEvents.BLOCK_ANVIL_PLACE,
-            SoundEvents.BLOCK_ANVIL_PLACE,
-            SoundEvents.BLOCK_ANVIL_PLACE
+    public static final SoundType FUNNY = new SoundType(1.0F, 1.0F,
+            SoundEvents.ANVIL_PLACE,
+            SoundEvents.ANVIL_PLACE,
+            SoundEvents.ANVIL_PLACE,
+            SoundEvents.ANVIL_PLACE,
+            SoundEvents.ANVIL_PLACE
     );
 
     public static void init() {

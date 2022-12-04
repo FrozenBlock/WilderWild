@@ -5,19 +5,25 @@ jobs:
     strategy:
       matrix:
         java: [17, 18]
-        os: [ubuntu-latest]
+        os: [ubuntu-latest, windows-latest]
     runs-on: ${{ matrix.os }}
     steps:
       - name: Cache Dependencies
         uses: actions/cache@v3
         with:
           path: |
-           ~/.gradle/caches
-           ~/.gradle/loom-cache
-           ~/.gradle/wrapper
+            ~/.gradle/caches
+            ~/.gradle/loom-cache
+            ~/.gradle/wrapper
           key: ${{ runner.os }}-gradle-${{ hashFiles('**/gradle-wrapper.properties') }}
           restore-keys: |
             ${{ runner.os }}-gradle-
+      - name: Checkout FrozenLib
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+          repository: FrozenBlock/FrozenLib
+          path: 'FrozenLib'
       - name: Checkout Repository
         uses: actions/checkout@v3
         with:
@@ -33,7 +39,12 @@ jobs:
         if: ${{ runner.os != 'Windows' }}
         run: chmod +x ./gradlew
       - name: Build
-        run: ./gradlew build
+        run: ./gradlew build -PuseThirdPartyMods=false
+      - name: Extract current branch name
+        shell: bash
+        # bash pattern expansion to grab branch name without slashes
+        run: ref="${GITHUB_REF#refs/heads/}" && echo "::set-output name=branch::${ref////-}"
+        id: ref
       - name: Capture Build Artifacts
         uses: actions/upload-artifact@v3
         with:

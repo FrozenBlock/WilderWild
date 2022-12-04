@@ -1,8 +1,7 @@
 package net.frozenblock.wilderwild.entity.render;
 
-import net.minecraft.client.model.ModelPart;
-
 import java.util.List;
+import net.minecraft.client.model.geom.ModelPart;
 
 public interface WilderWardenModel {
 

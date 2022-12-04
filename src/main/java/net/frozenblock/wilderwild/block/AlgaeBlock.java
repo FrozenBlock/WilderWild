@@ -1,66 +1,79 @@
 package net.frozenblock.wilderwild.block;
 
-import net.minecraft.block.*;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityType;
-import net.minecraft.fluid.FluidState;
-import net.minecraft.fluid.Fluids;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
-import net.minecraft.util.math.Vec3d;
-import net.minecraft.util.math.random.Random;
-import net.minecraft.util.shape.VoxelShape;
-import net.minecraft.world.BlockView;
-import net.minecraft.world.World;
-import net.minecraft.world.WorldAccess;
-import net.minecraft.world.WorldView;
+import java.util.ArrayList;
+import java.util.List;
+import net.frozenblock.wilderwild.tag.WilderEntityTags;
+import net.minecraft.Util;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.util.RandomSource;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.LevelReader;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.material.FluidState;
+import net.minecraft.world.level.material.Fluids;
+import net.minecraft.world.phys.shapes.CollisionContext;
+import net.minecraft.world.phys.shapes.VoxelShape;
+import org.jetbrains.annotations.NotNull;
 
 public class AlgaeBlock extends Block {
-    protected static final VoxelShape SHAPE = Block.createCuboidShape(0.0, 0.0, 0.0, 16, 1.0, 16);
+	protected static final VoxelShape SHAPE = Block.box(0.0, 0.0, 0.0, 16, 1.0, 16);
 
-    public AlgaeBlock(AbstractBlock.Settings settings) {
-        super(settings);
-    }
+	public AlgaeBlock(BlockBehaviour.Properties settings) {
+		super(settings);
+	}
 
-    @Override
-    public VoxelShape getOutlineShape(BlockState state, BlockView world, BlockPos pos, ShapeContext context) {
-        return SHAPE;
-    }
+	@Override
+	public VoxelShape getShape(@NotNull BlockState state, @NotNull BlockGetter level, @NotNull BlockPos pos, @NotNull CollisionContext context) {
+		return SHAPE;
+	}
 
-    @Override
-    public boolean canPlaceAt(BlockState state, WorldView world, BlockPos pos) {
-        return canLayAt(world, pos.down());
-    }
+	@Override
+	public boolean canSurvive(@NotNull BlockState state, @NotNull LevelReader level, BlockPos pos) {
+		return canLayAt(level, pos.below());
+	}
 
-    @Override
-    public BlockState getStateForNeighborUpdate(
-            BlockState state, Direction direction, BlockState neighborState, WorldAccess world, BlockPos pos, BlockPos neighborPos
-    ) {
-        return !this.canPlaceAt(state, world, pos)
-                ? Blocks.AIR.getDefaultState()
-                : super.getStateForNeighborUpdate(state, direction, neighborState, world, pos, neighborPos);
-    }
+	@Override
+	public BlockState updateShape(
+			@NotNull BlockState state, @NotNull Direction direction, @NotNull BlockState neighborState, @NotNull LevelAccessor level, @NotNull BlockPos pos, @NotNull BlockPos neighborPos
+	) {
+		return !this.canSurvive(state, level, pos)
+				? Blocks.AIR.defaultBlockState()
+				: super.updateShape(state, direction, neighborState, level, pos, neighborPos);
+	}
 
-    @Override
-    public void scheduledTick(BlockState state, ServerWorld world, BlockPos pos, Random random) {
-        if (!this.canPlaceAt(state, world, pos)) {
-            world.breakBlock(pos, false);
-        }
-    }
+	@Override
+	public void tick(@NotNull BlockState state, @NotNull ServerLevel level, @NotNull BlockPos pos, @NotNull RandomSource random) {
+		if (!this.canSurvive(state, level, pos)) {
+			level.destroyBlock(pos, false);
+		}
+	}
 
-    @Override
-    public void onEntityCollision(BlockState state, World world, BlockPos pos, Entity entity) {
-        if (entity.getType().equals(EntityType.FALLING_BLOCK)) {
-            world.breakBlock(pos, false);
-        }
-        entity.slowMovement(state, new Vec3d(0.95D, 0.95D, 0.95D));
-    }
+	@Override
+	public void entityInside(@NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos, Entity entity) {
+		if (entity.getType().equals(EntityType.FALLING_BLOCK)) {
+			level.destroyBlock(pos, false);
+		}
+		if (!entity.getType().is(WilderEntityTags.CAN_SWIM_IN_ALGAE)) {
+			entity.setDeltaMovement(entity.getDeltaMovement().multiply(0.8, 0.8, 0.8));
+		}
+	}
 
-    private static boolean canLayAt(BlockView world, BlockPos pos) {
-        FluidState fluidState = world.getFluidState(pos);
-        FluidState fluidState2 = world.getFluidState(pos.up());
-        return fluidState.getFluid() == Fluids.WATER && fluidState2.getFluid() == Fluids.EMPTY;
-    }
+	private static boolean canLayAt(BlockGetter level, BlockPos pos) {
+		FluidState fluidState = level.getFluidState(pos);
+		FluidState fluidState2 = level.getFluidState(pos.above());
+		return fluidState.getType() == Fluids.WATER && fluidState2.getType() == Fluids.EMPTY;
+	}
 
+	public static List<Direction> shuffleOffsets(RandomSource random) {
+		return Util.toShuffledList(Direction.Plane.HORIZONTAL.stream(), random);
+	}
 }

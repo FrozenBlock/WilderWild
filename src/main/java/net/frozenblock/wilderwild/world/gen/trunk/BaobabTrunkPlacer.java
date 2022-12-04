@@ -3,165 +3,131 @@ package net.frozenblock.wilderwild.world.gen.trunk;
 import com.google.common.collect.Lists;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import net.frozenblock.api.mathematics.AdvancedMath;
-import net.frozenblock.wilderwild.WilderWild;
-import net.minecraft.block.BlockState;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.random.Random;
-import net.minecraft.world.TestableWorld;
-import net.minecraft.world.gen.feature.TreeFeatureConfig;
-import net.minecraft.world.gen.foliage.FoliagePlacer;
-import net.minecraft.world.gen.trunk.TrunkPlacer;
-import net.minecraft.world.gen.trunk.TrunkPlacerType;
-
 import java.util.List;
 import java.util.function.BiConsumer;
+import net.frozenblock.lib.math.api.AdvancedMath;
+import net.frozenblock.wilderwild.WilderWild;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.util.RandomSource;
+import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.LevelSimulatedReader;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.levelgen.feature.configurations.TreeConfiguration;
+import net.minecraft.world.level.levelgen.feature.foliageplacers.FoliagePlacer;
+import net.minecraft.world.level.levelgen.feature.trunkplacers.TrunkPlacer;
+import net.minecraft.world.level.levelgen.feature.trunkplacers.TrunkPlacerType;
+import org.jetbrains.annotations.NotNull;
 
 public class BaobabTrunkPlacer extends TrunkPlacer {
-    public static final Codec<net.frozenblock.wilderwild.world.gen.trunk.BaobabTrunkPlacer> CODEC = RecordCodecBuilder.create((instance) ->
-            fillTrunkPlacerFields(instance).apply(instance, BaobabTrunkPlacer::new));
+    public static final Codec<BaobabTrunkPlacer> CODEC = RecordCodecBuilder.create((instance) ->
+            trunkPlacerParts(instance).apply(instance, BaobabTrunkPlacer::new));
 
     public BaobabTrunkPlacer(int i, int j, int k) {
         super(i, j, k);
     }
 
-    protected TrunkPlacerType<?> getType() {
+    protected TrunkPlacerType<?> type() {
         return WilderWild.BAOBAB_TRUNK_PLACER;
     }
 
+
+    /**
+     * Baobab Tree Generator
+     * Made By LiukRast (Yes im alive!)
+     * Process:
+     * 1- Generate the main trunk (Just a big parallelepiped)
+     * 2- Add Roots (External Vertical Parts)
+     * - Step 1: Choose how many of them should be generated (Make a list and then remove random members)
+     * - Step 2: Generate them
+     * 3- Add Branches and Foliage
+     * Easy, I guess ._.
+     **/
+
     @Override
-    public List<FoliagePlacer.TreeNode> generate(TestableWorld world, BiConsumer<BlockPos, BlockState> replacer, Random random, int height, BlockPos startPos, TreeFeatureConfig config) {
-        // TRUNK
-        BlockPos.Mutable mutable = new BlockPos.Mutable();
-        for (int x = -1; x <= 2; x++) {
-            for (int z = -1; z <= 2; z++) {
-                setToDirt(world, replacer, random, new BlockPos(startPos.getX() + x, startPos.getY() - 1, startPos.getZ() + z), config);
+    public List<FoliagePlacer.FoliageAttachment> placeTrunk(@NotNull LevelSimulatedReader level, @NotNull BiConsumer<BlockPos, BlockState> replacer, @NotNull RandomSource random, int height, @NotNull BlockPos startPos, @NotNull TreeConfiguration config) {
+        BlockPos.MutableBlockPos mutable = new BlockPos.MutableBlockPos();
 
-                for (int h = 0; h <= height; h++) {
-                    setLog(world, replacer, random, mutable, config, startPos, x, h, z);
+        BlockPos center = new BlockPos(startPos.getX() - 1, startPos.getY(), startPos.getZ() - 1);
+        List<FoliagePlacer.FoliageAttachment> list = Lists.newArrayList();
+
+        double percentage = 30;
+        double branchpercentage = 40;
+        float toppercentage = 25;
+
+        for (int x = 0; x < 4; x++) { // X
+            for (int z = 0; z < 4; z++) { // Z
+
+                terraformDirtBelow(level, replacer, random, new BlockPos(center.getX() + x, startPos.getY() - 1, center.getZ() + z), config);
+                for (int y = 0; y <= height; y++) {
+                    setLog(level, replacer, random, mutable, config, center, x, y, z);
                 }
-            }
-        }
 
-        float percentage = 30;
-        // ROOTS
-        for (int x = -2; x <= 3; x++) {
-            for (int z = -2; z <= 3; z++) {
-                if (!((x > -2 && x < 3) && (z > -2 && z < 3))) { // walls only
-                    boolean one = x == -2 && z == -2;
-                    boolean two = x == 3 && z == -2;
-                    boolean three = x == -2 && z == 3;
-                    boolean four = x == 3 && z == 3;
-                    if (!(one || two || three || four)) { // no edges
-                        if (Math.random() <= percentage / 100) {
-                            setToDirt(world, replacer, random, new BlockPos(startPos.getX() + x - 1, startPos.getY() - 1, startPos.getZ() + z), config);
-                            setToDirt(world, replacer, random, new BlockPos(startPos.getX() + x - 1, startPos.getY() - 1, startPos.getZ() + z), config);
-                            for (int h = 0; h <= height / 3; h++) {
-                                if (x == -2) {
-                                    setLog(world, replacer, random, mutable, config, startPos, x - 1, h, z);
-                                } else if (x == 3) {
-                                    setLog(world, replacer, random, mutable, config, startPos, x + 1, h, z);
-                                } else if (z == -2) {
-                                    setLog(world, replacer, random, mutable, config, startPos, x, h, z - 1);
-                                } else {
-                                    setLog(world, replacer, random, mutable, config, startPos, x, h, z + 1);
-                                }
-                            }
-                            for (int h = 0; h <= height / 2; h++) {
-                                if (x == -2) {
-                                    setLog(world, replacer, random, mutable, config, startPos, x, h, z);
-                                } else if (x == 3) {
-                                    setLog(world, replacer, random, mutable, config, startPos, x, h, z);
-                                } else if (z == -2) {
-                                    setLog(world, replacer, random, mutable, config, startPos, x, h, z);
-                                } else {
-                                    setLog(world, replacer, random, mutable, config, startPos, x, h, z);
-                                }
-                            }
+
+                if (!AdvancedMath.squareBetween(x, z, 1, 2)) { // only sides
+
+                    if (Math.random() <= percentage / 100) {
+                        if (x == 0) {
+                            setLogs(level, replacer, random, mutable, config, center, x - 1, 0, z, height / 2);
+                            setLogs(level, replacer, random, mutable, config, center, x - 2, 0, z, height / 2 - 1);
+                            terraformDirtBelow(level, replacer, random, new BlockPos(center.getX() + x - 1, startPos.getY() - 1, center.getZ() + z), config);
+                            terraformDirtBelow(level, replacer, random, new BlockPos(center.getX() + x - 2, startPos.getY() - 1, center.getZ() + z), config);
+                        }
+                        if (z == 0) {
+                            setLogs(level, replacer, random, mutable, config, center, x, 0, z - 1, height / 2);
+                            setLogs(level, replacer, random, mutable, config, center, x, 0, z - 2, height / 2 - 1);
+                            terraformDirtBelow(level, replacer, random, new BlockPos(center.getX() + x, startPos.getY() - 1, center.getZ() + z - 1), config);
+                            terraformDirtBelow(level, replacer, random, new BlockPos(center.getX() + x, startPos.getY() - 1, center.getZ() + z - 2), config);
+                        }
+                        if (x == 3) {
+                            setLogs(level, replacer, random, mutable, config, center, x + 1, 0, z, height / 2);
+                            setLogs(level, replacer, random, mutable, config, center, x + 2, 0, z, height / 2 - 1);
+                            terraformDirtBelow(level, replacer, random, new BlockPos(center.getX() + x + 1, startPos.getY() - 1, center.getZ() + z), config);
+                            terraformDirtBelow(level, replacer, random, new BlockPos(center.getX() + x + 2, startPos.getY() - 1, center.getZ() + z), config);
+                        }
+                        if (z == 3) {
+                            setLogs(level, replacer, random, mutable, config, center, x, 0, z + 1, height / 2);
+                            setLogs(level, replacer, random, mutable, config, center, x, 0, z + 2, height / 2 - 1);
+                            terraformDirtBelow(level, replacer, random, new BlockPos(center.getX() + x, startPos.getY() - 1, center.getZ() + z + 1), config);
+                            terraformDirtBelow(level, replacer, random, new BlockPos(center.getX() + x, startPos.getY() - 1, center.getZ() + z + 2), config);
                         }
                     }
-                }
-            }
-        }
+                    Direction dir1 = Direction.WEST;
+                    Direction dir2 = null;
 
-        // BRANCHES
-
-        float branchpercentage = 50;
-
-        int branchmin = 2;
-        int branchmax = 4;
-
-        return branchBase(branchpercentage, branchmin, branchmax, height, world, replacer, random, mutable, config, startPos);
-    }
-
-    private List<FoliagePlacer.TreeNode> branchBase(float branchpercentage, int branchmin, int branchmax, int height, TestableWorld world, BiConsumer<BlockPos, BlockState> replacer, Random random, BlockPos.Mutable mutable, TreeFeatureConfig config, BlockPos startPos) {
-        List<FoliagePlacer.TreeNode> list = Lists.newArrayList();
-        for (int x = -1; x <= 2; x++) {
-            for (int z = -1; z <= 2; z++) {
-                if ((x < 0 || x > 1) || (z < 0 || z > 1)) { // only walls
-                    if (Math.random() <= branchpercentage / 200) {
-
-                        int branchlenght = (int) AdvancedMath.range(branchmin, branchmax, (float) Math.random());
-
-                        int fh = height - (int) AdvancedMath.range((float) height / 2, height, (float) Math.random());
-
-                        boolean case1 = (x == -1 && z == -1);
-                        boolean case2 = (x == 2 && z == 2);
-                        boolean case3 = (x == -1 && z == 2);
-                        boolean case4 = (x == 2 && z == -1);
-                        if (case1) {
-                            list.add(generateBranch(height, branchlenght, 1, world, replacer, random, mutable, config, startPos, x, fh + 1, z));
-                        } else if (case2) {
-                            list.add(generateBranch(height, branchlenght, 2, world, replacer, random, mutable, config, startPos, x, fh + 1, z));
-                        } else if (case3) {
-                            list.add(generateBranch(height, branchlenght, 3, world, replacer, random, mutable, config, startPos, x, fh + 1, z));
-                        } else if (case4) {
-                            list.add(generateBranch(height, branchlenght, 4, world, replacer, random, mutable, config, startPos, x, fh + 1, z));
-                        } else {
-                            if (x == 2) {
-                                list.add(generateBranch(height, branchlenght, 5, world, replacer, random, mutable, config, startPos, x, fh + 1, z));
-                            } else if (x == -1) {
-                                list.add(generateBranch(height, branchlenght, 6, world, replacer, random, mutable, config, startPos, x, fh + 1, z));
-                            } else if (z == 2) {
-                                list.add(generateBranch(height, branchlenght, 7, world, replacer, random, mutable, config, startPos, x, fh + 1, z));
-                            } else {
-                                list.add(generateBranch(height, branchlenght, 8, world, replacer, random, mutable, config, startPos, x, fh + 1, z));
-                            }
-                        }
+                    if (x == 3) {
+                        dir1 = Direction.EAST;
                     }
-                }
-            }
-        }
-        for (int x = -1; x <= 2; x++) {
-            for (int z = -1; z <= 2; z++) {
-                if ((x < 0 || x > 1) || (z < 0 || z > 1)) { // only walls
+                    if (z == 0) {
+                        dir1 = Direction.NORTH;
+                    }
+                    if (z == 3) {
+                        dir1 = Direction.SOUTH;
+                    }
+                    if (x == 0 && z == 0) {
+                        dir1 = Direction.WEST;
+                        dir2 = Direction.NORTH;
+                    }
+                    if (x == 3 && z == 0) {
+                        dir1 = Direction.EAST;
+                        dir2 = Direction.NORTH;
+                    }
+                    if (x == 0 && z == 3) {
+                        dir1 = Direction.WEST;
+                        dir2 = Direction.SOUTH;
+                    }
+                    if (x == 3 && z == 3) {
+                        dir1 = Direction.EAST;
+                        dir2 = Direction.SOUTH;
+                    }
+                    if (Math.random() <= toppercentage / 100) {
+                        list.add(generateBranch(dir1, dir2, 1F / 4F, height, height / 4, 4, level, replacer, random, mutable, config, center, x, z));
+                    }
                     if (Math.random() <= branchpercentage / 100) {
-
-                        int branchlenght = (int) AdvancedMath.range(branchmin, branchmax, (float) Math.random());
-
-                        boolean case1 = (x == -1 && z == -1);
-                        boolean case2 = (x == 2 && z == 2);
-                        boolean case3 = (x == -1 && z == 2);
-                        boolean case4 = (x == 2 && z == -1);
-                        if (case1) {
-                            list.add(generateBranch(height, branchlenght, 1, world, replacer, random, mutable, config, startPos, x, height + 1, z));
-                        } else if (case2) {
-                            list.add(generateBranch(height, branchlenght, 2, world, replacer, random, mutable, config, startPos, x, height + 1, z));
-                        } else if (case3) {
-                            list.add(generateBranch(height, branchlenght, 3, world, replacer, random, mutable, config, startPos, x, height + 1, z));
-                        } else if (case4) {
-                            list.add(generateBranch(height, branchlenght, 4, world, replacer, random, mutable, config, startPos, x, height + 1, z));
-                        } else {
-                            if (x == 2) {
-                                list.add(generateBranch(height, branchlenght, 5, world, replacer, random, mutable, config, startPos, x, height + 1, z));
-                            } else if (x == -1) {
-                                list.add(generateBranch(height, branchlenght, 6, world, replacer, random, mutable, config, startPos, x, height + 1, z));
-                            } else if (z == 2) {
-                                list.add(generateBranch(height, branchlenght, 7, world, replacer, random, mutable, config, startPos, x, height + 1, z));
-                            } else {
-                                list.add(generateBranch(height, branchlenght, 8, world, replacer, random, mutable, config, startPos, x, height + 1, z));
-                            }
-                        }
+                        float min = 1F / 3F, max = 1F;
+                        float p = (((float) Math.random() * (max - min)) + min);
+                        list.add(generateBranch(dir1, dir2, p, height, height, 4, level, replacer, random, mutable, config, center, x, z));
                     }
                 }
             }
@@ -169,109 +135,61 @@ public class BaobabTrunkPlacer extends TrunkPlacer {
         return list;
     }
 
-    /**
-     * #HOW DIRECION WORKS? <p>
-     * 1 -> x- z- <p>
-     * 2 -> x+ z+ <p>
-     * 3 -> x- z+ <p>
-     * 4 -> x+ z- <p>
-     * 5 -> x+ <p>
-     * 6 -> x- <p>
-     * 7 -> z+ <p>
-     * 8 -> z- <p>
-     * any number different than these will make the game crash cause i want it :)
-     * length must be > 0 or ill punch your head with xfrtrex's disc
-     **/
-    private FoliagePlacer.TreeNode generateBranch(int height, int length, int direction, TestableWorld world, BiConsumer<BlockPos, BlockState> replacer, Random random, BlockPos.Mutable pos, TreeFeatureConfig config, BlockPos startPos, int x, int y, int z) {
-        FoliagePlacer.TreeNode node = null;
-        int fy = startPos.getY() + y + 2;
-        switch (direction) {
-            case 1 -> {
-                for (int i = 0; i <= length - 1; i++) {
-                    setLog(world, replacer, random, pos, config, startPos, x - i, y, z - i);
+    private FoliagePlacer.FoliageAttachment generateBranch(Direction dir1, Direction dir2, float yequation, int h, int minh, int l, LevelSimulatedReader level, BiConsumer<BlockPos, BlockState> replacer, RandomSource random, BlockPos.MutableBlockPos mutable, TreeConfiguration config, BlockPos startPos, int x, int z) {
+        FoliagePlacer.FoliageAttachment node = null;
+
+        int height = (int) ((Math.random() * (h - minh)) + minh);
+
+        for (int l1 = 1; l1 <= l; l1++) {
+            int eq = (int) Math.floor(yequation * l1);
+            if (dir2 == null) {
+                BlockPos fpos = AdvancedMath.offset(startPos, dir1, l1);
+                BlockPos fpos2 = new BlockPos(fpos.getX() + x, fpos.getY() + height + eq + 1, fpos.getZ() + z);
+                setLog(level, replacer, random, mutable, config, fpos, x, height + eq, z);
+                if (l1 == l) {
+                    node = new FoliagePlacer.FoliageAttachment(fpos2, 0, true);
                 }
-                setLog(world, replacer, random, pos, config, startPos, x - length, y + 1, z - length);
-                int fx = startPos.getX() + x - length;
-                int fz = startPos.getZ() + z - length;
-                node = new FoliagePlacer.TreeNode(new BlockPos(fx, fy, fz), 0, true);
-            }
-            case 2 -> {
-                for (int i = 0; i <= length - 1; i++) {
-                    setLog(world, replacer, random, pos, config, startPos, x + i, y, z + i);
+            } else {
+                BlockPos fpos = AdvancedMath.offset(AdvancedMath.offset(startPos, dir1, l1), dir2, l1);
+                BlockPos fpos2 = new BlockPos(fpos.getX() + x, fpos.getY() + height + eq + 1, fpos.getZ() + z);
+                setLog(level, replacer, random, mutable, config, fpos, x, height + eq, z);
+                if (l1 == l) {
+                    node = new FoliagePlacer.FoliageAttachment(fpos2, 0, true);
                 }
-                setLog(world, replacer, random, pos, config, startPos, x + length, y + 1, z + length);
-                int fx = startPos.getX() + x + length;
-                int fz = startPos.getZ() + z + length;
-                node = new FoliagePlacer.TreeNode(new BlockPos(fx, fy, fz), 0, true);
-            }
-            case 3 -> {
-                for (int i = 0; i <= length - 1; i++) {
-                    setLog(world, replacer, random, pos, config, startPos, x - i, y, z + i);
-                }
-                setLog(world, replacer, random, pos, config, startPos, x - length, y + 1, z + length);
-                int fx = startPos.getX() + x - length;
-                int fz = startPos.getZ() + z + length;
-                node = new FoliagePlacer.TreeNode(new BlockPos(fx, fy, fz), 0, true);
-            }
-            case 4 -> {
-                for (int i = 0; i <= length - 1; i++) {
-                    setLog(world, replacer, random, pos, config, startPos, x + i, y, z - i);
-                }
-                setLog(world, replacer, random, pos, config, startPos, x + length, y + 1, z - length);
-                int fx = startPos.getX() + x + length;
-                int fz = startPos.getZ() + z - length;
-                node = new FoliagePlacer.TreeNode(new BlockPos(fx, fy, fz), 0, true);
-            }
-            case 5 -> {
-                for (int i = 0; i <= length - 1; i++) {
-                    setLog(world, replacer, random, pos, config, startPos, x + i, y, z);
-                }
-                setLog(world, replacer, random, pos, config, startPos, x + length, y + 1, z);
-                int fx = startPos.getX() + x + length;
-                int fz = startPos.getZ() + z;
-                node = new FoliagePlacer.TreeNode(new BlockPos(fx, fy, fz), 0, true);
-            }
-            case 6 -> {
-                for (int i = 0; i <= length - 1; i++) {
-                    setLog(world, replacer, random, pos, config, startPos, x - i, y, z);
-                }
-                setLog(world, replacer, random, pos, config, startPos, x - length, y + 1, z);
-                int fx = startPos.getX() + x - length;
-                int fz = startPos.getZ() + z;
-                node = new FoliagePlacer.TreeNode(new BlockPos(fx, fy, fz), 0, true);
-            }
-            case 7 -> {
-                for (int i = 0; i <= length - 1; i++) {
-                    setLog(world, replacer, random, pos, config, startPos, x, y, z + i);
-                }
-                setLog(world, replacer, random, pos, config, startPos, x, y + 1, z + length);
-                int fx = startPos.getX() + x;
-                int fz = startPos.getZ() + z + length;
-                node = new FoliagePlacer.TreeNode(new BlockPos(fx, fy, fz), 0, true);
-            }
-            case 8 -> {
-                for (int i = 0; i <= length - 1; i++) {
-                    setLog(world, replacer, random, pos, config, startPos, x, y, z - i);
-                }
-                setLog(world, replacer, random, pos, config, startPos, x, y + 1, z - length);
-                int fx = startPos.getX() + x;
-                int fz = startPos.getZ() + z - length;
-                node = new FoliagePlacer.TreeNode(new BlockPos(fx, fy, fz), 0, true);
             }
         }
-
         return node;
     }
 
-
-    private void setLog(TestableWorld world, BiConsumer<BlockPos, BlockState> replacer, Random random, BlockPos.Mutable pos, TreeFeatureConfig config, BlockPos startPos, int x, int y, int z, boolean condition) {
+    private void setLog(LevelSimulatedReader level, BiConsumer<BlockPos, BlockState> replacer, RandomSource random, BlockPos.MutableBlockPos pos, TreeConfiguration config, BlockPos startPos, int x, int y, int z, boolean condition) {
         if (condition) {
-            pos.set(startPos, x, y, z);
-            trySetState(world, replacer, random, pos, config);
+            pos.setWithOffset(startPos, x, y, z);
+            placeLogIfFree(level, replacer, random, pos, config);
         }
     }
 
-    private void setLog(TestableWorld world, BiConsumer<BlockPos, BlockState> replacer, Random random, BlockPos.Mutable pos, TreeFeatureConfig config, BlockPos startPos, int x, int y, int z) {
-        setLog(world, replacer, random, pos, config, startPos, x, y, z, true);
+    private void setLogs(LevelSimulatedReader level, BiConsumer<BlockPos, BlockState> replacer, RandomSource random, BlockPos.MutableBlockPos pos, TreeConfiguration config, BlockPos startPos, int x, int y, int z, int height) {
+        for (int h = 0; h <= height; h++) {
+            setLog(level, replacer, random, pos, config, startPos, x, y + h, z);
+        }
+    }
+
+    private void setLog(LevelSimulatedReader level, BiConsumer<BlockPos, BlockState> replacer, RandomSource random, BlockPos.MutableBlockPos pos, TreeConfiguration config, BlockPos startPos, int x, int y, int z) {
+        setLog(level, replacer, random, pos, config, startPos, x, y, z, true);
+    }
+
+    private void terraformDirtBelow(LevelSimulatedReader level, BiConsumer<BlockPos, BlockState> replacer, RandomSource random, BlockPos startPos, TreeConfiguration config) {
+        for (int y = 0; true; y++) {
+            if ((!isSolid((BlockGetter) level, startPos.below(y))) || ((BlockGetter) level).getBlockState(startPos.below(y)).getBlock() == Blocks.GRASS_BLOCK) {
+                setDirtAt(level, replacer, random, startPos.below(y), config);
+            } else {
+                break;
+            }
+        }
+    }
+
+    private boolean isSolid(BlockGetter level, BlockPos pos) {
+        BlockState blockState = level.getBlockState(pos);
+        return blockState.isFaceSturdy(level, pos, Direction.DOWN);
     }
 }

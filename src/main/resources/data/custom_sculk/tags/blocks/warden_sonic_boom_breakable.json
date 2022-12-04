@@ -2,7 +2,6 @@
   "replace": false,
   "values": [
     "wilderwild:sculk_echoer",
-    "wilderwild:hanging_tendril",
-    "wilderwild:echo_glass"
+	"wilderwild:echo_glass"
   ]
 }

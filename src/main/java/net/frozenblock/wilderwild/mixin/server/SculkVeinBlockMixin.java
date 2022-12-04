@@ -1,113 +1,94 @@
 package net.frozenblock.wilderwild.mixin.server;
 
+import java.util.Iterator;
 import net.frozenblock.wilderwild.registry.RegisterBlocks;
 import net.frozenblock.wilderwild.tag.WilderBlockTags;
-import net.minecraft.block.*;
-import net.minecraft.block.entity.SculkSpreadManager;
-import net.minecraft.fluid.FluidState;
-import net.minecraft.sound.SoundCategory;
-import net.minecraft.sound.SoundEvents;
-import net.minecraft.state.property.BooleanProperty;
-import net.minecraft.tag.TagKey;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
-import net.minecraft.util.math.random.Random;
-import net.minecraft.world.WorldAccess;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.tags.TagKey;
+import net.minecraft.util.RandomSource;
+import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.MultifaceBlock;
+import net.minecraft.world.level.block.MultifaceSpreader;
+import net.minecraft.world.level.block.SculkBehaviour;
+import net.minecraft.world.level.block.SculkSpreader;
+import net.minecraft.world.level.block.SculkVeinBlock;
+import net.minecraft.world.level.block.SimpleWaterloggedBlock;
+import net.minecraft.world.level.block.SlabBlock;
+import net.minecraft.world.level.block.StairBlock;
+import net.minecraft.world.level.block.WallBlock;
+import net.minecraft.world.level.block.state.BlockState;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
-
-import java.util.Arrays;
-
-import static net.minecraft.block.MultifaceGrowthBlock.getProperty;
-import static net.minecraft.block.MultifaceGrowthBlock.hasDirection;
+import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 
 @Mixin(SculkVeinBlock.class)
-public class SculkVeinBlockMixin {
+public abstract class SculkVeinBlockMixin extends MultifaceBlock implements SculkBehaviour, SimpleWaterloggedBlock {
 
     @Final
     @Shadow
-    private LichenGrower allGrowTypeGrower;
+    private MultifaceSpreader veinSpreader;
 
-    @Inject(at = @At("HEAD"), method = "convertToBlock", cancellable = true)
-    private void convertToBlock(SculkSpreadManager spreadManager, WorldAccess world, BlockPos pos, Random random, CallbackInfoReturnable<Boolean> info) {
-        BlockState blockState = world.getBlockState(pos);
-        TagKey<Block> tagKey = spreadManager.getReplaceableTag();
+    private SculkVeinBlockMixin(Properties properties) {
+        super(properties);
+    }
 
-        for (Direction direction : Direction.shuffle(random)) {
-            if (hasDirection(blockState, direction)) {
-                BlockPos blockPos = pos.offset(direction);
-                BlockState blockState2 = world.getBlockState(blockPos);
-                if (blockState2.isIn(tagKey)) {
-                    BlockState blockState3 = Blocks.SCULK.getDefaultState();
-                    if (blockState2.isIn(WilderBlockTags.SCULK_STAIR_REPLACEABLE_WORLDGEN)) {
-                        blockState3 = RegisterBlocks.SCULK_STAIRS.getDefaultState().with(StairsBlock.FACING, blockState2.get(StairsBlock.FACING)).with(StairsBlock.HALF, blockState2.get(StairsBlock.HALF)).with(StairsBlock.SHAPE, blockState2.get(StairsBlock.SHAPE)).with(StairsBlock.WATERLOGGED, blockState2.get(StairsBlock.WATERLOGGED));
-                    } else if (blockState2.isIn(WilderBlockTags.SCULK_WALL_REPLACEABLE_WORLDGEN)) {
-                        blockState3 = RegisterBlocks.SCULK_WALL.getDefaultState().with(WallBlock.UP, blockState2.get(WallBlock.UP)).with(WallBlock.NORTH_SHAPE, blockState2.get(WallBlock.NORTH_SHAPE))
-                                .with(WallBlock.EAST_SHAPE, blockState2.get(WallBlock.EAST_SHAPE)).with(WallBlock.WEST_SHAPE, blockState2.get(WallBlock.WEST_SHAPE))
-                                .with(WallBlock.SOUTH_SHAPE, blockState2.get(WallBlock.SOUTH_SHAPE)).with(WallBlock.WATERLOGGED, blockState2.get(WallBlock.WATERLOGGED));
-                    } else if (blockState2.isIn(WilderBlockTags.SCULK_SLAB_REPLACEABLE_WORLDGEN)) {
-                        blockState3 = RegisterBlocks.SCULK_SLAB.getDefaultState().with(SlabBlock.WATERLOGGED, blockState2.get(SlabBlock.WATERLOGGED)).with(SlabBlock.TYPE, blockState2.get(SlabBlock.TYPE));
-                    }
-
-                    world.setBlockState(blockPos, blockState3, 3);
-                    Block.pushEntitiesUpBeforeBlockChange(blockState2, blockState3, world, blockPos);
-                    world.playSound(null, blockPos, SoundEvents.BLOCK_SCULK_SPREAD, SoundCategory.BLOCKS, 1.0F, 1.0F);
-                    this.allGrowTypeGrower.grow(blockState3, world, blockPos, spreadManager.isWorldGen());
-                    Direction direction2 = direction.getOpposite();
-
-                    for (Direction direction3 : Direction.values()) {
-                        if (direction3 != direction2) {
-                            BlockPos blockPos2 = blockPos.offset(direction3);
-                            BlockState blockState4 = world.getBlockState(blockPos2);
-                            if (blockState4.isOf(Blocks.SCULK_VEIN)) {
-                                this.spreadAtSamePosition(world, blockState4, blockPos2, random);
-                            }
-                        }
-                    }
-
-                    info.setReturnValue(true);
-                    info.cancel();
-                }
-            }
+    @Inject(method = "attemptPlaceSculk", at = @At(value = "INVOKE", target = "Lnet/minecraft/core/Direction;getOpposite()Lnet/minecraft/core/Direction;", opcode = 0, shift = At.Shift.AFTER), locals = LocalCapture.CAPTURE_FAILHARD)
+    private void attemptPlaceSculk(SculkSpreader sculkBehavior, LevelAccessor level, BlockPos pos, RandomSource random, CallbackInfoReturnable<Boolean> cir, BlockState blockState, TagKey<Block> replaceableBlocks, Iterator<Direction> var7, Direction direction, BlockPos blockPos, BlockState blockState2, BlockState blockState3) {
+        boolean canReturn = false;
+        if (blockState2.is(WilderBlockTags.SCULK_STAIR_REPLACEABLE_WORLDGEN) || blockState2.is(WilderBlockTags.SCULK_STAIR_REPLACEABLE)) {
+            blockState3 = RegisterBlocks.SCULK_STAIRS.defaultBlockState().setValue(StairBlock.FACING, blockState2.getValue(StairBlock.FACING)).setValue(StairBlock.HALF, blockState2.getValue(StairBlock.HALF)).setValue(StairBlock.SHAPE, blockState2.getValue(StairBlock.SHAPE)).setValue(StairBlock.WATERLOGGED, blockState2.getValue(StairBlock.WATERLOGGED));
+            canReturn = true;
+        } else if (blockState2.is(WilderBlockTags.SCULK_WALL_REPLACEABLE_WORLDGEN) || blockState2.is(WilderBlockTags.SCULK_WALL_REPLACEABLE)) {
+            blockState3 = RegisterBlocks.SCULK_WALL.defaultBlockState().setValue(WallBlock.UP, blockState2.getValue(WallBlock.UP)).setValue(WallBlock.NORTH_WALL, blockState2.getValue(WallBlock.NORTH_WALL))
+                    .setValue(WallBlock.EAST_WALL, blockState2.getValue(WallBlock.EAST_WALL)).setValue(WallBlock.WEST_WALL, blockState2.getValue(WallBlock.WEST_WALL))
+                    .setValue(WallBlock.SOUTH_WALL, blockState2.getValue(WallBlock.SOUTH_WALL)).setValue(WallBlock.WATERLOGGED, blockState2.getValue(WallBlock.WATERLOGGED));
+            canReturn = true;
+        } else if (blockState2.is(WilderBlockTags.SCULK_SLAB_REPLACEABLE_WORLDGEN) || blockState2.is(WilderBlockTags.SCULK_SLAB_REPLACEABLE)) {
+            blockState3 = RegisterBlocks.SCULK_SLAB.defaultBlockState().setValue(SlabBlock.WATERLOGGED, blockState2.getValue(SlabBlock.WATERLOGGED)).setValue(SlabBlock.TYPE, blockState2.getValue(SlabBlock.TYPE));
+            canReturn = true;
         }
 
-        info.setReturnValue(false);
-        info.cancel();
-    }
-
-    @Shadow
-    public void spreadAtSamePosition(WorldAccess world, BlockState state, BlockPos pos, Random random) {
-    }
-
-    @Inject(at = @At("HEAD"), method = "spreadAtSamePosition", cancellable = true)
-    public void spreadAtSamePosition(WorldAccess world, BlockState state, BlockPos pos, Random random, CallbackInfo info) {
-        if (state.isOf(Blocks.SCULK_VEIN)) {
-
-            for (Direction direction : Direction.values()) {
-                BooleanProperty booleanProperty = getProperty(direction);
-                if (state.get(booleanProperty) && world.getBlockState(pos.offset(direction)).isIn(WilderBlockTags.SCULK_VEIN_REMOVE)) {
-                    state = state.with(booleanProperty, false);
-                }
-            }
-
-            if (!hasAnyDirection(state)) {
-                FluidState fluidState = world.getFluidState(pos);
-                state = (fluidState.isEmpty() ? Blocks.AIR : Blocks.WATER).getDefaultState();
-            }
-
-            world.setBlockState(pos, state, 3);
+        if (canReturn) {
+            level.setBlock(blockPos, blockState3, 3);
+            Block.pushEntitiesUp(blockState2, blockState3, level, blockPos);
+            this.veinSpreader.spreadAll(blockState3, level, blockPos, sculkBehavior.isWorldGeneration());
         }
     }
 
-    private static boolean hasAnyDirection(BlockState state) {
-        return Arrays.stream(Direction.values()).anyMatch((direction) -> {
-            return hasDirection(state, direction);
-        });
+    @Redirect(method = "onDischarged", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/block/state/BlockState;is(Lnet/minecraft/world/level/block/Block;)Z", ordinal = 1))
+    private boolean onDischarged(BlockState state, Block block) {
+        return state.is(WilderBlockTags.SCULK_VEIN_REMOVE);
     }
 
+    /*@Inject(method = "onDischarged", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/LevelAccessor;setBlock(Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/BlockState;I)Z"), locals = LocalCapture.CAPTURE_FAILHARD, cancellable = true)
+    public void onDischarged(LevelAccessor level, BlockState state, BlockPos pos, RandomSource random, CallbackInfo ci) {
+        boolean canReturn = false;
+        if (state.is(SculkVeinBlock.class.cast(this))) {
+            for(Direction direction : DIRECTIONS) {
+                BooleanProperty booleanProperty = getFaceProperty(direction);
+                if (state.getValue(booleanProperty) && level.getBlockState(pos.relative(direction)).is(WilderBlockTags.SCULK_VEIN_REMOVE)) {
+                    state = state.setValue(booleanProperty, false);
+                    canReturn = true;
+                }
+            }
+
+            if (!hasAnyFace(state)) {
+                FluidState fluidState = level.getFluidState(pos);
+                state = (fluidState.isEmpty() ? Blocks.AIR : Blocks.WATER).defaultBlockState();
+            }
+
+            if (canReturn) {
+                level.setBlock(pos, state, 3);
+                SculkBehaviour.super.onDischarged(level, state, pos, random);
+                ci.cancel();
+            }
+        }
+    }*/
 }

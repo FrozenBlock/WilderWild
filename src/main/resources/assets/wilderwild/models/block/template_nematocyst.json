@@ -1,0 +1,46 @@
+{
+	"ambientocclusion": false,
+	"textures": {
+		"particle": "#large"
+	},
+	"elements": [
+		{
+			"name": "large",
+			"from": [8, 0, 0],
+			"to": [8, 16, 12],
+			"rotation": {"angle": 0, "axis": "z", "origin": [8, 8, 0]},
+			"faces": {
+				"east": {"uv": [0, 4, 16, 16], "rotation": 270, "texture": "#large"},
+				"west": {"uv": [0, 4, 16, 16], "rotation": 90, "texture": "#large"}
+			}
+		},
+		{
+			"name": "small_2",
+			"from": [9, 0, 0],
+			"to": [9, 16, 12],
+			"rotation": {"angle": 22.5, "axis": "y", "origin": [9, 7, 0], "rescale": true},
+			"faces": {
+				"east": {"uv": [16, 4, 0, 16], "rotation": 270, "texture": "#small"},
+				"west": {"uv": [0, 4, 16, 16], "rotation": 90, "texture": "#small"}
+			}
+		},
+		{
+			"name": "small_1",
+			"from": [7, 0, 0],
+			"to": [7, 16, 12],
+			"rotation": {"angle": -22.5, "axis": "y", "origin": [8, 9, 0], "rescale": true},
+			"faces": {
+				"east": {"uv": [16, 4, 0, 16], "rotation": 270, "texture": "#small"},
+				"west": {"uv": [0, 4, 16, 16], "rotation": 90, "texture": "#small"}
+			}
+		}
+	],
+	"groups": [
+		{
+			"name": "group",
+			"origin": [8, 0, 7],
+			"color": 0,
+			"children": [0, 1, 2]
+		}
+	]
+}

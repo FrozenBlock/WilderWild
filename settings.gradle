@@ -1,16 +1,54 @@
 pluginManagement {
     repositories {
-        maven {
-            name = 'Quilt'
-            url = 'https://maven.quiltmc.org/repository/release'
-        }
-        maven {
-            name = 'Fabric'
-            url = 'https://maven.fabricmc.net/'
-        }
+		maven {
+			setName("Quilt")
+			setUrl("https://maven.quiltmc.org/repository/release/")
+		}
+		maven {
+			setName("Quilt Snapshot")
+			setUrl("https://maven.quiltmc.org/repository/snapshot/")
+		}
+		maven {
+			setName("Fabric")
+			setUrl("https://maven.fabricmc.net/")
+		}
+		jcenter()
+		maven {
+			setName("Forge")
+			setUrl("https://files.minecraftforge.net/maven/")
+		}
+		maven {
+			setName("Jitpack")
+			setUrl("https://jitpack.io/")
+		}
         mavenCentral()
         gradlePluginPortal()
     }
 }
 
-rootProject.name = "Wilder Wild"
+rootProject.setName("Wilder Wild")
+
+
+boolean allowLocalFrozenLibUse = true
+boolean allowFrozenLibInConsoleMode = true
+String FrozenLibPath = "../FrozenLib"
+String FrozenLibPathGitHub = "../WilderWild/FrozenLib"
+
+boolean isIDE = properties.containsKey("android.injected.invoked.from.ide"
+        || (System.getenv("XPC_SERVICE_NAME") ?: "").contains("intellij")
+        || (System.getenv("XPC_SERVICE_NAME") ?: "").contains(".idea")
+        || System.getenv("IDEA_INITIAL_DIRECTORY") != null)
+
+File FrozenLibFolder = new File(FrozenLibPath)
+File FrozenLibFolderGitHub = new File(FrozenLibPathGitHub)
+if (allowLocalFrozenLibUse && (isIDE || allowFrozenLibInConsoleMode) && FrozenLibFolder.exists()) {
+
+    include(":FrozenLib")
+    project(":FrozenLib").setProjectDir(FrozenLibFolder)
+    project(":FrozenLib").setBuildFileName("./build.gradle")
+} else if (allowLocalFrozenLibUse && (isIDE || allowFrozenLibInConsoleMode) && FrozenLibFolderGitHub.exists()) {
+
+    include(":FrozenLib")
+	project(":FrozenLib").setProjectDir(FrozenLibFolderGitHub)
+    project(":FrozenLib").setBuildFileName("./build.gradle")
+}

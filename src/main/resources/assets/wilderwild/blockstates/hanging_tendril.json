@@ -1,40 +1,40 @@
 {
-	"variants": {
-		"sculk_sensor_phase=cooldown,twitching=true,wringing_out=false": {
-			"model": "wilderwild:block/hanging_tendril"
-		},
-		"sculk_sensor_phase=active,twitching=true,wringing_out=false": {
-			"model": "wilderwild:block/hanging_tendril_active"
-		},
-		"sculk_sensor_phase=inactive,twitching=true,wringing_out=false": {
-			"model": "wilderwild:block/hanging_tendril_twitch"
-		},
-		"sculk_sensor_phase=cooldown,twitching=false,wringing_out=false": {
-			"model": "wilderwild:block/hanging_tendril"
-		},
-		"sculk_sensor_phase=active,twitching=false,wringing_out=false": {
-			"model": "wilderwild:block/hanging_tendril_active"
-		},
-		"sculk_sensor_phase=inactive,twitching=false,wringing_out=false": {
-			"model": "wilderwild:block/hanging_tendril"
-		},
-		"sculk_sensor_phase=cooldown,twitching=true,wringing_out=true": {
-			"model": "wilderwild:block/hanging_tendril_milk"
-		},
-		"sculk_sensor_phase=active,twitching=true,wringing_out=true": {
-			"model": "wilderwild:block/hanging_tendril_active"
-		},
-		"sculk_sensor_phase=inactive,twitching=true,wringing_out=true": {
-			"model": "wilderwild:block/hanging_tendril_milk"
-		},
-		"sculk_sensor_phase=cooldown,twitching=false,wringing_out=true": {
-			"model": "wilderwild:block/hanging_tendril_milk"
-		},
-		"sculk_sensor_phase=active,twitching=false,wringing_out=true": {
-			"model": "wilderwild:block/hanging_tendril_active"
-		},
-		"sculk_sensor_phase=inactive,twitching=false,wringing_out=true": {
-			"model": "wilderwild:block/hanging_tendril_milk"
-		}
+  "variants": {
+	"sculk_sensor_phase=cooldown,twitching=true,wringing_out=false": {
+	  "model": "wilderwild:block/hanging_tendril"
+	},
+	"sculk_sensor_phase=active,twitching=true,wringing_out=false": {
+	  "model": "wilderwild:block/hanging_tendril_active"
+	},
+	"sculk_sensor_phase=inactive,twitching=true,wringing_out=false": {
+	  "model": "wilderwild:block/hanging_tendril_twitch"
+	},
+	"sculk_sensor_phase=cooldown,twitching=false,wringing_out=false": {
+	  "model": "wilderwild:block/hanging_tendril"
+	},
+	"sculk_sensor_phase=active,twitching=false,wringing_out=false": {
+	  "model": "wilderwild:block/hanging_tendril_active"
+	},
+	"sculk_sensor_phase=inactive,twitching=false,wringing_out=false": {
+	  "model": "wilderwild:block/hanging_tendril"
+	},
+	"sculk_sensor_phase=cooldown,twitching=true,wringing_out=true": {
+	  "model": "wilderwild:block/hanging_tendril_milk"
+	},
+	"sculk_sensor_phase=active,twitching=true,wringing_out=true": {
+	  "model": "wilderwild:block/hanging_tendril_active"
+	},
+	"sculk_sensor_phase=inactive,twitching=true,wringing_out=true": {
+	  "model": "wilderwild:block/hanging_tendril_milk"
+	},
+	"sculk_sensor_phase=cooldown,twitching=false,wringing_out=true": {
+	  "model": "wilderwild:block/hanging_tendril_milk"
+	},
+	"sculk_sensor_phase=active,twitching=false,wringing_out=true": {
+	  "model": "wilderwild:block/hanging_tendril_active"
+	},
+	"sculk_sensor_phase=inactive,twitching=false,wringing_out=true": {
+	  "model": "wilderwild:block/hanging_tendril_milk"
 	}
+  }
 }

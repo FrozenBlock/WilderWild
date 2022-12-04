@@ -1,16 +1,16 @@
 {
   "variants": {
-    "axis=x": {
-      "model": "wilderwild:block/osseous_sculk",
-      "x": 90,
-      "y": 90
-    },
-    "axis=y": {
-      "model": "wilderwild:block/osseous_sculk"
-    },
-    "axis=z": {
-      "model": "wilderwild:block/osseous_sculk",
-      "x": 90
-    }
+	"axis=x": {
+	  "model": "wilderwild:block/osseous_sculk",
+	  "x": 90,
+	  "y": 90
+	},
+	"axis=y": {
+	  "model": "wilderwild:block/osseous_sculk"
+	},
+	"axis=z": {
+	  "model": "wilderwild:block/osseous_sculk",
+	  "x": 90
+	}
   }
 }

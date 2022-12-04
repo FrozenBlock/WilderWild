@@ -1,7 +1,7 @@
 {
   "replace": false,
   "values": [
-    "wilderwild:baobab_pressure_plate",
-    "wilderwild:cypress_pressure_plate"
+	"wilderwild:baobab_pressure_plate",
+	"wilderwild:cypress_pressure_plate"
   ]
 }

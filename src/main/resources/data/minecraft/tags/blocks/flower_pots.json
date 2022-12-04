@@ -1,9 +1,12 @@
 {
   "replace": false,
   "values": [
-    "wilderwild:potted_carnation",
-    "wilderwild:potted_seeding_dandelion",
-    "wilderwild:potted_baobab_sapling",
-    "wilderwild:potted_cypress_sapling"
+	"wilderwild:potted_carnation",
+	"wilderwild:potted_seeding_dandelion",
+	"wilderwild:potted_baobab_nut",
+	"wilderwild:potted_cypress_sapling",
+	"wilderwild:potted_grass",
+	"wilderwild:potted_small_dripleaf",
+	"wilderwild:potted_big_dripleaf"
   ]
 }

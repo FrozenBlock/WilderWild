@@ -1,6 +1,7 @@
 {
   "replace": false,
   "values": [
+    "minecraft:sweet_berry_bush",
     "wilderwild:osseous_sculk",
     "wilderwild:sculk_echoer",
     "wilderwild:sculk_jaw",
@@ -12,3 +13,4 @@
     "wilderwild:cypress_leaves"
   ]
 }
+

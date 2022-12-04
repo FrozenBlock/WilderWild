@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:block/cross",
   "textures": {
-    "cross": "wilderwild:block/carnation"
+	"cross": "wilderwild:block/carnation"
   }
 }

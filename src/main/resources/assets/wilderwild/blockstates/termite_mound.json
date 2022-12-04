@@ -1,5 +1,7 @@
 {
   "variants": {
-    "": { "model": "wilderwild:block/termite_mound" }
+	"": {
+	  "model": "wilderwild:block/termite_mound"
+	}
   }
 }

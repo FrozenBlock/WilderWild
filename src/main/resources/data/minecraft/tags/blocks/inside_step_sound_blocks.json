@@ -1,7 +1,7 @@
 {
   "replace": false,
   "values": [
-    "#minecraft:wool_carpets",
+	"#minecraft:wool_carpets",
 	"minecraft:moss_carpet",
 	"minecraft:cobweb",
 	"minecraft:lily_pad",

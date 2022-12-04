@@ -28,7 +28,12 @@ bin/
 
 *.DS_Store
 
+# maven
+
+target/
+
 # fabric
 
 run/
 /remappedSrc/
+/src/main/generated/.cache

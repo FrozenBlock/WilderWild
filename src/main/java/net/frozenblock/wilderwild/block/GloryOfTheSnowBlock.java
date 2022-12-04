@@ -1,84 +1,107 @@
 package net.frozenblock.wilderwild.block;
 
+import java.util.List;
 import net.frozenblock.wilderwild.WilderWild;
-import net.frozenblock.wilderwild.misc.FlowerColors;
+import net.frozenblock.wilderwild.misc.FlowerColor;
+import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.frozenblock.wilderwild.registry.RegisterBlocks;
 import net.frozenblock.wilderwild.registry.RegisterProperties;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.PlantBlock;
-import net.minecraft.block.ShapeContext;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.sound.SoundCategory;
-import net.minecraft.sound.SoundEvents;
-import net.minecraft.state.StateManager;
-import net.minecraft.state.property.EnumProperty;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.Hand;
-import net.minecraft.util.hit.BlockHitResult;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Vec3d;
-import net.minecraft.util.math.random.Random;
-import net.minecraft.util.shape.VoxelShape;
-import net.minecraft.world.BlockView;
-import net.minecraft.world.World;
-import net.minecraft.world.event.GameEvent;
+import net.minecraft.core.BlockPos;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.util.RandomSource;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.BonemealableBlock;
+import net.minecraft.world.level.block.BushBlock;
+import net.minecraft.world.level.block.LevelEvent;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.world.level.block.state.properties.EnumProperty;
+import net.minecraft.world.level.gameevent.GameEvent;
+import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.phys.Vec3;
+import net.minecraft.world.phys.shapes.CollisionContext;
+import net.minecraft.world.phys.shapes.VoxelShape;
+import org.jetbrains.annotations.NotNull;
 
-import java.util.List;
+public class GloryOfTheSnowBlock extends BushBlock implements BonemealableBlock {
+    private static final VoxelShape SHAPE = Block.box(2.0D, 0.0D, 2.0D, 14.0D, 10.0D, 14.0D);
+    public static final EnumProperty<FlowerColor> COLORS = RegisterProperties.FLOWER_COLOR;
 
-public class GloryOfTheSnowBlock extends PlantBlock {
-    private static final VoxelShape SHAPE = Block.createCuboidShape(2.0D, 0.0D, 2.0D, 14.0D, 10.0D, 14.0D);
-    public static final EnumProperty<FlowerColors> COLORS = RegisterProperties.FLOWER_COLOR;
+    public final List<FlowerColor> COLOR_LIST;
 
-    public final List<FlowerColors> COLOR_LIST;
-
-    public GloryOfTheSnowBlock(Settings settings, List<FlowerColors> list) {
+    public GloryOfTheSnowBlock(Properties settings, List<FlowerColor> list) {
         super(settings);
         this.COLOR_LIST = list;
     }
 
     @Override
-    protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
+    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
         builder.add(COLORS);
     }
 
     @Override
-    public void randomTick(BlockState state, ServerWorld world, BlockPos pos, Random random) {
-        if (random.nextFloat() > 0.9F && state.get(COLORS) == FlowerColors.NONE) {
-            world.setBlockState(pos, state.with(COLORS, COLOR_LIST.get(WilderWild.random().nextInt(COLOR_LIST.size()))));
+    public void randomTick(@NotNull BlockState state, @NotNull ServerLevel level, @NotNull BlockPos pos, RandomSource random) {
+        if (random.nextFloat() > 0.9F && state.getValue(COLORS) == FlowerColor.NONE) {
+            level.setBlockAndUpdate(pos, state.setValue(COLORS, COLOR_LIST.get(WilderSharedConstants.random().nextInt(COLOR_LIST.size()))));
         }
     }
 
     @Override
-    public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
-        if (world instanceof ServerWorld) {
-            FlowerColors color = state.get(COLORS);
-            if (color != FlowerColors.NONE) {
-                ItemStack itemStack = player.getStackInHand(hand);
-                if (itemStack.isOf(Items.SHEARS)) {
-                    Item item = color == FlowerColors.BLUE ? RegisterBlocks.BLUE_GLORY_OF_THE_SNOW.asItem() : color == FlowerColors.PINK ? RegisterBlocks.PINK_GLORY_OF_THE_SNOW.asItem() :
-                            color == FlowerColors.PURPLE ? RegisterBlocks.PURPLE_GLORY_OF_THE_SNOW.asItem() : RegisterBlocks.WHITE_GLORY_OF_THE_SNOW.asItem();
+	@NotNull
+    public InteractionResult use(@NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos, @NotNull Player player, @NotNull InteractionHand hand, @NotNull BlockHitResult hit) {
+        if (level instanceof ServerLevel) {
+            FlowerColor color = state.getValue(COLORS);
+            if (color != FlowerColor.NONE) {
+                ItemStack itemStack = player.getItemInHand(hand);
+                if (itemStack.is(Items.SHEARS)) {
+                    Item item = color == FlowerColor.BLUE ? RegisterBlocks.BLUE_GLORY_OF_THE_SNOW.asItem() : color == FlowerColor.PINK ? RegisterBlocks.PINK_GLORY_OF_THE_SNOW.asItem() :
+                            color == FlowerColor.PURPLE ? RegisterBlocks.PURPLE_GLORY_OF_THE_SNOW.asItem() : RegisterBlocks.WHITE_GLORY_OF_THE_SNOW.asItem();
                     ItemStack stack = new ItemStack(item);
-                    stack.setCount(world.random.nextBetween(1, 2));
-                    dropStack(world, pos, stack);
-                    world.setBlockState(pos, state.getBlock().getDefaultState());
-                    world.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.BLOCK_GROWING_PLANT_CROP, SoundCategory.BLOCKS, 1.0F, 1.0F);
-                    itemStack.damage(1, player, (playerx) -> playerx.sendToolBreakStatus(hand));
-                    world.emitGameEvent(player, GameEvent.SHEAR, pos);
-                    return ActionResult.SUCCESS;
+                    stack.setCount(level.random.nextIntBetweenInclusive(1, 2));
+                    popResource(level, pos, stack);
+                    level.setBlockAndUpdate(pos, state.getBlock().defaultBlockState());
+                    level.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.GROWING_PLANT_CROP, SoundSource.BLOCKS, 1.0F, 1.0F);
+                    itemStack.hurtAndBreak(1, player, (playerx) -> playerx.broadcastBreakEvent(hand));
+                    level.gameEvent(player, GameEvent.SHEAR, pos);
+                    return InteractionResult.SUCCESS;
                 }
             }
         }
-        return super.onUse(state, world, pos, player, hand, hit);
+        return super.use(state, level, pos, player, hand, hit);
 
     }
 
-    public VoxelShape getOutlineShape(BlockState state, BlockView world, BlockPos pos, ShapeContext context) {
-        Vec3d vec3d = state.getModelOffset(world, pos);
-        return SHAPE.offset(vec3d.x, vec3d.y, vec3d.z);
+	@Override
+	@NotNull
+    public VoxelShape getShape(BlockState state, @NotNull BlockGetter level, @NotNull BlockPos pos, @NotNull CollisionContext context) {
+        Vec3 vec3d = state.getOffset(level, pos);
+        return SHAPE.move(vec3d.x, vec3d.y, vec3d.z);
+    }
+
+    @Override
+    public boolean isValidBonemealTarget(@NotNull BlockGetter level, @NotNull BlockPos pos, @NotNull BlockState state, boolean isClient) {
+        return !isClient && state.getValue(COLORS) == FlowerColor.NONE;
+    }
+
+    @Override
+    public boolean isBonemealSuccess(@NotNull Level level, @NotNull RandomSource random, @NotNull BlockPos pos, @NotNull BlockState state) {
+        return true;
+    }
+
+    @Override
+    public void performBonemeal(@NotNull ServerLevel level, @NotNull RandomSource random, @NotNull BlockPos pos, @NotNull BlockState state) {
+        WilderSharedConstants.log("Glory Of The Snow Bonemealed @ " + pos, WilderSharedConstants.DEV_LOGGING);
+        level.levelEvent(LevelEvent.PARTICLES_AND_SOUND_PLANT_GROWTH, pos, 0);
+        level.setBlockAndUpdate(pos, state.setValue(RegisterProperties.FLOWER_COLOR, this.COLOR_LIST.get(WilderSharedConstants.random().nextInt(this.COLOR_LIST.size()))));
     }
 }

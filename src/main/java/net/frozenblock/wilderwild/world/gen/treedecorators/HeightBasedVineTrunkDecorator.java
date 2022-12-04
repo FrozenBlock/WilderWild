@@ -2,16 +2,15 @@ package net.frozenblock.wilderwild.world.gen.treedecorators;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import net.minecraft.block.Blocks;
-import net.minecraft.block.VineBlock;
-import net.minecraft.state.property.BooleanProperty;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
-import net.minecraft.util.math.random.Random;
-import net.minecraft.world.gen.treedecorator.TreeDecorator;
-import net.minecraft.world.gen.treedecorator.TreeDecoratorType;
-
 import java.util.List;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.util.RandomSource;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.VineBlock;
+import net.minecraft.world.level.block.state.properties.BooleanProperty;
+import net.minecraft.world.level.levelgen.feature.treedecorators.TreeDecorator;
+import net.minecraft.world.level.levelgen.feature.treedecorators.TreeDecoratorType;
 
 public class HeightBasedVineTrunkDecorator extends TreeDecorator {
     public static final Codec<HeightBasedVineTrunkDecorator> CODEC = RecordCodecBuilder.create((instance) -> {
@@ -19,32 +18,36 @@ public class HeightBasedVineTrunkDecorator extends TreeDecorator {
             return treeDecorator.probability;
         }), Codec.intRange(-63, 319).fieldOf("maxHeight").forGetter((treeDecorator) -> {
             return treeDecorator.maxHeight;
+        }), Codec.floatRange(0.0F, 1.0F).fieldOf("vines_count").forGetter((treeDecorator) -> {
+            return treeDecorator.vines_count;
         })).apply(instance, HeightBasedVineTrunkDecorator::new);
     });
     private final float probability;
     private final int maxHeight;
+    private final float vines_count;
 
-    public HeightBasedVineTrunkDecorator(float probability, int maxHeight) {
+    public HeightBasedVineTrunkDecorator(float probability, int maxHeight, float vines_count) {
         this.probability = probability;
         this.maxHeight = maxHeight;
+        this.vines_count = vines_count;
     }
 
-    protected TreeDecoratorType<?> getType() {
+    protected TreeDecoratorType<?> type() {
         return WilderTreeDecorators.HEIGHT_BASED_VINE_TRUNK_DECORATOR;
     }
 
-    public void generate(Generator generator) {
-        Random abstractRandom = generator.getRandom();
+    public void place(Context generator) {
+        RandomSource abstractRandom = generator.random();
         if (abstractRandom.nextFloat() <= this.probability) {
-            List<BlockPos> list = generator.getLogPositions();
+            List<BlockPos> list = generator.logs();
             list.forEach((pos) -> {
                 if (pos.getY() <= this.maxHeight) {
-                    for (Direction direction : Direction.Type.HORIZONTAL) {
-                        if (abstractRandom.nextFloat() <= 0.25F) {
-                            BlockPos blockPos = pos.add(direction.getOffsetX(), 0, direction.getOffsetZ());
+                    for (Direction direction : Direction.Plane.HORIZONTAL) {
+                        if (abstractRandom.nextFloat() <= this.vines_count) {
+                            BlockPos blockPos = pos.offset(direction.getStepX(), 0, direction.getStepZ());
                             if (generator.isAir(blockPos)) {
                                 BooleanProperty dir = direction == Direction.NORTH ? VineBlock.SOUTH : direction == Direction.SOUTH ? VineBlock.NORTH : direction == Direction.WEST ? VineBlock.EAST : VineBlock.WEST;
-                                generator.replace(blockPos, Blocks.VINE.getDefaultState().with(dir, true));
+                                generator.setBlock(blockPos, Blocks.VINE.defaultBlockState().setValue(dir, true));
                             }
                         }
                     }

@@ -1,50 +1,72 @@
 package net.frozenblock.wilderwild.registry;
 
 import net.fabricmc.fabric.api.loot.v2.LootTableEvents;
-import net.minecraft.loot.LootPool;
-import net.minecraft.loot.LootTables;
-import net.minecraft.loot.entry.ItemEntry;
-import net.minecraft.loot.function.SetCountLootFunction;
-import net.minecraft.loot.provider.number.UniformLootNumberProvider;
-import net.minecraft.util.Rarity;
+import net.frozenblock.wilderwild.WilderWild;
+import net.frozenblock.wilderwild.misc.WilderSharedConstants;
+import net.frozenblock.wilderwild.tag.WilderItemTags;
+import net.minecraft.advancements.critereon.EntityPredicate;
+import net.minecraft.tags.EntityTypeTags;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.item.Rarity;
+import net.minecraft.world.level.storage.loot.BuiltInLootTables;
+import net.minecraft.world.level.storage.loot.LootContext;
+import net.minecraft.world.level.storage.loot.LootPool;
+import net.minecraft.world.level.storage.loot.entries.LootItem;
+import net.minecraft.world.level.storage.loot.entries.TagEntry;
+import net.minecraft.world.level.storage.loot.functions.SetItemCountFunction;
+import net.minecraft.world.level.storage.loot.predicates.LootItemEntityPropertyCondition;
+import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
 
-public class RegisterLootTables {
+public final class RegisterLootTables {
+	private RegisterLootTables() {
+		throw new UnsupportedOperationException("RegisterLootTables only supports static declarations.");
+	}
 
     public static void init() {
-        //ANCIENT HORN
+        WilderSharedConstants.logWild("Registering Loot Table Modifications for", WilderSharedConstants.UNSTABLE_LOGGING);
+        //ANCIENT HORN FRAGMENT
         LootTableEvents.MODIFY.register((resourceManager, lootManager, id, tableBuilder, source) -> {
-            if (LootTables.ANCIENT_CITY_CHEST.equals(id) && source.isBuiltin()) {
-                LootPool.Builder pool = LootPool.builder()
-                        .with(ItemEntry.builder(RegisterItems.ANCIENT_HORN).weight(1).quality(Rarity.EPIC.ordinal() + 1)).apply(SetCountLootFunction.builder(UniformLootNumberProvider.create(-10.0F, 0.5F)));
+            if (BuiltInLootTables.ANCIENT_CITY.equals(id) && source.isBuiltin()) {
+                LootPool.Builder pool = LootPool.lootPool()
+                        .add(LootItem.lootTableItem(RegisterItems.ANCIENT_HORN_FRAGMENT).setWeight(2).setQuality(Rarity.EPIC.ordinal() + 1)).
+                        apply(SetItemCountFunction.setCount(UniformGenerator.between(-0.5F, 1.15F)))/*.apply(SetInstrumentFunction.setInstrumentOptions(WilderInstrumentTags.ANCIENT_HORNS))*/;
 
-                tableBuilder.pool(pool);
+                tableBuilder.withPool(pool);
             }
         });
-        //FLOATING MOSS
+        //ALGAE
         LootTableEvents.MODIFY.register((resourceManager, lootManager, id, tableBuilder, source) -> {
-            if (LootTables.SHIPWRECK_SUPPLY_CHEST.equals(id) && source.isBuiltin()) {
-                LootPool.Builder pool = LootPool.builder()
-                        .with(ItemEntry.builder(RegisterBlocks.ALGAE.asItem()).weight(5).quality(Rarity.COMMON.ordinal() + 1)).apply(SetCountLootFunction.builder(UniformLootNumberProvider.create(-1.0F, 1.0F)));
+            if (BuiltInLootTables.SHIPWRECK_SUPPLY.equals(id) && source.isBuiltin()) {
+                LootPool.Builder pool = LootPool.lootPool()
+                        .add(LootItem.lootTableItem(RegisterBlocks.ALGAE.asItem()).setWeight(5).setQuality(Rarity.COMMON.ordinal() + 1)).apply(SetItemCountFunction.setCount(UniformGenerator.between(-1.0F, 1.0F)));
 
-                tableBuilder.pool(pool);
+                tableBuilder.withPool(pool);
             }
         });
-        //BAOBAB SAPLING
+        //BAOBAB NUT
         LootTableEvents.MODIFY.register((resourceManager, lootManager, id, tableBuilder, source) -> {
-            if (LootTables.VILLAGE_SAVANNA_HOUSE_CHEST.equals(id) && source.isBuiltin()) {
-                LootPool.Builder pool = LootPool.builder()
-                        .with(ItemEntry.builder(RegisterBlocks.BAOBAB_SAPLING.asItem()).weight(2).quality(Rarity.COMMON.ordinal() + 1)).apply(SetCountLootFunction.builder(UniformLootNumberProvider.create(-1.0F, 1.0F)));
+            if (BuiltInLootTables.VILLAGE_SAVANNA_HOUSE.equals(id) && source.isBuiltin()) {
+                LootPool.Builder pool = LootPool.lootPool()
+                        .add(LootItem.lootTableItem(RegisterItems.BAOBAB_NUT).setWeight(2).setQuality(Rarity.COMMON.ordinal() + 1)).apply(SetItemCountFunction.setCount(UniformGenerator.between(-1.0F, 1.0F)));
 
-                tableBuilder.pool(pool);
+                tableBuilder.withPool(pool);
             }
         });
         //BAOBAB LOG
         LootTableEvents.MODIFY.register((resourceManager, lootManager, id, tableBuilder, source) -> {
-            if (LootTables.VILLAGE_SAVANNA_HOUSE_CHEST.equals(id) && source.isBuiltin()) {
-                LootPool.Builder pool = LootPool.builder()
-                        .with(ItemEntry.builder(RegisterBlocks.BAOBAB_LOG.asItem()).weight(2).quality(Rarity.COMMON.ordinal() + 1)).apply(SetCountLootFunction.builder(UniformLootNumberProvider.create(-1.0F, 1.0F)));
+            if (BuiltInLootTables.VILLAGE_SAVANNA_HOUSE.equals(id) && source.isBuiltin()) {
+                LootPool.Builder pool = LootPool.lootPool()
+                        .add(LootItem.lootTableItem(RegisterBlocks.BAOBAB_LOG.asItem()).setWeight(2).setQuality(Rarity.COMMON.ordinal() + 1)).apply(SetItemCountFunction.setCount(UniformGenerator.between(-1.0F, 1.0F)));
 
-                tableBuilder.pool(pool);
+                tableBuilder.withPool(pool);
+            }
+        });
+        //GOAT
+        LootTableEvents.MODIFY.register((resourceManager, lootManager, id, tableBuilder, source) -> {
+            if (EntityType.GOAT.getDefaultLootTable().equals(id) && source.isBuiltin()) {
+                var pool = LootPool.lootPool().add(TagEntry.expandTag(WilderItemTags.GOAT_DROP_MUSIC_DISCS)).when(LootItemEntityPropertyCondition.hasProperties(LootContext.EntityTarget.KILLER, EntityPredicate.Builder.entity().of(EntityTypeTags.SKELETONS)));
+
+                tableBuilder.withPool(pool);
             }
         });
     }

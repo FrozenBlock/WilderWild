@@ -1,6 +1,7 @@
 {
   "replace": false,
   "values": [
-    "wilderwild:cypress_wetlands"
+	"wilderwild:cypress_wetlands",
+	"wilderwild:jellyfish_caves"
   ]
 }

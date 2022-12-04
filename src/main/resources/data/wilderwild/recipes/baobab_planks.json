@@ -2,12 +2,12 @@
   "type": "minecraft:crafting_shapeless",
   "group": "planks",
   "ingredients": [
-    {
-      "tag": "wilderwild:baobab_logs"
-    }
+	{
+	  "tag": "wilderwild:baobab_logs"
+	}
   ],
   "result": {
-    "count": 4,
-    "item": "wilderwild:baobab_planks"
+	"count": 4,
+	"item": "wilderwild:baobab_planks"
   }
 }

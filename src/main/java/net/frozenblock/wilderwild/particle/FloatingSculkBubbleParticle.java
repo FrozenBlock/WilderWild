@@ -3,52 +3,56 @@ package net.frozenblock.wilderwild.particle;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.frozenblock.wilderwild.registry.RegisterSounds;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.particle.*;
-import net.minecraft.client.world.ClientWorld;
-import net.minecraft.particle.DefaultParticleType;
-import net.minecraft.sound.SoundCategory;
-import net.minecraft.sound.SoundEvent;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.multiplayer.ClientLevel;
+import net.minecraft.client.particle.Particle;
+import net.minecraft.client.particle.ParticleProvider;
+import net.minecraft.client.particle.ParticleRenderType;
+import net.minecraft.client.particle.RisingParticle;
+import net.minecraft.client.particle.SpriteSet;
+import net.minecraft.core.particles.SimpleParticleType;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.util.Mth;
 
-public class FloatingSculkBubbleParticle extends AbstractSlowingParticle {
-    private final SpriteProvider spriteProvider;
+public class FloatingSculkBubbleParticle extends RisingParticle {
+    private final SpriteSet spriteProvider;
     private final SoundEvent sound;
     private final int stayInflatedTime;
 
     private float currentInflation = 0;
     private float targetInflation = 2;
 
-    public int getBrightness(float tint) {
+    public int getLightColor(float tint) {
         return 240;
     }
 
-    protected FloatingSculkBubbleParticle(ClientWorld clientWorld, double x, double y, double z, double size, double maxAge, double yVel, SpriteProvider spriteProvider) {
-        super(clientWorld, x, y, z, 0, 0, 0);
-        this.velocityX = (Math.random() - 0.5) / 9.5;
-        this.velocityZ = (Math.random() - 0.5) / 9.5;
+    protected FloatingSculkBubbleParticle(ClientLevel clientLevel, double x, double y, double z, double size, double maxAge, double yVel, SpriteSet spriteProvider) {
+        super(clientLevel, x, y, z, 0, 0, 0);
+        this.xd = (Math.random() - 0.5) / 9.5;
+        this.zd = (Math.random() - 0.5) / 9.5;
         this.spriteProvider = spriteProvider;
-        this.setSpriteForAge(spriteProvider);
-        this.velocityY = yVel;
-        this.sound = size <= 0 ? RegisterSounds.FLOATING_SCULK_BUBBLE_POP : RegisterSounds.FLOATING_SCULK_BUBBLE_BIG_POP;
+        this.setSpriteFromAge(spriteProvider);
+        this.yd = yVel;
+        this.sound = size <= 0 ? RegisterSounds.PARTICLE_FLOATING_SCULK_BUBBLE_POP : RegisterSounds.PARTICLE_FLOATING_SCULK_BUBBLE_BIG_POP;
         if (size >= 1) {
             this.scale((float) (1.4F + size));
-            this.velocityX = (Math.random() - 0.5) / 10.5;
-            this.velocityZ = (Math.random() - 0.5) / 10.5;
+            this.xd = (Math.random() - 0.5) / 10.5;
+            this.zd = (Math.random() - 0.5) / 10.5;
         }
-        this.maxAge = (int) Math.max(maxAge, 10);
-        this.stayInflatedTime = (4 - this.maxAge) * -1;
+        this.lifetime = (int) Math.max(maxAge, 10);
+        this.stayInflatedTime = (4 - this.lifetime) * -1;
     }
 
     @Override
-    public ParticleTextureSheet getType() {
-        return ParticleTextureSheet.PARTICLE_SHEET_TRANSLUCENT;
+    public ParticleRenderType getRenderType() {
+        return ParticleRenderType.PARTICLE_SHEET_TRANSLUCENT;
     }
 
-    public void setSpriteForAge(SpriteProvider spriteProvider) {
-        if (!this.dead) {
+    public void setSpriteFromAge(SpriteSet spriteProvider) {
+        if (!this.removed) {
             int i = this.age < 3 ? this.age : (this.age < this.stayInflatedTime ? 3 : this.age - (this.stayInflatedTime) + 4);
-            this.setSprite(spriteProvider.getSprite(i, 7));
+            this.setSprite(spriteProvider.get(i, 7));
         }
     }
 
@@ -128,30 +132,30 @@ public class FloatingSculkBubbleParticle extends AbstractSlowingParticle {
         }
 
         if (this.age == this.stayInflatedTime + 1) {
-            MinecraftClient client = MinecraftClient.getInstance();
+            Minecraft client = Minecraft.getInstance();
             if (client != null) {
-                world.playSound(client.player, this.x, this.y, this.z, this.sound, SoundCategory.BLOCKS, 0.4F, world.random.nextFloat() * 0.2F + 0.8F);
-                this.setVelocity(0, 0, 0);
+                level.playSound(client.player, this.x, this.y, this.z, this.sound, SoundSource.BLOCKS, 0.4F, level.random.nextFloat() * 0.2F + 0.8F);
+                this.setParticleSpeed(0, 0, 0);
             }
         }
-        this.setSpriteForAge(this.spriteProvider);
+        this.setSpriteFromAge(this.spriteProvider);
     }
 
-    public float getSize(float tickDelta) {
-        return this.scale * MathHelper.lerp(tickDelta, this.currentInflation, this.targetInflation);
+    public float getQuadSize(float tickDelta) {
+        return this.quadSize * Mth.lerp(tickDelta, this.currentInflation, this.targetInflation);
     }
 
     @Environment(EnvType.CLIENT)
-    public static class BubbleFactory implements ParticleFactory<DefaultParticleType> {
-        private final SpriteProvider spriteProvider;
+    public static class BubbleFactory implements ParticleProvider<SimpleParticleType> {
+        private final SpriteSet spriteProvider;
 
-        public BubbleFactory(SpriteProvider spriteProvider) {
+        public BubbleFactory(SpriteSet spriteProvider) {
             this.spriteProvider = spriteProvider;
         }
 
         @Override
-        public Particle createParticle(DefaultParticleType defaultParticleType, ClientWorld clientWorld, double x, double y, double z, double size, double maxAge, double yVel) {
-            FloatingSculkBubbleParticle bubble = new FloatingSculkBubbleParticle(clientWorld, x, y, z, size, maxAge, yVel, this.spriteProvider);
+        public Particle createParticle(SimpleParticleType defaultParticleType, ClientLevel clientLevel, double x, double y, double z, double size, double maxAge, double yVel) {
+            FloatingSculkBubbleParticle bubble = new FloatingSculkBubbleParticle(clientLevel, x, y, z, size, maxAge, yVel, this.spriteProvider);
             bubble.setAlpha(1.0F);
             return bubble;
         }

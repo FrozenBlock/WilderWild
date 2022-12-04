@@ -2,50 +2,78 @@
   "schemaVersion": 1,
   "id": "wilderwild",
   "version": "${version}",
-
   "name": "Wilder Wild",
-  "description": "Wilder Wild overhauls the Wild Update, adding features and improving existing ones.",
+  "description": "Overhauls the Wild Update, adding features and improving existing ones.",
   "authors": [
-    "FrozenBlock"
+	"FrozenBlock"
   ],
   "contact": {
-    "homepage": "https://www.curseforge.com/minecraft/mc-mods/wilder-wild",
-    "sources": "https://github.com/Soro335/WilderWild/",
-    "issues": "https://github.com/Soro335/WilderWild/issues"
+	"homepage": "https://www.curseforge.com/minecraft/mc-mods/wilder-wild",
+	"sources": "https://github.com/FrozenBlock/WilderWild",
+	"issues": "https://github.com/FrozenBlock/WilderWild/issues"
   },
-
   "license": "LGPL-3.0",
   "icon": "assets/wilderwild/icon.png",
-
   "environment": "*",
   "entrypoints": {
-    "main": [
-      "net.frozenblock.wilderwild.WilderWild"
-    ],
-    "client": [
+	"main": [
+	  "net.frozenblock.wilderwild.WilderWild"
+	],
+	"client": [
 	  "net.frozenblock.wilderwild.WilderWildClient"
+	],
+    "fabric-datagen": [
+      "net.frozenblock.wilderwild.misc.WilderWildDataGenerator"
     ],
-    "mm:early_risers": [
-      "net.frozenblock.wilderwild.EarlyRiser"
-    ],
-    "modmenu": [
-      "net.frozenblock.wilderwild.misc.config.ModMenuIntegration"
-    ]
+	"mm:early_risers": [
+	  "net.frozenblock.wilderwild.EarlyRiser"
+	],
+	"frozenlib:main": [
+	  "net.frozenblock.wilderwild.FrozenLibIntegration"
+	],
+	"frozenlib:events": [
+	  "net.frozenblock.wilderwild.registry.RegisterWorldgen"
+	],
+	"modmenu": [
+	  "net.frozenblock.wilderwild.misc.config.ModMenuIntegration"
+	],
+	"terrablender": [
+	  "net.frozenblock.wilderwild.misc.mod_compat.terrablender.BlenderInitializer"
+	],
+	"simplecopperpipes": [
+	  "net.frozenblock.wilderwild.misc.mod_compat.simple_copper_pipes.WilderCopperPipesEntrypoint"
+	]
   },
   "mixins": [
-    "wilderwild.mixins.json"
+	"wilderwild.mixins.json"
   ],
-
-  "accessWidener" : "wilderwild.accesswidener",
-
+  "accessWidener": "wilderwild.accesswidener",
   "depends": {
-    "mm": ">=2.3",
-    "fabricloader": ">=0.14.8",
-    "fabric": ">=0.58.5",
-    "minecraft": [
-      "1.19.1",
-      "1.19.2"
-    ],
-    "java": ">=17"
+	"frozenlib": ">=1.1.4-",
+	"mm": ">=2.3",
+	"nbtcrafting": ">=2.2.3",
+	"fabricloader": ">=0.14.8",
+	"fabric-api": ">=0.66.0",
+	"minecraft": ">=1.19.2",
+	"java": ">=17"
+  },
+  "breaks": {
+	"quilted_fabric_api": "4.0.0-beta.8"
+  },
+  "suggests": {
+	"cloth-config": "*",
+	"terrablender": "*"
+  },
+  "custom": {
+	"modupdater": {
+	  "strategy": "curseforge",
+	  "projectID": "648511",
+	  "strict": "false"
+	},
+	"modmenu": {
+	  "links": {
+		"modmenu.discord": "https://discord.gg/EpkBWm844s"
+	  }
+	}
   }
 }

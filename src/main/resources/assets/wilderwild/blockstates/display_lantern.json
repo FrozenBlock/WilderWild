@@ -1,0 +1,10 @@
+{
+  "variants": {
+	"hanging=false": {
+	  "model": "wilderwild:block/display_lantern"
+	},
+	"hanging=true": {
+	  "model": "wilderwild:block/display_lantern_hanging"
+	}
+  }
+}

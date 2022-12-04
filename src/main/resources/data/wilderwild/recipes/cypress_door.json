@@ -2,17 +2,17 @@
   "type": "minecraft:crafting_shaped",
   "group": "wooden_door",
   "key": {
-    "#": {
-      "item": "wilderwild:cypress_planks"
-    }
+	"#": {
+	  "item": "wilderwild:cypress_planks"
+	}
   },
   "pattern": [
-    "##",
-    "##",
-    "##"
+	"##",
+	"##",
+	"##"
   ],
   "result": {
-    "count": 3,
-    "item": "wilderwild:cypress_door"
+	"count": 3,
+	"item": "wilderwild:cypress_door"
   }
 }

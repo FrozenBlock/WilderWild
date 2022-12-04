@@ -1,28 +1,28 @@
 {
   "variants": {
-    "half=lower,age=0": {
-      "model": "wilderwild:block/milkweed_bottom"
-    },
-    "half=upper,age=0": {
-      "model": "wilderwild:block/milkweed_top"
-    },
-    "half=lower,age=1": {
-      "model": "wilderwild:block/milkweed_bottom"
-    },
-    "half=upper,age=1": {
-      "model": "wilderwild:block/milkweed_top"
-    },
-    "half=lower,age=2": {
-      "model": "wilderwild:block/milkweed_bottom"
-    },
-    "half=upper,age=2": {
-      "model": "wilderwild:block/milkweed_top"
-    },
-    "half=lower,age=3": {
-      "model": "wilderwild:block/milkweed_bottom_seeds"
-    },
-    "half=upper,age=3": {
-      "model": "wilderwild:block/milkweed_top_seeds"
-    }
+	"half=lower,age=0": {
+	  "model": "wilderwild:block/milkweed_bottom"
+	},
+	"half=upper,age=0": {
+	  "model": "wilderwild:block/milkweed_top"
+	},
+	"half=lower,age=1": {
+	  "model": "wilderwild:block/milkweed_bottom"
+	},
+	"half=upper,age=1": {
+	  "model": "wilderwild:block/milkweed_top"
+	},
+	"half=lower,age=2": {
+	  "model": "wilderwild:block/milkweed_bottom"
+	},
+	"half=upper,age=2": {
+	  "model": "wilderwild:block/milkweed_top"
+	},
+	"half=lower,age=3": {
+	  "model": "wilderwild:block/milkweed_bottom_seeds"
+	},
+	"half=upper,age=3": {
+	  "model": "wilderwild:block/milkweed_top_seeds"
+	}
   }
 }

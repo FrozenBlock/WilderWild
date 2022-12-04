@@ -3,16 +3,16 @@ package net.frozenblock.wilderwild.world.feature.features.config;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.DataResult;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import net.minecraft.block.Block;
-import net.minecraft.util.registry.Registry;
-import net.minecraft.util.registry.RegistryCodecs;
-import net.minecraft.util.registry.RegistryEntryList;
-import net.minecraft.world.gen.feature.FeatureConfig;
-import net.minecraft.world.gen.stateprovider.BlockStateProvider;
+import net.minecraft.core.HolderSet;
+import net.minecraft.core.Registry;
+import net.minecraft.core.RegistryCodecs;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.levelgen.feature.configurations.FeatureConfiguration;
+import net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProvider;
 
-public class PathFeatureConfig implements FeatureConfig {
+public class PathFeatureConfig implements FeatureConfiguration {
     public static final Codec<PathFeatureConfig> CODEC = RecordCodecBuilder.create((instance) -> {
-        return instance.group(BlockStateProvider.TYPE_CODEC.fieldOf("block").forGetter((config) -> {
+        return instance.group(BlockStateProvider.CODEC.fieldOf("block").forGetter((config) -> {
             return config.pathBlock;
         }), Codec.intRange(1, 64).fieldOf("radius").orElse(10).forGetter((config) -> {
             return config.radius;
@@ -28,7 +28,7 @@ public class PathFeatureConfig implements FeatureConfig {
             return config.useY;
         }), Codec.BOOL.fieldOf("multiplyY").orElse(false).forGetter((config) -> {
             return config.multiplyY;
-        }), RegistryCodecs.entryList(Registry.BLOCK_KEY).fieldOf("replaceable").forGetter((config) -> {
+        }), RegistryCodecs.homogeneousList(Registry.BLOCK_REGISTRY).fieldOf("replaceable").forGetter((config) -> {
             return config.replaceable;
         })).apply(instance, PathFeatureConfig::new);
     });
@@ -40,13 +40,13 @@ public class PathFeatureConfig implements FeatureConfig {
     public final double maxThresh;
     public final boolean useY;
     public final boolean multiplyY;
-    public final RegistryEntryList<Block> replaceable;
+    public final HolderSet<Block> replaceable;
 
     private static DataResult<Block> validateBlock(Block block) {
         return DataResult.success(block);
     }
 
-    public PathFeatureConfig(BlockStateProvider pathBlock, int radius, int noise, double multiplier, double minThresh, double maxThresh, boolean useY, boolean multiplyY, RegistryEntryList<Block> replaceable) {
+    public PathFeatureConfig(BlockStateProvider pathBlock, int radius, int noise, double multiplier, double minThresh, double maxThresh, boolean useY, boolean multiplyY, HolderSet<Block> replaceable) {
         this.pathBlock = pathBlock;
         this.radius = radius;
         this.noise = noise;
