@@ -2,20 +2,22 @@ package net.frozenblock.wilderwild.misc.config;
 
 public final class ClothConfigCloserInteractionHandler {
 
-	private static final EntityConfig.AllayConfig ALLAY = WilderWildConfig.get().entity.allay;
-	private static final ItemConfig.AncientHornConfig ANCIENT_HORN = WilderWildConfig.get().item.ancientHorn;
-	private static final WorldgenConfig.BiomePlacement BIOME_PLACEMENT = WilderWildConfig.get().worldgen.biomePlacement;
 	private static final BlockConfig BLOCK = WilderWildConfig.get().block;
-	private static final BlockConfig.BlockSoundsConfig BLOCK_SOUNDS = WilderWildConfig.get().block.blockSounds;
-	private static final EntityConfig.EnderManConfig ENDER_MAN = WilderWildConfig.get().entity.enderMan;
 	private static final EntityConfig ENTITY = WilderWildConfig.get().entity;
 	private static final ItemConfig ITEM = WilderWildConfig.get().item;
-
-	private static final ItemConfig.ProjectileLandingSoundsConfig PROJECTILE_LANDING_SOUNDS = WilderWildConfig.get().item.projectileLandingSounds;
-	private static final BlockConfig.StoneChestConfig STONE_CHEST = WilderWildConfig.get().block.stoneChest;
-	private static final EntityConfig.WardenConfig WARDEN = WilderWildConfig.get().entity.warden;
-	private static final EntityConfig.FireflyConfig FIREFLY = WilderWildConfig.get().entity.firefly;
 	private static final WorldgenConfig WORLDGEN = WilderWildConfig.get().worldgen;
+
+	private static final EntityConfig.AllayConfig ALLAY = ENTITY.allay;
+	private static final ItemConfig.AncientHornConfig ANCIENT_HORN = ITEM.ancientHorn;
+	private static final WorldgenConfig.BiomePlacement BIOME_PLACEMENT = WORLDGEN.biomePlacement;
+	private static final BlockConfig.BlockSoundsConfig BLOCK_SOUNDS = BLOCK.blockSounds;
+	private static final EntityConfig.EnderManConfig ENDER_MAN = ENTITY.enderMan;
+	private static final ItemConfig.ProjectileLandingSoundsConfig PROJECTILE_LANDING_SOUNDS = WilderWildConfig.get().item.projectileLandingSounds;
+	private static final BlockConfig.StoneChestConfig STONE_CHEST = BLOCK.stoneChest;
+	private static final EntityConfig.WardenConfig WARDEN = ENTITY.warden;
+	private static final EntityConfig.FireflyConfig FIREFLY = ENTITY.firefly;
+	private static final EntityConfig.JellyfishConfig JELLYFISH = ENTITY.jellyfish;
+	private static final EntityConfig.TumbleweedConfig TUMBLEWEED = ENTITY.tumbleweed;
 
 	public static boolean betaBeaches() {
 		return WilderWildConfig.get().worldgen.betaBeaches;
@@ -158,8 +160,16 @@ public final class ClothConfigCloserInteractionHandler {
 		return ENTITY.unpassableRail;
 	}
 
-	public static float fireflySpawnRate() {
-		return FIREFLY.fireflySpawnRate;
+	public static int fireflySpawnCap() {
+		return FIREFLY.fireflySpawnCap;
+	}
+
+	public static int jellyfishSpawnCap() {
+		return JELLYFISH.jellyfishSpawnCap;
+	}
+
+	public static int tumbleweedSpawnCap() {
+		return TUMBLEWEED.tumbleweedSpawnCap;
 	}
 
 	public static boolean keyframeAllayDance() {

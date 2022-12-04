@@ -1,28 +1,29 @@
 plugins {
-	id 'fabric-loom' version '+'
-	id 'io.github.juuxel.loom-quiltflower' version '+'
-	id 'maven-publish'
-	id 'eclipse'
-	id 'idea'
-	id 'java-library'
+	id("fabric-loom") version("+")
+	id("io.github.juuxel.loom-quiltflower") version("+")
+	id("maven-publish")
+	id("eclipse")
+	id("idea")
+	id("java-library")
 }
 
-archivesBaseName = project.archives_base_name
-version = getVersion()
-group = project.maven_group
-def local_frozenlib = findProject(':FrozenLib') != null
+setArchivesBaseName(project.archives_base_name)
+setVersion(getVersion())
+setGroup(project.maven_group)
+boolean local_frozenlib = findProject(":FrozenLib") != null
 
 loom {
-	runtimeOnlyLog4j = true
+	setRuntimeOnlyLog4j(true)
 
 	mixin {
-		defaultRefmapName = "mixins.wilderwild.refmap.json"
+		setDefaultRefmapName("mixins.wilderwild.refmap.json")
 	}
 
-	accessWidenerPath = file("src/main/resources/wilderwild.accesswidener")
+	setAccessWidenerPath(file("src/main/resources/wilderwild.accesswidener"))
 	interfaceInjection {
 		// When enabled, injected interfaces from dependecies will be applied.
-		enableDependencyInterfaceInjection = false
+		setEnableDependencyInterfaceInjection(false)
+		//enableDependencyInterfaceInjection = false
 	}
 }
 
@@ -30,7 +31,7 @@ sourceSets {
 	main {
 		resources {
 			srcDirs += [
-					'src/main/generated'
+					"src/main/generated"
 			]
 		}
 	}
@@ -39,14 +40,14 @@ sourceSets {
 loom {
 	runs {
 		datagen {
-			inherit server
-			name "Data Generation"
-			vmArg "-Dfabric-api.datagen"
-			vmArg "-Dfabric-api.datagen.output-dir=${file("src/main/generated")}"
-			vmArg "-Dfabric-api.datagen.strict-validation"
+			inherit(server)
+			name("Data Generation")
+			vmArg("-Dfabric-api.datagen")
+			vmArg("-Dfabric-api.datagen.output-dir=${file("src/main/generated")}")
+			vmArg("-Dfabric-api.datagen.strict-validation")
 
-			ideConfigGenerated = true
-			runDir = "build/datagen"
+			setIdeConfigGenerated(true)
+			setRunDir("build/datagen")
 		}
 	}
 }
@@ -55,11 +56,11 @@ configurations {
 	includeModImplementation
 	includeImplementation
 
-	include.extendsFrom includeImplementation
-	include.extendsFrom includeModImplementation
+	include.extendsFrom(includeImplementation)
+	include.extendsFrom(includeModImplementation)
 
-	implementation.extendsFrom includeImplementation
-	modImplementation.extendsFrom includeModImplementation
+	implementation.extendsFrom(includeImplementation)
+	modImplementation.extendsFrom(includeModImplementation)
 }
 
 repositories {
@@ -67,62 +68,62 @@ repositories {
 	// You should only use this when depending on other mods because
 	// Loom adds the essential maven repositories to download Minecraft and libraries from automatically.
 	maven {
-		url = 'https://jitpack.io'
+		setUrl("https://jitpack.io")
 	}
 	maven {
-		name = "Modrinth"
-		url = "https://api.modrinth.com/maven"
+		setName("Modrinth")
+		setUrl("https://api.modrinth.com/maven")
 
 		content {
-			includeGroup "maven.modrinth"
+			includeGroup("maven.modrinth")
 		}
 	}
 	maven {
-		url = 'https://maven.terraformersmc.com'
+		setUrl("https://maven.terraformersmc.com")
 
 		content {
-			includeGroup "com.terraformersmc"
+			includeGroup("com.terraformersmc")
 		}
 	}
 	maven {
-		url = 'https://maven.shedaniel.me/'
+		setUrl("https://maven.shedaniel.me/")
 	}
 	maven {
-		url 'https://cursemaven.com'
+		setUrl("https://cursemaven.com")
 
 		content {
-			includeGroup "curse.maven"
+			includeGroup("curse.maven")
 		}
 	}
 	/*maven {
-		name "Siphalor's Maven"
-		url "https://maven.siphalor.de"
+		setName("Siphalor's Maven")
+		setUrl("https://maven.siphalor.de")
 	}*/
 	maven {
-		url "https://maven.flashyreese.me/releases"
+		setUrl("https://maven.flashyreese.me/releases")
 	}
 	maven {
-		url "https://maven.flashyreese.me/snapshots"
+		setUrl("https://maven.flashyreese.me/snapshots")
 	}
 	maven {
-		url = 'https://maven.minecraftforge.net/'
+		setUrl("https://maven.minecraftforge.net/")
 	}
 	maven {
-		url = 'https://maven.parchmentmc.org'
+		setUrl("https://maven.parchmentmc.org")
 	}
 	maven {
-		name = 'Quilt'
-		url = 'https://maven.quiltmc.org/repository/release'
+		setName("Quilt")
+		setUrl("https://maven.quiltmc.org/repository/release")
 	}
 
 	flatDir {
-		dirs 'libs'
+		dirs("libs")
 	}
 }
 
 dependencies {
 	// To change the versions see the gradle.properties file
-	minecraft "com.mojang:minecraft:${minecraft_version}"
+	minecraft("com.mojang:minecraft:${minecraft_version}")
 	mappings(loom.layered {
 		// please annoy treetrain if this doesnt work
 		it.mappings("org.quiltmc:quilt-mappings:${minecraft_version}+build.${quilt_mappings}:intermediary-v2")
@@ -131,32 +132,29 @@ dependencies {
 			setNameSyntheticMembers(false)
 		}
 	})
-	modImplementation "net.fabricmc:fabric-loader:${loader_version}"
+	modImplementation("net.fabricmc:fabric-loader:${loader_version}")
 
 	// Fabric API. This is technically optional, but you probably want it anyway.
-	modImplementation "net.fabricmc.fabric-api:fabric-api:${fabric_version}"
+	modImplementation("net.fabricmc.fabric-api:fabric-api:${fabric_version}")
 
 	// FrozenLib
-	println "Using local FrozenLib: ${local_frozenlib}"
+	println("Using local FrozenLib: ${local_frozenlib}")
 	if (local_frozenlib) {
-		implementation(project(path: ":FrozenLib", configuration: 'dev'))
-		include(project(path: ":FrozenLib", configuration: 'dev'))
+		include(implementation(project(path: ":FrozenLib", configuration: "dev")))
 	}/* else if (findProperty("isGithub") == "true") {
-		modImplementation "com.github.FrozenBlock:FrozenLib:master-SNAPSHOT"
+		include(modImplementation("com.github.FrozenBlock:FrozenLib:master-SNAPSHOT"))
 	}*/ else {
-		modImplementation "maven.modrinth:frozenlib:${frozenlib_version}"
-		include "maven.modrinth:frozenlib:${frozenlib_version}"
+		include(modImplementation("maven.modrinth:frozenlib:${frozenlib_version}"))
 	}
 
 	// Fabric-ASM
-	modImplementation "com.github.Chocohead:Fabric-ASM:${fabric_asm_version}"
-	include "com.github.Chocohead:Fabric-ASM:${fabric_asm_version}"
+	include(modImplementation("com.github.Chocohead:Fabric-ASM:${fabric_asm_version}"))
 
 	// Lunade
-	modImplementation "maven.modrinth:simple-copper-pipes:${copperpipes_version}"
+	modImplementation("maven.modrinth:simple-copper-pipes:${copperpipes_version}")
 
 	// Mod Menu
-	modImplementation "com.terraformersmc:modmenu:${modmenu_version}"
+	modImplementation("com.terraformersmc:modmenu:${modmenu_version}")
 
 	// Cloth Config
 	modImplementation("me.shedaniel.cloth:cloth-config-fabric:${cloth_config_version}") {
@@ -165,29 +163,31 @@ dependencies {
 	}
 
 	// NBT Crafting
-	modImplementation "maven.modrinth:nbt-crafting:${nbtcrafting_version}"
-	include "maven.modrinth:nbt-crafting:${nbtcrafting_version}"
+	include(modImplementation("maven.modrinth:nbt-crafting:${nbtcrafting_version}"))
+
+	// CaffeineConfig
+	include(modImplementation("net.caffeinemc:mixin-config:1.0.0+1.17"))
 
 	// TerraBlender
-	modCompileOnly "com.github.glitchfiend:TerraBlender-fabric:${minecraft_version}-${terrablender_version}"
+	modCompileOnly("com.github.glitchfiend:TerraBlender-fabric:${minecraft_version}-${terrablender_version}")
 
 	// Sodium
-	modCompileOnly "maven.modrinth:sodium:${sodium_version}"
-	modCompileOnly "org.joml:joml:1.10.4"
-	modCompileOnly "org.anarres:jcpp:1.4.14"
+	modCompileOnly("maven.modrinth:sodium:${sodium_version}")
+	modCompileOnly("org.joml:joml:1.10.4")
+	modCompileOnly("org.anarres:jcpp:1.4.14")
 
 	// only affects runClient, does not affect gradlew build.
 	// add -PuseThirdPartyMods=false to not use these
 	if (findProperty("useThirdPartyMods") != "false") {
-		modRuntimeOnly "maven.modrinth:ferrite-core:${ferritecore_version}"
-		modRuntimeOnly "maven.modrinth:lazydfu:${lazydfu_version}"
-		modRuntimeOnly "maven.modrinth:starlight:${starlight_version}"
-		modRuntimeOnly "maven.modrinth:lithium:${lithium_version}"
-		modRuntimeOnly "maven.modrinth:fastanim:${fastanim_version}"
+		modRuntimeOnly("maven.modrinth:ferrite-core:${ferritecore_version}")
+		modRuntimeOnly("maven.modrinth:lazydfu:${lazydfu_version}")
+		modRuntimeOnly("maven.modrinth:starlight:${starlight_version}")
+		modRuntimeOnly("maven.modrinth:lithium:${lithium_version}")
+		modRuntimeOnly("maven.modrinth:fastanim:${fastanim_version}")
 
-		modRuntimeOnly "maven.modrinth:entityculling:${entityculling_version}"
-		modRuntimeOnly "maven.modrinth:memoryleakfix:${memoryleakfix_version}"
-		modRuntimeOnly "maven.modrinth:no-unused-chunks:${no_unused_chunks_version}"
+		modRuntimeOnly("maven.modrinth:entityculling:${entityculling_version}")
+		modRuntimeOnly("maven.modrinth:memoryleakfix:${memoryleakfix_version}")
+		modRuntimeOnly("maven.modrinth:no-unused-chunks:${no_unused_chunks_version}")
 	}
 
 	// only affects runClient, does not affect gradlew build.
@@ -195,21 +195,21 @@ dependencies {
 	// command to use these
 	if (findProperty("useExperimentalThirdParty") == "true") {
 		//modRuntimeOnly "maven.modrinth:iris:${iris_version}"
-		modRuntimeOnly "maven.modrinth:indium:${indium_version}"
+		modRuntimeOnly("maven.modrinth:indium:${indium_version}")
 		modRuntimeOnly("me.flashyreese.mods:reeses-sodium-options:${reeses_sodium_options_version}") {
-			exclude group: "net.coderbot.iris_mc1_19", module: "iris"
+			exclude(group: "net.coderbot.iris_mc1_19", module: "iris")
 		}
-		modRuntimeOnly "me.flashyreese.mods:sodium-extra-fabric:${sodium_extra_version}"
-		modRuntimeOnly 'io.github.douira:glsl-transformer:0.27.0'
-		modRuntimeOnly "net.caffeinemc:mixin-config:1.0.0+1.17"
+		modRuntimeOnly("me.flashyreese.mods:sodium-extra-fabric:${sodium_extra_version}")
+		modRuntimeOnly("io.github.douira:glsl-transformer:0.27.0")
+		modRuntimeOnly("net.caffeinemc:mixin-config:1.0.0+1.17")
 	}
 }
 
 processResources {
-	inputs.property "version", project.version
+	inputs.property("version", project.version)
 
 	filesMatching("fabric.mod.json") {
-		expand "version": project.version
+		expand("version": project.version)
 	}
 }
 
@@ -222,30 +222,30 @@ javadoc {
 }
 
 task javadocJar(type: Jar, dependsOn: javadoc) {
-	classifier = 'javadoc'
-	from javadoc.destinationDir
+	setClassifier("javadoc")
+	from(javadoc.destinationDir)
 }
 
 task sourcesJar(type: Jar, dependsOn: classes) {
-	classifier = 'sources'
-	from sourceSets.main.allSource
+	setClassifier("sources")
+	from(sourceSets.main.allSource)
 }
 
 tasks.withType(JavaCompile).configureEach {
-	it.options.encoding = "UTF-8"
+	it.options.setEncoding("UTF-8")
 	// Minecraft 1.18 (1.18-pre2) upwards uses Java 17.
-	it.options.release = 17
-	options.fork = true
-	options.incremental = true
+	it.options.setRelease(17)
+	options.setFork(true)
+	options.setIncremental(true)
 }
 
 tasks.withType(Test).configureEach {
-	maxParallelForks = Runtime.runtime.availableProcessors().intdiv(2) ?: 1
+	setMaxParallelForks(Runtime.runtime.availableProcessors().intdiv(2) ?: 1)
 }
 
 java {
-	sourceCompatibility = JavaVersion.VERSION_17
-	targetCompatibility = JavaVersion.VERSION_17
+	setSourceCompatibility(JavaVersion.VERSION_17)
+	setTargetCompatibility(JavaVersion.VERSION_17)
 
 	// Loom will automatically attach sourcesJar to a RemapSourcesJar task and to the "build" task
 	// if it is present.
@@ -255,13 +255,13 @@ java {
 
 jar {
 	from("LICENSE") {
-		rename { "${it}_${project.archivesBaseName}"}
+		rename({"${it}_${project.archivesBaseName}"})
 	}
 }
 
 artifacts {
-	archives sourcesJar
-	archives javadocJar
+	archives(sourcesJar)
+	archives(javadocJar)
 }
 
 String getVersion() {
@@ -278,7 +278,7 @@ String getVersion() {
 publishing {
 	publications {
 		mavenJava(MavenPublication) {
-			from components.java
+			from(components.java)
 		}
 	}
 

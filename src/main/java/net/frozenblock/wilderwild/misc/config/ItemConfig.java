@@ -16,15 +16,15 @@ import static net.frozenblock.wilderwild.misc.config.WilderWildConfig.*;
 public final class ItemConfig implements ConfigData {
 
     @ConfigEntry.Gui.CollapsibleObject
-    public AncientHornConfig ancientHorn = new AncientHornConfig();
+    public final AncientHornConfig ancientHorn = new AncientHornConfig();
+
+	@ConfigEntry.Gui.CollapsibleObject
+	public final ProjectileLandingSoundsConfig projectileLandingSounds = new ProjectileLandingSoundsConfig();
 
     public static class AncientHornConfig {
         public boolean ancientHornShattersGlass = false;
         public boolean ancientHornCanSummonWarden = true;
     }
-
-	@ConfigEntry.Gui.CollapsibleObject
-	public static ProjectileLandingSoundsConfig projectileLandingSounds = new ProjectileLandingSoundsConfig();
 
 	public static class ProjectileLandingSoundsConfig {
 		public boolean snowballLandingSounds = true;
@@ -38,6 +38,7 @@ public final class ItemConfig implements ConfigData {
     static void setupEntries(ConfigCategory category, ConfigEntryBuilder entryBuilder) {
         var config = WilderWildConfig.get().item;
         var ancientHorn = config.ancientHorn;
+		var projectileLandingSounds = config.projectileLandingSounds;
         category.setBackground(WilderSharedConstants.id("textures/config/item.png"));
         var shattersGlass = entryBuilder.startBooleanToggle(text("ancient_horn_shatters_glass"), ancientHorn.ancientHornShattersGlass)
                 .setDefaultValue(false)
