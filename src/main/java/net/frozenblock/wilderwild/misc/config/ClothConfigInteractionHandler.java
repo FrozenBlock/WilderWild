@@ -125,24 +125,15 @@ public final class ClothConfigInteractionHandler {
 	}
 
 	public static boolean snowballLandingSounds() {
-		if (FrozenBools.HAS_CLOTH_CONFIG) {
-			return ClothConfigCloserInteractionHandler.snowballLandingSounds();
-		}
-		return true;
+		return !FrozenBools.HAS_CLOTH_CONFIG || ClothConfigCloserInteractionHandler.snowballLandingSounds();
 	}
 
 	public static boolean eggLandingSounds() {
-		if (FrozenBools.HAS_CLOTH_CONFIG) {
-			return ClothConfigCloserInteractionHandler.eggLandingSounds();
-		}
-		return true;
+		return !FrozenBools.HAS_CLOTH_CONFIG || ClothConfigCloserInteractionHandler.eggLandingSounds();
 	}
 
 	public static boolean enderpearlLandingSounds() {
-		if (FrozenBools.HAS_CLOTH_CONFIG) {
-			return ClothConfigCloserInteractionHandler.enderpearlLandingSounds();
-		}
-		return true;
+		return !FrozenBools.HAS_CLOTH_CONFIG || ClothConfigCloserInteractionHandler.enderpearlLandingSounds();
 	}
 
 	public static int stoneChestTimer() {
