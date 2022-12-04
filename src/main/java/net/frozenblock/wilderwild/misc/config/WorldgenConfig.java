@@ -17,7 +17,7 @@ public final class WorldgenConfig implements ConfigData {
     //public static final EnumConfigOption<ModMenuConfig.ModsButtonStyle> MODS_BUTTON_STYLE = new EnumConfigOption<>("mods_button_style", ModMenuConfig.ModsButtonStyle.CLASSIC);
 
     @ConfigEntry.Gui.CollapsibleObject
-    public BiomePlacement biomePlacement = new BiomePlacement();
+    public final BiomePlacement biomePlacement = new BiomePlacement();
 
     public static class BiomePlacement {
         //public boolean modifyDesertPlacement = true;
