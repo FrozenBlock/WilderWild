@@ -215,6 +215,27 @@ public final class ClothConfigInteractionHandler {
 		return true;
 	}
 
+	public static boolean snowballLandingSounds() {
+		if (FrozenBools.HAS_CLOTH_CONFIG) {
+			return ClothConfigCloserInteractionHandler.snowballLandingSounds();
+		}
+		return true;
+	}
+
+	public static boolean eggLandingSounds() {
+		if (FrozenBools.HAS_CLOTH_CONFIG) {
+			return ClothConfigCloserInteractionHandler.eggLandingSounds();
+		}
+		return true;
+	}
+
+	public static boolean enderpearlLandingSounds() {
+		if (FrozenBools.HAS_CLOTH_CONFIG) {
+			return ClothConfigCloserInteractionHandler.enderpearlLandingSounds();
+		}
+		return true;
+	}
+
 	public static int stoneChestTimer() {
 		if (FrozenBools.HAS_CLOTH_CONFIG) {
 			return ClothConfigCloserInteractionHandler.stoneChestTimer();
