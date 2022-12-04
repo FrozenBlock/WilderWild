@@ -1,54 +1,54 @@
 pluginManagement {
     repositories {
 		maven {
-			name = 'Quilt'
-			url = 'https://maven.quiltmc.org/repository/release/'
+			setName("Quilt")
+			setUrl("https://maven.quiltmc.org/repository/release/")
 		}
 		maven {
-			name = 'Quilt Snapshot'
-			url = 'https://maven.quiltmc.org/repository/snapshot/'
+			setName("Quilt Snapshot")
+			setUrl("https://maven.quiltmc.org/repository/snapshot/")
 		}
 		maven {
-			name = 'Fabric'
-			url = 'https://maven.fabricmc.net/'
+			setName("Fabric")
+			setUrl("https://maven.fabricmc.net/")
 		}
 		jcenter()
 		maven {
-			name = "Forge"
-			url = "https://files.minecraftforge.net/maven/"
+			setName("Forge")
+			setUrl("https://files.minecraftforge.net/maven/")
 		}
 		maven {
-			name = "Jitpack"
-			url 'https://jitpack.io/'
+			setName("Jitpack")
+			setUrl("https://jitpack.io/")
 		}
         mavenCentral()
         gradlePluginPortal()
     }
 }
 
-rootProject.name = "Wilder Wild"
+rootProject.setName("Wilder Wild")
 
 
-def allowLocalFrozenLibUse = true
-def allowFrozenLibInConsoleMode = true
-def FrozenLibPath = '../FrozenLib'
-def FrozenLibPathGitHub = '../WilderWild/FrozenLib'
+boolean allowLocalFrozenLibUse = true
+boolean allowFrozenLibInConsoleMode = true
+String FrozenLibPath = "../FrozenLib"
+String FrozenLibPathGitHub = "../WilderWild/FrozenLib"
 
-def isIDE = properties.containsKey('android.injected.invoked.from.ide')
+boolean isIDE = properties.containsKey("android.injected.invoked.from.ide"
         || (System.getenv("XPC_SERVICE_NAME") ?: "").contains("intellij")
         || (System.getenv("XPC_SERVICE_NAME") ?: "").contains(".idea")
-        || System.getenv("IDEA_INITIAL_DIRECTORY") != null
+        || System.getenv("IDEA_INITIAL_DIRECTORY") != null)
 
-def FrozenLibFolder = new File(FrozenLibPath)
-def FrozenLibFolderGitHub = new File(FrozenLibPathGitHub)
+File FrozenLibFolder = new File(FrozenLibPath)
+File FrozenLibFolderGitHub = new File(FrozenLibPathGitHub)
 if (allowLocalFrozenLibUse && (isIDE || allowFrozenLibInConsoleMode) && FrozenLibFolder.exists()) {
 
-    include ':FrozenLib'
-    project(":FrozenLib").projectDir = FrozenLibFolder
-    project(':FrozenLib').buildFileName = './build.gradle'
+    include(":FrozenLib")
+    project(":FrozenLib").setProjectDir(FrozenLibFolder)
+    project(":FrozenLib").setBuildFileName("./build.gradle")
 } else if (allowLocalFrozenLibUse && (isIDE || allowFrozenLibInConsoleMode) && FrozenLibFolderGitHub.exists()) {
 
-    include ':FrozenLib'
-    project(":FrozenLib").projectDir = FrozenLibFolderGitHub
-    project(':FrozenLib').buildFileName = './build.gradle'
+    include(":FrozenLib")
+	project(":FrozenLib").setProjectDir(FrozenLibFolderGitHub)
+    project(":FrozenLib").setBuildFileName("./build.gradle")
 }
