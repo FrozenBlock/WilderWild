@@ -5,10 +5,11 @@ import net.fabricmc.api.Environment;
 import net.frozenblock.lib.sound.api.instances.RestrictedMovingSound;
 import net.frozenblock.lib.sound.api.instances.RestrictedMovingSoundLoop;
 import net.frozenblock.lib.sound.api.predicate.SoundPredicate;
-import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.frozenblock.wilderwild.registry.RegisterSounds;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.resources.sounds.EntityBoundSoundInstance;
+import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.monster.EnderMan;
@@ -27,6 +28,13 @@ public class ClientMethods {
 		Minecraft client = Minecraft.getInstance();
 		if (client.level != null && enderMan.isAlive()) {
 			Minecraft.getInstance().getSoundManager().play(new RestrictedMovingSoundLoop<>(enderMan, RegisterSounds.ENTITY_ENDERMAN_ANGER_LOOP, SoundSource.HOSTILE, 1.0F, 0.9F, SoundPredicate.getPredicate(WilderSharedConstants.id("enderman_anger"))));
+		}
+	}
+
+	public static void playClientPlayerSound(SoundEvent sound, float volume, float pitch) {
+		Minecraft client = Minecraft.getInstance();
+		if (client.level != null && client.player != null) {
+			client.getSoundManager().play(new EntityBoundSoundInstance(sound, SoundSource.PLAYERS, volume, pitch, client.player, client.level.random.nextLong()));
 		}
 	}
 

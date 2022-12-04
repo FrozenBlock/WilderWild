@@ -1,5 +1,6 @@
 package net.frozenblock.wilderwild.misc.client;
 
+import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.entity.monster.EnderMan;
 
 public class ClientMethodInteractionHandler {
@@ -8,4 +9,7 @@ public class ClientMethodInteractionHandler {
         ClientMethods.playClientEnderManSound(enderMan);
     }
 
+	public static void playClientPlayerSound(SoundEvent sound, float volume, float pitch) {
+		ClientMethods.playClientPlayerSound(sound, volume, pitch);
+	}
 }

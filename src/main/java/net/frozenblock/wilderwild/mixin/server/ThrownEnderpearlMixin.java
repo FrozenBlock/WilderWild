@@ -1,5 +1,6 @@
 package net.frozenblock.wilderwild.mixin.server;
 
+import net.frozenblock.wilderwild.misc.client.ClientMethodInteractionHandler;
 import net.frozenblock.wilderwild.misc.config.ClothConfigInteractionHandler;
 import net.frozenblock.wilderwild.registry.RegisterSounds;
 import net.minecraft.sounds.SoundEvents;
@@ -30,8 +31,8 @@ public class ThrownEnderpearlMixin {
 					pearl.level.playSound(owner, pearl.getX(), pearl.getY(), pearl.getZ(), SoundEvents.CHORUS_FRUIT_TELEPORT, SoundSource.NEUTRAL, 0.4F, 0.85F + (pearl.level.random.nextFloat() * 0.2F));
 				}
 			} else if (owner != null) {
-				owner.playSound(RegisterSounds.ITEM_ENDERPEARL_LAND, 0.6F, 0.85F + (pearl.level.random.nextFloat() * 0.2F));
-				owner.playSound(SoundEvents.CHORUS_FRUIT_TELEPORT, 0.4F, 0.85F + (pearl.level.random.nextFloat() * 0.2F));
+				ClientMethodInteractionHandler.playClientPlayerSound(RegisterSounds.ITEM_ENDERPEARL_LAND, 0.6F, 0.85F + (pearl.level.random.nextFloat() * 0.2F));
+				ClientMethodInteractionHandler.playClientPlayerSound(SoundEvents.CHORUS_FRUIT_TELEPORT, 0.4F, 0.85F + (pearl.level.random.nextFloat() * 0.2F));
 			}
 		}
 	}
