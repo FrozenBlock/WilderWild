@@ -127,7 +127,7 @@ public abstract class SculkBlockMixin {
         }
 
 		if (growthState != null && growthState.getBlock() == RegisterBlocks.SCULK_JAW) {
-			aboveChargePos = chargePos;
+			aboveChargePos = chargePos.below();
 		}
 		if (growthState != null && growthState.getBlock() == RegisterBlocks.SCULK_ECHOER) {
 			canReturn = true;
