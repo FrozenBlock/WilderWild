@@ -1,148 +1,118 @@
 package net.frozenblock.wilderwild.block;
 
 import it.unimi.dsi.fastutil.objects.Object2IntMap;
-import it.unimi.dsi.fastutil.objects.Object2IntMaps;
-import it.unimi.dsi.fastutil.objects.Object2IntOpenHashMap;
 import net.frozenblock.wilderwild.block.entity.SculkEchoerBlockEntity;
-import net.frozenblock.wilderwild.registry.*;
-import net.minecraft.block.*;
-import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.block.entity.BlockEntityTicker;
-import net.minecraft.block.entity.BlockEntityType;
-import net.minecraft.block.enums.SculkSensorPhase;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.ai.pathing.NavigationType;
-import net.minecraft.entity.mob.WardenEntity;
-import net.minecraft.fluid.FluidState;
-import net.minecraft.fluid.Fluids;
-import net.minecraft.item.ItemPlacementContext;
-import net.minecraft.item.ItemStack;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.sound.SoundCategory;
-import net.minecraft.sound.SoundEvents;
-import net.minecraft.state.StateManager;
-import net.minecraft.state.property.BooleanProperty;
-import net.minecraft.state.property.EnumProperty;
-import net.minecraft.state.property.Properties;
-import net.minecraft.util.Util;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
-import net.minecraft.util.math.intprovider.ConstantIntProvider;
-import net.minecraft.util.math.random.Random;
-import net.minecraft.util.shape.VoxelShape;
-import net.minecraft.util.shape.VoxelShapes;
-import net.minecraft.world.BlockView;
-import net.minecraft.world.World;
-import net.minecraft.world.WorldAccess;
-import net.minecraft.world.event.GameEvent;
-import net.minecraft.world.event.listener.GameEventListener;
+import net.frozenblock.wilderwild.registry.RegisterBlockEntities;
+import net.frozenblock.wilderwild.registry.RegisterBlocks;
+import net.frozenblock.wilderwild.registry.RegisterProperties;
+import net.frozenblock.wilderwild.registry.RegisterSounds;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.util.RandomSource;
+import net.minecraft.util.valueproviders.ConstantInt;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.monster.warden.Warden;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.context.BlockPlaceContext;
+import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.block.BaseEntityBlock;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.RenderShape;
+import net.minecraft.world.level.block.SculkSensorBlock;
+import net.minecraft.world.level.block.SimpleWaterloggedBlock;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntityTicker;
+import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.block.state.properties.BooleanProperty;
+import net.minecraft.world.level.block.state.properties.EnumProperty;
+import net.minecraft.world.level.block.state.properties.SculkSensorPhase;
+import net.minecraft.world.level.gameevent.GameEvent;
+import net.minecraft.world.level.gameevent.GameEventListener;
+import net.minecraft.world.level.material.FluidState;
+import net.minecraft.world.level.material.Fluids;
+import net.minecraft.world.level.pathfinder.PathComputationType;
+import net.minecraft.world.phys.shapes.CollisionContext;
+import net.minecraft.world.phys.shapes.Shapes;
+import net.minecraft.world.phys.shapes.VoxelShape;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-public class SculkEchoerBlock extends BlockWithEntity implements Waterloggable {
-    // remove this and add vibrations with the SculkSensorFrequencyRegistry api when fabric releases it
-    public static final Object2IntMap<GameEvent> FREQUENCIES = Object2IntMaps.unmodifiable(Util.make(new Object2IntOpenHashMap<>(), (map) -> {
-        map.put(GameEvent.STEP, 1);
-        map.put(RegisterGameEvents.TENDRIL_EXTRACT_XP, 1);
-        map.put(GameEvent.FLAP, 2);
-        map.put(GameEvent.SWIM, 3);
-        map.put(GameEvent.ELYTRA_GLIDE, 4);
-        map.put(GameEvent.HIT_GROUND, 5);
-        map.put(GameEvent.SPLASH, 6);
-        map.put(GameEvent.ENTITY_SHAKE, 6);
-        map.put(GameEvent.BLOCK_CHANGE, 6);
-        map.put(GameEvent.NOTE_BLOCK_PLAY, 6);
-        map.put(GameEvent.PROJECTILE_SHOOT, 7);
-        map.put(GameEvent.DRINK, 7);
-        map.put(GameEvent.PRIME_FUSE, 7);
-        map.put(GameEvent.PROJECTILE_LAND, 8);
-        map.put(GameEvent.EAT, 8);
-        map.put(GameEvent.ENTITY_INTERACT, 8);
-        map.put(GameEvent.ENTITY_DAMAGE, 8);
-        map.put(GameEvent.EQUIP, 9);
-        map.put(GameEvent.SHEAR, 9);
-        map.put(GameEvent.ENTITY_ROAR, 9);
-        map.put(GameEvent.BLOCK_CLOSE, 10);
-        map.put(GameEvent.BLOCK_DEACTIVATE, 10);
-        map.put(GameEvent.BLOCK_DETACH, 10);
-        map.put(GameEvent.DISPENSE_FAIL, 10);
-        map.put(GameEvent.BLOCK_OPEN, 11);
-        map.put(GameEvent.BLOCK_ACTIVATE, 11);
-        map.put(GameEvent.BLOCK_ATTACH, 11);
-        map.put(GameEvent.ENTITY_PLACE, 12);
-        map.put(GameEvent.BLOCK_PLACE, 12);
-        map.put(GameEvent.FLUID_PLACE, 12);
-        map.put(GameEvent.ENTITY_DIE, 13);
-        map.put(GameEvent.BLOCK_DESTROY, 13);
-        map.put(GameEvent.FLUID_PICKUP, 13);
-        map.put(GameEvent.ITEM_INTERACT_FINISH, 14);
-        map.put(GameEvent.CONTAINER_CLOSE, 14);
-        map.put(GameEvent.PISTON_CONTRACT, 14);
-        map.put(GameEvent.PISTON_EXTEND, 15);
-        map.put(GameEvent.CONTAINER_OPEN, 15);
-        map.put(GameEvent.ITEM_INTERACT_START, 15);
-        map.put(GameEvent.EXPLODE, 15);
-        map.put(GameEvent.LIGHTNING_STRIKE, 15);
-    }));
-    public static final EnumProperty<SculkSensorPhase> SCULK_ECHOER_PHASE = Properties.SCULK_SENSOR_PHASE;
-    public static final BooleanProperty WATERLOGGED = Properties.WATERLOGGED;
+public class SculkEchoerBlock extends BaseEntityBlock implements SimpleWaterloggedBlock {
+
+    public static final EnumProperty<SculkSensorPhase> SCULK_ECHOER_PHASE = BlockStateProperties.SCULK_SENSOR_PHASE;
+    public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
     public static final BooleanProperty UPSIDEDOWN = RegisterProperties.UPSIDE_DOWN;
+	private static final Object2IntMap<GameEvent> VIBRATION_FREQUENCY_FOR_EVENT = SculkSensorBlock.VIBRATION_FREQUENCY_FOR_EVENT;
     private final int range;
 
-    private static final VoxelShape OUTLINE = VoxelShapes.fullCube();
-    private static final VoxelShape SHAPE = VoxelShapes.union(Block.createCuboidShape(0.0D, 0.0D, 0.0D, 16.0D, 4.0D, 16.0D), Block.createCuboidShape(1.0D, 4.0D, 1.0D, 15.0D, 10.0D, 15.0D));
-    private static final VoxelShape SHAPE_UPSIDEDOWN = VoxelShapes.union(Block.createCuboidShape(0.0D, 12.0D, 0.0D, 16.0D, 16.0D, 16.0D), Block.createCuboidShape(1.0D, 6.0D, 1.0D, 15.0D, 12.0D, 15.0D));
+    private static final VoxelShape OUTLINE = Shapes.block();
+    private static final VoxelShape SHAPE = Shapes.or(Block.box(0.0D, 0.0D, 0.0D, 16.0D, 4.0D, 16.0D), Block.box(1.0D, 4.0D, 1.0D, 15.0D, 10.0D, 15.0D));
+    private static final VoxelShape SHAPE_UPSIDEDOWN = Shapes.or(Block.box(0.0D, 12.0D, 0.0D, 16.0D, 16.0D, 16.0D), Block.box(1.0D, 6.0D, 1.0D, 15.0D, 12.0D, 15.0D));
 
-    public SculkEchoerBlock(Settings settings, int range) {
+    public SculkEchoerBlock(Properties settings, int range) {
         super(settings);
-        this.setDefaultState(this.stateManager.getDefaultState().with(SCULK_ECHOER_PHASE, SculkSensorPhase.INACTIVE).with(WATERLOGGED, false).with(UPSIDEDOWN, false));
+        this.registerDefaultState(this.stateDefinition.any().setValue(SCULK_ECHOER_PHASE, SculkSensorPhase.INACTIVE).setValue(WATERLOGGED, false).setValue(UPSIDEDOWN, false));
         this.range = range;
     }
 
-    protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
+	@Override
+    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
         builder.add(SCULK_ECHOER_PHASE, WATERLOGGED, UPSIDEDOWN);
     }
 
-    public void onStacksDropped(BlockState state, ServerWorld world, BlockPos pos, ItemStack stack, boolean dropExperience) {
-        super.onStacksDropped(state, world, pos, stack, dropExperience);
+	@Override
+    public void spawnAfterBreak(@NotNull BlockState state, @NotNull ServerLevel world, @NotNull BlockPos pos, @NotNull ItemStack stack, boolean dropExperience) {
+        super.spawnAfterBreak(state, world, pos, stack, dropExperience);
         if (dropExperience) {
-            this.dropExperienceWhenMined(world, pos, stack, ConstantIntProvider.create(5));
+            this.tryDropExperience(world, pos, stack, ConstantInt.of(5));
         }
     }
 
     @Override
-    public void onSteppedOn(World world, BlockPos pos, BlockState state, Entity entity) {
-        if (!world.isClient() && isInactive(state) && entity.getType() != EntityType.WARDEN) {
-            BlockEntity blockEntity = world.getBlockEntity(pos);
+    public void stepOn(Level level, @NotNull BlockPos pos, @NotNull BlockState state, @NotNull Entity entity) {
+        if (!level.isClientSide && isInactive(state) && entity.getType() != EntityType.WARDEN) {
+            BlockEntity blockEntity = level.getBlockEntity(pos);
             if (blockEntity instanceof SculkEchoerBlockEntity sculkEchoerBlockEntity) {
-                sculkEchoerBlockEntity.setLastVibrationFrequency(FREQUENCIES.get(GameEvent.STEP));
+                sculkEchoerBlockEntity.setLastVibrationFrequency(VIBRATION_FREQUENCY_FOR_EVENT.get(GameEvent.STEP));
             }
 
-            setActive(entity, world, pos, state, 20);
+            setActive(entity, level, pos, state, 20);
         }
 
-        super.onSteppedOn(world, pos, state, entity);
+        super.stepOn(level, pos, state, entity);
     }
 
-    public void onBlockAdded(BlockState state, World world, BlockPos pos, BlockState oldState, boolean notify) {
-        if (!world.isClient() && !state.isOf(oldState.getBlock())) {
-            world.createAndScheduleBlockTick(new BlockPos(pos), state.getBlock(), 1);
+	@Override
+    public void onPlace(@NotNull BlockState state, Level world, @NotNull BlockPos pos, @NotNull BlockState oldState, boolean notify) {
+        if (!world.isClientSide && !state.is(oldState.getBlock())) {
+            world.scheduleTick(new BlockPos(pos), state.getBlock(), 1);
         }
     }
 
-    public void onStateReplaced(BlockState state, World world, BlockPos pos, BlockState newState, boolean moved) {
-        if (!state.isOf(newState.getBlock())) {
+	@Override
+    public void onRemove(BlockState state, @NotNull Level world, @NotNull BlockPos pos, BlockState newState, boolean moved) {
+        if (!state.is(newState.getBlock())) {
             if (getPhase(state) == SculkSensorPhase.ACTIVE) {
                 updateNeighbors(world, pos);
             }
-            super.onStateReplaced(state, world, pos, newState, moved);
+            super.onRemove(state, world, pos, newState, moved);
         }
     }
 
-    public void scheduledTick(BlockState state, ServerWorld world, BlockPos pos, Random random) {
+	@Override
+    public void tick(@NotNull BlockState state, @NotNull ServerLevel world, @NotNull BlockPos pos, @NotNull RandomSource random) {
         if (getPhase(state) != SculkSensorPhase.ACTIVE) {
             if (getPhase(state) == SculkSensorPhase.COOLDOWN) {
-                world.setBlockState(pos, state.with(SCULK_ECHOER_PHASE, SculkSensorPhase.INACTIVE), Block.NOTIFY_ALL);
+                world.setBlock(pos, state.setValue(SCULK_ECHOER_PHASE, SculkSensorPhase.INACTIVE), Block.UPDATE_ALL);
             }
         } else {
             setCooldown(world, pos, state);
@@ -150,57 +120,60 @@ public class SculkEchoerBlock extends BlockWithEntity implements Waterloggable {
     }
 
     @Override
-    public BlockRenderType getRenderType(BlockState blockState) {
-        return BlockRenderType.MODEL;
+	@NotNull
+    public RenderShape getRenderShape(@NotNull BlockState blockState) {
+        return RenderShape.MODEL;
     }
 
-    public VoxelShape getCollisionShape(BlockState state, BlockView world, BlockPos pos, ShapeContext context) {
-        if (state.get(UPSIDEDOWN)) {
+	@Override
+	@NotNull
+    public VoxelShape getCollisionShape(BlockState state, @NotNull BlockGetter world, @NotNull BlockPos pos, @NotNull CollisionContext context) {
+        if (state.getValue(UPSIDEDOWN)) {
             return SHAPE_UPSIDEDOWN;
         }
         return SHAPE;
     }
 
-    public VoxelShape getCullingShape(BlockState state, BlockView world, BlockPos pos) {
-        if (state.get(UPSIDEDOWN)) {
+    public VoxelShape getOcclusionShape(BlockState state, @NotNull BlockGetter world, @NotNull BlockPos pos) {
+        if (state.getValue(UPSIDEDOWN)) {
             return SHAPE_UPSIDEDOWN;
         }
         return SHAPE;
     }
 
     @Override
-    public boolean hasSidedTransparency(BlockState blockState) {
+    public boolean useShapeForLightOcclusion(@NotNull BlockState blockState) {
         return true;
     }
 
     @Override
-    public VoxelShape getOutlineShape(BlockState blockState, BlockView blockView, BlockPos blockPos, ShapeContext shapeContext) {
+    public VoxelShape getShape(@NotNull BlockState blockState, @NotNull BlockGetter blockView, @NotNull BlockPos blockPos, @NotNull CollisionContext shapeContext) {
         return OUTLINE;
     }
 
     public static SculkSensorPhase getPhase(BlockState state) {
-        return state.get(SCULK_ECHOER_PHASE);
+        return state.getValue(SCULK_ECHOER_PHASE);
     }
 
     public static boolean isInactive(BlockState state) {
         return getPhase(state) == SculkSensorPhase.INACTIVE;
     }
 
-    public static void setCooldown(World world, BlockPos pos, BlockState state) {
-        world.setBlockState(pos, state.with(SCULK_ECHOER_PHASE, SculkSensorPhase.COOLDOWN), Block.NOTIFY_ALL);
-        world.createAndScheduleBlockTick(pos, state.getBlock(), 1);
-        if (!state.get(WATERLOGGED)) {
-            world.playSound(null, (double) pos.getX() + 0.5, (double) pos.getY() + 0.5, (double) pos.getZ() + 0.5, SoundEvents.BLOCK_SCULK_SENSOR_CLICKING_STOP, SoundCategory.BLOCKS, 1.0F, world.random.nextFloat() * 0.1F + 0.7F);
-            world.playSound(null, (double) pos.getX() + 0.5, (double) pos.getY() + 0.5, (double) pos.getZ() + 0.5, SoundEvents.BLOCK_SCULK_CHARGE, SoundCategory.BLOCKS, 0.5F, world.random.nextFloat() * 0.1F + 0.9F * 0.5F);
-            world.playSound(null, (double) pos.getX() + 0.5, (double) pos.getY() + 0.5, (double) pos.getZ() + 0.5, SoundEvents.BLOCK_SCULK_SPREAD, SoundCategory.BLOCKS, 0.25F, world.random.nextFloat() * 0.1F + 0.9F * 0.3F);
+    public static void setCooldown(Level world, BlockPos pos, BlockState state) {
+        world.setBlock(pos, state.setValue(SCULK_ECHOER_PHASE, SculkSensorPhase.COOLDOWN), Block.UPDATE_ALL);
+        world.scheduleTick(pos, state.getBlock(), 1);
+        if (!state.getValue(WATERLOGGED)) {
+            world.playSound(null, (double) pos.getX() + 0.5, (double) pos.getY() + 0.5, (double) pos.getZ() + 0.5, SoundEvents.SCULK_CLICKING_STOP, SoundSource.BLOCKS, 1.0F, world.random.nextFloat() * 0.1F + 0.7F);
+            world.playSound(null, (double) pos.getX() + 0.5, (double) pos.getY() + 0.5, (double) pos.getZ() + 0.5, SoundEvents.SCULK_BLOCK_CHARGE, SoundSource.BLOCKS, 0.5F, world.random.nextFloat() * 0.1F + 0.9F * 0.5F);
+            world.playSound(null, (double) pos.getX() + 0.5, (double) pos.getY() + 0.5, (double) pos.getZ() + 0.5, SoundEvents.SCULK_BLOCK_SPREAD, SoundSource.BLOCKS, 0.25F, world.random.nextFloat() * 0.1F + 0.9F * 0.3F);
         }
         updateNeighbors(world, pos);
     }
 
-    public static void setActive(@Nullable Entity entity, World world, BlockPos pos, BlockState state, int bubbles) {
+    public static void setActive(@Nullable Entity entity, Level world, BlockPos pos, BlockState state, int bubbles) {
         boolean canRun = true;
         if (entity != null) {
-            if (entity instanceof WardenEntity) {
+            if (entity instanceof Warden) {
                 canRun = false;
             }
         }
@@ -210,21 +183,23 @@ public class SculkEchoerBlock extends BlockWithEntity implements Waterloggable {
             echoer.bigBubble = true;
         }
         if (canRun) {
-            int additionalCooldown = state.get(WATERLOGGED) ? 75 : 45;
-            world.setBlockState(pos, state.with(SCULK_ECHOER_PHASE, SculkSensorPhase.ACTIVE), Block.NOTIFY_ALL);
-            world.createAndScheduleBlockTick(pos, state.getBlock(), bubbles + additionalCooldown);
+            int additionalCooldown = state.getValue(WATERLOGGED) ? 75 : 45;
+            world.setBlock(pos, state.setValue(SCULK_ECHOER_PHASE, SculkSensorPhase.ACTIVE), Block.UPDATE_ALL);
+            world.scheduleTick(pos, state.getBlock(), bubbles + additionalCooldown);
             updateNeighbors(world, pos);
-            if (!state.get(WATERLOGGED)) {
-                world.playSound(null, pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, RegisterSounds.BLOCK_SCULK_ECHOER_ECHO, SoundCategory.BLOCKS, 1.0F, world.random.nextFloat() * 0.1F + 0.9F);
+            if (!state.getValue(WATERLOGGED)) {
+                world.playSound(null, pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, RegisterSounds.BLOCK_SCULK_ECHOER_ECHO, SoundSource.BLOCKS, 1.0F, world.random.nextFloat() * 0.1F + 0.9F);
             }
         }
     }
 
-    public boolean hasComparatorOutput(BlockState state) {
+	@Override
+    public boolean hasAnalogOutputSignal(@NotNull BlockState state) {
         return true;
     }
 
-    public int getComparatorOutput(BlockState state, World world, BlockPos pos) {
+	@Override
+    public int getAnalogOutputSignal(@NotNull BlockState state, Level world, @NotNull BlockPos pos) {
         BlockEntity blockEntity = world.getBlockEntity(pos);
         if (blockEntity instanceof SculkEchoerBlockEntity echoerEntity) {
             return getPhase(state) == SculkSensorPhase.ACTIVE ? echoerEntity.getLastVibrationFrequency() : 0;
@@ -233,53 +208,61 @@ public class SculkEchoerBlock extends BlockWithEntity implements Waterloggable {
         }
     }
 
-    public boolean canPathfindThrough(BlockState state, BlockView world, BlockPos pos, NavigationType type) {
+	@Override
+    public boolean isPathfindable(@NotNull BlockState state, @NotNull BlockGetter world, @NotNull BlockPos pos, @NotNull PathComputationType type) {
         return false;
     }
 
     @Nullable
     @Override
-    public BlockEntity createBlockEntity(BlockPos pos, BlockState state) {
+    public BlockEntity newBlockEntity(@NotNull BlockPos pos, @NotNull BlockState state) {
         return new SculkEchoerBlockEntity(pos, state);
     }
 
-    public BlockState getStateForNeighborUpdate(BlockState state, Direction direction, BlockState neighborState, WorldAccess world, BlockPos pos, BlockPos neighborPos) {
-        if (state.get(WATERLOGGED)) {
-            world.createAndScheduleFluidTick(pos, Fluids.WATER, Fluids.WATER.getTickRate(world));
+	@Override
+	@NotNull
+    public BlockState updateShape(BlockState state, @NotNull Direction direction, @NotNull BlockState neighborState, @NotNull LevelAccessor world, @NotNull BlockPos pos, @NotNull BlockPos neighborPos) {
+        if (state.getValue(WATERLOGGED)) {
+            world.scheduleTick(pos, Fluids.WATER, Fluids.WATER.getTickDelay(world));
         }
 
-        return super.getStateForNeighborUpdate(state, direction, neighborState, world, pos, neighborPos);
+        return super.updateShape(state, direction, neighborState, world, pos, neighborPos);
     }
 
-    private static void updateNeighbors(World world, BlockPos pos) {
-        world.updateNeighborsAlways(pos, RegisterBlocks.SCULK_ECHOER);
-        world.updateNeighborsAlways(pos.offset(Direction.UP.getOpposite()), RegisterBlocks.SCULK_ECHOER);
+    private static void updateNeighbors(Level world, BlockPos pos) {
+        world.updateNeighborsAt(pos, RegisterBlocks.SCULK_ECHOER);
+        world.updateNeighborsAt(pos.relative(Direction.UP.getOpposite()), RegisterBlocks.SCULK_ECHOER);
     }
 
     public int getRange() {
         return this.range;
     }
 
+	@Override
     @Nullable
-    public BlockState getPlacementState(ItemPlacementContext ctx) {
-        BlockPos blockPos = ctx.getBlockPos();
-        FluidState fluidState = ctx.getWorld().getFluidState(blockPos);
-        boolean isUpsideDown = ctx.getSide() == Direction.DOWN;
-        return this.getDefaultState().with(WATERLOGGED, fluidState.getFluid() == Fluids.WATER).with(UPSIDEDOWN, isUpsideDown);
+    public BlockState getStateForPlacement(BlockPlaceContext ctx) {
+        BlockPos blockPos = ctx.getClickedPos();
+        FluidState fluidState = ctx.getLevel().getFluidState(blockPos);
+        boolean isUpsideDown = ctx.getClickedFace() == Direction.DOWN;
+        return this.defaultBlockState().setValue(WATERLOGGED, fluidState.getType() == Fluids.WATER).setValue(UPSIDEDOWN, isUpsideDown);
     }
 
+	@Override
+	@NotNull
     public FluidState getFluidState(BlockState state) {
-        return state.get(WATERLOGGED) ? Fluids.WATER.getStill(false) : super.getFluidState(state);
+        return state.getValue(WATERLOGGED) ? Fluids.WATER.getSource(false) : super.getFluidState(state);
     }
 
+	@Override
     @Nullable
-    public <T extends BlockEntity> GameEventListener getGameEventListener(ServerWorld world, T blockEntity) {
+    public <T extends BlockEntity> GameEventListener getListener(@NotNull ServerLevel world, T blockEntity) {
         return blockEntity instanceof SculkEchoerBlockEntity ? ((SculkEchoerBlockEntity) blockEntity).getEventListener() : null;
     }
 
+	@Override
     @Nullable
-    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(World world, BlockState state, BlockEntityType<T> type) {
-        return !world.isClient ? checkType(type, RegisterBlockEntities.SCULK_ECHOER, (worldx, pos, statex, blockEntity) -> {
+    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level world, BlockState state, BlockEntityType<T> type) {
+        return !world.isClientSide ? createTickerHelper(type, RegisterBlockEntities.SCULK_ECHOER, (worldx, pos, statex, blockEntity) -> {
             blockEntity.tick(worldx, pos, statex);
         }) : null;
     }

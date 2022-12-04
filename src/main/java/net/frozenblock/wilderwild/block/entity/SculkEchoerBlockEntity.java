@@ -10,26 +10,30 @@ import net.frozenblock.wilderwild.registry.RegisterBlockEntities;
 import net.frozenblock.wilderwild.registry.RegisterGameEvents;
 import net.frozenblock.wilderwild.registry.RegisterProperties;
 import net.frozenblock.wilderwild.tag.WildEventTags;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.entity.Entity;
-import net.minecraft.nbt.NbtCompound;
+import net.minecraft.core.BlockPos;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.NbtOps;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.state.property.Properties;
-import net.minecraft.tag.TagKey;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.math.Vec3d;
-import net.minecraft.world.World;
-import net.minecraft.world.event.BlockPositionSource;
-import net.minecraft.world.event.GameEvent;
-import net.minecraft.world.event.listener.GameEventListener;
-import net.minecraft.world.event.listener.VibrationListener;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.tags.TagKey;
+import net.minecraft.util.Mth;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.BaseEntityBlock;
+import net.minecraft.world.level.block.SculkSensorBlock;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.SculkSensorBlockEntity;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.gameevent.BlockPositionSource;
+import net.minecraft.world.level.gameevent.GameEvent;
+import net.minecraft.world.level.gameevent.GameEventListener;
+import net.minecraft.world.level.gameevent.vibrations.VibrationListener;
+import net.minecraft.world.phys.Vec3;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.slf4j.Logger;
 
-public class SculkEchoerBlockEntity extends BlockEntity implements VibrationListener.Callback {
+public class SculkEchoerBlockEntity extends BlockEntity implements VibrationListener.VibrationListenerConfig {
     private static final Logger LOGGER = LogUtils.getLogger();
     private VibrationListener listener;
     private int lastVibrationFrequency;
@@ -42,13 +46,13 @@ public class SculkEchoerBlockEntity extends BlockEntity implements VibrationList
 
     public SculkEchoerBlockEntity(BlockPos pos, BlockState state) {
         super(RegisterBlockEntities.SCULK_ECHOER, pos, state);
-        this.listener = new VibrationListener(new BlockPositionSource(this.pos), ((SculkEchoerBlock) state.getBlock()).getRange(), this, null, 0.0F, 0);
+        this.listener = new VibrationListener(new BlockPositionSource(this.worldPosition), ((SculkEchoerBlock) state.getBlock()).getRange(), this, null, 0.0F, 0);
     }
 
-    public void tick(World world, BlockPos pos, BlockState state) {
-        if (world instanceof ServerWorld server) {
-            boolean upsidedown = state.get(RegisterProperties.UPSIDE_DOWN);
-            boolean waterlogged = state.get(Properties.WATERLOGGED);
+    public void tick(Level world, BlockPos pos, BlockState state) {
+        if (world instanceof ServerLevel server) {
+            boolean upsidedown = state.getValue(RegisterProperties.UPSIDE_DOWN);
+            boolean waterlogged = state.getValue(BlockStateProperties.WATERLOGGED);
             this.getEventListener().tick(world);
             if (this.echoBubblesLeft > 0) {
                 int size = this.bigBubble ? 1 : 0;
@@ -58,7 +62,7 @@ public class SculkEchoerBlockEntity extends BlockEntity implements VibrationList
                 }
                 --this.echoBubblesLeft;
                 double offest = upsidedown ? (waterlogged ? -0.05 : 0.2) : (waterlogged ? 1.05 : 0.8);
-                EasyPacket.EasyFloatingSculkBubblePacket.createParticle(server, new Vec3d(pos.getX() + 0.5D, pos.getY() + offest, pos.getZ() + 0.5D), size, age,
+                EasyPacket.EasyFloatingSculkBubblePacket.createParticle(server, new Vec3(pos.getX() + 0.5D, pos.getY() + offest, pos.getZ() + 0.5D), size, age,
                         upsidedown ? (size > 0 ? Math.max((Math.random()) * 0.065, 0.045) * -1 : Math.max((Math.random()) * 0.06, 0.035) * -1) : (size > 0 ? Math.max((Math.random()) * 0.065, 0.045) : Math.max((Math.random()) * 0.06, 0.035)), 1);
                 this.bubbleTicks.add(age - 3);
                 this.bubbleSizes.add(size);
@@ -71,14 +75,14 @@ public class SculkEchoerBlockEntity extends BlockEntity implements VibrationList
                     bubbleTicks.set(index, i - 1);
                     if (i - 1 <= 0) {
                         GameEvent event = size > 0 ? RegisterGameEvents.SCULK_ECHOER_LOUD_ECHO : RegisterGameEvents.SCULK_ECHOER_ECHO;
-                        Vec3d emitPos = Vec3d.ofCenter(this.pos).add(0, upsidedown ? -1 : 1, 0);
+                        Vec3 emitPos = Vec3.atCenterOf(this.worldPosition).add(0, upsidedown ? -1 : 1, 0);
                         if (this.savedEvent != null) {
                             if (this.savedEvent.isViable()) {
-                                world.emitGameEvent(this.savedEvent.getEntity(world), event, emitPos);
+                                world.gameEvent(this.savedEvent.getEntity(world), event, emitPos);
                             }
                             this.savedEvent = null;
                         } else {
-                            world.emitGameEvent(null, event, emitPos);
+                            world.gameEvent(null, event, emitPos);
                         }
                         bubbleTicks.removeInt(index);
                         bubbleSizes.removeInt(index);
@@ -88,15 +92,16 @@ public class SculkEchoerBlockEntity extends BlockEntity implements VibrationList
         }
     }
 
-    public void readNbt(NbtCompound nbt) {
-        super.readNbt(nbt);
+	@Override
+    public void load(@NotNull CompoundTag nbt) {
+        super.load(nbt);
         this.lastVibrationFrequency = nbt.getInt("last_vibration_frequency");
         this.echoBubblesLeft = nbt.getInt("echoBubblesLeft");
         this.bubbleTicks = IntArrayList.wrap(nbt.getIntArray("bubbleTicksLeft"));
         this.bubbleSizes = IntArrayList.wrap(nbt.getIntArray("bubbleSizes"));
         this.bigBubble = nbt.getBoolean("bigBubble");
         if (nbt.contains("listener", 10)) {
-            VibrationListener.createCodec(this)
+            VibrationListener.codec(this)
                     .parse(new Dynamic<>(NbtOps.INSTANCE, nbt.getCompound("listener")))
                     .resultOrPartial(LOGGER::error)
                     .ifPresent(listener -> this.listener = listener);
@@ -104,14 +109,15 @@ public class SculkEchoerBlockEntity extends BlockEntity implements VibrationList
         this.savedEvent = SaveableGameEvent.readNbt(nbt);
     }
 
-    public void writeNbt(NbtCompound nbt) {
-        super.writeNbt(nbt);
+	@Override
+    public void saveAdditional(@NotNull CompoundTag nbt) {
+        super.saveAdditional(nbt);
         nbt.putInt("last_vibration_frequency", this.lastVibrationFrequency);
         nbt.putInt("echoBubblesLeft", this.echoBubblesLeft);
         nbt.putIntArray("bubbleTicksLeft", this.bubbleTicks);
         nbt.putIntArray("bubbleSizes", this.bubbleSizes);
         nbt.putBoolean("bigBubble", this.bigBubble);
-        VibrationListener.createCodec(this)
+        VibrationListener.codec(this)
                 .encodeStart(NbtOps.INSTANCE, this.listener)
                 .resultOrPartial(LOGGER::error)
                 .ifPresent(listenerNbt -> nbt.put("listener", listenerNbt));
@@ -130,32 +136,34 @@ public class SculkEchoerBlockEntity extends BlockEntity implements VibrationList
         return this.lastVibrationFrequency;
     }
 
-    public boolean triggersAvoidCriterion() {
+	@Override
+    public boolean canTriggerAvoidVibration() {
         return true;
     }
 
     @Override
-    public boolean accepts(ServerWorld world, GameEventListener listener, BlockPos pos, GameEvent event, @Nullable GameEvent.Emitter emitter) {
-        return (!pos.equals(this.getPos()) && (event != GameEvent.BLOCK_DESTROY || event != GameEvent.BLOCK_PLACE)) && SculkEchoerBlock.isInactive(this.getCachedState());
+    public boolean shouldListen(@NotNull ServerLevel world, @NotNull GameEventListener listener, BlockPos pos, @NotNull GameEvent event, @Nullable GameEvent.Context emitter) {
+        return !this.isRemoved() && (!pos.equals(this.getBlockPos()) && (event != GameEvent.BLOCK_DESTROY || event != GameEvent.BLOCK_PLACE)) && SculkEchoerBlock.isInactive(this.getBlockState());
     }
 
     @Override
-    public void accept(ServerWorld world, GameEventListener listener, BlockPos pos, GameEvent event, @Nullable Entity entity, @Nullable Entity sourceEntity, float distance) {
-        BlockState blockState = this.getCachedState();
+    public void onSignalReceive(ServerLevel world, GameEventListener listener, BlockPos pos, GameEvent event, @Nullable Entity entity, @Nullable Entity sourceEntity, float distance) {
+        BlockState blockState = this.getBlockState();
         if (SculkEchoerBlock.isInactive(blockState)) {
-            this.lastVibrationFrequency = SculkEchoerBlock.FREQUENCIES.getInt(event);
-            SculkEchoerBlock.setActive(entity, world, this.pos, blockState, getBubbles(distance, listener.getRange()));
-            this.savedEvent = new SaveableGameEvent(event, Vec3d.ofCenter(pos), sourceEntity != null ? sourceEntity : entity);
+            this.lastVibrationFrequency = SculkSensorBlock.VIBRATION_FREQUENCY_FOR_EVENT.getInt(event);
+            SculkEchoerBlock.setActive(entity, world, this.worldPosition, blockState, getBubbles(distance, listener.getListenerRadius()));
+            this.savedEvent = new SaveableGameEvent(event, Vec3.atCenterOf(pos), sourceEntity != null ? sourceEntity : entity);
         }
     }
 
-    public void onListen() {
-        this.markDirty();
+	@Override
+    public void onSignalSchedule() {
+        this.setChanged();
     }
 
     public static int getBubbles(float distance, int range) {
         double d = (double) distance / (double) range;
-        return Math.max(1, 15 - MathHelper.floor(d * 15.0));
+        return Math.max(1, 15 - Mth.floor(d * 15.0));
     }
 
     public void setLastVibrationFrequency(int lastVibrationFrequency) {

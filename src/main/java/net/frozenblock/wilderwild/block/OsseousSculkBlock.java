@@ -119,7 +119,7 @@ public class OsseousSculkBlock extends RotatedPillarBlock implements SculkBehavi
                         }
                         if (pillarHeight == 1 && state.getValue(UPSIDEDOWN) && state.getValue(TOTAL_HEIGHT) > 0) {
                             if (EasyNoiseSampler.localRandom.nextInt(3) <= 1) {
-                                blockState = RegisterBlocks.SCULK_ECHOER.getDefaultState().with(SculkEchoerBlock.UPSIDEDOWN, true);
+                                blockState = RegisterBlocks.SCULK_ECHOER.defaultBlockState().setValue(SculkEchoerBlock.UPSIDEDOWN, true);
                             }
                         }
                         if (blockState.getBlock() == RegisterBlocks.OSSEOUS_SCULK) {
@@ -189,7 +189,7 @@ public class OsseousSculkBlock extends RotatedPillarBlock implements SculkBehavi
                     }
                     if (pillarHeight == 1 && state.getValue(UPSIDEDOWN) && state.getValue(TOTAL_HEIGHT) > 0) {
                         if (EasyNoiseSampler.localRandom.nextInt(3) <= 1) {
-                            blockState = RegisterBlocks.SCULK_ECHOER.getDefaultState().with(SculkEchoerBlock.UPSIDEDOWN, true);
+                            blockState = RegisterBlocks.SCULK_ECHOER.defaultBlockState().setValue(SculkEchoerBlock.UPSIDEDOWN, true);
                         }
                     }
                     if (blockState.getBlock() == RegisterBlocks.OSSEOUS_SCULK) {

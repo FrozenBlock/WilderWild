@@ -1,8 +1,8 @@
 package net.frozenblock.wilderwild.misc;
 
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.damage.DamageSource;
-import net.minecraft.text.Text;
+import net.minecraft.network.chat.Component;
+import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.entity.LivingEntity;
 
 public class NewDamageSource extends DamageSource {
 
@@ -10,13 +10,13 @@ public class NewDamageSource extends DamageSource {
         super(name);
     }
 
-    public static final DamageSource SCULK_JAW = new NewDamageSource("sculk_jaw").setScaledWithDifficulty();
+    public static final DamageSource SCULK_JAW = new NewDamageSource("sculk_jaw").setScalesWithDifficulty();
 
-    public Text getDeathMessage(LivingEntity entity) {
-        LivingEntity livingEntity = entity.getPrimeAdversary();
-        String string = "death.attack." + this.name;
+    public Component getDeathMessage(LivingEntity entity) {
+        LivingEntity livingEntity = entity.getKillCredit();
+        String string = "death.attack." + this.msgId;
         String string2 = string + ".player";
-        return livingEntity != null ? Text.translatable(string2, entity.getDisplayName(), livingEntity.getDisplayName()) : Text.translatable(string, entity.getDisplayName());
+        return livingEntity != null ? Component.translatable(string2, entity.getDisplayName(), livingEntity.getDisplayName()) : Component.translatable(string, entity.getDisplayName());
     }
 
 }

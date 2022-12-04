@@ -327,10 +327,10 @@ public class AncientHornProjectile extends AbstractArrow {
 					setCooldown(getCooldown(this.getOwner(), SENSOR_COOLDOWN));
 				}
 			} else if (blockState.getBlock() == RegisterBlocks.SCULK_ECHOER) {
-                BlockPos pos = blockHitResult.getBlockPos();
-                WilderWild.log(RegisterBlocks.SCULK_ECHOER, pos, "Horn Projectile Touched", WilderWild.UNSTABLE_LOGGING);
+                BlockPos pos = result.getBlockPos();
+                WilderSharedConstants.log(RegisterBlocks.SCULK_ECHOER, pos, "Horn Projectile Touched", WilderSharedConstants.UNSTABLE_LOGGING);
                 if (SculkEchoerBlock.isInactive(blockState)) {
-                    SculkEchoerBlock.setActive(owner, world, pos, world.getBlockState(pos), server.random.nextBetween(160, 220));
+                    SculkEchoerBlock.setActive(owner, this.level, pos, this.level.getBlockState(pos), server.random.nextIntBetweenInclusive(160, 220));
                     setCooldown(getCooldown(this.getOwner(), ECHOER_COOLDOWN));
                 }
             }

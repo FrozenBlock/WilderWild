@@ -4,81 +4,80 @@ import com.mojang.logging.LogUtils;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.Dynamic;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import net.minecraft.entity.Entity;
-import net.minecraft.nbt.NbtCompound;
-import net.minecraft.nbt.NbtOps;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Box;
-import net.minecraft.util.math.Vec3d;
-import net.minecraft.util.registry.Registry;
-import net.minecraft.world.World;
-import net.minecraft.world.event.GameEvent;
-import org.jetbrains.annotations.Nullable;
-import org.slf4j.Logger;
-
 import java.util.List;
 import java.util.Optional;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Registry;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.NbtOps;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.gameevent.GameEvent;
+import net.minecraft.world.phys.AABB;
+import net.minecraft.world.phys.Vec3;
+import org.jetbrains.annotations.Nullable;
+import org.slf4j.Logger;
 
 public class SaveableGameEvent {
 
     private static final Logger LOGGER = LogUtils.getLogger();
-    public Identifier event;
-    public Vec3d originPos;
+    public ResourceLocation event;
+    public Vec3 originPos;
     public String uuid;
 
     //TEMP STORAGE
     public Entity foundEntity;
 
     public static final Codec<SaveableGameEvent> CODEC = RecordCodecBuilder.create((instance) -> instance.group(
-            Identifier.CODEC.fieldOf("eventID").forGetter(SaveableGameEvent::getEventID),
-            Vec3d.CODEC.fieldOf("originPos").forGetter(SaveableGameEvent::getOriginPos),
+            ResourceLocation.CODEC.fieldOf("eventID").forGetter(SaveableGameEvent::getEventID),
+            Vec3.CODEC.fieldOf("originPos").forGetter(SaveableGameEvent::getOriginPos),
             Codec.STRING.fieldOf("uuid").forGetter(SaveableGameEvent::getUUID)
     ).apply(instance, SaveableGameEvent::new));
 
-    public SaveableGameEvent(Identifier event, Vec3d originPos, String uuid) {
+    public SaveableGameEvent(ResourceLocation event, Vec3 originPos, String uuid) {
         this.event = event;
         this.originPos = originPos;
         this.uuid = uuid;
     }
 
-    public SaveableGameEvent(GameEvent event, Vec3d originPos, GameEvent.Emitter emitter) {
-        this.event = Registry.GAME_EVENT.getId(event);
+    public SaveableGameEvent(GameEvent event, Vec3 originPos, GameEvent.Context emitter) {
+        this.event = Registry.GAME_EVENT.getKey(event);
         this.originPos = originPos;
         if (emitter.sourceEntity() != null) {
-            this.uuid = emitter.sourceEntity().getUuid().toString();
+            this.uuid = emitter.sourceEntity().getUUID().toString();
         } else {
             this.uuid = "noEntity";
         }
     }
 
-    public SaveableGameEvent(GameEvent event, Vec3d originPos, @Nullable Entity entity) {
-        this.event = Registry.GAME_EVENT.getId(event);
+    public SaveableGameEvent(GameEvent event, Vec3 originPos, @Nullable Entity entity) {
+        this.event = Registry.GAME_EVENT.getKey(event);
         this.originPos = originPos;
         if (entity != null) {
-            this.uuid = entity.getUuid().toString();
+            this.uuid = entity.getUUID().toString();
         } else {
             this.uuid = "noEntity";
         }
     }
 
     public boolean isViable() {
-        Optional<GameEvent> event = Registry.GAME_EVENT.getOrEmpty(this.event);
+        Optional<GameEvent> event = Registry.GAME_EVENT.getOptional(this.event);
         if (event.isPresent()) {
             return this.originPos != null;
         }
         return false;
     }
 
-    public void emitGameEvent(World world, BlockPos exitPos) {
+    public void emitGameEvent(Level world, BlockPos exitPos) {
         if (this.isViable()) {
-            world.emitGameEvent(this.getEntity(world), this.getGameEvent(), exitPos);
+            world.gameEvent(this.getEntity(world), this.getGameEvent(), exitPos);
         }
     }
 
-    public void emitGameEvent(World world, Vec3d exitPos) {
+    public void emitGameEvent(Level world, Vec3 exitPos) {
         if (this.isViable()) {
-            world.emitGameEvent(this.getEntity(world), this.getGameEvent(), exitPos);
+            world.gameEvent(this.getEntity(world), this.getGameEvent(), exitPos);
         }
     }
 
@@ -87,19 +86,19 @@ public class SaveableGameEvent {
     }
 
     @Nullable
-    public Entity getEntity(World world) {
+    public Entity getEntity(Level world) {
         if (!this.uuid.equals("noEntity")) {
             if (this.foundEntity != null) {
-                if (this.foundEntity.getUuid().toString().equals(this.uuid)) {
+                if (this.foundEntity.getUUID().toString().equals(this.uuid)) {
                     return this.foundEntity;
                 } else {
                     this.foundEntity = null;
                 }
             }
-            Box box = new Box(this.originPos.add(-32, -32, -32), this.originPos.add(32, 32, 32));
-            List<Entity> entities = world.getNonSpectatingEntities(Entity.class, box);
+            AABB box = new AABB(this.originPos.add(-32, -32, -32), this.originPos.add(32, 32, 32));
+            List<Entity> entities = world.getEntitiesOfClass(Entity.class, box);
             for (Entity entity : entities) {
-                if (entity.getUuid().toString().equals(this.uuid)) {
+                if (entity.getUUID().toString().equals(this.uuid)) {
                     this.foundEntity = entity;
                     return entity;
                 }
@@ -108,11 +107,11 @@ public class SaveableGameEvent {
         return null;
     }
 
-    public Identifier getEventID() {
+    public ResourceLocation getEventID() {
         return this.event;
     }
 
-    public Vec3d getOriginPos() {
+    public Vec3 getOriginPos() {
         return this.originPos;
     }
 
@@ -120,7 +119,7 @@ public class SaveableGameEvent {
         return this.uuid;
     }
 
-    public static SaveableGameEvent readNbt(NbtCompound nbt) {
+    public static SaveableGameEvent readNbt(CompoundTag nbt) {
         Optional<SaveableGameEvent> event = Optional.empty();
         if (nbt.contains("savedGameEvent", 10)) {
             event = SaveableGameEvent.CODEC
@@ -130,7 +129,7 @@ public class SaveableGameEvent {
         return event.orElse(null);
     }
 
-    public static void writeNbt(NbtCompound nbt, @Nullable SaveableGameEvent saveableGameEvent) {
+    public static void writeNbt(CompoundTag nbt, @Nullable SaveableGameEvent saveableGameEvent) {
         if (saveableGameEvent != null) {
             SaveableGameEvent.CODEC
                     .encodeStart(NbtOps.INSTANCE, saveableGameEvent)

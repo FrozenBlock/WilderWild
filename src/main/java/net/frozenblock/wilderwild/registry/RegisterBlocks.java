@@ -9,6 +9,7 @@ import net.fabricmc.fabric.api.object.builder.v1.block.FabricMaterialBuilder;
 import net.fabricmc.fabric.api.registry.CompostingChanceRegistry;
 import net.fabricmc.fabric.api.registry.FlammableBlockRegistry;
 import net.fabricmc.fabric.api.registry.FuelRegistry;
+import net.fabricmc.fabric.api.registry.SculkSensorFrequencyRegistry;
 import net.fabricmc.fabric.api.registry.StrippableBlockRegistry;
 import net.frozenblock.lib.block.api.FrozenSignBlock;
 import net.frozenblock.lib.block.api.FrozenWallSignBlock;
@@ -423,6 +424,7 @@ public final class RegisterBlocks {
 
     public static void registerBlocks() {
         WilderSharedConstants.logWild("Registering Blocks for", WilderSharedConstants.UNSTABLE_LOGGING);
+		SculkSensorFrequencyRegistry.register(RegisterGameEvents.TENDRIL_EXTRACT_XP, 1);
 
         registerOtherBB();
         registerWoods();
