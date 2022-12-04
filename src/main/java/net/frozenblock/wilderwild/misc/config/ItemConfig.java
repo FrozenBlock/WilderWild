@@ -16,7 +16,7 @@ import static net.frozenblock.wilderwild.misc.config.WilderWildConfig.*;
 public final class ItemConfig implements ConfigData {
 
     @ConfigEntry.Gui.CollapsibleObject
-    public AncientHornConfig ancientHorn = new AncientHornConfig();
+    public final AncientHornConfig ancientHorn = new AncientHornConfig();
 
 	@ConfigEntry.Gui.CollapsibleObject
 	public final ProjectileLandingSoundsConfig projectileLandingSounds = new ProjectileLandingSoundsConfig();

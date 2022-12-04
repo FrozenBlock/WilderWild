@@ -16,13 +16,13 @@ import static net.frozenblock.wilderwild.misc.config.WilderWildConfig.*;
 public final class EntityConfig implements ConfigData {
 
 	@ConfigEntry.Gui.CollapsibleObject
-	public AllayConfig allay = new AllayConfig();
+	public final AllayConfig allay = new AllayConfig();
 
 	@ConfigEntry.Gui.CollapsibleObject
-	public EnderManConfig enderMan = new EnderManConfig();
+	public final EnderManConfig enderMan = new EnderManConfig();
 
 	@ConfigEntry.Gui.CollapsibleObject
-	public WardenConfig warden = new WardenConfig();
+	public final WardenConfig warden = new WardenConfig();
 
 	@ConfigEntry.Gui.CollapsibleObject
 	public final FireflyConfig firefly = new FireflyConfig();
