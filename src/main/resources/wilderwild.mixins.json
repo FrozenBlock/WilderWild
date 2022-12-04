@@ -37,6 +37,7 @@
 	"server.SonicBoomMixin",
 	"server.SoulFireBlockMixin",
 	"server.SpawnPlacementsMixin",
+    "server.ThrownEnderpearlMixin",
     "server.ThrownEggMixin",
 	"server.TurtleMixin",
 	"server.WardenMixin",
