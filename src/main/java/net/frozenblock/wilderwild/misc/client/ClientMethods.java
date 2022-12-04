@@ -12,6 +12,7 @@ import net.minecraft.client.resources.sounds.EntityBoundSoundInstance;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.monster.EnderMan;
 
 @Environment(EnvType.CLIENT)
@@ -31,9 +32,9 @@ public class ClientMethods {
 		}
 	}
 
-	public static void playClientPlayerSound(SoundEvent sound, float volume, float pitch) {
+	public static void playClientPlayerSoundIfSamePlayer(SoundEvent sound, float volume, float pitch, Entity compareTo) {
 		Minecraft client = Minecraft.getInstance();
-		if (client.level != null && client.player != null) {
+		if (client.level != null && client.player != null && compareTo == client.player) {
 			client.getSoundManager().play(new EntityBoundSoundInstance(sound, SoundSource.PLAYERS, volume, pitch, client.player, client.level.random.nextLong()));
 		}
 	}
