@@ -29,7 +29,7 @@ public class ThrownEnderpearlMixin {
 					float pitch = 0.85F + (pearl.level.random.nextFloat() * 0.2F);
 					pearl.level.playSound(owner, pearl.getX(), pearl.getY(), pearl.getZ(), RegisterSounds.ITEM_ENDERPEARL_LAND, SoundSource.NEUTRAL, 0.6F, pitch);
 					if (owner instanceof ServerPlayer player) {
-						FrozenSoundPackets.createLocalPlayerSound(player, RegisterSounds.ITEM_ENDERPEARL_LAND, SoundSource.NEUTRAL, 0.6F, pitch);
+						FrozenSoundPackets.createLocalPlayerSound(player, RegisterSounds.ITEM_ENDERPEARL_LAND, 0.6F, pitch);
 					}
 				}
 				if (owner != null && !owner.isSilent()) {
