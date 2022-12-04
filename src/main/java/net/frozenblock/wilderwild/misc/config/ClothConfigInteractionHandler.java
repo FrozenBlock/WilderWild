@@ -48,16 +48,24 @@ public final class ClothConfigInteractionHandler {
 		return !FrozenBools.HAS_CLOTH_CONFIG|| ClothConfigCloserInteractionHandler.wildGrass();
 	}
 
+	public static boolean hornCanSummonWarden() {
+		return FrozenBools.HAS_CLOTH_CONFIG && ClothConfigCloserInteractionHandler.hornCanSummonWarden();
+	}
+
+	public static int hornMobDamage() {
+		return FrozenBools.HAS_CLOTH_CONFIG ? ClothConfigCloserInteractionHandler.hornMobDamage() : 15;
+	}
+
+	public static int hornPlayerDamage() {
+		return FrozenBools.HAS_CLOTH_CONFIG ? ClothConfigCloserInteractionHandler.hornPlayerDamage() : 22;
+	}
+
 	public static boolean hornShattersGlass() {
 		return FrozenBools.HAS_CLOTH_CONFIG && ClothConfigCloserInteractionHandler.hornShattersGlass();
 	}
 
 	public static boolean projectileBreakParticles() {
 		return FrozenBools.HAS_CLOTH_CONFIG && ClothConfigCloserInteractionHandler.projectileBreakParticles();
-	}
-
-	public static boolean hornCanSummonWarden() {
-		return FrozenBools.HAS_CLOTH_CONFIG && ClothConfigCloserInteractionHandler.hornCanSummonWarden();
 	}
 
 	public static boolean mcLiveSensorTendrils() {
@@ -144,6 +152,14 @@ public final class ClothConfigInteractionHandler {
 		return !FrozenBools.HAS_CLOTH_CONFIG || ClothConfigCloserInteractionHandler.movingStareSound();
 	}
 
+	public static int fireflySpawnCap() {
+		return FrozenBools.HAS_CLOTH_CONFIG ? ClothConfigCloserInteractionHandler.fireflySpawnCap() : 56;
+	}
+
+	public static int jellyfishSpawnCap() {
+		return FrozenBools.HAS_CLOTH_CONFIG ? ClothConfigCloserInteractionHandler.jellyfishSpawnCap() : 30;
+	}
+
 	public static boolean wardenCustomTendrils() {
 		return !FrozenBools.HAS_CLOTH_CONFIG || ClothConfigCloserInteractionHandler.wardenCustomTendrils();
 	}
@@ -170,13 +186,5 @@ public final class ClothConfigInteractionHandler {
 
 	public static boolean soulFireSounds() {
 		return !FrozenBools.HAS_CLOTH_CONFIG || ClothConfigCloserInteractionHandler.soulFireSounds();
-	}
-
-	public static int fireflySpawnCap() {
-		return FrozenBools.HAS_CLOTH_CONFIG ? ClothConfigCloserInteractionHandler.fireflySpawnCap() : 56;
-	}
-
-	public static int jellyfishSpawnCap() {
-		return FrozenBools.HAS_CLOTH_CONFIG ? ClothConfigCloserInteractionHandler.jellyfishSpawnCap() : 30;
 	}
 }

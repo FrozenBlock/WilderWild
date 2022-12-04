@@ -62,12 +62,20 @@ public final class ClothConfigCloserInteractionHandler {
 		return WORLDGEN.wilderWildGrassGen;
 	}
 
-	public static boolean hornShattersGlass() {
-		return ANCIENT_HORN.ancientHornShattersGlass;
-	}
-
 	public static boolean hornCanSummonWarden() {
 		return ANCIENT_HORN.ancientHornCanSummonWarden;
+	}
+
+	public static int hornMobDamage() {
+		return ANCIENT_HORN.ancientHornMobDamage;
+	}
+
+	public static int hornPlayerDamage() {
+		return ANCIENT_HORN.ancientHornPlayerDamage;
+	}
+
+	public static boolean hornShattersGlass() {
+		return ANCIENT_HORN.ancientHornShattersGlass;
 	}
 
 	public static boolean projectileBreakParticles() {

@@ -476,13 +476,8 @@ public class AncientHornProjectile extends AbstractArrow {
 		}
 	}
 
-	public double getDamage(@Nullable Entity entity) {
-		if (entity != null) {
-			if (!(entity instanceof Player)) {
-				return 22;
-			}
-		}
-		return 15;
+	public int getDamage(@Nullable Entity entity) {
+		return entity instanceof Player ? ClothConfigInteractionHandler.hornPlayerDamage() : ClothConfigInteractionHandler.hornMobDamage();
 	}
 
 	@Override
@@ -496,7 +491,7 @@ public class AncientHornProjectile extends AbstractArrow {
 	}
 
 	private void hitEntity(Entity entity) {
-		int damage = (int) this.getDamage(entity);
+		int damage = this.getDamage(entity);
 		Entity owner = this.getOwner();
 		if (entity != owner) {
 			DamageSource damageSource;
