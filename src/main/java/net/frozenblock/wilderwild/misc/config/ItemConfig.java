@@ -30,6 +30,7 @@ public final class ItemConfig implements ConfigData {
 		public boolean snowballLandingSounds = true;
 		public boolean eggLandingSounds = true;
 		public boolean enderpearlLandingSounds = true;
+		public boolean potionLandingSounds = true;
 	}
 
     public boolean projectileBreakParticles = true;
@@ -72,11 +73,16 @@ public final class ItemConfig implements ConfigData {
 				.setSaveConsumer(newValue -> projectileLandingSounds.enderpearlLandingSounds = newValue)
 				.setTooltip(tooltip("enderpearl_landing_sounds"))
 				.build();
+		var potionLandingSounds = entryBuilder.startBooleanToggle(text("potion_landing_sounds"), projectileLandingSounds.potionLandingSounds)
+				.setDefaultValue(true)
+				.setSaveConsumer(newValue -> projectileLandingSounds.potionLandingSounds = newValue)
+				.setTooltip(tooltip("potion_landing_sounds"))
+				.build();
 
-		var projectileLandingSoundsCategory = FrozenConfig.createSubCategory(entryBuilder, category, text("projectile_landing"),
+		var projectileLandingSoundsCategory = FrozenConfig.createSubCategory(entryBuilder, category, text("projectile_landing_sounds"),
 				false,
 				tooltip("projectile_landing_sounds"),
-				snowballLandingSounds, eggLandingSounds, enderpearlLandingSounds
+				snowballLandingSounds, eggLandingSounds, enderpearlLandingSounds, potionLandingSounds
 		);
 
         /*var copperHornCategory = FrozenConfig.createSubCategory(entryBuilder, category, text("copper_horn"),

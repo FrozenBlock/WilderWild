@@ -136,6 +136,10 @@ public final class ClothConfigInteractionHandler {
 		return !FrozenBools.HAS_CLOTH_CONFIG || ClothConfigCloserInteractionHandler.enderpearlLandingSounds();
 	}
 
+	public static boolean potionLandingSounds() {
+		return !FrozenBools.HAS_CLOTH_CONFIG || ClothConfigCloserInteractionHandler.potionLandingSounds();
+	}
+
 	public static int stoneChestTimer() {
 		return FrozenBools.HAS_CLOTH_CONFIG ? ClothConfigCloserInteractionHandler.stoneChestTimer() : 100;
 	}

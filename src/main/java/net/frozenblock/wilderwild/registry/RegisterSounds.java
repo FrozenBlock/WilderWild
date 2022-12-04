@@ -273,6 +273,14 @@ public final class RegisterSounds {
 
 	public static final SoundEvent ITEM_SNOWBALL_LAND = register("item.snowball.land");
 
+	public static final SoundEvent ITEM_POTION_SPLASH = register("item.potion.splash");
+
+	public static final SoundEvent ITEM_EXPERIENCE_BOTTLE_SPLASH = register("item.experience_bottle.splash");
+
+	public static final SoundEvent ITEM_POTION_MAGIC = register("item.potion.magic");
+
+	public static final SoundEvent ITEM_POTION_LINGERING = register("item.potion.lingering");
+
     //MISC
 
     public static final SoundEvent PARTICLE_MESOGLEA_DRIP_LAND = register("particle.mesoglea_drip.land");

@@ -141,15 +141,19 @@ public final class ClothConfigCloserInteractionHandler {
 	}
 
 	public static boolean snowballLandingSounds() {
-		return ITEM.projectileLandingSounds.snowballLandingSounds;
+		return PROJECTILE_LANDING_SOUNDS.snowballLandingSounds;
 	}
 
 	public static boolean eggLandingSounds() {
-		return ITEM.projectileLandingSounds.eggLandingSounds;
+		return PROJECTILE_LANDING_SOUNDS.eggLandingSounds;
 	}
 
 	public static boolean enderpearlLandingSounds() {
-		return ITEM.projectileLandingSounds.enderpearlLandingSounds;
+		return PROJECTILE_LANDING_SOUNDS.enderpearlLandingSounds;
+	}
+
+	public static boolean potionLandingSounds() {
+		return PROJECTILE_LANDING_SOUNDS.potionLandingSounds;
 	}
 
 	public static int stoneChestTimer() {

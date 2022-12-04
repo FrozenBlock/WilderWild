@@ -1985,7 +1985,7 @@
       "wilderwild:item/egg/land1",
       "wilderwild:item/egg/land2"
     ],
-    "subtitle": "subtitles.item.egg.land"
+    "subtitle": "subtitles.entity.egg.land"
   },
   "item.enderpearl.land": {
     "sounds": [
@@ -1993,7 +1993,7 @@
       "wilderwild:item/enderpearl/land2",
       "wilderwild:item/enderpearl/land3"
     ],
-    "subtitle": "subtitles.item.enderpearl.land"
+    "subtitle": "subtitles.entity.enderpearl.land"
   },
   "item.snowball.land": {
     "sounds": [
@@ -2001,7 +2001,34 @@
       "wilderwild:item/snowball/land2",
       "wilderwild:item/snowball/land3"
     ],
-    "subtitle": "subtitles.item.snowball.land"
+    "subtitle": "subtitles.entity.snowball.land"
+  },
+  "item.potion.splash": {
+    "sounds": [
+      "wilderwild:item/potion/splash1",
+      "wilderwild:item/potion/splash2",
+      "wilderwild:item/potion/splash3"
+    ]
+  },
+  "item.experience_bottle.splash": {
+    "sounds": [
+      "wilderwild:item/potion/splash_exp1",
+      "wilderwild:item/potion/splash_exp2",
+      "wilderwild:item/potion/splash_exp3"
+    ]
+  },
+  "item.potion.magic": {
+    "sounds": [
+      "wilderwild:item/potion/magic1",
+      "wilderwild:item/potion/magic2"
+    ],
+    "subtitle": "subtitles.entity.potion.magic"
+  },
+  "item.potion.lingering": {
+    "sounds": [
+      "wilderwild:item/potion/lingering1"
+    ],
+    "subtitle": "subtitles.entity.potion.linger"
   },
   "music.overworld.wild_forests": {
 	"sounds": [
