@@ -20,7 +20,7 @@ public final class CreeperMixin {
 		if (ClothConfigInteractionHandler.potionLandingSounds()) {
 			if (!collection.isEmpty()) {
 				creeper.playSound(RegisterSounds.ITEM_POTION_MAGIC, 1.0F, 1.0F + (creeper.level.random.nextFloat() * 0.2F));
-				creeper.playSound(RegisterSounds.ITEM_POTION_LINGERING, 1.0F, 0.8F + (creeper.level.random.nextFloat() * 0.2F));
+				creeper.playSound(RegisterSounds.ITEM_POTION_LINGERING, 1.0F, 1.0F + (creeper.level.random.nextFloat() * 0.2F));
 			}
 		}
     }

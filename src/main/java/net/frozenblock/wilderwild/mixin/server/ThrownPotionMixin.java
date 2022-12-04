@@ -33,7 +33,7 @@ public abstract class ThrownPotionMixin {
 			if (!empty) {
 				potion.playSound(RegisterSounds.ITEM_POTION_MAGIC, 1.0F, 1.0F + (potion.level.random.nextFloat() * 0.2F));
 				if (this.isLingering()) {
-					potion.playSound(RegisterSounds.ITEM_POTION_LINGERING, 1.0F, 0.8F + (potion.level.random.nextFloat() * 0.2F));
+					potion.playSound(RegisterSounds.ITEM_POTION_LINGERING, 1.0F, 1.0F + (potion.level.random.nextFloat() * 0.2F));
 				}
 			}
 		}
