@@ -9,6 +9,7 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.frozenblock.lib.config.api.FrozenConfig;
 import net.frozenblock.wilderwild.WilderWild;
+import net.frozenblock.wilderwild.entity.AncientHornProjectile;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import static net.frozenblock.wilderwild.misc.config.WilderWildConfig.*;
 
@@ -20,6 +21,7 @@ public final class ItemConfig implements ConfigData {
 
     public static class AncientHornConfig {
 		public boolean ancientHornCanSummonWarden = true;
+		public int ancientHornLifespan = AncientHornProjectile.DEFAULT_LIFESPAN;
 		public int ancientHornMobDamage = 15;
 		public int ancientHornPlayerDamage = 22;
         public boolean ancientHornShattersGlass = false;
@@ -36,6 +38,12 @@ public final class ItemConfig implements ConfigData {
 				.setDefaultValue(true)
 				.setSaveConsumer(newValue -> ancientHorn.ancientHornCanSummonWarden = newValue)
 				.setTooltip(tooltip("ancient_horn_can_summon_warden"))
+				.build();
+
+		var lifespan = entryBuilder.startIntSlider(text("ancient_horn_lifespan"), ancientHorn.ancientHornLifespan, 0, 500)
+				.setDefaultValue(AncientHornProjectile.DEFAULT_LIFESPAN)
+				.setSaveConsumer(newValue -> ancientHorn.ancientHornLifespan = newValue)
+				.setTooltip(tooltip("ancient_horn_lifespan"))
 				.build();
 
 		var mobDamage = entryBuilder.startIntSlider(text("ancient_horn_mob_damage"), ancientHorn.ancientHornMobDamage, 0, 50)
@@ -59,7 +67,7 @@ public final class ItemConfig implements ConfigData {
         var ancientHornCategory = FrozenConfig.createSubCategory(entryBuilder, category, text("ancient_horn"),
                 false,
                 tooltip("ancient_horn"),
-				summonsWarden, mobDamage, playerDamage, shattersGlass
+				summonsWarden, lifespan, mobDamage, playerDamage, shattersGlass
         );
 
         /*var copperHornCategory = FrozenConfig.createSubCategory(entryBuilder, category, text("copper_horn"),

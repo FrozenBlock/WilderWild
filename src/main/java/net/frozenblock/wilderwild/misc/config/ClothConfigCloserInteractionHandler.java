@@ -66,6 +66,10 @@ public final class ClothConfigCloserInteractionHandler {
 		return ANCIENT_HORN.ancientHornCanSummonWarden;
 	}
 
+	public static int hornLifespan() {
+		return ANCIENT_HORN.ancientHornLifespan;
+	}
+
 	public static int hornMobDamage() {
 		return ANCIENT_HORN.ancientHornMobDamage;
 	}

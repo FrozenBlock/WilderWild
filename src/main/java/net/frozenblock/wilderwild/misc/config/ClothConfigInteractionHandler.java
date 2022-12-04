@@ -1,6 +1,7 @@
 package net.frozenblock.wilderwild.misc.config;
 
 import net.frozenblock.lib.FrozenBools;
+import net.frozenblock.wilderwild.entity.AncientHornProjectile;
 
 public final class ClothConfigInteractionHandler {
 
@@ -50,6 +51,10 @@ public final class ClothConfigInteractionHandler {
 
 	public static boolean hornCanSummonWarden() {
 		return FrozenBools.HAS_CLOTH_CONFIG && ClothConfigCloserInteractionHandler.hornCanSummonWarden();
+	}
+
+	public static int hornLifespan() {
+		return FrozenBools.HAS_CLOTH_CONFIG ? ClothConfigCloserInteractionHandler.hornLifespan() : AncientHornProjectile.DEFAULT_LIFESPAN;
 	}
 
 	public static int hornMobDamage() {
