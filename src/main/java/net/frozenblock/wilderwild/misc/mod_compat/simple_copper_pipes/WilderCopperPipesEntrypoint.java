@@ -54,7 +54,8 @@ public class WilderCopperPipesEntrypoint implements CopperPipeEntrypoint {
             }
             if (blockState.getBlock() instanceof CopperPipe pipe) {
                 Direction direction = blockState.getValue(BlockStateProperties.FACING);
-                for (int i = 0; i < level.getRandom().nextIntBetweenInclusive(10, 20); i++) {
+				final var random = level.getRandom().nextIntBetweenInclusive(10, 20);
+                for (int i = 0; i < random; i++) {
                     level.sendParticles(new DustColorTransitionOptions(DustColorTransitionOptions.SCULK_PARTICLE_COLOR, DustColorTransitionOptions.SCULK_PARTICLE_COLOR, 1.0F), pos.getX() + pipe.getDripX(direction, level.getRandom()), pos.getY() + pipe.getDripY(direction, level.getRandom()), pos.getZ() + pipe.getDripZ(direction, level.getRandom()), 1, 0.0, 0.0, 0.0, 0.7);
                 }
             }

@@ -91,16 +91,15 @@ public class HangingTendrilBlock extends BaseEntityBlock implements SimpleWaterl
 			level.destroyBlock(pos, true);
 		} else if (getPhase(state) == SculkSensorPhase.INACTIVE) {
 			BlockEntity entity = level.getBlockEntity(pos);
-			if (entity != null) {
-				if (entity instanceof HangingTendrilBlockEntity wigglyTendril) {
-					level.setBlockAndUpdate(pos, state.setValue(TWITCHING, true));
-					wigglyTendril.ticksToStopTwitching = random.nextIntBetweenInclusive(5, 12);
-				}
+			if (entity instanceof HangingTendrilBlockEntity wigglyTendril) {
+				level.setBlockAndUpdate(pos, state.setValue(TWITCHING, true));
+				wigglyTendril.ticksToStopTwitching = random.nextIntBetweenInclusive(5, 12);
 			}
 		}
 	}
 
 	@Override
+	@NotNull
 	public BlockState updateShape(@NotNull BlockState state, @NotNull Direction direction, @NotNull BlockState neighborState, @NotNull LevelAccessor level, @NotNull BlockPos currentPos, @NotNull BlockPos neighborPos) {
 		if (direction == Direction.UP && !canSurvive(state, level, currentPos)) {
 			level.destroyBlock(currentPos, true);
@@ -112,6 +111,7 @@ public class HangingTendrilBlock extends BaseEntityBlock implements SimpleWaterl
 	}
 
 	@Override
+	@NotNull
 	public FluidState getFluidState(BlockState state) {
 		return state.getValue(WATERLOGGED) ? Fluids.WATER.getSource(false) : super.getFluidState(state);
 	}
@@ -170,16 +170,19 @@ public class HangingTendrilBlock extends BaseEntityBlock implements SimpleWaterl
 	}
 
 	@Override
+	@NotNull
 	public RenderShape getRenderShape(@NotNull BlockState state) {
 		return RenderShape.MODEL;
 	}
 
 	@Override
+	@NotNull
 	public VoxelShape getOcclusionShape(@NotNull BlockState state, @NotNull BlockGetter level, @NotNull BlockPos pos) {
 		return OUTLINE_SHAPE;
 	}
 
 	@Override
+	@NotNull
 	public VoxelShape getShape(@NotNull BlockState state, @NotNull BlockGetter level, @NotNull BlockPos pos, @NotNull CollisionContext context) {
 		return OUTLINE_SHAPE;
 	}
@@ -272,6 +275,7 @@ public class HangingTendrilBlock extends BaseEntityBlock implements SimpleWaterl
 	}
 
 	@Override
+	@NotNull
 	public InteractionResult use(@NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos, @NotNull Player player, @NotNull InteractionHand hand, @NotNull BlockHitResult hit) {
 		if (isInactive(state) && !state.getValue(WRINGING_OUT)) {
 			if (level.isClientSide) {

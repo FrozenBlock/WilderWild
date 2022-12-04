@@ -3,12 +3,12 @@ package net.frozenblock.wilderwild.misc.config;
 import me.shedaniel.autoconfig.ConfigData;
 import me.shedaniel.autoconfig.annotation.Config;
 import me.shedaniel.autoconfig.annotation.ConfigEntry;
+import me.shedaniel.autoconfig.util.Utils;
 import me.shedaniel.clothconfig2.api.ConfigCategory;
 import me.shedaniel.clothconfig2.api.ConfigEntryBuilder;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.frozenblock.lib.config.api.FrozenConfig;
-import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import static net.frozenblock.wilderwild.misc.config.WilderWildConfig.*;
 
@@ -16,13 +16,19 @@ import static net.frozenblock.wilderwild.misc.config.WilderWildConfig.*;
 public final class EntityConfig implements ConfigData {
 
 	@ConfigEntry.Gui.CollapsibleObject
-	public AllayConfig allay = new AllayConfig();
+	public final AllayConfig allay = new AllayConfig();
 
 	@ConfigEntry.Gui.CollapsibleObject
-	public EnderManConfig enderMan = new EnderManConfig();
+	public final EnderManConfig enderMan = new EnderManConfig();
 
 	@ConfigEntry.Gui.CollapsibleObject
-	public WardenConfig warden = new WardenConfig();
+	public final WardenConfig warden = new WardenConfig();
+
+	@ConfigEntry.Gui.CollapsibleObject
+	public final FireflyConfig firefly = new FireflyConfig();
+
+	@ConfigEntry.Gui.CollapsibleObject
+	public final JellyfishConfig jellyfish = new JellyfishConfig();
 
 	public static class AllayConfig {
 		public boolean keyframeAllayDance = true;
@@ -41,6 +47,14 @@ public final class EntityConfig implements ConfigData {
 		public boolean wardenSwimAnimation = true;
 	}
 
+	public static class FireflyConfig {
+		public int fireflySpawnCap = 56;
+	}
+
+	public static class JellyfishConfig {
+		public int jellyfishSpawnCap = 30;
+	}
+
 	public boolean unpassableRail = false;
 
 	@Environment(EnvType.CLIENT)
@@ -48,6 +62,8 @@ public final class EntityConfig implements ConfigData {
 		var config = WilderWildConfig.get().entity;
 		var allay = config.allay;
 		var enderMan = config.enderMan;
+		var firefly = config.firefly;
+		var jellyfish = config.jellyfish;
 		var warden = config.warden;
 		category.setBackground(WilderSharedConstants.id("textures/config/entity.png"));
 		var unpassableRail = category.addEntry(entryBuilder.startBooleanToggle(text("unpassable_rail"), config.unpassableRail)
@@ -88,17 +104,31 @@ public final class EntityConfig implements ConfigData {
 				angerLoopSound, movingStareSound
 		);
 
-        /*var fireflyCategory = FrozenConfig.createSubCategory(entryBuilder, category, text("firefly"),
-                false,
-                tooltip("firefly")
+		var fireflySpawnCap = entryBuilder.startIntSlider(text("firefly_spawn_cap"), firefly.fireflySpawnCap, 0, 100)
+				.setDefaultValue(56)
+				.setSaveConsumer(newValue -> firefly.fireflySpawnCap = newValue)
+				.setTooltip(tooltip("firefly_spawn_cap"))
+				.requireRestart()
+				.build();
 
+        var fireflyCategory = FrozenConfig.createSubCategory(entryBuilder, category, text("firefly"),
+                false,
+                tooltip("firefly"),
+				fireflySpawnCap
         );
+
+		var jellyfishSpawnCap = entryBuilder.startIntSlider(text("jellyfish_spawn_cap"), jellyfish.jellyfishSpawnCap, 0, 100)
+				.setDefaultValue(30)
+				.setSaveConsumer(newValue -> jellyfish.jellyfishSpawnCap = newValue)
+				.setTooltip(tooltip("jellyfish_spawn_cap"))
+				.requireRestart()
+				.build();
 
         var jellyfishCategory = FrozenConfig.createSubCategory(entryBuilder, category, text("jellyfish"),
                 false,
-                tooltip("jellyfish")
-
-        );*/
+                tooltip("jellyfish"),
+				jellyfishSpawnCap
+        );
 
 		var dying = entryBuilder.startBooleanToggle(text("warden_dying_animation"), warden.wardenDyingAnimation)
 				.setDefaultValue(true)

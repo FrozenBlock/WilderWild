@@ -40,9 +40,9 @@ public final class FrozenLibIntegration implements FrozenMainEntrypoint {
     @Override
     public void init() {
         WilderSharedConstants.log("FrozenLib Main Entrypoint for WilderWild loaded.", WilderSharedConstants.UNSTABLE_LOGGING);
-		SoundPredicate.register(WilderSharedConstants.id("instrument"),(SoundPredicate.LoopPredicate<Player>) player -> {
-			return (player.getUseItem().getItem() instanceof InstrumentItem);
-        });
+		SoundPredicate.register(WilderSharedConstants.id("instrument"),(SoundPredicate.LoopPredicate<Player>) player ->
+			(player.getUseItem().getItem() instanceof InstrumentItem)
+        );
         SoundPredicate.register(WilderSharedConstants.id("nectar"), (SoundPredicate.LoopPredicate<Firefly>) entity -> {
             if (entity.isSilent()) {
                 return false;
