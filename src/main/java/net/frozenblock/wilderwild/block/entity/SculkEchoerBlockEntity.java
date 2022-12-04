@@ -17,6 +17,7 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.TagKey;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.monster.warden.Warden;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.BaseEntityBlock;
 import net.minecraft.world.level.block.SculkSensorBlock;
@@ -124,7 +125,8 @@ public class SculkEchoerBlockEntity extends BlockEntity implements VibrationList
         SaveableGameEvent.writeNbt(nbt, this.savedEvent);
     }
 
-    public TagKey<GameEvent> getTag() {
+	@Override
+    public TagKey<GameEvent> getListenableEvents() {
         return WildEventTags.ECHOER_CAN_LISTEN;
     }
 
