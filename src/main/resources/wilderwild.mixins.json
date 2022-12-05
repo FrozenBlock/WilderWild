@@ -57,6 +57,7 @@
   ],
   "client": [
     "client.AllayModelMixin",
+    "client.BaseAshSmokeParticleMixin",
     "client.LevelRendererMixin",
     "client.LiquidBlockRendererMixin",
     "client.ScottTheWozMixin",
