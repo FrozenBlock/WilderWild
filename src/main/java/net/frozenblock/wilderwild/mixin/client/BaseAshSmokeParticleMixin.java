@@ -18,11 +18,11 @@ public abstract class BaseAshSmokeParticleMixin extends TextureSheetParticle {
 		super(clientLevel, d, e, f);
 	}
 
-	@Inject(method = "tick", at = @At("TAIL"))
+	@Inject(method = "tick", at = @At("HEAD"))
 	public void tick(CallbackInfo info) {
-		Vec3 wind = ClientWindManager.getWindMovement(this.level, new BlockPos(this.x, this.y, this.z), 1.3, 1);
-		this.xd += wind.x * 0.25;
+		Vec3 wind = ClientWindManager.getWindMovement(this.level, new BlockPos(this.x, this.y, this.z), 1.5, 1);
+		this.xd += wind.x * 0.5;
 		this.yd += wind.y * 0.1;
-		this.zd += wind.z * 0.25;
+		this.zd += wind.z * 0.5;
 	}
 }
