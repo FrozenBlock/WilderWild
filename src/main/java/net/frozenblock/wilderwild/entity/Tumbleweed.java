@@ -130,8 +130,8 @@ public class Tumbleweed extends Mob {
 		super.tick();
 		this.setYRot(0F);
 		Vec3 deltaPos = this.getDeltaPos();
-		if (deltaPos.horizontalDistance() > 0.02) {
-			this.setYRot(-((float) (Mth.atan2(deltaPos.x * 3, deltaPos.z * 3) * 57.2957763671875D) - 90));
+		if (deltaPos.horizontalDistance() != 0) {
+			this.setYRot(-((float) (Mth.atan2(deltaPos.x * 10, deltaPos.z * 10) * 57.2957763671875D) - 90));
 		}
 		if (this.level.isClientSide) {
 			this.prevPitch = this.pitch;
