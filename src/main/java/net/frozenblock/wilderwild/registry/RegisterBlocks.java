@@ -46,18 +46,22 @@ import net.frozenblock.wilderwild.block.WaterloggableSaplingBlock;
 import net.frozenblock.wilderwild.block.WaterloggableTallFlowerBlock;
 import net.frozenblock.wilderwild.block.entity.TermiteMoundBlockEntity;
 import net.frozenblock.wilderwild.entity.CoconutProjectile;
+import net.frozenblock.wilderwild.entity.Tumbleweed;
 import net.frozenblock.wilderwild.item.AlgaeItem;
 import net.frozenblock.wilderwild.item.FloweredLilyPadItem;
 import net.frozenblock.wilderwild.misc.FlowerColor;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.frozenblock.wilderwild.world.generation.sapling.CypressSaplingGenerator;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.BlockSource;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Position;
 import net.minecraft.core.Registry;
 import net.minecraft.core.dispenser.AbstractProjectileDispenseBehavior;
+import net.minecraft.core.dispenser.DefaultDispenseItemBehavior;
 import net.minecraft.data.BlockFamilies;
 import net.minecraft.data.BlockFamily;
+import net.minecraft.util.Mth;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.projectile.Projectile;
@@ -89,6 +93,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.WoodType;
 import net.minecraft.world.level.material.Material;
 import net.minecraft.world.level.material.MaterialColor;
+import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 
 public final class RegisterBlocks {
@@ -496,6 +501,31 @@ public final class RegisterBlocks {
 		DispenserBlock.registerBehavior(RegisterItems.COCONUT, new AbstractProjectileDispenseBehavior() {
 			protected Projectile getProjectile(@NotNull Level level, @NotNull Position position, @NotNull ItemStack stack) {
 				return new CoconutProjectile(level, position.x(), position.y(), position.z());
+			}
+			protected float getUncertainty() {
+				return 9.0F;
+			}
+			protected float getPower() {
+				return 0.75F;
+			}
+		});
+		DispenserBlock.registerBehavior(RegisterBlocks.TUMBLEWEED, new DefaultDispenseItemBehavior() {
+			public ItemStack execute(@NotNull BlockSource source, @NotNull ItemStack stack) {
+				Level level = source.getLevel();
+				Position position = DispenserBlock.getDispensePosition(source);
+				Direction direction = source.getBlockState().getValue(DispenserBlock.FACING);
+				Tumbleweed tumbleweed = new Tumbleweed(RegisterEntities.TUMBLEWEED, level);
+				Vec3 vec3 = (new Vec3(direction.getStepX(), direction.getStepY() + 0.1, direction.getStepZ())).normalize().add(level.random.triangle(0.0D, 0.0172275D * (double)6), level.random.triangle(0.0D, 0.0172275D * (double)6), level.random.triangle(0.0D, 0.0172275D * (double)6)).scale(0.7);
+				tumbleweed.setDeltaMovement(vec3);
+				tumbleweed.setPos(position.x(), position.y(), position.z());
+				double d = vec3.horizontalDistance();
+				tumbleweed.setYRot((float)(Mth.atan2(vec3.x, vec3.z) * 57.2957763671875D));
+				tumbleweed.setXRot((float)(Mth.atan2(vec3.y, d) * 57.2957763671875D));
+				tumbleweed.yRotO = tumbleweed.getYRot();
+				tumbleweed.xRotO = tumbleweed.getXRot();
+				level.addFreshEntity(tumbleweed);
+				stack.shrink(1);
+				return stack;
 			}
 		});
     }
