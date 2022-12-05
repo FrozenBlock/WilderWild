@@ -56,12 +56,12 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.BlockSource;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Position;
+import net.minecraft.core.PositionImpl;
 import net.minecraft.core.Registry;
 import net.minecraft.core.dispenser.AbstractProjectileDispenseBehavior;
 import net.minecraft.core.dispenser.DefaultDispenseItemBehavior;
 import net.minecraft.data.BlockFamilies;
 import net.minecraft.data.BlockFamily;
-import net.minecraft.util.Mth;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.projectile.Projectile;
@@ -512,17 +512,15 @@ public final class RegisterBlocks {
 		DispenserBlock.registerBehavior(RegisterBlocks.TUMBLEWEED, new DefaultDispenseItemBehavior() {
 			public ItemStack execute(@NotNull BlockSource source, @NotNull ItemStack stack) {
 				Level level = source.getLevel();
-				Position position = DispenserBlock.getDispensePosition(source);
 				Direction direction = source.getBlockState().getValue(DispenserBlock.FACING);
+				double d = source.x() + (double) direction.getStepX();
+				double e = source.y() + (double) direction.getStepY();
+				double f = source.z() + (double) direction.getStepZ();
+				Position position = new PositionImpl(d, e, f);
 				Tumbleweed tumbleweed = new Tumbleweed(RegisterEntities.TUMBLEWEED, level);
-				Vec3 vec3 = (new Vec3(direction.getStepX(), direction.getStepY() + 0.1, direction.getStepZ())).normalize().add(level.random.triangle(0.0D, 0.0172275D * (double)6), level.random.triangle(0.0D, 0.0172275D * (double)6), level.random.triangle(0.0D, 0.0172275D * (double)6)).scale(0.7);
+				Vec3 vec3 = (new Vec3(direction.getStepX(), direction.getStepY() + 0.1, direction.getStepZ())).normalize().add(level.random.triangle(0.0D, 0.0172275D * (double)6), level.random.triangle(0.0D, 0.0172275D * (double)6), level.random.triangle(0.0D, 0.0172275D * (double)6)).scale(1.1);
 				tumbleweed.setDeltaMovement(vec3);
 				tumbleweed.setPos(position.x(), position.y(), position.z());
-				double d = vec3.horizontalDistance();
-				tumbleweed.setYRot((float)(Mth.atan2(vec3.x, vec3.z) * 57.2957763671875D));
-				tumbleweed.setXRot((float)(Mth.atan2(vec3.y, d) * 57.2957763671875D));
-				tumbleweed.yRotO = tumbleweed.getYRot();
-				tumbleweed.xRotO = tumbleweed.getXRot();
 				level.addFreshEntity(tumbleweed);
 				stack.shrink(1);
 				return stack;
