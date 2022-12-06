@@ -373,6 +373,7 @@ public final class WardenMixin extends Monster implements WilderWarden {
 	}
 
 	@Override
+	@NotNull
 	public SoundEvent getSwimSound() {
 		return RegisterSounds.ENTITY_WARDEN_SWIM;
 	}
