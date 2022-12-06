@@ -1,10 +1,7 @@
 package net.frozenblock.wilderwild.mixin.client;
 
-import com.mojang.blaze3d.platform.GlStateManager;
-import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.BufferBuilder;
 import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.blaze3d.vertex.Tesselator;
 import com.mojang.blaze3d.vertex.VertexBuffer;
 import com.mojang.math.Matrix4f;
 import net.fabricmc.api.EnvType;
@@ -15,11 +12,8 @@ import net.frozenblock.wilderwild.registry.RegisterSounds;
 import net.minecraft.client.CloudStatus;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientLevel;
-import net.minecraft.client.renderer.FogRenderer;
-import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.client.renderer.LevelRenderer;
 import net.minecraft.client.renderer.RenderBuffers;
-import net.minecraft.client.renderer.ShaderInstance;
 import net.minecraft.client.renderer.entity.EntityRenderDispatcher;
 import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceLocation;
@@ -93,27 +87,27 @@ public class LevelRendererMixin {
     }
 
 	@Unique
-	private double wilderWild$e;
+	float cloudHeight;
 
-	@ModifyVariable(method = "renderClouds", at = @At(value = "STORE"), ordinal = 4)
-	private double getE(double original) {
-		wilderWild$e = original;
+	@ModifyVariable(method = "renderClouds", at = @At(value = "STORE"), ordinal = 1)
+	private float getCloudHeight(float original) {
+		this.cloudHeight = original;
 		return original;
 	}
 
 	@ModifyVariable(method = "renderClouds", at = @At(value = "STORE"), ordinal = 5)
-	private double modifyX(double original, PoseStack poseStack, Matrix4f projectionMatrix, float partialTick) {
-		return (original - (this.wilderWild$e / 12.0)) - ClientWindManager.getCloudX(partialTick);
+	private double modifyX(double original, PoseStack poseStack, Matrix4f projectionMatrix, float partialTick, double camX) {
+		return (camX / 12.0) - ClientWindManager.getCloudX(partialTick);
 	}
 
 	@ModifyVariable(method = "renderClouds", at = @At("STORE"), ordinal = 6)
-	private double modifyY(double original, PoseStack poseStack, Matrix4f projectionMatrix, float partialTick) {
-		return original + Mth.clamp(ClientWindManager.getCloudY(partialTick), -10, 10);
+	private double modifyY(double original, PoseStack poseStack, Matrix4f projectionMatrix, float partialTick, double camX, double camY) {
+		return (double)(this.cloudHeight - (float)camY + 0.33F) + Mth.clamp(ClientWindManager.getCloudY(partialTick), -10, 10);
 	}
 
 	@ModifyVariable(method = "renderClouds", at = @At("STORE"), ordinal = 7)
-	private double modifyZ(double original, PoseStack poseStack, Matrix4f projectionMatrix, float partialTick) {
-		return original - ClientWindManager.getCloudZ(partialTick);
+	private double modifyZ(double original, PoseStack poseStack, Matrix4f projectionMatrix, float partialTick, double camX, double camY, double camZ) {
+		return (camZ / 12.0D + 0.33000001311302185D) - ClientWindManager.getCloudZ(partialTick);
 	}
 
 	/*@Inject(method = "renderClouds", at = @At("HEAD"), cancellable = true)
