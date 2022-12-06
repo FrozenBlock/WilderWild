@@ -1,5 +1,6 @@
 package net.frozenblock.wilderwild.mixin.server;
 
+import net.frozenblock.wilderwild.entity.ai.WardenLookControl;
 import net.frozenblock.wilderwild.entity.ai.WardenMoveControl;
 import net.frozenblock.wilderwild.entity.ai.WardenNavigation;
 import net.frozenblock.wilderwild.entity.render.animations.WilderWarden;
@@ -358,6 +359,7 @@ public final class WardenMixin extends Monster implements WilderWarden {
 		wardenEntity.setPathfindingMalus(BlockPathTypes.POWDER_SNOW, -1.0F);
 		wardenEntity.setPathfindingMalus(BlockPathTypes.DANGER_POWDER_SNOW, -1.0F);
 		this.moveControl = new WardenMoveControl(wardenEntity, 0.05F, 80.0F, 0.13F, 1.0F, true);
+		this.lookControl = new WardenLookControl(wardenEntity, 10);
 	}
 
 	@Override
