@@ -34,8 +34,10 @@ import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
+import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.ModifyVariable;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Environment(EnvType.CLIENT)
@@ -90,7 +92,31 @@ public class LevelRendererMixin {
         }
     }
 
-	@Inject(method = "renderClouds", at = @At("HEAD"), cancellable = true)
+	@Unique
+	private double wilderWild$e;
+
+	@ModifyVariable(method = "renderClouds", at = @At(value = "STORE"), ordinal = 4)
+	private double getE(double original) {
+		wilderWild$e = original;
+		return original;
+	}
+
+	@ModifyVariable(method = "renderClouds", at = @At(value = "STORE"), ordinal = 5)
+	private double modifyX(double original, PoseStack poseStack, Matrix4f projectionMatrix, float partialTick) {
+		return (original - (this.wilderWild$e / 12.0)) - ClientWindManager.getCloudX(partialTick);
+	}
+
+	@ModifyVariable(method = "renderClouds", at = @At("STORE"), ordinal = 6)
+	private double modifyY(double original, PoseStack poseStack, Matrix4f projectionMatrix, float partialTick) {
+		return original + Mth.clamp(ClientWindManager.getCloudY(partialTick), -10, 10);
+	}
+
+	@ModifyVariable(method = "renderClouds", at = @At("STORE"), ordinal = 7)
+	private double modifyZ(double original, PoseStack poseStack, Matrix4f projectionMatrix, float partialTick) {
+		return original - ClientWindManager.getCloudZ(partialTick);
+	}
+
+	/*@Inject(method = "renderClouds", at = @At("HEAD"), cancellable = true)
 	public void renderClouds(PoseStack poseStack, Matrix4f projectionMatrix, float partialTick, double camX, double camY, double camZ, CallbackInfo info) {
 		info.cancel();
 		float f = this.level.effects().getCloudHeight();
@@ -166,7 +192,7 @@ public class LevelRendererMixin {
 			RenderSystem.enableCull();
 			RenderSystem.disableBlend();
 		}
-	}
+	}*/
 
 	@Shadow
 	private BufferBuilder.RenderedBuffer buildClouds(BufferBuilder builder, double x, double y, double z, Vec3 cloudColor) {
