@@ -22,8 +22,8 @@ public abstract class CampfireSmokeParticleMixin extends TextureSheetParticle {
 	@Inject(method = "tick", at = @At("TAIL"))
 	public void tick(CallbackInfo info) {
 		Vec3 wind = ClientWindManager.getWindMovement(this.level, new BlockPos(this.x, this.y, this.z), 1.5, 1);
-		this.xd += wind.x * 0.12;
-		this.yd += wind.y * 0.03;
-		this.zd += wind.z * 0.12;
+		this.xd += wind.x * 0.0005;
+		this.yd += wind.y * 0.000002;
+		this.zd += wind.z * 0.0005;
 	}
 }
