@@ -110,11 +110,6 @@ public class LevelRendererMixin {
 		return (camZ / 12.0D + 0.33000001311302185D) - ClientWindManager.getCloudZ(partialTick);
 	}
 
-	@Shadow
-	private BufferBuilder.RenderedBuffer buildClouds(BufferBuilder builder, double x, double y, double z, Vec3 cloudColor) {
-		throw new AssertionError("Mixin injection failed - WIlderWild LevelRendererMixin");
-	}
-
     /*@Shadow
     private void renderChunkLayer(RenderType renderType, PoseStack poseStack, double d, double e, double f, Matrix4f matrix4f) {
     }
