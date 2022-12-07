@@ -165,6 +165,10 @@ public final class ClothConfigInteractionHandler {
 		return FrozenBools.HAS_CLOTH_CONFIG ? ClothConfigCloserInteractionHandler.jellyfishSpawnCap() : 30;
 	}
 
+	public static boolean wardenAttacksInstantly() {
+		return !FrozenBools.HAS_CLOTH_CONFIG || ClothConfigCloserInteractionHandler.wardenAttacksInstantly();
+	}
+
 	public static boolean wardenCustomTendrils() {
 		return !FrozenBools.HAS_CLOTH_CONFIG || ClothConfigCloserInteractionHandler.wardenCustomTendrils();
 	}

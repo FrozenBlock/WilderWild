@@ -153,21 +153,28 @@ public final class WardenMixin extends Monster implements WilderWarden {
 	@Inject(at = @At("HEAD"), method = "doPush")
 	private void doPush(Entity entity, CallbackInfo info) {
 		Warden warden = Warden.class.cast(this);
-		if (!warden.getBrain().hasMemoryValue(MemoryModuleType.ATTACK_COOLING_DOWN) && !warden.getBrain().hasMemoryValue(MemoryModuleType.TOUCH_COOLDOWN) && !(entity instanceof Warden) && !this.isDiggingOrEmerging() && !warden.hasPose(Pose.DYING) && !warden.hasPose(Pose.ROARING)) {
-			if (!entity.isInvulnerable() && entity instanceof LivingEntity livingEntity) {
-				if (!(entity instanceof Player player)) {
+		if (!warden.getBrain().hasMemoryValue(MemoryModuleType.ATTACK_COOLING_DOWN)
+				&& !warden.getBrain().hasMemoryValue(MemoryModuleType.TOUCH_COOLDOWN)
+				&& !(entity instanceof Warden)
+				&& entity instanceof LivingEntity livingEntity
+				&& !entity.isInvulnerable()
+				&& !warden.isDiggingOrEmerging()
+				&& !warden.hasPose(Pose.DYING)
+				&& !warden.hasPose(Pose.ROARING)
+				&& ClothConfigInteractionHandler.wardenAttacksInstantly()
+		) {
+			if (!(entity instanceof Player player)) {
+				warden.increaseAngerAt(entity, AngerLevel.ANGRY.getMinimumAnger() + 20, false);
+
+				if (!livingEntity.isDeadOrDying() && warden.getBrain().getMemory(MemoryModuleType.ATTACK_TARGET).isEmpty()) {
+					warden.setAttackTarget(livingEntity);
+				}
+			} else {
+				if (!player.isCreative()) {
 					warden.increaseAngerAt(entity, AngerLevel.ANGRY.getMinimumAnger() + 20, false);
 
-					if (!livingEntity.isDeadOrDying() && warden.getBrain().getMemory(MemoryModuleType.ATTACK_TARGET).isEmpty()) {
-						warden.setAttackTarget(livingEntity);
-					}
-				} else {
-					if (!player.isCreative()) {
-						warden.increaseAngerAt(entity, AngerLevel.ANGRY.getMinimumAnger() + 20, false);
-
-						if (!player.isDeadOrDying() && warden.getBrain().getMemory(MemoryModuleType.ATTACK_TARGET).isEmpty()) {
-							warden.setAttackTarget(player);
-						}
+					if (!player.isDeadOrDying() && warden.getBrain().getMemory(MemoryModuleType.ATTACK_TARGET).isEmpty()) {
+						warden.setAttackTarget(player);
 					}
 				}
 			}

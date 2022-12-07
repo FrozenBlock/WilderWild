@@ -178,6 +178,10 @@ public final class ClothConfigCloserInteractionHandler {
 		return ENDER_MAN.movingStareSound;
 	}
 
+	public static boolean wardenAttacksInstantly() {
+		return WARDEN.wardenAttacksInstantly;
+	}
+
 	public static boolean wardenCustomTendrils() {
 		return WARDEN.wardenCustomTendrils;
 	}
