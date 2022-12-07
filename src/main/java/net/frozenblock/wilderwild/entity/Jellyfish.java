@@ -72,6 +72,13 @@ public class Jellyfish extends NoFlopAbstractFish {
     public float xRot5;
     public float xRot6;
 
+	public float yRot1;
+	public float yRot2;
+	public float yRot3;
+	public float yRot4;
+	public float yRot5;
+	public float yRot6;
+
 	private static final float MAX_TARGET_DISTANCE = 20F;
 
 	private static final EntityDataAccessor<JellyfishVariant> VARIANT = SynchedEntityData.defineId(Jellyfish.class, JellyfishVariant.SERIALIZER);
@@ -212,6 +219,12 @@ public class Jellyfish extends NoFlopAbstractFish {
         this.xRot3 = this.xRot2;
         this.xRot2 = this.xRot1;
         this.xRot1 = this.xBodyRot;
+		this.yRot6 = this.yRot5;
+		this.yRot5 = this.yRot4;
+		this.yRot4 = this.yRot3;
+		this.yRot3 = this.yRot2;
+		this.yRot2 = this.yRot1;
+		this.yRot1 = this.yBodyRot;
 
         if (this.isInWaterOrBubble()) {
 			this.heal(0.02F);
