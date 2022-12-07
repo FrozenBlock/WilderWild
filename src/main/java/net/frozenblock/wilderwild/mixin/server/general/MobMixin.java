@@ -19,9 +19,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public abstract class MobMixin extends LivingEntity {
 
     @Shadow
-    public void setPathfindingMalus(BlockPathTypes blockPathTypes, float f) {
-		throw new AssertionError("Mixin injection failed - WilderWild MobMixin.");
-    }
+    public abstract void setPathfindingMalus(BlockPathTypes nodeType, float malus);
 
     private MobMixin(EntityType<? extends LivingEntity> entityType, Level level) {
         super(entityType, level);
