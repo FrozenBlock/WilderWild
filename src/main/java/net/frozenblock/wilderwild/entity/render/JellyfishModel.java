@@ -82,13 +82,13 @@ public class JellyfishModel<T extends Jellyfish> extends HierarchicalModel<T> {
     @Override
     public void renderToBuffer(PoseStack poseStack, @NotNull VertexConsumer buffer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
         poseStack.pushPose();
-        poseStack.mulPose(Vector3f.XP.rotationDegrees(this.xRot));
+        poseStack.mulPose(Vector3f.XN.rotationDegrees(this.xRot));
 		poseStack.mulPose(Vector3f.ZP.rotationDegrees(this.yRot));
         this.body.render(poseStack, buffer, packedLight, packedOverlay, this.red, this.green, this.blue, alpha);
         poseStack.popPose();
 
         poseStack.pushPose();
-        poseStack.mulPose(Vector3f.XP.rotationDegrees(this.tentXRot));
+        poseStack.mulPose(Vector3f.XN.rotationDegrees(this.tentXRot));
 		poseStack.mulPose(Vector3f.ZP.rotationDegrees(this.tentYRot));
         this.tentacleBase.render(poseStack, buffer, packedLight, packedOverlay, this.red, this.green, this.blue, alpha);
         poseStack.popPose();
@@ -101,8 +101,8 @@ public class JellyfishModel<T extends Jellyfish> extends HierarchicalModel<T> {
     public void prepareMobModel(T jelly, float limbSwing, float limbSwimgAmount, float partialTick) {
         this.xRot = (jelly.xRot1 + partialTick * (jelly.xBodyRot - jelly.xRot1));
         this.tentXRot = (jelly.xRot6 + partialTick * (jelly.xRot5 - jelly.xRot6));
-		this.yRot = -(jelly.yRot1 + partialTick * (jelly.yBodyRot - jelly.yRot1));
-		this.tentYRot = -(jelly.yRot6 + partialTick * (jelly.yRot5 - jelly.yRot6));
+		this.yRot = (jelly.yRot1 + partialTick * (jelly.yBodyRot - jelly.yRot1));
+		this.tentYRot = (jelly.yRot6 + partialTick * (jelly.yRot5 - jelly.yRot6));
     }
 
     @Override
