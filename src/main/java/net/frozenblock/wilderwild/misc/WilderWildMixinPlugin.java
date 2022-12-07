@@ -1,4 +1,4 @@
-package net.frozenblock.wilderwild.misc;
+/*package net.frozenblock.wilderwild.misc;
 
 import net.caffeinemc.caffeineconfig.AbstractCaffeineConfigMixinPlugin;
 import net.caffeinemc.caffeineconfig.CaffeineConfig;
@@ -35,3 +35,4 @@ public class WilderWildMixinPlugin extends AbstractCaffeineConfigMixinPlugin {
 		return MIXIN_ROOT;
 	}
 }
+*/
