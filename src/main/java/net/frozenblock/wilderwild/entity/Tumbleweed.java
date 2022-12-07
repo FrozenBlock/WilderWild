@@ -274,6 +274,12 @@ public class Tumbleweed extends Mob {
 	}
 
 	@Override
+	public boolean canBeLeashed(@NotNull Player player) {
+		//TODO: Config
+		return false;
+	}
+
+	@Override
 	public boolean canBeAffected(@NotNull MobEffectInstance effectInstance) {
 		return false;
 	}
