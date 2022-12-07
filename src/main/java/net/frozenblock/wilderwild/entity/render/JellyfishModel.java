@@ -83,13 +83,13 @@ public class JellyfishModel<T extends Jellyfish> extends HierarchicalModel<T> {
     public void renderToBuffer(PoseStack poseStack, @NotNull VertexConsumer buffer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
         poseStack.pushPose();
         poseStack.mulPose(Vector3f.XP.rotationDegrees(this.xRot));
-		poseStack.mulPose(Vector3f.YP.rotationDegrees(this.yRot));
+		poseStack.mulPose(Vector3f.ZP.rotationDegrees(this.yRot));
         this.body.render(poseStack, buffer, packedLight, packedOverlay, this.red, this.green, this.blue, alpha);
         poseStack.popPose();
 
         poseStack.pushPose();
         poseStack.mulPose(Vector3f.XP.rotationDegrees(this.tentXRot));
-		poseStack.mulPose(Vector3f.YP.rotationDegrees(this.tentYRot));
+		poseStack.mulPose(Vector3f.ZP.rotationDegrees(this.tentYRot));
         this.tentacleBase.render(poseStack, buffer, packedLight, packedOverlay, this.red, this.green, this.blue, alpha);
         poseStack.popPose();
     }

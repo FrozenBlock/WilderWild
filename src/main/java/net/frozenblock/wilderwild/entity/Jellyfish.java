@@ -229,7 +229,7 @@ public class Jellyfish extends NoFlopAbstractFish {
         if (this.isInWaterOrBubble()) {
 			this.heal(0.02F);
             Vec3 vec3 = this.getDeltaMovement();
-			if (vec3.horizontalDistance() > 0.005) {
+			if (vec3.horizontalDistance() != 0) {
 				this.yBodyRot += (-(Mth.atan2(vec3.x, vec3.z)) * 57.295776F - this.yBodyRot) * 0.1F;
 				this.setYRot(this.yBodyRot);
 			}
