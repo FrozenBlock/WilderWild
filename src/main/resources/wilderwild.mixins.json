@@ -3,7 +3,6 @@
   "minVersion": "0.8.5",
   "package": "net.frozenblock.wilderwild.mixin",
   "compatibilityLevel": "JAVA_17",
-  "plugin": "net.frozenblock.wilderwild.misc.WilderWildMixinPlugin",
   "mixins": [
     "server.general.AbstractArrowMixin",
     "server.general.AllayMixin",
@@ -35,6 +34,7 @@
     "server.general.SpawnPlacementsMixin",
     "server.general.TurtleMixin",
     "server.general.WardenMixin",
+    "server.warden.swim.WardenSwimMixin",
     "worldgen.general.BirchTreeGrowerMixin",
     "worldgen.general.DarkOakTreeGrowerMixin",
     "worldgen.general.JigsawStructureMixin",
@@ -47,7 +47,6 @@
     "worldgen.general.SwampHutPieceMixin"
   ],
   "client": [
-    "client.general.LiquidBlockRendererMixin",
     "client.allay.AllayModelMixin",
     "client.easter.MerpSlimeRenderer",
     "client.easter.OsmioooWardenModel",
@@ -56,6 +55,7 @@
     "client.easter.UppyBalloo",
     "client.easter.UppyBallooModel",
     "client.easter.WardenEmissiveLayerMixin",
+    "client.general.LiquidBlockRendererMixin",
     "client.shrieker_gargling.LevelRendererMixin",
     "client.warden.animation.WardenAnimationOverwrites",
     "client.warden.swim.WardenModelMixin"

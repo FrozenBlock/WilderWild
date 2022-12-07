@@ -4,6 +4,7 @@ import net.frozenblock.wilderwild.entity.ai.WardenLookControl;
 import net.frozenblock.wilderwild.entity.ai.WardenMoveControl;
 import net.frozenblock.wilderwild.entity.ai.WardenNavigation;
 import net.frozenblock.wilderwild.entity.render.animations.WilderWarden;
+import net.frozenblock.wilderwild.misc.SwimmingWarden;
 import net.frozenblock.wilderwild.misc.config.ClothConfigInteractionHandler;
 import net.frozenblock.wilderwild.registry.RegisterProperties;
 import net.frozenblock.wilderwild.registry.RegisterSounds;
@@ -77,10 +78,10 @@ public final class WardenMixin extends Monster implements WilderWarden {
 			warden.playSound(RegisterSounds.ENTITY_WARDEN_KIRBY_DEATH, 5.0F, 1.0F);
 		} else {
 			if (ClothConfigInteractionHandler.wardenDyingAnimation()) {
-				if (!this.isSubmergedInWaterOrLava()) {
-					warden.playSound(RegisterSounds.ENTITY_WARDEN_DYING, 5.0F, 1.0F);
-				} else {
+				if (warden instanceof SwimmingWarden swim && swim.isSubmergedInWaterOrLava()) {
 					warden.playSound(RegisterSounds.ENTITY_WARDEN_UNDERWATER_DYING, 0.75F, 1.0F);
+				} else {
+					warden.playSound(RegisterSounds.ENTITY_WARDEN_DYING, 5.0F, 1.0F);
 				}
 			}
 		}
@@ -131,14 +132,6 @@ public final class WardenMixin extends Monster implements WilderWarden {
 	public AnimationState getKirbyDeathAnimationState() {
 		return this.wilderWild$kirbyDeathAnimationState;
 	}
-
-	@Unique
-	private float wilderWild$leaningPitch;
-	@Unique
-	private float wilderWild$lastLeaningPitch;
-
-	@Unique
-	private boolean wilderWild$pogSwimming;
 
 	@Inject(at = @At("RETURN"), method = "finalizeSpawn")
 	public void finalizeSpawn(ServerLevelAccessor serverLevelAccess, DifficultyInstance localDifficulty, MobSpawnType spawnReason, @Nullable SpawnGroupData entityData, @Nullable CompoundTag nbtCompound, CallbackInfoReturnable<SpawnGroupData> info) {
@@ -210,10 +203,10 @@ public final class WardenMixin extends Monster implements WilderWarden {
 					if (this.isOsmiooo()) {
 						this.getKirbyDeathAnimationState().start(warden.tickCount);
 					} else {
-						if (!this.isSubmergedInWaterOrLava()) {
-							this.getDyingAnimationState().start(warden.tickCount);
-						} else {
+						if (warden instanceof SwimmingWarden swim && swim.isSubmergedInWaterOrLava()) {
 							this.getSwimmingDyingAnimationState().start(warden.tickCount);
+						} else {
+							this.getDyingAnimationState().start(warden.tickCount);
 						}
 					}
 					ci.cancel();
@@ -227,9 +220,9 @@ public final class WardenMixin extends Monster implements WilderWarden {
 
 	@Override
 	public boolean isAlive() {
-		if (ClothConfigInteractionHandler.wardenDyingAnimation() || this.isOsmiooo()) {
-			return this.wilderWild$deathTicks < 70 && !this.isRemoved();
-		} else return super.isAlive();
+		return ClothConfigInteractionHandler.wardenDyingAnimation() || this.isOsmiooo()
+				? this.wilderWild$deathTicks < 70 && !this.isRemoved()
+				: super.isAlive();
 	}
 
 	@Unique
@@ -286,7 +279,6 @@ public final class WardenMixin extends Monster implements WilderWarden {
 	@Inject(method = "tick", at = @At("TAIL"))
 	private void tick(CallbackInfo ci) {
 		Warden warden = Warden.class.cast(this);
-		this.updateSwimAmount();
 		if (ClothConfigInteractionHandler.wardenDyingAnimation() || this.isOsmiooo()) {
 			if (warden.getPose() == Pose.DYING) {
 				this.clientDiggingParticles(this.getDyingAnimationState());
@@ -298,29 +290,11 @@ public final class WardenMixin extends Monster implements WilderWarden {
 	@Inject(method = "addAdditionalSaveData", at = @At("TAIL"))
 	public void addAdditionalSaveData(CompoundTag nbt, CallbackInfo info) {
 		nbt.putInt("wilderDeathTicks", this.wilderWild$deathTicks);
-		nbt.putBoolean("pogSwimming", this.wilderWild$pogSwimming);
 	}
 
 	@Inject(method = "readAdditionalSaveData", at = @At("TAIL"))
 	public void readAdditionalSaveData(CompoundTag nbt, CallbackInfo info) {
 		this.wilderWild$deathTicks = nbt.getInt("wilderDeathTicks");
-		this.wilderWild$pogSwimming = nbt.getBoolean("pogSwimming");
-	}
-
-	@Unique
-	private void updateSwimAmount() {
-		this.wilderWild$lastLeaningPitch = this.wilderWild$leaningPitch;
-		if (this.isVisuallySwimming()) {
-			this.wilderWild$leaningPitch = Math.min(1.0F, this.wilderWild$leaningPitch + 0.09F);
-		} else {
-			this.wilderWild$leaningPitch = Math.max(0.0F, this.wilderWild$leaningPitch - 0.09F);
-		}
-
-	}
-
-	@Override
-	public boolean isVisuallySwimming() {
-		return this.wilderWild$pogSwimming || super.isVisuallySwimming();
 	}
 
 	@Inject(method = "handleEntityEvent", at = @At("HEAD"), cancellable = true)
@@ -329,90 +303,6 @@ public final class WardenMixin extends Monster implements WilderWarden {
 			this.addAdditionalDeathParticles();
 			ci.cancel();
 		}
-	}
-
-	@Inject(at = @At("RETURN"), method = "createNavigation", cancellable = true)
-	public void createNavigation(Level level, CallbackInfoReturnable<PathNavigation> info) {
-		info.setReturnValue(new WardenNavigation(Warden.class.cast(this), level));
-	}
-
-	@Override
-	public void travel(@NotNull Vec3 movementInput) {
-		Warden warden = Warden.class.cast(this);
-		if (this.isEffectiveAi() && this.isTouchingWaterOrLava()) {
-			this.moveRelative(this.getSpeed(), movementInput);
-			this.move(MoverType.SELF, this.getDeltaMovement());
-			this.setDeltaMovement(this.getDeltaMovement().scale(0.9));
-			if (!this.isDiggingOrEmerging() && !warden.hasPose(Pose.SNIFFING) && !warden.hasPose(Pose.DYING) && !warden.hasPose(Pose.ROARING)) {
-				if (this.isSubmergedInWaterOrLava()) {
-					warden.setPose(Pose.SWIMMING);
-				} else {
-					warden.setPose(Pose.STANDING);
-				}
-			}
-
-			this.wilderWild$pogSwimming = this.getFluidHeight(FluidTags.WATER) >= this.getEyeHeight(this.getPose()) * 0.75 || this.getFluidHeight(FluidTags.LAVA) >= this.getEyeHeight(this.getPose()) * 0.75;
-		} else {
-			super.travel(movementInput);
-			this.wilderWild$pogSwimming = false;
-		}
-
-	}
-
-	@Inject(method = "<init>", at = @At("TAIL"))
-	private void WardenEntity(EntityType<? extends Monster> entityType, Level level, CallbackInfo ci) {
-		Warden wardenEntity = Warden.class.cast(this);
-		wardenEntity.setPathfindingMalus(BlockPathTypes.WATER, 0.0F);
-		wardenEntity.setPathfindingMalus(BlockPathTypes.POWDER_SNOW, -1.0F);
-		wardenEntity.setPathfindingMalus(BlockPathTypes.DANGER_POWDER_SNOW, -1.0F);
-		this.moveControl = new WardenMoveControl(wardenEntity, 0.05F, 80.0F, 0.13F, 1.0F, true);
-		this.lookControl = new WardenLookControl(wardenEntity, 10);
-	}
-
-	@Override
-	public boolean canBreatheUnderwater() {
-		return true;
-	}
-
-	@Override
-	public boolean isPushedByFluid() {
-		return false;
-	}
-
-	@Override
-	@NotNull
-	public SoundEvent getSwimSound() {
-		return RegisterSounds.ENTITY_WARDEN_SWIM;
-	}
-
-	@Override
-	public void jumpInLiquid(@NotNull TagKey<Fluid> fluid) {
-	}
-
-	@Unique
-	public float getSwimAmount(float tickDelta) {
-		return Mth.lerp(tickDelta, this.wilderWild$lastLeaningPitch, this.wilderWild$leaningPitch);
-	}
-
-	@Override
-	protected boolean updateInWaterStateAndDoFluidPushing() {
-		Warden warden = Warden.class.cast(this);
-		this.fluidHeight.clear();
-		warden.updateInWaterStateAndDoWaterCurrentPushing();
-		boolean bl = warden.updateFluidHeightAndDoFluidPushing(FluidTags.LAVA, 0.1D);
-		return this.isTouchingWaterOrLava() || bl;
-	}
-
-	@Unique
-	private boolean isTouchingWaterOrLava() {
-		Warden warden = Warden.class.cast(this);
-		return warden.isInWaterOrBubble() || warden.isInLava();
-	}
-
-	@Unique
-	private boolean isSubmergedInWaterOrLava() {
-		Warden warden = Warden.class.cast(this);
-		return warden.isEyeInFluid(FluidTags.WATER) || warden.isEyeInFluid(FluidTags.LAVA);
 	}
 
 	@Inject(method = "getDimensions", at = @At("RETURN"), cancellable = true)
