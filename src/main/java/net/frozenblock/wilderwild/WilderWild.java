@@ -26,6 +26,7 @@ import net.frozenblock.wilderwild.registry.RegisterGameEvents;
 import net.frozenblock.wilderwild.registry.RegisterItems;
 import net.frozenblock.wilderwild.registry.RegisterLootTables;
 import net.frozenblock.wilderwild.registry.RegisterParticles;
+import net.frozenblock.wilderwild.registry.RegisterProperties;
 import net.frozenblock.wilderwild.registry.RegisterResources;
 import net.frozenblock.wilderwild.registry.RegisterSounds;
 import net.frozenblock.wilderwild.registry.WilderRegistry;
@@ -141,6 +142,7 @@ public final class WilderWild implements ModInitializer {
         RegisterLootTables.init();
         RegisterParticles.registerParticles();
 		RegisterResources.register();
+		RegisterProperties.init();
 
         Registry.register(BuiltInRegistries.FEATURE, WilderSharedConstants.id("shelf_fungus_feature"), SHELF_FUNGUS_FEATURE);
         Registry.register(BuiltInRegistries.FEATURE, WilderSharedConstants.id("cattail_feature"), CATTAIL_FEATURE);
@@ -163,12 +165,6 @@ public final class WilderWild implements ModInitializer {
 
         WilderSharedConstants.stopMeasuring(this);
     }
-
-	/**
-	 * @deprecated Use {@link WilderSharedConstants#DATA_VERSION} instead.
-	 */
-	@Deprecated(forRemoval = true)
-    public static final int DATA_VERSION = 9;
 
     private static void applyDataFixes(final @NotNull ModContainer mod) {
         log("Applying DataFixes for Wilder Wild with Data Version " + WilderSharedConstants.DATA_VERSION, true);
@@ -286,29 +282,6 @@ public final class WilderWild implements ModInitializer {
 
     private static <P extends TrunkPlacer> TrunkPlacerType<P> registerTrunk(String id, Codec<P> codec) {
         return Registry.register(BuiltInRegistries.TRUNK_PLACER_TYPE, WilderSharedConstants.id(id), new TrunkPlacerType<>(codec));
-    }
-
-    // MEASURING
-	/**
-	 * @deprecated Use {@link WilderSharedConstants#INSTANT_MAP} instead.
-	 */
-	@Deprecated(forRemoval = true)
-    public static final Map<Object, Long> INSTANT_MAP = WilderSharedConstants.INSTANT_MAP;
-
-	/**
-	 * @deprecated Use {@link WilderSharedConstants#startMeasuring(Object)} instead.
-	 */
-	@Deprecated(forRemoval = true)
-    public static void startMeasuring(Object object) {
-        WilderSharedConstants.startMeasuring(object);
-    }
-
-	/**
-	 * @deprecated Use {@link WilderSharedConstants#stopMeasuring(Object)} instead.
-	 */
-	@Deprecated(forRemoval = true)
-    public static void stopMeasuring(Object object) {
-        WilderSharedConstants.stopMeasuring(object);
     }
 
     // GAME RULES

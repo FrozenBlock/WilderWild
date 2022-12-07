@@ -40,6 +40,7 @@ public final class EntityConfig implements ConfigData {
 	}
 
 	public static class WardenConfig {
+		public boolean wardenAttacksInstantly = true;
 		public boolean wardenCustomTendrils = true;
 		public boolean wardenDyingAnimation = true;
 		public boolean wardenEmergesFromCommand = false;
@@ -91,7 +92,6 @@ public final class EntityConfig implements ConfigData {
 				.setSaveConsumer(newValue -> enderMan.angerLoopSound = newValue)
 				.setTooltip(tooltip("anger_loop_sound"))
 				.build();
-
 		var movingStareSound = entryBuilder.startBooleanToggle(text("moving_stare_sound"), enderMan.movingStareSound)
 				.setDefaultValue(true)
 				.setSaveConsumer(newValue -> enderMan.movingStareSound = newValue)
@@ -130,6 +130,11 @@ public final class EntityConfig implements ConfigData {
 				jellyfishSpawnCap
         );
 
+		var instantAttack = entryBuilder.startBooleanToggle(text("warden_attacks_instantly"), warden.wardenAttacksInstantly)
+				.setDefaultValue(true)
+				.setSaveConsumer(newValue -> warden.wardenAttacksInstantly = newValue)
+				.setTooltip(tooltip("warden_attacks_instantly"))
+				.build();
 		var dying = entryBuilder.startBooleanToggle(text("warden_dying_animation"), warden.wardenDyingAnimation)
 				.setDefaultValue(true)
 				.setSaveConsumer(newValue -> warden.wardenDyingAnimation = newValue)
@@ -160,7 +165,7 @@ public final class EntityConfig implements ConfigData {
 		var wardenCategory = FrozenConfig.createSubCategory(entryBuilder, category, text("warden"),
 				false,
 				tooltip("warden"),
-				dying, command, emerging, swimming, tendrils
+				instantAttack, dying, command, emerging, swimming, tendrils
 		);
 	}
 
