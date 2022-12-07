@@ -32,7 +32,6 @@ public class NematocystStateFix extends DataFix {
 			String string = dynamicx.get(OLD_STATE).asString(DEFAULT_VALUE);
 			String trueDirection;
 			switch (string) {
-				case "up" -> trueDirection = "down";
 				case "down" -> trueDirection = "up";
 				case "north" -> trueDirection = "south";
 				case "south" -> trueDirection = "north";

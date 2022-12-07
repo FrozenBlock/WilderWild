@@ -150,6 +150,9 @@ dependencies {
 	// Fabric-ASM
 	include(modImplementation("com.github.Chocohead:Fabric-ASM:${fabric_asm_version}"))
 
+	// CaffeineConfig
+	include(modImplementation("net.caffeinemc:mixin-config:1.0.0+1.17"))
+
 	// Lunade
 	modImplementation("maven.modrinth:simple-copper-pipes:${copperpipes_version}")
 

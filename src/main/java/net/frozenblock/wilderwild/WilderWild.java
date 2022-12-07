@@ -176,12 +176,6 @@ public final class WilderWild implements ModInitializer {
         WilderSharedConstants.stopMeasuring(this);
     }
 
-	/**
-	 * @deprecated Use {@link WilderSharedConstants#DATA_VERSION} instead.
-	 */
-	@Deprecated(forRemoval = true)
-    public static final int DATA_VERSION = 9;
-
     private static void applyDataFixes(final @NotNull ModContainer mod) {
         log("Applying DataFixes for Wilder Wild with Data Version " + WilderSharedConstants.DATA_VERSION, true);
         var builder = new QuiltDataFixerBuilder(WilderSharedConstants.DATA_VERSION);
@@ -298,29 +292,6 @@ public final class WilderWild implements ModInitializer {
 
     private static <P extends TrunkPlacer> TrunkPlacerType<P> registerTrunk(String id, Codec<P> codec) {
         return Registry.register(Registry.TRUNK_PLACER_TYPES, id(id), new TrunkPlacerType<>(codec));
-    }
-
-    // MEASURING
-	/**
-	 * @deprecated Use {@link WilderSharedConstants#INSTANT_MAP} instead.
-	 */
-	@Deprecated(forRemoval = true)
-    public static final Map<Object, Long> INSTANT_MAP = WilderSharedConstants.INSTANT_MAP;
-
-	/**
-	 * @deprecated Use {@link WilderSharedConstants#startMeasuring(Object)} instead.
-	 */
-	@Deprecated(forRemoval = true)
-    public static void startMeasuring(Object object) {
-        WilderSharedConstants.startMeasuring(object);
-    }
-
-	/**
-	 * @deprecated Use {@link WilderSharedConstants#stopMeasuring(Object)} instead.
-	 */
-	@Deprecated(forRemoval = true)
-    public static void stopMeasuring(Object object) {
-        WilderSharedConstants.stopMeasuring(object);
     }
 
     // GAME RULES

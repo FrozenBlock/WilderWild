@@ -5,7 +5,7 @@ import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.frozenblock.wilderwild.misc.config.ClothConfigInteractionHandler;
 import net.frozenblock.wilderwild.world.feature.WilderMiscPlaced;
 import net.frozenblock.wilderwild.world.feature.WilderPlacedFeatures;
-import net.frozenblock.wilderwild.world.gen.SharedWorldgen;
+import net.frozenblock.wilderwild.world.gen.WilderSharedWorldgen;
 import net.frozenblock.wilderwild.world.gen.noise.WilderNoise;
 import net.minecraft.core.Registry;
 import net.minecraft.data.BuiltinRegistries;
@@ -48,11 +48,11 @@ public final class RegisterWorldgen implements SurfaceRuleEvents.OverworldModifi
 
 	@Override
 	public void modifyOverworldRules(SurfaceRuleContext.@NotNull Overworld context) {
-		context.materialRules().add(0, SharedWorldgen.cypressSurfaceRules());
-		context.materialRules().add(SharedWorldgen.cypressSurfaceRules());
+		context.materialRules().add(0, WilderSharedWorldgen.cypressSurfaceRules());
+		context.materialRules().add(WilderSharedWorldgen.cypressSurfaceRules());
 		if (ClothConfigInteractionHandler.betaBeaches()) {
-			context.materialRules().add(0, SharedWorldgen.betaBeaches());
-			context.materialRules().add(SharedWorldgen.betaBeaches());
+			context.materialRules().add(0, WilderSharedWorldgen.betaBeaches());
+			context.materialRules().add(WilderSharedWorldgen.betaBeaches());
 		}
 		WilderSharedConstants.log("Wilder Wild's Overworld Surface Rules have been added!", true);
 	}
