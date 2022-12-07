@@ -61,7 +61,7 @@ public class WilderWildDataGenerator implements DataGeneratorEntrypoint {
 		pack.addProvider(bindRegistries(WilderBiomeTagProvider::new, completableFuture));
 		pack.addProvider(bindRegistries(WilderBlockTagProvider::new, completableFuture));
 		pack.addProvider(WilderWorldgenProvider::new);
-		final FabricDataGenerator.Pack experimentalPack = dataGenerator.createBuiltinResourcePack(WilderSharedConstants.id("update_1_20_additions"));
+		/*final FabricDataGenerator.Pack experimentalPack = dataGenerator.createBuiltinResourcePack(WilderSharedConstants.id("update_1_20_additions"));
 		experimentalPack.addProvider((FabricDataGenerator.Pack.Factory<ExperimentRecipeProvider>) ExperimentRecipeProvider::new);
 		experimentalPack.addProvider(ExperimentBlockLootTableProvider::new);
 		experimentalPack.addProvider(ExperimentBlockTagProvider::new);
@@ -69,7 +69,7 @@ public class WilderWildDataGenerator implements DataGeneratorEntrypoint {
 				(FabricDataGenerator.Pack.Factory<PackMetadataGenerator>) packOutput -> PackMetadataGenerator.forFeaturePack(
 						packOutput, Component.translatable("dataPack.wilderwild.update_1_20_additions.description"), FeatureFlagSet.of(WilderFeatureFlags.UPDATE_1_20_ADDITIONS)
 				)
-		);
+		);*/
 	}
 
 	@Override

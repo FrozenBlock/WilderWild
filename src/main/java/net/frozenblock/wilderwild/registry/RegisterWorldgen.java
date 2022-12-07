@@ -2,22 +2,15 @@ package net.frozenblock.wilderwild.registry;
 
 import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
-import net.frozenblock.wilderwild.misc.WilderWildDataGenerator;
 import net.frozenblock.wilderwild.world.feature.WilderFeatureBootstrap;
 import net.frozenblock.wilderwild.world.feature.WilderMiscPlaced;
 import net.frozenblock.wilderwild.world.feature.WilderPlacedFeatures;
 import net.minecraft.core.registries.Registries;
-import net.frozenblock.wilderwild.world.gen.WilderSharedWorldgen;
-import net.frozenblock.wilderwild.world.gen.noise.WilderNoise;
-import net.minecraft.core.Registry;
-import net.minecraft.data.BuiltinRegistries;
 import net.minecraft.data.worldgen.BiomeDefaultFeatures;
 import net.minecraft.data.worldgen.BootstapContext;
 import net.minecraft.data.worldgen.biome.OverworldBiomes;
 import static net.minecraft.data.worldgen.biome.OverworldBiomes.jungle;
 import static net.minecraft.data.worldgen.biome.OverworldBiomes.swamp;
-import static net.minecraft.data.worldgen.biome.OverworldBiomes.calculateSkyColor;
-import net.minecraft.data.worldgen.placement.AquaticPlacements;
 import net.minecraft.data.worldgen.placement.CavePlacements;
 import net.minecraft.data.worldgen.placement.MiscOverworldPlacements;
 import net.minecraft.data.worldgen.placement.VegetationPlacements;
@@ -33,9 +26,6 @@ import net.minecraft.world.level.biome.BiomeGenerationSettings;
 import net.minecraft.world.level.biome.BiomeSpecialEffects;
 import net.minecraft.world.level.biome.MobSpawnSettings;
 import net.minecraft.world.level.levelgen.GenerationStep;
-import org.jetbrains.annotations.NotNull;
-import org.quiltmc.qsl.frozenblock.worldgen.surface_rule.api.SurfaceRuleContext;
-import org.quiltmc.qsl.frozenblock.worldgen.surface_rule.api.SurfaceRuleEvents;
 
 public final class RegisterWorldgen {
 	private RegisterWorldgen() {
