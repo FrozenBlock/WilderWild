@@ -199,4 +199,8 @@ public final class ClothConfigInteractionHandler {
 	public static int tumbleweedSpawnCap() {
 		return FrozenBools.HAS_CLOTH_CONFIG ? ClothConfigCloserInteractionHandler.tumbleweedSpawnCap() : 30;
 	}
+
+	public static boolean leashedTumbleweed() {
+		return !FrozenBools.HAS_CLOTH_CONFIG || ClothConfigCloserInteractionHandler.leashedTumbleweed();
+	}
 }

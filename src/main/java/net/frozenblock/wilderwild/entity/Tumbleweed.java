@@ -3,6 +3,7 @@ package net.frozenblock.wilderwild.entity;
 import java.util.List;
 import net.frozenblock.lib.tag.api.TagUtils;
 import net.frozenblock.lib.wind.api.WindManager;
+import net.frozenblock.wilderwild.misc.config.ClothConfigInteractionHandler;
 import net.frozenblock.wilderwild.registry.RegisterBlocks;
 import net.frozenblock.wilderwild.registry.RegisterSounds;
 import net.frozenblock.wilderwild.tag.WilderItemTags;
@@ -275,8 +276,7 @@ public class Tumbleweed extends Mob {
 
 	@Override
 	public boolean canBeLeashed(@NotNull Player player) {
-		//TODO: Config
-		return false;
+		return ClothConfigInteractionHandler.leashedTumbleweed();
 	}
 
 	@Override

@@ -60,6 +60,7 @@ public final class EntityConfig implements ConfigData {
 
 	public static class TumbleweedConfig {
 		public int tumbleweedSpawnCap = 16;
+		public boolean canBeLeashed = false;
 	}
 
 	public boolean unpassableRail = false;
@@ -145,10 +146,18 @@ public final class EntityConfig implements ConfigData {
 				.requireRestart()
 				.build();
 
+		var leashedTumbleweed = entryBuilder.startBooleanToggle(text("leashed_tumbleweed"), tumbleweed.canBeLeashed)
+				.setDefaultValue(false)
+				.setSaveConsumer(newValue -> tumbleweed.canBeLeashed = newValue)
+				.setTooltip(tooltip("leashed_tumbleweed"))
+				.requireRestart()
+				.build();
+
 		var tumbleweedCategory = FrozenConfig.createSubCategory(entryBuilder, category, text("tumbleweed"),
 				false,
 				tooltip("tumbleweed"),
-				tumbleweedSpawnCap
+				tumbleweedSpawnCap,
+				leashedTumbleweed
 		);
 
 		var dying = entryBuilder.startBooleanToggle(text("warden_dying_animation"), warden.wardenDyingAnimation)

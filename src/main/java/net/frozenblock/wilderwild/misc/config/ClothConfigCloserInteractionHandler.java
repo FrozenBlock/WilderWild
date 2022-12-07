@@ -216,4 +216,8 @@ public final class ClothConfigCloserInteractionHandler {
 		return BLOCK.soulFireSounds;
 	}
 
+	public static boolean leashedTumbleweed() {
+		return TUMBLEWEED.canBeLeashed;
+	}
+
 }
