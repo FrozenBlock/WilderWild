@@ -30,7 +30,7 @@ import net.minecraft.world.entity.schedule.Activity;
 public class JellyfishAi {
 
     public static final ImmutableList<SensorType<? extends Sensor<? super Jellyfish>>> SENSOR_TYPES = ImmutableList.of(
-            SensorType.NEAREST_LIVING_ENTITIES
+            SensorType.NEAREST_LIVING_ENTITIES, SensorType.NEAREST_PLAYERS
     );
     public static final ImmutableList<? extends MemoryModuleType<?>> MEMORY_TYPES = ImmutableList.of(
             MemoryModuleType.NEAREST_VISIBLE_LIVING_ENTITIES,
@@ -39,6 +39,7 @@ public class JellyfishAi {
             MemoryModuleType.CANT_REACH_WALK_TARGET_SINCE,
             MemoryModuleType.PATH,
             MemoryModuleType.ATTACK_TARGET,
+            MemoryModuleType.NEAREST_ATTACKABLE,
 			MemoryModuleType.IS_PANICKING
     );
 
