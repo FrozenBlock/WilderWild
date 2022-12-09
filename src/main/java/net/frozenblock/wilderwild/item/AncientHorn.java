@@ -144,6 +144,7 @@ public class AncientHorn extends InstrumentItem {
     }
 
     @Override
+	@NotNull
     public UseAnim getUseAnimation(@NotNull ItemStack stack) {
         return UseAnim.TOOT_HORN;
     }

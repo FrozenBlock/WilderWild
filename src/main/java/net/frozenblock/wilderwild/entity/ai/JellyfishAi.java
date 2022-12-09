@@ -30,23 +30,16 @@ import net.minecraft.world.entity.schedule.Activity;
 public class JellyfishAi {
 
     public static final ImmutableList<SensorType<? extends Sensor<? super Jellyfish>>> SENSOR_TYPES = ImmutableList.of(
-            SensorType.NEAREST_LIVING_ENTITIES, SensorType.NEAREST_PLAYERS, SensorType.HURT_BY
+            SensorType.NEAREST_LIVING_ENTITIES, SensorType.NEAREST_PLAYERS
     );
     public static final ImmutableList<? extends MemoryModuleType<?>> MEMORY_TYPES = ImmutableList.of(
-            MemoryModuleType.NEAREST_LIVING_ENTITIES,
             MemoryModuleType.NEAREST_VISIBLE_LIVING_ENTITIES,
-            MemoryModuleType.NEAREST_VISIBLE_PLAYER,
-            MemoryModuleType.NEAREST_VISIBLE_ATTACKABLE_PLAYER,
-			MemoryModuleType.NEAREST_VISIBLE_NEMESIS,
             MemoryModuleType.LOOK_TARGET,
             MemoryModuleType.WALK_TARGET,
             MemoryModuleType.CANT_REACH_WALK_TARGET_SINCE,
             MemoryModuleType.PATH,
             MemoryModuleType.ATTACK_TARGET,
-            MemoryModuleType.ATTACK_COOLING_DOWN,
-            MemoryModuleType.HURT_BY_ENTITY,
             MemoryModuleType.NEAREST_ATTACKABLE,
-            MemoryModuleType.HAS_HUNTING_COOLDOWN,
 			MemoryModuleType.IS_PANICKING
     );
 

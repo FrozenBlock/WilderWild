@@ -1,5 +1,6 @@
 package net.frozenblock.wilderwild;
 
+import java.util.Objects;
 import java.util.UUID;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.api.EnvType;
@@ -232,43 +233,33 @@ public final class WilderWildClient implements ClientModInitializer {
 		ItemProperties.register(RegisterItems.ANCIENT_HORN, WilderSharedConstants.vanillaId("tooting"), (itemStack, clientLevel, livingEntity, seed) -> livingEntity != null && livingEntity.isUsingItem() && livingEntity.getUseItem() == itemStack ? 1.0F : 0.0F);
 		ItemProperties.register(RegisterItems.COPPER_HORN, WilderSharedConstants.vanillaId("tooting"), (itemStack, clientLevel, livingEntity, seed) -> livingEntity != null && livingEntity.isUsingItem() && livingEntity.getUseItem() == itemStack ? 1.0F : 0.0F);
 
-		ColorProviderRegistry.BLOCK.register(((state, level, pos, tintIndex) -> {
-			if (level == null || pos == null) {
-				return 7455580;
-			}
-			return 2129968;
-		}), RegisterBlocks.FLOWERING_LILY_PAD);
+		ColorProviderRegistry.BLOCK.register(
+				((state, level, pos, tintIndex) ->
+						level == null || pos == null ? 7455580 : 2129968
+				),
+				RegisterBlocks.FLOWERING_LILY_PAD
+		);
 
         ColorProviderRegistry.ITEM.register(((state, tintIndex) -> 5877296), RegisterBlocks.BAOBAB_LEAVES);
         ColorProviderRegistry.ITEM.register(((state, tintIndex) -> 5877296), RegisterBlocks.CYPRESS_LEAVES);
 		ColorProviderRegistry.ITEM.register(((state, tintIndex) -> 5877296), RegisterBlocks.PALM_LEAVES);
 
-        ColorProviderRegistry.BLOCK.register(((state, level, pos, tintIndex) -> {
-            assert level != null;
-			assert pos != null;
-			return BiomeColors.getAverageFoliageColor(level, pos);
-        }), RegisterBlocks.BAOBAB_LEAVES);
-        ColorProviderRegistry.BLOCK.register(((state, level, pos, tintIndex) -> {
-            assert level != null;
-			assert pos != null;
-			return BiomeColors.getAverageFoliageColor(level, pos);
-        }), RegisterBlocks.CYPRESS_LEAVES);
-		ColorProviderRegistry.BLOCK.register(((state, level, pos, tintIndex) -> {
-			assert level != null;
-			assert pos != null;
-			return BiomeColors.getAverageFoliageColor(level, pos);
-		}), RegisterBlocks.PALM_LEAVES);
-        ColorProviderRegistry.BLOCK.register(((state, level, pos, tintIndex) -> {
-            assert level != null;
-			assert pos != null;
-			return BiomeColors.getAverageFoliageColor(level, pos);
-        }), RegisterBlocks.POTTED_GRASS);
-		ColorProviderRegistry.BLOCK.register(((state, level, pos, tintIndex) -> {
-			assert level != null;
-			assert pos != null;
-			return BiomeColors.getAverageGrassColor(level, pos);
-		}), RegisterBlocks.BUSH);
-    }
+		ColorProviderRegistry.BLOCK.register(((state, level, pos, tintIndex) ->
+			BiomeColors.getAverageFoliageColor(Objects.requireNonNull(level), Objects.requireNonNull(pos))
+		), RegisterBlocks.BAOBAB_LEAVES);
+		ColorProviderRegistry.BLOCK.register(((state, level, pos, tintIndex) ->
+			BiomeColors.getAverageFoliageColor(Objects.requireNonNull(level), Objects.requireNonNull(pos))
+		), RegisterBlocks.CYPRESS_LEAVES);
+		ColorProviderRegistry.BLOCK.register(((state, level, pos, tintIndex) ->
+			BiomeColors.getAverageFoliageColor(Objects.requireNonNull(level), Objects.requireNonNull(pos))
+		), RegisterBlocks.PALM_LEAVES);
+		ColorProviderRegistry.BLOCK.register(((state, level, pos, tintIndex) ->
+			BiomeColors.getAverageFoliageColor(Objects.requireNonNull(level), Objects.requireNonNull(pos))
+		), RegisterBlocks.POTTED_GRASS);
+		ColorProviderRegistry.BLOCK.register(((state, level, pos, tintIndex) ->
+			BiomeColors.getAverageGrassColor(Objects.requireNonNull(level), Objects.requireNonNull(pos))
+		), RegisterBlocks.BUSH);
+	}
 
 	private static void receiveAncientHornProjectilePacket() {
 		ClientPlayNetworking.registerGlobalReceiver(WilderWild.HORN_PROJECTILE_PACKET_ID, (ctx, handler, byteBuf, responseSender) -> {

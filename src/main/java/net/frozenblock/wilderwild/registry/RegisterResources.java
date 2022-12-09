@@ -12,9 +12,7 @@ public final class RegisterResources {
 	}
 
 	public static void register() {
-		FabricLoader.getInstance().getModContainer(WilderSharedConstants.MOD_ID).ifPresent(modContainer -> {
-			ResourceManagerHelper.registerBuiltinResourcePack(WilderSharedConstants.id("new_main_menu"), modContainer, ResourcePackActivationType.DEFAULT_ENABLED);
-			//ResourceManagerHelper.registerBuiltinResourcePack(WilderSharedConstants.id("old_wilder_wild_panoramas"), modContainer, ResourcePackActivationType.NORMAL);
-		});
+		ResourceManagerHelper.registerBuiltinResourcePack(WilderSharedConstants.id("new_main_menu"), WilderSharedConstants.MOD_CONTAINER, ResourcePackActivationType.DEFAULT_ENABLED);
+		//ResourceManagerHelper.registerBuiltinResourcePack(WilderSharedConstants.id("old_wilder_wild_panoramas"), WilderSharedConstants.MOD_CONTAINER, ResourcePackActivationType.NORMAL);
 	}
 }
