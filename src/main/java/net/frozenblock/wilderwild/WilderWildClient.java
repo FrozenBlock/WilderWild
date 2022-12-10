@@ -24,7 +24,8 @@ import net.frozenblock.wilderwild.entity.render.DisplayLanternBlockEntityRendere
 import net.frozenblock.wilderwild.entity.render.FireflyRenderer;
 import net.frozenblock.wilderwild.entity.render.JellyfishModel;
 import net.frozenblock.wilderwild.entity.render.JellyfishRenderer;
-import net.frozenblock.wilderwild.entity.render.SculkSensorBlockEntityRenderer;
+import net.frozenblock.wilderwild.entity.render.blockentity.HangingTendrilBlockEntityRenderer;
+import net.frozenblock.wilderwild.entity.render.blockentity.SculkSensorBlockEntityRenderer;
 import net.frozenblock.wilderwild.entity.render.StoneChestBlockEntityRenderer;
 import net.frozenblock.wilderwild.entity.render.TumbleweedModel;
 import net.frozenblock.wilderwild.entity.render.TumbleweedRenderer;
@@ -63,6 +64,7 @@ import net.minecraft.world.phys.Vec3;
 public final class WilderWildClient implements ClientModInitializer {
 	public static final ModelLayerLocation ANCIENT_HORN_PROJECTILE_LAYER = new ModelLayerLocation(WilderSharedConstants.id("ancient_horn_projectile"), "main");
 	public static final ModelLayerLocation SCULK_SENSOR = new ModelLayerLocation(WilderSharedConstants.id("sculk_sensor"), "main");
+	public static final ModelLayerLocation HANGING_TENDRIL = new ModelLayerLocation(WilderSharedConstants.id("hanging_tendril"), "main");
 	public static final ModelLayerLocation DISPLAY_LANTERN = new ModelLayerLocation(WilderSharedConstants.id("display_lantern"), "main");
 	public static final ModelLayerLocation STONE_CHEST = new ModelLayerLocation(WilderSharedConstants.id("stone_chest"), "main");
 	public static final ModelLayerLocation DOUBLE_STONE_CHEST_LEFT = new ModelLayerLocation(WilderSharedConstants.id("double_stone_chest_left"), "main");
@@ -209,6 +211,9 @@ public final class WilderWildClient implements ClientModInitializer {
 
 		BlockEntityRendererRegistry.register(BlockEntityType.SCULK_SENSOR, SculkSensorBlockEntityRenderer::new);
 		EntityModelLayerRegistry.registerModelLayer(SCULK_SENSOR, SculkSensorBlockEntityRenderer::getTexturedModelData);
+
+		BlockEntityRendererRegistry.register(RegisterBlockEntities.HANGING_TENDRIL, HangingTendrilBlockEntityRenderer::new);
+		EntityModelLayerRegistry.registerModelLayer(HANGING_TENDRIL, HangingTendrilBlockEntityRenderer::getTexturedModelData);
 
 		BlockEntityRendererRegistry.register(RegisterBlockEntities.DISPLAY_LANTERN, DisplayLanternBlockEntityRenderer::new);
 		EntityModelLayerRegistry.registerModelLayer(DISPLAY_LANTERN, DisplayLanternBlockEntityRenderer::getTexturedModelData);
