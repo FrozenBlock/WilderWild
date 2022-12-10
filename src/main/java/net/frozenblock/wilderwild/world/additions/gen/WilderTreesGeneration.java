@@ -30,7 +30,7 @@ public final class WilderTreesGeneration {
 					GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.PALM.unwrapKey().orElseThrow());
 
 			BiomeModifications.addFeature(BiomeSelectors.includeByKey(Biomes.JUNGLE),
-					GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.TALL_WINE_PALM.unwrapKey().orElseThrow());
+					GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.PALM.unwrapKey().orElseThrow());
 
             BiomeModifications.addFeature(BiomeSelectors.includeByKey(Biomes.FOREST),
                     GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.NEW_TREES_BIRCH_AND_OAK.unwrapKey().orElseThrow());
