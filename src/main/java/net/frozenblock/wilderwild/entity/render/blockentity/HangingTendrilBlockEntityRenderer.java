@@ -46,13 +46,14 @@ public class HangingTendrilBlockEntityRenderer<T extends HangingTendrilBlockEnti
 
     public void render(@NotNull T entity, float tickDelta, @NotNull PoseStack poseStack, @NotNull MultiBufferSource vertexConsumers, int light, int overlay) {
         if (ClothConfigInteractionHandler.mcLiveSensorTendrils()) {
-			Camera camera = Minecraft.getInstance().gameRenderer.getMainCamera();
 			this.rotation.set(0.0f, 0.0f, 0.0f, 1.0f);
-			this.rotation.mul(Vector3f.YP.rotationDegrees(-camera.yRot));
+			this.rotation.mul(Vector3f.YP.rotationDegrees(-Minecraft.getInstance().gameRenderer.getMainCamera().yRot));
+			poseStack.translate(0.5, 0, 0.5);
+			poseStack.pushPose();
 			poseStack.mulPose(this.rotation);
-            VertexConsumer vertexConsumer = vertexConsumers.getBuffer(RenderType.entityCutout(entity.texture));
-            this.base.render(poseStack, vertexConsumer, light, overlay, 1.0F, 1.0F, 1.0F, 1.0F);
-        }
+            this.base.render(poseStack, vertexConsumers.getBuffer(RenderType.entityCutout(entity.texture)), light, overlay, 1.0F, 1.0F, 1.0F, 1.0F);
+        	poseStack.popPose();
+		}
     }
 
 }
