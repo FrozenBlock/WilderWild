@@ -172,7 +172,7 @@ public final class WilderPlacedFeatures {
 			WilderConfiguredFeatures.OASIS_BUSH, worldSurfaceSquaredWithCount(2));
 
 	public static final Holder<PlacedFeature> OASIS_CACTUS_PLACED = register("oasis_cactus_placed",
-			VegetationFeatures.PATCH_CACTUS, worldSurfaceSquaredWithCount(1));
+			WilderConfiguredFeatures.PATCH_CACTUS_OASIS, worldSurfaceSquaredWithCount(1));
 
     public static final Holder<PlacedFeature> NEW_GRASS_PLACED = register("grass_placed",
             VegetationFeatures.PATCH_GRASS_JUNGLE, worldSurfaceSquaredWithCount(20));
