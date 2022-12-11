@@ -28,11 +28,11 @@ public class WardenNavigation extends GroundPathNavigation {
         return new PathFinder(this.nodeEvaluator, range) {
 			@Override
             public float distance(Node a, Node b) {
-                return this.isEntitySubmergedInWaterOrLava(entity) ? a.distanceTo(b) : a.distanceToXZ(b);
+                return this.entitySubmergedInWaterOrLava(entity) ? a.distanceTo(b) : a.distanceToXZ(b);
             }
 
-            private boolean isEntitySubmergedInWaterOrLava(Entity entity) {
-                return entity.isUnderWater() || entity.isEyeInFluid(FluidTags.LAVA);
+            private static boolean entitySubmergedInWaterOrLava(Entity entity) {
+                return entity.isUnderWater() || entity.isEyeInFluid(FluidTags.LAVA) || entity.isVisuallySwimming();
             }
         };
     }

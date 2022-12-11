@@ -47,7 +47,6 @@ public class FireflyAi {
 				0,
 				ImmutableList.of(
 						new Swim(0.8F),
-						new AnimalPanic(2.5F),
 						new LookAtTargetSink(45, 90),
 						new MoveToTargetSink()
 				)
@@ -60,7 +59,6 @@ public class FireflyAi {
 				ImmutableList.of(
 						Pair.of(1, new FireflyHide(firefly, 2.0D, 40, 32)),
 						Pair.of(2, new StayCloseToTarget<>(FireflyAi::getLookTarget, 7, 16, 1.0F)),
-						Pair.of(3, new RunSometimes<>(new SetEntityLookTarget((firefly1) -> true, 6.0F), UniformInt.of(30, 60))),
 						Pair.of(4, new RunOne<>(
 								ImmutableList.of(
 										Pair.of(new FlyingRandomStroll(1.0F), 2),

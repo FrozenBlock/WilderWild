@@ -136,8 +136,8 @@ public final class WilderPlacedFeatures {
 	public static final Holder<PlacedFeature> PALM = PlacementUtils.register("palm_placed",
 			WilderConfiguredFeatures.PALMS, treePlacement(RarityFilter.onAverageOnceEvery(3)));
 
-	public static final Holder<PlacedFeature> TALL_WINE_PALM = PlacementUtils.register("tall_wine_palm_placed",
-			WilderConfiguredFeatures.TALL_WINE_PALM, treePlacement(RarityFilter.onAverageOnceEvery(3)));
+	public static final Holder<PlacedFeature> PALMS_OASIS = PlacementUtils.register("palms_oasis",
+			WilderConfiguredFeatures.PALMS_OASIS, treePlacement(RarityFilter.onAverageOnceEvery(3)));
     //MUSHROOMS
     public static final Holder<PlacedFeature> BROWN_SHELF_FUNGUS_PLACED = register("brown_shelf_fungus_placed",
             WilderConfiguredFeatures.BROWN_SHELF_FUNGUS_CONFIGURED, RarityFilter.onAverageOnceEvery(1), CountPlacement.of(11), PlacementUtils.HEIGHTMAP_WORLD_SURFACE, InSquarePlacement.spread(), SurfaceRelativeThresholdFilter.of(Heightmap.Types.WORLD_SURFACE_WG, 0, 128), BiomeFilter.biome());
@@ -172,7 +172,7 @@ public final class WilderPlacedFeatures {
 			WilderConfiguredFeatures.OASIS_BUSH, worldSurfaceSquaredWithCount(2));
 
 	public static final Holder<PlacedFeature> OASIS_CACTUS_PLACED = register("oasis_cactus_placed",
-			VegetationFeatures.PATCH_CACTUS, worldSurfaceSquaredWithCount(1));
+			WilderConfiguredFeatures.PATCH_CACTUS_OASIS, worldSurfaceSquaredWithCount(1));
 
     public static final Holder<PlacedFeature> NEW_GRASS_PLACED = register("grass_placed",
             VegetationFeatures.PATCH_GRASS_JUNGLE, worldSurfaceSquaredWithCount(20));

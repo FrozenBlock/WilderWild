@@ -11,7 +11,7 @@ import net.frozenblock.lib.worldgen.biome.api.parameters.Temperature;
 import net.frozenblock.lib.worldgen.biome.api.parameters.Weirdness;
 import net.frozenblock.wilderwild.misc.config.ClothConfigInteractionHandler;
 import net.frozenblock.wilderwild.registry.RegisterWorldgen;
-import net.frozenblock.wilderwild.world.generation.SharedWorldgen;
+import net.frozenblock.wilderwild.world.generation.WilderSharedWorldgen;
 import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
@@ -115,13 +115,13 @@ public class WilderOverworldRegion extends Region {
 				// CHANGE BIOME PARAMETERS HERE
 				builder.replaceParameter(point,
 						Climate.parameters(
-								SharedWorldgen.CypressWetlands.TEMPERATURE,
-								SharedWorldgen.CypressWetlands.HUMIDITY,
-								SharedWorldgen.CypressWetlands.CONTINENTALNESS,
-								SharedWorldgen.CypressWetlands.EROSION,
+								WilderSharedWorldgen.CypressWetlands.TEMPERATURE,
+								WilderSharedWorldgen.CypressWetlands.HUMIDITY,
+								WilderSharedWorldgen.CypressWetlands.CONTINENTALNESS,
+								WilderSharedWorldgen.CypressWetlands.EROSION,
 								point.depth(),
 								point.weirdness(),
-								SharedWorldgen.CypressWetlands.OFFSET
+								WilderSharedWorldgen.CypressWetlands.OFFSET
 						)
 				);
 
@@ -143,13 +143,13 @@ public class WilderOverworldRegion extends Region {
 				// REPLACE BIOME PARAMETERS HERE
 				builder.replaceParameter(point,
 						Climate.parameters(
-								SharedWorldgen.CypressWetlands.TEMPERATURE,
-								SharedWorldgen.CypressWetlands.HUMIDITY,
-								SharedWorldgen.CypressWetlands.CONTINENTALNESS,
-								SharedWorldgen.CypressWetlands.EROSION,
+								WilderSharedWorldgen.CypressWetlands.TEMPERATURE,
+								WilderSharedWorldgen.CypressWetlands.HUMIDITY,
+								WilderSharedWorldgen.CypressWetlands.CONTINENTALNESS,
+								WilderSharedWorldgen.CypressWetlands.EROSION,
 								point.depth(),
 								point.weirdness(),
-								SharedWorldgen.CypressWetlands.OFFSET
+								WilderSharedWorldgen.CypressWetlands.OFFSET
 						)
 				);
 
@@ -169,13 +169,13 @@ public class WilderOverworldRegion extends Region {
 				// REPLACE BIOME PARAMETERS HERE
 				builder.replaceParameter(point,
 						Climate.parameters(
-								SharedWorldgen.Oasis.WARM_RANGE,
-								SharedWorldgen.Oasis.HUMIDITY_DRY,
-								SharedWorldgen.Oasis.CONTINENTALNESS,
-								SharedWorldgen.Oasis.EROSION,
+								WilderSharedWorldgen.Oasis.WARM_RANGE,
+								WilderSharedWorldgen.Oasis.HUMIDITY_DRY,
+								WilderSharedWorldgen.Oasis.CONTINENTALNESS,
+								WilderSharedWorldgen.Oasis.EROSION,
 								point.depth(),
 								point.weirdness(),
-								SharedWorldgen.Oasis.OFFSET
+								WilderSharedWorldgen.Oasis.OFFSET
 						)
 				);
 
@@ -195,13 +195,13 @@ public class WilderOverworldRegion extends Region {
 			dripstoneCavesPoints.forEach(point -> {
 				// REPLACE BIOME PARAMETERS HERE
 				builder.replaceParameter(point,
-						SharedWorldgen.semiDeepParameters(
-								SharedWorldgen.JellyfishCaves.TEMPERATURE,
-								SharedWorldgen.JellyfishCaves.HUMIDITY,
-								SharedWorldgen.JellyfishCaves.CONTINENTALNESS,
-								SharedWorldgen.JellyfishCaves.EROSION,
-								SharedWorldgen.JellyfishCaves.WEIRDNESS,
-								SharedWorldgen.JellyfishCaves.OFFSET
+						WilderSharedWorldgen.semiDeepParameters(
+								WilderSharedWorldgen.JellyfishCaves.TEMPERATURE,
+								WilderSharedWorldgen.JellyfishCaves.HUMIDITY,
+								WilderSharedWorldgen.JellyfishCaves.CONTINENTALNESS,
+								WilderSharedWorldgen.JellyfishCaves.EROSION,
+								WilderSharedWorldgen.JellyfishCaves.WEIRDNESS,
+								WilderSharedWorldgen.JellyfishCaves.OFFSET
 						)
 				);
 
@@ -220,20 +220,20 @@ public class WilderOverworldRegion extends Region {
                         .offset(0.0F)
                         .build();
 
-                mangroveSwampPoints.forEach(point -> {
+                mangroveSwampPoints.forEach(point ->
                     // REPLACE BIOME PARAMETERS HERE
                     builder.replaceParameter(point,
                             new Climate.ParameterPoint(
-                                    SharedWorldgen.MangroveSwamp.TEMPERATURE,
-                                    SharedWorldgen.MangroveSwamp.HUMIDITY,
+                                    WilderSharedWorldgen.MangroveSwamp.TEMPERATURE,
+                                    WilderSharedWorldgen.MangroveSwamp.HUMIDITY,
                                     point.continentalness(),
                                     point.erosion(),
                                     point.depth(),
                                     point.weirdness(),
                                     point.offset()
                             )
-                    );
-                });
+                    )
+                );
             }
 
             if (ClothConfigInteractionHandler.modifySwampPlacement()) {
@@ -248,20 +248,20 @@ public class WilderOverworldRegion extends Region {
                         .offset(0.0F)
                         .build();
 
-                swampPoints.forEach(point -> {
+                swampPoints.forEach(point ->
                     // REPLACE BIOME PARAMETERS HERE
                     builder.replaceParameter(point,
                             new Climate.ParameterPoint(
-                                    SharedWorldgen.Swamp.TEMPERATURE,
-                                    SharedWorldgen.Swamp.HUMIDITY,
+                                    WilderSharedWorldgen.Swamp.TEMPERATURE,
+                                    WilderSharedWorldgen.Swamp.HUMIDITY,
                                     point.continentalness(),
                                     point.erosion(),
                                     point.depth(),
                                     point.weirdness(),
                                     point.offset()
                             )
-                    );
-                });
+                    )
+                );
             }
 
             /*List<Climate.ParameterPoint> forestPoints = new ParameterPointListBuilder()
@@ -274,9 +274,9 @@ public class WilderOverworldRegion extends Region {
                     .offset(0.0F)
                     .build();
 
-            forestPoints.forEach(point -> {
+            forestPoints.forEach(point ->
                 builder.replaceBiome(point, RegisterWorldgen.MIXED_FOREST);
-            });*/
+            );*/
         });
     }
 }

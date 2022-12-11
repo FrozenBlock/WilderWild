@@ -68,7 +68,9 @@ import org.jetbrains.annotations.Nullable;
 
 public class Firefly extends PathfinderMob implements FlyingAnimal {
 
-    protected static final ImmutableList<SensorType<? extends Sensor<? super Firefly>>> SENSORS = ImmutableList.of(SensorType.NEAREST_LIVING_ENTITIES, SensorType.HURT_BY);
+    protected static final ImmutableList<SensorType<? extends Sensor<? super Firefly>>> SENSORS = ImmutableList.of(
+			SensorType.NEAREST_LIVING_ENTITIES
+	);
     protected static final ImmutableList<MemoryModuleType<?>> MEMORY_MODULES = ImmutableList.of(MemoryModuleType.PATH, MemoryModuleType.NEAREST_VISIBLE_LIVING_ENTITIES, MemoryModuleType.WALK_TARGET, MemoryModuleType.CANT_REACH_WALK_TARGET_SINCE, MemoryModuleType.LOOK_TARGET, MemoryModuleType.HOME);
     private static final EntityDataAccessor<Boolean> FROM_BOTTLE = SynchedEntityData.defineId(Firefly.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Boolean> FLICKERS = SynchedEntityData.defineId(Firefly.class, EntityDataSerializers.BOOLEAN);
@@ -141,11 +143,9 @@ public class Firefly extends PathfinderMob implements FlyingAnimal {
     }
 
     @Override
+	@NotNull
     protected InteractionResult mobInteract(@NotNull Player player, @NotNull InteractionHand hand) {
-        if (!this.despawning) {
-            return tryCapture(player, hand).orElse(super.mobInteract(player, hand));
-        }
-        return InteractionResult.PASS;
+		return !this.despawning ? tryCapture(player, hand).orElse(super.mobInteract(player, hand)) : InteractionResult.PASS;
     }
 
     public Optional<InteractionResult> tryCapture(final @NotNull Player player, final @NotNull InteractionHand hand) {
@@ -189,11 +189,13 @@ public class Firefly extends PathfinderMob implements FlyingAnimal {
     }
 
     @Override
+	@NotNull
     protected Brain.Provider<Firefly> brainProvider() {
         return Brain.provider(MEMORY_MODULES, SENSORS);
     }
 
 	@Override
+	@NotNull
     protected Brain<?> makeBrain(@NotNull Dynamic<?> dynamic) {
         return FireflyAi.makeBrain(this, this.brainProvider().makeBrain(dynamic));
     }
@@ -284,6 +286,7 @@ public class Firefly extends PathfinderMob implements FlyingAnimal {
     }
 
     @Override
+	@NotNull
     protected PathNavigation createNavigation(@NotNull Level level) {
         FlyingPathNavigation birdNavigation = new FlyingPathNavigation(this, level);
         birdNavigation.setCanOpenDoors(false);

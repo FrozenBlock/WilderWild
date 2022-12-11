@@ -35,4 +35,7 @@ public final class RegisterProperties {
     public static final IntegerProperty SOULS_TAKEN = IntegerProperty.create("souls_taken", 0, 2); //Sculk Shrieker
     public static final BooleanProperty HICCUPPING = BooleanProperty.create("hiccupping"); //Sculk Sensor
 
+	public static void init() {
+	}
+
 }

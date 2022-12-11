@@ -77,7 +77,7 @@ import org.jetbrains.annotations.Nullable;
 
 public class AncientHornProjectile extends AbstractArrow {
 	private static final TagKey<Block> NON_COLLIDE = WilderBlockTags.ANCIENT_HORN_NON_COLLIDE;
-	private static final int MAX_ALIVE_TICKS = 300;
+	public static final int DEFAULT_LIFESPAN = 300;
 	private boolean shot;
 	private boolean leftOwner;
 	private int aliveTicks;
@@ -126,7 +126,7 @@ public class AncientHornProjectile extends AbstractArrow {
 			--this.bubbles;
 			EasyPacket.EasyFloatingSculkBubblePacket.createParticle(server, this.position(), Math.random() > 0.7 ? 1 : 0, 20 + WilderSharedConstants.random().nextInt(40), 0.05, server.random.nextIntBetweenInclusive(1, 3));
 		}
-		if (this.aliveTicks > MAX_ALIVE_TICKS) {
+		if (this.aliveTicks > ClothConfigInteractionHandler.hornLifespan()) {
 			this.remove(RemovalReason.DISCARDED);
 		}
 		++this.aliveTicks;
@@ -467,9 +467,9 @@ public class AncientHornProjectile extends AbstractArrow {
 		}
 	}
 
-    public double getDamage(@Nullable Entity entity) {
-        return entity instanceof Player ? 15 : 22;
-    }
+	public int getDamage(@Nullable Entity entity) {
+		return entity instanceof Player ? ClothConfigInteractionHandler.hornPlayerDamage() : ClothConfigInteractionHandler.hornMobDamage();
+	}
 
 	@Override
 	protected float getWaterInertia() {
@@ -482,7 +482,7 @@ public class AncientHornProjectile extends AbstractArrow {
 	}
 
     private void hitEntity(Entity entity) {
-        int damage = (int) this.getDamage(entity);
+        int damage = this.getDamage(entity);
         Entity owner = this.getOwner();
         if (entity != owner) {
             DamageSource damageSource;

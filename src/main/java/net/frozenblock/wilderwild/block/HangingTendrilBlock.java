@@ -1,6 +1,7 @@
 package net.frozenblock.wilderwild.block;
 
 import net.frozenblock.wilderwild.block.entity.HangingTendrilBlockEntity;
+import net.frozenblock.wilderwild.misc.config.ClothConfigInteractionHandler;
 import net.frozenblock.wilderwild.registry.RegisterBlockEntities;
 import net.frozenblock.wilderwild.registry.RegisterBlocks;
 import net.frozenblock.wilderwild.registry.RegisterProperties;
@@ -159,13 +160,16 @@ public class HangingTendrilBlock extends BaseEntityBlock implements SimpleWaterl
 	@Override
 	@Nullable
 	public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, @NotNull BlockState state, @NotNull BlockEntityType<T> type) {
-		return !level.isClientSide ? createTickerHelper(type, RegisterBlockEntities.HANGING_TENDRIL, (worldx, pos, statex, blockEntity) -> blockEntity.serverTick(worldx, pos, statex)) : null;
+		return !level.isClientSide ? createTickerHelper(type, RegisterBlockEntities.HANGING_TENDRIL, (worldx, pos, statex, blockEntity) ->
+			blockEntity.serverTick(worldx, pos, statex)
+		) : createTickerHelper(type, RegisterBlockEntities.HANGING_TENDRIL, (worldx, pos, statex, blockEntity) ->
+				blockEntity.clientTick(statex));
 	}
 
 	@Override
 	@NotNull
 	public RenderShape getRenderShape(@NotNull BlockState state) {
-		return RenderShape.MODEL;
+		return ClothConfigInteractionHandler.mcLiveSensorTendrils() ? RenderShape.INVISIBLE : RenderShape.MODEL;
 	}
 
 	@Override
@@ -186,6 +190,10 @@ public class HangingTendrilBlock extends BaseEntityBlock implements SimpleWaterl
 
 	public static boolean isInactive(BlockState state) {
 		return getPhase(state) == SculkSensorPhase.INACTIVE;
+	}
+
+	public static boolean isActive(BlockState state) {
+		return getPhase(state) == SculkSensorPhase.ACTIVE;
 	}
 
 	public static void setCooldown(Level level, BlockPos pos, BlockState state) {

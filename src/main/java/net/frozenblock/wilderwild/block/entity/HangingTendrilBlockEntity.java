@@ -1,7 +1,6 @@
 package net.frozenblock.wilderwild.block.entity;
 
 import com.mojang.serialization.Dynamic;
-import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.block.HangingTendrilBlock;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.frozenblock.wilderwild.registry.RegisterBlockEntities;
@@ -9,6 +8,8 @@ import net.frozenblock.wilderwild.registry.RegisterGameEvents;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.NbtOps;
+import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.Entity;
@@ -31,6 +32,13 @@ public class HangingTendrilBlockEntity extends BlockEntity implements VibrationL
 	public int ticksToStopTwitching;
 	public int storedXP;
 	public int ringOutTicksLeft;
+	//CLIENT ONLY
+	private static final String baseTexture = "textures/entity/hanging_tendril/";
+	public ResourceLocation texture = WilderSharedConstants.id("textures/entity/hanging_tendril/inactive1.png");
+	public boolean twitching;
+	public boolean active;
+	public boolean milk;
+	public int ticks;
 
 	public HangingTendrilBlockEntity(BlockPos pos, BlockState state) {
 		super(RegisterBlockEntities.HANGING_TENDRIL, pos, state);
@@ -54,6 +62,36 @@ public class HangingTendrilBlockEntity extends BlockEntity implements VibrationL
 			}
 		}
 		this.listener.tick(level);
+	}
+
+	public void clientTick(BlockState state) {
+		this.twitching = this.ticksToStopTwitching > 0;
+		this.milk = this.ringOutTicksLeft > 0;
+		this.active = HangingTendrilBlock.isActive(state);
+		++this.ticks;
+		int animSpeed = 6;
+		if (milk) {
+			animSpeed = 2;
+			this.texture = WilderSharedConstants.id(baseTexture + "milk" + (((this.ticks / animSpeed) % 4) + 1) + ".png");
+		} else if (active) {
+			animSpeed = 1;
+			this.texture = WilderSharedConstants.id(baseTexture + "active" + (((this.ticks / animSpeed) % 5) + 1) + ".png");
+		} else if (twitching) {
+			animSpeed = 50;
+			this.texture = WilderSharedConstants.id(baseTexture + "twitch" + (((this.ticks / animSpeed) % 4) + 1) + ".png");
+		} else {
+			this.texture = WilderSharedConstants.id(baseTexture + "inactive" + (((this.ticks / animSpeed) % 6) + 1) + ".png");
+		}
+	}
+
+	@Override
+	public ClientboundBlockEntityDataPacket getUpdatePacket() {
+		return ClientboundBlockEntityDataPacket.create(this);
+	}
+
+	@Override
+	public CompoundTag getUpdateTag() {
+		return this.saveWithoutMetadata();
 	}
 
 	@Override

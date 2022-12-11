@@ -28,6 +28,7 @@ import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gameevent.GameEvent;
 import org.jetbrains.annotations.Nullable;
+import java.util.Objects;
 import static net.frozenblock.lib.sound.api.block_sound_group.BlockSoundGroupOverwrites.*;
 import static net.frozenblock.wilderwild.registry.RegisterBlockSoundGroups.*;
 import static net.frozenblock.wilderwild.registry.RegisterBlocks.BAOBAB_LEAVES;
@@ -43,18 +44,9 @@ public final class FrozenLibIntegration implements FrozenMainEntrypoint {
 		SoundPredicate.register(WilderSharedConstants.id("instrument"),(SoundPredicate.LoopPredicate<Player>) player ->
 			(player.getUseItem().getItem() instanceof InstrumentItem)
         );
-        SoundPredicate.register(WilderSharedConstants.id("nectar"), (SoundPredicate.LoopPredicate<Firefly>) entity -> {
-            if (entity.isSilent()) {
-                return false;
-            }
-            if (entity.hasCustomName()) {
-                Component name = entity.getCustomName();
-                if (name != null) {
-                    return name.getString().toLowerCase().contains("nectar");
-                }
-            }
-            return false;
-        });
+        SoundPredicate.register(WilderSharedConstants.id("nectar"), (SoundPredicate.LoopPredicate<Firefly>) entity ->
+            !entity.isSilent() && entity.hasCustomName() && Objects.requireNonNull(entity.getCustomName()).getString().toLowerCase().contains("nectar")
+        );
 		SoundPredicate.register(WilderSharedConstants.id("enderman_anger"), new SoundPredicate.LoopPredicate<EnderMan>() {
 			@Override
 			public boolean test(EnderMan entity) {

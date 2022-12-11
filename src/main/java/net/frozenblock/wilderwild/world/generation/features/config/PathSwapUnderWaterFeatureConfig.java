@@ -15,7 +15,7 @@ public class PathSwapUnderWaterFeatureConfig implements FeatureConfiguration {
         return instance.group(BlockStateProvider.CODEC.fieldOf("block").forGetter((config) -> {
             return config.pathBlock;
         }), BlockStateProvider.CODEC.fieldOf("waterPathBlock").forGetter((config) -> {
-			return config.pathBlock;
+			return config.waterPathBlock;
 		}), Codec.intRange(1, 64).fieldOf("radius").orElse(10).forGetter((config) -> {
             return config.radius;
         }), Codec.intRange(1, 4).fieldOf("noise").orElse(4).forGetter((config) -> {

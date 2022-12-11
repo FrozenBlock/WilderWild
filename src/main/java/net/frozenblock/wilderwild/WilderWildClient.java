@@ -1,5 +1,6 @@
 package net.frozenblock.wilderwild;
 
+import java.util.Objects;
 import java.util.UUID;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.api.EnvType;
@@ -23,7 +24,8 @@ import net.frozenblock.wilderwild.entity.render.DisplayLanternBlockEntityRendere
 import net.frozenblock.wilderwild.entity.render.FireflyRenderer;
 import net.frozenblock.wilderwild.entity.render.JellyfishModel;
 import net.frozenblock.wilderwild.entity.render.JellyfishRenderer;
-import net.frozenblock.wilderwild.entity.render.SculkSensorBlockEntityRenderer;
+import net.frozenblock.wilderwild.entity.render.blockentity.HangingTendrilBlockEntityRenderer;
+import net.frozenblock.wilderwild.entity.render.blockentity.SculkSensorBlockEntityRenderer;
 import net.frozenblock.wilderwild.entity.render.StoneChestBlockEntityRenderer;
 import net.frozenblock.wilderwild.entity.render.TumbleweedModel;
 import net.frozenblock.wilderwild.entity.render.TumbleweedRenderer;
@@ -62,6 +64,7 @@ import net.minecraft.world.phys.Vec3;
 public final class WilderWildClient implements ClientModInitializer {
 	public static final ModelLayerLocation ANCIENT_HORN_PROJECTILE_LAYER = new ModelLayerLocation(WilderSharedConstants.id("ancient_horn_projectile"), "main");
 	public static final ModelLayerLocation SCULK_SENSOR = new ModelLayerLocation(WilderSharedConstants.id("sculk_sensor"), "main");
+	public static final ModelLayerLocation HANGING_TENDRIL = new ModelLayerLocation(WilderSharedConstants.id("hanging_tendril"), "main");
 	public static final ModelLayerLocation DISPLAY_LANTERN = new ModelLayerLocation(WilderSharedConstants.id("display_lantern"), "main");
 	public static final ModelLayerLocation STONE_CHEST = new ModelLayerLocation(WilderSharedConstants.id("stone_chest"), "main");
 	public static final ModelLayerLocation DOUBLE_STONE_CHEST_LEFT = new ModelLayerLocation(WilderSharedConstants.id("double_stone_chest_left"), "main");
@@ -209,6 +212,9 @@ public final class WilderWildClient implements ClientModInitializer {
 		BlockEntityRendererRegistry.register(BlockEntityType.SCULK_SENSOR, SculkSensorBlockEntityRenderer::new);
 		EntityModelLayerRegistry.registerModelLayer(SCULK_SENSOR, SculkSensorBlockEntityRenderer::getTexturedModelData);
 
+		BlockEntityRendererRegistry.register(RegisterBlockEntities.HANGING_TENDRIL, HangingTendrilBlockEntityRenderer::new);
+		EntityModelLayerRegistry.registerModelLayer(HANGING_TENDRIL, HangingTendrilBlockEntityRenderer::getTexturedModelData);
+
 		BlockEntityRendererRegistry.register(RegisterBlockEntities.DISPLAY_LANTERN, DisplayLanternBlockEntityRenderer::new);
 		EntityModelLayerRegistry.registerModelLayer(DISPLAY_LANTERN, DisplayLanternBlockEntityRenderer::getTexturedModelData);
 
@@ -232,43 +238,33 @@ public final class WilderWildClient implements ClientModInitializer {
 		ItemProperties.register(RegisterItems.ANCIENT_HORN, WilderSharedConstants.vanillaId("tooting"), (itemStack, clientLevel, livingEntity, seed) -> livingEntity != null && livingEntity.isUsingItem() && livingEntity.getUseItem() == itemStack ? 1.0F : 0.0F);
 		ItemProperties.register(RegisterItems.COPPER_HORN, WilderSharedConstants.vanillaId("tooting"), (itemStack, clientLevel, livingEntity, seed) -> livingEntity != null && livingEntity.isUsingItem() && livingEntity.getUseItem() == itemStack ? 1.0F : 0.0F);
 
-		ColorProviderRegistry.BLOCK.register(((state, level, pos, tintIndex) -> {
-			if (level == null || pos == null) {
-				return 7455580;
-			}
-			return 2129968;
-		}), RegisterBlocks.FLOWERING_LILY_PAD);
+		ColorProviderRegistry.BLOCK.register(
+				((state, level, pos, tintIndex) ->
+						level == null || pos == null ? 7455580 : 2129968
+				),
+				RegisterBlocks.FLOWERING_LILY_PAD
+		);
 
         ColorProviderRegistry.ITEM.register(((state, tintIndex) -> 5877296), RegisterBlocks.BAOBAB_LEAVES);
         ColorProviderRegistry.ITEM.register(((state, tintIndex) -> 5877296), RegisterBlocks.CYPRESS_LEAVES);
 		ColorProviderRegistry.ITEM.register(((state, tintIndex) -> 5877296), RegisterBlocks.PALM_LEAVES);
 
-        ColorProviderRegistry.BLOCK.register(((state, level, pos, tintIndex) -> {
-            assert level != null;
-			assert pos != null;
-			return BiomeColors.getAverageFoliageColor(level, pos);
-        }), RegisterBlocks.BAOBAB_LEAVES);
-        ColorProviderRegistry.BLOCK.register(((state, level, pos, tintIndex) -> {
-            assert level != null;
-			assert pos != null;
-			return BiomeColors.getAverageFoliageColor(level, pos);
-        }), RegisterBlocks.CYPRESS_LEAVES);
-		ColorProviderRegistry.BLOCK.register(((state, level, pos, tintIndex) -> {
-			assert level != null;
-			assert pos != null;
-			return BiomeColors.getAverageFoliageColor(level, pos);
-		}), RegisterBlocks.PALM_LEAVES);
-        ColorProviderRegistry.BLOCK.register(((state, level, pos, tintIndex) -> {
-            assert level != null;
-			assert pos != null;
-			return BiomeColors.getAverageFoliageColor(level, pos);
-        }), RegisterBlocks.POTTED_GRASS);
-		ColorProviderRegistry.BLOCK.register(((state, level, pos, tintIndex) -> {
-			assert level != null;
-			assert pos != null;
-			return BiomeColors.getAverageGrassColor(level, pos);
-		}), RegisterBlocks.BUSH);
-    }
+		ColorProviderRegistry.BLOCK.register(((state, level, pos, tintIndex) ->
+			BiomeColors.getAverageFoliageColor(Objects.requireNonNull(level), Objects.requireNonNull(pos))
+		), RegisterBlocks.BAOBAB_LEAVES);
+		ColorProviderRegistry.BLOCK.register(((state, level, pos, tintIndex) ->
+			BiomeColors.getAverageFoliageColor(Objects.requireNonNull(level), Objects.requireNonNull(pos))
+		), RegisterBlocks.CYPRESS_LEAVES);
+		ColorProviderRegistry.BLOCK.register(((state, level, pos, tintIndex) ->
+			BiomeColors.getAverageFoliageColor(Objects.requireNonNull(level), Objects.requireNonNull(pos))
+		), RegisterBlocks.PALM_LEAVES);
+		ColorProviderRegistry.BLOCK.register(((state, level, pos, tintIndex) ->
+			BiomeColors.getAverageFoliageColor(Objects.requireNonNull(level), Objects.requireNonNull(pos))
+		), RegisterBlocks.POTTED_GRASS);
+		ColorProviderRegistry.BLOCK.register(((state, level, pos, tintIndex) ->
+			BiomeColors.getAverageGrassColor(Objects.requireNonNull(level), Objects.requireNonNull(pos))
+		), RegisterBlocks.BUSH);
+	}
 
 	private static void receiveAncientHornProjectilePacket() {
 		ClientPlayNetworking.registerGlobalReceiver(WilderWild.HORN_PROJECTILE_PACKET_ID, (ctx, handler, byteBuf, responseSender) -> {

@@ -1,12 +1,11 @@
 package net.frozenblock.wilderwild.registry;
 
-import net.frozenblock.lib.FrozenBools;
 import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.frozenblock.wilderwild.misc.config.ClothConfigInteractionHandler;
 import net.frozenblock.wilderwild.world.additions.feature.WilderMiscPlaced;
 import net.frozenblock.wilderwild.world.additions.feature.WilderPlacedFeatures;
-import net.frozenblock.wilderwild.world.generation.SharedWorldgen;
+import net.frozenblock.wilderwild.world.generation.WilderSharedWorldgen;
 import net.frozenblock.wilderwild.world.generation.noise.WilderNoise;
 import net.minecraft.core.Registry;
 import net.minecraft.data.BuiltinRegistries;
@@ -55,11 +54,13 @@ public final class RegisterWorldgen implements SurfaceRuleEvents.OverworldModifi
 
 	@Override
 	public void modifyOverworldRules(SurfaceRuleContext.@NotNull Overworld context) {
-		context.materialRules().add(0, SharedWorldgen.cypressSurfaceRules());
-		context.materialRules().add(SharedWorldgen.cypressSurfaceRules());
+		context.materialRules().add(0, WilderSharedWorldgen.cypressSurfaceRules());
+		context.materialRules().add(0, WilderSharedWorldgen.warmRiverRules());
+		context.materialRules().add(WilderSharedWorldgen.cypressSurfaceRules());
+		context.materialRules().add(WilderSharedWorldgen.warmRiverRules());
 		if (ClothConfigInteractionHandler.betaBeaches()) {
-			context.materialRules().add(0, SharedWorldgen.betaBeaches());
-			context.materialRules().add(SharedWorldgen.betaBeaches());
+			context.materialRules().add(0, WilderSharedWorldgen.betaBeaches());
+			context.materialRules().add(WilderSharedWorldgen.betaBeaches());
 		}
 		WilderSharedConstants.log("Wilder Wild's Overworld Surface Rules have been added!", true);
 	}
@@ -183,7 +184,7 @@ public final class RegisterWorldgen implements SurfaceRuleEvents.OverworldModifi
 	}
 
 	public static Biome oasis() {
-		MobSpawnSettings.Builder builder = (new MobSpawnSettings.Builder()).addSpawn(MobCategory.WATER_CREATURE, new MobSpawnSettings.SpawnerData(EntityType.TROPICAL_FISH, 40, 1, 2));
+		MobSpawnSettings.Builder builder = new MobSpawnSettings.Builder();
 		BiomeDefaultFeatures.desertSpawns(builder);
 		BiomeGenerationSettings.Builder builder2 = new BiomeGenerationSettings.Builder();
 		addOasisFeatures(builder2);
@@ -305,6 +306,7 @@ public final class RegisterWorldgen implements SurfaceRuleEvents.OverworldModifi
 		BiomeDefaultFeatures.addDefaultOres(builder);
 		BiomeDefaultFeatures.addDefaultMushrooms(builder);
 		BiomeDefaultFeatures.addDesertExtraDecoration(builder);
+		builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, VegetationPlacements.PATCH_SUGAR_CANE_DESERT);
 		builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, AquaticPlacements.SEAGRASS_RIVER);
 		builder.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, WilderMiscPlaced.UNDER_WATER_CLAY_PATH_BEACH);
 		builder.addFeature(GenerationStep.Decoration.LOCAL_MODIFICATIONS, WilderMiscPlaced.SAND_POOL);
@@ -313,7 +315,7 @@ public final class RegisterWorldgen implements SurfaceRuleEvents.OverworldModifi
 		builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.OASIS_GRASS_PLACED);
 		builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.OASIS_BUSH_PLACED);
 		builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.OASIS_CACTUS_PLACED);
-		builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.PALM);
+		builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.PALMS_OASIS);
 	}
 
 	private static void addBasicFeatures(BiomeGenerationSettings.Builder builder, ResourceKey<Biome> biome) {
