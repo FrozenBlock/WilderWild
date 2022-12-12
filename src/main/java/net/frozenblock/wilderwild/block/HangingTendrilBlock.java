@@ -169,7 +169,7 @@ public class HangingTendrilBlock extends BaseEntityBlock implements SimpleWaterl
 	@Override
 	@NotNull
 	public RenderShape getRenderShape(@NotNull BlockState state) {
-		return ClothConfigInteractionHandler.mcLiveSensorTendrils() ? RenderShape.INVISIBLE : RenderShape.MODEL;
+		return ClothConfigInteractionHandler.billboardTendrils() ? RenderShape.INVISIBLE : RenderShape.MODEL;
 	}
 
 	@Override

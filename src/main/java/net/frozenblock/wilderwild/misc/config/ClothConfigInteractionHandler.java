@@ -220,4 +220,8 @@ public final class ClothConfigInteractionHandler {
 	public static boolean soulFireSounds() {
 		return !FrozenBools.HAS_CLOTH_CONFIG || ClothConfigCloserInteractionHandler.soulFireSounds();
 	}
+
+	public static boolean billboardTendrils() {
+		return !FrozenBools.HAS_CLOTH_CONFIG || ClothConfigCloserInteractionHandler.billboardTendrils();
+	}
 }

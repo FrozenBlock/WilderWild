@@ -44,6 +44,7 @@ public final class BlockConfig implements ConfigData {
     public boolean mcLiveSensorTendrils = true;
     public boolean shriekerGargling = true;
     public boolean soulFireSounds = true;
+	public boolean billboardTendrils = true;
 
     @Environment(EnvType.CLIENT)
     static void setupEntries(ConfigCategory category, ConfigEntryBuilder entryBuilder) {
@@ -70,6 +71,13 @@ public final class BlockConfig implements ConfigData {
                 .setTooltip(tooltip("soul_fire_sounds"))
                 .build()
         );
+
+		var billboardTendrils = category.addEntry(entryBuilder.startBooleanToggle(text("billboard_tendrils"), config.billboardTendrils)
+				.setDefaultValue(true)
+				.setSaveConsumer(newValue -> config.billboardTendrils = newValue)
+				.setTooltip(tooltip("billboard_tendrils"))
+				.build()
+		);
 
         /*var displayLanternCategory = FrozenConfig.createSubCategory(entryBuilder, category, text("display_lantern"),
                 false,

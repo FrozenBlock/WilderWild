@@ -1,17 +1,13 @@
 package net.frozenblock.wilderwild.entity.render.blockentity;
 
 import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.math.Quaternion;
 import com.mojang.math.Vector3f;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.frozenblock.wilderwild.WilderWildClient;
 import net.frozenblock.wilderwild.block.entity.HangingTendrilBlockEntity;
-import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.frozenblock.wilderwild.misc.config.ClothConfigInteractionHandler;
-import net.frozenblock.wilderwild.misc.interfaces.SculkSensorTickInterface;
-import net.minecraft.client.Camera;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
@@ -23,7 +19,6 @@ import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider.Context;
-import net.minecraft.world.level.block.entity.SculkSensorBlockEntity;
 import org.jetbrains.annotations.NotNull;
 
 @Environment(EnvType.CLIENT)
@@ -42,10 +37,10 @@ public class HangingTendrilBlockEntityRenderer<T extends HangingTendrilBlockEnti
 		return LayerDefinition.create(modelData, 16, 16);
     }
 
-	private Quaternion rotation = new Quaternion(0F, 0F, 0F, 1F);
+	private final Quaternion rotation = new Quaternion(0F, 0F, 0F, 1F);
 
     public void render(@NotNull T entity, float tickDelta, @NotNull PoseStack poseStack, @NotNull MultiBufferSource vertexConsumers, int light, int overlay) {
-        if (ClothConfigInteractionHandler.mcLiveSensorTendrils()) {
+        if (ClothConfigInteractionHandler.billboardTendrils()) {
 			this.rotation.set(0.0f, 0.0f, 0.0f, 1.0f);
 			this.rotation.mul(Vector3f.YP.rotationDegrees(-Minecraft.getInstance().gameRenderer.getMainCamera().yRot));
 			poseStack.translate(0.5, 0, 0.5);
