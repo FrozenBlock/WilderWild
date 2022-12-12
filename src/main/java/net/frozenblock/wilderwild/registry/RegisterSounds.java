@@ -95,6 +95,8 @@ public final class RegisterSounds {
     public static final SoundEvent BLOCK_HANGING_TENDRIL_STEP = register("block.hanging_tendril.step");
     public static final SoundEvent BLOCK_HANGING_TENDRIL_FALL = register("block.hanging_tendril.fall");
     public static final SoundEvent BLOCK_HANGING_TENDRIL_WRING = register("block.hanging_tendril.wring");
+	public static final SoundEvent BLOCK_HANGING_TENDRIL_CLICKING = register("block.hanging_tendril.clicking");
+	public static final SoundEvent BLOCK_HANGING_TENDRIL_CLICKING_STOP = register("block.hanging_tendril.clicking_stop");
 
     public static final SoundEvent BLOCK_HOLLOWED_LOG_PLACE = register("block.hollowed_log.place");
     public static final SoundEvent BLOCK_HOLLOWED_LOG_HIT = register("block.hollowed_log.hit");

@@ -275,6 +275,8 @@
   "subtitles.block.hanging_tendril.wring": "Hanging Tendril wrung",
   "subtitles.block.sculk_sensor.hiccup": "Sculk Sensor hiccups",
   "subtitles.block.sculk_shrieker.gargle": "Sculk Shrieker gargles",
+  "subtitles.block.hanging_tendril.clicking": "Hanging Tendril clicks",
+  "subtitles.block.hanging_tendril.clicking_stop": "Hanging Tendril stops clicking",
   "subtitles.block.stone_chest.close_start": "Stone Lid tilts",
   "subtitles.block.stone_chest.item_crumble": "Ancient loot crumbles",
   "subtitles.block.stone_chest.lift": "Stone Lid lifts",

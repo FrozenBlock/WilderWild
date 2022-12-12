@@ -820,6 +820,60 @@
 	],
 	"subtitle": "subtitles.block.hanging_tendril.wring"
   },
+  "block.hanging_tendril.clicking": {
+    "sounds": [
+      {
+        "name": "wilderwild:block/hanging_tendril/clicking1",
+        "volume": 0.73
+      },
+      {
+        "name": "wilderwild:block/hanging_tendril/clicking2",
+        "volume": 0.73
+      },
+      {
+        "name": "wilderwild:block/hanging_tendril/clicking3",
+        "volume": 0.73
+      },
+      {
+        "name": "wilderwild:block/hanging_tendril/clicking4",
+        "volume": 0.73
+      },
+      {
+        "name": "wilderwild:block/hanging_tendril/clicking5",
+        "volume": 0.73
+      },
+      {
+        "name": "wilderwild:block/hanging_tendril/clicking6",
+        "volume": 0.73
+      }
+    ],
+    "subtitle": "subtitles.block.hanging_tendril.clicking"
+  },
+  "block.hanging_tendril.clicking_stop": {
+    "sounds": [
+      {
+        "name": "wilderwild:block/hanging_tendril/clicking_stop1",
+        "volume": 0.62
+      },
+      {
+        "name": "wilderwild:block/hanging_tendril/clicking_stop2",
+        "volume": 0.62
+      },
+      {
+        "name": "wilderwild:block/hanging_tendril/clicking_stop3",
+        "volume": 0.62
+      },
+      {
+        "name": "wilderwild:block/hanging_tendril/clicking_stop4",
+        "volume": 0.62
+      },
+      {
+        "name": "wilderwild:block/hanging_tendril/clicking_stop5",
+        "volume": 0.62
+      }
+    ],
+    "subtitle": "subtitles.block.hanging_tendril.clicking_stop"
+  },
   "block.hollowed_log.break": {
 	"sounds": [
 	  "wilderwild:block/hollowed_log/break1",
