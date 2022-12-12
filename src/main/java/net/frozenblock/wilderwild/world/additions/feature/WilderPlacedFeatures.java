@@ -172,7 +172,7 @@ public final class WilderPlacedFeatures {
 			WilderConfiguredFeatures.OASIS_BUSH, worldSurfaceSquaredWithCount(2));
 
 	public static final Holder<PlacedFeature> OASIS_CACTUS_PLACED = register("oasis_cactus_placed",
-			WilderConfiguredFeatures.PATCH_CACTUS_OASIS, worldSurfaceSquaredWithCount(1));
+			WilderConfiguredFeatures.PATCH_CACTUS_OASIS, RarityFilter.onAverageOnceEvery(2), InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP, BiomeFilter.biome());
 
     public static final Holder<PlacedFeature> NEW_GRASS_PLACED = register("grass_placed",
             VegetationFeatures.PATCH_GRASS_JUNGLE, worldSurfaceSquaredWithCount(20));

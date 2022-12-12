@@ -17,7 +17,7 @@ public final class WilderWorldGen {
     public static void generateWildWorldGen() {
         replaceFeatures();
         WilderFlowersGeneration.generateFlower();
-        WilderGrassGeneration.init();
+        WilderGrassGeneration.generateGrass();
         WilderMiscGeneration.generateMisc();
 
         WilderTreeDecorators.generateTreeDecorators();
