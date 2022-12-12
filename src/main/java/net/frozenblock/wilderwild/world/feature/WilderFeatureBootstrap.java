@@ -23,6 +23,8 @@ import net.frozenblock.wilderwild.world.gen.trunk.BaobabTrunkPlacer;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;
+import net.minecraft.core.HolderGetter;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.core.HolderSet;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
@@ -112,15 +114,6 @@ import net.minecraft.world.level.levelgen.synth.NormalNoise;
 import net.minecraft.world.level.material.Fluids;
 
 public class WilderFeatureBootstrap {
-
-	public static final List<ResourceKey<Biome>> BIOMES = new ArrayList<>();
-	public static final List<ResourceKey<ConfiguredFeature<?, ?>>> CONFIGURED_FEATURES = new ArrayList<>();
-	public static final List<ResourceKey<NormalNoise.NoiseParameters>> NOISES = new ArrayList<>();
-	public static final List<ResourceKey<PlacedFeature>> PLACED_FEATURES = new ArrayList<>();
-	public static final List<ResourceKey<StructureProcessorList>> PROCESSOR_LISTS = new ArrayList<>();
-	public static final List<ResourceKey<StructureTemplatePool>> TEMPLATE_POOLS = new ArrayList<>();
-	public static final List<ResourceKey<Structure>> STRUCTURES = new ArrayList<>();
-	public static final List<ResourceKey<StructureSet>> STRUCTURE_SETS = new ArrayList<>();
 
 	public static void bootstrapConfigured(BootstapContext<ConfiguredFeature<?, ?>> entries) {
 		final var configuredFeatures = entries.lookup(Registries.CONFIGURED_FEATURE);
@@ -868,48 +861,23 @@ public class WilderFeatureBootstrap {
 	}
 
 	public static void bootstrap(FabricDynamicRegistryProvider.Entries entries) {
-		final var placedFeatures = entries.placedFeatures();
-		final var configuredFeatures = entries.getLookup(Registries.CONFIGURED_FEATURE);
-		final var biomes = entries.getLookup(Registries.BIOME);
-		final var noises = entries.getLookup(Registries.NOISE);
-		final var processorLists = entries.getLookup(Registries.PROCESSOR_LIST);
-		final var templatePools = entries.getLookup(Registries.TEMPLATE_POOL);
-		final var structures = entries.getLookup(Registries.STRUCTURE);
-		final var structureSets = entries.getLookup(Registries.STRUCTURE_SET);
+		final var configuredFeatures = asLookup(entries.getLookup(Registries.CONFIGURED_FEATURE));
+		final var placedFeatures = asLookup(entries.placedFeatures());
+		final var biomes = asLookup(entries.getLookup(Registries.BIOME));
+		final var noises = asLookup(entries.getLookup(Registries.NOISE));
+		final var processorLists = asLookup(entries.getLookup(Registries.PROCESSOR_LIST));
+		final var templatePools = asLookup(entries.getLookup(Registries.TEMPLATE_POOL));
+		final var structures = asLookup(entries.getLookup(Registries.STRUCTURE));
+		final var structureSets = asLookup(entries.getLookup(Registries.STRUCTURE_SET));
 
-		for (ResourceKey<ConfiguredFeature<?, ?>> key : CONFIGURED_FEATURES) {
-			entries.add(key, configuredFeatures.getOrThrow(key).value());
-		}
-		for (ResourceKey<PlacedFeature> key : PLACED_FEATURES) {
-			entries.add(key, placedFeatures.getOrThrow(key).value());
-		}
-		for (ResourceKey<Biome> key : BIOMES) {
-			entries.add(key, biomes.getOrThrow(key).value());
-		}
-		for (ResourceKey<NormalNoise.NoiseParameters> key : NOISES) {
-			entries.add(key, noises.getOrThrow(key).value());
-		}
-		for (ResourceKey<StructureProcessorList> key : PROCESSOR_LISTS) {
-			entries.add(key, processorLists.getOrThrow(key).value());
-		}
-		for (ResourceKey<StructureTemplatePool> key : TEMPLATE_POOLS) {
-			entries.add(key, templatePools.getOrThrow(key).value());
-		}
-		for (ResourceKey<Structure> key : STRUCTURES) {
-			entries.add(key, structures.getOrThrow(key).value());
-		}
-		for (ResourceKey<StructureSet> key : STRUCTURE_SETS) {
-			entries.add(key, structureSets.getOrThrow(key).value());
-		}
-
-		finalizeDatagen();
-	}
-
-	private static void finalizeDatagen() {
-		CONFIGURED_FEATURES.clear();
-		PLACED_FEATURES.clear();
-		BIOMES.clear();
-		NOISES.clear();
+		entries.addAll(configuredFeatures);
+		entries.addAll(placedFeatures);
+		entries.addAll(biomes);
+		entries.addAll(noises);
+		entries.addAll(processorLists);
+		entries.addAll(templatePools);
+		entries.addAll(structures);
+		entries.addAll(structureSets);
 	}
 
 	/**
@@ -923,9 +891,7 @@ public class WilderFeatureBootstrap {
 	 * @param configuredResourceKey	MUST BE A VANILLA CONFIGURED FEATURE
 	 */
 	public static Holder<PlacedFeature> register(BootstapContext<PlacedFeature> entries, ResourceKey<PlacedFeature> resourceKey, ResourceKey<ConfiguredFeature<?, ?>> configuredResourceKey, List<PlacementModifier> modifiers) {
-		var holder = FrozenPlacementUtils.register(entries, resourceKey, entries.lookup(Registries.CONFIGURED_FEATURE).getOrThrow(configuredResourceKey), modifiers);
-		PLACED_FEATURES.add(resourceKey);
-		return holder;
+		return FrozenPlacementUtils.register(entries, resourceKey, entries.lookup(Registries.CONFIGURED_FEATURE).getOrThrow(configuredResourceKey), modifiers);
 	}
 
 
@@ -934,14 +900,14 @@ public class WilderFeatureBootstrap {
 	}
 
 	private static Holder<PlacedFeature> register(BootstapContext<PlacedFeature> entries, ResourceKey<PlacedFeature> resourceKey, Holder<ConfiguredFeature<?, ?>> configuredHolder, List<PlacementModifier> modifiers) {
-		var holder = FrozenPlacementUtils.register(entries, resourceKey, configuredHolder, modifiers);
-		PLACED_FEATURES.add(resourceKey);
-		return holder;
+		return FrozenPlacementUtils.register(entries, resourceKey, configuredHolder, modifiers);
 	}
 
 	private static <FC extends FeatureConfiguration, F extends Feature<FC>> Holder<ConfiguredFeature<?, ?>> register(BootstapContext<ConfiguredFeature<?, ?>> entries, ResourceKey<ConfiguredFeature<?, ?>> resourceKey, F feature, FC featureConfiguration) {
-		var holder = FrozenConfiguredFeatureUtils.register(entries, resourceKey, feature, featureConfiguration);
-		CONFIGURED_FEATURES.add(resourceKey);
-		return holder;
+		return FrozenConfiguredFeatureUtils.register(entries, resourceKey, feature, featureConfiguration);
+	}
+
+	private static <T> HolderLookup.RegistryLookup<T> asLookup(HolderGetter<T> getter) {
+		return (HolderLookup.RegistryLookup<T>) getter;
 	}
 }

@@ -123,7 +123,6 @@ public final class RegisterStructures {
 						StructureTemplatePool.Projection.RIGID
 				)
 		);
-		WilderFeatureBootstrap.TEMPLATE_POOLS.add(AbandonedCabinGenerator.CABIN);
 	}
 
 	public static void bootstrap(BootstapContext<Structure> context) {
@@ -145,7 +144,6 @@ public final class RegisterStructures {
 						false
 				)
 		);
-		WilderFeatureBootstrap.STRUCTURES.add(ABANDONED_CABIN_KEY);
 	}
 
 	public static void bootstrapStructureSet(BootstapContext<StructureSet> context) {
@@ -157,13 +155,11 @@ public final class RegisterStructures {
 						new RandomSpreadStructurePlacement(13, 5, RandomSpreadType.LINEAR, 25388232) // ancient city salt is 20083232
 				)
 		);
-		WilderFeatureBootstrap.STRUCTURE_SETS.add(ABANDONED_CABINS_KEY);
 	}
 
 	private static Holder<StructureProcessorList> register(
 			BootstapContext<StructureProcessorList> entries, ResourceKey<StructureProcessorList> key, List<StructureProcessor> list
 	) {
-		WilderFeatureBootstrap.PROCESSOR_LISTS.add(key);
 		return entries.register(key, new StructureProcessorList(list));
 	}
 }

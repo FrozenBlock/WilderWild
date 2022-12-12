@@ -2,6 +2,7 @@ package net.frozenblock.wilderwild.world.gen.noise;
 
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.frozenblock.wilderwild.world.feature.WilderFeatureBootstrap;
+import net.minecraft.core.Holder;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstapContext;
 import net.minecraft.resources.ResourceKey;
@@ -82,15 +83,14 @@ public class WilderNoise {
         return ResourceKey.create(Registries.NOISE, WilderSharedConstants.id(id));
     }
 
-	public static void register(
+	public static Holder.Reference<NormalNoise.NoiseParameters> register(
 			BootstapContext<NormalNoise.NoiseParameters> entries,
 			ResourceKey<NormalNoise.NoiseParameters> key,
 			int firstOctave,
 			double firstAmplitude,
 			double... amplitudes
 	) {
-		WilderFeatureBootstrap.NOISES.add(key);
-		entries.register(key, new NormalNoise.NoiseParameters(firstOctave, firstAmplitude, amplitudes));
+		return entries.register(key, new NormalNoise.NoiseParameters(firstOctave, firstAmplitude, amplitudes));
 	}
 }
 

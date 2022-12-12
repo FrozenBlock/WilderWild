@@ -40,10 +40,6 @@ public final class RegisterWorldgen {
 		context.register(RegisterWorldgen.CYPRESS_WETLANDS, RegisterWorldgen.cypressWetlands(context));
 		context.register(RegisterWorldgen.JELLYFISH_CAVES, RegisterWorldgen.jellyfishCaves(context));
 		context.register(RegisterWorldgen.MIXED_FOREST, RegisterWorldgen.mixedForest(context));
-
-		WilderFeatureBootstrap.BIOMES.add(RegisterWorldgen.CYPRESS_WETLANDS);
-		WilderFeatureBootstrap.BIOMES.add(RegisterWorldgen.JELLYFISH_CAVES);
-		WilderFeatureBootstrap.BIOMES.add(RegisterWorldgen.MIXED_FOREST);
 	}
 
     private static ResourceKey<Biome> register(String name) {
