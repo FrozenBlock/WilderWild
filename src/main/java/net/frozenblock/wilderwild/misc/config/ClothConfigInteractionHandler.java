@@ -189,6 +189,10 @@ public final class ClothConfigInteractionHandler {
 		return !FrozenBools.HAS_CLOTH_CONFIG || ClothConfigCloserInteractionHandler.wardenSwimAnimation();
 	}
 
+	public static boolean wardenBedrockSniff() {
+		return !FrozenBools.HAS_CLOTH_CONFIG || ClothConfigCloserInteractionHandler.wardenBedrockSniff();
+	}
+
 	public static boolean shriekerGargling() {
 		return FrozenBools.HAS_CLOTH_CONFIG && ClothConfigCloserInteractionHandler.shriekerGargling();
 	}
