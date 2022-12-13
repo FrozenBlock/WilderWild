@@ -195,6 +195,7 @@ public final class EntityConfig implements ConfigData {
 		var sniff = entryBuilder.startBooleanToggle(text("warden_bedrock_sniff"), warden.wardenBedrockSniff)
 				.setDefaultValue(true)
 				.setSaveConsumer(newValue -> warden.wardenBedrockSniff = newValue)
+				.setYesNoTextSupplier(bool -> text("warden_bedrock_sniff." + bool))
 				.setTooltip(tooltip("warden_bedrock_sniff"))
 				.requireRestart()
 				.build();
