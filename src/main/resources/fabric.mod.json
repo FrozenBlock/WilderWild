@@ -5,16 +5,19 @@
   "name": "Wilder Wild",
   "description": "Overhauls the Wild Update, adding features and improving existing ones.",
   "authors": [
-    "FrozenBlock",
-	"LiukRast",
-    "Soro",
-    "Xfrtrex",
-    "Osmiooo",
+    "FrozenBlock"
+  ],
+  "contributors": [
+    "Luna",
     "Treetrain1",
     "Merp",
-    "Luna",
+    "Soro",
+    "Liukrast",
+    "Xfrtrex",
+    "Osmiooo",
     "AlexTheDolphin0",
     "zozozrob_",
+    "Enri",
     "LudoCrypt"
   ],
   "contact": {
