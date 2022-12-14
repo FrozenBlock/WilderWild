@@ -20,9 +20,9 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(value = WardenAnimation.class, priority = 999)
 public class WardenAnimationOverwrites {
 
+	@Shadow
     @Final
     @Mutable
-    @Shadow
     public static AnimationDefinition WARDEN_SNIFF;
 
 	@Inject(
@@ -30,7 +30,8 @@ public class WardenAnimationOverwrites {
 			at = @At(
 					value = "INVOKE",
 					target = "Lnet/minecraft/client/animation/AnimationDefinition$Builder;withLength(F)Lnet/minecraft/client/animation/AnimationDefinition$Builder;",
-					ordinal = 3)
+					ordinal = 3
+			)
 	)
 	private static void modifySniff(CallbackInfo ci) {
 		if (ClothConfigInteractionHandler.wardenBedrockSniff()) {
