@@ -25,6 +25,8 @@ import org.jetbrains.annotations.NotNull;
 public class HangingTendrilBlockEntityRenderer<T extends HangingTendrilBlockEntity> implements BlockEntityRenderer<T> {
     private final ModelPart base;
 
+	private final Quaternion rotation = new Quaternion(0F, 0F, 0F, 1F);
+
     public HangingTendrilBlockEntityRenderer(Context ctx) {
         ModelPart root = ctx.bakeLayer(WilderWildClient.HANGING_TENDRIL);
         this.base = root.getChild("base");
@@ -36,8 +38,6 @@ public class HangingTendrilBlockEntityRenderer<T extends HangingTendrilBlockEnti
         modelPartData.addOrReplaceChild("base", CubeListBuilder.create().texOffs(0, 0).addBox(-8.0F, -16.0F, 0.0F, 16.0F, 16.0F, 0.0F), PartPose.offsetAndRotation(0.0F, 0.0F, 0.0F, (float) Math.PI, 0.0F, 0.0F));
 		return LayerDefinition.create(modelData, 16, 16);
     }
-
-	private final Quaternion rotation = new Quaternion(0F, 0F, 0F, 1F);
 
     public void render(@NotNull T entity, float tickDelta, @NotNull PoseStack poseStack, @NotNull MultiBufferSource vertexConsumers, int light, int overlay) {
         if (ClothConfigInteractionHandler.billboardTendrils()) {
