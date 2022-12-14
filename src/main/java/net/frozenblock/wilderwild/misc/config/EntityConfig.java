@@ -203,7 +203,7 @@ public final class EntityConfig implements ConfigData {
 		var wardenCategory = FrozenConfig.createSubCategory(entryBuilder, category, text("warden"),
 				false,
 				tooltip("warden"),
-				instantAttack, dying, command, emerging, swimming, tendrils
+				instantAttack, dying, command, emerging, swimming, tendrils, sniff
 		);
 	}
 
