@@ -37,25 +37,25 @@ public class LiquidBlockRendererMixin {
 	@ModifyArgs(method = "tesselate", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/renderer/block/LiquidBlockRenderer;vertex(Lcom/mojang/blaze3d/vertex/VertexConsumer;DDDFFFFFI)V", ordinal = 8))
 	private void sideTextureBottom1(Args args) {
 		args.set(7, this.waterOverlay.getU(0.0));
-		args.set(8, this.waterOverlay.getU(0.0));
+		args.set(8, this.waterOverlay.getV(8.0));
 	}
 
 	@ModifyArgs(method = "tesselate", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/renderer/block/LiquidBlockRenderer;vertex(Lcom/mojang/blaze3d/vertex/VertexConsumer;DDDFFFFFI)V", ordinal = 9))
 	private void sideTextureBottom2(Args args) {
 		args.set(7, this.waterOverlay.getU(0.0));
-		args.set(8, this.waterOverlay.getU(0.0));
+		args.set(8, this.waterOverlay.getV(8.0));
 	}
 
 	@ModifyArgs(method = "tesselate", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/renderer/block/LiquidBlockRenderer;vertex(Lcom/mojang/blaze3d/vertex/VertexConsumer;DDDFFFFFI)V", ordinal = 10))
 	private void sideTextureBottom3(Args args) {
 		args.set(7, this.waterOverlay.getU(0.0));
-		args.set(8, this.waterOverlay.getU(0.0));
+		args.set(8, this.waterOverlay.getV(8.0));
 	}
 
 	@ModifyArgs(method = "tesselate", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/renderer/block/LiquidBlockRenderer;vertex(Lcom/mojang/blaze3d/vertex/VertexConsumer;DDDFFFFFI)V", ordinal = 11))
 	private void sideTextureBottom4(Args args) {
 		args.set(7, this.waterOverlay.getU(0.0));
-		args.set(8, this.waterOverlay.getU(0.0));
+		args.set(8, this.waterOverlay.getV(8.0));
 	}
 
 
