@@ -42,7 +42,7 @@ public class HangingTendrilBlockEntityRenderer<T extends HangingTendrilBlockEnti
     public void render(@NotNull T entity, float tickDelta, @NotNull PoseStack poseStack, @NotNull MultiBufferSource vertexConsumers, int light, int overlay) {
         if (ClothConfigInteractionHandler.billboardTendrils()) {
 			this.rotation.set(0.0f, 0.0f, 0.0f, 1.0f);
-			this.rotation.mul(Vector3f.YP.rotationDegrees(-Minecraft.getInstance().gameRenderer.getMainCamera().yRot));
+			this.rotation.mul(Vector3f.YP.rotationDegrees(-Minecraft.getInstance().gameRenderer.getMainCamera().getYRot()));
 			poseStack.translate(0.5, 0, 0.5);
 			poseStack.pushPose();
 			poseStack.mulPose(this.rotation);
