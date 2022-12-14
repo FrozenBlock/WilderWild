@@ -202,6 +202,10 @@ public final class ClothConfigCloserInteractionHandler {
 		return WARDEN.wardenSwimAnimation;
 	}
 
+	public static boolean wardenBedrockSniff() {
+		return WARDEN.wardenBedrockSniff;
+	}
+
 	public static boolean shriekerGargling() {
 		return BLOCK.shriekerGargling;
 	}

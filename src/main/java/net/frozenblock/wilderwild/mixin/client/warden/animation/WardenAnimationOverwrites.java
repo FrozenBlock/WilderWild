@@ -2,6 +2,7 @@ package net.frozenblock.wilderwild.mixin.client.warden.animation;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.frozenblock.wilderwild.misc.config.ClothConfigInteractionHandler;
 import net.minecraft.client.animation.AnimationChannel;
 import net.minecraft.client.animation.AnimationDefinition;
 import net.minecraft.client.animation.Keyframe;
@@ -42,7 +43,7 @@ public class WardenAnimationOverwrites {
                             new Keyframe(1.52F, KeyframeAnimations.degreeVec(-35.0F, 20.0F, 0.0F), AnimationChannel.Interpolations.CATMULLROM),
                             new Keyframe(1.76F, KeyframeAnimations.degreeVec(0.0F, 20.0F, 0.0F), AnimationChannel.Interpolations.CATMULLROM),
                             new Keyframe(2.28F, KeyframeAnimations.degreeVec(0.0F, -20.0F, 0.0F), AnimationChannel.Interpolations.CATMULLROM),
-                            new Keyframe(2.6F, KeyframeAnimations.degreeVec(-25F, -23.6504F, 0.0F), AnimationChannel.Interpolations.CATMULLROM),
+                            new Keyframe(2.6F, KeyframeAnimations.degreeVec(ClothConfigInteractionHandler.wardenBedrockSniff() ? -25.0F : 0.0F, -23.6504F, 0.0F), AnimationChannel.Interpolations.CATMULLROM),
                             new Keyframe(2.88F, KeyframeAnimations.degreeVec(0.0F, -20.0F, 0.0F), AnimationChannel.Interpolations.CATMULLROM),
                             new Keyframe(3.32F, KeyframeAnimations.degreeVec(0.0F, 0.0F, 0.0F), AnimationChannel.Interpolations.CATMULLROM)))
             .addAnimation(

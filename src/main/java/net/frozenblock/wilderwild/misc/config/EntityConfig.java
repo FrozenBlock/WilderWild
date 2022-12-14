@@ -42,6 +42,7 @@ public final class EntityConfig implements ConfigData {
 	public static class WardenConfig {
 		public boolean wardenAttacksInstantly = true;
 		public boolean wardenCustomTendrils = true;
+		public boolean wardenBedrockSniff = true;
 		public boolean wardenDyingAnimation = true;
 		public boolean wardenEmergesFromCommand = false;
 		public boolean wardenEmergesFromEgg = false;
@@ -161,11 +162,17 @@ public final class EntityConfig implements ConfigData {
 				.setYesNoTextSupplier(bool -> text("warden_custom_tendrils." + bool))
 				.setTooltip(tooltip("warden_custom_tendrils"))
 				.build();
+		var sniff = entryBuilder.startBooleanToggle(text("warden_bedrock_sniff"), warden.wardenBedrockSniff)
+				.setDefaultValue(true)
+				.setSaveConsumer(newValue -> warden.wardenBedrockSniff = newValue)
+				.setYesNoTextSupplier(bool -> text("warden_bedrock_sniff." + bool))
+				.setTooltip(tooltip("warden_bedrock_sniff"))
+				.build();
 
 		var wardenCategory = FrozenConfig.createSubCategory(entryBuilder, category, text("warden"),
 				false,
 				tooltip("warden"),
-				instantAttack, dying, command, emerging, swimming, tendrils
+				instantAttack, dying, command, emerging, swimming, tendrils, sniff
 		);
 	}
 

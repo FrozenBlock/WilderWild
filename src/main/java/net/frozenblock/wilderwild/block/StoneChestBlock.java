@@ -55,7 +55,7 @@ import net.minecraft.world.phys.BlockHitResult;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-public class StoneChestBlock extends ChestBlock implements NoInteractionStorage<ItemVariant> {
+public class StoneChestBlock extends ChestBlock {
     public static final BooleanProperty ANCIENT = RegisterProperties.ANCIENT;
     public static final BooleanProperty SCULK = RegisterProperties.HAS_SCULK;
 
@@ -66,7 +66,8 @@ public class StoneChestBlock extends ChestBlock implements NoInteractionStorage<
     }
 
     @Override
-    public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
+	@NotNull
+    public InteractionResult use(@NotNull BlockState state, Level level, @NotNull BlockPos pos, @NotNull Player player, @NotNull InteractionHand hand, @NotNull BlockHitResult hit) {
         if (level.isClientSide) {
             return InteractionResult.SUCCESS;
         }
