@@ -94,7 +94,6 @@ accessible    method    net/minecraft/data/worldgen/NoiseData    register    (Ln
 accessible    method    net/minecraft/world/level/levelgen/SurfaceRules$SequenceRuleSource    <init>    (Ljava/util/List;)V
 accessible    class    net/minecraft/world/level/levelgen/SurfaceRules$BiomeConditionSource
 accessible    field    net/minecraft/world/level/levelgen/SurfaceRules$BiomeConditionSource    biomes    Ljava/util/List;
-accessible    method    net/minecraft/world/level/levelgen/SurfaceRules$BiomeConditionSource    <init>    (Ljava/util/List;)V
 
 # Features
 accessible    method    net/minecraft/world/level/levelgen/feature/configurations/MultifaceGrowthConfiguration    apply    (Lnet/minecraft/world/level/block/Block;)Lcom/mojang/serialization/DataResult;
