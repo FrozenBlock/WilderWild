@@ -2,6 +2,7 @@ package net.frozenblock.wilderwild.mixin.client.warden.animation;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.frozenblock.wilderwild.misc.config.ClothConfigInteractionHandler;
 import net.minecraft.client.animation.AnimationChannel;
 import net.minecraft.client.animation.AnimationDefinition;
 import net.minecraft.client.animation.Keyframe;
