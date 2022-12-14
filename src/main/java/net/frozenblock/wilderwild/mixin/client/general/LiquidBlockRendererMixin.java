@@ -32,7 +32,7 @@ public class LiquidBlockRendererMixin {
 
 	@Inject(method = "isFaceOccludedByState", at = @At(value = "HEAD"), cancellable = true)
 	private static void isFaceOccludedByState(BlockGetter level, Direction face, float height, BlockPos pos, BlockState state, CallbackInfoReturnable<Boolean> info) {
-		if (state.getBlock() instanceof GlassBlock && face == Direction.UP) {
+		if (state.getBlock() instanceof GlassBlock) {
 			info.setReturnValue(true);
 		}
 	}
