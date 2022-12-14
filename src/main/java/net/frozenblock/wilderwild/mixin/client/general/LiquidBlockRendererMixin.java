@@ -1,6 +1,5 @@
 package net.frozenblock.wilderwild.mixin.client.general;
 
-import com.mojang.blaze3d.vertex.VertexConsumer;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.frozenblock.lib.FrozenBools;
@@ -36,31 +35,25 @@ public class LiquidBlockRendererMixin {
 
 	@ModifyArgs(method = "tesselate", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/renderer/block/LiquidBlockRenderer;vertex(Lcom/mojang/blaze3d/vertex/VertexConsumer;DDDFFFFFI)V", ordinal = 8))
 	private void sideTextureBottom1(Args args) {
-		args.set(7, this.waterOverlay.getU(0.0));
-		args.set(8, this.waterOverlay.getV(8.0));
+		args.set(7, this.waterOverlay.getU0());
+		args.set(8, this.waterOverlay.getV1());
 	}
 
 	@ModifyArgs(method = "tesselate", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/renderer/block/LiquidBlockRenderer;vertex(Lcom/mojang/blaze3d/vertex/VertexConsumer;DDDFFFFFI)V", ordinal = 9))
 	private void sideTextureBottom2(Args args) {
-		args.set(7, this.waterOverlay.getU(0.0));
-		args.set(8, this.waterOverlay.getV(8.0));
+		args.set(7, this.waterOverlay.getU0());
+		args.set(8, this.waterOverlay.getV0());
 	}
 
 	@ModifyArgs(method = "tesselate", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/renderer/block/LiquidBlockRenderer;vertex(Lcom/mojang/blaze3d/vertex/VertexConsumer;DDDFFFFFI)V", ordinal = 10))
 	private void sideTextureBottom3(Args args) {
-		args.set(7, this.waterOverlay.getU(0.0));
-		args.set(8, this.waterOverlay.getV(8.0));
+		args.set(7, this.waterOverlay.getU1());
+		args.set(8, this.waterOverlay.getV0());
 	}
 
 	@ModifyArgs(method = "tesselate", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/renderer/block/LiquidBlockRenderer;vertex(Lcom/mojang/blaze3d/vertex/VertexConsumer;DDDFFFFFI)V", ordinal = 11))
 	private void sideTextureBottom4(Args args) {
-		args.set(7, this.waterOverlay.getU(0.0));
-		args.set(8, this.waterOverlay.getV(8.0));
-	}
-
-
-	@Shadow
-	private void vertex(VertexConsumer consumer, double x, double y, double z, float red, float green, float blue, float u, float v, int packedLight) {
-
+		args.set(7, this.waterOverlay.getU1());
+		args.set(8, this.waterOverlay.getV1());
 	}
 }
