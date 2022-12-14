@@ -4,7 +4,7 @@ jobs:
   build:
     strategy:
       matrix:
-        java: [17, 18]
+        java: [17, 18, 19]
         os: [ubuntu-latest, windows-latest]
     runs-on: ${{ matrix.os }}
     steps:
