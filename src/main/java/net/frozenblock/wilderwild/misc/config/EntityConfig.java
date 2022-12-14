@@ -197,7 +197,6 @@ public final class EntityConfig implements ConfigData {
 				.setSaveConsumer(newValue -> warden.wardenBedrockSniff = newValue)
 				.setYesNoTextSupplier(bool -> text("warden_bedrock_sniff." + bool))
 				.setTooltip(tooltip("warden_bedrock_sniff"))
-				.requireRestart()
 				.build();
 
 		var wardenCategory = FrozenConfig.createSubCategory(entryBuilder, category, text("warden"),
