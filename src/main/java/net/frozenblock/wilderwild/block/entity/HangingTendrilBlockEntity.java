@@ -27,13 +27,15 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public class HangingTendrilBlockEntity extends BlockEntity implements VibrationListener.VibrationListenerConfig {
+
+	private static final String BASE_TEXTURE = "textures/entity/hanging_tendril/";
+
 	private VibrationListener listener;
 	private int lastVibrationFrequency;
 	public int ticksToStopTwitching;
 	public int storedXP;
 	public int ringOutTicksLeft;
 	//CLIENT ONLY
-	private static final String baseTexture = "textures/entity/hanging_tendril/";
 	public ResourceLocation texture = WilderSharedConstants.id("textures/entity/hanging_tendril/inactive1.png");
 	public boolean twitching;
 	public boolean active;
@@ -72,15 +74,15 @@ public class HangingTendrilBlockEntity extends BlockEntity implements VibrationL
 		int animSpeed = 6;
 		if (milk) {
 			animSpeed = 2;
-			this.texture = WilderSharedConstants.id(baseTexture + "milk" + (((this.ticks / animSpeed) % 4) + 1) + ".png");
+			this.texture = WilderSharedConstants.id(BASE_TEXTURE + "milk" + (((this.ticks / animSpeed) % 4) + 1) + ".png");
 		} else if (active) {
 			animSpeed = 1;
-			this.texture = WilderSharedConstants.id(baseTexture + "active" + (((this.ticks / animSpeed) % 5) + 1) + ".png");
+			this.texture = WilderSharedConstants.id(BASE_TEXTURE + "active" + (((this.ticks / animSpeed) % 5) + 1) + ".png");
 		} else if (twitching) {
 			animSpeed = 50;
-			this.texture = WilderSharedConstants.id(baseTexture + "twitch" + (((this.ticks / animSpeed) % 4) + 1) + ".png");
+			this.texture = WilderSharedConstants.id(BASE_TEXTURE + "twitch" + (((this.ticks / animSpeed) % 4) + 1) + ".png");
 		} else {
-			this.texture = WilderSharedConstants.id(baseTexture + "inactive" + (((this.ticks / animSpeed) % 6) + 1) + ".png");
+			this.texture = WilderSharedConstants.id(BASE_TEXTURE + "inactive" + (((this.ticks / animSpeed) % 6) + 1) + ".png");
 		}
 	}
 
@@ -90,6 +92,7 @@ public class HangingTendrilBlockEntity extends BlockEntity implements VibrationL
 	}
 
 	@Override
+	@NotNull
 	public CompoundTag getUpdateTag() {
 		return this.saveWithoutMetadata();
 	}
