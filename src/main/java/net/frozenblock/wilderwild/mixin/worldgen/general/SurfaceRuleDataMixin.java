@@ -37,7 +37,7 @@ public class SurfaceRuleDataMixin {
 
 	@ModifyVariable(method = "overworldLike", at = @At("STORE"), ordinal = 14)
 	private static SurfaceRules.ConditionSource addOasisToDesertCheck(SurfaceRules.ConditionSource conditionSource15) {
-		List<ResourceKey<Biome>> biomes = (SurfaceRules.BiomeConditionSource)conditionSource15.biomes;
+		List<ResourceKey<Biome>> biomes = ((SurfaceRules.BiomeConditionSource)conditionSource15).biomes;
 		biomes.add(RegisterWorldgen.OASIS);
 		return new SurfaceRules.BiomeConditionSource(biomes);
 	}
