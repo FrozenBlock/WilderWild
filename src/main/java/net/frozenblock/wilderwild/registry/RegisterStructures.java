@@ -1,7 +1,6 @@
 package net.frozenblock.wilderwild.registry;
 
 import java.util.Map;
-import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.frozenblock.wilderwild.tag.WilderBiomeTags;
 import net.frozenblock.wilderwild.world.additions.structure.AbandonedCabinGenerator;

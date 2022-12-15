@@ -9,7 +9,6 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 import net.fabricmc.fabric.api.networking.v1.PlayerLookup;
-import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.entity.Firefly;
 import net.frozenblock.wilderwild.entity.ai.FireflyAi;
 import net.frozenblock.wilderwild.item.FireflyBottle;

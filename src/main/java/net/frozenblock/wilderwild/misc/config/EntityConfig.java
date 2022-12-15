@@ -3,14 +3,14 @@ package net.frozenblock.wilderwild.misc.config;
 import me.shedaniel.autoconfig.ConfigData;
 import me.shedaniel.autoconfig.annotation.Config;
 import me.shedaniel.autoconfig.annotation.ConfigEntry;
-import me.shedaniel.autoconfig.util.Utils;
 import me.shedaniel.clothconfig2.api.ConfigCategory;
 import me.shedaniel.clothconfig2.api.ConfigEntryBuilder;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.frozenblock.lib.config.api.FrozenConfig;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
-import static net.frozenblock.wilderwild.misc.config.WilderWildConfig.*;
+import static net.frozenblock.wilderwild.misc.config.WilderWildConfig.text;
+import static net.frozenblock.wilderwild.misc.config.WilderWildConfig.tooltip;
 
 @Config(name = "entity")
 public final class EntityConfig implements ConfigData {

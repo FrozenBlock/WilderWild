@@ -1,6 +1,5 @@
 package net.frozenblock.wilderwild.misc;
 
-import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.registry.WilderRegistry;
 import net.minecraft.core.Registry;
 import net.minecraft.network.syncher.EntityDataSerializer;

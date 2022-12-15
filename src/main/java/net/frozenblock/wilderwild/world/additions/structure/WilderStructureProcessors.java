@@ -1,7 +1,6 @@
 package net.frozenblock.wilderwild.world.additions.structure;
 
 import com.google.common.collect.ImmutableList;
-import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.minecraft.core.Holder;
 import net.minecraft.data.BuiltinRegistries;

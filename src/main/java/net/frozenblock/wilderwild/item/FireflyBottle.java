@@ -1,6 +1,5 @@
 package net.frozenblock.wilderwild.item;
 
-import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.entity.Firefly;
 import net.frozenblock.wilderwild.entity.ai.FireflyAi;
 import net.frozenblock.wilderwild.misc.FireflyColor;

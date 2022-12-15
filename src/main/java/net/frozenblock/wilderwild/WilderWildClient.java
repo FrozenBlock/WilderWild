@@ -24,11 +24,11 @@ import net.frozenblock.wilderwild.entity.render.DisplayLanternBlockEntityRendere
 import net.frozenblock.wilderwild.entity.render.FireflyRenderer;
 import net.frozenblock.wilderwild.entity.render.JellyfishModel;
 import net.frozenblock.wilderwild.entity.render.JellyfishRenderer;
-import net.frozenblock.wilderwild.entity.render.blockentity.HangingTendrilBlockEntityRenderer;
-import net.frozenblock.wilderwild.entity.render.blockentity.SculkSensorBlockEntityRenderer;
 import net.frozenblock.wilderwild.entity.render.StoneChestBlockEntityRenderer;
 import net.frozenblock.wilderwild.entity.render.TumbleweedModel;
 import net.frozenblock.wilderwild.entity.render.TumbleweedRenderer;
+import net.frozenblock.wilderwild.entity.render.blockentity.HangingTendrilBlockEntityRenderer;
+import net.frozenblock.wilderwild.entity.render.blockentity.SculkSensorBlockEntityRenderer;
 import net.frozenblock.wilderwild.misc.CompetitionCounter;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.frozenblock.wilderwild.particle.FloatingSculkBubbleParticle;

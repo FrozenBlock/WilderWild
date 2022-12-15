@@ -3,8 +3,6 @@ package net.frozenblock.wilderwild;
 import com.chocohead.mm.api.ClassTinkerers;
 import com.mojang.datafixers.schemas.Schema;
 import com.mojang.serialization.Codec;
-import java.util.HashMap;
-import java.util.Map;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
 import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;

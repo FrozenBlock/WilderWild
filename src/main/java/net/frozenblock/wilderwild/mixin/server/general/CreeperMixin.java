@@ -1,5 +1,6 @@
 package net.frozenblock.wilderwild.mixin.server.general;
 
+import java.util.Collection;
 import net.frozenblock.wilderwild.misc.config.ClothConfigInteractionHandler;
 import net.frozenblock.wilderwild.registry.RegisterSounds;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -8,8 +9,6 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-
-import java.util.Collection;
 
 @Mixin(Creeper.class)
 public final class CreeperMixin {

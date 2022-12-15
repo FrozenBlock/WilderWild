@@ -1,7 +1,6 @@
 package net.frozenblock.wilderwild.entity.render.easter;
 
 import net.frozenblock.lib.entity.api.rendering.EntityTextureOverride;
-import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.entity.render.animations.WilderWarden;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.minecraft.world.entity.EntityType;

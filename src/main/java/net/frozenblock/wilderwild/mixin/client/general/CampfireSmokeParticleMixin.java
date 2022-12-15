@@ -2,7 +2,6 @@ package net.frozenblock.wilderwild.mixin.client.general;
 
 import net.frozenblock.lib.wind.api.ClientWindManager;
 import net.minecraft.client.multiplayer.ClientLevel;
-import net.minecraft.client.particle.BaseAshSmokeParticle;
 import net.minecraft.client.particle.CampfireSmokeParticle;
 import net.minecraft.client.particle.TextureSheetParticle;
 import net.minecraft.core.BlockPos;
