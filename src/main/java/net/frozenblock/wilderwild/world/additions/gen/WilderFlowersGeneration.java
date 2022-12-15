@@ -56,5 +56,8 @@ public final class WilderFlowersGeneration {
 		BiomeModifications.addFeature(BiomeSelectors.includeByKey(Biomes.DESERT),
 				GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.TALL_CACTUS_PLACED.unwrapKey().orElseThrow());
 
+		BiomeModifications.addFeature(BiomeSelectors.includeByKey(Biomes.DESERT),
+				GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.DESERT_BUSH_PLACED.unwrapKey().orElseThrow());
+
     }
 }

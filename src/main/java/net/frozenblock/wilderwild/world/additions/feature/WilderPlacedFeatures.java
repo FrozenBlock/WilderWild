@@ -139,7 +139,7 @@ public final class WilderPlacedFeatures {
 			WilderConfiguredFeatures.PALMS_OASIS, treePlacement(RarityFilter.onAverageOnceEvery(4)));
 
 	public static final Holder<PlacedFeature> PALM_RARE = PlacementUtils.register("palm_rare",
-			WilderConfiguredFeatures.PALMS_OASIS, treePlacement(RarityFilter.onAverageOnceEvery(32)));
+			WilderConfiguredFeatures.PALMS_OASIS, treePlacement(RarityFilter.onAverageOnceEvery(38)));
 	//MUSHROOMS
     public static final Holder<PlacedFeature> BROWN_SHELF_FUNGUS_PLACED = register("brown_shelf_fungus_placed",
             WilderConfiguredFeatures.BROWN_SHELF_FUNGUS_CONFIGURED, RarityFilter.onAverageOnceEvery(1), CountPlacement.of(11), PlacementUtils.HEIGHTMAP_WORLD_SURFACE, InSquarePlacement.spread(), SurfaceRelativeThresholdFilter.of(Heightmap.Types.WORLD_SURFACE_WG, 0, 128), BiomeFilter.biome());
@@ -172,6 +172,9 @@ public final class WilderPlacedFeatures {
 
 	public static final Holder<PlacedFeature> OASIS_BUSH_PLACED = register("oasis_bush_placed",
 			WilderConfiguredFeatures.OASIS_BUSH, worldSurfaceSquaredWithCount(2));
+
+	public static final Holder<PlacedFeature> DESERT_BUSH_PLACED = register("desert_bush_placed",
+			WilderConfiguredFeatures.DESERT_BUSH, RarityFilter.onAverageOnceEvery(7), InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP_WORLD_SURFACE, BiomeFilter.biome());
 
 	public static final Holder<PlacedFeature> OASIS_CACTUS_PLACED = register("oasis_cactus_placed",
 			WilderConfiguredFeatures.PATCH_CACTUS_OASIS, RarityFilter.onAverageOnceEvery(2), InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP, BiomeFilter.biome());
@@ -281,7 +284,7 @@ public final class WilderPlacedFeatures {
             WilderConfiguredFeatures.TERMITE_CONFIGURED, RarityFilter.onAverageOnceEvery(45), CountPlacement.of(1), PlacementUtils.HEIGHTMAP_WORLD_SURFACE, InSquarePlacement.spread(), SurfaceRelativeThresholdFilter.of(Heightmap.Types.WORLD_SURFACE_WG, 0, 128), BiomeFilter.biome());
 
 	public static final Holder<PlacedFeature> TUMBLEWEED = register("tumbleweed",
-			WilderConfiguredFeatures.TUMBLEWEED, RarityFilter.onAverageOnceEvery(2), CountPlacement.of(1), PlacementUtils.HEIGHTMAP_WORLD_SURFACE, BiomeFilter.biome());
+			WilderConfiguredFeatures.TUMBLEWEED, RarityFilter.onAverageOnceEvery(9), CountPlacement.of(1), PlacementUtils.HEIGHTMAP_WORLD_SURFACE, BiomeFilter.biome());
 
     public static final Holder<PlacedFeature> JELLYFISH_CAVES_BLUE_MESOGLEA = register(
             "blue_mesoglea",
