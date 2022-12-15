@@ -3,7 +3,7 @@ package net.frozenblock.wilderwild.entity.render.blockentity;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.frozenblock.lib.block.entity.render.BillboardBlockEntityRenderer;
+import net.frozenblock.lib.block.api.entity.BillboardBlockEntityRenderer;
 import net.frozenblock.wilderwild.WilderWildClient;
 import net.frozenblock.wilderwild.block.entity.HangingTendrilBlockEntity;
 import net.frozenblock.wilderwild.misc.config.ClothConfigInteractionHandler;
