@@ -162,13 +162,13 @@ public final class WilderSharedWorldgen {
 				)
 		);
 
-		SurfaceRules.RuleSource sand = SurfaceRules.sequence(SurfaceRules.ifTrue(SurfaceRules.ON_CEILING, SANDSTONE), SAND);
 		list.add(
 				SurfaceRules.sequence(SurfaceRules.ifTrue(
-								SurfaceRules.isBiome(RegisterWorldgen.OASIS),
-								SurfaceRules.sequence(SurfaceRules.ifTrue(SurfaceRules.UNDER_FLOOR, sand),
-										SurfaceRules.ifTrue(SurfaceRules.hole(), SurfaceRules.sequence(SurfaceRules.ifTrue(SurfaceRules.waterBlockCheck(0, 0), AIR), SurfaceRules.ifTrue(SurfaceRules.temperature(), ICE), WATER)))), sand,
-						SurfaceRules.ifTrue(SurfaceRules.VERY_DEEP_UNDER_FLOOR, SANDSTONE)
+						SurfaceRules.isBiome(RegisterWorldgen.OASIS),
+						SurfaceRules.sequence(SurfaceRules.ifTrue(SurfaceRules.UNDER_FLOOR, SurfaceRules.sequence(SurfaceRules.ifTrue(SurfaceRules.ON_CEILING, SANDSTONE), SAND)),
+								SurfaceRules.ifTrue(SurfaceRules.VERY_DEEP_UNDER_FLOOR, SANDSTONE)
+						)
+				)
 				)
 		);
 
@@ -253,12 +253,12 @@ public final class WilderSharedWorldgen {
 	}
 
 	public static SurfaceRules.RuleSource oasisRules() {
-		SurfaceRules.RuleSource sand = SurfaceRules.sequence(SurfaceRules.ifTrue(SurfaceRules.ON_CEILING, SANDSTONE), SAND);
 		return SurfaceRules.sequence(SurfaceRules.ifTrue(
-				SurfaceRules.isBiome(RegisterWorldgen.OASIS),
-				SurfaceRules.sequence(SurfaceRules.ifTrue(SurfaceRules.UNDER_FLOOR, sand),
-						SurfaceRules.ifTrue(SurfaceRules.hole(), SurfaceRules.sequence(SurfaceRules.ifTrue(SurfaceRules.waterBlockCheck(0, 0), AIR), SurfaceRules.ifTrue(SurfaceRules.temperature(), ICE), WATER)))), sand,
+						SurfaceRules.isBiome(RegisterWorldgen.OASIS),
+						SurfaceRules.sequence(SurfaceRules.ifTrue(SurfaceRules.UNDER_FLOOR, SurfaceRules.sequence(SurfaceRules.ifTrue(SurfaceRules.ON_CEILING, SANDSTONE), SAND)),
 								SurfaceRules.ifTrue(SurfaceRules.VERY_DEEP_UNDER_FLOOR, SANDSTONE)
+						)
+				)
 		);
 	}
 
