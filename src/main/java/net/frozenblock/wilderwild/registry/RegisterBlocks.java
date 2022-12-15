@@ -173,7 +173,7 @@ public final class RegisterBlocks {
 	//public static final Block PRICKLY_PEAR_CACTUS = new PricklyPearCactusBlock(FabricBlockSettings.of(Material.CACTUS).ticksRandomly().strength(0.4F).sounds(SoundType.SWEET_BERRY_BUSH).nonOpaque());
 	public static final Block CYPRESS_SAPLING = new WaterloggableSaplingBlock(new CypressSaplingGenerator(), FabricBlockSettings.copyOf(Blocks.BIRCH_SAPLING));
     public static final Block POTTED_CYPRESS_SAPLING = new FlowerPotBlock(RegisterBlocks.CYPRESS_SAPLING, FabricBlockSettings.of(Material.DECORATION).breakInstantly().nonOpaque());
-	//TODO: Coconut Sounds
+
     public static final Block COCONUT = new CoconutBlock(FabricBlockSettings.of(Material.PLANT).breakInstantly().ticksRandomly().sounds(RegisterBlockSoundGroups.COCONUT));
     public static final Block POTTED_COCONUT = new FlowerPotBlock(RegisterBlocks.COCONUT, FabricBlockSettings.of(Material.DECORATION).breakInstantly().nonOpaque());
 
