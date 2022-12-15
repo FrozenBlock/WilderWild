@@ -1,6 +1,7 @@
 package net.frozenblock.wilderwild.world.additions.feature;
 
 import java.util.List;
+import com.google.common.collect.ImmutableList;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.frozenblock.wilderwild.registry.RegisterBlocks;
 import net.minecraft.core.BlockPos;
@@ -138,8 +139,8 @@ public final class WilderPlacedFeatures {
 			WilderConfiguredFeatures.PALMS_OASIS, treePlacement(RarityFilter.onAverageOnceEvery(4)));
 
 	public static final Holder<PlacedFeature> PALM_RARE = PlacementUtils.register("palm_rare",
-			WilderConfiguredFeatures.PALMS_OASIS, treePlacement(RarityFilter.onAverageOnceEvery(14)));
-    //MUSHROOMS
+			WilderConfiguredFeatures.PALMS_OASIS, treePlacement(RarityFilter.onAverageOnceEvery(32)));
+	//MUSHROOMS
     public static final Holder<PlacedFeature> BROWN_SHELF_FUNGUS_PLACED = register("brown_shelf_fungus_placed",
             WilderConfiguredFeatures.BROWN_SHELF_FUNGUS_CONFIGURED, RarityFilter.onAverageOnceEvery(1), CountPlacement.of(11), PlacementUtils.HEIGHTMAP_WORLD_SURFACE, InSquarePlacement.spread(), SurfaceRelativeThresholdFilter.of(Heightmap.Types.WORLD_SURFACE_WG, 0, 128), BiomeFilter.biome());
 
@@ -175,7 +176,10 @@ public final class WilderPlacedFeatures {
 	public static final Holder<PlacedFeature> OASIS_CACTUS_PLACED = register("oasis_cactus_placed",
 			WilderConfiguredFeatures.PATCH_CACTUS_OASIS, RarityFilter.onAverageOnceEvery(2), InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP, BiomeFilter.biome());
 
-    public static final Holder<PlacedFeature> NEW_GRASS_PLACED = register("grass_placed",
+	public static final Holder<PlacedFeature> TALL_CACTUS_PLACED = register("tall_cactus_placed",
+			WilderConfiguredFeatures.PATCH_CACTUS_TALL, RarityFilter.onAverageOnceEvery(8), InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP, BiomeFilter.biome());
+
+	public static final Holder<PlacedFeature> NEW_GRASS_PLACED = register("grass_placed",
             VegetationFeatures.PATCH_GRASS_JUNGLE, worldSurfaceSquaredWithCount(20));
 
     public static final Holder<PlacedFeature> NEW_RARE_GRASS_PLACED = register("rare_grass_placed",
