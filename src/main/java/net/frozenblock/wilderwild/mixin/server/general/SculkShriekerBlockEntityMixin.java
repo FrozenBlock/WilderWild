@@ -82,7 +82,7 @@ public class SculkShriekerBlockEntityMixin implements SculkShriekerTickInterface
 		this.listener.tick(level);
 		if (this.wilderWild$bubbles > 0) {
 			--this.wilderWild$bubbles;
-			EasyPacket.EasyFloatingSculkBubblePacket.createParticle(level, Vec3.atCenterOf(pos), Math.random() > 0.7 ? 1 : 0, 20 + WilderSharedConstants.random().nextInt(80), 0.075, level.random.nextIntBetweenInclusive(8, 14));
+			EasyPacket.EasyFloatingSculkBubblePacket.createParticle(level, Vec3.atCenterOf(pos), Math.random() > 0.7 ? 1 : 0, 20 + WilderSharedConstants.random().nextInt(80), 0.075, level.random.nextIntBetweenInclusive(2, 4));
 		}
 	}
 }
