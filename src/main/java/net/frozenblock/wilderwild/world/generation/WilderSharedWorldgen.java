@@ -163,8 +163,10 @@ public final class WilderSharedWorldgen {
 		);
 
 		list.add(
-				SurfaceRules.sequence(SurfaceRules.sequence(SurfaceRules.ifTrue(SurfaceRules.isBiome(RegisterWorldgen.OASIS), SurfaceRules.sequence(SurfaceRules.ifTrue(SurfaceRules.ON_CEILING, SANDSTONE), SAND))),
-						SurfaceRules.ifTrue(SurfaceRules.isBiome(RegisterWorldgen.OASIS), SurfaceRules.ifTrue(SurfaceRules.VERY_DEEP_UNDER_FLOOR, SANDSTONE)))
+				SurfaceRules.sequence(
+						SurfaceRules.ifTrue(SurfaceRules.isBiome(RegisterWorldgen.OASIS), SurfaceRules.sequence(SurfaceRules.ifTrue(SurfaceRules.ON_CEILING, SANDSTONE), SAND)),
+						SurfaceRules.ifTrue(SurfaceRules.waterStartCheck(-6, -1), SurfaceRules.ifTrue(SurfaceRules.isBiome(RegisterWorldgen.OASIS), SurfaceRules.ifTrue(SurfaceRules.VERY_DEEP_UNDER_FLOOR, SANDSTONE)))
+				)
 		);
 
 		if (ClothConfigInteractionHandler.betaBeaches()) {
@@ -249,8 +251,8 @@ public final class WilderSharedWorldgen {
 
 	public static SurfaceRules.RuleSource oasisRules() {
 		return SurfaceRules.sequence(
-				SurfaceRules.sequence(SurfaceRules.ifTrue(SurfaceRules.isBiome(RegisterWorldgen.OASIS), SurfaceRules.sequence(SurfaceRules.ifTrue(SurfaceRules.ON_CEILING, SANDSTONE), SAND))),
-				SurfaceRules.ifTrue(SurfaceRules.isBiome(RegisterWorldgen.OASIS), SurfaceRules.ifTrue(SurfaceRules.VERY_DEEP_UNDER_FLOOR, SANDSTONE))
+				SurfaceRules.ifTrue(SurfaceRules.isBiome(RegisterWorldgen.OASIS), SurfaceRules.sequence(SurfaceRules.ifTrue(SurfaceRules.ON_CEILING, SANDSTONE), SAND)),
+				SurfaceRules.ifTrue(SurfaceRules.waterStartCheck(-6, -1), SurfaceRules.ifTrue(SurfaceRules.isBiome(RegisterWorldgen.OASIS), SurfaceRules.ifTrue(SurfaceRules.VERY_DEEP_UNDER_FLOOR, SANDSTONE)))
 		);
 	}
 
