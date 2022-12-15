@@ -58,11 +58,11 @@ public final class ClothConfigInteractionHandler {
 	}
 
 	public static int hornMobDamage() {
-		return FrozenBools.HAS_CLOTH_CONFIG ? ClothConfigCloserInteractionHandler.hornMobDamage() : 15;
+		return FrozenBools.HAS_CLOTH_CONFIG ? ClothConfigCloserInteractionHandler.hornMobDamage() : 22;
 	}
 
 	public static int hornPlayerDamage() {
-		return FrozenBools.HAS_CLOTH_CONFIG ? ClothConfigCloserInteractionHandler.hornPlayerDamage() : 22;
+		return FrozenBools.HAS_CLOTH_CONFIG ? ClothConfigCloserInteractionHandler.hornPlayerDamage() : 15;
 	}
 
 	public static boolean hornShattersGlass() {

@@ -25,8 +25,8 @@ public final class ItemConfig implements ConfigData {
     public static class AncientHornConfig {
 		public boolean ancientHornCanSummonWarden = true;
 		public int ancientHornLifespan = AncientHornProjectile.DEFAULT_LIFESPAN;
-		public int ancientHornMobDamage = 15;
-		public int ancientHornPlayerDamage = 22;
+		public int ancientHornMobDamage = 22;
+		public int ancientHornPlayerDamage = 15;
         public boolean ancientHornShattersGlass = false;
     }
 
