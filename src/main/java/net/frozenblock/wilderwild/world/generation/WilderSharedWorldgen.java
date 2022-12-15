@@ -127,6 +127,7 @@ public final class WilderSharedWorldgen {
 		List<SurfaceRules.RuleSource> list = new ArrayList<>();
 		list.add(cypressSurfaceRules());
 		list.add(warmRiverRules());
+		list.add(oasisRules());
 		if (ClothConfigInteractionHandler.betaBeaches()) {
 			list.add(gravelBetaBeaches());
 			list.add(sandBetaBeaches());
@@ -159,6 +160,11 @@ public final class WilderSharedWorldgen {
 								SurfaceRules.yBlockCheck(VerticalAnchor.absolute(32), 0), SurfaceRules.sequence(SurfaceRules.ifTrue(SurfaceRules.DEEP_UNDER_FLOOR, SAND), SANDSTONE))
 						)
 				)
+		);
+
+		list.add(
+				SurfaceRules.sequence(SurfaceRules.sequence(SurfaceRules.ifTrue(SurfaceRules.isBiome(RegisterWorldgen.OASIS), SurfaceRules.sequence(SurfaceRules.ifTrue(SurfaceRules.ON_CEILING, SANDSTONE), SAND))),
+						SurfaceRules.sequence(SurfaceRules.ifTrue(SurfaceRules.waterStartCheck(-6, -1), SurfaceRules.sequence(SurfaceRules.ifTrue(SurfaceRules.isBiome(RegisterWorldgen.OASIS), SurfaceRules.ifTrue(SurfaceRules.VERY_DEEP_UNDER_FLOOR, SANDSTONE))))))
 		);
 
 		if (ClothConfigInteractionHandler.betaBeaches()) {
@@ -239,6 +245,12 @@ public final class WilderSharedWorldgen {
 						SurfaceRules.isBiome(RegisterWorldgen.WARM_RIVER), SurfaceRules.ifTrue(
 								SurfaceRules.yBlockCheck(VerticalAnchor.absolute(32), 0), SurfaceRules.sequence(SurfaceRules.ifTrue(SurfaceRules.DEEP_UNDER_FLOOR, SAND), SANDSTONE))
 				));
+	}
+
+	public static SurfaceRules.RuleSource oasisRules() {
+		SurfaceRules.RuleSource replaceSand = SurfaceRules.sequence(SurfaceRules.ifTrue(SurfaceRules.isBiome(RegisterWorldgen.OASIS), SurfaceRules.sequence(SurfaceRules.ifTrue(SurfaceRules.ON_CEILING, SANDSTONE), SAND)));
+		SurfaceRules.RuleSource sandStone = SurfaceRules.sequence(SurfaceRules.ifTrue(SurfaceRules.waterStartCheck(-6, -1), SurfaceRules.sequence(SurfaceRules.ifTrue(SurfaceRules.isBiome(RegisterWorldgen.OASIS), SurfaceRules.ifTrue(SurfaceRules.VERY_DEEP_UNDER_FLOOR, SANDSTONE)))));
+		return SurfaceRules.sequence(replaceSand, sandStone);
 	}
 
 	public static SurfaceRules.SequenceRuleSource betaBeaches() {

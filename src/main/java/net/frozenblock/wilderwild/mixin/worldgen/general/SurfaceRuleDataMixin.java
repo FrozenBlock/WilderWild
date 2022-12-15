@@ -17,12 +17,14 @@ public class SurfaceRuleDataMixin {
 			return SurfaceRules.sequence(
 					WilderSharedWorldgen.cypressSurfaceRules(),
 					WilderSharedWorldgen.warmRiverRules(),
+					WilderSharedWorldgen.oasisRules(),
 					WilderSharedWorldgen.gravelBetaBeaches(),
 					WilderSharedWorldgen.sandBetaBeaches(),
 					WilderSharedWorldgen.multilayerSandBetaBeaches(),
 					rule,
 					WilderSharedWorldgen.cypressSurfaceRules(),
 					WilderSharedWorldgen.warmRiverRules(),
+					WilderSharedWorldgen.oasisRules(),
 					WilderSharedWorldgen.gravelBetaBeaches(),
 					WilderSharedWorldgen.sandBetaBeaches(),
 					WilderSharedWorldgen.multilayerSandBetaBeaches()

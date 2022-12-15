@@ -56,8 +56,10 @@ public final class RegisterWorldgen implements SurfaceRuleEvents.OverworldModifi
 	public void modifyOverworldRules(SurfaceRuleContext.@NotNull Overworld context) {
 		context.materialRules().add(0, WilderSharedWorldgen.cypressSurfaceRules());
 		context.materialRules().add(0, WilderSharedWorldgen.warmRiverRules());
+		context.materialRules().add(0, WilderSharedWorldgen.oasisRules());
 		context.materialRules().add(WilderSharedWorldgen.cypressSurfaceRules());
 		context.materialRules().add(WilderSharedWorldgen.warmRiverRules());
+		context.materialRules().add(WilderSharedWorldgen.oasisRules());
 		if (ClothConfigInteractionHandler.betaBeaches()) {
 			context.materialRules().add(0, WilderSharedWorldgen.betaBeaches());
 			context.materialRules().add(WilderSharedWorldgen.betaBeaches());
