@@ -107,13 +107,16 @@ public final class RegisterItems {
 
     public static void registerItems() {
         WilderSharedConstants.logWild("Registering Items for", WilderSharedConstants.UNSTABLE_LOGGING);
-		registerItemBefore(Items.BAMBOO_RAFT, BAOBAB_BOAT_ITEM, "baobab_boat", CreativeModeTabs.TOOLS_AND_UTILITIES);
-		registerItemBefore(Items.BAMBOO_RAFT, BAOBAB_CHEST_BOAT_ITEM, "baobab_chest_boat", CreativeModeTabs.TOOLS_AND_UTILITIES);
-		registerItemBefore(Items.BAMBOO_SIGN, BAOBAB_SIGN, "baobab_sign", CreativeModeTabs.FUNCTIONAL_BLOCKS);
+		//BOATS
+		registerItemAfter(Items.MANGROVE_BOAT, CYPRESS_CHEST_BOAT_ITEM, "cypress_chest_boat", CreativeModeTabs.TOOLS_AND_UTILITIES);
+		registerItemAfter(Items.MANGROVE_BOAT, CYPRESS_BOAT_ITEM, "cypress_boat", CreativeModeTabs.TOOLS_AND_UTILITIES);
+		registerItemAfter(Items.MANGROVE_BOAT, BAOBAB_CHEST_BOAT_ITEM, "baobab_chest_boat", CreativeModeTabs.TOOLS_AND_UTILITIES);
+		registerItemAfter(Items.MANGROVE_BOAT, BAOBAB_BOAT_ITEM, "baobab_boat", CreativeModeTabs.TOOLS_AND_UTILITIES);
+		//SIGNS
+		registerItemAfter(Items.MANGROVE_SIGN, CYPRESS_SIGN, "cypress_sign", CreativeModeTabs.FUNCTIONAL_BLOCKS);
+		registerItemAfter(Items.MANGROVE_SIGN, BAOBAB_SIGN, "baobab_sign", CreativeModeTabs.FUNCTIONAL_BLOCKS);
+
 		registerItemBefore(Items.BAMBOO_HANGING_SIGN, BAOBAB_HANGING_SIGN, "baobab_hanging_sign", CreativeModeTabs.FUNCTIONAL_BLOCKS);
-		registerItemBefore(Items.BAMBOO_RAFT, CYPRESS_BOAT_ITEM, "cypress_boat", CreativeModeTabs.TOOLS_AND_UTILITIES);
-		registerItemBefore(Items.BAMBOO_RAFT, CYPRESS_CHEST_BOAT_ITEM, "cypress_chest_boat", CreativeModeTabs.TOOLS_AND_UTILITIES);
-		registerItemBefore(Items.BAMBOO_SIGN, CYPRESS_SIGN, "cypress_sign", CreativeModeTabs.FUNCTIONAL_BLOCKS);
 		registerItemBefore(Items.BAMBOO_HANGING_SIGN, CYPRESS_HANGING_SIGN, "cypress_hanging_sign", CreativeModeTabs.FUNCTIONAL_BLOCKS);
 		registerItemAfter(Items.BEETROOT_SEEDS, MILKWEED_POD, "milkweed_pod", CreativeModeTabs.NATURAL_BLOCKS);
 		registerItemBefore(Items.MUSIC_DISC_5, MUSIC_DISC_BENEATH, "music_disc_beneath", CreativeModeTabs.TOOLS_AND_UTILITIES);
@@ -131,13 +134,6 @@ public final class RegisterItems {
         Registry.register(BuiltInRegistries.INSTRUMENT, CLARINET_COPPER_HORN, new Instrument(RegisterSounds.ITEM_COPPER_HORN_CLARINET_LOOP, 32767, 64.0F));
         Registry.register(BuiltInRegistries.INSTRUMENT, TRUMPET_COPPER_HORN, new Instrument(RegisterSounds.ITEM_COPPER_HORN_TRUMPET_LOOP, 32767, 64.0F));
         Registry.register(BuiltInRegistries.INSTRUMENT, TROMBONE_COPPER_HORN, new Instrument(RegisterSounds.ITEM_COPPER_HORN_TROMBONE_LOOP, 32767, 64.0F));
-        //StartingSounds.STARTING_SOUNDS.put(SAX_COPPER_HORN, RegisterSounds.ITEM_COPPER_HORN_SAX_START);
-        //StartingSounds.STARTING_SOUNDS.put(TUBA_COPPER_HORN, RegisterSounds.ITEM_COPPER_HORN_TUBA_START);
-        //StartingSounds.STARTING_SOUNDS.put(FLUTE_COPPER_HORN, RegisterSounds.ITEM_COPPER_HORN_FLUTE_START);
-        //StartingSounds.STARTING_SOUNDS.put(OBOE_COPPER_HORN, RegisterSounds.ITEM_COPPER_HORN_OBOE_START);
-        //StartingSounds.STARTING_SOUNDS.put(CLARINET_COPPER_HORN, RegisterSounds.ITEM_COPPER_HORN_CLARINET_START);
-        //StartingSounds.STARTING_SOUNDS.put(TRUMPET_COPPER_HORN, RegisterSounds.ITEM_COPPER_HORN_TRUMPET_START);
-        //StartingSounds.STARTING_SOUNDS.put(TROMBONE_COPPER_HORN, RegisterSounds.ITEM_COPPER_HORN_TROMBONE_START);
 
 		registerInstrumentBefore(Items.MUSIC_DISC_13, COPPER_HORN, "copper_horn", WilderInstrumentTags.COPPER_HORNS, CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS, CreativeModeTabs.TOOLS_AND_UTILITIES);
 		registerInstrumentBefore(Items.MUSIC_DISC_13, ANCIENT_HORN, "ancient_horn", WilderInstrumentTags.ANCIENT_HORNS, CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS, CreativeModeTabs.TOOLS_AND_UTILITIES);
@@ -145,8 +141,6 @@ public final class RegisterItems {
 
 		registerItemAfter(Items.MANGROVE_PROPAGULE, BAOBAB_NUT, "baobab_nut", CreativeModeTabs.NATURAL_BLOCKS);
 		registerItemAfter(Items.GLOW_BERRIES, BAOBAB_NUT, "baobab_nut", CreativeModeTabs.FOOD_AND_DRINKS);
-		//registerItem(PRICKLY_PEAR, "prickly_pear", CreativeModeTabs.NATURAL_BLOCKS, CreativeModeTabs.TAB_CONSUMABLES);
-		//registerItem(PEELED_PRICKLY_PEAR, "peeled_prickly_pear", CreativeModeTabs.NATURAL_BLOCKS, CreativeModeTabs.TAB_CONSUMABLES);
 
 		registerItem(FIREFLY_BOTTLE, "firefly_bottle", CreativeModeTabs.TOOLS_AND_UTILITIES);
 		registerItem(WHITE_FIREFLY_BOTTLE, "white_firefly_bottle", CreativeModeTabs.TOOLS_AND_UTILITIES);
