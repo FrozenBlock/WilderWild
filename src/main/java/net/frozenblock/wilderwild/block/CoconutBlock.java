@@ -124,7 +124,7 @@ public class CoconutBlock extends FallingBlock implements BonemealableBlock {
 					this.advanceTree(level, pos, state, random);
 				}
 			} else {
-				if (!isFullyGrown(state)) {
+				if (random.nextDouble() < 0.4 && !isFullyGrown(state)) {
 					level.setBlock(pos, state.cycle(AGE), 2);
 				}
 			}
