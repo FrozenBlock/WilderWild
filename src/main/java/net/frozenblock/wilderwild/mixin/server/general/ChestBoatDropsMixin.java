@@ -21,7 +21,9 @@ public final class ChestBoatDropsMixin {
             ci.setReturnValue(RegisterItems.BAOBAB_CHEST_BOAT_ITEM);
         } else if (boat.getBoatType() == WilderBoats.CYPRESS) {
             ci.setReturnValue(RegisterItems.CYPRESS_CHEST_BOAT_ITEM);
-        }
+        } else if (boat.getBoatType() == WilderBoats.PALM) {
+			ci.setReturnValue(RegisterItems.PALM_CHEST_BOAT_ITEM_CHEST_BOAT_ITEM);
+		}
     }
 
 }

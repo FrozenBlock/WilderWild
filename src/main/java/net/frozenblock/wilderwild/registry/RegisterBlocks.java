@@ -681,6 +681,7 @@ public final class RegisterBlocks {
 
 		FlammableBlockRegistry.getDefaultInstance().add(RegisterBlocks.HOLLOWED_PALM_LOG, 5, 5);
 		FlammableBlockRegistry.getDefaultInstance().add(RegisterBlocks.PALM_LOG, 5, 5);
+		FlammableBlockRegistry.getDefaultInstance().add(RegisterBlocks.PALM_CROWN, 5, 5);
 		FlammableBlockRegistry.getDefaultInstance().add(RegisterBlocks.STRIPPED_PALM_LOG, 5, 5);
 		FlammableBlockRegistry.getDefaultInstance().add(RegisterBlocks.PALM_WOOD, 5, 5);
 		FlammableBlockRegistry.getDefaultInstance().add(RegisterBlocks.STRIPPED_PALM_WOOD, 5, 5);
