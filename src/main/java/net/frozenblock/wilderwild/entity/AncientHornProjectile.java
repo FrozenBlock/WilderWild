@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Optional;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.fabricmc.fabric.api.tag.convention.v1.ConventionalBlockTags;
+import net.frozenblock.lib.FrozenBools;
 import net.frozenblock.lib.damagesource.api.FrozenProjectileDamageSource;
 import net.frozenblock.lib.sound.api.FrozenSoundPackets;
 import net.frozenblock.wilderwild.WilderWild;
@@ -13,6 +14,7 @@ import static net.frozenblock.wilderwild.item.AncientHorn.*;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.frozenblock.wilderwild.misc.config.ClothConfigInteractionHandler;
 import net.frozenblock.wilderwild.misc.mod_compat.simple_copper_pipes.InteractionHandler;
+import net.frozenblock.wilderwild.misc.mod_compat.simple_copper_pipes.WilderCopperPipesEntrypoint;
 import net.frozenblock.wilderwild.misc.server.EasyPacket;
 import net.frozenblock.wilderwild.registry.RegisterBlocks;
 import net.frozenblock.wilderwild.registry.RegisterEntities;
@@ -265,13 +267,15 @@ public class AncientHornProjectile extends AbstractArrow {
         this.inBlockState = this.level.getBlockState(result.getBlockPos());
         BlockState blockState = this.level.getBlockState(result.getBlockPos());
         Entity owner = this.getOwner();
-        if (WilderWild.isCopperPipe(blockState) && owner != null) {
-            if (result.getDirection() == blockState.getValue(BlockStateProperties.FACING).getOpposite() && this.level instanceof ServerLevel server) {
-                if (InteractionHandler.addHornNbtToBlock(server, result.getBlockPos(), owner)) {
-                    this.discard();
-                }
-            }
-        }
+		if (FrozenBools.HAS_SIMPLE_COPPER_PIPES) {
+			if (WilderCopperPipesEntrypoint.isCopperPipe(blockState) && owner != null) {
+				if (result.getDirection() == blockState.getValue(BlockStateProperties.FACING).getOpposite() && this.level instanceof ServerLevel server) {
+					if (WilderCopperPipesEntrypoint.addHornNbtToBlock(server, result.getBlockPos(), owner)) {
+						this.discard();
+					}
+				}
+			}
+		}
         blockState.onProjectileHit(this.level, blockState, result, this);
         Vec3 hitVec = result.getLocation().subtract(this.getX(), this.getY(), this.getZ());
         this.setDeltaMovement(hitVec);

@@ -71,7 +71,6 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.level.GameRules;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.configurations.MultifaceGrowthConfiguration;
 import net.minecraft.world.level.levelgen.feature.configurations.ProbabilityFeatureConfiguration;
@@ -253,14 +252,6 @@ public final class WilderWild implements ModInitializer {
                 WilderWild.FIREFLIES, RegisterEntities.FIREFLY, 12, 2, 4);
 
 		WilderRegistry.MULTILAYER_SAND_BEACH_BIOMES.add(ResourceKey.create(Registry.BIOME_REGISTRY, new ResourceLocation("terralith", "arid_highlands")));
-    }
-
-    public static boolean isCopperPipe(BlockState state) {
-        if (FrozenBools.HAS_SIMPLE_COPPER_PIPES) {
-            ResourceLocation id = Registry.BLOCK.getKey(state.getBlock());
-            return id.getNamespace().equals("lunade") && id.getPath().contains("pipe");
-        }
-        return false;
     }
 
     // LOGGING
