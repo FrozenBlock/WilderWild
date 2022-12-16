@@ -189,7 +189,7 @@ dependencies {
 		modRuntimeOnly("maven.modrinth:fastanim:${fastanim_version}")
 
 		modRuntimeOnly("maven.modrinth:entityculling:${entityculling_version}")
-		//modRuntimeOnly("maven.modrinth:memoryleakfix:${memoryleakfix_version}")
+		modRuntimeOnly("maven.modrinth:memoryleakfix:${memoryleakfix_version}")
 		modRuntimeOnly("maven.modrinth:no-unused-chunks:${no_unused_chunks_version}")
 	}
 
