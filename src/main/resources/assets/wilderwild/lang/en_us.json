@@ -314,6 +314,7 @@
   "tooltip.wilderwild.keyframe_allay_dance": "Whether or not the Allay's dancing animation should\nbe replaced with a keyframe-based version.",
   "tooltip.wilderwild.leaf_sounds": "Whether or not Leaf sounds should be overridden.",
   "tooltip.wilderwild.lily_pad_sounds": "Whether or not Lily Pad sounds should be overridden.",
+  "tooltip.wilderwild.lush_caves_ambience": "Whether or not to use new ambient sounds\nin the Lush Caves biome",
   "tooltip.wilderwild.modify_badlands_placement": "Whether Badlands should use vanilla placement vs. Wilder Wild placement",
   "tooltip.wilderwild.modify_desert_placement": "Whether Deserts should use vanilla placement vs. Wilder Wild placement",
   "tooltip.wilderwild.modify_jungle_placement": "Whether Jungles should use vanilla placement vs. Wilder Wild placement",
