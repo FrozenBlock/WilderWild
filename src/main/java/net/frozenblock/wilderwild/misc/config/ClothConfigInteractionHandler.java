@@ -5,6 +5,26 @@ import net.frozenblock.wilderwild.entity.AncientHornProjectile;
 
 public final class ClothConfigInteractionHandler {
 
+	// BLOCK
+
+
+
+	// ENTITY
+
+
+
+	// ITEM
+
+
+
+	// WORLDGEN
+
+
+
+	// MISC
+
+
+
 	public static boolean betaBeaches() {
 		return !FrozenBools.HAS_CLOTH_CONFIG || ClothConfigCloserInteractionHandler.betaBeaches();
 	}
@@ -227,5 +247,25 @@ public final class ClothConfigInteractionHandler {
 
 	public static boolean billboardTendrils() {
 		return !FrozenBools.HAS_CLOTH_CONFIG || ClothConfigCloserInteractionHandler.billboardTendrils();
+	}
+
+	public static boolean deepDarkAmbience() {
+		return !FrozenBools.HAS_CLOTH_CONFIG || ClothConfigCloserInteractionHandler.deepDarkAmbience();
+	}
+
+	public static boolean dripstoneCavesAmbience() {
+		return !FrozenBools.HAS_CLOTH_CONFIG || ClothConfigCloserInteractionHandler.dripstoneCavesAmbience();
+	}
+
+	public static boolean lushCavesAmbience() {
+		return !FrozenBools.HAS_CLOTH_CONFIG || ClothConfigCloserInteractionHandler.lushCavesAmbience();
+	}
+
+	public static boolean birchForestMusic() {
+		return !FrozenBools.HAS_CLOTH_CONFIG || ClothConfigCloserInteractionHandler.birchForestMusic();
+	}
+
+	public static boolean flowerForestMusic() {
+		return !FrozenBools.HAS_CLOTH_CONFIG || ClothConfigCloserInteractionHandler.flowerForestMusic();
 	}
 }
