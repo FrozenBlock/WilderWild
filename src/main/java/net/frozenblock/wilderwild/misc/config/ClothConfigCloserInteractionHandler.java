@@ -263,6 +263,10 @@ public final class ClothConfigCloserInteractionHandler {
 		return BLOCK.billboardTendrils;
 	}
 
+	public static boolean cloudMovement() {
+		return MISC.cloudMovement;
+	}
+
 	public static boolean deepDarkAmbience() {
 		return BIOME_AMBIENCE.deepDarkAmbience;
 	}

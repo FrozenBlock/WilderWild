@@ -249,6 +249,10 @@ public final class ClothConfigInteractionHandler {
 		return !FrozenBools.HAS_CLOTH_CONFIG || ClothConfigCloserInteractionHandler.billboardTendrils();
 	}
 
+	public static boolean cloudMovement() {
+		return !FrozenBools.HAS_CLOTH_CONFIG || ClothConfigCloserInteractionHandler.cloudMovement();
+	}
+
 	public static boolean deepDarkAmbience() {
 		return !FrozenBools.HAS_CLOTH_CONFIG || ClothConfigCloserInteractionHandler.deepDarkAmbience();
 	}
