@@ -33,9 +33,9 @@ public class WilderWildConfig extends PartitioningSerializer.GlobalData {
     @TransitiveObject
     public final WorldgenConfig worldgen = new WorldgenConfig();
 
-	//@Category("misc")
-	//@TransitiveObject
-	//public MiscConfig misc = new MiscConfig();
+	@Category("misc")
+	@TransitiveObject
+	public final MiscConfig misc = new MiscConfig();
 
     public static WilderWildConfig get() {
         if (!WilderSharedConstants.areConfigsInit) {
@@ -62,14 +62,13 @@ public class WilderWildConfig extends PartitioningSerializer.GlobalData {
         var entity = configBuilder.getOrCreateCategory(text("entity"));
         var item = configBuilder.getOrCreateCategory(text("item"));
         var worldgen = configBuilder.getOrCreateCategory(text("worldgen"));
-		//var misc = configBuilder.getOrCreateCategory(text("misc"));
+		var misc = configBuilder.getOrCreateCategory(text("misc"));
         ConfigEntryBuilder entryBuilder = configBuilder.entryBuilder();
         BlockConfig.setupEntries(block, entryBuilder);
         EntityConfig.setupEntries(entity, entryBuilder);
         ItemConfig.setupEntries(item, entryBuilder);
         WorldgenConfig.setupEntries(worldgen, entryBuilder);
-		//MiscConfig.setupEntries(misc, entryBuilder);
-        //WilderWildClientConfig.setupEntries(general, entryBuilder);
+		MiscConfig.setupEntries(misc, entryBuilder);
         return configBuilder.build();
     }
 
