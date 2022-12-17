@@ -153,7 +153,7 @@ public class Tumbleweed extends Mob {
 			this.heal(1F);
 			double brightness = this.level.getBrightness(LightLayer.SKY, this.blockPosition());
 			Player entity = this.level.getNearestPlayer(this, -1.0);
-			if ((brightness < 7 || this.wasTouchingWater) && !this.requiresCustomPersistence() && (entity == null || entity.distanceTo(this) > 24)) {
+			if ((brightness < 7 && !this.requiresCustomPersistence() && (entity == null || entity.distanceTo(this) > 24)) || (this.wasTouchingWater)) {
 				++this.ticksSinceActive;
 				if (this.ticksSinceActive >= 200) {
 					this.destroy(false);
