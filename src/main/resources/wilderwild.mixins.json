@@ -40,6 +40,7 @@
     "worldgen.general.JigsawStructureMixin",
     "worldgen.general.MangroveTreeGrowerMixin",
     "worldgen.general.OakTreeGrowerMixin",
+    "worldgen.general.OverworldBiomeBuilderMixin",
     "worldgen.general.SpruceTreeGrowerMixin",
     "worldgen.general.StructuresMixin",
     "worldgen.general.SurfaceRuleDataMixin",
