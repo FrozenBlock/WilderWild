@@ -175,6 +175,7 @@ dependencies {
 
 	// TerraBlender
 	modImplementation "com.github.glitchfiend:TerraBlender-fabric:${terrablender_version}"
+	includeMod "terrablender", "com.github.glitchfiend:TerraBlender-fabric:${terrablender_version}"
 
 	// Sodium
 	modCompileOnly("maven.modrinth:sodium:${sodium_version}")
