@@ -114,7 +114,7 @@ public class BaobabNutBlock extends SaplingBlock {
 
 	@Override //Only collision with projectiles so you can shoot them down
 	public VoxelShape getCollisionShape(@NotNull BlockState blockState, @NotNull BlockGetter blockGetter, @NotNull BlockPos blockPos, @NotNull CollisionContext collisionContext) {
-		if (collisionContext instanceof EntityCollisionContext entityCollision && !isHanging(blockState)) {
+		if (collisionContext instanceof EntityCollisionContext entityCollision && isHanging(blockState)) {
 			if (entityCollision.getEntity() != null) {
 				return !(entityCollision.getEntity() instanceof Projectile) ? Shapes.empty() : super.getCollisionShape(blockState, blockGetter, blockPos, collisionContext);
 			}
