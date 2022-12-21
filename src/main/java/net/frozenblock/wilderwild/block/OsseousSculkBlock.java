@@ -250,7 +250,8 @@ public class OsseousSculkBlock extends RotatedPillarBlock implements SculkBehavi
             if (block != RegisterBlocks.OSSEOUS_SCULK) {
                 return null;
             }
-            Direction direction = getDir(null, level.getBlockState(pos).getValue(UPSIDEDOWN)).getOpposite();
+			BlockState state = level.getBlockState(pos);
+            Direction direction = getDir(state.getValue(AXIS), state.getValue(UPSIDEDOWN)).getOpposite();
             if (level.getBlockState(pos.relative(direction)).is(Blocks.SCULK)) {
                 return pos;
             }
