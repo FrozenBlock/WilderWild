@@ -32,12 +32,18 @@ public final class ItemStackMixin {
 			if (lTag.get("wilderwild_is_ancient") != null) {
 				lTag.remove("wilderwild_is_ancient");
 			}
+			if (lTag.isEmpty()) {
+				left.tag = null;
+			}
 		}
 
-		CompoundTag rTag = right.getTag();
+		CompoundTag rTag = right.tag;
 		if (rTag != null) {
 			if (rTag.get("wilderwild_is_ancient") != null) {
 				rTag.remove("wilderwild_is_ancient");
+			}
+			if (rTag.isEmpty()) {
+				right.tag = null;
 			}
 		}
 
