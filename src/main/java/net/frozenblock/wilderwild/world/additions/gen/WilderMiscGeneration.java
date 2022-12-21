@@ -53,5 +53,9 @@ public final class WilderMiscGeneration {
 
 		BiomeModifications.addFeature(BiomeSelectors.tag(WilderBiomeTags.HAS_TUMBLEWEED_PLANT),
 				GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.TUMBLEWEED.unwrapKey().orElseThrow());
+
+		BiomeModifications.addFeature(BiomeSelectors.includeByKey(Biomes.DESERT),
+				GenerationStep.Decoration.TOP_LAYER_MODIFICATION, WilderMiscPlaced.SANDSTONE_PATH.unwrapKey().orElseThrow());
+
     }
 }
