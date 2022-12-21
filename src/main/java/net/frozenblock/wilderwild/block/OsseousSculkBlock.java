@@ -247,20 +247,21 @@ public class OsseousSculkBlock extends RotatedPillarBlock implements SculkBehavi
         return null;
     }
 
-    public static BlockPos getBottom(LevelAccessor level, BlockPos pos, int max) {
-        for (int i = 0; i < max; i++) {
-            Block block = level.getBlockState(pos).getBlock();
-            if (block != RegisterBlocks.OSSEOUS_SCULK) {
-                return null;
-            }
-            Direction direction = getDir(null, level.getBlockState(pos).getValue(UPSIDEDOWN)).getOpposite();
-            if (level.getBlockState(pos.relative(direction)).is(Blocks.SCULK)) {
-                return pos;
-            }
-            pos = pos.relative(direction);
-        }
-        return null;
-    }
+	public static BlockPos getBottom(LevelAccessor level, BlockPos pos, int max) {
+		for (int i = 0; i < max; i++) {
+			Block block = level.getBlockState(pos).getBlock();
+			if (block != RegisterBlocks.OSSEOUS_SCULK) {
+				return null;
+			}
+			BlockState state = level.getBlockState(pos);
+			Direction direction = getDir(state.getValue(AXIS), state.getValue(UPSIDEDOWN)).getOpposite();
+			if (level.getBlockState(pos.relative(direction)).is(Blocks.SCULK)) {
+				return pos;
+			}
+			pos = pos.relative(direction);
+		}
+		return null;
+	}
 
 	@Override
     public int updateDecayDelay(int oldDecay) {
