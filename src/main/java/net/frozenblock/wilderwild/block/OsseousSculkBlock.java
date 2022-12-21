@@ -22,6 +22,7 @@ import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
+import org.jetbrains.annotations.NotNull;
 
 public class OsseousSculkBlock extends RotatedPillarBlock implements SculkBehaviour {
 
@@ -30,7 +31,8 @@ public class OsseousSculkBlock extends RotatedPillarBlock implements SculkBehavi
         this.registerDefaultState(this.stateDefinition.any().setValue(HEIGHT_LEFT, 0).setValue(AXIS, Direction.Axis.Y).setValue(UPSIDEDOWN, false).setValue(TOTAL_HEIGHT, 0));
     }
 
-    public void spawnAfterBreak(BlockState state, ServerLevel level, BlockPos pos, ItemStack stack, boolean dropExperience) {
+	@Override
+    public void spawnAfterBreak(@NotNull BlockState state, @NotNull ServerLevel level, @NotNull BlockPos pos, @NotNull ItemStack stack, boolean dropExperience) {
         super.spawnAfterBreak(state, level, pos, stack, dropExperience);
         if (dropExperience) {
             this.tryDropExperience(level, pos, stack, ConstantInt.of(3));
@@ -38,7 +40,7 @@ public class OsseousSculkBlock extends RotatedPillarBlock implements SculkBehavi
     }
 
     public static Direction getDir(Direction.Axis axis, boolean upsideDown) {
-		double random = RandomSource.create().nextDouble();
+		double random = EasyNoiseSampler.localRandom.nextDouble();
 		switch (axis) {
 			case X -> {
 				return random > 0.5 ? Direction.EAST : Direction.WEST;
@@ -89,7 +91,7 @@ public class OsseousSculkBlock extends RotatedPillarBlock implements SculkBehavi
     public static final IntegerProperty TOTAL_HEIGHT = RegisterProperties.TOTAL_HEIGHT;
 
     @Override
-    public int attemptUseCharge(SculkSpreader.ChargeCursor cursor, LevelAccessor level, BlockPos catalystPos, RandomSource random, SculkSpreader spreadManager, boolean shouldConvertToBlock) {
+    public int attemptUseCharge(SculkSpreader.@NotNull ChargeCursor cursor, @NotNull LevelAccessor level, @NotNull BlockPos catalystPos, @NotNull RandomSource random, SculkSpreader spreadManager, boolean shouldConvertToBlock) {
         if (spreadManager.isWorldGeneration()) {
             worldGenSpread(cursor.getPos(), level, random);
             return cursor.getCharge();
@@ -251,7 +253,8 @@ public class OsseousSculkBlock extends RotatedPillarBlock implements SculkBehavi
             if (block != RegisterBlocks.OSSEOUS_SCULK) {
                 return null;
             }
-            Direction direction = getDir(null, level.getBlockState(pos).getValue(UPSIDEDOWN)).getOpposite();
+			BlockState state = level.getBlockState(pos);
+            Direction direction = getDir(state.getValue(AXIS), state.getValue(UPSIDEDOWN)).getOpposite();
             if (level.getBlockState(pos.relative(direction)).is(Blocks.SCULK)) {
                 return pos;
             }
