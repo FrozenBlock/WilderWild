@@ -18,7 +18,6 @@
     "server.general.FrogMixin",
     "server.general.GoatMixin",
     "server.general.InstrumentItemMixin",
-    "server.general.ItemStackMixin",
     "server.general.MobMixin",
     "server.general.SculkBlockMixin",
     "server.general.SculkSensorBlockEntityMixin",
