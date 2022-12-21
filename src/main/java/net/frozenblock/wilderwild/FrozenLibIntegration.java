@@ -92,6 +92,8 @@ public final class FrozenLibIntegration implements FrozenMainEntrypoint {
             level.levelEvent(LevelEvent.DRIPSTONE_DRIP, blockPos, 0);
         });
 
+		RemoveableItemTags.register("wilderwild_is_ancient", (level, entity, slot, selected) -> true, true);
+
         StructurePoolElementIdReplacements.RESOURCE_LOCATION_REPLACEMENTS.put(WilderSharedConstants.vanillaId("ancient_city/structures/barracks"), WilderSharedConstants.id("ancient_city/structures/barracks"));
         StructurePoolElementIdReplacements.RESOURCE_LOCATION_REPLACEMENTS.put(WilderSharedConstants.vanillaId("ancient_city/structures/chamber_1"), WilderSharedConstants.id("ancient_city/structures/chamber_1"));
         StructurePoolElementIdReplacements.RESOURCE_LOCATION_REPLACEMENTS.put(WilderSharedConstants.vanillaId("ancient_city/structures/chamber_2"), WilderSharedConstants.id("ancient_city/structures/chamber_2"));
