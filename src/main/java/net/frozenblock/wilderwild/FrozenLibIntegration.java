@@ -8,6 +8,7 @@ import net.frozenblock.lib.impl.DripstoneDripWaterFrom;
 import net.frozenblock.lib.impl.HopperUntouchableList;
 import net.frozenblock.lib.impl.PlayerDamageSourceSounds;
 import net.frozenblock.lib.impl.StructurePoolElementIdReplacements;
+import net.frozenblock.lib.item.api.RemoveableItemTags;
 import net.frozenblock.lib.sound.api.predicate.SoundPredicate;
 import net.frozenblock.wilderwild.entity.Firefly;
 import net.frozenblock.wilderwild.misc.WilderEnderman;
