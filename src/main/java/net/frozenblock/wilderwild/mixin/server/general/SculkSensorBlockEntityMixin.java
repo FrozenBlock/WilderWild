@@ -14,6 +14,7 @@ import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.SculkSensorBlock;
@@ -72,7 +73,7 @@ public final class SculkSensorBlockEntityMixin extends BlockEntity implements Sc
             }
             if (SculkSensorBlock.canActivate(state) && level.random.nextInt(320) <= 1) {
                 WilderSharedConstants.log("Sensor Hiccups " + pos, WilderSharedConstants.DEV_LOGGING);
-                SculkSensorBlock.activate(null, level, pos, state, (int) (Math.random() * 15));
+                SculkSensorBlock.activate(null, level, pos, state, RandomSource.create().nextInt(15));
                 level.gameEvent(null, GameEvent.SCULK_SENSOR_TENDRILS_CLICKING, pos);
                 level.gameEvent(null, RegisterGameEvents.SCULK_SENSOR_ACTIVATE, pos);
                 level.playSound(null, pos, RegisterSounds.BLOCK_SCULK_SENSOR_HICCUP, SoundSource.BLOCKS, 1.0F, level.random.nextFloat() * 0.1F + 0.7F);

@@ -40,7 +40,7 @@ public class WilderSharedConstants {
 
 	public static void logInsane(String string, boolean shouldLog) {
 		if (shouldLog) {
-			for (int i = 0; i < Math.random() * 5; i++) {
+			for (int i = 0; i < RandomSource.create().nextDouble() * 5; i++) {
 				WilderSharedConstants.LOGGER.warn(string);
 				WilderSharedConstants.LOGGER.error(string);
 				WilderSharedConstants.LOGGER.warn(string);

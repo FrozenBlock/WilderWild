@@ -22,6 +22,7 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.stats.Stats;
 import net.minecraft.util.Mth;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
@@ -106,7 +107,7 @@ public class DisplayLanternBlock extends BaseEntityBlock implements SimpleWaterl
 				}
 				if (stack.is(Items.GLASS_BOTTLE)) {
 					if (!lantern.getFireflies().isEmpty()) {
-						DisplayLanternBlockEntity.FireflyInLantern fireflyInLantern = lantern.getFireflies().get((int) (lantern.getFireflies().size() * Math.random()));
+						DisplayLanternBlockEntity.FireflyInLantern fireflyInLantern = lantern.getFireflies().get(RandomSource.create().nextInt(lantern.getFireflies().size()));
 						Optional<Item> optionalItem = Registry.ITEM.getOptional(new ResourceLocation(fireflyInLantern.color.getKey().getNamespace(), Objects.equals(fireflyInLantern.color, FireflyColor.ON) ? "firefly_bottle" : fireflyInLantern.color.getKey().getPath() + "_firefly_bottle"));
 						Item item = RegisterItems.FIREFLY_BOTTLE;
 						if (optionalItem.isPresent()) {
