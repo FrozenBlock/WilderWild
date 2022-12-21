@@ -27,6 +27,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.ContainerHelper;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
@@ -132,8 +133,8 @@ public class DisplayLanternBlockEntity extends BlockEntity {
 	}
 
 	public void addFirefly(FireflyBottle bottle, String name) {
-		Vec3 newVec = new Vec3(0.5 + (0.15 - Math.random() * 0.3), 0, 0.5 + (0.15 - Math.random() * 0.3));
-		this.fireflies.add(new FireflyInLantern(newVec, bottle.color, name, Math.random() > 0.7, (int) (Math.random() * 20), 0));
+		Vec3 newVec = new Vec3(0.5 + (0.15 - RandomSource.create().nextDouble() * 0.3), 0, 0.5 + (0.15 - RandomSource.create().nextDouble() * 0.3));
+		this.fireflies.add(new FireflyInLantern(newVec, bottle.color, name, RandomSource.create().nextDouble() > 0.7, RandomSource.create().nextInt(20), 0));
 	}
 
 	public void removeFirefly(FireflyInLantern firefly) {

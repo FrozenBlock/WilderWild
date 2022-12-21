@@ -37,6 +37,7 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.TagKey;
 import net.minecraft.util.Mth;
+import net.minecraft.util.RandomSource;
 import net.minecraft.util.SpawnUtil;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
@@ -133,7 +134,7 @@ public class AncientHornProjectile extends AbstractArrow {
 		this.baseTick();
 		if (this.bubbles > 0 && this.level instanceof ServerLevel server) {
 			--this.bubbles;
-			EasyPacket.EasyFloatingSculkBubblePacket.createParticle(server, this.position(), Math.random() > 0.7 ? 1 : 0, 20 + WilderSharedConstants.random().nextInt(40), 0.05, server.random.nextIntBetweenInclusive(1, 3));
+			EasyPacket.EasyFloatingSculkBubblePacket.createParticle(server, this.position(), RandomSource.create().nextDouble() > 0.7 ? 1 : 0, 20 + WilderSharedConstants.random().nextInt(40), 0.05, server.random.nextIntBetweenInclusive(1, 3));
 		}
 		if (this.aliveTicks > ClothConfigInteractionHandler.hornLifespan()) {
 			this.remove(RemovalReason.DISCARDED);
