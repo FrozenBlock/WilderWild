@@ -1,6 +1,7 @@
 package net.frozenblock.wilderwild.mixin.server.general;
 
 import net.frozenblock.wilderwild.entity.Firefly;
+import net.frozenblock.wilderwild.misc.FireflyColor;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.level.BaseSpawner;
@@ -22,6 +23,7 @@ public class BaseSpawnerMixin {
         if (this.displayEntity instanceof Firefly firefly) {
             firefly.setScale(2F);
 			firefly.setPrevScale(2F);
+			firefly.setColor(FireflyColor.ON);
         }
     }
 
