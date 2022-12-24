@@ -23,7 +23,6 @@ public class BaseSpawnerMixin {
         if (this.displayEntity instanceof Firefly firefly) {
             firefly.setScale(2F);
 			firefly.setPrevScale(2F);
-			firefly.setColor(FireflyColor.ON);
         }
     }
 
