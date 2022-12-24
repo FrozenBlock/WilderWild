@@ -414,7 +414,8 @@ public final class RegisterBlocks {
         registerBlock("cattail", CATTAIL, CreativeModeTab.TAB_DECORATIONS);
 		registerBlock("bush", BUSH, CreativeModeTab.TAB_DECORATIONS);
 		registerBlock("tumbleweed_plant", TUMBLEWEED_PLANT, CreativeModeTab.TAB_DECORATIONS);
-		registerBlock("tumbleweed", TUMBLEWEED, CreativeModeTab.TAB_DECORATIONS);
+		registerBlockWithoutBlockItem("tumbleweed", TUMBLEWEED);
+		registerBlockItem("tumbleweed", Registry.BLOCK.get(WilderSharedConstants.id("tumbleweed")), CreativeModeTab.TAB_DECORATIONS);
     }
 
     public static final Block BROWN_SHELF_FUNGUS = new ShelfFungusBlock(FabricBlockSettings.copyOf(Blocks.BROWN_MUSHROOM_BLOCK).luminance(1).collidable(false).nonOpaque().sounds(RegisterBlockSoundGroups.MUSHROOM));
