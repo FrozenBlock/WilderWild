@@ -142,7 +142,7 @@ public class BaobabTrunkPlacer extends TrunkPlacer {
     private FoliagePlacer.FoliageAttachment generateBranch(Direction dir1, Direction dir2, float yequation, int h, int minh, int l, LevelSimulatedReader level, BiConsumer<BlockPos, BlockState> replacer, RandomSource random, BlockPos.MutableBlockPos mutable, TreeConfiguration config, BlockPos startPos, int x, int z) {
         FoliagePlacer.FoliageAttachment node = null;
 
-        int height = RandomSource.create().nextInt(h - minh) + minh;
+        int height = (int) ((RandomSource.create().nextDouble() * (h - minh)) + minh);
 
         for (int l1 = 1; l1 <= l; l1++) {
             int eq = (int) Math.floor(yequation * l1);
