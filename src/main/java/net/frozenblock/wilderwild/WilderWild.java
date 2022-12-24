@@ -41,20 +41,9 @@ import net.frozenblock.wilderwild.world.additions.feature.WilderTreePlaced;
 import net.frozenblock.wilderwild.world.additions.gen.WilderWorldGen;
 import net.frozenblock.wilderwild.world.generation.features.AlgaeFeature;
 import net.frozenblock.wilderwild.world.generation.features.CattailFeature;
-import net.frozenblock.wilderwild.world.generation.features.ColumnWithDiskFeature;
-import net.frozenblock.wilderwild.world.generation.features.DownwardsPillarFeature;
 import net.frozenblock.wilderwild.world.generation.features.NematocystFeature;
-import net.frozenblock.wilderwild.world.generation.features.NoisePathFeature;
-import net.frozenblock.wilderwild.world.generation.features.NoisePathSwapUnderWaterFeature;
-import net.frozenblock.wilderwild.world.generation.features.NoisePathUnderWaterFeature;
-import net.frozenblock.wilderwild.world.generation.features.NoisePlantFeature;
 import net.frozenblock.wilderwild.world.generation.features.ShelfFungusFeature;
-import net.frozenblock.wilderwild.world.generation.features.UpwardsPillarFeature;
-import net.frozenblock.wilderwild.world.generation.features.config.ColumnWithDiskFeatureConfig;
-import net.frozenblock.wilderwild.world.generation.features.config.PathFeatureConfig;
-import net.frozenblock.wilderwild.world.generation.features.config.PathSwapUnderWaterFeatureConfig;
 import net.frozenblock.wilderwild.world.generation.features.config.ShelfFungusFeatureConfig;
-import net.frozenblock.wilderwild.world.generation.features.config.WilderPillarConfig;
 import net.frozenblock.wilderwild.world.generation.foliage.PalmFoliagePlacer;
 import net.frozenblock.wilderwild.world.generation.foliage.ShortPalmFoliagePlacer;
 import net.frozenblock.wilderwild.world.generation.trunk.BaobabTrunkPlacer;
@@ -117,13 +106,6 @@ public final class WilderWild implements ModInitializer {
     public static final Feature<ShelfFungusFeatureConfig> SHELF_FUNGUS_FEATURE = new ShelfFungusFeature(ShelfFungusFeatureConfig.CODEC);
     public static final CattailFeature CATTAIL_FEATURE = new CattailFeature(ProbabilityFeatureConfiguration.CODEC);
     public static final AlgaeFeature ALGAE_FEATURE = new AlgaeFeature(ProbabilityFeatureConfiguration.CODEC);
-    public static final NoisePathFeature NOISE_PATH_FEATURE = new NoisePathFeature(PathFeatureConfig.CODEC);
-    public static final NoisePlantFeature NOISE_PLANT_FEATURE = new NoisePlantFeature(PathFeatureConfig.CODEC);
-	public static final NoisePathSwapUnderWaterFeature NOISE_PATH_SWAP_UNDER_WATER_FEATURE = new NoisePathSwapUnderWaterFeature(PathSwapUnderWaterFeatureConfig.CODEC);
-    public static final NoisePathUnderWaterFeature NOISE_PATH_UNDER_WATER_FEATURE = new NoisePathUnderWaterFeature(PathFeatureConfig.CODEC);
-    public static final ColumnWithDiskFeature COLUMN_WITH_DISK_FEATURE = new ColumnWithDiskFeature(ColumnWithDiskFeatureConfig.CODEC);
-    public static final UpwardsPillarFeature UPWARDS_PILLAR_FEATURE = new UpwardsPillarFeature(WilderPillarConfig.CODEC);
-    public static final DownwardsPillarFeature DOWNWARDS_PILLAR_FEATURE = new DownwardsPillarFeature(WilderPillarConfig.CODEC);
     public static final NematocystFeature NEMATOCYST_FEATURE = new NematocystFeature(MultifaceGrowthConfiguration.CODEC);
     public static final FoliagePlacerType<PalmFoliagePlacer> PALM_FOLIAGE_PLACER =  registerFoliage("palm_foliage_placer", PalmFoliagePlacer.CODEC);
 	public static final FoliagePlacerType<ShortPalmFoliagePlacer> SHORT_PALM_FOLIAGE_PLACER =  registerFoliage("short_palm_foliage_placer", ShortPalmFoliagePlacer.CODEC);
@@ -172,13 +154,6 @@ public final class WilderWild implements ModInitializer {
         Registry.register(Registry.FEATURE, id("shelf_fungus_feature"), SHELF_FUNGUS_FEATURE);
         Registry.register(Registry.FEATURE, id("cattail_feature"), CATTAIL_FEATURE);
         Registry.register(Registry.FEATURE, id("algae_feature"), ALGAE_FEATURE);
-        Registry.register(Registry.FEATURE, id("noise_path_feature"), NOISE_PATH_FEATURE);
-        Registry.register(Registry.FEATURE, id("noise_plant_feature"), NOISE_PLANT_FEATURE);
-		Registry.register(Registry.FEATURE, id("noise_path_swap_under_water_feature"), NOISE_PATH_SWAP_UNDER_WATER_FEATURE);
-        Registry.register(Registry.FEATURE, id("noise_path_under_water_feature"), NOISE_PATH_UNDER_WATER_FEATURE);
-        Registry.register(Registry.FEATURE, id("column_with_disk_feature"), COLUMN_WITH_DISK_FEATURE);
-        Registry.register(Registry.FEATURE, id("upwards_pillar"), UPWARDS_PILLAR_FEATURE);
-        Registry.register(Registry.FEATURE, id("downwards_pillar"), DOWNWARDS_PILLAR_FEATURE);
         Registry.register(Registry.FEATURE, id("nematocyst_feature"), NEMATOCYST_FEATURE);
 
 
