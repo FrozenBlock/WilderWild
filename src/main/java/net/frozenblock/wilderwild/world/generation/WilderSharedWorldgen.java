@@ -91,6 +91,7 @@ public final class WilderSharedWorldgen {
 		public static final Climate.Parameter UNFROZEN_NOT_WARM_RANGE = Climate.Parameter.span(0.0F, 0.2F);
 		public static final Climate.Parameter HUMIDITY_TO_TWO = Climate.Parameter.span(-0.1F, 0.0F);
 		public static final Climate.Parameter HUMIDITY_TO_THREE = Climate.Parameter.span(0F, 0.1F);
+		public static final Climate.Parameter HUMIDITY = Climate.Parameter.span(-0.1F, 0.1F);
 		public static final Climate.Parameter WEIRDNESS = Weirdness.VALLEY;
 	}
 	public static final class Oasis {
