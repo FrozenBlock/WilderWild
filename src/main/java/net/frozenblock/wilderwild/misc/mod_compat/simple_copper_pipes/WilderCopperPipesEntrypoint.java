@@ -16,6 +16,7 @@ import net.lunade.copper.CopperPipeEntrypoint;
 import net.lunade.copper.CopperPipeMain;
 import net.lunade.copper.FittingPipeDispenses;
 import net.lunade.copper.PipeMovementRestrictions;
+import net.lunade.copper.PoweredPipeDispenses;
 import net.lunade.copper.RegisterPipeNbtMethods;
 import net.lunade.copper.block_entity.CopperPipeEntity;
 import net.lunade.copper.blocks.CopperPipe;
@@ -153,7 +154,7 @@ public class WilderCopperPipesEntrypoint implements CopperPipeEntrypoint {
             }
         });
 
-		FittingPipeDispenses.register(RegisterItems.COCONUT, (level, stack, i, direction, position, state, corroded, pos, pipe) -> {
+		PoweredPipeDispenses.register(RegisterItems.COCONUT, (level, stack, i, direction, position, state, corroded, pos, pipe) -> {
 			double d = position.x();
 			double e = position.y();
 			double f = position.z();
@@ -178,7 +179,7 @@ public class WilderCopperPipesEntrypoint implements CopperPipeEntrypoint {
 			level.addFreshEntity(coconut);
 		});
 
-		FittingPipeDispenses.register(RegisterBlocks.TUMBLEWEED.asItem(), (level, stack, i, direction, position, state, corroded, pos, pipe) -> {
+		PoweredPipeDispenses.register(RegisterBlocks.TUMBLEWEED.asItem(), (level, stack, i, direction, position, state, corroded, pos, pipe) -> {
 			double d = position.x();
 			double e = position.y();
 			double f = position.z();
