@@ -2,7 +2,7 @@ package net.frozenblock.wilderwild.mixin.server.general;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import net.frozenblock.wilderwild.misc.WilderBoats;
+import net.frozenblock.wilderwild.misc.WilderEnumValues;
 import net.frozenblock.wilderwild.registry.RegisterBlocks;
 import net.minecraft.world.entity.vehicle.Boat;
 import net.minecraft.world.level.block.Block;
@@ -42,12 +42,13 @@ public class BoatTypeMixin {
         var last = types.get(types.size() - 1);
 
         var baobab = newType("WILDERWILDBAOBAB", last.ordinal() + 1, RegisterBlocks.BAOBAB_PLANKS, "wilderwildbaobab");
-        WilderBoats.BAOBAB = baobab;
+        WilderEnumValues.BAOBAB = baobab;
         types.add(baobab);
 
         var cypress = newType("WILDERWILDCYPRESS", last.ordinal() + 2, RegisterBlocks.CYPRESS_PLANKS, "wilderwildcypress");
-        WilderBoats.CYPRESS = cypress;
+        WilderEnumValues.CYPRESS = cypress;
         types.add(cypress);
+
         $VALUES = types.toArray(new Boat.Type[0]);
     }
 
