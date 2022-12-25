@@ -52,7 +52,6 @@
     "client.easter.OsmioooWardenRenderer",
     "client.easter.ScottTheWozMixin",
     "client.easter.UppyBalloo",
-    "client.easter.UppyBallooModel",
     "client.easter.WardenEmissiveLayerMixin",
     "client.general.LiquidBlockRendererMixin",
     "client.shrieker_gargling.LevelRendererMixin",
