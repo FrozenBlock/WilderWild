@@ -19,4 +19,5 @@ public final class WilderEnumValues {
 
 	public static MobCategory FIREFLIES;
 	public static MobCategory JELLYFISH;
+	public static MobCategory TUMBLEWEED;
 }

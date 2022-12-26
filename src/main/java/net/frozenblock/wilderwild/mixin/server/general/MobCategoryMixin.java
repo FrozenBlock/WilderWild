@@ -51,6 +51,10 @@ public class MobCategoryMixin {
 		WilderEnumValues.JELLYFISH = jellyfish;
 		categories.add(jellyfish);
 
+		var tumbleweed = newType("WILDERWILDTUMBLEWEED", last.ordinal() + 3, "wilderwildtumbleweed", ClothConfigInteractionHandler.tumbleweedSpawnCap(), true, false, 64);
+		WilderEnumValues.TUMBLEWEED = tumbleweed;
+		categories.add(tumbleweed);
+
 		$VALUES = categories.toArray(new MobCategory[0]);
 	}
 }
