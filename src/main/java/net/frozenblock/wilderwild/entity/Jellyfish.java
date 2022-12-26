@@ -105,9 +105,9 @@ public class Jellyfish extends NoFlopAbstractFish {
         Holder<Biome> biome = level.getBiome(this.blockPosition());
 		this.setVariant(JellyfishVariant.PINK);
         if (biome.is(WilderBiomeTags.PEARLESCENT_JELLYFISH)) {
-            this.setVariant(PEARLESCENT_VARIANTS.get((int) (Math.random() * PEARLESCENT_VARIANTS.size())));
+            this.setVariant(PEARLESCENT_VARIANTS.get(RandomSource.create().nextInt(PEARLESCENT_VARIANTS.size())));
         } else {
-            this.setVariant(COLORED_VARIANTS.get((int) (Math.random() * COLORED_VARIANTS.size())));
+            this.setVariant(COLORED_VARIANTS.get(RandomSource.create().nextInt(COLORED_VARIANTS.size())));
         }
         return super.finalizeSpawn(level, difficulty, reason, spawnData, dataTag);
     }

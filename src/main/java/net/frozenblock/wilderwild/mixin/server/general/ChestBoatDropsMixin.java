@@ -1,6 +1,6 @@
 package net.frozenblock.wilderwild.mixin.server.general;
 
-import net.frozenblock.wilderwild.misc.WilderBoats;
+import net.frozenblock.wilderwild.misc.WilderEnumValues;
 import net.frozenblock.wilderwild.registry.RegisterItems;
 import net.minecraft.world.entity.vehicle.ChestBoat;
 import net.minecraft.world.item.Item;
@@ -17,9 +17,9 @@ public final class ChestBoatDropsMixin {
     @Inject(method = "getDropItem", at = @At("RETURN"), cancellable = true)
     public void getModdedChestBoats(CallbackInfoReturnable<Item> ci) {
 		var boat = ChestBoat.class.cast(this);
-        if (boat.getVariant() == WilderBoats.BAOBAB) {
+        if (boat.getVariant() == WilderEnumValues.BAOBAB) {
             ci.setReturnValue(RegisterItems.BAOBAB_CHEST_BOAT_ITEM);
-        } else if (boat.getVariant() == WilderBoats.CYPRESS) {
+        } else if (boat.getVariant() == WilderEnumValues.CYPRESS) {
             ci.setReturnValue(RegisterItems.CYPRESS_CHEST_BOAT_ITEM);
         }
     }

@@ -1,18 +1,20 @@
 package net.frozenblock.wilderwild.misc.config;
-/*
+
+import me.shedaniel.autoconfig.ConfigData;
 import me.shedaniel.autoconfig.annotation.Config;
 import me.shedaniel.autoconfig.annotation.ConfigEntry;
 import me.shedaniel.clothconfig2.api.ConfigCategory;
 import me.shedaniel.clothconfig2.api.ConfigEntryBuilder;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.frozenblock.lib.config.FrozenConfig;
+import net.frozenblock.lib.config.api.FrozenConfig;
 import net.frozenblock.wilderwild.WilderWild;
+import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import static net.frozenblock.wilderwild.misc.config.WilderWildConfig.text;
 import static net.frozenblock.wilderwild.misc.config.WilderWildConfig.tooltip;
 
 @Config(name = "misc")
-public final class MiscConfig {
+public final class MiscConfig implements ConfigData {
 
 	@ConfigEntry.Gui.CollapsibleObject
 	public BiomeAmbienceConfig biomeAmbience = new BiomeAmbienceConfig();
@@ -24,7 +26,6 @@ public final class MiscConfig {
 		public boolean deepDarkAmbience = true;
 		public boolean dripstoneCavesAmbience = true;
 		public boolean lushCavesAmbience = true;
-		public boolean jellyfishCavesAmbience = true;
 	}
 
 	public static class BiomeMusicConfig {
@@ -53,10 +54,37 @@ public final class MiscConfig {
 				.requireRestart()
 				.build();
 
+		var lushCavesAmbience = entryBuilder.startBooleanToggle(text("lush_caves_ambience"), biomeAmbience.lushCavesAmbience)
+				.setDefaultValue(true)
+				.setSaveConsumer(newValue -> biomeAmbience.lushCavesAmbience = newValue)
+				.setTooltip(tooltip("lush_caves_ambience"))
+				.requireRestart()
+				.build();
+
 		var biomeAmbienceCategory = FrozenConfig.createSubCategory(entryBuilder, category, text("biome_ambience"),
 				false,
 				tooltip("biome_ambience"),
-				deepDarkAmbience, dripstoneCavesAmbience
+				deepDarkAmbience, dripstoneCavesAmbience, lushCavesAmbience
+		);
+
+		var birchForestMusic = entryBuilder.startBooleanToggle(text("birch_forest_music"), biomeMusic.birchForestMusic)
+				.setDefaultValue(true)
+				.setSaveConsumer(newValue -> biomeMusic.birchForestMusic = newValue)
+				.setTooltip(tooltip("birch_forest_music"))
+				.requireRestart()
+				.build();
+
+		var flowerForestMusic = entryBuilder.startBooleanToggle(text("flower_forest_music"), biomeMusic.flowerForestMusic)
+				.setDefaultValue(true)
+				.setSaveConsumer(newValue -> biomeMusic.flowerForestMusic = newValue)
+				.setTooltip(tooltip("flower_forest_music"))
+				.requireRestart()
+				.build();
+
+		var biomeMusicCategory = FrozenConfig.createSubCategory(entryBuilder, category, text("biome_music"),
+				false,
+				tooltip("biome_music"),
+				birchForestMusic, flowerForestMusic
 		);
 	}
-}*/
+}
