@@ -9,6 +9,7 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.level.Level;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.entity.SculkShriekerBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
@@ -79,10 +80,12 @@ public class SculkShriekerBlockEntityMixin implements SculkShriekerTickInterface
 
 	@Override
 	public void tickServer(Level level, BlockPos pos) {
-		this.listener.tick(level);
-		if (this.wilderWild$bubbles > 0) {
-			--this.wilderWild$bubbles;
-			EasyPacket.EasyFloatingSculkBubblePacket.createParticle(level, Vec3.atCenterOf(pos), Math.random() > 0.7 ? 1 : 0, 20 + WilderSharedConstants.random().nextInt(80), 0.075, 1);
+		if (level != null) {
+			this.listener.tick(level);
+			if (this.wilderWild$bubbles > 0) {
+				--this.wilderWild$bubbles;
+				EasyPacket.EasyFloatingSculkBubblePacket.createParticle(level, Vec3.atCenterOf(pos), Math.random() > 0.7 ? 1 : 0, 20 + WilderSharedConstants.random().nextInt(80), 0.075, 1);
+			}
 		}
 	}
 }

@@ -8,7 +8,7 @@ import net.frozenblock.wilderwild.item.CopperHorn;
 import net.frozenblock.wilderwild.item.FireflyBottle;
 import net.frozenblock.wilderwild.item.MilkweedPod;
 import net.frozenblock.wilderwild.misc.FireflyColor;
-import net.frozenblock.wilderwild.misc.WilderBoats;
+import net.frozenblock.wilderwild.misc.WilderEnumValues;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.frozenblock.wilderwild.tag.WilderInstrumentTags;
 import net.minecraft.core.Registry;
@@ -57,12 +57,12 @@ public final class RegisterItems {
     public static final Item JELLYFISH_BUCKET = new MobBucketItem(RegisterEntities.JELLYFISH, Fluids.WATER, RegisterSounds.ITEM_BUCKET_EMPTY_JELLYFISH, new FabricItemSettings().group(CreativeModeTab.TAB_MISC).maxCount(1));
 	public static final Item SPLIT_COCONUT = new Item(new FabricItemSettings().group(CreativeModeTab.TAB_FOOD).food(new FoodProperties.Builder().nutrition(2).saturationMod(0.4F).build()));
 
-    public static final Item BAOBAB_BOAT_ITEM = new BoatItem(false, WilderBoats.BAOBAB, new FabricItemSettings().maxCount(1).group(CreativeModeTab.TAB_TRANSPORTATION));
-    public static final Item BAOBAB_CHEST_BOAT_ITEM = new BoatItem(true, WilderBoats.BAOBAB, new FabricItemSettings().maxCount(1).group(CreativeModeTab.TAB_TRANSPORTATION));
-    public static final Item CYPRESS_BOAT_ITEM = new BoatItem(false, WilderBoats.CYPRESS, new FabricItemSettings().maxCount(1).group(CreativeModeTab.TAB_TRANSPORTATION));
-    public static final Item CYPRESS_CHEST_BOAT_ITEM = new BoatItem(true, WilderBoats.CYPRESS, new FabricItemSettings().maxCount(1).group(CreativeModeTab.TAB_TRANSPORTATION));
-    public static final Item PALM_BOAT_ITEM = new BoatItem(false, WilderBoats.PALM, new FabricItemSettings().maxCount(1).group(CreativeModeTab.TAB_TRANSPORTATION));
-    public static final Item PALM_CHEST_BOAT_ITEM = new BoatItem(true, WilderBoats.PALM, new FabricItemSettings().maxCount(1).group(CreativeModeTab.TAB_TRANSPORTATION));
+    public static final Item BAOBAB_BOAT_ITEM = new BoatItem(false, WilderEnumValues.BAOBAB, new FabricItemSettings().maxCount(1).group(CreativeModeTab.TAB_TRANSPORTATION));
+    public static final Item BAOBAB_CHEST_BOAT_ITEM = new BoatItem(true, WilderEnumValues.BAOBAB, new FabricItemSettings().maxCount(1).group(CreativeModeTab.TAB_TRANSPORTATION));
+    public static final Item CYPRESS_BOAT_ITEM = new BoatItem(false, WilderEnumValues.CYPRESS, new FabricItemSettings().maxCount(1).group(CreativeModeTab.TAB_TRANSPORTATION));
+    public static final Item CYPRESS_CHEST_BOAT_ITEM = new BoatItem(true, WilderEnumValues.CYPRESS, new FabricItemSettings().maxCount(1).group(CreativeModeTab.TAB_TRANSPORTATION));
+    public static final Item PALM_BOAT_ITEM = new BoatItem(false, WilderEnumValues.PALM, new FabricItemSettings().maxCount(1).group(CreativeModeTab.TAB_TRANSPORTATION));
+    public static final Item PALM_CHEST_BOAT_ITEM = new BoatItem(true, WilderEnumValues.PALM, new FabricItemSettings().maxCount(1).group(CreativeModeTab.TAB_TRANSPORTATION));
 
 
     //public static final Item PRICKLY_PEAR = new PrickOnUseBlockItem(RegisterBlocks.PRICKLY_PEAR_CACTUS, new FabricItemSettings().group(CreativeModeTab.TAB_FOOD).food(RegisterFood.PRICKLY_PEAR), 2F, RegisterSounds.PLAYER_HURT_CACTUS, "prickly_pear");

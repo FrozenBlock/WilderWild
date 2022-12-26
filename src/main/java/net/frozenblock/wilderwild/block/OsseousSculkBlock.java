@@ -40,18 +40,19 @@ public class OsseousSculkBlock extends RotatedPillarBlock implements SculkBehavi
         }
     }
 
-    public static Direction getDir(Direction.Axis axis, boolean UpsideDown) {
-        if (axis != null) {
-            if (axis.isHorizontal()) {
-                if (axis == Direction.Axis.X) {
-                    return Math.random() > 0.5 ? Direction.EAST : Direction.WEST;
-                }
-                if (axis == Direction.Axis.Z) {
-                    return Math.random() > 0.5 ? Direction.NORTH : Direction.SOUTH;
-                }
-            }
-        }
-        return UpsideDown ? Direction.DOWN : Direction.UP;
+    public static Direction getDir(Direction.Axis axis, boolean upsideDown) {
+		double random = EasyNoiseSampler.localRandom.nextDouble();
+		switch (axis) {
+			case X -> {
+				return random > 0.5 ? Direction.EAST : Direction.WEST;
+			}
+			case Y -> {
+				return upsideDown ? Direction.DOWN : Direction.UP;
+			}
+			default -> {
+				return random > 0.5 ? Direction.NORTH : Direction.SOUTH;
+			}
+		}
     }
 
     public static Direction.Axis getAxis(BlockPos pos) {
@@ -127,12 +128,12 @@ public class OsseousSculkBlock extends RotatedPillarBlock implements SculkBehavi
                             blockState = blockState.setValue(TOTAL_HEIGHT, state.getValue(TOTAL_HEIGHT));
                             if (state.getValue(UPSIDEDOWN)) {
                                 blockState = blockState.setValue(UPSIDEDOWN, true);
-                                if (direction == Direction.DOWN && Math.random() > 0.8) {
+                                if (direction == Direction.DOWN && RandomSource.create().nextDouble() > 0.8) {
                                     Direction ribCage = getDir(getAxis(topPos), false);
                                     if (ISITSAFE(level.getBlockState(topPos.relative(ribCage)))) {
                                         level.setBlock(topPos.relative(ribCage), RegisterBlocks.OSSEOUS_SCULK.defaultBlockState().setValue(AXIS, getAxis(topPos)).setValue(TOTAL_HEIGHT, state.getValue(TOTAL_HEIGHT)).setValue(HEIGHT_LEFT, 0), 3);
                                         if (ISITSAFE(level.getBlockState(topPos.relative(ribCage).below()))) {
-                                            if (Math.random() > 0.7) {
+                                            if (RandomSource.create().nextDouble() > 0.7) {
                                                 level.setBlock(topPos.relative(ribCage).below(), RegisterBlocks.HANGING_TENDRIL.defaultBlockState(), 3);
                                             }
                                         }
@@ -142,7 +143,7 @@ public class OsseousSculkBlock extends RotatedPillarBlock implements SculkBehavi
                         }
                         level.setBlock(topPos.relative(direction), blockState, 3);
                         level.playSound(null, blockPos, blockState.getSoundType().getPlaceSound(), SoundSource.BLOCKS, 1.0F, 1.0F);
-                        if (spreadManager.isWorldGeneration() && Math.random() > 0.2) {
+                        if (spreadManager.isWorldGeneration() && RandomSource.create().nextDouble() > 0.2) {
                             j = 0;
                         }
                         BlockPos bottom = getBottom(level, topPos.relative(direction), state.getValue(TOTAL_HEIGHT));
@@ -196,12 +197,12 @@ public class OsseousSculkBlock extends RotatedPillarBlock implements SculkBehavi
                         blockState = blockState.setValue(TOTAL_HEIGHT, state.getValue(TOTAL_HEIGHT));
                         if (state.getValue(UPSIDEDOWN)) {
                             blockState = blockState.setValue(UPSIDEDOWN, true);
-                            if (direction == Direction.DOWN && Math.random() > 0.9) {
+                            if (direction == Direction.DOWN && RandomSource.create().nextDouble() > 0.9) {
                                 Direction ribCage = getDir(getAxis(topPos), false);
                                 if (ISITSAFE(level.getBlockState(topPos.relative(ribCage)))) {
                                     level.setBlock(topPos.relative(ribCage), RegisterBlocks.OSSEOUS_SCULK.defaultBlockState().setValue(AXIS, getAxis(topPos)).setValue(TOTAL_HEIGHT, state.getValue(TOTAL_HEIGHT)).setValue(HEIGHT_LEFT, 0), 3);
                                     if (ISITSAFE(level.getBlockState(topPos.relative(ribCage).below()))) {
-                                        if (Math.random() > 0.66) {
+                                        if (RandomSource.create().nextDouble() > 0.66) {
                                             level.setBlock(topPos.relative(ribCage).below(), RegisterBlocks.HANGING_TENDRIL.defaultBlockState(), 3);
                                         }
                                     }

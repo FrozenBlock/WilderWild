@@ -17,6 +17,7 @@ import net.frozenblock.wilderwild.block.entity.PalmCrownBlockEntity;
 import net.frozenblock.wilderwild.block.entity.TermiteMoundBlockEntity;
 import net.frozenblock.wilderwild.entity.Firefly;
 import net.frozenblock.wilderwild.misc.FireflyColor;
+import net.frozenblock.wilderwild.misc.WilderEnumValues;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.frozenblock.wilderwild.misc.datafixer.NematocystStateFix;
 import net.frozenblock.wilderwild.registry.RegisterBlockEntities;
@@ -109,11 +110,6 @@ public final class WilderWild implements ModInitializer {
     public static final NematocystFeature NEMATOCYST_FEATURE = new NematocystFeature(MultifaceGrowthConfiguration.CODEC);
     public static final FoliagePlacerType<PalmFoliagePlacer> PALM_FOLIAGE_PLACER =  registerFoliage("palm_foliage_placer", PalmFoliagePlacer.CODEC);
 	public static final FoliagePlacerType<ShortPalmFoliagePlacer> SHORT_PALM_FOLIAGE_PLACER =  registerFoliage("short_palm_foliage_placer", ShortPalmFoliagePlacer.CODEC);
-
-    //Fabric ASM
-    public static final MobCategory FIREFLIES = ClassTinkerers.getEnum(MobCategory.class, "WILDERWILDFIREFLIES");
-    public static final MobCategory JELLYFISH = ClassTinkerers.getEnum(MobCategory.class, "WILDERWILDJELLYFISH");
-	public static final MobCategory TUMBLEWEED = ClassTinkerers.getEnum(MobCategory.class, "WILDERWILDTUMBLEWEED");
 
 	/**
 	 * @deprecated Use {@link WilderSharedConstants#random()} instead.
@@ -224,7 +220,7 @@ public final class WilderWild implements ModInitializer {
         Firefly.FireflyBiomeColorRegistry.addBiomeColor(new ResourceLocation("terralith", "cave/thermal_caves"), FireflyColor.ORANGE);
 
         BiomeModifications.addSpawn(BiomeSelectors.includeByKey(ResourceKey.create(Registry.BIOME_REGISTRY, new ResourceLocation("terralith", "cave/underground_jungle"))),
-                WilderWild.FIREFLIES, RegisterEntities.FIREFLY, 12, 2, 4);
+                WilderEnumValues.FIREFLIES, RegisterEntities.FIREFLY, 12, 2, 4);
 
 		WilderRegistry.MULTILAYER_SAND_BEACH_BIOMES.add(ResourceKey.create(Registry.BIOME_REGISTRY, new ResourceLocation("terralith", "arid_highlands")));
     }

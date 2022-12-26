@@ -14,6 +14,7 @@ import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.Mth;
+import net.minecraft.util.RandomSource;
 import org.jetbrains.annotations.NotNull;
 
 @Environment(EnvType.CLIENT)
@@ -31,16 +32,16 @@ public class FloatingSculkBubbleParticle extends RisingParticle {
 
     protected FloatingSculkBubbleParticle(ClientLevel clientLevel, double x, double y, double z, double size, double maxAge, double yVel, SpriteSet spriteProvider) {
         super(clientLevel, x, y, z, 0, 0, 0);
-        this.xd = (Math.random() - 0.5) / 9.5;
-        this.zd = (Math.random() - 0.5) / 9.5;
+        this.xd = (RandomSource.create().nextDouble() - 0.5) / 9.5;
+        this.zd = (RandomSource.create().nextDouble() - 0.5) / 9.5;
         this.spriteProvider = spriteProvider;
         this.setSpriteFromAge(spriteProvider);
         this.yd = yVel;
         this.sound = size <= 0 ? RegisterSounds.PARTICLE_FLOATING_SCULK_BUBBLE_POP : RegisterSounds.PARTICLE_FLOATING_SCULK_BUBBLE_BIG_POP;
         if (size >= 1) {
             this.scale((float) (1.4F + size));
-            this.xd = (Math.random() - 0.5) / 10.5;
-            this.zd = (Math.random() - 0.5) / 10.5;
+            this.xd = (RandomSource.create().nextDouble() - 0.5) / 10.5;
+            this.zd = (RandomSource.create().nextDouble() - 0.5) / 10.5;
         }
         this.lifetime = (int) Math.max(maxAge, 10);
         this.stayInflatedTime = (4 - this.lifetime) * -1;

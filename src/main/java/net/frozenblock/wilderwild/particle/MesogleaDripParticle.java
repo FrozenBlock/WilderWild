@@ -16,6 +16,7 @@ import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.Mth;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
 import org.jetbrains.annotations.NotNull;
@@ -408,7 +409,7 @@ public class MesogleaDripParticle extends TextureSheetParticle {
     static class DripLandParticle extends MesogleaDripParticle {
         DripLandParticle(ClientLevel clientLevel, double d, double e, double f) {
             super(clientLevel, d, e, f);
-            this.lifetime = (int) (16.0 / (Math.random() * 0.8 + 0.2));
+            this.lifetime = (int) (16.0 / (RandomSource.create().nextDouble() * 0.8 + 0.2));
             this.scale(0.7F);
         }
     }
@@ -416,7 +417,7 @@ public class MesogleaDripParticle extends TextureSheetParticle {
     @Environment(EnvType.CLIENT)
     static class FallingParticle extends MesogleaDripParticle {
         FallingParticle(ClientLevel clientLevel, double d, double e, double f) {
-            this(clientLevel, d, e, f, (int) (64.0 / (Math.random() * 0.8 + 0.2)));
+            this(clientLevel, d, e, f, (int) (64.0 / (RandomSource.create().nextDouble() * 0.8 + 0.2)));
             this.scale(0.7F);
         }
 
