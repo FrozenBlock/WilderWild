@@ -10,6 +10,7 @@ import net.fabricmc.api.Environment;
 import net.frozenblock.lib.config.api.FrozenConfig;
 import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
+import net.frozenblock.wilderwild.misc.config.defaultconfig.DefaultMiscConfig;
 import static net.frozenblock.wilderwild.misc.config.WilderWildConfig.text;
 import static net.frozenblock.wilderwild.misc.config.WilderWildConfig.tooltip;
 
@@ -23,14 +24,14 @@ public final class MiscConfig implements ConfigData {
 	public BiomeMusicConfig biomeMusic = new BiomeMusicConfig();
 
 	public static class BiomeAmbienceConfig {
-		public boolean deepDarkAmbience = true;
-		public boolean dripstoneCavesAmbience = true;
-		public boolean lushCavesAmbience = true;
+		public boolean deepDarkAmbience = DefaultMiscConfig.BiomeAmbienceConfig.deepDarkAmbience;
+		public boolean dripstoneCavesAmbience = DefaultMiscConfig.BiomeAmbienceConfig.dripstoneCavesAmbience;
+		public boolean lushCavesAmbience = DefaultMiscConfig.BiomeAmbienceConfig.lushCavesAmbience;
 	}
 
 	public static class BiomeMusicConfig {
-		public boolean birchForestMusic = true;
-		public boolean flowerForestMusic = true;
+		public boolean birchForestMusic = DefaultMiscConfig.BiomeMusicConfig.birchForestMusic;
+		public boolean flowerForestMusic = DefaultMiscConfig.BiomeMusicConfig.flowerForestMusic;
 	}
 
 	@Environment(EnvType.CLIENT)
@@ -41,21 +42,21 @@ public final class MiscConfig implements ConfigData {
 		category.setBackground(WilderSharedConstants.id("textures/config/misc.png"));
 
 		var deepDarkAmbience = entryBuilder.startBooleanToggle(text("deep_dark_ambience"), biomeAmbience.deepDarkAmbience)
-				.setDefaultValue(true)
+				.setDefaultValue(DefaultMiscConfig.BiomeAmbienceConfig.deepDarkAmbience)
 				.setSaveConsumer(newValue -> biomeAmbience.deepDarkAmbience = newValue)
 				.setTooltip(tooltip("deep_dark_ambience"))
 				.requireRestart()
 				.build();
 
 		var dripstoneCavesAmbience = entryBuilder.startBooleanToggle(text("dripstone_caves_ambience"), biomeAmbience.dripstoneCavesAmbience)
-				.setDefaultValue(true)
+				.setDefaultValue(DefaultMiscConfig.BiomeAmbienceConfig.dripstoneCavesAmbience)
 				.setSaveConsumer(newValue -> biomeAmbience.dripstoneCavesAmbience = newValue)
 				.setTooltip(tooltip("dripstone_caves_ambience"))
 				.requireRestart()
 				.build();
 
 		var lushCavesAmbience = entryBuilder.startBooleanToggle(text("lush_caves_ambience"), biomeAmbience.lushCavesAmbience)
-				.setDefaultValue(true)
+				.setDefaultValue(DefaultMiscConfig.BiomeAmbienceConfig.lushCavesAmbience)
 				.setSaveConsumer(newValue -> biomeAmbience.lushCavesAmbience = newValue)
 				.setTooltip(tooltip("lush_caves_ambience"))
 				.requireRestart()
@@ -68,14 +69,14 @@ public final class MiscConfig implements ConfigData {
 		);
 
 		var birchForestMusic = entryBuilder.startBooleanToggle(text("birch_forest_music"), biomeMusic.birchForestMusic)
-				.setDefaultValue(true)
+				.setDefaultValue(DefaultMiscConfig.BiomeMusicConfig.birchForestMusic)
 				.setSaveConsumer(newValue -> biomeMusic.birchForestMusic = newValue)
 				.setTooltip(tooltip("birch_forest_music"))
 				.requireRestart()
 				.build();
 
 		var flowerForestMusic = entryBuilder.startBooleanToggle(text("flower_forest_music"), biomeMusic.flowerForestMusic)
-				.setDefaultValue(true)
+				.setDefaultValue(DefaultMiscConfig.BiomeMusicConfig.flowerForestMusic)
 				.setSaveConsumer(newValue -> biomeMusic.flowerForestMusic = newValue)
 				.setTooltip(tooltip("flower_forest_music"))
 				.requireRestart()

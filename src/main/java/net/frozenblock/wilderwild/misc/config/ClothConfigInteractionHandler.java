@@ -2,6 +2,11 @@ package net.frozenblock.wilderwild.misc.config;
 
 import net.frozenblock.lib.FrozenBools;
 import net.frozenblock.wilderwild.entity.AncientHornProjectile;
+import static net.frozenblock.wilderwild.misc.config.defaultconfig.DefaultBlockConfig.*;
+import static net.frozenblock.wilderwild.misc.config.defaultconfig.DefaultEntityConfig.*;
+import static net.frozenblock.wilderwild.misc.config.defaultconfig.DefaultItemConfig.*;
+import static net.frozenblock.wilderwild.misc.config.defaultconfig.DefaultMiscConfig.*;
+import static net.frozenblock.wilderwild.misc.config.defaultconfig.DefaultWorldgenConfig.*;
 
 public final class ClothConfigInteractionHandler {
 
@@ -26,31 +31,31 @@ public final class ClothConfigInteractionHandler {
 
 
 	public static boolean betaBeaches() {
-		return !FrozenBools.HAS_CLOTH_CONFIG || ClothConfigCloserInteractionHandler.betaBeaches();
+		return FrozenBools.HAS_CLOTH_CONFIG ? ClothConfigCloserInteractionHandler.betaBeaches() : betaBeaches;
 	}
 
 	/*public static boolean modifyDesertPlacement() {
-		return !FrozenBools.HAS_CLOTH_CONFIG || ClothConfigCloserInteractionHandler.modifyDesertPlacement();
+		return FrozenBools.HAS_CLOTH_CONFIG ? ClothConfigCloserInteractionHandler.modifyDesertPlacement() : modifyDesertPlacement;
 	}
 
 	public static boolean modifyBadlandsPlacement() {
-		return !FrozenBools.HAS_CLOTH_CONFIG || ClothConfigCloserInteractionHandler.modifyBadlandsPlacement();
+		return FrozenBools.HAS_CLOTH_CONFIG ? ClothConfigCloserInteractionHandler.modifyBadlandsPlacement() :modifyBadlandsPlacement;
 	}*/
 
 	public static boolean modifyJunglePlacement() {
-		return !FrozenBools.HAS_CLOTH_CONFIG || ClothConfigCloserInteractionHandler.modifyJunglePlacement();
+		return FrozenBools.HAS_CLOTH_CONFIG ? ClothConfigCloserInteractionHandler.modifyJunglePlacement() : BiomePlacement.modifyJunglePlacement;
 	}
 
 	public static boolean modifySwampPlacement() {
-		return !FrozenBools.HAS_CLOTH_CONFIG || ClothConfigCloserInteractionHandler.modifySwampPlacement();
+		return FrozenBools.HAS_CLOTH_CONFIG ? ClothConfigCloserInteractionHandler.modifySwampPlacement() : BiomePlacement.modifySwampPlacement;
 	}
 
 	public static boolean modifyMangroveSwampPlacement() {
-		return !FrozenBools.HAS_CLOTH_CONFIG || ClothConfigCloserInteractionHandler.modifyMangroveSwampPlacement();
+		return FrozenBools.HAS_CLOTH_CONFIG ? ClothConfigCloserInteractionHandler.modifyMangroveSwampPlacement() : BiomePlacement.modifyMangroveSwampPlacement;
 	}
 
 	public static boolean modifyWindsweptSavannaPlacement() {
-		return !FrozenBools.HAS_CLOTH_CONFIG || ClothConfigCloserInteractionHandler.modifyWindsweptSavannaPlacement();
+		return FrozenBools.HAS_CLOTH_CONFIG ? ClothConfigCloserInteractionHandler.modifyWindsweptSavannaPlacement() : BiomePlacement.modifyWindsweptSavannaPlacement;
 	}
 
 	public static boolean dyingTrees() {
