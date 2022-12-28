@@ -8,8 +8,6 @@ import me.shedaniel.clothconfig2.api.ConfigEntryBuilder;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.frozenblock.lib.config.api.FrozenConfig;
-import net.frozenblock.wilderwild.WilderWild;
-import net.frozenblock.wilderwild.entity.AncientHornProjectile;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.frozenblock.wilderwild.misc.config.defaultconfig.DefaultItemConfig;
 import static net.frozenblock.wilderwild.misc.config.WilderWildConfig.*;
@@ -21,14 +19,14 @@ public final class ItemConfig implements ConfigData {
     public final AncientHornConfig ancientHorn = new AncientHornConfig();
 
     protected static class AncientHornConfig {
-		public boolean ancientHornCanSummonWarden = DefaultItemConfig.AncientHornConfig.ancientHornCanSummonWarden;
-		public int ancientHornLifespan = DefaultItemConfig.AncientHornConfig.ancientHornLifespan;
-		public int ancientHornMobDamage = DefaultItemConfig.AncientHornConfig.ancientHornMobDamage;
-		public int ancientHornPlayerDamage = DefaultItemConfig.AncientHornConfig.ancientHornPlayerDamage;
-        public boolean ancientHornShattersGlass = DefaultItemConfig.AncientHornConfig.ancientHornShattersGlass;
+		public boolean ancientHornCanSummonWarden = DefaultItemConfig.AncientHornConfig.ANCIENT_HORN_CAN_SUMMON_WARDEN;
+		public int ancientHornLifespan = DefaultItemConfig.AncientHornConfig.ANCIENT_HORN_LIFESPAN;
+		public int ancientHornMobDamage = DefaultItemConfig.AncientHornConfig.ANCIENT_HORN_MOB_DAMAGE;
+		public int ancientHornPlayerDamage = DefaultItemConfig.AncientHornConfig.ANCIENT_HORN_PLAYER_DAMAGE;
+        public boolean ancientHornShattersGlass = DefaultItemConfig.AncientHornConfig.ANCIENT_HORN_SHATTERS_GLASS;
     }
 
-    public boolean projectileBreakParticles = DefaultItemConfig.projectileBreakParticles;
+    public boolean projectileBreakParticles = DefaultItemConfig.PROJECTILE_BREAK_PARTICLES;
 
     @Environment(EnvType.CLIENT)
     static void setupEntries(ConfigCategory category, ConfigEntryBuilder entryBuilder) {
@@ -36,31 +34,31 @@ public final class ItemConfig implements ConfigData {
         var ancientHorn = config.ancientHorn;
         category.setBackground(WilderSharedConstants.id("textures/config/item.png"));
 		var summonsWarden = entryBuilder.startBooleanToggle(text("ancient_horn_can_summon_warden"), ancientHorn.ancientHornCanSummonWarden)
-				.setDefaultValue(DefaultItemConfig.AncientHornConfig.ancientHornCanSummonWarden)
+				.setDefaultValue(DefaultItemConfig.AncientHornConfig.ANCIENT_HORN_CAN_SUMMON_WARDEN)
 				.setSaveConsumer(newValue -> ancientHorn.ancientHornCanSummonWarden = newValue)
 				.setTooltip(tooltip("ancient_horn_can_summon_warden"))
 				.build();
 
 		var lifespan = entryBuilder.startIntSlider(text("ancient_horn_lifespan"), ancientHorn.ancientHornLifespan, 0, 500)
-				.setDefaultValue(DefaultItemConfig.AncientHornConfig.ancientHornLifespan)
+				.setDefaultValue(DefaultItemConfig.AncientHornConfig.ANCIENT_HORN_LIFESPAN)
 				.setSaveConsumer(newValue -> ancientHorn.ancientHornLifespan = newValue)
 				.setTooltip(tooltip("ancient_horn_lifespan"))
 				.build();
 
 		var mobDamage = entryBuilder.startIntSlider(text("ancient_horn_mob_damage"), ancientHorn.ancientHornMobDamage, 0, 50)
-				.setDefaultValue(DefaultItemConfig.AncientHornConfig.ancientHornMobDamage)
+				.setDefaultValue(DefaultItemConfig.AncientHornConfig.ANCIENT_HORN_MOB_DAMAGE)
 				.setSaveConsumer(newValue -> ancientHorn.ancientHornMobDamage = newValue)
 				.setTooltip(tooltip("ancient_horn_mob_damage"))
 				.build();
 
 		var playerDamage = entryBuilder.startIntSlider(text("ancient_horn_player_damage"), ancientHorn.ancientHornPlayerDamage, 0, 50)
-				.setDefaultValue(DefaultItemConfig.AncientHornConfig.ancientHornPlayerDamage)
+				.setDefaultValue(DefaultItemConfig.AncientHornConfig.ANCIENT_HORN_PLAYER_DAMAGE)
 				.setSaveConsumer(newValue -> ancientHorn.ancientHornPlayerDamage = newValue)
 				.setTooltip(tooltip("ancient_horn_player_damage"))
 				.build();
 
         var shattersGlass = entryBuilder.startBooleanToggle(text("ancient_horn_shatters_glass"), ancientHorn.ancientHornShattersGlass)
-                .setDefaultValue(DefaultItemConfig.AncientHornConfig.ancientHornShattersGlass)
+                .setDefaultValue(DefaultItemConfig.AncientHornConfig.ANCIENT_HORN_SHATTERS_GLASS)
                 .setSaveConsumer(newValue -> ancientHorn.ancientHornShattersGlass = newValue)
                 .setTooltip(tooltip("ancient_horn_shatters_glass"))
                 .build();
@@ -78,7 +76,7 @@ public final class ItemConfig implements ConfigData {
         );*/
 
         var breakParticles = category.addEntry(entryBuilder.startBooleanToggle(text("projectile_break_particles"), config.projectileBreakParticles)
-                .setDefaultValue(DefaultItemConfig.projectileBreakParticles)
+                .setDefaultValue(DefaultItemConfig.PROJECTILE_BREAK_PARTICLES)
                 .setSaveConsumer(newValue -> config.projectileBreakParticles = newValue)
                 .setTooltip(tooltip("projectile_break_particles"))
                 .build());
