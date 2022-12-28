@@ -53,7 +53,7 @@ public final class EntityConfig implements ConfigData {
 
 	public static class TumbleweedConfig {
 		public int tumbleweedSpawnCap = DefaultEntityConfig.TumbleweedConfig.TUMBLEWEED_SPAWN_CAP;
-		public boolean canBeLeashed = DefaultEntityConfig.TumbleweedConfig.CAN_BE_LEASHED;
+		public boolean leashedTumbleweed = DefaultEntityConfig.TumbleweedConfig.LEASHED_TUMBLEWEED;
 	}
 
 	protected static class WardenConfig {
@@ -148,9 +148,9 @@ public final class EntityConfig implements ConfigData {
 				.requireRestart()
 				.build();
 
-		var leashedTumbleweed = entryBuilder.startBooleanToggle(text("leashed_tumbleweed"), tumbleweed.canBeLeashed)
-				.setDefaultValue(DefaultEntityConfig.TumbleweedConfig.CAN_BE_LEASHED)
-				.setSaveConsumer(newValue -> tumbleweed.canBeLeashed = newValue)
+		var leashedTumbleweed = entryBuilder.startBooleanToggle(text("leashed_tumbleweed"), tumbleweed.leashedTumbleweed)
+				.setDefaultValue(DefaultEntityConfig.TumbleweedConfig.LEASHED_TUMBLEWEED)
+				.setSaveConsumer(newValue -> tumbleweed.leashedTumbleweed = newValue)
 				.setTooltip(tooltip("leashed_tumbleweed"))
 				.requireRestart()
 				.build();

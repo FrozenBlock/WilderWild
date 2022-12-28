@@ -19,6 +19,11 @@ public class DefaultEntityConfig {
 		public static final int JELLYFISH_SPAWN_CAP = 30;
 	}
 
+	public static class TumbleweedConfig {
+		public static final int TUMBLEWEED_SPAWN_CAP = 16;
+		public static final boolean LEASHED_TUMBLEWEED = false;
+	}
+
 	public static class WardenConfig {
 		public static final boolean WARDEN_ATTACKS_INSTANTLY = true;
 		public static final boolean WARDEN_CUSTOM_TENDRILS = true;

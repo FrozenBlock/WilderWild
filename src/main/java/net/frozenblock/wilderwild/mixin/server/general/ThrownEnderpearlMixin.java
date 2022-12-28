@@ -21,7 +21,7 @@ public class ThrownEnderpearlMixin {
 	public void onHit(HitResult result, CallbackInfo info) {
 		ThrownEnderpearl pearl = ThrownEnderpearl.class.cast(this);
 
-		if (ClothConfigInteractionHandler.enderpearlLandingSounds()) {
+		if (ClothConfigInteractionHandler.enderPearlLandingSounds()) {
 			if (!pearl.level.isClientSide) {
 				Entity owner = pearl.getOwner();
 

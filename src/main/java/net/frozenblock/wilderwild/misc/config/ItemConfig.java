@@ -33,7 +33,7 @@ public final class ItemConfig implements ConfigData {
 	public static class ProjectileLandingSoundsConfig {
 		public boolean snowballLandingSounds = DefaultItemConfig.ProjectileLandingSoundsConfig.SNOWBALL_LANDING_SOUNDS;
 		public boolean eggLandingSounds = DefaultItemConfig.ProjectileLandingSoundsConfig.EGG_LANDING_SOUNDS;
-		public boolean enderpearlLandingSounds = DefaultItemConfig.ProjectileLandingSoundsConfig.ENDER_PEARL_LANGING_SOUNDS;
+		public boolean enderPearlLandingSounds = DefaultItemConfig.ProjectileLandingSoundsConfig.ENDER_PEARL_LANDING_SOUNDS;
 		public boolean potionLandingSounds = DefaultItemConfig.ProjectileLandingSoundsConfig.POTION_LANDING_SOUNDS;
 	}
 
@@ -93,10 +93,10 @@ public final class ItemConfig implements ConfigData {
 				.setTooltip(tooltip("egg_landing_sounds"))
 				.build();
 
-		var enderpearlLandingSounds = entryBuilder.startBooleanToggle(text("enderpearl_landing_sounds"), projectileLandingSounds.enderpearlLandingSounds)
+		var enderPearlLandingSounds = entryBuilder.startBooleanToggle(text("ender_pearl_landing_sounds"), projectileLandingSounds.enderPearlLandingSounds)
 				.setDefaultValue(DefaultItemConfig.ProjectileLandingSoundsConfig.ENDER_PEARL_LANDING_SOUNDS)
-				.setSaveConsumer(newValue -> projectileLandingSounds.enderpearlLandingSounds = newValue)
-				.setTooltip(tooltip("enderpearl_landing_sounds"))
+				.setSaveConsumer(newValue -> projectileLandingSounds.enderPearlLandingSounds = newValue)
+				.setTooltip(tooltip("ender_pearl_landing_sounds"))
 				.build();
 
 		var potionLandingSounds = entryBuilder.startBooleanToggle(text("potion_landing_sounds"), projectileLandingSounds.potionLandingSounds)
@@ -108,7 +108,7 @@ public final class ItemConfig implements ConfigData {
 		var projectileLandingSoundsCategory = FrozenConfig.createSubCategory(entryBuilder, category, text("projectile_landing_sounds"),
 				false,
 				tooltip("projectile_landing_sounds"),
-				snowballLandingSounds, eggLandingSounds, enderpearlLandingSounds, potionLandingSounds
+				snowballLandingSounds, eggLandingSounds, enderPearlLandingSounds, potionLandingSounds
 		);
 
         /*var copperHornCategory = FrozenConfig.createSubCategory(entryBuilder, category, text("copper_horn"),

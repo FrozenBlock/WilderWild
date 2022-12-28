@@ -2,6 +2,8 @@ package net.frozenblock.wilderwild.misc.config.defaultconfig;
 
 public class DefaultMiscConfig {
 
+	public static final boolean CLOUD_MOVEMENT = true;
+
 	public static class BiomeAmbienceConfig {
 		public static final boolean DEEP_DARK_AMBIENCE = true;
 		public static final boolean DRIPSTONE_CAVES_AMBIENCE = true;

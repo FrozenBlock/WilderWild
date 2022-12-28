@@ -183,8 +183,8 @@ public final class ClothConfigCloserInteractionHandler {
 		return PROJECTILE_LANDING_SOUNDS.eggLandingSounds;
 	}
 
-	public static boolean enderpearlLandingSounds() {
-		return PROJECTILE_LANDING_SOUNDS.enderpearlLandingSounds;
+	public static boolean enderPearlLandingSounds() {
+		return PROJECTILE_LANDING_SOUNDS.enderPearlLandingSounds;
 	}
 
 	public static boolean potionLandingSounds() {
@@ -288,7 +288,7 @@ public final class ClothConfigCloserInteractionHandler {
 	}
 
 	public static boolean leashedTumbleweed() {
-		return TUMBLEWEED.canBeLeashed;
+		return TUMBLEWEED.leashedTumbleweed;
 	}
 
 }

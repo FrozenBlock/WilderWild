@@ -27,4 +27,5 @@ public class DefaultBlockConfig {
 	public static final boolean MC_LIVE_SENSOR_TENDRILS = false;
 	public static final boolean SHRIEKER_GARGLING = true;
 	public static final boolean SOUL_FIRE_SOUNDS = true;
+	public static final boolean BILLBOARD_TENDRILS = true;
 }

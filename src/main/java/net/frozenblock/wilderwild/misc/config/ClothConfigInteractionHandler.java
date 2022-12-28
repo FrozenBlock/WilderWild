@@ -169,8 +169,8 @@ public final class ClothConfigInteractionHandler {
 		return FrozenBools.HAS_CLOTH_CONFIG ? ClothConfigCloserInteractionHandler.eggLandingSounds() : ProjectileLandingSoundsConfig.EGG_LANDING_SOUNDS;
 	}
 
-	public static boolean enderpearlLandingSounds() {
-		return FrozenBools.HAS_CLOTH_CONFIG ? ClothConfigCloserInteractionHandler.enderpearlLandingSounds() : ProjectileLandingSoundsConfig.ENDER_PEARL_LANDING_SOUNDS;
+	public static boolean enderPearlLandingSounds() {
+		return FrozenBools.HAS_CLOTH_CONFIG ? ClothConfigCloserInteractionHandler.enderPearlLandingSounds() : ProjectileLandingSoundsConfig.ENDER_PEARL_LANDING_SOUNDS;
 	}
 
 	public static boolean potionLandingSounds() {
